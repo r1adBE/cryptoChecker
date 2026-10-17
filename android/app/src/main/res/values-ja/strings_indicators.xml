@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Neutrale Indikatoren: Titel, Hinweise, Halving -->
+    <string name="neutral_alt_title">アルトコインとビットコイン</string>
+    <string name="neutral_btc_indicators_title">ビットコインの指標</string>
+    <string name="neutral_halving_last">前回の半減期：%1$s</string>
+    <string name="neutral_halving_next">次の半減期は %1$s 頃の見込み（暦からの推定 – ブロック高は現在取得できません）。</string>
+    <string name="neutral_indicators_disclaimer">測定値のみで評価は含みません。予測でも投資助言でもありません。</string>
+    <string name="neutral_onchain_missing">オンチェーンデータ（Coin Metrics）は現在利用できません。</string>
+
+    <!-- Neutrale Indikatoren: was der Wert misst -->
+    <string name="neutral_explain_ath_distance">価格がこれまでの史上最高値をどれだけ下回っているか。</string>
+    <string name="neutral_explain_change_30d">今日の価格と30日前の比較。</string>
+    <string name="neutral_explain_hashrate">30日平均ハッシュレートと60日平均の比較。</string>
+    <string name="neutral_explain_ma200w">直近200週の終値の平均。</string>
+    <string name="neutral_explain_mayer">価格を200日平均で割った値。</string>
+    <string name="neutral_explain_mvrv">時価総額を実現時価総額で割った値（オンチェーン）。</string>
+    <string name="neutral_explain_pi_gap">111日平均と350日平均の2倍との比較。</string>
+    <string name="neutral_explain_puell">マイナーの1日の収益を365日平均で割った値。</string>
+    <string name="neutral_explain_rsi_daily">直近14日の相対力指数（0〜100）。</string>
+    <string name="neutral_explain_rsi_weekly">直近14週の相対力指数（0〜100）。</string>
+    <string name="neutral_explain_sma50_200">50日平均と200日平均の比較。</string>
+    <string name="neutral_explain_vs_btc">90日間のビットコインに対する価格変化。</string>
+
+    <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
+    <string name="neutral_info_alt_season_how">アプリは数だけを表示し、「シーズン」とは呼びません。値は通常、時間単位ではなく日単位で変わります。</string>
+    <string name="neutral_info_btc_how">各値には、何を測るかと、2016年以降の自身の推移の中でどこにあるかを1文で示します。アプリは値を評価せず、市場局面も導きません。通知のしきい値はご自身で設定したものだけです。過去のパターンが繰り返すとは限りません。</string>
+    <string name="neutral_info_btc_what">一般的な Bitcoin 指標を測定値のみで表示：Mayer Multiple、200週平均、史上最高値からの下落、30日間の変化、Pi Cycle の差、オンチェーンの MVRV・Puell Multiple・ハッシュレート。</string>
+    <string name="neutral_info_coin_how">各値には何を測るかを一文で添え、評価はしません。価格履歴が短いコインでは一部の値がありません。ここではオンチェーンデータは使いません。</string>
+    <string name="neutral_info_coin_what">選んだコインについて、価格データだけから同じ指標を表示：Mayer Multiple、200週平均、最高値からの下落率、30日間の変化、50/200日トレンド、RSI、90日間のビットコインに対する強さ。</string>
+    <string name="neutral_info_halving_how">次の半減期は、現在のブロック高と進行中の難易度期間の平均ブロック時間（mempool.space）から計算します。データがない場合は暦（前回の半減期＋約4年）で推定します。チャートは過去のサイクルの半減期以降の価格推移で、歴史であり予測ではありません。</string>
+
+    <!-- Indikator-Namen -->
+    <string name="ind_cross">トレンド 50/200日</string>
+    <string name="ind_drawdown">史上最高値からの下落率</string>
+    <string name="ind_missing">データ不足</string>
+    <string name="ind_rsi_daily">RSI（日）</string>
+    <string name="ind_rsi_weekly">RSI（週）</string>
+    <string name="ind_vs_btc">ビットコイン比の強さ（90日）</string>
+    <string name="neutral_ind_change_30d">30日間の変化</string>
+    <string name="neutral_ind_hashrate">ハッシュレート 30/60日</string>
+    <string name="neutral_ind_ma200w">200週平均</string>
+    <string name="neutral_ind_pi_gap">Pi Cycle の差</string>
+
+    <!-- Indikatoren: «hoch heisst …, tief heisst …» -->
+    <string name="ind_read_alt_season">高いと大型アルトコインの多くが90日間でビットコインを上回り、低いとビットコインが多くを上回ったことを示します。</string>
+    <string name="ind_read_ath_distance">小さいと価格が最高値に近く、大きいと大きく下回っていることを示します。</string>
+    <string name="ind_read_change_30d">プラスは30日前より高く、マイナスは低いことを示します。</string>
+    <string name="ind_read_funding">高いと多くがレバレッジで上昇に賭け、マイナスだと多くが下落に賭けていることを示します。</string>
+    <string name="ind_read_hashrate_30_60">プラスは計算能力の増加、マイナスはマイナーの撤退を示します。</string>
+    <string name="ind_read_leverage">ロングが多いと借りたお金で上昇に賭ける人が多く、ショートが多いと下落に賭ける人が多いことを示します。</string>
+    <string name="ind_read_ma200w">価格が大きく上回れば長い上昇の後、近ければ深い調整を示します。</string>
+    <string name="ind_read_mayer">高いと価格が200日平均を大きく上回り、低いと下回っていることを示します。</string>
+    <string name="ind_read_mvrv">高いと価格が保有者の平均取得価格を大きく上回り、低いとそれに近いか下回っていることを示します。</string>
+    <string name="ind_read_pi_cycle_gap">ゼロに近いと2本の平均線がほぼ交わり、大きくマイナスだと離れていることを示します。</string>
+    <string name="ind_read_puell">高いとマイナーの収入が普段よりかなり多く、低いとかなり少ないことを示します。</string>
+    <string name="ind_read_rsi_daily">70超はここ数日の大きな上昇、30未満は大きな下落を示します。</string>
+    <string name="ind_read_rsi_weekly">70超はここ数週間の大きな上昇、30未満は大きな下落を示します。</string>
+    <string name="ind_read_sma50_vs_200">プラスは短期平均が長期平均を上回り、マイナスは下回っていることを示します。</string>
+    <string name="ind_read_vs_btc">プラスはビットコインより好調、マイナスは不調を示します。</string>
+
+    <!-- Indikatoren: Einordnung in die Vergangenheit -->
+    <string name="ind_context_flat30">30日間同じ価格なら：%1$s</string>
+    <string name="ind_context_note">過去の値と「同じ価格なら」の計算は算術であり、予測ではありません。</string>
+    <string name="ind_context_percentile">%1$s以降、%2$sの日でこれより低い</string>
+</resources>

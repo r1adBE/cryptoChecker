@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Texte der Mitteilungen -->
+    <string name="notification_activity_title">%1$s · %2$s</string>
+    <string name="notification_alarm_text">%1$s — الآن %2$s</string>
+    <string name="notification_alarm_title">تنبيه: %1$s · %2$s</string>
+    <string name="notification_depeg_action_exchange">فتح المنصة</string>
+    <string name="notification_depeg_text">تظل القيم في التطبيق محسوبة على أساس USDT = 1.</string>
+    <string name="notification_depeg_title">USDT عند %1$s USD (%2$s)</string>
+    <string name="notification_fng_above">ارتفع المؤشر فوق %1$d – وفق هذا المؤشر يسود الطمع في السوق.</string>
+    <string name="notification_fng_below">هبط المؤشر تحت %1$d – وفق هذا المؤشر يسود الخوف في السوق.</string>
+    <string name="notification_fng_title">Fear &amp; Greed: %1$d</string>
+    <string name="notification_gas_btc_text">تحت حدّك البالغ %1$s sat/vB · التحويل ≈ %2$s</string>
+    <string name="notification_gas_btc_title">رسوم Bitcoin: %1$s sat/vB</string>
+    <string name="notification_gas_eth_text">تحت حدّك البالغ %1$s gwei · التحويل ≈ %2$s</string>
+    <string name="notification_gas_eth_title">غاز Ethereum: %1$s gwei</string>
+    <string name="notification_indicator_above">فوق حدّك %1$s – قيمة مقيسة، ليست توصية.</string>
+    <string name="notification_indicator_below">تحت حدّك %1$s – قيمة مقيسة، ليست توصية.</string>
+    <string name="notification_indicator_title">%1$s: %2$s</string>
+    <string name="notification_macro_title">بيانات اقتصادية اليوم</string>
+    <string name="notification_portfolio_alarm_locked">تم تشغيل التنبيه – افتح التطبيق لمعرفة التفاصيل.</string>
+    <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
+    <string name="notification_portfolio_alarm_text">%1$s – الآن %2$s</string>
+    <string name="notification_portfolio_alarm_title">قيمة المحفظة</string>
+    <string name="notification_price_change">%1$s، من %2$s (قبل %3$s)</string>
+    <string name="notification_price_change_no_age">%1$s، من %2$s</string>
+    <string name="notification_price_first">أول إشعار لهذا الزوج</string>
+    <plurals name="notification_price_overflow_title">
+        <item quantity="zero">+%1$d أسعار أخرى</item>
+        <item quantity="one">+%1$d سعر آخر</item>
+        <item quantity="two">+%1$d أسعار أخرى</item>
+        <item quantity="few">+%1$d أسعار أخرى</item>
+        <item quantity="many">+%1$d أسعار أخرى</item>
+        <item quantity="other">+%1$d أسعار أخرى</item>
+    </plurals>
+    <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
+    <string name="notification_refreshing">جارٍ تحديث الأسعار…</string>
+    <string name="notification_volume_spike_text">الحجم %1$s× المعتاد في الساعة الأخيرة</string>
+
+    <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
+    <string name="channel_alarms">التنبيهات</string>
+    <string name="channel_alarms_description">إشعار عند انطلاق تنبيه سعري.</string>
+    <string name="channel_alarms_quiet">التنبيهات (ساعات الصمت)</string>
+    <string name="channel_alarms_quiet_description">تنبيهات صامتة خلال ساعات الصمت.</string>
+    <string name="channel_alarms_silent">التنبيهات (صامت)</string>
+    <string name="channel_alarms_sound">التنبيهات (صوت فقط)</string>
+    <string name="channel_alarms_sound_vibrate">التنبيهات (صوت واهتزاز)</string>
+    <string name="channel_alarms_vibrate">التنبيهات (اهتزاز فقط)</string>
+    <string name="channel_prices">إشعارات الأسعار</string>
+    <string name="channel_prices_description">إشعار صامت بالسعر الحالي لزوج.</string>
+    <string name="channel_service">تحديث الأسعار</string>
+    <string name="channel_service_description">إشعار أثناء تحديث الأسعار.</string>
+    <string name="neutral_channel_market">إشعارات السوق</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed ورسوم الغاز والنشاط غير المعتاد والمواعيد الاقتصادية</string>
+
+    <!-- Sprachausgabe -->
+    <string name="tts_alarm">تنبيه. %1$s، %2$s %3$s %4$s، الآن %5$s</string>
+    <string name="tts_direction_down">انخفض</string>
+    <string name="tts_direction_funding_above">مع تمويل مرتفع</string>
+    <string name="tts_direction_funding_below">مع تمويل منخفض</string>
+    <string name="tts_direction_move">يتحرك بقوة</string>
+    <string name="tts_direction_near_high">قريب من أعلى مستوى</string>
+    <string name="tts_direction_near_low">قريب من أدنى مستوى</string>
+    <string name="tts_direction_oi_down">مع انخفاض الفائدة المفتوحة</string>
+    <string name="tts_direction_oi_up">مع ارتفاع الفائدة المفتوحة</string>
+    <string name="tts_direction_up">ارتفع</string>
+    <string name="tts_direction_volume_spike">مع قفزة في الحجم</string>
+    <string name="tts_price">%1$s، %2$s %3$s، %4$s</string>
+</resources>

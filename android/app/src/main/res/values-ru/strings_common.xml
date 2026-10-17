@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">Назад</string>
+    <string name="action_cancel">Отмена</string>
+    <string name="action_clear">Очистить</string>
+    <string name="action_close">Закрыть</string>
+    <string name="action_delete">Удалить</string>
+    <string name="action_edit">Изменить</string>
+    <string name="action_more">Другие действия</string>
+    <string name="action_refresh">Обновить</string>
+    <string name="action_retry">Повторить</string>
+    <string name="action_save">Сохранить</string>
+    <string name="action_sort">Сортировка</string>
+    <string name="action_sort_done">Готово</string>
+    <string name="action_undo">Отменить</string>
+    <string name="action_view">Открыть</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">Рынок</string>
+    <string name="tab_portfolio">Портфель</string>
+    <string name="tab_settings">Настройки</string>
+    <string name="tab_watchlist">Список</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">Ошибка: %1$s</string>
+    <string name="error_market_unreachable">Биржа сейчас недоступна – последние курсы остаются на экране.</string>
+    <string name="error_market_unreachable_short">Биржа сейчас недоступна</string>
+    <string name="loading_hint">Загрузка…</string>
+    <string name="no_internet_connection">Нет подключения к интернету</string>
+    <string name="option_off">Выкл.</string>
+    <string name="something_went_wrong">Что-то пошло не так</string>
+    <string name="time_just_now">только что</string>
+    <string name="timeout_error_message">Биржа сейчас не отвечает.</string>
+    <string name="try_again">Повторить</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">Нет соединения</string>
+    <string name="offline_status_since">Нет соединения · данные на %1$s</string>
+    <string name="status_live">Онлайн</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">Добавить пару</string>
+    <string name="shortcut_alarms">Все оповещения</string>
+    <string name="shortcut_cycle">Рынок</string>
+</resources>

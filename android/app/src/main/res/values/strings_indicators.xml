@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Neutrale Indikatoren: Titel, Hinweise, Halving -->
+    <string name="neutral_alt_title">Altcoins vs. Bitcoin</string>
+    <string name="neutral_btc_indicators_title">Bitcoin indicators</string>
+    <string name="neutral_halving_last">Last halving: %1$s</string>
+    <string name="neutral_halving_next">Next halving expected around %1$s (estimated from the calendar – block height currently unavailable).</string>
+    <string name="neutral_indicators_disclaimer">Measured values only, without assessment. Not a forecast and no investment advice.</string>
+    <string name="neutral_onchain_missing">On-chain data (Coin Metrics) currently unavailable.</string>
+
+    <!-- Neutrale Indikatoren: was der Wert misst -->
+    <string name="neutral_explain_ath_distance">How far the price is below its previous all-time high.</string>
+    <string name="neutral_explain_change_30d">Price today compared with 30 days ago.</string>
+    <string name="neutral_explain_hashrate">30-day average hashrate compared with the 60-day average.</string>
+    <string name="neutral_explain_ma200w">Average of the last 200 weekly closes.</string>
+    <string name="neutral_explain_mayer">Price divided by the 200-day average.</string>
+    <string name="neutral_explain_mvrv">Market value divided by realized value (on-chain).</string>
+    <string name="neutral_explain_pi_gap">111-day average compared with twice the 350-day average.</string>
+    <string name="neutral_explain_puell">Daily miner revenue divided by its 365-day average.</string>
+    <string name="neutral_explain_rsi_daily">Relative Strength Index of the last 14 days, 0–100.</string>
+    <string name="neutral_explain_rsi_weekly">Relative Strength Index of the last 14 weeks, 0–100.</string>
+    <string name="neutral_explain_sma50_200">50-day average compared with the 200-day average.</string>
+    <string name="neutral_explain_vs_btc">Price change compared with Bitcoin over 90 days.</string>
+
+    <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
+    <string name="neutral_info_alt_season_how">The app only shows the count and does not label it as a season. The value usually changes over days, not hours.</string>
+    <string name="neutral_info_btc_how">Each value comes with one sentence on what it measures, and where it sits in its own history since 2016. The app does not rate the values and derives no market phase; limits for market notices are only the ones you set. Past patterns do not have to repeat.</string>
+    <string name="neutral_info_btc_what">Common Bitcoin indicators as plain measured values: Mayer Multiple, 200-week average, drop from the all-time high, change over 30 days, Pi Cycle gap and the on-chain values MVRV, Puell Multiple and hashrate.</string>
+    <string name="neutral_info_coin_how">Each value comes with one sentence on what it measures, without rating. For coins with a short price history some values are missing. On-chain data is not included here.</string>
+    <string name="neutral_info_coin_what">The same plain indicators for a coin of your choice, from price data only: Mayer Multiple, 200-week average, drop from the all-time high, change over 30 days, 50/200-day trend, RSI and strength against Bitcoin over 90 days.</string>
+    <string name="neutral_info_halving_how">The next halving is calculated from the current block height and the average block time of the current difficulty period (mempool.space); without that data, from the calendar (last halving plus about four years). The chart shows the price path of past cycles from their halving – history, not a forecast.</string>
+
+    <!-- Indikator-Namen -->
+    <string name="ind_cross">Trend 50/200 days</string>
+    <string name="ind_drawdown">Drop from all-time high</string>
+    <string name="ind_missing">not enough data</string>
+    <string name="ind_rsi_daily">RSI (daily)</string>
+    <string name="ind_rsi_weekly">RSI (weekly)</string>
+    <string name="ind_vs_btc">Strength vs. Bitcoin (90 days)</string>
+    <string name="neutral_ind_change_30d">Change 30 days</string>
+    <string name="neutral_ind_hashrate">Hashrate 30/60 days</string>
+    <string name="neutral_ind_ma200w">200-week average</string>
+    <string name="neutral_ind_pi_gap">Pi Cycle gap</string>
+
+    <!-- Indikatoren: «hoch heisst …, tief heisst …» -->
+    <string name="ind_read_alt_season">High means most large altcoins beat Bitcoin over 90 days, low means Bitcoin beat most of them.</string>
+    <string name="ind_read_ath_distance">Small means the price is near its record, large means it is far below it.</string>
+    <string name="ind_read_change_30d">Positive means higher than 30 days ago, negative means lower.</string>
+    <string name="ind_read_funding">High means many traders bet on rising prices with leverage, negative means many bet on falling prices.</string>
+    <string name="ind_read_hashrate_30_60">Positive means computing power is growing, negative means miners are switching off.</string>
+    <string name="ind_read_leverage">Many longs means many bet on rising prices with borrowed money, many shorts means many bet on falling prices.</string>
+    <string name="ind_read_ma200w">Price far above it means a long rise, price close to it means a deep pullback.</string>
+    <string name="ind_read_mayer">High means the price is far above its 200-day average, low means it is below it.</string>
+    <string name="ind_read_mvrv">High means the price is far above what holders paid on average, low means close to or below it.</string>
+    <string name="ind_read_pi_cycle_gap">Near zero means the two averages almost meet, strongly negative means they are far apart.</string>
+    <string name="ind_read_puell">High means miners earn much more than usual, low means much less.</string>
+    <string name="ind_read_rsi_daily">Above 70 means strong gains in recent days, below 30 means strong losses.</string>
+    <string name="ind_read_rsi_weekly">Above 70 means strong gains in recent weeks, below 30 means strong losses.</string>
+    <string name="ind_read_sma50_vs_200">Positive means the short-term average is above the long-term one, negative means below.</string>
+    <string name="ind_read_vs_btc">Positive means it did better than Bitcoin, negative means worse.</string>
+
+    <!-- Indikatoren: Einordnung in die Vergangenheit -->
+    <string name="ind_context_flat30">Same price for 30 days: %1$s</string>
+    <string name="ind_context_note">Past values and “same price” calculations are arithmetic, not a forecast.</string>
+    <string name="ind_context_percentile">Since %1$s lower on %2$s of days</string>
+</resources>

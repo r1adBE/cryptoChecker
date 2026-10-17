@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: leere Ansicht, Statuszeile, Frische -->
+    <string name="watchlist_all_fresh">最新 · %1$s</string>
+    <string name="watchlist_empty_title">ペアがまだありません</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="other">%2$d件中%1$d件の価格なし</item>
+    </plurals>
+    <string name="watchlist_last_run">前回の更新 %1$s</string>
+    <string name="watchlist_live_a11y">ライブ価格がオン</string>
+    <string name="watchlist_live_badge">LIVE</string>
+    <string name="watchlist_offline_since">接続なし · %1$s時点</string>
+    <string name="watchlist_pull_to_refresh">下に引いて更新</string>
+    <string name="watchlist_refresh_report">前回の更新</string>
+    <string name="watchlist_refresh_report_empty">内訳はまだありません: まだ完全な更新が行われていません。更新をタップし、読み込み表示が止まるまでお待ちください。</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="other">%2$d 件中 %1$d 件が古い</item>
+    </plurals>
+    <string name="watchlist_status_all_disabled">ここのペアはすべて無効です</string>
+    <string name="watchlist_status_exchange_prices">選んだ取引所の価格 · %1$s</string>
+    <string name="watchlist_status_exchange_prices_short">取引所価格 · %1$s</string>
+    <string name="watchlist_status_group_empty">このグループにペアはありません</string>
+    <string name="watchlist_status_none_traded">取引中のペアはありません</string>
+    <string name="watchlist_updated">更新: %1$s</string>
+
+    <!-- Merkliste: Puls-Zeile (Paare im Plus/Minus, ohne 24-h-Wert) -->
+    <string name="watchlist_pulse_avg">Ø %1$s</string>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="other">%1$d 下落</item>
+    </plurals>
+    <!-- Paare mit Kurs, aber ohne 24-h-Wert («· 510 ohne 24h-Wert») -->
+    <plurals name="watchlist_pulse_missing">
+        <item quantity="other">24h値なし %1$d</item>
+    </plurals>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="other">今日の値なし %1$d</item>
+    </plurals>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="other">%1$d 上昇</item>
+    </plurals>
+
+    <!-- Merkliste: Zeile eines Paars -->
+    <string name="watchlist_row_disabled">%1$s · 無効</string>
+    <string name="watchlist_row_outdated">%1$s · 古いデータ</string>
+    <string name="watchlist_row_outdated_age">古いデータ · %1$s</string>
+    <string name="watchlist_row_price_unchanged_since">%1$s から価格変動なし</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s に接続できません</string>
+
+    <!-- Merkliste: Suche, Sprungknopf, Sortieren nach Spalte -->
+    <string name="watchlist_jump_end">末尾へ</string>
+    <string name="watchlist_jump_start">先頭へ</string>
+    <string name="watchlist_search_close">検索を閉じる</string>
+    <string name="watchlist_search_empty">「%1$s」に一致する結果はありません</string>
+    <string name="watchlist_search_hint">ペア、名前、取引所を検索</string>
+    <string name="watchlist_search_open">検索</string>
+    <string name="watchlist_sort_ascending">昇順</string>
+    <string name="watchlist_sort_descending">降順</string>
+    <string name="watchlist_sort_hint">ペアを長押ししてドラッグするか、ハンドルを使います。お気に入りは常に上に表示されます。</string>
+    <string name="watchlist_sort_name">名前</string>
+    <string name="watchlist_sort_own">自分の並び順</string>
+    <string name="watchlist_sort_price">価格</string>
+
+    <!-- Merkliste: Mehrfachauswahl, Ansichten, Entfernen -->
+    <string name="watchlist_clear">ウォッチリストを消去</string>
+    <string name="watchlist_clear_confirm">ウォッチリストからすべてのペアを削除しますか？各ペアのアラームも削除されます。</string>
+    <plurals name="watchlist_disabled_count">
+        <item quantity="other">%1$d 件無効</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_action">削除</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="other">取引所で取引が終了した %1$d 件のペアを削除しますか？各ペアのアラームも削除されます。</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_menu">取引終了のペアを削除 (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">取引終了のペアを削除</string>
+    <string name="watchlist_removed">%1$s を削除しました</string>
+    <plurals name="watchlist_removed_count">
+        <item quantity="other">%1$d 件のペアを削除しました</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="other">取引終了のペアを %1$d 件削除しました</item>
+    </plurals>
+    <string name="watchlist_select">選択</string>
+    <string name="watchlist_select_all">すべて選択</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="other">%1$d 件選択</item>
+    </plurals>
+    <string name="watchlist_show_all">すべて表示</string>
+    <string name="watchlist_show_only_disabled">無効なものだけ表示</string>
+    <string name="watchlist_show_only_stale">古いものだけ表示</string>
+
+    <!-- Merkliste: weitere Texte (Gruppen, Alarme, Mitteilung, Sprachausgabe) -->
+    <plurals name="watchlist_alarms_count">
+        <item quantity="other">アラーム（%1$d）</item>
+    </plurals>
+    <string name="watchlist_favorites_empty_hint">お気に入りはまだありません。ペアを右にスワイプするか、ペアを開いて「お気に入り」をタップしてください。</string>
+    <string name="watchlist_group_empty_hint">グループを長押ししてペアを選択します。</string>
+    <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
+    <string name="watchlist_groups_empty_hint">ここにグループが表示されます</string>
+    <string name="watchlist_notification">通知</string>
+    <string name="watchlist_tts">価格を読み上げ</string>
+    <string name="watchlist_tts_speech_on">読み上げをオンにしました。変更は「設定 › 詳細設定 › 音声出力」で行えます。</string>
+
+    <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
+    <string name="watch_action_add_widget">ウィジェットとして追加</string>
+    <string name="watch_action_alarm">アラーム</string>
+    <string name="watch_action_favorite">お気に入り</string>
+    <string name="watch_action_why">一緒に動いているのは？</string>
+    <string name="watch_action_why_short">連動は？</string>
+    <string name="watch_change_mark">マーク</string>
+    <string name="watch_disable">無効にする</string>
+    <string name="watch_disable_hint">取得なし・通知なし</string>
+    <string name="watch_disabled">無効</string>
+    <string name="watch_disabled_banner">%1$s を無効にしました</string>
+    <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
+    <string name="watch_edit_alarms_warning">アラームは残ります – しきい値を確認してください</string>
+    <!-- Titel des Formulars und Screenreader-Name des Stifts neben dem Paar -->
+    <string name="watch_edit_title">ペアを編集</string>
+    <string name="watch_enable">有効にする</string>
+    <string name="watch_enable_hint">価格と通知を再開</string>
+    <string name="watch_enabled_banner">%1$s を有効にしました</string>
+    <string name="watch_error_offline">接続なし</string>
+    <string name="watch_gesture_hint_short">タップでアラームと「一緒に動いているのは？」 · 長押しで選択 · 左スワイプで削除 · 右スワイプでお気に入り</string>
+    <string name="watch_hint_tap_why">コインをタップすると、一緒に動いているものが分かります</string>
+    <string name="watch_not_traded">この取引所では取引終了</string>
+    <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
+    <string name="watch_preview_not_watched">ウォッチリストにありません</string>
+    <string name="watch_price_mid">仲値（なければマーク）</string>
+    <string name="watch_row_source_both">変動とチャート：%1$s</string>
+    <string name="watch_row_source_change">変動：%1$s</string>
+    <string name="watch_row_source_chart">チャート：%1$s</string>
+
+    <!-- Meldung nach dem Hinzufügen (ein Paar / mehrere Paare) -->
+    <string name="pair_added_watching">%1$s をウォッチリストに追加しました</string>
+    <!-- Ein Paar: pair_added_watching -->
+    <string name="pairs_added_watching">%1$s をウォッチリストに追加しました</string>
+
+    <!-- Favoriten -->
+    <string name="favorite_add">お気に入りに追加</string>
+    <string name="favorite_added">%1$s をお気に入りに追加しました</string>
+    <string name="favorite_remove">お気に入りから削除</string>
+    <string name="favorite_removed">%1$s をお気に入りから削除しました</string>
+    <string name="hint_favorites_list">ヒント: 行を右にスワイプでお気に入り。お気に入りは上に表示されます。</string>
+
+    <!-- Gruppen und Chips der Merkliste -->
+    <string name="group_add">新しいグループ</string>
+    <string name="group_all">すべて</string>
+    <!-- Alpha-Tokens: Chip «α», Art vor der Glocke, «inkl. Alpha-Tokens» -->
+    <string name="group_alpha">Alphaトークン</string>
+    <string name="group_delete">グループを削除</string>
+    <string name="group_delete_confirm">ペアはウォッチリストに残ります。</string>
+    <string name="group_done">完了</string>
+    <string name="group_edit_title">グループを編集</string>
+    <!-- Chip «FAV» (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird vorgelesen) -->
+    <string name="group_favorites">お気に入り</string>
+    <string name="group_in_other">%1$s内</string>
+    <string name="group_name">グループ名</string>
+    <string name="group_new">新しいグループ…</string>
+    <string name="group_next">次へ</string>
+    <string name="group_none">グループなし</string>
+    <string name="group_rename">名前を変更</string>
+    <string name="group_search_hint">ペア、名前、取引所を検索</string>
+    <string name="group_target">グループ</string>
+    <string name="group_title">グループ</string>
+    <!-- Gruppen-Chip «Token» (alle Paare ausser der Gruppe «TradFi»), Screenreader und Widget-Einrichtung -->
+    <string name="group_tokens">トークン</string>
+    <string name="group_value">グループ：%1$s</string>
+
+    <!-- Notiz zum Paar -->
+    <string name="note_add">メモを追加</string>
+    <string name="note_edit">メモを編集</string>
+    <string name="note_hint">例: 0.42でエントリー、目標0.60</string>
+    <string name="note_remove">削除</string>
+    <string name="note_title">メモ</string>
+
+    <!-- Reihenfolge ändern (Sortiermodus, Screenreader-Aktionen) -->
+    <string name="sort_drag_handle">ドラッグして移動</string>
+    <string name="sort_move_bottom">一番下へ</string>
+    <string name="sort_move_down">下へ</string>
+    <string name="sort_move_top">一番上へ</string>
+    <string name="sort_move_up">上へ</string>
+</resources>

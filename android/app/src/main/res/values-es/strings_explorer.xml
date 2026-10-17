@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="explorer_coin_back">Todos los resultados</string>
+    <plurals name="explorer_coin_exchanges">
+        <item quantity="one">%1$d exchange</item>
+        <item quantity="many">%1$d exchanges</item>
+        <item quantity="other">%1$d exchanges</item>
+    </plurals>
+    <string name="explorer_coin_no_pairs">No hay ningún par de esta moneda en las listas cargadas.</string>
+    <string name="explorer_coin_not_loaded">Listas de pares aún no cargadas</string>
+    <string name="explorer_coin_other_pairs">Otros pares</string>
+    <string name="explorer_coin_show_pairs">Ver pares</string>
+    <string name="explorer_coin_suggested">Sugerencia</string>
+    <string name="explorer_coins_title">Monedas</string>
+    <string name="explorer_lists_load">Cargar listas</string>
+    <string name="explorer_lists_loading">Cargando listas de pares… %1$d/%2$d</string>
+    <plurals name="explorer_lists_missing">
+        <item quantity="one">La lista de pares de %1$d exchange aún no está en el dispositivo.</item>
+        <item quantity="many">Las listas de pares de %1$d exchanges aún no están en el dispositivo.</item>
+        <item quantity="other">Las listas de pares de %1$d exchanges aún no están en el dispositivo.</item>
+    </plurals>
+    <string name="explorer_lists_privacy">Carga la lista pública completa de cada exchange, igual para todos. Tu búsqueda se queda en el dispositivo.</string>
+    <!-- Paar hinzufügen: Suche über alle Börsen, zuletzt gesucht -->
+    <string name="explorer_recent_a11y">Búsqueda reciente: %1$s</string>
+    <string name="explorer_recent_clear">Borrar</string>
+    <string name="explorer_recent_clear_a11y">Borrar búsquedas recientes</string>
+    <string name="explorer_recent_title">Búsquedas recientes</string>
+    <string name="explorer_search_choose_manually">Elegir exchange y par manualmente</string>
+    <string name="explorer_search_empty">Sin resultados.</string>
+    <string name="explorer_search_hint">Buscar moneda, par o exchange</string>
+    <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
+    <string name="explorer_search_intro">Escribe el nombre o el símbolo de una moneda, p. ej. Bitcoin o BTC, y elige el par.</string>
+
+    <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
+    <string name="explorer_add_to_watchlist">Añadir a la lista de seguimiento</string>
+    <string name="explorer_added_to_watchlist">Añadido a la lista de seguimiento.</string>
+    <string name="explorer_already_in_watchlist">Este par ya está en la lista de seguimiento.</string>
+    <string name="explorer_exchange_missing">¿Falta un exchange?</string>
+    <string name="explorer_loading_pairs">Cargando pares…</string>
+    <string name="explorer_no_pair_selected">Elige primero un par.</string>
+    <string name="explorer_no_pairs_yet">Todavía no se han cargado pares para este exchange.</string>
+    <plurals name="explorer_pairs_status">
+        <item quantity="one">%1$d par · actualizado %2$s</item>
+        <item quantity="many">%1$d pares · actualizado %2$s</item>
+        <item quantity="other">%1$d pares · actualizado %2$s</item>
+    </plurals>
+    <string name="explorer_pairs_title">Pares</string>
+    <string name="explorer_precise_title">Avanzado / por exchange</string>
+    <string name="explorer_price_loading">Cargando precio…</string>
+    <string name="explorer_select_market_hint">Elige un exchange – sus pares se cargan automáticamente.</string>
+    <string name="explorer_select_placeholder">Selecciona</string>
+    <string name="explorer_step_pair">Elegir par</string>
+
+    <!-- Paar hinzufügen: Schnellfilter der Liste «Alle …-Paare» -->
+    <string name="explorer_filter_gainers">Ganadores</string>
+    <string name="explorer_filter_losers">Perdedores</string>
+    <string name="explorer_filter_volume">Volumen</string>
+
+    <!-- Paar hinzufügen: mehrere Paare auf einmal -->
+    <string name="bulk_all_pairs">Todos los pares %1$s de este exchange</string>
+    <plurals name="bulk_all_pairs_applied">
+        <item quantity="one">%1$d par %2$s encontrado</item>
+        <item quantity="many">%1$d pares %2$s encontrados</item>
+        <item quantity="other">%1$d pares %2$s encontrados</item>
+    </plurals>
+    <string name="bulk_all_pairs_empty">No hay pares %1$s en este exchange para el tipo de contrato seleccionado. Sincroniza primero el exchange o prueba otro tipo de contrato.</string>
+    <plurals name="explorer_add_all_pairs">
+        <item quantity="one">Añadir %1$d par a la lista de seguimiento</item>
+        <item quantity="many">Añadir los %1$d pares a la lista de seguimiento</item>
+        <item quantity="other">Añadir los %1$d pares a la lista de seguimiento</item>
+    </plurals>
+    <plurals name="explorer_bulk_added">
+        <item quantity="one">%1$d añadido, %2$d ya estaban en la lista de seguimiento.</item>
+        <item quantity="many">%1$d añadidos, %2$d ya estaban en la lista de seguimiento.</item>
+        <item quantity="other">%1$d añadidos, %2$d ya estaban en la lista de seguimiento.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_text">
+        <item quantity="one">%1$d par %2$s de %3$s: se añadirá a la lista si aún no está.</item>
+        <item quantity="many">Los %1$d pares %2$s de %3$s se añadirán a la lista. Los que ya están se omiten.</item>
+        <item quantity="other">Los %1$d pares %2$s de %3$s se añadirán a la lista. Los que ya están se omiten.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_title">
+        <item quantity="one">¿Añadir %1$d par?</item>
+        <item quantity="many">¿Añadir %1$d pares?</item>
+        <item quantity="other">¿Añadir %1$d pares?</item>
+    </plurals>
+    <string name="explorer_bulk_hide_list">Ocultar lista</string>
+    <string name="explorer_bulk_show_list">Mostrar lista</string>
+    <string name="explorer_bulk_tap_hint">Toca un par para seleccionarlo arriba.</string>
+    <string name="explorer_bulk_title">Varios pares a la vez</string>
+
+    <!-- Handelspaare einer Börse laden und wählen -->
+    <string name="explorer_sync_sheet_text">Carga los pares actuales del exchange seleccionado.</string>
+    <string name="explorer_no_pair_list">No hay pares</string>
+    <string name="explorer_sync_sheet_last">Última sincronización: %1$s</string>
+    <string name="explorer_sync_never">nunca</string>
+    <string name="explorer_sync_sheet_action">Sincronizar ahora</string>
+    <string name="explorer_sync_sheet_title">Actualizar pares</string>
+    <string name="explorer_field_coin">Base</string>
+    <string name="explorer_field_contract">Tipo de contrato</string>
+    <string name="explorer_field_exchange">Mercado</string>
+    <string name="explorer_field_quote">Cotización</string>
+    <string name="explorer_contract_spot">Spot</string>
+    <string name="explorer_reload_pairs">Sincronizar</string>
+    <string name="sync_pairs_count">Pares de trading: %1$d</string>
+
+    <!-- Token von dezentralen Börsen (DEX) -->
+    <string name="dex_add">Añadir</string>
+    <string name="dex_added">%1$s añadido a la lista de seguimiento.</string>
+    <string name="dex_already">%1$s ya está en la lista de seguimiento.</string>
+    <string name="dex_intro">Tokens fuera de los grandes exchanges, de exchanges descentralizados (Uniswap, PancakeSwap, Raydium …) a través de DexScreener. Busca un token y añade uno de sus pools de trading – precios en dólares estadounidenses.</string>
+    <string name="dex_liquidity">Liquidez %1$s</string>
+    <string name="dex_no_results">No se encontraron pools.</string>
+    <string name="dex_search">Buscar</string>
+    <string name="dex_search_hint">Nombre, símbolo o dirección del token</string>
+
+    <!-- Art des Assets (Token, Alpha-Token, TradFi) -->
+    <string name="asset_kind_alpha">Token Alpha</string>
+    <string name="asset_kind_token">Token</string>
+    <string name="asset_kind_tradfi">TradFi</string>
+</resources>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Aktionsblatt: Kurs-Chart (Zeitraum, Kerzenwerte beim Ziehen, Umrechnung) und «Mehr» -->
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s Zeitraum kurz (widget_range_short_24h/7d/30d) -->
+    <string name="sheet_chart_change">%1$s trong %2$s</string>
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s change_short_today(_zone) -->
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="sheet_chart_close">Đóng cửa</string>
+    <string name="sheet_chart_converted_current">%1$s, quy đổi (tỷ giá hiện tại)</string>
+    <!-- Zeile unter dem Chart, %1$s = umgerechnete Reihe («BTC/USDT») -->
+    <string name="sheet_chart_converted_daily">%1$s, quy đổi theo tỷ giá hằng ngày</string>
+    <!-- Keine Kerzen für das Paar -->
+    <string name="sheet_chart_no_data">Không có dữ liệu giá cho cặp này</string>
+    <!-- Kerzenwerte beim Ziehen (Hoch/Tief: ticker_high/ticker_low) -->
+    <string name="sheet_chart_open">Mở cửa</string>
+    <!-- Zeitraum-Chip statt «24h» bei Tages-Basis -->
+    <string name="sheet_chart_today">Hôm nay</string>
+    <!-- Umsatz der Kerze beim Ziehen; %1$s z. B. «12.3M USDT» -->
+    <string name="sheet_chart_volume">KL %1$s</string>
+    <string name="sheet_more">Thêm</string>
+
+    <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
+    <string name="ticker_ask">Giá bán</string>
+    <string name="ticker_bid">Giá mua</string>
+    <string name="ticker_high">Cao</string>
+    <string name="ticker_low">Thấp</string>
+    <string name="ticker_timestamp">Thời gian</string>
+    <string name="ticker_vol_base">Khối lượng (cơ sở)</string>
+    <string name="ticker_vol_quote">Khối lượng (định giá)</string>
+
+    <!-- Basis der %-Änderung (Prozent-Pille, Chart, Widgets) -->
+    <string name="change_basis_device">%1$s, 00:00 (múi giờ của thiết bị)</string>
+    <string name="change_basis_local">Từ 00:00 giờ địa phương</string>
+    <string name="change_basis_rolling">24 giờ qua</string>
+    <!-- Letzter gegen vorherigen Kurs des Paars; ausgeschrieben (Auswahl). Kurz neben Pille und Widgets: change_short_since_last -->
+    <string name="change_basis_since_last">Từ lần cập nhật gần nhất</string>
+    <string name="change_basis_utc_zone">Từ 00:00 %1$s</string>
+    <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
+    <string name="change_candle_source">Biến động theo nến %1$s</string>
+    <string name="change_short_since_last">lần cập nhật cuối</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
+    <string name="change_short_today">hôm nay</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 einer gewählten Zeitzone; %1$s = Zeitzone (z. B. UTC) -->
+    <string name="change_short_today_zone">hôm nay %1$s</string>
+
+    <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
+    <string name="market_data_empty_error">Không nhận được dữ liệu từ sàn.</string>
+    <string name="market_data_summary">Vốn hóa, phí gas, dữ liệu kinh tế, phân tích coin</string>
+    <string name="market_data_tab_futures">Futures</string>
+    <string name="market_data_title">Dữ liệu thị trường</string>
+
+    <!-- Marktdaten Spot (Marktkapitalisierung, Angebot, Volumen) -->
+    <string name="spot_circulating">Cung lưu hành</string>
+    <string name="spot_fdv">FDV</string>
+    <string name="spot_market_cap">Vốn hóa</string>
+    <string name="spot_max_supply">Cung tối đa</string>
+    <string name="spot_no_data">Không có dữ liệu spot cho coin này</string>
+    <string name="spot_source_updated">Nguồn: %1$s · lúc %2$s</string>
+    <string name="spot_supply_of_max">%1$s cung tối đa đang lưu hành</string>
+    <string name="spot_total_supply">Tổng cung</string>
+    <string name="spot_vol_mcap">KL/Vốn hóa</string>
+    <string name="spot_volume_24h">Khối lượng (24h)</string>
+
+    <!-- Futures-Kennzahlen (Funding, Open Interest, Referenzbörse) -->
+    <string name="futures_alarm_reference">Giá trị tham khảo %1$s</string>
+    <string name="futures_funding">Funding rate</string>
+    <string name="futures_funding_interval_unknown">không rõ chu kỳ</string>
+    <string name="futures_funding_per8h_equiv">= %1$s mỗi 8 giờ (như trong cảnh báo)</string>
+    <!-- Einheit neben der Funding-Pille, wenn die Börse stündlich abrechnet (Hyperliquid) -->
+    <string name="futures_funding_per_hour">mỗi giờ</string>
+    <string name="futures_funding_per_hours">mỗi %1$d giờ</string>
+    <string name="futures_next_funding">lần tới sau %1$d giờ %2$d phút</string>
+    <string name="futures_no_data">Không có dữ liệu futures cho coin này</string>
+    <string name="futures_open_interest">Open interest</string>
+    <!-- Futures-Kennzahlen von einer anderen Börse als der beobachteten (Richtwert) -->
+    <string name="futures_reference_hint">Giá trị tham khảo từ %1$s – funding và open interest khác nhau theo từng sàn; trên %2$s có thể khác.</string>
+    <string name="futures_reference_spot">Giá trị tham khảo từ %1$s (hợp đồng vĩnh cửu USDT của coin)</string>
+    <string name="futures_source">Nguồn: %1$s</string>
+
+    <!-- Erklärungen hinter dem ⓘ-Knopf -->
+    <string name="explain_funding">Nhiều người dùng tiền vay để đặt cược giá tăng hoặc giảm. Phí giữa vị thế long và short. Dương mạnh nghĩa là nhiều người đang đặt cược giá tăng.</string>
+    <string name="explain_open_interest">Hợp đồng tương lai là đặt cược vào giá, thường bằng tiền vay. Giá trị của tất cả vị thế hợp đồng tương lai đang mở. Nếu tăng, có nhiều tiền hơn đặt cược vào biến động đó.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">Giải thích</string>
+    <string name="explain_spot_fdv">Định giá pha loãng hoàn toàn: giá × cung tối đa (hoặc tổng cung nếu không có giới hạn).</string>
+    <string name="explain_spot_market_cap">Giá × cung lưu hành. Nhãn cho thấy thay đổi trong 24 giờ.</string>
+    <string name="explain_spot_source">Số liệu trên mọi sàn tính bằng đô la Mỹ, từ CoinGecko.</string>
+    <string name="explain_spot_supply">Lưu hành: coin đang có trên thị trường. Tổng: mọi coin đã tạo trừ phần đã đốt. Tối đa: số lượng nhiều nhất có thể tồn tại.</string>
+    <string name="explain_spot_volume">Giá trị giao dịch trong 24 giờ. KL/Vốn hóa: khối lượng so với vốn hóa — cao nghĩa là giao dịch rất sôi động.</string>
+
+    <!-- Umrechnung und Sats -->
+    <string name="converted_fx_stale">%1$s · tỷ giá %2$s</string>
+    <string name="sats_per_unit">%1$s %2$s = %3$s sats</string>
+</resources>

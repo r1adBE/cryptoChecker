@@ -1,0 +1,12 @@
+# SYNTHETIC TEST DATA - not a real export - layout from the public column description - real samples will replace it
+You can use this transaction report to inform your likely tax obligations. For US customers, Sells, Converts, and Rewards Income, and Coinbase Earn transactions are taxable events. For final tax obligations, please consult a tax advisor.
+
+Transactions
+User,jane@example.com,5f0000000000000000000000
+
+Timestamp,Transaction Type,Asset,Quantity Transacted,Spot Price Currency,Spot Price at Transaction,Subtotal,Total (inclusive of fees),Fees,Notes
+2021-03-01T09:15:00Z,Buy,BTC,0.01,EUR,40000.00,400.00,405.99,5.99,Bought 0.0100 BTC for €405.99 EUR
+2021-03-05T10:00:00Z,Coinbase Earn,XLM,12.5,EUR,0.35,4.38,4.38,,Received 12.5000 XLM from Coinbase Earn
+2021-03-10T12:00:00Z,Convert,BTC,0.002,EUR,45000.00,90.00,90.00,,"Converted 0.0020 BTC to 1,234.5 XLM"
+2021-03-12T08:30:00Z,Send,XLM,1000,EUR,0.36,360.00,360.00,,Sent 1000 XLM to GAEXAMPLE
+2021-03-13T08:30:00Z,Convert,BTC,0.001,EUR,45000.00,45.00,45.00,,Converted to something

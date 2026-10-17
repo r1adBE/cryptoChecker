@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="explorer_coin_back">ผลลัพธ์ทั้งหมด</string>
+    <plurals name="explorer_coin_exchanges">
+        <item quantity="other">%1$d กระดานเทรด</item>
+    </plurals>
+    <string name="explorer_coin_no_pairs">ไม่มีคู่เทรดของเหรียญนี้ในรายการที่โหลดแล้ว</string>
+    <string name="explorer_coin_not_loaded">ยังไม่ได้โหลดรายการคู่เทรด</string>
+    <string name="explorer_coin_other_pairs">คู่เทรดอื่น</string>
+    <string name="explorer_coin_show_pairs">แสดงคู่เทรด</string>
+    <string name="explorer_coin_suggested">แนะนำ</string>
+    <string name="explorer_coins_title">เหรียญ</string>
+    <string name="explorer_lists_load">โหลดรายการ</string>
+    <string name="explorer_lists_loading">กำลังโหลดรายการคู่เทรด… %1$d/%2$d</string>
+    <plurals name="explorer_lists_missing">
+        <item quantity="other">ยังไม่มีรายการคู่เทรดของ %1$d กระดานเทรดในอุปกรณ์</item>
+    </plurals>
+    <string name="explorer_lists_privacy">โหลดรายการสาธารณะทั้งหมดของแต่ละกระดานเทรด ซึ่งเหมือนกันสำหรับทุกคน การค้นหาของคุณอยู่ในอุปกรณ์เท่านั้น</string>
+    <!-- Paar hinzufügen: Suche über alle Börsen, zuletzt gesucht -->
+    <string name="explorer_recent_a11y">ค้นหาล่าสุด: %1$s</string>
+    <string name="explorer_recent_clear">ล้าง</string>
+    <string name="explorer_recent_clear_a11y">ล้างการค้นหาล่าสุด</string>
+    <string name="explorer_recent_title">การค้นหาล่าสุด</string>
+    <string name="explorer_search_choose_manually">เลือกกระดานเทรดและคู่เองด้วยตนเอง</string>
+    <string name="explorer_search_empty">ไม่พบผลลัพธ์</string>
+    <string name="explorer_search_hint">ค้นหาเหรียญ คู่เทรด หรือกระดานเทรด</string>
+    <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
+    <string name="explorer_search_intro">พิมพ์ชื่อหรือสัญลักษณ์ของเหรียญ เช่น Bitcoin หรือ BTC แล้วเลือกคู่เทรด</string>
+
+    <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
+    <string name="explorer_add_to_watchlist">เพิ่มไปยังรายการติดตาม</string>
+    <string name="explorer_added_to_watchlist">เพิ่มไปยังรายการติดตามแล้ว</string>
+    <string name="explorer_already_in_watchlist">คู่นี้อยู่ในรายการติดตามแล้ว</string>
+    <string name="explorer_exchange_missing">ไม่มีกระดานเทรดที่ต้องการ?</string>
+    <string name="explorer_loading_pairs">กำลังโหลดคู่เทรด…</string>
+    <string name="explorer_no_pair_selected">เลือกคู่ก่อน</string>
+    <string name="explorer_no_pairs_yet">ยังไม่ได้โหลดคู่เทรดของกระดานเทรดนี้</string>
+    <plurals name="explorer_pairs_status">
+        <item quantity="other">%1$d คู่ · อัปเดต %2$s</item>
+    </plurals>
+    <string name="explorer_pairs_title">คู่เทรด</string>
+    <string name="explorer_precise_title">ขั้นสูง / ตามกระดานเทรด</string>
+    <string name="explorer_price_loading">กำลังโหลดราคา…</string>
+    <string name="explorer_select_market_hint">เลือกกระดานเทรด – คู่เทรดจะโหลดอัตโนมัติ</string>
+    <string name="explorer_select_placeholder">โปรดเลือก</string>
+    <string name="explorer_step_pair">เลือกคู่เทรด</string>
+
+    <!-- Paar hinzufügen: Schnellfilter der Liste «Alle …-Paare» -->
+    <string name="explorer_filter_gainers">ขึ้นแรง</string>
+    <string name="explorer_filter_losers">ลงแรง</string>
+    <string name="explorer_filter_volume">วอลุ่ม</string>
+
+    <!-- Paar hinzufügen: mehrere Paare auf einmal -->
+    <string name="bulk_all_pairs">คู่ %1$s ทั้งหมดของกระดานเทรดนี้</string>
+    <plurals name="bulk_all_pairs_applied">
+        <item quantity="other">พบ %1$d คู่ %2$s</item>
+    </plurals>
+    <string name="bulk_all_pairs_empty">ไม่มีคู่ %1$s ในกระดานเทรดนี้สำหรับประเภทสัญญาที่เลือก ให้ซิงค์กระดานเทรดก่อน หรือลองประเภทสัญญาอื่น</string>
+    <plurals name="explorer_add_all_pairs">
+        <item quantity="other">เพิ่มทั้ง %1$d คู่ไปยังรายการติดตาม</item>
+    </plurals>
+    <plurals name="explorer_bulk_added">
+        <item quantity="other">เพิ่มแล้ว %1$d, มีในรายการติดตามอยู่แล้ว %2$d</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_text">
+        <item quantity="other">คู่ %2$s ทั้งหมด %1$d คู่จาก %3$s จะถูกเพิ่มในรายการ คู่ที่มีอยู่แล้วจะถูกข้าม</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_title">
+        <item quantity="other">เพิ่ม %1$d คู่?</item>
+    </plurals>
+    <string name="explorer_bulk_hide_list">ซ่อนรายการ</string>
+    <string name="explorer_bulk_show_list">แสดงรายการ</string>
+    <string name="explorer_bulk_tap_hint">แตะคู่เทรดเพื่อเลือกด้านบน</string>
+    <string name="explorer_bulk_title">หลายคู่พร้อมกัน</string>
+
+    <!-- Handelspaare einer Börse laden und wählen -->
+    <string name="explorer_sync_sheet_text">โหลดคู่เทรดปัจจุบันของกระดานเทรดที่เลือก</string>
+    <string name="explorer_no_pair_list">ไม่มีคู่เหรียญ</string>
+    <string name="explorer_sync_sheet_last">ซิงค์ล่าสุด: %1$s</string>
+    <string name="explorer_sync_never">ไม่เคย</string>
+    <string name="explorer_sync_sheet_action">ซิงค์เลย!</string>
+    <string name="explorer_sync_sheet_title">อัปเดตคู่เหรียญ</string>
+    <string name="explorer_field_coin">เหรียญ</string>
+    <string name="explorer_field_contract">ประเภทสัญญา</string>
+    <string name="explorer_field_exchange">ตลาด</string>
+    <string name="explorer_field_quote">สกุลอ้างอิง</string>
+    <string name="explorer_contract_spot">Spot</string>
+    <string name="explorer_reload_pairs">ซิงค์</string>
+    <string name="sync_pairs_count">คู่เทรด: %1$d</string>
+
+    <!-- Token von dezentralen Börsen (DEX) -->
+    <string name="dex_add">เพิ่ม</string>
+    <string name="dex_added">เพิ่ม %1$s ไปยังรายการติดตามแล้ว</string>
+    <string name="dex_already">%1$s อยู่ในรายการติดตามแล้ว</string>
+    <string name="dex_intro">โทเค็นนอกกระดานเทรดรายใหญ่ จากกระดานเทรดแบบกระจายศูนย์ (Uniswap, PancakeSwap, Raydium …) ผ่าน DexScreener ค้นหาโทเค็นแล้วเพิ่มพูลซื้อขายหนึ่งของโทเค็นนั้น – ราคาเป็นดอลลาร์สหรัฐ</string>
+    <string name="dex_liquidity">สภาพคล่อง %1$s</string>
+    <string name="dex_no_results">ไม่พบพูล</string>
+    <string name="dex_search">ค้นหา</string>
+    <string name="dex_search_hint">ชื่อโทเค็น สัญลักษณ์ หรือแอดเดรส</string>
+
+    <!-- Art des Assets (Token, Alpha-Token, TradFi) -->
+    <string name="asset_kind_alpha">โทเคน Alpha</string>
+    <string name="asset_kind_token">โทเคน</string>
+    <string name="asset_kind_tradfi">TradFi</string>
+</resources>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Aktionsblatt: Kurs-Chart (Zeitraum, Kerzenwerte beim Ziehen, Umrechnung) und «Mehr» -->
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s Zeitraum kurz (widget_range_short_24h/7d/30d) -->
+    <string name="sheet_chart_change">%1$s za %2$s</string>
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s change_short_today(_zone) -->
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="sheet_chart_close">Uzavření</string>
+    <string name="sheet_chart_converted_current">%1$s, přepočteno (aktuální kurz)</string>
+    <!-- Zeile unter dem Chart, %1$s = umgerechnete Reihe («BTC/USDT») -->
+    <string name="sheet_chart_converted_daily">%1$s, přepočteno denními kurzy</string>
+    <!-- Keine Kerzen für das Paar -->
+    <string name="sheet_chart_no_data">Pro tento pár nejsou k dispozici údaje o ceně</string>
+    <!-- Kerzenwerte beim Ziehen (Hoch/Tief: ticker_high/ticker_low) -->
+    <string name="sheet_chart_open">Otevření</string>
+    <!-- Zeitraum-Chip statt «24h» bei Tages-Basis -->
+    <string name="sheet_chart_today">Dnes</string>
+    <!-- Umsatz der Kerze beim Ziehen; %1$s z. B. «12.3M USDT» -->
+    <string name="sheet_chart_volume">Obj. %1$s</string>
+    <string name="sheet_more">Více</string>
+
+    <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
+    <string name="ticker_ask">Prodej</string>
+    <string name="ticker_bid">Nákup</string>
+    <string name="ticker_high">Maximum</string>
+    <string name="ticker_low">Minimum</string>
+    <string name="ticker_timestamp">Čas</string>
+    <string name="ticker_vol_base">Objem (základní)</string>
+    <string name="ticker_vol_quote">Objem (kotovaná)</string>
+
+    <!-- Basis der %-Änderung (Prozent-Pille, Chart, Widgets) -->
+    <string name="change_basis_device">%1$s, 00:00 (časové pásmo zařízení)</string>
+    <string name="change_basis_local">Od 00:00 místního času</string>
+    <string name="change_basis_rolling">Posledních 24 h</string>
+    <!-- Letzter gegen vorherigen Kurs des Paars; ausgeschrieben (Auswahl). Kurz neben Pille und Widgets: change_short_since_last -->
+    <string name="change_basis_since_last">Od poslední aktualizace</string>
+    <string name="change_basis_utc_zone">Od 00:00 %1$s</string>
+    <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
+    <string name="change_candle_source">Změna podle svíček %1$s</string>
+    <string name="change_short_since_last">posl. aktualizace</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
+    <string name="change_short_today">dnes</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 einer gewählten Zeitzone; %1$s = Zeitzone (z. B. UTC) -->
+    <string name="change_short_today_zone">dnes %1$s</string>
+
+    <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
+    <string name="market_data_empty_error">Z burzy nepřišla žádná data.</string>
+    <string name="market_data_summary">Tržní kapitalizace, poplatky za gas, ekonomická data, analýza coinů</string>
+    <string name="market_data_tab_futures">Futures</string>
+    <string name="market_data_title">Tržní data</string>
+
+    <!-- Marktdaten Spot (Marktkapitalisierung, Angebot, Volumen) -->
+    <string name="spot_circulating">Obíhající zásoba</string>
+    <string name="spot_fdv">FDV</string>
+    <string name="spot_market_cap">Tržní kapitalizace</string>
+    <string name="spot_max_supply">Max. zásoba</string>
+    <string name="spot_no_data">Žádná spotová data pro tuto minci</string>
+    <string name="spot_source_updated">Zdroj: %1$s · stav %2$s</string>
+    <string name="spot_supply_of_max">%1$s max. zásoby v oběhu</string>
+    <string name="spot_total_supply">Celková zásoba</string>
+    <string name="spot_vol_mcap">Obj./Tr. kap.</string>
+    <string name="spot_volume_24h">Objem (24 h)</string>
+
+    <!-- Futures-Kennzahlen (Funding, Open Interest, Referenzbörse) -->
+    <string name="futures_alarm_reference">Orientačně %1$s</string>
+    <string name="futures_funding">Funding rate</string>
+    <string name="futures_funding_interval_unknown">interval neznámý</string>
+    <string name="futures_funding_per8h_equiv">= %1$s za 8 hod. (jako v alarmech)</string>
+    <!-- Einheit neben der Funding-Pille, wenn die Börse stündlich abrechnet (Hyperliquid) -->
+    <string name="futures_funding_per_hour">za hodinu</string>
+    <string name="futures_funding_per_hours">za %1$d hod.</string>
+    <string name="futures_next_funding">další za %1$d h %2$d min</string>
+    <string name="futures_no_data">Žádná data futures pro tuto minci</string>
+    <string name="futures_open_interest">Open interest</string>
+    <!-- Futures-Kennzahlen von einer anderen Börse als der beobachteten (Richtwert) -->
+    <string name="futures_reference_hint">Orientačně z %1$s – funding a open interest se liší podle burzy, na %2$s se mohou lišit.</string>
+    <string name="futures_reference_spot">Orientačně z %1$s (USDT perpetual dané mince)</string>
+    <string name="futures_source">Zdroj: %1$s</string>
+
+    <!-- Erklärungen hinter dem ⓘ-Knopf -->
+    <string name="explain_funding">Mnoho lidí sází s půjčenými penězi na růst nebo pokles cen. Poplatek mezi long a short pozicemi. Silně kladný znamená, že mnozí sázejí na růst cen.</string>
+    <string name="explain_open_interest">Futures jsou sázky na cenu, často s půjčenými penězi. Hodnota všech otevřených futures pozic. Když roste, na pohyb sází více peněz.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">Vysvětlení</string>
+    <string name="explain_spot_fdv">Plně zředěná hodnota: cena × max. zásoba (nebo celková zásoba, pokud limit neexistuje).</string>
+    <string name="explain_spot_market_cap">Cena × obíhající zásoba. Pilulka ukazuje změnu za 24 hodin.</string>
+    <string name="explain_spot_source">Údaje napříč všemi burzami v amerických dolarech, od CoinGecko.</string>
+    <string name="explain_spot_supply">V oběhu: mince, které jsou teď na trhu. Celková: všechny vytvořené mince bez spálených. Max.: nejvíc, kolik jich kdy může existovat.</string>
+    <string name="explain_spot_volume">Hodnota zobchodovaná za 24 hodin. Obj./Tr. kap.: objem vůči tržní kapitalizaci — vysoký znamená velmi živé obchodování.</string>
+
+    <!-- Umrechnung und Sats -->
+    <string name="converted_fx_stale">%1$s · kurz %2$s</string>
+    <string name="sats_per_unit">%1$s %2$s = %3$s satů</string>
+</resources>

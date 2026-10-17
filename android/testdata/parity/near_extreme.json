@@ -1,0 +1,17 @@
+{
+  "description": "Near high/low alarm: may the daily-candle series of the fallback chain (Binance, Binance.US, Coinbase — never the pair's own exchange) be used? Android NearExtreme.seriesAllowed / iOS NearExtreme.seriesAllowed. Same rule as the mini chart (SheetChart.sparklineFor + TokenIdentity.fallbackSeriesAllowed): nameAllowed = no clear name conflict; lastClose = last close of the series in its currency; rate = factor pair quote -> series currency (1 for the same currency, e.g. CHF -> USDT ~1.13); allowed only when |price × rate / lastClose − 1| ≤ 0.25. Missing/invalid price, last close or rate = not checkable = false (no alarm rather than another token's high/low). null stands for a missing value.",
+  "seriesAllowed": [
+    { "name": "same currency, close equal", "nameAllowed": true, "price": 100, "lastClose": 100, "rate": 1, "expected": true },
+    { "name": "same currency, 25 % above is still inside", "nameAllowed": true, "price": 125, "lastClose": 100, "rate": 1, "expected": true },
+    { "name": "same currency, 25 % below is still inside", "nameAllowed": true, "price": 75, "lastClose": 100, "rate": 1, "expected": true },
+    { "name": "same currency, 30 % off = other token", "nameAllowed": true, "price": 130, "lastClose": 100, "rate": 1, "expected": false },
+    { "name": "USDT fallback of a CHF pair converted with the rate", "nameAllowed": true, "price": 80000, "lastClose": 90400, "rate": 1.13, "expected": true },
+    { "name": "USDT fallback of a CHF pair, unconverted far off", "nameAllowed": true, "price": 0.05, "lastClose": 90400, "rate": 1.13, "expected": false },
+    { "name": "name conflict blocks even a matching price", "nameAllowed": false, "price": 100, "lastClose": 100, "rate": 1, "expected": false },
+    { "name": "no price = not checkable", "nameAllowed": true, "price": null, "lastClose": 100, "rate": 1, "expected": false },
+    { "name": "zero price = not checkable", "nameAllowed": true, "price": 0, "lastClose": 100, "rate": 1, "expected": false },
+    { "name": "no last close = not checkable", "nameAllowed": true, "price": 100, "lastClose": null, "rate": 1, "expected": false },
+    { "name": "no rate = not checkable", "nameAllowed": true, "price": 100, "lastClose": 100, "rate": null, "expected": false },
+    { "name": "negative rate = not checkable", "nameAllowed": true, "price": 100, "lastClose": 100, "rate": -1, "expected": false }
+  ]
+}

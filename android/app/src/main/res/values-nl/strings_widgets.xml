@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
+    <string name="widget_background">Achtergrond</string>
+    <string name="widget_configure_hint">Kies achtergrond en dekking. De kleur volgt de app. De widget toont je hele lijst; tik op een rij om de app te openen.</string>
+    <string name="widget_configure_title">Widget instellen</string>
+    <string name="widget_description">Toont de koers van een paar uit je volglijst.</string>
+    <string name="widget_empty">Nog geen paren in de volglijst.</string>
+    <string name="widget_group_hint">Alleen de paren van deze groep tonen.</string>
+    <string name="widget_kind_single">Eén munt</string>
+    <string name="widget_opacity">Achtergronddekking: %1$d%%</string>
+    <string name="widget_pulse_description">Wat er nu opvalt in de markt: kop, korte samenvatting en Bitcoin, Ethereum en Solana.</string>
+
+    <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->
+    <!-- Allein, wenn für «outdated · 06:42» der Platz fehlt (Kopfzeile Listen-Widget) -->
+    <string name="widget_outdated">verouderd</string>
+    <!-- Statt der Uhrzeit: «outdated · 06:42» (heute) bzw. «outdated · 5 Oct, 06:42» -->
+    <string name="widget_outdated_time">verouderd · %1$s</string>
+
+    <!-- Widgets: Chart und Zeitraum -->
+    <string name="widget_chart_candles">Candles</string>
+    <string name="widget_chart_line">Lijn</string>
+    <string name="widget_chart_range">Grafiekperiode</string>
+    <string name="widget_chart_type">Grafiektype</string>
+    <!-- «1 Jahr» im Chart des Aktionsblatts (365 Tageskerzen; Chip neben 24h · 7T · 30T) -->
+    <string name="widget_range_1y">1 jaar</string>
+    <string name="widget_range_24h">24h</string>
+    <string name="widget_range_30d">30 dagen</string>
+    <string name="widget_range_7d">7 dagen</string>
+    <string name="widget_range_short_1y">1J</string>
+    <string name="widget_range_short_24h">24h</string>
+    <string name="widget_range_short_30d">30D</string>
+    <string name="widget_range_short_7d">7D</string>
+
+    <!-- Portfolio-Widget -->
+    <!-- Fusszeile, %1$s Uhrzeit ohne Sekunden («Stand 15:19») -->
+    <string name="widget_portfolio_as_of">Stand %1$s</string>
+    <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
+    <string name="widget_portfolio_chart_pending">Verloop volgt</string>
+    <string name="widget_portfolio_description">Totale waarde van je portfolio en de verandering van vandaag</string>
+    <string name="widget_portfolio_display">Weergave</string>
+    <string name="widget_portfolio_display_conversion">Alleen omrekening</string>
+    <string name="widget_portfolio_display_conversion_usdt">Omrekening + USDT</string>
+    <string name="widget_portfolio_display_hint">De USDT-regel wordt verborgen als de omrekenvaluta USD is.</string>
+    <string name="widget_portfolio_display_usdt">Alleen USDT</string>
+    <string name="widget_portfolio_empty">Voeg aankopen toe op het tabblad Portfolio</string>
+    <string name="widget_portfolio_list_hint">Open de app om je posities hier te tonen.</string>
+    <string name="widget_portfolio_locked_hint">Vergrendeld – ontgrendel in de app</string>
+    <!-- Offene Coins ohne Kurs zählen im Gesamtwert als 0 -->
+    <plurals name="widget_portfolio_missing_coins">
+        <item quantity="one">zonder %1$d coin</item>
+        <item quantity="other">zonder %1$d coins</item>
+    </plurals>
+    <plurals name="widget_portfolio_more">
+        <item quantity="one">+ %1$d meer</item>
+        <item quantity="other">+ %1$d meer</item>
+    </plurals>
+    <string name="widget_portfolio_name">Portfolio</string>
+    <string name="widget_portfolio_off_hint">Inschakelen via %1$s.</string>
+    <string name="widget_portfolio_off_short">Portfolio uit</string>
+    <string name="widget_portfolio_off_title">Portfolio staat uit</string>
+    <string name="widget_portfolio_partly_stale">koers deels verouderd</string>
+    <string name="widget_portfolio_period">Periode</string>
+    <string name="widget_portfolio_period_without">%1$s zonder %2$s</string>
+    <string name="widget_portfolio_range_48h">48h</string>
+    <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
+    <string name="widget_portfolio_range_fallback">%1$s: open Portfolio</string>
+    <string name="widget_portfolio_range_short_48h">48h</string>
+    <string name="widget_portfolio_today_without">Vandaag zonder %1$s</string>
+    <string name="widget_portfolio_view">Weergave</string>
+    <string name="widget_portfolio_view_chart">Grafiek</string>
+    <string name="widget_portfolio_view_list">Lijst</string>
+    <string name="widget_portfolio_view_overview">Overzicht</string>
+
+    <!-- Einzel-Widget -->
+    <string name="single_widget_choose">Kies een paar</string>
+    <string name="single_widget_description">Toont één munt groot met koers, wijziging en 24-uursgrafiek.</string>
+    <string name="single_widget_label">Crypto Checker – één munt</string>
+    <string name="single_widget_title">Enkele widget instellen</string>
+
+    <!-- Widgets aus der App hinzufügen -->
+    <string name="widgets_add">Toevoegen</string>
+    <!-- Screenreader: Knopf «Add» mit dem Namen des Widgets -->
+    <string name="widgets_add_named">Widget %1$s toevoegen</string>
+    <string name="widgets_manual_text">Je beginscherm kan geen widgets vanuit de app toevoegen. Houd een lege plek op het beginscherm ingedrukt, kies ‘Widgets’ en zoek ‘Crypto Checker’.</string>
+    <!-- Startbildschirm (Launcher) kann keine Widgets aus der App annehmen -->
+    <string name="widgets_manual_title">Voeg de widget zelf toe</string>
+    <string name="widgets_sheet_title">Widget toevoegen</string>
+
+    <!-- Nur iOS: Widget selbst hinzufügen (drei Schritte) -->
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS laat apps niet zelf widgets toevoegen. Het is zo gedaan:</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">Beschikbare widgets</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">Houd een lege plek op het beginscherm ingedrukt tot de apps gaan wiebelen.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">Tik bovenaan op ‘Wijzig’ › ‘Voeg widget toe’ (of op ‘+’ in oudere iOS-versies).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">Zoek naar ‘Crypto Checker’, kies een widget en tik op ‘Voeg widget toe’.</string>
+</resources>

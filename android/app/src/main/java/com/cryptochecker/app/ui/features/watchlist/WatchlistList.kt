@@ -1,0 +1,411 @@
+@file:OptIn(
+    androidx.compose.foundation.ExperimentalFoundationApi::class,
+    androidx.compose.material3.ExperimentalMaterial3Api::class,
+)
+
+package com.cryptochecker.app.ui.features.watchlist
+
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.lazy.itemsIndexed
+import com.cryptochecker.app.ui.components.ListSegment
+import androidx.compose.ui.graphics.Shape
+import com.cryptochecker.app.ui.theme.AppColors
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.detectDragGestures
+import androidx.compose.foundation.gestures.detectDragGesturesAfterLongPress
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyItemScope
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.produceState
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.zIndex
+import androidx.compose.ui.platform.testTag
+import com.cryptochecker.app.R
+import com.cryptochecker.app.data.SparklineRepository
+import com.cryptochecker.app.data.WatchMove
+import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.live.LiveQuote
+import com.cryptochecker.app.domain.starter.AddMoment
+import com.cryptochecker.app.domain.watch.WatchPulse
+import com.cryptochecker.app.domain.watch.isNotTraded
+import com.cryptochecker.app.ui.theme.Spacing
+import com.cryptochecker.app.ui.UiTestTags
+import kotlinx.coroutines.delay
+
+@Composable
+private fun HintText(text: String, highlight: Boolean = false) {
+    Text(
+        text = text,
+        style = MaterialTheme.typography.bodySmall,
+        color = if (highlight) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
+        modifier = Modifier.padding(horizontal = 4.dp, vertical = 2.dp)
+    )
+}
+
+/**
+ * Kurzer Hinweis zu den Gesten mit Schliessen-Knopf. Zuerst eine Zeile, was ein Tipp bringt («Was bewegt sich
+ * mit?», sonst kaum zu entdecken), darunter die Gesten.
+ */
+@Composable
+private fun GestureHint(onDismiss: () -> Unit) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(MaterialTheme.shapes.medium)
+            .background(AppColors.accentTint(0.08f))
+            .padding(start = Spacing.md, top = 4.dp, bottom = 4.dp)
+    ) {
+        Column(modifier = Modifier.weight(1f)) {
+            Text(
+                text = stringResource(R.string.watch_hint_tap_why),
+                style = MaterialTheme.typography.bodySmall,
+                fontWeight = FontWeight.SemiBold,
+                color = MaterialTheme.colorScheme.onSurface,
+            )
+            Text(
+                text = stringResource(R.string.watch_gesture_hint_short),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurface,
+                modifier = Modifier.padding(top = 2.dp)
+            )
+        }
+        IconButton(onClick = onDismiss) {
+            Icon(
+                painterResource(R.drawable.ic_close),
+                contentDescription = stringResource(R.string.action_close),
+                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.size(18.dp)
+            )
+        }
+    }
+}
+
+/**
+ * Die scrollende Liste unter dem festen Kopf: Puls, Hinweise, leere Zustände und die Paare
+ * ([row] je Paar). «Hier passiert gerade etwas» ist keine Karte mehr, sondern der ⚡-Chip bei
+ * den Gruppen ([GroupChips]). Kein schwebender Plus-Knopf: Hinzufügen läuft über
+ * «+» in der Kopfzeile. Mit Sprungknopf ([roomForJump]) unten mehr Platz, damit er die letzte
+ * Zeile nicht verdeckt.
+ */
+@Composable
+internal fun WatchlistList(
+    listState: LazyListState,
+    inset: Dp,
+    roomForJump: Boolean,
+    pulse: WatchPulse?,
+    /** Sortieren nach Spalte («Name ⇅ · Kurs ⇅ · 24h ⇅»); null = keine Zeile (Sortiermodus, < 2 Paare). */
+    sortBar: (@Composable () -> Unit)? = null,
+    sortMode: Boolean,
+    showGestureHint: Boolean,
+    onDismissGestureHint: () -> Unit,
+    /** Suche ohne Treffer. */
+    noSearchMatch: Boolean,
+    query: String,
+    /** Leere Ansicht (Gruppe ohne Paare): ruhiger Hinweis statt einer leeren Fläche. */
+    groupEmpty: Boolean,
+    /** «FAV» ohne Favoriten: Hinweis, wie man einen setzt (statt des Gruppen-Hinweises). */
+    favoritesEmpty: Boolean = false,
+    shown: List<WatchEntity>,
+    /** Zeile je Paar mit ihrer Form ([ListSegment.shape]: die Paare wirken wie eine Einheit). */
+    row: @Composable LazyItemScope.(WatchEntity, Shape) -> Unit,
+) {
+    LazyColumn(
+        state = listState,
+        modifier = Modifier.fillMaxSize().testTag(UiTestTags.WATCHLIST),
+        contentPadding = PaddingValues(
+            start = 16.dp + inset,
+            top = 8.dp,
+            end = 16.dp + inset,
+            bottom = if (roomForJump) 24.dp + JumpButtonSize + JumpButtonMargin else 24.dp,
+        ),
+        // Paare ohne Fuge als eine Karte ([ListSegment]); alles darüber bringt den Abstand selbst mit
+        verticalArrangement = Arrangement.spacedBy(ListSegment.Gap)
+    ) {
+        // Puls als erste Zeile unter der festen Kopfzeile (scrollt mit), Abstände per spacedBy
+        if (pulse != null) {
+            item(key = "pulse") {
+                WatchPulseLine(pulse = pulse, modifier = Modifier.animateItem().padding(bottom = ListSegment.Spacing))
+            }
+        }
+        if (sortBar != null) {
+            item(key = "sort_bar") { Box(Modifier.padding(bottom = ListSegment.Spacing)) { sortBar() } }
+        }
+        if (sortMode) {
+            item(key = "sort_hint") {
+                Box(Modifier.padding(bottom = ListSegment.Spacing)) {
+                    HintText(stringResource(R.string.watchlist_sort_hint), highlight = true)
+                }
+            }
+        } else if (showGestureHint) {
+            // Einmaliger Gesten-Hinweis, bleibt bis er weggeklickt wird.
+            item(key = "gesture_hint") {
+                Box(Modifier.padding(bottom = ListSegment.Spacing)) { GestureHint(onDismiss = onDismissGestureHint) }
+            }
+        }
+        if (noSearchMatch) {
+            item(key = "search_empty") {
+                ListNote(stringResource(R.string.watchlist_search_empty, query))
+            }
+        }
+        if (groupEmpty) {
+            item(key = "group_empty") {
+                ListNote(stringResource(if (favoritesEmpty) R.string.watchlist_favorites_empty_hint else R.string.watchlist_group_empty_hint))
+            }
+        }
+        itemsIndexed(shown, key = { _, it -> it.id }) { index, watch -> row(watch, ListSegment.shape(index, shown.size)) }
+    }
+}
+
+/** Ruhiger Hinweis mitten in der Liste (keine Treffer, leere Gruppe). */
+@Composable
+private fun ListNote(text: String) {
+    Text(
+        text = text,
+        style = MaterialTheme.typography.bodySmall,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+        textAlign = TextAlign.Center,
+        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 24.dp)
+    )
+}
+
+/**
+ * Ein Paar in der Liste: Ziehen zum Sortieren (lange drücken oder am Griff), Wischen (links
+ * löschen, rechts Favorit; RTL gespiegelt; nicht beim Sortieren), Mini-Chart und Live-Kurs.
+ */
+@Composable
+internal fun LazyItemScope.WatchlistItem(
+    watch: WatchEntity,
+    reorder: ReorderState,
+    searching: Boolean,
+    sortMode: Boolean,
+    /** Form je nach Platz in der Liste ([ListSegment.shape]). */
+    shape: Shape = MaterialTheme.shapes.medium,
+    /** Mehrfachauswahl an: Tipp hakt an/ab, kein Wischen. */
+    selecting: Boolean = false,
+    selected: Boolean = false,
+    onToggleSelected: () -> Unit = {},
+    /** Mini-Charts laden (Einstellung an, genug Breite). */
+    sparklines: Boolean,
+    cachedSparkline: (WatchEntity) -> List<Double>?,
+    loadSparkline: suspend (WatchEntity) -> List<Double>?,
+    /** Börse des Mini-Charts, falls nicht die eigene ([WatchlistViewModel.foreignSparklineSource]). */
+    sparklineSource: (WatchEntity) -> String? = { null },
+    /** Börse der Kerzen hinter der %-Änderung, falls nicht die eigene ([WatchlistViewModel.foreignCandleSource]). */
+    changeSource: (WatchEntity) -> String? = { null },
+    moment: AddMoment?,
+    reduceMotion: Boolean,
+    livePrices: State<Map<Long, LiveQuote>>,
+    rollingBasis: Boolean,
+    alarmCount: Int,
+    now: Long,
+    staleAfter: Long,
+    outdatedAfter: Long,
+    convertTarget: String?,
+    /** Letzte Alarm-Auslösung des Paars (Epoch-ms, 0 = nie), für «Alarm ausgelöst» im Screenreader. */
+    alarmFiredAt: Long = 0L,
+    /** Art des Paars (Symbol vor der Glocke). */
+    kind: com.cryptochecker.app.domain.watch.AssetKind = com.cryptochecker.app.domain.watch.AssetKind.TOKEN,
+    convertRates: Map<String, Double>,
+    /** Abrufzeit alter Devisenkurse (älter als 3 h) je Quote-Währung, siehe [WatchlistViewModel.convertFxTimes]. */
+    convertFxTimes: Map<String, Long> = emptyMap(),
+    hasActivity: Boolean,
+    onOpenWhy: () -> Unit,
+    onOpenActions: () -> Unit,
+    onMove: (WatchMove) -> Unit,
+    /** Löschen mit «Rückgängig» (Wischen, Screenreader-Aktion). */
+    onDelete: () -> Unit,
+    /** Favorit an/aus mit Banner (Wischen, Screenreader-Aktion). */
+    onFavoriteWithBanner: () -> Unit,
+    /** Lange drücken bzw. Screenreader-Aktion «Auswählen»: Mehrfachauswahl mit dieser Zeile starten. */
+    onStartSelection: () -> Unit = {},
+) {
+    val haptics = LocalHapticFeedback.current
+    val dragging = reorder.draggingId == watch.id
+    val lift by animateFloatAsState(if (dragging) 1.03f else 1f, label = "lift")
+    val elevation by animateDpAsState(if (dragging) 12.dp else 0.dp, label = "elevation")
+
+    // Sortieren nur im Sortiermodus (⋯ › Sortieren): dann lange drücken und ziehen oder am Griff.
+    // Ausserhalb startet langes Drücken nichts mehr — ein zögerliches Wischen landete sonst im
+    // Sortiermodus. Während der Suche kein Sortieren — die Reihenfolge wäre mehrdeutig.
+    val dragModifier = if (searching || !sortMode) Modifier else Modifier.pointerInput(watch.id) {
+        detectDragGesturesAfterLongPress(
+            onDragStart = {
+                haptics.performHapticFeedback(HapticFeedbackType.LongPress)
+                reorder.start(watch.id)
+            },
+            onDrag = { change, amount ->
+                change.consume()
+                reorder.drag(amount.y)
+            },
+            onDragEnd = {
+                haptics.performHapticFeedback(HapticFeedbackType.GestureEnd)
+                reorder.end()
+            },
+            onDragCancel = { reorder.end() }
+        )
+    }
+
+    // 24-Stunden-Verlauf: nur für sichtbare Zeilen (LazyColumn), danach alle 15 Min. neu.
+    // Fehler → kein Mini-Chart, keine Meldung. Nicht mehr gehandelt bzw. deaktiviert: keiner (keine Abfrage).
+    val rowSparklines = sparklines && !watch.isNotTraded && !watch.disabled
+    val sparkline by produceState(
+        initialValue = if (rowSparklines) cachedSparkline(watch) else null,
+        watch.baseAsset,
+        watch.quoteAsset,
+        // Erst mit Kurs prüfbar (gleicher Token, SheetChart.sparklineFor)
+        watch.lastPrice != null,
+        rowSparklines,
+    ) {
+        if (!rowSparklines) {
+            value = null
+            return@produceState
+        }
+        var first = true
+        while (true) {
+            val closes = loadSparkline(watch)
+            // Später fehlgeschlagene Abrufe lassen den letzten Verlauf stehen
+            if (closes != null || first) value = closes
+            first = false
+            delay(SparklineRepository.TTL_MILLIS)
+        }
+    }
+
+    // Mini-Chart einer anderen Börse: im Zeilensatz nennen (sichtbar steht es seit L-14 im Aktionsblatt)
+    val chartSource = remember(sparkline, watch.marketKey, watch.lastPrice != null) {
+        if (sparkline != null) sparklineSource(watch) else null
+    }
+
+    // %-Änderung aus fremden Kerzen: kleiner Marker «*» und Satz im Screenreader. Der Anbieter wird bei jeder
+    // Aktualisierung vor dem Speichern gemerkt — neu lesen, sobald ein neuer Stand des Paars kommt
+    val changeProvider = remember(watch) { changeSource(watch) }
+
+    // Teil des Erst-Moments? Dann Platz in der Staffelung, sonst null
+    val celebrateIndex = moment?.indexOf(watch.marketKey, watch.baseAsset, watch.quoteAsset)
+
+    SwipeActionsRow(
+        enabled = !sortMode && !selecting,
+        favorite = watch.favorite,
+        onDelete = onDelete,
+        onToggleFavorite = onFavoriteWithBanner,
+        reduceMotion = reduceMotion,
+        shape = shape,
+        modifier = (
+            if (dragging) Modifier
+                .zIndex(1f)
+                .graphicsLayer {
+                    translationY = reorder.offset
+                    scaleX = lift
+                    scaleY = lift
+                }
+            else Modifier.animateItem()
+        ).then(dragModifier).testTag(UiTestTags.WATCH_ROW),
+    ) {
+        WithLiveQuote(watch, livePrices, rollingBasis = rollingBasis) { shown ->
+            WatchRow(
+                watch = shown,
+                alarmCount = alarmCount,
+                alarmFiredAt = alarmFiredAt,
+                kind = kind,
+                now = now,
+                staleAfter = staleAfter,
+                outdatedAfter = outdatedAfter,
+                converted = convertedPrice(shown, convertTarget, convertRates)?.let { text ->
+                    // Devisenkurs älter als 3 h: dessen Uhrzeit dahinter («≈ 66’120 CHF · Kurs 08:15»)
+                    convertedFxTime(shown, convertFxTimes, now)?.let {
+                        stringResource(R.string.converted_fx_stale, text, com.cryptochecker.app.util.PriceFormat.shortTime(it))
+                    } ?: text
+                },
+                // Im Sortiermodus ausgeblendet (Platz für Griff und Menü)
+                sparkline = sparkline.takeIf { rowSparklines && !sortMode },
+                chartSource = chartSource,
+                changeSource = changeProvider,
+                celebrateKey = moment?.id?.takeIf { celebrateIndex != null },
+                celebrateIndex = celebrateIndex,
+                reduceMotion = reduceMotion,
+                hasActivity = hasActivity,
+                onActivityClick = {
+                    when {
+                        selecting -> onToggleSelected()
+                        !sortMode -> onOpenWhy()
+                    }
+                },
+                elevation = elevation,
+                highlighted = dragging || selected,
+                shape = shape,
+                sortMode = sortMode,
+                selecting = selecting,
+                selected = selected,
+                onClick = {
+                    when {
+                        selecting -> onToggleSelected()
+                        !sortMode -> onOpenActions()
+                    }
+                },
+                onMove = onMove,
+                // Lange drücken: Mehrfachauswahl mit dieser Zeile (wie ⋯ › «Auswählen»), mit Haptik.
+                // Im Sortier- und Auswahlmodus nicht (die Zeile behandelt das selbst).
+                onLongClick = if (sortMode || selecting) null else {
+                    {
+                        haptics.performHapticFeedback(HapticFeedbackType.LongPress)
+                        onStartSelection()
+                    }
+                },
+                // Screenreader: «Löschen» und «Favorit» wie Wischen
+                onDeleteAction = onDelete,
+                onFavoriteAction = onFavoriteWithBanner,
+                // Screenreader: «Nach oben/unten» wie Ziehen (nicht während der Suche)
+                canReorder = !searching,
+                // Am Griff ohne Warten ziehen
+                handleModifier = Modifier.pointerInput(watch.id) {
+                    detectDragGestures(
+                        onDragStart = {
+                            haptics.performHapticFeedback(HapticFeedbackType.LongPress)
+                            reorder.start(watch.id)
+                        },
+                        onDrag = { change, amount ->
+                            change.consume()
+                            reorder.drag(amount.y)
+                        },
+                        onDragEnd = {
+                            haptics.performHapticFeedback(HapticFeedbackType.GestureEnd)
+                            reorder.end()
+                        },
+                        onDragCancel = { reorder.end() }
+                    )
+                }
+            )
+        }
+    }
+}

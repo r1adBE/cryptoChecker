@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Texte der Mitteilungen -->
+    <string name="notification_activity_title">%1$s · %2$s</string>
+    <string name="notification_alarm_text">%1$s — כעת %2$s</string>
+    <string name="notification_alarm_title">התראה: %1$s · %2$s</string>
+    <string name="notification_depeg_action_exchange">פתח בורסה</string>
+    <string name="notification_depeg_text">הערכים באפליקציה ממשיכים לחשב לפי USDT = 1.</string>
+    <string name="notification_depeg_title">USDT ב-%1$s USD (%2$s)</string>
+    <string name="notification_fng_above">המדד עלה מעל %1$d – לפי מדד זה שוררת בשוק תאוות בצע.</string>
+    <string name="notification_fng_below">המדד ירד מתחת ל-%1$d – לפי מדד זה שורר בשוק פחד.</string>
+    <string name="notification_fng_title">Fear &amp; Greed: %1$d</string>
+    <string name="notification_gas_btc_text">מתחת לסף שלך של %1$s sat/vB · העברה ≈ %2$s</string>
+    <string name="notification_gas_btc_title">עמלת Bitcoin: %1$s sat/vB</string>
+    <string name="notification_gas_eth_text">מתחת לסף שלך של %1$s gwei · העברה ≈ %2$s</string>
+    <string name="notification_gas_eth_title">גז Ethereum: %1$s gwei</string>
+    <string name="notification_indicator_above">מעל הגבול שלך %1$s – ערך מדוד, לא המלצה.</string>
+    <string name="notification_indicator_below">מתחת לגבול שלך %1$s – ערך מדוד, לא המלצה.</string>
+    <string name="notification_indicator_title">%1$s: %2$s</string>
+    <string name="notification_macro_title">נתונים כלכליים היום</string>
+    <string name="notification_portfolio_alarm_locked">ההתראה שלך הופעלה – פתח את האפליקציה לפרטים.</string>
+    <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
+    <string name="notification_portfolio_alarm_text">%1$s – עכשיו %2$s</string>
+    <string name="notification_portfolio_alarm_title">שווי התיק</string>
+    <string name="notification_price_change">%1$s, מ־%2$s (לפני %3$s)</string>
+    <string name="notification_price_change_no_age">%1$s, מ־%2$s</string>
+    <string name="notification_price_first">עדכון מחיר ראשון לצמד זה</string>
+    <plurals name="notification_price_overflow_title">
+        <item quantity="one">+%1$d שער נוסף</item>
+        <item quantity="two">+%1$d שערים נוספים</item>
+        <item quantity="other">+%1$d שערים נוספים</item>
+    </plurals>
+    <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
+    <string name="notification_refreshing">מעדכן מחירים…</string>
+    <string name="notification_volume_spike_text">מחזור פי %1$s מהרגיל בשעה האחרונה</string>
+
+    <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
+    <string name="channel_alarms">התראות מחיר</string>
+    <string name="channel_alarms_description">נשלחת כאשר התראה מופעלת.</string>
+    <string name="channel_alarms_quiet">התראות מחיר (שעות דממה)</string>
+    <string name="channel_alarms_quiet_description">התראות מחיר שקטות בשעות הדממה.</string>
+    <string name="channel_alarms_silent">התראות מחיר (שקט)</string>
+    <string name="channel_alarms_sound">התראות מחיר (צליל בלבד)</string>
+    <string name="channel_alarms_sound_vibrate">התראות מחיר (צליל ורטט)</string>
+    <string name="channel_alarms_vibrate">התראות מחיר (רטט בלבד)</string>
+    <string name="channel_prices">עדכוני מחיר בשורת המצב</string>
+    <string name="channel_prices_description">עדכון מחיר שקט עם המחיר הנוכחי של צמד.</string>
+    <string name="channel_service">עדכון מחירים</string>
+    <string name="channel_service_description">הודעה בזמן שהמחירים מתעדכנים.</string>
+    <string name="neutral_channel_market">הודעות שוק</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed, עמלות גז, פעילות חריגה ומועדים כלכליים</string>
+
+    <!-- Sprachausgabe -->
+    <string name="tts_alarm">התראה. %1$s, %2$s %3$s %4$s, כעת %5$s</string>
+    <string name="tts_direction_down">ירד</string>
+    <string name="tts_direction_funding_above">עם מימון גבוה</string>
+    <string name="tts_direction_funding_below">עם מימון נמוך</string>
+    <string name="tts_direction_move">זז בחדות</string>
+    <string name="tts_direction_near_high">קרוב לשיא</string>
+    <string name="tts_direction_near_low">קרוב לשפל</string>
+    <string name="tts_direction_oi_down">עם Open interest יורד</string>
+    <string name="tts_direction_oi_up">עם Open interest עולה</string>
+    <string name="tts_direction_up">עלה</string>
+    <string name="tts_direction_volume_spike">עם זינוק במחזור</string>
+    <string name="tts_price">%1$s, %2$s %3$s, %4$s</string>
+</resources>

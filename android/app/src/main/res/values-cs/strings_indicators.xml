@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Neutrale Indikatoren: Titel, Hinweise, Halving -->
+    <string name="neutral_alt_title">Altcoiny vs. bitcoin</string>
+    <string name="neutral_btc_indicators_title">Ukazatele bitcoinu</string>
+    <string name="neutral_halving_last">Poslední halving: %1$s</string>
+    <string name="neutral_halving_next">Další halving se čeká kolem %1$s (odhad podle kalendáře – výška bloku teď není k dispozici).</string>
+    <string name="neutral_indicators_disclaimer">Pouze naměřené hodnoty, bez hodnocení. Nejde o předpověď ani investiční poradenství.</string>
+    <string name="neutral_onchain_missing">On-chain data (Coin Metrics) teď nejsou k dispozici.</string>
+
+    <!-- Neutrale Indikatoren: was der Wert misst -->
+    <string name="neutral_explain_ath_distance">Jak daleko je cena pod dosavadním historickým maximem.</string>
+    <string name="neutral_explain_change_30d">Dnešní cena oproti ceně před 30 dny.</string>
+    <string name="neutral_explain_hashrate">30denní průměrný hashrate oproti 60dennímu průměru.</string>
+    <string name="neutral_explain_ma200w">Průměr posledních 200 týdenních závěrů.</string>
+    <string name="neutral_explain_mayer">Cena dělená 200denním průměrem.</string>
+    <string name="neutral_explain_mvrv">Tržní hodnota dělená realizovanou hodnotou (on-chain).</string>
+    <string name="neutral_explain_pi_gap">111denní průměr ve srovnání s dvojnásobkem 350denního průměru.</string>
+    <string name="neutral_explain_puell">Denní příjmy těžařů dělené jejich 365denním průměrem.</string>
+    <string name="neutral_explain_rsi_daily">Index relativní síly za posledních 14 dní, 0–100.</string>
+    <string name="neutral_explain_rsi_weekly">Index relativní síly za posledních 14 týdnů, 0–100.</string>
+    <string name="neutral_explain_sma50_200">50denní průměr oproti 200dennímu průměru.</string>
+    <string name="neutral_explain_vs_btc">Změna ceny vůči bitcoinu za 90 dní.</string>
+
+    <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
+    <string name="neutral_info_alt_season_how">Aplikace ukazuje jen počet a nenazývá ho „sezónou“. Hodnota se obvykle mění v řádu dní, ne hodin.</string>
+    <string name="neutral_info_btc_how">U každé hodnoty je věta, co měří, a kde leží ve své vlastní historii od roku 2016. Aplikace hodnoty nehodnotí a neodvozuje fázi trhu; hranice pro upozornění jsou jen ty, které si nastavíš. Minulé vzorce se nemusí opakovat.</string>
+    <string name="neutral_info_btc_what">Běžné ukazatele Bitcoinu jako čisté naměřené hodnoty: Mayer Multiple, 200týdenní průměr, pokles z historického maxima, změna za 30 dní, odstup Pi Cycle a on-chain hodnoty MVRV, Puell Multiple a hashrate.</string>
+    <string name="neutral_info_coin_how">U každé hodnoty je jedna věta o tom, co měří, bez hodnocení. U mincí s krátkou historií některé hodnoty chybí. On-chain data se zde nezahrnují.</string>
+    <string name="neutral_info_coin_what">Tytéž prosté ukazatele pro zvolenou minci, jen z cenových dat: Mayer Multiple, 200týdenní průměr, pokles od maxima, změna za 30 dní, trend 50/200 dní, RSI a síla vůči bitcoinu za 90 dní.</string>
+    <string name="neutral_info_halving_how">Další halving se počítá z aktuální výšky bloku a průměrné doby bloku v probíhajícím období obtížnosti (mempool.space); bez těchto dat podle kalendáře (poslední halving plus asi čtyři roky). Graf ukazuje vývoj kurzu dřívějších cyklů od jejich halvingu – historie, ne předpověď.</string>
+
+    <!-- Indikator-Namen -->
+    <string name="ind_cross">Trend 50/200 dní</string>
+    <string name="ind_drawdown">Pokles od historického maxima</string>
+    <string name="ind_missing">málo dat</string>
+    <string name="ind_rsi_daily">RSI (denní)</string>
+    <string name="ind_rsi_weekly">RSI (týdenní)</string>
+    <string name="ind_vs_btc">Síla vůči bitcoinu (90 dní)</string>
+    <string name="neutral_ind_change_30d">Změna za 30 dní</string>
+    <string name="neutral_ind_hashrate">Hashrate 30/60 dní</string>
+    <string name="neutral_ind_ma200w">200týdenní průměr</string>
+    <string name="neutral_ind_pi_gap">Odstup Pi Cycle</string>
+
+    <!-- Indikatoren: «hoch heisst …, tief heisst …» -->
+    <string name="ind_read_alt_season">Vysoká znamená, že většina velkých altcoinů za 90 dní předběhla Bitcoin, nízká, že Bitcoin předběhl většinu.</string>
+    <string name="ind_read_ath_distance">Malý znamená, že cena je blízko rekordu, velký, že je hluboko pod ním.</string>
+    <string name="ind_read_change_30d">Kladná znamená výš než před 30 dny, záporná níž.</string>
+    <string name="ind_read_funding">Vysoká znamená, že mnoho lidí sází s pákou na růst, záporná, že mnoho sází na pokles.</string>
+    <string name="ind_read_hashrate_30_60">Kladná znamená, že výpočetní výkon roste, záporná, že těžaři vypínají.</string>
+    <string name="ind_read_leverage">Hodně longů znamená, že mnozí sází za půjčené peníze na růst, hodně shortů na pokles.</string>
+    <string name="ind_read_ma200w">Cena vysoko nad ním znamená dlouhý růst, cena blízko hlubokou korekci.</string>
+    <string name="ind_read_mayer">Vysoká hodnota znamená, že cena je hodně nad 200denním průměrem, nízká, že je pod ním.</string>
+    <string name="ind_read_mvrv">Vysoká znamená, že cena je hodně nad tím, co držitelé v průměru zaplatili, nízká, že je blízko nebo pod tím.</string>
+    <string name="ind_read_pi_cycle_gap">Blízko nuly znamená, že se oba průměry téměř protínají, silně záporná, že jsou daleko od sebe.</string>
+    <string name="ind_read_puell">Vysoká znamená, že těžaři vydělávají mnohem víc než obvykle, nízká mnohem méně.</string>
+    <string name="ind_read_rsi_daily">Nad 70 znamená silné zisky v posledních dnech, pod 30 silné ztráty.</string>
+    <string name="ind_read_rsi_weekly">Nad 70 znamená silné zisky v posledních týdnech, pod 30 silné ztráty.</string>
+    <string name="ind_read_sma50_vs_200">Kladná znamená, že krátký průměr je nad dlouhým, záporná pod ním.</string>
+    <string name="ind_read_vs_btc">Kladná znamená lépe než Bitcoin, záporná hůř.</string>
+
+    <!-- Indikatoren: Einordnung in die Vergangenheit -->
+    <string name="ind_context_flat30">Stejný kurz 30 dní: %1$s</string>
+    <string name="ind_context_note">Minulé hodnoty a výpočty „stejný kurz“ jsou počty, ne předpověď.</string>
+    <string name="ind_context_percentile">Od %1$s níže v %2$s dní</string>
+</resources>

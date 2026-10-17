@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Tab, leere Ansicht, Einschalten, Sperre -->
+    <string name="app_lock_unavailable">روی این دستگاه قفل صفحه تنظیم نشده است. ابتدا یکی را در تنظیمات سیستم تنظیم کنید.</string>
+    <string name="app_lock_unlock">باز کردن قفل</string>
+    <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
+    <string name="portfolio_clear">خالی کردن پرتفوی</string>
+    <plurals name="portfolio_clear_confirm_count">
+        <item quantity="one">%d تراکنش حذف شود؟ آدرس‌های زیر نظر باقی می‌مانند. این کار قابل بازگشت نیست.</item>
+        <item quantity="other">همهٔ %d تراکنش حذف شوند؟ آدرس‌های زیر نظر باقی می‌مانند. این کار قابل بازگشت نیست.</item>
+    </plurals>
+    <string name="portfolio_disclaimer">مبالغ روی دستگاه می‌مانند مگر اینکه خودت آن‌ها را خروجی بگیری؛ برای قیمت فقط نماد جفت‌ها به صرافی همان جفت فرستاده می‌شود. گره‌های عمومی بلاکچین آدرس‌های زیر نظر و IP تو را می‌بینند. توصیه سرمایه‌گذاری نیست.</string>
+    <string name="portfolio_empty_action">افزودن اولین خرید</string>
+    <string name="portfolio_empty_address">فقط دنبال کردن نشانی کیف پول</string>
+    <string name="portfolio_empty_csv">از صرافی خریدید؟ وارد کردن فایل</string>
+    <string name="portfolio_empty_example_plain">مثال: خرید 0.01 BTC در ۱ مارس. برنامه نشان می‌دهد امروز چقدر می‌ارزد و در سود هستید یا زیان – فقط روی همین دستگاه ذخیره می‌شود.</string>
+    <string name="portfolio_empty_text">آنچه خریده‌اید را وارد کنید – برنامه نشان می‌دهد امروز چقدر می‌ارزد و چقدر در سود یا زیان هستید.</string>
+    <string name="portfolio_empty_title">هنوز تراکنشی نیست</string>
+    <string name="portfolio_enable_ask_text">تراکنشت ذخیره شد. زبانهٔ پرتفوی دارایی‌ها و ارزششان را نشان می‌دهد.</string>
+    <string name="portfolio_enable_ask_title">زبانهٔ پرتفوی روشن شود؟</string>
+    <string name="portfolio_enable_later_hint">تراکنش ذخیره شد. زبانهٔ پرتفوی را می‌توانی در تنظیمات › پیشرفته › پرتفوی روشن کنی.</string>
+    <string name="portfolio_enabled_banner">سبد روشن شد – آن را در زبانهٔ سبد پیدا می‌کنی.</string>
+    <string name="portfolio_lock_reason">باز کردن قفل پرتفوی</string>
+    <string name="portfolio_locked_text">برای دیدن دارایی‌ها و ارزش‌ها قفل را باز کنید.</string>
+    <string name="portfolio_locked_title">پرتفوی قفل است</string>
+    <string name="portfolio_setting_hint">اختیاری: خرید و فروش‌ها را ثبت کنید و ارزش و سود/زیان را در یک زبانه جداگانه ببینید.</string>
+    <!-- Status-Pille wie in der Merkliste: Kurse älter als die Frische-Schwelle, Gerät online. Offline: offline_status_since, alles aktuell: watchlist_all_fresh -->
+    <string name="portfolio_status_stale">قدیمی · تا %1$s</string>
+    <plurals name="portfolio_system_restore_invalid">
+        <item quantity="one">%d ورودی از پشتیبان سیستم نامعتبر بود و بازیابی نشد.</item>
+        <item quantity="other">%d ورودی از پشتیبان سیستم نامعتبر بودند و بازیابی نشدند.</item>
+    </plurals>
+    <string name="portfolio_title">پرتفوی</string>
+    <string name="portfolio_unassigned_fee">کارمزد تخصیص نیافت – بها نامشخص: %1$s</string>
+    <string name="portfolio_updated">قیمت‌ها تا %1$s</string>
+
+    <!-- Portfolio: Gesamtwert-Kopf (Heute · 7 T · Gesamt) und Aufteilung -->
+    <string name="portfolio_allocation_other">سایر</string>
+    <string name="portfolio_allocation_title">توزیع</string>
+    <string name="portfolio_card_details">جزئیات</string>
+    <!-- Screenreader, Kennzahl ohne Wert; %1$s Beschriftung (z. B. «7 Tage») -->
+    <string name="portfolio_card_figure_none_a11y">%1$s: هنوز در دسترس نیست</string>
+    <string name="portfolio_card_hints_count">نکته‌ها (%1$d)</string>
+    <string name="portfolio_card_today">امروز</string>
+    <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
+    <string name="portfolio_card_total">کل</string>
+    <string name="portfolio_hide_amounts">پنهان کردن مبالغ</string>
+    <string name="portfolio_hide_amounts_hint">مبالغ و ارزش‌ها را در پرتفوی و ابزارک پرتفوی به‌صورت ••• نشان می‌دهد – درصدها دیده می‌شوند.</string>
+    <string name="portfolio_invested">بهای تمام‌شده</string>
+    <string name="portfolio_total_no_fx">نرخ ارز برای %1$s نیست – مبالغ به USDT</string>
+    <string name="portfolio_total_value">ارزش کل</string>
+    <string name="portfolio_value">ارزش</string>
+
+    <!-- Portfolio: Bestand, offene Positionen, Durchschnittspreis -->
+    <string name="portfolio_avg_and_now">میانگین %1$s · اکنون %2$s</string>
+    <string name="portfolio_avg_only">میانگین %1$s</string>
+    <string name="portfolio_avg_open_lots">میانگین بهای تمام‌شدهٔ سکه‌های نگه‌داشته</string>
+    <string name="portfolio_avg_partial">میانگین %1$s دارای قیمت خرید</string>
+    <string name="portfolio_avg_price">میانگین قیمت خرید</string>
+    <string name="portfolio_avg_price_hint">میانگین قیمت خرید: میانگین همه خریدها، وزن‌دهی‌شده با مقدار. فروش‌ها با همین میانگین ارزش‌گذاری می‌شوند.</string>
+    <plurals name="portfolio_closed">
+        <item quantity="one">موقعیت‌های بسته (%1$d)</item>
+        <item quantity="other">موقعیت‌های بسته (%1$d)</item>
+    </plurals>
+    <string name="portfolio_fifo_hint">FIFO: فروش‌ها اول از قدیمی‌ترین سکه‌هایت کم می‌شوند. میانگین = بهای تمام‌شدهٔ باقی‌مانده ÷ مقدار دارای قیمت خرید.</string>
+    <string name="portfolio_holdings">دارایی</string>
+    <string name="portfolio_lost_fee_cost">بهای کارمزد شبکه بدون بخش پرداخت‌شده: %1$s</string>
+    <string name="portfolio_open_lots">بخش‌های خرید باز (%1$d)</string>
+    <string name="portfolio_open_lots_avg">با قیمت خرید (Ø)</string>
+    <string name="portfolio_open_lots_no_cost">بدون قیمت خرید</string>
+    <string name="portfolio_open_lots_without_price">بدون قیمت خرید</string>
+    <string name="portfolio_realized">سود/زیان تحقق‌یافته</string>
+    <string name="portfolio_unrealized">سود/زیان تحقق‌نیافته</string>
+    <string name="portfolio_unrealized_without_unpriced">بدون %1$s بدون قیمت خرید</string>
+    <string name="portfolio_withdrawn_gain">برداشت‌شده: %1$s (تغییر ارزش تا زمان برداشت)</string>
+
+    <!-- Portfolio: Kurse und Umrechnung -->
+    <string name="portfolio_convert_to">تبدیل به</string>
+    <string name="portfolio_convert_to_value">تبدیل به: %1$s</string>
+    <string name="portfolio_current_missing">قیمت فعلی برای %1$s موجود نیست</string>
+    <string name="portfolio_current_price">قیمت فعلی</string>
+    <string name="portfolio_price_missing">قیمت ثبت نشده</string>
+    <string name="portfolio_price_missing_hint">برخی خریدها قیمت ندارند. برای دیدن سود/زیان، قیمت خرید را اضافه کنید.</string>
+    <string name="portfolio_price_source">قیمت‌ها: Binance · ‏USDT = 1</string>
+    <string name="portfolio_price_source_routes">قیمت‌ها: %1$s، در غیر این صورت Binance · ‏USDT = 1</string>
+    <string name="portfolio_price_unavailable">قیمت فعلاً در دسترس نیست</string>
+    <string name="portfolio_price_unchecked">قیمت بررسی‌نشده</string>
+    <string name="portfolio_price_via_base">≈ قیمت %1$s (پل‌شده/بسته‌بندی‌شده)</string>
+    <string name="portfolio_usdt_as_usd">USDT با نرخ USD تبدیل شده</string>
+    <string name="portfolio_usdt_assumed">فرض شده USDT = 1</string>
+    <string name="portfolio_usdt_depeg_warning">فرض شده USDT = 1 – بازار روی %1$s USD (%2$s)</string>
+
+    <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
+    <string name="portfolio_add_from_watch">افزودن به پرتفوی</string>
+    <string name="portfolio_add_tx">ثبت تراکنش</string>
+    <string name="portfolio_buy">خرید</string>
+    <string name="portfolio_coin">کوین</string>
+    <string name="portfolio_coin_invalid">یک نماد وارد کنید</string>
+    <string name="portfolio_coin_search">جستجوی نماد، مثلاً BTC</string>
+    <string name="portfolio_discard_confirm">کنار گذاشتن</string>
+    <string name="portfolio_discard_keep">ادامهٔ ویرایش</string>
+    <string name="portfolio_discard_title">تغییرات کنار گذاشته شود؟</string>
+    <string name="portfolio_edit_tx">ویرایش تراکنش</string>
+    <string name="portfolio_invalid">مقدار نامعتبر</string>
+    <string name="portfolio_oversold">فروش‌ها از موجودی بیشتر است – تراکنش‌ها را بررسی کنید.</string>
+    <string name="portfolio_sell">فروش</string>
+    <string name="portfolio_sell_exceeds">بیشتر از موجودی شما (%1$s)</string>
+    <string name="portfolio_sell_exceeds_fee">مقدار به‌علاوهٔ کارمزد بیشتر از دارایی توست (%1$s)</string>
+    <string name="portfolio_sell_exceeds_wallet">بیشتر از دارایی تو در %2$s (%1$s)</string>
+    <string name="portfolio_transactions">تراکنش‌ها</string>
+    <string name="portfolio_tx_acquired_date">تاریخ خرید اصلی (اختیاری)</string>
+    <string name="portfolio_tx_acquired_date_hint">برای مدت نگهداری در خروجی مالیاتی</string>
+    <string name="portfolio_tx_amount">مقدار</string>
+    <string name="portfolio_tx_coin_fee">کارمزد به سکه (اختیاری)</string>
+    <string name="portfolio_tx_date">تاریخ</string>
+    <string name="portfolio_tx_delete_confirm">این تراکنش از پرتفوی حذف می‌شود.</string>
+    <string name="portfolio_tx_delete_title">تراکنش حذف شود؟</string>
+    <string name="portfolio_tx_deposit">واریز</string>
+    <string name="portfolio_tx_entry_currency">ورود به</string>
+    <string name="portfolio_tx_explain_deposit">دارایی بدون معامله، مثلاً سکه‌های قبلی</string>
+    <string name="portfolio_tx_explain_gift">کوین‌ها مثل برداشت از دارایی خارج می‌شوند – واگذاری به ارزش بازار فقط جایی که کشور هدیه را این‌گونه مالیات می‌گیرد (UK، CA، AU)</string>
+    <string name="portfolio_tx_explain_payment">پرداخت برای کالا یا خدمات – واگذاری به ارزش بازار مثل فروش، بدون دریافت پول</string>
+    <string name="portfolio_tx_explain_reward">بهای تمام‌شده = ارزش بازار هنگام دریافت</string>
+    <string name="portfolio_tx_explain_swap">سکه در برابر سکه: فروش سکهٔ داده‌شده، خرید سکهٔ دریافتی</string>
+    <string name="portfolio_tx_explain_transfer">بدون سود – بهای تمام‌شده همراه سکه‌ها منتقل می‌شود</string>
+    <string name="portfolio_tx_explain_withdrawal">دارایی از سبد خارج می‌شود – بدون فروش، بدون سود</string>
+    <string name="portfolio_tx_fee_consumes_amount">کارمزد به اندازهٔ مقدار دریافتی است – چیزی باقی نمی‌ماند.</string>
+    <string name="portfolio_tx_fees_toggle">کارمزدها</string>
+    <string name="portfolio_tx_fiat_converted">≈ %1$s با نرخ %2$s</string>
+    <string name="portfolio_tx_fiat_loading">در حال بارگیری نرخ ارز…</string>
+    <string name="portfolio_tx_fiat_no_fx">برای این روز نرخ ارز نیست – مبلغ را به USDT وارد کن.</string>
+    <string name="portfolio_tx_gift">هدیه</string>
+    <string name="portfolio_tx_gift_price_hint">به USDT. خالی = قیمت پایانی آن روز (تخمینی).</string>
+    <string name="portfolio_tx_gift_spouse">به همسر / شریک زندگی</string>
+    <string name="portfolio_tx_gift_spouse_hint">بریتانیا و کانادا: بدون سود و بدون زیان – شریکت بهای تمام‌شده تو را می‌گیرد. کشورهای دیگر این را نادیده می‌گیرند.</string>
+    <string name="portfolio_tx_market_value">ارزش بازار هر کوین</string>
+    <string name="portfolio_tx_more_buy">کارمزد، صرافی، یادداشت</string>
+    <string name="portfolio_tx_network_fee">کارمزد شبکه به سکه (اختیاری)</string>
+    <string name="portfolio_tx_note">یادداشت (اختیاری)</string>
+    <string name="portfolio_tx_payment">پرداخت با آن</string>
+    <string name="portfolio_tx_price">قیمت هر کوین</string>
+    <string name="portfolio_tx_price_hint">به USDT. اگر نمی‌دانید خالی بگذارید.</string>
+    <string name="portfolio_tx_price_historic">قیمت بسته‌شدن روزانهٔ بررسی‌شده در %1$s – در صورت نیاز تغییرش بده</string>
+    <string name="portfolio_tx_price_invalid">قیمت نامعتبر</string>
+    <string name="portfolio_tx_price_past_hint">قیمت روز معامله را وارد کن – اگر نمی‌دانی خالی بگذار</string>
+    <string name="portfolio_tx_price_receipt_hint">به USDT. خالی = دارایی بدون بهای تمام‌شده.</string>
+    <string name="portfolio_tx_price_zero">قیمت 0 برای تراکنش‌های واردشده ممکن نیست – برای قیمت بازار خالی بگذار</string>
+    <string name="portfolio_tx_removed">تراکنش حذف شد</string>
+    <string name="portfolio_tx_reward">پاداش</string>
+    <string name="portfolio_tx_save_failed">تراکنش ذخیره نشد. ورودی‌هایت هنوز اینجاست – دوباره امتحان کن.</string>
+    <string name="portfolio_tx_swap">تبادل</string>
+    <string name="portfolio_tx_swap_fee_received">کارمزد به %1$s: مقدار دریافتی را کم می‌کند، قیمت لازم نیست.</string>
+    <string name="portfolio_tx_swap_from">تبادل از %1$s</string>
+    <string name="portfolio_tx_swap_given_amount">مقدار داده‌شده</string>
+    <string name="portfolio_tx_swap_given_coin">سکهٔ داده‌شده</string>
+    <string name="portfolio_tx_swap_received_amount">مقدار دریافتی</string>
+    <string name="portfolio_tx_swap_received_coin">سکهٔ دریافتی</string>
+    <string name="portfolio_tx_swap_same_coin">سکه‌ای غیر از سکهٔ داده‌شده انتخاب کن</string>
+    <string name="portfolio_tx_swap_to">تبادل به %1$s</string>
+    <string name="portfolio_tx_swap_value">ارزش تبادل (اختیاری)</string>
+    <string name="portfolio_tx_swap_value_hint">ارزش کل. خالی = نامعلوم – سود ناقص می‌ماند (با USDT در تبادل خودکار است).</string>
+    <string name="portfolio_tx_third_fee_amount">مقدار کارمزد</string>
+    <string name="portfolio_tx_third_fee_coin">سکهٔ کارمزد</string>
+    <string name="portfolio_tx_third_fee_incomplete">بدون قیمت، کارمزد در بهای تمام‌شده و درآمد فروش حساب نمی‌شود؛ خروجی مالیاتی این فروش‌ها را علامت می‌زند.</string>
+    <string name="portfolio_tx_third_fee_price">قیمت هر سکهٔ کارمزد (اختیاری)</string>
+    <string name="portfolio_tx_third_fee_toggle">کارمزد به سکهٔ دیگر</string>
+    <string name="portfolio_tx_total">مجموع: %1$s</string>
+    <string name="portfolio_tx_transfer">انتقال</string>
+    <string name="portfolio_tx_transfer_from">مبدأ (اختیاری)</string>
+    <string name="portfolio_tx_transfer_to">مقصد (اختیاری)</string>
+    <string name="portfolio_tx_transfer_to_hint">صرافی یا کیف پول – از این پس همان‌جا ارزش‌گذاری می‌شود.</string>
+    <string name="portfolio_tx_type_select">نوع: %1$s</string>
+    <string name="portfolio_tx_value_received">ارزش هر سکه هنگام دریافت (اختیاری)</string>
+    <string name="portfolio_tx_withdrawal">برداشت</string>
+    <string name="portfolio_tx_withdrawal_gift_hint">هدیه دادی یا با آن پرداخت کردی؟ آن را به‌صورت ‹هدیه› یا ‹پرداخت با آن› ثبت کن – بسته به کشور، از نظر مالیاتی فروش است.</string>
+    <string name="portfolio_tx_withdrawal_price_hint">اختیاری: ارزش بازار به USDT، فقط برای تاریخچه (خالی = قیمت همان روز). سکه‌ها همیشه با بهای تمام‌شده خارج می‌شوند.</string>
+    <string name="portfolio_wallet_did_you_mean">منظورت %1$s بود؟ املای دیگر کیف پول جداگانه حساب می‌شود.</string>
+    <string name="portfolio_wallet_shortfall">دارایی در %1$s کافی نیست – انتقالی جا افتاده؟</string>
+
+    <!-- Portfolio: Wertverlauf (Zeitraum, Vergleich Währung | USDT, Währungseffekt) -->
+    <!-- Höchster Tageswert des Zeitraums am Punkt («Hoch 12’345») -->
+    <string name="portfolio_chart_high">بیشینه %1$s</string>
+    <string name="portfolio_compare">مقایسه</string>
+    <!-- Umschalter «Vergleich», Screenreader: %1$s Währung -->
+    <string name="portfolio_compare_a11y">مقایسهٔ %1$s و USDT به درصد</string>
+    <!-- %1$s Zeitraum, %2$s Währung, %3$s und %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="portfolio_compare_chart_a11y">مقایسه به درصد، %1$s: %2$s %3$s، USDT %4$s</string>
+    <!-- %1$s Prozentpunkte mit Vorzeichen («−5.10%»): Veränderung in der Währung minus in USDT -->
+    <string name="portfolio_currency_effect">اثر ارز: %1$s</string>
+    <!-- «Seit 1. Kauf» beginnt frühestens beim ersten Tag mit Kursdaten -->
+    <string name="portfolio_history_capped_data_start">داده‌های قیمت فقط تا اوت ۲۰۱۷ عقب می‌روند — روند از آنجا شروع می‌شود.</string>
+    <string name="portfolio_history_chip_since_first">از زمان خرید</string>
+    <string name="portfolio_history_collapse">پنهان کردن روند ارزش</string>
+    <string name="portfolio_history_converted">تبدیل‌شده با نرخ امروز</string>
+    <string name="portfolio_history_expand">نمایش روند ارزش</string>
+    <string name="portfolio_history_gain_a11y">ارزش %1$s. سود/زیان، %2$s: %3$s</string>
+    <string name="portfolio_history_gain_label">سود/زیان</string>
+    <!-- Umschalter, Screenreader: %1$s Währung («CHF») oder «USDT» -->
+    <string name="portfolio_history_in_a11y">ارزش به %1$s</string>
+    <string name="portfolio_history_incl_fx">با احتساب نرخ ارز</string>
+    <string name="portfolio_history_incl_withdrawn">شامل تغییر ارزش سکه‌های برداشت‌شده</string>
+    <string name="portfolio_history_includes_trades">شامل خرید و فروش‌های این بازه</string>
+    <string name="portfolio_history_loading">در حال بارگیری روند ارزش</string>
+    <string name="portfolio_history_period_1y">۱ سال</string>
+    <string name="portfolio_history_period_30d">۳۰ روز</string>
+    <string name="portfolio_history_period_7d">۷ روز</string>
+    <string name="portfolio_history_period_since_first">از اولین خرید</string>
+    <string name="portfolio_history_pnl_needs_prices">برای سود/زیان قیمت خرید کم است – آن‌ها را در تراکنش‌ها اضافه کن.</string>
+    <string name="portfolio_history_pnl_without">سود/زیان بدون %1$s (قیمت موجود نیست)</string>
+    <string name="portfolio_history_range_1y">۱ سال</string>
+    <string name="portfolio_history_range_30d">۳۰ روز</string>
+    <string name="portfolio_history_range_7d">۷ روز</string>
+    <string name="portfolio_history_range_a11y">نمایش روند %1$s</string>
+    <string name="portfolio_history_range_since_first">از اولین خرید</string>
+    <string name="portfolio_history_scaled">سابقه برای %1$s: سابقهٔ Binance مقیاس‌شده با قیمت صرافی</string>
+    <string name="portfolio_history_title">روند ارزش</string>
+    <string name="portfolio_history_today">امروز</string>
+    <string name="portfolio_history_too_short">روند پس از نخستین روز کامل شما آغاز می‌شود.</string>
+    <string name="portfolio_history_unavailable">اکنون روندی در دسترس نیست.</string>
+    <string name="portfolio_history_utc_days">روزها به UTC (کندل‌های روزانه)</string>
+    <string name="portfolio_history_without_matching">بدون %1$s (قیمت روزانهٔ منطبق نیست)</string>
+    <string name="portfolio_period_rewards">پاداش‌ها +%1$s (خارج از سود)</string>
+    <string name="portfolio_period_scaled">۷ روز/۱ سال برای %1$s: سابقهٔ Binance مقیاس‌شده با قیمت صرافی</string>
+
+    <!-- Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_alarm_action">هشدار</string>
+    <!-- %1$s = Währung, z. B. CHF -->
+    <string name="portfolio_alarm_amount">مبلغ (%1$s)</string>
+    <string name="portfolio_alarm_hint">پس از هر به‌روزرسانی بررسی می‌شود. مانند هشدارها: هنگام عبور از حد خبر می‌دهد و دوباره فقط پس از بازگشت ارزش.</string>
+    <string name="portfolio_alarm_kind_above">پرتفوی بالای مبلغ</string>
+    <string name="portfolio_alarm_kind_below">پرتفوی زیر مبلغ</string>
+    <string name="portfolio_alarm_kind_down">پرتفوی پایین می‌آید</string>
+    <string name="portfolio_alarm_kind_up">پرتفوی بالا می‌رود</string>
+    <!-- %1$s = Betrag mit Währung (oder •••) -->
+    <string name="portfolio_alarm_sentence_above">پرتفوی بالای %1$s</string>
+    <string name="portfolio_alarm_sentence_below">پرتفوی زیر %1$s</string>
+    <string name="portfolio_alarm_sentence_down">پرتفوی %1$s پایین آمد (%2$s)</string>
+    <!-- %1$s = Prozent, %2$s = Basis der %-Änderung kurz (24h, heute …) -->
+    <string name="portfolio_alarm_sentence_up">پرتفوی %1$s بالا رفت (%2$s)</string>
+    <string name="portfolio_alarm_title">هشدار «ارزش پرتفوی»</string>
+
+    <!-- Gebühr, Börse und Gewinn/Verlust einer Position -->
+    <string name="ledger_exchange">صرافی (اختیاری)</string>
+    <string name="ledger_exchange_failed">%1$s: فعلاً قیمتی از %2$s نیست – با Binance ارزش‌گذاری شد.</string>
+    <string name="ledger_exchange_hint">کوین با قیمت این صرافی ارزش‌گذاری می‌شود (در غیر این صورت Binance). روند، ۷ روز و ۱ سال: قیمت‌های روزانهٔ Binance، مقیاس‌شده.</string>
+    <string name="ledger_exchange_mixed">%1$s: چند صرافی وارد شده – با Binance ارزش‌گذاری شد. سکه‌ها را جابه‌جا کردی؟ آن را به‌صورت «انتقال» ثبت کن.</string>
+    <string name="ledger_exchange_none">هیچ (Binance)</string>
+    <string name="ledger_fee">کارمزد (اختیاری)</string>
+    <string name="ledger_fee_coin">سکه</string>
+    <string name="ledger_fee_hint">به USDT، بهای تمام‌شده را بالا می‌برد (فروش: درآمد را کم می‌کند)؛ به سکه، مقدار را کم می‌کند.</string>
+    <string name="ledger_fee_line">کارمزد %1$s</string>
+    <string name="ledger_fifo_cost_note">از زمان خرید: هزینهٔ FIFO با کارمزد (قدیمی‌ترین سکه‌ها اول فروخته می‌شوند).</string>
+    <string name="ledger_gain_info">امروز، ۷ روز، ۱ سال: تغییر ارزش در دوره – خرید و فروش سود حساب نمی‌شود. از زمان خرید: ارزش فعلی منهای بهای تمام‌شده (میانگین هزینه با کارمزد) کوین‌هایی که هنوز داری.</string>
+    <string name="ledger_gain_info_a11y">سود و زیان چگونه حساب می‌شود</string>
+    <string name="ledger_gain_info_fifo">امروز، ۷ روز، ۱ سال: تغییر ارزش در دوره – خرید و فروش سود حساب نمی‌شود. از زمان خرید: ارزش فعلی منهای بهای تمام‌شده (FIFO با کارمزد) کوین‌هایی که هنوز داری.</string>
+    <string name="ledger_gain_title">سود/زیان</string>
+    <string name="ledger_more_toggle">کارمزد و صرافی</string>
+    <string name="ledger_partial_cost">«از زمان خرید» فقط بخشِ دارای قیمت خرید را حساب می‌کند – بدون %1$s بدون قیمت خرید.</string>
+    <string name="ledger_period_without">امروز / ۷ روز / ۱ سال بدون %1$s – قیمت آغاز مناسبی نیست.</string>
+    <string name="ledger_since_purchase_currency">از زمان خرید (%1$s)</string>
+    <string name="ledger_since_purchase_spoken">سود/زیان از زمان خرید، هنوز فروخته نشده</string>
+    <plurals name="ledger_without_cost">
+        <item quantity="one">بدون %1$d سکه بدون قیمت خرید (%2$s) – قیمت را وارد کنید تا حساب شود.</item>
+        <item quantity="other">بدون %1$d سکه بدون قیمت خرید (%2$s) – قیمت‌ها را وارد کنید تا حساب شوند.</item>
+    </plurals>
+</resources>

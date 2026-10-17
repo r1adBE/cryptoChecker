@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: CSV-Import -->
+    <string name="portfolio_csv_import_action">Import CSV</string>
+    <string name="portfolio_csv_import_all_transfer">All to own wallet</string>
+    <string name="portfolio_csv_import_all_withdrawal">All leave the portfolio</string>
+    <string name="portfolio_csv_import_choice_proposed">Suggested: matches %1$s</string>
+    <string name="portfolio_csv_import_choice_transfer">To own wallet (transfer)</string>
+    <string name="portfolio_csv_import_choice_withdrawal">Leaves the portfolio (withdrawal)</string>
+    <string name="portfolio_csv_import_choose_each">Choose for each withdrawal where it went.</string>
+    <string name="portfolio_csv_import_columns">Recognized columns: %1$s</string>
+    <string name="portfolio_csv_import_confirm">Import (%1$d)</string>
+    <string name="portfolio_csv_import_date_day_first">Day/Month</string>
+    <string name="portfolio_csv_import_date_month_first">Month/Day</string>
+    <string name="portfolio_csv_import_date_order">Ambiguous dates (e.g. 03/04/2024) read as:</string>
+    <string name="portfolio_csv_import_decimal">Ambiguous numbers (e.g. %1$s) read as:</string>
+    <plurals name="portfolio_csv_import_done">
+        <item quantity="one">%d transaction imported</item>
+        <item quantity="other">%d transactions imported</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_duplicates">
+        <item quantity="one">%d already imported (skipped)</item>
+        <item quantity="other">%d already imported (skipped)</item>
+    </plurals>
+    <string name="portfolio_csv_import_format">Format: %1$s</string>
+    <string name="portfolio_csv_import_line">Line %1$d: %2$s</string>
+    <string name="portfolio_csv_import_loading">Reading file and daily rates…</string>
+    <string name="portfolio_csv_import_missing_fx">No daily rate for lines %1$s – imported without price/fee.</string>
+    <string name="portfolio_csv_import_missing_price">No price in the file for lines %1$s – imported without price.</string>
+    <string name="portfolio_csv_import_more">+ %1$d more</string>
+    <plurals name="portfolio_csv_import_new">
+        <item quantity="one">%d new transaction</item>
+        <item quantity="other">%d new transactions</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_skipped">
+        <item quantity="one">%d row skipped</item>
+        <item quantity="other">%d rows skipped</item>
+    </plurals>
+    <string name="portfolio_csv_import_stable_swaps">Trades against stablecoins (USDT, USDC …) are booked as swaps – the stablecoin appears in your holdings.</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">Several matches possible – pick the right one or none.</string>
+    <string name="portfolio_csv_import_transfer_fee">Network fee: %1$s</string>
+    <string name="portfolio_csv_import_transfer_link">Book as one transfer</string>
+    <string name="portfolio_csv_import_transfer_stored">Counterpart from an earlier import</string>
+    <string name="portfolio_csv_import_transfers_hint">A withdrawal and the matching deposit of the same coin become one transfer: purchase price and holding period carry over, the difference counts as network fee.</string>
+    <string name="portfolio_csv_import_transfers_title">Transfers between your accounts</string>
+    <string name="portfolio_csv_import_unreadable">No supported transactions found. Supported: Relai, Swissquote, Kraken, Binance, Coinbase and Bitpanda CSV exports.</string>
+    <string name="portfolio_csv_import_withdrawals_title">Withdrawals – where did the coins go?</string>
+    <string name="portfolio_csv_import_zone">Times without time zone read as: %1$s</string>
+    <string name="portfolio_csv_import_zone_device">Device (%1$s)</string>
+    <string name="portfolio_csv_skip_bad_date">unreadable date</string>
+    <string name="portfolio_csv_skip_bad_number">unreadable number</string>
+    <string name="portfolio_csv_skip_fee_exceeds">fee ≥ amount received</string>
+    <string name="portfolio_csv_skip_internal_move">move between your own accounts – nothing to book</string>
+    <string name="portfolio_csv_skip_missing">field missing</string>
+    <string name="portfolio_csv_skip_not_crypto">not crypto</string>
+    <string name="portfolio_csv_skip_possible_duplicate">possibly already imported (nearly the same trade) – check by hand</string>
+    <string name="portfolio_csv_skip_two_fees">two fees in different units – enter the swap by hand</string>
+    <string name="portfolio_csv_skip_unsupported">unsupported type</string>
+
+    <!-- Portfolio: Importe ansehen und rückgängig machen -->
+    <string name="portfolio_import_undo">Undo</string>
+    <plurals name="portfolio_import_undo_confirm">
+        <item quantity="one">Delete the %d transaction of this import? Manual entries and other imports stay.</item>
+        <item quantity="other">Delete the %d transactions of this import? Manual entries and other imports stay.</item>
+    </plurals>
+    <string name="portfolio_import_undo_title">Undo import?</string>
+    <plurals name="portfolio_import_undone">
+        <item quantity="one">%d imported transaction removed</item>
+        <item quantity="other">%d imported transactions removed</item>
+    </plurals>
+    <plurals name="portfolio_imports_count">
+        <item quantity="one">%d transaction</item>
+        <item quantity="other">%d transactions</item>
+    </plurals>
+    <string name="portfolio_imports_empty">No imports</string>
+    <string name="portfolio_imports_title">Imports</string>
+</resources>

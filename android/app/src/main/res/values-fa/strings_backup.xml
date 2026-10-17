@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Sicherung exportieren und wiederherstellen -->
+    <string name="backup_export">خروجی گرفتن</string>
+    <string name="backup_exported">پشتیبان ذخیره شد.</string>
+    <string name="backup_failed">انجام نشد. آیا این پشتیبان Crypto Checker است؟</string>
+    <string name="backup_hint">فهرست همراه با یادداشت‌ها و گروه‌ها، هشدارها، علاقه‌مندی‌ها، پرتفوی و تنظیمات را در فایلی ذخیره می‌کند که خودتان نگه می‌دارید – مثلاً برای گوشی جدید.</string>
+    <string name="backup_import">وارد کردن</string>
+    <string name="backup_title">پشتیبان‌گیری و بازیابی</string>
+    <string name="backup_too_large">فایل خیلی بزرگ است یا پشتیبان معتبری نیست (حداکثر ۱۶ مگابایت).</string>
+
+    <!-- Passwort der Sicherungsdatei -->
+    <string name="backup_password">گذرواژه</string>
+    <string name="backup_password_continue">ادامه</string>
+    <string name="backup_password_hide">پنهان کردن گذرواژه</string>
+    <!-- %1$d = Mindestlänge des Passworts (8) -->
+    <string name="backup_password_min">دست‌کم %1$d نویسه</string>
+    <string name="backup_password_mismatch">گذرواژه‌ها یکسان نیستند</string>
+    <string name="backup_password_prompt">گذرواژهٔ این نسخهٔ پشتیبان را وارد کنید.</string>
+    <string name="backup_password_repeat">تکرار گذرواژه</string>
+    <string name="backup_password_show">نمایش گذرواژه</string>
+    <string name="backup_password_title">نسخهٔ پشتیبان با گذرواژه</string>
+    <string name="backup_password_too_weak">حدسش خیلی آسان است – فقط رقم نباشد، یک نویسهٔ تکراری نباشد، دنبالهٔ رایجی مثل «12345678» یا «password» نباشد.</string>
+    <string name="backup_password_warning">بدون گذرواژه، نسخهٔ پشتیبان بازیابی نمی‌شود.</string>
+    <string name="backup_password_wrong">گذرواژه نادرست است یا فایل آسیب دیده است. دوباره تلاش کنید.</string>
+    <string name="backup_protect">محافظت با گذرواژه</string>
+    <string name="backup_protect_hint">فایل را رمزگذاری می‌کند (AES-256). اگر داده‌های پرتفوی دارد توصیه می‌شود.</string>
+
+    <!-- Sicherung ohne Passwort, Wiederherstellen -->
+    <string name="backup_plain_confirm">ذخیره بدون رمز</string>
+    <string name="backup_plain_confirm_text">فایل رمزگذاری نشده است. هر کس آن را داشته باشد می‌تواند بخواند:</string>
+    <string name="backup_plain_confirm_title">بدون رمز ذخیره شود؟</string>
+    <string name="backup_plain_contents_addresses">آدرس‌های ذخیره‌شدهٔ کیف پول</string>
+    <string name="backup_plain_contents_base">فهرست پیگیری با یادداشت‌ها و گروه‌ها، هشدارها، علاقه‌مندی‌ها و تنظیمات</string>
+    <string name="backup_plain_contents_portfolio">سبد: تراکنش‌ها با مقدار و قیمت</string>
+    <string name="backup_restore_app_lock_kept">قفل سبد روشن می‌ماند – پشتیبان رمزنشده نمی‌تواند آن را خاموش کند.</string>
+    <string name="backup_restore_confirm">وارد کردن پشتیبان، فهرست (همراه با یادداشت‌ها و گروه‌ها)، هشدارها، علاقه‌مندی‌ها، پرتفوی و تنظیمات شما را با پشتیبان جایگزین می‌کند.</string>
+    <plurals name="backup_restore_invalid">
+        <item quantity="one">%d ورودی در پشتیبان (سبد یا هشدار) نامعتبر است و وارد نمی‌شود.</item>
+        <item quantity="other">%d ورودی در پشتیبان (سبد یا هشدارها) نامعتبرند و وارد نمی‌شوند.</item>
+    </plurals>
+    <string name="backup_restore_newer_version">این پشتیبان از نسخهٔ جدیدتر برنامه است – اول برنامه را به‌روز کن. چیزی وارد نشد.</string>
+    <string name="backup_restore_unencrypted_warning">این پشتیبان رمزگذاری نشده است – مطمئن شو که مال توست. تنظیمات اعمال می‌شوند؛ قفل سبدِ روشن، روشن می‌ماند.</string>
+    <string name="backup_restored">بازیابی شد: %1$s، %2$s.</string>
+    <plurals name="backup_restored_alarms">
+        <item quantity="one">%1$d هشدار</item>
+        <item quantity="other">%1$d هشدار</item>
+    </plurals>
+    <plurals name="backup_restored_pairs">
+        <item quantity="one">%1$d جفت</item>
+        <item quantity="other">%1$d جفت</item>
+    </plurals>
+
+    <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
+    <string name="storage_recovery_message">کلید داده‌های رمزگذاری‌شدهٔ برنامه دیگر روی این دستگاه نیست، برای همین برنامه خالی شروع شد. چیزی حذف نشده است. برای بازگرداندن فهرست و پرتفوی، در تنظیمات زیر «%1$s» یک فایل پشتیبان وارد کنید.</string>
+    <string name="storage_recovery_title">باز کردن داده‌های ذخیره‌شده ممکن نشد</string>
+</resources>

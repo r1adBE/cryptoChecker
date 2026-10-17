@@ -1,0 +1,18 @@
+# SYNTHETIC TEST DATA - not a real export - layout from the public column description - real samples will replace it
+"You can use this transaction report to inform your likely tax obligations. For US customers, Sells, Converts, Rewards Income, Coinbase Earn transactions, and Donations are taxable events. For final tax obligations, please consult a tax advisor."
+
+Transactions
+User,Jane Example,0f1e2d3c-0000-4000-8000-000000000000
+ID,Timestamp,Transaction Type,Asset,Quantity Transacted,Price Currency,Price at Transaction,Subtotal,Total (inclusive of fees and/or spread),Fees and/or Spread,Notes
+65a1b2c3d4e5f60718293a01,2024-01-11 16:05:00 UTC,Receive,BTC,0.0049,EUR,€39500.00,€193.55,€193.55,€0.00,Received 0.0049 BTC from an external account
+65a1b2c3d4e5f60718293a02,2024-01-15 10:00:00 UTC,Buy,BTC,0.002,EUR,€40000.00,€79.80,€81.79,€1.99,Bought 0.002 BTC for €81.79 EUR
+65a1b2c3d4e5f60718293a03,2024-01-20 12:30:00 UTC,Convert,ETH,-0.5,EUR,€2200.00,€1100.00,€1100.00,€0.00,Converted 0.5 ETH to 0.025 BTC
+65a1b2c3d4e5f60718293a04,2024-01-22 08:00:00 UTC,Staking Income,ETH2,0.0015,EUR,€2300.00,€3.45,€3.45,€0.00,
+65a1b2c3d4e5f60718293a05,2024-01-25 16:45:00 UTC,Send,BTC,-0.001,EUR,€39000.00,€39.00,€39.00,€0.00,Sent 0.001 BTC to bc1qexample
+65a1b2c3d4e5f60718293a06,2024-02-05 11:11:11 UTC,Sell,ETH,-0.1,EUR,"€2,400.00",€240.00,€236.42,€3.58,Sold 0.1 ETH for €236.42 EUR
+65a1b2c3d4e5f60718293a07,2024-02-06 10:00:00 UTC,Deposit,EUR,100,EUR,€1.00,€100.00,€100.00,€0.00,
+65a1b2c3d4e5f60718293a08,2024-02-07 10:00:00 UTC,Pro Withdrawal,BTC,-0.001,EUR,€40000.00,€40.00,€40.00,€0.00,
+65a1b2c3d4e5f60718293a09,2024-02-08 10:00:00 UTC,Advanced Trade Buy,SOL,2,USDC,100.00,200.00,201.20,1.20,Bought 2 SOL for 201.20 USDC on SOL-USDC at 100.00 USDC/SOL
+65a1b2c3d4e5f60718293a0a,2024-02-09 10:00:00 UTC,Retail Staking Transfer,ETH,-0.2,EUR,€2400.00,€480.00,€480.00,€0.00,
+65a1b2c3d4e5f60718293a0b,2024-02-10 10:00:00 UTC,Learning Reward,GRT,10,EUR,€0.15,€1.50,€1.50,€0.00,
+65a1b2c3d4e5f60718293a0c,2024-02-11 10:00:00 UTC,Donation,BTC,-0.0001,EUR,€40000.00,€4.00,€4.00,€0.00,

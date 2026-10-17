@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: beobachtete Adressen (Wallets) -->
+    <string name="portfolio_address_add">Add address</string>
+    <string name="portfolio_address_count">Count</string>
+    <string name="portfolio_address_error">Update failed</string>
+    <string name="portfolio_address_hint">Public address (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) or xpub</string>
+    <string name="portfolio_address_label">Label (optional)</string>
+    <string name="portfolio_address_not_since_buy">From address · not in “Since purchase”: %1$s</string>
+    <string name="portfolio_address_overlap">Also in your own transactions: %1$s – both are added. Same coins? Choose “Show only”.</string>
+    <string name="portfolio_address_overlap_ask">You already record %1$s with your own transactions. Add this address\'s balance to the portfolio, or only show it?</string>
+    <string name="portfolio_address_overlap_auto">“%1$s” is now shown only, not counted – %2$s also appear in your transactions.</string>
+    <string name="portfolio_address_overlap_restored">“%1$s” counts again – its amounts don’t match your transactions. Choose “Show only” if it’s the same coins.</string>
+    <string name="portfolio_address_overlap_title">Same coins as your transactions?</string>
+    <string name="portfolio_address_overlap_tx">Same amount as your own deposit/transfer (%1$s) – likely counted twice.</string>
+    <string name="portfolio_address_period_observed">Watched addresses count from their first observed balance; later changes are inflows/outflows, not gain.</string>
+    <string name="portfolio_address_privacy">Only the public address is sent to %1$s – never keys or seed phrases. The provider sees it together with your IP address. Checked at most every 10 minutes.</string>
+    <string name="portfolio_address_remove">Remove address</string>
+    <string name="portfolio_address_show_only">Show only, don\'t add to portfolio</string>
+    <string name="portfolio_address_show_only_short">Show only</string>
+    <string name="portfolio_address_tokens">Count tokens</string>
+    <string name="portfolio_address_unknown_tokens">+%1$d unknown tokens (not counted)</string>
+    <string name="portfolio_address_xpub_privacy">An xpub reveals all addresses of this wallet. They are derived on your device; only individual addresses are sent to %1$s – at least 40 requests on the first scan, later fewer. Private keys (xprv) are never accepted.</string>
+    <string name="portfolio_address_xpub_used">Addresses in use: %1$d</string>
+    <string name="portfolio_addresses_title">Addresses</string>
+
+    <!-- Prüfung einer eingegebenen Adresse -->
+    <string name="address_bch_unsupported">Bitcoin Cash addresses can\'t be watched: there is no free public service without an API key whose terms allow it.</string>
+    <string name="address_bep2_shutdown">BNB Beacon Chain (BEP-2) was shut down in 2024 – balances are now on BNB Smart Chain (0x…)</string>
+    <string name="address_checksum">Checksum wrong – check for typos</string>
+    <string name="address_doge_unsupported">Dogecoin addresses can\'t be watched: there is no free public service without an API key whose terms allow it.</string>
+    <string name="address_duplicate">This address is already added</string>
+    <string name="address_ens">ENS names are not supported – enter the 0x address</string>
+    <string name="address_invalid">Not a valid address of a supported network</string>
+    <string name="address_limit">At most 20 addresses</string>
+    <string name="address_secret">This looks like a private key or seed phrase – never enter it anywhere. Only public addresses.</string>
+    <string name="address_testnet">Testnet addresses are not supported</string>
+    <string name="address_unsupported">This address type is not supported</string>
+    <string name="address_wrong_chain">Address belongs to another network</string>
+    <string name="address_xpub_multisig">Multisig keys (Ypub/Zpub) are not supported</string>
+</resources>

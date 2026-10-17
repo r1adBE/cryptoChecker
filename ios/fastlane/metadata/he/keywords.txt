@@ -1,0 +1,1 @@
+bitcoin,btc,ethereum,eth,altcoin,dex,ticker,widget

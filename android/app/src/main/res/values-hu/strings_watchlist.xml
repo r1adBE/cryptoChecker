@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: leere Ansicht, Statuszeile, Frische -->
+    <string name="watchlist_all_fresh">Friss · %1$s</string>
+    <string name="watchlist_empty_title">Még nincsenek párok</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="one">%2$d-ből %1$d ár nélkül</item>
+        <item quantity="other">%2$d-ből %1$d ár nélkül</item>
+    </plurals>
+    <string name="watchlist_last_run">Utolsó futás %1$s</string>
+    <string name="watchlist_live_a11y">Élő árfolyamok bekapcsolva</string>
+    <string name="watchlist_live_badge">LIVE</string>
+    <string name="watchlist_offline_since">Nincs kapcsolat · állapot: %1$s</string>
+    <string name="watchlist_pull_to_refresh">Húzza le a frissítéshez</string>
+    <string name="watchlist_refresh_report">Utolsó frissítés</string>
+    <string name="watchlist_refresh_report_empty">Még nincs részletezés: még nem volt teljes frissítés. Koppintson a frissítésre, és várjon, amíg a jelző megáll.</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="one">%2$d párból %1$d elavult</item>
+        <item quantity="other">%2$d párból %1$d elavult</item>
+    </plurals>
+    <string name="watchlist_status_all_disabled">Itt minden pár ki van kapcsolva</string>
+    <string name="watchlist_status_exchange_prices">Árfolyamok a választott tőzsdékről · %1$s</string>
+    <string name="watchlist_status_exchange_prices_short">Tőzsdei árfolyamok · %1$s</string>
+    <string name="watchlist_status_group_empty">Ebben a csoportban nincsenek párok</string>
+    <string name="watchlist_status_none_traded">Itt nincs kereskedett pár</string>
+    <string name="watchlist_updated">Frissítve: %1$s</string>
+
+    <!-- Merkliste: Puls-Zeile (Paare im Plus/Minus, ohne 24-h-Wert) -->
+    <string name="watchlist_pulse_avg">Ø %1$s</string>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="one">%1$d esik</item>
+        <item quantity="other">%1$d esik</item>
+    </plurals>
+    <!-- Paare mit Kurs, aber ohne 24-h-Wert («· 510 ohne 24h-Wert») -->
+    <plurals name="watchlist_pulse_missing">
+        <item quantity="one">%1$d 24 órás érték nélkül</item>
+        <item quantity="other">%1$d 24 órás érték nélkül</item>
+    </plurals>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="one">%1$d mai érték nélkül</item>
+        <item quantity="other">%1$d mai érték nélkül</item>
+    </plurals>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="one">%1$d emelkedik</item>
+        <item quantity="other">%1$d emelkedik</item>
+    </plurals>
+
+    <!-- Merkliste: Zeile eines Paars -->
+    <string name="watchlist_row_disabled">%1$s · kikapcsolva</string>
+    <string name="watchlist_row_outdated">%1$s · elavult</string>
+    <string name="watchlist_row_outdated_age">elavult · %1$s</string>
+    <string name="watchlist_row_price_unchanged_since">Az árfolyam %1$s óta változatlan</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s nem érhető el</string>
+
+    <!-- Merkliste: Suche, Sprungknopf, Sortieren nach Spalte -->
+    <string name="watchlist_jump_end">A végére</string>
+    <string name="watchlist_jump_start">Az elejére</string>
+    <string name="watchlist_search_close">Keresés bezárása</string>
+    <string name="watchlist_search_empty">Nincs találat erre: „%1$s”</string>
+    <string name="watchlist_search_hint">Pár, név vagy tőzsde keresése</string>
+    <string name="watchlist_search_open">Keresés</string>
+    <string name="watchlist_sort_ascending">növekvő</string>
+    <string name="watchlist_sort_descending">csökkenő</string>
+    <string name="watchlist_sort_hint">Tartsa lenyomva és húzza a párt, vagy használja a fogantyút. A kedvencek felül maradnak.</string>
+    <string name="watchlist_sort_name">Név</string>
+    <string name="watchlist_sort_own">Saját sorrend</string>
+    <string name="watchlist_sort_price">Árfolyam</string>
+
+    <!-- Merkliste: Mehrfachauswahl, Ansichten, Entfernen -->
+    <string name="watchlist_clear">Figyelőlista törlése</string>
+    <string name="watchlist_clear_confirm">Eltávolítja az összes párt a figyelőlistáról? A riasztásaik is törlődnek.</string>
+    <plurals name="watchlist_disabled_count">
+        <item quantity="one">%1$d kikapcsolva</item>
+        <item quantity="other">%1$d kikapcsolva</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_action">Eltávolítás</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="one">Eltávolítja a párt (%1$d), amellyel már nem kereskednek a tőzsdéjén? A riasztásai is törlődnek.</item>
+        <item quantity="other">Eltávolítja a párokat (%1$d), amelyekkel már nem kereskednek a tőzsdéjükön? A riasztásaik is törlődnek.</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_menu">Nem kereskedett párok eltávolítása (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">Nem kereskedett párok eltávolítása</string>
+    <string name="watchlist_removed">%1$s eltávolítva</string>
+    <plurals name="watchlist_removed_count">
+        <item quantity="one">%1$d pár eltávolítva</item>
+        <item quantity="other">%1$d pár eltávolítva</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="one">%1$d nem kereskedett pár eltávolítva</item>
+        <item quantity="other">%1$d nem kereskedett pár eltávolítva</item>
+    </plurals>
+    <string name="watchlist_select">Kijelölés</string>
+    <string name="watchlist_select_all">Összes kijelölése</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="one">%1$d kijelölve</item>
+        <item quantity="other">%1$d kijelölve</item>
+    </plurals>
+    <string name="watchlist_show_all">Összes mutatása</string>
+    <string name="watchlist_show_only_disabled">Csak a kikapcsoltak mutatása</string>
+    <string name="watchlist_show_only_stale">Csak az elavultak mutatása</string>
+
+    <!-- Merkliste: weitere Texte (Gruppen, Alarme, Mitteilung, Sprachausgabe) -->
+    <plurals name="watchlist_alarms_count">
+        <item quantity="one">Riasztás (%1$d)</item>
+        <item quantity="other">Riasztások (%1$d)</item>
+    </plurals>
+    <string name="watchlist_favorites_empty_hint">Még nincsenek kedvencek. Húzzon egy párt jobbra, vagy nyissa meg, és koppintson a „Kedvenc” gombra.</string>
+    <string name="watchlist_group_empty_hint">Nyomja hosszan a csoportot a párjai kiválasztásához.</string>
+    <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
+    <string name="watchlist_groups_empty_hint">Itt jelennek meg a csoportjai</string>
+    <string name="watchlist_notification">Értesítés</string>
+    <string name="watchlist_tts">Ár felolvasása</string>
+    <string name="watchlist_tts_speech_on">A felolvasás be van kapcsolva. Módosíthatod itt: Beállítások › Speciális › Hangkimenet.</string>
+
+    <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
+    <string name="watch_action_add_widget">Hozzáadás widgetként</string>
+    <string name="watch_action_alarm">Riasztás</string>
+    <string name="watch_action_favorite">Kedvenc</string>
+    <string name="watch_action_why">Mi mozog vele együtt?</string>
+    <string name="watch_action_why_short">Mi mozog vele?</string>
+    <string name="watch_change_mark">Mark</string>
+    <string name="watch_disable">Kikapcsolás</string>
+    <string name="watch_disable_hint">Nincs lekérdezés, nincs értesítés</string>
+    <string name="watch_disabled">Kikapcsolva</string>
+    <string name="watch_disabled_banner">%1$s kikapcsolva</string>
+    <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
+    <string name="watch_edit_alarms_warning">A riasztások megmaradnak – ellenőrizze a küszöböket</string>
+    <!-- Titel des Formulars und Screenreader-Name des Stifts neben dem Paar -->
+    <string name="watch_edit_title">Pár szerkesztése</string>
+    <string name="watch_enable">Bekapcsolás</string>
+    <string name="watch_enable_hint">Árfolyamok és értesítések újra</string>
+    <string name="watch_enabled_banner">%1$s bekapcsolva</string>
+    <string name="watch_error_offline">Nincs kapcsolat</string>
+    <string name="watch_gesture_hint_short">Koppintás: riasztás és „Mi mozog vele együtt?” · hosszan nyomva kijelölés · húzd balra a törléshez · jobbra a kedvencekhez</string>
+    <string name="watch_hint_tap_why">Koppints egy érmére, és megnézheted, mi mozog vele együtt</string>
+    <string name="watch_not_traded">A tőzsdén már nem kereskednek vele</string>
+    <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
+    <string name="watch_preview_not_watched">Nincs a figyelőlistán</string>
+    <string name="watch_price_mid">középárfolyam (különben mark)</string>
+    <string name="watch_row_source_both">Változás és diagram: %1$s</string>
+    <string name="watch_row_source_change">Változás: %1$s</string>
+    <string name="watch_row_source_chart">Diagram: %1$s</string>
+
+    <!-- Meldung nach dem Hinzufügen (ein Paar / mehrere Paare) -->
+    <string name="pair_added_watching">A(z) %1$s most már a figyelőlistán van</string>
+    <!-- Ein Paar: pair_added_watching -->
+    <string name="pairs_added_watching">%1$s most már a figyelőlistán vannak</string>
+
+    <!-- Favoriten -->
+    <string name="favorite_add">Hozzáadás a kedvencekhez</string>
+    <string name="favorite_added">%1$s hozzáadva a kedvencekhez</string>
+    <string name="favorite_remove">Eltávolítás a kedvencekből</string>
+    <string name="favorite_removed">%1$s eltávolítva a kedvencekből</string>
+    <string name="hint_favorites_list">Tipp: húzd jobbra a sort, és kedvenc lesz – a kedvencek felül maradnak.</string>
+
+    <!-- Gruppen und Chips der Merkliste -->
+    <string name="group_add">Új csoport</string>
+    <string name="group_all">Mind</string>
+    <!-- Alpha-Tokens: Chip «α», Art vor der Glocke, «inkl. Alpha-Tokens» -->
+    <string name="group_alpha">Alpha tokenek</string>
+    <string name="group_delete">Csoport törlése</string>
+    <string name="group_delete_confirm">A párok a figyelőlistán maradnak.</string>
+    <string name="group_done">Kész</string>
+    <string name="group_edit_title">Csoport szerkesztése</string>
+    <!-- Chip «FAV» (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird vorgelesen) -->
+    <string name="group_favorites">Kedvencek</string>
+    <string name="group_in_other">itt: %1$s</string>
+    <string name="group_name">Csoport neve</string>
+    <string name="group_new">Új csoport…</string>
+    <string name="group_next">Tovább</string>
+    <string name="group_none">Nincs csoport</string>
+    <string name="group_rename">Átnevezés</string>
+    <string name="group_search_hint">Pár, név vagy tőzsde keresése</string>
+    <string name="group_target">Csoportba</string>
+    <string name="group_title">Csoport</string>
+    <!-- Gruppen-Chip «Token» (alle Paare ausser der Gruppe «TradFi»), Screenreader und Widget-Einrichtung -->
+    <string name="group_tokens">Tokenek</string>
+    <string name="group_value">Csoport: %1$s</string>
+
+    <!-- Notiz zum Paar -->
+    <string name="note_add">Jegyzet hozzáadása</string>
+    <string name="note_edit">Jegyzet szerkesztése</string>
+    <string name="note_hint">pl. belépő 0,42, cél 0,60</string>
+    <string name="note_remove">Eltávolítás</string>
+    <string name="note_title">Jegyzet</string>
+
+    <!-- Reihenfolge ändern (Sortiermodus, Screenreader-Aktionen) -->
+    <string name="sort_drag_handle">Húzza az áthelyezéshez</string>
+    <string name="sort_move_bottom">Legalulra</string>
+    <string name="sort_move_down">Le</string>
+    <string name="sort_move_top">Legfelülre</string>
+    <string name="sort_move_up">Fel</string>
+</resources>

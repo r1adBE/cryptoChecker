@@ -1,0 +1,42 @@
+Un allarme quando Bitcoin raggiunge il tuo prezzo – dall’exchange che usi davvero. Il prezzo del tuo exchange, non una media – gratis, senza account.
+
+COSA LA RENDE DIVERSA
+• Il tuo exchange, non una media: ogni riga mostra l’ultimo prezzo della coppia sull’exchange che hai scelto – Binance, Coinbase, Kraken, OKX, Bybit e molti altri.
+• Un allarme che avvisa una volta: «Avvisami quando BTC supera 100.000 USDT». Suona quando il livello viene superato, non a ogni aggiornamento – «Una volta» lo disattiva, «Ogni volta» lo riattiva quando il prezzo torna.
+• «Cosa si muove insieme?»: un elenco di fattori per una moneta – mercato generale, volume, volatilità, funding e open interest, distanza dal massimo o dal minimo, Fear & Greed. Mostra cosa si muove nello stesso momento – nessuna causa, nessuna notizia, nessuna consulenza finanziaria.
+• Niente account, niente pubblicità, niente tracciamento. Lo sviluppatore non riceve nessuno dei tuoi dati.
+
+CHIAREZZA SUI DATI
+• «Leggero» è l’impostazione predefinita: i prezzi si aggiornano all’apertura e a intervalli in background. «Live mentre è aperta» aggiunge prezzi live per Binance, Bybit, OKX, Coinbase e Kraken finché la watchlist è aperta.
+• Variazione % e grafici arrivano prima dall’exchange della coppia; se non ha candele, l’app usa Binance o Coinbase e te lo dice.
+• Fear & Greed, dominance e valori on-chain da alternative.me, CoinGecko e Coin Metrics.
+• Ad app chiusa è Android a decidere quando controllare gli allarmi – circa ogni 15 minuti, spesso meno di frequente. Brevi picchi nel frattempo possono sfuggire; l’app te lo dice.
+• Gli importi restano sul dispositivo, a meno che non li esporti tu (CSV, backup). Per i prezzi solo i simboli della coppia vanno al suo exchange; in più tassi di cambio (Frankfurter), dati di mercato e loghi (CoinGecko, Binance), mirror dei dati (GitHub). Se osservi indirizzi o una xpub, i nodi blockchain pubblici vedono gli indirizzi (con una xpub, quelli derivati) e il tuo IP.
+
+WATCHLIST
+• 41 mercati su 32 exchange: spot e futures, token DEX tramite DexScreener, a scelta azioni, oro e valute (TradFi)
+• Seconda riga «≈ valore» in una di 31 valute (EUR, CHF, USD …), convertita al tasso di cambio
+• Mini grafico e variazione % su 24 h o dalle 00:00 nel tuo fuso orario
+• Gruppi, preferiti, riordino con trascinamento e una nota per moneta
+• Le righe segnalano «non aggiornato» o «exchange non raggiungibile»
+
+ALLARMI
+• Prezzo sopra o sotto un livello, oppure rialzo o ribasso di una percentuale – anche nella tua valuta, es. 60.000 EUR su una coppia USDT
+• Movimento di x % in una finestra di tempo, picco di volume
+• Suono (anche un tuo file audio), vibrazione e annuncio vocale opzionale
+• Ore di silenzio e «Prova allarme»: senti in anticipo come arriva un allarme
+
+MERCATO
+• Attività insolita: movimenti di prezzo e volume insoliti nella tua watchlist, con notifica opzionale
+• Crypto Pulse, Fear & Greed, indicatori Bitcoin, funding e open interest – come semplici valori misurati
+• Commissioni di rete per Ethereum, Bitcoin e altre, con allarme gas
+
+E INOLTRE
+• Widget: watchlist, valore totale del portafoglio, una moneta con grafico
+• Portafoglio opzionale (da attivare nelle Impostazioni): acquisti, vendite, swap, trasferimenti, reward, depositi e prelievi; FIFO (predefinito) o media (Ø); indirizzi in sola lettura, senza seed, per BTC (anche xpub), ETH e chain EVM, SOL, TRX, XRP, LTC e TON; import CSV da Relai, Swissquote e Kraken; riepilogo annuale in CSV; blocco dedicato
+• Leggibile per tutti: verde/rosso o blu/arancione, segno e freccia invece del solo colore; TalkBack legge ogni riga come una frase
+• Backup e ripristino su un file – anche tra Android e iPhone
+• Modalità chiara e scura, cinque colori di accento, 31 lingue
+• Open source (MIT) – il codice è pubblico su GitHub
+
+Nota: Crypto Checker mostra i prezzi e un portafoglio che inserisci tu. Non è un exchange né un wallet, non fa trading e non fornisce consulenza finanziaria.

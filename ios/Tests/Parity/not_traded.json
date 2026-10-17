@@ -1,0 +1,36 @@
+{
+  "description": "Pairs no longer traded (Android NotTraded.kt / iOS NotTraded.swift): stored lastError -> isMarker and the 24 h change that is shown (null = dash). Only the exact marker text counts. askSingleWhenMissing: pair missing from a complete bulk list -> ask it once by single ticker (not again once marked). confirmedBySingle: single result -> mark not traded only if the exchange answered without a price (its error text, no data, HTTP 4xx except 401/403/407/408/418/429/451); network, timeout, rate limit, 5xx or missing adapter stay ordinary errors.",
+  "marker": "Wird an der Börse nicht mehr gehandelt",
+  "cases": [
+    {"lastError": "Wird an der Börse nicht mehr gehandelt", "change24h": 13.9, "isMarker": true, "shown": null},
+    {"lastError": null, "change24h": 13.9, "isMarker": false, "shown": 13.9},
+    {"lastError": "NETWORK_OFFLINE", "change24h": -2, "isMarker": false, "shown": -2},
+    {"lastError": null, "change24h": null, "isMarker": false, "shown": null},
+    {"lastError": "wird an der börse nicht mehr gehandelt", "change24h": 1.5, "isMarker": false, "shown": 1.5},
+    {"lastError": "Wird an der Börse nicht mehr gehandelt ", "change24h": 1.5, "isMarker": false, "shown": 1.5},
+    {"lastError": "Wird an der Börse nicht mehr gehandelt", "change24h": null, "isMarker": true, "shown": null}
+  ],
+  "askSingleWhenMissing": [
+    {"lastError": null, "askSingle": true},
+    {"lastError": "HttpCode: 500", "askSingle": true},
+    {"lastError": "Wird an der Börse nicht mehr gehandelt", "askSingle": false}
+  ],
+  "confirmedBySingle": [
+    {"gotPrice": true, "error": null, "confirmed": false},
+    {"gotPrice": false, "error": "Instrument ID does not exist", "confirmed": true},
+    {"gotPrice": false, "error": "Parsed ticker has no data", "confirmed": true},
+    {"gotPrice": false, "error": null, "confirmed": true},
+    {"gotPrice": false, "error": "HttpCode: 400", "confirmed": true},
+    {"gotPrice": false, "error": "HTTP 404: {\"msg\":\"not found\"}", "confirmed": true},
+    {"gotPrice": false, "error": "HttpCode: 429", "confirmed": false},
+    {"gotPrice": false, "error": "HTTP 403", "confirmed": false},
+    {"gotPrice": false, "error": "HttpCode: 502", "confirmed": false},
+    {"gotPrice": false, "error": "NETWORK_OFFLINE", "confirmed": false},
+    {"gotPrice": false, "error": "Timed out waiting for 20000 ms", "confirmed": false},
+    {"gotPrice": false, "error": "Market unavailable", "confirmed": false},
+    {"gotPrice": false, "error": "EQuery:Unknown asset pair", "confirmed": true},
+    {"gotPrice": false, "error": "EGeneral:Too many requests", "confirmed": false},
+    {"gotPrice": false, "error": "EAPI:Rate limit exceeded", "confirmed": false},
+    {"gotPrice": false, "error": "Too many visits!", "confirmed": false}
+  ]
+}

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Sicherung exportieren und wiederherstellen -->
+    <string name="backup_export">导出</string>
+    <string name="backup_exported">备份已保存。</string>
+    <string name="backup_failed">失败了。这是 Crypto Checker 的备份吗？</string>
+    <string name="backup_hint">把列表（含备注和分组）、提醒、收藏、投资组合和设置保存为由你自己保管的文件，例如换新手机时使用。</string>
+    <string name="backup_import">导入</string>
+    <string name="backup_title">备份与恢复</string>
+    <string name="backup_too_large">文件过大或不是有效的备份（上限 16 MB）。</string>
+
+    <!-- Passwort der Sicherungsdatei -->
+    <string name="backup_password">密码</string>
+    <string name="backup_password_continue">继续</string>
+    <string name="backup_password_hide">隐藏密码</string>
+    <!-- %1$d = Mindestlänge des Passworts (8) -->
+    <string name="backup_password_min">至少 %1$d 个字符</string>
+    <string name="backup_password_mismatch">两次输入的密码不一致</string>
+    <string name="backup_password_prompt">请输入此备份的密码。</string>
+    <string name="backup_password_repeat">再次输入密码</string>
+    <string name="backup_password_show">显示密码</string>
+    <string name="backup_password_title">受密码保护的备份</string>
+    <string name="backup_password_too_weak">太容易被猜到——不能只有数字、不能是同一字符重复、不能是 «12345678» 或 «password» 这类常见序列。</string>
+    <string name="backup_password_warning">没有密码将无法恢复备份。</string>
+    <string name="backup_password_wrong">密码错误，或文件已损坏。请重试。</string>
+    <string name="backup_protect">使用密码保护</string>
+    <string name="backup_protect_hint">加密文件（AES-256）。包含投资组合数据时建议开启。</string>
+
+    <!-- Sicherung ohne Passwort, Wiederherstellen -->
+    <string name="backup_plain_confirm">不设密码保存</string>
+    <string name="backup_plain_confirm_text">该文件未加密。获得它的任何人都能读取：</string>
+    <string name="backup_plain_confirm_title">不设密码保存？</string>
+    <string name="backup_plain_contents_addresses">已保存的钱包地址</string>
+    <string name="backup_plain_contents_base">带备注和分组的自选列表、提醒、收藏和设置</string>
+    <string name="backup_plain_contents_portfolio">投资组合：含数量和价格的交易</string>
+    <string name="backup_restore_app_lock_kept">投资组合锁保持开启——未加密的备份无法关闭它。</string>
+    <string name="backup_restore_confirm">导入会用备份替换当前的列表（含备注和分组）、提醒、收藏、投资组合和设置。</string>
+    <plurals name="backup_restore_invalid">
+        <item quantity="other">备份中有 %d 条记录（投资组合或提醒）无效，不会导入。</item>
+    </plurals>
+    <string name="backup_restore_newer_version">此备份来自更新版本的应用——请先更新应用。未导入任何内容。</string>
+    <string name="backup_restore_unencrypted_warning">此备份未加密，请确认它来自你。设置会被应用；已开启的投资组合锁保持开启。</string>
+    <string name="backup_restored">已恢复：%1$s，%2$s。</string>
+    <plurals name="backup_restored_alarms">
+        <item quantity="other">%1$d 个提醒</item>
+    </plurals>
+    <plurals name="backup_restored_pairs">
+        <item quantity="other">%1$d 个交易对</item>
+    </plurals>
+
+    <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
+    <string name="storage_recovery_message">此设备上已没有应用加密数据的密钥，因此应用以空白状态启动。没有删除任何内容。要找回列表和投资组合，请在设置的«%1$s»中导入备份文件。</string>
+    <string name="storage_recovery_title">无法解锁已保存的数据</string>
+</resources>

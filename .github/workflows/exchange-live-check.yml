@@ -1,0 +1,35 @@
+# Weekly live check of the public exchange ticker endpoints the apps read
+# (.github/scripts/exchange_live_check.py). On failure it opens or updates ONE issue
+# "Exchange API check failed"; once everything passes again it closes that issue.
+# Locally: python3 .github/scripts/exchange_live_check.py --dry-run
+name: Exchange API check
+
+on:
+  schedule:
+    - cron: '41 6 * * 3'   # Wednesdays 06:41 UTC
+  workflow_dispatch:
+
+# Least privilege: only issues (the repository is public, reading needs no extra scope).
+permissions:
+  issues: write
+
+concurrency:
+  group: exchange-live-check
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          sparse-checkout: .github/scripts
+
+      - name: Check exchange APIs
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: python3 .github/scripts/exchange_live_check.py

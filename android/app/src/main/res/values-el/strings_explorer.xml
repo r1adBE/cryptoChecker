@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="explorer_coin_back">Όλα τα αποτελέσματα</string>
+    <plurals name="explorer_coin_exchanges">
+        <item quantity="one">%1$d ανταλλακτήριο</item>
+        <item quantity="other">%1$d ανταλλακτήρια</item>
+    </plurals>
+    <string name="explorer_coin_no_pairs">Δεν υπάρχει ζεύγος για αυτό το νόμισμα στις φορτωμένες λίστες.</string>
+    <string name="explorer_coin_not_loaded">Οι λίστες ζευγών δεν έχουν φορτωθεί ακόμη</string>
+    <string name="explorer_coin_other_pairs">Άλλα ζεύγη</string>
+    <string name="explorer_coin_show_pairs">Εμφάνιση ζευγών</string>
+    <string name="explorer_coin_suggested">Πρόταση</string>
+    <string name="explorer_coins_title">Νομίσματα</string>
+    <string name="explorer_lists_load">Φόρτωση λιστών</string>
+    <string name="explorer_lists_loading">Φόρτωση λιστών ζευγών… %1$d/%2$d</string>
+    <plurals name="explorer_lists_missing">
+        <item quantity="one">Η λίστα ζευγών %1$d ανταλλακτηρίου δεν υπάρχει ακόμη στη συσκευή.</item>
+        <item quantity="other">Οι λίστες ζευγών %1$d ανταλλακτηρίων δεν υπάρχουν ακόμη στη συσκευή.</item>
+    </plurals>
+    <string name="explorer_lists_privacy">Φορτώνει την πλήρη δημόσια λίστα κάθε ανταλλακτηρίου – ίδια για όλους. Η αναζήτησή σας μένει στη συσκευή.</string>
+    <!-- Paar hinzufügen: Suche über alle Börsen, zuletzt gesucht -->
+    <string name="explorer_recent_a11y">Πρόσφατη αναζήτηση: %1$s</string>
+    <string name="explorer_recent_clear">Διαγραφή</string>
+    <string name="explorer_recent_clear_a11y">Διαγραφή πρόσφατων αναζητήσεων</string>
+    <string name="explorer_recent_title">Πρόσφατες αναζητήσεις</string>
+    <string name="explorer_search_choose_manually">Επιλέξτε μόνοι σας ανταλλακτήριο και ζεύγος</string>
+    <string name="explorer_search_empty">Κανένα αποτέλεσμα.</string>
+    <string name="explorer_search_hint">Αναζήτηση νομίσματος, ζεύγους ή ανταλλακτηρίου</string>
+    <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
+    <string name="explorer_search_intro">Πληκτρολογήστε όνομα ή σύμβολο νομίσματος, π.χ. Bitcoin ή BTC, και μετά επιλέξτε ζεύγος.</string>
+
+    <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
+    <string name="explorer_add_to_watchlist">Προσθήκη στη λίστα</string>
+    <string name="explorer_added_to_watchlist">Προστέθηκε στη λίστα παρακολούθησης.</string>
+    <string name="explorer_already_in_watchlist">Αυτό το ζεύγος υπάρχει ήδη στη λίστα παρακολούθησης.</string>
+    <string name="explorer_exchange_missing">Λείπει ανταλλακτήριο;</string>
+    <string name="explorer_loading_pairs">Φόρτωση ζευγών…</string>
+    <string name="explorer_no_pair_selected">Επιλέξτε πρώτα ένα ζεύγος.</string>
+    <string name="explorer_no_pairs_yet">Δεν έχουν φορτωθεί ακόμη ζεύγη για αυτό το ανταλλακτήριο.</string>
+    <plurals name="explorer_pairs_status">
+        <item quantity="one">%1$d ζεύγος · ενημέρωση %2$s</item>
+        <item quantity="other">%1$d ζεύγη · ενημέρωση %2$s</item>
+    </plurals>
+    <string name="explorer_pairs_title">Ζεύγη</string>
+    <string name="explorer_precise_title">Για προχωρημένους / ανά ανταλλακτήριο</string>
+    <string name="explorer_price_loading">Φόρτωση τιμής…</string>
+    <string name="explorer_select_market_hint">Επιλέξτε ανταλλακτήριο – τα ζεύγη φορτώνονται αυτόματα.</string>
+    <string name="explorer_select_placeholder">Επιλέξτε</string>
+    <string name="explorer_step_pair">Επιλογή ζεύγους</string>
+
+    <!-- Paar hinzufügen: Schnellfilter der Liste «Alle …-Paare» -->
+    <string name="explorer_filter_gainers">Κερδισμένοι</string>
+    <string name="explorer_filter_losers">Χαμένοι</string>
+    <string name="explorer_filter_volume">Όγκος</string>
+
+    <!-- Paar hinzufügen: mehrere Paare auf einmal -->
+    <string name="bulk_all_pairs">Όλα τα ζεύγη %1$s αυτού του ανταλλακτηρίου</string>
+    <plurals name="bulk_all_pairs_applied">
+        <item quantity="one">Βρέθηκε %1$d ζεύγος %2$s</item>
+        <item quantity="other">Βρέθηκαν %1$d ζεύγη %2$s</item>
+    </plurals>
+    <string name="bulk_all_pairs_empty">Δεν υπάρχουν ζεύγη %1$s σε αυτό το ανταλλακτήριο για τον επιλεγμένο τύπο συμβολαίου. Συγχρονίστε πρώτα το ανταλλακτήριο ή δοκιμάστε άλλο τύπο συμβολαίου.</string>
+    <plurals name="explorer_add_all_pairs">
+        <item quantity="one">Προσθήκη του %1$d ζεύγους στη λίστα</item>
+        <item quantity="other">Προσθήκη και των %1$d ζευγών στη λίστα</item>
+    </plurals>
+    <plurals name="explorer_bulk_added">
+        <item quantity="one">Προστέθηκε %1$d, %2$d υπάρχουν ήδη στη λίστα παρακολούθησης.</item>
+        <item quantity="other">Προστέθηκαν %1$d, %2$d υπάρχουν ήδη στη λίστα παρακολούθησης.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_text">
+        <item quantity="one">Το %1$d ζεύγος %2$s του %3$s θα προστεθεί στη λίστα, εκτός αν υπάρχει ήδη.</item>
+        <item quantity="other">Και τα %1$d ζεύγη %2$s του %3$s θα προστεθούν στη λίστα. Όσα υπάρχουν ήδη παραλείπονται.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_title">
+        <item quantity="one">Προσθήκη %1$d ζεύγους;</item>
+        <item quantity="other">Προσθήκη %1$d ζευγών;</item>
+    </plurals>
+    <string name="explorer_bulk_hide_list">Απόκρυψη λίστας</string>
+    <string name="explorer_bulk_show_list">Εμφάνιση λίστας</string>
+    <string name="explorer_bulk_tap_hint">Πατήστε ένα ζεύγος για να το επιλέξετε παραπάνω.</string>
+    <string name="explorer_bulk_title">Πολλά ζεύγη μαζί</string>
+
+    <!-- Handelspaare einer Börse laden und wählen -->
+    <string name="explorer_sync_sheet_text">Φορτώνει τα τρέχοντα ζεύγη του επιλεγμένου ανταλλακτηρίου.</string>
+    <string name="explorer_no_pair_list">Δεν υπάρχουν ζεύγη νομισμάτων</string>
+    <string name="explorer_sync_sheet_last">Τελευταίος συγχρονισμός: %1$s</string>
+    <string name="explorer_sync_never">ποτέ</string>
+    <string name="explorer_sync_sheet_action">Συγχρονισμός τώρα!</string>
+    <string name="explorer_sync_sheet_title">Ενημέρωση ζευγών νομισμάτων</string>
+    <string name="explorer_field_coin">Βάση</string>
+    <string name="explorer_field_contract">Τύπος συμβολαίου</string>
+    <string name="explorer_field_exchange">Αγορά</string>
+    <string name="explorer_field_quote">Τιμολόγηση</string>
+    <string name="explorer_contract_spot">Spot</string>
+    <string name="explorer_reload_pairs">Συγχρονισμός</string>
+    <string name="sync_pairs_count">Ζεύγη συναλλαγών: %1$d</string>
+
+    <!-- Token von dezentralen Börsen (DEX) -->
+    <string name="dex_add">Προσθήκη</string>
+    <string name="dex_added">Το %1$s προστέθηκε στη λίστα.</string>
+    <string name="dex_already">Το %1$s είναι ήδη στη λίστα.</string>
+    <string name="dex_intro">Tokens εκτός των μεγάλων ανταλλακτηρίων, από αποκεντρωμένα ανταλλακτήρια (Uniswap, PancakeSwap, Raydium …) μέσω DexScreener. Αναζητήστε ένα token και προσθέστε ένα από τα pools συναλλαγών του – τιμές σε δολάρια ΗΠΑ.</string>
+    <string name="dex_liquidity">Ρευστότητα %1$s</string>
+    <string name="dex_no_results">Δεν βρέθηκαν pools.</string>
+    <string name="dex_search">Αναζήτηση</string>
+    <string name="dex_search_hint">Όνομα, σύμβολο ή διεύθυνση token</string>
+
+    <!-- Art des Assets (Token, Alpha-Token, TradFi) -->
+    <string name="asset_kind_alpha">Alpha token</string>
+    <string name="asset_kind_token">Token</string>
+    <string name="asset_kind_tradfi">TradFi</string>
+</resources>

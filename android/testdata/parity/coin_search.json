@@ -1,0 +1,494 @@
+{
+ "description": "Coin-first search in «Add pair» (Android ExplorerCoinSearch.kt CoinSearch / iOS ExplorerCoinSearch.swift). Runs only on local data: loaded pair lists (cache; Bitstamp = not loaded) and the names index. coins: query -> coins as SYMBOL|tradFi|exchanges|pairs (rank: symbol exact or alias, name exact, symbol prefix, name prefix, name contains; then more exchanges, shorter name/symbol, symbol). includeUnlisted: also coins only known from the names index (while lists are missing). showPairHits: also show single-pair hits (several words, contract word, date, or no coin). pairsFor: the coin's pairs, suggestion first (region default exchange, favourites, others; spot, perpetual, dated; quotes display currency, USDT, USD, USDC, EUR, BTC; exchange name). quotes: preference quote order.",
+ "markets": [
+  {
+   "key": "Binance",
+   "name": "Binance"
+  },
+  {
+   "key": "BinanceFutures",
+   "name": "Binance Futures"
+  },
+  {
+   "key": "Bitstamp",
+   "name": "Bitstamp"
+  },
+  {
+   "key": "Coinbase",
+   "name": "Coinbase"
+  },
+  {
+   "key": "Kraken",
+   "name": "Kraken"
+  }
+ ],
+ "cache": {
+  "Binance": [
+   {
+    "base": "BTC",
+    "quote": "USDT",
+    "pairId": "BTCUSDT",
+    "contract": "NONE",
+    "tradFi": false
+   },
+   {
+    "base": "BTC",
+    "quote": "EUR",
+    "pairId": "BTCEUR",
+    "contract": "NONE",
+    "tradFi": false
+   },
+   {
+    "base": "ETH",
+    "quote": "USDT",
+    "pairId": "ETHUSDT",
+    "contract": "NONE",
+    "tradFi": false
+   },
+   {
+    "base": "ETH",
+    "quote": "BTC",
+    "pairId": "ETHBTC",
+    "contract": "NONE",
+    "tradFi": false
+   },
+   {
+    "base": "ETC",
+    "quote": "USDT",
+    "pairId": "ETCUSDT",
+    "contract": "NONE",
+    "tradFi": false
+   },
+   {
+    "base": "BCH",
+    "quote": "USDT",
+    "pairId": "BCHUSDT",
+    "contract": "NONE",
+    "tradFi": false
+   },
+   {
+    "base": "WBTC",
+    "quote": "USDT",
+    "pairId": "WBTCUSDT",
+    "contract": "NONE",
+    "tradFi": false
+   },
+   {
+    "base": "PAXG",
+    "quote": "USDT",
+    "pairId": "PAXGUSDT",
+    "contract": "NONE",
+    "tradFi": false
+   },
+   {
+    "base": "SHIB",
+    "quote": "USDT",
+    "pairId": "SHIBUSDT",
+    "contract": "NONE",
+    "tradFi": false
+   }
+  ],
+  "BinanceFutures": [
+   {
+    "base": "BTC",
+    "quote": "USDT",
+    "pairId": "BTCUSDT",
+    "contract": "PERPETUAL",
+    "tradFi": false
+   },
+   {
+    "base": "BTC",
+    "quote": "USDT",
+    "pairId": "BTCUSDT_261225",
+    "contract": "QUARTERLY",
+    "tradFi": false
+   },
+   {
+    "base": "ETH",
+    "quote": "USDT",
+    "pairId": "ETHUSDT",
+    "contract": "PERPETUAL",
+    "tradFi": false
+   },
+   {
+    "base": "NVDA",
+    "quote": "USDT",
+    "pairId": "NVDAUSDT",
+    "contract": "PERPETUAL",
+    "tradFi": true
+   }
+  ],
+  "Coinbase": [
+   {
+    "base": "BTC",
+    "quote": "USD",
+    "pairId": "BTC-USD",
+    "contract": "NONE",
+    "tradFi": false
+   },
+   {
+    "base": "BTC",
+    "quote": "USDC",
+    "pairId": "BTC-USDC",
+    "contract": "NONE",
+    "tradFi": false
+   },
+   {
+    "base": "ETH",
+    "quote": "USD",
+    "pairId": "ETH-USD",
+    "contract": "NONE",
+    "tradFi": false
+   },
+   {
+    "base": "WBTC",
+    "quote": "USD",
+    "pairId": "WBTC-USD",
+    "contract": "NONE",
+    "tradFi": false
+   }
+  ],
+  "Kraken": [
+   {
+    "base": "BTC",
+    "quote": "USD",
+    "pairId": "XBTUSD",
+    "contract": "NONE",
+    "tradFi": false
+   },
+   {
+    "base": "BTC",
+    "quote": "EUR",
+    "pairId": "XBTEUR",
+    "contract": "NONE",
+    "tradFi": false
+   },
+   {
+    "base": "BTC",
+    "quote": "CHF",
+    "pairId": "XBTCHF",
+    "contract": "NONE",
+    "tradFi": false
+   },
+   {
+    "base": "ETH",
+    "quote": "USD",
+    "pairId": "ETHUSD",
+    "contract": "NONE",
+    "tradFi": false
+   },
+   {
+    "base": "ETH",
+    "quote": "CHF",
+    "pairId": "ETHCHF",
+    "contract": "NONE",
+    "tradFi": false
+   },
+   {
+    "base": "PAXG",
+    "quote": "USD",
+    "pairId": "PAXGUSD",
+    "contract": "NONE",
+    "tradFi": false
+   }
+  ]
+ },
+ "names": {
+  "BTC": "Bitcoin",
+  "ETH": "Ethereum",
+  "ETC": "Ethereum Classic",
+  "BCH": "Bitcoin Cash",
+  "WBTC": "Wrapped Bitcoin",
+  "PAXG": "PAX Gold",
+  "SHIB": "Shiba Inu",
+  "XMR": "Monero",
+  "TRADFI:NVDA": "NVIDIA"
+ },
+ "coins": [
+  {
+   "query": "btc",
+   "expected": [
+    "BTC|false|4|9"
+   ]
+  },
+  {
+   "query": "Bitcoin",
+   "expected": [
+    "BTC|false|4|9",
+    "WBTC|false|2|2",
+    "BCH|false|1|1"
+   ]
+  },
+  {
+   "query": "ether",
+   "expected": [
+    "ETH|false|4|6",
+    "ETC|false|1|1"
+   ]
+  },
+  {
+   "query": "eth",
+   "expected": [
+    "ETH|false|4|6",
+    "ETC|false|1|1"
+   ]
+  },
+  {
+   "query": "b",
+   "expected": [
+    "BTC|false|4|9",
+    "BCH|false|1|1"
+   ]
+  },
+  {
+   "query": "gold",
+   "expected": [
+    "PAXG|false|2|2"
+   ]
+  },
+  {
+   "query": "Shiba Inu",
+   "expected": [
+    "SHIB|false|1|1"
+   ]
+  },
+  {
+   "query": "monero",
+   "expected": []
+  },
+  {
+   "query": "monero",
+   "includeUnlisted": true,
+   "expected": [
+    "XMR|false|0|0"
+   ]
+  },
+  {
+   "query": "nvidia",
+   "expected": [
+    "NVDA|true|1|1"
+   ]
+  },
+  {
+   "query": "nvidia",
+   "scope": "TOKENS",
+   "expected": []
+  },
+  {
+   "query": "nvidia",
+   "scope": "TOKENS",
+   "includeUnlisted": true,
+   "expected": []
+  },
+  {
+   "query": "nvidia",
+   "scope": "TRADFI",
+   "expected": [
+    "NVDA|true|1|1"
+   ]
+  },
+  {
+   "query": "btc",
+   "scope": "TRADFI",
+   "expected": []
+  },
+  {
+   "query": "btc perp",
+   "expected": []
+  },
+  {
+   "query": "BTCUSDT",
+   "expected": []
+  },
+  {
+   "query": "  ",
+   "expected": []
+  }
+ ],
+ "names_of_hits": [
+  {
+   "query": "Bitcoin",
+   "expected": [
+    "Bitcoin",
+    "Wrapped Bitcoin",
+    "Bitcoin Cash"
+   ]
+  },
+  {
+   "query": "monero",
+   "includeUnlisted": true,
+   "expected": [
+    "Monero"
+   ]
+  }
+ ],
+ "showPairHits": [
+  {
+   "query": "btc",
+   "coinsFound": true,
+   "expected": false
+  },
+  {
+   "query": "eth usdt",
+   "coinsFound": false,
+   "expected": true
+  },
+  {
+   "query": "shiba inu",
+   "coinsFound": true,
+   "expected": true
+  },
+  {
+   "query": "btc perp",
+   "coinsFound": false,
+   "expected": true
+  },
+  {
+   "query": "BTCUSDT 1225",
+   "coinsFound": false,
+   "expected": true
+  },
+  {
+   "query": "BTCUSDT",
+   "coinsFound": false,
+   "expected": true
+  },
+  {
+   "query": "",
+   "coinsFound": false,
+   "expected": false
+  }
+ ],
+ "pairsFor": [
+  {
+   "coin": "BTC",
+   "tradFi": false,
+   "defaultExchange": "Binance",
+   "favorites": [],
+   "displayCurrency": "EUR",
+   "expected": [
+    "Binance BTC/EUR NONE",
+    "Binance BTC/USDT NONE",
+    "Kraken BTC/EUR NONE",
+    "Coinbase BTC/USD NONE",
+    "Kraken BTC/USD NONE",
+    "Coinbase BTC/USDC NONE",
+    "Kraken BTC/CHF NONE",
+    "BinanceFutures BTC/USDT PERPETUAL",
+    "BinanceFutures BTC/USDT QUARTERLY"
+   ]
+  },
+  {
+   "coin": "BTC",
+   "tradFi": false,
+   "defaultExchange": "Kraken",
+   "favorites": [
+    "Coinbase"
+   ],
+   "displayCurrency": "CHF",
+   "expected": [
+    "Kraken BTC/CHF NONE",
+    "Kraken BTC/USD NONE",
+    "Kraken BTC/EUR NONE",
+    "Coinbase BTC/USD NONE",
+    "Coinbase BTC/USDC NONE",
+    "Binance BTC/USDT NONE",
+    "Binance BTC/EUR NONE",
+    "BinanceFutures BTC/USDT PERPETUAL",
+    "BinanceFutures BTC/USDT QUARTERLY"
+   ]
+  },
+  {
+   "coin": "ETH",
+   "tradFi": false,
+   "defaultExchange": "BinanceUs",
+   "favorites": [],
+   "displayCurrency": null,
+   "expected": [
+    "Binance ETH/USDT NONE",
+    "Coinbase ETH/USD NONE",
+    "Kraken ETH/USD NONE",
+    "Binance ETH/BTC NONE",
+    "Kraken ETH/CHF NONE",
+    "BinanceFutures ETH/USDT PERPETUAL"
+   ]
+  },
+  {
+   "coin": "NVDA",
+   "tradFi": true,
+   "defaultExchange": "Binance",
+   "favorites": [],
+   "displayCurrency": "USD",
+   "expected": [
+    "BinanceFutures NVDA/USDT PERPETUAL"
+   ]
+  },
+  {
+   "coin": "NVDA",
+   "tradFi": true,
+   "defaultExchange": "Binance",
+   "favorites": [],
+   "displayCurrency": "USD",
+   "scope": "TOKENS",
+   "expected": []
+  },
+  {
+   "coin": "NVDA",
+   "tradFi": false,
+   "defaultExchange": "Binance",
+   "favorites": [],
+   "displayCurrency": "USD",
+   "expected": []
+  },
+  {
+   "coin": "XMR",
+   "tradFi": false,
+   "defaultExchange": "Binance",
+   "favorites": [],
+   "displayCurrency": "USD",
+   "expected": []
+  }
+ ],
+ "quotes": [
+  {
+   "displayCurrency": "eur",
+   "expected": [
+    "EUR",
+    "USDT",
+    "USD",
+    "USDC",
+    "BTC"
+   ]
+  },
+  {
+   "displayCurrency": "USDT",
+   "expected": [
+    "USDT",
+    "USD",
+    "USDC",
+    "EUR",
+    "BTC"
+   ]
+  },
+  {
+   "displayCurrency": null,
+   "expected": [
+    "USDT",
+    "USD",
+    "USDC",
+    "EUR",
+    "BTC"
+   ]
+  },
+  {
+   "displayCurrency": " ",
+   "expected": [
+    "USDT",
+    "USD",
+    "USDC",
+    "EUR",
+    "BTC"
+   ]
+  }
+ ]
+}

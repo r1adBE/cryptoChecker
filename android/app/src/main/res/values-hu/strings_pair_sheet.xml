@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Aktionsblatt: Kurs-Chart (Zeitraum, Kerzenwerte beim Ziehen, Umrechnung) und «Mehr» -->
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s Zeitraum kurz (widget_range_short_24h/7d/30d) -->
+    <string name="sheet_chart_change">%1$s (%2$s)</string>
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s change_short_today(_zone) -->
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="sheet_chart_close">Záró</string>
+    <string name="sheet_chart_converted_current">%1$s, átváltva (aktuális árfolyam)</string>
+    <!-- Zeile unter dem Chart, %1$s = umgerechnete Reihe («BTC/USDT») -->
+    <string name="sheet_chart_converted_daily">%1$s, napi árfolyamokkal átváltva</string>
+    <!-- Keine Kerzen für das Paar -->
+    <string name="sheet_chart_no_data">Nincs árfolyamadat ehhez a párhoz</string>
+    <!-- Kerzenwerte beim Ziehen (Hoch/Tief: ticker_high/ticker_low) -->
+    <string name="sheet_chart_open">Nyitó</string>
+    <!-- Zeitraum-Chip statt «24h» bei Tages-Basis -->
+    <string name="sheet_chart_today">Ma</string>
+    <!-- Umsatz der Kerze beim Ziehen; %1$s z. B. «12.3M USDT» -->
+    <string name="sheet_chart_volume">Forg. %1$s</string>
+    <string name="sheet_more">Továbbiak</string>
+
+    <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
+    <string name="ticker_ask">Eladási</string>
+    <string name="ticker_bid">Vételi</string>
+    <string name="ticker_high">Max.</string>
+    <string name="ticker_low">Min.</string>
+    <string name="ticker_timestamp">Idő</string>
+    <string name="ticker_vol_base">Forgalom (alap)</string>
+    <string name="ticker_vol_quote">Forgalom (jegyzési)</string>
+
+    <!-- Basis der %-Änderung (Prozent-Pille, Chart, Widgets) -->
+    <string name="change_basis_device">%1$s, 00:00 (az eszköz időzónája)</string>
+    <string name="change_basis_local">00:00 helyi idő óta</string>
+    <string name="change_basis_rolling">Elmúlt 24 óra</string>
+    <!-- Letzter gegen vorherigen Kurs des Paars; ausgeschrieben (Auswahl). Kurz neben Pille und Widgets: change_short_since_last -->
+    <string name="change_basis_since_last">Az utolsó frissítés óta</string>
+    <string name="change_basis_utc_zone">00:00 %1$s óta</string>
+    <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
+    <string name="change_candle_source">Változás %1$s-gyertyák alapján</string>
+    <string name="change_short_since_last">utolsó frissítés</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
+    <string name="change_short_today">ma</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 einer gewählten Zeitzone; %1$s = Zeitzone (z. B. UTC) -->
+    <string name="change_short_today_zone">ma %1$s</string>
+
+    <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
+    <string name="market_data_empty_error">Nem érkezett adat a tőzsdéről.</string>
+    <string name="market_data_summary">Piaci kapitalizáció, gas-díjak, gazdasági adatok, coin-elemzés</string>
+    <string name="market_data_tab_futures">Határidős</string>
+    <string name="market_data_title">Piaci adatok</string>
+
+    <!-- Marktdaten Spot (Marktkapitalisierung, Angebot, Volumen) -->
+    <string name="spot_circulating">Forgalomban lévő</string>
+    <string name="spot_fdv">FDV</string>
+    <string name="spot_market_cap">Piaci kapitalizáció</string>
+    <string name="spot_max_supply">Max. mennyiség</string>
+    <string name="spot_no_data">Nincs spot adat ehhez az érméhez</string>
+    <string name="spot_source_updated">Forrás: %1$s · %2$s állapot</string>
+    <string name="spot_supply_of_max">%1$s a max. mennyiségből forgalomban</string>
+    <string name="spot_total_supply">Teljes mennyiség</string>
+    <string name="spot_vol_mcap">Forg./Kap.</string>
+    <string name="spot_volume_24h">Forgalom (24 ó)</string>
+
+    <!-- Futures-Kennzahlen (Funding, Open Interest, Referenzbörse) -->
+    <string name="futures_alarm_reference">Irányadó: %1$s</string>
+    <string name="futures_funding">Finanszírozási ráta</string>
+    <string name="futures_funding_interval_unknown">időköz ismeretlen</string>
+    <string name="futures_funding_per8h_equiv">= %1$s 8 óránként (mint a riasztásokban)</string>
+    <!-- Einheit neben der Funding-Pille, wenn die Börse stündlich abrechnet (Hyperliquid) -->
+    <string name="futures_funding_per_hour">óránként</string>
+    <string name="futures_funding_per_hours">%1$d óránként</string>
+    <string name="futures_next_funding">következő %1$d ó %2$d p múlva</string>
+    <string name="futures_no_data">Nincs határidős adat ehhez az érméhez</string>
+    <string name="futures_open_interest">Nyitott pozíciók</string>
+    <!-- Futures-Kennzahlen von einer anderen Börse als der beobachteten (Richtwert) -->
+    <string name="futures_reference_hint">Irányadó érték innen: %1$s – a funding és az open interest tőzsdénként eltér, a(z) %2$s oldalon más lehet.</string>
+    <string name="futures_reference_spot">Irányadó érték innen: %1$s (az érme USDT perpetualja)</string>
+    <string name="futures_source">Forrás: %1$s</string>
+
+    <!-- Erklärungen hinter dem ⓘ-Knopf -->
+    <string name="explain_funding">Sokan kölcsönpénzzel fogadnak emelkedő vagy eső árfolyamra. Díj a long és short pozíciók között. Erősen pozitív érték: sokan emelkedő árfolyamra fogadnak.</string>
+    <string name="explain_open_interest">A futures ügyletek fogadások az árfolyamra, gyakran kölcsönpénzzel. Az összes nyitott futures pozíció értéke. Ha nő, több pénz fogad a mozgásra.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">Magyarázat</string>
+    <string name="explain_spot_fdv">Teljesen hígított érték: árfolyam × max. mennyiség (vagy a teljes, ha nincs korlát).</string>
+    <string name="explain_spot_market_cap">Árfolyam × forgalomban lévő mennyiség. A címke a 24 órás változást mutatja.</string>
+    <string name="explain_spot_source">Az összes tőzsde adatai amerikai dollárban, a CoinGeckótól.</string>
+    <string name="explain_spot_supply">Forgalomban: most a piacon lévő érmék. Teljes: az összes létrehozott érme az elégetettek nélkül. Max.: a valaha létező legtöbb.</string>
+    <string name="explain_spot_volume">24 óra alatt forgalmazott érték. Forg./Kap.: forgalom a kapitalizációhoz képest — a magas érték nagyon élénk kereskedést jelent.</string>
+
+    <!-- Umrechnung und Sats -->
+    <string name="converted_fx_stale">%1$s · árfolyam %2$s</string>
+    <string name="sats_per_unit">%1$s %2$s = %3$s sat</string>
+</resources>

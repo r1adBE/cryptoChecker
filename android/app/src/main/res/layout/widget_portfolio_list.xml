@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Portfolio-Widget, Ansicht «Liste» (wie die Positionen im Portfolio-Tab): Kopfzeile,
+     darunter so viele Positionen nach Wert, wie ganz Platz haben (portfolio_list_rows, Zeilen aus
+     widget_portfolio_list_item.xml bzw. _wide.xml), unten fest die Total-Zeile (wie eine Listenzeile:
+     «Gesamt» / «100%», Wert / «24h ↗ +1.61%») und darunter «Stand 15:19 · + 3 weitere». Die Zeilen liegen in einem Rahmen mit Gewicht
+     (0dp/1): was nicht passt, wird oben abgeschnitten, die Fusszeilen bleiben immer sichtbar.
+     Ohne gespeicherte Positionen (ältere Aufnahme) der Hinweis portfolio_list_hint.
+     Gleiche Ids wie widget_portfolio.xml für Kopf und Fusszeile. Nur RemoteViews-taugliche Views. -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@android:id/background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/widget_outline"
+    android:clipToOutline="true"
+    tools:targetApi="31">
+
+    <ImageView
+        android:id="@+id/portfolio_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/widget_background"
+        android:importantForAccessibility="no"
+        android:contentDescription="@null" />
+
+    <LinearLayout
+        android:id="@+id/portfolio_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <include layout="@layout/widget_portfolio_header" />
+
+        <LinearLayout
+            android:id="@+id/portfolio_values"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/portfolio_list_hint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:maxLines="3"
+                android:ellipsize="end"
+                android:textSize="12sp"
+                android:visibility="gone" />
+
+            <!-- Zeilen füllen den Platz über den Fusszeilen (hält sie unten; Überlauf wird abgeschnitten) -->
+            <LinearLayout
+                android:id="@+id/portfolio_list_rows"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginTop="6dp"
+                android:orientation="vertical" />
+
+            <!-- Trennlinie über der Total-Zeile (wie zwischen den Zeilen) -->
+            <ImageView
+                android:id="@+id/portfolio_list_total_divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:contentDescription="@null"
+                android:importantForAccessibility="no" />
+
+            <!-- Total-Zeile wie eine Listenzeile (widget_portfolio_list_item.xml, zweizeilig):
+                 «Gesamt» / «100%» links, Wert / «24h ↗ +2.00%» rechts -->
+            <FrameLayout
+                android:id="@+id/portfolio_list_total"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/portfolio_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textSize="11sp"
+                android:fontFeatureSettings="tnum" />
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

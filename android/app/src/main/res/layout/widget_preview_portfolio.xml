@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Vorschau des Portfolio-Widgets im Auswahlmenü (previewLayout, ab Android 12): statisch wie
+     widget_portfolio_overview.xml (Ansicht «Übersicht», schmal 2 × 2) — keine Pillen: Kopfzeile mit Logo
+     und «Portfolio», Gesamtwert mit kleiner grauer Währung, Betragszeile «↗ +1’168.40 CHF  +1.41%» als Text
+     in der Kursfarbe (in 2 × 2 in 11 sp ohne Zeitraum, WidgetTextFit.firstFittingSized), Heute · 7 T · Gesamt
+     als Zeilen mit rechtsbündigem farbigem Text (widget_portfolio_figure_row.xml), Uhrzeit. «≈ USDT» passt in 2 × 2 nicht (PortfolioWidgetViews.overviewLayout).
+     Standard-Palette (dunkel, Akzent ORANGE). «Stand …» gibt es nur im Format-String
+     widget_portfolio_as_of, der sich statisch nicht füllen lässt — daher nur die Uhrzeit.
+     Nur RemoteViews-taugliche Views, keine IDs. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/widget_preview_background"
+    android:padding="12dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:baselineAligned="false">
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginEnd="6dp"
+            android:src="@drawable/ic_app_logo_orange_dark"
+            android:contentDescription="@null" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text="@string/widget_portfolio_name"
+            android:textColor="@color/widget_preview_text"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- Gesamtwert (im Widget bis 26 sp, passt sich der Breite an), Währung ≈ 42 % klein und grau -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:orientation="horizontal"
+        android:baselineAligned="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:text="@string/widget_preview_portfolio_total_value"
+            android:textColor="@color/widget_preview_text"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:fontFeatureSettings="tnum" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:maxLines="1"
+            android:text="@string/widget_preview_quote_chf"
+            android:textColor="@color/widget_preview_text_secondary"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- «↗ +1’168.40 CHF  +1.41%» in der Kursfarbe, Währung klein und grau (in 2 × 2: 11 sp, ohne Zeitraum) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:orientation="horizontal"
+        android:baselineAligned="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:text="@string/widget_preview_portfolio_change_value"
+            android:textColor="@color/widget_preview_up"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:fontFeatureSettings="tnum" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:maxLines="1"
+            android:text="@string/widget_preview_quote_chf"
+            android:textColor="@color/widget_preview_text_secondary"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:maxLines="1"
+            android:text="@string/widget_preview_portfolio_percent"
+            android:textColor="@color/widget_preview_up"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:fontFeatureSettings="tnum" />
+    </LinearLayout>
+
+    <!-- Heute · 7 T · Gesamt: Beschriftung links, rechts «↗ +1.41%» als farbiger Text (widget_portfolio_figure_row.xml) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:baselineAligned="false">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:text="@string/portfolio_card_today"
+                android:textColor="@color/widget_preview_text_secondary"
+                android:textSize="11sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:gravity="end"
+                android:maxLines="1"
+                android:text="@string/widget_preview_portfolio_today"
+                android:textColor="@color/widget_preview_up"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:fontFeatureSettings="tnum" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:baselineAligned="false">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:text="@string/portfolio_history_range_7d"
+                android:textColor="@color/widget_preview_text_secondary"
+                android:textSize="11sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:gravity="end"
+                android:maxLines="1"
+                android:text="@string/widget_preview_portfolio_week"
+                android:textColor="@color/widget_preview_down"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:fontFeatureSettings="tnum" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:baselineAligned="false">
+
+            <!-- «Gesamt [CHF]»: übersetztes «Gesamt», Währung dahinter -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="@string/portfolio_card_total"
+                    android:textColor="@color/widget_preview_text_secondary"
+                    android:textSize="11sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:text="@string/widget_preview_portfolio_total_currency"
+                    android:textColor="@color/widget_preview_text_secondary"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:gravity="end"
+                android:maxLines="1"
+                android:text="@string/widget_preview_portfolio_total"
+                android:textColor="@color/widget_preview_up"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:fontFeatureSettings="tnum" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Platzhalter: hält die Fusszeile unten -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:maxLines="1"
+        android:text="@string/widget_preview_portfolio_time"
+        android:textColor="@color/widget_preview_text_secondary"
+        android:textSize="11sp"
+        android:fontFeatureSettings="tnum" />
+</LinearLayout>

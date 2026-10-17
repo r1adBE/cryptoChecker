@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: CSV-Import -->
+    <string name="portfolio_csv_import_action">Tuo CSV</string>
+    <string name="portfolio_csv_import_all_transfer">Kaikki omaan lompakkoon</string>
+    <string name="portfolio_csv_import_all_withdrawal">Kaikki poistuvat salkusta</string>
+    <string name="portfolio_csv_import_choice_proposed">Ehdotus: vastaa kohdetta %1$s</string>
+    <string name="portfolio_csv_import_choice_transfer">Omaan lompakkoon (siirto)</string>
+    <string name="portfolio_csv_import_choice_withdrawal">Poistuu salkusta (nosto)</string>
+    <string name="portfolio_csv_import_choose_each">Valitse jokaiselle nostolle, minne se meni.</string>
+    <string name="portfolio_csv_import_columns">Tunnistetut sarakkeet: %1$s</string>
+    <string name="portfolio_csv_import_confirm">Tuo (%1$d)</string>
+    <string name="portfolio_csv_import_date_day_first">Päivä/Kuukausi</string>
+    <string name="portfolio_csv_import_date_month_first">Kuukausi/Päivä</string>
+    <string name="portfolio_csv_import_date_order">Monitulkintaiset päivämäärät (esim. 03/04/2024) luetaan muodossa:</string>
+    <string name="portfolio_csv_import_decimal">Monitulkintaiset luvut (esim. %1$s) luetaan muodossa:</string>
+    <plurals name="portfolio_csv_import_done">
+        <item quantity="one">%d tapahtuma tuotu</item>
+        <item quantity="other">%d tapahtumaa tuotu</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_duplicates">
+        <item quantity="one">%d jo tuotu (ohitettu)</item>
+        <item quantity="other">%d jo tuotu (ohitettu)</item>
+    </plurals>
+    <string name="portfolio_csv_import_format">Muoto: %1$s</string>
+    <string name="portfolio_csv_import_line">Rivi %1$d: %2$s</string>
+    <string name="portfolio_csv_import_loading">Luetaan tiedostoa ja päiväkursseja…</string>
+    <string name="portfolio_csv_import_missing_fx">Rivillä %1$s ei ole päiväkurssia – tuotu ilman hintaa ja kulua.</string>
+    <string name="portfolio_csv_import_missing_price">Tiedostossa ei ole hintaa rivillä %1$s – tuotu ilman hintaa.</string>
+    <string name="portfolio_csv_import_more">+ %1$d lisää</string>
+    <plurals name="portfolio_csv_import_new">
+        <item quantity="one">%d uusi tapahtuma</item>
+        <item quantity="other">%d uutta tapahtumaa</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_skipped">
+        <item quantity="one">%d rivi ohitettu</item>
+        <item quantity="other">%d riviä ohitettu</item>
+    </plurals>
+    <string name="portfolio_csv_import_stable_swaps">Ostot ja myynnit stablecoineja (USDT, USDC …) vastaan kirjataan vaihdoiksi – stablecoin näkyy omistuksessasi.</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">Useita mahdollisia osumia – valitse oikea tai ei mitään.</string>
+    <string name="portfolio_csv_import_transfer_fee">Verkkomaksu: %1$s</string>
+    <string name="portfolio_csv_import_transfer_link">Kirjaa yhdeksi siirroksi</string>
+    <string name="portfolio_csv_import_transfer_stored">Vastapuoli aiemmasta tuonnista</string>
+    <string name="portfolio_csv_import_transfers_hint">Nosto ja saman coinin vastaava talletus yhdistetään yhdeksi siirroksi: ostohinta ja omistusaika säilyvät, erotus lasketaan verkkomaksuksi.</string>
+    <string name="portfolio_csv_import_transfers_title">Siirrot tiliesi välillä</string>
+    <string name="portfolio_csv_import_unreadable">Tuettuja tapahtumia ei löytynyt. Tuetut: Relain, Swissquoten, Krakenin, Binancen, Coinbasen ja Bitpandan CSV-viennit.</string>
+    <string name="portfolio_csv_import_withdrawals_title">Nostot – minne kolikot menivät?</string>
+    <string name="portfolio_csv_import_zone">Ajat ilman aikavyöhykettä luetaan muodossa: %1$s</string>
+    <string name="portfolio_csv_import_zone_device">Laite (%1$s)</string>
+    <string name="portfolio_csv_skip_bad_date">lukukelvoton päivämäärä</string>
+    <string name="portfolio_csv_skip_bad_number">lukukelvoton luku</string>
+    <string name="portfolio_csv_skip_fee_exceeds">kulu ≥ saatu määrä</string>
+    <string name="portfolio_csv_skip_internal_move">siirto omien tiliesi välillä – ei kirjattavaa</string>
+    <string name="portfolio_csv_skip_missing">kenttä puuttuu</string>
+    <string name="portfolio_csv_skip_not_crypto">ei kryptoa</string>
+    <string name="portfolio_csv_skip_possible_duplicate">ehkä jo tuotu (lähes sama kauppa) – tarkista käsin</string>
+    <string name="portfolio_csv_skip_two_fees">kaksi kulua eri yksiköissä – syötä vaihto käsin</string>
+    <string name="portfolio_csv_skip_unsupported">tyyppiä ei tueta</string>
+
+    <!-- Portfolio: Importe ansehen und rückgängig machen -->
+    <string name="portfolio_import_undo">Kumoa</string>
+    <plurals name="portfolio_import_undo_confirm">
+        <item quantity="one">Poistetaanko tämän tuonnin %d tapahtuma? Käsin kirjatut ja muut tuonnit säilyvät.</item>
+        <item quantity="other">Poistetaanko tämän tuonnin %d tapahtumaa? Käsin kirjatut ja muut tuonnit säilyvät.</item>
+    </plurals>
+    <string name="portfolio_import_undo_title">Kumotaanko tuonti?</string>
+    <plurals name="portfolio_import_undone">
+        <item quantity="one">%d tuotu tapahtuma poistettu</item>
+        <item quantity="other">%d tuotua tapahtumaa poistettu</item>
+    </plurals>
+    <plurals name="portfolio_imports_count">
+        <item quantity="one">%d tapahtuma</item>
+        <item quantity="other">%d tapahtumaa</item>
+    </plurals>
+    <string name="portfolio_imports_empty">Ei tuonteja</string>
+    <string name="portfolio_imports_title">Tuonnit</string>
+</resources>

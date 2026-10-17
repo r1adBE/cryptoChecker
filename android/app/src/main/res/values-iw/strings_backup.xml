@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Sicherung exportieren und wiederherstellen -->
+    <string name="backup_export">ייצוא</string>
+    <string name="backup_exported">הגיבוי נשמר.</string>
+    <string name="backup_failed">זה לא הצליח. האם זה גיבוי של Crypto Checker?</string>
+    <string name="backup_hint">שומר את הרשימה עם ההערות והקבוצות, ההתראות, המועדפים, תיק ההשקעות וההגדרות בקובץ שנשאר אצלכם – למשל לטלפון חדש.</string>
+    <string name="backup_import">ייבוא</string>
+    <string name="backup_title">גיבוי ושחזור</string>
+    <string name="backup_too_large">הקובץ גדול מדי או שאינו גיבוי תקין (עד 16 MB).</string>
+
+    <!-- Passwort der Sicherungsdatei -->
+    <string name="backup_password">סיסמה</string>
+    <string name="backup_password_continue">המשך</string>
+    <string name="backup_password_hide">הסתרת הסיסמה</string>
+    <!-- %1$d = Mindestlänge des Passworts (8) -->
+    <string name="backup_password_min">לפחות %1$d תווים</string>
+    <string name="backup_password_mismatch">הסיסמאות לא תואמות</string>
+    <string name="backup_password_prompt">יש להזין את הסיסמה של הגיבוי הזה.</string>
+    <string name="backup_password_repeat">חזרה על הסיסמה</string>
+    <string name="backup_password_show">הצגת הסיסמה</string>
+    <string name="backup_password_title">גיבוי מוגן בסיסמה</string>
+    <string name="backup_password_too_weak">קל מדי לניחוש – לא רק ספרות, לא תו אחד חוזר, בלי רצף נפוץ כמו «12345678» או «password».</string>
+    <string name="backup_password_warning">בלי הסיסמה אי אפשר לשחזר את הגיבוי.</string>
+    <string name="backup_password_wrong">סיסמה שגויה או שהקובץ פגום. אפשר לנסות שוב.</string>
+    <string name="backup_protect">הגנה בסיסמה</string>
+    <string name="backup_protect_hint">מצפין את הקובץ (AES-256). מומלץ כשהוא כולל נתוני תיק השקעות.</string>
+
+    <!-- Sicherung ohne Passwort, Wiederherstellen -->
+    <string name="backup_plain_confirm">שמירה בלי סיסמה</string>
+    <string name="backup_plain_confirm_text">הקובץ לא מוצפן. כל מי שמקבל אותו יכול לקרוא:</string>
+    <string name="backup_plain_confirm_title">לשמור בלי סיסמה?</string>
+    <string name="backup_plain_contents_addresses">כתובות ארנק שמורות</string>
+    <string name="backup_plain_contents_base">רשימת מעקב עם הערות וקבוצות, התראות, מועדפים והגדרות</string>
+    <string name="backup_plain_contents_portfolio">תיק: עסקאות עם כמויות ומחירים</string>
+    <string name="backup_restore_app_lock_kept">נעילת התיק נשארת פעילה – גיבוי לא מוצפן לא יכול לכבות אותה.</string>
+    <string name="backup_restore_confirm">הייבוא מחליף את הרשימה (עם ההערות והקבוצות), ההתראות, המועדפים, תיק ההשקעות וההגדרות בגיבוי.</string>
+    <plurals name="backup_restore_invalid">
+        <item quantity="one">רשומה %d בגיבוי (תיק או התראה) אינה תקינה ולא תיובא.</item>
+        <item quantity="two">%d רשומות בגיבוי (תיק או התראות) אינן תקינות ולא ייובאו.</item>
+        <item quantity="other">%d רשומות בגיבוי (תיק או התראות) אינן תקינות ולא ייובאו.</item>
+    </plurals>
+    <string name="backup_restore_newer_version">הגיבוי הזה הוא מגרסה חדשה יותר של האפליקציה – עדכן קודם את האפליקציה. לא יובא דבר.</string>
+    <string name="backup_restore_unencrypted_warning">הגיבוי הזה לא מוצפן – ודא שהוא שלך. ההגדרות יוחלו; נעילת תיק פעילה תישאר פעילה.</string>
+    <string name="backup_restored">שוחזרו: %1$s, %2$s.</string>
+    <plurals name="backup_restored_alarms">
+        <item quantity="one">%1$d התראה</item>
+        <item quantity="two">%1$d התראות</item>
+        <item quantity="other">%1$d התראות</item>
+    </plurals>
+    <plurals name="backup_restored_pairs">
+        <item quantity="one">%1$d צמד</item>
+        <item quantity="two">%1$d צמדים</item>
+        <item quantity="other">%1$d צמדים</item>
+    </plurals>
+
+    <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
+    <string name="storage_recovery_message">במכשיר הזה כבר אין את המפתח לנתונים המוצפנים של האפליקציה, ולכן היא נפתחה ריקה. שום דבר לא נמחק. כדי לשחזר את הרשימה ואת תיק ההשקעות, ייבאו קובץ גיבוי בהגדרות, תחת «%1$s».</string>
+    <string name="storage_recovery_title">לא ניתן לפתוח את הנתונים השמורים</string>
+</resources>

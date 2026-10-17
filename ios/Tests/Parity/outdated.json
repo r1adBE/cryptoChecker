@@ -1,0 +1,22 @@
+{
+  "description": "When a price counts as outdated (Android OutdatedRule.kt / iOS OutdatedRule.swift). afterMillis: limit for polled prices from the background interval = max(3 x interval, 15 min); pairs on the live stream use the fixed 2 min limit (LIVE_MILLIS / liveMillis, see the live cases under stale). stale: price of age ageMillis (null = never updated) at now -> outdated?",
+  "now": 1700000000000,
+  "afterMillis": [
+    {"name": "background 15 min", "backgroundIntervalMinutes": 15, "expected": 2700000},
+    {"name": "background 60 min", "backgroundIntervalMinutes": 60, "expected": 10800000},
+    {"name": "background 1 min: floor 15 min", "backgroundIntervalMinutes": 1, "expected": 900000},
+    {"name": "background 10 min: three intervals", "backgroundIntervalMinutes": 10, "expected": 1800000},
+    {"name": "background 24 h", "backgroundIntervalMinutes": 1440, "expected": 259200000}
+  ],
+  "stale": [
+    {"name": "live: 18 s old", "afterMillis": 120000, "ageMillis": 18000, "expected": false},
+    {"name": "live: exactly 2 min", "afterMillis": 120000, "ageMillis": 120000, "expected": false},
+    {"name": "live: 2 min + 1 ms", "afterMillis": 120000, "ageMillis": 120001, "expected": true},
+    {"name": "live: 4 min old", "afterMillis": 120000, "ageMillis": 240000, "expected": true},
+    {"name": "live: never updated", "afterMillis": 120000, "ageMillis": null, "expected": false},
+    {"name": "live: clock set back (future time)", "afterMillis": 120000, "ageMillis": -600000, "expected": false},
+    {"name": "background: 4 min old", "afterMillis": 2700000, "ageMillis": 240000, "expected": false},
+    {"name": "background: 44 min old", "afterMillis": 2700000, "ageMillis": 2640000, "expected": false},
+    {"name": "background: 45 min + 1 ms", "afterMillis": 2700000, "ageMillis": 2700001, "expected": true}
+  ]
+}

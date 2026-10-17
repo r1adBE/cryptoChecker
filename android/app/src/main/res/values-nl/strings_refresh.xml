@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Wie aktuell? (Sparsam / Live) -->
+    <string name="update_mode_for_pros">kost meer data en batterij</string>
+    <string name="update_mode_live">Live zolang open</string>
+    <string name="update_mode_live_hint">Waar de beurs een live koers levert: direct zolang de lijst open is. Anders bij de volgende ophaalronde. Gesloten: niet vaker dan elke %1$s, vaak later.</string>
+    <string name="update_mode_live_hint_ios">Waar de beurs een live koers levert: direct zolang de lijst open is. Anders bij de volgende ophaalronde. Gesloten: wanneer iOS het toestaat, soms uren later. Veeg je de app weg, dan stopt iOS deze controles tot je hem weer opent.</string>
+    <string name="update_mode_recommended">aanbevolen</string>
+    <string name="update_mode_sparsam">Zuinig</string>
+    <string name="update_mode_sparsam_hint">Met de app gesloten niet vaker dan elke %1$s, vaak later (alarmen, widgets). Open: bij elke keer openen.</string>
+    <string name="update_mode_sparsam_hint_ios">Met de app gesloten bepaalt iOS wanneer er wordt gecontroleerd (alarmen, widgets), soms uren later. Open: bij elke keer openen.</string>
+    <string name="update_mode_title">Hoe actueel?</string>
+
+    <!-- Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <string name="refresh_sheet_aborted">Vernieuwen afgebroken</string>
+    <string name="refresh_sheet_alarms">Alarmen</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="one">%1$d afgegaan</item>
+        <item quantity="other">%1$d afgegaan</item>
+    </plurals>
+    <!-- Grosse Statuszeile oben im Blatt -->
+    <string name="refresh_sheet_all_updated">Alles bijgewerkt</string>
+    <string name="refresh_sheet_app_start">App-start</string>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="one">bulkverzoek %1$s · %2$d koers</item>
+        <item quantity="other">bulkverzoek %1$s · %2$d koersen</item>
+    </plurals>
+    <string name="refresh_sheet_database">Database</string>
+    <string name="refresh_sheet_market_unreachable">%1$s niet bereikbaar</string>
+    <plurals name="refresh_sheet_markets_unreachable">
+        <item quantity="one">%1$d beurs niet bereikbaar</item>
+        <item quantity="other">%1$d beurzen niet bereikbaar</item>
+    </plurals>
+    <string name="refresh_sheet_network">Netwerk</string>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="one">%1$d melding</item>
+        <item quantity="other">%1$d meldingen</item>
+    </plurals>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="one">%1$d paar</item>
+        <item quantity="other">%1$d paren</item>
+    </plurals>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="one">%1$d paar niet bijgewerkt</item>
+        <item quantity="other">%1$d paren niet bijgewerkt</item>
+    </plurals>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="one">%2$d van %1$d paar</item>
+        <item quantity="other">%2$d van %1$d paren</item>
+    </plurals>
+    <string name="refresh_sheet_paused_until">gepauzeerd tot %1$s</string>
+    <string name="refresh_sheet_paused_until_reason">gepauzeerd tot %1$s (%2$s)</string>
+    <string name="refresh_sheet_reason_no_data">geen gegevens</string>
+    <string name="refresh_sheet_reason_offline">geen verbinding</string>
+    <string name="refresh_sheet_reason_rate_limit">te veel verzoeken</string>
+    <string name="refresh_sheet_reason_server">serverfout</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">time-out</string>
+    <string name="refresh_sheet_reason_unavailable">beurs niet beschikbaar</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s seconden</string>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_markets">Beurzen</string>
+    <string name="refresh_sheet_section_steps">Verloop</string>
+    <string name="refresh_sheet_status_failed">niet bijgewerkt</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">alles bijgewerkt</string>
+    <string name="refresh_sheet_status_partial">deels bijgewerkt</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">Wachttijd tot start</string>
+    <string name="refresh_sheet_widgets">Widgets</string>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+
+    <!-- Kurzbericht der Aktualisierung je Börse -->
+    <string name="refresh_report_bulk_failed">bulkverzoek %1$s (mislukt)</string>
+    <plurals name="refresh_report_errors">
+        <item quantity="one">%1$d fout</item>
+        <item quantity="other">%1$d fouten</item>
+    </plurals>
+    <string name="refresh_report_live">Live: %1$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="one">%1$d niet meer verhandeld</item>
+        <item quantity="other">%1$d niet meer verhandeld</item>
+    </plurals>
+    <string name="refresh_report_singles">%1$d afzonderlijk</string>
+
+    <!-- Prüfprotokoll der Hintergrundprüfungen (Ergebnis, Auslöser) -->
+    <string name="check_result_failed">Mislukt</string>
+    <string name="check_result_ok">OK</string>
+    <string name="check_result_partial">Gedeeltelijk</string>
+    <string name="check_result_skipped">Overgeslagen</string>
+    <string name="check_trigger_bgtask">Achtergrond</string>
+    <string name="check_trigger_exact">Op tijd</string>
+    <string name="check_trigger_foreground">App</string>
+    <string name="check_trigger_widget">Widget</string>
+    <string name="check_trigger_widget_ios">Widget · koersen en koersalarmen</string>
+    <string name="check_trigger_worker">Achtergrond</string>
+
+    <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
+    <string name="battery_delay_hint">Android kan controles vertragen – zet de batterij op «Onbeperkt»</string>
+    <string name="battery_later">Later</string>
+    <string name="battery_message">Android stelt achtergrondwerk uit om energie te besparen — koersen en widgets kunnen dan uren oud zijn. Met onbeperkt batterijgebruik blijven ze actueel. Je kunt dit altijd wijzigen in de Android-instellingen.</string>
+    <string name="battery_open_settings">Batterij-instellingen openen</string>
+    <string name="battery_steps">Tik in de app-info op Batterij (of Batterijgebruik van app) en kies Onbeperkt.</string>
+    <string name="battery_title">Koersen actueel houden</string>
+    <string name="ios_background_refresh_off">Ververs op achtergrond staat uit voor de app. Zonder dit worden alarmen alleen gecontroleerd als de app open is.</string>
+    <string name="ios_low_power_mode">Energiebesparingsmodus staat aan. iOS controleert zelden op de achtergrond, dus alarmen kunnen te laat komen.</string>
+</resources>

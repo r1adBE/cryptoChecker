@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: beobachtete Adressen (Wallets) -->
+    <string name="portfolio_address_add">添加地址</string>
+    <string name="portfolio_address_count">计入</string>
+    <string name="portfolio_address_error">更新失败</string>
+    <string name="portfolio_address_hint">公开地址（BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA）或 xpub</string>
+    <string name="portfolio_address_label">标签（可选）</string>
+    <string name="portfolio_address_not_since_buy">来自地址 · 不计入 «自买入»：%1$s</string>
+    <string name="portfolio_address_overlap">你自己的交易中也有：%1$s——两者会相加。是同一批币？请选择 «仅显示»。</string>
+    <string name="portfolio_address_overlap_ask">你已用自己的交易记录了 %1$s。要把此地址的余额计入投资组合，还是仅显示？</string>
+    <string name="portfolio_address_overlap_auto">«%1$s» 现在仅显示，不计入——%2$s 也出现在你的交易中。</string>
+    <string name="portfolio_address_overlap_restored">«%1$s» 重新计入——其数量与你的交易不符。如果是同一批币，请选择 «仅显示»。</string>
+    <string name="portfolio_address_overlap_title">与你交易中的币相同？</string>
+    <string name="portfolio_address_overlap_tx">与你自己的存入/转移（%1$s）数量相同——可能被重复计算。</string>
+    <string name="portfolio_address_period_observed">观察的地址从首次观察到的余额开始计算；之后的变化属于流入/流出，不算收益。</string>
+    <string name="portfolio_address_privacy">只向 %1$s 发送公开地址——绝不发送密钥或助记词。服务方会同时看到你的 IP 地址。最多每 10 分钟查询一次。</string>
+    <string name="portfolio_address_remove">移除地址</string>
+    <string name="portfolio_address_show_only">仅显示，不计入投资组合</string>
+    <string name="portfolio_address_show_only_short">仅显示</string>
+    <string name="portfolio_address_tokens">计入代币</string>
+    <string name="portfolio_address_unknown_tokens">+%1$d 个未知代币（未计入）</string>
+    <string name="portfolio_address_xpub_privacy">xpub 会暴露此钱包的全部地址。地址在你的设备上推导；只向 %1$s 发送单个地址——首次扫描至少 40 次请求，之后更少。绝不接受私钥（xprv）。</string>
+    <string name="portfolio_address_xpub_used">已用地址：%1$d</string>
+    <string name="portfolio_addresses_title">地址</string>
+
+    <!-- Prüfung einer eingegebenen Adresse -->
+    <string name="address_bch_unsupported">无法观察 Bitcoin Cash 地址：没有条款允许此用途且无需 API 密钥的免费公共服务。</string>
+    <string name="address_bep2_shutdown">BNB Beacon Chain（BEP-2）已于 2024 年关闭——余额现在位于 BNB Smart Chain（0x…）</string>
+    <string name="address_checksum">校验和错误——是否输错了？</string>
+    <string name="address_doge_unsupported">无法观察 Dogecoin 地址：没有条款允许此用途且无需 API 密钥的免费公共服务。</string>
+    <string name="address_duplicate">该地址已添加</string>
+    <string name="address_ens">不支持 ENS 名称——请输入 0x 地址</string>
+    <string name="address_invalid">不是受支持网络的有效地址</string>
+    <string name="address_limit">最多 20 个地址</string>
+    <string name="address_secret">这看起来像私钥或助记词——切勿在任何地方输入。仅限公开地址。</string>
+    <string name="address_testnet">不支持 Testnet 地址</string>
+    <string name="address_unsupported">不支持此地址类型</string>
+    <string name="address_wrong_chain">该地址属于其他网络</string>
+    <string name="address_xpub_multisig">不支持多签密钥（Ypub/Zpub）</string>
+</resources>

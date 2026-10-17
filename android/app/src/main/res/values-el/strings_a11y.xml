@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Screenreader: Zeile eines Paars, Frische, Erreichbarkeit -->
+    <string name="a11y_alarm_count">συναγερμοί: %1$d</string>
+    <!-- Alarm des Paars eben ausgelöst (bis 15 Min. danach im Zeilensatz) -->
+    <string name="a11y_alarm_fired">Ο συναγερμός ενεργοποιήθηκε</string>
+    <string name="a11y_collapsed">Συμπτυγμένο</string>
+    <string name="a11y_converted">περίπου %1$s</string>
+    <string name="a11y_expanded">Αναπτυγμένο</string>
+    <!-- Vorgelesen bei Zeilen, die eine Website öffnen (Datenschutz, Börse wünschen, Quellcode) -->
+    <string name="a11y_external_link">ανοίγει στο πρόγραμμα περιήγησης</string>
+    <string name="a11y_favorite">Αγαπημένο</string>
+    <string name="a11y_in_watchlist">Ήδη στη λίστα παρακολούθησης</string>
+    <!-- %1$s Börse, letzte Abfrage gescheitert -->
+    <string name="a11y_market_unreachable">Το %1$s δεν είναι διαθέσιμο</string>
+    <string name="a11y_move_down">Μετακίνηση κάτω</string>
+    <string name="a11y_move_up">Μετακίνηση πάνω</string>
+    <string name="a11y_note">σημείωση: %1$s</string>
+    <string name="a11y_price">τιμή %1$s</string>
+    <string name="a11y_price_notification_off">Ειδοποίηση τιμής ανενεργή</string>
+    <string name="a11y_price_notification_on">Ειδοποίηση τιμής ενεργή</string>
+    <!-- Frische einer Zeile, Teile mit «, » verbunden: «Kurs veraltet, zuletzt aktualisiert vor 45 Minuten» (A11ySpeech.freshnessText) -->
+    <string name="a11y_price_outdated">Η τιμή δεν είναι επίκαιρη</string>
+    <!-- Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%1$s στο %2$s</string>
+    <string name="a11y_stale">μη ενημερωμένα, τελευταία ενημέρωση %1$s</string>
+    <string name="a11y_warning">Προειδοποίηση</string>
+
+    <!-- Screenreader: Veränderung (Prozent-Pille, Widgets) -->
+    <!-- %1$s Satz aus a11y_change_up/down/flat: Veränderung über 24 Stunden (Prozent-Pille, Widgets) -->
+    <string name="a11y_change_24h">%1$s σε 24 ώρες</string>
+    <!-- Wenn die Pille «—» zeigt (keine Kerzen für das Paar) -->
+    <string name="a11y_change_24h_none">Η μεταβολή 24 ωρών δεν είναι διαθέσιμη</string>
+    <string name="a11y_change_down">πτώση %1$s</string>
+    <string name="a11y_change_flat">χωρίς μεταβολή</string>
+    <string name="a11y_change_since_last">%1$s από την τελευταία ενημέρωση</string>
+    <string name="a11y_change_since_last_none">Η μεταβολή από την τελευταία ενημέρωση δεν είναι διαθέσιμη</string>
+    <!-- %1$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_change_today">%1$s σήμερα</string>
+    <string name="a11y_change_today_none">Η σημερινή μεταβολή δεν είναι διαθέσιμη</string>
+    <string name="a11y_change_today_zone">%1$s από τα μεσάνυχτα %2$s</string>
+    <string name="a11y_change_today_zone_none">Η μεταβολή από τα μεσάνυχτα %1$s δεν είναι διαθέσιμη</string>
+    <string name="a11y_change_up">άνοδος %1$s</string>
+
+    <!-- Screenreader: Charts und Skalen -->
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">Γράφημα %1$s: από %2$s σε %3$s, %4$s. Υψηλό %5$s, χαμηλό %6$s.</string>
+    <string name="a11y_chart_empty">Γράφημα: δεν υπάρχουν δεδομένα</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">Κύκλος %1$s: %2$s από το halving, ημέρα %3$d.</string>
+    <string name="a11y_cycle_bottom">Πάτος %1$s την ημέρα %2$d.</string>
+    <string name="a11y_cycle_double_bottom">Διπλός πάτος %1$s την ημέρα %2$d.</string>
+    <string name="a11y_cycle_double_top">Διπλή κορυφή %1$s την ημέρα %2$d.</string>
+    <string name="a11y_cycle_top">Κορυφή %1$s την ημέρα %2$d.</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">Κλίμακα από %1$s έως %2$s: %3$d από 100</string>
+
+    <!-- Screenreader: Puls-Zeile der Merkliste -->
+    <string name="a11y_watchlist_pulse">%1$s, %2$s, κατά μέσο όρο %3$s</string>
+    <string name="a11y_watchlist_pulse_combined">%1$s. %2$s</string>
+    <plurals name="a11y_watchlist_pulse_falling">
+        <item quantity="one">%1$d πέφτει</item>
+        <item quantity="other">%1$d πέφτουν</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing">
+        <item quantity="one">%1$d ζεύγος χωρίς τιμή 24 ωρών</item>
+        <item quantity="other">%1$d ζεύγη χωρίς τιμή 24 ωρών</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="one">%1$d ζεύγος χωρίς τιμή για σήμερα</item>
+        <item quantity="other">%1$d ζεύγη χωρίς τιμή για σήμερα</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_rising">
+        <item quantity="one">%1$d ζεύγος ανεβαίνει</item>
+        <item quantity="other">%1$d ζεύγη ανεβαίνουν</item>
+    </plurals>
+
+    <!-- Screenreader: zuletzt aktualisiert -->
+    <plurals name="a11y_updated_days">
+        <item quantity="one">τελευταία ενημέρωση πριν από %1$d ημέρα</item>
+        <item quantity="other">τελευταία ενημέρωση πριν από %1$d ημέρες</item>
+    </plurals>
+    <plurals name="a11y_updated_hours">
+        <item quantity="one">τελευταία ενημέρωση πριν από %1$d ώρα</item>
+        <item quantity="other">τελευταία ενημέρωση πριν από %1$d ώρες</item>
+    </plurals>
+    <string name="a11y_updated_just_now">τελευταία ενημέρωση μόλις τώρα</string>
+    <plurals name="a11y_updated_minutes">
+        <item quantity="one">τελευταία ενημέρωση πριν από %1$d λεπτό</item>
+        <item quantity="other">τελευταία ενημέρωση πριν από %1$d λεπτά</item>
+    </plurals>
+
+    <!-- Screenreader: Portfolio und Portfolio-Widget -->
+    <string name="a11y_amount_hidden">κρυφό ποσό</string>
+    <!-- %1$s Kürzel, %2$s Wert mit Währung, %3$s Anteil «62.3%», %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_portfolio_position">%1$s %2$s, %3$s του χαρτοφυλακίου</string>
+    <!-- Position im Portfolio-Widget: %1$s Kürzel, %2$s Anteil «62.3%», %3$s Satz aus a11y_change_24h -->
+    <string name="a11y_portfolio_position_24h">%1$s, %2$s του χαρτοφυλακίου, %3$s</string>
+    <string name="a11y_portfolio_positions">Μεγαλύτερες θέσεις: %1$s</string>
+    <string name="a11y_portfolio_show_amounts">Εμφάνιση ποσών</string>
+</resources>

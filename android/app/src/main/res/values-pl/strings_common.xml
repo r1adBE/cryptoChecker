@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">Wstecz</string>
+    <string name="action_cancel">Anuluj</string>
+    <string name="action_clear">Wyczyść</string>
+    <string name="action_close">Zamknij</string>
+    <string name="action_delete">Usuń</string>
+    <string name="action_edit">Edytuj</string>
+    <string name="action_more">Więcej opcji</string>
+    <string name="action_refresh">Odśwież</string>
+    <string name="action_retry">Ponów</string>
+    <string name="action_save">Zapisz</string>
+    <string name="action_sort">Sortuj</string>
+    <string name="action_sort_done">Gotowe</string>
+    <string name="action_undo">Cofnij</string>
+    <string name="action_view">Pokaż</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">Rynek</string>
+    <string name="tab_portfolio">Portfel</string>
+    <string name="tab_settings">Ustawienia</string>
+    <string name="tab_watchlist">Lista</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">Błąd: %1$s</string>
+    <string name="error_market_unreachable">Giełda jest teraz niedostępna – ostatnie kursy pozostają widoczne.</string>
+    <string name="error_market_unreachable_short">Giełda jest teraz niedostępna</string>
+    <string name="loading_hint">Wczytywanie…</string>
+    <string name="no_internet_connection">Brak połączenia z internetem</string>
+    <string name="option_off">Wył.</string>
+    <string name="something_went_wrong">Coś poszło nie tak</string>
+    <string name="time_just_now">przed chwilą</string>
+    <string name="timeout_error_message">Giełda w tej chwili nie odpowiada.</string>
+    <string name="try_again">Spróbuj ponownie</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">Brak połączenia</string>
+    <string name="offline_status_since">Brak połączenia · stan z %1$s</string>
+    <string name="status_live">Na żywo</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">Dodaj parę</string>
+    <string name="shortcut_alarms">Wszystkie alarmy</string>
+    <string name="shortcut_cycle">Rynek</string>
+</resources>

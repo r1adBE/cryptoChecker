@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Warum bewegt sich das?»: Titel, Abschnitte, Aufklappen -->
+    <string name="why_action">Qu’est-ce qui bouge avec ?</string>
+    <string name="why_all_values">Toutes les valeurs et sources</string>
+    <string name="why_all_values_hint">Observation · Explication possible · Sources</string>
+    <string name="why_details">Voir les détails</string>
+    <string name="why_details_hide">Masquer les détails</string>
+    <string name="why_disclaimer">Évaluation automatique à partir des données de marché : elle montre ce qui se produit en même temps, pas la preuve d\'une cause.</string>
+    <string name="why_footer_short">Simultané ne veut pas dire cause · Pas un conseil en investissement</string>
+    <string name="why_no_data">Aucune donnée Binance pour cette paire</string>
+    <string name="why_no_data_hint">Le prix, le volume et la volatilité proviennent des bougies horaires de Binance.</string>
+    <string name="why_ref_alts">Alts</string>
+    <string name="why_section_context">Lecture possible</string>
+    <string name="why_section_observation">Observation</string>
+    <string name="why_title">Qu’est-ce qui bouge avec ?</string>
+    <string name="why_title_coin">Qu’est-ce qui bouge avec %1$s ?</string>
+
+    <!-- «Warum?»: Kurz gesagt (ein Satz oben) -->
+    <string name="why_brief_head">En bref · À %1$s</string>
+    <string name="why_brief_label">En bref :</string>
+    <string name="why_summary_against">La crypto évolue à contre-courant du marché.</string>
+    <string name="why_summary_calm">Aucun mouvement notable : marché et crypto sont calmes.</string>
+    <string name="why_summary_coin">Seule cette crypto bouge – peut-être un élément qui ne concerne que cette crypto.</string>
+    <string name="why_summary_coin_volume">Seule cette crypto bouge, avec plus de volume – peut-être un élément qui ne concerne que cette crypto.</string>
+    <string name="why_summary_longs">Futures : beaucoup de positions long à effet de levier.</string>
+    <string name="why_summary_market">Le mouvement coïncide dans le temps avec l\'ensemble du marché.</string>
+    <string name="why_summary_market_volume">Le mouvement coïncide avec un volume d\'échanges plus élevé et un marché qui bouge largement.</string>
+    <string name="why_summary_peg_near">Le cours est proche de sa parité 1:1.</string>
+    <string name="why_summary_peg_off">Le cours s\'écarte sensiblement de sa parité 1:1.</string>
+    <string name="why_summary_shorts">Futures : beaucoup de positions short.</string>
+    <string name="why_summary_thin">Le mouvement est faible : peu de volume derrière.</string>
+
+    <!-- «Warum?»: Faktorliste (Titel der Faktoren) -->
+    <string name="why_f_against">À contre-courant du marché</string>
+    <string name="why_f_coin_only">Seule cette crypto</string>
+    <string name="why_f_leader">Bitcoin, leader du marché</string>
+    <string name="why_f_leverage_balanced">Levier équilibré</string>
+    <string name="why_f_leverage_longs">Levier : beaucoup de longs</string>
+    <string name="why_f_leverage_shorts">Levier : beaucoup de shorts</string>
+    <string name="why_f_market_calm">Marché calme</string>
+    <string name="why_f_market_wide">Tout le marché bouge</string>
+    <string name="why_factor_funding">Funding</string>
+    <string name="why_factor_futures">Futures</string>
+    <string name="why_factor_market">Marché global</string>
+    <string name="why_factor_near_high">Proche du plus haut</string>
+    <string name="why_factor_near_low">Proche du plus bas</string>
+    <string name="why_factor_peg">Parité (1:1)</string>
+    <string name="why_factor_range3d">Fourchette sur 3 jours</string>
+
+    <!-- «Warum?»: Nebenzeilen der Faktoren -->
+    <string name="why_fn_estimated">estimé</string>
+    <string name="why_fn_funding_longs">beaucoup misent sur la hausse</string>
+    <string name="why_fn_funding_neutral">neutre</string>
+    <string name="why_fn_funding_shorts">beaucoup misent sur la baisse</string>
+    <string name="why_fn_high_at">au plus haut sur 30 jours</string>
+    <string name="why_fn_high_below">sous le plus haut sur 30 jours</string>
+    <string name="why_fn_leader_calm">Bitcoin calme</string>
+    <string name="why_fn_leader_moves">Le Bitcoin bouge nettement</string>
+    <string name="why_fn_low_above">au-dessus du plus bas sur 30 jours</string>
+    <string name="why_fn_low_at">au plus bas sur 30 jours</string>
+    <string name="why_fn_market_against">Cette crypto évolue à contre-courant du marché</string>
+    <string name="why_fn_market_alone">Marché calme – cette crypto bouge seule</string>
+    <string name="why_fn_market_calm">Marché calme</string>
+    <string name="why_fn_market_lags">Le marché bouge, cette crypto à peine</string>
+    <string name="why_fn_market_moves">Le marché évolue dans le même sens</string>
+    <string name="why_fn_market_pulls">Le marché évolue avec le BTC</string>
+    <string name="why_fn_oi_down">Intérêt ouvert en baisse</string>
+    <string name="why_fn_oi_flat">Intérêt ouvert quasi inchangé</string>
+    <string name="why_fn_oi_mixed">Intérêt ouvert contrasté</string>
+    <string name="why_fn_oi_up">Intérêt ouvert en hausse</string>
+    <string name="why_fn_peg_above">%1$s au-dessus de la parité 1:1</string>
+    <string name="why_fn_peg_below">%1$s sous la parité 1:1</string>
+    <string name="why_fn_peg_near">proche de la parité 1:1</string>
+    <string name="why_fn_range_above_low">depuis le plus bas sur 3 jours</string>
+    <string name="why_fn_range_below_high">depuis le plus haut sur 3 jours</string>
+    <string name="why_fn_range_near_high">proche du plus haut sur 3 jours</string>
+    <string name="why_fn_range_near_low">proche du plus bas sur 3 jours</string>
+    <string name="why_fn_volatility_stronger">plus forte que d\'habitude</string>
+    <string name="why_fn_volatility_tiny">faible en valeur absolue (moins de %1$s)</string>
+    <string name="why_fn_volatility_usual">comme d\'habitude</string>
+    <string name="why_fn_volume_higher">plus élevé que d\'habitude</string>
+    <string name="why_fn_volume_lower">plus faible que d\'habitude</string>
+    <string name="why_fn_volume_usual">comme d\'habitude</string>
+
+    <!-- «Warum?»: ausführliche Sätze je Beobachtung -->
+    <string name="why_against_market_text">Cette crypto %1$s, BTC %2$s sur 24 h — un mouvement nettement indépendant.</string>
+    <string name="why_against_ref_text">Cette crypto %1$s, %2$s %3$s sur 24 h — un mouvement nettement indépendant.</string>
+    <string name="why_btc_independent">%1$s évolue actuellement indépendamment du Bitcoin.</string>
+    <string name="why_btc_tight">%1$s évolue actuellement de près avec le Bitcoin.</string>
+    <string name="why_change_1h">1 h</string>
+    <string name="why_change_24h">24 h</string>
+    <string name="why_coin_only_text">%1$s sur 24 h alors que le marché est calme – peut-être un élément qui ne concerne que cette crypto.</string>
+    <string name="why_leverage_balanced_text">Pas d\'accumulation de positions longues ou courtes sur le marché des futures.</string>
+    <string name="why_leverage_longs_text">Beaucoup parient avec de l’argent emprunté sur la hausse des cours. Les longs paient les shorts — risque accru de liquidations si le prix baisse.</string>
+    <string name="why_leverage_shorts_text">Beaucoup parient avec de l’argent emprunté sur la baisse des cours. Les shorts paient les longs – si le prix monte, un short squeeze est possible.</string>
+    <string name="why_market_calm_text">Cette crypto : %1$s sur 24 h. Ni le marché ni la crypto ne bougent beaucoup.</string>
+    <string name="why_market_leader_text">En tant que plus grande crypto, BTC évolue généralement en phase avec le reste du marché. ETH : %1$s sur 24 h.</string>
+    <string name="why_market_leader_text_no_eth">En tant que plus grande crypto, BTC évolue généralement en phase avec le reste du marché.</string>
+    <string name="why_market_similar_text">Cette crypto : %1$s sur 24 h — au même moment, le marché évolue dans le même sens, mais moins nettement.</string>
+    <string name="why_market_wide_text">Cette crypto : %1$s sur 24 h – au même moment, l\'ensemble du marché bouge nettement.</string>
+    <string name="why_open_interest_change">Intérêt ouvert %1$s depuis la dernière vérification.</string>
+    <string name="why_peg_text">Stablecoin : comparé à une parité 1:1 avec la devise de cotation, écart %1$s.</string>
+    <string name="why_sentiment_text">Indice Fear &amp; Greed de l\'ensemble du marché crypto, %1$s par rapport à hier.</string>
+    <string name="why_sentiment_text_no_change">Indice Fear &amp; Greed de l\'ensemble du marché crypto.</string>
+    <plurals name="why_trend_falling">
+        <item quantity="one">en baisse depuis %1$d heure</item>
+        <item quantity="many">en baisse depuis %1$d heures</item>
+        <item quantity="other">en baisse depuis %1$d heures</item>
+    </plurals>
+    <plurals name="why_trend_rising">
+        <item quantity="one">en hausse depuis %1$d heure</item>
+        <item quantity="many">en hausse depuis %1$d heures</item>
+        <item quantity="other">en hausse depuis %1$d heures</item>
+    </plurals>
+    <plurals name="why_trend_stable">
+        <item quantity="one">stable depuis %1$d heure</item>
+        <item quantity="many">stable depuis %1$d heures</item>
+        <item quantity="other">stable depuis %1$d heures</item>
+    </plurals>
+    <string name="why_volatility_high_text">Dernière heure : %1$s — par rapport à la variation horaire typique des dernières 24 heures.</string>
+    <string name="why_volatility_normal_text">Dernière heure : %1$s — dans la fourchette habituelle.</string>
+    <string name="why_volatility_tiny_text">Dernière heure : %1$s — inhabituel pour cette crypto, mais faible en valeur absolue.</string>
+    <string name="why_volume_estimated_text">Estimé : cette source ne fournit pas de volume en devise, on compare donc les quantités de crypto échangées.</string>
+    <string name="why_volume_high_text">Beaucoup plus d\'échanges que d\'habitude sur la dernière heure – le mouvement s\'accompagne d\'un volume élevé.</string>
+    <string name="why_volume_low_text">Peu d\'échanges derrière le mouvement – ce type de mouvement est souvent moins stable.</string>
+    <string name="why_volume_normal_text">Les échanges de la dernière heure sont conformes aux dernières 24 heures.</string>
+
+    <!-- «Warum?»: Signal-Punkte (stützt, neutral, Vorsicht) -->
+    <string name="why_dot_caution">élevé</string>
+    <string name="why_dot_neutral">neutre</string>
+    <string name="why_dot_supports">concorde avec le mouvement</string>
+
+    <!-- «Warum?»: Frische und Quellen der Daten -->
+    <string name="why_data_time">Données du %1$s</string>
+    <string name="why_fresh_breadth">Largeur du marché : %1$s · %2$s</string>
+    <string name="why_fresh_candles">Bougies : %1$s · %2$s</string>
+    <string name="why_fresh_fng">Fear &amp; Greed : %1$s</string>
+    <string name="why_fresh_futures">Futures : %1$s</string>
+    <plurals name="why_fresh_oi_hours">
+        <item quantity="one">intérêt ouvert comparé à il y a %1$d heure</item>
+        <item quantity="many">intérêt ouvert comparé à il y a %1$d heures</item>
+        <item quantity="other">intérêt ouvert comparé à il y a %1$d heures</item>
+    </plurals>
+    <plurals name="why_fresh_oi_minutes">
+        <item quantity="one">intérêt ouvert comparé à il y a %1$d minute</item>
+        <item quantity="many">intérêt ouvert comparé à il y a %1$d minutes</item>
+        <item quantity="other">intérêt ouvert comparé à il y a %1$d minutes</item>
+    </plurals>
+    <string name="why_fresh_today">aujourd\'hui</string>
+    <string name="why_fresh_yesterday">hier</string>
+    <string name="why_source_fallback">%1$s (source de secours)</string>
+    <string name="why_source_reference">%1$s (valeur indicative)</string>
+    <string name="why_sources">Sources : bougies horaires de la plateforme (le plus souvent Binance), données futures des plateformes, Fear &amp; Greed d\'alternative.me.</string>
+    <string name="why_sources_list">Sources : %1$s.</string>
+    <string name="why_src_breadth">%1$s (largeur du marché)</string>
+    <string name="why_src_candles">%1$s (bougies)</string>
+    <string name="why_src_comparison">%1$s (comparaison de marché)</string>
+    <string name="why_src_fng">%1$s (Fear &amp; Greed)</string>
+    <string name="why_src_futures">%1$s (futures)</string>
+
+    <!-- Faktor-Checkliste (Crypto Pulse und «Warum?») -->
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">Funding</string>
+    <string name="factor_spoken_volatility">%1$s fois l\'amplitude habituelle</string>
+    <string name="factor_spoken_volume">%1$s fois la normale</string>
+    <string name="factor_volatility">Fluctuation (1 h)</string>
+    <string name="factor_volume">Volume</string>
+</resources>

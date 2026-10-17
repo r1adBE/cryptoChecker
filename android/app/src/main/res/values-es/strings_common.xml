@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">Atrás</string>
+    <string name="action_cancel">Cancelar</string>
+    <string name="action_clear">Borrar</string>
+    <string name="action_close">Cerrar</string>
+    <string name="action_delete">Eliminar</string>
+    <string name="action_edit">Editar</string>
+    <string name="action_more">Más opciones</string>
+    <string name="action_refresh">Actualizar</string>
+    <string name="action_retry">Reintentar</string>
+    <string name="action_save">Guardar</string>
+    <string name="action_sort">Ordenar</string>
+    <string name="action_sort_done">Listo</string>
+    <string name="action_undo">Deshacer</string>
+    <string name="action_view">Ver</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">Mercado</string>
+    <string name="tab_portfolio">Cartera</string>
+    <string name="tab_settings">Ajustes</string>
+    <string name="tab_watchlist">Lista</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">Error: %1$s</string>
+    <string name="error_market_unreachable">El exchange no está disponible ahora – los últimos precios siguen visibles.</string>
+    <string name="error_market_unreachable_short">Exchange no disponible ahora</string>
+    <string name="loading_hint">Cargando…</string>
+    <string name="no_internet_connection">Sin conexión a Internet</string>
+    <string name="option_off">No</string>
+    <string name="something_went_wrong">Algo salió mal</string>
+    <string name="time_just_now">ahora mismo</string>
+    <string name="timeout_error_message">El exchange no responde en este momento.</string>
+    <string name="try_again">Reintentar</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">Sin conexión</string>
+    <string name="offline_status_since">Sin conexión · datos de %1$s</string>
+    <string name="status_live">En vivo</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">Añadir par</string>
+    <string name="shortcut_alarms">Todas las alarmas</string>
+    <string name="shortcut_cycle">Mercado</string>
+</resources>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: CSV-Import -->
+    <string name="portfolio_csv_import_action">Impor CSV</string>
+    <string name="portfolio_csv_import_all_transfer">Semua ke dompet sendiri</string>
+    <string name="portfolio_csv_import_all_withdrawal">Semua keluar dari portofolio</string>
+    <string name="portfolio_csv_import_choice_proposed">Saran: cocok dengan %1$s</string>
+    <string name="portfolio_csv_import_choice_transfer">Ke dompet sendiri (transfer)</string>
+    <string name="portfolio_csv_import_choice_withdrawal">Keluar dari portofolio (penarikan)</string>
+    <string name="portfolio_csv_import_choose_each">Pilih untuk setiap penarikan ke mana perginya.</string>
+    <string name="portfolio_csv_import_columns">Kolom yang dikenali: %1$s</string>
+    <string name="portfolio_csv_import_confirm">Impor (%1$d)</string>
+    <string name="portfolio_csv_import_date_day_first">Hari/Bulan</string>
+    <string name="portfolio_csv_import_date_month_first">Bulan/Hari</string>
+    <string name="portfolio_csv_import_date_order">Tanggal ambigu (mis. 03/04/2024) dibaca sebagai:</string>
+    <string name="portfolio_csv_import_decimal">Angka ambigu (mis. %1$s) dibaca sebagai:</string>
+    <plurals name="portfolio_csv_import_done">
+        <item quantity="other">%d transaksi diimpor</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_duplicates">
+        <item quantity="other">%d sudah diimpor (dilewati)</item>
+    </plurals>
+    <string name="portfolio_csv_import_format">Format: %1$s</string>
+    <string name="portfolio_csv_import_line">Baris %1$d: %2$s</string>
+    <string name="portfolio_csv_import_loading">Membaca file dan kurs harian…</string>
+    <string name="portfolio_csv_import_missing_fx">Tidak ada kurs harian untuk baris %1$s – diimpor tanpa harga/biaya.</string>
+    <string name="portfolio_csv_import_missing_price">Tidak ada harga di file untuk baris %1$s – diimpor tanpa harga.</string>
+    <string name="portfolio_csv_import_more">+ %1$d lainnya</string>
+    <plurals name="portfolio_csv_import_new">
+        <item quantity="other">%d transaksi baru</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_skipped">
+        <item quantity="other">%d baris dilewati</item>
+    </plurals>
+    <string name="portfolio_csv_import_stable_swaps">Pembelian dan penjualan dengan stablecoin (USDT, USDC …) dicatat sebagai tukar – stablecoin muncul di kepemilikanmu.</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">Ada beberapa kecocokan – pilih yang benar atau tidak sama sekali.</string>
+    <string name="portfolio_csv_import_transfer_fee">Biaya jaringan: %1$s</string>
+    <string name="portfolio_csv_import_transfer_link">Catat sebagai satu transfer</string>
+    <string name="portfolio_csv_import_transfer_stored">Pasangan dari impor sebelumnya</string>
+    <string name="portfolio_csv_import_transfers_hint">Penarikan dan setoran yang cocok dari koin yang sama menjadi satu transfer: harga beli dan lama kepemilikan tetap, selisihnya dihitung sebagai biaya jaringan.</string>
+    <string name="portfolio_csv_import_transfers_title">Transfer antar akunmu</string>
+    <string name="portfolio_csv_import_unreadable">Tidak ada transaksi yang didukung. Didukung: ekspor CSV dari Relai, Swissquote, Kraken, Binance, Coinbase dan Bitpanda.</string>
+    <string name="portfolio_csv_import_withdrawals_title">Penarikan – ke mana koinnya pergi?</string>
+    <string name="portfolio_csv_import_zone">Waktu tanpa zona waktu dibaca sebagai: %1$s</string>
+    <string name="portfolio_csv_import_zone_device">Perangkat (%1$s)</string>
+    <string name="portfolio_csv_skip_bad_date">tanggal tidak terbaca</string>
+    <string name="portfolio_csv_skip_bad_number">angka tidak terbaca</string>
+    <string name="portfolio_csv_skip_fee_exceeds">biaya ≥ jumlah diterima</string>
+    <string name="portfolio_csv_skip_internal_move">perpindahan antar akunmu sendiri – tidak ada yang dicatat</string>
+    <string name="portfolio_csv_skip_missing">kolom hilang</string>
+    <string name="portfolio_csv_skip_not_crypto">bukan kripto</string>
+    <string name="portfolio_csv_skip_possible_duplicate">mungkin sudah diimpor (transaksi hampir sama) – periksa secara manual</string>
+    <string name="portfolio_csv_skip_two_fees">dua biaya dalam satuan berbeda – catat penukaran secara manual</string>
+    <string name="portfolio_csv_skip_unsupported">jenis tidak didukung</string>
+
+    <!-- Portfolio: Importe ansehen und rückgängig machen -->
+    <string name="portfolio_import_undo">Urungkan</string>
+    <plurals name="portfolio_import_undo_confirm">
+        <item quantity="other">Hapus %d transaksi dari impor ini? Entri manual dan impor lain tetap ada.</item>
+    </plurals>
+    <string name="portfolio_import_undo_title">Urungkan impor?</string>
+    <plurals name="portfolio_import_undone">
+        <item quantity="other">%d transaksi impor dihapus</item>
+    </plurals>
+    <plurals name="portfolio_imports_count">
+        <item quantity="other">%d transaksi</item>
+    </plurals>
+    <string name="portfolio_imports_empty">Tidak ada impor</string>
+    <string name="portfolio_imports_title">Impor</string>
+</resources>

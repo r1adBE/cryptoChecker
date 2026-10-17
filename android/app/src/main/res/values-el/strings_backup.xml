@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Sicherung exportieren und wiederherstellen -->
+    <string name="backup_export">Εξαγωγή</string>
+    <string name="backup_exported">Το αντίγραφο αποθηκεύτηκε.</string>
+    <string name="backup_failed">Δεν πέτυχε. Είναι αντίγραφο του Crypto Checker;</string>
+    <string name="backup_hint">Αποθηκεύει τη λίστα σας με σημειώσεις και ομάδες, συναγερμούς, αγαπημένα, χαρτοφυλάκιο και ρυθμίσεις σε αρχείο που κρατάτε εσείς – π.χ. για νέο κινητό.</string>
+    <string name="backup_import">Εισαγωγή</string>
+    <string name="backup_title">Αντίγραφο ασφαλείας</string>
+    <string name="backup_too_large">Το αρχείο είναι πολύ μεγάλο ή δεν είναι έγκυρο αντίγραφο (έως 16 MB).</string>
+
+    <!-- Passwort der Sicherungsdatei -->
+    <string name="backup_password">Κωδικός</string>
+    <string name="backup_password_continue">Συνέχεια</string>
+    <string name="backup_password_hide">Απόκρυψη κωδικού</string>
+    <!-- %1$d = Mindestlänge des Passworts (8) -->
+    <string name="backup_password_min">Τουλάχιστον %1$d χαρακτήρες</string>
+    <string name="backup_password_mismatch">Οι κωδικοί δεν ταιριάζουν</string>
+    <string name="backup_password_prompt">Πληκτρολογήστε τον κωδικό αυτού του αντιγράφου ασφαλείας.</string>
+    <string name="backup_password_repeat">Επανάληψη κωδικού</string>
+    <string name="backup_password_show">Εμφάνιση κωδικού</string>
+    <string name="backup_password_title">Αντίγραφο με κωδικό</string>
+    <string name="backup_password_too_weak">Πολύ εύκολο να μαντευτεί – όχι μόνο ψηφία, όχι ένας επαναλαμβανόμενος χαρακτήρας, όχι συνηθισμένη σειρά όπως «12345678» ή «password».</string>
+    <string name="backup_password_warning">Χωρίς τον κωδικό, το αντίγραφο ασφαλείας δεν μπορεί να επαναφερθεί.</string>
+    <string name="backup_password_wrong">Λάθος κωδικός ή κατεστραμμένο αρχείο. Δοκιμάστε ξανά.</string>
+    <string name="backup_protect">Προστασία με κωδικό</string>
+    <string name="backup_protect_hint">Κρυπτογραφεί το αρχείο (AES-256). Συνιστάται αν περιέχει δεδομένα χαρτοφυλακίου.</string>
+
+    <!-- Sicherung ohne Passwort, Wiederherstellen -->
+    <string name="backup_plain_confirm">Αποθήκευση χωρίς κωδικό</string>
+    <string name="backup_plain_confirm_text">Το αρχείο δεν είναι κρυπτογραφημένο. Όποιος το αποκτήσει μπορεί να διαβάσει:</string>
+    <string name="backup_plain_confirm_title">Αποθήκευση χωρίς κωδικό;</string>
+    <string name="backup_plain_contents_addresses">Αποθηκευμένες διευθύνσεις πορτοφολιών</string>
+    <string name="backup_plain_contents_base">Λίστα παρακολούθησης με σημειώσεις και ομάδες, συναγερμοί, αγαπημένα και ρυθμίσεις</string>
+    <string name="backup_plain_contents_portfolio">Χαρτοφυλάκιο: συναλλαγές με ποσότητες και τιμές</string>
+    <string name="backup_restore_app_lock_kept">Το κλείδωμα χαρτοφυλακίου παραμένει ενεργό – ένα μη κρυπτογραφημένο αντίγραφο δεν μπορεί να το απενεργοποιήσει.</string>
+    <string name="backup_restore_confirm">Η εισαγωγή αντικαθιστά την τρέχουσα λίστα σας (με σημειώσεις και ομάδες), τους συναγερμούς, τα αγαπημένα, το χαρτοφυλάκιο και τις ρυθμίσεις με εκείνα του αντιγράφου.</string>
+    <plurals name="backup_restore_invalid">
+        <item quantity="one">%d καταχώριση του αντιγράφου (χαρτοφυλάκιο ή συναγερμός) δεν είναι έγκυρη και δεν θα εισαχθεί.</item>
+        <item quantity="other">%d καταχωρίσεις του αντιγράφου (χαρτοφυλάκιο ή συναγερμοί) δεν είναι έγκυρες και δεν θα εισαχθούν.</item>
+    </plurals>
+    <string name="backup_restore_newer_version">Αυτό το αντίγραφο είναι από νεότερη έκδοση της εφαρμογής – ενημέρωσε πρώτα την εφαρμογή. Δεν εισήχθη τίποτα.</string>
+    <string name="backup_restore_unencrypted_warning">Αυτό το αντίγραφο δεν είναι κρυπτογραφημένο – βεβαιώσου ότι είναι δικό σου. Οι ρυθμίσεις θα εφαρμοστούν· ένα ενεργό κλείδωμα χαρτοφυλακίου μένει ενεργό.</string>
+    <string name="backup_restored">Επαναφέρθηκαν: %1$s, %2$s.</string>
+    <plurals name="backup_restored_alarms">
+        <item quantity="one">%1$d συναγερμός</item>
+        <item quantity="other">%1$d συναγερμοί</item>
+    </plurals>
+    <plurals name="backup_restored_pairs">
+        <item quantity="one">%1$d ζεύγος</item>
+        <item quantity="other">%1$d ζεύγη</item>
+    </plurals>
+
+    <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
+    <string name="storage_recovery_message">Αυτή η συσκευή δεν έχει πλέον το κλειδί των κρυπτογραφημένων δεδομένων της εφαρμογής, γι’ αυτό ξεκίνησε κενή. Δεν διαγράφηκε τίποτα. Για να ανακτήσετε τη λίστα και το χαρτοφυλάκιο, εισαγάγετε ένα αρχείο αντιγράφου στις ρυθμίσεις, στο «%1$s».</string>
+    <string name="storage_recovery_title">Δεν ήταν δυνατό το ξεκλείδωμα των αποθηκευμένων δεδομένων</string>
+</resources>

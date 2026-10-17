@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="explorer_coin_back">Összes találat</string>
+    <plurals name="explorer_coin_exchanges">
+        <item quantity="one">%1$d tőzsde</item>
+        <item quantity="other">%1$d tőzsde</item>
+    </plurals>
+    <string name="explorer_coin_no_pairs">A betöltött listákban nincs pár ehhez az érméhez.</string>
+    <string name="explorer_coin_not_loaded">A párlisták még nincsenek betöltve</string>
+    <string name="explorer_coin_other_pairs">További párok</string>
+    <string name="explorer_coin_show_pairs">Párok megjelenítése</string>
+    <string name="explorer_coin_suggested">Javaslat</string>
+    <string name="explorer_coins_title">Érmék</string>
+    <string name="explorer_lists_load">Listák betöltése</string>
+    <string name="explorer_lists_loading">Párlisták betöltése… %1$d/%2$d</string>
+    <plurals name="explorer_lists_missing">
+        <item quantity="one">%1$d tőzsde párlistája még nincs az eszközön.</item>
+        <item quantity="other">%1$d tőzsde párlistája még nincs az eszközön.</item>
+    </plurals>
+    <string name="explorer_lists_privacy">Betölti minden tőzsde teljes nyilvános listáját – mindenkinek ugyanazt. A keresése az eszközön marad.</string>
+    <!-- Paar hinzufügen: Suche über alle Börsen, zuletzt gesucht -->
+    <string name="explorer_recent_a11y">Legutóbbi keresés: %1$s</string>
+    <string name="explorer_recent_clear">Törlés</string>
+    <string name="explorer_recent_clear_a11y">Legutóbbi keresések törlése</string>
+    <string name="explorer_recent_title">Legutóbbi keresések</string>
+    <string name="explorer_search_choose_manually">Tőzsde és pár kiválasztása kézzel</string>
+    <string name="explorer_search_empty">Nincs találat.</string>
+    <string name="explorer_search_hint">Érme, pár vagy tőzsde keresése</string>
+    <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
+    <string name="explorer_search_intro">Írja be egy érme nevét vagy jelét, pl. Bitcoin vagy BTC, majd válassza ki a párt.</string>
+
+    <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
+    <string name="explorer_add_to_watchlist">Hozzáadás a figyelőlistához</string>
+    <string name="explorer_added_to_watchlist">Hozzáadva a figyelőlistához.</string>
+    <string name="explorer_already_in_watchlist">Ez a pár már a figyelőlistán van.</string>
+    <string name="explorer_exchange_missing">Hiányzik egy tőzsde?</string>
+    <string name="explorer_loading_pairs">Kereskedési párok betöltése…</string>
+    <string name="explorer_no_pair_selected">Először válasszon párt.</string>
+    <string name="explorer_no_pairs_yet">Ehhez a tőzsdéhez még nincsenek betöltve párok.</string>
+    <plurals name="explorer_pairs_status">
+        <item quantity="one">%1$d pár · frissítve %2$s</item>
+        <item quantity="other">%1$d pár · frissítve %2$s</item>
+    </plurals>
+    <string name="explorer_pairs_title">Párok</string>
+    <string name="explorer_precise_title">Haladó / tőzsde szerint</string>
+    <string name="explorer_price_loading">Árfolyam betöltése…</string>
+    <string name="explorer_select_market_hint">Válasszon tőzsdét – a párjai automatikusan betöltődnek.</string>
+    <string name="explorer_select_placeholder">Kérjük, válasszon</string>
+    <string name="explorer_step_pair">Pár kiválasztása</string>
+
+    <!-- Paar hinzufügen: Schnellfilter der Liste «Alle …-Paare» -->
+    <string name="explorer_filter_gainers">Nyertesek</string>
+    <string name="explorer_filter_losers">Vesztesek</string>
+    <string name="explorer_filter_volume">Forgalom</string>
+
+    <!-- Paar hinzufügen: mehrere Paare auf einmal -->
+    <string name="bulk_all_pairs">A tőzsde összes %1$s-párja</string>
+    <plurals name="bulk_all_pairs_applied">
+        <item quantity="one">%1$d %2$s-pár található</item>
+        <item quantity="other">%1$d %2$s-pár található</item>
+    </plurals>
+    <string name="bulk_all_pairs_empty">Ezen a tőzsdén nincs %1$s-pár a kiválasztott szerződéstípushoz. Először szinkronizálja a tőzsdét, vagy próbáljon másik szerződéstípust.</string>
+    <plurals name="explorer_add_all_pairs">
+        <item quantity="one">A(z) %1$d pár hozzáadása a figyelőlistához</item>
+        <item quantity="other">Mind a(z) %1$d pár hozzáadása a figyelőlistához</item>
+    </plurals>
+    <plurals name="explorer_bulk_added">
+        <item quantity="one">Hozzáadva: %1$d, már a figyelőlistán: %2$d.</item>
+        <item quantity="other">Hozzáadva: %1$d, már a figyelőlistán: %2$d.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_text">
+        <item quantity="one">A(z) %3$s mind a(z) %1$d %2$s párja a listára kerül. A már ott lévőket kihagyjuk.</item>
+        <item quantity="other">A(z) %3$s mind a(z) %1$d %2$s párja a listára kerül. A már ott lévőket kihagyjuk.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_title">
+        <item quantity="one">Hozzáad %1$d párt?</item>
+        <item quantity="other">Hozzáad %1$d párt?</item>
+    </plurals>
+    <string name="explorer_bulk_hide_list">Lista elrejtése</string>
+    <string name="explorer_bulk_show_list">Lista mutatása</string>
+    <string name="explorer_bulk_tap_hint">Koppintson egy párra a fenti kiválasztáshoz.</string>
+    <string name="explorer_bulk_title">Több pár egyszerre</string>
+
+    <!-- Handelspaare einer Börse laden und wählen -->
+    <string name="explorer_sync_sheet_text">Betölti a kiválasztott tőzsde aktuális párjait.</string>
+    <string name="explorer_no_pair_list">Nincsenek devizapárok</string>
+    <string name="explorer_sync_sheet_last">Utolsó szinkronizálás: %1$s</string>
+    <string name="explorer_sync_never">soha</string>
+    <string name="explorer_sync_sheet_action">Szinkronizálás most!</string>
+    <string name="explorer_sync_sheet_title">Devizapárok frissítése</string>
+    <string name="explorer_field_coin">Alap</string>
+    <string name="explorer_field_contract">Szerződéstípus</string>
+    <string name="explorer_field_exchange">Piac</string>
+    <string name="explorer_field_quote">Jegyzési</string>
+    <string name="explorer_contract_spot">Spot</string>
+    <string name="explorer_reload_pairs">Szinkronizálás</string>
+    <string name="sync_pairs_count">Kereskedési párok: %1$d</string>
+
+    <!-- Token von dezentralen Börsen (DEX) -->
+    <string name="dex_add">Hozzáadás</string>
+    <string name="dex_added">%1$s hozzáadva a figyelőlistához.</string>
+    <string name="dex_already">%1$s már szerepel a figyelőlistán.</string>
+    <string name="dex_intro">Tokenek a nagy tőzsdéken kívülről, decentralizált tőzsdékről (Uniswap, PancakeSwap, Raydium …) a DexScreeneren keresztül. Keressen egy tokent, és adja hozzá az egyik kereskedési poolját – árak amerikai dollárban.</string>
+    <string name="dex_liquidity">Likviditás: %1$s</string>
+    <string name="dex_no_results">Nem található pool.</string>
+    <string name="dex_search">Keresés</string>
+    <string name="dex_search_hint">Token neve, szimbóluma vagy címe</string>
+
+    <!-- Art des Assets (Token, Alpha-Token, TradFi) -->
+    <string name="asset_kind_alpha">Alpha token</string>
+    <string name="asset_kind_token">Token</string>
+    <string name="asset_kind_tradfi">TradFi</string>
+</resources>

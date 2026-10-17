@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Aktionsblatt: Kurs-Chart (Zeitraum, Kerzenwerte beim Ziehen, Umrechnung) und «Mehr» -->
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s Zeitraum kurz (widget_range_short_24h/7d/30d) -->
+    <string name="sheet_chart_change">%2$s 동안 %1$s</string>
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s change_short_today(_zone) -->
+    <string name="sheet_chart_change_since">%2$s %1$s</string>
+    <string name="sheet_chart_close">종가</string>
+    <string name="sheet_chart_converted_current">%1$s, 환산(현재 환율)</string>
+    <!-- Zeile unter dem Chart, %1$s = umgerechnete Reihe («BTC/USDT») -->
+    <string name="sheet_chart_converted_daily">%1$s, 일별 환율로 환산</string>
+    <!-- Keine Kerzen für das Paar -->
+    <string name="sheet_chart_no_data">이 거래쌍의 가격 데이터가 없습니다</string>
+    <!-- Kerzenwerte beim Ziehen (Hoch/Tief: ticker_high/ticker_low) -->
+    <string name="sheet_chart_open">시가</string>
+    <!-- Zeitraum-Chip statt «24h» bei Tages-Basis -->
+    <string name="sheet_chart_today">오늘</string>
+    <!-- Umsatz der Kerze beim Ziehen; %1$s z. B. «12.3M USDT» -->
+    <string name="sheet_chart_volume">거래량 %1$s</string>
+    <string name="sheet_more">더보기</string>
+
+    <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
+    <string name="ticker_ask">매도호가</string>
+    <string name="ticker_bid">매수호가</string>
+    <string name="ticker_high">고가</string>
+    <string name="ticker_low">저가</string>
+    <string name="ticker_timestamp">시간</string>
+    <string name="ticker_vol_base">거래량 (기준 통화)</string>
+    <string name="ticker_vol_quote">거래량 (결제 통화)</string>
+
+    <!-- Basis der %-Änderung (Prozent-Pille, Chart, Widgets) -->
+    <string name="change_basis_device">%1$s, 00:00 (기기 시간대)</string>
+    <string name="change_basis_local">00:00 현지 시간부터</string>
+    <string name="change_basis_rolling">최근 24시간</string>
+    <!-- Letzter gegen vorherigen Kurs des Paars; ausgeschrieben (Auswahl). Kurz neben Pille und Widgets: change_short_since_last -->
+    <string name="change_basis_since_last">마지막 업데이트 이후</string>
+    <string name="change_basis_utc_zone">00:00 %1$s부터</string>
+    <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
+    <string name="change_candle_source">%1$s 캔들 기준 변동</string>
+    <string name="change_short_since_last">마지막 업데이트</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
+    <string name="change_short_today">오늘</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 einer gewählten Zeitzone; %1$s = Zeitzone (z. B. UTC) -->
+    <string name="change_short_today_zone">오늘 %1$s</string>
+
+    <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
+    <string name="market_data_empty_error">거래소에서 데이터를 받지 못했습니다.</string>
+    <string name="market_data_summary">시가총액, 가스비, 경제 지표, 코인 분석</string>
+    <string name="market_data_tab_futures">선물</string>
+    <string name="market_data_title">시장 데이터</string>
+
+    <!-- Marktdaten Spot (Marktkapitalisierung, Angebot, Volumen) -->
+    <string name="spot_circulating">유통 공급량</string>
+    <string name="spot_fdv">FDV</string>
+    <string name="spot_market_cap">시가총액</string>
+    <string name="spot_max_supply">최대 공급량</string>
+    <string name="spot_no_data">이 코인의 현물 데이터가 없습니다</string>
+    <string name="spot_source_updated">출처: %1$s · %2$s 기준</string>
+    <string name="spot_supply_of_max">최대 공급량의 %1$s 유통 중</string>
+    <string name="spot_total_supply">총 공급량</string>
+    <string name="spot_vol_mcap">거래량/시총</string>
+    <string name="spot_volume_24h">거래량 (24시간)</string>
+
+    <!-- Futures-Kennzahlen (Funding, Open Interest, Referenzbörse) -->
+    <string name="futures_alarm_reference">참고값 %1$s</string>
+    <string name="futures_funding">펀딩비</string>
+    <string name="futures_funding_interval_unknown">주기 알 수 없음</string>
+    <string name="futures_funding_per8h_equiv">= 8시간당 %1$s (알림과 동일)</string>
+    <!-- Einheit neben der Funding-Pille, wenn die Börse stündlich abrechnet (Hyperliquid) -->
+    <string name="futures_funding_per_hour">시간당</string>
+    <string name="futures_funding_per_hours">%1$d시간당</string>
+    <string name="futures_next_funding">다음까지 %1$d시간 %2$d분</string>
+    <string name="futures_no_data">이 코인의 선물 데이터가 없습니다</string>
+    <string name="futures_open_interest">미결제약정</string>
+    <!-- Futures-Kennzahlen von einer anderen Börse als der beobachteten (Richtwert) -->
+    <string name="futures_reference_hint">%1$s 참고값 – 펀딩비와 미결제약정은 거래소마다 다르며 %2$s에서는 다를 수 있습니다.</string>
+    <string name="futures_reference_spot">%1$s 참고값(해당 코인의 USDT 무기한 선물)</string>
+    <string name="futures_source">출처: %1$s</string>
+
+    <!-- Erklärungen hinter dem ⓘ-Knopf -->
+    <string name="explain_funding">많은 사람이 빌린 돈으로 가격 상승이나 하락에 베팅합니다. 롱과 숏 포지션 사이에 오가는 수수료. 크게 양수이면 많은 사람이 가격 상승에 베팅하고 있다는 뜻입니다.</string>
+    <string name="explain_open_interest">선물은 가격에 거는 베팅이며, 빌린 돈으로 하는 경우가 많습니다. 열려 있는 모든 선물 포지션의 가치. 늘어나면 그 움직임에 더 많은 돈이 걸려 있습니다.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">설명</string>
+    <string name="explain_spot_fdv">완전 희석 가치: 가격 × 최대 공급량(상한이 없으면 총 공급량).</string>
+    <string name="explain_spot_market_cap">가격 × 유통 공급량. 필은 24시간 변동을 보여 줍니다.</string>
+    <string name="explain_spot_source">모든 거래소 기준 미국 달러 수치, CoinGecko 제공.</string>
+    <string name="explain_spot_supply">유통: 지금 시장에 있는 코인. 총: 발행된 모든 코인에서 소각분을 뺀 양. 최대: 존재할 수 있는 최대량.</string>
+    <string name="explain_spot_volume">24시간 동안 거래된 금액. 거래량/시총: 시가총액 대비 거래량 — 높을수록 거래가 매우 활발합니다.</string>
+
+    <!-- Umrechnung und Sats -->
+    <string name="converted_fx_stale">%1$s · 환율 %2$s</string>
+    <string name="sats_per_unit">%1$s %2$s = %3$s 사토시</string>
+</resources>

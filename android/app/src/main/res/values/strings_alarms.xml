@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Alarmliste und Übersicht aller Alarme -->
+    <string name="add_alarm_action">Set alert</string>
+    <string name="alarms_add">New alert</string>
+    <string name="alarms_edit">Edit alert</string>
+    <string name="alarms_empty">No alerts for this pair yet.</string>
+    <string name="alarms_empty_example">For example: Tell me when BTC rises above %1$s.</string>
+    <!-- Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
+    <string name="alarms_notifications_off">Notifications are off – alerts can’t reach you.</string>
+    <string name="alarms_notifications_turn_on">Turn on</string>
+    <plurals name="alarms_overview_active">
+        <item quantity="one">%1$d active</item>
+        <item quantity="other">%1$d active</item>
+    </plurals>
+    <string name="alarms_overview_empty">No alerts yet. Open a pair and add one under Alerts.</string>
+    <string name="alarms_overview_title">All alerts</string>
+    <string name="alarms_title">Alerts</string>
+
+    <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
+    <string name="alarm_advanced">Advanced</string>
+    <string name="alarm_change_updates">Change price updates</string>
+    <string name="alarm_create">Create alert</string>
+    <string name="alarm_currency_label">Currency</string>
+    <string name="alarm_delete_confirm">This alert will be removed.</string>
+    <string name="alarm_delete_title">Delete alert?</string>
+    <string name="alarm_field_percent">Percent</string>
+    <string name="alarm_field_price">Price</string>
+    <string name="alarm_fires_now_above">The price is already above %1$s. Save anyway?</string>
+    <string name="alarm_fires_now_below">The price is already below %1$s. Save anyway?</string>
+    <string name="alarm_fires_now_change">Change</string>
+    <string name="alarm_fires_now_save">Save anyway</string>
+    <string name="alarm_fires_now_title">Alert would trigger now</string>
+    <string name="alarm_first_battery_hint">Battery optimization restricts the app – alerts may arrive late.</string>
+    <string name="alarm_first_title">All set</string>
+    <string name="alarm_last_triggered">last at %1$s</string>
+    <string name="alarm_new_extreme">New %1$s</string>
+    <string name="alarm_once">Once</string>
+    <string name="alarm_option_repeating">Keep alert after it fires</string>
+    <string name="alarm_option_sound">Sound</string>
+    <string name="alarm_option_speak">Speak alert</string>
+    <string name="alarm_option_vibrate">Vibration</string>
+    <string name="alarm_repeat_each">Every time</string>
+    <string name="alarm_repeat_once">Once</string>
+    <string name="alarm_repeating">Every time</string>
+    <string name="alarm_threshold_error_empty">Enter a value to save the alert.</string>
+    <string name="alarm_threshold_error_funding">Funding must be a number between −10 and +10 percent.</string>
+    <string name="alarm_threshold_error_invalid">Enter a valid number greater than 0.</string>
+    <string name="alarm_threshold_error_oi">Open interest change: at most 1000 percent.</string>
+    <plurals name="alarm_window_hours">
+        <item quantity="one">in %1$d h</item>
+        <item quantity="other">in %1$d h</item>
+    </plurals>
+    <string name="alarm_window_label">Time window</string>
+
+    <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
+    <string name="alarm_simple_above">goes above</string>
+    <string name="alarm_simple_below">goes below</string>
+    <string name="alarm_simple_direction_a11y">Direction: %1$s</string>
+    <string name="alarm_simple_end"></string>
+    <string name="alarm_simple_when">When %1$s</string>
+    <string name="alarm_template_a11y">Create alert: %1$s</string>
+    <string name="alarm_template_a11y_down">Create alert at minus %1$s percent</string>
+    <string name="alarm_template_a11y_up">Create alert at plus %1$s percent</string>
+    <string name="alarm_template_created">Alert created</string>
+    <string name="alarm_template_volume">Volume ×%1$s</string>
+    <string name="alarm_templates_title">Quick alerts</string>
+
+    <!-- Alarm-Bedingungen -->
+    <string name="alarm_condition_above">Price above</string>
+    <string name="alarm_condition_below">Price below</string>
+    <string name="alarm_condition_down_percent">Falls by</string>
+    <string name="alarm_condition_funding_above">Funding above</string>
+    <string name="alarm_condition_funding_below">Funding below</string>
+    <string name="alarm_condition_move_percent">Moves by</string>
+    <string name="alarm_condition_near_high">Near high</string>
+    <string name="alarm_condition_near_low">Near low</string>
+    <string name="alarm_condition_oi_down">Open interest down</string>
+    <string name="alarm_condition_oi_up">Open interest up</string>
+    <string name="alarm_condition_up_percent">Rises by</string>
+    <string name="alarm_condition_volume_spike">Volume spike</string>
+
+    <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
+    <string name="alarm_sentence_above">Tell me when %1$s rises above %2$s.</string>
+    <string name="alarm_sentence_below">Tell me when %1$s falls below %2$s.</string>
+    <string name="alarm_sentence_down_percent">Tell me when %1$s falls by %2$s.</string>
+    <string name="alarm_sentence_funding_above">Tell me when the funding of %1$s rises above %2$s.</string>
+    <string name="alarm_sentence_funding_below">Tell me when the funding of %1$s falls below %2$s.</string>
+    <string name="alarm_sentence_incomplete">Enter a value to see the alert as a sentence.</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="one">Tell me when %1$s moves by %2$s within %3$d hour.</item>
+        <item quantity="other">Tell me when %1$s moves by %2$s within %3$d hours.</item>
+    </plurals>
+    <string name="alarm_sentence_near_high">Tell me when %1$s is at most %2$s below its %3$s.</string>
+    <string name="alarm_sentence_near_low">Tell me when %1$s is at most %2$s above its %3$s.</string>
+    <string name="alarm_sentence_new_extreme">Tell me when %1$s sets a new %2$s.</string>
+    <plurals name="alarm_sentence_oi_down">
+        <item quantity="one">Tell me when the open interest of %1$s falls by %2$s within %3$d hour.</item>
+        <item quantity="other">Tell me when the open interest of %1$s falls by %2$s within %3$d hours.</item>
+    </plurals>
+    <plurals name="alarm_sentence_oi_up">
+        <item quantity="one">Tell me when the open interest of %1$s rises by %2$s within %3$d hour.</item>
+        <item quantity="other">Tell me when the open interest of %1$s rises by %2$s within %3$d hours.</item>
+    </plurals>
+    <string name="alarm_sentence_up_percent">Tell me when %1$s rises by %2$s.</string>
+    <string name="alarm_sentence_volume">Tell me when %1$s trades %2$s× its normal volume.</string>
+
+    <!-- Alarm «Nahe am Hoch / Tief» -->
+    <string name="alarm_near_extreme_high_30">30-day high</string>
+    <string name="alarm_near_extreme_high_365">1-year high</string>
+    <string name="alarm_near_extreme_high_90">90-day high</string>
+    <string name="alarm_near_extreme_low_30">30-day low</string>
+    <string name="alarm_near_extreme_low_365">1-year low</string>
+    <string name="alarm_near_extreme_low_90">90-day low</string>
+    <string name="alarm_near_field_distance">Distance</string>
+    <string name="alarm_near_hint">Also notifies when a new high or low is set. Based on daily candles, refreshed every 6 hours.</string>
+    <string name="alarm_near_new_only">Only new highs or lows</string>
+    <string name="alarm_near_notification_high">%1$s is %2$s below its %3$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_low">%1$s is %2$s above its %3$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_new">New %1$s for %2$s: %3$s (previous %4$s)</string>
+    <plurals name="alarm_near_window_days">
+        <item quantity="one">%1$d day</item>
+        <item quantity="other">%1$d days</item>
+    </plurals>
+    <string name="alarm_near_window_label">Period</string>
+    <string name="alarm_near_window_year">1 year</string>
+
+    <!-- Futures- und Volumen-Alarme (Funding pro 8 Stunden, Open Interest, Volumen-Spike) -->
+    <!-- Funding-Schwelle gilt pro 8 Stunden; stündliches Funding wird umgerechnet -->
+    <string name="alarm_funding_hint_8h">Funding rate per 8 hours. Contracts with another interval are converted (1 h × 8, 4 h × 2); the futures card shows the converted value. If the interval is unknown, the alert does not check. Negative means shorts pay longs. ± switches the sign.</string>
+    <string name="alarm_funding_sign_a11y">Switch sign</string>
+    <string name="alarm_oi_hint">Compares open interest with the value stored that many hours ago. A new alert only reports once the app has collected data for that long; checked at most every 5 minutes.</string>
+    <string name="alarm_volume_factor_label">Last hour\'s volume vs. normal</string>
+    <string name="alarm_volume_hint">Volume data comes from Binance — pairs not listed there never trigger.</string>
+
+    <!-- Bestätigung nach dem Speichern -->
+    <string name="alarm_saved_active">Alert active</string>
+    <!-- «Alarm gespeichert: BTC Kurs über 70’000 USDT · einmalig» -->
+    <string name="alarm_saved_banner">Alert saved: %1$s</string>
+    <!-- Zusatz in der Bestätigung, wenn Mitteilungen aus sind (dazu Aktion «Einstellungen») -->
+    <string name="alarm_saved_notifications_off">Notifications off</string>
+
+    <!-- Wann Alarme geprüft werden -->
+    <string name="alarm_timing_hint_android">With the app closed, Android checks irregularly (about every 15 minutes with “%1$s”), so short spikes can be missed.</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">When the app is closed, iOS decides when to check, so short spikes can be missed; while it is open, checks are reliable.</string>
+    <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
+    <string name="alarm_timing_title">When alerts are checked</string>
+    <string name="alarm_timing_where">Change how often prices update in %1$s.</string>
+
+    <!-- Alarm-Signal und Test-Alarm -->
+    <string name="alarm_signal_silent">Silent (notification only)</string>
+    <string name="alarm_signal_sound">Sound only</string>
+    <string name="alarm_signal_sound_vibrate">Sound and vibration</string>
+    <string name="alarm_signal_system">System</string>
+    <string name="alarm_signal_vibrate">Vibration only</string>
+    <string name="alarm_test">Test alert</string>
+    <string name="alarm_test_action">Test</string>
+    <string name="alarm_test_denied">Notifications are turned off for Crypto Checker.</string>
+    <string name="alarm_test_hint">Sends a sample alert with your sound, vibration and speech settings.</string>
+    <string name="alarm_test_open_settings">Open settings</string>
+    <string name="alarm_test_quiet">Quiet hours are on right now: real alerts would wait until they end and then go off with sound.</string>
+    <string name="alarm_test_text">This is how an alert looks and sounds.</string>
+    <string name="alarm_test_title">Test: Crypto Checker alert</string>
+
+    <!-- Ehrliche Alarme: Vorlesetexte Ton/Ansage, ungeprüfte Alarme -->
+    <string name="alarm_a11y_sound_on">Sound on</string>
+    <string name="alarm_a11y_speak_on">Speech on</string>
+    <string name="alarm_unchecked_no_candles">Could not be checked (no candle data)</string>
+    <string name="alarm_unchecked_no_rate">Could not be checked (no exchange rate)</string>
+</resources>

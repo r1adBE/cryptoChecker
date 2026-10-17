@@ -1,0 +1,115 @@
+{
+  "description": "Stored error text (WatchEntity.lastError, watched address lastError) -> short technical code without hosts, URLs or addresses (Android StoredError.kt / iOS StoredError.swift). Markers stay, HTTP status (+ retry-after) stays, rate limit / timeout / offline become fixed codes, everything else ERROR or ERROR:<ExceptionName>. The refresh classification (RefreshReportLogic.classify) of input and output must be equal. input null -> null.",
+  "cases": [
+    {
+      "name": "Android HTTP error with Retry-After",
+      "input": "HttpCode: 429 (retry-after 30 s)",
+      "expected": "HTTP 429 (retry-after 30 s)"
+    },
+    {
+      "name": "iOS HTTP error: body snippet dropped",
+      "input": "HTTP 503: <html><body>upstream api.example.com 10.0.0.12 failed</body></html>",
+      "expected": "HTTP 503"
+    },
+    {
+      "name": "ban 418",
+      "input": "HttpCode: 418",
+      "expected": "HTTP 418"
+    },
+    {
+      "name": "rate limit in text, no status",
+      "input": "EGeneral:Too many requests",
+      "expected": "Too many requests"
+    },
+    {
+      "name": "timeout with exception name",
+      "input": "java.net.SocketTimeoutException: timeout",
+      "expected": "Timeout"
+    },
+    {
+      "name": "unknown host: host name dropped",
+      "input": "java.net.UnknownHostException: Unable to resolve host \"api.binance.com\": No address associated with hostname",
+      "expected": "NETWORK_OFFLINE"
+    },
+    {
+      "name": "TLS failure counts as offline",
+      "input": "javax.net.ssl.SSLHandshakeException: Chain validation failed for api.kraken.com",
+      "expected": "NETWORK_OFFLINE"
+    },
+    {
+      "name": "offline marker kept",
+      "input": "NETWORK_OFFLINE",
+      "expected": "NETWORK_OFFLINE"
+    },
+    {
+      "name": "budget timeout marker kept",
+      "input": "timeout",
+      "expected": "timeout"
+    },
+    {
+      "name": "not traded marker kept",
+      "input": "Wird an der Börse nicht mehr gehandelt",
+      "expected": "Wird an der Börse nicht mehr gehandelt"
+    },
+    {
+      "name": "empty response kept",
+      "input": "Response data is empty",
+      "expected": "Response data is empty"
+    },
+    {
+      "name": "no ticker data kept",
+      "input": "Parsed ticker has no data",
+      "expected": "Parsed ticker has no data"
+    },
+    {
+      "name": "market unavailable kept",
+      "input": "Market unavailable",
+      "expected": "Market unavailable"
+    },
+    {
+      "name": "legacy German unavailable kept",
+      "input": "Börse nicht verfügbar",
+      "expected": "Börse nicht verfügbar"
+    },
+    {
+      "name": "unknown empty kept",
+      "input": "Unknown error (empty)",
+      "expected": "Unknown error (empty)"
+    },
+    {
+      "name": "bulk format error kept",
+      "input": "Bulk format error: 3 of 5 rows unreadable",
+      "expected": "Bulk format error: 3 of 5 rows unreadable"
+    },
+    {
+      "name": "parse error: only the exception name",
+      "input": "org.json.JSONException: Value <html> of type java.lang.String cannot be converted to JSONObject",
+      "expected": "ERROR:JSONException"
+    },
+    {
+      "name": "address and URL in message dropped",
+      "input": "Invalid address bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq at https://mempool.space/api/address/bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq",
+      "expected": "ERROR"
+    },
+    {
+      "name": "iOS localized description",
+      "input": "The data couldn’t be read because it isn’t in the correct format.",
+      "expected": "ERROR"
+    },
+    {
+      "name": "surrounding whitespace trimmed",
+      "input": "  HttpCode: 500  ",
+      "expected": "HTTP 500"
+    },
+    {
+      "name": "response too large marker kept",
+      "input": "Response too large",
+      "expected": "Response too large"
+    },
+    {
+      "name": "null stays null",
+      "input": null,
+      "expected": null
+    }
+  ]
+}

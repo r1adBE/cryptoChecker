@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Alarmliste und Übersicht aller Alarme -->
+    <string name="add_alarm_action">アラームを設定</string>
+    <string name="alarms_add">新しいアラーム</string>
+    <string name="alarms_edit">アラームを編集</string>
+    <string name="alarms_empty">このペアのアラームはまだありません。</string>
+    <string name="alarms_empty_example">例：BTC が %1$s を超えたら知らせて。</string>
+    <!-- Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
+    <string name="alarms_notifications_off">通知がオフです – アラームは届きません。</string>
+    <string name="alarms_notifications_turn_on">オンにする</string>
+    <plurals name="alarms_overview_active">
+        <item quantity="other">有効 %1$d 件</item>
+    </plurals>
+    <string name="alarms_overview_empty">アラームはまだありません。ペアを開いて「アラーム」から追加してください。</string>
+    <string name="alarms_overview_title">すべてのアラーム</string>
+    <string name="alarms_title">アラーム</string>
+
+    <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
+    <string name="alarm_advanced">詳細設定</string>
+    <string name="alarm_change_updates">価格の更新を変更</string>
+    <string name="alarm_create">アラームを作成</string>
+    <string name="alarm_currency_label">通貨</string>
+    <string name="alarm_delete_confirm">このアラームは削除されます。</string>
+    <string name="alarm_delete_title">アラームを削除しますか？</string>
+    <string name="alarm_field_percent">パーセント</string>
+    <string name="alarm_field_price">価格</string>
+    <string name="alarm_fires_now_above">価格はすでに %1$s を上回っています。保存しますか？</string>
+    <string name="alarm_fires_now_below">価格はすでに %1$s を下回っています。保存しますか？</string>
+    <string name="alarm_fires_now_change">変更</string>
+    <string name="alarm_fires_now_save">保存する</string>
+    <string name="alarm_fires_now_title">アラームがすぐに鳴ります</string>
+    <string name="alarm_first_battery_hint">バッテリーの最適化でアプリが制限されています – アラームが遅れて届くことがあります。</string>
+    <string name="alarm_first_title">設定完了</string>
+    <string name="alarm_last_triggered">前回 %1$s</string>
+    <string name="alarm_new_extreme">%1$s更新</string>
+    <string name="alarm_once">1回</string>
+    <string name="alarm_option_repeating">作動後もアラームを残す</string>
+    <string name="alarm_option_sound">サウンド</string>
+    <string name="alarm_option_speak">アラームを読み上げ</string>
+    <string name="alarm_option_vibrate">バイブレーション</string>
+    <string name="alarm_repeat_each">毎回</string>
+    <string name="alarm_repeat_once">1回</string>
+    <string name="alarm_repeating">毎回</string>
+    <string name="alarm_threshold_error_empty">アラームを保存するには値を入力してください。</string>
+    <string name="alarm_threshold_error_funding">資金調達率は −10〜+10 パーセントの数値にしてください。</string>
+    <string name="alarm_threshold_error_invalid">0 より大きい有効な数値を入力してください。</string>
+    <string name="alarm_threshold_error_oi">建玉の変化：最大 1000 パーセント。</string>
+    <plurals name="alarm_window_hours">
+        <item quantity="other">%1$d 時間以内</item>
+    </plurals>
+    <string name="alarm_window_label">時間枠</string>
+
+    <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
+    <string name="alarm_simple_above">上回ったら：</string>
+    <string name="alarm_simple_below">下回ったら：</string>
+    <string name="alarm_simple_direction_a11y">方向：%1$s</string>
+    <string name="alarm_simple_end"></string>
+    <string name="alarm_simple_when">%1$s が</string>
+    <string name="alarm_template_a11y">アラームを作成：%1$s</string>
+    <string name="alarm_template_a11y_down">マイナス %1$s パーセントでアラームを作成</string>
+    <string name="alarm_template_a11y_up">プラス %1$s パーセントでアラームを作成</string>
+    <string name="alarm_template_created">アラームを作成しました</string>
+    <string name="alarm_template_volume">出来高 ×%1$s</string>
+    <string name="alarm_templates_title">クイックアラーム</string>
+
+    <!-- Alarm-Bedingungen -->
+    <string name="alarm_condition_above">価格が上回る</string>
+    <string name="alarm_condition_below">価格が下回る</string>
+    <string name="alarm_condition_down_percent">下落率</string>
+    <string name="alarm_condition_funding_above">資金調達率が上回る</string>
+    <string name="alarm_condition_funding_below">資金調達率が下回る</string>
+    <string name="alarm_condition_move_percent">変動幅</string>
+    <string name="alarm_condition_near_high">高値に接近</string>
+    <string name="alarm_condition_near_low">安値に接近</string>
+    <string name="alarm_condition_oi_down">建玉が減少</string>
+    <string name="alarm_condition_oi_up">建玉が増加</string>
+    <string name="alarm_condition_up_percent">上昇率</string>
+    <string name="alarm_condition_volume_spike">出来高急増</string>
+
+    <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
+    <string name="alarm_sentence_above">%1$s が %2$s を上回ったら知らせる。</string>
+    <string name="alarm_sentence_below">%1$s が %2$s を下回ったら知らせる。</string>
+    <string name="alarm_sentence_down_percent">%1$s が %2$s 下落したら知らせる。</string>
+    <string name="alarm_sentence_funding_above">%1$s の資金調達率が %2$s を上回ったら知らせる。</string>
+    <string name="alarm_sentence_funding_below">%1$s の資金調達率が %2$s を下回ったら知らせる。</string>
+    <string name="alarm_sentence_incomplete">値を入力すると、アラームが文章で表示されます。</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="other">%1$s が %3$d 時間以内に %2$s 動いたら知らせる。</item>
+    </plurals>
+    <string name="alarm_sentence_near_high">%1$s が %3$s まで %2$s 以内に近づいたら知らせる。</string>
+    <string name="alarm_sentence_near_low">%1$s が %3$s まで %2$s 以内に近づいたら知らせる。</string>
+    <string name="alarm_sentence_new_extreme">%1$s が %2$s を更新したら知らせる。</string>
+    <plurals name="alarm_sentence_oi_down">
+        <item quantity="other">%1$s の建玉が %3$d 時間以内に %2$s 減ったら知らせる。</item>
+    </plurals>
+    <plurals name="alarm_sentence_oi_up">
+        <item quantity="other">%1$s の建玉が %3$d 時間以内に %2$s 増えたら知らせる。</item>
+    </plurals>
+    <string name="alarm_sentence_up_percent">%1$s が %2$s 上昇したら知らせる。</string>
+    <string name="alarm_sentence_volume">%1$s の出来高が通常の %2$s 倍になったら知らせる。</string>
+
+    <!-- Alarm «Nahe am Hoch / Tief» -->
+    <string name="alarm_near_extreme_high_30">30日高値</string>
+    <string name="alarm_near_extreme_high_365">1年高値</string>
+    <string name="alarm_near_extreme_high_90">90日高値</string>
+    <string name="alarm_near_extreme_low_30">30日安値</string>
+    <string name="alarm_near_extreme_low_365">1年安値</string>
+    <string name="alarm_near_extreme_low_90">90日安値</string>
+    <string name="alarm_near_field_distance">距離</string>
+    <string name="alarm_near_hint">新しい高値・安値を付けたときにも通知します。日足に基づき、6時間ごとに更新します。</string>
+    <string name="alarm_near_new_only">高値・安値の更新時のみ</string>
+    <string name="alarm_near_notification_high">%1$s は %3$s を %2$s 下回っています（%4$s / %5$s）</string>
+    <string name="alarm_near_notification_low">%1$s は %3$s を %2$s 上回っています（%4$s / %5$s）</string>
+    <string name="alarm_near_notification_new">%2$s が %1$s を更新：%3$s（前回 %4$s）</string>
+    <plurals name="alarm_near_window_days">
+        <item quantity="other">%1$d日</item>
+    </plurals>
+    <string name="alarm_near_window_label">期間</string>
+    <string name="alarm_near_window_year">1年</string>
+
+    <!-- Futures- und Volumen-Alarme (Funding pro 8 Stunden, Open Interest, Volumen-Spike) -->
+    <!-- Funding-Schwelle gilt pro 8 Stunden; stündliches Funding wird umgerechnet -->
+    <string name="alarm_funding_hint_8h">ファンディングは8時間あたり。間隔の異なる契約は換算します（1時間×8、4時間×2）。先物カードには換算値を表示します。間隔が不明な場合、アラームはチェックしません。マイナスはショートがロングに支払うことを意味します。± で符号を切り替えます。</string>
+    <string name="alarm_funding_sign_a11y">符号を切り替え</string>
+    <string name="alarm_oi_hint">建玉を、同じ時間だけ前に保存した値と比べます。新しいアラームは、アプリがその期間のデータを集めてから通知します。確認は最短5分ごとです。</string>
+    <string name="alarm_volume_factor_label">直近1時間の出来高（通常比）</string>
+    <string name="alarm_volume_hint">出来高データは Binance から取得します。Binance に上場していないペアは作動しません。</string>
+
+    <!-- Bestätigung nach dem Speichern -->
+    <string name="alarm_saved_active">アラーム有効</string>
+    <!-- «Alarm gespeichert: BTC Kurs über 70’000 USDT · einmalig» -->
+    <string name="alarm_saved_banner">アラームを保存しました：%1$s</string>
+    <!-- Zusatz in der Bestätigung, wenn Mitteilungen aus sind (dazu Aktion «Einstellungen») -->
+    <string name="alarm_saved_notifications_off">通知オフ</string>
+
+    <!-- Wann Alarme geprüft werden -->
+    <string name="alarm_timing_hint_android">アプリを閉じていると Android の確認は不定期（「%1$s」なら約15分ごと）なので、短い急変を見逃すことがあります。</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">アプリを閉じているときは iOS が確認のタイミングを決めるため、短い急変を見逃すことがあります。開いている間は確実に確認します。</string>
+    <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
+    <string name="alarm_timing_title">アラームが確認されるタイミング</string>
+    <string name="alarm_timing_where">価格の更新頻度は %1$s で設定できます。</string>
+
+    <!-- Alarm-Signal und Test-Alarm -->
+    <string name="alarm_signal_silent">サイレント（通知のみ）</string>
+    <string name="alarm_signal_sound">サウンドのみ</string>
+    <string name="alarm_signal_sound_vibrate">サウンドとバイブレーション</string>
+    <string name="alarm_signal_system">システム</string>
+    <string name="alarm_signal_vibrate">バイブレーションのみ</string>
+    <string name="alarm_test">アラームをテスト</string>
+    <string name="alarm_test_action">テスト</string>
+    <string name="alarm_test_denied">Crypto Checker の通知がオフになっています。</string>
+    <string name="alarm_test_hint">サウンド、バイブレーション、読み上げの設定でサンプルのアラームを送信します。</string>
+    <string name="alarm_test_open_settings">設定を開く</string>
+    <string name="alarm_test_quiet">現在おやすみ時間中です：実際のアラームは終了まで待機し、その後サウンド付きで届きます。</string>
+    <string name="alarm_test_text">アラームはこのように表示され、このように鳴ります。</string>
+    <string name="alarm_test_title">テスト：Crypto Checker のアラーム</string>
+
+    <!-- Ehrliche Alarme: Vorlesetexte Ton/Ansage, ungeprüfte Alarme -->
+    <string name="alarm_a11y_sound_on">サウンドオン</string>
+    <string name="alarm_a11y_speak_on">読み上げオン</string>
+    <string name="alarm_unchecked_no_candles">確認できませんでした（ローソク足データなし）</string>
+    <string name="alarm_unchecked_no_rate">確認できませんでした（為替レートなし）</string>
+</resources>

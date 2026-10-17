@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: leere Ansicht, Statuszeile, Frische -->
+    <string name="watchlist_all_fresh">Oppdatert · %1$s</string>
+    <string name="watchlist_empty_title">Ingen par ennå</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="one">%1$d av %2$d uten kurs</item>
+        <item quantity="other">%1$d av %2$d uten kurs</item>
+    </plurals>
+    <string name="watchlist_last_run">Siste kjøring %1$s</string>
+    <string name="watchlist_live_a11y">Livekurser er på</string>
+    <string name="watchlist_live_badge">LIVE</string>
+    <string name="watchlist_offline_since">Ingen tilkobling · per %1$s</string>
+    <string name="watchlist_pull_to_refresh">Dra ned for å oppdatere</string>
+    <string name="watchlist_refresh_report">Siste oppdatering</string>
+    <string name="watchlist_refresh_report_empty">Ingen oversikt ennå: ingen fullstendig oppdatering er fullført ennå. Trykk på oppdater og vent til hjulet stopper.</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="one">%1$d av %2$d utdatert</item>
+        <item quantity="other">%1$d av %2$d utdatert</item>
+    </plurals>
+    <string name="watchlist_status_all_disabled">Alle par her er deaktivert</string>
+    <string name="watchlist_status_exchange_prices">Kurser fra børsene dine · %1$s</string>
+    <string name="watchlist_status_exchange_prices_short">Børskurser · %1$s</string>
+    <string name="watchlist_status_group_empty">Ingen par i denne gruppen</string>
+    <string name="watchlist_status_none_traded">Ingen handlede par her</string>
+    <string name="watchlist_updated">Oppdatert: %1$s</string>
+
+    <!-- Merkliste: Puls-Zeile (Paare im Plus/Minus, ohne 24-h-Wert) -->
+    <string name="watchlist_pulse_avg">Ø %1$s</string>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="one">%1$d faller</item>
+        <item quantity="other">%1$d faller</item>
+    </plurals>
+    <!-- Paare mit Kurs, aber ohne 24-h-Wert («· 510 ohne 24h-Wert») -->
+    <plurals name="watchlist_pulse_missing">
+        <item quantity="one">%1$d uten 24t-verdi</item>
+        <item quantity="other">%1$d uten 24t-verdi</item>
+    </plurals>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="one">%1$d uten verdi i dag</item>
+        <item quantity="other">%1$d uten verdi i dag</item>
+    </plurals>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="one">%1$d stiger</item>
+        <item quantity="other">%1$d stiger</item>
+    </plurals>
+
+    <!-- Merkliste: Zeile eines Paars -->
+    <string name="watchlist_row_disabled">%1$s · deaktivert</string>
+    <string name="watchlist_row_outdated">%1$s · utdatert</string>
+    <string name="watchlist_row_outdated_age">utdatert · %1$s</string>
+    <string name="watchlist_row_price_unchanged_since">Kurs uendret siden %1$s</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s kan ikke nås</string>
+
+    <!-- Merkliste: Suche, Sprungknopf, Sortieren nach Spalte -->
+    <string name="watchlist_jump_end">Til slutten</string>
+    <string name="watchlist_jump_start">Til toppen</string>
+    <string name="watchlist_search_close">Lukk søk</string>
+    <string name="watchlist_search_empty">Ingen treff for «%1$s»</string>
+    <string name="watchlist_search_hint">Søk etter par, navn eller børs</string>
+    <string name="watchlist_search_open">Søk</string>
+    <string name="watchlist_sort_ascending">stigende</string>
+    <string name="watchlist_sort_descending">synkende</string>
+    <string name="watchlist_sort_hint">Hold og dra et par, eller bruk håndtaket. Favoritter blir øverst.</string>
+    <string name="watchlist_sort_name">Navn</string>
+    <string name="watchlist_sort_own">Egen rekkefølge</string>
+    <string name="watchlist_sort_price">Kurs</string>
+
+    <!-- Merkliste: Mehrfachauswahl, Ansichten, Entfernen -->
+    <string name="watchlist_clear">Tøm overvåkingslisten</string>
+    <string name="watchlist_clear_confirm">Fjerne alle par fra overvåkingslisten? Alarmene deres forsvinner også.</string>
+    <plurals name="watchlist_disabled_count">
+        <item quantity="one">%1$d deaktivert</item>
+        <item quantity="other">%1$d deaktivert</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_action">Fjern</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="one">Fjerne %1$d par som ikke lenger handles på børsen sin? Alarmene forsvinner også.</item>
+        <item quantity="other">Fjerne %1$d par som ikke lenger handles på børsen sin? Alarmene deres forsvinner også.</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_menu">Fjern par uten handel (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">Fjern par uten handel</string>
+    <string name="watchlist_removed">%1$s fjernet</string>
+    <plurals name="watchlist_removed_count">
+        <item quantity="one">%1$d par fjernet</item>
+        <item quantity="other">%1$d par fjernet</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="one">%1$d par uten handel fjernet</item>
+        <item quantity="other">%1$d par uten handel fjernet</item>
+    </plurals>
+    <string name="watchlist_select">Velg</string>
+    <string name="watchlist_select_all">Velg alle</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="one">%1$d valgt</item>
+        <item quantity="other">%1$d valgt</item>
+    </plurals>
+    <string name="watchlist_show_all">Vis alle</string>
+    <string name="watchlist_show_only_disabled">Vis bare deaktiverte</string>
+    <string name="watchlist_show_only_stale">Vis bare utdaterte</string>
+
+    <!-- Merkliste: weitere Texte (Gruppen, Alarme, Mitteilung, Sprachausgabe) -->
+    <plurals name="watchlist_alarms_count">
+        <item quantity="one">Alarm (%1$d)</item>
+        <item quantity="other">Alarmer (%1$d)</item>
+    </plurals>
+    <string name="watchlist_favorites_empty_hint">Ingen favoritter ennå. Sveip et par til høyre, eller åpne det og trykk på «Favoritt».</string>
+    <string name="watchlist_group_empty_hint">Trykk lenge på en gruppe for å velge parene.</string>
+    <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
+    <string name="watchlist_groups_empty_hint">Gruppene dine vises her</string>
+    <string name="watchlist_notification">Varsel</string>
+    <string name="watchlist_tts">Les opp kurs</string>
+    <string name="watchlist_tts_speech_on">Opplesning er på. Du kan endre det under Innstillinger › Avansert › Opplesning.</string>
+
+    <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
+    <string name="watch_action_add_widget">Legg til som widget</string>
+    <string name="watch_action_alarm">Alarm</string>
+    <string name="watch_action_favorite">Favoritt</string>
+    <string name="watch_action_why">Hva beveger seg med?</string>
+    <string name="watch_action_why_short">Beveger seg med?</string>
+    <string name="watch_change_mark">Mark</string>
+    <string name="watch_disable">Deaktiver</string>
+    <string name="watch_disable_hint">Ingen forespørsler, ingen varsler</string>
+    <string name="watch_disabled">Deaktivert</string>
+    <string name="watch_disabled_banner">%1$s deaktivert</string>
+    <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
+    <string name="watch_edit_alarms_warning">Alarmene beholdes – sjekk grensene</string>
+    <!-- Titel des Formulars und Screenreader-Name des Stifts neben dem Paar -->
+    <string name="watch_edit_title">Rediger par</string>
+    <string name="watch_enable">Aktiver</string>
+    <string name="watch_enable_hint">Kurser og varsler igjen</string>
+    <string name="watch_enabled_banner">%1$s aktivert</string>
+    <string name="watch_error_offline">Ingen tilkobling</string>
+    <string name="watch_gesture_hint_short">Trykk: alarm og «Hva beveger seg med?» · hold inne for å velge · sveip til venstre for å slette · til høyre for favoritt</string>
+    <string name="watch_hint_tap_why">Trykk på en mynt for å se hva som beveger seg med den</string>
+    <string name="watch_not_traded">Handles ikke lenger på børsen</string>
+    <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
+    <string name="watch_preview_not_watched">Ikke i overvåkingslisten</string>
+    <string name="watch_price_mid">midtkurs (ellers mark)</string>
+    <string name="watch_row_source_both">Endring og graf: %1$s</string>
+    <string name="watch_row_source_change">Endring: %1$s</string>
+    <string name="watch_row_source_chart">Graf: %1$s</string>
+
+    <!-- Meldung nach dem Hinzufügen (ein Paar / mehrere Paare) -->
+    <string name="pair_added_watching">%1$s er nå i overvåkingslisten</string>
+    <!-- Ein Paar: pair_added_watching -->
+    <string name="pairs_added_watching">%1$s er nå i overvåkingslisten</string>
+
+    <!-- Favoriten -->
+    <string name="favorite_add">Legg til i favoritter</string>
+    <string name="favorite_added">%1$s lagt til i favoritter</string>
+    <string name="favorite_remove">Fjern fra favoritter</string>
+    <string name="favorite_removed">%1$s fjernet fra favoritter</string>
+    <string name="hint_favorites_list">Tips: sveip en rad mot høyre for å gjøre den til favoritt – favoritter står øverst.</string>
+
+    <!-- Gruppen und Chips der Merkliste -->
+    <string name="group_add">Ny gruppe</string>
+    <string name="group_all">Alle</string>
+    <!-- Alpha-Tokens: Chip «α», Art vor der Glocke, «inkl. Alpha-Tokens» -->
+    <string name="group_alpha">Alpha-tokens</string>
+    <string name="group_delete">Slett gruppe</string>
+    <string name="group_delete_confirm">Parene blir værende i overvåkningslisten.</string>
+    <string name="group_done">Ferdig</string>
+    <string name="group_edit_title">Rediger gruppe</string>
+    <!-- Chip «FAV» (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird vorgelesen) -->
+    <string name="group_favorites">Favoritter</string>
+    <string name="group_in_other">i %1$s</string>
+    <string name="group_name">Gruppenavn</string>
+    <string name="group_new">Ny gruppe…</string>
+    <string name="group_next">Neste</string>
+    <string name="group_none">Ingen gruppe</string>
+    <string name="group_rename">Gi nytt navn</string>
+    <string name="group_search_hint">Søk etter par, navn eller børs</string>
+    <string name="group_target">I gruppe</string>
+    <string name="group_title">Gruppe</string>
+    <!-- Gruppen-Chip «Token» (alle Paare ausser der Gruppe «TradFi»), Screenreader und Widget-Einrichtung -->
+    <string name="group_tokens">Tokens</string>
+    <string name="group_value">Gruppe: %1$s</string>
+
+    <!-- Notiz zum Paar -->
+    <string name="note_add">Legg til notat</string>
+    <string name="note_edit">Rediger notat</string>
+    <string name="note_hint">f.eks. inngang på 0.42, mål 0.60</string>
+    <string name="note_remove">Fjern</string>
+    <string name="note_title">Notat</string>
+
+    <!-- Reihenfolge ändern (Sortiermodus, Screenreader-Aktionen) -->
+    <string name="sort_drag_handle">Dra for å flytte</string>
+    <string name="sort_move_bottom">Helt nederst</string>
+    <string name="sort_move_down">Flytt ned</string>
+    <string name="sort_move_top">Helt øverst</string>
+    <string name="sort_move_up">Flytt opp</string>
+</resources>

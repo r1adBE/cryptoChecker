@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Tab, leere Ansicht, Einschalten, Sperre -->
+    <string name="app_lock_unavailable">この端末には画面ロックが設定されていません。先にシステム設定で設定してください。</string>
+    <string name="app_lock_unlock">ロック解除</string>
+    <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
+    <string name="portfolio_clear">ポートフォリオを空にする</string>
+    <plurals name="portfolio_clear_confirm_count">
+        <item quantity="other">%d 件の取引をすべて削除しますか？監視中のアドレスは残ります。元に戻せません。</item>
+    </plurals>
+    <string name="portfolio_disclaimer">金額は自分でエクスポートしない限り端末に保存されたままです。価格取得にはペアのシンボルだけをそのペアの取引所に送ります。公開ブロックチェーンノードには監視中のアドレスとあなたの IP が見えます。投資助言ではありません。</string>
+    <string name="portfolio_empty_action">最初の購入を追加</string>
+    <string name="portfolio_empty_address">ウォレットアドレスだけを見守る</string>
+    <string name="portfolio_empty_csv">取引所で購入？ファイルを読み込む</string>
+    <string name="portfolio_empty_example_plain">例：3 月 1 日に 0.01 BTC を購入。アプリが今日の価値と、利益か損失かを表示します。データはこの端末にのみ保存されます。</string>
+    <string name="portfolio_empty_text">購入したものを入力すると、今日の価値とどれだけ利益・損失が出ているかをアプリが表示します。</string>
+    <string name="portfolio_empty_title">まだ取引がありません</string>
+    <string name="portfolio_enable_ask_text">取引を保存しました。ポートフォリオタブには保有分とその評価額が表示されます。</string>
+    <string name="portfolio_enable_ask_title">ポートフォリオタブをオンにしますか？</string>
+    <string name="portfolio_enable_later_hint">取引を保存しました。ポートフォリオタブは「設定 › 詳細設定 › ポートフォリオ」でオンにできます。</string>
+    <string name="portfolio_enabled_banner">ポートフォリオをオンにしました。「ポートフォリオ」タブにあります。</string>
+    <string name="portfolio_lock_reason">ポートフォリオのロックを解除</string>
+    <string name="portfolio_locked_text">保有資産と評価額を見るにはロックを解除してください。</string>
+    <string name="portfolio_locked_title">ポートフォリオはロックされています</string>
+    <string name="portfolio_setting_hint">任意：売買を記録し、評価額と損益を別タブで確認できます。</string>
+    <!-- Status-Pille wie in der Merkliste: Kurse älter als die Frische-Schwelle, Gerät online. Offline: offline_status_since, alles aktuell: watchlist_all_fresh -->
+    <string name="portfolio_status_stale">古い · %1$s時点</string>
+    <plurals name="portfolio_system_restore_invalid">
+        <item quantity="other">システムバックアップの %d 件の項目が無効だったため復元されませんでした。</item>
+    </plurals>
+    <string name="portfolio_title">ポートフォリオ</string>
+    <string name="portfolio_unassigned_fee">手数料は未配分 – 取得原価不明：%1$s</string>
+    <string name="portfolio_updated">%1$s 時点の価格</string>
+
+    <!-- Portfolio: Gesamtwert-Kopf (Heute · 7 T · Gesamt) und Aufteilung -->
+    <string name="portfolio_allocation_other">その他</string>
+    <string name="portfolio_allocation_title">配分</string>
+    <string name="portfolio_card_details">詳細</string>
+    <!-- Screenreader, Kennzahl ohne Wert; %1$s Beschriftung (z. B. «7 Tage») -->
+    <string name="portfolio_card_figure_none_a11y">%1$s：まだ利用できません</string>
+    <string name="portfolio_card_hints_count">注記（%1$d）</string>
+    <string name="portfolio_card_today">今日</string>
+    <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
+    <string name="portfolio_card_total">合計</string>
+    <string name="portfolio_hide_amounts">金額を隠す</string>
+    <string name="portfolio_hide_amounts_hint">ポートフォリオとポートフォリオウィジェットの金額と評価額を ••• で表示します。パーセントは表示されたままです。</string>
+    <string name="portfolio_invested">取得原価</string>
+    <string name="portfolio_total_no_fx">%1$s の為替レートがありません – 金額は USDT 建て</string>
+    <string name="portfolio_total_value">評価額合計</string>
+    <string name="portfolio_value">評価額</string>
+
+    <!-- Portfolio: Bestand, offene Positionen, Durchschnittspreis -->
+    <string name="portfolio_avg_and_now">平均 %1$s · 現在 %2$s</string>
+    <string name="portfolio_avg_only">平均 %1$s</string>
+    <string name="portfolio_avg_open_lots">保有コインの平均取得原価</string>
+    <string name="portfolio_avg_partial">購入価格のある %1$s の平均</string>
+    <string name="portfolio_avg_price">平均購入価格</string>
+    <string name="portfolio_avg_price_hint">平均購入価格: すべての購入を数量で加重平均した価格です。売却はこの平均で評価します。</string>
+    <plurals name="portfolio_closed">
+        <item quantity="other">決済済みポジション（%1$d）</item>
+    </plurals>
+    <string name="portfolio_fifo_hint">FIFO：売却では古いコインから先に使います。平均 = 残りの取得原価 ÷ 購入価格のある数量。</string>
+    <string name="portfolio_holdings">保有量</string>
+    <string name="portfolio_lost_fee_cost">支払済みロットのないネットワーク手数料の取得原価：%1$s</string>
+    <string name="portfolio_open_lots">未売却の購入ロット（%1$d）</string>
+    <string name="portfolio_open_lots_avg">購入価格あり（Ø）</string>
+    <string name="portfolio_open_lots_no_cost">購入価格なし</string>
+    <string name="portfolio_open_lots_without_price">購入価格なし</string>
+    <string name="portfolio_realized">実現損益</string>
+    <string name="portfolio_unrealized">含み損益</string>
+    <string name="portfolio_unrealized_without_unpriced">購入価格のない %1$s を除く</string>
+    <string name="portfolio_withdrawn_gain">出庫済み：%1$s（出庫までの評価額の変化）</string>
+
+    <!-- Portfolio: Kurse und Umrechnung -->
+    <string name="portfolio_convert_to">換算通貨</string>
+    <string name="portfolio_convert_to_value">換算通貨：%1$s</string>
+    <string name="portfolio_current_missing">%1$s の現在価格がありません</string>
+    <string name="portfolio_current_price">現在価格</string>
+    <string name="portfolio_price_missing">価格なし</string>
+    <string name="portfolio_price_missing_hint">一部の購入に価格がありません。損益を表示するには取得価格を入力してください。</string>
+    <string name="portfolio_price_source">価格：Binance · USDT = 1</string>
+    <string name="portfolio_price_source_routes">価格：%1$s、それ以外は Binance · USDT = 1</string>
+    <string name="portfolio_price_unavailable">現在価格を取得できません</string>
+    <string name="portfolio_price_unchecked">価格未確認</string>
+    <string name="portfolio_price_via_base">≈ %1$s の価格（ブリッジ/ラップ）</string>
+    <string name="portfolio_usdt_as_usd">USDT は USD レートで換算</string>
+    <string name="portfolio_usdt_assumed">USDT = 1 と仮定</string>
+    <string name="portfolio_usdt_depeg_warning">USDT = 1 と仮定 – 市場は %1$s USD（%2$s）</string>
+
+    <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
+    <string name="portfolio_add_from_watch">ポートフォリオに追加</string>
+    <string name="portfolio_add_tx">取引を記録</string>
+    <string name="portfolio_buy">購入</string>
+    <string name="portfolio_coin">コイン</string>
+    <string name="portfolio_coin_invalid">コインのシンボルを入力してください</string>
+    <string name="portfolio_coin_search">シンボルを検索（例: BTC）</string>
+    <string name="portfolio_discard_confirm">破棄</string>
+    <string name="portfolio_discard_keep">編集を続ける</string>
+    <string name="portfolio_discard_title">変更を破棄しますか？</string>
+    <string name="portfolio_edit_tx">取引を編集</string>
+    <string name="portfolio_invalid">無効な数量</string>
+    <string name="portfolio_oversold">売却が保有量を超えています。取引を確認してください。</string>
+    <string name="portfolio_sell">売却</string>
+    <string name="portfolio_sell_exceeds">保有量を超えています（%1$s）</string>
+    <string name="portfolio_sell_exceeds_fee">数量と手数料の合計が保有量（%1$s）を超えています</string>
+    <string name="portfolio_sell_exceeds_wallet">%2$s の保有量（%1$s）を超えています</string>
+    <string name="portfolio_transactions">取引</string>
+    <string name="portfolio_tx_acquired_date">元の購入日（任意）</string>
+    <string name="portfolio_tx_acquired_date_hint">税務用エクスポートの保有期間に使用</string>
+    <string name="portfolio_tx_amount">数量</string>
+    <string name="portfolio_tx_coin_fee">手数料（コイン建て・任意）</string>
+    <string name="portfolio_tx_date">日付</string>
+    <string name="portfolio_tx_delete_confirm">この取引はポートフォリオから削除されます。</string>
+    <string name="portfolio_tx_delete_title">取引を削除しますか？</string>
+    <string name="portfolio_tx_deposit">入庫</string>
+    <string name="portfolio_tx_entry_currency">入力通貨</string>
+    <string name="portfolio_tx_explain_deposit">取引なしの保有分（以前からのコインなど）</string>
+    <string name="portfolio_tx_explain_gift">コインは出庫と同様に保有から外れます – 贈与をこのように課税する国（UK、CA、AU）でのみ時価での譲渡になります</string>
+    <string name="portfolio_tx_explain_payment">商品やサービスの支払い – 売却と同様に時価での譲渡、現金の受け取りなし</string>
+    <string name="portfolio_tx_explain_reward">取得原価 = 受け取った時点の市場価格</string>
+    <string name="portfolio_tx_explain_swap">コイン同士の交換：渡したコインの売却と受け取ったコインの購入</string>
+    <string name="portfolio_tx_explain_transfer">利益なし – 取得原価はコインと一緒に移ります</string>
+    <string name="portfolio_tx_explain_withdrawal">保有分がポートフォリオから出ます – 売却ではなく、利益も出ません</string>
+    <string name="portfolio_tx_fee_consumes_amount">手数料が受け取った数量と同じです – 何も残りません。</string>
+    <string name="portfolio_tx_fees_toggle">手数料</string>
+    <string name="portfolio_tx_fiat_converted">≈ %1$s（%2$s のレート）</string>
+    <string name="portfolio_tx_fiat_loading">為替レートを読み込み中…</string>
+    <string name="portfolio_tx_fiat_no_fx">この日の為替レートがありません – 金額を USDT で入力してください。</string>
+    <string name="portfolio_tx_gift">贈与</string>
+    <string name="portfolio_tx_gift_price_hint">USDT 建て。空欄 = その日の終値（推定）</string>
+    <string name="portfolio_tx_gift_spouse">配偶者・パートナーへ</string>
+    <string name="portfolio_tx_gift_spouse_hint">英国とカナダ：損益なし – パートナーがあなたの取得価額を引き継ぎます。その他の国では考慮されません。</string>
+    <string name="portfolio_tx_market_value">1コインあたりの時価</string>
+    <string name="portfolio_tx_more_buy">手数料・取引所・メモ</string>
+    <string name="portfolio_tx_network_fee">ネットワーク手数料（コイン建て・任意）</string>
+    <string name="portfolio_tx_note">メモ（任意）</string>
+    <string name="portfolio_tx_payment">支払いに使用</string>
+    <string name="portfolio_tx_price">1コインあたりの価格</string>
+    <string name="portfolio_tx_price_hint">USDT建て。不明な場合は空欄にしてください。</string>
+    <string name="portfolio_tx_price_historic">%1$s の終値を確認済み – 必要なら修正してください</string>
+    <string name="portfolio_tx_price_invalid">無効な価格</string>
+    <string name="portfolio_tx_price_past_hint">取引日の価格を入力（不明なら空欄）</string>
+    <string name="portfolio_tx_price_receipt_hint">USDT建て。空欄 = 取得原価なしの保有分。</string>
+    <string name="portfolio_tx_price_zero">インポートした取引では価格 0 は指定できません – 市場価格にするには空欄のままにしてください</string>
+    <string name="portfolio_tx_removed">取引を削除しました</string>
+    <string name="portfolio_tx_reward">報酬</string>
+    <string name="portfolio_tx_save_failed">取引を保存できませんでした。入力内容は残っています。もう一度お試しください。</string>
+    <string name="portfolio_tx_swap">スワップ</string>
+    <string name="portfolio_tx_swap_fee_received">%1$s での手数料：受け取った数量から差し引くため価格は不要です。</string>
+    <string name="portfolio_tx_swap_from">%1$s からスワップ</string>
+    <string name="portfolio_tx_swap_given_amount">渡した数量</string>
+    <string name="portfolio_tx_swap_given_coin">渡したコイン</string>
+    <string name="portfolio_tx_swap_received_amount">受け取った数量</string>
+    <string name="portfolio_tx_swap_received_coin">受け取ったコイン</string>
+    <string name="portfolio_tx_swap_same_coin">渡したコインとは別のコインを選んでください</string>
+    <string name="portfolio_tx_swap_to">%1$s へスワップ</string>
+    <string name="portfolio_tx_swap_value">スワップの価値（任意）</string>
+    <string name="portfolio_tx_swap_value_hint">合計の価値。空欄 = 不明 – 損益は不完全なままです（スワップに USDT があれば自動）。</string>
+    <string name="portfolio_tx_third_fee_amount">手数料の数量</string>
+    <string name="portfolio_tx_third_fee_coin">手数料のコイン</string>
+    <string name="portfolio_tx_third_fee_incomplete">価格がないと手数料は取得原価にも売却額にも含まれません。税務用エクスポートではこうした売却に印が付きます。</string>
+    <string name="portfolio_tx_third_fee_price">手数料コイン1枚あたりの価格（任意）</string>
+    <string name="portfolio_tx_third_fee_toggle">別のコインでの手数料</string>
+    <string name="portfolio_tx_total">合計：%1$s</string>
+    <string name="portfolio_tx_transfer">振替</string>
+    <string name="portfolio_tx_transfer_from">移動元（任意）</string>
+    <string name="portfolio_tx_transfer_to">移動先（任意）</string>
+    <string name="portfolio_tx_transfer_to_hint">取引所またはウォレット – 今後はそこで評価します。</string>
+    <string name="portfolio_tx_type_select">種類：%1$s</string>
+    <string name="portfolio_tx_value_received">受け取り時の1コインあたりの価値（任意）</string>
+    <string name="portfolio_tx_withdrawal">出庫</string>
+    <string name="portfolio_tx_withdrawal_gift_hint">贈与した、または支払いに使った？ ‹贈与› または ‹支払いに使用› として記録してください – 国によっては税務上の売却です。</string>
+    <string name="portfolio_tx_withdrawal_price_hint">任意：USDT建ての市場価格。履歴の計算にのみ使用（空欄 = その日の価格）。コインは常に取得原価で出庫します。</string>
+    <string name="portfolio_wallet_did_you_mean">%1$s のことですか？表記が違うと別のウォレットとして扱われます。</string>
+    <string name="portfolio_wallet_shortfall">%1$s の保有量が足りません – 振替の記録漏れはありませんか？</string>
+
+    <!-- Portfolio: Wertverlauf (Zeitraum, Vergleich Währung | USDT, Währungseffekt) -->
+    <!-- Höchster Tageswert des Zeitraums am Punkt («Hoch 12’345») -->
+    <string name="portfolio_chart_high">最高 %1$s</string>
+    <string name="portfolio_compare">比較</string>
+    <!-- Umschalter «Vergleich», Screenreader: %1$s Währung -->
+    <string name="portfolio_compare_a11y">%1$sとUSDTをパーセントで比較</string>
+    <!-- %1$s Zeitraum, %2$s Währung, %3$s und %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="portfolio_compare_chart_a11y">パーセントでの比較、%1$s：%2$s %3$s、USDT %4$s</string>
+    <!-- %1$s Prozentpunkte mit Vorzeichen («−5.10%»): Veränderung in der Währung minus in USDT -->
+    <string name="portfolio_currency_effect">為替の影響：%1$s</string>
+    <!-- «Seit 1. Kauf» beginnt frühestens beim ersten Tag mit Kursdaten -->
+    <string name="portfolio_history_capped_data_start">価格データは2017年8月以降のみです。推移はそこから始まります。</string>
+    <string name="portfolio_history_chip_since_first">購入以来</string>
+    <string name="portfolio_history_collapse">評価額の推移を隠す</string>
+    <string name="portfolio_history_converted">今日のレートで換算</string>
+    <string name="portfolio_history_expand">評価額の推移を表示</string>
+    <string name="portfolio_history_gain_a11y">評価額 %1$s。損益（%2$s）：%3$s</string>
+    <string name="portfolio_history_gain_label">損益</string>
+    <!-- Umschalter, Screenreader: %1$s Währung («CHF») oder «USDT» -->
+    <string name="portfolio_history_in_a11y">%1$sでの評価額</string>
+    <string name="portfolio_history_incl_fx">為替レート込み</string>
+    <string name="portfolio_history_incl_withdrawn">出庫済みコインの評価額の変化を含む</string>
+    <string name="portfolio_history_includes_trades">この期間の購入・売却を含みます</string>
+    <string name="portfolio_history_loading">評価額の推移を読み込み中</string>
+    <string name="portfolio_history_period_1y">1年間</string>
+    <string name="portfolio_history_period_30d">30日間</string>
+    <string name="portfolio_history_period_7d">7日間</string>
+    <string name="portfolio_history_period_since_first">初回購入から</string>
+    <string name="portfolio_history_pnl_needs_prices">損益の計算に購入価格が不足しています。取引で入力してください。</string>
+    <string name="portfolio_history_pnl_without">%1$s を除いた損益（価格なし）</string>
+    <string name="portfolio_history_range_1y">1年</string>
+    <string name="portfolio_history_range_30d">30日</string>
+    <string name="portfolio_history_range_7d">7日</string>
+    <string name="portfolio_history_range_a11y">%1$sの推移を表示</string>
+    <string name="portfolio_history_range_since_first">初回購入から</string>
+    <string name="portfolio_history_scaled">%1$s の推移：Binance の推移を取引所価格に換算</string>
+    <string name="portfolio_history_title">評価額の推移</string>
+    <string name="portfolio_history_today">今日</string>
+    <string name="portfolio_history_too_short">推移は最初の丸1日が経過してから表示されます。</string>
+    <string name="portfolio_history_unavailable">現在、推移を表示できません。</string>
+    <string name="portfolio_history_utc_days">日付は UTC（日足）</string>
+    <string name="portfolio_history_without_matching">%1$s を除く（一致する日次価格なし）</string>
+    <string name="portfolio_period_rewards">報酬 +%1$s（損益に含まず）</string>
+    <string name="portfolio_period_scaled">%1$s の 7日/1年：Binance の推移を取引所価格に換算</string>
+
+    <!-- Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_alarm_action">アラーム</string>
+    <!-- %1$s = Währung, z. B. CHF -->
+    <string name="portfolio_alarm_amount">金額 (%1$s)</string>
+    <string name="portfolio_alarm_hint">更新のたびに確認します。アラームと同様、しきい値を超えたときに通知し、値が戻るまで再通知しません。</string>
+    <string name="portfolio_alarm_kind_above">ポートフォリオが金額を上回る</string>
+    <string name="portfolio_alarm_kind_below">ポートフォリオが金額を下回る</string>
+    <string name="portfolio_alarm_kind_down">ポートフォリオが下落</string>
+    <string name="portfolio_alarm_kind_up">ポートフォリオが上昇</string>
+    <!-- %1$s = Betrag mit Währung (oder •••) -->
+    <string name="portfolio_alarm_sentence_above">ポートフォリオが %1$s を上回る</string>
+    <string name="portfolio_alarm_sentence_below">ポートフォリオが %1$s を下回る</string>
+    <string name="portfolio_alarm_sentence_down">ポートフォリオ %1$s 下落 (%2$s)</string>
+    <!-- %1$s = Prozent, %2$s = Basis der %-Änderung kurz (24h, heute …) -->
+    <string name="portfolio_alarm_sentence_up">ポートフォリオ %1$s 上昇 (%2$s)</string>
+    <string name="portfolio_alarm_title">アラーム「ポートフォリオ評価額」</string>
+
+    <!-- Gebühr, Börse und Gewinn/Verlust einer Position -->
+    <string name="ledger_exchange">取引所（任意）</string>
+    <string name="ledger_exchange_failed">%1$s：現在 %2$s の価格がありません – Binance で評価しています。</string>
+    <string name="ledger_exchange_hint">このコインはこの取引所の価格で評価します（それ以外は Binance）。推移・7日・1年は Binance の日次価格をこの価格に合わせて使います。</string>
+    <string name="ledger_exchange_mixed">%1$s：複数の取引所が入力されています – Binance で評価しています。コインを移動しましたか？「振替」として記録してください。</string>
+    <string name="ledger_exchange_none">なし（Binance）</string>
+    <string name="ledger_fee">手数料（任意）</string>
+    <string name="ledger_fee_coin">コイン</string>
+    <string name="ledger_fee_hint">USDTなら取得原価に加算（売却時は受取額から差し引き）、コインなら数量が減ります。</string>
+    <string name="ledger_fee_line">手数料 %1$s</string>
+    <string name="ledger_fifo_cost_note">購入以降：手数料込みのFIFO取得原価（古いコインから先に売却）。</string>
+    <string name="ledger_gain_info">今日・7日・1年：期間中の評価額の変化です。購入と売却は利益として数えません。購入以来：まだ保有しているコインの現在価値から取得原価（手数料込みの平均取得単価）を引いた値です。</string>
+    <string name="ledger_gain_info_a11y">損益の計算方法</string>
+    <string name="ledger_gain_info_fifo">今日・7日・1年：期間中の評価額の変化です。購入と売却は利益として数えません。購入以来：まだ保有しているコインの現在価値から取得原価（手数料込みのFIFO）を引いた値です。</string>
+    <string name="ledger_gain_title">損益</string>
+    <string name="ledger_more_toggle">手数料と取引所</string>
+    <string name="ledger_partial_cost">「購入以来」は購入価格のある部分だけを計算します – 購入価格のない %1$s を除く。</string>
+    <string name="ledger_period_without">今日 / 7日 / 1年は %1$s を除く – 該当する開始時の価格がありません。</string>
+    <string name="ledger_since_purchase_currency">購入以来（%1$s）</string>
+    <string name="ledger_since_purchase_spoken">購入以来の損益（未売却）</string>
+    <plurals name="ledger_without_cost">
+        <item quantity="other">購入価格のないコイン%1$d件を除く（%2$s）。価格を入力すると含まれます。</item>
+    </plurals>
+</resources>

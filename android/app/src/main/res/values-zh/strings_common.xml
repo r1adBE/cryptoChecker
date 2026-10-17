@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">返回</string>
+    <string name="action_cancel">取消</string>
+    <string name="action_clear">清除</string>
+    <string name="action_close">关闭</string>
+    <string name="action_delete">删除</string>
+    <string name="action_edit">编辑</string>
+    <string name="action_more">更多选项</string>
+    <string name="action_refresh">刷新</string>
+    <string name="action_retry">重试</string>
+    <string name="action_save">保存</string>
+    <string name="action_sort">排序</string>
+    <string name="action_sort_done">完成</string>
+    <string name="action_undo">撤销</string>
+    <string name="action_view">查看</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">市场</string>
+    <string name="tab_portfolio">投资组合</string>
+    <string name="tab_settings">设置</string>
+    <string name="tab_watchlist">列表</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">错误：%1$s</string>
+    <string name="error_market_unreachable">交易所暂时无法连接——仍显示最后获取的价格。</string>
+    <string name="error_market_unreachable_short">交易所暂时无法连接</string>
+    <string name="loading_hint">加载中…</string>
+    <string name="no_internet_connection">无网络连接</string>
+    <string name="option_off">关闭</string>
+    <string name="something_went_wrong">出了点问题</string>
+    <string name="time_just_now">刚刚</string>
+    <string name="timeout_error_message">交易所暂时无响应。</string>
+    <string name="try_again">重试</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">无连接</string>
+    <string name="offline_status_since">无连接 · 数据时间 %1$s</string>
+    <string name="status_live">实时</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">添加交易对</string>
+    <string name="shortcut_alarms">全部提醒</string>
+    <string name="shortcut_cycle">市场</string>
+</resources>

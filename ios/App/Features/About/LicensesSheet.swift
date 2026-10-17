@@ -1,0 +1,78 @@
+import SwiftUI
+
+/// Lizenzhinweise unter «Über die App»: die App selbst (MIT, Text unübersetzt in
+/// `App/Resources/Licenses/MIT-cryptochecker.txt`, gleich wie `LICENSE`), Schrift und Ersatz-Icons.
+/// Swift-Pakete von Dritten nutzt die App nicht (wie `LicensesSheet.kt`).
+enum LicenseNotices {
+    /// Lizenztext aus dem App-Bundle (leer, falls die Datei fehlt).
+    static func text(_ name: String) -> String {
+        guard let url = Bundle.main.url(forResource: name, withExtension: "txt"),
+              let text = try? String(contentsOf: url, encoding: .utf8) else { return "" }
+        return text.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+}
+
+struct LicensesSheet: View {
+    @Environment(\.dismiss) private var dismiss
+    @Environment(\.appAccent) private var accent
+    @State private var appLicense = ""
+
+    /// true: als Seite der Einstellungen (im Navigationsstapel, ohne «Schliessen»).
+    var asPage = false
+
+    var body: some View {
+        if asPage {
+            content
+        } else {
+            NavigationStack {
+                content
+                    .toolbar {
+                        ToolbarItem(placement: .confirmationAction) {
+                            Button(L("action_close")) { dismiss() }
+                        }
+                    }
+            }
+            .tint(accent.primary)
+            .presentationDetents([.large])
+            .presentationDragIndicator(.visible)
+            .presentationBackground(AppColors.background)
+        }
+    }
+
+    private var content: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: Spacing.sm) {
+                // Die App selbst ist quelloffen (MIT); der ganze Lizenztext wie in `LICENSE`
+                Text(L("licenses_app_intro"))
+                    .font(.subheadline)
+                    .foregroundStyle(AppColors.onSurface)
+                if !appLicense.isEmpty {
+                    Text(appLicense)
+                        .font(.caption.monospaced())
+                        .foregroundStyle(AppColors.onSurfaceVariant)
+                }
+                // Pflichtangabe der CoinGecko-API-Bedingungen (Markenname, nicht übersetzt)
+                Text(verbatim: DataFreshness.poweredByCoinGecko)
+                    .font(.subheadline)
+                    .foregroundStyle(AppColors.onSurface)
+                    .padding(.bottom, Spacing.xs)
+                // Ersatz-Logos (Build 46): freies Icon-Paket, CC0 1.0 — wie Android
+                Text(L("licenses_icons_title"))
+                    .sectionTitleStyle()
+                    .accessibilityAddTraits(.isHeader)
+                    .padding(.top, Spacing.sm)
+                Text(L("licenses_icons_bundled_text"))
+                    .font(.subheadline)
+                    .foregroundStyle(AppColors.onSurface)
+            }
+            .textSelection(.enabled)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(16)
+            .readableContentWidth()
+        }
+        .background(AppColors.background)
+        .navigationTitle(L("about_licenses"))
+        .navigationBarTitleDisplayMode(.inline)
+        .task { appLicense = LicenseNotices.text("MIT-cryptochecker") }
+    }
+}

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Texte der Mitteilungen -->
+    <string name="notification_activity_title">%1$s · %2$s</string>
+    <string name="notification_alarm_text">%1$s — now %2$s</string>
+    <string name="notification_alarm_title">Alert: %1$s · %2$s</string>
+    <string name="notification_depeg_action_exchange">Open exchange</string>
+    <string name="notification_depeg_text">Values in the app keep using USDT = 1.</string>
+    <string name="notification_depeg_title">USDT at %1$s USD (%2$s)</string>
+    <string name="notification_fng_above">The index rose above %1$d – by this measure, the market mood is greedy.</string>
+    <string name="notification_fng_below">The index fell below %1$d – by this measure, the market mood is fearful.</string>
+    <string name="notification_fng_title">Fear &amp; Greed: %1$d</string>
+    <string name="notification_gas_btc_text">Below your limit of %1$s sat/vB · Transfer ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Bitcoin fee: %1$s sat/vB</string>
+    <string name="notification_gas_eth_text">Below your limit of %1$s gwei · Transfer ≈ %2$s</string>
+    <string name="notification_gas_eth_title">Ethereum gas: %1$s gwei</string>
+    <string name="notification_indicator_above">Above your limit %1$s – measured value, not a recommendation.</string>
+    <string name="notification_indicator_below">Below your limit %1$s – measured value, not a recommendation.</string>
+    <string name="notification_indicator_title">%1$s: %2$s</string>
+    <string name="notification_macro_title">Economic data today</string>
+    <string name="notification_portfolio_alarm_locked">Your alert was triggered – open the app for details.</string>
+    <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
+    <string name="notification_portfolio_alarm_text">%1$s – now %2$s</string>
+    <string name="notification_portfolio_alarm_title">Portfolio value</string>
+    <string name="notification_price_change">%1$s, from %2$s (%3$s ago)</string>
+    <string name="notification_price_change_no_age">%1$s, from %2$s</string>
+    <string name="notification_price_first">First price notification for this pair</string>
+    <plurals name="notification_price_overflow_title">
+        <item quantity="one">+%1$d more price</item>
+        <item quantity="other">+%1$d more prices</item>
+    </plurals>
+    <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
+    <string name="notification_refreshing">Updating prices…</string>
+    <string name="notification_volume_spike_text">Volume %1$s× normal in the last hour</string>
+
+    <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
+    <string name="channel_alarms">Alerts</string>
+    <string name="channel_alarms_description">Notification when an alert fires.</string>
+    <string name="channel_alarms_quiet">Alerts (quiet hours)</string>
+    <string name="channel_alarms_quiet_description">Silent alerts during quiet hours.</string>
+    <string name="channel_alarms_silent">Alerts (silent)</string>
+    <string name="channel_alarms_sound">Alerts (sound only)</string>
+    <string name="channel_alarms_sound_vibrate">Alerts (sound and vibration)</string>
+    <string name="channel_alarms_vibrate">Alerts (vibration only)</string>
+    <string name="channel_prices">Price notifications</string>
+    <string name="channel_prices_description">Silent price notification with the current price of a pair.</string>
+    <string name="channel_service">Price updates</string>
+    <string name="channel_service_description">Notification while prices are being updated.</string>
+    <string name="neutral_channel_market">Market notices</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed, gas fees, unusual activity and economic dates</string>
+
+    <!-- Sprachausgabe -->
+    <string name="tts_alarm">Alert. %1$s, %2$s %3$s %4$s, now %5$s</string>
+    <string name="tts_direction_down">has fallen</string>
+    <string name="tts_direction_funding_above">with high funding</string>
+    <string name="tts_direction_funding_below">with low funding</string>
+    <string name="tts_direction_move">moving strongly</string>
+    <string name="tts_direction_near_high">is near its high</string>
+    <string name="tts_direction_near_low">is near its low</string>
+    <string name="tts_direction_oi_down">with falling open interest</string>
+    <string name="tts_direction_oi_up">with rising open interest</string>
+    <string name="tts_direction_up">has risen</string>
+    <string name="tts_direction_volume_spike">with a volume spike</string>
+    <string name="tts_price">%1$s, %2$s %3$s, %4$s</string>
+</resources>

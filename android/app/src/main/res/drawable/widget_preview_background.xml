@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Hintergrund der Widget-Vorschauen (previewLayout): Widget-Grundfarbe mit runden Ecken,
+     16 dp wie system_app_widget_background_radius (das es erst ab API 31 als Ressource gibt). -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <corners android:radius="16dp" />
+    <solid android:color="@color/widget_preview_background" />
+</shape>

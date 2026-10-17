@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen: Aufbau (Gruppen, Zeilen, Abschnitte, Suche, Kurzwerte) -->
+    <string name="settings_custom_value">กำหนดเอง</string>
+    <string name="settings_group_general">ทั่วไป</string>
+    <string name="settings_group_more">เพิ่มเติม</string>
+    <string name="settings_minutes">%1$d นาที</string>
+    <string name="settings_row_about">เกี่ยวกับแอป</string>
+    <string name="settings_row_advanced">ขั้นสูง</string>
+    <string name="settings_row_alarms">สัญญาณเตือน</string>
+    <string name="settings_row_currency">สกุลเงิน</string>
+    <string name="settings_row_dated_futures">ฟิวเจอร์สที่มีวันหมดอายุ</string>
+    <string name="settings_row_updates">การอัปเดตราคา</string>
+    <string name="settings_row_watchlist">รายการติดตาม</string>
+    <string name="settings_search_hint">ค้นหาการตั้งค่า</string>
+    <string name="settings_seconds">%1$d วินาที</string>
+    <string name="settings_section_about">เกี่ยวกับ</string>
+    <string name="settings_section_appearance">รูปลักษณ์</string>
+    <string name="settings_section_developer">นักพัฒนา</string>
+    <string name="settings_section_language">ภาษา</string>
+    <!-- Kurzwert «eingeschaltet» (Gegenstück zu option_off) -->
+    <string name="settings_summary_on">เปิด</string>
+    <string name="settings_title">ตั้งค่า</string>
+
+    <!-- Einstellungen › Alarme (Ton, Signal, Ruhezeit, App-Symbol, exakte Prüfungen) -->
+    <string name="settings_alarm_cooldown">ช่วงพักก่อนสัญญาณเตือนทำงานซ้ำ</string>
+    <!-- Ton/Vibration der Kursalarme, je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">รูปแบบสัญญาณเตือน</string>
+    <string name="settings_alarm_signal_open_system">ปรับในการตั้งค่าระบบ</string>
+    <string name="settings_alarm_signal_system_hint">เป็นไปตามการตั้งค่าการแจ้งเตือนของโทรศัพท์</string>
+    <string name="settings_alarm_sound">เสียงสัญญาณเตือน</string>
+    <string name="settings_alarm_sound_custom">เสียงที่กำหนดเอง</string>
+    <string name="settings_alarm_sound_default">เสียงเริ่มต้น</string>
+    <string name="settings_alarm_sound_error">ไม่สามารถใช้เสียงนี้ได้</string>
+    <string name="settings_alarm_sound_file">ไฟล์เสียงของคุณเอง…</string>
+    <string name="settings_alarm_sound_reset">ใช้เสียงเริ่มต้น</string>
+    <string name="settings_alarm_sound_system">เลือกเสียงระบบ…</string>
+    <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">ตัวเลขบนไอคอนแอป</string>
+    <string name="settings_app_badge_hint">นับการแจ้งเตือนสัญญาณที่ยังเปิดอยู่ หน้าจอหลักเป็นตัวกำหนดว่าจะแสดงตัวเลขหรือจุด (เช่น Samsung: «แสดงตัวเลข»)</string>
+    <string name="settings_exact_checks">ตรวจตรงเวลา</string>
+    <string name="settings_exact_checks_grant">อนุญาต «การปลุกและการช่วยเตือน»</string>
+    <string name="settings_exact_checks_hint">Android ตรวจสอบประมาณทุก 15 นาที แม้อุปกรณ์อยู่ในโหมดพัก ใช้แบตเตอรี่มากขึ้นเล็กน้อย</string>
+    <string name="settings_exact_checks_nothing">ไม่มีคู่ที่ใช้งานอยู่ – ไม่มีอะไรต้องตรวจสอบ</string>
+    <string name="settings_exact_checks_permission_missing">ไม่มีสิทธิ์ – Android จะตรวจสอบเมื่อสะดวก (ประมาณทุก 15 นาทีหรือช้ากว่านั้น)</string>
+    <string name="settings_notification_change">แจ้งเตือนเฉพาะเมื่อราคาเปลี่ยน</string>
+    <string name="settings_notification_change_always">ทุกครั้ง</string>
+    <string name="settings_notification_change_hint">การแจ้งเตือนจะแสดงเมื่อราคาเปลี่ยนอย่างน้อยเท่านี้นับจากครั้งก่อนเท่านั้น จะไม่แสดงอะไรขณะไม่มีข้อมูล สัญญาณเตือนไม่ได้รับผลกระทบ</string>
+    <string name="settings_ongoing_notifications">ปัดทิ้งไม่ได้</string>
+    <string name="settings_ongoing_notifications_hint">ปักหมุดการแจ้งเตือนราคาไว้</string>
+    <string name="settings_price_notifications">การแจ้งเตือนราคา</string>
+    <string name="settings_price_notifications_hint">แสดงราคาปัจจุบันของคู่ที่เปิดใช้ในแถบสถานะ</string>
+    <string name="settings_price_pairs">คู่เทรด</string>
+    <string name="settings_price_pairs_all_off">ปิดทั้งหมด</string>
+    <string name="settings_price_pairs_all_on">เปิดทั้งหมด</string>
+    <string name="settings_price_pairs_count">%1$d จาก %2$d</string>
+    <string name="settings_price_pairs_empty">ยังไม่มีคู่เทรดในรายการเฝ้าดู</string>
+    <string name="settings_price_pairs_hint">เลือกคู่เทรดที่จะแสดงราคาในแถบการแจ้งเตือน</string>
+    <string name="settings_quiet_hours">ช่วงเวลาเงียบ</string>
+    <string name="settings_quiet_hours_from">ตั้งแต่</string>
+    <string name="settings_quiet_hours_hint">ระหว่าง %1$s ถึง %2$s สัญญาณเตือนจะรอจนหมดช่วงเวลาเงียบ แล้วจึงดังพร้อมเสียง การแจ้งเตือนอื่นจะมาแบบเงียบ ไม่อ่านออกเสียง</string>
+    <string name="settings_quiet_hours_to">ถึง</string>
+
+    <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
+    <string name="settings_background_interval">ช่วงเวลา</string>
+    <string name="settings_background_updates">อัปเดตเบื้องหลัง</string>
+    <string name="settings_battery_hint">จำกัด หมายความว่า Android อาจหน่วงการอัปเดตเบื้องหลังได้หลายชั่วโมง</string>
+    <string name="settings_battery_ok">การใช้แบตเตอรี่: ไม่จำกัด</string>
+    <string name="settings_battery_restricted">การใช้แบตเตอรี่: จำกัด</string>
+    <string name="settings_check_runs_empty">ยังไม่มีการบันทึกการตรวจสอบ</string>
+    <string name="settings_check_runs_honest_android">Android เป็นผู้ตัดสินว่าจะตรวจสอบเมื่อใด – ที่นี่คุณจะเห็นว่าเกิดขึ้นจริงเมื่อใด</string>
+    <string name="settings_check_runs_honest_ios">iOS เป็นผู้ตัดสินว่าจะตรวจสอบเมื่อใด – ที่นี่คุณจะเห็นว่าเกิดขึ้นจริงเมื่อใด</string>
+    <string name="settings_check_runs_title">การตรวจสอบล่าสุด</string>
+    <string name="settings_http_log">แสดงบันทึก HTTP</string>
+    <string name="settings_http_log_hint">แสดงคำขอไปยังกระดานเทรดที่ด้านล่างของหน้า “เพิ่มคู่เทรด” – สำหรับแก้ปัญหา</string>
+    <string name="settings_live_service">อัปเดตบ่อย</string>
+    <string name="settings_live_websocket">ราคาสด</string>
+
+    <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
+    <string name="settings_activity_alerts">แจ้งความเคลื่อนไหวผิดปกติ</string>
+    <string name="settings_activity_alerts_hint">สูงสุดชั่วโมงละครั้งต่อคู่: ราคาเคลื่อนไหวผิดปกติ ปริมาณพุ่ง และค่าสุดขั้วในฟิวเจอร์ส (ข้อมูลจาก Binance)</string>
+    <string name="settings_activity_sensitivity">ความไว</string>
+    <string name="settings_activity_sensitivity_hint">เกณฑ์ที่เหรียญจะถือว่าผิดปกติ – ใช้เหมือนกันทั้งการ์ดในรายการติดตามและการแจ้งเตือน เมื่อเลือก “น้อยลง” การ์ดจะแสดงเพียง 3 อันดับที่แรงที่สุด</string>
+    <string name="settings_watchlist_activity_card">ความเคลื่อนไหวผิดปกติในรายการ</string>
+    <string name="settings_watchlist_activity_card_hint">แสดงชิป ⚡ ข้างกลุ่ม แตะเพื่อดูเฉพาะคู่เหรียญที่มีบางอย่างเกิดขึ้นตอนนี้ ตั้งค่าการแจ้งเตือนได้ที่ “การแจ้งเตือนตลาด”</string>
+    <string name="settings_watchlist_names">แสดงชื่อ</string>
+    <string name="settings_watchlist_names_hint">ชื่อใต้คู่ เช่น Bitcoin หรือ NVIDIA มากับรายการโลโก้ โหลดครั้งเดียวสำหรับทุกเหรียญ</string>
+    <string name="settings_watchlist_sparkline">กราฟเล็กในรายการติดตาม</string>
+    <string name="settings_watchlist_sparkline_hint">แนวโน้ม 24 ชั่วโมงข้างราคา</string>
+    <string name="settings_watchlist_value_names">ชื่อ</string>
+    <string name="settings_watchlist_value_price_only">ราคาอย่างเดียว</string>
+    <string name="settings_watchlist_value_sparkline">กราฟเล็ก</string>
+
+    <!-- Einstellungen › Token & TradFi -->
+    <string name="settings_asset_scope_alpha">รวมโทเคน Alpha (α)</string>
+    <string name="settings_asset_scope_alpha_hint">โทเคน Alpha: โปรเจกต์ระยะแรกซึ่งส่วนใหญ่มีขนาดเล็กจากรายการ Binance Alpha – มักมีการซื้อขายน้อยและผันผวนสูง</string>
+    <string name="settings_asset_scope_alpha_tradfi_hint">เป็นส่วนของโทเคน ล็อกไว้เมื่อเลือก “เฉพาะ TradFi” แต่โทเคน Alpha ที่อยู่ในรายการยังคงอยู่</string>
+    <string name="settings_asset_scope_both">โทเคนและ TradFi</string>
+    <string name="settings_asset_scope_both_hint">ทั้งหมด – คริปโตและ TradFi</string>
+    <string name="settings_asset_scope_hint">กำหนดว่าการเลือกและการค้นหาจะแสดงคู่ใดเมื่อเพิ่ม คู่ที่อยู่ในรายการติดตามแล้วจะยังคงอยู่เสมอ</string>
+    <string name="settings_asset_scope_title">โทเคน &amp; TradFi</string>
+    <string name="settings_asset_scope_tokens">เฉพาะโทเคน</string>
+    <string name="settings_asset_scope_tokens_hint">คริปโต: สปอตและสัญญาไม่มีวันหมดอายุ</string>
+    <string name="settings_asset_scope_tradfi">เฉพาะ TradFi</string>
+    <string name="settings_asset_scope_tradfi_hint">ฟิวเจอร์สของหุ้น สินค้าโภคภัณฑ์ สกุลเงิน – เป็นสัญญา ไม่ใช่โทเคน</string>
+    <string name="settings_rolling_futures">รวมฟิวเจอร์สรายไตรมาส &amp; ที่มีวันหมดอายุอื่น ๆ</string>
+    <string name="settings_rolling_futures_hint">ปิด: ฟิวเจอร์สที่มีวันหมดอายุซึ่งไม่อยู่ในรายการของกระดานเทรด จะถูกทำเครื่องหมายว่าไม่มีการซื้อขายแล้ว แทนการตรวจทีละรายการ ช่วยประหยัดเวลาทุกครั้งที่รีเฟรช</string>
+    <string name="settings_rolling_futures_qtly">รวมฟิวเจอร์สรายไตรมาส &amp; ที่มีวันหมดอายุอื่น ๆ (QTLY)</string>
+    <string name="settings_rolling_futures_tradfi_hint">เป็นส่วนของโทเคน ล็อกไว้เมื่อเลือก “เฉพาะ TradFi” แต่ยังใช้กับฟิวเจอร์สที่มีวันหมดอายุในรายการ</string>
+    <string name="settings_tradfi_futures">หุ้น สินค้าโภคภัณฑ์ และสกุลเงิน (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">เมื่อเลือกคู่เหรียญ จะแสดงฟิวเจอร์สของหุ้น ทองคำและสินค้าโภคภัณฑ์อื่น สกุลเงิน และบริษัทก่อน IPO ด้วย เป็นสัญญา ไม่ใช่โทเค็น</string>
+
+    <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
+    <string name="settings_accent">สีเน้น</string>
+    <string name="settings_accent_hint">สีของแอป วิดเจ็ต และไอคอนแอป</string>
+    <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">โลโก้เหรียญ</string>
+    <string name="settings_coin_logos_app">ในแอป</string>
+    <string name="settings_coin_logos_app_hint">รายการติดตาม หน้าคู่เหรียญ และการ์ดตลาด</string>
+    <string name="settings_coin_logos_footer">โลโก้มาจาก CoinGecko และจาก Binance สำหรับสิ่งที่ CoinGecko ไม่มี (เช่น ทองคำ เงิน หุ้น) แอปจะดาวน์โหลดโลโก้ทั้งหมดในครั้งเดียวและเก็บไว้ในอุปกรณ์นี้ จึงไม่มีผู้ให้บริการรายใดรู้ว่าคุณติดตามเหรียญใด เหรียญที่ไม่มีโลโก้จะแสดงอักษรย่อ รายการโปรดจะมีดาวเล็ก ๆ บนโลโก้ ส่วนที่ปิดสวิตช์ไว้จะไม่แสดงทั้งโลโก้และอักษรย่อ เมื่อปิดทั้งหมดจะไม่โหลดอะไรเลย</string>
+    <string name="settings_coin_logos_portfolio">ในพอร์ตโฟลิโอ</string>
+    <string name="settings_coin_logos_portfolio_hint">สถานะถือครอง รายละเอียดเหรียญ และบทวิเคราะห์</string>
+    <string name="settings_coin_logos_value_app">แอป</string>
+    <string name="settings_coin_logos_widgets">ในวิดเจ็ต</string>
+    <string name="settings_coin_logos_widgets_hint">วิดเจ็ตรายการติดตามและเหรียญเดียว</string>
+    <string name="settings_high_contrast">คอนทราสต์สูง</string>
+    <string name="settings_high_contrast_hint">สีราคาเข้มขึ้นและข้อความรองเข้มขึ้น เปิดใช้งานด้วยเมื่อระบบขอคอนทราสต์มากขึ้น</string>
+    <string name="settings_language_choose">เลือกภาษา</string>
+    <string name="settings_language_system">ภาษาของระบบ</string>
+    <string name="settings_price_colors">สีราคา</string>
+    <string name="settings_price_colors_hint">สีน้ำเงิน / ส้มแยกแยะได้ง่ายสำหรับภาวะบกพร่องในการมองเห็นสีทุกแบบ (แดง-เขียว และน้ำเงิน-เหลือง) และจะแสดงทิศทางด้วย + / − เสมอ</string>
+    <string name="settings_theme_mode">สว่าง / มืด</string>
+    <string name="settings_widgets">วิดเจ็ต</string>
+
+    <!-- Einstellungen › %-Änderung -->
+    <!-- Einstellungszeile und Seitentitel «%-Änderung»; %1$s ist das Prozentzeichen «%» -->
+    <string name="settings_change_basis">การเปลี่ยนแปลง %1$s และเขตเวลาของกราฟ</string>
+    <string name="settings_change_basis_hint_1">เขตเวลาที่เลือกกำหนดว่าการเปลี่ยนแปลงเป็นเปอร์เซ็นต์เริ่มนับเมื่อใด (รายการติดตาม แถวสรุป หน้าคู่เหรียญ วิดเจ็ต) และเวลาที่แสดงบนกราฟ</string>
+    <string name="settings_change_basis_hint_2">“%1$s” เทียบกับราคาเมื่อ 24 ชั่วโมงก่อนพอดี “00:00” เทียบกับราคาเปิดตอนเที่ยงคืนในเขตเวลานั้น</string>
+    <string name="settings_change_basis_hint_3">ไม่มีผลกับสัญญาณเตือน</string>
+    <string name="settings_change_basis_hint_since_last">“%1$s” เทียบกับราคาของการอัปเดตครั้งก่อน เมื่อใช้ราคาสด ค่าจะอยู่ใกล้ 0%%</string>
+    <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
+    <string name="settings_change_period">แสดงช่วงเวลาข้างการเปลี่ยนแปลง</string>
+    <string name="settings_change_period_hint">“24h” “วันนี้” หรือ “อัปเดตล่าสุด” ตัวเล็กข้างการเปลี่ยนแปลงในรายการติดตามและวิดเจ็ตเหรียญเดียว โปรแกรมอ่านหน้าจอจะอ่านเสมอ</string>
+
+    <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
+    <string name="settings_conversion_currency">สกุลเงินที่แปลง</string>
+    <string name="settings_conversion_currency_hint">ใช้กับพอร์ตโฟลิโอ สัญญาณเตือนในสกุลเงินของคุณ การ์ดตลาดคริปโต และวิดเจ็ตพอร์ตโฟลิโอด้วย</string>
+    <string name="settings_cost_method">วิธีคิดต้นทุน</string>
+    <string name="settings_cost_method_average">เฉลี่ย (Ø)</string>
+    <string name="settings_cost_method_average_hint">การขายคิดมูลค่าตามราคาซื้อเฉลี่ยเคลื่อนที่</string>
+    <string name="settings_cost_method_fifo">FIFO (ค่าเริ่มต้น)</string>
+    <string name="settings_cost_method_fifo_hint">เหรียญที่เก่าที่สุดจะถูกขายก่อน ครอบคลุมทุกกระดานเทรดและวอลเล็ต</string>
+    <string name="settings_cost_method_fifo_wallet">FIFO แยกตามวอลเล็ต/กระดานเทรด</string>
+    <string name="settings_cost_method_fifo_wallet_hint">เหรียญที่เก่าที่สุดก่อนภายในแต่ละกระดานเทรดหรือวอลเล็ต การโอนย้ายจะย้ายล็อตพร้อมวันที่ซื้อ</string>
+    <string name="settings_portfolio_lock">ล็อกพอร์ตโฟลิโอ</string>
+    <string name="settings_portfolio_lock_footer">การล็อกจะซ่อนสิ่งที่แสดงบนหน้าจอ ข้อมูลอยู่ในอุปกรณ์นี้และได้รับการปกป้องด้วยการเข้ารหัสของอุปกรณ์ คุณป้องกันไฟล์สำรองด้วยรหัสผ่านได้</string>
+    <string name="settings_portfolio_lock_hint">ซ่อนเฉพาะพอร์ตโฟลิโอ: ปลดล็อกด้วยลายนิ้วมือ ใบหน้า หรือ PIN ของอุปกรณ์ ล็อกอีกครั้งเมื่ออยู่เบื้องหลังนานกว่าหนึ่งนาที รายการติดตาม สัญญาณเตือน และวิดเจ็ตอื่นยังเปิดใช้ได้</string>
+    <string name="settings_portfolio_lock_no_device_lock">หากไม่มี PIN หรือรหัสผ่านของอุปกรณ์ การล็อกจะไม่ซ่อนอะไรเลย – ตั้งค่าล็อกหน้าจอ</string>
+    <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">รวมพอร์ตโฟลิโอในการสำรองของระบบ</string>
+    <string name="settings_portfolio_system_backup_hint">ปิด: รายการซื้อขายของคุณจะไม่อยู่ในการสำรองของระบบและการย้ายไปยังโทรศัพท์เครื่องใหม่ หากต้องการย้าย ให้ใช้ไฟล์สำรองของแอปที่ตั้งรหัสผ่าน</string>
+    <string name="settings_portfolio_system_backup_unavailable">ต้องใช้ Android 9 ขึ้นไป – เวอร์ชันเก่าจะบันทึกพอร์ตแบบไม่เข้ารหัสในข้อมูลสำรองของ Google</string>
+    <string name="settings_portfolio_tab">แสดงแท็บพอร์ตโฟลิโอ</string>
+    <string name="settings_portfolio_value_locked">เปิด พร้อมล็อก</string>
+    <string name="settings_show_converted">ราคาที่แปลงแล้ว</string>
+    <string name="settings_show_converted_hint">แสดงราคาในรายการติดตามเป็น %1$s ด้วย</string>
+
+    <!-- Einstellungen › Markt-Meldungen -->
+    <string name="settings_depeg_alarm">แจ้งเมื่อ USDT หลุดหมุด</string>
+    <string name="settings_depeg_alarm_hint">แจ้งหนึ่งครั้งเมื่อ USDT เบี่ยงจาก 1 USD ตามเกณฑ์ (Kraken USDT/USD, Binance USDC/USDT) ค่าในแอปยังคงคำนวณด้วย USDT = 1</string>
+    <string name="settings_depeg_threshold">เกณฑ์การหลุดหมุด</string>
+    <string name="settings_fng_above">Fear &amp; Greed: แจ้งเมื่อสูงกว่า</string>
+    <string name="settings_fng_below">Fear &amp; Greed: แจ้งเมื่อต่ำกว่า</string>
+    <string name="settings_gas_alert_hint">แจ้งหนึ่งครั้งเมื่อค่าธรรมเนียมปกติลดต่ำกว่าขีดจำกัด ตรวจสอบระหว่างอัปเดตราคา อย่างมากทุก 10 นาที</string>
+    <string name="settings_gas_btc_below">ค่าธรรมเนียม Bitcoin ต่ำกว่า (sat/vB)</string>
+    <string name="settings_gas_eth_below">ค่า Gas Ethereum ต่ำกว่า (gwei)</string>
+    <string name="settings_ind_ath_within">ลดลงจากจุดสูงสุดตลอดกาลไม่เกิน</string>
+    <string name="settings_ind_mayer_above">Mayer Multiple สูงกว่า</string>
+    <string name="settings_ind_mayer_below">Mayer Multiple ต่ำกว่า</string>
+    <string name="settings_ind_mvrv_above">MVRV สูงกว่า</string>
+    <string name="settings_ind_mvrv_below">MVRV ต่ำกว่า</string>
+    <string name="settings_indicator_alerts_hint">ตัวชี้วัด Bitcoin ตรวจวันละสองครั้ง คุณเลือกเกณฑ์เอง – แอปไม่ประเมินค่า</string>
+    <string name="settings_macro_notifications">ปฏิทินเศรษฐกิจ</string>
+    <string name="settings_macro_notifications_hint">เวลา 08:00 ในวันที่มีข้อมูลเศรษฐกิจสหรัฐฯ สำคัญ (เงินเฟ้อ การจ้างงาน การตัดสินใจของเฟด) ปฏิทินโหลดจากเว็บไซต์ของแอปวันละครั้ง</string>
+    <string name="settings_market_alerts">การแจ้งเตือนตลาด</string>
+    <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
+    <plurals name="settings_market_alerts_active">
+        <item quantity="other">เปิดอยู่ %1$d รายการ</item>
+    </plurals>
+
+    <!-- Einstellungen › Sprachausgabe -->
+    <string name="settings_speech_rate">ความเร็วเสียงพูด: %1$.1f×</string>
+    <string name="settings_tts">อ่านออกเสียง</string>
+    <string name="settings_tts_alarms_only">เฉพาะสัญญาณเตือน</string>
+    <string name="settings_tts_alarms_only_hint">ปิด: ทุกการอัปเดตของคู่ที่เปิด “อ่านราคา” ไว้จะถูกอ่านออกเสียง</string>
+    <!-- Sprachausgabe schweigt im Lautlos-/Vibrationsmodus -->
+    <string name="settings_tts_hint_silent">อ่านราคาและสัญญาณเตือนออกเสียง และจะเงียบขณะที่อุปกรณ์อยู่ในโหมดปิดเสียงหรือโหมดสั่น</string>
+    <string name="settings_tts_test">ทดสอบเสียง</string>
+
+    <!-- Einstellungen › Daten: App zurücksetzen -->
+    <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
+    <string name="settings_reset_app">รีเซ็ตแอป</string>
+    <string name="settings_reset_app_action">ลบทั้งหมด</string>
+    <string name="settings_reset_app_confirm">ลบรายการติดตาม สัญญาณเตือน พอร์ตโฟลิโอ การตั้งค่า และข้อมูลที่บันทึกทั้งหมด เหมือนหลังติดตั้ง ย้อนกลับไม่ได้ เคล็ดลับ: สำรองข้อมูลก่อน</string>
+    <string name="settings_reset_app_title">รีเซ็ตแอปใช่ไหม</string>
+
+    <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
+    <!-- Suchfeld der Währungsseite -->
+    <string name="currency_search">ค้นหาสกุลเงิน</string>
+    <string name="language_search">ค้นหาภาษา</string>
+
+    <!-- Theme -->
+    <string name="theme_dark">มืด</string>
+    <string name="theme_light">สว่าง</string>
+    <string name="theme_system">ระบบ</string>
+
+    <!-- Akzentfarben -->
+    <string name="accent_blue">น้ำเงิน</string>
+    <string name="accent_green">เขียว</string>
+    <!-- Eigenname, in allen Sprachen gleich -->
+    <string name="accent_marrs_green">Marrs Green</string>
+    <string name="accent_orange">ส้ม</string>
+    <string name="accent_red">แดง</string>
+
+    <!-- Kursfarben -->
+    <string name="price_colors_red_up_hint">นิยมในจีน ญี่ปุ่น เกาหลี และไต้หวัน</string>
+    <string name="price_colors_swap">สลับสี (ขึ้น ↔ ลง)</string>
+    <string name="price_style_calm">สงบ</string>
+    <string name="price_style_calm_color_vision">สงบ · ภาวะบกพร่องในการมองเห็นสี</string>
+    <string name="price_style_color_vision">ภาวะบกพร่องในการมองเห็นสี</string>
+    <string name="price_style_fresh">สดใส</string>
+    <string name="price_style_traditional">ดั้งเดิม</string>
+
+    <!-- Über die App -->
+    <string name="about_exchanges_verified">ตรวจสอบการเชื่อมต่อกระดานเทรดกับคำตอบจริงล่าสุด: %1$s</string>
+    <string name="about_license">ราคามาจากกระดานเทรดโดยตรง ไม่ต้องมีบัญชีและไม่มีการติดตาม</string>
+    <!-- Texte der Lizenzen liegen in assets/licenses -->
+    <string name="about_licenses">สัญญาอนุญาต</string>
+    <string name="about_privacy_policy">นโยบายความเป็นส่วนตัว</string>
+    <!-- GitHub-Vorlage exchange_request.md -->
+    <string name="about_request_exchange">ขอเพิ่มกระดานเทรด</string>
+    <string name="about_source_code">ซอร์สโค้ดบน GitHub</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_why">Crypto Checker เป็นโปรเจกต์อิสระของ r1AD: ภาพรวมราคาที่สงบ ไม่ต้องมีบัญชี ไม่มีโฆษณา ไม่มีการติดตาม คำถามและข้อเสนอแนะ: %1$s</string>
+
+    <!-- Lizenzhinweise -->
+    <string name="licenses_app_intro">Crypto Checker เป็นโอเพนซอร์ส (สัญญาอนุญาต MIT)</string>
+    <string name="licenses_font_title">ฟอนต์ Rubik</string>
+    <string name="licenses_icons_bundled_text">รวมมากับแอป: ไอคอนจาก «Cryptocurrency Icons» โดย Christopher Downer และผู้ร่วมพัฒนา (github.com/spothq/cryptocurrency-icons) ซึ่งเผยแพร่ภายใต้ CC0 1.0 Universal จะแสดงจนกว่าโลโก้จาก CoinGecko หรือ Binance จะโหลดเสร็จ ชื่อและโลโก้ยังคงเป็นเครื่องหมายการค้าของโครงการนั้น ๆ</string>
+    <string name="licenses_icons_title">ไอคอนเหรียญสำรอง</string>
+    <string name="licenses_libraries_intro">แอปใช้ไลบรารีเหล่านี้ภายใต้ Apache License 2.0:</string>
+    <string name="licenses_libraries_title">ไลบรารี Android</string>
+
+    <!-- Entwickleroptionen -->
+    <!-- Countdown der letzten Tipps auf die Version bis zu den Entwickleroptionen -->
+    <plurals name="developer_taps_left">
+        <item quantity="other">แตะอีก %d ครั้งเพื่อปลดล็อกตัวเลือกนักพัฒนา</item>
+    </plurals>
+    <string name="developer_unlocked">ปลดล็อกตัวเลือกนักพัฒนาแล้ว</string>
+
+    <!-- Nur iOS: Einstellungen -->
+    <!-- Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">การสั่นเป็นไปตามการตั้งค่า iPhone (เสียงและการสัมผัส)</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">นับสัญญาณเตือนและการแจ้งเตือนตลาดใหม่ กลับเป็น 0 เมื่อเปิดแอป</string>
+</resources>

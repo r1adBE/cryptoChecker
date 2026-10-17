@@ -1,0 +1,511 @@
+{
+  "description": "Binance Alpha (marketdata BinanceAlpha.kt/.swift, Binance adapter, CoinLogos.alphaTokens, AssetKind/AssetScope, candle source BinanceAlphaCandles). Shapes from developers.binance.com/docs/alpha (Market Data: Token List bapi/defi/v1/public/wallet-direct/buw/wallet/cex/alpha/all/token/list, Ticker bapi/defi/v1/public/alpha-trade/ticker, Klines bapi/defi/v1/public/alpha-trade/klines; envelope {code:'000000',data}); FROGGIE with its real BSC contract, alphaIds and numbers partly invented. 'tokenList' = token list body; 'spotPairs' = stored Binance spot list [base, quote, id]; 'pairs' = expected Alpha pairs [base, quote, id] (sorted by base): tradable, not listingCex, valid alphaId, one per alphaId; a symbol already taken (spot pair or an earlier token by rank) is a different token and becomes SYMBOL_<alpha number> (PEPE_500 next to spot PEPE, FROGGIE_999 after FROGGIE) instead of dropping out. 'bulk': request count/URLs for watched ids (request 0 spot; request 1 the token list only for more than 10 Alpha pairs, else null; from request 2 one Alpha ticker per pair for up to 10 pairs, sorted; full URL of requests >= 1 is null) and expected tickers of the token list as request 1 (price <= 0 skipped, missing price = failed row); 'bulkTicker': the ticker body as request 2 gives its pair id (data.symbol), an error code gives no row. 'ticker'/'tickerError': single ticker endpoint. 'klines': candles [openTime, open, high, low, close, volume, quoteVolume]. 'kinds': AssetKind with alphaSymbols/alphaNames from the list. 'allows': AssetScope.TOKENS.allows with includeAlpha on/off (hiddenAlphaSymbols).",
+  "tokenList": "{\"code\":\"000000\",\"message\":null,\"messageDetail\":null,\"data\":[{\"tokenId\":\"8E6D9B2A31F04C55A1D2\",\"chainId\":\"56\",\"chainIconUrl\":\"https://bin.bnbstatic.com/image/admin_mgs_image_upload/20250228/bsc.png\",\"chainName\":\"BSC\",\"contractAddress\":\"0xa45f5eb48cecd034751651aeeda6271bd5df8888\",\"name\":\"Froggie\",\"symbol\":\"FROGGIE\",\"iconUrl\":\"/images/web3-data/public/token/logos/8e6d9b2a31f04c55a1d2.png\",\"price\":\"0.0094\",\"percentChange24h\":\"-3.21\",\"volume24h\":\"1234567.89\",\"marketCap\":\"9476282.12\",\"fdv\":\"9476282.12\",\"liquidity\":\"250000.5\",\"totalSupply\":\"1000000000\",\"circulatingSupply\":\"1000000000\",\"holders\":\"12345\",\"decimals\":18,\"listingCex\":false,\"hotTag\":false,\"cexCoinName\":\"\",\"canTransfer\":true,\"denomination\":1,\"offline\":false,\"tradeDecimal\":8,\"alphaId\":\"ALPHA_373\",\"offsell\":false,\"priceHigh24h\":\"0.0101\",\"priceLow24h\":\"0.009\",\"count24h\":\"4821\",\"onlineTge\":false,\"onlineAirdrop\":false,\"score\":0,\"cexOffDisplay\":false,\"stockState\":false,\"listingTime\":1745000000000,\"mulPoint\":1,\"bnExclusiveState\":false},{\"tokenId\":\"C0FFEE0000000000AIA1\",\"chainId\":\"56\",\"chainIconUrl\":\"https://bin.bnbstatic.com/image/admin_mgs_image_upload/20250228/bsc.png\",\"chainName\":\"BSC\",\"contractAddress\":\"0x0000000000000000000000000000000000000000\",\"name\":\"DeAgentAI\",\"symbol\":\"AIA\",\"iconUrl\":\"/images/web3-data/public/token/logos/c0ffee0000000000aia1.png\",\"price\":\"1.25\",\"percentChange24h\":\"12.5\",\"volume24h\":\"88000000\",\"marketCap\":\"125000000\",\"fdv\":\"125000000\",\"liquidity\":\"250000.5\",\"totalSupply\":\"1000000000\",\"circulatingSupply\":\"1000000000\",\"holders\":\"12345\",\"decimals\":18,\"listingCex\":false,\"hotTag\":false,\"cexCoinName\":\"\",\"canTransfer\":true,\"denomination\":1,\"offline\":false,\"tradeDecimal\":8,\"alphaId\":\"ALPHA_301\",\"offsell\":false,\"priceHigh24h\":\"1.3\",\"priceLow24h\":\"1.05\",\"count24h\":\"4821\",\"onlineTge\":false,\"onlineAirdrop\":false,\"score\":0,\"cexOffDisplay\":false,\"stockState\":false,\"listingTime\":1745000000000,\"mulPoint\":1,\"bnExclusiveState\":false},{\"tokenId\":\"ZKJ0000000000000ZKJ1\",\"chainId\":\"56\",\"chainIconUrl\":\"https://bin.bnbstatic.com/image/admin_mgs_image_upload/20250228/bsc.png\",\"chainName\":\"BSC\",\"contractAddress\":\"0x0000000000000000000000000000000000000000\",\"name\":\"Polyhedra Network\",\"symbol\":\"ZKJ\",\"iconUrl\":\"/images/web3-data/public/token/logos/zkj0000000000000zkj1.png\",\"price\":\"0.31\",\"percentChange24h\":\"1.1\",\"volume24h\":\"5000000\",\"marketCap\":\"190000000\",\"fdv\":\"190000000\",\"liquidity\":\"250000.5\",\"totalSupply\":\"1000000000\",\"circulatingSupply\":\"1000000000\",\"holders\":\"12345\",\"decimals\":18,\"listingCex\":true,\"hotTag\":false,\"cexCoinName\":\"ZKJ\",\"canTransfer\":true,\"denomination\":1,\"offline\":false,\"tradeDecimal\":8,\"alphaId\":\"ALPHA_130\",\"offsell\":false,\"priceHigh24h\":\"0.33\",\"priceLow24h\":\"0.3\",\"count24h\":\"4821\",\"onlineTge\":false,\"onlineAirdrop\":false,\"score\":0,\"cexOffDisplay\":false,\"stockState\":false,\"listingTime\":1745000000000,\"mulPoint\":1,\"bnExclusiveState\":false},{\"tokenId\":\"OLD00000000000000OLD\",\"chainId\":\"56\",\"chainIconUrl\":\"https://bin.bnbstatic.com/image/admin_mgs_image_upload/20250228/bsc.png\",\"chainName\":\"BSC\",\"contractAddress\":\"0x0000000000000000000000000000000000000000\",\"name\":\"Old Token\",\"symbol\":\"OLDTKN\",\"iconUrl\":\"/images/web3-data/public/token/logos/old00000000000000old.png\",\"price\":\"0\",\"percentChange24h\":\"0\",\"volume24h\":\"0\",\"marketCap\":\"0\",\"fdv\":\"0\",\"liquidity\":\"250000.5\",\"totalSupply\":\"1000000000\",\"circulatingSupply\":\"1000000000\",\"holders\":\"12345\",\"decimals\":18,\"listingCex\":false,\"hotTag\":false,\"cexCoinName\":\"\",\"canTransfer\":true,\"denomination\":1,\"offline\":true,\"tradeDecimal\":8,\"alphaId\":\"ALPHA_12\",\"offsell\":false,\"priceHigh24h\":\"0\",\"priceLow24h\":\"0\",\"count24h\":\"4821\",\"onlineTge\":false,\"onlineAirdrop\":false,\"score\":0,\"cexOffDisplay\":false,\"stockState\":false,\"listingTime\":1745000000000,\"mulPoint\":1,\"bnExclusiveState\":false},{\"tokenId\":\"PEPE0000000000BSCPEP\",\"chainId\":\"56\",\"chainIconUrl\":\"https://bin.bnbstatic.com/image/admin_mgs_image_upload/20250228/bsc.png\",\"chainName\":\"BSC\",\"contractAddress\":\"0x0000000000000000000000000000000000000000\",\"name\":\"Pepe (BSC copy)\",\"symbol\":\"PEPE\",\"iconUrl\":\"/images/web3-data/public/token/logos/pepe0000000000bscpep.png\",\"price\":\"0.00001\",\"percentChange24h\":\"0\",\"volume24h\":\"1000\",\"marketCap\":\"5000\",\"fdv\":\"5000\",\"liquidity\":\"250000.5\",\"totalSupply\":\"1000000000\",\"circulatingSupply\":\"1000000000\",\"holders\":\"12345\",\"decimals\":18,\"listingCex\":false,\"hotTag\":false,\"cexCoinName\":\"\",\"canTransfer\":true,\"denomination\":1,\"offline\":false,\"tradeDecimal\":8,\"alphaId\":\"ALPHA_500\",\"offsell\":false,\"priceHigh24h\":\"0\",\"priceLow24h\":\"0\",\"count24h\":\"4821\",\"onlineTge\":false,\"onlineAirdrop\":false,\"score\":0,\"cexOffDisplay\":false,\"stockState\":false,\"listingTime\":1745000000000,\"mulPoint\":1,\"bnExclusiveState\":false},{\"tokenId\":\"F2000000000000FROG2\",\"chainId\":\"56\",\"chainIconUrl\":\"https://bin.bnbstatic.com/image/admin_mgs_image_upload/20250228/bsc.png\",\"chainName\":\"BSC\",\"contractAddress\":\"0x0000000000000000000000000000000000000000\",\"name\":\"Froggie Fork\",\"symbol\":\"FROGGIE\",\"iconUrl\":\"/images/web3-data/public/token/logos/f2000000000000frog2.png\",\"price\":\"0.5\",\"percentChange24h\":\"0\",\"volume24h\":\"10\",\"marketCap\":\"1000\",\"fdv\":\"1000\",\"liquidity\":\"250000.5\",\"totalSupply\":\"1000000000\",\"circulatingSupply\":\"1000000000\",\"holders\":\"12345\",\"decimals\":18,\"listingCex\":false,\"hotTag\":false,\"cexCoinName\":\"\",\"canTransfer\":true,\"denomination\":1,\"offline\":false,\"tradeDecimal\":8,\"alphaId\":\"ALPHA_999\",\"offsell\":false,\"priceHigh24h\":\"0\",\"priceLow24h\":\"0\",\"count24h\":\"4821\",\"onlineTge\":false,\"onlineAirdrop\":false,\"score\":0,\"cexOffDisplay\":false,\"stockState\":false,\"listingTime\":1745000000000,\"mulPoint\":1,\"bnExclusiveState\":false},{\"tokenId\":\"NAMEX000000000NAMEX1\",\"chainId\":\"56\",\"chainIconUrl\":\"https://bin.bnbstatic.com/image/admin_mgs_image_upload/20250228/bsc.png\",\"chainName\":\"BSC\",\"contractAddress\":\"0x0000000000000000000000000000000000000000\",\"name\":\"Nebula Matrix\",\"symbol\":\"NAMEX\",\"iconUrl\":\"/images/web3-data/public/token/logos/namex000000000namex1.png\",\"price\":\"2.5\",\"percentChange24h\":\"-0.5\",\"volume24h\":\"250000\",\"marketCap\":\"3000000\",\"fdv\":\"3000000\",\"liquidity\":\"250000.5\",\"totalSupply\":\"1000000000\",\"circulatingSupply\":\"1000000000\",\"holders\":\"12345\",\"decimals\":18,\"listingCex\":false,\"hotTag\":false,\"cexCoinName\":\"\",\"canTransfer\":true,\"denomination\":1,\"offline\":false,\"tradeDecimal\":8,\"alphaId\":\"ALPHA_420\",\"offsell\":false,\"priceHigh24h\":\"2.6\",\"priceLow24h\":\"2.4\",\"count24h\":\"4821\",\"onlineTge\":false,\"onlineAirdrop\":false,\"score\":0,\"cexOffDisplay\":false,\"stockState\":false,\"listingTime\":1745000000000,\"mulPoint\":1,\"bnExclusiveState\":false},{\"tokenId\":\"ZERO0000000000ZERO01\",\"chainId\":\"56\",\"chainIconUrl\":\"https://bin.bnbstatic.com/image/admin_mgs_image_upload/20250228/bsc.png\",\"chainName\":\"BSC\",\"contractAddress\":\"0x0000000000000000000000000000000000000000\",\"name\":\"Zero Price\",\"symbol\":\"ZEROP\",\"iconUrl\":\"/images/web3-data/public/token/logos/zero0000000000zero01.png\",\"price\":\"0\",\"percentChange24h\":\"0\",\"volume24h\":\"0\",\"marketCap\":\"2000\",\"fdv\":\"2000\",\"liquidity\":\"250000.5\",\"totalSupply\":\"1000000000\",\"circulatingSupply\":\"1000000000\",\"holders\":\"12345\",\"decimals\":18,\"listingCex\":false,\"hotTag\":false,\"cexCoinName\":\"\",\"canTransfer\":true,\"denomination\":1,\"offline\":false,\"tradeDecimal\":8,\"alphaId\":\"ALPHA_777\",\"offsell\":false,\"priceHigh24h\":\"0\",\"priceLow24h\":\"0\",\"count24h\":\"4821\",\"onlineTge\":false,\"onlineAirdrop\":false,\"score\":0,\"cexOffDisplay\":false,\"stockState\":false,\"listingTime\":1745000000000,\"mulPoint\":1,\"bnExclusiveState\":false},{\"tokenId\":\"BROKEN00000000BROKE1\",\"chainId\":\"56\",\"chainIconUrl\":\"https://bin.bnbstatic.com/image/admin_mgs_image_upload/20250228/bsc.png\",\"chainName\":\"BSC\",\"contractAddress\":\"0x0000000000000000000000000000000000000000\",\"name\":\"Broken Row\",\"symbol\":\"BROKEN\",\"iconUrl\":\"/images/web3-data/public/token/logos/broken00000000broke1.png\",\"percentChange24h\":\"0\",\"volume24h\":\"0\",\"marketCap\":\"1500\",\"fdv\":\"1500\",\"liquidity\":\"250000.5\",\"totalSupply\":\"1000000000\",\"circulatingSupply\":\"1000000000\",\"holders\":\"12345\",\"decimals\":18,\"listingCex\":false,\"hotTag\":false,\"cexCoinName\":\"\",\"canTransfer\":true,\"denomination\":1,\"offline\":false,\"tradeDecimal\":8,\"alphaId\":\"ALPHA_888\",\"offsell\":false,\"priceHigh24h\":\"0\",\"priceLow24h\":\"0\",\"count24h\":\"4821\",\"onlineTge\":false,\"onlineAirdrop\":false,\"score\":0,\"cexOffDisplay\":false,\"stockState\":false,\"listingTime\":1745000000000,\"mulPoint\":1,\"bnExclusiveState\":false},{\"tokenId\":\"NOID00000000000NOID1\",\"chainId\":\"56\",\"chainIconUrl\":\"https://bin.bnbstatic.com/image/admin_mgs_image_upload/20250228/bsc.png\",\"chainName\":\"BSC\",\"contractAddress\":\"0x0000000000000000000000000000000000000000\",\"name\":\"No Id\",\"symbol\":\"NOID\",\"iconUrl\":\"/images/web3-data/public/token/logos/noid00000000000noid1.png\",\"price\":\"1.0\",\"percentChange24h\":\"0\",\"volume24h\":\"0\",\"marketCap\":\"1200\",\"fdv\":\"1200\",\"liquidity\":\"250000.5\",\"totalSupply\":\"1000000000\",\"circulatingSupply\":\"1000000000\",\"holders\":\"12345\",\"decimals\":18,\"listingCex\":false,\"hotTag\":false,\"cexCoinName\":\"\",\"canTransfer\":true,\"denomination\":1,\"offline\":false,\"tradeDecimal\":8,\"alphaId\":\"\",\"offsell\":false,\"priceHigh24h\":\"0\",\"priceLow24h\":\"0\",\"count24h\":\"4821\",\"onlineTge\":false,\"onlineAirdrop\":false,\"score\":0,\"cexOffDisplay\":false,\"stockState\":false,\"listingTime\":1745000000000,\"mulPoint\":1,\"bnExclusiveState\":false},{\"tokenId\":\"ZWSP00000000000ZWSP1\",\"chainId\":\"56\",\"chainIconUrl\":\"https://bin.bnbstatic.com/image/admin_mgs_image_upload/20250228/bsc.png\",\"chainName\":\"BSC\",\"contractAddress\":\"0x0000000000000000000000000000000000000000\",\"name\":\"BNB48 Club Token\",\"symbol\":\" Koge​\",\"iconUrl\":\"/images/web3-data/public/token/logos/zwsp00000000000zwsp1.png\",\"price\":\"61.5\",\"percentChange24h\":\"0.8\",\"volume24h\":\"4400000\",\"marketCap\":\"180000000\",\"fdv\":\"180000000\",\"liquidity\":\"250000.5\",\"totalSupply\":\"1000000000\",\"circulatingSupply\":\"1000000000\",\"holders\":\"12345\",\"decimals\":18,\"listingCex\":false,\"hotTag\":false,\"cexCoinName\":\"\",\"canTransfer\":true,\"denomination\":1,\"offline\":false,\"tradeDecimal\":8,\"alphaId\":\"ALPHA_22\",\"offsell\":false,\"priceHigh24h\":\"62\",\"priceLow24h\":\"60.1\",\"count24h\":\"4821\",\"onlineTge\":false,\"onlineAirdrop\":false,\"score\":0,\"cexOffDisplay\":false,\"stockState\":false,\"listingTime\":1745000000000,\"mulPoint\":1,\"bnExclusiveState\":false}],\"success\":true}",
+  "spotPairs": [
+    [
+      "BTC",
+      "USDT",
+      "BTCUSDT"
+    ],
+    [
+      "PEPE",
+      "USDT",
+      "PEPEUSDT"
+    ],
+    [
+      "ETH",
+      "BTC",
+      "ETHBTC"
+    ]
+  ],
+  "pairs": [
+    [
+      "AIA",
+      "USDT",
+      "ALPHA_301USDT"
+    ],
+    [
+      "BROKEN",
+      "USDT",
+      "ALPHA_888USDT"
+    ],
+    [
+      "FROGGIE",
+      "USDT",
+      "ALPHA_373USDT"
+    ],
+    [
+      "FROGGIE_999",
+      "USDT",
+      "ALPHA_999USDT"
+    ],
+    [
+      "KOGE",
+      "USDT",
+      "ALPHA_22USDT"
+    ],
+    [
+      "NAMEX",
+      "USDT",
+      "ALPHA_420USDT"
+    ],
+    [
+      "PEPE_500",
+      "USDT",
+      "ALPHA_500USDT"
+    ],
+    [
+      "ZEROP",
+      "USDT",
+      "ALPHA_777USDT"
+    ]
+  ],
+  "alphaSymbols": [
+    "AIA",
+    "BROKEN",
+    "FROGGIE",
+    "KOGE",
+    "NAMEX",
+    "NOID",
+    "PEPE",
+    "ZEROP"
+  ],
+  "bulk": {
+    "cases": [
+      {
+        "ids": [
+          "BTCUSDT",
+          "ALPHA_373USDT"
+        ],
+        "count": 3,
+        "urls": [
+          "https://api.binance.com/api/v3/ticker/24hr?symbols=%5B%22BTCUSDT%22%5D",
+          null,
+          "https://www.binance.com/bapi/defi/v1/public/alpha-trade/ticker?symbol=ALPHA_373USDT"
+        ]
+      },
+      {
+        "ids": [
+          "ALPHA_373USDT",
+          "ALPHA_301USDT",
+          "ALPHA_373USDT"
+        ],
+        "count": 4,
+        "urls": [
+          null,
+          null,
+          "https://www.binance.com/bapi/defi/v1/public/alpha-trade/ticker?symbol=ALPHA_301USDT",
+          "https://www.binance.com/bapi/defi/v1/public/alpha-trade/ticker?symbol=ALPHA_373USDT"
+        ]
+      },
+      {
+        "ids": [
+          "BTCUSDT",
+          "ALPHA_1USDT",
+          "ALPHA_2USDT",
+          "ALPHA_3USDT",
+          "ALPHA_4USDT",
+          "ALPHA_5USDT",
+          "ALPHA_6USDT",
+          "ALPHA_7USDT",
+          "ALPHA_8USDT",
+          "ALPHA_9USDT",
+          "ALPHA_10USDT"
+        ],
+        "count": 12,
+        "urls": [
+          "https://api.binance.com/api/v3/ticker/24hr?symbols=%5B%22BTCUSDT%22%5D",
+          null,
+          "https://www.binance.com/bapi/defi/v1/public/alpha-trade/ticker?symbol=ALPHA_10USDT",
+          "https://www.binance.com/bapi/defi/v1/public/alpha-trade/ticker?symbol=ALPHA_1USDT",
+          "https://www.binance.com/bapi/defi/v1/public/alpha-trade/ticker?symbol=ALPHA_2USDT",
+          "https://www.binance.com/bapi/defi/v1/public/alpha-trade/ticker?symbol=ALPHA_3USDT",
+          "https://www.binance.com/bapi/defi/v1/public/alpha-trade/ticker?symbol=ALPHA_4USDT",
+          "https://www.binance.com/bapi/defi/v1/public/alpha-trade/ticker?symbol=ALPHA_5USDT",
+          "https://www.binance.com/bapi/defi/v1/public/alpha-trade/ticker?symbol=ALPHA_6USDT",
+          "https://www.binance.com/bapi/defi/v1/public/alpha-trade/ticker?symbol=ALPHA_7USDT",
+          "https://www.binance.com/bapi/defi/v1/public/alpha-trade/ticker?symbol=ALPHA_8USDT",
+          "https://www.binance.com/bapi/defi/v1/public/alpha-trade/ticker?symbol=ALPHA_9USDT"
+        ]
+      },
+      {
+        "ids": [
+          "BTCUSDT",
+          "ALPHA_1USDT",
+          "ALPHA_2USDT",
+          "ALPHA_3USDT",
+          "ALPHA_4USDT",
+          "ALPHA_5USDT",
+          "ALPHA_6USDT",
+          "ALPHA_7USDT",
+          "ALPHA_8USDT",
+          "ALPHA_9USDT",
+          "ALPHA_10USDT",
+          "ALPHA_11USDT"
+        ],
+        "count": 2,
+        "urls": [
+          "https://api.binance.com/api/v3/ticker/24hr?symbols=%5B%22BTCUSDT%22%5D",
+          "https://www.binance.com/bapi/defi/v1/public/wallet-direct/buw/wallet/cex/alpha/all/token/list"
+        ]
+      },
+      {
+        "ids": [
+          "ALPHA_1USDT",
+          "ALPHA_2USDT",
+          "ALPHA_3USDT",
+          "ALPHA_4USDT",
+          "ALPHA_5USDT",
+          "ALPHA_6USDT",
+          "ALPHA_7USDT",
+          "ALPHA_8USDT",
+          "ALPHA_9USDT",
+          "ALPHA_10USDT",
+          "ALPHA_11USDT"
+        ],
+        "count": 2,
+        "urls": [
+          null,
+          "https://www.binance.com/bapi/defi/v1/public/wallet-direct/buw/wallet/cex/alpha/all/token/list"
+        ]
+      },
+      {
+        "ids": [
+          "BTCUSDT",
+          "ETHBTC"
+        ],
+        "count": 1,
+        "urls": [
+          "https://api.binance.com/api/v3/ticker/24hr?symbols=%5B%22BTCUSDT%22%2C%22ETHBTC%22%5D"
+        ]
+      },
+      {
+        "ids": [],
+        "count": 1,
+        "urls": [
+          "https://api.binance.com/api/v3/ticker/24hr"
+        ]
+      }
+    ],
+    "tickers": {
+      "ALPHA_373USDT": {
+        "last": 0.0094,
+        "high": 0.0101,
+        "low": 0.009,
+        "volQuote": 1234567.89,
+        "change": -3.21
+      },
+      "ALPHA_301USDT": {
+        "last": 1.25,
+        "high": 1.3,
+        "low": 1.05,
+        "volQuote": 88000000,
+        "change": 12.5
+      },
+      "ALPHA_130USDT": {
+        "last": 0.31,
+        "high": 0.33,
+        "low": 0.3,
+        "volQuote": 5000000,
+        "change": 1.1
+      },
+      "ALPHA_500USDT": {
+        "last": 1e-05,
+        "high": null,
+        "low": null,
+        "volQuote": 1000,
+        "change": 0
+      },
+      "ALPHA_999USDT": {
+        "last": 0.5,
+        "high": null,
+        "low": null,
+        "volQuote": 10,
+        "change": 0
+      },
+      "ALPHA_420USDT": {
+        "last": 2.5,
+        "high": 2.6,
+        "low": 2.4,
+        "volQuote": 250000,
+        "change": -0.5
+      },
+      "ALPHA_22USDT": {
+        "last": 61.5,
+        "high": 62,
+        "low": 60.1,
+        "volQuote": 4400000,
+        "change": 0.8
+      }
+    },
+    "failed": [
+      "ALPHA_888USDT"
+    ]
+  },
+  "ticker": {
+    "id": "ALPHA_373USDT",
+    "url": "https://www.binance.com/bapi/defi/v1/public/alpha-trade/ticker?symbol=ALPHA_373USDT",
+    "body": "{\"code\":\"000000\",\"message\":null,\"messageDetail\":null,\"data\":{\"symbol\":\"ALPHA_373USDT\",\"priceChange\":\"-0.0003\",\"priceChangePercent\":\"-3.1\",\"weightedAvgPrice\":\"0.0095\",\"lastPrice\":\"0.0094\",\"lastQty\":\"1000\",\"openPrice\":\"0.0097\",\"highPrice\":\"0.0101\",\"lowPrice\":\"0.009\",\"volume\":\"131000000\",\"quoteVolume\":\"1234567.89\",\"openTime\":1760400000000,\"closeTime\":1760486399999,\"firstId\":1,\"lastId\":4821,\"count\":4821},\"success\":true}",
+    "expected": {
+      "last": 0.0094,
+      "high": 0.0101,
+      "low": 0.009,
+      "vol": 131000000,
+      "volQuote": 1234567.89,
+      "change": -3.1
+    }
+  },
+  "tickerError": {
+    "body": "{\"code\":\"000002\",\"message\":\"illegal parameter\",\"messageDetail\":null,\"data\":null,\"success\":false}",
+    "message": "illegal parameter"
+  },
+  "klines": {
+    "pair": {
+      "marketKey": "Binance",
+      "marketName": "Binance",
+      "base": "FROGGIE",
+      "quote": "USDT",
+      "pairId": "ALPHA_373USDT",
+      "contract": "NONE"
+    },
+    "interval": "H1",
+    "limit": 3,
+    "url": "https://www.binance.com/bapi/defi/v1/public/alpha-trade/klines?symbol=ALPHA_373USDT&interval=1h&limit=3",
+    "body": "{\"code\":\"000000\",\"message\":null,\"messageDetail\":null,\"data\":[[\"1760400000000\",\"0.0097\",\"0.0101\",\"0.0095\",\"0.0099\",\"1000000\",\"1760403599999\",\"9800.5\",120,\"500000\",\"4900.2\",\"0\"],[\"1760403600000\",\"0.0099\",\"0.0100\",\"0.0092\",\"0.0093\",\"2000000\",\"1760407199999\",\"19100.25\",240,\"900000\",\"8500.1\",\"0\"],[\"1760407200000\",\"0.0093\",\"0.0096\",\"0.0090\",\"0.0094\",\"1500000\",\"1760410799999\",\"13800\",180,\"700000\",\"6600\",\"0\"]],\"success\":true}",
+    "expected": [
+      [
+        1760400000000,
+        0.0097,
+        0.0101,
+        0.0095,
+        0.0099,
+        1000000,
+        9800.5
+      ],
+      [
+        1760403600000,
+        0.0099,
+        0.01,
+        0.0092,
+        0.0093,
+        2000000,
+        19100.25
+      ],
+      [
+        1760407200000,
+        0.0093,
+        0.0096,
+        0.009,
+        0.0094,
+        1500000,
+        13800
+      ]
+    ],
+    "provider": "Binance Alpha",
+    "spotPair": {
+      "marketKey": "Binance",
+      "marketName": "Binance",
+      "base": "BTC",
+      "quote": "USDT",
+      "pairId": "BTCUSDT",
+      "contract": "NONE"
+    }
+  },
+  "kinds": [
+    {
+      "name": "Binance Alpha pair by id",
+      "marketKey": "Binance",
+      "base": "FROGGIE",
+      "pairId": "ALPHA_373USDT",
+      "tradFi": false,
+      "pairName": null,
+      "expected": "ALPHA"
+    },
+    {
+      "name": "Binance spot pair of same symbol stays token",
+      "marketKey": "Binance",
+      "base": "FROGGIE",
+      "pairId": "FROGGIEUSDT",
+      "tradFi": false,
+      "pairName": null,
+      "expected": "TOKEN"
+    },
+    {
+      "name": "MEXC same symbol",
+      "marketKey": "Mexc",
+      "base": "FROGGIE",
+      "pairId": "FROGGIE_USDT",
+      "tradFi": false,
+      "pairName": null,
+      "expected": "ALPHA"
+    },
+    {
+      "name": "Bybit futures with 1000 prefix",
+      "marketKey": "Bybit",
+      "base": "1000AIA",
+      "pairId": "1000AIAUSDT",
+      "tradFi": false,
+      "pairName": null,
+      "expected": "ALPHA"
+    },
+    {
+      "name": "Binance Futures multiplier",
+      "marketKey": "BinanceFutures",
+      "base": "1000AIA",
+      "pairId": "1000AIAUSDT",
+      "tradFi": false,
+      "pairName": null,
+      "expected": "ALPHA"
+    },
+    {
+      "name": "TradFi stays TradFi",
+      "marketKey": "BinanceFutures",
+      "base": "AIA",
+      "pairId": "AIAUSDT",
+      "tradFi": true,
+      "pairName": null,
+      "expected": "TRADFI"
+    },
+    {
+      "name": "DexScreener excluded",
+      "marketKey": "DexScreener",
+      "base": "FROGGIE",
+      "pairId": "bsc:0xabc",
+      "tradFi": false,
+      "pairName": null,
+      "expected": "TOKEN"
+    },
+    {
+      "name": "Name mismatch: other token",
+      "marketKey": "GateIo",
+      "base": "NAMEX",
+      "pairId": "NAMEX_USDT",
+      "tradFi": false,
+      "pairName": "Totally Different Coin",
+      "expected": "TOKEN"
+    },
+    {
+      "name": "Names agree",
+      "marketKey": "GateIo",
+      "base": "NAMEX",
+      "pairId": "NAMEX_USDT",
+      "tradFi": false,
+      "pairName": "Nebula Matrix Token",
+      "expected": "ALPHA"
+    },
+    {
+      "name": "Exchange without name",
+      "marketKey": "Kucoin",
+      "base": "NAMEX",
+      "pairId": "NAMEX-USDT",
+      "tradFi": false,
+      "pairName": null,
+      "expected": "ALPHA"
+    },
+    {
+      "name": "listingCex token is regular",
+      "marketKey": "Okex",
+      "base": "ZKJ",
+      "pairId": "ZKJ-USDT",
+      "tradFi": false,
+      "pairName": null,
+      "expected": "TOKEN"
+    },
+    {
+      "name": "Not in list",
+      "marketKey": "Kraken",
+      "base": "BTC",
+      "pairId": "XXBTZUSD",
+      "tradFi": false,
+      "pairName": null,
+      "expected": "TOKEN"
+    }
+  ],
+  "allows": [
+    {
+      "name": "Binance Alpha pair, switch on",
+      "marketKey": "Binance",
+      "base": "FROGGIE",
+      "pairId": "ALPHA_373USDT",
+      "includeAlpha": true,
+      "emptyList": false,
+      "pairName": null,
+      "expected": true
+    },
+    {
+      "name": "Binance Alpha pair, switch off",
+      "marketKey": "Binance",
+      "base": "FROGGIE",
+      "pairId": "ALPHA_373USDT",
+      "includeAlpha": false,
+      "emptyList": false,
+      "pairName": null,
+      "expected": false
+    },
+    {
+      "name": "Binance Alpha pair, switch off, list not yet loaded",
+      "marketKey": "Binance",
+      "base": "FROGGIE",
+      "pairId": "ALPHA_373USDT",
+      "includeAlpha": false,
+      "emptyList": true,
+      "pairName": null,
+      "expected": false
+    },
+    {
+      "name": "Binance spot pair, switch off",
+      "marketKey": "Binance",
+      "base": "BTC",
+      "pairId": "BTCUSDT",
+      "includeAlpha": false,
+      "emptyList": false,
+      "pairName": null,
+      "expected": true
+    },
+    {
+      "name": "MEXC alpha symbol, switch off",
+      "marketKey": "Mexc",
+      "base": "FROGGIE",
+      "pairId": "FROGGIE_USDT",
+      "includeAlpha": false,
+      "emptyList": false,
+      "pairName": null,
+      "expected": false
+    },
+    {
+      "name": "MEXC alpha symbol, switch on",
+      "marketKey": "Mexc",
+      "base": "FROGGIE",
+      "pairId": "FROGGIE_USDT",
+      "includeAlpha": true,
+      "emptyList": false,
+      "pairName": null,
+      "expected": true
+    },
+    {
+      "name": "Gate name mismatch, switch off: not Alpha, shown",
+      "marketKey": "GateIo",
+      "base": "NAMEX",
+      "pairId": "NAMEX_USDT",
+      "includeAlpha": false,
+      "emptyList": false,
+      "pairName": "Totally Different Coin",
+      "expected": true
+    },
+    {
+      "name": "Bybit 1000AIA, switch off",
+      "marketKey": "Bybit",
+      "base": "1000AIA",
+      "pairId": "1000AIAUSDT",
+      "includeAlpha": false,
+      "emptyList": false,
+      "pairName": null,
+      "expected": false
+    }
+  ],
+  "bulkTicker": {
+    "requestId": 2,
+    "id": "ALPHA_373USDT",
+    "last": 0.0094
+  }
+}

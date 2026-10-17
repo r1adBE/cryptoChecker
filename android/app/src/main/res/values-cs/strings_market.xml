@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Markt-Tab: Abschnitte, Zeilen, Herkunft und Alter -->
+    <!-- «… · CoinGecko · vor 3 Min.»; «gerade eben» = time_just_now, «veraltet» = widget_outdated -->
+    <plurals name="market_age_minutes">
+        <item quantity="one">před %d min</item>
+        <item quantity="few">před %d min</item>
+        <item quantity="many">před %d min</item>
+        <item quantity="other">před %d min</item>
+    </plurals>
+    <!-- «heute 02:00» (Uhrzeit ohne Sekunden) -->
+    <string name="market_age_today">dnes %1$s</string>
+    <string name="market_context_summary">Fear &amp; Greed, ukazatele Bitcoinu, dominance, halving</string>
+    <string name="market_context_value">%1$s %2$s · %3$s</string>
+    <string name="market_more_data">Další tržní data</string>
+    <string name="market_phase_trend_failed">Cenová data nejsou k dispozici</string>
+    <string name="market_plain_direction_down_clear">Celková hodnota všech kryptoměn je výrazně nižší než před 24 hodinami (%1$s).</string>
+    <string name="market_plain_direction_down_slight">Celková hodnota všech kryptoměn je o něco nižší než před 24 hodinami (%1$s).</string>
+    <string name="market_plain_direction_flat">Celková hodnota všech kryptoměn se za 24 hodin téměř nezměnila (%1$s).</string>
+    <string name="market_plain_direction_up_clear">Celková hodnota všech kryptoměn je výrazně vyšší než před 24 hodinami (%1$s).</string>
+    <string name="market_plain_direction_up_slight">Celková hodnota všech kryptoměn je o něco vyšší než před 24 hodinami (%1$s).</string>
+    <string name="market_plain_footnote">Popisuje posledních 24 hodin – žádná předpověď, žádné investiční doporučení.</string>
+    <string name="market_plain_mood_extreme_fear">Investoři mají teď velký strach: index nálady (Fear &amp; Greed) je na %1$d ze 100.</string>
+    <string name="market_plain_mood_extreme_greed">Investoři jsou teď velmi chamtiví: index nálady (Fear &amp; Greed) je na %1$d ze 100.</string>
+    <string name="market_plain_mood_fear">Investoři mají spíše strach: index nálady (Fear &amp; Greed) je na %1$d ze 100.</string>
+    <string name="market_plain_mood_greed">Investoři jsou spíše chamtiví: index nálady (Fear &amp; Greed) je na %1$d ze 100.</string>
+    <string name="market_plain_mood_neutral">Nálada investorů je vyrovnaná: index nálady (Fear &amp; Greed) je na %1$d ze 100.</string>
+    <string name="market_plain_standout_above_btc">Vyčnívá %1$s: %2$s za 24 hodin, výrazně nad Bitcoinem (%3$s).</string>
+    <string name="market_plain_standout_against_btc">Vyčnívá %1$s: %2$s za 24 hodin, zatímco Bitcoin šel opačným směrem (%3$s).</string>
+    <string name="market_plain_standout_below_btc">Vyčnívá %1$s: %2$s za 24 hodin, výrazně pod Bitcoinem (%3$s).</string>
+    <string name="market_plain_standout_futures_down">Vyčnívá %1$s: neobvykle mnoho obchodníků s futures sází na pokles cen.</string>
+    <string name="market_plain_standout_futures_up">Vyčnívá %1$s: neobvykle mnoho obchodníků s futures sází na růst cen.</string>
+    <string name="market_plain_standout_quiet">Právě teď žádná mince zvlášť nevyčnívá.</string>
+    <string name="market_plain_standout_volume">Vyčnívá %1$s: zhruba %2$s krát větší obchodování než obvykle.</string>
+    <string name="market_plain_title">Stručně</string>
+    <!-- Nebenzeile der Fear-&-Greed-Zeile («Gier · gestern 65») -->
+    <string name="market_row_fng_yesterday">%1$s · včera %2$s</string>
+    <string name="market_section_collapse">Skrýt: %1$s</string>
+    <string name="market_section_context">Nálada a cyklus</string>
+    <string name="market_section_data">Tržní data</string>
+    <!-- Bedienungshilfen: Aktion auf der Abschnittsüberschrift; %1$s = Name des Abschnitts -->
+    <string name="market_section_expand">Zobrazit: %1$s</string>
+    <string name="market_section_now">Právě teď</string>
+    <string name="market_source">Data: Binance · Coin Metrics (CC BY-NC 4.0)</string>
+    <string name="market_unavailable_error">Burza není dostupná</string>
+
+    <!-- Markt-Tab: Info-Zeichen und Info-Blatt je Karte (was, wie, Quelle) -->
+    <string name="market_info_a11y">Info: %1$s</string>
+    <string name="market_info_alt_season_source">Denní ceny: Binance · přepočítává se zhruba každé 3 hodiny</string>
+    <string name="market_info_alt_season_what">Počítá, kolik z asi 20 velkých altcoinů (např. Ethereum, Solana, XRP) si za posledních 90 dní vedlo lépe než Bitcoin. Hodnota je jejich podíl od 0 do 100.</string>
+    <string name="market_info_coin_source">Ceny: Binance nebo Bybit · načítá se znovu zhruba každých 15 minut</string>
+    <string name="market_info_dominance_how">Když dominance roste, vede si Bitcoin lépe než zbytek trhu; když klesá, získávají na váze jiné mince. Započítávají se i stablecoiny: když jejich hodnota roste, podíl Bitcoinu klesá, i když cena Bitcoinu zůstane stejná.</string>
+    <string name="market_info_dominance_source">Zdroj: CoinGecko · načítá se znovu zhruba každých 30 minut</string>
+    <string name="market_info_dominance_what">Podíl Bitcoinu na celkové hodnotě všech kryptoměn (tržní kapitalizace). Pod ním je uveden podíl Etherea.</string>
+    <string name="market_info_fear_greed_how">Pod 25 znamená extrémní strach, nad 75 extrémní chamtivost, kolem 50 neutrální náladu. Po rozbalení jsou vidět hodnoty ze včerejška, před týdnem a před měsícem. Není to signál k nákupu ani prodeji.</string>
+    <string name="market_info_fear_greed_source">Zdroj: alternative.me · nová hodnota jednou denně</string>
+    <string name="market_info_fear_greed_what">Index nálady na kryptotrhu od 0 do 100. alternative.me ho počítá z několika údajů, mimo jiné z cenových výkyvů, objemu obchodů, sociálních sítí a dominance Bitcoinu.</string>
+    <string name="market_info_gas_how">Vyšší hodnoty znamenají, že je síť vytížená a převody stojí víc. Pomalý, normální a rychlý jsou poplatky za pozdější nebo rychlejší potvrzení. Po rozbalení jsou vidět přibližné náklady jednoduchého převodu.</string>
+    <string name="market_info_gas_source">Veřejné uzly RPC, mempool.space · načítá se znovu každou minutu</string>
+    <string name="market_info_gas_what">Kolik právě stojí transakce v jednotlivých sítích. U Etherea a podobných sítí v gwei (miliardtina ETH za jednotku gasu), u Bitcoinu v sat/vB (satoshi za virtuální bajt transakce).</string>
+    <string name="market_info_halving_source">Datum: z výšky bloku a průměrné doby bloku (mempool.space), jinak podle kalendáře · vývoj kurzu: Coin Metrics, Binance, znovu načteno každých 12 hodin</string>
+    <string name="market_info_halving_what">Při halvingu se odměna, kterou těžaři dostávají za nový blok Bitcoinu, sníží na polovinu. Děje se to každých 210 000 bloků, tedy zhruba každé čtyři roky. Poté vzniká denně jen polovina nových bitcoinů.</string>
+    <string name="market_info_how">Jak to číst</string>
+    <string name="market_info_macro_how">Upozornění se zobrazí, jen když je takový termín dnes nebo zítra. Kolem zveřejnění ceny často kolísají víc než obvykle. Aplikace ukazuje jen termín, ne samotná čísla.</string>
+    <string name="market_info_macro_source">Kalendář z webu aplikace · načítá se jednou denně</string>
+    <string name="market_info_macro_what">Termíny důležitých ekonomických údajů z USA: inflace (CPI, PCE), ceny výrobců (PPI), zpráva o trhu práce a rozhodnutí americké centrální banky o sazbách. Taková čísla často hýbou i cenami kryptoměn.</string>
+    <string name="market_info_no_advice">Nejde o investiční doporučení.</string>
+    <string name="market_info_phase_source">Binance, Coin Metrics · ceny každou hodinu, on-chain hodnoty se načítají znovu každých 12 hodin</string>
+    <string name="market_info_pulse_how">Titulek udává směr, po rozbalení jsou vidět podrobnosti. Široký pohyb znamená, že se většina velkých mincí pohybuje stejným směrem. Vysoký funding rate znamená, že mnozí sázejí s pákou na růst cen. Okamžitý snímek, ne prognóza.</string>
+    <string name="market_info_pulse_source">Binance, CoinGecko · načítá se znovu zhruba každých 5 minut</string>
+    <string name="market_info_pulse_what">Krátké shrnutí trhu za posledních 24 hodin: jak se pohybují Bitcoin, Ethereum a Solana, kolik z největších mincí roste nebo klesá, kolik Bitcoinu se právě obchoduje a kde je funding rate u futures na Bitcoin.</string>
+    <string name="market_info_totals_how">Vpravo je změna celkové hodnoty za 24 hodin. Vysoký objem znamená, že se hodně obchoduje, ale neříká, kterým směrem. Pokud možno v měně přepočtu, jinak v amerických dolarech.</string>
+    <string name="market_info_totals_source">Všechny mince · CoinGecko · načítá se znovu zhruba každých 30 minut</string>
+    <string name="market_info_totals_what">Celková hodnota všech kryptoměn (tržní kapitalizace: cena krát množství v oběhu, sečteno přes všechny mince) a objem obchodů za posledních 24 hodin.</string>
+    <string name="market_info_unusual_how">U každé mince je uvedeno nejnápadnější pozorování, vpravo změna za 24 hodin. Objem 2× znamená dvojnásobný obrat oproti obvyklému. Nápadné neznamená dobré ani špatné.</string>
+    <string name="market_info_unusual_source">Binance, CoinGecko · načítá se znovu zhruba každých 10 minut</string>
+    <string name="market_info_unusual_what">Až pět mincí z přibližně 30 největších (bez stablecoinů), které se dnes chovají neobvykle: výrazně silněji nebo slaběji než Bitcoin, proti směru trhu, s neobvykle vysokým objemem obchodů nebo s nápadným funding rate.</string>
+    <string name="market_info_what">Co to je?</string>
+
+    <!-- Markt-Tab: Krypto-Markt gesamt -->
+    <string name="market_cap_label">Tržní kapitalizace</string>
+    <string name="market_cap_source">Všechny mince · CoinGecko</string>
+    <string name="market_cap_title">Kryptotrh</string>
+    <string name="market_volume_label">Objem 24 h</string>
+
+    <!-- Crypto Pulse «Was gerade auffällt»: Titel, Abschnitte, Hinweise -->
+    <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
+    <string name="pulse_details_action">Podrobnosti</string>
+    <string name="pulse_disclaimer">Žádná prognóza · Žádné investiční doporučení</string>
+    <string name="pulse_less">Zobrazit méně</string>
+    <string name="pulse_now_title">Co je teď nápadné</string>
+    <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
+    <string name="pulse_period_24h_spoken">Změna za 24 hodin</string>
+    <string name="pulse_section_factors">Faktory</string>
+    <string name="pulse_section_market">Trh dnes</string>
+    <string name="pulse_unavailable">Tržní data momentálně nejsou k dispozici</string>
+    <string name="pulse_updated">Stav k %1$s</string>
+
+    <!-- Crypto Pulse: Schlagzeile und Leitsatz -->
+    <string name="pulse_headline_calm">Klidný trh</string>
+    <string name="pulse_headline_down">Plošný pokles</string>
+    <string name="pulse_headline_mixed">Smíšený obraz</string>
+    <string name="pulse_headline_up">Plošný růst</string>
+    <string name="pulse_lead_alts_stronger">Altcoiny jsou silnější než Bitcoin.</string>
+    <string name="pulse_lead_broad_down">Trh plošně klesá.</string>
+    <string name="pulse_lead_broad_up">Trh plošně roste.</string>
+    <string name="pulse_lead_btc_leads">Bitcoin roste nejvíc.</string>
+    <string name="pulse_lead_btc_stronger">Bitcoin je silnější než altcoiny.</string>
+    <string name="pulse_lead_calm">Trh se téměř nehýbe.</string>
+    <string name="pulse_lead_drift_down">Trh mírně klesá.</string>
+    <string name="pulse_lead_drift_up">Trh mírně roste.</string>
+    <string name="pulse_lead_mixed">Velké mince se rozcházejí.</string>
+
+    <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
+    <string name="pulse_detail_fund_high">Funding zvýšený.</string>
+    <string name="pulse_detail_fund_negative">Funding záporný.</string>
+    <string name="pulse_detail_fund_neutral">Funding neutrální.</string>
+    <string name="pulse_detail_vol_above">Objem o %1$d %% nad normálem.</string>
+    <string name="pulse_detail_vol_above_fund_high">Objem o %1$d %% nad normálem, funding zvýšený.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Objem o %1$d %% nad normálem, funding záporný.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Objem o %1$d %% nad normálem, funding neutrální.</string>
+    <string name="pulse_detail_vol_below">Objem o %1$d %% pod normálem.</string>
+    <string name="pulse_detail_vol_below_fund_high">Objem o %1$d %% pod normálem, funding zvýšený.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Objem o %1$d %% pod normálem, funding záporný.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Objem o %1$d %% pod normálem, funding neutrální.</string>
+    <string name="pulse_detail_vol_normal">Objem normální.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Objem normální, funding zvýšený.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Objem normální, funding záporný.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Objem normální, funding neutrální.</string>
+
+    <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
+    <string name="pulse_breadth_hint">Top %1$d: největší mince podle tržní hodnoty, bez stablecoinů; změna za 24 hodin (CoinGecko).</string>
+    <!-- «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">Top %1$d</string>
+    <string name="pulse_breadth_note_broad_down">Široký pokles: většina velkých mincí klesá.</string>
+    <string name="pulse_breadth_note_broad_up">Široký pohyb: většina velkých mincí roste.</string>
+    <string name="pulse_breadth_note_narrow_down">Bitcoin klesá, většina ostatních velkých mincí se ale drží.</string>
+    <string name="pulse_breadth_note_narrow_up">Bitcoin roste, většina ostatních velkých mincí ale nejde s ním.</string>
+    <string name="pulse_breadth_spoken">Top %1$d: nahoru %2$d, dolů %3$d</string>
+
+    <!-- Crypto Pulse: Altcoins, Funding, Gas, Volumen -->
+    <string name="pulse_alts_even">Altcoiny a Bitcoin se pohybují stejně</string>
+    <string name="pulse_alts_stronger">Altcoiny silnější než Bitcoin</string>
+    <string name="pulse_alts_weaker">Bitcoin silnější než altcoiny</string>
+    <string name="pulse_chip_funding_high">Funding zvýšený</string>
+    <string name="pulse_chip_funding_negative">Funding záporný</string>
+    <string name="pulse_funding_high">Funding výrazně kladný: mnoho pákových longů</string>
+    <string name="pulse_funding_negative">Funding záporný: mnoho shortů</string>
+    <string name="pulse_funding_neutral">Funding neutrální</string>
+    <string name="pulse_funding_slight">Funding mírně kladný</string>
+    <string name="pulse_gas_high">Ethereum gas vysoký (%1$s gwei)</string>
+    <string name="pulse_gas_low">Ethereum gas nízký (%1$s gwei)</string>
+    <string name="pulse_gas_normal">Ethereum gas běžný (%1$s gwei)</string>
+    <string name="pulse_volume_high">Objem obchodů neobvykle vysoký (%1$s× běžného)</string>
+    <string name="pulse_volume_low">Objem obchodů nízký (%1$s× běžného)</string>
+    <string name="pulse_volume_normal">Objem obchodů běžný</string>
+
+    <!-- «Heute auffällig» (grösste Coins mit ungewöhnlicher Bewegung) -->
+    <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
+    <!-- Screenreader-Aktion einer Zeile (öffnet das Aktionsblatt bzw. die Vorschau) -->
+    <string name="unusual_action_open">Zobrazit cenu a akce</string>
+    <string name="unusual_fact_against">Jde proti trhu</string>
+    <string name="unusual_fact_funding_high">Funding zvýšený (%1$s)</string>
+    <string name="unusual_fact_funding_negative">Funding záporný (%1$s)</string>
+    <string name="unusual_fact_stronger">Hýbe se výrazně silněji než BTC</string>
+    <string name="unusual_fact_volume">Objem %1$s× obvyklého</string>
+    <string name="unusual_fact_weaker">Hýbe se výrazně slaběji než BTC</string>
+    <string name="unusual_nothing">Dnes nic nápadného</string>
+    <string name="unusual_source">Zhruba 30 největších mincí bez stablecoinů · Binance, CoinGecko</string>
+    <string name="unusual_title">Dnes nápadné</string>
+
+    <!-- Ungewöhnliche Aktivität eines Paars (Karte, Signale, Empfindlichkeit) -->
+    <string name="activity_card_title">Právě se něco děje</string>
+    <string name="activity_indicator">Neobvyklá aktivita</string>
+    <string name="activity_sensitivity_less">Méně</string>
+    <string name="activity_sensitivity_more">Více</string>
+    <string name="activity_sensitivity_normal">Normální</string>
+    <string name="activity_signal_funding_long">Funding %1$s – mnoho pákových longů</string>
+    <string name="activity_signal_funding_short">Funding %1$s – mnoho shortů</string>
+    <string name="activity_signal_open_interest">Open interest %1$s během %2$d min</string>
+    <string name="activity_signal_open_interest_no_time">Open interest %1$s</string>
+    <string name="activity_signal_price_move">Neobvyklý pohyb: %1$s za hodinu (%2$s× obvyklého)</string>
+    <string name="activity_signal_volume">Objem %1$s× obvyklého za poslední hodinu</string>
+
+    <!-- Einordnung: Bitcoin-Dominanz, Fear & Greed, Halving, Altseason -->
+    <plurals name="insights_altseason_value">
+        <item quantity="one">%1$d z %2$d velkých altcoinů porazil bitcoin za 90 dní</item>
+        <item quantity="few">%1$d z %2$d velkých altcoinů porazily bitcoin za 90 dní</item>
+        <item quantity="many">%1$d z %2$d velkých altcoinů porazilo bitcoin za 90 dní</item>
+        <item quantity="other">%1$d z %2$d velkých altcoinů porazilo bitcoin za 90 dní</item>
+    </plurals>
+    <string name="insights_chart_axis">Roky od halvingu</string>
+    <string name="insights_chart_hint">Cena jako násobek ceny v den halvingu (log. měřítko). Minulé cykly jsou vzorec, ne předpověď.</string>
+    <string name="insights_cycle_chart">Cykly od halvingu</string>
+    <string name="insights_dominance_eth">ETH %1$s celého trhu</string>
+    <string name="insights_dominance_title">Dominance bitcoinu</string>
+    <string name="insights_fng_history">Včera %1$s · před týdnem %2$s · před měsícem %3$s</string>
+    <string name="insights_fng_title">Fear &amp; Greed</string>
+    <string name="insights_halving_title">Halving bitcoinu</string>
+    <string name="insights_source_dominance">Zdroj: CoinGecko, Binance</string>
+    <string name="insights_source_fng">Zdroj: alternative.me</string>
+    <string name="insights_source_history">Zdroj: Coin Metrics (CC BY-NC 4.0), Binance</string>
+
+    <!-- Fear & Greed: Stufen -->
+    <string name="fng_extreme_fear">Extrémní strach</string>
+    <string name="fng_extreme_greed">Extrémní chamtivost</string>
+    <string name="fng_fear">Strach</string>
+    <string name="fng_greed">Chamtivost</string>
+    <string name="fng_neutral">Neutrální</string>
+
+    <!-- Halving-Zyklus (Chart, Marken, Schätzung) -->
+    <string name="cycle_data_as_of">Data k %1$s · aktualizace…</string>
+    <string name="cycle_from_top">%1$s od vrcholu</string>
+    <string name="cycle_marker_bottom">Dno %1$s</string>
+    <string name="cycle_marker_double_bottom">Dvojité dno %1$s</string>
+    <string name="cycle_marker_double_top">Dvojitý vrchol %1$s</string>
+    <string name="cycle_marker_high_so_far">Dosavadní maximum</string>
+    <!-- Hoch/Tief-Marken mit Sprechblase im Zyklus-Chart -->
+    <string name="cycle_marker_top">Vrchol %1$s</string>
+    <string name="cycle_since_halving">%1$s od halvingu</string>
+    <string name="halving_estimate_text">Další halving výpočtem kolem %1$s: zbývá %2$s bloků při průměrně %3$s min na blok (aktuální období obtížnosti). Odhad, ne slib – doba bloku kolísá.</string>
+
+    <!-- Netzwerkgebühren (Gas) -->
+    <string name="gas_alert_active">Alarm: %1$s</string>
+    <string name="gas_slow_fast">Pomalu %1$s · Rychle %2$s</string>
+    <string name="gas_source">Veřejné RPC uzly a mempool.space · Cena jednoduchého převodu, u L2 bez podílu L1</string>
+    <string name="gas_title">Síťové poplatky</string>
+    <string name="gas_transfer_cost">Převod ≈ %1$s</string>
+
+    <!-- Wirtschaftsdaten (US-Termine) -->
+    <string name="macro_cpi">inflace v USA (CPI)</string>
+    <string name="macro_fomc">rozhodnutí Fedu o sazbách</string>
+    <string name="macro_hint_list">%1$s – v takové dny trh často kolísá víc.</string>
+    <string name="macro_hint_today">Dnes %1$s: %2$s – v takové dny trh často kolísá víc.</string>
+    <string name="macro_hint_today_list">Dnes: %1$s – v takové dny trh často kolísá víc.</string>
+    <string name="macro_hint_tomorrow">Zítra %1$s: %2$s – v takové dny trh často kolísá víc.</string>
+    <string name="macro_hint_tomorrow_list">Zítra: %1$s – v takové dny trh často kolísá víc.</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">Dnes %1$s %2$s</string>
+    <string name="macro_item_tomorrow">Zítra %1$s %2$s</string>
+    <string name="macro_nfp">zpráva z trhu práce USA</string>
+    <string name="macro_pce">inflace PCE v USA</string>
+    <string name="macro_ppi">ceny výrobců v USA (PPI)</string>
+    <string name="macro_released_list">Zveřejněno dnes: %1$s.</string>
+    <string name="macro_released_one">Zveřejněno dnes v %1$s: %2$s.</string>
+    <string name="macro_title">Ekonomická data</string>
+
+    <!-- Coin-Analyse -->
+    <string name="coin_choose">Mince</string>
+    <string name="coin_no_data">Pro tuto minci nejsou na Binance ani Bybit cenová data.</string>
+    <string name="coin_price_only">Pouze podle ceny – on-chain data (MVRV, Puell, hashrate) jsou zdarma jen pro bitcoin.</string>
+    <plurals name="coin_short_history">
+        <item quantity="one">Jen %1$d den historie – některé ukazatele chybí.</item>
+        <item quantity="few">Jen %1$d dny historie – některé ukazatele chybí.</item>
+        <item quantity="many">Jen %1$d dní historie – některé ukazatele chybí.</item>
+        <item quantity="other">Jen %1$d dní historie – některé ukazatele chybí.</item>
+    </plurals>
+    <string name="coin_title">Analýza mince</string>
+</resources>

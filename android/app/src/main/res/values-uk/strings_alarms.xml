@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Alarmliste und Übersicht aller Alarme -->
+    <string name="add_alarm_action">Створити сигнал</string>
+    <string name="alarms_add">Новий сигнал</string>
+    <string name="alarms_edit">Змінити сигнал</string>
+    <string name="alarms_empty">Для цієї пари ще немає сигналів.</string>
+    <string name="alarms_empty_example">Наприклад: повідом, коли BTC підніметься вище %1$s.</string>
+    <!-- Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
+    <string name="alarms_notifications_off">Сповіщення вимкнено – оповіщення до вас не дійдуть.</string>
+    <string name="alarms_notifications_turn_on">Увімкнути</string>
+    <plurals name="alarms_overview_active">
+        <item quantity="one">Активних: %1$d</item>
+        <item quantity="few">Активних: %1$d</item>
+        <item quantity="many">Активних: %1$d</item>
+        <item quantity="other">Активних: %1$d</item>
+    </plurals>
+    <string name="alarms_overview_empty">Сигналів ще немає. Відкрийте пару й додайте його в розділі «Сигнали».</string>
+    <string name="alarms_overview_title">Усі сигнали</string>
+    <string name="alarms_title">Сигнали</string>
+
+    <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
+    <string name="alarm_advanced">Додатково</string>
+    <string name="alarm_change_updates">Змінити оновлення курсів</string>
+    <string name="alarm_create">Створити сигнал</string>
+    <string name="alarm_currency_label">Валюта</string>
+    <string name="alarm_delete_confirm">Цей сигнал буде видалено.</string>
+    <string name="alarm_delete_title">Видалити сигнал?</string>
+    <string name="alarm_field_percent">Відсоток</string>
+    <string name="alarm_field_price">Ціна</string>
+    <string name="alarm_fires_now_above">Ціна вже вища за %1$s. Усе одно зберегти?</string>
+    <string name="alarm_fires_now_below">Ціна вже нижча за %1$s. Усе одно зберегти?</string>
+    <string name="alarm_fires_now_change">Змінити</string>
+    <string name="alarm_fires_now_save">Усе одно зберегти</string>
+    <string name="alarm_fires_now_title">Сповіщення спрацює одразу</string>
+    <string name="alarm_first_battery_hint">Оптимізація батареї обмежує застосунок – сповіщення можуть надходити із запізненням.</string>
+    <string name="alarm_first_title">Усе готово</string>
+    <string name="alarm_last_triggered">востаннє о %1$s</string>
+    <string name="alarm_new_extreme">Оновлення %1$s</string>
+    <string name="alarm_once">Один раз</string>
+    <string name="alarm_option_repeating">Залишати сигнал після спрацювання</string>
+    <string name="alarm_option_sound">Звук</string>
+    <string name="alarm_option_speak">Озвучувати сигнал</string>
+    <string name="alarm_option_vibrate">Вібрація</string>
+    <string name="alarm_repeat_each">Щоразу</string>
+    <string name="alarm_repeat_once">Один раз</string>
+    <string name="alarm_repeating">Щоразу</string>
+    <string name="alarm_threshold_error_empty">Введіть значення, щоб зберегти сигнал.</string>
+    <string name="alarm_threshold_error_funding">Ставка фінансування має бути числом від −10 до +10 відсотків.</string>
+    <string name="alarm_threshold_error_invalid">Введіть коректне число, більше за 0.</string>
+    <string name="alarm_threshold_error_oi">Зміна показника «Відкритий інтерес»: не більше 1000 відсотків.</string>
+    <plurals name="alarm_window_hours">
+        <item quantity="one">за %1$d год</item>
+        <item quantity="few">за %1$d год</item>
+        <item quantity="many">за %1$d год</item>
+        <item quantity="other">за %1$d год</item>
+    </plurals>
+    <string name="alarm_window_label">Часове вікно</string>
+
+    <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
+    <string name="alarm_simple_above">підніметься вище</string>
+    <string name="alarm_simple_below">опуститься нижче</string>
+    <string name="alarm_simple_direction_a11y">Напрямок: %1$s</string>
+    <string name="alarm_simple_end"></string>
+    <string name="alarm_simple_when">Коли %1$s</string>
+    <string name="alarm_template_a11y">Створити сигнал: %1$s</string>
+    <string name="alarm_template_a11y_down">Створити сигнал при мінус %1$s відсотках</string>
+    <string name="alarm_template_a11y_up">Створити сигнал при плюс %1$s відсотках</string>
+    <string name="alarm_template_created">Сигнал створено</string>
+    <string name="alarm_template_volume">Обсяг ×%1$s</string>
+    <string name="alarm_templates_title">Швидкі сигнали</string>
+
+    <!-- Alarm-Bedingungen -->
+    <string name="alarm_condition_above">Ціна вище</string>
+    <string name="alarm_condition_below">Ціна нижче</string>
+    <string name="alarm_condition_down_percent">Впаде на</string>
+    <string name="alarm_condition_funding_above">Фандинг вище</string>
+    <string name="alarm_condition_funding_below">Фандинг нижче</string>
+    <string name="alarm_condition_move_percent">Зміниться на</string>
+    <string name="alarm_condition_near_high">Близько до максимуму</string>
+    <string name="alarm_condition_near_low">Близько до мінімуму</string>
+    <string name="alarm_condition_oi_down">Відкритий інтерес падає</string>
+    <string name="alarm_condition_oi_up">Відкритий інтерес зростає</string>
+    <string name="alarm_condition_up_percent">Зросте на</string>
+    <string name="alarm_condition_volume_spike">Сплеск обсягу</string>
+
+    <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
+    <string name="alarm_sentence_above">Повідомити, коли %1$s підніметься вище %2$s.</string>
+    <string name="alarm_sentence_below">Повідомити, коли %1$s опуститься нижче %2$s.</string>
+    <string name="alarm_sentence_down_percent">Повідомити, коли %1$s впаде на %2$s.</string>
+    <string name="alarm_sentence_funding_above">Повідомити, коли фандинг %1$s підніметься вище %2$s.</string>
+    <string name="alarm_sentence_funding_below">Повідомити, коли фандинг %1$s опуститься нижче %2$s.</string>
+    <string name="alarm_sentence_incomplete">Введіть значення, щоб побачити сигнал у вигляді речення.</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="one">Повідомити, коли %1$s зміниться на %2$s за %3$d годину.</item>
+        <item quantity="few">Повідомити, коли %1$s зміниться на %2$s за %3$d години.</item>
+        <item quantity="many">Повідомити, коли %1$s зміниться на %2$s за %3$d годин.</item>
+        <item quantity="other">Повідомити, коли %1$s зміниться на %2$s за %3$d години.</item>
+    </plurals>
+    <string name="alarm_sentence_near_high">Повідомити, коли %1$s буде не більше ніж на %2$s нижче свого %3$s.</string>
+    <string name="alarm_sentence_near_low">Повідомити, коли %1$s буде не більше ніж на %2$s вище свого %3$s.</string>
+    <string name="alarm_sentence_new_extreme">Повідомити при оновленні %2$s для %1$s.</string>
+    <plurals name="alarm_sentence_oi_down">
+        <item quantity="one">Повідомити, коли відкритий інтерес %1$s знизиться на %2$s за %3$d годину.</item>
+        <item quantity="few">Повідомити, коли відкритий інтерес %1$s знизиться на %2$s за %3$d години.</item>
+        <item quantity="many">Повідомити, коли відкритий інтерес %1$s знизиться на %2$s за %3$d годин.</item>
+        <item quantity="other">Повідомити, коли відкритий інтерес %1$s знизиться на %2$s за %3$d години.</item>
+    </plurals>
+    <plurals name="alarm_sentence_oi_up">
+        <item quantity="one">Повідомити, коли відкритий інтерес %1$s зросте на %2$s за %3$d годину.</item>
+        <item quantity="few">Повідомити, коли відкритий інтерес %1$s зросте на %2$s за %3$d години.</item>
+        <item quantity="many">Повідомити, коли відкритий інтерес %1$s зросте на %2$s за %3$d годин.</item>
+        <item quantity="other">Повідомити, коли відкритий інтерес %1$s зросте на %2$s за %3$d години.</item>
+    </plurals>
+    <string name="alarm_sentence_up_percent">Повідомити, коли %1$s зросте на %2$s.</string>
+    <string name="alarm_sentence_volume">Повідомити, коли обсяг торгів %1$s сягне %2$s× від звичайного.</string>
+
+    <!-- Alarm «Nahe am Hoch / Tief» -->
+    <string name="alarm_near_extreme_high_30">максимуму за 30 днів</string>
+    <string name="alarm_near_extreme_high_365">річного максимуму</string>
+    <string name="alarm_near_extreme_high_90">максимуму за 90 днів</string>
+    <string name="alarm_near_extreme_low_30">мінімуму за 30 днів</string>
+    <string name="alarm_near_extreme_low_365">річного мінімуму</string>
+    <string name="alarm_near_extreme_low_90">мінімуму за 90 днів</string>
+    <string name="alarm_near_field_distance">Відстань</string>
+    <string name="alarm_near_hint">Також повідомляє про новий максимум або мінімум. За денними свічками, оновлюється кожні 6 годин.</string>
+    <string name="alarm_near_new_only">Лише новий максимум або мінімум</string>
+    <string name="alarm_near_notification_high">%1$s на %2$s нижче свого %3$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_low">%1$s на %2$s вище свого %3$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_new">%2$s: оновлення %1$s — %3$s (раніше %4$s)</string>
+    <plurals name="alarm_near_window_days">
+        <item quantity="one">%1$d день</item>
+        <item quantity="few">%1$d дні</item>
+        <item quantity="many">%1$d днів</item>
+        <item quantity="other">%1$d дні</item>
+    </plurals>
+    <string name="alarm_near_window_label">Період</string>
+    <string name="alarm_near_window_year">1 рік</string>
+
+    <!-- Futures- und Volumen-Alarme (Funding pro 8 Stunden, Open Interest, Volumen-Spike) -->
+    <!-- Funding-Schwelle gilt pro 8 Stunden; stündliches Funding wird umgerechnet -->
+    <string name="alarm_funding_hint_8h">Funding за 8 годин. Контракти з іншим інтервалом перераховуються (1 год × 8, 4 год × 2); картка ф’ючерсів показує перераховане значення. Якщо інтервал невідомий, сигнал не перевіряє. Від’ємний: шорти платять лонгам. ± змінює знак.</string>
+    <string name="alarm_funding_sign_a11y">Змінити знак</string>
+    <string name="alarm_oi_hint">Порівнює відкритий інтерес зі значенням, збереженим стільки годин тому. Новий сигнал спрацює, лише коли застосунок збере дані за цей час; перевірка не частіше ніж раз на 5 хвилин.</string>
+    <string name="alarm_volume_factor_label">Обсяг за останню годину відносно норми</string>
+    <string name="alarm_volume_hint">Дані про обсяг беруться з Binance — для пар, яких там немає, сигнал не спрацює.</string>
+
+    <!-- Bestätigung nach dem Speichern -->
+    <string name="alarm_saved_active">Сповіщення увімкнено</string>
+    <!-- «Alarm gespeichert: BTC Kurs über 70’000 USDT · einmalig» -->
+    <string name="alarm_saved_banner">Сигнал збережено: %1$s</string>
+    <!-- Zusatz in der Bestätigung, wenn Mitteilungen aus sind (dazu Aktion «Einstellungen») -->
+    <string name="alarm_saved_notifications_off">Сповіщення вимкнено</string>
+
+    <!-- Wann Alarme geprüft werden -->
+    <string name="alarm_timing_hint_android">Коли застосунок закрито, Android перевіряє нерегулярно (з «%1$s» приблизно кожні 15 хвилин), тож короткі стрибки можна пропустити.</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">Коли застосунок закрито, iOS вирішує, коли перевіряти, тож короткі стрибки можна пропустити; поки його відкрито, перевірка надійна.</string>
+    <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
+    <string name="alarm_timing_title">Коли перевіряються сигнали</string>
+    <string name="alarm_timing_where">Як часто оновлювати курси, можна налаштувати в розділі %1$s.</string>
+
+    <!-- Alarm-Signal und Test-Alarm -->
+    <string name="alarm_signal_silent">Без звуку (лише сповіщення)</string>
+    <string name="alarm_signal_sound">Лише звук</string>
+    <string name="alarm_signal_sound_vibrate">Звук і вібрація</string>
+    <string name="alarm_signal_system">Система</string>
+    <string name="alarm_signal_vibrate">Лише вібрація</string>
+    <string name="alarm_test">Перевірити сигнал</string>
+    <string name="alarm_test_action">Перевірити</string>
+    <string name="alarm_test_denied">Сповіщення для Crypto Checker вимкнено.</string>
+    <string name="alarm_test_hint">Надсилає приклад сигналу з вашими налаштуваннями звуку, вібрації та озвучення.</string>
+    <string name="alarm_test_open_settings">Відкрити налаштування</string>
+    <string name="alarm_test_quiet">Зараз тривають тихі години: справжні сигнали зачекали б до їх кінця, а потім спрацювали б зі звуком.</string>
+    <string name="alarm_test_text">Ось так виглядає і звучить сигнал.</string>
+    <string name="alarm_test_title">Тест: сигнал Crypto Checker</string>
+
+    <!-- Ehrliche Alarme: Vorlesetexte Ton/Ansage, ungeprüfte Alarme -->
+    <string name="alarm_a11y_sound_on">Звук увімкнено</string>
+    <string name="alarm_a11y_speak_on">Озвучення увімкнено</string>
+    <string name="alarm_unchecked_no_candles">Не вдалося перевірити (немає свічок)</string>
+    <string name="alarm_unchecked_no_rate">Не вдалося перевірити (немає курсу валют)</string>
+</resources>

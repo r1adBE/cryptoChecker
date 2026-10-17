@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Texte der Mitteilungen -->
+    <string name="notification_activity_title">%1$s · %2$s</string>
+    <string name="notification_alarm_text">%1$s — nu %2$s</string>
+    <string name="notification_alarm_title">Alarm: %1$s · %2$s</string>
+    <string name="notification_depeg_action_exchange">Beurs openen</string>
+    <string name="notification_depeg_text">Waarden in de app blijven rekenen met USDT = 1.</string>
+    <string name="notification_depeg_title">USDT op %1$s USD (%2$s)</string>
+    <string name="notification_fng_above">De index is boven %1$d gestegen – volgens deze index geldt de markt als hebzuchtig.</string>
+    <string name="notification_fng_below">De index is onder %1$d gezakt – volgens deze index geldt de markt als angstig.</string>
+    <string name="notification_fng_title">Fear &amp; Greed: %1$d</string>
+    <string name="notification_gas_btc_text">Onder je grens van %1$s sat/vB · Overboeking ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Bitcoin-kosten: %1$s sat/vB</string>
+    <string name="notification_gas_eth_text">Onder je grens van %1$s gwei · Overboeking ≈ %2$s</string>
+    <string name="notification_gas_eth_title">Ethereum-gas: %1$s gwei</string>
+    <string name="notification_indicator_above">Boven je grens %1$s – meetwaarde, geen advies.</string>
+    <string name="notification_indicator_below">Onder je grens %1$s – meetwaarde, geen advies.</string>
+    <string name="notification_indicator_title">%1$s: %2$s</string>
+    <string name="notification_macro_title">Vandaag economische cijfers</string>
+    <string name="notification_portfolio_alarm_locked">Je alarm is afgegaan – open de app voor details.</string>
+    <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
+    <string name="notification_portfolio_alarm_text">%1$s – nu %2$s</string>
+    <string name="notification_portfolio_alarm_title">Portfoliowaarde</string>
+    <string name="notification_price_change">%1$s, van %2$s (%3$s geleden)</string>
+    <string name="notification_price_change_no_age">%1$s, van %2$s</string>
+    <string name="notification_price_first">Eerste melding voor dit paar</string>
+    <plurals name="notification_price_overflow_title">
+        <item quantity="one">+%1$d andere koers</item>
+        <item quantity="other">+%1$d andere koersen</item>
+    </plurals>
+    <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
+    <string name="notification_refreshing">Koersen bijwerken…</string>
+    <string name="notification_volume_spike_text">Volume %1$s× normaal in het afgelopen uur</string>
+
+    <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
+    <string name="channel_alarms">Alarmen</string>
+    <string name="channel_alarms_description">Melding wanneer een koersalarm afgaat.</string>
+    <string name="channel_alarms_quiet">Alarmen (stille uren)</string>
+    <string name="channel_alarms_quiet_description">Geluidloze alarmen tijdens stille uren.</string>
+    <string name="channel_alarms_silent">Alarmen (stil)</string>
+    <string name="channel_alarms_sound">Alarmen (alleen geluid)</string>
+    <string name="channel_alarms_sound_vibrate">Alarmen (geluid en trillen)</string>
+    <string name="channel_alarms_vibrate">Alarmen (alleen trillen)</string>
+    <string name="channel_prices">Koersmeldingen</string>
+    <string name="channel_prices_description">Stille melding met de actuele koers van een paar.</string>
+    <string name="channel_service">Koersupdates</string>
+    <string name="channel_service_description">Melding terwijl koersen worden bijgewerkt.</string>
+    <string name="neutral_channel_market">Marktmeldingen</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed, gaskosten, ongewone activiteit en economische data</string>
+
+    <!-- Sprachausgabe -->
+    <string name="tts_alarm">Alarm. %1$s, %2$s %3$s %4$s, nu %5$s</string>
+    <string name="tts_direction_down">is gedaald</string>
+    <string name="tts_direction_funding_above">met hoge funding</string>
+    <string name="tts_direction_funding_below">met lage funding</string>
+    <string name="tts_direction_move">beweegt sterk</string>
+    <string name="tts_direction_near_high">staat dicht bij de top</string>
+    <string name="tts_direction_near_low">staat dicht bij de bodem</string>
+    <string name="tts_direction_oi_down">met dalende open interest</string>
+    <string name="tts_direction_oi_up">met stijgende open interest</string>
+    <string name="tts_direction_up">is gestegen</string>
+    <string name="tts_direction_volume_spike">met een volumepiek</string>
+    <string name="tts_price">%1$s, %2$s %3$s, %4$s</string>
+</resources>

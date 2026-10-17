@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="explorer_coin_back">Alla träffar</string>
+    <plurals name="explorer_coin_exchanges">
+        <item quantity="one">%1$d börs</item>
+        <item quantity="other">%1$d börser</item>
+    </plurals>
+    <string name="explorer_coin_no_pairs">Inget par för det här myntet i de hämtade listorna.</string>
+    <string name="explorer_coin_not_loaded">Parlistor inte hämtade än</string>
+    <string name="explorer_coin_other_pairs">Andra par</string>
+    <string name="explorer_coin_show_pairs">Visa par</string>
+    <string name="explorer_coin_suggested">Förslag</string>
+    <string name="explorer_coins_title">Mynt</string>
+    <string name="explorer_lists_load">Hämta listor</string>
+    <string name="explorer_lists_loading">Hämtar parlistor… %1$d/%2$d</string>
+    <plurals name="explorer_lists_missing">
+        <item quantity="one">Parlistan från %1$d börs finns inte på enheten än.</item>
+        <item quantity="other">Parlistorna från %1$d börser finns inte på enheten än.</item>
+    </plurals>
+    <string name="explorer_lists_privacy">Hämtar hela den offentliga listan från varje börs – samma för alla. Din sökning stannar på enheten.</string>
+    <!-- Paar hinzufügen: Suche über alle Börsen, zuletzt gesucht -->
+    <string name="explorer_recent_a11y">Senaste sökning: %1$s</string>
+    <string name="explorer_recent_clear">Rensa</string>
+    <string name="explorer_recent_clear_a11y">Rensa senaste sökningar</string>
+    <string name="explorer_recent_title">Senaste sökningar</string>
+    <string name="explorer_search_choose_manually">Välj börs och par själv</string>
+    <string name="explorer_search_empty">Inga träffar.</string>
+    <string name="explorer_search_hint">Sök mynt, par eller börs</string>
+    <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
+    <string name="explorer_search_intro">Skriv namnet eller symbolen för ett mynt, t.ex. Bitcoin eller BTC – och välj sedan par.</string>
+
+    <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
+    <string name="explorer_add_to_watchlist">Lägg till i bevakningslistan</string>
+    <string name="explorer_added_to_watchlist">Tillagt i bevakningslistan.</string>
+    <string name="explorer_already_in_watchlist">Paret finns redan i bevakningslistan.</string>
+    <string name="explorer_exchange_missing">Saknas en börs?</string>
+    <string name="explorer_loading_pairs">Hämtar handelspar…</string>
+    <string name="explorer_no_pair_selected">Välj ett par först.</string>
+    <string name="explorer_no_pairs_yet">Inga par har hämtats för den här börsen ännu.</string>
+    <plurals name="explorer_pairs_status">
+        <item quantity="one">%1$d par · uppdaterat %2$s</item>
+        <item quantity="other">%1$d par · uppdaterat %2$s</item>
+    </plurals>
+    <string name="explorer_pairs_title">Par</string>
+    <string name="explorer_precise_title">Avancerat / per börs</string>
+    <string name="explorer_price_loading">Hämtar kurs…</string>
+    <string name="explorer_select_market_hint">Välj en börs – dess handelspar hämtas automatiskt.</string>
+    <string name="explorer_select_placeholder">Välj</string>
+    <string name="explorer_step_pair">Välj par</string>
+
+    <!-- Paar hinzufügen: Schnellfilter der Liste «Alle …-Paare» -->
+    <string name="explorer_filter_gainers">Vinnare</string>
+    <string name="explorer_filter_losers">Förlorare</string>
+    <string name="explorer_filter_volume">Volym</string>
+
+    <!-- Paar hinzufügen: mehrere Paare auf einmal -->
+    <string name="bulk_all_pairs">Alla %1$s-par på denna börs</string>
+    <plurals name="bulk_all_pairs_applied">
+        <item quantity="one">%1$d %2$s-par hittades</item>
+        <item quantity="other">%1$d %2$s-par hittades</item>
+    </plurals>
+    <string name="bulk_all_pairs_empty">Inga %1$s-par på denna börs för vald kontraktstyp. Synka börsen först eller prova en annan kontraktstyp.</string>
+    <plurals name="explorer_add_all_pairs">
+        <item quantity="one">Lägg till %1$d par i bevakningslistan</item>
+        <item quantity="other">Lägg till alla %1$d par i bevakningslistan</item>
+    </plurals>
+    <plurals name="explorer_bulk_added">
+        <item quantity="one">%1$d tillagt, %2$d fanns redan i bevakningslistan.</item>
+        <item quantity="other">%1$d tillagda, %2$d fanns redan i bevakningslistan.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_text">
+        <item quantity="one">%1$d %2$s-par från %3$s läggs till i listan om det inte redan finns där.</item>
+        <item quantity="other">Alla %1$d %2$s-par från %3$s läggs till i listan. Par som redan finns hoppas över.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_title">
+        <item quantity="one">Lägga till %1$d par?</item>
+        <item quantity="other">Lägga till %1$d par?</item>
+    </plurals>
+    <string name="explorer_bulk_hide_list">Dölj lista</string>
+    <string name="explorer_bulk_show_list">Visa lista</string>
+    <string name="explorer_bulk_tap_hint">Tryck på ett par för att välja det ovan.</string>
+    <string name="explorer_bulk_title">Flera par samtidigt</string>
+
+    <!-- Handelspaare einer Börse laden und wählen -->
+    <string name="explorer_sync_sheet_text">Hämtar de aktuella paren från den valda börsen.</string>
+    <string name="explorer_no_pair_list">Inga valutapar</string>
+    <string name="explorer_sync_sheet_last">Senast synkad: %1$s</string>
+    <string name="explorer_sync_never">aldrig</string>
+    <string name="explorer_sync_sheet_action">Synkronisera nu</string>
+    <string name="explorer_sync_sheet_title">Uppdatera valutapar</string>
+    <string name="explorer_field_coin">Bas</string>
+    <string name="explorer_field_contract">Kontraktstyp</string>
+    <string name="explorer_field_exchange">Börs</string>
+    <string name="explorer_field_quote">Motvaluta</string>
+    <string name="explorer_contract_spot">Spot</string>
+    <string name="explorer_reload_pairs">Synka</string>
+    <string name="sync_pairs_count">Handelspar: %1$d</string>
+
+    <!-- Token von dezentralen Börsen (DEX) -->
+    <string name="dex_add">Lägg till</string>
+    <string name="dex_added">%1$s har lagts till i bevakningslistan.</string>
+    <string name="dex_already">%1$s finns redan i bevakningslistan.</string>
+    <string name="dex_intro">Tokens utanför de stora börserna, från decentraliserade börser (Uniswap, PancakeSwap, Raydium …) via DexScreener. Sök efter en token och lägg till en av dess handelspooler – kurser i amerikanska dollar.</string>
+    <string name="dex_liquidity">Likviditet %1$s</string>
+    <string name="dex_no_results">Inga pooler hittades.</string>
+    <string name="dex_search">Sök</string>
+    <string name="dex_search_hint">Tokennamn, symbol eller adress</string>
+
+    <!-- Art des Assets (Token, Alpha-Token, TradFi) -->
+    <string name="asset_kind_alpha">Alpha-token</string>
+    <string name="asset_kind_token">Token</string>
+    <string name="asset_kind_tradfi">TradFi</string>
+</resources>

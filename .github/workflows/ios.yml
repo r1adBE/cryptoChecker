@@ -1,0 +1,147 @@
+# Builds the iOS app (ios/) for the iOS Simulator without code signing, runs the
+# unit tests (target CryptoCheckerTests, incl. the shared Android/iOS cases in Tests/Parity)
+# and the UI tests of the main flows (target CryptoCheckerUITests: add a coin, price alarm,
+# CSV import, backup — app started with -uiTesting: empty storage, fake exchange answers).
+# Runs automatically when ios/ changes (pushes to main and pull requests) and by hand
+# (Actions -> iOS -> Run workflow); macOS runners are slow, so Android-only changes skip it.
+# Signing, archiving and uploading happen locally in Xcode.
+name: iOS
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'ios/**'
+      - 'android/testdata/parity/**'
+      - 'android/testdata/uitest/**'
+      - '.github/workflows/ios.yml'
+      - '.github/scripts/xcode_errors.sh'
+  pull_request:
+    paths:
+      - 'ios/**'
+      - 'android/testdata/parity/**'
+      - 'android/testdata/uitest/**'
+      - '.github/workflows/ios.yml'
+      - '.github/scripts/xcode_errors.sh'
+  workflow_dispatch:
+
+concurrency:
+  group: ios-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    # Since 28 April 2026 App Store uploads must be built with Xcode 26 / the iOS 26 SDK,
+    # so CI builds with the same toolchain.
+    runs-on: macos-26
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Select Xcode 26
+        uses: maxim-lobanov/setup-xcode@ed7a3b1fda3918c0306d1b724322adc0b8cc0a90 # v1.7.0
+        with:
+          xcode-version: '26'
+
+      - name: Xcode version
+        run: |
+          xcodebuild -version
+          xcodebuild -version | head -n1 | grep -qE '^Xcode 26(\.|$)' || { echo "::error::Xcode 26 required"; exit 1; }
+
+      # The whole log goes to a file (it used to be «| tail -n 200», which cut off the error
+      # lines). Compiler errors are printed at the end and turned into annotations, so they
+      # show on the run page even without signing in.
+      - name: Build for iOS Simulator (no signing)
+        working-directory: ios
+        run: |
+          LOG="$RUNNER_TEMP/xcode-build.log"
+          set +e
+          xcodebuild build \
+            -project CryptoChecker.xcodeproj \
+            -scheme CryptoChecker \
+            -configuration Debug \
+            -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath "$RUNNER_TEMP/DerivedData" \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \
+            > "$LOG" 2>&1
+          status=$?
+          set -e
+          tail -n 60 "$LOG"
+          bash "$GITHUB_WORKSPACE/.github/scripts/xcode_errors.sh" "$LOG"
+          exit $status
+
+      # Simulator for both test steps: "iPhone 17" if the installed Xcode has it, otherwise its
+      # first available iPhone.
+      - name: Pick iOS Simulator
+        run: |
+          DEVICE="iPhone 17"
+          if ! xcrun simctl list devices available | grep -q "$DEVICE ("; then
+            DEVICE=$(xcrun simctl list devices available | grep -m1 -oE 'iPhone [^()]+' | sed 's/ *$//')
+          fi
+          echo "Simulator: $DEVICE"
+          echo "SIM_DEVICE=$DEVICE" >> "$GITHUB_ENV"
+
+      # Unit tests in the Simulator (target CryptoCheckerTests, hosted by the app).
+      - name: Unit tests (iOS Simulator)
+        working-directory: ios
+        run: |
+          LOG="$RUNNER_TEMP/xcode-test.log"
+          set +e
+          xcodebuild test \
+            -project CryptoChecker.xcodeproj \
+            -scheme CryptoChecker \
+            -configuration Debug \
+            -destination "platform=iOS Simulator,name=$SIM_DEVICE" \
+            -derivedDataPath "$RUNNER_TEMP/DerivedData" \
+            -only-testing:CryptoCheckerTests \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \
+            > "$LOG" 2>&1
+          status=$?
+          set -e
+          tail -n 120 "$LOG"
+          bash "$GITHUB_WORKSPACE/.github/scripts/xcode_errors.sh" "$LOG"
+          exit $status
+
+      # UI tests of the main flows (target CryptoCheckerUITests, XCUITest) in the same Simulator.
+      # The app runs with -uiTesting (Debug build only): empty storage per launch, fixed exchange
+      # answers (no network), test files instead of the document picker. A failed test is retried
+      # once (Simulator hiccups); the result bundle (screenshots, logs) is uploaded on failure.
+      - name: UI tests (iOS Simulator)
+        working-directory: ios
+        timeout-minutes: 30
+        run: |
+          LOG="$RUNNER_TEMP/xcode-uitest.log"
+          set +e
+          xcodebuild test \
+            -project CryptoChecker.xcodeproj \
+            -scheme CryptoChecker \
+            -configuration Debug \
+            -destination "platform=iOS Simulator,name=$SIM_DEVICE" \
+            -derivedDataPath "$RUNNER_TEMP/DerivedData" \
+            -only-testing:CryptoCheckerUITests \
+            -parallel-testing-enabled NO \
+            -retry-tests-on-failure -test-iterations 2 \
+            -resultBundlePath "$RUNNER_TEMP/UITests.xcresult" \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \
+            > "$LOG" 2>&1
+          status=$?
+          set -e
+          tail -n 120 "$LOG"
+          bash "$GITHUB_WORKSPACE/.github/scripts/xcode_errors.sh" "$LOG"
+          exit $status
+
+      - name: Upload Xcode logs
+        if: failure()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: xcode-logs
+          path: |
+            ${{ runner.temp }}/xcode-*.log
+            ${{ runner.temp }}/UITests.xcresult
+          if-no-files-found: ignore
+          retention-days: 14

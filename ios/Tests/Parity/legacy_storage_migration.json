@@ -1,0 +1,475 @@
+{
+ "_comment": "Einmalige Umstellung der Speicher-Notlösungen aus Build 56/57 (LegacyStorageMigration, Android LegacyStorageMigrationParityTest / iOS LegacyStorageMigrationTests): «before» = gespeicherte Felder mit alten Formen (Merker «@spouse» im Feld «nach» einer Schenkung, «A ⇄ B» und «⟲ Zustand» in importKey, Fassung 1 = Build 56, 2 = Build 57), «after» = die Felder ab Build 58 (giftToSpouse, linkedImportKey, importRestoreState im JSON-Format Fassung 1 von CsvRestoreState). type = gespeicherte Art (unbekannt = neuere Version). Werte ohne alte Form bleiben unverändert.",
+ "cases": [
+  {
+   "name": "spouse marker of a gift becomes the flag",
+   "type": "GIFT",
+   "before": {
+    "transferTo": "@spouse",
+    "giftToSpouse": false,
+    "importKey": null,
+    "linkedImportKey": null,
+    "importRestoreState": null
+   },
+   "after": {
+    "transferTo": null,
+    "giftToSpouse": true,
+    "importKey": null,
+    "linkedImportKey": null,
+    "importRestoreState": null
+   }
+  },
+  {
+   "name": "spouse marker with spaces counts",
+   "type": "GIFT",
+   "before": {
+    "transferTo": " @spouse ",
+    "giftToSpouse": false,
+    "importKey": null,
+    "linkedImportKey": null,
+    "importRestoreState": null
+   },
+   "after": {
+    "transferTo": null,
+    "giftToSpouse": true,
+    "importKey": null,
+    "linkedImportKey": null,
+    "importRestoreState": null
+   }
+  },
+  {
+   "name": "marker outside a gift stays text (transfer destination)",
+   "type": "TRANSFER",
+   "before": {
+    "transferTo": "@spouse",
+    "giftToSpouse": false,
+    "importKey": null,
+    "linkedImportKey": null,
+    "importRestoreState": null
+   },
+   "after": {
+    "transferTo": "@spouse",
+    "giftToSpouse": false,
+    "importKey": null,
+    "linkedImportKey": null,
+    "importRestoreState": null
+   }
+  },
+  {
+   "name": "marker outside a gift stays text (withdrawal)",
+   "type": "WITHDRAWAL",
+   "before": {
+    "transferTo": "@spouse",
+    "giftToSpouse": false,
+    "importKey": null,
+    "linkedImportKey": null,
+    "importRestoreState": null
+   },
+   "after": {
+    "transferTo": "@spouse",
+    "giftToSpouse": false,
+    "importKey": null,
+    "linkedImportKey": null,
+    "importRestoreState": null
+   }
+  },
+  {
+   "name": "other destination of a gift stays",
+   "type": "GIFT",
+   "before": {
+    "transferTo": "Ledger",
+    "giftToSpouse": false,
+    "importKey": null,
+    "linkedImportKey": null,
+    "importRestoreState": null
+   },
+   "after": {
+    "transferTo": "Ledger",
+    "giftToSpouse": false,
+    "importKey": null,
+    "linkedImportKey": null,
+    "importRestoreState": null
+   }
+  },
+  {
+   "name": "flag already set stays",
+   "type": "GIFT",
+   "before": {
+    "transferTo": null,
+    "giftToSpouse": true,
+    "importKey": null,
+    "linkedImportKey": null,
+    "importRestoreState": null
+   },
+   "after": {
+    "transferTo": null,
+    "giftToSpouse": true,
+    "importKey": null,
+    "linkedImportKey": null,
+    "importRestoreState": null
+   }
+  },
+  {
+   "name": "linked transfer of two new rows: both keys split",
+   "type": "TRANSFER",
+   "before": {
+    "transferTo": null,
+    "giftToSpouse": false,
+    "importKey": "GENERIC|W1 ⇄ GENERIC|D1",
+    "linkedImportKey": null,
+    "importRestoreState": null
+   },
+   "after": {
+    "transferTo": null,
+    "giftToSpouse": false,
+    "importKey": "GENERIC|W1",
+    "linkedImportKey": "GENERIC|D1",
+    "importRestoreState": null
+   }
+  },
+  {
+   "name": "shortened part (before build 58) stays shortened",
+   "type": "TRANSFER",
+   "before": {
+    "transferTo": null,
+    "giftToSpouse": false,
+    "importKey": "~1a2b3c4d ⇄ GENERIC|D",
+    "linkedImportKey": null,
+    "importRestoreState": null
+   },
+   "after": {
+    "transferTo": null,
+    "giftToSpouse": false,
+    "importKey": "~1a2b3c4d",
+    "linkedImportKey": "GENERIC|D",
+    "importRestoreState": null
+   }
+  },
+  {
+   "name": "v2 state: stored withdrawal of an earlier import and absorbed deposit",
+   "type": "TRANSFER",
+   "before": {
+    "transferTo": null,
+    "giftToSpouse": false,
+    "importKey": "BINANCE|WITHDRAWAL|BTC|L1704987000000|0.005|- ⇄ COINBASE|65a1b2c3d4e5f60718293a01 ⟲ 2|BINANCE:1729000000000:0a1b2c3d|WITHDRAWAL|0.005||1704987000000||||||||| ⟲ DEPOSIT|0.0049||1704989100000||||",
+    "linkedImportKey": null,
+    "importRestoreState": null
+   },
+   "after": {
+    "transferTo": null,
+    "giftToSpouse": false,
+    "importKey": "BINANCE|WITHDRAWAL|BTC|L1704987000000|0.005|-",
+    "linkedImportKey": "COINBASE|65a1b2c3d4e5f60718293a01",
+    "importRestoreState": {
+     "v": 1,
+     "stored": {
+      "type": "WITHDRAWAL",
+      "amount": "0.005",
+      "time": 1704987000000,
+      "importKey": "BINANCE|WITHDRAWAL|BTC|L1704987000000|0.005|-",
+      "importBatch": "BINANCE:1729000000000:0a1b2c3d"
+     },
+     "absorbed": {
+      "type": "DEPOSIT",
+      "amount": "0.0049",
+      "time": 1704989100000,
+      "importKey": "COINBASE|65a1b2c3d4e5f60718293a01"
+     }
+    }
+   }
+  },
+  {
+   "name": "v2 state: stored deposit keeps price, purchase date and exchange; own key is the right part",
+   "type": "TRANSFER",
+   "before": {
+    "transferTo": null,
+    "giftToSpouse": false,
+    "importKey": "BITPANDA|T0a1b2c3d-0006 ⇄ KRAKEN|QX1 ⟲ 2||DEPOSIT|0.005|43000|1704544800000||||||||1700000000000|Kraken ⟲ WITHDRAWAL|0.005||1704542400000|0.0001|COIN||",
+    "linkedImportKey": null,
+    "importRestoreState": null
+   },
+   "after": {
+    "transferTo": null,
+    "giftToSpouse": false,
+    "importKey": "BITPANDA|T0a1b2c3d-0006",
+    "linkedImportKey": "KRAKEN|QX1",
+    "importRestoreState": {
+     "v": 1,
+     "stored": {
+      "type": "DEPOSIT",
+      "amount": "0.005",
+      "priceUsdt": "43000",
+      "time": 1704544800000,
+      "acquiredTime": 1700000000000,
+      "exchange": "Kraken",
+      "importKey": "KRAKEN|QX1"
+     },
+     "absorbed": {
+      "type": "WITHDRAWAL",
+      "amount": "0.005",
+      "time": 1704542400000,
+      "fee": "0.0001",
+      "feeUnit": "COIN",
+      "importKey": "BITPANDA|T0a1b2c3d-0006"
+     }
+    }
+   }
+  },
+  {
+   "name": "v2 state: escaped separators in text come back",
+   "type": "TRANSFER",
+   "before": {
+    "transferTo": null,
+    "giftToSpouse": false,
+    "importKey": "KRAKEN|R2 ⇄ COINBASE|X10 ⟲ 2|KRAKEN:1720000000000:00ff00ff|TRANSFER|1||1717225200000|0.5|QUOTE||||Kraken %7C Pro %21C4 100%25||| ⟲ DEPOSIT|1||1717228800000||||",
+    "linkedImportKey": null,
+    "importRestoreState": null
+   },
+   "after": {
+    "transferTo": null,
+    "giftToSpouse": false,
+    "importKey": "KRAKEN|R2",
+    "linkedImportKey": "COINBASE|X10",
+    "importRestoreState": {
+     "v": 1,
+     "stored": {
+      "type": "TRANSFER",
+      "amount": "1",
+      "time": 1717225200000,
+      "fee": "0.5",
+      "feeUnit": "QUOTE",
+      "transferFrom": "Kraken | Pro ⇄ 100%",
+      "importKey": "KRAKEN|R2",
+      "importBatch": "KRAKEN:1720000000000:00ff00ff"
+     },
+     "absorbed": {
+      "type": "DEPOSIT",
+      "amount": "1",
+      "time": 1717228800000,
+      "importKey": "COINBASE|X10"
+     }
+    }
+   }
+  },
+  {
+   "name": "v1 state (build 56): only the stored side",
+   "type": "TRANSFER",
+   "before": {
+    "transferTo": null,
+    "giftToSpouse": false,
+    "importKey": "BINANCE|W5 ⇄ COINBASE|D5 ⟲ 1|BINANCE:1729000000000:0a1b2c3d|WITHDRAWAL|0.005||1704987000000|||||||||",
+    "linkedImportKey": null,
+    "importRestoreState": null
+   },
+   "after": {
+    "transferTo": null,
+    "giftToSpouse": false,
+    "importKey": "BINANCE|W5",
+    "linkedImportKey": "COINBASE|D5",
+    "importRestoreState": {
+     "v": 1,
+     "stored": {
+      "type": "WITHDRAWAL",
+      "amount": "0.005",
+      "time": 1704987000000,
+      "importKey": "BINANCE|W5",
+      "importBatch": "BINANCE:1729000000000:0a1b2c3d"
+     }
+    }
+   }
+  },
+  {
+   "name": "unknown state version: keys split, no state",
+   "type": "TRANSFER",
+   "before": {
+    "transferTo": null,
+    "giftToSpouse": false,
+    "importKey": "BINANCE|W6 ⇄ COINBASE|D6 ⟲ 9|BINANCE:1729000000000:0a1b2c3d|WITHDRAWAL|0.005||1704987000000|||||||||",
+    "linkedImportKey": null,
+    "importRestoreState": null
+   },
+   "after": {
+    "transferTo": null,
+    "giftToSpouse": false,
+    "importKey": "BINANCE|W6",
+    "linkedImportKey": "COINBASE|D6",
+    "importRestoreState": null
+   }
+  },
+  {
+   "name": "version and section count do not match: keys split, no state",
+   "type": "TRANSFER",
+   "before": {
+    "transferTo": null,
+    "giftToSpouse": false,
+    "importKey": "BINANCE|W7 ⇄ COINBASE|D7 ⟲ 1|BINANCE:1729000000000:0a1b2c3d|WITHDRAWAL|0.005||1704987000000||||||||| ⟲ DEPOSIT|0.0049||1704989100000||||",
+    "linkedImportKey": null,
+    "importRestoreState": null
+   },
+   "after": {
+    "transferTo": null,
+    "giftToSpouse": false,
+    "importKey": "BINANCE|W7",
+    "linkedImportKey": "COINBASE|D7",
+    "importRestoreState": null
+   }
+  },
+  {
+   "name": "three parts: not a link, unchanged",
+   "type": "TRANSFER",
+   "before": {
+    "transferTo": null,
+    "giftToSpouse": false,
+    "importKey": "A ⇄ B ⇄ C",
+    "linkedImportKey": null,
+    "importRestoreState": null
+   },
+   "after": {
+    "transferTo": null,
+    "giftToSpouse": false,
+    "importKey": "A ⇄ B ⇄ C",
+    "linkedImportKey": null,
+    "importRestoreState": null
+   }
+  },
+  {
+   "name": "already split (new form) stays",
+   "type": "TRANSFER",
+   "before": {
+    "transferTo": null,
+    "giftToSpouse": false,
+    "importKey": "GENERIC|W1",
+    "linkedImportKey": "GENERIC|D1",
+    "importRestoreState": null
+   },
+   "after": {
+    "transferTo": null,
+    "giftToSpouse": false,
+    "importKey": "GENERIC|W1",
+    "linkedImportKey": "GENERIC|D1",
+    "importRestoreState": null
+   }
+  },
+  {
+   "name": "plain key stays",
+   "type": "DEPOSIT",
+   "before": {
+    "transferTo": null,
+    "giftToSpouse": false,
+    "importKey": "KRAKEN|QX1",
+    "linkedImportKey": null,
+    "importRestoreState": null
+   },
+   "after": {
+    "transferTo": null,
+    "giftToSpouse": false,
+    "importKey": "KRAKEN|QX1",
+    "linkedImportKey": null,
+    "importRestoreState": null
+   }
+  },
+  {
+   "name": "unknown type: keys still split, no spouse rule",
+   "type": "LOAN",
+   "before": {
+    "transferTo": "@spouse",
+    "giftToSpouse": false,
+    "importKey": "GENERIC|W1 ⇄ GENERIC|D1",
+    "linkedImportKey": null,
+    "importRestoreState": null
+   },
+   "after": {
+    "transferTo": "@spouse",
+    "giftToSpouse": false,
+    "importKey": "GENERIC|W1",
+    "linkedImportKey": "GENERIC|D1",
+    "importRestoreState": null
+   }
+  }
+ ],
+ "_restoreStateComment": "Format von importRestoreState (CsvRestoreState.toJson/fromJson): gültige Fälle kommen unverändert zurück, ungültige werden null.",
+ "restoreStateInvalid": [
+  {
+   "name": "unknown version",
+   "json": {
+    "v": 2,
+    "stored": {
+     "type": "WITHDRAWAL",
+     "amount": "1",
+     "time": 1,
+     "importKey": "K"
+    }
+   }
+  },
+  {
+   "name": "missing stored",
+   "json": {
+    "v": 1
+   }
+  },
+  {
+   "name": "unknown type",
+   "json": {
+    "v": 1,
+    "stored": {
+     "type": "LOAN",
+     "amount": "1",
+     "time": 1,
+     "importKey": "K"
+    }
+   }
+  },
+  {
+   "name": "amount not a number",
+   "json": {
+    "v": 1,
+    "stored": {
+     "type": "WITHDRAWAL",
+     "amount": "x",
+     "time": 1,
+     "importKey": "K"
+    }
+   }
+  },
+  {
+   "name": "time not a whole number",
+   "json": {
+    "v": 1,
+    "stored": {
+     "type": "WITHDRAWAL",
+     "amount": "1",
+     "time": 1.5,
+     "importKey": "K"
+    }
+   }
+  },
+  {
+   "name": "missing import key",
+   "json": {
+    "v": 1,
+    "stored": {
+     "type": "WITHDRAWAL",
+     "amount": "1",
+     "time": 1
+    }
+   }
+  },
+  {
+   "name": "unreadable absorbed row",
+   "json": {
+    "v": 1,
+    "stored": {
+     "type": "WITHDRAWAL",
+     "amount": "1",
+     "time": 1,
+     "importKey": "K"
+    },
+    "absorbed": {
+     "type": "DEPOSIT",
+     "time": 2,
+     "importKey": "L"
+    }
+   }
+  }
+ ]
+}

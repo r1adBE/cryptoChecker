@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Tab, leere Ansicht, Einschalten, Sperre -->
+    <string name="app_lock_unavailable">Pe acest dispozitiv nu este configurată nicio blocare a ecranului. Configurează mai întâi una în setările sistemului.</string>
+    <string name="app_lock_unlock">Deblochează</string>
+    <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
+    <string name="portfolio_clear">Golește portofoliul</string>
+    <plurals name="portfolio_clear_confirm_count">
+        <item quantity="one">Ștergi %d tranzacție? Adresele urmărite rămân. Acțiunea nu poate fi anulată.</item>
+        <item quantity="few">Ștergi toate cele %d tranzacții? Adresele urmărite rămân. Acțiunea nu poate fi anulată.</item>
+        <item quantity="other">Ștergi toate cele %d de tranzacții? Adresele urmărite rămân. Acțiunea nu poate fi anulată.</item>
+    </plurals>
+    <string name="portfolio_disclaimer">Sumele rămân pe dispozitiv, dacă nu le exporți tu; pentru cotații se trimit doar simbolurile perechilor la bursa perechii. Nodurile blockchain publice văd adresele urmărite și IP-ul tău. Nu este consultanță de investiții.</string>
+    <string name="portfolio_empty_action">Adaugă prima cumpărare</string>
+    <string name="portfolio_empty_address">Doar urmărește o adresă de portofel</string>
+    <string name="portfolio_empty_csv">Cumpărat pe o bursă? Importă fișierul</string>
+    <string name="portfolio_empty_example_plain">Exemplu: 0,01 BTC cumpărat pe 1 martie. Aplicația arată apoi cât valorează azi și dacă ești pe plus sau pe minus – salvat doar pe acest dispozitiv.</string>
+    <string name="portfolio_empty_text">Introdu ce ai cumpărat – aplicația arată cât valorează azi și cât ești pe plus sau pe minus.</string>
+    <string name="portfolio_empty_title">Încă nicio tranzacție</string>
+    <string name="portfolio_enable_ask_text">Tranzacția ta a fost salvată. Fila Portofoliu arată deținerile tale și valoarea lor.</string>
+    <string name="portfolio_enable_ask_title">Activezi fila Portofoliu?</string>
+    <string name="portfolio_enable_later_hint">Tranzacție salvată. Poți activa fila Portofoliu din Setări › Avansat › Portofoliu.</string>
+    <string name="portfolio_enabled_banner">Portofoliu activat – îl găsești în fila Portofoliu.</string>
+    <string name="portfolio_lock_reason">Deblochează portofoliul</string>
+    <string name="portfolio_locked_text">Deblochează pentru a vedea deținerile și valorile.</string>
+    <string name="portfolio_locked_title">Portofoliul este blocat</string>
+    <string name="portfolio_setting_hint">Opțional: înregistrează cumpărări și vânzări și vezi valoarea și câștigul/pierderea într-o filă separată.</string>
+    <!-- Status-Pille wie in der Merkliste: Kurse älter als die Frische-Schwelle, Gerät online. Offline: offline_status_since, alles aktuell: watchlist_all_fresh -->
+    <string name="portfolio_status_stale">Învechit · la %1$s</string>
+    <plurals name="portfolio_system_restore_invalid">
+        <item quantity="one">%d intrare din copia de sistem era invalidă și nu a fost restaurată.</item>
+        <item quantity="few">%d intrări din copia de sistem erau invalide și nu au fost restaurate.</item>
+        <item quantity="other">%d intrări din copia de sistem erau invalide și nu au fost restaurate.</item>
+    </plurals>
+    <string name="portfolio_title">Portofoliu</string>
+    <string name="portfolio_unassigned_fee">Comision nealocat – cost necunoscut: %1$s</string>
+    <string name="portfolio_updated">Prețuri de la %1$s</string>
+
+    <!-- Portfolio: Gesamtwert-Kopf (Heute · 7 T · Gesamt) und Aufteilung -->
+    <string name="portfolio_allocation_other">Altele</string>
+    <string name="portfolio_allocation_title">Distribuție</string>
+    <string name="portfolio_card_details">Detalii</string>
+    <!-- Screenreader, Kennzahl ohne Wert; %1$s Beschriftung (z. B. «7 Tage») -->
+    <string name="portfolio_card_figure_none_a11y">%1$s: încă indisponibil</string>
+    <string name="portfolio_card_hints_count">Note (%1$d)</string>
+    <string name="portfolio_card_today">Azi</string>
+    <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
+    <string name="portfolio_card_total">Total</string>
+    <string name="portfolio_hide_amounts">Ascunde sumele</string>
+    <string name="portfolio_hide_amounts_hint">Afișează sumele și valorile din portofoliu și din widgetul portofoliului ca ••• – procentele rămân vizibile.</string>
+    <string name="portfolio_invested">Cost de achiziție</string>
+    <string name="portfolio_total_no_fx">Niciun curs valutar pentru %1$s – sume în USDT</string>
+    <string name="portfolio_total_value">Valoare totală</string>
+    <string name="portfolio_value">Valoare</string>
+
+    <!-- Portfolio: Bestand, offene Positionen, Durchschnittspreis -->
+    <string name="portfolio_avg_and_now">Mediu %1$s · acum %2$s</string>
+    <string name="portfolio_avg_only">Medie %1$s</string>
+    <string name="portfolio_avg_open_lots">Cost mediu de achiziție al monedelor deținute</string>
+    <string name="portfolio_avg_partial">Medie din %1$s cu preț de cumpărare</string>
+    <string name="portfolio_avg_price">Preț mediu de cumpărare</string>
+    <string name="portfolio_avg_price_hint">Preț mediu de cumpărare: media tuturor cumpărărilor, ponderată cu cantitatea. Vânzările sunt evaluate la această medie.</string>
+    <plurals name="portfolio_closed">
+        <item quantity="one">Poziție închisă (%1$d)</item>
+        <item quantity="few">Poziții închise (%1$d)</item>
+        <item quantity="other">Poziții închise (%1$d)</item>
+    </plurals>
+    <string name="portfolio_fifo_hint">FIFO: vânzările folosesc mai întâi cele mai vechi monede. Medie = cost de achiziție rămas ÷ cantitate cu preț de cumpărare.</string>
+    <string name="portfolio_holdings">Deținere</string>
+    <string name="portfolio_lost_fee_cost">Costul comisionului de rețea fără lot plătit: %1$s</string>
+    <string name="portfolio_open_lots">Loturi de cumpărare deschise (%1$d)</string>
+    <string name="portfolio_open_lots_avg">Cu preț de cumpărare (Ø)</string>
+    <string name="portfolio_open_lots_no_cost">Fără preț de cumpărare</string>
+    <string name="portfolio_open_lots_without_price">fără preț de cumpărare</string>
+    <string name="portfolio_realized">Câștig/pierdere realizată</string>
+    <string name="portfolio_unrealized">Câștig/pierdere nerealizată</string>
+    <string name="portfolio_unrealized_without_unpriced">fără %1$s fără preț de cumpărare</string>
+    <string name="portfolio_withdrawn_gain">Retras: %1$s (variația valorii până la retragere)</string>
+
+    <!-- Portfolio: Kurse und Umrechnung -->
+    <string name="portfolio_convert_to">Convertește în</string>
+    <string name="portfolio_convert_to_value">Convertește în: %1$s</string>
+    <string name="portfolio_current_missing">Niciun preț curent pentru %1$s</string>
+    <string name="portfolio_current_price">Preț curent</string>
+    <string name="portfolio_price_missing">Lipsește prețul</string>
+    <string name="portfolio_price_missing_hint">Unele cumpărări nu au preț. Adaugă prețul de cumpărare pentru a vedea câștigul/pierderea.</string>
+    <string name="portfolio_price_source">Prețuri: Binance · USDT = 1</string>
+    <string name="portfolio_price_source_routes">Prețuri: %1$s, altfel Binance · USDT = 1</string>
+    <string name="portfolio_price_unavailable">Preț indisponibil momentan</string>
+    <string name="portfolio_price_unchecked">Preț neverificat</string>
+    <string name="portfolio_price_via_base">≈ preț %1$s (bridged/wrapped)</string>
+    <string name="portfolio_usdt_as_usd">USDT convertit la cursul USD</string>
+    <string name="portfolio_usdt_assumed">Presupus USDT = 1</string>
+    <string name="portfolio_usdt_depeg_warning">Presupus USDT = 1 – piața la %1$s USD (%2$s)</string>
+
+    <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
+    <string name="portfolio_add_from_watch">Adaugă în portofoliu</string>
+    <string name="portfolio_add_tx">Înregistrează tranzacție</string>
+    <string name="portfolio_buy">Cumpărare</string>
+    <string name="portfolio_coin">Monedă</string>
+    <string name="portfolio_coin_invalid">Introdu un simbol</string>
+    <string name="portfolio_coin_search">Caută simbolul, de ex. BTC</string>
+    <string name="portfolio_discard_confirm">Renunță</string>
+    <string name="portfolio_discard_keep">Continuă editarea</string>
+    <string name="portfolio_discard_title">Renunți la modificări?</string>
+    <string name="portfolio_edit_tx">Editează tranzacția</string>
+    <string name="portfolio_invalid">Cantitate nevalidă</string>
+    <string name="portfolio_oversold">Vânzările depășesc deținerea – verifică tranzacțiile.</string>
+    <string name="portfolio_sell">Vânzare</string>
+    <string name="portfolio_sell_exceeds">Mai mult decât deții (%1$s)</string>
+    <string name="portfolio_sell_exceeds_fee">Cantitatea plus comisionul depășește deținerile tale (%1$s)</string>
+    <string name="portfolio_sell_exceeds_wallet">Mai mult decât deținerile tale în %2$s (%1$s)</string>
+    <string name="portfolio_transactions">Tranzacții</string>
+    <string name="portfolio_tx_acquired_date">Data inițială a cumpărării (opțional)</string>
+    <string name="portfolio_tx_acquired_date_hint">Pentru durata deținerii în exportul fiscal</string>
+    <string name="portfolio_tx_amount">Cantitate</string>
+    <string name="portfolio_tx_coin_fee">Comision în monedă (opțional)</string>
+    <string name="portfolio_tx_date">Data</string>
+    <string name="portfolio_tx_delete_confirm">Această tranzacție va fi eliminată din portofoliu.</string>
+    <string name="portfolio_tx_delete_title">Ștergi tranzacția?</string>
+    <string name="portfolio_tx_deposit">Depunere</string>
+    <string name="portfolio_tx_entry_currency">Introdu în</string>
+    <string name="portfolio_tx_explain_deposit">Dețineri fără tranzacție, de ex. monede de mai demult</string>
+    <string name="portfolio_tx_explain_gift">Monedele ies din deținere ca o retragere – înstrăinare la valoarea de piață doar unde țara impozitează astfel donațiile (UK, CA, AU)</string>
+    <string name="portfolio_tx_explain_payment">Plătit pentru bunuri sau servicii – înstrăinare la valoarea de piață ca o vânzare, fără a primi bani</string>
+    <string name="portfolio_tx_explain_reward">Cost de achiziție = valoarea de piață la primire</string>
+    <string name="portfolio_tx_explain_swap">Monedă contra monedă: vânzarea celei date, cumpărarea celei primite</string>
+    <string name="portfolio_tx_explain_transfer">Fără câștig – costul de achiziție se mută odată cu monedele</string>
+    <string name="portfolio_tx_explain_withdrawal">Deținerile ies din portofoliu – fără vânzare, fără câștig</string>
+    <string name="portfolio_tx_fee_consumes_amount">Comisionul este cât cantitatea primită – nu ar mai rămâne nimic.</string>
+    <string name="portfolio_tx_fees_toggle">Comisioane</string>
+    <string name="portfolio_tx_fiat_converted">≈ %1$s la cursul din %2$s</string>
+    <string name="portfolio_tx_fiat_loading">Se încarcă cursul valutar…</string>
+    <string name="portfolio_tx_fiat_no_fx">Niciun curs valutar pentru această zi – introdu suma în USDT.</string>
+    <string name="portfolio_tx_gift">Donație</string>
+    <string name="portfolio_tx_gift_price_hint">În USDT. Gol = închiderea zilei (estimată).</string>
+    <string name="portfolio_tx_gift_spouse">Către soț / partener</string>
+    <string name="portfolio_tx_gift_spouse_hint">Regatul Unit și Canada: fără câștig și fără pierdere – partenerul preia costul tău. Celelalte țări ignoră acest lucru.</string>
+    <string name="portfolio_tx_market_value">Valoare de piață pe monedă</string>
+    <string name="portfolio_tx_more_buy">Comision, bursă, notă</string>
+    <string name="portfolio_tx_network_fee">Comision de rețea în monedă (opțional)</string>
+    <string name="portfolio_tx_note">Notă (opțional)</string>
+    <string name="portfolio_tx_payment">Plătit cu</string>
+    <string name="portfolio_tx_price">Preț per monedă</string>
+    <string name="portfolio_tx_price_hint">În USDT. Lasă gol dacă nu știi.</string>
+    <string name="portfolio_tx_price_historic">Închiderea zilnică verificată din %1$s – ajustează dacă e nevoie</string>
+    <string name="portfolio_tx_price_invalid">Preț invalid</string>
+    <string name="portfolio_tx_price_past_hint">Introdu prețul din ziua tranzacției – lasă gol dacă nu-l știi</string>
+    <string name="portfolio_tx_price_receipt_hint">În USDT. Gol = dețineri fără cost de achiziție.</string>
+    <string name="portfolio_tx_price_zero">Prețul 0 nu este posibil la tranzacțiile importate – lasă gol pentru prețul pieței</string>
+    <string name="portfolio_tx_removed">Tranzacție ștearsă</string>
+    <string name="portfolio_tx_reward">Recompensă</string>
+    <string name="portfolio_tx_save_failed">Tranzacția nu a putut fi salvată. Datele introduse sunt încă aici – încearcă din nou.</string>
+    <string name="portfolio_tx_swap">Schimb</string>
+    <string name="portfolio_tx_swap_fee_received">Comision în %1$s: reduce cantitatea primită, nu e nevoie de preț.</string>
+    <string name="portfolio_tx_swap_from">Schimb din %1$s</string>
+    <string name="portfolio_tx_swap_given_amount">Cantitate dată</string>
+    <string name="portfolio_tx_swap_given_coin">Moneda dată</string>
+    <string name="portfolio_tx_swap_received_amount">Cantitate primită</string>
+    <string name="portfolio_tx_swap_received_coin">Moneda primită</string>
+    <string name="portfolio_tx_swap_same_coin">Alege altă monedă decât cea dată</string>
+    <string name="portfolio_tx_swap_to">Schimb în %1$s</string>
+    <string name="portfolio_tx_swap_value">Valoarea schimbului (opțional)</string>
+    <string name="portfolio_tx_swap_value_hint">Valoare totală. Gol = necunoscută – câștigul rămâne incomplet (automat cu USDT în schimb).</string>
+    <string name="portfolio_tx_third_fee_amount">Cantitatea comisionului</string>
+    <string name="portfolio_tx_third_fee_coin">Moneda comisionului</string>
+    <string name="portfolio_tx_third_fee_incomplete">Fără preț, comisionul nu intră în costul de achiziție sau în încasare; exportul fiscal marchează astfel de vânzări.</string>
+    <string name="portfolio_tx_third_fee_price">Preț per monedă de comision (opțional)</string>
+    <string name="portfolio_tx_third_fee_toggle">Comision în altă monedă</string>
+    <string name="portfolio_tx_total">Total: %1$s</string>
+    <string name="portfolio_tx_transfer">Transfer</string>
+    <string name="portfolio_tx_transfer_from">De la (opțional)</string>
+    <string name="portfolio_tx_transfer_to">Către (opțional)</string>
+    <string name="portfolio_tx_transfer_to_hint">Bursă sau wallet – de acum evaluat acolo.</string>
+    <string name="portfolio_tx_type_select">Tip: %1$s</string>
+    <string name="portfolio_tx_value_received">Valoare per monedă la primire (opțional)</string>
+    <string name="portfolio_tx_withdrawal">Retragere</string>
+    <string name="portfolio_tx_withdrawal_gift_hint">Dăruit sau plătit cu el? Înregistrează-l ca ‹Donație› sau ‹Plătit cu› – în funcție de țară, fiscal este o vânzare.</string>
+    <string name="portfolio_tx_withdrawal_price_hint">Opțional: valoare de piață în USDT, folosită doar pentru istoric (gol = prețul zilei). Monedele ies mereu la costul de achiziție.</string>
+    <string name="portfolio_wallet_did_you_mean">Te refereai la %1$s? O altă scriere contează ca wallet separat.</string>
+    <string name="portfolio_wallet_shortfall">Deținerile în %1$s nu ajung – lipsește un transfer?</string>
+
+    <!-- Portfolio: Wertverlauf (Zeitraum, Vergleich Währung | USDT, Währungseffekt) -->
+    <!-- Höchster Tageswert des Zeitraums am Punkt («Hoch 12’345») -->
+    <string name="portfolio_chart_high">Maxim %1$s</string>
+    <string name="portfolio_compare">Comparație</string>
+    <!-- Umschalter «Vergleich», Screenreader: %1$s Währung -->
+    <string name="portfolio_compare_a11y">Compară %1$s și USDT în procente</string>
+    <!-- %1$s Zeitraum, %2$s Währung, %3$s und %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="portfolio_compare_chart_a11y">Comparație în procente, %1$s: %2$s %3$s, USDT %4$s</string>
+    <!-- %1$s Prozentpunkte mit Vorzeichen («−5.10%»): Veränderung in der Währung minus in USDT -->
+    <string name="portfolio_currency_effect">Efect valutar: %1$s</string>
+    <!-- «Seit 1. Kauf» beginnt frühestens beim ersten Tag mit Kursdaten -->
+    <string name="portfolio_history_capped_data_start">Datele de preț merg înapoi doar până în august 2017 — istoricul începe acolo.</string>
+    <string name="portfolio_history_chip_since_first">De la cumpărare</string>
+    <string name="portfolio_history_collapse">Ascunde evoluția valorii</string>
+    <string name="portfolio_history_converted">Convertit la cursul de azi</string>
+    <string name="portfolio_history_expand">Afișează evoluția valorii</string>
+    <string name="portfolio_history_gain_a11y">Valoare %1$s. Câștig/pierdere, %2$s: %3$s</string>
+    <string name="portfolio_history_gain_label">Câștig/pierdere</string>
+    <!-- Umschalter, Screenreader: %1$s Währung («CHF») oder «USDT» -->
+    <string name="portfolio_history_in_a11y">Valoare în %1$s</string>
+    <string name="portfolio_history_incl_fx">Incl. cursul valutar</string>
+    <string name="portfolio_history_incl_withdrawn">Include variația valorii monedelor retrase</string>
+    <string name="portfolio_history_includes_trades">Include cumpărările și vânzările din această perioadă</string>
+    <string name="portfolio_history_loading">Se încarcă evoluția valorii</string>
+    <string name="portfolio_history_period_1y">1 an</string>
+    <string name="portfolio_history_period_30d">30 de zile</string>
+    <string name="portfolio_history_period_7d">7 zile</string>
+    <string name="portfolio_history_period_since_first">de la prima cumpărare</string>
+    <string name="portfolio_history_pnl_needs_prices">Lipsesc prețuri de cumpărare pentru câștig/pierdere – adaugă-le în tranzacții.</string>
+    <string name="portfolio_history_pnl_without">Câștig/pierdere fără %1$s (lipsește prețul)</string>
+    <string name="portfolio_history_range_1y">1 A</string>
+    <string name="portfolio_history_range_30d">30 Z</string>
+    <string name="portfolio_history_range_7d">7 Z</string>
+    <string name="portfolio_history_range_a11y">Afișează evoluția pentru %1$s</string>
+    <string name="portfolio_history_range_since_first">De la prima cumpărare</string>
+    <string name="portfolio_history_scaled">Istoric pentru %1$s: istoric Binance scalat la prețul bursei</string>
+    <string name="portfolio_history_title">Evoluția valorii</string>
+    <string name="portfolio_history_today">Azi</string>
+    <string name="portfolio_history_too_short">Evoluția începe după prima zi completă.</string>
+    <string name="portfolio_history_unavailable">Momentan nu este disponibilă nicio evoluție.</string>
+    <string name="portfolio_history_utc_days">Zile în UTC (lumânări zilnice)</string>
+    <string name="portfolio_history_without_matching">Fără %1$s (fără prețuri zilnice potrivite)</string>
+    <string name="portfolio_period_rewards">Recompense +%1$s (nu în câștig)</string>
+    <string name="portfolio_period_scaled">7 Z/1 A pentru %1$s: istoric Binance scalat la prețul bursei</string>
+
+    <!-- Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_alarm_action">Alarmă</string>
+    <!-- %1$s = Währung, z. B. CHF -->
+    <string name="portfolio_alarm_amount">Sumă (%1$s)</string>
+    <string name="portfolio_alarm_hint">Verificată după fiecare actualizare. Ca alarmele: anunță la depășirea pragului și din nou doar după ce valoarea a revenit.</string>
+    <string name="portfolio_alarm_kind_above">Portofoliu peste o sumă</string>
+    <string name="portfolio_alarm_kind_below">Portofoliu sub o sumă</string>
+    <string name="portfolio_alarm_kind_down">Portofoliul scade</string>
+    <string name="portfolio_alarm_kind_up">Portofoliul crește</string>
+    <!-- %1$s = Betrag mit Währung (oder •••) -->
+    <string name="portfolio_alarm_sentence_above">Portofoliu peste %1$s</string>
+    <string name="portfolio_alarm_sentence_below">Portofoliu sub %1$s</string>
+    <string name="portfolio_alarm_sentence_down">Portofoliul scade cu %1$s (%2$s)</string>
+    <!-- %1$s = Prozent, %2$s = Basis der %-Änderung kurz (24h, heute …) -->
+    <string name="portfolio_alarm_sentence_up">Portofoliul crește cu %1$s (%2$s)</string>
+    <string name="portfolio_alarm_title">Alarmă „valoarea portofoliului”</string>
+
+    <!-- Gebühr, Börse und Gewinn/Verlust einer Position -->
+    <string name="ledger_exchange">Bursă (opțional)</string>
+    <string name="ledger_exchange_failed">%1$s: acum niciun preț de la %2$s – evaluat cu Binance.</string>
+    <string name="ledger_exchange_hint">Moneda este evaluată la prețul acestei burse (altfel Binance). Istoric, 7 Z și 1 A: prețuri zilnice Binance, scalate.</string>
+    <string name="ledger_exchange_mixed">%1$s: mai multe burse introduse – evaluat cu Binance. Ai mutat monede? Înregistrează mutarea ca «Transfer».</string>
+    <string name="ledger_exchange_none">Niciuna (Binance)</string>
+    <string name="ledger_fee">Comision (opțional)</string>
+    <string name="ledger_fee_coin">Monedă</string>
+    <string name="ledger_fee_hint">În USDT crește costul de achiziție (vânzare: scade încasarea); în monedă reduce cantitatea.</string>
+    <string name="ledger_fee_line">Comision %1$s</string>
+    <string name="ledger_fifo_cost_note">De la cumpărare: cost FIFO cu comisioane (cele mai vechi monede vândute primele).</string>
+    <string name="ledger_gain_info">Azi, 7 Z, 1 A: variația valorii în perioadă – cumpărările și vânzările nu contează drept câștig. De la cumpărare: valoarea actuală minus costul de achiziție (cost mediu cu comisioane) al monedelor încă deținute.</string>
+    <string name="ledger_gain_info_a11y">Cum se calculează câștigul și pierderea</string>
+    <string name="ledger_gain_info_fifo">Azi, 7 Z, 1 A: variația valorii în perioadă – cumpărările și vânzările nu contează drept câștig. De la cumpărare: valoarea actuală minus costul de achiziție (FIFO cu comisioane) al monedelor încă deținute.</string>
+    <string name="ledger_gain_title">Câștig/pierdere</string>
+    <string name="ledger_more_toggle">Comision și bursă</string>
+    <string name="ledger_partial_cost">«De la cumpărare» ia în calcul doar partea cu preț de cumpărare – fără %1$s fără preț de cumpărare.</string>
+    <string name="ledger_period_without">Azi / 7 Z / 1 A fără %1$s – niciun preț inițial potrivit.</string>
+    <string name="ledger_since_purchase_currency">De la cumpărare (%1$s)</string>
+    <string name="ledger_since_purchase_spoken">Câștig/pierdere de la cumpărare, încă nevândut</string>
+    <plurals name="ledger_without_cost">
+        <item quantity="one">Fără %1$d monedă fără preț de cumpărare (%2$s) – adaugă prețul ca să conteze.</item>
+        <item quantity="few">Fără %1$d monede fără preț de cumpărare (%2$s) – adaugă prețurile ca să conteze.</item>
+        <item quantity="other">Fără %1$d de monede fără preț de cumpărare (%2$s) – adaugă prețurile ca să conteze.</item>
+    </plurals>
+</resources>

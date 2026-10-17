@@ -1,0 +1,74 @@
+{
+  "description": "USDT depeg alarm (Android DepegAlarm.kt / iOS DepegAlarm.swift). threshold: stored tenths of a percent -> effective (unknown -> 5). combine: Kraken USDT/USD last and Binance USDC/USDT last (null = missing) -> USDT in USD (closer to 1 wins; implausible values outside 0.5..1.5 dropped), tolerance 1e-9. evaluate: deviation in percent, threshold in percent, armed, mayFire -> fire, armed (re-armed at half the threshold; magnitude rounded to 4 decimals, threshold inclusive). episodes: prices in order (start armed, every fired notification is posted; quiet = mayFire false) -> fired per step. mainExchange: watchlist market keys -> exchange key and URL of the 'Open exchange' button. cardWarning: last reading (price in USD, ageMillis = now - reading time; null price = no reading) and stored thresholdTenths -> shown on the portfolio card (magnitude >= threshold, same rounding as evaluate; hidden when older than 30 minutes or more than 1 minute in the future). cardNote (Build 58): «USDT = 1» line of the portfolio card independent of the alarm — holdings (coin symbols, any case), valuesViaUsdt (values hang on USDT = USD: display currency, USD or mixed exchanges) and the last reading as in cardWarning -> kind DEVIATION (fresh reading >= threshold, as today), PRICE_SOURCE («Prices: Binance · USDT = 1»), USDT_ASSUMED (holdings contain USDT, counted as 1) or null (no line).",
+  "threshold": [
+    {"stored": 3, "expected": 3},
+    {"stored": 5, "expected": 5},
+    {"stored": 10, "expected": 10},
+    {"stored": 20, "expected": 20},
+    {"stored": 7, "expected": 5},
+    {"stored": 0, "expected": 5}
+  ],
+  "combine": [
+    {"kraken": 0.993, "binance": 1.0071, "expected": 0.993},
+    {"kraken": null, "binance": 1.0071, "expected": 0.9929500546122529},
+    {"kraken": 0.993, "binance": null, "expected": 0.993},
+    {"kraken": null, "binance": null, "expected": null},
+    {"kraken": 2.5, "binance": 1.0, "expected": 1.0},
+    {"kraken": 0.994, "binance": 0.99, "expected": 0.994},
+    {"kraken": null, "binance": 0, "expected": null}
+  ],
+  "evaluate": [
+    {"deviation": -0.7, "threshold": 0.5, "armed": true, "mayFire": true, "fire": true, "armedAfter": false},
+    {"deviation": -0.7, "threshold": 0.5, "armed": true, "mayFire": false, "fire": false, "armedAfter": true},
+    {"deviation": -0.5000000000000004, "threshold": 0.5, "armed": true, "mayFire": true, "fire": true, "armedAfter": false},
+    {"deviation": 0.49, "threshold": 0.5, "armed": true, "mayFire": true, "fire": false, "armedAfter": true},
+    {"deviation": -0.4, "threshold": 0.5, "armed": false, "mayFire": true, "fire": false, "armedAfter": false},
+    {"deviation": -0.25, "threshold": 0.5, "armed": false, "mayFire": true, "fire": false, "armedAfter": true},
+    {"deviation": 0.1, "threshold": 0.3, "armed": false, "mayFire": true, "fire": false, "armedAfter": true},
+    {"deviation": 2.5, "threshold": 2.0, "armed": false, "mayFire": true, "fire": false, "armedAfter": false},
+    {"deviation": 1.2, "threshold": 1.0, "armed": true, "mayFire": true, "fire": true, "armedAfter": false},
+    {"deviation": 5.0, "threshold": 0, "armed": true, "mayFire": true, "fire": false, "armedAfter": true}
+  ],
+  "episodes": [
+    {"name": "fires once per episode, re-arms at half the threshold", "thresholdTenths": 5, "prices": [1.0, 0.996, 0.995, 0.993, 0.99, 0.997, 0.9974, 0.9976, 0.994, 1.006], "quiet": [false, false, false, false, false, false, false, false, false, false], "fired": [false, false, true, false, false, false, false, false, true, false]},
+    {"name": "quiet hours hold the alarm armed", "thresholdTenths": 10, "prices": [0.985, 0.985, 0.985], "quiet": [true, false, false], "fired": [false, true, false]},
+    {"name": "upward depeg counts too", "thresholdTenths": 3, "prices": [1.004, 1.002, 1.0014, 1.0035], "quiet": [false, false, false, false], "fired": [true, false, false, true]}
+  ],
+  "mainExchange": [
+    {"keys": [], "expected": "Kraken", "url": "https://pro.kraken.com/app/trade/usdc-usdt"},
+    {"keys": ["Binance", "Binance", "Kraken"], "expected": "Binance", "url": "https://www.binance.com/en/trade/USDC_USDT?type=spot"},
+    {"keys": ["Kraken", "Binance"], "expected": "Binance", "url": "https://www.binance.com/en/trade/USDC_USDT?type=spot"},
+    {"keys": ["BinanceFutures", "Kraken", "Kraken", "BinanceFutures", "Binance"], "expected": "Binance", "url": "https://www.binance.com/en/trade/USDC_USDT?type=spot"},
+    {"keys": ["Bitvavo", "Bitvavo"], "expected": "Kraken", "url": "https://pro.kraken.com/app/trade/usdc-usdt"},
+    {"keys": ["Okex", "OkexFutures", "Coinbase"], "expected": "Okex", "url": "https://www.okx.com/trade-spot/usdc-usdt"},
+    {"keys": ["Bitvavo", "Mexc"], "expected": "Mexc", "url": "https://www.mexc.com/exchange/USDC_USDT"}
+  ],
+  "cardWarning": [
+    {"price": 0.993, "ageMillis": 60000, "thresholdTenths": 5, "shown": true},
+    {"price": 0.995, "ageMillis": 0, "thresholdTenths": 5, "shown": true},
+    {"price": 0.9951, "ageMillis": 0, "thresholdTenths": 5, "shown": false},
+    {"price": 1.006, "ageMillis": 600000, "thresholdTenths": 5, "shown": true},
+    {"price": 0.993, "ageMillis": 1800000, "thresholdTenths": 5, "shown": true},
+    {"price": 0.993, "ageMillis": 1800001, "thresholdTenths": 5, "shown": false},
+    {"price": 0.993, "ageMillis": -60000, "thresholdTenths": 5, "shown": true},
+    {"price": 0.993, "ageMillis": -60001, "thresholdTenths": 5, "shown": false},
+    {"price": 0.993, "ageMillis": 60000, "thresholdTenths": 10, "shown": false},
+    {"price": 0.997, "ageMillis": 60000, "thresholdTenths": 3, "shown": true},
+    {"price": 0.997, "ageMillis": 60000, "thresholdTenths": 7, "shown": false},
+    {"price": null, "ageMillis": 0, "thresholdTenths": 5, "shown": false}
+  ],
+  "cardNote": [
+    {"holdings": ["BTC", "USDT"], "valuesViaUsdt": false, "price": null, "ageMillis": 0, "thresholdTenths": 5, "kind": "USDT_ASSUMED"},
+    {"holdings": [" usdt "], "valuesViaUsdt": false, "price": null, "ageMillis": 0, "thresholdTenths": 5, "kind": "USDT_ASSUMED"},
+    {"holdings": ["BTC", "USDT"], "valuesViaUsdt": false, "price": 0.9999, "ageMillis": 0, "thresholdTenths": 5, "kind": "USDT_ASSUMED"},
+    {"holdings": ["BTC", "USDT"], "valuesViaUsdt": false, "price": 0.993, "ageMillis": 60000, "thresholdTenths": 5, "kind": "DEVIATION"},
+    {"holdings": ["BTC", "USDT"], "valuesViaUsdt": false, "price": 0.993, "ageMillis": 1800001, "thresholdTenths": 5, "kind": "USDT_ASSUMED"},
+    {"holdings": ["BTC"], "valuesViaUsdt": false, "price": null, "ageMillis": 0, "thresholdTenths": 5, "kind": null},
+    {"holdings": ["BTC", "USDC"], "valuesViaUsdt": false, "price": null, "ageMillis": 0, "thresholdTenths": 5, "kind": null},
+    {"holdings": ["BTC"], "valuesViaUsdt": true, "price": null, "ageMillis": 0, "thresholdTenths": 5, "kind": "PRICE_SOURCE"},
+    {"holdings": ["BTC", "USDT"], "valuesViaUsdt": true, "price": null, "ageMillis": 0, "thresholdTenths": 5, "kind": "PRICE_SOURCE"},
+    {"holdings": ["BTC"], "valuesViaUsdt": true, "price": 1.006, "ageMillis": 600000, "thresholdTenths": 5, "kind": "DEVIATION"},
+    {"holdings": ["BTC"], "valuesViaUsdt": false, "price": 0.993, "ageMillis": 0, "thresholdTenths": 5, "kind": "DEVIATION"},
+    {"holdings": [], "valuesViaUsdt": false, "price": null, "ageMillis": 0, "thresholdTenths": 5, "kind": null}
+  ]
+}

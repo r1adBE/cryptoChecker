@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Neutrale Indikatoren: Titel, Hinweise, Halving -->
+    <string name="neutral_alt_title">Altcoins έναντι Bitcoin</string>
+    <string name="neutral_btc_indicators_title">Δείκτες Bitcoin</string>
+    <string name="neutral_halving_last">Τελευταίο halving: %1$s</string>
+    <string name="neutral_halving_next">Επόμενο halving αναμένεται περίπου %1$s (εκτίμηση βάσει ημερολογίου – το ύψος μπλοκ δεν είναι διαθέσιμο τώρα).</string>
+    <string name="neutral_indicators_disclaimer">Μόνο μετρούμενες τιμές, χωρίς αξιολόγηση. Δεν είναι πρόβλεψη ούτε επενδυτική συμβουλή.</string>
+    <string name="neutral_onchain_missing">Τα δεδομένα on-chain (Coin Metrics) δεν είναι διαθέσιμα αυτή τη στιγμή.</string>
+
+    <!-- Neutrale Indikatoren: was der Wert misst -->
+    <string name="neutral_explain_ath_distance">Πόσο κάτω από το προηγούμενο ιστορικό υψηλό είναι η τιμή.</string>
+    <string name="neutral_explain_change_30d">Η σημερινή τιμή σε σύγκριση με πριν από 30 ημέρες.</string>
+    <string name="neutral_explain_hashrate">Μέσος hashrate 30 ημερών σε σύγκριση με τον μέσο όρο 60 ημερών.</string>
+    <string name="neutral_explain_ma200w">Μέσος όρος των τελευταίων 200 εβδομαδιαίων κλεισιμάτων.</string>
+    <string name="neutral_explain_mayer">Τιμή διαιρεμένη με τον μέσο όρο 200 ημερών.</string>
+    <string name="neutral_explain_mvrv">Αγοραία αξία διαιρεμένη με την πραγματοποιημένη αξία (on-chain).</string>
+    <string name="neutral_explain_pi_gap">Μέσος όρος 111 ημερών σε σύγκριση με το διπλάσιο του μέσου όρου 350 ημερών.</string>
+    <string name="neutral_explain_puell">Ημερήσια έσοδα των miners διαιρεμένα με τον μέσο όρο 365 ημερών.</string>
+    <string name="neutral_explain_rsi_daily">Δείκτης σχετικής ισχύος των τελευταίων 14 ημερών, 0–100.</string>
+    <string name="neutral_explain_rsi_weekly">Δείκτης σχετικής ισχύος των τελευταίων 14 εβδομάδων, 0–100.</string>
+    <string name="neutral_explain_sma50_200">Μέσος όρος 50 ημερών σε σύγκριση με τον μέσο όρο 200 ημερών.</string>
+    <string name="neutral_explain_vs_btc">Μεταβολή τιμής σε σχέση με το Bitcoin σε 90 ημέρες.</string>
+
+    <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
+    <string name="neutral_info_alt_season_how">Η εφαρμογή δείχνει μόνο την καταμέτρηση και δεν την ονομάζει «περίοδο». Η τιμή αλλάζει συνήθως μέσα σε μέρες, όχι ώρες.</string>
+    <string name="neutral_info_btc_how">Κάθε τιμή συνοδεύεται από μια πρόταση για το τι μετρά και πού βρίσκεται στο δικό της ιστορικό από το 2016. Η εφαρμογή δεν αξιολογεί τις τιμές ούτε συνάγει φάση αγοράς· όρια ειδοποιήσεων υπάρχουν μόνο όσα ορίζεις εσύ. Τα μοτίβα του παρελθόντος δεν είναι βέβαιο ότι θα επαναληφθούν.</string>
+    <string name="neutral_info_btc_what">Συνήθεις δείκτες Bitcoin ως απλές μετρημένες τιμές: Mayer Multiple, μέσος όρος 200 εβδομάδων, πτώση από το ιστορικό υψηλό, μεταβολή 30 ημερών, απόσταση Pi Cycle και οι on-chain τιμές MVRV, Puell Multiple και hashrate.</string>
+    <string name="neutral_info_coin_how">Κάθε τιμή συνοδεύεται από μία πρόταση για το τι μετρά, χωρίς αξιολόγηση. Σε νομίσματα με σύντομο ιστορικό λείπουν ορισμένες τιμές. Τα δεδομένα on-chain δεν περιλαμβάνονται εδώ.</string>
+    <string name="neutral_info_coin_what">Οι ίδιοι απλοί δείκτες για ένα νόμισμα της επιλογής σας, μόνο από δεδομένα τιμών: Mayer Multiple, μέσος όρος 200 εβδομάδων, πτώση από το υψηλό, μεταβολή 30 ημερών, τάση 50/200 ημερών, RSI και ισχύς έναντι του Bitcoin σε 90 ημέρες.</string>
+    <string name="neutral_info_halving_how">Το επόμενο halving υπολογίζεται από το τρέχον ύψος μπλοκ και τον μέσο χρόνο μπλοκ της τρέχουσας περιόδου δυσκολίας (mempool.space)· χωρίς αυτά τα δεδομένα, βάσει ημερολογίου (τελευταίο halving συν περίπου τέσσερα χρόνια). Το γράφημα δείχνει την πορεία προηγούμενων κύκλων από το halving τους – ιστορία, όχι πρόβλεψη.</string>
+
+    <!-- Indikator-Namen -->
+    <string name="ind_cross">Τάση 50/200 ημερών</string>
+    <string name="ind_drawdown">Πτώση από το ιστορικό υψηλό</string>
+    <string name="ind_missing">λίγα δεδομένα</string>
+    <string name="ind_rsi_daily">RSI (ημερήσιο)</string>
+    <string name="ind_rsi_weekly">RSI (εβδομαδιαίο)</string>
+    <string name="ind_vs_btc">Δύναμη έναντι Bitcoin (90 ημέρες)</string>
+    <string name="neutral_ind_change_30d">Μεταβολή 30 ημερών</string>
+    <string name="neutral_ind_hashrate">Hashrate 30/60 ημερών</string>
+    <string name="neutral_ind_ma200w">Μέσος όρος 200 εβδομάδων</string>
+    <string name="neutral_ind_pi_gap">Απόσταση Pi Cycle</string>
+
+    <!-- Indikatoren: «hoch heisst …, tief heisst …» -->
+    <string name="ind_read_alt_season">Υψηλό σημαίνει ότι τα περισσότερα μεγάλα altcoins ξεπέρασαν το Bitcoin σε 90 ημέρες, χαμηλό ότι το Bitcoin ξεπέρασε τα περισσότερα.</string>
+    <string name="ind_read_ath_distance">Μικρή σημαίνει ότι η τιμή είναι κοντά στο ρεκόρ, μεγάλη ότι είναι πολύ χαμηλότερα.</string>
+    <string name="ind_read_change_30d">Θετικό σημαίνει υψηλότερα από πριν από 30 ημέρες, αρνητικό χαμηλότερα.</string>
+    <string name="ind_read_funding">Υψηλό σημαίνει ότι πολλοί ποντάρουν με μόχλευση σε άνοδο, αρνητικό ότι πολλοί ποντάρουν σε πτώση.</string>
+    <string name="ind_read_hashrate_30_60">Θετικό σημαίνει ότι η υπολογιστική ισχύς αυξάνεται, αρνητικό ότι εξορύκτες αποσυνδέονται.</string>
+    <string name="ind_read_leverage">Πολλά long σημαίνει ότι πολλοί ποντάρουν σε άνοδο με δανεικά, πολλά short σε πτώση.</string>
+    <string name="ind_read_ma200w">Τιμή πολύ πάνω σημαίνει μακρά άνοδο, τιμή κοντά βαθιά διόρθωση.</string>
+    <string name="ind_read_mayer">Υψηλό σημαίνει ότι η τιμή είναι πολύ πάνω από τον μέσο όρο 200 ημερών, χαμηλό ότι είναι κάτω από αυτόν.</string>
+    <string name="ind_read_mvrv">Υψηλό σημαίνει ότι η τιμή είναι πολύ πάνω από ό,τι πλήρωσαν κατά μέσο όρο οι κάτοχοι, χαμηλό ότι είναι κοντά ή κάτω.</string>
+    <string name="ind_read_pi_cycle_gap">Κοντά στο μηδέν σημαίνει ότι οι δύο μέσοι όροι σχεδόν συναντιούνται, έντονα αρνητικό ότι απέχουν πολύ.</string>
+    <string name="ind_read_puell">Υψηλό σημαίνει ότι οι εξορύκτες κερδίζουν πολύ περισσότερα από το συνηθισμένο, χαμηλό πολύ λιγότερα.</string>
+    <string name="ind_read_rsi_daily">Πάνω από 70 σημαίνει ισχυρά κέρδη τις τελευταίες ημέρες, κάτω από 30 ισχυρές απώλειες.</string>
+    <string name="ind_read_rsi_weekly">Πάνω από 70 σημαίνει ισχυρά κέρδη τις τελευταίες εβδομάδες, κάτω από 30 ισχυρές απώλειες.</string>
+    <string name="ind_read_sma50_vs_200">Θετικό σημαίνει ότι ο σύντομος μέσος όρος είναι πάνω από τον μακρύ, αρνητικό κάτω.</string>
+    <string name="ind_read_vs_btc">Θετικό σημαίνει καλύτερα από το Bitcoin, αρνητικό χειρότερα.</string>
+
+    <!-- Indikatoren: Einordnung in die Vergangenheit -->
+    <string name="ind_context_flat30">Ίδια τιμή για 30 ημέρες: %1$s</string>
+    <string name="ind_context_note">Οι παλαιότερες τιμές και οι υπολογισμοί «ίδια τιμή» είναι αριθμητική, όχι πρόβλεψη.</string>
+    <string name="ind_context_percentile">Από %1$s χαμηλότερο στο %2$s των ημερών</string>
+</resources>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: beobachtete Adressen (Wallets) -->
+    <string name="portfolio_address_add">Lägg till adress</string>
+    <string name="portfolio_address_count">Räkna med</string>
+    <string name="portfolio_address_error">Uppdateringen misslyckades</string>
+    <string name="portfolio_address_hint">Offentlig adress (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) eller xpub</string>
+    <string name="portfolio_address_label">Etikett (valfritt)</string>
+    <string name="portfolio_address_not_since_buy">Från adress · inte i «Sedan köp»: %1$s</string>
+    <string name="portfolio_address_overlap">Finns även i dina egna transaktioner: %1$s – båda läggs ihop. Samma mynt? Välj «Visa bara».</string>
+    <string name="portfolio_address_overlap_ask">Du registrerar redan %1$s med egna transaktioner. Ska saldot för den här adressen räknas in i portföljen eller bara visas?</string>
+    <string name="portfolio_address_overlap_auto">«%1$s» visas nu bara och räknas inte – %2$s finns även i dina transaktioner.</string>
+    <string name="portfolio_address_overlap_restored">«%1$s» räknas igen – mängderna stämmer inte med dina transaktioner. Välj «Visa bara» om det är samma mynt.</string>
+    <string name="portfolio_address_overlap_title">Samma mynt som i dina transaktioner?</string>
+    <string name="portfolio_address_overlap_tx">Samma mängd som din egen insättning/överföring (%1$s) – räknas troligen dubbelt.</string>
+    <string name="portfolio_address_period_observed">Bevakade adresser räknas från det första observerade saldot; senare ändringar är in-/utflöden, inte vinst.</string>
+    <string name="portfolio_address_privacy">Bara den offentliga adressen skickas till %1$s – aldrig nycklar eller seedfraser. Leverantören ser den tillsammans med din IP-adress. Kontrolleras högst var 10:e minut.</string>
+    <string name="portfolio_address_remove">Ta bort adress</string>
+    <string name="portfolio_address_show_only">Visa bara, räkna inte in i portföljen</string>
+    <string name="portfolio_address_show_only_short">Visa bara</string>
+    <string name="portfolio_address_tokens">Räkna med tokens</string>
+    <string name="portfolio_address_unknown_tokens">+%1$d okända tokens (räknas inte)</string>
+    <string name="portfolio_address_xpub_privacy">En xpub avslöjar alla adresser i den här walleten. De härleds på din enhet; bara enskilda adresser skickas till %1$s – minst 40 förfrågningar vid första sökningen, sedan färre. Privata nycklar (xprv) godtas aldrig.</string>
+    <string name="portfolio_address_xpub_used">Använda adresser: %1$d</string>
+    <string name="portfolio_addresses_title">Adresser</string>
+
+    <!-- Prüfung einer eingegebenen Adresse -->
+    <string name="address_bch_unsupported">Bitcoin Cash-adresser kan inte bevakas: det finns ingen gratis offentlig tjänst utan API-nyckel vars villkor tillåter det.</string>
+    <string name="address_bep2_shutdown">BNB Beacon Chain (BEP-2) stängdes 2024 – saldon finns nu på BNB Smart Chain (0x…)</string>
+    <string name="address_checksum">Fel kontrollsumma – stavfel?</string>
+    <string name="address_doge_unsupported">Dogecoin-adresser kan inte bevakas: det finns ingen gratis offentlig tjänst utan API-nyckel vars villkor tillåter det.</string>
+    <string name="address_duplicate">Den här adressen är redan tillagd</string>
+    <string name="address_ens">ENS-namn stöds inte – ange 0x-adressen</string>
+    <string name="address_invalid">Inte en giltig adress i ett nätverk som stöds</string>
+    <string name="address_limit">Högst 20 adresser</string>
+    <string name="address_secret">Det här ser ut som en privat nyckel eller seedfras – ange den aldrig någonstans. Bara offentliga adresser.</string>
+    <string name="address_testnet">Testnet-adresser stöds inte</string>
+    <string name="address_unsupported">Den här adresstypen stöds inte</string>
+    <string name="address_wrong_chain">Adressen hör till ett annat nätverk</string>
+    <string name="address_xpub_multisig">Multisig-nycklar (Ypub/Zpub) stöds inte</string>
+</resources>

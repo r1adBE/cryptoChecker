@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Screenreader: Zeile eines Paars, Frische, Erreichbarkeit -->
+    <string name="a11y_alarm_count">สัญญาณเตือน: %1$d</string>
+    <!-- Alarm des Paars eben ausgelöst (bis 15 Min. danach im Zeilensatz) -->
+    <string name="a11y_alarm_fired">สัญญาณเตือนทำงานแล้ว</string>
+    <string name="a11y_collapsed">ยุบแล้ว</string>
+    <string name="a11y_converted">ประมาณ %1$s</string>
+    <string name="a11y_expanded">ขยายแล้ว</string>
+    <!-- Vorgelesen bei Zeilen, die eine Website öffnen (Datenschutz, Börse wünschen, Quellcode) -->
+    <string name="a11y_external_link">เปิดในเบราว์เซอร์</string>
+    <string name="a11y_favorite">รายการโปรด</string>
+    <string name="a11y_in_watchlist">อยู่ในรายการติดตามแล้ว</string>
+    <!-- %1$s Börse, letzte Abfrage gescheitert -->
+    <string name="a11y_market_unreachable">ไม่สามารถเชื่อมต่อ %1$s</string>
+    <string name="a11y_move_down">ย้ายลง</string>
+    <string name="a11y_move_up">ย้ายขึ้น</string>
+    <string name="a11y_note">บันทึก: %1$s</string>
+    <string name="a11y_price">ราคา %1$s</string>
+    <string name="a11y_price_notification_off">การแจ้งราคาปิดอยู่</string>
+    <string name="a11y_price_notification_on">การแจ้งราคาเปิดอยู่</string>
+    <!-- Frische einer Zeile, Teile mit «, » verbunden: «Kurs veraltet, zuletzt aktualisiert vor 45 Minuten» (A11ySpeech.freshnessText) -->
+    <string name="a11y_price_outdated">ราคาไม่เป็นปัจจุบัน</string>
+    <!-- Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%1$s บน %2$s</string>
+    <string name="a11y_stale">ข้อมูลเก่า อัปเดตล่าสุด %1$s</string>
+    <string name="a11y_warning">คำเตือน</string>
+
+    <!-- Screenreader: Veränderung (Prozent-Pille, Widgets) -->
+    <!-- %1$s Satz aus a11y_change_up/down/flat: Veränderung über 24 Stunden (Prozent-Pille, Widgets) -->
+    <string name="a11y_change_24h">%1$s ใน 24 ชั่วโมง</string>
+    <!-- Wenn die Pille «—» zeigt (keine Kerzen für das Paar) -->
+    <string name="a11y_change_24h_none">ไม่มีข้อมูลการเปลี่ยนแปลง 24 ชั่วโมง</string>
+    <string name="a11y_change_down">ลง %1$s</string>
+    <string name="a11y_change_flat">ไม่เปลี่ยนแปลง</string>
+    <string name="a11y_change_since_last">%1$s ตั้งแต่อัปเดตล่าสุด</string>
+    <string name="a11y_change_since_last_none">ไม่มีข้อมูลการเปลี่ยนแปลงตั้งแต่อัปเดตล่าสุด</string>
+    <!-- %1$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_change_today">%1$s วันนี้</string>
+    <string name="a11y_change_today_none">ไม่มีข้อมูลการเปลี่ยนแปลงวันนี้</string>
+    <string name="a11y_change_today_zone">%1$s ตั้งแต่เที่ยงคืน %2$s</string>
+    <string name="a11y_change_today_zone_none">ไม่มีข้อมูลการเปลี่ยนแปลงตั้งแต่เที่ยงคืน %1$s</string>
+    <string name="a11y_change_up">ขึ้น %1$s</string>
+
+    <!-- Screenreader: Charts und Skalen -->
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">กราฟ %1$s: จาก %2$s เป็น %3$s, %4$s สูงสุด %5$s, ต่ำสุด %6$s</string>
+    <string name="a11y_chart_empty">กราฟ: ไม่มีข้อมูล</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">วัฏจักร %1$s: %2$s นับจากฮาล์ฟวิ่ง วันที่ %3$d</string>
+    <string name="a11y_cycle_bottom">จุดต่ำสุด %1$s ในวันที่ %2$d</string>
+    <string name="a11y_cycle_double_bottom">จุดต่ำสุดคู่ %1$s ในวันที่ %2$d</string>
+    <string name="a11y_cycle_double_top">จุดสูงสุดคู่ %1$s ในวันที่ %2$d</string>
+    <string name="a11y_cycle_top">จุดสูงสุด %1$s ในวันที่ %2$d</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">สเกลจาก %1$s ถึง %2$s: %3$d จาก 100</string>
+
+    <!-- Screenreader: Puls-Zeile der Merkliste -->
+    <string name="a11y_watchlist_pulse">%1$s %2$s เฉลี่ย %3$s</string>
+    <string name="a11y_watchlist_pulse_combined">%1$s %2$s</string>
+    <plurals name="a11y_watchlist_pulse_falling">
+        <item quantity="other">%1$d คู่ปรับลง</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing">
+        <item quantity="other">%1$d คู่ไม่มีค่า 24 ชั่วโมง</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="other">%1$d คู่ไม่มีค่าสำหรับวันนี้</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_rising">
+        <item quantity="other">%1$d คู่ปรับขึ้น</item>
+    </plurals>
+
+    <!-- Screenreader: zuletzt aktualisiert -->
+    <plurals name="a11y_updated_days">
+        <item quantity="other">อัปเดตล่าสุดเมื่อ %1$d วันที่แล้ว</item>
+    </plurals>
+    <plurals name="a11y_updated_hours">
+        <item quantity="other">อัปเดตล่าสุดเมื่อ %1$d ชั่วโมงที่แล้ว</item>
+    </plurals>
+    <string name="a11y_updated_just_now">อัปเดตล่าสุดเมื่อสักครู่</string>
+    <plurals name="a11y_updated_minutes">
+        <item quantity="other">อัปเดตล่าสุดเมื่อ %1$d นาทีที่แล้ว</item>
+    </plurals>
+
+    <!-- Screenreader: Portfolio und Portfolio-Widget -->
+    <string name="a11y_amount_hidden">ซ่อนจำนวนเงินแล้ว</string>
+    <!-- %1$s Kürzel, %2$s Wert mit Währung, %3$s Anteil «62.3%», %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_portfolio_position">%1$s %2$s %3$s ของพอร์ตโฟลิโอ</string>
+    <!-- Position im Portfolio-Widget: %1$s Kürzel, %2$s Anteil «62.3%», %3$s Satz aus a11y_change_24h -->
+    <string name="a11y_portfolio_position_24h">%1$s, %2$s ของพอร์ต, %3$s</string>
+    <string name="a11y_portfolio_positions">สถานะที่ใหญ่ที่สุด: %1$s</string>
+    <string name="a11y_portfolio_show_amounts">แสดงจำนวนเงิน</string>
+</resources>

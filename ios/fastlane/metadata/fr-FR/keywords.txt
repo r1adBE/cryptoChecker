@@ -1,0 +1,1 @@
+btc,ethereum,cryptomonnaie,portefeuille,altcoin,suivi,cours,alerte,futures,dex,ticker,eth

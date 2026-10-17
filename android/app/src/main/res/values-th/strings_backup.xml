@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Sicherung exportieren und wiederherstellen -->
+    <string name="backup_export">ส่งออก</string>
+    <string name="backup_exported">บันทึกข้อมูลสำรองแล้ว</string>
+    <string name="backup_failed">ไม่สำเร็จ ไฟล์นี้เป็นข้อมูลสำรองของ Crypto Checker หรือไม่</string>
+    <string name="backup_hint">บันทึกรายการ (รวมบันทึกและกลุ่ม) สัญญาณเตือน รายการโปรด พอร์ตโฟลิโอ และการตั้งค่าเป็นไฟล์ที่คุณเก็บเอง เช่น สำหรับโทรศัพท์เครื่องใหม่</string>
+    <string name="backup_import">นำเข้า</string>
+    <string name="backup_title">สำรองและกู้คืน</string>
+    <string name="backup_too_large">ไฟล์ใหญ่เกินไปหรือไม่ใช่ข้อมูลสำรองที่ถูกต้อง (สูงสุด 16 MB)</string>
+
+    <!-- Passwort der Sicherungsdatei -->
+    <string name="backup_password">รหัสผ่าน</string>
+    <string name="backup_password_continue">ดำเนินการต่อ</string>
+    <string name="backup_password_hide">ซ่อนรหัสผ่าน</string>
+    <!-- %1$d = Mindestlänge des Passworts (8) -->
+    <string name="backup_password_min">อย่างน้อย %1$d ตัวอักษร</string>
+    <string name="backup_password_mismatch">รหัสผ่านไม่ตรงกัน</string>
+    <string name="backup_password_prompt">ป้อนรหัสผ่านของข้อมูลสำรองนี้</string>
+    <string name="backup_password_repeat">ยืนยันรหัสผ่าน</string>
+    <string name="backup_password_show">แสดงรหัสผ่าน</string>
+    <string name="backup_password_title">ข้อมูลสำรองที่มีรหัสผ่าน</string>
+    <string name="backup_password_too_weak">เดาง่ายเกินไป – ไม่ใช่ตัวเลขล้วน ไม่ใช่อักขระซ้ำตัวเดียว ไม่ใช่ลำดับทั่วไปอย่าง «12345678» หรือ «password»</string>
+    <string name="backup_password_warning">หากไม่มีรหัสผ่าน จะกู้คืนข้อมูลสำรองไม่ได้</string>
+    <string name="backup_password_wrong">รหัสผ่านไม่ถูกต้อง หรือไฟล์เสียหาย ลองอีกครั้ง</string>
+    <string name="backup_protect">ป้องกันด้วยรหัสผ่าน</string>
+    <string name="backup_protect_hint">เข้ารหัสไฟล์ (AES-256) แนะนำเมื่อมีข้อมูลพอร์ตโฟลิโอ</string>
+
+    <!-- Sicherung ohne Passwort, Wiederherstellen -->
+    <string name="backup_plain_confirm">บันทึกโดยไม่ใช้รหัสผ่าน</string>
+    <string name="backup_plain_confirm_text">ไฟล์ไม่ได้เข้ารหัส ใครที่ได้ไฟล์ไปสามารถอ่านได้:</string>
+    <string name="backup_plain_confirm_title">บันทึกโดยไม่ใช้รหัสผ่านหรือไม่</string>
+    <string name="backup_plain_contents_addresses">ที่อยู่วอลเล็ตที่บันทึกไว้</string>
+    <string name="backup_plain_contents_base">รายการเฝ้าดูพร้อมโน้ตและกลุ่ม สัญญาณเตือน รายการโปรด และการตั้งค่า</string>
+    <string name="backup_plain_contents_portfolio">พอร์ต: รายการพร้อมจำนวนและราคา</string>
+    <string name="backup_restore_app_lock_kept">ล็อกพอร์ตยังเปิดอยู่ – ข้อมูลสำรองที่ไม่เข้ารหัสปิดไม่ได้</string>
+    <string name="backup_restore_confirm">การนำเข้าจะแทนที่รายการ (รวมบันทึกและกลุ่ม) สัญญาณเตือน รายการโปรด พอร์ตโฟลิโอ และการตั้งค่าด้วยข้อมูลสำรอง</string>
+    <plurals name="backup_restore_invalid">
+        <item quantity="other">รายการ %d รายการในข้อมูลสำรอง (พอร์ตหรือการแจ้งเตือน) ไม่ถูกต้องและจะไม่ถูกนำเข้า</item>
+    </plurals>
+    <string name="backup_restore_newer_version">ข้อมูลสำรองนี้มาจากแอปเวอร์ชันที่ใหม่กว่า – อัปเดตแอปก่อน ไม่มีการนำเข้าใด ๆ</string>
+    <string name="backup_restore_unencrypted_warning">ข้อมูลสำรองนี้ไม่ได้เข้ารหัส – ตรวจสอบว่าเป็นของคุณ การตั้งค่าจะถูกนำไปใช้ ล็อกพอร์ตที่เปิดอยู่จะยังเปิดอยู่</string>
+    <string name="backup_restored">กู้คืนแล้ว: %1$s %2$s</string>
+    <plurals name="backup_restored_alarms">
+        <item quantity="other">สัญญาณเตือน %1$d รายการ</item>
+    </plurals>
+    <plurals name="backup_restored_pairs">
+        <item quantity="other">%1$d คู่</item>
+    </plurals>
+
+    <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
+    <string name="storage_recovery_message">อุปกรณ์นี้ไม่มีกุญแจของข้อมูลที่เข้ารหัสของแอปแล้ว แอปจึงเริ่มแบบว่างเปล่า ไม่มีสิ่งใดถูกลบ หากต้องการรายการและพอร์ตโฟลิโอคืน ให้นำเข้าไฟล์สำรองในการตั้งค่า ที่ «%1$s»</string>
+    <string name="storage_recovery_title">ไม่สามารถปลดล็อกข้อมูลที่บันทึกไว้</string>
+</resources>

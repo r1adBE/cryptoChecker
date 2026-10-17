@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Screenreader: Zeile eines Paars, Frische, Erreichbarkeit -->
+    <string name="a11y_alarm_count">larm: %1$d</string>
+    <!-- Alarm des Paars eben ausgelöst (bis 15 Min. danach im Zeilensatz) -->
+    <string name="a11y_alarm_fired">Larm utlöst</string>
+    <string name="a11y_collapsed">Komprimerad</string>
+    <string name="a11y_converted">ungefär %1$s</string>
+    <string name="a11y_expanded">Expanderad</string>
+    <!-- Vorgelesen bei Zeilen, die eine Website öffnen (Datenschutz, Börse wünschen, Quellcode) -->
+    <string name="a11y_external_link">öppnas i webbläsaren</string>
+    <string name="a11y_favorite">Favorit</string>
+    <string name="a11y_in_watchlist">Redan i bevakningslistan</string>
+    <!-- %1$s Börse, letzte Abfrage gescheitert -->
+    <string name="a11y_market_unreachable">%1$s kan inte nås</string>
+    <string name="a11y_move_down">Flytta ned</string>
+    <string name="a11y_move_up">Flytta upp</string>
+    <string name="a11y_note">anteckning: %1$s</string>
+    <string name="a11y_price">kurs %1$s</string>
+    <string name="a11y_price_notification_off">Kursavisering av</string>
+    <string name="a11y_price_notification_on">Kursavisering på</string>
+    <!-- Frische einer Zeile, Teile mit «, » verbunden: «Kurs veraltet, zuletzt aktualisiert vor 45 Minuten» (A11ySpeech.freshnessText) -->
+    <string name="a11y_price_outdated">Kursen är inaktuell</string>
+    <!-- Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%1$s på %2$s</string>
+    <string name="a11y_stale">inaktuell, senaste uppdatering %1$s</string>
+    <string name="a11y_warning">Varning</string>
+
+    <!-- Screenreader: Veränderung (Prozent-Pille, Widgets) -->
+    <!-- %1$s Satz aus a11y_change_up/down/flat: Veränderung über 24 Stunden (Prozent-Pille, Widgets) -->
+    <string name="a11y_change_24h">%1$s på 24 timmar</string>
+    <!-- Wenn die Pille «—» zeigt (keine Kerzen für das Paar) -->
+    <string name="a11y_change_24h_none">Förändring över 24 timmar inte tillgänglig</string>
+    <string name="a11y_change_down">ned %1$s</string>
+    <string name="a11y_change_flat">oförändrad</string>
+    <string name="a11y_change_since_last">%1$s sedan senaste uppdateringen</string>
+    <string name="a11y_change_since_last_none">Förändring sedan senaste uppdateringen inte tillgänglig</string>
+    <!-- %1$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_change_today">%1$s i dag</string>
+    <string name="a11y_change_today_none">Förändring i dag inte tillgänglig</string>
+    <string name="a11y_change_today_zone">%1$s sedan midnatt %2$s</string>
+    <string name="a11y_change_today_zone_none">Förändring sedan midnatt %1$s inte tillgänglig</string>
+    <string name="a11y_change_up">upp %1$s</string>
+
+    <!-- Screenreader: Charts und Skalen -->
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">Diagram %1$s: från %2$s till %3$s, %4$s. Högst %5$s, lägst %6$s.</string>
+    <string name="a11y_chart_empty">Diagram: inga data</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">Cykel %1$s: %2$s sedan halveringen, dag %3$d.</string>
+    <string name="a11y_cycle_bottom">Botten %1$s på dag %2$d.</string>
+    <string name="a11y_cycle_double_bottom">Dubbelbotten %1$s på dag %2$d.</string>
+    <string name="a11y_cycle_double_top">Dubbeltopp %1$s på dag %2$d.</string>
+    <string name="a11y_cycle_top">Topp %1$s på dag %2$d.</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">Skala från %1$s till %2$s: %3$d av 100</string>
+
+    <!-- Screenreader: Puls-Zeile der Merkliste -->
+    <string name="a11y_watchlist_pulse">%1$s, %2$s, i snitt %3$s</string>
+    <string name="a11y_watchlist_pulse_combined">%1$s. %2$s</string>
+    <plurals name="a11y_watchlist_pulse_falling">
+        <item quantity="one">%1$d faller</item>
+        <item quantity="other">%1$d faller</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing">
+        <item quantity="one">%1$d par utan 24-timmarsvärde</item>
+        <item quantity="other">%1$d par utan 24-timmarsvärde</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="one">%1$d par saknar värde för i dag</item>
+        <item quantity="other">%1$d par saknar värde för i dag</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_rising">
+        <item quantity="one">%1$d par stiger</item>
+        <item quantity="other">%1$d par stiger</item>
+    </plurals>
+
+    <!-- Screenreader: zuletzt aktualisiert -->
+    <plurals name="a11y_updated_days">
+        <item quantity="one">senast uppdaterad för %1$d dag sedan</item>
+        <item quantity="other">senast uppdaterad för %1$d dagar sedan</item>
+    </plurals>
+    <plurals name="a11y_updated_hours">
+        <item quantity="one">senast uppdaterad för %1$d timme sedan</item>
+        <item quantity="other">senast uppdaterad för %1$d timmar sedan</item>
+    </plurals>
+    <string name="a11y_updated_just_now">senast uppdaterad nyss</string>
+    <plurals name="a11y_updated_minutes">
+        <item quantity="one">senast uppdaterad för %1$d minut sedan</item>
+        <item quantity="other">senast uppdaterad för %1$d minuter sedan</item>
+    </plurals>
+
+    <!-- Screenreader: Portfolio und Portfolio-Widget -->
+    <string name="a11y_amount_hidden">belopp dolt</string>
+    <!-- %1$s Kürzel, %2$s Wert mit Währung, %3$s Anteil «62.3%», %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_portfolio_position">%1$s %2$s, %3$s av portföljen</string>
+    <!-- Position im Portfolio-Widget: %1$s Kürzel, %2$s Anteil «62.3%», %3$s Satz aus a11y_change_24h -->
+    <string name="a11y_portfolio_position_24h">%1$s, %2$s av portföljen, %3$s</string>
+    <string name="a11y_portfolio_positions">Största positioner: %1$s</string>
+    <string name="a11y_portfolio_show_amounts">Visa belopp</string>
+</resources>

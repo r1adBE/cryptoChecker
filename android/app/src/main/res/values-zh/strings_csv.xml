@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: CSV-Import -->
+    <string name="portfolio_csv_import_action">导入 CSV</string>
+    <string name="portfolio_csv_import_all_transfer">全部转到自己的钱包</string>
+    <string name="portfolio_csv_import_all_withdrawal">全部移出投资组合</string>
+    <string name="portfolio_csv_import_choice_proposed">建议：与 %1$s 匹配</string>
+    <string name="portfolio_csv_import_choice_transfer">转到自己的钱包（转移）</string>
+    <string name="portfolio_csv_import_choice_withdrawal">移出投资组合（提取）</string>
+    <string name="portfolio_csv_import_choose_each">为每笔提取选择去向。</string>
+    <string name="portfolio_csv_import_columns">已识别的列：%1$s</string>
+    <string name="portfolio_csv_import_confirm">导入（%1$d）</string>
+    <string name="portfolio_csv_import_date_day_first">日/月</string>
+    <string name="portfolio_csv_import_date_month_first">月/日</string>
+    <string name="portfolio_csv_import_date_order">有歧义的日期（例如 03/04/2024）解读为：</string>
+    <string name="portfolio_csv_import_decimal">有歧义的数字（例如 %1$s）解读为：</string>
+    <plurals name="portfolio_csv_import_done">
+        <item quantity="other">已导入 %d 笔交易</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_duplicates">
+        <item quantity="other">%d 笔已导入（已跳过）</item>
+    </plurals>
+    <string name="portfolio_csv_import_format">格式：%1$s</string>
+    <string name="portfolio_csv_import_line">第 %1$d 行：%2$s</string>
+    <string name="portfolio_csv_import_loading">正在读取文件和每日汇率…</string>
+    <string name="portfolio_csv_import_missing_fx">第 %1$s 行没有每日汇率——已按无价格/手续费导入。</string>
+    <string name="portfolio_csv_import_missing_price">文件中第 %1$s 行没有价格——已按无价格导入。</string>
+    <string name="portfolio_csv_import_more">+ 另外 %1$d 条</string>
+    <plurals name="portfolio_csv_import_new">
+        <item quantity="other">%d 笔新交易</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_skipped">
+        <item quantity="other">已跳过 %d 行</item>
+    </plurals>
+    <string name="portfolio_csv_import_stable_swaps">以稳定币（USDT、USDC …）进行的买卖记为兑换——该稳定币会显示在持仓中。</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">可能有多个匹配 – 请选择正确的一项，或都不选。</string>
+    <string name="portfolio_csv_import_transfer_fee">网络手续费：%1$s</string>
+    <string name="portfolio_csv_import_transfer_link">记为一次转移</string>
+    <string name="portfolio_csv_import_transfer_stored">来自之前导入的对应记录</string>
+    <string name="portfolio_csv_import_transfers_hint">同一币种的一笔提现和与之匹配的充值合并为一次转移：买入价和持有期保留，差额计为网络手续费。</string>
+    <string name="portfolio_csv_import_transfers_title">你的账户之间的转移</string>
+    <string name="portfolio_csv_import_unreadable">未找到支持的交易。支持：Relai、Swissquote、Kraken、Binance、Coinbase 和 Bitpanda 导出的 CSV。</string>
+    <string name="portfolio_csv_import_withdrawals_title">提取——币去了哪里？</string>
+    <string name="portfolio_csv_import_zone">无时区的时间按以下方式读取：%1$s</string>
+    <string name="portfolio_csv_import_zone_device">设备（%1$s）</string>
+    <string name="portfolio_csv_skip_bad_date">日期无法识别</string>
+    <string name="portfolio_csv_skip_bad_number">数字无法识别</string>
+    <string name="portfolio_csv_skip_fee_exceeds">手续费 ≥ 收到的数量</string>
+    <string name="portfolio_csv_skip_internal_move">你自己账户之间的移动 – 无需记账</string>
+    <string name="portfolio_csv_skip_missing">缺少字段</string>
+    <string name="portfolio_csv_skip_not_crypto">非加密货币</string>
+    <string name="portfolio_csv_skip_possible_duplicate">可能已导入（几乎相同的交易）– 请手动检查</string>
+    <string name="portfolio_csv_skip_two_fees">两笔不同单位的手续费 – 请手动录入兑换</string>
+    <string name="portfolio_csv_skip_unsupported">不支持的类型</string>
+
+    <!-- Portfolio: Importe ansehen und rückgängig machen -->
+    <string name="portfolio_import_undo">撤销</string>
+    <plurals name="portfolio_import_undo_confirm">
+        <item quantity="other">要删除此次导入的 %d 笔交易吗？手动记录和其他导入会保留。</item>
+    </plurals>
+    <string name="portfolio_import_undo_title">撤销导入？</string>
+    <plurals name="portfolio_import_undone">
+        <item quantity="other">已移除 %d 笔导入的交易</item>
+    </plurals>
+    <plurals name="portfolio_imports_count">
+        <item quantity="other">%d 笔交易</item>
+    </plurals>
+    <string name="portfolio_imports_empty">无导入</string>
+    <string name="portfolio_imports_title">导入记录</string>
+</resources>

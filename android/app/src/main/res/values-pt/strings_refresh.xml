@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Wie aktuell? (Sparsam / Live) -->
+    <string name="update_mode_for_pros">gasta mais dados e bateria</string>
+    <string name="update_mode_live">Em direto enquanto aberta</string>
+    <string name="update_mode_live_hint">Onde a exchange fornece preço em direto: de imediato enquanto a lista está aberta. Caso contrário, na próxima atualização. Fechada: no máximo a cada %1$s, muitas vezes mais tarde.</string>
+    <string name="update_mode_live_hint_ios">Onde a exchange fornece preço em direto: de imediato enquanto a lista está aberta. Caso contrário, na próxima atualização. Fechada: quando o iOS permite, por vezes com horas de intervalo. Se fechar a app deslizando-a, o iOS suspende estas verificações até a voltar a abrir.</string>
+    <string name="update_mode_recommended">recomendado</string>
+    <string name="update_mode_sparsam">Poupança</string>
+    <string name="update_mode_sparsam_hint">Com a app fechada, no máximo a cada %1$s, muitas vezes mais tarde (alertas, widgets). Aberta: sempre que a abre.</string>
+    <string name="update_mode_sparsam_hint_ios">Com a app fechada, o iOS decide quando verificar (alarmes, widgets), por vezes com horas de intervalo. Aberta: sempre que a abre.</string>
+    <string name="update_mode_title">Quão atualizado?</string>
+
+    <!-- Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <string name="refresh_sheet_aborted">Atualização interrompida</string>
+    <string name="refresh_sheet_alarms">Alarmes</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="one">%1$d disparado</item>
+        <item quantity="many">%1$d disparados</item>
+        <item quantity="other">%1$d disparados</item>
+    </plurals>
+    <!-- Grosse Statuszeile oben im Blatt -->
+    <string name="refresh_sheet_all_updated">Tudo atualizado</string>
+    <string name="refresh_sheet_app_start">Arranque da app</string>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="one">pedido agrupado %1$s · %2$d preço</item>
+        <item quantity="many">pedido agrupado %1$s · %2$d preços</item>
+        <item quantity="other">pedido agrupado %1$s · %2$d preços</item>
+    </plurals>
+    <string name="refresh_sheet_database">Base de dados</string>
+    <string name="refresh_sheet_market_unreachable">%1$s inacessível</string>
+    <plurals name="refresh_sheet_markets_unreachable">
+        <item quantity="one">%1$d exchange inacessível</item>
+        <item quantity="many">%1$d exchanges inacessíveis</item>
+        <item quantity="other">%1$d exchanges inacessíveis</item>
+    </plurals>
+    <string name="refresh_sheet_network">Rede</string>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="one">%1$d notificação</item>
+        <item quantity="many">%1$d notificações</item>
+        <item quantity="other">%1$d notificações</item>
+    </plurals>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="one">%1$d par</item>
+        <item quantity="many">%1$d pares</item>
+        <item quantity="other">%1$d pares</item>
+    </plurals>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="one">%1$d par não atualizado</item>
+        <item quantity="many">%1$d pares não atualizados</item>
+        <item quantity="other">%1$d pares não atualizados</item>
+    </plurals>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="one">%2$d de %1$d par</item>
+        <item quantity="many">%2$d de %1$d pares</item>
+        <item quantity="other">%2$d de %1$d pares</item>
+    </plurals>
+    <string name="refresh_sheet_paused_until">em pausa até às %1$s</string>
+    <string name="refresh_sheet_paused_until_reason">em pausa até às %1$s (%2$s)</string>
+    <string name="refresh_sheet_reason_no_data">sem dados</string>
+    <string name="refresh_sheet_reason_offline">sem ligação</string>
+    <string name="refresh_sheet_reason_rate_limit">demasiados pedidos</string>
+    <string name="refresh_sheet_reason_server">erro do servidor</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">tempo esgotado</string>
+    <string name="refresh_sheet_reason_unavailable">exchange indisponível</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s segundos</string>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_markets">Exchanges</string>
+    <string name="refresh_sheet_section_steps">Detalhe</string>
+    <string name="refresh_sheet_status_failed">não atualizado</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">tudo atualizado</string>
+    <string name="refresh_sheet_status_partial">atualizado em parte</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">Espera até ao início</string>
+    <string name="refresh_sheet_widgets">Widgets</string>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+
+    <!-- Kurzbericht der Aktualisierung je Börse -->
+    <string name="refresh_report_bulk_failed">pedido agrupado %1$s (falhou)</string>
+    <plurals name="refresh_report_errors">
+        <item quantity="one">%1$d erro</item>
+        <item quantity="many">%1$d erros</item>
+        <item quantity="other">%1$d erros</item>
+    </plurals>
+    <string name="refresh_report_live">Ao vivo: %1$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="one">%1$d já não negociado</item>
+        <item quantity="many">%1$d já não negociados</item>
+        <item quantity="other">%1$d já não negociados</item>
+    </plurals>
+    <string name="refresh_report_singles">%1$d individualmente</string>
+
+    <!-- Prüfprotokoll der Hintergrundprüfungen (Ergebnis, Auslöser) -->
+    <string name="check_result_failed">Falhou</string>
+    <string name="check_result_ok">OK</string>
+    <string name="check_result_partial">Parcial</string>
+    <string name="check_result_skipped">Ignorado</string>
+    <string name="check_trigger_bgtask">Segundo plano</string>
+    <string name="check_trigger_exact">Pontual</string>
+    <string name="check_trigger_foreground">App</string>
+    <string name="check_trigger_widget">Widget</string>
+    <string name="check_trigger_widget_ios">Widget · cotações e alarmes de cotação</string>
+    <string name="check_trigger_worker">Segundo plano</string>
+
+    <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
+    <string name="battery_delay_hint">O Android pode atrasar as verificações – defina a bateria como «Sem restrições»</string>
+    <string name="battery_later">Mais tarde</string>
+    <string name="battery_message">O Android adia tarefas em segundo plano para poupar energia — preços e widgets podem então ter horas de atraso. Definir o uso da bateria como sem restrições mantém-nos atualizados. Pode alterar isto a qualquer momento nas definições do Android.</string>
+    <string name="battery_open_settings">Abrir definições de bateria</string>
+    <string name="battery_steps">Nas informações da app, toque em Bateria (ou Utilização da bateria) e escolha Sem restrições.</string>
+    <string name="battery_title">Manter os preços atualizados</string>
+    <string name="ios_background_refresh_off">A atualização em segundo plano está desativada para a app. Sem ela, os alarmes só são verificados com a app aberta.</string>
+    <string name="ios_low_power_mode">O modo de baixo consumo está ativo. O iOS raramente verifica em segundo plano e os alarmes podem chegar tarde.</string>
+</resources>

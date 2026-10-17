@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Wie aktuell? (Sparsam / Live) -->
+    <string name="update_mode_for_pros">通信量とバッテリーを多く使用</string>
+    <string name="update_mode_live">開いている間ライブ</string>
+    <string name="update_mode_live_hint">取引所がライブ価格を提供している場合：ウォッチリストを開いている間はすぐに。それ以外は次回の取得時。閉じているとき：最短でも%1$sごと、遅れることも多い。</string>
+    <string name="update_mode_live_hint_ios">取引所がライブ価格を提供している場合：ウォッチリストを開いている間はすぐに。それ以外は次回の取得時。閉じている間：iOS が許可したとき（数時間空くこともあります）。アプリをスワイプして終了すると、次に開くまで iOS はこの確認を行いません。</string>
+    <string name="update_mode_recommended">おすすめ</string>
+    <string name="update_mode_sparsam">省エネ</string>
+    <string name="update_mode_sparsam_hint">アプリを閉じているときは最短でも%1$sごと、遅れることも多い（アラーム、ウィジェット）。開いているときは開くたびに。</string>
+    <string name="update_mode_sparsam_hint_ios">アプリを閉じている間は、確認のタイミングを iOS が決めます（アラーム、ウィジェット）。数時間空くこともあります。開いている間：開くたび。</string>
+    <string name="update_mode_title">更新の頻度</string>
+
+    <!-- Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <string name="refresh_sheet_aborted">更新を中断しました</string>
+    <string name="refresh_sheet_alarms">アラーム</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="other">%1$d 件作動</item>
+    </plurals>
+    <!-- Grosse Statuszeile oben im Blatt -->
+    <string name="refresh_sheet_all_updated">すべて更新済み</string>
+    <string name="refresh_sheet_app_start">アプリの起動</string>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="other">一括リクエスト %1$s · 価格 %2$d 件</item>
+    </plurals>
+    <string name="refresh_sheet_database">データベース</string>
+    <string name="refresh_sheet_market_unreachable">%1$s に接続できません</string>
+    <plurals name="refresh_sheet_markets_unreachable">
+        <item quantity="other">%1$d 件の取引所に接続できません</item>
+    </plurals>
+    <string name="refresh_sheet_network">ネットワーク</string>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="other">通知 %1$d 件</item>
+    </plurals>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="other">%1$d ペア</item>
+    </plurals>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="other">%1$d ペアが未更新</item>
+    </plurals>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="other">%1$d ペア中 %2$d</item>
+    </plurals>
+    <string name="refresh_sheet_paused_until">%1$s まで一時停止</string>
+    <string name="refresh_sheet_paused_until_reason">%1$s まで一時停止（%2$s）</string>
+    <string name="refresh_sheet_reason_no_data">データなし</string>
+    <string name="refresh_sheet_reason_offline">接続なし</string>
+    <string name="refresh_sheet_reason_rate_limit">リクエスト過多</string>
+    <string name="refresh_sheet_reason_server">サーバーエラー</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">タイムアウト</string>
+    <string name="refresh_sheet_reason_unavailable">取引所を利用できません</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s 秒</string>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_markets">取引所</string>
+    <string name="refresh_sheet_section_steps">内訳</string>
+    <string name="refresh_sheet_status_failed">未更新</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">すべて更新済み</string>
+    <string name="refresh_sheet_status_partial">一部更新済み</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">開始までの待ち時間</string>
+    <string name="refresh_sheet_widgets">ウィジェット</string>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s（%2$s）</string>
+
+    <!-- Kurzbericht der Aktualisierung je Börse -->
+    <string name="refresh_report_bulk_failed">一括リクエスト %1$s（失敗）</string>
+    <plurals name="refresh_report_errors">
+        <item quantity="other">エラー %1$d 件</item>
+    </plurals>
+    <string name="refresh_report_live">ライブ: %1$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="other">取引終了 %1$d 件</item>
+    </plurals>
+    <string name="refresh_report_singles">個別 %1$d 件</string>
+
+    <!-- Prüfprotokoll der Hintergrundprüfungen (Ergebnis, Auslöser) -->
+    <string name="check_result_failed">失敗</string>
+    <string name="check_result_ok">OK</string>
+    <string name="check_result_partial">一部</string>
+    <string name="check_result_skipped">スキップ</string>
+    <string name="check_trigger_bgtask">バックグラウンド</string>
+    <string name="check_trigger_exact">時間どおり</string>
+    <string name="check_trigger_foreground">アプリ</string>
+    <string name="check_trigger_widget">ウィジェット</string>
+    <string name="check_trigger_widget_ios">ウィジェット · 価格と価格アラーム</string>
+    <string name="check_trigger_worker">バックグラウンド</string>
+
+    <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
+    <string name="battery_delay_hint">Android は確認を遅らせることがあります – バッテリーを「制限なし」に設定してください</string>
+    <string name="battery_later">後で</string>
+    <string name="battery_message">Android は電力節約のためにバックグラウンド処理を遅らせます — その結果、価格やウィジェットが数時間前のままになることがあります。バッテリー使用を「制限なし」にすると最新の状態を保てます。この設定は Android の設定でいつでも変更できます。</string>
+    <string name="battery_open_settings">バッテリー設定を開く</string>
+    <string name="battery_steps">アプリ情報で「バッテリー」（または「アプリのバッテリー使用量」）をタップし、「制限なし」を選択します。</string>
+    <string name="battery_title">価格を最新に保つ</string>
+    <string name="ios_background_refresh_off">このアプリのAppのバックグラウンド更新がオフです。オフのままだと、アラームはアプリを開いている間しか確認されません。</string>
+    <string name="ios_low_power_mode">低電力モードがオンです。iOS はバックグラウンドでほとんど確認しないため、アラームが遅れることがあります。</string>
+</resources>

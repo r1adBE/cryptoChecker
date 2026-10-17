@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Begrüssung beim ersten Start -->
+    <string name="welcome_alert">Сигналізувати – ціна, відсоток, обсяг і незвичайні рухи</string>
+    <string name="welcome_alert_q">Коли сповістити?</string>
+    <string name="welcome_text">Ваші курси. Ваші сигнали. Ваш огляд.\nБез акаунта. Без реклами. Без стеження.</string>
+    <string name="welcome_understand">Розуміти – що рухається разом із курсом просто зараз</string>
+    <string name="welcome_understand_q">Що рухається разом?</string>
+    <string name="welcome_watch">Стежити – ваші монети, курси та їхня динаміка</string>
+    <string name="welcome_watch_q">Що відбувається?</string>
+
+    <!-- Start-Coins (Vorschlagsliste nach der Begrüssung) -->
+    <string name="starter_add_selected">Додати до списку (%1$d)</string>
+    <string name="starter_loading_prices">Завантаження цін…</string>
+    <string name="starter_search_coin">Знайти іншу монету</string>
+    <string name="starter_select_all">Вибрати всі</string>
+    <string name="starter_select_none">Зняти вибір</string>
+    <string name="starter_text">Зніміть позначку з непотрібних і додайте решту за один раз. Біржу й пару можна змінити пізніше.</string>
+    <string name="starter_title">Почніть із цих монет</string>
+    <string name="starter_watch_alarm_hint">Стежте за курсом, задайте сигнал</string>
+</resources>

@@ -1,0 +1,694 @@
+{
+  "_comment": "Captions for tools/frame_screenshots.py: caption <= 30 (hard max 40), subline <= 60 characters. Five scenes: 01 watchlist, 02 alarm, 03 widget, 04 «Was bewegt sich mit?», 05 optional portfolio. Keys = fastlane/metadata/android locale folders. iOS folders map via aliases in the script.",
+  "_scenes": {
+    "01": "Merkliste (BTC, ETH, SOL, «≈ … CHF», Mini-Chart, Kursfarben «Ruhig»)",
+    "02": "Alarm-Editor mit Satz («Wenn BTC unter 90 000 geht», «Einmal») – oder Alarm-Mitteilung über der Merkliste",
+    "03": "Startbildschirm mit dem Merkliste-Widget (BTC, ETH, SOL)",
+    "04": "«Was bewegt sich mit?» mit «Kurz gesagt»",
+    "05": "optional: Portfolio-Tab mit den Demo-Käufen"
+  },
+  "locales": {
+    "ar": {
+      "01": {
+        "caption": "آخر سعر من المنصة",
+        "subline": "بلا حساب ولا إعلانات – المبالغ تبقى على جهازك"
+      },
+      "02": {
+        "caption": "تنبيه يُعلمك مرة واحدة",
+        "subline": "«أبلغني عندما ينخفض BTC تحت 90,000 CHF»"
+      },
+      "03": {
+        "caption": "الأسعار على الشاشة الرئيسية",
+        "subline": "قائمة المتابعة أو عملة واحدة كأداة – دون فتح التطبيق"
+      },
+      "04": {
+        "caption": "ما الذي يتحرك معه؟",
+        "subline": "الحجم والسوق والعقود الآجلة باختصار – بلا توقعات"
+      },
+      "05": {
+        "caption": "المحفظة إن أردتها",
+        "subline": "اختياري، يُفعَّل من الإعدادات: شراء وبيع وتحويلات"
+      }
+    },
+    "cs-CZ": {
+      "01": {
+        "caption": "Poslední cena z burzy",
+        "subline": "Bez účtu a reklam – částky zůstávají v zařízení"
+      },
+      "02": {
+        "caption": "Alarm, který upozorní jednou",
+        "subline": "„Upozornit, až BTC klesne pod 90 000 CHF“"
+      },
+      "03": {
+        "caption": "Ceny na ploše",
+        "subline": "Seznam nebo jedna mince jako widget – bez otevření aplikace"
+      },
+      "04": {
+        "caption": "Co se hýbe s ním?",
+        "subline": "Objem, trh a futures ve zkratce – bez prognóz"
+      },
+      "05": {
+        "caption": "Portfolio, když chcete",
+        "subline": "Volitelné, zapnete v nastavení: nákupy, prodeje, převody"
+      }
+    },
+    "da-DK": {
+      "01": {
+        "caption": "Seneste kurs fra børsen",
+        "subline": "Ingen konto, ingen reklamer – beløb bliver på enheden"
+      },
+      "02": {
+        "caption": "En alarm, der melder én gang",
+        "subline": "»Giv mig besked, når BTC falder under 90.000 CHF«"
+      },
+      "03": {
+        "caption": "Kurser på startskærmen",
+        "subline": "Listen eller én coin som widget – uden at åbne appen"
+      },
+      "04": {
+        "caption": "Hvad bevæger sig med?",
+        "subline": "Volumen, marked og futures kort – uden prognose"
+      },
+      "05": {
+        "caption": "Portefølje, hvis du vil",
+        "subline": "Valgfrit, slås til i indstillinger: køb, salg, overførsler"
+      }
+    },
+    "de-DE": {
+      "01": {
+        "caption": "Letzter Kurs von der Börse",
+        "subline": "Ohne Konto, ohne Werbung – Beträge bleiben auf dem Gerät"
+      },
+      "02": {
+        "caption": "Ein Alarm, der einmal meldet",
+        "subline": "«Sag mir Bescheid, wenn BTC unter 90 000 CHF fällt»"
+      },
+      "03": {
+        "caption": "Kurse auf dem Startbildschirm",
+        "subline": "Merkliste oder ein Coin als Widget – ohne die App zu öffnen"
+      },
+      "04": {
+        "caption": "Was bewegt sich mit?",
+        "subline": "Volumen, Markt und Futures kurz gesagt – ohne Prognose"
+      },
+      "05": {
+        "caption": "Portfolio, wenn du willst",
+        "subline": "Optional, in den Einstellungen: Käufe, Verkäufe, Transfers"
+      }
+    },
+    "el-GR": {
+      "01": {
+        "caption": "Η τιμή από το ανταλλακτήριο",
+        "subline": "Χωρίς λογαριασμό και διαφημίσεις – τα ποσά μένουν σε σένα"
+      },
+      "02": {
+        "caption": "Μία ειδοποίηση, μία φορά",
+        "subline": "«Ειδοποίηση όταν το BTC πέσει κάτω από 90.000 CHF»"
+      },
+      "03": {
+        "caption": "Τιμές στην αρχική οθόνη",
+        "subline": "Λίστα ή ένα νόμισμα σε widget – χωρίς άνοιγμα εφαρμογής"
+      },
+      "04": {
+        "caption": "Τι κινείται μαζί;",
+        "subline": "Όγκος, αγορά και futures με λίγα λόγια – χωρίς πρόβλεψη"
+      },
+      "05": {
+        "caption": "Χαρτοφυλάκιο, αν θέλεις",
+        "subline": "Προαιρετικό, από τις ρυθμίσεις: αγορές, πωλήσεις, μεταφορές"
+      }
+    },
+    "en-US": {
+      "01": {
+        "caption": "Last price from the exchange",
+        "subline": "No account, no ads – amounts stay on your device"
+      },
+      "02": {
+        "caption": "An alarm that tells you once",
+        "subline": "“Tell me when BTC falls below 90,000 CHF”"
+      },
+      "03": {
+        "caption": "Prices on your home screen",
+        "subline": "Watchlist or one coin as a widget – without opening the app"
+      },
+      "04": {
+        "caption": "What is moving with it?",
+        "subline": "Volume, market and futures in short – no forecast"
+      },
+      "05": {
+        "caption": "Portfolio, if you want it",
+        "subline": "Optional, turn on in Settings: buys, sells, transfers"
+      }
+    },
+    "es-ES": {
+      "01": {
+        "caption": "Último precio del exchange",
+        "subline": "Sin cuenta ni anuncios: los importes no salen del móvil"
+      },
+      "02": {
+        "caption": "Una alarma que avisa una vez",
+        "subline": "«Avísame cuando BTC baje de 90.000 CHF»"
+      },
+      "03": {
+        "caption": "Precios en tu pantalla",
+        "subline": "Tu lista o una moneda como widget, sin abrir la app"
+      },
+      "04": {
+        "caption": "¿Qué se mueve con él?",
+        "subline": "Volumen, mercado y futuros en resumen, sin pronósticos"
+      },
+      "05": {
+        "caption": "Cartera, si la quieres",
+        "subline": "Opcional, en Ajustes: compras, ventas, transferencias"
+      }
+    },
+    "fa": {
+      "01": {
+        "caption": "آخرین قیمت از صرافی",
+        "subline": "بدون حساب و تبلیغ – مبالغ روی دستگاه شما می‌ماند"
+      },
+      "02": {
+        "caption": "هشداری که یک بار خبر می‌دهد",
+        "subline": "«وقتی BTC از ۹۰٬۰۰۰ CHF پایین‌تر رفت، خبرم کن»"
+      },
+      "03": {
+        "caption": "قیمت‌ها روی صفحهٔ اصلی",
+        "subline": "واچ‌لیست یا یک کوین به‌صورت ابزارک – بدون باز کردن برنامه"
+      },
+      "04": {
+        "caption": "چه چیزی همراه آن حرکت می‌کند؟",
+        "subline": "حجم، بازار و فیوچرز به‌طور خلاصه – بدون پیش‌بینی"
+      },
+      "05": {
+        "caption": "پرتفوی، اگر بخواهید",
+        "subline": "اختیاری، از تنظیمات: خرید، فروش، انتقال"
+      }
+    },
+    "fi-FI": {
+      "01": {
+        "caption": "Viimeisin hinta pörssistä",
+        "subline": "Ei tiliä, ei mainoksia – summat pysyvät laitteellasi"
+      },
+      "02": {
+        "caption": "Hälytys, joka ilmoittaa kerran",
+        "subline": "”Ilmoita, kun BTC laskee alle 90 000 CHF”"
+      },
+      "03": {
+        "caption": "Hinnat aloitusnäytöllä",
+        "subline": "Lista tai yksi kolikko widgetinä – avaamatta sovellusta"
+      },
+      "04": {
+        "caption": "Mikä liikkuu mukana?",
+        "subline": "Volyymi, markkina ja futuurit lyhyesti – ei ennusteita"
+      },
+      "05": {
+        "caption": "Salkku, jos haluat",
+        "subline": "Valinnainen, asetuksista: ostot, myynnit, siirrot"
+      }
+    },
+    "fr-FR": {
+      "01": {
+        "caption": "Dernier cours de la plateforme",
+        "subline": "Sans compte ni pub – les montants restent sur l’appareil"
+      },
+      "02": {
+        "caption": "Une alerte, une seule fois",
+        "subline": "« Me prévenir quand BTC passe sous 90 000 CHF »"
+      },
+      "03": {
+        "caption": "Cours sur l’écran d’accueil",
+        "subline": "Liste ou une crypto en widget – sans ouvrir l’app"
+      },
+      "04": {
+        "caption": "Qu’est-ce qui bouge avec ?",
+        "subline": "Volume, marché et futures en bref – sans prévision"
+      },
+      "05": {
+        "caption": "Portefeuille, si besoin",
+        "subline": "En option, dans les réglages : achats, ventes, transferts"
+      }
+    },
+    "hi-IN": {
+      "01": {
+        "caption": "एक्सचेंज से आख़िरी भाव",
+        "subline": "बिना खाते, बिना विज्ञापन – रकम डिवाइस पर ही रहती है"
+      },
+      "02": {
+        "caption": "एक बार बताने वाला अलार्म",
+        "subline": "“जब BTC 90,000 CHF से नीचे जाए, तो मुझे बताएँ”"
+      },
+      "03": {
+        "caption": "होम स्क्रीन पर भाव",
+        "subline": "वॉचलिस्ट या एक कॉइन विजेट में – ऐप खोले बिना"
+      },
+      "04": {
+        "caption": "साथ में किसमें हलचल है?",
+        "subline": "वॉल्यूम, बाज़ार और फ़्यूचर्स संक्षेप में – बिना पूर्वानुमान"
+      },
+      "05": {
+        "caption": "पोर्टफ़ोलियो, अगर चाहें",
+        "subline": "वैकल्पिक, सेटिंग्स में चालू करें: ख़रीद, बिक्री, ट्रांसफ़र"
+      }
+    },
+    "hu-HU": {
+      "01": {
+        "caption": "Utolsó ár a tőzsdéről",
+        "subline": "Fiók és reklám nélkül – az összegek az eszközön maradnak"
+      },
+      "02": {
+        "caption": "Riasztás, amely egyszer szól",
+        "subline": "„Szólj, ha a BTC 90 000 CHF alá esik”"
+      },
+      "03": {
+        "caption": "Árfolyamok a kezdőképernyőn",
+        "subline": "Lista vagy egy érme widgetként – az app megnyitása nélkül"
+      },
+      "04": {
+        "caption": "Mi mozog vele együtt?",
+        "subline": "Forgalom, piac és futures röviden – előrejelzés nélkül"
+      },
+      "05": {
+        "caption": "Portfólió, ha szeretnéd",
+        "subline": "Opcionális, a beállításokban: vétel, eladás, átutalás"
+      }
+    },
+    "id": {
+      "01": {
+        "caption": "Harga terakhir dari bursa",
+        "subline": "Tanpa akun, tanpa iklan – jumlah tetap di perangkat Anda"
+      },
+      "02": {
+        "caption": "Alarm yang memberi tahu sekali",
+        "subline": "“Beri tahu saya saat BTC turun di bawah 90.000 CHF”"
+      },
+      "03": {
+        "caption": "Harga di layar utama",
+        "subline": "Daftar pantau atau satu koin di widget, tanpa buka aplikasi"
+      },
+      "04": {
+        "caption": "Apa yang ikut bergerak?",
+        "subline": "Volume, pasar, dan futures singkatnya – tanpa prediksi"
+      },
+      "05": {
+        "caption": "Portofolio, jika mau",
+        "subline": "Opsional, aktifkan di Pengaturan: beli, jual, transfer"
+      }
+    },
+    "it-IT": {
+      "01": {
+        "caption": "Ultimo prezzo dall’exchange",
+        "subline": "Senza account né pubblicità – importi solo sul dispositivo"
+      },
+      "02": {
+        "caption": "Un allarme, un solo avviso",
+        "subline": "«Avvisami quando BTC scende sotto 90.000 CHF»"
+      },
+      "03": {
+        "caption": "Prezzi nella schermata Home",
+        "subline": "Lista o una moneta come widget, senza aprire l’app"
+      },
+      "04": {
+        "caption": "Cosa si muove insieme?",
+        "subline": "Volume, mercato e futures in breve, senza previsioni"
+      },
+      "05": {
+        "caption": "Portafoglio, se vuoi",
+        "subline": "Facoltativo: acquisti, vendite e trasferimenti"
+      }
+    },
+    "iw-IL": {
+      "01": {
+        "caption": "מחיר אחרון מהבורסה",
+        "subline": "בלי חשבון, בלי פרסומות – הסכומים נשארים במכשיר"
+      },
+      "02": {
+        "caption": "התראה שמודיעה פעם אחת",
+        "subline": "״להודיע לי כש-BTC יורד מתחת ל-90,000 CHF״"
+      },
+      "03": {
+        "caption": "מחירים במסך הבית",
+        "subline": "רשימת מעקב או מטבע אחד כווידג׳ט – בלי לפתוח את האפליקציה"
+      },
+      "04": {
+        "caption": "מה זז יחד איתו?",
+        "subline": "מחזור, שוק וחוזים עתידיים בקצרה – בלי תחזית"
+      },
+      "05": {
+        "caption": "תיק השקעות, אם רוצים",
+        "subline": "אופציונלי, בהגדרות: קניות, מכירות, העברות"
+      }
+    },
+    "ja-JP": {
+      "01": {
+        "caption": "直近価格は取引所から直接",
+        "subline": "アカウント不要・広告なし。金額は端末の外に出ません"
+      },
+      "02": {
+        "caption": "一度だけ知らせるアラーム",
+        "subline": "「BTC が 90,000 CHF を下回ったら知らせる」"
+      },
+      "03": {
+        "caption": "ホーム画面で価格をチェック",
+        "subline": "ウォッチリストや1つのコインをウィジェットに。アプリを開かずに"
+      },
+      "04": {
+        "caption": "一緒に動いているのは？",
+        "subline": "出来高・市場・先物から短くまとめ。予測はしません"
+      },
+      "05": {
+        "caption": "ポートフォリオは必要なときに",
+        "subline": "任意・設定でオン：購入、売却、送金"
+      }
+    },
+    "ko-KR": {
+      "01": {
+        "caption": "거래소에서 바로 온 최근 가격",
+        "subline": "계정·광고 없음 – 금액은 기기에만 남습니다"
+      },
+      "02": {
+        "caption": "한 번만 알려 주는 경보",
+        "subline": "‘BTC가 90,000 CHF 아래로 내려가면 알려 주세요’"
+      },
+      "03": {
+        "caption": "홈 화면에서 바로 가격 확인",
+        "subline": "관심 목록이나 코인 하나를 위젯으로 – 앱을 열지 않고"
+      },
+      "04": {
+        "caption": "함께 움직이는 것은?",
+        "subline": "거래량·시장·선물 데이터를 짧게 요약, 예측 없음"
+      },
+      "05": {
+        "caption": "원할 때만 포트폴리오",
+        "subline": "선택 사항, 설정에서 켜기: 매수, 매도, 이체"
+      }
+    },
+    "nl-NL": {
+      "01": {
+        "caption": "Laatste koers van de beurs",
+        "subline": "Geen account, geen reclame – bedragen blijven op je toestel"
+      },
+      "02": {
+        "caption": "Een alarm dat één keer meldt",
+        "subline": "‘Laat het me weten als BTC onder 90.000 CHF daalt’"
+      },
+      "03": {
+        "caption": "Koersen op je beginscherm",
+        "subline": "Volglijst of één munt als widget – zonder de app te openen"
+      },
+      "04": {
+        "caption": "Wat beweegt mee?",
+        "subline": "Volume, markt en futures kort samengevat – geen voorspelling"
+      },
+      "05": {
+        "caption": "Portfolio, als je wilt",
+        "subline": "Optioneel, via instellingen: aankopen, verkopen, transfers"
+      }
+    },
+    "no-NO": {
+      "01": {
+        "caption": "Siste kurs fra børsen",
+        "subline": "Ingen konto, ingen reklame – beløp blir på enheten"
+      },
+      "02": {
+        "caption": "En alarm som sier fra én gang",
+        "subline": "«Gi meg beskjed når BTC faller under 90 000 CHF»"
+      },
+      "03": {
+        "caption": "Kurser på startskjermen",
+        "subline": "Listen eller én mynt som widget – uten å åpne appen"
+      },
+      "04": {
+        "caption": "Hva beveger seg med?",
+        "subline": "Volum, marked og futures kort fortalt – uten prognose"
+      },
+      "05": {
+        "caption": "Portefølje, om du vil",
+        "subline": "Valgfritt, slås på i innstillinger: kjøp, salg, overføringer"
+      }
+    },
+    "pl-PL": {
+      "01": {
+        "caption": "Ostatnia cena z giełdy",
+        "subline": "Bez konta i reklam – kwoty zostają na urządzeniu"
+      },
+      "02": {
+        "caption": "Alarm, który powiadamia raz",
+        "subline": "„Powiadom mnie, gdy BTC spadnie poniżej 90 000 CHF”"
+      },
+      "03": {
+        "caption": "Ceny na ekranie głównym",
+        "subline": "Lista lub moneta jako widżet – bez otwierania aplikacji"
+      },
+      "04": {
+        "caption": "Co rusza się razem?",
+        "subline": "Wolumen, rynek i futures w skrócie – bez prognoz"
+      },
+      "05": {
+        "caption": "Portfel, jeśli chcesz",
+        "subline": "Opcjonalnie, w ustawieniach: kupno, sprzedaż, transfery"
+      }
+    },
+    "pt-BR": {
+      "01": {
+        "caption": "Último preço da exchange",
+        "subline": "Sem conta, sem anúncios – os valores ficam no aparelho"
+      },
+      "02": {
+        "caption": "Um alarme que avisa uma vez",
+        "subline": "“Me avise quando o BTC cair abaixo de 90.000 CHF”"
+      },
+      "03": {
+        "caption": "Preços na tela inicial",
+        "subline": "Lista ou uma moeda como widget, sem abrir o app"
+      },
+      "04": {
+        "caption": "O que se move junto?",
+        "subline": "Volume, mercado e futuros em resumo, sem previsões"
+      },
+      "05": {
+        "caption": "Portfólio, se você quiser",
+        "subline": "Opcional, ative nos Ajustes: compras, vendas, transferências"
+      }
+    },
+    "pt-PT": {
+      "01": {
+        "caption": "Último preço da exchange",
+        "subline": "Sem conta nem anúncios – os montantes ficam no dispositivo"
+      },
+      "02": {
+        "caption": "Um alarme que avisa uma vez",
+        "subline": "«Avisar-me quando BTC descer abaixo de 90 000 CHF»"
+      },
+      "03": {
+        "caption": "Preços no ecrã principal",
+        "subline": "Lista ou uma moeda como widget, sem abrir a app"
+      },
+      "04": {
+        "caption": "O que se mexe com ele?",
+        "subline": "Volume, mercado e futuros em resumo, sem previsões"
+      },
+      "05": {
+        "caption": "Portefólio, se quiser",
+        "subline": "Opcional, nas Definições: compras, vendas, transferências"
+      }
+    },
+    "ro": {
+      "01": {
+        "caption": "Ultimul preț de la bursă",
+        "subline": "Fără cont, fără reclame – sumele rămân pe dispozitiv"
+      },
+      "02": {
+        "caption": "O alarmă care anunță o dată",
+        "subline": "„Anunță-mă când BTC coboară sub 90.000 CHF”"
+      },
+      "03": {
+        "caption": "Prețuri pe ecranul principal",
+        "subline": "Lista sau o monedă ca widget – fără să deschizi aplicația"
+      },
+      "04": {
+        "caption": "Ce se mișcă odată cu el?",
+        "subline": "Volum, piață și futures pe scurt – fără prognoze"
+      },
+      "05": {
+        "caption": "Portofoliu, dacă vrei",
+        "subline": "Opțional, din setări: cumpărări, vânzări, transferuri"
+      }
+    },
+    "ru-RU": {
+      "01": {
+        "caption": "Последняя цена с биржи",
+        "subline": "Без аккаунта и рекламы – суммы остаются на устройстве"
+      },
+      "02": {
+        "caption": "Одно оповещение – один раз",
+        "subline": "«Сообщить, когда BTC опустится ниже 90 000 CHF»"
+      },
+      "03": {
+        "caption": "Цены на главном экране",
+        "subline": "Список или одна монета в виджете – без открытия приложения"
+      },
+      "04": {
+        "caption": "Что движется вместе?",
+        "subline": "Объём, рынок и фьючерсы коротко – без прогнозов"
+      },
+      "05": {
+        "caption": "Портфель – по желанию",
+        "subline": "По желанию, в настройках: покупки, продажи, переводы"
+      }
+    },
+    "sq": {
+      "01": {
+        "caption": "Çmimi i fundit nga bursa",
+        "subline": "Pa llogari, pa reklama – shumat mbeten në pajisje"
+      },
+      "02": {
+        "caption": "Një alarm që njofton një herë",
+        "subline": "«Më njofto kur BTC të bjerë nën 90 000 CHF»"
+      },
+      "03": {
+        "caption": "Çmimet në ekranin kryesor",
+        "subline": "Lista ose një monedhë si widget – pa hapur aplikacionin"
+      },
+      "04": {
+        "caption": "Çfarë lëviz bashkë?",
+        "subline": "Vëllimi, tregu dhe futures shkurt – pa parashikime"
+      },
+      "05": {
+        "caption": "Portofol, nëse do",
+        "subline": "Opsionale, nga cilësimet: blerje, shitje, transferime"
+      }
+    },
+    "sv-SE": {
+      "01": {
+        "caption": "Senaste kursen från börsen",
+        "subline": "Inget konto, ingen reklam – beloppen stannar på enheten"
+      },
+      "02": {
+        "caption": "Larm som meddelar en gång",
+        "subline": "”Meddela mig när BTC sjunker under 90 000 CHF”"
+      },
+      "03": {
+        "caption": "Kurser på hemskärmen",
+        "subline": "Listan eller ett mynt som widget – utan att öppna appen"
+      },
+      "04": {
+        "caption": "Vad rör sig med?",
+        "subline": "Volym, marknad och terminer kort sagt – utan prognos"
+      },
+      "05": {
+        "caption": "Portfölj, om du vill",
+        "subline": "Valfritt, i inställningar: köp, försäljning, överföringar"
+      }
+    },
+    "th": {
+      "01": {
+        "caption": "ราคาล่าสุดจากกระดานเทรด",
+        "subline": "ไม่ต้องมีบัญชี ไม่มีโฆษณา จำนวนเงินอยู่บนเครื่องคุณ"
+      },
+      "02": {
+        "caption": "แจ้งเตือนครั้งเดียว",
+        "subline": "“แจ้งฉันเมื่อ BTC ลงต่ำกว่า 90,000 CHF”"
+      },
+      "03": {
+        "caption": "ราคาบนหน้าจอหลัก",
+        "subline": "รายการติดตามหรือเหรียญเดียวเป็นวิดเจ็ต ไม่ต้องเปิดแอป"
+      },
+      "04": {
+        "caption": "อะไรเคลื่อนไหวไปด้วย?",
+        "subline": "วอลุ่ม ตลาด และฟิวเจอร์ส สรุปสั้น ๆ ไม่พยากรณ์"
+      },
+      "05": {
+        "caption": "พอร์ตโฟลิโอ ถ้าต้องการ",
+        "subline": "ไม่บังคับ เปิดในการตั้งค่า: ซื้อ ขาย โอน"
+      }
+    },
+    "tr-TR": {
+      "01": {
+        "caption": "Borsadan son fiyat",
+        "subline": "Hesap yok, reklam yok – tutarlar cihazında kalır"
+      },
+      "02": {
+        "caption": "Bir kez haber veren alarm",
+        "subline": "“BTC 90.000 CHF altına düşünce bana haber ver”"
+      },
+      "03": {
+        "caption": "Ana ekranda fiyatlar",
+        "subline": "Liste veya tek coin widget olarak – uygulamayı açmadan"
+      },
+      "04": {
+        "caption": "Onunla birlikte ne hareket ediyor?",
+        "subline": "Hacim, piyasa ve vadeli kısaca – tahmin yok"
+      },
+      "05": {
+        "caption": "İstersen portföy",
+        "subline": "İsteğe bağlı, ayarlardan: alım, satım, transfer"
+      }
+    },
+    "uk": {
+      "01": {
+        "caption": "Остання ціна з біржі",
+        "subline": "Без акаунта й реклами – суми лишаються на пристрої"
+      },
+      "02": {
+        "caption": "Сигнал, що спрацьовує раз",
+        "subline": "«Повідомити, коли BTC опуститься нижче 90 000 CHF»"
+      },
+      "03": {
+        "caption": "Ціни на головному екрані",
+        "subline": "Список або одна монета у віджеті – без відкриття застосунку"
+      },
+      "04": {
+        "caption": "Що рухається разом?",
+        "subline": "Обсяг, ринок і ф’ючерси коротко – без прогнозів"
+      },
+      "05": {
+        "caption": "Портфель – за бажанням",
+        "subline": "За бажанням, у налаштуваннях: купівлі, продажі, перекази"
+      }
+    },
+    "vi": {
+      "01": {
+        "caption": "Giá gần nhất từ sàn",
+        "subline": "Không tài khoản, không quảng cáo – số tiền ở lại máy bạn"
+      },
+      "02": {
+        "caption": "Cảnh báo chỉ báo một lần",
+        "subline": "“Báo cho tôi khi BTC giảm dưới 90.000 CHF”"
+      },
+      "03": {
+        "caption": "Giá ngay trên màn hình chính",
+        "subline": "Danh sách hoặc một coin dạng widget – không cần mở app"
+      },
+      "04": {
+        "caption": "Cái gì biến động cùng?",
+        "subline": "Khối lượng, thị trường, futures – ngắn gọn, không dự đoán"
+      },
+      "05": {
+        "caption": "Danh mục, nếu bạn muốn",
+        "subline": "Tùy chọn, bật trong Cài đặt: mua, bán, chuyển"
+      }
+    },
+    "zh-CN": {
+      "01": {
+        "caption": "最新价来自交易所",
+        "subline": "无需账户，没有广告，金额不离开设备"
+      },
+      "02": {
+        "caption": "只通知一次的提醒",
+        "subline": "“当 BTC 跌破 90,000 CHF 时提醒我”"
+      },
+      "03": {
+        "caption": "主屏幕上看价格",
+        "subline": "自选列表或单个币种做成小组件，无需打开应用"
+      },
+      "04": {
+        "caption": "哪些在同步波动？",
+        "subline": "成交量、大盘和合约数据，简短总结，不做预测"
+      },
+      "05": {
+        "caption": "需要时再用投资组合",
+        "subline": "可选，在设置中开启：买入、卖出、转账"
+      }
+    }
+  }
+}

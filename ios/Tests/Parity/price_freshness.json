@@ -1,0 +1,26 @@
+{
+  "description": "Price freshness (Android PriceFreshness.kt / iOS PriceFreshness.swift). Exchanges without their own time (exchangeTime null: Kraken, Gate.io, Hyperliquid, bitFlyer, Gemini bulk ...) are stamped with the fetch time, so a long-unchanged last price would look fresh. freshness: time used for age = exchangeTime if > 0, else lastUpdate. unchanged: 'price unchanged since' = priceChangedAt, only without exchangeTime, with known priceChangedAt and lastUpdate (> 0) and when now - priceChangedAt > max(1 h, outdatedAfter); else null. next: new priceChangedAt after a successful fetch at time: kept when the price is equal and the old value is known (> 0), else time.",
+  "now": 1700000000000,
+  "freshness": [
+    {"name": "exchange time wins", "lastUpdate": 1699999990000, "exchangeTime": 1699999000000, "expected": 1699999000000},
+    {"name": "no exchange time: last fetch", "lastUpdate": 1699999990000, "exchangeTime": null, "expected": 1699999990000},
+    {"name": "exchange time 0 counts as missing", "lastUpdate": 1699999990000, "exchangeTime": 0, "expected": 1699999990000},
+    {"name": "never updated", "lastUpdate": 0, "exchangeTime": null, "expected": 0}
+  ],
+  "unchanged": [
+    {"name": "no exchange time, unchanged 2 h, live (limit 2 min -> 1 h)", "exchangeTime": null, "priceChangedAtAge": 7200000, "lastUpdateAge": 10000, "outdatedAfter": 120000, "expected": 7200000},
+    {"name": "exactly 1 h is not yet unchanged", "exchangeTime": null, "priceChangedAtAge": 3600000, "lastUpdateAge": 10000, "outdatedAfter": 120000, "expected": null},
+    {"name": "1 h + 1 ms", "exchangeTime": null, "priceChangedAtAge": 3600001, "lastUpdateAge": 10000, "outdatedAfter": 120000, "expected": 3600001},
+    {"name": "background 60 min: limit 3 h, 2 h is fine", "exchangeTime": null, "priceChangedAtAge": 7200000, "lastUpdateAge": 60000, "outdatedAfter": 10800000, "expected": null},
+    {"name": "background 60 min: 4 h unchanged", "exchangeTime": null, "priceChangedAtAge": 14400000, "lastUpdateAge": 60000, "outdatedAfter": 10800000, "expected": 14400000},
+    {"name": "exchange delivers a time: never", "exchangeTime": 1699999990000, "priceChangedAtAge": 14400000, "lastUpdateAge": 10000, "outdatedAfter": 120000, "expected": null},
+    {"name": "unknown change time (after update): never", "exchangeTime": null, "priceChangedAtAge": null, "lastUpdateAge": 10000, "outdatedAfter": 120000, "expected": null},
+    {"name": "never updated: never", "exchangeTime": null, "priceChangedAtAge": 14400000, "lastUpdateAge": null, "outdatedAfter": 120000, "expected": null}
+  ],
+  "next": [
+    {"name": "same price keeps the change time", "previousPrice": 62000.1, "previousChangedAt": 1699990000000, "price": 62000.1, "time": 1700000000000, "expected": 1699990000000},
+    {"name": "new price: now", "previousPrice": 62000.1, "previousChangedAt": 1699990000000, "price": 62000.2, "time": 1700000000000, "expected": 1700000000000},
+    {"name": "same price, unknown change time: starts now", "previousPrice": 62000.1, "previousChangedAt": 0, "price": 62000.1, "time": 1700000000000, "expected": 1700000000000},
+    {"name": "first price", "previousPrice": null, "previousChangedAt": 0, "price": 1.5, "time": 1700000000000, "expected": 1700000000000}
+  ]
+}

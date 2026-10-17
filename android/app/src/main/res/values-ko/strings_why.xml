@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Warum bewegt sich das?»: Titel, Abschnitte, Aufklappen -->
+    <string name="why_action">함께 움직이는 것은?</string>
+    <string name="why_all_values">모든 값과 출처</string>
+    <string name="why_all_values_hint">관찰 · 가능한 해석 · 출처</string>
+    <string name="why_details">자세히 보기</string>
+    <string name="why_details_hide">자세히 숨기기</string>
+    <string name="why_disclaimer">시장 데이터 기반의 자동 평가: 같은 시간에 일어나는 일을 보여 줄 뿐, 원인의 증거가 아닙니다.</string>
+    <string name="why_footer_short">동시에 일어났다고 원인은 아님 · 투자 조언 아님</string>
+    <string name="why_no_data">이 거래쌍에 대한 Binance 데이터가 없습니다</string>
+    <string name="why_no_data_hint">시세, 거래량, 변동성은 Binance 1시간봉에서 가져옵니다.</string>
+    <string name="why_ref_alts">알트</string>
+    <string name="why_section_context">가능한 해석</string>
+    <string name="why_section_observation">관찰</string>
+    <string name="why_title">함께 움직이는 것은?</string>
+    <string name="why_title_coin">%1$s와(과) 함께 움직이는 것은?</string>
+
+    <!-- «Warum?»: Kurz gesagt (ein Satz oben) -->
+    <string name="why_brief_head">요약 · %1$s 기준</string>
+    <string name="why_brief_label">요약:</string>
+    <string name="why_summary_against">이 코인은 시장과 반대로 움직입니다.</string>
+    <string name="why_summary_calm">눈에 띄는 움직임 없음: 시장과 코인 모두 조용합니다.</string>
+    <string name="why_summary_coin">이 코인만 움직입니다 – 이 코인에만 해당하는 사정이 있을 수 있습니다.</string>
+    <string name="why_summary_coin_volume">이 코인만 거래량이 늘며 움직입니다 – 이 코인에만 해당하는 사정이 있을 수 있습니다.</string>
+    <string name="why_summary_longs">선물: 레버리지 롱 포지션 많음.</string>
+    <string name="why_summary_market">이 움직임은 시기상 시장 전체와 일치합니다.</string>
+    <string name="why_summary_market_volume">이 움직임은 거래량 증가 및 시장 전반의 움직임과 시기가 겹칩니다.</string>
+    <string name="why_summary_peg_near">가격이 1:1 페그에 가깝습니다.</string>
+    <string name="why_summary_peg_off">가격이 1:1 페그에서 눈에 띄게 벗어나 있습니다.</string>
+    <string name="why_summary_shorts">선물: 숏 포지션 많음.</string>
+    <string name="why_summary_thin">거래가 얇은 움직임입니다: 뒷받침하는 거래량이 적습니다.</string>
+
+    <!-- «Warum?»: Faktorliste (Titel der Faktoren) -->
+    <string name="why_f_against">시장과 반대</string>
+    <string name="why_f_coin_only">이 코인만</string>
+    <string name="why_f_leader">시장 주도주 비트코인</string>
+    <string name="why_f_leverage_balanced">레버리지 균형</string>
+    <string name="why_f_leverage_longs">레버리지: 롱 많음</string>
+    <string name="why_f_leverage_shorts">레버리지: 숏 많음</string>
+    <string name="why_f_market_calm">잠잠한 시장</string>
+    <string name="why_f_market_wide">시장 전체가 움직임</string>
+    <string name="why_factor_funding">펀딩비</string>
+    <string name="why_factor_futures">선물</string>
+    <string name="why_factor_market">전체 시장</string>
+    <string name="why_factor_near_high">고점 근처</string>
+    <string name="why_factor_near_low">저점 근처</string>
+    <string name="why_factor_peg">페그(1:1)</string>
+    <string name="why_factor_range3d">3일 범위</string>
+
+    <!-- «Warum?»: Nebenzeilen der Faktoren -->
+    <string name="why_fn_estimated">추정</string>
+    <string name="why_fn_funding_longs">많은 사람이 상승에 베팅</string>
+    <string name="why_fn_funding_neutral">중립</string>
+    <string name="why_fn_funding_shorts">많은 사람이 하락에 베팅</string>
+    <string name="why_fn_high_at">30일 고점</string>
+    <string name="why_fn_high_below">30일 고점 아래</string>
+    <string name="why_fn_leader_calm">비트코인 잠잠</string>
+    <string name="why_fn_leader_moves">비트코인이 뚜렷하게 움직임</string>
+    <string name="why_fn_low_above">30일 저점 위</string>
+    <string name="why_fn_low_at">30일 저점</string>
+    <string name="why_fn_market_against">이 코인이 시장과 반대로 움직임</string>
+    <string name="why_fn_market_alone">시장은 잠잠 – 이 코인만 따로 움직임</string>
+    <string name="why_fn_market_calm">시장 잠잠</string>
+    <string name="why_fn_market_lags">시장은 움직이지만 이 코인은 거의 그대로</string>
+    <string name="why_fn_market_moves">시장이 같은 방향으로 움직이는 중</string>
+    <string name="why_fn_market_pulls">시장이 BTC와 함께 움직입니다</string>
+    <string name="why_fn_oi_down">미결제약정 감소</string>
+    <string name="why_fn_oi_flat">미결제약정 거의 변동 없음</string>
+    <string name="why_fn_oi_mixed">미결제약정 엇갈림</string>
+    <string name="why_fn_oi_up">미결제약정 증가</string>
+    <string name="why_fn_peg_above">1:1 페그보다 %1$s 높음</string>
+    <string name="why_fn_peg_below">1:1 페그보다 %1$s 낮음</string>
+    <string name="why_fn_peg_near">1:1 페그 근처</string>
+    <string name="why_fn_range_above_low">3일 저점 대비</string>
+    <string name="why_fn_range_below_high">3일 고점 대비</string>
+    <string name="why_fn_range_near_high">3일 고점 근처</string>
+    <string name="why_fn_range_near_low">3일 저점 근처</string>
+    <string name="why_fn_volatility_stronger">평소보다 큼</string>
+    <string name="why_fn_volatility_tiny">절대 수치로는 작음(%1$s 미만)</string>
+    <string name="why_fn_volatility_usual">평소 수준</string>
+    <string name="why_fn_volume_higher">평소보다 많음</string>
+    <string name="why_fn_volume_lower">평소보다 적음</string>
+    <string name="why_fn_volume_usual">평소 수준</string>
+
+    <!-- «Warum?»: ausführliche Sätze je Beobachtung -->
+    <string name="why_against_market_text">이 코인 %1$s, BTC %2$s (24시간) — 눈에 띄게 독자적인 움직임입니다.</string>
+    <string name="why_against_ref_text">이 코인 %1$s, %2$s %3$s(24시간) — 눈에 띄게 독자적인 움직임입니다.</string>
+    <string name="why_btc_independent">%1$s은(는) 현재 비트코인과 무관하게 움직이고 있습니다.</string>
+    <string name="why_btc_tight">%1$s은(는) 현재 비트코인과 밀접하게 움직이고 있습니다.</string>
+    <string name="why_change_1h">1h</string>
+    <string name="why_change_24h">24h</string>
+    <string name="why_coin_only_text">시장이 조용한 가운데 24시간 %1$s — 이 코인에만 해당하는 사정이 있을 수 있습니다.</string>
+    <string name="why_leverage_balanced_text">선물 시장에서 롱이나 숏 포지션의 쏠림이 없습니다.</string>
+    <string name="why_leverage_longs_text">많은 사람이 빌린 돈으로 가격 상승에 베팅하고 있습니다. 롱이 숏에게 지불 중 — 가격이 하락하면 청산 위험이 커집니다.</string>
+    <string name="why_leverage_shorts_text">많은 사람이 빌린 돈으로 가격 하락에 베팅하고 있습니다. 숏이 롱에게 지불 중 — 가격이 오르면 숏 스퀴즈가 일어날 수 있습니다.</string>
+    <string name="why_market_calm_text">이 코인: 24시간 %1$s. 시장도 코인도 크게 움직이지 않습니다.</string>
+    <string name="why_market_leader_text">가장 큰 코인인 BTC는 보통 나머지 시장과 함께 움직입니다. ETH: 24시간 %1$s.</string>
+    <string name="why_market_leader_text_no_eth">가장 큰 코인인 BTC는 보통 나머지 시장과 함께 움직입니다.</string>
+    <string name="why_market_similar_text">이 코인: 24시간 %1$s — 같은 시간에 시장도 같은 방향으로 움직이지만 덜 뚜렷합니다.</string>
+    <string name="why_market_wide_text">이 코인: 24시간 %1$s — 같은 시간에 시장 전체도 뚜렷하게 움직이고 있습니다.</string>
+    <string name="why_open_interest_change">지난 확인 이후 미결제약정 %1$s.</string>
+    <string name="why_peg_text">스테이블코인: 호가 통화와의 1:1 페그 대비 편차 %1$s.</string>
+    <string name="why_sentiment_text">전체 암호화폐 시장의 공포·탐욕 지수, 어제 대비 %1$s.</string>
+    <string name="why_sentiment_text_no_change">전체 암호화폐 시장의 공포·탐욕 지수.</string>
+    <plurals name="why_trend_falling">
+        <item quantity="other">%1$d시간째 하락</item>
+    </plurals>
+    <plurals name="why_trend_rising">
+        <item quantity="other">%1$d시간째 상승</item>
+    </plurals>
+    <plurals name="why_trend_stable">
+        <item quantity="other">%1$d시간째 안정</item>
+    </plurals>
+    <string name="why_volatility_high_text">최근 1시간: %1$s — 지난 24시간의 일반적인 시간당 변동폭 대비.</string>
+    <string name="why_volatility_normal_text">최근 1시간: %1$s — 평소 범위 안입니다.</string>
+    <string name="why_volatility_tiny_text">최근 1시간: %1$s — 이 코인으로서는 이례적이지만 절대 수치로는 작습니다.</string>
+    <string name="why_volume_estimated_text">추정: 이 출처는 거래대금을 제공하지 않아 거래된 코인 수량으로 비교합니다.</string>
+    <string name="why_volume_high_text">최근 1시간 거래가 평소보다 훨씬 많습니다 — 움직임에 높은 거래량이 동반되고 있습니다.</string>
+    <string name="why_volume_low_text">움직임 뒤의 거래가 적습니다 — 이런 움직임은 흔히 덜 안정적입니다.</string>
+    <string name="why_volume_normal_text">최근 1시간 거래가 지난 24시간과 비슷합니다.</string>
+
+    <!-- «Warum?»: Signal-Punkte (stützt, neutral, Vorsicht) -->
+    <string name="why_dot_caution">높음</string>
+    <string name="why_dot_neutral">중립</string>
+    <string name="why_dot_supports">움직임과 일치</string>
+
+    <!-- «Warum?»: Frische und Quellen der Daten -->
+    <string name="why_data_time">데이터 기준: %1$s</string>
+    <string name="why_fresh_breadth">시장 폭: %1$s · %2$s</string>
+    <string name="why_fresh_candles">캔들: %1$s · %2$s</string>
+    <string name="why_fresh_fng">Fear &amp; Greed: %1$s</string>
+    <string name="why_fresh_futures">선물: %1$s</string>
+    <plurals name="why_fresh_oi_hours">
+        <item quantity="other">미결제약정 %1$d시간 전과 비교</item>
+    </plurals>
+    <plurals name="why_fresh_oi_minutes">
+        <item quantity="other">미결제약정 %1$d분 전과 비교</item>
+    </plurals>
+    <string name="why_fresh_today">오늘</string>
+    <string name="why_fresh_yesterday">어제</string>
+    <string name="why_source_fallback">%1$s(대체 출처)</string>
+    <string name="why_source_reference">%1$s(참고값)</string>
+    <string name="why_sources">출처: 거래소 1시간 봉(주로 Binance), 거래소 선물 데이터, alternative.me의 Fear &amp; Greed.</string>
+    <string name="why_sources_list">출처: %1$s.</string>
+    <string name="why_src_breadth">%1$s(시장 폭)</string>
+    <string name="why_src_candles">%1$s(캔들)</string>
+    <string name="why_src_comparison">%1$s(시장 비교)</string>
+    <string name="why_src_fng">%1$s(Fear &amp; Greed)</string>
+    <string name="why_src_futures">%1$s(선물)</string>
+
+    <!-- Faktor-Checkliste (Crypto Pulse und «Warum?») -->
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">펀딩비</string>
+    <string name="factor_spoken_volatility">평소 변동폭의 %1$s배</string>
+    <string name="factor_spoken_volume">평소의 %1$s배</string>
+    <string name="factor_volatility">변동폭 (1h)</string>
+    <string name="factor_volume">거래량</string>
+</resources>

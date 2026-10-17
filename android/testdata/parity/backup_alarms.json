@@ -1,0 +1,222 @@
+{
+ "description": "Pair alarms read from a backup (Android AlarmJson.fromJson / iOS BackupManager.alarmFromJson). An unknown condition (newer app version) or a threshold that is not a finite number makes the alarm invalid: it is counted and named in the restore confirmation, never turned into «price above» with a foreign threshold. Numbers JSON cannot hold are strings (\"NaN\"). An optional \"windowHours\" per case is the expected window after reading: clamped to 1 … 365 (no overflow, no 32-bit wrap).",
+ "cases": [
+  {
+   "name": "known condition is kept",
+   "alarm": {
+    "id": 1,
+    "watchId": 10,
+    "condition": "PRICE_ABOVE",
+    "threshold": 60000,
+    "enabled": true,
+    "repeating": false,
+    "sound": true,
+    "vibrate": true,
+    "speak": false,
+    "referencePrice": null,
+    "windowHours": 1,
+    "currency": null
+   },
+   "valid": true
+  },
+  {
+   "name": "percent alarm is kept",
+   "alarm": {
+    "id": 1,
+    "watchId": 10,
+    "condition": "CHANGE_PERCENT_UP",
+    "threshold": 5,
+    "enabled": true,
+    "repeating": false,
+    "sound": true,
+    "vibrate": true,
+    "speak": false,
+    "referencePrice": null,
+    "windowHours": 1,
+    "currency": null
+   },
+   "valid": true
+  },
+  {
+   "name": "unknown condition from a newer version is invalid",
+   "alarm": {
+    "id": 1,
+    "watchId": 10,
+    "condition": "RSI_ABOVE",
+    "threshold": 70,
+    "enabled": true,
+    "repeating": false,
+    "sound": true,
+    "vibrate": true,
+    "speak": false,
+    "referencePrice": null,
+    "windowHours": 1,
+    "currency": null
+   },
+   "valid": false
+  },
+  {
+   "name": "missing condition is invalid",
+   "alarm": {
+    "id": 1,
+    "watchId": 10,
+    "threshold": 60000,
+    "enabled": true,
+    "repeating": false,
+    "sound": true,
+    "vibrate": true,
+    "speak": false,
+    "referencePrice": null,
+    "windowHours": 1,
+    "currency": null
+   },
+   "valid": false
+  },
+  {
+   "name": "NaN threshold is invalid",
+   "alarm": {
+    "id": 1,
+    "watchId": 10,
+    "condition": "PRICE_ABOVE",
+    "threshold": "NaN",
+    "enabled": true,
+    "repeating": false,
+    "sound": true,
+    "vibrate": true,
+    "speak": false,
+    "referencePrice": null,
+    "windowHours": 1,
+    "currency": null
+   },
+   "valid": false
+  },
+  {
+   "name": "infinite threshold is invalid",
+   "alarm": {
+    "id": 1,
+    "watchId": 10,
+    "condition": "PRICE_ABOVE",
+    "threshold": "Infinity",
+    "enabled": true,
+    "repeating": false,
+    "sound": true,
+    "vibrate": true,
+    "speak": false,
+    "referencePrice": null,
+    "windowHours": 1,
+    "currency": null
+   },
+   "valid": false
+  },
+  {
+   "name": "missing id is invalid",
+   "alarm": {
+    "watchId": 10,
+    "condition": "PRICE_ABOVE",
+    "threshold": 60000,
+    "enabled": true,
+    "repeating": false,
+    "sound": true,
+    "vibrate": true,
+    "speak": false,
+    "referencePrice": null,
+    "windowHours": 1,
+    "currency": null
+   },
+   "valid": false
+  },
+  {
+   "name": "missing pair id is invalid",
+   "alarm": {
+    "id": 1,
+    "condition": "PRICE_ABOVE",
+    "threshold": 60000,
+    "enabled": true,
+    "repeating": false,
+    "sound": true,
+    "vibrate": true,
+    "speak": false,
+    "referencePrice": null,
+    "windowHours": 1,
+    "currency": null
+   },
+   "valid": false
+  },
+  {
+   "name": "huge window is clamped to 365 (no overflow)",
+   "alarm": {
+    "id": 1,
+    "watchId": 10,
+    "condition": "MOVE_PERCENT_WINDOW",
+    "threshold": 5,
+    "enabled": true,
+    "repeating": false,
+    "sound": true,
+    "vibrate": true,
+    "speak": false,
+    "referencePrice": null,
+    "windowHours": 9223372036854775807,
+    "currency": null
+   },
+   "valid": true,
+   "windowHours": 365
+  },
+  {
+   "name": "window beyond 32 bit is clamped, not wrapped",
+   "alarm": {
+    "id": 1,
+    "watchId": 10,
+    "condition": "MOVE_PERCENT_WINDOW",
+    "threshold": 5,
+    "enabled": true,
+    "repeating": false,
+    "sound": true,
+    "vibrate": true,
+    "speak": false,
+    "referencePrice": null,
+    "windowHours": 4294967320,
+    "currency": null
+   },
+   "valid": true,
+   "windowHours": 365
+  },
+  {
+   "name": "negative window becomes 1",
+   "alarm": {
+    "id": 1,
+    "watchId": 10,
+    "condition": "MOVE_PERCENT_WINDOW",
+    "threshold": 5,
+    "enabled": true,
+    "repeating": false,
+    "sound": true,
+    "vibrate": true,
+    "speak": false,
+    "referencePrice": null,
+    "windowHours": -4,
+    "currency": null
+   },
+   "valid": true,
+   "windowHours": 1
+  },
+  {
+   "name": "valid window is kept",
+   "alarm": {
+    "id": 1,
+    "watchId": 10,
+    "condition": "MOVE_PERCENT_WINDOW",
+    "threshold": 5,
+    "enabled": true,
+    "repeating": false,
+    "sound": true,
+    "vibrate": true,
+    "speak": false,
+    "referencePrice": null,
+    "windowHours": 24,
+    "currency": null
+   },
+   "valid": true,
+   "windowHours": 24
+  }
+ ]
+}

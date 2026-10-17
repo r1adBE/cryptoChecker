@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Begrüssung beim ersten Start -->
+    <string name="welcome_alert">Alarmieren – Kurs, Prozent, Volumen und ungewöhnliche Bewegungen</string>
+    <string name="welcome_alert_q">Wann melden?</string>
+    <string name="welcome_text">Deine Kurse. Deine Alarme. Deine Übersicht.\nOhne Konto. Ohne Werbung. Ohne Tracking.</string>
+    <string name="welcome_understand">Verstehen – was sich gerade mit einem Kurs mitbewegt</string>
+    <string name="welcome_understand_q">Was bewegt sich mit?</string>
+    <string name="welcome_watch">Beobachten – deine Coins, Kurse und Verläufe</string>
+    <string name="welcome_watch_q">Was passiert?</string>
+
+    <!-- Start-Coins (Vorschlagsliste nach der Begrüssung) -->
+    <string name="starter_add_selected">Zur Merkliste hinzufügen (%1$d)</string>
+    <string name="starter_loading_prices">Kurse werden geladen…</string>
+    <string name="starter_search_coin">Anderen Coin suchen</string>
+    <string name="starter_select_all">Alle auswählen</string>
+    <string name="starter_select_none">Keine auswählen</string>
+    <string name="starter_text">Abwählen, was du nicht willst, und den Rest in einem Schritt hinzufügen. Börse und Paar kannst du später ändern.</string>
+    <string name="starter_title">Starte mit diesen Coins</string>
+    <string name="starter_watch_alarm_hint">Kurs beobachten, Alarm setzen</string>
+</resources>

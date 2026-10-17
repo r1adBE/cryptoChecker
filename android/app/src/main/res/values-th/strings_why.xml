@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Warum bewegt sich das?»: Titel, Abschnitte, Aufklappen -->
+    <string name="why_action">อะไรเคลื่อนไหวไปด้วย?</string>
+    <string name="why_all_values">ค่าและแหล่งที่มาทั้งหมด</string>
+    <string name="why_all_values_hint">การสังเกต · คำอธิบายที่เป็นไปได้ · แหล่งที่มา</string>
+    <string name="why_details">ดูรายละเอียด</string>
+    <string name="why_details_hide">ซ่อนรายละเอียด</string>
+    <string name="why_disclaimer">การประเมินอัตโนมัติจากข้อมูลตลาด: แสดงสิ่งที่เกิดขึ้นพร้อมกัน ไม่ใช่หลักฐานของสาเหตุ</string>
+    <string name="why_footer_short">เกิดพร้อมกันไม่ได้แปลว่าเป็นสาเหตุ · ไม่ใช่คำแนะนำการลงทุน</string>
+    <string name="why_no_data">ไม่มีข้อมูลจาก Binance สำหรับคู่นี้</string>
+    <string name="why_no_data_hint">ราคา ปริมาณ และความผันผวนมาจากแท่งเทียนรายชั่วโมงของ Binance</string>
+    <string name="why_ref_alts">Alts</string>
+    <string name="why_section_context">การตีความที่เป็นไปได้</string>
+    <string name="why_section_observation">การสังเกต</string>
+    <string name="why_title">อะไรเคลื่อนไหวไปด้วย?</string>
+    <string name="why_title_coin">อะไรเคลื่อนไหวไปพร้อมกับ %1$s?</string>
+
+    <!-- «Warum?»: Kurz gesagt (ein Satz oben) -->
+    <string name="why_brief_head">สรุปสั้น ๆ · ณ %1$s</string>
+    <string name="why_brief_label">สรุปสั้น ๆ:</string>
+    <string name="why_summary_against">เหรียญนี้เคลื่อนไหวสวนทางตลาด</string>
+    <string name="why_summary_calm">ไม่มีการเคลื่อนไหวที่โดดเด่น: ทั้งตลาดและเหรียญสงบ</string>
+    <string name="why_summary_coin">มีเพียงเหรียญนี้ที่เคลื่อนไหว – อาจมีเรื่องที่เกี่ยวกับเหรียญนี้เท่านั้น</string>
+    <string name="why_summary_coin_volume">มีเพียงเหรียญนี้ที่เคลื่อนไหว โดยมีปริมาณซื้อขายสูงขึ้น – อาจมีเรื่องที่เกี่ยวกับเหรียญนี้เท่านั้น</string>
+    <string name="why_summary_longs">ฟิวเจอร์ส: มีสถานะ Long ใช้เลเวอเรจจำนวนมาก</string>
+    <string name="why_summary_market">การเคลื่อนไหวนี้สอดคล้องในเชิงเวลากับตลาดโดยรวม</string>
+    <string name="why_summary_market_volume">การเคลื่อนไหวเกิดขึ้นพร้อมกับปริมาณซื้อขายที่สูงขึ้นและตลาดที่เคลื่อนไหวในวงกว้าง</string>
+    <string name="why_summary_peg_near">ราคาอยู่ใกล้การตรึง 1:1</string>
+    <string name="why_summary_peg_off">ราคาเบี่ยงจากการตรึง 1:1 อย่างเห็นได้ชัด</string>
+    <string name="why_summary_shorts">ฟิวเจอร์ส: มีสถานะ Short จำนวนมาก</string>
+    <string name="why_summary_thin">การเคลื่อนไหวเบาบาง: มีปริมาณสนับสนุนน้อย</string>
+
+    <!-- «Warum?»: Faktorliste (Titel der Faktoren) -->
+    <string name="why_f_against">สวนตลาด</string>
+    <string name="why_f_coin_only">เฉพาะเหรียญนี้</string>
+    <string name="why_f_leader">Bitcoin ในฐานะผู้นำตลาด</string>
+    <string name="why_f_leverage_balanced">เลเวอเรจสมดุล</string>
+    <string name="why_f_leverage_longs">เลเวอเรจ: Long จำนวนมาก</string>
+    <string name="why_f_leverage_shorts">เลเวอเรจ: Short จำนวนมาก</string>
+    <string name="why_f_market_calm">ตลาดนิ่ง</string>
+    <string name="why_f_market_wide">ทั้งตลาดเคลื่อนไหว</string>
+    <string name="why_factor_funding">Funding</string>
+    <string name="why_factor_futures">ฟิวเจอร์ส</string>
+    <string name="why_factor_market">ตลาดโดยรวม</string>
+    <string name="why_factor_near_high">ใกล้จุดสูงสุด</string>
+    <string name="why_factor_near_low">ใกล้จุดต่ำสุด</string>
+    <string name="why_factor_peg">การตรึง (1:1)</string>
+    <string name="why_factor_range3d">ช่วงราคา 3 วัน</string>
+
+    <!-- «Warum?»: Nebenzeilen der Faktoren -->
+    <string name="why_fn_estimated">โดยประมาณ</string>
+    <string name="why_fn_funding_longs">หลายคนเดิมพันว่าราคาจะขึ้น</string>
+    <string name="why_fn_funding_neutral">เป็นกลาง</string>
+    <string name="why_fn_funding_shorts">หลายคนเดิมพันว่าราคาจะลง</string>
+    <string name="why_fn_high_at">อยู่ที่จุดสูงสุด 30 วัน</string>
+    <string name="why_fn_high_below">ต่ำกว่าจุดสูงสุด 30 วัน</string>
+    <string name="why_fn_leader_calm">Bitcoin นิ่ง</string>
+    <string name="why_fn_leader_moves">Bitcoin เคลื่อนไหวชัดเจน</string>
+    <string name="why_fn_low_above">เหนือจุดต่ำสุด 30 วัน</string>
+    <string name="why_fn_low_at">อยู่ที่จุดต่ำสุด 30 วัน</string>
+    <string name="why_fn_market_against">เหรียญเคลื่อนไหวสวนตลาด</string>
+    <string name="why_fn_market_alone">ตลาดเงียบ – เหรียญนี้เคลื่อนไหวเอง</string>
+    <string name="why_fn_market_calm">ตลาดเงียบ</string>
+    <string name="why_fn_market_lags">ตลาดเคลื่อนไหว แต่เหรียญนี้แทบไม่ขยับ</string>
+    <string name="why_fn_market_moves">ตลาดเคลื่อนไปทิศทางเดียวกัน</string>
+    <string name="why_fn_market_pulls">ตลาดเคลื่อนไหวไปพร้อมกับ BTC</string>
+    <string name="why_fn_oi_down">Open interest ลดลง</string>
+    <string name="why_fn_oi_flat">Open interest แทบไม่เปลี่ยน</string>
+    <string name="why_fn_oi_mixed">Open interest ไม่เป็นไปในทางเดียวกัน</string>
+    <string name="why_fn_oi_up">Open interest เพิ่มขึ้น</string>
+    <string name="why_fn_peg_above">สูงกว่าการตรึง 1:1 อยู่ %1$s</string>
+    <string name="why_fn_peg_below">ต่ำกว่าการตรึง 1:1 อยู่ %1$s</string>
+    <string name="why_fn_peg_near">ใกล้การตรึง 1:1</string>
+    <string name="why_fn_range_above_low">นับจากจุดต่ำสุด 3 วัน</string>
+    <string name="why_fn_range_below_high">นับจากจุดสูงสุด 3 วัน</string>
+    <string name="why_fn_range_near_high">ใกล้จุดสูงสุด 3 วัน</string>
+    <string name="why_fn_range_near_low">ใกล้จุดต่ำสุด 3 วัน</string>
+    <string name="why_fn_volatility_stronger">แรงกว่าปกติ</string>
+    <string name="why_fn_volatility_tiny">เล็กน้อยในเชิงสัมบูรณ์ (ต่ำกว่า %1$s)</string>
+    <string name="why_fn_volatility_usual">ตามปกติ</string>
+    <string name="why_fn_volume_higher">สูงกว่าปกติ</string>
+    <string name="why_fn_volume_lower">ต่ำกว่าปกติ</string>
+    <string name="why_fn_volume_usual">ตามปกติ</string>
+
+    <!-- «Warum?»: ausführliche Sätze je Beobachtung -->
+    <string name="why_against_market_text">เหรียญนี้ %1$s, BTC %2$s ใน 24 ชม. — การเคลื่อนไหวที่เป็นอิสระอย่างเห็นได้ชัด</string>
+    <string name="why_against_ref_text">เหรียญนี้ %1$s, %2$s %3$s ใน 24 ชม. — เคลื่อนไหวอย่างเป็นอิสระชัดเจน</string>
+    <string name="why_btc_independent">ขณะนี้ %1$s เคลื่อนไหวเป็นอิสระจาก Bitcoin</string>
+    <string name="why_btc_tight">ขณะนี้ %1$s เคลื่อนไหวใกล้ชิดกับ Bitcoin</string>
+    <string name="why_change_1h">1h</string>
+    <string name="why_change_24h">24h</string>
+    <string name="why_coin_only_text">%1$s ใน 24 ชม. ขณะที่ตลาดเงียบ — อาจมีเรื่องที่เกี่ยวกับเหรียญนี้เท่านั้น</string>
+    <string name="why_leverage_balanced_text">ไม่มีการกระจุกตัวของสถานะ Long หรือ Short ในตลาดฟิวเจอร์ส</string>
+    <string name="why_leverage_longs_text">หลายคนเดิมพันว่าราคาจะขึ้นด้วยเงินที่กู้ยืมมา Long จ่ายให้ Short — เสี่ยงถูกบังคับปิดสถานะมากขึ้นหากราคาลดลง</string>
+    <string name="why_leverage_shorts_text">หลายคนเดิมพันว่าราคาจะลงด้วยเงินที่กู้ยืมมา Short จ่ายให้ Long — หากราคาสูงขึ้น อาจเกิด Short Squeeze ได้</string>
+    <string name="why_market_calm_text">เหรียญนี้: %1$s ใน 24 ชม. ทั้งตลาดและเหรียญไม่ได้เคลื่อนไหวมาก</string>
+    <string name="why_market_leader_text">ในฐานะเหรียญที่ใหญ่ที่สุด BTC มักเคลื่อนไหวไปพร้อมกับตลาดส่วนที่เหลือ ETH: %1$s ใน 24 ชม.</string>
+    <string name="why_market_leader_text_no_eth">ในฐานะเหรียญที่ใหญ่ที่สุด BTC มักเคลื่อนไหวไปพร้อมกับตลาดส่วนที่เหลือ</string>
+    <string name="why_market_similar_text">เหรียญนี้: %1$s ใน 24 ชม. — ในเวลาเดียวกันตลาดก็เคลื่อนไปทิศทางเดียวกัน แต่ไม่ชัดเจนเท่า</string>
+    <string name="why_market_wide_text">เหรียญนี้: %1$s ใน 24 ชม. — ในช่วงเวลาเดียวกัน ตลาดโดยรวมก็เคลื่อนไหวชัดเจน</string>
+    <string name="why_open_interest_change">Open interest %1$s นับจากการตรวจครั้งล่าสุด</string>
+    <string name="why_peg_text">สเตเบิลคอยน์: เทียบกับการตรึง 1:1 กับสกุลเงินอ้างอิง ส่วนต่าง %1$s</string>
+    <string name="why_sentiment_text">ดัชนีความกลัวและความโลภของตลาดคริปโตทั้งหมด %1$s เทียบกับเมื่อวาน</string>
+    <string name="why_sentiment_text_no_change">ดัชนีความกลัวและความโลภของตลาดคริปโตทั้งหมด</string>
+    <plurals name="why_trend_falling">
+        <item quantity="other">ลดลงมา %1$d ชั่วโมง</item>
+    </plurals>
+    <plurals name="why_trend_rising">
+        <item quantity="other">เพิ่มขึ้นมา %1$d ชั่วโมง</item>
+    </plurals>
+    <plurals name="why_trend_stable">
+        <item quantity="other">คงที่มา %1$d ชั่วโมง</item>
+    </plurals>
+    <string name="why_volatility_high_text">ชั่วโมงล่าสุด: %1$s — เทียบกับการแกว่งรายชั่วโมงตามปกติใน 24 ชั่วโมงที่ผ่านมา</string>
+    <string name="why_volatility_normal_text">ชั่วโมงล่าสุด: %1$s — อยู่ในช่วงปกติ</string>
+    <string name="why_volatility_tiny_text">ชั่วโมงล่าสุด: %1$s — ไม่ปกติสำหรับเหรียญนี้ แต่เล็กน้อยในเชิงสัมบูรณ์</string>
+    <string name="why_volume_estimated_text">โดยประมาณ: แหล่งนี้ไม่มีมูลค่าการซื้อขาย จึงเปรียบเทียบจากจำนวนเหรียญที่ซื้อขาย</string>
+    <string name="why_volume_high_text">มีการซื้อขายมากกว่าปกติมากในชั่วโมงล่าสุด — การเคลื่อนไหวมาพร้อมปริมาณซื้อขายสูง</string>
+    <string name="why_volume_low_text">มีการซื้อขายน้อยเบื้องหลังการเคลื่อนไหว — การเคลื่อนไหวแบบนี้มักมีเสถียรภาพน้อยกว่า</string>
+    <string name="why_volume_normal_text">การซื้อขายในชั่วโมงล่าสุดสอดคล้องกับ 24 ชั่วโมงที่ผ่านมา</string>
+
+    <!-- «Warum?»: Signal-Punkte (stützt, neutral, Vorsicht) -->
+    <string name="why_dot_caution">สูงขึ้น</string>
+    <string name="why_dot_neutral">เป็นกลาง</string>
+    <string name="why_dot_supports">สอดคล้องกับการเคลื่อนไหว</string>
+
+    <!-- «Warum?»: Frische und Quellen der Daten -->
+    <string name="why_data_time">ข้อมูล ณ %1$s</string>
+    <string name="why_fresh_breadth">ความกว้างของตลาด: %1$s · %2$s</string>
+    <string name="why_fresh_candles">แท่งเทียน: %1$s · %2$s</string>
+    <string name="why_fresh_fng">Fear &amp; Greed: %1$s</string>
+    <string name="why_fresh_futures">ฟิวเจอร์ส: %1$s</string>
+    <plurals name="why_fresh_oi_hours">
+        <item quantity="other">Open interest เทียบกับเมื่อ %1$d ชั่วโมงก่อน</item>
+    </plurals>
+    <plurals name="why_fresh_oi_minutes">
+        <item quantity="other">Open interest เทียบกับเมื่อ %1$d นาทีก่อน</item>
+    </plurals>
+    <string name="why_fresh_today">วันนี้</string>
+    <string name="why_fresh_yesterday">เมื่อวาน</string>
+    <string name="why_source_fallback">%1$s (แหล่งสำรอง)</string>
+    <string name="why_source_reference">%1$s (ค่าอ้างอิง)</string>
+    <string name="why_sources">แหล่งข้อมูล: แท่งเทียนรายชั่วโมงของกระดานเทรด (ส่วนใหญ่ Binance), ข้อมูลฟิวเจอร์สจากกระดานเทรด, Fear &amp; Greed จาก alternative.me</string>
+    <string name="why_sources_list">แหล่งข้อมูล: %1$s</string>
+    <string name="why_src_breadth">%1$s (ความกว้างของตลาด)</string>
+    <string name="why_src_candles">%1$s (แท่งเทียน)</string>
+    <string name="why_src_comparison">%1$s (เทียบกับตลาด)</string>
+    <string name="why_src_fng">%1$s (Fear &amp; Greed)</string>
+    <string name="why_src_futures">%1$s (ฟิวเจอร์ส)</string>
+
+    <!-- Faktor-Checkliste (Crypto Pulse und «Warum?») -->
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">Funding</string>
+    <string name="factor_spoken_volatility">%1$s เท่าของการแกว่งตัวปกติ</string>
+    <string name="factor_spoken_volume">%1$s เท่าของปกติ</string>
+    <string name="factor_volatility">ความผันผวน (1h)</string>
+    <string name="factor_volume">ปริมาณ</string>
+</resources>

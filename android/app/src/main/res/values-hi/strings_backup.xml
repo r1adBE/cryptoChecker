@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Sicherung exportieren und wiederherstellen -->
+    <string name="backup_export">निर्यात</string>
+    <string name="backup_exported">बैकअप सहेजा गया।</string>
+    <string name="backup_failed">नहीं हुआ। क्या यह Crypto Checker बैकअप है?</string>
+    <string name="backup_hint">नोट और समूहों सहित सूची, अलार्म, पसंदीदा, पोर्टफ़ोलियो और सेटिंग एक फ़ाइल में सहेजता है जिसे आप रखते हैं – जैसे नए फ़ोन के लिए।</string>
+    <string name="backup_import">आयात</string>
+    <string name="backup_title">बैकअप और रीस्टोर</string>
+    <string name="backup_too_large">फ़ाइल बहुत बड़ी है या मान्य बैकअप नहीं है (अधिकतम 16 MB)।</string>
+
+    <!-- Passwort der Sicherungsdatei -->
+    <string name="backup_password">पासवर्ड</string>
+    <string name="backup_password_continue">जारी रखें</string>
+    <string name="backup_password_hide">पासवर्ड छिपाएँ</string>
+    <!-- %1$d = Mindestlänge des Passworts (8) -->
+    <string name="backup_password_min">कम से कम %1$d अक्षर</string>
+    <string name="backup_password_mismatch">पासवर्ड मेल नहीं खाते</string>
+    <string name="backup_password_prompt">इस बैकअप का पासवर्ड दर्ज करें।</string>
+    <string name="backup_password_repeat">पासवर्ड दोबारा लिखें</string>
+    <string name="backup_password_show">पासवर्ड दिखाएँ</string>
+    <string name="backup_password_title">पासवर्ड से सुरक्षित बैकअप</string>
+    <string name="backup_password_too_weak">अनुमान लगाना बहुत आसान – सिर्फ़ अंक नहीं, एक ही दोहराया अक्षर नहीं, «12345678» या «password» जैसा आम क्रम नहीं।</string>
+    <string name="backup_password_warning">पासवर्ड के बिना बैकअप बहाल नहीं किया जा सकता।</string>
+    <string name="backup_password_wrong">गलत पासवर्ड, या फ़ाइल खराब है। फिर से कोशिश करें।</string>
+    <string name="backup_protect">पासवर्ड से सुरक्षित करें</string>
+    <string name="backup_protect_hint">फ़ाइल को एन्क्रिप्ट करता है (AES-256)। पोर्टफ़ोलियो डेटा होने पर सुझाया जाता है।</string>
+
+    <!-- Sicherung ohne Passwort, Wiederherstellen -->
+    <string name="backup_plain_confirm">बिना पासवर्ड सहेजें</string>
+    <string name="backup_plain_confirm_text">फ़ाइल एन्क्रिप्टेड नहीं है। जिसे भी यह मिले वह पढ़ सकता है:</string>
+    <string name="backup_plain_confirm_title">बिना पासवर्ड सहेजें?</string>
+    <string name="backup_plain_contents_addresses">सहेजे गए वॉलेट पते</string>
+    <string name="backup_plain_contents_base">नोट्स और समूहों के साथ वॉचलिस्ट, अलार्म, पसंदीदा और सेटिंग्स</string>
+    <string name="backup_plain_contents_portfolio">पोर्टफ़ोलियो: मात्रा और भाव के साथ लेन-देन</string>
+    <string name="backup_restore_app_lock_kept">पोर्टफ़ोलियो लॉक चालू रहेगा – बिना एन्क्रिप्शन वाला बैकअप इसे बंद नहीं कर सकता।</string>
+    <string name="backup_restore_confirm">आयात करने से आपकी सूची (नोट और समूहों सहित), अलार्म, पसंदीदा, पोर्टफ़ोलियो और सेटिंग बैकअप से बदल जाएँगी।</string>
+    <plurals name="backup_restore_invalid">
+        <item quantity="one">बैकअप में %d प्रविष्टि (पोर्टफ़ोलियो या अलार्म) अमान्य है और आयात नहीं होगी।</item>
+        <item quantity="other">बैकअप में %d प्रविष्टियाँ (पोर्टफ़ोलियो या अलार्म) अमान्य हैं और आयात नहीं होंगी।</item>
+    </plurals>
+    <string name="backup_restore_newer_version">यह बैकअप ऐप के नए संस्करण का है – पहले ऐप अपडेट करें। कुछ भी आयात नहीं हुआ।</string>
+    <string name="backup_restore_unencrypted_warning">यह बैकअप एन्क्रिप्टेड नहीं है – जाँच लें कि यह आपका है। सेटिंग लागू होंगी; चालू पोर्टफ़ोलियो लॉक चालू रहेगा।</string>
+    <string name="backup_restored">रीस्टोर हुआ: %1$s, %2$s।</string>
+    <plurals name="backup_restored_alarms">
+        <item quantity="one">%1$d अलार्म</item>
+        <item quantity="other">%1$d अलार्म</item>
+    </plurals>
+    <plurals name="backup_restored_pairs">
+        <item quantity="one">%1$d पेयर</item>
+        <item quantity="other">%1$d पेयर</item>
+    </plurals>
+
+    <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
+    <string name="storage_recovery_message">इस डिवाइस पर अब ऐप के एन्क्रिप्टेड डेटा की कुंजी नहीं है, इसलिए ऐप खाली शुरू हुआ। कुछ भी हटाया नहीं गया। अपनी सूची और पोर्टफ़ोलियो वापस पाने के लिए सेटिंग में «%1$s» के अंतर्गत बैकअप फ़ाइल आयात करें।</string>
+    <string name="storage_recovery_title">सहेजा गया डेटा अनलॉक नहीं हो सका</string>
+</resources>

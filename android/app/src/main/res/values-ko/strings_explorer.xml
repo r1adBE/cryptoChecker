@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="explorer_coin_back">전체 결과</string>
+    <plurals name="explorer_coin_exchanges">
+        <item quantity="other">거래소 %1$d곳</item>
+    </plurals>
+    <string name="explorer_coin_no_pairs">불러온 목록에 이 코인의 거래쌍이 없습니다.</string>
+    <string name="explorer_coin_not_loaded">거래쌍 목록을 아직 불러오지 않았습니다</string>
+    <string name="explorer_coin_other_pairs">다른 거래쌍</string>
+    <string name="explorer_coin_show_pairs">거래쌍 보기</string>
+    <string name="explorer_coin_suggested">추천</string>
+    <string name="explorer_coins_title">코인</string>
+    <string name="explorer_lists_load">목록 불러오기</string>
+    <string name="explorer_lists_loading">거래쌍 목록 불러오는 중… %1$d/%2$d</string>
+    <plurals name="explorer_lists_missing">
+        <item quantity="other">거래소 %1$d곳의 거래쌍 목록이 아직 기기에 없습니다.</item>
+    </plurals>
+    <string name="explorer_lists_privacy">거래소마다 전체 공개 목록을 불러옵니다(모두에게 동일). 검색 내용은 기기에만 남습니다.</string>
+    <!-- Paar hinzufügen: Suche über alle Börsen, zuletzt gesucht -->
+    <string name="explorer_recent_a11y">최근 검색: %1$s</string>
+    <string name="explorer_recent_clear">지우기</string>
+    <string name="explorer_recent_clear_a11y">최근 검색 지우기</string>
+    <string name="explorer_recent_title">최근 검색</string>
+    <string name="explorer_search_choose_manually">거래소와 페어 직접 선택</string>
+    <string name="explorer_search_empty">결과가 없습니다.</string>
+    <string name="explorer_search_hint">코인, 거래쌍 또는 거래소 검색</string>
+    <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
+    <string name="explorer_search_intro">코인 이름이나 기호(예: Bitcoin, BTC)를 입력한 뒤 거래쌍을 고르세요.</string>
+
+    <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
+    <string name="explorer_add_to_watchlist">관심 목록에 추가</string>
+    <string name="explorer_added_to_watchlist">관심 목록에 추가되었습니다.</string>
+    <string name="explorer_already_in_watchlist">이 거래쌍은 이미 관심 목록에 있습니다.</string>
+    <string name="explorer_exchange_missing">원하는 거래소가 없나요?</string>
+    <string name="explorer_loading_pairs">거래쌍 불러오는 중…</string>
+    <string name="explorer_no_pair_selected">먼저 거래쌍을 선택하세요.</string>
+    <string name="explorer_no_pairs_yet">이 거래소의 거래쌍을 아직 불러오지 않았습니다.</string>
+    <plurals name="explorer_pairs_status">
+        <item quantity="other">거래쌍 %1$d개 · 업데이트 %2$s</item>
+    </plurals>
+    <string name="explorer_pairs_title">거래쌍</string>
+    <string name="explorer_precise_title">고급 / 거래소별</string>
+    <string name="explorer_price_loading">시세 불러오는 중…</string>
+    <string name="explorer_select_market_hint">거래소를 선택하면 거래쌍이 자동으로 로드됩니다.</string>
+    <string name="explorer_select_placeholder">선택하세요</string>
+    <string name="explorer_step_pair">거래쌍 선택</string>
+
+    <!-- Paar hinzufügen: Schnellfilter der Liste «Alle …-Paare» -->
+    <string name="explorer_filter_gainers">상승</string>
+    <string name="explorer_filter_losers">하락</string>
+    <string name="explorer_filter_volume">거래량</string>
+
+    <!-- Paar hinzufügen: mehrere Paare auf einmal -->
+    <string name="bulk_all_pairs">이 거래소의 모든 %1$s 거래쌍</string>
+    <plurals name="bulk_all_pairs_applied">
+        <item quantity="other">%2$s 거래쌍 %1$d개 발견</item>
+    </plurals>
+    <string name="bulk_all_pairs_empty">선택한 계약 유형에 해당하는 %1$s 거래쌍이 이 거래소에 없습니다. 먼저 거래소를 동기화하거나 다른 계약 유형을 선택하세요.</string>
+    <plurals name="explorer_add_all_pairs">
+        <item quantity="other">거래쌍 %1$d개 모두 관심 목록에 추가</item>
+    </plurals>
+    <plurals name="explorer_bulk_added">
+        <item quantity="other">%1$d개 추가됨, %2$d개는 이미 관심 목록에 있음.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_text">
+        <item quantity="other">%3$s의 %2$s 거래쌍 %1$d개가 모두 목록에 추가됩니다. 이미 있는 거래쌍은 건너뜁니다.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_title">
+        <item quantity="other">거래쌍 %1$d개를 추가할까요?</item>
+    </plurals>
+    <string name="explorer_bulk_hide_list">목록 숨기기</string>
+    <string name="explorer_bulk_show_list">목록 보기</string>
+    <string name="explorer_bulk_tap_hint">거래쌍을 탭하면 위에서 선택됩니다.</string>
+    <string name="explorer_bulk_title">여러 거래쌍 한 번에</string>
+
+    <!-- Handelspaare einer Börse laden und wählen -->
+    <string name="explorer_sync_sheet_text">선택한 거래소의 최신 거래쌍을 불러옵니다.</string>
+    <string name="explorer_no_pair_list">거래쌍 없음</string>
+    <string name="explorer_sync_sheet_last">마지막 동기화: %1$s</string>
+    <string name="explorer_sync_never">없음</string>
+    <string name="explorer_sync_sheet_action">지금 동기화</string>
+    <string name="explorer_sync_sheet_title">거래쌍 업데이트</string>
+    <string name="explorer_field_coin">기준 통화</string>
+    <string name="explorer_field_contract">계약 유형</string>
+    <string name="explorer_field_exchange">거래소</string>
+    <string name="explorer_field_quote">결제 통화</string>
+    <string name="explorer_contract_spot">현물</string>
+    <string name="explorer_reload_pairs">동기화</string>
+    <string name="sync_pairs_count">거래쌍: %1$d개</string>
+
+    <!-- Token von dezentralen Börsen (DEX) -->
+    <string name="dex_add">추가</string>
+    <string name="dex_added">%1$s을(를) 관심 목록에 추가했습니다.</string>
+    <string name="dex_already">%1$s은(는) 이미 관심 목록에 있습니다.</string>
+    <string name="dex_intro">대형 거래소 밖의 토큰을 탈중앙화 거래소(Uniswap, PancakeSwap, Raydium …)에서 DexScreener를 통해 가져옵니다. 토큰을 검색하고 해당 거래 풀 중 하나를 추가하세요 – 가격은 미국 달러로 표시됩니다.</string>
+    <string name="dex_liquidity">유동성 %1$s</string>
+    <string name="dex_no_results">풀을 찾을 수 없습니다.</string>
+    <string name="dex_search">검색</string>
+    <string name="dex_search_hint">토큰 이름, 심볼 또는 주소</string>
+
+    <!-- Art des Assets (Token, Alpha-Token, TradFi) -->
+    <string name="asset_kind_alpha">Alpha 토큰</string>
+    <string name="asset_kind_token">토큰</string>
+    <string name="asset_kind_tradfi">TradFi</string>
+</resources>

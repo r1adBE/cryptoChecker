@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Screenreader: Zeile eines Paars, Frische, Erreichbarkeit -->
+    <string name="a11y_alarm_count">التنبيهات: %1$d</string>
+    <!-- Alarm des Paars eben ausgelöst (bis 15 Min. danach im Zeilensatz) -->
+    <string name="a11y_alarm_fired">تم تشغيل التنبيه</string>
+    <string name="a11y_collapsed">مطوي</string>
+    <string name="a11y_converted">حوالي %1$s</string>
+    <string name="a11y_expanded">موسّع</string>
+    <!-- Vorgelesen bei Zeilen, die eine Website öffnen (Datenschutz, Börse wünschen, Quellcode) -->
+    <string name="a11y_external_link">يُفتح في المتصفح</string>
+    <string name="a11y_favorite">مفضل</string>
+    <string name="a11y_in_watchlist">موجود بالفعل في قائمة المتابعة</string>
+    <!-- %1$s Börse, letzte Abfrage gescheitert -->
+    <string name="a11y_market_unreachable">%1$s غير متاح</string>
+    <string name="a11y_move_down">نقل لأسفل</string>
+    <string name="a11y_move_up">نقل لأعلى</string>
+    <string name="a11y_note">ملاحظة: %1$s</string>
+    <string name="a11y_price">السعر %1$s</string>
+    <string name="a11y_price_notification_off">إشعار السعر مُوقف</string>
+    <string name="a11y_price_notification_on">إشعار السعر مُفعّل</string>
+    <!-- Frische einer Zeile, Teile mit «, » verbunden: «Kurs veraltet, zuletzt aktualisiert vor 45 Minuten» (A11ySpeech.freshnessText) -->
+    <string name="a11y_price_outdated">السعر قديم</string>
+    <!-- Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%1$s في %2$s</string>
+    <string name="a11y_stale">قديم، آخر تحديث %1$s</string>
+    <string name="a11y_warning">تحذير</string>
+
+    <!-- Screenreader: Veränderung (Prozent-Pille, Widgets) -->
+    <!-- %1$s Satz aus a11y_change_up/down/flat: Veränderung über 24 Stunden (Prozent-Pille, Widgets) -->
+    <string name="a11y_change_24h">%1$s خلال 24 ساعة</string>
+    <!-- Wenn die Pille «—» zeigt (keine Kerzen für das Paar) -->
+    <string name="a11y_change_24h_none">تغيّر 24 ساعة غير متاح</string>
+    <string name="a11y_change_down">انخفاض بنسبة %1$s</string>
+    <string name="a11y_change_flat">دون تغيير</string>
+    <string name="a11y_change_since_last">%1$s منذ آخر تحديث</string>
+    <string name="a11y_change_since_last_none">التغيّر منذ آخر تحديث غير متاح</string>
+    <!-- %1$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_change_today">%1$s اليوم</string>
+    <string name="a11y_change_today_none">تغيّر اليوم غير متاح</string>
+    <string name="a11y_change_today_zone">%1$s منذ منتصف الليل %2$s</string>
+    <string name="a11y_change_today_zone_none">التغيّر منذ منتصف الليل %1$s غير متاح</string>
+    <string name="a11y_change_up">ارتفاع بنسبة %1$s</string>
+
+    <!-- Screenreader: Charts und Skalen -->
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">المخطط %1$s: من %2$s إلى %3$s، %4$s. الأعلى %5$s، الأدنى %6$s.</string>
+    <string name="a11y_chart_empty">المخطط: لا توجد بيانات</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">الدورة %1$s: %2$s منذ التنصيف، اليوم %3$d.</string>
+    <string name="a11y_cycle_bottom">القاع %1$s في اليوم %2$d.</string>
+    <string name="a11y_cycle_double_bottom">القاع المزدوج %1$s في اليوم %2$d.</string>
+    <string name="a11y_cycle_double_top">القمة المزدوجة %1$s في اليوم %2$d.</string>
+    <string name="a11y_cycle_top">القمة %1$s في اليوم %2$d.</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">مقياس من %1$s إلى %2$s: %3$d من 100</string>
+
+    <!-- Screenreader: Puls-Zeile der Merkliste -->
+    <string name="a11y_watchlist_pulse">%1$s، %2$s، بمتوسط %3$s</string>
+    <string name="a11y_watchlist_pulse_combined">%1$s. %2$s</string>
+    <plurals name="a11y_watchlist_pulse_falling">
+        <item quantity="zero">%1$d ينخفض</item>
+        <item quantity="one">%1$d ينخفض</item>
+        <item quantity="two">%1$d ينخفضان</item>
+        <item quantity="few">%1$d تنخفض</item>
+        <item quantity="many">%1$d تنخفض</item>
+        <item quantity="other">%1$d تنخفض</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing">
+        <item quantity="zero">%1$d زوج بلا قيمة 24 ساعة</item>
+        <item quantity="one">%1$d زوج بلا قيمة 24 ساعة</item>
+        <item quantity="two">%1$d زوجان بلا قيمة 24 ساعة</item>
+        <item quantity="few">%1$d أزواج بلا قيمة 24 ساعة</item>
+        <item quantity="many">%1$d زوجًا بلا قيمة 24 ساعة</item>
+        <item quantity="other">%1$d زوج بلا قيمة 24 ساعة</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="zero">%1$d زوج بلا قيمة لليوم</item>
+        <item quantity="one">%1$d زوج بلا قيمة لليوم</item>
+        <item quantity="two">%1$d زوجان بلا قيمة لليوم</item>
+        <item quantity="few">%1$d أزواج بلا قيمة لليوم</item>
+        <item quantity="many">%1$d زوجًا بلا قيمة لليوم</item>
+        <item quantity="other">%1$d زوج بلا قيمة لليوم</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_rising">
+        <item quantity="zero">%1$d زوج يرتفع</item>
+        <item quantity="one">%1$d زوج يرتفع</item>
+        <item quantity="two">%1$d زوج يرتفعان</item>
+        <item quantity="few">%1$d أزواج ترتفع</item>
+        <item quantity="many">%1$d زوجًا ترتفع</item>
+        <item quantity="other">%1$d زوج ترتفع</item>
+    </plurals>
+
+    <!-- Screenreader: zuletzt aktualisiert -->
+    <plurals name="a11y_updated_days">
+        <item quantity="zero">آخر تحديث قبل %1$d يوم</item>
+        <item quantity="one">آخر تحديث قبل %1$d يوم</item>
+        <item quantity="two">آخر تحديث قبل %1$d يوم</item>
+        <item quantity="few">آخر تحديث قبل %1$d أيام</item>
+        <item quantity="many">آخر تحديث قبل %1$d يومًا</item>
+        <item quantity="other">آخر تحديث قبل %1$d يوم</item>
+    </plurals>
+    <plurals name="a11y_updated_hours">
+        <item quantity="zero">آخر تحديث قبل %1$d ساعة</item>
+        <item quantity="one">آخر تحديث قبل %1$d ساعة</item>
+        <item quantity="two">آخر تحديث قبل %1$d ساعة</item>
+        <item quantity="few">آخر تحديث قبل %1$d ساعات</item>
+        <item quantity="many">آخر تحديث قبل %1$d ساعة</item>
+        <item quantity="other">آخر تحديث قبل %1$d ساعة</item>
+    </plurals>
+    <string name="a11y_updated_just_now">آخر تحديث الآن</string>
+    <plurals name="a11y_updated_minutes">
+        <item quantity="zero">آخر تحديث قبل %1$d دقيقة</item>
+        <item quantity="one">آخر تحديث قبل %1$d دقيقة</item>
+        <item quantity="two">آخر تحديث قبل %1$d دقيقة</item>
+        <item quantity="few">آخر تحديث قبل %1$d دقائق</item>
+        <item quantity="many">آخر تحديث قبل %1$d دقيقة</item>
+        <item quantity="other">آخر تحديث قبل %1$d دقيقة</item>
+    </plurals>
+
+    <!-- Screenreader: Portfolio und Portfolio-Widget -->
+    <string name="a11y_amount_hidden">المبلغ مخفي</string>
+    <!-- %1$s Kürzel, %2$s Wert mit Währung, %3$s Anteil «62.3%», %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_portfolio_position">%1$s %2$s، %3$s من المحفظة</string>
+    <!-- Position im Portfolio-Widget: %1$s Kürzel, %2$s Anteil «62.3%», %3$s Satz aus a11y_change_24h -->
+    <string name="a11y_portfolio_position_24h">%1$s، %2$s من المحفظة، %3$s</string>
+    <string name="a11y_portfolio_positions">أكبر المراكز: %1$s</string>
+    <string name="a11y_portfolio_show_amounts">إظهار المبالغ</string>
+</resources>

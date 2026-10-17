@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Neutrale Indikatoren: Titel, Hinweise, Halving -->
+    <string name="neutral_alt_title">Altcoins gegenüber Bitcoin</string>
+    <string name="neutral_btc_indicators_title">Bitcoin-Kennzahlen</string>
+    <string name="neutral_halving_last">Letztes Halving: %1$s</string>
+    <string name="neutral_halving_next">Nächstes Halving voraussichtlich um %1$s (nach Kalender geschätzt – Blockhöhe gerade nicht verfügbar).</string>
+    <string name="neutral_indicators_disclaimer">Nur Messwerte, ohne Bewertung. Keine Prognose und keine Anlageberatung.</string>
+    <string name="neutral_onchain_missing">On-Chain-Daten (Coin Metrics) gerade nicht verfügbar.</string>
+
+    <!-- Neutrale Indikatoren: was der Wert misst -->
+    <string name="neutral_explain_ath_distance">Wie weit der Kurs unter dem bisherigen Allzeithoch liegt.</string>
+    <string name="neutral_explain_change_30d">Kurs heute gegenüber vor 30 Tagen.</string>
+    <string name="neutral_explain_hashrate">30-Tage-Schnitt der Hashrate gegenüber dem 60-Tage-Schnitt.</string>
+    <string name="neutral_explain_ma200w">Durchschnitt der letzten 200 Wochenschlusskurse.</string>
+    <string name="neutral_explain_mayer">Kurs geteilt durch den 200-Tage-Schnitt.</string>
+    <string name="neutral_explain_mvrv">Marktwert geteilt durch den realisierten Wert (On-Chain).</string>
+    <string name="neutral_explain_pi_gap">111-Tage-Schnitt gegenüber dem Doppelten des 350-Tage-Schnitts.</string>
+    <string name="neutral_explain_puell">Tägliche Miner-Einnahmen geteilt durch ihren 365-Tage-Schnitt.</string>
+    <string name="neutral_explain_rsi_daily">Relative-Stärke-Index der letzten 14 Tage, 0–100.</string>
+    <string name="neutral_explain_rsi_weekly">Relative-Stärke-Index der letzten 14 Wochen, 0–100.</string>
+    <string name="neutral_explain_sma50_200">50-Tage-Schnitt gegenüber dem 200-Tage-Schnitt.</string>
+    <string name="neutral_explain_vs_btc">Kursveränderung gegenüber Bitcoin in 90 Tagen.</string>
+
+    <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
+    <string name="neutral_info_alt_season_how">Die App zeigt nur die Zählung und nennt sie nicht «Saison». Der Wert ändert sich meist über Tage, nicht Stunden.</string>
+    <string name="neutral_info_btc_how">Zu jedem Wert steht ein Satz, was er misst, und wo er in seinem eigenen Verlauf seit 2016 liegt. Die App bewertet die Werte nicht und leitet keine Marktphase ab; Grenzen für Markt-Benachrichtigungen gibt es nur, wenn du sie selbst setzt. Frühere Muster müssen sich nicht wiederholen.</string>
+    <string name="neutral_info_btc_what">Gängige Bitcoin-Kennzahlen als reine Messwerte: Mayer Multiple, 200-Wochen-Schnitt, Rückgang vom Allzeithoch, Veränderung in 30 Tagen, Pi-Cycle-Abstand und die On-Chain-Werte MVRV, Puell Multiple und Hashrate.</string>
+    <string name="neutral_info_coin_how">Zu jedem Wert steht ein Satz, was er misst, ohne Bewertung. Bei Coins mit kurzem Kursverlauf fehlen einzelne Werte. On-Chain-Daten fliessen hier nicht ein.</string>
+    <string name="neutral_info_coin_what">Dieselben reinen Kennzahlen für einen wählbaren Coin, nur aus Kursdaten: Mayer Multiple, 200-Wochen-Schnitt, Rückgang vom Allzeithoch, Veränderung in 30 Tagen, Trend 50/200 Tage, RSI und Stärke gegenüber Bitcoin in 90 Tagen.</string>
+    <string name="neutral_info_halving_how">Das nächste Halving wird aus der aktuellen Blockhöhe und der mittleren Blockzeit der laufenden Schwierigkeitsperiode berechnet (mempool.space); ohne diese Daten nach Kalender (letztes Halving plus rund vier Jahre). Der Chart zeigt den Kursverlauf früherer Zyklen ab ihrem Halving – Geschichte, keine Prognose.</string>
+
+    <!-- Indikator-Namen -->
+    <string name="ind_cross">Trend 50/200 Tage</string>
+    <string name="ind_drawdown">Rückgang vom Allzeithoch</string>
+    <string name="ind_missing">zu wenig Daten</string>
+    <string name="ind_rsi_daily">RSI (Tag)</string>
+    <string name="ind_rsi_weekly">RSI (Woche)</string>
+    <string name="ind_vs_btc">Stärke gegenüber Bitcoin (90 Tage)</string>
+    <string name="neutral_ind_change_30d">Veränderung 30 Tage</string>
+    <string name="neutral_ind_hashrate">Hashrate 30/60 Tage</string>
+    <string name="neutral_ind_ma200w">200-Wochen-Schnitt</string>
+    <string name="neutral_ind_pi_gap">Pi-Cycle-Abstand</string>
+
+    <!-- Indikatoren: «hoch heisst …, tief heisst …» -->
+    <string name="ind_read_alt_season">Hoch heisst, die meisten grossen Altcoins schlugen Bitcoin über 90 Tage, tief heisst, Bitcoin schlug die meisten.</string>
+    <string name="ind_read_ath_distance">Klein heisst, der Kurs ist nahe am Rekord, gross heisst, er liegt weit darunter.</string>
+    <string name="ind_read_change_30d">Positiv heisst höher als vor 30 Tagen, negativ heisst tiefer.</string>
+    <string name="ind_read_funding">Hoch heisst, viele setzen mit Hebel auf steigende Kurse, negativ heisst, viele setzen auf fallende.</string>
+    <string name="ind_read_hashrate_30_60">Positiv heisst, die Rechenleistung wächst, negativ heisst, Miner schalten ab.</string>
+    <string name="ind_read_leverage">Viele Longs heisst, viele setzen mit geliehenem Geld auf steigende Kurse, viele Shorts heisst, auf fallende.</string>
+    <string name="ind_read_ma200w">Kurs weit darüber heisst langer Anstieg, Kurs nahe daran heisst tiefer Rücksetzer.</string>
+    <string name="ind_read_mayer">Hoch heisst, der Kurs liegt weit über seinem 200-Tage-Schnitt, tief heisst, er liegt darunter.</string>
+    <string name="ind_read_mvrv">Hoch heisst, der Kurs liegt weit über dem, was Halter im Schnitt bezahlt haben, tief heisst nahe daran oder darunter.</string>
+    <string name="ind_read_pi_cycle_gap">Nahe null heisst, die beiden Schnitte treffen sich fast, stark negativ heisst, sie liegen weit auseinander.</string>
+    <string name="ind_read_puell">Hoch heisst, Miner verdienen viel mehr als üblich, tief heisst viel weniger.</string>
+    <string name="ind_read_rsi_daily">Über 70 heisst starke Gewinne in den letzten Tagen, unter 30 heisst starke Verluste.</string>
+    <string name="ind_read_rsi_weekly">Über 70 heisst starke Gewinne in den letzten Wochen, unter 30 heisst starke Verluste.</string>
+    <string name="ind_read_sma50_vs_200">Positiv heisst, der kurze Schnitt liegt über dem langen, negativ heisst darunter.</string>
+    <string name="ind_read_vs_btc">Positiv heisst besser als Bitcoin, negativ heisst schlechter.</string>
+
+    <!-- Indikatoren: Einordnung in die Vergangenheit -->
+    <string name="ind_context_flat30">Bei gleichem Kurs in 30 Tagen: %1$s</string>
+    <string name="ind_context_note">Vergangene Werte und Rechnungen «bei gleichem Kurs» sind Rechnung, keine Prognose.</string>
+    <string name="ind_context_percentile">Seit %1$s an %2$s der Tage tiefer</string>
+</resources>

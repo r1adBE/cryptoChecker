@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Tab, leere Ansicht, Einschalten, Sperre -->
+    <string name="app_lock_unavailable">Op dit apparaat is geen schermvergrendeling ingesteld. Stel er eerst een in via de systeeminstellingen.</string>
+    <string name="app_lock_unlock">Ontgrendelen</string>
+    <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
+    <string name="portfolio_clear">Portfolio leegmaken</string>
+    <plurals name="portfolio_clear_confirm_count">
+        <item quantity="one">%d transactie verwijderen? Gevolgde adressen blijven. Dit kan niet ongedaan worden gemaakt.</item>
+        <item quantity="other">Alle %d transacties verwijderen? Gevolgde adressen blijven. Dit kan niet ongedaan worden gemaakt.</item>
+    </plurals>
+    <string name="portfolio_disclaimer">Bedragen blijven op je apparaat, tenzij je ze zelf exporteert; voor koersen gaan alleen paarsymbolen naar de beurs van het paar. Openbare blockchain-nodes zien gevolgde adressen en je IP. Geen beleggingsadvies.</string>
+    <string name="portfolio_empty_action">Eerste aankoop invoeren</string>
+    <string name="portfolio_empty_address">Alleen een walletadres volgen</string>
+    <string name="portfolio_empty_csv">Gekocht op een beurs? Bestand importeren</string>
+    <string name="portfolio_empty_example_plain">Voorbeeld: 0,01 BTC gekocht op 1 maart. De app toont dan wat het vandaag waard is en of je in de plus of min staat – alleen op dit apparaat opgeslagen.</string>
+    <string name="portfolio_empty_text">Voer in wat je hebt gekocht – de app toont wat het vandaag waard is en hoeveel je in de plus of min staat.</string>
+    <string name="portfolio_empty_title">Nog geen transacties</string>
+    <string name="portfolio_enable_ask_text">Je transactie is opgeslagen. Het tabblad Portfolio toont je bezit en de waarde ervan.</string>
+    <string name="portfolio_enable_ask_title">Tabblad Portfolio inschakelen?</string>
+    <string name="portfolio_enable_later_hint">Transactie opgeslagen. Je kunt het tabblad Portfolio inschakelen via Instellingen › Geavanceerd › Portfolio.</string>
+    <string name="portfolio_enabled_banner">Portfolio ingeschakeld – je vindt het op het tabblad Portfolio.</string>
+    <string name="portfolio_lock_reason">Portfolio ontgrendelen</string>
+    <string name="portfolio_locked_text">Ontgrendel om je posities en waarden te zien.</string>
+    <string name="portfolio_locked_title">Portfolio is vergrendeld</string>
+    <string name="portfolio_setting_hint">Optioneel: aankopen en verkopen vastleggen en waarde en winst/verlies in een apart tabblad zien.</string>
+    <!-- Status-Pille wie in der Merkliste: Kurse älter als die Frische-Schwelle, Gerät online. Offline: offline_status_since, alles aktuell: watchlist_all_fresh -->
+    <string name="portfolio_status_stale">Verouderd · stand %1$s</string>
+    <plurals name="portfolio_system_restore_invalid">
+        <item quantity="one">%d item uit de systeemback-up was ongeldig en is niet hersteld.</item>
+        <item quantity="other">%d items uit de systeemback-up waren ongeldig en zijn niet hersteld.</item>
+    </plurals>
+    <string name="portfolio_title">Portfolio</string>
+    <string name="portfolio_unassigned_fee">Kosten niet toegewezen – kostprijs onbekend: %1$s</string>
+    <string name="portfolio_updated">Koersen van %1$s</string>
+
+    <!-- Portfolio: Gesamtwert-Kopf (Heute · 7 T · Gesamt) und Aufteilung -->
+    <string name="portfolio_allocation_other">Overige</string>
+    <string name="portfolio_allocation_title">Verdeling</string>
+    <string name="portfolio_card_details">Details</string>
+    <!-- Screenreader, Kennzahl ohne Wert; %1$s Beschriftung (z. B. «7 Tage») -->
+    <string name="portfolio_card_figure_none_a11y">%1$s: nog niet beschikbaar</string>
+    <string name="portfolio_card_hints_count">Opmerkingen (%1$d)</string>
+    <string name="portfolio_card_today">Vandaag</string>
+    <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
+    <string name="portfolio_card_total">Totaal</string>
+    <string name="portfolio_hide_amounts">Bedragen verbergen</string>
+    <string name="portfolio_hide_amounts_hint">Toont bedragen en waarden in de portfolio en de portfoliowidget als ••• – percentages blijven zichtbaar.</string>
+    <string name="portfolio_invested">Kostprijs</string>
+    <string name="portfolio_total_no_fx">Geen wisselkoers voor %1$s – bedragen in USDT</string>
+    <string name="portfolio_total_value">Totale waarde</string>
+    <string name="portfolio_value">Waarde</string>
+
+    <!-- Portfolio: Bestand, offene Positionen, Durchschnittspreis -->
+    <string name="portfolio_avg_and_now">Gem. %1$s · nu %2$s</string>
+    <string name="portfolio_avg_only">Gem. %1$s</string>
+    <string name="portfolio_avg_open_lots">Gem. kostprijs van aangehouden munten</string>
+    <string name="portfolio_avg_partial">Gem. van %1$s met aankoopprijs</string>
+    <string name="portfolio_avg_price">Gem. aankoopprijs</string>
+    <string name="portfolio_avg_price_hint">Gem. aankoopprijs: het gemiddelde van alle aankopen, gewogen naar hoeveelheid. Verkopen worden tegen dit gemiddelde gewaardeerd.</string>
+    <plurals name="portfolio_closed">
+        <item quantity="one">Gesloten positie (%1$d)</item>
+        <item quantity="other">Gesloten posities (%1$d)</item>
+    </plurals>
+    <string name="portfolio_fifo_hint">FIFO: verkopen gebruiken eerst je oudste munten. Gem. = resterende kostprijs ÷ hoeveelheid met aankoopprijs.</string>
+    <string name="portfolio_holdings">Bezit</string>
+    <string name="portfolio_lost_fee_cost">Kostprijs netwerkkosten zonder betaald lot: %1$s</string>
+    <string name="portfolio_open_lots">Open aankooplots (%1$d)</string>
+    <string name="portfolio_open_lots_avg">Met aankoopprijs (Ø)</string>
+    <string name="portfolio_open_lots_no_cost">Zonder aankoopprijs</string>
+    <string name="portfolio_open_lots_without_price">zonder aankoopprijs</string>
+    <string name="portfolio_realized">Gerealiseerde winst/verlies</string>
+    <string name="portfolio_unrealized">Ongerealiseerde winst/verlies</string>
+    <string name="portfolio_unrealized_without_unpriced">zonder %1$s zonder aankoopprijs</string>
+    <string name="portfolio_withdrawn_gain">Opgenomen: %1$s (waardeverandering tot de opname)</string>
+
+    <!-- Portfolio: Kurse und Umrechnung -->
+    <string name="portfolio_convert_to">Omrekenen naar</string>
+    <string name="portfolio_convert_to_value">Omrekenen naar: %1$s</string>
+    <string name="portfolio_current_missing">Geen actuele koers voor %1$s</string>
+    <string name="portfolio_current_price">Huidige koers</string>
+    <string name="portfolio_price_missing">Prijs ontbreekt</string>
+    <string name="portfolio_price_missing_hint">Bij sommige aankopen ontbreekt de prijs. Vul de aankoopprijs in om winst/verlies te zien.</string>
+    <string name="portfolio_price_source">Koersen: Binance · USDT = 1</string>
+    <string name="portfolio_price_source_routes">Koersen: %1$s, anders Binance · USDT = 1</string>
+    <string name="portfolio_price_unavailable">Koers nu niet beschikbaar</string>
+    <string name="portfolio_price_unchecked">Koers niet gecontroleerd</string>
+    <string name="portfolio_price_via_base">≈ %1$s-koers (gebridged/wrapped)</string>
+    <string name="portfolio_usdt_as_usd">USDT omgerekend tegen de USD-koers</string>
+    <string name="portfolio_usdt_assumed">USDT = 1 aangenomen</string>
+    <string name="portfolio_usdt_depeg_warning">USDT = 1 aangenomen – markt op %1$s USD (%2$s)</string>
+
+    <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
+    <string name="portfolio_add_from_watch">Aan portfolio toevoegen</string>
+    <string name="portfolio_add_tx">Transactie vastleggen</string>
+    <string name="portfolio_buy">Aankoop</string>
+    <string name="portfolio_coin">Coin</string>
+    <string name="portfolio_coin_invalid">Voer een symbool in</string>
+    <string name="portfolio_coin_search">Symbool zoeken, bijv. BTC</string>
+    <string name="portfolio_discard_confirm">Verwerpen</string>
+    <string name="portfolio_discard_keep">Verder bewerken</string>
+    <string name="portfolio_discard_title">Wijzigingen verwerpen?</string>
+    <string name="portfolio_edit_tx">Transactie bewerken</string>
+    <string name="portfolio_invalid">Ongeldige hoeveelheid</string>
+    <string name="portfolio_oversold">Verkopen overschrijden het bezit – controleer de transacties.</string>
+    <string name="portfolio_sell">Verkoop</string>
+    <string name="portfolio_sell_exceeds">Meer dan je bezit (%1$s)</string>
+    <string name="portfolio_sell_exceeds_fee">Hoeveelheid plus kosten is meer dan je bezit (%1$s)</string>
+    <string name="portfolio_sell_exceeds_wallet">Meer dan je bezit in %2$s (%1$s)</string>
+    <string name="portfolio_transactions">Transacties</string>
+    <string name="portfolio_tx_acquired_date">Oorspronkelijke aankoopdatum (optioneel)</string>
+    <string name="portfolio_tx_acquired_date_hint">Voor de aanhoudduur in de belastingexport</string>
+    <string name="portfolio_tx_amount">Hoeveelheid</string>
+    <string name="portfolio_tx_coin_fee">Kosten in de munt (optioneel)</string>
+    <string name="portfolio_tx_date">Datum</string>
+    <string name="portfolio_tx_delete_confirm">Deze transactie wordt uit het portfolio verwijderd.</string>
+    <string name="portfolio_tx_delete_title">Transactie verwijderen?</string>
+    <string name="portfolio_tx_deposit">Storting</string>
+    <string name="portfolio_tx_entry_currency">Invoeren in</string>
+    <string name="portfolio_tx_explain_deposit">Bezit zonder transactie, bijv. munten van eerder</string>
+    <string name="portfolio_tx_explain_gift">Coins verlaten je bezit als een opname – vervreemding tegen marktwaarde alleen waar het land schenkingen zo belast (UK, CA, AU)</string>
+    <string name="portfolio_tx_explain_payment">Betaald voor goederen of diensten – vervreemding tegen marktwaarde zoals een verkoop, zonder geld te ontvangen</string>
+    <string name="portfolio_tx_explain_reward">Kostprijs = marktwaarde bij ontvangst</string>
+    <string name="portfolio_tx_explain_swap">Munt tegen munt: verkoop van de afgegeven, aankoop van de ontvangen munt</string>
+    <string name="portfolio_tx_explain_transfer">Geen winst – de kostprijs gaat mee met de munten</string>
+    <string name="portfolio_tx_explain_withdrawal">Bezit verlaat het portfolio – geen verkoop, geen winst</string>
+    <string name="portfolio_tx_fee_consumes_amount">De kosten zijn even groot als de ontvangen hoeveelheid – er zou niets overblijven.</string>
+    <string name="portfolio_tx_fees_toggle">Kosten</string>
+    <string name="portfolio_tx_fiat_converted">≈ %1$s tegen de koers van %2$s</string>
+    <string name="portfolio_tx_fiat_loading">Wisselkoers laden…</string>
+    <string name="portfolio_tx_fiat_no_fx">Geen wisselkoers voor deze dag – voer het bedrag in USDT in.</string>
+    <string name="portfolio_tx_gift">Geschonken</string>
+    <string name="portfolio_tx_gift_price_hint">In USDT. Leeg = slotkoers van die dag (geschat).</string>
+    <string name="portfolio_tx_gift_spouse">Aan echtgenoot / partner</string>
+    <string name="portfolio_tx_gift_spouse_hint">VK en Canada: geen winst en geen verlies – je partner neemt je kostprijs over. Andere landen negeren dit.</string>
+    <string name="portfolio_tx_market_value">Marktwaarde per coin</string>
+    <string name="portfolio_tx_more_buy">Kosten, beurs, notitie</string>
+    <string name="portfolio_tx_network_fee">Netwerkkosten in de munt (optioneel)</string>
+    <string name="portfolio_tx_note">Notitie (optioneel)</string>
+    <string name="portfolio_tx_payment">Mee betaald</string>
+    <string name="portfolio_tx_price">Prijs per coin</string>
+    <string name="portfolio_tx_price_hint">In USDT. Leeg laten indien onbekend.</string>
+    <string name="portfolio_tx_price_historic">Gecontroleerde slotkoers van %1$s – pas aan indien nodig</string>
+    <string name="portfolio_tx_price_invalid">Ongeldige prijs</string>
+    <string name="portfolio_tx_price_past_hint">Vul de koers van de transactiedag in – laat leeg als onbekend</string>
+    <string name="portfolio_tx_price_receipt_hint">In USDT. Leeg = bezit zonder kostprijs.</string>
+    <string name="portfolio_tx_price_zero">Prijs 0 niet mogelijk bij geïmporteerde transacties – laat leeg voor de marktkoers</string>
+    <string name="portfolio_tx_removed">Transactie verwijderd</string>
+    <string name="portfolio_tx_reward">Beloning</string>
+    <string name="portfolio_tx_save_failed">De transactie kon niet worden opgeslagen. Je invoer staat er nog – probeer het opnieuw.</string>
+    <string name="portfolio_tx_swap">Ruil</string>
+    <string name="portfolio_tx_swap_fee_received">Kosten in %1$s: verlagen de ontvangen hoeveelheid, geen prijs nodig.</string>
+    <string name="portfolio_tx_swap_from">Ruil van %1$s</string>
+    <string name="portfolio_tx_swap_given_amount">Afgegeven hoeveelheid</string>
+    <string name="portfolio_tx_swap_given_coin">Afgegeven munt</string>
+    <string name="portfolio_tx_swap_received_amount">Ontvangen hoeveelheid</string>
+    <string name="portfolio_tx_swap_received_coin">Ontvangen munt</string>
+    <string name="portfolio_tx_swap_same_coin">Kies een andere munt dan de afgegeven munt</string>
+    <string name="portfolio_tx_swap_to">Ruil naar %1$s</string>
+    <string name="portfolio_tx_swap_value">Waarde van de ruil (optioneel)</string>
+    <string name="portfolio_tx_swap_value_hint">Totale waarde. Leeg = onbekend – de winst blijft onvolledig (automatisch met USDT in de ruil).</string>
+    <string name="portfolio_tx_third_fee_amount">Hoeveelheid kosten</string>
+    <string name="portfolio_tx_third_fee_coin">Munt voor kosten</string>
+    <string name="portfolio_tx_third_fee_incomplete">Zonder prijs tellen de kosten niet mee in kostprijs of opbrengst; de belastingexport markeert zulke verkopen.</string>
+    <string name="portfolio_tx_third_fee_price">Prijs per kostenmunt (optioneel)</string>
+    <string name="portfolio_tx_third_fee_toggle">Kosten in een andere munt</string>
+    <string name="portfolio_tx_total">Totaal: %1$s</string>
+    <string name="portfolio_tx_transfer">Overboeking</string>
+    <string name="portfolio_tx_transfer_from">Van (optioneel)</string>
+    <string name="portfolio_tx_transfer_to">Naar (optioneel)</string>
+    <string name="portfolio_tx_transfer_to_hint">Beurs of wallet – vanaf nu daar gewaardeerd.</string>
+    <string name="portfolio_tx_type_select">Type: %1$s</string>
+    <string name="portfolio_tx_value_received">Waarde per munt bij ontvangst (optioneel)</string>
+    <string name="portfolio_tx_withdrawal">Opname</string>
+    <string name="portfolio_tx_withdrawal_gift_hint">Weggegeven of mee betaald? Leg het vast als ‹Geschonken› of ‹Mee betaald› – afhankelijk van het land is dat fiscaal een verkoop.</string>
+    <string name="portfolio_tx_withdrawal_price_hint">Optioneel: marktwaarde in USDT, alleen voor het verloop (leeg = dagkoers). De munten gaan er altijd uit tegen hun kostprijs.</string>
+    <string name="portfolio_wallet_did_you_mean">Bedoelde je %1$s? Een andere schrijfwijze telt als een aparte wallet.</string>
+    <string name="portfolio_wallet_shortfall">Bezit in %1$s is niet genoeg – ontbreekt er een overboeking?</string>
+
+    <!-- Portfolio: Wertverlauf (Zeitraum, Vergleich Währung | USDT, Währungseffekt) -->
+    <!-- Höchster Tageswert des Zeitraums am Punkt («Hoch 12’345») -->
+    <string name="portfolio_chart_high">Hoogste %1$s</string>
+    <string name="portfolio_compare">Vergelijken</string>
+    <!-- Umschalter «Vergleich», Screenreader: %1$s Währung -->
+    <string name="portfolio_compare_a11y">%1$s en USDT vergelijken in procent</string>
+    <!-- %1$s Zeitraum, %2$s Währung, %3$s und %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="portfolio_compare_chart_a11y">Vergelijking in procent, %1$s: %2$s %3$s, USDT %4$s</string>
+    <!-- %1$s Prozentpunkte mit Vorzeichen («−5.10%»): Veränderung in der Währung minus in USDT -->
+    <string name="portfolio_currency_effect">Valuta-effect: %1$s</string>
+    <!-- «Seit 1. Kauf» beginnt frühestens beim ersten Tag mit Kursdaten -->
+    <string name="portfolio_history_capped_data_start">Koersgegevens gaan maar terug tot augustus 2017 — het verloop begint daar.</string>
+    <string name="portfolio_history_chip_since_first">Sinds aankoop</string>
+    <string name="portfolio_history_collapse">Waardeverloop verbergen</string>
+    <string name="portfolio_history_converted">Omgerekend tegen de koers van vandaag</string>
+    <string name="portfolio_history_expand">Waardeverloop tonen</string>
+    <string name="portfolio_history_gain_a11y">Waarde %1$s. Winst/verlies, %2$s: %3$s</string>
+    <string name="portfolio_history_gain_label">Winst/verlies</string>
+    <!-- Umschalter, Screenreader: %1$s Währung («CHF») oder «USDT» -->
+    <string name="portfolio_history_in_a11y">Waarde in %1$s</string>
+    <string name="portfolio_history_incl_fx">Incl. wisselkoers</string>
+    <string name="portfolio_history_incl_withdrawn">Incl. waardeverandering van opgenomen munten</string>
+    <string name="portfolio_history_includes_trades">Inclusief aankopen en verkopen in deze periode</string>
+    <string name="portfolio_history_loading">Waardeverloop wordt geladen</string>
+    <string name="portfolio_history_period_1y">1 jaar</string>
+    <string name="portfolio_history_period_30d">30 dagen</string>
+    <string name="portfolio_history_period_7d">7 dagen</string>
+    <string name="portfolio_history_period_since_first">sinds de eerste aankoop</string>
+    <string name="portfolio_history_pnl_needs_prices">Voor winst/verlies ontbreken aankoopprijzen – vul ze aan in de transacties.</string>
+    <string name="portfolio_history_pnl_without">Winst/verlies zonder %1$s (prijs ontbreekt)</string>
+    <string name="portfolio_history_range_1y">1 J</string>
+    <string name="portfolio_history_range_30d">30 D</string>
+    <string name="portfolio_history_range_7d">7 D</string>
+    <string name="portfolio_history_range_a11y">Verloop voor %1$s tonen</string>
+    <string name="portfolio_history_range_since_first">Sinds 1e aankoop</string>
+    <string name="portfolio_history_scaled">Verloop voor %1$s: Binance-verloop geschaald naar de beurskoers</string>
+    <string name="portfolio_history_title">Waardeverloop</string>
+    <string name="portfolio_history_today">Vandaag</string>
+    <string name="portfolio_history_too_short">Het verloop begint na je eerste volledige dag.</string>
+    <string name="portfolio_history_unavailable">Momenteel geen verloop beschikbaar.</string>
+    <string name="portfolio_history_utc_days">Dagen in UTC (dagcandles)</string>
+    <string name="portfolio_history_without_matching">Zonder %1$s (geen passende dagkoersen)</string>
+    <string name="portfolio_period_rewards">Beloningen +%1$s (niet in winst)</string>
+    <string name="portfolio_period_scaled">7 D/1 J voor %1$s: Binance-verloop geschaald naar de beurskoers</string>
+
+    <!-- Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_alarm_action">Alarm</string>
+    <!-- %1$s = Währung, z. B. CHF -->
+    <string name="portfolio_alarm_amount">Bedrag (%1$s)</string>
+    <string name="portfolio_alarm_hint">Wordt na elke vernieuwing gecontroleerd. Net als alarmen: meldt bij het overschrijden van de grens en pas opnieuw als de waarde is teruggekeerd.</string>
+    <string name="portfolio_alarm_kind_above">Portfolio boven bedrag</string>
+    <string name="portfolio_alarm_kind_below">Portfolio onder bedrag</string>
+    <string name="portfolio_alarm_kind_down">Portfolio daalt</string>
+    <string name="portfolio_alarm_kind_up">Portfolio stijgt</string>
+    <!-- %1$s = Betrag mit Währung (oder •••) -->
+    <string name="portfolio_alarm_sentence_above">Portfolio boven %1$s</string>
+    <string name="portfolio_alarm_sentence_below">Portfolio onder %1$s</string>
+    <string name="portfolio_alarm_sentence_down">Portfolio daalt %1$s (%2$s)</string>
+    <!-- %1$s = Prozent, %2$s = Basis der %-Änderung kurz (24h, heute …) -->
+    <string name="portfolio_alarm_sentence_up">Portfolio stijgt %1$s (%2$s)</string>
+    <string name="portfolio_alarm_title">Alarm ‘portfoliowaarde’</string>
+
+    <!-- Gebühr, Börse und Gewinn/Verlust einer Position -->
+    <string name="ledger_exchange">Beurs (optioneel)</string>
+    <string name="ledger_exchange_failed">%1$s: nu geen koers van %2$s – gewaardeerd met Binance.</string>
+    <string name="ledger_exchange_hint">De munt wordt gewaardeerd tegen de koers van deze beurs (anders Binance). Verloop, 7 D en 1 J: dagkoersen van Binance, geschaald.</string>
+    <string name="ledger_exchange_mixed">%1$s: meerdere beurzen ingevuld – gewaardeerd met Binance. Munten verplaatst? Leg dat vast als «Overboeking».</string>
+    <string name="ledger_exchange_none">Geen (Binance)</string>
+    <string name="ledger_fee">Kosten (optioneel)</string>
+    <string name="ledger_fee_coin">Munt</string>
+    <string name="ledger_fee_hint">In USDT verhogen ze de kostprijs (verkoop: verlagen de opbrengst); in de munt verlagen ze de hoeveelheid.</string>
+    <string name="ledger_fee_line">Kosten %1$s</string>
+    <string name="ledger_fifo_cost_note">Sinds aankoop: kostprijs volgens FIFO incl. kosten (oudste munten eerst verkocht).</string>
+    <string name="ledger_gain_info">Vandaag, 7 D, 1 J: waardeverandering in de periode – aankopen en verkopen tellen niet als winst. Sinds aankoop: huidige waarde min kostprijs (gemiddelde kosten incl. kosten) van de munten die je nog hebt.</string>
+    <string name="ledger_gain_info_a11y">Zo worden winst en verlies berekend</string>
+    <string name="ledger_gain_info_fifo">Vandaag, 7 D, 1 J: waardeverandering in de periode – aankopen en verkopen tellen niet als winst. Sinds aankoop: huidige waarde min kostprijs (FIFO incl. kosten) van de munten die je nog hebt.</string>
+    <string name="ledger_gain_title">Winst/verlies</string>
+    <string name="ledger_more_toggle">Kosten en beurs</string>
+    <string name="ledger_partial_cost">«Sinds aankoop» telt alleen het deel met aankoopprijs – zonder %1$s zonder aankoopprijs.</string>
+    <string name="ledger_period_without">Vandaag / 7 D / 1 J zonder %1$s – geen passende beginkoers.</string>
+    <string name="ledger_since_purchase_currency">Sinds aankoop (%1$s)</string>
+    <string name="ledger_since_purchase_spoken">Winst/verlies sinds aankoop, nog niet verkocht</string>
+    <plurals name="ledger_without_cost">
+        <item quantity="one">Zonder %1$d munt zonder aankoopprijs (%2$s) – vul de prijs in zodat hij meetelt.</item>
+        <item quantity="other">Zonder %1$d munten zonder aankoopprijs (%2$s) – vul de prijzen in zodat ze meetellen.</item>
+    </plurals>
+</resources>

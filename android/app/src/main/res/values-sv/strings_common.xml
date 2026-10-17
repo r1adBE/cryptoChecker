@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">Tillbaka</string>
+    <string name="action_cancel">Avbryt</string>
+    <string name="action_clear">Rensa</string>
+    <string name="action_close">Stäng</string>
+    <string name="action_delete">Ta bort</string>
+    <string name="action_edit">Redigera</string>
+    <string name="action_more">Fler alternativ</string>
+    <string name="action_refresh">Uppdatera</string>
+    <string name="action_retry">Försök igen</string>
+    <string name="action_save">Spara</string>
+    <string name="action_sort">Sortera</string>
+    <string name="action_sort_done">Klar</string>
+    <string name="action_undo">Ångra</string>
+    <string name="action_view">Visa</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">Marknad</string>
+    <string name="tab_portfolio">Portfölj</string>
+    <string name="tab_settings">Inställningar</string>
+    <string name="tab_watchlist">Lista</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">Fel: %1$s</string>
+    <string name="error_market_unreachable">Börsen går inte att nå just nu – de senaste kurserna visas fortfarande.</string>
+    <string name="error_market_unreachable_short">Börsen går inte att nå just nu</string>
+    <string name="loading_hint">Läser in…</string>
+    <string name="no_internet_connection">Ingen internetanslutning</string>
+    <string name="option_off">Av</string>
+    <string name="something_went_wrong">Något gick fel</string>
+    <string name="time_just_now">nyss</string>
+    <string name="timeout_error_message">Börsen svarar inte just nu.</string>
+    <string name="try_again">Försök igen</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">Ingen anslutning</string>
+    <string name="offline_status_since">Ingen anslutning · per %1$s</string>
+    <string name="status_live">Live</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">Lägg till par</string>
+    <string name="shortcut_alarms">Alla larm</string>
+    <string name="shortcut_cycle">Marknad</string>
+</resources>

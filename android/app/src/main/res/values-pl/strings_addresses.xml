@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: beobachtete Adressen (Wallets) -->
+    <string name="portfolio_address_add">Dodaj adres</string>
+    <string name="portfolio_address_count">Wliczaj</string>
+    <string name="portfolio_address_error">Aktualizacja nie powiodła się</string>
+    <string name="portfolio_address_hint">Adres publiczny (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) lub xpub</string>
+    <string name="portfolio_address_label">Etykieta (opcjonalnie)</string>
+    <string name="portfolio_address_not_since_buy">Z adresu · poza «Od zakupu»: %1$s</string>
+    <string name="portfolio_address_overlap">Także w twoich transakcjach: %1$s – oba są sumowane. Te same monety? Wybierz «Tylko pokaż».</string>
+    <string name="portfolio_address_overlap_ask">Zapisujesz już %1$s we własnych transakcjach. Wliczać saldo tego adresu do portfela czy tylko je pokazywać?</string>
+    <string name="portfolio_address_overlap_auto">«%1$s» jest teraz tylko pokazywany, nie wliczany – %2$s są też w twoich transakcjach.</string>
+    <string name="portfolio_address_overlap_restored">«%1$s» znowu się liczy – ilości nie pasują do twoich transakcji. Wybierz «Tylko pokaż», jeśli to te same monety.</string>
+    <string name="portfolio_address_overlap_title">Te same monety co w twoich transakcjach?</string>
+    <string name="portfolio_address_overlap_tx">Ta sama ilość co twoja wpłata/przeniesienie (%1$s) – prawdopodobnie liczone podwójnie.</string>
+    <string name="portfolio_address_period_observed">Obserwowane adresy liczą się od pierwszego zaobserwowanego salda; późniejsze zmiany to wpływy/odpływy, nie zysk.</string>
+    <string name="portfolio_address_privacy">Do %1$s wysyłany jest tylko publiczny adres – nigdy klucze ani frazy seed. Dostawca widzi go razem z twoim adresem IP. Sprawdzany najwyżej co 10 minut.</string>
+    <string name="portfolio_address_remove">Usuń adres</string>
+    <string name="portfolio_address_show_only">Tylko pokaż, nie wliczaj do portfela</string>
+    <string name="portfolio_address_show_only_short">Tylko pokaż</string>
+    <string name="portfolio_address_tokens">Wliczaj tokeny</string>
+    <string name="portfolio_address_unknown_tokens">+%1$d nieznanych tokenów (niewliczone)</string>
+    <string name="portfolio_address_xpub_privacy">Xpub ujawnia wszystkie adresy tego walleta. Są wyprowadzane na twoim urządzeniu; do %1$s trafiają tylko pojedyncze adresy – przy pierwszym wyszukiwaniu co najmniej 40 zapytań, później mniej. Klucze prywatne (xprv) nigdy nie są akceptowane.</string>
+    <string name="portfolio_address_xpub_used">Używane adresy: %1$d</string>
+    <string name="portfolio_addresses_title">Adresy</string>
+
+    <!-- Prüfung einer eingegebenen Adresse -->
+    <string name="address_bch_unsupported">Adresów Bitcoin Cash nie można obserwować: nie ma darmowej publicznej usługi bez klucza API, której warunki by na to pozwalały.</string>
+    <string name="address_bep2_shutdown">BNB Beacon Chain (BEP-2) została wyłączona w 2024 – salda są teraz w BNB Smart Chain (0x…)</string>
+    <string name="address_checksum">Błędna suma kontrolna – literówka?</string>
+    <string name="address_doge_unsupported">Adresów Dogecoin nie można obserwować: nie ma darmowej publicznej usługi bez klucza API, której warunki by na to pozwalały.</string>
+    <string name="address_duplicate">Ten adres jest już dodany</string>
+    <string name="address_ens">Nazwy ENS nie są obsługiwane – wpisz adres 0x</string>
+    <string name="address_invalid">Nieprawidłowy adres obsługiwanej sieci</string>
+    <string name="address_limit">Najwyżej 20 adresów</string>
+    <string name="address_secret">To wygląda na klucz prywatny lub frazę seed – nigdzie tego nie wpisuj. Tylko adresy publiczne.</string>
+    <string name="address_testnet">Adresy Testnet nie są obsługiwane</string>
+    <string name="address_unsupported">Ten typ adresu nie jest obsługiwany</string>
+    <string name="address_wrong_chain">Adres należy do innej sieci</string>
+    <string name="address_xpub_multisig">Klucze multisig (Ypub/Zpub) nie są obsługiwane</string>
+</resources>

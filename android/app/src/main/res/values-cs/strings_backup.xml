@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Sicherung exportieren und wiederherstellen -->
+    <string name="backup_export">Exportovat</string>
+    <string name="backup_exported">Záloha uložena.</string>
+    <string name="backup_failed">Nepovedlo se. Je to záloha Crypto Checker?</string>
+    <string name="backup_hint">Uloží seznam s poznámkami a skupinami, alarmy, oblíbené, portfolio a nastavení do souboru, který si uschováte – např. pro nový telefon.</string>
+    <string name="backup_import">Importovat</string>
+    <string name="backup_title">Záloha a obnovení</string>
+    <string name="backup_too_large">Soubor je příliš velký nebo není platnou zálohou (max. 16 MB).</string>
+
+    <!-- Passwort der Sicherungsdatei -->
+    <string name="backup_password">Heslo</string>
+    <string name="backup_password_continue">Pokračovat</string>
+    <string name="backup_password_hide">Skrýt heslo</string>
+    <!-- %1$d = Mindestlänge des Passworts (8) -->
+    <string name="backup_password_min">Alespoň %1$d znaků</string>
+    <string name="backup_password_mismatch">Hesla se neshodují</string>
+    <string name="backup_password_prompt">Zadejte heslo k této záloze.</string>
+    <string name="backup_password_repeat">Zopakovat heslo</string>
+    <string name="backup_password_show">Zobrazit heslo</string>
+    <string name="backup_password_title">Záloha chráněná heslem</string>
+    <string name="backup_password_too_weak">Příliš snadné uhodnout – ne jen číslice, ne jeden opakovaný znak, žádná běžná řada jako «12345678» nebo «heslo».</string>
+    <string name="backup_password_warning">Bez hesla nelze zálohu obnovit.</string>
+    <string name="backup_password_wrong">Špatné heslo, nebo je soubor poškozený. Zkuste to znovu.</string>
+    <string name="backup_protect">Chránit heslem</string>
+    <string name="backup_protect_hint">Zašifruje soubor (AES-256). Doporučeno, pokud obsahuje data portfolia.</string>
+
+    <!-- Sicherung ohne Passwort, Wiederherstellen -->
+    <string name="backup_plain_confirm">Uložit bez hesla</string>
+    <string name="backup_plain_confirm_text">Soubor není šifrovaný. Kdo ho získá, může číst:</string>
+    <string name="backup_plain_confirm_title">Uložit bez hesla?</string>
+    <string name="backup_plain_contents_addresses">Uložené adresy peněženek</string>
+    <string name="backup_plain_contents_base">Sledovaný seznam s poznámkami a skupinami, alarmy, oblíbené a nastavení</string>
+    <string name="backup_plain_contents_portfolio">Portfolio: transakce s množstvím a cenami</string>
+    <string name="backup_restore_app_lock_kept">Zámek portfolia zůstává zapnutý – nešifrovaná záloha ho nemůže vypnout.</string>
+    <string name="backup_restore_confirm">Import nahradí váš seznam (s poznámkami a skupinami), alarmy, oblíbené, portfolio a nastavení zálohou.</string>
+    <plurals name="backup_restore_invalid">
+        <item quantity="one">%d položka zálohy (portfolio nebo alarm) je neplatná a nebude importována.</item>
+        <item quantity="few">%d položek zálohy (portfolio nebo alarmy) je neplatných a nebudou importovány.</item>
+        <item quantity="many">%d položek zálohy (portfolio nebo alarmy) je neplatných a nebudou importovány.</item>
+        <item quantity="other">%d položek zálohy (portfolio nebo alarmy) je neplatných a nebudou importovány.</item>
+    </plurals>
+    <string name="backup_restore_newer_version">Tato záloha je z novější verze aplikace – nejdřív aplikaci aktualizuj. Nic se neimportovalo.</string>
+    <string name="backup_restore_unencrypted_warning">Tato záloha není šifrovaná – ověř, že je tvoje. Nastavení se převezmou; zapnutý zámek portfolia zůstane zapnutý.</string>
+    <string name="backup_restored">Obnoveno: %1$s, %2$s.</string>
+    <plurals name="backup_restored_alarms">
+        <item quantity="one">%1$d alarm</item>
+        <item quantity="few">%1$d alarmy</item>
+        <item quantity="many">%1$d alarmů</item>
+        <item quantity="other">%1$d alarmů</item>
+    </plurals>
+    <plurals name="backup_restored_pairs">
+        <item quantity="one">%1$d pár</item>
+        <item quantity="few">%1$d páry</item>
+        <item quantity="many">%1$d párů</item>
+        <item quantity="other">%1$d párů</item>
+    </plurals>
+
+    <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
+    <string name="storage_recovery_message">Tomuto zařízení chybí klíč k šifrovaným datům aplikace, proto se spustila prázdná. Nic nebylo smazáno. Seznam a portfolio obnovíte importem souboru zálohy v nastavení v části «%1$s».</string>
+    <string name="storage_recovery_title">Uložená data nelze odemknout</string>
+</resources>

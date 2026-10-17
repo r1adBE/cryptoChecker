@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen: Aufbau (Gruppen, Zeilen, Abschnitte, Suche, Kurzwerte) -->
+    <string name="settings_custom_value">Προσαρμοσμένο</string>
+    <string name="settings_group_general">Γενικά</string>
+    <string name="settings_group_more">Περισσότερα</string>
+    <string name="settings_minutes">%1$d λεπ.</string>
+    <string name="settings_row_about">Σχετικά με την εφαρμογή</string>
+    <string name="settings_row_advanced">Για προχωρημένους</string>
+    <string name="settings_row_alarms">Συναγερμοί</string>
+    <string name="settings_row_currency">Νόμισμα</string>
+    <string name="settings_row_dated_futures">Futures με λήξη</string>
+    <string name="settings_row_updates">Ενημέρωση τιμών</string>
+    <string name="settings_row_watchlist">Λίστα</string>
+    <string name="settings_search_hint">Αναζήτηση ρυθμίσεων</string>
+    <string name="settings_seconds">%1$d δευτ.</string>
+    <string name="settings_section_about">Σχετικά</string>
+    <string name="settings_section_appearance">Εμφάνιση</string>
+    <string name="settings_section_developer">Προγραμματιστής</string>
+    <string name="settings_section_language">Γλώσσα</string>
+    <!-- Kurzwert «eingeschaltet» (Gegenstück zu option_off) -->
+    <string name="settings_summary_on">Ενεργό</string>
+    <string name="settings_title">Ρυθμίσεις</string>
+
+    <!-- Einstellungen › Alarme (Ton, Signal, Ruhezeit, App-Symbol, exakte Prüfungen) -->
+    <string name="settings_alarm_cooldown">Χρόνος αναμονής πριν από νέα ενεργοποίηση</string>
+    <!-- Ton/Vibration der Kursalarme, je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">Σήμα συναγερμού</string>
+    <string name="settings_alarm_signal_open_system">Προσαρμογή στις ρυθμίσεις συστήματος</string>
+    <string name="settings_alarm_signal_system_hint">Ακολουθεί τις ρυθμίσεις ειδοποιήσεων του τηλεφώνου.</string>
+    <string name="settings_alarm_sound">Ήχος συναγερμού</string>
+    <string name="settings_alarm_sound_custom">Προσαρμοσμένος ήχος</string>
+    <string name="settings_alarm_sound_default">Προεπιλεγμένος ήχος</string>
+    <string name="settings_alarm_sound_error">Δεν ήταν δυνατή η χρήση του ήχου.</string>
+    <string name="settings_alarm_sound_file">Δικό σας αρχείο ήχου…</string>
+    <string name="settings_alarm_sound_reset">Χρήση προεπιλεγμένου ήχου</string>
+    <string name="settings_alarm_sound_system">Επιλογή ήχου συστήματος…</string>
+    <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">Αριθμός στο εικονίδιο</string>
+    <string name="settings_app_badge_hint">Μετρά τις ανοιχτές ειδοποιήσεις συναγερμών. Αν εμφανίζεται αριθμός ή κουκκίδα το αποφασίζει η αρχική οθόνη (π.χ. Samsung: «Με αριθμό»).</string>
+    <string name="settings_exact_checks">Έλεγχος στην ώρα του</string>
+    <string name="settings_exact_checks_grant">Να επιτρέπονται «Ξυπνητήρια και υπενθυμίσεις»</string>
+    <string name="settings_exact_checks_hint">Το Android ελέγχει περίπου κάθε 15 λεπτά, ακόμη και όταν η συσκευή είναι σε αδράνεια. Καταναλώνει λίγο περισσότερη μπαταρία.</string>
+    <string name="settings_exact_checks_nothing">Κανένα ενεργό ζεύγος – τίποτα για έλεγχο.</string>
+    <string name="settings_exact_checks_permission_missing">Λείπει η άδεια – το Android ελέγχει όποτε του ταιριάζει (περίπου κάθε 15 λεπτά ή αργότερα).</string>
+    <string name="settings_notification_change">Ειδοποίηση μόνο σε αλλαγή τιμής</string>
+    <string name="settings_notification_change_always">Πάντα</string>
+    <string name="settings_notification_change_hint">Η ειδοποίηση τιμής εμφανίζεται μόνο όταν η τιμή έχει κινηθεί τουλάχιστον τόσο από την προηγούμενη. Όσο λείπουν δεδομένα, δεν εμφανίζεται τίποτα. Οι συναγερμοί δεν επηρεάζονται.</string>
+    <string name="settings_ongoing_notifications">Χωρίς απόρριψη με σύρσιμο</string>
+    <string name="settings_ongoing_notifications_hint">Οι ειδοποιήσεις τιμής παραμένουν καρφιτσωμένες.</string>
+    <string name="settings_price_notifications">Ειδοποιήσεις τιμής</string>
+    <string name="settings_price_notifications_hint">Εμφάνιση της τρέχουσας τιμής των ενεργών ζευγών στη γραμμή κατάστασης.</string>
+    <string name="settings_price_pairs">Ζεύγη</string>
+    <string name="settings_price_pairs_all_off">Όλα ανενεργά</string>
+    <string name="settings_price_pairs_all_on">Όλα ενεργά</string>
+    <string name="settings_price_pairs_count">%1$d από %2$d</string>
+    <string name="settings_price_pairs_empty">Δεν υπάρχουν ακόμη ζεύγη στη λίστα παρακολούθησης.</string>
+    <string name="settings_price_pairs_hint">Επίλεξε ποια ζεύγη δείχνουν την τιμή τους στη γραμμή ειδοποιήσεων.</string>
+    <string name="settings_quiet_hours">Ώρες ησυχίας</string>
+    <string name="settings_quiet_hours_from">Από</string>
+    <string name="settings_quiet_hours_hint">Μεταξύ %1$s και %2$s οι συναγερμοί περιμένουν μέχρι το τέλος των ωρών ησυχίας και μετά ηχούν κανονικά. Οι υπόλοιπες ειδοποιήσεις έρχονται αθόρυβα, χωρίς εκφώνηση.</string>
+    <string name="settings_quiet_hours_to">Έως</string>
+
+    <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
+    <string name="settings_background_interval">Διάστημα</string>
+    <string name="settings_background_updates">Ενημερώσεις στο παρασκήνιο</string>
+    <string name="settings_battery_hint">Περιορισμένη σημαίνει ότι το Android μπορεί να καθυστερήσει τις ενημερώσεις παρασκηνίου κατά ώρες.</string>
+    <string name="settings_battery_ok">Χρήση μπαταρίας: απεριόριστη</string>
+    <string name="settings_battery_restricted">Χρήση μπαταρίας: περιορισμένη</string>
+    <string name="settings_check_runs_empty">Δεν έχουν καταγραφεί ακόμη έλεγχοι.</string>
+    <string name="settings_check_runs_honest_android">Το Android αποφασίζει πότε γίνεται έλεγχος – εδώ βλέπεις πότε έγινε πραγματικά.</string>
+    <string name="settings_check_runs_honest_ios">Το iOS αποφασίζει πότε γίνεται έλεγχος – εδώ βλέπεις πότε έγινε πραγματικά.</string>
+    <string name="settings_check_runs_title">Πρόσφατοι έλεγχοι</string>
+    <string name="settings_http_log">Εμφάνιση αρχείου HTTP</string>
+    <string name="settings_http_log_hint">Δείχνει στο κάτω μέρος της σελίδας «Προσθήκη ζεύγους» τα αιτήματα προς τα ανταλλακτήρια – για αντιμετώπιση προβλημάτων.</string>
+    <string name="settings_live_service">Συχνή ενημέρωση</string>
+    <string name="settings_live_websocket">Τιμές live</string>
+
+    <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
+    <string name="settings_activity_alerts">Αναφορά ασυνήθιστης δραστηριότητας</string>
+    <string name="settings_activity_alerts_hint">Το πολύ μία φορά την ώρα ανά ζεύγος: ασυνήθιστες κινήσεις τιμής, άλματα όγκου και ακραίες τιμές στα futures (δεδομένα από Binance).</string>
+    <string name="settings_activity_sensitivity">Ευαισθησία</string>
+    <string name="settings_activity_sensitivity_hint">Πόσο εύκολα ένα νόμισμα θεωρείται ασυνήθιστο – ίδια για την κάρτα της λίστας παρακολούθησης και τις ειδοποιήσεις αγοράς. Με «Λιγότερα» η κάρτα δείχνει μόνο τα 3 ισχυρότερα.</string>
+    <string name="settings_watchlist_activity_card">Ασυνήθιστη δραστηριότητα στη λίστα</string>
+    <string name="settings_watchlist_activity_card_hint">Εμφανίζει το ⚡ δίπλα στις ομάδες: πατήστε το για να δείτε μόνο τα ζεύγη όπου κάτι συμβαίνει τώρα. Οι ειδοποιήσεις ρυθμίζονται στις «Ειδοποιήσεις αγοράς».</string>
+    <string name="settings_watchlist_names">Εμφάνιση ονομάτων</string>
+    <string name="settings_watchlist_names_hint">Όνομα κάτω από το ζεύγος, π.χ. Bitcoin ή NVIDIA. Έρχεται με τις λίστες λογότυπων και φορτώνεται μία φορά για όλα τα νομίσματα.</string>
+    <string name="settings_watchlist_sparkline">Μίνι γράφημα στη λίστα</string>
+    <string name="settings_watchlist_sparkline_hint">Τάση 24 ωρών δίπλα στην τιμή</string>
+    <string name="settings_watchlist_value_names">Ονόματα</string>
+    <string name="settings_watchlist_value_price_only">Μόνο τιμή</string>
+    <string name="settings_watchlist_value_sparkline">Μίνι γράφημα</string>
+
+    <!-- Einstellungen › Token & TradFi -->
+    <string name="settings_asset_scope_alpha">Μαζί με Alpha tokens (α)</string>
+    <string name="settings_asset_scope_alpha_hint">Alpha tokens: πρώιμα, συνήθως μικρά έργα από τη λίστα Binance Alpha – συχνά με λίγες συναλλαγές και έντονες διακυμάνσεις.</string>
+    <string name="settings_asset_scope_alpha_tradfi_hint">Ανήκει στα tokens. Κλειδωμένο με «Μόνο TradFi»· τα Alpha tokens που είναι στη λίστα παραμένουν.</string>
+    <string name="settings_asset_scope_both">Tokens και TradFi</string>
+    <string name="settings_asset_scope_both_hint">Όλα – κρύπτο και TradFi</string>
+    <string name="settings_asset_scope_hint">Ορίζει ποια ζεύγη δείχνουν η επιλογή και η αναζήτηση κατά την προσθήκη. Τα ζεύγη που είναι ήδη στη λίστα μένουν πάντα.</string>
+    <string name="settings_asset_scope_title">Tokens &amp; TradFi</string>
+    <string name="settings_asset_scope_tokens">Μόνο tokens</string>
+    <string name="settings_asset_scope_tokens_hint">Κρύπτο: spot και perpetuals</string>
+    <string name="settings_asset_scope_tradfi">Μόνο TradFi</string>
+    <string name="settings_asset_scope_tradfi_hint">Futures σε μετοχές, εμπορεύματα, νομίσματα – συμβόλαια, όχι tokens</string>
+    <string name="settings_rolling_futures">Μαζί με τριμηνιαία &amp; άλλα futures με λήξη</string>
+    <string name="settings_rolling_futures_hint">Ανενεργό: τα futures με λήξη που λείπουν από τη λίστα του ανταλλακτηρίου επισημαίνονται ως εκτός διαπραγμάτευσης αντί να ελέγχονται ένα-ένα. Εξοικονομεί χρόνο σε κάθε ανανέωση.</string>
+    <string name="settings_rolling_futures_qtly">Μαζί με τριμηνιαία &amp; άλλα futures με λήξη (QTLY)</string>
+    <string name="settings_rolling_futures_tradfi_hint">Ανήκει στα tokens. Κλειδωμένο με «Μόνο TradFi»· ισχύει ακόμη για τα futures με λήξη που είναι στη λίστα.</string>
+    <string name="settings_tradfi_futures">Μετοχές, εμπορεύματα και νομίσματα (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">Στην επιλογή ζεύγους δείχνει και futures σε μετοχές, χρυσό και άλλα εμπορεύματα, νομίσματα και εταιρείες πριν από την εισαγωγή τους στο χρηματιστήριο. Είναι συμβόλαια, όχι tokens.</string>
+
+    <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
+    <string name="settings_accent">Χρώμα έμφασης</string>
+    <string name="settings_accent_hint">Χρώμα για την εφαρμογή, τα widget και το εικονίδιο της εφαρμογής.</string>
+    <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">Λογότυπα νομισμάτων</string>
+    <string name="settings_coin_logos_app">Στην εφαρμογή</string>
+    <string name="settings_coin_logos_app_hint">Λίστα, ανοιχτό ζεύγος και κάρτες αγοράς</string>
+    <string name="settings_coin_logos_footer">Τα λογότυπα προέρχονται από το CoinGecko και, για ό,τι δεν έχει το CoinGecko (π.χ. χρυσός, ασήμι, μετοχές), από το Binance. Η εφαρμογή κατεβάζει μονομιάς όλα τα λογότυπα και τα φυλάσσει σε αυτή τη συσκευή, έτσι κανείς από τους δύο δεν ξέρει ποια νομίσματα παρακολουθείτε. Τα νομίσματα χωρίς λογότυπο δείχνουν τα αρχικά τους. Τα αγαπημένα παίρνουν ένα μικρό αστέρι στο λογότυπο. Όπου ένας διακόπτης είναι κλειστός, δεν εμφανίζονται ούτε λογότυπα ούτε αρχικά· όταν όλα είναι κλειστά, δεν φορτώνεται τίποτα.</string>
+    <string name="settings_coin_logos_portfolio">Στο χαρτοφυλάκιο</string>
+    <string name="settings_coin_logos_portfolio_hint">Θέσεις, λεπτομέρειες νομισμάτων και αναλύσεις</string>
+    <string name="settings_coin_logos_value_app">Εφαρμογή</string>
+    <string name="settings_coin_logos_widgets">Στα widget</string>
+    <string name="settings_coin_logos_widgets_hint">Widget λίστας και ενός νομίσματος</string>
+    <string name="settings_high_contrast">Υψηλή αντίθεση</string>
+    <string name="settings_high_contrast_hint">Πιο έντονα χρώματα τιμών και πιο σκούρο δευτερεύον κείμενο. Ενεργή και όταν το σύστημα ζητά περισσότερη αντίθεση.</string>
+    <string name="settings_language_choose">Επιλογή γλώσσας</string>
+    <string name="settings_language_system">Γλώσσα συστήματος</string>
+    <string name="settings_price_colors">Χρώματα τιμών</string>
+    <string name="settings_price_colors_hint">Το μπλε / πορτοκαλί ξεχωρίζει εύκολα σε κάθε μορφή δυσχρωματοψίας (κόκκινου-πράσινου και μπλε-κίτρινου). Η κατεύθυνση εμφανίζεται επίσης πάντα με + / −.</string>
+    <string name="settings_theme_mode">Φωτεινό / Σκοτεινό</string>
+    <string name="settings_widgets">Widget</string>
+
+    <!-- Einstellungen › %-Änderung -->
+    <!-- Einstellungszeile und Seitentitel «%-Änderung»; %1$s ist das Prozentzeichen «%» -->
+    <string name="settings_change_basis">Μεταβολή %1$s και ζώνη ώρας γραφήματος</string>
+    <string name="settings_change_basis_hint_1">Η ζώνη ώρας που επιλέγετε ορίζει από πότε μετρά η ποσοστιαία μεταβολή (λίστα παρακολούθησης, γραμμή παλμού, ανοιχτό ζεύγος, widget) και τις ώρες στα γραφήματα.</string>
+    <string name="settings_change_basis_hint_2">Το «%1$s» συγκρίνει με την τιμή ακριβώς πριν από 24 ώρες. Το «00:00» συγκρίνει με την τιμή ανοίγματος τα μεσάνυχτα σε αυτή τη ζώνη ώρας.</string>
+    <string name="settings_change_basis_hint_3">Οι συναγερμοί δεν επηρεάζονται.</string>
+    <string name="settings_change_basis_hint_since_last">Το «%1$s» συγκρίνει με την τιμή της προηγούμενης ενημέρωσης. Με ζωντανές τιμές παραμένει κοντά στο 0%%.</string>
+    <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
+    <string name="settings_change_period">Εμφάνιση περιόδου δίπλα στη μεταβολή</string>
+    <string name="settings_change_period_hint">Μικρό «24h», «σήμερα» ή «τελ. ενημέρωση» δίπλα στη μεταβολή στη λίστα και στο widget ενός νομίσματος. Ο αναγνώστης οθόνης το λέει πάντα.</string>
+
+    <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
+    <string name="settings_conversion_currency">Νόμισμα μετατροπής</string>
+    <string name="settings_conversion_currency_hint">Χρησιμοποιείται επίσης για το χαρτοφυλάκιο, τους συναγερμούς στο νόμισμά σας, την κάρτα «Αγορά κρυπτονομισμάτων» και το widget Χαρτοφυλάκιο.</string>
+    <string name="settings_cost_method">Μέθοδος κόστους κτήσης</string>
+    <string name="settings_cost_method_average">Μέσος όρος (Ø)</string>
+    <string name="settings_cost_method_average_hint">Οι πωλήσεις αποτιμώνται στην κυλιόμενη μέση τιμή αγοράς.</string>
+    <string name="settings_cost_method_fifo">FIFO (προεπιλογή)</string>
+    <string name="settings_cost_method_fifo_hint">Τα παλαιότερα νομίσματα πωλούνται πρώτα, σε όλα τα ανταλλακτήρια και πορτοφόλια.</string>
+    <string name="settings_cost_method_fifo_wallet">FIFO ανά πορτοφόλι/ανταλλακτήριο</string>
+    <string name="settings_cost_method_fifo_wallet_hint">Τα παλαιότερα νομίσματα πρώτα σε κάθε ανταλλακτήριο ή πορτοφόλι· οι μεταφορές μετακινούν τις παρτίδες με την ημερομηνία αγοράς.</string>
+    <string name="settings_portfolio_lock">Κλείδωμα χαρτοφυλακίου</string>
+    <string name="settings_portfolio_lock_footer">Το κλείδωμα κρύβει την προβολή. Τα δεδομένα βρίσκονται σε αυτή τη συσκευή και προστατεύονται από την κρυπτογράφηση της συσκευής. Μπορείτε να προστατεύσετε τα αντίγραφα ασφαλείας με κωδικό.</string>
+    <string name="settings_portfolio_lock_hint">Κρύβει μόνο το χαρτοφυλάκιο: ξεκλείδωμα με δακτυλικό αποτύπωμα, πρόσωπο ή PIN συσκευής. Κλειδώνει ξανά μετά από περισσότερο από ένα λεπτό στο παρασκήνιο. Η λίστα παρακολούθησης, οι συναγερμοί και τα άλλα widget μένουν ανοιχτά.</string>
+    <string name="settings_portfolio_lock_no_device_lock">Χωρίς PIN ή κωδικό συσκευής το κλείδωμα δεν κρύβει τίποτα – ρύθμισε κλείδωμα οθόνης.</string>
+    <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">Χαρτοφυλάκιο στο αντίγραφο συστήματος</string>
+    <string name="settings_portfolio_system_backup_hint">Ανενεργό: οι συναλλαγές σας δεν περιλαμβάνονται στο αντίγραφο ασφαλείας συστήματος της συσκευής ούτε στη μεταφορά σε νέο τηλέφωνο. Για μεταφορά, χρησιμοποιήστε το αντίγραφο ασφαλείας της εφαρμογής με κωδικό.</string>
+    <string name="settings_portfolio_system_backup_unavailable">Απαιτεί Android 9 ή νεότερο – παλαιότερες εκδόσεις θα αποθήκευαν το χαρτοφυλάκιο μη κρυπτογραφημένο στο αντίγραφο Google.</string>
+    <string name="settings_portfolio_tab">Εμφάνιση καρτέλας Χαρτοφυλάκιο</string>
+    <string name="settings_portfolio_value_locked">Ενεργό, με κλείδωμα</string>
+    <string name="settings_show_converted">Μετατροπή τιμών</string>
+    <string name="settings_show_converted_hint">Εμφανίζει τις τιμές της λίστας παρακολούθησης και σε %1$s</string>
+
+    <!-- Einstellungen › Markt-Meldungen -->
+    <string name="settings_depeg_alarm">Ειδοποίηση για depeg του USDT</string>
+    <string name="settings_depeg_alarm_hint">Ειδοποιεί μία φορά όταν το USDT αποκλίνει από το 1 USD κατά το όριο (Kraken USDT/USD, Binance USDC/USDT). Οι τιμές στην εφαρμογή συνεχίζουν να χρησιμοποιούν USDT = 1.</string>
+    <string name="settings_depeg_threshold">Όριο depeg</string>
+    <string name="settings_fng_above">Fear &amp; Greed: ειδοποίηση πάνω από</string>
+    <string name="settings_fng_below">Fear &amp; Greed: ειδοποίηση κάτω από</string>
+    <string name="settings_gas_alert_hint">Ειδοποιεί μία φορά όταν το κανονικό τέλος πέσει κάτω από το όριο. Ελέγχεται κατά την ενημέρωση τιμών, το πολύ κάθε 10 λεπτά.</string>
+    <string name="settings_gas_btc_below">Τέλος Bitcoin κάτω από (sat/vB)</string>
+    <string name="settings_gas_eth_below">Gas Ethereum κάτω από (gwei)</string>
+    <string name="settings_ind_ath_within">Πτώση από το ιστορικό υψηλό το πολύ</string>
+    <string name="settings_ind_mayer_above">Mayer Multiple πάνω από</string>
+    <string name="settings_ind_mayer_below">Mayer Multiple κάτω από</string>
+    <string name="settings_ind_mvrv_above">MVRV πάνω από</string>
+    <string name="settings_ind_mvrv_below">MVRV κάτω από</string>
+    <string name="settings_indicator_alerts_hint">Δείκτες Bitcoin, ελέγχονται δύο φορές την ημέρα. Τα όρια τα επιλέγεις εσύ – η εφαρμογή δεν αξιολογεί τις τιμές.</string>
+    <string name="settings_macro_notifications">Οικονομικό ημερολόγιο</string>
+    <string name="settings_macro_notifications_hint">Στις 08:00 τις ημέρες με σημαντικά οικονομικά στοιχεία των ΗΠΑ (πληθωρισμός, απασχόληση, απόφαση της Fed). Το ημερολόγιο έρχεται από τον ιστότοπο της εφαρμογής και φορτώνεται μία φορά την ημέρα.</string>
+    <string name="settings_market_alerts">Ειδοποιήσεις αγοράς</string>
+    <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
+    <plurals name="settings_market_alerts_active">
+        <item quantity="one">%1$d ενεργό</item>
+        <item quantity="other">%1$d ενεργά</item>
+    </plurals>
+
+    <!-- Einstellungen › Sprachausgabe -->
+    <string name="settings_speech_rate">Ταχύτητα ομιλίας: %1$.1f×</string>
+    <string name="settings_tts">Φωνητική έξοδος</string>
+    <string name="settings_tts_alarms_only">Μόνο συναγερμοί</string>
+    <string name="settings_tts_alarms_only_hint">Ανενεργό: κάθε ενημέρωση ζεύγους με «Εκφώνηση τιμής» εκφωνείται.</string>
+    <!-- Sprachausgabe schweigt im Lautlos-/Vibrationsmodus -->
+    <string name="settings_tts_hint_silent">Εκφωνεί τιμές και συναγερμούς. Παραμένει σιωπηλό όσο η συσκευή είναι σε αθόρυβη λειτουργία ή δόνηση.</string>
+    <string name="settings_tts_test">Δοκιμή φωνής</string>
+
+    <!-- Einstellungen › Daten: App zurücksetzen -->
+    <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
+    <string name="settings_reset_app">Επαναφορά εφαρμογής</string>
+    <string name="settings_reset_app_action">Διαγραφή όλων</string>
+    <string name="settings_reset_app_confirm">Διαγράφει λίστα, συναγερμούς, χαρτοφυλάκιο, ρυθμίσεις και όλα τα αποθηκευμένα δεδομένα, όπως μετά την εγκατάσταση. Δεν αναιρείται. Συμβουλή: κάντε πρώτα αντίγραφο ασφαλείας.</string>
+    <string name="settings_reset_app_title">Επαναφορά της εφαρμογής;</string>
+
+    <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
+    <!-- Suchfeld der Währungsseite -->
+    <string name="currency_search">Αναζήτηση νομίσματος</string>
+    <string name="language_search">Αναζήτηση γλώσσας</string>
+
+    <!-- Theme -->
+    <string name="theme_dark">Σκοτεινό</string>
+    <string name="theme_light">Φωτεινό</string>
+    <string name="theme_system">Σύστημα</string>
+
+    <!-- Akzentfarben -->
+    <string name="accent_blue">Μπλε</string>
+    <string name="accent_green">Πράσινο</string>
+    <!-- Eigenname, in allen Sprachen gleich -->
+    <string name="accent_marrs_green">Marrs Green</string>
+    <string name="accent_orange">Πορτοκαλί</string>
+    <string name="accent_red">Κόκκινο</string>
+
+    <!-- Kursfarben -->
+    <string name="price_colors_red_up_hint">Σύνηθες σε Κίνα, Ιαπωνία, Κορέα και Ταϊβάν</string>
+    <string name="price_colors_swap">Εναλλαγή χρωμάτων (άνοδος ↔ πτώση)</string>
+    <string name="price_style_calm">Ήρεμο</string>
+    <string name="price_style_calm_color_vision">Ήρεμο · Δυσχρωματοψία</string>
+    <string name="price_style_color_vision">Δυσχρωματοψία</string>
+    <string name="price_style_fresh">Φρέσκο</string>
+    <string name="price_style_traditional">Παραδοσιακό</string>
+
+    <!-- Über die App -->
+    <string name="about_exchanges_verified">Συνδέσεις ανταλλακτηρίων ελέγχθηκαν τελευταία με πραγματικές απαντήσεις: %1$s</string>
+    <string name="about_license">Οι τιμές έρχονται απευθείας από τα ανταλλακτήρια· χωρίς λογαριασμό και χωρίς παρακολούθηση.</string>
+    <!-- Texte der Lizenzen liegen in assets/licenses -->
+    <string name="about_licenses">Άδειες χρήσης</string>
+    <string name="about_privacy_policy">Πολιτική απορρήτου</string>
+    <!-- GitHub-Vorlage exchange_request.md -->
+    <string name="about_request_exchange">Αίτημα για ανταλλακτήριο</string>
+    <string name="about_source_code">Πηγαίος κώδικας στο GitHub</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_why">Το Crypto Checker είναι ένα ανεξάρτητο έργο του r1AD: μια ήρεμη επισκόπηση τιμών χωρίς λογαριασμό, διαφημίσεις ή παρακολούθηση. Ερωτήσεις και προτάσεις: %1$s</string>
+
+    <!-- Lizenzhinweise -->
+    <string name="licenses_app_intro">Το Crypto Checker είναι ανοιχτού κώδικα (άδεια MIT).</string>
+    <string name="licenses_font_title">Γραμματοσειρά Rubik</string>
+    <string name="licenses_icons_bundled_text">Περιλαμβάνονται στην εφαρμογή: εικονίδια από το «Cryptocurrency Icons» του Christopher Downer και συνεισφερόντων (github.com/spothq/cryptocurrency-icons), με άδεια CC0 1.0 Universal. Εμφανίζονται μέχρι να φορτωθούν τα λογότυπα του CoinGecko ή της Binance. Τα ονόματα και τα λογότυπα παραμένουν εμπορικά σήματα των έργων τους.</string>
+    <string name="licenses_icons_title">Εναλλακτικά εικονίδια νομισμάτων</string>
+    <string name="licenses_libraries_intro">Η εφαρμογή χρησιμοποιεί αυτές τις βιβλιοθήκες με την άδεια Apache 2.0:</string>
+    <string name="licenses_libraries_title">Βιβλιοθήκες Android</string>
+
+    <!-- Entwickleroptionen -->
+    <!-- Countdown der letzten Tipps auf die Version bis zu den Entwickleroptionen -->
+    <plurals name="developer_taps_left">
+        <item quantity="one">Ακόμη %d πάτημα για ξεκλείδωμα των επιλογών προγραμματιστή</item>
+        <item quantity="other">Ακόμη %d πατήματα για ξεκλείδωμα των επιλογών προγραμματιστή</item>
+    </plurals>
+    <string name="developer_unlocked">Οι επιλογές προγραμματιστή ξεκλειδώθηκαν</string>
+
+    <!-- Nur iOS: Einstellungen -->
+    <!-- Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">Η δόνηση ακολουθεί τις ρυθμίσεις του iPhone (Ήχοι και απτική απόκριση).</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Μετρά νέους συναγερμούς και ειδοποιήσεις αγοράς· μηδενίζεται όταν ανοίγετε την εφαρμογή.</string>
+</resources>

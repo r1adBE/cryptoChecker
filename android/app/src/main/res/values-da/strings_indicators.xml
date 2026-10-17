@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Neutrale Indikatoren: Titel, Hinweise, Halving -->
+    <string name="neutral_alt_title">Altcoins mod Bitcoin</string>
+    <string name="neutral_btc_indicators_title">Bitcoin-nøgletal</string>
+    <string name="neutral_halving_last">Seneste halvering: %1$s</string>
+    <string name="neutral_halving_next">Næste halving forventes omkring %1$s (anslået efter kalender – blokhøjde ikke tilgængelig lige nu).</string>
+    <string name="neutral_indicators_disclaimer">Kun måleværdier uden vurdering. Ingen prognose og ingen investeringsrådgivning.</string>
+    <string name="neutral_onchain_missing">On-chain-data (Coin Metrics) er ikke tilgængelige lige nu.</string>
+
+    <!-- Neutrale Indikatoren: was der Wert misst -->
+    <string name="neutral_explain_ath_distance">Hvor langt kursen ligger under den hidtidige rekord.</string>
+    <string name="neutral_explain_change_30d">Kursen i dag sammenlignet med for 30 dage siden.</string>
+    <string name="neutral_explain_hashrate">30-dages gennemsnitlig hashrate sammenlignet med 60-dages gennemsnittet.</string>
+    <string name="neutral_explain_ma200w">Gennemsnit af de seneste 200 ugentlige lukkekurser.</string>
+    <string name="neutral_explain_mayer">Kurs divideret med 200-dages gennemsnittet.</string>
+    <string name="neutral_explain_mvrv">Markedsværdi divideret med realiseret værdi (on-chain).</string>
+    <string name="neutral_explain_pi_gap">111-dages gennemsnit sammenlignet med det dobbelte af 350-dages gennemsnittet.</string>
+    <string name="neutral_explain_puell">Minernes daglige indtægter divideret med deres 365-dages gennemsnit.</string>
+    <string name="neutral_explain_rsi_daily">Relativ styrkeindeks for de seneste 14 dage, 0–100.</string>
+    <string name="neutral_explain_rsi_weekly">Relativ styrkeindeks for de seneste 14 uger, 0–100.</string>
+    <string name="neutral_explain_sma50_200">50-dages gennemsnit sammenlignet med 200-dages gennemsnittet.</string>
+    <string name="neutral_explain_vs_btc">Kursændring i forhold til Bitcoin over 90 dage.</string>
+
+    <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
+    <string name="neutral_info_alt_season_how">Appen viser kun optællingen og kalder den ikke en «sæson». Værdien ændrer sig som regel over dage, ikke timer.</string>
+    <string name="neutral_info_btc_how">Hver værdi har en sætning om, hvad den måler, og hvor den ligger i sit eget forløb siden 2016. Appen vurderer ikke værdierne og udleder ingen markedsfase; grænser for meddelelser er kun dem, du selv sætter. Tidligere mønstre behøver ikke gentage sig.</string>
+    <string name="neutral_info_btc_what">Almindelige Bitcoin-nøgletal som rene måleværdier: Mayer Multiple, 200-ugers gennemsnit, fald fra rekordniveau, ændring over 30 dage, Pi Cycle-afstand og on-chain-værdierne MVRV, Puell Multiple og hashrate.</string>
+    <string name="neutral_info_coin_how">Hver værdi har én sætning om, hvad den måler, uden vurdering. For coins med kort kurshistorik mangler nogle værdier. On-chain-data indgår ikke her.</string>
+    <string name="neutral_info_coin_what">De samme rene nøgletal for en valgfri coin, kun ud fra kursdata: Mayer Multiple, 200-ugers gennemsnit, fald fra rekorden, ændring over 30 dage, trend 50/200 dage, RSI og styrke mod Bitcoin over 90 dage.</string>
+    <string name="neutral_info_halving_how">Næste halving beregnes ud fra den aktuelle blokhøjde og den gennemsnitlige bloktid i den igangværende sværhedsperiode (mempool.space); uden de data efter kalender (seneste halving plus cirka fire år). Grafen viser kursforløbet for tidligere cyklusser fra deres halving – historie, ikke en prognose.</string>
+
+    <!-- Indikator-Namen -->
+    <string name="ind_cross">Trend 50/200 dage</string>
+    <string name="ind_drawdown">Fald fra rekordniveau</string>
+    <string name="ind_missing">for få data</string>
+    <string name="ind_rsi_daily">RSI (dag)</string>
+    <string name="ind_rsi_weekly">RSI (uge)</string>
+    <string name="ind_vs_btc">Styrke mod Bitcoin (90 dage)</string>
+    <string name="neutral_ind_change_30d">Ændring 30 dage</string>
+    <string name="neutral_ind_hashrate">Hashrate 30/60 dage</string>
+    <string name="neutral_ind_ma200w">200-ugers gennemsnit</string>
+    <string name="neutral_ind_pi_gap">Pi Cycle-afstand</string>
+
+    <!-- Indikatoren: «hoch heisst …, tief heisst …» -->
+    <string name="ind_read_alt_season">Høj betyder, at de fleste store altcoins slog Bitcoin over 90 dage, lav, at Bitcoin slog de fleste.</string>
+    <string name="ind_read_ath_distance">Lille betyder, at kursen er tæt på rekorden, stor, at den ligger langt under.</string>
+    <string name="ind_read_change_30d">Positiv betyder højere end for 30 dage siden, negativ lavere.</string>
+    <string name="ind_read_funding">Høj betyder, at mange satser på stigende kurser med gearing, negativ, at mange satser på faldende.</string>
+    <string name="ind_read_hashrate_30_60">Positiv betyder, at regnekraften vokser, negativ, at minere slukker.</string>
+    <string name="ind_read_leverage">Mange longs betyder, at mange satser på stigning med lånte penge, mange shorts på fald.</string>
+    <string name="ind_read_ma200w">Kurs langt over betyder en lang stigning, kurs tæt på et dybt tilbagefald.</string>
+    <string name="ind_read_mayer">Høj betyder, at kursen ligger langt over 200-dages-gennemsnittet, lav, at den ligger under.</string>
+    <string name="ind_read_mvrv">Høj betyder, at kursen ligger langt over, hvad ejerne i snit har betalt, lav, at den ligger tæt på eller under.</string>
+    <string name="ind_read_pi_cycle_gap">Tæt på nul betyder, at de to gennemsnit næsten mødes, stærkt negativ, at de ligger langt fra hinanden.</string>
+    <string name="ind_read_puell">Høj betyder, at minerne tjener langt mere end normalt, lav langt mindre.</string>
+    <string name="ind_read_rsi_daily">Over 70 betyder store stigninger de seneste dage, under 30 store fald.</string>
+    <string name="ind_read_rsi_weekly">Over 70 betyder store stigninger de seneste uger, under 30 store fald.</string>
+    <string name="ind_read_sma50_vs_200">Positiv betyder, at det korte gennemsnit ligger over det lange, negativ under.</string>
+    <string name="ind_read_vs_btc">Positiv betyder bedre end Bitcoin, negativ dårligere.</string>
+
+    <!-- Indikatoren: Einordnung in die Vergangenheit -->
+    <string name="ind_context_flat30">Samme kurs i 30 dage: %1$s</string>
+    <string name="ind_context_note">Tidligere værdier og beregninger «samme kurs» er regning, ikke en prognose.</string>
+    <string name="ind_context_percentile">Siden %1$s lavere på %2$s af dagene</string>
+</resources>

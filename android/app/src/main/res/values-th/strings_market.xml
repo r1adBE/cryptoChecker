@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Markt-Tab: Abschnitte, Zeilen, Herkunft und Alter -->
+    <!-- «… · CoinGecko · vor 3 Min.»; «gerade eben» = time_just_now, «veraltet» = widget_outdated -->
+    <plurals name="market_age_minutes">
+        <item quantity="other">%d นาทีที่แล้ว</item>
+    </plurals>
+    <!-- «heute 02:00» (Uhrzeit ohne Sekunden) -->
+    <string name="market_age_today">วันนี้ %1$s</string>
+    <string name="market_context_summary">Fear &amp; Greed, ตัวชี้วัด Bitcoin, ความครองตลาด, Halving</string>
+    <string name="market_context_value">%1$s %2$s · %3$s</string>
+    <string name="market_more_data">ข้อมูลตลาดเพิ่มเติม</string>
+    <string name="market_phase_trend_failed">ไม่มีข้อมูลราคา</string>
+    <string name="market_plain_direction_down_clear">มูลค่ารวมของคริปโตทั้งหมดต่ำกว่าเมื่อ 24 ชั่วโมงก่อนอย่างชัดเจน (%1$s)</string>
+    <string name="market_plain_direction_down_slight">มูลค่ารวมของคริปโตทั้งหมดต่ำกว่าเมื่อ 24 ชั่วโมงก่อนเล็กน้อย (%1$s)</string>
+    <string name="market_plain_direction_flat">มูลค่ารวมของคริปโตทั้งหมดแทบไม่เปลี่ยนแปลงใน 24 ชั่วโมง (%1$s)</string>
+    <string name="market_plain_direction_up_clear">มูลค่ารวมของคริปโตทั้งหมดสูงกว่าเมื่อ 24 ชั่วโมงก่อนอย่างชัดเจน (%1$s)</string>
+    <string name="market_plain_direction_up_slight">มูลค่ารวมของคริปโตทั้งหมดสูงกว่าเมื่อ 24 ชั่วโมงก่อนเล็กน้อย (%1$s)</string>
+    <string name="market_plain_footnote">อธิบาย 24 ชั่วโมงที่ผ่านมา – ไม่ใช่การคาดการณ์ ไม่ใช่คำแนะนำการลงทุน</string>
+    <string name="market_plain_mood_extreme_fear">ตอนนี้นักลงทุนกลัวมาก: ดัชนีอารมณ์ตลาด (Fear &amp; Greed) อยู่ที่ %1$d จาก 100</string>
+    <string name="market_plain_mood_extreme_greed">ตอนนี้นักลงทุนโลภมาก: ดัชนีอารมณ์ตลาด (Fear &amp; Greed) อยู่ที่ %1$d จาก 100</string>
+    <string name="market_plain_mood_fear">นักลงทุนค่อนข้างกลัว: ดัชนีอารมณ์ตลาด (Fear &amp; Greed) อยู่ที่ %1$d จาก 100</string>
+    <string name="market_plain_mood_greed">นักลงทุนค่อนข้างโลภ: ดัชนีอารมณ์ตลาด (Fear &amp; Greed) อยู่ที่ %1$d จาก 100</string>
+    <string name="market_plain_mood_neutral">อารมณ์ของนักลงทุนสมดุล: ดัชนีอารมณ์ตลาด (Fear &amp; Greed) อยู่ที่ %1$d จาก 100</string>
+    <string name="market_plain_standout_above_btc">ที่โดดเด่นคือ %1$s: %2$s ใน 24 ชั่วโมง สูงกว่า Bitcoin อย่างชัดเจน (%3$s)</string>
+    <string name="market_plain_standout_against_btc">ที่โดดเด่นคือ %1$s: %2$s ใน 24 ชั่วโมง ขณะที่ Bitcoin ไปในทิศทางตรงข้าม (%3$s)</string>
+    <string name="market_plain_standout_below_btc">ที่โดดเด่นคือ %1$s: %2$s ใน 24 ชั่วโมง ต่ำกว่า Bitcoin อย่างชัดเจน (%3$s)</string>
+    <string name="market_plain_standout_futures_down">ที่โดดเด่นคือ %1$s: เทรดเดอร์ futures จำนวนมากผิดปกติคาดว่าราคาจะลง</string>
+    <string name="market_plain_standout_futures_up">ที่โดดเด่นคือ %1$s: เทรดเดอร์ futures จำนวนมากผิดปกติคาดว่าราคาจะขึ้น</string>
+    <string name="market_plain_standout_quiet">ตอนนี้ไม่มีเหรียญใดโดดเด่นเป็นพิเศษ</string>
+    <string name="market_plain_standout_volume">ที่โดดเด่นคือ %1$s: มีการซื้อขายประมาณ %2$s เท่าของปกติ</string>
+    <string name="market_plain_title">สรุปสั้น ๆ</string>
+    <!-- Nebenzeile der Fear-&-Greed-Zeile («Gier · gestern 65») -->
+    <string name="market_row_fng_yesterday">%1$s · เมื่อวาน %2$s</string>
+    <string name="market_section_collapse">ซ่อน %1$s</string>
+    <string name="market_section_context">อารมณ์ตลาดและวัฏจักร</string>
+    <string name="market_section_data">ข้อมูลตลาด</string>
+    <!-- Bedienungshilfen: Aktion auf der Abschnittsüberschrift; %1$s = Name des Abschnitts -->
+    <string name="market_section_expand">แสดง %1$s</string>
+    <string name="market_section_now">ตอนนี้</string>
+    <string name="market_source">ข้อมูล: Binance · Coin Metrics (CC BY-NC 4.0)</string>
+    <string name="market_unavailable_error">กระดานเทรดไม่พร้อมใช้งาน</string>
+
+    <!-- Markt-Tab: Info-Zeichen und Info-Blatt je Karte (was, wie, Quelle) -->
+    <string name="market_info_a11y">ข้อมูล: %1$s</string>
+    <string name="market_info_alt_season_source">ราคารายวัน: Binance · คำนวณใหม่ประมาณทุก 3 ชั่วโมง</string>
+    <string name="market_info_alt_season_what">นับว่าในอัลต์คอยน์ใหญ่ราว 20 เหรียญ (เช่น Ethereum, Solana, XRP) มีกี่เหรียญที่ทำผลงานดีกว่า Bitcoin ในช่วง 90 วันที่ผ่านมา ค่าคือสัดส่วนของเหรียญเหล่านั้นตั้งแต่ 0 ถึง 100</string>
+    <string name="market_info_coin_source">ราคา: Binance หรือ Bybit · โหลดใหม่ประมาณทุก 15 นาที</string>
+    <string name="market_info_dominance_how">ถ้าการครองตลาดเพิ่มขึ้น Bitcoin ทำได้ดีกว่าตลาดส่วนที่เหลือ ถ้าลดลง เหรียญอื่นมีน้ำหนักมากขึ้น stablecoin ก็นับรวมด้วย: ถ้ามูลค่าของ stablecoin เพิ่มขึ้น สัดส่วนของ Bitcoin จะลดลงแม้ราคา Bitcoin เท่าเดิม</string>
+    <string name="market_info_dominance_source">แหล่งที่มา: CoinGecko · โหลดใหม่ประมาณทุก 30 นาที</string>
+    <string name="market_info_dominance_what">สัดส่วนของ Bitcoin ในมูลค่ารวมของคริปโตทั้งหมด (มูลค่าตลาด) ด้านล่างแสดงสัดส่วนของ Ethereum</string>
+    <string name="market_info_fear_greed_how">ต่ำกว่า 25 หมายถึงกลัวสุดขีด สูงกว่า 75 หมายถึงโลภสุดขีด ราว 50 คือเป็นกลาง เมื่อขยายการ์ดจะเห็นค่าของเมื่อวาน หนึ่งสัปดาห์ก่อน และหนึ่งเดือนก่อน ไม่ใช่สัญญาณซื้อหรือขาย</string>
+    <string name="market_info_fear_greed_source">แหล่งที่มา: alternative.me · ค่าใหม่วันละครั้ง</string>
+    <string name="market_info_fear_greed_what">ดัชนีความรู้สึกของตลาดคริปโตตั้งแต่ 0 ถึง 100 alternative.me คำนวณจากข้อมูลหลายอย่าง เช่น ความผันผวนของราคา ปริมาณซื้อขาย โซเชียลมีเดีย และการครองตลาดของ Bitcoin</string>
+    <string name="market_info_gas_how">ค่าที่สูงขึ้นหมายความว่าเครือข่ายหนาแน่นและการโอนมีค่าใช้จ่ายมากขึ้น ช้า ปกติ และเร็ว คือค่าธรรมเนียมสำหรับการยืนยันที่ช้าหรือเร็วขึ้น เมื่อขยายการ์ดจะเห็นค่าใช้จ่ายโดยประมาณของการโอนแบบง่าย</string>
+    <string name="market_info_gas_source">โหนด RPC สาธารณะ, mempool.space · โหลดใหม่ทุกนาที</string>
+    <string name="market_info_gas_what">ค่าใช้จ่ายของธุรกรรมหนึ่งรายการในแต่ละเครือข่ายตอนนี้ บน Ethereum และเครือข่ายที่คล้ายกันเป็น gwei (หนึ่งในพันล้านของ ETH ต่อหน่วย gas) บน Bitcoin เป็น sat/vB (satoshi ต่อไบต์เสมือนของธุรกรรม)</string>
+    <string name="market_info_halving_source">วันที่: จากความสูงบล็อกและเวลาบล็อกเฉลี่ย (mempool.space) หรือตามปฏิทิน · ประวัติราคา: Coin Metrics, Binance โหลดใหม่ทุก 12 ชั่วโมง</string>
+    <string name="market_info_halving_what">เมื่อเกิด halving รางวัลที่นักขุดได้รับต่อบล็อก Bitcoin ใหม่จะลดลงครึ่งหนึ่ง ซึ่งเกิดขึ้นทุก 210,000 บล็อก หรือประมาณทุกสี่ปี หลังจากนั้นจะมี bitcoin ใหม่เกิดขึ้นต่อวันเพียงครึ่งเดียว</string>
+    <string name="market_info_how">วิธีอ่าน</string>
+    <string name="market_info_macro_how">การแจ้งเตือนจะแสดงเฉพาะเมื่อมีวันประกาศแบบนี้ในวันนี้หรือพรุ่งนี้ ช่วงที่ประกาศราคามักแกว่งมากกว่าปกติ แอปแสดงเพียงวันประกาศ ไม่ใช่ตัวเลข</string>
+    <string name="market_info_macro_source">ปฏิทินจากเว็บไซต์ของแอป · โหลดวันละครั้ง</string>
+    <string name="market_info_macro_what">วันประกาศข้อมูลเศรษฐกิจสำคัญของสหรัฐฯ: เงินเฟ้อ (CPI, PCE) ราคาผู้ผลิต (PPI) รายงานการจ้างงาน และการตัดสินใจอัตราดอกเบี้ยของธนาคารกลางสหรัฐฯ ตัวเลขเหล่านี้มักทำให้ราคาคริปโตเคลื่อนไหวด้วย</string>
+    <string name="market_info_no_advice">ไม่ใช่คำแนะนำการลงทุน</string>
+    <string name="market_info_phase_source">Binance, Coin Metrics · ราคาทุกชั่วโมง ค่า on-chain โหลดใหม่ทุก 12 ชั่วโมง</string>
+    <string name="market_info_pulse_how">หัวข้อบอกทิศทาง เมื่อขยายการ์ดจะเห็นรายละเอียด การเคลื่อนไหวแบบกว้างหมายความว่าเหรียญใหญ่ส่วนมากไปทางเดียวกัน อัตรา funding สูงหมายความว่าหลายคนใช้เลเวอเรจเดิมพันว่าราคาจะขึ้น เป็นภาพ ณ ขณะนี้ ไม่ใช่การคาดการณ์</string>
+    <string name="market_info_pulse_source">Binance, CoinGecko · โหลดใหม่ประมาณทุก 5 นาที</string>
+    <string name="market_info_pulse_what">สรุปสั้น ๆ ของตลาดในช่วง 24 ชั่วโมงที่ผ่านมา: Bitcoin, Ethereum และ Solana เคลื่อนไหวอย่างไร เหรียญใหญ่ที่สุดขึ้นหรือลงกี่เหรียญ ตอนนี้มีการซื้อขาย Bitcoin มากแค่ไหน และอัตรา funding ของสัญญาฟิวเจอร์ส Bitcoin อยู่ที่ระดับใด</string>
+    <string name="market_info_totals_how">ด้านข้างแสดงการเปลี่ยนแปลงของมูลค่ารวมใน 24 ชั่วโมง ปริมาณสูงหมายความว่ามีการซื้อขายมาก แต่ไม่ได้บอกทิศทาง แสดงเป็นสกุลเงินที่แปลงเมื่อทำได้ ไม่เช่นนั้นเป็นดอลลาร์สหรัฐ</string>
+    <string name="market_info_totals_source">ทุกเหรียญ · CoinGecko · โหลดใหม่ประมาณทุก 30 นาที</string>
+    <string name="market_info_totals_what">มูลค่ารวมของคริปโตทั้งหมด (มูลค่าตลาด: ราคาคูณจำนวนที่หมุนเวียน รวมทุกเหรียญ) และปริมาณซื้อขายใน 24 ชั่วโมงที่ผ่านมา</string>
+    <string name="market_info_unusual_how">แต่ละเหรียญจะแสดงข้อสังเกตที่โดดเด่นที่สุด และด้านข้างคือการเปลี่ยนแปลงใน 24 ชั่วโมง ปริมาณ 2× หมายถึงมูลค่าซื้อขายเป็นสองเท่าของปกติ ผิดปกติไม่ได้แปลว่าดีหรือไม่ดี</string>
+    <string name="market_info_unusual_source">Binance, CoinGecko · โหลดใหม่ประมาณทุก 10 นาที</string>
+    <string name="market_info_unusual_what">สูงสุดห้าเหรียญจากราว 30 เหรียญที่ใหญ่ที่สุด (ไม่รวม stablecoin) ที่วันนี้เคลื่อนไหวผิดปกติ: แข็งแรงหรืออ่อนแอกว่า Bitcoin อย่างชัดเจน สวนทางตลาด มีปริมาณซื้อขายสูงผิดปกติ หรือมีอัตรา funding ที่โดดเด่น</string>
+    <string name="market_info_what">นี่คืออะไร</string>
+
+    <!-- Markt-Tab: Krypto-Markt gesamt -->
+    <string name="market_cap_label">มูลค่าตลาด</string>
+    <string name="market_cap_source">เหรียญทั้งหมด · CoinGecko</string>
+    <string name="market_cap_title">ตลาดคริปโต</string>
+    <string name="market_volume_label">ปริมาณ 24 ชม.</string>
+
+    <!-- Crypto Pulse «Was gerade auffällt»: Titel, Abschnitte, Hinweise -->
+    <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
+    <string name="pulse_details_action">รายละเอียด</string>
+    <string name="pulse_disclaimer">ไม่ใช่การคาดการณ์ · ไม่ใช่คำแนะนำการลงทุน</string>
+    <string name="pulse_less">แสดงน้อยลง</string>
+    <string name="pulse_now_title">สิ่งที่โดดเด่นตอนนี้</string>
+    <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
+    <string name="pulse_period_24h_spoken">การเปลี่ยนแปลงใน 24 ชั่วโมง</string>
+    <string name="pulse_section_factors">ปัจจัย</string>
+    <string name="pulse_section_market">ตลาดวันนี้</string>
+    <string name="pulse_unavailable">ข้อมูลตลาดไม่พร้อมใช้งานในขณะนี้</string>
+    <string name="pulse_updated">ณ %1$s</string>
+
+    <!-- Crypto Pulse: Schlagzeile und Leitsatz -->
+    <string name="pulse_headline_calm">ตลาดเงียบ</string>
+    <string name="pulse_headline_down">อ่อนแอทั่วตลาด</string>
+    <string name="pulse_headline_mixed">ภาพรวมผสม</string>
+    <string name="pulse_headline_up">แข็งแกร่งทั่วตลาด</string>
+    <string name="pulse_lead_alts_stronger">Altcoin แข็งแกร่งกว่า Bitcoin</string>
+    <string name="pulse_lead_broad_down">ตลาดลงในวงกว้าง</string>
+    <string name="pulse_lead_broad_up">ตลาดขึ้นในวงกว้าง</string>
+    <string name="pulse_lead_btc_leads">Bitcoin ขึ้นมากที่สุด</string>
+    <string name="pulse_lead_btc_stronger">Bitcoin แข็งแกร่งกว่า Altcoin</string>
+    <string name="pulse_lead_calm">ตลาดแทบไม่ขยับ</string>
+    <string name="pulse_lead_drift_down">ตลาดขยับลงเล็กน้อย</string>
+    <string name="pulse_lead_drift_up">ตลาดขยับขึ้นเล็กน้อย</string>
+    <string name="pulse_lead_mixed">เหรียญใหญ่เคลื่อนไหวไปคนละทาง</string>
+
+    <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
+    <string name="pulse_detail_fund_high">Funding สูง</string>
+    <string name="pulse_detail_fund_negative">Funding ติดลบ</string>
+    <string name="pulse_detail_fund_neutral">Funding เป็นกลาง</string>
+    <string name="pulse_detail_vol_above">ปริมาณสูงกว่าปกติ %1$d%%</string>
+    <string name="pulse_detail_vol_above_fund_high">ปริมาณสูงกว่าปกติ %1$d%% Funding สูง</string>
+    <string name="pulse_detail_vol_above_fund_negative">ปริมาณสูงกว่าปกติ %1$d%% Funding ติดลบ</string>
+    <string name="pulse_detail_vol_above_fund_neutral">ปริมาณสูงกว่าปกติ %1$d%% Funding เป็นกลาง</string>
+    <string name="pulse_detail_vol_below">ปริมาณต่ำกว่าปกติ %1$d%%</string>
+    <string name="pulse_detail_vol_below_fund_high">ปริมาณต่ำกว่าปกติ %1$d%% Funding สูง</string>
+    <string name="pulse_detail_vol_below_fund_negative">ปริมาณต่ำกว่าปกติ %1$d%% Funding ติดลบ</string>
+    <string name="pulse_detail_vol_below_fund_neutral">ปริมาณต่ำกว่าปกติ %1$d%% Funding เป็นกลาง</string>
+    <string name="pulse_detail_vol_normal">ปริมาณปกติ</string>
+    <string name="pulse_detail_vol_normal_fund_high">ปริมาณปกติ Funding สูง</string>
+    <string name="pulse_detail_vol_normal_fund_negative">ปริมาณปกติ Funding ติดลบ</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">ปริมาณปกติ Funding เป็นกลาง</string>
+
+    <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
+    <string name="pulse_breadth_hint">Top %1$d: เหรียญใหญ่ที่สุดตามมูลค่าตลาด ไม่รวมสเตเบิลคอยน์ การเปลี่ยนแปลงใน 24 ชั่วโมง (CoinGecko)</string>
+    <!-- «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">Top %1$d</string>
+    <string name="pulse_breadth_note_broad_down">ร่วงทั้งตลาด: เหรียญใหญ่ส่วนใหญ่กำลังลง</string>
+    <string name="pulse_breadth_note_broad_up">เคลื่อนไหวทั้งตลาด: เหรียญใหญ่ส่วนใหญ่กำลังขึ้น</string>
+    <string name="pulse_breadth_note_narrow_down">Bitcoin กำลังลง แต่เหรียญใหญ่อื่น ๆ ส่วนใหญ่ยังทรงตัว</string>
+    <string name="pulse_breadth_note_narrow_up">Bitcoin กำลังขึ้น แต่เหรียญใหญ่อื่น ๆ ส่วนใหญ่ไม่ขึ้นตาม</string>
+    <string name="pulse_breadth_spoken">Top %1$d: ขึ้น %2$d ลง %3$d</string>
+
+    <!-- Crypto Pulse: Altcoins, Funding, Gas, Volumen -->
+    <string name="pulse_alts_even">อัลต์คอยน์และ Bitcoin เคลื่อนไหวไปด้วยกัน</string>
+    <string name="pulse_alts_stronger">อัลต์คอยน์แข็งแกร่งกว่า Bitcoin</string>
+    <string name="pulse_alts_weaker">Bitcoin แข็งแกร่งกว่าอัลต์คอยน์</string>
+    <string name="pulse_chip_funding_high">Funding สูง</string>
+    <string name="pulse_chip_funding_negative">Funding ติดลบ</string>
+    <string name="pulse_funding_high">Funding เป็นบวกชัดเจน: มี Long ใช้เลเวอเรจจำนวนมาก</string>
+    <string name="pulse_funding_negative">Funding เป็นลบ: มี Short จำนวนมาก</string>
+    <string name="pulse_funding_neutral">Funding เป็นกลาง</string>
+    <string name="pulse_funding_slight">Funding เป็นบวกเล็กน้อย</string>
+    <string name="pulse_gas_high">ค่า Gas Ethereum สูง (%1$s gwei)</string>
+    <string name="pulse_gas_low">ค่า Gas Ethereum ต่ำ (%1$s gwei)</string>
+    <string name="pulse_gas_normal">ค่า Gas Ethereum ปกติ (%1$s gwei)</string>
+    <string name="pulse_volume_high">ปริมาณการซื้อขายสูงผิดปกติ (%1$s× ของปกติ)</string>
+    <string name="pulse_volume_low">ปริมาณการซื้อขายต่ำ (%1$s× ของปกติ)</string>
+    <string name="pulse_volume_normal">ปริมาณการซื้อขายปกติ</string>
+
+    <!-- «Heute auffällig» (grösste Coins mit ungewöhnlicher Bewegung) -->
+    <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
+    <!-- Screenreader-Aktion einer Zeile (öffnet das Aktionsblatt bzw. die Vorschau) -->
+    <string name="unusual_action_open">แสดงราคาและการดำเนินการ</string>
+    <string name="unusual_fact_against">เคลื่อนไหวสวนตลาด</string>
+    <string name="unusual_fact_funding_high">Funding สูง (%1$s)</string>
+    <string name="unusual_fact_funding_negative">Funding ติดลบ (%1$s)</string>
+    <string name="unusual_fact_stronger">เคลื่อนไหวแรงกว่า BTC มาก</string>
+    <string name="unusual_fact_volume">ปริมาณ %1$s× ของปกติ</string>
+    <string name="unusual_fact_weaker">เคลื่อนไหวอ่อนกว่า BTC มาก</string>
+    <string name="unusual_nothing">วันนี้ไม่มีอะไรผิดปกติ</string>
+    <string name="unusual_source">เหรียญใหญ่สุดราว 30 เหรียญ ไม่รวม stablecoin · Binance, CoinGecko</string>
+    <string name="unusual_title">โดดเด่นวันนี้</string>
+
+    <!-- Ungewöhnliche Aktivität eines Paars (Karte, Signale, Empfindlichkeit) -->
+    <string name="activity_card_title">มีบางอย่างเกิดขึ้นตอนนี้</string>
+    <string name="activity_indicator">ความเคลื่อนไหวผิดปกติ</string>
+    <string name="activity_sensitivity_less">น้อยลง</string>
+    <string name="activity_sensitivity_more">มากขึ้น</string>
+    <string name="activity_sensitivity_normal">ปกติ</string>
+    <string name="activity_signal_funding_long">Funding %1$s — มี Long ใช้เลเวอเรจจำนวนมาก</string>
+    <string name="activity_signal_funding_short">Funding %1$s — มี Short จำนวนมาก</string>
+    <string name="activity_signal_open_interest">Open interest %1$s ภายใน %2$d นาที</string>
+    <string name="activity_signal_open_interest_no_time">Open interest %1$s</string>
+    <string name="activity_signal_price_move">เคลื่อนไหวผิดปกติ: %1$s ในหนึ่งชั่วโมง (%2$s× ของปกติ)</string>
+    <string name="activity_signal_volume">ปริมาณ %1$s× ของปกติในชั่วโมงล่าสุด</string>
+
+    <!-- Einordnung: Bitcoin-Dominanz, Fear & Greed, Halving, Altseason -->
+    <plurals name="insights_altseason_value">
+        <item quantity="other">อัลต์คอยน์ใหญ่ %1$d จาก %2$d ชนะบิตคอยน์ใน 90 วัน</item>
+    </plurals>
+    <string name="insights_chart_axis">ปีนับจากฮาล์ฟวิ่ง</string>
+    <string name="insights_chart_hint">ราคาเป็นพหุคูณของราคาวันฮาล์ฟวิ่ง (สเกลลอการิทึม) วัฏจักรก่อนหน้าเป็นรูปแบบ ไม่ใช่การพยากรณ์</string>
+    <string name="insights_cycle_chart">วัฏจักรนับจากฮาล์ฟวิ่ง</string>
+    <string name="insights_dominance_eth">ETH %1$s ของตลาดทั้งหมด</string>
+    <string name="insights_dominance_title">ส่วนแบ่งบิตคอยน์</string>
+    <string name="insights_fng_history">เมื่อวาน %1$s · สัปดาห์ก่อน %2$s · เดือนก่อน %3$s</string>
+    <string name="insights_fng_title">ดัชนีความกลัวและความโลภ</string>
+    <string name="insights_halving_title">ฮาล์ฟวิ่งบิตคอยน์</string>
+    <string name="insights_source_dominance">แหล่งที่มา: CoinGecko, Binance</string>
+    <string name="insights_source_fng">แหล่งที่มา: alternative.me</string>
+    <string name="insights_source_history">แหล่งที่มา: Coin Metrics (CC BY-NC 4.0), Binance</string>
+
+    <!-- Fear & Greed: Stufen -->
+    <string name="fng_extreme_fear">กลัวสุดขีด</string>
+    <string name="fng_extreme_greed">โลภสุดขีด</string>
+    <string name="fng_fear">กลัว</string>
+    <string name="fng_greed">โลภ</string>
+    <string name="fng_neutral">เป็นกลาง</string>
+
+    <!-- Halving-Zyklus (Chart, Marken, Schätzung) -->
+    <string name="cycle_data_as_of">ข้อมูล ณ %1$s · กำลังอัปเดต…</string>
+    <string name="cycle_from_top">%1$s จากจุดสูงสุด</string>
+    <string name="cycle_marker_bottom">จุดต่ำสุด %1$s</string>
+    <string name="cycle_marker_double_bottom">จุดต่ำสุดคู่ %1$s</string>
+    <string name="cycle_marker_double_top">จุดสูงสุดคู่ %1$s</string>
+    <string name="cycle_marker_high_so_far">สูงสุดจนถึงตอนนี้</string>
+    <!-- Hoch/Tief-Marken mit Sprechblase im Zyklus-Chart -->
+    <string name="cycle_marker_top">จุดสูงสุด %1$s</string>
+    <string name="cycle_since_halving">%1$s นับจากฮาล์ฟวิ่ง</string>
+    <string name="halving_estimate_text">การฮาล์ฟวิ่งครั้งถัดไปตามการคำนวณราว %1$s: เหลือ %2$s บล็อก เฉลี่ย %3$s นาทีต่อบล็อก (ช่วงความยากปัจจุบัน) เป็นการคำนวณต่อเนื่อง ไม่ใช่คำสัญญา – เวลาบล็อกผันผวน</string>
+
+    <!-- Netzwerkgebühren (Gas) -->
+    <string name="gas_alert_active">สัญญาณเตือน: %1$s</string>
+    <string name="gas_slow_fast">ช้า %1$s · เร็ว %2$s</string>
+    <string name="gas_source">โหนด RPC สาธารณะและ mempool.space · ค่าใช้จ่ายของการโอนแบบง่าย ไม่รวมส่วน L1 บน L2</string>
+    <string name="gas_title">ค่าธรรมเนียมเครือข่าย</string>
+    <string name="gas_transfer_cost">การโอน ≈ %1$s</string>
+
+    <!-- Wirtschaftsdaten (US-Termine) -->
+    <string name="macro_cpi">เงินเฟ้อสหรัฐฯ (CPI)</string>
+    <string name="macro_fomc">การตัดสินใจดอกเบี้ยของเฟด</string>
+    <string name="macro_hint_list">%1$s – วันแบบนี้ตลาดมักผันผวนมากกว่าปกติ</string>
+    <string name="macro_hint_today">วันนี้ %1$s: %2$s – วันแบบนี้ตลาดมักผันผวนมากกว่าปกติ</string>
+    <string name="macro_hint_today_list">วันนี้: %1$s – วันแบบนี้ตลาดมักผันผวนมากกว่าปกติ</string>
+    <string name="macro_hint_tomorrow">พรุ่งนี้ %1$s: %2$s – วันแบบนี้ตลาดมักผันผวนมากกว่าปกติ</string>
+    <string name="macro_hint_tomorrow_list">พรุ่งนี้: %1$s – วันแบบนี้ตลาดมักผันผวนมากกว่าปกติ</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">วันนี้ %1$s %2$s</string>
+    <string name="macro_item_tomorrow">พรุ่งนี้ %1$s %2$s</string>
+    <string name="macro_nfp">รายงานการจ้างงานสหรัฐฯ</string>
+    <string name="macro_pce">เงินเฟ้อ PCE สหรัฐฯ</string>
+    <string name="macro_ppi">ดัชนีราคาผู้ผลิตสหรัฐฯ (PPI)</string>
+    <string name="macro_released_list">ประกาศวันนี้: %1$s</string>
+    <string name="macro_released_one">ประกาศวันนี้เวลา %1$s: %2$s</string>
+    <string name="macro_title">ข้อมูลเศรษฐกิจ</string>
+
+    <!-- Coin-Analyse -->
+    <string name="coin_choose">เหรียญ</string>
+    <string name="coin_no_data">ไม่มีข้อมูลราคาเหรียญนี้บน Binance หรือ Bybit</string>
+    <string name="coin_price_only">อิงราคาเท่านั้น – ข้อมูลออนเชน (MVRV, Puell, แฮชเรต) ฟรีเฉพาะบิตคอยน์</string>
+    <plurals name="coin_short_history">
+        <item quantity="other">มีประวัติเพียง %1$d วัน – ตัวชี้วัดบางตัวไม่มี</item>
+    </plurals>
+    <string name="coin_title">วิเคราะห์เหรียญ</string>
+</resources>

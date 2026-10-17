@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Alarmliste und Übersicht aller Alarme -->
+    <string name="add_alarm_action">تنظیم هشدار</string>
+    <string name="alarms_add">هشدار جدید</string>
+    <string name="alarms_edit">ویرایش هشدار</string>
+    <string name="alarms_empty">هنوز هشداری برای این جفت نیست.</string>
+    <string name="alarms_empty_example">مثلاً: وقتی BTC از %1$s بالاتر رفت خبرم کن.</string>
+    <!-- Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
+    <string name="alarms_notifications_off">اعلان‌ها خاموش است – هشدارها به شما نمی‌رسند.</string>
+    <string name="alarms_notifications_turn_on">روشن کردن</string>
+    <plurals name="alarms_overview_active">
+        <item quantity="one">%1$d فعال</item>
+        <item quantity="other">%1$d فعال</item>
+    </plurals>
+    <string name="alarms_overview_empty">هنوز هشداری نیست. یک جفت را باز کنید و در بخش هشدارها اضافه کنید.</string>
+    <string name="alarms_overview_title">همه هشدارها</string>
+    <string name="alarms_title">هشدارها</string>
+
+    <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
+    <string name="alarm_advanced">پیشرفته</string>
+    <string name="alarm_change_updates">تغییر به‌روزرسانی قیمت‌ها</string>
+    <string name="alarm_create">ساخت هشدار</string>
+    <string name="alarm_currency_label">ارز</string>
+    <string name="alarm_delete_confirm">این هشدار حذف می‌شود.</string>
+    <string name="alarm_delete_title">هشدار حذف شود؟</string>
+    <string name="alarm_field_percent">درصد</string>
+    <string name="alarm_field_price">قیمت</string>
+    <string name="alarm_fires_now_above">قیمت همین حالا بالای %1$s است. باز هم ذخیره شود؟</string>
+    <string name="alarm_fires_now_below">قیمت همین حالا زیر %1$s است. باز هم ذخیره شود؟</string>
+    <string name="alarm_fires_now_change">تغییر</string>
+    <string name="alarm_fires_now_save">باز هم ذخیره کن</string>
+    <string name="alarm_fires_now_title">هشدار فوراً فعال می‌شود</string>
+    <string name="alarm_first_battery_hint">بهینه‌سازی باتری برنامه را محدود می‌کند – هشدارها ممکن است دیر برسند.</string>
+    <string name="alarm_first_title">همه چیز آماده است</string>
+    <string name="alarm_last_triggered">آخرین بار %1$s</string>
+    <string name="alarm_new_extreme">تازه: %1$s</string>
+    <string name="alarm_once">یک بار</string>
+    <string name="alarm_option_repeating">هشدار پس از فعال شدن باقی بماند</string>
+    <string name="alarm_option_sound">صدا</string>
+    <string name="alarm_option_speak">خواندن صوتی هشدار</string>
+    <string name="alarm_option_vibrate">لرزش</string>
+    <string name="alarm_repeat_each">هر بار</string>
+    <string name="alarm_repeat_once">یک بار</string>
+    <string name="alarm_repeating">هر بار</string>
+    <string name="alarm_threshold_error_empty">برای ذخیرهٔ هشدار مقداری وارد کن.</string>
+    <string name="alarm_threshold_error_funding">نرخ تأمین مالی باید عددی بین −10 و +10 درصد باشد.</string>
+    <string name="alarm_threshold_error_invalid">یک عدد معتبر بزرگ‌تر از 0 وارد کن.</string>
+    <string name="alarm_threshold_error_oi">تغییر موقعیت‌های باز: حداکثر 1000 درصد.</string>
+    <plurals name="alarm_window_hours">
+        <item quantity="one">در %1$d ساعت</item>
+        <item quantity="other">در %1$d ساعت</item>
+    </plurals>
+    <string name="alarm_window_label">بازه زمانی</string>
+
+    <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
+    <string name="alarm_simple_above">بالاتر از</string>
+    <string name="alarm_simple_below">پایین‌تر از</string>
+    <string name="alarm_simple_direction_a11y">جهت: %1$s</string>
+    <string name="alarm_simple_end">برود</string>
+    <string name="alarm_simple_when">وقتی %1$s</string>
+    <string name="alarm_template_a11y">ساخت هشدار: %1$s</string>
+    <string name="alarm_template_a11y_down">ساخت هشدار در منفی %1$s درصد</string>
+    <string name="alarm_template_a11y_up">ساخت هشدار در مثبت %1$s درصد</string>
+    <string name="alarm_template_created">هشدار ساخته شد</string>
+    <string name="alarm_template_volume">حجم ×%1$s</string>
+    <string name="alarm_templates_title">هشدارهای سریع</string>
+
+    <!-- Alarm-Bedingungen -->
+    <string name="alarm_condition_above">قیمت بالاتر از</string>
+    <string name="alarm_condition_below">قیمت پایین‌تر از</string>
+    <string name="alarm_condition_down_percent">کاهش به اندازه</string>
+    <string name="alarm_condition_funding_above">نرخ تأمین مالی بالاتر از</string>
+    <string name="alarm_condition_funding_below">نرخ تأمین مالی پایین‌تر از</string>
+    <string name="alarm_condition_move_percent">حرکت به اندازه</string>
+    <string name="alarm_condition_near_high">نزدیک سقف</string>
+    <string name="alarm_condition_near_low">نزدیک کف</string>
+    <string name="alarm_condition_oi_down">کاهش موقعیت‌های باز</string>
+    <string name="alarm_condition_oi_up">افزایش موقعیت‌های باز</string>
+    <string name="alarm_condition_up_percent">افزایش به اندازه</string>
+    <string name="alarm_condition_volume_spike">جهش حجم</string>
+
+    <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
+    <string name="alarm_sentence_above">وقتی %1$s از %2$s بالاتر رفت، به من خبر بده.</string>
+    <string name="alarm_sentence_below">وقتی %1$s از %2$s پایین‌تر رفت، به من خبر بده.</string>
+    <string name="alarm_sentence_down_percent">وقتی %1$s به اندازه %2$s پایین آمد، به من خبر بده.</string>
+    <string name="alarm_sentence_funding_above">وقتی نرخ تأمین مالی %1$s از %2$s بالاتر رفت، به من خبر بده.</string>
+    <string name="alarm_sentence_funding_below">وقتی نرخ تأمین مالی %1$s از %2$s پایین‌تر رفت، به من خبر بده.</string>
+    <string name="alarm_sentence_incomplete">یک مقدار وارد کنید تا هشدار به صورت جمله نمایش داده شود.</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="one">وقتی %1$s ظرف %3$d ساعت به اندازه %2$s تغییر کرد، به من خبر بده.</item>
+        <item quantity="other">وقتی %1$s ظرف %3$d ساعت به اندازه %2$s تغییر کرد، به من خبر بده.</item>
+    </plurals>
+    <string name="alarm_sentence_near_high">وقتی %1$s حداکثر %2$s پایین‌تر از %3$s بود، به من خبر بده.</string>
+    <string name="alarm_sentence_near_low">وقتی %1$s حداکثر %2$s بالاتر از %3$s بود، به من خبر بده.</string>
+    <string name="alarm_sentence_new_extreme">وقتی %1$s %2$s تازه ثبت کرد، به من خبر بده.</string>
+    <plurals name="alarm_sentence_oi_down">
+        <item quantity="one">وقتی موقعیت‌های باز %1$s ظرف %3$d ساعت به اندازه %2$s کاهش یافت، به من خبر بده.</item>
+        <item quantity="other">وقتی موقعیت‌های باز %1$s ظرف %3$d ساعت به اندازه %2$s کاهش یافت، به من خبر بده.</item>
+    </plurals>
+    <plurals name="alarm_sentence_oi_up">
+        <item quantity="one">وقتی موقعیت‌های باز %1$s ظرف %3$d ساعت به اندازه %2$s افزایش یافت، به من خبر بده.</item>
+        <item quantity="other">وقتی موقعیت‌های باز %1$s ظرف %3$d ساعت به اندازه %2$s افزایش یافت، به من خبر بده.</item>
+    </plurals>
+    <string name="alarm_sentence_up_percent">وقتی %1$s به اندازه %2$s بالا رفت، به من خبر بده.</string>
+    <string name="alarm_sentence_volume">وقتی حجم معاملات %1$s به %2$s برابر حالت عادی رسید، به من خبر بده.</string>
+
+    <!-- Alarm «Nahe am Hoch / Tief» -->
+    <string name="alarm_near_extreme_high_30">سقف ۳۰ روزه</string>
+    <string name="alarm_near_extreme_high_365">سقف یک‌ساله</string>
+    <string name="alarm_near_extreme_high_90">سقف ۹۰ روزه</string>
+    <string name="alarm_near_extreme_low_30">کف ۳۰ روزه</string>
+    <string name="alarm_near_extreme_low_365">کف یک‌ساله</string>
+    <string name="alarm_near_extreme_low_90">کف ۹۰ روزه</string>
+    <string name="alarm_near_field_distance">فاصله</string>
+    <string name="alarm_near_hint">هنگام ثبت سقف یا کف جدید هم خبر می‌دهد. بر اساس کندل‌های روزانه، هر ۶ ساعت به‌روز می‌شود.</string>
+    <string name="alarm_near_new_only">فقط سقف یا کف تازه</string>
+    <string name="alarm_near_notification_high">%1$s %2$s پایین‌تر از %3$s است (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_low">%1$s %2$s بالاتر از %3$s است (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_new">%2$s %1$s تازه ثبت کرد: %3$s (قبلی %4$s)</string>
+    <plurals name="alarm_near_window_days">
+        <item quantity="one">%1$d روز</item>
+        <item quantity="other">%1$d روز</item>
+    </plurals>
+    <string name="alarm_near_window_label">بازه</string>
+    <string name="alarm_near_window_year">یک سال</string>
+
+    <!-- Futures- und Volumen-Alarme (Funding pro 8 Stunden, Open Interest, Volumen-Spike) -->
+    <!-- Funding-Schwelle gilt pro 8 Stunden; stündliches Funding wird umgerechnet -->
+    <string name="alarm_funding_hint_8h">نرخ فاندینگ در ۸ ساعت. قراردادهای با بازه دیگر تبدیل می‌شوند (۱ ساعت × ۸، ۴ ساعت × ۲)؛ کارت فیوچرز مقدار تبدیل‌شده را نشان می‌دهد. اگر بازه نامعلوم باشد، هشدار بررسی نمی‌کند. منفی یعنی شورت‌ها به لانگ‌ها می‌پردازند. ± علامت را عوض می‌کند.</string>
+    <string name="alarm_funding_sign_a11y">تغییر علامت</string>
+    <string name="alarm_oi_hint">موقعیت‌های باز را با مقداری که همین تعداد ساعت پیش ذخیره شده مقایسه می‌کند. هشدار جدید فقط وقتی خبر می‌دهد که برنامه به همین مدت داده جمع کرده باشد؛ بررسی حداکثر هر ۵ دقیقه.</string>
+    <string name="alarm_volume_factor_label">حجم ساعت گذشته نسبت به حالت عادی</string>
+    <string name="alarm_volume_hint">داده‌های حجم از Binance می‌آیند — جفت‌هایی که آنجا فهرست نشده‌اند هرگز فعال نمی‌شوند.</string>
+
+    <!-- Bestätigung nach dem Speichern -->
+    <string name="alarm_saved_active">هشدار فعال است</string>
+    <!-- «Alarm gespeichert: BTC Kurs über 70’000 USDT · einmalig» -->
+    <string name="alarm_saved_banner">هشدار ذخیره شد: %1$s</string>
+    <!-- Zusatz in der Bestätigung, wenn Mitteilungen aus sind (dazu Aktion «Einstellungen») -->
+    <string name="alarm_saved_notifications_off">اعلان‌ها خاموش</string>
+
+    <!-- Wann Alarme geprüft werden -->
+    <string name="alarm_timing_hint_android">وقتی برنامه بسته است، Android نامنظم بررسی می‌کند (با «%1$s» حدود هر 15 دقیقه)، پس جهش‌های کوتاه ممکن است از دست بروند.</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">وقتی برنامه بسته است، iOS تصمیم می‌گیرد کی بررسی شود، پس جهش‌های کوتاه ممکن است از دست بروند؛ تا وقتی باز است، بررسی مطمئن است.</string>
+    <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
+    <string name="alarm_timing_title">هشدارها چه زمانی بررسی می‌شوند</string>
+    <string name="alarm_timing_where">تعداد دفعات به‌روزرسانی قیمت‌ها را در %1$s تنظیم کن.</string>
+
+    <!-- Alarm-Signal und Test-Alarm -->
+    <string name="alarm_signal_silent">بی‌صدا (فقط اعلان)</string>
+    <string name="alarm_signal_sound">فقط صدا</string>
+    <string name="alarm_signal_sound_vibrate">صدا و لرزش</string>
+    <string name="alarm_signal_system">سیستم</string>
+    <string name="alarm_signal_vibrate">فقط لرزش</string>
+    <string name="alarm_test">آزمایش هشدار</string>
+    <string name="alarm_test_action">آزمایش</string>
+    <string name="alarm_test_denied">اعلان‌ها برای Crypto Checker خاموش است.</string>
+    <string name="alarm_test_hint">یک هشدار نمونه با تنظیمات صدا، لرزش و گفتار شما می‌فرستد.</string>
+    <string name="alarm_test_open_settings">باز کردن تنظیمات</string>
+    <string name="alarm_test_quiet">ساعات بی‌صدا الان فعال است: هشدارهای واقعی تا پایان آن صبر می‌کردند و سپس با صدا اعلام می‌شدند.</string>
+    <string name="alarm_test_text">یک هشدار این‌طور به نظر می‌رسد و این‌طور صدا می‌دهد.</string>
+    <string name="alarm_test_title">آزمایش: هشدار Crypto Checker</string>
+
+    <!-- Ehrliche Alarme: Vorlesetexte Ton/Ansage, ungeprüfte Alarme -->
+    <string name="alarm_a11y_sound_on">صدا روشن</string>
+    <string name="alarm_a11y_speak_on">گفتار روشن</string>
+    <string name="alarm_unchecked_no_candles">بررسی نشد (داده کندل نیست)</string>
+    <string name="alarm_unchecked_no_rate">بررسی نشد (نرخ ارز نیست)</string>
+</resources>

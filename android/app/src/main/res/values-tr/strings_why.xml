@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Warum bewegt sich das?»: Titel, Abschnitte, Aufklappen -->
+    <string name="why_action">Onunla birlikte ne hareket ediyor?</string>
+    <string name="why_all_values">Tüm değerler ve kaynaklar</string>
+    <string name="why_all_values_hint">Gözlem · Olası açıklama · Kaynaklar</string>
+    <string name="why_details">Ayrıntıları göster</string>
+    <string name="why_details_hide">Ayrıntıları gizle</string>
+    <string name="why_disclaimer">Piyasa verilerinden otomatik değerlendirme: aynı anda olanları gösterir, bir nedenin kanıtı değildir.</string>
+    <string name="why_footer_short">Eş zamanlı olmak neden demek değildir · Yatırım tavsiyesi değildir</string>
+    <string name="why_no_data">Bu çift için Binance verisi yok</string>
+    <string name="why_no_data_hint">Fiyat, hacim ve volatilite Binance saatlik mumlarından gelir.</string>
+    <string name="why_ref_alts">Altlar</string>
+    <string name="why_section_context">Olası yorum</string>
+    <string name="why_section_observation">Gözlem</string>
+    <string name="why_title">Onunla birlikte ne hareket ediyor?</string>
+    <string name="why_title_coin">%1$s ile birlikte ne hareket ediyor?</string>
+
+    <!-- «Warum?»: Kurz gesagt (ein Satz oben) -->
+    <string name="why_brief_head">Kısacası · Saat %1$s</string>
+    <string name="why_brief_label">Kısacası:</string>
+    <string name="why_summary_against">Coin piyasaya ters yönde hareket ediyor.</string>
+    <string name="why_summary_calm">Dikkat çekici hareket yok: piyasa ve coin sakin.</string>
+    <string name="why_summary_coin">Yalnızca bu coin hareket ediyor – belki yalnızca bu coin\'i etkileyen bir durum.</string>
+    <string name="why_summary_coin_volume">Yalnızca bu coin hareket ediyor, daha yüksek hacimle – belki yalnızca bu coin\'i etkileyen bir durum.</string>
+    <string name="why_summary_longs">Vadeli işlemler: çok sayıda kaldıraçlı long pozisyon.</string>
+    <string name="why_summary_market">Hareket zamanlama olarak genel piyasayla örtüşüyor.</string>
+    <string name="why_summary_market_volume">Hareket, daha yüksek işlem hacmi ve geniş çaplı piyasa hareketiyle aynı zamana denk geliyor.</string>
+    <string name="why_summary_peg_near">Fiyat 1:1 sabitlemesine yakın.</string>
+    <string name="why_summary_peg_off">Fiyat 1:1 sabitlemesinden belirgin biçimde sapıyor.</string>
+    <string name="why_summary_shorts">Vadeli işlemler: çok sayıda short pozisyon.</string>
+    <string name="why_summary_thin">Hareket zayıf: arkasında az hacim var.</string>
+
+    <!-- «Warum?»: Faktorliste (Titel der Faktoren) -->
+    <string name="why_f_against">Piyasanın tersine</string>
+    <string name="why_f_coin_only">Yalnızca bu coin</string>
+    <string name="why_f_leader">Piyasa lideri olarak Bitcoin</string>
+    <string name="why_f_leverage_balanced">Kaldıraç dengeli</string>
+    <string name="why_f_leverage_longs">Kaldıraç: çok sayıda long</string>
+    <string name="why_f_leverage_shorts">Kaldıraç: çok sayıda short</string>
+    <string name="why_f_market_calm">Sakin piyasa</string>
+    <string name="why_f_market_wide">Tüm piyasa hareket ediyor</string>
+    <string name="why_factor_funding">Fonlama</string>
+    <string name="why_factor_futures">Vadeli işlemler</string>
+    <string name="why_factor_market">Genel piyasa</string>
+    <string name="why_factor_near_high">Zirveye yakın</string>
+    <string name="why_factor_near_low">Dibe yakın</string>
+    <string name="why_factor_peg">Sabitleme (1:1)</string>
+    <string name="why_factor_range3d">3 günlük aralık</string>
+
+    <!-- «Warum?»: Nebenzeilen der Faktoren -->
+    <string name="why_fn_estimated">tahmini</string>
+    <string name="why_fn_funding_longs">çoğu yükselişe oynuyor</string>
+    <string name="why_fn_funding_neutral">nötr</string>
+    <string name="why_fn_funding_shorts">çoğu düşüşe oynuyor</string>
+    <string name="why_fn_high_at">30 günlük zirvede</string>
+    <string name="why_fn_high_below">30 günlük zirvenin altında</string>
+    <string name="why_fn_leader_calm">Bitcoin sakin</string>
+    <string name="why_fn_leader_moves">Bitcoin belirgin şekilde hareket ediyor</string>
+    <string name="why_fn_low_above">30 günlük dibin üzerinde</string>
+    <string name="why_fn_low_at">30 günlük dipte</string>
+    <string name="why_fn_market_against">Coin piyasanın tersine hareket ediyor</string>
+    <string name="why_fn_market_alone">Piyasa sakin – bu coin tek başına hareket ediyor</string>
+    <string name="why_fn_market_calm">Piyasa sakin</string>
+    <string name="why_fn_market_lags">Piyasa hareketli, bu coin pek değil</string>
+    <string name="why_fn_market_moves">Piyasa aynı yönde hareket ediyor</string>
+    <string name="why_fn_market_pulls">Piyasa BTC ile birlikte hareket ediyor</string>
+    <string name="why_fn_oi_down">Açık pozisyon azaldı</string>
+    <string name="why_fn_oi_flat">Açık pozisyon neredeyse değişmedi</string>
+    <string name="why_fn_oi_mixed">Açık pozisyon karışık</string>
+    <string name="why_fn_oi_up">Açık pozisyon arttı</string>
+    <string name="why_fn_peg_above">1:1 sabitlemesinin %1$s üzerinde</string>
+    <string name="why_fn_peg_below">1:1 sabitlemesinin %1$s altında</string>
+    <string name="why_fn_peg_near">1:1 sabitlemesine yakın</string>
+    <string name="why_fn_range_above_low">3 günlük dipten bu yana</string>
+    <string name="why_fn_range_below_high">3 günlük zirveden bu yana</string>
+    <string name="why_fn_range_near_high">3 günlük zirveye yakın</string>
+    <string name="why_fn_range_near_low">3 günlük dibe yakın</string>
+    <string name="why_fn_volatility_stronger">normalden güçlü</string>
+    <string name="why_fn_volatility_tiny">mutlak olarak küçük (%1$s altında)</string>
+    <string name="why_fn_volatility_usual">normal</string>
+    <string name="why_fn_volume_higher">normalden yüksek</string>
+    <string name="why_fn_volume_lower">normalden düşük</string>
+    <string name="why_fn_volume_usual">normal</string>
+
+    <!-- «Warum?»: ausführliche Sätze je Beobachtung -->
+    <string name="why_against_market_text">Bu coin %1$s, BTC %2$s (24 saatte) — belirgin şekilde bağımsız bir hareket.</string>
+    <string name="why_against_ref_text">Bu coin %1$s, %2$s %3$s (24 saat) — belirgin şekilde bağımsız bir hareket.</string>
+    <string name="why_btc_independent">%1$s şu anda Bitcoin\'den bağımsız hareket ediyor.</string>
+    <string name="why_btc_tight">%1$s şu anda Bitcoin ile paralel hareket ediyor.</string>
+    <string name="why_change_1h">1sa</string>
+    <string name="why_change_24h">24sa</string>
+    <string name="why_coin_only_text">Piyasa sakinken 24 saatte %1$s – belki yalnızca bu coin\'i etkileyen bir durum.</string>
+    <string name="why_leverage_balanced_text">Vadeli işlem piyasasında long veya short pozisyon yığılması yok.</string>
+    <string name="why_leverage_longs_text">Birçok kişi borç parayla fiyatların yükselmesine bahis oynuyor. Long’lar short’lara ödüyor — fiyat düşerse tasfiye riski artar.</string>
+    <string name="why_leverage_shorts_text">Birçok kişi borç parayla fiyatların düşmesine bahis oynuyor. Short\'lar long\'lara ödüyor – fiyat yükselirse bir short squeeze mümkün.</string>
+    <string name="why_market_calm_text">Bu coin: 24 saatte %1$s. Ne piyasa ne de coin pek hareket ediyor.</string>
+    <string name="why_market_leader_text">En büyük coin olarak BTC genellikle piyasanın geri kalanıyla birlikte hareket eder. ETH: 24 saatte %1$s.</string>
+    <string name="why_market_leader_text_no_eth">En büyük coin olarak BTC genellikle piyasanın geri kalanıyla birlikte hareket eder.</string>
+    <string name="why_market_similar_text">Bu coin: 24 saatte %1$s — aynı anda piyasa da aynı yönde hareket ediyor, ancak daha az belirgin.</string>
+    <string name="why_market_wide_text">Bu coin: 24 saatte %1$s – aynı anda genel piyasa da belirgin şekilde hareket ediyor.</string>
+    <string name="why_open_interest_change">Son kontrolden bu yana açık pozisyon %1$s.</string>
+    <string name="why_peg_text">Stablecoin: kotasyon para birimine 1:1 sabitlemeyle karşılaştırıldı, sapma %1$s.</string>
+    <string name="why_sentiment_text">Tüm kripto piyasasının Korku ve Açgözlülük endeksi, düne göre %1$s.</string>
+    <string name="why_sentiment_text_no_change">Tüm kripto piyasasının Korku ve Açgözlülük endeksi.</string>
+    <plurals name="why_trend_falling">
+        <item quantity="one">%1$d saattir düşüyor</item>
+        <item quantity="other">%1$d saattir düşüyor</item>
+    </plurals>
+    <plurals name="why_trend_rising">
+        <item quantity="one">%1$d saattir yükseliyor</item>
+        <item quantity="other">%1$d saattir yükseliyor</item>
+    </plurals>
+    <plurals name="why_trend_stable">
+        <item quantity="one">%1$d saattir sabit</item>
+        <item quantity="other">%1$d saattir sabit</item>
+    </plurals>
+    <string name="why_volatility_high_text">Son saat: %1$s — son 24 saatin tipik saatlik salınımına göre.</string>
+    <string name="why_volatility_normal_text">Son saat: %1$s — olağan aralıkta.</string>
+    <string name="why_volatility_tiny_text">Son saat: %1$s — bu coin için alışılmadık, ama mutlak olarak küçük.</string>
+    <string name="why_volume_estimated_text">Tahmini: bu kaynak işlem hacmini para cinsinden vermiyor, bu yüzden işlem gören coin miktarları karşılaştırılıyor.</string>
+    <string name="why_volume_high_text">Son bir saatte normalden çok daha fazla işlem – harekete yüksek hacim eşlik ediyor.</string>
+    <string name="why_volume_low_text">Hareketin arkasında az işlem var – bu tür hareketler çoğu zaman daha az istikrarlıdır.</string>
+    <string name="why_volume_normal_text">Son bir saatteki işlem hacmi son 24 saatle aynı düzeyde.</string>
+
+    <!-- «Warum?»: Signal-Punkte (stützt, neutral, Vorsicht) -->
+    <string name="why_dot_caution">yüksek</string>
+    <string name="why_dot_neutral">nötr</string>
+    <string name="why_dot_supports">hareketle örtüşüyor</string>
+
+    <!-- «Warum?»: Frische und Quellen der Daten -->
+    <string name="why_data_time">Veri zamanı: %1$s</string>
+    <string name="why_fresh_breadth">Piyasa genişliği: %1$s · %2$s</string>
+    <string name="why_fresh_candles">Mumlar: %1$s · %2$s</string>
+    <string name="why_fresh_fng">Fear &amp; Greed: %1$s</string>
+    <string name="why_fresh_futures">Vadeli: %1$s</string>
+    <plurals name="why_fresh_oi_hours">
+        <item quantity="one">açık pozisyon %1$d saat öncesiyle karşılaştırıldı</item>
+        <item quantity="other">açık pozisyon %1$d saat öncesiyle karşılaştırıldı</item>
+    </plurals>
+    <plurals name="why_fresh_oi_minutes">
+        <item quantity="one">açık pozisyon %1$d dakika öncesiyle karşılaştırıldı</item>
+        <item quantity="other">açık pozisyon %1$d dakika öncesiyle karşılaştırıldı</item>
+    </plurals>
+    <string name="why_fresh_today">bugün</string>
+    <string name="why_fresh_yesterday">dün</string>
+    <string name="why_source_fallback">%1$s (yedek kaynak)</string>
+    <string name="why_source_reference">%1$s (yol gösterici)</string>
+    <string name="why_sources">Kaynaklar: borsanın saatlik mumları (çoğunlukla Binance), borsalardan vadeli işlem verileri, alternative.me\'den Fear &amp; Greed.</string>
+    <string name="why_sources_list">Kaynaklar: %1$s.</string>
+    <string name="why_src_breadth">%1$s (piyasa genişliği)</string>
+    <string name="why_src_candles">%1$s (mumlar)</string>
+    <string name="why_src_comparison">%1$s (piyasa karşılaştırması)</string>
+    <string name="why_src_fng">%1$s (Fear &amp; Greed)</string>
+    <string name="why_src_futures">%1$s (vadeli)</string>
+
+    <!-- Faktor-Checkliste (Crypto Pulse und «Warum?») -->
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">Fonlama</string>
+    <string name="factor_spoken_volatility">olağan salınımın %1$s katı</string>
+    <string name="factor_spoken_volume">normalin %1$s katı</string>
+    <string name="factor_volatility">Dalgalanma (1sa)</string>
+    <string name="factor_volume">Hacim</string>
+</resources>

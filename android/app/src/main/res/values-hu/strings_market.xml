@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Markt-Tab: Abschnitte, Zeilen, Herkunft und Alter -->
+    <!-- «… · CoinGecko · vor 3 Min.»; «gerade eben» = time_just_now, «veraltet» = widget_outdated -->
+    <plurals name="market_age_minutes">
+        <item quantity="one">%d perce</item>
+        <item quantity="other">%d perce</item>
+    </plurals>
+    <!-- «heute 02:00» (Uhrzeit ohne Sekunden) -->
+    <string name="market_age_today">ma %1$s</string>
+    <string name="market_context_summary">Fear &amp; Greed, Bitcoin-mutatók, dominancia, halving</string>
+    <string name="market_context_value">%1$s %2$s · %3$s</string>
+    <string name="market_more_data">További piaci adatok</string>
+    <string name="market_phase_trend_failed">Áradatok nem érhetők el</string>
+    <string name="market_plain_direction_down_clear">Az összes kriptovaluta teljes értéke jóval alacsonyabb, mint 24 órája (%1$s).</string>
+    <string name="market_plain_direction_down_slight">Az összes kriptovaluta teljes értéke kissé alacsonyabb, mint 24 órája (%1$s).</string>
+    <string name="market_plain_direction_flat">Az összes kriptovaluta teljes értéke alig változott 24 óra alatt (%1$s).</string>
+    <string name="market_plain_direction_up_clear">Az összes kriptovaluta teljes értéke jóval magasabb, mint 24 órája (%1$s).</string>
+    <string name="market_plain_direction_up_slight">Az összes kriptovaluta teljes értéke kissé magasabb, mint 24 órája (%1$s).</string>
+    <string name="market_plain_footnote">Az elmúlt 24 órát írja le – nem előrejelzés, nem befektetési tanácsadás.</string>
+    <string name="market_plain_mood_extreme_fear">A befektetők most nagyon félnek: a hangulatindex (Fear &amp; Greed) %1$d/100.</string>
+    <string name="market_plain_mood_extreme_greed">A befektetők most nagyon mohók: a hangulatindex (Fear &amp; Greed) %1$d/100.</string>
+    <string name="market_plain_mood_fear">A befektetők inkább félnek: a hangulatindex (Fear &amp; Greed) %1$d/100.</string>
+    <string name="market_plain_mood_greed">A befektetők inkább mohók: a hangulatindex (Fear &amp; Greed) %1$d/100.</string>
+    <string name="market_plain_mood_neutral">A befektetők hangulata kiegyensúlyozott: a hangulatindex (Fear &amp; Greed) %1$d/100.</string>
+    <string name="market_plain_standout_above_btc">Kiemelkedik: %1$s – %2$s 24 óra alatt, jóval a Bitcoin felett (%3$s).</string>
+    <string name="market_plain_standout_against_btc">Kiemelkedik: %1$s – %2$s 24 óra alatt, miközben a Bitcoin az ellenkező irányba mozdult (%3$s).</string>
+    <string name="market_plain_standout_below_btc">Kiemelkedik: %1$s – %2$s 24 óra alatt, jóval a Bitcoin alatt (%3$s).</string>
+    <string name="market_plain_standout_futures_down">Kiemelkedik: %1$s – szokatlanul sok futures-kereskedő számít csökkenő árakra.</string>
+    <string name="market_plain_standout_futures_up">Kiemelkedik: %1$s – szokatlanul sok futures-kereskedő számít emelkedő árakra.</string>
+    <string name="market_plain_standout_quiet">Jelenleg egyetlen coin sem emelkedik ki.</string>
+    <string name="market_plain_standout_volume">Kiemelkedik: %1$s – nagyjából %2$s-szor annyi kereskedés, mint általában.</string>
+    <string name="market_plain_title">Röviden</string>
+    <!-- Nebenzeile der Fear-&-Greed-Zeile («Gier · gestern 65») -->
+    <string name="market_row_fng_yesterday">%1$s · tegnap %2$s</string>
+    <string name="market_section_collapse">%1$s elrejtése</string>
+    <string name="market_section_context">Hangulat és ciklus</string>
+    <string name="market_section_data">Piaci adatok</string>
+    <!-- Bedienungshilfen: Aktion auf der Abschnittsüberschrift; %1$s = Name des Abschnitts -->
+    <string name="market_section_expand">%1$s megjelenítése</string>
+    <string name="market_section_now">Most</string>
+    <string name="market_source">Adatok: Binance · Coin Metrics (CC BY-NC 4.0)</string>
+    <string name="market_unavailable_error">A tőzsde nem érhető el</string>
+
+    <!-- Markt-Tab: Info-Zeichen und Info-Blatt je Karte (was, wie, Quelle) -->
+    <string name="market_info_a11y">Infó: %1$s</string>
+    <string name="market_info_alt_season_source">Napi árfolyamok: Binance · nagyjából 3 óránként újraszámolva</string>
+    <string name="market_info_alt_season_what">Megszámolja, hogy nagyjából 20 nagy altcoin közül (pl. Ethereum, Solana, XRP) hány teljesített jobban a Bitcoinnál az elmúlt 90 napban. Az érték ezek aránya 0-tól 100-ig.</string>
+    <string name="market_info_coin_source">Árfolyamok: Binance vagy Bybit · nagyjából 15 percenként újratöltve</string>
+    <string name="market_info_dominance_how">Ha a dominancia nő, a Bitcoin jobban teljesít a piac többi részénél; ha csökken, más coinok súlya nő. A stablecoinok is beszámítanak: ha értékük nő, a Bitcoin részesedése csökken akkor is, ha a Bitcoin árfolyama változatlan.</string>
+    <string name="market_info_dominance_source">Forrás: CoinGecko · nagyjából 30 percenként újratöltve</string>
+    <string name="market_info_dominance_what">A Bitcoin részesedése az összes kriptovaluta együttes értékéből (piaci kapitalizáció). Alatta az Ethereum részesedése áll.</string>
+    <string name="market_info_fear_greed_how">25 alatt extrém félelmet, 75 felett extrém kapzsiságot, 50 körül semleges hangulatot jelent. Kinyitva látszanak a tegnapi, egy héttel és egy hónappal korábbi értékek. Nem vételi vagy eladási jelzés.</string>
+    <string name="market_info_fear_greed_source">Forrás: alternative.me · új érték naponta egyszer</string>
+    <string name="market_info_fear_greed_what">A kriptopiac hangulatindexe 0-tól 100-ig. Az alternative.me több adatból számítja, többek között az árfolyam-ingadozásból, a forgalomból, a közösségi médiából és a Bitcoin dominanciájából.</string>
+    <string name="market_info_gas_how">A magasabb érték azt jelenti, hogy a hálózat terhelt, és az utalások többe kerülnek. A lassú, normál és gyors díj későbbi vagy gyorsabb megerősítéshez tartozik. Kinyitva egy egyszerű utalás hozzávetőleges költsége látszik.</string>
+    <string name="market_info_gas_source">Nyilvános RPC-csomópontok, mempool.space · percenként újratöltve</string>
+    <string name="market_info_gas_what">Mennyibe kerül éppen egy tranzakció az egyes hálózatokon. Az Ethereumon és hasonló hálózatokon gweiben (egy ETH milliárdod része gázegységenként), a Bitcoinon sat/vB-ben (satoshi a tranzakció virtuális bájtjára).</string>
+    <string name="market_info_halving_source">Dátum: blokkmagasságból és átlagos blokkidőből (mempool.space), egyébként naptár szerint · árfolyam-előzmény: Coin Metrics, Binance, 12 óránként újratöltve</string>
+    <string name="market_info_halving_what">A felezéskor a bányászok által egy új Bitcoin-blokkért kapott jutalom a felére csökken. Ez 210 000 blokkonként történik, vagyis nagyjából négyévente. Utána naponta csak feleannyi új bitcoin keletkezik.</string>
+    <string name="market_info_how">Hogyan olvasd</string>
+    <string name="market_info_macro_how">A jelzés csak akkor jelenik meg, ha ilyen időpont ma vagy holnap van. A közzététel körül az árfolyamok gyakran a szokásosnál jobban ingadoznak. Az alkalmazás csak az időpontot mutatja, magukat a számokat nem.</string>
+    <string name="market_info_macro_source">Naptár az alkalmazás weboldaláról · naponta egyszer letöltve</string>
+    <string name="market_info_macro_what">Fontos amerikai gazdasági adatok időpontjai: infláció (CPI, PCE), termelői árak (PPI), munkaerőpiaci jelentés és az amerikai jegybank kamatdöntései. Az ilyen számok gyakran a kriptovaluták árfolyamát is mozgatják.</string>
+    <string name="market_info_no_advice">Nem befektetési tanácsadás.</string>
+    <string name="market_info_phase_source">Binance, Coin Metrics · árfolyamok óránként, on-chain értékek 12 óránként újratöltve</string>
+    <string name="market_info_pulse_how">A címsor az irányt mutatja, kinyitva látszanak a részletek. A széles mozgás azt jelenti, hogy a legtöbb nagy coin ugyanabba az irányba halad. A magas finanszírozási ráta azt jelenti, hogy sokan tőkeáttétellel emelkedő árfolyamra fogadnak. Pillanatkép, nem előrejelzés.</string>
+    <string name="market_info_pulse_source">Binance, CoinGecko · nagyjából 5 percenként újratöltve</string>
+    <string name="market_info_pulse_what">Rövid összefoglaló a piacról az elmúlt 24 órából: hogyan mozog a Bitcoin, az Ethereum és a Solana, a legnagyobb coinok közül hány emelkedik vagy esik, mennyi Bitcoin forog éppen, és hol áll a Bitcoin határidős ügyletek finanszírozási rátája.</string>
+    <string name="market_info_totals_how">Jobbra az együttes érték 24 órás változása látható. A nagy forgalom azt jelenti, hogy sokat kereskednek, de azt nem mondja meg, milyen irányba. Lehetőleg az átváltási pénznemben, különben amerikai dollárban.</string>
+    <string name="market_info_totals_source">Minden coin · CoinGecko · nagyjából 30 percenként újratöltve</string>
+    <string name="market_info_totals_what">Az összes kriptovaluta együttes értéke (piaci kapitalizáció: árfolyam szorozva a forgalomban lévő mennyiséggel, minden coinra összeadva) és az elmúlt 24 óra forgalma.</string>
+    <string name="market_info_unusual_how">Minden coinnál a legfeltűnőbb megfigyelés látszik, jobbra a 24 órás változás. A 2× forgalom a szokásos kétszeresét jelenti. A feltűnő nem jelent se jót, se rosszat.</string>
+    <string name="market_info_unusual_source">Binance, CoinGecko · nagyjából 10 percenként újratöltve</string>
+    <string name="market_info_unusual_what">Legfeljebb öt coin a nagyjából 30 legnagyobb közül (stablecoinok nélkül), amely ma szokatlanul viselkedik: jóval erősebben vagy gyengébben, mint a Bitcoin, a piaci iránnyal szemben, szokatlanul nagy forgalommal vagy feltűnő finanszírozási rátával.</string>
+    <string name="market_info_what">Mi ez?</string>
+
+    <!-- Markt-Tab: Krypto-Markt gesamt -->
+    <string name="market_cap_label">Piaci kapitalizáció</string>
+    <string name="market_cap_source">Minden érme · CoinGecko</string>
+    <string name="market_cap_title">Kriptopiac</string>
+    <string name="market_volume_label">Forgalom 24 óra</string>
+
+    <!-- Crypto Pulse «Was gerade auffällt»: Titel, Abschnitte, Hinweise -->
+    <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
+    <string name="pulse_details_action">Részletek</string>
+    <string name="pulse_disclaimer">Nem előrejelzés · Nem befektetési tanácsadás</string>
+    <string name="pulse_less">Kevesebb megjelenítése</string>
+    <string name="pulse_now_title">Ami most feltűnő</string>
+    <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
+    <string name="pulse_period_24h_spoken">Változás 24 óra alatt</string>
+    <string name="pulse_section_factors">Tényezők</string>
+    <string name="pulse_section_market">A piac ma</string>
+    <string name="pulse_unavailable">A piaci adatok jelenleg nem érhetők el</string>
+    <string name="pulse_updated">Állapot: %1$s</string>
+
+    <!-- Crypto Pulse: Schlagzeile und Leitsatz -->
+    <string name="pulse_headline_calm">Nyugodt piac</string>
+    <string name="pulse_headline_down">Széles körű gyengülés</string>
+    <string name="pulse_headline_mixed">Vegyes kép</string>
+    <string name="pulse_headline_up">Széles körű erősödés</string>
+    <string name="pulse_lead_alts_stronger">Az altcoinok erősebbek a Bitcoinnál.</string>
+    <string name="pulse_lead_broad_down">A piac széles körben esik.</string>
+    <string name="pulse_lead_broad_up">A piac széles körben emelkedik.</string>
+    <string name="pulse_lead_btc_leads">A Bitcoin emelkedik a legjobban.</string>
+    <string name="pulse_lead_btc_stronger">A Bitcoin erősebb az altcoinoknál.</string>
+    <string name="pulse_lead_calm">A piac alig mozdul.</string>
+    <string name="pulse_lead_drift_down">A piac enyhén esik.</string>
+    <string name="pulse_lead_drift_up">A piac enyhén emelkedik.</string>
+    <string name="pulse_lead_mixed">A nagy érmék eltérő irányba mozognak.</string>
+
+    <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
+    <string name="pulse_detail_fund_high">Funding emelkedett.</string>
+    <string name="pulse_detail_fund_negative">Funding negatív.</string>
+    <string name="pulse_detail_fund_neutral">Funding semleges.</string>
+    <string name="pulse_detail_vol_above">Volumen %1$d%%-kal a szokásos felett.</string>
+    <string name="pulse_detail_vol_above_fund_high">Volumen %1$d%%-kal a szokásos felett, funding emelkedett.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Volumen %1$d%%-kal a szokásos felett, funding negatív.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Volumen %1$d%%-kal a szokásos felett, funding semleges.</string>
+    <string name="pulse_detail_vol_below">Volumen %1$d%%-kal a szokásos alatt.</string>
+    <string name="pulse_detail_vol_below_fund_high">Volumen %1$d%%-kal a szokásos alatt, funding emelkedett.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Volumen %1$d%%-kal a szokásos alatt, funding negatív.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Volumen %1$d%%-kal a szokásos alatt, funding semleges.</string>
+    <string name="pulse_detail_vol_normal">Volumen szokásos.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Volumen szokásos, funding emelkedett.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Volumen szokásos, funding negatív.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Volumen szokásos, funding semleges.</string>
+
+    <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
+    <string name="pulse_breadth_hint">Top %1$d: a piaci érték szerint legnagyobb érmék, stablecoinok nélkül; változás 24 óra alatt (CoinGecko).</string>
+    <!-- «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">Top %1$d</string>
+    <string name="pulse_breadth_note_broad_down">Széles esés: a legtöbb nagy érme esik.</string>
+    <string name="pulse_breadth_note_broad_up">Széles mozgás: a legtöbb nagy érme emelkedik.</string>
+    <string name="pulse_breadth_note_narrow_down">A Bitcoin esik, de a legtöbb többi nagy érme tartja magát.</string>
+    <string name="pulse_breadth_note_narrow_up">A Bitcoin emelkedik, de a legtöbb többi nagy érme nem követi.</string>
+    <string name="pulse_breadth_spoken">Top %1$d: emelkedik %2$d, csökken %3$d</string>
+
+    <!-- Crypto Pulse: Altcoins, Funding, Gas, Volumen -->
+    <string name="pulse_alts_even">Az altcoinok és a Bitcoin együtt mozognak</string>
+    <string name="pulse_alts_stronger">Az altcoinok erősebbek a Bitcoinnál</string>
+    <string name="pulse_alts_weaker">A Bitcoin erősebb az altcoinoknál</string>
+    <string name="pulse_chip_funding_high">Funding emelkedett</string>
+    <string name="pulse_chip_funding_negative">Funding negatív</string>
+    <string name="pulse_funding_high">Funding egyértelműen pozitív: sok tőkeáttételes long</string>
+    <string name="pulse_funding_negative">Funding negatív: sok short</string>
+    <string name="pulse_funding_neutral">Funding semleges</string>
+    <string name="pulse_funding_slight">Funding enyhén pozitív</string>
+    <string name="pulse_gas_high">Ethereum gas magas (%1$s gwei)</string>
+    <string name="pulse_gas_low">Ethereum gas alacsony (%1$s gwei)</string>
+    <string name="pulse_gas_normal">Ethereum gas szokásos (%1$s gwei)</string>
+    <string name="pulse_volume_high">Kereskedési volumen szokatlanul magas (a szokásos %1$s×-ese)</string>
+    <string name="pulse_volume_low">Kereskedési volumen alacsony (a szokásos %1$s×-ese)</string>
+    <string name="pulse_volume_normal">Kereskedési volumen szokásos</string>
+
+    <!-- «Heute auffällig» (grösste Coins mit ungewöhnlicher Bewegung) -->
+    <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
+    <!-- Screenreader-Aktion einer Zeile (öffnet das Aktionsblatt bzw. die Vorschau) -->
+    <string name="unusual_action_open">Árfolyam és műveletek megjelenítése</string>
+    <string name="unusual_fact_against">A piaccal szemben mozog</string>
+    <string name="unusual_fact_funding_high">Funding emelkedett (%1$s)</string>
+    <string name="unusual_fact_funding_negative">Funding negatív (%1$s)</string>
+    <string name="unusual_fact_stronger">Sokkal erősebben mozog, mint a BTC</string>
+    <string name="unusual_fact_volume">Forgalom: a szokásos %1$s×</string>
+    <string name="unusual_fact_weaker">Sokkal gyengébben mozog, mint a BTC</string>
+    <string name="unusual_nothing">Ma nincs semmi feltűnő</string>
+    <string name="unusual_source">Kb. 30 legnagyobb érme stablecoinok nélkül · Binance, CoinGecko</string>
+    <string name="unusual_title">Ma feltűnő</string>
+
+    <!-- Ungewöhnliche Aktivität eines Paars (Karte, Signale, Empfindlichkeit) -->
+    <string name="activity_card_title">Most éppen történik valami</string>
+    <string name="activity_indicator">Szokatlan aktivitás</string>
+    <string name="activity_sensitivity_less">Kevesebb</string>
+    <string name="activity_sensitivity_more">Több</string>
+    <string name="activity_sensitivity_normal">Normál</string>
+    <string name="activity_signal_funding_long">Funding %1$s – sok tőkeáttételes long</string>
+    <string name="activity_signal_funding_short">Funding %1$s – sok short</string>
+    <string name="activity_signal_open_interest">Nyitott pozíciók %1$s %2$d perc alatt</string>
+    <string name="activity_signal_open_interest_no_time">Nyitott pozíciók %1$s</string>
+    <string name="activity_signal_price_move">Szokatlan mozgás: %1$s egy óra alatt (a szokásos %2$s×-e)</string>
+    <string name="activity_signal_volume">Forgalom a szokásos %1$s×-e az utolsó órában</string>
+
+    <!-- Einordnung: Bitcoin-Dominanz, Fear & Greed, Halving, Altseason -->
+    <plurals name="insights_altseason_value">
+        <item quantity="one">%2$d nagy altcoinból %1$d veri a Bitcoint 90 nap alatt</item>
+        <item quantity="other">%2$d nagy altcoinból %1$d veri a Bitcoint 90 nap alatt</item>
+    </plurals>
+    <string name="insights_chart_axis">Évek a felezés óta</string>
+    <string name="insights_chart_hint">Az ár a felezés napi ár többszöröseként (log skála). A korábbi ciklusok minta, nem előrejelzés.</string>
+    <string name="insights_cycle_chart">Ciklusok a felezés óta</string>
+    <string name="insights_dominance_eth">ETH %1$s a teljes piacból</string>
+    <string name="insights_dominance_title">Bitcoin-dominancia</string>
+    <string name="insights_fng_history">Tegnap %1$s · egy hete %2$s · egy hónapja %3$s</string>
+    <string name="insights_fng_title">Fear &amp; Greed</string>
+    <string name="insights_halving_title">Bitcoin-felezés</string>
+    <string name="insights_source_dominance">Forrás: CoinGecko, Binance</string>
+    <string name="insights_source_fng">Forrás: alternative.me</string>
+    <string name="insights_source_history">Forrás: Coin Metrics (CC BY-NC 4.0), Binance</string>
+
+    <!-- Fear & Greed: Stufen -->
+    <string name="fng_extreme_fear">Extrém félelem</string>
+    <string name="fng_extreme_greed">Extrém kapzsiság</string>
+    <string name="fng_fear">Félelem</string>
+    <string name="fng_greed">Kapzsiság</string>
+    <string name="fng_neutral">Semleges</string>
+
+    <!-- Halving-Zyklus (Chart, Marken, Schätzung) -->
+    <string name="cycle_data_as_of">Adatok: %1$s · frissítés…</string>
+    <string name="cycle_from_top">%1$s a csúcstól</string>
+    <string name="cycle_marker_bottom">Mélypont %1$s</string>
+    <string name="cycle_marker_double_bottom">Dupla mélypont %1$s</string>
+    <string name="cycle_marker_double_top">Dupla csúcs %1$s</string>
+    <string name="cycle_marker_high_so_far">Eddigi csúcs</string>
+    <!-- Hoch/Tief-Marken mit Sprechblase im Zyklus-Chart -->
+    <string name="cycle_marker_top">Csúcs %1$s</string>
+    <string name="cycle_since_halving">%1$s a felezés óta</string>
+    <string name="halving_estimate_text">A következő felezés számítás szerint %1$s körül: még %2$s blokk, átlagosan %3$s perc blokkonként (jelenlegi nehézségi időszak). Továbbvezetés, nem ígéret – a blokkidő ingadozik.</string>
+
+    <!-- Netzwerkgebühren (Gas) -->
+    <string name="gas_alert_active">Riasztás: %1$s</string>
+    <string name="gas_slow_fast">Lassú %1$s · Gyors %2$s</string>
+    <string name="gas_source">Nyilvános RPC-csomópontok és mempool.space · Egy egyszerű átutalás költsége, L2-n az L1-rész nélkül</string>
+    <string name="gas_title">Hálózati díjak</string>
+    <string name="gas_transfer_cost">Átutalás ≈ %1$s</string>
+
+    <!-- Wirtschaftsdaten (US-Termine) -->
+    <string name="macro_cpi">amerikai infláció (CPI)</string>
+    <string name="macro_fomc">Fed-kamatdöntés</string>
+    <string name="macro_hint_list">%1$s – ilyen napokon a piac gyakran erősebben ingadozik.</string>
+    <string name="macro_hint_today">Ma %1$s: %2$s – ilyen napokon a piac gyakran erősebben ingadozik.</string>
+    <string name="macro_hint_today_list">Ma: %1$s – ilyen napokon a piac gyakran erősebben ingadozik.</string>
+    <string name="macro_hint_tomorrow">Holnap %1$s: %2$s – ilyen napokon a piac gyakran erősebben ingadozik.</string>
+    <string name="macro_hint_tomorrow_list">Holnap: %1$s – ilyen napokon a piac gyakran erősebben ingadozik.</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">Ma %1$s %2$s</string>
+    <string name="macro_item_tomorrow">Holnap %1$s %2$s</string>
+    <string name="macro_nfp">amerikai munkaerőpiaci jelentés</string>
+    <string name="macro_pce">amerikai PCE-infláció</string>
+    <string name="macro_ppi">amerikai termelői árak (PPI)</string>
+    <string name="macro_released_list">Ma közzétéve: %1$s.</string>
+    <string name="macro_released_one">Ma %1$s-kor közzétéve: %2$s.</string>
+    <string name="macro_title">Gazdasági adatok</string>
+
+    <!-- Coin-Analyse -->
+    <string name="coin_choose">Érme</string>
+    <string name="coin_no_data">Ehhez az érméhez nincs árfolyamadat a Binance-en vagy a Bybiten.</string>
+    <string name="coin_price_only">Csak árfolyam alapján – on-chain adat (MVRV, Puell, hashrate) szabadon csak a Bitcoinhoz van.</string>
+    <plurals name="coin_short_history">
+        <item quantity="one">Csak %1$d nap előzmény – néhány mutató hiányzik.</item>
+        <item quantity="other">Csak %1$d nap előzmény – néhány mutató hiányzik.</item>
+    </plurals>
+    <string name="coin_title">Érme-elemzés</string>
+</resources>

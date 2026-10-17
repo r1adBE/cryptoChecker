@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Begrüssung beim ersten Start -->
+    <string name="welcome_alert">Set alerts – price, percent, volume and unusual moves</string>
+    <string name="welcome_alert_q">When to alert?</string>
+    <string name="welcome_text">Your prices. Your alerts. Your overview.\nNo account. No ads. No tracking.</string>
+    <string name="welcome_understand">Understand – what is moving along with a price right now</string>
+    <string name="welcome_understand_q">What is moving with it?</string>
+    <string name="welcome_watch">Watch – your coins, prices and price history</string>
+    <string name="welcome_watch_q">What\'s happening?</string>
+
+    <!-- Start-Coins (Vorschlagsliste nach der Begrüssung) -->
+    <string name="starter_add_selected">Add to watchlist (%1$d)</string>
+    <string name="starter_loading_prices">Loading prices…</string>
+    <string name="starter_search_coin">Search for another coin</string>
+    <string name="starter_select_all">Select all</string>
+    <string name="starter_select_none">Select none</string>
+    <string name="starter_text">Deselect what you don\'t want and add the rest in one go. You can change exchange and pair later.</string>
+    <string name="starter_title">Start with these coins</string>
+    <string name="starter_watch_alarm_hint">Watch the price, set an alert</string>
+</resources>

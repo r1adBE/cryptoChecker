@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: CSV-Import -->
+    <string name="portfolio_csv_import_action">Εισαγωγή CSV</string>
+    <string name="portfolio_csv_import_all_transfer">Όλα σε δικό μου πορτοφόλι</string>
+    <string name="portfolio_csv_import_all_withdrawal">Όλα φεύγουν από το χαρτοφυλάκιο</string>
+    <string name="portfolio_csv_import_choice_proposed">Πρόταση: ταιριάζει με %1$s</string>
+    <string name="portfolio_csv_import_choice_transfer">Σε δικό μου πορτοφόλι (μεταφορά)</string>
+    <string name="portfolio_csv_import_choice_withdrawal">Φεύγει από το χαρτοφυλάκιο (ανάληψη)</string>
+    <string name="portfolio_csv_import_choose_each">Επίλεξε για κάθε ανάληψη πού πήγε.</string>
+    <string name="portfolio_csv_import_columns">Αναγνωρισμένες στήλες: %1$s</string>
+    <string name="portfolio_csv_import_confirm">Εισαγωγή (%1$d)</string>
+    <string name="portfolio_csv_import_date_day_first">Ημέρα/Μήνας</string>
+    <string name="portfolio_csv_import_date_month_first">Μήνας/Ημέρα</string>
+    <string name="portfolio_csv_import_date_order">Αμφίσημες ημερομηνίες (π.χ. 03/04/2024) διαβάζονται ως:</string>
+    <string name="portfolio_csv_import_decimal">Αμφίσημοι αριθμοί (π.χ. %1$s) διαβάζονται ως:</string>
+    <plurals name="portfolio_csv_import_done">
+        <item quantity="one">%d συναλλαγή εισήχθη</item>
+        <item quantity="other">%d συναλλαγές εισήχθησαν</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_duplicates">
+        <item quantity="one">%d έχει ήδη εισαχθεί (παραλείφθηκε)</item>
+        <item quantity="other">%d έχουν ήδη εισαχθεί (παραλείφθηκαν)</item>
+    </plurals>
+    <string name="portfolio_csv_import_format">Μορφή: %1$s</string>
+    <string name="portfolio_csv_import_line">Γραμμή %1$d: %2$s</string>
+    <string name="portfolio_csv_import_loading">Ανάγνωση αρχείου και ημερήσιων ισοτιμιών…</string>
+    <string name="portfolio_csv_import_missing_fx">Δεν υπάρχει ημερήσια ισοτιμία για τη γραμμή %1$s – εισήχθη χωρίς τιμή και χρέωση.</string>
+    <string name="portfolio_csv_import_missing_price">Δεν υπάρχει τιμή στο αρχείο για τη γραμμή %1$s – εισήχθη χωρίς τιμή.</string>
+    <string name="portfolio_csv_import_more">+ %1$d ακόμη</string>
+    <plurals name="portfolio_csv_import_new">
+        <item quantity="one">%d νέα συναλλαγή</item>
+        <item quantity="other">%d νέες συναλλαγές</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_skipped">
+        <item quantity="one">%d γραμμή παραλείφθηκε</item>
+        <item quantity="other">%d γραμμές παραλείφθηκαν</item>
+    </plurals>
+    <string name="portfolio_csv_import_stable_swaps">Οι αγορές και πωλήσεις έναντι stablecoins (USDT, USDC …) καταχωρούνται ως ανταλλαγές – το stablecoin εμφανίζεται στην κατοχή σου.</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">Πολλές πιθανές αντιστοιχίες – διάλεξε τη σωστή ή καμία.</string>
+    <string name="portfolio_csv_import_transfer_fee">Προμήθεια δικτύου: %1$s</string>
+    <string name="portfolio_csv_import_transfer_link">Καταχώριση ως μία μεταφορά</string>
+    <string name="portfolio_csv_import_transfer_stored">Αντίστοιχη εγγραφή από προηγούμενη εισαγωγή</string>
+    <string name="portfolio_csv_import_transfers_hint">Μια ανάληψη και η αντίστοιχη κατάθεση του ίδιου coin γίνονται μία μεταφορά: η τιμή αγοράς και η περίοδος κατοχής διατηρούνται, η διαφορά μετρά ως προμήθεια δικτύου.</string>
+    <string name="portfolio_csv_import_transfers_title">Μεταφορές μεταξύ των λογαριασμών σου</string>
+    <string name="portfolio_csv_import_unreadable">Δεν βρέθηκαν υποστηριζόμενες συναλλαγές. Υποστηρίζονται: εξαγωγές CSV από Relai, Swissquote, Kraken, Binance, Coinbase και Bitpanda.</string>
+    <string name="portfolio_csv_import_withdrawals_title">Αναλήψεις – πού πήγαν τα νομίσματα;</string>
+    <string name="portfolio_csv_import_zone">Ώρες χωρίς ζώνη ώρας διαβάζονται ως: %1$s</string>
+    <string name="portfolio_csv_import_zone_device">Συσκευή (%1$s)</string>
+    <string name="portfolio_csv_skip_bad_date">μη αναγνώσιμη ημερομηνία</string>
+    <string name="portfolio_csv_skip_bad_number">μη αναγνώσιμος αριθμός</string>
+    <string name="portfolio_csv_skip_fee_exceeds">χρέωση ≥ ποσότητα που ελήφθη</string>
+    <string name="portfolio_csv_skip_internal_move">μετακίνηση μεταξύ των δικών σου λογαριασμών – τίποτα για καταχώριση</string>
+    <string name="portfolio_csv_skip_missing">λείπει πεδίο</string>
+    <string name="portfolio_csv_skip_not_crypto">όχι κρύπτο</string>
+    <string name="portfolio_csv_skip_possible_duplicate">πιθανώς έχει ήδη εισαχθεί (σχεδόν ίδια συναλλαγή) – έλεγξέ το χειροκίνητα</string>
+    <string name="portfolio_csv_skip_two_fees">δύο προμήθειες σε διαφορετικές μονάδες – καταχώρισε την ανταλλαγή χειροκίνητα</string>
+    <string name="portfolio_csv_skip_unsupported">μη υποστηριζόμενος τύπος</string>
+
+    <!-- Portfolio: Importe ansehen und rückgängig machen -->
+    <string name="portfolio_import_undo">Αναίρεση</string>
+    <plurals name="portfolio_import_undo_confirm">
+        <item quantity="one">Διαγραφή της %d συναλλαγής αυτής της εισαγωγής; Οι χειροκίνητες καταχωρίσεις και άλλες εισαγωγές παραμένουν.</item>
+        <item quantity="other">Διαγραφή των %d συναλλαγών αυτής της εισαγωγής; Οι χειροκίνητες καταχωρίσεις και άλλες εισαγωγές παραμένουν.</item>
+    </plurals>
+    <string name="portfolio_import_undo_title">Αναίρεση εισαγωγής;</string>
+    <plurals name="portfolio_import_undone">
+        <item quantity="one">Αφαιρέθηκε %d εισαγόμενη συναλλαγή</item>
+        <item quantity="other">Αφαιρέθηκαν %d εισαγόμενες συναλλαγές</item>
+    </plurals>
+    <plurals name="portfolio_imports_count">
+        <item quantity="one">%d συναλλαγή</item>
+        <item quantity="other">%d συναλλαγές</item>
+    </plurals>
+    <string name="portfolio_imports_empty">Καμία εισαγωγή</string>
+    <string name="portfolio_imports_title">Εισαγωγές</string>
+</resources>

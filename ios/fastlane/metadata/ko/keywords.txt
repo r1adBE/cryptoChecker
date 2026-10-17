@@ -1,0 +1,1 @@
+btc,eth,코인,포트폴리오,altcoin,dex,ticker,bitcoin,ethereum,widget

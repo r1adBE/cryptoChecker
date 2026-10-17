@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Screenreader: Zeile eines Paars, Frische, Erreichbarkeit -->
+    <string name="a11y_alarm_count">riasztások: %1$d</string>
+    <!-- Alarm des Paars eben ausgelöst (bis 15 Min. danach im Zeilensatz) -->
+    <string name="a11y_alarm_fired">Riasztás aktiválva</string>
+    <string name="a11y_collapsed">Összecsukva</string>
+    <string name="a11y_converted">körülbelül %1$s</string>
+    <string name="a11y_expanded">Kibontva</string>
+    <!-- Vorgelesen bei Zeilen, die eine Website öffnen (Datenschutz, Börse wünschen, Quellcode) -->
+    <string name="a11y_external_link">a böngészőben nyílik meg</string>
+    <string name="a11y_favorite">Kedvenc</string>
+    <string name="a11y_in_watchlist">Már a figyelőlistán van</string>
+    <!-- %1$s Börse, letzte Abfrage gescheitert -->
+    <string name="a11y_market_unreachable">%1$s nem érhető el</string>
+    <string name="a11y_move_down">Mozgatás lefelé</string>
+    <string name="a11y_move_up">Mozgatás felfelé</string>
+    <string name="a11y_note">jegyzet: %1$s</string>
+    <string name="a11y_price">ár: %1$s</string>
+    <string name="a11y_price_notification_off">Árfolyam-értesítés ki</string>
+    <string name="a11y_price_notification_on">Árfolyam-értesítés be</string>
+    <!-- Frische einer Zeile, Teile mit «, » verbunden: «Kurs veraltet, zuletzt aktualisiert vor 45 Minuten» (A11ySpeech.freshnessText) -->
+    <string name="a11y_price_outdated">Az árfolyam elavult</string>
+    <!-- Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%1$s, tőzsde: %2$s</string>
+    <string name="a11y_stale">elavult, utolsó frissítés: %1$s</string>
+    <string name="a11y_warning">Figyelmeztetés</string>
+
+    <!-- Screenreader: Veränderung (Prozent-Pille, Widgets) -->
+    <!-- %1$s Satz aus a11y_change_up/down/flat: Veränderung über 24 Stunden (Prozent-Pille, Widgets) -->
+    <string name="a11y_change_24h">%1$s 24 óra alatt</string>
+    <!-- Wenn die Pille «—» zeigt (keine Kerzen für das Paar) -->
+    <string name="a11y_change_24h_none">A 24 órás változás nem érhető el</string>
+    <string name="a11y_change_down">%1$s esés</string>
+    <string name="a11y_change_flat">változatlan</string>
+    <string name="a11y_change_since_last">%1$s az utolsó frissítés óta</string>
+    <string name="a11y_change_since_last_none">Az utolsó frissítés óta bekövetkezett változás nem érhető el</string>
+    <!-- %1$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_change_today">%1$s ma</string>
+    <string name="a11y_change_today_none">A mai változás nem érhető el</string>
+    <string name="a11y_change_today_zone">%1$s éjfél (%2$s) óta</string>
+    <string name="a11y_change_today_zone_none">Az éjfél (%1$s) óta tartó változás nem érhető el</string>
+    <string name="a11y_change_up">%1$s emelkedés</string>
+
+    <!-- Screenreader: Charts und Skalen -->
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">Grafikon, %1$s: kezdet %2$s, vég %3$s, %4$s. Csúcs %5$s, mélypont %6$s.</string>
+    <string name="a11y_chart_empty">Grafikon: nincs adat</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">Ciklus %1$s: %2$s a felezés óta, %3$d. nap.</string>
+    <string name="a11y_cycle_bottom">Mélypont %1$s, %2$d. nap.</string>
+    <string name="a11y_cycle_double_bottom">Dupla mélypont %1$s, %2$d. nap.</string>
+    <string name="a11y_cycle_double_top">Dupla csúcs %1$s, %2$d. nap.</string>
+    <string name="a11y_cycle_top">Csúcs %1$s, %2$d. nap.</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">Skála %1$s és %2$s között: %3$d a 100-ból</string>
+
+    <!-- Screenreader: Puls-Zeile der Merkliste -->
+    <string name="a11y_watchlist_pulse">%1$s, %2$s, átlagosan %3$s</string>
+    <string name="a11y_watchlist_pulse_combined">%1$s. %2$s</string>
+    <plurals name="a11y_watchlist_pulse_falling">
+        <item quantity="one">%1$d esik</item>
+        <item quantity="other">%1$d esik</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing">
+        <item quantity="one">%1$d pár 24 órás érték nélkül</item>
+        <item quantity="other">%1$d pár 24 órás érték nélkül</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="one">%1$d párnak nincs mai értéke</item>
+        <item quantity="other">%1$d párnak nincs mai értéke</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_rising">
+        <item quantity="one">%1$d pár emelkedik</item>
+        <item quantity="other">%1$d pár emelkedik</item>
+    </plurals>
+
+    <!-- Screenreader: zuletzt aktualisiert -->
+    <plurals name="a11y_updated_days">
+        <item quantity="one">utoljára frissítve %1$d napja</item>
+        <item quantity="other">utoljára frissítve %1$d napja</item>
+    </plurals>
+    <plurals name="a11y_updated_hours">
+        <item quantity="one">utoljára frissítve %1$d órája</item>
+        <item quantity="other">utoljára frissítve %1$d órája</item>
+    </plurals>
+    <string name="a11y_updated_just_now">utoljára frissítve az imént</string>
+    <plurals name="a11y_updated_minutes">
+        <item quantity="one">utoljára frissítve %1$d perce</item>
+        <item quantity="other">utoljára frissítve %1$d perce</item>
+    </plurals>
+
+    <!-- Screenreader: Portfolio und Portfolio-Widget -->
+    <string name="a11y_amount_hidden">összeg elrejtve</string>
+    <!-- %1$s Kürzel, %2$s Wert mit Währung, %3$s Anteil «62.3%», %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_portfolio_position">%1$s %2$s, a portfólió %3$s-a</string>
+    <!-- Position im Portfolio-Widget: %1$s Kürzel, %2$s Anteil «62.3%», %3$s Satz aus a11y_change_24h -->
+    <string name="a11y_portfolio_position_24h">%1$s, %2$s a portfólióból, %3$s</string>
+    <string name="a11y_portfolio_positions">Legnagyobb pozíciók: %1$s</string>
+    <string name="a11y_portfolio_show_amounts">Összegek megjelenítése</string>
+</resources>

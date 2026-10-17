@@ -1,0 +1,308 @@
+{
+ "_comment": "Gemeinsame Testfälle für SpotMarket (Android SpotMarketParityTest.kt, iOS SpotMarketTests.swift).",
+ "topUrl": "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=40&page=1",
+ "cacheTtlMillis": 600000,
+ "body": "[{\"id\":\"bitcoin\",\"symbol\":\"btc\",\"name\":\"Bitcoin\",\"image\":\"https://x\",\"current_price\":83512.5,\"market_cap\":1660000000000,\"market_cap_rank\":1,\"fully_diluted_valuation\":1753000000000,\"total_volume\":45300000000,\"market_cap_change_percentage_24h\":-3.61234,\"circulating_supply\":19900000.0,\"total_supply\":19900000.0,\"max_supply\":21000000.0,\"last_updated\":\"2026-10-11T12:34:56.789Z\"},{\"id\":\"ethereum\",\"symbol\":\"eth\",\"name\":\"Ethereum\",\"current_price\":2000,\"market_cap\":241000000000,\"fully_diluted_valuation\":241000000000,\"total_volume\":0,\"market_cap_change_percentage_24h\":1.5,\"circulating_supply\":120500000,\"total_supply\":120500000,\"max_supply\":null,\"last_updated\":\"2026-10-11T12:30:00Z\"},{\"id\":\"unknown-token\",\"symbol\":\"unk\",\"name\":\"  \",\"current_price\":null,\"market_cap\":0,\"fully_diluted_valuation\":null,\"total_volume\":null,\"market_cap_change_percentage_24h\":5.0,\"circulating_supply\":0,\"total_supply\":null,\"max_supply\":null,\"last_updated\":null},{\"symbol\":\"noid\",\"name\":\"No id\"},{\"id\":\"pepe-small\",\"symbol\":\"pepe\",\"name\":\"Pepe Clone\",\"market_cap\":1000,\"last_updated\":\"garbage\"},{\"id\":\"pepe\",\"symbol\":\"PEPE\",\"name\":\"Pepe\",\"market_cap\":3500000000,\"circulating_supply\":420690000000000,\"max_supply\":420690000000000},\"not an object\"]",
+ "parsed": [
+  {
+   "id": "bitcoin",
+   "symbol": "BTC",
+   "name": "Bitcoin",
+   "priceUsd": 83512.5,
+   "marketCap": 1660000000000,
+   "marketCapChange24h": -3.61234,
+   "volume24h": 45300000000,
+   "fdv": 1753000000000,
+   "circulatingSupply": 19900000,
+   "totalSupply": 19900000,
+   "maxSupply": 21000000,
+   "lastUpdated": 1791722096789
+  },
+  {
+   "id": "ethereum",
+   "symbol": "ETH",
+   "name": "Ethereum",
+   "priceUsd": 2000,
+   "marketCap": 241000000000,
+   "marketCapChange24h": 1.5,
+   "volume24h": 0,
+   "fdv": 241000000000,
+   "circulatingSupply": 120500000,
+   "totalSupply": 120500000,
+   "maxSupply": null,
+   "lastUpdated": 1791721800000
+  },
+  {
+   "id": "unknown-token",
+   "symbol": "UNK",
+   "name": null,
+   "priceUsd": null,
+   "marketCap": null,
+   "marketCapChange24h": null,
+   "volume24h": null,
+   "fdv": null,
+   "circulatingSupply": null,
+   "totalSupply": null,
+   "maxSupply": null,
+   "lastUpdated": null
+  },
+  {
+   "id": "pepe-small",
+   "symbol": "PEPE",
+   "name": "Pepe Clone",
+   "priceUsd": null,
+   "marketCap": 1000,
+   "marketCapChange24h": null,
+   "volume24h": null,
+   "fdv": null,
+   "circulatingSupply": null,
+   "totalSupply": null,
+   "maxSupply": null,
+   "lastUpdated": null
+  },
+  {
+   "id": "pepe",
+   "symbol": "PEPE",
+   "name": "Pepe",
+   "priceUsd": null,
+   "marketCap": 3500000000,
+   "marketCapChange24h": null,
+   "volume24h": null,
+   "fdv": null,
+   "circulatingSupply": 420690000000000,
+   "totalSupply": null,
+   "maxSupply": 420690000000000,
+   "lastUpdated": null
+  }
+ ],
+ "parseInvalid": [
+  null,
+  "",
+  "   ",
+  "{}",
+  "[1,2",
+  "{\"id\":\"bitcoin\"}"
+ ],
+ "pick": [
+  {
+   "symbol": "BTC",
+   "expected": "bitcoin"
+  },
+  {
+   "symbol": "PEPE",
+   "expected": "pepe"
+  },
+  {
+   "symbol": "UNK",
+   "expected": "unknown-token"
+  },
+  {
+   "symbol": "SOL",
+   "expected": null
+  },
+  {
+   "symbol": "btc",
+   "expected": null
+  }
+ ],
+ "volumeToMarketCap": [
+  {
+   "volume": 45300000000,
+   "marketCap": 1660000000000,
+   "expected": 2.7289156626506026
+  },
+  {
+   "volume": 0,
+   "marketCap": 100,
+   "expected": 0
+  },
+  {
+   "volume": 5,
+   "marketCap": 0,
+   "expected": null
+  },
+  {
+   "volume": null,
+   "marketCap": 100,
+   "expected": null
+  },
+  {
+   "volume": 5,
+   "marketCap": null,
+   "expected": null
+  },
+  {
+   "volume": -1,
+   "marketCap": 100,
+   "expected": null
+  }
+ ],
+ "supplyRatio": [
+  {
+   "circulating": 19900000,
+   "max": 21000000,
+   "expected": 0.9476190476190476
+  },
+  {
+   "circulating": 21000001,
+   "max": 21000000,
+   "expected": 1.0
+  },
+  {
+   "circulating": 0,
+   "max": 21000000,
+   "expected": 0.0
+  },
+  {
+   "circulating": 100,
+   "max": null,
+   "expected": null
+  },
+  {
+   "circulating": null,
+   "max": 100,
+   "expected": null
+  },
+  {
+   "circulating": 100,
+   "max": 0,
+   "expected": null
+  }
+ ],
+ "compact": [
+  {
+   "value": 1660000000000,
+   "expected": "1.66T"
+  },
+  {
+   "value": 20090000,
+   "expected": "20.09M"
+  },
+  {
+   "value": 45300000000,
+   "expected": "45.30B"
+  },
+  {
+   "value": 1234,
+   "expected": "1.23K"
+  },
+  {
+   "value": 950.5,
+   "expected": "950.50"
+  },
+  {
+   "value": 0.5,
+   "expected": "0.50"
+  },
+  {
+   "value": 999999000,
+   "expected": "1.00B"
+  },
+  {
+   "value": 999.996,
+   "expected": "1.00K"
+  },
+  {
+   "value": 420690000000000,
+   "expected": "420.69T"
+  },
+  {
+   "value": 1.5e+18,
+   "expected": "1,500,000.00T"
+  }
+ ],
+ "usd": [
+  {
+   "value": 1660000000000,
+   "expected": "$1.66T"
+  },
+  {
+   "value": null,
+   "expected": "—"
+  }
+ ],
+ "supply": [
+  {
+   "value": 20090000,
+   "symbol": "BTC",
+   "expected": "20.09M BTC"
+  },
+  {
+   "value": null,
+   "symbol": "BTC",
+   "expected": "—"
+  }
+ ],
+ "percent": [
+  {
+   "value": 2.728915662650602,
+   "expected": "2.73%"
+  },
+  {
+   "value": 94.76190476190476,
+   "expected": "94.76%"
+  },
+  {
+   "value": null,
+   "expected": "—"
+  }
+ ],
+ "lookupSymbol": [
+  {
+   "base": "btc",
+   "expected": "BTC"
+  },
+  {
+   "base": " 1000PEPE ",
+   "expected": "PEPE"
+  },
+  {
+   "base": "XBT",
+   "expected": "BTC"
+  },
+  {
+   "base": "LUNA2",
+   "expected": "LUNA"
+  },
+  {
+   "base": "BTC-PERP",
+   "expected": null
+  },
+  {
+   "base": "",
+   "expected": null
+  },
+  {
+   "base": "ABCDEFGHIJKLMNOP",
+   "expected": null
+  }
+ ],
+ "url": [
+  {
+   "symbol": "PEPE",
+   "expected": "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&symbols=pepe"
+  }
+ ],
+ "eligible": [
+  {
+   "marketKey": "Binance",
+   "tradFi": false,
+   "expected": true
+  },
+  {
+   "marketKey": "BinanceFutures",
+   "tradFi": true,
+   "expected": false
+  },
+  {
+   "marketKey": "DexScreener",
+   "tradFi": false,
+   "expected": false
+  },
+  {
+   "marketKey": null,
+   "tradFi": false,
+   "expected": true
+  }
+ ]
+}

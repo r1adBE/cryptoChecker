@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen: Aufbau (Gruppen, Zeilen, Abschnitte, Suche, Kurzwerte) -->
+    <string name="settings_custom_value">직접</string>
+    <string name="settings_group_general">일반</string>
+    <string name="settings_group_more">더보기</string>
+    <string name="settings_minutes">%1$d분</string>
+    <string name="settings_row_about">앱 정보</string>
+    <string name="settings_row_advanced">고급</string>
+    <string name="settings_row_alarms">경보</string>
+    <string name="settings_row_currency">통화</string>
+    <string name="settings_row_dated_futures">만기 선물</string>
+    <string name="settings_row_updates">가격 업데이트</string>
+    <string name="settings_row_watchlist">관심 목록</string>
+    <string name="settings_search_hint">설정 검색</string>
+    <string name="settings_seconds">%1$d초</string>
+    <string name="settings_section_about">정보</string>
+    <string name="settings_section_appearance">화면</string>
+    <string name="settings_section_developer">개발자</string>
+    <string name="settings_section_language">언어</string>
+    <!-- Kurzwert «eingeschaltet» (Gegenstück zu option_off) -->
+    <string name="settings_summary_on">켬</string>
+    <string name="settings_title">설정</string>
+
+    <!-- Einstellungen › Alarme (Ton, Signal, Ruhezeit, App-Symbol, exakte Prüfungen) -->
+    <string name="settings_alarm_cooldown">경보 재울림 전 대기 시간</string>
+    <!-- Ton/Vibration der Kursalarme, je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">경보 신호</string>
+    <string name="settings_alarm_signal_open_system">시스템 설정에서 변경</string>
+    <string name="settings_alarm_signal_system_hint">휴대전화의 알림 설정을 따릅니다.</string>
+    <string name="settings_alarm_sound">경보음</string>
+    <string name="settings_alarm_sound_custom">사용자 지정 소리</string>
+    <string name="settings_alarm_sound_default">기본 소리</string>
+    <string name="settings_alarm_sound_error">소리를 사용할 수 없습니다.</string>
+    <string name="settings_alarm_sound_file">내 오디오 파일…</string>
+    <string name="settings_alarm_sound_reset">기본 소리 사용</string>
+    <string name="settings_alarm_sound_system">시스템 소리 선택…</string>
+    <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">앱 아이콘 숫자</string>
+    <string name="settings_app_badge_hint">열려 있는 알림 수를 셉니다. 숫자 또는 점 표시는 홈 화면이 결정합니다(예: Samsung «숫자 표시»).</string>
+    <string name="settings_exact_checks">제때 확인</string>
+    <string name="settings_exact_checks_grant">«알람 및 리마인더» 허용</string>
+    <string name="settings_exact_checks_hint">Android는 기기가 대기 중이어도 약 15분마다 확인합니다. 배터리를 조금 더 사용합니다.</string>
+    <string name="settings_exact_checks_nothing">활성 거래쌍이 없습니다 – 확인할 것이 없습니다.</string>
+    <string name="settings_exact_checks_permission_missing">권한 없음 – Android가 적절할 때 확인합니다(약 15분마다 또는 그 이후).</string>
+    <string name="settings_notification_change">가격 변동 시에만 알림</string>
+    <string name="settings_notification_change_always">항상</string>
+    <string name="settings_notification_change_hint">마지막 알림 이후 가격이 이만큼 이상 움직였을 때만 알림이 표시됩니다. 데이터가 없으면 아무것도 표시되지 않습니다. 경보에는 영향이 없습니다.</string>
+    <string name="settings_ongoing_notifications">밀어서 지우기 불가</string>
+    <string name="settings_ongoing_notifications_hint">가격 알림을 고정해 둡니다.</string>
+    <string name="settings_price_notifications">가격 알림</string>
+    <string name="settings_price_notifications_hint">사용 설정한 거래쌍의 현재 가격을 상태 표시줄에 표시합니다.</string>
+    <string name="settings_price_pairs">페어</string>
+    <string name="settings_price_pairs_all_off">모두 끄기</string>
+    <string name="settings_price_pairs_all_on">모두 켜기</string>
+    <string name="settings_price_pairs_count">%2$d개 중 %1$d개</string>
+    <string name="settings_price_pairs_empty">관심 목록에 아직 페어가 없습니다.</string>
+    <string name="settings_price_pairs_hint">알림 표시줄에 가격을 표시할 페어를 선택하세요.</string>
+    <string name="settings_quiet_hours">조용한 시간</string>
+    <string name="settings_quiet_hours_from">시작</string>
+    <string name="settings_quiet_hours_hint">%1$s~%2$s에는 경보가 조용한 시간이 끝날 때까지 기다렸다가 소리와 함께 울립니다. 다른 알림은 음성 안내 없이 소리 없이 도착합니다.</string>
+    <string name="settings_quiet_hours_to">종료</string>
+
+    <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
+    <string name="settings_background_interval">간격</string>
+    <string name="settings_background_updates">백그라운드 업데이트</string>
+    <string name="settings_battery_hint">제한됨 상태에서는 Android가 백그라운드 업데이트를 몇 시간씩 지연시킬 수 있습니다.</string>
+    <string name="settings_battery_ok">배터리 사용: 제한 없음</string>
+    <string name="settings_battery_restricted">배터리 사용: 제한됨</string>
+    <string name="settings_check_runs_empty">아직 기록된 확인이 없습니다.</string>
+    <string name="settings_check_runs_honest_android">언제 확인할지는 Android가 결정합니다. 여기서 실제로 언제 확인했는지 볼 수 있습니다.</string>
+    <string name="settings_check_runs_honest_ios">언제 확인할지는 iOS가 결정합니다. 여기서 실제로 언제 확인했는지 볼 수 있습니다.</string>
+    <string name="settings_check_runs_title">최근 확인</string>
+    <string name="settings_http_log">HTTP 로그 표시</string>
+    <string name="settings_http_log_hint">‘거래쌍 추가’ 화면 하단에 거래소로 보낸 요청을 표시합니다 – 문제 해결용.</string>
+    <string name="settings_live_service">자주 업데이트</string>
+    <string name="settings_live_websocket">실시간 시세</string>
+
+    <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
+    <string name="settings_activity_alerts">이상 움직임 알림</string>
+    <string name="settings_activity_alerts_hint">거래쌍당 최대 1시간에 한 번: 이상 가격 움직임, 거래량 급증, 선물 극단값 (데이터: Binance).</string>
+    <string name="settings_activity_sensitivity">민감도</string>
+    <string name="settings_activity_sensitivity_hint">코인을 이상 움직임으로 판단하는 기준 – 관심 목록 카드와 알림에 동일하게 적용됩니다. ‘적게’에서는 카드에 가장 강한 3개만 표시됩니다.</string>
+    <string name="settings_watchlist_activity_card">목록에 이상 움직임 표시</string>
+    <string name="settings_watchlist_activity_card_hint">그룹 옆에 ⚡ 칩을 표시합니다. 누르면 지금 무언가 일어나고 있는 거래쌍만 보여 줍니다. 알림은 ‘시장 알림’에서 설정합니다.</string>
+    <string name="settings_watchlist_names">이름 표시</string>
+    <string name="settings_watchlist_names_hint">페어 아래에 이름 표시(예: Bitcoin, NVIDIA). 로고 목록과 함께 오며 모든 코인에 대해 한 번만 불러옵니다.</string>
+    <string name="settings_watchlist_sparkline">관심 목록에 미니 차트</string>
+    <string name="settings_watchlist_sparkline_hint">가격 옆에 24시간 추세</string>
+    <string name="settings_watchlist_value_names">이름</string>
+    <string name="settings_watchlist_value_price_only">가격만</string>
+    <string name="settings_watchlist_value_sparkline">미니 차트</string>
+
+    <!-- Einstellungen › Token & TradFi -->
+    <string name="settings_asset_scope_alpha">Alpha 토큰 포함 (α)</string>
+    <string name="settings_asset_scope_alpha_hint">Alpha 토큰: Binance Alpha 목록의 초기 단계이자 대부분 소규모인 프로젝트 – 거래가 적고 변동성이 큰 경우가 많습니다.</string>
+    <string name="settings_asset_scope_alpha_tradfi_hint">토큰에 속합니다. \'TradFi만\'에서는 잠기며, 목록에 있는 Alpha 토큰은 그대로 남습니다.</string>
+    <string name="settings_asset_scope_both">토큰 및 TradFi</string>
+    <string name="settings_asset_scope_both_hint">전체 – 암호화폐 및 TradFi</string>
+    <string name="settings_asset_scope_hint">추가할 때 선택 화면과 검색에 표시할 거래쌍을 정합니다. 관심 목록에 있는 거래쌍은 항상 유지됩니다.</string>
+    <string name="settings_asset_scope_title">토큰 &amp; TradFi</string>
+    <string name="settings_asset_scope_tokens">토큰만</string>
+    <string name="settings_asset_scope_tokens_hint">암호화폐: 현물 및 무기한</string>
+    <string name="settings_asset_scope_tradfi">TradFi만</string>
+    <string name="settings_asset_scope_tradfi_hint">주식·원자재·외환 선물 – 토큰이 아닌 계약</string>
+    <string name="settings_rolling_futures">분기물 등 만기 선물 포함</string>
+    <string name="settings_rolling_futures_hint">끄면: 거래소 목록에 없는 만기 선물은 하나씩 확인하지 않고 ‘거래 종료’로 표시합니다. 새로고침할 때마다 시간이 절약됩니다.</string>
+    <string name="settings_rolling_futures_qtly">분기물 등 만기 선물 포함 (QTLY)</string>
+    <string name="settings_rolling_futures_tradfi_hint">토큰에 속합니다. \'TradFi만\'에서는 잠기며, 목록에 있는 만기 선물에는 계속 적용됩니다.</string>
+    <string name="settings_tradfi_futures">주식·원자재·외환 (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">거래쌍을 고를 때 주식, 금 등 원자재, 외환, 상장 전 기업에 대한 선물도 표시합니다. 토큰이 아니라 계약입니다.</string>
+
+    <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
+    <string name="settings_accent">강조 색상</string>
+    <string name="settings_accent_hint">앱, 위젯, 앱 아이콘의 색상.</string>
+    <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">코인 로고</string>
+    <string name="settings_coin_logos_app">앱에서</string>
+    <string name="settings_coin_logos_app_hint">관심 목록, 열린 거래쌍, 마켓 카드</string>
+    <string name="settings_coin_logos_footer">로고는 CoinGecko에서, CoinGecko에 없는 항목(예: 금, 은, 주식)은 Binance에서 가져옵니다. 앱이 모든 로고를 한 번에 내려받아 이 기기에 저장하므로 어느 쪽도 어떤 코인을 지켜보는지 알 수 없습니다. 로고가 없는 코인은 이니셜이 표시됩니다. 즐겨찾기에는 로고에 작은 별이 표시됩니다. 스위치가 꺼진 곳에는 로고도 이니셜도 표시되지 않으며, 모두 끄면 아무것도 불러오지 않습니다.</string>
+    <string name="settings_coin_logos_portfolio">포트폴리오에서</string>
+    <string name="settings_coin_logos_portfolio_hint">보유 자산, 코인 상세, 분석</string>
+    <string name="settings_coin_logos_value_app">앱</string>
+    <string name="settings_coin_logos_widgets">위젯에서</string>
+    <string name="settings_coin_logos_widgets_hint">관심 목록 위젯과 코인 하나 위젯</string>
+    <string name="settings_high_contrast">고대비</string>
+    <string name="settings_high_contrast_hint">가격 색상을 더 진하게, 보조 텍스트를 더 어둡게 표시합니다. 시스템이 더 높은 대비를 요청할 때도 켜집니다.</string>
+    <string name="settings_language_choose">언어 선택</string>
+    <string name="settings_language_system">시스템 언어</string>
+    <string name="settings_price_colors">가격 색상</string>
+    <string name="settings_price_colors_hint">파랑 / 주황은 모든 색각 이상(적록 및 청황)에서 쉽게 구분됩니다. 방향은 항상 + / −로도 표시됩니다.</string>
+    <string name="settings_theme_mode">라이트 / 다크</string>
+    <string name="settings_widgets">위젯</string>
+
+    <!-- Einstellungen › %-Änderung -->
+    <!-- Einstellungszeile und Seitentitel «%-Änderung»; %1$s ist das Prozentzeichen «%» -->
+    <string name="settings_change_basis">%1$s 변동 및 차트 시간대</string>
+    <string name="settings_change_basis_hint_1">선택한 시간대에 따라 관심 목록, 펄스 줄, 열린 거래쌍, 위젯의 변동률을 언제부터 계산할지와 차트에 표시되는 시각이 정해집니다.</string>
+    <string name="settings_change_basis_hint_2">‘%1$s’는 정확히 24시간 전 가격과 비교합니다. ‘00:00’은 해당 시간대 자정의 시가와 비교합니다.</string>
+    <string name="settings_change_basis_hint_3">경보에는 영향을 주지 않습니다.</string>
+    <string name="settings_change_basis_hint_since_last">‘%1$s’는 이전 업데이트의 가격과 비교합니다. 실시간 가격에서는 0%%에 가깝게 유지됩니다.</string>
+    <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
+    <string name="settings_change_period">변동 옆에 기간 표시</string>
+    <string name="settings_change_period_hint">관심 목록과 단일 코인 위젯에서 변동 옆에 ‘24h’, ‘오늘’, ‘마지막 업데이트’를 작게 표시합니다. 화면 낭독기는 항상 읽어 줍니다.</string>
+
+    <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
+    <string name="settings_conversion_currency">환산 통화</string>
+    <string name="settings_conversion_currency_hint">포트폴리오, 원하는 통화로 설정한 경보, 암호화폐 시장 카드, 포트폴리오 위젯에도 사용됩니다.</string>
+    <string name="settings_cost_method">매입 원가 계산 방식</string>
+    <string name="settings_cost_method_average">평균(Ø)</string>
+    <string name="settings_cost_method_average_hint">매도는 이동평균 매수가로 평가합니다.</string>
+    <string name="settings_cost_method_fifo">FIFO(기본)</string>
+    <string name="settings_cost_method_fifo_hint">가장 오래된 코인부터 먼저 매도합니다(모든 거래소와 지갑 통합).</string>
+    <string name="settings_cost_method_fifo_wallet">지갑/거래소별 FIFO</string>
+    <string name="settings_cost_method_fifo_wallet_hint">거래소나 지갑별로 가장 오래된 코인부터; 이체 시 로트가 매수일과 함께 옮겨집니다.</string>
+    <string name="settings_portfolio_lock">포트폴리오 잠금</string>
+    <string name="settings_portfolio_lock_footer">잠금은 화면에 표시되는 내용을 가립니다. 데이터는 이 기기에 저장되며 기기 암호화로 보호됩니다. 백업은 비밀번호로 보호할 수 있습니다.</string>
+    <string name="settings_portfolio_lock_hint">포트폴리오만 가립니다: 지문, 얼굴 또는 기기 PIN으로 잠금 해제. 백그라운드에서 1분 넘게 있으면 다시 잠깁니다. 관심 목록, 경보 및 다른 위젯은 잠기지 않습니다.</string>
+    <string name="settings_portfolio_lock_no_device_lock">기기 PIN이나 암호가 없으면 잠금은 아무것도 가리지 않습니다. 화면 잠금을 설정하세요.</string>
+    <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">시스템 백업에 포트폴리오 포함</string>
+    <string name="settings_portfolio_system_backup_hint">끔: 거래 내역이 기기의 시스템 백업과 새 휴대폰으로의 이전에 포함되지 않습니다. 옮기려면 비밀번호를 설정한 앱 자체 백업을 사용하세요.</string>
+    <string name="settings_portfolio_system_backup_unavailable">Android 9 이상이 필요합니다 – 이전 버전은 포트폴리오를 암호화하지 않은 채 Google 백업에 저장합니다.</string>
+    <string name="settings_portfolio_tab">포트폴리오 탭 표시</string>
+    <string name="settings_portfolio_value_locked">켬, 잠금 사용</string>
+    <string name="settings_show_converted">환산 가격</string>
+    <string name="settings_show_converted_hint">관심 목록의 가격을 %1$s(으)로도 표시</string>
+
+    <!-- Einstellungen › Markt-Meldungen -->
+    <string name="settings_depeg_alarm">USDT 디페그 알림</string>
+    <string name="settings_depeg_alarm_hint">USDT가 1 USD에서 기준만큼 벗어나면 한 번 알립니다(Kraken USDT/USD, Binance USDC/USDT). 앱의 값은 계속 USDT = 1로 계산됩니다.</string>
+    <string name="settings_depeg_threshold">디페그 기준</string>
+    <string name="settings_fng_above">Fear &amp; Greed: 이상일 때 알림</string>
+    <string name="settings_fng_below">Fear &amp; Greed: 이하일 때 알림</string>
+    <string name="settings_gas_alert_hint">일반 수수료가 한도 아래로 내려가면 한 번 알립니다. 시세 업데이트 때 최소 10분 간격으로 확인합니다.</string>
+    <string name="settings_gas_btc_below">Bitcoin 수수료 이하일 때 (sat/vB)</string>
+    <string name="settings_gas_eth_below">Ethereum 가스 이하일 때 (gwei)</string>
+    <string name="settings_ind_ath_within">사상 최고가 대비 하락 최대</string>
+    <string name="settings_ind_mayer_above">Mayer Multiple 이상</string>
+    <string name="settings_ind_mayer_below">Mayer Multiple 이하</string>
+    <string name="settings_ind_mvrv_above">MVRV 이상</string>
+    <string name="settings_ind_mvrv_below">MVRV 이하</string>
+    <string name="settings_indicator_alerts_hint">비트코인 지표를 하루 두 번 확인합니다. 기준은 직접 고르며 앱은 값을 평가하지 않습니다.</string>
+    <string name="settings_macro_notifications">경제 일정</string>
+    <string name="settings_macro_notifications_hint">중요한 미국 경제 지표(물가, 고용보고서, 연준 금리 결정)가 나오는 날 08:00에 알려 줍니다. 일정은 앱 웹사이트에서 하루에 한 번 불러옵니다.</string>
+    <string name="settings_market_alerts">시장 알림</string>
+    <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
+    <plurals name="settings_market_alerts_active">
+        <item quantity="other">%1$d개 켜짐</item>
+    </plurals>
+
+    <!-- Einstellungen › Sprachausgabe -->
+    <string name="settings_speech_rate">말하기 속도: %1$.1f×</string>
+    <string name="settings_tts">음성 출력</string>
+    <string name="settings_tts_alarms_only">경보만</string>
+    <string name="settings_tts_alarms_only_hint">끄면: ‘가격 읽어주기’가 켜진 거래쌍은 업데이트될 때마다 읽어줍니다.</string>
+    <!-- Sprachausgabe schweigt im Lautlos-/Vibrationsmodus -->
+    <string name="settings_tts_hint_silent">가격과 경보를 소리 내어 읽어줍니다. 기기가 무음 또는 진동 모드일 때는 읽지 않습니다.</string>
+    <string name="settings_tts_test">음성 테스트</string>
+
+    <!-- Einstellungen › Daten: App zurücksetzen -->
+    <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
+    <string name="settings_reset_app">앱 초기화</string>
+    <string name="settings_reset_app_action">모두 삭제</string>
+    <string name="settings_reset_app_confirm">관심 목록, 알림, 포트폴리오, 설정 및 저장된 모든 데이터를 설치 직후처럼 삭제합니다. 되돌릴 수 없습니다. 먼저 백업을 만드세요.</string>
+    <string name="settings_reset_app_title">앱을 초기화할까요?</string>
+
+    <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
+    <!-- Suchfeld der Währungsseite -->
+    <string name="currency_search">통화 검색</string>
+    <string name="language_search">언어 검색</string>
+
+    <!-- Theme -->
+    <string name="theme_dark">다크</string>
+    <string name="theme_light">라이트</string>
+    <string name="theme_system">시스템</string>
+
+    <!-- Akzentfarben -->
+    <string name="accent_blue">파랑</string>
+    <string name="accent_green">초록</string>
+    <!-- Eigenname, in allen Sprachen gleich -->
+    <string name="accent_marrs_green">Marrs Green</string>
+    <string name="accent_orange">주황</string>
+    <string name="accent_red">빨강</string>
+
+    <!-- Kursfarben -->
+    <string name="price_colors_red_up_hint">중국, 일본, 한국, 대만에서 일반적</string>
+    <string name="price_colors_swap">색상 바꾸기 (상승 ↔ 하락)</string>
+    <string name="price_style_calm">차분함</string>
+    <string name="price_style_calm_color_vision">차분함 · 색각 이상</string>
+    <string name="price_style_color_vision">색각 이상</string>
+    <string name="price_style_fresh">프레시</string>
+    <string name="price_style_traditional">전통</string>
+
+    <!-- Über die App -->
+    <string name="about_exchanges_verified">거래소 연결을 실제 응답으로 마지막 확인: %1$s</string>
+    <string name="about_license">가격은 거래소에서 직접 가져오며, 계정도 추적도 없습니다.</string>
+    <!-- Texte der Lizenzen liegen in assets/licenses -->
+    <string name="about_licenses">라이선스</string>
+    <string name="about_privacy_policy">개인정보 처리방침</string>
+    <!-- GitHub-Vorlage exchange_request.md -->
+    <string name="about_request_exchange">거래소 요청</string>
+    <string name="about_source_code">GitHub의 소스 코드</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_why">Crypto Checker는 r1AD의 독립 프로젝트입니다: 계정, 광고, 추적 없는 차분한 시세 개요. 질문과 요청: %1$s</string>
+
+    <!-- Lizenzhinweise -->
+    <string name="licenses_app_intro">Crypto Checker는 오픈 소스입니다(MIT 라이선스).</string>
+    <string name="licenses_font_title">Rubik 글꼴</string>
+    <string name="licenses_icons_bundled_text">앱에 포함: Christopher Downer와 기여자들의 «Cryptocurrency Icons»(github.com/spothq/cryptocurrency-icons) 아이콘으로, CC0 1.0 Universal로 공개되었습니다. CoinGecko 또는 Binance 로고를 불러올 때까지 표시됩니다. 이름과 로고는 각 프로젝트의 상표로 남습니다.</string>
+    <string name="licenses_icons_title">대체 코인 아이콘</string>
+    <string name="licenses_libraries_intro">앱은 다음 라이브러리를 Apache License 2.0에 따라 사용합니다:</string>
+    <string name="licenses_libraries_title">Android 라이브러리</string>
+
+    <!-- Entwickleroptionen -->
+    <!-- Countdown der letzten Tipps auf die Version bis zu den Entwickleroptionen -->
+    <plurals name="developer_taps_left">
+        <item quantity="other">%d번 더 탭하면 개발자 옵션이 열립니다</item>
+    </plurals>
+    <string name="developer_unlocked">개발자 옵션이 열렸습니다</string>
+
+    <!-- Nur iOS: Einstellungen -->
+    <!-- Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">진동은 iPhone 설정(사운드 및 햅틱)을 따릅니다.</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">새 알림과 시장 알림을 세며, 앱을 열면 0으로 돌아갑니다.</string>
+</resources>

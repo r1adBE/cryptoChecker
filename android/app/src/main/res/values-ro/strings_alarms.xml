@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Alarmliste und Übersicht aller Alarme -->
+    <string name="add_alarm_action">Setează alarmă</string>
+    <string name="alarms_add">Alarmă nouă</string>
+    <string name="alarms_edit">Editează alarma</string>
+    <string name="alarms_empty">Încă nu există alarme pentru această pereche.</string>
+    <string name="alarms_empty_example">De exemplu: anunță-mă când BTC urcă peste %1$s.</string>
+    <!-- Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
+    <string name="alarms_notifications_off">Notificările sunt dezactivate – alarmele nu vor ajunge la tine.</string>
+    <string name="alarms_notifications_turn_on">Activează</string>
+    <plurals name="alarms_overview_active">
+        <item quantity="one">%1$d activă</item>
+        <item quantity="few">%1$d active</item>
+        <item quantity="other">%1$d active</item>
+    </plurals>
+    <string name="alarms_overview_empty">Nicio alarmă încă. Deschide o pereche și adaugă una la Alarme.</string>
+    <string name="alarms_overview_title">Toate alarmele</string>
+    <string name="alarms_title">Alarme</string>
+
+    <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
+    <string name="alarm_advanced">Avansat</string>
+    <string name="alarm_change_updates">Schimbă actualizarea prețurilor</string>
+    <string name="alarm_create">Creează alarma</string>
+    <string name="alarm_currency_label">Monedă</string>
+    <string name="alarm_delete_confirm">Această alarmă va fi eliminată.</string>
+    <string name="alarm_delete_title">Ștergi alarma?</string>
+    <string name="alarm_field_percent">Procent</string>
+    <string name="alarm_field_price">Preț</string>
+    <string name="alarm_fires_now_above">Prețul este deja peste %1$s. Salvezi oricum?</string>
+    <string name="alarm_fires_now_below">Prețul este deja sub %1$s. Salvezi oricum?</string>
+    <string name="alarm_fires_now_change">Modifică</string>
+    <string name="alarm_fires_now_save">Salvează oricum</string>
+    <string name="alarm_fires_now_title">Alarma s-ar declanșa imediat</string>
+    <string name="alarm_first_battery_hint">Optimizarea bateriei limitează aplicația – alarmele pot sosi mai târziu.</string>
+    <string name="alarm_first_title">Totul e pregătit</string>
+    <string name="alarm_last_triggered">ultima: %1$s</string>
+    <string name="alarm_new_extreme">Nou %1$s</string>
+    <string name="alarm_once">O dată</string>
+    <string name="alarm_option_repeating">Păstrează alarma după declanșare</string>
+    <string name="alarm_option_sound">Sunet</string>
+    <string name="alarm_option_speak">Citește alarma</string>
+    <string name="alarm_option_vibrate">Vibrație</string>
+    <string name="alarm_repeat_each">De fiecare dată</string>
+    <string name="alarm_repeat_once">O dată</string>
+    <string name="alarm_repeating">De fiecare dată</string>
+    <string name="alarm_threshold_error_empty">Introdu o valoare pentru a salva alarma.</string>
+    <string name="alarm_threshold_error_funding">Rata de finanțare trebuie să fie un număr între −10 și +10 la sută.</string>
+    <string name="alarm_threshold_error_invalid">Introdu un număr valid mai mare decât 0.</string>
+    <string name="alarm_threshold_error_oi">Variația interesului deschis: cel mult 1000 la sută.</string>
+    <plurals name="alarm_window_hours">
+        <item quantity="one">în %1$d h</item>
+        <item quantity="few">în %1$d h</item>
+        <item quantity="other">în %1$d h</item>
+    </plurals>
+    <string name="alarm_window_label">Interval de timp</string>
+
+    <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
+    <string name="alarm_simple_above">trece peste</string>
+    <string name="alarm_simple_below">scade sub</string>
+    <string name="alarm_simple_direction_a11y">Direcție: %1$s</string>
+    <string name="alarm_simple_end"></string>
+    <string name="alarm_simple_when">Când %1$s</string>
+    <string name="alarm_template_a11y">Creează alarma: %1$s</string>
+    <string name="alarm_template_a11y_down">Creează alarmă la minus %1$s la sută</string>
+    <string name="alarm_template_a11y_up">Creează alarmă la plus %1$s la sută</string>
+    <string name="alarm_template_created">Alarmă creată</string>
+    <string name="alarm_template_volume">Volum ×%1$s</string>
+    <string name="alarm_templates_title">Alarme rapide</string>
+
+    <!-- Alarm-Bedingungen -->
+    <string name="alarm_condition_above">Preț peste</string>
+    <string name="alarm_condition_below">Preț sub</string>
+    <string name="alarm_condition_down_percent">Scade cu</string>
+    <string name="alarm_condition_funding_above">Funding peste</string>
+    <string name="alarm_condition_funding_below">Funding sub</string>
+    <string name="alarm_condition_move_percent">Se mișcă cu</string>
+    <string name="alarm_condition_near_high">Aproape de maxim</string>
+    <string name="alarm_condition_near_low">Aproape de minim</string>
+    <string name="alarm_condition_oi_down">Interes deschis în scădere</string>
+    <string name="alarm_condition_oi_up">Interes deschis în creștere</string>
+    <string name="alarm_condition_up_percent">Crește cu</string>
+    <string name="alarm_condition_volume_spike">Salt de volum</string>
+
+    <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
+    <string name="alarm_sentence_above">Anunță-mă când %1$s urcă peste %2$s.</string>
+    <string name="alarm_sentence_below">Anunță-mă când %1$s coboară sub %2$s.</string>
+    <string name="alarm_sentence_down_percent">Anunță-mă când %1$s scade cu %2$s.</string>
+    <string name="alarm_sentence_funding_above">Anunță-mă când funding-ul pentru %1$s trece peste %2$s.</string>
+    <string name="alarm_sentence_funding_below">Anunță-mă când funding-ul pentru %1$s coboară sub %2$s.</string>
+    <string name="alarm_sentence_incomplete">Introdu o valoare pentru a vedea alarma ca propoziție.</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="one">Anunță-mă când %1$s se mișcă cu %2$s în %3$d oră.</item>
+        <item quantity="few">Anunță-mă când %1$s se mișcă cu %2$s în %3$d ore.</item>
+        <item quantity="other">Anunță-mă când %1$s se mișcă cu %2$s în %3$d de ore.</item>
+    </plurals>
+    <string name="alarm_sentence_near_high">Anunță-mă când %1$s este cu cel mult %2$s sub nivelul %3$s.</string>
+    <string name="alarm_sentence_near_low">Anunță-mă când %1$s este cu cel mult %2$s peste nivelul %3$s.</string>
+    <string name="alarm_sentence_new_extreme">Anunță-mă când %1$s atinge un nou %2$s.</string>
+    <plurals name="alarm_sentence_oi_down">
+        <item quantity="one">Anunță-mă când interesul deschis pentru %1$s scade cu %2$s în %3$d oră.</item>
+        <item quantity="few">Anunță-mă când interesul deschis pentru %1$s scade cu %2$s în %3$d ore.</item>
+        <item quantity="other">Anunță-mă când interesul deschis pentru %1$s scade cu %2$s în %3$d de ore.</item>
+    </plurals>
+    <plurals name="alarm_sentence_oi_up">
+        <item quantity="one">Anunță-mă când interesul deschis pentru %1$s crește cu %2$s în %3$d oră.</item>
+        <item quantity="few">Anunță-mă când interesul deschis pentru %1$s crește cu %2$s în %3$d ore.</item>
+        <item quantity="other">Anunță-mă când interesul deschis pentru %1$s crește cu %2$s în %3$d de ore.</item>
+    </plurals>
+    <string name="alarm_sentence_up_percent">Anunță-mă când %1$s crește cu %2$s.</string>
+    <string name="alarm_sentence_volume">Anunță-mă când volumul pentru %1$s ajunge la %2$s× față de normal.</string>
+
+    <!-- Alarm «Nahe am Hoch / Tief» -->
+    <string name="alarm_near_extreme_high_30">maxim de 30 de zile</string>
+    <string name="alarm_near_extreme_high_365">maxim de 1 an</string>
+    <string name="alarm_near_extreme_high_90">maxim de 90 de zile</string>
+    <string name="alarm_near_extreme_low_30">minim de 30 de zile</string>
+    <string name="alarm_near_extreme_low_365">minim de 1 an</string>
+    <string name="alarm_near_extreme_low_90">minim de 90 de zile</string>
+    <string name="alarm_near_field_distance">Distanță</string>
+    <string name="alarm_near_hint">Anunță și când se atinge un nou maxim sau minim. Pe baza lumânărilor zilnice, actualizat la fiecare 6 ore.</string>
+    <string name="alarm_near_new_only">Doar noi maxime sau minime</string>
+    <string name="alarm_near_notification_high">%1$s este cu %2$s sub nivelul %3$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_low">%1$s este cu %2$s peste nivelul %3$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_new">Nou %1$s pentru %2$s: %3$s (anterior %4$s)</string>
+    <plurals name="alarm_near_window_days">
+        <item quantity="one">%1$d zi</item>
+        <item quantity="few">%1$d zile</item>
+        <item quantity="other">%1$d de zile</item>
+    </plurals>
+    <string name="alarm_near_window_label">Perioadă</string>
+    <string name="alarm_near_window_year">1 an</string>
+
+    <!-- Futures- und Volumen-Alarme (Funding pro 8 Stunden, Open Interest, Volumen-Spike) -->
+    <!-- Funding-Schwelle gilt pro 8 Stunden; stündliches Funding wird umgerechnet -->
+    <string name="alarm_funding_hint_8h">Funding la 8 ore. Contractele cu alt interval sunt convertite (1 h × 8, 4 h × 2); cardul futures arată valoarea convertită. Dacă intervalul e necunoscut, alarma nu verifică. Negativ: short-urile plătesc long-urilor. ± schimbă semnul.</string>
+    <string name="alarm_funding_sign_a11y">Schimbă semnul</string>
+    <string name="alarm_oi_hint">Compară interesul deschis cu valoarea salvată acum tot atâtea ore. O alarmă nouă anunță doar după ce aplicația a strâns date atât timp; verificare cel mult la fiecare 5 minute.</string>
+    <string name="alarm_volume_factor_label">Volumul ultimei ore față de normal</string>
+    <string name="alarm_volume_hint">Datele de volum provin de la Binance — perechile care nu sunt listate acolo nu se declanșează niciodată.</string>
+
+    <!-- Bestätigung nach dem Speichern -->
+    <string name="alarm_saved_active">Alertă activă</string>
+    <!-- «Alarm gespeichert: BTC Kurs über 70’000 USDT · einmalig» -->
+    <string name="alarm_saved_banner">Alarmă salvată: %1$s</string>
+    <!-- Zusatz in der Bestätigung, wenn Mitteilungen aus sind (dazu Aktion «Einstellungen») -->
+    <string name="alarm_saved_notifications_off">Notificări dezactivate</string>
+
+    <!-- Wann Alarme geprüft werden -->
+    <string name="alarm_timing_hint_android">Cu aplicația închisă, Android verifică neregulat (cu «%1$s» cam la fiecare 15 minute), așa că salturile scurte pot fi ratate.</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">Cu aplicația închisă, iOS decide când verifică, așa că salturile scurte pot fi ratate; cât timp e deschisă, verificarea e sigură.</string>
+    <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
+    <string name="alarm_timing_title">Când sunt verificate alarmele</string>
+    <string name="alarm_timing_where">Setează cât de des se actualizează prețurile în %1$s.</string>
+
+    <!-- Alarm-Signal und Test-Alarm -->
+    <string name="alarm_signal_silent">Silențios (doar notificare)</string>
+    <string name="alarm_signal_sound">Doar sunet</string>
+    <string name="alarm_signal_sound_vibrate">Sunet și vibrație</string>
+    <string name="alarm_signal_system">Sistem</string>
+    <string name="alarm_signal_vibrate">Doar vibrație</string>
+    <string name="alarm_test">Testează alarma</string>
+    <string name="alarm_test_action">Testează</string>
+    <string name="alarm_test_denied">Notificările sunt dezactivate pentru Crypto Checker.</string>
+    <string name="alarm_test_hint">Trimite o alarmă de exemplu cu setările tale de sunet, vibrație și citire vocală.</string>
+    <string name="alarm_test_open_settings">Deschide setările</string>
+    <string name="alarm_test_quiet">Acum sunt orele de liniște: alarmele reale ar aștepta până la sfârșitul lor și apoi ar suna.</string>
+    <string name="alarm_test_text">Așa arată și așa sună o alarmă.</string>
+    <string name="alarm_test_title">Test: alarmă de la Crypto Checker</string>
+
+    <!-- Ehrliche Alarme: Vorlesetexte Ton/Ansage, ungeprüfte Alarme -->
+    <string name="alarm_a11y_sound_on">Sunet activat</string>
+    <string name="alarm_a11y_speak_on">Voce activată</string>
+    <string name="alarm_unchecked_no_candles">Nu s-a putut verifica (fără lumânări)</string>
+    <string name="alarm_unchecked_no_rate">Nu s-a putut verifica (fără curs de schimb)</string>
+</resources>

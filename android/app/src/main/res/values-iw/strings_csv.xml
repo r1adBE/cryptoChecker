@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: CSV-Import -->
+    <string name="portfolio_csv_import_action">ייבוא CSV</string>
+    <string name="portfolio_csv_import_all_transfer">הכול לארנק שלי</string>
+    <string name="portfolio_csv_import_all_withdrawal">הכול יוצא מהתיק</string>
+    <string name="portfolio_csv_import_choice_proposed">הצעה: תואם ל-%1$s</string>
+    <string name="portfolio_csv_import_choice_transfer">לארנק שלי (העברה)</string>
+    <string name="portfolio_csv_import_choice_withdrawal">יוצא מהתיק (משיכה)</string>
+    <string name="portfolio_csv_import_choose_each">בחר לכל משיכה לאן היא הלכה.</string>
+    <string name="portfolio_csv_import_columns">עמודות שזוהו: %1$s</string>
+    <string name="portfolio_csv_import_confirm">ייבוא (%1$d)</string>
+    <string name="portfolio_csv_import_date_day_first">יום/חודש</string>
+    <string name="portfolio_csv_import_date_month_first">חודש/יום</string>
+    <string name="portfolio_csv_import_date_order">תאריכים דו-משמעיים (למשל 03/04/2024) ייקראו כ:</string>
+    <string name="portfolio_csv_import_decimal">מספרים דו-משמעיים (למשל %1$s) ייקראו כ:</string>
+    <plurals name="portfolio_csv_import_done">
+        <item quantity="one">עסקאות שיובאו: %d</item>
+        <item quantity="two">עסקאות שיובאו: %d</item>
+        <item quantity="other">עסקאות שיובאו: %d</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_duplicates">
+        <item quantity="one">כבר יובאו (דולגו): %d</item>
+        <item quantity="two">כבר יובאו (דולגו): %d</item>
+        <item quantity="other">כבר יובאו (דולגו): %d</item>
+    </plurals>
+    <string name="portfolio_csv_import_format">פורמט: %1$s</string>
+    <string name="portfolio_csv_import_line">שורה %1$d: %2$s</string>
+    <string name="portfolio_csv_import_loading">קורא את הקובץ ואת השערים היומיים…</string>
+    <string name="portfolio_csv_import_missing_fx">אין שער יומי לשורה %1$s – יובא בלי מחיר ועמלה.</string>
+    <string name="portfolio_csv_import_missing_price">אין מחיר בקובץ לשורה %1$s – יובא בלי מחיר.</string>
+    <string name="portfolio_csv_import_more">+ עוד %1$d</string>
+    <plurals name="portfolio_csv_import_new">
+        <item quantity="one">עסקה חדשה: %d</item>
+        <item quantity="two">עסקאות חדשות: %d</item>
+        <item quantity="other">עסקאות חדשות: %d</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_skipped">
+        <item quantity="one">שורות שדולגו: %d</item>
+        <item quantity="two">שורות שדולגו: %d</item>
+        <item quantity="other">שורות שדולגו: %d</item>
+    </plurals>
+    <string name="portfolio_csv_import_stable_swaps">קניות ומכירות תמורת מטבעות יציבים (USDT, USDC …) נרשמות כהחלפות – המטבע היציב מופיע באחזקות שלך.</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">כמה התאמות אפשריות – בחר את הנכונה או אף אחת.</string>
+    <string name="portfolio_csv_import_transfer_fee">עמלת רשת: %1$s</string>
+    <string name="portfolio_csv_import_transfer_link">לרשום כהעברה אחת</string>
+    <string name="portfolio_csv_import_transfer_stored">צד נגדי מייבוא קודם</string>
+    <string name="portfolio_csv_import_transfers_hint">משיכה וההפקדה התואמת של אותו מטבע הופכות להעברה אחת: מחיר הקנייה ותקופת ההחזקה נשמרים, וההפרש נחשב לעמלת רשת.</string>
+    <string name="portfolio_csv_import_transfers_title">העברות בין החשבונות שלך</string>
+    <string name="portfolio_csv_import_unreadable">לא נמצאו עסקאות נתמכות. נתמכים: קובצי CSV מיוצאים מ-Relai, מ-Swissquote, מ-Kraken, מ-Binance, מ-Coinbase ומ-Bitpanda.</string>
+    <string name="portfolio_csv_import_withdrawals_title">משיכות – לאן הלכו המטבעות?</string>
+    <string name="portfolio_csv_import_zone">זמנים ללא אזור זמן נקראים כ: %1$s</string>
+    <string name="portfolio_csv_import_zone_device">מכשיר (%1$s)</string>
+    <string name="portfolio_csv_skip_bad_date">תאריך לא קריא</string>
+    <string name="portfolio_csv_skip_bad_number">מספר לא קריא</string>
+    <string name="portfolio_csv_skip_fee_exceeds">עמלה ≥ הכמות שהתקבלה</string>
+    <string name="portfolio_csv_skip_internal_move">העברה בין החשבונות שלך – אין מה לרשום</string>
+    <string name="portfolio_csv_skip_missing">שדה חסר</string>
+    <string name="portfolio_csv_skip_not_crypto">לא קריפטו</string>
+    <string name="portfolio_csv_skip_possible_duplicate">ייתכן שכבר יובא (עסקה כמעט זהה) – בדוק ידנית</string>
+    <string name="portfolio_csv_skip_two_fees">שתי עמלות ביחידות שונות – הזן את ההחלפה ידנית</string>
+    <string name="portfolio_csv_skip_unsupported">סוג לא נתמך</string>
+
+    <!-- Portfolio: Importe ansehen und rückgängig machen -->
+    <string name="portfolio_import_undo">ביטול</string>
+    <plurals name="portfolio_import_undo_confirm">
+        <item quantity="one">למחוק את העסקה של הייבוא הזה (%d)? רישומים ידניים וייבואים אחרים נשארים.</item>
+        <item quantity="two">למחוק את העסקאות של הייבוא הזה (%d)? רישומים ידניים וייבואים אחרים נשארים.</item>
+        <item quantity="other">למחוק את העסקאות של הייבוא הזה (%d)? רישומים ידניים וייבואים אחרים נשארים.</item>
+    </plurals>
+    <string name="portfolio_import_undo_title">לבטל את הייבוא?</string>
+    <plurals name="portfolio_import_undone">
+        <item quantity="one">עסקאות מיובאות שהוסרו: %d</item>
+        <item quantity="two">עסקאות מיובאות שהוסרו: %d</item>
+        <item quantity="other">עסקאות מיובאות שהוסרו: %d</item>
+    </plurals>
+    <plurals name="portfolio_imports_count">
+        <item quantity="one">עסקאות: %d</item>
+        <item quantity="two">עסקאות: %d</item>
+        <item quantity="other">עסקאות: %d</item>
+    </plurals>
+    <string name="portfolio_imports_empty">אין ייבואים</string>
+    <string name="portfolio_imports_title">ייבואים</string>
+</resources>

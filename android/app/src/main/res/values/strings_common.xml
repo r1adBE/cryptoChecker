@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App-Name (nur Englisch, nicht übersetzt) -->
+    <string name="app_name" translatable="false">Crypto Checker</string>
+
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">Back</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_clear">Clear</string>
+    <string name="action_close">Close</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_edit">Edit</string>
+    <string name="action_more">More options</string>
+    <string name="action_refresh">Refresh</string>
+    <string name="action_retry">Retry</string>
+    <string name="action_save">Save</string>
+    <string name="action_sort">Sort</string>
+    <string name="action_sort_done">Done</string>
+    <string name="action_undo">Undo</string>
+    <string name="action_view">View</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">Market</string>
+    <string name="tab_portfolio">Portfolio</string>
+    <string name="tab_settings">Settings</string>
+    <string name="tab_watchlist">Watchlist</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">Error: %1$s</string>
+    <string name="error_market_unreachable">Exchange not reachable right now – the last prices stay visible.</string>
+    <string name="error_market_unreachable_short">Exchange not reachable right now</string>
+    <string name="loading_hint">Loading…</string>
+    <string name="no_internet_connection">No internet connection</string>
+    <string name="option_off">Off</string>
+    <string name="something_went_wrong">Something went wrong</string>
+    <string name="time_just_now">just now</string>
+    <string name="timeout_error_message">The exchange isn’t responding right now.</string>
+    <string name="try_again">Try again</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">No connection</string>
+    <string name="offline_status_since">No connection · as of %1$s</string>
+    <string name="status_live">Live</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">Add pair</string>
+    <string name="shortcut_alarms">All alerts</string>
+    <string name="shortcut_cycle">Market</string>
+</resources>

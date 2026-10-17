@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Aktionsblatt: Kurs-Chart (Zeitraum, Kerzenwerte beim Ziehen, Umrechnung) und «Mehr» -->
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s Zeitraum kurz (widget_range_short_24h/7d/30d) -->
+    <string name="sheet_chart_change">%2$s içinde %1$s</string>
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s change_short_today(_zone) -->
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="sheet_chart_close">Kapanış</string>
+    <string name="sheet_chart_converted_current">%1$s, çevrildi (güncel kur)</string>
+    <!-- Zeile unter dem Chart, %1$s = umgerechnete Reihe («BTC/USDT») -->
+    <string name="sheet_chart_converted_daily">%1$s, günlük kurlarla çevrildi</string>
+    <!-- Keine Kerzen für das Paar -->
+    <string name="sheet_chart_no_data">Bu çift için fiyat verisi yok</string>
+    <!-- Kerzenwerte beim Ziehen (Hoch/Tief: ticker_high/ticker_low) -->
+    <string name="sheet_chart_open">Açılış</string>
+    <!-- Zeitraum-Chip statt «24h» bei Tages-Basis -->
+    <string name="sheet_chart_today">Bugün</string>
+    <!-- Umsatz der Kerze beim Ziehen; %1$s z. B. «12.3M USDT» -->
+    <string name="sheet_chart_volume">Hacim %1$s</string>
+    <string name="sheet_more">Daha fazla</string>
+
+    <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
+    <string name="ticker_ask">Satış</string>
+    <string name="ticker_bid">Alış</string>
+    <string name="ticker_high">Yüksek</string>
+    <string name="ticker_low">Düşük</string>
+    <string name="ticker_timestamp">Zaman</string>
+    <string name="ticker_vol_base">Hacim (baz)</string>
+    <string name="ticker_vol_quote">Hacim (karşıt)</string>
+
+    <!-- Basis der %-Änderung (Prozent-Pille, Chart, Widgets) -->
+    <string name="change_basis_device">%1$s, 00:00 (cihaz saat dilimi)</string>
+    <string name="change_basis_local">Yerel saatle 00:00’dan beri</string>
+    <string name="change_basis_rolling">Son 24 saat</string>
+    <!-- Letzter gegen vorherigen Kurs des Paars; ausgeschrieben (Auswahl). Kurz neben Pille und Widgets: change_short_since_last -->
+    <string name="change_basis_since_last">Son güncellemeden beri</string>
+    <string name="change_basis_utc_zone">%1$s 00:00’dan beri</string>
+    <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
+    <string name="change_candle_source">%1$s mumlarına göre değişim</string>
+    <string name="change_short_since_last">son güncelleme</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
+    <string name="change_short_today">bugün</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 einer gewählten Zeitzone; %1$s = Zeitzone (z. B. UTC) -->
+    <string name="change_short_today_zone">bugün %1$s</string>
+
+    <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
+    <string name="market_data_empty_error">Borsadan veri alınamadı.</string>
+    <string name="market_data_summary">Piyasa değeri, gas ücretleri, ekonomik veriler, coin analizi</string>
+    <string name="market_data_tab_futures">Vadeli</string>
+    <string name="market_data_title">Piyasa verileri</string>
+
+    <!-- Marktdaten Spot (Marktkapitalisierung, Angebot, Volumen) -->
+    <string name="spot_circulating">Dolaşımdaki arz</string>
+    <string name="spot_fdv">FDV</string>
+    <string name="spot_market_cap">Piyasa değeri</string>
+    <string name="spot_max_supply">Maks. arz</string>
+    <string name="spot_no_data">Bu coin için spot verisi yok</string>
+    <string name="spot_source_updated">Kaynak: %1$s · %2$s itibarıyla</string>
+    <string name="spot_supply_of_max">Maks. arzın %1$s kadarı dolaşımda</string>
+    <string name="spot_total_supply">Toplam arz</string>
+    <string name="spot_vol_mcap">Hacim/PD</string>
+    <string name="spot_volume_24h">Hacim (24s)</string>
+
+    <!-- Futures-Kennzahlen (Funding, Open Interest, Referenzbörse) -->
+    <string name="futures_alarm_reference">Yol gösterici %1$s</string>
+    <string name="futures_funding">Fonlama oranı</string>
+    <string name="futures_funding_interval_unknown">aralık bilinmiyor</string>
+    <string name="futures_funding_per8h_equiv">= 8 saatte %1$s (alarmlardaki gibi)</string>
+    <!-- Einheit neben der Funding-Pille, wenn die Börse stündlich abrechnet (Hyperliquid) -->
+    <string name="futures_funding_per_hour">saatlik</string>
+    <string name="futures_funding_per_hours">%1$d saatlik</string>
+    <string name="futures_next_funding">sonraki %1$d sa %2$d dk sonra</string>
+    <string name="futures_no_data">Bu coin için vadeli işlem verisi yok</string>
+    <string name="futures_open_interest">Açık pozisyon</string>
+    <!-- Futures-Kennzahlen von einer anderen Börse als der beobachteten (Richtwert) -->
+    <string name="futures_reference_hint">%1$s kaynaklı yol gösterici değer – fonlama ve açık pozisyon borsaya göre değişir; %2$s üzerinde farklı olabilir.</string>
+    <string name="futures_reference_spot">%1$s kaynaklı yol gösterici değer (coinin USDT süresiz sözleşmesi)</string>
+    <string name="futures_source">Kaynak: %1$s</string>
+
+    <!-- Erklärungen hinter dem ⓘ-Knopf -->
+    <string name="explain_funding">Birçok kişi borç parayla fiyatların yükselmesine ya da düşmesine bahis oynuyor. Long ve short pozisyonlar arasındaki ücret. Güçlü pozitif değer, birçok kişinin fiyatların yükselmesine oynadığı anlamına gelir.</string>
+    <string name="explain_open_interest">Vadeli işlemler fiyat üzerine bahislerdir, çoğu zaman borç parayla. Tüm açık vadeli işlem pozisyonlarının değeri. Yükselmesi, harekete daha fazla paranın yatırıldığı anlamına gelir.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">Açıklama</string>
+    <string name="explain_spot_fdv">Tamamen seyreltilmiş değer: fiyat × maks. arz (sınır yoksa toplam arz).</string>
+    <string name="explain_spot_market_cap">Fiyat × dolaşımdaki arz. Etiket 24 saatlik değişimi gösterir.</string>
+    <string name="explain_spot_source">Tüm borsalardaki rakamlar ABD doları cinsinden, CoinGecko\'dan.</string>
+    <string name="explain_spot_supply">Dolaşımda: şu an piyasadaki coinler. Toplam: yakılanlar hariç oluşturulan tüm coinler. Maks.: olabilecek en fazla miktar.</string>
+    <string name="explain_spot_volume">24 saatte işlem gören değer. Hacim/PD: hacmin piyasa değerine oranı — yüksekse işlemler çok hareketli.</string>
+
+    <!-- Umrechnung und Sats -->
+    <string name="converted_fx_stale">%1$s · kur %2$s</string>
+    <string name="sats_per_unit">%1$s %2$s = %3$s sat</string>
+</resources>

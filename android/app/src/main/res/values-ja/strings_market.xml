@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Markt-Tab: Abschnitte, Zeilen, Herkunft und Alter -->
+    <!-- «… · CoinGecko · vor 3 Min.»; «gerade eben» = time_just_now, «veraltet» = widget_outdated -->
+    <plurals name="market_age_minutes">
+        <item quantity="other">%d分前</item>
+    </plurals>
+    <!-- «heute 02:00» (Uhrzeit ohne Sekunden) -->
+    <string name="market_age_today">今日 %1$s</string>
+    <string name="market_context_summary">Fear &amp; Greed、ビットコイン指標、ドミナンス、半減期</string>
+    <string name="market_context_value">%1$s %2$s · %3$s</string>
+    <string name="market_more_data">その他の市場データ</string>
+    <string name="market_phase_trend_failed">価格データを取得できません</string>
+    <string name="market_plain_direction_down_clear">すべての暗号資産の合計価値は、24時間前よりはっきり低くなっています（%1$s）。</string>
+    <string name="market_plain_direction_down_slight">すべての暗号資産の合計価値は、24時間前よりやや低くなっています（%1$s）。</string>
+    <string name="market_plain_direction_flat">すべての暗号資産の合計価値は、24時間でほとんど変わっていません（%1$s）。</string>
+    <string name="market_plain_direction_up_clear">すべての暗号資産の合計価値は、24時間前よりはっきり高くなっています（%1$s）。</string>
+    <string name="market_plain_direction_up_slight">すべての暗号資産の合計価値は、24時間前よりやや高くなっています（%1$s）。</string>
+    <string name="market_plain_footnote">過去24時間の説明です。予測でも投資助言でもありません。</string>
+    <string name="market_plain_mood_extreme_fear">投資家はいま強い恐怖を感じています：ムード指数（Fear &amp; Greed）は100中%1$dです。</string>
+    <string name="market_plain_mood_extreme_greed">投資家はいま強い強欲状態です：ムード指数（Fear &amp; Greed）は100中%1$dです。</string>
+    <string name="market_plain_mood_fear">投資家はやや恐怖寄りです：ムード指数（Fear &amp; Greed）は100中%1$dです。</string>
+    <string name="market_plain_mood_greed">投資家はやや強欲寄りです：ムード指数（Fear &amp; Greed）は100中%1$dです。</string>
+    <string name="market_plain_mood_neutral">投資家のムードは中立です：ムード指数（Fear &amp; Greed）は100中%1$dです。</string>
+    <string name="market_plain_standout_above_btc">目立つのは%1$s：24時間で%2$s、Bitcoinを大きく上回っています（%3$s）。</string>
+    <string name="market_plain_standout_against_btc">目立つのは%1$s：24時間で%2$s、Bitcoinは逆方向に動きました（%3$s）。</string>
+    <string name="market_plain_standout_below_btc">目立つのは%1$s：24時間で%2$s、Bitcoinを大きく下回っています（%3$s）。</string>
+    <string name="market_plain_standout_futures_down">目立つのは%1$s：値下がりに賭けるfutures取引者がいつになく多くなっています。</string>
+    <string name="market_plain_standout_futures_up">目立つのは%1$s：値上がりに賭けるfutures取引者がいつになく多くなっています。</string>
+    <string name="market_plain_standout_quiet">いま特に目立つコインはありません。</string>
+    <string name="market_plain_standout_volume">目立つのは%1$s：取引量がいつもの約%2$s倍です。</string>
+    <string name="market_plain_title">ひとことで</string>
+    <!-- Nebenzeile der Fear-&-Greed-Zeile («Gier · gestern 65») -->
+    <string name="market_row_fng_yesterday">%1$s · 昨日 %2$s</string>
+    <string name="market_section_collapse">%1$sを隠す</string>
+    <string name="market_section_context">センチメントとサイクル</string>
+    <string name="market_section_data">市場データ</string>
+    <!-- Bedienungshilfen: Aktion auf der Abschnittsüberschrift; %1$s = Name des Abschnitts -->
+    <string name="market_section_expand">%1$sを表示</string>
+    <string name="market_section_now">現在</string>
+    <string name="market_source">データ: Binance · Coin Metrics (CC BY-NC 4.0)</string>
+    <string name="market_unavailable_error">取引所を利用できません</string>
+
+    <!-- Markt-Tab: Info-Zeichen und Info-Blatt je Karte (was, wie, Quelle) -->
+    <string name="market_info_a11y">情報: %1$s</string>
+    <string name="market_info_alt_season_source">日足価格: Binance · 約3時間ごとに再計算</string>
+    <string name="market_info_alt_season_what">約20の大型アルトコイン（例: Ethereum、Solana、XRP）のうち、過去90日間で Bitcoin を上回ったものがいくつあるかを数えます。値はその割合を0から100で表したものです。</string>
+    <string name="market_info_coin_source">価格: Binance または Bybit · 約15分ごとに再読み込み</string>
+    <string name="market_info_dominance_how">ドミナンスが上がれば Bitcoin が市場のほかより好調で、下がればほかのコインの比重が増しています。ステーブルコインも含まれます。その価値が増えると、Bitcoin の価格が変わらなくても Bitcoin の割合は下がります。</string>
+    <string name="market_info_dominance_source">出典: CoinGecko · 約30分ごとに再読み込み</string>
+    <string name="market_info_dominance_what">すべての暗号資産の合計価値（時価総額）に占める Bitcoin の割合です。その下に Ethereum の割合が表示されます。</string>
+    <string name="market_info_fear_greed_how">25未満は極度の恐怖、75超は極度の強欲、50前後は中立です。カードを開くと、昨日・1週間前・1か月前の値が表示されます。売買のシグナルではありません。</string>
+    <string name="market_info_fear_greed_source">出典: alternative.me · 1日1回新しい値</string>
+    <string name="market_info_fear_greed_what">暗号資産市場のセンチメント指数で、0から100で表します。alternative.me が価格の変動、取引高、ソーシャルメディア、Bitcoin のドミナンスなど複数のデータから算出しています。</string>
+    <string name="market_info_gas_how">値が高いほどネットワークが混雑していて、送金のコストが上がります。低速・標準・高速は、承認が遅めか速めかに応じた手数料です。カードを開くと、簡単な送金のおおよその費用が表示されます。</string>
+    <string name="market_info_gas_source">公開 RPC ノード、mempool.space · 1分ごとに再読み込み</string>
+    <string name="market_info_gas_what">各ネットワークで、いま1件の取引にかかる手数料です。Ethereum など同様のネットワークでは gwei（ガス1単位あたり ETH の10億分の1）、Bitcoin では sat/vB（取引の仮想バイトあたりの satoshi）で表します。</string>
+    <string name="market_info_halving_source">日付：ブロック高と平均ブロック時間から算出（mempool.space）、取得できない場合は暦から · 価格履歴：Coin Metrics、Binance、12時間ごとに再読み込み</string>
+    <string name="market_info_halving_what">半減期には、マイナーが新しい Bitcoin ブロックで受け取る報酬が半分になります。これは210,000ブロックごと、つまりおよそ4年ごとに起こります。その後は、1日に生まれる新しい bitcoin が半分になります。</string>
+    <string name="market_info_how">読み方</string>
+    <string name="market_info_macro_how">この案内は、そうした発表日が今日か明日の場合にだけ表示されます。発表の前後は、価格がふだんより大きく動くことがよくあります。アプリが示すのは日程だけで、数値そのものではありません。</string>
+    <string name="market_info_macro_source">アプリのウェブサイトのカレンダー · 1日1回読み込み</string>
+    <string name="market_info_macro_what">重要な米国経済指標の発表日です。インフレ（CPI、PCE）、生産者物価（PPI）、雇用統計、米連邦準備制度理事会（FRB）の金利決定などで、こうした数字は暗号資産の価格も動かすことがよくあります。</string>
+    <string name="market_info_no_advice">投資助言ではありません。</string>
+    <string name="market_info_phase_source">Binance、Coin Metrics · 価格は1時間ごと、オンチェーン値は12時間ごとに再読み込み</string>
+    <string name="market_info_pulse_how">見出しは方向を示し、カードを開くと詳細が表示されます。幅広い動きとは、大きなコインの多くが同じ方向に動いていることです。資金調達率が高いとは、多くの人がレバレッジをかけて値上がりに賭けていることです。現時点のスナップショットで、予測ではありません。</string>
+    <string name="market_info_pulse_source">Binance、CoinGecko · 約5分ごとに再読み込み</string>
+    <string name="market_info_pulse_what">過去24時間の市場の短いまとめです。Bitcoin、Ethereum、Solana の動き、最大級のコインのうちいくつが上昇・下落しているか、いまどれだけの Bitcoin が取引されているか、Bitcoin 先物の資金調達率がどの水準にあるかを示します。</string>
+    <string name="market_info_totals_how">横に24時間での合計価値の変化が表示されます。取引高が多いのは売買が活発だという意味で、方向は示しません。可能なら換算通貨で、そうでなければ米ドルで表示します。</string>
+    <string name="market_info_totals_source">全コイン · CoinGecko · 約30分ごとに再読み込み</string>
+    <string name="market_info_totals_what">すべての暗号資産の合計価値（時価総額: 価格×流通量をすべてのコインで合計したもの）と、過去24時間の取引高です。</string>
+    <string name="market_info_unusual_how">各コインには最も目立つ点が表示され、横に24時間の変化が出ます。出来高2×は、通常の2倍の取引高という意味です。目立つことは、良いとも悪いとも限りません。</string>
+    <string name="market_info_unusual_source">Binance、CoinGecko · 約10分ごとに再読み込み</string>
+    <string name="market_info_unusual_what">時価総額上位約30銘柄（ステーブルコインを除く）のうち、今日いつもと違う動きをしている最大5銘柄です。Bitcoin より明らかに強い・弱い、市場の方向と逆、取引高が異常に多い、資金調達率が目立つ、といった場合です。</string>
+    <string name="market_info_what">これは何？</string>
+
+    <!-- Markt-Tab: Krypto-Markt gesamt -->
+    <string name="market_cap_label">時価総額</string>
+    <string name="market_cap_source">全コイン · CoinGecko</string>
+    <string name="market_cap_title">暗号資産市場</string>
+    <string name="market_volume_label">出来高 24時間</string>
+
+    <!-- Crypto Pulse «Was gerade auffällt»: Titel, Abschnitte, Hinweise -->
+    <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
+    <string name="pulse_details_action">詳細</string>
+    <string name="pulse_disclaimer">予測ではありません · 投資助言ではありません</string>
+    <string name="pulse_less">表示を減らす</string>
+    <string name="pulse_now_title">いま目立つこと</string>
+    <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
+    <string name="pulse_period_24h_spoken">24時間の変動</string>
+    <string name="pulse_section_factors">要因</string>
+    <string name="pulse_section_market">今日の市場</string>
+    <string name="pulse_unavailable">市場データは現在利用できません</string>
+    <string name="pulse_updated">%1$s 時点</string>
+
+    <!-- Crypto Pulse: Schlagzeile und Leitsatz -->
+    <string name="pulse_headline_calm">落ち着いた相場</string>
+    <string name="pulse_headline_down">全面安</string>
+    <string name="pulse_headline_mixed">まちまち</string>
+    <string name="pulse_headline_up">全面高</string>
+    <string name="pulse_lead_alts_stronger">アルトコインがビットコインより強い動きです。</string>
+    <string name="pulse_lead_broad_down">市場は幅広く下落しています。</string>
+    <string name="pulse_lead_broad_up">市場は幅広く上昇しています。</string>
+    <string name="pulse_lead_btc_leads">ビットコインの上昇が最も大きくなっています。</string>
+    <string name="pulse_lead_btc_stronger">ビットコインがアルトコインより強い動きです。</string>
+    <string name="pulse_lead_calm">市場はほとんど動いていません。</string>
+    <string name="pulse_lead_drift_down">市場はやや下落しています。</string>
+    <string name="pulse_lead_drift_up">市場はやや上昇しています。</string>
+    <string name="pulse_lead_mixed">主要コインの動きがばらついています。</string>
+
+    <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
+    <string name="pulse_detail_fund_high">資金調達率は高め。</string>
+    <string name="pulse_detail_fund_negative">資金調達率はマイナス。</string>
+    <string name="pulse_detail_fund_neutral">資金調達率は中立。</string>
+    <string name="pulse_detail_vol_above">出来高は通常より %1$d%% 多い。</string>
+    <string name="pulse_detail_vol_above_fund_high">出来高は通常より %1$d%% 多い、資金調達率は高め。</string>
+    <string name="pulse_detail_vol_above_fund_negative">出来高は通常より %1$d%% 多い、資金調達率はマイナス。</string>
+    <string name="pulse_detail_vol_above_fund_neutral">出来高は通常より %1$d%% 多い、資金調達率は中立。</string>
+    <string name="pulse_detail_vol_below">出来高は通常より %1$d%% 少ない。</string>
+    <string name="pulse_detail_vol_below_fund_high">出来高は通常より %1$d%% 少ない、資金調達率は高め。</string>
+    <string name="pulse_detail_vol_below_fund_negative">出来高は通常より %1$d%% 少ない、資金調達率はマイナス。</string>
+    <string name="pulse_detail_vol_below_fund_neutral">出来高は通常より %1$d%% 少ない、資金調達率は中立。</string>
+    <string name="pulse_detail_vol_normal">出来高は通常どおり。</string>
+    <string name="pulse_detail_vol_normal_fund_high">出来高は通常どおり、資金調達率は高め。</string>
+    <string name="pulse_detail_vol_normal_fund_negative">出来高は通常どおり、資金調達率はマイナス。</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">出来高は通常どおり、資金調達率は中立。</string>
+
+    <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
+    <string name="pulse_breadth_hint">トップ%1$d：時価総額の大きいコイン（ステーブルコインを除く）、24時間の変動（CoinGecko）。</string>
+    <!-- «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">トップ%1$d</string>
+    <string name="pulse_breadth_note_broad_down">全面安：大型コインの多くが下落しています。</string>
+    <string name="pulse_breadth_note_broad_up">全面高：大型コインの多くが上昇しています。</string>
+    <string name="pulse_breadth_note_narrow_down">ビットコインは下落していますが、ほかの大型コインの多くは持ちこたえています。</string>
+    <string name="pulse_breadth_note_narrow_up">ビットコインは上昇していますが、ほかの大型コインの多くは追随していません。</string>
+    <string name="pulse_breadth_spoken">トップ%1$d：上昇 %2$d、下落 %3$d</string>
+
+    <!-- Crypto Pulse: Altcoins, Funding, Gas, Volumen -->
+    <string name="pulse_alts_even">アルトコインと Bitcoin が同じように動いている</string>
+    <string name="pulse_alts_stronger">アルトコインが Bitcoin より強い</string>
+    <string name="pulse_alts_weaker">Bitcoin がアルトコインより強い</string>
+    <string name="pulse_chip_funding_high">資金調達率 高め</string>
+    <string name="pulse_chip_funding_negative">資金調達率 マイナス</string>
+    <string name="pulse_funding_high">資金調達率がはっきりプラス：レバレッジのロングが多い</string>
+    <string name="pulse_funding_negative">資金調達率がマイナス：ショートが多い</string>
+    <string name="pulse_funding_neutral">資金調達率は中立</string>
+    <string name="pulse_funding_slight">資金調達率がややプラス</string>
+    <string name="pulse_gas_high">Ethereum ガスが高い（%1$s gwei）</string>
+    <string name="pulse_gas_low">Ethereum ガスが低い（%1$s gwei）</string>
+    <string name="pulse_gas_normal">Ethereum ガスは通常どおり（%1$s gwei）</string>
+    <string name="pulse_volume_high">取引量が異常に多い（通常の %1$s×）</string>
+    <string name="pulse_volume_low">取引量が少ない（通常の %1$s×）</string>
+    <string name="pulse_volume_normal">取引量は通常どおり</string>
+
+    <!-- «Heute auffällig» (grösste Coins mit ungewöhnlicher Bewegung) -->
+    <string name="unusual_a11y_row">%1$s、%2$s。%3$s。</string>
+    <!-- Screenreader-Aktion einer Zeile (öffnet das Aktionsblatt bzw. die Vorschau) -->
+    <string name="unusual_action_open">価格と操作を表示</string>
+    <string name="unusual_fact_against">市場と逆に動いている</string>
+    <string name="unusual_fact_funding_high">資金調達率 高め（%1$s）</string>
+    <string name="unusual_fact_funding_negative">資金調達率 マイナス（%1$s）</string>
+    <string name="unusual_fact_stronger">BTC よりかなり大きく動いている</string>
+    <string name="unusual_fact_volume">出来高 平常の%1$s×</string>
+    <string name="unusual_fact_weaker">BTC よりかなり小さく動いている</string>
+    <string name="unusual_nothing">今日は目立った動きなし</string>
+    <string name="unusual_source">ステーブルコインを除く時価総額上位 約30銘柄 · Binance、CoinGecko</string>
+    <string name="unusual_title">今日の注目</string>
+
+    <!-- Ungewöhnliche Aktivität eines Paars (Karte, Signale, Empfindlichkeit) -->
+    <string name="activity_card_title">今まさに動きがあります</string>
+    <string name="activity_indicator">異常な動き</string>
+    <string name="activity_sensitivity_less">少なめ</string>
+    <string name="activity_sensitivity_more">多め</string>
+    <string name="activity_sensitivity_normal">標準</string>
+    <string name="activity_signal_funding_long">資金調達率 %1$s — レバレッジのロングが多い</string>
+    <string name="activity_signal_funding_short">資金調達率 %1$s — ショートが多い</string>
+    <string name="activity_signal_open_interest">建玉 %1$s（%2$d 分以内）</string>
+    <string name="activity_signal_open_interest_no_time">建玉 %1$s</string>
+    <string name="activity_signal_price_move">異常な値動き：1時間で %1$s（通常の %2$s×）</string>
+    <string name="activity_signal_volume">直近1時間の出来高が通常の %1$s×</string>
+
+    <!-- Einordnung: Bitcoin-Dominanz, Fear & Greed, Halving, Altseason -->
+    <plurals name="insights_altseason_value">
+        <item quantity="other">大型アルト %2$d 銘柄中 %1$d 銘柄が90日でビットコインを上回る</item>
+    </plurals>
+    <string name="insights_chart_axis">半減期からの年数</string>
+    <string name="insights_chart_hint">半減期当日の価格に対する倍率（対数スケール）。過去のサイクルは傾向であり、予測ではありません。</string>
+    <string name="insights_cycle_chart">半減期からのサイクル</string>
+    <string name="insights_dominance_eth">市場全体の ETH %1$s</string>
+    <string name="insights_dominance_title">ビットコイン・ドミナンス</string>
+    <string name="insights_fng_history">昨日 %1$s · 1週間前 %2$s · 1か月前 %3$s</string>
+    <string name="insights_fng_title">恐怖・強欲指数</string>
+    <string name="insights_halving_title">ビットコイン半減期</string>
+    <string name="insights_source_dominance">出典: CoinGecko、Binance</string>
+    <string name="insights_source_fng">出典: alternative.me</string>
+    <string name="insights_source_history">出典: Coin Metrics (CC BY-NC 4.0)、Binance</string>
+
+    <!-- Fear & Greed: Stufen -->
+    <string name="fng_extreme_fear">極度の恐怖</string>
+    <string name="fng_extreme_greed">極度の強欲</string>
+    <string name="fng_fear">恐怖</string>
+    <string name="fng_greed">強欲</string>
+    <string name="fng_neutral">中立</string>
+
+    <!-- Halving-Zyklus (Chart, Marken, Schätzung) -->
+    <string name="cycle_data_as_of">%1$s 時点のデータ · 更新中…</string>
+    <string name="cycle_from_top">天井から%1$s</string>
+    <string name="cycle_marker_bottom">底 %1$s</string>
+    <string name="cycle_marker_double_bottom">ダブルボトム %1$s</string>
+    <string name="cycle_marker_double_top">ダブルトップ %1$s</string>
+    <string name="cycle_marker_high_so_far">これまでの高値</string>
+    <!-- Hoch/Tief-Marken mit Sprechblase im Zyklus-Chart -->
+    <string name="cycle_marker_top">天井 %1$s</string>
+    <string name="cycle_since_halving">半減期から%1$s</string>
+    <string name="halving_estimate_text">次の半減期は計算上 %1$s 頃：現在の難易度期間の平均 %3$s 分/ブロックで残り %2$s ブロック。延長計算であり約束ではありません（ブロック時間は変動します）。</string>
+
+    <!-- Netzwerkgebühren (Gas) -->
+    <string name="gas_alert_active">アラーム: %1$s</string>
+    <string name="gas_slow_fast">低速 %1$s · 高速 %2$s</string>
+    <string name="gas_source">公開 RPC ノードと mempool.space · 単純な送金のコスト（L2 では L1 分を除く）</string>
+    <string name="gas_title">ネットワーク手数料</string>
+    <string name="gas_transfer_cost">送金 ≈ %1$s</string>
+
+    <!-- Wirtschaftsdaten (US-Termine) -->
+    <string name="macro_cpi">米消費者物価指数（CPI）</string>
+    <string name="macro_fomc">米FOMC政策金利発表</string>
+    <string name="macro_hint_list">%1$s – こうした日は相場が大きく動きやすくなります。</string>
+    <string name="macro_hint_today">今日 %1$s：%2$s – こうした日は相場が大きく動きやすくなります。</string>
+    <string name="macro_hint_today_list">今日：%1$s – こうした日は相場が大きく動きやすくなります。</string>
+    <string name="macro_hint_tomorrow">明日 %1$s：%2$s – こうした日は相場が大きく動きやすくなります。</string>
+    <string name="macro_hint_tomorrow_list">明日：%1$s – こうした日は相場が大きく動きやすくなります。</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">今日 %1$s %2$s</string>
+    <string name="macro_item_tomorrow">明日 %1$s %2$s</string>
+    <string name="macro_nfp">米雇用統計</string>
+    <string name="macro_pce">米PCE物価指数</string>
+    <string name="macro_ppi">米生産者物価指数（PPI）</string>
+    <string name="macro_released_list">今日発表：%1$s。</string>
+    <string name="macro_released_one">今日 %1$s に発表：%2$s。</string>
+    <string name="macro_title">経済指標</string>
+
+    <!-- Coin-Analyse -->
+    <string name="coin_choose">コイン</string>
+    <string name="coin_no_data">このコインの価格データが Binance・Bybit にありません。</string>
+    <string name="coin_price_only">価格のみに基づきます – オンチェーンデータ（MVRV、Puell、ハッシュレート）を無料で利用できるのはビットコインのみです。</string>
+    <plurals name="coin_short_history">
+        <item quantity="other">価格履歴は %1$d 日分のみ – 一部の指標がありません。</item>
+    </plurals>
+    <string name="coin_title">コイン分析</string>
+</resources>

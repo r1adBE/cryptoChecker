@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Alarmliste und Übersicht aller Alarme -->
+    <string name="add_alarm_action">Alarm kur</string>
+    <string name="alarms_add">Yeni alarm</string>
+    <string name="alarms_edit">Alarmı düzenle</string>
+    <string name="alarms_empty">Bu çift için henüz alarm yok.</string>
+    <string name="alarms_empty_example">Örneğin: BTC %1$s üzerine çıkınca bana haber ver.</string>
+    <!-- Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
+    <string name="alarms_notifications_off">Bildirimler kapalı – alarmlar sana ulaşamaz.</string>
+    <string name="alarms_notifications_turn_on">Aç</string>
+    <plurals name="alarms_overview_active">
+        <item quantity="one">%1$d etkin</item>
+        <item quantity="other">%1$d etkin</item>
+    </plurals>
+    <string name="alarms_overview_empty">Henüz alarm yok. Bir çift açın ve Alarmlar bölümünden ekleyin.</string>
+    <string name="alarms_overview_title">Tüm alarmlar</string>
+    <string name="alarms_title">Alarmlar</string>
+
+    <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
+    <string name="alarm_advanced">Gelişmiş</string>
+    <string name="alarm_change_updates">Fiyat güncellemeyi değiştir</string>
+    <string name="alarm_create">Alarm oluştur</string>
+    <string name="alarm_currency_label">Para birimi</string>
+    <string name="alarm_delete_confirm">Bu alarm kaldırılacak.</string>
+    <string name="alarm_delete_title">Alarm silinsin mi?</string>
+    <string name="alarm_field_percent">Yüzde</string>
+    <string name="alarm_field_price">Fiyat</string>
+    <string name="alarm_fires_now_above">Fiyat zaten %1$s üzerinde. Yine de kaydedilsin mi?</string>
+    <string name="alarm_fires_now_below">Fiyat zaten %1$s altında. Yine de kaydedilsin mi?</string>
+    <string name="alarm_fires_now_change">Değiştir</string>
+    <string name="alarm_fires_now_save">Yine de kaydet</string>
+    <string name="alarm_fires_now_title">Alarm hemen tetiklenir</string>
+    <string name="alarm_first_battery_hint">Pil optimizasyonu uygulamayı kısıtlıyor – alarmlar geç gelebilir.</string>
+    <string name="alarm_first_title">Her şey hazır</string>
+    <string name="alarm_last_triggered">son: %1$s</string>
+    <string name="alarm_new_extreme">Yeni %1$s</string>
+    <string name="alarm_once">Bir kez</string>
+    <string name="alarm_option_repeating">Tetiklendikten sonra alarmı koru</string>
+    <string name="alarm_option_sound">Ses</string>
+    <string name="alarm_option_speak">Alarmı sesli oku</string>
+    <string name="alarm_option_vibrate">Titreşim</string>
+    <string name="alarm_repeat_each">Her seferinde</string>
+    <string name="alarm_repeat_once">Bir kez</string>
+    <string name="alarm_repeating">Her seferinde</string>
+    <string name="alarm_threshold_error_empty">Alarmı kaydetmek için bir değer gir.</string>
+    <string name="alarm_threshold_error_funding">Fonlama oranı −10 ile +10 arasında bir yüzde değeri olmalı.</string>
+    <string name="alarm_threshold_error_invalid">0’dan büyük geçerli bir sayı gir.</string>
+    <string name="alarm_threshold_error_oi">Açık pozisyon değişimi: en fazla yüzde 1000.</string>
+    <plurals name="alarm_window_hours">
+        <item quantity="one">%1$d saat içinde</item>
+        <item quantity="other">%1$d saat içinde</item>
+    </plurals>
+    <string name="alarm_window_label">Zaman aralığı</string>
+
+    <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
+    <string name="alarm_simple_above">şunun üstüne çıkınca:</string>
+    <string name="alarm_simple_below">şunun altına inince:</string>
+    <string name="alarm_simple_direction_a11y">Yön: %1$s</string>
+    <string name="alarm_simple_end"></string>
+    <string name="alarm_simple_when">%1$s fiyatı</string>
+    <string name="alarm_template_a11y">Alarm oluştur: %1$s</string>
+    <string name="alarm_template_a11y_down">Eksi yüzde %1$s için alarm oluştur</string>
+    <string name="alarm_template_a11y_up">Artı yüzde %1$s için alarm oluştur</string>
+    <string name="alarm_template_created">Alarm oluşturuldu</string>
+    <string name="alarm_template_volume">Hacim ×%1$s</string>
+    <string name="alarm_templates_title">Hızlı alarmlar</string>
+
+    <!-- Alarm-Bedingungen -->
+    <string name="alarm_condition_above">Fiyat üstünde</string>
+    <string name="alarm_condition_below">Fiyat altında</string>
+    <string name="alarm_condition_down_percent">Düşüş</string>
+    <string name="alarm_condition_funding_above">Fonlama üstünde</string>
+    <string name="alarm_condition_funding_below">Fonlama altında</string>
+    <string name="alarm_condition_move_percent">Şu kadar hareket ederse</string>
+    <string name="alarm_condition_near_high">Zirveye yakın</string>
+    <string name="alarm_condition_near_low">Dibe yakın</string>
+    <string name="alarm_condition_oi_down">Açık pozisyon azalıyor</string>
+    <string name="alarm_condition_oi_up">Açık pozisyon artıyor</string>
+    <string name="alarm_condition_up_percent">Yükseliş</string>
+    <string name="alarm_condition_volume_spike">Hacim sıçraması</string>
+
+    <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
+    <string name="alarm_sentence_above">%1$s fiyatı %2$s üzerine çıktığında bana haber ver.</string>
+    <string name="alarm_sentence_below">%1$s fiyatı %2$s altına düştüğünde bana haber ver.</string>
+    <string name="alarm_sentence_down_percent">%1$s fiyatı %2$s düştüğünde bana haber ver.</string>
+    <string name="alarm_sentence_funding_above">%1$s fonlaması %2$s üstüne çıktığında bana haber ver.</string>
+    <string name="alarm_sentence_funding_below">%1$s fonlaması %2$s altına düştüğünde bana haber ver.</string>
+    <string name="alarm_sentence_incomplete">Alarmı cümle olarak görmek için bir değer girin.</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="one">%1$s fiyatı %3$d saat içinde %2$s hareket ettiğinde bana haber ver.</item>
+        <item quantity="other">%1$s fiyatı %3$d saat içinde %2$s hareket ettiğinde bana haber ver.</item>
+    </plurals>
+    <string name="alarm_sentence_near_high">%1$s fiyatı %3$s seviyesinin en fazla %2$s altında olduğunda bana haber ver.</string>
+    <string name="alarm_sentence_near_low">%1$s fiyatı %3$s seviyesinin en fazla %2$s üzerinde olduğunda bana haber ver.</string>
+    <string name="alarm_sentence_new_extreme">%1$s yeni bir %2$s yaptığında bana haber ver.</string>
+    <plurals name="alarm_sentence_oi_down">
+        <item quantity="one">%1$s açık pozisyonu %3$d saat içinde %2$s azaldığında bana haber ver.</item>
+        <item quantity="other">%1$s açık pozisyonu %3$d saat içinde %2$s azaldığında bana haber ver.</item>
+    </plurals>
+    <plurals name="alarm_sentence_oi_up">
+        <item quantity="one">%1$s açık pozisyonu %3$d saat içinde %2$s arttığında bana haber ver.</item>
+        <item quantity="other">%1$s açık pozisyonu %3$d saat içinde %2$s arttığında bana haber ver.</item>
+    </plurals>
+    <string name="alarm_sentence_up_percent">%1$s fiyatı %2$s yükseldiğinde bana haber ver.</string>
+    <string name="alarm_sentence_volume">%1$s işlem hacmi normalin %2$s katına çıktığında bana haber ver.</string>
+
+    <!-- Alarm «Nahe am Hoch / Tief» -->
+    <string name="alarm_near_extreme_high_30">30 günlük zirve</string>
+    <string name="alarm_near_extreme_high_365">1 yıllık zirve</string>
+    <string name="alarm_near_extreme_high_90">90 günlük zirve</string>
+    <string name="alarm_near_extreme_low_30">30 günlük dip</string>
+    <string name="alarm_near_extreme_low_365">1 yıllık dip</string>
+    <string name="alarm_near_extreme_low_90">90 günlük dip</string>
+    <string name="alarm_near_field_distance">Uzaklık</string>
+    <string name="alarm_near_hint">Yeni bir zirve veya dip oluştuğunda da bildirir. Günlük mumlara dayanır, 6 saatte bir yenilenir.</string>
+    <string name="alarm_near_new_only">Yalnızca yeni zirve veya dip</string>
+    <string name="alarm_near_notification_high">%1$s, %3$s seviyesinin %2$s altında (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_low">%1$s, %3$s seviyesinin %2$s üzerinde (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_new">%2$s için yeni %1$s: %3$s (önceki %4$s)</string>
+    <plurals name="alarm_near_window_days">
+        <item quantity="one">%1$d gün</item>
+        <item quantity="other">%1$d gün</item>
+    </plurals>
+    <string name="alarm_near_window_label">Dönem</string>
+    <string name="alarm_near_window_year">1 yıl</string>
+
+    <!-- Futures- und Volumen-Alarme (Funding pro 8 Stunden, Open Interest, Volumen-Spike) -->
+    <!-- Funding-Schwelle gilt pro 8 Stunden; stündliches Funding wird umgerechnet -->
+    <string name="alarm_funding_hint_8h">8 saatlik funding. Farklı aralıklı sözleşmeler dönüştürülür (1 sa × 8, 4 sa × 2); vadeli kartı dönüştürülmüş değeri gösterir. Aralık bilinmiyorsa alarm kontrol etmez. Negatif: short’lar long’lara öder. ± işareti değiştirir.</string>
+    <string name="alarm_funding_sign_a11y">İşareti değiştir</string>
+    <string name="alarm_oi_hint">Açık pozisyonu o kadar saat önce kaydedilen değerle karşılaştırır. Yeni alarm ancak uygulama o süre boyunca veri topladıktan sonra bildirir; en fazla 5 dakikada bir kontrol edilir.</string>
+    <string name="alarm_volume_factor_label">Son saatin hacmi normale göre</string>
+    <string name="alarm_volume_hint">Hacim verileri Binance\'ten gelir — orada listelenmeyen çiftlerde bu alarm tetiklenmez.</string>
+
+    <!-- Bestätigung nach dem Speichern -->
+    <string name="alarm_saved_active">Alarm etkin</string>
+    <!-- «Alarm gespeichert: BTC Kurs über 70’000 USDT · einmalig» -->
+    <string name="alarm_saved_banner">Alarm kaydedildi: %1$s</string>
+    <!-- Zusatz in der Bestätigung, wenn Mitteilungen aus sind (dazu Aktion «Einstellungen») -->
+    <string name="alarm_saved_notifications_off">Bildirimler kapalı</string>
+
+    <!-- Wann Alarme geprüft werden -->
+    <string name="alarm_timing_hint_android">Uygulama kapalıyken Android düzensiz kontrol eder («%1$s» ile yaklaşık 15 dakikada bir), bu yüzden kısa sıçramalar kaçabilir.</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">Uygulama kapalıyken kontrol zamanına iOS karar verir, bu yüzden kısa sıçramalar kaçabilir; açıkken güvenilir şekilde kontrol edilir.</string>
+    <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
+    <string name="alarm_timing_title">Alarmlar ne zaman kontrol edilir</string>
+    <string name="alarm_timing_where">Fiyatların ne sıklıkla güncelleneceğini %1$s bölümünden ayarlayabilirsin.</string>
+
+    <!-- Alarm-Signal und Test-Alarm -->
+    <string name="alarm_signal_silent">Sessiz (yalnızca bildirim)</string>
+    <string name="alarm_signal_sound">Yalnızca ses</string>
+    <string name="alarm_signal_sound_vibrate">Ses ve titreşim</string>
+    <string name="alarm_signal_system">Sistem</string>
+    <string name="alarm_signal_vibrate">Yalnızca titreşim</string>
+    <string name="alarm_test">Alarmı test et</string>
+    <string name="alarm_test_action">Test et</string>
+    <string name="alarm_test_denied">Crypto Checker için bildirimler kapalı.</string>
+    <string name="alarm_test_hint">Ses, titreşim ve sesli okuma ayarlarınızla örnek bir alarm gönderir.</string>
+    <string name="alarm_test_open_settings">Ayarları aç</string>
+    <string name="alarm_test_quiet">Şu anda sessiz saatler etkin: gerçek alarmlar bitmesini bekler, sonra sesli çalardı.</string>
+    <string name="alarm_test_text">Bir alarm böyle görünür ve böyle ses çıkarır.</string>
+    <string name="alarm_test_title">Test: Crypto Checker alarmı</string>
+
+    <!-- Ehrliche Alarme: Vorlesetexte Ton/Ansage, ungeprüfte Alarme -->
+    <string name="alarm_a11y_sound_on">Ses açık</string>
+    <string name="alarm_a11y_speak_on">Sesli okuma açık</string>
+    <string name="alarm_unchecked_no_candles">Kontrol edilemedi (mum verisi yok)</string>
+    <string name="alarm_unchecked_no_rate">Kontrol edilemedi (döviz kuru yok)</string>
+</resources>

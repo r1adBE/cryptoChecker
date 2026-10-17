@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Neutrale Indikatoren: Titel, Hinweise, Halving -->
+    <string name="neutral_alt_title">อัลต์คอยน์เทียบบิตคอยน์</string>
+    <string name="neutral_btc_indicators_title">ตัวชี้วัดบิตคอยน์</string>
+    <string name="neutral_halving_last">ฮาล์วิงครั้งล่าสุด: %1$s</string>
+    <string name="neutral_halving_next">คาดว่าฮาล์ฟวิ่งครั้งถัดไปราว %1$s (ประเมินตามปฏิทิน – ความสูงบล็อกยังไม่พร้อมใช้งาน)</string>
+    <string name="neutral_indicators_disclaimer">เป็นเพียงค่าที่วัดได้ ไม่มีการประเมิน ไม่ใช่การพยากรณ์และไม่ใช่คำแนะนำการลงทุน</string>
+    <string name="neutral_onchain_missing">ข้อมูลออนเชน (Coin Metrics) ไม่พร้อมใช้งานในขณะนี้</string>
+
+    <!-- Neutrale Indikatoren: was der Wert misst -->
+    <string name="neutral_explain_ath_distance">ราคาต่ำกว่าจุดสูงสุดตลอดกาลก่อนหน้าเท่าใด</string>
+    <string name="neutral_explain_change_30d">ราคาวันนี้เทียบกับเมื่อ 30 วันก่อน</string>
+    <string name="neutral_explain_hashrate">อัตราแฮชเฉลี่ย 30 วันเทียบกับค่าเฉลี่ย 60 วัน</string>
+    <string name="neutral_explain_ma200w">ค่าเฉลี่ยราคาปิดรายสัปดาห์ 200 สัปดาห์ล่าสุด</string>
+    <string name="neutral_explain_mayer">ราคาหารด้วยค่าเฉลี่ย 200 วัน</string>
+    <string name="neutral_explain_mvrv">มูลค่าตลาดหารด้วยมูลค่าที่รับรู้แล้ว (ออนเชน)</string>
+    <string name="neutral_explain_pi_gap">ค่าเฉลี่ย 111 วันเทียบกับสองเท่าของค่าเฉลี่ย 350 วัน</string>
+    <string name="neutral_explain_puell">รายได้รายวันของนักขุดหารด้วยค่าเฉลี่ย 365 วัน</string>
+    <string name="neutral_explain_rsi_daily">ดัชนีกำลังสัมพัทธ์ของ 14 วันล่าสุด 0–100</string>
+    <string name="neutral_explain_rsi_weekly">ดัชนีกำลังสัมพัทธ์ของ 14 สัปดาห์ล่าสุด 0–100</string>
+    <string name="neutral_explain_sma50_200">ค่าเฉลี่ย 50 วันเทียบกับค่าเฉลี่ย 200 วัน</string>
+    <string name="neutral_explain_vs_btc">การเปลี่ยนแปลงราคาเทียบกับบิตคอยน์ใน 90 วัน</string>
+
+    <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
+    <string name="neutral_info_alt_season_how">แอปแสดงเฉพาะจำนวนและไม่เรียกว่า \"ฤดู\" ค่านี้มักเปลี่ยนในระดับวัน ไม่ใช่ชั่วโมง</string>
+    <string name="neutral_info_btc_how">แต่ละค่ามีหนึ่งประโยคบอกว่าวัดอะไร และอยู่ตรงไหนในประวัติของตัวเองตั้งแต่ปี 2016 แอปไม่ประเมินค่าและไม่สรุปช่วงตลาด เกณฑ์การแจ้งเตือนมีเฉพาะที่คุณตั้งเอง รูปแบบในอดีตไม่จำเป็นต้องเกิดซ้ำ</string>
+    <string name="neutral_info_btc_what">ตัวชี้วัด Bitcoin ที่ใช้กันทั่วไปเป็นค่าที่วัดได้เท่านั้น: Mayer Multiple ค่าเฉลี่ย 200 สัปดาห์ การลดลงจากจุดสูงสุด การเปลี่ยนแปลง 30 วัน ระยะห่าง Pi Cycle และค่าออนเชน MVRV, Puell Multiple และแฮชเรต</string>
+    <string name="neutral_info_coin_how">แต่ละค่ามีหนึ่งประโยคอธิบายว่าวัดอะไร โดยไม่ประเมิน เหรียญที่มีประวัติราคาสั้นจะขาดบางค่า ส่วนนี้ไม่รวมข้อมูลออนเชน</string>
+    <string name="neutral_info_coin_what">ตัวชี้วัดแบบเดียวกันสำหรับเหรียญที่คุณเลือก จากข้อมูลราคาเท่านั้น: Mayer Multiple ค่าเฉลี่ย 200 สัปดาห์ การลดลงจากจุดสูงสุด การเปลี่ยนแปลง 30 วัน แนวโน้ม 50/200 วัน RSI และความแข็งแกร่งเทียบบิตคอยน์ใน 90 วัน</string>
+    <string name="neutral_info_halving_how">ฮาล์ฟวิ่งครั้งถัดไปคำนวณจากความสูงบล็อกปัจจุบันและเวลาบล็อกเฉลี่ยของช่วงความยากปัจจุบัน (mempool.space) หากไม่มีข้อมูลนี้จะใช้ปฏิทิน (ฮาล์ฟวิ่งล่าสุดบวกราวสี่ปี) กราฟแสดงราคาของรอบก่อน ๆ นับจากฮาล์ฟวิ่ง – เป็นประวัติ ไม่ใช่การพยากรณ์</string>
+
+    <!-- Indikator-Namen -->
+    <string name="ind_cross">แนวโน้ม 50/200 วัน</string>
+    <string name="ind_drawdown">การลดลงจากจุดสูงสุดตลอดกาล</string>
+    <string name="ind_missing">ข้อมูลไม่พอ</string>
+    <string name="ind_rsi_daily">RSI (วัน)</string>
+    <string name="ind_rsi_weekly">RSI (สัปดาห์)</string>
+    <string name="ind_vs_btc">ความแข็งแกร่งเทียบบิตคอยน์ (90 วัน)</string>
+    <string name="neutral_ind_change_30d">การเปลี่ยนแปลง 30 วัน</string>
+    <string name="neutral_ind_hashrate">อัตราแฮช 30/60 วัน</string>
+    <string name="neutral_ind_ma200w">ค่าเฉลี่ย 200 สัปดาห์</string>
+    <string name="neutral_ind_pi_gap">ระยะห่าง Pi Cycle</string>
+
+    <!-- Indikatoren: «hoch heisst …, tief heisst …» -->
+    <string name="ind_read_alt_season">สูงหมายถึง altcoin ใหญ่ส่วนใหญ่ทำได้ดีกว่า Bitcoin ใน 90 วัน ต่ำหมายถึง Bitcoin ทำได้ดีกว่าส่วนใหญ่</string>
+    <string name="ind_read_ath_distance">น้อยหมายถึงราคาใกล้สถิติสูงสุด มากหมายถึงต่ำกว่าอยู่มาก</string>
+    <string name="ind_read_change_30d">บวกหมายถึงสูงกว่าเมื่อ 30 วันก่อน ลบหมายถึงต่ำกว่า</string>
+    <string name="ind_read_funding">สูงหมายถึงหลายคนใช้เลเวอเรจเดิมพันขาขึ้น ติดลบหมายถึงหลายคนเดิมพันขาลง</string>
+    <string name="ind_read_hashrate_30_60">บวกหมายถึงพลังประมวลผลเพิ่มขึ้น ลบหมายถึงนักขุดกำลังปิดเครื่อง</string>
+    <string name="ind_read_leverage">Long มากหมายถึงหลายคนใช้เงินกู้เดิมพันขาขึ้น Short มากหมายถึงเดิมพันขาลง</string>
+    <string name="ind_read_ma200w">ราคาอยู่เหนือมากหมายถึงขาขึ้นยาว ราคาใกล้เคียงหมายถึงการย่อตัวลึก</string>
+    <string name="ind_read_mayer">สูงหมายถึงราคาอยู่เหนือค่าเฉลี่ย 200 วันมาก ต่ำหมายถึงอยู่ต่ำกว่า</string>
+    <string name="ind_read_mvrv">สูงหมายถึงราคาสูงกว่าที่ผู้ถือจ่ายโดยเฉลี่ยมาก ต่ำหมายถึงใกล้เคียงหรือต่ำกว่า</string>
+    <string name="ind_read_pi_cycle_gap">ใกล้ศูนย์หมายถึงค่าเฉลี่ยทั้งสองเกือบบรรจบกัน ติดลบมากหมายถึงห่างกันมาก</string>
+    <string name="ind_read_puell">สูงหมายถึงนักขุดมีรายได้มากกว่าปกติมาก ต่ำหมายถึงน้อยกว่ามาก</string>
+    <string name="ind_read_rsi_daily">เกิน 70 หมายถึงขึ้นแรงในช่วงหลายวันที่ผ่านมา ต่ำกว่า 30 หมายถึงลงแรง</string>
+    <string name="ind_read_rsi_weekly">เกิน 70 หมายถึงขึ้นแรงในช่วงหลายสัปดาห์ที่ผ่านมา ต่ำกว่า 30 หมายถึงลงแรง</string>
+    <string name="ind_read_sma50_vs_200">บวกหมายถึงค่าเฉลี่ยระยะสั้นอยู่เหนือระยะยาว ลบหมายถึงอยู่ต่ำกว่า</string>
+    <string name="ind_read_vs_btc">บวกหมายถึงดีกว่า Bitcoin ลบหมายถึงแย่กว่า</string>
+
+    <!-- Indikatoren: Einordnung in die Vergangenheit -->
+    <string name="ind_context_flat30">ราคาเท่าเดิม 30 วัน: %1$s</string>
+    <string name="ind_context_note">ค่าที่ผ่านมาและการคำนวณ “ราคาเท่าเดิม” เป็นเพียงการคำนวณ ไม่ใช่การพยากรณ์</string>
+    <string name="ind_context_percentile">ตั้งแต่ %1$s ต่ำกว่าใน %2$s ของวัน</string>
+</resources>

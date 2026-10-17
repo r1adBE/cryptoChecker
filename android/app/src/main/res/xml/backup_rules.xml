@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Auto Backup nur noch für Android 8/8.1 (API 26/27; ab Android 9 gilt xml-v28/backup_rules.xml,
+     ab Android 12 data_extraction_rules.xml) — bei Änderungen alle drei anpassen. -->
+<full-backup-content>
+    <!-- Android 8/8.1 kennt requireFlags nicht und sichert jede eingeschlossene Datei, auch ohne
+         Ende-zu-Ende-Verschlüsselung. Die Attribute bleiben (wirkungslos, gleiche Zeilen wie xml-v28).
+         Darum hier NIE Portfolio-Daten: keine Portfolio-Datenbank und keine Kopie
+         portfolio_system_backup.json (Schalter dort ohnehin aus, PortfolioLockPolicy.systemBackupSupported).
+         Ebenso keine Merkliste (siehe unten). Einstellungen, Favoriten und die Übernahme-Marke enthalten
+         keine Bestände, Beträge oder Adressen. -->
+    <!-- Merkliste, Alarme, Gruppen, Notizen: auf Android 8/8.1 NICHT gesichert (Build 60). Die Kopie der
+         Hauptdatenbank (SystemBackupAgent.EXPORT_NAME, cryptochecker_system_backup.db samt -wal) ist
+         unverschlüsselt und ginge hier ohne Ende-zu-Ende-Verschlüsselung in die Cloud; der Agent legt sie
+         darum gar nicht erst an (SystemBackupScope.writesDatabaseCopy), und eine Wiederherstellung bringt sie
+         nicht mit. Die Datenbank selbst (cryptochecker.db, seit Build 59 verschlüsselt), Schlüsseldateien
+         (noBackupFilesDir/db_keys), beiseitegelegte *.unreadable und MarketDatabase.db ohnehin nie. -->
+    <!-- Einstellungen (DataStore «settings», SettingsRepository) -->
+    <include domain="file" path="datastore/settings.preferences_pb" requireFlags="clientSideEncryption" />
+    <include domain="file" path="datastore/settings.preferences_pb" requireFlags="deviceToDeviceTransfer" />
+    <!-- Portfolio: weder Datenbank noch Kopie (PortfolioBackupMirror.FILE_NAME) — unverschlüsselt -->
+    <!-- SharedPreferences mit Nutzerdaten: App-Sprache, Favoriten, Portfolio (Übernahme-Marke,
+         damit der alte Bestand nach einer Wiederherstellung nicht doppelt übernommen wird) -->
+    <include domain="sharedpref" path="app_language.xml" requireFlags="clientSideEncryption" />
+    <include domain="sharedpref" path="app_language.xml" requireFlags="deviceToDeviceTransfer" />
+    <include domain="sharedpref" path="favorites.xml" requireFlags="clientSideEncryption" />
+    <include domain="sharedpref" path="favorites.xml" requireFlags="deviceToDeviceTransfer" />
+    <include domain="sharedpref" path="portfolio.xml" requireFlags="clientSideEncryption" />
+    <include domain="sharedpref" path="portfolio.xml" requireFlags="deviceToDeviceTransfer" />
+    <!-- Nicht gesichert (nur ausdrücklich Eingeschlossenes wird gesichert):
+         Zwischenspeicher und flüchtiger Zustand — activity, refresh_stats, starter_coins,
+         market_zone, macro_notify, gas_alerts; Widget-Zuordnung und -Momentaufnahme
+         (widgets, portfolio_widget: Widget-Ids gelten nur auf diesem Gerät); Zyklus-/Makro-
+         Zwischenspeicher liegen in cacheDir. Die App-Sperre speichert kein Geheimnis
+         (Biometrie/Geräte-Sperre des Systems), nur den Schalter in den Einstellungen. -->
+</full-backup-content>

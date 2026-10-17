@@ -1,0 +1,1 @@
+bitcoin,btc,eth,พอร์ต,altcoin,dex,ticker,ethereum,widget

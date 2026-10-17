@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: beobachtete Adressen (Wallets) -->
+    <string name="portfolio_address_add">Προσθήκη διεύθυνσης</string>
+    <string name="portfolio_address_count">Συμπερίληψη</string>
+    <string name="portfolio_address_error">Η ενημέρωση απέτυχε</string>
+    <string name="portfolio_address_hint">Δημόσια διεύθυνση (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) ή xpub</string>
+    <string name="portfolio_address_label">Ετικέτα (προαιρετικά)</string>
+    <string name="portfolio_address_not_since_buy">Από διεύθυνση · εκτός «Από την αγορά»: %1$s</string>
+    <string name="portfolio_address_overlap">Και στις δικές σου συναλλαγές: %1$s – προστίθενται και τα δύο. Ίδια νομίσματα; Επίλεξε «Μόνο προβολή».</string>
+    <string name="portfolio_address_overlap_ask">Καταγράφεις ήδη το %1$s με δικές σου συναλλαγές. Να προστεθεί το υπόλοιπο αυτής της διεύθυνσης στο χαρτοφυλάκιο ή μόνο να εμφανίζεται;</string>
+    <string name="portfolio_address_overlap_auto">Το «%1$s» πλέον μόνο εμφανίζεται, δεν μετράται – τα %2$s υπάρχουν και στις συναλλαγές σου.</string>
+    <string name="portfolio_address_overlap_restored">Το «%1$s» μετρά ξανά – οι ποσότητες δεν ταιριάζουν με τις συναλλαγές σου. Επίλεξε «Μόνο προβολή» αν είναι τα ίδια νομίσματα.</string>
+    <string name="portfolio_address_overlap_title">Ίδια νομίσματα με τις συναλλαγές σου;</string>
+    <string name="portfolio_address_overlap_tx">Ίδια ποσότητα με τη δική σου κατάθεση/μεταφορά (%1$s) – μάλλον μετριέται διπλά.</string>
+    <string name="portfolio_address_period_observed">Οι παρακολουθούμενες διευθύνσεις μετρούν από το πρώτο παρατηρημένο υπόλοιπο· οι μεταγενέστερες αλλαγές είναι εισροές/εκροές, όχι κέρδος.</string>
+    <string name="portfolio_address_privacy">Στο %1$s στέλνεται μόνο η δημόσια διεύθυνση – ποτέ κλειδιά ή φράσεις seed. Ο πάροχος τη βλέπει μαζί με τη διεύθυνση IP σου. Έλεγχος το πολύ κάθε 10 λεπτά.</string>
+    <string name="portfolio_address_remove">Αφαίρεση διεύθυνσης</string>
+    <string name="portfolio_address_show_only">Μόνο προβολή, χωρίς προσθήκη στο χαρτοφυλάκιο</string>
+    <string name="portfolio_address_show_only_short">Μόνο προβολή</string>
+    <string name="portfolio_address_tokens">Συμπερίληψη tokens</string>
+    <string name="portfolio_address_unknown_tokens">+%1$d άγνωστα tokens (δεν μετρώνται)</string>
+    <string name="portfolio_address_xpub_privacy">Ένα xpub αποκαλύπτει όλες τις διευθύνσεις αυτού του πορτοφολιού. Παράγονται στη συσκευή σου· στο %1$s στέλνονται μόνο μεμονωμένες διευθύνσεις – τουλάχιστον 40 αιτήματα στην πρώτη αναζήτηση, μετά λιγότερα. Ιδιωτικά κλειδιά (xprv) δεν γίνονται ποτέ δεκτά.</string>
+    <string name="portfolio_address_xpub_used">Διευθύνσεις σε χρήση: %1$d</string>
+    <string name="portfolio_addresses_title">Διευθύνσεις</string>
+
+    <!-- Prüfung einer eingegebenen Adresse -->
+    <string name="address_bch_unsupported">Οι διευθύνσεις Bitcoin Cash δεν μπορούν να παρακολουθούνται: δεν υπάρχει δωρεάν δημόσια υπηρεσία χωρίς κλειδί API που να το επιτρέπουν οι όροι της.</string>
+    <string name="address_bep2_shutdown">Το BNB Beacon Chain (BEP-2) έκλεισε το 2024 – τα υπόλοιπα βρίσκονται τώρα στο BNB Smart Chain (0x…)</string>
+    <string name="address_checksum">Λάθος άθροισμα ελέγχου – τυπογραφικό λάθος;</string>
+    <string name="address_doge_unsupported">Οι διευθύνσεις Dogecoin δεν μπορούν να παρακολουθούνται: δεν υπάρχει δωρεάν δημόσια υπηρεσία χωρίς κλειδί API που να το επιτρέπουν οι όροι της.</string>
+    <string name="address_duplicate">Αυτή η διεύθυνση έχει ήδη προστεθεί</string>
+    <string name="address_ens">Τα ονόματα ENS δεν υποστηρίζονται – εισήγαγε τη διεύθυνση 0x</string>
+    <string name="address_invalid">Μη έγκυρη διεύθυνση υποστηριζόμενου δικτύου</string>
+    <string name="address_limit">Έως 20 διευθύνσεις</string>
+    <string name="address_secret">Μοιάζει με ιδιωτικό κλειδί ή φράση seed – μην το εισάγεις ποτέ πουθενά. Μόνο δημόσιες διευθύνσεις.</string>
+    <string name="address_testnet">Οι διευθύνσεις Testnet δεν υποστηρίζονται</string>
+    <string name="address_unsupported">Αυτός ο τύπος διεύθυνσης δεν υποστηρίζεται</string>
+    <string name="address_wrong_chain">Η διεύθυνση ανήκει σε άλλο δίκτυο</string>
+    <string name="address_xpub_multisig">Τα κλειδιά multisig (Ypub/Zpub) δεν υποστηρίζονται</string>
+</resources>

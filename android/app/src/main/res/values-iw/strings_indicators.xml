@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Neutrale Indikatoren: Titel, Hinweise, Halving -->
+    <string name="neutral_alt_title">אלטקוינים מול ביטקוין</string>
+    <string name="neutral_btc_indicators_title">מדדי ביטקוין</string>
+    <string name="neutral_halving_last">החצייה האחרונה: %1$s</string>
+    <string name="neutral_halving_next">ההאלבינג הבא צפוי סביב %1$s (הערכה לפי לוח שנה – גובה הבלוק אינו זמין כרגע).</string>
+    <string name="neutral_indicators_disclaimer">ערכים מדודים בלבד, ללא הערכה. אין זו תחזית ואין זה ייעוץ השקעות.</string>
+    <string name="neutral_onchain_missing">נתוני השרשרת (Coin Metrics) אינם זמינים כרגע.</string>
+
+    <!-- Neutrale Indikatoren: was der Wert misst -->
+    <string name="neutral_explain_ath_distance">כמה המחיר נמוך מהשיא הקודם של כל הזמנים.</string>
+    <string name="neutral_explain_change_30d">המחיר היום לעומת לפני 30 יום.</string>
+    <string name="neutral_explain_hashrate">ממוצע קצב הגיבוב ל-30 יום לעומת הממוצע ל-60 יום.</string>
+    <string name="neutral_explain_ma200w">ממוצע 200 סגירות השבוע האחרונות.</string>
+    <string name="neutral_explain_mayer">המחיר חלקי הממוצע של 200 יום.</string>
+    <string name="neutral_explain_mvrv">שווי השוק חלקי השווי הממומש (על השרשרת).</string>
+    <string name="neutral_explain_pi_gap">ממוצע 111 ימים לעומת פעמיים ממוצע 350 ימים.</string>
+    <string name="neutral_explain_puell">ההכנסה היומית של הכורים חלקי הממוצע שלה ל-365 יום.</string>
+    <string name="neutral_explain_rsi_daily">מדד העוצמה היחסית של 14 הימים האחרונים, 0–100.</string>
+    <string name="neutral_explain_rsi_weekly">מדד העוצמה היחסית של 14 השבועות האחרונים, 0–100.</string>
+    <string name="neutral_explain_sma50_200">ממוצע 50 יום לעומת ממוצע 200 יום.</string>
+    <string name="neutral_explain_vs_btc">שינוי המחיר ביחס לביטקוין ב-90 יום.</string>
+
+    <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
+    <string name="neutral_info_alt_season_how">האפליקציה מציגה רק את הספירה ואינה מכנה אותה „עונה”. הערך משתנה בדרך כלל לאורך ימים, לא שעות.</string>
+    <string name="neutral_info_btc_how">לכל ערך משפט על מה שהוא מודד והיכן הוא עומד בהיסטוריה שלו מאז 2016. האפליקציה לא מעריכה את הערכים ולא מסיקה שלב שוק; גבולות להודעות הם רק אלה שאתה קובע. דפוסי עבר לא חייבים לחזור.</string>
+    <string name="neutral_info_btc_what">מדדי ביטקוין נפוצים כערכים מדודים בלבד: Mayer Multiple, ממוצע 200 שבועות, ירידה מהשיא, שינוי ב-30 יום, פער Pi Cycle וערכי השרשרת MVRV, ‏Puell Multiple וקצב הגיבוב.</string>
+    <string name="neutral_info_coin_how">לכל ערך יש משפט על מה שהוא מודד, ללא הערכה. במטבעות עם היסטוריית מחירים קצרה חלק מהערכים חסרים. נתוני שרשרת אינם נכללים כאן.</string>
+    <string name="neutral_info_coin_what">אותם מדדים פשוטים למטבע לבחירתך, מנתוני מחיר בלבד: Mayer Multiple, ממוצע 200 שבועות, ירידה מהשיא, שינוי ב-30 יום, מגמת 50/200 יום, RSI וחוזק מול ביטקוין ב-90 יום.</string>
+    <string name="neutral_info_halving_how">ההאלבינג הבא מחושב מגובה הבלוק הנוכחי ומזמן הבלוק הממוצע בתקופת הקושי הנוכחית (mempool.space); בלי נתונים אלה לפי לוח שנה (ההאלבינג האחרון ועוד כארבע שנים). הגרף מציג את מהלך המחיר במחזורים קודמים מההאלבינג שלהם – היסטוריה, לא תחזית.</string>
+
+    <!-- Indikator-Namen -->
+    <string name="ind_cross">מגמת 50/200 ימים</string>
+    <string name="ind_drawdown">ירידה משיא כל הזמנים</string>
+    <string name="ind_missing">מעט מדי נתונים</string>
+    <string name="ind_rsi_daily">RSI (יומי)</string>
+    <string name="ind_rsi_weekly">RSI (שבועי)</string>
+    <string name="ind_vs_btc">חוזק מול ביטקוין (90 יום)</string>
+    <string name="neutral_ind_change_30d">שינוי ב-30 יום</string>
+    <string name="neutral_ind_hashrate">קצב גיבוב 30/60 יום</string>
+    <string name="neutral_ind_ma200w">ממוצע 200 שבועות</string>
+    <string name="neutral_ind_pi_gap">פער Pi Cycle</string>
+
+    <!-- Indikatoren: «hoch heisst …, tief heisst …» -->
+    <string name="ind_read_alt_season">גבוה פירושו שרוב האלטקוינים הגדולים ניצחו את ביטקוין ב־90 יום, נמוך – שביטקוין ניצח את רובם.</string>
+    <string name="ind_read_ath_distance">קטן פירושו שהמחיר קרוב לשיא, גדול – שהוא הרחק מתחתיו.</string>
+    <string name="ind_read_change_30d">חיובי פירושו גבוה יותר מלפני 30 יום, שלילי – נמוך יותר.</string>
+    <string name="ind_read_funding">גבוה פירושו שרבים מהמרים במינוף על עלייה, שלילי – שרבים מהמרים על ירידה.</string>
+    <string name="ind_read_hashrate_30_60">חיובי פירושו שכוח החישוב גדל, שלילי – שכורים מתנתקים.</string>
+    <string name="ind_read_leverage">הרבה לונגים פירושו שרבים מהמרים על עלייה בכסף מושאל, הרבה שורטים – על ירידה.</string>
+    <string name="ind_read_ma200w">מחיר הרבה מעליו פירושו עלייה ארוכה, מחיר קרוב אליו – ירידה עמוקה.</string>
+    <string name="ind_read_mayer">ערך גבוה פירושו שהמחיר הרבה מעל ממוצע 200 הימים, ונמוך – שהוא מתחתיו.</string>
+    <string name="ind_read_mvrv">גבוה פירושו שהמחיר הרבה מעל מה שהמחזיקים שילמו בממוצע, נמוך – קרוב לכך או מתחת.</string>
+    <string name="ind_read_pi_cycle_gap">קרוב לאפס פירושו ששני הממוצעים כמעט נפגשים, שלילי מאוד – שהם רחוקים זה מזה.</string>
+    <string name="ind_read_puell">גבוה פירושו שהכורים מרוויחים הרבה יותר מהרגיל, נמוך – הרבה פחות.</string>
+    <string name="ind_read_rsi_daily">מעל 70 פירושו עליות חזקות בימים האחרונים, מתחת ל־30 – ירידות חזקות.</string>
+    <string name="ind_read_rsi_weekly">מעל 70 פירושו עליות חזקות בשבועות האחרונים, מתחת ל־30 – ירידות חזקות.</string>
+    <string name="ind_read_sma50_vs_200">חיובי פירושו שהממוצע הקצר מעל הארוך, שלילי – מתחתיו.</string>
+    <string name="ind_read_vs_btc">חיובי פירושו טוב יותר מביטקוין, שלילי – גרוע יותר.</string>
+
+    <!-- Indikatoren: Einordnung in die Vergangenheit -->
+    <string name="ind_context_flat30">באותו מחיר במשך 30 יום: %1$s</string>
+    <string name="ind_context_note">ערכי עבר וחישובי «באותו מחיר» הם חשבון, לא תחזית.</string>
+    <string name="ind_context_percentile">מאז %1$s נמוך יותר ב-%2$s מהימים</string>
+</resources>

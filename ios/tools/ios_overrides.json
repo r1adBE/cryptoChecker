@@ -1,0 +1,33 @@
+{
+  "_comment": "iOS-eigene Fassungen einzelner Android-Texte (Android-Schreibweise wie in values-*/strings*.xml, ohne XML-Entities; nur die genannten Sprachen). convert_strings.py ersetzt damit den Android-Text im iOS-Katalog – z. B. sagt Android «Benachrichtigung», iOS «Mitteilung».",
+  "de": {
+    "channel_alarms_description": "Mitteilung, wenn ein Alarm auslöst.",
+    "channel_service_description": "Mitteilung, solange Kurse aktualisiert werden.",
+    "settings_ongoing_notifications": "Dauerhaft in den Mitteilungen",
+    "alarms_notifications_off": "Mitteilungen sind aus – Alarme kommen nicht an.",
+    "settings_app_badge_hint": "Zählt offene Alarm-Mitteilungen. Ob eine Zahl oder ein Punkt erscheint, bestimmt der Startbildschirm (z. B. Samsung: «Mit Zahl»).",
+    "alarm_test_denied": "Mitteilungen sind für Crypto Checker ausgeschaltet.",
+    "settings_market_alerts": "Markt-Mitteilungen",
+    "settings_activity_sensitivity_hint": "Wie leicht ein Coin als auffällig gilt – für die Karte in der Merkliste und die Markt-Mitteilungen gleich. Bei «Weniger» zeigt die Karte nur die 3 stärksten.",
+    "alarm_signal_silent": "Lautlos (nur Mitteilung)",
+    "settings_alarm_signal_system_hint": "Richtet sich nach den Mitteilungseinstellungen des Telefons.",
+    "settings_watchlist_activity_card_hint": "Zeigt ⚡ neben den Gruppen: Antippen zeigt nur die Paare, bei denen gerade etwas passiert. Mitteilungen dazu stellst du unter «Markt-Mitteilungen» ein.",
+    "settings_price_pairs_hint": "Wähle, für welche Paare der Kurs in der Mitteilungsleiste steht.",
+    "neutral_channel_market": "Markt-Mitteilungen",
+    "neutral_info_btc_how": "Zu jedem Wert steht ein Satz, was er misst, und wo er in seinem eigenen Verlauf seit 2016 liegt. Die App bewertet die Werte nicht und leitet keine Marktphase ab; Grenzen für Markt-Mitteilungen gibt es nur, wenn du sie selbst setzt. Frühere Muster müssen sich nicht wiederholen.",
+    "alarm_saved_notifications_off": "Mitteilungen aus",
+    "settings_quiet_hours_hint": "Zwischen %1$s und %2$s warten Alarme bis zum Ende der Nachtruhe und melden sich dann mit Ton. Andere Mitteilungen kommen lautlos, ohne Sprachausgabe.",
+    "watch_disable_hint": "Keine Abfragen, keine Mitteilungen",
+    "watch_enable_hint": "Kurse und Mitteilungen wieder an",
+    "watchlist_notification": "Kursmitteilung",
+    "notification_price_first": "Erste Kursmitteilung für dieses Paar",
+    "settings_price_notifications": "Kursmitteilungen",
+    "settings_notification_change_hint": "Eine Kursmitteilung erscheint erst, wenn sich der Kurs seit der letzten um mindestens so viel bewegt hat. Fehlen Daten, wird nichts gezeigt. Alarme bleiben davon unberührt.",
+    "a11y_price_notification_on": "Kursmitteilung an",
+    "a11y_price_notification_off": "Kursmitteilung aus",
+    "refresh_sheet_notifications": {
+      "one": "%1$d Kursmitteilung",
+      "other": "%1$d Kursmitteilungen"
+    }
+  }
+}

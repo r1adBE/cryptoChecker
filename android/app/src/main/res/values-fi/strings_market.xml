@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Markt-Tab: Abschnitte, Zeilen, Herkunft und Alter -->
+    <!-- «… · CoinGecko · vor 3 Min.»; «gerade eben» = time_just_now, «veraltet» = widget_outdated -->
+    <plurals name="market_age_minutes">
+        <item quantity="one">%d min sitten</item>
+        <item quantity="other">%d min sitten</item>
+    </plurals>
+    <!-- «heute 02:00» (Uhrzeit ohne Sekunden) -->
+    <string name="market_age_today">tänään %1$s</string>
+    <string name="market_context_summary">Fear &amp; Greed, Bitcoin-tunnusluvut, dominanssi, halving</string>
+    <string name="market_context_value">%1$s %2$s · %3$s</string>
+    <string name="market_more_data">Lisää markkinatietoja</string>
+    <string name="market_phase_trend_failed">Hintatietoja ei saatavilla</string>
+    <string name="market_plain_direction_down_clear">Kaikkien kryptovaluuttojen yhteisarvo on selvästi matalampi kuin 24 tuntia sitten (%1$s).</string>
+    <string name="market_plain_direction_down_slight">Kaikkien kryptovaluuttojen yhteisarvo on hieman matalampi kuin 24 tuntia sitten (%1$s).</string>
+    <string name="market_plain_direction_flat">Kaikkien kryptovaluuttojen yhteisarvo on tuskin muuttunut 24 tunnissa (%1$s).</string>
+    <string name="market_plain_direction_up_clear">Kaikkien kryptovaluuttojen yhteisarvo on selvästi korkeampi kuin 24 tuntia sitten (%1$s).</string>
+    <string name="market_plain_direction_up_slight">Kaikkien kryptovaluuttojen yhteisarvo on hieman korkeampi kuin 24 tuntia sitten (%1$s).</string>
+    <string name="market_plain_footnote">Kuvaa viimeisiä 24 tuntia – ei ennustetta, ei sijoitusneuvontaa.</string>
+    <string name="market_plain_mood_extreme_fear">Sijoittajat ovat nyt hyvin pelokkaita: tunnelmaindeksi (Fear &amp; Greed) on %1$d / 100.</string>
+    <string name="market_plain_mood_extreme_greed">Sijoittajat ovat nyt hyvin ahneita: tunnelmaindeksi (Fear &amp; Greed) on %1$d / 100.</string>
+    <string name="market_plain_mood_fear">Sijoittajat ovat melko pelokkaita: tunnelmaindeksi (Fear &amp; Greed) on %1$d / 100.</string>
+    <string name="market_plain_mood_greed">Sijoittajat ovat melko ahneita: tunnelmaindeksi (Fear &amp; Greed) on %1$d / 100.</string>
+    <string name="market_plain_mood_neutral">Sijoittajien tunnelma on tasapainoinen: tunnelmaindeksi (Fear &amp; Greed) on %1$d / 100.</string>
+    <string name="market_plain_standout_above_btc">%1$s erottuu: %2$s 24 tunnissa, selvästi Bitcoinin yläpuolella (%3$s).</string>
+    <string name="market_plain_standout_against_btc">%1$s erottuu: %2$s 24 tunnissa, kun Bitcoin liikkui toiseen suuntaan (%3$s).</string>
+    <string name="market_plain_standout_below_btc">%1$s erottuu: %2$s 24 tunnissa, selvästi Bitcoinin alapuolella (%3$s).</string>
+    <string name="market_plain_standout_futures_down">%1$s erottuu: epätavallisen moni futures-kauppias odottaa hintojen laskevan.</string>
+    <string name="market_plain_standout_futures_up">%1$s erottuu: epätavallisen moni futures-kauppias odottaa hintojen nousevan.</string>
+    <string name="market_plain_standout_quiet">Juuri nyt mikään yksittäinen kolikko ei erotu.</string>
+    <string name="market_plain_standout_volume">%1$s erottuu: noin %2$s kertaa tavallista enemmän kaupankäyntiä.</string>
+    <string name="market_plain_title">Lyhyesti</string>
+    <!-- Nebenzeile der Fear-&-Greed-Zeile («Gier · gestern 65») -->
+    <string name="market_row_fng_yesterday">%1$s · eilen %2$s</string>
+    <string name="market_section_collapse">Piilota %1$s</string>
+    <string name="market_section_context">Tunnelma ja sykli</string>
+    <string name="market_section_data">Markkinatiedot</string>
+    <!-- Bedienungshilfen: Aktion auf der Abschnittsüberschrift; %1$s = Name des Abschnitts -->
+    <string name="market_section_expand">Näytä %1$s</string>
+    <string name="market_section_now">Juuri nyt</string>
+    <string name="market_source">Data: Binance · Coin Metrics (CC BY-NC 4.0)</string>
+    <string name="market_unavailable_error">Pörssi ei ole käytettävissä</string>
+
+    <!-- Markt-Tab: Info-Zeichen und Info-Blatt je Karte (was, wie, Quelle) -->
+    <string name="market_info_a11y">Info: %1$s</string>
+    <string name="market_info_alt_season_source">Päiväkurssit: Binance · lasketaan uudelleen noin 3 tunnin välein</string>
+    <string name="market_info_alt_season_what">Laskee, kuinka moni noin 20 suuresta altcoinista (esim. Ethereum, Solana, XRP) on menestynyt Bitcoinia paremmin viimeisten 90 päivän aikana. Arvo on niiden osuus asteikolla 0–100.</string>
+    <string name="market_info_coin_source">Kurssit: Binance tai Bybit · ladataan uudelleen noin 15 minuutin välein</string>
+    <string name="market_info_dominance_how">Kun dominanssi nousee, Bitcoin pärjää muuta markkinaa paremmin; kun se laskee, muut kolikot saavat painoa. Myös vakaakolikot lasketaan mukaan: jos niiden arvo kasvaa, Bitcoinin osuus laskee, vaikka Bitcoinin kurssi pysyisi samana.</string>
+    <string name="market_info_dominance_source">Lähde: CoinGecko · ladataan uudelleen noin 30 minuutin välein</string>
+    <string name="market_info_dominance_what">Bitcoinin osuus kaikkien kryptovaluuttojen yhteenlasketusta arvosta (markkina-arvo). Alla näkyy Ethereumin osuus.</string>
+    <string name="market_info_fear_greed_how">Alle 25 tarkoittaa äärimmäistä pelkoa, yli 75 äärimmäistä ahneutta, noin 50 neutraalia. Avattuna näkyvät eilisen, viikon takaisen ja kuukauden takaisen arvot. Ei osto- eikä myyntisignaali.</string>
+    <string name="market_info_fear_greed_source">Lähde: alternative.me · uusi arvo kerran päivässä</string>
+    <string name="market_info_fear_greed_what">Kryptomarkkinan tunneindeksi asteikolla 0–100. alternative.me laskee sen useista tiedoista, muun muassa kurssiheilunnasta, kaupankäyntivolyymista, sosiaalisesta mediasta ja Bitcoinin dominanssista.</string>
+    <string name="market_info_gas_how">Suuremmat arvot tarkoittavat, että verkko on kuormittunut ja siirrot maksavat enemmän. Hidas, normaali ja nopea ovat maksuja myöhäisempää tai nopeampaa vahvistusta varten. Avattuna näkyy yksinkertaisen siirron arvioitu hinta.</string>
+    <string name="market_info_gas_source">Julkiset RPC-solmut, mempool.space · ladataan uudelleen joka minuutti</string>
+    <string name="market_info_gas_what">Mitä transaktio maksaa kussakin verkossa juuri nyt. Ethereumissa ja vastaavissa verkoissa gweinä (miljardisosa ETH:ta kaasuyksikköä kohden), Bitcoinissa sat/vB-yksikkönä (satoshia transaktion virtuaalitavua kohden).</string>
+    <string name="market_info_halving_source">Päivä: lohkokorkeudesta ja keskimääräisestä lohkoajasta (mempool.space), muuten kalenterista · hintahistoria: Coin Metrics, Binance, ladataan uudelleen 12 tunnin välein</string>
+    <string name="market_info_halving_what">Puolittumisessa louhijoiden uudesta Bitcoin-lohkosta saama palkkio puolittuu. Näin käy 210 000 lohkon välein, eli noin neljän vuoden välein. Sen jälkeen uusia bitcoineja syntyy päivässä vain puolet entisestä.</string>
+    <string name="market_info_how">Näin luet sen</string>
+    <string name="market_info_macro_how">Ilmoitus näkyy vain, kun tällainen päivämäärä on tänään tai huomenna. Julkaisun aikaan kurssit heiluvat usein tavallista enemmän. Sovellus näyttää vain päivämäärän, ei itse lukuja.</string>
+    <string name="market_info_macro_source">Kalenteri sovelluksen verkkosivulta · ladataan kerran päivässä</string>
+    <string name="market_info_macro_what">Tärkeiden Yhdysvaltain talouslukujen päivämäärät: inflaatio (CPI, PCE), tuottajahinnat (PPI), työllisyysraportti ja Yhdysvaltain keskuspankin korkopäätökset. Tällaiset luvut liikuttavat usein myös kryptovaluuttojen kursseja.</string>
+    <string name="market_info_no_advice">Ei sijoitusneuvontaa.</string>
+    <string name="market_info_phase_source">Binance, Coin Metrics · kurssit tunneittain, on-chain-arvot ladataan uudelleen 12 tunnin välein</string>
+    <string name="market_info_pulse_how">Otsikko kertoo suunnan; avattuna näkyvät yksityiskohdat. Laaja liike tarkoittaa, että useimmat suuret kolikot liikkuvat samaan suuntaan. Korkea rahoituskorko tarkoittaa, että moni lyö vipuvaikutuksella vetoa nousevista kursseista. Tilannekuva, ei ennuste.</string>
+    <string name="market_info_pulse_source">Binance, CoinGecko · ladataan uudelleen noin 5 minuutin välein</string>
+    <string name="market_info_pulse_what">Lyhyt yhteenveto markkinasta viimeisten 24 tunnin ajalta: miten Bitcoin, Ethereum ja Solana liikkuvat, kuinka moni suurimmista kolikoista nousee tai laskee, kuinka paljon Bitcoinia käydään kauppaa juuri nyt ja millä tasolla Bitcoin-futuurien rahoituskorko on.</string>
+    <string name="market_info_totals_how">Oikealla näkyy kokonaisarvon muutos 24 tunnissa. Suuri volyymi tarkoittaa, että kauppaa käydään paljon, mutta se ei kerro suuntaa. Näytetään mahdollisuuksien mukaan muunnosvaluuttana, muuten Yhdysvaltain dollareina.</string>
+    <string name="market_info_totals_source">Kaikki kolikot · CoinGecko · ladataan uudelleen noin 30 minuutin välein</string>
+    <string name="market_info_totals_what">Kaikkien kryptovaluuttojen yhteenlaskettu arvo (markkina-arvo: kurssi kertaa liikkeessä oleva määrä, laskettuna yhteen kaikista kolikoista) ja viimeisten 24 tunnin kaupankäyntivolyymi.</string>
+    <string name="market_info_unusual_how">Jokaisen kolikon kohdalla näkyy huomattavin havainto, oikealla muutos 24 tunnissa. Volyymi 2× tarkoittaa kaksinkertaista vaihtoa tavalliseen verrattuna. Huomattava ei tarkoita hyvää eikä huonoa.</string>
+    <string name="market_info_unusual_source">Binance, CoinGecko · ladataan uudelleen noin 10 minuutin välein</string>
+    <string name="market_info_unusual_what">Enintään viisi kolikkoa noin 30 suurimman joukosta (ilman vakaakolikoita), jotka käyttäytyvät tänään epätavallisesti: selvästi vahvemmin tai heikommin kuin Bitcoin, markkinan suuntaa vastaan, epätavallisen suurella kaupankäyntivolyymilla tai huomattavalla rahoituskorolla.</string>
+    <string name="market_info_what">Mikä tämä on?</string>
+
+    <!-- Markt-Tab: Krypto-Markt gesamt -->
+    <string name="market_cap_label">Markkina-arvo</string>
+    <string name="market_cap_source">Kaikki kolikot · CoinGecko</string>
+    <string name="market_cap_title">Kryptomarkkina</string>
+    <string name="market_volume_label">Volyymi 24 h</string>
+
+    <!-- Crypto Pulse «Was gerade auffällt»: Titel, Abschnitte, Hinweise -->
+    <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
+    <string name="pulse_details_action">Tiedot</string>
+    <string name="pulse_disclaimer">Ei ennustetta · Ei sijoitusneuvontaa</string>
+    <string name="pulse_less">Näytä vähemmän</string>
+    <string name="pulse_now_title">Mikä erottuu nyt</string>
+    <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
+    <string name="pulse_period_24h_spoken">Muutos 24 tunnissa</string>
+    <string name="pulse_section_factors">Tekijät</string>
+    <string name="pulse_section_market">Markkina tänään</string>
+    <string name="pulse_unavailable">Markkinatietoja ei ole juuri nyt saatavilla</string>
+    <string name="pulse_updated">Tilanne %1$s</string>
+
+    <!-- Crypto Pulse: Schlagzeile und Leitsatz -->
+    <string name="pulse_headline_calm">Rauhallinen markkina</string>
+    <string name="pulse_headline_down">Laaja heikkous</string>
+    <string name="pulse_headline_mixed">Vaihteleva kuva</string>
+    <string name="pulse_headline_up">Laaja vahvuus</string>
+    <string name="pulse_lead_alts_stronger">Altcoinit ovat Bitcoinia vahvempia.</string>
+    <string name="pulse_lead_broad_down">Markkina laskee laajasti.</string>
+    <string name="pulse_lead_broad_up">Markkina nousee laajasti.</string>
+    <string name="pulse_lead_btc_leads">Bitcoin nousee eniten.</string>
+    <string name="pulse_lead_btc_stronger">Bitcoin on altcoineja vahvempi.</string>
+    <string name="pulse_lead_calm">Markkina tuskin liikkuu.</string>
+    <string name="pulse_lead_drift_down">Markkina laskee hieman.</string>
+    <string name="pulse_lead_drift_up">Markkina nousee hieman.</string>
+    <string name="pulse_lead_mixed">Suuret kolikot liikkuvat eri suuntiin.</string>
+
+    <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
+    <string name="pulse_detail_fund_high">Funding koholla.</string>
+    <string name="pulse_detail_fund_negative">Funding negatiivinen.</string>
+    <string name="pulse_detail_fund_neutral">Funding neutraali.</string>
+    <string name="pulse_detail_vol_above">Volyymi %1$d %% tavallista suurempi.</string>
+    <string name="pulse_detail_vol_above_fund_high">Volyymi %1$d %% tavallista suurempi, funding koholla.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Volyymi %1$d %% tavallista suurempi, funding negatiivinen.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Volyymi %1$d %% tavallista suurempi, funding neutraali.</string>
+    <string name="pulse_detail_vol_below">Volyymi %1$d %% tavallista pienempi.</string>
+    <string name="pulse_detail_vol_below_fund_high">Volyymi %1$d %% tavallista pienempi, funding koholla.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Volyymi %1$d %% tavallista pienempi, funding negatiivinen.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Volyymi %1$d %% tavallista pienempi, funding neutraali.</string>
+    <string name="pulse_detail_vol_normal">Volyymi tavallinen.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Volyymi tavallinen, funding koholla.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Volyymi tavallinen, funding negatiivinen.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Volyymi tavallinen, funding neutraali.</string>
+
+    <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
+    <string name="pulse_breadth_hint">Top %1$d: markkina-arvoltaan suurimmat kolikot ilman vakaakolikoita; muutos 24 tunnin aikana (CoinGecko).</string>
+    <!-- «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">Top %1$d</string>
+    <string name="pulse_breadth_note_broad_down">Laaja lasku: useimmat suuret kolikot laskevat.</string>
+    <string name="pulse_breadth_note_broad_up">Laaja liike: useimmat suuret kolikot nousevat.</string>
+    <string name="pulse_breadth_note_narrow_down">Bitcoin laskee, mutta useimmat muut suuret kolikot pitävät pintansa.</string>
+    <string name="pulse_breadth_note_narrow_up">Bitcoin nousee, mutta useimmat muut suuret kolikot eivät seuraa.</string>
+    <string name="pulse_breadth_spoken">Top %1$d: nousussa %2$d, laskussa %3$d</string>
+
+    <!-- Crypto Pulse: Altcoins, Funding, Gas, Volumen -->
+    <string name="pulse_alts_even">Altcoinit ja Bitcoin liikkuvat samoin</string>
+    <string name="pulse_alts_stronger">Altcoinit Bitcoinia vahvempia</string>
+    <string name="pulse_alts_weaker">Bitcoin altcoineja vahvempi</string>
+    <string name="pulse_chip_funding_high">Funding koholla</string>
+    <string name="pulse_chip_funding_negative">Funding negatiivinen</string>
+    <string name="pulse_funding_high">Funding selvästi positiivinen: paljon vipuvoimalla otettuja longeja</string>
+    <string name="pulse_funding_negative">Funding negatiivinen: paljon shortteja</string>
+    <string name="pulse_funding_neutral">Funding neutraali</string>
+    <string name="pulse_funding_slight">Funding hieman positiivinen</string>
+    <string name="pulse_gas_high">Ethereum-gas korkea (%1$s gwei)</string>
+    <string name="pulse_gas_low">Ethereum-gas matala (%1$s gwei)</string>
+    <string name="pulse_gas_normal">Ethereum-gas tavallinen (%1$s gwei)</string>
+    <string name="pulse_volume_high">Kaupankäyntivolyymi poikkeuksellisen suuri (%1$s× tavallinen)</string>
+    <string name="pulse_volume_low">Kaupankäyntivolyymi pieni (%1$s× tavallinen)</string>
+    <string name="pulse_volume_normal">Kaupankäyntivolyymi tavallinen</string>
+
+    <!-- «Heute auffällig» (grösste Coins mit ungewöhnlicher Bewegung) -->
+    <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
+    <!-- Screenreader-Aktion einer Zeile (öffnet das Aktionsblatt bzw. die Vorschau) -->
+    <string name="unusual_action_open">Näytä hinta ja toiminnot</string>
+    <string name="unusual_fact_against">Liikkuu markkinaa vastaan</string>
+    <string name="unusual_fact_funding_high">Funding koholla (%1$s)</string>
+    <string name="unusual_fact_funding_negative">Funding negatiivinen (%1$s)</string>
+    <string name="unusual_fact_stronger">Liikkuu selvästi voimakkaammin kuin BTC</string>
+    <string name="unusual_fact_volume">Volyymi %1$s× tavallinen</string>
+    <string name="unusual_fact_weaker">Liikkuu selvästi heikommin kuin BTC</string>
+    <string name="unusual_nothing">Tänään ei mitään silmiinpistävää</string>
+    <string name="unusual_source">Noin 30 suurinta kolikkoa ilman stablecoineja · Binance, CoinGecko</string>
+    <string name="unusual_title">Tänään silmiinpistävää</string>
+
+    <!-- Ungewöhnliche Aktivität eines Paars (Karte, Signale, Empfindlichkeit) -->
+    <string name="activity_card_title">Nyt tapahtuu jotain</string>
+    <string name="activity_indicator">Epätavallista aktiivisuutta</string>
+    <string name="activity_sensitivity_less">Vähemmän</string>
+    <string name="activity_sensitivity_more">Enemmän</string>
+    <string name="activity_sensitivity_normal">Normaali</string>
+    <string name="activity_signal_funding_long">Funding %1$s – paljon vipuvoimalla otettuja longeja</string>
+    <string name="activity_signal_funding_short">Funding %1$s – paljon shortteja</string>
+    <string name="activity_signal_open_interest">Avoimet positiot %1$s %2$d min aikana</string>
+    <string name="activity_signal_open_interest_no_time">Avoimet positiot %1$s</string>
+    <string name="activity_signal_price_move">Epätavallinen liike: %1$s tunnissa (%2$s× normaali)</string>
+    <string name="activity_signal_volume">Volyymi %1$s× normaali viime tunnin aikana</string>
+
+    <!-- Einordnung: Bitcoin-Dominanz, Fear & Greed, Halving, Altseason -->
+    <plurals name="insights_altseason_value">
+        <item quantity="one">%1$d / %2$d suuresta altcoinista voittaa Bitcoinin 90 päivässä</item>
+        <item quantity="other">%1$d / %2$d suuresta altcoinista voittaa Bitcoinin 90 päivässä</item>
+    </plurals>
+    <string name="insights_chart_axis">Vuotta puolittumisesta</string>
+    <string name="insights_chart_hint">Hinta puolittumispäivän hinnan kerrannaisena (log-asteikko). Aiemmat syklit ovat kaava, eivät ennuste.</string>
+    <string name="insights_cycle_chart">Syklit puolittumisesta</string>
+    <string name="insights_dominance_eth">ETH %1$s koko markkinasta</string>
+    <string name="insights_dominance_title">Bitcoinin dominanssi</string>
+    <string name="insights_fng_history">Eilen %1$s · viikko sitten %2$s · kuukausi sitten %3$s</string>
+    <string name="insights_fng_title">Fear &amp; Greed</string>
+    <string name="insights_halving_title">Bitcoinin puolittuminen</string>
+    <string name="insights_source_dominance">Lähde: CoinGecko, Binance</string>
+    <string name="insights_source_fng">Lähde: alternative.me</string>
+    <string name="insights_source_history">Lähde: Coin Metrics (CC BY-NC 4.0), Binance</string>
+
+    <!-- Fear & Greed: Stufen -->
+    <string name="fng_extreme_fear">Äärimmäinen pelko</string>
+    <string name="fng_extreme_greed">Äärimmäinen ahneus</string>
+    <string name="fng_fear">Pelko</string>
+    <string name="fng_greed">Ahneus</string>
+    <string name="fng_neutral">Neutraali</string>
+
+    <!-- Halving-Zyklus (Chart, Marken, Schätzung) -->
+    <string name="cycle_data_as_of">Tiedot klo %1$s · päivitetään…</string>
+    <string name="cycle_from_top">%1$s huipusta</string>
+    <string name="cycle_marker_bottom">Pohja %1$s</string>
+    <string name="cycle_marker_double_bottom">Tuplapohja %1$s</string>
+    <string name="cycle_marker_double_top">Tuplahuippu %1$s</string>
+    <string name="cycle_marker_high_so_far">Korkein tähän asti</string>
+    <!-- Hoch/Tief-Marken mit Sprechblase im Zyklus-Chart -->
+    <string name="cycle_marker_top">Huippu %1$s</string>
+    <string name="cycle_since_halving">%1$s puolittumisesta</string>
+    <string name="halving_estimate_text">Seuraava puoliintuminen laskennallisesti noin %1$s: %2$s lohkoa jäljellä keskimäärin %3$s min lohkoa kohden (nykyinen vaikeusjakso). Ennakointi, ei lupaus – lohkoaika vaihtelee.</string>
+
+    <!-- Netzwerkgebühren (Gas) -->
+    <string name="gas_alert_active">Hälytys: %1$s</string>
+    <string name="gas_slow_fast">Hidas %1$s · Nopea %2$s</string>
+    <string name="gas_source">Julkiset RPC-solmut ja mempool.space · Yksinkertaisen siirron hinta, L2:lla ilman L1-osuutta</string>
+    <string name="gas_title">Verkkomaksut</string>
+    <string name="gas_transfer_cost">Siirto ≈ %1$s</string>
+
+    <!-- Wirtschaftsdaten (US-Termine) -->
+    <string name="macro_cpi">Yhdysvaltain inflaatio (CPI)</string>
+    <string name="macro_fomc">Fedin korkopäätös</string>
+    <string name="macro_hint_list">%1$s – tällaisina päivinä markkinat heiluvat usein enemmän.</string>
+    <string name="macro_hint_today">Tänään %1$s: %2$s – tällaisina päivinä markkinat heiluvat usein enemmän.</string>
+    <string name="macro_hint_today_list">Tänään: %1$s – tällaisina päivinä markkinat heiluvat usein enemmän.</string>
+    <string name="macro_hint_tomorrow">Huomenna %1$s: %2$s – tällaisina päivinä markkinat heiluvat usein enemmän.</string>
+    <string name="macro_hint_tomorrow_list">Huomenna: %1$s – tällaisina päivinä markkinat heiluvat usein enemmän.</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">Tänään %1$s %2$s</string>
+    <string name="macro_item_tomorrow">Huomenna %1$s %2$s</string>
+    <string name="macro_nfp">Yhdysvaltain työllisyysraportti</string>
+    <string name="macro_pce">Yhdysvaltain PCE-inflaatio</string>
+    <string name="macro_ppi">Yhdysvaltain tuottajahinnat (PPI)</string>
+    <string name="macro_released_list">Julkaistu tänään: %1$s.</string>
+    <string name="macro_released_one">Julkaistu tänään klo %1$s: %2$s.</string>
+    <string name="macro_title">Talousluvut</string>
+
+    <!-- Coin-Analyse -->
+    <string name="coin_choose">Kolikko</string>
+    <string name="coin_no_data">Tälle kolikolle ei ole hintatietoja Binancessa eikä Bybitissä.</string>
+    <string name="coin_price_only">Vain hintaan perustuva – ketjudata (MVRV, Puell, hashrate) on vapaasti saatavilla vain Bitcoinille.</string>
+    <plurals name="coin_short_history">
+        <item quantity="one">Vain %1$d päivän hintahistoria – osa indikaattoreista puuttuu.</item>
+        <item quantity="other">Vain %1$d päivän hintahistoria – osa indikaattoreista puuttuu.</item>
+    </plurals>
+    <string name="coin_title">Kolikkoanalyysi</string>
+</resources>

@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen: Aufbau (Gruppen, Zeilen, Abschnitte, Suche, Kurzwerte) -->
+    <string name="settings_custom_value">Egen</string>
+    <string name="settings_group_general">Generelt</string>
+    <string name="settings_group_more">Mere</string>
+    <string name="settings_minutes">%1$d min</string>
+    <string name="settings_row_about">Om appen</string>
+    <string name="settings_row_advanced">Avanceret</string>
+    <string name="settings_row_alarms">Alarmer</string>
+    <string name="settings_row_currency">Valuta</string>
+    <string name="settings_row_dated_futures">Futures med udløb</string>
+    <string name="settings_row_updates">Kursopdatering</string>
+    <string name="settings_row_watchlist">Overvågningsliste</string>
+    <string name="settings_search_hint">Søg i indstillinger</string>
+    <string name="settings_seconds">%1$d s</string>
+    <string name="settings_section_about">Om</string>
+    <string name="settings_section_appearance">Udseende</string>
+    <string name="settings_section_developer">Udvikler</string>
+    <string name="settings_section_language">Sprog</string>
+    <!-- Kurzwert «eingeschaltet» (Gegenstück zu option_off) -->
+    <string name="settings_summary_on">Til</string>
+    <string name="settings_title">Indstillinger</string>
+
+    <!-- Einstellungen › Alarme (Ton, Signal, Ruhezeit, App-Symbol, exakte Prüfungen) -->
+    <string name="settings_alarm_cooldown">Pause, før en alarm udløses igen</string>
+    <!-- Ton/Vibration der Kursalarme, je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">Alarmsignal</string>
+    <string name="settings_alarm_signal_open_system">Tilpas i systemindstillinger</string>
+    <string name="settings_alarm_signal_system_hint">Følger telefonens notifikationsindstillinger.</string>
+    <string name="settings_alarm_sound">Alarmlyd</string>
+    <string name="settings_alarm_sound_custom">Egen lyd</string>
+    <string name="settings_alarm_sound_default">Standardlyd</string>
+    <string name="settings_alarm_sound_error">Lyden kunne ikke bruges.</string>
+    <string name="settings_alarm_sound_file">Egen lydfil…</string>
+    <string name="settings_alarm_sound_reset">Brug standardlyd</string>
+    <string name="settings_alarm_sound_system">Vælg systemlyd…</string>
+    <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">Tal på appikonet</string>
+    <string name="settings_app_badge_hint">Tæller åbne alarmnotifikationer. Om der vises et tal eller en prik, bestemmer startskærmen (f.eks. Samsung: «Med tal»).</string>
+    <string name="settings_exact_checks">Tjek til tiden</string>
+    <string name="settings_exact_checks_grant">Tillad «Alarmer og påmindelser»</string>
+    <string name="settings_exact_checks_hint">Android tjekker cirka hvert 15. minut, også når enheden er i dvale. Bruger lidt mere batteri.</string>
+    <string name="settings_exact_checks_nothing">Ingen aktive par – intet at tjekke.</string>
+    <string name="settings_exact_checks_permission_missing">Tilladelse mangler – Android tjekker, når det passer (ca. hvert 15. min eller senere).</string>
+    <string name="settings_notification_change">Giv kun besked ved kursændring</string>
+    <string name="settings_notification_change_always">Altid</string>
+    <string name="settings_notification_change_hint">En notifikation vises først, når kursen har bevæget sig mindst så meget siden den forrige. Der vises intet, mens der mangler data. Alarmer påvirkes ikke.</string>
+    <string name="settings_ongoing_notifications">Kan ikke stryges væk</string>
+    <string name="settings_ongoing_notifications_hint">Holder kursnotifikationerne fastgjort.</string>
+    <string name="settings_price_notifications">Kursnotifikationer</string>
+    <string name="settings_price_notifications_hint">Vis den aktuelle kurs for aktiverede par i statuslinjen.</string>
+    <string name="settings_price_pairs">Par</string>
+    <string name="settings_price_pairs_all_off">Alle fra</string>
+    <string name="settings_price_pairs_all_on">Alle til</string>
+    <string name="settings_price_pairs_count">%1$d af %2$d</string>
+    <string name="settings_price_pairs_empty">Endnu ingen par på overvågningslisten.</string>
+    <string name="settings_price_pairs_hint">Vælg, hvilke par der viser kursen i notifikationslinjen.</string>
+    <string name="settings_quiet_hours">Nattero</string>
+    <string name="settings_quiet_hours_from">Fra</string>
+    <string name="settings_quiet_hours_hint">Mellem %1$s og %2$s venter alarmer, til nattero slutter, og lyder derefter med lyd. Andre meddelelser kommer lydløst uden oplæsning.</string>
+    <string name="settings_quiet_hours_to">Til</string>
+
+    <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
+    <string name="settings_background_interval">Interval</string>
+    <string name="settings_background_updates">Opdater i baggrunden</string>
+    <string name="settings_battery_hint">Begrænset betyder, at Android kan forsinke opdateringer i baggrunden med flere timer.</string>
+    <string name="settings_battery_ok">Batteriforbrug: ubegrænset</string>
+    <string name="settings_battery_restricted">Batteriforbrug: begrænset</string>
+    <string name="settings_check_runs_empty">Ingen tjek registreret endnu.</string>
+    <string name="settings_check_runs_honest_android">Android bestemmer, hvornår der tjekkes – her ser du, hvornår det faktisk skete.</string>
+    <string name="settings_check_runs_honest_ios">iOS bestemmer, hvornår der tjekkes – her ser du, hvornår det faktisk skete.</string>
+    <string name="settings_check_runs_title">Seneste tjek</string>
+    <string name="settings_http_log">Vis HTTP-log</string>
+    <string name="settings_http_log_hint">Viser forespørgslerne til børserne nederst på siden ”Tilføj par” – til fejlsøgning.</string>
+    <string name="settings_live_service">Opdater hyppigt</string>
+    <string name="settings_live_websocket">Livekurser</string>
+
+    <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
+    <string name="settings_activity_alerts">Meld usædvanlig aktivitet</string>
+    <string name="settings_activity_alerts_hint">Højst én gang i timen pr. par: usædvanlige kursbevægelser, volumen-spikes og futures-ekstremer (data fra Binance).</string>
+    <string name="settings_activity_sensitivity">Følsomhed</string>
+    <string name="settings_activity_sensitivity_hint">Hvor let en coin regnes som usædvanlig – ens for kortet i overvågningslisten og notifikationerne. Med ”Mindre” viser kortet kun de 3 stærkeste.</string>
+    <string name="settings_watchlist_activity_card">Usædvanlig aktivitet i listen</string>
+    <string name="settings_watchlist_activity_card_hint">Viser chippen ⚡ ved grupperne: tryk for kun at se de par, hvor der sker noget lige nu. Meddelelser indstilles under Markedsmeddelelser.</string>
+    <string name="settings_watchlist_names">Vis navne</string>
+    <string name="settings_watchlist_names_hint">Navn under parret, f.eks. Bitcoin eller NVIDIA. Følger med logolisterne og hentes én gang for alle mønter.</string>
+    <string name="settings_watchlist_sparkline">Minigraf på overvågningslisten</string>
+    <string name="settings_watchlist_sparkline_hint">24-timers forløb ved siden af kursen</string>
+    <string name="settings_watchlist_value_names">Navne</string>
+    <string name="settings_watchlist_value_price_only">Kun kurs</string>
+    <string name="settings_watchlist_value_sparkline">Minigraf</string>
+
+    <!-- Einstellungen › Token & TradFi -->
+    <string name="settings_asset_scope_alpha">Inkl. Alpha-tokens (α)</string>
+    <string name="settings_asset_scope_alpha_hint">Alpha-tokens: tidlige, oftest små projekter fra Binance Alpha-listen – ofte lav handel og store udsving.</string>
+    <string name="settings_asset_scope_alpha_tradfi_hint">Hører til tokens. Låst ved »Kun TradFi«; Alpha-tokens på din liste bliver.</string>
+    <string name="settings_asset_scope_both">Tokens og TradFi</string>
+    <string name="settings_asset_scope_both_hint">Alt – krypto og TradFi</string>
+    <string name="settings_asset_scope_hint">Bestemmer, hvilke par valget og søgningen viser, når du tilføjer. Par, der allerede er på overvågningslisten, bliver altid.</string>
+    <string name="settings_asset_scope_title">Tokens &amp; TradFi</string>
+    <string name="settings_asset_scope_tokens">Kun tokens</string>
+    <string name="settings_asset_scope_tokens_hint">Krypto: spot og perpetuals</string>
+    <string name="settings_asset_scope_tradfi">Kun TradFi</string>
+    <string name="settings_asset_scope_tradfi_hint">Futures på aktier, råvarer, valuta – kontrakter, ikke tokens</string>
+    <string name="settings_rolling_futures">Inkl. kvartals- og andre futures med udløb</string>
+    <string name="settings_rolling_futures_hint">Fra: futures med udløb, der mangler på børsens liste, markeres som ”handles ikke længere” i stedet for at blive tjekket én ad gangen. Sparer tid ved hver opdatering.</string>
+    <string name="settings_rolling_futures_qtly">Inkl. kvartals- og andre futures med udløb (QTLY)</string>
+    <string name="settings_rolling_futures_tradfi_hint">Hører til tokens. Låst ved »Kun TradFi«; gælder stadig for futures med udløb på din liste.</string>
+    <string name="settings_tradfi_futures">Aktier, råvarer og valuta (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">Viser også futures på aktier, guld og andre råvarer, valuta og selskaber før børsnotering, når du vælger et par. Det er kontrakter, ikke tokens.</string>
+
+    <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
+    <string name="settings_accent">Accentfarve</string>
+    <string name="settings_accent_hint">Farve til appen, widgets og appikonet.</string>
+    <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">Møntlogoer</string>
+    <string name="settings_coin_logos_app">I appen</string>
+    <string name="settings_coin_logos_app_hint">Overvågningsliste, åbent par og markedskort</string>
+    <string name="settings_coin_logos_footer">Logoerne kommer fra CoinGecko og, for det CoinGecko ikke har (f.eks. guld, sølv, aktier), fra Binance. Appen henter alle logoer på én gang og gemmer dem på denne enhed, så ingen af dem ved, hvilke mønter du følger. Mønter uden logo viser deres forbogstaver. Favoritter får en lille stjerne på logoet. Hvor en kontakt er slået fra, vises hverken logoer eller forbogstaver; er alt slået fra, hentes intet.</string>
+    <string name="settings_coin_logos_portfolio">I porteføljen</string>
+    <string name="settings_coin_logos_portfolio_hint">Beholdninger, møntdetaljer og indsigt</string>
+    <string name="settings_coin_logos_value_app">App</string>
+    <string name="settings_coin_logos_widgets">I widgets</string>
+    <string name="settings_coin_logos_widgets_hint">Widgets til overvågningsliste og én mønt</string>
+    <string name="settings_high_contrast">Høj kontrast</string>
+    <string name="settings_high_contrast_hint">Kraftigere kursfarver og mørkere sekundær tekst. Er også slået til, når systemet beder om mere kontrast.</string>
+    <string name="settings_language_choose">Vælg sprog</string>
+    <string name="settings_language_system">Systemsprog</string>
+    <string name="settings_price_colors">Kursfarver</string>
+    <string name="settings_price_colors_hint">Blå / orange er let at skelne ved alle former for farvesynsdefekt (rød-grøn og blå-gul). Retningen vises desuden altid med + / −.</string>
+    <string name="settings_theme_mode">Lys / Mørk</string>
+    <string name="settings_widgets">Widgets</string>
+
+    <!-- Einstellungen › %-Änderung -->
+    <!-- Einstellungszeile und Seitentitel «%-Änderung»; %1$s ist das Prozentzeichen «%» -->
+    <string name="settings_change_basis">Ændring i %1$s og graf-tidszone</string>
+    <string name="settings_change_basis_hint_1">Den valgte tidszone bestemmer, hvorfra den procentvise ændring regnes (overvågningsliste, pulslinje, åbent par, widgets), og hvilke klokkeslæt graferne viser.</string>
+    <string name="settings_change_basis_hint_2">”%1$s” sammenligner med kursen for præcis 24 timer siden. ”00:00” sammenligner med åbningskursen ved midnat i denne tidszone.</string>
+    <string name="settings_change_basis_hint_3">Alarmer påvirkes ikke.</string>
+    <string name="settings_change_basis_hint_since_last">”%1$s” sammenligner med kursen fra den forrige opdatering. Med live-kurser forbliver den tæt på 0 %%.</string>
+    <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
+    <string name="settings_change_period">Vis periode ved ændringen</string>
+    <string name="settings_change_period_hint">Lille ”24h”, ”i dag” eller ”sidste opdatering” ved ændringen i overvågningslisten og i widgetten med én mønt. Skærmlæseren siger den altid.</string>
+
+    <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
+    <string name="settings_conversion_currency">Omregningsvaluta</string>
+    <string name="settings_conversion_currency_hint">Bruges også til porteføljen, alarmer i din valuta, kortet Kryptomarkedet og widgetten Portefølje.</string>
+    <string name="settings_cost_method">Anskaffelsesprismetode</string>
+    <string name="settings_cost_method_average">Gennemsnit (Ø)</string>
+    <string name="settings_cost_method_average_hint">Salg værdiansættes til den løbende gennemsnitlige købspris.</string>
+    <string name="settings_cost_method_fifo">FIFO (standard)</string>
+    <string name="settings_cost_method_fifo_hint">De ældste coins sælges først, på tværs af alle børser og wallets.</string>
+    <string name="settings_cost_method_fifo_wallet">FIFO pr. wallet/børs</string>
+    <string name="settings_cost_method_fifo_wallet_hint">Ældste coins først på hver børs eller wallet; overførsler flytter lots med deres købsdato.</string>
+    <string name="settings_portfolio_lock">Porteføljelås</string>
+    <string name="settings_portfolio_lock_footer">Låsen skjuler visningen. Dataene ligger på denne enhed og er beskyttet af enhedens kryptering. Du kan beskytte sikkerhedskopier med en adgangskode.</string>
+    <string name="settings_portfolio_lock_hint">Skjuler kun porteføljen: lås op med fingeraftryk, ansigt eller enhedens PIN. Låser igen efter mere end et minut i baggrunden. Overvågningsliste, alarmer og andre widgets forbliver åbne.</string>
+    <string name="settings_portfolio_lock_no_device_lock">Uden enhedens pinkode eller adgangskode skjuler låsen intet – opsæt en skærmlås.</string>
+    <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">Portefølje i systembackup</string>
+    <string name="settings_portfolio_system_backup_hint">Fra: Dine transaktioner kommer ikke med i enhedens systembackup eller ved overførsel til en ny telefon. Brug appens egen sikkerhedskopi med adgangskode til at flytte dem.</string>
+    <string name="settings_portfolio_system_backup_unavailable">Kræver Android 9 eller nyere – ældre versioner ville gemme porteføljen ukrypteret i Google-sikkerhedskopien.</string>
+    <string name="settings_portfolio_tab">Vis fanen Portefølje</string>
+    <string name="settings_portfolio_value_locked">Til, med lås</string>
+    <string name="settings_show_converted">Omregnede kurser</string>
+    <string name="settings_show_converted_hint">Viser kurserne på overvågningslisten også i %1$s</string>
+
+    <!-- Einstellungen › Markt-Meldungen -->
+    <string name="settings_depeg_alarm">Meld USDT-depeg</string>
+    <string name="settings_depeg_alarm_hint">Giver besked én gang, når USDT afviger fra 1 USD med grænsen (Kraken USDT/USD, Binance USDC/USDT). Værdier i appen regner fortsat med USDT = 1.</string>
+    <string name="settings_depeg_threshold">Depeg-grænse</string>
+    <string name="settings_fng_above">Fear &amp; Greed: giv besked over</string>
+    <string name="settings_fng_below">Fear &amp; Greed: giv besked under</string>
+    <string name="settings_gas_alert_hint">Giver besked én gang, når det normale gebyr falder under grænsen. Tjekkes ved kursopdatering, højst hvert 10. minut.</string>
+    <string name="settings_gas_btc_below">Bitcoin-gebyr under (sat/vB)</string>
+    <string name="settings_gas_eth_below">Ethereum-gas under (gwei)</string>
+    <string name="settings_ind_ath_within">Fald fra rekordniveau højst</string>
+    <string name="settings_ind_mayer_above">Mayer Multiple over</string>
+    <string name="settings_ind_mayer_below">Mayer Multiple under</string>
+    <string name="settings_ind_mvrv_above">MVRV over</string>
+    <string name="settings_ind_mvrv_below">MVRV under</string>
+    <string name="settings_indicator_alerts_hint">Bitcoin-nøgletal, tjekket to gange om dagen. Du vælger grænserne – appen vurderer ikke værdierne.</string>
+    <string name="settings_macro_notifications">Økonomisk kalender</string>
+    <string name="settings_macro_notifications_hint">Kl. 08:00 på dage med vigtige amerikanske økonomiske tal (inflation, jobrapport, rentebeslutning). Kalenderen kommer fra appens hjemmeside og hentes én gang om dagen.</string>
+    <string name="settings_market_alerts">Markedsmeddelelser</string>
+    <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
+    <plurals name="settings_market_alerts_active">
+        <item quantity="one">%1$d aktiv</item>
+        <item quantity="other">%1$d aktive</item>
+    </plurals>
+
+    <!-- Einstellungen › Sprachausgabe -->
+    <string name="settings_speech_rate">Talehastighed: %1$.1f×</string>
+    <string name="settings_tts">Oplæsning</string>
+    <string name="settings_tts_alarms_only">Kun alarmer</string>
+    <string name="settings_tts_alarms_only_hint">Fra: hver opdatering af et par med ”Læs kurs op” bliver læst op.</string>
+    <!-- Sprachausgabe schweigt im Lautlos-/Vibrationsmodus -->
+    <string name="settings_tts_hint_silent">Læser kurser og alarmer højt. Forbliver tavs, mens enheden er på lydløs eller vibration.</string>
+    <string name="settings_tts_test">Test stemme</string>
+
+    <!-- Einstellungen › Daten: App zurücksetzen -->
+    <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
+    <string name="settings_reset_app">Nulstil app</string>
+    <string name="settings_reset_app_action">Slet alt</string>
+    <string name="settings_reset_app_confirm">Sletter overvågningsliste, alarmer, portefølje, indstillinger og alle gemte data, som efter installation. Kan ikke fortrydes. Tip: lav en sikkerhedskopi først.</string>
+    <string name="settings_reset_app_title">Nulstil appen?</string>
+
+    <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
+    <!-- Suchfeld der Währungsseite -->
+    <string name="currency_search">Søg valuta</string>
+    <string name="language_search">Søg sprog</string>
+
+    <!-- Theme -->
+    <string name="theme_dark">Mørk</string>
+    <string name="theme_light">Lys</string>
+    <string name="theme_system">System</string>
+
+    <!-- Akzentfarben -->
+    <string name="accent_blue">Blå</string>
+    <string name="accent_green">Grøn</string>
+    <!-- Eigenname, in allen Sprachen gleich -->
+    <string name="accent_marrs_green">Marrs Green</string>
+    <string name="accent_orange">Orange</string>
+    <string name="accent_red">Rød</string>
+
+    <!-- Kursfarben -->
+    <string name="price_colors_red_up_hint">Almindeligt i Kina, Japan, Korea og Taiwan</string>
+    <string name="price_colors_swap">Byt farver (stiger ↔ falder)</string>
+    <string name="price_style_calm">Rolig</string>
+    <string name="price_style_calm_color_vision">Rolig · Nedsat farvesyn</string>
+    <string name="price_style_color_vision">Nedsat farvesyn</string>
+    <string name="price_style_fresh">Frisk</string>
+    <string name="price_style_traditional">Traditionel</string>
+
+    <!-- Über die App -->
+    <string name="about_exchanges_verified">Børsforbindelser senest kontrolleret mod rigtige svar: %1$s</string>
+    <string name="about_license">Kurserne kommer direkte fra børserne; ingen konto og ingen sporing.</string>
+    <!-- Texte der Lizenzen liegen in assets/licenses -->
+    <string name="about_licenses">Licenser</string>
+    <string name="about_privacy_policy">Privatlivspolitik</string>
+    <!-- GitHub-Vorlage exchange_request.md -->
+    <string name="about_request_exchange">Ønsk en børs</string>
+    <string name="about_source_code">Kildekode på GitHub</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_why">Crypto Checker er et uafhængigt projekt af r1AD: et roligt kursoverblik uden konto, reklamer eller sporing. Spørgsmål og ønsker: %1$s</string>
+
+    <!-- Lizenzhinweise -->
+    <string name="licenses_app_intro">Crypto Checker er open source (MIT-licens).</string>
+    <string name="licenses_font_title">Skrifttypen Rubik</string>
+    <string name="licenses_icons_bundled_text">Følger med appen: ikoner fra «Cryptocurrency Icons» af Christopher Downer og bidragydere (github.com/spothq/cryptocurrency-icons), udgivet under CC0 1.0 Universal. De vises, indtil logoer fra CoinGecko eller Binance er indlæst. Navne og logoer forbliver varemærker for deres projekter.</string>
+    <string name="licenses_icons_title">Reserve-coinikoner</string>
+    <string name="licenses_libraries_intro">Appen bruger disse biblioteker under Apache License 2.0:</string>
+    <string name="licenses_libraries_title">Android-biblioteker</string>
+
+    <!-- Entwickleroptionen -->
+    <!-- Countdown der letzten Tipps auf die Version bis zu den Entwickleroptionen -->
+    <plurals name="developer_taps_left">
+        <item quantity="one">%d tryk mere for at låse udviklerindstillinger op</item>
+        <item quantity="other">%d tryk mere for at låse udviklerindstillinger op</item>
+    </plurals>
+    <string name="developer_unlocked">Udviklerindstillinger låst op</string>
+
+    <!-- Nur iOS: Einstellungen -->
+    <!-- Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">Vibration følger iPhonens indstillinger (Lyde og haptik).</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Tæller nye alarmer og markedsmeddelelser; nulstilles, når du åbner appen.</string>
+</resources>

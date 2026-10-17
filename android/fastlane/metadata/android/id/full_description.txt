@@ -1,0 +1,42 @@
+Alarm ketika Bitcoin mencapai harga Anda – dari bursa yang benar-benar Anda gunakan. Harga bursa Anda, bukan rata-rata – gratis, tanpa akun.
+
+YANG MEMBUATNYA BERBEDA
+• Bursa Anda, bukan rata-rata: setiap baris menampilkan harga terakhir pasangan itu di bursa yang Anda pilih – Binance, Coinbase, Kraken, OKX, Bybit, dan banyak lagi.
+• Alarm yang memberi tahu sekali: “Beri tahu saya saat BTC naik di atas 100.000 USDT.” Alarm berbunyi saat level terlewati, bukan di setiap pembaruan – “Sekali” lalu menonaktifkannya, “Setiap kali” menyiapkannya lagi saat harga kembali.
+• “Apa yang ikut bergerak?”: daftar faktor untuk satu koin – pasar umum, volume, volatilitas, funding dan open interest, jarak ke titik tertinggi atau terendah, Fear & Greed. Menunjukkan apa yang bergerak bersamaan – bukan penyebab, bukan berita, bukan saran investasi.
+• Tanpa akun, tanpa iklan, tanpa pelacakan. Pengembang tidak menerima data Anda.
+
+JUJUR SOAL DATA
+• “Hemat” adalah bawaan: harga diperbarui saat aplikasi dibuka dan berkala di latar belakang. “Langsung selama terbuka” menambahkan harga langsung untuk Binance, Bybit, OKX, Coinbase, dan Kraken selama daftar pantauan terbuka.
+• Perubahan % dan grafik pertama-tama berasal dari bursa pasangan itu; jika tidak ada candle, aplikasi memakai Binance atau Coinbase dan memberi tahu Anda.
+• Fear & Greed, dominasi, dan nilai on-chain dari alternative.me, CoinGecko, dan Coin Metrics.
+• Saat aplikasi ditutup, Android yang menentukan kapan alarm diperiksa – sekitar tiap 15 menit, sering lebih jarang. Lonjakan singkat di antaranya bisa terlewat; aplikasi memberi tahu Anda.
+• Jumlah tetap di perangkat, kecuali Anda ekspor sendiri (CSV, cadangan). Untuk harga, hanya simbol pasangan yang dikirim ke bursa pasangan itu; plus kurs (Frankfurter), data pasar dan logo (CoinGecko, Binance), cermin data (GitHub). Jika Anda memantau alamat atau xpub, node blockchain publik melihat alamatnya (untuk xpub, turunannya) dan IP Anda.
+
+DAFTAR PANTAUAN
+• 41 pasar di 32 bursa: spot dan futures, token DEX via DexScreener, opsional saham, emas, dan valas (TradFi)
+• Baris kedua “≈ nilai” dalam salah satu dari 31 mata uang (EUR, CHF, USD …), dikonversi dengan kurs valuta
+• Grafik mini dan perubahan % selama 24 jam atau sejak 00:00 di zona waktu Anda
+• Grup, favorit, urutkan dengan seret, dan catatan untuk tiap koin
+• Baris menandai “usang” atau “bursa tidak terjangkau”
+
+ALARM
+• Harga di atas atau di bawah level, atau naik/turun sekian persen – juga dalam mata uang Anda, mis. 60.000 EUR pada pasangan USDT
+• Pergerakan x % dalam rentang waktu, lonjakan volume
+• Suara (termasuk file audio Anda sendiri), getar, dan pengumuman suara opsional
+• Jam tenang dan “Uji alarm”: dengar lebih dulu bagaimana alarm datang
+
+PASAR
+• Aktivitas tidak biasa: pergerakan harga dan volume yang tidak biasa di daftar Anda, opsional dengan notifikasi
+• Crypto Pulse, Fear & Greed, indikator Bitcoin, funding, dan open interest – sebagai nilai terukur
+• Biaya jaringan untuk Ethereum, Bitcoin, dan lainnya, dengan alarm gas
+
+LAINNYA
+• Widget: daftar pantauan, total portofolio, satu koin dengan grafik
+• Portofolio opsional (aktifkan di Pengaturan): beli, jual, swap, transfer, reward, setoran dan penarikan; FIFO (bawaan) atau rata-rata (Ø); alamat hanya-baca tanpa seed untuk BTC (termasuk xpub), ETH & jaringan EVM, SOL, TRX, XRP, LTC, dan TON; impor CSV dari Relai, Swissquote dan Kraken; ringkasan tahunan sebagai CSV; kunci tersendiri
+• Mudah dibaca semua orang: hijau/merah atau biru/oranye, tanda dan panah, bukan hanya warna; TalkBack membacakan tiap baris sebagai satu kalimat
+• Cadangkan & pulihkan ke file – juga antara Android dan iPhone
+• Mode terang dan gelap, lima warna aksen, 31 bahasa
+• Sumber terbuka (MIT) – kodenya publik di GitHub
+
+Catatan: Crypto Checker menampilkan harga dan portofolio yang Anda masukkan sendiri. Aplikasi ini bukan bursa atau dompet, tidak melakukan trading, dan tidak memberi saran investasi.

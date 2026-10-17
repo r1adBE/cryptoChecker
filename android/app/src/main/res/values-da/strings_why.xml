@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Warum bewegt sich das?»: Titel, Abschnitte, Aufklappen -->
+    <string name="why_action">Hvad bevæger sig med?</string>
+    <string name="why_all_values">Alle værdier og kilder</string>
+    <string name="why_all_values_hint">Observation · Mulig forklaring · Kilder</string>
+    <string name="why_details">Vis detaljer</string>
+    <string name="why_details_hide">Skjul detaljer</string>
+    <string name="why_disclaimer">Automatisk vurdering ud fra markedsdata: viser, hvad der sker samtidig, ikke bevis for en årsag.</string>
+    <string name="why_footer_short">Samtidig betyder ikke årsag · Ingen investeringsrådgivning</string>
+    <string name="why_no_data">Ingen data fra Binance for dette par</string>
+    <string name="why_no_data_hint">Kurs, volumen og volatilitet kommer fra Binances candlesticks på timebasis.</string>
+    <string name="why_ref_alts">Alts</string>
+    <string name="why_section_context">Mulig tolkning</string>
+    <string name="why_section_observation">Observation</string>
+    <string name="why_title">Hvad bevæger sig med?</string>
+    <string name="why_title_coin">Hvad bevæger sig med %1$s?</string>
+
+    <!-- «Warum?»: Kurz gesagt (ein Satz oben) -->
+    <string name="why_brief_head">Kort sagt · Pr. %1$s</string>
+    <string name="why_brief_label">Kort sagt:</string>
+    <string name="why_summary_against">Mønten bevæger sig mod markedet.</string>
+    <string name="why_summary_calm">Ingen bemærkelsesværdig bevægelse: marked og mønt er rolige.</string>
+    <string name="why_summary_coin">Kun denne mønt bevæger sig – muligvis noget, der kun vedrører denne mønt.</string>
+    <string name="why_summary_coin_volume">Kun denne mønt bevæger sig, med højere volumen – muligvis noget, der kun vedrører denne mønt.</string>
+    <string name="why_summary_longs">Futures: mange gearede long-positioner.</string>
+    <string name="why_summary_market">Bevægelsen passer tidsmæssigt med det samlede marked.</string>
+    <string name="why_summary_market_volume">Bevægelsen falder sammen med højere handelsvolumen og et marked i bred bevægelse.</string>
+    <string name="why_summary_peg_near">Kursen ligger tæt på sin 1:1-binding.</string>
+    <string name="why_summary_peg_off">Kursen afviger mærkbart fra sin 1:1-binding.</string>
+    <string name="why_summary_shorts">Futures: mange short-positioner.</string>
+    <string name="why_summary_thin">Bevægelsen er tynd: lidt volumen bag den.</string>
+
+    <!-- «Warum?»: Faktorliste (Titel der Faktoren) -->
+    <string name="why_f_against">Mod markedet</string>
+    <string name="why_f_coin_only">Kun denne mønt</string>
+    <string name="why_f_leader">Bitcoin som markedsleder</string>
+    <string name="why_f_leverage_balanced">Gearing i balance</string>
+    <string name="why_f_leverage_longs">Gearing: mange longs</string>
+    <string name="why_f_leverage_shorts">Gearing: mange shorts</string>
+    <string name="why_f_market_calm">Roligt marked</string>
+    <string name="why_f_market_wide">Hele markedet bevæger sig</string>
+    <string name="why_factor_funding">Funding</string>
+    <string name="why_factor_futures">Futures</string>
+    <string name="why_factor_market">Hele markedet</string>
+    <string name="why_factor_near_high">Tæt på toppen</string>
+    <string name="why_factor_near_low">Tæt på bunden</string>
+    <string name="why_factor_peg">Binding (1:1)</string>
+    <string name="why_factor_range3d">3-dages-spænd</string>
+
+    <!-- «Warum?»: Nebenzeilen der Faktoren -->
+    <string name="why_fn_estimated">anslået</string>
+    <string name="why_fn_funding_longs">mange satser på stigende kurser</string>
+    <string name="why_fn_funding_neutral">neutral</string>
+    <string name="why_fn_funding_shorts">mange satser på faldende kurser</string>
+    <string name="why_fn_high_at">på 30-dages-toppen</string>
+    <string name="why_fn_high_below">under 30-dages-toppen</string>
+    <string name="why_fn_leader_calm">Bitcoin roligt</string>
+    <string name="why_fn_leader_moves">Bitcoin bevæger sig tydeligt</string>
+    <string name="why_fn_low_above">over 30-dages-bunden</string>
+    <string name="why_fn_low_at">på 30-dages-bunden</string>
+    <string name="why_fn_market_against">Coinen bevæger sig mod markedet</string>
+    <string name="why_fn_market_alone">Roligt marked – denne coin bevæger sig alene</string>
+    <string name="why_fn_market_calm">Roligt marked</string>
+    <string name="why_fn_market_lags">Markedet bevæger sig, denne coin knap</string>
+    <string name="why_fn_market_moves">Markedet bevæger sig i samme retning</string>
+    <string name="why_fn_market_pulls">Markedet bevæger sig med BTC</string>
+    <string name="why_fn_oi_down">Open interest faldet</string>
+    <string name="why_fn_oi_flat">Open interest næsten uændret</string>
+    <string name="why_fn_oi_mixed">Open interest blandet</string>
+    <string name="why_fn_oi_up">Open interest steget</string>
+    <string name="why_fn_peg_above">%1$s over 1:1-bindingen</string>
+    <string name="why_fn_peg_below">%1$s under 1:1-bindingen</string>
+    <string name="why_fn_peg_near">tæt på 1:1-bindingen</string>
+    <string name="why_fn_range_above_low">siden 3-dages-bunden</string>
+    <string name="why_fn_range_below_high">siden 3-dages-toppen</string>
+    <string name="why_fn_range_near_high">tæt på 3-dages-toppen</string>
+    <string name="why_fn_range_near_low">tæt på 3-dages-bunden</string>
+    <string name="why_fn_volatility_stronger">stærkere end normalt</string>
+    <string name="why_fn_volatility_tiny">lille i absolutte tal (under %1$s)</string>
+    <string name="why_fn_volatility_usual">som normalt</string>
+    <string name="why_fn_volume_higher">højere end normalt</string>
+    <string name="why_fn_volume_lower">lavere end normalt</string>
+    <string name="why_fn_volume_usual">som normalt</string>
+
+    <!-- «Warum?»: ausführliche Sätze je Beobachtung -->
+    <string name="why_against_market_text">Denne mønt %1$s, BTC %2$s på 24 t – en påfaldende selvstændig bevægelse.</string>
+    <string name="why_against_ref_text">Denne coin %1$s, %2$s %3$s på 24 t – en påfaldende selvstændig bevægelse.</string>
+    <string name="why_btc_independent">%1$s bevæger sig i øjeblikket uafhængigt af Bitcoin.</string>
+    <string name="why_btc_tight">%1$s følger i øjeblikket Bitcoin tæt.</string>
+    <string name="why_change_1h">1h</string>
+    <string name="why_change_24h">24h</string>
+    <string name="why_coin_only_text">%1$s på 24 t, mens markedet er roligt – muligvis noget, der kun vedrører denne mønt.</string>
+    <string name="why_leverage_balanced_text">Ingen ophobning af long- eller short-positioner på futures-markedet.</string>
+    <string name="why_leverage_longs_text">Mange satser med lånte penge på stigende kurser. Longs betaler shorts – øget risiko for likvidationer, hvis kursen falder.</string>
+    <string name="why_leverage_shorts_text">Mange satser med lånte penge på faldende kurser. Shorts betaler longs – hvis kursen stiger, er et short squeeze muligt.</string>
+    <string name="why_market_calm_text">Denne mønt: %1$s på 24 t. Hverken markedet eller mønten bevæger sig meget.</string>
+    <string name="why_market_leader_text">Som den største mønt bevæger BTC sig som regel i takt med resten af markedet. ETH: %1$s på 24 t.</string>
+    <string name="why_market_leader_text_no_eth">Som den største mønt bevæger BTC sig som regel i takt med resten af markedet.</string>
+    <string name="why_market_similar_text">Denne coin: %1$s på 24 t – samtidig bevæger markedet sig i samme retning, om end mindre tydeligt.</string>
+    <string name="why_market_wide_text">Denne mønt: %1$s på 24 t – samtidig bevæger det samlede marked sig tydeligt.</string>
+    <string name="why_open_interest_change">Open interest %1$s siden sidste måling.</string>
+    <string name="why_peg_text">Stablecoin: målt mod en 1:1-binding til kursvalutaen, afvigelse %1$s.</string>
+    <string name="why_sentiment_text">Fear &amp; Greed-indeks for hele kryptomarkedet, %1$s i forhold til i går.</string>
+    <string name="why_sentiment_text_no_change">Fear &amp; Greed-indeks for hele kryptomarkedet.</string>
+    <plurals name="why_trend_falling">
+        <item quantity="one">faldende i %1$d time</item>
+        <item quantity="other">faldende i %1$d timer</item>
+    </plurals>
+    <plurals name="why_trend_rising">
+        <item quantity="one">stigende i %1$d time</item>
+        <item quantity="other">stigende i %1$d timer</item>
+    </plurals>
+    <plurals name="why_trend_stable">
+        <item quantity="one">stabil i %1$d time</item>
+        <item quantity="other">stabil i %1$d timer</item>
+    </plurals>
+    <string name="why_volatility_high_text">Sidste time: %1$s – målt mod det typiske udsving pr. time de seneste 24 timer.</string>
+    <string name="why_volatility_normal_text">Sidste time: %1$s – inden for det normale.</string>
+    <string name="why_volatility_tiny_text">Sidste time: %1$s – usædvanligt for denne coin, men lille i absolutte tal.</string>
+    <string name="why_volume_estimated_text">Anslået: Denne kilde leverer ingen omsætning, så de handlede mængder coins sammenlignes.</string>
+    <string name="why_volume_high_text">Langt mere handel end normalt i den sidste time – bevægelsen sker med høj volumen.</string>
+    <string name="why_volume_low_text">Kun lidt handel bag bevægelsen – sådanne bevægelser er ofte mindre stabile.</string>
+    <string name="why_volume_normal_text">Handlen i den sidste time svarer til de seneste 24 timer.</string>
+
+    <!-- «Warum?»: Signal-Punkte (stützt, neutral, Vorsicht) -->
+    <string name="why_dot_caution">forhøjet</string>
+    <string name="why_dot_neutral">neutral</string>
+    <string name="why_dot_supports">passer til bevægelsen</string>
+
+    <!-- «Warum?»: Frische und Quellen der Daten -->
+    <string name="why_data_time">Data pr. %1$s</string>
+    <string name="why_fresh_breadth">Markedsbredde: %1$s · %2$s</string>
+    <string name="why_fresh_candles">Lys: %1$s · %2$s</string>
+    <string name="why_fresh_fng">Fear &amp; Greed: %1$s</string>
+    <string name="why_fresh_futures">Futures: %1$s</string>
+    <plurals name="why_fresh_oi_hours">
+        <item quantity="one">open interest sammenlignet med for %1$d time siden</item>
+        <item quantity="other">open interest sammenlignet med for %1$d timer siden</item>
+    </plurals>
+    <plurals name="why_fresh_oi_minutes">
+        <item quantity="one">open interest sammenlignet med for %1$d minut siden</item>
+        <item quantity="other">open interest sammenlignet med for %1$d minutter siden</item>
+    </plurals>
+    <string name="why_fresh_today">i dag</string>
+    <string name="why_fresh_yesterday">i går</string>
+    <string name="why_source_fallback">%1$s (reservekilde)</string>
+    <string name="why_source_reference">%1$s (vejledende)</string>
+    <string name="why_sources">Kilder: børsens timelys (oftest Binance), futuresdata fra børserne, Fear &amp; Greed fra alternative.me.</string>
+    <string name="why_sources_list">Kilder: %1$s.</string>
+    <string name="why_src_breadth">%1$s (markedsbredde)</string>
+    <string name="why_src_candles">%1$s (lys)</string>
+    <string name="why_src_comparison">%1$s (markedssammenligning)</string>
+    <string name="why_src_fng">%1$s (Fear &amp; Greed)</string>
+    <string name="why_src_futures">%1$s (futures)</string>
+
+    <!-- Faktor-Checkliste (Crypto Pulse und «Warum?») -->
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">Funding</string>
+    <string name="factor_spoken_volatility">%1$s gange det normale udsving</string>
+    <string name="factor_spoken_volume">%1$s gange det normale</string>
+    <string name="factor_volatility">Udsving (1h)</string>
+    <string name="factor_volume">Volumen</string>
+</resources>

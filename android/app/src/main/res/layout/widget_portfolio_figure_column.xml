@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Eine Kennzahl der Übersicht als Spalte (breit): «Heute» klein und grau, darunter «↗ +1.50%» als
+     Text in der Kursfarbe (keine Pille; ohne Wert grau «—»), darunter der Betrag «+182.40 CHF»
+     (nur wenn Platz). Gleiche Ids wie widget_portfolio_figure_row.xml. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/fig_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textSize="11sp" />
+
+    <!-- Wert «↗ +1.50%» als Text in der Kursfarbe (keine Pille), ohne Wert grau «—» -->
+    <TextView
+        android:id="@+id/fig_value"
+        android:fontFamily="@font/rubik_semibold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textSize="11sp"
+        android:fontFeatureSettings="tnum" />
+
+    <TextView
+        android:id="@+id/fig_amount"
+        android:fontFamily="@font/rubik_semibold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textSize="11sp"
+        android:fontFeatureSettings="tnum"
+        android:visibility="gone" />
+</LinearLayout>

@@ -1,0 +1,30 @@
+{
+ "market": "Bithumb",
+ "recordedAt": "2026-10-16T23:27:56Z",
+ "description": "Recorded live by android/tools/record_exchange_fixtures.py. Real responses: the contract tests only check plausibility (parser does not throw, last > 0, batch has tickers, pair list contains the pair). Skipped: nothing. Trimmed for the repository: long lists keep their first 25 entries plus every entry naming the tested pair.",
+ "cases": [
+  {
+   "kind": "single",
+   "name": "recorded single 2026-10-16T23:27:56Z",
+   "market": "Bithumb",
+   "requestId": 0,
+   "request": "GET https://api.bithumb.com/v1/ticker?markets=KRW-BTC",
+   "body": "[{\"market\":\"KRW-BTC\",\"trade_date\":\"20261016\",\"trade_time\":\"232853\",\"trade_date_kst\":\"20261017\",\"trade_time_kst\":\"082853\",\"trade_timestamp\":1792225733430,\"opening_price\":110501000,\"high_price\":110528000,\"low_price\":109258000,\"trade_price\":110313000,\"prev_closing_price\":110432000,\"change\":\"FALL\",\"change_price\":119000,\"change_rate\":0.0011,\"signed_change_price\":-119000,\"signed_change_rate\":-0.0011,\"trade_volume\":0.00026527,\"acc_trade_price\":11497048119.5352,\"acc_trade_price_24h\":33332795464.71912,\"acc_trade_volume\":104.57081748,\"acc_trade_volume_24h\":301.70659362,\"highest_52_week_price\":171490000,\"highest_52_week_date\":\"2025-10-28\",\"lowest_52_week_price\":81110000,\"lowest_52_week_date\":\"2026-02-07\",\"timestamp\":1792225733430}]",
+   "pair": {
+    "base": "BTC",
+    "quote": "KRW",
+    "id": "KRW-BTC",
+    "contract": "NONE"
+   }
+  },
+  {
+   "kind": "pairs",
+   "name": "recorded pairs 2026-10-16T23:27:56Z",
+   "market": "Bithumb",
+   "requestId": 0,
+   "request": "GET https://api.bithumb.com/v1/market/all?isDetails=false",
+   "body": "[{\"market\":\"KRW-BTC\",\"korean_name\":\"비트코인\",\"english_name\":\"Bitcoin\"},{\"market\":\"KRW-ETH\",\"korean_name\":\"이더리움\",\"english_name\":\"Ethereum\"},{\"market\":\"KRW-ETC\",\"korean_name\":\"이더리움클래식\",\"english_name\":\"Ethereum Classic\"},{\"market\":\"KRW-XRP\",\"korean_name\":\"엑스알피[리플]\",\"english_name\":\"XRP\"},{\"market\":\"KRW-BCH\",\"korean_name\":\"비트코인캐시\",\"english_name\":\"Bitcoin Cash\"},{\"market\":\"KRW-QTUM\",\"korean_name\":\"퀀텀\",\"english_name\":\"Qtum\"},{\"market\":\"KRW-A\",\"korean_name\":\"볼타\",\"english_name\":\"Vaulta\"},{\"market\":\"KRW-ICX\",\"korean_name\":\"아이콘\",\"english_name\":\"ICON\"},{\"market\":\"KRW-TRX\",\"korean_name\":\"트론\",\"english_name\":\"TRON\"},{\"market\":\"KRW-ELF\",\"korean_name\":\"엘프\",\"english_name\":\"aelf\"},{\"market\":\"KRW-KNC\",\"korean_name\":\"카이버네트워크\",\"english_name\":\"Kyber Network\"},{\"market\":\"KRW-GLM\",\"korean_name\":\"골렘\",\"english_name\":\"Golem\"},{\"market\":\"KRW-ZIL\",\"korean_name\":\"질리카\",\"english_name\":\"Zilliqa\"},{\"market\":\"KRW-WAXP\",\"korean_name\":\"왁스\",\"english_name\":\"WAXP\"},{\"market\":\"KRW-POWR\",\"korean_name\":\"파워렛저\",\"english_name\":\"Powerledger\"},{\"market\":\"KRW-STEEM\",\"korean_name\":\"스팀\",\"english_name\":\"Steem\"},{\"market\":\"KRW-ZRX\",\"korean_name\":\"제로엑스\",\"english_name\":\"0x\"},{\"market\":\"KRW-SNT\",\"korean_name\":\"스테이터스네트워크토큰\",\"english_name\":\"Status Network\"},{\"market\":\"KRW-ADA\",\"korean_name\":\"에이다\",\"english_name\":\"Cardano\"},{\"market\":\"KRW-BAT\",\"korean_name\":\"베이직어텐션토큰\",\"english_name\":\"Basic Attention Token\"},{\"market\":\"KRW-THETA\",\"korean_name\":\"쎄타토큰\",\"english_name\":\"Theta Token\"},{\"market\":\"KRW-CVC\",\"korean_name\":\"시빅\",\"english_name\":\"Civic\"},{\"market\":\"KRW-WAVES\",\"korean_name\":\"웨이브\",\"english_name\":\"Waves\"},{\"market\":\"KRW-LINK\",\"korean_name\":\"체인링크\",\"english_name\":\"ChainLink\"},{\"market\":\"KRW-ENJ\",\"korean_name\":\"엔진코인\",\"english_name\":\"Enjin Coin\"}]",
+   "contains": "KRW-BTC"
+  }
+ ]
+}

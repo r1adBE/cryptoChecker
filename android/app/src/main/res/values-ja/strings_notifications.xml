@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Texte der Mitteilungen -->
+    <string name="notification_activity_title">%1$s · %2$s</string>
+    <string name="notification_alarm_text">%1$s — 現在 %2$s</string>
+    <string name="notification_alarm_title">アラーム: %1$s · %2$s</string>
+    <string name="notification_depeg_action_exchange">取引所を開く</string>
+    <string name="notification_depeg_text">アプリ内の値は引き続き USDT = 1 で計算されます。</string>
+    <string name="notification_depeg_title">USDT が %1$s USD（%2$s）</string>
+    <string name="notification_fng_above">指数が %1$d を上回りました – この指数では、市場は「強欲」とされます。</string>
+    <string name="notification_fng_below">指数が %1$d を下回りました – この指数では、市場は「恐怖」とされます。</string>
+    <string name="notification_fng_title">Fear &amp; Greed: %1$d</string>
+    <string name="notification_gas_btc_text">しきい値 %1$s sat/vB を下回りました · 送金 ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Bitcoin 手数料: %1$s sat/vB</string>
+    <string name="notification_gas_eth_text">しきい値 %1$s gwei を下回りました · 送金 ≈ %2$s</string>
+    <string name="notification_gas_eth_title">Ethereum ガス: %1$s gwei</string>
+    <string name="notification_indicator_above">設定したしきい値 %1$s 以上です – 測定値であり推奨ではありません。</string>
+    <string name="notification_indicator_below">設定したしきい値 %1$s 以下です – 測定値であり推奨ではありません。</string>
+    <string name="notification_indicator_title">%1$s：%2$s</string>
+    <string name="notification_macro_title">今日は経済指標の発表日</string>
+    <string name="notification_portfolio_alarm_locked">アラームが作動しました。詳細はアプリで確認してください。</string>
+    <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
+    <string name="notification_portfolio_alarm_text">%1$s – 現在 %2$s</string>
+    <string name="notification_portfolio_alarm_title">ポートフォリオ評価額</string>
+    <string name="notification_price_change">%1$s、%2$s から（%3$s前）</string>
+    <string name="notification_price_change_no_age">%1$s、%2$s から</string>
+    <string name="notification_price_first">このペアの最初の通知</string>
+    <plurals name="notification_price_overflow_title">
+        <item quantity="other">+ほか %1$d 件の価格</item>
+    </plurals>
+    <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
+    <string name="notification_refreshing">価格を更新中…</string>
+    <string name="notification_volume_spike_text">直近1時間の出来高が通常の %1$s×</string>
+
+    <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
+    <string name="channel_alarms">アラーム</string>
+    <string name="channel_alarms_description">価格アラームが作動したときの通知。</string>
+    <string name="channel_alarms_quiet">アラーム（おやすみ時間）</string>
+    <string name="channel_alarms_quiet_description">おやすみ時間中の無音アラーム。</string>
+    <string name="channel_alarms_silent">アラーム（サイレント）</string>
+    <string name="channel_alarms_sound">アラーム（サウンドのみ）</string>
+    <string name="channel_alarms_sound_vibrate">アラーム（サウンドとバイブレーション）</string>
+    <string name="channel_alarms_vibrate">アラーム（バイブレーションのみ）</string>
+    <string name="channel_prices">価格通知</string>
+    <string name="channel_prices_description">ペアの現在価格を表示するサイレント通知。</string>
+    <string name="channel_service">価格の更新</string>
+    <string name="channel_service_description">価格を更新している間の通知。</string>
+    <string name="neutral_channel_market">相場のお知らせ</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed、ガス代、異常な動き、経済指標の日程</string>
+
+    <!-- Sprachausgabe -->
+    <string name="tts_alarm">アラーム。%1$s、%2$s %3$s %4$s、現在 %5$s</string>
+    <string name="tts_direction_down">下落しました</string>
+    <string name="tts_direction_funding_above">資金調達率の上昇を伴って</string>
+    <string name="tts_direction_funding_below">資金調達率の低下を伴って</string>
+    <string name="tts_direction_move">大きく変動</string>
+    <string name="tts_direction_near_high">高値に接近</string>
+    <string name="tts_direction_near_low">安値に接近</string>
+    <string name="tts_direction_oi_down">建玉の減少を伴って</string>
+    <string name="tts_direction_oi_up">建玉の増加を伴って</string>
+    <string name="tts_direction_up">上昇しました</string>
+    <string name="tts_direction_volume_spike">出来高急増を伴って</string>
+    <string name="tts_price">%1$s、%2$s %3$s、%4$s</string>
+</resources>

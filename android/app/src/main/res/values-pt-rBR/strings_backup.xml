@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Sicherung exportieren und wiederherstellen -->
+    <string name="backup_export">Exportar</string>
+    <string name="backup_exported">Backup salvo.</string>
+    <string name="backup_failed">Não funcionou. É um backup do Crypto Checker?</string>
+    <string name="backup_hint">Salva a lista com notas e grupos, alarmes, favoritos, portfólio e configurações em um arquivo que você guarda – por ex. para um celular novo.</string>
+    <string name="backup_import">Importar</string>
+    <string name="backup_title">Backup e restauração</string>
+    <string name="backup_too_large">O arquivo é grande demais ou não é um backup válido (máx. 16 MB).</string>
+
+    <!-- Passwort der Sicherungsdatei -->
+    <string name="backup_password">Senha</string>
+    <string name="backup_password_continue">Continuar</string>
+    <string name="backup_password_hide">Ocultar senha</string>
+    <!-- %1$d = Mindestlänge des Passworts (8) -->
+    <string name="backup_password_min">Pelo menos %1$d caracteres</string>
+    <string name="backup_password_mismatch">As senhas não coincidem</string>
+    <string name="backup_password_prompt">Digite a senha deste backup.</string>
+    <string name="backup_password_repeat">Repetir senha</string>
+    <string name="backup_password_show">Mostrar senha</string>
+    <string name="backup_password_title">Backup protegido por senha</string>
+    <string name="backup_password_too_weak">Fácil demais de adivinhar – não só números, não um único caractere repetido, nada de sequências comuns como «12345678» ou «senha».</string>
+    <string name="backup_password_warning">Sem a senha, o backup não pode ser restaurado.</string>
+    <string name="backup_password_wrong">Senha incorreta ou arquivo danificado. Tente de novo.</string>
+    <string name="backup_protect">Proteger com senha</string>
+    <string name="backup_protect_hint">Criptografa o arquivo (AES-256). Recomendado se ele contiver dados do portfólio.</string>
+
+    <!-- Sicherung ohne Passwort, Wiederherstellen -->
+    <string name="backup_plain_confirm">Salvar sem senha</string>
+    <string name="backup_plain_confirm_text">O arquivo não está criptografado. Quem o obtiver pode ler:</string>
+    <string name="backup_plain_confirm_title">Salvar sem senha?</string>
+    <string name="backup_plain_contents_addresses">Endereços de carteira salvos</string>
+    <string name="backup_plain_contents_base">Lista de observação com notas e grupos, alarmes, favoritos e configurações</string>
+    <string name="backup_plain_contents_portfolio">Portfólio: transações com quantidades e preços</string>
+    <string name="backup_restore_app_lock_kept">O bloqueio do portfólio continua ativo – um backup sem criptografia não pode desativá-lo.</string>
+    <string name="backup_restore_confirm">Importar substitui a lista (com notas e grupos), alarmes, favoritos, portfólio e configurações pelo backup.</string>
+    <plurals name="backup_restore_invalid">
+        <item quantity="one">%d item do backup (portfólio ou alarme) é inválido e não será importado.</item>
+        <item quantity="many">%d itens do backup (portfólio ou alarmes) são inválidos e não serão importados.</item>
+        <item quantity="other">%d itens do backup (portfólio ou alarmes) são inválidos e não serão importados.</item>
+    </plurals>
+    <string name="backup_restore_newer_version">Este backup é de uma versão mais recente do app – atualize o app primeiro. Nada foi importado.</string>
+    <string name="backup_restore_unencrypted_warning">Este backup não está criptografado – confira se ele é seu. As configurações serão aplicadas; um bloqueio do portfólio ativo continua ativo.</string>
+    <string name="backup_restored">Restaurado: %1$s, %2$s.</string>
+    <plurals name="backup_restored_alarms">
+        <item quantity="one">%1$d alarme</item>
+        <item quantity="many">%1$d alarmes</item>
+        <item quantity="other">%1$d alarmes</item>
+    </plurals>
+    <plurals name="backup_restored_pairs">
+        <item quantity="one">%1$d par</item>
+        <item quantity="many">%1$d pares</item>
+        <item quantity="other">%1$d pares</item>
+    </plurals>
+
+    <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
+    <string name="storage_recovery_message">Este dispositivo não tem mais a chave dos dados criptografados do app, por isso ele abriu vazio. Nada foi apagado. Para recuperar sua lista e seu portfólio, importe um arquivo de backup nas configurações, em «%1$s».</string>
+    <string name="storage_recovery_title">Não foi possível desbloquear os dados salvos</string>
+</resources>

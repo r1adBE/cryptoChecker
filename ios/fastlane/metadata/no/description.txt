@@ -1,0 +1,42 @@
+En alarm når Bitcoin når kursen din – fra børsen du faktisk bruker. Kursen fra børsen din, ikke et snitt – gratis, uten konto.
+
+DET SOM GJØR DEN ANNERLEDES
+• Din børs, ikke et snitt: hver rad viser parets siste kurs på børsen du har valgt – Binance, Coinbase, Kraken, OKX, Bybit og mange flere.
+• En alarm som gir beskjed én gang: «Gi meg beskjed når BTC går over 100 000 USDT.» Den går når nivået krysses, ikke ved hver oppdatering – «Én gang» slår den så av, «Hver gang» gjør den klar igjen når kursen kommer tilbake.
+• «Hva beveger seg med?»: en liste over faktorer for en coin – hele markedet, volum, volatilitet, funding og open interest, avstand til toppen eller bunnen, Fear & Greed. Den viser hva som beveger seg samtidig – ingen årsak, ingen nyhet, ingen investeringsråd.
+• Ingen konto, ingen reklame, ingen sporing. Utvikleren får ingen av dataene dine.
+
+ÆRLIG OM DATAENE
+• «Sparsom» er standard: kursene oppdateres når du åpner appen, og med mellomrom i bakgrunnen. «Live mens den er åpen» gir livekurser for Binance, Bybit, OKX, Coinbase og Kraken mens listen er åpen.
+• %-endring og grafer kommer først fra parets egen børs; har den ingen candles, bruker appen Binance eller Coinbase og sier fra.
+• Fear & Greed, dominans og on-chain-verdier fra alternative.me, CoinGecko og Coin Metrics.
+• Når appen er lukket, sjekker iOS sjelden – ofte først etter timer, og ikke i det hele tatt etter at du har sveipet bort appen. Mest pålitelig med appen åpen eller en Live-aktivitet. Korte topper innimellom kan bli oversett; appen sier ifra om det.
+• Beløp blir på enheten, med mindre du selv eksporterer dem (CSV, sikkerhetskopi). For kurser sendes bare parets symbol til børsen for det aktuelle paret; i tillegg valutakurser (Frankfurter), markedsdata og logoer (CoinGecko, Binance) og dataspeil (GitHub). Følger du adresser eller en xpub, ser offentlige blokkjede-noder adressene (ved xpub de avledede) og IP-en din.
+
+OVERVÅKINGSLISTE
+• 41 markeder på 32 børser: spot og futures, DEX-tokens via DexScreener, valgfritt aksjer, gull og valuta (TradFi)
+• Andre linje «≈ verdi» i én av 31 valutaer (EUR, CHF, USD …), omregnet til valutakurs
+• Minigraf og %-endring over 24 t eller siden 00:00 i din tidssone
+• Grupper, favoritter, sortering med dra og slipp og et notat per coin
+• Rader viser «utdatert» eller «børsen kan ikke nås»
+
+ALARMER
+• Kurs over eller under et nivå, eller stigning eller fall med en prosentsats – også i din valuta, f.eks. 60 000 EUR på et USDT-par
+• Bevegelse på x % innenfor et tidsvindu, volumtopp
+• Tidssensitiv varsling, valgfri alarmlyd, valgfri opplesning
+• Nattro og «Test alarm»: hør på forhånd hvordan en alarm kommer fram
+
+MARKED
+• Uvanlig aktivitet: uvanlige kurs- og volumbevegelser i listen din, valgfritt som varsel
+• Crypto Pulse, Fear & Greed, Bitcoin-indikatorer, funding og open interest – som rene måleverdier
+• Nettverksgebyrer for Ethereum, Bitcoin og flere, med gass-alarm
+
+I TILLEGG
+• Widgeter for Hjem-skjermen og låseskjermen, Live Activity for én coin
+• Portefølje valgfritt (slås på under Innstillinger): kjøp, salg, bytter, overføringer, rewards, inn- og uttak; FIFO (standard) eller gjennomsnitt (Ø); adresser kun for lesing, uten seed, for BTC (også xpub), ETH & EVM-kjeder, SOL, TRX, XRP, LTC og TON; CSV-import fra Relai, Swissquote og Kraken; årsoversikt som CSV; egen lås
+• Lesbar for alle: grønn/rød eller blå/oransje, fortegn og pil i stedet for bare farge, Dynamic Type; VoiceOver leser hver rad som én setning
+• Sikkerhetskopi og gjenoppretting via Filer-appen
+• Lys og mørk modus, fem aksentfarger, 31 språk
+• Åpen kildekode (MIT) – koden er offentlig på GitHub
+
+Merk: Crypto Checker viser kurser og en portefølje som du selv legger inn. Appen er ikke en børs eller en lommebok, handler ikke og gir ikke investeringsråd.

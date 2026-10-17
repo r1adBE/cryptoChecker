@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Tab, leere Ansicht, Einschalten, Sperre -->
+    <string name="app_lock_unavailable">이 기기에 화면 잠금이 설정되어 있지 않습니다. 먼저 시스템 설정에서 설정하세요.</string>
+    <string name="app_lock_unlock">잠금 해제</string>
+    <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
+    <string name="portfolio_clear">포트폴리오 비우기</string>
+    <plurals name="portfolio_clear_confirm_count">
+        <item quantity="other">거래 %d건을 모두 삭제할까요? 관찰 중인 주소는 유지됩니다. 되돌릴 수 없습니다.</item>
+    </plurals>
+    <string name="portfolio_disclaimer">금액은 직접 내보내지 않는 한 기기에 남습니다. 시세를 위해 거래쌍 심볼만 해당 거래쌍의 거래소로 전송됩니다. 공개 블록체인 노드는 관찰 중인 주소와 IP를 볼 수 있습니다. 투자 조언이 아닙니다.</string>
+    <string name="portfolio_empty_action">첫 매수 추가</string>
+    <string name="portfolio_empty_address">지갑 주소만 지켜보기</string>
+    <string name="portfolio_empty_csv">거래소에서 샀나요? 파일 가져오기</string>
+    <string name="portfolio_empty_example_plain">예: 3월 1일에 0.01 BTC 매수. 앱이 오늘의 가치와 수익인지 손실인지 보여 줍니다 – 이 기기에만 저장됩니다.</string>
+    <string name="portfolio_empty_text">산 것을 입력하세요 – 앱이 오늘의 가치와 수익 또는 손실이 얼마인지 보여 줍니다.</string>
+    <string name="portfolio_empty_title">아직 거래가 없습니다</string>
+    <string name="portfolio_enable_ask_text">거래가 저장되었습니다. 포트폴리오 탭에서 보유분과 그 가치를 볼 수 있습니다.</string>
+    <string name="portfolio_enable_ask_title">포트폴리오 탭을 켤까요?</string>
+    <string name="portfolio_enable_later_hint">거래가 저장되었습니다. 포트폴리오 탭은 설정 › 고급 › 포트폴리오에서 켤 수 있습니다.</string>
+    <string name="portfolio_enabled_banner">포트폴리오를 켰습니다. 포트폴리오 탭에서 볼 수 있습니다.</string>
+    <string name="portfolio_lock_reason">포트폴리오 잠금 해제</string>
+    <string name="portfolio_locked_text">보유 자산과 가치를 보려면 잠금을 해제하세요.</string>
+    <string name="portfolio_locked_title">포트폴리오가 잠겨 있습니다</string>
+    <string name="portfolio_setting_hint">선택 사항: 매수와 매도를 기록하고 별도 탭에서 평가액과 손익을 확인합니다.</string>
+    <!-- Status-Pille wie in der Merkliste: Kurse älter als die Frische-Schwelle, Gerät online. Offline: offline_status_since, alles aktuell: watchlist_all_fresh -->
+    <string name="portfolio_status_stale">오래됨 · %1$s 기준</string>
+    <plurals name="portfolio_system_restore_invalid">
+        <item quantity="other">시스템 백업의 항목 %d개가 유효하지 않아 복원되지 않았습니다.</item>
+    </plurals>
+    <string name="portfolio_title">포트폴리오</string>
+    <string name="portfolio_unassigned_fee">수수료 미배분 – 원가 알 수 없음: %1$s</string>
+    <string name="portfolio_updated">%1$s 기준 시세</string>
+
+    <!-- Portfolio: Gesamtwert-Kopf (Heute · 7 T · Gesamt) und Aufteilung -->
+    <string name="portfolio_allocation_other">기타</string>
+    <string name="portfolio_allocation_title">비중</string>
+    <string name="portfolio_card_details">상세</string>
+    <!-- Screenreader, Kennzahl ohne Wert; %1$s Beschriftung (z. B. «7 Tage») -->
+    <string name="portfolio_card_figure_none_a11y">%1$s: 아직 사용할 수 없음</string>
+    <string name="portfolio_card_hints_count">참고(%1$d)</string>
+    <string name="portfolio_card_today">오늘</string>
+    <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
+    <string name="portfolio_card_total">전체</string>
+    <string name="portfolio_hide_amounts">금액 숨기기</string>
+    <string name="portfolio_hide_amounts_hint">포트폴리오와 포트폴리오 위젯의 금액과 가치를 •••로 표시합니다. 퍼센트는 계속 보입니다.</string>
+    <string name="portfolio_invested">매입 원가</string>
+    <string name="portfolio_total_no_fx">%1$s 환율이 없습니다 – 금액은 USDT 기준</string>
+    <string name="portfolio_total_value">총 평가액</string>
+    <string name="portfolio_value">평가액</string>
+
+    <!-- Portfolio: Bestand, offene Positionen, Durchschnittspreis -->
+    <string name="portfolio_avg_and_now">평균 %1$s · 현재 %2$s</string>
+    <string name="portfolio_avg_only">평균 %1$s</string>
+    <string name="portfolio_avg_open_lots">보유 코인 평균 매입 원가</string>
+    <string name="portfolio_avg_partial">매수가가 있는 %1$s의 평균</string>
+    <string name="portfolio_avg_price">평균 매수가</string>
+    <string name="portfolio_avg_price_hint">평균 매수가: 모든 매수를 수량으로 가중 평균한 값입니다. 매도는 이 평균으로 평가합니다.</string>
+    <plurals name="portfolio_closed">
+        <item quantity="other">종료된 포지션 (%1$d)</item>
+    </plurals>
+    <string name="portfolio_fifo_hint">FIFO: 매도 시 가장 오래된 코인부터 사용합니다. 평균 = 남은 매입 원가 ÷ 매수가가 있는 수량.</string>
+    <string name="portfolio_holdings">보유량</string>
+    <string name="portfolio_lost_fee_cost">지불된 로트 없는 네트워크 수수료 원가: %1$s</string>
+    <string name="portfolio_open_lots">보유 중인 매수 로트(%1$d)</string>
+    <string name="portfolio_open_lots_avg">매수가 있음(Ø)</string>
+    <string name="portfolio_open_lots_no_cost">매수가 없음</string>
+    <string name="portfolio_open_lots_without_price">매수가 없음</string>
+    <string name="portfolio_realized">실현 손익</string>
+    <string name="portfolio_unrealized">미실현 손익</string>
+    <string name="portfolio_unrealized_without_unpriced">매수가 없는 %1$s 제외</string>
+    <string name="portfolio_withdrawn_gain">출금됨: %1$s(출금 시점까지의 가치 변화)</string>
+
+    <!-- Portfolio: Kurse und Umrechnung -->
+    <string name="portfolio_convert_to">환산 통화</string>
+    <string name="portfolio_convert_to_value">환산 통화: %1$s</string>
+    <string name="portfolio_current_missing">%1$s의 현재가가 없습니다</string>
+    <string name="portfolio_current_price">현재가</string>
+    <string name="portfolio_price_missing">가격 없음</string>
+    <string name="portfolio_price_missing_hint">일부 매수에 가격이 없습니다. 손익을 보려면 매수가를 입력하세요.</string>
+    <string name="portfolio_price_source">시세: Binance · USDT = 1</string>
+    <string name="portfolio_price_source_routes">시세: %1$s, 그 외 Binance · USDT = 1</string>
+    <string name="portfolio_price_unavailable">지금은 가격을 가져올 수 없습니다</string>
+    <string name="portfolio_price_unchecked">가격 미확인</string>
+    <string name="portfolio_price_via_base">≈ %1$s 가격(브리지/래핑)</string>
+    <string name="portfolio_usdt_as_usd">USDT는 USD 환율로 환산</string>
+    <string name="portfolio_usdt_assumed">USDT = 1로 가정</string>
+    <string name="portfolio_usdt_depeg_warning">USDT = 1로 가정 – 시장 %1$s USD(%2$s)</string>
+
+    <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
+    <string name="portfolio_add_from_watch">포트폴리오에 추가</string>
+    <string name="portfolio_add_tx">거래 기록</string>
+    <string name="portfolio_buy">매수</string>
+    <string name="portfolio_coin">코인</string>
+    <string name="portfolio_coin_invalid">코인 심볼을 입력하세요</string>
+    <string name="portfolio_coin_search">심볼 검색 (예: BTC)</string>
+    <string name="portfolio_discard_confirm">취소</string>
+    <string name="portfolio_discard_keep">계속 편집</string>
+    <string name="portfolio_discard_title">변경 사항을 취소할까요?</string>
+    <string name="portfolio_edit_tx">거래 편집</string>
+    <string name="portfolio_invalid">잘못된 수량</string>
+    <string name="portfolio_oversold">매도량이 보유량을 초과합니다. 거래를 확인하세요.</string>
+    <string name="portfolio_sell">매도</string>
+    <string name="portfolio_sell_exceeds">보유량보다 많습니다 (%1$s)</string>
+    <string name="portfolio_sell_exceeds_fee">수량과 수수료가 보유량(%1$s)보다 많습니다</string>
+    <string name="portfolio_sell_exceeds_wallet">%2$s 보유량(%1$s)보다 많습니다</string>
+    <string name="portfolio_transactions">거래</string>
+    <string name="portfolio_tx_acquired_date">최초 매수일(선택)</string>
+    <string name="portfolio_tx_acquired_date_hint">세금 내보내기의 보유 기간에 사용</string>
+    <string name="portfolio_tx_amount">수량</string>
+    <string name="portfolio_tx_coin_fee">수수료(코인 기준, 선택)</string>
+    <string name="portfolio_tx_date">날짜</string>
+    <string name="portfolio_tx_delete_confirm">이 거래가 포트폴리오에서 삭제됩니다.</string>
+    <string name="portfolio_tx_delete_title">거래를 삭제할까요?</string>
+    <string name="portfolio_tx_deposit">입금</string>
+    <string name="portfolio_tx_entry_currency">입력 통화</string>
+    <string name="portfolio_tx_explain_deposit">거래 없는 보유분(예: 예전부터 가진 코인)</string>
+    <string name="portfolio_tx_explain_gift">코인이 출금처럼 보유량에서 빠집니다 – 증여를 이렇게 과세하는 국가(UK, CA, AU)에서만 시가 처분으로 봅니다</string>
+    <string name="portfolio_tx_explain_payment">상품이나 서비스 대금 지급 – 매도처럼 시가 처분, 받은 돈은 없음</string>
+    <string name="portfolio_tx_explain_reward">매입 원가 = 받은 시점의 시장 가치</string>
+    <string name="portfolio_tx_explain_swap">코인 대 코인: 준 코인은 매도, 받은 코인은 매수</string>
+    <string name="portfolio_tx_explain_transfer">수익 없음 – 매입 원가가 코인과 함께 옮겨집니다</string>
+    <string name="portfolio_tx_explain_withdrawal">보유분이 포트폴리오에서 빠집니다 – 매도도 수익도 아님</string>
+    <string name="portfolio_tx_fee_consumes_amount">수수료가 받은 수량과 같습니다 – 남는 것이 없습니다.</string>
+    <string name="portfolio_tx_fees_toggle">수수료</string>
+    <string name="portfolio_tx_fiat_converted">≈ %1$s(%2$s 환율 기준)</string>
+    <string name="portfolio_tx_fiat_loading">환율을 불러오는 중…</string>
+    <string name="portfolio_tx_fiat_no_fx">이 날의 환율이 없습니다 – 금액을 USDT로 입력하세요.</string>
+    <string name="portfolio_tx_gift">증여</string>
+    <string name="portfolio_tx_gift_price_hint">USDT 기준. 비우면 그날 종가(추정)</string>
+    <string name="portfolio_tx_gift_spouse">배우자 / 파트너에게</string>
+    <string name="portfolio_tx_gift_spouse_hint">영국과 캐나다: 손익 없음 – 파트너가 내 취득가액을 이어받습니다. 다른 국가는 이를 고려하지 않습니다.</string>
+    <string name="portfolio_tx_market_value">코인당 시가</string>
+    <string name="portfolio_tx_more_buy">수수료, 거래소, 메모</string>
+    <string name="portfolio_tx_network_fee">네트워크 수수료(코인 기준, 선택)</string>
+    <string name="portfolio_tx_note">메모 (선택)</string>
+    <string name="portfolio_tx_payment">결제에 사용</string>
+    <string name="portfolio_tx_price">코인당 가격</string>
+    <string name="portfolio_tx_price_hint">USDT 기준. 모르면 비워 두세요.</string>
+    <string name="portfolio_tx_price_historic">%1$s 종가 확인됨 – 필요하면 수정하세요</string>
+    <string name="portfolio_tx_price_invalid">잘못된 가격</string>
+    <string name="portfolio_tx_price_past_hint">거래일의 가격을 입력하세요(모르면 비워 두세요)</string>
+    <string name="portfolio_tx_price_receipt_hint">USDT 기준. 비워 두면 = 매입 원가 없는 보유분.</string>
+    <string name="portfolio_tx_price_zero">가져온 거래에는 가격 0을 쓸 수 없습니다 – 시장가를 쓰려면 비워 두세요</string>
+    <string name="portfolio_tx_removed">거래가 삭제됨</string>
+    <string name="portfolio_tx_reward">보상</string>
+    <string name="portfolio_tx_save_failed">거래를 저장하지 못했습니다. 입력한 내용은 그대로 있습니다 – 다시 시도하세요.</string>
+    <string name="portfolio_tx_swap">스왑</string>
+    <string name="portfolio_tx_swap_fee_received">%1$s 수수료: 받은 수량에서 차감되며 가격은 필요 없습니다.</string>
+    <string name="portfolio_tx_swap_from">%1$s에서 스왑</string>
+    <string name="portfolio_tx_swap_given_amount">준 수량</string>
+    <string name="portfolio_tx_swap_given_coin">준 코인</string>
+    <string name="portfolio_tx_swap_received_amount">받은 수량</string>
+    <string name="portfolio_tx_swap_received_coin">받은 코인</string>
+    <string name="portfolio_tx_swap_same_coin">준 코인과 다른 코인을 선택하세요</string>
+    <string name="portfolio_tx_swap_to">%1$s(으)로 스왑</string>
+    <string name="portfolio_tx_swap_value">스왑 가치(선택)</string>
+    <string name="portfolio_tx_swap_value_hint">총 가치. 비워 두면 = 알 수 없음 – 손익이 불완전하게 남습니다(스왑에 USDT가 있으면 자동).</string>
+    <string name="portfolio_tx_third_fee_amount">수수료 수량</string>
+    <string name="portfolio_tx_third_fee_coin">수수료 코인</string>
+    <string name="portfolio_tx_third_fee_incomplete">가격이 없으면 수수료는 매입 원가와 매도 금액에 포함되지 않으며, 세금 내보내기에서 해당 매도가 표시됩니다.</string>
+    <string name="portfolio_tx_third_fee_price">수수료 코인당 가격(선택)</string>
+    <string name="portfolio_tx_third_fee_toggle">다른 코인으로 낸 수수료</string>
+    <string name="portfolio_tx_total">합계: %1$s</string>
+    <string name="portfolio_tx_transfer">이체</string>
+    <string name="portfolio_tx_transfer_from">보낸 곳(선택)</string>
+    <string name="portfolio_tx_transfer_to">받는 곳(선택)</string>
+    <string name="portfolio_tx_transfer_to_hint">거래소 또는 지갑 – 이제부터 그곳 기준으로 평가합니다.</string>
+    <string name="portfolio_tx_type_select">유형: %1$s</string>
+    <string name="portfolio_tx_value_received">받은 시점의 코인당 가치(선택)</string>
+    <string name="portfolio_tx_withdrawal">출금</string>
+    <string name="portfolio_tx_withdrawal_gift_hint">증여했거나 결제에 썼나요? ‹증여› 또는 ‹결제에 사용›으로 기록하세요 – 국가에 따라 세법상 매도입니다.</string>
+    <string name="portfolio_tx_withdrawal_price_hint">선택: USDT 기준 시장 가치로, 기록 계산에만 사용합니다(비워 두면 = 당일 가격). 코인은 항상 매입 원가로 빠집니다.</string>
+    <string name="portfolio_wallet_did_you_mean">%1$s을(를) 말씀하셨나요? 철자가 다르면 별도 지갑으로 계산됩니다.</string>
+    <string name="portfolio_wallet_shortfall">%1$s 보유량이 부족합니다 – 빠진 이체가 있나요?</string>
+
+    <!-- Portfolio: Wertverlauf (Zeitraum, Vergleich Währung | USDT, Währungseffekt) -->
+    <!-- Höchster Tageswert des Zeitraums am Punkt («Hoch 12’345») -->
+    <string name="portfolio_chart_high">최고 %1$s</string>
+    <string name="portfolio_compare">비교</string>
+    <!-- Umschalter «Vergleich», Screenreader: %1$s Währung -->
+    <string name="portfolio_compare_a11y">%1$s와 USDT를 퍼센트로 비교</string>
+    <!-- %1$s Zeitraum, %2$s Währung, %3$s und %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="portfolio_compare_chart_a11y">퍼센트 비교, %1$s: %2$s %3$s, USDT %4$s</string>
+    <!-- %1$s Prozentpunkte mit Vorzeichen («−5.10%»): Veränderung in der Währung minus in USDT -->
+    <string name="portfolio_currency_effect">환율 효과: %1$s</string>
+    <!-- «Seit 1. Kauf» beginnt frühestens beim ersten Tag mit Kursdaten -->
+    <string name="portfolio_history_capped_data_start">가격 데이터는 2017년 8월부터만 있습니다. 추이는 그 시점부터 시작됩니다.</string>
+    <string name="portfolio_history_chip_since_first">매수 이후</string>
+    <string name="portfolio_history_collapse">가치 추이 숨기기</string>
+    <string name="portfolio_history_converted">오늘 환율로 환산</string>
+    <string name="portfolio_history_expand">가치 추이 보기</string>
+    <string name="portfolio_history_gain_a11y">가치 %1$s. 손익(%2$s): %3$s</string>
+    <string name="portfolio_history_gain_label">손익</string>
+    <!-- Umschalter, Screenreader: %1$s Währung («CHF») oder «USDT» -->
+    <string name="portfolio_history_in_a11y">%1$s 기준 가치</string>
+    <string name="portfolio_history_incl_fx">환율 포함</string>
+    <string name="portfolio_history_incl_withdrawn">출금된 코인의 가치 변화 포함</string>
+    <string name="portfolio_history_includes_trades">이 기간의 매수와 매도 포함</string>
+    <string name="portfolio_history_loading">가치 추이 불러오는 중</string>
+    <string name="portfolio_history_period_1y">1년</string>
+    <string name="portfolio_history_period_30d">30일</string>
+    <string name="portfolio_history_period_7d">7일</string>
+    <string name="portfolio_history_period_since_first">첫 매수 이후</string>
+    <string name="portfolio_history_pnl_needs_prices">손익 계산에 매수가가 없습니다. 거래에서 추가하세요.</string>
+    <string name="portfolio_history_pnl_without">%1$s 제외 손익(가격 없음)</string>
+    <string name="portfolio_history_range_1y">1년</string>
+    <string name="portfolio_history_range_30d">30일</string>
+    <string name="portfolio_history_range_7d">7일</string>
+    <string name="portfolio_history_range_a11y">%1$s 추이 보기</string>
+    <string name="portfolio_history_range_since_first">첫 매수 이후</string>
+    <string name="portfolio_history_scaled">%1$s 기록: Binance 기록을 거래소 가격에 맞춤</string>
+    <string name="portfolio_history_title">가치 추이</string>
+    <string name="portfolio_history_today">오늘</string>
+    <string name="portfolio_history_too_short">추이는 첫 하루가 지난 뒤부터 표시됩니다.</string>
+    <string name="portfolio_history_unavailable">지금은 추이를 볼 수 없습니다.</string>
+    <string name="portfolio_history_utc_days">날짜는 UTC 기준(일봉)</string>
+    <string name="portfolio_history_without_matching">%1$s 제외(일치하는 일별 가격 없음)</string>
+    <string name="portfolio_period_rewards">보상 +%1$s(손익 미포함)</string>
+    <string name="portfolio_period_scaled">%1$s 7일/1년: Binance 기록을 거래소 가격에 맞춤</string>
+
+    <!-- Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_alarm_action">경보</string>
+    <!-- %1$s = Währung, z. B. CHF -->
+    <string name="portfolio_alarm_amount">금액 (%1$s)</string>
+    <string name="portfolio_alarm_hint">새로고침할 때마다 확인합니다. 경보처럼 기준을 넘으면 알리고, 값이 되돌아온 뒤에만 다시 알립니다.</string>
+    <string name="portfolio_alarm_kind_above">포트폴리오가 금액 초과</string>
+    <string name="portfolio_alarm_kind_below">포트폴리오가 금액 미만</string>
+    <string name="portfolio_alarm_kind_down">포트폴리오 하락</string>
+    <string name="portfolio_alarm_kind_up">포트폴리오 상승</string>
+    <!-- %1$s = Betrag mit Währung (oder •••) -->
+    <string name="portfolio_alarm_sentence_above">포트폴리오 %1$s 초과</string>
+    <string name="portfolio_alarm_sentence_below">포트폴리오 %1$s 미만</string>
+    <string name="portfolio_alarm_sentence_down">포트폴리오 %1$s 하락 (%2$s)</string>
+    <!-- %1$s = Prozent, %2$s = Basis der %-Änderung kurz (24h, heute …) -->
+    <string name="portfolio_alarm_sentence_up">포트폴리오 %1$s 상승 (%2$s)</string>
+    <string name="portfolio_alarm_title">경보 ‘포트폴리오 가치’</string>
+
+    <!-- Gebühr, Börse und Gewinn/Verlust einer Position -->
+    <string name="ledger_exchange">거래소(선택)</string>
+    <string name="ledger_exchange_failed">%1$s: 지금 %2$s 시세가 없어 Binance로 평가했습니다.</string>
+    <string name="ledger_exchange_hint">이 코인은 이 거래소 시세로 평가합니다(그 외 Binance). 추이·7일·1년은 Binance 일별 시세를 맞춰 씁니다.</string>
+    <string name="ledger_exchange_mixed">%1$s: 여러 거래소가 입력되어 Binance로 평가했습니다. 코인을 옮겼나요? «이체»로 기록하세요.</string>
+    <string name="ledger_exchange_none">없음(Binance)</string>
+    <string name="ledger_fee">수수료(선택)</string>
+    <string name="ledger_fee_coin">코인</string>
+    <string name="ledger_fee_hint">USDT면 매입 원가에 더해지고(매도 시 수령액에서 차감), 코인이면 수량이 줄어듭니다.</string>
+    <string name="ledger_fee_line">수수료 %1$s</string>
+    <string name="ledger_fifo_cost_note">매수 이후: 수수료 포함 FIFO 원가(오래된 코인부터 매도).</string>
+    <string name="ledger_gain_info">오늘·7일·1년: 기간 동안의 가치 변화 – 매수와 매도는 수익으로 치지 않습니다. 매수 이후: 아직 보유한 코인의 현재 가치에서 취득원가(수수료 포함 평균 단가)를 뺀 값입니다.</string>
+    <string name="ledger_gain_info_a11y">손익 계산 방법</string>
+    <string name="ledger_gain_info_fifo">오늘·7일·1년: 기간 동안의 가치 변화 – 매수와 매도는 수익으로 치지 않습니다. 매수 이후: 아직 보유한 코인의 현재 가치에서 취득원가(수수료 포함 FIFO)를 뺀 값입니다.</string>
+    <string name="ledger_gain_title">손익</string>
+    <string name="ledger_more_toggle">수수료와 거래소</string>
+    <string name="ledger_partial_cost">«매수 이후»은(는) 매수가가 있는 부분만 계산합니다 – 매수가 없는 %1$s 제외.</string>
+    <string name="ledger_period_without">오늘 / 7일 / 1년에서 %1$s 제외 – 맞는 시작 시세가 없습니다.</string>
+    <string name="ledger_since_purchase_currency">매수 이후 (%1$s)</string>
+    <string name="ledger_since_purchase_spoken">매수 이후 손익(미매도)</string>
+    <plurals name="ledger_without_cost">
+        <item quantity="other">매수가 없는 코인 %1$d개 제외(%2$s) – 가격을 입력하면 포함됩니다.</item>
+    </plurals>
+</resources>

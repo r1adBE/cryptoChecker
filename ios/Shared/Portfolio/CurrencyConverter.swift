@@ -1,0 +1,233 @@
+import Foundation
+
+/// Reine Rechenregeln der «≈ Umrechnung» — wie `CurrencyConversion.kt`.
+enum CurrencyConversion {
+    /// Art der Quote-Währung eines Paars.
+    enum QuoteKind: Sendable {
+        /// USD oder ein an den USD gebundener Stablecoin (Wert nach `stableToUsd`).
+        case usd
+        /// Fiat-Währung mit Devisenkurs (z. B. EUR, JPY).
+        case fiat
+        /// Alles andere gilt als Krypto (z. B. BTC, ETH) und wird über USDT bewertet.
+        case crypto
+        /// Leer oder kein gültiges Kürzel.
+        case invalid
+    }
+
+    /// Die eine Stablecoin-Liste der App. «≈ Umrechnung» der Merkliste und Portfolio bewerten sie
+    /// mit Marktkurs (`stableToUsd` bzw. `PortfolioStables`): USD/USDT 1, andere ihr Marktkurs in USDT.
+    /// Ohne Kurs: kein ≈-Wert bzw. Portfolio kein Wert («ohne Kurs»).
+    static let usdStables: Set<String> = [
+        "USD", "USDT", "USDC", "FDUSD", "BUSD", "DAI", "TUSD", "USDE", "USD1",
+        "RLUSD", "PYUSD", "USDP", "GUSD",
+    ]
+
+    static func normalize(_ code: String?) -> String {
+        (code ?? "").trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+    }
+
+    /// Gleiche Währung (Gross-/Kleinschreibung egal) — dann gibt es nichts umzurechnen.
+    static func sameCurrency(_ a: String?, _ b: String?) -> Bool {
+        let x = normalize(a)
+        return !x.isEmpty && x == normalize(b)
+    }
+
+    /// Einordnung von `quote`; `fiat` = Währungen mit Devisenkurs (`FxRateSource.currencies`).
+    static func classify(_ quote: String?, fiat: [String] = FxRateSource.currencies) -> QuoteKind {
+        let code = normalize(quote)
+        guard !code.isEmpty, code.count <= 15, code.allSatisfy({ $0.isLetter || $0.isNumber }) else { return .invalid }
+        if usdStables.contains(code) { return .usd }
+        if fiat.contains(where: { $0.uppercased() == code }) { return .fiat }
+        return .crypto
+    }
+
+    /// Stablecoin-Regel der «≈ Umrechnung» wie das Portfolio (`PortfolioStables`): USD und USDT
+    /// (Bewertungswährung) genau 1, jeder andere Stablecoin sein Marktkurs in USDT `marketUsdt`; ohne
+    /// gültigen Kurs nil (kein ≈-Wert statt eines stillen 1). Ohne Kürzel gilt USD. Wie Android.
+    static func stableToUsd(_ code: String?, marketUsdt: Double?) -> Double? {
+        if !stableNeedsMarket(code) { return 1 }
+        guard let m = marketUsdt, isValidRate(m) else { return nil }
+        return m
+    }
+
+    /// Braucht die Quote `code` (Stablecoin) einen Marktkurs? Alle ausser USD und USDT (leer = USD).
+    static func stableNeedsMarket(_ code: String?) -> Bool {
+        let c = normalize(code)
+        return !c.isEmpty && c != "USD" && c != "USDT"
+    }
+
+    /// Ab diesem Alter (Abrufzeit) zeigt die ≈ Umrechnung die Uhrzeit des Devisenkurses (3 h).
+    static let fxStaleMillis: Int64 = 3 * 60 * 60_000
+
+    /// Abrufzeit des ältesten Devisenkurses im Faktor Quote → Ziel (`quoteFxAt`: Kurs der Fiat-Quote,
+    /// `targetFxAt`: Kurs der Zielwährung; je nil = nicht beteiligt), wenn älter als `fxStaleMillis`;
+    /// sonst nil (kein Hinweis).
+    static func staleFxTime(quoteFxAt: Int64?, targetFxAt: Int64?, now: Int64) -> Int64? {
+        guard let oldest = [quoteFxAt, targetFxAt].compactMap({ $0 }).min() else { return nil }
+        return now - oldest > fxStaleMillis ? oldest : nil
+    }
+
+    /// Wert einer Einheit der Quote-Währung in USD; nil, wenn der nötige Kurs fehlt.
+    /// - Parameters:
+    ///   - usdToQuote: Einheiten der Quote-Währung je USD (nur bei `.fiat`)
+    ///   - cryptoUsdt: Kurs der Quote-Währung in USDT (bei `.crypto` nötig; bei `.usd` = Marktkurs
+    ///     des Stablecoins, ohne gültigen Kurs nil — siehe `stableToUsd`)
+    ///   - code: Kürzel der Quote-Währung (nur bei `.usd`: USD/USDT sind immer genau 1)
+    static func quoteToUsd(_ kind: QuoteKind, usdToQuote: Double?, cryptoUsdt: Double?, code: String? = nil) -> Double? {
+        switch kind {
+        case .usd: return stableToUsd(code, marketUsdt: cryptoUsdt)
+        case .fiat:
+            guard let r = usdToQuote, isValidRate(r) else { return nil }
+            return 1 / r
+        case .crypto:
+            guard let p = cryptoUsdt, isValidRate(p) else { return nil }
+            return p
+        case .invalid: return nil
+        }
+    }
+
+    /// Faktor Quote → Ziel: Kurs in Quote × Faktor = Kurs in Ziel.
+    static func rate(quoteUsd: Double?, usdToTarget: Double?) -> Double? {
+        guard let q = quoteUsd, isValidRate(q), let t = usdToTarget, isValidRate(t) else { return nil }
+        let r = q * t
+        return isValidRate(r) ? r : nil
+    }
+
+    /// Wandelt einen Betrag um; nil ohne gültigen Faktor.
+    static func convert(_ value: Double, rate: Double?) -> Double? {
+        guard let rate, isValidRate(rate) else { return nil }
+        return value * rate
+    }
+
+    private static func isValidRate(_ v: Double) -> Bool { v.isFinite && v > 0 }
+}
+
+/// «≈ Umrechnung»: Faktor von der Quote-Währung eines Paars in eine Zielwährung
+/// (z. B. USDT → CHF, EUR → CHF, BTC → CHF) — wie `CurrencyConverter.kt`.
+///
+/// Quote → USD: Stablecoins mit Marktkurs (`CurrencyConversion.stableToUsd`: USD/USDT 1, andere
+/// ihr Marktkurs in USDT von der `PortfolioPriceSource` — ohne Kurs kein Faktor, wie die Portfolio-Regel
+/// `PortfolioStables`), Fiat über `FxRateSource`, alles andere als Krypto über den USDT-Kurs der
+/// `PortfolioPriceSource`. Danach USD → Ziel über `FxRateSource`; Alter der Devisenkurse: `staleFxTime`. Liegt in Shared/, weil auch die Alarmprüfung (Widget-Erweiterung,
+/// Hintergrund) sie braucht; beide Quellen haben eigene Zwischenspeicher.
+enum CurrencyConverter {
+
+    /// Faktor Quote → Ziel; gleiche Währung = 1, nil wenn ein Kurs fehlt.
+    static func rate(quote: String, target: String) async -> Double? {
+        if CurrencyConversion.sameCurrency(quote, target) { return 1 }
+        guard let usdToTarget = await usdTo(target) else { return nil }
+        let quoteUsd = await quoteToUsd(quote)
+        return CurrencyConversion.rate(quoteUsd: quoteUsd, usdToTarget: usdToTarget)
+    }
+
+    /// Faktoren für mehrere Quote-Währungen; fehlende bleiben weg. Schlüssel in Grossbuchstaben.
+    static func rates(quotes: [String], target: String) async -> [String: Double] {
+        var seen = Set<String>()
+        let wanted = quotes.map { CurrencyConversion.normalize($0) }
+            .filter { !$0.isEmpty && seen.insert($0).inserted }
+        // Krypto- und Stablecoin-Kurse (ausser USD/USDT) gesammelt holen, damit nicht jede Quote einzeln abfragt
+        let cryptos = wanted.filter {
+            let kind = CurrencyConversion.classify($0)
+            return kind == .crypto || (kind == .usd && CurrencyConversion.stableNeedsMarket($0))
+        }
+        if !cryptos.isEmpty { _ = await PortfolioPriceSource.prices(cryptos) }
+        var result: [String: Double] = [:]
+        for quote in wanted {
+            if let r = await rate(quote: quote, target: target) { result[quote] = r }
+        }
+        return result
+    }
+
+    /// Faktor nur aus den Zwischenspeichern, ohne Netz (für den ersten Aufbau).
+    static func cachedRate(quote: String, target: String) -> Double? {
+        if CurrencyConversion.sameCurrency(quote, target) { return 1 }
+        let from = CurrencyConversion.normalize(quote)
+        let to = CurrencyConversion.normalize(target)
+        let quoteUsd: Double?
+        switch CurrencyConversion.classify(from) {
+        case .usd: quoteUsd = CurrencyConversion.quoteToUsd(.usd, usdToQuote: nil, cryptoUsdt: stableMarket(from), code: from)
+        case .fiat: quoteUsd = CurrencyConversion.quoteToUsd(.fiat, usdToQuote: FxRateSource.cached(from), cryptoUsdt: nil)
+        case .crypto:
+            quoteUsd = CurrencyConversion.quoteToUsd(.crypto, usdToQuote: nil,
+                                                     cryptoUsdt: PortfolioPriceSource.cached([from]).prices[from])
+        case .invalid: quoteUsd = nil
+        }
+        let usdToTarget: Double?
+        switch CurrencyConversion.classify(to) {
+        case .usd: usdToTarget = 1
+        case .fiat: usdToTarget = FxRateSource.cached(to)
+        default: usdToTarget = nil
+        }
+        return CurrencyConversion.rate(quoteUsd: quoteUsd, usdToTarget: usdToTarget)
+    }
+
+    /// Wie `cachedRate` für mehrere Quote-Währungen.
+    static func cachedRates(quotes: [String], target: String) -> [String: Double] {
+        var result: [String: Double] = [:]
+        for quote in quotes {
+            let code = CurrencyConversion.normalize(quote)
+            guard !code.isEmpty, result[code] == nil else { continue }
+            if let r = cachedRate(quote: code, target: target) { result[code] = r }
+        }
+        return result
+    }
+
+    /// USD → Ziel; nur USD/Stablecoins und Fiat sind gültige Ziele.
+    private static func usdTo(_ target: String) async -> Double? {
+        let to = CurrencyConversion.normalize(target)
+        switch CurrencyConversion.classify(to) {
+        case .usd: return 1
+        case .fiat: return await FxRateSource.usdTo(to)
+        default: return nil
+        }
+    }
+
+    /// Devisenkurs im Faktor `quote` → `target`, wenn älter als 3 h: seine Abrufzeit
+    /// (`CurrencyConversion.staleFxTime`); nil = frisch oder kein Devisenkurs beteiligt (USD,
+    /// Stablecoins, Krypto in USD). Wie Android.
+    static func staleFxTime(quote: String, target: String, now: Int64 = TimeUtils.nowMillis) -> Int64? {
+        if CurrencyConversion.sameCurrency(quote, target) { return nil }
+        let from = CurrencyConversion.normalize(quote)
+        let to = CurrencyConversion.normalize(target)
+        let quoteAt = CurrencyConversion.classify(from) == .fiat ? FxRateSource.fetchedAt(from) : nil
+        let targetAt = CurrencyConversion.classify(to) == .fiat ? FxRateSource.fetchedAt(to) : nil
+        return CurrencyConversion.staleFxTime(quoteFxAt: quoteAt, targetFxAt: targetAt, now: now)
+    }
+
+    /// Wie `staleFxTime` für mehrere Quote-Währungen; nur alte Kurse. Schlüssel in Grossbuchstaben.
+    static func staleFxTimes(quotes: [String], target: String, now: Int64 = TimeUtils.nowMillis) -> [String: Int64] {
+        var result: [String: Int64] = [:]
+        for quote in quotes {
+            let code = CurrencyConversion.normalize(quote)
+            guard !code.isEmpty, result[code] == nil else { continue }
+            if let at = staleFxTime(quote: code, target: target, now: now) { result[code] = at }
+        }
+        return result
+    }
+
+    /// Marktkurs eines Stablecoins in USDT, nur aus dem Zwischenspeicher der Portfolio-Kurse (keine
+    /// zusätzliche Abfrage); nil = keiner bekannt (dann kein Faktor). USD/USDT brauchen keinen.
+    private static func stableMarket(_ code: String) -> Double? {
+        guard CurrencyConversion.stableNeedsMarket(code) else { return nil }
+        return PortfolioPriceSource.cached([code]).prices[code]
+    }
+
+    private static func quoteToUsd(_ quote: String) async -> Double? {
+        let code = CurrencyConversion.normalize(quote)
+        let kind = CurrencyConversion.classify(code)
+        switch kind {
+        case .usd:
+            // Stablecoin ausser USD/USDT: Marktkurs (wie das Portfolio), ohne Kurs kein Faktor
+            var market: Double?
+            if CurrencyConversion.stableNeedsMarket(code) { market = await PortfolioPriceSource.price(code) }
+            return CurrencyConversion.quoteToUsd(kind, usdToQuote: nil, cryptoUsdt: market, code: code)
+        case .fiat:
+            let usdToQuote = await FxRateSource.usdTo(code)
+            return CurrencyConversion.quoteToUsd(kind, usdToQuote: usdToQuote, cryptoUsdt: nil)
+        case .crypto:
+            let price = await PortfolioPriceSource.price(code)
+            return CurrencyConversion.quoteToUsd(kind, usdToQuote: nil, cryptoUsdt: price)
+        case .invalid: return nil
+        }
+    }
+}

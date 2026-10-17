@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: leere Ansicht, Statuszeile, Frische -->
+    <string name="watchlist_all_fresh">Actual · %1$s</string>
+    <string name="watchlist_empty_title">Încă nicio pereche</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="one">%1$d din %2$d fără preț</item>
+        <item quantity="few">%1$d din %2$d fără preț</item>
+        <item quantity="other">%1$d din %2$d fără preț</item>
+    </plurals>
+    <string name="watchlist_last_run">Ultima rulare %1$s</string>
+    <string name="watchlist_live_a11y">Prețuri live active</string>
+    <string name="watchlist_live_badge">LIVE</string>
+    <string name="watchlist_offline_since">Fără conexiune · stare %1$s</string>
+    <string name="watchlist_pull_to_refresh">Trage în jos pentru actualizare</string>
+    <string name="watchlist_refresh_report">Ultima actualizare</string>
+    <string name="watchlist_refresh_report_empty">Încă nu există detalii: nu a avut loc încă o actualizare completă. Atinge Actualizează și așteaptă până se oprește indicatorul.</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="one">%1$d din %2$d învechită</item>
+        <item quantity="few">%1$d din %2$d învechite</item>
+        <item quantity="other">%1$d din %2$d învechite</item>
+    </plurals>
+    <string name="watchlist_status_all_disabled">Toate perechile de aici sunt dezactivate</string>
+    <string name="watchlist_status_exchange_prices">Prețuri de la bursele tale · %1$s</string>
+    <string name="watchlist_status_exchange_prices_short">Prețuri de bursă · %1$s</string>
+    <string name="watchlist_status_group_empty">Nicio pereche în acest grup</string>
+    <string name="watchlist_status_none_traded">Nicio pereche tranzacționată aici</string>
+    <string name="watchlist_updated">Actualizat: %1$s</string>
+
+    <!-- Merkliste: Puls-Zeile (Paare im Plus/Minus, ohne 24-h-Wert) -->
+    <string name="watchlist_pulse_avg">Ø %1$s</string>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="one">%1$d în scădere</item>
+        <item quantity="few">%1$d în scădere</item>
+        <item quantity="other">%1$d în scădere</item>
+    </plurals>
+    <!-- Paare mit Kurs, aber ohne 24-h-Wert («· 510 ohne 24h-Wert») -->
+    <plurals name="watchlist_pulse_missing">
+        <item quantity="one">%1$d fără valoare 24h</item>
+        <item quantity="few">%1$d fără valoare 24h</item>
+        <item quantity="other">%1$d fără valoare 24h</item>
+    </plurals>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="one">%1$d fără valoare azi</item>
+        <item quantity="few">%1$d fără valoare azi</item>
+        <item quantity="other">%1$d fără valoare azi</item>
+    </plurals>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="one">%1$d în creștere</item>
+        <item quantity="few">%1$d în creștere</item>
+        <item quantity="other">%1$d în creștere</item>
+    </plurals>
+
+    <!-- Merkliste: Zeile eines Paars -->
+    <string name="watchlist_row_disabled">%1$s · dezactivată</string>
+    <string name="watchlist_row_outdated">%1$s · învechit</string>
+    <string name="watchlist_row_outdated_age">învechit · %1$s</string>
+    <string name="watchlist_row_price_unchanged_since">Preț neschimbat din %1$s</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s indisponibil</string>
+
+    <!-- Merkliste: Suche, Sprungknopf, Sortieren nach Spalte -->
+    <string name="watchlist_jump_end">La sfârșit</string>
+    <string name="watchlist_jump_start">La început</string>
+    <string name="watchlist_search_close">Închide căutarea</string>
+    <string name="watchlist_search_empty">Niciun rezultat pentru „%1$s”</string>
+    <string name="watchlist_search_hint">Caută pereche, nume sau bursă</string>
+    <string name="watchlist_search_open">Caută</string>
+    <string name="watchlist_sort_ascending">crescător</string>
+    <string name="watchlist_sort_descending">descrescător</string>
+    <string name="watchlist_sort_hint">Ține apăsat și trage o pereche sau folosește mânerul. Favoritele rămân sus.</string>
+    <string name="watchlist_sort_name">Nume</string>
+    <string name="watchlist_sort_own">Ordine proprie</string>
+    <string name="watchlist_sort_price">Preț</string>
+
+    <!-- Merkliste: Mehrfachauswahl, Ansichten, Entfernen -->
+    <string name="watchlist_clear">Golește lista de urmărire</string>
+    <string name="watchlist_clear_confirm">Elimini toate perechile din lista de urmărire? Alarmele lor vor fi șterse și ele.</string>
+    <plurals name="watchlist_disabled_count">
+        <item quantity="one">%1$d dezactivată</item>
+        <item quantity="few">%1$d dezactivate</item>
+        <item quantity="other">%1$d dezactivate</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_action">Elimină</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="one">Elimini %1$d pereche care nu se mai tranzacționează pe bursa sa? Alarmele ei vor fi șterse și ele.</item>
+        <item quantity="few">Elimini %1$d perechi care nu se mai tranzacționează pe bursa lor? Alarmele lor vor fi șterse și ele.</item>
+        <item quantity="other">Elimini %1$d de perechi care nu se mai tranzacționează pe bursa lor? Alarmele lor vor fi șterse și ele.</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_menu">Elimină perechile netranzacționate (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">Elimină perechile netranzacționate</string>
+    <string name="watchlist_removed">%1$s a fost eliminat</string>
+    <plurals name="watchlist_removed_count">
+        <item quantity="one">Perechi eliminate: %1$d</item>
+        <item quantity="few">Perechi eliminate: %1$d</item>
+        <item quantity="other">Perechi eliminate: %1$d</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="one">%1$d pereche netranzacționată eliminată</item>
+        <item quantity="few">%1$d perechi netranzacționate eliminate</item>
+        <item quantity="other">%1$d de perechi netranzacționate eliminate</item>
+    </plurals>
+    <string name="watchlist_select">Selectează</string>
+    <string name="watchlist_select_all">Selectează tot</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="one">Selectate: %1$d</item>
+        <item quantity="few">Selectate: %1$d</item>
+        <item quantity="other">Selectate: %1$d</item>
+    </plurals>
+    <string name="watchlist_show_all">Arată tot</string>
+    <string name="watchlist_show_only_disabled">Arată doar cele dezactivate</string>
+    <string name="watchlist_show_only_stale">Arată doar cele învechite</string>
+
+    <!-- Merkliste: weitere Texte (Gruppen, Alarme, Mitteilung, Sprachausgabe) -->
+    <plurals name="watchlist_alarms_count">
+        <item quantity="one">Alarmă (%1$d)</item>
+        <item quantity="few">Alarme (%1$d)</item>
+        <item quantity="other">Alarme (%1$d)</item>
+    </plurals>
+    <string name="watchlist_favorites_empty_hint">Încă nu ai favorite. Glisează o pereche spre dreapta sau deschide-o și atinge „Favorit”.</string>
+    <string name="watchlist_group_empty_hint">Apasă lung pe un grup pentru a-i alege perechile.</string>
+    <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
+    <string name="watchlist_groups_empty_hint">Aici vor apărea grupurile tale</string>
+    <string name="watchlist_notification">Notificare</string>
+    <string name="watchlist_tts">Citește prețul</string>
+    <string name="watchlist_tts_speech_on">Vocea este activată. O poți schimba în Setări › Avansat › Ieșire vocală.</string>
+
+    <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
+    <string name="watch_action_add_widget">Adaugă ca widget</string>
+    <string name="watch_action_alarm">Alarmă</string>
+    <string name="watch_action_favorite">Favorit</string>
+    <string name="watch_action_why">Ce se mișcă odată cu el?</string>
+    <string name="watch_action_why_short">Ce se mișcă?</string>
+    <string name="watch_change_mark">Mark</string>
+    <string name="watch_disable">Dezactivează</string>
+    <string name="watch_disable_hint">Fără interogări, fără notificări</string>
+    <string name="watch_disabled">Dezactivată</string>
+    <string name="watch_disabled_banner">%1$s dezactivată</string>
+    <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
+    <string name="watch_edit_alarms_warning">Alarmele rămân – verifică pragurile</string>
+    <!-- Titel des Formulars und Screenreader-Name des Stifts neben dem Paar -->
+    <string name="watch_edit_title">Editează perechea</string>
+    <string name="watch_enable">Activează</string>
+    <string name="watch_enable_hint">Cotațiile și notificările revin</string>
+    <string name="watch_enabled_banner">%1$s activată</string>
+    <string name="watch_error_offline">Fără conexiune</string>
+    <string name="watch_gesture_hint_short">Atinge: alarmă și „Ce se mișcă odată cu el?” · apasă lung pentru selectare · glisează la stânga pentru ștergere · la dreapta pentru favorit</string>
+    <string name="watch_hint_tap_why">Atinge o monedă ca să vezi ce se mișcă odată cu ea</string>
+    <string name="watch_not_traded">Nu se mai tranzacționează pe această bursă</string>
+    <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
+    <string name="watch_preview_not_watched">Nu este în lista de urmărire</string>
+    <string name="watch_price_mid">preț mediu (altfel mark)</string>
+    <string name="watch_row_source_both">Variație și grafic: %1$s</string>
+    <string name="watch_row_source_change">Variație: %1$s</string>
+    <string name="watch_row_source_chart">Grafic: %1$s</string>
+
+    <!-- Meldung nach dem Hinzufügen (ein Paar / mehrere Paare) -->
+    <string name="pair_added_watching">%1$s este acum în lista de urmărire</string>
+    <!-- Ein Paar: pair_added_watching -->
+    <string name="pairs_added_watching">%1$s sunt acum în lista de urmărire</string>
+
+    <!-- Favoriten -->
+    <string name="favorite_add">Adaugă la favorite</string>
+    <string name="favorite_added">%1$s a fost adăugat la favorite</string>
+    <string name="favorite_remove">Elimină din favorite</string>
+    <string name="favorite_removed">%1$s a fost eliminat din favorite</string>
+    <string name="hint_favorites_list">Sfat: glisează un rând spre dreapta pentru a-l face favorit – favoritele rămân sus.</string>
+
+    <!-- Gruppen und Chips der Merkliste -->
+    <string name="group_add">Grup nou</string>
+    <string name="group_all">Toate</string>
+    <!-- Alpha-Tokens: Chip «α», Art vor der Glocke, «inkl. Alpha-Tokens» -->
+    <string name="group_alpha">Tokenuri Alpha</string>
+    <string name="group_delete">Șterge grupul</string>
+    <string name="group_delete_confirm">Perechile rămân în lista ta de urmărire.</string>
+    <string name="group_done">Gata</string>
+    <string name="group_edit_title">Editează grupul</string>
+    <!-- Chip «FAV» (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird vorgelesen) -->
+    <string name="group_favorites">Favorite</string>
+    <string name="group_in_other">în %1$s</string>
+    <string name="group_name">Numele grupului</string>
+    <string name="group_new">Grup nou…</string>
+    <string name="group_next">Înainte</string>
+    <string name="group_none">Fără grup</string>
+    <string name="group_rename">Redenumește</string>
+    <string name="group_search_hint">Caută pereche, nume sau bursă</string>
+    <string name="group_target">În grup</string>
+    <string name="group_title">Grup</string>
+    <!-- Gruppen-Chip «Token» (alle Paare ausser der Gruppe «TradFi»), Screenreader und Widget-Einrichtung -->
+    <string name="group_tokens">Tokenuri</string>
+    <string name="group_value">Grup: %1$s</string>
+
+    <!-- Notiz zum Paar -->
+    <string name="note_add">Adaugă notă</string>
+    <string name="note_edit">Editează nota</string>
+    <string name="note_hint">ex. intrare la 0,42, țintă 0,60</string>
+    <string name="note_remove">Elimină</string>
+    <string name="note_title">Notă</string>
+
+    <!-- Reihenfolge ändern (Sortiermodus, Screenreader-Aktionen) -->
+    <string name="sort_drag_handle">Trage pentru a muta</string>
+    <string name="sort_move_bottom">Jos de tot</string>
+    <string name="sort_move_down">Mută în jos</string>
+    <string name="sort_move_top">Sus de tot</string>
+    <string name="sort_move_up">Mută în sus</string>
+</resources>

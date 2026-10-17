@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Wie aktuell? (Sparsam / Live) -->
+    <string name="update_mode_for_pros">több adatot és akkut használ</string>
+    <string name="update_mode_live">Élő, amíg nyitva van</string>
+    <string name="update_mode_live_hint">Ahol a tőzsde élő árfolyamot ad: azonnal, amíg a lista nyitva van. Egyébként a következő lekéréskor. Bezárva: legfeljebb %1$s-onként, gyakran ritkábban.</string>
+    <string name="update_mode_live_hint_ios">Ahol a tőzsde élő árfolyamot ad: azonnal, amíg a lista nyitva van. Egyébként a következő lekéréskor. Zárva: amikor az iOS engedi, néha órák múlva. Ha elhúzással bezárod az appot, az iOS leállítja ezeket az ellenőrzéseket, amíg újra meg nem nyitod.</string>
+    <string name="update_mode_recommended">ajánlott</string>
+    <string name="update_mode_sparsam">Takarékos</string>
+    <string name="update_mode_sparsam_hint">Bezárt appnál legfeljebb %1$s-onként, gyakran ritkábban (riasztások, widgetek). Nyitva: minden megnyitáskor.</string>
+    <string name="update_mode_sparsam_hint_ios">Bezárt appnál az iOS dönti el, mikor ellenőriz (riasztások, widgetek), néha órák múlva. Nyitva: minden megnyitáskor.</string>
+    <string name="update_mode_title">Mennyire friss?</string>
+
+    <!-- Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <string name="refresh_sheet_aborted">Frissítés megszakítva</string>
+    <string name="refresh_sheet_alarms">Riasztások</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="one">%1$d aktiválódott</item>
+        <item quantity="other">%1$d aktiválódott</item>
+    </plurals>
+    <!-- Grosse Statuszeile oben im Blatt -->
+    <string name="refresh_sheet_all_updated">Minden frissítve</string>
+    <string name="refresh_sheet_app_start">Alkalmazás indítása</string>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="one">csoportos lekérés %1$s · %2$d árfolyam</item>
+        <item quantity="other">csoportos lekérés %1$s · %2$d árfolyam</item>
+    </plurals>
+    <string name="refresh_sheet_database">Adatbázis</string>
+    <string name="refresh_sheet_market_unreachable">%1$s nem érhető el</string>
+    <plurals name="refresh_sheet_markets_unreachable">
+        <item quantity="one">%1$d tőzsde nem érhető el</item>
+        <item quantity="other">%1$d tőzsde nem érhető el</item>
+    </plurals>
+    <string name="refresh_sheet_network">Hálózat</string>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="one">%1$d értesítés</item>
+        <item quantity="other">%1$d értesítés</item>
+    </plurals>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="one">%1$d pár</item>
+        <item quantity="other">%1$d pár</item>
+    </plurals>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="one">%1$d pár nem frissült</item>
+        <item quantity="other">%1$d pár nem frissült</item>
+    </plurals>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="one">%2$d / %1$d pár</item>
+        <item quantity="other">%2$d / %1$d pár</item>
+    </plurals>
+    <string name="refresh_sheet_paused_until">szüneteltetve eddig: %1$s</string>
+    <string name="refresh_sheet_paused_until_reason">szüneteltetve eddig: %1$s (%2$s)</string>
+    <string name="refresh_sheet_reason_no_data">nincs adat</string>
+    <string name="refresh_sheet_reason_offline">nincs kapcsolat</string>
+    <string name="refresh_sheet_reason_rate_limit">túl sok kérés</string>
+    <string name="refresh_sheet_reason_server">szerverhiba</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">időtúllépés</string>
+    <string name="refresh_sheet_reason_unavailable">a tőzsde nem érhető el</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s másodperc</string>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_markets">Tőzsdék</string>
+    <string name="refresh_sheet_section_steps">Részletezés</string>
+    <string name="refresh_sheet_status_failed">nem frissült</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">minden frissítve</string>
+    <string name="refresh_sheet_status_partial">részben frissítve</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">Várakozás az indulásig</string>
+    <string name="refresh_sheet_widgets">Widgetek</string>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+
+    <!-- Kurzbericht der Aktualisierung je Börse -->
+    <string name="refresh_report_bulk_failed">csoportos lekérés %1$s (sikertelen)</string>
+    <plurals name="refresh_report_errors">
+        <item quantity="one">%1$d hiba</item>
+        <item quantity="other">%1$d hiba</item>
+    </plurals>
+    <string name="refresh_report_live">Élő: %1$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="one">%1$d már nem kereskedett</item>
+        <item quantity="other">%1$d már nem kereskedett</item>
+    </plurals>
+    <string name="refresh_report_singles">%1$d egyenként</string>
+
+    <!-- Prüfprotokoll der Hintergrundprüfungen (Ergebnis, Auslöser) -->
+    <string name="check_result_failed">Sikertelen</string>
+    <string name="check_result_ok">OK</string>
+    <string name="check_result_partial">Részleges</string>
+    <string name="check_result_skipped">Kihagyva</string>
+    <string name="check_trigger_bgtask">Háttér</string>
+    <string name="check_trigger_exact">Pontos</string>
+    <string name="check_trigger_foreground">Alkalmazás</string>
+    <string name="check_trigger_widget">Widget</string>
+    <string name="check_trigger_widget_ios">Widget · árfolyamok és árfolyamriasztások</string>
+    <string name="check_trigger_worker">Háttér</string>
+
+    <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
+    <string name="battery_delay_hint">Az Android késleltetheti az ellenőrzést – állítsd az akkut erre: «Korlátlan»</string>
+    <string name="battery_later">Később</string>
+    <string name="battery_message">Az Android energiatakarékosság miatt késlelteti a háttérfolyamatokat — az árak és widgetek így órákkal elavultak lehetnek. Korlátlan akkumulátorhasználattal naprakészek maradnak. Ezt bármikor módosíthatja az Android beállításaiban.</string>
+    <string name="battery_open_settings">Akkubeállítások megnyitása</string>
+    <string name="battery_steps">Az alkalmazásinformációban koppintson az Akkumulátor (vagy Alkalmazás akkuhasználata) elemre, és válassza a Korlátlan lehetőséget.</string>
+    <string name="battery_title">Naprakész árak</string>
+    <string name="ios_background_refresh_off">A háttérben frissítés ki van kapcsolva az appnál. Nélküle a riasztások csak nyitott appnál ellenőrződnek.</string>
+    <string name="ios_low_power_mode">Az alacsony fogyasztású mód be van kapcsolva. Az iOS ritkán ellenőriz a háttérben, a riasztások késhetnek.</string>
+</resources>

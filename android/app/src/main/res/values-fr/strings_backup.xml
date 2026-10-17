@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Sicherung exportieren und wiederherstellen -->
+    <string name="backup_export">Exporter</string>
+    <string name="backup_exported">Sauvegarde enregistrée.</string>
+    <string name="backup_failed">Échec. Est-ce bien une sauvegarde Crypto Checker ?</string>
+    <string name="backup_hint">Enregistre liste avec notes et groupes, alertes, favoris, portefeuille et réglages dans un fichier que vous gardez – p. ex. pour un nouveau téléphone.</string>
+    <string name="backup_import">Importer</string>
+    <string name="backup_title">Sauvegarde et restauration</string>
+    <string name="backup_too_large">Le fichier est trop volumineux ou n’est pas une sauvegarde valide (16 Mo max.).</string>
+
+    <!-- Passwort der Sicherungsdatei -->
+    <string name="backup_password">Mot de passe</string>
+    <string name="backup_password_continue">Continuer</string>
+    <string name="backup_password_hide">Masquer le mot de passe</string>
+    <!-- %1$d = Mindestlänge des Passworts (8) -->
+    <string name="backup_password_min">Au moins %1$d caractères</string>
+    <string name="backup_password_mismatch">Les mots de passe ne correspondent pas</string>
+    <string name="backup_password_prompt">Saisissez le mot de passe de cette sauvegarde.</string>
+    <string name="backup_password_repeat">Répéter le mot de passe</string>
+    <string name="backup_password_show">Afficher le mot de passe</string>
+    <string name="backup_password_title">Sauvegarde protégée par mot de passe</string>
+    <string name="backup_password_too_weak">Trop facile à deviner – pas uniquement des chiffres, pas un seul caractère répété, pas de suite courante comme « 12345678 » ou « motdepasse ».</string>
+    <string name="backup_password_warning">Sans le mot de passe, la sauvegarde ne peut pas être restaurée.</string>
+    <string name="backup_password_wrong">Mot de passe incorrect, ou fichier endommagé. Réessayez.</string>
+    <string name="backup_protect">Protéger par mot de passe</string>
+    <string name="backup_protect_hint">Chiffre le fichier (AES-256). Recommandé s’il contient des données du portefeuille.</string>
+
+    <!-- Sicherung ohne Passwort, Wiederherstellen -->
+    <string name="backup_plain_confirm">Enregistrer sans mot de passe</string>
+    <string name="backup_plain_confirm_text">Le fichier n’est pas chiffré. Toute personne qui l’obtient peut lire :</string>
+    <string name="backup_plain_confirm_title">Enregistrer sans mot de passe ?</string>
+    <string name="backup_plain_contents_addresses">Adresses de wallet enregistrées</string>
+    <string name="backup_plain_contents_base">Liste de suivi avec notes et groupes, alertes, favoris et réglages</string>
+    <string name="backup_plain_contents_portfolio">Portefeuille : transactions avec quantités et prix</string>
+    <string name="backup_restore_app_lock_kept">Le verrouillage du portefeuille reste activé – une sauvegarde non chiffrée ne peut pas le désactiver.</string>
+    <string name="backup_restore_confirm">L\'import remplace votre liste (avec notes et groupes), vos alertes, favoris, portefeuille et réglages par la sauvegarde.</string>
+    <plurals name="backup_restore_invalid">
+        <item quantity="one">%d entrée de la sauvegarde (portefeuille ou alerte) est invalide et ne sera pas importée.</item>
+        <item quantity="many">%d entrées de la sauvegarde (portefeuille ou alertes) sont invalides et ne seront pas importées.</item>
+        <item quantity="other">%d entrées de la sauvegarde (portefeuille ou alertes) sont invalides et ne seront pas importées.</item>
+    </plurals>
+    <string name="backup_restore_newer_version">Cette sauvegarde provient d’une version plus récente de l’app – mettez d’abord l’app à jour. Rien n’a été importé.</string>
+    <string name="backup_restore_unencrypted_warning">Cette sauvegarde n’est pas chiffrée – vérifiez qu’elle vient bien de vous. Les réglages seront appliqués ; un verrouillage du portefeuille activé reste activé.</string>
+    <string name="backup_restored">Restauré : %1$s, %2$s.</string>
+    <plurals name="backup_restored_alarms">
+        <item quantity="one">%1$d alerte</item>
+        <item quantity="many">%1$d alertes</item>
+        <item quantity="other">%1$d alertes</item>
+    </plurals>
+    <plurals name="backup_restored_pairs">
+        <item quantity="one">%1$d paire</item>
+        <item quantity="many">%1$d paires</item>
+        <item quantity="other">%1$d paires</item>
+    </plurals>
+
+    <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
+    <string name="storage_recovery_message">Cet appareil n’a plus la clé des données chiffrées de l’app : elle a donc démarré vide. Rien n’a été supprimé. Pour récupérer votre liste et votre portefeuille, importez un fichier de sauvegarde dans les réglages, sous « %1$s ».</string>
+    <string name="storage_recovery_title">Données enregistrées non déverrouillables</string>
+</resources>

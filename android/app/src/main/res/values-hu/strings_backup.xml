@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Sicherung exportieren und wiederherstellen -->
+    <string name="backup_export">Exportálás</string>
+    <string name="backup_exported">Mentés elkészült.</string>
+    <string name="backup_failed">Nem sikerült. Ez Crypto Checker mentés?</string>
+    <string name="backup_hint">A listát jegyzetekkel és csoportokkal, a riasztásokat, kedvenceket, a portfóliót és a beállításokat egy fájlba menti, amelyet Ön őriz – pl. új telefonhoz.</string>
+    <string name="backup_import">Importálás</string>
+    <string name="backup_title">Mentés és visszaállítás</string>
+    <string name="backup_too_large">A fájl túl nagy, vagy nem érvényes mentés (legfeljebb 16 MB).</string>
+
+    <!-- Passwort der Sicherungsdatei -->
+    <string name="backup_password">Jelszó</string>
+    <string name="backup_password_continue">Tovább</string>
+    <string name="backup_password_hide">Jelszó elrejtése</string>
+    <!-- %1$d = Mindestlänge des Passworts (8) -->
+    <string name="backup_password_min">Legalább %1$d karakter</string>
+    <string name="backup_password_mismatch">A jelszavak nem egyeznek</string>
+    <string name="backup_password_prompt">Adja meg ennek a biztonsági mentésnek a jelszavát.</string>
+    <string name="backup_password_repeat">Jelszó ismét</string>
+    <string name="backup_password_show">Jelszó megjelenítése</string>
+    <string name="backup_password_title">Jelszóval védett mentés</string>
+    <string name="backup_password_too_weak">Túl könnyű kitalálni – ne csak számjegy, ne egy ismételt karakter, ne gyakori sor, mint «12345678» vagy «jelszo».</string>
+    <string name="backup_password_warning">Jelszó nélkül a biztonsági mentés nem állítható vissza.</string>
+    <string name="backup_password_wrong">Hibás jelszó, vagy a fájl sérült. Próbálja újra.</string>
+    <string name="backup_protect">Védelem jelszóval</string>
+    <string name="backup_protect_hint">Titkosítja a fájlt (AES-256). Ajánlott, ha portfólióadatokat tartalmaz.</string>
+
+    <!-- Sicherung ohne Passwort, Wiederherstellen -->
+    <string name="backup_plain_confirm">Mentés jelszó nélkül</string>
+    <string name="backup_plain_confirm_text">A fájl nincs titkosítva. Aki megkapja, olvashatja:</string>
+    <string name="backup_plain_confirm_title">Mentés jelszó nélkül?</string>
+    <string name="backup_plain_contents_addresses">Mentett tárcacímek</string>
+    <string name="backup_plain_contents_base">Figyelőlista jegyzetekkel és csoportokkal, riasztások, kedvencek és beállítások</string>
+    <string name="backup_plain_contents_portfolio">Portfólió: tranzakciók mennyiségekkel és árakkal</string>
+    <string name="backup_restore_app_lock_kept">A portfólió zárolása bekapcsolva marad – titkosítatlan mentés nem kapcsolhatja ki.</string>
+    <string name="backup_restore_confirm">Az importálás a mentésre cseréli a listát (jegyzetekkel és csoportokkal), a riasztásokat, kedvenceket, a portfóliót és a beállításokat.</string>
+    <plurals name="backup_restore_invalid">
+        <item quantity="one">A mentés %d bejegyzése (portfólió vagy riasztás) érvénytelen, nem lesz importálva.</item>
+        <item quantity="other">A mentés %d bejegyzése (portfólió vagy riasztások) érvénytelen, nem lesznek importálva.</item>
+    </plurals>
+    <string name="backup_restore_newer_version">Ez a mentés egy újabb alkalmazásverzióból származik – előbb frissítsd az alkalmazást. Semmi sem került importálásra.</string>
+    <string name="backup_restore_unencrypted_warning">Ez a mentés nincs titkosítva – ellenőrizd, hogy tőled származik. A beállítások átkerülnek; a bekapcsolt portfóliózár bekapcsolva marad.</string>
+    <string name="backup_restored">Visszaállítva: %1$s, %2$s.</string>
+    <plurals name="backup_restored_alarms">
+        <item quantity="one">%1$d riasztás</item>
+        <item quantity="other">%1$d riasztás</item>
+    </plurals>
+    <plurals name="backup_restored_pairs">
+        <item quantity="one">%1$d pár</item>
+        <item quantity="other">%1$d pár</item>
+    </plurals>
+
+    <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
+    <string name="storage_recovery_message">Ezen az eszközön már nincs meg az alkalmazás titkosított adatainak kulcsa, ezért az alkalmazás üresen indult. Semmi sem törlődött. A listát és a portfóliót egy mentésfájl importálásával kaphatod vissza a beállítások «%1$s» részében.</string>
+    <string name="storage_recovery_title">A mentett adatok nem oldhatók fel</string>
+</resources>

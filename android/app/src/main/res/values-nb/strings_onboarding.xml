@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Begrüssung beim ersten Start -->
+    <string name="welcome_alert">Varsle – kurs, prosent, volum og uvanlige bevegelser</string>
+    <string name="welcome_alert_q">Når vil jeg ha beskjed?</string>
+    <string name="welcome_text">Dine kurser. Dine alarmer. Din oversikt.\nIngen konto. Ingen reklame. Ingen sporing.</string>
+    <string name="welcome_understand">Forstå – hva som beveger seg med en kurs akkurat nå</string>
+    <string name="welcome_understand_q">Hva beveger seg med?</string>
+    <string name="welcome_watch">Følg med – myntene dine, kurser og utvikling</string>
+    <string name="welcome_watch_q">Hva skjer?</string>
+
+    <!-- Start-Coins (Vorschlagsliste nach der Begrüssung) -->
+    <string name="starter_add_selected">Legg til i overvåkingslisten (%1$d)</string>
+    <string name="starter_loading_prices">Laster inn kurser…</string>
+    <string name="starter_search_coin">Søk etter en annen mynt</string>
+    <string name="starter_select_all">Velg alle</string>
+    <string name="starter_select_none">Velg ingen</string>
+    <string name="starter_text">Velg bort det du ikke vil ha, og legg til resten på én gang. Du kan endre børs og par senere.</string>
+    <string name="starter_title">Start med disse myntene</string>
+    <string name="starter_watch_alarm_hint">Følg kursen, sett en alarm</string>
+</resources>

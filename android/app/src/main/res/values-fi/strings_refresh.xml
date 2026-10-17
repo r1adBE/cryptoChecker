@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Wie aktuell? (Sparsam / Live) -->
+    <string name="update_mode_for_pros">kuluttaa enemmän dataa ja akkua</string>
+    <string name="update_mode_live">Live, kun auki</string>
+    <string name="update_mode_live_hint">Jos pörssi tarjoaa reaaliaikaisen hinnan: heti, kun lista on auki. Muuten seuraavalla haulla. Suljettuna: enintään %1$s välein, usein harvemmin.</string>
+    <string name="update_mode_live_hint_ios">Jos pörssi tarjoaa reaaliaikaisen hinnan: heti, kun lista on auki. Muuten seuraavalla haulla. Suljettu: kun iOS sallii, joskus tuntien välein. Jos pyyhkäiset sovelluksen pois, iOS lopettaa nämä tarkistukset, kunnes avaat sen uudelleen.</string>
+    <string name="update_mode_recommended">suositeltu</string>
+    <string name="update_mode_sparsam">Säästävä</string>
+    <string name="update_mode_sparsam_hint">Sovelluksen ollessa suljettuna enintään %1$s välein, usein harvemmin (hälytykset, widgetit). Auki: aina avattaessa.</string>
+    <string name="update_mode_sparsam_hint_ios">Kun sovellus on suljettu, iOS päättää, milloin tarkistetaan (hälytykset, widgetit), joskus tuntien välein. Auki: aina avattaessa.</string>
+    <string name="update_mode_title">Kuinka ajantasainen?</string>
+
+    <!-- Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <string name="refresh_sheet_aborted">Päivitys keskeytyi</string>
+    <string name="refresh_sheet_alarms">Hälytykset</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="one">%1$d laukesi</item>
+        <item quantity="other">%1$d laukesi</item>
+    </plurals>
+    <!-- Grosse Statuszeile oben im Blatt -->
+    <string name="refresh_sheet_all_updated">Kaikki päivitetty</string>
+    <string name="refresh_sheet_app_start">Sovelluksen käynnistys</string>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="one">koontikysely %1$s · %2$d hinta</item>
+        <item quantity="other">koontikysely %1$s · %2$d hintaa</item>
+    </plurals>
+    <string name="refresh_sheet_database">Tietokanta</string>
+    <string name="refresh_sheet_market_unreachable">%1$s ei vastaa</string>
+    <plurals name="refresh_sheet_markets_unreachable">
+        <item quantity="one">%1$d pörssi ei vastaa</item>
+        <item quantity="other">%1$d pörssiä ei vastaa</item>
+    </plurals>
+    <string name="refresh_sheet_network">Verkko</string>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="one">%1$d ilmoitus</item>
+        <item quantity="other">%1$d ilmoitusta</item>
+    </plurals>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="one">%1$d pari</item>
+        <item quantity="other">%1$d paria</item>
+    </plurals>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="one">%1$d pari päivittämättä</item>
+        <item quantity="other">%1$d paria päivittämättä</item>
+    </plurals>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="one">%2$d / %1$d pari</item>
+        <item quantity="other">%2$d / %1$d paria</item>
+    </plurals>
+    <string name="refresh_sheet_paused_until">tauolla klo %1$s asti</string>
+    <string name="refresh_sheet_paused_until_reason">tauolla klo %1$s asti (%2$s)</string>
+    <string name="refresh_sheet_reason_no_data">ei tietoja</string>
+    <string name="refresh_sheet_reason_offline">ei yhteyttä</string>
+    <string name="refresh_sheet_reason_rate_limit">liikaa pyyntöjä</string>
+    <string name="refresh_sheet_reason_server">palvelinvirhe</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">aikakatkaisu</string>
+    <string name="refresh_sheet_reason_unavailable">pörssi ei käytettävissä</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s sekuntia</string>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_markets">Pörssit</string>
+    <string name="refresh_sheet_section_steps">Erittely</string>
+    <string name="refresh_sheet_status_failed">ei päivitetty</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">kaikki päivitetty</string>
+    <string name="refresh_sheet_status_partial">osittain päivitetty</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">Odotus ennen alkua</string>
+    <string name="refresh_sheet_widgets">Widgetit</string>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+
+    <!-- Kurzbericht der Aktualisierung je Börse -->
+    <string name="refresh_report_bulk_failed">koontikysely %1$s (epäonnistui)</string>
+    <plurals name="refresh_report_errors">
+        <item quantity="one">%1$d virhe</item>
+        <item quantity="other">%1$d virhettä</item>
+    </plurals>
+    <string name="refresh_report_live">Live: %1$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="one">ei enää kaupankäynnissä: %1$d</item>
+        <item quantity="other">ei enää kaupankäynnissä: %1$d</item>
+    </plurals>
+    <string name="refresh_report_singles">erikseen: %1$d</string>
+
+    <!-- Prüfprotokoll der Hintergrundprüfungen (Ergebnis, Auslöser) -->
+    <string name="check_result_failed">Epäonnistui</string>
+    <string name="check_result_ok">OK</string>
+    <string name="check_result_partial">Osittain</string>
+    <string name="check_result_skipped">Ohitettu</string>
+    <string name="check_trigger_bgtask">Tausta</string>
+    <string name="check_trigger_exact">Ajallaan</string>
+    <string name="check_trigger_foreground">Sovellus</string>
+    <string name="check_trigger_widget">Widget</string>
+    <string name="check_trigger_widget_ios">Widget · hinnat ja hintahälytykset</string>
+    <string name="check_trigger_worker">Tausta</string>
+
+    <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
+    <string name="battery_delay_hint">Android voi viivästyttää tarkistuksia – aseta akku tilaan «Rajoittamaton»</string>
+    <string name="battery_later">Myöhemmin</string>
+    <string name="battery_message">Android viivästää taustatyötä virran säästämiseksi — hinnat ja widgetit voivat silloin olla tunteja vanhoja. Kun akun käyttö on rajoittamaton, ne pysyvät ajan tasalla. Voit muuttaa tätä milloin tahansa Androidin asetuksista.</string>
+    <string name="battery_open_settings">Avaa akkuasetukset</string>
+    <string name="battery_steps">Napauta sovelluksen tiedoissa Akku (tai Sovelluksen akun käyttö) ja valitse Rajoittamaton.</string>
+    <string name="battery_title">Pidä hinnat ajan tasalla</string>
+    <string name="ios_background_refresh_off">Taustapäivitys on pois päältä tältä sovellukselta. Ilman sitä hälytykset tarkistetaan vain sovelluksen ollessa auki.</string>
+    <string name="ios_low_power_mode">Virransäästötila on päällä. iOS tarkistaa taustalla harvoin, joten hälytykset voivat viivästyä.</string>
+</resources>

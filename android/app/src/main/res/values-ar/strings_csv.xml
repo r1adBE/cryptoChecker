@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: CSV-Import -->
+    <string name="portfolio_csv_import_action">استيراد CSV</string>
+    <string name="portfolio_csv_import_all_transfer">الكل إلى wallet خاصة بي</string>
+    <string name="portfolio_csv_import_all_withdrawal">الكل يخرج من المحفظة</string>
+    <string name="portfolio_csv_import_choice_proposed">اقتراح: يطابق %1$s</string>
+    <string name="portfolio_csv_import_choice_transfer">إلى wallet خاصة بي (تحويل)</string>
+    <string name="portfolio_csv_import_choice_withdrawal">يخرج من المحفظة (سحب)</string>
+    <string name="portfolio_csv_import_choose_each">اختر لكل سحب إلى أين ذهب.</string>
+    <string name="portfolio_csv_import_columns">الأعمدة المعروفة: %1$s</string>
+    <string name="portfolio_csv_import_confirm">استيراد (%1$d)</string>
+    <string name="portfolio_csv_import_date_day_first">يوم/شهر</string>
+    <string name="portfolio_csv_import_date_month_first">شهر/يوم</string>
+    <string name="portfolio_csv_import_date_order">التواريخ الملتبسة (مثل 03/04/2024) تُقرأ بصيغة:</string>
+    <string name="portfolio_csv_import_decimal">الأرقام الملتبسة (مثل %1$s) تُقرأ بصيغة:</string>
+    <plurals name="portfolio_csv_import_done">
+        <item quantity="zero">المعاملات المستوردة: %d</item>
+        <item quantity="one">المعاملات المستوردة: %d</item>
+        <item quantity="two">المعاملات المستوردة: %d</item>
+        <item quantity="few">المعاملات المستوردة: %d</item>
+        <item quantity="many">المعاملات المستوردة: %d</item>
+        <item quantity="other">المعاملات المستوردة: %d</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_duplicates">
+        <item quantity="zero">مستوردة مسبقًا (تم تخطيها): %d</item>
+        <item quantity="one">مستوردة مسبقًا (تم تخطيها): %d</item>
+        <item quantity="two">مستوردة مسبقًا (تم تخطيها): %d</item>
+        <item quantity="few">مستوردة مسبقًا (تم تخطيها): %d</item>
+        <item quantity="many">مستوردة مسبقًا (تم تخطيها): %d</item>
+        <item quantity="other">مستوردة مسبقًا (تم تخطيها): %d</item>
+    </plurals>
+    <string name="portfolio_csv_import_format">التنسيق: %1$s</string>
+    <string name="portfolio_csv_import_line">السطر %1$d: %2$s</string>
+    <string name="portfolio_csv_import_loading">جارٍ قراءة الملف والأسعار اليومية…</string>
+    <string name="portfolio_csv_import_missing_fx">لا يوجد سعر يومي للسطر %1$s – استُورد دون سعر أو رسوم.</string>
+    <string name="portfolio_csv_import_missing_price">لا يوجد سعر في الملف للسطر %1$s – استُورد دون سعر.</string>
+    <string name="portfolio_csv_import_more">+ %1$d أخرى</string>
+    <plurals name="portfolio_csv_import_new">
+        <item quantity="zero">معاملات جديدة: %d</item>
+        <item quantity="one">معاملات جديدة: %d</item>
+        <item quantity="two">معاملات جديدة: %d</item>
+        <item quantity="few">معاملات جديدة: %d</item>
+        <item quantity="many">معاملات جديدة: %d</item>
+        <item quantity="other">معاملات جديدة: %d</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_skipped">
+        <item quantity="zero">الأسطر المتخطاة: %d</item>
+        <item quantity="one">الأسطر المتخطاة: %d</item>
+        <item quantity="two">الأسطر المتخطاة: %d</item>
+        <item quantity="few">الأسطر المتخطاة: %d</item>
+        <item quantity="many">الأسطر المتخطاة: %d</item>
+        <item quantity="other">الأسطر المتخطاة: %d</item>
+    </plurals>
+    <string name="portfolio_csv_import_stable_swaps">تُسجَّل عمليات الشراء والبيع مقابل العملات المستقرة (USDT وUSDC …) كمبادلات – وتظهر العملة المستقرة في رصيدك.</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">تطابقات محتملة متعددة – اختر الصحيح أو لا شيء.</string>
+    <string name="portfolio_csv_import_transfer_fee">رسوم الشبكة: %1$s</string>
+    <string name="portfolio_csv_import_transfer_link">تسجيل كتحويل واحد</string>
+    <string name="portfolio_csv_import_transfer_stored">الطرف المقابل من استيراد سابق</string>
+    <string name="portfolio_csv_import_transfers_hint">يصبح السحب والإيداع المطابق له من العملة نفسها تحويلًا واحدًا: يبقى سعر الشراء ومدة الاحتفاظ، ويُحتسب الفرق رسوم شبكة.</string>
+    <string name="portfolio_csv_import_transfers_title">تحويلات بين حساباتك</string>
+    <string name="portfolio_csv_import_unreadable">لم يُعثر على معاملات مدعومة. المدعوم: ملفات CSV المصدَّرة من Relai وSwissquote وKraken وBinance وCoinbase وBitpanda.</string>
+    <string name="portfolio_csv_import_withdrawals_title">السحوبات – إلى أين ذهبت العملات؟</string>
+    <string name="portfolio_csv_import_zone">الأوقات بلا منطقة زمنية تُقرأ كـ: %1$s</string>
+    <string name="portfolio_csv_import_zone_device">الجهاز (%1$s)</string>
+    <string name="portfolio_csv_skip_bad_date">تاريخ غير مقروء</string>
+    <string name="portfolio_csv_skip_bad_number">رقم غير مقروء</string>
+    <string name="portfolio_csv_skip_fee_exceeds">الرسوم ≥ الكمية المُستلَمة</string>
+    <string name="portfolio_csv_skip_internal_move">نقل بين حساباتك الخاصة – لا شيء للتسجيل</string>
+    <string name="portfolio_csv_skip_missing">حقل مفقود</string>
+    <string name="portfolio_csv_skip_not_crypto">ليست عملة مشفرة</string>
+    <string name="portfolio_csv_skip_possible_duplicate">ربما استُورد مسبقًا (صفقة شبه مطابقة) – تحقّق يدويًا</string>
+    <string name="portfolio_csv_skip_two_fees">رسومان بوحدتين مختلفتين – أدخل المبادلة يدويًا</string>
+    <string name="portfolio_csv_skip_unsupported">نوع غير مدعوم</string>
+
+    <!-- Portfolio: Importe ansehen und rückgängig machen -->
+    <string name="portfolio_import_undo">تراجع</string>
+    <plurals name="portfolio_import_undo_confirm">
+        <item quantity="zero">حذف معاملات هذا الاستيراد (%d)؟ تبقى الإدخالات اليدوية والاستيرادات الأخرى.</item>
+        <item quantity="one">حذف معاملات هذا الاستيراد (%d)؟ تبقى الإدخالات اليدوية والاستيرادات الأخرى.</item>
+        <item quantity="two">حذف معاملات هذا الاستيراد (%d)؟ تبقى الإدخالات اليدوية والاستيرادات الأخرى.</item>
+        <item quantity="few">حذف معاملات هذا الاستيراد (%d)؟ تبقى الإدخالات اليدوية والاستيرادات الأخرى.</item>
+        <item quantity="many">حذف معاملات هذا الاستيراد (%d)؟ تبقى الإدخالات اليدوية والاستيرادات الأخرى.</item>
+        <item quantity="other">حذف معاملات هذا الاستيراد (%d)؟ تبقى الإدخالات اليدوية والاستيرادات الأخرى.</item>
+    </plurals>
+    <string name="portfolio_import_undo_title">التراجع عن الاستيراد؟</string>
+    <plurals name="portfolio_import_undone">
+        <item quantity="zero">المعاملات المستوردة المحذوفة: %d</item>
+        <item quantity="one">المعاملات المستوردة المحذوفة: %d</item>
+        <item quantity="two">المعاملات المستوردة المحذوفة: %d</item>
+        <item quantity="few">المعاملات المستوردة المحذوفة: %d</item>
+        <item quantity="many">المعاملات المستوردة المحذوفة: %d</item>
+        <item quantity="other">المعاملات المستوردة المحذوفة: %d</item>
+    </plurals>
+    <plurals name="portfolio_imports_count">
+        <item quantity="zero">المعاملات: %d</item>
+        <item quantity="one">المعاملات: %d</item>
+        <item quantity="two">المعاملات: %d</item>
+        <item quantity="few">المعاملات: %d</item>
+        <item quantity="many">المعاملات: %d</item>
+        <item quantity="other">المعاملات: %d</item>
+    </plurals>
+    <string name="portfolio_imports_empty">لا توجد عمليات استيراد</string>
+    <string name="portfolio_imports_title">عمليات الاستيراد</string>
+</resources>

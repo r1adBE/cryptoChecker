@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: beobachtete Adressen (Wallets) -->
+    <string name="portfolio_address_add">Adaugă adresă</string>
+    <string name="portfolio_address_count">Include</string>
+    <string name="portfolio_address_error">Actualizarea a eșuat</string>
+    <string name="portfolio_address_hint">Adresă publică (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) sau xpub</string>
+    <string name="portfolio_address_label">Etichetă (opțional)</string>
+    <string name="portfolio_address_not_since_buy">Din adresă · nu e inclus în «De la cumpărare»: %1$s</string>
+    <string name="portfolio_address_overlap">Și în propriile tranzacții: %1$s – ambele se adună. Aceleași monede? Alege «Doar afișează».</string>
+    <string name="portfolio_address_overlap_ask">Înregistrezi deja %1$s cu propriile tranzacții. Adaugi soldul acestei adrese la portofoliu sau doar îl afișezi?</string>
+    <string name="portfolio_address_overlap_auto">«%1$s» este acum doar afișat, nu inclus – %2$s apar și în tranzacțiile tale.</string>
+    <string name="portfolio_address_overlap_restored">«%1$s» contează din nou – cantitățile nu se potrivesc cu tranzacțiile tale. Alege «Doar afișează» dacă sunt aceleași monede.</string>
+    <string name="portfolio_address_overlap_title">Aceleași monede ca în tranzacțiile tale?</string>
+    <string name="portfolio_address_overlap_tx">Aceeași cantitate ca propria depunere/transfer (%1$s) – probabil numărată de două ori.</string>
+    <string name="portfolio_address_period_observed">Adresele urmărite contează de la primul sold observat; modificările ulterioare sunt intrări/ieșiri, nu câștig.</string>
+    <string name="portfolio_address_privacy">Doar adresa publică este trimisă la %1$s – niciodată chei sau fraze seed. Furnizorul o vede împreună cu adresa ta IP. Verificată cel mult o dată la 10 minute.</string>
+    <string name="portfolio_address_remove">Elimină adresa</string>
+    <string name="portfolio_address_show_only">Doar afișează, nu adăuga la portofoliu</string>
+    <string name="portfolio_address_show_only_short">Doar afișează</string>
+    <string name="portfolio_address_tokens">Include tokenurile</string>
+    <string name="portfolio_address_unknown_tokens">+%1$d tokenuri necunoscute (neincluse)</string>
+    <string name="portfolio_address_xpub_privacy">Un xpub dezvăluie toate adresele acestui wallet. Ele sunt derivate pe dispozitivul tău; la %1$s ajung doar adrese individuale – cel puțin 40 de cereri la prima căutare, apoi mai puține. Cheile private (xprv) nu sunt acceptate niciodată.</string>
+    <string name="portfolio_address_xpub_used">Adrese folosite: %1$d</string>
+    <string name="portfolio_addresses_title">Adrese</string>
+
+    <!-- Prüfung einer eingegebenen Adresse -->
+    <string name="address_bch_unsupported">Adresele Bitcoin Cash nu pot fi urmărite: nu există niciun serviciu public gratuit fără cheie API ai cărui termeni să permită asta.</string>
+    <string name="address_bep2_shutdown">BNB Beacon Chain (BEP-2) a fost oprit în 2024 – soldurile sunt acum pe BNB Smart Chain (0x…)</string>
+    <string name="address_checksum">Sumă de control greșită – greșeală de tastare?</string>
+    <string name="address_doge_unsupported">Adresele Dogecoin nu pot fi urmărite: nu există niciun serviciu public gratuit fără cheie API ai cărui termeni să permită asta.</string>
+    <string name="address_duplicate">Această adresă este deja adăugată</string>
+    <string name="address_ens">Numele ENS nu sunt acceptate – introdu adresa 0x</string>
+    <string name="address_invalid">Nu este o adresă validă a unei rețele acceptate</string>
+    <string name="address_limit">Cel mult 20 de adrese</string>
+    <string name="address_secret">Pare o cheie privată sau o frază seed – nu o introduce nicăieri. Doar adrese publice.</string>
+    <string name="address_testnet">Adresele Testnet nu sunt acceptate</string>
+    <string name="address_unsupported">Acest tip de adresă nu este acceptat</string>
+    <string name="address_wrong_chain">Adresa aparține altei rețele</string>
+    <string name="address_xpub_multisig">Cheile multisig (Ypub/Zpub) nu sunt acceptate</string>
+</resources>

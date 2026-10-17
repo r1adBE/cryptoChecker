@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Texte der Mitteilungen -->
+    <string name="notification_activity_title">%1$s · %2$s</string>
+    <string name="notification_alarm_text">%1$s — teraz %2$s</string>
+    <string name="notification_alarm_title">Alarm: %1$s · %2$s</string>
+    <string name="notification_depeg_action_exchange">Otwórz giełdę</string>
+    <string name="notification_depeg_text">Wartości w aplikacji nadal liczone są z USDT = 1.</string>
+    <string name="notification_depeg_title">USDT po %1$s USD (%2$s)</string>
+    <string name="notification_fng_above">Indeks wzrósł powyżej %1$d – według tego indeksu na rynku panuje chciwość.</string>
+    <string name="notification_fng_below">Indeks spadł poniżej %1$d – według tego indeksu na rynku panuje strach.</string>
+    <string name="notification_fng_title">Fear &amp; Greed: %1$d</string>
+    <string name="notification_gas_btc_text">Poniżej Twojego limitu %1$s sat/vB · Przelew ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Opłata Bitcoin: %1$s sat/vB</string>
+    <string name="notification_gas_eth_text">Poniżej Twojego limitu %1$s gwei · Przelew ≈ %2$s</string>
+    <string name="notification_gas_eth_title">Gas Ethereum: %1$s gwei</string>
+    <string name="notification_indicator_above">Powyżej twojego progu %1$s – wartość zmierzona, nie rekomendacja.</string>
+    <string name="notification_indicator_below">Poniżej twojego progu %1$s – wartość zmierzona, nie rekomendacja.</string>
+    <string name="notification_indicator_title">%1$s: %2$s</string>
+    <string name="notification_macro_title">Dziś dane gospodarcze</string>
+    <string name="notification_portfolio_alarm_locked">Twój alarm się uruchomił – otwórz aplikację, aby zobaczyć szczegóły.</string>
+    <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
+    <string name="notification_portfolio_alarm_text">%1$s – teraz %2$s</string>
+    <string name="notification_portfolio_alarm_title">Wartość portfela</string>
+    <string name="notification_price_change">%1$s, z %2$s (%3$s temu)</string>
+    <string name="notification_price_change_no_age">%1$s, z %2$s</string>
+    <string name="notification_price_first">Pierwsze powiadomienie dla tej pary</string>
+    <plurals name="notification_price_overflow_title">
+        <item quantity="one">+%1$d kolejny kurs</item>
+        <item quantity="few">+%1$d kolejne kursy</item>
+        <item quantity="many">+%1$d kolejnych kursów</item>
+        <item quantity="other">+%1$d kolejnych kursów</item>
+    </plurals>
+    <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
+    <string name="notification_refreshing">Aktualizowanie cen…</string>
+    <string name="notification_volume_spike_text">Wolumen %1$s× normy w ostatniej godzinie</string>
+
+    <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
+    <string name="channel_alarms">Alarmy</string>
+    <string name="channel_alarms_description">Powiadomienie, gdy zadziała alarm cenowy.</string>
+    <string name="channel_alarms_quiet">Alarmy (godziny ciszy)</string>
+    <string name="channel_alarms_quiet_description">Wyciszone alarmy w godzinach ciszy.</string>
+    <string name="channel_alarms_silent">Alarmy (bez dźwięku)</string>
+    <string name="channel_alarms_sound">Alarmy (tylko dźwięk)</string>
+    <string name="channel_alarms_sound_vibrate">Alarmy (dźwięk i wibracje)</string>
+    <string name="channel_alarms_vibrate">Alarmy (tylko wibracje)</string>
+    <string name="channel_prices">Powiadomienia o cenie</string>
+    <string name="channel_prices_description">Ciche powiadomienie z aktualną ceną pary.</string>
+    <string name="channel_service">Aktualizacje kursów</string>
+    <string name="channel_service_description">Informacja, gdy ceny są aktualizowane.</string>
+    <string name="neutral_channel_market">Powiadomienia rynkowe</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed, opłaty gas, nietypowa aktywność i terminy gospodarcze</string>
+
+    <!-- Sprachausgabe -->
+    <string name="tts_alarm">Alarm. %1$s, %2$s %3$s %4$s, teraz %5$s</string>
+    <string name="tts_direction_down">spadł</string>
+    <string name="tts_direction_funding_above">z wysokim fundingiem</string>
+    <string name="tts_direction_funding_below">z niskim fundingiem</string>
+    <string name="tts_direction_move">mocno się porusza</string>
+    <string name="tts_direction_near_high">jest blisko maksimum</string>
+    <string name="tts_direction_near_low">jest blisko minimum</string>
+    <string name="tts_direction_oi_down">ze spadającymi otwartymi pozycjami</string>
+    <string name="tts_direction_oi_up">z rosnącymi otwartymi pozycjami</string>
+    <string name="tts_direction_up">wzrósł</string>
+    <string name="tts_direction_volume_spike">ze skokiem wolumenu</string>
+    <string name="tts_price">%1$s, %2$s %3$s, %4$s</string>
+</resources>

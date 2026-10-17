@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Beispielwerte der Widget-Vorschauen im Auswahlmenü (layout/widget_preview_*, ab Android 12).
+     Nur Zahlen, Symbole und Eigennamen — nicht übersetzt; Wörter kommen aus den übersetzten
+     Strings. Format wie im echten Widget (PriceFormat, PortfolioSnapshotMath). Kurs und Währung
+     getrennt: die Währung steht wie im Widget klein und grau daneben (WidgetQuoteText). -->
+<resources>
+    <string name="widget_preview_market" translatable="false">Binance</string>
+    <!-- Uhrzeit mit Trenner vor dem übersetzten Zeitraum («14:05:32 · 24h») -->
+    <string name="widget_preview_time_sep" translatable="false">"14:05:32 · "</string>
+    <!-- Trenner « · » zwischen zwei Teilen einer Zeile -->
+    <string name="widget_preview_sep" translatable="false">" · "</string>
+
+    <string name="widget_preview_quote_usdt" translatable="false">USDT</string>
+    <string name="widget_preview_quote_chf" translatable="false">CHF</string>
+
+    <string name="widget_preview_btc_pair" translatable="false">BTC/USDT</string>
+    <!-- Einzel-Widget 2 × 2: das Paar passt nicht neben die Veränderung, daher nur die Basis (WidgetTextFit.singlePairLabel) -->
+    <string name="widget_preview_btc_base" translatable="false">BTC</string>
+    <string name="widget_preview_btc_price_value" translatable="false">83’142.00</string>
+    <string name="widget_preview_btc_change" translatable="false" formatted="false">↗ +2.31%</string>
+    <string name="widget_preview_eth_pair" translatable="false">ETH/USDT</string>
+    <string name="widget_preview_eth_price_value" translatable="false">2’505.49</string>
+    <string name="widget_preview_eth_change" translatable="false" formatted="false">↗ +1.84%</string>
+    <string name="widget_preview_sol_pair" translatable="false">SOL/USDT</string>
+    <string name="widget_preview_sol_price_value" translatable="false">109.60</string>
+    <string name="widget_preview_sol_change" translatable="false" formatted="false">↘ −0.92%</string>
+
+    <!-- Portfolio, Ansicht «Übersicht» (keine Pillen): Gesamtwert, Betrag und Prozent über 24 h, Heute · 7 T · Gesamt, Uhrzeit -->
+    <string name="widget_preview_portfolio_total_value" translatable="false">84’215.30</string>
+    <string name="widget_preview_portfolio_change_value" translatable="false" formatted="false">↗ +1’168.40</string>
+    <string name="widget_preview_portfolio_percent" translatable="false" formatted="false">+1.41%</string>
+    <string name="widget_preview_portfolio_today" translatable="false" formatted="false">↗ +1.41%</string>
+    <string name="widget_preview_portfolio_week" translatable="false" formatted="false">↘ −2.15%</string>
+    <string name="widget_preview_portfolio_total" translatable="false" formatted="false">↗ +8.20%</string>
+    <!-- «Gesamt [CHF]»: Währung hinter dem übersetzten «Gesamt» -->
+    <string name="widget_preview_portfolio_total_currency" translatable="false">" [CHF]"</string>
+    <string name="widget_preview_portfolio_time" translatable="false">14:05</string>
+    <!-- Kopf des Listen-Widgets: Uhrzeit · Dauer der Aktualisierung -->
+    <string name="widget_preview_list_time_duration" translatable="false">14:05:32 · 840 ms</string>
+    <string name="widget_preview_pulse_glyph" translatable="false">↗</string>
+    <!-- Coins im Puls-Widget als Text ohne Pille: Kürzel in der Textfarbe, Veränderung in der Kursfarbe -->
+    <string name="widget_preview_pulse_btc_symbol" translatable="false">BTC</string>
+    <string name="widget_preview_pulse_btc_change" translatable="false" formatted="false">↗ +2.8%</string>
+    <string name="widget_preview_pulse_eth_symbol" translatable="false">ETH</string>
+    <string name="widget_preview_pulse_eth_change" translatable="false" formatted="false">↗ +2.1%</string>
+    <!-- Fear & Greed: Zahl in der Stufenfarbe; «Fear & Greed» und «Gier» kommen aus den übersetzten Strings -->
+    <string name="widget_preview_pulse_fng" translatable="false">" 72"</string>
+</resources>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">Înapoi</string>
+    <string name="action_cancel">Anulează</string>
+    <string name="action_clear">Șterge</string>
+    <string name="action_close">Închide</string>
+    <string name="action_delete">Șterge</string>
+    <string name="action_edit">Editează</string>
+    <string name="action_more">Mai multe opțiuni</string>
+    <string name="action_refresh">Actualizează</string>
+    <string name="action_retry">Reîncearcă</string>
+    <string name="action_save">Salvează</string>
+    <string name="action_sort">Sortează</string>
+    <string name="action_sort_done">Gata</string>
+    <string name="action_undo">Anulează</string>
+    <string name="action_view">Vezi</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">Piață</string>
+    <string name="tab_portfolio">Portofoliu</string>
+    <string name="tab_settings">Setări</string>
+    <string name="tab_watchlist">Listă</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">Eroare: %1$s</string>
+    <string name="error_market_unreachable">Bursa nu poate fi accesată acum – ultimele prețuri rămân vizibile.</string>
+    <string name="error_market_unreachable_short">Bursa nu poate fi accesată acum</string>
+    <string name="loading_hint">Se încarcă…</string>
+    <string name="no_internet_connection">Nicio conexiune la internet</string>
+    <string name="option_off">Oprit</string>
+    <string name="something_went_wrong">Ceva nu a funcționat</string>
+    <string name="time_just_now">chiar acum</string>
+    <string name="timeout_error_message">Bursa nu răspunde acum.</string>
+    <string name="try_again">Reîncearcă</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">Fără conexiune</string>
+    <string name="offline_status_since">Fără conexiune · stare %1$s</string>
+    <string name="status_live">Live</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">Adaugă pereche</string>
+    <string name="shortcut_alarms">Toate alarmele</string>
+    <string name="shortcut_cycle">Piață</string>
+</resources>

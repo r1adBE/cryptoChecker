@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Begrüssung beim ersten Start -->
+    <string name="welcome_alert">Alerter – prix, pourcentage, volume et mouvements inhabituels</string>
+    <string name="welcome_alert_q">Quand alerter ?</string>
+    <string name="welcome_text">Vos cours. Vos alertes. Votre aperçu.\nSans compte. Sans pub. Sans pistage.</string>
+    <string name="welcome_understand">Comprendre – ce qui bouge avec un cours en ce moment</string>
+    <string name="welcome_understand_q">Qu’est-ce qui bouge avec ?</string>
+    <string name="welcome_watch">Suivre – vos cryptos, cours et historiques</string>
+    <string name="welcome_watch_q">Que se passe-t-il ?</string>
+
+    <!-- Start-Coins (Vorschlagsliste nach der Begrüssung) -->
+    <string name="starter_add_selected">Ajouter à la liste de suivi (%1$d)</string>
+    <string name="starter_loading_prices">Chargement des prix…</string>
+    <string name="starter_search_coin">Rechercher une autre crypto</string>
+    <string name="starter_select_all">Tout sélectionner</string>
+    <string name="starter_select_none">Tout désélectionner</string>
+    <string name="starter_text">Désélectionnez ce que vous ne voulez pas et ajoutez le reste en une fois. Vous pourrez changer la plateforme et la paire plus tard.</string>
+    <string name="starter_title">Commencez avec ces cryptos</string>
+    <string name="starter_watch_alarm_hint">Suivre le cours, définir une alerte</string>
+</resources>

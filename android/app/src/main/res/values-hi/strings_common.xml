@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">वापस</string>
+    <string name="action_cancel">रद्द करें</string>
+    <string name="action_clear">साफ़ करें</string>
+    <string name="action_close">बंद करें</string>
+    <string name="action_delete">हटाएँ</string>
+    <string name="action_edit">बदलें</string>
+    <string name="action_more">अधिक विकल्प</string>
+    <string name="action_refresh">रीफ़्रेश</string>
+    <string name="action_retry">फिर से कोशिश करें</string>
+    <string name="action_save">सेव करें</string>
+    <string name="action_sort">क्रमबद्ध करें</string>
+    <string name="action_sort_done">हो गया</string>
+    <string name="action_undo">पूर्ववत करें</string>
+    <string name="action_view">देखें</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">बाज़ार</string>
+    <string name="tab_portfolio">पोर्टफ़ोलियो</string>
+    <string name="tab_settings">सेटिंग्स</string>
+    <string name="tab_watchlist">सूची</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">त्रुटि: %1$s</string>
+    <string name="error_market_unreachable">एक्सचेंज अभी उपलब्ध नहीं है – पिछली कीमतें दिखती रहेंगी।</string>
+    <string name="error_market_unreachable_short">एक्सचेंज अभी उपलब्ध नहीं है</string>
+    <string name="loading_hint">लोड हो रहा है…</string>
+    <string name="no_internet_connection">इंटरनेट कनेक्शन नहीं है</string>
+    <string name="option_off">बंद</string>
+    <string name="something_went_wrong">कुछ गड़बड़ हो गई</string>
+    <string name="time_just_now">अभी-अभी</string>
+    <string name="timeout_error_message">एक्सचेंज अभी जवाब नहीं दे रहा।</string>
+    <string name="try_again">फिर से कोशिश करें</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">कनेक्शन नहीं</string>
+    <string name="offline_status_since">कनेक्शन नहीं · अंतिम अपडेट %1$s</string>
+    <string name="status_live">लाइव</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">पेयर जोड़ें</string>
+    <string name="shortcut_alarms">सभी अलार्म</string>
+    <string name="shortcut_cycle">बाज़ार</string>
+</resources>

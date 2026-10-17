@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="explorer_coin_back">Tous les résultats</string>
+    <plurals name="explorer_coin_exchanges">
+        <item quantity="one">%1$d plateforme</item>
+        <item quantity="many">%1$d plateformes</item>
+        <item quantity="other">%1$d plateformes</item>
+    </plurals>
+    <string name="explorer_coin_no_pairs">Aucune paire pour cette crypto dans les listes chargées.</string>
+    <string name="explorer_coin_not_loaded">Listes de paires pas encore chargées</string>
+    <string name="explorer_coin_other_pairs">Autres paires</string>
+    <string name="explorer_coin_show_pairs">Afficher les paires</string>
+    <string name="explorer_coin_suggested">Suggestion</string>
+    <string name="explorer_coins_title">Cryptos</string>
+    <string name="explorer_lists_load">Charger les listes</string>
+    <string name="explorer_lists_loading">Chargement des listes de paires… %1$d/%2$d</string>
+    <plurals name="explorer_lists_missing">
+        <item quantity="one">La liste de paires de %1$d plateforme n’est pas encore sur l’appareil.</item>
+        <item quantity="many">Les listes de paires de %1$d plateformes ne sont pas encore sur l’appareil.</item>
+        <item quantity="other">Les listes de paires de %1$d plateformes ne sont pas encore sur l’appareil.</item>
+    </plurals>
+    <string name="explorer_lists_privacy">Charge la liste publique complète de chaque plateforme – la même pour tous. Votre recherche reste sur l’appareil.</string>
+    <!-- Paar hinzufügen: Suche über alle Börsen, zuletzt gesucht -->
+    <string name="explorer_recent_a11y">Recherche récente : %1$s</string>
+    <string name="explorer_recent_clear">Effacer</string>
+    <string name="explorer_recent_clear_a11y">Effacer les recherches récentes</string>
+    <string name="explorer_recent_title">Recherches récentes</string>
+    <string name="explorer_search_choose_manually">Choisir soi-même la plateforme et la paire</string>
+    <string name="explorer_search_empty">Aucun résultat.</string>
+    <string name="explorer_search_hint">Rechercher une crypto, une paire ou une plateforme</string>
+    <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
+    <string name="explorer_search_intro">Saisissez le nom ou le symbole d’une crypto, p. ex. Bitcoin ou BTC, puis choisissez la paire.</string>
+
+    <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
+    <string name="explorer_add_to_watchlist">Ajouter à la liste de suivi</string>
+    <string name="explorer_added_to_watchlist">Ajoutée à la liste de suivi.</string>
+    <string name="explorer_already_in_watchlist">Cette paire est déjà dans la liste de suivi.</string>
+    <string name="explorer_exchange_missing">Plateforme manquante ?</string>
+    <string name="explorer_loading_pairs">Chargement des paires…</string>
+    <string name="explorer_no_pair_selected">Choisissez d\'abord une paire.</string>
+    <string name="explorer_no_pairs_yet">Aucune paire n’est encore chargée pour cette plateforme.</string>
+    <plurals name="explorer_pairs_status">
+        <item quantity="one">%1$d paire · mis à jour %2$s</item>
+        <item quantity="many">%1$d paires · mis à jour %2$s</item>
+        <item quantity="other">%1$d paires · mis à jour %2$s</item>
+    </plurals>
+    <string name="explorer_pairs_title">Paires</string>
+    <string name="explorer_precise_title">Avancé / par plateforme</string>
+    <string name="explorer_price_loading">Chargement du cours…</string>
+    <string name="explorer_select_market_hint">Choisissez une plateforme – ses paires se chargent automatiquement.</string>
+    <string name="explorer_select_placeholder">Veuillez choisir</string>
+    <string name="explorer_step_pair">Choisir la paire</string>
+
+    <!-- Paar hinzufügen: Schnellfilter der Liste «Alle …-Paare» -->
+    <string name="explorer_filter_gainers">Hausses</string>
+    <string name="explorer_filter_losers">Baisses</string>
+    <string name="explorer_filter_volume">Volume</string>
+
+    <!-- Paar hinzufügen: mehrere Paare auf einmal -->
+    <string name="bulk_all_pairs">Toutes les paires %1$s de cette plateforme</string>
+    <plurals name="bulk_all_pairs_applied">
+        <item quantity="one">%1$d paire %2$s trouvée</item>
+        <item quantity="many">%1$d paires %2$s trouvées</item>
+        <item quantity="other">%1$d paires %2$s trouvées</item>
+    </plurals>
+    <string name="bulk_all_pairs_empty">Aucune paire %1$s sur cette plateforme pour le type de contrat sélectionné. Synchronisez d\'abord la plateforme ou essayez un autre type de contrat.</string>
+    <plurals name="explorer_add_all_pairs">
+        <item quantity="one">Ajouter la %1$d paire à la liste de suivi</item>
+        <item quantity="many">Ajouter les %1$d paires à la liste de suivi</item>
+        <item quantity="other">Ajouter les %1$d paires à la liste de suivi</item>
+    </plurals>
+    <plurals name="explorer_bulk_added">
+        <item quantity="one">%1$d ajoutée, %2$d déjà dans la liste de suivi.</item>
+        <item quantity="many">%1$d ajoutées, %2$d déjà dans la liste de suivi.</item>
+        <item quantity="other">%1$d ajoutées, %2$d déjà dans la liste de suivi.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_text">
+        <item quantity="one">La %1$d paire %2$s de %3$s sera ajoutée à la liste si elle n\'y est pas déjà.</item>
+        <item quantity="many">Les %1$d paires %2$s de %3$s seront ajoutées à la liste. Celles déjà présentes sont ignorées.</item>
+        <item quantity="other">Les %1$d paires %2$s de %3$s seront ajoutées à la liste. Celles déjà présentes sont ignorées.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_title">
+        <item quantity="one">Ajouter %1$d paire ?</item>
+        <item quantity="many">Ajouter %1$d paires ?</item>
+        <item quantity="other">Ajouter %1$d paires ?</item>
+    </plurals>
+    <string name="explorer_bulk_hide_list">Masquer la liste</string>
+    <string name="explorer_bulk_show_list">Afficher la liste</string>
+    <string name="explorer_bulk_tap_hint">Touchez une paire pour la sélectionner ci-dessus.</string>
+    <string name="explorer_bulk_title">Plusieurs paires à la fois</string>
+
+    <!-- Handelspaare einer Börse laden und wählen -->
+    <string name="explorer_sync_sheet_text">Charge les paires actuelles de la plateforme sélectionnée.</string>
+    <string name="explorer_no_pair_list">Aucune paire</string>
+    <string name="explorer_sync_sheet_last">Dernière synchro : %1$s</string>
+    <string name="explorer_sync_never">jamais</string>
+    <string name="explorer_sync_sheet_action">Synchroniser maintenant</string>
+    <string name="explorer_sync_sheet_title">Mettre à jour les paires</string>
+    <string name="explorer_field_coin">Base</string>
+    <string name="explorer_field_contract">Type de contrat</string>
+    <string name="explorer_field_exchange">Plateforme</string>
+    <string name="explorer_field_quote">Cotation</string>
+    <string name="explorer_contract_spot">Spot</string>
+    <string name="explorer_reload_pairs">Synchroniser</string>
+    <string name="sync_pairs_count">Paires de trading : %1$d</string>
+
+    <!-- Token von dezentralen Börsen (DEX) -->
+    <string name="dex_add">Ajouter</string>
+    <string name="dex_added">%1$s ajouté à la liste de suivi.</string>
+    <string name="dex_already">%1$s est déjà dans la liste de suivi.</string>
+    <string name="dex_intro">Tokens hors des grandes plateformes, issus de plateformes décentralisées (Uniswap, PancakeSwap, Raydium …) via DexScreener. Recherchez un token et ajoutez l\'un de ses pools d\'échange – prix en dollars américains.</string>
+    <string name="dex_liquidity">Liquidité %1$s</string>
+    <string name="dex_no_results">Aucun pool trouvé.</string>
+    <string name="dex_search">Rechercher</string>
+    <string name="dex_search_hint">Nom, symbole ou adresse du token</string>
+
+    <!-- Art des Assets (Token, Alpha-Token, TradFi) -->
+    <string name="asset_kind_alpha">Jeton Alpha</string>
+    <string name="asset_kind_token">Jeton</string>
+    <string name="asset_kind_tradfi">TradFi</string>
+</resources>

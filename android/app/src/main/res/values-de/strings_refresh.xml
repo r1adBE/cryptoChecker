@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Wie aktuell? (Sparsam / Live) -->
+    <string name="update_mode_for_pros">braucht mehr Daten und Akku</string>
+    <string name="update_mode_live">Live, solange offen</string>
+    <string name="update_mode_live_hint">Wo die Börse einen Live-Kurs liefert: sofort, solange die Merkliste offen ist. Sonst beim nächsten Abruf. Geschlossen: nicht öfter als alle %1$s, oft später.</string>
+    <string name="update_mode_live_hint_ios">Wo die Börse einen Live-Kurs liefert: sofort, solange die Merkliste offen ist. Sonst beim nächsten Abruf. Geschlossen: wenn iOS es zulässt, manchmal erst nach Stunden. Wischst du die App weg, prüft iOS erst wieder, wenn du sie öffnest.</string>
+    <string name="update_mode_recommended">empfohlen</string>
+    <string name="update_mode_sparsam">Sparsam</string>
+    <string name="update_mode_sparsam_hint">Bei geschlossener App nicht öfter als alle %1$s, oft später (Alarme, Widgets). Offen: bei jedem Öffnen.</string>
+    <string name="update_mode_sparsam_hint_ios">Bei geschlossener App entscheidet iOS, wann geprüft wird (Alarme, Widgets), manchmal erst nach Stunden. Offen: bei jedem Öffnen.</string>
+    <string name="update_mode_title">Wie aktuell?</string>
+
+    <!-- Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <string name="refresh_sheet_aborted">Aktualisierung abgebrochen</string>
+    <string name="refresh_sheet_alarms">Alarme</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="one">%1$d ausgelöst</item>
+        <item quantity="other">%1$d ausgelöst</item>
+    </plurals>
+    <!-- Grosse Statuszeile oben im Blatt -->
+    <string name="refresh_sheet_all_updated">Alles aktualisiert</string>
+    <string name="refresh_sheet_app_start">App-Start</string>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="one">Sammelabfrage %1$s · %2$d Kurs</item>
+        <item quantity="other">Sammelabfrage %1$s · %2$d Kurse</item>
+    </plurals>
+    <string name="refresh_sheet_database">Datenbank</string>
+    <string name="refresh_sheet_market_unreachable">%1$s nicht erreichbar</string>
+    <plurals name="refresh_sheet_markets_unreachable">
+        <item quantity="one">%1$d Börse nicht erreichbar</item>
+        <item quantity="other">%1$d Börsen nicht erreichbar</item>
+    </plurals>
+    <string name="refresh_sheet_network">Netz</string>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="one">%1$d Kursbenachrichtigung</item>
+        <item quantity="other">%1$d Kursbenachrichtigungen</item>
+    </plurals>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="one">%1$d Paar</item>
+        <item quantity="other">%1$d Paare</item>
+    </plurals>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="one">%1$d Paar nicht aktualisiert</item>
+        <item quantity="other">%1$d Paare nicht aktualisiert</item>
+    </plurals>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="one">%2$d von %1$d Paar</item>
+        <item quantity="other">%2$d von %1$d Paaren</item>
+    </plurals>
+    <string name="refresh_sheet_paused_until">pausiert bis %1$s</string>
+    <string name="refresh_sheet_paused_until_reason">pausiert bis %1$s (%2$s)</string>
+    <string name="refresh_sheet_reason_no_data">keine Daten</string>
+    <string name="refresh_sheet_reason_offline">keine Verbindung</string>
+    <string name="refresh_sheet_reason_rate_limit">zu viele Anfragen</string>
+    <string name="refresh_sheet_reason_server">Serverfehler</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">Zeitüberschreitung</string>
+    <string name="refresh_sheet_reason_unavailable">Börse nicht verfügbar</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s Sekunden</string>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_markets">Börsen</string>
+    <string name="refresh_sheet_section_steps">Ablauf</string>
+    <string name="refresh_sheet_status_failed">nicht aktualisiert</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">alles aktualisiert</string>
+    <string name="refresh_sheet_status_partial">teilweise aktualisiert</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">Warten bis Start</string>
+    <string name="refresh_sheet_widgets">Widgets</string>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+
+    <!-- Kurzbericht der Aktualisierung je Börse -->
+    <string name="refresh_report_bulk_failed">Sammelabfrage %1$s (fehlgeschlagen)</string>
+    <plurals name="refresh_report_errors">
+        <item quantity="one">%1$d Fehler</item>
+        <item quantity="other">%1$d Fehler</item>
+    </plurals>
+    <string name="refresh_report_live">Live: %1$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="one">%1$d nicht mehr gehandelt</item>
+        <item quantity="other">%1$d nicht mehr gehandelt</item>
+    </plurals>
+    <string name="refresh_report_singles">%1$d einzeln</string>
+
+    <!-- Prüfprotokoll der Hintergrundprüfungen (Ergebnis, Auslöser) -->
+    <string name="check_result_failed">Fehlgeschlagen</string>
+    <string name="check_result_ok">OK</string>
+    <string name="check_result_partial">Teilweise</string>
+    <string name="check_result_skipped">Übersprungen</string>
+    <string name="check_trigger_bgtask">Hintergrund</string>
+    <string name="check_trigger_exact">Pünktlich</string>
+    <string name="check_trigger_foreground">App</string>
+    <string name="check_trigger_widget">Widget</string>
+    <string name="check_trigger_widget_ios">Widget · Kurse und Kursalarme</string>
+    <string name="check_trigger_worker">Hintergrund</string>
+
+    <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
+    <string name="battery_delay_hint">Android kann die Prüfung verzögern – Akku auf «Nicht eingeschränkt» stellen</string>
+    <string name="battery_later">Später</string>
+    <string name="battery_message">Android verschiebt Hintergrundarbeit, um Strom zu sparen – Kurse und Widgets können dann Stunden alt sein. Mit uneingeschränkter Akkunutzung bleiben sie aktuell. Du kannst das jederzeit in den Android-Einstellungen ändern.</string>
+    <string name="battery_open_settings">Akku-Einstellungen öffnen</string>
+    <string name="battery_steps">In der App-Info auf «Akku» (bzw. «Akkunutzung der App») tippen und «Nicht eingeschränkt» wählen.</string>
+    <string name="battery_title">Kurse aktuell halten</string>
+    <string name="ios_background_refresh_off">Die Hintergrundaktualisierung ist für die App aus. Ohne sie werden Alarme nur bei offener App geprüft.</string>
+    <string name="ios_low_power_mode">Der Stromsparmodus ist an. iOS prüft im Hintergrund kaum, Alarme können sich verspäten.</string>
+</resources>

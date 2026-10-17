@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen: Aufbau (Gruppen, Zeilen, Abschnitte, Suche, Kurzwerte) -->
+    <string name="settings_custom_value">Altro</string>
+    <string name="settings_group_general">Generale</string>
+    <string name="settings_group_more">Altro</string>
+    <string name="settings_minutes">%1$d min</string>
+    <string name="settings_row_about">Informazioni sull’app</string>
+    <string name="settings_row_advanced">Avanzate</string>
+    <string name="settings_row_alarms">Allarmi</string>
+    <string name="settings_row_currency">Valuta</string>
+    <string name="settings_row_dated_futures">Futures con scadenza</string>
+    <string name="settings_row_updates">Aggiornamento prezzi</string>
+    <string name="settings_row_watchlist">Lista</string>
+    <string name="settings_search_hint">Cerca nelle impostazioni</string>
+    <string name="settings_seconds">%1$d s</string>
+    <string name="settings_section_about">Informazioni</string>
+    <string name="settings_section_appearance">Aspetto</string>
+    <string name="settings_section_developer">Sviluppatore</string>
+    <string name="settings_section_language">Lingua</string>
+    <!-- Kurzwert «eingeschaltet» (Gegenstück zu option_off) -->
+    <string name="settings_summary_on">On</string>
+    <string name="settings_title">Impostazioni</string>
+
+    <!-- Einstellungen › Alarme (Ton, Signal, Ruhezeit, App-Symbol, exakte Prüfungen) -->
+    <string name="settings_alarm_cooldown">Pausa prima che un allarme scatti di nuovo</string>
+    <!-- Ton/Vibration der Kursalarme, je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">Segnale allarme</string>
+    <string name="settings_alarm_signal_open_system">Modifica nelle impostazioni di sistema</string>
+    <string name="settings_alarm_signal_system_hint">Segue le impostazioni di notifica del telefono.</string>
+    <string name="settings_alarm_sound">Suono allarme</string>
+    <string name="settings_alarm_sound_custom">Suono personalizzato</string>
+    <string name="settings_alarm_sound_default">Suono predefinito</string>
+    <string name="settings_alarm_sound_error">Impossibile usare il suono.</string>
+    <string name="settings_alarm_sound_file">File audio personale…</string>
+    <string name="settings_alarm_sound_reset">Usa suono predefinito</string>
+    <string name="settings_alarm_sound_system">Scegli suono di sistema…</string>
+    <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">Numero sull’icona dell’app</string>
+    <string name="settings_app_badge_hint">Conta le notifiche di allarme aperte. Se appare un numero o un punto lo decide la schermata Home (ad es. Samsung: «Con numero»).</string>
+    <string name="settings_exact_checks">Controllo puntuale</string>
+    <string name="settings_exact_checks_grant">Consenti «Sveglie e promemoria»</string>
+    <string name="settings_exact_checks_hint">Android controlla circa ogni 15 minuti, anche quando il dispositivo è inattivo. Consuma un po’ più di batteria.</string>
+    <string name="settings_exact_checks_nothing">Nessuna coppia attiva – niente da controllare.</string>
+    <string name="settings_exact_checks_permission_missing">Autorizzazione mancante – Android controlla quando gli conviene (circa ogni 15 min o più tardi).</string>
+    <string name="settings_notification_change">Notifica solo se il prezzo cambia</string>
+    <string name="settings_notification_change_always">Sempre</string>
+    <string name="settings_notification_change_hint">Una notifica appare solo quando il prezzo si è mosso almeno di questo valore dall\'ultima. Se mancano dati non viene mostrato nulla. Gli allarmi non ne sono influenzati.</string>
+    <string name="settings_ongoing_notifications">Non rimovibili</string>
+    <string name="settings_ongoing_notifications_hint">Mantiene fisse le notifiche di prezzo.</string>
+    <string name="settings_price_notifications">Notifiche di prezzo</string>
+    <string name="settings_price_notifications_hint">Mostra il prezzo attuale delle coppie attivate nella barra di stato.</string>
+    <string name="settings_price_pairs">Coppie</string>
+    <string name="settings_price_pairs_all_off">Tutte disattive</string>
+    <string name="settings_price_pairs_all_on">Tutte attive</string>
+    <string name="settings_price_pairs_count">%1$d di %2$d</string>
+    <string name="settings_price_pairs_empty">Ancora nessuna coppia nella watchlist.</string>
+    <string name="settings_price_pairs_hint">Scegli per quali coppie il prezzo appare nella barra delle notifiche.</string>
+    <string name="settings_quiet_hours">Ore di silenzio</string>
+    <string name="settings_quiet_hours_from">Inizio</string>
+    <string name="settings_quiet_hours_hint">Tra %1$s e %2$s gli allarmi aspettano la fine delle ore di silenzio e poi suonano. Gli altri avvisi arrivano in silenzio, senza voce.</string>
+    <string name="settings_quiet_hours_to">Fine</string>
+
+    <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
+    <string name="settings_background_interval">Intervallo</string>
+    <string name="settings_background_updates">Aggiornamento in background</string>
+    <string name="settings_battery_hint">Con restrizioni significa che Android può ritardare gli aggiornamenti in background di ore.</string>
+    <string name="settings_battery_ok">Uso batteria: senza restrizioni</string>
+    <string name="settings_battery_restricted">Uso batteria: con restrizioni</string>
+    <string name="settings_check_runs_empty">Nessun controllo registrato finora.</string>
+    <string name="settings_check_runs_honest_android">Android decide quando controllare – qui vedi quando è successo davvero.</string>
+    <string name="settings_check_runs_honest_ios">iOS decide quando controllare – qui vedi quando è successo davvero.</string>
+    <string name="settings_check_runs_title">Controlli recenti</string>
+    <string name="settings_http_log">Mostra log HTTP</string>
+    <string name="settings_http_log_hint">Mostra in fondo alla pagina «Aggiungi coppia» le richieste agli exchange – per la diagnosi.</string>
+    <string name="settings_live_service">Aggiorna spesso</string>
+    <string name="settings_live_websocket">Prezzi live</string>
+
+    <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
+    <string name="settings_activity_alerts">Segnala attività insolite</string>
+    <string name="settings_activity_alerts_hint">Al massimo una volta all\'ora per coppia: movimenti di prezzo insoliti, picchi di volume ed estremi sui futures (dati da Binance).</string>
+    <string name="settings_activity_sensitivity">Sensibilità</string>
+    <string name="settings_activity_sensitivity_hint">Quanto facilmente una moneta è considerata insolita – uguale per la scheda della lista e le notifiche. Con «Meno» la scheda mostra solo le 3 più forti.</string>
+    <string name="settings_watchlist_activity_card">Attività insolita nella lista</string>
+    <string name="settings_watchlist_activity_card_hint">Mostra il chip ⚡ accanto ai gruppi: toccalo per vedere solo le coppie in cui sta succedendo qualcosa. Le notifiche si impostano in Avvisi di mercato.</string>
+    <string name="settings_watchlist_names">Mostra nomi</string>
+    <string name="settings_watchlist_names_hint">Nome sotto la coppia, ad es. Bitcoin o NVIDIA. Arriva con gli elenchi dei loghi, caricato una volta per tutte le monete.</string>
+    <string name="settings_watchlist_sparkline">Mini grafico nella lista</string>
+    <string name="settings_watchlist_sparkline_hint">Andamento 24 ore accanto al prezzo</string>
+    <string name="settings_watchlist_value_names">Nomi</string>
+    <string name="settings_watchlist_value_price_only">Solo prezzo</string>
+    <string name="settings_watchlist_value_sparkline">Mini grafico</string>
+
+    <!-- Einstellungen › Token & TradFi -->
+    <string name="settings_asset_scope_alpha">Incl. token Alpha (α)</string>
+    <string name="settings_asset_scope_alpha_hint">Token Alpha: progetti iniziali, per lo più piccoli, della lista Binance Alpha – spesso poco scambiati e molto volatili.</string>
+    <string name="settings_asset_scope_alpha_tradfi_hint">Fa parte dei token. Bloccato con «Solo TradFi»; i token Alpha già nella lista restano.</string>
+    <string name="settings_asset_scope_both">Token e TradFi</string>
+    <string name="settings_asset_scope_both_hint">Tutto – cripto e TradFi</string>
+    <string name="settings_asset_scope_hint">Stabilisce quali coppie mostrano la selezione e la ricerca quando aggiungi. Le coppie già nella lista restano sempre.</string>
+    <string name="settings_asset_scope_title">Token &amp; TradFi</string>
+    <string name="settings_asset_scope_tokens">Solo token</string>
+    <string name="settings_asset_scope_tokens_hint">Cripto: spot e perpetui</string>
+    <string name="settings_asset_scope_tradfi">Solo TradFi</string>
+    <string name="settings_asset_scope_tradfi_hint">Futures su azioni, materie prime, valute – contratti, non token</string>
+    <string name="settings_rolling_futures">Incl. futures trimestrali &amp; con scadenza</string>
+    <string name="settings_rolling_futures_hint">Disattivato: i futures con scadenza assenti dall\'elenco dell\'exchange vengono segnati come «non più negoziati» invece di essere controllati uno per uno. Fa risparmiare tempo a ogni aggiornamento.</string>
+    <string name="settings_rolling_futures_qtly">Incl. futures trimestrali &amp; con scadenza (QTLY)</string>
+    <string name="settings_rolling_futures_tradfi_hint">Fa parte dei token. Bloccato con «Solo TradFi»; vale ancora per i futures con scadenza già nella lista.</string>
+    <string name="settings_tradfi_futures">Azioni, materie prime e valute (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">Mostra anche, nella scelta della coppia, i futures su azioni, oro e altre materie prime, valute e società prima della quotazione. Sono contratti, non token.</string>
+
+    <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
+    <string name="settings_accent">Colore di accento</string>
+    <string name="settings_accent_hint">Colore dell’app, dei widget e dell’icona dell’app.</string>
+    <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">Logo delle monete</string>
+    <string name="settings_coin_logos_app">Nell\'app</string>
+    <string name="settings_coin_logos_app_hint">Lista, coppia aperta e schede del mercato</string>
+    <string name="settings_coin_logos_footer">I logo provengono da CoinGecko e, per ciò che CoinGecko non elenca (ad es. oro, argento, azioni), da Binance. L\'app scarica tutti i logo in una volta e li conserva su questo dispositivo, così nessuno dei due sa quali monete segui. Le monete senza logo mostrano le iniziali. I preferiti hanno una piccola stella sul logo. Dove un interruttore è disattivato non compaiono né logo né iniziali; con tutto disattivato non viene caricato nulla.</string>
+    <string name="settings_coin_logos_portfolio">Nel portafoglio</string>
+    <string name="settings_coin_logos_portfolio_hint">Posizioni, dettagli e analisi</string>
+    <string name="settings_coin_logos_value_app">App</string>
+    <string name="settings_coin_logos_widgets">Nei widget</string>
+    <string name="settings_coin_logos_widgets_hint">Widget lista e moneta singola</string>
+    <string name="settings_high_contrast">Contrasto elevato</string>
+    <string name="settings_high_contrast_hint">Colori dei prezzi più intensi e testi secondari più scuri. Attivo anche quando il sistema richiede più contrasto.</string>
+    <string name="settings_language_choose">Scegli lingua</string>
+    <string name="settings_language_system">Lingua di sistema</string>
+    <string name="settings_price_colors">Colori dei prezzi</string>
+    <string name="settings_price_colors_hint">Blu / arancione si distingue bene con qualsiasi deficit della visione dei colori (rosso-verde e blu-giallo). La direzione è inoltre sempre indicata con + / −.</string>
+    <string name="settings_theme_mode">Chiaro / Scuro</string>
+    <string name="settings_widgets">Widget</string>
+
+    <!-- Einstellungen › %-Änderung -->
+    <!-- Einstellungszeile und Seitentitel «%-Änderung»; %1$s ist das Prozentzeichen «%» -->
+    <string name="settings_change_basis">Variazione in %1$s e fuso del grafico</string>
+    <string name="settings_change_basis_hint_1">Il fuso orario scelto stabilisce da quando conta la variazione percentuale (lista, riga del polso, coppia aperta, widget) e gli orari mostrati nei grafici.</string>
+    <string name="settings_change_basis_hint_2">«%1$s» confronta con il prezzo di esattamente 24 ore fa. «00:00» confronta con il prezzo di apertura a mezzanotte in quel fuso orario.</string>
+    <string name="settings_change_basis_hint_3">Gli allarmi non ne sono influenzati.</string>
+    <string name="settings_change_basis_hint_since_last">«%1$s» confronta con il prezzo dell’aggiornamento precedente. Con i prezzi in tempo reale resta vicino allo 0%%.</string>
+    <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
+    <string name="settings_change_period">Mostra il periodo accanto alla variazione</string>
+    <string name="settings_change_period_hint">«24h», «oggi» o «ult. aggiornamento» in piccolo accanto alla variazione nella lista e nel widget di una moneta. Lo screen reader lo legge sempre.</string>
+
+    <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
+    <string name="settings_conversion_currency">Valuta di conversione</string>
+    <string name="settings_conversion_currency_hint">Usata anche per il portafoglio, gli allarmi nella tua valuta, la scheda Mercato crypto e il widget Portafoglio.</string>
+    <string name="settings_cost_method">Metodo del costo di carico</string>
+    <string name="settings_cost_method_average">Media (Ø)</string>
+    <string name="settings_cost_method_average_hint">Le vendite sono valutate al prezzo medio ponderato di acquisto.</string>
+    <string name="settings_cost_method_fifo">FIFO (predefinito)</string>
+    <string name="settings_cost_method_fifo_hint">Le monete più vecchie vengono vendute per prime, su tutti gli exchange e wallet.</string>
+    <string name="settings_cost_method_fifo_wallet">FIFO per wallet/exchange</string>
+    <string name="settings_cost_method_fifo_wallet_hint">Prima le monete più vecchie in ogni exchange o wallet; i trasferimenti spostano i lotti con la loro data d’acquisto.</string>
+    <string name="settings_portfolio_lock">Blocco portafoglio</string>
+    <string name="settings_portfolio_lock_footer">Il blocco nasconde ciò che è visualizzato. I dati si trovano su questo dispositivo e sono protetti dalla crittografia del dispositivo. Puoi proteggere i backup con una password.</string>
+    <string name="settings_portfolio_lock_hint">Nasconde solo il portafoglio: sblocco con impronta, volto o PIN del dispositivo. Si blocca di nuovo dopo più di un minuto in background. Lista di osservazione, allarmi e altri widget restano accessibili.</string>
+    <string name="settings_portfolio_lock_no_device_lock">Senza PIN o codice del dispositivo il blocco non nasconde nulla – imposta un blocco schermo.</string>
+    <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">Portafoglio nel backup di sistema</string>
+    <string name="settings_portfolio_system_backup_hint">Disattivato: le tue transazioni non sono incluse nel backup di sistema del dispositivo né nel trasferimento a un nuovo telefono. Per spostarle, usa il backup dell’app con password.</string>
+    <string name="settings_portfolio_system_backup_unavailable">Richiede Android 9 o successivo – le versioni precedenti salverebbero il portafoglio non cifrato nel backup di Google.</string>
+    <string name="settings_portfolio_tab">Mostra la scheda Portafoglio</string>
+    <string name="settings_portfolio_value_locked">On, con blocco</string>
+    <string name="settings_show_converted">Prezzi convertiti</string>
+    <string name="settings_show_converted_hint">Mostra i prezzi della lista di osservazione anche in %1$s</string>
+
+    <!-- Einstellungen › Markt-Meldungen -->
+    <string name="settings_depeg_alarm">Segnala depeg di USDT</string>
+    <string name="settings_depeg_alarm_hint">Avvisa una volta quando USDT si discosta da 1 USD della soglia (Kraken USDT/USD, Binance USDC/USDT). I valori nell’app continuano a usare USDT = 1.</string>
+    <string name="settings_depeg_threshold">Soglia di depeg</string>
+    <string name="settings_fng_above">Fear &amp; Greed: avvisa sopra</string>
+    <string name="settings_fng_below">Fear &amp; Greed: avvisa sotto</string>
+    <string name="settings_gas_alert_hint">Avvisa una volta quando la commissione normale scende sotto il limite. Controllato durante l\'aggiornamento dei prezzi, al massimo ogni 10 minuti.</string>
+    <string name="settings_gas_btc_below">Commissione Bitcoin sotto (sat/vB)</string>
+    <string name="settings_gas_eth_below">Gas Ethereum sotto (gwei)</string>
+    <string name="settings_ind_ath_within">Calo dal massimo storico al massimo</string>
+    <string name="settings_ind_mayer_above">Mayer Multiple sopra</string>
+    <string name="settings_ind_mayer_below">Mayer Multiple sotto</string>
+    <string name="settings_ind_mvrv_above">MVRV sopra</string>
+    <string name="settings_ind_mvrv_below">MVRV sotto</string>
+    <string name="settings_indicator_alerts_hint">Indicatori Bitcoin, controllati due volte al giorno. Le soglie le scegli tu – l’app non valuta i valori.</string>
+    <string name="settings_macro_notifications">Calendario economico</string>
+    <string name="settings_macro_notifications_hint">Alle 08:00 nei giorni con dati economici USA importanti (inflazione, occupazione, decisione della Fed). Il calendario arriva dal sito web dell\'app e viene caricato una volta al giorno.</string>
+    <string name="settings_market_alerts">Avvisi di mercato</string>
+    <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
+    <plurals name="settings_market_alerts_active">
+        <item quantity="one">%1$d attivo</item>
+        <item quantity="many">%1$d attivi</item>
+        <item quantity="other">%1$d attivi</item>
+    </plurals>
+
+    <!-- Einstellungen › Sprachausgabe -->
+    <string name="settings_speech_rate">Velocità voce: %1$.1f×</string>
+    <string name="settings_tts">Lettura vocale</string>
+    <string name="settings_tts_alarms_only">Solo allarmi</string>
+    <string name="settings_tts_alarms_only_hint">Disattivato: ogni aggiornamento di una coppia con «Leggi prezzo» viene letto.</string>
+    <!-- Sprachausgabe schweigt im Lautlos-/Vibrationsmodus -->
+    <string name="settings_tts_hint_silent">Legge ad alta voce prezzi e allarmi. Resta in silenzio finché il dispositivo è in modalità silenziosa o vibrazione.</string>
+    <string name="settings_tts_test">Prova voce</string>
+
+    <!-- Einstellungen › Daten: App zurücksetzen -->
+    <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
+    <string name="settings_reset_app">Reimposta app</string>
+    <string name="settings_reset_app_action">Elimina tutto</string>
+    <string name="settings_reset_app_confirm">Elimina lista, allarmi, portafoglio, impostazioni e tutti i dati salvati, come dopo l’installazione. Non si può annullare. Consiglio: crea prima un backup.</string>
+    <string name="settings_reset_app_title">Reimpostare l’app?</string>
+
+    <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
+    <!-- Suchfeld der Währungsseite -->
+    <string name="currency_search">Cerca valuta</string>
+    <string name="language_search">Cerca lingua</string>
+
+    <!-- Theme -->
+    <string name="theme_dark">Scuro</string>
+    <string name="theme_light">Chiaro</string>
+    <string name="theme_system">Sistema</string>
+
+    <!-- Akzentfarben -->
+    <string name="accent_blue">Blu</string>
+    <string name="accent_green">Verde</string>
+    <!-- Eigenname, in allen Sprachen gleich -->
+    <string name="accent_marrs_green">Marrs Green</string>
+    <string name="accent_orange">Arancione</string>
+    <string name="accent_red">Rosso</string>
+
+    <!-- Kursfarben -->
+    <string name="price_colors_red_up_hint">Comune in Cina, Giappone, Corea e Taiwan</string>
+    <string name="price_colors_swap">Scambia i colori (rialzo ↔ ribasso)</string>
+    <string name="price_style_calm">Calmo</string>
+    <string name="price_style_calm_color_vision">Calmo · Deficit della visione dei colori</string>
+    <string name="price_style_color_vision">Deficit della visione dei colori</string>
+    <string name="price_style_fresh">Fresco</string>
+    <string name="price_style_traditional">Tradizionale</string>
+
+    <!-- Über die App -->
+    <string name="about_exchanges_verified">Collegamenti agli exchange verificati l’ultima volta su risposte reali: %1$s</string>
+    <string name="about_license">I prezzi arrivano direttamente dagli exchange; nessun account e nessun tracciamento.</string>
+    <!-- Texte der Lizenzen liegen in assets/licenses -->
+    <string name="about_licenses">Licenze</string>
+    <string name="about_privacy_policy">Informativa sulla privacy</string>
+    <!-- GitHub-Vorlage exchange_request.md -->
+    <string name="about_request_exchange">Richiedi un exchange</string>
+    <string name="about_source_code">Codice sorgente su GitHub</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_why">Crypto Checker è un progetto indipendente di r1AD: una panoramica tranquilla dei prezzi senza account, pubblicità né tracciamento. Domande e suggerimenti: %1$s</string>
+
+    <!-- Lizenzhinweise -->
+    <string name="licenses_app_intro">Crypto Checker è open source (licenza MIT).</string>
+    <string name="licenses_font_title">Carattere Rubik</string>
+    <string name="licenses_icons_bundled_text">Incluse nell’app: icone da «Cryptocurrency Icons» di Christopher Downer e collaboratori (github.com/spothq/cryptocurrency-icons), rilasciate con licenza CC0 1.0 Universal. Vengono mostrate finché non sono caricati i loghi di CoinGecko o Binance. Nomi e loghi restano marchi dei rispettivi progetti.</string>
+    <string name="licenses_icons_title">Icone delle monete di riserva</string>
+    <string name="licenses_libraries_intro">L\'app usa queste librerie con licenza Apache License 2.0:</string>
+    <string name="licenses_libraries_title">Librerie Android</string>
+
+    <!-- Entwickleroptionen -->
+    <!-- Countdown der letzten Tipps auf die Version bis zu den Entwickleroptionen -->
+    <plurals name="developer_taps_left">
+        <item quantity="one">Ancora %d tocco per sbloccare le opzioni sviluppatore</item>
+        <item quantity="many">Ancora %d tocchi per sbloccare le opzioni sviluppatore</item>
+        <item quantity="other">Ancora %d tocchi per sbloccare le opzioni sviluppatore</item>
+    </plurals>
+    <string name="developer_unlocked">Opzioni sviluppatore sbloccate</string>
+
+    <!-- Nur iOS: Einstellungen -->
+    <!-- Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">La vibrazione segue le impostazioni dell\'iPhone (Suoni e feedback aptico).</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Conta i nuovi allarmi e avvisi di mercato; torna a 0 quando apri l’app.</string>
+</resources>

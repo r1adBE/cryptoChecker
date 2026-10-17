@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: leere Ansicht, Statuszeile, Frische -->
+    <string name="watchlist_all_fresh">Актуально · %1$s</string>
+    <string name="watchlist_empty_title">Пар ще немає</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="one">%1$d з %2$d без ціни</item>
+        <item quantity="few">%1$d з %2$d без ціни</item>
+        <item quantity="many">%1$d з %2$d без ціни</item>
+        <item quantity="other">%1$d з %2$d без ціни</item>
+    </plurals>
+    <string name="watchlist_last_run">Останній прохід %1$s</string>
+    <string name="watchlist_live_a11y">Курси наживо ввімкнено</string>
+    <string name="watchlist_live_badge">LIVE</string>
+    <string name="watchlist_offline_since">Немає з\'єднання · дані станом на %1$s</string>
+    <string name="watchlist_pull_to_refresh">Потягніть униз, щоб оновити</string>
+    <string name="watchlist_refresh_report">Останнє оновлення</string>
+    <string name="watchlist_refresh_report_empty">Деталізації ще немає: повного оновлення ще не було. Натисніть «Оновити» й зачекайте, доки індикатор зупиниться.</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="one">Застаріло: %1$d з %2$d</item>
+        <item quantity="few">Застаріло: %1$d з %2$d</item>
+        <item quantity="many">Застаріло: %1$d з %2$d</item>
+        <item quantity="other">Застаріло: %1$d з %2$d</item>
+    </plurals>
+    <string name="watchlist_status_all_disabled">Усі пари тут вимкнено</string>
+    <string name="watchlist_status_exchange_prices">Курси вибраних бірж · %1$s</string>
+    <string name="watchlist_status_exchange_prices_short">Біржові курси · %1$s</string>
+    <string name="watchlist_status_group_empty">У цій групі немає пар</string>
+    <string name="watchlist_status_none_traded">Тут немає пар, що торгуються</string>
+    <string name="watchlist_updated">Оновлено: %1$s</string>
+
+    <!-- Merkliste: Puls-Zeile (Paare im Plus/Minus, ohne 24-h-Wert) -->
+    <string name="watchlist_pulse_avg">Ø %1$s</string>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="one">%1$d падає</item>
+        <item quantity="few">%1$d падають</item>
+        <item quantity="many">%1$d падають</item>
+        <item quantity="other">%1$d падають</item>
+    </plurals>
+    <!-- Paare mit Kurs, aber ohne 24-h-Wert («· 510 ohne 24h-Wert») -->
+    <plurals name="watchlist_pulse_missing">
+        <item quantity="one">%1$d без значення 24 год</item>
+        <item quantity="few">%1$d без значення 24 год</item>
+        <item quantity="many">%1$d без значення 24 год</item>
+        <item quantity="other">%1$d без значення 24 год</item>
+    </plurals>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="one">%1$d без значення за сьогодні</item>
+        <item quantity="few">%1$d без значення за сьогодні</item>
+        <item quantity="many">%1$d без значення за сьогодні</item>
+        <item quantity="other">%1$d без значення за сьогодні</item>
+    </plurals>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="one">%1$d росте</item>
+        <item quantity="few">%1$d ростуть</item>
+        <item quantity="many">%1$d ростуть</item>
+        <item quantity="other">%1$d ростуть</item>
+    </plurals>
+
+    <!-- Merkliste: Zeile eines Paars -->
+    <string name="watchlist_row_disabled">%1$s · вимкнено</string>
+    <string name="watchlist_row_outdated">%1$s · застаріло</string>
+    <string name="watchlist_row_outdated_age">застаріло · %1$s</string>
+    <string name="watchlist_row_price_unchanged_since">Ціна не змінювалася з %1$s</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s недоступна</string>
+
+    <!-- Merkliste: Suche, Sprungknopf, Sortieren nach Spalte -->
+    <string name="watchlist_jump_end">У кінець</string>
+    <string name="watchlist_jump_start">На початок</string>
+    <string name="watchlist_search_close">Закрити пошук</string>
+    <string name="watchlist_search_empty">Немає результатів для «%1$s»</string>
+    <string name="watchlist_search_hint">Пошук пари, назви або біржі</string>
+    <string name="watchlist_search_open">Пошук</string>
+    <string name="watchlist_sort_ascending">за зростанням</string>
+    <string name="watchlist_sort_descending">за спаданням</string>
+    <string name="watchlist_sort_hint">Утримуйте й перетягніть пару або скористайтеся ручкою. Обране лишається вгорі.</string>
+    <string name="watchlist_sort_name">Назва</string>
+    <string name="watchlist_sort_own">Власний порядок</string>
+    <string name="watchlist_sort_price">Ціна</string>
+
+    <!-- Merkliste: Mehrfachauswahl, Ansichten, Entfernen -->
+    <string name="watchlist_clear">Очистити список</string>
+    <string name="watchlist_clear_confirm">Видалити всі пари зі списку? Їхні сигнали також буде видалено.</string>
+    <plurals name="watchlist_disabled_count">
+        <item quantity="one">Вимкнено: %1$d</item>
+        <item quantity="few">Вимкнено: %1$d</item>
+        <item quantity="many">Вимкнено: %1$d</item>
+        <item quantity="other">Вимкнено: %1$d</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_action">Видалити</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="one">Видалити %1$d пару, якою більше не торгують на її біржі? Її сигнали також буде видалено.</item>
+        <item quantity="few">Видалити %1$d пари, якими більше не торгують на їхній біржі? Їхні сигнали також буде видалено.</item>
+        <item quantity="many">Видалити %1$d пар, якими більше не торгують на їхній біржі? Їхні сигнали також буде видалено.</item>
+        <item quantity="other">Видалити %1$d пари, якими більше не торгують на їхній біржі? Їхні сигнали також буде видалено.</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_menu">Видалити пари без торгів (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">Видалити пари без торгів</string>
+    <string name="watchlist_removed">%1$s видалено</string>
+    <plurals name="watchlist_removed_count">
+        <item quantity="one">Видалено пар: %1$d</item>
+        <item quantity="few">Видалено пар: %1$d</item>
+        <item quantity="many">Видалено пар: %1$d</item>
+        <item quantity="other">Видалено пар: %1$d</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="one">Видалено %1$d пару без торгів</item>
+        <item quantity="few">Видалено %1$d пари без торгів</item>
+        <item quantity="many">Видалено %1$d пар без торгів</item>
+        <item quantity="other">Видалено %1$d пари без торгів</item>
+    </plurals>
+    <string name="watchlist_select">Вибрати</string>
+    <string name="watchlist_select_all">Вибрати все</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="one">Вибрано: %1$d</item>
+        <item quantity="few">Вибрано: %1$d</item>
+        <item quantity="many">Вибрано: %1$d</item>
+        <item quantity="other">Вибрано: %1$d</item>
+    </plurals>
+    <string name="watchlist_show_all">Показати всі</string>
+    <string name="watchlist_show_only_disabled">Показати лише вимкнені</string>
+    <string name="watchlist_show_only_stale">Показати лише застарілі</string>
+
+    <!-- Merkliste: weitere Texte (Gruppen, Alarme, Mitteilung, Sprachausgabe) -->
+    <plurals name="watchlist_alarms_count">
+        <item quantity="one">Сигнал (%1$d)</item>
+        <item quantity="few">Сигнали (%1$d)</item>
+        <item quantity="many">Сигнали (%1$d)</item>
+        <item quantity="other">Сигнали (%1$d)</item>
+    </plurals>
+    <string name="watchlist_favorites_empty_hint">Ще немає обраного. Проведіть пару вправо або торкніться «Обране» в картці пари.</string>
+    <string name="watchlist_group_empty_hint">Утримуйте групу, щоб вибрати її пари.</string>
+    <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
+    <string name="watchlist_groups_empty_hint">Тут з’являться ваші групи</string>
+    <string name="watchlist_notification">Сповіщення</string>
+    <string name="watchlist_tts">Озвучувати ціну</string>
+    <string name="watchlist_tts_speech_on">Озвучення увімкнено. Змінити можна в розділі Налаштування › Додатково › Голосовий вивід.</string>
+
+    <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
+    <string name="watch_action_add_widget">Додати як віджет</string>
+    <string name="watch_action_alarm">Сигнал</string>
+    <string name="watch_action_favorite">Обране</string>
+    <string name="watch_action_why">Що рухається разом?</string>
+    <string name="watch_action_why_short">Що рухається?</string>
+    <string name="watch_change_mark">Mark</string>
+    <string name="watch_disable">Вимкнути</string>
+    <string name="watch_disable_hint">Без запитів і сповіщень</string>
+    <string name="watch_disabled">Вимкнено</string>
+    <string name="watch_disabled_banner">Пару %1$s вимкнено</string>
+    <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
+    <string name="watch_edit_alarms_warning">Сигнали залишаться – перевірте пороги</string>
+    <!-- Titel des Formulars und Screenreader-Name des Stifts neben dem Paar -->
+    <string name="watch_edit_title">Змінити пару</string>
+    <string name="watch_enable">Увімкнути</string>
+    <string name="watch_enable_hint">Курси й сповіщення знову ввімкнено</string>
+    <string name="watch_enabled_banner">Пару %1$s увімкнено</string>
+    <string name="watch_error_offline">Немає з\'єднання</string>
+    <string name="watch_gesture_hint_short">Торкніться: сигнал і «Що рухається разом?» · утримуйте для вибору · вліво – видалити · вправо – в обране</string>
+    <string name="watch_hint_tap_why">Торкніться монети, щоб побачити, що рухається разом із нею</string>
+    <string name="watch_not_traded">Більше не торгується на цій біржі</string>
+    <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
+    <string name="watch_preview_not_watched">Немає в списку</string>
+    <string name="watch_price_mid">середній курс (інакше mark)</string>
+    <string name="watch_row_source_both">Зміна і графік: %1$s</string>
+    <string name="watch_row_source_change">Зміна: %1$s</string>
+    <string name="watch_row_source_chart">Графік: %1$s</string>
+
+    <!-- Meldung nach dem Hinzufügen (ein Paar / mehrere Paare) -->
+    <string name="pair_added_watching">%1$s тепер у вашому списку</string>
+    <!-- Ein Paar: pair_added_watching -->
+    <string name="pairs_added_watching">%1$s тепер у вашому списку</string>
+
+    <!-- Favoriten -->
+    <string name="favorite_add">Додати в обране</string>
+    <string name="favorite_added">%1$s додано в обране</string>
+    <string name="favorite_remove">Прибрати з обраного</string>
+    <string name="favorite_removed">%1$s прибрано з обраного</string>
+    <string name="hint_favorites_list">Порада: проведіть рядок праворуч, щоб додати до обраного – обране залишається вгорі.</string>
+
+    <!-- Gruppen und Chips der Merkliste -->
+    <string name="group_add">Нова група</string>
+    <string name="group_all">Усі</string>
+    <!-- Alpha-Tokens: Chip «α», Art vor der Glocke, «inkl. Alpha-Tokens» -->
+    <string name="group_alpha">Alpha-токени</string>
+    <string name="group_delete">Видалити групу</string>
+    <string name="group_delete_confirm">Пари залишаться у вашому списку.</string>
+    <string name="group_done">Готово</string>
+    <string name="group_edit_title">Редагувати групу</string>
+    <!-- Chip «FAV» (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird vorgelesen) -->
+    <string name="group_favorites">Обране</string>
+    <string name="group_in_other">у %1$s</string>
+    <string name="group_name">Назва групи</string>
+    <string name="group_new">Нова група…</string>
+    <string name="group_next">Далі</string>
+    <string name="group_none">Без групи</string>
+    <string name="group_rename">Перейменувати</string>
+    <string name="group_search_hint">Пошук пари, назви або біржі</string>
+    <string name="group_target">У групі</string>
+    <string name="group_title">Група</string>
+    <!-- Gruppen-Chip «Token» (alle Paare ausser der Gruppe «TradFi»), Screenreader und Widget-Einrichtung -->
+    <string name="group_tokens">Токени</string>
+    <string name="group_value">Група: %1$s</string>
+
+    <!-- Notiz zum Paar -->
+    <string name="note_add">Додати нотатку</string>
+    <string name="note_edit">Змінити нотатку</string>
+    <string name="note_hint">напр. вхід за 0.42, ціль 0.60</string>
+    <string name="note_remove">Прибрати</string>
+    <string name="note_title">Нотатка</string>
+
+    <!-- Reihenfolge ändern (Sortiermodus, Screenreader-Aktionen) -->
+    <string name="sort_drag_handle">Перетягніть, щоб перемістити</string>
+    <string name="sort_move_bottom">На самий низ</string>
+    <string name="sort_move_down">Вниз</string>
+    <string name="sort_move_top">На самий верх</string>
+    <string name="sort_move_up">Вгору</string>
+</resources>

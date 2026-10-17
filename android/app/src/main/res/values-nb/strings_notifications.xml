@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Texte der Mitteilungen -->
+    <string name="notification_activity_title">%1$s · %2$s</string>
+    <string name="notification_alarm_text">%1$s — nå %2$s</string>
+    <string name="notification_alarm_title">Alarm: %1$s · %2$s</string>
+    <string name="notification_depeg_action_exchange">Åpne børs</string>
+    <string name="notification_depeg_text">Verdier i appen regner fortsatt med USDT = 1.</string>
+    <string name="notification_depeg_title">USDT på %1$s USD (%2$s)</string>
+    <string name="notification_fng_above">Indeksen steg over %1$d – ifølge denne indeksen regnes markedet som grådig.</string>
+    <string name="notification_fng_below">Indeksen falt under %1$d – ifølge denne indeksen regnes markedet som redd.</string>
+    <string name="notification_fng_title">Fear &amp; Greed: %1$d</string>
+    <string name="notification_gas_btc_text">Under grensen din på %1$s sat/vB · Overføring ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Bitcoin-gebyr: %1$s sat/vB</string>
+    <string name="notification_gas_eth_text">Under grensen din på %1$s gwei · Overføring ≈ %2$s</string>
+    <string name="notification_gas_eth_title">Ethereum-gass: %1$s gwei</string>
+    <string name="notification_indicator_above">Over grensen din %1$s – måleverdi, ikke en anbefaling.</string>
+    <string name="notification_indicator_below">Under grensen din %1$s – måleverdi, ikke en anbefaling.</string>
+    <string name="notification_indicator_title">%1$s: %2$s</string>
+    <string name="notification_macro_title">Økonomiske tall i dag</string>
+    <string name="notification_portfolio_alarm_locked">Alarmen din er utløst – åpne appen for detaljer.</string>
+    <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
+    <string name="notification_portfolio_alarm_text">%1$s – nå %2$s</string>
+    <string name="notification_portfolio_alarm_title">Porteføljeverdi</string>
+    <string name="notification_price_change">%1$s, fra %2$s (for %3$s siden)</string>
+    <string name="notification_price_change_no_age">%1$s, fra %2$s</string>
+    <string name="notification_price_first">Første varsel for dette paret</string>
+    <plurals name="notification_price_overflow_title">
+        <item quantity="one">+%1$d kurs til</item>
+        <item quantity="other">+%1$d kurser til</item>
+    </plurals>
+    <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
+    <string name="notification_refreshing">Oppdaterer kurser…</string>
+    <string name="notification_volume_spike_text">Volum %1$s× normalt den siste timen</string>
+
+    <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
+    <string name="channel_alarms">Alarmer</string>
+    <string name="channel_alarms_description">Varsel når en kursalarm utløses.</string>
+    <string name="channel_alarms_quiet">Alarmer (nattro)</string>
+    <string name="channel_alarms_quiet_description">Lydløse alarmer under nattro.</string>
+    <string name="channel_alarms_silent">Alarmer (lydløs)</string>
+    <string name="channel_alarms_sound">Alarmer (bare lyd)</string>
+    <string name="channel_alarms_sound_vibrate">Alarmer (lyd og vibrering)</string>
+    <string name="channel_alarms_vibrate">Alarmer (bare vibrering)</string>
+    <string name="channel_prices">Kursvarsler</string>
+    <string name="channel_prices_description">Lydløst varsel med gjeldende kurs for et par.</string>
+    <string name="channel_service">Kursoppdatering</string>
+    <string name="channel_service_description">Vises mens kurser oppdateres.</string>
+    <string name="neutral_channel_market">Markedsvarsler</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed, gassgebyrer, uvanlig aktivitet og økonomiske datoer</string>
+
+    <!-- Sprachausgabe -->
+    <string name="tts_alarm">Alarm. %1$s, %2$s %3$s %4$s, nå %5$s</string>
+    <string name="tts_direction_down">har falt</string>
+    <string name="tts_direction_funding_above">med høy funding</string>
+    <string name="tts_direction_funding_below">med lav funding</string>
+    <string name="tts_direction_move">beveger seg kraftig</string>
+    <string name="tts_direction_near_high">er nær toppen</string>
+    <string name="tts_direction_near_low">er nær bunnen</string>
+    <string name="tts_direction_oi_down">med fallende open interest</string>
+    <string name="tts_direction_oi_up">med stigende open interest</string>
+    <string name="tts_direction_up">har steget</string>
+    <string name="tts_direction_volume_spike">med volum-spike</string>
+    <string name="tts_price">%1$s, %2$s %3$s, %4$s</string>
+</resources>

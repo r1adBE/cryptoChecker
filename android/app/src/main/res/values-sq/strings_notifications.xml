@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Texte der Mitteilungen -->
+    <string name="notification_activity_title">%1$s · %2$s</string>
+    <string name="notification_alarm_text">%1$s — tani %2$s</string>
+    <string name="notification_alarm_title">Alarm: %1$s · %2$s</string>
+    <string name="notification_depeg_action_exchange">Hap bursën</string>
+    <string name="notification_depeg_text">Vlerat në aplikacion vazhdojnë të përdorin USDT = 1.</string>
+    <string name="notification_depeg_title">USDT në %1$s USD (%2$s)</string>
+    <string name="notification_fng_above">Indeksi u ngrit mbi %1$d – sipas këtij indeksi, në treg mbizotëron lakmia.</string>
+    <string name="notification_fng_below">Indeksi ra nën %1$d – sipas këtij indeksi, në treg mbizotëron frika.</string>
+    <string name="notification_fng_title">Fear &amp; Greed: %1$d</string>
+    <string name="notification_gas_btc_text">Nën kufirin tënd prej %1$s sat/vB · Transferim ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Tarifa Bitcoin: %1$s sat/vB</string>
+    <string name="notification_gas_eth_text">Nën kufirin tënd prej %1$s gwei · Transferim ≈ %2$s</string>
+    <string name="notification_gas_eth_title">Gas Ethereum: %1$s gwei</string>
+    <string name="notification_indicator_above">Mbi kufirin tënd %1$s – vlerë e matur, jo rekomandim.</string>
+    <string name="notification_indicator_below">Nën kufirin tënd %1$s – vlerë e matur, jo rekomandim.</string>
+    <string name="notification_indicator_title">%1$s: %2$s</string>
+    <string name="notification_macro_title">Të dhëna ekonomike sot</string>
+    <string name="notification_portfolio_alarm_locked">Alarmi yt u aktivizua – hap aplikacionin për detaje.</string>
+    <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
+    <string name="notification_portfolio_alarm_text">%1$s – tani %2$s</string>
+    <string name="notification_portfolio_alarm_title">Vlera e portofolit</string>
+    <string name="notification_price_change">%1$s, nga %2$s (%3$s më parë)</string>
+    <string name="notification_price_change_no_age">%1$s, nga %2$s</string>
+    <string name="notification_price_first">Njoftimi i parë për këtë çift</string>
+    <plurals name="notification_price_overflow_title">
+        <item quantity="one">+%1$d çmim tjetër</item>
+        <item quantity="other">+%1$d çmime të tjera</item>
+    </plurals>
+    <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
+    <string name="notification_refreshing">Po përditësohen çmimet…</string>
+    <string name="notification_volume_spike_text">Vëllimi %1$s× normales në orën e fundit</string>
+
+    <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
+    <string name="channel_alarms">Alarmet</string>
+    <string name="channel_alarms_description">Njoftim kur aktivizohet një alarm çmimi.</string>
+    <string name="channel_alarms_quiet">Alarmet (orët e heshtjes)</string>
+    <string name="channel_alarms_quiet_description">Alarme të heshtura gjatë orëve të heshtjes.</string>
+    <string name="channel_alarms_silent">Alarmet (pa zë)</string>
+    <string name="channel_alarms_sound">Alarmet (vetëm tingull)</string>
+    <string name="channel_alarms_sound_vibrate">Alarmet (tingull dhe dridhje)</string>
+    <string name="channel_alarms_vibrate">Alarmet (vetëm dridhje)</string>
+    <string name="channel_prices">Njoftimet e çmimit</string>
+    <string name="channel_prices_description">Njoftim i heshtur me çmimin aktual të një çifti.</string>
+    <string name="channel_service">Përditësimi i çmimeve</string>
+    <string name="channel_service_description">Njoftim ndërkohë që çmimet përditësohen.</string>
+    <string name="neutral_channel_market">Njoftime tregu</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed, tarifat e gas-it, aktivitet i pazakontë dhe data ekonomike</string>
+
+    <!-- Sprachausgabe -->
+    <string name="tts_alarm">Alarm. %1$s, %2$s %3$s %4$s, tani %5$s</string>
+    <string name="tts_direction_down">ka rënë</string>
+    <string name="tts_direction_funding_above">me funding të lartë</string>
+    <string name="tts_direction_funding_below">me funding të ulët</string>
+    <string name="tts_direction_move">lëviz fort</string>
+    <string name="tts_direction_near_high">është afër maksimumit</string>
+    <string name="tts_direction_near_low">është afër minimumit</string>
+    <string name="tts_direction_oi_down">me open interest në rënie</string>
+    <string name="tts_direction_oi_up">me open interest në rritje</string>
+    <string name="tts_direction_up">është rritur</string>
+    <string name="tts_direction_volume_spike">me kërcim vëllimi</string>
+    <string name="tts_price">%1$s, %2$s %3$s, %4$s</string>
+</resources>

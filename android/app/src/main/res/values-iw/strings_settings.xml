@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen: Aufbau (Gruppen, Zeilen, Abschnitte, Suche, Kurzwerte) -->
+    <string name="settings_custom_value">מותאם</string>
+    <string name="settings_group_general">כללי</string>
+    <string name="settings_group_more">עוד</string>
+    <string name="settings_minutes">%1$d דק׳</string>
+    <string name="settings_row_about">אודות האפליקציה</string>
+    <string name="settings_row_advanced">מתקדם</string>
+    <string name="settings_row_alarms">התראות</string>
+    <string name="settings_row_currency">מטבע</string>
+    <string name="settings_row_dated_futures">חוזים עתידיים עם פקיעה</string>
+    <string name="settings_row_updates">עדכון מחירים</string>
+    <string name="settings_row_watchlist">רשימת מעקב</string>
+    <string name="settings_search_hint">חיפוש בהגדרות</string>
+    <string name="settings_seconds">%1$d שנ׳</string>
+    <string name="settings_section_about">אודות</string>
+    <string name="settings_section_appearance">מראה</string>
+    <string name="settings_section_developer">מפתחים</string>
+    <string name="settings_section_language">שפה</string>
+    <!-- Kurzwert «eingeschaltet» (Gegenstück zu option_off) -->
+    <string name="settings_summary_on">פועל</string>
+    <string name="settings_title">הגדרות</string>
+
+    <!-- Einstellungen › Alarme (Ton, Signal, Ruhezeit, App-Symbol, exakte Prüfungen) -->
+    <string name="settings_alarm_cooldown">זמן שקט לפני שהתראה מופעלת שוב</string>
+    <!-- Ton/Vibration der Kursalarme, je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">אות התראה</string>
+    <string name="settings_alarm_signal_open_system">שינוי בהגדרות המערכת</string>
+    <string name="settings_alarm_signal_system_hint">לפי הגדרות ההתראות של הטלפון.</string>
+    <string name="settings_alarm_sound">צליל התראה</string>
+    <string name="settings_alarm_sound_custom">צליל מותאם</string>
+    <string name="settings_alarm_sound_default">צליל ברירת מחדל</string>
+    <string name="settings_alarm_sound_error">לא ניתן היה להשתמש בצליל.</string>
+    <string name="settings_alarm_sound_file">קובץ שמע משלך…</string>
+    <string name="settings_alarm_sound_reset">שימוש בצליל ברירת המחדל</string>
+    <string name="settings_alarm_sound_system">בחירת צליל מערכת…</string>
+    <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">מספר על סמל האפליקציה</string>
+    <string name="settings_app_badge_hint">סופר התראות פתוחות. מסך הבית קובע אם יופיע מספר או נקודה (למשל Samsung: «עם מספר»).</string>
+    <string name="settings_exact_checks">בדיקה בזמן</string>
+    <string name="settings_exact_checks_grant">לאפשר «שעונים מעוררים ותזכורות»</string>
+    <string name="settings_exact_checks_hint">Android בודק בערך כל 15 דקות, גם כשהמכשיר במנוחה. צורך מעט יותר סוללה.</string>
+    <string name="settings_exact_checks_nothing">אין צמדים פעילים – אין מה לבדוק.</string>
+    <string name="settings_exact_checks_permission_missing">חסרה הרשאה – Android בודק מתי שנוח לו (בערך כל 15 דק׳ או מאוחר יותר).</string>
+    <string name="settings_notification_change">עדכון רק בשינוי מחיר</string>
+    <string name="settings_notification_change_always">תמיד</string>
+    <string name="settings_notification_change_hint">עדכון מחיר מופיע רק כשהמחיר זז לפחות בשיעור זה מאז העדכון הקודם. כשחסרים נתונים לא מוצג דבר. ההתראות אינן מושפעות.</string>
+    <string name="settings_ongoing_notifications">לא ניתן להחליק לסגירה</string>
+    <string name="settings_ongoing_notifications_hint">משאיר את עדכוני המחיר מוצמדים.</string>
+    <string name="settings_price_notifications">עדכוני מחיר בשורת המצב</string>
+    <string name="settings_price_notifications_hint">הצג את המחיר הנוכחי של צמדים מופעלים בשורת המצב.</string>
+    <string name="settings_price_pairs">צמדים</string>
+    <string name="settings_price_pairs_all_off">הכול כבוי</string>
+    <string name="settings_price_pairs_all_on">הכול מופעל</string>
+    <string name="settings_price_pairs_count">%1$d מתוך %2$d</string>
+    <string name="settings_price_pairs_empty">אין עדיין צמדים ברשימת המעקב.</string>
+    <string name="settings_price_pairs_hint">בחר לאילו צמדים יוצג השער בשורת ההתראות.</string>
+    <string name="settings_quiet_hours">שעות דממה</string>
+    <string name="settings_quiet_hours_from">התחלה</string>
+    <string name="settings_quiet_hours_hint">בין %1$s ל־%2$s התראות ממתינות עד סוף שעות הדממה ואז מתריעות עם צליל. הודעות אחרות מגיעות בשקט, בלי הקראה.</string>
+    <string name="settings_quiet_hours_to">סיום</string>
+
+    <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
+    <string name="settings_background_interval">מרווח</string>
+    <string name="settings_background_updates">עדכונים ברקע</string>
+    <string name="settings_battery_hint">מוגבל פירושו ש־Android עלול לעכב עדכוני רקע בשעות.</string>
+    <string name="settings_battery_ok">שימוש בסוללה: ללא הגבלה</string>
+    <string name="settings_battery_restricted">שימוש בסוללה: מוגבל</string>
+    <string name="settings_check_runs_empty">עדיין לא נרשמו בדיקות.</string>
+    <string name="settings_check_runs_honest_android">Android מחליט מתי לבדוק – כאן רואים מתי זה באמת קרה.</string>
+    <string name="settings_check_runs_honest_ios">iOS מחליט מתי לבדוק – כאן רואים מתי זה באמת קרה.</string>
+    <string name="settings_check_runs_title">בדיקות אחרונות</string>
+    <string name="settings_http_log">הצגת יומן HTTP</string>
+    <string name="settings_http_log_hint">מציג בתחתית הדף ״הוספת צמד״ את הבקשות לבורסות – לאיתור תקלות.</string>
+    <string name="settings_live_service">עדכון תכוף</string>
+    <string name="settings_live_websocket">מחירים חיים</string>
+
+    <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
+    <string name="settings_activity_alerts">דווח על פעילות חריגה</string>
+    <string name="settings_activity_alerts_hint">לכל היותר פעם בשעה לכל צמד: תנועות מחיר חריגות, זינוקי מחזור וקיצוניות בחוזים עתידיים (נתונים מ-Binance).</string>
+    <string name="settings_activity_sensitivity">רגישות</string>
+    <string name="settings_activity_sensitivity_hint">כמה בקלות מטבע נחשב חריג – זהה לכרטיס ברשימת המעקב ולהודעות השוק. באפשרות ״פחות״ הכרטיס מציג רק את 3 החזקים ביותר.</string>
+    <string name="settings_watchlist_activity_card">פעילות חריגה ברשימה</string>
+    <string name="settings_watchlist_activity_card_hint">מציג את השבב ⚡ ליד הקבוצות: הקישו עליו כדי לראות רק את הצמדים שבהם משהו קורה עכשיו. ההודעות מוגדרות ב״הודעות שוק״.</string>
+    <string name="settings_watchlist_names">הצגת שמות</string>
+    <string name="settings_watchlist_names_hint">שם מתחת לצמד, למשל Bitcoin או NVIDIA. מגיע עם רשימות הלוגו, נטען פעם אחת לכל המטבעות.</string>
+    <string name="settings_watchlist_sparkline">מיני גרף ברשימת המעקב</string>
+    <string name="settings_watchlist_sparkline_hint">מגמת 24 שעות ליד המחיר</string>
+    <string name="settings_watchlist_value_names">שמות</string>
+    <string name="settings_watchlist_value_price_only">מחיר בלבד</string>
+    <string name="settings_watchlist_value_sparkline">מיני גרף</string>
+
+    <!-- Einstellungen › Token & TradFi -->
+    <string name="settings_asset_scope_alpha">כולל טוקני Alpha (α)</string>
+    <string name="settings_asset_scope_alpha_hint">טוקני Alpha: פרויקטים מוקדמים, לרוב קטנים, מרשימת Binance Alpha – לעיתים קרובות מעט מסחר ותנודתיות גבוהה.</string>
+    <string name="settings_asset_scope_alpha_tradfi_hint">שייך לטוקנים. נעול כשנבחר „TradFi בלבד”; טוקני Alpha שכבר ברשימה נשארים.</string>
+    <string name="settings_asset_scope_both">טוקנים ו-TradFi</string>
+    <string name="settings_asset_scope_both_hint">הכול – קריפטו ו-TradFi</string>
+    <string name="settings_asset_scope_hint">קובע אילו צמדים יוצגו בבחירה ובחיפוש בעת הוספה. צמדים שכבר ברשימת המעקב נשארים תמיד.</string>
+    <string name="settings_asset_scope_title">טוקנים ו-TradFi</string>
+    <string name="settings_asset_scope_tokens">טוקנים בלבד</string>
+    <string name="settings_asset_scope_tokens_hint">קריפטו: ספוט וחוזים צמיתים</string>
+    <string name="settings_asset_scope_tradfi">TradFi בלבד</string>
+    <string name="settings_asset_scope_tradfi_hint">חוזים עתידיים על מניות, סחורות ומט״ח – חוזים, לא טוקנים</string>
+    <string name="settings_rolling_futures">כולל חוזים רבעוניים וחוזים עתידיים מתוארכים אחרים</string>
+    <string name="settings_rolling_futures_hint">כבוי: חוזים עתידיים מתוארכים שחסרים ברשימת הבורסה יסומנו כלא נסחרים עוד במקום להיבדק אחד־אחד. חוסך זמן בכל רענון.</string>
+    <string name="settings_rolling_futures_qtly">כולל חוזים רבעוניים וחוזים עתידיים מתוארכים אחרים (QTLY)</string>
+    <string name="settings_rolling_futures_tradfi_hint">שייך לטוקנים. נעול כשנבחר „TradFi בלבד”; עדיין חל על חוזים מתוארכים שכבר ברשימה.</string>
+    <string name="settings_tradfi_futures">מניות, סחורות ומט״ח (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">בבחירת צמד מוצגים גם חוזים עתידיים על מניות, זהב וסחורות אחרות, מטבעות וחברות לפני הנפקה. אלה חוזים, לא טוקנים.</string>
+
+    <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
+    <string name="settings_accent">צבע הדגשה</string>
+    <string name="settings_accent_hint">צבע לאפליקציה, לווידג׳טים ולסמל האפליקציה.</string>
+    <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">לוגואים של מטבעות</string>
+    <string name="settings_coin_logos_app">באפליקציה</string>
+    <string name="settings_coin_logos_app_hint">רשימת מעקב, הצמד הפתוח וכרטיסי שוק</string>
+    <string name="settings_coin_logos_footer">הלוגואים מגיעים מ-CoinGecko, ולמה ש-CoinGecko לא מכיר (למשל זהב, כסף, מניות) – מ-Binance. האפליקציה מורידה בבת אחת את כל הלוגואים ושומרת אותם במכשיר הזה, כך שאף אחד מהם לא יודע אחרי אילו מטבעות אתם עוקבים. למטבעות בלי לוגו מוצגים ראשי התיבות. מועדפים מקבלים כוכב קטן על הלוגו. כשמתג כבוי, לא מוצגים לוגואים וגם לא ראשי תיבות; כשכל האפשרויות כבויות, שום דבר לא נטען.</string>
+    <string name="settings_coin_logos_portfolio">בתיק ההשקעות</string>
+    <string name="settings_coin_logos_portfolio_hint">פוזיציות, פרטי מטבעות ותובנות</string>
+    <string name="settings_coin_logos_value_app">אפליקציה</string>
+    <string name="settings_coin_logos_widgets">בווידג׳טים</string>
+    <string name="settings_coin_logos_widgets_hint">ווידג׳טים של רשימת מעקב ושל מטבע אחד</string>
+    <string name="settings_high_contrast">ניגודיות גבוהה</string>
+    <string name="settings_high_contrast_hint">צבעי מחיר חזקים יותר וטקסט משני כהה יותר. פעיל גם כשהמערכת מבקשת ניגודיות גבוהה יותר.</string>
+    <string name="settings_language_choose">בחירת שפה</string>
+    <string name="settings_language_system">שפת המערכת</string>
+    <string name="settings_price_colors">צבעי מחירים</string>
+    <string name="settings_price_colors_hint">כחול / כתום קל להבחנה בכל סוג של ליקוי בראיית צבעים (אדום-ירוק וכחול-צהוב). הכיוון מוצג תמיד גם באמצעות + / −.</string>
+    <string name="settings_theme_mode">בהיר / כהה</string>
+    <string name="settings_widgets">ווידג׳טים</string>
+
+    <!-- Einstellungen › %-Änderung -->
+    <!-- Einstellungszeile und Seitentitel «%-Änderung»; %1$s ist das Prozentzeichen «%» -->
+    <string name="settings_change_basis">שינוי ב-%1$s ואזור הזמן של הגרף</string>
+    <string name="settings_change_basis_hint_1">אזור הזמן שנבחר קובע ממתי נספר השינוי באחוזים (רשימת המעקב, שורת הדופק, הצמד הפתוח, ווידג׳טים) ואת השעות שמוצגות בגרפים.</string>
+    <string name="settings_change_basis_hint_2">״%1$s״ משווה למחיר לפני 24 שעות בדיוק. ״00:00״ משווה למחיר הפתיחה בחצות באזור הזמן הזה.</string>
+    <string name="settings_change_basis_hint_3">ההתראות אינן מושפעות.</string>
+    <string name="settings_change_basis_hint_since_last">״%1$s״ משווה למחיר של העדכון הקודם. במחירים חיים הערך נשאר קרוב ל-0%%.</string>
+    <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
+    <string name="settings_change_period">הצגת התקופה ליד השינוי</string>
+    <string name="settings_change_period_hint">״24h״, ״היום״ או ״עדכון אחרון״ בקטן ליד השינוי ברשימת המעקב ובווידג׳ט של מטבע יחיד. קורא המסך תמיד מקריא אותו.</string>
+
+    <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
+    <string name="settings_conversion_currency">מטבע להמרה</string>
+    <string name="settings_conversion_currency_hint">משמש גם לתיק ההשקעות, להתראות מחיר במטבע שלך, לכרטיס ״שוק הקריפטו״ ולווידג׳ט תיק ההשקעות.</string>
+    <string name="settings_cost_method">שיטת חישוב עלות הרכישה</string>
+    <string name="settings_cost_method_average">ממוצע (Ø)</string>
+    <string name="settings_cost_method_average_hint">מכירות מוערכות לפי מחיר הקנייה הממוצע המתעדכן.</string>
+    <string name="settings_cost_method_fifo">FIFO (ברירת מחדל)</string>
+    <string name="settings_cost_method_fifo_hint">המטבעות הוותיקים ביותר נמכרים ראשונים, בכל הבורסות והארנקים.</string>
+    <string name="settings_cost_method_fifo_wallet">FIFO לפי ארנק/בורסה</string>
+    <string name="settings_cost_method_fifo_wallet_hint">המטבעות הוותיקים קודם בכל בורסה או ארנק; העברות מעבירות מנות עם תאריך הקנייה.</string>
+    <string name="settings_portfolio_lock">נעילת תיק השקעות</string>
+    <string name="settings_portfolio_lock_footer">הנעילה מסתירה את מה שמוצג במסך. הנתונים נשמרים במכשיר הזה ומוגנים בהצפנת המכשיר. אפשר להגן על גיבויים באמצעות סיסמה.</string>
+    <string name="settings_portfolio_lock_hint">מסתירה רק את תיק ההשקעות: ביטול נעילה בטביעת אצבע, בפנים או בקוד PIN של המכשיר. ננעל שוב אחרי יותר מדקה ברקע. רשימת המעקב, ההתראות ושאר הווידג׳טים נשארים פתוחים.</string>
+    <string name="settings_portfolio_lock_no_device_lock">ללא PIN או קוד גישה במכשיר הנעילה לא מסתירה כלום – הגדר נעילת מסך.</string>
+    <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">תיק השקעות בגיבוי המערכת</string>
+    <string name="settings_portfolio_system_backup_hint">כבוי: העסקאות שלך לא נכללות בגיבוי המערכת של המכשיר ולא בהעברה לטלפון חדש. כדי להעביר אותן, השתמש בגיבוי של האפליקציה עם סיסמה.</string>
+    <string name="settings_portfolio_system_backup_unavailable">דורש Android 9 ומעלה – גרסאות ישנות יותר היו שומרות את התיק בלי הצפנה בגיבוי של Google.</string>
+    <string name="settings_portfolio_tab">הצגת לשונית תיק השקעות</string>
+    <string name="settings_portfolio_value_locked">פועל, עם נעילה</string>
+    <string name="settings_show_converted">מחירים מומרים</string>
+    <string name="settings_show_converted_hint">מציג את המחירים ברשימת המעקב גם ב-%1$s</string>
+
+    <!-- Einstellungen › Markt-Meldungen -->
+    <string name="settings_depeg_alarm">דווח על שבירת הצמדה של USDT</string>
+    <string name="settings_depeg_alarm_hint">מתריע פעם אחת כש-USDT סוטה מ-1 USD בגובה הסף (Kraken USDT/USD, Binance USDC/USDT). הערכים באפליקציה ממשיכים לחשב לפי USDT = 1.</string>
+    <string name="settings_depeg_threshold">סף שבירת הצמדה</string>
+    <string name="settings_fng_above">Fear &amp; Greed: הודעה מעל</string>
+    <string name="settings_fng_below">Fear &amp; Greed: הודעה מתחת ל-</string>
+    <string name="settings_gas_alert_hint">מתריע פעם אחת כשהעמלה הרגילה יורדת מתחת לסף. נבדק בעדכון המחירים, לכל היותר כל 10 דקות.</string>
+    <string name="settings_gas_btc_below">עמלת Bitcoin מתחת ל- (sat/vB)</string>
+    <string name="settings_gas_eth_below">גז Ethereum מתחת ל- (gwei)</string>
+    <string name="settings_ind_ath_within">ירידה מהשיא לכל היותר</string>
+    <string name="settings_ind_mayer_above">Mayer Multiple מעל</string>
+    <string name="settings_ind_mayer_below">Mayer Multiple מתחת</string>
+    <string name="settings_ind_mvrv_above">MVRV מעל</string>
+    <string name="settings_ind_mvrv_below">MVRV מתחת</string>
+    <string name="settings_indicator_alerts_hint">מדדי ביטקוין, נבדקים פעמיים ביום. את הגבולות אתה בוחר – האפליקציה לא מעריכה את הערכים.</string>
+    <string name="settings_macro_notifications">לוח אירועים כלכליים</string>
+    <string name="settings_macro_notifications_hint">ב־08:00 בימים עם נתונים כלכליים חשובים מארה״ב (אינפלציה, תעסוקה, החלטת הפד). הלוח נטען מאתר האפליקציה פעם ביום.</string>
+    <string name="settings_market_alerts">הודעות שוק</string>
+    <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
+    <plurals name="settings_market_alerts_active">
+        <item quantity="one">%1$d פעיל</item>
+        <item quantity="two">%1$d פעילים</item>
+        <item quantity="other">%1$d פעילים</item>
+    </plurals>
+
+    <!-- Einstellungen › Sprachausgabe -->
+    <string name="settings_speech_rate">קצב דיבור: %1$.1f×</string>
+    <string name="settings_tts">הקראה קולית</string>
+    <string name="settings_tts_alarms_only">התראות בלבד</string>
+    <string name="settings_tts_alarms_only_hint">כבוי: כל עדכון של צמד שסומן ״הקרא מחיר״ יוקרא בקול.</string>
+    <!-- Sprachausgabe schweigt im Lautlos-/Vibrationsmodus -->
+    <string name="settings_tts_hint_silent">מקריא מחירים והתראות בקול. שותק כל עוד המכשיר במצב שקט או רטט.</string>
+    <string name="settings_tts_test">בדיקת קול</string>
+
+    <!-- Einstellungen › Daten: App zurücksetzen -->
+    <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
+    <string name="settings_reset_app">איפוס האפליקציה</string>
+    <string name="settings_reset_app_action">מחיקת הכול</string>
+    <string name="settings_reset_app_confirm">מוחק את רשימת המעקב, ההתראות, תיק ההשקעות, ההגדרות וכל הנתונים השמורים, כמו אחרי התקנה. לא ניתן לבטל. טיפ: צרו גיבוי קודם.</string>
+    <string name="settings_reset_app_title">לאפס את האפליקציה?</string>
+
+    <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
+    <!-- Suchfeld der Währungsseite -->
+    <string name="currency_search">חיפוש מטבע</string>
+    <string name="language_search">חיפוש שפה</string>
+
+    <!-- Theme -->
+    <string name="theme_dark">כהה</string>
+    <string name="theme_light">בהיר</string>
+    <string name="theme_system">מערכת</string>
+
+    <!-- Akzentfarben -->
+    <string name="accent_blue">כחול</string>
+    <string name="accent_green">ירוק</string>
+    <!-- Eigenname, in allen Sprachen gleich -->
+    <string name="accent_marrs_green">Marrs Green</string>
+    <string name="accent_orange">כתום</string>
+    <string name="accent_red">אדום</string>
+
+    <!-- Kursfarben -->
+    <string name="price_colors_red_up_hint">מקובל בסין, ביפן, בקוריאה ובטייוואן</string>
+    <string name="price_colors_swap">החלפת צבעים (עלייה ↔ ירידה)</string>
+    <string name="price_style_calm">רגוע</string>
+    <string name="price_style_calm_color_vision">רגוע · ליקוי בראיית צבעים</string>
+    <string name="price_style_color_vision">ליקוי בראיית צבעים</string>
+    <string name="price_style_fresh">רענן</string>
+    <string name="price_style_traditional">מסורתי</string>
+
+    <!-- Über die App -->
+    <string name="about_exchanges_verified">החיבורים לבורסות נבדקו לאחרונה מול תשובות אמיתיות: %1$s</string>
+    <string name="about_license">המחירים מגיעים ישירות מהבורסות; ללא חשבון וללא מעקב.</string>
+    <!-- Texte der Lizenzen liegen in assets/licenses -->
+    <string name="about_licenses">רישיונות</string>
+    <string name="about_privacy_policy">מדיניות פרטיות</string>
+    <!-- GitHub-Vorlage exchange_request.md -->
+    <string name="about_request_exchange">בקשת בורסה</string>
+    <string name="about_source_code">קוד המקור ב-GitHub</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_why">Crypto Checker הוא פרויקט עצמאי של r1AD: סקירת מחירים רגועה בלי חשבון, פרסומות או מעקב. שאלות ובקשות: %1$s</string>
+
+    <!-- Lizenzhinweise -->
+    <string name="licenses_app_intro">Crypto Checker הוא קוד פתוח (רישיון MIT).</string>
+    <string name="licenses_font_title">הגופן Rubik</string>
+    <string name="licenses_icons_bundled_text">כלולים באפליקציה: סמלים מתוך «Cryptocurrency Icons» של Christopher Downer ותורמים (github.com/spothq/cryptocurrency-icons), שפורסמו תחת CC0 1.0 Universal. הם מוצגים עד שהלוגואים של CoinGecko או Binance נטענים. השמות והלוגואים נשארים סימנים מסחריים של הפרויקטים שלהם.</string>
+    <string name="licenses_icons_title">סמלי מטבעות חלופיים</string>
+    <string name="licenses_libraries_intro">האפליקציה משתמשת בספריות אלה תחת Apache License 2.0:</string>
+    <string name="licenses_libraries_title">ספריות Android</string>
+
+    <!-- Entwickleroptionen -->
+    <!-- Countdown der letzten Tipps auf die Version bis zu den Entwickleroptionen -->
+    <plurals name="developer_taps_left">
+        <item quantity="one">עוד %d הקשה לפתיחת אפשרויות המפתחים</item>
+        <item quantity="two">עוד %d הקשות לפתיחת אפשרויות המפתחים</item>
+        <item quantity="many">עוד %d הקשות לפתיחת אפשרויות המפתחים</item>
+        <item quantity="other">עוד %d הקשות לפתיחת אפשרויות המפתחים</item>
+    </plurals>
+    <string name="developer_unlocked">אפשרויות המפתחים נפתחו</string>
+
+    <!-- Nur iOS: Einstellungen -->
+    <!-- Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">הרטט נקבע לפי הגדרות ה-iPhone (צלילים ומשוב הפטי).</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">סופר התראות והודעות שוק חדשות; חוזר ל־0 כשפותחים את האפליקציה.</string>
+</resources>

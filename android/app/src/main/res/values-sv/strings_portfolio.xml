@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Tab, leere Ansicht, Einschalten, Sperre -->
+    <string name="app_lock_unavailable">Inget skärmlås är konfigurerat på den här enheten. Ställ in ett i systeminställningarna först.</string>
+    <string name="app_lock_unlock">Lås upp</string>
+    <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
+    <string name="portfolio_clear">Töm portfölj</string>
+    <plurals name="portfolio_clear_confirm_count">
+        <item quantity="one">Radera %d transaktion? Bevakade adresser finns kvar. Det går inte att ångra.</item>
+        <item quantity="other">Radera alla %d transaktioner? Bevakade adresser finns kvar. Det går inte att ångra.</item>
+    </plurals>
+    <string name="portfolio_disclaimer">Belopp stannar på enheten om du inte själv exporterar dem; för kurser skickas bara parsymboler till parets börs. Offentliga blockkedjenoder ser bevakade adresser och din IP. Ingen investeringsrådgivning.</string>
+    <string name="portfolio_empty_action">Lägg till ditt första köp</string>
+    <string name="portfolio_empty_address">Följ bara en plånboksadress</string>
+    <string name="portfolio_empty_csv">Köpt på en börs? Importera filen</string>
+    <string name="portfolio_empty_example_plain">Exempel: 0,01 BTC köpt den 1 mars. Appen visar sedan vad den är värd i dag och om du ligger på plus eller minus – sparas bara på den här enheten.</string>
+    <string name="portfolio_empty_text">Ange vad du har köpt – appen visar vad det är värt i dag och hur mycket du ligger på plus eller minus.</string>
+    <string name="portfolio_empty_title">Inga transaktioner ännu</string>
+    <string name="portfolio_enable_ask_text">Din transaktion är sparad. Fliken Portfölj visar dina innehav och deras värde.</string>
+    <string name="portfolio_enable_ask_title">Slå på fliken Portfölj?</string>
+    <string name="portfolio_enable_later_hint">Transaktionen sparad. Du kan slå på fliken Portfölj under Inställningar › Avancerat › Portfölj.</string>
+    <string name="portfolio_enabled_banner">Portfölj påslagen – du hittar den under fliken Portfölj.</string>
+    <string name="portfolio_lock_reason">Lås upp portföljen</string>
+    <string name="portfolio_locked_text">Lås upp för att se innehav och värden.</string>
+    <string name="portfolio_locked_title">Portföljen är låst</string>
+    <string name="portfolio_setting_hint">Valfritt: registrera köp och försäljningar och se värde och vinst/förlust i en egen flik.</string>
+    <!-- Status-Pille wie in der Merkliste: Kurse älter als die Frische-Schwelle, Gerät online. Offline: offline_status_since, alles aktuell: watchlist_all_fresh -->
+    <string name="portfolio_status_stale">Inaktuellt · per %1$s</string>
+    <plurals name="portfolio_system_restore_invalid">
+        <item quantity="one">%d post från systemets säkerhetskopia var ogiltig och återställdes inte.</item>
+        <item quantity="other">%d poster från systemets säkerhetskopia var ogiltiga och återställdes inte.</item>
+    </plurals>
+    <string name="portfolio_title">Portfölj</string>
+    <string name="portfolio_unassigned_fee">Avgift inte fördelad – anskaffningsvärde okänt: %1$s</string>
+    <string name="portfolio_updated">Kurser från %1$s</string>
+
+    <!-- Portfolio: Gesamtwert-Kopf (Heute · 7 T · Gesamt) und Aufteilung -->
+    <string name="portfolio_allocation_other">Övriga</string>
+    <string name="portfolio_allocation_title">Fördelning</string>
+    <string name="portfolio_card_details">Detaljer</string>
+    <!-- Screenreader, Kennzahl ohne Wert; %1$s Beschriftung (z. B. «7 Tage») -->
+    <string name="portfolio_card_figure_none_a11y">%1$s: inte tillgängligt än</string>
+    <string name="portfolio_card_hints_count">Anmärkningar (%1$d)</string>
+    <string name="portfolio_card_today">I dag</string>
+    <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
+    <string name="portfolio_card_total">Totalt</string>
+    <string name="portfolio_hide_amounts">Dölj belopp</string>
+    <string name="portfolio_hide_amounts_hint">Visar belopp och värden i portföljen och portföljwidgeten som ••• – procent syns fortfarande.</string>
+    <string name="portfolio_invested">Anskaffningsvärde</string>
+    <string name="portfolio_total_no_fx">Ingen valutakurs för %1$s – belopp i USDT</string>
+    <string name="portfolio_total_value">Totalt värde</string>
+    <string name="portfolio_value">Värde</string>
+
+    <!-- Portfolio: Bestand, offene Positionen, Durchschnittspreis -->
+    <string name="portfolio_avg_and_now">Snitt %1$s · nu %2$s</string>
+    <string name="portfolio_avg_only">Snitt %1$s</string>
+    <string name="portfolio_avg_open_lots">Snittligt anskaffningsvärde för innehavda mynt</string>
+    <string name="portfolio_avg_partial">Snitt av %1$s med köppris</string>
+    <string name="portfolio_avg_price">Snittköppris</string>
+    <string name="portfolio_avg_price_hint">Snittköppris: genomsnittet av alla köp, viktat efter mängd. Försäljningar värderas till detta genomsnitt.</string>
+    <plurals name="portfolio_closed">
+        <item quantity="one">Stängd position (%1$d)</item>
+        <item quantity="other">Stängda positioner (%1$d)</item>
+    </plurals>
+    <string name="portfolio_fifo_hint">FIFO: försäljningar använder dina äldsta mynt först. Snitt = återstående anskaffningsvärde ÷ mängd med köppris.</string>
+    <string name="portfolio_holdings">Innehav</string>
+    <string name="portfolio_lost_fee_cost">Anskaffningsvärde för nätverksavgift utan betald lott: %1$s</string>
+    <string name="portfolio_open_lots">Öppna köplotter (%1$d)</string>
+    <string name="portfolio_open_lots_avg">Med köppris (Ø)</string>
+    <string name="portfolio_open_lots_no_cost">Utan köppris</string>
+    <string name="portfolio_open_lots_without_price">utan köppris</string>
+    <string name="portfolio_realized">Realiserad vinst/förlust</string>
+    <string name="portfolio_unrealized">Orealiserad vinst/förlust</string>
+    <string name="portfolio_unrealized_without_unpriced">utan %1$s utan köppris</string>
+    <string name="portfolio_withdrawn_gain">Uttaget: %1$s (värdeförändring fram till uttaget)</string>
+
+    <!-- Portfolio: Kurse und Umrechnung -->
+    <string name="portfolio_convert_to">Räkna om till</string>
+    <string name="portfolio_convert_to_value">Räkna om till: %1$s</string>
+    <string name="portfolio_current_missing">Ingen aktuell kurs för %1$s</string>
+    <string name="portfolio_current_price">Aktuell kurs</string>
+    <string name="portfolio_price_missing">Pris saknas</string>
+    <string name="portfolio_price_missing_hint">Vissa köp saknar pris. Lägg till köppriset för att se vinst/förlust.</string>
+    <string name="portfolio_price_source">Kurser: Binance · USDT = 1</string>
+    <string name="portfolio_price_source_routes">Kurser: %1$s, annars Binance · USDT = 1</string>
+    <string name="portfolio_price_unavailable">Kursen är inte tillgänglig just nu</string>
+    <string name="portfolio_price_unchecked">Kurs okontrollerad</string>
+    <string name="portfolio_price_via_base">≈ %1$s-kurs (bryggad/wrappad)</string>
+    <string name="portfolio_usdt_as_usd">USDT omräknat till USD-kurs</string>
+    <string name="portfolio_usdt_assumed">USDT = 1 antaget</string>
+    <string name="portfolio_usdt_depeg_warning">USDT = 1 antaget – marknaden på %1$s USD (%2$s)</string>
+
+    <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
+    <string name="portfolio_add_from_watch">Lägg till i portföljen</string>
+    <string name="portfolio_add_tx">Registrera transaktion</string>
+    <string name="portfolio_buy">Köp</string>
+    <string name="portfolio_coin">Coin</string>
+    <string name="portfolio_coin_invalid">Ange en symbol</string>
+    <string name="portfolio_coin_search">Sök symbol, t.ex. BTC</string>
+    <string name="portfolio_discard_confirm">Ignorera</string>
+    <string name="portfolio_discard_keep">Fortsätt redigera</string>
+    <string name="portfolio_discard_title">Ignorera ändringarna?</string>
+    <string name="portfolio_edit_tx">Redigera transaktion</string>
+    <string name="portfolio_invalid">Ogiltig mängd</string>
+    <string name="portfolio_oversold">Försäljningar överstiger innehavet – kontrollera transaktionerna.</string>
+    <string name="portfolio_sell">Försäljning</string>
+    <string name="portfolio_sell_exceeds">Mer än ditt innehav (%1$s)</string>
+    <string name="portfolio_sell_exceeds_fee">Mängd plus avgift är mer än ditt innehav (%1$s)</string>
+    <string name="portfolio_sell_exceeds_wallet">Mer än ditt innehav i %2$s (%1$s)</string>
+    <string name="portfolio_transactions">Transaktioner</string>
+    <string name="portfolio_tx_acquired_date">Ursprungligt köpdatum (valfritt)</string>
+    <string name="portfolio_tx_acquired_date_hint">För innehavstiden i skatteexporten</string>
+    <string name="portfolio_tx_amount">Mängd</string>
+    <string name="portfolio_tx_coin_fee">Avgift i myntet (valfritt)</string>
+    <string name="portfolio_tx_date">Datum</string>
+    <string name="portfolio_tx_delete_confirm">Transaktionen tas bort från portföljen.</string>
+    <string name="portfolio_tx_delete_title">Radera transaktionen?</string>
+    <string name="portfolio_tx_deposit">Insättning</string>
+    <string name="portfolio_tx_entry_currency">Ange i</string>
+    <string name="portfolio_tx_explain_deposit">Innehav utan affär, t.ex. mynt från tidigare</string>
+    <string name="portfolio_tx_explain_gift">Coins lämnar innehavet som ett uttag – avyttring till marknadsvärde bara där landet beskattar gåvor så (UK, CA, AU)</string>
+    <string name="portfolio_tx_explain_payment">Betalat för varor eller tjänster – avyttring till marknadsvärde som en försäljning, utan att få pengar</string>
+    <string name="portfolio_tx_explain_reward">Anskaffningsvärde = marknadsvärde vid mottagandet</string>
+    <string name="portfolio_tx_explain_swap">Mynt mot mynt: försäljning av det lämnade, köp av det mottagna myntet</string>
+    <string name="portfolio_tx_explain_transfer">Ingen vinst – anskaffningsvärdet följer med mynten</string>
+    <string name="portfolio_tx_explain_withdrawal">Innehavet lämnar portföljen – ingen försäljning, ingen vinst</string>
+    <string name="portfolio_tx_fee_consumes_amount">Avgiften är lika stor som den mottagna mängden – inget skulle bli kvar.</string>
+    <string name="portfolio_tx_fees_toggle">Avgifter</string>
+    <string name="portfolio_tx_fiat_converted">≈ %1$s till kursen från %2$s</string>
+    <string name="portfolio_tx_fiat_loading">Hämtar valutakurs…</string>
+    <string name="portfolio_tx_fiat_no_fx">Ingen valutakurs för den här dagen – ange beloppet i USDT.</string>
+    <string name="portfolio_tx_gift">Gåva</string>
+    <string name="portfolio_tx_gift_price_hint">I USDT. Tomt = dagens stängningskurs (uppskattad).</string>
+    <string name="portfolio_tx_gift_spouse">Till make/maka / partner</string>
+    <string name="portfolio_tx_gift_spouse_hint">Storbritannien och Kanada: ingen vinst och ingen förlust – din partner tar över ditt omkostnadsbelopp. Andra länder ignorerar det.</string>
+    <string name="portfolio_tx_market_value">Marknadsvärde per coin</string>
+    <string name="portfolio_tx_more_buy">Avgift, börs, anteckning</string>
+    <string name="portfolio_tx_network_fee">Nätverksavgift i myntet (valfritt)</string>
+    <string name="portfolio_tx_note">Anteckning (valfri)</string>
+    <string name="portfolio_tx_payment">Betalat med</string>
+    <string name="portfolio_tx_price">Pris per coin</string>
+    <string name="portfolio_tx_price_hint">I USDT. Lämna tomt om okänt.</string>
+    <string name="portfolio_tx_price_historic">Kontrollerad stängningskurs för %1$s – justera vid behov</string>
+    <string name="portfolio_tx_price_invalid">Ogiltigt pris</string>
+    <string name="portfolio_tx_price_past_hint">Ange kursen på affärsdagen – lämna tomt om okänd</string>
+    <string name="portfolio_tx_price_receipt_hint">I USDT. Tomt = innehav utan anskaffningsvärde.</string>
+    <string name="portfolio_tx_price_zero">Pris 0 går inte för importerade transaktioner – lämna tomt för marknadskurs</string>
+    <string name="portfolio_tx_removed">Transaktion raderad</string>
+    <string name="portfolio_tx_reward">Belöning</string>
+    <string name="portfolio_tx_save_failed">Transaktionen kunde inte sparas. Dina uppgifter finns kvar – försök igen.</string>
+    <string name="portfolio_tx_swap">Byte</string>
+    <string name="portfolio_tx_swap_fee_received">Avgift i %1$s: minskar den mottagna mängden, inget pris behövs.</string>
+    <string name="portfolio_tx_swap_from">Byte från %1$s</string>
+    <string name="portfolio_tx_swap_given_amount">Lämnad mängd</string>
+    <string name="portfolio_tx_swap_given_coin">Lämnat mynt</string>
+    <string name="portfolio_tx_swap_received_amount">Mottagen mängd</string>
+    <string name="portfolio_tx_swap_received_coin">Mottaget mynt</string>
+    <string name="portfolio_tx_swap_same_coin">Välj ett annat mynt än det lämnade</string>
+    <string name="portfolio_tx_swap_to">Byte till %1$s</string>
+    <string name="portfolio_tx_swap_value">Bytets värde (valfritt)</string>
+    <string name="portfolio_tx_swap_value_hint">Totalt värde. Tomt = okänt – vinsten förblir ofullständig (automatiskt med USDT i bytet).</string>
+    <string name="portfolio_tx_third_fee_amount">Avgiftsmängd</string>
+    <string name="portfolio_tx_third_fee_coin">Avgiftsmynt</string>
+    <string name="portfolio_tx_third_fee_incomplete">Utan pris räknas avgiften inte in i anskaffningsvärde eller likvid; skatteexporten markerar sådana försäljningar.</string>
+    <string name="portfolio_tx_third_fee_price">Pris per avgiftsmynt (valfritt)</string>
+    <string name="portfolio_tx_third_fee_toggle">Avgift i ett annat mynt</string>
+    <string name="portfolio_tx_total">Totalt: %1$s</string>
+    <string name="portfolio_tx_transfer">Överföring</string>
+    <string name="portfolio_tx_transfer_from">Från (valfritt)</string>
+    <string name="portfolio_tx_transfer_to">Till (valfritt)</string>
+    <string name="portfolio_tx_transfer_to_hint">Börs eller wallet – värderas där från och med nu.</string>
+    <string name="portfolio_tx_type_select">Typ: %1$s</string>
+    <string name="portfolio_tx_value_received">Värde per mynt vid mottagandet (valfritt)</string>
+    <string name="portfolio_tx_withdrawal">Uttag</string>
+    <string name="portfolio_tx_withdrawal_gift_hint">Gett bort eller betalat med? Registrera som ‹Gåva› eller ‹Betalat med› – beroende på land är det skattemässigt en försäljning.</string>
+    <string name="portfolio_tx_withdrawal_price_hint">Valfritt: marknadsvärde i USDT, används bara för historiken (tomt = dagens kurs). Mynten går alltid ut till sitt anskaffningsvärde.</string>
+    <string name="portfolio_wallet_did_you_mean">Menade du %1$s? En annan stavning räknas som en egen wallet.</string>
+    <string name="portfolio_wallet_shortfall">Innehavet i %1$s räcker inte – saknas en överföring?</string>
+
+    <!-- Portfolio: Wertverlauf (Zeitraum, Vergleich Währung | USDT, Währungseffekt) -->
+    <!-- Höchster Tageswert des Zeitraums am Punkt («Hoch 12’345») -->
+    <string name="portfolio_chart_high">Högsta %1$s</string>
+    <string name="portfolio_compare">Jämför</string>
+    <!-- Umschalter «Vergleich», Screenreader: %1$s Währung -->
+    <string name="portfolio_compare_a11y">Jämför %1$s och USDT i procent</string>
+    <!-- %1$s Zeitraum, %2$s Währung, %3$s und %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="portfolio_compare_chart_a11y">Jämförelse i procent, %1$s: %2$s %3$s, USDT %4$s</string>
+    <!-- %1$s Prozentpunkte mit Vorzeichen («−5.10%»): Veränderung in der Währung minus in USDT -->
+    <string name="portfolio_currency_effect">Valutaeffekt: %1$s</string>
+    <!-- «Seit 1. Kauf» beginnt frühestens beim ersten Tag mit Kursdaten -->
+    <string name="portfolio_history_capped_data_start">Kursdata går bara tillbaka till augusti 2017 — förloppet börjar där.</string>
+    <string name="portfolio_history_chip_since_first">Sedan köp</string>
+    <string name="portfolio_history_collapse">Dölj värdeutveckling</string>
+    <string name="portfolio_history_converted">Omräknat till dagens kurs</string>
+    <string name="portfolio_history_expand">Visa värdeutveckling</string>
+    <string name="portfolio_history_gain_a11y">Värde %1$s. Vinst/förlust, %2$s: %3$s</string>
+    <string name="portfolio_history_gain_label">Vinst/förlust</string>
+    <!-- Umschalter, Screenreader: %1$s Währung («CHF») oder «USDT» -->
+    <string name="portfolio_history_in_a11y">Värde i %1$s</string>
+    <string name="portfolio_history_incl_fx">Inkl. valutakurs</string>
+    <string name="portfolio_history_incl_withdrawn">Inkl. värdeförändring för uttagna mynt</string>
+    <string name="portfolio_history_includes_trades">Inkluderar köp och sälj under perioden</string>
+    <string name="portfolio_history_loading">Läser in värdeutveckling</string>
+    <string name="portfolio_history_period_1y">1 år</string>
+    <string name="portfolio_history_period_30d">30 dagar</string>
+    <string name="portfolio_history_period_7d">7 dagar</string>
+    <string name="portfolio_history_period_since_first">sedan första köpet</string>
+    <string name="portfolio_history_pnl_needs_prices">Köppriser saknas för vinst/förlust – lägg till dem i transaktionerna.</string>
+    <string name="portfolio_history_pnl_without">Vinst/förlust utan %1$s (pris saknas)</string>
+    <string name="portfolio_history_range_1y">1 Å</string>
+    <string name="portfolio_history_range_30d">30 D</string>
+    <string name="portfolio_history_range_7d">7 D</string>
+    <string name="portfolio_history_range_a11y">Visa utveckling för %1$s</string>
+    <string name="portfolio_history_range_since_first">Sedan 1:a köp</string>
+    <string name="portfolio_history_scaled">Historik för %1$s: Binance-historik skalad till börskursen</string>
+    <string name="portfolio_history_title">Värdeutveckling</string>
+    <string name="portfolio_history_today">I dag</string>
+    <string name="portfolio_history_too_short">Utvecklingen börjar efter din första hela dag.</string>
+    <string name="portfolio_history_unavailable">Ingen utveckling tillgänglig just nu.</string>
+    <string name="portfolio_history_utc_days">Dagar i UTC (dagliga ljus)</string>
+    <string name="portfolio_history_without_matching">Utan %1$s (inga matchande dagskurser)</string>
+    <string name="portfolio_period_rewards">Belöningar +%1$s (ingår inte i vinst)</string>
+    <string name="portfolio_period_scaled">7 D/1 Å för %1$s: Binance-historik skalad till börskursen</string>
+
+    <!-- Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_alarm_action">Larm</string>
+    <!-- %1$s = Währung, z. B. CHF -->
+    <string name="portfolio_alarm_amount">Belopp (%1$s)</string>
+    <string name="portfolio_alarm_hint">Kontrolleras efter varje uppdatering. Som larm: meddelar när gränsen passeras och först igen när värdet har gått tillbaka.</string>
+    <string name="portfolio_alarm_kind_above">Portfölj över belopp</string>
+    <string name="portfolio_alarm_kind_below">Portfölj under belopp</string>
+    <string name="portfolio_alarm_kind_down">Portfölj faller</string>
+    <string name="portfolio_alarm_kind_up">Portfölj stiger</string>
+    <!-- %1$s = Betrag mit Währung (oder •••) -->
+    <string name="portfolio_alarm_sentence_above">Portfölj över %1$s</string>
+    <string name="portfolio_alarm_sentence_below">Portfölj under %1$s</string>
+    <string name="portfolio_alarm_sentence_down">Portfölj faller %1$s (%2$s)</string>
+    <!-- %1$s = Prozent, %2$s = Basis der %-Änderung kurz (24h, heute …) -->
+    <string name="portfolio_alarm_sentence_up">Portfölj stiger %1$s (%2$s)</string>
+    <string name="portfolio_alarm_title">Larm ”portföljvärde”</string>
+
+    <!-- Gebühr, Börse und Gewinn/Verlust einer Position -->
+    <string name="ledger_exchange">Börs (valfritt)</string>
+    <string name="ledger_exchange_failed">%1$s: ingen kurs från %2$s just nu – värderat med Binance.</string>
+    <string name="ledger_exchange_hint">Myntet värderas till den här börsens kurs (annars Binance). Förlopp, 7 D och 1 Å: Binances dagskurser, skalade.</string>
+    <string name="ledger_exchange_mixed">%1$s: flera börser angivna – värderat med Binance. Flyttat mynt? Registrera flytten som «Överföring».</string>
+    <string name="ledger_exchange_none">Ingen (Binance)</string>
+    <string name="ledger_fee">Avgift (valfritt)</string>
+    <string name="ledger_fee_coin">Mynt</string>
+    <string name="ledger_fee_hint">I USDT höjer den anskaffningsvärdet (sälj: sänker likviden); i myntet minskar den mängden.</string>
+    <string name="ledger_fee_line">Avgift %1$s</string>
+    <string name="ledger_fifo_cost_note">Sedan köp: FIFO-kostnad inkl. avgifter (äldsta mynten säljs först).</string>
+    <string name="ledger_gain_info">I dag, 7 D, 1 Å: värdeförändring under perioden – köp och sälj räknas inte som vinst. Sedan köp: aktuellt värde minus anskaffningsvärde (genomsnittskostnad inkl. avgifter) för mynten du fortfarande har.</string>
+    <string name="ledger_gain_info_a11y">Så beräknas vinst och förlust</string>
+    <string name="ledger_gain_info_fifo">I dag, 7 D, 1 Å: värdeförändring under perioden – köp och sälj räknas inte som vinst. Sedan köp: aktuellt värde minus anskaffningsvärde (FIFO inkl. avgifter) för mynten du fortfarande har.</string>
+    <string name="ledger_gain_title">Vinst/förlust</string>
+    <string name="ledger_more_toggle">Avgift och börs</string>
+    <string name="ledger_partial_cost">«Sedan köp» räknar bara delen med köppris – utan %1$s utan köppris.</string>
+    <string name="ledger_period_without">I dag / 7 D / 1 Å utan %1$s – ingen passande startkurs.</string>
+    <string name="ledger_since_purchase_currency">Sedan köp (%1$s)</string>
+    <string name="ledger_since_purchase_spoken">Vinst/förlust sedan köp, ännu inte sålt</string>
+    <plurals name="ledger_without_cost">
+        <item quantity="one">Utan %1$d mynt utan köppris (%2$s) – lägg till priset så att det räknas.</item>
+        <item quantity="other">Utan %1$d mynt utan köppris (%2$s) – lägg till priserna så att de räknas.</item>
+    </plurals>
+</resources>

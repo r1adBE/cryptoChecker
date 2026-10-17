@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Begrüssung beim ersten Start -->
+    <string name="welcome_alert">Alertar – preço, percentagem, volume e movimentos invulgares</string>
+    <string name="welcome_alert_q">Quando avisar?</string>
+    <string name="welcome_text">Os seus preços. Os seus alarmes. A sua visão geral.\nSem conta. Sem anúncios. Sem rastreio.</string>
+    <string name="welcome_understand">Perceber – o que se está a mover com um preço agora</string>
+    <string name="welcome_understand_q">O que se mexe com ele?</string>
+    <string name="welcome_watch">Acompanhar – as suas moedas, preços e evolução</string>
+    <string name="welcome_watch_q">O que se passa?</string>
+
+    <!-- Start-Coins (Vorschlagsliste nach der Begrüssung) -->
+    <string name="starter_add_selected">Adicionar à lista de acompanhamento (%1$d)</string>
+    <string name="starter_loading_prices">A carregar preços…</string>
+    <string name="starter_search_coin">Pesquisar outra moeda</string>
+    <string name="starter_select_all">Selecionar tudo</string>
+    <string name="starter_select_none">Desmarcar tudo</string>
+    <string name="starter_text">Desmarque o que não quiser e adicione o resto de uma só vez. Pode alterar a exchange e o par mais tarde.</string>
+    <string name="starter_title">Comece com estas moedas</string>
+    <string name="starter_watch_alarm_hint">Acompanhe o preço, defina um alarme</string>
+</resources>

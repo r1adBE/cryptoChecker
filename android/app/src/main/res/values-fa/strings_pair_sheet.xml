@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Aktionsblatt: Kurs-Chart (Zeitraum, Kerzenwerte beim Ziehen, Umrechnung) und «Mehr» -->
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s Zeitraum kurz (widget_range_short_24h/7d/30d) -->
+    <string name="sheet_chart_change">%1$s در %2$s</string>
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s change_short_today(_zone) -->
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="sheet_chart_close">بسته شدن</string>
+    <string name="sheet_chart_converted_current">%1$s، تبدیل‌شده (نرخ فعلی)</string>
+    <!-- Zeile unter dem Chart, %1$s = umgerechnete Reihe («BTC/USDT») -->
+    <string name="sheet_chart_converted_daily">%1$s، تبدیل‌شده با نرخ‌های روزانه</string>
+    <!-- Keine Kerzen für das Paar -->
+    <string name="sheet_chart_no_data">داده‌ای از قیمت برای این جفت وجود ندارد</string>
+    <!-- Kerzenwerte beim Ziehen (Hoch/Tief: ticker_high/ticker_low) -->
+    <string name="sheet_chart_open">باز شدن</string>
+    <!-- Zeitraum-Chip statt «24h» bei Tages-Basis -->
+    <string name="sheet_chart_today">امروز</string>
+    <!-- Umsatz der Kerze beim Ziehen; %1$s z. B. «12.3M USDT» -->
+    <string name="sheet_chart_volume">حجم %1$s</string>
+    <string name="sheet_more">بیشتر</string>
+
+    <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
+    <string name="ticker_ask">فروش</string>
+    <string name="ticker_bid">خرید</string>
+    <string name="ticker_high">بیشترین</string>
+    <string name="ticker_low">کمترین</string>
+    <string name="ticker_timestamp">زمان</string>
+    <string name="ticker_vol_base">حجم (پایه)</string>
+    <string name="ticker_vol_quote">حجم (مظنه)</string>
+
+    <!-- Basis der %-Änderung (Prozent-Pille, Chart, Widgets) -->
+    <string name="change_basis_device">%1$s، 00:00 (منطقه زمانی دستگاه)</string>
+    <string name="change_basis_local">از 00:00 به وقت محلی</string>
+    <string name="change_basis_rolling">۲۴ ساعت گذشته</string>
+    <!-- Letzter gegen vorherigen Kurs des Paars; ausgeschrieben (Auswahl). Kurz neben Pille und Widgets: change_short_since_last -->
+    <string name="change_basis_since_last">از آخرین به‌روزرسانی</string>
+    <string name="change_basis_utc_zone">از 00:00 %1$s</string>
+    <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
+    <string name="change_candle_source">تغییر بر اساس شمع‌های %1$s</string>
+    <string name="change_short_since_last">آخرین به‌روزرسانی</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
+    <string name="change_short_today">امروز</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 einer gewählten Zeitzone; %1$s = Zeitzone (z. B. UTC) -->
+    <string name="change_short_today_zone">امروز %1$s</string>
+
+    <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
+    <string name="market_data_empty_error">هیچ داده‌ای از صرافی دریافت نشد.</string>
+    <string name="market_data_summary">ارزش بازار، کارمزد گس، داده‌های اقتصادی، تحلیل کوین</string>
+    <string name="market_data_tab_futures">فیوچرز</string>
+    <string name="market_data_title">داده‌های بازار</string>
+
+    <!-- Marktdaten Spot (Marktkapitalisierung, Angebot, Volumen) -->
+    <string name="spot_circulating">عرضه در گردش</string>
+    <string name="spot_fdv">FDV</string>
+    <string name="spot_market_cap">ارزش بازار</string>
+    <string name="spot_max_supply">حداکثر عرضه</string>
+    <string name="spot_no_data">داده اسپات برای این کوین وجود ندارد</string>
+    <string name="spot_source_updated">منبع: %1$s · تا %2$s</string>
+    <string name="spot_supply_of_max">%1$s از حداکثر عرضه در گردش</string>
+    <string name="spot_total_supply">عرضه کل</string>
+    <string name="spot_vol_mcap">حجم/ارزش</string>
+    <string name="spot_volume_24h">حجم (۲۴ ساعت)</string>
+
+    <!-- Futures-Kennzahlen (Funding, Open Interest, Referenzbörse) -->
+    <string name="futures_alarm_reference">مقدار راهنما %1$s</string>
+    <string name="futures_funding">نرخ تأمین مالی</string>
+    <string name="futures_funding_interval_unknown">بازه نامعلوم</string>
+    <string name="futures_funding_per8h_equiv">= %1$s در ۸ ساعت (مانند هشدارها)</string>
+    <!-- Einheit neben der Funding-Pille, wenn die Börse stündlich abrechnet (Hyperliquid) -->
+    <string name="futures_funding_per_hour">در ساعت</string>
+    <string name="futures_funding_per_hours">در %1$d ساعت</string>
+    <string name="futures_next_funding">بعدی در %1$d ساعت %2$d دقیقه</string>
+    <string name="futures_no_data">داده فیوچرز برای این کوین وجود ندارد</string>
+    <string name="futures_open_interest">موقعیت‌های باز</string>
+    <!-- Futures-Kennzahlen von einer anderen Börse als der beobachteten (Richtwert) -->
+    <string name="futures_reference_hint">مقدار راهنما از %1$s – نرخ تأمین مالی و قراردادهای باز در هر صرافی متفاوت است و در %2$s ممکن است فرق کند.</string>
+    <string name="futures_reference_spot">مقدار راهنما از %1$s (قرارداد دائمی USDT این کوین)</string>
+    <string name="futures_source">منبع: %1$s</string>
+
+    <!-- Erklärungen hinter dem ⓘ-Knopf -->
+    <string name="explain_funding">بسیاری با پول قرضی روی بالا یا پایین رفتن قیمت شرط می‌بندند. کارمزدی بین موقعیت‌های لانگ و شورت. مثبتِ زیاد یعنی بسیاری روی افزایش قیمت شرط بسته‌اند.</string>
+    <string name="explain_open_interest">قراردادهای آتی شرط‌بندی روی قیمت‌اند، اغلب با پول قرضی. ارزش همه موقعیت‌های باز فیوچرز. اگر بالا برود، پول بیشتری روی این حرکت شرط بسته شده است.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">توضیح</string>
+    <string name="explain_spot_fdv">ارزش‌گذاری کاملاً رقیق‌شده: قیمت × حداکثر عرضه (یا عرضه کل اگر سقفی نباشد).</string>
+    <string name="explain_spot_market_cap">قیمت × عرضه در گردش. برچسب تغییر ۲۴ ساعته را نشان می‌دهد.</string>
+    <string name="explain_spot_source">ارقام همه صرافی‌ها به دلار آمریکا، از CoinGecko.</string>
+    <string name="explain_spot_supply">در گردش: کوین‌هایی که اکنون در بازارند. کل: همه کوین‌های ساخته‌شده منهای سوزانده‌شده‌ها. حداکثر: بیشترین مقداری که می‌تواند وجود داشته باشد.</string>
+    <string name="explain_spot_volume">ارزش معامله‌شده در ۲۴ ساعت. حجم/ارزش: حجم نسبت به ارزش بازار — بالا یعنی معاملات بسیار فعال.</string>
+
+    <!-- Umrechnung und Sats -->
+    <string name="converted_fx_stale">%1$s · نرخ %2$s</string>
+    <string name="sats_per_unit">%1$s %2$s = %3$s ساتوشی</string>
+</resources>

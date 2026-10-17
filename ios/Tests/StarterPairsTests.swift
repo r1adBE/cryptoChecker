@@ -1,0 +1,74 @@
+import XCTest
+@testable import CryptoChecker
+
+/// Wie `StarterPairsTest.kt`: Binance überall ausser den USA (auch CH/LI), in den USA Binance.US — beide …/USDT.
+final class StarterPairsTests: XCTestCase {
+
+    func testMarketPerRegion() {
+        XCTAssertEqual(StarterPairs.marketKey("CH"), "Binance")
+        XCTAssertEqual(StarterPairs.marketKey(" li "), "Binance")
+        XCTAssertEqual(StarterPairs.marketKey("us"), "BinanceUs")
+        XCTAssertEqual(StarterPairs.marketKey("DE"), "Binance")
+        XCTAssertEqual(StarterPairs.marketKey(nil), "Binance")
+        XCTAssertEqual(StarterPairs.startQuote("CH"), "USDT")
+        XCTAssertEqual(StarterPairs.startQuote("US"), "USDT")
+        XCTAssertEqual(StarterPairs.startQuote(nil), "USDT")
+    }
+
+    func testBinanceAndBinanceUs() {
+        let binance = StarterPairs.pair(for: "btc", region: "CH")
+        XCTAssertEqual(binance.marketKey, "Binance")
+        XCTAssertEqual(binance.pair.quote, "USDT")
+        XCTAssertEqual(binance.pair.pairId, "BTCUSDT")
+        let us = StarterPairs.pair(for: "SOL", region: "US")
+        XCTAssertEqual(us.marketKey, "BinanceUs")
+        XCTAssertEqual(us.pair.pairId, "SOLUSDT")
+    }
+
+    /// Review 13: Binance sperrt den Standort (451/403) → Startpaare auf Binance.US, wie `StarterPairsTest.kt`.
+    func testGeoBlockSwitchesToBinanceUs() {
+        XCTAssertTrue(StarterPairs.isGeoBlocked(httpCode: 451))
+        XCTAssertTrue(StarterPairs.isGeoBlocked(httpCode: 403))
+        XCTAssertFalse(StarterPairs.isGeoBlocked(httpCode: 429))
+        XCTAssertFalse(StarterPairs.isGeoBlocked(httpCode: nil))
+        XCTAssertEqual(StarterPairs.effectiveRegion("CH", binanceBlocked: true), "US")
+        XCTAssertEqual(StarterPairs.effectiveRegion(nil, binanceBlocked: true), "US")
+        XCTAssertEqual(StarterPairs.effectiveRegion("CH", binanceBlocked: false), "CH")
+        XCTAssertEqual(StarterPairs.effectiveRegion("US", binanceBlocked: true), "US")
+        let blocked = StarterPairs.pair(for: "btc", region: StarterPairs.effectiveRegion("DE", binanceBlocked: true))
+        XCTAssertEqual(blocked.marketKey, "BinanceUs")
+        XCTAssertEqual(blocked.pair.pairId, "BTCUSDT")
+        XCTAssertEqual(StarterCoins.fallback(marketKey: StarterPairs.marketKey(
+            StarterPairs.effectiveRegion("CH", binanceBlocked: true))).map(\.symbol), ["BTC", "ETH", "BNB", "SOL", "DOGE"])
+        XCTAssertFalse(StarterPairs.shouldProbe(deviceRegion: "us"))
+        XCTAssertTrue(StarterPairs.shouldProbe(deviceRegion: "CH"))
+    }
+
+    func testBlockedAfterProbe() {
+        XCTAssertTrue(StarterPairs.blockedAfterProbe(previous: false, httpCode: 451))
+        XCTAssertTrue(StarterPairs.blockedAfterProbe(previous: false, httpCode: 403))
+        XCTAssertFalse(StarterPairs.blockedAfterProbe(previous: true, httpCode: 200))
+        // Kein Netz oder anderer Fehler: Stand bleibt
+        XCTAssertTrue(StarterPairs.blockedAfterProbe(previous: true, httpCode: nil))
+        XCTAssertFalse(StarterPairs.blockedAfterProbe(previous: false, httpCode: nil))
+        XCTAssertTrue(StarterPairs.blockedAfterProbe(previous: true, httpCode: 500))
+        XCTAssertFalse(StarterPairs.blockedAfterProbe(previous: false, httpCode: 429))
+    }
+
+    func testFallbackCoins() {
+        XCTAssertEqual(StarterCoins.fallback(marketKey: "Binance").map(\.symbol), ["BTC", "ETH", "XRP", "BNB", "SOL"])
+        // Binance.US: ohne XRP
+        XCTAssertEqual(StarterCoins.fallback(marketKey: "BinanceUs").map(\.symbol), ["BTC", "ETH", "BNB", "SOL", "DOGE"])
+    }
+
+    func testParseBinance24h() throws {
+        let text = """
+        [{"symbol":"BTCUSDT","lastPrice":"81000.50","priceChangePercent":"1.25"},\
+        {"symbol":"SOLUSDT","lastPrice":"150.25"},{"symbol":"ETHBTC","lastPrice":"0.05"}]
+        """
+        let prices = try StarterPriceSource.parseBinance24h(text)
+        XCTAssertEqual(prices["BTC"], StarterPrice(price: 81000.5, change: 1.25))
+        XCTAssertEqual(prices["SOL"], StarterPrice(price: 150.25, change: nil))
+        XCTAssertNil(prices["ETH"])
+    }
+}

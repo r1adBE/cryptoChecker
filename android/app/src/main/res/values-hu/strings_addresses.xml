@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: beobachtete Adressen (Wallets) -->
+    <string name="portfolio_address_add">Cím hozzáadása</string>
+    <string name="portfolio_address_count">Beszámítás</string>
+    <string name="portfolio_address_error">A frissítés nem sikerült</string>
+    <string name="portfolio_address_hint">Nyilvános cím (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) vagy xpub</string>
+    <string name="portfolio_address_label">Címke (nem kötelező)</string>
+    <string name="portfolio_address_not_since_buy">Címről · nincs benne a «Vétel óta» értékben: %1$s</string>
+    <string name="portfolio_address_overlap">A saját tranzakcióidban is: %1$s – mindkettő összeadódik. Ugyanazok a coinok? Válaszd ezt: «Csak megjelenítés».</string>
+    <string name="portfolio_address_overlap_ask">A(z) %1$s eszközt már saját tranzakciókkal rögzíted. Beszámítsuk ennek a címnek az egyenlegét a portfólióba, vagy csak jelenítsük meg?</string>
+    <string name="portfolio_address_overlap_auto">«%1$s» mostantól csak megjelenik, nem számít bele – %2$s a tranzakcióidban is szerepelnek.</string>
+    <string name="portfolio_address_overlap_restored">«%1$s» ismét beszámít – a mennyiségek nem egyeznek a tranzakcióiddal. Válaszd ezt: «Csak megjelenítés», ha ugyanazokról a coinokról van szó.</string>
+    <string name="portfolio_address_overlap_title">Ugyanazok a coinok, mint a tranzakcióidban?</string>
+    <string name="portfolio_address_overlap_tx">Ugyanannyi, mint a saját befizetésed/átvezetésed (%1$s) – valószínűleg kétszer számít.</string>
+    <string name="portfolio_address_period_observed">A figyelt címek az első észlelt egyenlegtől számítanak; a későbbi változások be- és kiáramlások, nem nyereség.</string>
+    <string name="portfolio_address_privacy">Csak a nyilvános cím kerül elküldésre ide: %1$s – soha kulcs vagy seed-szavak. A szolgáltató az IP-címeddel együtt látja. Legfeljebb 10 percenként lekérdezve.</string>
+    <string name="portfolio_address_remove">Cím eltávolítása</string>
+    <string name="portfolio_address_show_only">Csak megjelenítés, nem számít a portfólióba</string>
+    <string name="portfolio_address_show_only_short">Csak megjelenítés</string>
+    <string name="portfolio_address_tokens">Tokenek beszámítása</string>
+    <string name="portfolio_address_unknown_tokens">+%1$d ismeretlen token (nem számítva)</string>
+    <string name="portfolio_address_xpub_privacy">Az xpub felfedi ennek a tárcának az összes címét. Ezeket a készüléked származtatja; ide: %1$s csak egyes címek kerülnek – az első keresésnél legalább 40 lekérés, később kevesebb. Privát kulcsot (xprv) sosem fogadunk el.</string>
+    <string name="portfolio_address_xpub_used">Használt címek: %1$d</string>
+    <string name="portfolio_addresses_title">Címek</string>
+
+    <!-- Prüfung einer eingegebenen Adresse -->
+    <string name="address_bch_unsupported">A Bitcoin Cash-címek nem figyelhetők: nincs olyan ingyenes nyilvános szolgáltatás API-kulcs nélkül, amelynek feltételei ezt megengednék.</string>
+    <string name="address_bep2_shutdown">A BNB Beacon Chain (BEP-2) 2024-ben leállt – az egyenlegek most a BNB Smart Chainen vannak (0x…)</string>
+    <string name="address_checksum">Hibás ellenőrzőösszeg – elírás?</string>
+    <string name="address_doge_unsupported">A Dogecoin-címek nem figyelhetők: nincs olyan ingyenes nyilvános szolgáltatás API-kulcs nélkül, amelynek feltételei ezt megengednék.</string>
+    <string name="address_duplicate">Ez a cím már hozzá van adva</string>
+    <string name="address_ens">Az ENS-nevek nem támogatottak – add meg a 0x-címet</string>
+    <string name="address_invalid">Nem egy támogatott hálózat érvényes címe</string>
+    <string name="address_limit">Legfeljebb 20 cím</string>
+    <string name="address_secret">Ez privát kulcsnak vagy seed-szavaknak tűnik – soha sehol ne add meg. Csak nyilvános címeket.</string>
+    <string name="address_testnet">A Testnet-címek nem támogatottak</string>
+    <string name="address_unsupported">Ez a címtípus nem támogatott</string>
+    <string name="address_wrong_chain">A cím egy másik hálózathoz tartozik</string>
+    <string name="address_xpub_multisig">A multisig kulcsok (Ypub/Zpub) nem támogatottak</string>
+</resources>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: beobachtete Adressen (Wallets) -->
+    <string name="portfolio_address_add">הוספת כתובת</string>
+    <string name="portfolio_address_count">לספור</string>
+    <string name="portfolio_address_error">העדכון נכשל</string>
+    <string name="portfolio_address_hint">כתובת ציבורית (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) או xpub</string>
+    <string name="portfolio_address_label">תווית (רשות)</string>
+    <string name="portfolio_address_not_since_buy">מכתובת · לא נכלל ב«מאז הקנייה»: %1$s</string>
+    <string name="portfolio_address_overlap">מופיע גם בעסקאות שלך: %1$s – שניהם מתווספים. אותם מטבעות? בחר «הצג בלבד».</string>
+    <string name="portfolio_address_overlap_ask">אתה כבר מתעד את %1$s בעסקאות שלך. להוסיף את היתרה של הכתובת הזו לתיק או רק להציג אותה?</string>
+    <string name="portfolio_address_overlap_auto">«%1$s» מוצג עכשיו בלבד ולא נספר – %2$s מופיעים גם בעסקאות שלך.</string>
+    <string name="portfolio_address_overlap_restored">«%1$s» נספר שוב – הכמויות לא תואמות לעסקאות שלך. בחר «הצג בלבד» אם אלה אותם מטבעות.</string>
+    <string name="portfolio_address_overlap_title">אותם מטבעות כמו בעסקאות שלך?</string>
+    <string name="portfolio_address_overlap_tx">אותה כמות כמו ההפקדה/ההעברה שלך (%1$s) – כנראה נספרת פעמיים.</string>
+    <string name="portfolio_address_period_observed">כתובות במעקב נספרות מהיתרה הראשונה שנצפתה; שינויים מאוחרים יותר הם כניסות/יציאות, לא רווח.</string>
+    <string name="portfolio_address_privacy">רק הכתובת הציבורית נשלחת אל %1$s – אף פעם לא מפתחות או seed phrase. הספק רואה אותה יחד עם כתובת ה-IP שלך. נבדק לכל היותר כל 10 דקות.</string>
+    <string name="portfolio_address_remove">הסרת כתובת</string>
+    <string name="portfolio_address_show_only">הצג בלבד, בלי להוסיף לתיק</string>
+    <string name="portfolio_address_show_only_short">הצג בלבד</string>
+    <string name="portfolio_address_tokens">לספור טוקנים</string>
+    <string name="portfolio_address_unknown_tokens">+%1$d טוקנים לא מוכרים (לא נספרו)</string>
+    <string name="portfolio_address_xpub_privacy">xpub חושף את כל הכתובות של הארנק הזה. הן נגזרות במכשיר שלך; אל %1$s נשלחות רק כתובות בודדות – בסריקה הראשונה לפחות 40 בקשות, אחר כך פחות. מפתחות פרטיים (xprv) לעולם לא מתקבלים.</string>
+    <string name="portfolio_address_xpub_used">כתובות בשימוש: %1$d</string>
+    <string name="portfolio_addresses_title">כתובות</string>
+
+    <!-- Prüfung einer eingegebenen Adresse -->
+    <string name="address_bch_unsupported">אי אפשר לעקוב אחרי כתובות Bitcoin Cash: אין שירות ציבורי חינמי ללא מפתח API שהתנאים שלו מאפשרים זאת.</string>
+    <string name="address_bep2_shutdown">BNB Beacon Chain (BEP-2) הושבתה ב-2024 – היתרות נמצאות עכשיו ב-BNB Smart Chain (0x…)</string>
+    <string name="address_checksum">סכום ביקורת שגוי – שגיאת הקלדה?</string>
+    <string name="address_doge_unsupported">אי אפשר לעקוב אחרי כתובות Dogecoin: אין שירות ציבורי חינמי ללא מפתח API שהתנאים שלו מאפשרים זאת.</string>
+    <string name="address_duplicate">הכתובת הזו כבר נוספה</string>
+    <string name="address_ens">שמות ENS אינם נתמכים – הזן את כתובת ה-0x</string>
+    <string name="address_invalid">לא כתובת תקינה של רשת נתמכת</string>
+    <string name="address_limit">לכל היותר 20 כתובות</string>
+    <string name="address_secret">זה נראה כמו מפתח פרטי או seed phrase – אל תזין את זה בשום מקום. רק כתובות ציבוריות.</string>
+    <string name="address_testnet">כתובות Testnet אינן נתמכות</string>
+    <string name="address_unsupported">סוג כתובת זה אינו נתמך</string>
+    <string name="address_wrong_chain">הכתובת שייכת לרשת אחרת</string>
+    <string name="address_xpub_multisig">מפתחות multisig (Ypub/Zpub) אינם נתמכים</string>
+</resources>

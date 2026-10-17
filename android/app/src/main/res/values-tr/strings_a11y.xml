@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Screenreader: Zeile eines Paars, Frische, Erreichbarkeit -->
+    <string name="a11y_alarm_count">alarmlar: %1$d</string>
+    <!-- Alarm des Paars eben ausgelöst (bis 15 Min. danach im Zeilensatz) -->
+    <string name="a11y_alarm_fired">Alarm tetiklendi</string>
+    <string name="a11y_collapsed">Daraltıldı</string>
+    <string name="a11y_converted">yaklaşık %1$s</string>
+    <string name="a11y_expanded">Genişletildi</string>
+    <!-- Vorgelesen bei Zeilen, die eine Website öffnen (Datenschutz, Börse wünschen, Quellcode) -->
+    <string name="a11y_external_link">tarayıcıda açılır</string>
+    <string name="a11y_favorite">Favori</string>
+    <string name="a11y_in_watchlist">Zaten izleme listesinde</string>
+    <!-- %1$s Börse, letzte Abfrage gescheitert -->
+    <string name="a11y_market_unreachable">%1$s erişilemiyor</string>
+    <string name="a11y_move_down">Aşağı taşı</string>
+    <string name="a11y_move_up">Yukarı taşı</string>
+    <string name="a11y_note">not: %1$s</string>
+    <string name="a11y_price">fiyat %1$s</string>
+    <string name="a11y_price_notification_off">Fiyat bildirimi kapalı</string>
+    <string name="a11y_price_notification_on">Fiyat bildirimi açık</string>
+    <!-- Frische einer Zeile, Teile mit «, » verbunden: «Kurs veraltet, zuletzt aktualisiert vor 45 Minuten» (A11ySpeech.freshnessText) -->
+    <string name="a11y_price_outdated">Fiyat güncel değil</string>
+    <!-- Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%1$s, borsa: %2$s</string>
+    <string name="a11y_stale">güncel değil, son güncelleme %1$s</string>
+    <string name="a11y_warning">Uyarı</string>
+
+    <!-- Screenreader: Veränderung (Prozent-Pille, Widgets) -->
+    <!-- %1$s Satz aus a11y_change_up/down/flat: Veränderung über 24 Stunden (Prozent-Pille, Widgets) -->
+    <string name="a11y_change_24h">24 saatte %1$s</string>
+    <!-- Wenn die Pille «—» zeigt (keine Kerzen für das Paar) -->
+    <string name="a11y_change_24h_none">24 saatlik değişim mevcut değil</string>
+    <string name="a11y_change_down">%1$s düşüş</string>
+    <string name="a11y_change_flat">değişmedi</string>
+    <string name="a11y_change_since_last">son güncellemeden beri %1$s</string>
+    <string name="a11y_change_since_last_none">Son güncellemeden beri değişim mevcut değil</string>
+    <!-- %1$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_change_today">bugün %1$s</string>
+    <string name="a11y_change_today_none">Bugünkü değişim mevcut değil</string>
+    <string name="a11y_change_today_zone">%2$s gece yarısından beri %1$s</string>
+    <string name="a11y_change_today_zone_none">%1$s gece yarısından beri değişim mevcut değil</string>
+    <string name="a11y_change_up">%1$s yükseliş</string>
+
+    <!-- Screenreader: Charts und Skalen -->
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">Grafik %1$s: başlangıç %2$s, bitiş %3$s, %4$s. En yüksek %5$s, en düşük %6$s.</string>
+    <string name="a11y_chart_empty">Grafik: veri yok</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">Döngü %1$s: yarılanmadan bu yana %2$s, %3$d. gün.</string>
+    <string name="a11y_cycle_bottom">%2$d. günde dip %1$s.</string>
+    <string name="a11y_cycle_double_bottom">%2$d. günde ikili dip %1$s.</string>
+    <string name="a11y_cycle_double_top">%2$d. günde ikili zirve %1$s.</string>
+    <string name="a11y_cycle_top">%2$d. günde zirve %1$s.</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">%1$s ile %2$s arası ölçek: 100 üzerinden %3$d</string>
+
+    <!-- Screenreader: Puls-Zeile der Merkliste -->
+    <string name="a11y_watchlist_pulse">%1$s, %2$s, ortalama %3$s</string>
+    <string name="a11y_watchlist_pulse_combined">%1$s. %2$s</string>
+    <plurals name="a11y_watchlist_pulse_falling">
+        <item quantity="one">%1$d düşüyor</item>
+        <item quantity="other">%1$d düşüyor</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing">
+        <item quantity="one">%1$d çiftin 24 saatlik değeri yok</item>
+        <item quantity="other">%1$d çiftin 24 saatlik değeri yok</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="one">%1$d çiftin bugün için değeri yok</item>
+        <item quantity="other">%1$d çiftin bugün için değeri yok</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_rising">
+        <item quantity="one">%1$d çift yükseliyor</item>
+        <item quantity="other">%1$d çift yükseliyor</item>
+    </plurals>
+
+    <!-- Screenreader: zuletzt aktualisiert -->
+    <plurals name="a11y_updated_days">
+        <item quantity="one">son güncelleme %1$d gün önce</item>
+        <item quantity="other">son güncelleme %1$d gün önce</item>
+    </plurals>
+    <plurals name="a11y_updated_hours">
+        <item quantity="one">son güncelleme %1$d saat önce</item>
+        <item quantity="other">son güncelleme %1$d saat önce</item>
+    </plurals>
+    <string name="a11y_updated_just_now">son güncelleme az önce</string>
+    <plurals name="a11y_updated_minutes">
+        <item quantity="one">son güncelleme %1$d dakika önce</item>
+        <item quantity="other">son güncelleme %1$d dakika önce</item>
+    </plurals>
+
+    <!-- Screenreader: Portfolio und Portfolio-Widget -->
+    <string name="a11y_amount_hidden">tutar gizli</string>
+    <!-- %1$s Kürzel, %2$s Wert mit Währung, %3$s Anteil «62.3%», %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_portfolio_position">%1$s %2$s, portföyün %3$s kadarı</string>
+    <!-- Position im Portfolio-Widget: %1$s Kürzel, %2$s Anteil «62.3%», %3$s Satz aus a11y_change_24h -->
+    <string name="a11y_portfolio_position_24h">%1$s, portföyün %2$s kadarı, %3$s</string>
+    <string name="a11y_portfolio_positions">En büyük pozisyonlar: %1$s</string>
+    <string name="a11y_portfolio_show_amounts">Tutarları göster</string>
+</resources>

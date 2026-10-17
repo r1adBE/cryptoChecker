@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">Prapa</string>
+    <string name="action_cancel">Anulo</string>
+    <string name="action_clear">Pastro</string>
+    <string name="action_close">Mbyll</string>
+    <string name="action_delete">Fshi</string>
+    <string name="action_edit">Ndrysho</string>
+    <string name="action_more">Më shumë opsione</string>
+    <string name="action_refresh">Rifresko</string>
+    <string name="action_retry">Riprovo</string>
+    <string name="action_save">Ruaj</string>
+    <string name="action_sort">Rendit</string>
+    <string name="action_sort_done">U krye</string>
+    <string name="action_undo">Zhbëj</string>
+    <string name="action_view">Shiko</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">Tregu</string>
+    <string name="tab_portfolio">Portofoli</string>
+    <string name="tab_settings">Cilësimet</string>
+    <string name="tab_watchlist">Lista</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">Gabim: %1$s</string>
+    <string name="error_market_unreachable">Bursa nuk arrihet tani – çmimet e fundit mbeten të dukshme.</string>
+    <string name="error_market_unreachable_short">Bursa nuk arrihet tani</string>
+    <string name="loading_hint">Po ngarkohet…</string>
+    <string name="no_internet_connection">Nuk ka lidhje interneti</string>
+    <string name="option_off">Joaktiv</string>
+    <string name="something_went_wrong">Diçka shkoi keq</string>
+    <string name="time_just_now">tani</string>
+    <string name="timeout_error_message">Bursa nuk po përgjigjet tani.</string>
+    <string name="try_again">Provo përsëri</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">Pa lidhje</string>
+    <string name="offline_status_since">Pa lidhje · gjendja %1$s</string>
+    <string name="status_live">Live</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">Shto çift</string>
+    <string name="shortcut_alarms">Të gjitha alarmet</string>
+    <string name="shortcut_cycle">Tregu</string>
+</resources>

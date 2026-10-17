@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">חזרה</string>
+    <string name="action_cancel">ביטול</string>
+    <string name="action_clear">ניקוי</string>
+    <string name="action_close">סגור</string>
+    <string name="action_delete">מחק</string>
+    <string name="action_edit">ערוך</string>
+    <string name="action_more">אפשרויות נוספות</string>
+    <string name="action_refresh">רענון</string>
+    <string name="action_retry">נסה שוב</string>
+    <string name="action_save">שמור</string>
+    <string name="action_sort">מיון</string>
+    <string name="action_sort_done">סיום</string>
+    <string name="action_undo">ביטול</string>
+    <string name="action_view">הצגה</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">שוק</string>
+    <string name="tab_portfolio">תיק השקעות</string>
+    <string name="tab_settings">הגדרות</string>
+    <string name="tab_watchlist">רשימה</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">שגיאה: %1$s</string>
+    <string name="error_market_unreachable">הבורסה לא זמינה כרגע – המחירים האחרונים נשארים מוצגים.</string>
+    <string name="error_market_unreachable_short">הבורסה לא זמינה כרגע</string>
+    <string name="loading_hint">טוען…</string>
+    <string name="no_internet_connection">אין חיבור לאינטרנט</string>
+    <string name="option_off">כבוי</string>
+    <string name="something_went_wrong">משהו השתבש</string>
+    <string name="time_just_now">הרגע</string>
+    <string name="timeout_error_message">הבורסה לא מגיבה כרגע.</string>
+    <string name="try_again">נסה שוב</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">אין חיבור</string>
+    <string name="offline_status_since">אין חיבור · עדכון אחרון %1$s</string>
+    <string name="status_live">חי</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">הוספת צמד</string>
+    <string name="shortcut_alarms">כל ההתראות</string>
+    <string name="shortcut_cycle">שוק</string>
+</resources>

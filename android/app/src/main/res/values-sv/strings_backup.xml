@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Sicherung exportieren und wiederherstellen -->
+    <string name="backup_export">Exportera</string>
+    <string name="backup_exported">Säkerhetskopia sparad.</string>
+    <string name="backup_failed">Det gick inte. Är det en säkerhetskopia från Crypto Checker?</string>
+    <string name="backup_hint">Sparar lista med anteckningar och grupper, larm, favoriter, portfölj och inställningar i en fil du själv sparar – t.ex. för en ny telefon.</string>
+    <string name="backup_import">Importera</string>
+    <string name="backup_title">Säkerhetskopiering</string>
+    <string name="backup_too_large">Filen är för stor eller inte en giltig säkerhetskopia (högst 16 MB).</string>
+
+    <!-- Passwort der Sicherungsdatei -->
+    <string name="backup_password">Lösenord</string>
+    <string name="backup_password_continue">Fortsätt</string>
+    <string name="backup_password_hide">Dölj lösenord</string>
+    <!-- %1$d = Mindestlänge des Passworts (8) -->
+    <string name="backup_password_min">Minst %1$d tecken</string>
+    <string name="backup_password_mismatch">Lösenorden stämmer inte överens</string>
+    <string name="backup_password_prompt">Ange lösenordet för den här säkerhetskopian.</string>
+    <string name="backup_password_repeat">Upprepa lösenord</string>
+    <string name="backup_password_show">Visa lösenord</string>
+    <string name="backup_password_title">Lösenordsskyddad säkerhetskopia</string>
+    <string name="backup_password_too_weak">För lätt att gissa – inte bara siffror, inte ett upprepat tecken, ingen vanlig följd som «12345678» eller «lösenord».</string>
+    <string name="backup_password_warning">Utan lösenordet kan säkerhetskopian inte återställas.</string>
+    <string name="backup_password_wrong">Fel lösenord, eller så är filen skadad. Försök igen.</string>
+    <string name="backup_protect">Skydda med lösenord</string>
+    <string name="backup_protect_hint">Krypterar filen (AES-256). Rekommenderas om den innehåller portföljdata.</string>
+
+    <!-- Sicherung ohne Passwort, Wiederherstellen -->
+    <string name="backup_plain_confirm">Spara utan lösenord</string>
+    <string name="backup_plain_confirm_text">Filen är inte krypterad. Den som får den kan läsa:</string>
+    <string name="backup_plain_confirm_title">Spara utan lösenord?</string>
+    <string name="backup_plain_contents_addresses">Sparade wallet-adresser</string>
+    <string name="backup_plain_contents_base">Bevakningslista med anteckningar och grupper, larm, favoriter och inställningar</string>
+    <string name="backup_plain_contents_portfolio">Portfölj: transaktioner med mängder och priser</string>
+    <string name="backup_restore_app_lock_kept">Portföljlåset förblir på – en okrypterad säkerhetskopia kan inte stänga av det.</string>
+    <string name="backup_restore_confirm">Import ersätter din lista (med anteckningar och grupper), larm, favoriter, portfölj och inställningar med säkerhetskopian.</string>
+    <plurals name="backup_restore_invalid">
+        <item quantity="one">%d post i säkerhetskopian (portfölj eller larm) är ogiltig och importeras inte.</item>
+        <item quantity="other">%d poster i säkerhetskopian (portfölj eller larm) är ogiltiga och importeras inte.</item>
+    </plurals>
+    <string name="backup_restore_newer_version">Den här säkerhetskopian är från en nyare appversion – uppdatera appen först. Inget importerades.</string>
+    <string name="backup_restore_unencrypted_warning">Den här säkerhetskopian är inte krypterad – kontrollera att den kommer från dig. Inställningar tas över; ett påslaget portföljlås förblir på.</string>
+    <string name="backup_restored">Återställt: %1$s, %2$s.</string>
+    <plurals name="backup_restored_alarms">
+        <item quantity="one">%1$d larm</item>
+        <item quantity="other">%1$d larm</item>
+    </plurals>
+    <plurals name="backup_restored_pairs">
+        <item quantity="one">%1$d par</item>
+        <item quantity="other">%1$d par</item>
+    </plurals>
+
+    <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
+    <string name="storage_recovery_message">Den här enheten saknar nyckeln till appens krypterade data, så appen startade tom. Inget har raderats. Få tillbaka din lista och portfölj genom att importera en säkerhetskopia under «%1$s» i inställningarna.</string>
+    <string name="storage_recovery_title">Sparade data kunde inte låsas upp</string>
+</resources>

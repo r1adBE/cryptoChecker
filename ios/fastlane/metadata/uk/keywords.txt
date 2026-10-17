@@ -1,0 +1,1 @@
+bitcoin,btc,портфель,сигнал,altcoin,dex,ticker,eth,ethereum,widget

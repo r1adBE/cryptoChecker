@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: leere Ansicht, Statuszeile, Frische -->
+    <string name="watchlist_all_fresh">עדכני · %1$s</string>
+    <string name="watchlist_empty_title">אין עדיין צמדים</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="one">%1$d מתוך %2$d ללא מחיר</item>
+        <item quantity="two">%1$d מתוך %2$d ללא מחיר</item>
+        <item quantity="other">%1$d מתוך %2$d ללא מחיר</item>
+    </plurals>
+    <string name="watchlist_last_run">ריצה אחרונה %1$s</string>
+    <string name="watchlist_live_a11y">מחירים חיים פעילים</string>
+    <string name="watchlist_live_badge">LIVE</string>
+    <string name="watchlist_offline_since">אין חיבור · עדכון אחרון %1$s</string>
+    <string name="watchlist_pull_to_refresh">משכו למטה לרענון</string>
+    <string name="watchlist_refresh_report">רענון אחרון</string>
+    <string name="watchlist_refresh_report_empty">אין עדיין פירוט: טרם בוצע רענון מלא. הקישו על רענון והמתינו עד שסמל הטעינה ייעצר.</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="one">%1$d מתוך %2$d לא עדכני</item>
+        <item quantity="two">%1$d מתוך %2$d לא עדכניים</item>
+        <item quantity="other">%1$d מתוך %2$d לא עדכניים</item>
+    </plurals>
+    <string name="watchlist_status_all_disabled">כל הצמדים כאן מושבתים</string>
+    <string name="watchlist_status_exchange_prices">מחירים מהבורסות שלך · %1$s</string>
+    <string name="watchlist_status_exchange_prices_short">מחירי בורסה · %1$s</string>
+    <string name="watchlist_status_group_empty">אין צמדים בקבוצה הזו</string>
+    <string name="watchlist_status_none_traded">אין כאן צמדים נסחרים</string>
+    <string name="watchlist_updated">עודכן: %1$s</string>
+
+    <!-- Merkliste: Puls-Zeile (Paare im Plus/Minus, ohne 24-h-Wert) -->
+    <string name="watchlist_pulse_avg">Ø %1$s</string>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="one">%1$d יורד</item>
+        <item quantity="two">%1$d יורדים</item>
+        <item quantity="other">%1$d יורדים</item>
+    </plurals>
+    <!-- Paare mit Kurs, aber ohne 24-h-Wert («· 510 ohne 24h-Wert») -->
+    <plurals name="watchlist_pulse_missing">
+        <item quantity="one">%1$d ללא ערך 24 ש׳</item>
+        <item quantity="two">%1$d ללא ערך 24 ש׳</item>
+        <item quantity="other">%1$d ללא ערך 24 ש׳</item>
+    </plurals>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="one">%1$d ללא ערך היום</item>
+        <item quantity="two">%1$d ללא ערך היום</item>
+        <item quantity="other">%1$d ללא ערך היום</item>
+    </plurals>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="one">%1$d עולה</item>
+        <item quantity="two">%1$d עולים</item>
+        <item quantity="other">%1$d עולים</item>
+    </plurals>
+
+    <!-- Merkliste: Zeile eines Paars -->
+    <string name="watchlist_row_disabled">%1$s · מושבת</string>
+    <string name="watchlist_row_outdated">%1$s · לא עדכני</string>
+    <string name="watchlist_row_outdated_age">לא עדכני · %1$s</string>
+    <string name="watchlist_row_price_unchanged_since">המחיר ללא שינוי מאז %1$s</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s לא זמינה</string>
+
+    <!-- Merkliste: Suche, Sprungknopf, Sortieren nach Spalte -->
+    <string name="watchlist_jump_end">לסוף</string>
+    <string name="watchlist_jump_start">להתחלה</string>
+    <string name="watchlist_search_close">סגירת החיפוש</string>
+    <string name="watchlist_search_empty">אין תוצאות עבור ״%1$s״</string>
+    <string name="watchlist_search_hint">חיפוש צמד, שם או בורסה</string>
+    <string name="watchlist_search_open">חיפוש</string>
+    <string name="watchlist_sort_ascending">בסדר עולה</string>
+    <string name="watchlist_sort_descending">בסדר יורד</string>
+    <string name="watchlist_sort_hint">החזיקו וגררו צמד, או השתמשו בידית. המועדפים נשארים למעלה.</string>
+    <string name="watchlist_sort_name">שם</string>
+    <string name="watchlist_sort_own">סדר משלך</string>
+    <string name="watchlist_sort_price">מחיר</string>
+
+    <!-- Merkliste: Mehrfachauswahl, Ansichten, Entfernen -->
+    <string name="watchlist_clear">ניקוי רשימת המעקב</string>
+    <string name="watchlist_clear_confirm">להסיר את כל הצמדים מרשימת המעקב? גם ההתראות שלהם יימחקו.</string>
+    <plurals name="watchlist_disabled_count">
+        <item quantity="one">%1$d מושבת</item>
+        <item quantity="two">%1$d מושבתים</item>
+        <item quantity="other">%1$d מושבתים</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_action">הסרה</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="one">להסיר צמד %1$d שכבר לא נסחר בבורסה שלו? גם ההתראות שלו יימחקו.</item>
+        <item quantity="two">להסיר %1$d צמדים שכבר לא נסחרים בבורסה שלהם? גם ההתראות שלהם יימחקו.</item>
+        <item quantity="other">להסיר %1$d צמדים שכבר לא נסחרים בבורסה שלהם? גם ההתראות שלהם יימחקו.</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_menu">הסרת צמדים שלא נסחרים (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">הסרת צמדים שלא נסחרים</string>
+    <string name="watchlist_removed">%1$s הוסר</string>
+    <plurals name="watchlist_removed_count">
+        <item quantity="one">הוסרו צמדים: %1$d</item>
+        <item quantity="two">הוסרו צמדים: %1$d</item>
+        <item quantity="other">הוסרו צמדים: %1$d</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="one">הוסר צמד %1$d שלא נסחר</item>
+        <item quantity="two">הוסרו %1$d צמדים שלא נסחרים</item>
+        <item quantity="other">הוסרו %1$d צמדים שלא נסחרים</item>
+    </plurals>
+    <string name="watchlist_select">בחירה</string>
+    <string name="watchlist_select_all">בחירת הכול</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="one">נבחרו: %1$d</item>
+        <item quantity="two">נבחרו: %1$d</item>
+        <item quantity="other">נבחרו: %1$d</item>
+    </plurals>
+    <string name="watchlist_show_all">הצג הכול</string>
+    <string name="watchlist_show_only_disabled">הצג רק מושבתים</string>
+    <string name="watchlist_show_only_stale">הצג רק לא עדכניים</string>
+
+    <!-- Merkliste: weitere Texte (Gruppen, Alarme, Mitteilung, Sprachausgabe) -->
+    <plurals name="watchlist_alarms_count">
+        <item quantity="one">התראת מחיר (%1$d)</item>
+        <item quantity="two">התראות מחיר (%1$d)</item>
+        <item quantity="other">התראות מחיר (%1$d)</item>
+    </plurals>
+    <string name="watchlist_favorites_empty_hint">עדיין אין מועדפים. החליקו צמד ימינה, או פתחו אותו והקישו ״מועדף״.</string>
+    <string name="watchlist_group_empty_hint">לחיצה ארוכה על קבוצה כדי לבחור את הצמדים שלה.</string>
+    <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
+    <string name="watchlist_groups_empty_hint">הקבוצות שלכם יופיעו כאן</string>
+    <string name="watchlist_notification">עדכון מחיר</string>
+    <string name="watchlist_tts">הקרא מחיר</string>
+    <string name="watchlist_tts_speech_on">ההקראה פעילה. אפשר לשנות זאת כאן: הגדרות › מתקדם › הקראה קולית.</string>
+
+    <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
+    <string name="watch_action_add_widget">הוסף כווידג׳ט</string>
+    <string name="watch_action_alarm">התראה</string>
+    <string name="watch_action_favorite">מועדף</string>
+    <string name="watch_action_why">מה זז יחד איתו?</string>
+    <string name="watch_action_why_short">מה זז איתו?</string>
+    <string name="watch_change_mark">Mark</string>
+    <string name="watch_disable">השבת</string>
+    <string name="watch_disable_hint">בלי בקשות, בלי התראות</string>
+    <string name="watch_disabled">מושבת</string>
+    <string name="watch_disabled_banner">%1$s הושבת</string>
+    <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
+    <string name="watch_edit_alarms_warning">ההתראות נשמרות – בדקו את הספים</string>
+    <!-- Titel des Formulars und Screenreader-Name des Stifts neben dem Paar -->
+    <string name="watch_edit_title">עריכת צמד</string>
+    <string name="watch_enable">הפעל</string>
+    <string name="watch_enable_hint">שערים והתראות חוזרים</string>
+    <string name="watch_enabled_banner">%1$s הופעל</string>
+    <string name="watch_error_offline">אין חיבור</string>
+    <string name="watch_gesture_hint_short">הקשה: התראה ו\"מה זז יחד איתו?\" · לחיצה ארוכה לבחירה · החלקה שמאלה למחיקה · ימינה למועדף</string>
+    <string name="watch_hint_tap_why">הקש על מטבע כדי לראות מה זז יחד איתו</string>
+    <string name="watch_not_traded">כבר לא נסחר בבורסה הזו</string>
+    <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
+    <string name="watch_preview_not_watched">לא ברשימת המעקב</string>
+    <string name="watch_price_mid">מחיר אמצע (אחרת mark)</string>
+    <string name="watch_row_source_both">שינוי וגרף: %1$s</string>
+    <string name="watch_row_source_change">שינוי: %1$s</string>
+    <string name="watch_row_source_chart">גרף: %1$s</string>
+
+    <!-- Meldung nach dem Hinzufügen (ein Paar / mehrere Paare) -->
+    <string name="pair_added_watching">%1$s נמצא עכשיו ברשימת המעקב</string>
+    <!-- Ein Paar: pair_added_watching -->
+    <string name="pairs_added_watching">%1$s נמצאים עכשיו ברשימת המעקב</string>
+
+    <!-- Favoriten -->
+    <string name="favorite_add">הוספה למועדפים</string>
+    <string name="favorite_added">%1$s נוסף למועדפים</string>
+    <string name="favorite_remove">הסרה מהמועדפים</string>
+    <string name="favorite_removed">%1$s הוסר מהמועדפים</string>
+    <string name="hint_favorites_list">טיפ: החלקה של שורה ימינה הופכת אותה למועדפת – המועדפים נשארים למעלה.</string>
+
+    <!-- Gruppen und Chips der Merkliste -->
+    <string name="group_add">קבוצה חדשה</string>
+    <string name="group_all">הכול</string>
+    <!-- Alpha-Tokens: Chip «α», Art vor der Glocke, «inkl. Alpha-Tokens» -->
+    <string name="group_alpha">טוקני Alpha</string>
+    <string name="group_delete">מחיקת קבוצה</string>
+    <string name="group_delete_confirm">הצמדים נשארים ברשימת המעקב שלך.</string>
+    <string name="group_done">סיום</string>
+    <string name="group_edit_title">עריכת קבוצה</string>
+    <!-- Chip «FAV» (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird vorgelesen) -->
+    <string name="group_favorites">מועדפים</string>
+    <string name="group_in_other">ב־%1$s</string>
+    <string name="group_name">שם הקבוצה</string>
+    <string name="group_new">קבוצה חדשה…</string>
+    <string name="group_next">הבא</string>
+    <string name="group_none">ללא קבוצה</string>
+    <string name="group_rename">שינוי שם</string>
+    <string name="group_search_hint">חיפוש צמד, שם או בורסה</string>
+    <string name="group_target">בקבוצה</string>
+    <string name="group_title">קבוצה</string>
+    <!-- Gruppen-Chip «Token» (alle Paare ausser der Gruppe «TradFi»), Screenreader und Widget-Einrichtung -->
+    <string name="group_tokens">טוקנים</string>
+    <string name="group_value">קבוצה: %1$s</string>
+
+    <!-- Notiz zum Paar -->
+    <string name="note_add">הוספת הערה</string>
+    <string name="note_edit">עריכת הערה</string>
+    <string name="note_hint">למשל כניסה ב-0.42, יעד 0.60</string>
+    <string name="note_remove">הסרה</string>
+    <string name="note_title">הערה</string>
+
+    <!-- Reihenfolge ändern (Sortiermodus, Screenreader-Aktionen) -->
+    <string name="sort_drag_handle">גררו כדי להזיז</string>
+    <string name="sort_move_bottom">לסוף הרשימה</string>
+    <string name="sort_move_down">למטה</string>
+    <string name="sort_move_top">לראש הרשימה</string>
+    <string name="sort_move_up">למעלה</string>
+</resources>

@@ -1,0 +1,80 @@
+# Opt-in recording of real exchange responses for the contract tests
+# (android/tools/record_exchange_fixtures.py). Manual trigger only: nothing runs on a schedule,
+# on push or on pull requests, and nothing is committed - the recorded files are uploaded as the
+# artifact "recorded-exchange-fixtures". To keep them: download the artifact, copy the files to
+# android/testdata/exchanges/recorded/, review the diff and commit by hand.
+# GitHub's runners are in the US: Binance/Bybit answer 403/451 there and are skipped (listed in
+# the log and in each file's description) - record those locally.
+# Locally: python3 android/tools/record_exchange_fixtures.py [--only Kraken,Okex]
+name: Record exchange fixtures
+
+on:
+  workflow_dispatch:
+    inputs:
+      only:
+        description: 'Market keys, comma-separated (empty = all), e.g. Kraken,Okex'
+        required: false
+        default: ''
+      run_contract_test:
+        description: 'Also run the Android contract test against the recordings'
+        type: boolean
+        required: false
+        default: true
+
+# Read-only: the job never writes to the repository.
+permissions:
+  contents: read
+
+concurrency:
+  group: record-exchange-fixtures
+  cancel-in-progress: false
+
+jobs:
+  record:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Record responses
+        env:
+          ONLY: ${{ inputs.only }}
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: |
+          if [ -n "$ONLY" ]; then
+            python3 android/tools/record_exchange_fixtures.py --only "$ONLY"
+          else
+            python3 android/tools/record_exchange_fixtures.py
+          fi
+
+      - name: Upload recordings
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: recorded-exchange-fixtures
+          path: android/testdata/exchanges/recorded/*.json
+          if-no-files-found: error
+          retention-days: 30
+
+      # Same JDK/Gradle setup as android.yml; runs only ExchangeContractTest, which picks up
+      # testdata/exchanges/recorded/ (in this runner's checkout only).
+      - name: Set up JDK 17
+        if: ${{ inputs.run_contract_test }}
+        uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Gradle
+        if: ${{ inputs.run_contract_test }}
+        uses: gradle/actions/setup-gradle@0723195856401067f7a2779048b490ace7a47d7c # v5.0.2
+        with:
+          cache-read-only: true
+
+      - name: Contract test with recordings
+        if: ${{ inputs.run_contract_test }}
+        working-directory: android
+        run: |
+          chmod +x gradlew
+          ./gradlew :app:testDebugUnitTest --tests 'com.cryptochecker.app.contract.ExchangeContractTest' --stacktrace

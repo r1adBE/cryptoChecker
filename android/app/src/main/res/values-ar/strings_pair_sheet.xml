@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Aktionsblatt: Kurs-Chart (Zeitraum, Kerzenwerte beim Ziehen, Umrechnung) und «Mehr» -->
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s Zeitraum kurz (widget_range_short_24h/7d/30d) -->
+    <string name="sheet_chart_change">%1$s خلال %2$s</string>
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s change_short_today(_zone) -->
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="sheet_chart_close">الإغلاق</string>
+    <string name="sheet_chart_converted_current">%1$s، محوَّل (السعر الحالي)</string>
+    <!-- Zeile unter dem Chart, %1$s = umgerechnete Reihe («BTC/USDT») -->
+    <string name="sheet_chart_converted_daily">%1$s، محوَّل بأسعار الصرف اليومية</string>
+    <!-- Keine Kerzen für das Paar -->
+    <string name="sheet_chart_no_data">لا توجد بيانات أسعار لهذا الزوج</string>
+    <!-- Kerzenwerte beim Ziehen (Hoch/Tief: ticker_high/ticker_low) -->
+    <string name="sheet_chart_open">الافتتاح</string>
+    <!-- Zeitraum-Chip statt «24h» bei Tages-Basis -->
+    <string name="sheet_chart_today">اليوم</string>
+    <!-- Umsatz der Kerze beim Ziehen; %1$s z. B. «12.3M USDT» -->
+    <string name="sheet_chart_volume">الحجم %1$s</string>
+    <string name="sheet_more">المزيد</string>
+
+    <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
+    <string name="ticker_ask">سعر البيع</string>
+    <string name="ticker_bid">سعر الشراء</string>
+    <string name="ticker_high">الأعلى</string>
+    <string name="ticker_low">الأدنى</string>
+    <string name="ticker_timestamp">الوقت</string>
+    <string name="ticker_vol_base">الحجم (الأساس)</string>
+    <string name="ticker_vol_quote">الحجم (التسعير)</string>
+
+    <!-- Basis der %-Änderung (Prozent-Pille, Chart, Widgets) -->
+    <string name="change_basis_device">%1$s، 00:00 (المنطقة الزمنية للجهاز)</string>
+    <string name="change_basis_local">منذ 00:00 بالتوقيت المحلي</string>
+    <string name="change_basis_rolling">آخر 24 ساعة</string>
+    <!-- Letzter gegen vorherigen Kurs des Paars; ausgeschrieben (Auswahl). Kurz neben Pille und Widgets: change_short_since_last -->
+    <string name="change_basis_since_last">منذ آخر تحديث</string>
+    <string name="change_basis_utc_zone">منذ 00:00 %1$s</string>
+    <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
+    <string name="change_candle_source">التغيّر من شموع %1$s</string>
+    <string name="change_short_since_last">آخر تحديث</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
+    <string name="change_short_today">اليوم</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 einer gewählten Zeitzone; %1$s = Zeitzone (z. B. UTC) -->
+    <string name="change_short_today_zone">اليوم %1$s</string>
+
+    <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
+    <string name="market_data_empty_error">لم تُستلم أي بيانات من المنصة.</string>
+    <string name="market_data_summary">القيمة السوقية، رسوم الغاز، البيانات الاقتصادية، تحليل العملات</string>
+    <string name="market_data_tab_futures">العقود</string>
+    <string name="market_data_title">بيانات السوق</string>
+
+    <!-- Marktdaten Spot (Marktkapitalisierung, Angebot, Volumen) -->
+    <string name="spot_circulating">المعروض المتداول</string>
+    <string name="spot_fdv">FDV</string>
+    <string name="spot_market_cap">القيمة السوقية</string>
+    <string name="spot_max_supply">الحد الأقصى للمعروض</string>
+    <string name="spot_no_data">لا توجد بيانات فورية لهذه العملة</string>
+    <string name="spot_source_updated">المصدر: %1$s · حتى %2$s</string>
+    <string name="spot_supply_of_max">%1$s من الحد الأقصى للمعروض متداول</string>
+    <string name="spot_total_supply">إجمالي المعروض</string>
+    <string name="spot_vol_mcap">الحجم/القيمة</string>
+    <string name="spot_volume_24h">الحجم (24 س)</string>
+
+    <!-- Futures-Kennzahlen (Funding, Open Interest, Referenzbörse) -->
+    <string name="futures_alarm_reference">قيمة استرشادية %1$s</string>
+    <string name="futures_funding">معدل التمويل</string>
+    <string name="futures_funding_interval_unknown">الفترة غير معروفة</string>
+    <string name="futures_funding_per8h_equiv">= %1$s لكل 8 ساعات (كما في التنبيهات)</string>
+    <!-- Einheit neben der Funding-Pille, wenn die Börse stündlich abrechnet (Hyperliquid) -->
+    <string name="futures_funding_per_hour">لكل ساعة</string>
+    <string name="futures_funding_per_hours">لكل %1$d ساعات</string>
+    <string name="futures_next_funding">التالي بعد %1$d س %2$d د</string>
+    <string name="futures_no_data">لا توجد بيانات عقود لهذه العملة</string>
+    <string name="futures_open_interest">الفائدة المفتوحة</string>
+    <!-- Futures-Kennzahlen von einer anderen Börse als der beobachteten (Richtwert) -->
+    <string name="futures_reference_hint">قيمة استرشادية من %1$s – يختلف التمويل والعقود المفتوحة من بورصة لأخرى، وقد تختلف على %2$s.</string>
+    <string name="futures_reference_spot">قيمة استرشادية من %1$s (عقد USDT الدائم للعملة)</string>
+    <string name="futures_source">المصدر: %1$s</string>
+
+    <!-- Erklärungen hinter dem ⓘ-Knopf -->
+    <string name="explain_funding">كثيرون يراهنون بأموال مقترضة على ارتفاع الأسعار أو انخفاضها. رسوم تُدفع بين مراكز الشراء والبيع. القيمة الموجبة بقوة تعني أن كثيرين يراهنون على ارتفاع الأسعار.</string>
+    <string name="explain_open_interest">العقود الآجلة رهانات على السعر، غالبًا بأموال مقترضة. قيمة جميع مراكز العقود الآجلة المفتوحة. إذا ارتفعت، فهناك أموال أكثر تراهن على الحركة.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">شرح</string>
+    <string name="explain_spot_fdv">التقييم المخفف بالكامل: السعر × الحد الأقصى للمعروض (أو الإجمالي إذا لم يكن هناك حد).</string>
+    <string name="explain_spot_market_cap">السعر × المعروض المتداول. تُظهر الشارة التغير خلال 24 ساعة.</string>
+    <string name="explain_spot_source">أرقام عبر جميع المنصات بالدولار الأمريكي، من CoinGecko.</string>
+    <string name="explain_spot_supply">المتداول: العملات الموجودة في السوق الآن. الإجمالي: كل العملات المُنشأة ناقص المحروقة. الأقصى: أكبر كمية يمكن أن توجد على الإطلاق.</string>
+    <string name="explain_spot_volume">القيمة المتداولة خلال 24 ساعة. الحجم/القيمة: الحجم مقارنة بالقيمة السوقية — الارتفاع يعني تداولًا نشطًا جدًا.</string>
+
+    <!-- Umrechnung und Sats -->
+    <string name="converted_fx_stale">%1$s · سعر الصرف %2$s</string>
+    <string name="sats_per_unit">%1$s %2$s = %3$s ساتوشي</string>
+</resources>

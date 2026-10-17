@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Aktionsblatt: Kurs-Chart (Zeitraum, Kerzenwerte beim Ziehen, Umrechnung) und «Mehr» -->
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s Zeitraum kurz (widget_range_short_24h/7d/30d) -->
+    <string name="sheet_chart_change">%1$s dalam %2$s</string>
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s change_short_today(_zone) -->
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="sheet_chart_close">Tutup</string>
+    <string name="sheet_chart_converted_current">%1$s, dikonversi (kurs saat ini)</string>
+    <!-- Zeile unter dem Chart, %1$s = umgerechnete Reihe («BTC/USDT») -->
+    <string name="sheet_chart_converted_daily">%1$s, dikonversi dengan kurs harian</string>
+    <!-- Keine Kerzen für das Paar -->
+    <string name="sheet_chart_no_data">Tidak ada data harga untuk pasangan ini</string>
+    <!-- Kerzenwerte beim Ziehen (Hoch/Tief: ticker_high/ticker_low) -->
+    <string name="sheet_chart_open">Buka</string>
+    <!-- Zeitraum-Chip statt «24h» bei Tages-Basis -->
+    <string name="sheet_chart_today">Hari ini</string>
+    <!-- Umsatz der Kerze beim Ziehen; %1$s z. B. «12.3M USDT» -->
+    <string name="sheet_chart_volume">Vol %1$s</string>
+    <string name="sheet_more">Lainnya</string>
+
+    <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
+    <string name="ticker_ask">Ask</string>
+    <string name="ticker_bid">Bid</string>
+    <string name="ticker_high">Tertinggi</string>
+    <string name="ticker_low">Terendah</string>
+    <string name="ticker_timestamp">Waktu</string>
+    <string name="ticker_vol_base">Volume (base)</string>
+    <string name="ticker_vol_quote">Volume (quote)</string>
+
+    <!-- Basis der %-Änderung (Prozent-Pille, Chart, Widgets) -->
+    <string name="change_basis_device">%1$s, 00:00 (zona waktu perangkat)</string>
+    <string name="change_basis_local">Sejak 00:00 waktu lokal</string>
+    <string name="change_basis_rolling">24 jam terakhir</string>
+    <!-- Letzter gegen vorherigen Kurs des Paars; ausgeschrieben (Auswahl). Kurz neben Pille und Widgets: change_short_since_last -->
+    <string name="change_basis_since_last">Sejak pembaruan terakhir</string>
+    <string name="change_basis_utc_zone">Sejak 00:00 %1$s</string>
+    <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
+    <string name="change_candle_source">Perubahan dari candle %1$s</string>
+    <string name="change_short_since_last">pembaruan terakhir</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
+    <string name="change_short_today">hari ini</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 einer gewählten Zeitzone; %1$s = Zeitzone (z. B. UTC) -->
+    <string name="change_short_today_zone">hari ini %1$s</string>
+
+    <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
+    <string name="market_data_empty_error">Tidak ada data yang diterima dari bursa.</string>
+    <string name="market_data_summary">Kapitalisasi pasar, biaya gas, data ekonomi, analisis koin</string>
+    <string name="market_data_tab_futures">Futures</string>
+    <string name="market_data_title">Data pasar</string>
+
+    <!-- Marktdaten Spot (Marktkapitalisierung, Angebot, Volumen) -->
+    <string name="spot_circulating">Pasokan beredar</string>
+    <string name="spot_fdv">FDV</string>
+    <string name="spot_market_cap">Kapitalisasi pasar</string>
+    <string name="spot_max_supply">Pasokan maks.</string>
+    <string name="spot_no_data">Tidak ada data spot untuk koin ini</string>
+    <string name="spot_source_updated">Sumber: %1$s · per %2$s</string>
+    <string name="spot_supply_of_max">%1$s dari pasokan maks. beredar</string>
+    <string name="spot_total_supply">Total pasokan</string>
+    <string name="spot_vol_mcap">Vol/Kap.</string>
+    <string name="spot_volume_24h">Volume (24j)</string>
+
+    <!-- Futures-Kennzahlen (Funding, Open Interest, Referenzbörse) -->
+    <string name="futures_alarm_reference">Nilai acuan %1$s</string>
+    <string name="futures_funding">Funding rate</string>
+    <string name="futures_funding_interval_unknown">interval tidak diketahui</string>
+    <string name="futures_funding_per8h_equiv">= %1$s per 8 jam (seperti di alarm)</string>
+    <!-- Einheit neben der Funding-Pille, wenn die Börse stündlich abrechnet (Hyperliquid) -->
+    <string name="futures_funding_per_hour">per jam</string>
+    <string name="futures_funding_per_hours">per %1$d jam</string>
+    <string name="futures_next_funding">berikutnya dalam %1$d j %2$d mnt</string>
+    <string name="futures_no_data">Tidak ada data futures untuk koin ini</string>
+    <string name="futures_open_interest">Open interest</string>
+    <!-- Futures-Kennzahlen von einer anderen Börse als der beobachteten (Richtwert) -->
+    <string name="futures_reference_hint">Nilai acuan dari %1$s – funding dan open interest berbeda di tiap bursa; di %2$s bisa berbeda.</string>
+    <string name="futures_reference_spot">Nilai acuan dari %1$s (perpetual USDT koin ini)</string>
+    <string name="futures_source">Sumber: %1$s</string>
+
+    <!-- Erklärungen hinter dem ⓘ-Knopf -->
+    <string name="explain_funding">Banyak orang bertaruh dengan uang pinjaman pada harga naik atau turun. Biaya antara posisi long dan short. Sangat positif berarti banyak yang bertaruh harga naik.</string>
+    <string name="explain_open_interest">Futures adalah taruhan pada harga, sering dengan uang pinjaman. Nilai semua posisi futures yang terbuka. Jika naik, makin banyak uang yang bertaruh pada pergerakan itu.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">Penjelasan</string>
+    <string name="explain_spot_fdv">Valuasi terdilusi penuh: harga × pasokan maks. (atau total pasokan jika tidak ada batas).</string>
+    <string name="explain_spot_market_cap">Harga × pasokan beredar. Label menunjukkan perubahan 24 jam.</string>
+    <string name="explain_spot_source">Angka dari semua bursa dalam dolar AS, dari CoinGecko.</string>
+    <string name="explain_spot_supply">Beredar: koin yang ada di pasar sekarang. Total: semua koin yang dibuat dikurangi yang dibakar. Maks.: jumlah terbanyak yang bisa ada.</string>
+    <string name="explain_spot_volume">Nilai yang diperdagangkan dalam 24 jam. Vol/Kap.: volume dibanding kapitalisasi — tinggi berarti perdagangan sangat aktif.</string>
+
+    <!-- Umrechnung und Sats -->
+    <string name="converted_fx_stale">%1$s · kurs %2$s</string>
+    <string name="sats_per_unit">%1$s %2$s = %3$s sats</string>
+</resources>

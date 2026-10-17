@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Tab, leere Ansicht, Einschalten, Sperre -->
+    <string name="app_lock_unavailable">Auf diesem Gerät ist keine Displaysperre eingerichtet. Richte zuerst eine in den Systemeinstellungen ein.</string>
+    <string name="app_lock_unlock">Entsperren</string>
+    <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
+    <string name="portfolio_clear">Portfolio leeren</string>
+    <plurals name="portfolio_clear_confirm_count">
+        <item quantity="one">%d Transaktion löschen? Beobachtete Adressen bleiben. Das kann nicht rückgängig gemacht werden.</item>
+        <item quantity="other">Alle %d Transaktionen löschen? Beobachtete Adressen bleiben. Das kann nicht rückgängig gemacht werden.</item>
+    </plurals>
+    <string name="portfolio_disclaimer">Beträge bleiben auf dem Gerät, ausser du exportierst sie selbst; für Kurse gehen nur Paar-Kürzel an die Börse des Paars. Öffentliche Blockchain-Knoten sehen beobachtete Adressen und deine IP. Keine Anlageberatung.</string>
+    <string name="portfolio_empty_action">Ersten Kauf eintragen</string>
+    <string name="portfolio_empty_address">Nur eine Wallet-Adresse beobachten</string>
+    <string name="portfolio_empty_csv">An einer Börse gekauft? Datei übernehmen</string>
+    <string name="portfolio_empty_example_plain">Beispiel: 0,01 BTC am 1. März gekauft. Die App zeigt dann, was das heute wert ist und ob du im Plus oder im Minus bist – gespeichert nur auf diesem Gerät.</string>
+    <string name="portfolio_empty_text">Trag ein, was du gekauft hast – die App zeigt, was es heute wert ist und wie viel du im Plus oder Minus bist.</string>
+    <string name="portfolio_empty_title">Noch keine Transaktionen</string>
+    <string name="portfolio_enable_ask_text">Deine Transaktion ist gespeichert. Der Portfolio-Tab zeigt deine Bestände und ihren Wert.</string>
+    <string name="portfolio_enable_ask_title">Portfolio-Tab einschalten?</string>
+    <string name="portfolio_enable_later_hint">Transaktion gespeichert. Den Portfolio-Tab schaltest du unter Einstellungen › Erweitert › Portfolio ein.</string>
+    <string name="portfolio_enabled_banner">Portfolio eingeschaltet – du findest es im Tab «Portfolio».</string>
+    <string name="portfolio_lock_reason">Portfolio entsperren</string>
+    <string name="portfolio_locked_text">Entsperre es, um Bestände und Werte zu sehen.</string>
+    <string name="portfolio_locked_title">Portfolio ist gesperrt</string>
+    <string name="portfolio_setting_hint">Optional: Käufe und Verkäufe erfassen und Wert sowie Gewinn/Verlust in einem eigenen Tab sehen.</string>
+    <!-- Status-Pille wie in der Merkliste: Kurse älter als die Frische-Schwelle, Gerät online. Offline: offline_status_since, alles aktuell: watchlist_all_fresh -->
+    <string name="portfolio_status_stale">Veraltet · Stand %1$s</string>
+    <plurals name="portfolio_system_restore_invalid">
+        <item quantity="one">%d Eintrag aus der System-Sicherung war ungültig und wurde nicht übernommen.</item>
+        <item quantity="other">%d Einträge aus der System-Sicherung waren ungültig und wurden nicht übernommen.</item>
+    </plurals>
+    <string name="portfolio_title">Portfolio</string>
+    <string name="portfolio_unassigned_fee">Gebühr nicht zugeordnet – Einstand unbekannt: %1$s</string>
+    <string name="portfolio_updated">Kurse von %1$s</string>
+
+    <!-- Portfolio: Gesamtwert-Kopf (Heute · 7 T · Gesamt) und Aufteilung -->
+    <string name="portfolio_allocation_other">Andere</string>
+    <string name="portfolio_allocation_title">Aufteilung</string>
+    <string name="portfolio_card_details">Details</string>
+    <!-- Screenreader, Kennzahl ohne Wert; %1$s Beschriftung (z. B. «7 Tage») -->
+    <string name="portfolio_card_figure_none_a11y">%1$s: noch nicht verfügbar</string>
+    <string name="portfolio_card_hints_count">Hinweise (%1$d)</string>
+    <string name="portfolio_card_today">Heute</string>
+    <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
+    <string name="portfolio_card_total">Gesamt</string>
+    <string name="portfolio_hide_amounts">Beträge verbergen</string>
+    <string name="portfolio_hide_amounts_hint">Zeigt Beträge und Werte im Portfolio und im Portfolio-Widget als ••• – Prozente bleiben sichtbar.</string>
+    <string name="portfolio_invested">Einstand</string>
+    <string name="portfolio_total_no_fx">Kein Devisenkurs für %1$s – Beträge in USDT</string>
+    <string name="portfolio_total_value">Gesamtwert</string>
+    <string name="portfolio_value">Wert</string>
+
+    <!-- Portfolio: Bestand, offene Positionen, Durchschnittspreis -->
+    <string name="portfolio_avg_and_now">Ø %1$s · aktuell %2$s</string>
+    <string name="portfolio_avg_only">Ø %1$s</string>
+    <string name="portfolio_avg_open_lots">Ø Einstand gehaltener Coins</string>
+    <string name="portfolio_avg_partial">Ø von %1$s mit Kaufpreis</string>
+    <string name="portfolio_avg_price">Ø Kaufpreis</string>
+    <string name="portfolio_avg_price_hint">Ø Kaufpreis: Durchschnitt aller Käufe, gewichtet nach Menge. Verkäufe zählen zu diesem Durchschnitt.</string>
+    <plurals name="portfolio_closed">
+        <item quantity="one">Geschlossene Position (%1$d)</item>
+        <item quantity="other">Geschlossene Positionen (%1$d)</item>
+    </plurals>
+    <string name="portfolio_fifo_hint">FIFO: Verkäufe nehmen die ältesten Coins zuerst. Ø = verbleibender Einstand ÷ Menge mit Kaufpreis.</string>
+    <string name="portfolio_holdings">Bestand</string>
+    <string name="portfolio_lost_fee_cost">Netzwerkgebühr-Einstand ohne bezahlten Posten: %1$s</string>
+    <string name="portfolio_open_lots">Offene Kauf-Posten (%1$d)</string>
+    <string name="portfolio_open_lots_avg">Mit Kaufpreis (Ø)</string>
+    <string name="portfolio_open_lots_no_cost">Ohne Kaufpreis</string>
+    <string name="portfolio_open_lots_without_price">ohne Kaufpreis</string>
+    <string name="portfolio_realized">Realisierter Gewinn/Verlust</string>
+    <string name="portfolio_unrealized">Offener Gewinn/Verlust</string>
+    <string name="portfolio_unrealized_without_unpriced">ohne %1$s ohne Kaufpreis</string>
+    <string name="portfolio_withdrawn_gain">Ausgebucht: %1$s (Wertänderung bis zur Auszahlung)</string>
+
+    <!-- Portfolio: Kurse und Umrechnung -->
+    <string name="portfolio_convert_to">Umrechnen in</string>
+    <string name="portfolio_convert_to_value">Umrechnen in: %1$s</string>
+    <string name="portfolio_current_missing">Kein aktueller Kurs für %1$s</string>
+    <string name="portfolio_current_price">Aktueller Kurs</string>
+    <string name="portfolio_price_missing">Preis fehlt</string>
+    <string name="portfolio_price_missing_hint">Bei einigen Käufen fehlt der Preis. Kaufpreis ergänzen, um Gewinn/Verlust zu sehen.</string>
+    <string name="portfolio_price_source">Kurse: Binance · USDT = 1</string>
+    <string name="portfolio_price_source_routes">Kurse: %1$s, sonst Binance · USDT = 1</string>
+    <string name="portfolio_price_unavailable">Kurs gerade nicht abrufbar</string>
+    <string name="portfolio_price_unchecked">Kurs ungeprüft</string>
+    <string name="portfolio_price_via_base">≈ %1$s-Kurs (gebrückt/verpackt)</string>
+    <string name="portfolio_usdt_as_usd">USDT zum USD-Kurs umgerechnet</string>
+    <string name="portfolio_usdt_assumed">USDT = 1 angenommen</string>
+    <string name="portfolio_usdt_depeg_warning">USDT = 1 angenommen – Markt bei %1$s USD (%2$s)</string>
+
+    <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
+    <string name="portfolio_add_from_watch">Zum Portfolio hinzufügen</string>
+    <string name="portfolio_add_tx">Transaktion erfassen</string>
+    <string name="portfolio_buy">Kauf</string>
+    <string name="portfolio_coin">Coin</string>
+    <string name="portfolio_coin_invalid">Coin-Symbol eingeben</string>
+    <string name="portfolio_coin_search">Symbol suchen, z. B. BTC</string>
+    <string name="portfolio_discard_confirm">Verwerfen</string>
+    <string name="portfolio_discard_keep">Weiter bearbeiten</string>
+    <string name="portfolio_discard_title">Änderungen verwerfen?</string>
+    <string name="portfolio_edit_tx">Transaktion bearbeiten</string>
+    <string name="portfolio_invalid">Ungültige Menge</string>
+    <string name="portfolio_oversold">Verkäufe übersteigen den Bestand – bitte Transaktionen prüfen.</string>
+    <string name="portfolio_sell">Verkauf</string>
+    <string name="portfolio_sell_exceeds">Mehr als dein Bestand (%1$s)</string>
+    <string name="portfolio_sell_exceeds_fee">Menge plus Gebühr ist mehr als dein Bestand (%1$s)</string>
+    <string name="portfolio_sell_exceeds_wallet">Mehr als dein Bestand in %2$s (%1$s)</string>
+    <string name="portfolio_transactions">Transaktionen</string>
+    <string name="portfolio_tx_acquired_date">Ursprüngliches Kaufdatum (optional)</string>
+    <string name="portfolio_tx_acquired_date_hint">Für die Haltedauer im Steuer-Export</string>
+    <string name="portfolio_tx_amount">Menge</string>
+    <string name="portfolio_tx_coin_fee">Gebühr im Coin (optional)</string>
+    <string name="portfolio_tx_date">Datum</string>
+    <string name="portfolio_tx_delete_confirm">Diese Transaktion wird aus dem Portfolio entfernt.</string>
+    <string name="portfolio_tx_delete_title">Transaktion löschen?</string>
+    <string name="portfolio_tx_deposit">Einzahlung</string>
+    <string name="portfolio_tx_entry_currency">Eingabe in</string>
+    <string name="portfolio_tx_explain_deposit">Bestand ohne Handel, z. B. Coins von früher</string>
+    <string name="portfolio_tx_explain_gift">Coins verlassen den Bestand wie eine Auszahlung – Veräusserung zum Marktwert nur, wo das Land Schenkungen so besteuert (UK, CA, AU)</string>
+    <string name="portfolio_tx_explain_payment">Für Waren oder Dienstleistungen bezahlt – Veräusserung zum Marktwert wie ein Verkauf, ohne Geld erhalten</string>
+    <string name="portfolio_tx_explain_reward">Einstand = Marktwert beim Erhalt</string>
+    <string name="portfolio_tx_explain_swap">Coin gegen Coin: Verkauf des abgegebenen, Kauf des erhaltenen Coins</string>
+    <string name="portfolio_tx_explain_transfer">Kein Gewinn – Einstand wandert mit</string>
+    <string name="portfolio_tx_explain_withdrawal">Bestand verlässt das Portfolio – kein Verkauf, kein Gewinn</string>
+    <string name="portfolio_tx_fee_consumes_amount">Die Gebühr ist so gross wie die erhaltene Menge – es bliebe nichts übrig.</string>
+    <string name="portfolio_tx_fees_toggle">Gebühren</string>
+    <string name="portfolio_tx_fiat_converted">≈ %1$s zum Kurs vom %2$s</string>
+    <string name="portfolio_tx_fiat_loading">Devisenkurs wird geladen …</string>
+    <string name="portfolio_tx_fiat_no_fx">Kein Devisenkurs für diesen Tag – gib den Betrag in USDT ein.</string>
+    <string name="portfolio_tx_gift">Verschenkt</string>
+    <string name="portfolio_tx_gift_price_hint">In USDT. Leer = Tagesschluss (geschätzt).</string>
+    <string name="portfolio_tx_gift_spouse">An Ehe-/Lebenspartner</string>
+    <string name="portfolio_tx_gift_spouse_hint">UK und Kanada: kein Gewinn und kein Verlust – dein Partner übernimmt deinen Einstand. Andere Länder ignorieren das.</string>
+    <string name="portfolio_tx_market_value">Marktwert je Coin</string>
+    <string name="portfolio_tx_more_buy">Gebühr, Börse, Notiz</string>
+    <string name="portfolio_tx_network_fee">Netzwerkgebühr im Coin (optional)</string>
+    <string name="portfolio_tx_note">Notiz (optional)</string>
+    <string name="portfolio_tx_payment">Damit bezahlt</string>
+    <string name="portfolio_tx_price">Preis pro Coin</string>
+    <string name="portfolio_tx_price_hint">In USDT. Leer lassen, wenn unbekannt.</string>
+    <string name="portfolio_tx_price_historic">Geprüfter Tagesschluss vom %1$s – bei Bedarf anpassen</string>
+    <string name="portfolio_tx_price_invalid">Ungültiger Preis</string>
+    <string name="portfolio_tx_price_past_hint">Kurs vom Kauftag eintragen – leer lassen, wenn unbekannt</string>
+    <string name="portfolio_tx_price_receipt_hint">In USDT. Leer = Bestand ohne Einstand.</string>
+    <string name="portfolio_tx_price_zero">Preis 0 bei importierten Transaktionen nicht möglich – leer lassen für Marktkurs</string>
+    <string name="portfolio_tx_removed">Transaktion gelöscht</string>
+    <string name="portfolio_tx_reward">Belohnung</string>
+    <string name="portfolio_tx_save_failed">Die Transaktion konnte nicht gespeichert werden. Deine Eingaben bleiben erhalten – versuch es nochmals.</string>
+    <string name="portfolio_tx_swap">Tausch</string>
+    <string name="portfolio_tx_swap_fee_received">Gebühr in %1$s: mindert die erhaltene Menge, kein Preis nötig.</string>
+    <string name="portfolio_tx_swap_from">Tausch von %1$s</string>
+    <string name="portfolio_tx_swap_given_amount">Menge abgegeben</string>
+    <string name="portfolio_tx_swap_given_coin">Coin abgegeben</string>
+    <string name="portfolio_tx_swap_received_amount">Menge erhalten</string>
+    <string name="portfolio_tx_swap_received_coin">Coin erhalten</string>
+    <string name="portfolio_tx_swap_same_coin">Wähle einen anderen Coin als den abgegebenen</string>
+    <string name="portfolio_tx_swap_to">Tausch in %1$s</string>
+    <string name="portfolio_tx_swap_value">Wert des Tauschs (optional)</string>
+    <string name="portfolio_tx_swap_value_hint">Gesamtwert. Leer = unbekannt – der Gewinn bleibt unvollständig (mit USDT im Tausch automatisch).</string>
+    <string name="portfolio_tx_third_fee_amount">Menge der Gebühr</string>
+    <string name="portfolio_tx_third_fee_coin">Coin der Gebühr</string>
+    <string name="portfolio_tx_third_fee_incomplete">Ohne Preis zählt die Gebühr nicht zum Einstand bzw. Erlös; Verkäufe damit markiert der Steuer-Export.</string>
+    <string name="portfolio_tx_third_fee_price">Preis je Coin der Gebühr (optional)</string>
+    <string name="portfolio_tx_third_fee_toggle">Gebühr in anderem Coin</string>
+    <string name="portfolio_tx_total">Gesamt: %1$s</string>
+    <string name="portfolio_tx_transfer">Umbuchung</string>
+    <string name="portfolio_tx_transfer_from">Von (optional)</string>
+    <string name="portfolio_tx_transfer_to">Nach (optional)</string>
+    <string name="portfolio_tx_transfer_to_hint">Börse oder Wallet – dort ab jetzt bewertet.</string>
+    <string name="portfolio_tx_type_select">Art: %1$s</string>
+    <string name="portfolio_tx_value_received">Wert je Coin beim Erhalt (optional)</string>
+    <string name="portfolio_tx_withdrawal">Auszahlung</string>
+    <string name="portfolio_tx_withdrawal_gift_hint">Verschenkt oder damit bezahlt? Dann als ‹Verschenkt› bzw. ‹Damit bezahlt› erfassen – je nach Land ist das steuerlich ein Verkauf.</string>
+    <string name="portfolio_tx_withdrawal_price_hint">Optional: Marktwert in USDT, nur für die Verlaufsrechnung (leer = Tageskurs). Die Coins gehen immer zum Einstand ab.</string>
+    <string name="portfolio_wallet_did_you_mean">Meintest du %1$s? Eine andere Schreibweise zählt als eigene Wallet.</string>
+    <string name="portfolio_wallet_shortfall">Bestand in %1$s reicht nicht – fehlt eine Umbuchung?</string>
+
+    <!-- Portfolio: Wertverlauf (Zeitraum, Vergleich Währung | USDT, Währungseffekt) -->
+    <!-- Höchster Tageswert des Zeitraums am Punkt («Hoch 12’345») -->
+    <string name="portfolio_chart_high">Hoch %1$s</string>
+    <string name="portfolio_compare">Vergleich</string>
+    <!-- Umschalter «Vergleich», Screenreader: %1$s Währung -->
+    <string name="portfolio_compare_a11y">Vergleich %1$s und USDT in Prozent</string>
+    <!-- %1$s Zeitraum, %2$s Währung, %3$s und %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="portfolio_compare_chart_a11y">Vergleich in Prozent, %1$s: %2$s %3$s, USDT %4$s</string>
+    <!-- %1$s Prozentpunkte mit Vorzeichen («−5.10%»): Veränderung in der Währung minus in USDT -->
+    <string name="portfolio_currency_effect">Währungseffekt: %1$s</string>
+    <!-- «Seit 1. Kauf» beginnt frühestens beim ersten Tag mit Kursdaten -->
+    <string name="portfolio_history_capped_data_start">Kursdaten reichen nur bis August 2017 zurück — der Verlauf beginnt dort.</string>
+    <string name="portfolio_history_chip_since_first">Seit Kauf</string>
+    <string name="portfolio_history_collapse">Wertverlauf zuklappen</string>
+    <string name="portfolio_history_converted">Umgerechnet zum heutigen Kurs</string>
+    <string name="portfolio_history_expand">Wertverlauf aufklappen</string>
+    <string name="portfolio_history_gain_a11y">Wert %1$s. Gewinn/Verlust, %2$s: %3$s</string>
+    <string name="portfolio_history_gain_label">Gewinn/Verlust</string>
+    <!-- Umschalter, Screenreader: %1$s Währung («CHF») oder «USDT» -->
+    <string name="portfolio_history_in_a11y">Wert in %1$s</string>
+    <string name="portfolio_history_incl_fx">Inkl. Devisenkurs</string>
+    <string name="portfolio_history_incl_withdrawn">Inkl. Wertänderung ausgebuchter Coins</string>
+    <string name="portfolio_history_includes_trades">Enthält Käufe und Verkäufe in diesem Zeitraum</string>
+    <string name="portfolio_history_loading">Wertverlauf wird geladen</string>
+    <string name="portfolio_history_period_1y">1 Jahr</string>
+    <string name="portfolio_history_period_30d">30 Tage</string>
+    <string name="portfolio_history_period_7d">7 Tage</string>
+    <string name="portfolio_history_period_since_first">seit dem ersten Kauf</string>
+    <string name="portfolio_history_pnl_needs_prices">Für Gewinn/Verlust fehlen Kaufpreise – ergänze sie in den Transaktionen.</string>
+    <string name="portfolio_history_pnl_without">Gewinn/Verlust ohne %1$s (Preis fehlt)</string>
+    <string name="portfolio_history_range_1y">1 J</string>
+    <string name="portfolio_history_range_30d">30 T</string>
+    <string name="portfolio_history_range_7d">7 T</string>
+    <string name="portfolio_history_range_a11y">Verlauf für %1$s zeigen</string>
+    <string name="portfolio_history_range_since_first">Seit 1. Kauf</string>
+    <string name="portfolio_history_scaled">Verlauf für %1$s: Binance-Verlauf auf den Börsenkurs skaliert</string>
+    <string name="portfolio_history_title">Wertverlauf</string>
+    <string name="portfolio_history_today">Heute</string>
+    <string name="portfolio_history_too_short">Der Verlauf beginnt nach dem ersten ganzen Tag.</string>
+    <string name="portfolio_history_unavailable">Gerade kein Verlauf verfügbar.</string>
+    <string name="portfolio_history_utc_days">Tage in UTC (Tageskerzen)</string>
+    <string name="portfolio_history_without_matching">Ohne %1$s (keine passenden Tageskurse)</string>
+    <string name="portfolio_period_rewards">Belohnungen +%1$s (nicht im Gewinn)</string>
+    <string name="portfolio_period_scaled">7 T/1 J für %1$s: Binance-Verlauf auf den Börsenkurs skaliert</string>
+
+    <!-- Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_alarm_action">Alarm</string>
+    <!-- %1$s = Währung, z. B. CHF -->
+    <string name="portfolio_alarm_amount">Betrag (%1$s)</string>
+    <string name="portfolio_alarm_hint">Wird nach jeder Aktualisierung geprüft. Wie bei Alarmen: meldet beim Überschreiten der Marke und erst wieder, wenn der Wert zurückgekehrt ist.</string>
+    <string name="portfolio_alarm_kind_above">Portfolio über Betrag</string>
+    <string name="portfolio_alarm_kind_below">Portfolio unter Betrag</string>
+    <string name="portfolio_alarm_kind_down">Portfolio fällt</string>
+    <string name="portfolio_alarm_kind_up">Portfolio steigt</string>
+    <!-- %1$s = Betrag mit Währung (oder •••) -->
+    <string name="portfolio_alarm_sentence_above">Portfolio über %1$s</string>
+    <string name="portfolio_alarm_sentence_below">Portfolio unter %1$s</string>
+    <string name="portfolio_alarm_sentence_down">Portfolio fällt um %1$s (%2$s)</string>
+    <!-- %1$s = Prozent, %2$s = Basis der %-Änderung kurz (24h, heute …) -->
+    <string name="portfolio_alarm_sentence_up">Portfolio steigt um %1$s (%2$s)</string>
+    <string name="portfolio_alarm_title">Alarm «Portfolio-Wert»</string>
+
+    <!-- Gebühr, Börse und Gewinn/Verlust einer Position -->
+    <string name="ledger_exchange">Börse (optional)</string>
+    <string name="ledger_exchange_failed">%1$s: gerade kein Kurs von %2$s – mit Binance bewertet.</string>
+    <string name="ledger_exchange_hint">Der Coin wird mit dem Kurs dieser Börse bewertet (sonst Binance). Verlauf, 7 T und 1 J: Binance-Tageskurse, darauf skaliert.</string>
+    <string name="ledger_exchange_mixed">%1$s: mehrere Börsen eingetragen – mit Binance bewertet. Coins verschoben? Erfasse das als «Umbuchung».</string>
+    <string name="ledger_exchange_none">Keine (Binance)</string>
+    <string name="ledger_fee">Gebühr (optional)</string>
+    <string name="ledger_fee_coin">Coin</string>
+    <string name="ledger_fee_hint">In USDT erhöht sie den Einstand (Verkauf: senkt den Erlös), im Coin verringert sie die Menge.</string>
+    <string name="ledger_fee_line">Gebühr %1$s</string>
+    <string name="ledger_fifo_cost_note">Seit Kauf: Einstand nach FIFO inkl. Gebühren (älteste Coins zuerst verkauft).</string>
+    <string name="ledger_gain_info">Heute, 7 T, 1 J: Wertänderung im Zeitraum – Käufe und Verkäufe zählen nicht als Gewinn. Seit Kauf: aktueller Wert minus Einstand (Durchschnittskosten inkl. Gebühren) der noch gehaltenen Coins.</string>
+    <string name="ledger_gain_info_a11y">So wird Gewinn/Verlust gerechnet</string>
+    <string name="ledger_gain_info_fifo">Heute, 7 T, 1 J: Wertänderung im Zeitraum – Käufe und Verkäufe zählen nicht als Gewinn. Seit Kauf: aktueller Wert minus Einstand (FIFO inkl. Gebühren) der noch gehaltenen Coins.</string>
+    <string name="ledger_gain_title">Gewinn/Verlust</string>
+    <string name="ledger_more_toggle">Gebühr und Börse</string>
+    <string name="ledger_partial_cost">«Seit Kauf» zählt nur den Teil mit Kaufpreis – ohne %1$s ohne Kaufpreis.</string>
+    <string name="ledger_period_without">Heute / 7 T / 1 J ohne %1$s – kein passender Kurs am Anfang.</string>
+    <string name="ledger_since_purchase_currency">Seit Kauf (%1$s)</string>
+    <string name="ledger_since_purchase_spoken">Gewinn/Verlust seit Kauf, noch nicht verkauft</string>
+    <plurals name="ledger_without_cost">
+        <item quantity="one">Ohne %1$d Coin ohne Kaufpreis (%2$s) – Kaufpreis ergänzen, damit er mitzählt.</item>
+        <item quantity="other">Ohne %1$d Coins ohne Kaufpreis (%2$s) – Kaufpreise ergänzen, damit sie mitzählen.</item>
+    </plurals>
+</resources>

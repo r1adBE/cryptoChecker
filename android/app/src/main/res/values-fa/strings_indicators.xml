@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Neutrale Indikatoren: Titel, Hinweise, Halving -->
+    <string name="neutral_alt_title">آلت‌کوین‌ها در برابر بیت‌کوین</string>
+    <string name="neutral_btc_indicators_title">شاخص‌های بیت‌کوین</string>
+    <string name="neutral_halving_last">آخرین هاوینگ: %1$s</string>
+    <string name="neutral_halving_next">هاوینگ بعدی حدود %1$s انتظار می‌رود (برآورد بر اساس تقویم – ارتفاع بلوک فعلاً در دسترس نیست).</string>
+    <string name="neutral_indicators_disclaimer">فقط مقادیر اندازه‌گیری‌شده، بدون ارزیابی. پیش‌بینی یا توصیه سرمایه‌گذاری نیست.</string>
+    <string name="neutral_onchain_missing">داده‌های زنجیره‌ای (Coin Metrics) فعلاً در دسترس نیست.</string>
+
+    <!-- Neutrale Indikatoren: was der Wert misst -->
+    <string name="neutral_explain_ath_distance">قیمت چقدر زیر بالاترین قیمت تاریخی قبلی است.</string>
+    <string name="neutral_explain_change_30d">قیمت امروز در مقایسه با ۳۰ روز پیش.</string>
+    <string name="neutral_explain_hashrate">میانگین ۳۰ روزه نرخ هش در مقایسه با میانگین ۶۰ روزه.</string>
+    <string name="neutral_explain_ma200w">میانگین ۲۰۰ قیمت بسته‌شدن هفتگی اخیر.</string>
+    <string name="neutral_explain_mayer">قیمت تقسیم بر میانگین ۲۰۰ روزه.</string>
+    <string name="neutral_explain_mvrv">ارزش بازار تقسیم بر ارزش تحقق‌یافته (زنجیره‌ای).</string>
+    <string name="neutral_explain_pi_gap">میانگین ۱۱۱ روزه در برابر دو برابر میانگین ۳۵۰ روزه.</string>
+    <string name="neutral_explain_puell">درآمد روزانه ماینرها تقسیم بر میانگین ۳۶۵ روزه آن.</string>
+    <string name="neutral_explain_rsi_daily">شاخص قدرت نسبی ۱۴ روز اخیر، ۰ تا ۱۰۰.</string>
+    <string name="neutral_explain_rsi_weekly">شاخص قدرت نسبی ۱۴ هفته اخیر، ۰ تا ۱۰۰.</string>
+    <string name="neutral_explain_sma50_200">میانگین ۵۰ روزه در مقایسه با میانگین ۲۰۰ روزه.</string>
+    <string name="neutral_explain_vs_btc">تغییر قیمت نسبت به بیت‌کوین در ۹۰ روز.</string>
+
+    <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
+    <string name="neutral_info_alt_season_how">برنامه فقط شمارش را نشان می‌دهد و آن را «فصل» نمی‌نامد. این مقدار معمولاً در طول چند روز تغییر می‌کند، نه چند ساعت.</string>
+    <string name="neutral_info_btc_how">هر مقدار یک جمله دارد که چه چیزی را می‌سنجد و از ۲۰۱۶ در تاریخچهٔ خودش کجاست. برنامه مقادیر را ارزیابی نمی‌کند و فاز بازار نتیجه نمی‌گیرد؛ مرز اعلان‌ها فقط همان است که خودت تعیین می‌کنی. الگوهای گذشته لزوماً تکرار نمی‌شوند.</string>
+    <string name="neutral_info_btc_what">شاخص‌های رایج بیت‌کوین فقط به‌صورت مقادیر اندازه‌گیری‌شده: Mayer Multiple، میانگین ۲۰۰ هفته‌ای، افت از سقف تاریخی، تغییر ۳۰ روزه، فاصلهٔ Pi Cycle و مقادیر آن‌چین MVRV، Puell Multiple و نرخ هش.</string>
+    <string name="neutral_info_coin_how">برای هر مقدار یک جمله درباره آنچه می‌سنجد آمده است، بدون ارزیابی. برای سکه‌هایی با سابقه قیمت کوتاه برخی مقادیر وجود ندارند. داده‌های زنجیره‌ای اینجا لحاظ نمی‌شوند.</string>
+    <string name="neutral_info_coin_what">همان شاخص‌های ساده برای سکه دلخواه، فقط از داده‌های قیمت: Mayer Multiple، میانگین ۲۰۰ هفته‌ای، افت از سقف، تغییر ۳۰ روزه، روند ۵۰/۲۰۰ روزه، RSI و قدرت نسبت به بیت‌کوین در ۹۰ روز.</string>
+    <string name="neutral_info_halving_how">هاوینگ بعدی از ارتفاع فعلی بلوک و میانگین زمان بلوک در دورهٔ سختی جاری محاسبه می‌شود (mempool.space)؛ بدون این داده‌ها بر اساس تقویم (آخرین هاوینگ به‌علاوهٔ حدود چهار سال). نمودار روند قیمت چرخه‌های گذشته را از هاوینگشان نشان می‌دهد – تاریخ، نه پیش‌بینی.</string>
+
+    <!-- Indikator-Namen -->
+    <string name="ind_cross">روند ۵۰/۲۰۰ روزه</string>
+    <string name="ind_drawdown">افت از سقف تاریخی</string>
+    <string name="ind_missing">داده ناکافی</string>
+    <string name="ind_rsi_daily">RSI (روزانه)</string>
+    <string name="ind_rsi_weekly">RSI (هفتگی)</string>
+    <string name="ind_vs_btc">قدرت در برابر بیت‌کوین (۹۰ روز)</string>
+    <string name="neutral_ind_change_30d">تغییر ۳۰ روزه</string>
+    <string name="neutral_ind_hashrate">نرخ هش ۳۰/۶۰ روزه</string>
+    <string name="neutral_ind_ma200w">میانگین ۲۰۰ هفته‌ای</string>
+    <string name="neutral_ind_pi_gap">فاصلهٔ Pi Cycle</string>
+
+    <!-- Indikatoren: «hoch heisst …, tief heisst …» -->
+    <string name="ind_read_alt_season">بالا یعنی بیشتر آلت‌کوین‌های بزرگ در 90 روز از Bitcoin بهتر بودند، پایین یعنی Bitcoin از بیشترشان بهتر بود.</string>
+    <string name="ind_read_ath_distance">کم یعنی قیمت نزدیک رکورد است، زیاد یعنی خیلی پایین‌تر از آن است.</string>
+    <string name="ind_read_change_30d">مثبت یعنی بالاتر از 30 روز پیش، منفی یعنی پایین‌تر.</string>
+    <string name="ind_read_funding">بالا یعنی بسیاری با اهرم روی افزایش قیمت شرط می‌بندند، منفی یعنی بسیاری روی کاهش.</string>
+    <string name="ind_read_hashrate_30_60">مثبت یعنی توان محاسباتی در حال افزایش است، منفی یعنی ماینرها خاموش می‌شوند.</string>
+    <string name="ind_read_leverage">لانگ‌های زیاد یعنی بسیاری با پول قرضی روی افزایش شرط می‌بندند، شورت‌های زیاد یعنی روی کاهش.</string>
+    <string name="ind_read_ma200w">قیمت خیلی بالاتر یعنی رشدی طولانی، قیمت نزدیک به آن یعنی اصلاحی عمیق.</string>
+    <string name="ind_read_mayer">بالا یعنی قیمت خیلی بالاتر از میانگین 200 روزه است، پایین یعنی زیر آن است.</string>
+    <string name="ind_read_mvrv">بالا یعنی قیمت خیلی بالاتر از میانگین پرداختی دارندگان است، پایین یعنی نزدیک یا زیر آن.</string>
+    <string name="ind_read_pi_cycle_gap">نزدیک صفر یعنی دو میانگین تقریباً به هم می‌رسند، خیلی منفی یعنی از هم دورند.</string>
+    <string name="ind_read_puell">بالا یعنی ماینرها خیلی بیشتر از معمول درآمد دارند، پایین یعنی خیلی کمتر.</string>
+    <string name="ind_read_rsi_daily">بالای 70 یعنی رشد قوی در روزهای اخیر، زیر 30 یعنی افت قوی.</string>
+    <string name="ind_read_rsi_weekly">بالای 70 یعنی رشد قوی در هفته‌های اخیر، زیر 30 یعنی افت قوی.</string>
+    <string name="ind_read_sma50_vs_200">مثبت یعنی میانگین کوتاه بالای میانگین بلند است، منفی یعنی زیر آن.</string>
+    <string name="ind_read_vs_btc">مثبت یعنی بهتر از Bitcoin، منفی یعنی بدتر.</string>
+
+    <!-- Indikatoren: Einordnung in die Vergangenheit -->
+    <string name="ind_context_flat30">با همین قیمت پس از ۳۰ روز: %1$s</string>
+    <string name="ind_context_note">مقادیر گذشته و محاسبات «با همین قیمت» حساب‌اند، نه پیش‌بینی.</string>
+    <string name="ind_context_percentile">از %1$s در %2$s روزها پایین‌تر</string>
+</resources>

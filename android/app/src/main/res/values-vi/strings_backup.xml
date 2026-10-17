@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Sicherung exportieren und wiederherstellen -->
+    <string name="backup_export">Xuất</string>
+    <string name="backup_exported">Đã lưu bản sao lưu.</string>
+    <string name="backup_failed">Không thành công. Đây có phải bản sao lưu Crypto Checker?</string>
+    <string name="backup_hint">Lưu danh sách kèm ghi chú và nhóm, cảnh báo, yêu thích, danh mục và cài đặt vào tệp do bạn giữ – vd. cho điện thoại mới.</string>
+    <string name="backup_import">Nhập</string>
+    <string name="backup_title">Sao lưu &amp; khôi phục</string>
+    <string name="backup_too_large">Tệp quá lớn hoặc không phải bản sao lưu hợp lệ (tối đa 16 MB).</string>
+
+    <!-- Passwort der Sicherungsdatei -->
+    <string name="backup_password">Mật khẩu</string>
+    <string name="backup_password_continue">Tiếp tục</string>
+    <string name="backup_password_hide">Ẩn mật khẩu</string>
+    <!-- %1$d = Mindestlänge des Passworts (8) -->
+    <string name="backup_password_min">Ít nhất %1$d ký tự</string>
+    <string name="backup_password_mismatch">Mật khẩu không khớp</string>
+    <string name="backup_password_prompt">Nhập mật khẩu của bản sao lưu này.</string>
+    <string name="backup_password_repeat">Nhập lại mật khẩu</string>
+    <string name="backup_password_show">Hiện mật khẩu</string>
+    <string name="backup_password_title">Bản sao lưu có mật khẩu</string>
+    <string name="backup_password_too_weak">Quá dễ đoán – không chỉ toàn số, không một ký tự lặp lại, không dãy phổ biến như «12345678» hay «password».</string>
+    <string name="backup_password_warning">Không có mật khẩu thì không thể khôi phục bản sao lưu.</string>
+    <string name="backup_password_wrong">Sai mật khẩu hoặc tệp bị hỏng. Hãy thử lại.</string>
+    <string name="backup_protect">Bảo vệ bằng mật khẩu</string>
+    <string name="backup_protect_hint">Mã hóa tệp (AES-256). Nên dùng khi tệp chứa dữ liệu danh mục.</string>
+
+    <!-- Sicherung ohne Passwort, Wiederherstellen -->
+    <string name="backup_plain_confirm">Lưu không mật khẩu</string>
+    <string name="backup_plain_confirm_text">Tệp không được mã hóa. Bất kỳ ai có tệp đều đọc được:</string>
+    <string name="backup_plain_confirm_title">Lưu không mật khẩu?</string>
+    <string name="backup_plain_contents_addresses">Địa chỉ ví đã lưu</string>
+    <string name="backup_plain_contents_base">Danh sách theo dõi kèm ghi chú và nhóm, cảnh báo, mục yêu thích và cài đặt</string>
+    <string name="backup_plain_contents_portfolio">Danh mục: giao dịch kèm số lượng và giá</string>
+    <string name="backup_restore_app_lock_kept">Khóa danh mục vẫn bật – bản sao lưu không mã hóa không thể tắt nó.</string>
+    <string name="backup_restore_confirm">Nhập sẽ thay danh sách (kèm ghi chú và nhóm), cảnh báo, yêu thích, danh mục và cài đặt bằng bản sao lưu.</string>
+    <plurals name="backup_restore_invalid">
+        <item quantity="other">%d mục trong bản sao lưu (danh mục hoặc cảnh báo) không hợp lệ và sẽ không được nhập.</item>
+    </plurals>
+    <string name="backup_restore_newer_version">Bản sao lưu này từ phiên bản ứng dụng mới hơn – hãy cập nhật ứng dụng trước. Không có gì được nhập.</string>
+    <string name="backup_restore_unencrypted_warning">Bản sao lưu này không được mã hóa – hãy kiểm tra nó là của bạn. Cài đặt sẽ được áp dụng; khóa danh mục đang bật sẽ vẫn bật.</string>
+    <string name="backup_restored">Đã khôi phục: %1$s, %2$s.</string>
+    <plurals name="backup_restored_alarms">
+        <item quantity="other">%1$d cảnh báo</item>
+    </plurals>
+    <plurals name="backup_restored_pairs">
+        <item quantity="other">%1$d cặp</item>
+    </plurals>
+
+    <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
+    <string name="storage_recovery_message">Thiết bị này không còn khóa của dữ liệu đã mã hóa của ứng dụng, nên ứng dụng khởi động trống. Không có gì bị xóa. Để lấy lại danh sách và danh mục, hãy nhập tệp sao lưu trong Cài đặt, mục «%1$s».</string>
+    <string name="storage_recovery_title">Không thể mở khóa dữ liệu đã lưu</string>
+</resources>

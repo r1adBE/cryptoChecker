@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Markt-Tab: Abschnitte, Zeilen, Herkunft und Alter -->
+    <!-- «… · CoinGecko · vor 3 Min.»; «gerade eben» = time_just_now, «veraltet» = widget_outdated -->
+    <plurals name="market_age_minutes">
+        <item quantity="one">%d мин назад</item>
+        <item quantity="few">%d мин назад</item>
+        <item quantity="many">%d мин назад</item>
+        <item quantity="other">%d мин назад</item>
+    </plurals>
+    <!-- «heute 02:00» (Uhrzeit ohne Sekunden) -->
+    <string name="market_age_today">сегодня %1$s</string>
+    <string name="market_context_summary">Fear &amp; Greed, метрики биткоина, доминирование, халвинг</string>
+    <string name="market_context_value">%1$s %2$s · %3$s</string>
+    <string name="market_more_data">Больше рыночных данных</string>
+    <string name="market_phase_trend_failed">Данные о ценах недоступны</string>
+    <string name="market_plain_direction_down_clear">Общая стоимость всех криптовалют заметно ниже, чем 24 часа назад (%1$s).</string>
+    <string name="market_plain_direction_down_slight">Общая стоимость всех криптовалют немного ниже, чем 24 часа назад (%1$s).</string>
+    <string name="market_plain_direction_flat">Общая стоимость всех криптовалют за 24 часа почти не изменилась (%1$s).</string>
+    <string name="market_plain_direction_up_clear">Общая стоимость всех криптовалют заметно выше, чем 24 часа назад (%1$s).</string>
+    <string name="market_plain_direction_up_slight">Общая стоимость всех криптовалют немного выше, чем 24 часа назад (%1$s).</string>
+    <string name="market_plain_footnote">Описывает последние 24 часа — без прогнозов и инвестиционных советов.</string>
+    <string name="market_plain_mood_extreme_fear">Инвесторы сейчас очень напуганы: индекс настроений (Fear &amp; Greed) — %1$d из 100.</string>
+    <string name="market_plain_mood_extreme_greed">Инвесторы сейчас очень жадные: индекс настроений (Fear &amp; Greed) — %1$d из 100.</string>
+    <string name="market_plain_mood_fear">Инвесторы скорее напуганы: индекс настроений (Fear &amp; Greed) — %1$d из 100.</string>
+    <string name="market_plain_mood_greed">Инвесторы скорее жадные: индекс настроений (Fear &amp; Greed) — %1$d из 100.</string>
+    <string name="market_plain_mood_neutral">Настроение инвесторов сбалансированное: индекс настроений (Fear &amp; Greed) — %1$d из 100.</string>
+    <string name="market_plain_standout_above_btc">Выделяется %1$s: %2$s за 24 часа, заметно выше Bitcoin (%3$s).</string>
+    <string name="market_plain_standout_against_btc">Выделяется %1$s: %2$s за 24 часа, тогда как Bitcoin двигался в другую сторону (%3$s).</string>
+    <string name="market_plain_standout_below_btc">Выделяется %1$s: %2$s за 24 часа, заметно ниже Bitcoin (%3$s).</string>
+    <string name="market_plain_standout_futures_down">Выделяется %1$s: необычно много трейдеров на фьючерсах ставят на падение цен.</string>
+    <string name="market_plain_standout_futures_up">Выделяется %1$s: необычно много трейдеров на фьючерсах ставят на рост цен.</string>
+    <string name="market_plain_standout_quiet">Сейчас ни одна монета особо не выделяется.</string>
+    <string name="market_plain_standout_volume">Выделяется %1$s: торгов примерно в %2$s раза больше обычного.</string>
+    <string name="market_plain_title">Коротко</string>
+    <!-- Nebenzeile der Fear-&-Greed-Zeile («Gier · gestern 65») -->
+    <string name="market_row_fng_yesterday">%1$s · вчера %2$s</string>
+    <string name="market_section_collapse">Скрыть: %1$s</string>
+    <string name="market_section_context">Настроения и цикл</string>
+    <string name="market_section_data">Рыночные данные</string>
+    <!-- Bedienungshilfen: Aktion auf der Abschnittsüberschrift; %1$s = Name des Abschnitts -->
+    <string name="market_section_expand">Показать: %1$s</string>
+    <string name="market_section_now">Сейчас</string>
+    <string name="market_source">Данные: Binance · Coin Metrics (CC BY-NC 4.0)</string>
+    <string name="market_unavailable_error">Биржа недоступна</string>
+
+    <!-- Markt-Tab: Info-Zeichen und Info-Blatt je Karte (was, wie, Quelle) -->
+    <string name="market_info_a11y">Инфо: %1$s</string>
+    <string name="market_info_alt_season_source">Дневные цены: Binance · пересчитывается примерно каждые 3 часа</string>
+    <string name="market_info_alt_season_what">Считает, сколько из примерно 20 крупных альткоинов (например, Ethereum, Solana, XRP) за последние 90 дней показали себя лучше Bitcoin. Значение — их доля от 0 до 100.</string>
+    <string name="market_info_coin_source">Цены: Binance или Bybit · обновляется примерно каждые 15 минут</string>
+    <string name="market_info_dominance_how">Если доминирование растёт, Bitcoin выглядит лучше остального рынка; если падает, другие монеты набирают вес. Стейблкоины тоже учитываются: когда их стоимость растёт, доля Bitcoin снижается, даже если курс Bitcoin не меняется.</string>
+    <string name="market_info_dominance_source">Источник: CoinGecko · обновляется примерно каждые 30 минут</string>
+    <string name="market_info_dominance_what">Доля Bitcoin в общей стоимости всех криптовалют (рыночной капитализации). Ниже указана доля Ethereum.</string>
+    <string name="market_info_fear_greed_how">Ниже 25 означает крайний страх, выше 75 крайнюю жадность, около 50 нейтральное настроение. В развёрнутом виде видны значения за вчера, неделю и месяц назад. Это не сигнал к покупке или продаже.</string>
+    <string name="market_info_fear_greed_source">Источник: alternative.me · новое значение раз в день</string>
+    <string name="market_info_fear_greed_what">Индекс настроений криптовалютного рынка от 0 до 100. alternative.me рассчитывает его по нескольким данным, в том числе по колебаниям цен, объёму торгов, социальным сетям и доминированию Bitcoin.</string>
+    <string name="market_info_gas_how">Более высокие значения означают, что сеть загружена и переводы стоят дороже. Медленно, обычно и быстро — это комиссии за более позднее или более быстрое подтверждение. В развёрнутом виде видна примерная стоимость простого перевода.</string>
+    <string name="market_info_gas_source">Публичные RPC-узлы, mempool.space · обновляется каждую минуту</string>
+    <string name="market_info_gas_what">Сколько сейчас стоит транзакция в каждой сети. В Ethereum и похожих сетях в gwei (миллиардная доля ETH за единицу газа), в Bitcoin в sat/vB (сатоши за виртуальный байт транзакции).</string>
+    <string name="market_info_halving_source">Дата: по высоте блока и среднему времени блока (mempool.space), иначе по календарю · история курса: Coin Metrics, Binance, обновляется каждые 12 часов</string>
+    <string name="market_info_halving_what">При халвинге награда, которую майнеры получают за новый блок Bitcoin, уменьшается вдвое. Это происходит каждые 210 000 блоков, то есть примерно раз в четыре года. После этого новых биткоинов в день появляется вдвое меньше.</string>
+    <string name="market_info_how">Как читать</string>
+    <string name="market_info_macro_how">Подсказка появляется, только если такая дата сегодня или завтра. Вокруг публикации курсы часто колеблются сильнее обычного. Приложение показывает только дату, а не сами данные.</string>
+    <string name="market_info_macro_source">Календарь с сайта приложения · загружается раз в день</string>
+    <string name="market_info_macro_what">Даты публикации важных экономических данных США: инфляция (CPI, PCE), цены производителей (PPI), отчёт по рынку труда и решения ФРС по ставке. Такие данные часто двигают и курсы криптовалют.</string>
+    <string name="market_info_no_advice">Не инвестиционная рекомендация.</string>
+    <string name="market_info_phase_source">Binance, Coin Metrics · цены каждый час, ончейн-данные обновляются каждые 12 часов</string>
+    <string name="market_info_pulse_how">Заголовок показывает направление, в развёрнутом виде видны подробности. Широкое движение означает, что большинство крупных монет движется в одну сторону. Высокая ставка финансирования означает, что многие ставят на рост с плечом. Это снимок момента, а не прогноз.</string>
+    <string name="market_info_pulse_source">Binance, CoinGecko · обновляется примерно каждые 5 минут</string>
+    <string name="market_info_pulse_what">Краткая сводка рынка за последние 24 часа: как движутся Bitcoin, Ethereum и Solana, сколько крупнейших монет растёт или падает, сколько Bitcoin торгуется прямо сейчас и на каком уровне ставка финансирования по фьючерсам на Bitcoin.</string>
+    <string name="market_info_totals_how">Справа указано изменение общей стоимости за 24 часа. Высокий объём означает, что торгуют много, но не говорит, в какую сторону. По возможности в валюте пересчёта, иначе в долларах США.</string>
+    <string name="market_info_totals_source">Все монеты · CoinGecko · обновляется примерно каждые 30 минут</string>
+    <string name="market_info_totals_what">Общая стоимость всех криптовалют (рыночная капитализация: цена, умноженная на количество в обращении, в сумме по всем монетам) и объём торгов за последние 24 часа.</string>
+    <string name="market_info_unusual_how">Для каждой монеты указано самое заметное наблюдение, справа изменение за 24 часа. Объём 2× означает вдвое больший оборот, чем обычно. Необычно не значит ни хорошо, ни плохо.</string>
+    <string name="market_info_unusual_source">Binance, CoinGecko · обновляется примерно каждые 10 минут</string>
+    <string name="market_info_unusual_what">До пяти монет из примерно 30 крупнейших (без стейблкоинов), которые сегодня ведут себя необычно: заметно сильнее или слабее Bitcoin, против направления рынка, с необычно высоким объёмом торгов или с заметной ставкой финансирования.</string>
+    <string name="market_info_what">Что это?</string>
+
+    <!-- Markt-Tab: Krypto-Markt gesamt -->
+    <string name="market_cap_label">Капитализация</string>
+    <string name="market_cap_source">Все монеты · CoinGecko</string>
+    <string name="market_cap_title">Криптовалютный рынок</string>
+    <string name="market_volume_label">Объём за 24 ч</string>
+
+    <!-- Crypto Pulse «Was gerade auffällt»: Titel, Abschnitte, Hinweise -->
+    <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
+    <string name="pulse_details_action">Подробности</string>
+    <string name="pulse_disclaimer">Не прогноз · Не инвестиционная рекомендация</string>
+    <string name="pulse_less">Свернуть</string>
+    <string name="pulse_now_title">Что сейчас выделяется</string>
+    <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
+    <string name="pulse_period_24h_spoken">Изменение за 24 часа</string>
+    <string name="pulse_section_factors">Факторы</string>
+    <string name="pulse_section_market">Рынок сегодня</string>
+    <string name="pulse_unavailable">Рыночные данные сейчас недоступны</string>
+    <string name="pulse_updated">На %1$s</string>
+
+    <!-- Crypto Pulse: Schlagzeile und Leitsatz -->
+    <string name="pulse_headline_calm">Спокойный рынок</string>
+    <string name="pulse_headline_down">Широкое падение</string>
+    <string name="pulse_headline_mixed">Смешанная картина</string>
+    <string name="pulse_headline_up">Широкий рост</string>
+    <string name="pulse_lead_alts_stronger">Альткоины сильнее биткоина.</string>
+    <string name="pulse_lead_broad_down">Рынок снижается широким фронтом.</string>
+    <string name="pulse_lead_broad_up">Рынок растёт широким фронтом.</string>
+    <string name="pulse_lead_btc_leads">Биткоин растёт сильнее всех.</string>
+    <string name="pulse_lead_btc_stronger">Биткоин сильнее альткоинов.</string>
+    <string name="pulse_lead_calm">Рынок почти не движется.</string>
+    <string name="pulse_lead_drift_down">Рынок слегка снижается.</string>
+    <string name="pulse_lead_drift_up">Рынок слегка растёт.</string>
+    <string name="pulse_lead_mixed">Крупные монеты расходятся.</string>
+
+    <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
+    <string name="pulse_detail_fund_high">Фандинг повышен.</string>
+    <string name="pulse_detail_fund_negative">Фандинг отрицательный.</string>
+    <string name="pulse_detail_fund_neutral">Фандинг нейтральный.</string>
+    <string name="pulse_detail_vol_above">Объём на %1$d%% выше нормы.</string>
+    <string name="pulse_detail_vol_above_fund_high">Объём на %1$d%% выше нормы, фандинг повышен.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Объём на %1$d%% выше нормы, фандинг отрицательный.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Объём на %1$d%% выше нормы, фандинг нейтральный.</string>
+    <string name="pulse_detail_vol_below">Объём на %1$d%% ниже нормы.</string>
+    <string name="pulse_detail_vol_below_fund_high">Объём на %1$d%% ниже нормы, фандинг повышен.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Объём на %1$d%% ниже нормы, фандинг отрицательный.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Объём на %1$d%% ниже нормы, фандинг нейтральный.</string>
+    <string name="pulse_detail_vol_normal">Объём в норме.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Объём в норме, фандинг повышен.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Объём в норме, фандинг отрицательный.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Объём в норме, фандинг нейтральный.</string>
+
+    <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
+    <string name="pulse_breadth_hint">Топ-%1$d: крупнейшие монеты по рыночной стоимости без стейблкоинов; изменение за 24 часа (CoinGecko).</string>
+    <!-- «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">Топ-%1$d</string>
+    <string name="pulse_breadth_note_broad_down">Широкое снижение: большинство крупных монет падает.</string>
+    <string name="pulse_breadth_note_broad_up">Широкое движение: большинство крупных монет растёт.</string>
+    <string name="pulse_breadth_note_narrow_down">Биткоин падает, но большинство других крупных монет держатся.</string>
+    <string name="pulse_breadth_note_narrow_up">Биткоин растёт, но большинство других крупных монет не поддерживают рост.</string>
+    <string name="pulse_breadth_spoken">Топ-%1$d: растут — %2$d, падают — %3$d</string>
+
+    <!-- Crypto Pulse: Altcoins, Funding, Gas, Volumen -->
+    <string name="pulse_alts_even">Альткоины и биткоин движутся одинаково</string>
+    <string name="pulse_alts_stronger">Альткоины сильнее биткоина</string>
+    <string name="pulse_alts_weaker">Биткоин сильнее альткоинов</string>
+    <string name="pulse_chip_funding_high">Фандинг повышен</string>
+    <string name="pulse_chip_funding_negative">Фандинг отрицательный</string>
+    <string name="pulse_funding_high">Фандинг заметно положительный: много лонгов с плечом</string>
+    <string name="pulse_funding_negative">Фандинг отрицательный: много шортов</string>
+    <string name="pulse_funding_neutral">Фандинг нейтральный</string>
+    <string name="pulse_funding_slight">Фандинг слегка положительный</string>
+    <string name="pulse_gas_high">Газ Ethereum высокий (%1$s gwei)</string>
+    <string name="pulse_gas_low">Газ Ethereum низкий (%1$s gwei)</string>
+    <string name="pulse_gas_normal">Газ Ethereum обычный (%1$s gwei)</string>
+    <string name="pulse_volume_high">Объём торгов необычно высокий (%1$s× от обычного)</string>
+    <string name="pulse_volume_low">Объём торгов низкий (%1$s× от обычного)</string>
+    <string name="pulse_volume_normal">Объём торгов обычный</string>
+
+    <!-- «Heute auffällig» (grösste Coins mit ungewöhnlicher Bewegung) -->
+    <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
+    <!-- Screenreader-Aktion einer Zeile (öffnet das Aktionsblatt bzw. die Vorschau) -->
+    <string name="unusual_action_open">Показать цену и действия</string>
+    <string name="unusual_fact_against">Идёт против рынка</string>
+    <string name="unusual_fact_funding_high">Фандинг повышен (%1$s)</string>
+    <string name="unusual_fact_funding_negative">Фандинг отрицательный (%1$s)</string>
+    <string name="unusual_fact_stronger">Движется заметно сильнее BTC</string>
+    <string name="unusual_fact_volume">Объём %1$s× от обычного</string>
+    <string name="unusual_fact_weaker">Движется заметно слабее BTC</string>
+    <string name="unusual_nothing">Сегодня ничего необычного</string>
+    <string name="unusual_source">Около 30 крупнейших монет без стейблкоинов · Binance, CoinGecko</string>
+    <string name="unusual_title">Сегодня выделяется</string>
+
+    <!-- Ungewöhnliche Aktivität eines Paars (Karte, Signale, Empfindlichkeit) -->
+    <string name="activity_card_title">Прямо сейчас что-то происходит</string>
+    <string name="activity_indicator">Необычная активность</string>
+    <string name="activity_sensitivity_less">Меньше</string>
+    <string name="activity_sensitivity_more">Больше</string>
+    <string name="activity_sensitivity_normal">Обычная</string>
+    <string name="activity_signal_funding_long">Фандинг %1$s — много лонгов с плечом</string>
+    <string name="activity_signal_funding_short">Фандинг %1$s — много шортов</string>
+    <string name="activity_signal_open_interest">Открытый интерес %1$s за %2$d мин</string>
+    <string name="activity_signal_open_interest_no_time">Открытый интерес %1$s</string>
+    <string name="activity_signal_price_move">Необычное движение: %1$s за час (%2$s× от нормы)</string>
+    <string name="activity_signal_volume">Объём %1$s× от нормы за последний час</string>
+
+    <!-- Einordnung: Bitcoin-Dominanz, Fear & Greed, Halving, Altseason -->
+    <plurals name="insights_altseason_value">
+        <item quantity="one">%1$d из %2$d крупных альткоинов обогнал биткоин за 90 дней</item>
+        <item quantity="few">%1$d из %2$d крупных альткоинов обогнали биткоин за 90 дней</item>
+        <item quantity="many">%1$d из %2$d крупных альткоинов обогнали биткоин за 90 дней</item>
+        <item quantity="other">%1$d из %2$d крупных альткоинов обогнали биткоин за 90 дней</item>
+    </plurals>
+    <string name="insights_chart_axis">Лет после халвинга</string>
+    <string name="insights_chart_hint">Цена как кратное цены в день халвинга (лог. шкала). Прошлые циклы — закономерность, не прогноз.</string>
+    <string name="insights_cycle_chart">Циклы после халвинга</string>
+    <string name="insights_dominance_eth">ETH %1$s всего рынка</string>
+    <string name="insights_dominance_title">Доминирование биткоина</string>
+    <string name="insights_fng_history">Вчера %1$s · неделю назад %2$s · месяц назад %3$s</string>
+    <string name="insights_fng_title">Индекс страха и жадности</string>
+    <string name="insights_halving_title">Халвинг биткоина</string>
+    <string name="insights_source_dominance">Источник: CoinGecko, Binance</string>
+    <string name="insights_source_fng">Источник: alternative.me</string>
+    <string name="insights_source_history">Источник: Coin Metrics (CC BY-NC 4.0), Binance</string>
+
+    <!-- Fear & Greed: Stufen -->
+    <string name="fng_extreme_fear">Крайний страх</string>
+    <string name="fng_extreme_greed">Крайняя жадность</string>
+    <string name="fng_fear">Страх</string>
+    <string name="fng_greed">Жадность</string>
+    <string name="fng_neutral">Нейтрально</string>
+
+    <!-- Halving-Zyklus (Chart, Marken, Schätzung) -->
+    <string name="cycle_data_as_of">Данные на %1$s · обновление…</string>
+    <string name="cycle_from_top">%1$s от пика</string>
+    <string name="cycle_marker_bottom">Дно %1$s</string>
+    <string name="cycle_marker_double_bottom">Двойное дно %1$s</string>
+    <string name="cycle_marker_double_top">Двойная вершина %1$s</string>
+    <string name="cycle_marker_high_so_far">Максимум на данный момент</string>
+    <!-- Hoch/Tief-Marken mit Sprechblase im Zyklus-Chart -->
+    <string name="cycle_marker_top">Пик %1$s</string>
+    <string name="cycle_since_halving">%1$s с халвинга</string>
+    <string name="halving_estimate_text">Следующий халвинг расчётно около %1$s: осталось %2$s блоков при среднем %3$s мин на блок (текущий период сложности). Экстраполяция, не обещание – время блока колеблется.</string>
+
+    <!-- Netzwerkgebühren (Gas) -->
+    <string name="gas_alert_active">Оповещение: %1$s</string>
+    <string name="gas_slow_fast">Медленно %1$s · Быстро %2$s</string>
+    <string name="gas_source">Публичные RPC-узлы и mempool.space · Стоимость простого перевода, для L2 без доли L1</string>
+    <string name="gas_title">Комиссии сети</string>
+    <string name="gas_transfer_cost">Перевод ≈ %1$s</string>
+
+    <!-- Wirtschaftsdaten (US-Termine) -->
+    <string name="macro_cpi">инфляция в США (CPI)</string>
+    <string name="macro_fomc">решение ФРС по ставке</string>
+    <string name="macro_hint_list">%1$s – в такие дни рынок часто колеблется сильнее.</string>
+    <string name="macro_hint_today">Сегодня %1$s: %2$s – в такие дни рынок часто колеблется сильнее.</string>
+    <string name="macro_hint_today_list">Сегодня: %1$s – в такие дни рынок часто колеблется сильнее.</string>
+    <string name="macro_hint_tomorrow">Завтра %1$s: %2$s – в такие дни рынок часто колеблется сильнее.</string>
+    <string name="macro_hint_tomorrow_list">Завтра: %1$s – в такие дни рынок часто колеблется сильнее.</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">Сегодня %1$s %2$s</string>
+    <string name="macro_item_tomorrow">Завтра %1$s %2$s</string>
+    <string name="macro_nfp">отчёт по рынку труда США</string>
+    <string name="macro_pce">инфляция PCE в США</string>
+    <string name="macro_ppi">цены производителей в США (PPI)</string>
+    <string name="macro_released_list">Опубликовано сегодня: %1$s.</string>
+    <string name="macro_released_one">Опубликовано сегодня в %1$s: %2$s.</string>
+    <string name="macro_title">Экономические данные</string>
+
+    <!-- Coin-Analyse -->
+    <string name="coin_choose">Монета</string>
+    <string name="coin_no_data">Нет данных о цене этой монеты на Binance или Bybit.</string>
+    <string name="coin_price_only">Только по цене — ончейн-данные (MVRV, Puell, хешрейт) свободно доступны лишь для биткоина.</string>
+    <plurals name="coin_short_history">
+        <item quantity="one">Только %1$d день истории — некоторых индикаторов нет.</item>
+        <item quantity="few">Только %1$d дня истории — некоторых индикаторов нет.</item>
+        <item quantity="many">Только %1$d дней истории — некоторых индикаторов нет.</item>
+        <item quantity="other">Только %1$d дня истории — некоторых индикаторов нет.</item>
+    </plurals>
+    <string name="coin_title">Анализ монеты</string>
+</resources>

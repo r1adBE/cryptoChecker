@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Tab, leere Ansicht, Einschalten, Sperre -->
+    <string name="app_lock_unavailable">Thiết bị này chưa thiết lập khóa màn hình. Hãy thiết lập trong cài đặt hệ thống trước.</string>
+    <string name="app_lock_unlock">Mở khóa</string>
+    <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
+    <string name="portfolio_clear">Xóa sạch danh mục</string>
+    <plurals name="portfolio_clear_confirm_count">
+        <item quantity="other">Xóa tất cả %d giao dịch? Các địa chỉ theo dõi vẫn được giữ. Không thể hoàn tác.</item>
+    </plurals>
+    <string name="portfolio_disclaimer">Số tiền nằm lại trên thiết bị trừ khi bạn tự xuất; để lấy giá chỉ ký hiệu cặp được gửi đến sàn của cặp đó. Các nút blockchain công khai thấy địa chỉ theo dõi và IP của bạn. Không phải lời khuyên đầu tư.</string>
+    <string name="portfolio_empty_action">Thêm lần mua đầu tiên</string>
+    <string name="portfolio_empty_address">Chỉ theo dõi một địa chỉ ví</string>
+    <string name="portfolio_empty_csv">Mua trên sàn? Nhập tệp của sàn</string>
+    <string name="portfolio_empty_example_plain">Ví dụ: mua 0,01 BTC ngày 1 tháng 3. Ứng dụng sẽ cho thấy hôm nay nó đáng giá bao nhiêu và bạn đang lãi hay lỗ – chỉ lưu trên thiết bị này.</string>
+    <string name="portfolio_empty_text">Nhập những gì bạn đã mua – ứng dụng cho thấy hôm nay nó đáng giá bao nhiêu và bạn lãi hay lỗ bao nhiêu.</string>
+    <string name="portfolio_empty_title">Chưa có giao dịch</string>
+    <string name="portfolio_enable_ask_text">Giao dịch của bạn đã được lưu. Tab Danh mục hiển thị số nắm giữ và giá trị của chúng.</string>
+    <string name="portfolio_enable_ask_title">Bật tab Danh mục?</string>
+    <string name="portfolio_enable_later_hint">Đã lưu giao dịch. Bạn có thể bật tab Danh mục trong Cài đặt › Nâng cao › Danh mục.</string>
+    <string name="portfolio_enabled_banner">Đã bật danh mục – bạn tìm thấy ở thẻ Danh mục.</string>
+    <string name="portfolio_lock_reason">Mở khóa danh mục</string>
+    <string name="portfolio_locked_text">Mở khóa để xem tài sản nắm giữ và giá trị.</string>
+    <string name="portfolio_locked_title">Danh mục đang bị khóa</string>
+    <string name="portfolio_setting_hint">Tùy chọn: ghi lại giao dịch mua bán và xem giá trị cùng lãi/lỗ trong một tab riêng.</string>
+    <!-- Status-Pille wie in der Merkliste: Kurse älter als die Frische-Schwelle, Gerät online. Offline: offline_status_since, alles aktuell: watchlist_all_fresh -->
+    <string name="portfolio_status_stale">Cũ · lúc %1$s</string>
+    <plurals name="portfolio_system_restore_invalid">
+        <item quantity="other">%d mục từ bản sao lưu hệ thống không hợp lệ và không được khôi phục.</item>
+    </plurals>
+    <string name="portfolio_title">Danh mục</string>
+    <string name="portfolio_unassigned_fee">Phí chưa phân bổ – không rõ giá vốn: %1$s</string>
+    <string name="portfolio_updated">Giá lúc %1$s</string>
+
+    <!-- Portfolio: Gesamtwert-Kopf (Heute · 7 T · Gesamt) und Aufteilung -->
+    <string name="portfolio_allocation_other">Khác</string>
+    <string name="portfolio_allocation_title">Phân bổ</string>
+    <string name="portfolio_card_details">Chi tiết</string>
+    <!-- Screenreader, Kennzahl ohne Wert; %1$s Beschriftung (z. B. «7 Tage») -->
+    <string name="portfolio_card_figure_none_a11y">%1$s: chưa có dữ liệu</string>
+    <string name="portfolio_card_hints_count">Ghi chú (%1$d)</string>
+    <string name="portfolio_card_today">Hôm nay</string>
+    <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
+    <string name="portfolio_card_total">Tổng</string>
+    <string name="portfolio_hide_amounts">Ẩn số tiền</string>
+    <string name="portfolio_hide_amounts_hint">Hiển thị số tiền và giá trị trong danh mục và tiện ích Danh mục dưới dạng ••• – phần trăm vẫn hiển thị.</string>
+    <string name="portfolio_invested">Giá vốn</string>
+    <string name="portfolio_total_no_fx">Không có tỷ giá cho %1$s – số tiền bằng USDT</string>
+    <string name="portfolio_total_value">Tổng giá trị</string>
+    <string name="portfolio_value">Giá trị</string>
+
+    <!-- Portfolio: Bestand, offene Positionen, Durchschnittspreis -->
+    <string name="portfolio_avg_and_now">TB %1$s · hiện %2$s</string>
+    <string name="portfolio_avg_only">TB %1$s</string>
+    <string name="portfolio_avg_open_lots">Giá vốn TB của coin đang giữ</string>
+    <string name="portfolio_avg_partial">TB của %1$s có giá mua</string>
+    <string name="portfolio_avg_price">Giá mua trung bình</string>
+    <string name="portfolio_avg_price_hint">Giá mua trung bình: trung bình của mọi lần mua, theo trọng số khối lượng. Lệnh bán được tính theo mức trung bình này.</string>
+    <plurals name="portfolio_closed">
+        <item quantity="other">Vị thế đã đóng (%1$d)</item>
+    </plurals>
+    <string name="portfolio_fifo_hint">FIFO: lệnh bán dùng coin cũ nhất của bạn trước. TB = giá vốn còn lại ÷ số lượng có giá mua.</string>
+    <string name="portfolio_holdings">Số lượng nắm giữ</string>
+    <string name="portfolio_lost_fee_cost">Giá vốn phí mạng không có lô đã trả: %1$s</string>
+    <string name="portfolio_open_lots">Lô mua còn mở (%1$d)</string>
+    <string name="portfolio_open_lots_avg">Có giá mua (Ø)</string>
+    <string name="portfolio_open_lots_no_cost">Không có giá mua</string>
+    <string name="portfolio_open_lots_without_price">không có giá mua</string>
+    <string name="portfolio_realized">Lãi/lỗ đã thực hiện</string>
+    <string name="portfolio_unrealized">Lãi/lỗ chưa thực hiện</string>
+    <string name="portfolio_unrealized_without_unpriced">không gồm %1$s chưa có giá mua</string>
+    <string name="portfolio_withdrawn_gain">Đã rút: %1$s (thay đổi giá trị đến khi rút)</string>
+
+    <!-- Portfolio: Kurse und Umrechnung -->
+    <string name="portfolio_convert_to">Quy đổi sang</string>
+    <string name="portfolio_convert_to_value">Quy đổi sang: %1$s</string>
+    <string name="portfolio_current_missing">Không có giá hiện tại cho %1$s</string>
+    <string name="portfolio_current_price">Giá hiện tại</string>
+    <string name="portfolio_price_missing">Thiếu giá</string>
+    <string name="portfolio_price_missing_hint">Một số giao dịch mua chưa có giá. Thêm giá mua để xem lãi/lỗ.</string>
+    <string name="portfolio_price_source">Giá: Binance · USDT = 1</string>
+    <string name="portfolio_price_source_routes">Giá: %1$s, còn lại Binance · USDT = 1</string>
+    <string name="portfolio_price_unavailable">Hiện chưa lấy được giá</string>
+    <string name="portfolio_price_unchecked">Giá chưa kiểm tra</string>
+    <string name="portfolio_price_via_base">≈ giá %1$s (bridged/wrapped)</string>
+    <string name="portfolio_usdt_as_usd">USDT quy đổi theo tỷ giá USD</string>
+    <string name="portfolio_usdt_assumed">Giả định USDT = 1</string>
+    <string name="portfolio_usdt_depeg_warning">Giả định USDT = 1 – thị trường ở mức %1$s USD (%2$s)</string>
+
+    <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
+    <string name="portfolio_add_from_watch">Thêm vào danh mục</string>
+    <string name="portfolio_add_tx">Ghi giao dịch</string>
+    <string name="portfolio_buy">Mua</string>
+    <string name="portfolio_coin">Coin</string>
+    <string name="portfolio_coin_invalid">Nhập ký hiệu coin</string>
+    <string name="portfolio_coin_search">Tìm ký hiệu, ví dụ BTC</string>
+    <string name="portfolio_discard_confirm">Hủy</string>
+    <string name="portfolio_discard_keep">Tiếp tục chỉnh sửa</string>
+    <string name="portfolio_discard_title">Hủy các thay đổi?</string>
+    <string name="portfolio_edit_tx">Sửa giao dịch</string>
+    <string name="portfolio_invalid">Số lượng không hợp lệ</string>
+    <string name="portfolio_oversold">Lượng bán vượt quá số đang nắm giữ – hãy kiểm tra giao dịch.</string>
+    <string name="portfolio_sell">Bán</string>
+    <string name="portfolio_sell_exceeds">Nhiều hơn số bạn nắm giữ (%1$s)</string>
+    <string name="portfolio_sell_exceeds_fee">Số lượng cộng phí lớn hơn số đang nắm giữ (%1$s)</string>
+    <string name="portfolio_sell_exceeds_wallet">Nhiều hơn số nắm giữ trong %2$s (%1$s)</string>
+    <string name="portfolio_transactions">Giao dịch</string>
+    <string name="portfolio_tx_acquired_date">Ngày mua ban đầu (không bắt buộc)</string>
+    <string name="portfolio_tx_acquired_date_hint">Dùng cho thời gian nắm giữ trong dữ liệu thuế xuất ra</string>
+    <string name="portfolio_tx_amount">Số lượng</string>
+    <string name="portfolio_tx_coin_fee">Phí bằng coin (không bắt buộc)</string>
+    <string name="portfolio_tx_date">Ngày</string>
+    <string name="portfolio_tx_delete_confirm">Giao dịch này sẽ bị xóa khỏi danh mục.</string>
+    <string name="portfolio_tx_delete_title">Xóa giao dịch?</string>
+    <string name="portfolio_tx_deposit">Nạp</string>
+    <string name="portfolio_tx_entry_currency">Nhập bằng</string>
+    <string name="portfolio_tx_explain_deposit">Số nắm giữ không qua giao dịch, vd. coin có từ trước</string>
+    <string name="portfolio_tx_explain_gift">Coin rời khỏi số nắm giữ như một lần rút – chỉ là chuyển nhượng theo giá thị trường ở nơi quốc gia đánh thuế quà tặng như vậy (UK, CA, AU)</string>
+    <string name="portfolio_tx_explain_payment">Thanh toán hàng hóa hoặc dịch vụ – chuyển nhượng theo giá thị trường như một lần bán, không nhận tiền</string>
+    <string name="portfolio_tx_explain_reward">Giá vốn = giá trị thị trường lúc nhận</string>
+    <string name="portfolio_tx_explain_swap">Coin đổi coin: bán coin đưa ra, mua coin nhận về</string>
+    <string name="portfolio_tx_explain_transfer">Không có lãi – giá vốn đi theo coin</string>
+    <string name="portfolio_tx_explain_withdrawal">Số nắm giữ rời danh mục – không bán, không lãi</string>
+    <string name="portfolio_tx_fee_consumes_amount">Phí bằng số lượng nhận về – sẽ không còn lại gì.</string>
+    <string name="portfolio_tx_fees_toggle">Phí</string>
+    <string name="portfolio_tx_fiat_converted">≈ %1$s theo tỷ giá ngày %2$s</string>
+    <string name="portfolio_tx_fiat_loading">Đang tải tỷ giá…</string>
+    <string name="portfolio_tx_fiat_no_fx">Không có tỷ giá cho ngày này – hãy nhập số tiền bằng USDT.</string>
+    <string name="portfolio_tx_gift">Tặng</string>
+    <string name="portfolio_tx_gift_price_hint">Bằng USDT. Để trống = giá đóng cửa ngày đó (ước tính).</string>
+    <string name="portfolio_tx_gift_spouse">Cho vợ/chồng / bạn đời</string>
+    <string name="portfolio_tx_gift_spouse_hint">Vương quốc Anh và Canada: không lãi không lỗ – bạn đời tiếp nhận giá vốn của bạn. Các nước khác bỏ qua điều này.</string>
+    <string name="portfolio_tx_market_value">Giá thị trường mỗi coin</string>
+    <string name="portfolio_tx_more_buy">Phí, sàn, ghi chú</string>
+    <string name="portfolio_tx_network_fee">Phí mạng bằng coin (không bắt buộc)</string>
+    <string name="portfolio_tx_note">Ghi chú (tùy chọn)</string>
+    <string name="portfolio_tx_payment">Đã thanh toán</string>
+    <string name="portfolio_tx_price">Giá mỗi coin</string>
+    <string name="portfolio_tx_price_hint">Bằng USDT. Để trống nếu không rõ.</string>
+    <string name="portfolio_tx_price_historic">Giá đóng cửa ngày %1$s đã kiểm tra – chỉnh nếu cần</string>
+    <string name="portfolio_tx_price_invalid">Giá không hợp lệ</string>
+    <string name="portfolio_tx_price_past_hint">Nhập giá ngày giao dịch – để trống nếu không biết</string>
+    <string name="portfolio_tx_price_receipt_hint">Bằng USDT. Để trống = số nắm giữ không có giá vốn.</string>
+    <string name="portfolio_tx_price_zero">Không thể đặt giá 0 cho giao dịch đã nhập – để trống để dùng giá thị trường</string>
+    <string name="portfolio_tx_removed">Đã xóa giao dịch</string>
+    <string name="portfolio_tx_reward">Phần thưởng</string>
+    <string name="portfolio_tx_save_failed">Không thể lưu giao dịch. Dữ liệu bạn nhập vẫn còn – hãy thử lại.</string>
+    <string name="portfolio_tx_swap">Hoán đổi</string>
+    <string name="portfolio_tx_swap_fee_received">Phí bằng %1$s: làm giảm số lượng nhận về, không cần giá.</string>
+    <string name="portfolio_tx_swap_from">Hoán đổi từ %1$s</string>
+    <string name="portfolio_tx_swap_given_amount">Số lượng đưa ra</string>
+    <string name="portfolio_tx_swap_given_coin">Coin đưa ra</string>
+    <string name="portfolio_tx_swap_received_amount">Số lượng nhận về</string>
+    <string name="portfolio_tx_swap_received_coin">Coin nhận về</string>
+    <string name="portfolio_tx_swap_same_coin">Hãy chọn coin khác với coin đưa ra</string>
+    <string name="portfolio_tx_swap_to">Hoán đổi sang %1$s</string>
+    <string name="portfolio_tx_swap_value">Giá trị hoán đổi (không bắt buộc)</string>
+    <string name="portfolio_tx_swap_value_hint">Tổng giá trị. Để trống = không rõ – lãi sẽ chưa đầy đủ (tự động nếu có USDT trong hoán đổi).</string>
+    <string name="portfolio_tx_third_fee_amount">Số lượng phí</string>
+    <string name="portfolio_tx_third_fee_coin">Coin trả phí</string>
+    <string name="portfolio_tx_third_fee_incomplete">Không có giá thì phí không được tính vào giá vốn và số tiền thu; dữ liệu thuế xuất ra sẽ đánh dấu các lệnh bán đó.</string>
+    <string name="portfolio_tx_third_fee_price">Giá mỗi coin trả phí (không bắt buộc)</string>
+    <string name="portfolio_tx_third_fee_toggle">Phí bằng coin khác</string>
+    <string name="portfolio_tx_total">Tổng: %1$s</string>
+    <string name="portfolio_tx_transfer">Chuyển</string>
+    <string name="portfolio_tx_transfer_from">Từ (không bắt buộc)</string>
+    <string name="portfolio_tx_transfer_to">Đến (không bắt buộc)</string>
+    <string name="portfolio_tx_transfer_to_hint">Sàn hoặc ví – từ giờ được định giá ở đó.</string>
+    <string name="portfolio_tx_type_select">Loại: %1$s</string>
+    <string name="portfolio_tx_value_received">Giá trị mỗi coin lúc nhận (không bắt buộc)</string>
+    <string name="portfolio_tx_withdrawal">Rút</string>
+    <string name="portfolio_tx_withdrawal_gift_hint">Đã tặng hay dùng để thanh toán? Hãy ghi là ‹Tặng› hoặc ‹Đã thanh toán› – tùy quốc gia, về thuế đó là một lần bán.</string>
+    <string name="portfolio_tx_withdrawal_price_hint">Tùy chọn: giá trị thị trường bằng USDT, chỉ dùng cho lịch sử (để trống = giá ngày đó). Coin luôn rời đi theo giá vốn.</string>
+    <string name="portfolio_wallet_did_you_mean">Ý bạn là %1$s? Cách viết khác sẽ được tính là ví riêng.</string>
+    <string name="portfolio_wallet_shortfall">Số nắm giữ trong %1$s không đủ – thiếu một lệnh chuyển?</string>
+
+    <!-- Portfolio: Wertverlauf (Zeitraum, Vergleich Währung | USDT, Währungseffekt) -->
+    <!-- Höchster Tageswert des Zeitraums am Punkt («Hoch 12’345») -->
+    <string name="portfolio_chart_high">Cao nhất %1$s</string>
+    <string name="portfolio_compare">So sánh</string>
+    <!-- Umschalter «Vergleich», Screenreader: %1$s Währung -->
+    <string name="portfolio_compare_a11y">So sánh %1$s và USDT theo phần trăm</string>
+    <!-- %1$s Zeitraum, %2$s Währung, %3$s und %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="portfolio_compare_chart_a11y">So sánh theo phần trăm, %1$s: %2$s %3$s, USDT %4$s</string>
+    <!-- %1$s Prozentpunkte mit Vorzeichen («−5.10%»): Veränderung in der Währung minus in USDT -->
+    <string name="portfolio_currency_effect">Ảnh hưởng tỷ giá: %1$s</string>
+    <!-- «Seit 1. Kauf» beginnt frühestens beim ersten Tag mit Kursdaten -->
+    <string name="portfolio_history_capped_data_start">Dữ liệu giá chỉ có từ tháng 8 năm 2017 — lịch sử bắt đầu từ đó.</string>
+    <string name="portfolio_history_chip_since_first">Từ khi mua</string>
+    <string name="portfolio_history_collapse">Ẩn diễn biến giá trị</string>
+    <string name="portfolio_history_converted">Quy đổi theo tỷ giá hôm nay</string>
+    <string name="portfolio_history_expand">Xem diễn biến giá trị</string>
+    <string name="portfolio_history_gain_a11y">Giá trị %1$s. Lãi/lỗ, %2$s: %3$s</string>
+    <string name="portfolio_history_gain_label">Lãi/lỗ</string>
+    <!-- Umschalter, Screenreader: %1$s Währung («CHF») oder «USDT» -->
+    <string name="portfolio_history_in_a11y">Giá trị bằng %1$s</string>
+    <string name="portfolio_history_incl_fx">Gồm tỷ giá</string>
+    <string name="portfolio_history_incl_withdrawn">Gồm thay đổi giá trị của coin đã rút</string>
+    <string name="portfolio_history_includes_trades">Bao gồm các lệnh mua và bán trong kỳ này</string>
+    <string name="portfolio_history_loading">Đang tải diễn biến giá trị</string>
+    <string name="portfolio_history_period_1y">1 năm</string>
+    <string name="portfolio_history_period_30d">30 ngày</string>
+    <string name="portfolio_history_period_7d">7 ngày</string>
+    <string name="portfolio_history_period_since_first">từ lần mua đầu tiên</string>
+    <string name="portfolio_history_pnl_needs_prices">Thiếu giá mua để tính lãi/lỗ – hãy thêm trong giao dịch.</string>
+    <string name="portfolio_history_pnl_without">Lãi/lỗ không gồm %1$s (thiếu giá)</string>
+    <string name="portfolio_history_range_1y">1 năm</string>
+    <string name="portfolio_history_range_30d">30 ngày</string>
+    <string name="portfolio_history_range_7d">7 ngày</string>
+    <string name="portfolio_history_range_a11y">Xem diễn biến %1$s</string>
+    <string name="portfolio_history_range_since_first">Từ lần mua đầu</string>
+    <string name="portfolio_history_scaled">Lịch sử %1$s: lịch sử Binance quy theo giá sàn</string>
+    <string name="portfolio_history_title">Diễn biến giá trị</string>
+    <string name="portfolio_history_today">Hôm nay</string>
+    <string name="portfolio_history_too_short">Diễn biến bắt đầu sau ngày trọn vẹn đầu tiên của bạn.</string>
+    <string name="portfolio_history_unavailable">Hiện chưa có diễn biến.</string>
+    <string name="portfolio_history_utc_days">Ngày theo UTC (nến ngày)</string>
+    <string name="portfolio_history_without_matching">Không gồm %1$s (không có giá ngày khớp)</string>
+    <string name="portfolio_period_rewards">Phần thưởng +%1$s (không tính vào lãi)</string>
+    <string name="portfolio_period_scaled">7N/1N cho %1$s: lịch sử Binance quy theo giá sàn</string>
+
+    <!-- Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_alarm_action">Cảnh báo</string>
+    <!-- %1$s = Währung, z. B. CHF -->
+    <string name="portfolio_alarm_amount">Số tiền (%1$s)</string>
+    <string name="portfolio_alarm_hint">Được kiểm tra sau mỗi lần làm mới. Giống cảnh báo: báo khi vượt ngưỡng và chỉ báo lại sau khi giá trị đã quay về.</string>
+    <string name="portfolio_alarm_kind_above">Danh mục trên số tiền</string>
+    <string name="portfolio_alarm_kind_below">Danh mục dưới số tiền</string>
+    <string name="portfolio_alarm_kind_down">Danh mục giảm</string>
+    <string name="portfolio_alarm_kind_up">Danh mục tăng</string>
+    <!-- %1$s = Betrag mit Währung (oder •••) -->
+    <string name="portfolio_alarm_sentence_above">Danh mục trên %1$s</string>
+    <string name="portfolio_alarm_sentence_below">Danh mục dưới %1$s</string>
+    <string name="portfolio_alarm_sentence_down">Danh mục giảm %1$s (%2$s)</string>
+    <!-- %1$s = Prozent, %2$s = Basis der %-Änderung kurz (24h, heute …) -->
+    <string name="portfolio_alarm_sentence_up">Danh mục tăng %1$s (%2$s)</string>
+    <string name="portfolio_alarm_title">Cảnh báo “giá trị danh mục”</string>
+
+    <!-- Gebühr, Börse und Gewinn/Verlust einer Position -->
+    <string name="ledger_exchange">Sàn (không bắt buộc)</string>
+    <string name="ledger_exchange_failed">%1$s: hiện không có giá từ %2$s – định giá theo Binance.</string>
+    <string name="ledger_exchange_hint">Coin được định giá theo giá của sàn này (nếu không thì Binance). Lịch sử, 7 N và 1 N: giá ngày của Binance, quy đổi theo đó.</string>
+    <string name="ledger_exchange_mixed">%1$s: đã nhập nhiều sàn – định giá theo Binance. Đã chuyển coin? Hãy ghi lại là «Chuyển».</string>
+    <string name="ledger_exchange_none">Không (Binance)</string>
+    <string name="ledger_fee">Phí (không bắt buộc)</string>
+    <string name="ledger_fee_coin">Coin</string>
+    <string name="ledger_fee_hint">Bằng USDT sẽ tăng giá vốn (bán: giảm số tiền thu); bằng coin sẽ giảm số lượng.</string>
+    <string name="ledger_fee_line">Phí %1$s</string>
+    <string name="ledger_fifo_cost_note">Từ khi mua: giá vốn FIFO gồm phí (coin cũ nhất được bán trước).</string>
+    <string name="ledger_gain_info">Hôm nay, 7 N, 1 N: thay đổi giá trị trong kỳ – mua và bán không tính là lãi. Từ khi mua: giá trị hiện tại trừ giá vốn (giá trung bình gồm phí) của các coin bạn vẫn giữ.</string>
+    <string name="ledger_gain_info_a11y">Cách tính lãi và lỗ</string>
+    <string name="ledger_gain_info_fifo">Hôm nay, 7 N, 1 N: thay đổi giá trị trong kỳ – mua và bán không tính là lãi. Từ khi mua: giá trị hiện tại trừ giá vốn (FIFO gồm phí) của các coin bạn vẫn giữ.</string>
+    <string name="ledger_gain_title">Lãi/lỗ</string>
+    <string name="ledger_more_toggle">Phí và sàn</string>
+    <string name="ledger_partial_cost">«Từ khi mua» chỉ tính phần có giá mua – không gồm %1$s chưa có giá mua.</string>
+    <string name="ledger_period_without">Hôm nay / 7 N / 1 N không gồm %1$s – không có giá đầu kỳ phù hợp.</string>
+    <string name="ledger_since_purchase_currency">Từ khi mua (%1$s)</string>
+    <string name="ledger_since_purchase_spoken">Lãi/lỗ từ khi mua, chưa bán</string>
+    <plurals name="ledger_without_cost">
+        <item quantity="other">Không gồm %1$d coin chưa có giá mua (%2$s) – thêm giá để được tính.</item>
+    </plurals>
+</resources>

@@ -1,0 +1,36 @@
+# Build-Ausgaben
+build/
+.gradle/
+.kotlin/
+.cxx/
+.externalNativeBuild/
+captures/
+*.apk
+*.aab
+*.ap_
+*.dex
+*.class
+
+# Lokale Einstellungen (SDK-Pfad usw.)
+local.properties
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.vs/
+
+# System
+.DS_Store
+Thumbs.db
+
+# Signierung — niemals einchecken
+keystore.properties
+*.jks
+*.keystore
+
+# Echte Datenbanken eines Testgeräts (RealDatabaseEncryptionTest) – nie einchecken
+app/src/androidTest/assets/realdb/
+*.db-wal
+*.db-shm

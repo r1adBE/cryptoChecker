@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Warum bewegt sich das?»: Titel, Abschnitte, Aufklappen -->
+    <string name="why_action">Mi mozog vele együtt?</string>
+    <string name="why_all_values">Minden érték és forrás</string>
+    <string name="why_all_values_hint">Megfigyelés · Lehetséges magyarázat · Források</string>
+    <string name="why_details">Részletek megjelenítése</string>
+    <string name="why_details_hide">Részletek elrejtése</string>
+    <string name="why_disclaimer">Automatikus értékelés piaci adatokból: azt mutatja, mi történik egy időben, nem bizonyítja az okot.</string>
+    <string name="why_footer_short">Az egyidejűség nem ok · Nem befektetési tanácsadás</string>
+    <string name="why_no_data">Nincs Binance-adat ehhez a párhoz</string>
+    <string name="why_no_data_hint">Az árfolyam, a forgalom és a volatilitás a Binance órás gyertyáiból származik.</string>
+    <string name="why_ref_alts">Altok</string>
+    <string name="why_section_context">Lehetséges értelmezés</string>
+    <string name="why_section_observation">Megfigyelés</string>
+    <string name="why_title">Mi mozog vele együtt?</string>
+    <string name="why_title_coin">Mi mozog a(z) %1$s mellett?</string>
+
+    <!-- «Warum?»: Kurz gesagt (ein Satz oben) -->
+    <string name="why_brief_head">Röviden · Állapot: %1$s</string>
+    <string name="why_brief_label">Röviden:</string>
+    <string name="why_summary_against">Az érme a piaccal szemben mozog.</string>
+    <string name="why_summary_calm">Nincs feltűnő mozgás: a piac és az érme nyugodt.</string>
+    <string name="why_summary_coin">Csak ez az érme mozog – talán valami, ami csak ezt az érmét érinti.</string>
+    <string name="why_summary_coin_volume">Csak ez az érme mozog, nagyobb forgalommal – talán valami, ami csak ezt az érmét érinti.</string>
+    <string name="why_summary_longs">Határidős piac: sok tőkeáttételes long pozíció.</string>
+    <string name="why_summary_market">A mozgás időben egybeesik a teljes piaccal.</string>
+    <string name="why_summary_market_volume">A mozgás egybeesik a magasabb kereskedési forgalommal és a széles körű piaci mozgással.</string>
+    <string name="why_summary_peg_near">Az árfolyam közel van az 1:1-es kötéséhez.</string>
+    <string name="why_summary_peg_off">Az árfolyam érezhetően eltér az 1:1-es kötésétől.</string>
+    <string name="why_summary_shorts">Határidős piac: sok short pozíció.</string>
+    <string name="why_summary_thin">A mozgás gyenge: kevés volumen áll mögötte.</string>
+
+    <!-- «Warum?»: Faktorliste (Titel der Faktoren) -->
+    <string name="why_f_against">A piaccal szemben</string>
+    <string name="why_f_coin_only">Csak ez az érme</string>
+    <string name="why_f_leader">A Bitcoin mint piacvezető</string>
+    <string name="why_f_leverage_balanced">Kiegyensúlyozott tőkeáttétel</string>
+    <string name="why_f_leverage_longs">Tőkeáttétel: sok long</string>
+    <string name="why_f_leverage_shorts">Tőkeáttétel: sok short</string>
+    <string name="why_f_market_calm">Nyugodt piac</string>
+    <string name="why_f_market_wide">Az egész piac mozog</string>
+    <string name="why_factor_funding">Funding</string>
+    <string name="why_factor_futures">Határidős</string>
+    <string name="why_factor_market">Teljes piac</string>
+    <string name="why_factor_near_high">Közel a csúcshoz</string>
+    <string name="why_factor_near_low">Közel a mélyponthoz</string>
+    <string name="why_factor_peg">Kötés (1:1)</string>
+    <string name="why_factor_range3d">3 napos sáv</string>
+
+    <!-- «Warum?»: Nebenzeilen der Faktoren -->
+    <string name="why_fn_estimated">becsült</string>
+    <string name="why_fn_funding_longs">sokan emelkedésre fogadnak</string>
+    <string name="why_fn_funding_neutral">semleges</string>
+    <string name="why_fn_funding_shorts">sokan esésre fogadnak</string>
+    <string name="why_fn_high_at">a 30 napos csúcson</string>
+    <string name="why_fn_high_below">a 30 napos csúcs alatt</string>
+    <string name="why_fn_leader_calm">A Bitcoin nyugodt</string>
+    <string name="why_fn_leader_moves">A Bitcoin érezhetően mozog</string>
+    <string name="why_fn_low_above">a 30 napos mélypont felett</string>
+    <string name="why_fn_low_at">a 30 napos mélyponton</string>
+    <string name="why_fn_market_against">Az érme a piaccal szemben mozog</string>
+    <string name="why_fn_market_alone">Nyugodt piac – ez az érme egyedül mozog</string>
+    <string name="why_fn_market_calm">Nyugodt piac</string>
+    <string name="why_fn_market_lags">A piac mozog, ez az érme alig</string>
+    <string name="why_fn_market_moves">A piac azonos irányba mozog</string>
+    <string name="why_fn_market_pulls">A piac a BTC-vel együtt mozog</string>
+    <string name="why_fn_oi_down">Open interest csökkent</string>
+    <string name="why_fn_oi_flat">Open interest alig változott</string>
+    <string name="why_fn_oi_mixed">Open interest vegyes</string>
+    <string name="why_fn_oi_up">Open interest nőtt</string>
+    <string name="why_fn_peg_above">%1$s-kal az 1:1-es kötés felett</string>
+    <string name="why_fn_peg_below">%1$s-kal az 1:1-es kötés alatt</string>
+    <string name="why_fn_peg_near">közel az 1:1-es kötéshez</string>
+    <string name="why_fn_range_above_low">a 3 napos mélypont óta</string>
+    <string name="why_fn_range_below_high">a 3 napos csúcs óta</string>
+    <string name="why_fn_range_near_high">közel a 3 napos csúcshoz</string>
+    <string name="why_fn_range_near_low">közel a 3 napos mélyponthoz</string>
+    <string name="why_fn_volatility_stronger">a szokásosnál erősebb</string>
+    <string name="why_fn_volatility_tiny">abszolút értékben csekély (%1$s alatt)</string>
+    <string name="why_fn_volatility_usual">a szokásos</string>
+    <string name="why_fn_volume_higher">a szokásosnál magasabb</string>
+    <string name="why_fn_volume_lower">a szokásosnál alacsonyabb</string>
+    <string name="why_fn_volume_usual">a szokásos</string>
+
+    <!-- «Warum?»: ausführliche Sätze je Beobachtung -->
+    <string name="why_against_market_text">Ez az érme %1$s, a BTC %2$s 24 óra alatt – feltűnően önálló mozgás.</string>
+    <string name="why_against_ref_text">Ez az érme %1$s, %2$s %3$s 24 óra alatt – feltűnően önálló mozgás.</string>
+    <string name="why_btc_independent">A(z) %1$s jelenleg a Bitcointól függetlenül mozog.</string>
+    <string name="why_btc_tight">A(z) %1$s jelenleg szorosan együtt mozog a Bitcoinnal.</string>
+    <string name="why_change_1h">1h</string>
+    <string name="why_change_24h">24h</string>
+    <string name="why_coin_only_text">%1$s 24 óra alatt, miközben a piac nyugodt – talán valami, ami csak ezt az érmét érinti.</string>
+    <string name="why_leverage_balanced_text">A határidős piacon nincs long vagy short pozíciók halmozódása.</string>
+    <string name="why_leverage_longs_text">Sokan kölcsönpénzzel fogadnak emelkedő árfolyamra. A longok fizetnek a shortoknak – nagyobb a likvidálások kockázata, ha az ár esik.</string>
+    <string name="why_leverage_shorts_text">Sokan kölcsönpénzzel fogadnak eső árfolyamra. A shortok fizetnek a longoknak – ha az ár emelkedik, short squeeze lehetséges.</string>
+    <string name="why_market_calm_text">Ez az érme: %1$s 24 óra alatt. Sem a piac, sem az érme nem mozog sokat.</string>
+    <string name="why_market_leader_text">A legnagyobb érmeként a BTC általában együtt mozog a piac többi részével. ETH: %1$s 24 óra alatt.</string>
+    <string name="why_market_leader_text_no_eth">A legnagyobb érmeként a BTC általában együtt mozog a piac többi részével.</string>
+    <string name="why_market_similar_text">Ez az érme: %1$s 24 óra alatt – ugyanekkor a piac is azonos irányba mozog, bár kevésbé egyértelműen.</string>
+    <string name="why_market_wide_text">Ez az érme: %1$s 24 óra alatt – ezzel egy időben a teljes piac is érezhetően mozog.</string>
+    <string name="why_open_interest_change">Nyitott pozíciók %1$s a legutóbbi ellenőrzés óta.</string>
+    <string name="why_peg_text">Stablecoin: a jegyzési devizához való 1:1-es kötéshez mérve, eltérés %1$s.</string>
+    <string name="why_sentiment_text">A teljes kriptopiac Fear &amp; Greed indexe, %1$s a tegnapihoz képest.</string>
+    <string name="why_sentiment_text_no_change">A teljes kriptopiac Fear &amp; Greed indexe.</string>
+    <plurals name="why_trend_falling">
+        <item quantity="one">%1$d órája csökken</item>
+        <item quantity="other">%1$d órája csökken</item>
+    </plurals>
+    <plurals name="why_trend_rising">
+        <item quantity="one">%1$d órája emelkedik</item>
+        <item quantity="other">%1$d órája emelkedik</item>
+    </plurals>
+    <plurals name="why_trend_stable">
+        <item quantity="one">%1$d órája stabil</item>
+        <item quantity="other">%1$d órája stabil</item>
+    </plurals>
+    <string name="why_volatility_high_text">Utolsó óra: %1$s – az elmúlt 24 óra jellemző óránkénti kilengéséhez mérve.</string>
+    <string name="why_volatility_normal_text">Utolsó óra: %1$s – a szokásos tartományon belül.</string>
+    <string name="why_volatility_tiny_text">Utolsó óra: %1$s – szokatlan ennél az érménél, de abszolút értékben csekély.</string>
+    <string name="why_volume_estimated_text">Becsült: ez a forrás nem ad forgalmat, ezért a kereskedett érmemennyiségeket hasonlítjuk össze.</string>
+    <string name="why_volume_high_text">Az utolsó órában a szokásosnál jóval több kereskedés zajlott – a mozgást magas forgalom kíséri.</string>
+    <string name="why_volume_low_text">Kevés kereskedés áll a mozgás mögött – az ilyen mozgások gyakran kevésbé stabilak.</string>
+    <string name="why_volume_normal_text">Az utolsó óra kereskedése megfelel az elmúlt 24 órának.</string>
+
+    <!-- «Warum?»: Signal-Punkte (stützt, neutral, Vorsicht) -->
+    <string name="why_dot_caution">emelkedett</string>
+    <string name="why_dot_neutral">semleges</string>
+    <string name="why_dot_supports">illik a mozgáshoz</string>
+
+    <!-- «Warum?»: Frische und Quellen der Daten -->
+    <string name="why_data_time">Adatok állapota: %1$s</string>
+    <string name="why_fresh_breadth">Piaci szélesség: %1$s · %2$s</string>
+    <string name="why_fresh_candles">Gyertyák: %1$s · %2$s</string>
+    <string name="why_fresh_fng">Fear &amp; Greed: %1$s</string>
+    <string name="why_fresh_futures">Határidős: %1$s</string>
+    <plurals name="why_fresh_oi_hours">
+        <item quantity="one">open interest %1$d órával korábbihoz mérve</item>
+        <item quantity="other">open interest %1$d órával korábbihoz mérve</item>
+    </plurals>
+    <plurals name="why_fresh_oi_minutes">
+        <item quantity="one">open interest %1$d perccel korábbihoz mérve</item>
+        <item quantity="other">open interest %1$d perccel korábbihoz mérve</item>
+    </plurals>
+    <string name="why_fresh_today">ma</string>
+    <string name="why_fresh_yesterday">tegnap</string>
+    <string name="why_source_fallback">%1$s (tartalék forrás)</string>
+    <string name="why_source_reference">%1$s (irányadó)</string>
+    <string name="why_sources">Források: a tőzsde órás gyertyái (többnyire Binance), határidős adatok a tőzsdéktől, Fear &amp; Greed az alternative.me-től.</string>
+    <string name="why_sources_list">Források: %1$s.</string>
+    <string name="why_src_breadth">%1$s (piaci szélesség)</string>
+    <string name="why_src_candles">%1$s (gyertyák)</string>
+    <string name="why_src_comparison">%1$s (piaci összevetés)</string>
+    <string name="why_src_fng">%1$s (Fear &amp; Greed)</string>
+    <string name="why_src_futures">%1$s (határidős)</string>
+
+    <!-- Faktor-Checkliste (Crypto Pulse und «Warum?») -->
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">Funding</string>
+    <string name="factor_spoken_volatility">a szokásos kilengés %1$s-szorosa</string>
+    <string name="factor_spoken_volume">a szokásos %1$s-szorosa</string>
+    <string name="factor_volatility">Ingadozás (1h)</string>
+    <string name="factor_volume">Volumen</string>
+</resources>

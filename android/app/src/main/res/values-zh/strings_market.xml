@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Markt-Tab: Abschnitte, Zeilen, Herkunft und Alter -->
+    <!-- «… · CoinGecko · vor 3 Min.»; «gerade eben» = time_just_now, «veraltet» = widget_outdated -->
+    <plurals name="market_age_minutes">
+        <item quantity="other">%d 分钟前</item>
+    </plurals>
+    <!-- «heute 02:00» (Uhrzeit ohne Sekunden) -->
+    <string name="market_age_today">今天 %1$s</string>
+    <string name="market_context_summary">Fear &amp; Greed、比特币指标、市占率、减半</string>
+    <string name="market_context_value">%1$s %2$s · %3$s</string>
+    <string name="market_more_data">更多市场数据</string>
+    <string name="market_phase_trend_failed">价格数据不可用</string>
+    <string name="market_plain_direction_down_clear">所有加密货币的总价值比 24 小时前明显更低（%1$s）。</string>
+    <string name="market_plain_direction_down_slight">所有加密货币的总价值比 24 小时前略低（%1$s）。</string>
+    <string name="market_plain_direction_flat">所有加密货币的总价值在 24 小时内几乎没有变化（%1$s）。</string>
+    <string name="market_plain_direction_up_clear">所有加密货币的总价值比 24 小时前明显更高（%1$s）。</string>
+    <string name="market_plain_direction_up_slight">所有加密货币的总价值比 24 小时前略高（%1$s）。</string>
+    <string name="market_plain_footnote">描述过去 24 小时 – 不是预测，也不是投资建议。</string>
+    <string name="market_plain_mood_extreme_fear">投资者目前非常恐惧：情绪指数（Fear &amp; Greed）为 %1$d（满分 100）。</string>
+    <string name="market_plain_mood_extreme_greed">投资者目前非常贪婪：情绪指数（Fear &amp; Greed）为 %1$d（满分 100）。</string>
+    <string name="market_plain_mood_fear">投资者偏向恐惧：情绪指数（Fear &amp; Greed）为 %1$d（满分 100）。</string>
+    <string name="market_plain_mood_greed">投资者偏向贪婪：情绪指数（Fear &amp; Greed）为 %1$d（满分 100）。</string>
+    <string name="market_plain_mood_neutral">投资者情绪平衡：情绪指数（Fear &amp; Greed）为 %1$d（满分 100）。</string>
+    <string name="market_plain_standout_above_btc">值得注意的是 %1$s：24 小时内 %2$s，明显高于 Bitcoin（%3$s）。</string>
+    <string name="market_plain_standout_against_btc">值得注意的是 %1$s：24 小时内 %2$s，而 Bitcoin 走向相反（%3$s）。</string>
+    <string name="market_plain_standout_below_btc">值得注意的是 %1$s：24 小时内 %2$s，明显低于 Bitcoin（%3$s）。</string>
+    <string name="market_plain_standout_futures_down">值得注意的是 %1$s：押注价格下跌的 futures 交易者异常多。</string>
+    <string name="market_plain_standout_futures_up">值得注意的是 %1$s：押注价格上涨的 futures 交易者异常多。</string>
+    <string name="market_plain_standout_quiet">目前没有哪个币特别突出。</string>
+    <string name="market_plain_standout_volume">值得注意的是 %1$s：交易量约为平时的 %2$s 倍。</string>
+    <string name="market_plain_title">简而言之</string>
+    <!-- Nebenzeile der Fear-&-Greed-Zeile («Gier · gestern 65») -->
+    <string name="market_row_fng_yesterday">%1$s · 昨天 %2$s</string>
+    <string name="market_section_collapse">收起%1$s</string>
+    <string name="market_section_context">情绪与周期</string>
+    <string name="market_section_data">市场数据</string>
+    <!-- Bedienungshilfen: Aktion auf der Abschnittsüberschrift; %1$s = Name des Abschnitts -->
+    <string name="market_section_expand">展开%1$s</string>
+    <string name="market_section_now">当前</string>
+    <string name="market_source">数据：Binance · Coin Metrics (CC BY-NC 4.0)</string>
+    <string name="market_unavailable_error">交易所不可用</string>
+
+    <!-- Markt-Tab: Info-Zeichen und Info-Blatt je Karte (was, wie, Quelle) -->
+    <string name="market_info_a11y">信息：%1$s</string>
+    <string name="market_info_alt_season_source">日线价格：Binance · 约每 3 小时重新计算</string>
+    <string name="market_info_alt_season_what">统计约 20 种大型山寨币（如 Ethereum、Solana、XRP）中，有多少在过去 90 天里表现好于 Bitcoin。数值是它们所占的比例，范围 0 到 100。</string>
+    <string name="market_info_coin_source">价格：Binance 或 Bybit · 约每 15 分钟重新加载</string>
+    <string name="market_info_dominance_how">占比上升说明 Bitcoin 比市场其他部分表现更好；下降则说明其他币的分量在增加。稳定币也计算在内：稳定币总值增长时，即使 Bitcoin 价格不变，Bitcoin 的占比也会下降。</string>
+    <string name="market_info_dominance_source">来源：CoinGecko · 约每 30 分钟重新加载</string>
+    <string name="market_info_dominance_what">Bitcoin 在所有加密货币总价值（总市值）中所占的比例。下方显示 Ethereum 的占比。</string>
+    <string name="market_info_fear_greed_how">低于 25 表示极度恐惧，高于 75 表示极度贪婪，50 左右为中性。展开卡片可看到昨天、一周前和一个月前的数值。这不是买入或卖出信号。</string>
+    <string name="market_info_fear_greed_source">来源：alternative.me · 每天一个新数值</string>
+    <string name="market_info_fear_greed_what">加密市场的情绪指数，范围 0 到 100。由 alternative.me 根据多项数据计算，包括价格波动、成交量、社交媒体和 Bitcoin 市值占比。</string>
+    <string name="market_info_gas_how">数值越高，说明网络越拥堵，转账越贵。慢速、普通和快速是对应较晚或较快确认的费用。展开卡片可看到一笔简单转账的大致费用。</string>
+    <string name="market_info_gas_source">公共 RPC 节点、mempool.space · 每分钟重新加载</string>
+    <string name="market_info_gas_what">当前在各网络上一笔交易的费用。Ethereum 及类似网络以 gwei 计（每单位 gas 为十亿分之一 ETH），Bitcoin 以 sat/vB 计（交易每虚拟字节的 satoshi 数）。</string>
+    <string name="market_info_halving_source">日期：根据区块高度和平均出块时间（mempool.space）计算，否则按日历 · 价格历史：Coin Metrics、Binance，每 12 小时重新加载</string>
+    <string name="market_info_halving_what">减半时，矿工每挖出一个新的 Bitcoin 区块所得的奖励减少一半。这每 210,000 个区块发生一次，大约每四年一次。此后每天新产生的 bitcoin 只有原来的一半。</string>
+    <string name="market_info_how">怎么看</string>
+    <string name="market_info_macro_how">只有当这类日期是今天或明天时才会显示提示。数据发布前后，价格往往比平时波动更大。应用只显示日期，不显示数据本身。</string>
+    <string name="market_info_macro_source">日历来自应用网站 · 每天加载一次</string>
+    <string name="market_info_macro_what">美国重要经济数据的发布日期：通胀（CPI、PCE）、生产者价格（PPI）、就业报告以及美联储的利率决议。这些数据也常常带动加密货币价格。</string>
+    <string name="market_info_no_advice">不构成投资建议。</string>
+    <string name="market_info_phase_source">Binance、Coin Metrics · 价格每小时，链上数据每 12 小时重新加载</string>
+    <string name="market_info_pulse_how">标题说明方向，展开卡片可看细节。普遍性的波动是指大多数大币朝同一方向走。资金费率高意味着很多人用杠杆押注上涨。这只是当下的快照，不是预测。</string>
+    <string name="market_info_pulse_source">Binance、CoinGecko · 约每 5 分钟重新加载</string>
+    <string name="market_info_pulse_what">过去 24 小时市场的简短总结：Bitcoin、Ethereum 和 Solana 的走势，最大的几十种币中有多少在涨或跌，眼下有多少 Bitcoin 在成交，以及 Bitcoin 期货的资金费率处于什么水平。</string>
+    <string name="market_info_totals_how">旁边显示总价值 24 小时的变化。成交量大说明交易活跃，但不说明方向。尽可能以换算货币显示，否则以美元显示。</string>
+    <string name="market_info_totals_source">全部币种 · CoinGecko · 约每 30 分钟重新加载</string>
+    <string name="market_info_totals_what">所有加密货币的总价值（总市值：价格乘以流通量，所有币相加）以及过去 24 小时的成交量。</string>
+    <string name="market_info_unusual_how">每种币显示最显著的一项观察，旁边是 24 小时涨跌。成交量 2× 表示成交额是平常的两倍。异常并不代表好或坏。</string>
+    <string name="market_info_unusual_source">Binance、CoinGecko · 约每 10 分钟重新加载</string>
+    <string name="market_info_unusual_what">在市值最大的约 30 种币（不含稳定币）中，今天表现异常的最多五种：明显强于或弱于 Bitcoin、与市场方向相反、成交量异常高，或资金费率引人注意。</string>
+    <string name="market_info_what">这是什么？</string>
+
+    <!-- Markt-Tab: Krypto-Markt gesamt -->
+    <string name="market_cap_label">市值</string>
+    <string name="market_cap_source">全部币种 · CoinGecko</string>
+    <string name="market_cap_title">加密货币市场</string>
+    <string name="market_volume_label">24 小时成交量</string>
+
+    <!-- Crypto Pulse «Was gerade auffällt»: Titel, Abschnitte, Hinweise -->
+    <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
+    <string name="pulse_details_action">详情</string>
+    <string name="pulse_disclaimer">不是预测 · 不构成投资建议</string>
+    <string name="pulse_less">收起</string>
+    <string name="pulse_now_title">当前亮点</string>
+    <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
+    <string name="pulse_period_24h_spoken">24 小时变化</string>
+    <string name="pulse_section_factors">因素</string>
+    <string name="pulse_section_market">今日市场</string>
+    <string name="pulse_unavailable">市场数据暂不可用</string>
+    <string name="pulse_updated">截至 %1$s</string>
+
+    <!-- Crypto Pulse: Schlagzeile und Leitsatz -->
+    <string name="pulse_headline_calm">市场平静</string>
+    <string name="pulse_headline_down">普遍走弱</string>
+    <string name="pulse_headline_mixed">涨跌互现</string>
+    <string name="pulse_headline_up">普遍走强</string>
+    <string name="pulse_lead_alts_stronger">山寨币强于比特币。</string>
+    <string name="pulse_lead_broad_down">市场普遍下跌。</string>
+    <string name="pulse_lead_broad_up">市场普遍上涨。</string>
+    <string name="pulse_lead_btc_leads">比特币涨幅最大。</string>
+    <string name="pulse_lead_btc_stronger">比特币强于山寨币。</string>
+    <string name="pulse_lead_calm">市场几乎没有波动。</string>
+    <string name="pulse_lead_drift_down">市场小幅下跌。</string>
+    <string name="pulse_lead_drift_up">市场小幅上涨。</string>
+    <string name="pulse_lead_mixed">主流币走势分化。</string>
+
+    <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
+    <string name="pulse_detail_fund_high">资金费率偏高。</string>
+    <string name="pulse_detail_fund_negative">资金费率为负。</string>
+    <string name="pulse_detail_fund_neutral">资金费率中性。</string>
+    <string name="pulse_detail_vol_above">成交量高于平常 %1$d%%。</string>
+    <string name="pulse_detail_vol_above_fund_high">成交量高于平常 %1$d%%，资金费率偏高。</string>
+    <string name="pulse_detail_vol_above_fund_negative">成交量高于平常 %1$d%%，资金费率为负。</string>
+    <string name="pulse_detail_vol_above_fund_neutral">成交量高于平常 %1$d%%，资金费率中性。</string>
+    <string name="pulse_detail_vol_below">成交量低于平常 %1$d%%。</string>
+    <string name="pulse_detail_vol_below_fund_high">成交量低于平常 %1$d%%，资金费率偏高。</string>
+    <string name="pulse_detail_vol_below_fund_negative">成交量低于平常 %1$d%%，资金费率为负。</string>
+    <string name="pulse_detail_vol_below_fund_neutral">成交量低于平常 %1$d%%，资金费率中性。</string>
+    <string name="pulse_detail_vol_normal">成交量正常。</string>
+    <string name="pulse_detail_vol_normal_fund_high">成交量正常，资金费率偏高。</string>
+    <string name="pulse_detail_vol_normal_fund_negative">成交量正常，资金费率为负。</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">成交量正常，资金费率中性。</string>
+
+    <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
+    <string name="pulse_breadth_hint">前 %1$d：按市值排名最大的币种（不含稳定币）；24 小时涨跌（CoinGecko）。</string>
+    <!-- «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">前 %1$d</string>
+    <string name="pulse_breadth_note_broad_down">普跌：大多数大型币种在下跌。</string>
+    <string name="pulse_breadth_note_broad_up">普涨：大多数大型币种在上涨。</string>
+    <string name="pulse_breadth_note_narrow_down">比特币在跌，但大多数其他大型币种依然坚挺。</string>
+    <string name="pulse_breadth_note_narrow_up">比特币在涨，但大多数其他大型币种没有跟涨。</string>
+    <string name="pulse_breadth_spoken">前 %1$d：上涨 %2$d，下跌 %3$d</string>
+
+    <!-- Crypto Pulse: Altcoins, Funding, Gas, Volumen -->
+    <string name="pulse_alts_even">山寨币与 Bitcoin 同步波动</string>
+    <string name="pulse_alts_stronger">山寨币强于 Bitcoin</string>
+    <string name="pulse_alts_weaker">Bitcoin 强于山寨币</string>
+    <string name="pulse_chip_funding_high">资金费率偏高</string>
+    <string name="pulse_chip_funding_negative">资金费率为负</string>
+    <string name="pulse_funding_high">资金费率明显为正：大量杠杆多单</string>
+    <string name="pulse_funding_negative">资金费率为负：大量空单</string>
+    <string name="pulse_funding_neutral">资金费率中性</string>
+    <string name="pulse_funding_slight">资金费率略微为正</string>
+    <string name="pulse_gas_high">Ethereum Gas 偏高（%1$s gwei）</string>
+    <string name="pulse_gas_low">Ethereum Gas 偏低（%1$s gwei）</string>
+    <string name="pulse_gas_normal">Ethereum Gas 正常（%1$s gwei）</string>
+    <string name="pulse_volume_high">成交量异常偏高（常态的 %1$s×）</string>
+    <string name="pulse_volume_low">成交量偏低（常态的 %1$s×）</string>
+    <string name="pulse_volume_normal">成交量正常</string>
+
+    <!-- «Heute auffällig» (grösste Coins mit ungewöhnlicher Bewegung) -->
+    <string name="unusual_a11y_row">%1$s，%2$s。%3$s。</string>
+    <!-- Screenreader-Aktion einer Zeile (öffnet das Aktionsblatt bzw. die Vorschau) -->
+    <string name="unusual_action_open">显示价格和操作</string>
+    <string name="unusual_fact_against">与大盘反向</string>
+    <string name="unusual_fact_funding_high">资金费率偏高（%1$s）</string>
+    <string name="unusual_fact_funding_negative">资金费率为负（%1$s）</string>
+    <string name="unusual_fact_stronger">波动明显强于 BTC</string>
+    <string name="unusual_fact_volume">成交量为平时的 %1$s×</string>
+    <string name="unusual_fact_weaker">波动明显弱于 BTC</string>
+    <string name="unusual_nothing">今日无明显异动</string>
+    <string name="unusual_source">约 30 个最大币种（不含稳定币）· Binance、CoinGecko</string>
+    <string name="unusual_title">今日异动</string>
+
+    <!-- Ungewöhnliche Aktivität eines Paars (Karte, Signale, Empfindlichkeit) -->
+    <string name="activity_card_title">此刻正有异动</string>
+    <string name="activity_indicator">异常活动</string>
+    <string name="activity_sensitivity_less">较少</string>
+    <string name="activity_sensitivity_more">较多</string>
+    <string name="activity_sensitivity_normal">标准</string>
+    <string name="activity_signal_funding_long">资金费率 %1$s——大量杠杆多单</string>
+    <string name="activity_signal_funding_short">资金费率 %1$s——大量空单</string>
+    <string name="activity_signal_open_interest">持仓量 %2$d 分钟内 %1$s</string>
+    <string name="activity_signal_open_interest_no_time">持仓量 %1$s</string>
+    <string name="activity_signal_price_move">异常波动：一小时内 %1$s（正常的 %2$s×）</string>
+    <string name="activity_signal_volume">最近一小时成交量为正常的 %1$s×</string>
+
+    <!-- Einordnung: Bitcoin-Dominanz, Fear & Greed, Halving, Altseason -->
+    <plurals name="insights_altseason_value">
+        <item quantity="other">%2$d 个大型山寨币中有 %1$d 个在 90 天内跑赢比特币</item>
+    </plurals>
+    <string name="insights_chart_axis">减半后年数</string>
+    <string name="insights_chart_hint">价格为减半当日价格的倍数（对数刻度）。过往周期是规律，不是预测。</string>
+    <string name="insights_cycle_chart">减半以来的周期</string>
+    <string name="insights_dominance_eth">ETH 占总市值 %1$s</string>
+    <string name="insights_dominance_title">比特币市值占比</string>
+    <string name="insights_fng_history">昨天 %1$s · 一周前 %2$s · 一个月前 %3$s</string>
+    <string name="insights_fng_title">恐惧与贪婪指数</string>
+    <string name="insights_halving_title">比特币减半</string>
+    <string name="insights_source_dominance">来源：CoinGecko、Binance</string>
+    <string name="insights_source_fng">来源：alternative.me</string>
+    <string name="insights_source_history">来源：Coin Metrics (CC BY-NC 4.0)、Binance</string>
+
+    <!-- Fear & Greed: Stufen -->
+    <string name="fng_extreme_fear">极度恐惧</string>
+    <string name="fng_extreme_greed">极度贪婪</string>
+    <string name="fng_fear">恐惧</string>
+    <string name="fng_greed">贪婪</string>
+    <string name="fng_neutral">中性</string>
+
+    <!-- Halving-Zyklus (Chart, Marken, Schätzung) -->
+    <string name="cycle_data_as_of">数据截至 %1$s · 正在更新…</string>
+    <string name="cycle_from_top">较顶部 %1$s</string>
+    <string name="cycle_marker_bottom">底部 %1$s</string>
+    <string name="cycle_marker_double_bottom">双底 %1$s</string>
+    <string name="cycle_marker_double_top">双顶 %1$s</string>
+    <string name="cycle_marker_high_so_far">迄今最高</string>
+    <!-- Hoch/Tief-Marken mit Sprechblase im Zyklus-Chart -->
+    <string name="cycle_marker_top">顶部 %1$s</string>
+    <string name="cycle_since_halving">减半以来 %1$s</string>
+    <string name="halving_estimate_text">下一次减半按计算约在 %1$s：按当前难度周期平均每块 %3$s 分钟，还剩 %2$s 个区块。这是推算，不是承诺——出块时间会波动。</string>
+
+    <!-- Netzwerkgebühren (Gas) -->
+    <string name="gas_alert_active">提醒：%1$s</string>
+    <string name="gas_slow_fast">慢 %1$s · 快 %2$s</string>
+    <string name="gas_source">公共 RPC 节点和 mempool.space · 一笔简单转账的费用，L2 不含 L1 部分</string>
+    <string name="gas_title">网络手续费</string>
+    <string name="gas_transfer_cost">转账 ≈ %1$s</string>
+
+    <!-- Wirtschaftsdaten (US-Termine) -->
+    <string name="macro_cpi">美国消费者物价指数（CPI）</string>
+    <string name="macro_fomc">美联储利率决议</string>
+    <string name="macro_hint_list">%1$s——这类日子市场往往波动更大。</string>
+    <string name="macro_hint_today">今天 %1$s：%2$s——这类日子市场往往波动更大。</string>
+    <string name="macro_hint_today_list">今天：%1$s——这类日子市场往往波动更大。</string>
+    <string name="macro_hint_tomorrow">明天 %1$s：%2$s——这类日子市场往往波动更大。</string>
+    <string name="macro_hint_tomorrow_list">明天：%1$s——这类日子市场往往波动更大。</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">今天 %1$s %2$s</string>
+    <string name="macro_item_tomorrow">明天 %1$s %2$s</string>
+    <string name="macro_nfp">美国非农就业报告</string>
+    <string name="macro_pce">美国 PCE 物价指数</string>
+    <string name="macro_ppi">美国生产者物价指数（PPI）</string>
+    <string name="macro_released_list">今天公布：%1$s。</string>
+    <string name="macro_released_one">今天 %1$s 公布：%2$s。</string>
+    <string name="macro_title">经济数据</string>
+
+    <!-- Coin-Analyse -->
+    <string name="coin_choose">币种</string>
+    <string name="coin_no_data">Binance 和 Bybit 上都没有该币种的价格数据。</string>
+    <string name="coin_price_only">仅基于价格——链上数据（MVRV、Puell、算力）只有比特币可免费获取。</string>
+    <plurals name="coin_short_history">
+        <item quantity="other">仅有 %1$d 天历史，部分指标缺失。</item>
+    </plurals>
+    <string name="coin_title">币种分析</string>
+</resources>

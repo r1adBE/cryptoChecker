@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Warum bewegt sich das?»: Titel, Abschnitte, Aufklappen -->
+    <string name="why_action">一緒に動いているのは？</string>
+    <string name="why_all_values">すべての値と出典</string>
+    <string name="why_all_values_hint">観測 · 考えられる解釈 · 出典</string>
+    <string name="why_details">詳細を表示</string>
+    <string name="why_details_hide">詳細を隠す</string>
+    <string name="why_disclaimer">市場データに基づく自動評価です。同時に起きていることを示すもので、原因の証明ではありません。</string>
+    <string name="why_footer_short">同時に起きても原因とは限りません · 投資助言ではありません</string>
+    <string name="why_no_data">このペアの Binance データはありません</string>
+    <string name="why_no_data_hint">価格、出来高、ボラティリティは Binance の1時間足から取得しています。</string>
+    <string name="why_ref_alts">アルト</string>
+    <string name="why_section_context">考えられる解釈</string>
+    <string name="why_section_observation">観測</string>
+    <string name="why_title">一緒に動いているのは？</string>
+    <string name="why_title_coin">%1$s と一緒に動いているのは？</string>
+
+    <!-- «Warum?»: Kurz gesagt (ein Satz oben) -->
+    <string name="why_brief_head">要するに · %1$s時点</string>
+    <string name="why_brief_label">要するに：</string>
+    <string name="why_summary_against">このコインは市場と逆方向に動いています。</string>
+    <string name="why_summary_calm">目立った動きなし：市場もコインも落ち着いています。</string>
+    <string name="why_summary_coin">このコインだけが動いています – このコインだけに関わる事情があるのかもしれません。</string>
+    <string name="why_summary_coin_volume">このコインだけが出来高を伴って動いています – このコインだけに関わる事情があるのかもしれません。</string>
+    <string name="why_summary_longs">先物：レバレッジのロングポジションが多い。</string>
+    <string name="why_summary_market">この動きは時期的に市場全体と一致しています。</string>
+    <string name="why_summary_market_volume">この動きは、出来高の増加および市場全体の幅広い動きと時期が重なっています。</string>
+    <string name="why_summary_peg_near">価格は 1:1 のペッグに近い水準です。</string>
+    <string name="why_summary_peg_off">価格は 1:1 のペッグから目立って離れています。</string>
+    <string name="why_summary_shorts">先物：ショートポジションが多い。</string>
+    <string name="why_summary_thin">薄商いの動きです：裏付けとなる取引量が少なめです。</string>
+
+    <!-- «Warum?»: Faktorliste (Titel der Faktoren) -->
+    <string name="why_f_against">市場と逆行</string>
+    <string name="why_f_coin_only">このコインだけ</string>
+    <string name="why_f_leader">市場をリードするビットコイン</string>
+    <string name="why_f_leverage_balanced">レバレッジは均衡</string>
+    <string name="why_f_leverage_longs">レバレッジ：ロングが多い</string>
+    <string name="why_f_leverage_shorts">レバレッジ：ショートが多い</string>
+    <string name="why_f_market_calm">落ち着いた市場</string>
+    <string name="why_f_market_wide">市場全体が動いている</string>
+    <string name="why_factor_funding">資金調達率</string>
+    <string name="why_factor_futures">先物</string>
+    <string name="why_factor_market">市場全体</string>
+    <string name="why_factor_near_high">高値付近</string>
+    <string name="why_factor_near_low">安値付近</string>
+    <string name="why_factor_peg">ペッグ（1:1）</string>
+    <string name="why_factor_range3d">3日間の値幅</string>
+
+    <!-- «Warum?»: Nebenzeilen der Faktoren -->
+    <string name="why_fn_estimated">推定</string>
+    <string name="why_fn_funding_longs">上昇に賭ける人が多い</string>
+    <string name="why_fn_funding_neutral">中立</string>
+    <string name="why_fn_funding_shorts">下落に賭ける人が多い</string>
+    <string name="why_fn_high_at">30日高値にある</string>
+    <string name="why_fn_high_below">30日高値を下回る</string>
+    <string name="why_fn_leader_calm">ビットコインは落ち着いている</string>
+    <string name="why_fn_leader_moves">ビットコインがはっきり動いている</string>
+    <string name="why_fn_low_above">30日安値を上回る</string>
+    <string name="why_fn_low_at">30日安値にある</string>
+    <string name="why_fn_market_against">このコインが市場と逆行している</string>
+    <string name="why_fn_market_alone">市場は落ち着いている – このコインが単独で動いている</string>
+    <string name="why_fn_market_calm">市場は落ち着いている</string>
+    <string name="why_fn_market_lags">市場は動いているが、このコインはほぼ動かない</string>
+    <string name="why_fn_market_moves">市場は同じ方向に動いています</string>
+    <string name="why_fn_market_pulls">市場はBTCと連動しています</string>
+    <string name="why_fn_oi_down">建玉が減少</string>
+    <string name="why_fn_oi_flat">建玉はほぼ横ばい</string>
+    <string name="why_fn_oi_mixed">建玉はまちまち</string>
+    <string name="why_fn_oi_up">建玉が増加</string>
+    <string name="why_fn_peg_above">1:1 のペッグを %1$s 上回る</string>
+    <string name="why_fn_peg_below">1:1 のペッグを %1$s 下回る</string>
+    <string name="why_fn_peg_near">1:1 のペッグに近い</string>
+    <string name="why_fn_range_above_low">3日安値から</string>
+    <string name="why_fn_range_below_high">3日高値から</string>
+    <string name="why_fn_range_near_high">3日高値付近</string>
+    <string name="why_fn_range_near_low">3日安値付近</string>
+    <string name="why_fn_volatility_stronger">通常より大きい</string>
+    <string name="why_fn_volatility_tiny">絶対値では小さい（%1$s 未満）</string>
+    <string name="why_fn_volatility_usual">通常どおり</string>
+    <string name="why_fn_volume_higher">通常より多い</string>
+    <string name="why_fn_volume_lower">通常より少ない</string>
+    <string name="why_fn_volume_usual">通常どおり</string>
+
+    <!-- «Warum?»: ausführliche Sätze je Beobachtung -->
+    <string name="why_against_market_text">このコイン %1$s、BTC %2$s（24時間）— 目立って独自の動きです。</string>
+    <string name="why_against_ref_text">このコイン %1$s、%2$s %3$s（24時間）— 目立って独自の動きです。</string>
+    <string name="why_btc_independent">%1$s は現在ビットコインとは独立して動いています。</string>
+    <string name="why_btc_tight">%1$s は現在ビットコインとほぼ連動しています。</string>
+    <string name="why_change_1h">1h</string>
+    <string name="why_change_24h">24h</string>
+    <string name="why_coin_only_text">市場が落ち着いている中、24時間で %1$s — このコインだけに関わる事情があるのかもしれません。</string>
+    <string name="why_leverage_balanced_text">先物市場でロングやショートの偏りはありません。</string>
+    <string name="why_leverage_longs_text">多くの人が借りたお金で値上がりに賭けています。ロングがショートに支払っています — 価格が下がると清算のリスクが高まります。</string>
+    <string name="why_leverage_shorts_text">多くの人が借りたお金で値下がりに賭けています。ショートがロングに支払っています — 価格が上がるとショートスクイーズが起こり得ます。</string>
+    <string name="why_market_calm_text">このコイン：24時間で %1$s。市場もコインも大きく動いていません。</string>
+    <string name="why_market_leader_text">最大のコインである BTC は、通常ほかの市場と連動して動きます。ETH：24時間で %1$s。</string>
+    <string name="why_market_leader_text_no_eth">最大のコインである BTC は、通常ほかの市場と連動して動きます。</string>
+    <string name="why_market_similar_text">このコイン：24時間で %1$s — 同じ時間帯に市場も同じ方向へ動いていますが、それほど明確ではありません。</string>
+    <string name="why_market_wide_text">このコイン：24時間で %1$s — 同じ時間帯に市場全体もはっきり動いています。</string>
+    <string name="why_open_interest_change">前回の確認以降、建玉は %1$s。</string>
+    <string name="why_peg_text">ステーブルコイン：見積通貨との 1:1 ペッグと比べた乖離 %1$s。</string>
+    <string name="why_sentiment_text">暗号資産市場全体の恐怖・強欲指数、昨日比 %1$s。</string>
+    <string name="why_sentiment_text_no_change">暗号資産市場全体の恐怖・強欲指数。</string>
+    <plurals name="why_trend_falling">
+        <item quantity="other">%1$d時間前から低下</item>
+    </plurals>
+    <plurals name="why_trend_rising">
+        <item quantity="other">%1$d時間前から上昇</item>
+    </plurals>
+    <plurals name="why_trend_stable">
+        <item quantity="other">%1$d時間前から横ばい</item>
+    </plurals>
+    <string name="why_volatility_high_text">直近1時間：%1$s — 過去24時間の典型的な1時間の変動幅と比較。</string>
+    <string name="why_volatility_normal_text">直近1時間：%1$s — 通常の範囲内です。</string>
+    <string name="why_volatility_tiny_text">直近1時間：%1$s — このコインとしては珍しいものの、絶対値では小さい動きです。</string>
+    <string name="why_volume_estimated_text">推定：このソースは売買代金を提供しないため、取引されたコイン数量で比較しています。</string>
+    <string name="why_volume_high_text">直近1時間の取引が通常よりはるかに多く、動きには高い出来高が伴っています。</string>
+    <string name="why_volume_low_text">動きの裏にある取引は少なめです — こうした動きは安定しにくいことがよくあります。</string>
+    <string name="why_volume_normal_text">直近1時間の取引は過去24時間と同程度です。</string>
+
+    <!-- «Warum?»: Signal-Punkte (stützt, neutral, Vorsicht) -->
+    <string name="why_dot_caution">高め</string>
+    <string name="why_dot_neutral">中立</string>
+    <string name="why_dot_supports">動きと一致</string>
+
+    <!-- «Warum?»: Frische und Quellen der Daten -->
+    <string name="why_data_time">データ時点：%1$s</string>
+    <string name="why_fresh_breadth">市場の広がり：%1$s · %2$s</string>
+    <string name="why_fresh_candles">ローソク足：%1$s · %2$s</string>
+    <string name="why_fresh_fng">Fear &amp; Greed：%1$s</string>
+    <string name="why_fresh_futures">先物：%1$s</string>
+    <plurals name="why_fresh_oi_hours">
+        <item quantity="other">建玉は%1$d時間前と比較</item>
+    </plurals>
+    <plurals name="why_fresh_oi_minutes">
+        <item quantity="other">建玉は%1$d分前と比較</item>
+    </plurals>
+    <string name="why_fresh_today">今日</string>
+    <string name="why_fresh_yesterday">昨日</string>
+    <string name="why_source_fallback">%1$s（代替ソース）</string>
+    <string name="why_source_reference">%1$s（参考値）</string>
+    <string name="why_sources">出典：取引所の1時間足（主に Binance）、各取引所の先物データ、alternative.me の Fear &amp; Greed。</string>
+    <string name="why_sources_list">出典：%1$s。</string>
+    <string name="why_src_breadth">%1$s（市場の広がり）</string>
+    <string name="why_src_candles">%1$s（ローソク足）</string>
+    <string name="why_src_comparison">%1$s（市場比較）</string>
+    <string name="why_src_fng">%1$s（Fear &amp; Greed）</string>
+    <string name="why_src_futures">%1$s（先物）</string>
+
+    <!-- Faktor-Checkliste (Crypto Pulse und «Warum?») -->
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">資金調達率</string>
+    <string name="factor_spoken_volatility">通常の値動きの %1$s 倍</string>
+    <string name="factor_spoken_volume">通常の %1$s 倍</string>
+    <string name="factor_volatility">変動幅（1h）</string>
+    <string name="factor_volume">出来高</string>
+</resources>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Portfolio-Widget, Ansicht «Übersicht» (wie die Gesamtkarte im Portfolio-Tab): Kopfzeile,
+     Gesamtwert, Betrag «↘ −1’968.40 CHF  −2.31% · 24h», ≈ USDT, darunter Heute · 7 T · Gesamt — breit als drei
+     Spalten (portfolio_figures_wide, widget_portfolio_figure_column.xml), schmal untereinander
+     (portfolio_figures_narrow, widget_portfolio_figure_row.xml) — und die Fusszeile.
+     Gleiche Ids wie widget_portfolio.xml für Kopf, Werte und Fusszeile (PortfolioWidgetRenderer).
+     Nur RemoteViews-taugliche Views (kein <View>). -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@android:id/background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/widget_outline"
+    android:clipToOutline="true"
+    tools:targetApi="31">
+
+    <ImageView
+        android:id="@+id/portfolio_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/widget_background"
+        android:importantForAccessibility="no"
+        android:contentDescription="@null" />
+
+    <LinearLayout
+        android:id="@+id/portfolio_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <include layout="@layout/widget_portfolio_header" />
+
+        <LinearLayout
+            android:id="@+id/portfolio_values"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <include layout="@layout/widget_portfolio_value_block" />
+
+            <!-- Breit: drei gleich breite Spalten (Beschriftung, Wert, Betrag) -->
+            <LinearLayout
+                android:id="@+id/portfolio_figures_wide"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:baselineAligned="false"
+                android:visibility="gone" />
+
+            <!-- Schmal: drei Zeilen (Beschriftung links, Wert rechts) -->
+            <LinearLayout
+                android:id="@+id/portfolio_figures_narrow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical"
+                android:visibility="gone" />
+
+            <!-- Platzhalter: hält die Fusszeile unten -->
+            <FrameLayout
+                android:id="@+id/portfolio_spacer"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/portfolio_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textSize="11sp"
+                android:fontFeatureSettings="tnum" />
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

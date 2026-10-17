@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Tab, leere Ansicht, Einschalten, Sperre -->
+    <string name="app_lock_unavailable">Në këtë pajisje nuk është konfiguruar kyçja e ekranit. Konfiguroje fillimisht te cilësimet e sistemit.</string>
+    <string name="app_lock_unlock">Shkyç</string>
+    <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
+    <string name="portfolio_clear">Pastro portofolin</string>
+    <plurals name="portfolio_clear_confirm_count">
+        <item quantity="one">Të fshihet %d transaksion? Adresat e ndjekura mbeten. Kjo nuk mund të zhbëhet.</item>
+        <item quantity="other">Të fshihen të gjitha %d transaksionet? Adresat e ndjekura mbeten. Kjo nuk mund të zhbëhet.</item>
+    </plurals>
+    <string name="portfolio_disclaimer">Shumat mbeten në pajisje, përveç nëse i eksporton vetë; për kurset dërgohen vetëm simbolet e çifteve te bursa e çiftit. Nyjet publike blockchain shohin adresat e ndjekura dhe IP-në tënde. Nuk është këshillë investimi.</string>
+    <string name="portfolio_empty_action">Shto blerjen e parë</string>
+    <string name="portfolio_empty_address">Vetëm ndiq një adresë portofoli</string>
+    <string name="portfolio_empty_csv">Blerë në një bursë? Importo skedarin</string>
+    <string name="portfolio_empty_example_plain">Shembull: 0,01 BTC blerë më 1 mars. Aplikacioni tregon sa vlen sot dhe nëse je në fitim apo në humbje – ruhet vetëm në këtë pajisje.</string>
+    <string name="portfolio_empty_text">Shëno çfarë ke blerë – aplikacioni tregon sa vlen sot dhe sa je në fitim apo në humbje.</string>
+    <string name="portfolio_empty_title">Ende pa transaksione</string>
+    <string name="portfolio_enable_ask_text">Transaksioni yt u ruajt. Skeda Portofoli tregon zotërimet e tua dhe vlerën e tyre.</string>
+    <string name="portfolio_enable_ask_title">Të aktivizohet skeda Portofoli?</string>
+    <string name="portfolio_enable_later_hint">Transaksioni u ruajt. Skedën Portofoli mund ta aktivizosh te Cilësimet › Të avancuara › Portofoli.</string>
+    <string name="portfolio_enabled_banner">Portofoli u aktivizua – e gjen te skeda Portofoli.</string>
+    <string name="portfolio_lock_reason">Shkyç portofolin</string>
+    <string name="portfolio_locked_text">Shkyçe për të parë zotërimet dhe vlerat.</string>
+    <string name="portfolio_locked_title">Portofoli është i kyçur</string>
+    <string name="portfolio_setting_hint">Opsionale: regjistro blerjet dhe shitjet dhe shiko vlerën dhe fitimin/humbjen në një skedë të veçantë.</string>
+    <!-- Status-Pille wie in der Merkliste: Kurse älter als die Frische-Schwelle, Gerät online. Offline: offline_status_since, alles aktuell: watchlist_all_fresh -->
+    <string name="portfolio_status_stale">E vjetëruar · gjendja %1$s</string>
+    <plurals name="portfolio_system_restore_invalid">
+        <item quantity="one">%d hyrje nga kopja e sistemit ishte e pavlefshme dhe nuk u rikthye.</item>
+        <item quantity="other">%d hyrje nga kopja e sistemit ishin të pavlefshme dhe nuk u rikthyen.</item>
+    </plurals>
+    <string name="portfolio_title">Portofoli</string>
+    <string name="portfolio_unassigned_fee">Tarifë e pacaktuar – kostoja e panjohur: %1$s</string>
+    <string name="portfolio_updated">Çmimet e %1$s</string>
+
+    <!-- Portfolio: Gesamtwert-Kopf (Heute · 7 T · Gesamt) und Aufteilung -->
+    <string name="portfolio_allocation_other">Të tjera</string>
+    <string name="portfolio_allocation_title">Shpërndarja</string>
+    <string name="portfolio_card_details">Detaje</string>
+    <!-- Screenreader, Kennzahl ohne Wert; %1$s Beschriftung (z. B. «7 Tage») -->
+    <string name="portfolio_card_figure_none_a11y">%1$s: ende i padisponueshëm</string>
+    <string name="portfolio_card_hints_count">Shënime (%1$d)</string>
+    <string name="portfolio_card_today">Sot</string>
+    <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
+    <string name="portfolio_card_total">Gjithsej</string>
+    <string name="portfolio_hide_amounts">Fshih shumat</string>
+    <string name="portfolio_hide_amounts_hint">Shfaq shumat dhe vlerat në portofol dhe në widget-in e portofolit si ••• – përqindjet mbeten të dukshme.</string>
+    <string name="portfolio_invested">Kostoja e blerjes</string>
+    <string name="portfolio_total_no_fx">Asnjë kurs këmbimi për %1$s – shumat në USDT</string>
+    <string name="portfolio_total_value">Vlera totale</string>
+    <string name="portfolio_value">Vlera</string>
+
+    <!-- Portfolio: Bestand, offene Positionen, Durchschnittspreis -->
+    <string name="portfolio_avg_and_now">Mes. %1$s · tani %2$s</string>
+    <string name="portfolio_avg_only">Mesat. %1$s</string>
+    <string name="portfolio_avg_open_lots">Kostoja mesatare e monedhave në zotërim</string>
+    <string name="portfolio_avg_partial">Mesat. e %1$s me çmim blerjeje</string>
+    <string name="portfolio_avg_price">Çmimi mesatar i blerjes</string>
+    <string name="portfolio_avg_price_hint">Çmimi mesatar i blerjes: mesatarja e të gjitha blerjeve, e peshuar sipas sasisë. Shitjet vlerësohen me këtë mesatare.</string>
+    <plurals name="portfolio_closed">
+        <item quantity="one">Pozicion i mbyllur (%1$d)</item>
+        <item quantity="other">Pozicione të mbyllura (%1$d)</item>
+    </plurals>
+    <string name="portfolio_fifo_hint">FIFO: shitjet përdorin së pari monedhat më të vjetra. Mesat. = kostoja e mbetur e blerjes ÷ sasia me çmim blerjeje.</string>
+    <string name="portfolio_holdings">Zotërimi</string>
+    <string name="portfolio_lost_fee_cost">Kostoja e tarifës së rrjetit pa lot të paguar: %1$s</string>
+    <string name="portfolio_open_lots">Lote blerjeje të hapura (%1$d)</string>
+    <string name="portfolio_open_lots_avg">Me çmim blerjeje (Ø)</string>
+    <string name="portfolio_open_lots_no_cost">Pa çmim blerjeje</string>
+    <string name="portfolio_open_lots_without_price">pa çmim blerjeje</string>
+    <string name="portfolio_realized">Fitim/humbje e realizuar</string>
+    <string name="portfolio_unrealized">Fitim/humbje e parealizuar</string>
+    <string name="portfolio_unrealized_without_unpriced">pa %1$s pa çmim blerjeje</string>
+    <string name="portfolio_withdrawn_gain">Tërhequr: %1$s (ndryshimi i vlerës deri në tërheqje)</string>
+
+    <!-- Portfolio: Kurse und Umrechnung -->
+    <string name="portfolio_convert_to">Konverto në</string>
+    <string name="portfolio_convert_to_value">Konverto në: %1$s</string>
+    <string name="portfolio_current_missing">Nuk ka çmim aktual për %1$s</string>
+    <string name="portfolio_current_price">Çmimi aktual</string>
+    <string name="portfolio_price_missing">Mungon çmimi</string>
+    <string name="portfolio_price_missing_hint">Disa blerje nuk kanë çmim. Shto çmimin e blerjes për të parë fitimin/humbjen.</string>
+    <string name="portfolio_price_source">Çmimet: Binance · USDT = 1</string>
+    <string name="portfolio_price_source_routes">Çmimet: %1$s, përndryshe Binance · USDT = 1</string>
+    <string name="portfolio_price_unavailable">Çmimi nuk është i disponueshëm tani</string>
+    <string name="portfolio_price_unchecked">Çmim i paverifikuar</string>
+    <string name="portfolio_price_via_base">≈ çmimi i %1$s (bridged/wrapped)</string>
+    <string name="portfolio_usdt_as_usd">USDT e konvertuar me kursin e USD</string>
+    <string name="portfolio_usdt_assumed">Supozohet USDT = 1</string>
+    <string name="portfolio_usdt_depeg_warning">Supozohet USDT = 1 – tregu në %1$s USD (%2$s)</string>
+
+    <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
+    <string name="portfolio_add_from_watch">Shto në portofol</string>
+    <string name="portfolio_add_tx">Regjistro transaksion</string>
+    <string name="portfolio_buy">Blerje</string>
+    <string name="portfolio_coin">Monedha</string>
+    <string name="portfolio_coin_invalid">Shkruaj një simbol</string>
+    <string name="portfolio_coin_search">Kërko simbolin, p.sh. BTC</string>
+    <string name="portfolio_discard_confirm">Hidh poshtë</string>
+    <string name="portfolio_discard_keep">Vazhdo redaktimin</string>
+    <string name="portfolio_discard_title">Të hidhen poshtë ndryshimet?</string>
+    <string name="portfolio_edit_tx">Ndrysho transaksionin</string>
+    <string name="portfolio_invalid">Sasi e pavlefshme</string>
+    <string name="portfolio_oversold">Shitjet tejkalojnë zotërimet – kontrollo transaksionet.</string>
+    <string name="portfolio_sell">Shitje</string>
+    <string name="portfolio_sell_exceeds">Më shumë se zotërimet e tua (%1$s)</string>
+    <string name="portfolio_sell_exceeds_fee">Sasia plus tarifa është më e madhe se zotërimet (%1$s)</string>
+    <string name="portfolio_sell_exceeds_wallet">Më shumë se zotërimet e tua në %2$s (%1$s)</string>
+    <string name="portfolio_transactions">Transaksionet</string>
+    <string name="portfolio_tx_acquired_date">Data origjinale e blerjes (opsionale)</string>
+    <string name="portfolio_tx_acquired_date_hint">Për kohën e mbajtjes në eksportin tatimor</string>
+    <string name="portfolio_tx_amount">Sasia</string>
+    <string name="portfolio_tx_coin_fee">Tarifa në monedhë (opsionale)</string>
+    <string name="portfolio_tx_date">Data</string>
+    <string name="portfolio_tx_delete_confirm">Ky transaksion do të hiqet nga portofoli.</string>
+    <string name="portfolio_tx_delete_title">Të fshihet transaksioni?</string>
+    <string name="portfolio_tx_deposit">Depozitë</string>
+    <string name="portfolio_tx_entry_currency">Fut në</string>
+    <string name="portfolio_tx_explain_deposit">Zotërime pa tregtim, p.sh. monedha nga më parë</string>
+    <string name="portfolio_tx_explain_gift">Monedhat dalin nga zotërimi si një tërheqje – tjetërsim me vlerën e tregut vetëm aty ku vendi i tatonë kështu dhuratat (UK, CA, AU)</string>
+    <string name="portfolio_tx_explain_payment">Paguar për mallra ose shërbime – tjetërsim me vlerën e tregut si një shitje, pa marrë para</string>
+    <string name="portfolio_tx_explain_reward">Kostoja e blerjes = vlera e tregut në marrje</string>
+    <string name="portfolio_tx_explain_swap">Monedhë me monedhë: shitje e asaj që jep, blerje e asaj që merr</string>
+    <string name="portfolio_tx_explain_transfer">Pa fitim – kostoja e blerjes lëviz bashkë me monedhat</string>
+    <string name="portfolio_tx_explain_withdrawal">Zotërimet dalin nga portofoli – pa shitje, pa fitim</string>
+    <string name="portfolio_tx_fee_consumes_amount">Tarifa është sa sasia e marrë – nuk do të mbetej asgjë.</string>
+    <string name="portfolio_tx_fees_toggle">Tarifat</string>
+    <string name="portfolio_tx_fiat_converted">≈ %1$s me kursin e %2$s</string>
+    <string name="portfolio_tx_fiat_loading">Po ngarkohet kursi i këmbimit…</string>
+    <string name="portfolio_tx_fiat_no_fx">Asnjë kurs këmbimi për këtë ditë – fut shumën në USDT.</string>
+    <string name="portfolio_tx_gift">Dhuratë</string>
+    <string name="portfolio_tx_gift_price_hint">Në USDT. Bosh = mbyllja e ditës (e vlerësuar).</string>
+    <string name="portfolio_tx_gift_spouse">Për bashkëshortin / partnerin</string>
+    <string name="portfolio_tx_gift_spouse_hint">Mbretëria e Bashkuar dhe Kanadaja: pa fitim dhe pa humbje – partneri merr koston tënde. Vendet e tjera e shpërfillin këtë.</string>
+    <string name="portfolio_tx_market_value">Vlera e tregut për monedhë</string>
+    <string name="portfolio_tx_more_buy">Tarifa, bursa, shënim</string>
+    <string name="portfolio_tx_network_fee">Tarifa e rrjetit në monedhë (opsionale)</string>
+    <string name="portfolio_tx_note">Shënim (opsional)</string>
+    <string name="portfolio_tx_payment">Paguar me to</string>
+    <string name="portfolio_tx_price">Çmimi për monedhë</string>
+    <string name="portfolio_tx_price_hint">Në USDT. Lëre bosh nëse nuk e di.</string>
+    <string name="portfolio_tx_price_historic">Mbyllja ditore e verifikuar e %1$s – ndryshoje nëse duhet</string>
+    <string name="portfolio_tx_price_invalid">Çmim i pavlefshëm</string>
+    <string name="portfolio_tx_price_past_hint">Fut çmimin e ditës së transaksionit – lëre bosh nëse nuk e di</string>
+    <string name="portfolio_tx_price_receipt_hint">Në USDT. Bosh = zotërime pa kosto blerjeje.</string>
+    <string name="portfolio_tx_price_zero">Çmimi 0 nuk është i mundur për transaksionet e importuara – lëre bosh për çmimin e tregut</string>
+    <string name="portfolio_tx_removed">Transaksioni u fshi</string>
+    <string name="portfolio_tx_reward">Shpërblim</string>
+    <string name="portfolio_tx_save_failed">Transaksioni nuk u ruajt dot. Të dhënat e tua janë ende këtu – provo përsëri.</string>
+    <string name="portfolio_tx_swap">Shkëmbim</string>
+    <string name="portfolio_tx_swap_fee_received">Tarifa në %1$s: ul sasinë e marrë, nuk duhet çmim.</string>
+    <string name="portfolio_tx_swap_from">Shkëmbim nga %1$s</string>
+    <string name="portfolio_tx_swap_given_amount">Sasia e dhënë</string>
+    <string name="portfolio_tx_swap_given_coin">Monedha e dhënë</string>
+    <string name="portfolio_tx_swap_received_amount">Sasia e marrë</string>
+    <string name="portfolio_tx_swap_received_coin">Monedha e marrë</string>
+    <string name="portfolio_tx_swap_same_coin">Zgjidh një monedhë tjetër nga ajo e dhëna</string>
+    <string name="portfolio_tx_swap_to">Shkëmbim në %1$s</string>
+    <string name="portfolio_tx_swap_value">Vlera e shkëmbimit (opsionale)</string>
+    <string name="portfolio_tx_swap_value_hint">Vlera totale. Bosh = e panjohur – fitimi mbetet i paplotë (automatik me USDT në shkëmbim).</string>
+    <string name="portfolio_tx_third_fee_amount">Sasia e tarifës</string>
+    <string name="portfolio_tx_third_fee_coin">Monedha e tarifës</string>
+    <string name="portfolio_tx_third_fee_incomplete">Pa çmim, tarifa nuk llogaritet as në koston e blerjes as në të ardhurat; eksporti tatimor i shënon këto shitje.</string>
+    <string name="portfolio_tx_third_fee_price">Çmimi për monedhë tarife (opsionale)</string>
+    <string name="portfolio_tx_third_fee_toggle">Tarifë në një monedhë tjetër</string>
+    <string name="portfolio_tx_total">Gjithsej: %1$s</string>
+    <string name="portfolio_tx_transfer">Transferim</string>
+    <string name="portfolio_tx_transfer_from">Nga (opsionale)</string>
+    <string name="portfolio_tx_transfer_to">Te (opsionale)</string>
+    <string name="portfolio_tx_transfer_to_hint">Bursë ose wallet – tani e tutje vlerësohet aty.</string>
+    <string name="portfolio_tx_type_select">Lloji: %1$s</string>
+    <string name="portfolio_tx_value_received">Vlera për monedhë në marrje (opsionale)</string>
+    <string name="portfolio_tx_withdrawal">Tërheqje</string>
+    <string name="portfolio_tx_withdrawal_gift_hint">E dhurove apo pagove me të? Regjistroje si ‹Dhuratë› ose ‹Paguar me to› – sipas vendit, tatimisht është shitje.</string>
+    <string name="portfolio_tx_withdrawal_price_hint">Opsionale: vlera e tregut në USDT, vetëm për historikun (bosh = çmimi i ditës). Monedhat dalin gjithmonë me koston e blerjes.</string>
+    <string name="portfolio_wallet_did_you_mean">Mos e kishe fjalën për %1$s? Një shkrim tjetër llogaritet si wallet i veçantë.</string>
+    <string name="portfolio_wallet_shortfall">Zotërimet në %1$s nuk mjaftojnë – mungon një transferim?</string>
+
+    <!-- Portfolio: Wertverlauf (Zeitraum, Vergleich Währung | USDT, Währungseffekt) -->
+    <!-- Höchster Tageswert des Zeitraums am Punkt («Hoch 12’345») -->
+    <string name="portfolio_chart_high">Më i larti %1$s</string>
+    <string name="portfolio_compare">Krahasim</string>
+    <!-- Umschalter «Vergleich», Screenreader: %1$s Währung -->
+    <string name="portfolio_compare_a11y">Krahaso %1$s dhe USDT në përqindje</string>
+    <!-- %1$s Zeitraum, %2$s Währung, %3$s und %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="portfolio_compare_chart_a11y">Krahasim në përqindje, %1$s: %2$s %3$s, USDT %4$s</string>
+    <!-- %1$s Prozentpunkte mit Vorzeichen («−5.10%»): Veränderung in der Währung minus in USDT -->
+    <string name="portfolio_currency_effect">Efekti i kursit: %1$s</string>
+    <!-- «Seit 1. Kauf» beginnt frühestens beim ersten Tag mit Kursdaten -->
+    <string name="portfolio_history_capped_data_start">Të dhënat e çmimeve shkojnë vetëm deri në gusht 2017 — historiku fillon aty.</string>
+    <string name="portfolio_history_chip_since_first">Që nga blerja</string>
+    <string name="portfolio_history_collapse">Fshih ecurinë e vlerës</string>
+    <string name="portfolio_history_converted">Konvertuar me kursin e sotëm</string>
+    <string name="portfolio_history_expand">Shfaq ecurinë e vlerës</string>
+    <string name="portfolio_history_gain_a11y">Vlera %1$s. Fitim/humbje, %2$s: %3$s</string>
+    <string name="portfolio_history_gain_label">Fitim/humbje</string>
+    <!-- Umschalter, Screenreader: %1$s Währung («CHF») oder «USDT» -->
+    <string name="portfolio_history_in_a11y">Vlera në %1$s</string>
+    <string name="portfolio_history_incl_fx">Përfsh. kursin e këmbimit</string>
+    <string name="portfolio_history_incl_withdrawn">Përfshin ndryshimin e vlerës së monedhave të tërhequra</string>
+    <string name="portfolio_history_includes_trades">Përfshin blerjet dhe shitjet në këtë periudhë</string>
+    <string name="portfolio_history_loading">Po ngarkohet ecuria e vlerës</string>
+    <string name="portfolio_history_period_1y">1 vit</string>
+    <string name="portfolio_history_period_30d">30 ditë</string>
+    <string name="portfolio_history_period_7d">7 ditë</string>
+    <string name="portfolio_history_period_since_first">që nga blerja e parë</string>
+    <string name="portfolio_history_pnl_needs_prices">Mungojnë çmime blerjeje për fitimin/humbjen – shtoji te transaksionet.</string>
+    <string name="portfolio_history_pnl_without">Fitim/humbje pa %1$s (mungon çmimi)</string>
+    <string name="portfolio_history_range_1y">1 V</string>
+    <string name="portfolio_history_range_30d">30 D</string>
+    <string name="portfolio_history_range_7d">7 D</string>
+    <string name="portfolio_history_range_a11y">Shfaq ecurinë për %1$s</string>
+    <string name="portfolio_history_range_since_first">Që nga blerja e 1-rë</string>
+    <string name="portfolio_history_scaled">Historiku për %1$s: historiku Binance i shkallëzuar me çmimin e bursës</string>
+    <string name="portfolio_history_title">Ecuria e vlerës</string>
+    <string name="portfolio_history_today">Sot</string>
+    <string name="portfolio_history_too_short">Ecuria nis pas ditës sate të parë të plotë.</string>
+    <string name="portfolio_history_unavailable">Për momentin nuk ka ecuri të disponueshme.</string>
+    <string name="portfolio_history_utc_days">Ditët në UTC (qirinj ditorë)</string>
+    <string name="portfolio_history_without_matching">Pa %1$s (pa çmime ditore që përputhen)</string>
+    <string name="portfolio_period_rewards">Shpërblime +%1$s (jo në fitim)</string>
+    <string name="portfolio_period_scaled">7 D/1 V për %1$s: historiku Binance i shkallëzuar me çmimin e bursës</string>
+
+    <!-- Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_alarm_action">Alarm</string>
+    <!-- %1$s = Währung, z. B. CHF -->
+    <string name="portfolio_alarm_amount">Shuma (%1$s)</string>
+    <string name="portfolio_alarm_hint">Kontrollohet pas çdo rifreskimi. Si alarmet: njofton kur kalohet kufiri dhe përsëri vetëm pasi vlera të jetë kthyer.</string>
+    <string name="portfolio_alarm_kind_above">Portofoli mbi një shumë</string>
+    <string name="portfolio_alarm_kind_below">Portofoli nën një shumë</string>
+    <string name="portfolio_alarm_kind_down">Portofoli bie</string>
+    <string name="portfolio_alarm_kind_up">Portofoli rritet</string>
+    <!-- %1$s = Betrag mit Währung (oder •••) -->
+    <string name="portfolio_alarm_sentence_above">Portofoli mbi %1$s</string>
+    <string name="portfolio_alarm_sentence_below">Portofoli nën %1$s</string>
+    <string name="portfolio_alarm_sentence_down">Portofoli ra me %1$s (%2$s)</string>
+    <!-- %1$s = Prozent, %2$s = Basis der %-Änderung kurz (24h, heute …) -->
+    <string name="portfolio_alarm_sentence_up">Portofoli u rrit me %1$s (%2$s)</string>
+    <string name="portfolio_alarm_title">Alarm «vlera e portofolit»</string>
+
+    <!-- Gebühr, Börse und Gewinn/Verlust einer Position -->
+    <string name="ledger_exchange">Bursa (opsionale)</string>
+    <string name="ledger_exchange_failed">%1$s: tani nuk ka çmim nga %2$s – vlerësuar me Binance.</string>
+    <string name="ledger_exchange_hint">Monedha vlerësohet me çmimin e kësaj burse (përndryshe Binance). Historiku, 7 D dhe 1 V: çmimet ditore të Binance, të shkallëzuara.</string>
+    <string name="ledger_exchange_mixed">%1$s: janë dhënë disa bursa – vlerësuar me Binance. I zhvendose monedhat? Regjistroje si «Transferim».</string>
+    <string name="ledger_exchange_none">Asnjë (Binance)</string>
+    <string name="ledger_fee">Tarifa (opsionale)</string>
+    <string name="ledger_fee_coin">Monedha</string>
+    <string name="ledger_fee_hint">Në USDT rrit koston e blerjes (shitje: ul të ardhurat); në monedhë ul sasinë.</string>
+    <string name="ledger_fee_line">Tarifa %1$s</string>
+    <string name="ledger_fifo_cost_note">Që nga blerja: kosto FIFO me tarifa (monedhat më të vjetra shiten të parat).</string>
+    <string name="ledger_gain_info">Sot, 7 D, 1 V: ndryshimi i vlerës në periudhë – blerjet dhe shitjet nuk llogariten si fitim. Që nga blerja: vlera aktuale minus kostoja (kosto mesatare me tarifa) e monedhave që ke ende.</string>
+    <string name="ledger_gain_info_a11y">Si llogaritet fitimi dhe humbja</string>
+    <string name="ledger_gain_info_fifo">Sot, 7 D, 1 V: ndryshimi i vlerës në periudhë – blerjet dhe shitjet nuk llogariten si fitim. Që nga blerja: vlera aktuale minus kostoja (FIFO me tarifa) e monedhave që ke ende.</string>
+    <string name="ledger_gain_title">Fitim/humbje</string>
+    <string name="ledger_more_toggle">Tarifa dhe bursa</string>
+    <string name="ledger_partial_cost">«Që nga blerja» llogarit vetëm pjesën me çmim blerjeje – pa %1$s pa çmim blerjeje.</string>
+    <string name="ledger_period_without">Sot / 7 D / 1 V pa %1$s – nuk ka çmim fillestar të përshtatshëm.</string>
+    <string name="ledger_since_purchase_currency">Që nga blerja (%1$s)</string>
+    <string name="ledger_since_purchase_spoken">Fitim/humbje që nga blerja, ende pa shitur</string>
+    <plurals name="ledger_without_cost">
+        <item quantity="one">Pa %1$d monedhë pa çmim blerjeje (%2$s) – shtoni çmimin që të llogaritet.</item>
+        <item quantity="other">Pa %1$d monedha pa çmim blerjeje (%2$s) – shtoni çmimet që të llogariten.</item>
+    </plurals>
+</resources>

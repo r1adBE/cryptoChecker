@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen: Aufbau (Gruppen, Zeilen, Abschnitte, Suche, Kurzwerte) -->
+    <string name="settings_custom_value">Altul</string>
+    <string name="settings_group_general">General</string>
+    <string name="settings_group_more">Mai mult</string>
+    <string name="settings_minutes">%1$d min</string>
+    <string name="settings_row_about">Despre aplicație</string>
+    <string name="settings_row_advanced">Avansat</string>
+    <string name="settings_row_alarms">Alarme</string>
+    <string name="settings_row_currency">Monedă</string>
+    <string name="settings_row_dated_futures">Futures cu scadență</string>
+    <string name="settings_row_updates">Actualizarea prețurilor</string>
+    <string name="settings_row_watchlist">Listă</string>
+    <string name="settings_search_hint">Caută în setări</string>
+    <string name="settings_seconds">%1$d s</string>
+    <string name="settings_section_about">Despre</string>
+    <string name="settings_section_appearance">Aspect</string>
+    <string name="settings_section_developer">Dezvoltator</string>
+    <string name="settings_section_language">Limbă</string>
+    <!-- Kurzwert «eingeschaltet» (Gegenstück zu option_off) -->
+    <string name="settings_summary_on">Pornit</string>
+    <string name="settings_title">Setări</string>
+
+    <!-- Einstellungen › Alarme (Ton, Signal, Ruhezeit, App-Symbol, exakte Prüfungen) -->
+    <string name="settings_alarm_cooldown">Pauză înainte ca o alarmă să se declanșeze din nou</string>
+    <!-- Ton/Vibration der Kursalarme, je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">Semnal alarmă</string>
+    <string name="settings_alarm_signal_open_system">Ajustează în setările sistemului</string>
+    <string name="settings_alarm_signal_system_hint">Urmează setările de notificare ale telefonului.</string>
+    <string name="settings_alarm_sound">Sunet alarmă</string>
+    <string name="settings_alarm_sound_custom">Sunet propriu</string>
+    <string name="settings_alarm_sound_default">Sunet implicit</string>
+    <string name="settings_alarm_sound_error">Sunetul nu a putut fi folosit.</string>
+    <string name="settings_alarm_sound_file">Fișier audio propriu…</string>
+    <string name="settings_alarm_sound_reset">Folosește sunetul implicit</string>
+    <string name="settings_alarm_sound_system">Alege sunet de sistem…</string>
+    <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">Număr pe pictograma aplicației</string>
+    <string name="settings_app_badge_hint">Numără notificările de alarmă deschise. Dacă apare un număr sau un punct decide ecranul de pornire (de ex. Samsung: «Cu număr»).</string>
+    <string name="settings_exact_checks">Verificare punctuală</string>
+    <string name="settings_exact_checks_grant">Permite «Alarme și mementouri»</string>
+    <string name="settings_exact_checks_hint">Android verifică aproximativ la fiecare 15 minute, chiar și când dispozitivul e inactiv. Consumă puțin mai multă baterie.</string>
+    <string name="settings_exact_checks_nothing">Nicio pereche activă – nimic de verificat.</string>
+    <string name="settings_exact_checks_permission_missing">Lipsește permisiunea – Android verifică atunci când îi convine (cam la 15 min sau mai târziu).</string>
+    <string name="settings_notification_change">Notifică doar la schimbarea prețului</string>
+    <string name="settings_notification_change_always">Întotdeauna</string>
+    <string name="settings_notification_change_hint">O notificare apare doar după ce prețul s-a modificat cu cel puțin această valoare față de ultima. Cât timp lipsesc date, nu se afișează nimic. Alarmele nu sunt afectate.</string>
+    <string name="settings_ongoing_notifications">Nu pot fi glisate</string>
+    <string name="settings_ongoing_notifications_hint">Păstrează notificările de preț fixate.</string>
+    <string name="settings_price_notifications">Notificări de preț</string>
+    <string name="settings_price_notifications_hint">Afișează prețul curent al perechilor activate în bara de stare.</string>
+    <string name="settings_price_pairs">Perechi</string>
+    <string name="settings_price_pairs_all_off">Toate oprite</string>
+    <string name="settings_price_pairs_all_on">Toate pornite</string>
+    <string name="settings_price_pairs_count">%1$d din %2$d</string>
+    <string name="settings_price_pairs_empty">Încă nu există perechi în lista de urmărire.</string>
+    <string name="settings_price_pairs_hint">Alege perechile al căror preț apare în bara de notificări.</string>
+    <string name="settings_quiet_hours">Ore de liniște</string>
+    <string name="settings_quiet_hours_from">De la</string>
+    <string name="settings_quiet_hours_hint">Între %1$s și %2$s, alarmele așteaptă până la sfârșitul orelor de liniște și apoi sună. Celelalte notificări sosesc în liniște, fără voce.</string>
+    <string name="settings_quiet_hours_to">Până la</string>
+
+    <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
+    <string name="settings_background_interval">Interval</string>
+    <string name="settings_background_updates">Actualizări în fundal</string>
+    <string name="settings_battery_hint">Restricționat înseamnă că Android poate amâna actualizările în fundal cu ore.</string>
+    <string name="settings_battery_ok">Utilizarea bateriei: nerestricționată</string>
+    <string name="settings_battery_restricted">Utilizarea bateriei: restricționată</string>
+    <string name="settings_check_runs_empty">Încă nu s-a înregistrat nicio verificare.</string>
+    <string name="settings_check_runs_honest_android">Android decide când se verifică – aici vezi când s-a întâmplat de fapt.</string>
+    <string name="settings_check_runs_honest_ios">iOS decide când se verifică – aici vezi când s-a întâmplat de fapt.</string>
+    <string name="settings_check_runs_title">Verificări recente</string>
+    <string name="settings_http_log">Afișează jurnalul HTTP</string>
+    <string name="settings_http_log_hint">Afișează în partea de jos a paginii „Adaugă pereche” cererile către burse – pentru depanare.</string>
+    <string name="settings_live_service">Actualizează des</string>
+    <string name="settings_live_websocket">Prețuri live</string>
+
+    <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
+    <string name="settings_activity_alerts">Raportează activitatea neobișnuită</string>
+    <string name="settings_activity_alerts_hint">Cel mult o dată pe oră pentru fiecare pereche: mișcări de preț neobișnuite, salturi de volum și extreme pe futures (date de la Binance).</string>
+    <string name="settings_activity_sensitivity">Sensibilitate</string>
+    <string name="settings_activity_sensitivity_hint">Cât de ușor o monedă e considerată neobișnuită – la fel pentru cardul din listă și pentru notificări. Cu „Mai puțin”, cardul arată doar cele mai puternice 3.</string>
+    <string name="settings_watchlist_activity_card">Activitate neobișnuită în listă</string>
+    <string name="settings_watchlist_activity_card_hint">Afișează cipul ⚡ lângă grupuri: atinge-l ca să vezi doar perechile la care se întâmplă ceva chiar acum. Notificările se setează la Alerte de piață.</string>
+    <string name="settings_watchlist_names">Afișează numele</string>
+    <string name="settings_watchlist_names_hint">Numele sub pereche, de ex. Bitcoin sau NVIDIA. Vine cu listele de logouri, încărcat o dată pentru toate monedele.</string>
+    <string name="settings_watchlist_sparkline">Minigrafic în lista de urmărire</string>
+    <string name="settings_watchlist_sparkline_hint">Tendința pe 24 de ore lângă preț</string>
+    <string name="settings_watchlist_value_names">Nume</string>
+    <string name="settings_watchlist_value_price_only">Doar prețul</string>
+    <string name="settings_watchlist_value_sparkline">Minigrafic</string>
+
+    <!-- Einstellungen › Token & TradFi -->
+    <string name="settings_asset_scope_alpha">Incl. tokenuri Alpha (α)</string>
+    <string name="settings_asset_scope_alpha_hint">Tokenuri Alpha: proiecte timpurii, de obicei mici, din lista Binance Alpha – adesea cu tranzacționare redusă și foarte volatile.</string>
+    <string name="settings_asset_scope_alpha_tradfi_hint">Ține de tokenuri. Blocat la „Doar TradFi”; tokenurile Alpha deja în listă rămân.</string>
+    <string name="settings_asset_scope_both">Tokenuri și TradFi</string>
+    <string name="settings_asset_scope_both_hint">Tot – cripto și TradFi</string>
+    <string name="settings_asset_scope_hint">Stabilește ce perechi arată selecția și căutarea la adăugare. Perechile aflate deja în listă rămân mereu.</string>
+    <string name="settings_asset_scope_title">Tokenuri &amp; TradFi</string>
+    <string name="settings_asset_scope_tokens">Doar tokenuri</string>
+    <string name="settings_asset_scope_tokens_hint">Cripto: spot și perpetue</string>
+    <string name="settings_asset_scope_tradfi">Doar TradFi</string>
+    <string name="settings_asset_scope_tradfi_hint">Futures pe acțiuni, mărfuri, valute – contracte, nu tokenuri</string>
+    <string name="settings_rolling_futures">Incl. futures trimestriale și alte futures cu scadență</string>
+    <string name="settings_rolling_futures_hint">Dezactivat: futures cu scadență care lipsesc din lista bursei sunt marcate ca netranzacționate, în loc să fie verificate pe rând. Economisește timp la fiecare actualizare.</string>
+    <string name="settings_rolling_futures_qtly">Incl. futures trimestriale și alte futures cu scadență (QTLY)</string>
+    <string name="settings_rolling_futures_tradfi_hint">Ține de tokenuri. Blocat la „Doar TradFi”; se aplică în continuare futures-urilor cu scadență din listă.</string>
+    <string name="settings_tradfi_futures">Acțiuni, mărfuri și valute (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">La alegerea perechii arată și futures pe acțiuni, aur și alte mărfuri, valute și companii înainte de listare. Sunt contracte, nu tokenuri.</string>
+
+    <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
+    <string name="settings_accent">Culoare de accent</string>
+    <string name="settings_accent_hint">Culoarea aplicației, a widgeturilor și a pictogramei aplicației.</string>
+    <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">Logo-urile monedelor</string>
+    <string name="settings_coin_logos_app">În aplicație</string>
+    <string name="settings_coin_logos_app_hint">Lista, perechea deschisă și cardurile pieței</string>
+    <string name="settings_coin_logos_footer">Logo-urile vin de la CoinGecko și, pentru ce nu are CoinGecko (de ex. aur, argint, acțiuni), de la Binance. Aplicația descarcă dintr-o dată toate logo-urile și le păstrează pe acest dispozitiv, astfel niciunul nu știe ce monede urmărești. Monedele fără logo afișează inițialele. Favoritele primesc o steluță pe logo. Acolo unde un comutator este dezactivat nu apar nici logo-uri, nici inițiale; când totul este dezactivat, nu se încarcă nimic.</string>
+    <string name="settings_coin_logos_portfolio">În portofoliu</string>
+    <string name="settings_coin_logos_portfolio_hint">Poziții, detalii monede și analize</string>
+    <string name="settings_coin_logos_value_app">Aplicație</string>
+    <string name="settings_coin_logos_widgets">În widgeturi</string>
+    <string name="settings_coin_logos_widgets_hint">Widgeturile listă și o singură monedă</string>
+    <string name="settings_high_contrast">Contrast ridicat</string>
+    <string name="settings_high_contrast_hint">Culori de preț mai puternice și text secundar mai închis. Activ și când sistemul cere mai mult contrast.</string>
+    <string name="settings_language_choose">Alege limba</string>
+    <string name="settings_language_system">Limba sistemului</string>
+    <string name="settings_price_colors">Culorile prețurilor</string>
+    <string name="settings_price_colors_hint">Albastru / portocaliu se deosebesc ușor la orice deficiență de vedere a culorilor (roșu-verde și albastru-galben). În plus, direcția este afișată mereu cu + / −.</string>
+    <string name="settings_theme_mode">Luminos / Întunecat</string>
+    <string name="settings_widgets">Widgeturi</string>
+
+    <!-- Einstellungen › %-Änderung -->
+    <!-- Einstellungszeile und Seitentitel «%-Änderung»; %1$s ist das Prozentzeichen «%» -->
+    <string name="settings_change_basis">Variație în %1$s și fusul graficului</string>
+    <string name="settings_change_basis_hint_1">Fusul orar ales stabilește de când se calculează variația procentuală (lista de urmărire, linia de puls, perechea deschisă, widgeturi) și orele afișate în grafice.</string>
+    <string name="settings_change_basis_hint_2">„%1$s” compară cu prețul de acum exact 24 de ore. „00:00” compară cu prețul de deschidere de la miezul nopții în acest fus orar.</string>
+    <string name="settings_change_basis_hint_3">Alarmele nu sunt afectate.</string>
+    <string name="settings_change_basis_hint_since_last">„%1$s” compară cu prețul de la actualizarea anterioară. Cu prețuri live, rămâne aproape de 0%%.</string>
+    <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
+    <string name="settings_change_period">Afișează perioada lângă variație</string>
+    <string name="settings_change_period_hint">„24h”, „azi” sau „ultima actualizare” mic lângă variație în listă și în widgetul cu o monedă. Cititorul de ecran o spune mereu.</string>
+
+    <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
+    <string name="settings_conversion_currency">Moneda de conversie</string>
+    <string name="settings_conversion_currency_hint">Folosită și pentru portofoliu, alarmele în moneda ta, cardul Piața cripto și widgetul Portofoliu.</string>
+    <string name="settings_cost_method">Metoda costului de achiziție</string>
+    <string name="settings_cost_method_average">Medie (Ø)</string>
+    <string name="settings_cost_method_average_hint">Vânzările sunt evaluate la prețul mediu mobil de cumpărare.</string>
+    <string name="settings_cost_method_fifo">FIFO (implicit)</string>
+    <string name="settings_cost_method_fifo_hint">Monedele cele mai vechi se vând primele, pe toate bursele și wallet-urile.</string>
+    <string name="settings_cost_method_fifo_wallet">FIFO pe wallet/bursă</string>
+    <string name="settings_cost_method_fifo_wallet_hint">Cele mai vechi monede primele pe fiecare bursă sau wallet; transferurile mută loturile cu data cumpărării.</string>
+    <string name="settings_portfolio_lock">Blocarea portofoliului</string>
+    <string name="settings_portfolio_lock_footer">Blocarea ascunde afișarea. Datele sunt stocate pe acest dispozitiv și sunt protejate de criptarea dispozitivului. Poți proteja copiile de rezervă cu o parolă.</string>
+    <string name="settings_portfolio_lock_hint">Ascunde doar portofoliul: deblochează cu amprenta, fața sau PIN-ul dispozitivului. Se blochează din nou după mai mult de un minut în fundal. Lista de urmărire, alarmele și celelalte widgeturi rămân accesibile.</string>
+    <string name="settings_portfolio_lock_no_device_lock">Fără PIN sau cod al dispozitivului, blocarea nu ascunde nimic – setează o blocare a ecranului.</string>
+    <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">Portofoliu în copia de sistem</string>
+    <string name="settings_portfolio_system_backup_hint">Dezactivat: tranzacțiile tale nu sunt incluse în copia de sistem a dispozitivului și nici în transferul pe un telefon nou. Pentru a le muta, folosește copia de rezervă a aplicației cu parolă.</string>
+    <string name="settings_portfolio_system_backup_unavailable">Necesită Android 9 sau mai nou – versiunile mai vechi ar salva portofoliul necriptat în backupul Google.</string>
+    <string name="settings_portfolio_tab">Afișează fila Portofoliu</string>
+    <string name="settings_portfolio_value_locked">Pornit, cu blocare</string>
+    <string name="settings_show_converted">Prețuri convertite</string>
+    <string name="settings_show_converted_hint">Afișează prețurile din lista de urmărire și în %1$s</string>
+
+    <!-- Einstellungen › Markt-Meldungen -->
+    <string name="settings_depeg_alarm">Anunță depeg-ul USDT</string>
+    <string name="settings_depeg_alarm_hint">Anunță o dată când USDT se abate de la 1 USD cu pragul (Kraken USDT/USD, Binance USDC/USDT). Valorile din aplicație folosesc în continuare USDT = 1.</string>
+    <string name="settings_depeg_threshold">Prag de depeg</string>
+    <string name="settings_fng_above">Fear &amp; Greed: anunță peste</string>
+    <string name="settings_fng_below">Fear &amp; Greed: anunță sub</string>
+    <string name="settings_gas_alert_hint">Anunță o dată când comisionul normal scade sub limită. Verificat la actualizarea cursurilor, cel mult la 10 minute.</string>
+    <string name="settings_gas_btc_below">Comision Bitcoin sub (sat/vB)</string>
+    <string name="settings_gas_eth_below">Gas Ethereum sub (gwei)</string>
+    <string name="settings_ind_ath_within">Scădere de la maximul istoric cel mult</string>
+    <string name="settings_ind_mayer_above">Mayer Multiple peste</string>
+    <string name="settings_ind_mayer_below">Mayer Multiple sub</string>
+    <string name="settings_ind_mvrv_above">MVRV peste</string>
+    <string name="settings_ind_mvrv_below">MVRV sub</string>
+    <string name="settings_indicator_alerts_hint">Indicatori Bitcoin, verificați de două ori pe zi. Limitele le alegi tu – aplicația nu evaluează valorile.</string>
+    <string name="settings_macro_notifications">Calendar economic</string>
+    <string name="settings_macro_notifications_hint">La 08:00 în zilele cu date economice importante din SUA (inflație, locuri de muncă, decizia Fed). Calendarul vine de pe site-ul aplicației și se încarcă o dată pe zi.</string>
+    <string name="settings_market_alerts">Alerte de piață</string>
+    <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
+    <plurals name="settings_market_alerts_active">
+        <item quantity="one">%1$d activă</item>
+        <item quantity="few">%1$d active</item>
+        <item quantity="other">%1$d active</item>
+    </plurals>
+
+    <!-- Einstellungen › Sprachausgabe -->
+    <string name="settings_speech_rate">Viteza vorbirii: %1$.1f×</string>
+    <string name="settings_tts">Ieșire vocală</string>
+    <string name="settings_tts_alarms_only">Doar alarme</string>
+    <string name="settings_tts_alarms_only_hint">Dezactivat: fiecare actualizare a unei perechi marcate „Citește prețul” este anunțată.</string>
+    <!-- Sprachausgabe schweigt im Lautlos-/Vibrationsmodus -->
+    <string name="settings_tts_hint_silent">Citește cu voce tare prețurile și alarmele. Tace cât timp dispozitivul este în modul silențios sau pe vibrații.</string>
+    <string name="settings_tts_test">Testează vocea</string>
+
+    <!-- Einstellungen › Daten: App zurücksetzen -->
+    <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
+    <string name="settings_reset_app">Resetează aplicația</string>
+    <string name="settings_reset_app_action">Șterge tot</string>
+    <string name="settings_reset_app_confirm">Șterge lista, alarmele, portofoliul, setările și toate datele salvate, ca după instalare. Nu poate fi anulat. Sfat: fă mai întâi o copie de rezervă.</string>
+    <string name="settings_reset_app_title">Resetezi aplicația?</string>
+
+    <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
+    <!-- Suchfeld der Währungsseite -->
+    <string name="currency_search">Caută moneda</string>
+    <string name="language_search">Caută limba</string>
+
+    <!-- Theme -->
+    <string name="theme_dark">Întunecat</string>
+    <string name="theme_light">Luminos</string>
+    <string name="theme_system">Sistem</string>
+
+    <!-- Akzentfarben -->
+    <string name="accent_blue">Albastru</string>
+    <string name="accent_green">Verde</string>
+    <!-- Eigenname, in allen Sprachen gleich -->
+    <string name="accent_marrs_green">Marrs Green</string>
+    <string name="accent_orange">Portocaliu</string>
+    <string name="accent_red">Roșu</string>
+
+    <!-- Kursfarben -->
+    <string name="price_colors_red_up_hint">Uzual în China, Japonia, Coreea și Taiwan</string>
+    <string name="price_colors_swap">Inversează culorile (crește ↔ scade)</string>
+    <string name="price_style_calm">Calm</string>
+    <string name="price_style_calm_color_vision">Calm · Deficiență de vedere a culorilor</string>
+    <string name="price_style_color_vision">Deficiență de vedere a culorilor</string>
+    <string name="price_style_fresh">Proaspăt</string>
+    <string name="price_style_traditional">Tradițional</string>
+
+    <!-- Über die App -->
+    <string name="about_exchanges_verified">Conexiunile cu bursele verificate ultima dată pe răspunsuri reale: %1$s</string>
+    <string name="about_license">Prețurile vin direct de la burse; fără cont și fără urmărire.</string>
+    <!-- Texte der Lizenzen liegen in assets/licenses -->
+    <string name="about_licenses">Licențe</string>
+    <string name="about_privacy_policy">Politica de confidențialitate</string>
+    <!-- GitHub-Vorlage exchange_request.md -->
+    <string name="about_request_exchange">Cere o bursă</string>
+    <string name="about_source_code">Codul sursă pe GitHub</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_why">Crypto Checker este un proiect independent al lui r1AD: o privire de ansamblu calmă asupra prețurilor, fără cont, reclame sau urmărire. Întrebări și sugestii: %1$s</string>
+
+    <!-- Lizenzhinweise -->
+    <string name="licenses_app_intro">Crypto Checker este open source (licența MIT).</string>
+    <string name="licenses_font_title">Fontul Rubik</string>
+    <string name="licenses_icons_bundled_text">Incluse în aplicație: pictograme din «Cryptocurrency Icons» de Christopher Downer și colaboratori (github.com/spothq/cryptocurrency-icons), publicate sub CC0 1.0 Universal. Sunt afișate până se încarcă logourile de la CoinGecko sau Binance. Numele și logourile rămân mărci ale proiectelor lor.</string>
+    <string name="licenses_icons_title">Pictograme de rezervă pentru monede</string>
+    <string name="licenses_libraries_intro">Aplicația folosește aceste biblioteci sub Apache License 2.0:</string>
+    <string name="licenses_libraries_title">Biblioteci Android</string>
+
+    <!-- Entwickleroptionen -->
+    <!-- Countdown der letzten Tipps auf die Version bis zu den Entwickleroptionen -->
+    <plurals name="developer_taps_left">
+        <item quantity="one">Încă %d atingere pentru deblocarea opțiunilor pentru dezvoltatori</item>
+        <item quantity="few">Încă %d atingeri pentru deblocarea opțiunilor pentru dezvoltatori</item>
+        <item quantity="other">Încă %d de atingeri pentru deblocarea opțiunilor pentru dezvoltatori</item>
+    </plurals>
+    <string name="developer_unlocked">Opțiunile pentru dezvoltatori au fost deblocate</string>
+
+    <!-- Nur iOS: Einstellungen -->
+    <!-- Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">Vibrația urmează setările iPhone-ului (Sunete și haptică).</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Numără alarmele și alertele de piață noi; revine la 0 când deschizi aplicația.</string>
+</resources>

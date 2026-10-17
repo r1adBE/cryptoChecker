@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Texte der Mitteilungen -->
+    <string name="notification_activity_title">%1$s · %2$s</string>
+    <string name="notification_alarm_text">%1$s — şimdi %2$s</string>
+    <string name="notification_alarm_title">Alarm: %1$s · %2$s</string>
+    <string name="notification_depeg_action_exchange">Borsayı aç</string>
+    <string name="notification_depeg_text">Uygulamadaki değerler USDT = 1 ile hesaplanmaya devam eder.</string>
+    <string name="notification_depeg_title">USDT %1$s USD (%2$s)</string>
+    <string name="notification_fng_above">Endeks %1$d üstüne çıktı – bu endekse göre piyasada açgözlülük hâkim.</string>
+    <string name="notification_fng_below">Endeks %1$d altına düştü – bu endekse göre piyasada korku hâkim.</string>
+    <string name="notification_fng_title">Fear &amp; Greed: %1$d</string>
+    <string name="notification_gas_btc_text">%1$s sat/vB sınırınızın altında · Transfer ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Bitcoin ücreti: %1$s sat/vB</string>
+    <string name="notification_gas_eth_text">%1$s gwei sınırınızın altında · Transfer ≈ %2$s</string>
+    <string name="notification_gas_eth_title">Ethereum gas: %1$s gwei</string>
+    <string name="notification_indicator_above">Sınırının üstünde: %1$s – ölçüm değeri, tavsiye değildir.</string>
+    <string name="notification_indicator_below">Sınırının altında: %1$s – ölçüm değeri, tavsiye değildir.</string>
+    <string name="notification_indicator_title">%1$s: %2$s</string>
+    <string name="notification_macro_title">Bugün ekonomik veri var</string>
+    <string name="notification_portfolio_alarm_locked">Alarmın tetiklendi – ayrıntılar için uygulamayı aç.</string>
+    <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
+    <string name="notification_portfolio_alarm_text">%1$s – şimdi %2$s</string>
+    <string name="notification_portfolio_alarm_title">Portföy değeri</string>
+    <string name="notification_price_change">%1$s, önceki %2$s (%3$s önce)</string>
+    <string name="notification_price_change_no_age">%1$s, önceki %2$s</string>
+    <string name="notification_price_first">Bu çift için ilk bildirim</string>
+    <plurals name="notification_price_overflow_title">
+        <item quantity="one">+%1$d fiyat daha</item>
+        <item quantity="other">+%1$d fiyat daha</item>
+    </plurals>
+    <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
+    <string name="notification_refreshing">Fiyatlar güncelleniyor…</string>
+    <string name="notification_volume_spike_text">Son bir saatte hacim normalin %1$s katı</string>
+
+    <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
+    <string name="channel_alarms">Alarmlar</string>
+    <string name="channel_alarms_description">Fiyat alarmı tetiklendiğinde bildirim.</string>
+    <string name="channel_alarms_quiet">Alarmlar (sessiz saatler)</string>
+    <string name="channel_alarms_quiet_description">Sessiz saatlerde sessiz alarmlar.</string>
+    <string name="channel_alarms_silent">Alarmlar (sessiz)</string>
+    <string name="channel_alarms_sound">Alarmlar (yalnızca ses)</string>
+    <string name="channel_alarms_sound_vibrate">Alarmlar (ses ve titreşim)</string>
+    <string name="channel_alarms_vibrate">Alarmlar (yalnızca titreşim)</string>
+    <string name="channel_prices">Fiyat bildirimleri</string>
+    <string name="channel_prices_description">Bir çiftin güncel fiyatını gösteren sessiz bildirim.</string>
+    <string name="channel_service">Fiyat güncelleme</string>
+    <string name="channel_service_description">Fiyatlar güncellenirken gösterilen bildirim.</string>
+    <string name="neutral_channel_market">Piyasa bildirimleri</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed, gas ücretleri, olağan dışı hareketler ve ekonomik takvim</string>
+
+    <!-- Sprachausgabe -->
+    <string name="tts_alarm">Alarm. %1$s, %2$s %3$s %4$s, şimdi %5$s</string>
+    <string name="tts_direction_down">düştü</string>
+    <string name="tts_direction_funding_above">yüksek fonlamayla</string>
+    <string name="tts_direction_funding_below">düşük fonlamayla</string>
+    <string name="tts_direction_move">sert hareket ediyor</string>
+    <string name="tts_direction_near_high">zirveye yakın</string>
+    <string name="tts_direction_near_low">dibe yakın</string>
+    <string name="tts_direction_oi_down">azalan açık pozisyonla</string>
+    <string name="tts_direction_oi_up">artan açık pozisyonla</string>
+    <string name="tts_direction_up">yükseldi</string>
+    <string name="tts_direction_volume_spike">hacim sıçramasıyla</string>
+    <string name="tts_price">%1$s, %2$s %3$s, %4$s</string>
+</resources>

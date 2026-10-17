@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Alarmliste und Übersicht aller Alarme -->
+    <string name="add_alarm_action">Pasang alarm</string>
+    <string name="alarms_add">Alarm baru</string>
+    <string name="alarms_edit">Edit alarm</string>
+    <string name="alarms_empty">Belum ada alarm untuk pasangan ini.</string>
+    <string name="alarms_empty_example">Contoh: Beri tahu saya saat BTC naik di atas %1$s.</string>
+    <!-- Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
+    <string name="alarms_notifications_off">Notifikasi nonaktif – alarm tidak akan sampai kepada Anda.</string>
+    <string name="alarms_notifications_turn_on">Aktifkan</string>
+    <plurals name="alarms_overview_active">
+        <item quantity="other">%1$d aktif</item>
+    </plurals>
+    <string name="alarms_overview_empty">Belum ada alarm. Buka pasangan dan tambahkan di Alarm.</string>
+    <string name="alarms_overview_title">Semua alarm</string>
+    <string name="alarms_title">Alarm</string>
+
+    <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
+    <string name="alarm_advanced">Lanjutan</string>
+    <string name="alarm_change_updates">Ubah pembaruan harga</string>
+    <string name="alarm_create">Buat alarm</string>
+    <string name="alarm_currency_label">Mata uang</string>
+    <string name="alarm_delete_confirm">Alarm ini akan dihapus.</string>
+    <string name="alarm_delete_title">Hapus alarm?</string>
+    <string name="alarm_field_percent">Persen</string>
+    <string name="alarm_field_price">Harga</string>
+    <string name="alarm_fires_now_above">Harga sudah di atas %1$s. Tetap simpan?</string>
+    <string name="alarm_fires_now_below">Harga sudah di bawah %1$s. Tetap simpan?</string>
+    <string name="alarm_fires_now_change">Ubah</string>
+    <string name="alarm_fires_now_save">Tetap simpan</string>
+    <string name="alarm_fires_now_title">Alarm akan langsung berbunyi</string>
+    <string name="alarm_first_battery_hint">Optimasi baterai membatasi aplikasi – alarm bisa datang terlambat.</string>
+    <string name="alarm_first_title">Semua siap</string>
+    <string name="alarm_last_triggered">terakhir %1$s</string>
+    <string name="alarm_new_extreme">%1$s baru</string>
+    <string name="alarm_once">Sekali</string>
+    <string name="alarm_option_repeating">Pertahankan alarm setelah berbunyi</string>
+    <string name="alarm_option_sound">Suara</string>
+    <string name="alarm_option_speak">Ucapkan alarm</string>
+    <string name="alarm_option_vibrate">Getar</string>
+    <string name="alarm_repeat_each">Setiap kali</string>
+    <string name="alarm_repeat_once">Sekali</string>
+    <string name="alarm_repeating">Setiap kali</string>
+    <string name="alarm_threshold_error_empty">Masukkan nilai untuk menyimpan alarm.</string>
+    <string name="alarm_threshold_error_funding">Funding rate harus berupa angka antara −10 dan +10 persen.</string>
+    <string name="alarm_threshold_error_invalid">Masukkan angka valid yang lebih dari 0.</string>
+    <string name="alarm_threshold_error_oi">Perubahan open interest: maksimal 1000 persen.</string>
+    <plurals name="alarm_window_hours">
+        <item quantity="other">dalam %1$d jam</item>
+    </plurals>
+    <string name="alarm_window_label">Jendela waktu</string>
+
+    <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
+    <string name="alarm_simple_above">naik di atas</string>
+    <string name="alarm_simple_below">turun di bawah</string>
+    <string name="alarm_simple_direction_a11y">Arah: %1$s</string>
+    <string name="alarm_simple_end"></string>
+    <string name="alarm_simple_when">Saat %1$s</string>
+    <string name="alarm_template_a11y">Buat alarm: %1$s</string>
+    <string name="alarm_template_a11y_down">Buat alarm di minus %1$s persen</string>
+    <string name="alarm_template_a11y_up">Buat alarm di plus %1$s persen</string>
+    <string name="alarm_template_created">Alarm dibuat</string>
+    <string name="alarm_template_volume">Volume ×%1$s</string>
+    <string name="alarm_templates_title">Alarm cepat</string>
+
+    <!-- Alarm-Bedingungen -->
+    <string name="alarm_condition_above">Harga di atas</string>
+    <string name="alarm_condition_below">Harga di bawah</string>
+    <string name="alarm_condition_down_percent">Turun sebesar</string>
+    <string name="alarm_condition_funding_above">Funding di atas</string>
+    <string name="alarm_condition_funding_below">Funding di bawah</string>
+    <string name="alarm_condition_move_percent">Bergerak sebesar</string>
+    <string name="alarm_condition_near_high">Dekat titik tertinggi</string>
+    <string name="alarm_condition_near_low">Dekat titik terendah</string>
+    <string name="alarm_condition_oi_down">Open interest turun</string>
+    <string name="alarm_condition_oi_up">Open interest naik</string>
+    <string name="alarm_condition_up_percent">Naik sebesar</string>
+    <string name="alarm_condition_volume_spike">Lonjakan volume</string>
+
+    <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
+    <string name="alarm_sentence_above">Beri tahu saya saat %1$s naik di atas %2$s.</string>
+    <string name="alarm_sentence_below">Beri tahu saya saat %1$s turun di bawah %2$s.</string>
+    <string name="alarm_sentence_down_percent">Beri tahu saya saat %1$s turun %2$s.</string>
+    <string name="alarm_sentence_funding_above">Beri tahu saya saat funding %1$s naik di atas %2$s.</string>
+    <string name="alarm_sentence_funding_below">Beri tahu saya saat funding %1$s turun di bawah %2$s.</string>
+    <string name="alarm_sentence_incomplete">Masukkan nilai untuk melihat alarm sebagai kalimat.</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="other">Beri tahu saya saat %1$s bergerak %2$s dalam %3$d jam.</item>
+    </plurals>
+    <string name="alarm_sentence_near_high">Beri tahu saya saat %1$s berada paling jauh %2$s di bawah %3$s.</string>
+    <string name="alarm_sentence_near_low">Beri tahu saya saat %1$s berada paling jauh %2$s di atas %3$s.</string>
+    <string name="alarm_sentence_new_extreme">Beri tahu saya saat %1$s mencetak %2$s baru.</string>
+    <plurals name="alarm_sentence_oi_down">
+        <item quantity="other">Beri tahu saya saat open interest %1$s turun %2$s dalam %3$d jam.</item>
+    </plurals>
+    <plurals name="alarm_sentence_oi_up">
+        <item quantity="other">Beri tahu saya saat open interest %1$s naik %2$s dalam %3$d jam.</item>
+    </plurals>
+    <string name="alarm_sentence_up_percent">Beri tahu saya saat %1$s naik %2$s.</string>
+    <string name="alarm_sentence_volume">Beri tahu saya saat volume %1$s mencapai %2$s× dari biasanya.</string>
+
+    <!-- Alarm «Nahe am Hoch / Tief» -->
+    <string name="alarm_near_extreme_high_30">titik tertinggi 30 hari</string>
+    <string name="alarm_near_extreme_high_365">titik tertinggi 1 tahun</string>
+    <string name="alarm_near_extreme_high_90">titik tertinggi 90 hari</string>
+    <string name="alarm_near_extreme_low_30">titik terendah 30 hari</string>
+    <string name="alarm_near_extreme_low_365">titik terendah 1 tahun</string>
+    <string name="alarm_near_extreme_low_90">titik terendah 90 hari</string>
+    <string name="alarm_near_field_distance">Jarak</string>
+    <string name="alarm_near_hint">Juga memberi tahu saat titik tertinggi atau terendah baru tercapai. Berdasarkan candle harian, diperbarui setiap 6 jam.</string>
+    <string name="alarm_near_new_only">Hanya titik tertinggi atau terendah baru</string>
+    <string name="alarm_near_notification_high">%1$s berada %2$s di bawah %3$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_low">%1$s berada %2$s di atas %3$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_new">%2$s mencetak %1$s baru: %3$s (sebelumnya %4$s)</string>
+    <plurals name="alarm_near_window_days">
+        <item quantity="other">%1$d hari</item>
+    </plurals>
+    <string name="alarm_near_window_label">Periode</string>
+    <string name="alarm_near_window_year">1 tahun</string>
+
+    <!-- Futures- und Volumen-Alarme (Funding pro 8 Stunden, Open Interest, Volumen-Spike) -->
+    <!-- Funding-Schwelle gilt pro 8 Stunden; stündliches Funding wird umgerechnet -->
+    <string name="alarm_funding_hint_8h">Funding per 8 jam. Kontrak dengan interval lain dikonversi (1 j × 8, 4 j × 2); kartu futures menampilkan nilai yang dikonversi. Jika interval tidak diketahui, alarm tidak memeriksa. Negatif: short membayar long. ± mengganti tanda.</string>
+    <string name="alarm_funding_sign_a11y">Ganti tanda</string>
+    <string name="alarm_oi_hint">Membandingkan open interest dengan nilai yang disimpan sekian jam lalu. Alarm baru hanya memberi tahu setelah aplikasi mengumpulkan data selama itu; diperiksa paling sering tiap 5 menit.</string>
+    <string name="alarm_volume_factor_label">Volume satu jam terakhir dibanding normal</string>
+    <string name="alarm_volume_hint">Data volume berasal dari Binance — pasangan yang tidak terdaftar di sana tidak akan pernah memicu alarm.</string>
+
+    <!-- Bestätigung nach dem Speichern -->
+    <string name="alarm_saved_active">Alarm aktif</string>
+    <!-- «Alarm gespeichert: BTC Kurs über 70’000 USDT · einmalig» -->
+    <string name="alarm_saved_banner">Alarm disimpan: %1$s</string>
+    <!-- Zusatz in der Bestätigung, wenn Mitteilungen aus sind (dazu Aktion «Einstellungen») -->
+    <string name="alarm_saved_notifications_off">Notifikasi nonaktif</string>
+
+    <!-- Wann Alarme geprüft werden -->
+    <string name="alarm_timing_hint_android">Saat aplikasi ditutup, Android memeriksa tidak teratur (kira-kira setiap 15 menit dengan «%1$s»), jadi lonjakan singkat bisa terlewat.</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">Saat aplikasi ditutup, iOS yang menentukan kapan diperiksa, jadi lonjakan singkat bisa terlewat; selama terbuka, pemeriksaan andal.</string>
+    <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
+    <string name="alarm_timing_title">Kapan alarm diperiksa</string>
+    <string name="alarm_timing_where">Atur seberapa sering harga diperbarui di %1$s.</string>
+
+    <!-- Alarm-Signal und Test-Alarm -->
+    <string name="alarm_signal_silent">Senyap (hanya notifikasi)</string>
+    <string name="alarm_signal_sound">Hanya suara</string>
+    <string name="alarm_signal_sound_vibrate">Suara dan getar</string>
+    <string name="alarm_signal_system">Sistem</string>
+    <string name="alarm_signal_vibrate">Hanya getar</string>
+    <string name="alarm_test">Uji alarm</string>
+    <string name="alarm_test_action">Uji</string>
+    <string name="alarm_test_denied">Notifikasi dimatikan untuk Crypto Checker.</string>
+    <string name="alarm_test_hint">Mengirim alarm contoh dengan pengaturan suara, getar, dan ucapan Anda.</string>
+    <string name="alarm_test_open_settings">Buka pengaturan</string>
+    <string name="alarm_test_quiet">Jam tenang sedang aktif: alarm sungguhan akan menunggu sampai berakhir lalu berbunyi dengan suara.</string>
+    <string name="alarm_test_text">Beginilah tampilan dan bunyi sebuah alarm.</string>
+    <string name="alarm_test_title">Uji: alarm Crypto Checker</string>
+
+    <!-- Ehrliche Alarme: Vorlesetexte Ton/Ansage, ungeprüfte Alarme -->
+    <string name="alarm_a11y_sound_on">Suara aktif</string>
+    <string name="alarm_a11y_speak_on">Ucapan aktif</string>
+    <string name="alarm_unchecked_no_candles">Tidak dapat diperiksa (tidak ada data candle)</string>
+    <string name="alarm_unchecked_no_rate">Tidak dapat diperiksa (tidak ada kurs)</string>
+</resources>

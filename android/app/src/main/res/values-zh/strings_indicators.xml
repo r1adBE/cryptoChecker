@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Neutrale Indikatoren: Titel, Hinweise, Halving -->
+    <string name="neutral_alt_title">山寨币对比比特币</string>
+    <string name="neutral_btc_indicators_title">比特币指标</string>
+    <string name="neutral_halving_last">上次减半：%1$s</string>
+    <string name="neutral_halving_next">下一次减半预计约在 %1$s（按日历估算——暂时无法获取区块高度）。</string>
+    <string name="neutral_indicators_disclaimer">仅为测量值，不含评估。不是预测，也不是投资建议。</string>
+    <string name="neutral_onchain_missing">链上数据（Coin Metrics）暂时不可用。</string>
+
+    <!-- Neutrale Indikatoren: was der Wert misst -->
+    <string name="neutral_explain_ath_distance">价格低于此前历史最高点的幅度。</string>
+    <string name="neutral_explain_change_30d">今日价格与 30 天前相比。</string>
+    <string name="neutral_explain_hashrate">30 日平均算力与 60 日平均相比。</string>
+    <string name="neutral_explain_ma200w">最近 200 周收盘价的平均值。</string>
+    <string name="neutral_explain_mayer">价格除以 200 日均线。</string>
+    <string name="neutral_explain_mvrv">市值除以已实现价值（链上）。</string>
+    <string name="neutral_explain_pi_gap">111日均线与350日均线两倍的比较。</string>
+    <string name="neutral_explain_puell">矿工每日收入除以其 365 日平均值。</string>
+    <string name="neutral_explain_rsi_daily">最近 14 天的相对强弱指数，0–100。</string>
+    <string name="neutral_explain_rsi_weekly">最近 14 周的相对强弱指数，0–100。</string>
+    <string name="neutral_explain_sma50_200">50 日均线与 200 日均线相比。</string>
+    <string name="neutral_explain_vs_btc">90 天内相对比特币的价格变化。</string>
+
+    <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
+    <string name="neutral_info_alt_season_how">应用只显示计数，不称其为“季”。该数值通常以天而不是小时为单位变化。</string>
+    <string name="neutral_info_btc_how">每个数值都附一句话，说明它衡量什么，以及它在自 2016 年以来自身历史中的位置。应用不评价数值，也不推断市场阶段；通知阈值只有你自己设定的那些。过去的模式不一定会重复。</string>
+    <string name="neutral_info_btc_what">常用比特币指标，只显示测量值：Mayer Multiple、200周均线、距历史最高点跌幅、30天变化、Pi Cycle 差距，以及链上数据 MVRV、Puell Multiple 和算力。</string>
+    <string name="neutral_info_coin_how">每个数值都附有一句说明其测量内容，不作评价。价格历史较短的币种会缺少部分数值。此处不含链上数据。</string>
+    <string name="neutral_info_coin_what">为所选币种显示同样的原始指标，仅基于价格数据：Mayer Multiple、200 周均线、距最高点跌幅、30 天变化、50/200 日趋势、RSI，以及 90 天内相对比特币的强弱。</string>
+    <string name="neutral_info_halving_how">下一次减半根据当前区块高度和当前难度周期的平均出块时间计算（mempool.space）；没有这些数据时按日历估算（上次减半加约四年）。图表显示以往周期自减半起的价格走势——是历史，不是预测。</string>
+
+    <!-- Indikator-Namen -->
+    <string name="ind_cross">50/200 日趋势</string>
+    <string name="ind_drawdown">距历史最高点跌幅</string>
+    <string name="ind_missing">数据不足</string>
+    <string name="ind_rsi_daily">RSI（日）</string>
+    <string name="ind_rsi_weekly">RSI（周）</string>
+    <string name="ind_vs_btc">相对比特币强弱（90 天）</string>
+    <string name="neutral_ind_change_30d">30 天变化</string>
+    <string name="neutral_ind_hashrate">算力 30/60 天</string>
+    <string name="neutral_ind_ma200w">200 周均线</string>
+    <string name="neutral_ind_pi_gap">Pi Cycle 差距</string>
+
+    <!-- Indikatoren: «hoch heisst …, tief heisst …» -->
+    <string name="ind_read_alt_season">高表示多数大型山寨币在 90 天内跑赢比特币，低表示比特币跑赢多数。</string>
+    <string name="ind_read_ath_distance">小表示价格接近历史最高，大表示远低于最高价。</string>
+    <string name="ind_read_change_30d">正值表示高于 30 天前，负值表示更低。</string>
+    <string name="ind_read_funding">高表示许多人用杠杆押注上涨，负值表示许多人押注下跌。</string>
+    <string name="ind_read_hashrate_30_60">正值表示算力在增长，负值表示矿工在关机。</string>
+    <string name="ind_read_leverage">多头多表示许多人借钱押注上涨，空头多表示押注下跌。</string>
+    <string name="ind_read_ma200w">价格远高于它表示经历了长期上涨，接近它表示深度回调。</string>
+    <string name="ind_read_mayer">高表示价格远高于 200 日均线，低表示低于均线。</string>
+    <string name="ind_read_mvrv">高表示价格远高于持有者的平均买入成本，低表示接近或低于该成本。</string>
+    <string name="ind_read_pi_cycle_gap">接近零表示两条均线几乎相交，明显为负表示相距很远。</string>
+    <string name="ind_read_puell">高表示矿工收入远高于平常，低表示远低于平常。</string>
+    <string name="ind_read_rsi_daily">高于 70 表示近几天涨幅较大，低于 30 表示跌幅较大。</string>
+    <string name="ind_read_rsi_weekly">高于 70 表示近几周涨幅较大，低于 30 表示跌幅较大。</string>
+    <string name="ind_read_sma50_vs_200">正值表示短期均线高于长期均线，负值表示低于。</string>
+    <string name="ind_read_vs_btc">正值表示表现优于比特币，负值表示较差。</string>
+
+    <!-- Indikatoren: Einordnung in die Vergangenheit -->
+    <string name="ind_context_flat30">价格30天不变：%1$s</string>
+    <string name="ind_context_note">过去的数值和“价格不变”的计算只是算术，不是预测。</string>
+    <string name="ind_context_percentile">自 %1$s 以来 %2$s 的日子更低</string>
+</resources>

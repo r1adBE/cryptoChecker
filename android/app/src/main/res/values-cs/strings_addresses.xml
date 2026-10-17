@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: beobachtete Adressen (Wallets) -->
+    <string name="portfolio_address_add">Přidat adresu</string>
+    <string name="portfolio_address_count">Započítat</string>
+    <string name="portfolio_address_error">Aktualizace selhala</string>
+    <string name="portfolio_address_hint">Veřejná adresa (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) nebo xpub</string>
+    <string name="portfolio_address_label">Označení (nepovinné)</string>
+    <string name="portfolio_address_not_since_buy">Z adresy · není v «Od nákupu»: %1$s</string>
+    <string name="portfolio_address_overlap">Také ve tvých vlastních transakcích: %1$s – sčítá se obojí. Stejné mince? Zvol «Jen zobrazit».</string>
+    <string name="portfolio_address_overlap_ask">%1$s už zaznamenáváš vlastními transakcemi. Má se zůstatek této adresy započítat do portfolia, nebo se jen zobrazit?</string>
+    <string name="portfolio_address_overlap_auto">«%1$s» se teď jen zobrazuje, nezapočítává – %2$s jsou i ve tvých transakcích.</string>
+    <string name="portfolio_address_overlap_restored">«%1$s» se znovu započítává – množství neodpovídají tvým transakcím. Zvol «Jen zobrazit», pokud jde o stejné mince.</string>
+    <string name="portfolio_address_overlap_title">Stejné mince jako ve tvých transakcích?</string>
+    <string name="portfolio_address_overlap_tx">Stejné množství jako tvůj vklad/převod (%1$s) – nejspíš se počítá dvakrát.</string>
+    <string name="portfolio_address_period_observed">Sledované adresy se počítají od prvního zjištěného zůstatku; pozdější změny jsou přítoky/odtoky, ne zisk.</string>
+    <string name="portfolio_address_privacy">Na %1$s se posílá jen veřejná adresa – nikdy klíče ani seed fráze. Poskytovatel ji vidí spolu s tvou IP adresou. Kontroluje se nejvýš každých 10 minut.</string>
+    <string name="portfolio_address_remove">Odebrat adresu</string>
+    <string name="portfolio_address_show_only">Jen zobrazit, nezapočítávat do portfolia</string>
+    <string name="portfolio_address_show_only_short">Jen zobrazit</string>
+    <string name="portfolio_address_tokens">Započítat tokeny</string>
+    <string name="portfolio_address_unknown_tokens">+%1$d neznámých tokenů (nezapočteno)</string>
+    <string name="portfolio_address_xpub_privacy">Xpub prozrazí všechny adresy této peněženky. Odvozují se v tvém zařízení; na %1$s jdou jen jednotlivé adresy – při prvním hledání nejméně 40 dotazů, potom méně. Soukromé klíče (xprv) se nikdy nepřijímají.</string>
+    <string name="portfolio_address_xpub_used">Použité adresy: %1$d</string>
+    <string name="portfolio_addresses_title">Adresy</string>
+
+    <!-- Prüfung einer eingegebenen Adresse -->
+    <string name="address_bch_unsupported">Adresy Bitcoin Cash nelze sledovat: neexistuje bezplatná veřejná služba bez klíče API, jejíž podmínky by to dovolovaly.</string>
+    <string name="address_bep2_shutdown">BNB Beacon Chain (BEP-2) byl v roce 2024 vypnut – zůstatky jsou nyní na BNB Smart Chain (0x…)</string>
+    <string name="address_checksum">Chybný kontrolní součet – překlep?</string>
+    <string name="address_doge_unsupported">Adresy Dogecoin nelze sledovat: neexistuje bezplatná veřejná služba bez klíče API, jejíž podmínky by to dovolovaly.</string>
+    <string name="address_duplicate">Tato adresa je už přidaná</string>
+    <string name="address_ens">Názvy ENS nejsou podporovány – zadej adresu 0x</string>
+    <string name="address_invalid">Neplatná adresa podporované sítě</string>
+    <string name="address_limit">Nejvýše 20 adres</string>
+    <string name="address_secret">Vypadá to jako soukromý klíč nebo seed fráze – nikde to nezadávej. Jen veřejné adresy.</string>
+    <string name="address_testnet">Adresy Testnet nejsou podporovány</string>
+    <string name="address_unsupported">Tento typ adresy není podporován</string>
+    <string name="address_wrong_chain">Adresa patří do jiné sítě</string>
+    <string name="address_xpub_multisig">Klíče multisig (Ypub/Zpub) nejsou podporovány</string>
+</resources>

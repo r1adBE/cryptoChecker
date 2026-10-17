@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Tab, leere Ansicht, Einschalten, Sperre -->
+    <string name="app_lock_unavailable">لم يتم إعداد قفل شاشة على هذا الجهاز. أعِدّ قفلًا في إعدادات النظام أولًا.</string>
+    <string name="app_lock_unlock">فتح القفل</string>
+    <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
+    <string name="portfolio_clear">إفراغ المحفظة</string>
+    <plurals name="portfolio_clear_confirm_count">
+        <item quantity="zero">حذف جميع المعاملات (%d)؟ تبقى العناوين المراقَبة. لا يمكن التراجع عن ذلك.</item>
+        <item quantity="one">حذف المعاملة (%d)؟ تبقى العناوين المراقَبة. لا يمكن التراجع عن ذلك.</item>
+        <item quantity="two">حذف جميع المعاملات (%d)؟ تبقى العناوين المراقَبة. لا يمكن التراجع عن ذلك.</item>
+        <item quantity="few">حذف جميع المعاملات (%d)؟ تبقى العناوين المراقَبة. لا يمكن التراجع عن ذلك.</item>
+        <item quantity="many">حذف جميع المعاملات (%d)؟ تبقى العناوين المراقَبة. لا يمكن التراجع عن ذلك.</item>
+        <item quantity="other">حذف جميع المعاملات (%d)؟ تبقى العناوين المراقَبة. لا يمكن التراجع عن ذلك.</item>
+    </plurals>
+    <string name="portfolio_disclaimer">تبقى المبالغ على جهازك ما لم تصدّرها بنفسك؛ وللأسعار لا تُرسل إلا رموز الأزواج إلى منصة الزوج. ترى عُقد البلوكتشين العامة العناوين المراقَبة وعنوان IP الخاص بك. ليست نصيحة استثمارية.</string>
+    <string name="portfolio_empty_action">أضف أول عملية شراء</string>
+    <string name="portfolio_empty_address">مراقبة عنوان محفظة فقط</string>
+    <string name="portfolio_empty_csv">اشتريت من منصة؟ استورد ملفها</string>
+    <string name="portfolio_empty_example_plain">مثال: شراء 0.01 BTC في 1 مارس. يعرض التطبيق بعدها قيمته اليوم وهل أنت رابح أم خاسر – يُحفظ على هذا الجهاز فقط.</string>
+    <string name="portfolio_empty_text">أدخل ما اشتريته – يعرض التطبيق قيمته اليوم ومقدار ربحك أو خسارتك.</string>
+    <string name="portfolio_empty_title">لا توجد عمليات بعد</string>
+    <string name="portfolio_enable_ask_text">تم حفظ معاملتك. يعرض تبويب المحفظة أرصدتك وقيمتها.</string>
+    <string name="portfolio_enable_ask_title">تفعيل تبويب المحفظة؟</string>
+    <string name="portfolio_enable_later_hint">تم حفظ الممتقدملة. يمكنك تفعيل تبويب المحفظة من الإعدادات › عام › المحفظة.</string>
+    <string name="portfolio_enabled_banner">تم تشغيل المحفظة – تجدها في تبويب المحفظة.</string>
+    <string name="portfolio_lock_reason">فتح قفل المحفظة</string>
+    <string name="portfolio_locked_text">افتح القفل لرؤية ممتلكاتك وقيمها.</string>
+    <string name="portfolio_locked_title">المحفظة مقفلة</string>
+    <string name="portfolio_setting_hint">اختياري: سجّل عمليات الشراء والبيع وشاهد القيمة والربح/الخسارة في تبويب منفصل.</string>
+    <!-- Status-Pille wie in der Merkliste: Kurse älter als die Frische-Schwelle, Gerät online. Offline: offline_status_since, alles aktuell: watchlist_all_fresh -->
+    <string name="portfolio_status_stale">قديم · حتى %1$s</string>
+    <plurals name="portfolio_system_restore_invalid">
+        <item quantity="zero">%d إدخالات من نسخة النظام كانت غير صالحة ولم تُستعد.</item>
+        <item quantity="one">%d إدخال من نسخة النظام كان غير صالح ولم يُستعد.</item>
+        <item quantity="two">%d إدخالات من نسخة النظام كانت غير صالحة ولم تُستعد.</item>
+        <item quantity="few">%d إدخالات من نسخة النظام كانت غير صالحة ولم تُستعد.</item>
+        <item quantity="many">%d إدخالات من نسخة النظام كانت غير صالحة ولم تُستعد.</item>
+        <item quantity="other">%d إدخالات من نسخة النظام كانت غير صالحة ولم تُستعد.</item>
+    </plurals>
+    <string name="portfolio_title">المحفظة</string>
+    <string name="portfolio_unassigned_fee">رسوم غير مُخصَّصة – التكلفة غير معروفة: %1$s</string>
+    <string name="portfolio_updated">الأسعار حتى %1$s</string>
+
+    <!-- Portfolio: Gesamtwert-Kopf (Heute · 7 T · Gesamt) und Aufteilung -->
+    <string name="portfolio_allocation_other">أخرى</string>
+    <string name="portfolio_allocation_title">التوزيع</string>
+    <string name="portfolio_card_details">التفاصيل</string>
+    <!-- Screenreader, Kennzahl ohne Wert; %1$s Beschriftung (z. B. «7 Tage») -->
+    <string name="portfolio_card_figure_none_a11y">%1$s: غير متاح بعد</string>
+    <string name="portfolio_card_hints_count">ملاحظات (%1$d)</string>
+    <string name="portfolio_card_today">اليوم</string>
+    <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
+    <string name="portfolio_card_total">الإجمالي</string>
+    <string name="portfolio_hide_amounts">إخفاء المبالغ</string>
+    <string name="portfolio_hide_amounts_hint">يعرض المبالغ والقيم في المحفظة وأداة المحفظة على شكل ••• – تبقى النسب المئوية ظاهرة.</string>
+    <string name="portfolio_invested">تكلفة الشراء</string>
+    <string name="portfolio_total_no_fx">لا يوجد سعر صرف لـ %1$s – المبالغ بالـ USDT</string>
+    <string name="portfolio_total_value">القيمة الإجمالية</string>
+    <string name="portfolio_value">القيمة</string>
+
+    <!-- Portfolio: Bestand, offene Positionen, Durchschnittspreis -->
+    <string name="portfolio_avg_and_now">المتوسط %1$s · الآن %2$s</string>
+    <string name="portfolio_avg_only">متوسط %1$s</string>
+    <string name="portfolio_avg_open_lots">متوسط تكلفة العملات المحتفَظ بها</string>
+    <string name="portfolio_avg_partial">متوسط %1$s ذات سعر شراء</string>
+    <string name="portfolio_avg_price">متوسط سعر الشراء</string>
+    <string name="portfolio_avg_price_hint">متوسط سعر الشراء: متوسط جميع عمليات الشراء مرجحًا بالكمية. تُقيَّم عمليات البيع بهذا المتوسط.</string>
+    <plurals name="portfolio_closed">
+        <item quantity="zero">مراكز مغلقة (%1$d)</item>
+        <item quantity="one">مراكز مغلقة (%1$d)</item>
+        <item quantity="two">مراكز مغلقة (%1$d)</item>
+        <item quantity="few">مراكز مغلقة (%1$d)</item>
+        <item quantity="many">مراكز مغلقة (%1$d)</item>
+        <item quantity="other">مراكز مغلقة (%1$d)</item>
+    </plurals>
+    <string name="portfolio_fifo_hint">FIFO: تستخدم المبيعات أقدم عملاتك أولًا. المتوسط = تكلفة الشراء المتبقية ÷ الكمية ذات سعر الشراء.</string>
+    <string name="portfolio_holdings">الرصيد</string>
+    <string name="portfolio_lost_fee_cost">تكلفة رسوم الشبكة بلا دفعة مدفوعة: %1$s</string>
+    <string name="portfolio_open_lots">دفعات الشراء المفتوحة (%1$d)</string>
+    <string name="portfolio_open_lots_avg">بسعر شراء (Ø)</string>
+    <string name="portfolio_open_lots_no_cost">بلا سعر شراء</string>
+    <string name="portfolio_open_lots_without_price">بلا سعر شراء</string>
+    <string name="portfolio_realized">ربح/خسارة محققة</string>
+    <string name="portfolio_unrealized">ربح/خسارة غير محققة</string>
+    <string name="portfolio_unrealized_without_unpriced">دون %1$s بلا سعر شراء</string>
+    <string name="portfolio_withdrawn_gain">مسحوب: %1$s (تغيّر القيمة حتى السحب)</string>
+
+    <!-- Portfolio: Kurse und Umrechnung -->
+    <string name="portfolio_convert_to">التحويل إلى</string>
+    <string name="portfolio_convert_to_value">التحويل إلى: %1$s</string>
+    <string name="portfolio_current_missing">لا يوجد سعر حالي لـ %1$s</string>
+    <string name="portfolio_current_price">السعر الحالي</string>
+    <string name="portfolio_price_missing">السعر غير متوفر</string>
+    <string name="portfolio_price_missing_hint">بعض عمليات الشراء بلا سعر. أضف سعر الشراء لرؤية الربح/الخسارة.</string>
+    <string name="portfolio_price_source">الأسعار: Binance · ‏USDT = 1</string>
+    <string name="portfolio_price_source_routes">الأسعار: %1$s، وإلا Binance · ‏USDT = 1</string>
+    <string name="portfolio_price_unavailable">السعر غير متاح حاليًا</string>
+    <string name="portfolio_price_unchecked">السعر غير متحقق</string>
+    <string name="portfolio_price_via_base">≈ سعر %1$s (مجسَّر/مغلَّف)</string>
+    <string name="portfolio_usdt_as_usd">USDT محوّل بسعر USD</string>
+    <string name="portfolio_usdt_assumed">يُفترض USDT = 1</string>
+    <string name="portfolio_usdt_depeg_warning">يُفترض USDT = 1 – السوق عند %1$s USD (%2$s)</string>
+
+    <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
+    <string name="portfolio_add_from_watch">إضافة إلى المحفظة</string>
+    <string name="portfolio_add_tx">تسجيل معاملة</string>
+    <string name="portfolio_buy">شراء</string>
+    <string name="portfolio_coin">العملة</string>
+    <string name="portfolio_coin_invalid">أدخل رمز العملة</string>
+    <string name="portfolio_coin_search">ابحث عن رمز، مثل BTC</string>
+    <string name="portfolio_discard_confirm">تجاهل</string>
+    <string name="portfolio_discard_keep">متابعة التعديل</string>
+    <string name="portfolio_discard_title">تجاهل التغييرات؟</string>
+    <string name="portfolio_edit_tx">تعديل العملية</string>
+    <string name="portfolio_invalid">كمية غير صالحة</string>
+    <string name="portfolio_oversold">المبيعات تتجاوز الرصيد – يرجى مراجعة العمليات.</string>
+    <string name="portfolio_sell">بيع</string>
+    <string name="portfolio_sell_exceeds">أكثر من رصيدك (%1$s)</string>
+    <string name="portfolio_sell_exceeds_fee">الكمية مع الرسوم تتجاوز ما تملكه (%1$s)</string>
+    <string name="portfolio_sell_exceeds_wallet">أكثر مما تملكه في %2$s (%1$s)</string>
+    <string name="portfolio_transactions">العمليات</string>
+    <string name="portfolio_tx_acquired_date">تاريخ الشراء الأصلي (اختياري)</string>
+    <string name="portfolio_tx_acquired_date_hint">لمدة الاحتفاظ في التصدير الضريبي</string>
+    <string name="portfolio_tx_amount">الكمية</string>
+    <string name="portfolio_tx_coin_fee">الرسوم بالعملة (اختياري)</string>
+    <string name="portfolio_tx_date">التاريخ</string>
+    <string name="portfolio_tx_delete_confirm">ستُزال هذه العملية من المحفظة.</string>
+    <string name="portfolio_tx_delete_title">حذف العملية؟</string>
+    <string name="portfolio_tx_deposit">إيداع</string>
+    <string name="portfolio_tx_entry_currency">الإدخال بـ</string>
+    <string name="portfolio_tx_explain_deposit">رصيد بلا صفقة، مثل عملات من قبل</string>
+    <string name="portfolio_tx_explain_gift">تغادر العملات رصيدك كالسحب – تصرّف بالقيمة السوقية فقط حيث تفرض الدولة الضريبة على الهدايا هكذا (UK وCA وAU)</string>
+    <string name="portfolio_tx_explain_payment">دُفع مقابل سلع أو خدمات – تصرّف بالقيمة السوقية كالبيع، دون استلام نقود</string>
+    <string name="portfolio_tx_explain_reward">تكلفة الشراء = القيمة السوقية عند الاستلام</string>
+    <string name="portfolio_tx_explain_swap">عملة مقابل عملة: بيع المُعطاة وشراء المُستلَمة</string>
+    <string name="portfolio_tx_explain_transfer">لا ربح – تنتقل تكلفة الشراء مع العملات</string>
+    <string name="portfolio_tx_explain_withdrawal">يخرج الرصيد من المحفظة – لا بيع ولا ربح</string>
+    <string name="portfolio_tx_fee_consumes_amount">الرسوم بقدر الكمية المُستلَمة – لن يتبقى شيء.</string>
+    <string name="portfolio_tx_fees_toggle">الرسوم</string>
+    <string name="portfolio_tx_fiat_converted">≈ %1$s بسعر %2$s</string>
+    <string name="portfolio_tx_fiat_loading">جارٍ تحميل سعر الصرف…</string>
+    <string name="portfolio_tx_fiat_no_fx">لا يوجد سعر صرف لهذا اليوم – أدخل المبلغ بالـ USDT.</string>
+    <string name="portfolio_tx_gift">هدية</string>
+    <string name="portfolio_tx_gift_price_hint">بـ USDT. فارغ = سعر إغلاق ذلك اليوم (تقديري).</string>
+    <string name="portfolio_tx_gift_spouse">إلى الزوج / الشريك</string>
+    <string name="portfolio_tx_gift_spouse_hint">المملكة المتحدة وكندا: بلا ربح ولا خسارة – يتولى شريكك تكلفتك. الدول الأخرى تتجاهل ذلك.</string>
+    <string name="portfolio_tx_market_value">القيمة السوقية لكل عملة</string>
+    <string name="portfolio_tx_more_buy">الرسوم، المنصة، ملاحظة</string>
+    <string name="portfolio_tx_network_fee">رسوم الشبكة بالعملة (اختياري)</string>
+    <string name="portfolio_tx_note">ملاحظة (اختياري)</string>
+    <string name="portfolio_tx_payment">دُفع به</string>
+    <string name="portfolio_tx_price">السعر لكل عملة</string>
+    <string name="portfolio_tx_price_hint">بـ USDT. اتركه فارغًا إن كان غير معروف.</string>
+    <string name="portfolio_tx_price_historic">سعر الإغلاق اليومي المُتحقَّق منه بتاريخ %1$s – عدّله عند الحاجة</string>
+    <string name="portfolio_tx_price_invalid">سعر غير صالح</string>
+    <string name="portfolio_tx_price_past_hint">أدخل السعر في يوم العملية – اتركه فارغًا إن لم تعرفه</string>
+    <string name="portfolio_tx_price_receipt_hint">بالـ USDT. فارغ = رصيد بلا تكلفة شراء.</string>
+    <string name="portfolio_tx_price_zero">لا يمكن أن يكون السعر 0 في المعاملات المستوردة – اتركه فارغًا لسعر السوق</string>
+    <string name="portfolio_tx_removed">تم حذف العملية</string>
+    <string name="portfolio_tx_reward">مكافأة</string>
+    <string name="portfolio_tx_save_failed">تعذّر حفظ المعاملة. لا تزال إدخالاتك موجودة – حاول مرة أخرى.</string>
+    <string name="portfolio_tx_swap">مبادلة</string>
+    <string name="portfolio_tx_swap_fee_received">الرسوم بـ %1$s: تُنقص الكمية المُستلَمة ولا حاجة إلى سعر.</string>
+    <string name="portfolio_tx_swap_from">مبادلة من %1$s</string>
+    <string name="portfolio_tx_swap_given_amount">الكمية المُعطاة</string>
+    <string name="portfolio_tx_swap_given_coin">العملة المُعطاة</string>
+    <string name="portfolio_tx_swap_received_amount">الكمية المُستلَمة</string>
+    <string name="portfolio_tx_swap_received_coin">العملة المُستلَمة</string>
+    <string name="portfolio_tx_swap_same_coin">اختر عملة غير المُعطاة</string>
+    <string name="portfolio_tx_swap_to">مبادلة إلى %1$s</string>
+    <string name="portfolio_tx_swap_value">قيمة المبادلة (اختياري)</string>
+    <string name="portfolio_tx_swap_value_hint">القيمة الإجمالية. فارغ = غير معروفة – يبقى الربح غير مكتمل (تلقائي مع USDT في المبادلة).</string>
+    <string name="portfolio_tx_third_fee_amount">مقدار الرسوم</string>
+    <string name="portfolio_tx_third_fee_coin">عملة الرسوم</string>
+    <string name="portfolio_tx_third_fee_incomplete">بدون سعر لا تُحتسب الرسوم في تكلفة الشراء ولا في العائد؛ ويُعلِّم التصدير الضريبي هذه المبيعات.</string>
+    <string name="portfolio_tx_third_fee_price">السعر لكل عملة رسوم (اختياري)</string>
+    <string name="portfolio_tx_third_fee_toggle">رسوم بعملة أخرى</string>
+    <string name="portfolio_tx_total">الإجمالي: %1$s</string>
+    <string name="portfolio_tx_transfer">تحويل</string>
+    <string name="portfolio_tx_transfer_from">من (اختياري)</string>
+    <string name="portfolio_tx_transfer_to">إلى (اختياري)</string>
+    <string name="portfolio_tx_transfer_to_hint">منصة أو wallet – يُقيَّم هناك من الآن.</string>
+    <string name="portfolio_tx_type_select">النوع: %1$s</string>
+    <string name="portfolio_tx_value_received">القيمة لكل عملة عند الاستلام (اختياري)</string>
+    <string name="portfolio_tx_withdrawal">سحب</string>
+    <string name="portfolio_tx_withdrawal_gift_hint">أهديته أو دفعت به؟ سجّله كـ ‹هدية› أو ‹دُفع به› – بحسب البلد يُعدّ ذلك بيعًا ضريبيًا.</string>
+    <string name="portfolio_tx_withdrawal_price_hint">اختياري: القيمة السوقية بالـ USDT، للسجل فقط (فارغ = سعر ذلك اليوم). تخرج العملات دائمًا بتكلفة الشراء.</string>
+    <string name="portfolio_wallet_did_you_mean">هل تقصد %1$s؟ الكتابة المختلفة تُحتسب wallet منفصلة.</string>
+    <string name="portfolio_wallet_shortfall">الرصيد في %1$s لا يكفي – هل ينقص تحويل؟</string>
+
+    <!-- Portfolio: Wertverlauf (Zeitraum, Vergleich Währung | USDT, Währungseffekt) -->
+    <!-- Höchster Tageswert des Zeitraums am Punkt («Hoch 12’345») -->
+    <string name="portfolio_chart_high">الأعلى %1$s</string>
+    <string name="portfolio_compare">مقارنة</string>
+    <!-- Umschalter «Vergleich», Screenreader: %1$s Währung -->
+    <string name="portfolio_compare_a11y">مقارنة %1$s وUSDT بالنسبة المئوية</string>
+    <!-- %1$s Zeitraum, %2$s Währung, %3$s und %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="portfolio_compare_chart_a11y">مقارنة بالنسبة المئوية، %1$s: %2$s %3$s، USDT %4$s</string>
+    <!-- %1$s Prozentpunkte mit Vorzeichen («−5.10%»): Veränderung in der Währung minus in USDT -->
+    <string name="portfolio_currency_effect">أثر العملة: %1$s</string>
+    <!-- «Seit 1. Kauf» beginnt frühestens beim ersten Tag mit Kursdaten -->
+    <string name="portfolio_history_capped_data_start">بيانات الأسعار متوفرة فقط منذ أغسطس 2017 — يبدأ السجل من هناك.</string>
+    <string name="portfolio_history_chip_since_first">منذ الشراء</string>
+    <string name="portfolio_history_collapse">إخفاء تطور القيمة</string>
+    <string name="portfolio_history_converted">محوّلة بسعر اليوم</string>
+    <string name="portfolio_history_expand">عرض تطور القيمة</string>
+    <string name="portfolio_history_gain_a11y">القيمة %1$s. الربح/الخسارة، %2$s: %3$s</string>
+    <string name="portfolio_history_gain_label">الربح/الخسارة</string>
+    <!-- Umschalter, Screenreader: %1$s Währung («CHF») oder «USDT» -->
+    <string name="portfolio_history_in_a11y">القيمة بـ%1$s</string>
+    <string name="portfolio_history_incl_fx">شامل سعر الصرف</string>
+    <string name="portfolio_history_incl_withdrawn">يشمل تغيّر قيمة العملات المسحوبة</string>
+    <string name="portfolio_history_includes_trades">يشمل عمليات الشراء والبيع في هذه الفترة</string>
+    <string name="portfolio_history_loading">جارٍ تحميل تطور القيمة</string>
+    <string name="portfolio_history_period_1y">سنة واحدة</string>
+    <string name="portfolio_history_period_30d">30 يومًا</string>
+    <string name="portfolio_history_period_7d">7 أيام</string>
+    <string name="portfolio_history_period_since_first">منذ أول شراء</string>
+    <string name="portfolio_history_pnl_needs_prices">أسعار الشراء ناقصة لحساب الربح/الخسارة – أضفها في المعاملات.</string>
+    <string name="portfolio_history_pnl_without">الربح/الخسارة دون %1$s (السعر مفقود)</string>
+    <string name="portfolio_history_range_1y">سنة</string>
+    <string name="portfolio_history_range_30d">30 يومًا</string>
+    <string name="portfolio_history_range_7d">7 أيام</string>
+    <string name="portfolio_history_range_a11y">عرض التطور خلال %1$s</string>
+    <string name="portfolio_history_range_since_first">منذ أول شراء</string>
+    <string name="portfolio_history_scaled">سجل %1$s: سجل Binance مُعدّل إلى سعر المنصة</string>
+    <string name="portfolio_history_title">تطور القيمة</string>
+    <string name="portfolio_history_today">اليوم</string>
+    <string name="portfolio_history_too_short">يبدأ التطور بعد أول يوم كامل لك.</string>
+    <string name="portfolio_history_unavailable">لا يتوفر تطور حاليًا.</string>
+    <string name="portfolio_history_utc_days">الأيام بتوقيت UTC (شموع يومية)</string>
+    <string name="portfolio_history_without_matching">بدون %1$s (لا أسعار يومية مطابقة)</string>
+    <string name="portfolio_period_rewards">المكافآت +%1$s (خارج الربح)</string>
+    <string name="portfolio_period_scaled">7 أيام/سنة لـ %1$s: سجل Binance مُعدّل إلى سعر المنصة</string>
+
+    <!-- Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_alarm_action">تنبيه</string>
+    <!-- %1$s = Währung, z. B. CHF -->
+    <string name="portfolio_alarm_amount">المبلغ (%1$s)</string>
+    <string name="portfolio_alarm_hint">يُفحص بعد كل تحديث. مثل التنبيهات: ينبّه عند تجاوز الحد، ثم مجددًا فقط بعد عودة القيمة.</string>
+    <string name="portfolio_alarm_kind_above">المحفظة فوق مبلغ</string>
+    <string name="portfolio_alarm_kind_below">المحفظة تحت مبلغ</string>
+    <string name="portfolio_alarm_kind_down">المحفظة تنخفض</string>
+    <string name="portfolio_alarm_kind_up">المحفظة ترتفع</string>
+    <!-- %1$s = Betrag mit Währung (oder •••) -->
+    <string name="portfolio_alarm_sentence_above">المحفظة فوق %1$s</string>
+    <string name="portfolio_alarm_sentence_below">المحفظة تحت %1$s</string>
+    <string name="portfolio_alarm_sentence_down">المحفظة انخفضت %1$s (%2$s)</string>
+    <!-- %1$s = Prozent, %2$s = Basis der %-Änderung kurz (24h, heute …) -->
+    <string name="portfolio_alarm_sentence_up">المحفظة ارتفعت %1$s (%2$s)</string>
+    <string name="portfolio_alarm_title">تنبيه «قيمة المحفظة»</string>
+
+    <!-- Gebühr, Börse und Gewinn/Verlust einer Position -->
+    <string name="ledger_exchange">المنصة (اختياري)</string>
+    <string name="ledger_exchange_failed">%1$s: لا يوجد سعر من %2$s حاليًا – قُيّم بأسعار Binance.</string>
+    <string name="ledger_exchange_hint">تُقيَّم العملة بسعر هذه المنصة (وإلا Binance). السجل و7 أيام وسنة: أسعار Binance اليومية بعد مواءمتها.</string>
+    <string name="ledger_exchange_mixed">%1$s: أُدخلت عدة منصات – قُيّم بأسعار Binance. نقلت عملات؟ سجّل النقل كـ «تحويل».</string>
+    <string name="ledger_exchange_none">لا شيء (Binance)</string>
+    <string name="ledger_fee">الرسوم (اختياري)</string>
+    <string name="ledger_fee_coin">العملة</string>
+    <string name="ledger_fee_hint">بالـ USDT ترفع تكلفة الشراء (البيع: تخفض العائد)، وبالعملة نفسها تقلل الكمية.</string>
+    <string name="ledger_fee_line">الرسوم %1$s</string>
+    <string name="ledger_fifo_cost_note">منذ الشراء: تكلفة FIFO مع الرسوم (تُباع أقدم العملات أولًا).</string>
+    <string name="ledger_gain_info">اليوم، 7 أيام، سنة: تغيّر القيمة خلال الفترة – لا تُحسب عمليات الشراء والبيع ربحًا. منذ الشراء: القيمة الحالية ناقص التكلفة (متوسط التكلفة مع الرسوم) للعملات التي ما زلت تحتفظ بها.</string>
+    <string name="ledger_gain_info_a11y">كيف يُحسب الربح والخسارة</string>
+    <string name="ledger_gain_info_fifo">اليوم، 7 أيام، سنة: تغيّر القيمة خلال الفترة – لا تُحسب عمليات الشراء والبيع ربحًا. منذ الشراء: القيمة الحالية ناقص التكلفة (FIFO مع الرسوم) للعملات التي ما زلت تحتفظ بها.</string>
+    <string name="ledger_gain_title">الربح/الخسارة</string>
+    <string name="ledger_more_toggle">الرسوم والمنصة</string>
+    <string name="ledger_partial_cost">«منذ الشراء» يحسب فقط الجزء الذي له سعر شراء – دون %1$s بلا سعر شراء.</string>
+    <string name="ledger_period_without">اليوم / 7 أيام / سنة بدون %1$s – لا يوجد سعر بداية مناسب.</string>
+    <string name="ledger_since_purchase_currency">منذ الشراء (%1$s)</string>
+    <string name="ledger_since_purchase_spoken">الربح/الخسارة منذ الشراء، لم يُبع بعد</string>
+    <plurals name="ledger_without_cost">
+        <item quantity="zero">دون %1$d عملات بلا سعر شراء (%2$s) – أضف الأسعار لتُحتسب.</item>
+        <item quantity="one">دون %1$d عملة بلا سعر شراء (%2$s) – أضف السعر لتُحتسب.</item>
+        <item quantity="two">دون %1$d عملات بلا سعر شراء (%2$s) – أضف الأسعار لتُحتسب.</item>
+        <item quantity="few">دون %1$d عملات بلا سعر شراء (%2$s) – أضف الأسعار لتُحتسب.</item>
+        <item quantity="many">دون %1$d عملات بلا سعر شراء (%2$s) – أضف الأسعار لتُحتسب.</item>
+        <item quantity="other">دون %1$d عملات بلا سعر شراء (%2$s) – أضف الأسعار لتُحتسب.</item>
+    </plurals>
+</resources>

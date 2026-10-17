@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Wie aktuell? (Sparsam / Live) -->
+    <string name="update_mode_for_pros">spotřebuje víc dat a baterie</string>
+    <string name="update_mode_live">Živě, dokud je otevřená</string>
+    <string name="update_mode_live_hint">Kde burza poskytuje živý kurz: hned, dokud je seznam otevřený. Jinak při dalším načtení. Zavřený: nejčastěji každých %1$s, často později.</string>
+    <string name="update_mode_live_hint_ios">Kde burza poskytuje živý kurz: hned, dokud je seznam otevřený. Jinak při dalším načtení. Zavřený: když to iOS dovolí, někdy až po hodinách. Když aplikaci zavřete přejetím prstem, iOS tyto kontroly zastaví, dokud ji znovu neotevřete.</string>
+    <string name="update_mode_recommended">doporučeno</string>
+    <string name="update_mode_sparsam">Úsporný</string>
+    <string name="update_mode_sparsam_hint">Při zavřené aplikaci nejčastěji každých %1$s, často později (alarmy, widgety). Otevřená: při každém otevření.</string>
+    <string name="update_mode_sparsam_hint_ios">Při zavřené aplikaci rozhoduje iOS, kdy se kontroluje (alarmy, widgety), někdy až po hodinách. Otevřená: při každém otevření.</string>
+    <string name="update_mode_title">Jak aktuální?</string>
+
+    <!-- Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <string name="refresh_sheet_aborted">Obnovení přerušeno</string>
+    <string name="refresh_sheet_alarms">Alarmy</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="one">%1$d spuštěn</item>
+        <item quantity="few">%1$d spuštěny</item>
+        <item quantity="many">%1$d spuštěno</item>
+        <item quantity="other">%1$d spuštěno</item>
+    </plurals>
+    <!-- Grosse Statuszeile oben im Blatt -->
+    <string name="refresh_sheet_all_updated">Vše aktualizováno</string>
+    <string name="refresh_sheet_app_start">Spuštění aplikace</string>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="one">hromadný dotaz %1$s · %2$d kurz</item>
+        <item quantity="few">hromadný dotaz %1$s · %2$d kurzy</item>
+        <item quantity="many">hromadný dotaz %1$s · %2$d kurzů</item>
+        <item quantity="other">hromadný dotaz %1$s · %2$d kurzů</item>
+    </plurals>
+    <string name="refresh_sheet_database">Databáze</string>
+    <string name="refresh_sheet_market_unreachable">Burza %1$s nedostupná</string>
+    <plurals name="refresh_sheet_markets_unreachable">
+        <item quantity="one">%1$d burza nedostupná</item>
+        <item quantity="few">%1$d burzy nedostupné</item>
+        <item quantity="many">%1$d burz nedostupných</item>
+        <item quantity="other">%1$d burz nedostupných</item>
+    </plurals>
+    <string name="refresh_sheet_network">Síť</string>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="one">%1$d oznámení</item>
+        <item quantity="few">%1$d oznámení</item>
+        <item quantity="many">%1$d oznámení</item>
+        <item quantity="other">%1$d oznámení</item>
+    </plurals>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="one">%1$d pár</item>
+        <item quantity="few">%1$d páry</item>
+        <item quantity="many">%1$d párů</item>
+        <item quantity="other">%1$d párů</item>
+    </plurals>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="one">%1$d pár neaktualizován</item>
+        <item quantity="few">%1$d páry neaktualizovány</item>
+        <item quantity="many">%1$d párů neaktualizováno</item>
+        <item quantity="other">%1$d párů neaktualizováno</item>
+    </plurals>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="one">%2$d z %1$d páru</item>
+        <item quantity="few">%2$d z %1$d párů</item>
+        <item quantity="many">%2$d z %1$d párů</item>
+        <item quantity="other">%2$d z %1$d párů</item>
+    </plurals>
+    <string name="refresh_sheet_paused_until">pozastaveno do %1$s</string>
+    <string name="refresh_sheet_paused_until_reason">pozastaveno do %1$s (%2$s)</string>
+    <string name="refresh_sheet_reason_no_data">žádná data</string>
+    <string name="refresh_sheet_reason_offline">bez připojení</string>
+    <string name="refresh_sheet_reason_rate_limit">příliš mnoho požadavků</string>
+    <string name="refresh_sheet_reason_server">chyba serveru</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">vypršel časový limit</string>
+    <string name="refresh_sheet_reason_unavailable">burza nedostupná</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s sekundy</string>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_markets">Burzy</string>
+    <string name="refresh_sheet_section_steps">Průběh</string>
+    <string name="refresh_sheet_status_failed">neaktualizováno</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">vše aktualizováno</string>
+    <string name="refresh_sheet_status_partial">částečně aktualizováno</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">Čekání do startu</string>
+    <string name="refresh_sheet_widgets">Widgety</string>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+
+    <!-- Kurzbericht der Aktualisierung je Börse -->
+    <string name="refresh_report_bulk_failed">hromadný dotaz %1$s (selhal)</string>
+    <plurals name="refresh_report_errors">
+        <item quantity="one">%1$d chyba</item>
+        <item quantity="few">%1$d chyby</item>
+        <item quantity="many">%1$d chyb</item>
+        <item quantity="other">%1$d chyb</item>
+    </plurals>
+    <string name="refresh_report_live">Živě: %1$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="one">již neobchodováno: %1$d</item>
+        <item quantity="few">již neobchodováno: %1$d</item>
+        <item quantity="many">již neobchodováno: %1$d</item>
+        <item quantity="other">již neobchodováno: %1$d</item>
+    </plurals>
+    <string name="refresh_report_singles">jednotlivě: %1$d</string>
+
+    <!-- Prüfprotokoll der Hintergrundprüfungen (Ergebnis, Auslöser) -->
+    <string name="check_result_failed">Selhalo</string>
+    <string name="check_result_ok">OK</string>
+    <string name="check_result_partial">Částečně</string>
+    <string name="check_result_skipped">Přeskočeno</string>
+    <string name="check_trigger_bgtask">Pozadí</string>
+    <string name="check_trigger_exact">Včas</string>
+    <string name="check_trigger_foreground">Aplikace</string>
+    <string name="check_trigger_widget">Widget</string>
+    <string name="check_trigger_widget_ios">Widget · kurzy a cenové alarmy</string>
+    <string name="check_trigger_worker">Pozadí</string>
+
+    <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
+    <string name="battery_delay_hint">Android může kontroly zpozdit – nastav baterii na «Neomezeno»</string>
+    <string name="battery_later">Později</string>
+    <string name="battery_message">Android kvůli úspoře energie odkládá práci na pozadí — ceny a widgety pak mohou být staré i několik hodin. Nastavením neomezeného využití baterie zůstanou aktuální. Změnit to můžete kdykoli v nastavení Androidu.</string>
+    <string name="battery_open_settings">Otevřít nastavení baterie</string>
+    <string name="battery_steps">V informacích o aplikaci klepněte na Baterie (nebo Využití baterie aplikací) a zvolte Neomezeno.</string>
+    <string name="battery_title">Udržovat ceny aktuální</string>
+    <string name="ios_background_refresh_off">Aktualizace na pozadí je pro aplikaci vypnutá. Bez ní se alarmy kontrolují jen při otevřené aplikaci.</string>
+    <string name="ios_low_power_mode">Úsporný režim je zapnutý. iOS na pozadí kontroluje jen zřídka, alarmy se mohou zpozdit.</string>
+</resources>

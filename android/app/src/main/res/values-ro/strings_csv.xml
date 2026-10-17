@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: CSV-Import -->
+    <string name="portfolio_csv_import_action">Importă CSV</string>
+    <string name="portfolio_csv_import_all_transfer">Toate în propriul wallet</string>
+    <string name="portfolio_csv_import_all_withdrawal">Toate ies din portofoliu</string>
+    <string name="portfolio_csv_import_choice_proposed">Sugestie: se potrivește cu %1$s</string>
+    <string name="portfolio_csv_import_choice_transfer">În propriul wallet (transfer)</string>
+    <string name="portfolio_csv_import_choice_withdrawal">Iese din portofoliu (retragere)</string>
+    <string name="portfolio_csv_import_choose_each">Alege pentru fiecare retragere unde a ajuns.</string>
+    <string name="portfolio_csv_import_columns">Coloane recunoscute: %1$s</string>
+    <string name="portfolio_csv_import_confirm">Importă (%1$d)</string>
+    <string name="portfolio_csv_import_date_day_first">Zi/Lună</string>
+    <string name="portfolio_csv_import_date_month_first">Lună/Zi</string>
+    <string name="portfolio_csv_import_date_order">Date ambigue (de ex. 03/04/2024) citite ca:</string>
+    <string name="portfolio_csv_import_decimal">Numere ambigue (de ex. %1$s) citite ca:</string>
+    <plurals name="portfolio_csv_import_done">
+        <item quantity="one">%d tranzacție importată</item>
+        <item quantity="few">%d tranzacții importate</item>
+        <item quantity="other">%d de tranzacții importate</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_duplicates">
+        <item quantity="one">%d deja importată (omisă)</item>
+        <item quantity="few">%d deja importate (omise)</item>
+        <item quantity="other">%d deja importate (omise)</item>
+    </plurals>
+    <string name="portfolio_csv_import_format">Format: %1$s</string>
+    <string name="portfolio_csv_import_line">Rândul %1$d: %2$s</string>
+    <string name="portfolio_csv_import_loading">Se citesc fișierul și cursurile zilnice…</string>
+    <string name="portfolio_csv_import_missing_fx">Niciun curs zilnic pentru rândul %1$s – importat fără preț și comision.</string>
+    <string name="portfolio_csv_import_missing_price">Niciun preț în fișier pentru rândul %1$s – importat fără preț.</string>
+    <string name="portfolio_csv_import_more">+ încă %1$d</string>
+    <plurals name="portfolio_csv_import_new">
+        <item quantity="one">%d tranzacție nouă</item>
+        <item quantity="few">%d tranzacții noi</item>
+        <item quantity="other">%d de tranzacții noi</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_skipped">
+        <item quantity="one">%d rând omis</item>
+        <item quantity="few">%d rânduri omise</item>
+        <item quantity="other">%d de rânduri omise</item>
+    </plurals>
+    <string name="portfolio_csv_import_stable_swaps">Cumpărările și vânzările contra stablecoinuri (USDT, USDC …) sunt înregistrate ca schimburi – stablecoinul apare în deținerea ta.</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">Mai multe potriviri posibile – alege-o pe cea corectă sau niciuna.</string>
+    <string name="portfolio_csv_import_transfer_fee">Comision de rețea: %1$s</string>
+    <string name="portfolio_csv_import_transfer_link">Înregistrează ca un singur transfer</string>
+    <string name="portfolio_csv_import_transfer_stored">Corespondent dintr-un import anterior</string>
+    <string name="portfolio_csv_import_transfers_hint">O retragere și depunerea corespunzătoare a aceleiași monede devin un singur transfer: prețul de achiziție și perioada de deținere se păstrează, diferența contează drept comision de rețea.</string>
+    <string name="portfolio_csv_import_transfers_title">Transferuri între conturile tale</string>
+    <string name="portfolio_csv_import_unreadable">Nu s-au găsit tranzacții acceptate. Acceptate: exporturi CSV din Relai, Swissquote, Kraken, Binance, Coinbase și Bitpanda.</string>
+    <string name="portfolio_csv_import_withdrawals_title">Retrageri – unde au ajuns monedele?</string>
+    <string name="portfolio_csv_import_zone">Orele fără fus orar citite ca: %1$s</string>
+    <string name="portfolio_csv_import_zone_device">Dispozitiv (%1$s)</string>
+    <string name="portfolio_csv_skip_bad_date">dată ilizibilă</string>
+    <string name="portfolio_csv_skip_bad_number">număr ilizibil</string>
+    <string name="portfolio_csv_skip_fee_exceeds">comision ≥ cantitate primită</string>
+    <string name="portfolio_csv_skip_internal_move">mutare între propriile conturi – nimic de înregistrat</string>
+    <string name="portfolio_csv_skip_missing">câmp lipsă</string>
+    <string name="portfolio_csv_skip_not_crypto">nu e cripto</string>
+    <string name="portfolio_csv_skip_possible_duplicate">posibil deja importat (tranzacție aproape identică) – verifică manual</string>
+    <string name="portfolio_csv_skip_two_fees">două comisioane în unități diferite – introdu schimbul manual</string>
+    <string name="portfolio_csv_skip_unsupported">tip neacceptat</string>
+
+    <!-- Portfolio: Importe ansehen und rückgängig machen -->
+    <string name="portfolio_import_undo">Anulează</string>
+    <plurals name="portfolio_import_undo_confirm">
+        <item quantity="one">Ștergi %d tranzacție din acest import? Intrările manuale și alte importuri rămân.</item>
+        <item quantity="few">Ștergi cele %d tranzacții din acest import? Intrările manuale și alte importuri rămân.</item>
+        <item quantity="other">Ștergi cele %d de tranzacții din acest import? Intrările manuale și alte importuri rămân.</item>
+    </plurals>
+    <string name="portfolio_import_undo_title">Anulezi importul?</string>
+    <plurals name="portfolio_import_undone">
+        <item quantity="one">%d tranzacție importată eliminată</item>
+        <item quantity="few">%d tranzacții importate eliminate</item>
+        <item quantity="other">%d de tranzacții importate eliminate</item>
+    </plurals>
+    <plurals name="portfolio_imports_count">
+        <item quantity="one">%d tranzacție</item>
+        <item quantity="few">%d tranzacții</item>
+        <item quantity="other">%d de tranzacții</item>
+    </plurals>
+    <string name="portfolio_imports_empty">Niciun import</string>
+    <string name="portfolio_imports_title">Importuri</string>
+</resources>

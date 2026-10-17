@@ -1,0 +1,37 @@
+# Handgeschriebenes Start-Profil (Runde 28): gilt, bis :baselineprofile ein gemessenes Profil
+# erzeugt hat (app/src/release/generated/baselineProfiles/, siehe DEVELOPMENT.md). Deckt den
+# Hauptweg ab: Start → Merkliste aus dem Zwischenspeicher → Scrollen → Aktionsblatt.
+# H = heiss, S = beim Start, P = nach dem Start; L… = Klasse vorab laden.
+
+# App-Start
+HSPLcom/cryptochecker/app/CryptoCheckerApp;->**(**)**
+HSPLcom/cryptochecker/app/ui/MainActivity;->**(**)**
+HSPLcom/cryptochecker/app/ui/navigation/**;->**(**)**
+HSPLcom/cryptochecker/app/ui/theme/**;->**(**)**
+HSPLcom/cryptochecker/app/settings/**;->**(**)**
+HSPLcom/cryptochecker/app/lock/**;->**(**)**
+HSPLcom/cryptochecker/app/util/**;->**(**)**
+HSPLcom/cryptochecker/app/di/**;->**(**)**
+Lcom/cryptochecker/app/ui/MainActivity;
+Lcom/cryptochecker/app/CryptoCheckerApp;
+
+# Merkliste (Liste, Zeilen, Kopf, Puls, Blätter)
+HSPLcom/cryptochecker/app/ui/features/watchlist/**;->**(**)**
+HSPLcom/cryptochecker/app/ui/components/**;->**(**)**
+HSPLcom/cryptochecker/app/domain/watch/**;->**(**)**
+HSPLcom/cryptochecker/app/domain/refresh/**;->**(**)**
+HSPLcom/cryptochecker/app/domain/activity/**;->**(**)**
+Lcom/cryptochecker/app/ui/features/watchlist/WatchlistScreenKt;
+Lcom/cryptochecker/app/ui/features/watchlist/WatchlistViewModel;
+
+# Daten aus Room (Zwischenspeicher für das erste Bild)
+HSPLcom/cryptochecker/app/data/**;->**(**)**
+HSPLcom/cryptochecker/app/data/local/**;->**(**)**
+HSPLcom/cryptochecker/app/data/local/model/**;->**(**)**
+
+# Weitere Tabs (nach dem Start)
+PLcom/cryptochecker/app/ui/features/portfolio/**;->**(**)**
+PLcom/cryptochecker/app/ui/features/alarms/**;->**(**)**
+PLcom/cryptochecker/app/ui/features/info/**;->**(**)**
+PLcom/cryptochecker/app/ui/features/explorer/**;->**(**)**
+PLcom/cryptochecker/app/ui/features/settings/**;->**(**)**

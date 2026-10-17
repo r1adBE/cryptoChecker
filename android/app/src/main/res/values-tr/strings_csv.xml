@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: CSV-Import -->
+    <string name="portfolio_csv_import_action">CSV içe aktar</string>
+    <string name="portfolio_csv_import_all_transfer">Tümü kendi cüzdanıma</string>
+    <string name="portfolio_csv_import_all_withdrawal">Tümü portföyden çıkar</string>
+    <string name="portfolio_csv_import_choice_proposed">Öneri: %1$s ile eşleşiyor</string>
+    <string name="portfolio_csv_import_choice_transfer">Kendi cüzdanıma (transfer)</string>
+    <string name="portfolio_csv_import_choice_withdrawal">Portföyden çıkar (çekme)</string>
+    <string name="portfolio_csv_import_choose_each">Her çekim için nereye gittiğini seç.</string>
+    <string name="portfolio_csv_import_columns">Tanınan sütunlar: %1$s</string>
+    <string name="portfolio_csv_import_confirm">İçe aktar (%1$d)</string>
+    <string name="portfolio_csv_import_date_day_first">Gün/Ay</string>
+    <string name="portfolio_csv_import_date_month_first">Ay/Gün</string>
+    <string name="portfolio_csv_import_date_order">Belirsiz tarihler (ör. 03/04/2024) şöyle okunur:</string>
+    <string name="portfolio_csv_import_decimal">Belirsiz sayılar (ör. %1$s) şöyle okunur:</string>
+    <plurals name="portfolio_csv_import_done">
+        <item quantity="one">%d işlem aktarıldı</item>
+        <item quantity="other">%d işlem aktarıldı</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_duplicates">
+        <item quantity="one">%d zaten aktarılmış (atlandı)</item>
+        <item quantity="other">%d zaten aktarılmış (atlandı)</item>
+    </plurals>
+    <string name="portfolio_csv_import_format">Biçim: %1$s</string>
+    <string name="portfolio_csv_import_line">Satır %1$d: %2$s</string>
+    <string name="portfolio_csv_import_loading">Dosya ve günlük kurlar okunuyor…</string>
+    <string name="portfolio_csv_import_missing_fx">Günlük kur yok (satır %1$s) – fiyat ve ücret olmadan aktarıldı.</string>
+    <string name="portfolio_csv_import_missing_price">Dosyada fiyat yok (satır %1$s) – fiyatsız aktarıldı.</string>
+    <string name="portfolio_csv_import_more">+ %1$d tane daha</string>
+    <plurals name="portfolio_csv_import_new">
+        <item quantity="one">%d yeni işlem</item>
+        <item quantity="other">%d yeni işlem</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_skipped">
+        <item quantity="one">%d satır atlandı</item>
+        <item quantity="other">%d satır atlandı</item>
+    </plurals>
+    <string name="portfolio_csv_import_stable_swaps">Stablecoin’ler (USDT, USDC …) karşılığındaki alım ve satımlar takas olarak kaydedilir – stablecoin varlıklarında görünür.</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">Birden çok eşleşme olası – doğru olanı seç ya da hiçbirini.</string>
+    <string name="portfolio_csv_import_transfer_fee">Ağ ücreti: %1$s</string>
+    <string name="portfolio_csv_import_transfer_link">Tek transfer olarak kaydet</string>
+    <string name="portfolio_csv_import_transfer_stored">Önceki bir içe aktarımdan karşılık</string>
+    <string name="portfolio_csv_import_transfers_hint">Aynı coin’in bir çekimi ve ona uyan yatırımı tek bir transfer olur: alış fiyatı ve elde tutma süresi korunur, aradaki fark ağ ücreti sayılır.</string>
+    <string name="portfolio_csv_import_transfers_title">Hesapların arasındaki transferler</string>
+    <string name="portfolio_csv_import_unreadable">Desteklenen işlem bulunamadı. Desteklenenler: Relai, Swissquote, Kraken, Binance, Coinbase ve Bitpanda CSV dışa aktarımları.</string>
+    <string name="portfolio_csv_import_withdrawals_title">Çekimler – coin\'ler nereye gitti?</string>
+    <string name="portfolio_csv_import_zone">Saat dilimi olmayan zamanlar şöyle okunur: %1$s</string>
+    <string name="portfolio_csv_import_zone_device">Cihaz (%1$s)</string>
+    <string name="portfolio_csv_skip_bad_date">okunamayan tarih</string>
+    <string name="portfolio_csv_skip_bad_number">okunamayan sayı</string>
+    <string name="portfolio_csv_skip_fee_exceeds">ücret ≥ alınan miktar</string>
+    <string name="portfolio_csv_skip_internal_move">kendi hesapların arasında taşıma – kaydedilecek bir şey yok</string>
+    <string name="portfolio_csv_skip_missing">alan eksik</string>
+    <string name="portfolio_csv_skip_not_crypto">kripto değil</string>
+    <string name="portfolio_csv_skip_possible_duplicate">muhtemelen zaten içe aktarıldı (neredeyse aynı işlem) – elle kontrol et</string>
+    <string name="portfolio_csv_skip_two_fees">farklı birimlerde iki ücret – takası elle girin</string>
+    <string name="portfolio_csv_skip_unsupported">desteklenmeyen tür</string>
+
+    <!-- Portfolio: Importe ansehen und rückgängig machen -->
+    <string name="portfolio_import_undo">Geri al</string>
+    <plurals name="portfolio_import_undo_confirm">
+        <item quantity="one">Bu içe aktarmadaki %d işlem silinsin mi? Elle girilenler ve diğer içe aktarmalar kalır.</item>
+        <item quantity="other">Bu içe aktarmadaki %d işlem silinsin mi? Elle girilenler ve diğer içe aktarmalar kalır.</item>
+    </plurals>
+    <string name="portfolio_import_undo_title">İçe aktarma geri alınsın mı?</string>
+    <plurals name="portfolio_import_undone">
+        <item quantity="one">%d içe aktarılan işlem kaldırıldı</item>
+        <item quantity="other">%d içe aktarılan işlem kaldırıldı</item>
+    </plurals>
+    <plurals name="portfolio_imports_count">
+        <item quantity="one">%d işlem</item>
+        <item quantity="other">%d işlem</item>
+    </plurals>
+    <string name="portfolio_imports_empty">İçe aktarma yok</string>
+    <string name="portfolio_imports_title">İçe aktarmalar</string>
+</resources>

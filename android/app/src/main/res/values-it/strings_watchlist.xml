@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: leere Ansicht, Statuszeile, Frische -->
+    <string name="watchlist_all_fresh">Aggiornato · %1$s</string>
+    <string name="watchlist_empty_title">Ancora nessuna coppia</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="one">%1$d su %2$d senza prezzo</item>
+        <item quantity="many">%1$d su %2$d senza prezzo</item>
+        <item quantity="other">%1$d su %2$d senza prezzo</item>
+    </plurals>
+    <string name="watchlist_last_run">Ultima esecuzione %1$s</string>
+    <string name="watchlist_live_a11y">Prezzi live attivi</string>
+    <string name="watchlist_live_badge">LIVE</string>
+    <string name="watchlist_offline_since">Nessuna connessione · dati di %1$s</string>
+    <string name="watchlist_pull_to_refresh">Trascina giù per aggiornare</string>
+    <string name="watchlist_refresh_report">Ultimo aggiornamento</string>
+    <string name="watchlist_refresh_report_empty">Nessun dettaglio ancora: finora nessun aggiornamento completo. Tocca Aggiorna e attendi che l\'indicatore si fermi.</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="one">%1$d su %2$d non aggiornato</item>
+        <item quantity="many">%1$d su %2$d non aggiornati</item>
+        <item quantity="other">%1$d su %2$d non aggiornati</item>
+    </plurals>
+    <string name="watchlist_status_all_disabled">Tutte le coppie qui sono disattivate</string>
+    <string name="watchlist_status_exchange_prices">Prezzi dei tuoi exchange · %1$s</string>
+    <string name="watchlist_status_exchange_prices_short">Prezzi exchange · %1$s</string>
+    <string name="watchlist_status_group_empty">Nessuna coppia in questo gruppo</string>
+    <string name="watchlist_status_none_traded">Nessuna coppia scambiata qui</string>
+    <string name="watchlist_updated">Aggiornato: %1$s</string>
+
+    <!-- Merkliste: Puls-Zeile (Paare im Plus/Minus, ohne 24-h-Wert) -->
+    <string name="watchlist_pulse_avg">Ø %1$s</string>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="one">%1$d in ribasso</item>
+        <item quantity="many">%1$d in ribasso</item>
+        <item quantity="other">%1$d in ribasso</item>
+    </plurals>
+    <!-- Paare mit Kurs, aber ohne 24-h-Wert («· 510 ohne 24h-Wert») -->
+    <plurals name="watchlist_pulse_missing">
+        <item quantity="one">%1$d senza valore 24h</item>
+        <item quantity="many">%1$d senza valore 24h</item>
+        <item quantity="other">%1$d senza valore 24h</item>
+    </plurals>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="one">%1$d senza valore di oggi</item>
+        <item quantity="many">%1$d senza valore di oggi</item>
+        <item quantity="other">%1$d senza valore di oggi</item>
+    </plurals>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="one">%1$d in rialzo</item>
+        <item quantity="many">%1$d in rialzo</item>
+        <item quantity="other">%1$d in rialzo</item>
+    </plurals>
+
+    <!-- Merkliste: Zeile eines Paars -->
+    <string name="watchlist_row_disabled">%1$s · disattivata</string>
+    <string name="watchlist_row_outdated">%1$s · non aggiornato</string>
+    <string name="watchlist_row_outdated_age">non aggiornato · %1$s</string>
+    <string name="watchlist_row_price_unchanged_since">Prezzo invariato dalle %1$s</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s non raggiungibile</string>
+
+    <!-- Merkliste: Suche, Sprungknopf, Sortieren nach Spalte -->
+    <string name="watchlist_jump_end">Alla fine</string>
+    <string name="watchlist_jump_start">All’inizio</string>
+    <string name="watchlist_search_close">Chiudi ricerca</string>
+    <string name="watchlist_search_empty">Nessun risultato per «%1$s»</string>
+    <string name="watchlist_search_hint">Cerca coppia, nome o exchange</string>
+    <string name="watchlist_search_open">Cerca</string>
+    <string name="watchlist_sort_ascending">crescente</string>
+    <string name="watchlist_sort_descending">decrescente</string>
+    <string name="watchlist_sort_hint">Tieni premuta e trascina una coppia, oppure usa la maniglia. I preferiti restano in alto.</string>
+    <string name="watchlist_sort_name">Nome</string>
+    <string name="watchlist_sort_own">Ordine personale</string>
+    <string name="watchlist_sort_price">Prezzo</string>
+
+    <!-- Merkliste: Mehrfachauswahl, Ansichten, Entfernen -->
+    <string name="watchlist_clear">Svuota la lista di osservazione</string>
+    <string name="watchlist_clear_confirm">Rimuovere tutte le coppie dalla lista di osservazione? Verranno eliminati anche i loro allarmi.</string>
+    <plurals name="watchlist_disabled_count">
+        <item quantity="one">%1$d disattivata</item>
+        <item quantity="many">%1$d disattivate</item>
+        <item quantity="other">%1$d disattivate</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_action">Rimuovi</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="one">Rimuovere %1$d coppia non più negoziata sul suo exchange? Verranno eliminati anche i suoi allarmi.</item>
+        <item quantity="many">Rimuovere %1$d coppie non più negoziate sul loro exchange? Verranno eliminati anche i loro allarmi.</item>
+        <item quantity="other">Rimuovere %1$d coppie non più negoziate sul loro exchange? Verranno eliminati anche i loro allarmi.</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_menu">Rimuovi coppie non negoziate (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">Rimuovi coppie non negoziate</string>
+    <string name="watchlist_removed">%1$s rimosso</string>
+    <plurals name="watchlist_removed_count">
+        <item quantity="one">%1$d coppia rimossa</item>
+        <item quantity="many">%1$d coppie rimosse</item>
+        <item quantity="other">%1$d coppie rimosse</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="one">%1$d coppia non negoziata rimossa</item>
+        <item quantity="many">%1$d coppie non negoziate rimosse</item>
+        <item quantity="other">%1$d coppie non negoziate rimosse</item>
+    </plurals>
+    <string name="watchlist_select">Seleziona</string>
+    <string name="watchlist_select_all">Seleziona tutto</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="one">%1$d selezionato</item>
+        <item quantity="many">%1$d selezionati</item>
+        <item quantity="other">%1$d selezionati</item>
+    </plurals>
+    <string name="watchlist_show_all">Mostra tutti</string>
+    <string name="watchlist_show_only_disabled">Mostra solo le disattivate</string>
+    <string name="watchlist_show_only_stale">Mostra solo i non aggiornati</string>
+
+    <!-- Merkliste: weitere Texte (Gruppen, Alarme, Mitteilung, Sprachausgabe) -->
+    <plurals name="watchlist_alarms_count">
+        <item quantity="one">Allarme (%1$d)</item>
+        <item quantity="many">Allarmi (%1$d)</item>
+        <item quantity="other">Allarmi (%1$d)</item>
+    </plurals>
+    <string name="watchlist_favorites_empty_hint">Ancora nessun preferito. Scorri una coppia verso destra, oppure aprila e tocca «Preferito».</string>
+    <string name="watchlist_group_empty_hint">Tieni premuto un gruppo per sceglierne le coppie.</string>
+    <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
+    <string name="watchlist_groups_empty_hint">Qui compariranno i tuoi gruppi</string>
+    <string name="watchlist_notification">Notifica</string>
+    <string name="watchlist_tts">Leggi prezzo</string>
+    <string name="watchlist_tts_speech_on">La sintesi vocale è attiva. Puoi cambiarla in Impostazioni › Avanzate › Lettura vocale.</string>
+
+    <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
+    <string name="watch_action_add_widget">Aggiungi come widget</string>
+    <string name="watch_action_alarm">Allarme</string>
+    <string name="watch_action_favorite">Preferito</string>
+    <string name="watch_action_why">Cosa si muove insieme?</string>
+    <string name="watch_action_why_short">Si muove insieme?</string>
+    <string name="watch_change_mark">Mark</string>
+    <string name="watch_disable">Disattiva</string>
+    <string name="watch_disable_hint">Nessuna richiesta, nessuna notifica</string>
+    <string name="watch_disabled">Disattivata</string>
+    <string name="watch_disabled_banner">%1$s disattivata</string>
+    <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
+    <string name="watch_edit_alarms_warning">Gli allarmi restano – controlla le soglie</string>
+    <!-- Titel des Formulars und Screenreader-Name des Stifts neben dem Paar -->
+    <string name="watch_edit_title">Modifica coppia</string>
+    <string name="watch_enable">Attiva</string>
+    <string name="watch_enable_hint">Prezzi e notifiche riprendono</string>
+    <string name="watch_enabled_banner">%1$s attivata</string>
+    <string name="watch_error_offline">Nessuna connessione</string>
+    <string name="watch_gesture_hint_short">Tocca: allarme e «Cosa si muove insieme?» · tieni premuto per selezionare · scorri a sinistra per eliminare · a destra per preferito</string>
+    <string name="watch_hint_tap_why">Tocca una moneta per vedere cosa si muove insieme a lei</string>
+    <string name="watch_not_traded">Non più negoziato su questo exchange</string>
+    <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
+    <string name="watch_preview_not_watched">Non nella lista di osservazione</string>
+    <string name="watch_price_mid">prezzo medio (altrimenti mark)</string>
+    <string name="watch_row_source_both">Variazione e grafico: %1$s</string>
+    <string name="watch_row_source_change">Variazione: %1$s</string>
+    <string name="watch_row_source_chart">Grafico: %1$s</string>
+
+    <!-- Meldung nach dem Hinzufügen (ein Paar / mehrere Paare) -->
+    <string name="pair_added_watching">%1$s è ora nella tua lista di osservazione</string>
+    <!-- Ein Paar: pair_added_watching -->
+    <string name="pairs_added_watching">%1$s sono ora nella tua lista di osservazione</string>
+
+    <!-- Favoriten -->
+    <string name="favorite_add">Aggiungi ai preferiti</string>
+    <string name="favorite_added">%1$s aggiunto ai preferiti</string>
+    <string name="favorite_remove">Rimuovi dai preferiti</string>
+    <string name="favorite_removed">%1$s rimosso dai preferiti</string>
+    <string name="hint_favorites_list">Suggerimento: scorri una riga verso destra per renderla preferita – i preferiti restano in alto.</string>
+
+    <!-- Gruppen und Chips der Merkliste -->
+    <string name="group_add">Nuovo gruppo</string>
+    <string name="group_all">Tutti</string>
+    <!-- Alpha-Tokens: Chip «α», Art vor der Glocke, «inkl. Alpha-Tokens» -->
+    <string name="group_alpha">Token Alpha</string>
+    <string name="group_delete">Elimina gruppo</string>
+    <string name="group_delete_confirm">Le coppie restano nella tua lista.</string>
+    <string name="group_done">Fatto</string>
+    <string name="group_edit_title">Modifica gruppo</string>
+    <!-- Chip «FAV» (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird vorgelesen) -->
+    <string name="group_favorites">Preferiti</string>
+    <string name="group_in_other">in %1$s</string>
+    <string name="group_name">Nome del gruppo</string>
+    <string name="group_new">Nuovo gruppo…</string>
+    <string name="group_next">Avanti</string>
+    <string name="group_none">Nessun gruppo</string>
+    <string name="group_rename">Rinomina</string>
+    <string name="group_search_hint">Cerca coppia, nome o exchange</string>
+    <string name="group_target">Nel gruppo</string>
+    <string name="group_title">Gruppo</string>
+    <!-- Gruppen-Chip «Token» (alle Paare ausser der Gruppe «TradFi»), Screenreader und Widget-Einrichtung -->
+    <string name="group_tokens">Token</string>
+    <string name="group_value">Gruppo: %1$s</string>
+
+    <!-- Notiz zum Paar -->
+    <string name="note_add">Aggiungi nota</string>
+    <string name="note_edit">Modifica nota</string>
+    <string name="note_hint">es. ingresso a 0.42, obiettivo 0.60</string>
+    <string name="note_remove">Rimuovi</string>
+    <string name="note_title">Nota</string>
+
+    <!-- Reihenfolge ändern (Sortiermodus, Screenreader-Aktionen) -->
+    <string name="sort_drag_handle">Trascina per spostare</string>
+    <string name="sort_move_bottom">In fondo</string>
+    <string name="sort_move_down">Giù</string>
+    <string name="sort_move_top">In cima</string>
+    <string name="sort_move_up">Su</string>
+</resources>

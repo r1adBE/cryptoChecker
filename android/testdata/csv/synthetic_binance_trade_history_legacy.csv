@@ -1,0 +1,5 @@
+# SYNTHETIC TEST DATA - not a real export - layout from the public column description - real samples will replace it
+Date(UTC),Market,Type,Price,Amount,Total,Fee,Fee Coin
+2021-05-03 14:22:10,BNBBTC,BUY,0.0105,1.5,0.01575,0.001125,BNB
+2021-05-04 09:01:00,BTCEUR,SELL,45000,0.01,450,0.45,EUR
+2021-05-05 09:01:00,XYZABC,BUY,1,1,1,0,XYZ

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Begrüssung beim ersten Start -->
+    <string name="welcome_alert">Alarmeren – koers, procent, volume en ongewone bewegingen</string>
+    <string name="welcome_alert_q">Wanneer melden?</string>
+    <string name="welcome_text">Jouw koersen. Jouw alarmen. Jouw overzicht.\nGeen account. Geen advertenties. Geen tracking.</string>
+    <string name="welcome_understand">Begrijpen – wat er nu met een koers meebeweegt</string>
+    <string name="welcome_understand_q">Wat beweegt mee?</string>
+    <string name="welcome_watch">Volgen – je munten, koersen en verloop</string>
+    <string name="welcome_watch_q">Wat gebeurt er?</string>
+
+    <!-- Start-Coins (Vorschlagsliste nach der Begrüssung) -->
+    <string name="starter_add_selected">Aan volglijst toevoegen (%1$d)</string>
+    <string name="starter_loading_prices">Koersen laden…</string>
+    <string name="starter_search_coin">Andere munt zoeken</string>
+    <string name="starter_select_all">Alles selecteren</string>
+    <string name="starter_select_none">Niets selecteren</string>
+    <string name="starter_text">Vink uit wat je niet wilt en voeg de rest in één keer toe. Beurs en paar kun je later wijzigen.</string>
+    <string name="starter_title">Begin met deze munten</string>
+    <string name="starter_watch_alarm_hint">Koers volgen, alarm instellen</string>
+</resources>

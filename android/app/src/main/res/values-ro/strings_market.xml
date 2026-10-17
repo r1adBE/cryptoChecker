@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Markt-Tab: Abschnitte, Zeilen, Herkunft und Alter -->
+    <!-- «… · CoinGecko · vor 3 Min.»; «gerade eben» = time_just_now, «veraltet» = widget_outdated -->
+    <plurals name="market_age_minutes">
+        <item quantity="one">acum %d min</item>
+        <item quantity="few">acum %d min</item>
+        <item quantity="other">acum %d min</item>
+    </plurals>
+    <!-- «heute 02:00» (Uhrzeit ohne Sekunden) -->
+    <string name="market_age_today">azi %1$s</string>
+    <string name="market_context_summary">Fear &amp; Greed, indicatori Bitcoin, dominanță, halving</string>
+    <string name="market_context_value">%1$s %2$s · %3$s</string>
+    <string name="market_more_data">Mai multe date de piață</string>
+    <string name="market_phase_trend_failed">Datele de preț nu sunt disponibile</string>
+    <string name="market_plain_direction_down_clear">Valoarea totală a tuturor criptomonedelor este clar mai mică decât acum 24 de ore (%1$s).</string>
+    <string name="market_plain_direction_down_slight">Valoarea totală a tuturor criptomonedelor este puțin mai mică decât acum 24 de ore (%1$s).</string>
+    <string name="market_plain_direction_flat">Valoarea totală a tuturor criptomonedelor aproape nu s-a schimbat în 24 de ore (%1$s).</string>
+    <string name="market_plain_direction_up_clear">Valoarea totală a tuturor criptomonedelor este clar mai mare decât acum 24 de ore (%1$s).</string>
+    <string name="market_plain_direction_up_slight">Valoarea totală a tuturor criptomonedelor este puțin mai mare decât acum 24 de ore (%1$s).</string>
+    <string name="market_plain_footnote">Descrie ultimele 24 de ore – fără prognoză, fără consultanță de investiții.</string>
+    <string name="market_plain_mood_extreme_fear">Investitorii sunt foarte temători acum: indicele de sentiment (Fear &amp; Greed) este la %1$d din 100.</string>
+    <string name="market_plain_mood_extreme_greed">Investitorii sunt foarte lacomi acum: indicele de sentiment (Fear &amp; Greed) este la %1$d din 100.</string>
+    <string name="market_plain_mood_fear">Investitorii sunt mai degrabă temători: indicele de sentiment (Fear &amp; Greed) este la %1$d din 100.</string>
+    <string name="market_plain_mood_greed">Investitorii sunt mai degrabă lacomi: indicele de sentiment (Fear &amp; Greed) este la %1$d din 100.</string>
+    <string name="market_plain_mood_neutral">Starea investitorilor este echilibrată: indicele de sentiment (Fear &amp; Greed) este la %1$d din 100.</string>
+    <string name="market_plain_standout_above_btc">Iese în evidență %1$s: %2$s în 24 de ore, mult peste Bitcoin (%3$s).</string>
+    <string name="market_plain_standout_against_btc">Iese în evidență %1$s: %2$s în 24 de ore, în timp ce Bitcoin a mers în sens opus (%3$s).</string>
+    <string name="market_plain_standout_below_btc">Iese în evidență %1$s: %2$s în 24 de ore, mult sub Bitcoin (%3$s).</string>
+    <string name="market_plain_standout_futures_down">Iese în evidență %1$s: neobișnuit de mulți traderi de futures mizează pe prețuri în scădere.</string>
+    <string name="market_plain_standout_futures_up">Iese în evidență %1$s: neobișnuit de mulți traderi de futures mizează pe prețuri în creștere.</string>
+    <string name="market_plain_standout_quiet">Momentan nicio monedă nu iese în evidență.</string>
+    <string name="market_plain_standout_volume">Iese în evidență %1$s: de circa %2$s ori mai multe tranzacții decât de obicei.</string>
+    <string name="market_plain_title">Pe scurt</string>
+    <!-- Nebenzeile der Fear-&-Greed-Zeile («Gier · gestern 65») -->
+    <string name="market_row_fng_yesterday">%1$s · ieri %2$s</string>
+    <string name="market_section_collapse">Ascunde %1$s</string>
+    <string name="market_section_context">Sentiment și ciclu</string>
+    <string name="market_section_data">Date de piață</string>
+    <!-- Bedienungshilfen: Aktion auf der Abschnittsüberschrift; %1$s = Name des Abschnitts -->
+    <string name="market_section_expand">Afișează %1$s</string>
+    <string name="market_section_now">Acum</string>
+    <string name="market_source">Date: Binance · Coin Metrics (CC BY-NC 4.0)</string>
+    <string name="market_unavailable_error">Bursă indisponibilă</string>
+
+    <!-- Markt-Tab: Info-Zeichen und Info-Blatt je Karte (was, wie, Quelle) -->
+    <string name="market_info_a11y">Info: %1$s</string>
+    <string name="market_info_alt_season_source">Prețuri zilnice: Binance · recalculat cam la fiecare 3 ore</string>
+    <string name="market_info_alt_season_what">Numără câte dintre aproximativ 20 de altcoin-uri mari (de ex. Ethereum, Solana, XRP) au avut o evoluție mai bună decât Bitcoin în ultimele 90 de zile. Valoarea este ponderea lor, de la 0 la 100.</string>
+    <string name="market_info_coin_source">Prețuri: Binance sau Bybit · reîncărcat cam la fiecare 15 minute</string>
+    <string name="market_info_dominance_how">Dacă dominanța crește, Bitcoin evoluează mai bine decât restul pieței; dacă scade, alte monede câștigă pondere. Și stablecoins contează: dacă valoarea lor crește, ponderea Bitcoin scade chiar dacă prețul Bitcoin rămâne același.</string>
+    <string name="market_info_dominance_source">Sursa: CoinGecko · reîncărcat cam la fiecare 30 de minute</string>
+    <string name="market_info_dominance_what">Ponderea Bitcoin în valoarea totală a tuturor criptomonedelor (capitalizarea de piață). Dedesubt apare ponderea Ethereum.</string>
+    <string name="market_info_fear_greed_how">Sub 25 înseamnă frică extremă, peste 75 lăcomie extremă, în jur de 50 neutru. Cardul extins arată valorile de ieri, de acum o săptămână și de acum o lună. Nu este un semnal de cumpărare sau de vânzare.</string>
+    <string name="market_info_fear_greed_source">Sursa: alternative.me · valoare nouă o dată pe zi</string>
+    <string name="market_info_fear_greed_what">Un indice al sentimentului pieței cripto, de la 0 la 100. alternative.me îl calculează din mai multe date, printre care oscilațiile de preț, volumul de tranzacționare, rețelele sociale și dominanța Bitcoin.</string>
+    <string name="market_info_gas_how">Valorile mai mari înseamnă că rețeaua este aglomerată și transferurile costă mai mult. Lent, normal și rapid sunt comisioanele pentru o confirmare mai târzie sau mai rapidă. Cardul extins arată costul aproximativ al unui transfer simplu.</string>
+    <string name="market_info_gas_source">Noduri RPC publice, mempool.space · reîncărcat în fiecare minut</string>
+    <string name="market_info_gas_what">Cât costă acum o tranzacție în fiecare rețea. Pe Ethereum și rețele similare în gwei (o miliardime de ETH pe unitate de gas), pe Bitcoin în sat/vB (satoshi pe byte virtual al tranzacției).</string>
+    <string name="market_info_halving_source">Data: din înălțimea blocului și timpul mediu de bloc (mempool.space), altfel după calendar · istoric preț: Coin Metrics, Binance, reîncărcat la 12 ore</string>
+    <string name="market_info_halving_what">La halving, recompensa pe care o primesc minerii pentru un nou bloc Bitcoin se înjumătățește. Acest lucru se întâmplă la fiecare 210.000 de blocuri, adică aproximativ o dată la patru ani. După aceea apar zilnic doar jumătate din noii bitcoini.</string>
+    <string name="market_info_how">Cum se citește</string>
+    <string name="market_info_macro_how">Mesajul apare doar când o astfel de dată este azi sau mâine. În jurul publicării, prețurile oscilează adesea mai mult decât de obicei. Aplicația arată doar data, nu cifrele propriu-zise.</string>
+    <string name="market_info_macro_source">Calendar de pe site-ul aplicației · încărcat o dată pe zi</string>
+    <string name="market_info_macro_what">Datele unor indicatori economici importanți din SUA: inflația (CPI, PCE), prețurile de producție (PPI), raportul privind locurile de muncă și deciziile de dobândă ale Rezervei Federale. Aceste cifre mișcă adesea și prețurile criptomonedelor.</string>
+    <string name="market_info_no_advice">Nu este consultanță de investiții.</string>
+    <string name="market_info_phase_source">Binance, Coin Metrics · prețuri din oră în oră, date on-chain reîncărcate la fiecare 12 ore</string>
+    <string name="market_info_pulse_how">Titlul arată direcția; cardul extins arată detaliile. O mișcare largă înseamnă că majoritatea monedelor mari merg în aceeași direcție. O rată de finanțare ridicată înseamnă că mulți pariază pe creștere cu efect de levier. Un instantaneu, nu o prognoză.</string>
+    <string name="market_info_pulse_source">Binance, CoinGecko · reîncărcat cam la fiecare 5 minute</string>
+    <string name="market_info_pulse_what">Un scurt rezumat al pieței din ultimele 24 de ore: cum se mișcă Bitcoin, Ethereum și Solana, câte dintre cele mai mari monede cresc sau scad, cât Bitcoin se tranzacționează acum și la ce nivel este rata de finanțare a contractelor futures pe Bitcoin.</string>
+    <string name="market_info_totals_how">În dreapta apare variația valorii totale pe 24 de ore. Un volum mare înseamnă că se tranzacționează mult, dar nu spune în ce direcție. Afișat, dacă se poate, în moneda de conversie, altfel în dolari americani.</string>
+    <string name="market_info_totals_source">Toate monedele · CoinGecko · reîncărcat cam la fiecare 30 de minute</string>
+    <string name="market_info_totals_what">Valoarea totală a tuturor criptomonedelor (capitalizarea de piață: preț înmulțit cu cantitatea în circulație, adunat pentru toate monedele) și volumul de tranzacționare din ultimele 24 de ore.</string>
+    <string name="market_info_unusual_how">Pentru fiecare monedă apare observația cea mai evidentă, iar în dreapta variația pe 24 de ore. Un volum de 2× înseamnă dublul volumului obișnuit. Neobișnuit nu înseamnă nici bine, nici rău.</string>
+    <string name="market_info_unusual_source">Binance, CoinGecko · reîncărcat cam la fiecare 10 minute</string>
+    <string name="market_info_unusual_what">Până la cinci monede dintre cele aproximativ 30 mai mari (fără stablecoins) care se comportă neobișnuit astăzi: mult mai puternice sau mai slabe decât Bitcoin, împotriva direcției pieței, cu volum de tranzacționare neobișnuit de mare sau cu o rată de finanțare ieșită din comun.</string>
+    <string name="market_info_what">Ce este?</string>
+
+    <!-- Markt-Tab: Krypto-Markt gesamt -->
+    <string name="market_cap_label">Capitalizare de piață</string>
+    <string name="market_cap_source">Toate monedele · CoinGecko</string>
+    <string name="market_cap_title">Piața cripto</string>
+    <string name="market_volume_label">Volum 24 h</string>
+
+    <!-- Crypto Pulse «Was gerade auffällt»: Titel, Abschnitte, Hinweise -->
+    <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
+    <string name="pulse_details_action">Detalii</string>
+    <string name="pulse_disclaimer">Nicio prognoză · Nu este consultanță de investiții</string>
+    <string name="pulse_less">Arată mai puțin</string>
+    <string name="pulse_now_title">Ce iese în evidență</string>
+    <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
+    <string name="pulse_period_24h_spoken">Variație în 24 de ore</string>
+    <string name="pulse_section_factors">Factori</string>
+    <string name="pulse_section_market">Piața azi</string>
+    <string name="pulse_unavailable">Datele de piață nu sunt disponibile acum</string>
+    <string name="pulse_updated">La %1$s</string>
+
+    <!-- Crypto Pulse: Schlagzeile und Leitsatz -->
+    <string name="pulse_headline_calm">Piață calmă</string>
+    <string name="pulse_headline_down">Slăbiciune generală</string>
+    <string name="pulse_headline_mixed">Tablou mixt</string>
+    <string name="pulse_headline_up">Forță generală</string>
+    <string name="pulse_lead_alts_stronger">Altcoinurile sunt mai puternice decât Bitcoin.</string>
+    <string name="pulse_lead_broad_down">Piața scade pe scară largă.</string>
+    <string name="pulse_lead_broad_up">Piața crește pe scară largă.</string>
+    <string name="pulse_lead_btc_leads">Bitcoin crește cel mai mult.</string>
+    <string name="pulse_lead_btc_stronger">Bitcoin este mai puternic decât altcoinurile.</string>
+    <string name="pulse_lead_calm">Piața abia se mișcă.</string>
+    <string name="pulse_lead_drift_down">Piața scade ușor.</string>
+    <string name="pulse_lead_drift_up">Piața crește ușor.</string>
+    <string name="pulse_lead_mixed">Monedele mari merg în direcții diferite.</string>
+
+    <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
+    <string name="pulse_detail_fund_high">Funding ridicat.</string>
+    <string name="pulse_detail_fund_negative">Funding negativ.</string>
+    <string name="pulse_detail_fund_neutral">Funding neutru.</string>
+    <string name="pulse_detail_vol_above">Volum cu %1$d%% peste normal.</string>
+    <string name="pulse_detail_vol_above_fund_high">Volum cu %1$d%% peste normal, funding ridicat.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Volum cu %1$d%% peste normal, funding negativ.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Volum cu %1$d%% peste normal, funding neutru.</string>
+    <string name="pulse_detail_vol_below">Volum cu %1$d%% sub normal.</string>
+    <string name="pulse_detail_vol_below_fund_high">Volum cu %1$d%% sub normal, funding ridicat.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Volum cu %1$d%% sub normal, funding negativ.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Volum cu %1$d%% sub normal, funding neutru.</string>
+    <string name="pulse_detail_vol_normal">Volum normal.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Volum normal, funding ridicat.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Volum normal, funding negativ.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Volum normal, funding neutru.</string>
+
+    <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
+    <string name="pulse_breadth_hint">Top %1$d: cele mai mari monede după valoarea de piață, fără stablecoins; variație pe 24 de ore (CoinGecko).</string>
+    <!-- «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">Top %1$d</string>
+    <string name="pulse_breadth_note_broad_down">Scădere generalizată: majoritatea monedelor mari scad.</string>
+    <string name="pulse_breadth_note_broad_up">Mișcare largă: majoritatea monedelor mari cresc.</string>
+    <string name="pulse_breadth_note_narrow_down">Bitcoin scade, dar majoritatea celorlalte monede mari rezistă.</string>
+    <string name="pulse_breadth_note_narrow_up">Bitcoin crește, dar majoritatea celorlalte monede mari nu urmează.</string>
+    <string name="pulse_breadth_spoken">Top %1$d: în creștere %2$d, în scădere %3$d</string>
+
+    <!-- Crypto Pulse: Altcoins, Funding, Gas, Volumen -->
+    <string name="pulse_alts_even">Altcoinurile și Bitcoin se mișcă la fel</string>
+    <string name="pulse_alts_stronger">Altcoinuri mai puternice decât Bitcoin</string>
+    <string name="pulse_alts_weaker">Bitcoin mai puternic decât altcoinurile</string>
+    <string name="pulse_chip_funding_high">Funding ridicat</string>
+    <string name="pulse_chip_funding_negative">Funding negativ</string>
+    <string name="pulse_funding_high">Funding clar pozitiv: multe long-uri cu levier</string>
+    <string name="pulse_funding_negative">Funding negativ: multe short-uri</string>
+    <string name="pulse_funding_neutral">Funding neutru</string>
+    <string name="pulse_funding_slight">Funding ușor pozitiv</string>
+    <string name="pulse_gas_high">Gas Ethereum ridicat (%1$s gwei)</string>
+    <string name="pulse_gas_low">Gas Ethereum scăzut (%1$s gwei)</string>
+    <string name="pulse_gas_normal">Gas Ethereum normal (%1$s gwei)</string>
+    <string name="pulse_volume_high">Volum de tranzacționare neobișnuit de mare (%1$s× normal)</string>
+    <string name="pulse_volume_low">Volum de tranzacționare mic (%1$s× normal)</string>
+    <string name="pulse_volume_normal">Volum de tranzacționare normal</string>
+
+    <!-- «Heute auffällig» (grösste Coins mit ungewöhnlicher Bewegung) -->
+    <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
+    <!-- Screenreader-Aktion einer Zeile (öffnet das Aktionsblatt bzw. die Vorschau) -->
+    <string name="unusual_action_open">Afișează prețul și acțiunile</string>
+    <string name="unusual_fact_against">Merge împotriva pieței</string>
+    <string name="unusual_fact_funding_high">Funding ridicat (%1$s)</string>
+    <string name="unusual_fact_funding_negative">Funding negativ (%1$s)</string>
+    <string name="unusual_fact_stronger">Se mișcă mult mai puternic decât BTC</string>
+    <string name="unusual_fact_volume">Volum %1$s× față de normal</string>
+    <string name="unusual_fact_weaker">Se mișcă mult mai slab decât BTC</string>
+    <string name="unusual_nothing">Azi nimic ieșit din comun</string>
+    <string name="unusual_source">Cele mai mari circa 30 de monede, fără stablecoins · Binance, CoinGecko</string>
+    <string name="unusual_title">Neobișnuit azi</string>
+
+    <!-- Ungewöhnliche Aktivität eines Paars (Karte, Signale, Empfindlichkeit) -->
+    <string name="activity_card_title">Se întâmplă ceva chiar acum</string>
+    <string name="activity_indicator">Activitate neobișnuită</string>
+    <string name="activity_sensitivity_less">Mai puțin</string>
+    <string name="activity_sensitivity_more">Mai mult</string>
+    <string name="activity_sensitivity_normal">Normal</string>
+    <string name="activity_signal_funding_long">Funding %1$s — multe long-uri cu levier</string>
+    <string name="activity_signal_funding_short">Funding %1$s — multe short-uri</string>
+    <string name="activity_signal_open_interest">Interes deschis %1$s în %2$d min</string>
+    <string name="activity_signal_open_interest_no_time">Interes deschis %1$s</string>
+    <string name="activity_signal_price_move">Mișcare neobișnuită: %1$s într-o oră (%2$s× normalul)</string>
+    <string name="activity_signal_volume">Volum de %1$s× normalul în ultima oră</string>
+
+    <!-- Einordnung: Bitcoin-Dominanz, Fear & Greed, Halving, Altseason -->
+    <plurals name="insights_altseason_value">
+        <item quantity="one">%1$d din %2$d altcoinuri mari bate Bitcoin în 90 de zile</item>
+        <item quantity="few">%1$d din %2$d altcoinuri mari bat Bitcoin în 90 de zile</item>
+        <item quantity="other">%1$d din %2$d altcoinuri mari bat Bitcoin în 90 de zile</item>
+    </plurals>
+    <string name="insights_chart_axis">Ani de la halving</string>
+    <string name="insights_chart_hint">Prețul ca multiplu al prețului din ziua halving-ului (scală log). Ciclurile trecute sunt un tipar, nu o prognoză.</string>
+    <string name="insights_cycle_chart">Cicluri de la halving</string>
+    <string name="insights_dominance_eth">ETH %1$s din piața totală</string>
+    <string name="insights_dominance_title">Dominanța Bitcoin</string>
+    <string name="insights_fng_history">Ieri %1$s · acum o săptămână %2$s · acum o lună %3$s</string>
+    <string name="insights_fng_title">Fear &amp; Greed</string>
+    <string name="insights_halving_title">Halving Bitcoin</string>
+    <string name="insights_source_dominance">Sursă: CoinGecko, Binance</string>
+    <string name="insights_source_fng">Sursă: alternative.me</string>
+    <string name="insights_source_history">Sursă: Coin Metrics (CC BY-NC 4.0), Binance</string>
+
+    <!-- Fear & Greed: Stufen -->
+    <string name="fng_extreme_fear">Frică extremă</string>
+    <string name="fng_extreme_greed">Lăcomie extremă</string>
+    <string name="fng_fear">Frică</string>
+    <string name="fng_greed">Lăcomie</string>
+    <string name="fng_neutral">Neutru</string>
+
+    <!-- Halving-Zyklus (Chart, Marken, Schätzung) -->
+    <string name="cycle_data_as_of">Date de la %1$s · se actualizează…</string>
+    <string name="cycle_from_top">%1$s față de vârf</string>
+    <string name="cycle_marker_bottom">Minim %1$s</string>
+    <string name="cycle_marker_double_bottom">Minim dublu %1$s</string>
+    <string name="cycle_marker_double_top">Vârf dublu %1$s</string>
+    <string name="cycle_marker_high_so_far">Maxim de până acum</string>
+    <!-- Hoch/Tief-Marken mit Sprechblase im Zyklus-Chart -->
+    <string name="cycle_marker_top">Vârf %1$s</string>
+    <string name="cycle_since_halving">%1$s de la halving</string>
+    <string name="halving_estimate_text">Următorul halving, prin calcul, în jur de %1$s: mai sunt %2$s blocuri la o medie de %3$s min pe bloc (perioada de dificultate curentă). O proiecție, nu o promisiune – timpul de bloc variază.</string>
+
+    <!-- Netzwerkgebühren (Gas) -->
+    <string name="gas_alert_active">Alarmă: %1$s</string>
+    <string name="gas_slow_fast">Lent %1$s · Rapid %2$s</string>
+    <string name="gas_source">Noduri RPC publice și mempool.space · Costul unui transfer simplu, pe L2 fără partea L1</string>
+    <string name="gas_title">Comisioane de rețea</string>
+    <string name="gas_transfer_cost">Transfer ≈ %1$s</string>
+
+    <!-- Wirtschaftsdaten (US-Termine) -->
+    <string name="macro_cpi">inflația din SUA (CPI)</string>
+    <string name="macro_fomc">decizia Fed privind dobânda</string>
+    <string name="macro_hint_list">%1$s – în astfel de zile piețele fluctuează adesea mai mult.</string>
+    <string name="macro_hint_today">Azi %1$s: %2$s – în astfel de zile piețele fluctuează adesea mai mult.</string>
+    <string name="macro_hint_today_list">Azi: %1$s – în astfel de zile piețele fluctuează adesea mai mult.</string>
+    <string name="macro_hint_tomorrow">Mâine %1$s: %2$s – în astfel de zile piețele fluctuează adesea mai mult.</string>
+    <string name="macro_hint_tomorrow_list">Mâine: %1$s – în astfel de zile piețele fluctuează adesea mai mult.</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">Azi %1$s %2$s</string>
+    <string name="macro_item_tomorrow">Mâine %1$s %2$s</string>
+    <string name="macro_nfp">raportul locurilor de muncă din SUA</string>
+    <string name="macro_pce">inflația PCE din SUA</string>
+    <string name="macro_ppi">prețurile de producție din SUA (PPI)</string>
+    <string name="macro_released_list">Publicat azi: %1$s.</string>
+    <string name="macro_released_one">Publicat azi la %1$s: %2$s.</string>
+    <string name="macro_title">Date economice</string>
+
+    <!-- Coin-Analyse -->
+    <string name="coin_choose">Monedă</string>
+    <string name="coin_no_data">Nu există date de preț pentru această monedă pe Binance sau Bybit.</string>
+    <string name="coin_price_only">Doar pe baza prețului – datele on-chain (MVRV, Puell, hashrate) sunt disponibile gratuit doar pentru Bitcoin.</string>
+    <plurals name="coin_short_history">
+        <item quantity="one">Doar %1$d zi de istoric – lipsesc unii indicatori.</item>
+        <item quantity="few">Doar %1$d zile de istoric – lipsesc unii indicatori.</item>
+        <item quantity="other">Doar %1$d de zile de istoric – lipsesc unii indicatori.</item>
+    </plurals>
+    <string name="coin_title">Analiza monedei</string>
+</resources>

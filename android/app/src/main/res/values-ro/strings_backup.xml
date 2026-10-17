@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Sicherung exportieren und wiederherstellen -->
+    <string name="backup_export">Exportă</string>
+    <string name="backup_exported">Backup salvat.</string>
+    <string name="backup_failed">Nu a mers. Este un backup Crypto Checker?</string>
+    <string name="backup_hint">Salvează lista cu note și grupuri, alarmele, favoritele, portofoliul și setările într-un fișier păstrat de tine – de ex. pentru un telefon nou.</string>
+    <string name="backup_import">Importă</string>
+    <string name="backup_title">Backup și restaurare</string>
+    <string name="backup_too_large">Fișierul este prea mare sau nu este o copie validă (max. 16 MB).</string>
+
+    <!-- Passwort der Sicherungsdatei -->
+    <string name="backup_password">Parolă</string>
+    <string name="backup_password_continue">Continuă</string>
+    <string name="backup_password_hide">Ascunde parola</string>
+    <!-- %1$d = Mindestlänge des Passworts (8) -->
+    <string name="backup_password_min">Cel puțin %1$d caractere</string>
+    <string name="backup_password_mismatch">Parolele nu se potrivesc</string>
+    <string name="backup_password_prompt">Introdu parola acestei copii de rezervă.</string>
+    <string name="backup_password_repeat">Repetă parola</string>
+    <string name="backup_password_show">Afișează parola</string>
+    <string name="backup_password_title">Copie protejată cu parolă</string>
+    <string name="backup_password_too_weak">Prea ușor de ghicit – nu doar cifre, nu un singur caracter repetat, fără secvențe comune ca «12345678» sau «parola».</string>
+    <string name="backup_password_warning">Fără parolă, copia de rezervă nu poate fi restaurată.</string>
+    <string name="backup_password_wrong">Parolă greșită sau fișier deteriorat. Încearcă din nou.</string>
+    <string name="backup_protect">Protejează cu parolă</string>
+    <string name="backup_protect_hint">Criptează fișierul (AES-256). Recomandat dacă include date din portofoliu.</string>
+
+    <!-- Sicherung ohne Passwort, Wiederherstellen -->
+    <string name="backup_plain_confirm">Salvează fără parolă</string>
+    <string name="backup_plain_confirm_text">Fișierul nu este criptat. Oricine îl obține poate citi:</string>
+    <string name="backup_plain_confirm_title">Salvezi fără parolă?</string>
+    <string name="backup_plain_contents_addresses">Adrese de wallet salvate</string>
+    <string name="backup_plain_contents_base">Listă de urmărire cu note și grupuri, alarme, favorite și setări</string>
+    <string name="backup_plain_contents_portfolio">Portofoliu: tranzacții cu cantități și prețuri</string>
+    <string name="backup_restore_app_lock_kept">Blocarea portofoliului rămâne activă – o copie necriptată nu o poate dezactiva.</string>
+    <string name="backup_restore_confirm">Importul înlocuiește lista (cu note și grupuri), alarmele, favoritele, portofoliul și setările cu backup-ul.</string>
+    <plurals name="backup_restore_invalid">
+        <item quantity="one">%d intrare din copie (portofoliu sau alarmă) este invalidă și nu va fi importată.</item>
+        <item quantity="few">%d intrări din copie (portofoliu sau alarme) sunt invalide și nu vor fi importate.</item>
+        <item quantity="other">%d intrări din copie (portofoliu sau alarme) sunt invalide și nu vor fi importate.</item>
+    </plurals>
+    <string name="backup_restore_newer_version">Această copie provine dintr-o versiune mai nouă a aplicației – actualizează mai întâi aplicația. Nu s-a importat nimic.</string>
+    <string name="backup_restore_unencrypted_warning">Această copie nu este criptată – verifică dacă e a ta. Setările vor fi preluate; o blocare a portofoliului activă rămâne activă.</string>
+    <string name="backup_restored">Restaurat: %1$s, %2$s.</string>
+    <plurals name="backup_restored_alarms">
+        <item quantity="one">%1$d alarmă</item>
+        <item quantity="few">%1$d alarme</item>
+        <item quantity="other">%1$d de alarme</item>
+    </plurals>
+    <plurals name="backup_restored_pairs">
+        <item quantity="one">%1$d pereche</item>
+        <item quantity="few">%1$d perechi</item>
+        <item quantity="other">%1$d de perechi</item>
+    </plurals>
+
+    <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
+    <string name="storage_recovery_message">Acest dispozitiv nu mai are cheia datelor criptate ale aplicației, așa că aceasta a pornit goală. Nu s-a șters nimic. Pentru a recupera lista și portofoliul, importă un fișier de backup în setări, la «%1$s».</string>
+    <string name="storage_recovery_title">Datele salvate nu au putut fi deblocate</string>
+</resources>

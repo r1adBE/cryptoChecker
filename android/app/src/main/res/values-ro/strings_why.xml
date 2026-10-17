@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Warum bewegt sich das?»: Titel, Abschnitte, Aufklappen -->
+    <string name="why_action">Ce se mișcă odată cu el?</string>
+    <string name="why_all_values">Toate valorile și sursele</string>
+    <string name="why_all_values_hint">Observație · Explicație posibilă · Surse</string>
+    <string name="why_details">Arată detaliile</string>
+    <string name="why_details_hide">Ascunde detaliile</string>
+    <string name="why_disclaimer">Evaluare automată din datele pieței: arată ce se întâmplă în același timp, nu dovedește o cauză.</string>
+    <string name="why_footer_short">Simultan nu înseamnă cauză · Nu este consultanță de investiții</string>
+    <string name="why_no_data">Nu există date Binance pentru această pereche</string>
+    <string name="why_no_data_hint">Prețul, volumul și volatilitatea provin din lumânările orare Binance.</string>
+    <string name="why_ref_alts">Alts</string>
+    <string name="why_section_context">Interpretare posibilă</string>
+    <string name="why_section_observation">Observație</string>
+    <string name="why_title">Ce se mișcă odată cu el?</string>
+    <string name="why_title_coin">Ce se mișcă odată cu %1$s?</string>
+
+    <!-- «Warum?»: Kurz gesagt (ein Satz oben) -->
+    <string name="why_brief_head">Pe scurt · La %1$s</string>
+    <string name="why_brief_label">Pe scurt:</string>
+    <string name="why_summary_against">Moneda se mișcă împotriva pieței.</string>
+    <string name="why_summary_calm">Nicio mișcare notabilă: piața și moneda sunt calme.</string>
+    <string name="why_summary_coin">Doar această monedă se mișcă – posibil ceva ce afectează doar această monedă.</string>
+    <string name="why_summary_coin_volume">Doar această monedă se mișcă, pe volum mai mare – posibil ceva ce afectează doar această monedă.</string>
+    <string name="why_summary_longs">Futures: multe poziții long cu levier.</string>
+    <string name="why_summary_market">Mișcarea coincide în timp cu piața în ansamblu.</string>
+    <string name="why_summary_market_volume">Mișcarea coincide cu un volum de tranzacționare mai mare și o piață în mișcare largă.</string>
+    <string name="why_summary_peg_near">Prețul este aproape de ancorarea sa 1:1.</string>
+    <string name="why_summary_peg_off">Prețul se abate vizibil de la ancorarea sa 1:1.</string>
+    <string name="why_summary_shorts">Futures: multe poziții short.</string>
+    <string name="why_summary_thin">Mișcarea este slabă: puțin volum în spate.</string>
+
+    <!-- «Warum?»: Faktorliste (Titel der Faktoren) -->
+    <string name="why_f_against">Împotriva pieței</string>
+    <string name="why_f_coin_only">Doar această monedă</string>
+    <string name="why_f_leader">Bitcoin ca lider al pieței</string>
+    <string name="why_f_leverage_balanced">Levier echilibrat</string>
+    <string name="why_f_leverage_longs">Levier: multe long-uri</string>
+    <string name="why_f_leverage_shorts">Levier: multe short-uri</string>
+    <string name="why_f_market_calm">Piață calmă</string>
+    <string name="why_f_market_wide">Se mișcă toată piața</string>
+    <string name="why_factor_funding">Funding</string>
+    <string name="why_factor_futures">Futures</string>
+    <string name="why_factor_market">Piața în ansamblu</string>
+    <string name="why_factor_near_high">Aproape de maxim</string>
+    <string name="why_factor_near_low">Aproape de minim</string>
+    <string name="why_factor_peg">Ancorare (1:1)</string>
+    <string name="why_factor_range3d">Interval pe 3 zile</string>
+
+    <!-- «Warum?»: Nebenzeilen der Faktoren -->
+    <string name="why_fn_estimated">estimat</string>
+    <string name="why_fn_funding_longs">mulți mizează pe creștere</string>
+    <string name="why_fn_funding_neutral">neutru</string>
+    <string name="why_fn_funding_shorts">mulți mizează pe scădere</string>
+    <string name="why_fn_high_at">la maximul pe 30 de zile</string>
+    <string name="why_fn_high_below">sub maximul pe 30 de zile</string>
+    <string name="why_fn_leader_calm">Bitcoin calm</string>
+    <string name="why_fn_leader_moves">Bitcoin se mișcă vizibil</string>
+    <string name="why_fn_low_above">peste minimul pe 30 de zile</string>
+    <string name="why_fn_low_at">la minimul pe 30 de zile</string>
+    <string name="why_fn_market_against">Moneda merge împotriva pieței</string>
+    <string name="why_fn_market_alone">Piață calmă – această monedă se mișcă singură</string>
+    <string name="why_fn_market_calm">Piață calmă</string>
+    <string name="why_fn_market_lags">Piața se mișcă, această monedă abia</string>
+    <string name="why_fn_market_moves">Piața se mișcă în aceeași direcție</string>
+    <string name="why_fn_market_pulls">Piața se mișcă odată cu BTC</string>
+    <string name="why_fn_oi_down">Open interest în scădere</string>
+    <string name="why_fn_oi_flat">Open interest aproape neschimbat</string>
+    <string name="why_fn_oi_mixed">Open interest neuniform</string>
+    <string name="why_fn_oi_up">Open interest în creștere</string>
+    <string name="why_fn_peg_above">%1$s peste ancorarea 1:1</string>
+    <string name="why_fn_peg_below">%1$s sub ancorarea 1:1</string>
+    <string name="why_fn_peg_near">aproape de ancorarea 1:1</string>
+    <string name="why_fn_range_above_low">de la minimul pe 3 zile</string>
+    <string name="why_fn_range_below_high">de la maximul pe 3 zile</string>
+    <string name="why_fn_range_near_high">aproape de maximul pe 3 zile</string>
+    <string name="why_fn_range_near_low">aproape de minimul pe 3 zile</string>
+    <string name="why_fn_volatility_stronger">mai puternică decât de obicei</string>
+    <string name="why_fn_volatility_tiny">mică în termeni absoluți (sub %1$s)</string>
+    <string name="why_fn_volatility_usual">ca de obicei</string>
+    <string name="why_fn_volume_higher">mai mare decât de obicei</string>
+    <string name="why_fn_volume_lower">mai mic decât de obicei</string>
+    <string name="why_fn_volume_usual">ca de obicei</string>
+
+    <!-- «Warum?»: ausführliche Sätze je Beobachtung -->
+    <string name="why_against_market_text">Această monedă %1$s, BTC %2$s în 24h — o mișcare vizibil independentă.</string>
+    <string name="why_against_ref_text">Această monedă %1$s, %2$s %3$s în 24 h — o mișcare vizibil independentă.</string>
+    <string name="why_btc_independent">%1$s se mișcă în prezent independent de Bitcoin.</string>
+    <string name="why_btc_tight">%1$s se mișcă în prezent strâns legat de Bitcoin.</string>
+    <string name="why_change_1h">1h</string>
+    <string name="why_change_24h">24h</string>
+    <string name="why_coin_only_text">%1$s în 24h, în timp ce piața e calmă – posibil ceva ce afectează doar această monedă.</string>
+    <string name="why_leverage_balanced_text">Nicio aglomerare de poziții long sau short pe piața futures.</string>
+    <string name="why_leverage_longs_text">Mulți pariază cu bani împrumutați pe creșterea prețurilor. Long-urile plătesc short-urilor — risc crescut de lichidări dacă prețul scade.</string>
+    <string name="why_leverage_shorts_text">Mulți pariază cu bani împrumutați pe scăderea prețurilor. Short-urile plătesc long-urilor – dacă prețul crește, un short squeeze este posibil.</string>
+    <string name="why_market_calm_text">Această monedă: %1$s în 24h. Nici piața, nici moneda nu se mișcă mult.</string>
+    <string name="why_market_leader_text">Fiind cea mai mare monedă, BTC se mișcă de obicei în pas cu restul pieței. ETH: %1$s în 24h.</string>
+    <string name="why_market_leader_text_no_eth">Fiind cea mai mare monedă, BTC se mișcă de obicei în pas cu restul pieței.</string>
+    <string name="why_market_similar_text">Această monedă: %1$s în 24 h — în același timp, piața se mișcă în aceeași direcție, deși mai puțin clar.</string>
+    <string name="why_market_wide_text">Această monedă: %1$s în 24h – în același timp, piața în ansamblu se mișcă vizibil.</string>
+    <string name="why_open_interest_change">Interes deschis %1$s de la ultima verificare.</string>
+    <string name="why_peg_text">Stablecoin: comparat cu o ancorare 1:1 la moneda de cotare, abatere %1$s.</string>
+    <string name="why_sentiment_text">Indicele Fear &amp; Greed al întregii piețe cripto, %1$s față de ieri.</string>
+    <string name="why_sentiment_text_no_change">Indicele Fear &amp; Greed al întregii piețe cripto.</string>
+    <plurals name="why_trend_falling">
+        <item quantity="one">în scădere de %1$d oră</item>
+        <item quantity="few">în scădere de %1$d ore</item>
+        <item quantity="other">în scădere de %1$d de ore</item>
+    </plurals>
+    <plurals name="why_trend_rising">
+        <item quantity="one">în creștere de %1$d oră</item>
+        <item quantity="few">în creștere de %1$d ore</item>
+        <item quantity="other">în creștere de %1$d de ore</item>
+    </plurals>
+    <plurals name="why_trend_stable">
+        <item quantity="one">stabil de %1$d oră</item>
+        <item quantity="few">stabil de %1$d ore</item>
+        <item quantity="other">stabil de %1$d de ore</item>
+    </plurals>
+    <string name="why_volatility_high_text">Ultima oră: %1$s — raportat la oscilația orară tipică din ultimele 24 de ore.</string>
+    <string name="why_volatility_normal_text">Ultima oră: %1$s — în intervalul obișnuit.</string>
+    <string name="why_volatility_tiny_text">Ultima oră: %1$s — neobișnuit pentru această monedă, dar mic în termeni absoluți.</string>
+    <string name="why_volume_estimated_text">Estimat: această sursă nu oferă rulaj, așa că se compară cantitățile de monede tranzacționate.</string>
+    <string name="why_volume_high_text">Mult mai multe tranzacții decât de obicei în ultima oră – mișcarea este însoțită de volum ridicat.</string>
+    <string name="why_volume_low_text">Puține tranzacții în spatele mișcării – astfel de mișcări sunt adesea mai puțin stabile.</string>
+    <string name="why_volume_normal_text">Tranzacționarea din ultima oră este în linie cu ultimele 24 de ore.</string>
+
+    <!-- «Warum?»: Signal-Punkte (stützt, neutral, Vorsicht) -->
+    <string name="why_dot_caution">ridicat</string>
+    <string name="why_dot_neutral">neutru</string>
+    <string name="why_dot_supports">se potrivește cu mișcarea</string>
+
+    <!-- «Warum?»: Frische und Quellen der Daten -->
+    <string name="why_data_time">Date din %1$s</string>
+    <string name="why_fresh_breadth">Amploarea pieței: %1$s · %2$s</string>
+    <string name="why_fresh_candles">Lumânări: %1$s · %2$s</string>
+    <string name="why_fresh_fng">Fear &amp; Greed: %1$s</string>
+    <string name="why_fresh_futures">Futures: %1$s</string>
+    <plurals name="why_fresh_oi_hours">
+        <item quantity="one">open interest comparat cu acum %1$d oră</item>
+        <item quantity="few">open interest comparat cu acum %1$d ore</item>
+        <item quantity="other">open interest comparat cu acum %1$d de ore</item>
+    </plurals>
+    <plurals name="why_fresh_oi_minutes">
+        <item quantity="one">open interest comparat cu acum %1$d minut</item>
+        <item quantity="few">open interest comparat cu acum %1$d minute</item>
+        <item quantity="other">open interest comparat cu acum %1$d de minute</item>
+    </plurals>
+    <string name="why_fresh_today">azi</string>
+    <string name="why_fresh_yesterday">ieri</string>
+    <string name="why_source_fallback">%1$s (sursă de rezervă)</string>
+    <string name="why_source_reference">%1$s (valoare orientativă)</string>
+    <string name="why_sources">Surse: lumânări orare ale bursei (de obicei Binance), date futures de la burse, Fear &amp; Greed de la alternative.me.</string>
+    <string name="why_sources_list">Surse: %1$s.</string>
+    <string name="why_src_breadth">%1$s (amploarea pieței)</string>
+    <string name="why_src_candles">%1$s (lumânări)</string>
+    <string name="why_src_comparison">%1$s (comparație cu piața)</string>
+    <string name="why_src_fng">%1$s (Fear &amp; Greed)</string>
+    <string name="why_src_futures">%1$s (futures)</string>
+
+    <!-- Faktor-Checkliste (Crypto Pulse und «Warum?») -->
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">Funding</string>
+    <string name="factor_spoken_volatility">de %1$s ori oscilația obișnuită</string>
+    <string name="factor_spoken_volume">de %1$s ori față de normal</string>
+    <string name="factor_volatility">Fluctuație (1h)</string>
+    <string name="factor_volume">Volum</string>
+</resources>

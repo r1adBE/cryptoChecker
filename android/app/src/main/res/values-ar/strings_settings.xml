@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen: Aufbau (Gruppen, Zeilen, Abschnitte, Suche, Kurzwerte) -->
+    <string name="settings_custom_value">مخصص</string>
+    <string name="settings_group_general">عام</string>
+    <string name="settings_group_more">المزيد</string>
+    <string name="settings_minutes">%1$d د</string>
+    <string name="settings_row_about">حول التطبيق</string>
+    <string name="settings_row_advanced">متقدم</string>
+    <string name="settings_row_alarms">التنبيهات</string>
+    <string name="settings_row_currency">العملة</string>
+    <string name="settings_row_dated_futures">عقود آجلة ذات استحقاق</string>
+    <string name="settings_row_updates">تحديث الأسعار</string>
+    <string name="settings_row_watchlist">قائمة المتابعة</string>
+    <string name="settings_search_hint">البحث في الإعدادات</string>
+    <string name="settings_seconds">%1$d ث</string>
+    <string name="settings_section_about">حول</string>
+    <string name="settings_section_appearance">المظهر</string>
+    <string name="settings_section_developer">المطوّر</string>
+    <string name="settings_section_language">اللغة</string>
+    <!-- Kurzwert «eingeschaltet» (Gegenstück zu option_off) -->
+    <string name="settings_summary_on">تشغيل</string>
+    <string name="settings_title">الإعدادات</string>
+
+    <!-- Einstellungen › Alarme (Ton, Signal, Ruhezeit, App-Symbol, exakte Prüfungen) -->
+    <string name="settings_alarm_cooldown">فترة الهدوء قبل انطلاق التنبيه مجددًا</string>
+    <!-- Ton/Vibration der Kursalarme, je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">إشارة التنبيه</string>
+    <string name="settings_alarm_signal_open_system">التعديل في إعدادات النظام</string>
+    <string name="settings_alarm_signal_system_hint">يتبع إعدادات الإشعارات في هاتفك.</string>
+    <string name="settings_alarm_sound">صوت التنبيه</string>
+    <string name="settings_alarm_sound_custom">صوت مخصص</string>
+    <string name="settings_alarm_sound_default">الصوت الافتراضي</string>
+    <string name="settings_alarm_sound_error">تعذّر استخدام الصوت.</string>
+    <string name="settings_alarm_sound_file">ملف صوتي خاص…</string>
+    <string name="settings_alarm_sound_reset">استخدام الصوت الافتراضي</string>
+    <string name="settings_alarm_sound_system">اختيار صوت النظام…</string>
+    <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">رقم على أيقونة التطبيق</string>
+    <string name="settings_app_badge_hint">يعدّ إشعارات التنبيه المفتوحة. تحدد الشاشة الرئيسية ظهور رقم أو نقطة (مثل Samsung: «مع رقم»).</string>
+    <string name="settings_exact_checks">الفحص في الموعد</string>
+    <string name="settings_exact_checks_grant">السماح بـ «المنبّهات والتذكيرات»</string>
+    <string name="settings_exact_checks_hint">يفحص Android تقريبًا كل 15 دقيقة حتى عندما يكون الجهاز خاملًا. يستهلك بطارية أكثر قليلًا.</string>
+    <string name="settings_exact_checks_nothing">لا توجد أزواج مفعّلة – لا شيء للفحص.</string>
+    <string name="settings_exact_checks_permission_missing">الإذن مفقود – يفحص Android متى ناسبه (كل 15 دقيقة تقريبًا أو لاحقًا).</string>
+    <string name="settings_notification_change">الإشعار عند تغيّر السعر فقط</string>
+    <string name="settings_notification_change_always">دائمًا</string>
+    <string name="settings_notification_change_hint">لا يظهر الإشعار إلا بعد أن يتحرك السعر بهذا القدر على الأقل منذ الإشعار السابق. لا يُعرض شيء أثناء غياب البيانات. لا تتأثر التنبيهات.</string>
+    <string name="settings_ongoing_notifications">غير قابلة للإزالة بالسحب</string>
+    <string name="settings_ongoing_notifications_hint">يُبقي إشعارات الأسعار مثبّتة.</string>
+    <string name="settings_price_notifications">إشعارات الأسعار</string>
+    <string name="settings_price_notifications_hint">عرض السعر الحالي للأزواج المفعّلة في شريط الحالة.</string>
+    <string name="settings_price_pairs">الأزواج</string>
+    <string name="settings_price_pairs_all_off">إيقاف الكل</string>
+    <string name="settings_price_pairs_all_on">تشغيل الكل</string>
+    <string name="settings_price_pairs_count">%1$d من %2$d</string>
+    <string name="settings_price_pairs_empty">لا توجد أزواج في قائمة المتابعة بعد.</string>
+    <string name="settings_price_pairs_hint">اختر الأزواج التي يظهر سعرها في شريط الإشعارات.</string>
+    <string name="settings_quiet_hours">ساعات الصمت</string>
+    <string name="settings_quiet_hours_from">من</string>
+    <string name="settings_quiet_hours_hint">بين %1$s و %2$s تنتظر التنبيهات حتى نهاية ساعات الصمت ثم تنطلق بالصوت. تصل الإشعارات الأخرى بصمت ودون نطق.</string>
+    <string name="settings_quiet_hours_to">إلى</string>
+
+    <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
+    <string name="settings_background_interval">الفاصل الزمني</string>
+    <string name="settings_background_updates">التحديث في الخلفية</string>
+    <string name="settings_battery_hint">«مقيّد» يعني أن Android قد يؤخر التحديثات في الخلفية لساعات.</string>
+    <string name="settings_battery_ok">استخدام البطارية: غير مقيّد</string>
+    <string name="settings_battery_restricted">استخدام البطارية: مقيّد</string>
+    <string name="settings_check_runs_empty">لم يُسجَّل أي فحص بعد.</string>
+    <string name="settings_check_runs_honest_android">يقرّر Android متى يتم الفحص – هنا ترى متى حدث فعلًا.</string>
+    <string name="settings_check_runs_honest_ios">يقرّر iOS متى يتم الفحص – هنا ترى متى حدث فعلًا.</string>
+    <string name="settings_check_runs_title">آخر عمليات الفحص</string>
+    <string name="settings_http_log">عرض سجل HTTP</string>
+    <string name="settings_http_log_hint">يعرض أسفل صفحة «إضافة زوج» الطلبات المرسلة إلى المنصات – لاستكشاف الأخطاء.</string>
+    <string name="settings_live_service">التحديث المتكرر</string>
+    <string name="settings_live_websocket">أسعار مباشرة</string>
+
+    <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
+    <string name="settings_activity_alerts">الإبلاغ عن النشاط غير العادي</string>
+    <string name="settings_activity_alerts_hint">مرة واحدة كحد أقصى في الساعة لكل زوج: حركات سعرية غير عادية وقفزات في الحجم وقيم متطرفة في العقود الآجلة (البيانات من Binance).</string>
+    <string name="settings_activity_sensitivity">الحساسية</string>
+    <string name="settings_activity_sensitivity_hint">مدى سهولة اعتبار العملة غير عادية – بالتساوي لبطاقة قائمة المتابعة والإشعارات. مع «أقل» تعرض البطاقة أقوى 3 فقط.</string>
+    <string name="settings_watchlist_activity_card">نشاط غير عادي في القائمة</string>
+    <string name="settings_watchlist_activity_card_hint">يعرض الشريحة ⚡ بجانب المجموعات: انقر عليها لعرض الأزواج التي يحدث فيها شيء الآن فقط. تُضبط التنبيهات في إشعارات السوق.</string>
+    <string name="settings_watchlist_names">إظهار الأسماء</string>
+    <string name="settings_watchlist_names_hint">الاسم تحت الزوج، مثل Bitcoin أو NVIDIA. يأتي مع قوائم الشعارات، ويُحمَّل مرة واحدة لكل العملات.</string>
+    <string name="settings_watchlist_sparkline">مخطط مصغّر في قائمة المتابعة</string>
+    <string name="settings_watchlist_sparkline_hint">اتجاه 24 ساعة بجانب السعر</string>
+    <string name="settings_watchlist_value_names">الأسماء</string>
+    <string name="settings_watchlist_value_price_only">السعر فقط</string>
+    <string name="settings_watchlist_value_sparkline">مخطط مصغّر</string>
+
+    <!-- Einstellungen › Token & TradFi -->
+    <string name="settings_asset_scope_alpha">يشمل رموز Alpha (α)</string>
+    <string name="settings_asset_scope_alpha_hint">رموز Alpha: مشاريع مبكرة وصغيرة غالبًا من قائمة Binance Alpha – تداولها قليل في الغالب وتتقلب بشدة.</string>
+    <string name="settings_asset_scope_alpha_tradfi_hint">جزء من الرموز المميزة. مقفل عند اختيار «TradFi فقط»؛ تبقى رموز Alpha الموجودة في القائمة.</string>
+    <string name="settings_asset_scope_both">الرموز المميزة و TradFi</string>
+    <string name="settings_asset_scope_both_hint">الكل – كريبتو و TradFi</string>
+    <string name="settings_asset_scope_hint">يحدد الأزواج التي يعرضها الاختيار والبحث عند الإضافة. تبقى الأزواج الموجودة في قائمة المتابعة دائمًا.</string>
+    <string name="settings_asset_scope_title">الرموز المميزة و TradFi</string>
+    <string name="settings_asset_scope_tokens">الرموز المميزة فقط</string>
+    <string name="settings_asset_scope_tokens_hint">كريبتو: فوري وعقود دائمة</string>
+    <string name="settings_asset_scope_tradfi">TradFi فقط</string>
+    <string name="settings_asset_scope_tradfi_hint">عقود آجلة على الأسهم والسلع والعملات – عقود وليست رموزًا</string>
+    <string name="settings_rolling_futures">يشمل العقود الآجلة الفصلية وذات الاستحقاق</string>
+    <string name="settings_rolling_futures_hint">عند الإيقاف: تُعلَّم العقود الآجلة ذات الاستحقاق غير الموجودة في قائمة المنصة على أنها لم تعد متداولة بدلًا من فحصها واحدًا تلو الآخر. يوفّر الوقت في كل تحديث.</string>
+    <string name="settings_rolling_futures_qtly">يشمل العقود الآجلة الفصلية وذات الاستحقاق (QTLY)</string>
+    <string name="settings_rolling_futures_tradfi_hint">جزء من الرموز المميزة. مقفل عند اختيار «TradFi فقط»؛ ويظل ساريًا على العقود ذات الاستحقاق الموجودة في القائمة.</string>
+    <string name="settings_tradfi_futures">الأسهم والسلع والعملات (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">يعرض عند اختيار الزوج أيضًا العقود الآجلة على الأسهم والذهب وغيره من السلع والعملات والشركات قبل طرحها العام. هذه عقود وليست رموزًا.</string>
+
+    <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
+    <string name="settings_accent">لون التمييز</string>
+    <string name="settings_accent_hint">لون التطبيق والأدوات وأيقونة التطبيق.</string>
+    <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">شعارات العملات</string>
+    <string name="settings_coin_logos_app">في التطبيق</string>
+    <string name="settings_coin_logos_app_hint">قائمة المتابعة والزوج المفتوح وبطاقات السوق</string>
+    <string name="settings_coin_logos_footer">تأتي الشعارات من CoinGecko، ومن Binance لما لا يدرجه CoinGecko (مثل الذهب والفضة والأسهم). يحمّل التطبيق جميع الشعارات دفعة واحدة ويحفظها على هذا الجهاز، فلا يعرف أيٌّ منهما العملات التي تتابعها. العملات بلا شعار تظهر بأحرفها الأولى. تحصل المفضلة على نجمة صغيرة على الشعار. حيث يكون المفتاح متوقفًا لا تظهر شعارات ولا أحرف أولى؛ وعند إيقاف كل الخيارات لا يُحمَّل شيء.</string>
+    <string name="settings_coin_logos_portfolio">في المحفظة</string>
+    <string name="settings_coin_logos_portfolio_hint">المراكز وتفاصيل العملات والتحليلات</string>
+    <string name="settings_coin_logos_value_app">التطبيق</string>
+    <string name="settings_coin_logos_widgets">في الأدوات</string>
+    <string name="settings_coin_logos_widgets_hint">أداتا قائمة المتابعة والعملة الواحدة</string>
+    <string name="settings_high_contrast">تباين عالٍ</string>
+    <string name="settings_high_contrast_hint">ألوان أسعار أقوى ونصوص ثانوية أغمق. يعمل أيضًا عندما يطلب النظام تباينًا أعلى.</string>
+    <string name="settings_language_choose">اختيار اللغة</string>
+    <string name="settings_language_system">لغة النظام</string>
+    <string name="settings_price_colors">ألوان الأسعار</string>
+    <string name="settings_price_colors_hint">يسهل تمييز الأزرق / البرتقالي مع كل أنواع ضعف رؤية الألوان (الأحمر-الأخضر والأزرق-الأصفر). ويُعرض الاتجاه دائمًا أيضًا بالرمز + / −.</string>
+    <string name="settings_theme_mode">فاتح / داكن</string>
+    <string name="settings_widgets">الأدوات</string>
+
+    <!-- Einstellungen › %-Änderung -->
+    <!-- Einstellungszeile und Seitentitel «%-Änderung»; %1$s ist das Prozentzeichen «%» -->
+    <string name="settings_change_basis">تغيّر %1$s ومنطقة الرسم البياني الزمنية</string>
+    <string name="settings_change_basis_hint_1">تحدد المنطقة الزمنية المختارة بداية حساب نسبة التغيّر في قائمة المتابعة وسطر النبض والزوج المفتوح والأدوات، وكذلك الأوقات المعروضة في الرسوم البيانية.</string>
+    <string name="settings_change_basis_hint_2">«%1$s» يقارن بالسعر قبل 24 ساعة تمامًا. «00:00» يقارن بسعر الافتتاح عند منتصف الليل في هذه المنطقة الزمنية.</string>
+    <string name="settings_change_basis_hint_3">لا يؤثر ذلك على التنبيهات.</string>
+    <string name="settings_change_basis_hint_since_last">«%1$s» يقارن بسعر التحديث السابق. مع الأسعار المباشرة يبقى قريبًا من 0%%.</string>
+    <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
+    <string name="settings_change_period">إظهار المدة بجانب التغيّر</string>
+    <string name="settings_change_period_hint">«24h» أو «اليوم» أو «آخر تحديث» بخط صغير بجانب التغيّر في قائمة المتابعة وأداة العملة الواحدة. يذكره قارئ الشاشة دائمًا.</string>
+
+    <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
+    <string name="settings_conversion_currency">عملة التحويل</string>
+    <string name="settings_conversion_currency_hint">تُستخدم أيضًا للمحفظة والتنبيهات بعملتك وبطاقة «سوق العملات المشفرة» وأداة المحفظة.</string>
+    <string name="settings_cost_method">طريقة حساب تكلفة الشراء</string>
+    <string name="settings_cost_method_average">المتوسط (Ø)</string>
+    <string name="settings_cost_method_average_hint">تُقيَّم المبيعات بمتوسط سعر الشراء المتحرك.</string>
+    <string name="settings_cost_method_fifo">FIFO (افتراضي)</string>
+    <string name="settings_cost_method_fifo_hint">تُباع أقدم العملات أولًا عبر جميع المنصات والـ wallets.</string>
+    <string name="settings_cost_method_fifo_wallet">FIFO لكل wallet/منصة</string>
+    <string name="settings_cost_method_fifo_wallet_hint">أقدم العملات أولًا داخل كل منصة أو wallet؛ والتحويلات تنقل الدفعات مع تاريخ شرائها.</string>
+    <string name="settings_portfolio_lock">قفل المحفظة</string>
+    <string name="settings_portfolio_lock_footer">القفل يُخفي ما يُعرض على الشاشة. تُحفظ البيانات على هذا الجهاز ويحميها تشفير الجهاز. يمكنك حماية النسخ الاحتياطية بكلمة مرور.</string>
+    <string name="settings_portfolio_lock_hint">يُخفي المحفظة فقط: افتح القفل ببصمة الإصبع أو الوجه أو رمز PIN للجهاز. يُقفل مجددًا بعد أكثر من دقيقة في الخلفية. تبقى قائمة المتابعة والتنبيهات والأدوات الأخرى مفتوحة.</string>
+    <string name="settings_portfolio_lock_no_device_lock">بدون رمز PIN أو رمز مرور للجهاز لا يُخفي القفل شيئًا – اضبط قفلًا للشاشة.</string>
+    <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">المحفظة في نسخ النظام الاحتياطي</string>
+    <string name="settings_portfolio_system_backup_hint">عند الإيقاف: لا تُضمَّن معاملاتك في نسخ النظام الاحتياطي للجهاز ولا في النقل من هاتف إلى هاتف. لنقلها إلى هاتف جديد، استخدم النسخة الاحتياطية الخاصة بالتطبيق مع كلمة مرور.</string>
+    <string name="settings_portfolio_system_backup_unavailable">يتطلب Android 9 أو أحدث – الإصدارات الأقدم كانت ستحفظ المحفظة دون تشفير في نسخة Google الاحتياطية.</string>
+    <string name="settings_portfolio_tab">إظهار تبويب المحفظة</string>
+    <string name="settings_portfolio_value_locked">تشغيل، مع قفل</string>
+    <string name="settings_show_converted">الأسعار المحوّلة</string>
+    <string name="settings_show_converted_hint">يعرض الأسعار في قائمة المتابعة أيضًا بـ %1$s</string>
+
+    <!-- Einstellungen › Markt-Meldungen -->
+    <string name="settings_depeg_alarm">الإبلاغ عن فك ربط USDT</string>
+    <string name="settings_depeg_alarm_hint">ينبّه مرة واحدة عندما ينحرف USDT عن 1 USD بمقدار الحد (Kraken USDT/USD وBinance USDC/USDT). تظل القيم في التطبيق محسوبة على أساس USDT = 1.</string>
+    <string name="settings_depeg_threshold">حد فك الربط</string>
+    <string name="settings_fng_above">Fear &amp; Greed: تنبيه فوق</string>
+    <string name="settings_fng_below">Fear &amp; Greed: تنبيه تحت</string>
+    <string name="settings_gas_alert_hint">ينبّه مرة واحدة عندما تنخفض الرسوم العادية تحت الحد. يتم الفحص عند تحديث الأسعار، مرة كل 10 دقائق على الأكثر.</string>
+    <string name="settings_gas_btc_below">رسوم Bitcoin تحت (sat/vB)</string>
+    <string name="settings_gas_eth_below">غاز Ethereum تحت (gwei)</string>
+    <string name="settings_ind_ath_within">الانخفاض من القمة التاريخية بحد أقصى</string>
+    <string name="settings_ind_mayer_above">Mayer Multiple فوق</string>
+    <string name="settings_ind_mayer_below">Mayer Multiple تحت</string>
+    <string name="settings_ind_mvrv_above">MVRV فوق</string>
+    <string name="settings_ind_mvrv_below">MVRV تحت</string>
+    <string name="settings_indicator_alerts_hint">مؤشرات بيتكوين، تُفحص مرتين يوميًا. أنت تختار الحدود – لا يقيّم التطبيق القيم.</string>
+    <string name="settings_macro_notifications">التقويم الاقتصادي</string>
+    <string name="settings_macro_notifications_hint">في الساعة 08:00 في أيام صدور بيانات اقتصادية أمريكية مهمة (التضخم، الوظائف، قرار الفيدرالي). يُحمَّل التقويم من موقع التطبيق مرة واحدة يوميًا.</string>
+    <string name="settings_market_alerts">إشعارات السوق</string>
+    <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
+    <plurals name="settings_market_alerts_active">
+        <item quantity="zero">%1$d مفعّل</item>
+        <item quantity="one">%1$d مفعّل</item>
+        <item quantity="two">%1$d مفعّل</item>
+        <item quantity="few">%1$d مفعّل</item>
+        <item quantity="many">%1$d مفعّل</item>
+        <item quantity="other">%1$d مفعّل</item>
+    </plurals>
+
+    <!-- Einstellungen › Sprachausgabe -->
+    <string name="settings_speech_rate">سرعة النطق: %1$.1f×</string>
+    <string name="settings_tts">الإخراج الصوتي</string>
+    <string name="settings_tts_alarms_only">التنبيهات فقط</string>
+    <string name="settings_tts_alarms_only_hint">عند الإيقاف: يُقرأ كل تحديث لزوج مفعّل عليه «نطق السعر».</string>
+    <!-- Sprachausgabe schweigt im Lautlos-/Vibrationsmodus -->
+    <string name="settings_tts_hint_silent">يقرأ الأسعار والتنبيهات بصوت عالٍ. يبقى صامتًا ما دام الجهاز في وضع الصامت أو الاهتزاز.</string>
+    <string name="settings_tts_test">اختبار الصوت</string>
+
+    <!-- Einstellungen › Daten: App zurücksetzen -->
+    <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
+    <string name="settings_reset_app">إعادة ضبط التطبيق</string>
+    <string name="settings_reset_app_action">حذف الكل</string>
+    <string name="settings_reset_app_confirm">يحذف قائمة المتابعة والتنبيهات والمحفظة والإعدادات وكل البيانات المحفوظة، كما بعد التثبيت. لا يمكن التراجع. نصيحة: أنشئ نسخة احتياطية أولاً.</string>
+    <string name="settings_reset_app_title">إعادة ضبط التطبيق؟</string>
+
+    <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
+    <!-- Suchfeld der Währungsseite -->
+    <string name="currency_search">ابحث عن عملة</string>
+    <string name="language_search">البحث عن لغة</string>
+
+    <!-- Theme -->
+    <string name="theme_dark">داكن</string>
+    <string name="theme_light">فاتح</string>
+    <string name="theme_system">النظام</string>
+
+    <!-- Akzentfarben -->
+    <string name="accent_blue">أزرق</string>
+    <string name="accent_green">أخضر</string>
+    <!-- Eigenname, in allen Sprachen gleich -->
+    <string name="accent_marrs_green">Marrs Green</string>
+    <string name="accent_orange">برتقالي</string>
+    <string name="accent_red">أحمر</string>
+
+    <!-- Kursfarben -->
+    <string name="price_colors_red_up_hint">شائع في الصين واليابان وكوريا وتايوان</string>
+    <string name="price_colors_swap">تبديل الألوان (صعود ↔ هبوط)</string>
+    <string name="price_style_calm">هادئ</string>
+    <string name="price_style_calm_color_vision">هادئ · ضعف رؤية الألوان</string>
+    <string name="price_style_color_vision">ضعف رؤية الألوان</string>
+    <string name="price_style_fresh">منعش</string>
+    <string name="price_style_traditional">تقليدي</string>
+
+    <!-- Über die App -->
+    <string name="about_exchanges_verified">آخر فحص لاتصالات المنصات مقابل استجابات حقيقية: %1$s</string>
+    <string name="about_license">تأتي الأسعار مباشرة من المنصات؛ بلا حساب وبلا تتبّع.</string>
+    <!-- Texte der Lizenzen liegen in assets/licenses -->
+    <string name="about_licenses">التراخيص</string>
+    <string name="about_privacy_policy">سياسة الخصوصية</string>
+    <!-- GitHub-Vorlage exchange_request.md -->
+    <string name="about_request_exchange">اطلب منصة</string>
+    <string name="about_source_code">الشيفرة المصدرية على GitHub</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_why">Crypto Checker مشروع مستقل من r1AD: نظرة هادئة على الأسعار دون حساب أو إعلانات أو تتبع. للأسئلة والاقتراحات: %1$s</string>
+
+    <!-- Lizenzhinweise -->
+    <string name="licenses_app_intro">Crypto Checker مفتوح المصدر (ترخيص MIT).</string>
+    <string name="licenses_font_title">خط Rubik</string>
+    <string name="licenses_icons_bundled_text">مضمّنة في التطبيق: أيقونات من «Cryptocurrency Icons» لـ Christopher Downer والمساهمين (github.com/spothq/cryptocurrency-icons)، الصادرة بترخيص CC0 1.0 Universal. تظهر إلى أن تُحمَّل شعارات CoinGecko أو Binance. تبقى الأسماء والشعارات علامات تجارية لمشاريعها.</string>
+    <string name="licenses_icons_title">أيقونات العملات البديلة</string>
+    <string name="licenses_libraries_intro">يستخدم التطبيق هذه المكتبات بموجب Apache License 2.0:</string>
+    <string name="licenses_libraries_title">مكتبات Android</string>
+
+    <!-- Entwickleroptionen -->
+    <!-- Countdown der letzten Tipps auf die Version bis zu den Entwickleroptionen -->
+    <plurals name="developer_taps_left">
+        <item quantity="zero">%d نقرات متبقية لفتح خيارات المطوّر</item>
+        <item quantity="one">%d نقرة متبقية لفتح خيارات المطوّر</item>
+        <item quantity="two">%d نقرة متبقية لفتح خيارات المطوّر</item>
+        <item quantity="few">%d نقرات متبقية لفتح خيارات المطوّر</item>
+        <item quantity="many">%d نقرة متبقية لفتح خيارات المطوّر</item>
+        <item quantity="other">%d نقرة متبقية لفتح خيارات المطوّر</item>
+    </plurals>
+    <string name="developer_unlocked">تم فتح خيارات المطوّر</string>
+
+    <!-- Nur iOS: Einstellungen -->
+    <!-- Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">يتبع الاهتزاز إعدادات iPhone (الأصوات والحس اللمسي).</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">يعدّ التنبيهات وإشعارات السوق الجديدة، ويعود إلى 0 عند فتح التطبيق.</string>
+</resources>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Wie aktuell? (Sparsam / Live) -->
+    <string name="update_mode_for_pros">bruker mer data og batteri</string>
+    <string name="update_mode_live">Live mens den er åpen</string>
+    <string name="update_mode_live_hint">Der børsen leverer en livekurs: med en gang mens listen er åpen. Ellers ved neste henting. Lukket: ikke oftere enn hvert %1$s, ofte senere.</string>
+    <string name="update_mode_live_hint_ios">Der børsen leverer en livekurs: med en gang mens listen er åpen. Ellers ved neste henting. Lukket: når iOS tillater det, noen ganger med timers mellomrom. Sveiper du bort appen, stopper iOS disse sjekkene til du åpner den igjen.</string>
+    <string name="update_mode_recommended">anbefalt</string>
+    <string name="update_mode_sparsam">Sparsom</string>
+    <string name="update_mode_sparsam_hint">Med appen lukket ikke oftere enn hvert %1$s, ofte senere (alarmer, widgets). Åpen: hver gang du åpner den.</string>
+    <string name="update_mode_sparsam_hint_ios">Med appen lukket bestemmer iOS når det sjekkes (alarmer, widgeter), noen ganger med timers mellomrom. Åpen: hver gang du åpner den.</string>
+    <string name="update_mode_title">Hvor oppdatert?</string>
+
+    <!-- Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <string name="refresh_sheet_aborted">Oppdatering avbrutt</string>
+    <string name="refresh_sheet_alarms">Alarmer</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="one">%1$d utløst</item>
+        <item quantity="other">%1$d utløst</item>
+    </plurals>
+    <!-- Grosse Statuszeile oben im Blatt -->
+    <string name="refresh_sheet_all_updated">Alt oppdatert</string>
+    <string name="refresh_sheet_app_start">Appstart</string>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="one">samlet forespørsel %1$s · %2$d kurs</item>
+        <item quantity="other">samlet forespørsel %1$s · %2$d kurser</item>
+    </plurals>
+    <string name="refresh_sheet_database">Database</string>
+    <string name="refresh_sheet_market_unreachable">%1$s kan ikke nås</string>
+    <plurals name="refresh_sheet_markets_unreachable">
+        <item quantity="one">%1$d børs kan ikke nås</item>
+        <item quantity="other">%1$d børser kan ikke nås</item>
+    </plurals>
+    <string name="refresh_sheet_network">Nettverk</string>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="one">%1$d varsel</item>
+        <item quantity="other">%1$d varsler</item>
+    </plurals>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="one">%1$d par</item>
+        <item quantity="other">%1$d par</item>
+    </plurals>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="one">%1$d par ikke oppdatert</item>
+        <item quantity="other">%1$d par ikke oppdatert</item>
+    </plurals>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="one">%2$d av %1$d par</item>
+        <item quantity="other">%2$d av %1$d par</item>
+    </plurals>
+    <string name="refresh_sheet_paused_until">satt på pause til %1$s</string>
+    <string name="refresh_sheet_paused_until_reason">satt på pause til %1$s (%2$s)</string>
+    <string name="refresh_sheet_reason_no_data">ingen data</string>
+    <string name="refresh_sheet_reason_offline">ingen tilkobling</string>
+    <string name="refresh_sheet_reason_rate_limit">for mange forespørsler</string>
+    <string name="refresh_sheet_reason_server">serverfeil</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">tidsavbrudd</string>
+    <string name="refresh_sheet_reason_unavailable">børsen er ikke tilgjengelig</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s sekunder</string>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_markets">Børser</string>
+    <string name="refresh_sheet_section_steps">Forløp</string>
+    <string name="refresh_sheet_status_failed">ikke oppdatert</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">alt oppdatert</string>
+    <string name="refresh_sheet_status_partial">delvis oppdatert</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">Ventetid til start</string>
+    <string name="refresh_sheet_widgets">Widgeter</string>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+
+    <!-- Kurzbericht der Aktualisierung je Börse -->
+    <string name="refresh_report_bulk_failed">samlet forespørsel %1$s (mislyktes)</string>
+    <plurals name="refresh_report_errors">
+        <item quantity="one">%1$d feil</item>
+        <item quantity="other">%1$d feil</item>
+    </plurals>
+    <string name="refresh_report_live">Live: %1$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="one">%1$d handles ikke lenger</item>
+        <item quantity="other">%1$d handles ikke lenger</item>
+    </plurals>
+    <string name="refresh_report_singles">%1$d enkeltvis</string>
+
+    <!-- Prüfprotokoll der Hintergrundprüfungen (Ergebnis, Auslöser) -->
+    <string name="check_result_failed">Mislyktes</string>
+    <string name="check_result_ok">OK</string>
+    <string name="check_result_partial">Delvis</string>
+    <string name="check_result_skipped">Hoppet over</string>
+    <string name="check_trigger_bgtask">Bakgrunn</string>
+    <string name="check_trigger_exact">I tide</string>
+    <string name="check_trigger_foreground">App</string>
+    <string name="check_trigger_widget">Widget</string>
+    <string name="check_trigger_widget_ios">Widget · kurser og kursalarmer</string>
+    <string name="check_trigger_worker">Bakgrunn</string>
+
+    <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
+    <string name="battery_delay_hint">Android kan forsinke sjekker – sett batteri til «Ubegrenset»</string>
+    <string name="battery_later">Senere</string>
+    <string name="battery_message">Android utsetter bakgrunnsarbeid for å spare strøm — kurser og widgeter kan da være flere timer gamle. Med ubegrenset batteribruk holdes de oppdatert. Du kan endre dette når som helst i Android-innstillingene.</string>
+    <string name="battery_open_settings">Åpne batteriinnstillinger</string>
+    <string name="battery_steps">Trykk på Batteri (eller Batteribruk for appen) i appinfo, og velg Ubegrenset.</string>
+    <string name="battery_title">Hold kursene oppdatert</string>
+    <string name="ios_background_refresh_off">Bakgrunnsoppdatering er av for appen. Uten den sjekkes alarmer bare mens appen er åpen.</string>
+    <string name="ios_low_power_mode">Strømsparingsmodus er på. iOS sjekker sjelden i bakgrunnen, så alarmer kan komme sent.</string>
+</resources>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Sicherung exportieren und wiederherstellen -->
+    <string name="backup_export">Eksporto</string>
+    <string name="backup_exported">Kopja u ruajt.</string>
+    <string name="backup_failed">Nuk funksionoi. A është kopje e Crypto Checker?</string>
+    <string name="backup_hint">Ruan listën me shënime dhe grupe, alarmet, të preferuarat, portofolin dhe cilësimet në një skedar që e mban vetë – p.sh. për një telefon të ri.</string>
+    <string name="backup_import">Importo</string>
+    <string name="backup_title">Ruajtje dhe rikthim</string>
+    <string name="backup_too_large">Skedari është shumë i madh ose nuk është kopje e vlefshme (maks. 16 MB).</string>
+
+    <!-- Passwort der Sicherungsdatei -->
+    <string name="backup_password">Fjalëkalimi</string>
+    <string name="backup_password_continue">Vazhdo</string>
+    <string name="backup_password_hide">Fshih fjalëkalimin</string>
+    <!-- %1$d = Mindestlänge des Passworts (8) -->
+    <string name="backup_password_min">Të paktën %1$d karaktere</string>
+    <string name="backup_password_mismatch">Fjalëkalimet nuk përputhen</string>
+    <string name="backup_password_prompt">Fut fjalëkalimin e kësaj kopjeje rezervë.</string>
+    <string name="backup_password_repeat">Përsërit fjalëkalimin</string>
+    <string name="backup_password_show">Shfaq fjalëkalimin</string>
+    <string name="backup_password_title">Kopje rezervë me fjalëkalim</string>
+    <string name="backup_password_too_weak">Shumë e lehtë për t’u gjetur – jo vetëm shifra, jo një shenjë e përsëritur, pa vargje të zakonshme si «12345678» ose «password».</string>
+    <string name="backup_password_warning">Pa fjalëkalimin, kopja rezervë nuk mund të rikthehet.</string>
+    <string name="backup_password_wrong">Fjalëkalim i gabuar ose skedar i dëmtuar. Provo përsëri.</string>
+    <string name="backup_protect">Mbro me fjalëkalim</string>
+    <string name="backup_protect_hint">Enkripton skedarin (AES-256). Rekomandohet kur përmban të dhëna të portofolit.</string>
+
+    <!-- Sicherung ohne Passwort, Wiederherstellen -->
+    <string name="backup_plain_confirm">Ruaje pa fjalëkalim</string>
+    <string name="backup_plain_confirm_text">Skedari nuk është i enkriptuar. Kushdo që e merr mund të lexojë:</string>
+    <string name="backup_plain_confirm_title">Të ruhet pa fjalëkalim?</string>
+    <string name="backup_plain_contents_addresses">Adresat e ruajtura të wallet-it</string>
+    <string name="backup_plain_contents_base">Lista e ndjekjes me shënime dhe grupe, alarmet, të preferuarat dhe cilësimet</string>
+    <string name="backup_plain_contents_portfolio">Portofoli: transaksione me sasi dhe çmime</string>
+    <string name="backup_restore_app_lock_kept">Kyçja e portofolit mbetet aktive – një kopje e paenkriptuar nuk mund ta çaktivizojë.</string>
+    <string name="backup_restore_confirm">Importimi zëvendëson listën (me shënime dhe grupe), alarmet, të preferuarat, portofolin dhe cilësimet me kopjen.</string>
+    <plurals name="backup_restore_invalid">
+        <item quantity="one">%d hyrje në kopje (portofol ose alarm) është e pavlefshme dhe nuk do të importohet.</item>
+        <item quantity="other">%d hyrje në kopje (portofol ose alarme) janë të pavlefshme dhe nuk do të importohen.</item>
+    </plurals>
+    <string name="backup_restore_newer_version">Kjo kopje është nga një version më i ri i aplikacionit – përditëso fillimisht aplikacionin. Nuk u importua asgjë.</string>
+    <string name="backup_restore_unencrypted_warning">Kjo kopje nuk është e enkriptuar – kontrollo që është jotja. Cilësimet zbatohen; një kyçje portofoli aktive mbetet aktive.</string>
+    <string name="backup_restored">U rikthyen: %1$s, %2$s.</string>
+    <plurals name="backup_restored_alarms">
+        <item quantity="one">%1$d alarm</item>
+        <item quantity="other">%1$d alarme</item>
+    </plurals>
+    <plurals name="backup_restored_pairs">
+        <item quantity="one">%1$d çift</item>
+        <item quantity="other">%1$d çifte</item>
+    </plurals>
+
+    <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
+    <string name="storage_recovery_message">Kjo pajisje nuk e ka më çelësin e të dhënave të enkriptuara të aplikacionit, prandaj ai nisi bosh. Nuk u fshi asgjë. Për të rikthyer listën dhe portofolin, importo një skedar kopjeje te cilësimet, nën «%1$s».</string>
+    <string name="storage_recovery_title">Të dhënat e ruajtura nuk u zhbllokuan</string>
+</resources>

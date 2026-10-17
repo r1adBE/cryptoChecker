@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Aktionsblatt: Kurs-Chart (Zeitraum, Kerzenwerte beim Ziehen, Umrechnung) und «Mehr» -->
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s Zeitraum kurz (widget_range_short_24h/7d/30d) -->
+    <string name="sheet_chart_change">%2$s で %1$s</string>
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s change_short_today(_zone) -->
+    <string name="sheet_chart_change_since">%2$s %1$s</string>
+    <string name="sheet_chart_close">終値</string>
+    <string name="sheet_chart_converted_current">%1$s、換算（現在のレート）</string>
+    <!-- Zeile unter dem Chart, %1$s = umgerechnete Reihe («BTC/USDT») -->
+    <string name="sheet_chart_converted_daily">%1$s、日次レートで換算</string>
+    <!-- Keine Kerzen für das Paar -->
+    <string name="sheet_chart_no_data">このペアの価格データはありません</string>
+    <!-- Kerzenwerte beim Ziehen (Hoch/Tief: ticker_high/ticker_low) -->
+    <string name="sheet_chart_open">始値</string>
+    <!-- Zeitraum-Chip statt «24h» bei Tages-Basis -->
+    <string name="sheet_chart_today">今日</string>
+    <!-- Umsatz der Kerze beim Ziehen; %1$s z. B. «12.3M USDT» -->
+    <string name="sheet_chart_volume">出来高 %1$s</string>
+    <string name="sheet_more">その他</string>
+
+    <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
+    <string name="ticker_ask">売気配</string>
+    <string name="ticker_bid">買気配</string>
+    <string name="ticker_high">高値</string>
+    <string name="ticker_low">安値</string>
+    <string name="ticker_timestamp">時刻</string>
+    <string name="ticker_vol_base">出来高（コイン）</string>
+    <string name="ticker_vol_quote">出来高（クオート通貨）</string>
+
+    <!-- Basis der %-Änderung (Prozent-Pille, Chart, Widgets) -->
+    <string name="change_basis_device">%1$s、00:00（デバイスのタイムゾーン）</string>
+    <string name="change_basis_local">00:00（現地時間）から</string>
+    <string name="change_basis_rolling">過去24時間</string>
+    <!-- Letzter gegen vorherigen Kurs des Paars; ausgeschrieben (Auswahl). Kurz neben Pille und Widgets: change_short_since_last -->
+    <string name="change_basis_since_last">前回の更新から</string>
+    <string name="change_basis_utc_zone">00:00 %1$s から</string>
+    <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
+    <string name="change_candle_source">%1$sのローソク足から算出</string>
+    <string name="change_short_since_last">前回更新</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
+    <string name="change_short_today">今日</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 einer gewählten Zeitzone; %1$s = Zeitzone (z. B. UTC) -->
+    <string name="change_short_today_zone">今日 %1$s</string>
+
+    <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
+    <string name="market_data_empty_error">取引所からデータを受信できませんでした。</string>
+    <string name="market_data_summary">時価総額、ガス代、経済指標、コイン分析</string>
+    <string name="market_data_tab_futures">先物</string>
+    <string name="market_data_title">マーケットデータ</string>
+
+    <!-- Marktdaten Spot (Marktkapitalisierung, Angebot, Volumen) -->
+    <string name="spot_circulating">循環供給量</string>
+    <string name="spot_fdv">FDV</string>
+    <string name="spot_market_cap">時価総額</string>
+    <string name="spot_max_supply">最大供給量</string>
+    <string name="spot_no_data">このコインの現物データはありません</string>
+    <string name="spot_source_updated">出典: %1$s · %2$s 時点</string>
+    <string name="spot_supply_of_max">最大供給量の%1$sが流通中</string>
+    <string name="spot_total_supply">総供給量</string>
+    <string name="spot_vol_mcap">出来高/時価</string>
+    <string name="spot_volume_24h">出来高 (24時間)</string>
+
+    <!-- Futures-Kennzahlen (Funding, Open Interest, Referenzbörse) -->
+    <string name="futures_alarm_reference">参考値 %1$s</string>
+    <string name="futures_funding">資金調達率</string>
+    <string name="futures_funding_interval_unknown">間隔不明</string>
+    <string name="futures_funding_per8h_equiv">= 8時間あたり %1$s（アラームと同じ）</string>
+    <!-- Einheit neben der Funding-Pille, wenn die Börse stündlich abrechnet (Hyperliquid) -->
+    <string name="futures_funding_per_hour">1時間あたり</string>
+    <string name="futures_funding_per_hours">%1$d時間あたり</string>
+    <string name="futures_next_funding">次回まで %1$d 時間 %2$d 分</string>
+    <string name="futures_no_data">このコインの先物データはありません</string>
+    <string name="futures_open_interest">建玉</string>
+    <!-- Futures-Kennzahlen von einer anderen Börse als der beobachteten (Richtwert) -->
+    <string name="futures_reference_hint">%1$sの参考値 – 資金調達率と建玉は取引所ごとに異なり、%2$sでは異なる場合があります。</string>
+    <string name="futures_reference_spot">%1$sの参考値（このコインのUSDT無期限先物）</string>
+    <string name="futures_source">出典: %1$s</string>
+
+    <!-- Erklärungen hinter dem ⓘ-Knopf -->
+    <string name="explain_funding">多くの人が借りたお金で値上がりや値下がりに賭けています。ロングとショートの間で支払われる手数料。大きくプラスなら、多くが値上がりに賭けています。</string>
+    <string name="explain_open_interest">先物は価格への賭けで、借りたお金で行われることが多いです。未決済の先物ポジションの総額。増えるほど、その値動きに賭ける資金が増えています。</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">説明</string>
+    <string name="explain_spot_fdv">完全希薄化後評価額: 価格 × 最大供給量（上限がない場合は総供給量）。</string>
+    <string name="explain_spot_market_cap">価格 × 循環供給量。ピルは24時間の変化を示します。</string>
+    <string name="explain_spot_source">全取引所の米ドル建ての数値、CoinGeckoより。</string>
+    <string name="explain_spot_supply">循環: 現在市場にあるコイン。総: 発行されたコインからバーン分を除いたもの。最大: 存在しうる上限。</string>
+    <string name="explain_spot_volume">24時間の取引額。出来高/時価: 時価総額に対する出来高 — 高いほど取引が活発です。</string>
+
+    <!-- Umrechnung und Sats -->
+    <string name="converted_fx_stale">%1$s · レート %2$s</string>
+    <string name="sats_per_unit">%1$s %2$s = %3$s sats</string>
+</resources>

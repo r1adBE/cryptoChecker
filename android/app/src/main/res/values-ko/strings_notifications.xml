@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Texte der Mitteilungen -->
+    <string name="notification_activity_title">%1$s · %2$s</string>
+    <string name="notification_alarm_text">%1$s — 현재 %2$s</string>
+    <string name="notification_alarm_title">경보: %1$s · %2$s</string>
+    <string name="notification_depeg_action_exchange">거래소 열기</string>
+    <string name="notification_depeg_text">앱의 값은 계속 USDT = 1로 계산됩니다.</string>
+    <string name="notification_depeg_title">USDT %1$s USD(%2$s)</string>
+    <string name="notification_fng_above">지수가 %1$d 위로 올랐습니다 – 이 지수에 따르면 시장에 탐욕 심리가 큽니다.</string>
+    <string name="notification_fng_below">지수가 %1$d 아래로 떨어졌습니다 – 이 지수에 따르면 시장에 공포 심리가 큽니다.</string>
+    <string name="notification_fng_title">Fear &amp; Greed: %1$d</string>
+    <string name="notification_gas_btc_text">설정한 한도 %1$s sat/vB 미만 · 전송 ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Bitcoin 수수료: %1$s sat/vB</string>
+    <string name="notification_gas_eth_text">설정한 한도 %1$s gwei 미만 · 전송 ≈ %2$s</string>
+    <string name="notification_gas_eth_title">Ethereum 가스: %1$s gwei</string>
+    <string name="notification_indicator_above">설정한 기준 %1$s 이상 – 측정값이며 권유가 아닙니다.</string>
+    <string name="notification_indicator_below">설정한 기준 %1$s 이하 – 측정값이며 권유가 아닙니다.</string>
+    <string name="notification_indicator_title">%1$s: %2$s</string>
+    <string name="notification_macro_title">오늘 경제 지표 발표</string>
+    <string name="notification_portfolio_alarm_locked">알람이 울렸습니다. 자세한 내용은 앱을 여세요.</string>
+    <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
+    <string name="notification_portfolio_alarm_text">%1$s – 현재 %2$s</string>
+    <string name="notification_portfolio_alarm_title">포트폴리오 가치</string>
+    <string name="notification_price_change">%1$s, %2$s 대비 (%3$s 전)</string>
+    <string name="notification_price_change_no_age">%1$s, %2$s 대비</string>
+    <string name="notification_price_first">이 거래쌍의 첫 알림</string>
+    <plurals name="notification_price_overflow_title">
+        <item quantity="other">+%1$d개 시세 더</item>
+    </plurals>
+    <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
+    <string name="notification_refreshing">가격 업데이트 중…</string>
+    <string name="notification_volume_spike_text">최근 1시간 거래량이 평소의 %1$s×</string>
+
+    <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
+    <string name="channel_alarms">경보</string>
+    <string name="channel_alarms_description">가격 경보가 울리면 알림을 보냅니다.</string>
+    <string name="channel_alarms_quiet">경보 (조용한 시간)</string>
+    <string name="channel_alarms_quiet_description">조용한 시간 동안 울리는 무음 경보.</string>
+    <string name="channel_alarms_silent">경보(무음)</string>
+    <string name="channel_alarms_sound">경보(소리만)</string>
+    <string name="channel_alarms_sound_vibrate">경보(소리 및 진동)</string>
+    <string name="channel_alarms_vibrate">경보(진동만)</string>
+    <string name="channel_prices">가격 알림</string>
+    <string name="channel_prices_description">거래쌍의 현재 가격을 무음 알림으로 표시합니다.</string>
+    <string name="channel_service">가격 업데이트</string>
+    <string name="channel_service_description">가격을 업데이트하는 동안 표시됩니다.</string>
+    <string name="neutral_channel_market">시장 알림</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed, 가스비, 이례적 움직임, 경제 일정</string>
+
+    <!-- Sprachausgabe -->
+    <string name="tts_alarm">경보. %1$s, %2$s %3$s %4$s, 현재 %5$s</string>
+    <string name="tts_direction_down">하락했습니다</string>
+    <string name="tts_direction_funding_above">높은 펀딩비와 함께</string>
+    <string name="tts_direction_funding_below">낮은 펀딩비와 함께</string>
+    <string name="tts_direction_move">크게 움직임</string>
+    <string name="tts_direction_near_high">고점 근접</string>
+    <string name="tts_direction_near_low">저점 근접</string>
+    <string name="tts_direction_oi_down">미결제약정 감소와 함께</string>
+    <string name="tts_direction_oi_up">미결제약정 증가와 함께</string>
+    <string name="tts_direction_up">상승했습니다</string>
+    <string name="tts_direction_volume_spike">거래량 급증과 함께</string>
+    <string name="tts_price">%1$s, %2$s %3$s, %4$s</string>
+</resources>

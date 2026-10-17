@@ -1,0 +1,234 @@
+import Foundation
+
+/// Kraken «Ledgers»-Export (History › Export › Ledgers) → `CsvImportRow`. Wie Android `CsvImportKraken`.
+///
+/// Spalten: txid, refid, time (UTC), type, subtype, aclass, asset, (wallet,) amount, fee, balance. `amount` ist
+/// brutto, `fee` wird zusätzlich im selben Asset abgezogen.
+///  - type «trade», «spend», «receive»: zwei Zeilen mit gleicher refid = ein Geschäft. Krypto (auch Stablecoin) gegen
+///    Fiat (`CsvImport.fiat`) → Kauf bzw. Verkauf (Preis = Fiat-Betrag / Menge, ohne Gebühr); Krypto gegen Krypto →
+///    Tausch, auch gegen Stablecoins (`CsvImport.stables`; Wert nur mit USDT-Seite = USDT-Menge, sonst unbekannt).
+///    Gebühren wie `CsvImport.swapFee`; zwei in verschiedenen Einheiten → `.TWO_FEES`. Fiat gegen Fiat → `.NOT_CRYPTO`.
+///  - «deposit» / «withdrawal» (Krypto, auch Stablecoins) → Einzahlung / Auszahlung; Fiat → `.NOT_CRYPTO`.
+///  - «staking», oder «earn» mit subtype «reward» → Belohnung (nur Zugänge).
+///  - Umbuchungen zwischen Kraken-Konten, Margin, Rollover, Anpassungen → `.UNSUPPORTED_KIND`; ebenso Spot ↔ Staking als
+///    Ein-/Auszahlung (Variante «DOT.S» und ihr Gegenstück) und spend/receive/trade mit gleichem Basis-Asset — wie Android.
+///  - Doppelte Ledger-Zeilen (gleiche txid) zählen einmal.
+enum CsvImportKraken {
+
+    /// Alte Kraken-Kürzel mit X-/Z-Vorsatz → Kürzel (wie Android `LEGACY`).
+    private static let legacy: [String: String] = [
+        "XXBT": "BTC", "XBT": "BTC", "XBT.M": "BTC", "XETH": "ETH", "XLTC": "LTC", "XXRP": "XRP",
+        "XXLM": "XLM", "XETC": "ETC", "XZEC": "ZEC", "XXMR": "XMR", "XREP": "REP", "XMLN": "MLN",
+        "XXDG": "DOGE", "XDG": "DOGE", "XICN": "ICN", "XNMC": "NMC", "XXVN": "XVN",
+        "ZEUR": "EUR", "ZUSD": "USD", "ZGBP": "GBP", "ZCAD": "CAD", "ZJPY": "JPY", "ZAUD": "AUD",
+        "ZCHF": "CHF", "ETH2": "ETH",
+    ]
+
+    /// Kraken-Kürzel → einheitliches Kürzel (gross); Staking-Varianten «.S», «.M», «.F» … → Basis.
+    static func asset(_ raw: String) -> String {
+        let t: String = raw.trimmingCharacters(in: .whitespaces).uppercased()
+        if let mapped = legacy[t] { return mapped }
+        var base: String = t
+        let chars = Array(t)
+        if chars.count >= 2, chars[chars.count - 2] == ".", let last = chars.last, last.isLetter, last.isASCII {
+            base = String(chars.dropLast(2))
+        }
+        return legacy[base] ?? base
+    }
+
+    private struct Leg {
+        let line: Int
+        let refid: String
+        let type: String
+        let subtype: String
+        let asset: String
+        let signed: Decimal
+        let fee: Decimal?
+        let time: Int64
+        /// Asset ist eine Staking-/Earn-Variante («ETH2.S», «DOT.S», «ETH2»).
+        var staked: Bool = false
+    }
+
+    /// Staking-/Earn-Variante eines Kraken-Kürzels (vor dem Vereinheitlichen) — wie Android `isStakedAsset`.
+    private static func isStakedAsset(_ raw: String) -> Bool {
+        let chars = Array(raw.trimmingCharacters(in: .whitespaces).uppercased())
+        if String(chars) == "ETH2" { return true }
+        return chars.count >= 2 && chars[chars.count - 2] == "." && (chars.last.map { $0.isLetter && $0.isASCII } ?? false)
+    }
+
+    /// Höchster Abstand zwischen Spot- und Staking-Buchung derselben Umbuchung ohne gemeinsame refid.
+    private static let stakingPairMillis: Int64 = 3_600_000
+
+    /// Ein-/Auszahlungen zwischen Spot und Staking (Indizes in `legs`) — wie Android `stakingMoves`.
+    private static func stakingMoves(_ legs: [Leg]) -> Set<Int> {
+        var out = Set<Int>()
+        func move(_ l: Leg) -> Bool { l.type == "deposit" || l.type == "withdrawal" }
+        func abs(_ d: Decimal) -> Decimal { d < 0 ? -d : d }
+        for (i, l) in legs.enumerated() where move(l) && l.staked {
+            out.insert(i)
+            let j = legs.indices.first { k in
+                let c = legs[k]
+                guard !out.contains(k), move(c), !c.staked, c.type != l.type, c.asset == l.asset,
+                      abs(c.signed) == abs(l.signed) else { return false }
+                return (!l.refid.isEmpty && c.refid == l.refid) || Swift.abs(c.time - l.time) <= stakingPairMillis
+            }
+            if let j { out.insert(j) }
+        }
+        return out
+    }
+
+    static func build(names: [String], data: [CsvImportParser.Record], zone: String) -> CsvImportResult {
+        func col(_ n: String) -> Int? { names.firstIndex(of: n) }
+        let iTx = col("txid")
+        let iRef = col("refid"), iTime = col("time"), iType = col("type"), iSub = col("subtype")
+        let iAsset = col("asset"), iAmount = col("amount"), iFee = col("fee")
+        var skipped: [CsvImportSkip] = []
+        var legs: [Leg] = []
+        var seen = Set<String>()
+        for rec in data {
+            func cell(_ i: Int?) -> String {
+                guard let i, i < rec.cells.count else { return "" }
+                return rec.cells[i]
+            }
+            // Wiederholte Ledger-Zeile (gleiche txid): nur einmal
+            let txid = cell(iTx).trimmingCharacters(in: .whitespaces)
+            if !txid.isEmpty && !seen.insert(txid).inserted { continue }
+            let type: String = CsvImportParser.normalize(cell(iType))
+            let sub: String = CsvImportParser.normalize(cell(iSub))
+            let code: String = Self.asset(cell(iAsset))
+            let amount: Decimal? = CsvImportParser.parseNumber(cell(iAmount), hint: ".")
+            let feeText: String = cell(iFee)
+            let fee: Decimal? = feeText.isEmpty ? Decimal(0) : CsvImportParser.parseNumber(feeText, hint: ".")
+            let time: Int64? = CsvImportParser.parseTime(cell(iTime), zone: zone)
+            if code.isEmpty || type.isEmpty {
+                skipped.append(CsvImportSkip(line: rec.line, reason: .MISSING_FIELD))
+            } else if amount == nil || fee == nil {
+                skipped.append(CsvImportSkip(line: rec.line, reason: .BAD_NUMBER))
+            } else if time == nil {
+                skipped.append(CsvImportSkip(line: rec.line, reason: .BAD_DATE))
+            } else if let amount, let fee, let time {
+                let absFee: Decimal = fee < 0 ? -fee : fee
+                legs.append(Leg(line: rec.line, refid: cell(iRef), type: type, subtype: sub, asset: code,
+                                signed: amount, fee: absFee > 0 ? absFee : nil, time: time,
+                                staked: isStakedAsset(cell(iAsset))))
+            }
+        }
+
+        var rows: [CsvImportRow] = []
+        var tradeOrder: [String] = []
+        var trades: [String: [Leg]] = [:]
+        let internal = stakingMoves(legs)
+        for (i, leg) in legs.enumerated() {
+            if internal.contains(i) {
+                // Spot ↔ Staking: bleibt im selben Bestand
+                skipped.append(CsvImportSkip(line: leg.line, reason: .UNSUPPORTED_KIND))
+                continue
+            }
+            switch leg.type {
+            case "trade", "spend", "receive":
+                if leg.refid.isEmpty {
+                    skipped.append(CsvImportSkip(line: leg.line, reason: .MISSING_FIELD))
+                } else {
+                    if trades[leg.refid] == nil { tradeOrder.append(leg.refid) }
+                    trades[leg.refid, default: []].append(leg)
+                }
+            case "deposit", "withdrawal":
+                single(leg, &rows, &skipped)
+            case "staking":
+                reward(leg, &rows, &skipped)
+            case "earn":
+                if leg.subtype == "reward" { reward(leg, &rows, &skipped) }
+                else { skipped.append(CsvImportSkip(line: leg.line, reason: .UNSUPPORTED_KIND)) }
+            default:
+                skipped.append(CsvImportSkip(line: leg.line, reason: .UNSUPPORTED_KIND))
+            }
+        }
+        for refid in tradeOrder { trade(refid, trades[refid] ?? [], &rows, &skipped) }
+        // Kraken schreibt UTC ohne Versatz: die Zeitzone zählt (Vorschau zeigt UTC, wählbar)
+        return CsvImport.finish(.KRAKEN, rows: rows, skipped: skipped, zone: zone, localTimes: true)
+    }
+
+    /// Fiat (Stablecoins zählen als Krypto, bis Build 46 galt USDT als Geld).
+    private static func isMoney(_ asset: String) -> Bool { CsvImport.fiat.contains(asset) }
+
+    private static func rawKind(_ leg: Leg) -> String { leg.subtype.isEmpty ? leg.type : leg.type + " " + leg.subtype }
+
+    private static func single(_ leg: Leg, _ rows: inout [CsvImportRow], _ skipped: inout [CsvImportSkip]) {
+        if isMoney(leg.asset) { skipped.append(CsvImportSkip(line: leg.line, reason: .NOT_CRYPTO)); return }
+        let amount: Decimal = leg.signed < 0 ? -leg.signed : leg.signed
+        if amount == 0 { skipped.append(CsvImportSkip(line: leg.line, reason: .BAD_NUMBER)); return }
+        let kind: CsvImportKind = leg.type == "deposit" ? .DEPOSIT : .WITHDRAWAL
+        rows.append(row(leg.line, kind, rawKind(leg), leg.asset, amount, nil, nil, leg.fee,
+                        leg.fee == nil ? nil : leg.asset, leg.time, leg.refid))
+    }
+
+    private static func reward(_ leg: Leg, _ rows: inout [CsvImportRow], _ skipped: inout [CsvImportSkip]) {
+        // Nur Zugänge sind Belohnungen; negative Staking-Zeilen sind Gegenbuchungen
+        if leg.signed <= 0 || isMoney(leg.asset) {
+            skipped.append(CsvImportSkip(line: leg.line, reason: .UNSUPPORTED_KIND))
+            return
+        }
+        rows.append(row(leg.line, .REWARD, rawKind(leg), leg.asset, leg.signed, nil, nil, leg.fee,
+                        leg.fee == nil ? nil : leg.asset, leg.time, leg.refid))
+    }
+
+    private static func trade(_ refid: String, _ group: [Leg], _ rows: inout [CsvImportRow], _ skipped: inout [CsvImportSkip]) {
+        let given = group.filter { $0.signed < 0 }
+        let received = group.filter { $0.signed > 0 }
+        guard given.count == 1, received.count == 1 else {
+            for leg in group { skipped.append(CsvImportSkip(line: leg.line, reason: .MISSING_FIELD)) }
+            return
+        }
+        guard given[0].asset != received[0].asset else {
+            // Gleiches Basis-Asset (ETH → ETH2.S): Umbuchung ins/aus dem Staking, kein Geschäft
+            for leg in group { skipped.append(CsvImportSkip(line: leg.line, reason: .UNSUPPORTED_KIND)) }
+            return
+        }
+        let out = given[0]
+        let inn = received[0]
+        guard let fees = CsvImport.swapFee(givenFee: out.fee, givenUnit: out.fee == nil ? nil : out.asset,
+                                           receivedFee: inn.fee, receivedUnit: inn.fee == nil ? nil : inn.asset) else {
+            for leg in group { skipped.append(CsvImportSkip(line: leg.line, reason: .TWO_FEES)) }
+            return
+        }
+        let line: Int = min(out.line, inn.line)
+        let outAmount: Decimal = -out.signed
+        let inAmount: Decimal = inn.signed
+        if isMoney(out.asset) && isMoney(inn.asset) {
+            for leg in group { skipped.append(CsvImportSkip(line: leg.line, reason: .NOT_CRYPTO)) }
+        } else if isMoney(out.asset) {
+            // Kauf: Geld weg, Coin rein
+            let price: Decimal = CsvImport.divide(outAmount, inAmount)
+            rows.append(row(line, .BUY, rawKind(inn), inn.asset, inAmount, price, out.asset, fees.fee, fees.unit, inn.time, refid))
+        } else if isMoney(inn.asset) {
+            // Verkauf: Coin weg, Geld rein
+            let price: Decimal = CsvImport.divide(inAmount, outAmount)
+            rows.append(row(line, .SELL, rawKind(out), out.asset, outAmount, price, inn.asset, fees.fee, fees.unit, out.time, refid))
+        } else {
+            // Mit Stablecoin-Seite Hinweis in der Vorschau, mit USDT-Seite Wert in USDT — wie Android
+            let value = CsvImport.stableSwapValue(coin: out.asset, amount: outAmount, toCoin: inn.asset, toAmount: inAmount)
+            var r = CsvImportRow(
+                line: line, kind: .SWAP, rawKind: rawKind(out), coin: out.asset, amount: outAmount,
+                price: nil, quote: value.quote, fee: fees.fee, feeUnit: fees.unit, timeMillis: out.time,
+                externalId: refid,
+                key: CsvImport.key(format: .KRAKEN, kind: .SWAP, coin: out.asset, amount: outAmount, price: nil,
+                                   timeMillis: out.time, externalId: refid))
+            r.toCoin = inn.asset
+            r.toAmount = inAmount
+            r.swapValue = value.value
+            r.stableSwap = CsvImport.isStable(out.asset) || CsvImport.isStable(inn.asset)
+            rows.append(r)
+        }
+    }
+
+    private static func row(_ line: Int, _ kind: CsvImportKind, _ rawKind: String, _ coin: String, _ amount: Decimal,
+                            _ price: Decimal?, _ quote: String?, _ fee: Decimal?, _ feeUnit: String?,
+                            _ time: Int64, _ refid: String) -> CsvImportRow {
+        let id: String? = refid.isEmpty ? nil : refid
+        return CsvImportRow(
+            line: line, kind: kind, rawKind: rawKind, coin: coin, amount: amount, price: price, quote: quote,
+            fee: fee, feeUnit: feeUnit, timeMillis: time, externalId: id,
+            key: CsvImport.key(format: .KRAKEN, kind: kind, coin: coin, amount: amount, price: price,
+                               timeMillis: time, externalId: id))
+    }
+}

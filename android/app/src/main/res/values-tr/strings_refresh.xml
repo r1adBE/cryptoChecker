@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Wie aktuell? (Sparsam / Live) -->
+    <string name="update_mode_for_pros">daha fazla veri ve pil kullanır</string>
+    <string name="update_mode_live">Açıkken canlı</string>
+    <string name="update_mode_live_hint">Borsa canlı fiyat veriyorsa: liste açıkken anında. Aksi halde bir sonraki güncellemede. Kapalı: en sık her %1$s, çoğu zaman daha seyrek.</string>
+    <string name="update_mode_live_hint_ios">Borsa canlı fiyat veriyorsa: liste açıkken anında. Aksi halde bir sonraki güncellemede. Kapalı: iOS izin verdiğinde, bazen saatler sonra. Uygulamayı kaydırıp kapatırsan iOS, yeniden açana kadar bu kontrolleri durdurur.</string>
+    <string name="update_mode_recommended">önerilen</string>
+    <string name="update_mode_sparsam">Tasarruflu</string>
+    <string name="update_mode_sparsam_hint">Uygulama kapalıyken en sık her %1$s, çoğu zaman daha seyrek (alarmlar, widget\'lar). Açıkken: her açılışta.</string>
+    <string name="update_mode_sparsam_hint_ios">Uygulama kapalıyken ne zaman kontrol edileceğine iOS karar verir (alarmlar, widget’lar), bazen saatler sonra. Açık: her açışta.</string>
+    <string name="update_mode_title">Ne kadar güncel?</string>
+
+    <!-- Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <string name="refresh_sheet_aborted">Yenileme iptal edildi</string>
+    <string name="refresh_sheet_alarms">Alarmlar</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="one">%1$d tetiklendi</item>
+        <item quantity="other">%1$d tetiklendi</item>
+    </plurals>
+    <!-- Grosse Statuszeile oben im Blatt -->
+    <string name="refresh_sheet_all_updated">Her şey güncellendi</string>
+    <string name="refresh_sheet_app_start">Uygulama başlatma</string>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="one">toplu istek %1$s · %2$d fiyat</item>
+        <item quantity="other">toplu istek %1$s · %2$d fiyat</item>
+    </plurals>
+    <string name="refresh_sheet_database">Veritabanı</string>
+    <string name="refresh_sheet_market_unreachable">%1$s erişilemiyor</string>
+    <plurals name="refresh_sheet_markets_unreachable">
+        <item quantity="one">%1$d borsaya erişilemiyor</item>
+        <item quantity="other">%1$d borsaya erişilemiyor</item>
+    </plurals>
+    <string name="refresh_sheet_network">Ağ</string>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="one">%1$d bildirim</item>
+        <item quantity="other">%1$d bildirim</item>
+    </plurals>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="one">%1$d çift</item>
+        <item quantity="other">%1$d çift</item>
+    </plurals>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="one">%1$d çift güncellenmedi</item>
+        <item quantity="other">%1$d çift güncellenmedi</item>
+    </plurals>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="one">%2$d / %1$d çift</item>
+        <item quantity="other">%2$d / %1$d çift</item>
+    </plurals>
+    <string name="refresh_sheet_paused_until">%1$s saatine kadar duraklatıldı</string>
+    <string name="refresh_sheet_paused_until_reason">%1$s saatine kadar duraklatıldı (%2$s)</string>
+    <string name="refresh_sheet_reason_no_data">veri yok</string>
+    <string name="refresh_sheet_reason_offline">bağlantı yok</string>
+    <string name="refresh_sheet_reason_rate_limit">çok fazla istek</string>
+    <string name="refresh_sheet_reason_server">sunucu hatası</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">zaman aşımı</string>
+    <string name="refresh_sheet_reason_unavailable">borsa kullanılamıyor</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s saniye</string>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_markets">Borsalar</string>
+    <string name="refresh_sheet_section_steps">Ayrıntı</string>
+    <string name="refresh_sheet_status_failed">güncellenmedi</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">tümü güncellendi</string>
+    <string name="refresh_sheet_status_partial">kısmen güncellendi</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">Başlangıca kadar bekleme</string>
+    <string name="refresh_sheet_widgets">Widget\'lar</string>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+
+    <!-- Kurzbericht der Aktualisierung je Börse -->
+    <string name="refresh_report_bulk_failed">toplu istek %1$s (başarısız)</string>
+    <plurals name="refresh_report_errors">
+        <item quantity="one">%1$d hata</item>
+        <item quantity="other">%1$d hata</item>
+    </plurals>
+    <string name="refresh_report_live">Canlı: %1$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="one">%1$d artık işlem görmüyor</item>
+        <item quantity="other">%1$d artık işlem görmüyor</item>
+    </plurals>
+    <string name="refresh_report_singles">%1$d tek tek</string>
+
+    <!-- Prüfprotokoll der Hintergrundprüfungen (Ergebnis, Auslöser) -->
+    <string name="check_result_failed">Başarısız</string>
+    <string name="check_result_ok">Tamam</string>
+    <string name="check_result_partial">Kısmi</string>
+    <string name="check_result_skipped">Atlandı</string>
+    <string name="check_trigger_bgtask">Arka plan</string>
+    <string name="check_trigger_exact">Zamanında</string>
+    <string name="check_trigger_foreground">Uygulama</string>
+    <string name="check_trigger_widget">Widget</string>
+    <string name="check_trigger_widget_ios">Widget · fiyatlar ve fiyat alarmları</string>
+    <string name="check_trigger_worker">Arka plan</string>
+
+    <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
+    <string name="battery_delay_hint">Android kontrolleri geciktirebilir – pili «Kısıtlanmamış» olarak ayarla</string>
+    <string name="battery_later">Sonra</string>
+    <string name="battery_message">Android enerji tasarrufu için arka plan işlerini geciktirir — fiyatlar ve widget\'lar bu durumda saatlerce eski kalabilir. Pil kullanımını kısıtlamasız yapmak onları güncel tutar. Bunu Android ayarlarından istediğiniz zaman değiştirebilirsiniz.</string>
+    <string name="battery_open_settings">Pil ayarlarını aç</string>
+    <string name="battery_steps">Uygulama bilgisinde Pil (veya Uygulama pil kullanımı) öğesine dokunun ve Kısıtlanmamış seçin.</string>
+    <string name="battery_title">Fiyatları güncel tut</string>
+    <string name="ios_background_refresh_off">Bu uygulama için Arka Planda Yenileme kapalı. Kapalıyken alarmlar yalnızca uygulama açıkken kontrol edilir.</string>
+    <string name="ios_low_power_mode">Düşük Güç Modu açık. iOS arka planda nadiren kontrol eder, alarmlar gecikebilir.</string>
+</resources>

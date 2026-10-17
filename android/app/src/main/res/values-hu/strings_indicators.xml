@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Neutrale Indikatoren: Titel, Hinweise, Halving -->
+    <string name="neutral_alt_title">Altcoinok a Bitcoinhoz képest</string>
+    <string name="neutral_btc_indicators_title">Bitcoin-mutatók</string>
+    <string name="neutral_halving_last">Legutóbbi felezés: %1$s</string>
+    <string name="neutral_halving_next">A következő felezés várhatóan %1$s körül (naptár szerint becsülve – a blokkmagasság most nem érhető el).</string>
+    <string name="neutral_indicators_disclaimer">Csak mért értékek, értékelés nélkül. Nem előrejelzés és nem befektetési tanács.</string>
+    <string name="neutral_onchain_missing">Az on-chain adatok (Coin Metrics) most nem érhetők el.</string>
+
+    <!-- Neutrale Indikatoren: was der Wert misst -->
+    <string name="neutral_explain_ath_distance">Mennyivel van az árfolyam az eddigi csúcs alatt.</string>
+    <string name="neutral_explain_change_30d">A mai árfolyam a 30 nappal ezelőttihez képest.</string>
+    <string name="neutral_explain_hashrate">A 30 napos átlagos hashrate a 60 napos átlaghoz képest.</string>
+    <string name="neutral_explain_ma200w">Az utolsó 200 heti záróár átlaga.</string>
+    <string name="neutral_explain_mayer">Az árfolyam osztva a 200 napos átlaggal.</string>
+    <string name="neutral_explain_mvrv">Piaci érték osztva a realizált értékkel (on-chain).</string>
+    <string name="neutral_explain_pi_gap">A 111 napos átlag a 350 napos átlag kétszereséhez képest.</string>
+    <string name="neutral_explain_puell">A bányászok napi bevétele osztva a 365 napos átlagukkal.</string>
+    <string name="neutral_explain_rsi_daily">Relatív erősség index az utolsó 14 napra, 0–100.</string>
+    <string name="neutral_explain_rsi_weekly">Relatív erősség index az utolsó 14 hétre, 0–100.</string>
+    <string name="neutral_explain_sma50_200">Az 50 napos átlag a 200 napos átlaghoz képest.</string>
+    <string name="neutral_explain_vs_btc">Árfolyamváltozás a Bitcoinhoz képest 90 nap alatt.</string>
+
+    <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
+    <string name="neutral_info_alt_season_how">Az app csak a darabszámot mutatja, és nem nevezi „szezonnak”. Az érték általában napok, nem órák alatt változik.</string>
+    <string name="neutral_info_btc_how">Minden érték mellett egy mondat áll arról, mit mér, és hol tart 2016 óta a saját előzményeiben. Az app nem értékeli az értékeket és nem vezet le piaci fázist; értesítési határ csak az van, amit te állítasz be. A múltbeli minták nem feltétlenül ismétlődnek.</string>
+    <string name="neutral_info_btc_what">Elterjedt Bitcoin-mutatók puszta mért értékként: Mayer Multiple, 200 hetes átlag, csökkenés a csúcsról, 30 napos változás, Pi Cycle-távolság és az on-chain értékek: MVRV, Puell Multiple és hashrate.</string>
+    <string name="neutral_info_coin_how">Minden értékhez egy mondat tartozik arról, mit mér, értékelés nélkül. Rövid árfolyam-előzményű coinoknál egyes értékek hiányoznak. On-chain adatok itt nem szerepelnek.</string>
+    <string name="neutral_info_coin_what">Ugyanazok a puszta mutatók egy választható coinra, csak árfolyamadatokból: Mayer Multiple, 200 hetes átlag, esés a csúcsról, 30 napos változás, 50/200 napos trend, RSI és erő a Bitcoinhoz képest 90 nap alatt.</string>
+    <string name="neutral_info_halving_how">A következő felezést az aktuális blokkmagasságból és a folyamatban lévő nehézségi időszak átlagos blokkidejéből számoljuk (mempool.space); ezek nélkül naptár szerint (utolsó felezés plusz kb. négy év). A diagram a korábbi ciklusok árfolyamát mutatja a felezésüktől – történelem, nem előrejelzés.</string>
+
+    <!-- Indikator-Namen -->
+    <string name="ind_cross">Trend 50/200 nap</string>
+    <string name="ind_drawdown">Esés a történelmi csúcstól</string>
+    <string name="ind_missing">kevés adat</string>
+    <string name="ind_rsi_daily">RSI (napi)</string>
+    <string name="ind_rsi_weekly">RSI (heti)</string>
+    <string name="ind_vs_btc">Erő a Bitcoinhoz képest (90 nap)</string>
+    <string name="neutral_ind_change_30d">Változás 30 nap</string>
+    <string name="neutral_ind_hashrate">Hashrate 30/60 nap</string>
+    <string name="neutral_ind_ma200w">200 hetes átlag</string>
+    <string name="neutral_ind_pi_gap">Pi Cycle-távolság</string>
+
+    <!-- Indikatoren: «hoch heisst …, tief heisst …» -->
+    <string name="ind_read_alt_season">A magas azt jelenti, hogy a legtöbb nagy altcoin 90 nap alatt felülmúlta a Bitcoint, az alacsony, hogy a Bitcoin a legtöbbet.</string>
+    <string name="ind_read_ath_distance">A kicsi azt jelenti, hogy az ár közel van a csúcshoz, a nagy, hogy messze alatta.</string>
+    <string name="ind_read_change_30d">A pozitív azt jelenti, hogy magasabb, mint 30 napja, a negatív, hogy alacsonyabb.</string>
+    <string name="ind_read_funding">A magas azt jelenti, hogy sokan tőkeáttétellel emelkedésre fogadnak, a negatív, hogy sokan esésre.</string>
+    <string name="ind_read_hashrate_30_60">A pozitív azt jelenti, hogy nő a számítási teljesítmény, a negatív, hogy bányászok kapcsolnak le.</string>
+    <string name="ind_read_leverage">Sok long azt jelenti, hogy sokan kölcsönpénzből emelkedésre fogadnak, sok short pedig esésre.</string>
+    <string name="ind_read_ma200w">Ha az ár jóval felette van, hosszú emelkedés, ha közel, mély visszaesés áll mögötte.</string>
+    <string name="ind_read_mayer">A magas érték azt jelenti, hogy az ár jóval a 200 napos átlag felett van, az alacsony, hogy alatta.</string>
+    <string name="ind_read_mvrv">A magas azt jelenti, hogy az ár jóval a tulajdonosok átlagos vételára felett van, az alacsony, hogy közel van hozzá vagy alatta.</string>
+    <string name="ind_read_pi_cycle_gap">A nullához közeli azt jelenti, hogy a két átlag majdnem összeér, az erősen negatív, hogy messze vannak egymástól.</string>
+    <string name="ind_read_puell">A magas azt jelenti, hogy a bányászok jóval többet keresnek a szokásosnál, az alacsony, hogy jóval kevesebbet.</string>
+    <string name="ind_read_rsi_daily">70 felett erős emelkedést jelent az elmúlt napokban, 30 alatt erős esést.</string>
+    <string name="ind_read_rsi_weekly">70 felett erős emelkedést jelent az elmúlt hetekben, 30 alatt erős esést.</string>
+    <string name="ind_read_sma50_vs_200">A pozitív azt jelenti, hogy a rövid átlag a hosszú felett van, a negatív, hogy alatta.</string>
+    <string name="ind_read_vs_btc">A pozitív jobbat jelent a Bitcoinnál, a negatív rosszabbat.</string>
+
+    <!-- Indikatoren: Einordnung in die Vergangenheit -->
+    <string name="ind_context_flat30">Változatlan árfolyammal 30 nap múlva: %1$s</string>
+    <string name="ind_context_note">A múltbeli értékek és a „változatlan árfolyam” számítások számtan, nem előrejelzés.</string>
+    <string name="ind_context_percentile">%1$s óta a napok %2$s-ában alacsonyabb</string>
+</resources>

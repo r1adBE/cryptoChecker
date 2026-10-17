@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Begrüssung beim ersten Start -->
+    <string name="welcome_alert">Alarmuj – cena, procent, wolumen i nietypowe ruchy</string>
+    <string name="welcome_alert_q">Kiedy powiadomić?</string>
+    <string name="welcome_text">Twoje kursy. Twoje alarmy. Twój przegląd.\nBez konta. Bez reklam. Bez śledzenia.</string>
+    <string name="welcome_understand">Zrozum – co porusza się teraz razem z kursem</string>
+    <string name="welcome_understand_q">Co rusza się razem?</string>
+    <string name="welcome_watch">Obserwuj – Twoje monety, kursy i ich przebieg</string>
+    <string name="welcome_watch_q">Co się dzieje?</string>
+
+    <!-- Start-Coins (Vorschlagsliste nach der Begrüssung) -->
+    <string name="starter_add_selected">Dodaj do obserwowanych (%1$d)</string>
+    <string name="starter_loading_prices">Wczytywanie cen…</string>
+    <string name="starter_search_coin">Szukaj innej monety</string>
+    <string name="starter_select_all">Zaznacz wszystko</string>
+    <string name="starter_select_none">Odznacz wszystko</string>
+    <string name="starter_text">Odznacz to, czego nie chcesz, a resztę dodaj za jednym razem. Giełdę i parę możesz zmienić później.</string>
+    <string name="starter_title">Zacznij od tych monet</string>
+    <string name="starter_watch_alarm_hint">Obserwuj cenę, ustaw alarm</string>
+</resources>

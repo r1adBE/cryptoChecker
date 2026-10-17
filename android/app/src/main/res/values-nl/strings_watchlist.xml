@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: leere Ansicht, Statuszeile, Frische -->
+    <string name="watchlist_all_fresh">Actueel · %1$s</string>
+    <string name="watchlist_empty_title">Nog geen paren</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="one">%1$d van %2$d zonder koers</item>
+        <item quantity="other">%1$d van %2$d zonder koers</item>
+    </plurals>
+    <string name="watchlist_last_run">Laatst uitgevoerd %1$s</string>
+    <string name="watchlist_live_a11y">Livekoersen actief</string>
+    <string name="watchlist_live_badge">LIVE</string>
+    <string name="watchlist_offline_since">Geen verbinding · stand %1$s</string>
+    <string name="watchlist_pull_to_refresh">Trek omlaag om te vernieuwen</string>
+    <string name="watchlist_refresh_report">Laatste vernieuwing</string>
+    <string name="watchlist_refresh_report_empty">Nog geen overzicht: er is nog geen volledige vernieuwing geweest. Tik op vernieuwen en wacht tot de spinner stopt.</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="one">%1$d van %2$d verouderd</item>
+        <item quantity="other">%1$d van %2$d verouderd</item>
+    </plurals>
+    <string name="watchlist_status_all_disabled">Alle paren hier zijn uitgeschakeld</string>
+    <string name="watchlist_status_exchange_prices">Koersen van je beurzen · %1$s</string>
+    <string name="watchlist_status_exchange_prices_short">Beurskoersen · %1$s</string>
+    <string name="watchlist_status_group_empty">Geen paren in deze groep</string>
+    <string name="watchlist_status_none_traded">Geen verhandelde paren hier</string>
+    <string name="watchlist_updated">Bijgewerkt: %1$s</string>
+
+    <!-- Merkliste: Puls-Zeile (Paare im Plus/Minus, ohne 24-h-Wert) -->
+    <string name="watchlist_pulse_avg">Ø %1$s</string>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="one">%1$d daalt</item>
+        <item quantity="other">%1$d dalen</item>
+    </plurals>
+    <!-- Paare mit Kurs, aber ohne 24-h-Wert («· 510 ohne 24h-Wert») -->
+    <plurals name="watchlist_pulse_missing">
+        <item quantity="one">%1$d zonder 24u-waarde</item>
+        <item quantity="other">%1$d zonder 24u-waarde</item>
+    </plurals>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="one">%1$d zonder waarde vandaag</item>
+        <item quantity="other">%1$d zonder waarde vandaag</item>
+    </plurals>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="one">%1$d stijgt</item>
+        <item quantity="other">%1$d stijgen</item>
+    </plurals>
+
+    <!-- Merkliste: Zeile eines Paars -->
+    <string name="watchlist_row_disabled">%1$s · uitgeschakeld</string>
+    <string name="watchlist_row_outdated">%1$s · verouderd</string>
+    <string name="watchlist_row_outdated_age">verouderd · %1$s</string>
+    <string name="watchlist_row_price_unchanged_since">Koers ongewijzigd sinds %1$s</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s niet bereikbaar</string>
+
+    <!-- Merkliste: Suche, Sprungknopf, Sortieren nach Spalte -->
+    <string name="watchlist_jump_end">Naar het einde</string>
+    <string name="watchlist_jump_start">Naar het begin</string>
+    <string name="watchlist_search_close">Zoeken sluiten</string>
+    <string name="watchlist_search_empty">Geen resultaten voor ‘%1$s’</string>
+    <string name="watchlist_search_hint">Zoek paar, naam of beurs</string>
+    <string name="watchlist_search_open">Zoeken</string>
+    <string name="watchlist_sort_ascending">oplopend</string>
+    <string name="watchlist_sort_descending">aflopend</string>
+    <string name="watchlist_sort_hint">Houd een paar vast en sleep, of gebruik de greep. Favorieten blijven bovenaan.</string>
+    <string name="watchlist_sort_name">Naam</string>
+    <string name="watchlist_sort_own">Eigen volgorde</string>
+    <string name="watchlist_sort_price">Koers</string>
+
+    <!-- Merkliste: Mehrfachauswahl, Ansichten, Entfernen -->
+    <string name="watchlist_clear">Volglijst wissen</string>
+    <string name="watchlist_clear_confirm">Alle paren uit de volglijst verwijderen? Hun alarmen worden ook verwijderd.</string>
+    <plurals name="watchlist_disabled_count">
+        <item quantity="one">%1$d uitgeschakeld</item>
+        <item quantity="other">%1$d uitgeschakeld</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_action">Verwijderen</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="one">%1$d paar verwijderen dat niet meer op zijn beurs wordt verhandeld? Zijn alarmen worden ook verwijderd.</item>
+        <item quantity="other">%1$d paren verwijderen die niet meer op hun beurs worden verhandeld? Hun alarmen worden ook verwijderd.</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_menu">Niet-verhandelde paren verwijderen (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">Niet-verhandelde paren verwijderen</string>
+    <string name="watchlist_removed">%1$s verwijderd</string>
+    <plurals name="watchlist_removed_count">
+        <item quantity="one">%1$d paar verwijderd</item>
+        <item quantity="other">%1$d paren verwijderd</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="one">%1$d niet-verhandeld paar verwijderd</item>
+        <item quantity="other">%1$d niet-verhandelde paren verwijderd</item>
+    </plurals>
+    <string name="watchlist_select">Selecteren</string>
+    <string name="watchlist_select_all">Alles selecteren</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="one">%1$d geselecteerd</item>
+        <item quantity="other">%1$d geselecteerd</item>
+    </plurals>
+    <string name="watchlist_show_all">Alles tonen</string>
+    <string name="watchlist_show_only_disabled">Alleen uitgeschakelde tonen</string>
+    <string name="watchlist_show_only_stale">Alleen verouderde tonen</string>
+
+    <!-- Merkliste: weitere Texte (Gruppen, Alarme, Mitteilung, Sprachausgabe) -->
+    <plurals name="watchlist_alarms_count">
+        <item quantity="one">Alarm (%1$d)</item>
+        <item quantity="other">Alarmen (%1$d)</item>
+    </plurals>
+    <string name="watchlist_favorites_empty_hint">Nog geen favorieten. Veeg een paar naar rechts, of open het en tik op ‘Favoriet’.</string>
+    <string name="watchlist_group_empty_hint">Houd een groep ingedrukt om de paren te kiezen.</string>
+    <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
+    <string name="watchlist_groups_empty_hint">Hier verschijnen je groepen</string>
+    <string name="watchlist_notification">Melding</string>
+    <string name="watchlist_tts">Koers voorlezen</string>
+    <string name="watchlist_tts_speech_on">Spraak staat aan. Je kunt dit wijzigen bij Instellingen › Geavanceerd › Gesproken uitvoer.</string>
+
+    <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
+    <string name="watch_action_add_widget">Als widget toevoegen</string>
+    <string name="watch_action_alarm">Alarm</string>
+    <string name="watch_action_favorite">Favoriet</string>
+    <string name="watch_action_why">Wat beweegt mee?</string>
+    <string name="watch_action_why_short">Beweegt mee?</string>
+    <string name="watch_change_mark">Mark</string>
+    <string name="watch_disable">Uitschakelen</string>
+    <string name="watch_disable_hint">Geen opvragingen, geen meldingen</string>
+    <string name="watch_disabled">Uitgeschakeld</string>
+    <string name="watch_disabled_banner">%1$s uitgeschakeld</string>
+    <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
+    <string name="watch_edit_alarms_warning">Alarmen blijven bestaan – controleer de drempels</string>
+    <!-- Titel des Formulars und Screenreader-Name des Stifts neben dem Paar -->
+    <string name="watch_edit_title">Paar bewerken</string>
+    <string name="watch_enable">Inschakelen</string>
+    <string name="watch_enable_hint">Koersen en meldingen weer aan</string>
+    <string name="watch_enabled_banner">%1$s ingeschakeld</string>
+    <string name="watch_error_offline">Geen verbinding</string>
+    <string name="watch_gesture_hint_short">Tik: alarm en ‘Wat beweegt mee?’ · lang indrukken om te selecteren · veeg naar links om te verwijderen · naar rechts voor favoriet</string>
+    <string name="watch_hint_tap_why">Tik op een munt om te zien wat er mee beweegt</string>
+    <string name="watch_not_traded">Wordt niet meer verhandeld op deze beurs</string>
+    <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
+    <string name="watch_preview_not_watched">Niet in de volglijst</string>
+    <string name="watch_price_mid">middenkoers (anders mark)</string>
+    <string name="watch_row_source_both">Wijziging en grafiek: %1$s</string>
+    <string name="watch_row_source_change">Wijziging: %1$s</string>
+    <string name="watch_row_source_chart">Grafiek: %1$s</string>
+
+    <!-- Meldung nach dem Hinzufügen (ein Paar / mehrere Paare) -->
+    <string name="pair_added_watching">%1$s staat nu in je volglijst</string>
+    <!-- Ein Paar: pair_added_watching -->
+    <string name="pairs_added_watching">%1$s staan nu in je volglijst</string>
+
+    <!-- Favoriten -->
+    <string name="favorite_add">Aan favorieten toevoegen</string>
+    <string name="favorite_added">%1$s toegevoegd aan favorieten</string>
+    <string name="favorite_remove">Uit favorieten verwijderen</string>
+    <string name="favorite_removed">%1$s verwijderd uit favorieten</string>
+    <string name="hint_favorites_list">Tip: veeg een rij naar rechts om er een favoriet van te maken – favorieten staan bovenaan.</string>
+
+    <!-- Gruppen und Chips der Merkliste -->
+    <string name="group_add">Nieuwe groep</string>
+    <string name="group_all">Alle</string>
+    <!-- Alpha-Tokens: Chip «α», Art vor der Glocke, «inkl. Alpha-Tokens» -->
+    <string name="group_alpha">Alpha-tokens</string>
+    <string name="group_delete">Groep verwijderen</string>
+    <string name="group_delete_confirm">De paren blijven in je volglijst.</string>
+    <string name="group_done">Klaar</string>
+    <string name="group_edit_title">Groep bewerken</string>
+    <!-- Chip «FAV» (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird vorgelesen) -->
+    <string name="group_favorites">Favorieten</string>
+    <string name="group_in_other">in %1$s</string>
+    <string name="group_name">Groepsnaam</string>
+    <string name="group_new">Nieuwe groep…</string>
+    <string name="group_next">Volgende</string>
+    <string name="group_none">Geen groep</string>
+    <string name="group_rename">Hernoemen</string>
+    <string name="group_search_hint">Zoek paar, naam of beurs</string>
+    <string name="group_target">In groep</string>
+    <string name="group_title">Groep</string>
+    <!-- Gruppen-Chip «Token» (alle Paare ausser der Gruppe «TradFi»), Screenreader und Widget-Einrichtung -->
+    <string name="group_tokens">Tokens</string>
+    <string name="group_value">Groep: %1$s</string>
+
+    <!-- Notiz zum Paar -->
+    <string name="note_add">Notitie toevoegen</string>
+    <string name="note_edit">Notitie bewerken</string>
+    <string name="note_hint">bijv. instap op 0.42, doel 0.60</string>
+    <string name="note_remove">Verwijderen</string>
+    <string name="note_title">Notitie</string>
+
+    <!-- Reihenfolge ändern (Sortiermodus, Screenreader-Aktionen) -->
+    <string name="sort_drag_handle">Slepen om te verplaatsen</string>
+    <string name="sort_move_bottom">Helemaal naar beneden</string>
+    <string name="sort_move_down">Omlaag</string>
+    <string name="sort_move_top">Helemaal naar boven</string>
+    <string name="sort_move_up">Omhoog</string>
+</resources>

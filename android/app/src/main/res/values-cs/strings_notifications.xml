@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Texte der Mitteilungen -->
+    <string name="notification_activity_title">%1$s · %2$s</string>
+    <string name="notification_alarm_text">%1$s — nyní %2$s</string>
+    <string name="notification_alarm_title">Alarm: %1$s · %2$s</string>
+    <string name="notification_depeg_action_exchange">Otevřít burzu</string>
+    <string name="notification_depeg_text">Hodnoty v aplikaci dál počítají s USDT = 1.</string>
+    <string name="notification_depeg_title">USDT na %1$s USD (%2$s)</string>
+    <string name="notification_fng_above">Index stoupl nad %1$d – podle tohoto indexu na trhu převládá chamtivost.</string>
+    <string name="notification_fng_below">Index klesl pod %1$d – podle tohoto indexu na trhu převládá strach.</string>
+    <string name="notification_fng_title">Fear &amp; Greed: %1$d</string>
+    <string name="notification_gas_btc_text">Pod vaším limitem %1$s sat/vB · Převod ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Poplatek Bitcoin: %1$s sat/vB</string>
+    <string name="notification_gas_eth_text">Pod vaším limitem %1$s gwei · Převod ≈ %2$s</string>
+    <string name="notification_gas_eth_title">Ethereum gas: %1$s gwei</string>
+    <string name="notification_indicator_above">Nad tvou hranicí %1$s – naměřená hodnota, ne doporučení.</string>
+    <string name="notification_indicator_below">Pod tvou hranicí %1$s – naměřená hodnota, ne doporučení.</string>
+    <string name="notification_indicator_title">%1$s: %2$s</string>
+    <string name="notification_macro_title">Dnes ekonomická data</string>
+    <string name="notification_portfolio_alarm_locked">Tvůj alarm se spustil – otevři aplikaci pro podrobnosti.</string>
+    <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
+    <string name="notification_portfolio_alarm_text">%1$s – nyní %2$s</string>
+    <string name="notification_portfolio_alarm_title">Hodnota portfolia</string>
+    <string name="notification_price_change">%1$s, z %2$s (před %3$s)</string>
+    <string name="notification_price_change_no_age">%1$s, z %2$s</string>
+    <string name="notification_price_first">První oznámení pro tento pár</string>
+    <plurals name="notification_price_overflow_title">
+        <item quantity="one">+%1$d další kurz</item>
+        <item quantity="few">+%1$d další kurzy</item>
+        <item quantity="many">+%1$d dalšího kurzu</item>
+        <item quantity="other">+%1$d dalších kurzů</item>
+    </plurals>
+    <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
+    <string name="notification_refreshing">Aktualizace cen…</string>
+    <string name="notification_volume_spike_text">Objem %1$s× obvyklého za poslední hodinu</string>
+
+    <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
+    <string name="channel_alarms">Alarmy</string>
+    <string name="channel_alarms_description">Oznámení při spuštění cenového alarmu.</string>
+    <string name="channel_alarms_quiet">Alarmy (noční klid)</string>
+    <string name="channel_alarms_quiet_description">Tiché alarmy během nočního klidu.</string>
+    <string name="channel_alarms_silent">Alarmy (tiše)</string>
+    <string name="channel_alarms_sound">Alarmy (jen zvuk)</string>
+    <string name="channel_alarms_sound_vibrate">Alarmy (zvuk a vibrace)</string>
+    <string name="channel_alarms_vibrate">Alarmy (jen vibrace)</string>
+    <string name="channel_prices">Cenová oznámení</string>
+    <string name="channel_prices_description">Tiché oznámení s aktuální cenou páru.</string>
+    <string name="channel_service">Aktualizace cen</string>
+    <string name="channel_service_description">Upozornění během aktualizace cen.</string>
+    <string name="neutral_channel_market">Tržní upozornění</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed, poplatky za gas, neobvyklá aktivita a ekonomické termíny</string>
+
+    <!-- Sprachausgabe -->
+    <string name="tts_alarm">Alarm. %1$s, %2$s %3$s %4$s, nyní %5$s</string>
+    <string name="tts_direction_down">klesl</string>
+    <string name="tts_direction_funding_above">s vysokým fundingem</string>
+    <string name="tts_direction_funding_below">s nízkým fundingem</string>
+    <string name="tts_direction_move">výrazně se hýbe</string>
+    <string name="tts_direction_near_high">je blízko maxima</string>
+    <string name="tts_direction_near_low">je blízko minima</string>
+    <string name="tts_direction_oi_down">s klesajícím open interest</string>
+    <string name="tts_direction_oi_up">s rostoucím open interest</string>
+    <string name="tts_direction_up">vzrostl</string>
+    <string name="tts_direction_volume_spike">se skokem objemu</string>
+    <string name="tts_price">%1$s, %2$s %3$s, %4$s</string>
+</resources>

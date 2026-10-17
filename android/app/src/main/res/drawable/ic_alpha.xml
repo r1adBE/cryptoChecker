@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- «Alpha» bei den Gruppen-Chips, vor der Glocke und in den Einstellungen: griechisches α als Umriss
+     (wie AlphaIconShape in WatchlistGroups.swift), Strichstärke 2,2 wie die übrigen Symbole – gleiche
+     Grösse und Mitte wie Raute und Bank statt eines Schriftzeichens -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FF000000"
+        android:strokeWidth="2.2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M20.45,3.88C19.41,11.03 17.33,15.32 14.99,17.52C13.17,19.21 11.22,20.12 9.01,20.12C5.11,20.12 2.25,16.74 2.25,12.32C2.25,7.9 5.24,4.52 9.01,4.52C12.39,4.52 14.34,7.38 15.51,11.28C16.68,15.32 18.11,20.12 21.75,20.12" />
+</vector>

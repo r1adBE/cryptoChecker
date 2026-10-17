@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Begrüssung beim ersten Start -->
+    <string name="welcome_alert">Larma – kurs, procent, volym och ovanliga rörelser</string>
+    <string name="welcome_alert_q">När ska jag få besked?</string>
+    <string name="welcome_text">Dina kurser. Dina larm. Din översikt.\nInget konto. Ingen reklam. Ingen spårning.</string>
+    <string name="welcome_understand">Förstå – vad som rör sig med en kurs just nu</string>
+    <string name="welcome_understand_q">Vad rör sig med?</string>
+    <string name="welcome_watch">Bevaka – dina mynt, kurser och förlopp</string>
+    <string name="welcome_watch_q">Vad händer?</string>
+
+    <!-- Start-Coins (Vorschlagsliste nach der Begrüssung) -->
+    <string name="starter_add_selected">Lägg till i bevakningslistan (%1$d)</string>
+    <string name="starter_loading_prices">Läser in kurser…</string>
+    <string name="starter_search_coin">Sök ett annat mynt</string>
+    <string name="starter_select_all">Markera alla</string>
+    <string name="starter_select_none">Avmarkera alla</string>
+    <string name="starter_text">Avmarkera det du inte vill ha och lägg till resten på en gång. Du kan ändra börs och par senare.</string>
+    <string name="starter_title">Börja med de här mynten</string>
+    <string name="starter_watch_alarm_hint">Följ kursen, ställ in ett larm</string>
+</resources>

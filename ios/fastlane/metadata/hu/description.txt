@@ -1,0 +1,41 @@
+Riasztás, ha a Bitcoin eléri az árfolyamodat – attól a tőzsdétől, amelyet tényleg használsz. A tőzsdéd árfolyama, nem átlag – ingyen, fiók nélkül.
+
+AMITŐL MÁS
+• A te tőzsdéd, nem átlag: minden sor a pár utolsó árát mutatja azon a tőzsdén, amelyet választottál – Binance, Coinbase, Kraken, OKX, Bybit és még sok más.
+• Riasztás, amely egyszer szól: „Szólj, ha a BTC 100 000 USDT fölé megy.” Akkor szól, amikor az ár átlépi a szintet, nem minden frissítéskor – az „Egyszer” kikapcsolja, a „Minden alkalommal” újra élesíti, amikor az ár visszatér.
+• „Mi mozog vele együtt?”: tényezőlista egy coinhoz – teljes piac, forgalom, volatilitás, funding és open interest, távolság a csúcstól vagy a mélyponttól, Fear & Greed. Azt mutatja, mi mozog ugyanabban az időben – nem ok, nem hír, nem befektetési tanácsadás.
+• Nincs fiók, nincs reklám, nincs követés. A fejlesztő semmilyen adatodat nem kapja meg.
+
+ŐSZINTÉN AZ ADATOKRÓL
+• A „Takarékos” az alapbeállítás: az árak megnyitáskor és időközönként a háttérben frissülnek. Az „Élő, amíg nyitva van” élő árakat ad a Binance, Bybit, OKX, Coinbase és Kraken párokhoz, amíg a lista nyitva van.
+• A %-os változás és a diagramok elsőként a pár saját tőzsdéjéről jönnek; ha annak nincsenek gyertyái, az app a Binance-t vagy a Coinbase-t használja, és ezt jelzi.
+• Fear & Greed, dominancia és on-chain értékek az alternative.me-től, a CoinGeckótól és a Coin Metricstől.
+• Bezárt alkalmazásnál az iOS ritkán ellenőriz – gyakran csak órák múlva, elhúzással bezárt appnál egyáltalán nem. A legmegbízhatóbb nyitott alkalmazással vagy Élő tevékenységgel. A közben lévő rövid kiugrások kimaradhatnak; az app ezt meg is mondja.
+• Az összegek az eszközön maradnak, hacsak te magad nem exportálod őket (CSV, mentés). Az árakhoz csak a pár jelölése megy a pár tőzsdéjéhez; ezen felül devizaárfolyamok (Frankfurter), piaci adatok és logók (CoinGecko, Binance), adattükrök (GitHub). Ha címeket vagy egy xpubot figyelsz, a nyilvános blokklánc-csomópontok látják a címeket (xpubnál a származtatottakat) és az IP-címedet.
+
+FIGYELŐLISTA
+• 41 piac 32 tőzsdén: spot és határidős, DEX tokenek a DexScreeneren át, igény szerint részvények, arany és devizák (TradFi)
+• Második sor „≈ érték” 31 pénznem egyikében (EUR, CHF, USD …), devizaárfolyamon átszámítva
+• Minigrafikon és %-os változás 24 órára vagy 00:00 óta a saját időzónádban
+• Csoportok, kedvencek, rendezés húzással és jegyzet coinonként
+
+RIASZTÁSOK
+• Ár egy szint fölött vagy alatt, illetve emelkedés vagy esés egy százalékkal – a saját pénznemedben is, pl. 60 000 EUR egy USDT-páron
+• x %-os mozgás egy időablakon belül, forgalmi kiugrás
+• Időérzékeny értesítés, választható riasztási hang, igény szerint felolvasás
+• Csendes órák és „Riasztás tesztelése”: előre hallod, hogyan érkezik egy riasztás
+
+PIAC
+• Szokatlan aktivitás: szokatlan ár- és forgalmi mozgások a listádon, igény szerint értesítéssel
+• Crypto Pulse, Fear & Greed, Bitcoin-mutatók, funding és open interest – puszta mért értékként
+• Hálózati díjak Ethereumhoz, Bitcoinhoz és továbbiakhoz, gas-riasztással
+
+EZENKÍVÜL
+• Widgetek a Főképernyőre és a zárolási képernyőre, Live Activity egy coinhoz
+• Portfólió opcionálisan (a Beállításokban): vételek, eladások, cserék, átvezetések, jutalmak, befizetések és kifizetések; FIFO (alapértelmezett) vagy átlag (Ø); csak olvasható címek, seed nélkül: BTC (xpub is), ETH és EVM-láncok, SOL, TRX, XRP, LTC és TON; CSV-import Relai-, Swissquote- és Kraken-fájlokból; éves áttekintés CSV-ben; saját zár
+• Mindenkinek olvasható: zöld/piros vagy kék/narancs, előjel és nyíl a szín mellett, Dynamic Type; a VoiceOver minden sort egy mondatként olvas fel
+• Mentés és visszaállítás a Fájlok appon keresztül
+• Világos és sötét mód, öt kiemelőszín, 31 nyelv
+• Nyílt forráskód (MIT) – a kód nyilvános a GitHubon
+
+Megjegyzés: a Crypto Checker árakat és egy általad megadott portfóliót jelenít meg. Nem tőzsde és nem tárca, nem kereskedik és nem ad befektetési tanácsot.

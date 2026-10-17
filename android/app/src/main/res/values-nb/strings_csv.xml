@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: CSV-Import -->
+    <string name="portfolio_csv_import_action">Importer CSV</string>
+    <string name="portfolio_csv_import_all_transfer">Alle til egen wallet</string>
+    <string name="portfolio_csv_import_all_withdrawal">Alle forlater porteføljen</string>
+    <string name="portfolio_csv_import_choice_proposed">Forslag: passer med %1$s</string>
+    <string name="portfolio_csv_import_choice_transfer">Til egen wallet (overføring)</string>
+    <string name="portfolio_csv_import_choice_withdrawal">Forlater porteføljen (uttak)</string>
+    <string name="portfolio_csv_import_choose_each">Velg for hvert uttak hvor det gikk.</string>
+    <string name="portfolio_csv_import_columns">Gjenkjente kolonner: %1$s</string>
+    <string name="portfolio_csv_import_confirm">Importer (%1$d)</string>
+    <string name="portfolio_csv_import_date_day_first">Dag/Måned</string>
+    <string name="portfolio_csv_import_date_month_first">Måned/Dag</string>
+    <string name="portfolio_csv_import_date_order">Tvetydige datoer (f.eks. 03/04/2024) leses som:</string>
+    <string name="portfolio_csv_import_decimal">Tvetydige tall (f.eks. %1$s) leses som:</string>
+    <plurals name="portfolio_csv_import_done">
+        <item quantity="one">%d transaksjon importert</item>
+        <item quantity="other">%d transaksjoner importert</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_duplicates">
+        <item quantity="one">%d allerede importert (hoppet over)</item>
+        <item quantity="other">%d allerede importert (hoppet over)</item>
+    </plurals>
+    <string name="portfolio_csv_import_format">Format: %1$s</string>
+    <string name="portfolio_csv_import_line">Linje %1$d: %2$s</string>
+    <string name="portfolio_csv_import_loading">Leser fil og dagskurser…</string>
+    <string name="portfolio_csv_import_missing_fx">Ingen dagskurs for linje %1$s – importert uten pris og gebyr.</string>
+    <string name="portfolio_csv_import_missing_price">Ingen pris i filen for linje %1$s – importert uten pris.</string>
+    <string name="portfolio_csv_import_more">+ %1$d til</string>
+    <plurals name="portfolio_csv_import_new">
+        <item quantity="one">%d ny transaksjon</item>
+        <item quantity="other">%d nye transaksjoner</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_skipped">
+        <item quantity="one">%d linje hoppet over</item>
+        <item quantity="other">%d linjer hoppet over</item>
+    </plurals>
+    <string name="portfolio_csv_import_stable_swaps">Kjøp og salg mot stablecoins (USDT, USDC …) bokføres som bytte – stablecoinen vises i beholdningen din.</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">Flere mulige treff – velg det riktige eller ingen.</string>
+    <string name="portfolio_csv_import_transfer_fee">Nettverksgebyr: %1$s</string>
+    <string name="portfolio_csv_import_transfer_link">Bokfør som én overføring</string>
+    <string name="portfolio_csv_import_transfer_stored">Motpart fra en tidligere import</string>
+    <string name="portfolio_csv_import_transfers_hint">Et uttak og det tilsvarende innskuddet av samme coin blir én overføring: kjøpspris og eiertid beholdes, differansen regnes som nettverksgebyr.</string>
+    <string name="portfolio_csv_import_transfers_title">Overføringer mellom kontoene dine</string>
+    <string name="portfolio_csv_import_unreadable">Fant ingen støttede transaksjoner. Støttet: CSV-eksporter fra Relai, Swissquote, Kraken, Binance, Coinbase og Bitpanda.</string>
+    <string name="portfolio_csv_import_withdrawals_title">Uttak – hvor ble coinene av?</string>
+    <string name="portfolio_csv_import_zone">Tidspunkter uten tidssone leses som: %1$s</string>
+    <string name="portfolio_csv_import_zone_device">Enhet (%1$s)</string>
+    <string name="portfolio_csv_skip_bad_date">uleselig dato</string>
+    <string name="portfolio_csv_skip_bad_number">uleselig tall</string>
+    <string name="portfolio_csv_skip_fee_exceeds">gebyr ≥ mottatt mengde</string>
+    <string name="portfolio_csv_skip_internal_move">flytting mellom dine egne kontoer – ingenting å bokføre</string>
+    <string name="portfolio_csv_skip_missing">felt mangler</string>
+    <string name="portfolio_csv_skip_not_crypto">ikke krypto</string>
+    <string name="portfolio_csv_skip_possible_duplicate">muligens allerede importert (nesten samme handel) – kontroller manuelt</string>
+    <string name="portfolio_csv_skip_two_fees">to gebyrer i ulike enheter – legg inn byttet manuelt</string>
+    <string name="portfolio_csv_skip_unsupported">typen støttes ikke</string>
+
+    <!-- Portfolio: Importe ansehen und rückgängig machen -->
+    <string name="portfolio_import_undo">Angre</string>
+    <plurals name="portfolio_import_undo_confirm">
+        <item quantity="one">Slette den %d transaksjonen fra denne importen? Manuelle oppføringer og andre importer blir værende.</item>
+        <item quantity="other">Slette de %d transaksjonene fra denne importen? Manuelle oppføringer og andre importer blir værende.</item>
+    </plurals>
+    <string name="portfolio_import_undo_title">Angre importen?</string>
+    <plurals name="portfolio_import_undone">
+        <item quantity="one">%d importert transaksjon fjernet</item>
+        <item quantity="other">%d importerte transaksjoner fjernet</item>
+    </plurals>
+    <plurals name="portfolio_imports_count">
+        <item quantity="one">%d transaksjon</item>
+        <item quantity="other">%d transaksjoner</item>
+    </plurals>
+    <string name="portfolio_imports_empty">Ingen importer</string>
+    <string name="portfolio_imports_title">Importer</string>
+</resources>

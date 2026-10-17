@@ -1,0 +1,38 @@
+{
+ "market": "Gemini",
+ "recordedAt": "2026-10-16T23:27:56Z",
+ "description": "Recorded live by android/tools/record_exchange_fixtures.py. Real responses: the contract tests only check plausibility (parser does not throw, last > 0, batch has tickers, pair list contains the pair). Skipped: nothing. Trimmed for the repository: long lists keep their first 25 entries plus every entry naming the tested pair.",
+ "cases": [
+  {
+   "kind": "single",
+   "name": "recorded single 2026-10-16T23:27:56Z",
+   "market": "Gemini",
+   "requestId": 0,
+   "request": "GET https://api.gemini.com/v1/pubticker/btcusd",
+   "body": "{\"bid\":\"81535.44000\",\"ask\":\"81535.45000\",\"last\":\"81535.45000\",\"volume\":{\"BTC\":\"97.53656343\",\"USD\":\"7952687.5907185935\",\"timestamp\":1792193280000}}",
+   "pair": {
+    "base": "BTC",
+    "quote": "USD",
+    "id": "btcusd",
+    "contract": "NONE"
+   }
+  },
+  {
+   "kind": "bulk",
+   "name": "recorded bulk 2026-10-16T23:27:56Z",
+   "market": "Gemini",
+   "requestId": 0,
+   "request": "GET https://api.gemini.com/v1/pricefeed",
+   "body": "[{\"pair\":\"ALIUSD\",\"price\":\"0.001257\",\"percentChange24h\":\"0.1335\"},{\"pair\":\"DRIFTRLUSD\",\"price\":\"0.0163\",\"percentChange24h\":\"0.0316\"},{\"pair\":\"SUIUSDC\",\"price\":\"1.0185\",\"percentChange24h\":\"-0.0216\"},{\"pair\":\"JTOUSD\",\"price\":\"0.4627\",\"percentChange24h\":\"-0.0049\"},{\"pair\":\"HYPEUSDC\",\"price\":\"80.0892\",\"percentChange24h\":\"-0.0199\"},{\"pair\":\"BONKUSDC\",\"price\":\"0.000003053\",\"percentChange24h\":\"0.0000\"},{\"pair\":\"SOLRLUSD\",\"price\":\"104.162\",\"percentChange24h\":\"-0.0101\"},{\"pair\":\"JITOSOLUSDC\",\"price\":\"155.8295\",\"percentChange24h\":\"0.0000\"},{\"pair\":\"ALIUSDC\",\"price\":\"0.001257\",\"percentChange24h\":\"0.1335\"},{\"pair\":\"AVAXGUSDPERP\",\"price\":\"9.981\",\"percentChange24h\":\"-0.0029\"},{\"pair\":\"XAUTUSD\",\"price\":\"4151.5286\",\"percentChange24h\":\"0.0000\"},{\"pair\":\"ETHRLUSD\",\"price\":\"2419.47\",\"percentChange24h\":\"-0.0073\"},{\"pair\":\"INJUSDC\",\"price\":\"8.6626\",\"percentChange24h\":\"0.0165\"},{\"pair\":\"UNIRLUSD\",\"price\":\"7.3224\",\"percentChange24h\":\"-0.0102\"},{\"pair\":\"SANDUSD\",\"price\":\"0.05631\",\"percentChange24h\":\"-0.0358\"},{\"pair\":\"AAVEUSDC\",\"price\":\"154.801\",\"percentChange24h\":\"-0.0125\"},{\"pair\":\"BTCUSDCPERP\",\"price\":\"81896.5\",\"percentChange24h\":\"-0.0085\"},{\"pair\":\"APEUSDC\",\"price\":\"0.1506\",\"percentChange24h\":\"0.0568\"},{\"pair\":\"BTCGUSDPERP\",\"price\":\"81896.5\",\"percentChange24h\":\"-0.0085\"},{\"pair\":\"ENSRLUSD\",\"price\":\"5.48\",\"percentChange24h\":\"0.0000\"},{\"pair\":\"USATRLUSD\",\"price\":\"1.0094\",\"percentChange24h\":\"0.0000\"},{\"pair\":\"KMNORLUSD\",\"price\":\"0.038138\",\"percentChange24h\":\"-0.0098\"},{\"pair\":\"MONGUSD\",\"price\":\"0.022835\",\"percentChange24h\":\"-0.0384\"},{\"pair\":\"CHILLGUYRLUSD\",\"price\":\"0.01\",\"percentChange24h\":\"0.0309\"},{\"pair\":\"USDGUSDC\",\"price\":\"0.99\",\"percentChange24h\":\"0.0000\"},{\"pair\":\"BTCUSD\",\"price\":\"81535.45\",\"percentChange24h\":\"-0.0066\"},{\"pair\":\"BTCUSDC\",\"price\":\"81535.45\",\"percentChange24h\":\"-0.0066\"},{\"pair\":\"BTCUSDT\",\"price\":\"81572.93\",\"percentChange24h\":\"-0.0111\"}]"
+  },
+  {
+   "kind": "pairs",
+   "name": "recorded pairs 2026-10-16T23:27:56Z",
+   "market": "Gemini",
+   "requestId": 0,
+   "request": "GET https://api.gemini.com/v1/symbols",
+   "body": "[\"2zgusd\",\"2zrlusd\",\"2zusd\",\"2zusdc\",\"aavegusd\",\"aaverlusd\",\"aaveusd\",\"aaveusdc\",\"aligusd\",\"alirlusd\",\"aliusd\",\"aliusdc\",\"ampgusd\",\"amprlusd\",\"ampusd\",\"ampusdc\",\"apegusd\",\"aperlusd\",\"apeusd\",\"apeusdc\",\"arbgusd\",\"arbrlusd\",\"arbusd\",\"arbusdc\",\"atomgusd\",\"btcusd\",\"btcusdc\",\"btcusdcperp\",\"btcusdt\"]",
+   "contains": "btcusd"
+  }
+ ]
+}

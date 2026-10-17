@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="explorer_coin_back">همهٔ نتایج</string>
+    <plurals name="explorer_coin_exchanges">
+        <item quantity="one">%1$d صرافی</item>
+        <item quantity="other">%1$d صرافی</item>
+    </plurals>
+    <string name="explorer_coin_no_pairs">در فهرست‌های بارگیری‌شده جفتی برای این کوین نیست.</string>
+    <string name="explorer_coin_not_loaded">فهرست جفت‌ها هنوز بارگیری نشده</string>
+    <string name="explorer_coin_other_pairs">جفت‌های دیگر</string>
+    <string name="explorer_coin_show_pairs">نمایش جفت‌ها</string>
+    <string name="explorer_coin_suggested">پیشنهاد</string>
+    <string name="explorer_coins_title">کوین‌ها</string>
+    <string name="explorer_lists_load">بارگیری فهرست‌ها</string>
+    <string name="explorer_lists_loading">در حال بارگیری فهرست جفت‌ها… %1$d/%2$d</string>
+    <plurals name="explorer_lists_missing">
+        <item quantity="one">فهرست جفت‌های %1$d صرافی هنوز روی دستگاه نیست.</item>
+        <item quantity="other">فهرست جفت‌های %1$d صرافی هنوز روی دستگاه نیست.</item>
+    </plurals>
+    <string name="explorer_lists_privacy">فهرست عمومی کامل هر صرافی را بارگیری می‌کند – برای همه یکسان. جستجوی شما روی دستگاه می‌ماند.</string>
+    <!-- Paar hinzufügen: Suche über alle Börsen, zuletzt gesucht -->
+    <string name="explorer_recent_a11y">جستجوی اخیر: %1$s</string>
+    <string name="explorer_recent_clear">پاک کردن</string>
+    <string name="explorer_recent_clear_a11y">پاک کردن جستجوهای اخیر</string>
+    <string name="explorer_recent_title">جستجوهای اخیر</string>
+    <string name="explorer_search_choose_manually">صرافی و جفت را خودتان انتخاب کنید</string>
+    <string name="explorer_search_empty">نتیجه‌ای نیست.</string>
+    <string name="explorer_search_hint">جستجوی کوین، جفت یا صرافی</string>
+    <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
+    <string name="explorer_search_intro">نام یا نماد یک کوین را بنویسید، مثلاً Bitcoin یا BTC، سپس جفت را انتخاب کنید.</string>
+
+    <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
+    <string name="explorer_add_to_watchlist">افزودن به واچ‌لیست</string>
+    <string name="explorer_added_to_watchlist">به واچ‌لیست اضافه شد.</string>
+    <string name="explorer_already_in_watchlist">این جفت از قبل در واچ‌لیست است.</string>
+    <string name="explorer_exchange_missing">صرافی موردنظر نیست؟</string>
+    <string name="explorer_loading_pairs">در حال بارگیری جفت‌ها…</string>
+    <string name="explorer_no_pair_selected">ابتدا یک جفت انتخاب کنید.</string>
+    <string name="explorer_no_pairs_yet">هنوز جفتی برای این صرافی بارگیری نشده است.</string>
+    <plurals name="explorer_pairs_status">
+        <item quantity="one">%1$d جفت · به‌روزرسانی %2$s</item>
+        <item quantity="other">%1$d جفت · به‌روزرسانی %2$s</item>
+    </plurals>
+    <string name="explorer_pairs_title">جفت‌ها</string>
+    <string name="explorer_precise_title">پیشرفته / بر اساس صرافی</string>
+    <string name="explorer_price_loading">در حال بارگیری قیمت…</string>
+    <string name="explorer_select_market_hint">یک صرافی انتخاب کنید – جفت‌ها خودکار بارگیری می‌شوند.</string>
+    <string name="explorer_select_placeholder">لطفاً انتخاب کنید</string>
+    <string name="explorer_step_pair">انتخاب جفت</string>
+
+    <!-- Paar hinzufügen: Schnellfilter der Liste «Alle …-Paare» -->
+    <string name="explorer_filter_gainers">برندگان</string>
+    <string name="explorer_filter_losers">بازندگان</string>
+    <string name="explorer_filter_volume">حجم</string>
+
+    <!-- Paar hinzufügen: mehrere Paare auf einmal -->
+    <string name="bulk_all_pairs">همه جفت‌های %1$s این صرافی</string>
+    <plurals name="bulk_all_pairs_applied">
+        <item quantity="one">%1$d جفت %2$s پیدا شد</item>
+        <item quantity="other">%1$d جفت %2$s پیدا شد</item>
+    </plurals>
+    <string name="bulk_all_pairs_empty">در این صرافی برای نوع قرارداد انتخاب‌شده جفت %1$s وجود ندارد. ابتدا صرافی را همگام‌سازی کنید یا نوع قرارداد دیگری را امتحان کنید.</string>
+    <plurals name="explorer_add_all_pairs">
+        <item quantity="one">افزودن %1$d جفت به واچ‌لیست</item>
+        <item quantity="other">افزودن همه %1$d جفت به واچ‌لیست</item>
+    </plurals>
+    <plurals name="explorer_bulk_added">
+        <item quantity="one">%1$d اضافه شد، %2$d از قبل در واچ‌لیست بود.</item>
+        <item quantity="other">%1$d اضافه شد، %2$d از قبل در واچ‌لیست بود.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_text">
+        <item quantity="one">همه %1$d جفت %2$s از %3$s به فهرست اضافه می‌شوند. موارد موجود رد می‌شوند.</item>
+        <item quantity="other">همه %1$d جفت %2$s از %3$s به فهرست اضافه می‌شوند. موارد موجود رد می‌شوند.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_title">
+        <item quantity="one">%1$d جفت اضافه شود؟</item>
+        <item quantity="other">%1$d جفت اضافه شود؟</item>
+    </plurals>
+    <string name="explorer_bulk_hide_list">پنهان کردن فهرست</string>
+    <string name="explorer_bulk_show_list">نمایش فهرست</string>
+    <string name="explorer_bulk_tap_hint">برای انتخاب در بالا روی یک جفت بزنید.</string>
+    <string name="explorer_bulk_title">چند جفت به‌طور هم‌زمان</string>
+
+    <!-- Handelspaare einer Börse laden und wählen -->
+    <string name="explorer_sync_sheet_text">جفت‌های فعلی صرافی انتخاب‌شده را بارگیری می‌کند.</string>
+    <string name="explorer_no_pair_list">جفت‌ارزی وجود ندارد</string>
+    <string name="explorer_sync_sheet_last">آخرین همگام‌سازی: %1$s</string>
+    <string name="explorer_sync_never">هرگز</string>
+    <string name="explorer_sync_sheet_action">همین حالا همگام‌سازی کن!</string>
+    <string name="explorer_sync_sheet_title">به‌روزرسانی جفت‌ارزها</string>
+    <string name="explorer_field_coin">ارز پایه</string>
+    <string name="explorer_field_contract">نوع قرارداد</string>
+    <string name="explorer_field_exchange">بازار</string>
+    <string name="explorer_field_quote">ارز مظنه</string>
+    <string name="explorer_contract_spot">اسپات</string>
+    <string name="explorer_reload_pairs">همگام‌سازی</string>
+    <string name="sync_pairs_count">جفت‌های معاملاتی: %1$d</string>
+
+    <!-- Token von dezentralen Börsen (DEX) -->
+    <string name="dex_add">افزودن</string>
+    <string name="dex_added">%1$s به واچ‌لیست اضافه شد.</string>
+    <string name="dex_already">%1$s از قبل در واچ‌لیست است.</string>
+    <string name="dex_intro">توکن‌های خارج از صرافی‌های بزرگ، از صرافی‌های غیرمتمرکز (Uniswap، PancakeSwap، Raydium …) از طریق DexScreener. توکن را جست‌وجو کنید و یکی از استخرهای معاملاتی آن را اضافه کنید – قیمت‌ها به دلار آمریکا.</string>
+    <string name="dex_liquidity">نقدینگی %1$s</string>
+    <string name="dex_no_results">استخری پیدا نشد.</string>
+    <string name="dex_search">جست‌وجو</string>
+    <string name="dex_search_hint">نام، نماد یا آدرس توکن</string>
+
+    <!-- Art des Assets (Token, Alpha-Token, TradFi) -->
+    <string name="asset_kind_alpha">توکن Alpha</string>
+    <string name="asset_kind_token">توکن</string>
+    <string name="asset_kind_tradfi">TradFi</string>
+</resources>

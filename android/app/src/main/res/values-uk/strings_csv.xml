@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: CSV-Import -->
+    <string name="portfolio_csv_import_action">Імпорт CSV</string>
+    <string name="portfolio_csv_import_all_transfer">Усі у свій гаманець</string>
+    <string name="portfolio_csv_import_all_withdrawal">Усі виходять із портфеля</string>
+    <string name="portfolio_csv_import_choice_proposed">Пропозиція: збігається з %1$s</string>
+    <string name="portfolio_csv_import_choice_transfer">У свій гаманець (переказ)</string>
+    <string name="portfolio_csv_import_choice_withdrawal">Виходить із портфеля (виведення)</string>
+    <string name="portfolio_csv_import_choose_each">Виберіть для кожного виведення, куди воно пішло.</string>
+    <string name="portfolio_csv_import_columns">Розпізнані стовпці: %1$s</string>
+    <string name="portfolio_csv_import_confirm">Імпортувати (%1$d)</string>
+    <string name="portfolio_csv_import_date_day_first">День/Місяць</string>
+    <string name="portfolio_csv_import_date_month_first">Місяць/День</string>
+    <string name="portfolio_csv_import_date_order">Неоднозначні дати (напр. 03/04/2024) читати як:</string>
+    <string name="portfolio_csv_import_decimal">Неоднозначні числа (напр. %1$s) читати як:</string>
+    <plurals name="portfolio_csv_import_done">
+        <item quantity="one">%d транзакцію імпортовано</item>
+        <item quantity="few">%d транзакції імпортовано</item>
+        <item quantity="many">%d транзакцій імпортовано</item>
+        <item quantity="other">%d транзакцій імпортовано</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_duplicates">
+        <item quantity="one">Уже імпортовано (пропущено): %d</item>
+        <item quantity="few">Уже імпортовано (пропущено): %d</item>
+        <item quantity="many">Уже імпортовано (пропущено): %d</item>
+        <item quantity="other">Уже імпортовано (пропущено): %d</item>
+    </plurals>
+    <string name="portfolio_csv_import_format">Формат: %1$s</string>
+    <string name="portfolio_csv_import_line">Рядок %1$d: %2$s</string>
+    <string name="portfolio_csv_import_loading">Читання файлу та денних курсів…</string>
+    <string name="portfolio_csv_import_missing_fx">Немає денного курсу для рядків %1$s – імпортовано без ціни й комісії.</string>
+    <string name="portfolio_csv_import_missing_price">У файлі немає ціни для рядків %1$s – імпортовано без ціни.</string>
+    <string name="portfolio_csv_import_more">+ ще %1$d</string>
+    <plurals name="portfolio_csv_import_new">
+        <item quantity="one">%d нова транзакція</item>
+        <item quantity="few">%d нові транзакції</item>
+        <item quantity="many">%d нових транзакцій</item>
+        <item quantity="other">%d нових транзакцій</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_skipped">
+        <item quantity="one">%d рядок пропущено</item>
+        <item quantity="few">%d рядки пропущено</item>
+        <item quantity="many">%d рядків пропущено</item>
+        <item quantity="other">%d рядків пропущено</item>
+    </plurals>
+    <string name="portfolio_csv_import_stable_swaps">Купівлі та продажі за стейблкоїни (USDT, USDC …) записуються як обмін – стейблкоїн з’являється у ваших активах.</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">Можливо кілька збігів – виберіть правильний або жодного.</string>
+    <string name="portfolio_csv_import_transfer_fee">Комісія мережі: %1$s</string>
+    <string name="portfolio_csv_import_transfer_link">Записати як один переказ</string>
+    <string name="portfolio_csv_import_transfer_stored">Пара з попереднього імпорту</string>
+    <string name="portfolio_csv_import_transfers_hint">Виведення та відповідний депозит тієї самої монети стають одним переказом: ціна купівлі й строк володіння зберігаються, різниця вважається комісією мережі.</string>
+    <string name="portfolio_csv_import_transfers_title">Перекази між вашими рахунками</string>
+    <string name="portfolio_csv_import_unreadable">Підтримуваних транзакцій не знайдено. Підтримуються: CSV-експорти Relai, Swissquote, Kraken, Binance, Coinbase і Bitpanda.</string>
+    <string name="portfolio_csv_import_withdrawals_title">Виведення – куди пішли монети?</string>
+    <string name="portfolio_csv_import_zone">Час без часового поясу читається як: %1$s</string>
+    <string name="portfolio_csv_import_zone_device">Пристрій (%1$s)</string>
+    <string name="portfolio_csv_skip_bad_date">нечитабельна дата</string>
+    <string name="portfolio_csv_skip_bad_number">нечитабельне число</string>
+    <string name="portfolio_csv_skip_fee_exceeds">комісія ≥ отриманої кількості</string>
+    <string name="portfolio_csv_skip_internal_move">переміщення між вашими рахунками – записувати нічого</string>
+    <string name="portfolio_csv_skip_missing">немає поля</string>
+    <string name="portfolio_csv_skip_not_crypto">не криптовалюта</string>
+    <string name="portfolio_csv_skip_possible_duplicate">можливо, вже імпортовано (майже та сама угода) – перевірте вручну</string>
+    <string name="portfolio_csv_skip_two_fees">дві комісії в різних одиницях – введіть обмін вручну</string>
+    <string name="portfolio_csv_skip_unsupported">непідтримуваний тип</string>
+
+    <!-- Portfolio: Importe ansehen und rückgängig machen -->
+    <string name="portfolio_import_undo">Скасувати</string>
+    <plurals name="portfolio_import_undo_confirm">
+        <item quantity="one">Видалити %d транзакцію цього імпорту? Ручні записи та інші імпорти залишаться.</item>
+        <item quantity="few">Видалити %d транзакції цього імпорту? Ручні записи та інші імпорти залишаться.</item>
+        <item quantity="many">Видалити %d транзакцій цього імпорту? Ручні записи та інші імпорти залишаться.</item>
+        <item quantity="other">Видалити %d транзакцій цього імпорту? Ручні записи та інші імпорти залишаться.</item>
+    </plurals>
+    <string name="portfolio_import_undo_title">Скасувати імпорт?</string>
+    <plurals name="portfolio_import_undone">
+        <item quantity="one">Видалено %d імпортовану транзакцію</item>
+        <item quantity="few">Видалено %d імпортовані транзакції</item>
+        <item quantity="many">Видалено %d імпортованих транзакцій</item>
+        <item quantity="other">Видалено %d імпортованих транзакцій</item>
+    </plurals>
+    <plurals name="portfolio_imports_count">
+        <item quantity="one">%d транзакція</item>
+        <item quantity="few">%d транзакції</item>
+        <item quantity="many">%d транзакцій</item>
+        <item quantity="other">%d транзакцій</item>
+    </plurals>
+    <string name="portfolio_imports_empty">Немає імпортів</string>
+    <string name="portfolio_imports_title">Імпорти</string>
+</resources>

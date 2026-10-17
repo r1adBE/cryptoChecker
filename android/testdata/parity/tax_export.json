@@ -1,0 +1,844 @@
+{
+ "_comment": "Steuer-Export (TaxExport.kt / TaxExport.swift): Gewinne (FIFO je Posten, Ø je Verkauf) und Einkünfte eines Jahrs in Ortszeit (zone), Devisenkurs des Tags oder bis 7 Tage davor, CSV wie der Stichtag-Export. Erwartete CSV-Texte ohne BOM, Zeilen mit \\r\\n. Build 46: Ø-Einstand je Zugang zum Kurs seines Datums (laufender Ø in der Anzeigewährung); mehr verkauft als erfasst (ADA) = Zeile ohne Kaufpreis; Summe nur über vollständige Zeilen, dazu «Erlös ohne Kaufpreis»; Zeitzone als Kopfzeile; Einzahlung mit ursprünglichem Kaufdatum (acquiredTime) zählt ab diesem.",
+ "zone": "Europe/Zurich",
+ "year": 2025,
+ "currency": "CHF",
+ "rates": {
+  "19426": "0.92",
+  "19874": "0.9",
+  "20087": "0.905",
+  "20088": "0.906",
+  "20161": "0.88",
+  "20213": "0.83",
+  "20270": "0.8"
+ },
+ "trades": [
+  {
+   "id": 1,
+   "coin": "BTC",
+   "type": "BUY",
+   "amount": "1",
+   "price": "10000",
+   "time": 1678449600000
+  },
+  {
+   "id": 2,
+   "coin": "BTC",
+   "type": "BUY",
+   "amount": "1",
+   "price": "20000",
+   "time": 1717243200000,
+   "fee": "10",
+   "feeUnit": "QUOTE"
+  },
+  {
+   "id": 3,
+   "coin": "BTC",
+   "type": "SELL",
+   "amount": "1.5",
+   "price": "30000",
+   "time": 1742040000000,
+   "fee": "15",
+   "feeUnit": "QUOTE"
+  },
+  {
+   "id": 4,
+   "coin": "ETH",
+   "type": "DEPOSIT",
+   "amount": "2",
+   "price": null,
+   "time": 1704456000000,
+   "acquiredTime": 1678449600000
+  },
+  {
+   "id": 5,
+   "coin": "ETH",
+   "type": "SELL",
+   "amount": "1",
+   "price": "2000",
+   "time": 1735687800000
+  },
+  {
+   "id": 6,
+   "coin": "SOL",
+   "type": "REWARD",
+   "amount": "0.5",
+   "price": "100",
+   "time": 1739188800000
+  },
+  {
+   "id": 7,
+   "coin": "SOL",
+   "type": "REWARD",
+   "amount": "0.25",
+   "price": null,
+   "time": 1763640000000
+  },
+  {
+   "id": 8,
+   "coin": "SOL",
+   "type": "REWARD",
+   "amount": "1",
+   "price": "90",
+   "time": 1722513600000
+  },
+  {
+   "id": 9,
+   "coin": "BNB",
+   "type": "BUY",
+   "amount": "1",
+   "price": "300",
+   "time": 1735560000000
+  },
+  {
+   "id": 10,
+   "coin": "BTC",
+   "type": "BUY",
+   "amount": "0.1",
+   "price": "40000",
+   "time": 1746446400000,
+   "feeCoin": "BNB",
+   "feeCoinAmount": "0.01",
+   "feeCoinPrice": "600"
+  },
+  {
+   "id": 11,
+   "coin": "BTC",
+   "type": "SELL",
+   "amount": "0.05",
+   "price": "50000",
+   "time": 1768046400000
+  },
+  {
+   "id": 12,
+   "coin": "ADA",
+   "type": "SELL",
+   "amount": "100",
+   "price": "0.5",
+   "time": 1751371200000
+  }
+ ],
+ "texts": {
+  "coin": "Coin",
+  "acquired": "Acquired",
+  "sold": "Sold",
+  "holdingDays": "Days held",
+  "longTerm": "> 1 year",
+  "amount": "Amount",
+  "costUsdt": "Cost USDT",
+  "proceedsUsdt": "Proceeds USDT",
+  "gainUsdt": "Gain USDT",
+  "costTarget": "Cost CHF",
+  "proceedsTarget": "Proceeds CHF",
+  "gainTarget": "Gain CHF",
+  "date": "Date",
+  "valueUsdt": "Value USDT",
+  "valueTarget": "Value CHF",
+  "note": "Note",
+  "total": "Total",
+  "yes": "yes",
+  "no": "no",
+  "costMissing": "purchase price missing",
+  "proceedsMissing": "sale price missing",
+  "feeLeg": "fee in other coin",
+  "feeValueMissing": "without value of fee in third coin",
+  "avgCostRates": "cost at purchase-date rates (avg)",
+  "valueMissing": "value at receipt missing",
+  "noFx": "no exchange rate",
+  "incomplete": "incomplete",
+  "oversold": "sold more than recorded",
+  "proceedsWithoutCost": "Proceeds without purchase price",
+  "timeZone": "Time zone: Europe/Zurich",
+  "swap": "swap",
+  "wallet": "wallet %s",
+  "walletUnspecified": "no exchange"
+ },
+ "header": [
+  "Realized gains 2025",
+  "Method: FIFO; no tax advice"
+ ],
+ "years": [
+  2026,
+  2025,
+  2024,
+  2023
+ ],
+ "defaultYear": {
+  "today": "2026-10-14",
+  "expected": 2025
+ },
+ "longTerm": [
+  [
+   "2023-03-10",
+   "2024-03-10",
+   false
+  ],
+  [
+   "2023-03-10",
+   "2024-03-11",
+   true
+  ],
+  [
+   "2024-02-29",
+   "2025-02-28",
+   false
+  ],
+  [
+   "2024-02-29",
+   "2025-03-01",
+   true
+  ],
+  [
+   "2024-12-31",
+   "2025-12-31",
+   false
+  ],
+  [
+   "2024-12-31",
+   "2026-01-01",
+   true
+  ]
+ ],
+ "rateOn": [
+  [
+   "2025-03-15",
+   "0.88"
+  ],
+  [
+   "2025-03-21",
+   "0.88"
+  ],
+  [
+   "2025-03-22",
+   null
+  ],
+  [
+   "2023-03-09",
+   null
+  ],
+  [
+   "2025-01-01",
+   "0.906"
+  ]
+ ],
+ "fxFrom": {
+  "FIFO": "2023-03-10",
+  "AVERAGE": "2023-03-10"
+ },
+ "cases": [
+  {
+   "method": "FIFO",
+   "separator": ";",
+   "decimal": ".",
+   "gains": [
+    "Realized gains 2025",
+    "\"Method: FIFO; no tax advice\"",
+    "Time zone: Europe/Zurich",
+    "Coin;Acquired;Sold;Days held;> 1 year;Amount;Cost USDT;Proceeds USDT;Gain USDT;Cost CHF;Proceeds CHF;Gain CHF;Note",
+    "ETH;2023-03-10;2025-01-01;663;yes;1;;2000.00;;;1812.00;;purchase price missing",
+    "BTC;2023-03-10;2025-03-15;736;yes;1;10000.00;29990.00;19990.00;9200.00;26391.20;17191.20;",
+    "BTC;2024-06-01;2025-03-15;287;no;0.5;10005.00;14995.00;4990.00;9004.50;13195.60;4191.10;",
+    "BNB;2024-12-30;2025-05-05;126;no;0.01;3.00;6.00;3.00;2.72;4.98;2.27;fee in other coin",
+    "ADA;;2025-07-01;;;100;;50.00;;;40.00;;purchase price missing, sold more than recorded",
+    "Total;;;;;;20008.00;44991.00;24983.00;18207.22;39591.78;21384.57;incomplete",
+    "Proceeds without purchase price;;;;;;;2050.00;;;1852.00;;incomplete"
+   ],
+   "income": [
+    "Realized gains 2025",
+    "\"Method: FIFO; no tax advice\"",
+    "Time zone: Europe/Zurich",
+    "Date;Coin;Amount;Value USDT;Value CHF;Note",
+    "2025-02-10;SOL;0.5;50.00;;no exchange rate",
+    "2025-11-20;SOL;0.25;;;value at receipt missing",
+    "Total;;;50.00;;incomplete"
+   ]
+  },
+  {
+   "method": "AVERAGE",
+   "separator": ";",
+   "decimal": ",",
+   "gains": [
+    "Realized gains 2025",
+    "\"Method: FIFO; no tax advice\"",
+    "Time zone: Europe/Zurich",
+    "Coin;Acquired;Sold;Days held;> 1 year;Amount;Cost USDT;Proceeds USDT;Gain USDT;Cost CHF;Proceeds CHF;Gain CHF;Note",
+    "ETH;;2025-01-01;;;1;;2000,00;;;1812,00;;purchase price missing",
+    "BTC;;2025-03-15;;;1,5;22507,50;44985,00;22477,50;20406,75;39586,80;19180,05;cost at purchase-date rates (avg)",
+    "BNB;;2025-05-05;;;0,01;3,00;6,00;3,00;2,72;4,98;2,27;fee in other coin, cost at purchase-date rates (avg)",
+    "ADA;;2025-07-01;;;100;;50,00;;;40,00;;purchase price missing, sold more than recorded",
+    "Total;;;;;;22510,50;44991,00;22480,50;20409,47;39591,78;19182,32;incomplete",
+    "Proceeds without purchase price;;;;;;;2050,00;;;1852,00;;incomplete"
+   ],
+   "income": [
+    "Realized gains 2025",
+    "\"Method: FIFO; no tax advice\"",
+    "Time zone: Europe/Zurich",
+    "Date;Coin;Amount;Value USDT;Value CHF;Note",
+    "2025-02-10;SOL;0,5;50,00;;no exchange rate",
+    "2025-11-20;SOL;0,25;;;value at receipt missing",
+    "Total;;;50,00;;incomplete"
+   ]
+  }
+ ],
+ "deSummary": {
+  "_comment": "Jahresübersicht DE (TaxExport.deYearSummary / deSummaryCsv): kurzfristig ≤ 1 Jahr (Gewinne, Verluste, netto), langfristig > 1 Jahr; Freigrenze § 23 EStG 600 € bis 2023, 1000 € ab 2024 (steuerfrei bei weniger); § 22 Nr. 3 256 €. EUR über eurRates (USD → EUR je Tag); eur false = ohne EUR-Kurse (Prüfung offen). Tausch (4) ist eine Veräusserung. 'gains' = gainsCsv (EUR, FIFO) mit Vermerk «swap».",
+  "zone": "Europe/Berlin",
+  "trades": [
+   {
+    "id": 1,
+    "coin": "BTC",
+    "type": "BUY",
+    "amount": "1",
+    "time": 1646136000000,
+    "price": "10000"
+   },
+   {
+    "id": 2,
+    "coin": "BTC",
+    "type": "BUY",
+    "amount": "1",
+    "time": 1675252800000,
+    "price": "20000"
+   },
+   {
+    "id": 3,
+    "coin": "BTC",
+    "type": "SELL",
+    "amount": "0.5",
+    "time": 1685620800000,
+    "price": "22000"
+   },
+   {
+    "id": 4,
+    "coin": "BTC",
+    "type": "SWAP",
+    "amount": "0.5",
+    "time": 1693569600000,
+    "toCoin": "ETH",
+    "toAmount": "5",
+    "swapValue": "12000",
+    "fee": "12",
+    "feeUnit": "QUOTE"
+   },
+   {
+    "id": 5,
+    "coin": "BTC",
+    "type": "SELL",
+    "amount": "0.5",
+    "time": 1696161600000,
+    "price": "22000"
+   },
+   {
+    "id": 6,
+    "coin": "ETH",
+    "type": "SELL",
+    "amount": "1",
+    "time": 1701432000000,
+    "price": "2500"
+   },
+   {
+    "id": 7,
+    "coin": "ETH",
+    "type": "REWARD",
+    "amount": "0.1",
+    "time": 1702641600000,
+    "price": "2000"
+   },
+   {
+    "id": 8,
+    "coin": "BTC",
+    "type": "SELL",
+    "amount": "0.5",
+    "time": 1714564800000,
+    "price": "25000"
+   },
+   {
+    "id": 9,
+    "coin": "ETH",
+    "type": "SELL",
+    "amount": "2",
+    "time": 1717243200000,
+    "price": "2200"
+   },
+   {
+    "id": 10,
+    "coin": "ETH",
+    "type": "SELL",
+    "amount": "2",
+    "time": 1719835200000,
+    "price": "3000"
+   },
+   {
+    "id": 11,
+    "coin": "ETH",
+    "type": "REWARD",
+    "amount": "0.2",
+    "time": 1722513600000,
+    "price": "1500"
+   }
+  ],
+  "eurRates": {
+   "19052": "0.9",
+   "19389": "0.9",
+   "19509": "0.9",
+   "19601": "0.9",
+   "19631": "0.9",
+   "19692": "0.9",
+   "19706": "0.9",
+   "19844": "0.9",
+   "19875": "0.9",
+   "19905": "0.9",
+   "19936": "0.9"
+  },
+  "texts": {
+   "title": "Annual summary DE",
+   "disclaimer": "Orientation only, no tax advice",
+   "item": "Item",
+   "usdt": "USDT",
+   "eur": "EUR",
+   "note": "Note",
+   "shortGains": "Gains <= 1 year",
+   "shortLosses": "Losses <= 1 year",
+   "netShort": "Net <= 1 year",
+   "longGains": "Gains > 1 year",
+   "longLosses": "Losses > 1 year",
+   "unclassified": "Without holding period",
+   "privateSalesLimit": "Exemption limit private sales",
+   "income": "Income from services",
+   "incomeLimit": "Exemption limit services",
+   "below": "below limit",
+   "reached": "limit reached",
+   "unknown": "not checkable",
+   "needsEur": "needs EUR values",
+   "incomplete": "incomplete",
+   "needsHolding": "holding period missing",
+   "noFx": "no exchange rate",
+   "limitScope": "Limits apply to all such income",
+   "orientationHeading": "Orientation - no tax advice, no assessment",
+   "orientationItem": "Orientation: %s"
+  },
+  "header": [
+   "Annual summary",
+   "Method: FIFO; no tax advice"
+  ],
+  "zoneLine": "Time zone: Europe/Berlin",
+  "cases": [
+   {
+    "year": 2023,
+    "method": "FIFO",
+    "eur": true,
+    "expected": {
+     "shortGainsUsdt": "1100.00",
+     "shortLossesUsdt": "0.00",
+     "netShortUsdt": "1100.00",
+     "longGainsUsdt": "12988.00",
+     "longLossesUsdt": "0.00",
+     "unclassifiedUsdt": "0.00",
+     "unknownGainCount": 0,
+     "unclassifiedCount": 0,
+     "eurFxMissingCount": 0,
+     "incomeValueMissingCount": 0,
+     "incomeFxMissingCount": 0,
+     "incomeLimitEur": "256.00",
+     "eurAvailable": true,
+     "shortGainsEur": "990.00",
+     "shortLossesEur": "0.00",
+     "netShortEur": "990.00",
+     "longGainsEur": "11689.20",
+     "longLossesEur": "0.00",
+     "unclassifiedEur": "0.00",
+     "privateSalesLimitEur": "600.00",
+     "privateSalesStatus": "REACHED",
+     "incomeUsdt": "200.00",
+     "incomeEur": "180.00",
+     "incomeStatus": "BELOW"
+    },
+    "swapLine": [
+     "BTC;2022-03-01;2023-09-01;",
+     ";swap"
+    ]
+   },
+   {
+    "year": 2023,
+    "method": "FIFO_WALLET",
+    "eur": true,
+    "expected": {
+     "shortGainsUsdt": "1100.00",
+     "shortLossesUsdt": "0.00",
+     "netShortUsdt": "1100.00",
+     "longGainsUsdt": "12988.00",
+     "longLossesUsdt": "0.00",
+     "unclassifiedUsdt": "0.00",
+     "unknownGainCount": 0,
+     "unclassifiedCount": 0,
+     "eurFxMissingCount": 0,
+     "incomeValueMissingCount": 0,
+     "incomeFxMissingCount": 0,
+     "incomeLimitEur": "256.00",
+     "eurAvailable": true,
+     "shortGainsEur": "990.00",
+     "shortLossesEur": "0.00",
+     "netShortEur": "990.00",
+     "longGainsEur": "11689.20",
+     "longLossesEur": "0.00",
+     "unclassifiedEur": "0.00",
+     "privateSalesLimitEur": "600.00",
+     "privateSalesStatus": "REACHED",
+     "incomeUsdt": "200.00",
+     "incomeEur": "180.00",
+     "incomeStatus": "BELOW"
+    },
+    "swapLine": [
+     "BTC;2022-03-01;2023-09-01;",
+     ";swap, wallet no exchange"
+    ]
+   },
+   {
+    "year": 2024,
+    "method": "FIFO",
+    "eur": true,
+    "expected": {
+     "shortGainsUsdt": "1200.00",
+     "shortLossesUsdt": "-400.00",
+     "netShortUsdt": "800.00",
+     "longGainsUsdt": "2500.00",
+     "longLossesUsdt": "0.00",
+     "unclassifiedUsdt": "0.00",
+     "unknownGainCount": 0,
+     "unclassifiedCount": 0,
+     "eurFxMissingCount": 0,
+     "incomeValueMissingCount": 0,
+     "incomeFxMissingCount": 0,
+     "incomeLimitEur": "256.00",
+     "eurAvailable": true,
+     "shortGainsEur": "1080.00",
+     "shortLossesEur": "-360.00",
+     "netShortEur": "720.00",
+     "longGainsEur": "2250.00",
+     "longLossesEur": "0.00",
+     "unclassifiedEur": "0.00",
+     "privateSalesLimitEur": "1000.00",
+     "privateSalesStatus": "BELOW",
+     "incomeUsdt": "300.00",
+     "incomeEur": "270.00",
+     "incomeStatus": "REACHED"
+    },
+    "csv": [
+     "Annual summary",
+     "\"Method: FIFO; no tax advice\"",
+     "Annual summary DE",
+     "Orientation only, no tax advice",
+     "Time zone: Europe/Berlin",
+     "Item;USDT;EUR;Note",
+     "Gains <= 1 year;1200.00;1080.00;",
+     "Losses <= 1 year;-400.00;-360.00;",
+     "Net <= 1 year;800.00;720.00;",
+     "Gains > 1 year;2500.00;2250.00;",
+     "Losses > 1 year;0.00;0.00;",
+     "Income from services;300.00;270.00;",
+     "Orientation - no tax advice, no assessment",
+     "Orientation: Exemption limit private sales;;1000.00;below limit",
+     "Orientation: Exemption limit services;;256.00;limit reached",
+     "Orientation: Limits apply to all such income"
+    ]
+   },
+   {
+    "year": 2024,
+    "method": "FIFO",
+    "eur": false,
+    "expected": {
+     "shortGainsUsdt": "1200.00",
+     "shortLossesUsdt": "-400.00",
+     "netShortUsdt": "800.00",
+     "longGainsUsdt": "2500.00",
+     "longLossesUsdt": "0.00",
+     "unclassifiedUsdt": "0.00",
+     "unknownGainCount": 0,
+     "unclassifiedCount": 0,
+     "eurFxMissingCount": 0,
+     "incomeValueMissingCount": 0,
+     "incomeFxMissingCount": 0,
+     "incomeLimitEur": "256.00",
+     "eurAvailable": false,
+     "shortGainsEur": null,
+     "shortLossesEur": null,
+     "netShortEur": null,
+     "longGainsEur": null,
+     "longLossesEur": null,
+     "unclassifiedEur": null,
+     "privateSalesLimitEur": "1000.00",
+     "privateSalesStatus": "UNKNOWN",
+     "incomeUsdt": "300.00",
+     "incomeEur": null,
+     "incomeStatus": "UNKNOWN"
+    },
+    "csv": [
+     "Annual summary",
+     "\"Method: FIFO; no tax advice\"",
+     "Annual summary DE",
+     "Orientation only, no tax advice",
+     "Time zone: Europe/Berlin",
+     "Item;USDT;EUR;Note",
+     "Gains <= 1 year;1200.00;;",
+     "Losses <= 1 year;-400.00;;",
+     "Net <= 1 year;800.00;;",
+     "Gains > 1 year;2500.00;;",
+     "Losses > 1 year;0.00;;",
+     "Income from services;300.00;;",
+     "Orientation - no tax advice, no assessment",
+     "Orientation: Exemption limit private sales;;1000.00;not checkable, needs EUR values",
+     "Orientation: Exemption limit services;;256.00;not checkable, needs EUR values",
+     "Orientation: Limits apply to all such income"
+    ]
+   },
+   {
+    "year": 2024,
+    "method": "AVERAGE",
+    "eur": true,
+    "expected": {
+     "shortGainsUsdt": "0.00",
+     "shortLossesUsdt": "0.00",
+     "netShortUsdt": "0.00",
+     "longGainsUsdt": "0.00",
+     "longLossesUsdt": "0.00",
+     "unclassifiedUsdt": "5839.02",
+     "unknownGainCount": 0,
+     "unclassifiedCount": 3,
+     "eurFxMissingCount": 0,
+     "incomeValueMissingCount": 0,
+     "incomeFxMissingCount": 0,
+     "incomeLimitEur": "256.00",
+     "eurAvailable": true,
+     "shortGainsEur": "0.00",
+     "shortLossesEur": "0.00",
+     "netShortEur": "0.00",
+     "longGainsEur": "0.00",
+     "longLossesEur": "0.00",
+     "unclassifiedEur": "5255.12",
+     "privateSalesLimitEur": "1000.00",
+     "privateSalesStatus": "UNKNOWN",
+     "incomeUsdt": "300.00",
+     "incomeEur": "270.00",
+     "incomeStatus": "REACHED"
+    },
+    "csv": [
+     "Annual summary",
+     "\"Method: FIFO; no tax advice\"",
+     "Annual summary DE",
+     "Orientation only, no tax advice",
+     "Time zone: Europe/Berlin",
+     "Item;USDT;EUR;Note",
+     "Gains <= 1 year;0.00;0.00;",
+     "Losses <= 1 year;0.00;0.00;",
+     "Net <= 1 year;0.00;0.00;",
+     "Gains > 1 year;0.00;0.00;",
+     "Losses > 1 year;0.00;0.00;",
+     "Without holding period;5839.02;5255.12;holding period missing",
+     "Income from services;300.00;270.00;",
+     "Orientation - no tax advice, no assessment",
+     "Orientation: Exemption limit private sales;;1000.00;not checkable, holding period missing",
+     "Orientation: Exemption limit services;;256.00;limit reached",
+     "Orientation: Limits apply to all such income"
+    ]
+   }
+  ],
+  "limits": [
+   [
+    2008,
+    "512"
+   ],
+   [
+    2009,
+    "600"
+   ],
+   [
+    2023,
+    "600"
+   ],
+   [
+    2024,
+    "1000"
+   ],
+   [
+    2026,
+    "1000"
+   ]
+  ]
+ },
+ "withdrawalFeeInfo": {
+  "_comment": "[B56] Auszahlungsgebühr in USDT/Fiat (Entscheid 17.10.2026): UK, US, CA, AU, JP nur Information (Zeile mit Vermerk, nicht in der Summe; UK HMRC CRYPTO22150), DE und Neutral unverändert in der Summe der Gewinne-CSV. Gewinn BTC 1020, Gebühr 25 USDT. Build 57: dazu Umbuchung ETH mit Gebühr 3 USDT — UK/US eine zweite Zeile nur zur Information (nicht im Einstand), DE/Neutral unverändert (Gebühr im Einstand, ETH nicht verkauft).",
+  "year": 2025,
+  "zone": "UTC",
+  "trades": [
+   {
+    "id": 1,
+    "coin": "BTC",
+    "type": "BUY",
+    "amount": "1",
+    "time": 1736510400000,
+    "price": "1000"
+   },
+   {
+    "id": 2,
+    "coin": "BTC",
+    "type": "SELL",
+    "amount": "1",
+    "time": 1740830400000,
+    "price": "2020"
+   },
+   {
+    "id": 3,
+    "coin": "ETH",
+    "type": "BUY",
+    "amount": "1",
+    "time": 1736510400000,
+    "price": "100"
+   },
+   {
+    "id": 4,
+    "coin": "ETH",
+    "type": "WITHDRAWAL",
+    "amount": "0.5",
+    "time": 1743508800000,
+    "fee": "25",
+    "feeUnit": "QUOTE"
+   },
+   {
+    "id": 5,
+    "coin": "ETH",
+    "type": "TRANSFER",
+    "amount": "0.2",
+    "time": 1746100800000,
+    "fee": "3",
+    "feeUnit": "QUOTE",
+    "transferFrom": "A",
+    "transferTo": "B"
+   }
+  ],
+  "cases": [
+   {
+    "template": "UK",
+    "method": "UK_POOL",
+    "infoRows": 2,
+    "totalGain": "1020.00"
+   },
+   {
+    "template": "US",
+    "method": "FIFO",
+    "infoRows": 2,
+    "totalGain": "1020.00"
+   },
+   {
+    "template": "DE",
+    "method": "FIFO",
+    "infoRows": 0,
+    "totalGain": "995.00"
+   },
+   {
+    "template": "NEUTRAL",
+    "method": "FIFO",
+    "infoRows": 0,
+    "totalGain": "995.00"
+   }
+  ]
+ },
+ "fifoCostParts": {
+  "_comment": "[B58] FIFO-Posten führen ihren Einstand in Teilen mit Datum (PortfolioDisposal.costParts): CH, Kauf 2018 5000 USDT (Kurs 1.00) + Umbuchungsgebühr 2024 100 USDT (Kurs 0.85) → Einstand 5085 CHF, nicht 5100 × 1.00 — FIFO, FIFO je Wallet und Ø gleich. ETH: Umbuchungsgebühr 10 USDT auf 1 ETH ohne und 1 ETH mit Kaufpreis → 5 USDT «nicht zugeordnet – Einstand unbekannt» als Info-Zeile nach der Summe (unassignedFeesIn), nicht in der Summe.",
+  "zone": "Europe/Zurich",
+  "year": 2025,
+  "currency": "CHF",
+  "rates": {
+   "17591": "1.00",
+   "19877": "0.85",
+   "20150": "0.80"
+  },
+  "unassignedFeeText": "fee not assigned – cost basis unknown",
+  "trades": [
+   {
+    "id": 1,
+    "coin": "BTC",
+    "type": "BUY",
+    "amount": "1",
+    "price": "5000",
+    "time": 1519902000000,
+    "exchange": "A"
+   },
+   {
+    "id": 2,
+    "coin": "BTC",
+    "type": "TRANSFER",
+    "amount": "1",
+    "time": 1717412400000,
+    "fee": "100",
+    "feeUnit": "QUOTE",
+    "transferFrom": "A",
+    "transferTo": "B"
+   },
+   {
+    "id": 3,
+    "coin": "BTC",
+    "type": "SELL",
+    "amount": "1",
+    "price": "7000",
+    "time": 1740999600000,
+    "exchange": "B"
+   },
+   {
+    "id": 4,
+    "coin": "ETH",
+    "type": "DEPOSIT",
+    "amount": "1",
+    "time": 1704884400000
+   },
+   {
+    "id": 5,
+    "coin": "ETH",
+    "type": "BUY",
+    "amount": "1",
+    "price": "2000",
+    "time": 1706785200000
+   },
+   {
+    "id": 6,
+    "coin": "ETH",
+    "type": "TRANSFER",
+    "amount": "2",
+    "time": 1743505200000,
+    "fee": "10",
+    "feeUnit": "QUOTE"
+   }
+  ],
+  "cases": [
+   {
+    "method": "FIFO",
+    "gains": [
+     "Time zone: Europe/Zurich",
+     "Coin;Acquired;Sold;Days held;> 1 year;Amount;Cost USDT;Proceeds USDT;Gain USDT;Cost CHF;Proceeds CHF;Gain CHF;Note",
+     "BTC;2018-03-01;2025-03-03;2559;yes;1;5100.00;7000.00;1900.00;5085.00;5600.00;515.00;",
+     "Total;;;;;;5100.00;7000.00;1900.00;5085.00;5600.00;515.00;",
+     "ETH;;2025-04-01;;;;5.00;;;;;;fee not assigned – cost basis unknown"
+    ]
+   },
+   {
+    "method": "FIFO_WALLET",
+    "gains": [
+     "Time zone: Europe/Zurich",
+     "Coin;Acquired;Sold;Days held;> 1 year;Amount;Cost USDT;Proceeds USDT;Gain USDT;Cost CHF;Proceeds CHF;Gain CHF;Note",
+     "BTC;2018-03-01;2025-03-03;2559;yes;1;5100.00;7000.00;1900.00;5085.00;5600.00;515.00;wallet B",
+     "Total;;;;;;5100.00;7000.00;1900.00;5085.00;5600.00;515.00;",
+     "ETH;;2025-04-01;;;;5.00;;;;;;fee not assigned – cost basis unknown"
+    ]
+   },
+   {
+    "method": "AVERAGE",
+    "gains": [
+     "Time zone: Europe/Zurich",
+     "Coin;Acquired;Sold;Days held;> 1 year;Amount;Cost USDT;Proceeds USDT;Gain USDT;Cost CHF;Proceeds CHF;Gain CHF;Note",
+     "BTC;;2025-03-03;;;1;5100.00;7000.00;1900.00;5085.00;5600.00;515.00;cost at purchase-date rates (avg)",
+     "Total;;;;;;5100.00;7000.00;1900.00;5085.00;5600.00;515.00;",
+     "ETH;;2025-04-01;;;;5.00;;;;;;fee not assigned – cost basis unknown"
+    ]
+   }
+  ]
+ }
+}

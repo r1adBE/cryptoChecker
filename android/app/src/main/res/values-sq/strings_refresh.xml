@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Wie aktuell? (Sparsam / Live) -->
+    <string name="update_mode_for_pros">harxhon më shumë të dhëna dhe bateri</string>
+    <string name="update_mode_live">Live sa është e hapur</string>
+    <string name="update_mode_live_hint">Kur bursa jep çmim live: menjëherë, sa kohë lista është e hapur. Përndryshe në marrjen e radhës. E mbyllur: jo më shpesh se çdo %1$s, shpesh më vonë.</string>
+    <string name="update_mode_live_hint_ios">Kur bursa jep çmim live: menjëherë, sa kohë lista është e hapur. Përndryshe në marrjen e radhës. E mbyllur: kur e lejon iOS, ndonjëherë pas orësh. Nëse e mbyll aplikacionin me rrëshqitje, iOS i ndalon këto kontrolle derisa ta hapësh përsëri.</string>
+    <string name="update_mode_recommended">e rekomanduar</string>
+    <string name="update_mode_sparsam">Kursyes</string>
+    <string name="update_mode_sparsam_hint">Me aplikacionin të mbyllur jo më shpesh se çdo %1$s, shpesh më vonë (alarme, widget). Hapur: sa herë e hapni.</string>
+    <string name="update_mode_sparsam_hint_ios">Me aplikacionin të mbyllur, iOS vendos kur të kontrollojë (alarmet, widget-et), ndonjëherë pas orësh. Hapur: sa herë e hap.</string>
+    <string name="update_mode_title">Sa i përditësuar?</string>
+
+    <!-- Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <string name="refresh_sheet_aborted">Rifreskimi u ndërpre</string>
+    <string name="refresh_sheet_alarms">Alarmet</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="one">%1$d u aktivizua</item>
+        <item quantity="other">%1$d u aktivizuan</item>
+    </plurals>
+    <!-- Grosse Statuszeile oben im Blatt -->
+    <string name="refresh_sheet_all_updated">Gjithçka u përditësua</string>
+    <string name="refresh_sheet_app_start">Nisja e aplikacionit</string>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="one">kërkesë e grupuar %1$s · %2$d çmim</item>
+        <item quantity="other">kërkesë e grupuar %1$s · %2$d çmime</item>
+    </plurals>
+    <string name="refresh_sheet_database">Baza e të dhënave</string>
+    <string name="refresh_sheet_market_unreachable">%1$s nuk arrihet</string>
+    <plurals name="refresh_sheet_markets_unreachable">
+        <item quantity="one">%1$d bursë nuk arrihet</item>
+        <item quantity="other">%1$d bursa nuk arrihen</item>
+    </plurals>
+    <string name="refresh_sheet_network">Rrjeti</string>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="one">%1$d njoftim</item>
+        <item quantity="other">%1$d njoftime</item>
+    </plurals>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="one">%1$d çift</item>
+        <item quantity="other">%1$d çifte</item>
+    </plurals>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="one">%1$d çift nuk u përditësua</item>
+        <item quantity="other">%1$d çifte nuk u përditësuan</item>
+    </plurals>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="one">%2$d nga %1$d çift</item>
+        <item quantity="other">%2$d nga %1$d çifte</item>
+    </plurals>
+    <string name="refresh_sheet_paused_until">në pauzë deri në %1$s</string>
+    <string name="refresh_sheet_paused_until_reason">në pauzë deri në %1$s (%2$s)</string>
+    <string name="refresh_sheet_reason_no_data">pa të dhëna</string>
+    <string name="refresh_sheet_reason_offline">pa lidhje</string>
+    <string name="refresh_sheet_reason_rate_limit">shumë kërkesa</string>
+    <string name="refresh_sheet_reason_server">gabim i serverit</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">koha mbaroi</string>
+    <string name="refresh_sheet_reason_unavailable">bursa nuk është e disponueshme</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s sekonda</string>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_markets">Bursat</string>
+    <string name="refresh_sheet_section_steps">Detajet</string>
+    <string name="refresh_sheet_status_failed">nuk u përditësua</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">gjithçka u përditësua</string>
+    <string name="refresh_sheet_status_partial">pjesërisht e përditësuar</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">Pritja deri në nisje</string>
+    <string name="refresh_sheet_widgets">Widget-et</string>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+
+    <!-- Kurzbericht der Aktualisierung je Börse -->
+    <string name="refresh_report_bulk_failed">kërkesë e grupuar %1$s (dështoi)</string>
+    <plurals name="refresh_report_errors">
+        <item quantity="one">%1$d gabim</item>
+        <item quantity="other">%1$d gabime</item>
+    </plurals>
+    <string name="refresh_report_live">Live: %1$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="one">%1$d nuk tregtohen më</item>
+        <item quantity="other">%1$d nuk tregtohen më</item>
+    </plurals>
+    <string name="refresh_report_singles">%1$d veçmas</string>
+
+    <!-- Prüfprotokoll der Hintergrundprüfungen (Ergebnis, Auslöser) -->
+    <string name="check_result_failed">Dështoi</string>
+    <string name="check_result_ok">OK</string>
+    <string name="check_result_partial">Pjesërisht</string>
+    <string name="check_result_skipped">Anashkaluar</string>
+    <string name="check_trigger_bgtask">Sfond</string>
+    <string name="check_trigger_exact">Në kohë</string>
+    <string name="check_trigger_foreground">Aplikacioni</string>
+    <string name="check_trigger_widget">Widget</string>
+    <string name="check_trigger_widget_ios">Widget · çmime dhe alarme çmimi</string>
+    <string name="check_trigger_worker">Sfond</string>
+
+    <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
+    <string name="battery_delay_hint">Android mund t’i vonojë kontrollet – vendos baterinë në «E pakufizuar»</string>
+    <string name="battery_later">Më vonë</string>
+    <string name="battery_message">Android e vonon punën në sfond për të kursyer energji — çmimet dhe widget-et mund të jenë atëherë disa orë të vjetra. Vendosja e përdorimit të baterisë si të pakufizuar i mban të përditësuara. Mund ta ndryshosh këtë kurdo te cilësimet e Android.</string>
+    <string name="battery_open_settings">Hap cilësimet e baterisë</string>
+    <string name="battery_steps">Te informacioni i aplikacionit prek Bateria (ose Përdorimi i baterisë) dhe zgjidh Pa kufizime.</string>
+    <string name="battery_title">Mbaji çmimet të përditësuara</string>
+    <string name="ios_background_refresh_off">Rifreskimi në sfond është i çaktivizuar për aplikacionin. Pa të, alarmet kontrollohen vetëm kur aplikacioni është i hapur.</string>
+    <string name="ios_low_power_mode">Modaliteti i kursimit të energjisë është aktiv. iOS kontrollon rrallë në sfond, ndaj alarmet mund të vonohen.</string>
+</resources>

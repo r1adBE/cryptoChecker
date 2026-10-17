@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Screenreader: Zeile eines Paars, Frische, Erreichbarkeit -->
+    <string name="a11y_alarm_count">התראות מחיר: %1$d</string>
+    <!-- Alarm des Paars eben ausgelöst (bis 15 Min. danach im Zeilensatz) -->
+    <string name="a11y_alarm_fired">ההתראה הופעלה</string>
+    <string name="a11y_collapsed">מכווץ</string>
+    <string name="a11y_converted">בערך %1$s</string>
+    <string name="a11y_expanded">מורחב</string>
+    <!-- Vorgelesen bei Zeilen, die eine Website öffnen (Datenschutz, Börse wünschen, Quellcode) -->
+    <string name="a11y_external_link">נפתח בדפדפן</string>
+    <string name="a11y_favorite">מועדף</string>
+    <string name="a11y_in_watchlist">כבר ברשימת המעקב</string>
+    <!-- %1$s Börse, letzte Abfrage gescheitert -->
+    <string name="a11y_market_unreachable">%1$s לא זמינה</string>
+    <string name="a11y_move_down">הזזה למטה</string>
+    <string name="a11y_move_up">הזזה למעלה</string>
+    <string name="a11y_note">הערה: %1$s</string>
+    <string name="a11y_price">מחיר %1$s</string>
+    <string name="a11y_price_notification_off">התראת שער כבויה</string>
+    <string name="a11y_price_notification_on">התראת שער פעילה</string>
+    <!-- Frische einer Zeile, Teile mit «, » verbunden: «Kurs veraltet, zuletzt aktualisiert vor 45 Minuten» (A11ySpeech.freshnessText) -->
+    <string name="a11y_price_outdated">השער לא עדכני</string>
+    <!-- Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%1$s ב־%2$s</string>
+    <string name="a11y_stale">לא עדכני, עדכון אחרון %1$s</string>
+    <string name="a11y_warning">אזהרה</string>
+
+    <!-- Screenreader: Veränderung (Prozent-Pille, Widgets) -->
+    <!-- %1$s Satz aus a11y_change_up/down/flat: Veränderung über 24 Stunden (Prozent-Pille, Widgets) -->
+    <string name="a11y_change_24h">%1$s ב-24 שעות</string>
+    <!-- Wenn die Pille «—» zeigt (keine Kerzen für das Paar) -->
+    <string name="a11y_change_24h_none">השינוי ב-24 שעות אינו זמין</string>
+    <string name="a11y_change_down">ירידה של %1$s</string>
+    <string name="a11y_change_flat">ללא שינוי</string>
+    <string name="a11y_change_since_last">%1$s מאז העדכון האחרון</string>
+    <string name="a11y_change_since_last_none">השינוי מאז העדכון האחרון אינו זמין</string>
+    <!-- %1$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_change_today">%1$s היום</string>
+    <string name="a11y_change_today_none">השינוי היום אינו זמין</string>
+    <string name="a11y_change_today_zone">%1$s מאז חצות %2$s</string>
+    <string name="a11y_change_today_zone_none">השינוי מאז חצות %1$s אינו זמין</string>
+    <string name="a11y_change_up">עלייה של %1$s</string>
+
+    <!-- Screenreader: Charts und Skalen -->
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">גרף %1$s: מ־%2$s ל־%3$s, %4$s. גבוה %5$s, נמוך %6$s.</string>
+    <string name="a11y_chart_empty">גרף: אין נתונים</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">מחזור %1$s: %2$s מאז ההלווינג, יום %3$d.</string>
+    <string name="a11y_cycle_bottom">שפל %1$s ביום %2$d.</string>
+    <string name="a11y_cycle_double_bottom">שפל כפול %1$s ביום %2$d.</string>
+    <string name="a11y_cycle_double_top">שיא כפול %1$s ביום %2$d.</string>
+    <string name="a11y_cycle_top">שיא %1$s ביום %2$d.</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">סקלה מ־%1$s עד %2$s: %3$d מתוך 100</string>
+
+    <!-- Screenreader: Puls-Zeile der Merkliste -->
+    <string name="a11y_watchlist_pulse">%1$s, %2$s, בממוצע %3$s</string>
+    <string name="a11y_watchlist_pulse_combined">%1$s. %2$s</string>
+    <plurals name="a11y_watchlist_pulse_falling">
+        <item quantity="one">%1$d יורד</item>
+        <item quantity="two">%1$d יורדים</item>
+        <item quantity="other">%1$d יורדים</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing">
+        <item quantity="one">צמד %1$d ללא ערך של 24 שעות</item>
+        <item quantity="two">%1$d צמדים ללא ערך של 24 שעות</item>
+        <item quantity="other">%1$d צמדים ללא ערך של 24 שעות</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="one">צמד %1$d ללא ערך להיום</item>
+        <item quantity="two">%1$d צמדים ללא ערך להיום</item>
+        <item quantity="other">%1$d צמדים ללא ערך להיום</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_rising">
+        <item quantity="one">%1$d צמד עולה</item>
+        <item quantity="two">%1$d צמדים עולים</item>
+        <item quantity="other">%1$d צמדים עולים</item>
+    </plurals>
+
+    <!-- Screenreader: zuletzt aktualisiert -->
+    <plurals name="a11y_updated_days">
+        <item quantity="one">עודכן לאחרונה לפני %1$d יום</item>
+        <item quantity="two">עודכן לאחרונה לפני %1$d ימים</item>
+        <item quantity="other">עודכן לאחרונה לפני %1$d ימים</item>
+    </plurals>
+    <plurals name="a11y_updated_hours">
+        <item quantity="one">עודכן לאחרונה לפני %1$d שעה</item>
+        <item quantity="two">עודכן לאחרונה לפני %1$d שעות</item>
+        <item quantity="other">עודכן לאחרונה לפני %1$d שעות</item>
+    </plurals>
+    <string name="a11y_updated_just_now">עודכן לאחרונה הרגע</string>
+    <plurals name="a11y_updated_minutes">
+        <item quantity="one">עודכן לאחרונה לפני %1$d דקה</item>
+        <item quantity="two">עודכן לאחרונה לפני %1$d דקות</item>
+        <item quantity="other">עודכן לאחרונה לפני %1$d דקות</item>
+    </plurals>
+
+    <!-- Screenreader: Portfolio und Portfolio-Widget -->
+    <string name="a11y_amount_hidden">הסכום מוסתר</string>
+    <!-- %1$s Kürzel, %2$s Wert mit Währung, %3$s Anteil «62.3%», %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_portfolio_position">%1$s %2$s, %3$s מתיק ההשקעות</string>
+    <!-- Position im Portfolio-Widget: %1$s Kürzel, %2$s Anteil «62.3%», %3$s Satz aus a11y_change_24h -->
+    <string name="a11y_portfolio_position_24h">%1$s, %2$s מהתיק, %3$s</string>
+    <string name="a11y_portfolio_positions">הפוזיציות הגדולות ביותר: %1$s</string>
+    <string name="a11y_portfolio_show_amounts">הצגת סכומים</string>
+</resources>

@@ -1,0 +1,1 @@
+btc,ethereum,cryptomunt,portfolio,volglijst,altcoin,alarm,koers,futures,dex,ticker,eth

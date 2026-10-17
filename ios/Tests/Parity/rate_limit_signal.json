@@ -1,0 +1,26 @@
+{
+  "description": "Rate limit without HTTP 429/418 (Android RateLimitSignal.kt / iOS RateLimitSignal.swift). httpCode: status + response body -> status passed on (429/418 stay, a rate-limit text becomes 429, null = no rate limit); 2xx bodies longer than 4096 characters are not scanned. classify: stored error text -> RefreshReportLogic.classify.",
+  "httpCode": [
+    {"status": 429, "body": "", "code": 429},
+    {"status": 418, "body": null, "code": 418},
+    {"status": 200, "body": "{\"error\":[\"EGeneral:Too many requests\"],\"result\":{}}", "code": 429},
+    {"status": 200, "body": "{\"error\":[\"EAPI:Rate limit exceeded\"]}", "code": 429},
+    {"status": 403, "body": "access too frequent", "code": 429},
+    {"status": 200, "body": "{\"retCode\": 10006, \"retMsg\": \"Too many visits!\", \"result\": {}}", "code": 429},
+    {"status": 200, "body": "{\"code\":\"50011\",\"msg\":\"Rate limit reached. Please refer to API documentation and throttle requests accordingly.\",\"data\":[]}", "code": 429},
+    {"status": 200, "body": "{\"error\":[\"EQuery:Unknown asset pair\"]}", "code": null},
+    {"status": 200, "body": "{\"retCode\":0,\"retMsg\":\"OK\",\"result\":{\"list\":[]}}", "code": null},
+    {"status": 403, "body": "<html>Forbidden</html>", "code": null},
+    {"status": 500, "body": "", "code": null},
+    {"status": 200, "body": null, "code": null}
+  ],
+  "classify": [
+    {"error": "EGeneral:Too many requests", "failure": "RATE_LIMIT"},
+    {"error": "EAPI:Rate limit exceeded", "failure": "RATE_LIMIT"},
+    {"error": "Too many visits!", "failure": "RATE_LIMIT"},
+    {"error": "HttpCode: 429", "failure": "RATE_LIMIT"},
+    {"error": "HTTP 429: access too frequent", "failure": "RATE_LIMIT"},
+    {"error": "HttpCode: 403", "failure": "SERVER"},
+    {"error": "EQuery:Unknown asset pair", "failure": "OTHER"}
+  ]
+}

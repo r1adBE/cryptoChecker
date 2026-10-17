@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">戻る</string>
+    <string name="action_cancel">キャンセル</string>
+    <string name="action_clear">クリア</string>
+    <string name="action_close">閉じる</string>
+    <string name="action_delete">削除</string>
+    <string name="action_edit">編集</string>
+    <string name="action_more">その他のオプション</string>
+    <string name="action_refresh">更新</string>
+    <string name="action_retry">再試行</string>
+    <string name="action_save">保存</string>
+    <string name="action_sort">並べ替え</string>
+    <string name="action_sort_done">完了</string>
+    <string name="action_undo">元に戻す</string>
+    <string name="action_view">表示</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">マーケット</string>
+    <string name="tab_portfolio">ポートフォリオ</string>
+    <string name="tab_settings">設定</string>
+    <string name="tab_watchlist">リスト</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">エラー: %1$s</string>
+    <string name="error_market_unreachable">取引所に接続できません – 最後の価格は表示されたままです。</string>
+    <string name="error_market_unreachable_short">取引所に接続できません</string>
+    <string name="loading_hint">読み込み中…</string>
+    <string name="no_internet_connection">インターネットに接続されていません</string>
+    <string name="option_off">オフ</string>
+    <string name="something_went_wrong">問題が発生しました</string>
+    <string name="time_just_now">たった今</string>
+    <string name="timeout_error_message">取引所が現在応答していません。</string>
+    <string name="try_again">再試行</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">接続なし</string>
+    <string name="offline_status_since">接続なし · %1$s時点</string>
+    <string name="status_live">ライブ</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">ペアを追加</string>
+    <string name="shortcut_alarms">すべてのアラーム</string>
+    <string name="shortcut_cycle">マーケット</string>
+</resources>

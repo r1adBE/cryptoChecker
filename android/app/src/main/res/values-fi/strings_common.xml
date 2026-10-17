@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">Takaisin</string>
+    <string name="action_cancel">Peruuta</string>
+    <string name="action_clear">Tyhjennä</string>
+    <string name="action_close">Sulje</string>
+    <string name="action_delete">Poista</string>
+    <string name="action_edit">Muokkaa</string>
+    <string name="action_more">Lisää vaihtoehtoja</string>
+    <string name="action_refresh">Päivitä</string>
+    <string name="action_retry">Yritä uudelleen</string>
+    <string name="action_save">Tallenna</string>
+    <string name="action_sort">Järjestä</string>
+    <string name="action_sort_done">Valmis</string>
+    <string name="action_undo">Kumoa</string>
+    <string name="action_view">Näytä</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">Markkinat</string>
+    <string name="tab_portfolio">Salkku</string>
+    <string name="tab_settings">Asetukset</string>
+    <string name="tab_watchlist">Lista</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">Virhe: %1$s</string>
+    <string name="error_market_unreachable">Pörssiin ei saada yhteyttä juuri nyt – viimeisimmät hinnat pysyvät näkyvissä.</string>
+    <string name="error_market_unreachable_short">Pörssiin ei saada yhteyttä</string>
+    <string name="loading_hint">Ladataan…</string>
+    <string name="no_internet_connection">Ei internetyhteyttä</string>
+    <string name="option_off">Pois</string>
+    <string name="something_went_wrong">Jokin meni pieleen</string>
+    <string name="time_just_now">juuri nyt</string>
+    <string name="timeout_error_message">Pörssi ei vastaa juuri nyt.</string>
+    <string name="try_again">Yritä uudelleen</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">Ei yhteyttä</string>
+    <string name="offline_status_since">Ei yhteyttä · tilanne %1$s</string>
+    <string name="status_live">Live</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">Lisää pari</string>
+    <string name="shortcut_alarms">Kaikki hälytykset</string>
+    <string name="shortcut_cycle">Markkinat</string>
+</resources>

@@ -1,0 +1,339 @@
+package com.cryptochecker.app.ui.features.portfolio
+
+import android.content.Context
+import android.net.Uri
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.cryptochecker.app.data.portfolio.HistoricFx
+import com.cryptochecker.app.data.portfolio.HistoricPriceSource
+import com.cryptochecker.app.data.portfolio.PortfolioPriceSource
+import com.cryptochecker.app.data.portfolio.PortfolioRepository
+import com.cryptochecker.app.domain.portfolio.AddressBalanceHistory
+import com.cryptochecker.app.domain.portfolio.AddressBalancesAt
+import com.cryptochecker.app.domain.portfolio.CostMethod
+import com.cryptochecker.app.domain.portfolio.CutoffCsvFormat
+import com.cryptochecker.app.domain.portfolio.CutoffCsvTexts
+import com.cryptochecker.app.domain.portfolio.CutoffExport
+import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
+import com.cryptochecker.app.domain.portfolio.PortfolioStables
+import com.cryptochecker.app.domain.portfolio.PortfolioTrade
+import com.cryptochecker.app.domain.portfolio.TaxCsvTexts
+import com.cryptochecker.app.domain.portfolio.TaxExport
+import com.cryptochecker.app.domain.portfolio.TaxMethod
+import com.cryptochecker.app.domain.portfolio.TaxSummaryTexts
+import com.cryptochecker.app.domain.portfolio.TaxTemplate
+import com.cryptochecker.app.domain.portfolio.TaxYearSummary
+import com.cryptochecker.app.settings.SettingsRepository
+import com.cryptochecker.app.settings.deviceRegionLocale
+import com.cryptochecker.app.settings.inputDecimalSeparator
+import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import timber.log.Timber
+import java.time.LocalDate
+import java.time.ZoneId
+import javax.inject.Inject
+
+/** Ablauf des Stichtag-Exports. */
+sealed interface CutoffExportState {
+    data object Idle : CutoffExportState
+    data object Running : CutoffExportState
+    data object Done : CutoffExportState
+    data object Failed : CutoffExportState
+}
+
+/** Welche Datei des Steuer-Exports ([TaxExport]). */
+enum class TaxExportKind { GAINS, INCOME }
+
+/**
+ * Stichtag-Export: Bestand am Ende des Tags (Zeitzone des Geräts), Tagesschlusskurse
+ * und Devisenkurs dieses Tags holen, CSV bauen und in die gewählte Datei schreiben.
+ * Arbeitsunterlage ([exportTax], [exportSummary]): nach der Steuer-Vorlage (Einstellung «tax_template») — Methode
+ * [TaxTemplate.methodFor], Steuerjahr der Vorlage, Währung der Vorlage (Neutral: Anzeigewährung); Devisen-Tageskurse über
+ * [HistoricPriceSource.usdToSeries]; FR zusätzlich Tagesschlusskurse für den Gesamtwert des Portfolios bei jedem Verkauf.
+ */
+@HiltViewModel
+class PortfolioExportViewModel @Inject constructor(
+    @param:ApplicationContext private val context: Context,
+    private val repository: PortfolioRepository,
+    internal val historic: HistoricPriceSource,
+    internal val priceSource: PortfolioPriceSource,
+    private val settingsRepository: SettingsRepository,
+) : ViewModel() {
+
+    private val _state = MutableStateFlow<CutoffExportState>(CutoffExportState.Idle)
+    val state: StateFlow<CutoffExportState> = _state.asStateFlow()
+
+    /** Einstandsmethode (Methode der Vorlage, [TaxTemplate.methodFor]). */
+    val costMethod: StateFlow<CostMethod> = settingsRepository.settings
+        .map { it.costMethod }
+        .stateIn(viewModelScope, SharingStarted.Eagerly, settingsRepository.cached.costMethod)
+
+    /** Steuer-Vorlage der Arbeitsunterlage (Standard Neutral, nie still aus der Region übernommen). */
+    val taxTemplate: StateFlow<TaxTemplate> = settingsRepository.settings
+        .map { it.taxTemplate }
+        .stateIn(viewModelScope, SharingStarted.Eagerly, settingsRepository.cached.taxTemplate)
+
+    /** Hinweis zu den Länder-Vorlagen (Beta) bestätigt ([TaxTemplateConfirmDialog]). */
+    val taxTemplateConfirmed: StateFlow<Boolean> = settingsRepository.settings
+        .map { it.taxTemplateConfirmed }
+        .stateIn(viewModelScope, SharingStarted.Eagerly, settingsRepository.cached.taxTemplateConfirmed)
+
+    fun confirmTaxTemplate() {
+        viewModelScope.launch { settingsRepository.setTaxTemplateConfirmed() }
+    }
+
+    /** Eigene Transaktionen; null, bis geladen. */
+    private val _trades = MutableStateFlow<List<PortfolioTrade>?>(null)
+
+    /** Steuerjahre (Beginnjahr) der Vorlage mit Transaktionen (neueste zuerst); leer, bis geladen. */
+    val years: StateFlow<List<Int>> = combine(_trades, taxTemplate) { t, tpl ->
+        t?.let { TaxExport.years(it, ZoneId.systemDefault(), tpl) }.orEmpty()
+    }.stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
+
+    /** Jahresübersicht (Orientierung) der Vorlage und des gewählten Jahrs für die Karte; null = noch nicht gerechnet. */
+    private val _summary = MutableStateFlow<TaxYearSummary?>(null)
+    val summary: StateFlow<TaxYearSummary?> = _summary.asStateFlow()
+    private var summaryJob: Job? = null
+
+    init {
+        viewModelScope.launch {
+            _trades.value = try {
+                repository.getTransactions().map { it.toTrade() }
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                Timber.w(e, "Arbeitsunterlage: Transaktionen nicht geladen")
+                emptyList()
+            }
+        }
+    }
+
+    /** Vorlage ausdrücklich wählen (z. B. «Vorschlag für deine Region übernehmen»). */
+    fun setTaxTemplate(template: TaxTemplate) {
+        viewModelScope.launch { settingsRepository.setTaxTemplate(template) }
+    }
+
+    /** Währung der Arbeitsunterlage: die der Vorlage, Neutral die Anzeigewährung [display]. */
+    fun workCurrency(template: TaxTemplate, display: String): String = template.currency ?: display
+
+    /** Jahresübersicht für [year] rechnen (ohne Devisenkurse: Werte in der Währung leer, Prüfungen «nicht prüfbar»). */
+    fun loadSummary(year: Int, displayCurrency: String) {
+        val tpl = taxTemplate.value
+        val method = tpl.methodFor(costMethod.value, year)
+        val currency = workCurrency(tpl, displayCurrency)
+        val have = _summary.value
+        val walletFrom = tpl.walletFrom(costMethod.value, year)
+        if (have != null && have.period.startYear == year && have.template == tpl && have.method == method && have.currency == currency &&
+            have.walletFrom == walletFrom
+        ) return
+        summaryJob?.cancel()
+        _summary.value = null
+        summaryJob = viewModelScope.launch {
+            _summary.value = try {
+                buildSummary(year, tpl, method, currency)
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                Timber.w(e, "Jahresübersicht nicht gerechnet")
+                null
+            }
+        }
+    }
+
+    internal suspend fun trades(): List<PortfolioTrade> = _trades.value ?: repository.getTransactions().map { it.toTrade() }
+
+    /**
+     * FR: Gesamtwert des Portfolios samt beobachteter Adressen («im Portfolio zählen») — ihre Guthaben-Änderungen als
+     * Adress-Einträge ([AddressBalanceHistory.trades], negative Id: keine Veräusserungen). Andere Vorlagen und Fehler: nur
+     * die eigenen Transaktionen.
+     */
+    private suspend fun withAddressTrades(trades: List<PortfolioTrade>, method: TaxMethod): List<PortfolioTrade> {
+        if (method != TaxMethod.FR_PTA) return trades
+        return try {
+            trades + AddressBalanceHistory.trades(AddressBalanceHistory.of(repository.getWatchedAddresses()))
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            Timber.w(e, "Steuer-Vorlage FR: Adressen nicht geladen")
+            trades
+        }
+    }
+
+    private suspend fun buildSummary(year: Int, tpl: TaxTemplate, method: TaxMethod, currency: String): TaxYearSummary {
+        val trades = withAddressTrades(trades(), method)
+        val zone = ZoneId.systemDefault()
+        val period = tpl.period(year)
+        val priceAt = taxPrices(tpl, method, trades, period)
+        // US: Übergang 1.1.2025 (universelles FIFO bis dahin, [TaxTemplate.walletFrom])
+        val walletFrom = tpl.walletFrom(costMethod.value, year)
+        val from = withContext(Dispatchers.Default) { TaxExport.fxFrom(trades, method, period, zone, priceAt, tpl.eventRules, walletFrom) }
+        val rates = rates(currency, from, period.end)
+        return withContext(Dispatchers.Default) {
+            TaxExport.yearSummary(trades, tpl, method, year, zone, currency, rates, priceAt, walletFrom)
+        }
+    }
+
+    /** CSV «Jahresübersicht» (Vorlage, Orientierung) für [year] in die Datei [uri]. */
+    fun exportSummary(uri: Uri, year: Int, displayCurrency: String, texts: TaxSummaryTexts, header: List<String>, zoneLine: String) {
+        if (_state.value == CutoffExportState.Running) return
+        _state.value = CutoffExportState.Running
+        viewModelScope.launch {
+            _state.value = try {
+                val tpl = taxTemplate.value
+                val method = tpl.methodFor(costMethod.value, year)
+                val currency = workCurrency(tpl, displayCurrency)
+                val summary = _summary.value?.takeIf {
+                    it.period.startYear == year && it.template == tpl && it.method == method && it.currency == currency &&
+                        it.walletFrom == tpl.walletFrom(costMethod.value, year)
+                } ?: buildSummary(year, tpl, method, currency)
+                val format = CutoffCsvFormat.forLocale(deviceRegionLocale().country, inputDecimalSeparator())
+                write(uri, TaxExport.summaryCsv(summary, texts, header, zoneLine, format))
+                CutoffExportState.Done
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                Timber.w(e, "Jahresübersicht fehlgeschlagen")
+                CutoffExportState.Failed
+            }
+        }
+    }
+
+    private suspend fun write(uri: Uri, csv: String) = withContext(Dispatchers.IO) {
+        val stream = context.contentResolver.openOutputStream(uri, "wt") ?: error("Datei kann nicht geschrieben werden")
+        stream.use { it.write(csv.toByteArray(Charsets.UTF_8)) }
+    }
+
+    /**
+     * Arbeitsunterlage [kind] für das Steuerjahr ab [year] in die Datei [uri]; [header] = übersetzte Kopfzeilen (Titel,
+     * Vorlage/Methode/Steuerjahr/Währung, Arbeitsunterlage – keine Steuererklärung, keine Steuerberatung).
+     */
+    fun exportTax(uri: Uri, kind: TaxExportKind, year: Int, displayCurrency: String, texts: TaxCsvTexts, header: List<String>) {
+        if (_state.value == CutoffExportState.Running) return
+        _state.value = CutoffExportState.Running
+        viewModelScope.launch {
+            _state.value = try {
+                write(uri, buildTax(kind, year, displayCurrency, texts, header))
+                CutoffExportState.Done
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                Timber.w(e, "Steuer-Export fehlgeschlagen")
+                CutoffExportState.Failed
+            }
+        }
+    }
+
+    private suspend fun buildTax(kind: TaxExportKind, year: Int, displayCurrency: String, texts: TaxCsvTexts, header: List<String>): String {
+        val trades = trades()
+        val zone = ZoneId.systemDefault()
+        val tpl = taxTemplate.value
+        val method = tpl.methodFor(costMethod.value, year)
+        val currency = workCurrency(tpl, displayCurrency)
+        val period = tpl.period(year)
+        val format = CutoffCsvFormat.forLocale(deviceRegionLocale().country, inputDecimalSeparator())
+        return when (kind) {
+            TaxExportKind.GAINS -> {
+                val trades = withAddressTrades(trades, method)
+                val priceAt = taxPrices(tpl, method, trades, period)
+                // Devisen-Tageskurse ab dem frühesten Kauf-/Herkunftsdatum (Einstand zum Kurs seines Datums)
+                val walletFrom = tpl.walletFrom(costMethod.value, year)
+                val from = withContext(Dispatchers.Default) { TaxExport.fxFrom(trades, method, period, zone, priceAt, tpl.eventRules, walletFrom) }
+                val rates = rates(currency, from, period.end)
+                withContext(Dispatchers.Default) {
+                    TaxExport.gainsCsv(
+                        TaxExport.gainRows(
+                            trades, method, period, zone, currency, rates, priceAt, rules = tpl.eventRules,
+                            walletFrom = walletFrom,
+                        ), texts, header, format,
+                        lostFeeCosts = TaxExport.lostFeeCostsIn(trades, method, period, zone, tpl.eventRules),
+                        zone = zone,
+                        unassignedFees = TaxExport.unassignedFeesIn(trades, method, period, zone, tpl.eventRules),
+                    )
+                }
+            }
+            TaxExportKind.INCOME -> {
+                val rates = rates(currency, period.start, period.end)
+                TaxExport.incomeCsv(TaxExport.incomeRows(trades, period, zone, currency, rates), texts, header, format)
+            }
+        }
+    }
+
+    /** Stichtag-Export; [header] = Kopfzeilen davor (Bestand der Arbeitsunterlage), leer = keine. */
+    fun export(uri: Uri, date: LocalDate, currency: String, texts: CutoffCsvTexts, header: List<String> = emptyList()) {
+        if (_state.value == CutoffExportState.Running) return
+        _state.value = CutoffExportState.Running
+        viewModelScope.launch {
+            _state.value = try {
+                val csv = build(date, currency, texts, header)
+                withContext(Dispatchers.IO) {
+                    val stream = context.contentResolver.openOutputStream(uri, "wt")
+                        ?: error("Datei kann nicht geschrieben werden")
+                    stream.use { it.write(csv.toByteArray(Charsets.UTF_8)) }
+                }
+                CutoffExportState.Done
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                Timber.w(e, "Stichtag-Export fehlgeschlagen")
+                CutoffExportState.Failed
+            }
+        }
+    }
+
+    fun consume() {
+        if (_state.value != CutoffExportState.Running) _state.value = CutoffExportState.Idle
+    }
+
+    private suspend fun build(date: LocalDate, currency: String, texts: CutoffCsvTexts, header: List<String>): String {
+        val trades = repository.getTransactions().map { it.toTrade() }
+        val cutoff = CutoffExport.endOfDayMillis(date, ZoneId.systemDefault())
+        // Bestand nach derselben Einstandsmethode wie Karte, Verlauf und Steuer-Export (FIFO je Wallet je Wallet gekappt)
+        val holdings = CutoffExport.holdingsAt(trades, cutoff, settingsRepository.current().costMethod)
+        // Beobachtete Adressen, die im Portfolio zählen: heute das aktuelle, früher das an dem Tag beobachtete Guthaben
+        // (eigene Zeilen «aus Adresse – ohne Kaufpreis»); Fehler → ohne Adressen
+        val addressAt = try {
+            AddressBalanceHistory.balancesAt(AddressBalanceHistory.of(repository.getWatchedAddresses()), cutoff)
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            Timber.w(e, "Stichtag: Adressen nicht geladen")
+            AddressBalancesAt(emptyMap(), emptySet())
+        }
+        // USDT = 1 ohne Abfrage; andere Stablecoins wie jeder Coin (fehlt der Kurs: «ohne Kurs»)
+        val coins = (holdings.map { it.coin } + addressAt.balances.keys).distinct().filter { PortfolioStables.needsQuote(it) }
+        // Aktuelle Kurse als Bezug der Identitätsprüfung (jede Quelle); ohne passenden Bezug wird kein
+        // Tagesschluss übernommen («ungeprüft») — auch nicht, wenn das Laden ganz scheitert
+        val current = try {
+            if (coins.isEmpty()) emptyMap() else priceSource.prices(coins).let { p ->
+                CutoffExport.referencePrices(p.prices, p.unchecked)
+            }
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            Timber.w(e, "Stichtag: aktuelle Kurse fehlen, alle Kurse ungeprüft")
+            emptyMap()
+        }
+        val closes = historic.dailyClosesUsdt(coins, date, current)
+        val empty = holdings.isEmpty() && addressAt.balances.isEmpty()
+        val fx: HistoricFx? = if (empty && currency != "USD") null else historic.usdTo(currency, date)
+        // Devisenkurs exakt über die kürzeste Darstellung (= Text der Quelle, z. B. «0.79123»)
+        val rate = PortfolioDecimal.of(fx?.rate)
+        val rows = CutoffExport.rows(holdings, closes.prices, rate, closes.unchecked) +
+            CutoffExport.addressRows(addressAt, closes.prices, rate, closes.unchecked)
+        // Trenn-/Dezimalzeichen wie Excel der Region (de-CH «;» + «.», de-DE «;» + «,», en «,» + «.»)
+        val format = CutoffCsvFormat.forLocale(deviceRegionLocale().country, inputDecimalSeparator())
+        return CutoffExport.csv(date, currency, fx?.date, rows, texts, format, header)
+    }
+}

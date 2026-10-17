@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Begrüssung beim ersten Start -->
+    <string name="welcome_alert">知らせる – 価格、パーセント、取引量、異常な動き</string>
+    <string name="welcome_alert_q">いつ知らせる？</string>
+    <string name="welcome_text">あなたの価格。あなたのアラーム。あなたの一覧。\nアカウント不要。広告なし。トラッキングなし。</string>
+    <string name="welcome_understand">理解する – いま価格と一緒に何が動いているか</string>
+    <string name="welcome_understand_q">一緒に動いているのは？</string>
+    <string name="welcome_watch">見守る – コイン、価格、その推移</string>
+    <string name="welcome_watch_q">いま何が起きている？</string>
+
+    <!-- Start-Coins (Vorschlagsliste nach der Begrüssung) -->
+    <string name="starter_add_selected">ウォッチリストに追加 (%1$d)</string>
+    <string name="starter_loading_prices">価格を読み込み中…</string>
+    <string name="starter_search_coin">ほかのコインを探す</string>
+    <string name="starter_select_all">すべて選択</string>
+    <string name="starter_select_none">選択を解除</string>
+    <string name="starter_text">不要なものは選択を外し、残りをまとめて追加できます。取引所とペアは後で変更できます。</string>
+    <string name="starter_title">まずはこれらのコインから</string>
+    <string name="starter_watch_alarm_hint">価格をウォッチしてアラームを設定</string>
+</resources>

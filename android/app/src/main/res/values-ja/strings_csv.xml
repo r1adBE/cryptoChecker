@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: CSV-Import -->
+    <string name="portfolio_csv_import_action">CSV を読み込む</string>
+    <string name="portfolio_csv_import_all_transfer">すべて自分のウォレットへ</string>
+    <string name="portfolio_csv_import_all_withdrawal">すべてポートフォリオから外す</string>
+    <string name="portfolio_csv_import_choice_proposed">候補：%1$s と一致</string>
+    <string name="portfolio_csv_import_choice_transfer">自分のウォレットへ（振替）</string>
+    <string name="portfolio_csv_import_choice_withdrawal">ポートフォリオから外れる（出庫）</string>
+    <string name="portfolio_csv_import_choose_each">出庫ごとに行き先を選んでください。</string>
+    <string name="portfolio_csv_import_columns">認識した列：%1$s</string>
+    <string name="portfolio_csv_import_confirm">読み込む（%1$d）</string>
+    <string name="portfolio_csv_import_date_day_first">日/月</string>
+    <string name="portfolio_csv_import_date_month_first">月/日</string>
+    <string name="portfolio_csv_import_date_order">あいまいな日付（例：03/04/2024）の読み方：</string>
+    <string name="portfolio_csv_import_decimal">あいまいな数値（例：%1$s）の読み方：</string>
+    <plurals name="portfolio_csv_import_done">
+        <item quantity="other">%d 件の取引を読み込みました</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_duplicates">
+        <item quantity="other">インポート済み %d 件（スキップ）</item>
+    </plurals>
+    <string name="portfolio_csv_import_format">形式：%1$s</string>
+    <string name="portfolio_csv_import_line">%1$d 行目：%2$s</string>
+    <string name="portfolio_csv_import_loading">ファイルと日次レートを読み込み中…</string>
+    <string name="portfolio_csv_import_missing_fx">%1$s 行目の日次レートがありません – 価格・手数料なしで読み込みました。</string>
+    <string name="portfolio_csv_import_missing_price">%1$s 行目はファイルに価格がありません – 価格なしで読み込みました。</string>
+    <string name="portfolio_csv_import_more">+ 他 %1$d 件</string>
+    <plurals name="portfolio_csv_import_new">
+        <item quantity="other">新しい取引 %d 件</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_skipped">
+        <item quantity="other">%d 行をスキップ</item>
+    </plurals>
+    <string name="portfolio_csv_import_stable_swaps">ステーブルコイン（USDT、USDC …）での売買はスワップとして記録されます – ステーブルコインは保有量に表示されます。</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">候補が複数あります – 正しいものを選ぶか、選ばないでください。</string>
+    <string name="portfolio_csv_import_transfer_fee">ネットワーク手数料：%1$s</string>
+    <string name="portfolio_csv_import_transfer_link">1件の振替として記録</string>
+    <string name="portfolio_csv_import_transfer_stored">以前のインポートの対応取引</string>
+    <string name="portfolio_csv_import_transfers_hint">同じコインの出庫とそれに合う入庫を1件の振替にまとめます：取得価格と保有期間は引き継がれ、差額はネットワーク手数料になります。</string>
+    <string name="portfolio_csv_import_transfers_title">アカウント間の振替</string>
+    <string name="portfolio_csv_import_unreadable">対応している取引が見つかりません。対応形式：Relai、Swissquote、Kraken、Binance、Coinbase、Bitpanda の CSV エクスポート。</string>
+    <string name="portfolio_csv_import_withdrawals_title">出庫 – コインはどこへ？</string>
+    <string name="portfolio_csv_import_zone">タイムゾーンのない時刻の扱い：%1$s</string>
+    <string name="portfolio_csv_import_zone_device">端末（%1$s）</string>
+    <string name="portfolio_csv_skip_bad_date">日付を読み取れません</string>
+    <string name="portfolio_csv_skip_bad_number">数値を読み取れません</string>
+    <string name="portfolio_csv_skip_fee_exceeds">手数料 ≥ 受取数量</string>
+    <string name="portfolio_csv_skip_internal_move">自分のアカウント間の移動 – 記録するものはありません</string>
+    <string name="portfolio_csv_skip_missing">項目が不足</string>
+    <string name="portfolio_csv_skip_not_crypto">暗号資産ではない</string>
+    <string name="portfolio_csv_skip_possible_duplicate">インポート済みの可能性（ほぼ同じ取引） – 手動で確認してください</string>
+    <string name="portfolio_csv_skip_two_fees">単位の異なる手数料が2つ – スワップを手動で入力</string>
+    <string name="portfolio_csv_skip_unsupported">未対応の種類</string>
+
+    <!-- Portfolio: Importe ansehen und rückgängig machen -->
+    <string name="portfolio_import_undo">元に戻す</string>
+    <plurals name="portfolio_import_undo_confirm">
+        <item quantity="other">このインポートの取引 %d 件を削除しますか？手入力の記録と他のインポートは残ります。</item>
+    </plurals>
+    <string name="portfolio_import_undo_title">インポートを元に戻しますか？</string>
+    <plurals name="portfolio_import_undone">
+        <item quantity="other">インポートした取引 %d 件を削除しました</item>
+    </plurals>
+    <plurals name="portfolio_imports_count">
+        <item quantity="other">%d 件の取引</item>
+    </plurals>
+    <string name="portfolio_imports_empty">インポートなし</string>
+    <string name="portfolio_imports_title">インポート</string>
+</resources>

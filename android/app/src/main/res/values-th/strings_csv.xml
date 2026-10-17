@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: CSV-Import -->
+    <string name="portfolio_csv_import_action">นำเข้า CSV</string>
+    <string name="portfolio_csv_import_all_transfer">ทั้งหมดไปยังวอลเล็ตของตัวเอง</string>
+    <string name="portfolio_csv_import_all_withdrawal">ทั้งหมดออกจากพอร์ต</string>
+    <string name="portfolio_csv_import_choice_proposed">คำแนะนำ: ตรงกับ %1$s</string>
+    <string name="portfolio_csv_import_choice_transfer">ไปยังวอลเล็ตของตัวเอง (โอนย้าย)</string>
+    <string name="portfolio_csv_import_choice_withdrawal">ออกจากพอร์ต (ถอน)</string>
+    <string name="portfolio_csv_import_choose_each">เลือกสำหรับการถอนแต่ละรายการว่าไปที่ใด</string>
+    <string name="portfolio_csv_import_columns">คอลัมน์ที่รู้จัก: %1$s</string>
+    <string name="portfolio_csv_import_confirm">นำเข้า (%1$d)</string>
+    <string name="portfolio_csv_import_date_day_first">วัน/เดือน</string>
+    <string name="portfolio_csv_import_date_month_first">เดือน/วัน</string>
+    <string name="portfolio_csv_import_date_order">วันที่ที่กำกวม (เช่น 03/04/2024) อ่านเป็น:</string>
+    <string name="portfolio_csv_import_decimal">ตัวเลขที่กำกวม (เช่น %1$s) อ่านเป็น:</string>
+    <plurals name="portfolio_csv_import_done">
+        <item quantity="other">นำเข้า %d รายการแล้ว</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_duplicates">
+        <item quantity="other">นำเข้าแล้ว %d รายการ (ข้าม)</item>
+    </plurals>
+    <string name="portfolio_csv_import_format">รูปแบบ: %1$s</string>
+    <string name="portfolio_csv_import_line">บรรทัด %1$d: %2$s</string>
+    <string name="portfolio_csv_import_loading">กำลังอ่านไฟล์และอัตรารายวัน…</string>
+    <string name="portfolio_csv_import_missing_fx">ไม่มีอัตรารายวันสำหรับบรรทัด %1$s – นำเข้าโดยไม่มีราคา/ค่าธรรมเนียม</string>
+    <string name="portfolio_csv_import_missing_price">ไม่มีราคาในไฟล์สำหรับบรรทัด %1$s – นำเข้าโดยไม่มีราคา</string>
+    <string name="portfolio_csv_import_more">+ อีก %1$d รายการ</string>
+    <plurals name="portfolio_csv_import_new">
+        <item quantity="other">รายการใหม่ %d รายการ</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_skipped">
+        <item quantity="other">ข้าม %d บรรทัด</item>
+    </plurals>
+    <string name="portfolio_csv_import_stable_swaps">การซื้อขายแลกกับสเตเบิลคอยน์ (USDT, USDC …) จะบันทึกเป็นการสลับเหรียญ – สเตเบิลคอยน์จะแสดงในยอดถือครองของคุณ</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">อาจตรงกันได้หลายรายการ – เลือกรายการที่ถูกต้องหรือไม่เลือกเลย</string>
+    <string name="portfolio_csv_import_transfer_fee">ค่าธรรมเนียมเครือข่าย: %1$s</string>
+    <string name="portfolio_csv_import_transfer_link">บันทึกเป็นการโอนย้ายครั้งเดียว</string>
+    <string name="portfolio_csv_import_transfer_stored">รายการคู่จากการนำเข้าครั้งก่อน</string>
+    <string name="portfolio_csv_import_transfers_hint">การถอนและการฝากที่ตรงกันของเหรียญเดียวกันจะรวมเป็นการโอนย้ายครั้งเดียว: ราคาซื้อและระยะเวลาถือครองยังคงเดิม ส่วนต่างนับเป็นค่าธรรมเนียมเครือข่าย</string>
+    <string name="portfolio_csv_import_transfers_title">การโอนย้ายระหว่างบัญชีของคุณ</string>
+    <string name="portfolio_csv_import_unreadable">ไม่พบรายการที่รองรับ รองรับ: ไฟล์ CSV ที่ส่งออกจาก Relai, Swissquote, Kraken, Binance, Coinbase และ Bitpanda</string>
+    <string name="portfolio_csv_import_withdrawals_title">การถอน – เหรียญไปที่ไหน?</string>
+    <string name="portfolio_csv_import_zone">เวลาที่ไม่มีเขตเวลาอ่านเป็น: %1$s</string>
+    <string name="portfolio_csv_import_zone_device">อุปกรณ์ (%1$s)</string>
+    <string name="portfolio_csv_skip_bad_date">อ่านวันที่ไม่ได้</string>
+    <string name="portfolio_csv_skip_bad_number">อ่านตัวเลขไม่ได้</string>
+    <string name="portfolio_csv_skip_fee_exceeds">ค่าธรรมเนียม ≥ จำนวนที่ได้รับ</string>
+    <string name="portfolio_csv_skip_internal_move">การย้ายระหว่างบัญชีของคุณเอง – ไม่มีอะไรต้องบันทึก</string>
+    <string name="portfolio_csv_skip_missing">ข้อมูลไม่ครบ</string>
+    <string name="portfolio_csv_skip_not_crypto">ไม่ใช่คริปโต</string>
+    <string name="portfolio_csv_skip_possible_duplicate">อาจนำเข้าแล้ว (การซื้อขายเกือบเหมือนกัน) – ตรวจสอบด้วยตนเอง</string>
+    <string name="portfolio_csv_skip_two_fees">ค่าธรรมเนียมสองรายการต่างหน่วย – บันทึกการแลกด้วยตนเอง</string>
+    <string name="portfolio_csv_skip_unsupported">ประเภทที่ไม่รองรับ</string>
+
+    <!-- Portfolio: Importe ansehen und rückgängig machen -->
+    <string name="portfolio_import_undo">เลิกทำ</string>
+    <plurals name="portfolio_import_undo_confirm">
+        <item quantity="other">ลบ %d รายการของการนำเข้านี้หรือไม่ รายการที่บันทึกเองและการนำเข้าอื่นจะยังอยู่</item>
+    </plurals>
+    <string name="portfolio_import_undo_title">เลิกทำการนำเข้าหรือไม่</string>
+    <plurals name="portfolio_import_undone">
+        <item quantity="other">ลบรายการที่นำเข้า %d รายการแล้ว</item>
+    </plurals>
+    <plurals name="portfolio_imports_count">
+        <item quantity="other">%d รายการ</item>
+    </plurals>
+    <string name="portfolio_imports_empty">ไม่มีการนำเข้า</string>
+    <string name="portfolio_imports_title">การนำเข้า</string>
+</resources>

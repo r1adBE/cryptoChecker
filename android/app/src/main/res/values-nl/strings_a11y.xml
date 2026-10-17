@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Screenreader: Zeile eines Paars, Frische, Erreichbarkeit -->
+    <string name="a11y_alarm_count">alarmen: %1$d</string>
+    <!-- Alarm des Paars eben ausgelöst (bis 15 Min. danach im Zeilensatz) -->
+    <string name="a11y_alarm_fired">Alarm afgegaan</string>
+    <string name="a11y_collapsed">Samengevouwen</string>
+    <string name="a11y_converted">ongeveer %1$s</string>
+    <string name="a11y_expanded">Uitgevouwen</string>
+    <!-- Vorgelesen bei Zeilen, die eine Website öffnen (Datenschutz, Börse wünschen, Quellcode) -->
+    <string name="a11y_external_link">opent in de browser</string>
+    <string name="a11y_favorite">Favoriet</string>
+    <string name="a11y_in_watchlist">Al in de volglijst</string>
+    <!-- %1$s Börse, letzte Abfrage gescheitert -->
+    <string name="a11y_market_unreachable">%1$s niet bereikbaar</string>
+    <string name="a11y_move_down">Omlaag verplaatsen</string>
+    <string name="a11y_move_up">Omhoog verplaatsen</string>
+    <string name="a11y_note">notitie: %1$s</string>
+    <string name="a11y_price">koers %1$s</string>
+    <string name="a11y_price_notification_off">Koersmelding uit</string>
+    <string name="a11y_price_notification_on">Koersmelding aan</string>
+    <!-- Frische einer Zeile, Teile mit «, » verbunden: «Kurs veraltet, zuletzt aktualisiert vor 45 Minuten» (A11ySpeech.freshnessText) -->
+    <string name="a11y_price_outdated">Koers verouderd</string>
+    <!-- Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%1$s op %2$s</string>
+    <string name="a11y_stale">verouderd, laatste update %1$s</string>
+    <string name="a11y_warning">Waarschuwing</string>
+
+    <!-- Screenreader: Veränderung (Prozent-Pille, Widgets) -->
+    <!-- %1$s Satz aus a11y_change_up/down/flat: Veränderung über 24 Stunden (Prozent-Pille, Widgets) -->
+    <string name="a11y_change_24h">%1$s in 24 uur</string>
+    <!-- Wenn die Pille «—» zeigt (keine Kerzen für das Paar) -->
+    <string name="a11y_change_24h_none">Verandering over 24 uur niet beschikbaar</string>
+    <string name="a11y_change_down">gedaald met %1$s</string>
+    <string name="a11y_change_flat">onveranderd</string>
+    <string name="a11y_change_since_last">%1$s sinds de laatste update</string>
+    <string name="a11y_change_since_last_none">Verandering sinds de laatste update niet beschikbaar</string>
+    <!-- %1$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_change_today">%1$s vandaag</string>
+    <string name="a11y_change_today_none">Verandering vandaag niet beschikbaar</string>
+    <string name="a11y_change_today_zone">%1$s sinds middernacht %2$s</string>
+    <string name="a11y_change_today_zone_none">Verandering sinds middernacht %1$s niet beschikbaar</string>
+    <string name="a11y_change_up">gestegen met %1$s</string>
+
+    <!-- Screenreader: Charts und Skalen -->
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">Grafiek %1$s: van %2$s naar %3$s, %4$s. Hoog %5$s, laag %6$s.</string>
+    <string name="a11y_chart_empty">Grafiek: geen gegevens</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">Cyclus %1$s: %2$s sinds de halving, dag %3$d.</string>
+    <string name="a11y_cycle_bottom">Bodem %1$s op dag %2$d.</string>
+    <string name="a11y_cycle_double_bottom">Dubbele bodem %1$s op dag %2$d.</string>
+    <string name="a11y_cycle_double_top">Dubbele top %1$s op dag %2$d.</string>
+    <string name="a11y_cycle_top">Top %1$s op dag %2$d.</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">Schaal van %1$s tot %2$s: %3$d van 100</string>
+
+    <!-- Screenreader: Puls-Zeile der Merkliste -->
+    <string name="a11y_watchlist_pulse">%1$s, %2$s, gemiddeld %3$s</string>
+    <string name="a11y_watchlist_pulse_combined">%1$s. %2$s</string>
+    <plurals name="a11y_watchlist_pulse_falling">
+        <item quantity="one">%1$d daalt</item>
+        <item quantity="other">%1$d dalen</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing">
+        <item quantity="one">%1$d paar zonder 24-uurswaarde</item>
+        <item quantity="other">%1$d paren zonder 24-uurswaarde</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="one">%1$d paar heeft geen waarde voor vandaag</item>
+        <item quantity="other">%1$d paren hebben geen waarde voor vandaag</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_rising">
+        <item quantity="one">%1$d paar stijgt</item>
+        <item quantity="other">%1$d paren stijgen</item>
+    </plurals>
+
+    <!-- Screenreader: zuletzt aktualisiert -->
+    <plurals name="a11y_updated_days">
+        <item quantity="one">laatst bijgewerkt %1$d dag geleden</item>
+        <item quantity="other">laatst bijgewerkt %1$d dagen geleden</item>
+    </plurals>
+    <plurals name="a11y_updated_hours">
+        <item quantity="one">laatst bijgewerkt %1$d uur geleden</item>
+        <item quantity="other">laatst bijgewerkt %1$d uur geleden</item>
+    </plurals>
+    <string name="a11y_updated_just_now">laatst bijgewerkt zojuist</string>
+    <plurals name="a11y_updated_minutes">
+        <item quantity="one">laatst bijgewerkt %1$d minuut geleden</item>
+        <item quantity="other">laatst bijgewerkt %1$d minuten geleden</item>
+    </plurals>
+
+    <!-- Screenreader: Portfolio und Portfolio-Widget -->
+    <string name="a11y_amount_hidden">bedrag verborgen</string>
+    <!-- %1$s Kürzel, %2$s Wert mit Währung, %3$s Anteil «62.3%», %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_portfolio_position">%1$s %2$s, %3$s van het portfolio</string>
+    <!-- Position im Portfolio-Widget: %1$s Kürzel, %2$s Anteil «62.3%», %3$s Satz aus a11y_change_24h -->
+    <string name="a11y_portfolio_position_24h">%1$s, %2$s van de portefeuille, %3$s</string>
+    <string name="a11y_portfolio_positions">Grootste posities: %1$s</string>
+    <string name="a11y_portfolio_show_amounts">Bedragen tonen</string>
+</resources>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Wie aktuell? (Sparsam / Live) -->
+    <string name="update_mode_for_pros">데이터와 배터리를 더 사용</string>
+    <string name="update_mode_live">열려 있는 동안 실시간</string>
+    <string name="update_mode_live_hint">거래소가 실시간 가격을 제공하면: 관심 목록이 열려 있는 동안 즉시. 그 외에는 다음 조회 때. 닫힘: 최대 %1$s마다, 더 늦을 때가 많음.</string>
+    <string name="update_mode_live_hint_ios">거래소가 실시간 가격을 제공하면: 관심 목록이 열려 있는 동안 즉시. 그 외에는 다음 조회 때. 닫힘: iOS가 허용할 때, 몇 시간 간격일 때도 있습니다. 앱을 스와이프해 종료하면 다시 열 때까지 iOS가 이 확인을 멈춥니다.</string>
+    <string name="update_mode_recommended">권장</string>
+    <string name="update_mode_sparsam">절약</string>
+    <string name="update_mode_sparsam_hint">앱을 닫았을 때 최대 %1$s마다, 더 늦을 때가 많음(알람, 위젯). 열었을 때: 열 때마다.</string>
+    <string name="update_mode_sparsam_hint_ios">앱이 닫혀 있으면 확인 시점은 iOS가 정합니다(알람, 위젯). 몇 시간 간격일 때도 있습니다. 열려 있을 때: 열 때마다.</string>
+    <string name="update_mode_title">얼마나 최신으로?</string>
+
+    <!-- Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <string name="refresh_sheet_aborted">새로고침 중단됨</string>
+    <string name="refresh_sheet_alarms">경보</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="other">%1$d개 울림</item>
+    </plurals>
+    <!-- Grosse Statuszeile oben im Blatt -->
+    <string name="refresh_sheet_all_updated">모두 업데이트됨</string>
+    <string name="refresh_sheet_app_start">앱 시작</string>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="other">일괄 요청 %1$s · 시세 %2$d개</item>
+    </plurals>
+    <string name="refresh_sheet_database">데이터베이스</string>
+    <string name="refresh_sheet_market_unreachable">%1$s에 연결할 수 없음</string>
+    <plurals name="refresh_sheet_markets_unreachable">
+        <item quantity="other">거래소 %1$d곳에 연결할 수 없음</item>
+    </plurals>
+    <string name="refresh_sheet_network">네트워크</string>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="other">알림 %1$d개</item>
+    </plurals>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="other">거래쌍 %1$d개</item>
+    </plurals>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="other">거래쌍 %1$d개 업데이트 안 됨</item>
+    </plurals>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="other">거래쌍 %1$d개 중 %2$d개</item>
+    </plurals>
+    <string name="refresh_sheet_paused_until">%1$s까지 일시 중지</string>
+    <string name="refresh_sheet_paused_until_reason">%1$s까지 일시 중지 (%2$s)</string>
+    <string name="refresh_sheet_reason_no_data">데이터 없음</string>
+    <string name="refresh_sheet_reason_offline">연결 없음</string>
+    <string name="refresh_sheet_reason_rate_limit">요청 과다</string>
+    <string name="refresh_sheet_reason_server">서버 오류</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">시간 초과</string>
+    <string name="refresh_sheet_reason_unavailable">거래소를 사용할 수 없음</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s초</string>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_markets">거래소</string>
+    <string name="refresh_sheet_section_steps">세부 내역</string>
+    <string name="refresh_sheet_status_failed">업데이트 안 됨</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">모두 업데이트됨</string>
+    <string name="refresh_sheet_status_partial">일부 업데이트됨</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">시작까지 대기</string>
+    <string name="refresh_sheet_widgets">위젯</string>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+
+    <!-- Kurzbericht der Aktualisierung je Börse -->
+    <string name="refresh_report_bulk_failed">일괄 요청 %1$s (실패)</string>
+    <plurals name="refresh_report_errors">
+        <item quantity="other">오류 %1$d개</item>
+    </plurals>
+    <string name="refresh_report_live">실시간: %1$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="other">더 이상 거래되지 않음 %1$d개</item>
+    </plurals>
+    <string name="refresh_report_singles">개별 %1$d개</string>
+
+    <!-- Prüfprotokoll der Hintergrundprüfungen (Ergebnis, Auslöser) -->
+    <string name="check_result_failed">실패</string>
+    <string name="check_result_ok">정상</string>
+    <string name="check_result_partial">일부</string>
+    <string name="check_result_skipped">건너뜀</string>
+    <string name="check_trigger_bgtask">백그라운드</string>
+    <string name="check_trigger_exact">제때</string>
+    <string name="check_trigger_foreground">앱</string>
+    <string name="check_trigger_widget">위젯</string>
+    <string name="check_trigger_widget_ios">위젯 · 시세와 시세 경보</string>
+    <string name="check_trigger_worker">백그라운드</string>
+
+    <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
+    <string name="battery_delay_hint">Android가 확인을 지연할 수 있습니다 – 배터리를 «제한 없음»(으)로 설정하세요</string>
+    <string name="battery_later">나중에</string>
+    <string name="battery_message">Android는 전력을 아끼려고 백그라운드 작업을 지연시킵니다 — 그러면 가격과 위젯이 몇 시간 전 정보일 수 있습니다. 배터리 사용을 ‘제한 없음’으로 설정하면 최신 상태가 유지됩니다. Android 설정에서 언제든 변경할 수 있습니다.</string>
+    <string name="battery_open_settings">배터리 설정 열기</string>
+    <string name="battery_steps">앱 정보에서 배터리(또는 앱 배터리 사용량)를 누르고 제한 없음을 선택하세요.</string>
+    <string name="battery_title">가격을 최신 상태로 유지</string>
+    <string name="ios_background_refresh_off">이 앱의 백그라운드 앱 새로 고침이 꺼져 있습니다. 꺼져 있으면 알람은 앱이 열려 있을 때만 확인됩니다.</string>
+    <string name="ios_low_power_mode">저전력 모드가 켜져 있습니다. iOS가 백그라운드에서 거의 확인하지 않아 알람이 늦을 수 있습니다.</string>
+</resources>

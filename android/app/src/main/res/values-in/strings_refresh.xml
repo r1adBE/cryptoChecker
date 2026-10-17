@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Wie aktuell? (Sparsam / Live) -->
+    <string name="update_mode_for_pros">butuh lebih banyak data dan baterai</string>
+    <string name="update_mode_live">Langsung selama terbuka</string>
+    <string name="update_mode_live_hint">Jika bursa menyediakan harga live: seketika selama daftar terbuka. Jika tidak, pada pengambilan berikutnya. Tertutup: paling sering setiap %1$s, sering lebih lambat.</string>
+    <string name="update_mode_live_hint_ios">Jika bursa menyediakan harga live: seketika selama daftar terbuka. Jika tidak, pada pengambilan berikutnya. Tertutup: saat iOS mengizinkan, kadang berselang berjam-jam. Jika aplikasi diusap hingga tertutup, iOS menghentikan pemeriksaan ini sampai aplikasi dibuka lagi.</string>
+    <string name="update_mode_recommended">disarankan</string>
+    <string name="update_mode_sparsam">Hemat</string>
+    <string name="update_mode_sparsam_hint">Saat aplikasi ditutup, paling sering setiap %1$s, sering lebih lambat (alarm, widget). Terbuka: setiap kali dibuka.</string>
+    <string name="update_mode_sparsam_hint_ios">Saat aplikasi ditutup, iOS yang menentukan kapan memeriksa (alarm, widget), kadang berselang berjam-jam. Terbuka: setiap kali dibuka.</string>
+    <string name="update_mode_title">Seberapa terkini?</string>
+
+    <!-- Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <string name="refresh_sheet_aborted">Pembaruan dibatalkan</string>
+    <string name="refresh_sheet_alarms">Alarm</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="other">%1$d terpicu</item>
+    </plurals>
+    <!-- Grosse Statuszeile oben im Blatt -->
+    <string name="refresh_sheet_all_updated">Semua diperbarui</string>
+    <string name="refresh_sheet_app_start">Mulai aplikasi</string>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="other">permintaan massal %1$s · %2$d harga</item>
+    </plurals>
+    <string name="refresh_sheet_database">Basis data</string>
+    <string name="refresh_sheet_market_unreachable">%1$s tidak dapat dijangkau</string>
+    <plurals name="refresh_sheet_markets_unreachable">
+        <item quantity="other">%1$d bursa tidak dapat dijangkau</item>
+    </plurals>
+    <string name="refresh_sheet_network">Jaringan</string>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="other">%1$d notifikasi</item>
+    </plurals>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="other">%1$d pasangan</item>
+    </plurals>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="other">%1$d pasangan tidak diperbarui</item>
+    </plurals>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="other">%2$d dari %1$d pasangan</item>
+    </plurals>
+    <string name="refresh_sheet_paused_until">dijeda hingga %1$s</string>
+    <string name="refresh_sheet_paused_until_reason">dijeda hingga %1$s (%2$s)</string>
+    <string name="refresh_sheet_reason_no_data">tidak ada data</string>
+    <string name="refresh_sheet_reason_offline">tidak ada koneksi</string>
+    <string name="refresh_sheet_reason_rate_limit">terlalu banyak permintaan</string>
+    <string name="refresh_sheet_reason_server">kesalahan server</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">waktu habis</string>
+    <string name="refresh_sheet_reason_unavailable">bursa tidak tersedia</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s detik</string>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_markets">Bursa</string>
+    <string name="refresh_sheet_section_steps">Rincian</string>
+    <string name="refresh_sheet_status_failed">tidak diperbarui</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">semua diperbarui</string>
+    <string name="refresh_sheet_status_partial">sebagian diperbarui</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">Menunggu hingga mulai</string>
+    <string name="refresh_sheet_widgets">Widget</string>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+
+    <!-- Kurzbericht der Aktualisierung je Börse -->
+    <string name="refresh_report_bulk_failed">permintaan massal %1$s (gagal)</string>
+    <plurals name="refresh_report_errors">
+        <item quantity="other">%1$d kesalahan</item>
+    </plurals>
+    <string name="refresh_report_live">Live: %1$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="other">%1$d tidak lagi diperdagangkan</item>
+    </plurals>
+    <string name="refresh_report_singles">%1$d satu per satu</string>
+
+    <!-- Prüfprotokoll der Hintergrundprüfungen (Ergebnis, Auslöser) -->
+    <string name="check_result_failed">Gagal</string>
+    <string name="check_result_ok">OK</string>
+    <string name="check_result_partial">Sebagian</string>
+    <string name="check_result_skipped">Dilewati</string>
+    <string name="check_trigger_bgtask">Latar belakang</string>
+    <string name="check_trigger_exact">Tepat waktu</string>
+    <string name="check_trigger_foreground">Aplikasi</string>
+    <string name="check_trigger_widget">Widget</string>
+    <string name="check_trigger_widget_ios">Widget · harga dan alarm harga</string>
+    <string name="check_trigger_worker">Latar belakang</string>
+
+    <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
+    <string name="battery_delay_hint">Android dapat menunda pemeriksaan – atur baterai ke «Tidak dibatasi»</string>
+    <string name="battery_later">Nanti</string>
+    <string name="battery_message">Android menunda pekerjaan latar belakang untuk menghemat daya — harga dan widget bisa tertinggal berjam-jam. Mengatur penggunaan baterai ke tidak dibatasi menjaganya tetap terkini. Anda bisa mengubahnya kapan saja di pengaturan Android.</string>
+    <string name="battery_open_settings">Buka pengaturan baterai</string>
+    <string name="battery_steps">Di info aplikasi, ketuk Baterai (atau Penggunaan baterai aplikasi) lalu pilih Tidak dibatasi.</string>
+    <string name="battery_title">Jaga harga tetap terkini</string>
+    <string name="ios_background_refresh_off">Refresh Aplikasi di Latar Belakang mati untuk aplikasi ini. Tanpanya, alarm hanya diperiksa saat aplikasi terbuka.</string>
+    <string name="ios_low_power_mode">Mode Daya Rendah aktif. iOS jarang memeriksa di latar belakang, jadi alarm bisa terlambat.</string>
+</resources>

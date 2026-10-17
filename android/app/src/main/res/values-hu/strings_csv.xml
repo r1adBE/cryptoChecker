@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: CSV-Import -->
+    <string name="portfolio_csv_import_action">CSV importálása</string>
+    <string name="portfolio_csv_import_all_transfer">Mind saját tárcába</string>
+    <string name="portfolio_csv_import_all_withdrawal">Mind kikerül a portfólióból</string>
+    <string name="portfolio_csv_import_choice_proposed">Javaslat: illeszkedik ehhez: %1$s</string>
+    <string name="portfolio_csv_import_choice_transfer">Saját tárcába (átvezetés)</string>
+    <string name="portfolio_csv_import_choice_withdrawal">Kikerül a portfólióból (kifizetés)</string>
+    <string name="portfolio_csv_import_choose_each">Válaszd ki minden kifizetésnél, hová ment.</string>
+    <string name="portfolio_csv_import_columns">Felismert oszlopok: %1$s</string>
+    <string name="portfolio_csv_import_confirm">Importálás (%1$d)</string>
+    <string name="portfolio_csv_import_date_day_first">Nap/Hónap</string>
+    <string name="portfolio_csv_import_date_month_first">Hónap/Nap</string>
+    <string name="portfolio_csv_import_date_order">Kétértelmű dátumok (pl. 03/04/2024) értelmezése:</string>
+    <string name="portfolio_csv_import_decimal">Kétértelmű számok (pl. %1$s) értelmezése:</string>
+    <plurals name="portfolio_csv_import_done">
+        <item quantity="one">%d tranzakció importálva</item>
+        <item quantity="other">%d tranzakció importálva</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_duplicates">
+        <item quantity="one">%d már importálva (kihagyva)</item>
+        <item quantity="other">%d már importálva (kihagyva)</item>
+    </plurals>
+    <string name="portfolio_csv_import_format">Formátum: %1$s</string>
+    <string name="portfolio_csv_import_line">%1$d. sor: %2$s</string>
+    <string name="portfolio_csv_import_loading">Fájl és napi árfolyamok beolvasása…</string>
+    <string name="portfolio_csv_import_missing_fx">Nincs napi árfolyam ehhez a sorhoz: %1$s – ár és díj nélkül importálva.</string>
+    <string name="portfolio_csv_import_missing_price">A fájlban nincs ár ehhez a sorhoz: %1$s – ár nélkül importálva.</string>
+    <string name="portfolio_csv_import_more">+ még %1$d</string>
+    <plurals name="portfolio_csv_import_new">
+        <item quantity="one">%d új tranzakció</item>
+        <item quantity="other">%d új tranzakció</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_skipped">
+        <item quantity="one">%d sor kihagyva</item>
+        <item quantity="other">%d sor kihagyva</item>
+    </plurals>
+    <string name="portfolio_csv_import_stable_swaps">A stablecoinok (USDT, USDC …) elleni vételek és eladások cserének számítanak – a stablecoin megjelenik az állományodban.</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">Több lehetséges találat – válaszd ki a helyeset, vagy egyiket sem.</string>
+    <string name="portfolio_csv_import_transfer_fee">Hálózati díj: %1$s</string>
+    <string name="portfolio_csv_import_transfer_link">Könyvelés egy átvezetésként</string>
+    <string name="portfolio_csv_import_transfer_stored">Párja egy korábbi importból</string>
+    <string name="portfolio_csv_import_transfers_hint">Egy kifizetés és ugyanazon coin hozzá illő befizetése egyetlen átvezetés lesz: a beszerzési ár és a tartási idő megmarad, a különbözet hálózati díjnak számít.</string>
+    <string name="portfolio_csv_import_transfers_title">Átvezetések a számláid között</string>
+    <string name="portfolio_csv_import_unreadable">Nem található támogatott tranzakció. Támogatott: Relai, Swissquote, Kraken, Binance, Coinbase és Bitpanda CSV-exportok.</string>
+    <string name="portfolio_csv_import_withdrawals_title">Kifizetések – hová kerültek a coinok?</string>
+    <string name="portfolio_csv_import_zone">Időzóna nélküli időpontok értelmezése: %1$s</string>
+    <string name="portfolio_csv_import_zone_device">Eszköz (%1$s)</string>
+    <string name="portfolio_csv_skip_bad_date">olvashatatlan dátum</string>
+    <string name="portfolio_csv_skip_bad_number">olvashatatlan szám</string>
+    <string name="portfolio_csv_skip_fee_exceeds">díj ≥ kapott mennyiség</string>
+    <string name="portfolio_csv_skip_internal_move">mozgatás a saját számláid között – nincs mit könyvelni</string>
+    <string name="portfolio_csv_skip_missing">hiányzó mező</string>
+    <string name="portfolio_csv_skip_not_crypto">nem kripto</string>
+    <string name="portfolio_csv_skip_possible_duplicate">lehet, hogy már importálva (szinte ugyanaz az ügylet) – ellenőrizd kézzel</string>
+    <string name="portfolio_csv_skip_two_fees">két díj különböző egységben – rögzítsd a cserét kézzel</string>
+    <string name="portfolio_csv_skip_unsupported">nem támogatott típus</string>
+
+    <!-- Portfolio: Importe ansehen und rückgängig machen -->
+    <string name="portfolio_import_undo">Visszavonás</string>
+    <plurals name="portfolio_import_undo_confirm">
+        <item quantity="one">Törlöd az importálás tranzakcióját (%d)? A kézi bejegyzések és más importok megmaradnak.</item>
+        <item quantity="other">Törlöd az importálás tranzakcióit (%d)? A kézi bejegyzések és más importok megmaradnak.</item>
+    </plurals>
+    <string name="portfolio_import_undo_title">Visszavonod az importálást?</string>
+    <plurals name="portfolio_import_undone">
+        <item quantity="one">%d importált tranzakció eltávolítva</item>
+        <item quantity="other">%d importált tranzakció eltávolítva</item>
+    </plurals>
+    <plurals name="portfolio_imports_count">
+        <item quantity="one">%d tranzakció</item>
+        <item quantity="other">%d tranzakció</item>
+    </plurals>
+    <string name="portfolio_imports_empty">Nincs importálás</string>
+    <string name="portfolio_imports_title">Importálások</string>
+</resources>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Wie aktuell? (Sparsam / Live) -->
+    <string name="update_mode_for_pros">consumă mai multe date și baterie</string>
+    <string name="update_mode_live">Live cât e deschisă</string>
+    <string name="update_mode_live_hint">Unde bursa oferă un preț live: imediat, cât timp lista e deschisă. Altfel, la următoarea preluare. Închisă: cel mult o dată la %1$s, adesea mai rar.</string>
+    <string name="update_mode_live_hint_ios">Unde bursa oferă un preț live: imediat, cât timp lista e deschisă. Altfel, la următoarea preluare. Închisă: când permite iOS, uneori la ore distanță. Dacă închizi aplicația glisând-o, iOS oprește aceste verificări până o deschizi din nou.</string>
+    <string name="update_mode_recommended">recomandat</string>
+    <string name="update_mode_sparsam">Economic</string>
+    <string name="update_mode_sparsam_hint">Cu aplicația închisă, cel mult o dată la %1$s, adesea mai rar (alarme, widgeturi). Deschisă: la fiecare deschidere.</string>
+    <string name="update_mode_sparsam_hint_ios">Cu aplicația închisă, iOS decide când verifică (alarme, widgeturi), uneori la ore distanță. Deschisă: la fiecare deschidere.</string>
+    <string name="update_mode_title">Cât de actual?</string>
+
+    <!-- Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <string name="refresh_sheet_aborted">Actualizare întreruptă</string>
+    <string name="refresh_sheet_alarms">Alarme</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="one">%1$d declanșată</item>
+        <item quantity="few">%1$d declanșate</item>
+        <item quantity="other">%1$d declanșate</item>
+    </plurals>
+    <!-- Grosse Statuszeile oben im Blatt -->
+    <string name="refresh_sheet_all_updated">Totul actualizat</string>
+    <string name="refresh_sheet_app_start">Pornirea aplicației</string>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="one">cerere grupată %1$s · %2$d preț</item>
+        <item quantity="few">cerere grupată %1$s · %2$d prețuri</item>
+        <item quantity="other">cerere grupată %1$s · %2$d de prețuri</item>
+    </plurals>
+    <string name="refresh_sheet_database">Bază de date</string>
+    <string name="refresh_sheet_market_unreachable">%1$s inaccesibil</string>
+    <plurals name="refresh_sheet_markets_unreachable">
+        <item quantity="one">%1$d bursă inaccesibilă</item>
+        <item quantity="few">%1$d burse inaccesibile</item>
+        <item quantity="other">%1$d de burse inaccesibile</item>
+    </plurals>
+    <string name="refresh_sheet_network">Rețea</string>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="one">%1$d notificare</item>
+        <item quantity="few">%1$d notificări</item>
+        <item quantity="other">%1$d de notificări</item>
+    </plurals>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="one">%1$d pereche</item>
+        <item quantity="few">%1$d perechi</item>
+        <item quantity="other">%1$d de perechi</item>
+    </plurals>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="one">%1$d pereche neactualizată</item>
+        <item quantity="few">%1$d perechi neactualizate</item>
+        <item quantity="other">%1$d de perechi neactualizate</item>
+    </plurals>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="one">%2$d din %1$d pereche</item>
+        <item quantity="few">%2$d din %1$d perechi</item>
+        <item quantity="other">%2$d din %1$d de perechi</item>
+    </plurals>
+    <string name="refresh_sheet_paused_until">în pauză până la %1$s</string>
+    <string name="refresh_sheet_paused_until_reason">în pauză până la %1$s (%2$s)</string>
+    <string name="refresh_sheet_reason_no_data">fără date</string>
+    <string name="refresh_sheet_reason_offline">fără conexiune</string>
+    <string name="refresh_sheet_reason_rate_limit">prea multe cereri</string>
+    <string name="refresh_sheet_reason_server">eroare de server</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">timp expirat</string>
+    <string name="refresh_sheet_reason_unavailable">bursă indisponibilă</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s secunde</string>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_markets">Burse</string>
+    <string name="refresh_sheet_section_steps">Detalii</string>
+    <string name="refresh_sheet_status_failed">neactualizat</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">totul actualizat</string>
+    <string name="refresh_sheet_status_partial">actualizat parțial</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">Așteptare până la start</string>
+    <string name="refresh_sheet_widgets">Widgeturi</string>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+
+    <!-- Kurzbericht der Aktualisierung je Börse -->
+    <string name="refresh_report_bulk_failed">cerere grupată %1$s (eșuată)</string>
+    <plurals name="refresh_report_errors">
+        <item quantity="one">%1$d eroare</item>
+        <item quantity="few">%1$d erori</item>
+        <item quantity="other">%1$d de erori</item>
+    </plurals>
+    <string name="refresh_report_live">Live: %1$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="one">%1$d nu se mai tranzacționează</item>
+        <item quantity="few">%1$d nu se mai tranzacționează</item>
+        <item quantity="other">%1$d nu se mai tranzacționează</item>
+    </plurals>
+    <string name="refresh_report_singles">%1$d individual</string>
+
+    <!-- Prüfprotokoll der Hintergrundprüfungen (Ergebnis, Auslöser) -->
+    <string name="check_result_failed">Eșuat</string>
+    <string name="check_result_ok">OK</string>
+    <string name="check_result_partial">Parțial</string>
+    <string name="check_result_skipped">Omis</string>
+    <string name="check_trigger_bgtask">Fundal</string>
+    <string name="check_trigger_exact">Punctual</string>
+    <string name="check_trigger_foreground">Aplicație</string>
+    <string name="check_trigger_widget">Widget</string>
+    <string name="check_trigger_widget_ios">Widget · prețuri și alarme de preț</string>
+    <string name="check_trigger_worker">Fundal</string>
+
+    <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
+    <string name="battery_delay_hint">Android poate întârzia verificările – setează bateria la «Nerestricționat»</string>
+    <string name="battery_later">Mai târziu</string>
+    <string name="battery_message">Android amână activitatea în fundal pentru a economisi energie — prețurile și widgeturile pot fi atunci vechi de câteva ore. Setarea utilizării bateriei la nerestricționat le menține actualizate. Poți schimba oricând acest lucru în setările Android.</string>
+    <string name="battery_open_settings">Deschide setările bateriei</string>
+    <string name="battery_steps">În informațiile aplicației, atinge Baterie (sau Utilizarea bateriei de către aplicație) și alege Nerestricționat.</string>
+    <string name="battery_title">Păstrează prețurile actualizate</string>
+    <string name="ios_background_refresh_off">Reîmprospătarea în fundal este oprită pentru aplicație. Fără ea, alarmele sunt verificate doar cu aplicația deschisă.</string>
+    <string name="ios_low_power_mode">Modul consum redus este activ. iOS verifică rar în fundal, așa că alarmele pot întârzia.</string>
+</resources>

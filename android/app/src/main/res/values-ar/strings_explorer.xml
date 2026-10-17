@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="explorer_coin_back">كل النتائج</string>
+    <plurals name="explorer_coin_exchanges">
+        <item quantity="zero">%1$d منصة</item>
+        <item quantity="one">%1$d منصة</item>
+        <item quantity="two">%1$d منصة</item>
+        <item quantity="few">%1$d منصات</item>
+        <item quantity="many">%1$d منصة</item>
+        <item quantity="other">%1$d منصة</item>
+    </plurals>
+    <string name="explorer_coin_no_pairs">لا يوجد زوج لهذه العملة في القوائم المحمّلة.</string>
+    <string name="explorer_coin_not_loaded">لم تُحمَّل قوائم الأزواج بعد</string>
+    <string name="explorer_coin_other_pairs">أزواج أخرى</string>
+    <string name="explorer_coin_show_pairs">عرض الأزواج</string>
+    <string name="explorer_coin_suggested">مقترح</string>
+    <string name="explorer_coins_title">العملات</string>
+    <string name="explorer_lists_load">تحميل القوائم</string>
+    <string name="explorer_lists_loading">جارٍ تحميل قوائم الأزواج… %1$d/%2$d</string>
+    <plurals name="explorer_lists_missing">
+        <item quantity="zero">قوائم أزواج %1$d منصة ليست على الجهاز بعد.</item>
+        <item quantity="one">قائمة أزواج %1$d منصة ليست على الجهاز بعد.</item>
+        <item quantity="two">قوائم أزواج %1$d منصة ليست على الجهاز بعد.</item>
+        <item quantity="few">قوائم أزواج %1$d منصات ليست على الجهاز بعد.</item>
+        <item quantity="many">قوائم أزواج %1$d منصة ليست على الجهاز بعد.</item>
+        <item quantity="other">قوائم أزواج %1$d منصة ليست على الجهاز بعد.</item>
+    </plurals>
+    <string name="explorer_lists_privacy">يحمّل القائمة العامة الكاملة لكل منصة، وهي نفسها للجميع. يبقى بحثك على الجهاز.</string>
+    <!-- Paar hinzufügen: Suche über alle Börsen, zuletzt gesucht -->
+    <string name="explorer_recent_a11y">بحث سابق: %1$s</string>
+    <string name="explorer_recent_clear">مسح</string>
+    <string name="explorer_recent_clear_a11y">مسح عمليات البحث الأخيرة</string>
+    <string name="explorer_recent_title">عمليات البحث الأخيرة</string>
+    <string name="explorer_search_choose_manually">اختر المنصة والزوج بنفسك</string>
+    <string name="explorer_search_empty">لا توجد نتائج.</string>
+    <string name="explorer_search_hint">ابحث عن عملة أو زوج أو منصة</string>
+    <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
+    <string name="explorer_search_intro">اكتب اسم العملة أو رمزها، مثل Bitcoin أو BTC، ثم اختر الزوج.</string>
+
+    <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
+    <string name="explorer_add_to_watchlist">إضافة إلى قائمة المتابعة</string>
+    <string name="explorer_added_to_watchlist">أُضيف إلى قائمة المتابعة.</string>
+    <string name="explorer_already_in_watchlist">هذا الزوج موجود بالفعل في قائمة المتابعة.</string>
+    <string name="explorer_exchange_missing">منصة غير موجودة؟</string>
+    <string name="explorer_loading_pairs">جارٍ تحميل أزواج التداول…</string>
+    <string name="explorer_no_pair_selected">اختر زوجًا أولًا.</string>
+    <string name="explorer_no_pairs_yet">لم تُحمَّل أزواج لهذه المنصة بعد.</string>
+    <plurals name="explorer_pairs_status">
+        <item quantity="zero">%1$d زوج · تحديث %2$s</item>
+        <item quantity="one">%1$d زوج · تحديث %2$s</item>
+        <item quantity="two">%1$d زوج · تحديث %2$s</item>
+        <item quantity="few">%1$d أزواج · تحديث %2$s</item>
+        <item quantity="many">%1$d زوجًا · تحديث %2$s</item>
+        <item quantity="other">%1$d زوج · تحديث %2$s</item>
+    </plurals>
+    <string name="explorer_pairs_title">الأزواج</string>
+    <string name="explorer_precise_title">متقدم / حسب المنصة</string>
+    <string name="explorer_price_loading">جارٍ تحميل السعر…</string>
+    <string name="explorer_select_market_hint">اختر منصة – تُحمَّل أزواجها تلقائيًا.</string>
+    <string name="explorer_select_placeholder">يرجى الاختيار</string>
+    <string name="explorer_step_pair">اختر الزوج</string>
+
+    <!-- Paar hinzufügen: Schnellfilter der Liste «Alle …-Paare» -->
+    <string name="explorer_filter_gainers">الرابحون</string>
+    <string name="explorer_filter_losers">الخاسرون</string>
+    <string name="explorer_filter_volume">الحجم</string>
+
+    <!-- Paar hinzufügen: mehrere Paare auf einmal -->
+    <string name="bulk_all_pairs">جميع أزواج %1$s في هذه المنصة</string>
+    <plurals name="bulk_all_pairs_applied">
+        <item quantity="zero">تم العثور على %1$d زوج %2$s</item>
+        <item quantity="one">تم العثور على %1$d زوج %2$s</item>
+        <item quantity="two">تم العثور على %1$d زوج %2$s</item>
+        <item quantity="few">تم العثور على %1$d أزواج %2$s</item>
+        <item quantity="many">تم العثور على %1$d زوجًا %2$s</item>
+        <item quantity="other">تم العثور على %1$d زوج %2$s</item>
+    </plurals>
+    <string name="bulk_all_pairs_empty">لا توجد أزواج %1$s في هذه المنصة لنوع العقد المحدد. زامِن المنصة أولًا أو جرّب نوع عقد آخر.</string>
+    <plurals name="explorer_add_all_pairs">
+        <item quantity="zero">إضافة %1$d زوج إلى قائمة المتابعة</item>
+        <item quantity="one">إضافة %1$d زوج إلى قائمة المتابعة</item>
+        <item quantity="two">إضافة %1$d زوج إلى قائمة المتابعة</item>
+        <item quantity="few">إضافة كل الأزواج الـ%1$d إلى قائمة المتابعة</item>
+        <item quantity="many">إضافة كل الأزواج (%1$d زوجًا) إلى قائمة المتابعة</item>
+        <item quantity="other">إضافة كل الأزواج (%1$d زوج) إلى قائمة المتابعة</item>
+    </plurals>
+    <plurals name="explorer_bulk_added">
+        <item quantity="zero">أُضيف %1$d، و%2$d موجودة مسبقًا في قائمة المتابعة.</item>
+        <item quantity="one">أُضيف %1$d، و%2$d موجودة مسبقًا في قائمة المتابعة.</item>
+        <item quantity="two">أُضيف %1$d، و%2$d موجودة مسبقًا في قائمة المتابعة.</item>
+        <item quantity="few">أُضيف %1$d، و%2$d موجودة مسبقًا في قائمة المتابعة.</item>
+        <item quantity="many">أُضيف %1$d، و%2$d موجودة مسبقًا في قائمة المتابعة.</item>
+        <item quantity="other">أُضيف %1$d، و%2$d موجودة مسبقًا في قائمة المتابعة.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_text">
+        <item quantity="zero">سيُضاف %1$d زوج %2$s من %3$s إلى القائمة. يتم تخطي الموجود منها.</item>
+        <item quantity="one">سيُضاف %1$d زوج %2$s من %3$s إلى القائمة إن لم يكن موجودًا.</item>
+        <item quantity="two">سيُضاف %1$d زوج %2$s من %3$s إلى القائمة. يتم تخطي الموجود منها.</item>
+        <item quantity="few">ستُضاف كل أزواج %2$s البالغة %1$d أزواج من %3$s إلى القائمة. يتم تخطي الموجود منها.</item>
+        <item quantity="many">ستُضاف كل أزواج %2$s البالغة %1$d زوجًا من %3$s إلى القائمة. يتم تخطي الموجود منها.</item>
+        <item quantity="other">ستُضاف كل أزواج %2$s البالغة %1$d زوج من %3$s إلى القائمة. يتم تخطي الموجود منها.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_title">
+        <item quantity="zero">إضافة %1$d زوج؟</item>
+        <item quantity="one">إضافة %1$d زوج؟</item>
+        <item quantity="two">إضافة %1$d زوج؟</item>
+        <item quantity="few">إضافة %1$d أزواج؟</item>
+        <item quantity="many">إضافة %1$d زوجًا؟</item>
+        <item quantity="other">إضافة %1$d زوج؟</item>
+    </plurals>
+    <string name="explorer_bulk_hide_list">إخفاء القائمة</string>
+    <string name="explorer_bulk_show_list">عرض القائمة</string>
+    <string name="explorer_bulk_tap_hint">اضغط على زوج لتحديده في الأعلى.</string>
+    <string name="explorer_bulk_title">عدة أزواج دفعة واحدة</string>
+
+    <!-- Handelspaare einer Börse laden und wählen -->
+    <string name="explorer_sync_sheet_text">يحمّل الأزواج الحالية للمنصة المحددة.</string>
+    <string name="explorer_no_pair_list">لا توجد أزواج عملات</string>
+    <string name="explorer_sync_sheet_last">آخر مزامنة: %1$s</string>
+    <string name="explorer_sync_never">أبدًا</string>
+    <string name="explorer_sync_sheet_action">مزامنة الآن</string>
+    <string name="explorer_sync_sheet_title">تحديث أزواج العملات</string>
+    <string name="explorer_field_coin">الأساس</string>
+    <string name="explorer_field_contract">نوع العقد</string>
+    <string name="explorer_field_exchange">المنصة</string>
+    <string name="explorer_field_quote">التسعير</string>
+    <string name="explorer_contract_spot">فوري</string>
+    <string name="explorer_reload_pairs">مزامنة</string>
+    <string name="sync_pairs_count">أزواج التداول: %1$d</string>
+
+    <!-- Token von dezentralen Börsen (DEX) -->
+    <string name="dex_add">إضافة</string>
+    <string name="dex_added">تمت إضافة %1$s إلى قائمة المتابعة.</string>
+    <string name="dex_already">%1$s موجود بالفعل في قائمة المتابعة.</string>
+    <string name="dex_intro">رموز خارج المنصات الكبيرة، من المنصات اللامركزية (Uniswap، PancakeSwap، Raydium …) عبر DexScreener. ابحث عن رمز وأضف أحد مجمّعات التداول الخاصة به – الأسعار بالدولار الأمريكي.</string>
+    <string name="dex_liquidity">السيولة %1$s</string>
+    <string name="dex_no_results">لم يتم العثور على مجمّعات.</string>
+    <string name="dex_search">بحث</string>
+    <string name="dex_search_hint">اسم الرمز أو الرمز المختصر أو العنوان</string>
+
+    <!-- Art des Assets (Token, Alpha-Token, TradFi) -->
+    <string name="asset_kind_alpha">رمز Alpha</string>
+    <string name="asset_kind_token">رمز مميز</string>
+    <string name="asset_kind_tradfi">TradFi</string>
+</resources>

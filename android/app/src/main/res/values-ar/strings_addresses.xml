@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: beobachtete Adressen (Wallets) -->
+    <string name="portfolio_address_add">إضافة عنوان</string>
+    <string name="portfolio_address_count">احتساب</string>
+    <string name="portfolio_address_error">فشل التحديث</string>
+    <string name="portfolio_address_hint">عنوان عام (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) أو xpub</string>
+    <string name="portfolio_address_label">التسمية (اختياري)</string>
+    <string name="portfolio_address_not_since_buy">من عنوان · خارج «منذ الشراء»: %1$s</string>
+    <string name="portfolio_address_overlap">موجودة أيضًا في معاملاتك: %1$s – يُجمع الاثنان. نفس العملات؟ اختر «العرض فقط».</string>
+    <string name="portfolio_address_overlap_ask">أنت تسجّل %1$s بالفعل بمعاملاتك. هل يُضاف رصيد هذا العنوان إلى المحفظة أم يُعرض فقط؟</string>
+    <string name="portfolio_address_overlap_auto">«%1$s» يُعرض الآن فقط ولا يُحتسب – %2$s موجودة أيضًا في معاملاتك.</string>
+    <string name="portfolio_address_overlap_restored">«%1$s» يُحتسب مجددًا – كمياته لا تطابق معاملاتك. اختر «العرض فقط» إن كانت نفس العملات.</string>
+    <string name="portfolio_address_overlap_title">نفس العملات الموجودة في معاملاتك؟</string>
+    <string name="portfolio_address_overlap_tx">نفس كمية إيداعك/تحويلك (%1$s) – على الأرجح محتسبة مرتين.</string>
+    <string name="portfolio_address_period_observed">تُحتسب العناوين المراقَبة من أول رصيد مرصود؛ والتغييرات اللاحقة تدفقات داخلة/خارجة وليست ربحًا.</string>
+    <string name="portfolio_address_privacy">يُرسَل العنوان العام فقط إلى %1$s – لا مفاتيح ولا عبارات استرداد (seed) أبدًا. يراه المزوّد مع عنوان IP الخاص بك. يُفحص مرة كل 10 دقائق على الأكثر.</string>
+    <string name="portfolio_address_remove">إزالة العنوان</string>
+    <string name="portfolio_address_show_only">العرض فقط، دون إضافة إلى المحفظة</string>
+    <string name="portfolio_address_show_only_short">العرض فقط</string>
+    <string name="portfolio_address_tokens">احتساب الرموز المميزة</string>
+    <string name="portfolio_address_unknown_tokens">+%1$d رموز غير معروفة (غير محتسبة)</string>
+    <string name="portfolio_address_xpub_privacy">يكشف xpub جميع عناوين هذه المحفظة الرقمية. تُشتق على جهازك؛ ولا تُرسل إلى %1$s إلا عناوين منفردة – 40 طلبًا على الأقل في البحث الأول ثم أقل. لا تُقبل المفاتيح الخاصة (xprv) أبدًا.</string>
+    <string name="portfolio_address_xpub_used">العناوين المستخدمة: %1$d</string>
+    <string name="portfolio_addresses_title">العناوين</string>
+
+    <!-- Prüfung einer eingegebenen Adresse -->
+    <string name="address_bch_unsupported">لا يمكن مراقبة عناوين Bitcoin Cash: لا توجد خدمة عامة مجانية بلا مفتاح API تسمح شروطها بذلك.</string>
+    <string name="address_bep2_shutdown">أُوقفت BNB Beacon Chain (BEP-2) في 2024 – الأرصدة الآن على BNB Smart Chain (0x…)</string>
+    <string name="address_checksum">المجموع الاختباري خاطئ – خطأ في الكتابة؟</string>
+    <string name="address_doge_unsupported">لا يمكن مراقبة عناوين Dogecoin: لا توجد خدمة عامة مجانية بلا مفتاح API تسمح شروطها بذلك.</string>
+    <string name="address_duplicate">هذا العنوان مضاف بالفعل</string>
+    <string name="address_ens">أسماء ENS غير مدعومة – أدخل عنوان 0x</string>
+    <string name="address_invalid">ليس عنوانًا صالحًا لشبكة مدعومة</string>
+    <string name="address_limit">20 عنوانًا كحد أقصى</string>
+    <string name="address_secret">يبدو هذا مفتاحًا خاصًا أو عبارة استرداد (seed) – لا تُدخله في أي مكان أبدًا. العناوين العامة فقط.</string>
+    <string name="address_testnet">عناوين Testnet غير مدعومة</string>
+    <string name="address_unsupported">نوع العنوان هذا غير مدعوم</string>
+    <string name="address_wrong_chain">العنوان يتبع شبكة أخرى</string>
+    <string name="address_xpub_multisig">مفاتيح multisig (Ypub/Zpub) غير مدعومة</string>
+</resources>

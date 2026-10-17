@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
+    <string name="widget_background">Latar</string>
+    <string name="widget_configure_hint">Pilih latar dan opasitas. Warna mengikuti aplikasi. Widget menampilkan seluruh daftar; ketuk baris untuk membuka aplikasi.</string>
+    <string name="widget_configure_title">Atur widget</string>
+    <string name="widget_description">Menampilkan harga sebuah pasangan dari daftar pantau Anda.</string>
+    <string name="widget_empty">Belum ada pasangan di daftar pantau.</string>
+    <string name="widget_group_hint">Tampilkan hanya pasangan dalam grup ini.</string>
+    <string name="widget_kind_single">Satu koin</string>
+    <string name="widget_opacity">Opasitas latar: %1$d%%</string>
+    <string name="widget_pulse_description">Yang menonjol di pasar saat ini: judul, ringkasan singkat, serta Bitcoin, Ethereum, dan Solana.</string>
+
+    <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->
+    <!-- Allein, wenn für «outdated · 06:42» der Platz fehlt (Kopfzeile Listen-Widget) -->
+    <string name="widget_outdated">usang</string>
+    <!-- Statt der Uhrzeit: «outdated · 06:42» (heute) bzw. «outdated · 5 Oct, 06:42» -->
+    <string name="widget_outdated_time">usang · %1$s</string>
+
+    <!-- Widgets: Chart und Zeitraum -->
+    <string name="widget_chart_candles">Candle</string>
+    <string name="widget_chart_line">Garis</string>
+    <string name="widget_chart_range">Rentang grafik</string>
+    <string name="widget_chart_type">Jenis grafik</string>
+    <!-- «1 Jahr» im Chart des Aktionsblatts (365 Tageskerzen; Chip neben 24h · 7T · 30T) -->
+    <string name="widget_range_1y">1 tahun</string>
+    <string name="widget_range_24h">24h</string>
+    <string name="widget_range_30d">30 hari</string>
+    <string name="widget_range_7d">7 hari</string>
+    <string name="widget_range_short_1y">1T</string>
+    <string name="widget_range_short_24h">24h</string>
+    <string name="widget_range_short_30d">30H</string>
+    <string name="widget_range_short_7d">7H</string>
+
+    <!-- Portfolio-Widget -->
+    <!-- Fusszeile, %1$s Uhrzeit ohne Sekunden («Stand 15:19») -->
+    <string name="widget_portfolio_as_of">Per %1$s</string>
+    <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
+    <string name="widget_portfolio_chart_pending">Riwayat segera hadir</string>
+    <string name="widget_portfolio_description">Nilai total portofolio Anda dan perubahan hari ini</string>
+    <string name="widget_portfolio_display">Tampilan</string>
+    <string name="widget_portfolio_display_conversion">Hanya konversi</string>
+    <string name="widget_portfolio_display_conversion_usdt">Konversi + USDT</string>
+    <string name="widget_portfolio_display_hint">Baris USDT disembunyikan jika mata uang konversi adalah USD.</string>
+    <string name="widget_portfolio_display_usdt">Hanya USDT</string>
+    <string name="widget_portfolio_empty">Tambahkan pembelian di tab Portofolio</string>
+    <string name="widget_portfolio_list_hint">Buka aplikasi untuk menampilkan posisi Anda di sini.</string>
+    <string name="widget_portfolio_locked_hint">Terkunci – buka di aplikasi</string>
+    <!-- Offene Coins ohne Kurs zählen im Gesamtwert als 0 -->
+    <plurals name="widget_portfolio_missing_coins">
+        <item quantity="other">tanpa %1$d koin</item>
+    </plurals>
+    <plurals name="widget_portfolio_more">
+        <item quantity="other">+ %1$d lainnya</item>
+    </plurals>
+    <string name="widget_portfolio_name">Portofolio</string>
+    <string name="widget_portfolio_off_hint">Aktifkan di %1$s.</string>
+    <string name="widget_portfolio_off_short">Portofolio mati</string>
+    <string name="widget_portfolio_off_title">Portofolio nonaktif</string>
+    <string name="widget_portfolio_partly_stale">harga sebagian lama</string>
+    <string name="widget_portfolio_period">Periode</string>
+    <string name="widget_portfolio_period_without">%1$s tanpa %2$s</string>
+    <string name="widget_portfolio_range_48h">48h</string>
+    <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
+    <string name="widget_portfolio_range_fallback">%1$s: buka Portofolio</string>
+    <string name="widget_portfolio_range_short_48h">48h</string>
+    <string name="widget_portfolio_today_without">Hari ini tanpa %1$s</string>
+    <string name="widget_portfolio_view">Tampilan</string>
+    <string name="widget_portfolio_view_chart">Grafik</string>
+    <string name="widget_portfolio_view_list">Daftar</string>
+    <string name="widget_portfolio_view_overview">Ringkasan</string>
+
+    <!-- Einzel-Widget -->
+    <string name="single_widget_choose">Pilih pasangan</string>
+    <string name="single_widget_description">Menampilkan satu koin besar dengan harga, perubahan, dan grafik 24 jam.</string>
+    <string name="single_widget_label">Crypto Checker – satu koin</string>
+    <string name="single_widget_title">Atur widget tunggal</string>
+
+    <!-- Widgets aus der App hinzufügen -->
+    <string name="widgets_add">Tambah</string>
+    <!-- Screenreader: Knopf «Add» mit dem Namen des Widgets -->
+    <string name="widgets_add_named">Tambah widget %1$s</string>
+    <string name="widgets_manual_text">Layar utama Anda tidak bisa menambahkan widget dari aplikasi. Sentuh lama area kosong di layar utama, pilih “Widget”, lalu cari “Crypto Checker”.</string>
+    <!-- Startbildschirm (Launcher) kann keine Widgets aus der App annehmen -->
+    <string name="widgets_manual_title">Tambahkan widget sendiri</string>
+    <string name="widgets_sheet_title">Tambah widget</string>
+
+    <!-- Nur iOS: Widget selbst hinzufügen (drei Schritte) -->
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS tidak mengizinkan aplikasi menambahkan widget sendiri. Hanya perlu sebentar:</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">Widget yang tersedia</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">Sentuh lama area kosong di Layar Utama hingga aplikasi bergoyang.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">Ketuk “Edit” › “Tambah Widget” di bagian atas (atau “+” di versi iOS lama).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">Cari “Crypto Checker”, pilih widget, lalu ketuk “Tambah Widget”.</string>
+</resources>

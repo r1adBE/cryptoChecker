@@ -1,0 +1,427 @@
+package com.cryptochecker.app.data.portfolio
+
+import com.cryptochecker.app.data.remote.BlockedSources
+import com.cryptochecker.app.data.remote.callMarket
+import com.cryptochecker.app.domain.exceptions.HttpMarketError
+import com.cryptochecker.app.domain.portfolio.AddressBalance
+import com.cryptochecker.app.domain.portfolio.AddressChain
+import com.cryptochecker.app.domain.portfolio.Bip32
+import com.cryptochecker.app.domain.portfolio.ChainAssets
+import com.cryptochecker.app.domain.portfolio.ChainBalance
+import com.cryptochecker.app.domain.portfolio.Erc20Tokens
+import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
+import com.cryptochecker.app.domain.portfolio.WatchedAddress
+import com.cryptochecker.app.domain.portfolio.WatchedAddressRules
+import com.cryptochecker.app.domain.portfolio.XpubCache
+import com.cryptochecker.app.domain.portfolio.XpubDeriver
+import com.cryptochecker.app.domain.portfolio.XpubScan
+import com.cryptochecker.app.domain.refresh.ExchangeBackoff
+import com.cryptochecker.app.domain.refresh.StoredError
+import com.cryptochecker.marketdata.model.PostRequestInfo
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.TimeoutCancellationException
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
+import kotlinx.coroutines.withContext
+import kotlinx.coroutines.withTimeout
+import okhttp3.OkHttpClient
+import timber.log.Timber
+import java.io.InterruptedIOException
+import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.TimeUnit
+import javax.inject.Inject
+import javax.inject.Singleton
+
+/**
+ * Lädt Guthaben beobachteter Adressen ([AddressBalance]: Hosts, Antworten, Abstand) für
+ * [WatchedAddressRefresher] (Portfolio-Tab, Hintergrund/Widget).
+ *
+ * Datenschutz: eigener Client ohne Mitschnitt (die Adresse landet nicht im Debug-Protokoll),
+ * keine Cookies; Protokolle nennen nur die gekürzte Adresse.
+ * Pausen: 451/403 → Host 6 h übersprungen ([BlockedSources]); 429/418 und wiederholte
+ * Zeitüberschreitungen → Pause je Host nach [ExchangeBackoff] («Retry-After» gilt); dann der
+ * nächste Host. Adressen der Reihe nach, nie parallel (schont die kostenlosen Anbieter).
+ * ETH: mit «Tokens mitzählen» eine Stapel-Anfrage (ETH + ERC-20, [Erc20Tokens]). xpub: abgeleitete Adressen einzeln
+ * mit kurzer Pause ([XpubScan], höchstens [XpubScan.MAX_REQUESTS] je Aktualisierung).
+ */
+@Singleton
+class WatchedAddressSource @Inject constructor(
+    httpClient: OkHttpClient,
+) {
+    private val client: OkHttpClient = httpClient.newBuilder()
+        .apply {
+            interceptors().clear()
+            networkInterceptors().clear()
+        }
+        .callTimeout(AddressBalance.TIMEOUT_MILLIS, TimeUnit.MILLISECONDS)
+        .build()
+
+    /** Pausen je Host (nur im Speicher; ein Neustart beginnt frisch). */
+    private val backoff = ConcurrentHashMap<String, ExchangeBackoff.State>()
+    private val mutex = Mutex()
+
+    /**
+     * Ergebnis eines Abrufs. [tokens]: ERC-20-Guthaben (nur ETH mit «Tokens mitzählen»; null = nicht gelesen, das
+     * letzte bleibt). [xpub]: neuer Zwischenspeicher nach einer xpub-Suche.
+     */
+    data class Fetched(
+        val balance: String,
+        val provider: String,
+        val tokens: Map<String, String>? = null,
+        val xpub: XpubCache? = null,
+        /** 0x-Adresse, erste Suche: EVM-Netze mit Guthaben (Vorschlag der Wahl). */
+        val networks: List<String>? = null,
+        /** Solana: Token mit Guthaben ausserhalb der Liste. */
+        val unknownTokens: Int? = null,
+    )
+
+    /** Ergebnis je Adresse: entweder [fetched] oder [error] (technischer Text). */
+    data class Update(val id: Long, val time: Long, val fetched: Fetched?, val error: String?)
+
+    /**
+     * Alle fälligen Adressen ([AddressBalance.isDue]) der Reihe nach laden.
+     * @param force manuelles Aktualisieren (kürzerer Abstand).
+     * @param budgetMillis Hintergrund: höchstens so lange insgesamt (je Anfrage höchstens
+     *   [BACKGROUND_REQUEST_MILLIS]); läuft schon ein Abruf, wird nicht gewartet. Was nicht mehr
+     *   drankommt, bleibt fällig (kein Fehler). null = Vordergrund, ohne Grenze.
+     *   xpub im Hintergrund: nur die bekannten benutzten Adressen und nur ganz (sonst bleibt er fällig).
+     */
+    suspend fun refresh(
+        addresses: List<WatchedAddress>,
+        force: Boolean,
+        now: Long = System.currentTimeMillis(),
+        budgetMillis: Long? = null,
+    ): List<Update> {
+        val deadline = budgetMillis?.let { System.currentTimeMillis() + it }
+        if (deadline == null) mutex.lock() else if (!mutex.tryLock()) return emptyList()
+        try {
+            val updates = mutableListOf<Update>()
+            for (a in addresses.filter { AddressBalance.isDue(it.lastAttempt, now, force) }) {
+                val time = System.currentTimeMillis()
+                try {
+                    val fetched = when {
+                        a.isXpub -> fetchXpub(a, deadline) ?: continue
+                        a.chain == AddressChain.ETH -> fetchEvm(a, deadline)
+                        a.chain == AddressChain.TRX -> fetchTron(a, deadline)
+                        a.chain == AddressChain.SOL -> fetchSolana(a, deadline)
+                        a.chain == AddressChain.TON -> fetchTon(a, deadline)
+                        else -> fetch(a.chain, a.address, deadline)
+                    }
+                    updates += Update(a.id, time, fetched, null)
+                } catch (e: CancellationException) {
+                    throw e
+                } catch (e: OutOfTime) {
+                    break
+                } catch (e: Exception) {
+                    Timber.d("Adresse %s: %s", WatchedAddressRules.shortAddress(a.address), e.message)
+                    // Nur kurzer Code speichern (Ausnahmetexte enthalten Hosts/URLs, teils die Adresse)
+                    updates += Update(a.id, time, null, StoredError.sanitize(e.toString()))
+                }
+            }
+            return updates
+        } finally {
+            mutex.unlock()
+        }
+    }
+
+    /** Zeit um, bevor ein Host gefragt wurde (Adresse bleibt fällig). */
+    private class OutOfTime : Exception("Zeit um")
+
+    /**
+     * Ein Guthaben (einzelne Adresse, ohne Token); wirft, wenn kein Host liefert.
+     * @param deadline Endzeit (ms) im Hintergrund, null = ohne Grenze
+     */
+    suspend fun fetch(chain: AddressChain, address: String, deadline: Long? = null): Fetched = when (chain) {
+        AddressChain.BTC -> firstWorking(AddressBalance.BTC_HOSTS, deadline) { host ->
+            AddressBalance.btcText(AddressBalance.parseBtc(client.callMarket(AddressBalance.btcUrl(host, address), null), address))
+        }
+        AddressChain.ETH -> firstWorking(AddressBalance.ETH_RPCS, deadline) { rpc ->
+            AddressBalance.ethText(AddressBalance.parseEthWei(client.callMarket(rpc, json(AddressBalance.ethRequest(address)))))
+        }
+        AddressChain.LTC -> firstWorking(ChainBalance.LTC_HOSTS, deadline) { host ->
+            val stats = AddressBalance.parseBtc(client.callMarket(ChainBalance.ltcUrl(host, address), null), address)
+            AddressBalance.unitsText(stats.totalSats.toString(), AddressChain.LTC.decimals)
+        }
+        AddressChain.XRP -> firstWorking(ChainBalance.XRP_RPCS, deadline) { rpc ->
+            AddressBalance.unitsText(ChainBalance.parseXrp(client.callMarket(rpc, json(ChainBalance.xrpRequest(address)))), AddressChain.XRP.decimals)
+        }
+        AddressChain.TON -> firstWorking(ChainBalance.TON_HOSTS, deadline) { host ->
+            AddressBalance.unitsText(ChainBalance.parseTon(client.callMarket(ChainBalance.tonUrl(host, address), null)), AddressChain.TON.decimals)
+        }
+        AddressChain.TRX -> firstWorking(ChainBalance.TRON_HOSTS, deadline) { host ->
+            AddressBalance.unitsText(
+                ChainBalance.parseTronAccount(client.callMarket(ChainBalance.tronAccountUrl(host), json(ChainBalance.tronAccountRequest(address)))),
+                AddressChain.TRX.decimals,
+            )
+        }
+        AddressChain.ADA -> firstWorking(ChainBalance.ADA_HOSTS, deadline) { host ->
+            AddressBalance.unitsText(
+                ChainBalance.parseAda(client.callMarket(ChainBalance.adaUrl(host), json(ChainBalance.adaRequest(address))), address),
+                AddressChain.ADA.decimals,
+            )
+        }
+        AddressChain.SOL -> firstWorking(ChainBalance.SOLANA_RPCS, deadline) { rpc ->
+            AddressBalance.unitsText(
+                ChainBalance.parseSolanaBalanceBody(client.callMarket(rpc, json(ChainBalance.solanaBalanceRequest(1, address)))),
+                AddressChain.SOL.decimals,
+            )
+        }
+    }.let { (balance, provider) -> Fetched(balance, provider) }
+
+    /**
+     * 0x-Adresse: Ethereum (mit «Tokens mitzählen» als Stapel mit ERC-20) und die gewählten weiteren EVM-Netze
+     * ([ChainAssets.EVM], vor der ersten Suche alle) — je Netz eine Stapel-Anfrage (Netz-Guthaben + Token). Ein Netz,
+     * das nicht antwortet, bleibt wie zuletzt; im Hintergrund endet die Runde, wenn die Zeit um ist.
+     */
+    private suspend fun fetchEvm(a: WatchedAddress, deadline: Long?): Fetched {
+        val ethereum = if (a.countTokens) fetchEthWithTokens(a.address, deadline) else fetch(AddressChain.ETH, a.address, deadline)
+        val tokens = LinkedHashMap(ethereum.tokens ?: emptyMap())
+        val found = ArrayList<String>()
+        for (id in a.networks ?: ChainAssets.EVM.map { it.id }) {
+            val net = ChainAssets.network(id) ?: continue
+            val list = if (a.countTokens) net.tokens else emptyList()
+            try {
+                val (batch, _) = firstWorking(net.rpcs, deadline) { rpc ->
+                    Erc20Tokens.parseBatch(client.callMarket(rpc, json(Erc20Tokens.batchRequest(a.address, list))), list)
+                }
+                val native = AddressBalance.unitsText(batch.weiDigits, 18)
+                tokens[ChainAssets.key(net.id, net.native)] = native
+                for ((symbol, text) in batch.tokens) tokens[ChainAssets.key(net.id, symbol)] = text
+                if (positive(native) || batch.tokens.values.any { positive(it) }) found += net.id
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: OutOfTime) {
+                break
+            } catch (e: Exception) {
+                Timber.d("Netz %s: %s", net.id, e.message)
+            }
+        }
+        return ethereum.copy(tokens = tokens.ifEmpty { ethereum.tokens }, networks = if (a.networks == null) found else null)
+    }
+
+    /**
+     * TON: Guthaben und (mit «Tokens mitzählen») Jettons über TON Center v3 — ohne Schlüssel höchstens 1 Anfrage/s, daher
+     * eine Pause dazwischen. Jettons ohne Antwort bleiben wie zuletzt.
+     */
+    private suspend fun fetchTon(a: WatchedAddress, deadline: Long?): Fetched {
+        val ton = fetch(AddressChain.TON, a.address, deadline)
+        if (!a.countTokens) return ton
+        return try {
+            delay(ChainBalance.TON_PAUSE_MILLIS)
+            val (tokens, _) = firstWorking(ChainBalance.TON_HOSTS, deadline) { host ->
+                ChainBalance.parseTonJettons(client.callMarket(ChainBalance.tonJettonsUrl(host, a.address), null))
+            }
+            ton.copy(tokens = tokens)
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            Timber.d("Jettons: %s", e.message)
+            ton
+        }
+    }
+
+    private fun positive(text: String) = (PortfolioDecimal.parse(text)?.signum() ?: 0) > 0
+
+    /** TRON: TRX und (mit «Tokens mitzählen») je TRC-20 eine Abfrage; ein Token ohne Antwort bleibt wie zuletzt. */
+    private suspend fun fetchTron(a: WatchedAddress, deadline: Long?): Fetched {
+        val trx = fetch(AddressChain.TRX, a.address, deadline)
+        if (!a.countTokens) return trx
+        val tokens = LinkedHashMap<String, String>()
+        for (token in ChainAssets.TRON_TOKENS) {
+            try {
+                val (digits, _) = firstWorking(ChainBalance.TRON_HOSTS, deadline) { host ->
+                    ChainBalance.parseTronCall(client.callMarket(ChainBalance.tronCallUrl(host), json(ChainBalance.tronTokenRequest(a.address, token))))
+                }
+                tokens[token.symbol] = AddressBalance.unitsText(digits, token.decimals)
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: OutOfTime) {
+                break
+            } catch (e: Exception) {
+                Timber.d("TRC-20 %s: %s", token.symbol, e.message)
+            }
+        }
+        return trx.copy(tokens = tokens)
+    }
+
+    /**
+     * Solana: SOL und (mit «Tokens mitzählen») Token-Konten beider Token-Programme in einer Stapel-Anfrage; ohne Stapel
+     * drei Einzelanfragen. Unbekannte Mints zählen nicht ([ChainBalance.solana]).
+     */
+    private suspend fun fetchSolana(a: WatchedAddress, deadline: Long?): Fetched {
+        if (!a.countTokens) return fetch(AddressChain.SOL, a.address, deadline)
+        val (result, provider) = try {
+            firstWorking(ChainBalance.SOLANA_RPCS, deadline) { rpc ->
+                ChainBalance.parseSolanaBatch(client.callMarket(rpc, json(ChainBalance.solanaBatch(a.address))))
+            }
+        } catch (e: Erc20Tokens.BatchUnsupported) {
+            firstWorking(ChainBalance.SOLANA_RPCS, deadline) { rpc ->
+                val singles = ChainBalance.solanaSingles(a.address)
+                val lamports = ChainBalance.parseSolanaBalanceBody(client.callMarket(rpc, json(singles[0])))
+                val legacy = ChainBalance.parseSolanaTokensBody(client.callMarket(rpc, json(singles[1])))
+                val t2022 = ChainBalance.parseSolanaTokensBody(client.callMarket(rpc, json(singles[2])))
+                ChainBalance.solana(lamports, listOf(legacy, t2022))
+            }
+        }
+        return Fetched(
+            AddressBalance.unitsText(result.lamports, AddressChain.SOL.decimals), provider,
+            tokens = result.tokens, unknownTokens = result.unknown,
+        )
+    }
+
+    private fun json(body: String) = PostRequestInfo(body, mapOf("Content-Type" to "application/json"))
+
+    /**
+     * ETH + ERC-20 in einer Stapel-Anfrage ([Erc20Tokens.batchRequest]). Kann kein Knoten Stapel: ETH allein und
+     * (nur im Vordergrund) die Token einzeln; scheitert der Stapel sonst: ETH allein, Token bleiben wie zuletzt.
+     */
+    private suspend fun fetchEthWithTokens(address: String, deadline: Long?): Fetched {
+        try {
+            val (batch, provider) = firstWorking(AddressBalance.ETH_RPCS, deadline) { rpc ->
+                Erc20Tokens.parseBatch(client.callMarket(rpc, json(Erc20Tokens.batchRequest(address))))
+            }
+            return Fetched(AddressBalance.ethText(batch.weiDigits), provider, batch.tokens)
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: OutOfTime) {
+            throw e
+        } catch (e: Exception) {
+            val eth = fetch(AddressChain.ETH, address, deadline)
+            if (e !is Erc20Tokens.BatchUnsupported || deadline != null) return eth
+            val tokens = LinkedHashMap<String, String>()
+            for (token in Erc20Tokens.LIST) {
+                try {
+                    tokens[token.symbol] = firstWorking(AddressBalance.ETH_RPCS, null) { rpc ->
+                        Erc20Tokens.parseSingle(client.callMarket(rpc, json(Erc20Tokens.singleRequest(address, token))), token)
+                    }.first
+                } catch (c: CancellationException) {
+                    throw c
+                } catch (e: Exception) {
+                    // Dieses Token bleibt wie zuletzt
+                    Timber.d("Token %s: %s", token.symbol, e.message)
+                }
+            }
+            return eth.copy(tokens = tokens)
+        }
+    }
+
+    /**
+     * xpub/ypub/zpub: Adressen auf dem Gerät ableiten ([XpubDeriver]) und einzeln wie eine Adresse fragen
+     * ([XpubScan]: Gap-Regel, vollständig höchstens täglich). Hintergrund ohne Zwischenspeicher: null (bleibt fällig).
+     * Zwischen zwei Anfragen eine kurze Pause (schont die Anbieter). xpub ohne bekannten Adresstyp
+     * ([XpubScan.scripts]): vollständig als P2PKH, ohne Verlauf als P2SH-P2WPKH, dann P2WPKH (Segwit-Konto mit xpub,
+     * Ledger Live); der erste Typ mit Verlauf wird gemerkt ([XpubCache.script]), im Hintergrund wird nicht gesucht.
+     */
+    private suspend fun fetchXpub(a: WatchedAddress, deadline: Long?): Fetched? {
+        val key = Bip32.parse(a.address) ?: throw IllegalArgumentException("xpub ungültig")
+        // Zwischenspeicher nur, wenn er zu diesem Schlüssel gehört (erste Adresse im gemerkten Typ stimmt)
+        val stored = a.xpub?.let { c ->
+            val deriver = XpubDeriver(a.address, c.script.takeIf { key.version == Bip32.XPUB })
+            c.takeIf {
+                withContext(Dispatchers.Default) {
+                    (c.receive.isEmpty() || c.receive[0] == deriver.address(0, 0)) &&
+                        (c.change.isEmpty() || c.change[0] == deriver.address(1, 0))
+                }
+            }
+        }
+        val storedScript = stored?.let { it.script.takeIf { key.version == Bip32.XPUB } ?: key.script }
+        val scripts = XpubScan.scripts(key, stored)
+        val tried = ArrayList<Pair<Bip32.Script, Int>>()
+        val results = ArrayList<Fetched>()
+        for (script in scripts) {
+            val cache = stored?.takeIf { storedScript == script }
+            val mode = if (scripts.size > 1) {
+                if (deadline != null) return null
+                XpubScan.Mode.FULL
+            } else {
+                XpubScan.modeFor(cache, System.currentTimeMillis(), background = deadline != null) ?: return null
+            }
+            val (scan, fetched) = scanXpub(XpubDeriver(a.address, script), cache, mode, deadline)
+            tried += script to scan.usedCount
+            results += fetched
+            if (scan.usedCount > 0) break
+        }
+        val pick = XpubScan.pickScript(key, tried)
+        val chosen = results[tried.indexOfFirst { it.first == pick }.coerceAtLeast(0)]
+        return chosen.copy(xpub = chosen.xpub?.copy(script = pick))
+    }
+
+    /** Eine Suche über die Adressen eines Adresstyps ([deriver]). */
+    private suspend fun scanXpub(deriver: XpubDeriver, cache: XpubCache?, mode: XpubScan.Mode, deadline: Long?): Pair<XpubScan, Fetched> {
+        val lists = listOf(ArrayList(cache?.receive.orEmpty()), ArrayList(cache?.change.orEmpty()))
+        val scan = XpubScan(mode, cache)
+        var provider = AddressBalance.providerName(AddressBalance.BTC_HOSTS.first())
+        while (true) {
+            val target = scan.next() ?: break
+            val list = lists[target.chain]
+            if (list.size <= target.index) {
+                withContext(Dispatchers.Default) {
+                    while (list.size <= target.index) list += deriver.address(target.chain, list.size)
+                }
+            }
+            val address = list[target.index]
+            if (scan.requests > 1) delay(if (deadline == null) XPUB_PAUSE_MILLIS else XPUB_PAUSE_BACKGROUND_MILLIS)
+            val (stats, host) = firstWorking(AddressBalance.BTC_HOSTS, deadline) { h ->
+                AddressBalance.parseBtc(client.callMarket(AddressBalance.btcUrl(h, address), null), address)
+            }
+            provider = host
+            scan.report(target, stats.txCount, stats.totalSats)
+        }
+        val balance = AddressBalance.unitsText(scan.totalSats.toString(), AddressChain.BTC.decimals)
+        return scan to Fetched(balance, provider, xpub = scan.cache(lists[0], lists[1], System.currentTimeMillis()))
+    }
+
+    /** Erster Host, der liefert: Ergebnis und Anbieter-Name; wirft, wenn keiner liefert. */
+    private suspend fun <T> firstWorking(hosts: List<String>, deadline: Long?, load: suspend (String) -> T): Pair<T, String> {
+        var lastError: Exception? = null
+        for (entry in hosts) {
+            val host = entry.removePrefix("https://").substringBefore('/').substringBefore(':')
+            val now = System.currentTimeMillis()
+            if (BlockedSources.isBlocked(host) || ExchangeBackoff.isPaused(backoff[host], now)) continue
+            // Hintergrund: je Anfrage höchstens BACKGROUND_REQUEST_MILLIS, nie über die Endzeit
+            val limit = deadline?.let { minOf(BACKGROUND_REQUEST_MILLIS, it - now) }
+            if (limit != null && limit < MIN_REQUEST_MILLIS) throw lastError ?: OutOfTime()
+            try {
+                val result = if (limit == null) load(entry) else withTimeout(limit) { load(entry) }
+                backoff.remove(host)
+                return result to AddressBalance.providerName(host)
+            } catch (e: TimeoutCancellationException) {
+                note(host, ExchangeBackoff.Outcome.TIMEOUT, null)
+                lastError = IllegalStateException("Zeitüberschreitung: $host")
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                BlockedSources.noteFailure(host, e)
+                val outcome = when {
+                    e is HttpMarketError && ExchangeBackoff.isRateLimitCode(e.httpCode) -> ExchangeBackoff.Outcome.RATE_LIMITED
+                    e is InterruptedIOException -> ExchangeBackoff.Outcome.TIMEOUT
+                    else -> ExchangeBackoff.Outcome.OTHER
+                }
+                note(host, outcome, (e as? HttpMarketError)?.retryAfterSeconds?.let { it * 1000L },
+                    banned = (e as? HttpMarketError)?.httpCode == 418)
+                lastError = e
+            }
+        }
+        throw lastError ?: IllegalStateException("Alle Anbieter pausiert")
+    }
+
+    private fun note(host: String, outcome: ExchangeBackoff.Outcome, retryAfterMillis: Long?, banned: Boolean = false) {
+        val next = ExchangeBackoff.next(backoff[host], outcome, System.currentTimeMillis(), retryAfterMillis, banned = banned)
+        if (next == null) backoff.remove(host) else backoff[host] = next
+    }
+
+    companion object {
+        /** Hintergrund/Widget: alle Adressen zusammen höchstens so lange — Kurse und Alarme gehen vor. */
+        const val BACKGROUND_TOTAL_MILLIS = 8_000L
+        /** Hintergrund: eine Anfrage höchstens so lange (Vordergrund: [AddressBalance.TIMEOUT_MILLIS]). */
+        const val BACKGROUND_REQUEST_MILLIS = 5_000L
+        /** Weniger Restzeit lohnt keine Anfrage mehr. */
+        private const val MIN_REQUEST_MILLIS = 1_000L
+        /** xpub: Pause zwischen zwei Adressen (Vordergrund) — höflich zu den kostenlosen Anbietern. */
+        const val XPUB_PAUSE_MILLIS = 200L
+        /** xpub im Hintergrund (Zeitbudget, nur bekannte benutzte Adressen). */
+        const val XPUB_PAUSE_BACKGROUND_MILLIS = 50L
+    }
+}

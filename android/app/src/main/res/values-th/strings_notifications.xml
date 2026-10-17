@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Texte der Mitteilungen -->
+    <string name="notification_activity_title">%1$s · %2$s</string>
+    <string name="notification_alarm_text">%1$s — ตอนนี้ %2$s</string>
+    <string name="notification_alarm_title">สัญญาณเตือน: %1$s · %2$s</string>
+    <string name="notification_depeg_action_exchange">เปิดกระดานเทรด</string>
+    <string name="notification_depeg_text">ค่าในแอปยังคงคำนวณด้วย USDT = 1</string>
+    <string name="notification_depeg_title">USDT ที่ %1$s USD (%2$s)</string>
+    <string name="notification_fng_above">ดัชนีขึ้นเหนือ %1$d – ตามดัชนีนี้ ตลาดอยู่ในภาวะโลภ</string>
+    <string name="notification_fng_below">ดัชนีลดต่ำกว่า %1$d – ตามดัชนีนี้ ตลาดอยู่ในภาวะกลัว</string>
+    <string name="notification_fng_title">Fear &amp; Greed: %1$d</string>
+    <string name="notification_gas_btc_text">ต่ำกว่าขีดจำกัดของคุณ %1$s sat/vB · การโอน ≈ %2$s</string>
+    <string name="notification_gas_btc_title">ค่าธรรมเนียม Bitcoin: %1$s sat/vB</string>
+    <string name="notification_gas_eth_text">ต่ำกว่าขีดจำกัดของคุณ %1$s gwei · การโอน ≈ %2$s</string>
+    <string name="notification_gas_eth_title">ค่า Gas Ethereum: %1$s gwei</string>
+    <string name="notification_indicator_above">สูงกว่าเกณฑ์ของคุณ %1$s – เป็นค่าที่วัดได้ ไม่ใช่คำแนะนำ</string>
+    <string name="notification_indicator_below">ต่ำกว่าเกณฑ์ของคุณ %1$s – เป็นค่าที่วัดได้ ไม่ใช่คำแนะนำ</string>
+    <string name="notification_indicator_title">%1$s: %2$s</string>
+    <string name="notification_macro_title">วันนี้มีข้อมูลเศรษฐกิจ</string>
+    <string name="notification_portfolio_alarm_locked">การแจ้งเตือนของคุณทำงานแล้ว – เปิดแอปเพื่อดูรายละเอียด</string>
+    <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
+    <string name="notification_portfolio_alarm_text">%1$s – ตอนนี้ %2$s</string>
+    <string name="notification_portfolio_alarm_title">มูลค่าพอร์ตโฟลิโอ</string>
+    <string name="notification_price_change">%1$s จาก %2$s (%3$s ที่แล้ว)</string>
+    <string name="notification_price_change_no_age">%1$s จาก %2$s</string>
+    <string name="notification_price_first">การแจ้งเตือนแรกของคู่นี้</string>
+    <plurals name="notification_price_overflow_title">
+        <item quantity="other">+อีก %1$d ราคา</item>
+    </plurals>
+    <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
+    <string name="notification_refreshing">กำลังอัปเดตราคา…</string>
+    <string name="notification_volume_spike_text">ปริมาณ %1$s× ของปกติในชั่วโมงล่าสุด</string>
+
+    <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
+    <string name="channel_alarms">สัญญาณเตือน</string>
+    <string name="channel_alarms_description">แจ้งเตือนเมื่อสัญญาณเตือนราคาทำงาน</string>
+    <string name="channel_alarms_quiet">สัญญาณเตือน (ช่วงเวลาเงียบ)</string>
+    <string name="channel_alarms_quiet_description">สัญญาณเตือนแบบเงียบระหว่างช่วงเวลาเงียบ</string>
+    <string name="channel_alarms_silent">สัญญาณเตือน (เงียบ)</string>
+    <string name="channel_alarms_sound">สัญญาณเตือน (เสียงเท่านั้น)</string>
+    <string name="channel_alarms_sound_vibrate">สัญญาณเตือน (เสียงและการสั่น)</string>
+    <string name="channel_alarms_vibrate">สัญญาณเตือน (การสั่นเท่านั้น)</string>
+    <string name="channel_prices">การแจ้งเตือนราคา</string>
+    <string name="channel_prices_description">การแจ้งเตือนแบบเงียบพร้อมราคาปัจจุบันของคู่เหรียญ</string>
+    <string name="channel_service">การอัปเดตราคา</string>
+    <string name="channel_service_description">แสดงขณะอัปเดตราคา</string>
+    <string name="neutral_channel_market">การแจ้งเตือนตลาด</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed ค่าแก๊ส ความเคลื่อนไหวผิดปกติ และวันสำคัญทางเศรษฐกิจ</string>
+
+    <!-- Sprachausgabe -->
+    <string name="tts_alarm">สัญญาณเตือน %1$s, %2$s %3$s %4$s, ตอนนี้ %5$s</string>
+    <string name="tts_direction_down">ปรับลงแล้ว</string>
+    <string name="tts_direction_funding_above">พร้อม Funding สูง</string>
+    <string name="tts_direction_funding_below">พร้อม Funding ต่ำ</string>
+    <string name="tts_direction_move">เคลื่อนไหวแรง</string>
+    <string name="tts_direction_near_high">ใกล้จุดสูงสุด</string>
+    <string name="tts_direction_near_low">ใกล้จุดต่ำสุด</string>
+    <string name="tts_direction_oi_down">พร้อม Open interest ลดลง</string>
+    <string name="tts_direction_oi_up">พร้อม Open interest เพิ่มขึ้น</string>
+    <string name="tts_direction_up">ปรับขึ้นแล้ว</string>
+    <string name="tts_direction_volume_spike">พร้อมปริมาณพุ่ง</string>
+    <string name="tts_price">%1$s, %2$s %3$s, %4$s</string>
+</resources>

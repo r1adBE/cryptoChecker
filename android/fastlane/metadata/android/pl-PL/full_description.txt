@@ -1,0 +1,42 @@
+Alarm, gdy Bitcoin osiągnie Twoją cenę – z giełdy, której naprawdę używasz. Cena Twojej giełdy, nie średnia – za darmo, bez konta.
+
+CO JĄ WYRÓŻNIA
+• Twoja giełda, nie średnia: każdy wiersz pokazuje ostatnią cenę pary na wybranej giełdzie – Binance, Coinbase, Kraken, OKX, Bybit i wiele innych.
+• Alarm, który powiadamia raz: „Powiadom mnie, gdy BTC przekroczy 100 000 USDT.” Dzwoni, gdy poziom zostanie przekroczony, a nie przy każdej aktualizacji – „Raz” potem go wyłącza, „Za każdym razem” uzbraja go ponownie, gdy cena wróci.
+• „Co rusza się razem?”: lista czynników dla monety – cały rynek, wolumen, zmienność, funding i open interest, odległość od szczytu lub dołka, Fear & Greed. Pokazuje, co porusza się jednocześnie – nie wskazuje przyczyny, nie podaje wiadomości, nie jest doradztwem inwestycyjnym.
+• Bez konta, bez reklam, bez śledzenia. Twórca nie dostaje żadnych Twoich danych.
+
+UCZCIWIE O DANYCH
+• „Oszczędny” jest domyślny: ceny odświeżają się przy otwarciu aplikacji i co pewien czas w tle. „Na żywo, gdy otwarta” dodaje ceny na żywo z Binance, Bybit, OKX, Coinbase i Kraken, gdy lista jest otwarta.
+• Zmiana % i wykresy pochodzą najpierw z giełdy danej pary; jeśli nie ma ona świec, aplikacja używa Binance lub Coinbase i o tym informuje.
+• Fear & Greed, dominacja i dane on-chain z alternative.me, CoinGecko i Coin Metrics.
+• Przy zamkniętej aplikacji to Android decyduje, kiedy alarmy są sprawdzane – mniej więcej co 15 minut, często rzadziej. Krótkie skoki pomiędzy mogą umknąć; aplikacja Ci o tym mówi.
+• Kwoty zostają na urządzeniu, chyba że sam je wyeksportujesz (CSV, kopia zapasowa). Do cen trafiają tylko symbole pary – do giełdy danej pary; do tego kursy walut (Frankfurter), dane rynkowe i logo (CoinGecko, Binance), lustra danych (GitHub). Jeśli obserwujesz adresy lub xpub, publiczne węzły blockchain widzą adresy (przy xpub – pochodne) i Twój adres IP.
+
+LISTA OBSERWOWANYCH
+• 41 rynków na 32 giełdach: spot i futures, tokeny DEX przez DexScreener, opcjonalnie akcje, złoto i waluty (TradFi)
+• Druga linia „≈ wartość” w jednej z 31 walut (EUR, CHF, USD …), przeliczona po kursie walutowym
+• Mini wykres i zmiana % za 24 h lub od 00:00 w Twojej strefie czasowej
+• Grupy, ulubione, sortowanie przeciąganiem i notatka do każdej monety
+• Wiersze pokazują „nieaktualne” lub „giełda niedostępna”
+
+ALARMY
+• Cena powyżej lub poniżej poziomu albo wzrost lub spadek o procent – także w Twojej walucie, np. 60 000 EUR na parze USDT
+• Ruch o x % w oknie czasowym, skok wolumenu
+• Dźwięk (także własny plik audio), wibracja i opcjonalny komunikat głosowy
+• Godziny ciszy i „Testuj alarm”: usłysz wcześniej, jak dociera alarm
+
+RYNEK
+• Nietypowa aktywność: nietypowe ruchy ceny i wolumenu na Twojej liście, opcjonalnie z powiadomieniem
+• Crypto Pulse, Fear & Greed, wskaźniki Bitcoina, funding i open interest – jako same pomiary
+• Opłaty sieciowe dla Ethereum, Bitcoina i innych, z alarmem gas
+
+PONADTO
+• Widżety: lista, łączna wartość portfela, jedna moneta z wykresem
+• Portfel opcjonalnie (włączany w Ustawieniach): zakupy, sprzedaże, swapy, transfery, nagrody, wpłaty i wypłaty; FIFO (domyślnie) lub średnia (Ø); adresy tylko do odczytu, bez seeda, dla BTC (też xpub), ETH i sieci EVM, SOL, TRX, XRP, LTC i TON; import CSV z Relai, Swissquote i Kraken; podsumowanie roczne w CSV; osobna blokada
+• Czytelna dla wszystkich: zielony/czerwony lub niebieski/pomarańczowy, znak i strzałka zamiast samego koloru; TalkBack czyta każdy wiersz jako jedno zdanie
+• Kopia zapasowa i przywracanie do pliku – także między Androidem a iPhone’em
+• Tryb jasny i ciemny, pięć kolorów akcentu, 31 języków
+• Open source (MIT) – kod jest publiczny na GitHubie
+
+Uwaga: Crypto Checker wyświetla ceny i portfel inwestycyjny, który wprowadzasz samodzielnie. Nie jest giełdą ani portfelem, nie handluje i nie udziela porad inwestycyjnych.

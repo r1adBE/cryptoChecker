@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Texte der Mitteilungen -->
+    <string name="notification_activity_title">%1$s · %2$s</string>
+    <string name="notification_alarm_text">%1$s — сейчас %2$s</string>
+    <string name="notification_alarm_title">Оповещение: %1$s · %2$s</string>
+    <string name="notification_depeg_action_exchange">Открыть биржу</string>
+    <string name="notification_depeg_text">Значения в приложении по-прежнему считаются с USDT = 1.</string>
+    <string name="notification_depeg_title">USDT по %1$s USD (%2$s)</string>
+    <string name="notification_fng_above">Индекс поднялся выше %1$d — по этому индексу на рынке жадность.</string>
+    <string name="notification_fng_below">Индекс упал ниже %1$d — по этому индексу на рынке страх.</string>
+    <string name="notification_fng_title">Fear &amp; Greed: %1$d</string>
+    <string name="notification_gas_btc_text">Ниже вашего порога %1$s sat/vB · Перевод ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Комиссия Bitcoin: %1$s sat/vB</string>
+    <string name="notification_gas_eth_text">Ниже вашего порога %1$s gwei · Перевод ≈ %2$s</string>
+    <string name="notification_gas_eth_title">Газ Ethereum: %1$s gwei</string>
+    <string name="notification_indicator_above">Выше твоей границы %1$s – измеренное значение, не рекомендация.</string>
+    <string name="notification_indicator_below">Ниже твоей границы %1$s – измеренное значение, не рекомендация.</string>
+    <string name="notification_indicator_title">%1$s: %2$s</string>
+    <string name="notification_macro_title">Сегодня экономические данные</string>
+    <string name="notification_portfolio_alarm_locked">Ваше оповещение сработало – откройте приложение, чтобы узнать подробности.</string>
+    <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
+    <string name="notification_portfolio_alarm_text">%1$s – сейчас %2$s</string>
+    <string name="notification_portfolio_alarm_title">Стоимость портфеля</string>
+    <string name="notification_price_change">%1$s, с %2$s (%3$s назад)</string>
+    <string name="notification_price_change_no_age">%1$s, с %2$s</string>
+    <string name="notification_price_first">Первое уведомление для этой пары</string>
+    <plurals name="notification_price_overflow_title">
+        <item quantity="one">+%1$d курс ещё</item>
+        <item quantity="few">+%1$d курса ещё</item>
+        <item quantity="many">+%1$d курсов ещё</item>
+        <item quantity="other">+%1$d курсов ещё</item>
+    </plurals>
+    <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
+    <string name="notification_refreshing">Обновление цен…</string>
+    <string name="notification_volume_spike_text">Объём %1$s× от нормы за последний час</string>
+
+    <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
+    <string name="channel_alarms">Оповещения</string>
+    <string name="channel_alarms_description">Уведомление при срабатывании ценового оповещения.</string>
+    <string name="channel_alarms_quiet">Оповещения (тихие часы)</string>
+    <string name="channel_alarms_quiet_description">Беззвучные оповещения в тихие часы.</string>
+    <string name="channel_alarms_silent">Оповещения (без звука)</string>
+    <string name="channel_alarms_sound">Оповещения (только звук)</string>
+    <string name="channel_alarms_sound_vibrate">Оповещения (звук и вибрация)</string>
+    <string name="channel_alarms_vibrate">Оповещения (только вибрация)</string>
+    <string name="channel_prices">Уведомления о цене</string>
+    <string name="channel_prices_description">Беззвучное уведомление с текущей ценой пары.</string>
+    <string name="channel_service">Обновление курсов</string>
+    <string name="channel_service_description">Уведомление, пока обновляются цены.</string>
+    <string name="neutral_channel_market">Рыночные уведомления</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed, комиссии за газ, необычная активность и экономические даты</string>
+
+    <!-- Sprachausgabe -->
+    <string name="tts_alarm">Оповещение. %1$s, %2$s %3$s %4$s, сейчас %5$s</string>
+    <string name="tts_direction_down">упал</string>
+    <string name="tts_direction_funding_above">с высоким фандингом</string>
+    <string name="tts_direction_funding_below">с низким фандингом</string>
+    <string name="tts_direction_move">резко движется</string>
+    <string name="tts_direction_near_high">близко к максимуму</string>
+    <string name="tts_direction_near_low">близко к минимуму</string>
+    <string name="tts_direction_oi_down">с падением открытого интереса</string>
+    <string name="tts_direction_oi_up">с ростом открытого интереса</string>
+    <string name="tts_direction_up">вырос</string>
+    <string name="tts_direction_volume_spike">со всплеском объёма</string>
+    <string name="tts_price">%1$s, %2$s %3$s, %4$s</string>
+</resources>

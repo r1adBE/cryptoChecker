@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: beobachtete Adressen (Wallets) -->
+    <string name="portfolio_address_add">Adres ekle</string>
+    <string name="portfolio_address_count">Say</string>
+    <string name="portfolio_address_error">Güncelleme başarısız</string>
+    <string name="portfolio_address_hint">Herkese açık adres (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) veya xpub</string>
+    <string name="portfolio_address_label">Etiket (isteğe bağlı)</string>
+    <string name="portfolio_address_not_since_buy">Adresten · «Alıştan beri» dışında: %1$s</string>
+    <string name="portfolio_address_overlap">Kendi işlemlerinde de var: %1$s – ikisi de toplanır. Aynı coin\'ler mi? «Yalnızca göster» seç.</string>
+    <string name="portfolio_address_overlap_ask">%1$s zaten kendi işlemlerinle kayıtlı. Bu adresin bakiyesi portföye eklensin mi yoksa yalnızca gösterilsin mi?</string>
+    <string name="portfolio_address_overlap_auto">«%1$s» artık yalnızca gösteriliyor, sayılmıyor – %2$s işlemlerinde de var.</string>
+    <string name="portfolio_address_overlap_restored">«%1$s» yeniden sayılıyor – miktarlar işlemlerinle uyuşmuyor. Aynı coin\'lerse «Yalnızca göster» seç.</string>
+    <string name="portfolio_address_overlap_title">İşlemlerindeki coin\'lerle aynı mı?</string>
+    <string name="portfolio_address_overlap_tx">Kendi yatırma/transferinle aynı miktar (%1$s) – muhtemelen iki kez sayılıyor.</string>
+    <string name="portfolio_address_period_observed">İzlenen adresler ilk görülen bakiyeden itibaren sayılır; sonraki değişiklikler giriş/çıkıştır, kâr değil.</string>
+    <string name="portfolio_address_privacy">%1$s hizmetine yalnızca herkese açık adres gönderilir – asla anahtar ya da seed ifadesi değil. Sağlayıcı onu IP adresinle birlikte görür. En fazla 10 dakikada bir sorgulanır.</string>
+    <string name="portfolio_address_remove">Adresi kaldır</string>
+    <string name="portfolio_address_show_only">Yalnızca göster, portföye ekleme</string>
+    <string name="portfolio_address_show_only_short">Yalnızca göster</string>
+    <string name="portfolio_address_tokens">Token\'ları say</string>
+    <string name="portfolio_address_unknown_tokens">+%1$d bilinmeyen token (sayılmadı)</string>
+    <string name="portfolio_address_xpub_privacy">Bir xpub bu cüzdanın tüm adreslerini açığa çıkarır. Adresler cihazında türetilir; %1$s hizmetine yalnızca tek tek adresler gider – ilk taramada en az 40 istek, sonra daha az. Özel anahtarlar (xprv) asla kabul edilmez.</string>
+    <string name="portfolio_address_xpub_used">Kullanılan adresler: %1$d</string>
+    <string name="portfolio_addresses_title">Adresler</string>
+
+    <!-- Prüfung einer eingegebenen Adresse -->
+    <string name="address_bch_unsupported">Bitcoin Cash adresleri izlenemez: koşulları buna izin veren API anahtarsız ücretsiz bir genel hizmet yok.</string>
+    <string name="address_bep2_shutdown">BNB Beacon Chain (BEP-2) 2024\'te kapatıldı – bakiyeler artık BNB Smart Chain\'de (0x…)</string>
+    <string name="address_checksum">Sağlama toplamı yanlış – yazım hatası mı?</string>
+    <string name="address_doge_unsupported">Dogecoin adresleri izlenemez: koşulları buna izin veren API anahtarsız ücretsiz bir genel hizmet yok.</string>
+    <string name="address_duplicate">Bu adres zaten eklendi</string>
+    <string name="address_ens">ENS adları desteklenmiyor – 0x adresini gir</string>
+    <string name="address_invalid">Desteklenen bir ağın geçerli adresi değil</string>
+    <string name="address_limit">En fazla 20 adres</string>
+    <string name="address_secret">Bu bir özel anahtar veya seed ifadesine benziyor – bunu asla hiçbir yere girme. Yalnızca herkese açık adresler.</string>
+    <string name="address_testnet">Testnet adresleri desteklenmiyor</string>
+    <string name="address_unsupported">Bu adres türü desteklenmiyor</string>
+    <string name="address_wrong_chain">Adres başka bir ağa ait</string>
+    <string name="address_xpub_multisig">Multisig anahtarları (Ypub/Zpub) desteklenmiyor</string>
+</resources>

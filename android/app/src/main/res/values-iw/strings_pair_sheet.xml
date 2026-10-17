@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Aktionsblatt: Kurs-Chart (Zeitraum, Kerzenwerte beim Ziehen, Umrechnung) und «Mehr» -->
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s Zeitraum kurz (widget_range_short_24h/7d/30d) -->
+    <string name="sheet_chart_change">%1$s ב-%2$s</string>
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s change_short_today(_zone) -->
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="sheet_chart_close">סגירה</string>
+    <string name="sheet_chart_converted_current">%1$s, הומר (שער נוכחי)</string>
+    <!-- Zeile unter dem Chart, %1$s = umgerechnete Reihe («BTC/USDT») -->
+    <string name="sheet_chart_converted_daily">%1$s, הומר לפי שערים יומיים</string>
+    <!-- Keine Kerzen für das Paar -->
+    <string name="sheet_chart_no_data">אין נתוני מחיר עבור צמד זה</string>
+    <!-- Kerzenwerte beim Ziehen (Hoch/Tief: ticker_high/ticker_low) -->
+    <string name="sheet_chart_open">פתיחה</string>
+    <!-- Zeitraum-Chip statt «24h» bei Tages-Basis -->
+    <string name="sheet_chart_today">היום</string>
+    <!-- Umsatz der Kerze beim Ziehen; %1$s z. B. «12.3M USDT» -->
+    <string name="sheet_chart_volume">נפח %1$s</string>
+    <string name="sheet_more">עוד</string>
+
+    <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
+    <string name="ticker_ask">היצע</string>
+    <string name="ticker_bid">ביקוש</string>
+    <string name="ticker_high">גבוה</string>
+    <string name="ticker_low">נמוך</string>
+    <string name="ticker_timestamp">זמן</string>
+    <string name="ticker_vol_base">מחזור (בסיס)</string>
+    <string name="ticker_vol_quote">מחזור (ציטוט)</string>
+
+    <!-- Basis der %-Änderung (Prozent-Pille, Chart, Widgets) -->
+    <string name="change_basis_device">%1$s, 00:00 (אזור הזמן של המכשיר)</string>
+    <string name="change_basis_local">מאז 00:00 שעון מקומי</string>
+    <string name="change_basis_rolling">24 השעות האחרונות</string>
+    <!-- Letzter gegen vorherigen Kurs des Paars; ausgeschrieben (Auswahl). Kurz neben Pille und Widgets: change_short_since_last -->
+    <string name="change_basis_since_last">מאז העדכון האחרון</string>
+    <string name="change_basis_utc_zone">מאז 00:00 %1$s</string>
+    <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
+    <string name="change_candle_source">שינוי לפי נרות %1$s</string>
+    <string name="change_short_since_last">עדכון אחרון</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
+    <string name="change_short_today">היום</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 einer gewählten Zeitzone; %1$s = Zeitzone (z. B. UTC) -->
+    <string name="change_short_today_zone">היום %1$s</string>
+
+    <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
+    <string name="market_data_empty_error">לא התקבלו נתונים מהבורסה.</string>
+    <string name="market_data_summary">שווי שוק, עמלות גז, נתונים כלכליים, ניתוח מטבעות</string>
+    <string name="market_data_tab_futures">חוזים</string>
+    <string name="market_data_title">נתוני שוק</string>
+
+    <!-- Marktdaten Spot (Marktkapitalisierung, Angebot, Volumen) -->
+    <string name="spot_circulating">היצע במחזור</string>
+    <string name="spot_fdv">FDV</string>
+    <string name="spot_market_cap">שווי שוק</string>
+    <string name="spot_max_supply">היצע מרבי</string>
+    <string name="spot_no_data">אין נתוני ספוט למטבע הזה</string>
+    <string name="spot_source_updated">מקור: %1$s · נכון ל־%2$s</string>
+    <string name="spot_supply_of_max">%1$s מההיצע המרבי במחזור</string>
+    <string name="spot_total_supply">היצע כולל</string>
+    <string name="spot_vol_mcap">מחזור/שווי</string>
+    <string name="spot_volume_24h">מחזור (24 ש׳)</string>
+
+    <!-- Futures-Kennzahlen (Funding, Open Interest, Referenzbörse) -->
+    <string name="futures_alarm_reference">ערך מנחה %1$s</string>
+    <string name="futures_funding">שיעור מימון</string>
+    <string name="futures_funding_interval_unknown">מרווח לא ידוע</string>
+    <string name="futures_funding_per8h_equiv">= %1$s ל-8 שעות (כמו בהתראות)</string>
+    <!-- Einheit neben der Funding-Pille, wenn die Börse stündlich abrechnet (Hyperliquid) -->
+    <string name="futures_funding_per_hour">לשעה</string>
+    <string name="futures_funding_per_hours">ל-%1$d שעות</string>
+    <string name="futures_next_funding">הבא בעוד %1$d ש׳ %2$d ד׳</string>
+    <string name="futures_no_data">אין נתוני חוזים למטבע הזה</string>
+    <string name="futures_open_interest">Open interest</string>
+    <!-- Futures-Kennzahlen von einer anderen Börse als der beobachteten (Richtwert) -->
+    <string name="futures_reference_hint">ערך מנחה מ-%1$s – המימון והעסקאות הפתוחות שונים בין בורסות; ב-%2$s הם עשויים להיות שונים.</string>
+    <string name="futures_reference_spot">ערך מנחה מ-%1$s (חוזה USDT הנצחי של המטבע)</string>
+    <string name="futures_source">מקור: %1$s</string>
+
+    <!-- Erklärungen hinter dem ⓘ-Knopf -->
+    <string name="explain_funding">רבים מהמרים בכסף שאול על עליית מחירים או על ירידתם. עמלה בין פוזיציות לונג לשורט. ערך חיובי מאוד פירושו שרבים מהמרים על עליית מחירים.</string>
+    <string name="explain_open_interest">חוזים עתידיים הם הימורים על המחיר, לרוב בכסף שאול. שווי כל פוזיציות החוזים העתידיים הפתוחות. אם הוא עולה, יותר כסף מהמר על התנועה.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">הסבר</string>
+    <string name="explain_spot_fdv">שווי בדילול מלא: מחיר × היצע מרבי (או כולל אם אין מגבלה).</string>
+    <string name="explain_spot_market_cap">מחיר × היצע במחזור. התווית מציגה את השינוי ב־24 שעות.</string>
+    <string name="explain_spot_source">נתונים מכל הבורסות בדולר אמריקאי, מ־CoinGecko.</string>
+    <string name="explain_spot_supply">במחזור: מטבעות שנמצאים עכשיו בשוק. כולל: כל המטבעות שנוצרו פחות אלה שנשרפו. מרבי: הכמות הגדולה ביותר שיכולה להתקיים.</string>
+    <string name="explain_spot_volume">ערך שנסחר ב־24 שעות. מחזור/שווי: המחזור ביחס לשווי השוק — גבוה פירושו מסחר פעיל מאוד.</string>
+
+    <!-- Umrechnung und Sats -->
+    <string name="converted_fx_stale">%1$s · שער %2$s</string>
+    <string name="sats_per_unit">%1$s %2$s = %3$s סאטס</string>
+</resources>

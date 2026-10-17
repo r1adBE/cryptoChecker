@@ -1,0 +1,21 @@
+{
+ "market": "BitFlyer",
+ "recordedAt": "2026-10-16T23:27:56Z",
+ "description": "Recorded live by android/tools/record_exchange_fixtures.py. Real responses: the contract tests only check plausibility (parser does not throw, last > 0, batch has tickers, pair list contains the pair). Skipped: nothing. Trimmed for the repository: long lists keep their first 25 entries plus every entry naming the tested pair.",
+ "cases": [
+  {
+   "kind": "single",
+   "name": "recorded single 2026-10-16T23:27:56Z",
+   "market": "BitFlyer",
+   "requestId": 0,
+   "request": "GET https://api.bitflyer.com/v1/ticker?product_code=BTC_JPY",
+   "body": "{\"product_code\":\"BTC_JPY\",\"state\":\"RUNNING\",\"timestamp\":\"2026-10-16T23:29:07.13\",\"tick_id\":28938586,\"best_bid\":12897914.0,\"best_ask\":12901319.0,\"best_bid_size\":0.001084,\"best_ask_size\":0.0039153,\"total_bid_depth\":108.70247087,\"total_ask_depth\":136.13831117,\"market_bid_size\":0.0,\"market_ask_size\":0.0,\"ltp\":12898927.0,\"volume\":1195.22921736,\"volume_by_product\":154.66939912}",
+   "pair": {
+    "base": "BTC",
+    "quote": "JPY",
+    "id": "BTC_JPY",
+    "contract": "NONE"
+   }
+  }
+ ]
+}

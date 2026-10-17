@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Sicherung exportieren und wiederherstellen -->
+    <string name="backup_export">Експорт</string>
+    <string name="backup_exported">Копію збережено.</string>
+    <string name="backup_failed">Не вдалося. Це копія Crypto Checker?</string>
+    <string name="backup_hint">Зберігає список із нотатками та групами, сигнали, обране, портфель і налаштування у файл, який зберігаєте ви — наприклад, для нового телефона.</string>
+    <string name="backup_import">Імпорт</string>
+    <string name="backup_title">Резервна копія</string>
+    <string name="backup_too_large">Файл завеликий або не є резервною копією (не більше 16 МБ).</string>
+
+    <!-- Passwort der Sicherungsdatei -->
+    <string name="backup_password">Пароль</string>
+    <string name="backup_password_continue">Продовжити</string>
+    <string name="backup_password_hide">Сховати пароль</string>
+    <!-- %1$d = Mindestlänge des Passworts (8) -->
+    <string name="backup_password_min">Щонайменше %1$d символів</string>
+    <string name="backup_password_mismatch">Паролі не збігаються</string>
+    <string name="backup_password_prompt">Введіть пароль цієї резервної копії.</string>
+    <string name="backup_password_repeat">Повторіть пароль</string>
+    <string name="backup_password_show">Показати пароль</string>
+    <string name="backup_password_title">Копія, захищена паролем</string>
+    <string name="backup_password_too_weak">Надто легко вгадати – не лише цифри, не один повторюваний символ, без типових послідовностей на кшталт «12345678» чи «password».</string>
+    <string name="backup_password_warning">Без пароля резервну копію не можна відновити.</string>
+    <string name="backup_password_wrong">Неправильний пароль або файл пошкоджено. Спробуйте ще раз.</string>
+    <string name="backup_protect">Захистити паролем</string>
+    <string name="backup_protect_hint">Шифрує файл (AES-256). Рекомендовано, якщо в ньому є дані портфеля.</string>
+
+    <!-- Sicherung ohne Passwort, Wiederherstellen -->
+    <string name="backup_plain_confirm">Зберегти без пароля</string>
+    <string name="backup_plain_confirm_text">Файл не зашифровано. Будь-хто, хто його отримає, зможе прочитати:</string>
+    <string name="backup_plain_confirm_title">Зберегти без пароля?</string>
+    <string name="backup_plain_contents_addresses">Збережені адреси гаманців</string>
+    <string name="backup_plain_contents_base">Список спостереження з нотатками й групами, сигнали, обране та налаштування</string>
+    <string name="backup_plain_contents_portfolio">Портфель: транзакції з кількістю та цінами</string>
+    <string name="backup_restore_app_lock_kept">Блокування портфеля лишається увімкненим – незашифрована копія не може його вимкнути.</string>
+    <string name="backup_restore_confirm">Імпорт замінить ваш список (із нотатками та групами), сигнали, обране, портфель і налаштування даними з копії.</string>
+    <plurals name="backup_restore_invalid">
+        <item quantity="one">%d запис у копії (портфель або сповіщення) недійсний і не буде імпортований.</item>
+        <item quantity="few">%d записів у копії (портфель або сповіщення) недійсні і не будуть імпортовані.</item>
+        <item quantity="many">%d записів у копії (портфель або сповіщення) недійсні і не будуть імпортовані.</item>
+        <item quantity="other">%d записів у копії (портфель або сповіщення) недійсні і не будуть імпортовані.</item>
+    </plurals>
+    <string name="backup_restore_newer_version">Ця копія створена новішою версією застосунку – спершу оновіть застосунок. Нічого не імпортовано.</string>
+    <string name="backup_restore_unencrypted_warning">Ця копія не зашифрована – переконайтеся, що вона ваша. Налаштування буде застосовано; увімкнене блокування портфеля лишиться увімкненим.</string>
+    <string name="backup_restored">Відновлено: %1$s, %2$s.</string>
+    <plurals name="backup_restored_alarms">
+        <item quantity="one">%1$d сигнал</item>
+        <item quantity="few">%1$d сигнали</item>
+        <item quantity="many">%1$d сигналів</item>
+        <item quantity="other">%1$d сигналу</item>
+    </plurals>
+    <plurals name="backup_restored_pairs">
+        <item quantity="one">%1$d пара</item>
+        <item quantity="few">%1$d пари</item>
+        <item quantity="many">%1$d пар</item>
+        <item quantity="other">%1$d пари</item>
+    </plurals>
+
+    <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
+    <string name="storage_recovery_message">На цьому пристрої більше немає ключа до зашифрованих даних застосунку, тому він запустився порожнім. Нічого не видалено. Щоб повернути список і портфель, імпортуйте файл резервної копії в налаштуваннях, у розділі «%1$s».</string>
+    <string name="storage_recovery_title">Не вдалося розблокувати збережені дані</string>
+</resources>

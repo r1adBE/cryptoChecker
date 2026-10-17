@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: beobachtete Adressen (Wallets) -->
+    <string name="portfolio_address_add">주소 추가</string>
+    <string name="portfolio_address_count">포함</string>
+    <string name="portfolio_address_error">업데이트 실패</string>
+    <string name="portfolio_address_hint">공개 주소 (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) 또는 xpub</string>
+    <string name="portfolio_address_label">이름(선택)</string>
+    <string name="portfolio_address_not_since_buy">주소에서 · «매수 이후»에 포함 안 됨: %1$s</string>
+    <string name="portfolio_address_overlap">내 거래에도 있습니다: %1$s – 둘 다 합산됩니다. 같은 코인인가요? «표시만»을 선택하세요.</string>
+    <string name="portfolio_address_overlap_ask">%1$s은(는) 이미 직접 입력한 거래로 기록 중입니다. 이 주소의 잔액을 포트폴리오에 포함할까요, 아니면 표시만 할까요?</string>
+    <string name="portfolio_address_overlap_auto">«%1$s»은(는) 이제 표시만 되고 계산되지 않습니다 – %2$s은(는) 내 거래에도 있습니다.</string>
+    <string name="portfolio_address_overlap_restored">«%1$s»이(가) 다시 계산됩니다 – 수량이 거래와 맞지 않습니다. 같은 코인이면 «표시만»을 선택하세요.</string>
+    <string name="portfolio_address_overlap_title">거래와 같은 코인인가요?</string>
+    <string name="portfolio_address_overlap_tx">직접 입력한 입금/이체(%1$s)와 같은 수량입니다 – 이중으로 계산되었을 수 있습니다.</string>
+    <string name="portfolio_address_period_observed">관찰 중인 주소는 처음 확인된 잔액부터 계산합니다. 이후 변화는 유입/유출이며 수익이 아닙니다.</string>
+    <string name="portfolio_address_privacy">%1$s에는 공개 주소만 전송되며 키나 시드 문구는 절대 전송되지 않습니다. 제공자는 이를 IP 주소와 함께 보게 됩니다. 최대 10분마다 조회합니다.</string>
+    <string name="portfolio_address_remove">주소 삭제</string>
+    <string name="portfolio_address_show_only">표시만(포트폴리오에 포함 안 함)</string>
+    <string name="portfolio_address_show_only_short">표시만</string>
+    <string name="portfolio_address_tokens">토큰 포함</string>
+    <string name="portfolio_address_unknown_tokens">+%1$d개 알 수 없는 토큰(미포함)</string>
+    <string name="portfolio_address_xpub_privacy">xpub는 이 지갑의 모든 주소를 드러냅니다. 주소는 기기에서 생성되며 %1$s에는 개별 주소만 전송됩니다 – 첫 검색 때 최소 40회 요청, 이후에는 더 적게. 개인 키(xprv)는 절대 받지 않습니다.</string>
+    <string name="portfolio_address_xpub_used">사용 중인 주소: %1$d</string>
+    <string name="portfolio_addresses_title">주소</string>
+
+    <!-- Prüfung einer eingegebenen Adresse -->
+    <string name="address_bch_unsupported">Bitcoin Cash 주소는 관찰할 수 없습니다. 약관상 이를 허용하는 API 키 없는 무료 공개 서비스가 없습니다.</string>
+    <string name="address_bep2_shutdown">BNB Beacon Chain(BEP-2)는 2024년에 종료되었습니다 – 잔액은 이제 BNB Smart Chain(0x…)에 있습니다</string>
+    <string name="address_checksum">체크섬이 틀립니다 – 오타가 있나요?</string>
+    <string name="address_doge_unsupported">Dogecoin 주소는 관찰할 수 없습니다. 약관상 이를 허용하는 API 키 없는 무료 공개 서비스가 없습니다.</string>
+    <string name="address_duplicate">이미 추가된 주소입니다</string>
+    <string name="address_ens">ENS 이름은 지원되지 않습니다 – 0x 주소를 입력하세요</string>
+    <string name="address_invalid">지원되는 네트워크의 올바른 주소가 아닙니다</string>
+    <string name="address_limit">주소는 최대 20개</string>
+    <string name="address_secret">개인 키나 시드 문구처럼 보입니다. 어디에도 입력하지 마세요. 공개 주소만 가능합니다.</string>
+    <string name="address_testnet">Testnet 주소는 지원되지 않습니다</string>
+    <string name="address_unsupported">이 주소 유형은 지원되지 않습니다</string>
+    <string name="address_wrong_chain">다른 네트워크의 주소입니다</string>
+    <string name="address_xpub_multisig">멀티시그 키(Ypub/Zpub)는 지원되지 않습니다</string>
+</resources>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
+    <string name="widget_background">پس‌زمینه</string>
+    <string name="widget_configure_hint">پس‌زمینه و شفافیت را انتخاب کنید. رنگ از برنامه پیروی می‌کند. ابزارک کل فهرست را نشان می‌دهد؛ برای باز کردن برنامه روی یک ردیف بزنید.</string>
+    <string name="widget_configure_title">تنظیم ابزارک</string>
+    <string name="widget_description">قیمت یک جفت از واچ‌لیست شما را نشان می‌دهد.</string>
+    <string name="widget_empty">هنوز جفتی در واچ‌لیست نیست.</string>
+    <string name="widget_group_hint">فقط جفت‌های این گروه نمایش داده شوند.</string>
+    <string name="widget_kind_single">یک ارز</string>
+    <string name="widget_opacity">شفافیت پس‌زمینه: %1$d%%</string>
+    <string name="widget_pulse_description">آنچه اکنون در بازار به چشم می‌آید: تیتر، خلاصه کوتاه و همچنین Bitcoin، Ethereum و Solana.</string>
+
+    <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->
+    <!-- Allein, wenn für «outdated · 06:42» der Platz fehlt (Kopfzeile Listen-Widget) -->
+    <string name="widget_outdated">قدیمی</string>
+    <!-- Statt der Uhrzeit: «outdated · 06:42» (heute) bzw. «outdated · 5 Oct, 06:42» -->
+    <string name="widget_outdated_time">قدیمی · %1$s</string>
+
+    <!-- Widgets: Chart und Zeitraum -->
+    <string name="widget_chart_candles">شمعی</string>
+    <string name="widget_chart_line">خطی</string>
+    <string name="widget_chart_range">بازه نمودار</string>
+    <string name="widget_chart_type">نوع نمودار</string>
+    <!-- «1 Jahr» im Chart des Aktionsblatts (365 Tageskerzen; Chip neben 24h · 7T · 30T) -->
+    <string name="widget_range_1y">۱ سال</string>
+    <string name="widget_range_24h">24h</string>
+    <string name="widget_range_30d">۳۰ روز</string>
+    <string name="widget_range_7d">۷ روز</string>
+    <string name="widget_range_short_1y">۱س</string>
+    <string name="widget_range_short_24h">24h</string>
+    <string name="widget_range_short_30d">۳۰ر</string>
+    <string name="widget_range_short_7d">۷ر</string>
+
+    <!-- Portfolio-Widget -->
+    <!-- Fusszeile, %1$s Uhrzeit ohne Sekunden («Stand 15:19») -->
+    <string name="widget_portfolio_as_of">تا %1$s</string>
+    <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
+    <string name="widget_portfolio_chart_pending">روند به‌زودی</string>
+    <string name="widget_portfolio_description">ارزش کل پرتفوی شما و تغییر امروز</string>
+    <string name="widget_portfolio_display">نمایش</string>
+    <string name="widget_portfolio_display_conversion">فقط تبدیل</string>
+    <string name="widget_portfolio_display_conversion_usdt">تبدیل + USDT</string>
+    <string name="widget_portfolio_display_hint">وقتی ارز تبدیل USD باشد، خط USDT نمایش داده نمی‌شود.</string>
+    <string name="widget_portfolio_display_usdt">فقط USDT</string>
+    <string name="widget_portfolio_empty">خریدها را در زبانه پرتفوی ثبت کنید</string>
+    <string name="widget_portfolio_list_hint">برنامه را باز کنید تا دارایی‌هایتان اینجا نمایش داده شود.</string>
+    <string name="widget_portfolio_locked_hint">قفل است – در برنامه باز کنید</string>
+    <!-- Offene Coins ohne Kurs zählen im Gesamtwert als 0 -->
+    <plurals name="widget_portfolio_missing_coins">
+        <item quantity="one">بدون %1$d کوین</item>
+        <item quantity="other">بدون %1$d کوین</item>
+    </plurals>
+    <plurals name="widget_portfolio_more">
+        <item quantity="one">+ %1$d مورد دیگر</item>
+        <item quantity="other">+ %1$d مورد دیگر</item>
+    </plurals>
+    <string name="widget_portfolio_name">پرتفوی</string>
+    <string name="widget_portfolio_off_hint">روشن کردن: %1$s.</string>
+    <string name="widget_portfolio_off_short">سبد خاموش</string>
+    <string name="widget_portfolio_off_title">سبد خاموش است</string>
+    <string name="widget_portfolio_partly_stale">قیمت تا حدی قدیمی</string>
+    <string name="widget_portfolio_period">بازه</string>
+    <string name="widget_portfolio_period_without">%1$s بدون %2$s</string>
+    <string name="widget_portfolio_range_48h">48h</string>
+    <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
+    <string name="widget_portfolio_range_fallback">%1$s: پرتفوی را باز کنید</string>
+    <string name="widget_portfolio_range_short_48h">48h</string>
+    <string name="widget_portfolio_today_without">امروز بدون %1$s</string>
+    <string name="widget_portfolio_view">نما</string>
+    <string name="widget_portfolio_view_chart">نمودار</string>
+    <string name="widget_portfolio_view_list">فهرست</string>
+    <string name="widget_portfolio_view_overview">نمای کلی</string>
+
+    <!-- Einzel-Widget -->
+    <string name="single_widget_choose">انتخاب جفت</string>
+    <string name="single_widget_description">یک ارز را بزرگ با قیمت، تغییر و نمودار ۲۴ ساعته نشان می‌دهد.</string>
+    <string name="single_widget_label">Crypto Checker – یک ارز</string>
+    <string name="single_widget_title">تنظیم ابزارک تک‌ارز</string>
+
+    <!-- Widgets aus der App hinzufügen -->
+    <string name="widgets_add">افزودن</string>
+    <!-- Screenreader: Knopf «Add» mit dem Namen des Widgets -->
+    <string name="widgets_add_named">افزودن ابزارک %1$s</string>
+    <string name="widgets_manual_text">صفحه اصلی شما نمی‌تواند ابزارک‌ها را از داخل برنامه اضافه کند. انگشت خود را روی یک جای خالی صفحه اصلی نگه دارید، «ابزارک‌ها» را انتخاب کنید و «Crypto Checker» را پیدا کنید.</string>
+    <!-- Startbildschirm (Launcher) kann keine Widgets aus der App annehmen -->
+    <string name="widgets_manual_title">ابزارک را خودتان اضافه کنید</string>
+    <string name="widgets_sheet_title">افزودن ابزارک</string>
+
+    <!-- Nur iOS: Widget selbst hinzufügen (drei Schritte) -->
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS اجازه نمی‌دهد برنامه‌ها خودشان ابزارک اضافه کنند. فقط یک لحظه طول می‌کشد:</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">ابزارک‌های موجود</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">انگشت خود را روی یک جای خالی صفحه اصلی نگه دارید تا برنامه‌ها شروع به لرزیدن کنند.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">در بالا روی «ویرایش» › «افزودن ابزارک» بزنید (یا در نسخه‌های قدیمی‌تر iOS روی «+»).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">«Crypto Checker» را جستجو کنید، یک ابزارک انتخاب کنید و روی «افزودن ابزارک» بزنید.</string>
+</resources>

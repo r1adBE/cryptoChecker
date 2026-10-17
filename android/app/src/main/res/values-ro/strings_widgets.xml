@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
+    <string name="widget_background">Fundal</string>
+    <string name="widget_configure_hint">Alege fundalul și opacitatea. Culoarea urmează aplicația. Widgetul arată toată lista; atinge un rând pentru a deschide aplicația.</string>
+    <string name="widget_configure_title">Configurează widgetul</string>
+    <string name="widget_description">Afișează prețul unei perechi din lista de urmărire.</string>
+    <string name="widget_empty">Încă nicio pereche în lista de urmărire.</string>
+    <string name="widget_group_hint">Afișează doar perechile din acest grup.</string>
+    <string name="widget_kind_single">O monedă</string>
+    <string name="widget_opacity">Opacitatea fundalului: %1$d%%</string>
+    <string name="widget_pulse_description">Ce iese în evidență acum pe piață: titlu, scurt rezumat, plus Bitcoin, Ethereum și Solana.</string>
+
+    <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->
+    <!-- Allein, wenn für «outdated · 06:42» der Platz fehlt (Kopfzeile Listen-Widget) -->
+    <string name="widget_outdated">învechit</string>
+    <!-- Statt der Uhrzeit: «outdated · 06:42» (heute) bzw. «outdated · 5 Oct, 06:42» -->
+    <string name="widget_outdated_time">învechit · %1$s</string>
+
+    <!-- Widgets: Chart und Zeitraum -->
+    <string name="widget_chart_candles">Lumânări</string>
+    <string name="widget_chart_line">Linie</string>
+    <string name="widget_chart_range">Interval grafic</string>
+    <string name="widget_chart_type">Tip grafic</string>
+    <!-- «1 Jahr» im Chart des Aktionsblatts (365 Tageskerzen; Chip neben 24h · 7T · 30T) -->
+    <string name="widget_range_1y">1 an</string>
+    <string name="widget_range_24h">24h</string>
+    <string name="widget_range_30d">30 de zile</string>
+    <string name="widget_range_7d">7 zile</string>
+    <string name="widget_range_short_1y">1A</string>
+    <string name="widget_range_short_24h">24h</string>
+    <string name="widget_range_short_30d">30Z</string>
+    <string name="widget_range_short_7d">7Z</string>
+
+    <!-- Portfolio-Widget -->
+    <!-- Fusszeile, %1$s Uhrzeit ohne Sekunden («Stand 15:19») -->
+    <string name="widget_portfolio_as_of">La %1$s</string>
+    <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
+    <string name="widget_portfolio_chart_pending">Evoluția urmează</string>
+    <string name="widget_portfolio_description">Valoarea totală a portofoliului și variația de azi</string>
+    <string name="widget_portfolio_display">Afișare</string>
+    <string name="widget_portfolio_display_conversion">Doar conversie</string>
+    <string name="widget_portfolio_display_conversion_usdt">Conversie + USDT</string>
+    <string name="widget_portfolio_display_hint">Rândul USDT este ascuns când moneda de conversie este USD.</string>
+    <string name="widget_portfolio_display_usdt">Doar USDT</string>
+    <string name="widget_portfolio_empty">Adaugă achiziții în fila Portofoliu</string>
+    <string name="widget_portfolio_list_hint">Deschideți aplicația pentru a afișa aici pozițiile.</string>
+    <string name="widget_portfolio_locked_hint">Blocat – deblochează în aplicație</string>
+    <!-- Offene Coins ohne Kurs zählen im Gesamtwert als 0 -->
+    <plurals name="widget_portfolio_missing_coins">
+        <item quantity="one">fără %1$d monedă</item>
+        <item quantity="few">fără %1$d monede</item>
+        <item quantity="other">fără %1$d de monede</item>
+    </plurals>
+    <plurals name="widget_portfolio_more">
+        <item quantity="one">+ încă %1$d</item>
+        <item quantity="few">+ încă %1$d</item>
+        <item quantity="other">+ încă %1$d</item>
+    </plurals>
+    <string name="widget_portfolio_name">Portofoliu</string>
+    <string name="widget_portfolio_off_hint">Activează-l în %1$s.</string>
+    <string name="widget_portfolio_off_short">Portofoliu oprit</string>
+    <string name="widget_portfolio_off_title">Portofoliul este oprit</string>
+    <string name="widget_portfolio_partly_stale">preț parțial vechi</string>
+    <string name="widget_portfolio_period">Perioadă</string>
+    <string name="widget_portfolio_period_without">%1$s fără %2$s</string>
+    <string name="widget_portfolio_range_48h">48h</string>
+    <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
+    <string name="widget_portfolio_range_fallback">%1$s: deschideți Portofoliu</string>
+    <string name="widget_portfolio_range_short_48h">48h</string>
+    <string name="widget_portfolio_today_without">Azi fără %1$s</string>
+    <string name="widget_portfolio_view">Vizualizare</string>
+    <string name="widget_portfolio_view_chart">Grafic</string>
+    <string name="widget_portfolio_view_list">Listă</string>
+    <string name="widget_portfolio_view_overview">Prezentare</string>
+
+    <!-- Einzel-Widget -->
+    <string name="single_widget_choose">Alege o pereche</string>
+    <string name="single_widget_description">Arată o singură monedă, în format mare, cu preț, variație și grafic pe 24 de ore.</string>
+    <string name="single_widget_label">Crypto Checker – o singură monedă</string>
+    <string name="single_widget_title">Configurează widgetul individual</string>
+
+    <!-- Widgets aus der App hinzufügen -->
+    <string name="widgets_add">Adaugă</string>
+    <!-- Screenreader: Knopf «Add» mit dem Namen des Widgets -->
+    <string name="widgets_add_named">Adaugă widgetul %1$s</string>
+    <string name="widgets_manual_text">Ecranul tău principal nu poate adăuga widgeturi din aplicație. Atinge lung un loc liber pe ecranul principal, alege „Widgeturi” și caută „Crypto Checker”.</string>
+    <!-- Startbildschirm (Launcher) kann keine Widgets aus der App annehmen -->
+    <string name="widgets_manual_title">Adaugă widgetul manual</string>
+    <string name="widgets_sheet_title">Adaugă un widget</string>
+
+    <!-- Nur iOS: Widget selbst hinzufügen (drei Schritte) -->
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS nu permite aplicațiilor să adauge singure widgeturi. Durează doar o clipă:</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">Widgeturi disponibile</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">Atinge lung un loc liber pe ecranul principal până când aplicațiile încep să tremure.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">Atinge sus „Editați” › „Adăugați widget” (sau „+” în versiunile iOS mai vechi).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">Caută „Crypto Checker”, alege un widget și atinge „Adăugați widget”.</string>
+</resources>

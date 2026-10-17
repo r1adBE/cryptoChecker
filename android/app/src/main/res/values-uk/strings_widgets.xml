@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
+    <string name="widget_background">Фон</string>
+    <string name="widget_configure_hint">Виберіть фон і прозорість. Колір як у застосунку. Віджет показує весь список; торкніться рядка, щоб відкрити застосунок.</string>
+    <string name="widget_configure_title">Налаштування віджета</string>
+    <string name="widget_description">Показує ціну пари з вашого списку.</string>
+    <string name="widget_empty">У списку ще немає пар.</string>
+    <string name="widget_group_hint">Показувати лише пари цієї групи.</string>
+    <string name="widget_kind_single">Одна монета</string>
+    <string name="widget_opacity">Непрозорість фону: %1$d%%</string>
+    <string name="widget_pulse_description">Що зараз вирізняється на ринку: заголовок, короткий підсумок, а також Bitcoin, Ethereum і Solana.</string>
+
+    <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->
+    <!-- Allein, wenn für «outdated · 06:42» der Platz fehlt (Kopfzeile Listen-Widget) -->
+    <string name="widget_outdated">застаріло</string>
+    <!-- Statt der Uhrzeit: «outdated · 06:42» (heute) bzw. «outdated · 5 Oct, 06:42» -->
+    <string name="widget_outdated_time">застаріло · %1$s</string>
+
+    <!-- Widgets: Chart und Zeitraum -->
+    <string name="widget_chart_candles">Свічки</string>
+    <string name="widget_chart_line">Лінія</string>
+    <string name="widget_chart_range">Період графіка</string>
+    <string name="widget_chart_type">Тип графіка</string>
+    <!-- «1 Jahr» im Chart des Aktionsblatts (365 Tageskerzen; Chip neben 24h · 7T · 30T) -->
+    <string name="widget_range_1y">1 рік</string>
+    <string name="widget_range_24h">24 год</string>
+    <string name="widget_range_30d">30 днів</string>
+    <string name="widget_range_7d">7 днів</string>
+    <string name="widget_range_short_1y">1Р</string>
+    <string name="widget_range_short_24h">24г</string>
+    <string name="widget_range_short_30d">30Д</string>
+    <string name="widget_range_short_7d">7Д</string>
+
+    <!-- Portfolio-Widget -->
+    <!-- Fusszeile, %1$s Uhrzeit ohne Sekunden («Stand 15:19») -->
+    <string name="widget_portfolio_as_of">Станом на %1$s</string>
+    <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
+    <string name="widget_portfolio_chart_pending">Історія незабаром</string>
+    <string name="widget_portfolio_description">Загальна вартість портфеля та зміна за сьогодні</string>
+    <string name="widget_portfolio_display">Відображення</string>
+    <string name="widget_portfolio_display_conversion">Лише перерахунок</string>
+    <string name="widget_portfolio_display_conversion_usdt">Перерахунок + USDT</string>
+    <string name="widget_portfolio_display_hint">Рядок USDT приховано, якщо валюта перерахунку — USD.</string>
+    <string name="widget_portfolio_display_usdt">Лише USDT</string>
+    <string name="widget_portfolio_empty">Додайте купівлі на вкладці «Портфель»</string>
+    <string name="widget_portfolio_list_hint">Відкрийте застосунок, щоб тут з’явилися ваші позиції.</string>
+    <string name="widget_portfolio_locked_hint">Заблоковано – розблокуйте в застосунку</string>
+    <!-- Offene Coins ohne Kurs zählen im Gesamtwert als 0 -->
+    <plurals name="widget_portfolio_missing_coins">
+        <item quantity="one">без %1$d монети</item>
+        <item quantity="few">без %1$d монет</item>
+        <item quantity="many">без %1$d монет</item>
+        <item quantity="other">без %1$d монети</item>
+    </plurals>
+    <plurals name="widget_portfolio_more">
+        <item quantity="one">+ ще %1$d</item>
+        <item quantity="few">+ ще %1$d</item>
+        <item quantity="many">+ ще %1$d</item>
+        <item quantity="other">+ ще %1$d</item>
+    </plurals>
+    <string name="widget_portfolio_name">Портфель</string>
+    <string name="widget_portfolio_off_hint">Увімкніть у розділі %1$s.</string>
+    <string name="widget_portfolio_off_short">Портфель вимк.</string>
+    <string name="widget_portfolio_off_title">Портфель вимкнено</string>
+    <string name="widget_portfolio_partly_stale">частково старий курс</string>
+    <string name="widget_portfolio_period">Період</string>
+    <string name="widget_portfolio_period_without">%1$s без %2$s</string>
+    <string name="widget_portfolio_range_48h">48 год</string>
+    <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
+    <string name="widget_portfolio_range_fallback">%1$s: відкрийте Портфель</string>
+    <string name="widget_portfolio_range_short_48h">48г</string>
+    <string name="widget_portfolio_today_without">Сьогодні без %1$s</string>
+    <string name="widget_portfolio_view">Вигляд</string>
+    <string name="widget_portfolio_view_chart">Графік</string>
+    <string name="widget_portfolio_view_list">Список</string>
+    <string name="widget_portfolio_view_overview">Огляд</string>
+
+    <!-- Einzel-Widget -->
+    <string name="single_widget_choose">Виберіть пару</string>
+    <string name="single_widget_description">Показує одну монету великою: ціна, зміна та графік за 24 години.</string>
+    <string name="single_widget_label">Crypto Checker — одна монета</string>
+    <string name="single_widget_title">Налаштування віджета монети</string>
+
+    <!-- Widgets aus der App hinzufügen -->
+    <string name="widgets_add">Додати</string>
+    <!-- Screenreader: Knopf «Add» mit dem Namen des Widgets -->
+    <string name="widgets_add_named">Додати віджет %1$s</string>
+    <string name="widgets_manual_text">Ваш головний екран не може додавати віджети із застосунку. Натисніть і утримуйте вільне місце на головному екрані, виберіть «Віджети» й знайдіть «Crypto Checker».</string>
+    <!-- Startbildschirm (Launcher) kann keine Widgets aus der App annehmen -->
+    <string name="widgets_manual_title">Додайте віджет самостійно</string>
+    <string name="widgets_sheet_title">Додати віджет</string>
+
+    <!-- Nur iOS: Widget selbst hinzufügen (drei Schritte) -->
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS не дозволяє застосункам самим додавати віджети. Це займе лише мить:</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">Доступні віджети</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">Натисніть і утримуйте вільне місце на початковому екрані, доки програми не почнуть ворушитися.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">Торкніться вгорі «Редагувати» › «Додати віджет» (або «+» у старіших версіях iOS).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">Знайдіть «Crypto Checker», виберіть віджет і торкніться «Додати віджет».</string>
+</resources>

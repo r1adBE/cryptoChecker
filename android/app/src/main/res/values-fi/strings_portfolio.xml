@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Tab, leere Ansicht, Einschalten, Sperre -->
+    <string name="app_lock_unavailable">Tässä laitteessa ei ole näytön lukitusta. Määritä se ensin järjestelmän asetuksissa.</string>
+    <string name="app_lock_unlock">Avaa lukitus</string>
+    <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
+    <string name="portfolio_clear">Tyhjennä salkku</string>
+    <plurals name="portfolio_clear_confirm_count">
+        <item quantity="one">Poistetaanko %d tapahtuma? Seuratut osoitteet säilyvät. Toimintoa ei voi kumota.</item>
+        <item quantity="other">Poistetaanko kaikki %d tapahtumaa? Seuratut osoitteet säilyvät. Toimintoa ei voi kumota.</item>
+    </plurals>
+    <string name="portfolio_disclaimer">Summat pysyvät laitteella, ellet itse vie niitä; hintoja varten parien tunnukset lähetetään vain parin pörssille. Julkiset lohkoketjusolmut näkevät seuratut osoitteet ja IP-osoitteesi. Ei sijoitusneuvontaa.</string>
+    <string name="portfolio_empty_action">Lisää ensimmäinen ostosi</string>
+    <string name="portfolio_empty_address">Seuraa vain lompakon osoitetta</string>
+    <string name="portfolio_empty_csv">Ostettu pörssissä? Tuo tiedosto</string>
+    <string name="portfolio_empty_example_plain">Esimerkki: 0,01 BTC ostettu 1. maaliskuuta. Sovellus näyttää sitten, paljonko se on tänään arvoinen ja oletko voitolla vai tappiolla – tallennetaan vain tähän laitteeseen.</string>
+    <string name="portfolio_empty_text">Kirjaa, mitä ostit – sovellus näyttää, paljonko se on tänään arvoinen ja paljonko olet voitolla tai tappiolla.</string>
+    <string name="portfolio_empty_title">Ei vielä tapahtumia</string>
+    <string name="portfolio_enable_ask_text">Tapahtumasi on tallennettu. Salkku-välilehti näyttää omistuksesi ja niiden arvon.</string>
+    <string name="portfolio_enable_ask_title">Otetaanko Salkku-välilehti käyttöön?</string>
+    <string name="portfolio_enable_later_hint">Tapahtuma tallennettu. Voit ottaa Salkku-välilehden käyttöön kohdassa Asetukset › Lisäasetukset › Salkku.</string>
+    <string name="portfolio_enabled_banner">Salkku otettu käyttöön – löydät sen Salkku-välilehdeltä.</string>
+    <string name="portfolio_lock_reason">Avaa salkun lukitus</string>
+    <string name="portfolio_locked_text">Avaa lukitus nähdäksesi omistukset ja arvot.</string>
+    <string name="portfolio_locked_title">Salkku on lukittu</string>
+    <string name="portfolio_setting_hint">Valinnainen: kirjaa ostot ja myynnit ja näe arvo sekä voitto/tappio omalla välilehdellä.</string>
+    <!-- Status-Pille wie in der Merkliste: Kurse älter als die Frische-Schwelle, Gerät online. Offline: offline_status_since, alles aktuell: watchlist_all_fresh -->
+    <string name="portfolio_status_stale">Vanhentunut · tilanne %1$s</string>
+    <plurals name="portfolio_system_restore_invalid">
+        <item quantity="one">%d järjestelmän varmuuskopion merkintä oli virheellinen eikä sitä palautettu.</item>
+        <item quantity="other">%d järjestelmän varmuuskopion merkintää oli virheellisiä eikä niitä palautettu.</item>
+    </plurals>
+    <string name="portfolio_title">Salkku</string>
+    <string name="portfolio_unassigned_fee">Kulua ei kohdistettu – hankintahinta tuntematon: %1$s</string>
+    <string name="portfolio_updated">Hinnat klo %1$s</string>
+
+    <!-- Portfolio: Gesamtwert-Kopf (Heute · 7 T · Gesamt) und Aufteilung -->
+    <string name="portfolio_allocation_other">Muut</string>
+    <string name="portfolio_allocation_title">Jakauma</string>
+    <string name="portfolio_card_details">Tiedot</string>
+    <!-- Screenreader, Kennzahl ohne Wert; %1$s Beschriftung (z. B. «7 Tage») -->
+    <string name="portfolio_card_figure_none_a11y">%1$s: ei vielä saatavilla</string>
+    <string name="portfolio_card_hints_count">Huomiot (%1$d)</string>
+    <string name="portfolio_card_today">Tänään</string>
+    <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
+    <string name="portfolio_card_total">Yhteensä</string>
+    <string name="portfolio_hide_amounts">Piilota summat</string>
+    <string name="portfolio_hide_amounts_hint">Näyttää salkun ja salkkuwidgetin summat ja arvot muodossa ••• – prosentit pysyvät näkyvissä.</string>
+    <string name="portfolio_invested">Hankintahinta</string>
+    <string name="portfolio_total_no_fx">Ei valuuttakurssia: %1$s – summat USDT:nä</string>
+    <string name="portfolio_total_value">Kokonaisarvo</string>
+    <string name="portfolio_value">Arvo</string>
+
+    <!-- Portfolio: Bestand, offene Positionen, Durchschnittspreis -->
+    <string name="portfolio_avg_and_now">Keskim. %1$s · nyt %2$s</string>
+    <string name="portfolio_avg_only">Ka. %1$s</string>
+    <string name="portfolio_avg_open_lots">Hallussa olevien kolikoiden keskim. hankintahinta</string>
+    <string name="portfolio_avg_partial">Ka. %1$s ostohinnallisesta</string>
+    <string name="portfolio_avg_price">Keskim. ostohinta</string>
+    <string name="portfolio_avg_price_hint">Keskim. ostohinta: kaikkien ostojen keskiarvo määrillä painotettuna. Myynnit arvostetaan tähän keskiarvoon.</string>
+    <plurals name="portfolio_closed">
+        <item quantity="one">Suljettu positio (%1$d)</item>
+        <item quantity="other">Suljetut positiot (%1$d)</item>
+    </plurals>
+    <string name="portfolio_fifo_hint">FIFO: myynnit käyttävät ensin vanhimmat kolikkosi. Ka. = jäljellä oleva hankintahinta ÷ ostohinnallinen määrä.</string>
+    <string name="portfolio_holdings">Omistus</string>
+    <string name="portfolio_lost_fee_cost">Verkkokulun hankintahinta ilman maksettua erää: %1$s</string>
+    <string name="portfolio_open_lots">Avoimet ostoerät (%1$d)</string>
+    <string name="portfolio_open_lots_avg">Ostohinnalliset (Ø)</string>
+    <string name="portfolio_open_lots_no_cost">Ilman ostohintaa</string>
+    <string name="portfolio_open_lots_without_price">ei ostohintaa</string>
+    <string name="portfolio_realized">Toteutunut voitto/tappio</string>
+    <string name="portfolio_unrealized">Avoin voitto/tappio</string>
+    <string name="portfolio_unrealized_without_unpriced">ilman %1$s ilman ostohintaa</string>
+    <string name="portfolio_withdrawn_gain">Nostettu: %1$s (arvonmuutos nostoon asti)</string>
+
+    <!-- Portfolio: Kurse und Umrechnung -->
+    <string name="portfolio_convert_to">Muunna valuuttaan</string>
+    <string name="portfolio_convert_to_value">Muunna valuuttaan: %1$s</string>
+    <string name="portfolio_current_missing">Ei nykyistä hintaa: %1$s</string>
+    <string name="portfolio_current_price">Nykyinen hinta</string>
+    <string name="portfolio_price_missing">Hinta puuttuu</string>
+    <string name="portfolio_price_missing_hint">Joistakin ostoista puuttuu hinta. Lisää ostohinta nähdäksesi voiton/tappion.</string>
+    <string name="portfolio_price_source">Kurssit: Binance · USDT = 1</string>
+    <string name="portfolio_price_source_routes">Kurssit: %1$s, muuten Binance · USDT = 1</string>
+    <string name="portfolio_price_unavailable">Hinta ei ole juuri nyt saatavilla</string>
+    <string name="portfolio_price_unchecked">Hinta tarkistamatta</string>
+    <string name="portfolio_price_via_base">≈ %1$s-hinta (silloitettu/kääritty)</string>
+    <string name="portfolio_usdt_as_usd">USDT muunnettu USD-kurssilla</string>
+    <string name="portfolio_usdt_assumed">Oletettu USDT = 1</string>
+    <string name="portfolio_usdt_depeg_warning">Oletettu USDT = 1 – markkina %1$s USD (%2$s)</string>
+
+    <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
+    <string name="portfolio_add_from_watch">Lisää salkkuun</string>
+    <string name="portfolio_add_tx">Kirjaa tapahtuma</string>
+    <string name="portfolio_buy">Osto</string>
+    <string name="portfolio_coin">Kolikko</string>
+    <string name="portfolio_coin_invalid">Anna symboli</string>
+    <string name="portfolio_coin_search">Hae symbolia, esim. BTC</string>
+    <string name="portfolio_discard_confirm">Hylkää</string>
+    <string name="portfolio_discard_keep">Jatka muokkausta</string>
+    <string name="portfolio_discard_title">Hylätäänkö muutokset?</string>
+    <string name="portfolio_edit_tx">Muokkaa tapahtumaa</string>
+    <string name="portfolio_invalid">Virheellinen määrä</string>
+    <string name="portfolio_oversold">Myynnit ylittävät omistuksen – tarkista tapahtumat.</string>
+    <string name="portfolio_sell">Myynti</string>
+    <string name="portfolio_sell_exceeds">Enemmän kuin omistuksesi (%1$s)</string>
+    <string name="portfolio_sell_exceeds_fee">Määrä ja kulu ylittävät omistuksesi (%1$s)</string>
+    <string name="portfolio_sell_exceeds_wallet">Enemmän kuin omistuksesi kohteessa %2$s (%1$s)</string>
+    <string name="portfolio_transactions">Tapahtumat</string>
+    <string name="portfolio_tx_acquired_date">Alkuperäinen ostopäivä (valinnainen)</string>
+    <string name="portfolio_tx_acquired_date_hint">Omistusaikaa varten veroviennissä</string>
+    <string name="portfolio_tx_amount">Määrä</string>
+    <string name="portfolio_tx_coin_fee">Kulu kolikkona (valinnainen)</string>
+    <string name="portfolio_tx_date">Päivämäärä</string>
+    <string name="portfolio_tx_delete_confirm">Tämä tapahtuma poistetaan salkusta.</string>
+    <string name="portfolio_tx_delete_title">Poistetaanko tapahtuma?</string>
+    <string name="portfolio_tx_deposit">Talletus</string>
+    <string name="portfolio_tx_entry_currency">Syötä valuutassa</string>
+    <string name="portfolio_tx_explain_deposit">Omistus ilman kauppaa, esim. aiemmat kolikot</string>
+    <string name="portfolio_tx_explain_gift">Coinit poistuvat omistuksesta kuin nosto – luovutus käypään arvoon vain, jos maa verottaa lahjat näin (UK, CA, AU)</string>
+    <string name="portfolio_tx_explain_payment">Maksettu tavaroista tai palveluista – luovutus käypään arvoon kuin myynti, rahaa ei saatu</string>
+    <string name="portfolio_tx_explain_reward">Hankintahinta = markkina-arvo vastaanotettaessa</string>
+    <string name="portfolio_tx_explain_swap">Kolikko kolikkoon: annetun myynti, saadun osto</string>
+    <string name="portfolio_tx_explain_transfer">Ei voittoa – hankintahinta siirtyy kolikoiden mukana</string>
+    <string name="portfolio_tx_explain_withdrawal">Omistus poistuu salkusta – ei myyntiä, ei voittoa</string>
+    <string name="portfolio_tx_fee_consumes_amount">Kulu on yhtä suuri kuin saatu määrä – mitään ei jäisi jäljelle.</string>
+    <string name="portfolio_tx_fees_toggle">Kulut</string>
+    <string name="portfolio_tx_fiat_converted">≈ %1$s päivän %2$s kurssilla</string>
+    <string name="portfolio_tx_fiat_loading">Ladataan valuuttakurssia…</string>
+    <string name="portfolio_tx_fiat_no_fx">Tälle päivälle ei ole valuuttakurssia – syötä summa USDT:nä.</string>
+    <string name="portfolio_tx_gift">Lahja</string>
+    <string name="portfolio_tx_gift_price_hint">USDT:nä. Tyhjä = päivän päätöskurssi (arvio).</string>
+    <string name="portfolio_tx_gift_spouse">Puolisolle / kumppanille</string>
+    <string name="portfolio_tx_gift_spouse_hint">Iso-Britannia ja Kanada: ei voittoa eikä tappiota – kumppanisi saa hankintamenosi. Muut maat eivät huomioi tätä.</string>
+    <string name="portfolio_tx_market_value">Käypä arvo per coin</string>
+    <string name="portfolio_tx_more_buy">Kulu, pörssi, muistiinpano</string>
+    <string name="portfolio_tx_network_fee">Verkkokulu kolikkona (valinnainen)</string>
+    <string name="portfolio_tx_note">Muistiinpano (valinnainen)</string>
+    <string name="portfolio_tx_payment">Maksettu sillä</string>
+    <string name="portfolio_tx_price">Hinta per kolikko</string>
+    <string name="portfolio_tx_price_hint">USDT:nä. Jätä tyhjäksi, jos et tiedä.</string>
+    <string name="portfolio_tx_price_historic">Tarkistettu päätöskurssi %1$s – muuta tarvittaessa</string>
+    <string name="portfolio_tx_price_invalid">Virheellinen hinta</string>
+    <string name="portfolio_tx_price_past_hint">Syötä kaupantekopäivän hinta – jätä tyhjäksi, jos et tiedä</string>
+    <string name="portfolio_tx_price_receipt_hint">USDT:nä. Tyhjä = omistus ilman hankintahintaa.</string>
+    <string name="portfolio_tx_price_zero">Hinta 0 ei ole mahdollinen tuoduissa tapahtumissa – jätä tyhjäksi markkinahintaa varten</string>
+    <string name="portfolio_tx_removed">Tapahtuma poistettu</string>
+    <string name="portfolio_tx_reward">Palkkio</string>
+    <string name="portfolio_tx_save_failed">Tapahtumaa ei voitu tallentaa. Syöttämäsi tiedot ovat yhä tallella – yritä uudelleen.</string>
+    <string name="portfolio_tx_swap">Vaihto</string>
+    <string name="portfolio_tx_swap_fee_received">Kulu valuutassa %1$s: pienentää saatua määrää, hintaa ei tarvita.</string>
+    <string name="portfolio_tx_swap_from">Vaihto kohteesta %1$s</string>
+    <string name="portfolio_tx_swap_given_amount">Annettu määrä</string>
+    <string name="portfolio_tx_swap_given_coin">Annettu kolikko</string>
+    <string name="portfolio_tx_swap_received_amount">Saatu määrä</string>
+    <string name="portfolio_tx_swap_received_coin">Saatu kolikko</string>
+    <string name="portfolio_tx_swap_same_coin">Valitse eri kolikko kuin annettu</string>
+    <string name="portfolio_tx_swap_to">Vaihto kohteeseen %1$s</string>
+    <string name="portfolio_tx_swap_value">Vaihdon arvo (valinnainen)</string>
+    <string name="portfolio_tx_swap_value_hint">Kokonaisarvo. Tyhjä = tuntematon – voitto jää puutteelliseksi (automaattinen, jos vaihdossa on USDT:tä).</string>
+    <string name="portfolio_tx_third_fee_amount">Kulun määrä</string>
+    <string name="portfolio_tx_third_fee_coin">Kulun kolikko</string>
+    <string name="portfolio_tx_third_fee_incomplete">Ilman hintaa kulua ei lasketa hankintahintaan eikä myyntituottoon; verovienti merkitsee tällaiset myynnit.</string>
+    <string name="portfolio_tx_third_fee_price">Kulun kolikon hinta (valinnainen)</string>
+    <string name="portfolio_tx_third_fee_toggle">Kulu toisena kolikkona</string>
+    <string name="portfolio_tx_total">Yhteensä: %1$s</string>
+    <string name="portfolio_tx_transfer">Siirto</string>
+    <string name="portfolio_tx_transfer_from">Mistä (valinnainen)</string>
+    <string name="portfolio_tx_transfer_to">Minne (valinnainen)</string>
+    <string name="portfolio_tx_transfer_to_hint">Pörssi tai lompakko – arvostetaan jatkossa siellä.</string>
+    <string name="portfolio_tx_type_select">Tyyppi: %1$s</string>
+    <string name="portfolio_tx_value_received">Arvo per kolikko vastaanotettaessa (valinnainen)</string>
+    <string name="portfolio_tx_withdrawal">Nosto</string>
+    <string name="portfolio_tx_withdrawal_gift_hint">Annoitko pois tai maksoitko sillä? Kirjaa se nimellä ‹Lahja› tai ‹Maksettu sillä› – maasta riippuen se on verotuksessa myynti.</string>
+    <string name="portfolio_tx_withdrawal_price_hint">Valinnainen: markkina-arvo USDT:nä, vain historiaa varten (tyhjä = päivän kurssi). Kolikot poistuvat aina hankintahintaansa.</string>
+    <string name="portfolio_wallet_did_you_mean">Tarkoititko %1$s? Eri kirjoitusasu lasketaan eri lompakoksi.</string>
+    <string name="portfolio_wallet_shortfall">Omistus kohteessa %1$s ei riitä – puuttuuko siirto?</string>
+
+    <!-- Portfolio: Wertverlauf (Zeitraum, Vergleich Währung | USDT, Währungseffekt) -->
+    <!-- Höchster Tageswert des Zeitraums am Punkt («Hoch 12’345») -->
+    <string name="portfolio_chart_high">Huippu %1$s</string>
+    <string name="portfolio_compare">Vertailu</string>
+    <!-- Umschalter «Vergleich», Screenreader: %1$s Währung -->
+    <string name="portfolio_compare_a11y">Vertaa %1$s ja USDT prosentteina</string>
+    <!-- %1$s Zeitraum, %2$s Währung, %3$s und %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="portfolio_compare_chart_a11y">Vertailu prosentteina, %1$s: %2$s %3$s, USDT %4$s</string>
+    <!-- %1$s Prozentpunkte mit Vorzeichen («−5.10%»): Veränderung in der Währung minus in USDT -->
+    <string name="portfolio_currency_effect">Valuuttavaikutus: %1$s</string>
+    <!-- «Seit 1. Kauf» beginnt frühestens beim ersten Tag mit Kursdaten -->
+    <string name="portfolio_history_capped_data_start">Hintatiedot ulottuvat vain elokuuhun 2017 — historia alkaa sieltä.</string>
+    <string name="portfolio_history_chip_since_first">Ostosta</string>
+    <string name="portfolio_history_collapse">Piilota arvon kehitys</string>
+    <string name="portfolio_history_converted">Muunnettu tämän päivän kurssilla</string>
+    <string name="portfolio_history_expand">Näytä arvon kehitys</string>
+    <string name="portfolio_history_gain_a11y">Arvo %1$s. Voitto/tappio, %2$s: %3$s</string>
+    <string name="portfolio_history_gain_label">Voitto/tappio</string>
+    <!-- Umschalter, Screenreader: %1$s Währung («CHF») oder «USDT» -->
+    <string name="portfolio_history_in_a11y">Arvo (%1$s)</string>
+    <string name="portfolio_history_incl_fx">Sis. valuuttakurssin</string>
+    <string name="portfolio_history_incl_withdrawn">Sisältää nostettujen kolikoiden arvonmuutoksen</string>
+    <string name="portfolio_history_includes_trades">Sisältää jakson ostot ja myynnit</string>
+    <string name="portfolio_history_loading">Ladataan arvon kehitystä</string>
+    <string name="portfolio_history_period_1y">1 vuosi</string>
+    <string name="portfolio_history_period_30d">30 päivää</string>
+    <string name="portfolio_history_period_7d">7 päivää</string>
+    <string name="portfolio_history_period_since_first">ensimmäisestä ostosta</string>
+    <string name="portfolio_history_pnl_needs_prices">Voitto/tappio vaatii ostohinnat – lisää ne tapahtumiin.</string>
+    <string name="portfolio_history_pnl_without">Voitto/tappio ilman %1$s (hinta puuttuu)</string>
+    <string name="portfolio_history_range_1y">1 v</string>
+    <string name="portfolio_history_range_30d">30 pv</string>
+    <string name="portfolio_history_range_7d">7 pv</string>
+    <string name="portfolio_history_range_a11y">Näytä kehitys: %1$s</string>
+    <string name="portfolio_history_range_since_first">1. ostosta</string>
+    <string name="portfolio_history_scaled">%1$s historia: Binancen historia skaalattu pörssin hintaan</string>
+    <string name="portfolio_history_title">Arvon kehitys</string>
+    <string name="portfolio_history_today">Tänään</string>
+    <string name="portfolio_history_too_short">Kehitys alkaa ensimmäisen kokonaisen päivän jälkeen.</string>
+    <string name="portfolio_history_unavailable">Kehitystä ei ole juuri nyt saatavilla.</string>
+    <string name="portfolio_history_utc_days">Päivät UTC-ajassa (päiväkynttilät)</string>
+    <string name="portfolio_history_without_matching">Ilman %1$s (ei vastaavia päiväkursseja)</string>
+    <string name="portfolio_period_rewards">Palkkiot +%1$s (ei voitossa)</string>
+    <string name="portfolio_period_scaled">7 pv/1 v %1$s: Binancen historia skaalattu pörssin hintaan</string>
+
+    <!-- Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_alarm_action">Hälytys</string>
+    <!-- %1$s = Währung, z. B. CHF -->
+    <string name="portfolio_alarm_amount">Summa (%1$s)</string>
+    <string name="portfolio_alarm_hint">Tarkistetaan jokaisen päivityksen jälkeen. Kuten hälytykset: ilmoittaa rajan ylittyessä ja uudelleen vasta, kun arvo on palannut.</string>
+    <string name="portfolio_alarm_kind_above">Salkku yli summan</string>
+    <string name="portfolio_alarm_kind_below">Salkku alle summan</string>
+    <string name="portfolio_alarm_kind_down">Salkku laskee</string>
+    <string name="portfolio_alarm_kind_up">Salkku nousee</string>
+    <!-- %1$s = Betrag mit Währung (oder •••) -->
+    <string name="portfolio_alarm_sentence_above">Salkku yli %1$s</string>
+    <string name="portfolio_alarm_sentence_below">Salkku alle %1$s</string>
+    <string name="portfolio_alarm_sentence_down">Salkku laskee %1$s (%2$s)</string>
+    <!-- %1$s = Prozent, %2$s = Basis der %-Änderung kurz (24h, heute …) -->
+    <string name="portfolio_alarm_sentence_up">Salkku nousee %1$s (%2$s)</string>
+    <string name="portfolio_alarm_title">Hälytys ”salkun arvo”</string>
+
+    <!-- Gebühr, Börse und Gewinn/Verlust einer Position -->
+    <string name="ledger_exchange">Pörssi (valinnainen)</string>
+    <string name="ledger_exchange_failed">%1$s: ei juuri nyt kurssia pörssistä %2$s – arvostettu Binancella.</string>
+    <string name="ledger_exchange_hint">Kolikko arvostetaan tämän pörssin kurssilla (muuten Binance). Kehitys, 7 pv ja 1 v: Binancen päiväkurssit skaalattuina.</string>
+    <string name="ledger_exchange_mixed">%1$s: useita pörssejä merkitty – arvostettu Binancella. Siirsitkö kolikoita? Kirjaa siirto tyypillä «Siirto».</string>
+    <string name="ledger_exchange_none">Ei mitään (Binance)</string>
+    <string name="ledger_fee">Kulu (valinnainen)</string>
+    <string name="ledger_fee_coin">Kolikko</string>
+    <string name="ledger_fee_hint">USDT:nä se nostaa hankintahintaa (myynti: pienentää tuottoa), kolikkona se pienentää määrää.</string>
+    <string name="ledger_fee_line">Kulu %1$s</string>
+    <string name="ledger_fifo_cost_note">Ostosta: FIFO-hinta kuluineen (vanhimmat kolikot myydään ensin).</string>
+    <string name="ledger_gain_info">Tänään, 7 pv, 1 v: arvon muutos jaksolla – ostot ja myynnit eivät ole voittoa. Oston jälkeen: nykyarvo miinus hankintameno (keskihinta kuluineen) kolikoista, jotka sinulla yhä on.</string>
+    <string name="ledger_gain_info_a11y">Näin voitto ja tappio lasketaan</string>
+    <string name="ledger_gain_info_fifo">Tänään, 7 pv, 1 v: arvon muutos jaksolla – ostot ja myynnit eivät ole voittoa. Oston jälkeen: nykyarvo miinus hankintameno (FIFO kuluineen) kolikoista, jotka sinulla yhä on.</string>
+    <string name="ledger_gain_title">Voitto/tappio</string>
+    <string name="ledger_more_toggle">Kulu ja pörssi</string>
+    <string name="ledger_partial_cost">«Ostosta» laskee vain osan, jolla on ostohinta – ilman %1$s ilman ostohintaa.</string>
+    <string name="ledger_period_without">Tänään / 7 pv / 1 v ilman %1$s – ei sopivaa alkukurssia.</string>
+    <string name="ledger_since_purchase_currency">Ostosta (%1$s)</string>
+    <string name="ledger_since_purchase_spoken">Voitto/tappio ostosta, ei vielä myyty</string>
+    <plurals name="ledger_without_cost">
+        <item quantity="one">Ilman %1$d kolikkoa, jolta puuttuu ostohinta (%2$s) – lisää hinta, jotta se lasketaan.</item>
+        <item quantity="other">Ilman %1$d kolikkoa, joilta puuttuu ostohinta (%2$s) – lisää hinnat, jotta ne lasketaan.</item>
+    </plurals>
+</resources>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Screenreader: Zeile eines Paars, Frische, Erreichbarkeit -->
+    <string name="a11y_alarm_count">сигнали: %1$d</string>
+    <!-- Alarm des Paars eben ausgelöst (bis 15 Min. danach im Zeilensatz) -->
+    <string name="a11y_alarm_fired">Спрацював сигнал</string>
+    <string name="a11y_collapsed">Згорнуто</string>
+    <string name="a11y_converted">приблизно %1$s</string>
+    <string name="a11y_expanded">Розгорнуто</string>
+    <!-- Vorgelesen bei Zeilen, die eine Website öffnen (Datenschutz, Börse wünschen, Quellcode) -->
+    <string name="a11y_external_link">відкриється в браузері</string>
+    <string name="a11y_favorite">Обране</string>
+    <string name="a11y_in_watchlist">Уже є у списку</string>
+    <!-- %1$s Börse, letzte Abfrage gescheitert -->
+    <string name="a11y_market_unreachable">%1$s недоступна</string>
+    <string name="a11y_move_down">Перемістити вниз</string>
+    <string name="a11y_move_up">Перемістити вгору</string>
+    <string name="a11y_note">нотатка: %1$s</string>
+    <string name="a11y_price">ціна %1$s</string>
+    <string name="a11y_price_notification_off">Сповіщення про курс вимк.</string>
+    <string name="a11y_price_notification_on">Сповіщення про курс увімк.</string>
+    <!-- Frische einer Zeile, Teile mit «, » verbunden: «Kurs veraltet, zuletzt aktualisiert vor 45 Minuten» (A11ySpeech.freshnessText) -->
+    <string name="a11y_price_outdated">Курс застарів</string>
+    <!-- Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%1$s на %2$s</string>
+    <string name="a11y_stale">застаріло, останнє оновлення %1$s</string>
+    <string name="a11y_warning">Попередження</string>
+
+    <!-- Screenreader: Veränderung (Prozent-Pille, Widgets) -->
+    <!-- %1$s Satz aus a11y_change_up/down/flat: Veränderung über 24 Stunden (Prozent-Pille, Widgets) -->
+    <string name="a11y_change_24h">%1$s за 24 години</string>
+    <!-- Wenn die Pille «—» zeigt (keine Kerzen für das Paar) -->
+    <string name="a11y_change_24h_none">Зміна за 24 години недоступна</string>
+    <string name="a11y_change_down">падіння на %1$s</string>
+    <string name="a11y_change_flat">без змін</string>
+    <string name="a11y_change_since_last">%1$s з останнього оновлення</string>
+    <string name="a11y_change_since_last_none">Зміна з останнього оновлення недоступна</string>
+    <!-- %1$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_change_today">%1$s сьогодні</string>
+    <string name="a11y_change_today_none">Зміна за сьогодні недоступна</string>
+    <string name="a11y_change_today_zone">%1$s з опівночі %2$s</string>
+    <string name="a11y_change_today_zone_none">Зміна з опівночі %1$s недоступна</string>
+    <string name="a11y_change_up">зростання на %1$s</string>
+
+    <!-- Screenreader: Charts und Skalen -->
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">Графік %1$s: з %2$s до %3$s, %4$s. Максимум %5$s, мінімум %6$s.</string>
+    <string name="a11y_chart_empty">Графік: немає даних</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">Цикл %1$s: %2$s з халвінгу, день %3$d.</string>
+    <string name="a11y_cycle_bottom">Дно %1$s у день %2$d.</string>
+    <string name="a11y_cycle_double_bottom">Подвійне дно %1$s у день %2$d.</string>
+    <string name="a11y_cycle_double_top">Подвійна вершина %1$s у день %2$d.</string>
+    <string name="a11y_cycle_top">Пік %1$s у день %2$d.</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">Шкала від %1$s до %2$s: %3$d зі 100</string>
+
+    <!-- Screenreader: Puls-Zeile der Merkliste -->
+    <string name="a11y_watchlist_pulse">%1$s, %2$s, в середньому %3$s</string>
+    <string name="a11y_watchlist_pulse_combined">%1$s. %2$s</string>
+    <plurals name="a11y_watchlist_pulse_falling">
+        <item quantity="one">падає %1$d</item>
+        <item quantity="few">падають %1$d</item>
+        <item quantity="many">падають %1$d</item>
+        <item quantity="other">падають %1$d</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing">
+        <item quantity="one">%1$d пара без значення за 24 години</item>
+        <item quantity="few">%1$d пари без значення за 24 години</item>
+        <item quantity="many">%1$d пар без значення за 24 години</item>
+        <item quantity="other">%1$d пари без значення за 24 години</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="one">%1$d пара без значення за сьогодні</item>
+        <item quantity="few">%1$d пари без значення за сьогодні</item>
+        <item quantity="many">%1$d пар без значення за сьогодні</item>
+        <item quantity="other">%1$d пари без значення за сьогодні</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_rising">
+        <item quantity="one">Зростає %1$d пара</item>
+        <item quantity="few">Зростають %1$d пари</item>
+        <item quantity="many">Зростають %1$d пар</item>
+        <item quantity="other">Зростають %1$d пари</item>
+    </plurals>
+
+    <!-- Screenreader: zuletzt aktualisiert -->
+    <plurals name="a11y_updated_days">
+        <item quantity="one">востаннє оновлено %1$d день тому</item>
+        <item quantity="few">востаннє оновлено %1$d дні тому</item>
+        <item quantity="many">востаннє оновлено %1$d днів тому</item>
+        <item quantity="other">востаннє оновлено %1$d дня тому</item>
+    </plurals>
+    <plurals name="a11y_updated_hours">
+        <item quantity="one">востаннє оновлено %1$d годину тому</item>
+        <item quantity="few">востаннє оновлено %1$d години тому</item>
+        <item quantity="many">востаннє оновлено %1$d годин тому</item>
+        <item quantity="other">востаннє оновлено %1$d години тому</item>
+    </plurals>
+    <string name="a11y_updated_just_now">востаннє оновлено щойно</string>
+    <plurals name="a11y_updated_minutes">
+        <item quantity="one">востаннє оновлено %1$d хвилину тому</item>
+        <item quantity="few">востаннє оновлено %1$d хвилини тому</item>
+        <item quantity="many">востаннє оновлено %1$d хвилин тому</item>
+        <item quantity="other">востаннє оновлено %1$d хвилини тому</item>
+    </plurals>
+
+    <!-- Screenreader: Portfolio und Portfolio-Widget -->
+    <string name="a11y_amount_hidden">суму приховано</string>
+    <!-- %1$s Kürzel, %2$s Wert mit Währung, %3$s Anteil «62.3%», %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_portfolio_position">%1$s %2$s, %3$s портфеля</string>
+    <!-- Position im Portfolio-Widget: %1$s Kürzel, %2$s Anteil «62.3%», %3$s Satz aus a11y_change_24h -->
+    <string name="a11y_portfolio_position_24h">%1$s, %2$s портфеля, %3$s</string>
+    <string name="a11y_portfolio_positions">Найбільші позиції: %1$s</string>
+    <string name="a11y_portfolio_show_amounts">Показати суми</string>
+</resources>

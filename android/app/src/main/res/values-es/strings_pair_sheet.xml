@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Aktionsblatt: Kurs-Chart (Zeitraum, Kerzenwerte beim Ziehen, Umrechnung) und «Mehr» -->
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s Zeitraum kurz (widget_range_short_24h/7d/30d) -->
+    <string name="sheet_chart_change">%1$s en %2$s</string>
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s change_short_today(_zone) -->
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="sheet_chart_close">Cierre</string>
+    <string name="sheet_chart_converted_current">%1$s, convertido (tipo actual)</string>
+    <!-- Zeile unter dem Chart, %1$s = umgerechnete Reihe («BTC/USDT») -->
+    <string name="sheet_chart_converted_daily">%1$s, convertido con tipos diarios</string>
+    <!-- Keine Kerzen für das Paar -->
+    <string name="sheet_chart_no_data">No hay datos de precio para este par</string>
+    <!-- Kerzenwerte beim Ziehen (Hoch/Tief: ticker_high/ticker_low) -->
+    <string name="sheet_chart_open">Apertura</string>
+    <!-- Zeitraum-Chip statt «24h» bei Tages-Basis -->
+    <string name="sheet_chart_today">Hoy</string>
+    <!-- Umsatz der Kerze beim Ziehen; %1$s z. B. «12.3M USDT» -->
+    <string name="sheet_chart_volume">Vol. %1$s</string>
+    <string name="sheet_more">Más</string>
+
+    <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
+    <string name="ticker_ask">Venta</string>
+    <string name="ticker_bid">Compra</string>
+    <string name="ticker_high">Máximo</string>
+    <string name="ticker_low">Mínimo</string>
+    <string name="ticker_timestamp">Hora</string>
+    <string name="ticker_vol_base">Volumen (base)</string>
+    <string name="ticker_vol_quote">Volumen (cotización)</string>
+
+    <!-- Basis der %-Änderung (Prozent-Pille, Chart, Widgets) -->
+    <string name="change_basis_device">%1$s, 00:00 (zona horaria del dispositivo)</string>
+    <string name="change_basis_local">Desde las 00:00 hora local</string>
+    <string name="change_basis_rolling">Últimas 24 h</string>
+    <!-- Letzter gegen vorherigen Kurs des Paars; ausgeschrieben (Auswahl). Kurz neben Pille und Widgets: change_short_since_last -->
+    <string name="change_basis_since_last">Desde la última actualización</string>
+    <string name="change_basis_utc_zone">Desde las 00:00 %1$s</string>
+    <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
+    <string name="change_candle_source">Variación según velas de %1$s</string>
+    <string name="change_short_since_last">últ. actualización</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
+    <string name="change_short_today">hoy</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 einer gewählten Zeitzone; %1$s = Zeitzone (z. B. UTC) -->
+    <string name="change_short_today_zone">hoy %1$s</string>
+
+    <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
+    <string name="market_data_empty_error">No se recibieron datos del exchange.</string>
+    <string name="market_data_summary">Capitalización, comisiones de gas, datos económicos, análisis de monedas</string>
+    <string name="market_data_tab_futures">Futuros</string>
+    <string name="market_data_title">Datos de mercado</string>
+
+    <!-- Marktdaten Spot (Marktkapitalisierung, Angebot, Volumen) -->
+    <string name="spot_circulating">Suministro circulante</string>
+    <string name="spot_fdv">FDV</string>
+    <string name="spot_market_cap">Capitalización</string>
+    <string name="spot_max_supply">Suministro máximo</string>
+    <string name="spot_no_data">No hay datos spot para esta moneda</string>
+    <string name="spot_source_updated">Fuente: %1$s · a las %2$s</string>
+    <string name="spot_supply_of_max">%1$s del suministro máximo en circulación</string>
+    <string name="spot_total_supply">Suministro total</string>
+    <string name="spot_vol_mcap">Vol./Cap.</string>
+    <string name="spot_volume_24h">Volumen (24h)</string>
+
+    <!-- Futures-Kennzahlen (Funding, Open Interest, Referenzbörse) -->
+    <string name="futures_alarm_reference">Valor orientativo %1$s</string>
+    <string name="futures_funding">Tasa de financiación</string>
+    <string name="futures_funding_interval_unknown">intervalo desconocido</string>
+    <string name="futures_funding_per8h_equiv">= %1$s cada 8 h (como en las alarmas)</string>
+    <!-- Einheit neben der Funding-Pille, wenn die Börse stündlich abrechnet (Hyperliquid) -->
+    <string name="futures_funding_per_hour">por hora</string>
+    <string name="futures_funding_per_hours">cada %1$d h</string>
+    <string name="futures_next_funding">próxima en %1$d h %2$d min</string>
+    <string name="futures_no_data">No hay datos de futuros para esta moneda</string>
+    <string name="futures_open_interest">Interés abierto</string>
+    <!-- Futures-Kennzahlen von einer anderen Börse als der beobachteten (Richtwert) -->
+    <string name="futures_reference_hint">Valor orientativo de %1$s: el funding y el interés abierto varían según el exchange; en %2$s pueden ser distintos.</string>
+    <string name="futures_reference_spot">Valor orientativo de %1$s (perpetuo USDT de la moneda)</string>
+    <string name="futures_source">Fuente: %1$s</string>
+
+    <!-- Erklärungen hinter dem ⓘ-Knopf -->
+    <string name="explain_funding">Muchos apuestan con dinero prestado a que los precios suben o bajan. Comisión entre posiciones largas y cortas. Muy positiva significa que muchos apuestan por precios al alza.</string>
+    <string name="explain_open_interest">Los futuros son apuestas sobre el precio, a menudo con dinero prestado. Valor de todas las posiciones de futuros abiertas. Si sube, más dinero apuesta por el movimiento.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">Explicación</string>
+    <string name="explain_spot_fdv">Valoración totalmente diluida: precio × suministro máximo (o total si no hay límite).</string>
+    <string name="explain_spot_market_cap">Precio × suministro circulante. La píldora muestra su cambio en 24 horas.</string>
+    <string name="explain_spot_source">Cifras de todos los exchanges en dólares estadounidenses, de CoinGecko.</string>
+    <string name="explain_spot_supply">Circulante: monedas en el mercado ahora. Total: todas las creadas menos las quemadas. Máximo: lo máximo que puede existir.</string>
+    <string name="explain_spot_volume">Valor negociado en 24 horas. Vol./Cap.: volumen respecto a la capitalización; alto significa negociación muy activa.</string>
+
+    <!-- Umrechnung und Sats -->
+    <string name="converted_fx_stale">%1$s · cambio %2$s</string>
+    <string name="sats_per_unit">%1$s %2$s = %3$s sats</string>
+</resources>

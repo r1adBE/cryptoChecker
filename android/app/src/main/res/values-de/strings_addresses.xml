@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: beobachtete Adressen (Wallets) -->
+    <string name="portfolio_address_add">Adresse hinzufügen</string>
+    <string name="portfolio_address_count">Zählen</string>
+    <string name="portfolio_address_error">Aktualisierung fehlgeschlagen</string>
+    <string name="portfolio_address_hint">Öffentliche Adresse (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) oder xpub</string>
+    <string name="portfolio_address_label">Bezeichnung (optional)</string>
+    <string name="portfolio_address_not_since_buy">Aus Adresse · nicht in «Seit Kauf»: %1$s</string>
+    <string name="portfolio_address_overlap">Auch in deinen eigenen Transaktionen: %1$s – beides wird addiert. Dieselben Coins? Wähle «Nur anzeigen».</string>
+    <string name="portfolio_address_overlap_ask">Du erfasst %1$s schon mit eigenen Transaktionen. Soll das Guthaben dieser Adresse zum Portfolio zählen oder nur angezeigt werden?</string>
+    <string name="portfolio_address_overlap_auto">«%1$s» wird jetzt nur angezeigt, nicht gezählt – %2$s stehen auch in deinen Transaktionen.</string>
+    <string name="portfolio_address_overlap_restored">«%1$s» zählt wieder – die Mengen passen nicht zu deinen Transaktionen. Wähle «Nur anzeigen», wenn es dieselben Coins sind.</string>
+    <string name="portfolio_address_overlap_title">Dieselben Coins wie in deinen Transaktionen?</string>
+    <string name="portfolio_address_overlap_tx">Gleiche Menge wie deine eigene Einzahlung/Umbuchung (%1$s) – zählt wohl doppelt.</string>
+    <string name="portfolio_address_period_observed">Beobachtete Adressen zählen ab dem ersten beobachteten Guthaben; spätere Änderungen sind Zu-/Abflüsse, kein Gewinn.</string>
+    <string name="portfolio_address_privacy">Gesendet wird nur die öffentliche Adresse an %1$s – nie Schlüssel oder Seed-Wörter. Der Anbieter sieht sie zusammen mit deiner IP-Adresse. Abgefragt höchstens alle 10 Minuten.</string>
+    <string name="portfolio_address_remove">Adresse entfernen</string>
+    <string name="portfolio_address_show_only">Nur anzeigen, nicht zum Portfolio zählen</string>
+    <string name="portfolio_address_show_only_short">Nur anzeigen</string>
+    <string name="portfolio_address_tokens">Tokens mitzählen</string>
+    <string name="portfolio_address_unknown_tokens">+%1$d unbekannte Token (nicht gezählt)</string>
+    <string name="portfolio_address_xpub_privacy">Ein xpub verrät alle Adressen dieser Wallet. Sie werden auf deinem Gerät abgeleitet; an %1$s gehen nur einzelne Adressen – bei der ersten Suche mindestens 40 Anfragen, danach weniger. Private Schlüssel (xprv) werden nie angenommen.</string>
+    <string name="portfolio_address_xpub_used">Benutzte Adressen: %1$d</string>
+    <string name="portfolio_addresses_title">Adressen</string>
+
+    <!-- Prüfung einer eingegebenen Adresse -->
+    <string name="address_bch_unsupported">Bitcoin-Cash-Adressen lassen sich nicht beobachten: Es gibt keinen freien öffentlichen Dienst ohne API-Schlüssel, dessen Bedingungen das erlauben.</string>
+    <string name="address_bep2_shutdown">BNB Beacon Chain (BEP-2) wurde 2024 abgeschaltet – Guthaben liegen jetzt auf BNB Smart Chain (0x…)</string>
+    <string name="address_checksum">Prüfsumme falsch – Tippfehler?</string>
+    <string name="address_doge_unsupported">Dogecoin-Adressen lassen sich nicht beobachten: Es gibt keinen freien öffentlichen Dienst ohne API-Schlüssel, dessen Bedingungen das erlauben.</string>
+    <string name="address_duplicate">Diese Adresse ist schon eingetragen</string>
+    <string name="address_ens">ENS-Namen werden nicht unterstützt – gib die 0x-Adresse ein</string>
+    <string name="address_invalid">Keine gültige Adresse eines unterstützten Netzes</string>
+    <string name="address_limit">Höchstens 20 Adressen</string>
+    <string name="address_secret">Das sieht nach einem privaten Schlüssel oder Seed-Wörtern aus – gib das nirgends ein. Nur öffentliche Adressen.</string>
+    <string name="address_testnet">Testnet-Adressen werden nicht unterstützt</string>
+    <string name="address_unsupported">Dieser Adresstyp wird nicht unterstützt</string>
+    <string name="address_wrong_chain">Adresse gehört zu einem anderen Netz</string>
+    <string name="address_xpub_multisig">Multisig-Schlüssel (Ypub/Zpub) werden nicht unterstützt</string>
+</resources>

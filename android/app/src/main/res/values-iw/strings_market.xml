@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Markt-Tab: Abschnitte, Zeilen, Herkunft und Alter -->
+    <!-- «… · CoinGecko · vor 3 Min.»; «gerade eben» = time_just_now, «veraltet» = widget_outdated -->
+    <plurals name="market_age_minutes">
+        <item quantity="one">לפני %d דק׳</item>
+        <item quantity="two">לפני %d דק׳</item>
+        <item quantity="other">לפני %d דק׳</item>
+    </plurals>
+    <!-- «heute 02:00» (Uhrzeit ohne Sekunden) -->
+    <string name="market_age_today">היום %1$s</string>
+    <string name="market_context_summary">Fear &amp; Greed, מדדי ביטקוין, דומיננטיות, הלווינג</string>
+    <string name="market_context_value">%1$s %2$s · %3$s</string>
+    <string name="market_more_data">עוד נתוני שוק</string>
+    <string name="market_phase_trend_failed">נתוני מחיר אינם זמינים</string>
+    <string name="market_plain_direction_down_clear">השווי הכולל של כל המטבעות הקריפטוגרפיים נמוך בבירור מלפני 24 שעות (%1$s).</string>
+    <string name="market_plain_direction_down_slight">השווי הכולל של כל המטבעות הקריפטוגרפיים נמוך מעט יותר מלפני 24 שעות (%1$s).</string>
+    <string name="market_plain_direction_flat">השווי הכולל של כל המטבעות הקריפטוגרפיים כמעט לא השתנה ב־24 שעות (%1$s).</string>
+    <string name="market_plain_direction_up_clear">השווי הכולל של כל המטבעות הקריפטוגרפיים גבוה בבירור מלפני 24 שעות (%1$s).</string>
+    <string name="market_plain_direction_up_slight">השווי הכולל של כל המטבעות הקריפטוגרפיים גבוה מעט יותר מלפני 24 שעות (%1$s).</string>
+    <string name="market_plain_footnote">מתאר את 24 השעות האחרונות – ללא תחזית וללא ייעוץ השקעות.</string>
+    <string name="market_plain_mood_extreme_fear">המשקיעים מפוחדים מאוד כרגע: מדד מצב הרוח (Fear &amp; Greed) עומד על %1$d מתוך 100.</string>
+    <string name="market_plain_mood_extreme_greed">המשקיעים חמדנים מאוד כרגע: מדד מצב הרוח (Fear &amp; Greed) עומד על %1$d מתוך 100.</string>
+    <string name="market_plain_mood_fear">המשקיעים די מפוחדים: מדד מצב הרוח (Fear &amp; Greed) עומד על %1$d מתוך 100.</string>
+    <string name="market_plain_mood_greed">המשקיעים די חמדנים: מדד מצב הרוח (Fear &amp; Greed) עומד על %1$d מתוך 100.</string>
+    <string name="market_plain_mood_neutral">מצב הרוח של המשקיעים מאוזן: מדד מצב הרוח (Fear &amp; Greed) עומד על %1$d מתוך 100.</string>
+    <string name="market_plain_standout_above_btc">בולט: %1$s – ‏%2$s ב־24 שעות, הרבה מעל Bitcoin ‏(%3$s).</string>
+    <string name="market_plain_standout_against_btc">בולט: %1$s – ‏%2$s ב־24 שעות, בזמן ש־Bitcoin נע בכיוון ההפוך ‏(%3$s).</string>
+    <string name="market_plain_standout_below_btc">בולט: %1$s – ‏%2$s ב־24 שעות, הרבה מתחת ל־Bitcoin ‏(%3$s).</string>
+    <string name="market_plain_standout_futures_down">בולט: %1$s – מספר חריג של סוחרי futures מהמרים על ירידת מחירים.</string>
+    <string name="market_plain_standout_futures_up">בולט: %1$s – מספר חריג של סוחרי futures מהמרים על עליית מחירים.</string>
+    <string name="market_plain_standout_quiet">כרגע אף מטבע לא בולט במיוחד.</string>
+    <string name="market_plain_standout_volume">בולט: %1$s – בערך פי %2$s מסחר מהרגיל.</string>
+    <string name="market_plain_title">בקצרה</string>
+    <!-- Nebenzeile der Fear-&-Greed-Zeile («Gier · gestern 65») -->
+    <string name="market_row_fng_yesterday">%1$s · אתמול %2$s</string>
+    <string name="market_section_collapse">הסתרת %1$s</string>
+    <string name="market_section_context">סנטימנט ומחזור</string>
+    <string name="market_section_data">נתוני שוק</string>
+    <!-- Bedienungshilfen: Aktion auf der Abschnittsüberschrift; %1$s = Name des Abschnitts -->
+    <string name="market_section_expand">הצגת %1$s</string>
+    <string name="market_section_now">עכשיו</string>
+    <string name="market_source">נתונים: Binance · Coin Metrics (CC BY-NC 4.0)</string>
+    <string name="market_unavailable_error">הבורסה אינה זמינה</string>
+
+    <!-- Markt-Tab: Info-Zeichen und Info-Blatt je Karte (was, wie, Quelle) -->
+    <string name="market_info_a11y">מידע: %1$s</string>
+    <string name="market_info_alt_season_source">מחירים יומיים: Binance · מחושב מחדש בערך כל 3 שעות</string>
+    <string name="market_info_alt_season_what">סופר כמה מתוך כ־20 אלטקוינים גדולים (למשל Ethereum,‏ Solana,‏ XRP) הציגו ביצועים טובים יותר מ־Bitcoin ב־90 הימים האחרונים. הערך הוא חלקם בין 0 ל־100.</string>
+    <string name="market_info_coin_source">מחירים: Binance או Bybit · נטען מחדש בערך כל 15 דקות</string>
+    <string name="market_info_dominance_how">כשהדומיננטיות עולה, Bitcoin מתפקד טוב יותר משאר השוק; כשהיא יורדת, מטבעות אחרים צוברים משקל. גם מטבעות יציבים נספרים: אם שוויים גדל, חלקו של Bitcoin יורד גם כשמחיר Bitcoin לא משתנה.</string>
+    <string name="market_info_dominance_source">מקור: CoinGecko · נטען מחדש בערך כל 30 דקות</string>
+    <string name="market_info_dominance_what">החלק של Bitcoin בשווי הכולל של כל המטבעות הקריפטוגרפיים (שווי שוק). מתחתיו מוצג החלק של Ethereum.</string>
+    <string name="market_info_fear_greed_how">מתחת ל־25 פירושו פחד קיצוני, מעל 75 תאוות בצע קיצונית, סביב 50 ניטרלי. בכרטיס הפתוח מופיעים הערכים של אתמול, לפני שבוע ולפני חודש. זה לא אות קנייה או מכירה.</string>
+    <string name="market_info_fear_greed_source">מקור: alternative.me · ערך חדש פעם ביום</string>
+    <string name="market_info_fear_greed_what">מדד סנטימנט לשוק הקריפטו בין 0 ל־100. alternative.me מחשב אותו מכמה נתונים, בהם תנודות מחירים, נפח מסחר, רשתות חברתיות והדומיננטיות של Bitcoin.</string>
+    <string name="market_info_gas_how">ערכים גבוהים יותר פירושם שהרשת עמוסה וההעברות יקרות יותר. איטי, רגיל ומהיר הם עמלות לאישור מאוחר יותר או מהיר יותר. בכרטיס הפתוח מוצגת העלות המשוערת של העברה פשוטה.</string>
+    <string name="market_info_gas_source">צמתי RPC ציבוריים, mempool.space · נטען מחדש כל דקה</string>
+    <string name="market_info_gas_what">כמה עולה כרגע עסקה בכל רשת. ב־Ethereum וברשתות דומות ב־gwei (חלק המיליארד של ETH ליחידת gas), ב־Bitcoin ב־sat/vB (סאטושי לבייט וירטואלי של העסקה).</string>
+    <string name="market_info_halving_source">תאריך: לפי גובה הבלוק וזמן בלוק ממוצע (mempool.space), אחרת לפי לוח השנה · היסטוריית שער: Coin Metrics,‏ Binance, נטען מחדש כל 12 שעות</string>
+    <string name="market_info_halving_what">בהלבינג התגמול שהכורים מקבלים על בלוק Bitcoin חדש יורד בחצי. זה קורה כל 210,000 בלוקים, כלומר בערך כל ארבע שנים. לאחר מכן נוצרים מדי יום רק חצי ממספר הביטקוינים החדשים.</string>
+    <string name="market_info_how">איך לקרוא את זה</string>
+    <string name="market_info_macro_how">ההודעה מופיעה רק כשמועד כזה חל היום או מחר. סביב הפרסום המחירים נוטים לתנודות חזקות מהרגיל. האפליקציה מציגה רק את המועד, לא את הנתונים עצמם.</string>
+    <string name="market_info_macro_source">לוח מועדים מאתר האפליקציה · נטען פעם ביום</string>
+    <string name="market_info_macro_what">מועדי נתונים כלכליים חשובים מארה״ב: אינפלציה (CPI,‏ PCE), מחירי יצרן (PPI), דוח התעסוקה והחלטות הריבית של הפדרל ריזרב. נתונים כאלה מזיזים לעיתים קרובות גם את מחירי המטבעות הקריפטוגרפיים.</string>
+    <string name="market_info_no_advice">אין ייעוץ השקעות.</string>
+    <string name="market_info_phase_source">Binance,‏ Coin Metrics · מחירים כל שעה, נתוני on-chain נטענים מחדש כל 12 שעות</string>
+    <string name="market_info_pulse_how">הכותרת מציינת את הכיוון; בכרטיס הפתוח מופיעים הפרטים. תנועה רחבה פירושה שרוב המטבעות הגדולים נעים לאותו כיוון. שיעור מימון גבוה פירושו שרבים מהמרים על עליית מחירים במינוף. תמונת מצב, לא תחזית.</string>
+    <string name="market_info_pulse_source">Binance,‏ CoinGecko · נטען מחדש בערך כל 5 דקות</string>
+    <string name="market_info_pulse_what">סיכום קצר של השוק ב־24 השעות האחרונות: איך נעים Bitcoin,‏ Ethereum ו־Solana, כמה מהמטבעות הגדולים ביותר עולים או יורדים, כמה Bitcoin נסחר עכשיו ובאיזו רמה עומד שיעור המימון בחוזים העתידיים על Bitcoin.</string>
+    <string name="market_info_totals_how">לצד הערך מוצג השינוי בשווי הכולל ב־24 שעות. נפח גבוה פירושו שנסחר הרבה, אך הוא אינו מציין את הכיוון. מוצג במטבע להמרה כשאפשר, אחרת בדולר אמריקאי.</string>
+    <string name="market_info_totals_source">כל המטבעות · CoinGecko · נטען מחדש בערך כל 30 דקות</string>
+    <string name="market_info_totals_what">השווי הכולל של כל המטבעות הקריפטוגרפיים (שווי שוק: מחיר כפול הכמות במחזור, מסוכם לכל המטבעות) ונפח המסחר ב־24 השעות האחרונות.</string>
+    <string name="market_info_unusual_how">לכל מטבע מוצגת התצפית הבולטת ביותר, ולצידה השינוי ב־24 שעות. נפח של 2× פירושו פי שניים ממחזור המסחר הרגיל. חריג אינו אומר טוב או רע.</string>
+    <string name="market_info_unusual_source">Binance,‏ CoinGecko · נטען מחדש בערך כל 10 דקות</string>
+    <string name="market_info_unusual_what">עד חמישה מטבעות מתוך כ־30 הגדולים (ללא מטבעות יציבים) שמתנהגים היום באופן חריג: חזקים או חלשים בבירור מ־Bitcoin, נגד כיוון השוק, עם נפח מסחר גבוה במיוחד או עם שיעור מימון בולט.</string>
+    <string name="market_info_what">מה זה?</string>
+
+    <!-- Markt-Tab: Krypto-Markt gesamt -->
+    <string name="market_cap_label">שווי שוק</string>
+    <string name="market_cap_source">כל המטבעות · CoinGecko</string>
+    <string name="market_cap_title">שוק הקריפטו</string>
+    <string name="market_volume_label">מחזור 24 שעות</string>
+
+    <!-- Crypto Pulse «Was gerade auffällt»: Titel, Abschnitte, Hinweise -->
+    <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
+    <string name="pulse_details_action">פרטים</string>
+    <string name="pulse_disclaimer">אין תחזית · אין ייעוץ השקעות</string>
+    <string name="pulse_less">הצגת פחות</string>
+    <string name="pulse_now_title">מה בולט עכשיו</string>
+    <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
+    <string name="pulse_period_24h_spoken">שינוי ב-24 שעות</string>
+    <string name="pulse_section_factors">גורמים</string>
+    <string name="pulse_section_market">השוק היום</string>
+    <string name="pulse_unavailable">נתוני השוק אינם זמינים כרגע</string>
+    <string name="pulse_updated">נכון ל-%1$s</string>
+
+    <!-- Crypto Pulse: Schlagzeile und Leitsatz -->
+    <string name="pulse_headline_calm">שוק רגוע</string>
+    <string name="pulse_headline_down">חולשה רחבה</string>
+    <string name="pulse_headline_mixed">תמונה מעורבת</string>
+    <string name="pulse_headline_up">חוזק רחב</string>
+    <string name="pulse_lead_alts_stronger">האלטקוינים חזקים מביטקוין.</string>
+    <string name="pulse_lead_broad_down">השוק יורד באופן רחב.</string>
+    <string name="pulse_lead_broad_up">השוק עולה באופן רחב.</string>
+    <string name="pulse_lead_btc_leads">ביטקוין עולה הכי הרבה.</string>
+    <string name="pulse_lead_btc_stronger">ביטקוין חזק מהאלטקוינים.</string>
+    <string name="pulse_lead_calm">השוק כמעט לא זז.</string>
+    <string name="pulse_lead_drift_down">השוק יורד מעט.</string>
+    <string name="pulse_lead_drift_up">השוק עולה מעט.</string>
+    <string name="pulse_lead_mixed">המטבעות הגדולים נעים בכיוונים שונים.</string>
+
+    <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
+    <string name="pulse_detail_fund_high">מימון גבוה.</string>
+    <string name="pulse_detail_fund_negative">מימון שלילי.</string>
+    <string name="pulse_detail_fund_neutral">מימון ניטרלי.</string>
+    <string name="pulse_detail_vol_above">נפח גבוה ב-%1$d%% מהרגיל.</string>
+    <string name="pulse_detail_vol_above_fund_high">נפח גבוה ב-%1$d%% מהרגיל, מימון גבוה.</string>
+    <string name="pulse_detail_vol_above_fund_negative">נפח גבוה ב-%1$d%% מהרגיל, מימון שלילי.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">נפח גבוה ב-%1$d%% מהרגיל, מימון ניטרלי.</string>
+    <string name="pulse_detail_vol_below">נפח נמוך ב-%1$d%% מהרגיל.</string>
+    <string name="pulse_detail_vol_below_fund_high">נפח נמוך ב-%1$d%% מהרגיל, מימון גבוה.</string>
+    <string name="pulse_detail_vol_below_fund_negative">נפח נמוך ב-%1$d%% מהרגיל, מימון שלילי.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">נפח נמוך ב-%1$d%% מהרגיל, מימון ניטרלי.</string>
+    <string name="pulse_detail_vol_normal">נפח רגיל.</string>
+    <string name="pulse_detail_vol_normal_fund_high">נפח רגיל, מימון גבוה.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">נפח רגיל, מימון שלילי.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">נפח רגיל, מימון ניטרלי.</string>
+
+    <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
+    <string name="pulse_breadth_hint">Top %1$d: המטבעות הגדולים ביותר לפי שווי שוק, בלי מטבעות יציבים; שינוי ב-24 שעות (CoinGecko).</string>
+    <!-- «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">Top %1$d</string>
+    <string name="pulse_breadth_note_broad_down">ירידה רחבה: רוב המטבעות הגדולים יורדים.</string>
+    <string name="pulse_breadth_note_broad_up">תנועה רחבה: רוב המטבעות הגדולים עולים.</string>
+    <string name="pulse_breadth_note_narrow_down">ביטקוין יורד, אבל רוב המטבעות הגדולים האחרים מחזיקים מעמד.</string>
+    <string name="pulse_breadth_note_narrow_up">ביטקוין עולה, אבל רוב המטבעות הגדולים האחרים לא מצטרפים.</string>
+    <string name="pulse_breadth_spoken">Top %1$d: עולים %2$d, יורדים %3$d</string>
+
+    <!-- Crypto Pulse: Altcoins, Funding, Gas, Volumen -->
+    <string name="pulse_alts_even">אלטקוינים ו-Bitcoin נעים באופן דומה</string>
+    <string name="pulse_alts_stronger">אלטקוינים חזקים מ-Bitcoin</string>
+    <string name="pulse_alts_weaker">Bitcoin חזק מאלטקוינים</string>
+    <string name="pulse_chip_funding_high">מימון גבוה</string>
+    <string name="pulse_chip_funding_negative">מימון שלילי</string>
+    <string name="pulse_funding_high">מימון חיובי בבירור: הרבה לונגים ממונפים</string>
+    <string name="pulse_funding_negative">מימון שלילי: הרבה שורטים</string>
+    <string name="pulse_funding_neutral">מימון ניטרלי</string>
+    <string name="pulse_funding_slight">מימון חיובי מעט</string>
+    <string name="pulse_gas_high">גז Ethereum גבוה (%1$s gwei)</string>
+    <string name="pulse_gas_low">גז Ethereum נמוך (%1$s gwei)</string>
+    <string name="pulse_gas_normal">גז Ethereum רגיל (%1$s gwei)</string>
+    <string name="pulse_volume_high">נפח מסחר גבוה במיוחד (פי %1$s מהרגיל)</string>
+    <string name="pulse_volume_low">נפח מסחר נמוך (פי %1$s מהרגיל)</string>
+    <string name="pulse_volume_normal">נפח מסחר רגיל</string>
+
+    <!-- «Heute auffällig» (grösste Coins mit ungewöhnlicher Bewegung) -->
+    <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
+    <!-- Screenreader-Aktion einer Zeile (öffnet das Aktionsblatt bzw. die Vorschau) -->
+    <string name="unusual_action_open">הצג מחיר ופעולות</string>
+    <string name="unusual_fact_against">נע נגד השוק</string>
+    <string name="unusual_fact_funding_high">מימון גבוה (%1$s)</string>
+    <string name="unusual_fact_funding_negative">מימון שלילי (%1$s)</string>
+    <string name="unusual_fact_stronger">זז הרבה יותר חזק מ־BTC</string>
+    <string name="unusual_fact_volume">מחזור פי %1$s מהרגיל</string>
+    <string name="unusual_fact_weaker">זז הרבה יותר חלש מ־BTC</string>
+    <string name="unusual_nothing">אין היום שום דבר חריג</string>
+    <string name="unusual_source">כ־30 המטבעות הגדולים ללא מטבעות יציבים · Binance, CoinGecko</string>
+    <string name="unusual_title">בולט היום</string>
+
+    <!-- Ungewöhnliche Aktivität eines Paars (Karte, Signale, Empfindlichkeit) -->
+    <string name="activity_card_title">משהו קורה עכשיו</string>
+    <string name="activity_indicator">פעילות חריגה</string>
+    <string name="activity_sensitivity_less">פחות</string>
+    <string name="activity_sensitivity_more">יותר</string>
+    <string name="activity_sensitivity_normal">רגיל</string>
+    <string name="activity_signal_funding_long">מימון %1$s — הרבה לונגים ממונפים</string>
+    <string name="activity_signal_funding_short">מימון %1$s — הרבה שורטים</string>
+    <string name="activity_signal_open_interest">Open interest %1$s תוך %2$d דק׳</string>
+    <string name="activity_signal_open_interest_no_time">Open interest %1$s</string>
+    <string name="activity_signal_price_move">תנועה חריגה: %1$s בשעה (פי %2$s מהרגיל)</string>
+    <string name="activity_signal_volume">מחזור פי %1$s מהרגיל בשעה האחרונה</string>
+
+    <!-- Einordnung: Bitcoin-Dominanz, Fear & Greed, Halving, Altseason -->
+    <plurals name="insights_altseason_value">
+        <item quantity="one">%1$d מתוך %2$d אלטקוינים גדולים עקף את ביטקוין ב-90 יום</item>
+        <item quantity="two">%1$d מתוך %2$d אלטקוינים גדולים עקפו את ביטקוין ב-90 יום</item>
+        <item quantity="other">%1$d מתוך %2$d אלטקוינים גדולים עקפו את ביטקוין ב-90 יום</item>
+    </plurals>
+    <string name="insights_chart_axis">שנים מאז ההלווינג</string>
+    <string name="insights_chart_hint">המחיר ככפולה של המחיר ביום ההלווינג (סקלה לוגריתמית). מחזורים קודמים הם דפוס, לא תחזית.</string>
+    <string name="insights_cycle_chart">מחזורים מאז ההלווינג</string>
+    <string name="insights_dominance_eth">ETH %1$s מכלל השוק</string>
+    <string name="insights_dominance_title">דומיננטיות ביטקוין</string>
+    <string name="insights_fng_history">אתמול %1$s · לפני שבוע %2$s · לפני חודש %3$s</string>
+    <string name="insights_fng_title">מדד פחד ותאוות בצע</string>
+    <string name="insights_halving_title">הלווינג של ביטקוין</string>
+    <string name="insights_source_dominance">מקור: CoinGecko, Binance</string>
+    <string name="insights_source_fng">מקור: alternative.me</string>
+    <string name="insights_source_history">מקור: Coin Metrics (CC BY-NC 4.0), Binance</string>
+
+    <!-- Fear & Greed: Stufen -->
+    <string name="fng_extreme_fear">פחד קיצוני</string>
+    <string name="fng_extreme_greed">תאוות בצע קיצונית</string>
+    <string name="fng_fear">פחד</string>
+    <string name="fng_greed">תאוות בצע</string>
+    <string name="fng_neutral">ניטרלי</string>
+
+    <!-- Halving-Zyklus (Chart, Marken, Schätzung) -->
+    <string name="cycle_data_as_of">נתונים נכון ל־%1$s · מתעדכן…</string>
+    <string name="cycle_from_top">%1$s מהשיא</string>
+    <string name="cycle_marker_bottom">שפל %1$s</string>
+    <string name="cycle_marker_double_bottom">שפל כפול %1$s</string>
+    <string name="cycle_marker_double_top">שיא כפול %1$s</string>
+    <string name="cycle_marker_high_so_far">השיא עד כה</string>
+    <!-- Hoch/Tief-Marken mit Sprechblase im Zyklus-Chart -->
+    <string name="cycle_marker_top">שיא %1$s</string>
+    <string name="cycle_since_halving">%1$s מאז ההלווינג</string>
+    <string name="halving_estimate_text">ההאלבינג הבא לפי חישוב סביב %1$s: נותרו %2$s בלוקים בממוצע %3$s דק׳ לבלוק (תקופת הקושי הנוכחית). המשכה חשבונית, לא הבטחה – זמן הבלוק משתנה.</string>
+
+    <!-- Netzwerkgebühren (Gas) -->
+    <string name="gas_alert_active">התראה: %1$s</string>
+    <string name="gas_slow_fast">איטי %1$s · מהיר %2$s</string>
+    <string name="gas_source">צמתי RPC ציבוריים ו-mempool.space · עלות העברה פשוטה, ללא חלק ה-L1 ב-L2</string>
+    <string name="gas_title">עמלות רשת</string>
+    <string name="gas_transfer_cost">העברה ≈ %1$s</string>
+
+    <!-- Wirtschaftsdaten (US-Termine) -->
+    <string name="macro_cpi">אינפלציה בארה״ב (CPI)</string>
+    <string name="macro_fomc">החלטת הריבית של הפד</string>
+    <string name="macro_hint_list">%1$s – בימים כאלה השווקים נוטים לתנודות חזקות יותר.</string>
+    <string name="macro_hint_today">היום %1$s: %2$s – בימים כאלה השווקים נוטים לתנודות חזקות יותר.</string>
+    <string name="macro_hint_today_list">היום: %1$s – בימים כאלה השווקים נוטים לתנודות חזקות יותר.</string>
+    <string name="macro_hint_tomorrow">מחר %1$s: %2$s – בימים כאלה השווקים נוטים לתנודות חזקות יותר.</string>
+    <string name="macro_hint_tomorrow_list">מחר: %1$s – בימים כאלה השווקים נוטים לתנודות חזקות יותר.</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">היום %1$s %2$s</string>
+    <string name="macro_item_tomorrow">מחר %1$s %2$s</string>
+    <string name="macro_nfp">דוח התעסוקה בארה״ב</string>
+    <string name="macro_pce">מדד PCE בארה״ב</string>
+    <string name="macro_ppi">מדד המחירים לייצרן בארה״ב (PPI)</string>
+    <string name="macro_released_list">פורסם היום: %1$s.</string>
+    <string name="macro_released_one">פורסם היום ב־%1$s: %2$s.</string>
+    <string name="macro_title">נתונים כלכליים</string>
+
+    <!-- Coin-Analyse -->
+    <string name="coin_choose">מטבע</string>
+    <string name="coin_no_data">אין נתוני מחיר למטבע זה ב-Binance או ב-Bybit.</string>
+    <string name="coin_price_only">מבוסס מחיר בלבד – נתוני און־צ׳יין (MVRV, Puell, hashrate) זמינים בחינם רק לביטקוין.</string>
+    <plurals name="coin_short_history">
+        <item quantity="one">רק %1$d יום היסטוריה – חלק מהמדדים חסרים.</item>
+        <item quantity="two">רק %1$d ימי היסטוריה – חלק מהמדדים חסרים.</item>
+        <item quantity="other">רק %1$d ימי היסטוריה – חלק מהמדדים חסרים.</item>
+    </plurals>
+    <string name="coin_title">ניתוח מטבע</string>
+</resources>

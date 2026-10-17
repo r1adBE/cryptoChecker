@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="explorer_coin_back">Alle Treffer</string>
+    <plurals name="explorer_coin_exchanges">
+        <item quantity="one">%1$d Börse</item>
+        <item quantity="other">%1$d Börsen</item>
+    </plurals>
+    <string name="explorer_coin_no_pairs">In den geladenen Listen gibt es kein Paar zu diesem Coin.</string>
+    <string name="explorer_coin_not_loaded">Paarlisten noch nicht geladen</string>
+    <string name="explorer_coin_other_pairs">Weitere Paare</string>
+    <string name="explorer_coin_show_pairs">Paare zeigen</string>
+    <string name="explorer_coin_suggested">Vorschlag</string>
+    <string name="explorer_coins_title">Coins</string>
+    <string name="explorer_lists_load">Listen laden</string>
+    <string name="explorer_lists_loading">Paarlisten werden geladen… %1$d/%2$d</string>
+    <plurals name="explorer_lists_missing">
+        <item quantity="one">Die Paarliste von %1$d Börse ist noch nicht auf dem Gerät.</item>
+        <item quantity="other">Die Paarlisten von %1$d Börsen sind noch nicht auf dem Gerät.</item>
+    </plurals>
+    <string name="explorer_lists_privacy">Lädt je Börse die vollständige öffentliche Liste – für alle gleich. Deine Suche bleibt auf dem Gerät.</string>
+    <!-- Paar hinzufügen: Suche über alle Börsen, zuletzt gesucht -->
+    <string name="explorer_recent_a11y">Zuletzt gesucht: %1$s</string>
+    <string name="explorer_recent_clear">Löschen</string>
+    <string name="explorer_recent_clear_a11y">Zuletzt gesuchte Begriffe löschen</string>
+    <string name="explorer_recent_title">Zuletzt gesucht</string>
+    <string name="explorer_search_choose_manually">Börse und Paar selbst wählen</string>
+    <string name="explorer_search_empty">Keine Treffer.</string>
+    <string name="explorer_search_hint">Coin, Paar oder Börse suchen</string>
+    <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
+    <string name="explorer_search_intro">Tippe Name oder Kürzel eines Coins, z. B. Bitcoin oder BTC – dann wählst du das Paar.</string>
+
+    <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
+    <string name="explorer_add_to_watchlist">Zur Merkliste hinzufügen</string>
+    <string name="explorer_added_to_watchlist">Zur Merkliste hinzugefügt.</string>
+    <string name="explorer_already_in_watchlist">Dieses Paar steht bereits in der Merkliste.</string>
+    <string name="explorer_exchange_missing">Börse fehlt?</string>
+    <string name="explorer_loading_pairs">Handelspaare werden geladen…</string>
+    <string name="explorer_no_pair_selected">Zuerst ein Paar auswählen.</string>
+    <string name="explorer_no_pairs_yet">Für diese Börse sind noch keine Paare geladen.</string>
+    <plurals name="explorer_pairs_status">
+        <item quantity="one">%1$d Paar · aktualisiert %2$s</item>
+        <item quantity="other">%1$d Paare · aktualisiert %2$s</item>
+    </plurals>
+    <string name="explorer_pairs_title">Paare</string>
+    <string name="explorer_precise_title">Erweitert / nach Börse</string>
+    <string name="explorer_price_loading">Kurs wird geladen…</string>
+    <string name="explorer_select_market_hint">Wähle eine Börse – ihre Handelspaare laden automatisch.</string>
+    <string name="explorer_select_placeholder">Bitte auswählen</string>
+    <string name="explorer_step_pair">Paar wählen</string>
+
+    <!-- Paar hinzufügen: Schnellfilter der Liste «Alle …-Paare» -->
+    <string name="explorer_filter_gainers">Gewinner</string>
+    <string name="explorer_filter_losers">Verlierer</string>
+    <string name="explorer_filter_volume">Volumen</string>
+
+    <!-- Paar hinzufügen: mehrere Paare auf einmal -->
+    <string name="bulk_all_pairs">Alle %1$s-Paare dieser Börse</string>
+    <plurals name="bulk_all_pairs_applied">
+        <item quantity="one">%1$d %2$s-Paar gefunden</item>
+        <item quantity="other">%1$d %2$s-Paare gefunden</item>
+    </plurals>
+    <string name="bulk_all_pairs_empty">Keine %1$s-Paare auf dieser Börse für den gewählten Kontrakttyp. Zuerst die Börse synchronisieren, oder einen anderen Kontrakttyp wählen.</string>
+    <plurals name="explorer_add_all_pairs">
+        <item quantity="one">%1$d Paar in die Merkliste</item>
+        <item quantity="other">Alle %1$d Paare in die Merkliste</item>
+    </plurals>
+    <plurals name="explorer_bulk_added">
+        <item quantity="one">%1$d hinzugefügt, %2$d bereits vorhanden.</item>
+        <item quantity="other">%1$d hinzugefügt, %2$d bereits vorhanden.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_text">
+        <item quantity="one">Das %1$d %2$s-Paar von %3$s kommt in die Merkliste, falls es nicht schon vorhanden ist.</item>
+        <item quantity="other">Alle %1$d %2$s-Paare von %3$s kommen in die Merkliste. Bereits vorhandene werden übersprungen.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_title">
+        <item quantity="one">%1$d Paar hinzufügen?</item>
+        <item quantity="other">%1$d Paare hinzufügen?</item>
+    </plurals>
+    <string name="explorer_bulk_hide_list">Liste ausblenden</string>
+    <string name="explorer_bulk_show_list">Liste anzeigen</string>
+    <string name="explorer_bulk_tap_hint">Paar antippen, um es oben auszuwählen.</string>
+    <string name="explorer_bulk_title">Mehrere Paare auf einmal</string>
+
+    <!-- Handelspaare einer Börse laden und wählen -->
+    <string name="explorer_sync_sheet_text">Lädt die aktuellen Paare der gewählten Börse.</string>
+    <string name="explorer_no_pair_list">Keine Handelspaare</string>
+    <string name="explorer_sync_sheet_last">Zuletzt: %1$s</string>
+    <string name="explorer_sync_never">nie</string>
+    <string name="explorer_sync_sheet_action">Jetzt synchronisieren</string>
+    <string name="explorer_sync_sheet_title">Handelspaare aktualisieren</string>
+    <string name="explorer_field_coin">Coin</string>
+    <string name="explorer_field_contract">Kontrakt</string>
+    <string name="explorer_field_exchange">Börse</string>
+    <string name="explorer_field_quote">Gegenwert</string>
+    <string name="explorer_contract_spot">Spot</string>
+    <string name="explorer_reload_pairs">Abgleichen</string>
+    <string name="sync_pairs_count">Handelspaare: %1$d</string>
+
+    <!-- Token von dezentralen Börsen (DEX) -->
+    <string name="dex_add">Hinzufügen</string>
+    <string name="dex_added">%1$s zur Merkliste hinzugefügt.</string>
+    <string name="dex_already">%1$s ist schon in der Merkliste.</string>
+    <string name="dex_intro">Token ausserhalb der grossen Börsen, von dezentralen Börsen (Uniswap, PancakeSwap, Raydium …) über DexScreener. Token suchen und einen seiner Handelspools hinzufügen – Kurse in US-Dollar.</string>
+    <string name="dex_liquidity">Liquidität %1$s</string>
+    <string name="dex_no_results">Keine Pools gefunden.</string>
+    <string name="dex_search">Suchen</string>
+    <string name="dex_search_hint">Token-Name, Symbol oder Adresse</string>
+
+    <!-- Art des Assets (Token, Alpha-Token, TradFi) -->
+    <string name="asset_kind_alpha">Alpha-Token</string>
+    <string name="asset_kind_token">Token</string>
+    <string name="asset_kind_tradfi">TradFi</string>
+</resources>

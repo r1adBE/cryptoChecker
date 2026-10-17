@@ -1,0 +1,755 @@
+{
+  "description": "Coin logos (CoinGecko, gaps filled from the Binance symbol list) (Android CoinLogos.kt / iOS CoinLogos.swift): symbol normalisation, initials for the fallback circle, allowed image hosts (no «missing_» placeholders), the small image variant, markets with logos (never for DEX pools), file names and the CoinGecko ranking -> symbol map (first occurrence wins). TradFi pairs (stocks, commodities) never use CoinGecko: tradFi builds their logos from the Binance list (tokenised stock «NVDAB» with tag bStocks first, then futures-only entries, then names CoinGecko does not know, never via multiplier prefixes), keys «TRADFI:NVDA», files «T_NVDA.png». Names (cleanName, pickNames, tradFi.expectedNames): «NVIDIA bStocks» → «NVIDIA», a name equal to the ticker stays («BNB», «Bonk» for 1000BONK), at most 40 characters (39 + «…»). Stock logos (stockLogo, withStockLogos): «https://bin.bnbstatic.com/static/stock/BYD.png» for every TradFi ticker of the stored pair lists without an own entry (A–Z, 0–9, dot, max. 12; file name rule still applies, so «BRK.B» gets none). Stock names (cleanStockName, symbolDirectory, withStockNames): official Nasdaq symbol directory (nasdaqlisted.txt / otherlisted.txt), security suffixes removed, test issues skipped, first occurrence wins; only for TradFi tickers without a name from the Binance list.",
+  "normalize": [
+    {
+      "symbol": "btc",
+      "expected": "BTC"
+    },
+    {
+      "symbol": " eth ",
+      "expected": "ETH"
+    },
+    {
+      "symbol": "1000PEPE",
+      "expected": "PEPE"
+    },
+    {
+      "symbol": "1000000MOG",
+      "expected": "MOG"
+    },
+    {
+      "symbol": "1MBABYDOGE",
+      "expected": "BABYDOGE"
+    },
+    {
+      "symbol": "1000SATS",
+      "expected": "SATS"
+    },
+    {
+      "symbol": "1000CAT",
+      "expected": "CAT"
+    },
+    {
+      "symbol": "1000",
+      "expected": "1000"
+    },
+    {
+      "symbol": "1000X",
+      "expected": "1000X"
+    },
+    {
+      "symbol": "1INCH",
+      "expected": "1INCH"
+    },
+    {
+      "symbol": "XBT",
+      "expected": "BTC"
+    },
+    {
+      "symbol": "XDG",
+      "expected": "DOGE"
+    },
+    {
+      "symbol": "LUNA2",
+      "expected": "LUNA"
+    },
+    {
+      "symbol": "",
+      "expected": ""
+    }
+  ],
+  "initials": [
+    {
+      "symbol": "BTC",
+      "expected": "BTC"
+    },
+    {
+      "symbol": "doge",
+      "expected": "DOGE"
+    },
+    {
+      "symbol": "SHIBA",
+      "expected": "SHI"
+    },
+    {
+      "symbol": "1000PEPE",
+      "expected": "100"
+    },
+    {
+      "symbol": "X",
+      "expected": "X"
+    },
+    {
+      "symbol": "TRADFI:NVDA",
+      "expected": "NVDA"
+    },
+    {
+      "symbol": "TRADFI:GOOGL",
+      "expected": "GOO"
+    }
+  ],
+  "allowedUrl": [
+    {
+      "url": "https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png?1696501400",
+      "expected": true
+    },
+    {
+      "url": "https://assets.coingecko.com/coins/images/279/large/ethereum.png",
+      "expected": true
+    },
+    {
+      "url": "https://coingecko.com/x.png",
+      "expected": true
+    },
+    {
+      "url": "https://bin.bnbstatic.com/image/admin_mgs_image_upload/20260727/8f4cd76d.png",
+      "expected": true
+    },
+    {
+      "url": "https://bnbstatic.com.evil.example/x.png",
+      "expected": false
+    },
+    {
+      "url": "https://evilbnbstatic.com/x.png",
+      "expected": false
+    },
+    {
+      "url": "https://assets.coingecko.com/coins/images/missing_large.png",
+      "expected": false
+    },
+    {
+      "url": "http://coin-images.coingecko.com/coins/images/1/large/bitcoin.png",
+      "expected": false
+    },
+    {
+      "url": "https://evil.example/coingecko.com/x.png",
+      "expected": false
+    },
+    {
+      "url": "https://coingecko.com.evil.example/x.png",
+      "expected": false
+    },
+    {
+      "url": "https://user@coin-images.coingecko.com/x.png",
+      "expected": false
+    },
+    {
+      "url": "https://notcoingecko.com/x.png",
+      "expected": false
+    },
+    {
+      "url": "missing_thumb.png",
+      "expected": false
+    },
+    {
+      "url": null,
+      "expected": false
+    },
+    {
+      "url": "https://r1adbe.github.io/cryptoChecker/logos/img/0123456789abcdef.webp",
+      "expected": false
+    }
+  ],
+  "smallUrl": [
+    {
+      "url": "https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png?1696501400",
+      "expected": "https://coin-images.coingecko.com/coins/images/1/small/bitcoin.png?1696501400"
+    },
+    {
+      "url": "https://coin-images.coingecko.com/coins/images/1/small/bitcoin.png",
+      "expected": "https://coin-images.coingecko.com/coins/images/1/small/bitcoin.png"
+    },
+    {
+      "url": "https://coin-images.coingecko.com/coins/images/7/large/large.png",
+      "expected": "https://coin-images.coingecko.com/coins/images/7/small/large.png"
+    }
+  ],
+  "market": [
+    {
+      "marketKey": "DexScreener",
+      "expected": false
+    },
+    {
+      "marketKey": "Binance",
+      "expected": true
+    },
+    {
+      "marketKey": "dexscreener",
+      "expected": true
+    },
+    {
+      "marketKey": null,
+      "expected": true
+    }
+  ],
+  "fileName": [
+    {
+      "symbol": "btc",
+      "expected": "BTC.png"
+    },
+    {
+      "symbol": "1000PEPE",
+      "expected": "PEPE.png"
+    },
+    {
+      "symbol": "USD₮",
+      "expected": null
+    },
+    {
+      "symbol": "../X",
+      "expected": null
+    },
+    {
+      "symbol": "",
+      "expected": null
+    },
+    {
+      "symbol": "TRADFI:NVDA",
+      "expected": "T_NVDA.png"
+    },
+    {
+      "symbol": "TRADFI:nvda",
+      "expected": "T_NVDA.png"
+    },
+    {
+      "symbol": "TRADFI:1000PEPE",
+      "expected": "T_1000PEPE.png"
+    },
+    {
+      "symbol": "TRADFI:../X",
+      "expected": null
+    },
+    {
+      "symbol": "TRADFI:",
+      "expected": null
+    }
+  ],
+  "pick": {
+    "ranked": [
+      {
+        "symbol": "btc",
+        "image": "https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png"
+      },
+      {
+        "symbol": "eth",
+        "image": "https://coin-images.coingecko.com/coins/images/279/large/ethereum.png"
+      },
+      {
+        "symbol": "uni",
+        "image": "https://coin-images.coingecko.com/coins/images/12504/large/uni.jpg"
+      },
+      {
+        "symbol": "UNI",
+        "image": "https://coin-images.coingecko.com/coins/images/99999/large/other-uni.png"
+      },
+      {
+        "symbol": "bad",
+        "image": "http://example.com/bad.png"
+      },
+      {
+        "symbol": "bad",
+        "image": "https://coin-images.coingecko.com/coins/images/5/large/bad.png"
+      },
+      {
+        "symbol": "none",
+        "image": null
+      },
+      {
+        "symbol": "",
+        "image": "https://coin-images.coingecko.com/coins/images/6/large/empty.png"
+      }
+    ],
+    "expected": {
+      "BTC": "https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png",
+      "ETH": "https://coin-images.coingecko.com/coins/images/279/large/ethereum.png",
+      "UNI": "https://coin-images.coingecko.com/coins/images/12504/large/uni.jpg",
+      "BAD": "https://coin-images.coingecko.com/coins/images/5/large/bad.png"
+    }
+  },
+  "fill": {
+    "binance": [
+      {
+        "symbol": "BTC",
+        "image": "https://bin.bnbstatic.com/image/btc.png"
+      },
+      {
+        "symbol": "XAU",
+        "image": "https://bin.bnbstatic.com/image/xau.png"
+      },
+      {
+        "symbol": "TSLA",
+        "image": "https://bin.bnbstatic.com/image/tsla.png"
+      },
+      {
+        "symbol": "XAG",
+        "image": "http://bin.bnbstatic.com/image/xag.png"
+      }
+    ],
+    "expected": {
+      "BTC": "https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png",
+      "ETH": "https://coin-images.coingecko.com/coins/images/279/large/ethereum.png",
+      "UNI": "https://coin-images.coingecko.com/coins/images/12504/large/uni.jpg",
+      "BAD": "https://coin-images.coingecko.com/coins/images/5/large/bad.png",
+      "XAU": "https://bin.bnbstatic.com/image/xau.png",
+      "TSLA": "https://bin.bnbstatic.com/image/tsla.png"
+    }
+  },
+  "tradFi": {
+    "crypto": [
+      "BTC",
+      "CAT",
+      "NVDA"
+    ],
+    "binance": [
+      {
+        "name": "1000CAT",
+        "logo": "https://bin.bnbstatic.com/image/1000cat.png",
+        "tags": [],
+        "onlyFutures": false,
+        "fullName": "Simon's Cat"
+      },
+      {
+        "name": "BTC",
+        "logo": "https://bin.bnbstatic.com/image/btc.png",
+        "tags": [],
+        "onlyFutures": false,
+        "fullName": "Bitcoin"
+      },
+      {
+        "name": "CAT",
+        "logo": "https://bin.bnbstatic.com/image/cat-futures.png",
+        "tags": [],
+        "onlyFutures": true,
+        "fullName": "Caterpillar"
+      },
+      {
+        "name": "NVDA",
+        "logo": "https://bin.bnbstatic.com/image/nvda-futures.png",
+        "tags": [],
+        "onlyFutures": true,
+        "fullName": "NVIDIA Futures"
+      },
+      {
+        "name": "NVDAB",
+        "logo": "https://bin.bnbstatic.com/image/nvdab.png",
+        "tags": [
+          "bStocks"
+        ],
+        "onlyFutures": false,
+        "fullName": "NVIDIA bStocks"
+      },
+      {
+        "name": "TSLA",
+        "logo": "https://bin.bnbstatic.com/image/tsla.png",
+        "tags": [],
+        "onlyFutures": false,
+        "fullName": "Tesla"
+      },
+      {
+        "name": "TSLAB",
+        "logo": "http://bin.bnbstatic.com/image/tslab.png",
+        "tags": [
+          "bStocks"
+        ],
+        "onlyFutures": false,
+        "fullName": "Tesla bStocks"
+      },
+      {
+        "name": "XAU",
+        "logo": "https://bin.bnbstatic.com/image/xau.png",
+        "tags": [],
+        "onlyFutures": false,
+        "fullName": "Gold"
+      },
+      {
+        "name": "AMZNB",
+        "logo": "https://bin.bnbstatic.com/image/amznb.png",
+        "tags": [
+          "bStocks",
+          "newListing"
+        ],
+        "onlyFutures": false,
+        "fullName": "Amazon (bStocks)"
+      }
+    ],
+    "expected": {
+      "TRADFI:NVDA": "https://bin.bnbstatic.com/image/nvdab.png",
+      "TRADFI:AMZN": "https://bin.bnbstatic.com/image/amznb.png",
+      "TRADFI:CAT": "https://bin.bnbstatic.com/image/cat-futures.png",
+      "TRADFI:TSLA": "https://bin.bnbstatic.com/image/tsla.png",
+      "TRADFI:XAU": "https://bin.bnbstatic.com/image/xau.png",
+      "TRADFI:AMZNB": "https://bin.bnbstatic.com/image/amznb.png",
+      "TRADFI:NVDAB": "https://bin.bnbstatic.com/image/nvdab.png"
+    },
+    "order": [
+      "TRADFI:NVDA",
+      "TRADFI:AMZN",
+      "TRADFI:CAT",
+      "TRADFI:NVDAB",
+      "TRADFI:TSLA",
+      "TRADFI:XAU",
+      "TRADFI:AMZNB"
+    ],
+    "expectedNames": {
+      "TRADFI:NVDA": "NVIDIA",
+      "TRADFI:TSLA": "Tesla",
+      "TRADFI:AMZN": "Amazon",
+      "TRADFI:CAT": "Caterpillar",
+      "TRADFI:NVDAB": "NVIDIA",
+      "TRADFI:XAU": "Gold",
+      "TRADFI:TSLAB": "Tesla",
+      "TRADFI:AMZNB": "Amazon"
+    }
+  },
+  "cleanName": [
+    {
+      "raw": "NVIDIA bStocks",
+      "symbol": "NVDAB",
+      "expected": "NVIDIA"
+    },
+    {
+      "raw": "Advanced Micro Devices (bStocks)",
+      "symbol": null,
+      "expected": "Advanced Micro Devices"
+    },
+    {
+      "raw": "Apple, bStocks",
+      "symbol": null,
+      "expected": "Apple"
+    },
+    {
+      "raw": "Tesla xStock",
+      "symbol": null,
+      "expected": "Tesla"
+    },
+    {
+      "raw": "Bitcoin",
+      "symbol": "BTC",
+      "expected": "Bitcoin"
+    },
+    {
+      "raw": "BNB",
+      "symbol": "BNB",
+      "expected": "BNB"
+    },
+    {
+      "raw": "Bonk",
+      "symbol": "1000BONK",
+      "expected": "Bonk"
+    },
+    {
+      "raw": "Bonk",
+      "symbol": "BONK",
+      "expected": "Bonk"
+    },
+    {
+      "raw": "XRP",
+      "symbol": "XRP",
+      "expected": "XRP"
+    },
+    {
+      "raw": "  Wrapped\tBitcoin \n",
+      "symbol": null,
+      "expected": "Wrapped Bitcoin"
+    },
+    {
+      "raw": "",
+      "symbol": null,
+      "expected": null
+    },
+    {
+      "raw": null,
+      "symbol": null,
+      "expected": null
+    },
+    {
+      "raw": "International Business Machines Corporation Common Stock",
+      "symbol": null,
+      "expected": "International Business Machines Corpora…"
+    }
+  ],
+  "names": {
+    "ranked": [
+      {
+        "symbol": "btc",
+        "name": "Bitcoin"
+      },
+      {
+        "symbol": "eth",
+        "name": "Ethereum"
+      },
+      {
+        "symbol": "uni",
+        "name": "Uniswap"
+      },
+      {
+        "symbol": "UNI",
+        "name": "Other Uni"
+      },
+      {
+        "symbol": "1000PEPE",
+        "name": "Pepe"
+      },
+      {
+        "symbol": "usdt",
+        "name": "USDT"
+      },
+      {
+        "symbol": "",
+        "name": "Empty"
+      }
+    ],
+    "expected": {
+      "BTC": "Bitcoin",
+      "ETH": "Ethereum",
+      "UNI": "Uniswap",
+      "PEPE": "Pepe",
+      "USDT": "USDT"
+    }
+  },
+  "stockLogo": [
+    {
+      "symbol": "BYD",
+      "expected": "https://bin.bnbstatic.com/static/stock/BYD.png"
+    },
+    {
+      "symbol": " cat ",
+      "expected": "https://bin.bnbstatic.com/static/stock/CAT.png"
+    },
+    {
+      "symbol": "BRK.B",
+      "expected": "https://bin.bnbstatic.com/static/stock/BRK.B.png"
+    },
+    {
+      "symbol": "A/B",
+      "expected": null
+    },
+    {
+      "symbol": "",
+      "expected": null
+    },
+    {
+      "symbol": "ABCDEFGHIJKLM",
+      "expected": null
+    }
+  ],
+  "withStockLogos": {
+    "map": {
+      "BTC": "https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png",
+      "TRADFI:NVDA": "https://bin.bnbstatic.com/image/nvdab.png"
+    },
+    "bases": [
+      "NVDA",
+      "CAT",
+      "BYD",
+      "BRK.B"
+    ],
+    "expected": {
+      "BTC": "https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png",
+      "TRADFI:NVDA": "https://bin.bnbstatic.com/image/nvdab.png",
+      "TRADFI:BYD": "https://bin.bnbstatic.com/static/stock/BYD.png",
+      "TRADFI:CAT": "https://bin.bnbstatic.com/static/stock/CAT.png"
+    }
+  },
+  "cleanStockName": [
+    {
+      "raw": "Caterpillar, Inc. Common Stock",
+      "expected": "Caterpillar, Inc."
+    },
+    {
+      "raw": "Boyd Gaming Corporation Common Stock",
+      "expected": "Boyd Gaming Corporation"
+    },
+    {
+      "raw": "Apple Inc. - Common Stock",
+      "expected": "Apple Inc."
+    },
+    {
+      "raw": "Alphabet Inc. - Class A Common Stock",
+      "expected": "Alphabet Inc."
+    },
+    {
+      "raw": "Berkshire Hathaway Inc. New Class B Common Stock",
+      "expected": "Berkshire Hathaway Inc."
+    },
+    {
+      "raw": "Taiwan Semiconductor Manufacturing Company Ltd. American Depositary Shares",
+      "expected": "Taiwan Semiconductor Manufacturing Comp…"
+    },
+    {
+      "raw": "SPDR S&P 500 ETF Trust",
+      "expected": "SPDR S&P 500 ETF Trust"
+    },
+    {
+      "raw": "Common Stock",
+      "expected": null
+    },
+    {
+      "raw": null,
+      "expected": null
+    }
+  ],
+  "symbolDirectory": {
+    "nasdaq": "Symbol|Security Name|Market Category|Test Issue|Financial Status|Round Lot Size|ETF|NextShares\nAAPL|Apple Inc. - Common Stock|Q|N|N|100|N|N\nZXZZT|NASDAQ TEST STOCK|G|Y|N|100|N|N\nCAT|Should not win|Q|N|N|100|N|N\nFile Creation Time: 1009202612:00|||||||",
+    "other": "ACT Symbol|Security Name|Exchange|CQS Symbol|ETF|Round Lot Size|Test Issue|NASDAQ Symbol\nCAT|Caterpillar, Inc. Common Stock|N|CAT|N|100|N|CAT\nBYD|Boyd Gaming Corporation Common Stock|N|BYD|N|100|N|BYD\nBROKEN\nFile Creation Time: 1009202612:00|||||||",
+    "expectedOtherFirst": {
+      "CAT": "Caterpillar, Inc.",
+      "BYD": "Boyd Gaming Corporation",
+      "AAPL": "Apple Inc."
+    }
+  },
+  "withStockNames": {
+    "names": {
+      "BTC": "Bitcoin",
+      "TRADFI:NVDA": "NVIDIA"
+    },
+    "stockNames": {
+      "NVDA": "NVIDIA Corporation",
+      "CAT": "Caterpillar, Inc.",
+      "BYD": "Boyd Gaming Corporation"
+    },
+    "bases": [
+      "NVDA",
+      "CAT",
+      "BYD",
+      "XAU"
+    ],
+    "expected": {
+      "BTC": "Bitcoin",
+      "TRADFI:NVDA": "NVIDIA",
+      "TRADFI:BYD": "Boyd Gaming Corporation",
+      "TRADFI:CAT": "Caterpillar, Inc."
+    }
+  },
+  "alpha": {
+    "description": "Binance-Alpha-Liste: handelbare vor abgemeldeten, grösste Marktkapitalisierung zuerst (unbekannt zuletzt), sonst Listenreihenfolge; danach pick/pickNames (Vorhandenes bleibt); applyAlpha liefert die Alpha-Kürzel (ohne offline und listingCex).",
+    "known": {
+      "BTC": "https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png"
+    },
+    "entries": [
+      {
+        "symbol": "AIA",
+        "name": "DeAgentAI old",
+        "iconUrl": "https://bin.bnbstatic.com/images/web3-data/public/token/logos/aia-old.png",
+        "marketCap": "900000",
+        "offline": true
+      },
+      {
+        "symbol": "AIA",
+        "name": "DeAgentAI",
+        "iconUrl": "https://bin.bnbstatic.com/images/web3-data/public/token/logos/aia.png",
+        "marketCap": "50000000",
+        "offline": false
+      },
+      {
+        "symbol": "aia",
+        "name": "AIA Copy",
+        "iconUrl": "https://bin.bnbstatic.com/images/web3-data/public/token/logos/aia-copy.png",
+        "marketCap": "1000",
+        "offline": false
+      },
+      {
+        "symbol": "AGT",
+        "name": "Alaya AI",
+        "iconUrl": "https://bin.bnbstatic.com/images/web3-data/public/token/logos/agt.png",
+        "marketCap": null,
+        "offline": false
+      },
+      {
+        "symbol": "gorilla",
+        "name": "gorilla",
+        "iconUrl": "https://bin.bnbstatic.com/images/web3-data/public/token/logos/gorilla.png",
+        "marketCap": "805950.03",
+        "offline": false
+      },
+      {
+        "symbol": "BTC",
+        "name": "Fake BTC",
+        "iconUrl": "https://bin.bnbstatic.com/images/web3-data/public/token/logos/fake.png",
+        "marketCap": "99999999999",
+        "offline": false,
+        "listingCex": true
+      },
+      {
+        "symbol": "BAD",
+        "name": "Bad",
+        "iconUrl": "http://example.com/bad.png",
+        "marketCap": "5",
+        "offline": false
+      }
+    ],
+    "expectedOrder": [
+      "BTC",
+      "AIA",
+      "gorilla",
+      "aia",
+      "BAD",
+      "AGT",
+      "AIA"
+    ],
+    "expected": {
+      "BTC": "https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png",
+      "AIA": "https://bin.bnbstatic.com/images/web3-data/public/token/logos/aia.png",
+      "GORILLA": "https://bin.bnbstatic.com/images/web3-data/public/token/logos/gorilla.png",
+      "AGT": "https://bin.bnbstatic.com/images/web3-data/public/token/logos/agt.png"
+    },
+    "expectedNames": {
+      "BTC": "Fake BTC",
+      "AIA": "DeAgentAI",
+      "GORILLA": "gorilla",
+      "BAD": "Bad",
+      "AGT": "Alaya AI"
+    },
+    "expectedSymbols": ["AGT", "AIA", "BAD", "GORILLA"]
+  },
+  "partial": {
+    "description": "Unvollständige Liste: Bekanntes ergänzt (Neues gewinnt), Ablauf nach 6 h statt 24 h; Wartezeit nach 429 = Retry-After, 1–60 s, ohne Angabe 30 s.",
+    "fresh": {
+      "BTC": "https://new/btc.png",
+      "ETH": "https://new/eth.png"
+    },
+    "known": {
+      "BTC": "https://old/btc.png",
+      "ALPINE": "https://old/alpine.png"
+    },
+    "expected": {
+      "BTC": "https://new/btc.png",
+      "ETH": "https://new/eth.png",
+      "ALPINE": "https://old/alpine.png"
+    },
+    "rateLimit": [
+      {
+        "retryAfter": null,
+        "expected": 30000
+      },
+      {
+        "retryAfter": 5,
+        "expected": 5000
+      },
+      {
+        "retryAfter": 0,
+        "expected": 1000
+      },
+      {
+        "retryAfter": 600,
+        "expected": 60000
+      }
+    ]
+  },
+  "changed": {
+    "description": "Kürzel mit geänderter Bild-Adresse (in beiden Listen): gespeichertes Bild wird neu geladen.",
+    "old": {
+      "BTC": "https://a/btc.png",
+      "ETH": "https://a/eth.png",
+      "XRP": "https://a/xrp.png"
+    },
+    "new": {
+      "BTC": "https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png",
+      "ETH": "https://a/eth.png",
+      "SOL": "https://a/sol.png"
+    },
+    "expected": [
+      "BTC"
+    ]
+  }
+}

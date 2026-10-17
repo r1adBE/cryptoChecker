@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen: Aufbau (Gruppen, Zeilen, Abschnitte, Suche, Kurzwerte) -->
+    <string name="settings_custom_value">دلخواه</string>
+    <string name="settings_group_general">عمومی</string>
+    <string name="settings_group_more">بیشتر</string>
+    <string name="settings_minutes">%1$d دقیقه</string>
+    <string name="settings_row_about">درباره برنامه</string>
+    <string name="settings_row_advanced">پیشرفته</string>
+    <string name="settings_row_alarms">هشدارها</string>
+    <string name="settings_row_currency">ارز</string>
+    <string name="settings_row_dated_futures">فیوچرز سررسیددار</string>
+    <string name="settings_row_updates">به‌روزرسانی قیمت‌ها</string>
+    <string name="settings_row_watchlist">واچ‌لیست</string>
+    <string name="settings_search_hint">جستجو در تنظیمات</string>
+    <string name="settings_seconds">%1$d ثانیه</string>
+    <string name="settings_section_about">درباره</string>
+    <string name="settings_section_appearance">ظاهر</string>
+    <string name="settings_section_developer">توسعه‌دهنده</string>
+    <string name="settings_section_language">زبان</string>
+    <!-- Kurzwert «eingeschaltet» (Gegenstück zu option_off) -->
+    <string name="settings_summary_on">روشن</string>
+    <string name="settings_title">تنظیمات</string>
+
+    <!-- Einstellungen › Alarme (Ton, Signal, Ruhezeit, App-Symbol, exakte Prüfungen) -->
+    <string name="settings_alarm_cooldown">زمان سکوت پیش از فعال شدن دوباره هشدار</string>
+    <!-- Ton/Vibration der Kursalarme, je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">سیگنال هشدار</string>
+    <string name="settings_alarm_signal_open_system">تنظیم در تنظیمات سیستم</string>
+    <string name="settings_alarm_signal_system_hint">از تنظیمات اعلان گوشی پیروی می‌کند.</string>
+    <string name="settings_alarm_sound">صدای هشدار</string>
+    <string name="settings_alarm_sound_custom">صدای سفارشی</string>
+    <string name="settings_alarm_sound_default">صدای پیش‌فرض</string>
+    <string name="settings_alarm_sound_error">استفاده از این صدا ممکن نشد.</string>
+    <string name="settings_alarm_sound_file">فایل صوتی شخصی…</string>
+    <string name="settings_alarm_sound_reset">استفاده از صدای پیش‌فرض</string>
+    <string name="settings_alarm_sound_system">انتخاب صدای سیستم…</string>
+    <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">عدد روی نماد برنامه</string>
+    <string name="settings_app_badge_hint">اعلان‌های هشدار باز را می‌شمارد. نمایش عدد یا نقطه را صفحهٔ اصلی تعیین می‌کند (مثلاً Samsung: «با عدد»).</string>
+    <string name="settings_exact_checks">بررسی سر وقت</string>
+    <string name="settings_exact_checks_grant">اجازهٔ «زنگ‌های هشدار و یادآوری‌ها»</string>
+    <string name="settings_exact_checks_hint">Android تقریباً هر 15 دقیقه بررسی می‌کند، حتی وقتی دستگاه بیکار است. کمی باتری بیشتری مصرف می‌کند.</string>
+    <string name="settings_exact_checks_nothing">جفت فعالی نیست – چیزی برای بررسی نیست.</string>
+    <string name="settings_exact_checks_permission_missing">مجوز نیست – Android هر وقت مناسب بداند بررسی می‌کند (حدود هر 15 دقیقه یا دیرتر).</string>
+    <string name="settings_notification_change">اعلان فقط هنگام تغییر قیمت</string>
+    <string name="settings_notification_change_always">همیشه</string>
+    <string name="settings_notification_change_hint">اعلان فقط زمانی نمایش داده می‌شود که قیمت از اعلان قبلی دست‌کم به این اندازه تغییر کرده باشد. وقتی داده‌ای در دسترس نیست چیزی نمایش داده نمی‌شود. هشدارها تحت تأثیر قرار نمی‌گیرند.</string>
+    <string name="settings_ongoing_notifications">قابل کنار زدن نباشد</string>
+    <string name="settings_ongoing_notifications_hint">اعلان‌های قیمت را ثابت نگه می‌دارد.</string>
+    <string name="settings_price_notifications">اعلان‌های قیمت</string>
+    <string name="settings_price_notifications_hint">قیمت فعلی جفت‌های فعال را در نوار وضعیت نشان بده.</string>
+    <string name="settings_price_pairs">جفت‌ها</string>
+    <string name="settings_price_pairs_all_off">همه خاموش</string>
+    <string name="settings_price_pairs_all_on">همه روشن</string>
+    <string name="settings_price_pairs_count">%1$d از %2$d</string>
+    <string name="settings_price_pairs_empty">هنوز جفتی در فهرست پیگیری نیست.</string>
+    <string name="settings_price_pairs_hint">انتخاب کن قیمت کدام جفت‌ها در نوار اعلان نمایش داده شود.</string>
+    <string name="settings_quiet_hours">ساعات بی‌صدا</string>
+    <string name="settings_quiet_hours_from">از</string>
+    <string name="settings_quiet_hours_hint">بین %1$s و %2$s هشدارها تا پایان ساعات بی‌صدا صبر می‌کنند و سپس با صدا اعلام می‌شوند. اعلان‌های دیگر بی‌صدا و بدون گفتار می‌رسند.</string>
+    <string name="settings_quiet_hours_to">تا</string>
+
+    <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
+    <string name="settings_background_interval">فاصله زمانی</string>
+    <string name="settings_background_updates">به‌روزرسانی در پس‌زمینه</string>
+    <string name="settings_battery_hint">محدود یعنی Android ممکن است به‌روزرسانی‌های پس‌زمینه را ساعت‌ها به تأخیر بیندازد.</string>
+    <string name="settings_battery_ok">مصرف باتری: نامحدود</string>
+    <string name="settings_battery_restricted">مصرف باتری: محدود</string>
+    <string name="settings_check_runs_empty">هنوز بررسی‌ای ثبت نشده است.</string>
+    <string name="settings_check_runs_honest_android">Android تصمیم می‌گیرد کی بررسی شود – اینجا می‌بینی واقعاً کی انجام شد.</string>
+    <string name="settings_check_runs_honest_ios">iOS تصمیم می‌گیرد کی بررسی شود – اینجا می‌بینی واقعاً کی انجام شد.</string>
+    <string name="settings_check_runs_title">آخرین بررسی‌ها</string>
+    <string name="settings_http_log">نمایش گزارش HTTP</string>
+    <string name="settings_http_log_hint">درخواست‌های ارسالی به صرافی‌ها را پایین صفحهٔ «افزودن جفت» نشان می‌دهد – برای عیب‌یابی.</string>
+    <string name="settings_live_service">به‌روزرسانی مکرر</string>
+    <string name="settings_live_websocket">قیمت‌های زنده</string>
+
+    <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
+    <string name="settings_activity_alerts">گزارش فعالیت غیرعادی</string>
+    <string name="settings_activity_alerts_hint">حداکثر یک بار در ساعت برای هر جفت: حرکات غیرعادی قیمت، جهش‌های حجم و مقادیر حدی در فیوچرز (داده‌ها از Binance).</string>
+    <string name="settings_activity_sensitivity">حساسیت</string>
+    <string name="settings_activity_sensitivity_hint">چقدر آسان یک کوین غیرعادی به شمار می‌آید – برای کارت واچ‌لیست و اعلان‌ها یکسان. با «کمتر» کارت فقط ۳ مورد قوی‌تر را نشان می‌دهد.</string>
+    <string name="settings_watchlist_activity_card">فعالیت غیرعادی در فهرست</string>
+    <string name="settings_watchlist_activity_card_hint">تراشه ⚡ را کنار گروه‌ها نشان می‌دهد: با لمس آن فقط جفت‌هایی را می‌بینید که همین حالا در آن‌ها اتفاقی در جریان است. اعلان‌ها در اعلان‌های بازار تنظیم می‌شوند.</string>
+    <string name="settings_watchlist_names">نمایش نام‌ها</string>
+    <string name="settings_watchlist_names_hint">نام زیر جفت، مثلاً Bitcoin یا NVIDIA. همراه فهرست‌های لوگو می‌آید و یک بار برای همه کوین‌ها بارگیری می‌شود.</string>
+    <string name="settings_watchlist_sparkline">نمودار کوچک در واچ‌لیست</string>
+    <string name="settings_watchlist_sparkline_hint">روند ۲۴ ساعته کنار قیمت</string>
+    <string name="settings_watchlist_value_names">نام‌ها</string>
+    <string name="settings_watchlist_value_price_only">فقط قیمت</string>
+    <string name="settings_watchlist_value_sparkline">نمودار کوچک</string>
+
+    <!-- Einstellungen › Token & TradFi -->
+    <string name="settings_asset_scope_alpha">شامل توکن‌های Alpha (α)</string>
+    <string name="settings_asset_scope_alpha_hint">توکن‌های Alpha: پروژه‌های اولیه و اغلب کوچک از فهرست Binance Alpha – معمولاً با معاملات کم و نوسان شدید.</string>
+    <string name="settings_asset_scope_alpha_tradfi_hint">بخشی از توکن‌ها است. با «فقط TradFi» قفل است؛ توکن‌های Alpha موجود در فهرست باقی می‌مانند.</string>
+    <string name="settings_asset_scope_both">توکن‌ها و TradFi</string>
+    <string name="settings_asset_scope_both_hint">همه – کریپتو و TradFi</string>
+    <string name="settings_asset_scope_hint">تعیین می‌کند انتخاب و جستجو هنگام افزودن کدام جفت‌ها را نشان دهند. جفت‌هایی که در واچ‌لیست هستند همیشه می‌مانند.</string>
+    <string name="settings_asset_scope_title">توکن‌ها و TradFi</string>
+    <string name="settings_asset_scope_tokens">فقط توکن‌ها</string>
+    <string name="settings_asset_scope_tokens_hint">کریپتو: اسپات و دائمی</string>
+    <string name="settings_asset_scope_tradfi">فقط TradFi</string>
+    <string name="settings_asset_scope_tradfi_hint">فیوچرز روی سهام، کالاها و ارزها – قرارداد، نه توکن</string>
+    <string name="settings_rolling_futures">شامل فیوچرز فصلی و سایر فیوچرز سررسیددار</string>
+    <string name="settings_rolling_futures_hint">خاموش: فیوچرز سررسیددار که در فهرست صرافی نیستند به‌جای بررسی تک‌به‌تک، به‌عنوان «دیگر معامله نمی‌شود» علامت می‌خورند. در هر تازه‌سازی زمان صرفه‌جویی می‌شود.</string>
+    <string name="settings_rolling_futures_qtly">شامل فیوچرز فصلی و سایر فیوچرز سررسیددار (QTLY)</string>
+    <string name="settings_rolling_futures_tradfi_hint">بخشی از توکن‌ها است. با «فقط TradFi» قفل است؛ برای فیوچرز سررسیددار موجود در فهرست همچنان اعمال می‌شود.</string>
+    <string name="settings_tradfi_futures">سهام، کالاها و ارزها (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">هنگام انتخاب جفت، قراردادهای آتی روی سهام، طلا و دیگر کالاها، ارزها و شرکت‌های پیش از عرضه اولیه را هم نشان می‌دهد. این‌ها قرارداد هستند، نه توکن.</string>
+
+    <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
+    <string name="settings_accent">رنگ تأکیدی</string>
+    <string name="settings_accent_hint">رنگ برنامه، ویجت‌ها و نماد برنامه.</string>
+    <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">لوگوی ارزها</string>
+    <string name="settings_coin_logos_app">در برنامه</string>
+    <string name="settings_coin_logos_app_hint">واچ‌لیست، جفت بازشده و کارت‌های بازار</string>
+    <string name="settings_coin_logos_footer">لوگوها از CoinGecko می‌آیند و برای آنچه CoinGecko ندارد (مثلاً طلا، نقره، سهام) از Binance. برنامه همه لوگوها را یک‌جا بارگیری و روی همین دستگاه نگه می‌دارد، بنابراین هیچ‌کدام نمی‌دانند کدام ارزها را دنبال می‌کنید. ارزهای بدون لوگو حروف اول خود را نشان می‌دهند. موارد دلخواه یک ستاره کوچک روی لوگو می‌گیرند. جایی که کلیدی خاموش است، نه لوگو نمایش داده می‌شود نه حروف اول؛ اگر همه خاموش باشند، چیزی بارگیری نمی‌شود.</string>
+    <string name="settings_coin_logos_portfolio">در پرتفوی</string>
+    <string name="settings_coin_logos_portfolio_hint">موقعیت‌ها، جزئیات ارز و تحلیل‌ها</string>
+    <string name="settings_coin_logos_value_app">برنامه</string>
+    <string name="settings_coin_logos_widgets">در ابزارک‌ها</string>
+    <string name="settings_coin_logos_widgets_hint">ابزارک‌های واچ‌لیست و تک‌ارز</string>
+    <string name="settings_high_contrast">کنتراست بالا</string>
+    <string name="settings_high_contrast_hint">رنگ‌های قیمت پررنگ‌تر و متن‌های فرعی تیره‌تر. وقتی سیستم کنتراست بیشتری بخواهد هم فعال است.</string>
+    <string name="settings_language_choose">انتخاب زبان</string>
+    <string name="settings_language_system">زبان سیستم</string>
+    <string name="settings_price_colors">رنگ‌های قیمت</string>
+    <string name="settings_price_colors_hint">آبی / نارنجی با هر نوع ضعف دید رنگ (قرمز-سبز و آبی-زرد) به‌خوبی قابل تشخیص است. جهت تغییر نیز همیشه با + / − نشان داده می‌شود.</string>
+    <string name="settings_theme_mode">روشن / تیره</string>
+    <string name="settings_widgets">ابزارک‌ها</string>
+
+    <!-- Einstellungen › %-Änderung -->
+    <!-- Einstellungszeile und Seitentitel «%-Änderung»; %1$s ist das Prozentzeichen «%» -->
+    <string name="settings_change_basis">تغییر %1$s و منطقه زمانی نمودار</string>
+    <string name="settings_change_basis_hint_1">منطقه زمانی انتخاب‌شده تعیین می‌کند تغییر درصدی از چه زمانی حساب شود (واچ‌لیست، خط نبض، جفت بازشده، ابزارک‌ها) و ساعت‌های نمودارها در کدام منطقه نمایش داده شوند.</string>
+    <string name="settings_change_basis_hint_2">«%1$s» با قیمت دقیقاً 24 ساعت پیش مقایسه می‌کند. «00:00» با قیمت بازگشایی در نیمه‌شب همین منطقه زمانی مقایسه می‌کند.</string>
+    <string name="settings_change_basis_hint_3">هشدارها تحت تأثیر قرار نمی‌گیرند.</string>
+    <string name="settings_change_basis_hint_since_last">«%1$s» با قیمت به‌روزرسانی قبلی مقایسه می‌کند. با قیمت‌های زنده نزدیک به 0%% می‌ماند.</string>
+    <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
+    <string name="settings_change_period">نمایش بازه کنار تغییر</string>
+    <string name="settings_change_period_hint">«24h»، «امروز» یا «آخرین به‌روزرسانی» به‌صورت کوچک کنار تغییر در واچ‌لیست و ویجت تک‌کوین. صفحه‌خوان همیشه آن را می‌گوید.</string>
+
+    <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
+    <string name="settings_conversion_currency">ارز تبدیل</string>
+    <string name="settings_conversion_currency_hint">برای پرتفوی، هشدارها به ارز شما، کارت «بازار رمزارز» و ابزارک پرتفوی نیز استفاده می‌شود.</string>
+    <string name="settings_cost_method">روش محاسبهٔ بهای تمام‌شده</string>
+    <string name="settings_cost_method_average">میانگین (Ø)</string>
+    <string name="settings_cost_method_average_hint">فروش‌ها با میانگین متحرک قیمت خرید ارزش‌گذاری می‌شوند.</string>
+    <string name="settings_cost_method_fifo">FIFO (پیش‌فرض)</string>
+    <string name="settings_cost_method_fifo_hint">قدیمی‌ترین سکه‌ها اول فروخته می‌شوند، در همهٔ صرافی‌ها و کیف پول‌ها.</string>
+    <string name="settings_cost_method_fifo_wallet">FIFO برای هر کیف پول/صرافی</string>
+    <string name="settings_cost_method_fifo_wallet_hint">قدیمی‌ترین سکه‌ها اول در هر صرافی یا کیف پول؛ انتقال‌ها بخش‌ها را با تاریخ خریدشان جابه‌جا می‌کنند.</string>
+    <string name="settings_portfolio_lock">قفل پرتفوی</string>
+    <string name="settings_portfolio_lock_footer">قفل آنچه را نمایش داده می‌شود پنهان می‌کند. داده‌ها روی همین دستگاه ذخیره می‌شوند و رمزگذاری دستگاه از آن‌ها محافظت می‌کند. می‌توانید از نسخه‌های پشتیبان با گذرواژه محافظت کنید.</string>
+    <string name="settings_portfolio_lock_hint">فقط پرتفوی را پنهان می‌کند: با اثر انگشت، چهره یا پین دستگاه باز کنید. پس از بیش از یک دقیقه در پس‌زمینه دوباره قفل می‌شود. واچ‌لیست، هشدارها و ابزارک‌های دیگر باز می‌مانند.</string>
+    <string name="settings_portfolio_lock_no_device_lock">بدون PIN یا رمز دستگاه، قفل چیزی را پنهان نمی‌کند – قفل صفحه را تنظیم کن.</string>
+    <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">پرتفوی در پشتیبان سیستم</string>
+    <string name="settings_portfolio_system_backup_hint">خاموش: تراکنش‌های شما در پشتیبان سیستم دستگاه و انتقال به گوشی جدید قرار نمی‌گیرند. برای انتقال، از پشتیبان خود برنامه با گذرواژه استفاده کنید.</string>
+    <string name="settings_portfolio_system_backup_unavailable">به Android 9 یا جدیدتر نیاز دارد – نسخه‌های قدیمی‌تر سبد را بدون رمزگذاری در پشتیبان Google ذخیره می‌کردند.</string>
+    <string name="settings_portfolio_tab">نمایش زبانه پرتفوی</string>
+    <string name="settings_portfolio_value_locked">روشن، با قفل</string>
+    <string name="settings_show_converted">قیمت‌های تبدیل‌شده</string>
+    <string name="settings_show_converted_hint">قیمت‌ها را در واچ‌لیست به %1$s هم نشان می‌دهد</string>
+
+    <!-- Einstellungen › Markt-Meldungen -->
+    <string name="settings_depeg_alarm">اعلام جدا شدن USDT از دلار</string>
+    <string name="settings_depeg_alarm_hint">وقتی USDT به اندازهٔ حد از 1 USD فاصله بگیرد، یک بار خبر می‌دهد (Kraken USDT/USD، Binance USDC/USDT). مقادیر در برنامه همچنان با USDT = 1 حساب می‌شوند.</string>
+    <string name="settings_depeg_threshold">حد جدا شدن از دلار</string>
+    <string name="settings_fng_above">Fear &amp; Greed: اعلان بالای</string>
+    <string name="settings_fng_below">Fear &amp; Greed: اعلان زیر</string>
+    <string name="settings_gas_alert_hint">وقتی کارمزد عادی به زیر حد برسد، یک بار اعلان می‌دهد. هنگام به‌روزرسانی قیمت‌ها بررسی می‌شود، حداکثر هر 10 دقیقه یک بار.</string>
+    <string name="settings_gas_btc_below">کارمزد Bitcoin زیر (sat/vB)</string>
+    <string name="settings_gas_eth_below">گس Ethereum زیر (gwei)</string>
+    <string name="settings_ind_ath_within">افت از بالاترین قیمت تاریخ حداکثر</string>
+    <string name="settings_ind_mayer_above">Mayer Multiple بالاتر از</string>
+    <string name="settings_ind_mayer_below">Mayer Multiple پایین‌تر از</string>
+    <string name="settings_ind_mvrv_above">MVRV بالاتر از</string>
+    <string name="settings_ind_mvrv_below">MVRV پایین‌تر از</string>
+    <string name="settings_indicator_alerts_hint">شاخص‌های بیت‌کوین، دو بار در روز بررسی می‌شوند. مرزها را خودت انتخاب می‌کنی – برنامه مقادیر را ارزیابی نمی‌کند.</string>
+    <string name="settings_macro_notifications">تقویم اقتصادی</string>
+    <string name="settings_macro_notifications_hint">ساعت 08:00 در روزهایی که داده‌های مهم اقتصادی آمریکا منتشر می‌شود (تورم، اشتغال، تصمیم فدرال رزرو). تقویم روزی یک بار از وب‌سایت برنامه بارگیری می‌شود.</string>
+    <string name="settings_market_alerts">اعلان‌های بازار</string>
+    <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
+    <plurals name="settings_market_alerts_active">
+        <item quantity="one">%1$d فعال</item>
+        <item quantity="other">%1$d فعال</item>
+    </plurals>
+
+    <!-- Einstellungen › Sprachausgabe -->
+    <string name="settings_speech_rate">سرعت گفتار: %1$.1f×</string>
+    <string name="settings_tts">خروجی صوتی</string>
+    <string name="settings_tts_alarms_only">فقط هشدارها</string>
+    <string name="settings_tts_alarms_only_hint">خاموش: هر به‌روزرسانی جفت‌هایی که «خواندن قیمت» برایشان فعال است خوانده می‌شود.</string>
+    <!-- Sprachausgabe schweigt im Lautlos-/Vibrationsmodus -->
+    <string name="settings_tts_hint_silent">قیمت‌ها و هشدارها را با صدای بلند می‌خواند. تا وقتی دستگاه در حالت بی‌صدا یا لرزش است، ساکت می‌ماند.</string>
+    <string name="settings_tts_test">آزمایش صدا</string>
+
+    <!-- Einstellungen › Daten: App zurücksetzen -->
+    <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
+    <string name="settings_reset_app">بازنشانی برنامه</string>
+    <string name="settings_reset_app_action">حذف همه</string>
+    <string name="settings_reset_app_confirm">فهرست پیگیری، هشدارها، پرتفوی، تنظیمات و همه داده‌های ذخیره‌شده را مانند پس از نصب پاک می‌کند. قابل بازگشت نیست. نکته: ابتدا پشتیبان بگیرید.</string>
+    <string name="settings_reset_app_title">برنامه بازنشانی شود؟</string>
+
+    <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
+    <!-- Suchfeld der Währungsseite -->
+    <string name="currency_search">جستجوی ارز</string>
+    <string name="language_search">جستجوی زبان</string>
+
+    <!-- Theme -->
+    <string name="theme_dark">تیره</string>
+    <string name="theme_light">روشن</string>
+    <string name="theme_system">سیستم</string>
+
+    <!-- Akzentfarben -->
+    <string name="accent_blue">آبی</string>
+    <string name="accent_green">سبز</string>
+    <!-- Eigenname, in allen Sprachen gleich -->
+    <string name="accent_marrs_green">Marrs Green</string>
+    <string name="accent_orange">نارنجی</string>
+    <string name="accent_red">قرمز</string>
+
+    <!-- Kursfarben -->
+    <string name="price_colors_red_up_hint">رایج در چین، ژاپن، کره و تایوان</string>
+    <string name="price_colors_swap">جابه‌جایی رنگ‌ها (صعود ↔ نزول)</string>
+    <string name="price_style_calm">آرام</string>
+    <string name="price_style_calm_color_vision">آرام · کمبود دید رنگ</string>
+    <string name="price_style_color_vision">کمبود دید رنگ</string>
+    <string name="price_style_fresh">تازه</string>
+    <string name="price_style_traditional">سنتی</string>
+
+    <!-- Über die App -->
+    <string name="about_exchanges_verified">اتصال صرافی‌ها آخرین بار با پاسخ‌های واقعی بررسی شد: %1$s</string>
+    <string name="about_license">قیمت‌ها مستقیماً از صرافی‌ها می‌آیند؛ بدون حساب کاربری و بدون ردیابی.</string>
+    <!-- Texte der Lizenzen liegen in assets/licenses -->
+    <string name="about_licenses">مجوزها</string>
+    <string name="about_privacy_policy">سیاست حفظ حریم خصوصی</string>
+    <!-- GitHub-Vorlage exchange_request.md -->
+    <string name="about_request_exchange">درخواست صرافی</string>
+    <string name="about_source_code">کد منبع در GitHub</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_why">Crypto Checker یک پروژه مستقل از r1AD است: نمایی آرام از قیمت‌ها بدون حساب، تبلیغات یا ردیابی. پرسش‌ها و پیشنهادها: %1$s</string>
+
+    <!-- Lizenzhinweise -->
+    <string name="licenses_app_intro">Crypto Checker متن‌باز است (مجوز MIT).</string>
+    <string name="licenses_font_title">قلم Rubik</string>
+    <string name="licenses_icons_bundled_text">همراه برنامه: نمادهایی از «Cryptocurrency Icons» اثر Christopher Downer و مشارکت‌کنندگان (github.com/spothq/cryptocurrency-icons) که با مجوز CC0 1.0 Universal منتشر شده‌اند. تا زمانی که لوگوهای CoinGecko یا Binance بارگیری شوند نمایش داده می‌شوند. نام‌ها و لوگوها همچنان علامت تجاری پروژه‌های خود هستند.</string>
+    <string name="licenses_icons_title">نمادهای جایگزین سکه</string>
+    <string name="licenses_libraries_intro">برنامه از این کتابخانه‌ها تحت Apache License 2.0 استفاده می‌کند:</string>
+    <string name="licenses_libraries_title">کتابخانه‌های Android</string>
+
+    <!-- Entwickleroptionen -->
+    <!-- Countdown der letzten Tipps auf die Version bis zu den Entwickleroptionen -->
+    <plurals name="developer_taps_left">
+        <item quantity="one">%d ضربهٔ دیگر تا باز شدن گزینه‌های توسعه‌دهنده</item>
+        <item quantity="other">%d ضربهٔ دیگر تا باز شدن گزینه‌های توسعه‌دهنده</item>
+    </plurals>
+    <string name="developer_unlocked">گزینه‌های توسعه‌دهنده باز شد</string>
+
+    <!-- Nur iOS: Einstellungen -->
+    <!-- Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">لرزش از تنظیمات iPhone پیروی می‌کند (صداها و لمسی).</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">هشدارها و اعلان‌های بازار جدید را می‌شمارد؛ با باز کردن برنامه به 0 برمی‌گردد.</string>
+</resources>

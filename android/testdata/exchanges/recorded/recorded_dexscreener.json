@@ -1,0 +1,21 @@
+{
+ "market": "DexScreener",
+ "recordedAt": "2026-10-16T23:27:56Z",
+ "description": "Recorded live by android/tools/record_exchange_fixtures.py. Real responses: the contract tests only check plausibility (parser does not throw, last > 0, batch has tickers, pair list contains the pair). Skipped: nothing. Trimmed for the repository: long lists keep their first 25 entries plus every entry naming the tested pair.",
+ "cases": [
+  {
+   "kind": "single",
+   "name": "recorded single 2026-10-16T23:27:56Z",
+   "market": "DexScreener",
+   "requestId": 0,
+   "request": "GET https://api.dexscreener.com/latest/dex/pairs/ethereum/0x11950d141EcB863F01007AdD7D1A342041227b58",
+   "body": "{\"schemaVersion\":\"1.0.0\",\"pairs\":[{\"chainId\":\"ethereum\",\"dexId\":\"uniswap\",\"url\":\"https://dexscreener.com/ethereum/0x11950d141ecb863f01007add7d1a342041227b58\",\"pairAddress\":\"0x11950d141EcB863F01007AdD7D1A342041227b58\",\"labels\":[\"v3\"],\"baseToken\":{\"address\":\"0x6982508145454Ce325dDbE47a25d4ec3d2311933\",\"name\":\"Pepe\",\"symbol\":\"PEPE\"},\"quoteToken\":{\"address\":\"0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2\",\"name\":\"Wrapped Ether\",\"symbol\":\"WETH\"},\"priceNative\":\"0.000000001666\",\"priceUsd\":\"0.000004039\",\"txns\":{\"m5\":{\"buys\":1,\"sells\":0},\"h1\":{\"buys\":1,\"sells\":1},\"h6\":{\"buys\":45,\"sells\":21},\"h24\":{\"buys\":140,\"sells\":142}},\"volume\":{\"h24\":49635.11,\"h6\":9633.58,\"h1\":2.52,\"m5\":0.45},\"priceChange\":{\"m5\":-0.07,\"h1\":0.01,\"h6\":2.9,\"h24\":-1.14},\"liquidity\":{\"usd\":2347492.19,\"base\":544676295745,\"quote\":60.6696},\"fdv\":1671573734,\"marketCap\":1671573734,\"pairCreatedAt\":1681942955000,\"info\":{\"imageUrl\":\"https://cdn.dexscreener.com/cms/images/ae001139fa1fcd24f8421d82caf72d8e06fabafab33b089c5d2e6d18039354e7?width=800&height=800&quality=95&format=auto\",\"header\":\"https://cdn.dexscreener.com/cms/images/f558e07ff23d76a0a22f23e9e554bb513b79404163d185d5e79d96a5058004eb?width=1500&height=500&quality=95&format=auto\",\"openGraph\":\"https://cdn.dexscreener.com/token-images/og/ethereum/0x6982508145454ce325ddbe47a25d4ec3d2311933?timestamp=1792193100000\",\"websites\":[{\"url\":\"https://www.pepe.vip/\",\"label\":\"Website\"}],\"socials\":[{\"url\":\"https://twitter.com/pepecoineth\",\"type\":\"twitter\"}]}}],\"pair\":{\"chainId\":\"ethereum\",\"dexId\":\"uniswap\",\"url\":\"https://dexscreener.com/ethereum/0x11950d141ecb863f01007add7d1a342041227b58\",\"pairAddress\":\"0x11950d141EcB863F01007AdD7D1A342041227b58\",\"labels\":[\"v3\"],\"baseToken\":{\"address\":\"0x6982508145454Ce325dDbE47a25d4ec3d2311933\",\"name\":\"Pepe\",\"symbol\":\"PEPE\"},\"quoteToken\":{\"address\":\"0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2\",\"name\":\"Wrapped Ether\",\"symbol\":\"WETH\"},\"priceNative\":\"0.000000001666\",\"priceUsd\":\"0.000004039\",\"txns\":{\"m5\":{\"buys\":1,\"sells\":0},\"h1\":{\"buys\":1,\"sells\":1},\"h6\":{\"buys\":45,\"sells\":21},\"h24\":{\"buys\":140,\"sells\":142}},\"volume\":{\"h24\":49635.11,\"h6\":9633.58,\"h1\":2.52,\"m5\":0.45},\"priceChange\":{\"m5\":-0.07,\"h1\":0.01,\"h6\":2.9,\"h24\":-1.14},\"liquidity\":{\"usd\":2347492.19,\"base\":544676295745,\"quote\":60.6696},\"fdv\":1671573734,\"marketCap\":1671573734,\"pairCreatedAt\":1681942955000,\"info\":{\"imageUrl\":\"https://cdn.dexscreener.com/cms/images/ae001139fa1fcd24f8421d82caf72d8e06fabafab33b089c5d2e6d18039354e7?width=800&height=800&quality=95&format=auto\",\"header\":\"https://cdn.dexscreener.com/cms/images/f558e07ff23d76a0a22f23e9e554bb513b79404163d185d5e79d96a5058004eb?width=1500&height=500&quality=95&format=auto\",\"openGraph\":\"https://cdn.dexscreener.com/token-images/og/ethereum/0x6982508145454ce325ddbe47a25d4ec3d2311933?timestamp=1792193100000\",\"websites\":[{\"url\":\"https://www.pepe.vip/\",\"label\":\"Website\"}],\"socials\":[{\"url\":\"https://twitter.com/pepecoineth\",\"type\":\"twitter\"}]}}}",
+   "pair": {
+    "base": "PEPE",
+    "quote": "USD (ethereum)",
+    "id": "ethereum/0x11950d141EcB863F01007AdD7D1A342041227b58",
+    "contract": "NONE"
+   }
+  }
+ ]
+}

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Texte der Mitteilungen -->
+    <string name="notification_activity_title">%1$s · %2$s</string>
+    <string name="notification_alarm_text">%1$s — hiện tại %2$s</string>
+    <string name="notification_alarm_title">Cảnh báo: %1$s · %2$s</string>
+    <string name="notification_depeg_action_exchange">Mở sàn</string>
+    <string name="notification_depeg_text">Các giá trị trong ứng dụng vẫn tính với USDT = 1.</string>
+    <string name="notification_depeg_title">USDT ở mức %1$s USD (%2$s)</string>
+    <string name="notification_fng_above">Chỉ số lên trên %1$d – theo chỉ số này, thị trường đang tham lam.</string>
+    <string name="notification_fng_below">Chỉ số xuống dưới %1$d – theo chỉ số này, thị trường đang sợ hãi.</string>
+    <string name="notification_fng_title">Fear &amp; Greed: %1$d</string>
+    <string name="notification_gas_btc_text">Dưới ngưỡng %1$s sat/vB của bạn · Chuyển ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Phí Bitcoin: %1$s sat/vB</string>
+    <string name="notification_gas_eth_text">Dưới ngưỡng %1$s gwei của bạn · Chuyển ≈ %2$s</string>
+    <string name="notification_gas_eth_title">Gas Ethereum: %1$s gwei</string>
+    <string name="notification_indicator_above">Trên ngưỡng của bạn %1$s – giá trị đo, không phải khuyến nghị.</string>
+    <string name="notification_indicator_below">Dưới ngưỡng của bạn %1$s – giá trị đo, không phải khuyến nghị.</string>
+    <string name="notification_indicator_title">%1$s: %2$s</string>
+    <string name="notification_macro_title">Hôm nay có dữ liệu kinh tế</string>
+    <string name="notification_portfolio_alarm_locked">Cảnh báo của bạn đã kích hoạt – mở ứng dụng để xem chi tiết.</string>
+    <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
+    <string name="notification_portfolio_alarm_text">%1$s – hiện %2$s</string>
+    <string name="notification_portfolio_alarm_title">Giá trị danh mục</string>
+    <string name="notification_price_change">%1$s, từ %2$s (%3$s trước)</string>
+    <string name="notification_price_change_no_age">%1$s, từ %2$s</string>
+    <string name="notification_price_first">Thông báo đầu tiên cho cặp này</string>
+    <plurals name="notification_price_overflow_title">
+        <item quantity="other">+%1$d giá khác</item>
+    </plurals>
+    <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
+    <string name="notification_refreshing">Đang cập nhật giá…</string>
+    <string name="notification_volume_spike_text">Khối lượng gấp %1$s× bình thường trong giờ qua</string>
+
+    <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
+    <string name="channel_alarms">Cảnh báo</string>
+    <string name="channel_alarms_description">Thông báo khi cảnh báo giá được kích hoạt.</string>
+    <string name="channel_alarms_quiet">Cảnh báo (giờ yên lặng)</string>
+    <string name="channel_alarms_quiet_description">Cảnh báo im lặng trong giờ yên lặng.</string>
+    <string name="channel_alarms_silent">Cảnh báo (im lặng)</string>
+    <string name="channel_alarms_sound">Cảnh báo (chỉ âm thanh)</string>
+    <string name="channel_alarms_sound_vibrate">Cảnh báo (âm thanh và rung)</string>
+    <string name="channel_alarms_vibrate">Cảnh báo (chỉ rung)</string>
+    <string name="channel_prices">Thông báo giá</string>
+    <string name="channel_prices_description">Thông báo im lặng hiển thị giá hiện tại của một cặp.</string>
+    <string name="channel_service">Cập nhật giá</string>
+    <string name="channel_service_description">Thông báo khi giá đang được cập nhật.</string>
+    <string name="neutral_channel_market">Thông báo thị trường</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed, phí gas, hoạt động bất thường và lịch kinh tế</string>
+
+    <!-- Sprachausgabe -->
+    <string name="tts_alarm">Cảnh báo. %1$s, %2$s %3$s %4$s, hiện tại %5$s</string>
+    <string name="tts_direction_down">đã giảm</string>
+    <string name="tts_direction_funding_above">kèm funding cao</string>
+    <string name="tts_direction_funding_below">kèm funding thấp</string>
+    <string name="tts_direction_move">biến động mạnh</string>
+    <string name="tts_direction_near_high">đang gần đỉnh</string>
+    <string name="tts_direction_near_low">đang gần đáy</string>
+    <string name="tts_direction_oi_down">kèm open interest giảm</string>
+    <string name="tts_direction_oi_up">kèm open interest tăng</string>
+    <string name="tts_direction_up">đã tăng</string>
+    <string name="tts_direction_volume_spike">kèm khối lượng tăng vọt</string>
+    <string name="tts_price">%1$s, %2$s %3$s, %4$s</string>
+</resources>

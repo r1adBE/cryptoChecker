@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: beobachtete Adressen (Wallets) -->
+    <string name="portfolio_address_add">Shto adresë</string>
+    <string name="portfolio_address_count">Llogarit</string>
+    <string name="portfolio_address_error">Përditësimi dështoi</string>
+    <string name="portfolio_address_hint">Adresë publike (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) ose xpub</string>
+    <string name="portfolio_address_label">Etiketa (opsionale)</string>
+    <string name="portfolio_address_not_since_buy">Nga adresa · jo në «Që nga blerja»: %1$s</string>
+    <string name="portfolio_address_overlap">Edhe në transaksionet e tua: %1$s – mblidhen të dyja. Të njëjtat monedha? Zgjidh «Vetëm shfaq».</string>
+    <string name="portfolio_address_overlap_ask">E regjistron tashmë %1$s me transaksionet e tua. Të llogaritet balanca e kësaj adrese në portofol apo vetëm të shfaqet?</string>
+    <string name="portfolio_address_overlap_auto">«%1$s» tani vetëm shfaqet, nuk llogaritet – %2$s shfaqen edhe në transaksionet e tua.</string>
+    <string name="portfolio_address_overlap_restored">«%1$s» llogaritet përsëri – sasitë nuk përputhen me transaksionet e tua. Zgjidh «Vetëm shfaq» nëse janë të njëjtat monedha.</string>
+    <string name="portfolio_address_overlap_title">Të njëjtat monedha si në transaksionet e tua?</string>
+    <string name="portfolio_address_overlap_tx">E njëjta sasi si depozita/transferimi yt (%1$s) – ndoshta llogaritet dy herë.</string>
+    <string name="portfolio_address_period_observed">Adresat e ndjekura llogariten nga balanca e parë e vërejtur; ndryshimet e mëvonshme janë hyrje/dalje, jo fitim.</string>
+    <string name="portfolio_address_privacy">Te %1$s dërgohet vetëm adresa publike – kurrë çelësa ose fraza seed. Ofruesi e sheh bashkë me adresën tënde IP. Kontrollohet jo më shpesh se çdo 10 minuta.</string>
+    <string name="portfolio_address_remove">Hiq adresën</string>
+    <string name="portfolio_address_show_only">Vetëm shfaq, mos e llogarit në portofol</string>
+    <string name="portfolio_address_show_only_short">Vetëm shfaq</string>
+    <string name="portfolio_address_tokens">Llogarit tokenët</string>
+    <string name="portfolio_address_unknown_tokens">+%1$d tokenë të panjohur (të pallogaritur)</string>
+    <string name="portfolio_address_xpub_privacy">Një xpub zbulon të gjitha adresat e këtij wallet-i. Ato derivohen në pajisjen tënde; te %1$s dërgohen vetëm adresa të veçanta – të paktën 40 kërkesa në kërkimin e parë, më pas më pak. Çelësat privatë (xprv) nuk pranohen kurrë.</string>
+    <string name="portfolio_address_xpub_used">Adresa në përdorim: %1$d</string>
+    <string name="portfolio_addresses_title">Adresat</string>
+
+    <!-- Prüfung einer eingegebenen Adresse -->
+    <string name="address_bch_unsupported">Adresat Bitcoin Cash nuk mund të ndiqen: nuk ka shërbim publik falas pa çelës API, kushtet e të cilit ta lejojnë.</string>
+    <string name="address_bep2_shutdown">BNB Beacon Chain (BEP-2) u mbyll në 2024 – balancat tani janë në BNB Smart Chain (0x…)</string>
+    <string name="address_checksum">Shuma e kontrollit e gabuar – gabim shtypi?</string>
+    <string name="address_doge_unsupported">Adresat Dogecoin nuk mund të ndiqen: nuk ka shërbim publik falas pa çelës API, kushtet e të cilit ta lejojnë.</string>
+    <string name="address_duplicate">Kjo adresë është shtuar tashmë</string>
+    <string name="address_ens">Emrat ENS nuk mbështeten – fut adresën 0x</string>
+    <string name="address_invalid">Nuk është adresë e vlefshme e një rrjeti të mbështetur</string>
+    <string name="address_limit">Deri në 20 adresa</string>
+    <string name="address_secret">Kjo duket si çelës privat ose frazë seed – mos e fut askund. Vetëm adresa publike.</string>
+    <string name="address_testnet">Adresat Testnet nuk mbështeten</string>
+    <string name="address_unsupported">Ky lloj adrese nuk mbështetet</string>
+    <string name="address_wrong_chain">Adresa i përket një rrjeti tjetër</string>
+    <string name="address_xpub_multisig">Çelësat multisig (Ypub/Zpub) nuk mbështeten</string>
+</resources>

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: leere Ansicht, Statuszeile, Frische -->
+    <string name="watchlist_all_fresh">ล่าสุด · %1$s</string>
+    <string name="watchlist_empty_title">ยังไม่มีคู่เหรียญ</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="other">%1$d จาก %2$d ไม่มีราคา</item>
+    </plurals>
+    <string name="watchlist_last_run">รอบล่าสุด %1$s</string>
+    <string name="watchlist_live_a11y">ราคาสดเปิดอยู่</string>
+    <string name="watchlist_live_badge">LIVE</string>
+    <string name="watchlist_offline_since">ไม่มีการเชื่อมต่อ · ข้อมูลเมื่อ %1$s</string>
+    <string name="watchlist_pull_to_refresh">ดึงลงเพื่อรีเฟรช</string>
+    <string name="watchlist_refresh_report">รีเฟรชล่าสุด</string>
+    <string name="watchlist_refresh_report_empty">ยังไม่มีรายละเอียด: ยังไม่เคยรีเฟรชครบ แตะรีเฟรชแล้วรอจนไอคอนหมุนหยุด</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="other">เก่าแล้ว %1$d จาก %2$d</item>
+    </plurals>
+    <string name="watchlist_status_all_disabled">คู่ทั้งหมดที่นี่ปิดใช้งานอยู่</string>
+    <string name="watchlist_status_exchange_prices">ราคาจากกระดานเทรดของคุณ · %1$s</string>
+    <string name="watchlist_status_exchange_prices_short">ราคากระดานเทรด · %1$s</string>
+    <string name="watchlist_status_group_empty">ไม่มีคู่เหรียญในกลุ่มนี้</string>
+    <string name="watchlist_status_none_traded">ไม่มีคู่ที่ซื้อขายอยู่ที่นี่</string>
+    <string name="watchlist_updated">อัปเดต: %1$s</string>
+
+    <!-- Merkliste: Puls-Zeile (Paare im Plus/Minus, ohne 24-h-Wert) -->
+    <string name="watchlist_pulse_avg">Ø %1$s</string>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="other">ลง %1$d</item>
+    </plurals>
+    <!-- Paare mit Kurs, aber ohne 24-h-Wert («· 510 ohne 24h-Wert») -->
+    <plurals name="watchlist_pulse_missing">
+        <item quantity="other">%1$d ไม่มีค่า 24 ชม.</item>
+    </plurals>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="other">%1$d ไม่มีค่าวันนี้</item>
+    </plurals>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="other">ขึ้น %1$d</item>
+    </plurals>
+
+    <!-- Merkliste: Zeile eines Paars -->
+    <string name="watchlist_row_disabled">%1$s · ปิดใช้งาน</string>
+    <string name="watchlist_row_outdated">%1$s · ข้อมูลเก่า</string>
+    <string name="watchlist_row_outdated_age">ข้อมูลเก่า · %1$s</string>
+    <string name="watchlist_row_price_unchanged_since">ราคาไม่เปลี่ยนตั้งแต่ %1$s</string>
+    <string name="watchlist_row_unreachable">%1$s · เชื่อมต่อ %2$s ไม่ได้</string>
+
+    <!-- Merkliste: Suche, Sprungknopf, Sortieren nach Spalte -->
+    <string name="watchlist_jump_end">ไปที่ด้านล่าง</string>
+    <string name="watchlist_jump_start">ไปที่ด้านบน</string>
+    <string name="watchlist_search_close">ปิดการค้นหา</string>
+    <string name="watchlist_search_empty">ไม่พบผลลัพธ์สำหรับ “%1$s”</string>
+    <string name="watchlist_search_hint">ค้นหาคู่เหรียญ ชื่อ หรือกระดานเทรด</string>
+    <string name="watchlist_search_open">ค้นหา</string>
+    <string name="watchlist_sort_ascending">จากน้อยไปมาก</string>
+    <string name="watchlist_sort_descending">จากมากไปน้อย</string>
+    <string name="watchlist_sort_hint">กดค้างแล้วลากคู่เทรด หรือใช้ที่จับ รายการโปรดอยู่ด้านบนเสมอ</string>
+    <string name="watchlist_sort_name">ชื่อ</string>
+    <string name="watchlist_sort_own">ลำดับของคุณเอง</string>
+    <string name="watchlist_sort_price">ราคา</string>
+
+    <!-- Merkliste: Mehrfachauswahl, Ansichten, Entfernen -->
+    <string name="watchlist_clear">ล้างรายการติดตาม</string>
+    <string name="watchlist_clear_confirm">ลบคู่ทั้งหมดออกจากรายการติดตามไหม? สัญญาณเตือนของคู่เหล่านั้นจะถูกลบด้วย</string>
+    <plurals name="watchlist_disabled_count">
+        <item quantity="other">ปิดใช้งาน %1$d</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_action">ลบ</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="other">ลบ %1$d คู่ที่ไม่มีการซื้อขายในกระดานเทรดแล้วไหม? สัญญาณเตือนของคู่เหล่านั้นจะถูกลบด้วย</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_menu">ลบคู่ที่ไม่มีการซื้อขาย (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">ลบคู่ที่ไม่มีการซื้อขาย</string>
+    <string name="watchlist_removed">นำ %1$s ออกแล้ว</string>
+    <plurals name="watchlist_removed_count">
+        <item quantity="other">ลบ %1$d คู่แล้ว</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="other">ลบคู่ที่ไม่มีการซื้อขายแล้ว %1$d คู่</item>
+    </plurals>
+    <string name="watchlist_select">เลือก</string>
+    <string name="watchlist_select_all">เลือกทั้งหมด</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="other">เลือกแล้ว %1$d รายการ</item>
+    </plurals>
+    <string name="watchlist_show_all">แสดงทั้งหมด</string>
+    <string name="watchlist_show_only_disabled">แสดงเฉพาะที่ปิดใช้งาน</string>
+    <string name="watchlist_show_only_stale">แสดงเฉพาะที่เก่าแล้ว</string>
+
+    <!-- Merkliste: weitere Texte (Gruppen, Alarme, Mitteilung, Sprachausgabe) -->
+    <plurals name="watchlist_alarms_count">
+        <item quantity="other">สัญญาณเตือน (%1$d)</item>
+    </plurals>
+    <string name="watchlist_favorites_empty_hint">ยังไม่มีรายการโปรด ปัดคู่ไปทางขวาหรือแตะ “รายการโปรด” ในหน้าคู่เหรียญ</string>
+    <string name="watchlist_group_empty_hint">กดค้างที่กลุ่มเพื่อเลือกคู่เหรียญ</string>
+    <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
+    <string name="watchlist_groups_empty_hint">กลุ่มของคุณจะแสดงที่นี่</string>
+    <string name="watchlist_notification">การแจ้งเตือน</string>
+    <string name="watchlist_tts">อ่านราคา</string>
+    <string name="watchlist_tts_speech_on">เปิดเสียงอ่านแล้ว เปลี่ยนได้ที่ ตั้งค่า › ขั้นสูง › อ่านออกเสียง</string>
+
+    <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
+    <string name="watch_action_add_widget">เพิ่มเป็นวิดเจ็ต</string>
+    <string name="watch_action_alarm">สัญญาณเตือน</string>
+    <string name="watch_action_favorite">รายการโปรด</string>
+    <string name="watch_action_why">อะไรเคลื่อนไหวไปด้วย?</string>
+    <string name="watch_action_why_short">อะไรขยับด้วย?</string>
+    <string name="watch_change_mark">Mark</string>
+    <string name="watch_disable">ปิดใช้งาน</string>
+    <string name="watch_disable_hint">ไม่ดึงข้อมูล ไม่แจ้งเตือน</string>
+    <string name="watch_disabled">ปิดใช้งานแล้ว</string>
+    <string name="watch_disabled_banner">ปิดใช้งาน %1$s แล้ว</string>
+    <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
+    <string name="watch_edit_alarms_warning">สัญญาณเตือนยังคงอยู่ – ตรวจสอบเกณฑ์</string>
+    <!-- Titel des Formulars und Screenreader-Name des Stifts neben dem Paar -->
+    <string name="watch_edit_title">แก้ไขคู่เทรด</string>
+    <string name="watch_enable">เปิดใช้งาน</string>
+    <string name="watch_enable_hint">กลับมาดึงราคาและแจ้งเตือน</string>
+    <string name="watch_enabled_banner">เปิดใช้งาน %1$s แล้ว</string>
+    <string name="watch_error_offline">ไม่มีการเชื่อมต่อ</string>
+    <string name="watch_gesture_hint_short">แตะ: สัญญาณเตือนและ “อะไรเคลื่อนไหวไปด้วย?” · กดค้างเพื่อเลือก · ปัดซ้ายเพื่อลบ · ปัดขวาเพื่อเป็นรายการโปรด</string>
+    <string name="watch_hint_tap_why">แตะเหรียญเพื่อดูว่าอะไรเคลื่อนไหวไปพร้อมกับมัน</string>
+    <string name="watch_not_traded">ไม่มีการซื้อขายในกระดานเทรดนี้แล้ว</string>
+    <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
+    <string name="watch_preview_not_watched">ไม่อยู่ในรายการติดตาม</string>
+    <string name="watch_price_mid">ราคากลาง (ไม่เช่นนั้น mark)</string>
+    <string name="watch_row_source_both">การเปลี่ยนแปลงและกราฟ: %1$s</string>
+    <string name="watch_row_source_change">การเปลี่ยนแปลง: %1$s</string>
+    <string name="watch_row_source_chart">กราฟ: %1$s</string>
+
+    <!-- Meldung nach dem Hinzufügen (ein Paar / mehrere Paare) -->
+    <string name="pair_added_watching">เพิ่ม %1$s ในรายการติดตามแล้ว</string>
+    <!-- Ein Paar: pair_added_watching -->
+    <string name="pairs_added_watching">เพิ่ม %1$s ในรายการติดตามแล้ว</string>
+
+    <!-- Favoriten -->
+    <string name="favorite_add">เพิ่มในรายการโปรด</string>
+    <string name="favorite_added">เพิ่ม %1$s ในรายการโปรดแล้ว</string>
+    <string name="favorite_remove">นำออกจากรายการโปรด</string>
+    <string name="favorite_removed">นำ %1$s ออกจากรายการโปรดแล้ว</string>
+    <string name="hint_favorites_list">เคล็ดลับ: ปัดแถวไปทางขวาเพื่อเป็นรายการโปรด – รายการโปรดจะอยู่ด้านบน</string>
+
+    <!-- Gruppen und Chips der Merkliste -->
+    <string name="group_add">กลุ่มใหม่</string>
+    <string name="group_all">ทั้งหมด</string>
+    <!-- Alpha-Tokens: Chip «α», Art vor der Glocke, «inkl. Alpha-Tokens» -->
+    <string name="group_alpha">โทเคน Alpha</string>
+    <string name="group_delete">ลบกลุ่ม</string>
+    <string name="group_delete_confirm">คู่เทรดจะยังคงอยู่ในรายการติดตาม</string>
+    <string name="group_done">เสร็จสิ้น</string>
+    <string name="group_edit_title">แก้ไขกลุ่ม</string>
+    <!-- Chip «FAV» (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird vorgelesen) -->
+    <string name="group_favorites">รายการโปรด</string>
+    <string name="group_in_other">ใน %1$s</string>
+    <string name="group_name">ชื่อกลุ่ม</string>
+    <string name="group_new">กลุ่มใหม่…</string>
+    <string name="group_next">ถัดไป</string>
+    <string name="group_none">ไม่มีกลุ่ม</string>
+    <string name="group_rename">เปลี่ยนชื่อ</string>
+    <string name="group_search_hint">ค้นหาคู่เหรียญ ชื่อ หรือกระดานเทรด</string>
+    <string name="group_target">ในกลุ่ม</string>
+    <string name="group_title">กลุ่ม</string>
+    <!-- Gruppen-Chip «Token» (alle Paare ausser der Gruppe «TradFi»), Screenreader und Widget-Einrichtung -->
+    <string name="group_tokens">โทเคน</string>
+    <string name="group_value">กลุ่ม: %1$s</string>
+
+    <!-- Notiz zum Paar -->
+    <string name="note_add">เพิ่มบันทึก</string>
+    <string name="note_edit">แก้ไขบันทึก</string>
+    <string name="note_hint">เช่น เข้าที่ 0.42 เป้าหมาย 0.60</string>
+    <string name="note_remove">นำออก</string>
+    <string name="note_title">บันทึก</string>
+
+    <!-- Reihenfolge ändern (Sortiermodus, Screenreader-Aktionen) -->
+    <string name="sort_drag_handle">ลากเพื่อย้าย</string>
+    <string name="sort_move_bottom">ไปล่างสุด</string>
+    <string name="sort_move_down">ลง</string>
+    <string name="sort_move_top">ไปบนสุด</string>
+    <string name="sort_move_up">ขึ้น</string>
+</resources>

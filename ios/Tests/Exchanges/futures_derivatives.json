@@ -1,0 +1,581 @@
+{
+  "exchange": "Futures funding / open interest (FuturesParsers)",
+  "description": "Hand-written in the documented response formats (no live capture possible in the build environment); field names are exactly the ones FuturesParsers reads. Bodies are raw response text (null = optional request failed); expectations are the parsed FuturesInfo (fundingRatePercent = rate x 100, openInterestUsd null = must be absent). 'notes' = FuturesSources.note (null = data of the observed exchange). Shared by FuturesParsersTest.kt (Android) and FuturesParsersTests.swift (iOS). Not an exchange_*.json file: ExchangeContractTest only reads ticker fixtures.",
+  "endpoints": {
+    "woo": "GET https://api.woox.io/v3/public/futures?symbol=PERP_BTC_USDT",
+    "bitget": "GET https://api.bitget.com/api/v2/mix/market/ticker?symbol=BTCUSDT&productType=USDT-FUTURES | /api/v2/mix/market/funding-time?symbol=BTCUSDT&productType=USDT-FUTURES",
+    "mexc": "GET https://contract.mexc.com/api/v1/contract/ticker?symbol=BTC_USDT | /api/v1/contract/detail?symbol=BTC_USDT | /api/v1/contract/funding_rate/BTC_USDT",
+    "htx": "GET https://api.hbdm.com/linear-swap-api/v1/swap_funding_rate?contract_code=BTC-USDT | /linear-swap-api/v1/swap_open_interest?contract_code=BTC-USDT&business_type=swap",
+    "hyperliquid": "POST https://api.hyperliquid.xyz/info {\"type\":\"metaAndAssetCtxs\"}",
+    "deribit": "GET https://www.deribit.com/api/v2/public/ticker?instrument_name=BTC-PERPETUAL",
+    "binanceCoinM": "GET https://dapi.binance.com/dapi/v1/premiumIndex?symbol=BTCUSD_PERP | /dapi/v1/openInterest?symbol=BTCUSD_PERP"
+  },
+  "cases": [
+    {
+      "name": "WOO X: estimated funding, next settlement, open interest coins x mark price",
+      "parser": "woo",
+      "bodies": {
+        "body": "{\"success\":true,\"data\":{\"rows\":[{\"symbol\":\"PERP_MAGIC_USDT\",\"indexPrice\":\"0.1201\",\"markPrice\":\"0.12\",\"estFundingRate\":\"0.00005\",\"lastFundingRate\":\"0.0001\",\"nextFundingTime\":1728547200000,\"openInterest\":\"1500000\",\"24hOpen\":\"0.118\",\"24hClose\":\"0.1201\",\"24hHigh\":\"0.125\",\"24hLow\":\"0.115\",\"24hVolume\":\"12000000\",\"24hAmount\":\"1440000\"}]},\"timestamp\":1728540000123}"
+      },
+      "expected": {
+        "fundingRatePercent": 0.005,
+        "nextFundingTime": 1728547200000,
+        "openInterestUsd": 180000.0,
+        "source": "WOO X Futures"
+      }
+    },
+    {
+      "name": "WOO X: no estimate -> last funding rate; open interest 0 -> none",
+      "parser": "woo",
+      "bodies": {
+        "body": "{\"success\":true,\"data\":{\"rows\":[{\"symbol\":\"PERP_BTC_USDT\",\"markPrice\":\"62005.5\",\"estFundingRate\":null,\"lastFundingRate\":\"-0.0002\",\"nextFundingTime\":\"1728547200000\",\"openInterest\":\"0\"}]},\"timestamp\":1728540000123}"
+      },
+      "expected": {
+        "fundingRatePercent": -0.02,
+        "nextFundingTime": 1728547200000,
+        "openInterestUsd": null,
+        "source": "WOO X Futures"
+      }
+    },
+    {
+      "name": "WOO X: unknown symbol (no rows) -> error, chain moves on",
+      "parser": "woo",
+      "bodies": {
+        "body": "{\"success\":true,\"data\":{\"rows\":[]},\"timestamp\":1728540000123}"
+      },
+      "expectError": true
+    },
+    {
+      "name": "Bitget: ticker funding + holdingAmount x markPrice, next funding time",
+      "parser": "bitget",
+      "bodies": {
+        "ticker": "{\"code\":\"00000\",\"msg\":\"success\",\"requestTime\":1728540000500,\"data\":[{\"symbol\":\"BTCUSDT\",\"lastPr\":\"61990.2\",\"askPr\":\"61990.3\",\"bidPr\":\"61990.2\",\"high24h\":\"62480\",\"low24h\":\"59980.1\",\"ts\":\"1728540000456\",\"change24h\":\"-0.0056\",\"baseVolume\":\"215432.12\",\"quoteVolume\":\"13248901234.56\",\"indexPrice\":\"62010.12\",\"fundingRate\":\"0.0001\",\"holdingAmount\":\"55123.4\",\"markPrice\":\"61995\"}]}",
+        "fundingTime": "{\"code\":\"00000\",\"msg\":\"success\",\"requestTime\":1728540000500,\"data\":[{\"symbol\":\"BTCUSDT\",\"nextFundingTime\":\"1728547200000\",\"ratePeriod\":\"8\"}]}"
+      },
+      "expected": {
+        "fundingRatePercent": 0.01,
+        "nextFundingTime": 1728547200000,
+        "openInterestUsd": 3417375183.0,
+        "source": "Bitget Futures",
+        "fundingIntervalHours": 8
+      }
+    },
+    {
+      "name": "Bitget: 4-hour contract -> ratePeriod 4",
+      "parser": "bitget",
+      "bodies": {
+        "ticker": "{\"code\":\"00000\",\"msg\":\"success\",\"requestTime\":1728540000500,\"data\":[{\"symbol\":\"BTCUSDT\",\"lastPr\":\"61990.2\",\"askPr\":\"61990.3\",\"bidPr\":\"61990.2\",\"high24h\":\"62480\",\"low24h\":\"59980.1\",\"ts\":\"1728540000456\",\"change24h\":\"-0.0056\",\"baseVolume\":\"215432.12\",\"quoteVolume\":\"13248901234.56\",\"indexPrice\":\"62010.12\",\"fundingRate\":\"0.0001\",\"holdingAmount\":\"55123.4\",\"markPrice\":\"61995\"}]}",
+        "fundingTime": "{\"code\":\"00000\",\"msg\":\"success\",\"requestTime\":1728540000500,\"data\":[{\"symbol\":\"BTCUSDT\",\"nextFundingTime\":\"1728547200000\",\"ratePeriod\":\"4\"}]}"
+      },
+      "expected": {
+        "fundingRatePercent": 0.01,
+        "nextFundingTime": 1728547200000,
+        "openInterestUsd": 3417375183.0,
+        "source": "Bitget Futures",
+        "fundingIntervalHours": 4
+      }
+    },
+    {
+      "name": "Bitget: funding-time request failed -> no next time",
+      "parser": "bitget",
+      "bodies": {
+        "ticker": "{\"code\":\"00000\",\"msg\":\"success\",\"requestTime\":1728540000500,\"data\":[{\"symbol\":\"BTCUSDT\",\"lastPr\":\"61990.2\",\"askPr\":\"61990.3\",\"bidPr\":\"61990.2\",\"high24h\":\"62480\",\"low24h\":\"59980.1\",\"ts\":\"1728540000456\",\"change24h\":\"-0.0056\",\"baseVolume\":\"215432.12\",\"quoteVolume\":\"13248901234.56\",\"indexPrice\":\"62010.12\",\"fundingRate\":\"0.0001\",\"holdingAmount\":\"55123.4\",\"markPrice\":\"61995\"}]}",
+        "fundingTime": null
+      },
+      "expected": {
+        "fundingRatePercent": 0.01,
+        "nextFundingTime": null,
+        "openInterestUsd": 3417375183.0,
+        "source": "Bitget Futures",
+        "fundingIntervalHours": null
+      }
+    },
+    {
+      "name": "Bitget: empty ticker data -> error",
+      "parser": "bitget",
+      "bodies": {
+        "ticker": "{\"code\":\"40034\",\"msg\":\"Parameter does not exist\",\"requestTime\":1728540000500,\"data\":[]}",
+        "fundingTime": null
+      },
+      "expectError": true
+    },
+    {
+      "name": "MEXC: holdVol contracts x contractSize x fairPrice, next settle time",
+      "parser": "mexc",
+      "bodies": {
+        "ticker": "{\"success\":true,\"code\":0,\"data\":{\"contractId\":10,\"symbol\":\"BTC_USDT\",\"lastPrice\":61990.2,\"bid1\":61990.1,\"ask1\":61990.3,\"volume24\":215432123,\"amount24\":13248901234.56,\"holdVol\":55123456,\"lower24Price\":59980.1,\"high24Price\":62480,\"riseFallRate\":-0.0056,\"indexPrice\":62010.12,\"fairPrice\":61995,\"fundingRate\":0.0001,\"timestamp\":1728540000456}}",
+        "detail": "{\"success\":true,\"code\":0,\"data\":{\"symbol\":\"BTC_USDT\",\"displayNameEn\":\"BTC_USDT PERPETUAL\",\"baseCoin\":\"BTC\",\"quoteCoin\":\"USDT\",\"settleCoin\":\"USDT\",\"contractSize\":0.0001,\"minLeverage\":1,\"maxLeverage\":200,\"state\":0}}",
+        "fundingRate": "{\"success\":true,\"code\":0,\"data\":{\"symbol\":\"BTC_USDT\",\"fundingRate\":0.0001,\"maxFundingRate\":0.003,\"minFundingRate\":-0.003,\"collectCycle\":8,\"nextSettleTime\":1728547200000,\"timestamp\":1728540000456}}",
+        "symbol": "BTC_USDT"
+      },
+      "expected": {
+        "fundingRatePercent": 0.01,
+        "nextFundingTime": 1728547200000,
+        "openInterestUsd": 341737865.47200006,
+        "source": "MEXC Futures",
+        "fundingIntervalHours": 8
+      }
+    },
+    {
+      "name": "MEXC: without contract size no open interest (contracts are not coins)",
+      "parser": "mexc",
+      "bodies": {
+        "ticker": "{\"success\":true,\"code\":0,\"data\":{\"contractId\":10,\"symbol\":\"BTC_USDT\",\"lastPrice\":61990.2,\"bid1\":61990.1,\"ask1\":61990.3,\"volume24\":215432123,\"amount24\":13248901234.56,\"holdVol\":55123456,\"lower24Price\":59980.1,\"high24Price\":62480,\"riseFallRate\":-0.0056,\"indexPrice\":62010.12,\"fairPrice\":61995,\"fundingRate\":0.0001,\"timestamp\":1728540000456}}",
+        "detail": null,
+        "fundingRate": null,
+        "symbol": "BTC_USDT"
+      },
+      "expected": {
+        "fundingRatePercent": 0.01,
+        "nextFundingTime": null,
+        "openInterestUsd": null,
+        "source": "MEXC Futures",
+        "fundingIntervalHours": null
+      }
+    },
+    {
+      "name": "MEXC: contract list instead of single object -> size of the pair's symbol",
+      "parser": "mexc",
+      "bodies": {
+        "ticker": "{\"success\":true,\"code\":0,\"data\":{\"contractId\":10,\"symbol\":\"BTC_USDT\",\"lastPrice\":61990.2,\"bid1\":61990.1,\"ask1\":61990.3,\"volume24\":215432123,\"amount24\":13248901234.56,\"holdVol\":55123456,\"lower24Price\":59980.1,\"high24Price\":62480,\"riseFallRate\":-0.0056,\"indexPrice\":62010.12,\"fairPrice\":61995,\"fundingRate\":0.0001,\"timestamp\":1728540000456}}",
+        "detail": "{\"success\":true,\"code\":0,\"data\":[{\"symbol\":\"ETH_USDT\",\"contractSize\":0.01},{\"symbol\":\"BTC_USDT\",\"contractSize\":0.0001}]}",
+        "fundingRate": null,
+        "symbol": "BTC_USDT"
+      },
+      "expected": {
+        "fundingRatePercent": 0.01,
+        "nextFundingTime": null,
+        "openInterestUsd": 341737865.47200006,
+        "source": "MEXC Futures",
+        "fundingIntervalHours": null
+      }
+    },
+    {
+      "name": "HTX: funding_rate + open interest value in USDT (no next funding time)",
+      "parser": "htx",
+      "bodies": {
+        "funding": "{\"status\":\"ok\",\"data\":{\"estimated_rate\":null,\"funding_rate\":\"0.000100000000000000\",\"contract_code\":\"BTC-USDT\",\"symbol\":\"BTC\",\"fee_asset\":\"USDT\",\"funding_time\":\"1728547200000\",\"next_funding_time\":null},\"ts\":1728540000456}",
+        "openInterest": "{\"status\":\"ok\",\"data\":[{\"volume\":123456.0,\"amount\":123.456,\"symbol\":\"BTC\",\"value\":7654321.1234,\"contract_code\":\"BTC-USDT\",\"trade_amount\":1000.5,\"trade_volume\":1000500,\"trade_turnover\":62031000.1,\"business_type\":\"swap\",\"pair\":\"BTC-USDT\",\"contract_type\":\"swap\"}],\"ts\":1728540000456}"
+      },
+      "expected": {
+        "fundingRatePercent": 0.01,
+        "nextFundingTime": null,
+        "openInterestUsd": 7654321.1234,
+        "source": "HTX Futures"
+      }
+    },
+    {
+      "name": "HTX: open interest request failed -> funding only",
+      "parser": "htx",
+      "bodies": {
+        "funding": "{\"status\":\"ok\",\"data\":{\"estimated_rate\":null,\"funding_rate\":\"0.000100000000000000\",\"contract_code\":\"BTC-USDT\",\"symbol\":\"BTC\",\"fee_asset\":\"USDT\",\"funding_time\":\"1728547200000\",\"next_funding_time\":null},\"ts\":1728540000456}",
+        "openInterest": null
+      },
+      "expected": {
+        "fundingRatePercent": 0.01,
+        "nextFundingTime": null,
+        "openInterestUsd": null,
+        "source": "HTX Futures"
+      }
+    },
+    {
+      "name": "HTX: error status -> error",
+      "parser": "htx",
+      "bodies": {
+        "funding": "{\"status\":\"error\",\"err_code\":1332,\"err_msg\":\"The contract doesn't exist.\",\"ts\":1728540000456}",
+        "openInterest": null
+      },
+      "expectError": true
+    },
+    {
+      "name": "Hyperliquid: hourly funding + open interest coins x markPx",
+      "parser": "hyperliquid",
+      "bodies": {
+        "body": "[{\"universe\":[{\"szDecimals\":5,\"name\":\"BTC\",\"maxLeverage\":40},{\"szDecimals\":4,\"name\":\"ETH\",\"maxLeverage\":25},{\"szDecimals\":0,\"name\":\"kPEPE\",\"maxLeverage\":10}]},[{\"funding\":\"0.0000125\",\"openInterest\":\"12345.6789\",\"prevDayPx\":\"60500.0\",\"dayNtlVlm\":\"1234567890.12\",\"premium\":\"0.0001\",\"oraclePx\":\"62010.0\",\"markPx\":\"62005.0\",\"midPx\":\"62000.5\",\"dayBaseVlm\":\"20000.1\"},{\"funding\":\"-0.00001\",\"openInterest\":\"234567.8\",\"prevDayPx\":\"2462.4\",\"dayNtlVlm\":\"987654321.0\",\"premium\":\"0.0\",\"oraclePx\":\"2450.5\",\"markPx\":\"2450.2\",\"midPx\":null,\"dayBaseVlm\":\"403000.5\"},{\"funding\":\"0.0000125\",\"openInterest\":\"9876543210\",\"prevDayPx\":\"0.0101\",\"dayNtlVlm\":\"1000000.0\",\"premium\":\"0.0\",\"oraclePx\":\"0.0102\",\"markPx\":\"0.0102\",\"midPx\":\"0.0102\",\"dayBaseVlm\":\"98765432.1\"}]]",
+        "coin": "BTC"
+      },
+      "expected": {
+        "fundingRatePercent": 0.00125,
+        "nextFundingTime": null,
+        "openInterestUsd": 765493820.1945001,
+        "source": "Hyperliquid"
+      }
+    },
+    {
+      "name": "Hyperliquid: coin name with lower-case prefix (kPEPE) matched exactly",
+      "parser": "hyperliquid",
+      "bodies": {
+        "body": "[{\"universe\":[{\"szDecimals\":5,\"name\":\"BTC\",\"maxLeverage\":40},{\"szDecimals\":4,\"name\":\"ETH\",\"maxLeverage\":25},{\"szDecimals\":0,\"name\":\"kPEPE\",\"maxLeverage\":10}]},[{\"funding\":\"0.0000125\",\"openInterest\":\"12345.6789\",\"prevDayPx\":\"60500.0\",\"dayNtlVlm\":\"1234567890.12\",\"premium\":\"0.0001\",\"oraclePx\":\"62010.0\",\"markPx\":\"62005.0\",\"midPx\":\"62000.5\",\"dayBaseVlm\":\"20000.1\"},{\"funding\":\"-0.00001\",\"openInterest\":\"234567.8\",\"prevDayPx\":\"2462.4\",\"dayNtlVlm\":\"987654321.0\",\"premium\":\"0.0\",\"oraclePx\":\"2450.5\",\"markPx\":\"2450.2\",\"midPx\":null,\"dayBaseVlm\":\"403000.5\"},{\"funding\":\"0.0000125\",\"openInterest\":\"9876543210\",\"prevDayPx\":\"0.0101\",\"dayNtlVlm\":\"1000000.0\",\"premium\":\"0.0\",\"oraclePx\":\"0.0102\",\"markPx\":\"0.0102\",\"midPx\":\"0.0102\",\"dayBaseVlm\":\"98765432.1\"}]]",
+        "coin": "kPEPE"
+      },
+      "expected": {
+        "fundingRatePercent": 0.00125,
+        "nextFundingTime": null,
+        "openInterestUsd": 100740740.74200001,
+        "source": "Hyperliquid"
+      }
+    },
+    {
+      "name": "Hyperliquid: second entry (index link universe <-> contexts)",
+      "parser": "hyperliquid",
+      "bodies": {
+        "body": "[{\"universe\":[{\"szDecimals\":5,\"name\":\"BTC\",\"maxLeverage\":40},{\"szDecimals\":4,\"name\":\"ETH\",\"maxLeverage\":25},{\"szDecimals\":0,\"name\":\"kPEPE\",\"maxLeverage\":10}]},[{\"funding\":\"0.0000125\",\"openInterest\":\"12345.6789\",\"prevDayPx\":\"60500.0\",\"dayNtlVlm\":\"1234567890.12\",\"premium\":\"0.0001\",\"oraclePx\":\"62010.0\",\"markPx\":\"62005.0\",\"midPx\":\"62000.5\",\"dayBaseVlm\":\"20000.1\"},{\"funding\":\"-0.00001\",\"openInterest\":\"234567.8\",\"prevDayPx\":\"2462.4\",\"dayNtlVlm\":\"987654321.0\",\"premium\":\"0.0\",\"oraclePx\":\"2450.5\",\"markPx\":\"2450.2\",\"midPx\":null,\"dayBaseVlm\":\"403000.5\"},{\"funding\":\"0.0000125\",\"openInterest\":\"9876543210\",\"prevDayPx\":\"0.0101\",\"dayNtlVlm\":\"1000000.0\",\"premium\":\"0.0\",\"oraclePx\":\"0.0102\",\"markPx\":\"0.0102\",\"midPx\":\"0.0102\",\"dayBaseVlm\":\"98765432.1\"}]]",
+        "coin": "ETH"
+      },
+      "expected": {
+        "fundingRatePercent": -0.001,
+        "nextFundingTime": null,
+        "openInterestUsd": 574738023.56,
+        "source": "Hyperliquid"
+      }
+    },
+    {
+      "name": "Hyperliquid: unknown coin -> error",
+      "parser": "hyperliquid",
+      "bodies": {
+        "body": "[{\"universe\":[{\"szDecimals\":5,\"name\":\"BTC\",\"maxLeverage\":40},{\"szDecimals\":4,\"name\":\"ETH\",\"maxLeverage\":25},{\"szDecimals\":0,\"name\":\"kPEPE\",\"maxLeverage\":10}]},[{\"funding\":\"0.0000125\",\"openInterest\":\"12345.6789\",\"prevDayPx\":\"60500.0\",\"dayNtlVlm\":\"1234567890.12\",\"premium\":\"0.0001\",\"oraclePx\":\"62010.0\",\"markPx\":\"62005.0\",\"midPx\":\"62000.5\",\"dayBaseVlm\":\"20000.1\"},{\"funding\":\"-0.00001\",\"openInterest\":\"234567.8\",\"prevDayPx\":\"2462.4\",\"dayNtlVlm\":\"987654321.0\",\"premium\":\"0.0\",\"oraclePx\":\"2450.5\",\"markPx\":\"2450.2\",\"midPx\":null,\"dayBaseVlm\":\"403000.5\"},{\"funding\":\"0.0000125\",\"openInterest\":\"9876543210\",\"prevDayPx\":\"0.0101\",\"dayNtlVlm\":\"1000000.0\",\"premium\":\"0.0\",\"oraclePx\":\"0.0102\",\"markPx\":\"0.0102\",\"midPx\":\"0.0102\",\"dayBaseVlm\":\"98765432.1\"}]]",
+        "coin": "XYZ"
+      },
+      "expectError": true
+    },
+    {
+      "name": "Deribit: inverse perpetual, open_interest already in USD",
+      "parser": "deribit",
+      "bodies": {
+        "body": "{\"jsonrpc\":\"2.0\",\"result\":{\"timestamp\":1728540000123,\"stats\":{\"volume_usd\":1234567890.0,\"volume\":20000.5,\"price_change\":2.4794,\"low\":60000.0,\"high\":62500.0},\"state\":\"open\",\"open_interest\":1234567890,\"mark_price\":62005.5,\"last_price\":62000.0,\"instrument_name\":\"BTC-PERPETUAL\",\"index_price\":62010.1,\"funding_8h\":0.0001,\"current_funding\":0.0},\"usIn\":1728540000123456,\"usOut\":1728540000123789,\"usDiff\":333,\"testnet\":false}"
+      },
+      "expected": {
+        "fundingRatePercent": 0.01,
+        "nextFundingTime": null,
+        "openInterestUsd": 1234567890.0,
+        "source": "Deribit"
+      }
+    },
+    {
+      "name": "Deribit: linear USDC perpetual, open_interest in coins x mark_price",
+      "parser": "deribit",
+      "bodies": {
+        "body": "{\"jsonrpc\":\"2.0\",\"result\":{\"timestamp\":1728540000123,\"state\":\"open\",\"open_interest\":250000.5,\"mark_price\":145.2,\"last_price\":145.1,\"instrument_name\":\"SOL_USDC-PERPETUAL\",\"index_price\":145.25,\"funding_8h\":-2e-05,\"current_funding\":0.0},\"usIn\":1728540000123456,\"usOut\":1728540000123789,\"usDiff\":333,\"testnet\":false}"
+      },
+      "expected": {
+        "fundingRatePercent": -0.002,
+        "nextFundingTime": null,
+        "openInterestUsd": 36300072.599999994,
+        "source": "Deribit"
+      }
+    },
+    {
+      "name": "Binance COIN-M: funding of the COIN-M contract, open interest contracts x 100 USD (BTC)",
+      "parser": "binanceCoinM",
+      "bodies": {
+        "premium": "[{\"symbol\":\"BTCUSD_PERP\",\"pair\":\"BTCUSD\",\"markPrice\":\"62000.1\",\"indexPrice\":\"61990.5\",\"estimatedSettlePrice\":\"61985.2\",\"lastFundingRate\":\"0.00010000\",\"interestRate\":\"0.00010000\",\"nextFundingTime\":1728547200000,\"time\":1728540000000}]",
+        "openInterest": "{\"symbol\":\"BTCUSD_PERP\",\"pair\":\"BTCUSD\",\"openInterest\":\"123456\",\"contractType\":\"PERPETUAL\",\"time\":1728540000000}",
+        "symbol": "BTCUSD_PERP"
+      },
+      "expected": {
+        "fundingRatePercent": 0.01,
+        "openInterestUsd": 12345600.0,
+        "nextFundingTime": 1728547200000,
+        "source": "Binance COIN-M"
+      }
+    },
+    {
+      "name": "Binance COIN-M: other coins 10 USD per contract; open interest missing is fine",
+      "parser": "binanceCoinM",
+      "bodies": {
+        "premium": "[{\"symbol\":\"ETHUSD_PERP\",\"pair\":\"ETHUSD\",\"markPrice\":\"2400\",\"lastFundingRate\":\"-0.00005000\",\"nextFundingTime\":1728547200000}]",
+        "openInterest": null,
+        "symbol": "ETHUSD_PERP"
+      },
+      "expected": {
+        "fundingRatePercent": -0.005,
+        "openInterestUsd": null,
+        "nextFundingTime": 1728547200000,
+        "source": "Binance COIN-M"
+      }
+    },
+    {
+      "name": "Binance COIN-M: ETH open interest contracts x 10 USD",
+      "parser": "binanceCoinM",
+      "bodies": {
+        "premium": "[{\"symbol\":\"ETHUSD_PERP\",\"lastFundingRate\":\"0.0001\",\"nextFundingTime\":1728547200000}]",
+        "openInterest": "{\"symbol\":\"ETHUSD_PERP\",\"openInterest\":\"5000\"}",
+        "symbol": "ETHUSD_PERP"
+      },
+      "expected": {
+        "fundingRatePercent": 0.01,
+        "openInterestUsd": 50000.0,
+        "nextFundingTime": 1728547200000,
+        "source": "Binance COIN-M"
+      }
+    },
+    {
+      "name": "Binance COIN-M: contractSize from dapi exchangeInfo (hypothetical XYZ contract of 5 USD) instead of the 10 USD default",
+      "parser": "binanceCoinM",
+      "bodies": {
+        "premium": "[{\"symbol\":\"XYZUSD_PERP\",\"lastFundingRate\":\"0.0001\",\"nextFundingTime\":1728547200000}]",
+        "openInterest": "{\"symbol\":\"XYZUSD_PERP\",\"openInterest\":\"5000\"}",
+        "symbol": "XYZUSD_PERP",
+        "exchangeInfo": "{\"timezone\":\"UTC\",\"symbols\":[{\"symbol\":\"BTCUSD_PERP\",\"pair\":\"BTCUSD\",\"contractType\":\"PERPETUAL\",\"deliveryDate\":4133404800000,\"contractStatus\":\"TRADING\",\"contractSize\":100,\"marginAsset\":\"BTC\",\"baseAsset\":\"BTC\",\"quoteAsset\":\"USD\"},{\"symbol\":\"ETHUSD_PERP\",\"pair\":\"ETHUSD\",\"contractType\":\"PERPETUAL\",\"deliveryDate\":4133404800000,\"contractStatus\":\"TRADING\",\"contractSize\":10,\"marginAsset\":\"ETH\",\"baseAsset\":\"ETH\",\"quoteAsset\":\"USD\"},{\"symbol\":\"XYZUSD_PERP\",\"pair\":\"XYZUSD\",\"contractType\":\"PERPETUAL\",\"contractStatus\":\"TRADING\",\"contractSize\":5,\"marginAsset\":\"XYZ\",\"baseAsset\":\"XYZ\",\"quoteAsset\":\"USD\"},{\"symbol\":\"BADUSD_PERP\",\"pair\":\"BADUSD\",\"contractType\":\"PERPETUAL\",\"contractSize\":0}]}"
+      },
+      "expected": {
+        "fundingRatePercent": 0.01,
+        "openInterestUsd": 25000.0,
+        "nextFundingTime": 1728547200000,
+        "source": "Binance COIN-M"
+      }
+    },
+    {
+      "name": "Binance COIN-M: exchangeInfo BTC 100 USD, same as the fallback",
+      "parser": "binanceCoinM",
+      "bodies": {
+        "premium": "[{\"symbol\":\"BTCUSD_PERP\",\"lastFundingRate\":\"0.0001\",\"nextFundingTime\":1728547200000}]",
+        "openInterest": "{\"symbol\":\"BTCUSD_PERP\",\"openInterest\":\"1000\"}",
+        "symbol": "BTCUSD_PERP",
+        "exchangeInfo": "{\"timezone\":\"UTC\",\"symbols\":[{\"symbol\":\"BTCUSD_PERP\",\"pair\":\"BTCUSD\",\"contractType\":\"PERPETUAL\",\"deliveryDate\":4133404800000,\"contractStatus\":\"TRADING\",\"contractSize\":100,\"marginAsset\":\"BTC\",\"baseAsset\":\"BTC\",\"quoteAsset\":\"USD\"},{\"symbol\":\"ETHUSD_PERP\",\"pair\":\"ETHUSD\",\"contractType\":\"PERPETUAL\",\"deliveryDate\":4133404800000,\"contractStatus\":\"TRADING\",\"contractSize\":10,\"marginAsset\":\"ETH\",\"baseAsset\":\"ETH\",\"quoteAsset\":\"USD\"},{\"symbol\":\"XYZUSD_PERP\",\"pair\":\"XYZUSD\",\"contractType\":\"PERPETUAL\",\"contractStatus\":\"TRADING\",\"contractSize\":5,\"marginAsset\":\"XYZ\",\"baseAsset\":\"XYZ\",\"quoteAsset\":\"USD\"},{\"symbol\":\"BADUSD_PERP\",\"pair\":\"BADUSD\",\"contractType\":\"PERPETUAL\",\"contractSize\":0}]}"
+      },
+      "expected": {
+        "fundingRatePercent": 0.01,
+        "openInterestUsd": 100000.0,
+        "nextFundingTime": 1728547200000,
+        "source": "Binance COIN-M"
+      }
+    },
+    {
+      "name": "Binance COIN-M: invalid contractSize 0 in exchangeInfo falls back to 10 USD",
+      "parser": "binanceCoinM",
+      "bodies": {
+        "premium": "[{\"symbol\":\"BADUSD_PERP\",\"lastFundingRate\":\"0.0001\",\"nextFundingTime\":1728547200000}]",
+        "openInterest": "{\"symbol\":\"BADUSD_PERP\",\"openInterest\":\"100\"}",
+        "symbol": "BADUSD_PERP",
+        "exchangeInfo": "{\"timezone\":\"UTC\",\"symbols\":[{\"symbol\":\"BTCUSD_PERP\",\"pair\":\"BTCUSD\",\"contractType\":\"PERPETUAL\",\"deliveryDate\":4133404800000,\"contractStatus\":\"TRADING\",\"contractSize\":100,\"marginAsset\":\"BTC\",\"baseAsset\":\"BTC\",\"quoteAsset\":\"USD\"},{\"symbol\":\"ETHUSD_PERP\",\"pair\":\"ETHUSD\",\"contractType\":\"PERPETUAL\",\"deliveryDate\":4133404800000,\"contractStatus\":\"TRADING\",\"contractSize\":10,\"marginAsset\":\"ETH\",\"baseAsset\":\"ETH\",\"quoteAsset\":\"USD\"},{\"symbol\":\"XYZUSD_PERP\",\"pair\":\"XYZUSD\",\"contractType\":\"PERPETUAL\",\"contractStatus\":\"TRADING\",\"contractSize\":5,\"marginAsset\":\"XYZ\",\"baseAsset\":\"XYZ\",\"quoteAsset\":\"USD\"},{\"symbol\":\"BADUSD_PERP\",\"pair\":\"BADUSD\",\"contractType\":\"PERPETUAL\",\"contractSize\":0}]}"
+      },
+      "expected": {
+        "fundingRatePercent": 0.01,
+        "openInterestUsd": 1000.0,
+        "nextFundingTime": 1728547200000,
+        "source": "Binance COIN-M"
+      }
+    },
+    {
+      "name": "Binance COIN-M: list without the symbol is an error",
+      "parser": "binanceCoinM",
+      "bodies": {
+        "premium": "[{\"symbol\":\"BTCUSD_241227\",\"lastFundingRate\":\"0\"},{\"symbol\":\"ETHUSD_PERP\",\"lastFundingRate\":\"0.0001\"}]",
+        "openInterest": null,
+        "symbol": "BTCUSD_PERP"
+      },
+      "expectError": true
+    }
+  ],
+  "notes": [
+    {
+      "perpetual": true,
+      "marketKey": "WooFutures",
+      "source": "WOO X Futures",
+      "expected": null
+    },
+    {
+      "perpetual": true,
+      "marketKey": "WooFutures",
+      "source": "Binance Futures",
+      "expected": "REFERENCE"
+    },
+    {
+      "perpetual": true,
+      "marketKey": "Hyperliquid",
+      "source": "Bybit",
+      "expected": "REFERENCE"
+    },
+    {
+      "perpetual": true,
+      "marketKey": "BinanceFutures",
+      "source": "Binance Futures",
+      "expected": null
+    },
+    {
+      "perpetual": true,
+      "marketKey": "BybitFutures",
+      "source": "Binance Futures",
+      "expected": "FALLBACK"
+    },
+    {
+      "perpetual": true,
+      "marketKey": "OkexFutures",
+      "source": "Bybit",
+      "expected": "FALLBACK"
+    },
+    {
+      "perpetual": true,
+      "marketKey": "PhemexFutures",
+      "source": "Binance Futures",
+      "expected": "REFERENCE"
+    },
+    {
+      "perpetual": false,
+      "marketKey": "Kraken",
+      "source": "Binance Futures",
+      "expected": "REFERENCE"
+    },
+    {
+      "perpetual": false,
+      "marketKey": "BinanceFutures",
+      "source": "Binance Futures",
+      "expected": "REFERENCE"
+    },
+    {
+      "perpetual": true,
+      "marketKey": "BinanceFutures",
+      "pairId": "2:BTCUSD_PERP",
+      "source": "Binance COIN-M",
+      "expected": null
+    },
+    {
+      "perpetual": true,
+      "marketKey": "BinanceFutures",
+      "pairId": "2:BTCUSD_PERP",
+      "source": "Binance Futures",
+      "expected": "REFERENCE"
+    },
+    {
+      "perpetual": true,
+      "marketKey": "BinanceFutures",
+      "pairId": "2:BTCUSD_PERP",
+      "source": "Bybit",
+      "expected": "REFERENCE"
+    },
+    {
+      "perpetual": true,
+      "marketKey": "BinanceFutures",
+      "pairId": "BTCUSDT",
+      "source": "Binance Futures",
+      "expected": null
+    }
+  ],
+  "intervals": {
+    "description": "Funding settlement interval per contract: Binance /fapi/v1/fundingInfo (only adjusted contracts, others 8 h), OKX gap between fundingTime and nextFundingTime, generic hour parsing (1 ... 24). Source defaults: only sources with one fixed interval have one; per-contract sources without a reported interval are unknown (null).",
+    "binanceFundingInfo": "[{\"symbol\":\"BLZUSDT\",\"adjustedFundingRateCap\":\"0.02500000\",\"adjustedFundingRateFloor\":\"-0.02500000\",\"fundingIntervalHours\":4,\"disclaimer\":false},{\"symbol\":\"1000PEPEUSDT\",\"adjustedFundingRateCap\":\"0.03000000\",\"adjustedFundingRateFloor\":\"-0.03000000\",\"fundingIntervalHours\":1,\"disclaimer\":false},{\"symbol\":\"BADUSDT\",\"fundingIntervalHours\":0}]",
+    "binance": [
+      {
+        "symbol": "BLZUSDT",
+        "expected": 4
+      },
+      {
+        "symbol": "1000PEPEUSDT",
+        "expected": 1
+      },
+      {
+        "symbol": "BTCUSDT",
+        "expected": 8
+      },
+      {
+        "symbol": "BADUSDT",
+        "expected": 8
+      }
+    ],
+    "okx": [
+      {
+        "name": "8 hours",
+        "fundingTime": 1728547200000,
+        "nextFundingTime": 1728576000000,
+        "expected": 8
+      },
+      {
+        "name": "4 hours",
+        "fundingTime": 1728547200000,
+        "nextFundingTime": 1728561600000,
+        "expected": 4
+      },
+      {
+        "name": "missing next",
+        "fundingTime": 1728547200000,
+        "nextFundingTime": null,
+        "expected": null
+      },
+      {
+        "name": "next before current",
+        "fundingTime": 1728547200000,
+        "nextFundingTime": 1728540000000,
+        "expected": null
+      },
+      {
+        "name": "crooked gap",
+        "fundingTime": 1728547200000,
+        "nextFundingTime": 1728549000000,
+        "expected": null
+      }
+    ],
+    "hours": [
+      {
+        "value": 8,
+        "expected": 8
+      },
+      {
+        "value": "4",
+        "expected": 4
+      },
+      {
+        "value": 1.0,
+        "expected": 1
+      },
+      {
+        "value": 0,
+        "expected": null
+      },
+      {
+        "value": 25,
+        "expected": null
+      },
+      {
+        "value": 2.5,
+        "expected": null
+      },
+      {
+        "value": null,
+        "expected": null
+      }
+    ],
+    "defaults": [
+      {
+        "source": "Binance Futures",
+        "expected": null
+      },
+      {
+        "source": "Bybit",
+        "expected": null
+      },
+      {
+        "source": "OKX",
+        "expected": null
+      },
+      {
+        "source": "Bitget Futures",
+        "expected": null
+      },
+      {
+        "source": "MEXC Futures",
+        "expected": null
+      },
+      {
+        "source": "Hyperliquid",
+        "expected": 1
+      },
+      {
+        "source": "Deribit",
+        "expected": 8
+      },
+      {
+        "source": "WOO X Futures",
+        "expected": 8
+      },
+      {
+        "source": "HTX Futures",
+        "expected": 8
+      },
+      {
+        "source": "Binance COIN-M",
+        "expected": 8
+      }
+    ]
+  }
+}

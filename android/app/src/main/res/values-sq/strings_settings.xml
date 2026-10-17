@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen: Aufbau (Gruppen, Zeilen, Abschnitte, Suche, Kurzwerte) -->
+    <string name="settings_custom_value">I personalizuar</string>
+    <string name="settings_group_general">Të përgjithshme</string>
+    <string name="settings_group_more">Më shumë</string>
+    <string name="settings_minutes">%1$d min</string>
+    <string name="settings_row_about">Rreth aplikacionit</string>
+    <string name="settings_row_advanced">Të avancuara</string>
+    <string name="settings_row_alarms">Alarmet</string>
+    <string name="settings_row_currency">Monedha</string>
+    <string name="settings_row_dated_futures">Futures me afat</string>
+    <string name="settings_row_updates">Përditësimi i çmimeve</string>
+    <string name="settings_row_watchlist">Lista</string>
+    <string name="settings_search_hint">Kërko te cilësimet</string>
+    <string name="settings_seconds">%1$d s</string>
+    <string name="settings_section_about">Rreth</string>
+    <string name="settings_section_appearance">Pamja</string>
+    <string name="settings_section_developer">Zhvilluesi</string>
+    <string name="settings_section_language">Gjuha</string>
+    <!-- Kurzwert «eingeschaltet» (Gegenstück zu option_off) -->
+    <string name="settings_summary_on">Aktiv</string>
+    <string name="settings_title">Cilësimet</string>
+
+    <!-- Einstellungen › Alarme (Ton, Signal, Ruhezeit, App-Symbol, exakte Prüfungen) -->
+    <string name="settings_alarm_cooldown">Koha e qetë para se alarmi të aktivizohet sërish</string>
+    <!-- Ton/Vibration der Kursalarme, je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">Sinjali i alarmit</string>
+    <string name="settings_alarm_signal_open_system">Përshtate te cilësimet e sistemit</string>
+    <string name="settings_alarm_signal_system_hint">Ndjek cilësimet e njoftimeve të telefonit.</string>
+    <string name="settings_alarm_sound">Tingulli i alarmit</string>
+    <string name="settings_alarm_sound_custom">Tingull i personalizuar</string>
+    <string name="settings_alarm_sound_default">Tingulli i parazgjedhur</string>
+    <string name="settings_alarm_sound_error">Tingulli nuk mund të përdoret.</string>
+    <string name="settings_alarm_sound_file">Skedari yt audio…</string>
+    <string name="settings_alarm_sound_reset">Përdor tingullin e parazgjedhur</string>
+    <string name="settings_alarm_sound_system">Zgjidh tingull sistemi…</string>
+    <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">Numër në ikonën e aplikacionit</string>
+    <string name="settings_app_badge_hint">Numëron njoftimet e hapura të alarmeve. Nëse shfaqet numër apo pikë e vendos ekrani bazë (p.sh. Samsung: «Me numër»).</string>
+    <string name="settings_exact_checks">Kontrollo në kohë</string>
+    <string name="settings_exact_checks_grant">Lejo «Alarmet dhe rikujtuesit»</string>
+    <string name="settings_exact_checks_hint">Android kontrollon afërsisht çdo 15 minuta, edhe kur pajisja pushon. Harxhon pak më shumë bateri.</string>
+    <string name="settings_exact_checks_nothing">Asnjë çift aktiv – asgjë për të kontrolluar.</string>
+    <string name="settings_exact_checks_permission_missing">Mungon leja – Android kontrollon kur i përshtatet (afërsisht çdo 15 min ose më vonë).</string>
+    <string name="settings_notification_change">Njofto vetëm kur ndryshon çmimi</string>
+    <string name="settings_notification_change_always">Gjithmonë</string>
+    <string name="settings_notification_change_hint">Njoftimi shfaqet vetëm kur çmimi ka lëvizur të paktën kaq që nga njoftimi i fundit. Kur mungojnë të dhënat nuk shfaqet asgjë. Alarmet nuk ndikohen.</string>
+    <string name="settings_ongoing_notifications">Nuk mund të hiqen me rrëshqitje</string>
+    <string name="settings_ongoing_notifications_hint">Mban të fiksuara njoftimet e çmimit.</string>
+    <string name="settings_price_notifications">Njoftimet e çmimit</string>
+    <string name="settings_price_notifications_hint">Shfaq çmimin aktual të çifteve të aktivizuara në shiritin e statusit.</string>
+    <string name="settings_price_pairs">Çifte</string>
+    <string name="settings_price_pairs_all_off">Të gjitha fikur</string>
+    <string name="settings_price_pairs_all_on">Të gjitha ndezur</string>
+    <string name="settings_price_pairs_count">%1$d nga %2$d</string>
+    <string name="settings_price_pairs_empty">Ende nuk ka çifte në listën e ndjekjes.</string>
+    <string name="settings_price_pairs_hint">Zgjidh për cilat çifte shfaqet kursi në shiritin e njoftimeve.</string>
+    <string name="settings_quiet_hours">Orët e heshtjes</string>
+    <string name="settings_quiet_hours_from">Nga</string>
+    <string name="settings_quiet_hours_hint">Midis %1$s dhe %2$s alarmet presin deri në fund të orëve të heshtjes dhe pastaj bien me tingull. Njoftimet e tjera vijnë në heshtje, pa zë.</string>
+    <string name="settings_quiet_hours_to">Deri</string>
+
+    <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
+    <string name="settings_background_interval">Intervali</string>
+    <string name="settings_background_updates">Përditësime në sfond</string>
+    <string name="settings_battery_hint">I kufizuar do të thotë që Android mund t\'i vonojë përditësimet në sfond me orë të tëra.</string>
+    <string name="settings_battery_ok">Përdorimi i baterisë: i pakufizuar</string>
+    <string name="settings_battery_restricted">Përdorimi i baterisë: i kufizuar</string>
+    <string name="settings_check_runs_empty">Ende asnjë kontroll i regjistruar.</string>
+    <string name="settings_check_runs_honest_android">Android vendos kur kontrollohet – këtu sheh kur ndodhi vërtet.</string>
+    <string name="settings_check_runs_honest_ios">iOS vendos kur kontrollohet – këtu sheh kur ndodhi vërtet.</string>
+    <string name="settings_check_runs_title">Kontrollet e fundit</string>
+    <string name="settings_http_log">Shfaq regjistrin HTTP</string>
+    <string name="settings_http_log_hint">Shfaq në fund të faqes «Shto çift» kërkesat drejt bursave – për gjetjen e gabimeve.</string>
+    <string name="settings_live_service">Përditëso shpesh</string>
+    <string name="settings_live_websocket">Çmime live</string>
+
+    <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
+    <string name="settings_activity_alerts">Njofto aktivitetin e pazakontë</string>
+    <string name="settings_activity_alerts_hint">Më së shumti një herë në orë për çift: lëvizje të pazakonta çmimi, kërcime vëllimi dhe ekstreme në futures (të dhëna nga Binance).</string>
+    <string name="settings_activity_sensitivity">Ndjeshmëria</string>
+    <string name="settings_activity_sensitivity_hint">Sa lehtë një monedhë quhet e pazakontë – njësoj për kartën e listës dhe njoftimet. Me «Më pak», karta tregon vetëm 3 më të fortat.</string>
+    <string name="settings_watchlist_activity_card">Aktivitet i pazakontë në listë</string>
+    <string name="settings_watchlist_activity_card_hint">Shfaq çipin ⚡ pranë grupeve: prekeni për të parë vetëm çiftet ku po ndodh diçka tani. Njoftimet caktohen te Njoftime tregu.</string>
+    <string name="settings_watchlist_names">Shfaq emrat</string>
+    <string name="settings_watchlist_names_hint">Emri nën çiftin, p.sh. Bitcoin ose NVIDIA. Vjen me listat e logove, ngarkohet një herë për të gjitha monedhat.</string>
+    <string name="settings_watchlist_sparkline">Grafik i vogël në listën e ndjekjes</string>
+    <string name="settings_watchlist_sparkline_hint">Tendenca 24-orëshe pranë çmimit</string>
+    <string name="settings_watchlist_value_names">Emrat</string>
+    <string name="settings_watchlist_value_price_only">Vetëm çmimi</string>
+    <string name="settings_watchlist_value_sparkline">Grafik i vogël</string>
+
+    <!-- Einstellungen › Token & TradFi -->
+    <string name="settings_asset_scope_alpha">Përfshi tokenë Alpha (α)</string>
+    <string name="settings_asset_scope_alpha_hint">Tokenë Alpha: projekte të hershme, zakonisht të vogla, nga lista Binance Alpha – shpesh me pak tregtim dhe shumë të luhatshëm.</string>
+    <string name="settings_asset_scope_alpha_tradfi_hint">I përket tokenëve. I kyçur me «Vetëm TradFi»; tokenët Alpha që janë në listë mbeten.</string>
+    <string name="settings_asset_scope_both">Tokenë dhe TradFi</string>
+    <string name="settings_asset_scope_both_hint">Gjithçka – kripto dhe TradFi</string>
+    <string name="settings_asset_scope_hint">Përcakton cilat çifte shfaq zgjedhja dhe kërkimi kur shton. Çiftet që janë tashmë në listë mbeten gjithmonë.</string>
+    <string name="settings_asset_scope_title">Tokenë &amp; TradFi</string>
+    <string name="settings_asset_scope_tokens">Vetëm tokenë</string>
+    <string name="settings_asset_scope_tokens_hint">Kripto: spot dhe perpetuals</string>
+    <string name="settings_asset_scope_tradfi">Vetëm TradFi</string>
+    <string name="settings_asset_scope_tradfi_hint">Futures mbi aksione, mallra, valuta – kontrata, jo tokenë</string>
+    <string name="settings_rolling_futures">Përfshi futures tremujore &amp; të tjera me afat</string>
+    <string name="settings_rolling_futures_hint">Joaktiv: futures me afat që mungojnë në listën e bursës shënohen si jo më të tregtuara në vend që të kontrollohen një nga një. Kursen kohë në çdo rifreskim.</string>
+    <string name="settings_rolling_futures_qtly">Përfshi futures tremujore &amp; të tjera me afat (QTLY)</string>
+    <string name="settings_rolling_futures_tradfi_hint">I përket tokenëve. I kyçur me «Vetëm TradFi»; vlen ende për futures me afat që janë në listë.</string>
+    <string name="settings_tradfi_futures">Aksione, mallra dhe valuta (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">Gjatë zgjedhjes së çiftit shfaq edhe futures mbi aksione, ar dhe mallra të tjerë, valuta dhe kompani para kuotimit. Këto janë kontrata, jo tokenë.</string>
+
+    <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
+    <string name="settings_accent">Ngjyra e theksit</string>
+    <string name="settings_accent_hint">Ngjyra për aplikacionin, widget-et dhe ikonën e aplikacionit.</string>
+    <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">Logot e monedhave</string>
+    <string name="settings_coin_logos_app">Në aplikacion</string>
+    <string name="settings_coin_logos_app_hint">Lista, çifti i hapur dhe kartat e tregut</string>
+    <string name="settings_coin_logos_footer">Logot vijnë nga CoinGecko dhe, për ato që CoinGecko nuk i ka (p.sh. ari, argjendi, aksionet), nga Binance. Aplikacioni shkarkon njëherësh të gjitha logot dhe i ruan në këtë pajisje, kështu asnjëri nuk e di cilat monedha ndjek. Monedhat pa logo shfaqin inicialet. Të preferuarat marrin një yll të vogël te logoja. Aty ku një çelës është i çaktivizuar nuk shfaqen as logo, as iniciale; kur gjithçka është e çaktivizuar, nuk ngarkohet asgjë.</string>
+    <string name="settings_coin_logos_portfolio">Në portofol</string>
+    <string name="settings_coin_logos_portfolio_hint">Pozicionet, detajet e monedhave dhe analizat</string>
+    <string name="settings_coin_logos_value_app">Aplikacioni</string>
+    <string name="settings_coin_logos_widgets">Në widget-et</string>
+    <string name="settings_coin_logos_widgets_hint">Widget-et e listës dhe të një monedhe</string>
+    <string name="settings_high_contrast">Kontrast i lartë</string>
+    <string name="settings_high_contrast_hint">Ngjyra më të forta për çmimet dhe tekst dytësor më i errët. Aktiv edhe kur sistemi kërkon më shumë kontrast.</string>
+    <string name="settings_language_choose">Zgjidh gjuhën</string>
+    <string name="settings_language_system">Gjuha e sistemit</string>
+    <string name="settings_price_colors">Ngjyrat e çmimeve</string>
+    <string name="settings_price_colors_hint">Bluja / portokallia dallohen lehtë me çdo lloj mangësie të shikimit të ngjyrave (e kuqe-e gjelbër dhe blu-e verdhë). Drejtimi tregohet gjithmonë edhe me + / −.</string>
+    <string name="settings_theme_mode">E çelët / E errët</string>
+    <string name="settings_widgets">Widget-et</string>
+
+    <!-- Einstellungen › %-Änderung -->
+    <!-- Einstellungszeile und Seitentitel «%-Änderung»; %1$s ist das Prozentzeichen «%» -->
+    <string name="settings_change_basis">Ndryshimi në %1$s dhe zona kohore e grafikut</string>
+    <string name="settings_change_basis_hint_1">Zona kohore e zgjedhur përcakton që kur llogaritet ndryshimi në përqindje (lista e ndjekjes, rreshti i pulsit, çifti i hapur, widget-et) dhe orët që shfaqin grafikët.</string>
+    <string name="settings_change_basis_hint_2">«%1$s» krahason me çmimin e saktë 24 orë më parë. «00:00» krahason me çmimin e hapjes në mesnatë në këtë zonë kohore.</string>
+    <string name="settings_change_basis_hint_3">Alarmet nuk preken.</string>
+    <string name="settings_change_basis_hint_since_last">«%1$s» krahason me çmimin e përditësimit të mëparshëm. Me çmime të drejtpërdrejta mbetet afër 0%%.</string>
+    <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
+    <string name="settings_change_period">Shfaq periudhën pranë ndryshimit</string>
+    <string name="settings_change_period_hint">«24h», «sot» ose «përditësimi i fundit» i vogël pranë ndryshimit në listë dhe në widget-in e një monedhe. Lexuesi i ekranit e thotë gjithmonë.</string>
+
+    <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
+    <string name="settings_conversion_currency">Monedha e konvertimit</string>
+    <string name="settings_conversion_currency_hint">Përdoret edhe për portofolin, alarmet në monedhën tënde, kartën Tregu kripto dhe widget-in Portofoli.</string>
+    <string name="settings_cost_method">Metoda e kostos së blerjes</string>
+    <string name="settings_cost_method_average">Mesatare (Ø)</string>
+    <string name="settings_cost_method_average_hint">Shitjet vlerësohen me çmimin mesatar rrjedhës të blerjes.</string>
+    <string name="settings_cost_method_fifo">FIFO (parazgjedhur)</string>
+    <string name="settings_cost_method_fifo_hint">Monedhat më të vjetra shiten të parat, në të gjitha bursat dhe wallet-et.</string>
+    <string name="settings_cost_method_fifo_wallet">FIFO për wallet/bursë</string>
+    <string name="settings_cost_method_fifo_wallet_hint">Monedhat më të vjetra të parat në çdo bursë ose wallet; transferimet i zhvendosin lotet me datën e blerjes.</string>
+    <string name="settings_portfolio_lock">Kyçja e portofolit</string>
+    <string name="settings_portfolio_lock_footer">Kyçja fsheh atë që shfaqet. Të dhënat ruhen në këtë pajisje dhe mbrohen nga enkriptimi i pajisjes. Kopjet rezervë mund t’i mbrosh me fjalëkalim.</string>
+    <string name="settings_portfolio_lock_hint">Fsheh vetëm portofolin: shkyç me gjurmë gishti, fytyrë ose PIN të pajisjes. Kyçet përsëri pas më shumë se një minute në sfond. Lista e ndjekjes, alarmet dhe widget-et e tjera mbeten të hapura.</string>
+    <string name="settings_portfolio_lock_no_device_lock">Pa PIN ose kod të pajisjes, kyçja nuk fsheh asgjë – vendos një kyçje ekrani.</string>
+    <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">Portofoli në kopjen e sistemit</string>
+    <string name="settings_portfolio_system_backup_hint">Joaktiv: transaksionet e tua nuk përfshihen në kopjen e sistemit të pajisjes as në transferimin në një telefon të ri. Për t’i zhvendosur, përdor kopjen rezervë të aplikacionit me fjalëkalim.</string>
+    <string name="settings_portfolio_system_backup_unavailable">Kërkon Android 9 ose më të ri – versionet më të vjetra do ta ruanin portofolin pa enkriptim në kopjen e Google.</string>
+    <string name="settings_portfolio_tab">Shfaq skedën Portofoli</string>
+    <string name="settings_portfolio_value_locked">Aktiv, me kyçje</string>
+    <string name="settings_show_converted">Çmime të konvertuara</string>
+    <string name="settings_show_converted_hint">Shfaq çmimet në listën e ndjekjes edhe në %1$s</string>
+
+    <!-- Einstellungen › Markt-Meldungen -->
+    <string name="settings_depeg_alarm">Njofto kur USDT humbet lidhjen</string>
+    <string name="settings_depeg_alarm_hint">Njofton një herë kur USDT largohet nga 1 USD me kufirin (Kraken USDT/USD, Binance USDC/USDT). Vlerat në aplikacion vazhdojnë të përdorin USDT = 1.</string>
+    <string name="settings_depeg_threshold">Kufiri i humbjes së lidhjes</string>
+    <string name="settings_fng_above">Fear &amp; Greed: njofto mbi</string>
+    <string name="settings_fng_below">Fear &amp; Greed: njofto nën</string>
+    <string name="settings_gas_alert_hint">Njofton një herë kur tarifa normale bie nën kufi. Kontrollohet gjatë përditësimit të çmimeve, më së shumti çdo 10 minuta.</string>
+    <string name="settings_gas_btc_below">Tarifa Bitcoin nën (sat/vB)</string>
+    <string name="settings_gas_eth_below">Gas Ethereum nën (gwei)</string>
+    <string name="settings_ind_ath_within">Rënia nga maksimumi i të gjitha kohërave jo më shumë se</string>
+    <string name="settings_ind_mayer_above">Mayer Multiple mbi</string>
+    <string name="settings_ind_mayer_below">Mayer Multiple nën</string>
+    <string name="settings_ind_mvrv_above">MVRV mbi</string>
+    <string name="settings_ind_mvrv_below">MVRV nën</string>
+    <string name="settings_indicator_alerts_hint">Treguesit e Bitcoin, kontrollohen dy herë në ditë. Kufijtë i zgjedh ti – aplikacioni nuk i vlerëson vlerat.</string>
+    <string name="settings_macro_notifications">Kalendari ekonomik</string>
+    <string name="settings_macro_notifications_hint">Në 08:00 në ditët me të dhëna të rëndësishme ekonomike të SHBA-së (inflacioni, punësimi, vendimi i Fed-it). Kalendari vjen nga faqja e internetit e aplikacionit dhe ngarkohet një herë në ditë.</string>
+    <string name="settings_market_alerts">Njoftime tregu</string>
+    <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
+    <plurals name="settings_market_alerts_active">
+        <item quantity="one">%1$d aktiv</item>
+        <item quantity="other">%1$d aktive</item>
+    </plurals>
+
+    <!-- Einstellungen › Sprachausgabe -->
+    <string name="settings_speech_rate">Shpejtësia e të folurit: %1$.1f×</string>
+    <string name="settings_tts">Dalja zanore</string>
+    <string name="settings_tts_alarms_only">Vetëm alarmet</string>
+    <string name="settings_tts_alarms_only_hint">Joaktiv: çdo përditësim i një çifti të shënuar me «Lexo çmimin» lexohet me zë.</string>
+    <!-- Sprachausgabe schweigt im Lautlos-/Vibrationsmodus -->
+    <string name="settings_tts_hint_silent">Lexon me zë çmimet dhe alarmet. Hesht sa kohë që pajisja është në modalitetin e heshtur ose me dridhje.</string>
+    <string name="settings_tts_test">Testo zërin</string>
+
+    <!-- Einstellungen › Daten: App zurücksetzen -->
+    <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
+    <string name="settings_reset_app">Rivendos aplikacionin</string>
+    <string name="settings_reset_app_action">Fshi gjithçka</string>
+    <string name="settings_reset_app_confirm">Fshin listën, alarmet, portofolin, cilësimet dhe të gjitha të dhënat e ruajtura, si pas instalimit. Nuk mund të zhbëhet. Këshillë: bëj fillimisht një kopje rezervë.</string>
+    <string name="settings_reset_app_title">Të rivendoset aplikacioni?</string>
+
+    <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
+    <!-- Suchfeld der Währungsseite -->
+    <string name="currency_search">Kërko monedhën</string>
+    <string name="language_search">Kërko gjuhën</string>
+
+    <!-- Theme -->
+    <string name="theme_dark">E errët</string>
+    <string name="theme_light">E çelët</string>
+    <string name="theme_system">Sistemi</string>
+
+    <!-- Akzentfarben -->
+    <string name="accent_blue">Blu</string>
+    <string name="accent_green">E gjelbër</string>
+    <!-- Eigenname, in allen Sprachen gleich -->
+    <string name="accent_marrs_green">Marrs Green</string>
+    <string name="accent_orange">Portokalli</string>
+    <string name="accent_red">E kuqe</string>
+
+    <!-- Kursfarben -->
+    <string name="price_colors_red_up_hint">E zakonshme në Kinë, Japoni, Kore dhe Tajvan</string>
+    <string name="price_colors_swap">Ndërro ngjyrat (rritje ↔ rënie)</string>
+    <string name="price_style_calm">I qetë</string>
+    <string name="price_style_calm_color_vision">I qetë · Mangësi në shikimin e ngjyrave</string>
+    <string name="price_style_color_vision">Mangësi në shikimin e ngjyrave</string>
+    <string name="price_style_fresh">I freskët</string>
+    <string name="price_style_traditional">Tradicional</string>
+
+    <!-- Über die App -->
+    <string name="about_exchanges_verified">Lidhjet me bursat u kontrolluan së fundi me përgjigje reale: %1$s</string>
+    <string name="about_license">Çmimet vijnë drejtpërdrejt nga bursat; pa llogari dhe pa gjurmim.</string>
+    <!-- Texte der Lizenzen liegen in assets/licenses -->
+    <string name="about_licenses">Licencat</string>
+    <string name="about_privacy_policy">Politika e privatësisë</string>
+    <!-- GitHub-Vorlage exchange_request.md -->
+    <string name="about_request_exchange">Kërko një bursë</string>
+    <string name="about_source_code">Kodi burimor në GitHub</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_why">Crypto Checker është një projekt i pavarur nga r1AD: një pasqyrë e qetë e çmimeve pa llogari, reklama ose gjurmim. Pyetje dhe dëshira: %1$s</string>
+
+    <!-- Lizenzhinweise -->
+    <string name="licenses_app_intro">Crypto Checker është me kod të hapur (licenca MIT).</string>
+    <string name="licenses_font_title">Shkronja Rubik</string>
+    <string name="licenses_icons_bundled_text">Të përfshira në aplikacion: ikona nga «Cryptocurrency Icons» nga Christopher Downer dhe kontribuuesit (github.com/spothq/cryptocurrency-icons), të publikuara nën CC0 1.0 Universal. Shfaqen derisa të ngarkohen logot e CoinGecko ose Binance. Emrat dhe logot mbeten marka të projekteve të tyre.</string>
+    <string name="licenses_icons_title">Ikona rezervë të monedhave</string>
+    <string name="licenses_libraries_intro">Aplikacioni i përdor këto biblioteka nën licencën Apache 2.0:</string>
+    <string name="licenses_libraries_title">Bibliotekat e Android</string>
+
+    <!-- Entwickleroptionen -->
+    <!-- Countdown der letzten Tipps auf die Version bis zu den Entwickleroptionen -->
+    <plurals name="developer_taps_left">
+        <item quantity="one">Edhe %d prekje për të zhbllokuar opsionet e zhvilluesit</item>
+        <item quantity="other">Edhe %d prekje për të zhbllokuar opsionet e zhvilluesit</item>
+    </plurals>
+    <string name="developer_unlocked">Opsionet e zhvilluesit u zhbllokuan</string>
+
+    <!-- Nur iOS: Einstellungen -->
+    <!-- Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">Dridhja ndjek cilësimet e iPhone (Tingujt dhe prekja).</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Numëron alarmet dhe njoftimet e reja të tregut; kthehet në 0 kur hap aplikacionin.</string>
+</resources>

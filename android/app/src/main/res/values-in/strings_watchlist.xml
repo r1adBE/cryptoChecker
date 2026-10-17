@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: leere Ansicht, Statuszeile, Frische -->
+    <string name="watchlist_all_fresh">Terkini · %1$s</string>
+    <string name="watchlist_empty_title">Belum ada pasangan</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="other">%1$d dari %2$d tanpa harga</item>
+    </plurals>
+    <string name="watchlist_last_run">Proses terakhir %1$s</string>
+    <string name="watchlist_live_a11y">Harga live aktif</string>
+    <string name="watchlist_live_badge">LIVE</string>
+    <string name="watchlist_offline_since">Tidak ada koneksi · per %1$s</string>
+    <string name="watchlist_pull_to_refresh">Tarik ke bawah untuk memperbarui</string>
+    <string name="watchlist_refresh_report">Pembaruan terakhir</string>
+    <string name="watchlist_refresh_report_empty">Belum ada rincian: belum ada pembaruan penuh. Ketuk muat ulang dan tunggu hingga ikon putar berhenti.</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="other">%1$d dari %2$d usang</item>
+    </plurals>
+    <string name="watchlist_status_all_disabled">Semua pasangan di sini nonaktif</string>
+    <string name="watchlist_status_exchange_prices">Harga dari bursamu · %1$s</string>
+    <string name="watchlist_status_exchange_prices_short">Harga bursa · %1$s</string>
+    <string name="watchlist_status_group_empty">Tidak ada pasangan di grup ini</string>
+    <string name="watchlist_status_none_traded">Tidak ada pasangan yang diperdagangkan</string>
+    <string name="watchlist_updated">Diperbarui: %1$s</string>
+
+    <!-- Merkliste: Puls-Zeile (Paare im Plus/Minus, ohne 24-h-Wert) -->
+    <string name="watchlist_pulse_avg">Ø %1$s</string>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="other">%1$d turun</item>
+    </plurals>
+    <!-- Paare mit Kurs, aber ohne 24-h-Wert («· 510 ohne 24h-Wert») -->
+    <plurals name="watchlist_pulse_missing">
+        <item quantity="other">%1$d tanpa nilai 24j</item>
+    </plurals>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="other">%1$d tanpa nilai hari ini</item>
+    </plurals>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="other">%1$d naik</item>
+    </plurals>
+
+    <!-- Merkliste: Zeile eines Paars -->
+    <string name="watchlist_row_disabled">%1$s · nonaktif</string>
+    <string name="watchlist_row_outdated">%1$s · usang</string>
+    <string name="watchlist_row_outdated_age">usang · %1$s</string>
+    <string name="watchlist_row_price_unchanged_since">Harga tidak berubah sejak %1$s</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s tidak dapat dijangkau</string>
+
+    <!-- Merkliste: Suche, Sprungknopf, Sortieren nach Spalte -->
+    <string name="watchlist_jump_end">Ke akhir</string>
+    <string name="watchlist_jump_start">Ke awal</string>
+    <string name="watchlist_search_close">Tutup pencarian</string>
+    <string name="watchlist_search_empty">Tidak ada hasil untuk “%1$s”</string>
+    <string name="watchlist_search_hint">Cari pasangan, nama, atau bursa</string>
+    <string name="watchlist_search_open">Cari</string>
+    <string name="watchlist_sort_ascending">menaik</string>
+    <string name="watchlist_sort_descending">menurun</string>
+    <string name="watchlist_sort_hint">Tahan dan seret pasangan, atau gunakan pegangan. Favorit tetap di atas.</string>
+    <string name="watchlist_sort_name">Nama</string>
+    <string name="watchlist_sort_own">Urutan sendiri</string>
+    <string name="watchlist_sort_price">Harga</string>
+
+    <!-- Merkliste: Mehrfachauswahl, Ansichten, Entfernen -->
+    <string name="watchlist_clear">Kosongkan daftar pantau</string>
+    <string name="watchlist_clear_confirm">Hapus semua pasangan dari daftar pantau? Alarmnya juga akan ikut terhapus.</string>
+    <plurals name="watchlist_disabled_count">
+        <item quantity="other">%1$d nonaktif</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_action">Hapus</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="other">Hapus %1$d pasangan yang tidak lagi diperdagangkan di bursanya? Alarmnya juga akan ikut terhapus.</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_menu">Hapus pasangan yang tidak diperdagangkan (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">Hapus pasangan yang tidak diperdagangkan</string>
+    <string name="watchlist_removed">%1$s dihapus</string>
+    <plurals name="watchlist_removed_count">
+        <item quantity="other">%1$d pasangan dihapus</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="other">%1$d pasangan yang tidak diperdagangkan dihapus</item>
+    </plurals>
+    <string name="watchlist_select">Pilih</string>
+    <string name="watchlist_select_all">Pilih semua</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="other">%1$d dipilih</item>
+    </plurals>
+    <string name="watchlist_show_all">Tampilkan semua</string>
+    <string name="watchlist_show_only_disabled">Tampilkan yang nonaktif saja</string>
+    <string name="watchlist_show_only_stale">Tampilkan yang usang saja</string>
+
+    <!-- Merkliste: weitere Texte (Gruppen, Alarme, Mitteilung, Sprachausgabe) -->
+    <plurals name="watchlist_alarms_count">
+        <item quantity="other">Alarm (%1$d)</item>
+    </plurals>
+    <string name="watchlist_favorites_empty_hint">Belum ada favorit. Geser pasangan ke kanan atau ketuk “Favorit” di halaman pasangan.</string>
+    <string name="watchlist_group_empty_hint">Tekan lama grup untuk memilih pasangannya.</string>
+    <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
+    <string name="watchlist_groups_empty_hint">Grup Anda akan muncul di sini</string>
+    <string name="watchlist_notification">Notifikasi</string>
+    <string name="watchlist_tts">Ucapkan harga</string>
+    <string name="watchlist_tts_speech_on">Suara aktif. Kamu bisa mengubahnya di Pengaturan › Lanjutan › Output suara.</string>
+
+    <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
+    <string name="watch_action_add_widget">Tambah sebagai widget</string>
+    <string name="watch_action_alarm">Alarm</string>
+    <string name="watch_action_favorite">Favorit</string>
+    <string name="watch_action_why">Apa yang ikut bergerak?</string>
+    <string name="watch_action_why_short">Ikut bergerak?</string>
+    <string name="watch_change_mark">Mark</string>
+    <string name="watch_disable">Nonaktifkan</string>
+    <string name="watch_disable_hint">Tanpa permintaan, tanpa notifikasi</string>
+    <string name="watch_disabled">Nonaktif</string>
+    <string name="watch_disabled_banner">%1$s dinonaktifkan</string>
+    <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
+    <string name="watch_edit_alarms_warning">Alarm tetap ada – periksa ambangnya</string>
+    <!-- Titel des Formulars und Screenreader-Name des Stifts neben dem Paar -->
+    <string name="watch_edit_title">Edit pasangan</string>
+    <string name="watch_enable">Aktifkan</string>
+    <string name="watch_enable_hint">Harga dan notifikasi aktif lagi</string>
+    <string name="watch_enabled_banner">%1$s diaktifkan</string>
+    <string name="watch_error_offline">Tidak ada koneksi</string>
+    <string name="watch_gesture_hint_short">Ketuk: alarm dan “Apa yang ikut bergerak?” · tekan lama untuk memilih · geser ke kiri untuk hapus · ke kanan untuk favorit</string>
+    <string name="watch_hint_tap_why">Ketuk koin untuk melihat apa yang ikut bergerak bersamanya</string>
+    <string name="watch_not_traded">Tidak lagi diperdagangkan di bursa ini</string>
+    <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
+    <string name="watch_preview_not_watched">Tidak ada di daftar pantau</string>
+    <string name="watch_price_mid">harga tengah (jika tidak, mark)</string>
+    <string name="watch_row_source_both">Perubahan &amp; grafik: %1$s</string>
+    <string name="watch_row_source_change">Perubahan: %1$s</string>
+    <string name="watch_row_source_chart">Grafik: %1$s</string>
+
+    <!-- Meldung nach dem Hinzufügen (ein Paar / mehrere Paare) -->
+    <string name="pair_added_watching">%1$s kini ada di daftar pantau</string>
+    <!-- Ein Paar: pair_added_watching -->
+    <string name="pairs_added_watching">%1$s kini ada di daftar pantau</string>
+
+    <!-- Favoriten -->
+    <string name="favorite_add">Tambahkan ke favorit</string>
+    <string name="favorite_added">%1$s ditambahkan ke favorit</string>
+    <string name="favorite_remove">Hapus dari favorit</string>
+    <string name="favorite_removed">%1$s dihapus dari favorit</string>
+    <string name="hint_favorites_list">Tips: geser baris ke kanan untuk menjadikannya favorit – favorit tetap di atas.</string>
+
+    <!-- Gruppen und Chips der Merkliste -->
+    <string name="group_add">Grup baru</string>
+    <string name="group_all">Semua</string>
+    <!-- Alpha-Tokens: Chip «α», Art vor der Glocke, «inkl. Alpha-Tokens» -->
+    <string name="group_alpha">Token Alpha</string>
+    <string name="group_delete">Hapus grup</string>
+    <string name="group_delete_confirm">Pasangan tetap ada di daftar pantau Anda.</string>
+    <string name="group_done">Selesai</string>
+    <string name="group_edit_title">Edit grup</string>
+    <!-- Chip «FAV» (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird vorgelesen) -->
+    <string name="group_favorites">Favorit</string>
+    <string name="group_in_other">di %1$s</string>
+    <string name="group_name">Nama grup</string>
+    <string name="group_new">Grup baru…</string>
+    <string name="group_next">Berikutnya</string>
+    <string name="group_none">Tanpa grup</string>
+    <string name="group_rename">Ganti nama</string>
+    <string name="group_search_hint">Cari pasangan, nama, atau bursa</string>
+    <string name="group_target">Dalam grup</string>
+    <string name="group_title">Grup</string>
+    <!-- Gruppen-Chip «Token» (alle Paare ausser der Gruppe «TradFi»), Screenreader und Widget-Einrichtung -->
+    <string name="group_tokens">Token</string>
+    <string name="group_value">Grup: %1$s</string>
+
+    <!-- Notiz zum Paar -->
+    <string name="note_add">Tambah catatan</string>
+    <string name="note_edit">Edit catatan</string>
+    <string name="note_hint">mis. masuk di 0,42; target 0,60</string>
+    <string name="note_remove">Hapus</string>
+    <string name="note_title">Catatan</string>
+
+    <!-- Reihenfolge ändern (Sortiermodus, Screenreader-Aktionen) -->
+    <string name="sort_drag_handle">Seret untuk memindahkan</string>
+    <string name="sort_move_bottom">Ke paling bawah</string>
+    <string name="sort_move_down">Turun</string>
+    <string name="sort_move_top">Ke paling atas</string>
+    <string name="sort_move_up">Naik</string>
+</resources>

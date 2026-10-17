@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Wie aktuell? (Sparsam / Live) -->
+    <string name="update_mode_for_pros">tốn nhiều dữ liệu và pin hơn</string>
+    <string name="update_mode_live">Trực tiếp khi đang mở</string>
+    <string name="update_mode_live_hint">Nếu sàn cung cấp giá trực tiếp: tức thì khi danh sách đang mở. Nếu không, ở lần tải tiếp theo. Đóng: không thường xuyên hơn mỗi %1$s, thường muộn hơn.</string>
+    <string name="update_mode_live_hint_ios">Nếu sàn cung cấp giá trực tiếp: tức thì khi danh sách đang mở. Nếu không, ở lần tải tiếp theo. Đóng: khi iOS cho phép, đôi khi cách nhau hàng giờ. Nếu bạn vuốt tắt ứng dụng, iOS sẽ dừng các lần kiểm tra này cho đến khi bạn mở lại.</string>
+    <string name="update_mode_recommended">khuyên dùng</string>
+    <string name="update_mode_sparsam">Tiết kiệm</string>
+    <string name="update_mode_sparsam_hint">Khi đóng ứng dụng, không thường xuyên hơn mỗi %1$s, thường muộn hơn (cảnh báo, widget). Khi mở: mỗi lần mở.</string>
+    <string name="update_mode_sparsam_hint_ios">Khi ứng dụng đóng, iOS quyết định lúc kiểm tra (cảnh báo, tiện ích), đôi khi cách nhau hàng giờ. Mở: mỗi lần bạn mở.</string>
+    <string name="update_mode_title">Cập nhật đến mức nào?</string>
+
+    <!-- Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <string name="refresh_sheet_aborted">Đã hủy làm mới</string>
+    <string name="refresh_sheet_alarms">Cảnh báo</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="other">%1$d đã kích hoạt</item>
+    </plurals>
+    <!-- Grosse Statuszeile oben im Blatt -->
+    <string name="refresh_sheet_all_updated">Đã cập nhật tất cả</string>
+    <string name="refresh_sheet_app_start">Khởi động ứng dụng</string>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="other">yêu cầu gộp %1$s · %2$d giá</item>
+    </plurals>
+    <string name="refresh_sheet_database">Cơ sở dữ liệu</string>
+    <string name="refresh_sheet_market_unreachable">Không kết nối được %1$s</string>
+    <plurals name="refresh_sheet_markets_unreachable">
+        <item quantity="other">Không kết nối được %1$d sàn</item>
+    </plurals>
+    <string name="refresh_sheet_network">Mạng</string>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="other">%1$d thông báo</item>
+    </plurals>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="other">%1$d cặp</item>
+    </plurals>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="other">%1$d cặp chưa cập nhật</item>
+    </plurals>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="other">%2$d/%1$d cặp</item>
+    </plurals>
+    <string name="refresh_sheet_paused_until">tạm dừng đến %1$s</string>
+    <string name="refresh_sheet_paused_until_reason">tạm dừng đến %1$s (%2$s)</string>
+    <string name="refresh_sheet_reason_no_data">không có dữ liệu</string>
+    <string name="refresh_sheet_reason_offline">không có kết nối</string>
+    <string name="refresh_sheet_reason_rate_limit">quá nhiều yêu cầu</string>
+    <string name="refresh_sheet_reason_server">lỗi máy chủ</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">hết thời gian chờ</string>
+    <string name="refresh_sheet_reason_unavailable">sàn không khả dụng</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s giây</string>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_markets">Sàn</string>
+    <string name="refresh_sheet_section_steps">Chi tiết</string>
+    <string name="refresh_sheet_status_failed">chưa cập nhật</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">đã cập nhật tất cả</string>
+    <string name="refresh_sheet_status_partial">cập nhật một phần</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">Chờ đến khi bắt đầu</string>
+    <string name="refresh_sheet_widgets">Tiện ích</string>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+
+    <!-- Kurzbericht der Aktualisierung je Börse -->
+    <string name="refresh_report_bulk_failed">yêu cầu gộp %1$s (thất bại)</string>
+    <plurals name="refresh_report_errors">
+        <item quantity="other">%1$d lỗi</item>
+    </plurals>
+    <string name="refresh_report_live">Live: %1$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="other">%1$d không còn giao dịch</item>
+    </plurals>
+    <string name="refresh_report_singles">%1$d riêng lẻ</string>
+
+    <!-- Prüfprotokoll der Hintergrundprüfungen (Ergebnis, Auslöser) -->
+    <string name="check_result_failed">Thất bại</string>
+    <string name="check_result_ok">OK</string>
+    <string name="check_result_partial">Một phần</string>
+    <string name="check_result_skipped">Bỏ qua</string>
+    <string name="check_trigger_bgtask">Nền</string>
+    <string name="check_trigger_exact">Đúng giờ</string>
+    <string name="check_trigger_foreground">Ứng dụng</string>
+    <string name="check_trigger_widget">Tiện ích</string>
+    <string name="check_trigger_widget_ios">Tiện ích · giá và cảnh báo giá</string>
+    <string name="check_trigger_worker">Nền</string>
+
+    <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
+    <string name="battery_delay_hint">Android có thể trì hoãn việc kiểm tra – đặt pin thành «Không hạn chế»</string>
+    <string name="battery_later">Để sau</string>
+    <string name="battery_message">Android trì hoãn tác vụ nền để tiết kiệm pin — khi đó giá và tiện ích có thể cũ đến vài giờ. Đặt mức sử dụng pin thành không hạn chế giúp chúng luôn cập nhật. Bạn có thể thay đổi bất cứ lúc nào trong cài đặt Android.</string>
+    <string name="battery_open_settings">Mở cài đặt pin</string>
+    <string name="battery_steps">Trong thông tin ứng dụng, nhấn Pin (hoặc Mức sử dụng pin của ứng dụng) và chọn Không hạn chế.</string>
+    <string name="battery_title">Giữ giá luôn cập nhật</string>
+    <string name="ios_background_refresh_off">Làm mới ứng dụng trong nền đang tắt cho ứng dụng này. Khi tắt, cảnh báo chỉ được kiểm tra lúc ứng dụng mở.</string>
+    <string name="ios_low_power_mode">Chế độ nguồn điện thấp đang bật. iOS hiếm khi kiểm tra trong nền nên cảnh báo có thể đến muộn.</string>
+</resources>

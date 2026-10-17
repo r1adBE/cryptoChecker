@@ -1,0 +1,271 @@
+package com.cryptochecker.app.domain.portfolio.csvimport
+
+import java.math.BigDecimal
+import java.math.RoundingMode
+
+/**
+ * Kraken «Ledgers»-Export (History › Export › Ledgers) → [CsvImportRow]. Gespiegelt in `CsvImportKraken.swift`.
+ *
+ * Spalten: txid, refid, time (UTC), type, subtype, aclass, asset, (wallet,) amount, fee, balance. Jede Zeile ist eine
+ * Buchung auf einem Konto; [amount] ist brutto, [fee] wird zusätzlich im selben Asset abgezogen.
+ *  - type «trade», «spend», «receive»: zwei Zeilen mit gleicher refid (eine negativ, eine positiv) = ein Geschäft.
+ *    Krypto (auch Stablecoin) gegen Fiat ([CsvImport.FIAT]) → Kauf bzw. Verkauf (Preis = Fiat-Betrag / Menge, ohne
+ *    Gebühr); Krypto gegen Krypto → Tausch, auch gegen Stablecoins ([CsvImport.STABLES]: BTC → USDT, USDT → ETH,
+ *    USDC → USDT; Wert nur mit USDT-Seite = USDT-Menge, [CsvImport.stableSwapValue], sonst unbekannt). Gebühren beider
+ *    Seiten wie [CsvImport.swapFee]; zwei Gebühren in verschiedenen Einheiten → beide Zeilen übersprungen
+ *    ([CsvImportSkipReason.TWO_FEES]). Fiat gegen Fiat → [CsvImportSkipReason.NOT_CRYPTO].
+ *  - type «deposit» / «withdrawal» (Krypto, auch Stablecoins) → Einzahlung / Auszahlung; Fiat-Ein- und -Auszahlungen →
+ *    [CsvImportSkipReason.NOT_CRYPTO].
+ *  - type «staking», oder «earn» mit subtype «reward» → Belohnung.
+ *  - Umbuchungen zwischen Kraken-Konten (type «transfer», «earn» mit «allocation»/«deallocation»/«migration»,
+ *    Staking-Gegenbuchungen) bleiben im selben Bestand → übersprungen ([CsvImportSkipReason.UNSUPPORTED_KIND]),
+ *    ebenso Margin, Rollover, Anpassungen. Ebenso Spot ↔ Staking als Ein-/Auszahlung (Asset mit Staking-Variante, z. B.
+ *    «withdrawal DOT» + «deposit DOT.S»: die Variante und ihr Gegenstück — Gegenrichtung, gleiches Basis-Asset, gleiche
+ *    Menge, gleiche refid oder höchstens 1 h auseinander) und Paare spend/receive/trade mit gleichem Basis-Asset
+ *    (ETH → ETH2.S) — sonst entstünde Bestand doppelt bzw. ginge ein Posten mit Kaufpreis ab.
+ *  - Doppelte Ledger-Zeilen (gleiche txid; Kraken-Exporte wiederholen Ein-/Auszahlungen) zählen einmal, die Wiederholung
+ *    fällt still weg.
+ * Kraken-Kürzel werden vereinheitlicht ([asset]): «XXBT»/«XBT» → BTC, «ZEUR» → EUR, «XXDG» → DOGE, Staking-
+ * Varianten «ETH2.S», «DOT.S», «USDC.M», «BTC.F» → Basis. Formate nur aus der Kraken-Dokumentation bekannt.
+ */
+internal object CsvImportKraken {
+
+    /** Alte Kraken-Kürzel mit X-/Z-Vorsatz → Kürzel. */
+    private val LEGACY = mapOf(
+        "XXBT" to "BTC", "XBT" to "BTC", "XBT.M" to "BTC", "XETH" to "ETH", "XLTC" to "LTC", "XXRP" to "XRP",
+        "XXLM" to "XLM", "XETC" to "ETC", "XZEC" to "ZEC", "XXMR" to "XMR", "XREP" to "REP", "XMLN" to "MLN",
+        "XXDG" to "DOGE", "XDG" to "DOGE", "XICN" to "ICN", "XNMC" to "NMC", "XXVN" to "XVN",
+        "ZEUR" to "EUR", "ZUSD" to "USD", "ZGBP" to "GBP", "ZCAD" to "CAD", "ZJPY" to "JPY", "ZAUD" to "AUD",
+        "ZCHF" to "CHF", "ETH2" to "ETH",
+    )
+
+    /** Staking-/Earn-Varianten: «.S» (Staking), «.M» (Opt-in Rewards), «.B», «.F» (Flex), «.P», «.T». */
+    private val SUFFIX = Regex("\\.[A-Z]$")
+
+    /** Kraken-Kürzel → einheitliches Kürzel (gross). */
+    fun asset(raw: String): String {
+        val t = raw.trim().uppercase()
+        LEGACY[t]?.let { return it }
+        val base = t.replace(SUFFIX, "")
+        return LEGACY[base] ?: base
+    }
+
+    private class Leg(
+        val line: Int,
+        val refid: String,
+        val type: String,
+        val subtype: String,
+        val asset: String,
+        val signed: BigDecimal,
+        val fee: BigDecimal?,
+        val time: Long,
+        /** Asset ist eine Staking-/Earn-Variante («ETH2.S», «DOT.S», «ETH2»). */
+        val staked: Boolean = false,
+    )
+
+    /** Staking-/Earn-Variante eines Kraken-Kürzels (vor dem Vereinheitlichen). */
+    private fun isStakedAsset(raw: String): Boolean {
+        val t = raw.trim().uppercase()
+        return t == "ETH2" || SUFFIX.containsMatchIn(t)
+    }
+
+    /** Höchster Abstand zwischen Spot- und Staking-Buchung derselben Umbuchung ohne gemeinsame refid. */
+    private const val STAKING_PAIR_MILLIS = 3_600_000L
+
+    /**
+     * Ein-/Auszahlungen zwischen Spot und Staking (Indizes in [legs]): jede Zeile mit Staking-Variante und ihr
+     * Gegenstück (Gegenrichtung, gleiches Basis-Asset, gleiche Menge, gleiche refid oder ≤ 1 h).
+     */
+    private fun stakingMoves(legs: List<Leg>): Set<Int> {
+        val out = HashSet<Int>()
+        fun move(l: Leg) = l.type == "deposit" || l.type == "withdrawal"
+        legs.forEachIndexed { i, l ->
+            if (!move(l) || !l.staked) return@forEachIndexed
+            out += i
+            val j = legs.indices.firstOrNull { k ->
+                val c = legs[k]
+                k !in out && move(c) && !c.staked && c.type != l.type && c.asset == l.asset &&
+                    c.signed.abs().compareTo(l.signed.abs()) == 0 &&
+                    ((l.refid.isNotEmpty() && c.refid == l.refid) || kotlin.math.abs(c.time - l.time) <= STAKING_PAIR_MILLIS)
+            }
+            if (j != null) out += j
+        }
+        return out
+    }
+
+    fun build(names: List<String>, data: List<CsvImportParser.Record>, zone: String): CsvImportResult {
+        fun col(n: String) = names.indexOf(n).takeIf { it >= 0 }
+        val iTx = col("txid")
+        val iRef = col("refid")
+        val iTime = col("time")
+        val iType = col("type")
+        val iSub = col("subtype")
+        val iAsset = col("asset")
+        val iAmount = col("amount")
+        val iFee = col("fee")
+        val skipped = ArrayList<CsvImportSkip>()
+        val legs = ArrayList<Leg>()
+        val hint: Char? = '.'
+        val seen = HashSet<String>()
+        for (rec in data) {
+            fun cell(i: Int?) = i?.let { rec.cells.getOrNull(it) }.orEmpty()
+            // Wiederholte Ledger-Zeile (gleiche txid): nur einmal
+            val txid = cell(iTx).trim()
+            if (txid.isNotEmpty() && !seen.add(txid)) continue
+            val type = CsvImportParser.normalize(cell(iType))
+            val sub = CsvImportParser.normalize(cell(iSub))
+            val asset = asset(cell(iAsset))
+            val amount = CsvImportParser.parseNumber(cell(iAmount), hint)
+            val feeText = cell(iFee)
+            val fee = if (feeText.isEmpty()) BigDecimal.ZERO else CsvImportParser.parseNumber(feeText, hint)
+            val time = CsvImportParser.parseTime(cell(iTime), zone)
+            when {
+                asset.isEmpty() || type.isEmpty() -> skipped += CsvImportSkip(rec.line, CsvImportSkipReason.MISSING_FIELD)
+                amount == null || fee == null -> skipped += CsvImportSkip(rec.line, CsvImportSkipReason.BAD_NUMBER)
+                time == null -> skipped += CsvImportSkip(rec.line, CsvImportSkipReason.BAD_DATE)
+                else -> legs += Leg(
+                    rec.line, cell(iRef), type, sub, asset, amount, fee.abs().takeIf { it.signum() > 0 }, time,
+                    staked = isStakedAsset(cell(iAsset)),
+                )
+            }
+        }
+
+        val rows = ArrayList<CsvImportRow>()
+        val trades = LinkedHashMap<String, MutableList<Leg>>()
+        val internal = stakingMoves(legs)
+        for ((i, leg) in legs.withIndex()) {
+            if (i in internal) {
+                // Spot ↔ Staking: bleibt im selben Bestand
+                skipped += CsvImportSkip(leg.line, CsvImportSkipReason.UNSUPPORTED_KIND)
+                continue
+            }
+            when (leg.type) {
+                "trade", "spend", "receive" -> {
+                    // Ohne refid kein Paar: einzeln überspringen
+                    if (leg.refid.isEmpty()) skipped += CsvImportSkip(leg.line, CsvImportSkipReason.MISSING_FIELD)
+                    else trades.getOrPut(leg.refid) { ArrayList() } += leg
+                }
+                "deposit", "withdrawal" -> single(leg, rows, skipped)
+                "staking" -> reward(leg, rows, skipped)
+                "earn" -> if (leg.subtype == "reward") reward(leg, rows, skipped)
+                    else skipped += CsvImportSkip(leg.line, CsvImportSkipReason.UNSUPPORTED_KIND)
+                else -> skipped += CsvImportSkip(leg.line, CsvImportSkipReason.UNSUPPORTED_KIND)
+            }
+        }
+        for ((refid, group) in trades) trade(refid, group, rows, skipped)
+        // Kraken schreibt UTC ohne Versatz: die Zeitzone zählt (Vorschau zeigt UTC, wählbar)
+        return CsvImport.finish(CsvImportFormat.KRAKEN, rows, skipped, zone, localTimes = true)
+    }
+
+    /** Fiat (Stablecoins zählen als Krypto, bis Build 46 galt USDT als Geld). */
+    private fun isMoney(asset: String) = asset in CsvImport.FIAT
+
+    private fun rawKind(leg: Leg) = if (leg.subtype.isEmpty()) leg.type else leg.type + " " + leg.subtype
+
+    private fun single(leg: Leg, rows: MutableList<CsvImportRow>, skipped: MutableList<CsvImportSkip>) {
+        if (isMoney(leg.asset)) { skipped += CsvImportSkip(leg.line, CsvImportSkipReason.NOT_CRYPTO); return }
+        val amount = leg.signed.abs()
+        if (amount.signum() == 0) { skipped += CsvImportSkip(leg.line, CsvImportSkipReason.BAD_NUMBER); return }
+        val kind = if (leg.type == "deposit") CsvImportKind.DEPOSIT else CsvImportKind.WITHDRAWAL
+        rows += row(leg.line, kind, rawKind(leg), leg.asset, amount, null, null, leg.fee, leg.fee?.let { leg.asset }, leg.time, leg.refid)
+    }
+
+    private fun reward(leg: Leg, rows: MutableList<CsvImportRow>, skipped: MutableList<CsvImportSkip>) {
+        // Nur Zugänge sind Belohnungen; negative Staking-Zeilen sind Gegenbuchungen (Umbuchung ins Staking)
+        if (leg.signed.signum() <= 0 || isMoney(leg.asset)) {
+            skipped += CsvImportSkip(leg.line, CsvImportSkipReason.UNSUPPORTED_KIND)
+            return
+        }
+        rows += row(leg.line, CsvImportKind.REWARD, rawKind(leg), leg.asset, leg.signed, null, null, leg.fee, leg.fee?.let { leg.asset }, leg.time, leg.refid)
+    }
+
+    private fun trade(refid: String, group: List<Leg>, rows: MutableList<CsvImportRow>, skipped: MutableList<CsvImportSkip>) {
+        val given = group.filter { it.signed.signum() < 0 }
+        val received = group.filter { it.signed.signum() > 0 }
+        if (given.size != 1 || received.size != 1) {
+            group.forEach { skipped += CsvImportSkip(it.line, CsvImportSkipReason.MISSING_FIELD) }
+            return
+        }
+        if (given[0].asset == received[0].asset) {
+            // Gleiches Basis-Asset (ETH → ETH2.S): Umbuchung ins/aus dem Staking, kein Geschäft
+            group.forEach { skipped += CsvImportSkip(it.line, CsvImportSkipReason.UNSUPPORTED_KIND) }
+            return
+        }
+        val out = given[0]
+        val inn = received[0]
+        val fees = CsvImport.swapFee(out.fee, out.fee?.let { out.asset }, inn.fee, inn.fee?.let { inn.asset })
+        if (fees == null) {
+            group.forEach { skipped += CsvImportSkip(it.line, CsvImportSkipReason.TWO_FEES) }
+            return
+        }
+        val line = minOf(out.line, inn.line)
+        val outAmount = out.signed.abs()
+        val inAmount = inn.signed
+        when {
+            isMoney(out.asset) && isMoney(inn.asset) ->
+                group.forEach { skipped += CsvImportSkip(it.line, CsvImportSkipReason.NOT_CRYPTO) }
+            isMoney(out.asset) -> {
+                // Kauf: Geld weg, Coin rein
+                val price = outAmount.divide(inAmount, CsvImport.DERIVED_SCALE, RoundingMode.HALF_EVEN).stripTrailingZeros()
+                rows += row(line, CsvImportKind.BUY, rawKind(inn), inn.asset, inAmount, price, out.asset, fees.first, fees.second, inn.time, refid)
+            }
+            isMoney(inn.asset) -> {
+                // Verkauf: Coin weg, Geld rein
+                val price = inAmount.divide(outAmount, CsvImport.DERIVED_SCALE, RoundingMode.HALF_EVEN).stripTrailingZeros()
+                rows += row(line, CsvImportKind.SELL, rawKind(out), out.asset, outAmount, price, inn.asset, fees.first, fees.second, out.time, refid)
+            }
+            else -> {
+                // Tausch; mit Stablecoin-Seite Hinweis in der Vorschau, mit USDT-Seite Wert in USDT
+                val (value, valueQuote) = CsvImport.stableSwapValue(out.asset, outAmount, inn.asset, inAmount)
+                rows += CsvImportRow(
+                    line = line,
+                    kind = CsvImportKind.SWAP,
+                    rawKind = rawKind(out),
+                    coin = out.asset,
+                    amount = outAmount,
+                    price = null,
+                    quote = valueQuote,
+                    fee = fees.first,
+                    feeUnit = fees.second,
+                    timeMillis = out.time,
+                    externalId = refid,
+                    key = CsvImport.key(CsvImportFormat.KRAKEN, CsvImportKind.SWAP, out.asset, outAmount, null, out.time, refid),
+                    toCoin = inn.asset,
+                    toAmount = inAmount,
+                    swapValue = value,
+                    stableSwap = CsvImport.isStable(out.asset) || CsvImport.isStable(inn.asset),
+                )
+            }
+        }
+    }
+
+    private fun row(
+        line: Int,
+        kind: CsvImportKind,
+        rawKind: String,
+        coin: String,
+        amount: BigDecimal,
+        price: BigDecimal?,
+        quote: String?,
+        fee: BigDecimal?,
+        feeUnit: String?,
+        time: Long,
+        refid: String,
+    ): CsvImportRow {
+        val id = refid.ifEmpty { null }
+        return CsvImportRow(
+            line = line,
+            kind = kind,
+            rawKind = rawKind,
+            coin = coin,
+            amount = amount,
+            price = price,
+            quote = quote,
+            fee = fee,
+            feeUnit = feeUnit,
+            timeMillis = time,
+            externalId = id,
+            key = CsvImport.key(CsvImportFormat.KRAKEN, kind, coin, amount, price, time, id),
+        )
+    }
+}

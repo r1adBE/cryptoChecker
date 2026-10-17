@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Neutrale Indikatoren: Titel, Hinweise, Halving -->
+    <string name="neutral_alt_title">Altcoinuri față de Bitcoin</string>
+    <string name="neutral_btc_indicators_title">Indicatori Bitcoin</string>
+    <string name="neutral_halving_last">Ultimul halving: %1$s</string>
+    <string name="neutral_halving_next">Următorul halving este așteptat în jur de %1$s (estimat după calendar – înălțimea blocului momentan indisponibilă).</string>
+    <string name="neutral_indicators_disclaimer">Doar valori măsurate, fără evaluare. Nu este o prognoză și nici consultanță de investiții.</string>
+    <string name="neutral_onchain_missing">Datele on-chain (Coin Metrics) nu sunt disponibile momentan.</string>
+
+    <!-- Neutrale Indikatoren: was der Wert misst -->
+    <string name="neutral_explain_ath_distance">Cât de departe este prețul sub maximul istoric anterior.</string>
+    <string name="neutral_explain_change_30d">Prețul de azi față de cel de acum 30 de zile.</string>
+    <string name="neutral_explain_hashrate">Hashrate-ul mediu pe 30 de zile față de media pe 60 de zile.</string>
+    <string name="neutral_explain_ma200w">Media ultimelor 200 de închideri săptămânale.</string>
+    <string name="neutral_explain_mayer">Prețul împărțit la media pe 200 de zile.</string>
+    <string name="neutral_explain_mvrv">Valoarea de piață împărțită la valoarea realizată (on-chain).</string>
+    <string name="neutral_explain_pi_gap">Media pe 111 zile comparată cu dublul mediei pe 350 de zile.</string>
+    <string name="neutral_explain_puell">Veniturile zilnice ale minerilor împărțite la media lor pe 365 de zile.</string>
+    <string name="neutral_explain_rsi_daily">Indicele de forță relativă din ultimele 14 zile, 0–100.</string>
+    <string name="neutral_explain_rsi_weekly">Indicele de forță relativă din ultimele 14 săptămâni, 0–100.</string>
+    <string name="neutral_explain_sma50_200">Media pe 50 de zile față de media pe 200 de zile.</string>
+    <string name="neutral_explain_vs_btc">Variația prețului față de Bitcoin în 90 de zile.</string>
+
+    <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
+    <string name="neutral_info_alt_season_how">Aplicația arată doar numărătoarea și nu o numește „sezon”. Valoarea se schimbă de obicei de la o zi la alta, nu de la oră la oră.</string>
+    <string name="neutral_info_btc_how">Fiecare valoare are o frază despre ce măsoară și unde se află în propriul istoric din 2016. Aplicația nu evaluează valorile și nu deduce o fază a pieței; limitele pentru notificări sunt doar cele pe care le setezi tu. Tiparele trecute nu trebuie să se repete.</string>
+    <string name="neutral_info_btc_what">Indicatori Bitcoin uzuali ca simple valori măsurate: Mayer Multiple, media pe 200 de săptămâni, scăderea de la maximul istoric, variația în 30 de zile, distanța Pi Cycle și valorile on-chain MVRV, Puell Multiple și hashrate.</string>
+    <string name="neutral_info_coin_how">Fiecare valoare are o propoziție despre ce măsoară, fără evaluare. La monedele cu istoric scurt lipsesc unele valori. Datele on-chain nu sunt incluse aici.</string>
+    <string name="neutral_info_coin_what">Aceiași indicatori simpli pentru o monedă la alegere, doar din date de preț: Mayer Multiple, media pe 200 de săptămâni, scăderea de la maxim, variația în 30 de zile, trend 50/200 de zile, RSI și forța față de Bitcoin în 90 de zile.</string>
+    <string name="neutral_info_halving_how">Următorul halving este calculat din înălțimea actuală a blocului și timpul mediu de bloc al perioadei de dificultate în curs (mempool.space); fără aceste date, după calendar (ultimul halving plus circa patru ani). Graficul arată evoluția ciclurilor trecute de la halvingul lor – istorie, nu prognoză.</string>
+
+    <!-- Indikator-Namen -->
+    <string name="ind_cross">Trend 50/200 zile</string>
+    <string name="ind_drawdown">Scădere de la maximul istoric</string>
+    <string name="ind_missing">date insuficiente</string>
+    <string name="ind_rsi_daily">RSI (zilnic)</string>
+    <string name="ind_rsi_weekly">RSI (săptămânal)</string>
+    <string name="ind_vs_btc">Forță față de Bitcoin (90 de zile)</string>
+    <string name="neutral_ind_change_30d">Variație 30 de zile</string>
+    <string name="neutral_ind_hashrate">Hashrate 30/60 de zile</string>
+    <string name="neutral_ind_ma200w">Media pe 200 de săptămâni</string>
+    <string name="neutral_ind_pi_gap">Distanța Pi Cycle</string>
+
+    <!-- Indikatoren: «hoch heisst …, tief heisst …» -->
+    <string name="ind_read_alt_season">Ridicat înseamnă că majoritatea altcoinurilor mari au întrecut Bitcoin în 90 de zile, scăzut că Bitcoin le-a întrecut pe cele mai multe.</string>
+    <string name="ind_read_ath_distance">Mică înseamnă că prețul e aproape de record, mare că e mult sub el.</string>
+    <string name="ind_read_change_30d">Pozitiv înseamnă mai sus decât acum 30 de zile, negativ mai jos.</string>
+    <string name="ind_read_funding">Ridicat înseamnă că mulți pariază cu levier pe creștere, negativ că mulți pariază pe scădere.</string>
+    <string name="ind_read_hashrate_30_60">Pozitiv înseamnă că puterea de calcul crește, negativ că minerii se opresc.</string>
+    <string name="ind_read_leverage">Multe longuri înseamnă că mulți pariază pe creștere cu bani împrumutați, multe shorturi pe scădere.</string>
+    <string name="ind_read_ma200w">Preț mult peste înseamnă o urcare lungă, preț aproape o corecție adâncă.</string>
+    <string name="ind_read_mayer">Ridicat înseamnă că prețul e mult peste media pe 200 de zile, scăzut că e sub ea.</string>
+    <string name="ind_read_mvrv">Ridicat înseamnă că prețul e mult peste cât au plătit în medie deținătorii, scăzut că e aproape sau sub.</string>
+    <string name="ind_read_pi_cycle_gap">Aproape de zero înseamnă că cele două medii aproape se ating, puternic negativ că sunt departe una de alta.</string>
+    <string name="ind_read_puell">Ridicat înseamnă că minerii câștigă mult mai mult decât de obicei, scăzut mult mai puțin.</string>
+    <string name="ind_read_rsi_daily">Peste 70 înseamnă creșteri puternice în ultimele zile, sub 30 scăderi puternice.</string>
+    <string name="ind_read_rsi_weekly">Peste 70 înseamnă creșteri puternice în ultimele săptămâni, sub 30 scăderi puternice.</string>
+    <string name="ind_read_sma50_vs_200">Pozitiv înseamnă că media scurtă e peste cea lungă, negativ sub ea.</string>
+    <string name="ind_read_vs_btc">Pozitiv înseamnă mai bine decât Bitcoin, negativ mai slab.</string>
+
+    <!-- Indikatoren: Einordnung in die Vergangenheit -->
+    <string name="ind_context_flat30">Același preț 30 de zile: %1$s</string>
+    <string name="ind_context_note">Valorile trecute și calculele „același preț” sunt aritmetică, nu o prognoză.</string>
+    <string name="ind_context_percentile">Din %1$s mai jos în %2$s din zile</string>
+</resources>

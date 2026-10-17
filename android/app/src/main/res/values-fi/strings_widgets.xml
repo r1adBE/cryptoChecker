@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
+    <string name="widget_background">Tausta</string>
+    <string name="widget_configure_hint">Valitse tausta ja peittävyys. Väri seuraa sovellusta. Widget näyttää koko listan; avaa sovellus napauttamalla riviä.</string>
+    <string name="widget_configure_title">Määritä widget</string>
+    <string name="widget_description">Näyttää seurantalistasi parin hinnan.</string>
+    <string name="widget_empty">Seurantalistalla ei ole vielä pareja.</string>
+    <string name="widget_group_hint">Näytä vain tämän ryhmän parit.</string>
+    <string name="widget_kind_single">Yksi kolikko</string>
+    <string name="widget_opacity">Taustan peittävyys: %1$d%%</string>
+    <string name="widget_pulse_description">Mikä markkinoilla erottuu juuri nyt: otsikko, lyhyt yhteenveto sekä Bitcoin, Ethereum ja Solana.</string>
+
+    <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->
+    <!-- Allein, wenn für «outdated · 06:42» der Platz fehlt (Kopfzeile Listen-Widget) -->
+    <string name="widget_outdated">vanhentunut</string>
+    <!-- Statt der Uhrzeit: «outdated · 06:42» (heute) bzw. «outdated · 5 Oct, 06:42» -->
+    <string name="widget_outdated_time">vanhentunut · %1$s</string>
+
+    <!-- Widgets: Chart und Zeitraum -->
+    <string name="widget_chart_candles">Kynttilät</string>
+    <string name="widget_chart_line">Viiva</string>
+    <string name="widget_chart_range">Kaavion aikaväli</string>
+    <string name="widget_chart_type">Kaavion tyyppi</string>
+    <!-- «1 Jahr» im Chart des Aktionsblatts (365 Tageskerzen; Chip neben 24h · 7T · 30T) -->
+    <string name="widget_range_1y">1 vuosi</string>
+    <string name="widget_range_24h">24h</string>
+    <string name="widget_range_30d">30 päivää</string>
+    <string name="widget_range_7d">7 päivää</string>
+    <string name="widget_range_short_1y">1 v</string>
+    <string name="widget_range_short_24h">24h</string>
+    <string name="widget_range_short_30d">30 pv</string>
+    <string name="widget_range_short_7d">7 pv</string>
+
+    <!-- Portfolio-Widget -->
+    <!-- Fusszeile, %1$s Uhrzeit ohne Sekunden («Stand 15:19») -->
+    <string name="widget_portfolio_as_of">Tilanne %1$s</string>
+    <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
+    <string name="widget_portfolio_chart_pending">Kehitys tulossa</string>
+    <string name="widget_portfolio_description">Salkkusi kokonaisarvo ja tämän päivän muutos</string>
+    <string name="widget_portfolio_display">Näkymä</string>
+    <string name="widget_portfolio_display_conversion">Vain muunnos</string>
+    <string name="widget_portfolio_display_conversion_usdt">Muunnos + USDT</string>
+    <string name="widget_portfolio_display_hint">USDT-riviä ei näytetä, kun muunnosvaluutta on USD.</string>
+    <string name="widget_portfolio_display_usdt">Vain USDT</string>
+    <string name="widget_portfolio_empty">Lisää ostot Salkku-välilehdellä</string>
+    <string name="widget_portfolio_list_hint">Avaa sovellus, niin positiosi näkyvät tässä.</string>
+    <string name="widget_portfolio_locked_hint">Lukittu – avaa sovelluksessa</string>
+    <!-- Offene Coins ohne Kurs zählen im Gesamtwert als 0 -->
+    <plurals name="widget_portfolio_missing_coins">
+        <item quantity="one">ilman %1$d kolikkoa</item>
+        <item quantity="other">ilman %1$d kolikkoa</item>
+    </plurals>
+    <plurals name="widget_portfolio_more">
+        <item quantity="one">+ %1$d muuta</item>
+        <item quantity="other">+ %1$d muuta</item>
+    </plurals>
+    <string name="widget_portfolio_name">Salkku</string>
+    <string name="widget_portfolio_off_hint">Ota käyttöön kohdassa %1$s.</string>
+    <string name="widget_portfolio_off_short">Salkku pois</string>
+    <string name="widget_portfolio_off_title">Salkku ei ole käytössä</string>
+    <string name="widget_portfolio_partly_stale">osin vanha hinta</string>
+    <string name="widget_portfolio_period">Aikaväli</string>
+    <string name="widget_portfolio_period_without">%1$s ilman %2$s</string>
+    <string name="widget_portfolio_range_48h">48h</string>
+    <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
+    <string name="widget_portfolio_range_fallback">%1$s: avaa Salkku</string>
+    <string name="widget_portfolio_range_short_48h">48h</string>
+    <string name="widget_portfolio_today_without">Tänään ilman %1$s</string>
+    <string name="widget_portfolio_view">Näkymä</string>
+    <string name="widget_portfolio_view_chart">Kaavio</string>
+    <string name="widget_portfolio_view_list">Luettelo</string>
+    <string name="widget_portfolio_view_overview">Yleiskatsaus</string>
+
+    <!-- Einzel-Widget -->
+    <string name="single_widget_choose">Valitse pari</string>
+    <string name="single_widget_description">Näyttää yhden kolikon isona: hinta, muutos ja 24 tunnin kaavio.</string>
+    <string name="single_widget_label">Crypto Checker – yksi kolikko</string>
+    <string name="single_widget_title">Määritä yksittäinen widget</string>
+
+    <!-- Widgets aus der App hinzufügen -->
+    <string name="widgets_add">Lisää</string>
+    <!-- Screenreader: Knopf «Add» mit dem Namen des Widgets -->
+    <string name="widgets_add_named">Lisää widget %1$s</string>
+    <string name="widgets_manual_text">Aloitusnäyttösi ei voi lisätä widgetejä sovelluksesta. Paina pitkään tyhjää kohtaa aloitusnäytöllä, valitse ”Widgetit” ja etsi ”Crypto Checker”.</string>
+    <!-- Startbildschirm (Launcher) kann keine Widgets aus der App annehmen -->
+    <string name="widgets_manual_title">Lisää widget itse</string>
+    <string name="widgets_sheet_title">Lisää widget</string>
+
+    <!-- Nur iOS: Widget selbst hinzufügen (drei Schritte) -->
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS ei anna sovellusten lisätä widgetejä itse. Se käy hetkessä:</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">Saatavilla olevat widgetit</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">Paina pitkään tyhjää kohtaa Koti-valikossa, kunnes apit alkavat heilua.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">Napauta ylhäällä ”Muokkaa” › ”Lisää widget” (tai vanhemmissa iOS-versioissa ”+”).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">Etsi ”Crypto Checker”, valitse widget ja napauta ”Lisää widget”.</string>
+</resources>

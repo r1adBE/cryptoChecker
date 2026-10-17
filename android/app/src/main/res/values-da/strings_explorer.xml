@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="explorer_coin_back">Alle resultater</string>
+    <plurals name="explorer_coin_exchanges">
+        <item quantity="one">%1$d børs</item>
+        <item quantity="other">%1$d børser</item>
+    </plurals>
+    <string name="explorer_coin_no_pairs">Ingen par for denne mønt i de hentede lister.</string>
+    <string name="explorer_coin_not_loaded">Parlister er ikke hentet endnu</string>
+    <string name="explorer_coin_other_pairs">Andre par</string>
+    <string name="explorer_coin_show_pairs">Vis par</string>
+    <string name="explorer_coin_suggested">Forslag</string>
+    <string name="explorer_coins_title">Mønter</string>
+    <string name="explorer_lists_load">Hent lister</string>
+    <string name="explorer_lists_loading">Henter parlister… %1$d/%2$d</string>
+    <plurals name="explorer_lists_missing">
+        <item quantity="one">Parlisten fra %1$d børs er ikke på enheden endnu.</item>
+        <item quantity="other">Parlisterne fra %1$d børser er ikke på enheden endnu.</item>
+    </plurals>
+    <string name="explorer_lists_privacy">Henter hele den offentlige liste fra hver børs – den samme for alle. Din søgning bliver på enheden.</string>
+    <!-- Paar hinzufügen: Suche über alle Börsen, zuletzt gesucht -->
+    <string name="explorer_recent_a11y">Seneste søgning: %1$s</string>
+    <string name="explorer_recent_clear">Ryd</string>
+    <string name="explorer_recent_clear_a11y">Ryd seneste søgninger</string>
+    <string name="explorer_recent_title">Seneste søgninger</string>
+    <string name="explorer_search_choose_manually">Vælg selv børs og par</string>
+    <string name="explorer_search_empty">Ingen resultater.</string>
+    <string name="explorer_search_hint">Søg efter mønt, par eller børs</string>
+    <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
+    <string name="explorer_search_intro">Skriv navnet eller symbolet på en mønt, f.eks. Bitcoin eller BTC – og vælg så parret.</string>
+
+    <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
+    <string name="explorer_add_to_watchlist">Føj til overvågningslisten</string>
+    <string name="explorer_added_to_watchlist">Føjet til overvågningslisten.</string>
+    <string name="explorer_already_in_watchlist">Dette par er allerede på overvågningslisten.</string>
+    <string name="explorer_exchange_missing">Mangler en børs?</string>
+    <string name="explorer_loading_pairs">Henter handelspar…</string>
+    <string name="explorer_no_pair_selected">Vælg et par først.</string>
+    <string name="explorer_no_pairs_yet">Der er endnu ikke hentet par for denne børs.</string>
+    <plurals name="explorer_pairs_status">
+        <item quantity="one">%1$d par · opdateret %2$s</item>
+        <item quantity="other">%1$d par · opdateret %2$s</item>
+    </plurals>
+    <string name="explorer_pairs_title">Par</string>
+    <string name="explorer_precise_title">Avanceret / efter børs</string>
+    <string name="explorer_price_loading">Henter kurs…</string>
+    <string name="explorer_select_market_hint">Vælg en børs – dens handelspar hentes automatisk.</string>
+    <string name="explorer_select_placeholder">Vælg venligst</string>
+    <string name="explorer_step_pair">Vælg par</string>
+
+    <!-- Paar hinzufügen: Schnellfilter der Liste «Alle …-Paare» -->
+    <string name="explorer_filter_gainers">Vindere</string>
+    <string name="explorer_filter_losers">Tabere</string>
+    <string name="explorer_filter_volume">Volumen</string>
+
+    <!-- Paar hinzufügen: mehrere Paare auf einmal -->
+    <string name="bulk_all_pairs">Alle %1$s-par på denne børs</string>
+    <plurals name="bulk_all_pairs_applied">
+        <item quantity="one">%1$d %2$s-par fundet</item>
+        <item quantity="other">%1$d %2$s-par fundet</item>
+    </plurals>
+    <string name="bulk_all_pairs_empty">Ingen %1$s-par på denne børs for den valgte kontrakttype. Synkroniser børsen først, eller prøv en anden kontrakttype.</string>
+    <plurals name="explorer_add_all_pairs">
+        <item quantity="one">Føj %1$d par til overvågningslisten</item>
+        <item quantity="other">Føj alle %1$d par til overvågningslisten</item>
+    </plurals>
+    <plurals name="explorer_bulk_added">
+        <item quantity="one">%1$d tilføjet, %2$d var allerede på overvågningslisten.</item>
+        <item quantity="other">%1$d tilføjet, %2$d var allerede på overvågningslisten.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_text">
+        <item quantity="one">%1$d %2$s-par fra %3$s føjes til listen, medmindre det allerede er der.</item>
+        <item quantity="other">Alle %1$d %2$s-par fra %3$s føjes til listen. Par, der allerede er der, springes over.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_title">
+        <item quantity="one">Tilføj %1$d par?</item>
+        <item quantity="other">Tilføj %1$d par?</item>
+    </plurals>
+    <string name="explorer_bulk_hide_list">Skjul liste</string>
+    <string name="explorer_bulk_show_list">Vis liste</string>
+    <string name="explorer_bulk_tap_hint">Tryk på et par for at vælge det ovenfor.</string>
+    <string name="explorer_bulk_title">Flere par på én gang</string>
+
+    <!-- Handelspaare einer Börse laden und wählen -->
+    <string name="explorer_sync_sheet_text">Henter de aktuelle par fra den valgte børs.</string>
+    <string name="explorer_no_pair_list">Ingen valutapar</string>
+    <string name="explorer_sync_sheet_last">Sidst synkroniseret: %1$s</string>
+    <string name="explorer_sync_never">aldrig</string>
+    <string name="explorer_sync_sheet_action">Synkroniser nu</string>
+    <string name="explorer_sync_sheet_title">Opdater valutapar</string>
+    <string name="explorer_field_coin">Basis</string>
+    <string name="explorer_field_contract">Kontrakttype</string>
+    <string name="explorer_field_exchange">Børs</string>
+    <string name="explorer_field_quote">Modvaluta</string>
+    <string name="explorer_contract_spot">Spot</string>
+    <string name="explorer_reload_pairs">Synkroniser</string>
+    <string name="sync_pairs_count">Handelspar: %1$d</string>
+
+    <!-- Token von dezentralen Börsen (DEX) -->
+    <string name="dex_add">Tilføj</string>
+    <string name="dex_added">%1$s er føjet til overvågningslisten.</string>
+    <string name="dex_already">%1$s er allerede på overvågningslisten.</string>
+    <string name="dex_intro">Tokens uden for de store børser, fra decentraliserede børser (Uniswap, PancakeSwap, Raydium …) via DexScreener. Søg efter en token, og tilføj en af dens handelspools – kurser i amerikanske dollar.</string>
+    <string name="dex_liquidity">Likviditet %1$s</string>
+    <string name="dex_no_results">Ingen pools fundet.</string>
+    <string name="dex_search">Søg</string>
+    <string name="dex_search_hint">Tokennavn, symbol eller adresse</string>
+
+    <!-- Art des Assets (Token, Alpha-Token, TradFi) -->
+    <string name="asset_kind_alpha">Alpha-token</string>
+    <string name="asset_kind_token">Token</string>
+    <string name="asset_kind_tradfi">TradFi</string>
+</resources>

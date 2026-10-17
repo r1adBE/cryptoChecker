@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Neutrale Indikatoren: Titel, Hinweise, Halving -->
+    <string name="neutral_alt_title">Altcoin so với Bitcoin</string>
+    <string name="neutral_btc_indicators_title">Chỉ số Bitcoin</string>
+    <string name="neutral_halving_last">Lần halving gần nhất: %1$s</string>
+    <string name="neutral_halving_next">Halving tiếp theo dự kiến khoảng %1$s (ước tính theo lịch – hiện chưa có chiều cao khối).</string>
+    <string name="neutral_indicators_disclaimer">Chỉ là giá trị đo được, không có đánh giá. Không phải dự báo và không phải lời khuyên đầu tư.</string>
+    <string name="neutral_onchain_missing">Dữ liệu on-chain (Coin Metrics) hiện không có.</string>
+
+    <!-- Neutrale Indikatoren: was der Wert misst -->
+    <string name="neutral_explain_ath_distance">Giá đang thấp hơn đỉnh lịch sử trước đó bao nhiêu.</string>
+    <string name="neutral_explain_change_30d">Giá hôm nay so với 30 ngày trước.</string>
+    <string name="neutral_explain_hashrate">Hashrate trung bình 30 ngày so với trung bình 60 ngày.</string>
+    <string name="neutral_explain_ma200w">Trung bình 200 giá đóng cửa tuần gần nhất.</string>
+    <string name="neutral_explain_mayer">Giá chia cho trung bình 200 ngày.</string>
+    <string name="neutral_explain_mvrv">Giá trị thị trường chia cho giá trị đã thực hiện (on-chain).</string>
+    <string name="neutral_explain_pi_gap">Trung bình 111 ngày so với gấp đôi trung bình 350 ngày.</string>
+    <string name="neutral_explain_puell">Doanh thu hằng ngày của thợ đào chia cho trung bình 365 ngày.</string>
+    <string name="neutral_explain_rsi_daily">Chỉ số sức mạnh tương đối của 14 ngày gần nhất, 0–100.</string>
+    <string name="neutral_explain_rsi_weekly">Chỉ số sức mạnh tương đối của 14 tuần gần nhất, 0–100.</string>
+    <string name="neutral_explain_sma50_200">Trung bình 50 ngày so với trung bình 200 ngày.</string>
+    <string name="neutral_explain_vs_btc">Biến động giá so với Bitcoin trong 90 ngày.</string>
+
+    <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
+    <string name="neutral_info_alt_season_how">Ứng dụng chỉ hiển thị số đếm và không gọi đó là “mùa”. Giá trị thường thay đổi theo ngày, không theo giờ.</string>
+    <string name="neutral_info_btc_how">Mỗi giá trị có một câu nói nó đo gì và nằm ở đâu trong lịch sử của chính nó từ 2016. Ứng dụng không đánh giá giá trị và không suy ra giai đoạn thị trường; ngưỡng thông báo chỉ là những gì bạn tự đặt. Mô hình quá khứ không nhất thiết lặp lại.</string>
+    <string name="neutral_info_btc_what">Các chỉ số Bitcoin phổ biến dưới dạng giá trị đo thuần: Mayer Multiple, trung bình 200 tuần, mức giảm từ đỉnh, thay đổi 30 ngày, khoảng cách Pi Cycle và các giá trị on-chain MVRV, Puell Multiple, hashrate.</string>
+    <string name="neutral_info_coin_how">Mỗi giá trị kèm một câu về điều nó đo, không đánh giá. Với coin có lịch sử giá ngắn, một số giá trị sẽ thiếu. Dữ liệu on-chain không được dùng ở đây.</string>
+    <string name="neutral_info_coin_what">Các chỉ số đơn giản tương tự cho một đồng coin tùy chọn, chỉ từ dữ liệu giá: Mayer Multiple, trung bình 200 tuần, mức giảm từ đỉnh, thay đổi 30 ngày, xu hướng 50/200 ngày, RSI và sức mạnh so với Bitcoin trong 90 ngày.</string>
+    <string name="neutral_info_halving_how">Halving tiếp theo được tính từ chiều cao khối hiện tại và thời gian khối trung bình của giai đoạn độ khó hiện tại (mempool.space); nếu không có dữ liệu thì theo lịch (halving gần nhất cộng khoảng bốn năm). Biểu đồ cho thấy diễn biến giá của các chu kỳ trước từ halving – lịch sử, không phải dự báo.</string>
+
+    <!-- Indikator-Namen -->
+    <string name="ind_cross">Xu hướng 50/200 ngày</string>
+    <string name="ind_drawdown">Mức giảm từ đỉnh mọi thời đại</string>
+    <string name="ind_missing">không đủ dữ liệu</string>
+    <string name="ind_rsi_daily">RSI (ngày)</string>
+    <string name="ind_rsi_weekly">RSI (tuần)</string>
+    <string name="ind_vs_btc">Sức mạnh so với Bitcoin (90 ngày)</string>
+    <string name="neutral_ind_change_30d">Thay đổi 30 ngày</string>
+    <string name="neutral_ind_hashrate">Hashrate 30/60 ngày</string>
+    <string name="neutral_ind_ma200w">Trung bình 200 tuần</string>
+    <string name="neutral_ind_pi_gap">Khoảng cách Pi Cycle</string>
+
+    <!-- Indikatoren: «hoch heisst …, tief heisst …» -->
+    <string name="ind_read_alt_season">Cao nghĩa là phần lớn altcoin lớn vượt Bitcoin trong 90 ngày, thấp nghĩa là Bitcoin vượt phần lớn chúng.</string>
+    <string name="ind_read_ath_distance">Nhỏ nghĩa là giá gần mức kỷ lục, lớn nghĩa là thấp hơn nhiều.</string>
+    <string name="ind_read_change_30d">Dương nghĩa là cao hơn 30 ngày trước, âm nghĩa là thấp hơn.</string>
+    <string name="ind_read_funding">Cao nghĩa là nhiều người dùng đòn bẩy đặt cược giá tăng, âm nghĩa là nhiều người đặt cược giá giảm.</string>
+    <string name="ind_read_hashrate_30_60">Dương nghĩa là sức mạnh tính toán đang tăng, âm nghĩa là thợ đào đang tắt máy.</string>
+    <string name="ind_read_leverage">Nhiều long nghĩa là nhiều người vay tiền đặt cược giá tăng, nhiều short nghĩa là đặt cược giá giảm.</string>
+    <string name="ind_read_ma200w">Giá cao hơn nhiều nghĩa là một đợt tăng dài, giá sát mức này nghĩa là một đợt điều chỉnh sâu.</string>
+    <string name="ind_read_mayer">Cao nghĩa là giá cao hơn nhiều so với trung bình 200 ngày, thấp nghĩa là thấp hơn mức đó.</string>
+    <string name="ind_read_mvrv">Cao nghĩa là giá cao hơn nhiều so với mức người nắm giữ đã trả trung bình, thấp nghĩa là gần hoặc dưới mức đó.</string>
+    <string name="ind_read_pi_cycle_gap">Gần 0 nghĩa là hai đường trung bình gần chạm nhau, âm nhiều nghĩa là chúng cách xa nhau.</string>
+    <string name="ind_read_puell">Cao nghĩa là thợ đào kiếm được nhiều hơn bình thường, thấp nghĩa là ít hơn nhiều.</string>
+    <string name="ind_read_rsi_daily">Trên 70 nghĩa là tăng mạnh trong những ngày gần đây, dưới 30 nghĩa là giảm mạnh.</string>
+    <string name="ind_read_rsi_weekly">Trên 70 nghĩa là tăng mạnh trong những tuần gần đây, dưới 30 nghĩa là giảm mạnh.</string>
+    <string name="ind_read_sma50_vs_200">Dương nghĩa là trung bình ngắn hạn cao hơn trung bình dài hạn, âm nghĩa là thấp hơn.</string>
+    <string name="ind_read_vs_btc">Dương nghĩa là tốt hơn Bitcoin, âm nghĩa là kém hơn.</string>
+
+    <!-- Indikatoren: Einordnung in die Vergangenheit -->
+    <string name="ind_context_flat30">Giữ nguyên giá 30 ngày: %1$s</string>
+    <string name="ind_context_note">Giá trị quá khứ và phép tính “giữ nguyên giá” chỉ là số học, không phải dự báo.</string>
+    <string name="ind_context_percentile">Từ %1$s thấp hơn ở %2$s số ngày</string>
+</resources>

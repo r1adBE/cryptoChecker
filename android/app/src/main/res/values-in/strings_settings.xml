@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen: Aufbau (Gruppen, Zeilen, Abschnitte, Suche, Kurzwerte) -->
+    <string name="settings_custom_value">Kustom</string>
+    <string name="settings_group_general">Umum</string>
+    <string name="settings_group_more">Lainnya</string>
+    <string name="settings_minutes">%1$d mnt</string>
+    <string name="settings_row_about">Tentang aplikasi</string>
+    <string name="settings_row_advanced">Lanjutan</string>
+    <string name="settings_row_alarms">Alarm</string>
+    <string name="settings_row_currency">Mata uang</string>
+    <string name="settings_row_dated_futures">Futures dengan jatuh tempo</string>
+    <string name="settings_row_updates">Pembaruan harga</string>
+    <string name="settings_row_watchlist">Daftar pantau</string>
+    <string name="settings_search_hint">Cari pengaturan</string>
+    <string name="settings_seconds">%1$d dtk</string>
+    <string name="settings_section_about">Tentang</string>
+    <string name="settings_section_appearance">Tampilan</string>
+    <string name="settings_section_developer">Pengembang</string>
+    <string name="settings_section_language">Bahasa</string>
+    <!-- Kurzwert «eingeschaltet» (Gegenstück zu option_off) -->
+    <string name="settings_summary_on">Aktif</string>
+    <string name="settings_title">Pengaturan</string>
+
+    <!-- Einstellungen › Alarme (Ton, Signal, Ruhezeit, App-Symbol, exakte Prüfungen) -->
+    <string name="settings_alarm_cooldown">Jeda sebelum alarm berbunyi lagi</string>
+    <!-- Ton/Vibration der Kursalarme, je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">Sinyal alarm</string>
+    <string name="settings_alarm_signal_open_system">Sesuaikan di pengaturan sistem</string>
+    <string name="settings_alarm_signal_system_hint">Mengikuti pengaturan notifikasi ponsel.</string>
+    <string name="settings_alarm_sound">Suara alarm</string>
+    <string name="settings_alarm_sound_custom">Suara kustom</string>
+    <string name="settings_alarm_sound_default">Suara default</string>
+    <string name="settings_alarm_sound_error">Suara tidak dapat digunakan.</string>
+    <string name="settings_alarm_sound_file">File audio sendiri…</string>
+    <string name="settings_alarm_sound_reset">Gunakan suara default</string>
+    <string name="settings_alarm_sound_system">Pilih suara sistem…</string>
+    <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">Angka di ikon aplikasi</string>
+    <string name="settings_app_badge_hint">Menghitung notifikasi alarm yang terbuka. Layar utama menentukan apakah muncul angka atau titik (mis. Samsung: «Dengan angka»).</string>
+    <string name="settings_exact_checks">Periksa tepat waktu</string>
+    <string name="settings_exact_checks_grant">Izinkan «Alarm &amp; pengingat»</string>
+    <string name="settings_exact_checks_hint">Android memeriksa kira-kira setiap 15 menit, bahkan saat perangkat diam. Memakai sedikit lebih banyak baterai.</string>
+    <string name="settings_exact_checks_nothing">Tidak ada pasangan aktif – tidak ada yang diperiksa.</string>
+    <string name="settings_exact_checks_permission_missing">Izin tidak ada – Android memeriksa kapan saja sesuai jadwalnya (kira-kira setiap 15 menit atau lebih lama).</string>
+    <string name="settings_notification_change">Beri tahu hanya saat harga berubah</string>
+    <string name="settings_notification_change_always">Selalu</string>
+    <string name="settings_notification_change_hint">Notifikasi hanya muncul jika harga sudah bergerak setidaknya sebesar ini sejak notifikasi terakhir. Tidak ada yang ditampilkan selama data belum tersedia. Alarm tidak terpengaruh.</string>
+    <string name="settings_ongoing_notifications">Tidak bisa digeser untuk menutup</string>
+    <string name="settings_ongoing_notifications_hint">Notifikasi harga tetap disematkan.</string>
+    <string name="settings_price_notifications">Notifikasi harga</string>
+    <string name="settings_price_notifications_hint">Tampilkan harga terkini pasangan yang diaktifkan di bilah status.</string>
+    <string name="settings_price_pairs">Pasangan</string>
+    <string name="settings_price_pairs_all_off">Semua nonaktif</string>
+    <string name="settings_price_pairs_all_on">Semua aktif</string>
+    <string name="settings_price_pairs_count">%1$d dari %2$d</string>
+    <string name="settings_price_pairs_empty">Belum ada pasangan di daftar pantau.</string>
+    <string name="settings_price_pairs_hint">Pilih pasangan yang harganya tampil di bilah notifikasi.</string>
+    <string name="settings_quiet_hours">Jam tenang</string>
+    <string name="settings_quiet_hours_from">Dari</string>
+    <string name="settings_quiet_hours_hint">Antara %1$s dan %2$s, alarm menunggu sampai jam tenang berakhir lalu berbunyi dengan suara. Pemberitahuan lain datang tanpa suara dan tanpa ucapan.</string>
+    <string name="settings_quiet_hours_to">Sampai</string>
+
+    <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
+    <string name="settings_background_interval">Interval</string>
+    <string name="settings_background_updates">Pembaruan latar belakang</string>
+    <string name="settings_battery_hint">Dibatasi berarti Android bisa menunda pembaruan latar belakang hingga berjam-jam.</string>
+    <string name="settings_battery_ok">Penggunaan baterai: tidak dibatasi</string>
+    <string name="settings_battery_restricted">Penggunaan baterai: dibatasi</string>
+    <string name="settings_check_runs_empty">Belum ada pemeriksaan yang tercatat.</string>
+    <string name="settings_check_runs_honest_android">Android yang menentukan kapan memeriksa – di sini kamu melihat kapan itu benar-benar terjadi.</string>
+    <string name="settings_check_runs_honest_ios">iOS yang menentukan kapan memeriksa – di sini kamu melihat kapan itu benar-benar terjadi.</string>
+    <string name="settings_check_runs_title">Pemeriksaan terbaru</string>
+    <string name="settings_http_log">Tampilkan log HTTP</string>
+    <string name="settings_http_log_hint">Menampilkan permintaan ke bursa di bagian bawah halaman “Tambah pasangan” – untuk pemecahan masalah.</string>
+    <string name="settings_live_service">Pembaruan sering</string>
+    <string name="settings_live_websocket">Harga live</string>
+
+    <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
+    <string name="settings_activity_alerts">Laporkan aktivitas tidak biasa</string>
+    <string name="settings_activity_alerts_hint">Paling banyak sekali per jam per pasangan: pergerakan harga tidak biasa, lonjakan volume, dan kondisi ekstrem futures (data dari Binance).</string>
+    <string name="settings_activity_sensitivity">Sensitivitas</string>
+    <string name="settings_activity_sensitivity_hint">Seberapa mudah koin dianggap tidak biasa – sama untuk kartu daftar pantau dan notifikasi. Dengan “Lebih sedikit”, kartu hanya menampilkan 3 terkuat.</string>
+    <string name="settings_watchlist_activity_card">Aktivitas tidak biasa di daftar</string>
+    <string name="settings_watchlist_activity_card_hint">Menampilkan chip ⚡ di samping grup: ketuk untuk melihat hanya pasangan yang sedang mengalami sesuatu. Notifikasi diatur di Peringatan pasar.</string>
+    <string name="settings_watchlist_names">Tampilkan nama</string>
+    <string name="settings_watchlist_names_hint">Nama di bawah pasangan, mis. Bitcoin atau NVIDIA. Datang bersama daftar logo, dimuat sekali untuk semua koin.</string>
+    <string name="settings_watchlist_sparkline">Grafik mini di daftar pantau</string>
+    <string name="settings_watchlist_sparkline_hint">Tren 24 jam di samping harga</string>
+    <string name="settings_watchlist_value_names">Nama</string>
+    <string name="settings_watchlist_value_price_only">Harga saja</string>
+    <string name="settings_watchlist_value_sparkline">Grafik mini</string>
+
+    <!-- Einstellungen › Token & TradFi -->
+    <string name="settings_asset_scope_alpha">Termasuk token Alpha (α)</string>
+    <string name="settings_asset_scope_alpha_hint">Token Alpha: proyek awal yang umumnya kecil dari daftar Binance Alpha – sering sepi perdagangan dan sangat fluktuatif.</string>
+    <string name="settings_asset_scope_alpha_tradfi_hint">Bagian dari token. Terkunci saat “Hanya TradFi”; token Alpha yang sudah ada di daftar tetap ada.</string>
+    <string name="settings_asset_scope_both">Token dan TradFi</string>
+    <string name="settings_asset_scope_both_hint">Semua – kripto dan TradFi</string>
+    <string name="settings_asset_scope_hint">Menentukan pasangan yang ditampilkan pilihan dan pencarian saat menambah. Pasangan yang sudah ada di daftar pantau selalu tetap.</string>
+    <string name="settings_asset_scope_title">Token &amp; TradFi</string>
+    <string name="settings_asset_scope_tokens">Hanya token</string>
+    <string name="settings_asset_scope_tokens_hint">Kripto: spot dan perpetual</string>
+    <string name="settings_asset_scope_tradfi">Hanya TradFi</string>
+    <string name="settings_asset_scope_tradfi_hint">Futures atas saham, komoditas, valas – kontrak, bukan token</string>
+    <string name="settings_rolling_futures">Termasuk futures kuartalan &amp; jatuh tempo lainnya</string>
+    <string name="settings_rolling_futures_hint">Nonaktif: futures dengan jatuh tempo yang tidak ada di daftar bursa ditandai tidak lagi diperdagangkan, alih-alih diperiksa satu per satu. Menghemat waktu setiap kali memuat ulang.</string>
+    <string name="settings_rolling_futures_qtly">Termasuk futures kuartalan &amp; jatuh tempo lainnya (QTLY)</string>
+    <string name="settings_rolling_futures_tradfi_hint">Bagian dari token. Terkunci saat “Hanya TradFi”; tetap berlaku untuk futures jatuh tempo yang sudah ada di daftar.</string>
+    <string name="settings_tradfi_futures">Saham, komoditas, dan valas (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">Saat memilih pasangan, juga menampilkan futures atas saham, emas dan komoditas lain, mata uang, serta perusahaan sebelum IPO. Ini kontrak, bukan token.</string>
+
+    <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
+    <string name="settings_accent">Warna aksen</string>
+    <string name="settings_accent_hint">Warna untuk aplikasi, widget, dan ikon aplikasi.</string>
+    <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">Logo koin</string>
+    <string name="settings_coin_logos_app">Di aplikasi</string>
+    <string name="settings_coin_logos_app_hint">Daftar pantau, halaman pasangan, dan kartu pasar</string>
+    <string name="settings_coin_logos_footer">Logo berasal dari CoinGecko, dan dari Binance untuk aset yang tidak ada di CoinGecko (mis. emas, perak, saham). Aplikasi mengunduh semua logo sekaligus dan menyimpannya di perangkat ini, sehingga keduanya tidak tahu koin mana yang Anda ikuti. Koin tanpa logo menampilkan inisialnya. Favorit mendapat bintang kecil di logonya. Jika sakelar dimatikan, logo maupun inisial tidak ditampilkan; jika semua dimatikan, tidak ada yang dimuat.</string>
+    <string name="settings_coin_logos_portfolio">Di portofolio</string>
+    <string name="settings_coin_logos_portfolio_hint">Posisi, detail koin, dan wawasan</string>
+    <string name="settings_coin_logos_value_app">Aplikasi</string>
+    <string name="settings_coin_logos_widgets">Di widget</string>
+    <string name="settings_coin_logos_widgets_hint">Widget daftar pantau dan satu koin</string>
+    <string name="settings_high_contrast">Kontras tinggi</string>
+    <string name="settings_high_contrast_hint">Warna harga lebih kuat dan teks sekunder lebih gelap. Juga aktif saat sistem meminta kontras lebih tinggi.</string>
+    <string name="settings_language_choose">Pilih bahasa</string>
+    <string name="settings_language_system">Bahasa sistem</string>
+    <string name="settings_price_colors">Warna harga</string>
+    <string name="settings_price_colors_hint">Biru / oranye mudah dibedakan untuk setiap jenis buta warna (merah-hijau dan biru-kuning). Arah perubahan juga selalu ditampilkan dengan + / −.</string>
+    <string name="settings_theme_mode">Terang / Gelap</string>
+    <string name="settings_widgets">Widget</string>
+
+    <!-- Einstellungen › %-Änderung -->
+    <!-- Einstellungszeile und Seitentitel «%-Änderung»; %1$s ist das Prozentzeichen «%» -->
+    <string name="settings_change_basis">Perubahan %1$s &amp; zona waktu grafik</string>
+    <string name="settings_change_basis_hint_1">Zona waktu yang dipilih menentukan sejak kapan perubahan persentase dihitung (daftar pantau, baris ringkasan, halaman pasangan, widget) dan waktu yang tampil di grafik.</string>
+    <string name="settings_change_basis_hint_2">“%1$s” membandingkan dengan harga tepat 24 jam lalu. “00:00” membandingkan dengan harga pembukaan pada tengah malam di zona waktu itu.</string>
+    <string name="settings_change_basis_hint_3">Alarm tidak terpengaruh.</string>
+    <string name="settings_change_basis_hint_since_last">“%1$s” membandingkan dengan harga pembaruan sebelumnya. Dengan harga langsung, nilainya tetap mendekati 0%%.</string>
+    <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
+    <string name="settings_change_period">Tampilkan periode di samping perubahan</string>
+    <string name="settings_change_period_hint">“24h”, “hari ini”, atau “pembaruan terakhir” kecil di samping perubahan di daftar pantau dan widget satu koin. Pembaca layar selalu menyebutkannya.</string>
+
+    <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
+    <string name="settings_conversion_currency">Mata uang konversi</string>
+    <string name="settings_conversion_currency_hint">Juga digunakan untuk portofolio, alarm dalam mata uang Anda, kartu Pasar kripto, dan widget Portofolio.</string>
+    <string name="settings_cost_method">Metode biaya perolehan</string>
+    <string name="settings_cost_method_average">Rata-rata (Ø)</string>
+    <string name="settings_cost_method_average_hint">Penjualan dinilai dengan harga beli rata-rata bergerak.</string>
+    <string name="settings_cost_method_fifo">FIFO (default)</string>
+    <string name="settings_cost_method_fifo_hint">Koin tertua dijual lebih dulu, di semua bursa dan dompet.</string>
+    <string name="settings_cost_method_fifo_wallet">FIFO per dompet/bursa</string>
+    <string name="settings_cost_method_fifo_wallet_hint">Koin tertua lebih dulu di tiap bursa atau dompet; transfer memindahkan lot beserta tanggal belinya.</string>
+    <string name="settings_portfolio_lock">Kunci portofolio</string>
+    <string name="settings_portfolio_lock_footer">Kunci menyembunyikan tampilan. Data disimpan di perangkat ini dan dilindungi oleh enkripsi perangkat. Anda bisa melindungi cadangan dengan kata sandi.</string>
+    <string name="settings_portfolio_lock_hint">Hanya menyembunyikan portofolio: buka dengan sidik jari, wajah, atau PIN perangkat. Terkunci lagi setelah lebih dari satu menit di latar belakang. Daftar pantau, alarm, dan widget lain tetap terbuka.</string>
+    <string name="settings_portfolio_lock_no_device_lock">Tanpa PIN atau kode sandi perangkat, kunci tidak menyembunyikan apa pun – atur kunci layar.</string>
+    <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">Portofolio di cadangan sistem</string>
+    <string name="settings_portfolio_system_backup_hint">Nonaktif: transaksi Anda tidak disertakan dalam cadangan sistem perangkat maupun transfer ke ponsel baru. Untuk memindahkannya, gunakan cadangan aplikasi dengan kata sandi.</string>
+    <string name="settings_portfolio_system_backup_unavailable">Memerlukan Android 9 atau lebih baru – versi lama akan menyimpan portofolio tanpa enkripsi di cadangan Google.</string>
+    <string name="settings_portfolio_tab">Tampilkan tab Portofolio</string>
+    <string name="settings_portfolio_value_locked">Aktif, dengan kunci</string>
+    <string name="settings_show_converted">Harga terkonversi</string>
+    <string name="settings_show_converted_hint">Menampilkan harga di daftar pantau juga dalam %1$s</string>
+
+    <!-- Einstellungen › Markt-Meldungen -->
+    <string name="settings_depeg_alarm">Laporkan depeg USDT</string>
+    <string name="settings_depeg_alarm_hint">Memberi tahu sekali saat USDT menyimpang dari 1 USD sebesar batas (Kraken USDT/USD, Binance USDC/USDT). Nilai di aplikasi tetap memakai USDT = 1.</string>
+    <string name="settings_depeg_threshold">Batas depeg</string>
+    <string name="settings_fng_above">Fear &amp; Greed: beri tahu di atas</string>
+    <string name="settings_fng_below">Fear &amp; Greed: beri tahu di bawah</string>
+    <string name="settings_gas_alert_hint">Memberi tahu sekali saat biaya normal turun di bawah batas. Diperiksa saat pembaruan harga, paling sering setiap 10 menit.</string>
+    <string name="settings_gas_btc_below">Biaya Bitcoin di bawah (sat/vB)</string>
+    <string name="settings_gas_eth_below">Gas Ethereum di bawah (gwei)</string>
+    <string name="settings_ind_ath_within">Penurunan dari puncak tertinggi paling banyak</string>
+    <string name="settings_ind_mayer_above">Mayer Multiple di atas</string>
+    <string name="settings_ind_mayer_below">Mayer Multiple di bawah</string>
+    <string name="settings_ind_mvrv_above">MVRV di atas</string>
+    <string name="settings_ind_mvrv_below">MVRV di bawah</string>
+    <string name="settings_indicator_alerts_hint">Indikator Bitcoin, diperiksa dua kali sehari. Anda yang memilih batasnya – aplikasi tidak menilai nilainya.</string>
+    <string name="settings_macro_notifications">Kalender ekonomi</string>
+    <string name="settings_macro_notifications_hint">Pukul 08:00 pada hari dengan data ekonomi AS yang penting (inflasi, tenaga kerja, keputusan The Fed). Kalender diambil dari situs web aplikasi sekali sehari.</string>
+    <string name="settings_market_alerts">Peringatan pasar</string>
+    <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
+    <plurals name="settings_market_alerts_active">
+        <item quantity="other">%1$d aktif</item>
+    </plurals>
+
+    <!-- Einstellungen › Sprachausgabe -->
+    <string name="settings_speech_rate">Kecepatan bicara: %1$.1f×</string>
+    <string name="settings_tts">Output suara</string>
+    <string name="settings_tts_alarms_only">Hanya alarm</string>
+    <string name="settings_tts_alarms_only_hint">Nonaktif: setiap pembaruan pasangan dengan “Ucapkan harga” akan dibacakan.</string>
+    <!-- Sprachausgabe schweigt im Lautlos-/Vibrationsmodus -->
+    <string name="settings_tts_hint_silent">Membacakan harga dan alarm. Tetap diam selama perangkat dalam mode senyap atau getar.</string>
+    <string name="settings_tts_test">Tes suara</string>
+
+    <!-- Einstellungen › Daten: App zurücksetzen -->
+    <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
+    <string name="settings_reset_app">Atur ulang aplikasi</string>
+    <string name="settings_reset_app_action">Hapus semua</string>
+    <string name="settings_reset_app_confirm">Menghapus daftar pantau, alarm, portofolio, pengaturan, dan semua data tersimpan, seperti setelah instalasi. Tidak dapat dibatalkan. Tips: buat cadangan terlebih dahulu.</string>
+    <string name="settings_reset_app_title">Atur ulang aplikasi?</string>
+
+    <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
+    <!-- Suchfeld der Währungsseite -->
+    <string name="currency_search">Cari mata uang</string>
+    <string name="language_search">Cari bahasa</string>
+
+    <!-- Theme -->
+    <string name="theme_dark">Gelap</string>
+    <string name="theme_light">Terang</string>
+    <string name="theme_system">Sistem</string>
+
+    <!-- Akzentfarben -->
+    <string name="accent_blue">Biru</string>
+    <string name="accent_green">Hijau</string>
+    <!-- Eigenname, in allen Sprachen gleich -->
+    <string name="accent_marrs_green">Marrs Green</string>
+    <string name="accent_orange">Oranye</string>
+    <string name="accent_red">Merah</string>
+
+    <!-- Kursfarben -->
+    <string name="price_colors_red_up_hint">Umum di Tiongkok, Jepang, Korea, dan Taiwan</string>
+    <string name="price_colors_swap">Tukar warna (naik ↔ turun)</string>
+    <string name="price_style_calm">Tenang</string>
+    <string name="price_style_calm_color_vision">Tenang · Gangguan penglihatan warna</string>
+    <string name="price_style_color_vision">Gangguan penglihatan warna</string>
+    <string name="price_style_fresh">Segar</string>
+    <string name="price_style_traditional">Tradisional</string>
+
+    <!-- Über die App -->
+    <string name="about_exchanges_verified">Koneksi bursa terakhir diperiksa dengan respons asli: %1$s</string>
+    <string name="about_license">Harga langsung dari bursa; tanpa akun dan tanpa pelacakan.</string>
+    <!-- Texte der Lizenzen liegen in assets/licenses -->
+    <string name="about_licenses">Lisensi</string>
+    <string name="about_privacy_policy">Kebijakan privasi</string>
+    <!-- GitHub-Vorlage exchange_request.md -->
+    <string name="about_request_exchange">Usulkan bursa</string>
+    <string name="about_source_code">Kode sumber di GitHub</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_why">Crypto Checker adalah proyek independen dari r1AD: ringkasan harga yang tenang tanpa akun, iklan, atau pelacakan. Pertanyaan dan saran: %1$s</string>
+
+    <!-- Lizenzhinweise -->
+    <string name="licenses_app_intro">Crypto Checker bersifat sumber terbuka (Lisensi MIT).</string>
+    <string name="licenses_font_title">Font Rubik</string>
+    <string name="licenses_icons_bundled_text">Disertakan dalam aplikasi: ikon dari «Cryptocurrency Icons» oleh Christopher Downer dan kontributor (github.com/spothq/cryptocurrency-icons), dirilis di bawah CC0 1.0 Universal. Ikon ini tampil sampai logo dari CoinGecko atau Binance dimuat. Nama dan logo tetap merupakan merek dagang proyek masing-masing.</string>
+    <string name="licenses_icons_title">Ikon koin cadangan</string>
+    <string name="licenses_libraries_intro">Aplikasi menggunakan pustaka ini di bawah Apache License 2.0:</string>
+    <string name="licenses_libraries_title">Pustaka Android</string>
+
+    <!-- Entwickleroptionen -->
+    <!-- Countdown der letzten Tipps auf die Version bis zu den Entwickleroptionen -->
+    <plurals name="developer_taps_left">
+        <item quantity="other">%d ketukan lagi untuk membuka opsi pengembang</item>
+    </plurals>
+    <string name="developer_unlocked">Opsi pengembang terbuka</string>
+
+    <!-- Nur iOS: Einstellungen -->
+    <!-- Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">Getaran mengikuti pengaturan iPhone (Suara &amp; Haptik).</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Menghitung alarm dan peringatan pasar baru; kembali ke 0 saat aplikasi dibuka.</string>
+</resources>

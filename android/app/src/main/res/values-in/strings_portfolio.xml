@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Tab, leere Ansicht, Einschalten, Sperre -->
+    <string name="app_lock_unavailable">Belum ada kunci layar di perangkat ini. Atur dulu di pengaturan sistem.</string>
+    <string name="app_lock_unlock">Buka kunci</string>
+    <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
+    <string name="portfolio_clear">Kosongkan portofolio</string>
+    <plurals name="portfolio_clear_confirm_count">
+        <item quantity="other">Hapus semua %d transaksi? Alamat yang dipantau tetap ada. Tindakan ini tidak dapat dibatalkan.</item>
+    </plurals>
+    <string name="portfolio_disclaimer">Jumlah tetap di perangkat kecuali Anda mengekspornya sendiri; untuk harga hanya simbol pasangan yang dikirim ke bursa pasangan itu. Node blockchain publik melihat alamat yang dipantau dan IP Anda. Bukan nasihat investasi.</string>
+    <string name="portfolio_empty_action">Tambahkan pembelian pertama</string>
+    <string name="portfolio_empty_address">Cukup pantau alamat dompet</string>
+    <string name="portfolio_empty_csv">Beli di bursa? Impor filenya</string>
+    <string name="portfolio_empty_example_plain">Contoh: 0,01 BTC dibeli pada 1 Maret. Aplikasi lalu menunjukkan nilainya hari ini dan apakah Anda untung atau rugi – hanya disimpan di perangkat ini.</string>
+    <string name="portfolio_empty_text">Masukkan apa yang Anda beli – aplikasi menunjukkan nilainya hari ini dan berapa untung atau rugi Anda.</string>
+    <string name="portfolio_empty_title">Belum ada transaksi</string>
+    <string name="portfolio_enable_ask_text">Transaksimu sudah disimpan. Tab Portofolio menampilkan kepemilikan dan nilainya.</string>
+    <string name="portfolio_enable_ask_title">Aktifkan tab Portofolio?</string>
+    <string name="portfolio_enable_later_hint">Transaksi disimpan. Kamu bisa mengaktifkan tab Portofolio di Pengaturan › Lanjutan › Portofolio.</string>
+    <string name="portfolio_enabled_banner">Portofolio diaktifkan – ada di tab Portofolio.</string>
+    <string name="portfolio_lock_reason">Buka kunci portofolio</string>
+    <string name="portfolio_locked_text">Buka kunci untuk melihat kepemilikan dan nilainya.</string>
+    <string name="portfolio_locked_title">Portofolio terkunci</string>
+    <string name="portfolio_setting_hint">Opsional: catat pembelian dan penjualan serta lihat nilai dan untung/rugi di tab terpisah.</string>
+    <!-- Status-Pille wie in der Merkliste: Kurse älter als die Frische-Schwelle, Gerät online. Offline: offline_status_since, alles aktuell: watchlist_all_fresh -->
+    <string name="portfolio_status_stale">Usang · per %1$s</string>
+    <plurals name="portfolio_system_restore_invalid">
+        <item quantity="other">%d entri dari cadangan sistem tidak valid dan tidak dipulihkan.</item>
+    </plurals>
+    <string name="portfolio_title">Portofolio</string>
+    <string name="portfolio_unassigned_fee">Biaya tidak dialokasikan – biaya perolehan tidak diketahui: %1$s</string>
+    <string name="portfolio_updated">Harga per %1$s</string>
+
+    <!-- Portfolio: Gesamtwert-Kopf (Heute · 7 T · Gesamt) und Aufteilung -->
+    <string name="portfolio_allocation_other">Lainnya</string>
+    <string name="portfolio_allocation_title">Alokasi</string>
+    <string name="portfolio_card_details">Detail</string>
+    <!-- Screenreader, Kennzahl ohne Wert; %1$s Beschriftung (z. B. «7 Tage») -->
+    <string name="portfolio_card_figure_none_a11y">%1$s: belum tersedia</string>
+    <string name="portfolio_card_hints_count">Catatan (%1$d)</string>
+    <string name="portfolio_card_today">Hari ini</string>
+    <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
+    <string name="portfolio_card_total">Total</string>
+    <string name="portfolio_hide_amounts">Sembunyikan jumlah</string>
+    <string name="portfolio_hide_amounts_hint">Menampilkan jumlah dan nilai di portofolio dan widget portofolio sebagai ••• – persentase tetap terlihat.</string>
+    <string name="portfolio_invested">Biaya perolehan</string>
+    <string name="portfolio_total_no_fx">Tidak ada kurs untuk %1$s – jumlah dalam USDT</string>
+    <string name="portfolio_total_value">Nilai total</string>
+    <string name="portfolio_value">Nilai</string>
+
+    <!-- Portfolio: Bestand, offene Positionen, Durchschnittspreis -->
+    <string name="portfolio_avg_and_now">Rata-rata %1$s · kini %2$s</string>
+    <string name="portfolio_avg_only">Rata-rata %1$s</string>
+    <string name="portfolio_avg_open_lots">Rata-rata biaya perolehan koin yang dipegang</string>
+    <string name="portfolio_avg_partial">Rata-rata %1$s dengan harga beli</string>
+    <string name="portfolio_avg_price">Harga beli rata-rata</string>
+    <string name="portfolio_avg_price_hint">Harga beli rata-rata: rata-rata semua pembelian, ditimbang menurut jumlah. Penjualan dinilai dengan rata-rata ini.</string>
+    <plurals name="portfolio_closed">
+        <item quantity="other">Posisi tertutup (%1$d)</item>
+    </plurals>
+    <string name="portfolio_fifo_hint">FIFO: penjualan memakai koin tertuamu lebih dulu. Rata-rata = sisa biaya perolehan ÷ jumlah dengan harga beli.</string>
+    <string name="portfolio_holdings">Kepemilikan</string>
+    <string name="portfolio_lost_fee_cost">Biaya perolehan biaya jaringan tanpa lot berbayar: %1$s</string>
+    <string name="portfolio_open_lots">Lot pembelian terbuka (%1$d)</string>
+    <string name="portfolio_open_lots_avg">Dengan harga beli (Ø)</string>
+    <string name="portfolio_open_lots_no_cost">Tanpa harga beli</string>
+    <string name="portfolio_open_lots_without_price">tanpa harga beli</string>
+    <string name="portfolio_realized">Untung/rugi terealisasi</string>
+    <string name="portfolio_unrealized">Untung/rugi belum terealisasi</string>
+    <string name="portfolio_unrealized_without_unpriced">tanpa %1$s yang tidak punya harga beli</string>
+    <string name="portfolio_withdrawn_gain">Ditarik: %1$s (perubahan nilai sampai penarikan)</string>
+
+    <!-- Portfolio: Kurse und Umrechnung -->
+    <string name="portfolio_convert_to">Konversi ke</string>
+    <string name="portfolio_convert_to_value">Konversi ke: %1$s</string>
+    <string name="portfolio_current_missing">Tidak ada harga saat ini untuk %1$s</string>
+    <string name="portfolio_current_price">Harga saat ini</string>
+    <string name="portfolio_price_missing">Harga belum ada</string>
+    <string name="portfolio_price_missing_hint">Beberapa pembelian tidak memiliki harga. Tambahkan harga beli untuk melihat untung/rugi.</string>
+    <string name="portfolio_price_source">Harga: Binance · USDT = 1</string>
+    <string name="portfolio_price_source_routes">Harga: %1$s, selain itu Binance · USDT = 1</string>
+    <string name="portfolio_price_unavailable">Harga tidak tersedia saat ini</string>
+    <string name="portfolio_price_unchecked">Harga belum diperiksa</string>
+    <string name="portfolio_price_via_base">≈ harga %1$s (bridged/wrapped)</string>
+    <string name="portfolio_usdt_as_usd">USDT dikonversi dengan kurs USD</string>
+    <string name="portfolio_usdt_assumed">Diasumsikan USDT = 1</string>
+    <string name="portfolio_usdt_depeg_warning">Diasumsikan USDT = 1 – pasar di %1$s USD (%2$s)</string>
+
+    <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
+    <string name="portfolio_add_from_watch">Tambahkan ke portofolio</string>
+    <string name="portfolio_add_tx">Catat transaksi</string>
+    <string name="portfolio_buy">Beli</string>
+    <string name="portfolio_coin">Koin</string>
+    <string name="portfolio_coin_invalid">Masukkan simbol koin</string>
+    <string name="portfolio_coin_search">Cari simbol, mis. BTC</string>
+    <string name="portfolio_discard_confirm">Buang</string>
+    <string name="portfolio_discard_keep">Lanjut mengedit</string>
+    <string name="portfolio_discard_title">Buang perubahan?</string>
+    <string name="portfolio_edit_tx">Edit transaksi</string>
+    <string name="portfolio_invalid">Jumlah tidak valid</string>
+    <string name="portfolio_oversold">Penjualan melebihi kepemilikan – periksa transaksi.</string>
+    <string name="portfolio_sell">Jual</string>
+    <string name="portfolio_sell_exceeds">Lebih dari kepemilikan Anda (%1$s)</string>
+    <string name="portfolio_sell_exceeds_fee">Jumlah plus biaya melebihi kepemilikanmu (%1$s)</string>
+    <string name="portfolio_sell_exceeds_wallet">Melebihi kepemilikanmu di %2$s (%1$s)</string>
+    <string name="portfolio_transactions">Transaksi</string>
+    <string name="portfolio_tx_acquired_date">Tanggal beli asli (opsional)</string>
+    <string name="portfolio_tx_acquired_date_hint">Untuk lama simpan di ekspor pajak</string>
+    <string name="portfolio_tx_amount">Jumlah</string>
+    <string name="portfolio_tx_coin_fee">Biaya dalam koin (opsional)</string>
+    <string name="portfolio_tx_date">Tanggal</string>
+    <string name="portfolio_tx_delete_confirm">Transaksi ini akan dihapus dari portofolio.</string>
+    <string name="portfolio_tx_delete_title">Hapus transaksi?</string>
+    <string name="portfolio_tx_deposit">Setoran</string>
+    <string name="portfolio_tx_entry_currency">Masukkan dalam</string>
+    <string name="portfolio_tx_explain_deposit">Kepemilikan tanpa transaksi, mis. koin dari sebelumnya</string>
+    <string name="portfolio_tx_explain_gift">Koin keluar dari kepemilikan seperti penarikan – pelepasan sesuai nilai pasar hanya di negara yang memajaki hadiah seperti itu (UK, CA, AU)</string>
+    <string name="portfolio_tx_explain_payment">Dibayarkan untuk barang atau jasa – pelepasan sesuai nilai pasar seperti penjualan, tanpa menerima uang</string>
+    <string name="portfolio_tx_explain_reward">Biaya perolehan = nilai pasar saat diterima</string>
+    <string name="portfolio_tx_explain_swap">Koin dengan koin: jual koin yang diberikan, beli koin yang diterima</string>
+    <string name="portfolio_tx_explain_transfer">Tanpa untung – biaya perolehan ikut berpindah bersama koin</string>
+    <string name="portfolio_tx_explain_withdrawal">Kepemilikan keluar dari portofolio – bukan penjualan, tanpa untung</string>
+    <string name="portfolio_tx_fee_consumes_amount">Biaya sebesar jumlah yang diterima – tidak akan tersisa apa pun.</string>
+    <string name="portfolio_tx_fees_toggle">Biaya</string>
+    <string name="portfolio_tx_fiat_converted">≈ %1$s dengan kurs %2$s</string>
+    <string name="portfolio_tx_fiat_loading">Memuat kurs…</string>
+    <string name="portfolio_tx_fiat_no_fx">Tidak ada kurs untuk hari ini – masukkan jumlah dalam USDT.</string>
+    <string name="portfolio_tx_gift">Hadiah</string>
+    <string name="portfolio_tx_gift_price_hint">Dalam USDT. Kosong = harga penutupan hari itu (perkiraan).</string>
+    <string name="portfolio_tx_gift_spouse">Ke pasangan</string>
+    <string name="portfolio_tx_gift_spouse_hint">Inggris dan Kanada: tanpa untung dan tanpa rugi – pasanganmu mengambil alih biaya perolehanmu. Negara lain mengabaikannya.</string>
+    <string name="portfolio_tx_market_value">Nilai pasar per koin</string>
+    <string name="portfolio_tx_more_buy">Biaya, bursa, catatan</string>
+    <string name="portfolio_tx_network_fee">Biaya jaringan dalam koin (opsional)</string>
+    <string name="portfolio_tx_note">Catatan (opsional)</string>
+    <string name="portfolio_tx_payment">Dibayar dengannya</string>
+    <string name="portfolio_tx_price">Harga per koin</string>
+    <string name="portfolio_tx_price_hint">Dalam USDT. Kosongkan jika tidak tahu.</string>
+    <string name="portfolio_tx_price_historic">Harga penutupan harian %1$s yang sudah dicek – ubah jika perlu</string>
+    <string name="portfolio_tx_price_invalid">Harga tidak valid</string>
+    <string name="portfolio_tx_price_past_hint">Masukkan harga pada hari transaksi – kosongkan jika tidak tahu</string>
+    <string name="portfolio_tx_price_receipt_hint">Dalam USDT. Kosong = kepemilikan tanpa biaya perolehan.</string>
+    <string name="portfolio_tx_price_zero">Harga 0 tidak bisa untuk transaksi impor – kosongkan untuk harga pasar</string>
+    <string name="portfolio_tx_removed">Transaksi dihapus</string>
+    <string name="portfolio_tx_reward">Hadiah</string>
+    <string name="portfolio_tx_save_failed">Transaksi tidak dapat disimpan. Isianmu masih ada – coba lagi.</string>
+    <string name="portfolio_tx_swap">Tukar</string>
+    <string name="portfolio_tx_swap_fee_received">Biaya dalam %1$s: mengurangi jumlah diterima, tidak perlu harga.</string>
+    <string name="portfolio_tx_swap_from">Tukar dari %1$s</string>
+    <string name="portfolio_tx_swap_given_amount">Jumlah diberikan</string>
+    <string name="portfolio_tx_swap_given_coin">Koin diberikan</string>
+    <string name="portfolio_tx_swap_received_amount">Jumlah diterima</string>
+    <string name="portfolio_tx_swap_received_coin">Koin diterima</string>
+    <string name="portfolio_tx_swap_same_coin">Pilih koin yang berbeda dari yang diberikan</string>
+    <string name="portfolio_tx_swap_to">Tukar ke %1$s</string>
+    <string name="portfolio_tx_swap_value">Nilai penukaran (opsional)</string>
+    <string name="portfolio_tx_swap_value_hint">Nilai total. Kosong = tidak diketahui – untung tetap tidak lengkap (otomatis jika ada USDT dalam penukaran).</string>
+    <string name="portfolio_tx_third_fee_amount">Jumlah biaya</string>
+    <string name="portfolio_tx_third_fee_coin">Koin biaya</string>
+    <string name="portfolio_tx_third_fee_incomplete">Tanpa harga, biaya tidak dihitung dalam biaya perolehan maupun hasil penjualan; ekspor pajak menandai penjualan tersebut.</string>
+    <string name="portfolio_tx_third_fee_price">Harga per koin biaya (opsional)</string>
+    <string name="portfolio_tx_third_fee_toggle">Biaya dalam koin lain</string>
+    <string name="portfolio_tx_total">Total: %1$s</string>
+    <string name="portfolio_tx_transfer">Transfer</string>
+    <string name="portfolio_tx_transfer_from">Dari (opsional)</string>
+    <string name="portfolio_tx_transfer_to">Ke (opsional)</string>
+    <string name="portfolio_tx_transfer_to_hint">Bursa atau dompet – mulai sekarang dinilai di sana.</string>
+    <string name="portfolio_tx_type_select">Jenis: %1$s</string>
+    <string name="portfolio_tx_value_received">Nilai per koin saat diterima (opsional)</string>
+    <string name="portfolio_tx_withdrawal">Penarikan</string>
+    <string name="portfolio_tx_withdrawal_gift_hint">Diberikan atau dipakai membayar? Catat sebagai ‹Hadiah› atau ‹Dibayar dengannya› – tergantung negara, secara pajak itu penjualan.</string>
+    <string name="portfolio_tx_withdrawal_price_hint">Opsional: nilai pasar dalam USDT, hanya untuk riwayat (kosong = harga hari itu). Koin selalu keluar dengan biaya perolehannya.</string>
+    <string name="portfolio_wallet_did_you_mean">Maksudmu %1$s? Ejaan yang berbeda dihitung sebagai dompet terpisah.</string>
+    <string name="portfolio_wallet_shortfall">Kepemilikan di %1$s tidak cukup – ada transfer yang terlewat?</string>
+
+    <!-- Portfolio: Wertverlauf (Zeitraum, Vergleich Währung | USDT, Währungseffekt) -->
+    <!-- Höchster Tageswert des Zeitraums am Punkt («Hoch 12’345») -->
+    <string name="portfolio_chart_high">Tertinggi %1$s</string>
+    <string name="portfolio_compare">Bandingkan</string>
+    <!-- Umschalter «Vergleich», Screenreader: %1$s Währung -->
+    <string name="portfolio_compare_a11y">Bandingkan %1$s dan USDT dalam persen</string>
+    <!-- %1$s Zeitraum, %2$s Währung, %3$s und %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="portfolio_compare_chart_a11y">Perbandingan dalam persen, %1$s: %2$s %3$s, USDT %4$s</string>
+    <!-- %1$s Prozentpunkte mit Vorzeichen («−5.10%»): Veränderung in der Währung minus in USDT -->
+    <string name="portfolio_currency_effect">Efek kurs: %1$s</string>
+    <!-- «Seit 1. Kauf» beginnt frühestens beim ersten Tag mit Kursdaten -->
+    <string name="portfolio_history_capped_data_start">Data harga hanya tersedia sejak Agustus 2017 — riwayat dimulai dari sana.</string>
+    <string name="portfolio_history_chip_since_first">Sejak beli</string>
+    <string name="portfolio_history_collapse">Sembunyikan riwayat nilai</string>
+    <string name="portfolio_history_converted">Dikonversi dengan kurs hari ini</string>
+    <string name="portfolio_history_expand">Tampilkan riwayat nilai</string>
+    <string name="portfolio_history_gain_a11y">Nilai %1$s. Untung/rugi, %2$s: %3$s</string>
+    <string name="portfolio_history_gain_label">Untung/rugi</string>
+    <!-- Umschalter, Screenreader: %1$s Währung («CHF») oder «USDT» -->
+    <string name="portfolio_history_in_a11y">Nilai dalam %1$s</string>
+    <string name="portfolio_history_incl_fx">Termasuk kurs</string>
+    <string name="portfolio_history_incl_withdrawn">Termasuk perubahan nilai koin yang ditarik</string>
+    <string name="portfolio_history_includes_trades">Termasuk pembelian dan penjualan pada periode ini</string>
+    <string name="portfolio_history_loading">Memuat riwayat nilai</string>
+    <string name="portfolio_history_period_1y">1 tahun</string>
+    <string name="portfolio_history_period_30d">30 hari</string>
+    <string name="portfolio_history_period_7d">7 hari</string>
+    <string name="portfolio_history_period_since_first">sejak pembelian pertama</string>
+    <string name="portfolio_history_pnl_needs_prices">Harga beli belum ada untuk untung/rugi – tambahkan di transaksi.</string>
+    <string name="portfolio_history_pnl_without">Untung/rugi tanpa %1$s (harga tidak ada)</string>
+    <string name="portfolio_history_range_1y">1 T</string>
+    <string name="portfolio_history_range_30d">30 H</string>
+    <string name="portfolio_history_range_7d">7 H</string>
+    <string name="portfolio_history_range_a11y">Tampilkan riwayat %1$s</string>
+    <string name="portfolio_history_range_since_first">Sejak beli pertama</string>
+    <string name="portfolio_history_scaled">Riwayat %1$s: riwayat Binance diskalakan ke harga bursa</string>
+    <string name="portfolio_history_title">Riwayat nilai</string>
+    <string name="portfolio_history_today">Hari ini</string>
+    <string name="portfolio_history_too_short">Riwayat dimulai setelah hari penuh pertama Anda.</string>
+    <string name="portfolio_history_unavailable">Riwayat tidak tersedia saat ini.</string>
+    <string name="portfolio_history_utc_days">Hari dalam UTC (candle harian)</string>
+    <string name="portfolio_history_without_matching">Tanpa %1$s (tidak ada harga harian yang cocok)</string>
+    <string name="portfolio_period_rewards">Hadiah +%1$s (tidak termasuk untung)</string>
+    <string name="portfolio_period_scaled">7 H/1 T untuk %1$s: riwayat Binance diskalakan ke harga bursa</string>
+
+    <!-- Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_alarm_action">Alarm</string>
+    <!-- %1$s = Währung, z. B. CHF -->
+    <string name="portfolio_alarm_amount">Jumlah (%1$s)</string>
+    <string name="portfolio_alarm_hint">Diperiksa setelah setiap pembaruan. Seperti alarm: memberi tahu saat batas dilewati, dan lagi hanya setelah nilainya kembali.</string>
+    <string name="portfolio_alarm_kind_above">Portofolio di atas jumlah</string>
+    <string name="portfolio_alarm_kind_below">Portofolio di bawah jumlah</string>
+    <string name="portfolio_alarm_kind_down">Portofolio turun</string>
+    <string name="portfolio_alarm_kind_up">Portofolio naik</string>
+    <!-- %1$s = Betrag mit Währung (oder •••) -->
+    <string name="portfolio_alarm_sentence_above">Portofolio di atas %1$s</string>
+    <string name="portfolio_alarm_sentence_below">Portofolio di bawah %1$s</string>
+    <string name="portfolio_alarm_sentence_down">Portofolio turun %1$s (%2$s)</string>
+    <!-- %1$s = Prozent, %2$s = Basis der %-Änderung kurz (24h, heute …) -->
+    <string name="portfolio_alarm_sentence_up">Portofolio naik %1$s (%2$s)</string>
+    <string name="portfolio_alarm_title">Alarm “nilai portofolio”</string>
+
+    <!-- Gebühr, Börse und Gewinn/Verlust einer Position -->
+    <string name="ledger_exchange">Bursa (opsional)</string>
+    <string name="ledger_exchange_failed">%1$s: saat ini tidak ada harga dari %2$s – dinilai dengan Binance.</string>
+    <string name="ledger_exchange_hint">Koin dinilai dengan harga bursa ini (jika tidak, Binance). Riwayat, 7 H dan 1 T: harga harian Binance, disesuaikan.</string>
+    <string name="ledger_exchange_mixed">%1$s: beberapa bursa dicatat – dinilai dengan Binance. Memindahkan koin? Catat sebagai «Transfer».</string>
+    <string name="ledger_exchange_none">Tidak ada (Binance)</string>
+    <string name="ledger_fee">Biaya (opsional)</string>
+    <string name="ledger_fee_coin">Koin</string>
+    <string name="ledger_fee_hint">Dalam USDT menaikkan biaya perolehan (jual: mengurangi hasil); dalam koin mengurangi jumlah.</string>
+    <string name="ledger_fee_line">Biaya %1$s</string>
+    <string name="ledger_fifo_cost_note">Sejak beli: biaya FIFO termasuk biaya (koin tertua dijual lebih dulu).</string>
+    <string name="ledger_gain_info">Hari ini, 7 H, 1 T: perubahan nilai dalam periode – pembelian dan penjualan tidak dihitung sebagai untung. Sejak beli: nilai saat ini dikurangi biaya perolehan (biaya rata-rata termasuk biaya) koin yang masih Anda pegang.</string>
+    <string name="ledger_gain_info_a11y">Cara menghitung untung dan rugi</string>
+    <string name="ledger_gain_info_fifo">Hari ini, 7 H, 1 T: perubahan nilai dalam periode – pembelian dan penjualan tidak dihitung sebagai untung. Sejak beli: nilai saat ini dikurangi biaya perolehan (FIFO termasuk biaya) koin yang masih Anda pegang.</string>
+    <string name="ledger_gain_title">Untung/rugi</string>
+    <string name="ledger_more_toggle">Biaya dan bursa</string>
+    <string name="ledger_partial_cost">«Sejak beli» hanya menghitung bagian yang punya harga beli – tanpa %1$s yang tidak punya harga beli.</string>
+    <string name="ledger_period_without">Hari ini / 7 H / 1 T tanpa %1$s – tidak ada harga awal yang cocok.</string>
+    <string name="ledger_since_purchase_currency">Sejak beli (%1$s)</string>
+    <string name="ledger_since_purchase_spoken">Untung/rugi sejak beli, belum dijual</string>
+    <plurals name="ledger_without_cost">
+        <item quantity="other">Tanpa %1$d koin tanpa harga beli (%2$s) – tambahkan harga agar dihitung.</item>
+    </plurals>
+</resources>

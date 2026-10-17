@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen: Aufbau (Gruppen, Zeilen, Abschnitte, Suche, Kurzwerte) -->
+    <string name="settings_custom_value">カスタム</string>
+    <string name="settings_group_general">一般</string>
+    <string name="settings_group_more">その他</string>
+    <string name="settings_minutes">%1$d 分</string>
+    <string name="settings_row_about">アプリについて</string>
+    <string name="settings_row_advanced">詳細設定</string>
+    <string name="settings_row_alarms">アラーム</string>
+    <string name="settings_row_currency">通貨</string>
+    <string name="settings_row_dated_futures">期日付き先物</string>
+    <string name="settings_row_updates">価格の更新</string>
+    <string name="settings_row_watchlist">ウォッチリスト</string>
+    <string name="settings_search_hint">設定を検索</string>
+    <string name="settings_seconds">%1$d 秒</string>
+    <string name="settings_section_about">アプリについて</string>
+    <string name="settings_section_appearance">外観</string>
+    <string name="settings_section_developer">開発者</string>
+    <string name="settings_section_language">言語</string>
+    <!-- Kurzwert «eingeschaltet» (Gegenstück zu option_off) -->
+    <string name="settings_summary_on">オン</string>
+    <string name="settings_title">設定</string>
+
+    <!-- Einstellungen › Alarme (Ton, Signal, Ruhezeit, App-Symbol, exakte Prüfungen) -->
+    <string name="settings_alarm_cooldown">アラーム再作動までの待機時間</string>
+    <!-- Ton/Vibration der Kursalarme, je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">アラームの通知方法</string>
+    <string name="settings_alarm_signal_open_system">システム設定で変更</string>
+    <string name="settings_alarm_signal_system_hint">スマートフォンの通知設定に従います。</string>
+    <string name="settings_alarm_sound">アラーム音</string>
+    <string name="settings_alarm_sound_custom">カスタム音</string>
+    <string name="settings_alarm_sound_default">デフォルトの音</string>
+    <string name="settings_alarm_sound_error">この音を使用できませんでした。</string>
+    <string name="settings_alarm_sound_file">自分の音声ファイル…</string>
+    <string name="settings_alarm_sound_reset">デフォルトの音を使用</string>
+    <string name="settings_alarm_sound_system">システムサウンドを選択…</string>
+    <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">アプリアイコンの数字</string>
+    <string name="settings_app_badge_hint">未読のアラーム通知を数えます。数字か点かはホーム画面が決めます（例：Samsung「数字で表示」）。</string>
+    <string name="settings_exact_checks">時間どおりに確認</string>
+    <string name="settings_exact_checks_grant">「アラームとリマインダー」を許可</string>
+    <string name="settings_exact_checks_hint">Android は端末が待機中でも約15分ごとに確認します。バッテリーを少し多く使います。</string>
+    <string name="settings_exact_checks_nothing">有効なペアがありません – 確認するものはありません。</string>
+    <string name="settings_exact_checks_permission_missing">権限がありません – Android は都合のよいときに確認します（約15分ごと、またはそれ以上）。</string>
+    <string name="settings_notification_change">価格変動時のみ通知</string>
+    <string name="settings_notification_change_always">常に</string>
+    <string name="settings_notification_change_hint">前回の通知から価格がこの幅以上動いたときだけ通知します。データがない間は何も表示しません。アラームには影響しません。</string>
+    <string name="settings_ongoing_notifications">スワイプで消去不可</string>
+    <string name="settings_ongoing_notifications_hint">価格通知を固定表示します。</string>
+    <string name="settings_price_notifications">価格通知</string>
+    <string name="settings_price_notifications_hint">有効にしたペアの現在価格をステータスバーに表示します。</string>
+    <string name="settings_price_pairs">ペア</string>
+    <string name="settings_price_pairs_all_off">すべてオフ</string>
+    <string name="settings_price_pairs_all_on">すべてオン</string>
+    <string name="settings_price_pairs_count">%2$d 件中 %1$d 件</string>
+    <string name="settings_price_pairs_empty">ウォッチリストにはまだペアがありません。</string>
+    <string name="settings_price_pairs_hint">通知バーに価格を表示するペアを選択します。</string>
+    <string name="settings_quiet_hours">おやすみ時間</string>
+    <string name="settings_quiet_hours_from">開始</string>
+    <string name="settings_quiet_hours_hint">%1$s～%2$s はアラームがおやすみ時間の終わりまで待機し、その後サウンド付きで通知します。その他の通知は無音で、読み上げなしで届きます。</string>
+    <string name="settings_quiet_hours_to">終了</string>
+
+    <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
+    <string name="settings_background_interval">間隔</string>
+    <string name="settings_background_updates">バックグラウンド更新</string>
+    <string name="settings_battery_hint">制限ありの場合、Android がバックグラウンド更新を数時間遅らせることがあります。</string>
+    <string name="settings_battery_ok">バッテリー使用: 制限なし</string>
+    <string name="settings_battery_restricted">バッテリー使用: 制限あり</string>
+    <string name="settings_check_runs_empty">まだ確認の記録はありません。</string>
+    <string name="settings_check_runs_honest_android">いつ確認するかは Android が決めます。ここでは実際に確認された時刻がわかります。</string>
+    <string name="settings_check_runs_honest_ios">いつ確認するかは iOS が決めます。ここでは実際に確認された時刻がわかります。</string>
+    <string name="settings_check_runs_title">最近の確認</string>
+    <string name="settings_http_log">HTTP ログを表示</string>
+    <string name="settings_http_log_hint">「ペアを追加」画面の下部に取引所へのリクエストを表示します（トラブル対応用）。</string>
+    <string name="settings_live_service">頻繁に更新</string>
+    <string name="settings_live_websocket">リアルタイム価格</string>
+
+    <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
+    <string name="settings_activity_alerts">異常な動きを通知</string>
+    <string name="settings_activity_alerts_hint">ペアごとに1時間に最大1回：異常な値動き、出来高急増、先物の極端な値（データは Binance）。</string>
+    <string name="settings_activity_sensitivity">感度</string>
+    <string name="settings_activity_sensitivity_hint">コインを異常とみなす基準 – ウォッチリストのカードと通知に共通です。「少なめ」ではカードに上位3件のみ表示します。</string>
+    <string name="settings_watchlist_activity_card">リストに異常な動きを表示</string>
+    <string name="settings_watchlist_activity_card_hint">グループの横に ⚡ チップを表示します。タップすると、今まさに動きがあるペアだけを表示します。通知は「相場のお知らせ」で設定します。</string>
+    <string name="settings_watchlist_names">名前を表示</string>
+    <string name="settings_watchlist_names_hint">ペアの下に名前を表示（例: Bitcoin、NVIDIA）。ロゴの一覧と一緒に、全コイン分を一度だけ読み込みます。</string>
+    <string name="settings_watchlist_sparkline">ウォッチリストにミニチャート</string>
+    <string name="settings_watchlist_sparkline_hint">価格の横に24時間の推移</string>
+    <string name="settings_watchlist_value_names">名前</string>
+    <string name="settings_watchlist_value_price_only">価格のみ</string>
+    <string name="settings_watchlist_value_sparkline">ミニチャート</string>
+
+    <!-- Einstellungen › Token & TradFi -->
+    <string name="settings_asset_scope_alpha">Alphaトークンを含める（α）</string>
+    <string name="settings_asset_scope_alpha_hint">Alphaトークン：Binance Alphaリストに載る初期の、多くは小規模なプロジェクト。取引が少なく値動きが激しいことがよくあります。</string>
+    <string name="settings_asset_scope_alpha_tradfi_hint">トークンの設定です。「TradFiのみ」ではロックされます。リストにあるAlphaトークンはそのまま残ります。</string>
+    <string name="settings_asset_scope_both">トークンとTradFi</string>
+    <string name="settings_asset_scope_both_hint">すべて（暗号資産とTradFi）</string>
+    <string name="settings_asset_scope_hint">ペアを追加するときに選択と検索で表示するペアを決めます。ウォッチリストにあるペアは常に残ります。</string>
+    <string name="settings_asset_scope_title">トークン＆TradFi</string>
+    <string name="settings_asset_scope_tokens">トークンのみ</string>
+    <string name="settings_asset_scope_tokens_hint">暗号資産：現物と無期限先物</string>
+    <string name="settings_asset_scope_tradfi">TradFiのみ</string>
+    <string name="settings_asset_scope_tradfi_hint">株式・コモディティ・為替の先物（トークンではなく契約）</string>
+    <string name="settings_rolling_futures">四半期などの期日付き先物を含める</string>
+    <string name="settings_rolling_futures_hint">オフ: 取引所のリストにない期日付き先物は、1件ずつ確認せずに取引終了として扱います。更新のたびに時間を節約できます。</string>
+    <string name="settings_rolling_futures_qtly">四半期などの期日付き先物を含める（QTLY）</string>
+    <string name="settings_rolling_futures_tradfi_hint">トークンの設定です。「TradFiのみ」ではロックされますが、リストにある期日付き先物には引き続き適用されます。</string>
+    <string name="settings_tradfi_futures">株式・コモディティ・為替（TradFi）</string>
+    <string name="settings_tradfi_futures_hint">ペアを選ぶときに、株式、金などのコモディティ、為替、上場前企業の先物も表示します。これらはトークンではなく契約です。</string>
+
+    <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
+    <string name="settings_accent">アクセントカラー</string>
+    <string name="settings_accent_hint">アプリ、ウィジェット、アプリアイコンの色。</string>
+    <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">コインのロゴ</string>
+    <string name="settings_coin_logos_app">アプリ内</string>
+    <string name="settings_coin_logos_app_hint">ウォッチリスト、開いたペア、マーケットカード</string>
+    <string name="settings_coin_logos_footer">ロゴは CoinGecko から、CoinGecko にないもの（金、銀、株式など）は Binance から取得します。すべてのロゴを一度にまとめて読み込み、この端末に保存するため、どのコインをフォローしているかはどちらにも伝わりません。ロゴのないコインは頭文字を表示します。お気に入りにはロゴに小さな星が付きます。スイッチがオフの場所にはロゴも頭文字も表示されません。すべてオフのときは何も読み込みません。</string>
+    <string name="settings_coin_logos_portfolio">ポートフォリオ内</string>
+    <string name="settings_coin_logos_portfolio_hint">保有銘柄、コインの詳細、分析</string>
+    <string name="settings_coin_logos_value_app">アプリ</string>
+    <string name="settings_coin_logos_widgets">ウィジェット内</string>
+    <string name="settings_coin_logos_widgets_hint">ウォッチリストと 1 コインのウィジェット</string>
+    <string name="settings_high_contrast">ハイコントラスト</string>
+    <string name="settings_high_contrast_hint">価格の色を濃くし、補足テキストを暗くします。システムがより高いコントラストを求めている場合もオンになります。</string>
+    <string name="settings_language_choose">言語を選択</string>
+    <string name="settings_language_system">システムの言語</string>
+    <string name="settings_price_colors">価格の色</string>
+    <string name="settings_price_colors_hint">青 / オレンジは、あらゆる色覚特性（赤緑・青黄）で見分けやすい配色です。方向は常に + / − でも表示されます。</string>
+    <string name="settings_theme_mode">ライト / ダーク</string>
+    <string name="settings_widgets">ウィジェット</string>
+
+    <!-- Einstellungen › %-Änderung -->
+    <!-- Einstellungszeile und Seitentitel «%-Änderung»; %1$s ist das Prozentzeichen «%» -->
+    <string name="settings_change_basis">%1$s変動とチャートのタイムゾーン</string>
+    <string name="settings_change_basis_hint_1">選んだタイムゾーンによって、ウォッチリスト、パルス行、開いたペア、ウィジェットの変動率をいつから数えるかと、チャートに表示される時刻が決まります。</string>
+    <string name="settings_change_basis_hint_2">「%1$s」はちょうど24時間前の価格と比較します。「00:00」はそのタイムゾーンの午前0時の始値と比較します。</string>
+    <string name="settings_change_basis_hint_3">アラームには影響しません。</string>
+    <string name="settings_change_basis_hint_since_last">「%1$s」は前回の更新時の価格と比較します。ライブ価格では0%%付近にとどまります。</string>
+    <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
+    <string name="settings_change_period">変動の横に期間を表示</string>
+    <string name="settings_change_period_hint">ウォッチリストと単一コインのウィジェットで、変動の横に「24h」「今日」「前回更新」を小さく表示します。スクリーンリーダーは常に読み上げます。</string>
+
+    <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
+    <string name="settings_conversion_currency">換算通貨</string>
+    <string name="settings_conversion_currency_hint">ポートフォリオ、選んだ通貨でのアラーム、暗号資産市場カード、ポートフォリオウィジェットにも使用されます。</string>
+    <string name="settings_cost_method">取得原価の計算方法</string>
+    <string name="settings_cost_method_average">平均（Ø）</string>
+    <string name="settings_cost_method_average_hint">売却は移動平均の購入価格で評価します。</string>
+    <string name="settings_cost_method_fifo">FIFO（標準）</string>
+    <string name="settings_cost_method_fifo_hint">最も古いコインから先に売却します（すべての取引所とウォレットをまとめて計算）。</string>
+    <string name="settings_cost_method_fifo_wallet">ウォレット/取引所ごとのFIFO</string>
+    <string name="settings_cost_method_fifo_wallet_hint">取引所またはウォレットごとに古いコインから先に売却。振替ではロットを購入日ごと移します。</string>
+    <string name="settings_portfolio_lock">ポートフォリオのロック</string>
+    <string name="settings_portfolio_lock_footer">ロックは画面の表示を隠します。データはこの端末に保存され、端末の暗号化で保護されています。バックアップはパスワードで保護できます。</string>
+    <string name="settings_portfolio_lock_hint">ポートフォリオだけを隠します：指紋、顔、または端末のPINでロック解除。バックグラウンドに1分以上あると再びロックされます。ウォッチリスト、アラーム、その他のウィジェットはそのまま使えます。</string>
+    <string name="settings_portfolio_lock_no_device_lock">端末の PIN やパスコードがないとロックは何も隠しません。画面ロックを設定してください。</string>
+    <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">ポートフォリオをシステムバックアップに含める</string>
+    <string name="settings_portfolio_system_backup_hint">オフ：取引は端末のシステムバックアップや新しい端末への移行に含まれません。移行するには、パスワード付きのアプリのバックアップを使ってください。</string>
+    <string name="settings_portfolio_system_backup_unavailable">Android 9 以降が必要です。古いバージョンではポートフォリオが暗号化されずに Google バックアップに保存されてしまいます。</string>
+    <string name="settings_portfolio_tab">ポートフォリオタブを表示</string>
+    <string name="settings_portfolio_value_locked">オン（ロックあり）</string>
+    <string name="settings_show_converted">換算価格</string>
+    <string name="settings_show_converted_hint">ウォッチリストの価格を%1$sでも表示</string>
+
+    <!-- Einstellungen › Markt-Meldungen -->
+    <string name="settings_depeg_alarm">USDT のペッグ外れを通知</string>
+    <string name="settings_depeg_alarm_hint">USDT が 1 USD からしきい値以上ずれたときに一度通知します（Kraken USDT/USD、Binance USDC/USDT）。アプリ内の値は引き続き USDT = 1 で計算されます。</string>
+    <string name="settings_depeg_threshold">ペッグ外れのしきい値</string>
+    <string name="settings_fng_above">Fear &amp; Greed: 上回ったら通知</string>
+    <string name="settings_fng_below">Fear &amp; Greed: 下回ったら通知</string>
+    <string name="settings_gas_alert_hint">通常の手数料がしきい値を下回ると1回通知します。価格の更新時に、最短10分間隔で確認します。</string>
+    <string name="settings_gas_btc_below">Bitcoin 手数料が下回ったら (sat/vB)</string>
+    <string name="settings_gas_eth_below">Ethereum ガスが下回ったら (gwei)</string>
+    <string name="settings_ind_ath_within">史上最高値からの下落が最大</string>
+    <string name="settings_ind_mayer_above">Mayer Multiple 以上</string>
+    <string name="settings_ind_mayer_below">Mayer Multiple 以下</string>
+    <string name="settings_ind_mvrv_above">MVRV 以上</string>
+    <string name="settings_ind_mvrv_below">MVRV 以下</string>
+    <string name="settings_indicator_alerts_hint">Bitcoin の指標を1日2回確認します。しきい値はご自身で選び、アプリは値を評価しません。</string>
+    <string name="settings_macro_notifications">経済指標カレンダー</string>
+    <string name="settings_macro_notifications_hint">重要な米経済指標（インフレ、雇用統計、FOMC）の発表日の 08:00 に通知します。カレンダーはアプリのウェブサイトから1日1回読み込みます。</string>
+    <string name="settings_market_alerts">相場のお知らせ</string>
+    <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
+    <plurals name="settings_market_alerts_active">
+        <item quantity="other">%1$d 件オン</item>
+    </plurals>
+
+    <!-- Einstellungen › Sprachausgabe -->
+    <string name="settings_speech_rate">読み上げ速度: %1$.1f×</string>
+    <string name="settings_tts">音声出力</string>
+    <string name="settings_tts_alarms_only">アラームのみ</string>
+    <string name="settings_tts_alarms_only_hint">オフ: 「価格を読み上げ」を有効にしたペアは更新のたびに読み上げます。</string>
+    <!-- Sprachausgabe schweigt im Lautlos-/Vibrationsmodus -->
+    <string name="settings_tts_hint_silent">価格とアラームを読み上げます。端末が消音モードまたはバイブレーションモードの間は読み上げません。</string>
+    <string name="settings_tts_test">音声をテスト</string>
+
+    <!-- Einstellungen › Daten: App zurücksetzen -->
+    <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
+    <string name="settings_reset_app">アプリをリセット</string>
+    <string name="settings_reset_app_action">すべて削除</string>
+    <string name="settings_reset_app_confirm">ウォッチリスト、アラーム、ポートフォリオ、設定、保存済みのすべてのデータをインストール直後の状態に削除します。元に戻せません。先にバックアップを作成してください。</string>
+    <string name="settings_reset_app_title">アプリをリセットしますか？</string>
+
+    <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
+    <!-- Suchfeld der Währungsseite -->
+    <string name="currency_search">通貨を検索</string>
+    <string name="language_search">言語を検索</string>
+
+    <!-- Theme -->
+    <string name="theme_dark">ダーク</string>
+    <string name="theme_light">ライト</string>
+    <string name="theme_system">システム</string>
+
+    <!-- Akzentfarben -->
+    <string name="accent_blue">ブルー</string>
+    <string name="accent_green">グリーン</string>
+    <!-- Eigenname, in allen Sprachen gleich -->
+    <string name="accent_marrs_green">Marrs Green</string>
+    <string name="accent_orange">オレンジ</string>
+    <string name="accent_red">レッド</string>
+
+    <!-- Kursfarben -->
+    <string name="price_colors_red_up_hint">中国・日本・韓国・台湾で一般的</string>
+    <string name="price_colors_swap">色を入れ替える（上昇 ↔ 下落）</string>
+    <string name="price_style_calm">カーム</string>
+    <string name="price_style_calm_color_vision">カーム · 色覚特性</string>
+    <string name="price_style_color_vision">色覚特性</string>
+    <string name="price_style_fresh">フレッシュ</string>
+    <string name="price_style_traditional">トラディショナル</string>
+
+    <!-- Über die App -->
+    <string name="about_exchanges_verified">取引所接続を実際の応答で最終確認：%1$s</string>
+    <string name="about_license">価格は取引所から直接取得します。アカウント不要、トラッキングなし。</string>
+    <!-- Texte der Lizenzen liegen in assets/licenses -->
+    <string name="about_licenses">ライセンス</string>
+    <string name="about_privacy_policy">プライバシーポリシー</string>
+    <!-- GitHub-Vorlage exchange_request.md -->
+    <string name="about_request_exchange">取引所をリクエスト</string>
+    <string name="about_source_code">GitHub のソースコード</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_why">Crypto Checker は r1AD による独立したプロジェクトです。アカウント、広告、トラッキングなしの落ち着いた価格一覧。ご質問・ご要望：%1$s</string>
+
+    <!-- Lizenzhinweise -->
+    <string name="licenses_app_intro">Crypto Checker はオープンソースです（MIT ライセンス）。</string>
+    <string name="licenses_font_title">Rubik フォント</string>
+    <string name="licenses_icons_bundled_text">アプリに同梱：Christopher Downer 氏と貢献者による「Cryptocurrency Icons」（github.com/spothq/cryptocurrency-icons）のアイコンで、CC0 1.0 Universal で公開されています。CoinGecko または Binance のロゴが読み込まれるまで表示されます。名称とロゴは各プロジェクトの商標です。</string>
+    <string name="licenses_icons_title">代替コインアイコン</string>
+    <string name="licenses_libraries_intro">このアプリは次のライブラリを Apache License 2.0 の下で使用しています:</string>
+    <string name="licenses_libraries_title">Android ライブラリ</string>
+
+    <!-- Entwickleroptionen -->
+    <!-- Countdown der letzten Tipps auf die Version bis zu den Entwickleroptionen -->
+    <plurals name="developer_taps_left">
+        <item quantity="other">あと%d回タップすると開発者向けオプションが有効になります</item>
+    </plurals>
+    <string name="developer_unlocked">開発者向けオプションを有効にしました</string>
+
+    <!-- Nur iOS: Einstellungen -->
+    <!-- Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">バイブレーションはiPhoneの設定（サウンドと触覚）に従います。</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">新しいアラームと市場の通知を数え、アプリを開くと0に戻ります。</string>
+</resources>

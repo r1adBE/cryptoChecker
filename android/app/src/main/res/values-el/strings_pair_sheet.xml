@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Aktionsblatt: Kurs-Chart (Zeitraum, Kerzenwerte beim Ziehen, Umrechnung) und «Mehr» -->
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s Zeitraum kurz (widget_range_short_24h/7d/30d) -->
+    <string name="sheet_chart_change">%1$s σε %2$s</string>
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s change_short_today(_zone) -->
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="sheet_chart_close">Κλείσιμο</string>
+    <string name="sheet_chart_converted_current">%1$s, μετατροπή (τρέχουσα ισοτιμία)</string>
+    <!-- Zeile unter dem Chart, %1$s = umgerechnete Reihe («BTC/USDT») -->
+    <string name="sheet_chart_converted_daily">%1$s, μετατροπή με ημερήσιες ισοτιμίες</string>
+    <!-- Keine Kerzen für das Paar -->
+    <string name="sheet_chart_no_data">Δεν υπάρχουν δεδομένα τιμών για αυτό το ζεύγος</string>
+    <!-- Kerzenwerte beim Ziehen (Hoch/Tief: ticker_high/ticker_low) -->
+    <string name="sheet_chart_open">Άνοιγμα</string>
+    <!-- Zeitraum-Chip statt «24h» bei Tages-Basis -->
+    <string name="sheet_chart_today">Σήμερα</string>
+    <!-- Umsatz der Kerze beim Ziehen; %1$s z. B. «12.3M USDT» -->
+    <string name="sheet_chart_volume">Όγκ. %1$s</string>
+    <string name="sheet_more">Περισσότερα</string>
+
+    <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
+    <string name="ticker_ask">Ask</string>
+    <string name="ticker_bid">Bid</string>
+    <string name="ticker_high">Υψηλό</string>
+    <string name="ticker_low">Χαμηλό</string>
+    <string name="ticker_timestamp">Ώρα</string>
+    <string name="ticker_vol_base">Όγκος (βάση)</string>
+    <string name="ticker_vol_quote">Όγκος (τιμολόγηση)</string>
+
+    <!-- Basis der %-Änderung (Prozent-Pille, Chart, Widgets) -->
+    <string name="change_basis_device">%1$s, 00:00 (ζώνη ώρας συσκευής)</string>
+    <string name="change_basis_local">Από 00:00 τοπική ώρα</string>
+    <string name="change_basis_rolling">Τελευταίες 24 ώρες</string>
+    <!-- Letzter gegen vorherigen Kurs des Paars; ausgeschrieben (Auswahl). Kurz neben Pille und Widgets: change_short_since_last -->
+    <string name="change_basis_since_last">Από την τελευταία ενημέρωση</string>
+    <string name="change_basis_utc_zone">Από 00:00 %1$s</string>
+    <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
+    <string name="change_candle_source">Μεταβολή από κεριά %1$s</string>
+    <string name="change_short_since_last">τελ. ενημέρωση</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
+    <string name="change_short_today">σήμερα</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 einer gewählten Zeitzone; %1$s = Zeitzone (z. B. UTC) -->
+    <string name="change_short_today_zone">σήμερα %1$s</string>
+
+    <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
+    <string name="market_data_empty_error">Δεν ελήφθησαν δεδομένα από το ανταλλακτήριο.</string>
+    <string name="market_data_summary">Κεφαλαιοποίηση, τέλη gas, οικονομικά στοιχεία, ανάλυση coin</string>
+    <string name="market_data_tab_futures">Futures</string>
+    <string name="market_data_title">Δεδομένα αγοράς</string>
+
+    <!-- Marktdaten Spot (Marktkapitalisierung, Angebot, Volumen) -->
+    <string name="spot_circulating">Κυκλοφορούσα προσφορά</string>
+    <string name="spot_fdv">FDV</string>
+    <string name="spot_market_cap">Κεφαλαιοποίηση</string>
+    <string name="spot_max_supply">Μέγ. προσφορά</string>
+    <string name="spot_no_data">Δεν υπάρχουν δεδομένα spot για αυτό το νόμισμα</string>
+    <string name="spot_source_updated">Πηγή: %1$s · στις %2$s</string>
+    <string name="spot_supply_of_max">%1$s της μέγ. προσφοράς σε κυκλοφορία</string>
+    <string name="spot_total_supply">Συνολική προσφορά</string>
+    <string name="spot_vol_mcap">Όγκ./Κεφ.</string>
+    <string name="spot_volume_24h">Όγκος (24ω)</string>
+
+    <!-- Futures-Kennzahlen (Funding, Open Interest, Referenzbörse) -->
+    <string name="futures_alarm_reference">Ενδεικτική τιμή %1$s</string>
+    <string name="futures_funding">Funding rate</string>
+    <string name="futures_funding_interval_unknown">άγνωστο διάστημα</string>
+    <string name="futures_funding_per8h_equiv">= %1$s ανά 8 ώρες (όπως στους συναγερμούς)</string>
+    <!-- Einheit neben der Funding-Pille, wenn die Börse stündlich abrechnet (Hyperliquid) -->
+    <string name="futures_funding_per_hour">ανά ώρα</string>
+    <string name="futures_funding_per_hours">ανά %1$d ώρες</string>
+    <string name="futures_next_funding">επόμενο σε %1$d ώ %2$d λ</string>
+    <string name="futures_no_data">Δεν υπάρχουν δεδομένα futures για αυτό το νόμισμα</string>
+    <string name="futures_open_interest">Ανοιχτό ενδιαφέρον</string>
+    <!-- Futures-Kennzahlen von einer anderen Börse als der beobachteten (Richtwert) -->
+    <string name="futures_reference_hint">Ενδεικτική τιμή από %1$s – το funding και το open interest διαφέρουν ανά ανταλλακτήριο· στο %2$s μπορεί να διαφέρουν.</string>
+    <string name="futures_reference_spot">Ενδεικτική τιμή από %1$s (USDT perpetual του νομίσματος)</string>
+    <string name="futures_source">Πηγή: %1$s</string>
+
+    <!-- Erklärungen hinter dem ⓘ-Knopf -->
+    <string name="explain_funding">Πολλοί ποντάρουν με δανεικά χρήματα σε άνοδο ή πτώση των τιμών. Χρέωση μεταξύ θέσεων long και short. Έντονα θετική σημαίνει ότι πολλοί ποντάρουν σε άνοδο των τιμών.</string>
+    <string name="explain_open_interest">Τα futures είναι στοιχήματα στην τιμή, συχνά με δανεικά χρήματα. Αξία όλων των ανοιχτών θέσεων futures. Όταν αυξάνεται, περισσότερα χρήματα ποντάρουν στην κίνηση.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">Επεξήγηση</string>
+    <string name="explain_spot_fdv">Πλήρως αραιωμένη αποτίμηση: τιμή × μέγ. προσφορά (ή συνολική, αν δεν υπάρχει όριο).</string>
+    <string name="explain_spot_market_cap">Τιμή × κυκλοφορούσα προσφορά. Η ετικέτα δείχνει τη μεταβολή σε 24 ώρες.</string>
+    <string name="explain_spot_source">Στοιχεία από όλα τα ανταλλακτήρια σε δολάρια ΗΠΑ, από το CoinGecko.</string>
+    <string name="explain_spot_supply">Κυκλοφορούσα: νομίσματα στην αγορά τώρα. Συνολική: όλα όσα δημιουργήθηκαν μείον όσα κάηκαν. Μέγιστη: το περισσότερο που μπορεί ποτέ να υπάρξει.</string>
+    <string name="explain_spot_volume">Αξία συναλλαγών σε 24 ώρες. Όγκ./Κεφ.: όγκος σε σχέση με την κεφαλαιοποίηση — υψηλός σημαίνει πολύ ζωηρές συναλλαγές.</string>
+
+    <!-- Umrechnung und Sats -->
+    <string name="converted_fx_stale">%1$s · ισοτιμία %2$s</string>
+    <string name="sats_per_unit">%1$s %2$s = %3$s sats</string>
+</resources>

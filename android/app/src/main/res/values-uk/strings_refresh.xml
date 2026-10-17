@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Wie aktuell? (Sparsam / Live) -->
+    <string name="update_mode_for_pros">витрачає більше трафіку й заряду</string>
+    <string name="update_mode_live">Наживо, поки відкрито</string>
+    <string name="update_mode_live_hint">Якщо біржа дає курс у реальному часі: одразу, поки список відкрито. Інакше під час наступного запиту. Закрито: не частіше ніж кожні %1$s, часто рідше.</string>
+    <string name="update_mode_live_hint_ios">Якщо біржа дає курс у реальному часі: одразу, поки список відкрито. Інакше під час наступного запиту. Закрито: коли дозволить iOS, інколи з перервою в години. Якщо змахнути застосунок, iOS припиняє ці перевірки до наступного відкриття.</string>
+    <string name="update_mode_recommended">рекомендовано</string>
+    <string name="update_mode_sparsam">Ощадно</string>
+    <string name="update_mode_sparsam_hint">Коли застосунок закрито — не частіше ніж кожні %1$s, часто рідше (сповіщення, віджети). Відкрито: при кожному відкритті.</string>
+    <string name="update_mode_sparsam_hint_ios">Коли застосунок закрито, iOS сама вирішує, коли перевіряти (сповіщення, віджети), інколи з перервою в години. Відкрито: щоразу під час відкриття.</string>
+    <string name="update_mode_title">Наскільки актуально?</string>
+
+    <!-- Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <string name="refresh_sheet_aborted">Оновлення перервано</string>
+    <string name="refresh_sheet_alarms">Сигнали</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="one">спрацювало: %1$d</item>
+        <item quantity="few">спрацювало: %1$d</item>
+        <item quantity="many">спрацювало: %1$d</item>
+        <item quantity="other">спрацювало: %1$d</item>
+    </plurals>
+    <!-- Grosse Statuszeile oben im Blatt -->
+    <string name="refresh_sheet_all_updated">Усе оновлено</string>
+    <string name="refresh_sheet_app_start">Запуск застосунку</string>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="one">пакетний запит %1$s · %2$d курс</item>
+        <item quantity="few">пакетний запит %1$s · %2$d курси</item>
+        <item quantity="many">пакетний запит %1$s · %2$d курсів</item>
+        <item quantity="other">пакетний запит %1$s · %2$d курси</item>
+    </plurals>
+    <string name="refresh_sheet_database">База даних</string>
+    <string name="refresh_sheet_market_unreachable">Біржа %1$s недоступна</string>
+    <plurals name="refresh_sheet_markets_unreachable">
+        <item quantity="one">%1$d біржа недоступна</item>
+        <item quantity="few">%1$d біржі недоступні</item>
+        <item quantity="many">%1$d бірж недоступно</item>
+        <item quantity="other">%1$d біржі недоступні</item>
+    </plurals>
+    <string name="refresh_sheet_network">Мережа</string>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="one">%1$d сповіщення</item>
+        <item quantity="few">%1$d сповіщення</item>
+        <item quantity="many">%1$d сповіщень</item>
+        <item quantity="other">%1$d сповіщення</item>
+    </plurals>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="one">%1$d пара</item>
+        <item quantity="few">%1$d пари</item>
+        <item quantity="many">%1$d пар</item>
+        <item quantity="other">%1$d пари</item>
+    </plurals>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="one">%1$d пара не оновлена</item>
+        <item quantity="few">%1$d пари не оновлені</item>
+        <item quantity="many">%1$d пар не оновлено</item>
+        <item quantity="other">%1$d пари не оновлені</item>
+    </plurals>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="one">%2$d з %1$d пари</item>
+        <item quantity="few">%2$d з %1$d пар</item>
+        <item quantity="many">%2$d з %1$d пар</item>
+        <item quantity="other">%2$d з %1$d пар</item>
+    </plurals>
+    <string name="refresh_sheet_paused_until">пауза до %1$s</string>
+    <string name="refresh_sheet_paused_until_reason">пауза до %1$s (%2$s)</string>
+    <string name="refresh_sheet_reason_no_data">немає даних</string>
+    <string name="refresh_sheet_reason_offline">немає з\'єднання</string>
+    <string name="refresh_sheet_reason_rate_limit">забагато запитів</string>
+    <string name="refresh_sheet_reason_server">помилка сервера</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">тайм-аут</string>
+    <string name="refresh_sheet_reason_unavailable">біржа недоступна</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s секунди</string>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_markets">Біржі</string>
+    <string name="refresh_sheet_section_steps">Етапи</string>
+    <string name="refresh_sheet_status_failed">не оновлено</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">усе оновлено</string>
+    <string name="refresh_sheet_status_partial">оновлено частково</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">Очікування до старту</string>
+    <string name="refresh_sheet_widgets">Віджети</string>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+
+    <!-- Kurzbericht der Aktualisierung je Börse -->
+    <string name="refresh_report_bulk_failed">пакетний запит %1$s (помилка)</string>
+    <plurals name="refresh_report_errors">
+        <item quantity="one">%1$d помилка</item>
+        <item quantity="few">%1$d помилки</item>
+        <item quantity="many">%1$d помилок</item>
+        <item quantity="other">%1$d помилки</item>
+    </plurals>
+    <string name="refresh_report_live">Наживо: %1$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="one">більше не торгуються: %1$d</item>
+        <item quantity="few">більше не торгуються: %1$d</item>
+        <item quantity="many">більше не торгуються: %1$d</item>
+        <item quantity="other">більше не торгуються: %1$d</item>
+    </plurals>
+    <string name="refresh_report_singles">окремо: %1$d</string>
+
+    <!-- Prüfprotokoll der Hintergrundprüfungen (Ergebnis, Auslöser) -->
+    <string name="check_result_failed">Помилка</string>
+    <string name="check_result_ok">OK</string>
+    <string name="check_result_partial">Частково</string>
+    <string name="check_result_skipped">Пропущено</string>
+    <string name="check_trigger_bgtask">Фон</string>
+    <string name="check_trigger_exact">Вчасно</string>
+    <string name="check_trigger_foreground">Застосунок</string>
+    <string name="check_trigger_widget">Віджет</string>
+    <string name="check_trigger_widget_ios">Віджет · курси та цінові сигнали</string>
+    <string name="check_trigger_worker">Фон</string>
+
+    <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
+    <string name="battery_delay_hint">Android може відкладати перевірки – виберіть для батареї «Без обмежень»</string>
+    <string name="battery_later">Пізніше</string>
+    <string name="battery_message">Android відкладає фонову роботу, щоб заощадити заряд — тоді ціни й віджети можуть бути застарілими на кілька годин. Необмежене використання батареї зберігає їх актуальними. Це можна будь-коли змінити в налаштуваннях Android.</string>
+    <string name="battery_open_settings">Відкрити налаштування батареї</string>
+    <string name="battery_steps">У відомостях про застосунок торкніться «Батарея» (або «Використання батареї») і виберіть «Без обмежень».</string>
+    <string name="battery_title">Тримайте ціни актуальними</string>
+    <string name="ios_background_refresh_off">Фонове оновлення для застосунку вимкнено. Без нього сповіщення перевіряються, лише коли застосунок відкрито.</string>
+    <string name="ios_low_power_mode">Увімкнено режим енергозбереження. iOS рідко перевіряє у фоні, сповіщення можуть запізнюватися.</string>
+</resources>

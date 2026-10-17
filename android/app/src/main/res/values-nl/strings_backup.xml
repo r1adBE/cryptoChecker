@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Sicherung exportieren und wiederherstellen -->
+    <string name="backup_export">Exporteren</string>
+    <string name="backup_exported">Back-up opgeslagen.</string>
+    <string name="backup_failed">Dat lukte niet. Is het een Crypto Checker-back-up?</string>
+    <string name="backup_hint">Bewaart lijst met notities en groepen, alarmen, favorieten, portfolio en instellingen als bestand dat je zelf bewaart – bijv. voor een nieuwe telefoon.</string>
+    <string name="backup_import">Importeren</string>
+    <string name="backup_title">Back-up en herstel</string>
+    <string name="backup_too_large">Het bestand is te groot of geen geldige back-up (max. 16 MB).</string>
+
+    <!-- Passwort der Sicherungsdatei -->
+    <string name="backup_password">Wachtwoord</string>
+    <string name="backup_password_continue">Doorgaan</string>
+    <string name="backup_password_hide">Wachtwoord verbergen</string>
+    <!-- %1$d = Mindestlänge des Passworts (8) -->
+    <string name="backup_password_min">Minstens %1$d tekens</string>
+    <string name="backup_password_mismatch">De wachtwoorden komen niet overeen</string>
+    <string name="backup_password_prompt">Voer het wachtwoord van deze back-up in.</string>
+    <string name="backup_password_repeat">Wachtwoord herhalen</string>
+    <string name="backup_password_show">Wachtwoord tonen</string>
+    <string name="backup_password_title">Back-up met wachtwoord</string>
+    <string name="backup_password_too_weak">Te makkelijk te raden – niet alleen cijfers, niet één herhaald teken, geen gangbare reeks zoals «12345678» of «wachtwoord».</string>
+    <string name="backup_password_warning">Zonder het wachtwoord kan de back-up niet worden hersteld.</string>
+    <string name="backup_password_wrong">Onjuist wachtwoord, of het bestand is beschadigd. Probeer het opnieuw.</string>
+    <string name="backup_protect">Met wachtwoord beveiligen</string>
+    <string name="backup_protect_hint">Versleutelt het bestand (AES-256). Aanbevolen als het portfoliogegevens bevat.</string>
+
+    <!-- Sicherung ohne Passwort, Wiederherstellen -->
+    <string name="backup_plain_confirm">Opslaan zonder wachtwoord</string>
+    <string name="backup_plain_confirm_text">Het bestand is niet versleuteld. Wie het krijgt, kan lezen:</string>
+    <string name="backup_plain_confirm_title">Opslaan zonder wachtwoord?</string>
+    <string name="backup_plain_contents_addresses">Opgeslagen walletadressen</string>
+    <string name="backup_plain_contents_base">Volglijst met notities en groepen, alarmen, favorieten en instellingen</string>
+    <string name="backup_plain_contents_portfolio">Portfolio: transacties met hoeveelheden en prijzen</string>
+    <string name="backup_restore_app_lock_kept">De portfoliovergrendeling blijft aan – een onversleutelde back-up kan hem niet uitzetten.</string>
+    <string name="backup_restore_confirm">Importeren vervangt je lijst (met notities en groepen), alarmen, favorieten, portfolio en instellingen door de back-up.</string>
+    <plurals name="backup_restore_invalid">
+        <item quantity="one">%d item in de back-up (portfolio of alarm) is ongeldig en wordt niet geïmporteerd.</item>
+        <item quantity="other">%d items in de back-up (portfolio of alarmen) zijn ongeldig en worden niet geïmporteerd.</item>
+    </plurals>
+    <string name="backup_restore_newer_version">Deze back-up komt van een nieuwere appversie – werk eerst de app bij. Er is niets geïmporteerd.</string>
+    <string name="backup_restore_unencrypted_warning">Deze back-up is niet versleuteld – controleer of hij van jou is. Instellingen worden overgenomen; een ingeschakelde portfoliovergrendeling blijft aan.</string>
+    <string name="backup_restored">Hersteld: %1$s, %2$s.</string>
+    <plurals name="backup_restored_alarms">
+        <item quantity="one">%1$d alarm</item>
+        <item quantity="other">%1$d alarmen</item>
+    </plurals>
+    <plurals name="backup_restored_pairs">
+        <item quantity="one">%1$d paar</item>
+        <item quantity="other">%1$d paren</item>
+    </plurals>
+
+    <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
+    <string name="storage_recovery_message">Dit apparaat heeft de sleutel van de versleutelde app-gegevens niet meer, dus de app is leeg gestart. Er is niets verwijderd. Haal je lijst en portfolio terug door in de instellingen onder «%1$s» een back-upbestand te importeren.</string>
+    <string name="storage_recovery_title">Opgeslagen gegevens niet te ontgrendelen</string>
+</resources>

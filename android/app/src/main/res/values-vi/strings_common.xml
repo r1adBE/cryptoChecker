@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">Quay lại</string>
+    <string name="action_cancel">Hủy</string>
+    <string name="action_clear">Xóa</string>
+    <string name="action_close">Đóng</string>
+    <string name="action_delete">Xóa</string>
+    <string name="action_edit">Sửa</string>
+    <string name="action_more">Tùy chọn khác</string>
+    <string name="action_refresh">Làm mới</string>
+    <string name="action_retry">Thử lại</string>
+    <string name="action_save">Lưu</string>
+    <string name="action_sort">Sắp xếp</string>
+    <string name="action_sort_done">Xong</string>
+    <string name="action_undo">Hoàn tác</string>
+    <string name="action_view">Xem</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">Thị trường</string>
+    <string name="tab_portfolio">Danh mục</string>
+    <string name="tab_settings">Cài đặt</string>
+    <string name="tab_watchlist">Danh sách</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">Lỗi: %1$s</string>
+    <string name="error_market_unreachable">Hiện không kết nối được sàn – giá gần nhất vẫn hiển thị.</string>
+    <string name="error_market_unreachable_short">Hiện không kết nối được sàn</string>
+    <string name="loading_hint">Đang tải…</string>
+    <string name="no_internet_connection">Không có kết nối internet</string>
+    <string name="option_off">Tắt</string>
+    <string name="something_went_wrong">Đã xảy ra lỗi</string>
+    <string name="time_just_now">vừa xong</string>
+    <string name="timeout_error_message">Sàn hiện không phản hồi.</string>
+    <string name="try_again">Thử lại</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">Không có kết nối</string>
+    <string name="offline_status_since">Không có kết nối · cập nhật %1$s</string>
+    <string name="status_live">Trực tiếp</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">Thêm cặp</string>
+    <string name="shortcut_alarms">Tất cả cảnh báo</string>
+    <string name="shortcut_cycle">Thị trường</string>
+</resources>

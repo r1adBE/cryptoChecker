@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Alarmliste und Übersicht aller Alarme -->
+    <string name="add_alarm_action">ضبط تنبيه</string>
+    <string name="alarms_add">تنبيه جديد</string>
+    <string name="alarms_edit">تعديل التنبيه</string>
+    <string name="alarms_empty">لا توجد تنبيهات لهذا الزوج بعد.</string>
+    <string name="alarms_empty_example">مثلًا: أخبرني عندما يرتفع BTC فوق %1$s.</string>
+    <!-- Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
+    <string name="alarms_notifications_off">الإشعارات متوقفة – لن تصلك التنبيهات.</string>
+    <string name="alarms_notifications_turn_on">تشغيل</string>
+    <plurals name="alarms_overview_active">
+        <item quantity="zero">النشطة: %1$d</item>
+        <item quantity="one">النشطة: %1$d</item>
+        <item quantity="two">النشطة: %1$d</item>
+        <item quantity="few">النشطة: %1$d</item>
+        <item quantity="many">النشطة: %1$d</item>
+        <item quantity="other">النشطة: %1$d</item>
+    </plurals>
+    <string name="alarms_overview_empty">لا توجد تنبيهات بعد. افتح زوجًا وأضف تنبيهًا من قسم التنبيهات.</string>
+    <string name="alarms_overview_title">كل التنبيهات</string>
+    <string name="alarms_title">التنبيهات</string>
+
+    <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
+    <string name="alarm_advanced">متقدم</string>
+    <string name="alarm_change_updates">تغيير تحديث الأسعار</string>
+    <string name="alarm_create">إنشاء تنبيه</string>
+    <string name="alarm_currency_label">العملة</string>
+    <string name="alarm_delete_confirm">ستتم إزالة هذا التنبيه.</string>
+    <string name="alarm_delete_title">حذف التنبيه؟</string>
+    <string name="alarm_field_percent">النسبة المئوية</string>
+    <string name="alarm_field_price">السعر</string>
+    <string name="alarm_fires_now_above">السعر أعلى من %1$s بالفعل. هل تريد الحفظ رغم ذلك؟</string>
+    <string name="alarm_fires_now_below">السعر أقل من %1$s بالفعل. هل تريد الحفظ رغم ذلك؟</string>
+    <string name="alarm_fires_now_change">تغيير</string>
+    <string name="alarm_fires_now_save">احفظ رغم ذلك</string>
+    <string name="alarm_fires_now_title">سيعمل التنبيه فورًا</string>
+    <string name="alarm_first_battery_hint">تحسين البطارية يقيّد التطبيق – قد تصل التنبيهات متأخرة.</string>
+    <string name="alarm_first_title">كل شيء جاهز</string>
+    <string name="alarm_last_triggered">آخر مرة %1$s</string>
+    <string name="alarm_new_extreme">جديد: %1$s</string>
+    <string name="alarm_once">مرة واحدة</string>
+    <string name="alarm_option_repeating">إبقاء التنبيه بعد انطلاقه</string>
+    <string name="alarm_option_sound">الصوت</string>
+    <string name="alarm_option_speak">نطق التنبيه</string>
+    <string name="alarm_option_vibrate">الاهتزاز</string>
+    <string name="alarm_repeat_each">في كل مرة</string>
+    <string name="alarm_repeat_once">مرة واحدة</string>
+    <string name="alarm_repeating">في كل مرة</string>
+    <string name="alarm_threshold_error_empty">أدخل قيمة لحفظ التنبيه.</string>
+    <string name="alarm_threshold_error_funding">يجب أن يكون معدل التمويل رقمًا بين −10 و+10 بالمئة.</string>
+    <string name="alarm_threshold_error_invalid">أدخل رقمًا صالحًا أكبر من 0.</string>
+    <string name="alarm_threshold_error_oi">تغيّر الفائدة المفتوحة: 1000 بالمئة كحد أقصى.</string>
+    <plurals name="alarm_window_hours">
+        <item quantity="zero">خلال %1$d ساعة</item>
+        <item quantity="one">خلال %1$d ساعة</item>
+        <item quantity="two">خلال %1$d ساعة</item>
+        <item quantity="few">خلال %1$d ساعات</item>
+        <item quantity="many">خلال %1$d ساعة</item>
+        <item quantity="other">خلال %1$d ساعة</item>
+    </plurals>
+    <string name="alarm_window_label">النافذة الزمنية</string>
+
+    <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
+    <string name="alarm_simple_above">يرتفع فوق</string>
+    <string name="alarm_simple_below">ينخفض تحت</string>
+    <string name="alarm_simple_direction_a11y">الاتجاه: %1$s</string>
+    <string name="alarm_simple_end"></string>
+    <string name="alarm_simple_when">عندما %1$s</string>
+    <string name="alarm_template_a11y">إنشاء تنبيه: %1$s</string>
+    <string name="alarm_template_a11y_down">إنشاء تنبيه عند ناقص %1$s بالمئة</string>
+    <string name="alarm_template_a11y_up">إنشاء تنبيه عند زائد %1$s بالمئة</string>
+    <string name="alarm_template_created">تم إنشاء التنبيه</string>
+    <string name="alarm_template_volume">الحجم ×%1$s</string>
+    <string name="alarm_templates_title">تنبيهات سريعة</string>
+
+    <!-- Alarm-Bedingungen -->
+    <string name="alarm_condition_above">السعر أعلى من</string>
+    <string name="alarm_condition_below">السعر أدنى من</string>
+    <string name="alarm_condition_down_percent">ينخفض بنسبة</string>
+    <string name="alarm_condition_funding_above">التمويل أعلى من</string>
+    <string name="alarm_condition_funding_below">التمويل أقل من</string>
+    <string name="alarm_condition_move_percent">يتحرك بنسبة</string>
+    <string name="alarm_condition_near_high">قرب أعلى مستوى</string>
+    <string name="alarm_condition_near_low">قرب أدنى مستوى</string>
+    <string name="alarm_condition_oi_down">الفائدة المفتوحة تنخفض</string>
+    <string name="alarm_condition_oi_up">الفائدة المفتوحة ترتفع</string>
+    <string name="alarm_condition_up_percent">يرتفع بنسبة</string>
+    <string name="alarm_condition_volume_spike">قفزة في الحجم</string>
+
+    <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
+    <string name="alarm_sentence_above">أبلغني عندما يرتفع %1$s فوق %2$s.</string>
+    <string name="alarm_sentence_below">أبلغني عندما ينخفض %1$s تحت %2$s.</string>
+    <string name="alarm_sentence_down_percent">أبلغني عندما ينخفض %1$s بنسبة %2$s.</string>
+    <string name="alarm_sentence_funding_above">أبلغني عندما يرتفع تمويل %1$s فوق %2$s.</string>
+    <string name="alarm_sentence_funding_below">أبلغني عندما ينخفض تمويل %1$s تحت %2$s.</string>
+    <string name="alarm_sentence_incomplete">أدخل قيمة لترى التنبيه كجملة.</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="zero">أبلغني عندما يتحرك %1$s بنسبة %2$s خلال %3$d ساعة.</item>
+        <item quantity="one">أبلغني عندما يتحرك %1$s بنسبة %2$s خلال %3$d ساعة.</item>
+        <item quantity="two">أبلغني عندما يتحرك %1$s بنسبة %2$s خلال %3$d ساعة.</item>
+        <item quantity="few">أبلغني عندما يتحرك %1$s بنسبة %2$s خلال %3$d ساعات.</item>
+        <item quantity="many">أبلغني عندما يتحرك %1$s بنسبة %2$s خلال %3$d ساعة.</item>
+        <item quantity="other">أبلغني عندما يتحرك %1$s بنسبة %2$s خلال %3$d ساعة.</item>
+    </plurals>
+    <string name="alarm_sentence_near_high">أبلغني عندما يكون %1$s دون %3$s بنسبة %2$s على الأكثر.</string>
+    <string name="alarm_sentence_near_low">أبلغني عندما يكون %1$s فوق %3$s بنسبة %2$s على الأكثر.</string>
+    <string name="alarm_sentence_new_extreme">أبلغني عندما يسجّل %1$s %2$s جديدًا.</string>
+    <plurals name="alarm_sentence_oi_down">
+        <item quantity="zero">أبلغني عندما تنخفض الفائدة المفتوحة لـ %1$s بنسبة %2$s خلال %3$d ساعة.</item>
+        <item quantity="one">أبلغني عندما تنخفض الفائدة المفتوحة لـ %1$s بنسبة %2$s خلال %3$d ساعة.</item>
+        <item quantity="two">أبلغني عندما تنخفض الفائدة المفتوحة لـ %1$s بنسبة %2$s خلال %3$d ساعة.</item>
+        <item quantity="few">أبلغني عندما تنخفض الفائدة المفتوحة لـ %1$s بنسبة %2$s خلال %3$d ساعات.</item>
+        <item quantity="many">أبلغني عندما تنخفض الفائدة المفتوحة لـ %1$s بنسبة %2$s خلال %3$d ساعة.</item>
+        <item quantity="other">أبلغني عندما تنخفض الفائدة المفتوحة لـ %1$s بنسبة %2$s خلال %3$d ساعة.</item>
+    </plurals>
+    <plurals name="alarm_sentence_oi_up">
+        <item quantity="zero">أبلغني عندما ترتفع الفائدة المفتوحة لـ %1$s بنسبة %2$s خلال %3$d ساعة.</item>
+        <item quantity="one">أبلغني عندما ترتفع الفائدة المفتوحة لـ %1$s بنسبة %2$s خلال %3$d ساعة.</item>
+        <item quantity="two">أبلغني عندما ترتفع الفائدة المفتوحة لـ %1$s بنسبة %2$s خلال %3$d ساعة.</item>
+        <item quantity="few">أبلغني عندما ترتفع الفائدة المفتوحة لـ %1$s بنسبة %2$s خلال %3$d ساعات.</item>
+        <item quantity="many">أبلغني عندما ترتفع الفائدة المفتوحة لـ %1$s بنسبة %2$s خلال %3$d ساعة.</item>
+        <item quantity="other">أبلغني عندما ترتفع الفائدة المفتوحة لـ %1$s بنسبة %2$s خلال %3$d ساعة.</item>
+    </plurals>
+    <string name="alarm_sentence_up_percent">أبلغني عندما يرتفع %1$s بنسبة %2$s.</string>
+    <string name="alarm_sentence_volume">أبلغني عندما يصل حجم تداول %1$s إلى %2$s× المعتاد.</string>
+
+    <!-- Alarm «Nahe am Hoch / Tief» -->
+    <string name="alarm_near_extreme_high_30">أعلى مستوى في 30 يومًا</string>
+    <string name="alarm_near_extreme_high_365">أعلى مستوى في سنة</string>
+    <string name="alarm_near_extreme_high_90">أعلى مستوى في 90 يومًا</string>
+    <string name="alarm_near_extreme_low_30">أدنى مستوى في 30 يومًا</string>
+    <string name="alarm_near_extreme_low_365">أدنى مستوى في سنة</string>
+    <string name="alarm_near_extreme_low_90">أدنى مستوى في 90 يومًا</string>
+    <string name="alarm_near_field_distance">المسافة</string>
+    <string name="alarm_near_hint">ينبّه أيضًا عند تسجيل أعلى أو أدنى مستوى جديد. يعتمد على الشموع اليومية، ويُحدَّث كل 6 ساعات.</string>
+    <string name="alarm_near_new_only">فقط عند قمة أو قاع جديد</string>
+    <string name="alarm_near_notification_high">%1$s دون %3$s بنسبة %2$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_low">%1$s فوق %3$s بنسبة %2$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_new">%2$s يسجّل %1$s جديدًا: %3$s (السابق %4$s)</string>
+    <plurals name="alarm_near_window_days">
+        <item quantity="zero">%1$d يوم</item>
+        <item quantity="one">%1$d يوم</item>
+        <item quantity="two">%1$d يوم</item>
+        <item quantity="few">%1$d أيام</item>
+        <item quantity="many">%1$d يومًا</item>
+        <item quantity="other">%1$d يوم</item>
+    </plurals>
+    <string name="alarm_near_window_label">الفترة</string>
+    <string name="alarm_near_window_year">سنة واحدة</string>
+
+    <!-- Futures- und Volumen-Alarme (Funding pro 8 Stunden, Open Interest, Volumen-Spike) -->
+    <!-- Funding-Schwelle gilt pro 8 Stunden; stündliches Funding wird umgerechnet -->
+    <string name="alarm_funding_hint_8h">معدل التمويل لكل 8 ساعات. تُحوَّل العقود ذات الفترة المختلفة (ساعة × 8، 4 ساعات × 2)؛ وتعرض بطاقة العقود الآجلة القيمة المحوَّلة. إذا كانت الفترة غير معروفة فلا يفحص التنبيه. السالب يعني أن البائعين على المكشوف يدفعون للمشترين. ± يغيّر الإشارة.</string>
+    <string name="alarm_funding_sign_a11y">تبديل الإشارة</string>
+    <string name="alarm_oi_hint">يقارن الفائدة المفتوحة بالقيمة المحفوظة قبل هذا العدد من الساعات. لا ينبّه التنبيه الجديد إلا بعد أن يجمع التطبيق بيانات طوال هذه المدة؛ ويتم الفحص مرة كل 5 دقائق على الأكثر.</string>
+    <string name="alarm_volume_factor_label">حجم الساعة الأخيرة مقارنةً بالمعتاد</string>
+    <string name="alarm_volume_hint">بيانات الحجم مصدرها Binance — الأزواج غير المدرجة هناك لا تُطلق التنبيه أبدًا.</string>
+
+    <!-- Bestätigung nach dem Speichern -->
+    <string name="alarm_saved_active">التنبيه مفعّل</string>
+    <!-- «Alarm gespeichert: BTC Kurs über 70’000 USDT · einmalig» -->
+    <string name="alarm_saved_banner">تم حفظ التنبيه: %1$s</string>
+    <!-- Zusatz in der Bestätigung, wenn Mitteilungen aus sind (dazu Aktion «Einstellungen») -->
+    <string name="alarm_saved_notifications_off">الإشعارات متوقفة</string>
+
+    <!-- Wann Alarme geprüft werden -->
+    <string name="alarm_timing_hint_android">عند إغلاق التطبيق يفحص Android بشكل غير منتظم (كل 15 دقيقة تقريبًا مع «%1$s»)، لذا قد تفوتك القفزات القصيرة.</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">عند إغلاق التطبيق يقرر iOS متى يتم الفحص، لذا قد تفوتك القفزات القصيرة؛ وما دام التطبيق مفتوحًا يتم الفحص بشكل موثوق.</string>
+    <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
+    <string name="alarm_timing_title">متى يتم التحقق من التنبيهات</string>
+    <string name="alarm_timing_where">اضبط عدد مرات تحديث الأسعار من %1$s.</string>
+
+    <!-- Alarm-Signal und Test-Alarm -->
+    <string name="alarm_signal_silent">صامت (إشعار فقط)</string>
+    <string name="alarm_signal_sound">صوت فقط</string>
+    <string name="alarm_signal_sound_vibrate">صوت واهتزاز</string>
+    <string name="alarm_signal_system">النظام</string>
+    <string name="alarm_signal_vibrate">اهتزاز فقط</string>
+    <string name="alarm_test">اختبار التنبيه</string>
+    <string name="alarm_test_action">اختبار</string>
+    <string name="alarm_test_denied">الإشعارات متوقفة لـ Crypto Checker.</string>
+    <string name="alarm_test_hint">يرسل تنبيهًا تجريبيًا بإعدادات الصوت والاهتزاز والنطق لديك.</string>
+    <string name="alarm_test_open_settings">فتح الإعدادات</string>
+    <string name="alarm_test_quiet">ساعات الصمت مفعّلة الآن: التنبيهات الحقيقية ستنتظر حتى نهايتها ثم تنطلق بالصوت.</string>
+    <string name="alarm_test_text">هكذا يبدو التنبيه، وهكذا يبدو صوته.</string>
+    <string name="alarm_test_title">اختبار: تنبيه من Crypto Checker</string>
+
+    <!-- Ehrliche Alarme: Vorlesetexte Ton/Ansage, ungeprüfte Alarme -->
+    <string name="alarm_a11y_sound_on">الصوت مفعّل</string>
+    <string name="alarm_a11y_speak_on">النطق مفعّل</string>
+    <string name="alarm_unchecked_no_candles">تعذّر التحقق (لا توجد بيانات شموع)</string>
+    <string name="alarm_unchecked_no_rate">تعذّر التحقق (لا يوجد سعر صرف)</string>
+</resources>

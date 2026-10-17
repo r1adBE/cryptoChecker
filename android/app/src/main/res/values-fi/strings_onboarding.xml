@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Begrüssung beim ersten Start -->
+    <string name="welcome_alert">Hälytä – hinta, prosentti, volyymi ja epätavalliset liikkeet</string>
+    <string name="welcome_alert_q">Milloin ilmoittaa?</string>
+    <string name="welcome_text">Sinun hintasi. Sinun hälytyksesi. Sinun yleiskuvasi.\nEi tiliä. Ei mainoksia. Ei seurantaa.</string>
+    <string name="welcome_understand">Ymmärrä – mikä liikkuu hinnan mukana juuri nyt</string>
+    <string name="welcome_understand_q">Mikä liikkuu mukana?</string>
+    <string name="welcome_watch">Seuraa – kolikkosi, hinnat ja kehitys</string>
+    <string name="welcome_watch_q">Mitä tapahtuu?</string>
+
+    <!-- Start-Coins (Vorschlagsliste nach der Begrüssung) -->
+    <string name="starter_add_selected">Lisää seurantalistaan (%1$d)</string>
+    <string name="starter_loading_prices">Ladataan hintoja…</string>
+    <string name="starter_search_coin">Hae toista kolikkoa</string>
+    <string name="starter_select_all">Valitse kaikki</string>
+    <string name="starter_select_none">Poista valinnat</string>
+    <string name="starter_text">Poista valinta niistä, joita et halua, ja lisää loput kerralla. Voit vaihtaa pörssin ja parin myöhemmin.</string>
+    <string name="starter_title">Aloita näillä kolikoilla</string>
+    <string name="starter_watch_alarm_hint">Seuraa hintaa, aseta hälytys</string>
+</resources>

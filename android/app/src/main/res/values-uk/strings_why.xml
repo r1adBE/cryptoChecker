@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Warum bewegt sich das?»: Titel, Abschnitte, Aufklappen -->
+    <string name="why_action">Що рухається разом?</string>
+    <string name="why_all_values">Усі значення та джерела</string>
+    <string name="why_all_values_hint">Спостереження · Можливе пояснення · Джерела</string>
+    <string name="why_details">Показати подробиці</string>
+    <string name="why_details_hide">Сховати подробиці</string>
+    <string name="why_disclaimer">Автоматична оцінка за ринковими даними: показує, що відбувається одночасно, а не доводить причину.</string>
+    <string name="why_footer_short">Одночасно не означає причина · Не інвестиційна порада</string>
+    <string name="why_no_data">Немає даних Binance для цієї пари</string>
+    <string name="why_no_data_hint">Ціна, обсяг і волатильність беруться з годинних свічок Binance.</string>
+    <string name="why_ref_alts">Альти</string>
+    <string name="why_section_context">Можливе тлумачення</string>
+    <string name="why_section_observation">Спостереження</string>
+    <string name="why_title">Що рухається разом?</string>
+    <string name="why_title_coin">Що рухається разом із %1$s?</string>
+
+    <!-- «Warum?»: Kurz gesagt (ein Satz oben) -->
+    <string name="why_brief_head">Коротко · На %1$s</string>
+    <string name="why_brief_label">Коротко:</string>
+    <string name="why_summary_against">Монета рухається проти ринку.</string>
+    <string name="why_summary_calm">Помітного руху немає: ринок і монета спокійні.</string>
+    <string name="why_summary_coin">Рухається лише ця монета – можливо, щось, що стосується лише цієї монети.</string>
+    <string name="why_summary_coin_volume">Рухається лише ця монета, за підвищеного обсягу – можливо, щось, що стосується лише цієї монети.</string>
+    <string name="why_summary_longs">Ф\'ючерси: багато лонг-позицій із плечем.</string>
+    <string name="why_summary_market">Рух збігається в часі з ринком загалом.</string>
+    <string name="why_summary_market_volume">Рух збігається в часі з підвищеним обсягом торгів і широким рухом ринку.</string>
+    <string name="why_summary_peg_near">Курс близький до прив\'язки 1:1.</string>
+    <string name="why_summary_peg_off">Курс помітно відхиляється від прив\'язки 1:1.</string>
+    <string name="why_summary_shorts">Ф\'ючерси: багато шорт-позицій.</string>
+    <string name="why_summary_thin">Рух слабкий: за ним мало обсягу.</string>
+
+    <!-- «Warum?»: Faktorliste (Titel der Faktoren) -->
+    <string name="why_f_against">Проти ринку</string>
+    <string name="why_f_coin_only">Лише ця монета</string>
+    <string name="why_f_leader">Біткоїн як лідер ринку</string>
+    <string name="why_f_leverage_balanced">Плече збалансоване</string>
+    <string name="why_f_leverage_longs">Плече: багато лонгів</string>
+    <string name="why_f_leverage_shorts">Плече: багато шортів</string>
+    <string name="why_f_market_calm">Спокійний ринок</string>
+    <string name="why_f_market_wide">Рухається весь ринок</string>
+    <string name="why_factor_funding">Фандинг</string>
+    <string name="why_factor_futures">Ф’ючерси</string>
+    <string name="why_factor_market">Ринок загалом</string>
+    <string name="why_factor_near_high">Близько до максимуму</string>
+    <string name="why_factor_near_low">Близько до мінімуму</string>
+    <string name="why_factor_peg">Прив\'язка (1:1)</string>
+    <string name="why_factor_range3d">Діапазон за 3 дні</string>
+
+    <!-- «Warum?»: Nebenzeilen der Faktoren -->
+    <string name="why_fn_estimated">оцінка</string>
+    <string name="why_fn_funding_longs">багато хто ставить на зростання</string>
+    <string name="why_fn_funding_neutral">нейтрально</string>
+    <string name="why_fn_funding_shorts">багато хто ставить на падіння</string>
+    <string name="why_fn_high_at">на 30-денному максимумі</string>
+    <string name="why_fn_high_below">нижче 30-денного максимуму</string>
+    <string name="why_fn_leader_calm">Біткоїн спокійний</string>
+    <string name="why_fn_leader_moves">Біткоїн помітно рухається</string>
+    <string name="why_fn_low_above">вище 30-денного мінімуму</string>
+    <string name="why_fn_low_at">на 30-денному мінімумі</string>
+    <string name="why_fn_market_against">Монета рухається проти ринку</string>
+    <string name="why_fn_market_alone">Ринок спокійний – монета рухається сама</string>
+    <string name="why_fn_market_calm">Ринок спокійний</string>
+    <string name="why_fn_market_lags">Ринок рухається, а ця монета – майже ні</string>
+    <string name="why_fn_market_moves">Ринок рухається в той самий бік</string>
+    <string name="why_fn_market_pulls">Ринок рухається разом із BTC</string>
+    <string name="why_fn_oi_down">Відкритий інтерес знизився</string>
+    <string name="why_fn_oi_flat">Відкритий інтерес майже не змінився</string>
+    <string name="why_fn_oi_mixed">Відкритий інтерес неоднорідний</string>
+    <string name="why_fn_oi_up">Відкритий інтерес зріс</string>
+    <string name="why_fn_peg_above">на %1$s вище прив\'язки 1:1</string>
+    <string name="why_fn_peg_below">на %1$s нижче прив\'язки 1:1</string>
+    <string name="why_fn_peg_near">близько до прив\'язки 1:1</string>
+    <string name="why_fn_range_above_low">від 3-денного мінімуму</string>
+    <string name="why_fn_range_below_high">від 3-денного максимуму</string>
+    <string name="why_fn_range_near_high">близько до 3-денного максимуму</string>
+    <string name="why_fn_range_near_low">близько до 3-денного мінімуму</string>
+    <string name="why_fn_volatility_stronger">сильніше, ніж зазвичай</string>
+    <string name="why_fn_volatility_tiny">мало в абсолютному вимірі (менше %1$s)</string>
+    <string name="why_fn_volatility_usual">як зазвичай</string>
+    <string name="why_fn_volume_higher">вищий, ніж зазвичай</string>
+    <string name="why_fn_volume_lower">нижчий, ніж зазвичай</string>
+    <string name="why_fn_volume_usual">як зазвичай</string>
+
+    <!-- «Warum?»: ausführliche Sätze je Beobachtung -->
+    <string name="why_against_market_text">Ця монета %1$s, BTC %2$s за 24 год — помітно самостійний рух.</string>
+    <string name="why_against_ref_text">Ця монета %1$s, %2$s %3$s за 24 год — помітно самостійний рух.</string>
+    <string name="why_btc_independent">%1$s зараз рухається незалежно від біткоїна.</string>
+    <string name="why_btc_tight">%1$s зараз рухається синхронно з біткоїном.</string>
+    <string name="why_change_1h">1г</string>
+    <string name="why_change_24h">24г</string>
+    <string name="why_coin_only_text">%1$s за 24 год за спокійного ринку – можливо, щось, що стосується лише цієї монети.</string>
+    <string name="why_leverage_balanced_text">На ф\'ючерсному ринку немає перекосу в лонг чи шорт.</string>
+    <string name="why_leverage_longs_text">Багато хто ставить позиченими грошима на зростання цін. Лонги платять шортам — підвищений ризик ліквідацій у разі падіння ціни.</string>
+    <string name="why_leverage_shorts_text">Багато хто ставить позиченими грошима на падіння цін. Шорти платять лонгам – якщо ціна зросте, можливий шорт-сквіз.</string>
+    <string name="why_market_calm_text">Ця монета: %1$s за 24 год. Ні ринок, ні монета особливо не рухаються.</string>
+    <string name="why_market_leader_text">Як найбільша монета, BTC зазвичай рухається синхронно з рештою ринку. ETH: %1$s за 24 год.</string>
+    <string name="why_market_leader_text_no_eth">Як найбільша монета, BTC зазвичай рухається синхронно з рештою ринку.</string>
+    <string name="why_market_similar_text">Ця монета: %1$s за 24 год — одночасно ринок рухається в той самий бік, хоча й менш виразно.</string>
+    <string name="why_market_wide_text">Ця монета: %1$s за 24 год – одночасно весь ринок помітно рухається.</string>
+    <string name="why_open_interest_change">Відкритий інтерес %1$s з останньої перевірки.</string>
+    <string name="why_peg_text">Стейблкоїн: порівняно з прив\'язкою 1:1 до валюти котирування, відхилення %1$s.</string>
+    <string name="why_sentiment_text">Індекс страху й жадібності всього крипторинку, %1$s відносно вчора.</string>
+    <string name="why_sentiment_text_no_change">Індекс страху й жадібності всього крипторинку.</string>
+    <plurals name="why_trend_falling">
+        <item quantity="one">знижується %1$d годину</item>
+        <item quantity="few">знижується %1$d години</item>
+        <item quantity="many">знижується %1$d годин</item>
+        <item quantity="other">знижується %1$d години</item>
+    </plurals>
+    <plurals name="why_trend_rising">
+        <item quantity="one">зростає %1$d годину</item>
+        <item quantity="few">зростає %1$d години</item>
+        <item quantity="many">зростає %1$d годин</item>
+        <item quantity="other">зростає %1$d години</item>
+    </plurals>
+    <plurals name="why_trend_stable">
+        <item quantity="one">стабільний %1$d годину</item>
+        <item quantity="few">стабільний %1$d години</item>
+        <item quantity="many">стабільний %1$d годин</item>
+        <item quantity="other">стабільний %1$d години</item>
+    </plurals>
+    <string name="why_volatility_high_text">Остання година: %1$s — відносно типового годинного коливання за останні 24 години.</string>
+    <string name="why_volatility_normal_text">Остання година: %1$s — у звичайних межах.</string>
+    <string name="why_volatility_tiny_text">Остання година: %1$s — незвично для цієї монети, але мало в абсолютному вимірі.</string>
+    <string name="why_volume_estimated_text">Оцінка: це джерело не дає обороту, тому порівнюється проторгована кількість монет.</string>
+    <string name="why_volume_high_text">За останню годину торгували значно більше, ніж зазвичай, – рух супроводжується високим обсягом.</string>
+    <string name="why_volume_low_text">За рухом стоїть мало угод – такі рухи часто менш стійкі.</string>
+    <string name="why_volume_normal_text">Обсяг торгів за останню годину на рівні останніх 24 годин.</string>
+
+    <!-- «Warum?»: Signal-Punkte (stützt, neutral, Vorsicht) -->
+    <string name="why_dot_caution">підвищено</string>
+    <string name="why_dot_neutral">нейтрально</string>
+    <string name="why_dot_supports">узгоджується з рухом</string>
+
+    <!-- «Warum?»: Frische und Quellen der Daten -->
+    <string name="why_data_time">Дані на %1$s</string>
+    <string name="why_fresh_breadth">Ширина ринку: %1$s · %2$s</string>
+    <string name="why_fresh_candles">Свічки: %1$s · %2$s</string>
+    <string name="why_fresh_fng">Fear &amp; Greed: %1$s</string>
+    <string name="why_fresh_futures">Ф\'ючерси: %1$s</string>
+    <plurals name="why_fresh_oi_hours">
+        <item quantity="one">відкритий інтерес порівняно з даними %1$d годину тому</item>
+        <item quantity="few">відкритий інтерес порівняно з даними %1$d години тому</item>
+        <item quantity="many">відкритий інтерес порівняно з даними %1$d годин тому</item>
+        <item quantity="other">відкритий інтерес порівняно з даними %1$d години тому</item>
+    </plurals>
+    <plurals name="why_fresh_oi_minutes">
+        <item quantity="one">відкритий інтерес порівняно з даними %1$d хвилину тому</item>
+        <item quantity="few">відкритий інтерес порівняно з даними %1$d хвилини тому</item>
+        <item quantity="many">відкритий інтерес порівняно з даними %1$d хвилин тому</item>
+        <item quantity="other">відкритий інтерес порівняно з даними %1$d хвилини тому</item>
+    </plurals>
+    <string name="why_fresh_today">сьогодні</string>
+    <string name="why_fresh_yesterday">учора</string>
+    <string name="why_source_fallback">%1$s (резервне джерело)</string>
+    <string name="why_source_reference">%1$s (орієнтир)</string>
+    <string name="why_sources">Джерела: годинні свічки біржі (зазвичай Binance), дані ф\'ючерсів бірж, Fear &amp; Greed від alternative.me.</string>
+    <string name="why_sources_list">Джерела: %1$s.</string>
+    <string name="why_src_breadth">%1$s (ширина ринку)</string>
+    <string name="why_src_candles">%1$s (свічки)</string>
+    <string name="why_src_comparison">%1$s (порівняння з ринком)</string>
+    <string name="why_src_fng">%1$s (Fear &amp; Greed)</string>
+    <string name="why_src_futures">%1$s (ф\'ючерси)</string>
+
+    <!-- Faktor-Checkliste (Crypto Pulse und «Warum?») -->
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">Фандинг</string>
+    <string name="factor_spoken_volatility">коливання в %1$s раза сильніші за звичайні</string>
+    <string name="factor_spoken_volume">у %1$s раза більше звичайного</string>
+    <string name="factor_volatility">Коливання (1 год)</string>
+    <string name="factor_volume">Обсяг</string>
+</resources>

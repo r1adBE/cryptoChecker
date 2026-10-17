@@ -1,0 +1,471 @@
+{
+  "description": "Shared cases for the action-sheet chart and the watchlist mini chart (Android SheetChart.accept / SheetChart.sparklineFor, iOS the same names in WatchSheetChart.swift). 'accept': candles as [UTC epoch day, price] (open = high = low = close = price, openTime = day × 86 400 000); convert = USDT fallback converted to the fiat quote; dailyRates = fiat per USD per UTC day; currentRate = fiat per USD now; expected = first/last close of the accepted series or null (no chart). The fallback is only used when last close × rate (rate of the last candle's day, else currentRate) is within 25 % of the pair price; no pair price or no rate at all = null. 'sparkline': USDT closes of the base asset, pair price and USD per unit of the quote; shown only within 25 % (last close vs price × quoteUsd). Numbers compared with tolerance 1e-9 (relative). 'widget': single-widget chart (Android/iOS WidgetChartGeometry.pairCandles): candles of the pair from the fallback chain (same layout as 'accept'), shown only when the last close is within 25 % of the pair price; no price = no chart (not checkable); invalid candles are dropped first, fewer than 2 = no chart.",
+  "accept": [
+    {
+      "name": "pair candles within 25 % are kept unchanged",
+      "convert": false,
+      "candles": [
+        [
+          1,
+          100
+        ],
+        [
+          2,
+          110
+        ]
+      ],
+      "price": 111,
+      "dailyRates": null,
+      "currentRate": null,
+      "expected": {
+        "first": 100,
+        "last": 110
+      }
+    },
+    {
+      "name": "pair candles 50 % off the price are a different coin",
+      "convert": false,
+      "candles": [
+        [
+          1,
+          100
+        ],
+        [
+          2,
+          110
+        ]
+      ],
+      "price": 165,
+      "dailyRates": null,
+      "currentRate": null,
+      "expected": null
+    },
+    {
+      "name": "pair candles without the pair price cannot be checked",
+      "convert": false,
+      "candles": [
+        [
+          1,
+          100
+        ],
+        [
+          2,
+          110
+        ]
+      ],
+      "price": null,
+      "dailyRates": null,
+      "currentRate": null,
+      "expected": null
+    },
+    {
+      "name": "fallback with current rate, same token: scaled to the pair price",
+      "convert": true,
+      "candles": [
+        [
+          1,
+          100
+        ],
+        [
+          2,
+          110
+        ]
+      ],
+      "price": 55,
+      "dailyRates": null,
+      "currentRate": 0.5,
+      "expected": {
+        "first": 50,
+        "last": 55
+      }
+    },
+    {
+      "name": "fallback ending at 110 is not pulled to 55 when the rate says 110 (different token)",
+      "convert": true,
+      "candles": [
+        [
+          1,
+          100
+        ],
+        [
+          2,
+          110
+        ]
+      ],
+      "price": 55,
+      "dailyRates": null,
+      "currentRate": 1,
+      "expected": null
+    },
+    {
+      "name": "fallback without any FX rate is not scaled blindly",
+      "convert": true,
+      "candles": [
+        [
+          1,
+          100
+        ],
+        [
+          2,
+          110
+        ]
+      ],
+      "price": 55,
+      "dailyRates": null,
+      "currentRate": null,
+      "expected": null
+    },
+    {
+      "name": "fallback without the pair price cannot be checked",
+      "convert": true,
+      "candles": [
+        [
+          1,
+          100
+        ],
+        [
+          2,
+          110
+        ]
+      ],
+      "price": null,
+      "dailyRates": null,
+      "currentRate": 0.5,
+      "expected": null
+    },
+    {
+      "name": "daily rates: each candle with its day, anchored to the pair price",
+      "convert": true,
+      "candles": [
+        [
+          10,
+          100
+        ],
+        [
+          13,
+          100
+        ]
+      ],
+      "price": 84,
+      "dailyRates": {
+        "10": 0.9,
+        "13": 0.8
+      },
+      "currentRate": null,
+      "expected": {
+        "first": 94.5,
+        "last": 84
+      }
+    },
+    {
+      "name": "daily rates: 50 % off the converted close is a different token",
+      "convert": true,
+      "candles": [
+        [
+          10,
+          100
+        ],
+        [
+          13,
+          100
+        ]
+      ],
+      "price": 120,
+      "dailyRates": {
+        "10": 0.9,
+        "13": 0.8
+      },
+      "currentRate": null,
+      "expected": null
+    },
+    {
+      "name": "daily rate of the last candle decides, not the current rate",
+      "convert": true,
+      "candles": [
+        [
+          1,
+          100
+        ],
+        [
+          2,
+          100
+        ]
+      ],
+      "price": 50,
+      "dailyRates": {
+        "1": 0.5,
+        "2": 0.8
+      },
+      "currentRate": 0.5,
+      "expected": null
+    },
+    {
+      "name": "gap 23.75 % above the converted close is accepted",
+      "convert": true,
+      "candles": [
+        [
+          1,
+          100
+        ],
+        [
+          2,
+          100
+        ]
+      ],
+      "price": 99,
+      "dailyRates": null,
+      "currentRate": 0.8,
+      "expected": {
+        "first": 99,
+        "last": 99
+      }
+    },
+    {
+      "name": "gap 26.25 % above the converted close is rejected",
+      "convert": true,
+      "candles": [
+        [
+          1,
+          100
+        ],
+        [
+          2,
+          100
+        ]
+      ],
+      "price": 101,
+      "dailyRates": null,
+      "currentRate": 0.8,
+      "expected": null
+    },
+    {
+      "name": "gap 23.75 % below the converted close is accepted",
+      "convert": true,
+      "candles": [
+        [
+          1,
+          100
+        ],
+        [
+          2,
+          100
+        ]
+      ],
+      "price": 61,
+      "dailyRates": null,
+      "currentRate": 0.8,
+      "expected": {
+        "first": 61,
+        "last": 61
+      }
+    }
+  ],
+  "sparkline": [
+    {
+      "name": "USDT pair, same token",
+      "closes": [
+        100,
+        102,
+        110
+      ],
+      "price": 111,
+      "quoteUsd": 1,
+      "shown": true
+    },
+    {
+      "name": "EUR pair converted with USD per EUR",
+      "closes": [
+        100,
+        102,
+        110
+      ],
+      "price": 100,
+      "quoteUsd": 1.1,
+      "shown": true
+    },
+    {
+      "name": "different token under the same symbol",
+      "closes": [
+        100,
+        102,
+        110
+      ],
+      "price": 0.5,
+      "quoteUsd": 1,
+      "shown": false
+    },
+    {
+      "name": "no pair price: cannot be checked",
+      "closes": [
+        100,
+        102,
+        110
+      ],
+      "price": null,
+      "quoteUsd": 1,
+      "shown": false
+    },
+    {
+      "name": "no conversion factor: cannot be checked",
+      "closes": [
+        100,
+        102,
+        110
+      ],
+      "price": 100,
+      "quoteUsd": null,
+      "shown": false
+    },
+    {
+      "name": "fewer than two closes",
+      "closes": [
+        110
+      ],
+      "price": 110,
+      "quoteUsd": 1,
+      "shown": false
+    },
+    {
+      "name": "24 % above the last close is shown",
+      "closes": [
+        100,
+        100
+      ],
+      "price": 124,
+      "quoteUsd": 1,
+      "shown": true
+    },
+    {
+      "name": "26 % above the last close is hidden",
+      "closes": [
+        100,
+        100
+      ],
+      "price": 126,
+      "quoteUsd": 1,
+      "shown": false
+    }
+  ],
+  "widget": [
+    {
+      "name": "same token within 25 % is shown",
+      "candles": [
+        [
+          1,
+          100
+        ],
+        [
+          2,
+          110
+        ]
+      ],
+      "price": 111,
+      "shown": true
+    },
+    {
+      "name": "24 % below the price is shown",
+      "candles": [
+        [
+          1,
+          100
+        ],
+        [
+          2,
+          100
+        ]
+      ],
+      "price": 124,
+      "shown": true
+    },
+    {
+      "name": "26 % off is a different token",
+      "candles": [
+        [
+          1,
+          100
+        ],
+        [
+          2,
+          100
+        ]
+      ],
+      "price": 126,
+      "shown": false
+    },
+    {
+      "name": "other token with the same ticker (price 40x)",
+      "candles": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          1.1
+        ]
+      ],
+      "price": 44,
+      "shown": false
+    },
+    {
+      "name": "no pair price: not checkable, no chart",
+      "candles": [
+        [
+          1,
+          100
+        ],
+        [
+          2,
+          110
+        ]
+      ],
+      "price": null,
+      "shown": false
+    },
+    {
+      "name": "zero price: no chart",
+      "candles": [
+        [
+          1,
+          100
+        ],
+        [
+          2,
+          110
+        ]
+      ],
+      "price": 0,
+      "shown": false
+    },
+    {
+      "name": "single candle: no chart",
+      "candles": [
+        [
+          1,
+          100
+        ]
+      ],
+      "price": 100,
+      "shown": false
+    },
+    {
+      "name": "invalid candle dropped, last valid close checked",
+      "candles": [
+        [
+          1,
+          100
+        ],
+        [
+          2,
+          105
+        ],
+        [
+          3,
+          0
+        ]
+      ],
+      "price": 104,
+      "shown": true
+    }
+  ]
+}

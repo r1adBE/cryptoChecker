@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Aktionsblatt: Kurs-Chart (Zeitraum, Kerzenwerte beim Ziehen, Umrechnung) und «Mehr» -->
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s Zeitraum kurz (widget_range_short_24h/7d/30d) -->
+    <string name="sheet_chart_change">%2$s %1$s</string>
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s change_short_today(_zone) -->
+    <string name="sheet_chart_change_since">%2$s %1$s</string>
+    <string name="sheet_chart_close">收盘</string>
+    <string name="sheet_chart_converted_current">%1$s，已换算（当前汇率）</string>
+    <!-- Zeile unter dem Chart, %1$s = umgerechnete Reihe («BTC/USDT») -->
+    <string name="sheet_chart_converted_daily">%1$s，按每日汇率换算</string>
+    <!-- Keine Kerzen für das Paar -->
+    <string name="sheet_chart_no_data">此交易对暂无价格数据</string>
+    <!-- Kerzenwerte beim Ziehen (Hoch/Tief: ticker_high/ticker_low) -->
+    <string name="sheet_chart_open">开盘</string>
+    <!-- Zeitraum-Chip statt «24h» bei Tages-Basis -->
+    <string name="sheet_chart_today">今日</string>
+    <!-- Umsatz der Kerze beim Ziehen; %1$s z. B. «12.3M USDT» -->
+    <string name="sheet_chart_volume">成交额 %1$s</string>
+    <string name="sheet_more">更多</string>
+
+    <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
+    <string name="ticker_ask">卖价</string>
+    <string name="ticker_bid">买价</string>
+    <string name="ticker_high">最高</string>
+    <string name="ticker_low">最低</string>
+    <string name="ticker_timestamp">时间</string>
+    <string name="ticker_vol_base">成交量（基础币）</string>
+    <string name="ticker_vol_quote">成交额（计价币）</string>
+
+    <!-- Basis der %-Änderung (Prozent-Pille, Chart, Widgets) -->
+    <string name="change_basis_device">%1$s，00:00（设备时区）</string>
+    <string name="change_basis_local">自当地时间 00:00</string>
+    <string name="change_basis_rolling">过去 24 小时</string>
+    <!-- Letzter gegen vorherigen Kurs des Paars; ausgeschrieben (Auswahl). Kurz neben Pille und Widgets: change_short_since_last -->
+    <string name="change_basis_since_last">自上次更新</string>
+    <string name="change_basis_utc_zone">自 00:00 %1$s</string>
+    <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
+    <string name="change_candle_source">根据 %1$s K线计算的涨跌</string>
+    <string name="change_short_since_last">上次更新</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
+    <string name="change_short_today">今日</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 einer gewählten Zeitzone; %1$s = Zeitzone (z. B. UTC) -->
+    <string name="change_short_today_zone">今日 %1$s</string>
+
+    <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
+    <string name="market_data_empty_error">未从交易所收到数据。</string>
+    <string name="market_data_summary">市值、Gas 费、经济数据、币种分析</string>
+    <string name="market_data_tab_futures">合约</string>
+    <string name="market_data_title">市场数据</string>
+
+    <!-- Marktdaten Spot (Marktkapitalisierung, Angebot, Volumen) -->
+    <string name="spot_circulating">流通供应量</string>
+    <string name="spot_fdv">FDV</string>
+    <string name="spot_market_cap">市值</string>
+    <string name="spot_max_supply">最大供应量</string>
+    <string name="spot_no_data">此币种没有现货数据</string>
+    <string name="spot_source_updated">来源：%1$s · 截至 %2$s</string>
+    <string name="spot_supply_of_max">最大供应量的 %1$s 已流通</string>
+    <string name="spot_total_supply">总供应量</string>
+    <string name="spot_vol_mcap">成交额/市值</string>
+    <string name="spot_volume_24h">成交额 (24小时)</string>
+
+    <!-- Futures-Kennzahlen (Funding, Open Interest, Referenzbörse) -->
+    <string name="futures_alarm_reference">参考值 %1$s</string>
+    <string name="futures_funding">资金费率</string>
+    <string name="futures_funding_interval_unknown">间隔未知</string>
+    <string name="futures_funding_per8h_equiv">= 每8小时 %1$s（与提醒相同）</string>
+    <!-- Einheit neben der Funding-Pille, wenn die Börse stündlich abrechnet (Hyperliquid) -->
+    <string name="futures_funding_per_hour">每小时</string>
+    <string name="futures_funding_per_hours">每%1$d小时</string>
+    <string name="futures_next_funding">下次在 %1$d 小时 %2$d 分钟后</string>
+    <string name="futures_no_data">此币种没有合约数据</string>
+    <string name="futures_open_interest">持仓量</string>
+    <!-- Futures-Kennzahlen von einer anderen Börse als der beobachteten (Richtwert) -->
+    <string name="futures_reference_hint">%1$s 的参考值 – 资金费率和持仓量因交易所而异，在 %2$s 上可能不同。</string>
+    <string name="futures_reference_spot">%1$s 的参考值（该币的 USDT 永续合约）</string>
+    <string name="futures_source">来源：%1$s</string>
+
+    <!-- Erklärungen hinter dem ⓘ-Knopf -->
+    <string name="explain_funding">很多人借钱押注价格上涨或下跌。多头与空头之间支付的费用。大幅为正表示许多人押注价格上涨。</string>
+    <string name="explain_open_interest">期货是对价格的押注，常常用借来的钱。所有未平仓合约头寸的价值。上升表示有更多资金押注这一走势。</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">说明</string>
+    <string name="explain_spot_fdv">完全稀释估值：价格 × 最大供应量（无上限时为总供应量）。</string>
+    <string name="explain_spot_market_cap">价格 × 流通供应量。标签显示 24 小时变化。</string>
+    <string name="explain_spot_source">全部交易所的美元数据，来自 CoinGecko。</string>
+    <string name="explain_spot_supply">流通：当前在市场上的币。总量：已铸造的全部币减去已销毁的。最大：未来最多可能存在的数量。</string>
+    <string name="explain_spot_volume">24 小时成交额。成交额/市值：成交额相对市值的比例 — 越高说明交易越活跃。</string>
+
+    <!-- Umrechnung und Sats -->
+    <string name="converted_fx_stale">%1$s · 汇率 %2$s</string>
+    <string name="sats_per_unit">%1$s %2$s = %3$s 聪</string>
+</resources>

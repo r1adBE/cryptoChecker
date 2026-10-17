@@ -1,0 +1,413 @@
+{
+ "description": "Coin-Namen, Logos und Alpha-Kennzeichen aus einem vollständigen Abgleich (CoinGecko-Seite, Binance-Symbolliste, Alpha-Liste; Werte zum Teil erfunden) und aus der Ersatzdatei coin_meta.json (Release «data», nur Binance-Listen). Android CoinMetaParityTest, iOS CoinMetaTests. sync = was die Oberfläche danach liest: names[nameKey], map[normalize] (Logo-Adresse), AssetKind. listsOnly = nur Binance-Listen (Namen sofort, vor CoinGecko; ohne TradFi-Namen für Spot-Kürzel); publishNames = gespeicherte Namen vs. frische Listen; CoinListsTest/CoinListsTests: Abruf beider Listen ohne CoinGecko und Bilder, Ersatzdatei.",
+ "geckoPage": [
+  {
+   "id": "bitcoin",
+   "symbol": "btc",
+   "name": "Bitcoin",
+   "image": "https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png",
+   "market_cap_rank": 1
+  },
+  {
+   "id": "ethereum",
+   "symbol": "eth",
+   "name": "Ethereum",
+   "image": "https://coin-images.coingecko.com/coins/images/279/large/ethereum.png",
+   "market_cap_rank": 2
+  },
+  {
+   "id": "simon-s-cat",
+   "symbol": "cat",
+   "name": "Simon's Cat",
+   "image": "https://coin-images.coingecko.com/coins/images/39765/large/cat.png",
+   "market_cap_rank": 300
+  },
+  {
+   "id": "broken",
+   "symbol": "",
+   "name": "No symbol",
+   "image": null
+  }
+ ],
+ "binanceList": {
+  "code": "000000",
+  "message": null,
+  "messageDetail": null,
+  "success": true,
+  "data": [
+   {
+    "id": "1",
+    "name": "BTC",
+    "fullName": "Bitcoin (Binance)",
+    "logo": "https://bin.bnbstatic.com/image/admin_mgs_image_upload/btc.png",
+    "tags": [
+     "Layer1_Layer2"
+    ],
+    "onlyFutures": false
+   },
+   {
+    "id": "2",
+    "name": "WLD",
+    "fullName": "Worldcoin",
+    "logo": "https://bin.bnbstatic.com/image/admin_mgs_image_upload/wld.png",
+    "tags": []
+   },
+   {
+    "id": "3",
+    "name": "NVDAB",
+    "fullName": "NVIDIA bStocks",
+    "logo": "https://bin.bnbstatic.com/image/admin_mgs_image_upload/nvda.png",
+    "tags": [
+     "bStocks"
+    ]
+   },
+   {
+    "id": "4",
+    "name": "XAU",
+    "fullName": "Gold",
+    "logo": "https://bin.bnbstatic.com/image/admin_mgs_image_upload/xau.png",
+    "onlyFutures": true
+   },
+   {
+    "id": "5",
+    "name": "",
+    "baseAsset": "PEPE",
+    "fullName": "Pepe",
+    "logo": "https://bin.bnbstatic.com/image/admin_mgs_image_upload/pepe.png"
+   },
+   "kaputt"
+  ]
+ },
+ "alphaList": {
+  "code": "000000",
+  "message": null,
+  "messageDetail": null,
+  "success": true,
+  "data": [
+   {
+    "tokenId": "T1",
+    "chainId": "56",
+    "contractAddress": "0x0000000000000000000000000000000000000001",
+    "name": "Froggie",
+    "symbol": "FROGGIE​",
+    "iconUrl": "/images/web3-data/public/token/logos/froggie.png",
+    "marketCap": "1000000",
+    "offline": false,
+    "listingCex": false,
+    "alphaId": "ALPHA_1"
+   },
+   {
+    "tokenId": "T2",
+    "chainId": "56",
+    "contractAddress": "0x0000000000000000000000000000000000000002",
+    "name": "Worldcoin Alpha",
+    "symbol": "WLD",
+    "iconUrl": "https://bin.bnbstatic.com/images/wld_alpha.png",
+    "marketCap": 5000000,
+    "offline": false,
+    "listingCex": true,
+    "alphaId": "ALPHA_2"
+   },
+   {
+    "tokenId": "T3",
+    "chainId": "56",
+    "contractAddress": "0x0000000000000000000000000000000000000003",
+    "name": "Old Token",
+    "symbol": "OLDT",
+    "iconUrl": null,
+    "marketCap": null,
+    "offline": true,
+    "listingCex": false,
+    "alphaId": "ALPHA_3"
+   },
+   {
+    "tokenId": "T4",
+    "chainId": "8453",
+    "contractAddress": "0x0000000000000000000000000000000000000004",
+    "name": "Aia",
+    "symbol": "AIA",
+    "iconUrl": "https://bin.bnbstatic.com/images/aia.png",
+    "marketCap": "2500000",
+    "offline": false,
+    "listingCex": false,
+    "alphaId": "ALPHA_4"
+   }
+  ]
+ },
+ "fullSync": {
+  "names": {
+   "BTC": "Bitcoin",
+   "ETH": "Ethereum",
+   "CAT": "Simon's Cat",
+   "WLD": "Worldcoin",
+   "PEPE": "Pepe",
+   "FROGGIE": "Froggie",
+   "AIA": "Aia",
+   "TRADFI:NVDA": "NVIDIA",
+   "TRADFI:XAU": "Gold"
+  },
+  "map": {
+   "BTC": "https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png",
+   "WLD": "https://bin.bnbstatic.com/image/admin_mgs_image_upload/wld.png",
+   "FROGGIE": "https://bin.bnbstatic.com/images/web3-data/public/token/logos/froggie.png",
+   "AIA": "https://bin.bnbstatic.com/images/aia.png",
+   "TRADFI:NVDA": "https://bin.bnbstatic.com/image/admin_mgs_image_upload/nvda.png"
+  },
+  "alpha": [
+   "AIA",
+   "FROGGIE"
+  ],
+  "kinds": [
+   {
+    "marketKey": "BinanceFutures",
+    "base": "FROGGIE",
+    "tradFi": false,
+    "expected": "ALPHA"
+   },
+   {
+    "marketKey": "BinanceFutures",
+    "base": "1000AIA",
+    "tradFi": false,
+    "expected": "ALPHA"
+   },
+   {
+    "marketKey": "Binance",
+    "base": "AIA",
+    "tradFi": false,
+    "expected": "TOKEN"
+   },
+   {
+    "marketKey": "BinanceFutures",
+    "base": "WLD",
+    "tradFi": false,
+    "expected": "TOKEN"
+   },
+   {
+    "marketKey": "BinanceFutures",
+    "base": "NVDA",
+    "tradFi": true,
+    "expected": "TRADFI"
+   }
+  ]
+ },
+ "coinMeta": {
+  "v": 1,
+  "generated": 1760400000000,
+  "source": "Binance public lists",
+  "binance": [
+   {
+    "fullName": "Bitcoin (Binance)",
+    "logo": "https://bin.bnbstatic.com/image/admin_mgs_image_upload/btc.png",
+    "tags": [
+     "Layer1_Layer2"
+    ],
+    "onlyFutures": false,
+    "name": "BTC"
+   },
+   {
+    "fullName": "Worldcoin",
+    "logo": "https://bin.bnbstatic.com/image/admin_mgs_image_upload/wld.png",
+    "tags": [],
+    "name": "WLD"
+   },
+   {
+    "fullName": "NVIDIA bStocks",
+    "logo": "https://bin.bnbstatic.com/image/admin_mgs_image_upload/nvda.png",
+    "tags": [
+     "bStocks"
+    ],
+    "name": "NVDAB"
+   },
+   {
+    "fullName": "Gold",
+    "logo": "https://bin.bnbstatic.com/image/admin_mgs_image_upload/xau.png",
+    "onlyFutures": true,
+    "name": "XAU"
+   },
+   {
+    "fullName": "Pepe",
+    "logo": "https://bin.bnbstatic.com/image/admin_mgs_image_upload/pepe.png",
+    "name": "PEPE"
+   }
+  ],
+  "alpha": [
+   {
+    "symbol": "FROGGIE​",
+    "name": "Froggie",
+    "iconUrl": "/images/web3-data/public/token/logos/froggie.png",
+    "chainId": "56",
+    "contractAddress": "0x0000000000000000000000000000000000000001",
+    "marketCap": "1000000",
+    "offline": false,
+    "listingCex": false
+   },
+   {
+    "symbol": "WLD",
+    "name": "Worldcoin Alpha",
+    "iconUrl": "https://bin.bnbstatic.com/images/wld_alpha.png",
+    "chainId": "56",
+    "contractAddress": "0x0000000000000000000000000000000000000002",
+    "marketCap": 5000000,
+    "offline": false,
+    "listingCex": true
+   },
+   {
+    "symbol": "AIA",
+    "name": "Aia",
+    "iconUrl": "https://bin.bnbstatic.com/images/aia.png",
+    "chainId": "8453",
+    "contractAddress": "0x0000000000000000000000000000000000000004",
+    "marketCap": "2500000",
+    "offline": false,
+    "listingCex": false
+   }
+  ]
+ },
+ "metaOnly": {
+  "names": {
+   "BTC": "Bitcoin (Binance)",
+   "WLD": "Worldcoin",
+   "PEPE": "Pepe",
+   "FROGGIE": "Froggie",
+   "AIA": "Aia",
+   "TRADFI:NVDA": "NVIDIA"
+  },
+  "map": {
+   "BTC": "https://bin.bnbstatic.com/image/admin_mgs_image_upload/btc.png",
+   "FROGGIE": "https://bin.bnbstatic.com/images/web3-data/public/token/logos/froggie.png"
+  },
+  "alpha": [
+   "AIA",
+   "FROGGIE"
+  ],
+  "generated": 1760400000000
+ },
+ "invalidMeta": [
+  null,
+  "",
+  "kein json",
+  "[]",
+  "{\"v\":2,\"generated\":1,\"binance\":[{\"name\":\"BTC\"}]}",
+  "{\"v\":1,\"generated\":1,\"binance\":[],\"alpha\":[]}",
+  "{\"v\":1,\"generated\":1}"
+ ],
+ "usable": [
+  {
+   "generated": 1760400000000,
+   "now": 1760400001000,
+   "expected": true
+  },
+  {
+   "generated": 1760400000000,
+   "now": 1761609599999,
+   "expected": true
+  },
+  {
+   "generated": 1760400000000,
+   "now": 1761609600000,
+   "expected": false
+  },
+  {
+   "generated": 1760400000000,
+   "now": 1760399760000,
+   "expected": true
+  },
+  {
+   "generated": 1760400000000,
+   "now": 1760399640000,
+   "expected": false
+  },
+  {
+   "generated": 0,
+   "now": 1760400000000,
+   "expected": false
+  }
+ ],
+ "needed": [
+  {
+   "directOk": false,
+   "lastDirectAt": 1760400000000,
+   "now": 1760400000001,
+   "expected": true
+  },
+  {
+   "directOk": true,
+   "lastDirectAt": 1760400000000,
+   "now": 1760400000001,
+   "expected": false
+  },
+  {
+   "directOk": true,
+   "lastDirectAt": 1760400000000,
+   "now": 1760572800000,
+   "expected": true
+  },
+  {
+   "directOk": true,
+   "lastDirectAt": 0,
+   "now": 1760400000000,
+   "expected": true
+  }
+ ],
+ "listsOnly": {
+  "names": {
+   "BTC": "Bitcoin (Binance)",
+   "WLD": "Worldcoin",
+   "PEPE": "Pepe",
+   "FROGGIE": "Froggie",
+   "AIA": "Aia",
+   "TRADFI:NVDA": "NVIDIA",
+   "TRADFI:XAU": "Gold"
+  },
+  "absent": [
+   "TRADFI:BTC",
+   "TRADFI:WLD",
+   "TRADFI:PEPE",
+   "ETH"
+  ],
+  "alpha": [
+   "AIA",
+   "FROGGIE"
+  ]
+ },
+ "publishNames": [
+  {
+   "known": {
+    "BTC": "Bitcoin"
+   },
+   "snapshot": false,
+   "lists": {
+    "BTC": "Bitcoin (Binance)",
+    "WLD": "Worldcoin"
+   },
+   "expected": {
+    "BTC": "Bitcoin",
+    "WLD": "Worldcoin"
+   }
+  },
+  {
+   "known": {
+    "BTC": "Bitcoin old",
+    "OLD": "Old"
+   },
+   "snapshot": true,
+   "lists": {
+    "BTC": "Bitcoin (Binance)"
+   },
+   "expected": {
+    "BTC": "Bitcoin (Binance)",
+    "OLD": "Old"
+   }
+  },
+  {
+   "known": {},
+   "snapshot": false,
+   "lists": {
+    "WLD": "Worldcoin"
+   },
+   "expected": {
+    "WLD": "Worldcoin"
+   }
+  }
+ ]
+}

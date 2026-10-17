@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Neutrale Indikatoren: Titel, Hinweise, Halving -->
+    <string name="neutral_alt_title">Альткоїни проти біткоїна</string>
+    <string name="neutral_btc_indicators_title">Показники біткоїна</string>
+    <string name="neutral_halving_last">Останній халвінг: %1$s</string>
+    <string name="neutral_halving_next">Наступний халвінг очікується близько %1$s (оцінка за календарем – висота блоку зараз недоступна).</string>
+    <string name="neutral_indicators_disclaimer">Лише виміряні значення, без оцінки. Не прогноз і не інвестиційна порада.</string>
+    <string name="neutral_onchain_missing">Ончейн-дані (Coin Metrics) зараз недоступні.</string>
+
+    <!-- Neutrale Indikatoren: was der Wert misst -->
+    <string name="neutral_explain_ath_distance">Наскільки ціна нижча за попередній історичний максимум.</string>
+    <string name="neutral_explain_change_30d">Ціна сьогодні порівняно з ціною 30 днів тому.</string>
+    <string name="neutral_explain_hashrate">Середній хешрейт за 30 днів порівняно із середнім за 60 днів.</string>
+    <string name="neutral_explain_ma200w">Середнє останніх 200 тижневих закриттів.</string>
+    <string name="neutral_explain_mayer">Ціна, поділена на 200-денну середню.</string>
+    <string name="neutral_explain_mvrv">Ринкова вартість, поділена на реалізовану (ончейн).</string>
+    <string name="neutral_explain_pi_gap">111-денна середня порівняно з подвоєною 350-денною.</string>
+    <string name="neutral_explain_puell">Денний дохід майнерів, поділений на його середнє за 365 днів.</string>
+    <string name="neutral_explain_rsi_daily">Індекс відносної сили за останні 14 днів, 0–100.</string>
+    <string name="neutral_explain_rsi_weekly">Індекс відносної сили за останні 14 тижнів, 0–100.</string>
+    <string name="neutral_explain_sma50_200">50-денна середня порівняно з 200-денною.</string>
+    <string name="neutral_explain_vs_btc">Зміна ціни відносно біткоїна за 90 днів.</string>
+
+    <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
+    <string name="neutral_info_alt_season_how">Застосунок показує лише підрахунок і не називає його «сезоном». Значення зазвичай змінюється за дні, а не години.</string>
+    <string name="neutral_info_btc_how">До кожного значення — речення про те, що воно вимірює і де перебуває у власній історії з 2016 року. Застосунок не оцінює значення й не виводить фазу ринку; межі сповіщень — лише ті, що задав ти. Минулі закономірності не мусять повторюватися.</string>
+    <string name="neutral_info_btc_what">Поширені показники біткоїна як виміряні значення: Mayer Multiple, 200-тижнева середня, падіння від максимуму, зміна за 30 днів, розрив Pi Cycle і ончейн-значення MVRV, Puell Multiple та хешрейт.</string>
+    <string name="neutral_info_coin_how">До кожного значення — одне речення про те, що воно вимірює, без оцінки. Для монет із короткою історією цін частини значень немає. Ончейн-дані тут не враховуються.</string>
+    <string name="neutral_info_coin_what">Ті самі прості показники для обраної монети, лише за ціновими даними: Mayer Multiple, 200-тижнева середня, падіння від максимуму, зміна за 30 днів, тренд 50/200 днів, RSI і сила відносно біткоїна за 90 днів.</string>
+    <string name="neutral_info_halving_how">Наступний халвінг розраховується з поточної висоти блоку та середнього часу блоку поточного періоду складності (mempool.space); без цих даних — за календарем (останній халвінг плюс близько чотирьох років). Графік показує хід курсу минулих циклів від їхнього халвінгу – історія, не прогноз.</string>
+
+    <!-- Indikator-Namen -->
+    <string name="ind_cross">Тренд 50/200 днів</string>
+    <string name="ind_drawdown">Падіння від історичного максимуму</string>
+    <string name="ind_missing">замало даних</string>
+    <string name="ind_rsi_daily">RSI (день)</string>
+    <string name="ind_rsi_weekly">RSI (тиждень)</string>
+    <string name="ind_vs_btc">Сила щодо біткоїна (90 днів)</string>
+    <string name="neutral_ind_change_30d">Зміна за 30 днів</string>
+    <string name="neutral_ind_hashrate">Хешрейт 30/60 днів</string>
+    <string name="neutral_ind_ma200w">200-тижнева середня</string>
+    <string name="neutral_ind_pi_gap">Розрив Pi Cycle</string>
+
+    <!-- Indikatoren: «hoch heisst …, tief heisst …» -->
+    <string name="ind_read_alt_season">Високе — більшість великих альткоїнів обігнали біткоїн за 90 днів, низьке — біткоїн обігнав більшість.</string>
+    <string name="ind_read_ath_distance">Мале — ціна близько до рекорду, велике — значно нижче від нього.</string>
+    <string name="ind_read_change_30d">Додатне — вище, ніж 30 днів тому, від’ємне — нижче.</string>
+    <string name="ind_read_funding">Високе — багато хто з плечем ставить на зростання, від’ємне — багато хто ставить на падіння.</string>
+    <string name="ind_read_hashrate_30_60">Додатне — обчислювальна потужність зростає, від’ємне — майнери вимикаються.</string>
+    <string name="ind_read_leverage">Багато лонгів — багато хто ставить на зростання позиченими грошима, багато шортів — на падіння.</string>
+    <string name="ind_read_ma200w">Ціна значно вища — тривале зростання, ціна поруч — глибока корекція.</string>
+    <string name="ind_read_mayer">Високе значення — ціна значно вища за 200-денну середню, низьке — нижча за неї.</string>
+    <string name="ind_read_mvrv">Високе — ціна значно вища за середню ціну купівлі власників, низьке — близько до неї або нижче.</string>
+    <string name="ind_read_pi_cycle_gap">Близько нуля — дві середні майже сходяться, сильно від’ємне — вони далеко одна від одної.</string>
+    <string name="ind_read_puell">Високе — майнери заробляють значно більше, ніж зазвичай, низьке — значно менше.</string>
+    <string name="ind_read_rsi_daily">Понад 70 — сильне зростання за останні дні, нижче 30 — сильне падіння.</string>
+    <string name="ind_read_rsi_weekly">Понад 70 — сильне зростання за останні тижні, нижче 30 — сильне падіння.</string>
+    <string name="ind_read_sma50_vs_200">Додатне — коротка середня вища за довгу, від’ємне — нижча.</string>
+    <string name="ind_read_vs_btc">Додатне — краще за біткоїн, від’ємне — гірше.</string>
+
+    <!-- Indikatoren: Einordnung in die Vergangenheit -->
+    <string name="ind_context_flat30">За незмінного курсу через 30 днів: %1$s</string>
+    <string name="ind_context_note">Минулі значення й розрахунки «за незмінного курсу» — арифметика, а не прогноз.</string>
+    <string name="ind_context_percentile">З %1$s нижче у %2$s днів</string>
+</resources>

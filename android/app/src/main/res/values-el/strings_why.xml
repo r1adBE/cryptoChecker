@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Warum bewegt sich das?»: Titel, Abschnitte, Aufklappen -->
+    <string name="why_action">Τι κινείται μαζί;</string>
+    <string name="why_all_values">Όλες οι τιμές και οι πηγές</string>
+    <string name="why_all_values_hint">Παρατήρηση · Πιθανή ερμηνεία · Πηγές</string>
+    <string name="why_details">Εμφάνιση λεπτομερειών</string>
+    <string name="why_details_hide">Απόκρυψη λεπτομερειών</string>
+    <string name="why_disclaimer">Αυτόματη εκτίμηση από δεδομένα αγοράς: δείχνει τι συμβαίνει ταυτόχρονα, όχι απόδειξη αιτίας.</string>
+    <string name="why_footer_short">Ταυτόχρονο δεν σημαίνει αιτία · Όχι επενδυτική συμβουλή</string>
+    <string name="why_no_data">Δεν υπάρχουν δεδομένα από Binance για αυτό το ζεύγος</string>
+    <string name="why_no_data_hint">Τιμή, όγκος και μεταβλητότητα προέρχονται από ωριαία κεριά του Binance.</string>
+    <string name="why_ref_alts">Alts</string>
+    <string name="why_section_context">Πιθανή ερμηνεία</string>
+    <string name="why_section_observation">Παρατήρηση</string>
+    <string name="why_title">Τι κινείται μαζί;</string>
+    <string name="why_title_coin">Τι κινείται μαζί με το %1$s;</string>
+
+    <!-- «Warum?»: Kurz gesagt (ein Satz oben) -->
+    <string name="why_brief_head">Με λίγα λόγια · Στις %1$s</string>
+    <string name="why_brief_label">Με λίγα λόγια:</string>
+    <string name="why_summary_against">Το νόμισμα κινείται αντίθετα από την αγορά.</string>
+    <string name="why_summary_calm">Καμία αξιοσημείωτη κίνηση: αγορά και νόμισμα είναι ήρεμα.</string>
+    <string name="why_summary_coin">Κινείται μόνο αυτό το νόμισμα – ίσως κάτι που αφορά μόνο αυτό το νόμισμα.</string>
+    <string name="why_summary_coin_volume">Κινείται μόνο αυτό το νόμισμα, με αυξημένο όγκο – ίσως κάτι που αφορά μόνο αυτό το νόμισμα.</string>
+    <string name="why_summary_longs">Futures: πολλές θέσεις long με μόχλευση.</string>
+    <string name="why_summary_market">Η κίνηση συμπίπτει χρονικά με τη συνολική αγορά.</string>
+    <string name="why_summary_market_volume">Η κίνηση συμπίπτει χρονικά με αυξημένο όγκο συναλλαγών και ευρεία κίνηση της αγοράς.</string>
+    <string name="why_summary_peg_near">Η τιμή είναι κοντά στη σύνδεση 1:1.</string>
+    <string name="why_summary_peg_off">Η τιμή αποκλίνει αισθητά από τη σύνδεση 1:1.</string>
+    <string name="why_summary_shorts">Futures: πολλές θέσεις short.</string>
+    <string name="why_summary_thin">Η κίνηση είναι αδύναμη: λίγος όγκος πίσω της.</string>
+
+    <!-- «Warum?»: Faktorliste (Titel der Faktoren) -->
+    <string name="why_f_against">Αντίθετα από την αγορά</string>
+    <string name="why_f_coin_only">Μόνο αυτό το νόμισμα</string>
+    <string name="why_f_leader">Το Bitcoin ως ηγέτης της αγοράς</string>
+    <string name="why_f_leverage_balanced">Ισορροπημένη μόχλευση</string>
+    <string name="why_f_leverage_longs">Μόχλευση: πολλά long</string>
+    <string name="why_f_leverage_shorts">Μόχλευση: πολλά short</string>
+    <string name="why_f_market_calm">Ήρεμη αγορά</string>
+    <string name="why_f_market_wide">Κινείται όλη η αγορά</string>
+    <string name="why_factor_funding">Funding</string>
+    <string name="why_factor_futures">Futures</string>
+    <string name="why_factor_market">Συνολική αγορά</string>
+    <string name="why_factor_near_high">Κοντά στο υψηλό</string>
+    <string name="why_factor_near_low">Κοντά στο χαμηλό</string>
+    <string name="why_factor_peg">Σύνδεση (1:1)</string>
+    <string name="why_factor_range3d">Εύρος 3 ημερών</string>
+
+    <!-- «Warum?»: Nebenzeilen der Faktoren -->
+    <string name="why_fn_estimated">εκτίμηση</string>
+    <string name="why_fn_funding_longs">πολλοί ποντάρουν σε άνοδο</string>
+    <string name="why_fn_funding_neutral">ουδέτερο</string>
+    <string name="why_fn_funding_shorts">πολλοί ποντάρουν σε πτώση</string>
+    <string name="why_fn_high_at">στο υψηλό 30 ημερών</string>
+    <string name="why_fn_high_below">κάτω από το υψηλό 30 ημερών</string>
+    <string name="why_fn_leader_calm">Το Bitcoin ήρεμο</string>
+    <string name="why_fn_leader_moves">Το Bitcoin κινείται έντονα</string>
+    <string name="why_fn_low_above">πάνω από το χαμηλό 30 ημερών</string>
+    <string name="why_fn_low_at">στο χαμηλό 30 ημερών</string>
+    <string name="why_fn_market_against">Το νόμισμα κινείται αντίθετα από την αγορά</string>
+    <string name="why_fn_market_alone">Ήρεμη αγορά – αυτό το νόμισμα κινείται μόνο του</string>
+    <string name="why_fn_market_calm">Ήρεμη αγορά</string>
+    <string name="why_fn_market_lags">Η αγορά κινείται, αυτό το νόμισμα ελάχιστα</string>
+    <string name="why_fn_market_moves">Η αγορά κινείται προς την ίδια κατεύθυνση</string>
+    <string name="why_fn_market_pulls">Η αγορά κινείται μαζί με το BTC</string>
+    <string name="why_fn_oi_down">Ανοιχτό ενδιαφέρον σε πτώση</string>
+    <string name="why_fn_oi_flat">Ανοιχτό ενδιαφέρον σχεδόν αμετάβλητο</string>
+    <string name="why_fn_oi_mixed">Ανοιχτό ενδιαφέρον ανάμεικτο</string>
+    <string name="why_fn_oi_up">Ανοιχτό ενδιαφέρον σε άνοδο</string>
+    <string name="why_fn_peg_above">%1$s πάνω από τη σύνδεση 1:1</string>
+    <string name="why_fn_peg_below">%1$s κάτω από τη σύνδεση 1:1</string>
+    <string name="why_fn_peg_near">κοντά στη σύνδεση 1:1</string>
+    <string name="why_fn_range_above_low">από το χαμηλό 3 ημερών</string>
+    <string name="why_fn_range_below_high">από το υψηλό 3 ημερών</string>
+    <string name="why_fn_range_near_high">κοντά στο υψηλό 3 ημερών</string>
+    <string name="why_fn_range_near_low">κοντά στο χαμηλό 3 ημερών</string>
+    <string name="why_fn_volatility_stronger">ισχυρότερη από το σύνηθες</string>
+    <string name="why_fn_volatility_tiny">μικρή σε απόλυτους όρους (κάτω από %1$s)</string>
+    <string name="why_fn_volatility_usual">όπως συνήθως</string>
+    <string name="why_fn_volume_higher">υψηλότερος από το σύνηθες</string>
+    <string name="why_fn_volume_lower">χαμηλότερος από το σύνηθες</string>
+    <string name="why_fn_volume_usual">όπως συνήθως</string>
+
+    <!-- «Warum?»: ausführliche Sätze je Beobachtung -->
+    <string name="why_against_market_text">Αυτό το νόμισμα %1$s, BTC %2$s σε 24ω — μια αισθητά ανεξάρτητη κίνηση.</string>
+    <string name="why_against_ref_text">Αυτό το νόμισμα %1$s, %2$s %3$s σε 24 ώρες — μια αισθητά ανεξάρτητη κίνηση.</string>
+    <string name="why_btc_independent">Το %1$s κινείται αυτή τη στιγμή ανεξάρτητα από το Bitcoin.</string>
+    <string name="why_btc_tight">Το %1$s κινείται αυτή τη στιγμή σε στενή συσχέτιση με το Bitcoin.</string>
+    <string name="why_change_1h">1h</string>
+    <string name="why_change_24h">24h</string>
+    <string name="why_coin_only_text">%1$s σε 24ω ενώ η αγορά είναι ήρεμη – ίσως κάτι που αφορά μόνο αυτό το νόμισμα.</string>
+    <string name="why_leverage_balanced_text">Καμία συσσώρευση long ή short θέσεων στην αγορά futures.</string>
+    <string name="why_leverage_longs_text">Πολλοί ποντάρουν με δανεικά χρήματα σε άνοδο των τιμών. Τα long πληρώνουν τα short — αυξημένος κίνδυνος ρευστοποιήσεων αν η τιμή πέσει.</string>
+    <string name="why_leverage_shorts_text">Πολλοί ποντάρουν με δανεικά χρήματα σε πτώση των τιμών. Τα short πληρώνουν τα long – αν η τιμή ανέβει, είναι πιθανό ένα short squeeze.</string>
+    <string name="why_market_calm_text">Αυτό το νόμισμα: %1$s σε 24ω. Ούτε η αγορά ούτε το νόμισμα κινούνται πολύ.</string>
+    <string name="why_market_leader_text">Ως το μεγαλύτερο νόμισμα, το BTC συνήθως κινείται παράλληλα με την υπόλοιπη αγορά. ETH: %1$s σε 24ω.</string>
+    <string name="why_market_leader_text_no_eth">Ως το μεγαλύτερο νόμισμα, το BTC συνήθως κινείται παράλληλα με την υπόλοιπη αγορά.</string>
+    <string name="why_market_similar_text">Αυτό το νόμισμα: %1$s σε 24 ώρες — ταυτόχρονα η αγορά κινείται προς την ίδια κατεύθυνση, αν και λιγότερο καθαρά.</string>
+    <string name="why_market_wide_text">Αυτό το νόμισμα: %1$s σε 24ω – ταυτόχρονα η συνολική αγορά κινείται έντονα.</string>
+    <string name="why_open_interest_change">Ανοιχτό ενδιαφέρον %1$s από τον τελευταίο έλεγχο.</string>
+    <string name="why_peg_text">Stablecoin: σε σύγκριση με σύνδεση 1:1 στο νόμισμα αναφοράς, απόκλιση %1$s.</string>
+    <string name="why_sentiment_text">Δείκτης Fear &amp; Greed όλης της αγοράς κρυπτονομισμάτων, %1$s σε σχέση με χθες.</string>
+    <string name="why_sentiment_text_no_change">Δείκτης Fear &amp; Greed όλης της αγοράς κρυπτονομισμάτων.</string>
+    <plurals name="why_trend_falling">
+        <item quantity="one">καθοδικό εδώ και %1$d ώρα</item>
+        <item quantity="other">καθοδικό εδώ και %1$d ώρες</item>
+    </plurals>
+    <plurals name="why_trend_rising">
+        <item quantity="one">ανοδικό εδώ και %1$d ώρα</item>
+        <item quantity="other">ανοδικό εδώ και %1$d ώρες</item>
+    </plurals>
+    <plurals name="why_trend_stable">
+        <item quantity="one">σταθερό εδώ και %1$d ώρα</item>
+        <item quantity="other">σταθερό εδώ και %1$d ώρες</item>
+    </plurals>
+    <string name="why_volatility_high_text">Τελευταία ώρα: %1$s — σε σχέση με την τυπική ωριαία διακύμανση των τελευταίων 24 ωρών.</string>
+    <string name="why_volatility_normal_text">Τελευταία ώρα: %1$s — εντός του συνηθισμένου εύρους.</string>
+    <string name="why_volatility_tiny_text">Τελευταία ώρα: %1$s — ασυνήθιστο για αυτό το νόμισμα, αλλά μικρό σε απόλυτους όρους.</string>
+    <string name="why_volume_estimated_text">Εκτίμηση: αυτή η πηγή δεν δίνει τζίρο, οπότε συγκρίνονται οι ποσότητες νομισμάτων που διαπραγματεύτηκαν.</string>
+    <string name="why_volume_high_text">Πολύ περισσότερες συναλλαγές από το συνηθισμένο την τελευταία ώρα – η κίνηση συνοδεύεται από υψηλό όγκο.</string>
+    <string name="why_volume_low_text">Λίγες συναλλαγές πίσω από την κίνηση – τέτοιες κινήσεις είναι συχνά λιγότερο σταθερές.</string>
+    <string name="why_volume_normal_text">Οι συναλλαγές της τελευταίας ώρας είναι σύμφωνες με τις τελευταίες 24 ώρες.</string>
+
+    <!-- «Warum?»: Signal-Punkte (stützt, neutral, Vorsicht) -->
+    <string name="why_dot_caution">αυξημένο</string>
+    <string name="why_dot_neutral">ουδέτερο</string>
+    <string name="why_dot_supports">ταιριάζει με την κίνηση</string>
+
+    <!-- «Warum?»: Frische und Quellen der Daten -->
+    <string name="why_data_time">Δεδομένα από %1$s</string>
+    <string name="why_fresh_breadth">Εύρος αγοράς: %1$s · %2$s</string>
+    <string name="why_fresh_candles">Κεριά: %1$s · %2$s</string>
+    <string name="why_fresh_fng">Fear &amp; Greed: %1$s</string>
+    <string name="why_fresh_futures">Futures: %1$s</string>
+    <plurals name="why_fresh_oi_hours">
+        <item quantity="one">ανοιχτό ενδιαφέρον σε σύγκριση με πριν από %1$d ώρα</item>
+        <item quantity="other">ανοιχτό ενδιαφέρον σε σύγκριση με πριν από %1$d ώρες</item>
+    </plurals>
+    <plurals name="why_fresh_oi_minutes">
+        <item quantity="one">ανοιχτό ενδιαφέρον σε σύγκριση με πριν από %1$d λεπτό</item>
+        <item quantity="other">ανοιχτό ενδιαφέρον σε σύγκριση με πριν από %1$d λεπτά</item>
+    </plurals>
+    <string name="why_fresh_today">σήμερα</string>
+    <string name="why_fresh_yesterday">χθες</string>
+    <string name="why_source_fallback">%1$s (εφεδρική πηγή)</string>
+    <string name="why_source_reference">%1$s (ενδεικτική τιμή)</string>
+    <string name="why_sources">Πηγές: ωριαία κεριά του ανταλλακτηρίου (συνήθως Binance), δεδομένα futures από τα ανταλλακτήρια, Fear &amp; Greed από το alternative.me.</string>
+    <string name="why_sources_list">Πηγές: %1$s.</string>
+    <string name="why_src_breadth">%1$s (εύρος αγοράς)</string>
+    <string name="why_src_candles">%1$s (κεριά)</string>
+    <string name="why_src_comparison">%1$s (σύγκριση αγοράς)</string>
+    <string name="why_src_fng">%1$s (Fear &amp; Greed)</string>
+    <string name="why_src_futures">%1$s (futures)</string>
+
+    <!-- Faktor-Checkliste (Crypto Pulse und «Warum?») -->
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">Funding</string>
+    <string name="factor_spoken_volatility">%1$s φορές η συνήθης διακύμανση</string>
+    <string name="factor_spoken_volume">%1$s φορές το κανονικό</string>
+    <string name="factor_volatility">Διακύμανση (1h)</string>
+    <string name="factor_volume">Όγκος</string>
+</resources>

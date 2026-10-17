@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
+    <string name="widget_background">الخلفية</string>
+    <string name="widget_configure_hint">اختر الخلفية والشفافية. اللون يتبع التطبيق. تعرض الأداة قائمتك كاملة؛ اضغط على صف لفتح التطبيق.</string>
+    <string name="widget_configure_title">إعداد الأداة</string>
+    <string name="widget_description">يعرض سعر زوج من قائمة متابعتك.</string>
+    <string name="widget_empty">لا توجد أزواج في قائمة المتابعة بعد.</string>
+    <string name="widget_group_hint">عرض أزواج هذه المجموعة فقط.</string>
+    <string name="widget_kind_single">عملة واحدة</string>
+    <string name="widget_opacity">عتامة الخلفية: %1$d%%</string>
+    <string name="widget_pulse_description">ما يلفت الانتباه في السوق الآن: عنوان وملخص قصير، إضافةً إلى Bitcoin وEthereum وSolana.</string>
+
+    <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->
+    <!-- Allein, wenn für «outdated · 06:42» der Platz fehlt (Kopfzeile Listen-Widget) -->
+    <string name="widget_outdated">غير محدَّث</string>
+    <!-- Statt der Uhrzeit: «outdated · 06:42» (heute) bzw. «outdated · 5 Oct, 06:42» -->
+    <string name="widget_outdated_time">غير محدَّث · %1$s</string>
+
+    <!-- Widgets: Chart und Zeitraum -->
+    <string name="widget_chart_candles">شموع</string>
+    <string name="widget_chart_line">خطي</string>
+    <string name="widget_chart_range">نطاق المخطط</string>
+    <string name="widget_chart_type">نوع الرسم البياني</string>
+    <!-- «1 Jahr» im Chart des Aktionsblatts (365 Tageskerzen; Chip neben 24h · 7T · 30T) -->
+    <string name="widget_range_1y">سنة واحدة</string>
+    <string name="widget_range_24h">24h</string>
+    <string name="widget_range_30d">30 يومًا</string>
+    <string name="widget_range_7d">7 أيام</string>
+    <string name="widget_range_short_1y">سنة</string>
+    <string name="widget_range_short_24h">24h</string>
+    <string name="widget_range_short_30d">30ي</string>
+    <string name="widget_range_short_7d">7ي</string>
+
+    <!-- Portfolio-Widget -->
+    <!-- Fusszeile, %1$s Uhrzeit ohne Sekunden («Stand 15:19») -->
+    <string name="widget_portfolio_as_of">حتى %1$s</string>
+    <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
+    <string name="widget_portfolio_chart_pending">السجل قريبًا</string>
+    <string name="widget_portfolio_description">القيمة الإجمالية لمحفظتك وتغيّر اليوم</string>
+    <string name="widget_portfolio_display">العرض</string>
+    <string name="widget_portfolio_display_conversion">التحويل فقط</string>
+    <string name="widget_portfolio_display_conversion_usdt">التحويل + USDT</string>
+    <string name="widget_portfolio_display_hint">يُخفى سطر USDT عندما تكون عملة التحويل هي USD.</string>
+    <string name="widget_portfolio_display_usdt">USDT فقط</string>
+    <string name="widget_portfolio_empty">أضف عمليات الشراء في تبويب «المحفظة»</string>
+    <string name="widget_portfolio_list_hint">افتح التطبيق لعرض مراكزك هنا.</string>
+    <string name="widget_portfolio_locked_hint">مقفلة – افتح القفل في التطبيق</string>
+    <!-- Offene Coins ohne Kurs zählen im Gesamtwert als 0 -->
+    <plurals name="widget_portfolio_missing_coins">
+        <item quantity="zero">بدون %1$d عملة</item>
+        <item quantity="one">بدون عملة واحدة (%1$d)</item>
+        <item quantity="two">بدون عملتين (%1$d)</item>
+        <item quantity="few">بدون %1$d عملات</item>
+        <item quantity="many">بدون %1$d عملة</item>
+        <item quantity="other">بدون %1$d عملة</item>
+    </plurals>
+    <plurals name="widget_portfolio_more">
+        <item quantity="zero">+ %1$d أخرى</item>
+        <item quantity="one">+ %1$d أخرى</item>
+        <item quantity="two">+ %1$d أخرى</item>
+        <item quantity="few">+ %1$d أخرى</item>
+        <item quantity="many">+ %1$d أخرى</item>
+        <item quantity="other">+ %1$d أخرى</item>
+    </plurals>
+    <string name="widget_portfolio_name">المحفظة</string>
+    <string name="widget_portfolio_off_hint">شغّلها من %1$s.</string>
+    <string name="widget_portfolio_off_short">المحفظة متوقفة</string>
+    <string name="widget_portfolio_off_title">المحفظة متوقفة</string>
+    <string name="widget_portfolio_partly_stale">سعر قديم جزئيًا</string>
+    <string name="widget_portfolio_period">الفترة</string>
+    <string name="widget_portfolio_period_without">%1$s دون %2$s</string>
+    <string name="widget_portfolio_range_48h">48h</string>
+    <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
+    <string name="widget_portfolio_range_fallback">%1$s: افتح المحفظة</string>
+    <string name="widget_portfolio_range_short_48h">48h</string>
+    <string name="widget_portfolio_today_without">اليوم بدون %1$s</string>
+    <string name="widget_portfolio_view">العرض</string>
+    <string name="widget_portfolio_view_chart">رسم بياني</string>
+    <string name="widget_portfolio_view_list">قائمة</string>
+    <string name="widget_portfolio_view_overview">نظرة عامة</string>
+
+    <!-- Einzel-Widget -->
+    <string name="single_widget_choose">اختر زوجًا</string>
+    <string name="single_widget_description">يعرض عملة واحدة بحجم كبير مع السعر والتغيّر ومخطط 24 ساعة.</string>
+    <string name="single_widget_label">Crypto Checker – عملة واحدة</string>
+    <string name="single_widget_title">إعداد أداة العملة الواحدة</string>
+
+    <!-- Widgets aus der App hinzufügen -->
+    <string name="widgets_add">إضافة</string>
+    <!-- Screenreader: Knopf «Add» mit dem Namen des Widgets -->
+    <string name="widgets_add_named">إضافة الأداة %1$s</string>
+    <string name="widgets_manual_text">لا تستطيع شاشتك الرئيسية إضافة الأدوات من التطبيق. المس مكانًا فارغًا في الشاشة الرئيسية مع الاستمرار، واختر «الأدوات» وابحث عن «Crypto Checker».</string>
+    <!-- Startbildschirm (Launcher) kann keine Widgets aus der App annehmen -->
+    <string name="widgets_manual_title">أضف الأداة بنفسك</string>
+    <string name="widgets_sheet_title">إضافة أداة</string>
+
+    <!-- Nur iOS: Widget selbst hinzufügen (drei Schritte) -->
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">لا يسمح iOS للتطبيقات بإضافة الأدوات بنفسها. الأمر لا يستغرق سوى لحظة:</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">الأدوات المتاحة</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">المس مكانًا فارغًا في الشاشة الرئيسية مع الاستمرار حتى تهتز التطبيقات.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">اضغط في الأعلى على «تعديل» › «إضافة أداة» (أو «+» في إصدارات iOS الأقدم).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">ابحث عن «Crypto Checker»، واختر أداة ثم اضغط على «إضافة أداة».</string>
+</resources>

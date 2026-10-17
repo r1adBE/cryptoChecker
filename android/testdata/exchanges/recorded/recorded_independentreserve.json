@@ -1,0 +1,21 @@
+{
+ "market": "IndependentReserve",
+ "recordedAt": "2026-10-16T23:27:56Z",
+ "description": "Recorded live by android/tools/record_exchange_fixtures.py. Real responses: the contract tests only check plausibility (parser does not throw, last > 0, batch has tickers, pair list contains the pair). Skipped: nothing. Trimmed for the repository: long lists keep their first 25 entries plus every entry naming the tested pair.",
+ "cases": [
+  {
+   "kind": "single",
+   "name": "recorded single 2026-10-16T23:27:56Z",
+   "market": "IndependentReserve",
+   "requestId": 0,
+   "request": "GET https://api.independentreserve.com/Public/GetMarketSummary?primaryCurrencyCode=Xbt&secondaryCurrencyCode=Aud",
+   "body": "{\"DayHighestPrice\":119703.06,\"DayLowestPrice\":116100.76,\"DayAvgPrice\":117901.91,\"DayVolumeXbt\":21.53,\"DayVolumeXbtInSecondaryCurrrency\":19.78646917,\"CurrentLowestOfferPrice\":117572.95,\"CurrentHighestBidPrice\":117500.01,\"LastPrice\":117500.01,\"PrimaryCurrencyCode\":\"Xbt\",\"SecondaryCurrencyCode\":\"Aud\",\"CreatedTimestampUtc\":\"2026-10-16T23:29:28.0437889Z\"}",
+   "pair": {
+    "base": "BTC",
+    "quote": "AUD",
+    "id": "Xbt_Aud",
+    "contract": "NONE"
+   }
+  }
+ ]
+}

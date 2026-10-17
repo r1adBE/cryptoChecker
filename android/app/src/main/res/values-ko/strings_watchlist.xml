@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: leere Ansicht, Statuszeile, Frische -->
+    <string name="watchlist_all_fresh">최신 · %1$s</string>
+    <string name="watchlist_empty_title">아직 거래쌍이 없습니다</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="other">%2$d개 중 %1$d개 가격 없음</item>
+    </plurals>
+    <string name="watchlist_last_run">마지막 실행 %1$s</string>
+    <string name="watchlist_live_a11y">실시간 시세 켜짐</string>
+    <string name="watchlist_live_badge">LIVE</string>
+    <string name="watchlist_offline_since">연결 없음 · %1$s 기준</string>
+    <string name="watchlist_pull_to_refresh">아래로 당겨 새로고침</string>
+    <string name="watchlist_refresh_report">마지막 새로고침</string>
+    <string name="watchlist_refresh_report_empty">아직 세부 내역이 없습니다: 아직 전체 새로고침이 완료되지 않았습니다. 새로고침을 누르고 로딩 표시가 멈출 때까지 기다리세요.</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="other">%2$d개 중 %1$d개 오래됨</item>
+    </plurals>
+    <string name="watchlist_status_all_disabled">여기의 모든 거래쌍이 비활성화됨</string>
+    <string name="watchlist_status_exchange_prices">선택한 거래소 시세 · %1$s</string>
+    <string name="watchlist_status_exchange_prices_short">거래소 시세 · %1$s</string>
+    <string name="watchlist_status_group_empty">이 그룹에 거래쌍이 없습니다</string>
+    <string name="watchlist_status_none_traded">거래 중인 거래쌍이 없습니다</string>
+    <string name="watchlist_updated">업데이트: %1$s</string>
+
+    <!-- Merkliste: Puls-Zeile (Paare im Plus/Minus, ohne 24-h-Wert) -->
+    <string name="watchlist_pulse_avg">Ø %1$s</string>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="other">%1$d 하락</item>
+    </plurals>
+    <!-- Paare mit Kurs, aber ohne 24-h-Wert («· 510 ohne 24h-Wert») -->
+    <plurals name="watchlist_pulse_missing">
+        <item quantity="other">24시간 값 없음 %1$d개</item>
+    </plurals>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="other">오늘 값 없음 %1$d</item>
+    </plurals>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="other">%1$d 상승</item>
+    </plurals>
+
+    <!-- Merkliste: Zeile eines Paars -->
+    <string name="watchlist_row_disabled">%1$s · 비활성화됨</string>
+    <string name="watchlist_row_outdated">%1$s · 오래된 데이터</string>
+    <string name="watchlist_row_outdated_age">오래된 데이터 · %1$s</string>
+    <string name="watchlist_row_price_unchanged_since">%1$s 이후 가격 변동 없음</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s 연결 불가</string>
+
+    <!-- Merkliste: Suche, Sprungknopf, Sortieren nach Spalte -->
+    <string name="watchlist_jump_end">맨 아래로</string>
+    <string name="watchlist_jump_start">맨 위로</string>
+    <string name="watchlist_search_close">검색 닫기</string>
+    <string name="watchlist_search_empty">“%1$s”에 대한 결과 없음</string>
+    <string name="watchlist_search_hint">거래쌍, 이름 또는 거래소 검색</string>
+    <string name="watchlist_search_open">검색</string>
+    <string name="watchlist_sort_ascending">오름차순</string>
+    <string name="watchlist_sort_descending">내림차순</string>
+    <string name="watchlist_sort_hint">거래쌍을 길게 눌러 끌거나 핸들을 사용하세요. 즐겨찾기는 위에 유지됩니다.</string>
+    <string name="watchlist_sort_name">이름</string>
+    <string name="watchlist_sort_own">내 순서</string>
+    <string name="watchlist_sort_price">가격</string>
+
+    <!-- Merkliste: Mehrfachauswahl, Ansichten, Entfernen -->
+    <string name="watchlist_clear">관심 목록 비우기</string>
+    <string name="watchlist_clear_confirm">관심 목록에서 모든 거래쌍을 삭제할까요? 해당 경보도 함께 삭제됩니다.</string>
+    <plurals name="watchlist_disabled_count">
+        <item quantity="other">%1$d개 비활성화됨</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_action">삭제</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="other">거래소에서 더 이상 거래되지 않는 거래쌍 %1$d개를 삭제할까요? 해당 경보도 함께 삭제됩니다.</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_menu">거래 종료된 거래쌍 삭제 (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">거래 종료된 거래쌍 삭제</string>
+    <string name="watchlist_removed">%1$s 삭제됨</string>
+    <plurals name="watchlist_removed_count">
+        <item quantity="other">거래쌍 %1$d개를 삭제했습니다</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="other">거래 종료된 거래쌍 %1$d개 삭제됨</item>
+    </plurals>
+    <string name="watchlist_select">선택</string>
+    <string name="watchlist_select_all">모두 선택</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="other">%1$d개 선택됨</item>
+    </plurals>
+    <string name="watchlist_show_all">모두 보기</string>
+    <string name="watchlist_show_only_disabled">비활성화된 항목만 보기</string>
+    <string name="watchlist_show_only_stale">오래된 항목만 보기</string>
+
+    <!-- Merkliste: weitere Texte (Gruppen, Alarme, Mitteilung, Sprachausgabe) -->
+    <plurals name="watchlist_alarms_count">
+        <item quantity="other">경보 (%1$d)</item>
+    </plurals>
+    <string name="watchlist_favorites_empty_hint">아직 즐겨찾기가 없습니다. 페어를 오른쪽으로 밀거나 페어를 열고 ‘즐겨찾기’를 누르세요.</string>
+    <string name="watchlist_group_empty_hint">그룹을 길게 눌러 거래쌍을 선택하세요.</string>
+    <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
+    <string name="watchlist_groups_empty_hint">여기에 그룹이 표시됩니다</string>
+    <string name="watchlist_notification">알림</string>
+    <string name="watchlist_tts">가격 읽어주기</string>
+    <string name="watchlist_tts_speech_on">음성 출력이 켜졌습니다. 변경: 설정 › 고급 › 음성 출력.</string>
+
+    <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
+    <string name="watch_action_add_widget">위젯으로 추가</string>
+    <string name="watch_action_alarm">경보</string>
+    <string name="watch_action_favorite">즐겨찾기</string>
+    <string name="watch_action_why">함께 움직이는 것은?</string>
+    <string name="watch_action_why_short">함께 움직임?</string>
+    <string name="watch_change_mark">마크</string>
+    <string name="watch_disable">비활성화</string>
+    <string name="watch_disable_hint">조회 없음, 알림 없음</string>
+    <string name="watch_disabled">비활성화됨</string>
+    <string name="watch_disabled_banner">%1$s 비활성화됨</string>
+    <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
+    <string name="watch_edit_alarms_warning">경보는 유지됩니다 – 기준값을 확인하세요</string>
+    <!-- Titel des Formulars und Screenreader-Name des Stifts neben dem Paar -->
+    <string name="watch_edit_title">거래쌍 편집</string>
+    <string name="watch_enable">활성화</string>
+    <string name="watch_enable_hint">시세와 알림 다시 켜짐</string>
+    <string name="watch_enabled_banner">%1$s 활성화됨</string>
+    <string name="watch_error_offline">연결 없음</string>
+    <string name="watch_gesture_hint_short">탭: 경보와 ‘함께 움직이는 것은?’ · 길게 눌러 선택 · 왼쪽으로 밀어 삭제 · 오른쪽으로 밀어 즐겨찾기</string>
+    <string name="watch_hint_tap_why">코인을 탭하면 함께 움직이는 것을 볼 수 있습니다</string>
+    <string name="watch_not_traded">이 거래소에서 더 이상 거래되지 않음</string>
+    <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
+    <string name="watch_preview_not_watched">관심 목록에 없음</string>
+    <string name="watch_price_mid">중간 가격(없으면 마크)</string>
+    <string name="watch_row_source_both">변동 및 차트: %1$s</string>
+    <string name="watch_row_source_change">변동: %1$s</string>
+    <string name="watch_row_source_chart">차트: %1$s</string>
+
+    <!-- Meldung nach dem Hinzufügen (ein Paar / mehrere Paare) -->
+    <string name="pair_added_watching">%1$s을(를) 관심 목록에 추가했습니다</string>
+    <!-- Ein Paar: pair_added_watching -->
+    <string name="pairs_added_watching">%1$s을(를) 관심 목록에 추가했습니다</string>
+
+    <!-- Favoriten -->
+    <string name="favorite_add">즐겨찾기에 추가</string>
+    <string name="favorite_added">%1$s을(를) 즐겨찾기에 추가했습니다</string>
+    <string name="favorite_remove">즐겨찾기에서 제거</string>
+    <string name="favorite_removed">%1$s을(를) 즐겨찾기에서 제거했습니다</string>
+    <string name="hint_favorites_list">팁: 행을 오른쪽으로 밀면 즐겨찾기가 됩니다 – 즐겨찾기는 위에 표시됩니다.</string>
+
+    <!-- Gruppen und Chips der Merkliste -->
+    <string name="group_add">새 그룹</string>
+    <string name="group_all">전체</string>
+    <!-- Alpha-Tokens: Chip «α», Art vor der Glocke, «inkl. Alpha-Tokens» -->
+    <string name="group_alpha">Alpha 토큰</string>
+    <string name="group_delete">그룹 삭제</string>
+    <string name="group_delete_confirm">거래쌍은 관심 목록에 그대로 남습니다.</string>
+    <string name="group_done">완료</string>
+    <string name="group_edit_title">그룹 편집</string>
+    <!-- Chip «FAV» (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird vorgelesen) -->
+    <string name="group_favorites">즐겨찾기</string>
+    <string name="group_in_other">%1$s에 있음</string>
+    <string name="group_name">그룹 이름</string>
+    <string name="group_new">새 그룹…</string>
+    <string name="group_next">다음</string>
+    <string name="group_none">그룹 없음</string>
+    <string name="group_rename">이름 변경</string>
+    <string name="group_search_hint">거래쌍, 이름 또는 거래소 검색</string>
+    <string name="group_target">그룹</string>
+    <string name="group_title">그룹</string>
+    <!-- Gruppen-Chip «Token» (alle Paare ausser der Gruppe «TradFi»), Screenreader und Widget-Einrichtung -->
+    <string name="group_tokens">토큰</string>
+    <string name="group_value">그룹: %1$s</string>
+
+    <!-- Notiz zum Paar -->
+    <string name="note_add">메모 추가</string>
+    <string name="note_edit">메모 편집</string>
+    <string name="note_hint">예: 0.42에 진입, 목표 0.60</string>
+    <string name="note_remove">제거</string>
+    <string name="note_title">메모</string>
+
+    <!-- Reihenfolge ändern (Sortiermodus, Screenreader-Aktionen) -->
+    <string name="sort_drag_handle">끌어서 이동</string>
+    <string name="sort_move_bottom">맨 아래로</string>
+    <string name="sort_move_down">아래로</string>
+    <string name="sort_move_top">맨 위로</string>
+    <string name="sort_move_up">위로</string>
+</resources>

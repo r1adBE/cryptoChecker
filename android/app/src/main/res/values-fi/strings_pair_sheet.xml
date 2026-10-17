@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Aktionsblatt: Kurs-Chart (Zeitraum, Kerzenwerte beim Ziehen, Umrechnung) und «Mehr» -->
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s Zeitraum kurz (widget_range_short_24h/7d/30d) -->
+    <string name="sheet_chart_change">%1$s (%2$s)</string>
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s change_short_today(_zone) -->
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="sheet_chart_close">Päätös</string>
+    <string name="sheet_chart_converted_current">%1$s, muunnettu (nykyinen kurssi)</string>
+    <!-- Zeile unter dem Chart, %1$s = umgerechnete Reihe («BTC/USDT») -->
+    <string name="sheet_chart_converted_daily">%1$s, muunnettu päiväkursseilla</string>
+    <!-- Keine Kerzen für das Paar -->
+    <string name="sheet_chart_no_data">Tälle parille ei ole hintatietoja</string>
+    <!-- Kerzenwerte beim Ziehen (Hoch/Tief: ticker_high/ticker_low) -->
+    <string name="sheet_chart_open">Avaus</string>
+    <!-- Zeitraum-Chip statt «24h» bei Tages-Basis -->
+    <string name="sheet_chart_today">Tänään</string>
+    <!-- Umsatz der Kerze beim Ziehen; %1$s z. B. «12.3M USDT» -->
+    <string name="sheet_chart_volume">Vol. %1$s</string>
+    <string name="sheet_more">Lisää</string>
+
+    <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
+    <string name="ticker_ask">Myynti</string>
+    <string name="ticker_bid">Osto</string>
+    <string name="ticker_high">Ylin</string>
+    <string name="ticker_low">Alin</string>
+    <string name="ticker_timestamp">Aika</string>
+    <string name="ticker_vol_base">Volyymi (perus)</string>
+    <string name="ticker_vol_quote">Volyymi (hintavaluutta)</string>
+
+    <!-- Basis der %-Änderung (Prozent-Pille, Chart, Widgets) -->
+    <string name="change_basis_device">%1$s, 00:00 (laitteen aikavyöhyke)</string>
+    <string name="change_basis_local">Klo 00:00 paikallista aikaa alkaen</string>
+    <string name="change_basis_rolling">Viimeiset 24 h</string>
+    <!-- Letzter gegen vorherigen Kurs des Paars; ausgeschrieben (Auswahl). Kurz neben Pille und Widgets: change_short_since_last -->
+    <string name="change_basis_since_last">Edellisestä päivityksestä</string>
+    <string name="change_basis_utc_zone">Klo 00:00 %1$s alkaen</string>
+    <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
+    <string name="change_candle_source">Muutos %1$s-kynttilöistä</string>
+    <string name="change_short_since_last">ed. päivitys</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
+    <string name="change_short_today">tänään</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 einer gewählten Zeitzone; %1$s = Zeitzone (z. B. UTC) -->
+    <string name="change_short_today_zone">tänään %1$s</string>
+
+    <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
+    <string name="market_data_empty_error">Pörssistä ei saatu tietoja.</string>
+    <string name="market_data_summary">Markkina-arvo, gas-maksut, talousdata, kolikkoanalyysi</string>
+    <string name="market_data_tab_futures">Futuurit</string>
+    <string name="market_data_title">Markkinatiedot</string>
+
+    <!-- Marktdaten Spot (Marktkapitalisierung, Angebot, Volumen) -->
+    <string name="spot_circulating">Kierrossa oleva määrä</string>
+    <string name="spot_fdv">FDV</string>
+    <string name="spot_market_cap">Markkina-arvo</string>
+    <string name="spot_max_supply">Enimmäismäärä</string>
+    <string name="spot_no_data">Ei spot-tietoja tälle kolikolle</string>
+    <string name="spot_source_updated">Lähde: %1$s · klo %2$s</string>
+    <string name="spot_supply_of_max">%1$s enimmäismäärästä kierrossa</string>
+    <string name="spot_total_supply">Kokonaismäärä</string>
+    <string name="spot_vol_mcap">Vol./M.-arvo</string>
+    <string name="spot_volume_24h">Volyymi (24 h)</string>
+
+    <!-- Futures-Kennzahlen (Funding, Open Interest, Referenzbörse) -->
+    <string name="futures_alarm_reference">Suuntaa antava %1$s</string>
+    <string name="futures_funding">Rahoituskorko</string>
+    <string name="futures_funding_interval_unknown">väli tuntematon</string>
+    <string name="futures_funding_per8h_equiv">= %1$s 8 tunnissa (kuten hälytyksissä)</string>
+    <!-- Einheit neben der Funding-Pille, wenn die Börse stündlich abrechnet (Hyperliquid) -->
+    <string name="futures_funding_per_hour">tunnissa</string>
+    <string name="futures_funding_per_hours">%1$d tunnissa</string>
+    <string name="futures_next_funding">seuraava %1$d t %2$d min päästä</string>
+    <string name="futures_no_data">Ei futuuritietoja tälle kolikolle</string>
+    <string name="futures_open_interest">Avoimet positiot</string>
+    <!-- Futures-Kennzahlen von einer anderen Börse als der beobachteten (Richtwert) -->
+    <string name="futures_reference_hint">Suuntaa antava arvo lähteestä %1$s – rahoitus ja avoimet positiot ovat pörssikohtaisia, %2$s voi poiketa.</string>
+    <string name="futures_reference_spot">Suuntaa antava arvo lähteestä %1$s (kolikon USDT-perpetual)</string>
+    <string name="futures_source">Lähde: %1$s</string>
+
+    <!-- Erklärungen hinter dem ⓘ-Knopf -->
+    <string name="explain_funding">Moni lyö vetoa lainarahalla hintojen noususta tai laskusta. Long- ja short-positioiden välinen maksu. Vahvasti positiivinen tarkoittaa, että moni veikkaa hintojen nousua.</string>
+    <string name="explain_open_interest">Futuurit ovat vetoja hinnasta, usein lainarahalla. Kaikkien avoimien futuuripositioiden arvo. Kun se nousee, liikkeen puolesta on enemmän rahaa.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">Selitys</string>
+    <string name="explain_spot_fdv">Täysin laimennettu arvo: hinta × enimmäismäärä (tai kokonaismäärä, jos rajaa ei ole).</string>
+    <string name="explain_spot_market_cap">Hinta × kierrossa oleva määrä. Pilleri näyttää muutoksen 24 tunnin ajalta.</string>
+    <string name="explain_spot_source">Luvut kaikista pörsseistä Yhdysvaltain dollareina, lähteenä CoinGecko.</string>
+    <string name="explain_spot_supply">Kierrossa: kolikot, jotka ovat nyt markkinoilla. Kokonais: kaikki luodut kolikot miinus poltetut. Enimmäis: suurin määrä, joka voi koskaan olla olemassa.</string>
+    <string name="explain_spot_volume">24 tunnissa vaihdettu arvo. Vol./M.-arvo: volyymi suhteessa markkina-arvoon — korkea tarkoittaa erittäin vilkasta kauppaa.</string>
+
+    <!-- Umrechnung und Sats -->
+    <string name="converted_fx_stale">%1$s · kurssi %2$s</string>
+    <string name="sats_per_unit">%1$s %2$s = %3$s satsia</string>
+</resources>

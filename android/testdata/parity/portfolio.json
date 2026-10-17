@@ -1,0 +1,7432 @@
+{
+  "description": "Shared portfolio cases (Android PortfolioCalculator / PortfolioPeriodChange / PortfolioExchangeRoute, iOS the same names). Amounts, prices and fees are exact decimal texts; times are epoch ms (day × 86 400 000). 'positions' = average-cost ledger; 'periodGain' = «7 D»/«1 Y» gain with buys and sells taken out (baseDay = today − 7; closes per UTC day); 'scaleCloses' = Binance daily closes scaled to the price of the entered exchange, a different token (ratio outside 1/3…3) is dropped. Numbers compared with tolerance 1e-9 (relative), holdings exactly. 'todayAdjusted' = «Gewinn heute»: todayFromCoinChanges(holdings, current, coinChanges) then todayAdjusted(trades, windowStart); a buy/sell without price inside the window leaves that coin out (like 'periodGain') and lists it in skipped. Optional exact texts 'costBasisExact', 'realizedExact', 'unrealizedExact', 'pricedHoldings' are compared exactly (divisions round to 34 significant digits, half-even, on both platforms; unrealized = holdings × shortest text of the price − cost basis). 'historyCloses' = series for history, «7 D»/«1 Y», widget and alarms: own-exchange series (own) and coins without own exchange stay, a failed exchange keeps Binance, otherwise Binance scaled ONLY with own and Binance price now — else the coin is dropped (never the unscaled Binance series); expectedScaled = coins with scaled fallback. 'ownDailyUsdt' = own daily closes to USDT (USDT/USD as is, fiat per day ÷ USD→fiat rate of that day or the last before; days without rate dropped; null = not convertible). 'stitch' = own series, before its first day Binance aligned by the ratio on that day (binanceBefore = first own day; null = own only). 'scaledHint' = coins for the «Binance history scaled» hint from fromDay. Build 46: transaction types TRANSFER, REWARD, DEPOSIT, WITHDRAWAL and a fee in a third coin (feeCoin, feeCoinAmount, optional feeCoinPrice = USDT per fee coin) — see PortfolioLedger; optional expected 'withdrawn', 'feeValueMissing', 'realizedIncomplete'. 'exchangeByLedger' = pricing route per coin: from the latest TRANSFER with a destination only its destination and the exchanges of later trades count (same time: by id); single = coin → exchange name (first spelling), mixed = coins with several. 'byCoin' (in 'todayAdjusted') = MY gain/loss per open coin over the same window (PortfolioPeriodChange.todayByCoin, rows of app and widget); coins left out are missing; the amounts sum to the total. Build 46 (cost method): every 'positions' case names its 'method' (FIFO | AVERAGE; FIFO is the app default). FIFO = universal per coin (all exchanges/wallets), time then id; optional expected 'lots' (open lots: txId, amount, costUsdt) and 'disposals' (sell or third-coin fee leg; FIFO one per consumed lot with lotTxId, lotKind, holdingDays = UTC day(sell) − UTC day(acquired); AVERAGE one per sell, or two with a part without buy price, lot fields null); 'realizedUnknownAmount'. A withdrawal without price is valued at the MARKET price of its time in 'periodGain' (daily close of its UTC day, after the last close the current price) and 'todayAdjusted' (current price) — no gain or loss from the withdrawal itself; before build 46 it used the average cost (flat SOL showed −10). Build 46 (review): a sell beyond the holdings keeps capping the position (oversold) but its uncovered rest is a disposal with its share of the proceeds and no buy price ('uncovered': true); proceeds are split by amount over all parts. A deposit may carry 'acquiredTime' (original purchase date): FIFO lots are ordered by acquisition, then time, then id, holding days from acquisition. AVERAGE disposals carry 'costParts' (time, usdt per purchase/fee, taken proportionally). 'withdrawnGain' = value at withdrawal (recorded price) − cost of the consumed lots, known part. A deposit without price is valued at the market price of its time in 'periodGain' (money put in, no gain). Build 46 (cases 'B46 …'): SWAP (toCoin/toAmount/swapValue; fees: USDT and third coin off the proceeds, coin fee more given, fee in the received coin less received; lot cost = swap value), FIFO_WALLET (wallet = exchange, empty = own bucket; transfers move lots with their date; 'shortfalls' = per-wallet oversold, not taken from other wallets), 'openLots' (FIFO per lot, AVERAGE aggregated). 'ledgerFlows' = holdings and flows per step of both swap sides; 'importBatch' = CSV import run id FORMAT:time:FNV-1a-32 of the row keys joined by \\n. Build 46 (fee expenses): a coin fee that eats the whole receipt (buy, received coin of a swap) and a USDT/third-coin fee of a withdrawal are realized fee expenses — a disposal with cost = expense, proceeds 0, gain −expense, holding 0 days, 'feeExpense' CONSUMED/WITHDRAWAL; withdrawnGain no longer subtracts withdrawal fees. Optional 'lostFeeCost' = CoinPosition.lostFeeCostUsdt (exact); FIFO: a network fee cost without a priced lot passes to the next priced lot added later. Build 46 (partial «Seit Kauf»): unrealized = priced holdings × price − cost of the priced part, also when another part has no buy price (optional 'pricedCost', 'unpricedHoldings', 'unrealizedPartial', 'unrealizedPercent'); optional 'summary' = summarize(trades, summaryPrices, method): unrealized sums the priced parts, invested only coins fully priced, 'partialCost' = coins with an unpriced part (coin, amount), 'missingCostCoins' = coins without any priced part.",
+  "today": 20000,
+  "baseDay": 19993,
+  "positions": [
+    {
+      "name": "average cost with USDT fees on buy and sell",
+      "method": "AVERAGE",
+      "coin": "BTC",
+      "currentPrice": 300,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "100",
+          "time": 86400000,
+          "fee": "1",
+          "feeUnit": "QUOTE"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "200",
+          "time": 172800000
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "1",
+          "price": "300",
+          "time": 259200000,
+          "fee": "2",
+          "feeUnit": "QUOTE"
+        }
+      ],
+      "expected": {
+        "holdings": "1",
+        "costBasis": 150.5,
+        "avgCost": 150.5,
+        "realized": 147.5,
+        "oversold": false,
+        "priceMissing": false,
+        "disposals": [
+          {
+            "coin": "BTC",
+            "sellTxId": 3,
+            "lotTxId": null,
+            "amount": "1",
+            "costUsdt": "150.5",
+            "proceedsUsdt": "298",
+            "gainUsdt": "147.5",
+            "holdingDays": null,
+            "lotKind": null,
+            "feeLeg": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "coin fee on a buy reduces the amount, not the cost",
+      "method": "AVERAGE",
+      "coin": "BTC",
+      "currentPrice": 100,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "100",
+          "time": 86400000,
+          "fee": "0.01",
+          "feeUnit": "COIN"
+        }
+      ],
+      "expected": {
+        "holdings": "0.99",
+        "costBasis": 100,
+        "avgCost": 101.01010101010101,
+        "realized": 0,
+        "oversold": false,
+        "priceMissing": false
+      }
+    },
+    {
+      "name": "one satoshi stays one satoshi",
+      "method": "AVERAGE",
+      "coin": "BTC",
+      "currentPrice": 61000,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "60000",
+          "time": 86400000
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "0.99999999",
+          "price": "61000",
+          "time": 172800000
+        }
+      ],
+      "expected": {
+        "holdings": "0.00000001",
+        "costBasis": 0.0006,
+        "avgCost": 60000,
+        "realized": 999.99999,
+        "oversold": false,
+        "priceMissing": false
+      }
+    },
+    {
+      "name": "buy without price: cost unknown",
+      "method": "AVERAGE",
+      "coin": "BTC",
+      "currentPrice": 50,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": null,
+          "time": 86400000
+        }
+      ],
+      "expected": {
+        "holdings": "1",
+        "costBasis": null,
+        "avgCost": null,
+        "realized": 0,
+        "oversold": false,
+        "priceMissing": true
+      }
+    },
+    {
+      "name": "coin fee beyond the holdings marks the sell as too large",
+      "method": "AVERAGE",
+      "coin": "BTC",
+      "currentPrice": 120,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "100",
+          "time": 86400000
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "1",
+          "price": "120",
+          "time": 172800000,
+          "fee": "0.01",
+          "feeUnit": "COIN"
+        }
+      ],
+      "expected": {
+        "holdings": "0",
+        "costBasis": null,
+        "avgCost": null,
+        "realized": 18.81188118811881,
+        "oversold": true,
+        "priceMissing": false
+      }
+    },
+    {
+      "name": "sell with nothing held changes the holdings nothing but is marked; it is a disposal without buy price",
+      "method": "AVERAGE",
+      "coin": "BTC",
+      "currentPrice": 100,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "1",
+          "price": "100",
+          "time": 86400000,
+          "fee": "5",
+          "feeUnit": "QUOTE"
+        }
+      ],
+      "expected": {
+        "holdings": "0",
+        "costBasis": null,
+        "avgCost": null,
+        "realized": 0,
+        "oversold": true,
+        "priceMissing": false,
+        "disposals": [
+          {
+            "coin": "BTC",
+            "sellTxId": 1,
+            "lotTxId": null,
+            "amount": "1",
+            "costUsdt": null,
+            "proceedsUsdt": "95",
+            "gainUsdt": null,
+            "holdingDays": null,
+            "lotKind": null,
+            "feeLeg": false,
+            "uncovered": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "division rounds to 34 significant digits on both platforms",
+      "method": "AVERAGE",
+      "coin": "BTC",
+      "currentPrice": 15,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "3",
+          "price": "10",
+          "time": 86400000,
+          "fee": "1",
+          "feeUnit": "QUOTE"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "1",
+          "price": "20",
+          "time": 172800000
+        }
+      ],
+      "expected": {
+        "holdings": "2",
+        "costBasis": 20.666666666666668,
+        "avgCost": 10.333333333333334,
+        "realized": 9.666666666666666,
+        "oversold": false,
+        "priceMissing": false,
+        "costBasisExact": "20.66666666666666666666666666666667",
+        "realizedExact": "9.66666666666666666666666666666667",
+        "unrealizedExact": "9.33333333333333333333333333333333",
+        "pricedHoldings": "2"
+      }
+    },
+    {
+      "name": "average cost covers only the part with a buy price",
+      "method": "AVERAGE",
+      "coin": "ETH",
+      "currentPrice": 0.1,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "ETH",
+          "type": "BUY",
+          "amount": "0.5",
+          "price": "100",
+          "time": 86400000
+        },
+        {
+          "id": 2,
+          "coin": "ETH",
+          "type": "BUY",
+          "amount": "1.5",
+          "price": null,
+          "time": 172800000
+        }
+      ],
+      "expected": {
+        "holdings": "2",
+        "costBasis": null,
+        "avgCost": 100,
+        "realized": 0,
+        "oversold": false,
+        "priceMissing": true,
+        "pricedHoldings": "0.5"
+      }
+    },
+    {
+      "name": "transfer: network fee in the coin lowers the amount, the cost basis stays (average rises)",
+      "method": "AVERAGE",
+      "coin": "BTC",
+      "currentPrice": 200,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "100",
+          "time": 86400000
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "TRANSFER",
+          "amount": "1",
+          "price": null,
+          "time": 172800000,
+          "fee": "0.1",
+          "feeUnit": "COIN"
+        }
+      ],
+      "expected": {
+        "holdings": "0.9",
+        "costBasis": 100,
+        "avgCost": 111.11111111111111,
+        "realized": 0,
+        "oversold": false,
+        "priceMissing": false,
+        "costBasisExact": "100",
+        "unrealizedExact": "80",
+        "pricedHoldings": "0.9"
+      }
+    },
+    {
+      "name": "transfer: USDT fee joins the cost of the part with a buy price only",
+      "method": "AVERAGE",
+      "coin": "ETH",
+      "currentPrice": null,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "ETH",
+          "type": "BUY",
+          "amount": "1",
+          "price": "100",
+          "time": 86400000
+        },
+        {
+          "id": 2,
+          "coin": "ETH",
+          "type": "DEPOSIT",
+          "amount": "1",
+          "price": null,
+          "time": 172800000
+        },
+        {
+          "id": 3,
+          "coin": "ETH",
+          "type": "TRANSFER",
+          "amount": "2",
+          "price": null,
+          "time": 259200000,
+          "fee": "2",
+          "feeUnit": "QUOTE"
+        }
+      ],
+      "expected": {
+        "holdings": "2",
+        "costBasis": null,
+        "avgCost": 101,
+        "realized": 0,
+        "oversold": false,
+        "priceMissing": true,
+        "pricedHoldings": "1"
+      }
+    },
+    {
+      "name": "reward with price: value at receipt is the cost basis, later gains count",
+      "method": "AVERAGE",
+      "coin": "DOT",
+      "currentPrice": 6,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "DOT",
+          "type": "REWARD",
+          "amount": "10",
+          "price": "5",
+          "time": 86400000
+        },
+        {
+          "id": 2,
+          "coin": "DOT",
+          "type": "SELL",
+          "amount": "5",
+          "price": "7",
+          "time": 172800000
+        }
+      ],
+      "expected": {
+        "holdings": "5",
+        "costBasis": 25,
+        "avgCost": 5,
+        "realized": 10,
+        "oversold": false,
+        "priceMissing": false,
+        "costBasisExact": "25",
+        "realizedExact": "10",
+        "unrealizedExact": "5"
+      }
+    },
+    {
+      "name": "reward without price: amount without a buy price",
+      "method": "AVERAGE",
+      "coin": "ETH",
+      "currentPrice": 150,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "ETH",
+          "type": "BUY",
+          "amount": "1",
+          "price": "100",
+          "time": 86400000
+        },
+        {
+          "id": 2,
+          "coin": "ETH",
+          "type": "REWARD",
+          "amount": "1",
+          "price": null,
+          "time": 172800000
+        }
+      ],
+      "expected": {
+        "holdings": "2",
+        "costBasis": null,
+        "avgCost": 100,
+        "realized": 0,
+        "oversold": false,
+        "priceMissing": true,
+        "pricedHoldings": "1"
+      }
+    },
+    {
+      "name": "withdrawal leaves at average cost, no realized gain",
+      "method": "AVERAGE",
+      "coin": "SOL",
+      "currentPrice": 20,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "SOL",
+          "type": "DEPOSIT",
+          "amount": "2",
+          "price": "10",
+          "time": 86400000
+        },
+        {
+          "id": 2,
+          "coin": "SOL",
+          "type": "BUY",
+          "amount": "2",
+          "price": "20",
+          "time": 172800000
+        },
+        {
+          "id": 3,
+          "coin": "SOL",
+          "type": "WITHDRAWAL",
+          "amount": "1",
+          "price": "50",
+          "time": 259200000
+        }
+      ],
+      "expected": {
+        "holdings": "3",
+        "costBasis": 45,
+        "avgCost": 15,
+        "realized": 0,
+        "oversold": false,
+        "priceMissing": false,
+        "costBasisExact": "45",
+        "unrealizedExact": "15",
+        "withdrawn": 1,
+        "withdrawnGain": "35"
+      }
+    },
+    {
+      "name": "withdrawal from a mix takes both parts proportionally",
+      "method": "AVERAGE",
+      "coin": "SOL",
+      "currentPrice": 20,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "SOL",
+          "type": "DEPOSIT",
+          "amount": "2",
+          "price": "10",
+          "time": 86400000
+        },
+        {
+          "id": 2,
+          "coin": "SOL",
+          "type": "DEPOSIT",
+          "amount": "2",
+          "price": null,
+          "time": 172800000
+        },
+        {
+          "id": 3,
+          "coin": "SOL",
+          "type": "WITHDRAWAL",
+          "amount": "1",
+          "price": null,
+          "time": 259200000
+        }
+      ],
+      "expected": {
+        "holdings": "3",
+        "costBasis": null,
+        "avgCost": 10,
+        "realized": 0,
+        "oversold": false,
+        "priceMissing": true,
+        "pricedHoldings": "1.5",
+        "withdrawn": 1
+      }
+    },
+    {
+      "name": "fee in a third coin with price: added to the cost basis of the buy",
+      "method": "AVERAGE",
+      "coin": "BTC",
+      "currentPrice": 1100,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BNB",
+          "type": "BUY",
+          "amount": "10",
+          "price": "300",
+          "time": 86400000
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "1000",
+          "time": 172800000,
+          "feeCoin": "BNB",
+          "feeCoinAmount": "0.1",
+          "feeCoinPrice": "400"
+        }
+      ],
+      "expected": {
+        "holdings": "1",
+        "costBasis": 1040,
+        "avgCost": 1040,
+        "realized": 0,
+        "oversold": false,
+        "priceMissing": false,
+        "costBasisExact": "1040",
+        "unrealizedExact": "60",
+        "feeValueMissing": false,
+        "realizedIncomplete": false
+      }
+    },
+    {
+      "name": "fee in a third coin with price: the fee coin is disposed of at the fee price",
+      "method": "AVERAGE",
+      "coin": "BNB",
+      "currentPrice": 400,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BNB",
+          "type": "BUY",
+          "amount": "10",
+          "price": "300",
+          "time": 86400000
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "1000",
+          "time": 172800000,
+          "feeCoin": "BNB",
+          "feeCoinAmount": "0.1",
+          "feeCoinPrice": "400"
+        }
+      ],
+      "expected": {
+        "holdings": "9.9",
+        "costBasis": 2970,
+        "avgCost": 300,
+        "realized": 10,
+        "oversold": false,
+        "priceMissing": false,
+        "costBasisExact": "2970",
+        "realizedExact": "10",
+        "unrealizedExact": "990",
+        "realizedIncomplete": false,
+        "disposals": [
+          {
+            "coin": "BNB",
+            "sellTxId": 2,
+            "lotTxId": null,
+            "amount": "0.1",
+            "costUsdt": "30",
+            "proceedsUsdt": "40",
+            "gainUsdt": "10",
+            "holdingDays": null,
+            "lotKind": null,
+            "feeLeg": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "fee in a third coin without price: buy cost without the fee, marked",
+      "method": "AVERAGE",
+      "coin": "BTC",
+      "currentPrice": 1100,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BNB",
+          "type": "BUY",
+          "amount": "10",
+          "price": "300",
+          "time": 86400000
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "1000",
+          "time": 172800000,
+          "feeCoin": "BNB",
+          "feeCoinAmount": "0.1",
+          "feeCoinPrice": null
+        }
+      ],
+      "expected": {
+        "holdings": "1",
+        "costBasis": 1000,
+        "avgCost": 1000,
+        "realized": 0,
+        "oversold": false,
+        "priceMissing": false,
+        "costBasisExact": "1000",
+        "feeValueMissing": true,
+        "realizedIncomplete": false
+      }
+    },
+    {
+      "name": "fee in a third coin without price: fee coin still decreases, realized incomplete",
+      "method": "AVERAGE",
+      "coin": "BNB",
+      "currentPrice": 300,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BNB",
+          "type": "BUY",
+          "amount": "10",
+          "price": "300",
+          "time": 86400000
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "1000",
+          "time": 172800000,
+          "feeCoin": "BNB",
+          "feeCoinAmount": "0.1",
+          "feeCoinPrice": null
+        }
+      ],
+      "expected": {
+        "holdings": "9.9",
+        "costBasis": 2970,
+        "avgCost": 300,
+        "realized": 0,
+        "oversold": false,
+        "priceMissing": false,
+        "costBasisExact": "2970",
+        "realizedIncomplete": true
+      }
+    },
+    {
+      "name": "sell with a fee in a third coin: fee value comes off the proceeds",
+      "method": "AVERAGE",
+      "coin": "BTC",
+      "currentPrice": 1200,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "1000",
+          "time": 86400000
+        },
+        {
+          "id": 2,
+          "coin": "BNB",
+          "type": "BUY",
+          "amount": "1",
+          "price": "300",
+          "time": 86400000
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "1",
+          "price": "1200",
+          "time": 172800000,
+          "feeCoin": "BNB",
+          "feeCoinAmount": "0.1",
+          "feeCoinPrice": "300"
+        }
+      ],
+      "expected": {
+        "holdings": "0",
+        "costBasis": null,
+        "avgCost": null,
+        "realized": 170,
+        "oversold": false,
+        "priceMissing": false,
+        "realizedExact": "170",
+        "realizedIncomplete": false
+      }
+    },
+    {
+      "name": "sell with a fee in a third coin without price: realized without the fee, incomplete",
+      "method": "AVERAGE",
+      "coin": "BTC",
+      "currentPrice": 1200,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "1000",
+          "time": 86400000
+        },
+        {
+          "id": 2,
+          "coin": "BNB",
+          "type": "BUY",
+          "amount": "1",
+          "price": "300",
+          "time": 86400000
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "1",
+          "price": "1200",
+          "time": 172800000,
+          "feeCoin": "BNB",
+          "feeCoinAmount": "0.1",
+          "feeCoinPrice": null
+        }
+      ],
+      "expected": {
+        "holdings": "0",
+        "costBasis": null,
+        "avgCost": null,
+        "realized": 200,
+        "oversold": false,
+        "priceMissing": false,
+        "realizedIncomplete": true,
+        "feeValueMissing": true
+      }
+    },
+    {
+      "name": "transfer with a fee in a third coin: fee value joins the cost basis",
+      "method": "AVERAGE",
+      "coin": "ETH",
+      "currentPrice": 100,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "ETH",
+          "type": "BUY",
+          "amount": "1",
+          "price": "100",
+          "time": 86400000
+        },
+        {
+          "id": 2,
+          "coin": "BNB",
+          "type": "BUY",
+          "amount": "1",
+          "price": "300",
+          "time": 86400000
+        },
+        {
+          "id": 3,
+          "coin": "ETH",
+          "type": "TRANSFER",
+          "amount": "1",
+          "price": null,
+          "time": 172800000,
+          "feeCoin": "BNB",
+          "feeCoinAmount": "0.01",
+          "feeCoinPrice": "300"
+        }
+      ],
+      "expected": {
+        "holdings": "1",
+        "costBasis": 103,
+        "avgCost": 103,
+        "realized": 0,
+        "oversold": false,
+        "priceMissing": false,
+        "costBasisExact": "103",
+        "unrealizedExact": "-3"
+      }
+    },
+    {
+      "name": "fee coin used beyond its holdings is marked",
+      "method": "AVERAGE",
+      "coin": "BNB",
+      "currentPrice": 300,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BNB",
+          "type": "BUY",
+          "amount": "0.05",
+          "price": "300",
+          "time": 86400000
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "1000",
+          "time": 172800000,
+          "feeCoin": "BNB",
+          "feeCoinAmount": "0.1",
+          "feeCoinPrice": "300"
+        }
+      ],
+      "expected": {
+        "holdings": "0",
+        "costBasis": null,
+        "avgCost": null,
+        "realized": 0,
+        "oversold": true,
+        "priceMissing": false,
+        "realizedExact": "0"
+      }
+    },
+    {
+      "name": "average: sell beyond the holdings splits proceeds by amount, the uncovered rest has no buy price",
+      "method": "AVERAGE",
+      "coin": "BTC",
+      "currentPrice": 100,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "100",
+          "time": 86400000
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "2",
+          "price": "150",
+          "time": 172800000,
+          "fee": "10",
+          "feeUnit": "QUOTE"
+        }
+      ],
+      "expected": {
+        "holdings": "0",
+        "costBasis": null,
+        "avgCost": null,
+        "realized": 45,
+        "oversold": true,
+        "priceMissing": false,
+        "realizedExact": "45",
+        "disposals": [
+          {
+            "coin": "BTC",
+            "sellTxId": 2,
+            "lotTxId": null,
+            "amount": "1",
+            "costUsdt": "100",
+            "proceedsUsdt": "145",
+            "gainUsdt": "45",
+            "holdingDays": null,
+            "lotKind": null,
+            "feeLeg": false,
+            "costParts": [
+              {
+                "time": 86400000,
+                "usdt": "100"
+              }
+            ]
+          },
+          {
+            "coin": "BTC",
+            "sellTxId": 2,
+            "lotTxId": null,
+            "amount": "1",
+            "costUsdt": null,
+            "proceedsUsdt": "145",
+            "gainUsdt": null,
+            "holdingDays": null,
+            "lotKind": null,
+            "feeLeg": false,
+            "uncovered": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "average cost keeps where it came from: a sell takes every purchase proportionally (tax rate per purchase date)",
+      "method": "AVERAGE",
+      "coin": "BTC",
+      "currentPrice": 300,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "100",
+          "time": 86400000
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "200",
+          "time": 172800000
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "1",
+          "price": "300",
+          "time": 259200000
+        }
+      ],
+      "expected": {
+        "holdings": "1",
+        "costBasis": 150,
+        "avgCost": 150,
+        "realized": 150,
+        "oversold": false,
+        "priceMissing": false,
+        "costBasisExact": "150",
+        "realizedExact": "150",
+        "disposals": [
+          {
+            "coin": "BTC",
+            "sellTxId": 3,
+            "lotTxId": null,
+            "amount": "1",
+            "costUsdt": "150",
+            "proceedsUsdt": "300",
+            "gainUsdt": "150",
+            "holdingDays": null,
+            "lotKind": null,
+            "feeLeg": false,
+            "costParts": [
+              {
+                "time": 86400000,
+                "usdt": "50"
+              },
+              {
+                "time": 172800000,
+                "usdt": "100"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "FIFO: several buys at different prices, a partial sell across two lots",
+      "method": "FIFO",
+      "coin": "BTC",
+      "currentPrice": 450,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "100",
+          "time": 86400000
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "2",
+          "price": "200",
+          "time": 172800000
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "400",
+          "time": 259200000
+        },
+        {
+          "id": 4,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "2.5",
+          "price": "500",
+          "time": 345600000,
+          "fee": "5",
+          "feeUnit": "QUOTE"
+        }
+      ],
+      "expected": {
+        "holdings": "1.5",
+        "costBasis": 500,
+        "avgCost": 333.3333333333333,
+        "realized": 845,
+        "oversold": false,
+        "priceMissing": false,
+        "costBasisExact": "500",
+        "realizedExact": "845",
+        "unrealizedExact": "175",
+        "pricedHoldings": "1.5",
+        "realizedIncomplete": false,
+        "lots": [
+          {
+            "txId": 2,
+            "amount": "0.5",
+            "costUsdt": "100"
+          },
+          {
+            "txId": 3,
+            "amount": "1",
+            "costUsdt": "400"
+          }
+        ],
+        "disposals": [
+          {
+            "coin": "BTC",
+            "sellTxId": 4,
+            "lotTxId": 1,
+            "amount": "1",
+            "costUsdt": "100",
+            "proceedsUsdt": "498",
+            "gainUsdt": "398",
+            "holdingDays": 3,
+            "lotKind": "BUY",
+            "feeLeg": false
+          },
+          {
+            "coin": "BTC",
+            "sellTxId": 4,
+            "lotTxId": 2,
+            "amount": "1.5",
+            "costUsdt": "300",
+            "proceedsUsdt": "747",
+            "gainUsdt": "447",
+            "holdingDays": 2,
+            "lotKind": "BUY",
+            "feeLeg": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "FIFO: a sell from a lot without buy price counts only the known part",
+      "method": "FIFO",
+      "coin": "BTC",
+      "currentPrice": 300,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": null,
+          "time": 86400000
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "100",
+          "time": 172800000
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "1.5",
+          "price": "300",
+          "time": 259200000
+        }
+      ],
+      "expected": {
+        "holdings": "0.5",
+        "costBasis": 50,
+        "avgCost": 100,
+        "realized": 100,
+        "oversold": false,
+        "priceMissing": false,
+        "costBasisExact": "50",
+        "realizedExact": "100",
+        "unrealizedExact": "100",
+        "pricedHoldings": "0.5",
+        "realizedIncomplete": true,
+        "realizedUnknownAmount": 1,
+        "disposals": [
+          {
+            "coin": "BTC",
+            "sellTxId": 3,
+            "lotTxId": 1,
+            "amount": "1",
+            "costUsdt": null,
+            "proceedsUsdt": "300",
+            "gainUsdt": null,
+            "holdingDays": 2,
+            "lotKind": "BUY",
+            "feeLeg": false
+          },
+          {
+            "coin": "BTC",
+            "sellTxId": 3,
+            "lotTxId": 2,
+            "amount": "0.5",
+            "costUsdt": "50",
+            "proceedsUsdt": "150",
+            "gainUsdt": "100",
+            "holdingDays": 1,
+            "lotKind": "BUY",
+            "feeLeg": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "FIFO: a reward is a lot at its value on receipt",
+      "method": "FIFO",
+      "coin": "DOT",
+      "currentPrice": 8,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "DOT",
+          "type": "REWARD",
+          "amount": "10",
+          "price": "5",
+          "time": 86400000
+        },
+        {
+          "id": 2,
+          "coin": "DOT",
+          "type": "BUY",
+          "amount": "10",
+          "price": "7",
+          "time": 172800000
+        },
+        {
+          "id": 3,
+          "coin": "DOT",
+          "type": "SELL",
+          "amount": "12",
+          "price": "8",
+          "time": 259200000
+        }
+      ],
+      "expected": {
+        "holdings": "8",
+        "costBasis": 56,
+        "avgCost": 7,
+        "realized": 32,
+        "oversold": false,
+        "priceMissing": false,
+        "costBasisExact": "56",
+        "realizedExact": "32",
+        "unrealizedExact": "8",
+        "disposals": [
+          {
+            "coin": "DOT",
+            "sellTxId": 3,
+            "lotTxId": 1,
+            "amount": "10",
+            "costUsdt": "50",
+            "proceedsUsdt": "80",
+            "gainUsdt": "30",
+            "holdingDays": 2,
+            "lotKind": "REWARD",
+            "feeLeg": false
+          },
+          {
+            "coin": "DOT",
+            "sellTxId": 3,
+            "lotTxId": 2,
+            "amount": "2",
+            "costUsdt": "14",
+            "proceedsUsdt": "16",
+            "gainUsdt": "2",
+            "holdingDays": 1,
+            "lotKind": "BUY",
+            "feeLeg": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "FIFO: deposit without price is a lot with unknown cost",
+      "method": "FIFO",
+      "coin": "ETH",
+      "currentPrice": 50,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "ETH",
+          "type": "DEPOSIT",
+          "amount": "1",
+          "price": null,
+          "time": 86400000
+        },
+        {
+          "id": 2,
+          "coin": "ETH",
+          "type": "SELL",
+          "amount": "0.4",
+          "price": "50",
+          "time": 172800000
+        }
+      ],
+      "expected": {
+        "holdings": "0.6",
+        "costBasis": null,
+        "avgCost": null,
+        "realized": 0,
+        "oversold": false,
+        "priceMissing": true,
+        "pricedHoldings": "0",
+        "realizedIncomplete": true,
+        "realizedUnknownAmount": 0.4,
+        "disposals": [
+          {
+            "coin": "ETH",
+            "sellTxId": 2,
+            "lotTxId": 1,
+            "amount": "0.4",
+            "costUsdt": null,
+            "proceedsUsdt": "20",
+            "gainUsdt": null,
+            "holdingDays": 1,
+            "lotKind": "DEPOSIT",
+            "feeLeg": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "FIFO: a withdrawal consumes the oldest lot, no gain and no disposal",
+      "method": "FIFO",
+      "coin": "SOL",
+      "currentPrice": 30,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "SOL",
+          "type": "BUY",
+          "amount": "1",
+          "price": "10",
+          "time": 86400000
+        },
+        {
+          "id": 2,
+          "coin": "SOL",
+          "type": "BUY",
+          "amount": "1",
+          "price": "30",
+          "time": 172800000
+        },
+        {
+          "id": 3,
+          "coin": "SOL",
+          "type": "WITHDRAWAL",
+          "amount": "1",
+          "price": null,
+          "time": 259200000
+        }
+      ],
+      "expected": {
+        "holdings": "1",
+        "costBasis": 30,
+        "avgCost": 30,
+        "realized": 0,
+        "oversold": false,
+        "priceMissing": false,
+        "costBasisExact": "30",
+        "unrealizedExact": "0",
+        "withdrawn": 1,
+        "lots": [
+          {
+            "txId": 2,
+            "amount": "1",
+            "costUsdt": "30"
+          }
+        ],
+        "disposals": [],
+        "withdrawnGain": "0",
+        "withdrawnGainIncomplete": true
+      }
+    },
+    {
+      "name": "FIFO: network fee of a transfer takes the oldest coins, its cost moves to the next lot",
+      "method": "FIFO",
+      "coin": "BTC",
+      "currentPrice": 200,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "100",
+          "time": 86400000
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "200",
+          "time": 172800000
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "TRANSFER",
+          "amount": "2",
+          "price": null,
+          "time": 259200000,
+          "fee": "0.1",
+          "feeUnit": "COIN"
+        },
+        {
+          "id": 4,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "0.9",
+          "price": "150",
+          "time": 345600000
+        }
+      ],
+      "expected": {
+        "holdings": "1",
+        "costBasis": 200,
+        "avgCost": 200,
+        "realized": 35,
+        "oversold": false,
+        "priceMissing": false,
+        "costBasisExact": "200",
+        "realizedExact": "35",
+        "unrealizedExact": "0",
+        "lots": [
+          {
+            "txId": 2,
+            "amount": "1",
+            "costUsdt": "200"
+          }
+        ],
+        "disposals": [
+          {
+            "coin": "BTC",
+            "sellTxId": 4,
+            "lotTxId": 1,
+            "amount": "0.9",
+            "costUsdt": "100",
+            "proceedsUsdt": "135",
+            "gainUsdt": "35",
+            "holdingDays": 3,
+            "lotKind": "BUY",
+            "feeLeg": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "FIFO: transfer fee carried, the cost basis stays (before any sell)",
+      "method": "FIFO",
+      "coin": "BTC",
+      "currentPrice": 200,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "100",
+          "time": 86400000
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "200",
+          "time": 172800000
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "TRANSFER",
+          "amount": "2",
+          "price": null,
+          "time": 259200000,
+          "fee": "0.1",
+          "feeUnit": "COIN"
+        }
+      ],
+      "expected": {
+        "holdings": "1.9",
+        "costBasis": 300,
+        "avgCost": 157.89473684210526,
+        "realized": 0,
+        "oversold": false,
+        "priceMissing": false,
+        "costBasisExact": "300",
+        "unrealizedExact": "80",
+        "lots": [
+          {
+            "txId": 1,
+            "amount": "0.9",
+            "costUsdt": "100"
+          },
+          {
+            "txId": 2,
+            "amount": "1",
+            "costUsdt": "200"
+          }
+        ]
+      }
+    },
+    {
+      "name": "FIFO: fee in a third coin disposes of the fee coin lots at the fee price",
+      "method": "FIFO",
+      "coin": "BNB",
+      "currentPrice": 500,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BNB",
+          "type": "BUY",
+          "amount": "1",
+          "price": "300",
+          "time": 86400000
+        },
+        {
+          "id": 2,
+          "coin": "BNB",
+          "type": "BUY",
+          "amount": "1",
+          "price": "500",
+          "time": 172800000
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "1000",
+          "time": 259200000,
+          "feeCoin": "BNB",
+          "feeCoinAmount": "1.5",
+          "feeCoinPrice": "400"
+        }
+      ],
+      "expected": {
+        "holdings": "0.5",
+        "costBasis": 250,
+        "avgCost": 500,
+        "realized": 50,
+        "oversold": false,
+        "priceMissing": false,
+        "costBasisExact": "250",
+        "realizedExact": "50",
+        "unrealizedExact": "0",
+        "realizedIncomplete": false,
+        "disposals": [
+          {
+            "coin": "BNB",
+            "sellTxId": 3,
+            "lotTxId": 1,
+            "amount": "1",
+            "costUsdt": "300",
+            "proceedsUsdt": "400",
+            "gainUsdt": "100",
+            "holdingDays": 2,
+            "lotKind": "BUY",
+            "feeLeg": true
+          },
+          {
+            "coin": "BNB",
+            "sellTxId": 3,
+            "lotTxId": 2,
+            "amount": "0.5",
+            "costUsdt": "250",
+            "proceedsUsdt": "200",
+            "gainUsdt": "-50",
+            "holdingDays": 1,
+            "lotKind": "BUY",
+            "feeLeg": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "FIFO: fee in a third coin joins the cost of the bought lot",
+      "method": "FIFO",
+      "coin": "BTC",
+      "currentPrice": 2000,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BNB",
+          "type": "BUY",
+          "amount": "1",
+          "price": "300",
+          "time": 86400000
+        },
+        {
+          "id": 2,
+          "coin": "BNB",
+          "type": "BUY",
+          "amount": "1",
+          "price": "500",
+          "time": 172800000
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "1000",
+          "time": 259200000,
+          "feeCoin": "BNB",
+          "feeCoinAmount": "1.5",
+          "feeCoinPrice": "400"
+        }
+      ],
+      "expected": {
+        "holdings": "1",
+        "costBasis": 1600,
+        "avgCost": 1600,
+        "realized": 0,
+        "oversold": false,
+        "priceMissing": false,
+        "costBasisExact": "1600",
+        "unrealizedExact": "400",
+        "feeValueMissing": false,
+        "lots": [
+          {
+            "txId": 3,
+            "amount": "1",
+            "costUsdt": "1600"
+          }
+        ],
+        "disposals": []
+      }
+    },
+    {
+      "name": "FIFO: holding days are UTC calendar days (365 and 366)",
+      "method": "FIFO",
+      "coin": "BTC",
+      "currentPrice": null,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "100",
+          "time": 907200000
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "0.5",
+          "price": "300",
+          "time": 32439600000
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "0.5",
+          "price": "300",
+          "time": 32533200000
+        }
+      ],
+      "expected": {
+        "holdings": "0",
+        "costBasis": null,
+        "avgCost": null,
+        "realized": 200,
+        "oversold": false,
+        "priceMissing": false,
+        "realizedExact": "200",
+        "disposals": [
+          {
+            "coin": "BTC",
+            "sellTxId": 2,
+            "lotTxId": 1,
+            "amount": "0.5",
+            "costUsdt": "50",
+            "proceedsUsdt": "150",
+            "gainUsdt": "100",
+            "holdingDays": 365,
+            "lotKind": "BUY",
+            "feeLeg": false
+          },
+          {
+            "coin": "BTC",
+            "sellTxId": 3,
+            "lotTxId": 1,
+            "amount": "0.5",
+            "costUsdt": "50",
+            "proceedsUsdt": "150",
+            "gainUsdt": "100",
+            "holdingDays": 366,
+            "lotKind": "BUY",
+            "feeLeg": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "FIFO: same time, the smaller id is the older lot",
+      "method": "FIFO",
+      "coin": "ETH",
+      "currentPrice": 150,
+      "trades": [
+        {
+          "id": 2,
+          "coin": "ETH",
+          "type": "BUY",
+          "amount": "1",
+          "price": "200",
+          "time": 86400000
+        },
+        {
+          "id": 1,
+          "coin": "ETH",
+          "type": "BUY",
+          "amount": "1",
+          "price": "100",
+          "time": 86400000
+        },
+        {
+          "id": 3,
+          "coin": "ETH",
+          "type": "SELL",
+          "amount": "1",
+          "price": "150",
+          "time": 172800000
+        }
+      ],
+      "expected": {
+        "holdings": "1",
+        "costBasis": 200,
+        "avgCost": 200,
+        "realized": 50,
+        "oversold": false,
+        "priceMissing": false,
+        "costBasisExact": "200",
+        "realizedExact": "50",
+        "unrealizedExact": "-50",
+        "disposals": [
+          {
+            "coin": "ETH",
+            "sellTxId": 3,
+            "lotTxId": 1,
+            "amount": "1",
+            "costUsdt": "100",
+            "proceedsUsdt": "150",
+            "gainUsdt": "50",
+            "holdingDays": 1,
+            "lotKind": "BUY",
+            "feeLeg": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "FIFO: coin fee of a sell takes the next lots after the sold amount (proceeds 0), its cost reduces the gain",
+      "method": "FIFO",
+      "coin": "BTC",
+      "currentPrice": 200,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "100",
+          "time": 86400000
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "200",
+          "time": 172800000
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "1",
+          "price": "300",
+          "time": 259200000,
+          "fee": "0.5",
+          "feeUnit": "COIN"
+        }
+      ],
+      "expected": {
+        "holdings": "0.5",
+        "costBasis": 100,
+        "avgCost": 200,
+        "realized": 100,
+        "oversold": false,
+        "priceMissing": false,
+        "costBasisExact": "100",
+        "realizedExact": "100",
+        "unrealizedExact": "0",
+        "disposals": [
+          {
+            "coin": "BTC",
+            "sellTxId": 3,
+            "lotTxId": 1,
+            "amount": "1",
+            "costUsdt": "100",
+            "proceedsUsdt": "300",
+            "gainUsdt": "200",
+            "holdingDays": 2,
+            "lotKind": "BUY",
+            "feeLeg": false
+          },
+          {
+            "coin": "BTC",
+            "sellTxId": 3,
+            "lotTxId": 2,
+            "amount": "0.5",
+            "costUsdt": "100",
+            "proceedsUsdt": "0",
+            "gainUsdt": "-100",
+            "holdingDays": 1,
+            "lotKind": "BUY",
+            "feeLeg": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "FIFO: sell without price consumes lots with unknown gain",
+      "method": "FIFO",
+      "coin": "BTC",
+      "currentPrice": 100,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "100",
+          "time": 86400000
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "0.5",
+          "price": null,
+          "time": 172800000
+        }
+      ],
+      "expected": {
+        "holdings": "0.5",
+        "costBasis": 50,
+        "avgCost": 100,
+        "realized": 0,
+        "oversold": false,
+        "priceMissing": false,
+        "costBasisExact": "50",
+        "realizedIncomplete": true,
+        "realizedUnknownAmount": 0.5,
+        "disposals": [
+          {
+            "coin": "BTC",
+            "sellTxId": 2,
+            "lotTxId": 1,
+            "amount": "0.5",
+            "costUsdt": "50",
+            "proceedsUsdt": null,
+            "gainUsdt": null,
+            "holdingDays": 1,
+            "lotKind": "BUY",
+            "feeLeg": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "FIFO: sell beyond the holdings is capped and marked; the uncovered rest is a disposal without buy price",
+      "method": "FIFO",
+      "coin": "BTC",
+      "currentPrice": 100,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "100",
+          "time": 86400000
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "2",
+          "price": "150",
+          "time": 172800000
+        }
+      ],
+      "expected": {
+        "holdings": "0",
+        "costBasis": null,
+        "avgCost": null,
+        "realized": 50,
+        "oversold": true,
+        "priceMissing": false,
+        "realizedExact": "50",
+        "disposals": [
+          {
+            "coin": "BTC",
+            "sellTxId": 2,
+            "lotTxId": 1,
+            "amount": "1",
+            "costUsdt": "100",
+            "proceedsUsdt": "150",
+            "gainUsdt": "50",
+            "holdingDays": 1,
+            "lotKind": "BUY",
+            "feeLeg": false
+          },
+          {
+            "coin": "BTC",
+            "sellTxId": 2,
+            "lotTxId": null,
+            "amount": "1",
+            "costUsdt": null,
+            "proceedsUsdt": "150",
+            "gainUsdt": null,
+            "holdingDays": null,
+            "lotKind": null,
+            "feeLeg": false,
+            "uncovered": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "FIFO: sell beyond the holdings with a fee: proceeds split by amount, the covered part carries only its share of the fee",
+      "method": "FIFO",
+      "coin": "BTC",
+      "currentPrice": 100,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "100",
+          "time": 86400000
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "2",
+          "price": "150",
+          "time": 172800000,
+          "fee": "10",
+          "feeUnit": "QUOTE"
+        }
+      ],
+      "expected": {
+        "holdings": "0",
+        "costBasis": null,
+        "avgCost": null,
+        "realized": 45,
+        "oversold": true,
+        "priceMissing": false,
+        "realizedExact": "45",
+        "disposals": [
+          {
+            "coin": "BTC",
+            "sellTxId": 2,
+            "lotTxId": 1,
+            "amount": "1",
+            "costUsdt": "100",
+            "proceedsUsdt": "145",
+            "gainUsdt": "45",
+            "holdingDays": 1,
+            "lotKind": "BUY",
+            "feeLeg": false
+          },
+          {
+            "coin": "BTC",
+            "sellTxId": 2,
+            "lotTxId": null,
+            "amount": "1",
+            "costUsdt": null,
+            "proceedsUsdt": "145",
+            "gainUsdt": null,
+            "holdingDays": null,
+            "lotKind": null,
+            "feeLeg": false,
+            "uncovered": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "FIFO: a deposit with its original purchase date is the oldest lot and counts its holding days from that date",
+      "method": "FIFO",
+      "coin": "BTC",
+      "currentPrice": 300,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "200",
+          "time": 864000000
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "DEPOSIT",
+          "amount": "1",
+          "price": "50",
+          "time": 1728000000,
+          "acquiredTime": 86400000
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "1",
+          "price": "300",
+          "time": 2592000000
+        }
+      ],
+      "expected": {
+        "holdings": "1",
+        "costBasis": 200,
+        "avgCost": 200,
+        "realized": 250,
+        "oversold": false,
+        "priceMissing": false,
+        "costBasisExact": "200",
+        "realizedExact": "250",
+        "lots": [
+          {
+            "txId": 1,
+            "amount": "1",
+            "costUsdt": "200"
+          }
+        ],
+        "disposals": [
+          {
+            "coin": "BTC",
+            "sellTxId": 3,
+            "lotTxId": 2,
+            "amount": "1",
+            "costUsdt": "50",
+            "proceedsUsdt": "300",
+            "gainUsdt": "250",
+            "holdingDays": 29,
+            "lotKind": "DEPOSIT",
+            "feeLeg": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "FIFO: withdrawal with a price: value change until the withdrawal = value − cost of the consumed lot",
+      "method": "FIFO",
+      "coin": "SOL",
+      "currentPrice": 30,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "SOL",
+          "type": "BUY",
+          "amount": "1",
+          "price": "10",
+          "time": 86400000
+        },
+        {
+          "id": 2,
+          "coin": "SOL",
+          "type": "BUY",
+          "amount": "1",
+          "price": "30",
+          "time": 172800000
+        },
+        {
+          "id": 3,
+          "coin": "SOL",
+          "type": "WITHDRAWAL",
+          "amount": "1",
+          "price": "50",
+          "time": 259200000
+        }
+      ],
+      "expected": {
+        "holdings": "1",
+        "costBasis": 30,
+        "avgCost": 30,
+        "realized": 0,
+        "oversold": false,
+        "priceMissing": false,
+        "withdrawn": 1,
+        "lots": [
+          {
+            "txId": 2,
+            "amount": "1",
+            "costUsdt": "30"
+          }
+        ],
+        "disposals": [],
+        "withdrawnGain": "40"
+      }
+    },
+    {
+      "name": "B46 swap: known value, USDT fee reduces the proceeds (BTC side)",
+      "method": "FIFO",
+      "coin": "BTC",
+      "currentPrice": 30000,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1700010000000,
+          "price": "20000",
+          "exchange": "Binance"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "SWAP",
+          "amount": "0.5",
+          "time": 1700096400000,
+          "toCoin": "ETH",
+          "toAmount": "10",
+          "swapValue": "15000",
+          "fee": "10",
+          "feeUnit": "QUOTE"
+        }
+      ],
+      "expected": {
+        "holdings": "0.5",
+        "costBasis": 10000,
+        "avgCost": 20000,
+        "realized": 4990,
+        "oversold": false,
+        "priceMissing": false,
+        "realizedExact": "4990",
+        "lots": [
+          {
+            "txId": 1,
+            "amount": "0.5",
+            "costUsdt": "10000",
+            "kind": "BUY"
+          }
+        ],
+        "disposals": [
+          {
+            "coin": "BTC",
+            "sellTxId": 2,
+            "lotTxId": 1,
+            "amount": "0.5",
+            "costUsdt": "10000",
+            "proceedsUsdt": "14990",
+            "gainUsdt": "4990",
+            "holdingDays": 1,
+            "lotKind": "BUY",
+            "feeLeg": false,
+            "swap": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "B46 swap: known value — new lot in the received coin, cost = swap value (ETH side)",
+      "method": "FIFO",
+      "coin": "ETH",
+      "currentPrice": 1600,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1700010000000,
+          "price": "20000",
+          "exchange": "Binance"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "SWAP",
+          "amount": "0.5",
+          "time": 1700096400000,
+          "toCoin": "ETH",
+          "toAmount": "10",
+          "swapValue": "15000",
+          "fee": "10",
+          "feeUnit": "QUOTE"
+        }
+      ],
+      "expected": {
+        "holdings": "10",
+        "costBasis": 15000,
+        "avgCost": 1500,
+        "realized": 0,
+        "oversold": false,
+        "priceMissing": false,
+        "costBasisExact": "15000",
+        "unrealizedExact": "1000",
+        "lots": [
+          {
+            "txId": 2,
+            "amount": "10",
+            "costUsdt": "15000",
+            "kind": "SWAP"
+          }
+        ],
+        "openLots": [
+          {
+            "txId": 2,
+            "amount": "10",
+            "costUsdt": "15000",
+            "wallet": null,
+            "aggregated": false
+          }
+        ],
+        "disposals": []
+      }
+    },
+    {
+      "name": "B46 swap: fee in the given coin (more given away) and in the received coin (less received) — BTC",
+      "method": "FIFO",
+      "coin": "BTC",
+      "currentPrice": 30000,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1700010000000,
+          "price": "20000",
+          "exchange": "Binance"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "SWAP",
+          "amount": "0.5",
+          "time": 1700096400000,
+          "toCoin": "ETH",
+          "toAmount": "10",
+          "swapValue": "15000",
+          "fee": "0.001",
+          "feeUnit": "COIN",
+          "feeCoin": "ETH",
+          "feeCoinAmount": "0.1"
+        }
+      ],
+      "expected": {
+        "holdings": "0.499",
+        "costBasis": 9980,
+        "avgCost": 20000,
+        "realized": 4980,
+        "oversold": false,
+        "priceMissing": false,
+        "realizedExact": "4980",
+        "feeValueMissing": false,
+        "disposals": [
+          {
+            "coin": "BTC",
+            "sellTxId": 2,
+            "lotTxId": 1,
+            "amount": "0.501",
+            "costUsdt": "10020",
+            "proceedsUsdt": "15000",
+            "gainUsdt": "4980",
+            "holdingDays": 1,
+            "lotKind": "BUY",
+            "feeLeg": false,
+            "swap": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "B46 swap: fee in the received coin is no third coin — ETH lot 9.9 at 15000",
+      "method": "AVERAGE",
+      "coin": "ETH",
+      "currentPrice": 1600,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1700010000000,
+          "price": "20000",
+          "exchange": "Binance"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "SWAP",
+          "amount": "0.5",
+          "time": 1700096400000,
+          "toCoin": "ETH",
+          "toAmount": "10",
+          "swapValue": "15000",
+          "fee": "0.001",
+          "feeUnit": "COIN",
+          "feeCoin": "ETH",
+          "feeCoinAmount": "0.1"
+        }
+      ],
+      "expected": {
+        "holdings": "9.9",
+        "costBasis": 15000,
+        "avgCost": 1515.151515151515,
+        "realized": 0,
+        "oversold": false,
+        "priceMissing": false,
+        "costBasisExact": "15000",
+        "openLots": [
+          {
+            "txId": null,
+            "amount": "9.9",
+            "costUsdt": "15000",
+            "wallet": null,
+            "aggregated": true
+          }
+        ],
+        "disposals": []
+      }
+    },
+    {
+      "name": "B46 swap: third-coin fee (BNB) reduces the proceeds",
+      "method": "FIFO",
+      "coin": "BTC",
+      "currentPrice": 30000,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1700010000000,
+          "price": "20000",
+          "exchange": "Binance"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "SWAP",
+          "amount": "0.5",
+          "time": 1700096400000,
+          "toCoin": "ETH",
+          "toAmount": "10",
+          "swapValue": "15000",
+          "feeCoin": "BNB",
+          "feeCoinAmount": "0.01",
+          "feeCoinPrice": "300"
+        }
+      ],
+      "expected": {
+        "holdings": "0.5",
+        "costBasis": 10000,
+        "avgCost": 20000,
+        "realized": 4997,
+        "oversold": false,
+        "priceMissing": false,
+        "realizedExact": "4997",
+        "disposals": [
+          {
+            "coin": "BTC",
+            "sellTxId": 2,
+            "lotTxId": 1,
+            "amount": "0.5",
+            "costUsdt": "10000",
+            "proceedsUsdt": "14997",
+            "gainUsdt": "4997",
+            "holdingDays": 1,
+            "lotKind": "BUY",
+            "feeLeg": false,
+            "swap": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "B46 swap: third-coin fee without price — proceeds without it, realized incomplete",
+      "method": "FIFO",
+      "coin": "BTC",
+      "currentPrice": 30000,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1700010000000,
+          "price": "20000",
+          "exchange": "Binance"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "SWAP",
+          "amount": "0.5",
+          "time": 1700096400000,
+          "toCoin": "ETH",
+          "toAmount": "10",
+          "swapValue": "15000",
+          "feeCoin": "BNB",
+          "feeCoinAmount": "0.01"
+        }
+      ],
+      "expected": {
+        "holdings": "0.5",
+        "costBasis": 10000,
+        "avgCost": 20000,
+        "realized": 5000,
+        "oversold": false,
+        "priceMissing": false,
+        "feeValueMissing": true,
+        "realizedIncomplete": true,
+        "disposals": [
+          {
+            "coin": "BTC",
+            "sellTxId": 2,
+            "lotTxId": 1,
+            "amount": "0.5",
+            "costUsdt": "10000",
+            "proceedsUsdt": "15000",
+            "gainUsdt": "5000",
+            "holdingDays": 1,
+            "lotKind": "BUY",
+            "feeLeg": false,
+            "swap": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "B46 swap: unknown value — disposal without proceeds (realized incomplete)",
+      "method": "FIFO",
+      "coin": "BTC",
+      "currentPrice": 30000,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1700010000000,
+          "price": "20000",
+          "exchange": "Binance"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "SWAP",
+          "amount": "0.5",
+          "time": 1700096400000,
+          "toCoin": "ETH",
+          "toAmount": "10"
+        }
+      ],
+      "expected": {
+        "holdings": "0.5",
+        "costBasis": 10000,
+        "avgCost": 20000,
+        "realized": 0,
+        "oversold": false,
+        "priceMissing": false,
+        "realizedIncomplete": true,
+        "realizedUnknownAmount": 0.5,
+        "disposals": [
+          {
+            "coin": "BTC",
+            "sellTxId": 2,
+            "lotTxId": 1,
+            "amount": "0.5",
+            "costUsdt": "10000",
+            "proceedsUsdt": null,
+            "gainUsdt": null,
+            "holdingDays": 1,
+            "lotKind": "BUY",
+            "feeLeg": false,
+            "swap": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "B46 swap: unknown value — received lot without purchase price",
+      "method": "FIFO",
+      "coin": "ETH",
+      "currentPrice": 1600,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1700010000000,
+          "price": "20000",
+          "exchange": "Binance"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "SWAP",
+          "amount": "0.5",
+          "time": 1700096400000,
+          "toCoin": "ETH",
+          "toAmount": "10"
+        }
+      ],
+      "expected": {
+        "holdings": "10",
+        "costBasis": null,
+        "avgCost": null,
+        "realized": 0,
+        "oversold": false,
+        "priceMissing": true,
+        "lots": [
+          {
+            "txId": 2,
+            "amount": "10",
+            "costUsdt": null,
+            "kind": "SWAP"
+          }
+        ],
+        "openLots": [
+          {
+            "txId": 2,
+            "amount": "10",
+            "costUsdt": null,
+            "wallet": null,
+            "aggregated": false
+          }
+        ],
+        "disposals": []
+      }
+    },
+    {
+      "name": "B46 swap AVERAGE: given coin at the moving average, USDT fee off the proceeds",
+      "method": "AVERAGE",
+      "coin": "BTC",
+      "currentPrice": 30000,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1700010000000,
+          "price": "20000"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1700096400000,
+          "price": "30000"
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "SWAP",
+          "amount": "1",
+          "time": 1700182800000,
+          "toCoin": "ETH",
+          "toAmount": "20",
+          "swapValue": "40000",
+          "fee": "20",
+          "feeUnit": "QUOTE"
+        }
+      ],
+      "expected": {
+        "holdings": "1",
+        "costBasis": 25000,
+        "avgCost": 25000,
+        "realized": 14980,
+        "oversold": false,
+        "priceMissing": false,
+        "realizedExact": "14980",
+        "openLots": [
+          {
+            "txId": null,
+            "amount": "1",
+            "costUsdt": "25000",
+            "wallet": null,
+            "aggregated": true
+          }
+        ],
+        "disposals": [
+          {
+            "coin": "BTC",
+            "sellTxId": 3,
+            "lotTxId": null,
+            "amount": "1",
+            "costUsdt": "25000",
+            "proceedsUsdt": "39980",
+            "gainUsdt": "14980",
+            "holdingDays": null,
+            "lotKind": null,
+            "feeLeg": false,
+            "swap": true,
+            "costParts": [
+              {
+                "time": 1700010000000,
+                "usdt": "10000"
+              },
+              {
+                "time": 1700096400000,
+                "usdt": "15000"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "B46 swap AVERAGE: received coin cost part at the swap time",
+      "method": "AVERAGE",
+      "coin": "ETH",
+      "currentPrice": 2000,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1700010000000,
+          "price": "20000"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1700096400000,
+          "price": "30000"
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "SWAP",
+          "amount": "1",
+          "time": 1700182800000,
+          "toCoin": "ETH",
+          "toAmount": "20",
+          "swapValue": "40000",
+          "fee": "20",
+          "feeUnit": "QUOTE"
+        },
+        {
+          "id": 4,
+          "coin": "ETH",
+          "type": "SELL",
+          "amount": "5",
+          "time": 1700269200000,
+          "price": "2100"
+        }
+      ],
+      "expected": {
+        "holdings": "15",
+        "costBasis": 30000,
+        "avgCost": 2000,
+        "realized": 500,
+        "oversold": false,
+        "priceMissing": false,
+        "realizedExact": "500",
+        "disposals": [
+          {
+            "coin": "ETH",
+            "sellTxId": 4,
+            "lotTxId": null,
+            "amount": "5",
+            "costUsdt": "10000",
+            "proceedsUsdt": "10500",
+            "gainUsdt": "500",
+            "holdingDays": null,
+            "lotKind": null,
+            "feeLeg": false,
+            "swap": false,
+            "costParts": [
+              {
+                "time": 1700182800000,
+                "usdt": "10000"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "B46 swap USDT → BTC without value: value = USDT amount (stablecoin rule)",
+      "method": "FIFO",
+      "coin": "BTC",
+      "currentPrice": 30000,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "USDT",
+          "type": "DEPOSIT",
+          "amount": "1000",
+          "time": 1700010000000,
+          "price": "1"
+        },
+        {
+          "id": 2,
+          "coin": "USDT",
+          "type": "SWAP",
+          "amount": "1000",
+          "time": 1700096400000,
+          "toCoin": "BTC",
+          "toAmount": "0.04"
+        }
+      ],
+      "expected": {
+        "holdings": "0.04",
+        "costBasis": 1000,
+        "avgCost": 25000,
+        "realized": 0,
+        "oversold": false,
+        "priceMissing": false,
+        "lots": [
+          {
+            "txId": 2,
+            "amount": "0.04",
+            "costUsdt": "1000",
+            "kind": "SWAP"
+          }
+        ],
+        "disposals": []
+      }
+    },
+    {
+      "name": "B46 FIFO_WALLET: transfer moves the oldest lots with their date; network fee cost moves along",
+      "method": "FIFO_WALLET",
+      "coin": "BTC",
+      "currentPrice": 30000,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1700010000000,
+          "price": "10000",
+          "exchange": "Binance"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1700874000000,
+          "price": "20000",
+          "exchange": "Kraken"
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "TRANSFER",
+          "amount": "0.5",
+          "time": 1701738000000,
+          "transferFrom": "binance",
+          "transferTo": "Ledger",
+          "fee": "0.01",
+          "feeUnit": "COIN"
+        },
+        {
+          "id": 4,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "0.5",
+          "time": 1702602000000,
+          "price": "30000",
+          "exchange": "Ledger"
+        },
+        {
+          "id": 5,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1703466000000,
+          "price": "30000",
+          "exchange": "Kraken"
+        }
+      ],
+      "expected": {
+        "holdings": "0.49",
+        "costBasis": 4900,
+        "avgCost": 10000,
+        "realized": 19900,
+        "oversold": false,
+        "priceMissing": false,
+        "realizedExact": "19900",
+        "lots": [
+          {
+            "txId": 1,
+            "amount": "0.49",
+            "costUsdt": "4900",
+            "wallet": "Binance",
+            "kind": "BUY"
+          }
+        ],
+        "openLots": [
+          {
+            "txId": 1,
+            "amount": "0.49",
+            "costUsdt": "4900",
+            "wallet": "Binance",
+            "aggregated": false
+          }
+        ],
+        "shortfalls": [],
+        "disposals": [
+          {
+            "coin": "BTC",
+            "sellTxId": 4,
+            "lotTxId": 1,
+            "amount": "0.5",
+            "costUsdt": "5100",
+            "proceedsUsdt": "15000",
+            "gainUsdt": "9900",
+            "holdingDays": 30,
+            "lotKind": "BUY",
+            "feeLeg": false,
+            "wallet": "Ledger"
+          },
+          {
+            "coin": "BTC",
+            "sellTxId": 5,
+            "lotTxId": 2,
+            "amount": "1",
+            "costUsdt": "20000",
+            "proceedsUsdt": "30000",
+            "gainUsdt": "10000",
+            "holdingDays": 30,
+            "lotKind": "BUY",
+            "feeLeg": false,
+            "wallet": "Kraken"
+          }
+        ]
+      }
+    },
+    {
+      "name": "B46 FIFO (universal) on the same trades: oldest lots across all wallets",
+      "method": "FIFO",
+      "coin": "BTC",
+      "currentPrice": 30000,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1700010000000,
+          "price": "10000",
+          "exchange": "Binance"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1700874000000,
+          "price": "20000",
+          "exchange": "Kraken"
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "TRANSFER",
+          "amount": "0.5",
+          "time": 1701738000000,
+          "transferFrom": "binance",
+          "transferTo": "Ledger",
+          "fee": "0.01",
+          "feeUnit": "COIN"
+        },
+        {
+          "id": 4,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "0.5",
+          "time": 1702602000000,
+          "price": "30000",
+          "exchange": "Ledger"
+        },
+        {
+          "id": 5,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1703466000000,
+          "price": "30000",
+          "exchange": "Kraken"
+        }
+      ],
+      "expected": {
+        "holdings": "0.49",
+        "costBasis": 9800,
+        "avgCost": 20000,
+        "realized": 24800,
+        "oversold": false,
+        "priceMissing": false,
+        "realizedExact": "24800",
+        "lots": [
+          {
+            "txId": 2,
+            "amount": "0.49",
+            "costUsdt": "9800",
+            "wallet": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "B46 FIFO_WALLET: sell more than the wallet holds — uncovered rest, not taken from another wallet",
+      "method": "FIFO_WALLET",
+      "coin": "BTC",
+      "currentPrice": 30000,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1700010000000,
+          "price": "10000",
+          "exchange": "Binance"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1700096400000,
+          "price": "20000",
+          "exchange": "Kraken"
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "1.5",
+          "time": 1700182800000,
+          "price": "30000",
+          "exchange": "Kraken"
+        }
+      ],
+      "expected": {
+        "holdings": "1",
+        "costBasis": 10000,
+        "avgCost": 10000,
+        "realized": 10000,
+        "oversold": true,
+        "priceMissing": false,
+        "lots": [
+          {
+            "txId": 1,
+            "amount": "1",
+            "costUsdt": "10000",
+            "wallet": "Binance"
+          }
+        ],
+        "shortfalls": [
+          {
+            "wallet": "Kraken",
+            "txId": 3,
+            "missing": "0.5"
+          }
+        ],
+        "disposals": [
+          {
+            "coin": "BTC",
+            "sellTxId": 3,
+            "lotTxId": 2,
+            "amount": "1",
+            "costUsdt": "20000",
+            "proceedsUsdt": "30000",
+            "gainUsdt": "10000",
+            "holdingDays": 1,
+            "lotKind": "BUY",
+            "feeLeg": false,
+            "wallet": "Kraken"
+          },
+          {
+            "coin": "BTC",
+            "sellTxId": 3,
+            "lotTxId": null,
+            "amount": "0.5",
+            "costUsdt": null,
+            "proceedsUsdt": "15000",
+            "gainUsdt": null,
+            "holdingDays": null,
+            "lotKind": null,
+            "feeLeg": false,
+            "uncovered": true,
+            "wallet": "Kraken"
+          }
+        ]
+      }
+    },
+    {
+      "name": "B46 FIFO_WALLET: no exchange = own bucket; USDT fee of a transfer goes onto the moved lot",
+      "method": "FIFO_WALLET",
+      "coin": "BTC",
+      "currentPrice": 200,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1700010000000,
+          "price": "100"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "TRANSFER",
+          "amount": "0.6",
+          "time": 1700096400000,
+          "transferTo": "Ledger",
+          "fee": "6",
+          "feeUnit": "QUOTE"
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "0.5",
+          "time": 1700182800000,
+          "price": "200",
+          "exchange": "Binance"
+        }
+      ],
+      "expected": {
+        "holdings": "1",
+        "costBasis": 106,
+        "avgCost": 106,
+        "realized": 0,
+        "oversold": true,
+        "priceMissing": false,
+        "costBasisExact": "106",
+        "lots": [
+          {
+            "txId": 1,
+            "amount": "0.4",
+            "costUsdt": "40",
+            "wallet": ""
+          },
+          {
+            "txId": 1,
+            "amount": "0.6",
+            "costUsdt": "66",
+            "wallet": "Ledger"
+          }
+        ],
+        "openLots": [
+          {
+            "txId": 1,
+            "amount": "0.4",
+            "costUsdt": "40",
+            "wallet": "",
+            "aggregated": false
+          },
+          {
+            "txId": 1,
+            "amount": "0.6",
+            "costUsdt": "66",
+            "wallet": "Ledger",
+            "aggregated": false
+          }
+        ],
+        "shortfalls": [
+          {
+            "wallet": "Binance",
+            "txId": 3,
+            "missing": "0.5"
+          }
+        ],
+        "disposals": [
+          {
+            "coin": "BTC",
+            "sellTxId": 3,
+            "lotTxId": null,
+            "amount": "0.5",
+            "costUsdt": null,
+            "proceedsUsdt": "100",
+            "gainUsdt": null,
+            "holdingDays": null,
+            "lotKind": null,
+            "feeLeg": false,
+            "uncovered": true,
+            "wallet": "Binance"
+          }
+        ]
+      }
+    },
+    {
+      "name": "B46 FIFO_WALLET: swap lot lands in the swap's wallet; selling more in the target wallet than moved",
+      "method": "FIFO_WALLET",
+      "coin": "SOL",
+      "currentPrice": 40,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "ETH",
+          "type": "BUY",
+          "amount": "2",
+          "time": 1700010000000,
+          "price": "1000",
+          "exchange": "Kraken"
+        },
+        {
+          "id": 2,
+          "coin": "ETH",
+          "type": "SWAP",
+          "amount": "1",
+          "time": 1700096400000,
+          "exchange": "kraken",
+          "toCoin": "SOL",
+          "toAmount": "50",
+          "swapValue": "1500"
+        },
+        {
+          "id": 3,
+          "coin": "SOL",
+          "type": "TRANSFER",
+          "amount": "20",
+          "time": 1700182800000,
+          "transferFrom": "Kraken",
+          "transferTo": "Phantom"
+        },
+        {
+          "id": 4,
+          "coin": "SOL",
+          "type": "SELL",
+          "amount": "30",
+          "time": 1700269200000,
+          "price": "40",
+          "exchange": "Phantom"
+        }
+      ],
+      "expected": {
+        "holdings": "30",
+        "costBasis": 900,
+        "avgCost": 30,
+        "realized": 200,
+        "oversold": true,
+        "priceMissing": false,
+        "lots": [
+          {
+            "txId": 2,
+            "amount": "30",
+            "costUsdt": "900",
+            "wallet": "kraken",
+            "kind": "SWAP"
+          }
+        ],
+        "shortfalls": [
+          {
+            "wallet": "Phantom",
+            "txId": 4,
+            "missing": "10"
+          }
+        ],
+        "disposals": [
+          {
+            "coin": "SOL",
+            "sellTxId": 4,
+            "lotTxId": 2,
+            "amount": "20",
+            "costUsdt": "600",
+            "proceedsUsdt": "800",
+            "gainUsdt": "200",
+            "holdingDays": 2,
+            "lotKind": "SWAP",
+            "feeLeg": false,
+            "wallet": "Phantom"
+          },
+          {
+            "coin": "SOL",
+            "sellTxId": 4,
+            "lotTxId": null,
+            "amount": "10",
+            "costUsdt": null,
+            "proceedsUsdt": "400",
+            "gainUsdt": null,
+            "holdingDays": null,
+            "lotKind": null,
+            "feeLeg": false,
+            "uncovered": true,
+            "wallet": "Phantom"
+          }
+        ]
+      }
+    },
+    {
+      "name": "swap: fee in the received coin eats the whole receipt — swap value is a fee expense, no phantom gain (FIFO)",
+      "method": "FIFO",
+      "coin": "BTC",
+      "currentPrice": 60000,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "ETH",
+          "type": "BUY",
+          "amount": "1",
+          "price": "2000",
+          "time": 86400000
+        },
+        {
+          "id": 2,
+          "coin": "ETH",
+          "type": "SWAP",
+          "amount": "1",
+          "price": null,
+          "time": 172800000,
+          "toCoin": "BTC",
+          "toAmount": "0.05",
+          "swapValue": "3000",
+          "feeCoin": "BTC",
+          "feeCoinAmount": "0.05"
+        }
+      ],
+      "expected": {
+        "holdings": "0",
+        "costBasis": null,
+        "avgCost": null,
+        "realized": -3000,
+        "oversold": false,
+        "priceMissing": false,
+        "realizedExact": "-3000",
+        "lots": [],
+        "disposals": [
+          {
+            "coin": "BTC",
+            "sellTxId": 2,
+            "lotTxId": 2,
+            "amount": "0.05",
+            "costUsdt": "3000",
+            "proceedsUsdt": "0",
+            "gainUsdt": "-3000",
+            "holdingDays": 0,
+            "lotKind": "SWAP",
+            "feeLeg": false,
+            "feeExpense": "CONSUMED"
+          }
+        ]
+      }
+    },
+    {
+      "name": "swap: fee in the received coin eats the whole receipt — swap value is a fee expense, no phantom gain (AVERAGE)",
+      "method": "AVERAGE",
+      "coin": "BTC",
+      "currentPrice": 60000,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "ETH",
+          "type": "BUY",
+          "amount": "1",
+          "price": "2000",
+          "time": 86400000
+        },
+        {
+          "id": 2,
+          "coin": "ETH",
+          "type": "SWAP",
+          "amount": "1",
+          "price": null,
+          "time": 172800000,
+          "toCoin": "BTC",
+          "toAmount": "0.05",
+          "swapValue": "3000",
+          "feeCoin": "BTC",
+          "feeCoinAmount": "0.05"
+        }
+      ],
+      "expected": {
+        "holdings": "0",
+        "costBasis": null,
+        "avgCost": null,
+        "realized": -3000,
+        "oversold": false,
+        "priceMissing": false,
+        "realizedExact": "-3000",
+        "disposals": [
+          {
+            "coin": "BTC",
+            "sellTxId": 2,
+            "lotTxId": 2,
+            "amount": "0.05",
+            "costUsdt": "3000",
+            "proceedsUsdt": "0",
+            "gainUsdt": "-3000",
+            "holdingDays": 0,
+            "lotKind": "SWAP",
+            "feeLeg": false,
+            "feeExpense": "CONSUMED"
+          }
+        ]
+      }
+    },
+    {
+      "name": "swap: fee in the received coin eats the whole receipt — the given coin keeps the swap value as proceeds",
+      "method": "FIFO",
+      "coin": "ETH",
+      "currentPrice": 3000,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "ETH",
+          "type": "BUY",
+          "amount": "1",
+          "price": "2000",
+          "time": 86400000
+        },
+        {
+          "id": 2,
+          "coin": "ETH",
+          "type": "SWAP",
+          "amount": "1",
+          "price": null,
+          "time": 172800000,
+          "toCoin": "BTC",
+          "toAmount": "0.05",
+          "swapValue": "3000",
+          "feeCoin": "BTC",
+          "feeCoinAmount": "0.05"
+        }
+      ],
+      "expected": {
+        "holdings": "0",
+        "costBasis": null,
+        "avgCost": null,
+        "realized": 1000,
+        "oversold": false,
+        "priceMissing": false,
+        "realizedExact": "1000",
+        "disposals": [
+          {
+            "coin": "ETH",
+            "sellTxId": 2,
+            "lotTxId": 1,
+            "amount": "1",
+            "costUsdt": "2000",
+            "proceedsUsdt": "3000",
+            "gainUsdt": "1000",
+            "holdingDays": 1,
+            "lotKind": "BUY",
+            "feeLeg": false,
+            "swap": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "buy: coin fee eats the whole amount — no lot, the cost is a fee expense (FIFO_WALLET)",
+      "method": "FIFO_WALLET",
+      "coin": "BTC",
+      "currentPrice": 60000,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "0.001",
+          "price": "50000",
+          "time": 86400000,
+          "fee": "0.001",
+          "feeUnit": "COIN",
+          "exchange": "Binance"
+        }
+      ],
+      "expected": {
+        "holdings": "0",
+        "costBasis": null,
+        "avgCost": null,
+        "realized": -50,
+        "oversold": false,
+        "priceMissing": false,
+        "realizedExact": "-50",
+        "disposals": [
+          {
+            "coin": "BTC",
+            "sellTxId": 1,
+            "lotTxId": 1,
+            "amount": "0.001",
+            "costUsdt": "50",
+            "proceedsUsdt": "0",
+            "gainUsdt": "-50",
+            "holdingDays": 0,
+            "lotKind": "BUY",
+            "feeLeg": false,
+            "feeExpense": "CONSUMED",
+            "wallet": "Binance"
+          }
+        ]
+      }
+    },
+    {
+      "name": "buy: coin fee eats the whole amount — no lot, the cost is a fee expense (AVERAGE)",
+      "method": "AVERAGE",
+      "coin": "BTC",
+      "currentPrice": 60000,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "0.001",
+          "price": "50000",
+          "time": 86400000,
+          "fee": "0.001",
+          "feeUnit": "COIN",
+          "exchange": "Binance"
+        }
+      ],
+      "expected": {
+        "holdings": "0",
+        "costBasis": null,
+        "avgCost": null,
+        "realized": -50,
+        "oversold": false,
+        "priceMissing": false,
+        "realizedExact": "-50",
+        "disposals": [
+          {
+            "coin": "BTC",
+            "sellTxId": 1,
+            "lotTxId": 1,
+            "amount": "0.001",
+            "costUsdt": "50",
+            "proceedsUsdt": "0",
+            "gainUsdt": "-50",
+            "holdingDays": 0,
+            "lotKind": "BUY",
+            "feeLeg": false,
+            "feeExpense": "CONSUMED"
+          }
+        ]
+      }
+    },
+    {
+      "name": "withdrawal: USDT fee is a realized fee expense, not part of the withdrawn gain (FIFO)",
+      "method": "FIFO",
+      "coin": "SOL",
+      "currentPrice": 20,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "SOL",
+          "type": "BUY",
+          "amount": "2",
+          "price": "10",
+          "time": 86400000
+        },
+        {
+          "id": 2,
+          "coin": "SOL",
+          "type": "WITHDRAWAL",
+          "amount": "1",
+          "price": "50",
+          "time": 259200000,
+          "fee": "1.5",
+          "feeUnit": "QUOTE"
+        }
+      ],
+      "expected": {
+        "holdings": "1",
+        "costBasis": 10,
+        "avgCost": 10,
+        "realized": -1.5,
+        "oversold": false,
+        "priceMissing": false,
+        "realizedExact": "-1.5",
+        "costBasisExact": "10",
+        "withdrawn": 1,
+        "withdrawnGain": "40",
+        "withdrawnGainIncomplete": false,
+        "disposals": [
+          {
+            "coin": "SOL",
+            "sellTxId": 2,
+            "lotTxId": 2,
+            "amount": "0",
+            "costUsdt": "1.5",
+            "proceedsUsdt": "0",
+            "gainUsdt": "-1.5",
+            "holdingDays": 0,
+            "lotKind": "WITHDRAWAL",
+            "feeLeg": false,
+            "feeExpense": "WITHDRAWAL"
+          }
+        ]
+      }
+    },
+    {
+      "name": "withdrawal: USDT fee is a realized fee expense, not part of the withdrawn gain (AVERAGE)",
+      "method": "AVERAGE",
+      "coin": "SOL",
+      "currentPrice": 20,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "SOL",
+          "type": "BUY",
+          "amount": "2",
+          "price": "10",
+          "time": 86400000
+        },
+        {
+          "id": 2,
+          "coin": "SOL",
+          "type": "WITHDRAWAL",
+          "amount": "1",
+          "price": "50",
+          "time": 259200000,
+          "fee": "1.5",
+          "feeUnit": "QUOTE"
+        }
+      ],
+      "expected": {
+        "holdings": "1",
+        "costBasis": 10,
+        "avgCost": 10,
+        "realized": -1.5,
+        "oversold": false,
+        "priceMissing": false,
+        "realizedExact": "-1.5",
+        "costBasisExact": "10",
+        "withdrawn": 1,
+        "withdrawnGain": "40",
+        "withdrawnGainIncomplete": false,
+        "disposals": [
+          {
+            "coin": "SOL",
+            "sellTxId": 2,
+            "lotTxId": 2,
+            "amount": "0",
+            "costUsdt": "1.5",
+            "proceedsUsdt": "0",
+            "gainUsdt": "-1.5",
+            "holdingDays": 0,
+            "lotKind": "WITHDRAWAL",
+            "feeLeg": false,
+            "feeExpense": "WITHDRAWAL"
+          }
+        ]
+      }
+    },
+    {
+      "name": "FIFO: network fee eats the only priced lot, a priced lot bought later takes over its cost",
+      "method": "FIFO",
+      "coin": "BTC",
+      "currentPrice": 3000,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "0.1",
+          "price": "1000",
+          "time": 86400000
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "DEPOSIT",
+          "amount": "1",
+          "price": null,
+          "time": 172800000
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "TRANSFER",
+          "amount": "1",
+          "price": null,
+          "time": 259200000,
+          "fee": "0.1",
+          "feeUnit": "COIN"
+        },
+        {
+          "id": 4,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "2000",
+          "time": 345600000
+        }
+      ],
+      "expected": {
+        "holdings": "2",
+        "costBasis": null,
+        "avgCost": 2100,
+        "realized": 0,
+        "oversold": false,
+        "priceMissing": true,
+        "pricedHoldings": "1",
+        "lostFeeCost": "0",
+        "lots": [
+          {
+            "txId": 2,
+            "amount": "1",
+            "costUsdt": null
+          },
+          {
+            "txId": 4,
+            "amount": "1",
+            "costUsdt": "2100"
+          }
+        ]
+      }
+    },
+    {
+      "name": "FIFO: network fee eats the only priced lot and no priced lot follows — cost noted as lost fee cost",
+      "method": "FIFO",
+      "coin": "BTC",
+      "currentPrice": 3000,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "0.1",
+          "price": "1000",
+          "time": 86400000
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "DEPOSIT",
+          "amount": "1",
+          "price": null,
+          "time": 172800000
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "TRANSFER",
+          "amount": "1",
+          "price": null,
+          "time": 259200000,
+          "fee": "0.1",
+          "feeUnit": "COIN"
+        }
+      ],
+      "expected": {
+        "holdings": "1",
+        "costBasis": null,
+        "avgCost": null,
+        "realized": 0,
+        "oversold": false,
+        "priceMissing": true,
+        "lostFeeCost": "100",
+        "lots": [
+          {
+            "txId": 2,
+            "amount": "1",
+            "costUsdt": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "FIFO_WALLET: network fee eats the only priced lot of the source, only unpriced coins move — its cost goes to the priced lot in the target, not to lost fee cost",
+      "method": "FIFO_WALLET",
+      "coin": "BTC",
+      "currentPrice": 3000,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "1000",
+          "time": 86400000,
+          "exchange": "Ledger"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "0.1",
+          "price": "2000",
+          "time": 172800000,
+          "exchange": "Binance"
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "DEPOSIT",
+          "amount": "1",
+          "price": null,
+          "time": 259200000,
+          "exchange": "Binance"
+        },
+        {
+          "id": 4,
+          "coin": "BTC",
+          "type": "TRANSFER",
+          "amount": "0.5",
+          "price": null,
+          "time": 345600000,
+          "transferFrom": "Binance",
+          "transferTo": "Ledger",
+          "fee": "0.1",
+          "feeUnit": "COIN"
+        }
+      ],
+      "expected": {
+        "holdings": "2",
+        "costBasis": null,
+        "avgCost": 1200,
+        "realized": 0,
+        "oversold": false,
+        "priceMissing": true,
+        "pricedHoldings": "1",
+        "lostFeeCost": "0",
+        "lots": [
+          {
+            "txId": 1,
+            "amount": "1",
+            "costUsdt": "1200",
+            "wallet": "Ledger"
+          },
+          {
+            "txId": 3,
+            "amount": "0.5",
+            "costUsdt": null,
+            "wallet": "Ledger"
+          },
+          {
+            "txId": 3,
+            "amount": "0.5",
+            "costUsdt": null,
+            "wallet": "Binance"
+          }
+        ]
+      }
+    },
+    {
+      "name": "B46 partial: «Seit Kauf» only for the part with a buy price (Ø), unpriced deposit excluded",
+      "method": "AVERAGE",
+      "coin": "BTC",
+      "currentPrice": 300,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "100",
+          "time": 86400000
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "DEPOSIT",
+          "amount": "1",
+          "time": 172800000
+        },
+        {
+          "id": 3,
+          "coin": "ETH",
+          "type": "BUY",
+          "amount": "2",
+          "price": "50",
+          "time": 172800000
+        }
+      ],
+      "summaryPrices": {
+        "BTC": 300,
+        "ETH": 60
+      },
+      "expected": {
+        "holdings": "2",
+        "costBasis": null,
+        "avgCost": 100,
+        "realized": 0,
+        "oversold": false,
+        "priceMissing": true,
+        "pricedHoldings": "1",
+        "pricedCost": "100",
+        "unpricedHoldings": "1",
+        "unrealizedExact": "200",
+        "unrealizedPercent": 200,
+        "unrealizedPartial": true,
+        "summary": {
+          "unrealized": "220",
+          "unrealizedPercent": 110,
+          "invested": "100",
+          "missingCostCoins": [],
+          "partialCost": [
+            {
+              "coin": "BTC",
+              "amount": "1"
+            }
+          ],
+          "costMissing": true
+        }
+      }
+    },
+    {
+      "name": "B46 partial: FIFO sell takes the priced lot first, «Seit Kauf» on the remaining priced part",
+      "method": "FIFO",
+      "coin": "BTC",
+      "currentPrice": 300,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "100",
+          "time": 86400000
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "DEPOSIT",
+          "amount": "0.5",
+          "time": 172800000
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "0.5",
+          "price": "200",
+          "time": 259200000
+        },
+        {
+          "id": 4,
+          "coin": "SOL",
+          "type": "DEPOSIT",
+          "amount": "3",
+          "time": 259200000
+        }
+      ],
+      "summaryPrices": {
+        "BTC": 300,
+        "SOL": 10
+      },
+      "expected": {
+        "holdings": "1",
+        "costBasis": null,
+        "avgCost": 100,
+        "realized": 50,
+        "oversold": false,
+        "priceMissing": true,
+        "pricedHoldings": "0.5",
+        "pricedCost": "50",
+        "unpricedHoldings": "0.5",
+        "unrealizedExact": "100",
+        "unrealizedPercent": 200,
+        "unrealizedPartial": true,
+        "summary": {
+          "unrealized": "100",
+          "unrealizedPercent": 200,
+          "invested": null,
+          "missingCostCoins": [
+            "SOL"
+          ],
+          "partialCost": [
+            {
+              "coin": "BTC",
+              "amount": "0.5"
+            }
+          ],
+          "costMissing": true
+        }
+      }
+    },
+    {
+      "name": "B46 partial: all priced — not partial, same figure as before",
+      "method": "FIFO",
+      "coin": "BTC",
+      "currentPrice": 300,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "100",
+          "time": 86400000
+        }
+      ],
+      "summaryPrices": {
+        "BTC": 300
+      },
+      "expected": {
+        "holdings": "1",
+        "costBasis": 100,
+        "avgCost": 100,
+        "realized": 0,
+        "oversold": false,
+        "priceMissing": false,
+        "pricedHoldings": "1",
+        "pricedCost": "100",
+        "unpricedHoldings": "0",
+        "unrealizedExact": "200",
+        "unrealizedPercent": 200,
+        "unrealizedPartial": false,
+        "summary": {
+          "unrealized": "200",
+          "unrealizedPercent": 200,
+          "invested": "100",
+          "missingCostCoins": [],
+          "partialCost": [],
+          "costMissing": false
+        }
+      }
+    },
+    {
+      "name": "B46/R9 fee row (sell at price 0 = marker) without daily close: proceeds unknown (never 0) — realized only the known part 0, 0.2 BTC with unknown gain, incomplete",
+      "method": "FIFO",
+      "coin": "BTC",
+      "currentPrice": 150,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "100",
+          "time": 86400000
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "0.2",
+          "price": "0",
+          "importKey": "csv:fee:3906",
+          "time": 172800000
+        }
+      ],
+      "expected": {
+        "holdings": "0.8",
+        "costBasis": 80,
+        "avgCost": 100,
+        "realized": 0,
+        "oversold": false,
+        "priceMissing": false,
+        "realizedExact": "0",
+        "unrealizedExact": "40",
+        "disposals": [
+          {
+            "coin": "BTC",
+            "sellTxId": 2,
+            "lotTxId": 1,
+            "amount": "0.2",
+            "costUsdt": "20",
+            "proceedsUsdt": null,
+            "gainUsdt": null,
+            "holdingDays": 1,
+            "lotKind": "BUY",
+            "feeLeg": false
+          }
+        ],
+        "realizedIncomplete": true,
+        "realizedUnknownAmount": 0.2
+      }
+    },
+    {
+      "name": "R9 withdrawal above holdings: 0.5 BTC held, 1 BTC withdrawn, fee 10 USDT — fee only for the covered half (realized −5, like the curve)",
+      "method": "FIFO",
+      "coin": "BTC",
+      "currentPrice": 100,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "0.5",
+          "price": "100",
+          "time": 86400000
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "WITHDRAWAL",
+          "amount": "1",
+          "time": 172800000,
+          "fee": "10",
+          "feeUnit": "QUOTE"
+        }
+      ],
+      "expected": {
+        "holdings": "0",
+        "costBasis": null,
+        "avgCost": null,
+        "realized": -5,
+        "oversold": true,
+        "priceMissing": false,
+        "realizedExact": "-5",
+        "withdrawn": 0.5,
+        "disposals": [
+          {
+            "coin": "BTC",
+            "sellTxId": 2,
+            "lotTxId": 2,
+            "amount": "0",
+            "costUsdt": "5",
+            "proceedsUsdt": "0",
+            "gainUsdt": "-5",
+            "holdingDays": 0,
+            "lotKind": "WITHDRAWAL",
+            "feeLeg": false,
+            "feeExpense": "WITHDRAWAL"
+          }
+        ]
+      }
+    },
+    {
+      "name": "B58 FIFO cost parts: buy 2018 (5000 USDT) + transfer fee 2024 (100 USDT) — the lot carries both parts, the sale takes each at its own time (tax export converts each at its own rate)",
+      "method": "FIFO",
+      "coin": "BTC",
+      "currentPrice": 7000,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "5000",
+          "time": 1519862400000
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "TRANSFER",
+          "amount": "1",
+          "time": 1717372800000,
+          "fee": "100",
+          "feeUnit": "QUOTE"
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "1",
+          "price": "7000",
+          "time": 1740960000000
+        }
+      ],
+      "expected": {
+        "holdings": "0",
+        "costBasis": null,
+        "avgCost": null,
+        "realized": 1900,
+        "oversold": false,
+        "priceMissing": false,
+        "realizedExact": "1900",
+        "disposals": [
+          {
+            "coin": "BTC",
+            "sellTxId": 3,
+            "lotTxId": 1,
+            "amount": "1",
+            "costUsdt": "5100",
+            "proceedsUsdt": "7000",
+            "gainUsdt": "1900",
+            "holdingDays": 2559,
+            "lotKind": "BUY",
+            "feeLeg": false,
+            "feeExpense": null,
+            "costParts": [
+              {
+                "time": 1519862400000,
+                "usdt": "5000"
+              },
+              {
+                "time": 1717372800000,
+                "usdt": "100"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "B58 FIFO cost parts, half sold: both parts split in proportion (2500 + 50), the rest stays with the lot",
+      "method": "FIFO",
+      "coin": "BTC",
+      "currentPrice": 7000,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "5000",
+          "time": 1519862400000
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "TRANSFER",
+          "amount": "1",
+          "time": 1717372800000,
+          "fee": "100",
+          "feeUnit": "QUOTE"
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "0.5",
+          "price": "7000",
+          "time": 1740960000000
+        }
+      ],
+      "expected": {
+        "holdings": "0.5",
+        "costBasis": 2550,
+        "avgCost": 5100,
+        "realized": 950,
+        "oversold": false,
+        "priceMissing": false,
+        "costBasisExact": "2550",
+        "realizedExact": "950",
+        "disposals": [
+          {
+            "coin": "BTC",
+            "sellTxId": 3,
+            "lotTxId": 1,
+            "amount": "0.5",
+            "costUsdt": "2550",
+            "proceedsUsdt": "3500",
+            "gainUsdt": "950",
+            "holdingDays": 2559,
+            "lotKind": "BUY",
+            "feeLeg": false,
+            "feeExpense": null,
+            "costParts": [
+              {
+                "time": 1519862400000,
+                "usdt": "2500"
+              },
+              {
+                "time": 1717372800000,
+                "usdt": "50"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "B58 FIFO cost parts: network fee in the coin eats the old lot — its cost moves to the next priced lot with its own (older) time",
+      "method": "FIFO",
+      "coin": "BTC",
+      "currentPrice": 3000,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "0.1",
+          "price": "1000",
+          "time": 864000000
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "2000",
+          "time": 1728000000
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "TRANSFER",
+          "amount": "1",
+          "time": 2592000000,
+          "fee": "0.1",
+          "feeUnit": "COIN"
+        },
+        {
+          "id": 4,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "1",
+          "price": "3000",
+          "time": 3456000000
+        }
+      ],
+      "expected": {
+        "holdings": "0",
+        "costBasis": null,
+        "avgCost": null,
+        "realized": 900,
+        "oversold": false,
+        "priceMissing": false,
+        "realizedExact": "900",
+        "lostFeeCost": "0",
+        "disposals": [
+          {
+            "coin": "BTC",
+            "sellTxId": 4,
+            "lotTxId": 2,
+            "amount": "1",
+            "costUsdt": "2100",
+            "proceedsUsdt": "3000",
+            "gainUsdt": "900",
+            "holdingDays": 20,
+            "lotKind": "BUY",
+            "feeLeg": false,
+            "feeExpense": null,
+            "costParts": [
+              {
+                "time": 1728000000,
+                "usdt": "2000"
+              },
+              {
+                "time": 864000000,
+                "usdt": "100"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "B58 unassigned fee (FIFO): transfer fee 10 USDT over 1 ETH without and 1 ETH with purchase price — 5 to the priced part, 5 «not assigned – cost basis unknown» (visible, not dropped)",
+      "method": "FIFO",
+      "coin": "ETH",
+      "currentPrice": 2500,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "ETH",
+          "type": "DEPOSIT",
+          "amount": "1",
+          "time": 8640000000
+        },
+        {
+          "id": 2,
+          "coin": "ETH",
+          "type": "BUY",
+          "amount": "1",
+          "price": "2000",
+          "time": 9504000000
+        },
+        {
+          "id": 3,
+          "coin": "ETH",
+          "type": "TRANSFER",
+          "amount": "2",
+          "time": 10368000000,
+          "fee": "10",
+          "feeUnit": "QUOTE"
+        }
+      ],
+      "expected": {
+        "holdings": "2",
+        "costBasis": null,
+        "avgCost": 2005,
+        "realized": 0,
+        "oversold": false,
+        "priceMissing": true,
+        "pricedCost": "2005",
+        "unpricedHoldings": "1",
+        "unassignedFee": "5",
+        "unassignedFees": [
+          {
+            "txId": 3,
+            "usdt": "5"
+          }
+        ],
+        "summary": {
+          "unrealized": "495",
+          "unrealizedPercent": 24.68827930174564,
+          "invested": null,
+          "missingCostCoins": [],
+          "partialCost": [
+            {
+              "coin": "ETH",
+              "amount": "1"
+            }
+          ],
+          "costMissing": true,
+          "unassignedFee": "5"
+        }
+      },
+      "summaryPrices": {
+        "ETH": 2500
+      }
+    },
+    {
+      "name": "B58 unassigned fee (AVERAGE): transfer fee 10 USDT over 1 ETH without and 1 ETH with purchase price — 5 to the priced part, 5 «not assigned – cost basis unknown» (visible, not dropped)",
+      "method": "AVERAGE",
+      "coin": "ETH",
+      "currentPrice": 2500,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "ETH",
+          "type": "DEPOSIT",
+          "amount": "1",
+          "time": 8640000000
+        },
+        {
+          "id": 2,
+          "coin": "ETH",
+          "type": "BUY",
+          "amount": "1",
+          "price": "2000",
+          "time": 9504000000
+        },
+        {
+          "id": 3,
+          "coin": "ETH",
+          "type": "TRANSFER",
+          "amount": "2",
+          "time": 10368000000,
+          "fee": "10",
+          "feeUnit": "QUOTE"
+        }
+      ],
+      "expected": {
+        "holdings": "2",
+        "costBasis": null,
+        "avgCost": 2005,
+        "realized": 0,
+        "oversold": false,
+        "priceMissing": true,
+        "pricedCost": "2005",
+        "unpricedHoldings": "1",
+        "unassignedFee": "5",
+        "unassignedFees": [
+          {
+            "txId": 3,
+            "usdt": "5"
+          }
+        ],
+        "summary": {
+          "unrealized": "495",
+          "unrealizedPercent": 24.68827930174564,
+          "invested": null,
+          "missingCostCoins": [],
+          "partialCost": [
+            {
+              "coin": "ETH",
+              "amount": "1"
+            }
+          ],
+          "costMissing": true,
+          "unassignedFee": "5"
+        }
+      },
+      "summaryPrices": {
+        "ETH": 2500
+      }
+    },
+    {
+      "name": "B58 unassigned fee (FIFO per wallet): both lots move A → B, the share of the lot without purchase price is noted",
+      "method": "FIFO_WALLET",
+      "coin": "ETH",
+      "currentPrice": 2500,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "ETH",
+          "type": "DEPOSIT",
+          "amount": "1",
+          "time": 8640000000,
+          "exchange": "A"
+        },
+        {
+          "id": 2,
+          "coin": "ETH",
+          "type": "BUY",
+          "amount": "1",
+          "price": "2000",
+          "time": 9504000000,
+          "exchange": "A"
+        },
+        {
+          "id": 3,
+          "coin": "ETH",
+          "type": "TRANSFER",
+          "amount": "2",
+          "time": 10368000000,
+          "fee": "10",
+          "feeUnit": "QUOTE",
+          "transferFrom": "A",
+          "transferTo": "B"
+        }
+      ],
+      "expected": {
+        "holdings": "2",
+        "costBasis": null,
+        "avgCost": 2005,
+        "realized": 0,
+        "oversold": false,
+        "priceMissing": true,
+        "pricedCost": "2005",
+        "unassignedFee": "5",
+        "unassignedFees": [
+          {
+            "txId": 3,
+            "usdt": "5"
+          }
+        ]
+      }
+    },
+    {
+      "name": "B58 unassigned fee: only coins without purchase price — the whole transfer fee is noted (FIFO)",
+      "method": "FIFO",
+      "coin": "ETH",
+      "currentPrice": 2500,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "ETH",
+          "type": "DEPOSIT",
+          "amount": "1",
+          "time": 8640000000
+        },
+        {
+          "id": 3,
+          "coin": "ETH",
+          "type": "TRANSFER",
+          "amount": "1",
+          "time": 10368000000,
+          "fee": "10",
+          "feeUnit": "QUOTE"
+        }
+      ],
+      "expected": {
+        "holdings": "1",
+        "costBasis": null,
+        "avgCost": null,
+        "realized": 0,
+        "oversold": false,
+        "priceMissing": true,
+        "unassignedFee": "10",
+        "unassignedFees": [
+          {
+            "txId": 3,
+            "usdt": "10"
+          }
+        ]
+      }
+    },
+    {
+      "name": "B58 unassigned fee: all coins priced — nothing noted (AVERAGE)",
+      "method": "AVERAGE",
+      "coin": "ETH",
+      "currentPrice": 2500,
+      "trades": [
+        {
+          "id": 2,
+          "coin": "ETH",
+          "type": "BUY",
+          "amount": "1",
+          "price": "2000",
+          "time": 9504000000
+        },
+        {
+          "id": 3,
+          "coin": "ETH",
+          "type": "TRANSFER",
+          "amount": "1",
+          "time": 10368000000,
+          "fee": "10",
+          "feeUnit": "QUOTE"
+        }
+      ],
+      "expected": {
+        "holdings": "1",
+        "costBasis": 2010,
+        "avgCost": 2010,
+        "realized": 0,
+        "oversold": false,
+        "priceMissing": false,
+        "costBasisExact": "2010",
+        "unassignedFee": "0",
+        "unassignedFees": []
+      }
+    }
+  ],
+  "periodGain": [
+    {
+      "name": "buy inside the window is not a gain",
+      "current": {
+        "BTC": 100
+      },
+      "closes": {
+        "BTC": {
+          "19960": 100,
+          "19961": 100,
+          "19962": 100,
+          "19963": 100,
+          "19964": 100,
+          "19965": 100,
+          "19966": 100,
+          "19967": 100,
+          "19968": 100,
+          "19969": 100,
+          "19970": 100,
+          "19971": 100,
+          "19972": 100,
+          "19973": 100,
+          "19974": 100,
+          "19975": 100,
+          "19976": 100,
+          "19977": 100,
+          "19978": 100,
+          "19979": 100,
+          "19980": 100,
+          "19981": 100,
+          "19982": 100,
+          "19983": 100,
+          "19984": 100,
+          "19985": 100,
+          "19986": 100,
+          "19987": 100,
+          "19988": 100,
+          "19989": 100,
+          "19990": 100,
+          "19991": 100,
+          "19992": 100,
+          "19993": 100,
+          "19994": 100,
+          "19995": 100,
+          "19996": 100,
+          "19997": 100,
+          "19998": 100,
+          "19999": 100,
+          "20000": 100
+        }
+      },
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "100",
+          "time": 1727136000000
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "100",
+          "time": 1727568000000
+        }
+      ],
+      "expected": {
+        "amount": 0,
+        "percent": 0,
+        "skipped": []
+      }
+    },
+    {
+      "name": "sell inside the window is not a loss",
+      "current": {
+        "BTC": 120
+      },
+      "closes": {
+        "BTC": {
+          "19960": 100,
+          "19961": 100,
+          "19962": 100,
+          "19963": 100,
+          "19964": 100,
+          "19965": 100,
+          "19966": 100,
+          "19967": 100,
+          "19968": 100,
+          "19969": 100,
+          "19970": 100,
+          "19971": 100,
+          "19972": 100,
+          "19973": 100,
+          "19974": 100,
+          "19975": 100,
+          "19976": 100,
+          "19977": 100,
+          "19978": 100,
+          "19979": 100,
+          "19980": 100,
+          "19981": 100,
+          "19982": 100,
+          "19983": 100,
+          "19984": 100,
+          "19985": 100,
+          "19986": 100,
+          "19987": 100,
+          "19988": 100,
+          "19989": 100,
+          "19990": 100,
+          "19991": 100,
+          "19992": 100,
+          "19993": 100,
+          "19994": 100,
+          "19995": 100,
+          "19996": 100,
+          "19997": 100,
+          "19998": 100,
+          "19999": 100,
+          "20000": 100
+        }
+      },
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "2",
+          "price": "100",
+          "time": 1727136000000
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "1",
+          "price": "120",
+          "time": 1727568000000
+        }
+      ],
+      "expected": {
+        "amount": 40,
+        "percent": 20,
+        "skipped": []
+      }
+    },
+    {
+      "name": "USDT fee in the window counts as cost",
+      "current": {
+        "BTC": 100
+      },
+      "closes": {
+        "BTC": {
+          "19960": 100,
+          "19961": 100,
+          "19962": 100,
+          "19963": 100,
+          "19964": 100,
+          "19965": 100,
+          "19966": 100,
+          "19967": 100,
+          "19968": 100,
+          "19969": 100,
+          "19970": 100,
+          "19971": 100,
+          "19972": 100,
+          "19973": 100,
+          "19974": 100,
+          "19975": 100,
+          "19976": 100,
+          "19977": 100,
+          "19978": 100,
+          "19979": 100,
+          "19980": 100,
+          "19981": 100,
+          "19982": 100,
+          "19983": 100,
+          "19984": 100,
+          "19985": 100,
+          "19986": 100,
+          "19987": 100,
+          "19988": 100,
+          "19989": 100,
+          "19990": 100,
+          "19991": 100,
+          "19992": 100,
+          "19993": 100,
+          "19994": 100,
+          "19995": 100,
+          "19996": 100,
+          "19997": 100,
+          "19998": 100,
+          "19999": 100,
+          "20000": 100
+        }
+      },
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "100",
+          "time": 1727568000000,
+          "fee": "1",
+          "feeUnit": "QUOTE"
+        }
+      ],
+      "expected": {
+        "amount": -1,
+        "percent": -0.9900990099009901,
+        "skipped": []
+      }
+    },
+    {
+      "name": "buy without price in the window leaves the coin out",
+      "current": {
+        "BTC": 100,
+        "ETH": 11
+      },
+      "closes": {
+        "BTC": {
+          "19960": 100,
+          "19961": 100,
+          "19962": 100,
+          "19963": 100,
+          "19964": 100,
+          "19965": 100,
+          "19966": 100,
+          "19967": 100,
+          "19968": 100,
+          "19969": 100,
+          "19970": 100,
+          "19971": 100,
+          "19972": 100,
+          "19973": 100,
+          "19974": 100,
+          "19975": 100,
+          "19976": 100,
+          "19977": 100,
+          "19978": 100,
+          "19979": 100,
+          "19980": 100,
+          "19981": 100,
+          "19982": 100,
+          "19983": 100,
+          "19984": 100,
+          "19985": 100,
+          "19986": 100,
+          "19987": 100,
+          "19988": 100,
+          "19989": 100,
+          "19990": 100,
+          "19991": 100,
+          "19992": 100,
+          "19993": 100,
+          "19994": 100,
+          "19995": 100,
+          "19996": 100,
+          "19997": 100,
+          "19998": 100,
+          "19999": 100,
+          "20000": 100
+        },
+        "ETH": {
+          "19960": 10,
+          "19961": 10,
+          "19962": 10,
+          "19963": 10,
+          "19964": 10,
+          "19965": 10,
+          "19966": 10,
+          "19967": 10,
+          "19968": 10,
+          "19969": 10,
+          "19970": 10,
+          "19971": 10,
+          "19972": 10,
+          "19973": 10,
+          "19974": 10,
+          "19975": 10,
+          "19976": 10,
+          "19977": 10,
+          "19978": 10,
+          "19979": 10,
+          "19980": 10,
+          "19981": 10,
+          "19982": 10,
+          "19983": 10,
+          "19984": 10,
+          "19985": 10,
+          "19986": 10,
+          "19987": 10,
+          "19988": 10,
+          "19989": 10,
+          "19990": 10,
+          "19991": 10,
+          "19992": 10,
+          "19993": 10,
+          "19994": 10,
+          "19995": 10,
+          "19996": 10,
+          "19997": 10,
+          "19998": 10,
+          "19999": 10,
+          "20000": 10
+        }
+      },
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "100",
+          "time": 1727136000000
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": null,
+          "time": 1727568000000,
+          "fee": "1",
+          "feeUnit": "QUOTE"
+        },
+        {
+          "id": 3,
+          "coin": "ETH",
+          "type": "BUY",
+          "amount": "1",
+          "price": "10",
+          "time": 1727136000000
+        }
+      ],
+      "expected": {
+        "amount": 1,
+        "percent": 10,
+        "skipped": [
+          "BTC"
+        ]
+      }
+    },
+    {
+      "name": "sell with nothing left ignores its fee, like realized",
+      "current": {
+        "BTC": 120
+      },
+      "closes": {
+        "BTC": {
+          "19960": 100,
+          "19961": 100,
+          "19962": 100,
+          "19963": 100,
+          "19964": 100,
+          "19965": 100,
+          "19966": 100,
+          "19967": 100,
+          "19968": 100,
+          "19969": 100,
+          "19970": 100,
+          "19971": 100,
+          "19972": 100,
+          "19973": 100,
+          "19974": 100,
+          "19975": 100,
+          "19976": 100,
+          "19977": 100,
+          "19978": 100,
+          "19979": 100,
+          "19980": 100,
+          "19981": 100,
+          "19982": 100,
+          "19983": 100,
+          "19984": 100,
+          "19985": 100,
+          "19986": 100,
+          "19987": 100,
+          "19988": 100,
+          "19989": 100,
+          "19990": 100,
+          "19991": 100,
+          "19992": 100,
+          "19993": 100,
+          "19994": 100,
+          "19995": 100,
+          "19996": 100,
+          "19997": 100,
+          "19998": 100,
+          "19999": 100,
+          "20000": 100
+        }
+      },
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "100",
+          "time": 1727136000000
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "1",
+          "price": "120",
+          "time": 1727568000000
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "0.5",
+          "price": "120",
+          "time": 1727654400000,
+          "fee": "5",
+          "feeUnit": "QUOTE"
+        }
+      ],
+      "expected": {
+        "amount": 20,
+        "percent": 20,
+        "skipped": []
+      }
+    },
+    {
+      "name": "coin without daily closes is left out, the others count",
+      "current": {
+        "BTC": 110,
+        "XYZ": 5
+      },
+      "closes": {
+        "BTC": {
+          "19960": 100,
+          "19961": 100,
+          "19962": 100,
+          "19963": 100,
+          "19964": 100,
+          "19965": 100,
+          "19966": 100,
+          "19967": 100,
+          "19968": 100,
+          "19969": 100,
+          "19970": 100,
+          "19971": 100,
+          "19972": 100,
+          "19973": 100,
+          "19974": 100,
+          "19975": 100,
+          "19976": 100,
+          "19977": 100,
+          "19978": 100,
+          "19979": 100,
+          "19980": 100,
+          "19981": 100,
+          "19982": 100,
+          "19983": 100,
+          "19984": 100,
+          "19985": 100,
+          "19986": 100,
+          "19987": 100,
+          "19988": 100,
+          "19989": 100,
+          "19990": 100,
+          "19991": 100,
+          "19992": 100,
+          "19993": 100,
+          "19994": 100,
+          "19995": 100,
+          "19996": 100,
+          "19997": 100,
+          "19998": 100,
+          "19999": 100,
+          "20000": 100
+        }
+      },
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "100",
+          "time": 1727136000000
+        },
+        {
+          "id": 2,
+          "coin": "XYZ",
+          "type": "BUY",
+          "amount": "1",
+          "price": "5",
+          "time": 1727136000000
+        }
+      ],
+      "expected": {
+        "amount": 10,
+        "percent": 10,
+        "skipped": [
+          "XYZ"
+        ]
+      }
+    },
+    {
+      "name": "nothing known gives no number",
+      "current": {
+        "XYZ": 5
+      },
+      "closes": {},
+      "trades": [
+        {
+          "id": 1,
+          "coin": "XYZ",
+          "type": "BUY",
+          "amount": "1",
+          "price": "5",
+          "time": 1727136000000
+        }
+      ],
+      "expected": null
+    },
+    {
+      "name": "reward in the window is an inflow at its value on receipt",
+      "current": {
+        "DOT": 12
+      },
+      "closes": {
+        "DOT": {
+          "19960": 10,
+          "19961": 10,
+          "19962": 10,
+          "19963": 10,
+          "19964": 10,
+          "19965": 10,
+          "19966": 10,
+          "19967": 10,
+          "19968": 10,
+          "19969": 10,
+          "19970": 10,
+          "19971": 10,
+          "19972": 10,
+          "19973": 10,
+          "19974": 10,
+          "19975": 10,
+          "19976": 10,
+          "19977": 10,
+          "19978": 10,
+          "19979": 10,
+          "19980": 10,
+          "19981": 10,
+          "19982": 10,
+          "19983": 10,
+          "19984": 10,
+          "19985": 10,
+          "19986": 10,
+          "19987": 10,
+          "19988": 10,
+          "19989": 10,
+          "19990": 10,
+          "19991": 10,
+          "19992": 10,
+          "19993": 10,
+          "19994": 10,
+          "19995": 10,
+          "19996": 10,
+          "19997": 10,
+          "19998": 10,
+          "19999": 10,
+          "20000": 10
+        }
+      },
+      "trades": [
+        {
+          "id": 1,
+          "coin": "DOT",
+          "type": "BUY",
+          "amount": "1",
+          "price": "10",
+          "time": 1727136000000
+        },
+        {
+          "id": 2,
+          "coin": "DOT",
+          "type": "REWARD",
+          "amount": "1",
+          "price": "10",
+          "time": 1727568000000
+        }
+      ],
+      "expected": {
+        "amount": 4,
+        "percent": 20,
+        "skipped": []
+      }
+    },
+    {
+      "name": "reward without price in the window counts at the market price of its day: the coin stays in",
+      "current": {
+        "BTC": 110,
+        "DOT": 12
+      },
+      "closes": {
+        "BTC": {
+          "19960": 100,
+          "19961": 100,
+          "19962": 100,
+          "19963": 100,
+          "19964": 100,
+          "19965": 100,
+          "19966": 100,
+          "19967": 100,
+          "19968": 100,
+          "19969": 100,
+          "19970": 100,
+          "19971": 100,
+          "19972": 100,
+          "19973": 100,
+          "19974": 100,
+          "19975": 100,
+          "19976": 100,
+          "19977": 100,
+          "19978": 100,
+          "19979": 100,
+          "19980": 100,
+          "19981": 100,
+          "19982": 100,
+          "19983": 100,
+          "19984": 100,
+          "19985": 100,
+          "19986": 100,
+          "19987": 100,
+          "19988": 100,
+          "19989": 100,
+          "19990": 100,
+          "19991": 100,
+          "19992": 100,
+          "19993": 100,
+          "19994": 100,
+          "19995": 100,
+          "19996": 100,
+          "19997": 100,
+          "19998": 100,
+          "19999": 100,
+          "20000": 100
+        },
+        "DOT": {
+          "19960": 10,
+          "19961": 10,
+          "19962": 10,
+          "19963": 10,
+          "19964": 10,
+          "19965": 10,
+          "19966": 10,
+          "19967": 10,
+          "19968": 10,
+          "19969": 10,
+          "19970": 10,
+          "19971": 10,
+          "19972": 10,
+          "19973": 10,
+          "19974": 10,
+          "19975": 10,
+          "19976": 10,
+          "19977": 10,
+          "19978": 10,
+          "19979": 10,
+          "19980": 10,
+          "19981": 10,
+          "19982": 10,
+          "19983": 10,
+          "19984": 10,
+          "19985": 10,
+          "19986": 10,
+          "19987": 10,
+          "19988": 10,
+          "19989": 10,
+          "19990": 10,
+          "19991": 10,
+          "19992": 10,
+          "19993": 10,
+          "19994": 10,
+          "19995": 10,
+          "19996": 10,
+          "19997": 10,
+          "19998": 10,
+          "19999": 10,
+          "20000": 10
+        }
+      },
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "100",
+          "time": 1727136000000
+        },
+        {
+          "id": 2,
+          "coin": "DOT",
+          "type": "REWARD",
+          "amount": "1",
+          "price": null,
+          "time": 1727568000000
+        }
+      ],
+      "expected": {
+        "amount": 12,
+        "percent": 10.909090909090908,
+        "skipped": []
+      }
+    },
+    {
+      "name": "transfer in the window is neutral, its network fee lowers the value",
+      "current": {
+        "BTC": 100
+      },
+      "closes": {
+        "BTC": {
+          "19960": 100,
+          "19961": 100,
+          "19962": 100,
+          "19963": 100,
+          "19964": 100,
+          "19965": 100,
+          "19966": 100,
+          "19967": 100,
+          "19968": 100,
+          "19969": 100,
+          "19970": 100,
+          "19971": 100,
+          "19972": 100,
+          "19973": 100,
+          "19974": 100,
+          "19975": 100,
+          "19976": 100,
+          "19977": 100,
+          "19978": 100,
+          "19979": 100,
+          "19980": 100,
+          "19981": 100,
+          "19982": 100,
+          "19983": 100,
+          "19984": 100,
+          "19985": 100,
+          "19986": 100,
+          "19987": 100,
+          "19988": 100,
+          "19989": 100,
+          "19990": 100,
+          "19991": 100,
+          "19992": 100,
+          "19993": 100,
+          "19994": 100,
+          "19995": 100,
+          "19996": 100,
+          "19997": 100,
+          "19998": 100,
+          "19999": 100,
+          "20000": 100
+        }
+      },
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "100",
+          "time": 1727136000000
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "TRANSFER",
+          "amount": "1",
+          "price": null,
+          "time": 1727568000000,
+          "fee": "0.01",
+          "feeUnit": "COIN"
+        }
+      ],
+      "expected": {
+        "amount": -1,
+        "percent": -1,
+        "skipped": []
+      }
+    },
+    {
+      "name": "fee in a third coin: the fee coin is spent at the fee value, the buy carries it",
+      "current": {
+        "BTC": 100,
+        "BNB": 300
+      },
+      "closes": {
+        "BTC": {
+          "19960": 100,
+          "19961": 100,
+          "19962": 100,
+          "19963": 100,
+          "19964": 100,
+          "19965": 100,
+          "19966": 100,
+          "19967": 100,
+          "19968": 100,
+          "19969": 100,
+          "19970": 100,
+          "19971": 100,
+          "19972": 100,
+          "19973": 100,
+          "19974": 100,
+          "19975": 100,
+          "19976": 100,
+          "19977": 100,
+          "19978": 100,
+          "19979": 100,
+          "19980": 100,
+          "19981": 100,
+          "19982": 100,
+          "19983": 100,
+          "19984": 100,
+          "19985": 100,
+          "19986": 100,
+          "19987": 100,
+          "19988": 100,
+          "19989": 100,
+          "19990": 100,
+          "19991": 100,
+          "19992": 100,
+          "19993": 100,
+          "19994": 100,
+          "19995": 100,
+          "19996": 100,
+          "19997": 100,
+          "19998": 100,
+          "19999": 100,
+          "20000": 100
+        },
+        "BNB": {
+          "19960": 300,
+          "19961": 300,
+          "19962": 300,
+          "19963": 300,
+          "19964": 300,
+          "19965": 300,
+          "19966": 300,
+          "19967": 300,
+          "19968": 300,
+          "19969": 300,
+          "19970": 300,
+          "19971": 300,
+          "19972": 300,
+          "19973": 300,
+          "19974": 300,
+          "19975": 300,
+          "19976": 300,
+          "19977": 300,
+          "19978": 300,
+          "19979": 300,
+          "19980": 300,
+          "19981": 300,
+          "19982": 300,
+          "19983": 300,
+          "19984": 300,
+          "19985": 300,
+          "19986": 300,
+          "19987": 300,
+          "19988": 300,
+          "19989": 300,
+          "19990": 300,
+          "19991": 300,
+          "19992": 300,
+          "19993": 300,
+          "19994": 300,
+          "19995": 300,
+          "19996": 300,
+          "19997": 300,
+          "19998": 300,
+          "19999": 300,
+          "20000": 300
+        }
+      },
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BNB",
+          "type": "BUY",
+          "amount": "1",
+          "price": "300",
+          "time": 1727136000000
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "100",
+          "time": 1727568000000,
+          "feeCoin": "BNB",
+          "feeCoinAmount": "0.01",
+          "feeCoinPrice": "300"
+        }
+      ],
+      "expected": {
+        "amount": -3,
+        "percent": -0.7444168734491315,
+        "skipped": []
+      }
+    },
+    {
+      "name": "fee in a third coin without price counts at the fee coin's market price: both coins stay in",
+      "current": {
+        "BTC": 100,
+        "BNB": 300,
+        "ETH": 220
+      },
+      "closes": {
+        "BTC": {
+          "19960": 100,
+          "19961": 100,
+          "19962": 100,
+          "19963": 100,
+          "19964": 100,
+          "19965": 100,
+          "19966": 100,
+          "19967": 100,
+          "19968": 100,
+          "19969": 100,
+          "19970": 100,
+          "19971": 100,
+          "19972": 100,
+          "19973": 100,
+          "19974": 100,
+          "19975": 100,
+          "19976": 100,
+          "19977": 100,
+          "19978": 100,
+          "19979": 100,
+          "19980": 100,
+          "19981": 100,
+          "19982": 100,
+          "19983": 100,
+          "19984": 100,
+          "19985": 100,
+          "19986": 100,
+          "19987": 100,
+          "19988": 100,
+          "19989": 100,
+          "19990": 100,
+          "19991": 100,
+          "19992": 100,
+          "19993": 100,
+          "19994": 100,
+          "19995": 100,
+          "19996": 100,
+          "19997": 100,
+          "19998": 100,
+          "19999": 100,
+          "20000": 100
+        },
+        "BNB": {
+          "19960": 300,
+          "19961": 300,
+          "19962": 300,
+          "19963": 300,
+          "19964": 300,
+          "19965": 300,
+          "19966": 300,
+          "19967": 300,
+          "19968": 300,
+          "19969": 300,
+          "19970": 300,
+          "19971": 300,
+          "19972": 300,
+          "19973": 300,
+          "19974": 300,
+          "19975": 300,
+          "19976": 300,
+          "19977": 300,
+          "19978": 300,
+          "19979": 300,
+          "19980": 300,
+          "19981": 300,
+          "19982": 300,
+          "19983": 300,
+          "19984": 300,
+          "19985": 300,
+          "19986": 300,
+          "19987": 300,
+          "19988": 300,
+          "19989": 300,
+          "19990": 300,
+          "19991": 300,
+          "19992": 300,
+          "19993": 300,
+          "19994": 300,
+          "19995": 300,
+          "19996": 300,
+          "19997": 300,
+          "19998": 300,
+          "19999": 300,
+          "20000": 300
+        },
+        "ETH": {
+          "19960": 200,
+          "19961": 200,
+          "19962": 200,
+          "19963": 200,
+          "19964": 200,
+          "19965": 200,
+          "19966": 200,
+          "19967": 200,
+          "19968": 200,
+          "19969": 200,
+          "19970": 200,
+          "19971": 200,
+          "19972": 200,
+          "19973": 200,
+          "19974": 200,
+          "19975": 200,
+          "19976": 200,
+          "19977": 200,
+          "19978": 200,
+          "19979": 200,
+          "19980": 200,
+          "19981": 200,
+          "19982": 200,
+          "19983": 200,
+          "19984": 200,
+          "19985": 200,
+          "19986": 200,
+          "19987": 200,
+          "19988": 200,
+          "19989": 200,
+          "19990": 200,
+          "19991": 200,
+          "19992": 200,
+          "19993": 200,
+          "19994": 200,
+          "19995": 200,
+          "19996": 200,
+          "19997": 200,
+          "19998": 200,
+          "19999": 200,
+          "20000": 200
+        }
+      },
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BNB",
+          "type": "BUY",
+          "amount": "1",
+          "price": "300",
+          "time": 1727136000000
+        },
+        {
+          "id": 2,
+          "coin": "ETH",
+          "type": "BUY",
+          "amount": "1",
+          "price": "200",
+          "time": 1727136000000
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "100",
+          "time": 1727568000000,
+          "feeCoin": "BNB",
+          "feeCoinAmount": "0.01",
+          "feeCoinPrice": null
+        }
+      ],
+      "expected": {
+        "amount": 17,
+        "percent": 2.8192371475953566,
+        "skipped": []
+      }
+    },
+    {
+      "name": "fee in a third coin without price and without any market price: only then the coins are left out and named",
+      "current": {
+        "BTC": 100,
+        "ETH": 220
+      },
+      "closes": {
+        "BTC": {
+          "19960": 100,
+          "19961": 100,
+          "19962": 100,
+          "19963": 100,
+          "19964": 100,
+          "19965": 100,
+          "19966": 100,
+          "19967": 100,
+          "19968": 100,
+          "19969": 100,
+          "19970": 100,
+          "19971": 100,
+          "19972": 100,
+          "19973": 100,
+          "19974": 100,
+          "19975": 100,
+          "19976": 100,
+          "19977": 100,
+          "19978": 100,
+          "19979": 100,
+          "19980": 100,
+          "19981": 100,
+          "19982": 100,
+          "19983": 100,
+          "19984": 100,
+          "19985": 100,
+          "19986": 100,
+          "19987": 100,
+          "19988": 100,
+          "19989": 100,
+          "19990": 100,
+          "19991": 100,
+          "19992": 100,
+          "19993": 100,
+          "19994": 100,
+          "19995": 100,
+          "19996": 100,
+          "19997": 100,
+          "19998": 100,
+          "19999": 100,
+          "20000": 100
+        },
+        "ETH": {
+          "19960": 200,
+          "19961": 200,
+          "19962": 200,
+          "19963": 200,
+          "19964": 200,
+          "19965": 200,
+          "19966": 200,
+          "19967": 200,
+          "19968": 200,
+          "19969": 200,
+          "19970": 200,
+          "19971": 200,
+          "19972": 200,
+          "19973": 200,
+          "19974": 200,
+          "19975": 200,
+          "19976": 200,
+          "19977": 200,
+          "19978": 200,
+          "19979": 200,
+          "19980": 200,
+          "19981": 200,
+          "19982": 200,
+          "19983": 200,
+          "19984": 200,
+          "19985": 200,
+          "19986": 200,
+          "19987": 200,
+          "19988": 200,
+          "19989": 200,
+          "19990": 200,
+          "19991": 200,
+          "19992": 200,
+          "19993": 200,
+          "19994": 200,
+          "19995": 200,
+          "19996": 200,
+          "19997": 200,
+          "19998": 200,
+          "19999": 200,
+          "20000": 200
+        }
+      },
+      "trades": [
+        {
+          "id": 2,
+          "coin": "ETH",
+          "type": "BUY",
+          "amount": "1",
+          "price": "200",
+          "time": 1727136000000
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "100",
+          "time": 1727568000000,
+          "feeCoin": "XYZ",
+          "feeCoinAmount": "0.01",
+          "feeCoinPrice": null
+        }
+      ],
+      "expected": {
+        "amount": 20,
+        "percent": 10,
+        "skipped": [
+          "BTC",
+          "XYZ"
+        ]
+      }
+    },
+    {
+      "name": "withdrawal without price leaves at the market price: flat SOL gives 0",
+      "current": {
+        "SOL": 20
+      },
+      "closes": {
+        "SOL": {
+          "19960": 20,
+          "19961": 20,
+          "19962": 20,
+          "19963": 20,
+          "19964": 20,
+          "19965": 20,
+          "19966": 20,
+          "19967": 20,
+          "19968": 20,
+          "19969": 20,
+          "19970": 20,
+          "19971": 20,
+          "19972": 20,
+          "19973": 20,
+          "19974": 20,
+          "19975": 20,
+          "19976": 20,
+          "19977": 20,
+          "19978": 20,
+          "19979": 20,
+          "19980": 20,
+          "19981": 20,
+          "19982": 20,
+          "19983": 20,
+          "19984": 20,
+          "19985": 20,
+          "19986": 20,
+          "19987": 20,
+          "19988": 20,
+          "19989": 20,
+          "19990": 20,
+          "19991": 20,
+          "19992": 20,
+          "19993": 20,
+          "19994": 20,
+          "19995": 20,
+          "19996": 20,
+          "19997": 20,
+          "19998": 20,
+          "19999": 20,
+          "20000": 20
+        }
+      },
+      "trades": [
+        {
+          "id": 1,
+          "coin": "SOL",
+          "type": "BUY",
+          "amount": "2",
+          "price": "10",
+          "time": 1727136000000
+        },
+        {
+          "id": 2,
+          "coin": "SOL",
+          "type": "WITHDRAWAL",
+          "amount": "1",
+          "price": null,
+          "time": 1727568000000
+        }
+      ],
+      "expected": {
+        "amount": 0,
+        "percent": 0,
+        "skipped": []
+      }
+    },
+    {
+      "name": "withdrawal with price leaves at that value",
+      "current": {
+        "SOL": 20
+      },
+      "closes": {
+        "SOL": {
+          "19960": 20,
+          "19961": 20,
+          "19962": 20,
+          "19963": 20,
+          "19964": 20,
+          "19965": 20,
+          "19966": 20,
+          "19967": 20,
+          "19968": 20,
+          "19969": 20,
+          "19970": 20,
+          "19971": 20,
+          "19972": 20,
+          "19973": 20,
+          "19974": 20,
+          "19975": 20,
+          "19976": 20,
+          "19977": 20,
+          "19978": 20,
+          "19979": 20,
+          "19980": 20,
+          "19981": 20,
+          "19982": 20,
+          "19983": 20,
+          "19984": 20,
+          "19985": 20,
+          "19986": 20,
+          "19987": 20,
+          "19988": 20,
+          "19989": 20,
+          "19990": 20,
+          "19991": 20,
+          "19992": 20,
+          "19993": 20,
+          "19994": 20,
+          "19995": 20,
+          "19996": 20,
+          "19997": 20,
+          "19998": 20,
+          "19999": 20,
+          "20000": 20
+        }
+      },
+      "trades": [
+        {
+          "id": 1,
+          "coin": "SOL",
+          "type": "BUY",
+          "amount": "2",
+          "price": "10",
+          "time": 1727136000000
+        },
+        {
+          "id": 2,
+          "coin": "SOL",
+          "type": "WITHDRAWAL",
+          "amount": "1",
+          "price": "20",
+          "time": 1727568000000
+        }
+      ],
+      "expected": {
+        "amount": 0,
+        "percent": 0,
+        "skipped": []
+      }
+    },
+    {
+      "name": "deposit without price in the window counts at the market price: money put in, no gain (cost stays unknown)",
+      "current": {
+        "BTC": 110,
+        "SOL": 20
+      },
+      "closes": {
+        "BTC": {
+          "19960": 100,
+          "19961": 100,
+          "19962": 100,
+          "19963": 100,
+          "19964": 100,
+          "19965": 100,
+          "19966": 100,
+          "19967": 100,
+          "19968": 100,
+          "19969": 100,
+          "19970": 100,
+          "19971": 100,
+          "19972": 100,
+          "19973": 100,
+          "19974": 100,
+          "19975": 100,
+          "19976": 100,
+          "19977": 100,
+          "19978": 100,
+          "19979": 100,
+          "19980": 100,
+          "19981": 100,
+          "19982": 100,
+          "19983": 100,
+          "19984": 100,
+          "19985": 100,
+          "19986": 100,
+          "19987": 100,
+          "19988": 100,
+          "19989": 100,
+          "19990": 100,
+          "19991": 100,
+          "19992": 100,
+          "19993": 100,
+          "19994": 100,
+          "19995": 100,
+          "19996": 100,
+          "19997": 100,
+          "19998": 100,
+          "19999": 100,
+          "20000": 100
+        },
+        "SOL": {
+          "19960": 20,
+          "19961": 20,
+          "19962": 20,
+          "19963": 20,
+          "19964": 20,
+          "19965": 20,
+          "19966": 20,
+          "19967": 20,
+          "19968": 20,
+          "19969": 20,
+          "19970": 20,
+          "19971": 20,
+          "19972": 20,
+          "19973": 20,
+          "19974": 20,
+          "19975": 20,
+          "19976": 20,
+          "19977": 20,
+          "19978": 20,
+          "19979": 20,
+          "19980": 20,
+          "19981": 20,
+          "19982": 20,
+          "19983": 20,
+          "19984": 20,
+          "19985": 20,
+          "19986": 20,
+          "19987": 20,
+          "19988": 20,
+          "19989": 20,
+          "19990": 20,
+          "19991": 20,
+          "19992": 20,
+          "19993": 20,
+          "19994": 20,
+          "19995": 20,
+          "19996": 20,
+          "19997": 20,
+          "19998": 20,
+          "19999": 20,
+          "20000": 20
+        }
+      },
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "100",
+          "time": 1727136000000
+        },
+        {
+          "id": 2,
+          "coin": "SOL",
+          "type": "DEPOSIT",
+          "amount": "1",
+          "price": null,
+          "time": 1727568000000
+        }
+      ],
+      "expected": {
+        "amount": 10,
+        "percent": 8.333333333333332,
+        "skipped": []
+      }
+    },
+    {
+      "name": "withdrawal without price at the close of its day: only held coins gain",
+      "current": {
+        "SOL": 30
+      },
+      "closes": {
+        "SOL": {
+          "19960": 20,
+          "19961": 20,
+          "19962": 20,
+          "19963": 20,
+          "19964": 20,
+          "19965": 20,
+          "19966": 20,
+          "19967": 20,
+          "19968": 20,
+          "19969": 20,
+          "19970": 20,
+          "19971": 20,
+          "19972": 20,
+          "19973": 20,
+          "19974": 20,
+          "19975": 20,
+          "19976": 20,
+          "19977": 20,
+          "19978": 20,
+          "19979": 20,
+          "19980": 20,
+          "19981": 20,
+          "19982": 20,
+          "19983": 20,
+          "19984": 20,
+          "19985": 20,
+          "19986": 20,
+          "19987": 20,
+          "19988": 20,
+          "19989": 20,
+          "19990": 20,
+          "19991": 20,
+          "19992": 20,
+          "19993": 20,
+          "19994": 20,
+          "19995": 20,
+          "19996": 20,
+          "19997": 30,
+          "19998": 30,
+          "19999": 30,
+          "20000": 30
+        }
+      },
+      "trades": [
+        {
+          "id": 1,
+          "coin": "SOL",
+          "type": "BUY",
+          "amount": "2",
+          "price": "10",
+          "time": 1727136000000
+        },
+        {
+          "id": 2,
+          "coin": "SOL",
+          "type": "WITHDRAWAL",
+          "amount": "1",
+          "price": null,
+          "time": 1727568000000
+        }
+      ],
+      "expected": {
+        "amount": 10,
+        "percent": 25,
+        "skipped": []
+      }
+    },
+    {
+      "name": "R9 withdrawal above holdings in the window: 0.5 BTC held, 1 BTC withdrawn without price (close 100), fee 10 USDT → period loss 5 (fee scaled by the covered share like a sale)",
+      "current": {
+        "BTC": 100
+      },
+      "closes": {
+        "BTC": {
+          "19960": 100,
+          "19961": 100,
+          "19962": 100,
+          "19963": 100,
+          "19964": 100,
+          "19965": 100,
+          "19966": 100,
+          "19967": 100,
+          "19968": 100,
+          "19969": 100,
+          "19970": 100,
+          "19971": 100,
+          "19972": 100,
+          "19973": 100,
+          "19974": 100,
+          "19975": 100,
+          "19976": 100,
+          "19977": 100,
+          "19978": 100,
+          "19979": 100,
+          "19980": 100,
+          "19981": 100,
+          "19982": 100,
+          "19983": 100,
+          "19984": 100,
+          "19985": 100,
+          "19986": 100,
+          "19987": 100,
+          "19988": 100,
+          "19989": 100,
+          "19990": 100,
+          "19991": 100,
+          "19992": 100,
+          "19993": 100,
+          "19994": 100,
+          "19995": 100,
+          "19996": 100,
+          "19997": 100,
+          "19998": 100,
+          "19999": 100,
+          "20000": 100
+        }
+      },
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "0.5",
+          "price": "100",
+          "time": 1726315200000
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "WITHDRAWAL",
+          "amount": "1",
+          "time": 1727784000000,
+          "fee": "10",
+          "feeUnit": "QUOTE"
+        }
+      ],
+      "expected": {
+        "amount": -5,
+        "percent": -10,
+        "skipped": []
+      }
+    }
+  ],
+  "scaleCloses": [
+    {
+      "name": "same token is scaled to the price of the entered exchange",
+      "closes": {
+        "BTC": {
+          "1": 100,
+          "2": 110
+        }
+      },
+      "prices": {
+        "BTC": 102
+      },
+      "binance": {
+        "BTC": 100
+      },
+      "expected": {
+        "BTC": {
+          "1": 102,
+          "2": 112.2
+        }
+      }
+    },
+    {
+      "name": "different token under the same symbol is dropped, not scaled",
+      "closes": {
+        "CAT": {
+          "1": 50,
+          "2": 55
+        }
+      },
+      "prices": {
+        "CAT": 1
+      },
+      "binance": {
+        "CAT": 50
+      },
+      "expected": {}
+    },
+    {
+      "name": "coin without own exchange stays as it is",
+      "closes": {
+        "ETH": {
+          "1": 10
+        }
+      },
+      "prices": {
+        "ETH": 10
+      },
+      "binance": {
+        "BTC": 100
+      },
+      "expected": {
+        "ETH": {
+          "1": 10
+        }
+      }
+    },
+    {
+      "name": "own exchange without a Binance price: no reference to scale, series stays (the history check then needs a matching live price)",
+      "closes": {
+        "SOL": {
+          "1": 20,
+          "2": 22
+        }
+      },
+      "prices": {
+        "SOL": 21
+      },
+      "binance": {
+        "BTC": 100
+      },
+      "expected": {
+        "SOL": {
+          "1": 20,
+          "2": 22
+        }
+      }
+    },
+    {
+      "name": "no own price: no reference to scale, series stays",
+      "closes": {
+        "ADA": {
+          "1": 0.5
+        }
+      },
+      "prices": {},
+      "binance": {
+        "ADA": 0.5
+      },
+      "expected": {
+        "ADA": {
+          "1": 0.5
+        }
+      }
+    }
+  ],
+  "todayAdjusted": [
+    {
+      "name": "unpriced buy today leaves the coin out",
+      "holdings": {
+        "BTC": 1,
+        "ETH": 3
+      },
+      "current": {
+        "BTC": 110,
+        "ETH": 220
+      },
+      "coinChanges": {
+        "BTC": 10,
+        "ETH": 10
+      },
+      "windowStart": 1728000000000,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "100",
+          "time": 1727996400000
+        },
+        {
+          "id": 2,
+          "coin": "ETH",
+          "type": "BUY",
+          "amount": "2",
+          "price": "200",
+          "time": 1727996400000
+        },
+        {
+          "id": 3,
+          "coin": "ETH",
+          "type": "BUY",
+          "amount": "1",
+          "price": null,
+          "time": 1728003600000
+        }
+      ],
+      "expected": {
+        "amount": 10,
+        "percent": 10,
+        "skipped": [
+          "ETH"
+        ]
+      },
+      "byCoin": {
+        "BTC": {
+          "amount": 10,
+          "percent": 10
+        }
+      }
+    },
+    {
+      "name": "priced buy today with USDT fee is not a gain",
+      "holdings": {
+        "BTC": 2
+      },
+      "current": {
+        "BTC": 110
+      },
+      "coinChanges": {
+        "BTC": 10
+      },
+      "windowStart": 1728000000000,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "100",
+          "time": 1727996400000
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "105",
+          "time": 1728003600000,
+          "fee": "2",
+          "feeUnit": "QUOTE"
+        }
+      ],
+      "expected": {
+        "amount": 13,
+        "percent": 6.280193236714976,
+        "skipped": []
+      },
+      "byCoin": {
+        "BTC": {
+          "amount": 13,
+          "percent": 6.280193236714976
+        }
+      }
+    },
+    {
+      "name": "only unpriced trades: unknown",
+      "holdings": {
+        "ETH": 1
+      },
+      "current": {
+        "ETH": 220
+      },
+      "coinChanges": {
+        "ETH": 10
+      },
+      "windowStart": 1728000000000,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "ETH",
+          "type": "BUY",
+          "amount": "1",
+          "price": null,
+          "time": 1728003600000
+        }
+      ],
+      "expected": null,
+      "byCoin": {}
+    },
+    {
+      "name": "no trades today: price change unchanged",
+      "holdings": {
+        "BTC": 1,
+        "ALT": 100
+      },
+      "current": {
+        "BTC": 110,
+        "ALT": 0.2
+      },
+      "coinChanges": {
+        "BTC": 10
+      },
+      "windowStart": 1728000000000,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "100",
+          "time": 1727996400000
+        },
+        {
+          "id": 2,
+          "coin": "ALT",
+          "type": "BUY",
+          "amount": "100",
+          "price": "0.1",
+          "time": 1727996400000
+        }
+      ],
+      "expected": {
+        "amount": 10,
+        "percent": 10,
+        "skipped": [
+          "ALT"
+        ]
+      },
+      "byCoin": {
+        "BTC": {
+          "amount": 10,
+          "percent": 10
+        }
+      }
+    },
+    {
+      "name": "rows: buy, partial sell and a coin bought entirely today sum to the total",
+      "holdings": {
+        "BTC": 2,
+        "ETH": 1,
+        "SOL": 10
+      },
+      "current": {
+        "BTC": 110,
+        "ETH": 220,
+        "SOL": 21
+      },
+      "coinChanges": {
+        "BTC": 10,
+        "ETH": 10
+      },
+      "windowStart": 1728000000000,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "100",
+          "time": 1727996400000
+        },
+        {
+          "id": 2,
+          "coin": "ETH",
+          "type": "BUY",
+          "amount": "2",
+          "price": "200",
+          "time": 1727996400000
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "105",
+          "time": 1728003600000,
+          "fee": "2",
+          "feeUnit": "QUOTE"
+        },
+        {
+          "id": 4,
+          "coin": "ETH",
+          "type": "SELL",
+          "amount": "1",
+          "price": "215",
+          "time": 1728003600000
+        },
+        {
+          "id": 5,
+          "coin": "SOL",
+          "type": "BUY",
+          "amount": "10",
+          "price": "20",
+          "time": 1728003600000
+        }
+      ],
+      "expected": {
+        "amount": 58,
+        "percent": 7.187112763320942,
+        "skipped": []
+      },
+      "byCoin": {
+        "BTC": {
+          "amount": 13,
+          "percent": 6.280193236714976
+        },
+        "ETH": {
+          "amount": 35,
+          "percent": 8.75
+        },
+        "SOL": {
+          "amount": 10,
+          "percent": 5
+        }
+      }
+    },
+    {
+      "name": "withdrawal without price today at the current price: flat gives 0",
+      "holdings": {
+        "SOL": 1
+      },
+      "current": {
+        "SOL": 20
+      },
+      "coinChanges": {
+        "SOL": 0
+      },
+      "windowStart": 1728000000000,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "SOL",
+          "type": "BUY",
+          "amount": "2",
+          "price": "10",
+          "time": 1727996400000
+        },
+        {
+          "id": 2,
+          "coin": "SOL",
+          "type": "WITHDRAWAL",
+          "amount": "1",
+          "price": null,
+          "time": 1728003600000
+        }
+      ],
+      "expected": {
+        "amount": 0,
+        "percent": 0,
+        "skipped": []
+      },
+      "byCoin": {
+        "SOL": {
+          "amount": 0,
+          "percent": 0
+        }
+      }
+    },
+    {
+      "name": "withdrawal without price today: the withdrawn coins count until now (current price)",
+      "holdings": {
+        "SOL": 1
+      },
+      "current": {
+        "SOL": 22
+      },
+      "coinChanges": {
+        "SOL": 10
+      },
+      "windowStart": 1728000000000,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "SOL",
+          "type": "BUY",
+          "amount": "2",
+          "price": "10",
+          "time": 1727996400000
+        },
+        {
+          "id": 2,
+          "coin": "SOL",
+          "type": "WITHDRAWAL",
+          "amount": "1",
+          "price": null,
+          "time": 1728003600000
+        }
+      ],
+      "expected": {
+        "amount": 4,
+        "percent": 10,
+        "skipped": []
+      },
+      "byCoin": {
+        "SOL": {
+          "amount": 4,
+          "percent": 10
+        }
+      }
+    }
+  ],
+  "historyCloses": [
+    {
+      "name": "own exchange with own daily candles: own series as is, no hint",
+      "closes": {
+        "BTC": {
+          "1": 95,
+          "2": 98
+        }
+      },
+      "own": [
+        "BTC"
+      ],
+      "routed": [
+        "BTC"
+      ],
+      "failed": [],
+      "prices": {
+        "BTC": 100
+      },
+      "binance": {},
+      "expected": {
+        "BTC": {
+          "1": 95,
+          "2": 98
+        }
+      },
+      "expectedScaled": []
+    },
+    {
+      "name": "own exchange without own candles but Binance reference now: Binance scaled, hint",
+      "closes": {
+        "BTC": {
+          "1": 100,
+          "2": 110
+        }
+      },
+      "own": [],
+      "routed": [
+        "BTC"
+      ],
+      "failed": [],
+      "prices": {
+        "BTC": 102
+      },
+      "binance": {
+        "BTC": 100
+      },
+      "expected": {
+        "BTC": {
+          "1": 102,
+          "2": 112.2
+        }
+      },
+      "expectedScaled": [
+        "BTC"
+      ]
+    },
+    {
+      "name": "after a restart (no Binance reference): coin dropped instead of the unscaled Binance series",
+      "closes": {
+        "BTC": {
+          "1": 100,
+          "2": 110
+        },
+        "ETH": {
+          "1": 10
+        }
+      },
+      "own": [],
+      "routed": [
+        "BTC"
+      ],
+      "failed": [],
+      "prices": {
+        "BTC": 102,
+        "ETH": 10
+      },
+      "binance": {},
+      "expected": {
+        "ETH": {
+          "1": 10
+        }
+      },
+      "expectedScaled": []
+    },
+    {
+      "name": "entered exchange failed this time (valued with Binance): Binance series as is",
+      "closes": {
+        "SOL": {
+          "1": 20,
+          "2": 22
+        }
+      },
+      "own": [],
+      "routed": [
+        "SOL"
+      ],
+      "failed": [
+        "SOL"
+      ],
+      "prices": {
+        "SOL": 21
+      },
+      "binance": {},
+      "expected": {
+        "SOL": {
+          "1": 20,
+          "2": 22
+        }
+      },
+      "expectedScaled": []
+    },
+    {
+      "name": "different token under the same symbol: dropped",
+      "closes": {
+        "CAT": {
+          "1": 50
+        }
+      },
+      "own": [],
+      "routed": [
+        "CAT"
+      ],
+      "failed": [],
+      "prices": {
+        "CAT": 1
+      },
+      "binance": {
+        "CAT": 50
+      },
+      "expected": {},
+      "expectedScaled": []
+    },
+    {
+      "name": "no own price now: dropped",
+      "closes": {
+        "ADA": {
+          "1": 0.5
+        }
+      },
+      "own": [],
+      "routed": [
+        "ADA"
+      ],
+      "failed": [],
+      "prices": {},
+      "binance": {
+        "ADA": 0.5
+      },
+      "expected": {},
+      "expectedScaled": []
+    }
+  ],
+  "ownDailyUsdt": [
+    {
+      "name": "USDT pair as is",
+      "closes": {
+        "1": 100,
+        "2": 101
+      },
+      "quote": "USDT",
+      "rates": null,
+      "expected": {
+        "1": 100,
+        "2": 101
+      }
+    },
+    {
+      "name": "USD pair counts as USDT",
+      "closes": {
+        "1": 100
+      },
+      "quote": "usd",
+      "rates": null,
+      "expected": {
+        "1": 100
+      }
+    },
+    {
+      "name": "EUR pair with daily rates: rate of the day, weekend uses the last before, days before the first rate dropped",
+      "closes": {
+        "9": 90,
+        "10": 90,
+        "11": 90,
+        "12": 80
+      },
+      "quote": "EUR",
+      "rates": {
+        "10": 0.9,
+        "12": 0.8
+      },
+      "expected": {
+        "10": 100,
+        "11": 100,
+        "12": 100
+      }
+    },
+    {
+      "name": "EUR pair without daily rates: not convertible",
+      "closes": {
+        "10": 90
+      },
+      "quote": "EUR",
+      "rates": null,
+      "expected": null
+    },
+    {
+      "name": "other stablecoin quote (USDC) is not 1: not convertible",
+      "closes": {
+        "10": 1
+      },
+      "quote": "USDC",
+      "rates": null,
+      "expected": null
+    }
+  ],
+  "stitch": [
+    {
+      "name": "own series shorter than Binance: before the first own day Binance aligned on that day",
+      "own": {
+        "5": 200,
+        "6": 210
+      },
+      "binance": {
+        "3": 90,
+        "4": 95,
+        "5": 100,
+        "6": 105
+      },
+      "expected": {
+        "3": 180,
+        "4": 190,
+        "5": 200,
+        "6": 210
+      },
+      "binanceBefore": 5
+    },
+    {
+      "name": "no Binance close on the first own day: own series only",
+      "own": {
+        "5": 200,
+        "6": 210
+      },
+      "binance": {
+        "3": 90,
+        "4": 95
+      },
+      "expected": {
+        "5": 200,
+        "6": 210
+      },
+      "binanceBefore": null
+    },
+    {
+      "name": "different token on Binance (ratio outside 1/3…3): own series only",
+      "own": {
+        "5": 200
+      },
+      "binance": {
+        "4": 19,
+        "5": 20
+      },
+      "expected": {
+        "5": 200
+      },
+      "binanceBefore": null
+    },
+    {
+      "name": "Binance does not reach further back: own series only",
+      "own": {
+        "5": 200,
+        "6": 210
+      },
+      "binance": {
+        "5": 100,
+        "6": 105
+      },
+      "expected": {
+        "5": 200,
+        "6": 210
+      },
+      "binanceBefore": null
+    }
+  ],
+  "scaledHint": [
+    {
+      "name": "fully scaled coins and coins with Binance before a first own day inside the range, alphabetical",
+      "scaled": [
+        "SOL"
+      ],
+      "binanceBefore": {
+        "BTC": 300,
+        "ETH": 100
+      },
+      "fromDay": 200,
+      "coins": [
+        "sol",
+        "BTC",
+        "ETH",
+        "ADA"
+      ],
+      "expected": [
+        "BTC",
+        "SOL"
+      ]
+    },
+    {
+      "name": "only held coins",
+      "scaled": [
+        "SOL"
+      ],
+      "binanceBefore": {},
+      "fromDay": 0,
+      "coins": [
+        "BTC"
+      ],
+      "expected": []
+    }
+  ],
+  "exchangeByLedger": [
+    {
+      "name": "same exchange on all trades",
+      "entries": [
+        {
+          "coin": "BTC",
+          "exchange": "Kraken",
+          "type": "BUY",
+          "transferTo": null,
+          "time": 1,
+          "id": 1
+        },
+        {
+          "coin": "btc",
+          "exchange": "kraken",
+          "type": "BUY",
+          "transferTo": null,
+          "time": 2,
+          "id": 2
+        },
+        {
+          "coin": "BTC",
+          "exchange": null,
+          "type": "BUY",
+          "transferTo": null,
+          "time": 3,
+          "id": 3
+        }
+      ],
+      "single": {
+        "BTC": "Kraken"
+      },
+      "mixed": []
+    },
+    {
+      "name": "two exchanges are mixed",
+      "entries": [
+        {
+          "coin": "ETH",
+          "exchange": "Kraken",
+          "type": "BUY",
+          "transferTo": null,
+          "time": 1,
+          "id": 1
+        },
+        {
+          "coin": "ETH",
+          "exchange": "Bitstamp",
+          "type": "BUY",
+          "transferTo": null,
+          "time": 2,
+          "id": 2
+        }
+      ],
+      "single": {},
+      "mixed": [
+        "ETH"
+      ]
+    },
+    {
+      "name": "latest transfer moves the holdings to its destination",
+      "entries": [
+        {
+          "coin": "BTC",
+          "exchange": "Binance",
+          "type": "BUY",
+          "transferTo": null,
+          "time": 1,
+          "id": 1
+        },
+        {
+          "coin": "BTC",
+          "exchange": "Bitstamp",
+          "type": "BUY",
+          "transferTo": null,
+          "time": 2,
+          "id": 2
+        },
+        {
+          "coin": "BTC",
+          "exchange": null,
+          "type": "TRANSFER",
+          "transferTo": "Kraken",
+          "time": 3,
+          "id": 3
+        }
+      ],
+      "single": {
+        "BTC": "Kraken"
+      },
+      "mixed": []
+    },
+    {
+      "name": "trades after the transfer must match its destination",
+      "entries": [
+        {
+          "coin": "BTC",
+          "exchange": "Binance",
+          "type": "BUY",
+          "transferTo": null,
+          "time": 1,
+          "id": 1
+        },
+        {
+          "coin": "BTC",
+          "exchange": null,
+          "type": "TRANSFER",
+          "transferTo": "Kraken",
+          "time": 2,
+          "id": 2
+        },
+        {
+          "coin": "BTC",
+          "exchange": "Kraken",
+          "type": "BUY",
+          "transferTo": null,
+          "time": 3,
+          "id": 3
+        },
+        {
+          "coin": "SOL",
+          "exchange": null,
+          "type": "TRANSFER",
+          "transferTo": "Kraken",
+          "time": 1,
+          "id": 4
+        },
+        {
+          "coin": "SOL",
+          "exchange": "Coinbase",
+          "type": "BUY",
+          "transferTo": null,
+          "time": 5,
+          "id": 5
+        }
+      ],
+      "single": {
+        "BTC": "Kraken"
+      },
+      "mixed": [
+        "SOL"
+      ]
+    },
+    {
+      "name": "only the latest transfer counts; same time sorts by id",
+      "entries": [
+        {
+          "coin": "ADA",
+          "exchange": null,
+          "type": "TRANSFER",
+          "transferTo": "Kraken",
+          "time": 5,
+          "id": 7
+        },
+        {
+          "coin": "ADA",
+          "exchange": null,
+          "type": "TRANSFER",
+          "transferTo": "Ledger",
+          "time": 5,
+          "id": 8
+        },
+        {
+          "coin": "ADA",
+          "exchange": "Kraken",
+          "type": "BUY",
+          "transferTo": null,
+          "time": 1,
+          "id": 1
+        }
+      ],
+      "single": {
+        "ADA": "Ledger"
+      },
+      "mixed": []
+    },
+    {
+      "name": "transfer without destination is ignored",
+      "entries": [
+        {
+          "coin": "XRP",
+          "exchange": "Bitstamp",
+          "type": "BUY",
+          "transferTo": null,
+          "time": 1,
+          "id": 1
+        },
+        {
+          "coin": "XRP",
+          "exchange": null,
+          "type": "TRANSFER",
+          "transferTo": null,
+          "time": 2,
+          "id": 2
+        }
+      ],
+      "single": {
+        "XRP": "Bitstamp"
+      },
+      "mixed": []
+    }
+  ],
+  "ledgerFlows": [
+    {
+      "name": "swap with known value (fees) and swap without value (market price per coin)",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1700010000000,
+          "price": "20000"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "SWAP",
+          "amount": "0.5",
+          "time": 1700096400000,
+          "toCoin": "ETH",
+          "toAmount": "10",
+          "swapValue": "15000",
+          "fee": "0.001",
+          "feeUnit": "COIN"
+        },
+        {
+          "id": 3,
+          "coin": "ETH",
+          "type": "SWAP",
+          "amount": "2",
+          "time": 1700182800000,
+          "toCoin": "SOL",
+          "toAmount": "100",
+          "fee": "5",
+          "feeUnit": "QUOTE"
+        }
+      ],
+      "market": {
+        "3": {
+          "ETH": 1600,
+          "SOL": 30
+        }
+      },
+      "coins": [
+        "BTC",
+        "ETH",
+        "SOL"
+      ],
+      "expected": {
+        "BTC": [
+          {
+            "txId": 1,
+            "holdings": "1",
+            "flow": 20000
+          },
+          {
+            "txId": 2,
+            "holdings": "0.499",
+            "flow": -15000
+          }
+        ],
+        "ETH": [
+          {
+            "txId": 2,
+            "swapIn": true,
+            "holdings": "10",
+            "flow": 15000
+          },
+          {
+            "txId": 3,
+            "needsMarket": true,
+            "holdings": "8",
+            "flow": -3195
+          }
+        ],
+        "SOL": [
+          {
+            "txId": 3,
+            "swapIn": true,
+            "needsMarket": true,
+            "holdings": "100",
+            "flow": 3000
+          }
+        ]
+      }
+    },
+    {
+      "name": "B46/R9 fee row (sell at price 0 = marker): disposal at the daily close — outflow at market value (0.2 × 150) like a sale whose proceeds leave the portfolio; the curve does not jump on the fee day and over the whole life curve gain = unrealized + realized (market value − cost)",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "100",
+          "time": 86400000
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "0.2",
+          "price": "0",
+          "importKey": "csv:fee:6671",
+          "time": 172800000
+        }
+      ],
+      "market": {
+        "2": {
+          "BTC": 150
+        }
+      },
+      "coins": [
+        "BTC"
+      ],
+      "expected": {
+        "BTC": [
+          {
+            "txId": 1,
+            "holdings": "1",
+            "flow": 100
+          },
+          {
+            "txId": 2,
+            "holdings": "0.8",
+            "flow": -30,
+            "needsMarket": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "R9 withdrawal above holdings: value and fee only for the covered share (0.5 of 1 BTC): −(1 × 100 − 10) × 0.5",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "0.5",
+          "price": "100",
+          "time": 1700010000000
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "WITHDRAWAL",
+          "amount": "1",
+          "time": 1700096400000,
+          "fee": "10",
+          "feeUnit": "QUOTE"
+        }
+      ],
+      "market": {
+        "2": {
+          "BTC": 100
+        }
+      },
+      "coins": [
+        "BTC"
+      ],
+      "expected": {
+        "BTC": [
+          {
+            "txId": 1,
+            "holdings": "0.5",
+            "flow": 50
+          },
+          {
+            "txId": 2,
+            "needsMarket": true,
+            "holdings": "0",
+            "flow": -45
+          }
+        ]
+      }
+    }
+  ],
+  "importBatch": {
+    "newId": [
+      {
+        "format": "RELAI",
+        "time": 1760000000000,
+        "keys": [
+          "relai:a1",
+          "relai:a2"
+        ],
+        "expected": "RELAI:1760000000000:580ee1fa"
+      },
+      {
+        "format": " generic ",
+        "time": 5,
+        "keys": [],
+        "expected": "GENERIC:5:811c9dc5"
+      },
+      {
+        "format": "ä-?",
+        "time": 7,
+        "keys": [
+          "Zürich"
+        ],
+        "expected": "CSV:7:d7007f20"
+      }
+    ],
+    "summarize": {
+      "input": [
+        "RELAI:200:0000abcd",
+        null,
+        "GENERIC:300:1111aaaa",
+        "RELAI:200:0000abcd",
+        " ",
+        "odd"
+      ],
+      "expected": [
+        {
+          "id": "GENERIC:300:1111aaaa",
+          "format": "GENERIC",
+          "time": 300,
+          "count": 1
+        },
+        {
+          "id": "RELAI:200:0000abcd",
+          "format": "RELAI",
+          "time": 200,
+          "count": 2
+        },
+        {
+          "id": "odd",
+          "format": null,
+          "time": null,
+          "count": 1
+        }
+      ]
+    }
+  },
+  "dayBoundary": [
+    {
+      "name": "buy at 00:30 Zurich summer time (22:30 UTC) belongs to the UTC base day: start holdings in 7 T AND in the first history point",
+      "zone": "Europe/Zurich",
+      "today": 20000,
+      "baseDay": 19993,
+      "current": {
+        "BTC": 110
+      },
+      "closes": {
+        "BTC": {
+          "19960": 60,
+          "19961": 61,
+          "19962": 62,
+          "19963": 63,
+          "19964": 64,
+          "19965": 65,
+          "19966": 66,
+          "19967": 67,
+          "19968": 68,
+          "19969": 69,
+          "19970": 70,
+          "19971": 71,
+          "19972": 72,
+          "19973": 73,
+          "19974": 74,
+          "19975": 75,
+          "19976": 76,
+          "19977": 77,
+          "19978": 78,
+          "19979": 79,
+          "19980": 80,
+          "19981": 81,
+          "19982": 82,
+          "19983": 83,
+          "19984": 84,
+          "19985": 85,
+          "19986": 86,
+          "19987": 87,
+          "19988": 88,
+          "19989": 89,
+          "19990": 90,
+          "19991": 91,
+          "19992": 92,
+          "19993": 93,
+          "19994": 94,
+          "19995": 95,
+          "19996": 96,
+          "19997": 97,
+          "19998": 98,
+          "19999": 99,
+          "20000": 100
+        }
+      },
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "90",
+          "time": 1726315200000
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "95",
+          "time": 1727476200000
+        }
+      ],
+      "expected": {
+        "gain": 34,
+        "percent": 18.27956989247312,
+        "firstPoint": 186,
+        "historyPnl": 34
+      }
+    },
+    {
+      "name": "buy at 01:30 Zurich winter time (00:30 UTC) is inside the window: a flow in 7 T and in the history",
+      "zone": "Europe/Zurich",
+      "today": 20100,
+      "baseDay": 20093,
+      "current": {
+        "BTC": 110
+      },
+      "closes": {
+        "BTC": {
+          "20060": 60,
+          "20061": 61,
+          "20062": 62,
+          "20063": 63,
+          "20064": 64,
+          "20065": 65,
+          "20066": 66,
+          "20067": 67,
+          "20068": 68,
+          "20069": 69,
+          "20070": 70,
+          "20071": 71,
+          "20072": 72,
+          "20073": 73,
+          "20074": 74,
+          "20075": 75,
+          "20076": 76,
+          "20077": 77,
+          "20078": 78,
+          "20079": 79,
+          "20080": 80,
+          "20081": 81,
+          "20082": 82,
+          "20083": 83,
+          "20084": 84,
+          "20085": 85,
+          "20086": 86,
+          "20087": 87,
+          "20088": 88,
+          "20089": 89,
+          "20090": 90,
+          "20091": 91,
+          "20092": 92,
+          "20093": 93,
+          "20094": 94,
+          "20095": 95,
+          "20096": 96,
+          "20097": 97,
+          "20098": 98,
+          "20099": 99,
+          "20100": 100
+        }
+      },
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "90",
+          "time": 1734955200000
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "95",
+          "time": 1736123400000
+        }
+      ],
+      "expected": {
+        "gain": 32,
+        "percent": 17.02127659574468,
+        "firstPoint": 93,
+        "historyPnl": 32
+      }
+    }
+  ]
+}

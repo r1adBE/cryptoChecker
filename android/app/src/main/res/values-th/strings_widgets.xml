@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
+    <string name="widget_background">พื้นหลัง</string>
+    <string name="widget_configure_hint">เลือกพื้นหลังและความทึบ สีตามแอป วิดเจ็ตแสดงทั้งรายการ แตะแถวเพื่อเปิดแอป</string>
+    <string name="widget_configure_title">ตั้งค่าวิดเจ็ต</string>
+    <string name="widget_description">แสดงราคาของคู่จากรายการติดตามของคุณ</string>
+    <string name="widget_empty">ยังไม่มีคู่ในรายการติดตาม</string>
+    <string name="widget_group_hint">แสดงเฉพาะคู่ในกลุ่มนี้</string>
+    <string name="widget_kind_single">เหรียญเดียว</string>
+    <string name="widget_opacity">ความทึบพื้นหลัง: %1$d%%</string>
+    <string name="widget_pulse_description">สิ่งที่โดดเด่นในตลาดตอนนี้: พาดหัว สรุปสั้น รวมถึง Bitcoin, Ethereum และ Solana</string>
+
+    <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->
+    <!-- Allein, wenn für «outdated · 06:42» der Platz fehlt (Kopfzeile Listen-Widget) -->
+    <string name="widget_outdated">ข้อมูลเก่า</string>
+    <!-- Statt der Uhrzeit: «outdated · 06:42» (heute) bzw. «outdated · 5 Oct, 06:42» -->
+    <string name="widget_outdated_time">ข้อมูลเก่า · %1$s</string>
+
+    <!-- Widgets: Chart und Zeitraum -->
+    <string name="widget_chart_candles">แท่งเทียน</string>
+    <string name="widget_chart_line">เส้น</string>
+    <string name="widget_chart_range">ช่วงกราฟ</string>
+    <string name="widget_chart_type">ประเภทกราฟ</string>
+    <!-- «1 Jahr» im Chart des Aktionsblatts (365 Tageskerzen; Chip neben 24h · 7T · 30T) -->
+    <string name="widget_range_1y">1 ปี</string>
+    <string name="widget_range_24h">24 ชม.</string>
+    <string name="widget_range_30d">30 วัน</string>
+    <string name="widget_range_7d">7 วัน</string>
+    <string name="widget_range_short_1y">1ปี</string>
+    <string name="widget_range_short_24h">24h</string>
+    <string name="widget_range_short_30d">30ว</string>
+    <string name="widget_range_short_7d">7ว</string>
+
+    <!-- Portfolio-Widget -->
+    <!-- Fusszeile, %1$s Uhrzeit ohne Sekunden («Stand 15:19») -->
+    <string name="widget_portfolio_as_of">ณ %1$s</string>
+    <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
+    <string name="widget_portfolio_chart_pending">ประวัติจะแสดงเร็ว ๆ นี้</string>
+    <string name="widget_portfolio_description">มูลค่ารวมของพอร์ตโฟลิโอและการเปลี่ยนแปลงวันนี้</string>
+    <string name="widget_portfolio_display">การแสดง</string>
+    <string name="widget_portfolio_display_conversion">เฉพาะการแปลง</string>
+    <string name="widget_portfolio_display_conversion_usdt">การแปลง + USDT</string>
+    <string name="widget_portfolio_display_hint">บรรทัด USDT จะถูกซ่อนเมื่อสกุลเงินที่แปลงเป็น USD</string>
+    <string name="widget_portfolio_display_usdt">เฉพาะ USDT</string>
+    <string name="widget_portfolio_empty">เพิ่มรายการซื้อในแท็บพอร์ตโฟลิโอ</string>
+    <string name="widget_portfolio_list_hint">เปิดแอปเพื่อแสดงสินทรัพย์ของคุณที่นี่</string>
+    <string name="widget_portfolio_locked_hint">ล็อกอยู่ – ปลดล็อกในแอป</string>
+    <!-- Offene Coins ohne Kurs zählen im Gesamtwert als 0 -->
+    <plurals name="widget_portfolio_missing_coins">
+        <item quantity="other">ไม่รวม %1$d เหรียญ</item>
+    </plurals>
+    <plurals name="widget_portfolio_more">
+        <item quantity="other">+ อีก %1$d รายการ</item>
+    </plurals>
+    <string name="widget_portfolio_name">พอร์ตโฟลิโอ</string>
+    <string name="widget_portfolio_off_hint">เปิดได้ที่ %1$s</string>
+    <string name="widget_portfolio_off_short">พอร์ตปิด</string>
+    <string name="widget_portfolio_off_title">พอร์ตปิดอยู่</string>
+    <string name="widget_portfolio_partly_stale">ราคาเก่าบางส่วน</string>
+    <string name="widget_portfolio_period">ช่วงเวลา</string>
+    <string name="widget_portfolio_period_without">%1$s ไม่รวม %2$s</string>
+    <string name="widget_portfolio_range_48h">48 ชม.</string>
+    <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
+    <string name="widget_portfolio_range_fallback">%1$s: เปิดพอร์ตโฟลิโอ</string>
+    <string name="widget_portfolio_range_short_48h">48h</string>
+    <string name="widget_portfolio_today_without">วันนี้ไม่รวม %1$s</string>
+    <string name="widget_portfolio_view">มุมมอง</string>
+    <string name="widget_portfolio_view_chart">กราฟ</string>
+    <string name="widget_portfolio_view_list">รายการ</string>
+    <string name="widget_portfolio_view_overview">ภาพรวม</string>
+
+    <!-- Einzel-Widget -->
+    <string name="single_widget_choose">เลือกคู่เทรด</string>
+    <string name="single_widget_description">แสดงเหรียญเดียวขนาดใหญ่ พร้อมราคา การเปลี่ยนแปลง และกราฟ 24 ชั่วโมง</string>
+    <string name="single_widget_label">Crypto Checker – เหรียญเดียว</string>
+    <string name="single_widget_title">ตั้งค่าวิดเจ็ตเหรียญเดียว</string>
+
+    <!-- Widgets aus der App hinzufügen -->
+    <string name="widgets_add">เพิ่ม</string>
+    <!-- Screenreader: Knopf «Add» mit dem Namen des Widgets -->
+    <string name="widgets_add_named">เพิ่มวิดเจ็ต %1$s</string>
+    <string name="widgets_manual_text">หน้าจอหลักของคุณเพิ่มวิดเจ็ตจากแอปไม่ได้ ให้แตะค้างที่พื้นที่ว่างบนหน้าจอหลัก เลือก “วิดเจ็ต” แล้วค้นหา “Crypto Checker”</string>
+    <!-- Startbildschirm (Launcher) kann keine Widgets aus der App annehmen -->
+    <string name="widgets_manual_title">เพิ่มวิดเจ็ตด้วยตัวเอง</string>
+    <string name="widgets_sheet_title">เพิ่มวิดเจ็ต</string>
+
+    <!-- Nur iOS: Widget selbst hinzufügen (drei Schritte) -->
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS ไม่อนุญาตให้แอปเพิ่มวิดเจ็ตเอง ใช้เวลาเพียงครู่เดียว:</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">วิดเจ็ตที่มีให้ใช้</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">แตะค้างที่พื้นที่ว่างบนหน้าจอโฮมจนกว่าแอปจะเริ่มสั่น</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">แตะ “แก้ไข” › “เพิ่มวิดเจ็ต” ที่ด้านบน (หรือ “+” ใน iOS รุ่นเก่า)</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">ค้นหา “Crypto Checker” เลือกวิดเจ็ต แล้วแตะ “เพิ่มวิดเจ็ต”</string>
+</resources>

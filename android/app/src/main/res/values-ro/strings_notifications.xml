@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Texte der Mitteilungen -->
+    <string name="notification_activity_title">%1$s · %2$s</string>
+    <string name="notification_alarm_text">%1$s — acum %2$s</string>
+    <string name="notification_alarm_title">Alarmă: %1$s · %2$s</string>
+    <string name="notification_depeg_action_exchange">Deschide bursa</string>
+    <string name="notification_depeg_text">Valorile din aplicație folosesc în continuare USDT = 1.</string>
+    <string name="notification_depeg_title">USDT la %1$s USD (%2$s)</string>
+    <string name="notification_fng_above">Indicele a urcat peste %1$d – după acest indice, pe piață domină lăcomia.</string>
+    <string name="notification_fng_below">Indicele a scăzut sub %1$d – după acest indice, pe piață domină frica.</string>
+    <string name="notification_fng_title">Fear &amp; Greed: %1$d</string>
+    <string name="notification_gas_btc_text">Sub limita ta de %1$s sat/vB · Transfer ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Comision Bitcoin: %1$s sat/vB</string>
+    <string name="notification_gas_eth_text">Sub limita ta de %1$s gwei · Transfer ≈ %2$s</string>
+    <string name="notification_gas_eth_title">Gas Ethereum: %1$s gwei</string>
+    <string name="notification_indicator_above">Peste limita ta %1$s – valoare măsurată, nu o recomandare.</string>
+    <string name="notification_indicator_below">Sub limita ta %1$s – valoare măsurată, nu o recomandare.</string>
+    <string name="notification_indicator_title">%1$s: %2$s</string>
+    <string name="notification_macro_title">Date economice azi</string>
+    <string name="notification_portfolio_alarm_locked">Alarma ta s-a declanșat – deschide aplicația pentru detalii.</string>
+    <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
+    <string name="notification_portfolio_alarm_text">%1$s – acum %2$s</string>
+    <string name="notification_portfolio_alarm_title">Valoarea portofoliului</string>
+    <string name="notification_price_change">%1$s, de la %2$s (acum %3$s)</string>
+    <string name="notification_price_change_no_age">%1$s, de la %2$s</string>
+    <string name="notification_price_first">Prima notificare pentru această pereche</string>
+    <plurals name="notification_price_overflow_title">
+        <item quantity="one">+%1$d alt preț</item>
+        <item quantity="few">+%1$d alte prețuri</item>
+        <item quantity="other">+%1$d alte prețuri</item>
+    </plurals>
+    <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
+    <string name="notification_refreshing">Se actualizează prețurile…</string>
+    <string name="notification_volume_spike_text">Volum de %1$s× normalul în ultima oră</string>
+
+    <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
+    <string name="channel_alarms">Alarme</string>
+    <string name="channel_alarms_description">Notificare la declanșarea unei alarme de preț.</string>
+    <string name="channel_alarms_quiet">Alarme (ore de liniște)</string>
+    <string name="channel_alarms_quiet_description">Alarme silențioase în orele de liniște.</string>
+    <string name="channel_alarms_silent">Alarme (silențios)</string>
+    <string name="channel_alarms_sound">Alarme (doar sunet)</string>
+    <string name="channel_alarms_sound_vibrate">Alarme (sunet și vibrație)</string>
+    <string name="channel_alarms_vibrate">Alarme (doar vibrație)</string>
+    <string name="channel_prices">Notificări de preț</string>
+    <string name="channel_prices_description">Notificare silențioasă cu prețul curent al unei perechi.</string>
+    <string name="channel_service">Actualizarea prețurilor</string>
+    <string name="channel_service_description">Notificare cât timp prețurile se actualizează.</string>
+    <string name="neutral_channel_market">Alerte de piață</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed, taxe gas, activitate neobișnuită și date economice</string>
+
+    <!-- Sprachausgabe -->
+    <string name="tts_alarm">Alarmă. %1$s, %2$s %3$s %4$s, acum %5$s</string>
+    <string name="tts_direction_down">a scăzut</string>
+    <string name="tts_direction_funding_above">cu funding ridicat</string>
+    <string name="tts_direction_funding_below">cu funding scăzut</string>
+    <string name="tts_direction_move">se mișcă puternic</string>
+    <string name="tts_direction_near_high">e aproape de maxim</string>
+    <string name="tts_direction_near_low">e aproape de minim</string>
+    <string name="tts_direction_oi_down">cu interes deschis în scădere</string>
+    <string name="tts_direction_oi_up">cu interes deschis în creștere</string>
+    <string name="tts_direction_up">a crescut</string>
+    <string name="tts_direction_volume_spike">cu un salt de volum</string>
+    <string name="tts_price">%1$s, %2$s %3$s, %4$s</string>
+</resources>

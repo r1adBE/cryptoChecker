@@ -1,0 +1,127 @@
+package com.cryptochecker.app.work
+
+import androidx.core.content.edit
+import android.content.Context
+import androidx.hilt.work.HiltWorker
+import androidx.work.CoroutineWorker
+import androidx.work.WorkerParameters
+import com.cryptochecker.app.data.remote.InsightsDataSource
+import com.cryptochecker.app.domain.market.BitcoinIndicatorModel
+import com.cryptochecker.app.domain.market.IndicatorAlertKind
+import com.cryptochecker.app.domain.market.IndicatorAlertRules
+import com.cryptochecker.app.domain.market.MarketNoticeGate
+import com.cryptochecker.app.notification.IndicatorTexts
+import com.cryptochecker.app.notification.AppNotifier
+import com.cryptochecker.app.settings.SettingsRepository
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
+import timber.log.Timber
+
+/**
+ * Prüft zweimal täglich den Fear & Greed Index und die eigenen Grenzen der Bitcoin-Kennzahlen und meldet,
+ * wenn ein Wert die eingestellte Grenze unter- bzw. überschreitet (reine Zahl, keine Deutung). Der zuletzt gesehene Wert liegt in
+ * den Prefs. Die frühere Meldung «Marktphase gewechselt» gibt es nicht mehr; Name und
+ * Arbeits-Kennung bleiben, damit eingeplante Läufe weiterlaufen bzw. ersetzt werden.
+ */
+@HiltWorker
+class ZoneCheckWorker @AssistedInject constructor(
+    @Assisted appContext: Context,
+    @Assisted params: WorkerParameters,
+    private val insightsDataSource: InsightsDataSource,
+    private val cycleDataSource: com.cryptochecker.app.data.remote.CycleDataSource,
+    private val settingsRepository: SettingsRepository,
+    private val notifier: AppNotifier,
+) : CoroutineWorker(appContext, params) {
+
+    override suspend fun doWork(): Result {
+        val prefs = applicationContext.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+        val settings = settingsRepository.current()
+        // Aufräumen: zuletzt gemerkte Marktzone früherer Versionen
+        if (prefs.contains(LEGACY_KEY_ZONE)) prefs.edit { remove(LEGACY_KEY_ZONE) }
+        val fearGreedFailed = !checkFearGreed(settings.fearGreedBelow, settings.fearGreedAbove, prefs)
+        val indicatorsFailed = !checkIndicators(settings.indicatorAlerts, prefs)
+        // Abruf gescheitert: mit dem Backoff von WorkManager (exponentiell ab 30 s) erneut statt
+        // erst in 12 h. Keine Doppelmeldung: Gemeldetes ist in den Prefs vermerkt (KEY_FNG bzw.
+        // «crossed»), der nächste Versuch meldet es nicht noch einmal.
+        if ((fearGreedFailed || indicatorsFailed) && runAttemptCount < MAX_RETRIES) {
+            Timber.i("Marktmeldungen: Abruf gescheitert, Versuch %d — erneut mit Backoff", runAttemptCount + 1)
+            return Result.retry()
+        }
+        return Result.success()
+    }
+
+    /**
+     * Eigene Grenzen der Bitcoin-Kennzahlen ([IndicatorAlertRules]): einmal melden, wenn ein Wert die Grenze
+     * erreicht; wieder scharf, sobald er zurück ist. Kam die Meldung nicht an, bleibt sie offen.
+     * @return false, wenn die Kennzahlen nicht abrufbar waren (dann erneuter Versuch)
+     */
+    private suspend fun checkIndicators(stored: Map<IndicatorAlertKind, Int>, prefs: android.content.SharedPreferences): Boolean {
+        val active = IndicatorAlertRules.active(stored)
+        // Ausgeschaltete Grenzen vergessen (beim Wiedereinschalten neu bewerten)
+        IndicatorAlertKind.entries.filter { it !in active }.forEach { kind -> prefs.edit { remove(crossedKey(kind)) } }
+        if (active.isEmpty()) return true
+        val report = runCatching { BitcoinIndicatorModel.evaluate(cycleDataSource.fetch()) }
+            .onFailure { if (it is kotlinx.coroutines.CancellationException) throw it }
+            .onFailure { Timber.w(it, "Bitcoin-Kennzahlen nicht verfügbar") }
+            .getOrNull() ?: return false
+        for ((kind, threshold) in active) {
+            val value = report.indicators.firstOrNull { it.id == kind.indicator }?.value
+            val decision = IndicatorAlertRules.decide(kind, value, threshold, prefs.getBoolean(crossedKey(kind), false))
+            var crossed = decision.crossed
+            if (decision.notify) {
+                val posted = notifier.canShowMarketNotice() && value != null && notifier.showIndicatorAlert(
+                    kind,
+                    name = IndicatorTexts.name(applicationContext, kind.indicator),
+                    value = IndicatorTexts.value(kind.indicator, value),
+                    threshold = IndicatorTexts.value(kind.indicator, threshold),
+                )
+                // Nicht angekommen: später erneut versuchen
+                if (!posted) crossed = null
+            }
+            crossed?.let { c -> prefs.edit { putBoolean(crossedKey(kind), c) } }
+        }
+        return true
+    }
+
+    private fun crossedKey(kind: IndicatorAlertKind) = "indicator_crossed_" + kind.key.lowercase()
+
+    /**
+     * Fear & Greed: einmal melden, wenn der Index die eingestellte Grenze
+     * unter- bzw. überschreitet — nicht bei jedem Lauf erneut.
+     * @return false, wenn der Index nicht abrufbar war (dann erneuter Versuch)
+     */
+    private suspend fun checkFearGreed(below: Int, above: Int, prefs: android.content.SharedPreferences): Boolean {
+        if (below <= 0 && above <= 0) {
+            prefs.edit { remove(KEY_FNG) }
+            return true
+        }
+        val value = runCatching { insightsDataSource.fearGreed().value }
+            .onFailure { if (it is kotlinx.coroutines.CancellationException) throw it }
+            .onFailure { Timber.w(it, "Fear & Greed nicht verfügbar") }
+            .getOrNull() ?: return false
+        val last = if (prefs.contains(KEY_FNG)) prefs.getInt(KEY_FNG, 50) else null
+        // Erlaubnis/Kanal nur prüfen, wenn es etwas zu melden gibt
+        val pending = MarketNoticeGate.fearGreed(value, last, below, above, canNotify = true)
+        val decision = if (pending.step == MarketNoticeGate.Step.NOTIFY) {
+            MarketNoticeGate.fearGreed(value, last, below, above, canNotify = notifier.canShowMarketNotice())
+        } else pending
+        val posted = when (decision.kind.takeIf { decision.step == MarketNoticeGate.Step.NOTIFY }) {
+            MarketNoticeGate.FearGreedKind.BELOW -> notifier.showFearGreed(value, below = below)
+            MarketNoticeGate.FearGreedKind.ABOVE -> notifier.showFearGreed(value, above = above)
+            null -> false
+        }
+        // Nicht angekommen: alten Wert behalten, damit die Grenze später noch gemeldet wird
+        if (MarketNoticeGate.storeAfterNotify(decision.step, posted)) prefs.edit { putInt(KEY_FNG, value) }
+        return true
+    }
+
+    companion object {
+        const val WORK_NAME = "zone-check"
+        private const val PREFS = "market_zone"
+        private const val LEGACY_KEY_ZONE = "last_zone"
+        private const val KEY_FNG = "last_fear_greed"
+
+        /** Höchstens so viele erneute Versuche je 12-h-Lauf (30 s, 1 Min., 2 Min. …). */
+        private const val MAX_RETRIES = 3
+    }
+}

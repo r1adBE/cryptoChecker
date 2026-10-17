@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Alarmliste und Übersicht aller Alarme -->
+    <string name="add_alarm_action">Sett alarm</string>
+    <string name="alarms_add">Ny alarm</string>
+    <string name="alarms_edit">Rediger alarm</string>
+    <string name="alarms_empty">Ingen alarmer for dette paret ennå.</string>
+    <string name="alarms_empty_example">For eksempel: Si fra når BTC stiger over %1$s.</string>
+    <!-- Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
+    <string name="alarms_notifications_off">Varsler er slått av – alarmer når ikke frem til deg.</string>
+    <string name="alarms_notifications_turn_on">Slå på</string>
+    <plurals name="alarms_overview_active">
+        <item quantity="one">%1$d aktiv</item>
+        <item quantity="other">%1$d aktive</item>
+    </plurals>
+    <string name="alarms_overview_empty">Ingen alarmer ennå. Åpne et par og legg til en under Alarmer.</string>
+    <string name="alarms_overview_title">Alle alarmer</string>
+    <string name="alarms_title">Alarmer</string>
+
+    <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
+    <string name="alarm_advanced">Avansert</string>
+    <string name="alarm_change_updates">Endre kursoppdatering</string>
+    <string name="alarm_create">Opprett alarm</string>
+    <string name="alarm_currency_label">Valuta</string>
+    <string name="alarm_delete_confirm">Denne alarmen fjernes.</string>
+    <string name="alarm_delete_title">Slette alarm?</string>
+    <string name="alarm_field_percent">Prosent</string>
+    <string name="alarm_field_price">Kurs</string>
+    <string name="alarm_fires_now_above">Kursen er allerede over %1$s. Lagre likevel?</string>
+    <string name="alarm_fires_now_below">Kursen er allerede under %1$s. Lagre likevel?</string>
+    <string name="alarm_fires_now_change">Endre</string>
+    <string name="alarm_fires_now_save">Lagre likevel</string>
+    <string name="alarm_fires_now_title">Alarmen utløses med en gang</string>
+    <string name="alarm_first_battery_hint">Batterioptimalisering begrenser appen – alarmer kan komme sent.</string>
+    <string name="alarm_first_title">Alt er klart</string>
+    <string name="alarm_last_triggered">sist %1$s</string>
+    <string name="alarm_new_extreme">Ny %1$s</string>
+    <string name="alarm_once">Én gang</string>
+    <string name="alarm_option_repeating">Behold alarmen etter at den er utløst</string>
+    <string name="alarm_option_sound">Lyd</string>
+    <string name="alarm_option_speak">Les opp alarm</string>
+    <string name="alarm_option_vibrate">Vibrering</string>
+    <string name="alarm_repeat_each">Hver gang</string>
+    <string name="alarm_repeat_once">Én gang</string>
+    <string name="alarm_repeating">Hver gang</string>
+    <string name="alarm_threshold_error_empty">Angi en verdi for å lagre alarmen.</string>
+    <string name="alarm_threshold_error_funding">Funding rate må være et tall mellom −10 og +10 prosent.</string>
+    <string name="alarm_threshold_error_invalid">Angi et gyldig tall større enn 0.</string>
+    <string name="alarm_threshold_error_oi">Endring i open interest: høyst 1000 prosent.</string>
+    <plurals name="alarm_window_hours">
+        <item quantity="one">innen %1$d t</item>
+        <item quantity="other">innen %1$d t</item>
+    </plurals>
+    <string name="alarm_window_label">Tidsvindu</string>
+
+    <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
+    <string name="alarm_simple_above">går over</string>
+    <string name="alarm_simple_below">går under</string>
+    <string name="alarm_simple_direction_a11y">Retning: %1$s</string>
+    <string name="alarm_simple_end"></string>
+    <string name="alarm_simple_when">Når %1$s</string>
+    <string name="alarm_template_a11y">Opprett alarm: %1$s</string>
+    <string name="alarm_template_a11y_down">Opprett alarm ved minus %1$s prosent</string>
+    <string name="alarm_template_a11y_up">Opprett alarm ved pluss %1$s prosent</string>
+    <string name="alarm_template_created">Alarm opprettet</string>
+    <string name="alarm_template_volume">Volum ×%1$s</string>
+    <string name="alarm_templates_title">Hurtigalarmer</string>
+
+    <!-- Alarm-Bedingungen -->
+    <string name="alarm_condition_above">Kurs over</string>
+    <string name="alarm_condition_below">Kurs under</string>
+    <string name="alarm_condition_down_percent">Faller med</string>
+    <string name="alarm_condition_funding_above">Funding over</string>
+    <string name="alarm_condition_funding_below">Funding under</string>
+    <string name="alarm_condition_move_percent">Beveger seg</string>
+    <string name="alarm_condition_near_high">Nær toppen</string>
+    <string name="alarm_condition_near_low">Nær bunnen</string>
+    <string name="alarm_condition_oi_down">Open interest faller</string>
+    <string name="alarm_condition_oi_up">Open interest stiger</string>
+    <string name="alarm_condition_up_percent">Stiger med</string>
+    <string name="alarm_condition_volume_spike">Volum-spike</string>
+
+    <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
+    <string name="alarm_sentence_above">Gi meg beskjed når %1$s stiger over %2$s.</string>
+    <string name="alarm_sentence_below">Gi meg beskjed når %1$s faller under %2$s.</string>
+    <string name="alarm_sentence_down_percent">Gi meg beskjed når %1$s faller med %2$s.</string>
+    <string name="alarm_sentence_funding_above">Gi meg beskjed når funding for %1$s stiger over %2$s.</string>
+    <string name="alarm_sentence_funding_below">Gi meg beskjed når funding for %1$s faller under %2$s.</string>
+    <string name="alarm_sentence_incomplete">Skriv inn en verdi for å se alarmen som en setning.</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="one">Gi meg beskjed når %1$s beveger seg %2$s innen %3$d time.</item>
+        <item quantity="other">Gi meg beskjed når %1$s beveger seg %2$s innen %3$d timer.</item>
+    </plurals>
+    <string name="alarm_sentence_near_high">Gi meg beskjed når %1$s er høyst %2$s under sin %3$s.</string>
+    <string name="alarm_sentence_near_low">Gi meg beskjed når %1$s er høyst %2$s over sin %3$s.</string>
+    <string name="alarm_sentence_new_extreme">Gi meg beskjed når %1$s når en ny %2$s.</string>
+    <plurals name="alarm_sentence_oi_down">
+        <item quantity="one">Gi meg beskjed når open interest for %1$s faller med %2$s innen %3$d time.</item>
+        <item quantity="other">Gi meg beskjed når open interest for %1$s faller med %2$s innen %3$d timer.</item>
+    </plurals>
+    <plurals name="alarm_sentence_oi_up">
+        <item quantity="one">Gi meg beskjed når open interest for %1$s stiger med %2$s innen %3$d time.</item>
+        <item quantity="other">Gi meg beskjed når open interest for %1$s stiger med %2$s innen %3$d timer.</item>
+    </plurals>
+    <string name="alarm_sentence_up_percent">Gi meg beskjed når %1$s stiger med %2$s.</string>
+    <string name="alarm_sentence_volume">Gi meg beskjed når %1$s handles med %2$s× det normale volumet.</string>
+
+    <!-- Alarm «Nahe am Hoch / Tief» -->
+    <string name="alarm_near_extreme_high_30">30-dagers topp</string>
+    <string name="alarm_near_extreme_high_365">årstopp</string>
+    <string name="alarm_near_extreme_high_90">90-dagers topp</string>
+    <string name="alarm_near_extreme_low_30">30-dagers bunn</string>
+    <string name="alarm_near_extreme_low_365">årsbunn</string>
+    <string name="alarm_near_extreme_low_90">90-dagers bunn</string>
+    <string name="alarm_near_field_distance">Avstand</string>
+    <string name="alarm_near_hint">Varsler også ved en ny topp eller bunn. Basert på daglige candlesticks, oppdatert hver 6. time.</string>
+    <string name="alarm_near_new_only">Bare ny topp eller bunn</string>
+    <string name="alarm_near_notification_high">%1$s er %2$s under sin %3$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_low">%1$s er %2$s over sin %3$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_new">Ny %1$s for %2$s: %3$s (tidligere %4$s)</string>
+    <plurals name="alarm_near_window_days">
+        <item quantity="one">%1$d dag</item>
+        <item quantity="other">%1$d dager</item>
+    </plurals>
+    <string name="alarm_near_window_label">Periode</string>
+    <string name="alarm_near_window_year">1 år</string>
+
+    <!-- Futures- und Volumen-Alarme (Funding pro 8 Stunden, Open Interest, Volumen-Spike) -->
+    <!-- Funding-Schwelle gilt pro 8 Stunden; stündliches Funding wird umgerechnet -->
+    <string name="alarm_funding_hint_8h">Funding per 8 timer. Kontrakter med et annet intervall regnes om (1 t × 8, 4 t × 2); futures-kortet viser den omregnede verdien. Er intervallet ukjent, sjekker ikke alarmen. Negativ betyr: shorts betaler longs. ± bytter fortegn.</string>
+    <string name="alarm_funding_sign_a11y">Bytt fortegn</string>
+    <string name="alarm_oi_hint">Sammenligner open interest med verdien fra så mange timer siden. En ny alarm varsler først når appen har samlet data så lenge; det sjekkes høyst hvert 5. minutt.</string>
+    <string name="alarm_volume_factor_label">Siste times volum mot normalt</string>
+    <string name="alarm_volume_hint">Volumdata kommer fra Binance – par som ikke er notert der, utløser aldri alarm.</string>
+
+    <!-- Bestätigung nach dem Speichern -->
+    <string name="alarm_saved_active">Alarm aktiv</string>
+    <!-- «Alarm gespeichert: BTC Kurs über 70’000 USDT · einmalig» -->
+    <string name="alarm_saved_banner">Alarm lagret: %1$s</string>
+    <!-- Zusatz in der Bestätigung, wenn Mitteilungen aus sind (dazu Aktion «Einstellungen») -->
+    <string name="alarm_saved_notifications_off">Varsler av</string>
+
+    <!-- Wann Alarme geprüft werden -->
+    <string name="alarm_timing_hint_android">Når appen er lukket, sjekker Android uregelmessig (med «%1$s» omtrent hvert 15. minutt), så korte topper kan bli oversett.</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">Når appen er lukket, bestemmer iOS når det sjekkes, så korte topper kan bli oversett; mens den er åpen, sjekkes det pålitelig.</string>
+    <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
+    <string name="alarm_timing_title">Når alarmer sjekkes</string>
+    <string name="alarm_timing_where">Velg hvor ofte kursene oppdateres under %1$s.</string>
+
+    <!-- Alarm-Signal und Test-Alarm -->
+    <string name="alarm_signal_silent">Lydløs (bare varsel)</string>
+    <string name="alarm_signal_sound">Bare lyd</string>
+    <string name="alarm_signal_sound_vibrate">Lyd og vibrering</string>
+    <string name="alarm_signal_system">System</string>
+    <string name="alarm_signal_vibrate">Bare vibrering</string>
+    <string name="alarm_test">Test alarm</string>
+    <string name="alarm_test_action">Test</string>
+    <string name="alarm_test_denied">Varsler er slått av for Crypto Checker.</string>
+    <string name="alarm_test_hint">Sender en eksempelalarm med innstillingene dine for lyd, vibrering og opplesning.</string>
+    <string name="alarm_test_open_settings">Åpne innstillinger</string>
+    <string name="alarm_test_quiet">Nattro er på akkurat nå: ekte alarmer ville ventet til den er over og så varslet med lyd.</string>
+    <string name="alarm_test_text">Slik ser en alarm ut, og slik høres den ut.</string>
+    <string name="alarm_test_title">Test: alarm fra Crypto Checker</string>
+
+    <!-- Ehrliche Alarme: Vorlesetexte Ton/Ansage, ungeprüfte Alarme -->
+    <string name="alarm_a11y_sound_on">Lyd på</string>
+    <string name="alarm_a11y_speak_on">Opplesning på</string>
+    <string name="alarm_unchecked_no_candles">Kunne ikke sjekkes (ingen candles)</string>
+    <string name="alarm_unchecked_no_rate">Kunne ikke sjekkes (ingen valutakurs)</string>
+</resources>

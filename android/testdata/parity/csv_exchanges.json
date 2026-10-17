@@ -1,0 +1,938 @@
+{
+ "_comment": "Börsen-Exporte aus den SYNTHETISCHEN Dateien android/testdata/csv/ (iOS-Kopie ios/Tests/Csv/) — Aufbau aus den öffentlichen Spaltenbeschreibungen von Binance (Transaktions- und Handelsverlauf), Coinbase (Transaktionsbericht mit Vorspann) und Bitpanda (Verlauf mit Kopfblock); echte Beispiele des Inhabers ersetzen sie später. Android CsvExchangeImportParityTest, iOS CsvExchangeImportTests.",
+ "files": [
+  {
+   "file": "synthetic_binance_transaction_history.csv",
+   "format": "BINANCE",
+   "zone": "UTC",
+   "localTimes": true,
+   "rows": [
+    {
+     "line": 4,
+     "kind": "BUY",
+     "rawKind": "Transaction Buy",
+     "coin": "BTC",
+     "amount": "0.0075",
+     "price": "40000",
+     "quote": "EUR",
+     "fee": "0.001",
+     "feeUnit": "BNB",
+     "time": "2024-01-05T09:10:00Z",
+     "externalId": null,
+     "key": "BINANCE|BUY|BTC|L1704445800000|0.0075|-"
+    },
+    {
+     "line": 7,
+     "kind": "SWAP",
+     "rawKind": "Transaction Spend",
+     "coin": "USDT",
+     "amount": "200",
+     "price": null,
+     "quote": "USDT",
+     "fee": "0.00008",
+     "feeUnit": "ETH",
+     "time": "2024-01-06T12:00:00Z",
+     "externalId": null,
+     "key": "BINANCE|SWAP|USDT|L1704542400000|200|-",
+     "toCoin": "ETH",
+     "toAmount": "0.08",
+     "swapValue": "200",
+     "stableSwap": true
+    },
+    {
+     "line": 10,
+     "kind": "SWAP",
+     "rawKind": "Binance Convert",
+     "coin": "ETH",
+     "amount": "0.05",
+     "price": null,
+     "quote": null,
+     "fee": null,
+     "feeUnit": null,
+     "time": "2024-01-07T08:00:00Z",
+     "externalId": null,
+     "key": "BINANCE|SWAP|ETH|L1704614400000|0.05|-",
+     "toCoin": "SOL",
+     "toAmount": "1.2"
+    },
+    {
+     "line": 14,
+     "kind": "REWARD",
+     "rawKind": "Simple Earn Flexible Interest",
+     "coin": "USDT",
+     "amount": "0.025",
+     "price": null,
+     "quote": null,
+     "fee": null,
+     "feeUnit": null,
+     "time": "2024-01-09T00:00:00Z",
+     "externalId": null,
+     "key": "BINANCE|REWARD|USDT|L1704758400000|0.025|-"
+    },
+    {
+     "line": 15,
+     "kind": "REWARD",
+     "rawKind": "Staking Rewards",
+     "coin": "SOL",
+     "amount": "0.0012",
+     "price": null,
+     "quote": null,
+     "fee": null,
+     "feeUnit": null,
+     "time": "2024-01-10T00:00:00Z",
+     "externalId": null,
+     "key": "BINANCE|REWARD|SOL|L1704844800000|0.0012|-"
+    },
+    {
+     "line": 16,
+     "kind": "WITHDRAWAL",
+     "rawKind": "Withdraw",
+     "coin": "BTC",
+     "amount": "0.005",
+     "price": null,
+     "quote": null,
+     "fee": null,
+     "feeUnit": null,
+     "time": "2024-01-11T15:30:00Z",
+     "externalId": null,
+     "key": "BINANCE|WITHDRAWAL|BTC|L1704987000000|0.005|-"
+    },
+    {
+     "line": 17,
+     "kind": "SELL",
+     "rawKind": "Transaction Sold",
+     "coin": "ETH",
+     "amount": "0.02",
+     "price": "2255",
+     "quote": "EUR",
+     "fee": "0.0451",
+     "feeUnit": "EUR",
+     "time": "2024-01-12T07:00:00Z",
+     "externalId": null,
+     "key": "BINANCE|SELL|ETH|L1705042800000|0.02|-"
+    },
+    {
+     "line": 24,
+     "kind": "DEPOSIT",
+     "rawKind": "Deposit",
+     "coin": "USDT",
+     "amount": "250",
+     "price": null,
+     "quote": null,
+     "fee": null,
+     "feeUnit": null,
+     "time": "2024-01-15T18:00:00Z",
+     "externalId": null,
+     "key": "BINANCE|DEPOSIT|USDT|L1705341600000|250|-"
+    },
+    {
+     "line": 25,
+     "kind": "BUY",
+     "rawKind": "Buy Crypto",
+     "coin": "ADA",
+     "amount": "40",
+     "price": null,
+     "quote": null,
+     "fee": null,
+     "feeUnit": null,
+     "time": "2024-01-16T06:00:00Z",
+     "externalId": null,
+     "key": "BINANCE|BUY|ADA|L1705384800000|40|-"
+    },
+    {
+     "line": 26,
+     "kind": "FEE",
+     "rawKind": "Fee",
+     "coin": "BNB",
+     "amount": "0.0005",
+     "price": null,
+     "quote": null,
+     "fee": null,
+     "feeUnit": null,
+     "time": "2024-01-17T06:00:00Z",
+     "externalId": null,
+     "key": "BINANCE|FEE|BNB|L1705471200000|0.0005|-"
+    },
+    {
+     "line": 27,
+     "kind": "SWAP",
+     "rawKind": "Transaction Spend",
+     "coin": "USDT",
+     "amount": "150",
+     "price": null,
+     "quote": "USDT",
+     "fee": "0.00015",
+     "feeUnit": "BNB",
+     "time": "2024-01-18T10:00:00Z",
+     "externalId": null,
+     "key": "BINANCE|SWAP|USDT|L1705572000000|150|-",
+     "toCoin": "BTC",
+     "toAmount": "0.003",
+     "swapValue": "150",
+     "stableSwap": true
+    },
+    {
+     "line": 37,
+     "kind": "SWAP",
+     "rawKind": "Transaction Spend",
+     "coin": "USDT",
+     "amount": "30",
+     "price": null,
+     "quote": "USDT",
+     "fee": null,
+     "feeUnit": null,
+     "time": "2024-01-20T09:00:00Z",
+     "externalId": null,
+     "key": "BINANCE|SWAP|USDT|L1705741200000|30|-",
+     "toCoin": "SOL",
+     "toAmount": "0.3",
+     "swapValue": "30",
+     "stableSwap": true
+    }
+   ],
+   "skipped": [
+    {
+     "line": 3,
+     "reason": "NOT_CRYPTO"
+    },
+    {
+     "line": 12,
+     "reason": "INTERNAL_MOVE"
+    },
+    {
+     "line": 13,
+     "reason": "INTERNAL_MOVE"
+    },
+    {
+     "line": 20,
+     "reason": "UNSUPPORTED_KIND"
+    },
+    {
+     "line": 21,
+     "reason": "MISSING_FIELD"
+    },
+    {
+     "line": 22,
+     "reason": "MISSING_FIELD"
+    },
+    {
+     "line": 23,
+     "reason": "MISSING_FIELD"
+    },
+    {
+     "line": 33,
+     "reason": "MISSING_FIELD"
+    },
+    {
+     "line": 34,
+     "reason": "MISSING_FIELD"
+    },
+    {
+     "line": 35,
+     "reason": "MISSING_FIELD"
+    },
+    {
+     "line": 36,
+     "reason": "MISSING_FIELD"
+    }
+   ]
+  },
+  {
+   "file": "synthetic_binance_trade_history.csv",
+   "format": "BINANCE",
+   "zone": "UTC",
+   "localTimes": true,
+   "rows": [
+    {
+     "line": 3,
+     "kind": "SWAP",
+     "rawKind": "BUY",
+     "coin": "USDT",
+     "amount": "200",
+     "price": null,
+     "quote": "USDT",
+     "fee": "0.00008",
+     "feeUnit": "ETH",
+     "time": "2024-01-06T12:00:00Z",
+     "externalId": null,
+     "key": "BINANCE|SWAP|USDT|L1704542400000|200|-",
+     "toCoin": "ETH",
+     "toAmount": "0.08",
+     "swapValue": "200",
+     "stableSwap": true
+    },
+    {
+     "line": 4,
+     "kind": "SELL",
+     "rawKind": "SELL",
+     "coin": "ETH",
+     "amount": "0.02",
+     "price": "2255",
+     "quote": "EUR",
+     "fee": "0.0451",
+     "feeUnit": "EUR",
+     "time": "2024-01-12T07:00:00Z",
+     "externalId": null,
+     "key": "BINANCE|SELL|ETH|L1705042800000|0.02|-"
+    },
+    {
+     "line": 8,
+     "kind": "SWAP",
+     "rawKind": "BUY",
+     "coin": "USDT",
+     "amount": "150",
+     "price": null,
+     "quote": "USDT",
+     "fee": "0.00015",
+     "feeUnit": "BNB",
+     "time": "2024-01-18T10:00:00Z",
+     "externalId": null,
+     "key": "BINANCE|SWAP|USDT|L1705572000000|150|-",
+     "toCoin": "BTC",
+     "toAmount": "0.003",
+     "swapValue": "150",
+     "stableSwap": true
+    },
+    {
+     "line": 10,
+     "kind": "SWAP",
+     "rawKind": "BUY",
+     "coin": "USDT",
+     "amount": "50",
+     "price": null,
+     "quote": "USDT",
+     "fee": null,
+     "feeUnit": null,
+     "time": "2024-01-19T12:00:00Z",
+     "externalId": null,
+     "key": "BINANCE|SWAP|USDT|L1705665600000|50|-",
+     "toCoin": "BTC",
+     "toAmount": "0.001",
+     "swapValue": "50",
+     "stableSwap": true
+    },
+    {
+     "line": 11,
+     "kind": "SWAP",
+     "rawKind": "SELL",
+     "coin": "BTC",
+     "amount": "0.001",
+     "price": null,
+     "quote": "USDT",
+     "fee": null,
+     "feeUnit": null,
+     "time": "2024-01-19T12:00:00Z",
+     "externalId": null,
+     "key": "BINANCE|SWAP|BTC|L1705665600000|0.001|-",
+     "toCoin": "USDT",
+     "toAmount": "50.1",
+     "swapValue": "50.1",
+     "stableSwap": true
+    },
+    {
+     "line": 12,
+     "kind": "SWAP",
+     "rawKind": "BUY",
+     "coin": "USDT",
+     "amount": "30",
+     "price": null,
+     "quote": "USDT",
+     "fee": null,
+     "feeUnit": null,
+     "time": "2024-01-20T09:00:01Z",
+     "externalId": null,
+     "key": "BINANCE|SWAP|USDT|L1705741201000|30|-",
+     "toCoin": "SOL",
+     "toAmount": "0.3",
+     "swapValue": "30",
+     "stableSwap": true
+    },
+    {
+     "line": 5,
+     "kind": "SWAP",
+     "rawKind": "BUY",
+     "coin": "BTC",
+     "amount": "0.005",
+     "price": null,
+     "quote": null,
+     "fee": "0.002",
+     "feeUnit": "SOL",
+     "time": "2024-02-01T10:00:00Z",
+     "externalId": null,
+     "key": "BINANCE|SWAP|BTC|L1706781600000|0.005|-",
+     "toCoin": "SOL",
+     "toAmount": "2"
+    },
+    {
+     "line": 6,
+     "kind": "SWAP",
+     "rawKind": "SELL",
+     "coin": "BTC",
+     "amount": "0.001",
+     "price": null,
+     "quote": null,
+     "fee": "0.000043",
+     "feeUnit": "BNB",
+     "time": "2024-02-02T10:00:00Z",
+     "externalId": null,
+     "key": "BINANCE|SWAP|BTC|L1706868000000|0.001|-",
+     "toCoin": "FDUSD",
+     "toAmount": "43",
+     "stableSwap": true
+    }
+   ],
+   "skipped": [
+    {
+     "line": 7,
+     "reason": "UNSUPPORTED_KIND"
+    }
+   ]
+  },
+  {
+   "file": "synthetic_binance_trade_history_legacy.csv",
+   "format": "BINANCE",
+   "zone": "UTC",
+   "localTimes": true,
+   "rows": [
+    {
+     "line": 3,
+     "kind": "SWAP",
+     "rawKind": "BUY",
+     "coin": "BTC",
+     "amount": "0.01575",
+     "price": null,
+     "quote": null,
+     "fee": "0.001125",
+     "feeUnit": "BNB",
+     "time": "2021-05-03T14:22:10Z",
+     "externalId": null,
+     "key": "BINANCE|SWAP|BTC|L1620051730000|0.01575|-",
+     "toCoin": "BNB",
+     "toAmount": "1.5"
+    },
+    {
+     "line": 4,
+     "kind": "SELL",
+     "rawKind": "SELL",
+     "coin": "BTC",
+     "amount": "0.01",
+     "price": "45000",
+     "quote": "EUR",
+     "fee": "0.45",
+     "feeUnit": "EUR",
+     "time": "2021-05-04T09:01:00Z",
+     "externalId": null,
+     "key": "BINANCE|SELL|BTC|L1620118860000|0.01|-"
+    }
+   ],
+   "skipped": [
+    {
+     "line": 5,
+     "reason": "MISSING_FIELD"
+    }
+   ]
+  },
+  {
+   "file": "synthetic_coinbase_transaction_report.csv",
+   "format": "COINBASE",
+   "zone": "Europe/Zurich",
+   "localTimes": false,
+   "rows": [
+    {
+     "line": 7,
+     "kind": "DEPOSIT",
+     "rawKind": "Receive",
+     "coin": "BTC",
+     "amount": "0.0049",
+     "price": null,
+     "quote": null,
+     "fee": null,
+     "feeUnit": null,
+     "time": "2024-01-11T16:05:00Z",
+     "externalId": "65a1b2c3d4e5f60718293a01",
+     "key": "COINBASE|65a1b2c3d4e5f60718293a01"
+    },
+    {
+     "line": 8,
+     "kind": "BUY",
+     "rawKind": "Buy",
+     "coin": "BTC",
+     "amount": "0.002",
+     "price": "39900",
+     "quote": "EUR",
+     "fee": "1.99",
+     "feeUnit": "EUR",
+     "time": "2024-01-15T10:00:00Z",
+     "externalId": "65a1b2c3d4e5f60718293a02",
+     "key": "COINBASE|65a1b2c3d4e5f60718293a02"
+    },
+    {
+     "line": 9,
+     "kind": "SWAP",
+     "rawKind": "Convert",
+     "coin": "ETH",
+     "amount": "0.5",
+     "price": null,
+     "quote": "EUR",
+     "fee": null,
+     "feeUnit": null,
+     "time": "2024-01-20T12:30:00Z",
+     "externalId": "65a1b2c3d4e5f60718293a03",
+     "key": "COINBASE|65a1b2c3d4e5f60718293a03",
+     "toCoin": "BTC",
+     "toAmount": "0.025",
+     "swapValue": "1100"
+    },
+    {
+     "line": 10,
+     "kind": "REWARD",
+     "rawKind": "Staking Income",
+     "coin": "ETH",
+     "amount": "0.0015",
+     "price": "2300",
+     "quote": "EUR",
+     "fee": null,
+     "feeUnit": null,
+     "time": "2024-01-22T08:00:00Z",
+     "externalId": "65a1b2c3d4e5f60718293a04",
+     "key": "COINBASE|65a1b2c3d4e5f60718293a04"
+    },
+    {
+     "line": 11,
+     "kind": "WITHDRAWAL",
+     "rawKind": "Send",
+     "coin": "BTC",
+     "amount": "0.001",
+     "price": null,
+     "quote": null,
+     "fee": null,
+     "feeUnit": null,
+     "time": "2024-01-25T16:45:00Z",
+     "externalId": "65a1b2c3d4e5f60718293a05",
+     "key": "COINBASE|65a1b2c3d4e5f60718293a05"
+    },
+    {
+     "line": 12,
+     "kind": "SELL",
+     "rawKind": "Sell",
+     "coin": "ETH",
+     "amount": "0.1",
+     "price": "2400",
+     "quote": "EUR",
+     "fee": "3.58",
+     "feeUnit": "EUR",
+     "time": "2024-02-05T11:11:11Z",
+     "externalId": "65a1b2c3d4e5f60718293a06",
+     "key": "COINBASE|65a1b2c3d4e5f60718293a06"
+    },
+    {
+     "line": 15,
+     "kind": "SWAP",
+     "rawKind": "Advanced Trade Buy",
+     "coin": "USDC",
+     "amount": "200",
+     "price": null,
+     "quote": null,
+     "fee": "1.2",
+     "feeUnit": "USDC",
+     "time": "2024-02-08T10:00:00Z",
+     "externalId": "65a1b2c3d4e5f60718293a09",
+     "key": "COINBASE|65a1b2c3d4e5f60718293a09",
+     "toCoin": "SOL",
+     "toAmount": "2",
+     "stableSwap": true
+    },
+    {
+     "line": 17,
+     "kind": "REWARD",
+     "rawKind": "Learning Reward",
+     "coin": "GRT",
+     "amount": "10",
+     "price": "0.15",
+     "quote": "EUR",
+     "fee": null,
+     "feeUnit": null,
+     "time": "2024-02-10T10:00:00Z",
+     "externalId": "65a1b2c3d4e5f60718293a0b",
+     "key": "COINBASE|65a1b2c3d4e5f60718293a0b"
+    }
+   ],
+   "skipped": [
+    {
+     "line": 13,
+     "reason": "NOT_CRYPTO"
+    },
+    {
+     "line": 14,
+     "reason": "INTERNAL_MOVE"
+    },
+    {
+     "line": 16,
+     "reason": "INTERNAL_MOVE"
+    },
+    {
+     "line": 18,
+     "reason": "UNSUPPORTED_KIND"
+    }
+   ]
+  },
+  {
+   "file": "synthetic_coinbase_transaction_report_2021.csv",
+   "format": "COINBASE",
+   "zone": "Europe/Zurich",
+   "localTimes": false,
+   "rows": [
+    {
+     "line": 8,
+     "kind": "BUY",
+     "rawKind": "Buy",
+     "coin": "BTC",
+     "amount": "0.01",
+     "price": "40000",
+     "quote": "EUR",
+     "fee": "5.99",
+     "feeUnit": "EUR",
+     "time": "2021-03-01T09:15:00Z",
+     "externalId": null,
+     "key": "COINBASE|BUY|BTC|1614590100000|0.01|40000"
+    },
+    {
+     "line": 9,
+     "kind": "REWARD",
+     "rawKind": "Coinbase Earn",
+     "coin": "XLM",
+     "amount": "12.5",
+     "price": "0.3504",
+     "quote": "EUR",
+     "fee": null,
+     "feeUnit": null,
+     "time": "2021-03-05T10:00:00Z",
+     "externalId": null,
+     "key": "COINBASE|REWARD|XLM|1614938400000|12.5|0.3504"
+    },
+    {
+     "line": 10,
+     "kind": "SWAP",
+     "rawKind": "Convert",
+     "coin": "BTC",
+     "amount": "0.002",
+     "price": null,
+     "quote": "EUR",
+     "fee": null,
+     "feeUnit": null,
+     "time": "2021-03-10T12:00:00Z",
+     "externalId": null,
+     "key": "COINBASE|SWAP|BTC|1615377600000|0.002|-",
+     "toCoin": "XLM",
+     "toAmount": "1234.5",
+     "swapValue": "90"
+    },
+    {
+     "line": 11,
+     "kind": "WITHDRAWAL",
+     "rawKind": "Send",
+     "coin": "XLM",
+     "amount": "1000",
+     "price": null,
+     "quote": null,
+     "fee": null,
+     "feeUnit": null,
+     "time": "2021-03-12T08:30:00Z",
+     "externalId": null,
+     "key": "COINBASE|WITHDRAWAL|XLM|1615537800000|1000|-"
+    }
+   ],
+   "skipped": [
+    {
+     "line": 12,
+     "reason": "MISSING_FIELD"
+    }
+   ]
+  },
+  {
+   "file": "synthetic_bitpanda_transaction_history.csv",
+   "format": "BITPANDA",
+   "zone": "Europe/Zurich",
+   "localTimes": false,
+   "rows": [
+    {
+     "line": 8,
+     "kind": "BUY",
+     "rawKind": "buy",
+     "coin": "BTC",
+     "amount": "0.0125",
+     "price": "40000",
+     "quote": "EUR",
+     "fee": "0.25",
+     "feeUnit": "BEST",
+     "time": "2024-01-02T08:05:00Z",
+     "externalId": "T0a1b2c3d-0002",
+     "key": "BITPANDA|T0a1b2c3d-0002"
+    },
+    {
+     "line": 9,
+     "kind": "BUY",
+     "rawKind": "buy",
+     "coin": "ETH",
+     "amount": "0.08888888",
+     "price": "2250.000225000023",
+     "quote": "EUR",
+     "fee": null,
+     "feeUnit": null,
+     "time": "2024-01-03T09:00:00Z",
+     "externalId": "T0a1b2c3d-0003",
+     "key": "BITPANDA|T0a1b2c3d-0003"
+    },
+    {
+     "line": 10,
+     "kind": "REWARD",
+     "rawKind": "reward",
+     "coin": "ETH",
+     "amount": "0.000375",
+     "price": "2266.67",
+     "quote": "EUR",
+     "fee": null,
+     "feeUnit": null,
+     "time": "2024-01-04T10:00:00Z",
+     "externalId": "T0a1b2c3d-0004",
+     "key": "BITPANDA|T0a1b2c3d-0004"
+    },
+    {
+     "line": 11,
+     "kind": "SELL",
+     "rawKind": "sell",
+     "coin": "ETH",
+     "amount": "0.048",
+     "price": "2291.666666666667",
+     "quote": "EUR",
+     "fee": null,
+     "feeUnit": null,
+     "time": "2024-01-05T11:00:00Z",
+     "externalId": "T0a1b2c3d-0005",
+     "key": "BITPANDA|T0a1b2c3d-0005"
+    },
+    {
+     "line": 12,
+     "kind": "WITHDRAWAL",
+     "rawKind": "withdrawal",
+     "coin": "BTC",
+     "amount": "0.005",
+     "price": null,
+     "quote": null,
+     "fee": "0.0001",
+     "feeUnit": "BTC",
+     "time": "2024-01-06T12:00:00Z",
+     "externalId": "T0a1b2c3d-0006",
+     "key": "BITPANDA|T0a1b2c3d-0006"
+    },
+    {
+     "line": 16,
+     "kind": "DEPOSIT",
+     "rawKind": "deposit",
+     "coin": "ETH",
+     "amount": "0.02",
+     "price": null,
+     "quote": null,
+     "fee": null,
+     "feeUnit": null,
+     "time": "2024-01-10T16:00:00Z",
+     "externalId": "T0a1b2c3d-0010",
+     "key": "BITPANDA|T0a1b2c3d-0010"
+    }
+   ],
+   "skipped": [
+    {
+     "line": 7,
+     "reason": "NOT_CRYPTO"
+    },
+    {
+     "line": 13,
+     "reason": "NOT_CRYPTO"
+    },
+    {
+     "line": 14,
+     "reason": "INTERNAL_MOVE"
+    },
+    {
+     "line": 15,
+     "reason": "UNSUPPORTED_KIND"
+    },
+    {
+     "line": 17,
+     "reason": "NOT_CRYPTO"
+    }
+   ]
+  }
+ ],
+ "_mappingComment": "Zuordnung mit festem Tageskurs (EUR je USD): Gebühr im dritten Coin (BNB, BEST), im erhaltenen Coin (ETH), im Coin (USDC, BTC), in Fiat (USDT umgerechnet), Gebühr-Zeile = Verkauf zum Preis 0.",
+ "mapping": [
+  {
+   "file": "synthetic_binance_transaction_history.csv",
+   "fx": {
+    "EUR": "0.9"
+   },
+   "transactions": [
+    {
+     "line": 4,
+     "type": "BUY",
+     "priceUsdt": "44444.444444444444",
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": "BNB",
+     "feeCoinAmount": "0.001"
+    },
+    {
+     "line": 7,
+     "type": "SWAP",
+     "priceUsdt": null,
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": "ETH",
+     "feeCoinAmount": "0.00008"
+    },
+    {
+     "line": 14,
+     "type": "REWARD",
+     "priceUsdt": null,
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null
+    },
+    {
+     "line": 16,
+     "type": "WITHDRAWAL",
+     "priceUsdt": null,
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null
+    },
+    {
+     "line": 17,
+     "type": "SELL",
+     "priceUsdt": "2505.555555555556",
+     "fee": "0.050111111111",
+     "feeUnit": "QUOTE",
+     "feeCoin": null,
+     "feeCoinAmount": null
+    },
+    {
+     "line": 26,
+     "type": "SELL",
+     "priceUsdt": "0",
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null
+    }
+   ]
+  },
+  {
+   "file": "synthetic_coinbase_transaction_report.csv",
+   "fx": {
+    "EUR": "0.9"
+   },
+   "transactions": [
+    {
+     "line": 7,
+     "type": "DEPOSIT",
+     "priceUsdt": null,
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null
+    },
+    {
+     "line": 8,
+     "type": "BUY",
+     "priceUsdt": "44333.333333333333",
+     "fee": "2.211111111111",
+     "feeUnit": "QUOTE",
+     "feeCoin": null,
+     "feeCoinAmount": null
+    },
+    {
+     "line": 15,
+     "type": "SWAP",
+     "priceUsdt": null,
+     "fee": "1.2",
+     "feeUnit": "COIN",
+     "feeCoin": null,
+     "feeCoinAmount": null
+    }
+   ]
+  },
+  {
+   "file": "synthetic_bitpanda_transaction_history.csv",
+   "fx": {
+    "EUR": "0.9"
+   },
+   "transactions": [
+    {
+     "line": 8,
+     "type": "BUY",
+     "priceUsdt": "44444.444444444444",
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": "BEST",
+     "feeCoinAmount": "0.25"
+    },
+    {
+     "line": 12,
+     "type": "WITHDRAWAL",
+     "priceUsdt": null,
+     "fee": "0.0001",
+     "feeUnit": "COIN",
+     "feeCoin": null,
+     "feeCoinAmount": null
+    }
+   ]
+  }
+ ],
+ "sharedKeys": {
+  "_comment": "dasselbe Geschäft im Transaktions- und im Handelsverlauf: gleicher Schlüssel, auch bei mehreren Ausführungen in derselben Sekunde (Zeilen 27–32 bzw. 8–9)",
+  "ledger": "synthetic_binance_transaction_history.csv",
+  "trades": "synthetic_binance_trade_history.csv",
+  "shared": [
+   "BINANCE|SWAP|USDT|L1704542400000|200|-",
+   "BINANCE|SELL|ETH|L1705042800000|0.02|-",
+   "BINANCE|SWAP|USDT|L1705572000000|150|-"
+  ]
+ },
+ "_bothExportsComment": "Beide Binance-Exporte nacheinander importiert (in beiden Reihenfolgen): nie doppelt. Genau gleiche Geschäfte sind Doppelte, fast gleiche (um 1 s versetzt) gehen als POSSIBLE_DUPLICATE in die Prüfliste; Kauf und Verkauf desselben Coins in einer Sekunde lässt der Transaktionsverlauf prüfen (MISSING_FIELD) und der Handelsverlauf zählt sie einmal.",
+ "bothExports": [
+  {
+   "first": "synthetic_binance_transaction_history.csv",
+   "second": "synthetic_binance_trade_history.csv",
+   "duplicates": 3,
+   "possibleDuplicates": [
+    12
+   ],
+   "transactions": [
+    10,
+    11,
+    5,
+    6
+   ]
+  },
+  {
+   "first": "synthetic_binance_trade_history.csv",
+   "second": "synthetic_binance_transaction_history.csv",
+   "duplicates": 3,
+   "possibleDuplicates": [
+    37
+   ],
+   "transactions": [
+    4,
+    10,
+    14,
+    15,
+    16,
+    24,
+    25,
+    26
+   ]
+  }
+ ]
+}

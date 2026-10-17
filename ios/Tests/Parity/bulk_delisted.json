@@ -1,0 +1,20 @@
+{
+  "description": "Nicht mehr gehandelte Paare aus der gefilterten Sammelabfrage heraushalten (Binance verwirft symbols=[…] mit einem delisteten Symbol ganz) — BulkDelisted in PriceFetcher.kt / PriceFetcher.swift. recheckMillis = 6 h. state null = kein Stand (z. B. nach Prozess-Start).",
+  "recheckMillis": 21600000,
+  "plan": [
+    {"name": "no state: everything except stored not-traded pairs, no recheck", "state": null, "pairIds": ["BTCUSDT", "ETHUSDT", "OLDUSDT"], "notTraded": ["OLDUSDT"], "now": 1000000, "request": ["BTCUSDT", "ETHUSDT"], "recheck": false},
+    {"name": "learned delisted pairs are dropped", "state": {"delisted": ["GONEUSDT"], "recheckedAt": 1000000}, "pairIds": ["BTCUSDT", "GONEUSDT", "ETHUSDT"], "notTraded": [], "now": 2000000, "request": ["BTCUSDT", "ETHUSDT"], "recheck": false},
+    {"name": "recheck after 6 h: all pairs", "state": {"delisted": ["GONEUSDT"], "recheckedAt": 1000000}, "pairIds": ["BTCUSDT", "GONEUSDT", "OLDUSDT"], "notTraded": ["OLDUSDT"], "now": 22600000, "request": ["BTCUSDT", "GONEUSDT", "OLDUSDT"], "recheck": true},
+    {"name": "just before 6 h: still filtered", "state": {"delisted": ["GONEUSDT"], "recheckedAt": 1000000}, "pairIds": ["BTCUSDT", "GONEUSDT"], "notTraded": [], "now": 22599999, "request": ["BTCUSDT"], "recheck": false},
+    {"name": "clock went back: recheck", "state": {"delisted": [], "recheckedAt": 5000000}, "pairIds": ["BTCUSDT", "OLDUSDT"], "notTraded": ["OLDUSDT"], "now": 4000000, "request": ["BTCUSDT", "OLDUSDT"], "recheck": true},
+    {"name": "all pairs delisted: empty request", "state": null, "pairIds": ["OLDUSDT"], "notTraded": ["OLDUSDT"], "now": 1000000, "request": [], "recheck": false}
+  ],
+  "learn": [
+    {"name": "full fallback list without a requested pair: learned", "state": null, "plan": {"all": ["BTCUSDT", "GONEUSDT"], "request": ["BTCUSDT", "GONEUSDT"], "recheck": false}, "tickers": ["BTCUSDT", "ETHUSDT", "XRPUSDT"], "failed": [], "complete": true, "now": 1000000, "delisted": ["GONEUSDT"], "recheckedAt": 1000000},
+    {"name": "incomplete result: unchanged", "state": {"delisted": ["GONEUSDT"], "recheckedAt": 500}, "plan": {"all": ["BTCUSDT", "GONEUSDT", "NEWUSDT"], "request": ["BTCUSDT", "NEWUSDT"], "recheck": false}, "tickers": [], "failed": [], "complete": false, "now": 1000000, "delisted": ["GONEUSDT"], "recheckedAt": 500},
+    {"name": "unreadable row is no delisting", "state": null, "plan": {"all": ["BTCUSDT", "BADUSDT"], "request": ["BTCUSDT", "BADUSDT"], "recheck": false}, "tickers": ["BTCUSDT"], "failed": ["BADUSDT"], "complete": true, "now": 1000, "delisted": [], "recheckedAt": 1000},
+    {"name": "recheck: relisted pair forgotten, time updated", "state": {"delisted": ["GONEUSDT", "BACKUSDT"], "recheckedAt": 1000}, "plan": {"all": ["BTCUSDT", "GONEUSDT", "BACKUSDT"], "request": ["BTCUSDT", "GONEUSDT", "BACKUSDT"], "recheck": true}, "tickers": ["BTCUSDT", "BACKUSDT"], "failed": [], "complete": true, "now": 30000000, "delisted": ["GONEUSDT"], "recheckedAt": 30000000},
+    {"name": "excluded pair stays known while watched", "state": {"delisted": ["GONEUSDT", "REMOVEDUSDT"], "recheckedAt": 1000}, "plan": {"all": ["BTCUSDT", "GONEUSDT"], "request": ["BTCUSDT"], "recheck": false}, "tickers": ["BTCUSDT"], "failed": [], "complete": true, "now": 2000, "delisted": ["GONEUSDT"], "recheckedAt": 1000},
+    {"name": "Alpha request failed, Spot ok: missing Spot pair learned, Alpha pairs not", "state": null, "plan": {"all": ["BTCUSDT", "GONEUSDT", "ALPHA_175USDT"], "request": ["BTCUSDT", "GONEUSDT", "ALPHA_175USDT"], "recheck": false}, "tickers": ["BTCUSDT"], "failed": [], "incomplete": ["ALPHA_175USDT"], "complete": true, "now": 1000, "delisted": ["GONEUSDT"], "recheckedAt": 1000}
+  ]
+}

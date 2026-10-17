@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">Geri</string>
+    <string name="action_cancel">İptal</string>
+    <string name="action_clear">Temizle</string>
+    <string name="action_close">Kapat</string>
+    <string name="action_delete">Sil</string>
+    <string name="action_edit">Düzenle</string>
+    <string name="action_more">Diğer seçenekler</string>
+    <string name="action_refresh">Yenile</string>
+    <string name="action_retry">Yeniden dene</string>
+    <string name="action_save">Kaydet</string>
+    <string name="action_sort">Sırala</string>
+    <string name="action_sort_done">Bitti</string>
+    <string name="action_undo">Geri al</string>
+    <string name="action_view">Görüntüle</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">Piyasa</string>
+    <string name="tab_portfolio">Portföy</string>
+    <string name="tab_settings">Ayarlar</string>
+    <string name="tab_watchlist">Liste</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">Hata: %1$s</string>
+    <string name="error_market_unreachable">Borsaya şu anda ulaşılamıyor – son fiyatlar görünür kalır.</string>
+    <string name="error_market_unreachable_short">Borsaya şu anda ulaşılamıyor</string>
+    <string name="loading_hint">Yükleniyor…</string>
+    <string name="no_internet_connection">İnternet bağlantısı yok</string>
+    <string name="option_off">Kapalı</string>
+    <string name="something_went_wrong">Bir şeyler ters gitti</string>
+    <string name="time_just_now">az önce</string>
+    <string name="timeout_error_message">Borsa şu anda yanıt vermiyor.</string>
+    <string name="try_again">Tekrar dene</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">Bağlantı yok</string>
+    <string name="offline_status_since">Bağlantı yok · %1$s itibarıyla</string>
+    <string name="status_live">Canlı</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">Çift ekle</string>
+    <string name="shortcut_alarms">Tüm alarmlar</string>
+    <string name="shortcut_cycle">Piyasa</string>
+</resources>

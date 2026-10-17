@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Tab, leere Ansicht, Einschalten, Sperre -->
+    <string name="app_lock_unavailable">อุปกรณ์นี้ยังไม่ได้ตั้งค่าการล็อกหน้าจอ โปรดตั้งค่าในการตั้งค่าระบบก่อน</string>
+    <string name="app_lock_unlock">ปลดล็อก</string>
+    <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
+    <string name="portfolio_clear">ล้างพอร์ตโฟลิโอ</string>
+    <plurals name="portfolio_clear_confirm_count">
+        <item quantity="other">ลบรายการทั้งหมด %d รายการหรือไม่ ที่อยู่ที่ติดตามจะยังอยู่ การดำเนินการนี้ย้อนกลับไม่ได้</item>
+    </plurals>
+    <string name="portfolio_disclaimer">จำนวนเงินอยู่บนอุปกรณ์ของคุณ เว้นแต่คุณจะส่งออกเอง สำหรับราคา จะส่งเพียงสัญลักษณ์คู่เทรดไปยังกระดานเทรดของคู่นั้น โหนดบล็อกเชนสาธารณะจะเห็นที่อยู่ที่ติดตามและ IP ของคุณ ไม่ใช่คำแนะนำการลงทุน</string>
+    <string name="portfolio_empty_action">เพิ่มการซื้อครั้งแรก</string>
+    <string name="portfolio_empty_address">ติดตามเฉพาะที่อยู่กระเป๋า</string>
+    <string name="portfolio_empty_csv">ซื้อในกระดานเทรด? นำเข้าไฟล์</string>
+    <string name="portfolio_empty_example_plain">ตัวอย่าง: ซื้อ 0.01 BTC เมื่อ 1 มีนาคม แอปจะแสดงว่าวันนี้มีมูลค่าเท่าไรและคุณกำไรหรือขาดทุน – บันทึกไว้ในอุปกรณ์นี้เท่านั้น</string>
+    <string name="portfolio_empty_text">กรอกสิ่งที่คุณซื้อ – แอปจะแสดงว่าวันนี้มีมูลค่าเท่าไรและคุณกำไรหรือขาดทุนเท่าไร</string>
+    <string name="portfolio_empty_title">ยังไม่มีรายการ</string>
+    <string name="portfolio_enable_ask_text">บันทึกรายการแล้ว แท็บพอร์ตโฟลิโอจะแสดงยอดถือครองและมูลค่า</string>
+    <string name="portfolio_enable_ask_title">เปิดแท็บพอร์ตโฟลิโอหรือไม่</string>
+    <string name="portfolio_enable_later_hint">บันทึกรายการแล้ว เปิดแท็บพอร์ตโฟลิโอได้ที่ ตั้งค่า › ขั้นสูง › พอร์ตโฟลิโอ</string>
+    <string name="portfolio_enabled_banner">เปิดพอร์ตแล้ว – ดูได้ที่แท็บพอร์ต</string>
+    <string name="portfolio_lock_reason">ปลดล็อกพอร์ตโฟลิโอ</string>
+    <string name="portfolio_locked_text">ปลดล็อกเพื่อดูสินทรัพย์และมูลค่า</string>
+    <string name="portfolio_locked_title">พอร์ตโฟลิโอถูกล็อก</string>
+    <string name="portfolio_setting_hint">ไม่บังคับ: บันทึกการซื้อขายและดูมูลค่าและกำไร/ขาดทุนในแท็บแยก</string>
+    <!-- Status-Pille wie in der Merkliste: Kurse älter als die Frische-Schwelle, Gerät online. Offline: offline_status_since, alles aktuell: watchlist_all_fresh -->
+    <string name="portfolio_status_stale">ไม่เป็นปัจจุบัน · ณ %1$s</string>
+    <plurals name="portfolio_system_restore_invalid">
+        <item quantity="other">รายการ %d รายการจากข้อมูลสำรองของระบบไม่ถูกต้องและไม่ได้กู้คืน</item>
+    </plurals>
+    <string name="portfolio_title">พอร์ตโฟลิโอ</string>
+    <string name="portfolio_unassigned_fee">ค่าธรรมเนียมยังไม่ได้ปันส่วน – ไม่ทราบต้นทุน: %1$s</string>
+    <string name="portfolio_updated">ราคา ณ %1$s</string>
+
+    <!-- Portfolio: Gesamtwert-Kopf (Heute · 7 T · Gesamt) und Aufteilung -->
+    <string name="portfolio_allocation_other">อื่น ๆ</string>
+    <string name="portfolio_allocation_title">สัดส่วน</string>
+    <string name="portfolio_card_details">รายละเอียด</string>
+    <!-- Screenreader, Kennzahl ohne Wert; %1$s Beschriftung (z. B. «7 Tage») -->
+    <string name="portfolio_card_figure_none_a11y">%1$s: ยังไม่มีข้อมูล</string>
+    <string name="portfolio_card_hints_count">หมายเหตุ (%1$d)</string>
+    <string name="portfolio_card_today">วันนี้</string>
+    <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
+    <string name="portfolio_card_total">ทั้งหมด</string>
+    <string name="portfolio_hide_amounts">ซ่อนจำนวนเงิน</string>
+    <string name="portfolio_hide_amounts_hint">แสดงจำนวนเงินและมูลค่าในพอร์ตโฟลิโอและวิดเจ็ตพอร์ตโฟลิโอเป็น ••• – เปอร์เซ็นต์ยังมองเห็นได้</string>
+    <string name="portfolio_invested">ต้นทุน</string>
+    <string name="portfolio_total_no_fx">ไม่มีอัตราแลกเปลี่ยนสำหรับ %1$s – จำนวนเงินเป็น USDT</string>
+    <string name="portfolio_total_value">มูลค่ารวม</string>
+    <string name="portfolio_value">มูลค่า</string>
+
+    <!-- Portfolio: Bestand, offene Positionen, Durchschnittspreis -->
+    <string name="portfolio_avg_and_now">เฉลี่ย %1$s · ตอนนี้ %2$s</string>
+    <string name="portfolio_avg_only">เฉลี่ย %1$s</string>
+    <string name="portfolio_avg_open_lots">ต้นทุนเฉลี่ยของเหรียญที่ถืออยู่</string>
+    <string name="portfolio_avg_partial">เฉลี่ยของ %1$s ที่มีราคาซื้อ</string>
+    <string name="portfolio_avg_price">ราคาซื้อเฉลี่ย</string>
+    <string name="portfolio_avg_price_hint">ราคาซื้อเฉลี่ย: ค่าเฉลี่ยของการซื้อทั้งหมด ถ่วงน้ำหนักตามจำนวน การขายคิดมูลค่าที่ค่าเฉลี่ยนี้</string>
+    <plurals name="portfolio_closed">
+        <item quantity="other">สถานะที่ปิดแล้ว (%1$d)</item>
+    </plurals>
+    <string name="portfolio_fifo_hint">FIFO: การขายจะใช้เหรียญที่เก่าที่สุดก่อน เฉลี่ย = ต้นทุนคงเหลือ ÷ จำนวนที่มีราคาซื้อ</string>
+    <string name="portfolio_holdings">ยอดถือครอง</string>
+    <string name="portfolio_lost_fee_cost">ต้นทุนค่าธรรมเนียมเครือข่ายที่ไม่มีล็อตที่จ่ายแล้ว: %1$s</string>
+    <string name="portfolio_open_lots">ล็อตการซื้อที่เปิดอยู่ (%1$d)</string>
+    <string name="portfolio_open_lots_avg">มีราคาซื้อ (Ø)</string>
+    <string name="portfolio_open_lots_no_cost">ไม่มีราคาซื้อ</string>
+    <string name="portfolio_open_lots_without_price">ไม่มีราคาซื้อ</string>
+    <string name="portfolio_realized">กำไร/ขาดทุนที่รับรู้แล้ว</string>
+    <string name="portfolio_unrealized">กำไร/ขาดทุนที่ยังไม่รับรู้</string>
+    <string name="portfolio_unrealized_without_unpriced">ไม่รวม %1$s ที่ไม่มีราคาซื้อ</string>
+    <string name="portfolio_withdrawn_gain">ถอนแล้ว: %1$s (มูลค่าที่เปลี่ยนจนถึงตอนถอน)</string>
+
+    <!-- Portfolio: Kurse und Umrechnung -->
+    <string name="portfolio_convert_to">แปลงเป็น</string>
+    <string name="portfolio_convert_to_value">แปลงเป็น: %1$s</string>
+    <string name="portfolio_current_missing">ไม่มีราคาปัจจุบันสำหรับ %1$s</string>
+    <string name="portfolio_current_price">ราคาปัจจุบัน</string>
+    <string name="portfolio_price_missing">ไม่มีราคา</string>
+    <string name="portfolio_price_missing_hint">การซื้อบางรายการไม่มีราคา เพิ่มราคาซื้อเพื่อดูกำไร/ขาดทุน</string>
+    <string name="portfolio_price_source">ราคา: Binance · USDT = 1</string>
+    <string name="portfolio_price_source_routes">ราคา: %1$s นอกนั้น Binance · USDT = 1</string>
+    <string name="portfolio_price_unavailable">ไม่มีราคาในขณะนี้</string>
+    <string name="portfolio_price_unchecked">ราคายังไม่ตรวจสอบ</string>
+    <string name="portfolio_price_via_base">≈ ราคา %1$s (บริดจ์/แรป)</string>
+    <string name="portfolio_usdt_as_usd">แปลง USDT ด้วยอัตรา USD</string>
+    <string name="portfolio_usdt_assumed">สมมติ USDT = 1</string>
+    <string name="portfolio_usdt_depeg_warning">สมมติ USDT = 1 – ตลาดอยู่ที่ %1$s USD (%2$s)</string>
+
+    <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
+    <string name="portfolio_add_from_watch">เพิ่มในพอร์ตโฟลิโอ</string>
+    <string name="portfolio_add_tx">บันทึกรายการ</string>
+    <string name="portfolio_buy">ซื้อ</string>
+    <string name="portfolio_coin">เหรียญ</string>
+    <string name="portfolio_coin_invalid">ป้อนสัญลักษณ์เหรียญ</string>
+    <string name="portfolio_coin_search">ค้นหาสัญลักษณ์ เช่น BTC</string>
+    <string name="portfolio_discard_confirm">ยกเลิก</string>
+    <string name="portfolio_discard_keep">แก้ไขต่อ</string>
+    <string name="portfolio_discard_title">ยกเลิกการเปลี่ยนแปลงหรือไม่</string>
+    <string name="portfolio_edit_tx">แก้ไขรายการ</string>
+    <string name="portfolio_invalid">จำนวนไม่ถูกต้อง</string>
+    <string name="portfolio_oversold">ยอดขายเกินจำนวนที่ถือ – โปรดตรวจสอบรายการ</string>
+    <string name="portfolio_sell">ขาย</string>
+    <string name="portfolio_sell_exceeds">มากกว่าที่คุณถือ (%1$s)</string>
+    <string name="portfolio_sell_exceeds_fee">จำนวนรวมค่าธรรมเนียมมากกว่าที่ถืออยู่ (%1$s)</string>
+    <string name="portfolio_sell_exceeds_wallet">มากกว่าที่ถืออยู่ใน %2$s (%1$s)</string>
+    <string name="portfolio_transactions">รายการ</string>
+    <string name="portfolio_tx_acquired_date">วันที่ซื้อเดิม (ไม่บังคับ)</string>
+    <string name="portfolio_tx_acquired_date_hint">สำหรับระยะเวลาถือในการส่งออกข้อมูลภาษี</string>
+    <string name="portfolio_tx_amount">จำนวน</string>
+    <string name="portfolio_tx_coin_fee">ค่าธรรมเนียมเป็นเหรียญ (ไม่บังคับ)</string>
+    <string name="portfolio_tx_date">วันที่</string>
+    <string name="portfolio_tx_delete_confirm">รายการนี้จะถูกลบออกจากพอร์ตโฟลิโอ</string>
+    <string name="portfolio_tx_delete_title">ลบรายการ?</string>
+    <string name="portfolio_tx_deposit">ฝาก</string>
+    <string name="portfolio_tx_entry_currency">ป้อนเป็น</string>
+    <string name="portfolio_tx_explain_deposit">ยอดถือครองที่ไม่ได้มาจากการซื้อขาย เช่น เหรียญที่มีอยู่ก่อน</string>
+    <string name="portfolio_tx_explain_gift">เหรียญออกจากยอดถือครองเหมือนการถอน – ถือเป็นการจำหน่ายตามมูลค่าตลาดเฉพาะประเทศที่เก็บภาษีของขวัญแบบนี้ (UK, CA, AU)</string>
+    <string name="portfolio_tx_explain_payment">จ่ายค่าสินค้าหรือบริการ – ถือเป็นการจำหน่ายตามมูลค่าตลาดเหมือนการขาย โดยไม่ได้รับเงิน</string>
+    <string name="portfolio_tx_explain_reward">ต้นทุน = มูลค่าตลาดตอนที่ได้รับ</string>
+    <string name="portfolio_tx_explain_swap">เหรียญแลกเหรียญ: ขายเหรียญที่ให้ไป ซื้อเหรียญที่ได้รับ</string>
+    <string name="portfolio_tx_explain_transfer">ไม่มีกำไร – ต้นทุนย้ายไปพร้อมเหรียญ</string>
+    <string name="portfolio_tx_explain_withdrawal">ยอดถือครองออกจากพอร์ต – ไม่ใช่การขาย ไม่มีกำไร</string>
+    <string name="portfolio_tx_fee_consumes_amount">ค่าธรรมเนียมเท่ากับจำนวนที่ได้รับ – จะไม่เหลืออะไรเลย</string>
+    <string name="portfolio_tx_fees_toggle">ค่าธรรมเนียม</string>
+    <string name="portfolio_tx_fiat_converted">≈ %1$s ตามอัตราของ %2$s</string>
+    <string name="portfolio_tx_fiat_loading">กำลังโหลดอัตราแลกเปลี่ยน…</string>
+    <string name="portfolio_tx_fiat_no_fx">ไม่มีอัตราแลกเปลี่ยนของวันนี้ – กรอกจำนวนเงินเป็น USDT</string>
+    <string name="portfolio_tx_gift">ของขวัญ</string>
+    <string name="portfolio_tx_gift_price_hint">เป็น USDT ว่าง = ราคาปิดของวันนั้น (ประมาณ)</string>
+    <string name="portfolio_tx_gift_spouse">ให้คู่สมรส / คู่ชีวิต</string>
+    <string name="portfolio_tx_gift_spouse_hint">สหราชอาณาจักรและแคนาดา: ไม่มีกำไรและไม่มีขาดทุน – คู่ของคุณรับต้นทุนของคุณต่อ ประเทศอื่นไม่นำมาพิจารณา</string>
+    <string name="portfolio_tx_market_value">มูลค่าตลาดต่อเหรียญ</string>
+    <string name="portfolio_tx_more_buy">ค่าธรรมเนียม กระดานเทรด โน้ต</string>
+    <string name="portfolio_tx_network_fee">ค่าธรรมเนียมเครือข่ายเป็นเหรียญ (ไม่บังคับ)</string>
+    <string name="portfolio_tx_note">หมายเหตุ (ไม่บังคับ)</string>
+    <string name="portfolio_tx_payment">ใช้จ่ายแล้ว</string>
+    <string name="portfolio_tx_price">ราคาต่อเหรียญ</string>
+    <string name="portfolio_tx_price_hint">เป็น USDT เว้นว่างหากไม่ทราบ</string>
+    <string name="portfolio_tx_price_historic">ราคาปิดรายวันที่ตรวจแล้วของ %1$s – ปรับได้หากจำเป็น</string>
+    <string name="portfolio_tx_price_invalid">ราคาไม่ถูกต้อง</string>
+    <string name="portfolio_tx_price_past_hint">ใส่ราคาของวันที่ทำรายการ – เว้นว่างถ้าไม่ทราบ</string>
+    <string name="portfolio_tx_price_receipt_hint">เป็น USDT เว้นว่าง = ยอดถือครองที่ไม่มีต้นทุน</string>
+    <string name="portfolio_tx_price_zero">ราคา 0 ใช้ไม่ได้กับธุรกรรมที่นำเข้า – เว้นว่างไว้เพื่อใช้ราคาตลาด</string>
+    <string name="portfolio_tx_removed">ลบรายการแล้ว</string>
+    <string name="portfolio_tx_reward">รางวัล</string>
+    <string name="portfolio_tx_save_failed">บันทึกรายการไม่สำเร็จ ข้อมูลที่กรอกยังอยู่ – โปรดลองอีกครั้ง</string>
+    <string name="portfolio_tx_swap">สลับเหรียญ</string>
+    <string name="portfolio_tx_swap_fee_received">ค่าธรรมเนียมเป็น %1$s: ลดจำนวนที่ได้รับ ไม่ต้องใช้ราคา</string>
+    <string name="portfolio_tx_swap_from">สลับจาก %1$s</string>
+    <string name="portfolio_tx_swap_given_amount">จำนวนที่ให้ไป</string>
+    <string name="portfolio_tx_swap_given_coin">เหรียญที่ให้ไป</string>
+    <string name="portfolio_tx_swap_received_amount">จำนวนที่ได้รับ</string>
+    <string name="portfolio_tx_swap_received_coin">เหรียญที่ได้รับ</string>
+    <string name="portfolio_tx_swap_same_coin">เลือกเหรียญอื่นที่ไม่ใช่เหรียญที่ให้ไป</string>
+    <string name="portfolio_tx_swap_to">สลับเป็น %1$s</string>
+    <string name="portfolio_tx_swap_value">มูลค่าการสลับ (ไม่บังคับ)</string>
+    <string name="portfolio_tx_swap_value_hint">มูลค่ารวม เว้นว่าง = ไม่ทราบ – กำไรจะไม่ครบ (อัตโนมัติหากมี USDT ในการสลับ)</string>
+    <string name="portfolio_tx_third_fee_amount">จำนวนค่าธรรมเนียม</string>
+    <string name="portfolio_tx_third_fee_coin">เหรียญค่าธรรมเนียม</string>
+    <string name="portfolio_tx_third_fee_incomplete">หากไม่มีราคา ค่าธรรมเนียมจะไม่รวมในต้นทุนและรายรับ การส่งออกข้อมูลภาษีจะทำเครื่องหมายการขายเหล่านี้</string>
+    <string name="portfolio_tx_third_fee_price">ราคาต่อเหรียญค่าธรรมเนียม (ไม่บังคับ)</string>
+    <string name="portfolio_tx_third_fee_toggle">ค่าธรรมเนียมเป็นเหรียญอื่น</string>
+    <string name="portfolio_tx_total">รวม: %1$s</string>
+    <string name="portfolio_tx_transfer">โอนย้าย</string>
+    <string name="portfolio_tx_transfer_from">จาก (ไม่บังคับ)</string>
+    <string name="portfolio_tx_transfer_to">ไปยัง (ไม่บังคับ)</string>
+    <string name="portfolio_tx_transfer_to_hint">กระดานเทรดหรือวอลเล็ต – จากนี้จะประเมินที่นั่น</string>
+    <string name="portfolio_tx_type_select">ประเภท: %1$s</string>
+    <string name="portfolio_tx_value_received">มูลค่าต่อเหรียญตอนที่ได้รับ (ไม่บังคับ)</string>
+    <string name="portfolio_tx_withdrawal">ถอน</string>
+    <string name="portfolio_tx_withdrawal_gift_hint">ให้เป็นของขวัญหรือใช้จ่ายไป? บันทึกเป็น ‹ของขวัญ› หรือ ‹ใช้จ่ายแล้ว› – ขึ้นอยู่กับประเทศ ทางภาษีถือเป็นการขาย</string>
+    <string name="portfolio_tx_withdrawal_price_hint">ไม่บังคับ: มูลค่าตลาดเป็น USDT ใช้เฉพาะในประวัติ (เว้นว่าง = ราคาของวันนั้น) เหรียญจะออกที่ต้นทุนเสมอ</string>
+    <string name="portfolio_wallet_did_you_mean">หมายถึง %1$s ใช่ไหม? การสะกดต่างกันจะนับเป็นวอลเล็ตแยก</string>
+    <string name="portfolio_wallet_shortfall">ยอดถือครองใน %1$s ไม่พอ – ขาดการโอนย้ายหรือไม่?</string>
+
+    <!-- Portfolio: Wertverlauf (Zeitraum, Vergleich Währung | USDT, Währungseffekt) -->
+    <!-- Höchster Tageswert des Zeitraums am Punkt («Hoch 12’345») -->
+    <string name="portfolio_chart_high">สูงสุด %1$s</string>
+    <string name="portfolio_compare">เปรียบเทียบ</string>
+    <!-- Umschalter «Vergleich», Screenreader: %1$s Währung -->
+    <string name="portfolio_compare_a11y">เปรียบเทียบ %1$s และ USDT เป็นเปอร์เซ็นต์</string>
+    <!-- %1$s Zeitraum, %2$s Währung, %3$s und %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="portfolio_compare_chart_a11y">เปรียบเทียบเป็นเปอร์เซ็นต์ %1$s: %2$s %3$s, USDT %4$s</string>
+    <!-- %1$s Prozentpunkte mit Vorzeichen («−5.10%»): Veränderung in der Währung minus in USDT -->
+    <string name="portfolio_currency_effect">ผลจากค่าเงิน: %1$s</string>
+    <!-- «Seit 1. Kauf» beginnt frühestens beim ersten Tag mit Kursdaten -->
+    <string name="portfolio_history_capped_data_start">ข้อมูลราคามีย้อนหลังถึงสิงหาคม 2017 เท่านั้น — ประวัติเริ่มจากตรงนั้น</string>
+    <string name="portfolio_history_chip_since_first">ตั้งแต่ซื้อ</string>
+    <string name="portfolio_history_collapse">ซ่อนมูลค่าย้อนหลัง</string>
+    <string name="portfolio_history_converted">แปลงด้วยอัตราวันนี้</string>
+    <string name="portfolio_history_expand">แสดงมูลค่าย้อนหลัง</string>
+    <string name="portfolio_history_gain_a11y">มูลค่า %1$s กำไร/ขาดทุน %2$s: %3$s</string>
+    <string name="portfolio_history_gain_label">กำไร/ขาดทุน</string>
+    <!-- Umschalter, Screenreader: %1$s Währung («CHF») oder «USDT» -->
+    <string name="portfolio_history_in_a11y">มูลค่าเป็น %1$s</string>
+    <string name="portfolio_history_incl_fx">รวมอัตราแลกเปลี่ยน</string>
+    <string name="portfolio_history_incl_withdrawn">รวมมูลค่าที่เปลี่ยนของเหรียญที่ถอนแล้ว</string>
+    <string name="portfolio_history_includes_trades">รวมการซื้อและขายในช่วงนี้</string>
+    <string name="portfolio_history_loading">กำลังโหลดมูลค่าย้อนหลัง</string>
+    <string name="portfolio_history_period_1y">1 ปี</string>
+    <string name="portfolio_history_period_30d">30 วัน</string>
+    <string name="portfolio_history_period_7d">7 วัน</string>
+    <string name="portfolio_history_period_since_first">ตั้งแต่ซื้อครั้งแรก</string>
+    <string name="portfolio_history_pnl_needs_prices">ขาดราคาซื้อสำหรับคำนวณกำไร/ขาดทุน – เพิ่มในรายการธุรกรรม</string>
+    <string name="portfolio_history_pnl_without">กำไร/ขาดทุนไม่รวม %1$s (ไม่มีราคา)</string>
+    <string name="portfolio_history_range_1y">1 ปี</string>
+    <string name="portfolio_history_range_30d">30 วัน</string>
+    <string name="portfolio_history_range_7d">7 วัน</string>
+    <string name="portfolio_history_range_a11y">แสดงย้อนหลัง %1$s</string>
+    <string name="portfolio_history_range_since_first">ตั้งแต่ซื้อครั้งแรก</string>
+    <string name="portfolio_history_scaled">ประวัติของ %1$s: ประวัติ Binance ปรับตามราคากระดาน</string>
+    <string name="portfolio_history_title">มูลค่าย้อนหลัง</string>
+    <string name="portfolio_history_today">วันนี้</string>
+    <string name="portfolio_history_too_short">ข้อมูลย้อนหลังเริ่มหลังจากครบวันแรก</string>
+    <string name="portfolio_history_unavailable">ขณะนี้ไม่มีข้อมูลย้อนหลัง</string>
+    <string name="portfolio_history_utc_days">วันตาม UTC (แท่งเทียนรายวัน)</string>
+    <string name="portfolio_history_without_matching">ไม่รวม %1$s (ไม่มีราคารายวันที่ตรงกัน)</string>
+    <string name="portfolio_period_rewards">รางวัล +%1$s (ไม่รวมในกำไร)</string>
+    <string name="portfolio_period_scaled">7 วัน/1 ปี ของ %1$s: ประวัติ Binance ปรับตามราคากระดาน</string>
+
+    <!-- Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_alarm_action">สัญญาณเตือน</string>
+    <!-- %1$s = Währung, z. B. CHF -->
+    <string name="portfolio_alarm_amount">จำนวน (%1$s)</string>
+    <string name="portfolio_alarm_hint">ตรวจสอบหลังการรีเฟรชทุกครั้ง เหมือนสัญญาณเตือน: แจ้งเมื่อข้ามเกณฑ์ และแจ้งอีกครั้งหลังจากมูลค่ากลับมาแล้วเท่านั้น</string>
+    <string name="portfolio_alarm_kind_above">พอร์ตโฟลิโอสูงกว่าจำนวน</string>
+    <string name="portfolio_alarm_kind_below">พอร์ตโฟลิโอต่ำกว่าจำนวน</string>
+    <string name="portfolio_alarm_kind_down">พอร์ตโฟลิโอลง</string>
+    <string name="portfolio_alarm_kind_up">พอร์ตโฟลิโอขึ้น</string>
+    <!-- %1$s = Betrag mit Währung (oder •••) -->
+    <string name="portfolio_alarm_sentence_above">พอร์ตโฟลิโอสูงกว่า %1$s</string>
+    <string name="portfolio_alarm_sentence_below">พอร์ตโฟลิโอต่ำกว่า %1$s</string>
+    <string name="portfolio_alarm_sentence_down">พอร์ตโฟลิโอลง %1$s (%2$s)</string>
+    <!-- %1$s = Prozent, %2$s = Basis der %-Änderung kurz (24h, heute …) -->
+    <string name="portfolio_alarm_sentence_up">พอร์ตโฟลิโอขึ้น %1$s (%2$s)</string>
+    <string name="portfolio_alarm_title">สัญญาณเตือน “มูลค่าพอร์ตโฟลิโอ”</string>
+
+    <!-- Gebühr, Börse und Gewinn/Verlust einer Position -->
+    <string name="ledger_exchange">กระดานเทรด (ไม่บังคับ)</string>
+    <string name="ledger_exchange_failed">%1$s: ตอนนี้ไม่มีราคาจาก %2$s – ประเมินด้วย Binance</string>
+    <string name="ledger_exchange_hint">เหรียญประเมินด้วยราคาของกระดานนี้ (ไม่เช่นนั้น Binance) ประวัติ 7 วัน และ 1 ปี: ราคารายวันของ Binance ปรับสัดส่วนตามนั้น</string>
+    <string name="ledger_exchange_mixed">%1$s: ระบุหลายกระดานเทรด – ประเมินด้วย Binance ย้ายเหรียญหรือเปล่า? บันทึกเป็น «โอนย้าย»</string>
+    <string name="ledger_exchange_none">ไม่มี (Binance)</string>
+    <string name="ledger_fee">ค่าธรรมเนียม (ไม่บังคับ)</string>
+    <string name="ledger_fee_coin">เหรียญ</string>
+    <string name="ledger_fee_hint">เป็น USDT จะเพิ่มต้นทุน (ขาย: ลดรายรับ) เป็นเหรียญจะลดจำนวน</string>
+    <string name="ledger_fee_line">ค่าธรรมเนียม %1$s</string>
+    <string name="ledger_fifo_cost_note">ตั้งแต่ซื้อ: ต้นทุนแบบ FIFO รวมค่าธรรมเนียม (ขายเหรียญที่เก่าที่สุดก่อน)</string>
+    <string name="ledger_gain_info">วันนี้ 7 วัน 1 ปี: มูลค่าที่เปลี่ยนในช่วงเวลา – การซื้อและขายไม่นับเป็นกำไร ตั้งแต่ซื้อ: มูลค่าปัจจุบันลบต้นทุน (ต้นทุนเฉลี่ยรวมค่าธรรมเนียม) ของเหรียญที่ยังถืออยู่</string>
+    <string name="ledger_gain_info_a11y">วิธีคำนวณกำไรและขาดทุน</string>
+    <string name="ledger_gain_info_fifo">วันนี้ 7 วัน 1 ปี: มูลค่าที่เปลี่ยนในช่วงเวลา – การซื้อและขายไม่นับเป็นกำไร ตั้งแต่ซื้อ: มูลค่าปัจจุบันลบต้นทุน (FIFO รวมค่าธรรมเนียม) ของเหรียญที่ยังถืออยู่</string>
+    <string name="ledger_gain_title">กำไร/ขาดทุน</string>
+    <string name="ledger_more_toggle">ค่าธรรมเนียมและกระดานเทรด</string>
+    <string name="ledger_partial_cost">«ตั้งแต่ซื้อ» นับเฉพาะส่วนที่มีราคาซื้อ – ไม่รวม %1$s ที่ไม่มีราคาซื้อ</string>
+    <string name="ledger_period_without">วันนี้ / 7 วัน / 1 ปี ไม่รวม %1$s – ไม่มีราคาเริ่มต้นที่ตรงกัน</string>
+    <string name="ledger_since_purchase_currency">ตั้งแต่ซื้อ (%1$s)</string>
+    <string name="ledger_since_purchase_spoken">กำไร/ขาดทุนตั้งแต่ซื้อ ยังไม่ได้ขาย</string>
+    <plurals name="ledger_without_cost">
+        <item quantity="other">ไม่รวม %1$d เหรียญที่ไม่มีราคาซื้อ (%2$s) – ใส่ราคาเพื่อให้นับรวม</item>
+    </plurals>
+</resources>

@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen: Aufbau (Gruppen, Zeilen, Abschnitte, Suche, Kurzwerte) -->
+    <string name="settings_custom_value">Oma</string>
+    <string name="settings_group_general">Yleiset</string>
+    <string name="settings_group_more">Lisää</string>
+    <string name="settings_minutes">%1$d min</string>
+    <string name="settings_row_about">Tietoja sovelluksesta</string>
+    <string name="settings_row_advanced">Lisäasetukset</string>
+    <string name="settings_row_alarms">Hälytykset</string>
+    <string name="settings_row_currency">Valuutta</string>
+    <string name="settings_row_dated_futures">Määräaikaiset futuurit</string>
+    <string name="settings_row_updates">Hintojen päivitys</string>
+    <string name="settings_row_watchlist">Seurantalista</string>
+    <string name="settings_search_hint">Hae asetuksista</string>
+    <string name="settings_seconds">%1$d s</string>
+    <string name="settings_section_about">Tietoja</string>
+    <string name="settings_section_appearance">Ulkoasu</string>
+    <string name="settings_section_developer">Kehittäjä</string>
+    <string name="settings_section_language">Kieli</string>
+    <!-- Kurzwert «eingeschaltet» (Gegenstück zu option_off) -->
+    <string name="settings_summary_on">Päällä</string>
+    <string name="settings_title">Asetukset</string>
+
+    <!-- Einstellungen › Alarme (Ton, Signal, Ruhezeit, App-Symbol, exakte Prüfungen) -->
+    <string name="settings_alarm_cooldown">Tauko ennen kuin hälytys laukeaa uudelleen</string>
+    <!-- Ton/Vibration der Kursalarme, je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">Hälytyssignaali</string>
+    <string name="settings_alarm_signal_open_system">Muokkaa järjestelmäasetuksissa</string>
+    <string name="settings_alarm_signal_system_hint">Noudattaa puhelimen ilmoitusasetuksia.</string>
+    <string name="settings_alarm_sound">Hälytysääni</string>
+    <string name="settings_alarm_sound_custom">Oma ääni</string>
+    <string name="settings_alarm_sound_default">Oletusääni</string>
+    <string name="settings_alarm_sound_error">Ääntä ei voitu käyttää.</string>
+    <string name="settings_alarm_sound_file">Oma äänitiedosto…</string>
+    <string name="settings_alarm_sound_reset">Käytä oletusääntä</string>
+    <string name="settings_alarm_sound_system">Valitse järjestelmän ääni…</string>
+    <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">Numero sovelluskuvakkeessa</string>
+    <string name="settings_app_badge_hint">Laskee avoimet hälytysilmoitukset. Aloitusnäyttö päättää, näkyykö numero vai piste (esim. Samsung: «Numerolla»).</string>
+    <string name="settings_exact_checks">Tarkista ajallaan</string>
+    <string name="settings_exact_checks_grant">Salli «Herätykset ja muistutukset»</string>
+    <string name="settings_exact_checks_hint">Android tarkistaa noin 15 minuutin välein myös laitteen ollessa levossa. Kuluttaa hieman enemmän akkua.</string>
+    <string name="settings_exact_checks_nothing">Ei aktiivisia pareja – ei tarkistettavaa.</string>
+    <string name="settings_exact_checks_permission_missing">Lupa puuttuu – Android tarkistaa, kun sille sopii (noin 15 min välein tai myöhemmin).</string>
+    <string name="settings_notification_change">Ilmoita vain hinnan muuttuessa</string>
+    <string name="settings_notification_change_always">Aina</string>
+    <string name="settings_notification_change_hint">Ilmoitus näytetään vasta, kun hinta on muuttunut vähintään tämän verran edellisestä ilmoituksesta. Kun tietoja puuttuu, mitään ei näytetä. Ei vaikuta hälytyksiin.</string>
+    <string name="settings_ongoing_notifications">Ei voi pyyhkäistä pois</string>
+    <string name="settings_ongoing_notifications_hint">Pitää hintailmoitukset kiinnitettyinä.</string>
+    <string name="settings_price_notifications">Hintailmoitukset</string>
+    <string name="settings_price_notifications_hint">Näytä käytössä olevien parien nykyinen hinta tilapalkissa.</string>
+    <string name="settings_price_pairs">Parit</string>
+    <string name="settings_price_pairs_all_off">Kaikki pois</string>
+    <string name="settings_price_pairs_all_on">Kaikki päälle</string>
+    <string name="settings_price_pairs_count">%1$d/%2$d</string>
+    <string name="settings_price_pairs_empty">Seurantalistalla ei ole vielä pareja.</string>
+    <string name="settings_price_pairs_hint">Valitse, minkä parien kurssi näkyy ilmoituspalkissa.</string>
+    <string name="settings_quiet_hours">Hiljaiset tunnit</string>
+    <string name="settings_quiet_hours_from">Alkaa</string>
+    <string name="settings_quiet_hours_hint">Aikavälillä %1$s–%2$s hälytykset odottavat hiljaisten tuntien loppuun ja hälyttävät sitten äänellä. Muut ilmoitukset tulevat äänettömästi, ilman puhetta.</string>
+    <string name="settings_quiet_hours_to">Päättyy</string>
+
+    <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
+    <string name="settings_background_interval">Aikaväli</string>
+    <string name="settings_background_updates">Taustapäivitykset</string>
+    <string name="settings_battery_hint">Rajoitettu tarkoittaa, että Android voi viivästää taustapäivityksiä tunteja.</string>
+    <string name="settings_battery_ok">Akun käyttö: rajoittamaton</string>
+    <string name="settings_battery_restricted">Akun käyttö: rajoitettu</string>
+    <string name="settings_check_runs_empty">Tarkistuksia ei ole vielä kirjattu.</string>
+    <string name="settings_check_runs_honest_android">Android päättää, milloin tarkistetaan – tässä näet, milloin se todella tapahtui.</string>
+    <string name="settings_check_runs_honest_ios">iOS päättää, milloin tarkistetaan – tässä näet, milloin se todella tapahtui.</string>
+    <string name="settings_check_runs_title">Viimeisimmät tarkistukset</string>
+    <string name="settings_http_log">Näytä HTTP-loki</string>
+    <string name="settings_http_log_hint">Näyttää Lisää pari -sivun alaosassa pyynnöt pörsseihin – vianetsintään.</string>
+    <string name="settings_live_service">Päivitä tiheästi</string>
+    <string name="settings_live_websocket">Live-hinnat</string>
+
+    <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
+    <string name="settings_activity_alerts">Ilmoita epätavallisesta aktiivisuudesta</string>
+    <string name="settings_activity_alerts_hint">Enintään kerran tunnissa paria kohden: epätavalliset hintaliikkeet, volyymipiikit ja futuurien ääriarvot (tiedot Binancesta).</string>
+    <string name="settings_activity_sensitivity">Herkkyys</string>
+    <string name="settings_activity_sensitivity_hint">Kuinka helposti kolikko katsotaan epätavalliseksi – sama seurantalistan kortille ja ilmoituksille. Asetuksella ”Vähemmän” kortti näyttää vain 3 vahvinta.</string>
+    <string name="settings_watchlist_activity_card">Epätavallinen aktiivisuus listassa</string>
+    <string name="settings_watchlist_activity_card_hint">Näyttää ⚡-sirun ryhmien vieressä: napauta nähdäksesi vain parit, joissa tapahtuu juuri nyt jotain. Ilmoitukset asetetaan kohdassa Markkinailmoitukset.</string>
+    <string name="settings_watchlist_names">Näytä nimet</string>
+    <string name="settings_watchlist_names_hint">Nimi parin alla, esim. Bitcoin tai NVIDIA. Tulee logoluetteloiden mukana, ladataan kerran kaikille kolikoille.</string>
+    <string name="settings_watchlist_sparkline">Minikaavio seurantalistassa</string>
+    <string name="settings_watchlist_sparkline_hint">24 tunnin kehitys hinnan vieressä</string>
+    <string name="settings_watchlist_value_names">Nimet</string>
+    <string name="settings_watchlist_value_price_only">Vain hinta</string>
+    <string name="settings_watchlist_value_sparkline">Minikaavio</string>
+
+    <!-- Einstellungen › Token & TradFi -->
+    <string name="settings_asset_scope_alpha">Myös Alpha-tokenit (α)</string>
+    <string name="settings_asset_scope_alpha_hint">Alpha-tokenit: varhaisia, useimmiten pieniä projekteja Binance Alpha -listalta – usein vähän kauppaa ja voimakkaita heilahteluja.</string>
+    <string name="settings_asset_scope_alpha_tradfi_hint">Kuuluu tokeneihin. Lukittu, kun ”Vain TradFi” on valittu; listalla olevat Alpha-tokenit säilyvät.</string>
+    <string name="settings_asset_scope_both">Tokenit ja TradFi</string>
+    <string name="settings_asset_scope_both_hint">Kaikki – krypto ja TradFi</string>
+    <string name="settings_asset_scope_hint">Määrää, mitä pareja valinta ja haku näyttävät lisättäessä. Seurantalistalla jo olevat parit pysyvät aina.</string>
+    <string name="settings_asset_scope_title">Tokenit &amp; TradFi</string>
+    <string name="settings_asset_scope_tokens">Vain tokenit</string>
+    <string name="settings_asset_scope_tokens_hint">Krypto: spot ja perpetualit</string>
+    <string name="settings_asset_scope_tradfi">Vain TradFi</string>
+    <string name="settings_asset_scope_tradfi_hint">Futuurit osakkeisiin, raaka-aineisiin, valuuttoihin – sopimuksia, ei tokeneita</string>
+    <string name="settings_rolling_futures">Myös neljännesvuosi- ja muut määräaikaiset futuurit</string>
+    <string name="settings_rolling_futures_hint">Pois: pörssin listalta puuttuvat määräaikaiset futuurit merkitään poistuneiksi kaupankäynnistä sen sijaan, että ne tarkistettaisiin yksitellen. Nopeuttaa jokaista päivitystä.</string>
+    <string name="settings_rolling_futures_qtly">Myös neljännesvuosi- ja muut määräaikaiset futuurit (QTLY)</string>
+    <string name="settings_rolling_futures_tradfi_hint">Kuuluu tokeneihin. Lukittu, kun ”Vain TradFi” on valittu; koskee yhä listalla olevia määräaikaisia futuureja.</string>
+    <string name="settings_tradfi_futures">Osakkeet, raaka-aineet ja valuutat (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">Näyttää parin valinnassa myös futuurit osakkeisiin, kultaan ja muihin raaka-aineisiin, valuuttoihin ja yhtiöihin ennen listautumista. Nämä ovat sopimuksia, eivät tokeneita.</string>
+
+    <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
+    <string name="settings_accent">Korostusväri</string>
+    <string name="settings_accent_hint">Väri sovellukselle, widgeteille ja sovelluskuvakkeelle.</string>
+    <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">Kolikoiden logot</string>
+    <string name="settings_coin_logos_app">Sovelluksessa</string>
+    <string name="settings_coin_logos_app_hint">Seurantalista, parin näkymä ja markkinakortit</string>
+    <string name="settings_coin_logos_footer">Logot tulevat CoinGeckosta ja, jos CoinGeckolla ei ole niitä (esim. kulta, hopea, osakkeet), Binancesta. Sovellus lataa kaikki logot kerralla ja tallentaa ne tähän laitteeseen, joten kumpikaan ei tiedä, mitä kolikoita seuraat. Kolikoista ilman logoa näytetään nimikirjaimet. Suosikit saavat logoon pienen tähden. Kun kytkin on pois päältä, logoja tai nimikirjaimia ei näytetä; kun kaikki on pois päältä, mitään ei ladata.</string>
+    <string name="settings_coin_logos_portfolio">Salkussa</string>
+    <string name="settings_coin_logos_portfolio_hint">Omistukset, kolikon tiedot ja näkymät</string>
+    <string name="settings_coin_logos_value_app">Sovellus</string>
+    <string name="settings_coin_logos_widgets">Widgeteissä</string>
+    <string name="settings_coin_logos_widgets_hint">Seurantalista- ja yhden kolikon widgetit</string>
+    <string name="settings_high_contrast">Suuri kontrasti</string>
+    <string name="settings_high_contrast_hint">Voimakkaammat hintavärit ja tummempi toissijainen teksti. Käytössä myös, kun järjestelmä pyytää suurempaa kontrastia.</string>
+    <string name="settings_language_choose">Valitse kieli</string>
+    <string name="settings_language_system">Järjestelmän kieli</string>
+    <string name="settings_price_colors">Hintojen värit</string>
+    <string name="settings_price_colors_hint">Sininen / oranssi erottuu hyvin kaikissa värinäön poikkeamissa (puna-viher ja sini-kelta). Suunta näytetään lisäksi aina merkeillä + / −.</string>
+    <string name="settings_theme_mode">Vaalea / Tumma</string>
+    <string name="settings_widgets">Widgetit</string>
+
+    <!-- Einstellungen › %-Änderung -->
+    <!-- Einstellungszeile und Seitentitel «%-Änderung»; %1$s ist das Prozentzeichen «%» -->
+    <string name="settings_change_basis">%1$s-muutos ja kaavion aikavyöhyke</string>
+    <string name="settings_change_basis_hint_1">Valittu aikavyöhyke määrää, mistä alkaen prosenttimuutos lasketaan (seurantalista, pulssirivi, parin näkymä, widgetit), ja kaavioiden kellonajat.</string>
+    <string name="settings_change_basis_hint_2">”%1$s” vertaa hintaan tasan 24 tuntia sitten. ”00:00” vertaa avaushintaan keskiyöllä tällä aikavyöhykkeellä.</string>
+    <string name="settings_change_basis_hint_3">Hälytyksiin tämä ei vaikuta.</string>
+    <string name="settings_change_basis_hint_since_last">”%1$s” vertaa edellisen päivityksen hintaan. Live-hinnoilla arvo pysyy lähellä 0 %%:a.</string>
+    <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
+    <string name="settings_change_period">Näytä jakso muutoksen vieressä</string>
+    <string name="settings_change_period_hint">Pieni ”24h”, ”tänään” tai ”ed. päivitys” muutoksen vieressä seurantalistassa ja yhden kolikon widgetissä. Ruudunlukija kertoo sen aina.</string>
+
+    <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
+    <string name="settings_conversion_currency">Muunnosvaluutta</string>
+    <string name="settings_conversion_currency_hint">Käytetään myös salkussa, omassa valuutassasi asetetuissa hälytyksissä, Kryptomarkkina-kortissa ja Salkku-widgetissä.</string>
+    <string name="settings_cost_method">Hankintahinnan laskentatapa</string>
+    <string name="settings_cost_method_average">Keskiarvo (Ø)</string>
+    <string name="settings_cost_method_average_hint">Myynnit arvostetaan liukuvaan keskimääräiseen ostohintaan.</string>
+    <string name="settings_cost_method_fifo">FIFO (oletus)</string>
+    <string name="settings_cost_method_fifo_hint">Vanhimmat kolikot myydään ensin kaikista pörsseistä ja lompakoista.</string>
+    <string name="settings_cost_method_fifo_wallet">FIFO lompakoittain/pörsseittäin</string>
+    <string name="settings_cost_method_fifo_wallet_hint">Vanhimmat kolikot ensin kussakin pörssissä tai lompakossa; siirrot siirtävät erät ostopäivineen.</string>
+    <string name="settings_portfolio_lock">Salkun lukitus</string>
+    <string name="settings_portfolio_lock_footer">Lukitus piilottaa näkymän. Tiedot ovat tällä laitteella, ja laitteen salaus suojaa ne. Voit suojata varmuuskopiot salasanalla.</string>
+    <string name="settings_portfolio_lock_hint">Piilottaa vain salkun: avaa sormenjäljellä, kasvoilla tai laitteen PIN-koodilla. Lukittuu uudelleen, kun sovellus on ollut taustalla yli minuutin. Seurantalista, hälytykset ja muut widgetit pysyvät avoimina.</string>
+    <string name="settings_portfolio_lock_no_device_lock">Ilman laitteen PIN-koodia tai pääsykoodia lukitus ei piilota mitään – ota näytön lukitus käyttöön.</string>
+    <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">Salkku järjestelmän varmuuskopioon</string>
+    <string name="settings_portfolio_system_backup_hint">Pois: tapahtumasi eivät tule laitteen järjestelmän varmuuskopioon eivätkä siirtoon uuteen puhelimeen. Siirrä ne sovelluksen omalla salasanalla suojatulla varmuuskopiolla.</string>
+    <string name="settings_portfolio_system_backup_unavailable">Vaatii Android 9:n tai uudemman – vanhemmat versiot tallentaisivat salkun salaamattomana Googlen varmuuskopioon.</string>
+    <string name="settings_portfolio_tab">Näytä Salkku-välilehti</string>
+    <string name="settings_portfolio_value_locked">Päällä, lukittu</string>
+    <string name="settings_show_converted">Muunnetut hinnat</string>
+    <string name="settings_show_converted_hint">Näyttää seurantalistan hinnat myös valuutassa %1$s</string>
+
+    <!-- Einstellungen › Markt-Meldungen -->
+    <string name="settings_depeg_alarm">Ilmoita USDT:n kytköksen pettämisestä</string>
+    <string name="settings_depeg_alarm_hint">Ilmoittaa kerran, kun USDT poikkeaa 1 USD:sta rajan verran (Kraken USDT/USD, Binance USDC/USDT). Sovelluksen arvot käyttävät edelleen USDT = 1.</string>
+    <string name="settings_depeg_threshold">Kytköksen poikkeamaraja</string>
+    <string name="settings_fng_above">Fear &amp; Greed: ilmoita yli</string>
+    <string name="settings_fng_below">Fear &amp; Greed: ilmoita alle</string>
+    <string name="settings_gas_alert_hint">Ilmoittaa kerran, kun normaali maksu laskee rajan alle. Tarkistetaan hintapäivityksen yhteydessä, enintään 10 minuutin välein.</string>
+    <string name="settings_gas_btc_below">Bitcoin-maksu alle (sat/vB)</string>
+    <string name="settings_gas_eth_below">Ethereum-gas alle (gwei)</string>
+    <string name="settings_ind_ath_within">Pudotus kaikkien aikojen huipusta enintään</string>
+    <string name="settings_ind_mayer_above">Mayer Multiple yli</string>
+    <string name="settings_ind_mayer_below">Mayer Multiple alle</string>
+    <string name="settings_ind_mvrv_above">MVRV yli</string>
+    <string name="settings_ind_mvrv_below">MVRV alle</string>
+    <string name="settings_indicator_alerts_hint">Bitcoinin tunnusluvut, tarkistetaan kahdesti päivässä. Rajat valitset itse – sovellus ei arvioi arvoja.</string>
+    <string name="settings_macro_notifications">Talouskalenteri</string>
+    <string name="settings_macro_notifications_hint">Klo 08:00 päivinä, joina julkaistaan tärkeitä Yhdysvaltain talouslukuja (inflaatio, työllisyys, korkopäätös). Kalenteri haetaan sovelluksen verkkosivulta kerran päivässä.</string>
+    <string name="settings_market_alerts">Markkinailmoitukset</string>
+    <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
+    <plurals name="settings_market_alerts_active">
+        <item quantity="one">%1$d päällä</item>
+        <item quantity="other">%1$d päällä</item>
+    </plurals>
+
+    <!-- Einstellungen › Sprachausgabe -->
+    <string name="settings_speech_rate">Puhenopeus: %1$.1f×</string>
+    <string name="settings_tts">Ääneenluku</string>
+    <string name="settings_tts_alarms_only">Vain hälytykset</string>
+    <string name="settings_tts_alarms_only_hint">Pois: jokainen päivitys luetaan ääneen pareille, joille on valittu ”Lue hinta ääneen”.</string>
+    <!-- Sprachausgabe schweigt im Lautlos-/Vibrationsmodus -->
+    <string name="settings_tts_hint_silent">Lukee hinnat ja hälytykset ääneen. Pysyy hiljaa, kun laite on äänettömällä tai värinätilassa.</string>
+    <string name="settings_tts_test">Testaa ääntä</string>
+
+    <!-- Einstellungen › Daten: App zurücksetzen -->
+    <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
+    <string name="settings_reset_app">Nollaa sovellus</string>
+    <string name="settings_reset_app_action">Poista kaikki</string>
+    <string name="settings_reset_app_confirm">Poistaa seurantalistan, hälytykset, salkun, asetukset ja kaikki tallennetut tiedot, kuten asennuksen jälkeen. Toimintoa ei voi kumota. Vinkki: tee ensin varmuuskopio.</string>
+    <string name="settings_reset_app_title">Nollataanko sovellus?</string>
+
+    <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
+    <!-- Suchfeld der Währungsseite -->
+    <string name="currency_search">Hae valuuttaa</string>
+    <string name="language_search">Hae kieltä</string>
+
+    <!-- Theme -->
+    <string name="theme_dark">Tumma</string>
+    <string name="theme_light">Vaalea</string>
+    <string name="theme_system">Järjestelmä</string>
+
+    <!-- Akzentfarben -->
+    <string name="accent_blue">Sininen</string>
+    <string name="accent_green">Vihreä</string>
+    <!-- Eigenname, in allen Sprachen gleich -->
+    <string name="accent_marrs_green">Marrs Green</string>
+    <string name="accent_orange">Oranssi</string>
+    <string name="accent_red">Punainen</string>
+
+    <!-- Kursfarben -->
+    <string name="price_colors_red_up_hint">Tavallista Kiinassa, Japanissa, Koreassa ja Taiwanissa</string>
+    <string name="price_colors_swap">Vaihda värit (nousu ↔ lasku)</string>
+    <string name="price_style_calm">Rauhallinen</string>
+    <string name="price_style_calm_color_vision">Rauhallinen · Värinäön poikkeama</string>
+    <string name="price_style_color_vision">Värinäön poikkeama</string>
+    <string name="price_style_fresh">Raikas</string>
+    <string name="price_style_traditional">Perinteinen</string>
+
+    <!-- Über die App -->
+    <string name="about_exchanges_verified">Pörssiyhteydet tarkistettu viimeksi oikeita vastauksia vasten: %1$s</string>
+    <string name="about_license">Hinnat tulevat suoraan pörsseistä; ei tiliä eikä seurantaa.</string>
+    <!-- Texte der Lizenzen liegen in assets/licenses -->
+    <string name="about_licenses">Lisenssit</string>
+    <string name="about_privacy_policy">Tietosuojaseloste</string>
+    <!-- GitHub-Vorlage exchange_request.md -->
+    <string name="about_request_exchange">Ehdota pörssiä</string>
+    <string name="about_source_code">Lähdekoodi GitHubissa</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_why">Crypto Checker on r1AD:n itsenäinen projekti: rauhallinen hintanäkymä ilman tiliä, mainoksia tai seurantaa. Kysymykset ja toiveet: %1$s</string>
+
+    <!-- Lizenzhinweise -->
+    <string name="licenses_app_intro">Crypto Checker on avointa lähdekoodia (MIT-lisenssi).</string>
+    <string name="licenses_font_title">Rubik-fontti</string>
+    <string name="licenses_icons_bundled_text">Sovelluksen mukana: kuvakkeet kokoelmasta «Cryptocurrency Icons» (Christopher Downer ja muut tekijät, github.com/spothq/cryptocurrency-icons), julkaistu lisenssillä CC0 1.0 Universal. Ne näkyvät, kunnes CoinGeckon tai Binancen logot on ladattu. Nimet ja logot ovat edelleen projektiensa tavaramerkkejä.</string>
+    <string name="licenses_icons_title">Varakolikkokuvakkeet</string>
+    <string name="licenses_libraries_intro">Sovellus käyttää näitä kirjastoja lisenssillä Apache License 2.0:</string>
+    <string name="licenses_libraries_title">Android-kirjastot</string>
+
+    <!-- Entwickleroptionen -->
+    <!-- Countdown der letzten Tipps auf die Version bis zu den Entwickleroptionen -->
+    <plurals name="developer_taps_left">
+        <item quantity="one">Vielä %d napautus kehittäjäasetusten avaamiseen</item>
+        <item quantity="other">Vielä %d napautusta kehittäjäasetusten avaamiseen</item>
+    </plurals>
+    <string name="developer_unlocked">Kehittäjäasetukset avattu</string>
+
+    <!-- Nur iOS: Einstellungen -->
+    <!-- Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">Värinä noudattaa iPhonen asetuksia (Äänet ja tuntopalaute).</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Laskee uudet hälytykset ja markkinailmoitukset; nollautuu, kun avaat sovelluksen.</string>
+</resources>

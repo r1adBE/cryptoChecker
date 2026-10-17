@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: CSV-Import -->
+    <string name="portfolio_csv_import_action">Importovat CSV</string>
+    <string name="portfolio_csv_import_all_transfer">Vše do vlastní peněženky</string>
+    <string name="portfolio_csv_import_all_withdrawal">Vše opouští portfolio</string>
+    <string name="portfolio_csv_import_choice_proposed">Návrh: odpovídá %1$s</string>
+    <string name="portfolio_csv_import_choice_transfer">Do vlastní peněženky (převod)</string>
+    <string name="portfolio_csv_import_choice_withdrawal">Opouští portfolio (výběr)</string>
+    <string name="portfolio_csv_import_choose_each">U každého výběru zvol, kam šel.</string>
+    <string name="portfolio_csv_import_columns">Rozpoznané sloupce: %1$s</string>
+    <string name="portfolio_csv_import_confirm">Importovat (%1$d)</string>
+    <string name="portfolio_csv_import_date_day_first">Den/Měsíc</string>
+    <string name="portfolio_csv_import_date_month_first">Měsíc/Den</string>
+    <string name="portfolio_csv_import_date_order">Nejednoznačná data (např. 03/04/2024) číst jako:</string>
+    <string name="portfolio_csv_import_decimal">Nejednoznačná čísla (např. %1$s) číst jako:</string>
+    <plurals name="portfolio_csv_import_done">
+        <item quantity="one">%d transakce importována</item>
+        <item quantity="few">%d transakce importovány</item>
+        <item quantity="many">%d transakce importováno</item>
+        <item quantity="other">%d transakcí importováno</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_duplicates">
+        <item quantity="one">Již importováno (přeskočeno): %d</item>
+        <item quantity="few">Již importováno (přeskočeno): %d</item>
+        <item quantity="many">Již importováno (přeskočeno): %d</item>
+        <item quantity="other">Již importováno (přeskočeno): %d</item>
+    </plurals>
+    <string name="portfolio_csv_import_format">Formát: %1$s</string>
+    <string name="portfolio_csv_import_line">Řádek %1$d: %2$s</string>
+    <string name="portfolio_csv_import_loading">Načítám soubor a denní kurzy…</string>
+    <string name="portfolio_csv_import_missing_fx">Chybí denní kurz pro řádek %1$s – importováno bez ceny a poplatku.</string>
+    <string name="portfolio_csv_import_missing_price">V souboru chybí cena pro řádek %1$s – importováno bez ceny.</string>
+    <string name="portfolio_csv_import_more">+ dalších %1$d</string>
+    <plurals name="portfolio_csv_import_new">
+        <item quantity="one">%d nová transakce</item>
+        <item quantity="few">%d nové transakce</item>
+        <item quantity="many">%d nové transakce</item>
+        <item quantity="other">%d nových transakcí</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_skipped">
+        <item quantity="one">%d řádek přeskočen</item>
+        <item quantity="few">%d řádky přeskočeny</item>
+        <item quantity="many">%d řádku přeskočeno</item>
+        <item quantity="other">%d řádků přeskočeno</item>
+    </plurals>
+    <string name="portfolio_csv_import_stable_swaps">Nákupy a prodeje za stablecoiny (USDT, USDC …) se účtují jako směna – stablecoin se objeví v tvé držbě.</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">Je možných více shod – vyberte správnou nebo žádnou.</string>
+    <string name="portfolio_csv_import_transfer_fee">Síťový poplatek: %1$s</string>
+    <string name="portfolio_csv_import_transfer_link">Zaúčtovat jako jeden převod</string>
+    <string name="portfolio_csv_import_transfer_stored">Protějšek z dřívějšího importu</string>
+    <string name="portfolio_csv_import_transfers_hint">Výběr a odpovídající vklad stejného coinu se spojí do jednoho převodu: nákupní cena a doba držení zůstávají, rozdíl se počítá jako síťový poplatek.</string>
+    <string name="portfolio_csv_import_transfers_title">Převody mezi vašimi účty</string>
+    <string name="portfolio_csv_import_unreadable">Nenalezeny žádné podporované transakce. Podporováno: exporty CSV z Relai, Swissquote, Kraken, Binance, Coinbase a Bitpanda.</string>
+    <string name="portfolio_csv_import_withdrawals_title">Výběry – kam šly mince?</string>
+    <string name="portfolio_csv_import_zone">Časy bez časového pásma čteny jako: %1$s</string>
+    <string name="portfolio_csv_import_zone_device">Zařízení (%1$s)</string>
+    <string name="portfolio_csv_skip_bad_date">nečitelné datum</string>
+    <string name="portfolio_csv_skip_bad_number">nečitelné číslo</string>
+    <string name="portfolio_csv_skip_fee_exceeds">poplatek ≥ přijaté množství</string>
+    <string name="portfolio_csv_skip_internal_move">přesun mezi vašimi vlastními účty – nic k zaúčtování</string>
+    <string name="portfolio_csv_skip_missing">chybí pole</string>
+    <string name="portfolio_csv_skip_not_crypto">není krypto</string>
+    <string name="portfolio_csv_skip_possible_duplicate">možná už importováno (téměř stejný obchod) – zkontrolujte ručně</string>
+    <string name="portfolio_csv_skip_two_fees">dva poplatky v různých jednotkách – zadejte směnu ručně</string>
+    <string name="portfolio_csv_skip_unsupported">nepodporovaný typ</string>
+
+    <!-- Portfolio: Importe ansehen und rückgängig machen -->
+    <string name="portfolio_import_undo">Vrátit zpět</string>
+    <plurals name="portfolio_import_undo_confirm">
+        <item quantity="one">Smazat %d transakci tohoto importu? Ručně zadané a jiné importy zůstanou.</item>
+        <item quantity="few">Smazat %d transakce tohoto importu? Ručně zadané a jiné importy zůstanou.</item>
+        <item quantity="many">Smazat transakce tohoto importu (%d)? Ručně zadané a jiné importy zůstanou.</item>
+        <item quantity="other">Smazat %d transakcí tohoto importu? Ručně zadané a jiné importy zůstanou.</item>
+    </plurals>
+    <string name="portfolio_import_undo_title">Vrátit import zpět?</string>
+    <plurals name="portfolio_import_undone">
+        <item quantity="one">Odebrána %d importovaná transakce</item>
+        <item quantity="few">Odebrány %d importované transakce</item>
+        <item quantity="many">Odebráno importovaných transakcí: %d</item>
+        <item quantity="other">Odebráno %d importovaných transakcí</item>
+    </plurals>
+    <plurals name="portfolio_imports_count">
+        <item quantity="one">%d transakce</item>
+        <item quantity="few">%d transakce</item>
+        <item quantity="many">%d transakce</item>
+        <item quantity="other">%d transakcí</item>
+    </plurals>
+    <string name="portfolio_imports_empty">Žádné importy</string>
+    <string name="portfolio_imports_title">Importy</string>
+</resources>

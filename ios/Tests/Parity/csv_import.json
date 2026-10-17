@@ -1,0 +1,2291 @@
+{
+  "_comment": "CSV-Import Relai/Swissquote (CsvImportParser.kt/.swift). Zeiten: ISO-UTC oder Epoch-ms. Beträge als exakter Text.",
+  "files": [
+    {
+      "name": "relai_basic",
+      "csv": "Date,Transaction Type,BTC Amount,BTC Price,Currency Pair,Fiat Amount (excl. fees),Fiat Currency,Fee,Fee Currency,Destination,Operation ID,Counterparty\r\n2024-09-15T14:23:17Z,Sell,-0.02847593,92341.28,BTC/CHF,2629.45,CHF,0.00,CHF,CH0000000000000000000,op-0001,Relai Switzerland\r\n2024-07-22T09:41:06Z,Buy,0.00284516,95287.63,BTC/CHF,271.05,CHF,2.45,CHF,bc1qexample0000000000000000000000000001,op-0002,Relai Switzerland\r\n2024-06-18T16:52:31Z,Savings plan,0.00371249,,BTC/EUR,321.45,EUR,2.90,EUR,bc1qexample0000000000000000000000000002,op-0003,Relai AG\r\n2024-06-20T08:00:00Z,Withdrawal,0.00500000,,,,,0.00001000,BTC,bc1qexample0000000000000000000000000003,op-0004,\r\n2024-06-21T10:00:00Z,Referral bonus,0.00010000,60000.00,BTC/CHF,6.00,CHF,,CHF,bc1qexample0000000000000000000000000004,op-0005,Relai Switzerland\r\n2024-06-22T10:00:00Z,Cancelled,0.00010000,60000.00,BTC/CHF,6.00,CHF,,CHF,,op-0006,Relai Switzerland\r\n2024-13-01T10:00:00Z,Buy,0.00010000,60000.00,BTC/CHF,6.00,CHF,,CHF,,op-0007,Relai Switzerland\r\n2024-06-23T10:00:00Z,Buy,abc,60000.00,BTC/CHF,6.00,CHF,,CHF,,op-0008,Relai Switzerland\r\n",
+      "format": "RELAI",
+      "rows": [
+        {
+          "line": 2,
+          "kind": "SELL",
+          "rawKind": "Sell",
+          "coin": "BTC",
+          "amount": "0.02847593",
+          "price": "92341.28",
+          "quote": "CHF",
+          "fee": null,
+          "feeUnit": null,
+          "time": "2024-09-15T14:23:17Z",
+          "externalId": "op-0001",
+          "key": "RELAI|op-0001"
+        },
+        {
+          "line": 3,
+          "kind": "BUY",
+          "rawKind": "Buy",
+          "coin": "BTC",
+          "amount": "0.00284516",
+          "price": "95287.63",
+          "quote": "CHF",
+          "fee": "2.45",
+          "feeUnit": "CHF",
+          "time": "2024-07-22T09:41:06Z",
+          "externalId": "op-0002",
+          "key": "RELAI|op-0002"
+        },
+        {
+          "line": 4,
+          "kind": "BUY",
+          "rawKind": "Savings plan",
+          "coin": "BTC",
+          "amount": "0.00371249",
+          "price": "86586.091814388726",
+          "quote": "EUR",
+          "fee": "2.9",
+          "feeUnit": "EUR",
+          "time": "2024-06-18T16:52:31Z",
+          "externalId": "op-0003",
+          "key": "RELAI|op-0003"
+        },
+        {
+          "line": 5,
+          "kind": "WITHDRAWAL",
+          "rawKind": "Withdrawal",
+          "coin": "BTC",
+          "amount": "0.005",
+          "price": null,
+          "quote": null,
+          "fee": "0.00001",
+          "feeUnit": "BTC",
+          "time": "2024-06-20T08:00:00Z",
+          "externalId": "op-0004",
+          "key": "RELAI|op-0004"
+        },
+        {
+          "line": 6,
+          "kind": "REWARD",
+          "rawKind": "Referral bonus",
+          "coin": "BTC",
+          "amount": "0.0001",
+          "price": "60000",
+          "quote": "CHF",
+          "fee": null,
+          "feeUnit": null,
+          "time": "2024-06-21T10:00:00Z",
+          "externalId": "op-0005",
+          "key": "RELAI|op-0005"
+        }
+      ],
+      "skipped": [
+        {
+          "line": 7,
+          "reason": "UNSUPPORTED_KIND"
+        },
+        {
+          "line": 8,
+          "reason": "BAD_DATE"
+        },
+        {
+          "line": 9,
+          "reason": "BAD_NUMBER"
+        }
+      ]
+    },
+    {
+      "name": "relai_sats_semicolon_bom",
+      "csv": "﻿Datum;Transaktionstyp;Sats Amount;BTC Price;Fiat Currency;Fee;Fee Currency;Operation ID\n15.01.2024 09:30;Kauf;\"284'516\";\"95'287,63\";CHF;\"2,45\";CHF;op-1001\n2024-07-01 12:00:00;Sparplan;100000;\"61'000,5\";chf;;CHF;op-1002\n2024-07-02 12:00:00;Senden;50000;;;1500;SATS;op-1003\n\"27.10.2024 02:30:00\";Verkauf;\"-1'000'000\";\"65.432,10\";CHF;\"1,20\";CHF;op-1004\n31.03.2024 02:30;Kauf;1000;\"60'000\";CHF;-;CHF;op-1005\n",
+      "format": "RELAI",
+      "rows": [
+        {
+          "line": 2,
+          "kind": "BUY",
+          "rawKind": "Kauf",
+          "coin": "BTC",
+          "amount": "0.00284516",
+          "price": "95287.63",
+          "quote": "CHF",
+          "fee": "2.45",
+          "feeUnit": "CHF",
+          "time": "2024-01-15T08:30:00Z",
+          "externalId": "op-1001",
+          "key": "RELAI|op-1001"
+        },
+        {
+          "line": 3,
+          "kind": "BUY",
+          "rawKind": "Sparplan",
+          "coin": "BTC",
+          "amount": "0.001",
+          "price": "61000.5",
+          "quote": "CHF",
+          "fee": null,
+          "feeUnit": null,
+          "time": "2024-07-01T10:00:00Z",
+          "externalId": "op-1002",
+          "key": "RELAI|op-1002"
+        },
+        {
+          "line": 4,
+          "kind": "WITHDRAWAL",
+          "rawKind": "Senden",
+          "coin": "BTC",
+          "amount": "0.0005",
+          "price": null,
+          "quote": null,
+          "fee": "0.000015",
+          "feeUnit": "BTC",
+          "time": "2024-07-02T10:00:00Z",
+          "externalId": "op-1003",
+          "key": "RELAI|op-1003"
+        },
+        {
+          "line": 5,
+          "kind": "SELL",
+          "rawKind": "Verkauf",
+          "coin": "BTC",
+          "amount": "0.01",
+          "price": "65432.1",
+          "quote": "CHF",
+          "fee": "1.2",
+          "feeUnit": "CHF",
+          "time": "2024-10-27T01:30:00Z",
+          "externalId": "op-1004",
+          "key": "RELAI|op-1004"
+        },
+        {
+          "line": 6,
+          "kind": "BUY",
+          "rawKind": "Kauf",
+          "coin": "BTC",
+          "amount": "0.00001",
+          "price": "60000",
+          "quote": "CHF",
+          "fee": null,
+          "feeUnit": null,
+          "time": "2024-03-31T01:30:00Z",
+          "externalId": "op-1005",
+          "key": "RELAI|op-1005"
+        }
+      ],
+      "skipped": []
+    },
+    {
+      "name": "swissquote_en",
+      "csv": "Date;Order #;Transaction;Symbol;Name;ISIN;Quantity;Unit price;Costs;Accrued Interest;Net Amount;Balance;Currency\n24-08-2022 07:00:15;00000000;Debit;;;;1.0;2000.00;2.00;0.00;-2002.00;6612.40;CHF\n10-08-2022 15:30:02;113947121;Buy;ORFN;SOME ESG ETF;US0000000000;200.0;19.85;5.96;0.00;-3975.96;168660.08;USD\n09-08-2022 12:22:24;113885172;Buy;BTC;Bitcoin;;0.05;23456.78;11.73;0.00;-1184.57;8614.40;CHF\n09-08-2022 12:22:24;113885172;Buy;BTC;Bitcoin;;0.05;23456.78;0.00;0.00;-1172.84;7441.56;CHF\n16-06-2022 13:14:35;110152600;Sell;ETH;Ethereum;;1.5;1'085.40;8.14;0.00;1619.96;111207.71;USD\n30-06-2022 18:01:13;00000000;Custody Fees;;;;1.0;50.00;3.85;0.00;-53.85;28197.90;CHF\n01-07-2022 10:00:00;00000000;Crypto Withdrawal;BTC;Bitcoin;;0.02;;;0.00;0.00;;CHF\n30-06-2022 16:35:13;00000000;Dividend;VEUD;VANGUARD FTSE EUROPE UCITS ETF;IE00B945VV12;1.0;486.58;0.00;0.00;486.58;941.93;EUR\n",
+      "format": "SWISSQUOTE",
+      "rows": [
+        {
+          "line": 4,
+          "kind": "BUY",
+          "rawKind": "Buy",
+          "coin": "BTC",
+          "amount": "0.05",
+          "price": "23456.78",
+          "quote": "CHF",
+          "fee": "11.73",
+          "feeUnit": "CHF",
+          "time": "2022-08-09T10:22:24Z",
+          "externalId": "113885172",
+          "key": "SWISSQUOTE|113885172|L1660047744000|0.05"
+        },
+        {
+          "line": 5,
+          "kind": "BUY",
+          "rawKind": "Buy",
+          "coin": "BTC",
+          "amount": "0.05",
+          "price": "23456.78",
+          "quote": "CHF",
+          "fee": null,
+          "feeUnit": null,
+          "time": "2022-08-09T10:22:24Z",
+          "externalId": "113885172",
+          "key": "SWISSQUOTE|113885172|L1660047744000|0.05#2"
+        },
+        {
+          "line": 6,
+          "kind": "SELL",
+          "rawKind": "Sell",
+          "coin": "ETH",
+          "amount": "1.5",
+          "price": "1085.4",
+          "quote": "USD",
+          "fee": "8.14",
+          "feeUnit": "USD",
+          "time": "2022-06-16T11:14:35Z",
+          "externalId": "110152600",
+          "key": "SWISSQUOTE|110152600|L1655385275000|1.5"
+        },
+        {
+          "line": 8,
+          "kind": "WITHDRAWAL",
+          "rawKind": "Crypto Withdrawal",
+          "coin": "BTC",
+          "amount": "0.02",
+          "price": null,
+          "quote": "CHF",
+          "fee": null,
+          "feeUnit": null,
+          "time": "2022-07-01T08:00:00Z",
+          "externalId": null,
+          "key": "SWISSQUOTE|WITHDRAWAL|BTC|L1656669600000|0.02|-"
+        }
+      ],
+      "skipped": [
+        {
+          "line": 2,
+          "reason": "UNSUPPORTED_KIND"
+        },
+        {
+          "line": 3,
+          "reason": "NOT_CRYPTO"
+        },
+        {
+          "line": 7,
+          "reason": "NOT_CRYPTO"
+        },
+        {
+          "line": 9,
+          "reason": "UNSUPPORTED_KIND"
+        }
+      ]
+    },
+    {
+      "name": "swissquote_de_15col",
+      "csv": "Transaktionen Export 07-01-2023\r\nDatum;Auftrag #;Transaktionen;Symbol;Name;ISIN;Anzahl;Stückpreis;Kosten;Aufgelaufene Zinsen;Nettobetrag;Währung Nettobetrag;Nettobetrag in der Währung des Kontos;Saldo;Währung;\r\n05-01-2023 09:15:00; 120000001; Kauf; ETH; Ethereum; ; 2.0; 1250.50; 12.51; 0.00; -2513.51; EUR; -2450.00; 1000.00; CHF;\r\n06-01-2023 10:00:00; 120000002; Verkauf; BTC; Bitcoin; ; 0.1; 15800.00; 15.80; 0.00; 1564.20; USD; 1450.00; 2450.00; CHF;\r\n06-01-2023 11:00:00; 120000003; Forex-Gutschrift; ; ; ; 1.0; 1600.00; 0.00; 0.00; 1600.00; USD; 1600.00; 64.89; USD;",
+      "format": "SWISSQUOTE",
+      "rows": [
+        {
+          "line": 3,
+          "kind": "BUY",
+          "rawKind": "Kauf",
+          "coin": "ETH",
+          "amount": "2",
+          "price": "1250.5",
+          "quote": "EUR",
+          "fee": "12.51",
+          "feeUnit": "EUR",
+          "time": "2023-01-05T08:15:00Z",
+          "externalId": "120000001",
+          "key": "SWISSQUOTE|120000001|L1672910100000|2"
+        },
+        {
+          "line": 4,
+          "kind": "SELL",
+          "rawKind": "Verkauf",
+          "coin": "BTC",
+          "amount": "0.1",
+          "price": "15800",
+          "quote": "USD",
+          "fee": "15.8",
+          "feeUnit": "USD",
+          "time": "2023-01-06T09:00:00Z",
+          "externalId": "120000002",
+          "key": "SWISSQUOTE|120000002|L1672999200000|0.1"
+        }
+      ],
+      "skipped": [
+        {
+          "line": 5,
+          "reason": "UNSUPPORTED_KIND"
+        }
+      ]
+    },
+    {
+      "name": "generic_tab",
+      "csv": "Timestamp\tType\tAsset\tAmount\tPrice\tCurrency\tFee\tFee Currency\tID\n2024-02-01T10:00:00+01:00\tStaking Reward\teth\t0.0012\t2100.5\tusd\t\t\ttx-1\n2024-02-02 08:00:00.250\tDeposit\tSOL\t3\t\t\t\t\t\n2024-02-03T00:00:00Z\t\"Buy\nmarket\"\tBTC\t0.01\t\tUSD\t0.0001\tETH\t\n2024-02-04T00:00:00Z\tBuy\t\t0.01\t40000\tUSD\t\t\t\n2024-02-05T00:00:00Z\tBuy\tBTC\t0.01\t40000\t\t\t\t",
+      "format": "GENERIC",
+      "rows": [
+        {
+          "line": 2,
+          "kind": "REWARD",
+          "rawKind": "Staking Reward",
+          "coin": "ETH",
+          "amount": "0.0012",
+          "price": "2100.5",
+          "quote": "USD",
+          "fee": null,
+          "feeUnit": null,
+          "time": "2024-02-01T09:00:00Z",
+          "externalId": "tx-1",
+          "key": "GENERIC|tx-1"
+        },
+        {
+          "line": 3,
+          "kind": "DEPOSIT",
+          "rawKind": "Deposit",
+          "coin": "SOL",
+          "amount": "3",
+          "price": null,
+          "quote": null,
+          "fee": null,
+          "feeUnit": null,
+          "time": 1706857200250,
+          "externalId": null,
+          "key": "GENERIC|DEPOSIT|SOL|L1706860800250|3|-"
+        },
+        {
+          "line": 4,
+          "kind": "BUY",
+          "rawKind": "Buy\nmarket",
+          "coin": "BTC",
+          "amount": "0.01",
+          "price": null,
+          "quote": "USD",
+          "fee": "0.0001",
+          "feeUnit": "ETH",
+          "time": "2024-02-03T00:00:00Z",
+          "externalId": null,
+          "key": "GENERIC|BUY|BTC|1706918400000|0.01|-"
+        }
+      ],
+      "skipped": [
+        {
+          "line": 6,
+          "reason": "MISSING_FIELD"
+        },
+        {
+          "line": 7,
+          "reason": "MISSING_FIELD"
+        }
+      ]
+    },
+    {
+      "name": "unknown",
+      "csv": "foo,bar\n1,2\n",
+      "format": "UNKNOWN",
+      "rows": [],
+      "skipped": []
+    },
+    {
+      "name": "empty",
+      "csv": "﻿\n\n",
+      "format": "UNKNOWN",
+      "rows": [],
+      "skipped": []
+    },
+    {
+      "name": "swissquote_swap_legs",
+      "format": "SWISSQUOTE",
+      "csv": "Transaktionen Export 08-01-2023\nDatum;Auftrag #;Transaktionen;Symbol;Name;ISIN;Anzahl;Stückpreis;Kosten;Aufgelaufene Zinsen;Nettobetrag;Währung Nettobetrag;Saldo;Währung;\n07-01-2023 10:00:00; 120000010; Tausch; ETH; Ethereum; ; -1.0; 1300.00; 0.00; 0.00; 1300.00; CHF; 2450.00; CHF;\n07-01-2023 10:00:00; 120000010; Tausch; BTC; Bitcoin; ; 0.08; 16250.00; 2.00; 0.00; -1302.00; CHF; 1148.00; CHF;\n08-01-2023 09:00:00; 120000011; Kauf; BTC; Bitcoin; ; 0.01; 16000.00; 1.00; 0.00; -161.00; CHF; 987.00; CHF;\n",
+      "rows": [
+        {
+          "line": 3,
+          "kind": "SWAP",
+          "rawKind": "Tausch",
+          "coin": "ETH",
+          "amount": "1",
+          "price": null,
+          "quote": "CHF",
+          "fee": "2",
+          "feeUnit": "CHF",
+          "time": "2023-01-07T09:00:00Z",
+          "externalId": "120000010",
+          "key": "SWISSQUOTE|120000010|L1673085600000|1",
+          "toCoin": "BTC",
+          "toAmount": "0.08",
+          "swapValue": "1300"
+        },
+        {
+          "line": 5,
+          "kind": "BUY",
+          "rawKind": "Kauf",
+          "coin": "BTC",
+          "amount": "0.01",
+          "price": "16000",
+          "quote": "CHF",
+          "fee": "1",
+          "feeUnit": "CHF",
+          "time": "2023-01-08T08:00:00Z",
+          "externalId": "120000011",
+          "key": "SWISSQUOTE|120000011|L1673168400000|0.01"
+        }
+      ],
+      "skipped": []
+    },
+    {
+      "name": "generic_swap",
+      "format": "GENERIC",
+      "csv": "Timestamp,Type,Asset,Amount,To Asset,To Amount,Fiat Amount,Currency,Fee,Fee Currency,ID\n2024-03-01T12:00:00Z,Convert,ETH,0.5,BTC,0.025,1500,USD,,,c-1\n2024-03-02T12:00:00Z,Swap out,SOL,10,,,,USD,0.01,SOL,\n2024-03-02T12:00:00Z,Swap in,USDC,1500,,,,USD,,,\n2024-03-03T12:00:00Z,Swap,ADA,100,,,,USD,,,s-9\n2024-03-04T00:00:00Z,Buy,BTC,0.01,,,400,USD,,,\n",
+      "rows": [
+        {
+          "line": 2,
+          "kind": "SWAP",
+          "rawKind": "Convert",
+          "coin": "ETH",
+          "amount": "0.5",
+          "price": null,
+          "quote": "USD",
+          "fee": null,
+          "feeUnit": null,
+          "time": "2024-03-01T12:00:00Z",
+          "externalId": "c-1",
+          "key": "GENERIC|c-1",
+          "toCoin": "BTC",
+          "toAmount": "0.025",
+          "swapValue": "1500"
+        },
+        {
+          "line": 3,
+          "kind": "SWAP",
+          "rawKind": "Swap out",
+          "coin": "SOL",
+          "amount": "10",
+          "price": null,
+          "quote": null,
+          "fee": "0.01",
+          "feeUnit": "SOL",
+          "time": "2024-03-02T12:00:00Z",
+          "externalId": null,
+          "key": "GENERIC|SWAP|SOL|1709380800000|10|-",
+          "toCoin": "USDC",
+          "toAmount": "1500",
+          "swapValue": null
+        },
+        {
+          "line": 6,
+          "kind": "BUY",
+          "rawKind": "Buy",
+          "coin": "BTC",
+          "amount": "0.01",
+          "price": "40000",
+          "quote": "USD",
+          "fee": null,
+          "feeUnit": null,
+          "time": "2024-03-04T00:00:00Z",
+          "externalId": null,
+          "key": "GENERIC|BUY|BTC|1709510400000|0.01|40000"
+        }
+      ],
+      "skipped": [
+        {
+          "line": 5,
+          "reason": "MISSING_FIELD"
+        }
+      ]
+    },
+    {
+      "name": "generic_swap_two_fees",
+      "_comment": "Tausch mit Gebühr auf beiden Seiten: gleiche Einheit wird zusammengezählt; verschiedene Einheiten = beide Zeilen übersprungen (TWO_FEES), nie still eine Gebühr verwerfen",
+      "format": "GENERIC",
+      "csv": "Timestamp,Type,Asset,Amount,To Asset,To Amount,Fiat Amount,Currency,Fee,Fee Currency,ID\n2024-03-02T12:00:00Z,Swap out,SOL,10,,,,USD,0.01,USD,\n2024-03-02T12:00:00Z,Swap in,USDC,1500,,,,USD,0.02,USD,\n2024-03-05T12:00:00Z,Swap out,ETH,1,,,,USD,0.001,ETH,\n2024-03-05T12:00:00Z,Swap in,BTC,0.05,,,,USD,0.0001,BTC,\n",
+      "rows": [
+        {
+          "line": 2,
+          "kind": "SWAP",
+          "rawKind": "Swap out",
+          "coin": "SOL",
+          "amount": "10",
+          "price": null,
+          "quote": null,
+          "fee": "0.03",
+          "feeUnit": "USD",
+          "time": "2024-03-02T12:00:00Z",
+          "externalId": null,
+          "key": "GENERIC|SWAP|SOL|1709380800000|10|-",
+          "toCoin": "USDC",
+          "toAmount": "1500",
+          "swapValue": null
+        }
+      ],
+      "skipped": [
+        {
+          "line": 4,
+          "reason": "TWO_FEES"
+        },
+        {
+          "line": 5,
+          "reason": "TWO_FEES"
+        }
+      ]
+    },
+    {
+      "name": "kraken_ledger",
+      "_comment": "Kraken Ledgers-Export: trade-Paare je refid (Geld → Kauf/Verkauf, Krypto ↔ Krypto → Tausch), Staking-Zugang = Belohnung, Earn-Umbuchung und Geld-Einzahlung übersprungen, Kürzel vereinheitlicht (XXBT → BTC, DOT.S → DOT), Zeiten in UTC",
+      "format": "KRAKEN",
+      "csv": "\"txid\",\"refid\",\"time\",\"type\",\"subtype\",\"aclass\",\"asset\",\"wallet\",\"amount\",\"fee\",\"balance\"\n\"L1\",\"R1\",\"2024-03-01 10:00:00\",\"deposit\",\"\",\"currency\",\"ZEUR\",\"spot / main\",\"1000.0000\",\"0.0000\",\"1000.0000\"\n\"L2\",\"T1\",\"2024-03-02 11:00:00\",\"trade\",\"\",\"currency\",\"ZEUR\",\"spot / main\",\"-500.0000\",\"0.8000\",\"499.2000\"\n\"L3\",\"T1\",\"2024-03-02 11:00:00\",\"trade\",\"\",\"currency\",\"XXBT\",\"spot / main\",\"0.0100000000\",\"0.0000000000\",\"0.0100000000\"\n\"L4\",\"T2\",\"2024-03-03 12:00:00\",\"trade\",\"\",\"currency\",\"XXBT\",\"spot / main\",\"-0.0040000000\",\"0.0000000000\",\"0.0060000000\"\n\"L5\",\"T2\",\"2024-03-03 12:00:00\",\"trade\",\"\",\"currency\",\"XETH\",\"spot / main\",\"0.0800000000\",\"0.0001000000\",\"0.0799000000\"\n\"L6\",\"S1\",\"2024-03-04 00:00:00\",\"staking\",\"\",\"currency\",\"DOT.S\",\"spot / main\",\"0.5000000000\",\"0.0000000000\",\"10.5000000000\"\n\"L7\",\"E1\",\"2024-03-04 01:00:00\",\"earn\",\"allocation\",\"currency\",\"USDC\",\"spot / main\",\"-100.00000000\",\"0.00000000\",\"0.00000000\"\n\"L8\",\"W1\",\"2024-03-05 09:00:00\",\"withdrawal\",\"\",\"currency\",\"XETH\",\"spot / main\",\"-0.0500000000\",\"0.0035000000\",\"0.0264000000\"\n\"L9\",\"T3\",\"2024-03-06 15:30:00\",\"trade\",\"\",\"currency\",\"XXBT\",\"spot / main\",\"-0.0060000000\",\"0.0000000000\",\"0.0000000000\"\n\"L10\",\"T3\",\"2024-03-06 15:30:00\",\"trade\",\"\",\"currency\",\"ZCHF\",\"spot / main\",\"330.0000\",\"0.5300\",\"329.4700\"\n",
+      "rows": [
+        {
+          "line": 3,
+          "kind": "BUY",
+          "rawKind": "trade",
+          "coin": "BTC",
+          "amount": "0.01",
+          "price": "50000",
+          "quote": "EUR",
+          "fee": "0.8",
+          "feeUnit": "EUR",
+          "time": "2024-03-02T11:00:00Z",
+          "externalId": "T1",
+          "key": "KRAKEN|T1"
+        },
+        {
+          "line": 5,
+          "kind": "SWAP",
+          "rawKind": "trade",
+          "coin": "BTC",
+          "amount": "0.004",
+          "price": null,
+          "quote": null,
+          "fee": "0.0001",
+          "feeUnit": "ETH",
+          "time": "2024-03-03T12:00:00Z",
+          "externalId": "T2",
+          "key": "KRAKEN|T2",
+          "toCoin": "ETH",
+          "toAmount": "0.08",
+          "swapValue": null
+        },
+        {
+          "line": 7,
+          "kind": "REWARD",
+          "rawKind": "staking",
+          "coin": "DOT",
+          "amount": "0.5",
+          "price": null,
+          "quote": null,
+          "fee": null,
+          "feeUnit": null,
+          "time": "2024-03-04T00:00:00Z",
+          "externalId": "S1",
+          "key": "KRAKEN|S1"
+        },
+        {
+          "line": 9,
+          "kind": "WITHDRAWAL",
+          "rawKind": "withdrawal",
+          "coin": "ETH",
+          "amount": "0.05",
+          "price": null,
+          "quote": null,
+          "fee": "0.0035",
+          "feeUnit": "ETH",
+          "time": "2024-03-05T09:00:00Z",
+          "externalId": "W1",
+          "key": "KRAKEN|W1"
+        },
+        {
+          "line": 10,
+          "kind": "SELL",
+          "rawKind": "trade",
+          "coin": "BTC",
+          "amount": "0.006",
+          "price": "55000",
+          "quote": "CHF",
+          "fee": "0.53",
+          "feeUnit": "CHF",
+          "time": "2024-03-06T15:30:00Z",
+          "externalId": "T3",
+          "key": "KRAKEN|T3"
+        }
+      ],
+      "skipped": [
+        {
+          "line": 2,
+          "reason": "NOT_CRYPTO"
+        },
+        {
+          "line": 8,
+          "reason": "UNSUPPORTED_KIND"
+        }
+      ]
+    },
+    {
+      "name": "generic_fee_exceeds",
+      "_comment": "Gebühr im Coin ≥ erhaltene Menge (Kauf, Tausch im erhaltenen Coin, Einzahlung): übersprungen mit FEE_EXCEEDS_AMOUNT wie das Erfassen-Blatt",
+      "csv": "Timestamp,Type,Asset,Amount,To Asset,To Amount,Fiat Amount,Currency,Fee,Fee Currency,ID\n2024-04-01T00:00:00Z,Buy,BTC,0.001,,,40,USD,0.001,BTC,b-1\n2024-04-02T00:00:00Z,Buy,BTC,0.01,,,400,USD,0.0001,BTC,b-2\n2024-04-03T00:00:00Z,Convert,ETH,0.5,BTC,0.002,100,USD,0.003,BTC,c-2\n2024-04-04T00:00:00Z,Deposit,SOL,1,,,,,2,SOL,d-1\n",
+      "format": "GENERIC",
+      "rows": [
+        {
+          "line": 3,
+          "kind": "BUY",
+          "rawKind": "Buy",
+          "coin": "BTC",
+          "amount": "0.01",
+          "price": "40000",
+          "quote": "USD",
+          "fee": "0.0001",
+          "feeUnit": "BTC",
+          "time": "2024-04-02T00:00:00Z",
+          "externalId": "b-2",
+          "key": "GENERIC|b-2"
+        }
+      ],
+      "skipped": [
+        {
+          "line": 2,
+          "reason": "FEE_EXCEEDS_AMOUNT"
+        },
+        {
+          "line": 4,
+          "reason": "FEE_EXCEEDS_AMOUNT"
+        },
+        {
+          "line": 5,
+          "reason": "FEE_EXCEEDS_AMOUNT"
+        }
+      ]
+    },
+    {
+      "name": "generic_stable",
+      "_comment": "Kauf/Verkauf gegen Stablecoin = Tausch (Review 10 F1, FR/AT): Verkauf BTC gegen USDT → Tausch BTC → USDT (Wert = USDT-Menge), Kauf ETH mit USDT → Tausch USDT → ETH, Kauf SOL mit USDC → Tausch ohne Wert (Tagesschluss), USDT mit EUR bleibt Kauf, ohne Preis bleibt Kauf, Fiat-Betrag der Datei = Stablecoin-Menge, USDC mit USDT → Tausch",
+      "format": "GENERIC",
+      "csv": "Timestamp,Type,Asset,Amount,Price,Fiat Amount,Currency,Fee,Fee Currency,ID\n2024-04-01T10:00:00Z,Sell,BTC,0.1,60000,,USDT,6,USDT,\n2024-04-02T10:00:00Z,Buy,ETH,2,3000,,USDT,0.002,ETH,\n2024-04-03T10:00:00Z,Buy,SOL,10,150,,USDC,,,\n2024-04-04T10:00:00Z,Buy,USDT,1000,0.92,,EUR,,,\n2024-04-05 10:00:00,Sell,BTC,0.01,61000,,USDT,,,\n2024-04-06T10:00:00Z,Buy,BTC,0.01,,,USDT,,,\n2024-04-07T10:00:00Z,Sell,ADA,100,,45.5,USDT,,,a-1\n2024-04-08T10:00:00Z,Buy,USDC,500,1,,USDT,,,\n",
+      "rows": [
+        {
+          "line": 2,
+          "kind": "SWAP",
+          "rawKind": "Sell",
+          "coin": "BTC",
+          "amount": "0.1",
+          "price": null,
+          "quote": "USDT",
+          "fee": "6",
+          "feeUnit": "USDT",
+          "time": "2024-04-01T10:00:00Z",
+          "externalId": null,
+          "key": "GENERIC|SWAP|BTC|1711965600000|0.1|-",
+          "toCoin": "USDT",
+          "toAmount": "6000",
+          "swapValue": "6000",
+          "stableSwap": true
+        },
+        {
+          "line": 3,
+          "kind": "SWAP",
+          "rawKind": "Buy",
+          "coin": "USDT",
+          "amount": "6000",
+          "price": null,
+          "quote": "USDT",
+          "fee": "0.002",
+          "feeUnit": "ETH",
+          "time": "2024-04-02T10:00:00Z",
+          "externalId": null,
+          "key": "GENERIC|SWAP|USDT|1712052000000|6000|-",
+          "toCoin": "ETH",
+          "toAmount": "2",
+          "swapValue": "6000",
+          "stableSwap": true
+        },
+        {
+          "line": 4,
+          "kind": "SWAP",
+          "rawKind": "Buy",
+          "coin": "USDC",
+          "amount": "1500",
+          "price": null,
+          "quote": null,
+          "fee": null,
+          "feeUnit": null,
+          "time": "2024-04-03T10:00:00Z",
+          "externalId": null,
+          "key": "GENERIC|SWAP|USDC|1712138400000|1500|-",
+          "toCoin": "SOL",
+          "toAmount": "10",
+          "swapValue": null,
+          "stableSwap": true
+        },
+        {
+          "line": 5,
+          "kind": "BUY",
+          "rawKind": "Buy",
+          "coin": "USDT",
+          "amount": "1000",
+          "price": "0.92",
+          "quote": "EUR",
+          "fee": null,
+          "feeUnit": null,
+          "time": "2024-04-04T10:00:00Z",
+          "externalId": null,
+          "key": "GENERIC|BUY|USDT|1712224800000|1000|0.92"
+        },
+        {
+          "line": 6,
+          "kind": "SWAP",
+          "rawKind": "Sell",
+          "coin": "BTC",
+          "amount": "0.01",
+          "price": null,
+          "quote": "USDT",
+          "fee": null,
+          "feeUnit": null,
+          "time": 1712304000000,
+          "externalId": null,
+          "key": "GENERIC|SWAP|BTC|L1712311200000|0.01|-",
+          "toCoin": "USDT",
+          "toAmount": "610",
+          "swapValue": "610",
+          "stableSwap": true
+        },
+        {
+          "line": 7,
+          "kind": "BUY",
+          "rawKind": "Buy",
+          "coin": "BTC",
+          "amount": "0.01",
+          "price": null,
+          "quote": "USDT",
+          "fee": null,
+          "feeUnit": null,
+          "time": "2024-04-06T10:00:00Z",
+          "externalId": null,
+          "key": "GENERIC|BUY|BTC|1712397600000|0.01|-"
+        },
+        {
+          "line": 8,
+          "kind": "SWAP",
+          "rawKind": "Sell",
+          "coin": "ADA",
+          "amount": "100",
+          "price": null,
+          "quote": "USDT",
+          "fee": null,
+          "feeUnit": null,
+          "time": "2024-04-07T10:00:00Z",
+          "externalId": "a-1",
+          "key": "GENERIC|a-1",
+          "toCoin": "USDT",
+          "toAmount": "45.5",
+          "swapValue": "45.5",
+          "stableSwap": true
+        },
+        {
+          "line": 9,
+          "kind": "SWAP",
+          "rawKind": "Buy",
+          "coin": "USDT",
+          "amount": "500",
+          "price": null,
+          "quote": "USDT",
+          "fee": null,
+          "feeUnit": null,
+          "time": "2024-04-08T10:00:00Z",
+          "externalId": null,
+          "key": "GENERIC|SWAP|USDT|1712570400000|500|-",
+          "toCoin": "USDC",
+          "toAmount": "500",
+          "swapValue": "500",
+          "stableSwap": true
+        }
+      ],
+      "skipped": []
+    },
+    {
+      "name": "kraken_stable",
+      "_comment": "Kraken mit Stablecoins (Review 10 F1): EUR → USDT = Kauf USDT (Preis in EUR), BTC → USDT und USDT → ETH und USDC → USDT = Tausch (Wert = USDT-Menge), EUR → USD kein Krypto, USDT-Einzahlung = Einzahlung",
+      "format": "KRAKEN",
+      "csv": "\"txid\",\"refid\",\"time\",\"type\",\"subtype\",\"aclass\",\"asset\",\"wallet\",\"amount\",\"fee\",\"balance\"\n\"L1\",\"T1\",\"2024-05-01 10:00:00\",\"trade\",\"\",\"currency\",\"ZEUR\",\"spot / main\",\"-920.0000\",\"0.0000\",\"80.0000\"\n\"L2\",\"T1\",\"2024-05-01 10:00:00\",\"trade\",\"\",\"currency\",\"USDT\",\"spot / main\",\"1000.00000000\",\"2.00000000\",\"998.00000000\"\n\"L3\",\"T2\",\"2024-05-02 10:00:00\",\"trade\",\"\",\"currency\",\"XXBT\",\"spot / main\",\"-0.0100000000\",\"0.0000000000\",\"0.0000000000\"\n\"L4\",\"T2\",\"2024-05-02 10:00:00\",\"trade\",\"\",\"currency\",\"USDT\",\"spot / main\",\"600.00000000\",\"1.20000000\",\"1596.80000000\"\n\"L5\",\"T3\",\"2024-05-03 10:00:00\",\"trade\",\"\",\"currency\",\"USDT\",\"spot / main\",\"-500.00000000\",\"0.00000000\",\"1096.80000000\"\n\"L6\",\"T3\",\"2024-05-03 10:00:00\",\"trade\",\"\",\"currency\",\"XETH\",\"spot / main\",\"0.1600000000\",\"0.0000000000\",\"0.1600000000\"\n\"L7\",\"T4\",\"2024-05-04 10:00:00\",\"trade\",\"\",\"currency\",\"USDC\",\"spot / main\",\"-100.00000000\",\"0.00000000\",\"0.00000000\"\n\"L8\",\"T4\",\"2024-05-04 10:00:00\",\"trade\",\"\",\"currency\",\"USDT\",\"spot / main\",\"99.90000000\",\"0.00000000\",\"1196.70000000\"\n\"L9\",\"T5\",\"2024-05-05 10:00:00\",\"trade\",\"\",\"currency\",\"ZEUR\",\"spot / main\",\"-50.0000\",\"0.0000\",\"30.0000\"\n\"L10\",\"T5\",\"2024-05-05 10:00:00\",\"trade\",\"\",\"currency\",\"ZUSD\",\"spot / main\",\"54.0000\",\"0.0000\",\"54.0000\"\n\"L11\",\"D1\",\"2024-05-06 10:00:00\",\"deposit\",\"\",\"currency\",\"USDT\",\"spot / main\",\"50.00000000\",\"0.00000000\",\"1246.70000000\"\n",
+      "rows": [
+        {
+          "line": 2,
+          "kind": "BUY",
+          "rawKind": "trade",
+          "coin": "USDT",
+          "amount": "1000",
+          "price": "0.92",
+          "quote": "EUR",
+          "fee": "2",
+          "feeUnit": "USDT",
+          "time": "2024-05-01T10:00:00Z",
+          "externalId": "T1",
+          "key": "KRAKEN|T1"
+        },
+        {
+          "line": 4,
+          "kind": "SWAP",
+          "rawKind": "trade",
+          "coin": "BTC",
+          "amount": "0.01",
+          "price": null,
+          "quote": "USDT",
+          "fee": "1.2",
+          "feeUnit": "USDT",
+          "time": "2024-05-02T10:00:00Z",
+          "externalId": "T2",
+          "key": "KRAKEN|T2",
+          "toCoin": "USDT",
+          "toAmount": "600",
+          "swapValue": "600",
+          "stableSwap": true
+        },
+        {
+          "line": 6,
+          "kind": "SWAP",
+          "rawKind": "trade",
+          "coin": "USDT",
+          "amount": "500",
+          "price": null,
+          "quote": "USDT",
+          "fee": null,
+          "feeUnit": null,
+          "time": "2024-05-03T10:00:00Z",
+          "externalId": "T3",
+          "key": "KRAKEN|T3",
+          "toCoin": "ETH",
+          "toAmount": "0.16",
+          "swapValue": "500",
+          "stableSwap": true
+        },
+        {
+          "line": 8,
+          "kind": "SWAP",
+          "rawKind": "trade",
+          "coin": "USDC",
+          "amount": "100",
+          "price": null,
+          "quote": "USDT",
+          "fee": null,
+          "feeUnit": null,
+          "time": "2024-05-04T10:00:00Z",
+          "externalId": "T4",
+          "key": "KRAKEN|T4",
+          "toCoin": "USDT",
+          "toAmount": "99.9",
+          "swapValue": "99.9",
+          "stableSwap": true
+        },
+        {
+          "line": 12,
+          "kind": "DEPOSIT",
+          "rawKind": "deposit",
+          "coin": "USDT",
+          "amount": "50",
+          "price": null,
+          "quote": null,
+          "fee": null,
+          "feeUnit": null,
+          "time": "2024-05-06T10:00:00Z",
+          "externalId": "D1",
+          "key": "KRAKEN|D1"
+        }
+      ],
+      "skipped": [
+        {
+          "line": 10,
+          "reason": "NOT_CRYPTO"
+        },
+        {
+          "line": 11,
+          "reason": "NOT_CRYPTO"
+        }
+      ]
+    },
+    {
+      "name": "generic_crypto_quote",
+      "_comment": "Build 48 (K7): Kauf/Verkauf gegen einen Krypto-Coin (Paar «ETH/BTC») = Tausch: Kauf ETH mit BTC → Tausch BTC → ETH (BTC-Menge = Preis × Menge), Verkauf ETH gegen BTC → Tausch ETH → BTC (Gebühr im erhaltenen BTC = weniger erhalten), Fiat-Betrag der Datei = Menge des gegebenen Coins; Wert unbekannt (Tagesschluss), kein Stablecoin-Hinweis. Fiat mit Tageskurs (TRY) bleibt Kauf, ohne Preis bleibt Kauf.",
+      "format": "GENERIC",
+      "csv": "Date,Type,Coin,Pair,Amount,Price,Fiat Amount,Fee,Fee Currency\n2024-06-01T10:00:00Z,Buy,ETH,ETH/BTC,2,0.05,,0.0001,BTC\n2024-06-02T10:00:00Z,Sell,ETH,ETH/BTC,1,0.052,,0.001,BTC\n2024-06-03T10:00:00Z,Buy,SOL,SOL-ETH,10,,0.8,,\n2024-06-04T10:00:00Z,Buy,BTC,BTC/TRY,0.01,2000000,,,\n2024-06-05T10:00:00Z,Buy,DOT,DOT/BTC,5,,,,\n",
+      "rows": [
+        {
+          "line": 2,
+          "kind": "SWAP",
+          "rawKind": "Buy",
+          "coin": "BTC",
+          "amount": "0.1",
+          "price": null,
+          "quote": null,
+          "fee": "0.0001",
+          "feeUnit": "BTC",
+          "time": "2024-06-01T10:00:00Z",
+          "externalId": null,
+          "key": "GENERIC|SWAP|BTC|1717236000000|0.1|-",
+          "toCoin": "ETH",
+          "toAmount": "2",
+          "swapValue": null,
+          "stableSwap": false
+        },
+        {
+          "line": 3,
+          "kind": "SWAP",
+          "rawKind": "Sell",
+          "coin": "ETH",
+          "amount": "1",
+          "price": null,
+          "quote": null,
+          "fee": "0.001",
+          "feeUnit": "BTC",
+          "time": "2024-06-02T10:00:00Z",
+          "externalId": null,
+          "key": "GENERIC|SWAP|ETH|1717322400000|1|-",
+          "toCoin": "BTC",
+          "toAmount": "0.052",
+          "swapValue": null,
+          "stableSwap": false
+        },
+        {
+          "line": 4,
+          "kind": "SWAP",
+          "rawKind": "Buy",
+          "coin": "ETH",
+          "amount": "0.8",
+          "price": null,
+          "quote": null,
+          "fee": null,
+          "feeUnit": null,
+          "time": "2024-06-03T10:00:00Z",
+          "externalId": null,
+          "key": "GENERIC|SWAP|ETH|1717408800000|0.8|-",
+          "toCoin": "SOL",
+          "toAmount": "10",
+          "swapValue": null,
+          "stableSwap": false
+        },
+        {
+          "line": 5,
+          "kind": "BUY",
+          "rawKind": "Buy",
+          "coin": "BTC",
+          "amount": "0.01",
+          "price": "2000000",
+          "quote": "TRY",
+          "fee": null,
+          "feeUnit": null,
+          "time": "2024-06-04T10:00:00Z",
+          "externalId": null,
+          "key": "GENERIC|BUY|BTC|1717495200000|0.01|2000000"
+        },
+        {
+          "line": 6,
+          "kind": "BUY",
+          "rawKind": "Buy",
+          "coin": "DOT",
+          "amount": "5",
+          "price": null,
+          "quote": "BTC",
+          "fee": null,
+          "feeUnit": null,
+          "time": "2024-06-05T10:00:00Z",
+          "externalId": null,
+          "key": "GENERIC|BUY|DOT|1717581600000|5|-"
+        }
+      ],
+      "skipped": []
+    },
+    {
+      "name": "kraken_staking_dupes",
+      "_comment": "Review 13: doppelte Ledger-Zeile (gleiche txid L1) zählt einmal; Spot → Staking als Auszahlung XETH + Einzahlung ETH2.S (5 s auseinander) und spend/receive XETH → ETH2.S übersprungen (kein Bestand doppelt, kein Posten mit Kaufpreis ab); Staking-Belohnung ETH2.S = ETH. Bestand ETH = 1 − 0.1 − 0.001 + 0.001 = 0.9.",
+      "format": "KRAKEN",
+      "csv": "\"txid\",\"refid\",\"time\",\"type\",\"subtype\",\"aclass\",\"asset\",\"wallet\",\"amount\",\"fee\",\"balance\"\n\"L1\",\"R1\",\"2024-04-01 10:00:00\",\"deposit\",\"\",\"currency\",\"XETH\",\"spot / main\",\"1.0000000000\",\"0.0000000000\",\"1.0000000000\"\n\"L1\",\"R1\",\"2024-04-01 10:00:00\",\"deposit\",\"\",\"currency\",\"XETH\",\"spot / main\",\"1.0000000000\",\"0.0000000000\",\"1.0000000000\"\n\"L2\",\"B1\",\"2024-04-02 09:00:00\",\"withdrawal\",\"\",\"currency\",\"XETH\",\"spot / main\",\"-0.5000000000\",\"0.0000000000\",\"0.5000000000\"\n\"L3\",\"B2\",\"2024-04-02 09:00:05\",\"deposit\",\"\",\"currency\",\"ETH2.S\",\"spot / main\",\"0.5000000000\",\"0.0000000000\",\"0.5000000000\"\n\"L4\",\"C1\",\"2024-04-03 09:00:00\",\"spend\",\"\",\"currency\",\"XETH\",\"spot / main\",\"-0.2000000000\",\"0.0000000000\",\"0.3000000000\"\n\"L5\",\"C1\",\"2024-04-03 09:00:00\",\"receive\",\"\",\"currency\",\"ETH2.S\",\"spot / main\",\"0.2000000000\",\"0.0000000000\",\"0.7000000000\"\n\"L6\",\"S1\",\"2024-04-04 00:00:00\",\"staking\",\"\",\"currency\",\"ETH2.S\",\"spot / main\",\"0.0010000000\",\"0.0000000000\",\"0.7010000000\"\n\"L7\",\"W1\",\"2024-04-05 09:00:00\",\"withdrawal\",\"\",\"currency\",\"XETH\",\"spot / main\",\"-0.1000000000\",\"0.0010000000\",\"0.1990000000\"\n",
+      "rows": [
+        {
+          "line": 2,
+          "kind": "DEPOSIT",
+          "rawKind": "deposit",
+          "coin": "ETH",
+          "amount": "1",
+          "price": null,
+          "quote": null,
+          "fee": null,
+          "feeUnit": null,
+          "time": "2024-04-01T10:00:00Z",
+          "externalId": "R1",
+          "key": "KRAKEN|R1"
+        },
+        {
+          "line": 8,
+          "kind": "REWARD",
+          "rawKind": "staking",
+          "coin": "ETH",
+          "amount": "0.001",
+          "price": null,
+          "quote": null,
+          "fee": null,
+          "feeUnit": null,
+          "time": "2024-04-04T00:00:00Z",
+          "externalId": "S1",
+          "key": "KRAKEN|S1"
+        },
+        {
+          "line": 9,
+          "kind": "WITHDRAWAL",
+          "rawKind": "withdrawal",
+          "coin": "ETH",
+          "amount": "0.1",
+          "price": null,
+          "quote": null,
+          "fee": "0.001",
+          "feeUnit": "ETH",
+          "time": "2024-04-05T09:00:00Z",
+          "externalId": "W1",
+          "key": "KRAKEN|W1"
+        }
+      ],
+      "skipped": [
+        {
+          "line": 4,
+          "reason": "UNSUPPORTED_KIND"
+        },
+        {
+          "line": 5,
+          "reason": "UNSUPPORTED_KIND"
+        },
+        {
+          "line": 6,
+          "reason": "UNSUPPORTED_KIND"
+        },
+        {
+          "line": 7,
+          "reason": "UNSUPPORTED_KIND"
+        }
+      ]
+    },
+    {
+      "name": "generic_utc_fiat",
+      "_comment": "Review 13: Kopf «Date(UTC)» = Datumsspalte in UTC; Zeile nur in Fiat (EUR-Einzahlung) = NOT_CRYPTO.",
+      "format": "GENERIC",
+      "csv": "Date(UTC),Type,Coin,Amount,Price,Currency\n2024-05-01 23:30:00,Buy,BTC,0.01,60000,EUR\n2024-05-02 08:00:00,Deposit,EUR,1000,,EUR\n",
+      "rows": [
+        {
+          "line": 2,
+          "kind": "BUY",
+          "rawKind": "Buy",
+          "coin": "BTC",
+          "amount": "0.01",
+          "price": "60000",
+          "quote": "EUR",
+          "fee": null,
+          "feeUnit": null,
+          "time": "2024-05-01T23:30:00Z",
+          "externalId": null,
+          "key": "GENERIC|BUY|BTC|L1714606200000|0.01|60000"
+        }
+      ],
+      "skipped": [
+        {
+          "line": 3,
+          "reason": "NOT_CRYPTO"
+        }
+      ]
+    }
+  ],
+  "numbers": [
+    {
+      "text": "1'234.50",
+      "hint": null,
+      "expected": "1234.5"
+    },
+    {
+      "text": "1’234,50",
+      "hint": null,
+      "expected": "1234.5"
+    },
+    {
+      "text": "1.234,56",
+      "hint": null,
+      "expected": "1234.56"
+    },
+    {
+      "text": "1,234.56",
+      "hint": null,
+      "expected": "1234.56"
+    },
+    {
+      "text": "0,00284516",
+      "hint": null,
+      "expected": "0.00284516"
+    },
+    {
+      "text": "1,234",
+      "hint": null,
+      "expected": "1.234"
+    },
+    {
+      "text": "1,234",
+      "hint": ".",
+      "expected": "1234"
+    },
+    {
+      "text": "1.234",
+      "hint": ",",
+      "expected": "1234"
+    },
+    {
+      "text": "1.234",
+      "hint": null,
+      "expected": "1.234"
+    },
+    {
+      "text": "1.234.567",
+      "hint": null,
+      "expected": "1234567"
+    },
+    {
+      "text": "1 234 567,8",
+      "hint": null,
+      "expected": "1234567.8"
+    },
+    {
+      "text": "-2'002.00",
+      "hint": null,
+      "expected": "-2002"
+    },
+    {
+      "text": "+5",
+      "hint": null,
+      "expected": "5"
+    },
+    {
+      "text": "−3.5",
+      "hint": null,
+      "expected": "-3.5"
+    },
+    {
+      "text": "",
+      "hint": null,
+      "expected": null
+    },
+    {
+      "text": "abc",
+      "hint": null,
+      "expected": null
+    },
+    {
+      "text": "1e5",
+      "hint": null,
+      "expected": null
+    },
+    {
+      "text": "1.",
+      "hint": null,
+      "expected": null
+    },
+    {
+      "text": "12.34.5,6",
+      "hint": null,
+      "expected": null
+    },
+    {
+      "text": "0.001",
+      "hint": ",",
+      "expected": "0.001"
+    },
+    {
+      "text": "0.001",
+      "hint": null,
+      "expected": "0.001"
+    },
+    {
+      "text": "0,001",
+      "hint": ".",
+      "expected": "0.001"
+    },
+    {
+      "text": "012.345",
+      "hint": ",",
+      "expected": "12.345"
+    },
+    {
+      "text": "12.345.678",
+      "hint": null,
+      "expected": "12345678"
+    },
+    {
+      "text": "12.345.678",
+      "hint": ",",
+      "expected": "12345678"
+    },
+    {
+      "text": "1.234,56",
+      "hint": ",",
+      "expected": "1234.56"
+    },
+    {
+      "text": "0,5",
+      "hint": ",",
+      "expected": "0.5"
+    },
+    {
+      "text": "1'234.50",
+      "hint": ".",
+      "expected": "1234.5"
+    },
+    {
+      "text": "1.2.3",
+      "hint": null,
+      "expected": null
+    },
+    {
+      "text": "0.001,5",
+      "hint": null,
+      "expected": null
+    }
+  ],
+  "dates": [
+    {
+      "text": "2024-09-15T14:23:17Z",
+      "expected": "2024-09-15T14:23:17Z"
+    },
+    {
+      "text": "2024-09-15T14:23:17.5Z",
+      "expected": 1726410197500
+    },
+    {
+      "text": "2024-09-15T16:23:17+02:00",
+      "expected": "2024-09-15T14:23:17Z"
+    },
+    {
+      "text": "2024-09-15T09:23:17-0500",
+      "expected": "2024-09-15T14:23:17Z"
+    },
+    {
+      "text": "2024-09-15 16:23:17",
+      "expected": "2024-09-15T14:23:17Z"
+    },
+    {
+      "text": "2024-01-15 15:23",
+      "expected": "2024-01-15T14:23:00Z"
+    },
+    {
+      "text": "2024-01-15",
+      "expected": "2024-01-14T23:00:00Z"
+    },
+    {
+      "text": "24-08-2022 07:00:15",
+      "expected": "2022-08-24T05:00:15Z"
+    },
+    {
+      "text": "5.1.2024 7:05",
+      "expected": "2024-01-05T06:05:00Z"
+    },
+    {
+      "text": "29/02/2024",
+      "expected": "2024-02-28T23:00:00Z"
+    },
+    {
+      "text": "29.02.2023 10:00",
+      "expected": null
+    },
+    {
+      "text": "2024-02-30T00:00:00Z",
+      "expected": null
+    },
+    {
+      "text": "2024-01-01 24:00:00",
+      "expected": null
+    },
+    {
+      "text": "gestern",
+      "expected": null
+    },
+    {
+      "text": "",
+      "expected": null
+    }
+  ],
+  "classify": [
+    {
+      "text": "Buy",
+      "expected": "BUY"
+    },
+    {
+      "text": "Sell",
+      "expected": "SELL"
+    },
+    {
+      "text": "Kauf",
+      "expected": "BUY"
+    },
+    {
+      "text": "Verkauf",
+      "expected": "SELL"
+    },
+    {
+      "text": "Achat",
+      "expected": "BUY"
+    },
+    {
+      "text": "Vente",
+      "expected": "SELL"
+    },
+    {
+      "text": "Savings plan",
+      "expected": "BUY"
+    },
+    {
+      "text": "Sparplan",
+      "expected": "BUY"
+    },
+    {
+      "text": "DCA",
+      "expected": "BUY"
+    },
+    {
+      "text": "Withdrawal",
+      "expected": "WITHDRAWAL"
+    },
+    {
+      "text": "Send",
+      "expected": "WITHDRAWAL"
+    },
+    {
+      "text": "Auszahlung",
+      "expected": "WITHDRAWAL"
+    },
+    {
+      "text": "Receive",
+      "expected": "DEPOSIT"
+    },
+    {
+      "text": "Einzahlung",
+      "expected": "DEPOSIT"
+    },
+    {
+      "text": "Dépôt",
+      "expected": "DEPOSIT"
+    },
+    {
+      "text": "Staking reward",
+      "expected": "REWARD"
+    },
+    {
+      "text": "Referral bonus",
+      "expected": "REWARD"
+    },
+    {
+      "text": "Network fee",
+      "expected": "FEE"
+    },
+    {
+      "text": "Depotgebühren",
+      "expected": "FEE"
+    },
+    {
+      "text": "Custody Fees",
+      "expected": "FEE"
+    },
+    {
+      "text": "Dividend",
+      "expected": null
+    },
+    {
+      "text": "Forex credit",
+      "expected": null
+    },
+    {
+      "text": "Interests",
+      "expected": "REWARD"
+    },
+    {
+      "text": "Tausch",
+      "expected": "SWAP"
+    },
+    {
+      "text": "Convert",
+      "expected": "SWAP"
+    },
+    {
+      "text": "Échange",
+      "expected": "SWAP"
+    },
+    {
+      "text": "Swap in",
+      "expected": "SWAP"
+    },
+    {
+      "text": "",
+      "expected": null
+    },
+    {
+      "text": "Auszahlung Staking",
+      "expected": "TRANSFER"
+    },
+    {
+      "text": "Staking-Belohnung",
+      "expected": "REWARD"
+    },
+    {
+      "text": "retrait",
+      "expected": "WITHDRAWAL"
+    },
+    {
+      "text": "Unstaking",
+      "expected": "TRANSFER"
+    },
+    {
+      "text": "Staking withdrawal",
+      "expected": "TRANSFER"
+    },
+    {
+      "text": "Staking Reward",
+      "expected": "REWARD"
+    },
+    {
+      "text": "Redeem",
+      "expected": "TRANSFER"
+    },
+    {
+      "text": "Simple Earn Flexible Redemption",
+      "expected": "TRANSFER"
+    },
+    {
+      "text": "Stake",
+      "expected": "TRANSFER"
+    },
+    {
+      "text": "Interest",
+      "expected": "REWARD"
+    },
+    {
+      "text": "Intérêts",
+      "expected": "REWARD"
+    },
+    {
+      "text": "Airdrop",
+      "expected": "REWARD"
+    },
+    {
+      "text": "Récompense de staking",
+      "expected": "REWARD"
+    },
+    {
+      "text": "Retrait de staking",
+      "expected": "TRANSFER"
+    },
+    {
+      "text": "Auszahlung Staking-Belohnung",
+      "expected": "REWARD"
+    },
+    {
+      "text": "Staking",
+      "expected": "REWARD"
+    },
+    {
+      "text": "Senden",
+      "expected": "WITHDRAWAL"
+    },
+    {
+      "text": "Transfer out",
+      "expected": "WITHDRAWAL"
+    },
+    {
+      "text": "TransferIn",
+      "expected": "DEPOSIT"
+    },
+    {
+      "text": "Réception",
+      "expected": "DEPOSIT"
+    },
+    {
+      "text": "Sparplankauf",
+      "expected": "BUY"
+    },
+    {
+      "text": "Selling",
+      "expected": "SELL"
+    },
+    {
+      "text": "Staking deposit",
+      "expected": "TRANSFER"
+    },
+    {
+      "text": "Withdraw",
+      "expected": "WITHDRAWAL"
+    },
+    {
+      "text": "Deposit",
+      "expected": "DEPOSIT"
+    }
+  ],
+  "fx": [
+    {
+      "file": "relai_basic",
+      "rates": {
+        "CHF": {
+          "2024-09-15": "0.85",
+          "2024-07-22": "0.8888",
+          "2024-06-21": "0.89"
+        }
+      },
+      "expected": [
+        {
+          "line": 2,
+          "priceUsdt": "108636.8",
+          "feeUsdt": null,
+          "needsFx": false,
+          "missingPrice": false
+        },
+        {
+          "line": 3,
+          "priceUsdt": "107209.304680468047",
+          "feeUsdt": "2.756525652565",
+          "needsFx": false,
+          "missingPrice": false
+        },
+        {
+          "line": 4,
+          "priceUsdt": null,
+          "feeUsdt": null,
+          "needsFx": true,
+          "missingPrice": false
+        },
+        {
+          "line": 5,
+          "priceUsdt": null,
+          "feeUsdt": null,
+          "needsFx": false,
+          "missingPrice": false
+        },
+        {
+          "line": 6,
+          "priceUsdt": "67415.730337078652",
+          "feeUsdt": null,
+          "needsFx": false,
+          "missingPrice": false
+        }
+      ]
+    },
+    {
+      "file": "generic_tab",
+      "rates": {},
+      "expected": [
+        {
+          "line": 2,
+          "priceUsdt": "2100.5",
+          "feeUsdt": null,
+          "needsFx": false,
+          "missingPrice": false
+        },
+        {
+          "line": 3,
+          "priceUsdt": null,
+          "feeUsdt": null,
+          "needsFx": false,
+          "missingPrice": false
+        },
+        {
+          "line": 4,
+          "priceUsdt": null,
+          "feeUsdt": null,
+          "needsFx": false,
+          "missingPrice": true
+        }
+      ]
+    },
+    {
+      "file": "swissquote_swap_legs",
+      "rates": {
+        "CHF": {
+          "2023-01-07": "0.92",
+          "2023-01-08": "0.92"
+        }
+      },
+      "expected": [
+        {
+          "line": 3,
+          "priceUsdt": null,
+          "feeUsdt": "2.173913043478",
+          "needsFx": false,
+          "missingPrice": false,
+          "swapValueUsdt": "1413.04347826087"
+        },
+        {
+          "line": 5,
+          "priceUsdt": "17391.304347826087",
+          "feeUsdt": "1.086956521739",
+          "needsFx": false,
+          "missingPrice": false
+        }
+      ]
+    },
+    {
+      "file": "generic_swap",
+      "rates": {},
+      "expected": [
+        {
+          "line": 2,
+          "priceUsdt": null,
+          "feeUsdt": null,
+          "needsFx": false,
+          "missingPrice": false,
+          "swapValueUsdt": "1500"
+        },
+        {
+          "line": 3,
+          "priceUsdt": null,
+          "feeUsdt": null,
+          "needsFx": false,
+          "missingPrice": false,
+          "swapValueUsdt": null
+        },
+        {
+          "line": 6,
+          "priceUsdt": "40000",
+          "feeUsdt": null,
+          "needsFx": false,
+          "missingPrice": false
+        }
+      ]
+    },
+    {
+      "file": "generic_stable",
+      "rates": {
+        "EUR": {
+          "2024-04-04": "0.92"
+        }
+      },
+      "expected": [
+        {
+          "line": 2,
+          "priceUsdt": null,
+          "feeUsdt": "6",
+          "needsFx": false,
+          "missingPrice": false,
+          "swapValueUsdt": "6000"
+        },
+        {
+          "line": 3,
+          "priceUsdt": null,
+          "feeUsdt": null,
+          "needsFx": false,
+          "missingPrice": false,
+          "swapValueUsdt": "6000"
+        },
+        {
+          "line": 4,
+          "priceUsdt": null,
+          "feeUsdt": null,
+          "needsFx": false,
+          "missingPrice": false,
+          "swapValueUsdt": null
+        },
+        {
+          "line": 5,
+          "priceUsdt": "1",
+          "feeUsdt": null,
+          "needsFx": false,
+          "missingPrice": false
+        },
+        {
+          "line": 6,
+          "priceUsdt": null,
+          "feeUsdt": null,
+          "needsFx": false,
+          "missingPrice": false,
+          "swapValueUsdt": "610"
+        },
+        {
+          "line": 7,
+          "priceUsdt": null,
+          "feeUsdt": null,
+          "needsFx": false,
+          "missingPrice": true
+        },
+        {
+          "line": 8,
+          "priceUsdt": null,
+          "feeUsdt": null,
+          "needsFx": false,
+          "missingPrice": false,
+          "swapValueUsdt": "45.5"
+        },
+        {
+          "line": 9,
+          "priceUsdt": null,
+          "feeUsdt": null,
+          "needsFx": false,
+          "missingPrice": false,
+          "swapValueUsdt": "500"
+        }
+      ]
+    }
+  ],
+  "dedupe": {
+    "file": "relai_basic",
+    "existing": [
+      "RELAI|op-0002",
+      "RELAI|op-0005",
+      "RELAI|op-9999"
+    ],
+    "freshLines": [
+      2,
+      4,
+      5
+    ],
+    "duplicateLines": [
+      3,
+      6
+    ]
+  },
+  "epochDay": [
+    {
+      "time": "2023-12-31T22:30:00Z",
+      "expected": "2023-12-31"
+    },
+    {
+      "time": "2023-12-31T23:30:00Z",
+      "expected": "2024-01-01"
+    },
+    {
+      "time": "2024-06-30T22:30:00Z",
+      "expected": "2024-07-01"
+    }
+  ],
+  "_zonesComment": "Zeitzone der Zeiten ohne Versatz (CsvImportParser.zoneFor): gewählt (override) vor Swissquote (Europe/Zurich, Schweizer Ortszeit) vor Gerät (deviceZone); localTimes = es gibt Zeiten ohne Versatz. row = Index in rows, time = erwartete UTC-Zeit.",
+  "zones": [
+    {
+      "file": "relai_sats_semicolon_bom",
+      "deviceZone": "America/New_York",
+      "override": null,
+      "zone": "America/New_York",
+      "localTimes": true,
+      "row": 0,
+      "time": "2024-01-15T14:30:00Z"
+    },
+    {
+      "file": "relai_sats_semicolon_bom",
+      "deviceZone": "America/New_York",
+      "override": "UTC",
+      "zone": "UTC",
+      "localTimes": true,
+      "row": 0,
+      "time": "2024-01-15T09:30:00Z"
+    },
+    {
+      "file": "relai_sats_semicolon_bom",
+      "deviceZone": "America/New_York",
+      "override": "Europe/Zurich",
+      "zone": "Europe/Zurich",
+      "localTimes": true,
+      "row": 0,
+      "time": "2024-01-15T08:30:00Z"
+    },
+    {
+      "file": "swissquote_en",
+      "deviceZone": "America/New_York",
+      "override": null,
+      "zone": "Europe/Zurich",
+      "localTimes": true,
+      "row": 0,
+      "time": "2022-08-09T10:22:24Z"
+    },
+    {
+      "file": "relai_basic",
+      "deviceZone": "America/New_York",
+      "override": null,
+      "zone": "America/New_York",
+      "localTimes": false,
+      "row": 0,
+      "time": "2024-09-15T14:23:17Z"
+    },
+    {
+      "file": "generic_tab",
+      "deviceZone": "Asia/Tokyo",
+      "override": null,
+      "zone": "Asia/Tokyo",
+      "localTimes": true,
+      "row": 0,
+      "time": "2024-02-01T09:00:00Z"
+    },
+    {
+      "file": "generic_tab",
+      "deviceZone": "Asia/Tokyo",
+      "override": null,
+      "zone": "Asia/Tokyo",
+      "localTimes": true,
+      "row": 1,
+      "time": 1706828400250
+    }
+  ],
+  "_keysComment": "Schlüssel: Zeit ohne Versatz in der Datei = «L» + Kalenderzeit (unabhängig von der Zeitzone); legacyKeys = frühere Schlüssel (UTC-Zeit je Zeitzone aus [zone, deviceZone, Europe/Zurich, UTC]) — ältere Importe bleiben Duplikate.",
+  "zoneKeys": [
+    {
+      "file": "generic_tab",
+      "deviceZone": "Europe/Zurich",
+      "override": "UTC",
+      "row": 1,
+      "key": "GENERIC|DEPOSIT|SOL|L1706860800250|3|-",
+      "legacyKeys": [
+        "GENERIC|DEPOSIT|SOL|1706860800250|3|-",
+        "GENERIC|DEPOSIT|SOL|1706857200250|3|-"
+      ]
+    },
+    {
+      "file": "generic_tab",
+      "deviceZone": "America/New_York",
+      "override": null,
+      "row": 1,
+      "key": "GENERIC|DEPOSIT|SOL|L1706860800250|3|-",
+      "legacyKeys": [
+        "GENERIC|DEPOSIT|SOL|1706878800250|3|-",
+        "GENERIC|DEPOSIT|SOL|1706857200250|3|-",
+        "GENERIC|DEPOSIT|SOL|1706860800250|3|-"
+      ]
+    },
+    {
+      "file": "generic_tab",
+      "deviceZone": "America/New_York",
+      "override": null,
+      "row": 0,
+      "key": "GENERIC|tx-1",
+      "legacyKeys": []
+    },
+    {
+      "file": "swissquote_en",
+      "deviceZone": "Europe/Zurich",
+      "override": null,
+      "row": 1,
+      "key": "SWISSQUOTE|113885172|L1660047744000|0.05#2",
+      "legacyKeys": [
+        "SWISSQUOTE|113885172|1660040544000|0.05#2",
+        "SWISSQUOTE|113885172|1660047744000|0.05#2"
+      ]
+    },
+    {
+      "file": "generic_stable",
+      "deviceZone": "Europe/Zurich",
+      "override": null,
+      "row": 0,
+      "key": "GENERIC|SWAP|BTC|1711965600000|0.1|-",
+      "legacyKeys": [
+        "GENERIC|SELL|BTC|1711965600000|0.1|60000"
+      ]
+    },
+    {
+      "file": "generic_stable",
+      "deviceZone": "Europe/Zurich",
+      "override": null,
+      "row": 4,
+      "key": "GENERIC|SWAP|BTC|L1712311200000|0.01|-",
+      "legacyKeys": [
+        "GENERIC|SELL|BTC|L1712311200000|0.01|61000",
+        "GENERIC|SELL|BTC|1712304000000|0.01|61000",
+        "GENERIC|SELL|BTC|1712311200000|0.01|61000"
+      ]
+    },
+    {
+      "file": "generic_stable",
+      "deviceZone": "Europe/Zurich",
+      "override": null,
+      "row": 6,
+      "key": "GENERIC|a-1",
+      "legacyKeys": []
+    }
+  ],
+  "zoneDedupe": [
+    {
+      "name": "old key from a Zurich import, second import in UTC",
+      "file": "generic_tab",
+      "deviceZone": "Europe/Zurich",
+      "override": "UTC",
+      "existing": [
+        "GENERIC|DEPOSIT|SOL|1706857200250|3|-"
+      ],
+      "duplicateLines": [
+        3
+      ]
+    },
+    {
+      "name": "new key, second import in another zone",
+      "file": "generic_tab",
+      "deviceZone": "Europe/Zurich",
+      "override": "America/New_York",
+      "existing": [
+        "GENERIC|DEPOSIT|SOL|L1706860800250|3|-",
+        "GENERIC|tx-1"
+      ],
+      "duplicateLines": [
+        2,
+        3
+      ]
+    },
+    {
+      "name": "swissquote old keys",
+      "file": "swissquote_en",
+      "deviceZone": "Europe/Zurich",
+      "override": "UTC",
+      "existing": [
+        "SWISSQUOTE|113885172|1660040544000|0.05",
+        "SWISSQUOTE|113885172|1660040544000|0.05#2"
+      ],
+      "duplicateLines": [
+        4,
+        5
+      ]
+    },
+    {
+      "name": "stablecoin trades imported as buy/sell before build 47",
+      "file": "generic_stable",
+      "deviceZone": "Europe/Zurich",
+      "override": null,
+      "existing": [
+        "GENERIC|SELL|BTC|1711965600000|0.1|60000",
+        "GENERIC|BUY|ETH|1712052000000|2|3000",
+        "GENERIC|SELL|BTC|1712304000000|0.01|61000",
+        "GENERIC|a-1"
+      ],
+      "duplicateLines": [
+        2,
+        3,
+        6,
+        8
+      ]
+    }
+  ],
+  "_dateOrderComment": "Tag/Monat je Datei (CsvImportParser.detectDateOrder): Zahl > 12 vorne → DAY_FIRST, an zweiter Stelle → MONTH_FIRST, nur mehrdeutige («03/04/2024», Tag ≠ Monat) → ambiguous (Vorschau fragt, Standard DAY_FIRST, dateOrder = Auswahl). «.» immer Tag zuerst. Gelesen mit deviceZone UTC; times = Zeiten der gelesenen Zeilen.",
+  "dateOrder": [
+    {
+      "name": "only ambiguous: ask, default day first",
+      "csv": "Timestamp,Type,Asset,Amount,Price,Currency\n03/04/2024 10:00,Buy,BTC,0.01,60000,USD\n12/05/2024,Buy,ETH,1,3000,USD\n",
+      "dateOrder": null,
+      "order": "DAY_FIRST",
+      "ambiguous": true,
+      "times": [
+        "2024-04-03T10:00:00Z",
+        "2024-05-12T00:00:00Z"
+      ]
+    },
+    {
+      "name": "only ambiguous: month first chosen",
+      "csv": "Timestamp,Type,Asset,Amount,Price,Currency\n03/04/2024 10:00,Buy,BTC,0.01,60000,USD\n12/05/2024,Buy,ETH,1,3000,USD\n",
+      "dateOrder": "MONTH_FIRST",
+      "order": "MONTH_FIRST",
+      "ambiguous": true,
+      "times": [
+        "2024-03-04T10:00:00Z",
+        "2024-12-05T00:00:00Z"
+      ]
+    },
+    {
+      "name": "second part > 12: month first",
+      "csv": "Timestamp,Type,Asset,Amount,Price,Currency\n03/25/2024,Buy,BTC,0.01,60000,USD\n03/04/2024,Buy,ETH,1,3000,USD\n",
+      "dateOrder": null,
+      "order": "MONTH_FIRST",
+      "ambiguous": false,
+      "times": [
+        "2024-03-25T00:00:00Z",
+        "2024-03-04T00:00:00Z"
+      ]
+    },
+    {
+      "name": "first part > 12: day first, choice ignored",
+      "csv": "Timestamp,Type,Asset,Amount,Price,Currency\n25/03/2024,Buy,BTC,0.01,60000,USD\n03/04/2024,Buy,ETH,1,3000,USD\n",
+      "dateOrder": "MONTH_FIRST",
+      "order": "DAY_FIRST",
+      "ambiguous": false,
+      "times": [
+        "2024-03-25T00:00:00Z",
+        "2024-04-03T00:00:00Z"
+      ]
+    },
+    {
+      "name": "dots are always day first",
+      "csv": "Timestamp,Type,Asset,Amount,Price,Currency\n03.04.2024,Buy,BTC,0.01,60000,USD\n05.06.2024,Buy,ETH,1,3000,USD\n",
+      "dateOrder": "MONTH_FIRST",
+      "order": "DAY_FIRST",
+      "ambiguous": false,
+      "times": [
+        "2024-04-03T00:00:00Z",
+        "2024-06-05T00:00:00Z"
+      ]
+    },
+    {
+      "name": "contradiction: day first wins, other row unreadable",
+      "csv": "Timestamp,Type,Asset,Amount,Price,Currency\n25/03/2024,Buy,BTC,0.01,60000,USD\n03/25/2024,Buy,ETH,1,3000,USD\n",
+      "dateOrder": null,
+      "order": "DAY_FIRST",
+      "ambiguous": false,
+      "times": [
+        "2024-03-25T00:00:00Z"
+      ]
+    },
+    {
+      "name": "dashes ambiguous too",
+      "csv": "Timestamp,Type,Asset,Amount,Price,Currency\n03-04-2024,Buy,BTC,0.01,60000,USD\n",
+      "dateOrder": null,
+      "order": "DAY_FIRST",
+      "ambiguous": true,
+      "times": [
+        "2024-04-03T00:00:00Z"
+      ]
+    },
+    {
+      "name": "same day and month: no question",
+      "csv": "Timestamp,Type,Asset,Amount,Price,Currency\n04/04/2024,Buy,BTC,0.01,60000,USD\n2024-05-01T00:00:00Z,Buy,ETH,1,3000,USD\n",
+      "dateOrder": null,
+      "order": "DAY_FIRST",
+      "ambiguous": false,
+      "times": [
+        "2024-04-04T00:00:00Z",
+        "2024-05-01T00:00:00Z"
+      ]
+    }
+  ],
+  "_stableSwapsComment": "Vorschau: Hinweis «gegen Stablecoin als Tausch gebucht» (stableSwaps), sobald eine neue Zeile so umgebucht wurde; txs = zugeordnete Transaktionen (Tausch mit Wert in USDT wie die [R10]-Fälle FR/AT in tax_templates.json). Build 48: fee/feeUnit/feeCoin/feeCoinAmount (fehlt = nicht geprüft) — Gebühr im erhaltenen Coin eines Tauschs (auch USDT) = feeCoin = toCoin (weniger erhalten); balances = Bestand je Coin nach allen Transaktionen der Vorschau (PortfolioCalculator.holdingsAt), z. B. Kraken-Saldo 1246.7 USDT.",
+  "stableSwaps": [
+    {
+      "file": "generic_stable",
+      "stableSwaps": true,
+      "txs": [
+        {
+          "line": 2,
+          "type": "SWAP",
+          "coin": "BTC",
+          "toCoin": "USDT",
+          "toAmount": "6000",
+          "swapValueUsdt": "6000",
+          "fee": null,
+          "feeUnit": null,
+          "feeCoin": "USDT",
+          "feeCoinAmount": "6"
+        },
+        {
+          "line": 3,
+          "type": "SWAP",
+          "coin": "USDT",
+          "toCoin": "ETH",
+          "toAmount": "2",
+          "swapValueUsdt": "6000"
+        },
+        {
+          "line": 5,
+          "type": "BUY",
+          "coin": "USDT",
+          "toCoin": null,
+          "toAmount": null,
+          "swapValueUsdt": null
+        }
+      ]
+    },
+    {
+      "file": "kraken_stable",
+      "stableSwaps": true,
+      "txs": [
+        {
+          "line": 2,
+          "type": "BUY",
+          "coin": "USDT",
+          "toCoin": null,
+          "toAmount": null,
+          "swapValueUsdt": null,
+          "fee": "2",
+          "feeUnit": "COIN",
+          "feeCoin": null,
+          "feeCoinAmount": null
+        },
+        {
+          "line": 4,
+          "type": "SWAP",
+          "coin": "BTC",
+          "toCoin": "USDT",
+          "toAmount": "600",
+          "swapValueUsdt": "600",
+          "fee": null,
+          "feeUnit": null,
+          "feeCoin": "USDT",
+          "feeCoinAmount": "1.2"
+        }
+      ],
+      "balances": {
+        "USDT": "1246.7"
+      }
+    },
+    {
+      "file": "kraken_ledger",
+      "stableSwaps": false,
+      "txs": []
+    },
+    {
+      "file": "generic_swap",
+      "stableSwaps": false,
+      "txs": []
+    },
+    {
+      "file": "generic_crypto_quote",
+      "stableSwaps": false,
+      "txs": [
+        {
+          "line": 2,
+          "type": "SWAP",
+          "coin": "BTC",
+          "toCoin": "ETH",
+          "toAmount": "2",
+          "swapValueUsdt": null,
+          "fee": "0.0001",
+          "feeUnit": "COIN",
+          "feeCoin": null,
+          "feeCoinAmount": null
+        },
+        {
+          "line": 3,
+          "type": "SWAP",
+          "coin": "ETH",
+          "toCoin": "BTC",
+          "toAmount": "0.052",
+          "swapValueUsdt": null,
+          "fee": null,
+          "feeUnit": null,
+          "feeCoin": "BTC",
+          "feeCoinAmount": "0.001"
+        },
+        {
+          "line": 4,
+          "type": "SWAP",
+          "coin": "ETH",
+          "toCoin": "SOL",
+          "toAmount": "10",
+          "swapValueUsdt": null
+        },
+        {
+          "line": 5,
+          "type": "BUY",
+          "coin": "BTC",
+          "toCoin": null,
+          "toAmount": null,
+          "swapValueUsdt": null
+        }
+      ],
+      "balances": {
+        "ETH": "0.2",
+        "SOL": "10",
+        "BTC": "0.061",
+        "DOT": "5"
+      }
+    },
+    {
+      "file": "kraken_staking_dupes",
+      "stableSwaps": false,
+      "txs": [],
+      "balances": {
+        "ETH": "0.9"
+      }
+    }
+  ],
+  "_decimalMarkComment": "Dezimalzeichen je Datei (CsvImportParser.decimalHint): «0.125»/«-0,500» (Ganzzahlteil 0) verraten das Zeichen. Verrät die Datei keines und hat eine mehrdeutige Zahl (ein Zeichen, genau 3 Ziffern, «42,000»): sample = diese, mark = gelesenes Zeichen (ohne Wahl das Zeichen der ersten mehrdeutigen Zahl, gilt für die ganze Datei), decimalMark = Wahl der Vorschau.",
+  "decimalMark": [
+    {
+      "name": "zero whole number gives dot",
+      "csv": "Date,Type,Coin,Amount,Price,Currency\n2024-03-01T10:00:00Z,Buy,BTC,0.125,\"42,000\",USD\n",
+      "decimalMark": null,
+      "sample": null,
+      "mark": null,
+      "amounts": [
+        "0.125"
+      ],
+      "prices": [
+        "42000"
+      ]
+    },
+    {
+      "name": "choice ignored when file is clear",
+      "csv": "Date,Type,Coin,Amount,Price,Currency\n2024-03-01T10:00:00Z,Buy,BTC,0.125,\"42,000\",USD\n",
+      "decimalMark": ",",
+      "sample": null,
+      "mark": null,
+      "amounts": [
+        "0.125"
+      ],
+      "prices": [
+        "42000"
+      ]
+    },
+    {
+      "name": "negative zero whole gives comma",
+      "csv": "Date;Type;Coin;Amount;Price;Currency\n2024-03-01T10:00:00Z;Sell;BTC;-0,500;1.250;CHF\n",
+      "decimalMark": null,
+      "sample": null,
+      "mark": null,
+      "amounts": [
+        "0.5"
+      ],
+      "prices": [
+        "1250"
+      ]
+    },
+    {
+      "name": "ambiguous: ask, default separator is decimal",
+      "csv": "Date,Type,Coin,Amount,Price,Currency\n2024-03-01T10:00:00Z,Buy,BTC,2,\"42,000\",USD\n",
+      "decimalMark": null,
+      "sample": "42,000",
+      "mark": ",",
+      "amounts": [
+        "2"
+      ],
+      "prices": [
+        "42"
+      ]
+    },
+    {
+      "name": "ambiguous: chosen dot",
+      "csv": "Date,Type,Coin,Amount,Price,Currency\n2024-03-01T10:00:00Z,Buy,BTC,2,\"42,000\",USD\n",
+      "decimalMark": ".",
+      "sample": "42,000",
+      "mark": ".",
+      "amounts": [
+        "2"
+      ],
+      "prices": [
+        "42000"
+      ]
+    },
+    {
+      "name": "ambiguous: first sample decides for the file",
+      "csv": "Date,Type,Coin,Amount,Price,Currency\n2024-03-01T10:00:00Z,Buy,BTC,\"1,500\",42.000,USD\n",
+      "decimalMark": null,
+      "sample": "1,500",
+      "mark": ",",
+      "amounts": [
+        "1.5"
+      ],
+      "prices": [
+        "42000"
+      ]
+    }
+  ],
+  "_decodeComment": "Bytes der Datei (hex) → Text (CsvImportParser.decode): gültiges UTF-8 (BOM weg), sonst Windows-1252 (nicht belegte Bytes 0x81/0x8D/0x8F/0x90/0x9D = gleicher Codepunkt). columns = erkannte Spalten.",
+  "decode": [
+    {
+      "name": "cp1252 header from Excel",
+      "hex": "446174756d3b5479703b436f696e3b4d656e67653b50726569733b57e46872756e673b476562fc68720d0a323032342d30332d30312031303a30303b4b6175663b4254433b302c353b36303030303b4348463b312c35300d0a",
+      "text": "Datum;Typ;Coin;Menge;Preis;Währung;Gebühr\r\n2024-03-01 10:00;Kauf;BTC;0,5;60000;CHF;1,50\r\n",
+      "columns": [
+        "Datum",
+        "Typ",
+        "Coin",
+        "Menge",
+        "Preis",
+        "Währung",
+        "Gebühr"
+      ],
+      "rows": [
+        {
+          "amount": "0.5",
+          "price": "60000",
+          "quote": "CHF",
+          "fee": "1.5",
+          "feeUnit": "CHF"
+        }
+      ]
+    },
+    {
+      "name": "utf8 with bom",
+      "hex": "efbbbf446174652c547970652c436f696e2c416d6f756e740a",
+      "text": "Date,Type,Coin,Amount\n"
+    },
+    {
+      "name": "utf8 umlaut stays utf8",
+      "hex": "476562c3bc68723be282ac",
+      "text": "Gebühr;€"
+    },
+    {
+      "name": "cp1252 special and undefined bytes",
+      "hex": "8081209f8de4",
+      "text": "€ Ÿä"
+    }
+  ],
+  "_fxDayComment": "Tageskurs-Tag des Imports = Ortstag des Geräts wie im Steuer-Export (CsvImportResult.fxZone), nicht die Zeitzone der Datei: Kauf 23:30 UTC = 01:30 Zürich am 2.5. → Kurs des 2.5. (60000 / 0.95).",
+  "fxDay": {
+    "file": "generic_utc_fiat",
+    "deviceZone": "Europe/Zurich",
+    "zone": "UTC",
+    "rates": {
+      "EUR": {
+        "2024-05-01": "0.9",
+        "2024-05-02": "0.95"
+      }
+    },
+    "line": 2,
+    "priceUsdt": "63157.894736842105"
+  }
+}

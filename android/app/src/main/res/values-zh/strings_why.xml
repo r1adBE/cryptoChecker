@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Warum bewegt sich das?»: Titel, Abschnitte, Aufklappen -->
+    <string name="why_action">哪些在同步波动？</string>
+    <string name="why_all_values">所有数值和来源</string>
+    <string name="why_all_values_hint">观察 · 可能的解读 · 来源</string>
+    <string name="why_details">显示详情</string>
+    <string name="why_details_hide">隐藏详情</string>
+    <string name="why_disclaimer">基于市场数据的自动评估：显示同一时间发生的情况，并非原因的证明。</string>
+    <string name="why_footer_short">同时发生不等于因果 · 不构成投资建议</string>
+    <string name="why_no_data">该交易对没有 Binance 数据</string>
+    <string name="why_no_data_hint">价格、成交量和波动率来自 Binance 小时 K 线。</string>
+    <string name="why_ref_alts">山寨币</string>
+    <string name="why_section_context">可能的解读</string>
+    <string name="why_section_observation">观察</string>
+    <string name="why_title">哪些在同步波动？</string>
+    <string name="why_title_coin">哪些在与 %1$s 同步波动？</string>
+
+    <!-- «Warum?»: Kurz gesagt (ein Satz oben) -->
+    <string name="why_brief_head">简而言之 · 截至 %1$s</string>
+    <string name="why_brief_label">简而言之：</string>
+    <string name="why_summary_against">该币种与市场反向波动。</string>
+    <string name="why_summary_calm">没有明显波动：市场和币种都很平静。</string>
+    <string name="why_summary_coin">只有这个币种在波动——可能有只涉及该币种的情况。</string>
+    <string name="why_summary_coin_volume">只有这个币种在波动，且成交量放大——可能有只涉及该币种的情况。</string>
+    <string name="why_summary_longs">合约：大量杠杆多单。</string>
+    <string name="why_summary_market">这一波动在时间上与整体市场吻合。</string>
+    <string name="why_summary_market_volume">这一波动与成交量放大以及市场普遍波动在时间上重合。</string>
+    <string name="why_summary_peg_near">价格接近其 1:1 锚定。</string>
+    <string name="why_summary_peg_off">价格明显偏离其 1:1 锚定。</string>
+    <string name="why_summary_shorts">合约：大量空单。</string>
+    <string name="why_summary_thin">这波走势缺乏支撑：背后成交量很少。</string>
+
+    <!-- «Warum?»: Faktorliste (Titel der Faktoren) -->
+    <string name="why_f_against">与市场反向</string>
+    <string name="why_f_coin_only">仅此币种</string>
+    <string name="why_f_leader">比特币（市场龙头）</string>
+    <string name="why_f_leverage_balanced">杠杆均衡</string>
+    <string name="why_f_leverage_longs">杠杆：多单较多</string>
+    <string name="why_f_leverage_shorts">杠杆：空单较多</string>
+    <string name="why_f_market_calm">市场平静</string>
+    <string name="why_f_market_wide">整个市场在波动</string>
+    <string name="why_factor_funding">资金费率</string>
+    <string name="why_factor_futures">合约</string>
+    <string name="why_factor_market">整体市场</string>
+    <string name="why_factor_near_high">接近高点</string>
+    <string name="why_factor_near_low">接近低点</string>
+    <string name="why_factor_peg">锚定（1:1）</string>
+    <string name="why_factor_range3d">3 日区间</string>
+
+    <!-- «Warum?»: Nebenzeilen der Faktoren -->
+    <string name="why_fn_estimated">估算</string>
+    <string name="why_fn_funding_longs">很多人押注上涨</string>
+    <string name="why_fn_funding_neutral">中性</string>
+    <string name="why_fn_funding_shorts">很多人押注下跌</string>
+    <string name="why_fn_high_at">处于 30 日高点</string>
+    <string name="why_fn_high_below">低于 30 日高点</string>
+    <string name="why_fn_leader_calm">比特币平静</string>
+    <string name="why_fn_leader_moves">比特币明显波动</string>
+    <string name="why_fn_low_above">高于 30 日低点</string>
+    <string name="why_fn_low_at">处于 30 日低点</string>
+    <string name="why_fn_market_against">此币与市场反向而行</string>
+    <string name="why_fn_market_alone">市场平静——此币独自波动</string>
+    <string name="why_fn_market_calm">市场平静</string>
+    <string name="why_fn_market_lags">市场在动，此币几乎没动</string>
+    <string name="why_fn_market_moves">市场同向波动</string>
+    <string name="why_fn_market_pulls">市场与 BTC 同步波动</string>
+    <string name="why_fn_oi_down">持仓量下降</string>
+    <string name="why_fn_oi_flat">持仓量几乎不变</string>
+    <string name="why_fn_oi_mixed">持仓量走势不一</string>
+    <string name="why_fn_oi_up">持仓量上升</string>
+    <string name="why_fn_peg_above">高于 1:1 锚定 %1$s</string>
+    <string name="why_fn_peg_below">低于 1:1 锚定 %1$s</string>
+    <string name="why_fn_peg_near">接近 1:1 锚定</string>
+    <string name="why_fn_range_above_low">距 3 日低点</string>
+    <string name="why_fn_range_below_high">距 3 日高点</string>
+    <string name="why_fn_range_near_high">接近 3 日高点</string>
+    <string name="why_fn_range_near_low">接近 3 日低点</string>
+    <string name="why_fn_volatility_stronger">比平常更剧烈</string>
+    <string name="why_fn_volatility_tiny">绝对值很小（低于 %1$s）</string>
+    <string name="why_fn_volatility_usual">与平常一样</string>
+    <string name="why_fn_volume_higher">高于平常</string>
+    <string name="why_fn_volume_lower">低于平常</string>
+    <string name="why_fn_volume_usual">与平常一样</string>
+
+    <!-- «Warum?»: ausführliche Sätze je Beobachtung -->
+    <string name="why_against_market_text">该币种 %1$s，BTC %2$s（24 小时）——明显独立的走势。</string>
+    <string name="why_against_ref_text">该币种 %1$s，%2$s %3$s（24 小时）——明显独立的走势。</string>
+    <string name="why_btc_independent">%1$s 目前走势独立于比特币。</string>
+    <string name="why_btc_tight">%1$s 目前与比特币走势紧密联动。</string>
+    <string name="why_change_1h">1h</string>
+    <string name="why_change_24h">24h</string>
+    <string name="why_coin_only_text">市场平静时 24 小时 %1$s——可能有只涉及该币种的情况。</string>
+    <string name="why_leverage_balanced_text">合约市场中多单和空单均无明显扎堆。</string>
+    <string name="why_leverage_longs_text">很多人借钱押注价格上涨。多头向空头支付费用——若价格下跌，爆仓风险上升。</string>
+    <string name="why_leverage_shorts_text">很多人借钱押注价格下跌。空头向多头支付费用——如果价格上涨，可能出现轧空（Short Squeeze）。</string>
+    <string name="why_market_calm_text">该币种：24 小时 %1$s。市场和币种都没有大幅波动。</string>
+    <string name="why_market_leader_text">作为最大的币种，BTC 通常与其余市场同步波动。ETH：24 小时 %1$s。</string>
+    <string name="why_market_leader_text_no_eth">作为最大的币种，BTC 通常与其余市场同步波动。</string>
+    <string name="why_market_similar_text">该币种：24 小时 %1$s——同一时间市场也朝同一方向变动，但不那么明显。</string>
+    <string name="why_market_wide_text">该币种：24 小时 %1$s——同一时间整体市场也在明显波动。</string>
+    <string name="why_open_interest_change">自上次检查以来持仓量 %1$s。</string>
+    <string name="why_peg_text">稳定币：与计价货币 1:1 锚定相比，偏差 %1$s。</string>
+    <string name="why_sentiment_text">整个加密市场的恐惧与贪婪指数，较昨日 %1$s。</string>
+    <string name="why_sentiment_text_no_change">整个加密市场的恐惧与贪婪指数。</string>
+    <plurals name="why_trend_falling">
+        <item quantity="other">%1$d 小时来持续下降</item>
+    </plurals>
+    <plurals name="why_trend_rising">
+        <item quantity="other">%1$d 小时来持续上升</item>
+    </plurals>
+    <plurals name="why_trend_stable">
+        <item quantity="other">%1$d 小时来保持稳定</item>
+    </plurals>
+    <string name="why_volatility_high_text">最近一小时：%1$s——相对于过去 24 小时的典型每小时波幅。</string>
+    <string name="why_volatility_normal_text">最近一小时：%1$s——处于正常范围内。</string>
+    <string name="why_volatility_tiny_text">最近一小时：%1$s——对该币种而言不寻常，但绝对值很小。</string>
+    <string name="why_volume_estimated_text">估算：该数据源不提供成交额，因此比较的是成交的币数量。</string>
+    <string name="why_volume_high_text">最近一小时交易远多于平常——这波走势伴随着高成交量。</string>
+    <string name="why_volume_low_text">这波走势背后成交较少——此类走势往往不太稳定。</string>
+    <string name="why_volume_normal_text">最近一小时的交易与过去 24 小时一致。</string>
+
+    <!-- «Warum?»: Signal-Punkte (stützt, neutral, Vorsicht) -->
+    <string name="why_dot_caution">偏高</string>
+    <string name="why_dot_neutral">中性</string>
+    <string name="why_dot_supports">与波动吻合</string>
+
+    <!-- «Warum?»: Frische und Quellen der Daten -->
+    <string name="why_data_time">数据时间：%1$s</string>
+    <string name="why_fresh_breadth">市场广度：%1$s · %2$s</string>
+    <string name="why_fresh_candles">K 线：%1$s · %2$s</string>
+    <string name="why_fresh_fng">Fear &amp; Greed：%1$s</string>
+    <string name="why_fresh_futures">期货：%1$s</string>
+    <plurals name="why_fresh_oi_hours">
+        <item quantity="other">持仓量与 %1$d 小时前对比</item>
+    </plurals>
+    <plurals name="why_fresh_oi_minutes">
+        <item quantity="other">持仓量与 %1$d 分钟前对比</item>
+    </plurals>
+    <string name="why_fresh_today">今天</string>
+    <string name="why_fresh_yesterday">昨天</string>
+    <string name="why_source_fallback">%1$s（备用来源）</string>
+    <string name="why_source_reference">%1$s（参考值）</string>
+    <string name="why_sources">来源：交易所小时 K 线（多为 Binance）、各交易所期货数据、alternative.me 的 Fear &amp; Greed。</string>
+    <string name="why_sources_list">来源：%1$s。</string>
+    <string name="why_src_breadth">%1$s（市场广度）</string>
+    <string name="why_src_candles">%1$s（K 线）</string>
+    <string name="why_src_comparison">%1$s（市场对比）</string>
+    <string name="why_src_fng">%1$s（Fear &amp; Greed）</string>
+    <string name="why_src_futures">%1$s（期货）</string>
+
+    <!-- Faktor-Checkliste (Crypto Pulse und «Warum?») -->
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">资金费率</string>
+    <string name="factor_spoken_volatility">平常波动的 %1$s 倍</string>
+    <string name="factor_spoken_volume">平常的 %1$s 倍</string>
+    <string name="factor_volatility">波动（1h）</string>
+    <string name="factor_volume">成交量</string>
+</resources>

@@ -1,0 +1,51 @@
+import Foundation
+
+/// J-15: Farben der fünfstufigen Skala «Extreme Angst» … «Extreme Gier» (Fear & Greed), abgeleitet
+/// aus den aktiven Kursfarben — so gilt auch das Schema für Farbsehschwäche, hoher Kontrast und der
+/// Tausch. Angst = Fallend-Farbe, Gier = Steigend-Farbe, die mittleren Stufen je zu 45 % mit dem
+/// neutralen Grau gemischt. Nur für Flächen (Skala, Markierung), nie für Schrift; jede Stufe hält
+/// ≥ 3:1 auf allen Flächen bis #E2E2E2 bzw. #353535. Wie Android `MarketScalePalette.kt`.
+enum MarketScalePalette {
+    /// Neutrale Mitte: hell dunkler (3.82:1 auf #E2E2E2), dunkel heller (3.65:1 auf #353535).
+    static let neutralLight: UInt32 = 0x707070
+    static let neutralDark: UInt32 = 0x8C8C8C
+
+    /// Anteil Grau in den mittleren Stufen «Angst» / «Gier».
+    static let mildMix = 0.45
+
+    /// Stufen von links (Extreme Angst) nach rechts (Extreme Gier), RGB.
+    /// `accent`: Ersatzfassungen der Kursfarben neben der Akzentfarbe (wie überall).
+    static func steps(_ scheme: PriceColorScheme, dark: Bool, highContrast: Bool = false,
+                      inverted: Bool = false, accent: AccentColor? = nil) -> [UInt32] {
+        let fear: UInt32 = scheme.downHex(dark: dark, highContrast: highContrast, inverted: inverted, accent: accent)
+        let greed: UInt32 = scheme.upHex(dark: dark, highContrast: highContrast, inverted: inverted, accent: accent)
+        let neutral = dark ? neutralDark : neutralLight
+        return [fear, mix(fear, neutral, mildMix), neutral, mix(greed, neutral, mildMix), greed]
+    }
+
+    /// Stufe 0…4 eines Fear-&-Greed-Werts (0–100).
+    static func level(_ value: Int) -> Int {
+        if value < 25 { return 0 }
+        if value < 45 { return 1 }
+        if value <= 55 { return 2 }
+        if value <= 75 { return 3 }
+        return 4
+    }
+
+    /// Stufenfarbe eines Werts (für Markierung/Punkt, nicht für die Zahl).
+    static func color(_ value: Int, _ scheme: PriceColorScheme, dark: Bool, highContrast: Bool = false,
+                      inverted: Bool = false) -> UInt32 {
+        steps(scheme, dark: dark, highContrast: highContrast, inverted: inverted)[level(value)]
+    }
+
+    /// Mischung im sRGB-Raum, `t` = Anteil von `b`.
+    static func mix(_ a: UInt32, _ b: UInt32, _ t: Double) -> UInt32 {
+        func channel(_ shift: UInt32) -> UInt32 {
+            let ca = Double((a >> shift) & 0xFF)
+            let cb = Double((b >> shift) & 0xFF)
+            let v = (ca + (cb - ca) * t).rounded()
+            return UInt32(min(max(v, 0), 255))
+        }
+        return (channel(16) << 16) | (channel(8) << 8) | channel(0)
+    }
+}

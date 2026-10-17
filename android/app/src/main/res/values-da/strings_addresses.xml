@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: beobachtete Adressen (Wallets) -->
+    <string name="portfolio_address_add">Tilføj adresse</string>
+    <string name="portfolio_address_count">Medregn</string>
+    <string name="portfolio_address_error">Opdatering mislykkedes</string>
+    <string name="portfolio_address_hint">Offentlig adresse (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) eller xpub</string>
+    <string name="portfolio_address_label">Navn (valgfrit)</string>
+    <string name="portfolio_address_not_since_buy">Fra adresse · ikke i «Siden køb»: %1$s</string>
+    <string name="portfolio_address_overlap">Også i dine egne transaktioner: %1$s – begge lægges sammen. Samme coins? Vælg «Vis kun».</string>
+    <string name="portfolio_address_overlap_ask">Du registrerer allerede %1$s med egne transaktioner. Skal saldoen for denne adresse tælle med i porteføljen eller kun vises?</string>
+    <string name="portfolio_address_overlap_auto">«%1$s» vises nu kun og tælles ikke med – %2$s findes også i dine transaktioner.</string>
+    <string name="portfolio_address_overlap_restored">«%1$s» tæller igen med – mængderne passer ikke til dine transaktioner. Vælg «Vis kun», hvis det er de samme coins.</string>
+    <string name="portfolio_address_overlap_title">Samme coins som i dine transaktioner?</string>
+    <string name="portfolio_address_overlap_tx">Samme mængde som din egen indbetaling/overførsel (%1$s) – tælles sandsynligvis dobbelt.</string>
+    <string name="portfolio_address_period_observed">Overvågede adresser tæller fra den første observerede saldo; senere ændringer er ind-/udstrømninger, ikke gevinst.</string>
+    <string name="portfolio_address_privacy">Kun den offentlige adresse sendes til %1$s – aldrig nøgler eller seed-sætninger. Udbyderen ser den sammen med din IP-adresse. Tjekkes højst hvert 10. minut.</string>
+    <string name="portfolio_address_remove">Fjern adresse</string>
+    <string name="portfolio_address_show_only">Vis kun, tæl ikke med i porteføljen</string>
+    <string name="portfolio_address_show_only_short">Vis kun</string>
+    <string name="portfolio_address_tokens">Medregn tokens</string>
+    <string name="portfolio_address_unknown_tokens">+%1$d ukendte tokens (ikke medregnet)</string>
+    <string name="portfolio_address_xpub_privacy">En xpub afslører alle adresser i denne wallet. De udledes på din enhed; kun enkelte adresser sendes til %1$s – mindst 40 forespørgsler ved første søgning, senere færre. Private nøgler (xprv) accepteres aldrig.</string>
+    <string name="portfolio_address_xpub_used">Adresser i brug: %1$d</string>
+    <string name="portfolio_addresses_title">Adresser</string>
+
+    <!-- Prüfung einer eingegebenen Adresse -->
+    <string name="address_bch_unsupported">Bitcoin Cash-adresser kan ikke overvåges: der findes ingen gratis offentlig tjeneste uden API-nøgle, hvis vilkår tillader det.</string>
+    <string name="address_bep2_shutdown">BNB Beacon Chain (BEP-2) blev lukket i 2024 – saldi ligger nu på BNB Smart Chain (0x…)</string>
+    <string name="address_checksum">Forkert kontrolsum – tastefejl?</string>
+    <string name="address_doge_unsupported">Dogecoin-adresser kan ikke overvåges: der findes ingen gratis offentlig tjeneste uden API-nøgle, hvis vilkår tillader det.</string>
+    <string name="address_duplicate">Denne adresse er allerede tilføjet</string>
+    <string name="address_ens">ENS-navne understøttes ikke – indtast 0x-adressen</string>
+    <string name="address_invalid">Ikke en gyldig adresse på et understøttet netværk</string>
+    <string name="address_limit">Højst 20 adresser</string>
+    <string name="address_secret">Det ligner en privat nøgle eller seed-sætning – indtast det aldrig nogen steder. Kun offentlige adresser.</string>
+    <string name="address_testnet">Testnet-adresser understøttes ikke</string>
+    <string name="address_unsupported">Denne adressetype understøttes ikke</string>
+    <string name="address_wrong_chain">Adressen hører til et andet netværk</string>
+    <string name="address_xpub_multisig">Multisig-nøgler (Ypub/Zpub) understøttes ikke</string>
+</resources>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">Назад</string>
+    <string name="action_cancel">Скасувати</string>
+    <string name="action_clear">Очистити</string>
+    <string name="action_close">Закрити</string>
+    <string name="action_delete">Видалити</string>
+    <string name="action_edit">Змінити</string>
+    <string name="action_more">Інші дії</string>
+    <string name="action_refresh">Оновити</string>
+    <string name="action_retry">Повторити</string>
+    <string name="action_save">Зберегти</string>
+    <string name="action_sort">Сортування</string>
+    <string name="action_sort_done">Готово</string>
+    <string name="action_undo">Скасувати</string>
+    <string name="action_view">Відкрити</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">Ринок</string>
+    <string name="tab_portfolio">Портфель</string>
+    <string name="tab_settings">Параметри</string>
+    <string name="tab_watchlist">Список</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">Помилка: %1$s</string>
+    <string name="error_market_unreachable">Біржа зараз недоступна – останні курси залишаються видимими.</string>
+    <string name="error_market_unreachable_short">Біржа зараз недоступна</string>
+    <string name="loading_hint">Завантаження…</string>
+    <string name="no_internet_connection">Немає з\'єднання з інтернетом</string>
+    <string name="option_off">Вимк.</string>
+    <string name="something_went_wrong">Щось пішло не так</string>
+    <string name="time_just_now">щойно</string>
+    <string name="timeout_error_message">Біржа зараз не відповідає.</string>
+    <string name="try_again">Спробувати ще</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">Немає з\'єднання</string>
+    <string name="offline_status_since">Немає з\'єднання · дані станом на %1$s</string>
+    <string name="status_live">Наживо</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">Додати пару</string>
+    <string name="shortcut_alarms">Усі сигнали</string>
+    <string name="shortcut_cycle">Ринок</string>
+</resources>

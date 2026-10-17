@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Wie aktuell? (Sparsam / Live) -->
+    <string name="update_mode_for_pros">耗费更多流量和电量</string>
+    <string name="update_mode_live">打开时实时</string>
+    <string name="update_mode_live_hint">交易所提供实时价格时：自选列表打开期间即时更新。否则在下次获取时。关闭时：最多每 %1$s 一次，常常更晚。</string>
+    <string name="update_mode_live_hint_ios">交易所提供实时价格时：自选列表打开期间即时更新。否则在下次获取时。关闭时：iOS 允许时，有时相隔数小时。如果你划掉应用，iOS 会暂停这些检查，直到你再次打开它。</string>
+    <string name="update_mode_recommended">推荐</string>
+    <string name="update_mode_sparsam">省电</string>
+    <string name="update_mode_sparsam_hint">应用关闭时最多每 %1$s 一次，常常更晚（提醒、小组件）。打开时：每次打开时。</string>
+    <string name="update_mode_sparsam_hint_ios">应用关闭时由 iOS 决定何时检查（提醒、小组件），有时相隔数小时。打开时：每次打开。</string>
+    <string name="update_mode_title">更新频率</string>
+
+    <!-- Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <string name="refresh_sheet_aborted">刷新已中断</string>
+    <string name="refresh_sheet_alarms">提醒</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="other">已触发 %1$d 个</item>
+    </plurals>
+    <!-- Grosse Statuszeile oben im Blatt -->
+    <string name="refresh_sheet_all_updated">全部已更新</string>
+    <string name="refresh_sheet_app_start">应用启动</string>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="other">批量请求 %1$s · %2$d 个价格</item>
+    </plurals>
+    <string name="refresh_sheet_database">数据库</string>
+    <string name="refresh_sheet_market_unreachable">无法连接 %1$s</string>
+    <plurals name="refresh_sheet_markets_unreachable">
+        <item quantity="other">%1$d 个交易所无法连接</item>
+    </plurals>
+    <string name="refresh_sheet_network">网络</string>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="other">%1$d 条通知</item>
+    </plurals>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="other">%1$d 个交易对</item>
+    </plurals>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="other">%1$d 个交易对未更新</item>
+    </plurals>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="other">%2$d/%1$d 个交易对</item>
+    </plurals>
+    <string name="refresh_sheet_paused_until">暂停至 %1$s</string>
+    <string name="refresh_sheet_paused_until_reason">暂停至 %1$s（%2$s）</string>
+    <string name="refresh_sheet_reason_no_data">无数据</string>
+    <string name="refresh_sheet_reason_offline">无连接</string>
+    <string name="refresh_sheet_reason_rate_limit">请求过多</string>
+    <string name="refresh_sheet_reason_server">服务器错误</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">超时</string>
+    <string name="refresh_sheet_reason_unavailable">交易所不可用</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s 秒</string>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_markets">交易所</string>
+    <string name="refresh_sheet_section_steps">明细</string>
+    <string name="refresh_sheet_status_failed">未更新</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">全部已更新</string>
+    <string name="refresh_sheet_status_partial">部分已更新</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">开始前等待</string>
+    <string name="refresh_sheet_widgets">小部件</string>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s（%2$s）</string>
+
+    <!-- Kurzbericht der Aktualisierung je Börse -->
+    <string name="refresh_report_bulk_failed">批量请求 %1$s（失败）</string>
+    <plurals name="refresh_report_errors">
+        <item quantity="other">%1$d 个错误</item>
+    </plurals>
+    <string name="refresh_report_live">实时：%1$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="other">%1$d 个已停止交易</item>
+    </plurals>
+    <string name="refresh_report_singles">单独请求 %1$d 个</string>
+
+    <!-- Prüfprotokoll der Hintergrundprüfungen (Ergebnis, Auslöser) -->
+    <string name="check_result_failed">失败</string>
+    <string name="check_result_ok">正常</string>
+    <string name="check_result_partial">部分</string>
+    <string name="check_result_skipped">已跳过</string>
+    <string name="check_trigger_bgtask">后台</string>
+    <string name="check_trigger_exact">准时</string>
+    <string name="check_trigger_foreground">应用</string>
+    <string name="check_trigger_widget">小组件</string>
+    <string name="check_trigger_widget_ios">小组件 · 价格和价格提醒</string>
+    <string name="check_trigger_worker">后台</string>
+
+    <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
+    <string name="battery_delay_hint">Android 可能会延迟检查——请将电池设为 «无限制»</string>
+    <string name="battery_later">稍后</string>
+    <string name="battery_message">Android 会为了省电而推迟后台任务——价格和小部件可能因此滞后数小时。将电池使用设为“不受限制”可保持其最新。你可以随时在 Android 设置中更改。</string>
+    <string name="battery_open_settings">打开电池设置</string>
+    <string name="battery_steps">在应用信息中点按“电池”（或“应用电池用量”），然后选择“无限制”。</string>
+    <string name="battery_title">保持价格最新</string>
+    <string name="ios_background_refresh_off">此应用的“后台App刷新”已关闭。关闭时，只有在应用打开时才会检查提醒。</string>
+    <string name="ios_low_power_mode">低电量模式已开启。iOS 很少在后台检查，提醒可能会延迟。</string>
+</resources>

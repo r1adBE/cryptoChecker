@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen: Aufbau (Gruppen, Zeilen, Abschnitte, Suche, Kurzwerte) -->
+    <string name="settings_custom_value">Своё</string>
+    <string name="settings_group_general">Общие</string>
+    <string name="settings_group_more">Ещё</string>
+    <string name="settings_minutes">%1$d мин</string>
+    <string name="settings_row_about">О приложении</string>
+    <string name="settings_row_advanced">Дополнительно</string>
+    <string name="settings_row_alarms">Оповещения</string>
+    <string name="settings_row_currency">Валюта</string>
+    <string name="settings_row_dated_futures">Срочные фьючерсы</string>
+    <string name="settings_row_updates">Обновление курсов</string>
+    <string name="settings_row_watchlist">Список</string>
+    <string name="settings_search_hint">Поиск по настройкам</string>
+    <string name="settings_seconds">%1$d с</string>
+    <string name="settings_section_about">О приложении</string>
+    <string name="settings_section_appearance">Оформление</string>
+    <string name="settings_section_developer">Разработчик</string>
+    <string name="settings_section_language">Язык</string>
+    <!-- Kurzwert «eingeschaltet» (Gegenstück zu option_off) -->
+    <string name="settings_summary_on">Вкл.</string>
+    <string name="settings_title">Настройки</string>
+
+    <!-- Einstellungen › Alarme (Ton, Signal, Ruhezeit, App-Symbol, exakte Prüfungen) -->
+    <string name="settings_alarm_cooldown">Пауза перед повторным срабатыванием</string>
+    <!-- Ton/Vibration der Kursalarme, je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">Сигнал оповещения</string>
+    <string name="settings_alarm_signal_open_system">Изменить в настройках системы</string>
+    <string name="settings_alarm_signal_system_hint">Как в настройках уведомлений телефона.</string>
+    <string name="settings_alarm_sound">Звук оповещения</string>
+    <string name="settings_alarm_sound_custom">Свой звук</string>
+    <string name="settings_alarm_sound_default">Стандартный звук</string>
+    <string name="settings_alarm_sound_error">Не удалось использовать звук.</string>
+    <string name="settings_alarm_sound_file">Свой аудиофайл…</string>
+    <string name="settings_alarm_sound_reset">Использовать стандартный звук</string>
+    <string name="settings_alarm_sound_system">Выбрать системный звук…</string>
+    <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">Число на значке приложения</string>
+    <string name="settings_app_badge_hint">Считает открытые уведомления о сигналах. Будет ли число или точка, решает главный экран (напр. Samsung: «С числом»).</string>
+    <string name="settings_exact_checks">Проверять вовремя</string>
+    <string name="settings_exact_checks_grant">Разрешить «Будильники и напоминания»</string>
+    <string name="settings_exact_checks_hint">Android проверяет примерно каждые 15 минут, даже когда устройство в покое. Расходует чуть больше батареи.</string>
+    <string name="settings_exact_checks_nothing">Нет активных пар – нечего проверять.</string>
+    <string name="settings_exact_checks_permission_missing">Нет разрешения – Android проверяет, когда ему удобно (примерно каждые 15 мин или позже).</string>
+    <string name="settings_notification_change">Уведомлять только при изменении цены</string>
+    <string name="settings_notification_change_always">Всегда</string>
+    <string name="settings_notification_change_hint">Уведомление появится, только когда цена изменится хотя бы на эту величину с момента предыдущего. Пока данных нет, ничего не показывается. На оповещения не влияет.</string>
+    <string name="settings_ongoing_notifications">Нельзя смахнуть</string>
+    <string name="settings_ongoing_notifications_hint">Уведомления о цене остаются закреплёнными.</string>
+    <string name="settings_price_notifications">Уведомления о цене</string>
+    <string name="settings_price_notifications_hint">Показывать текущую цену включённых пар в строке состояния.</string>
+    <string name="settings_price_pairs">Пары</string>
+    <string name="settings_price_pairs_all_off">Все выкл.</string>
+    <string name="settings_price_pairs_all_on">Все вкл.</string>
+    <string name="settings_price_pairs_count">%1$d из %2$d</string>
+    <string name="settings_price_pairs_empty">В списке наблюдения пока нет пар.</string>
+    <string name="settings_price_pairs_hint">Выберите, для каких пар курс отображается в панели уведомлений.</string>
+    <string name="settings_quiet_hours">Тихие часы</string>
+    <string name="settings_quiet_hours_from">С</string>
+    <string name="settings_quiet_hours_hint">С %1$s до %2$s оповещения ждут окончания тихих часов и затем срабатывают со звуком. Остальные уведомления приходят беззвучно, без озвучивания.</string>
+    <string name="settings_quiet_hours_to">До</string>
+
+    <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
+    <string name="settings_background_interval">Интервал</string>
+    <string name="settings_background_updates">Фоновые обновления</string>
+    <string name="settings_battery_hint">При ограничении Android может откладывать фоновые обновления на несколько часов.</string>
+    <string name="settings_battery_ok">Расход батареи: без ограничений</string>
+    <string name="settings_battery_restricted">Расход батареи: ограничен</string>
+    <string name="settings_check_runs_empty">Проверок пока не записано.</string>
+    <string name="settings_check_runs_honest_android">Android решает, когда проверять – здесь видно, когда это действительно произошло.</string>
+    <string name="settings_check_runs_honest_ios">iOS решает, когда проверять – здесь видно, когда это действительно произошло.</string>
+    <string name="settings_check_runs_title">Последние проверки</string>
+    <string name="settings_http_log">Показывать журнал HTTP</string>
+    <string name="settings_http_log_hint">Показывает внизу страницы «Добавить пару» запросы к биржам – для диагностики.</string>
+    <string name="settings_live_service">Обновлять часто</string>
+    <string name="settings_live_websocket">Котировки в реальном времени</string>
+
+    <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
+    <string name="settings_activity_alerts">Сообщать о необычной активности</string>
+    <string name="settings_activity_alerts_hint">Не чаще раза в час для каждой пары: необычные движения цены, всплески объёма и экстремумы на фьючерсах (данные Binance).</string>
+    <string name="settings_activity_sensitivity">Чувствительность</string>
+    <string name="settings_activity_sensitivity_hint">Насколько легко монета считается необычной – одинаково для карточки в списке и для уведомлений. При «Меньше» карточка показывает только 3 самых сильных.</string>
+    <string name="settings_watchlist_activity_card">Необычная активность в списке</string>
+    <string name="settings_watchlist_activity_card_hint">Показывает чип ⚡ рядом с группами: нажмите, чтобы увидеть только пары, где прямо сейчас что-то происходит. Уведомления настраиваются в разделе «Рыночные уведомления».</string>
+    <string name="settings_watchlist_names">Показывать названия</string>
+    <string name="settings_watchlist_names_hint">Название под парой, например Bitcoin или NVIDIA. Приходит со списками логотипов, загружается один раз для всех монет.</string>
+    <string name="settings_watchlist_sparkline">Мини-график в списке</string>
+    <string name="settings_watchlist_sparkline_hint">Динамика за 24 часа рядом с ценой</string>
+    <string name="settings_watchlist_value_names">Названия</string>
+    <string name="settings_watchlist_value_price_only">Только цена</string>
+    <string name="settings_watchlist_value_sparkline">Мини-график</string>
+
+    <!-- Einstellungen › Token & TradFi -->
+    <string name="settings_asset_scope_alpha">Вкл. Alpha-токены (α)</string>
+    <string name="settings_asset_scope_alpha_hint">Alpha-токены: ранние, чаще всего небольшие проекты из списка Binance Alpha – нередко с малым объёмом торгов и сильными колебаниями.</string>
+    <string name="settings_asset_scope_alpha_tradfi_hint">Относится к токенам. Заблокировано при «Только TradFi»; Alpha-токены в списке остаются.</string>
+    <string name="settings_asset_scope_both">Токены и TradFi</string>
+    <string name="settings_asset_scope_both_hint">Всё – крипто и TradFi</string>
+    <string name="settings_asset_scope_hint">Определяет, какие пары показывают выбор и поиск при добавлении. Пары, уже добавленные в список, остаются всегда.</string>
+    <string name="settings_asset_scope_title">Токены и TradFi</string>
+    <string name="settings_asset_scope_tokens">Только токены</string>
+    <string name="settings_asset_scope_tokens_hint">Крипто: спот и бессрочные</string>
+    <string name="settings_asset_scope_tradfi">Только TradFi</string>
+    <string name="settings_asset_scope_tradfi_hint">Фьючерсы на акции, сырьё, валюты – контракты, а не токены</string>
+    <string name="settings_rolling_futures">Вкл. квартальные и другие срочные фьючерсы</string>
+    <string name="settings_rolling_futures_hint">Выкл.: срочные фьючерсы, которых нет в списке биржи, помечаются как неторгуемые, а не проверяются по одному. Экономит время при каждом обновлении.</string>
+    <string name="settings_rolling_futures_qtly">Вкл. квартальные и другие срочные фьючерсы (QTLY)</string>
+    <string name="settings_rolling_futures_tradfi_hint">Относится к токенам. Заблокировано при «Только TradFi»; по-прежнему действует для срочных фьючерсов в списке.</string>
+    <string name="settings_tradfi_futures">Акции, сырьё и валюты (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">При выборе пары показывает также фьючерсы на акции, золото и другое сырьё, валюты и компании до IPO. Это контракты, а не токены.</string>
+
+    <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
+    <string name="settings_accent">Цвет акцента</string>
+    <string name="settings_accent_hint">Цвет приложения, виджетов и значка приложения.</string>
+    <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">Логотипы монет</string>
+    <string name="settings_coin_logos_app">В приложении</string>
+    <string name="settings_coin_logos_app_hint">Список, карточка пары и карточки рынка</string>
+    <string name="settings_coin_logos_footer">Логотипы берутся из CoinGecko, а то, чего нет в CoinGecko (например, золото, серебро, акции), — из Binance. Приложение загружает все логотипы сразу и хранит их на этом устройстве, поэтому ни один из сервисов не знает, какие монеты вы отслеживаете. У монет без логотипа показываются инициалы. У избранного на логотипе появляется маленькая звёздочка. Где переключатель выключен, не показываются ни логотипы, ни инициалы; если всё выключено, ничего не загружается.</string>
+    <string name="settings_coin_logos_portfolio">В портфеле</string>
+    <string name="settings_coin_logos_portfolio_hint">Позиции, сведения о монетах и обзор</string>
+    <string name="settings_coin_logos_value_app">Приложение</string>
+    <string name="settings_coin_logos_widgets">В виджетах</string>
+    <string name="settings_coin_logos_widgets_hint">Виджеты списка и одной монеты</string>
+    <string name="settings_high_contrast">Высокая контрастность</string>
+    <string name="settings_high_contrast_hint">Более яркие цвета цен и более тёмный второстепенный текст. Включается также, когда система запрашивает повышенную контрастность.</string>
+    <string name="settings_language_choose">Выбрать язык</string>
+    <string name="settings_language_system">Язык системы</string>
+    <string name="settings_price_colors">Цвета цен</string>
+    <string name="settings_price_colors_hint">Синий / оранжевый хорошо различимы при любом нарушении цветового зрения (красно-зелёном и сине-жёлтом). Направление к тому же всегда показано знаками + / −.</string>
+    <string name="settings_theme_mode">Светлая / Тёмная</string>
+    <string name="settings_widgets">Виджеты</string>
+
+    <!-- Einstellungen › %-Änderung -->
+    <!-- Einstellungszeile und Seitentitel «%-Änderung»; %1$s ist das Prozentzeichen «%» -->
+    <string name="settings_change_basis">Изменение в %1$s и часовой пояс графика</string>
+    <string name="settings_change_basis_hint_1">Выбранный часовой пояс определяет, с какого момента считается процентное изменение (список наблюдения, строка пульса, карточка пары, виджеты), и время на графиках.</string>
+    <string name="settings_change_basis_hint_2">«%1$s» сравнивает с ценой ровно 24 часа назад. «00:00» сравнивает с ценой открытия в полночь в этом часовом поясе.</string>
+    <string name="settings_change_basis_hint_3">На оповещения это не влияет.</string>
+    <string name="settings_change_basis_hint_since_last">«%1$s» сравнивает с ценой предыдущего обновления. При ценах в реальном времени значение остаётся около 0%%.</string>
+    <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
+    <string name="settings_change_period">Показывать период рядом с изменением</string>
+    <string name="settings_change_period_hint">Мелко «24ч», «сегодня» или «посл. обновление» рядом с изменением в списке и в виджете одной монеты. Экранный диктор называет его всегда.</string>
+
+    <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
+    <string name="settings_conversion_currency">Валюта пересчёта</string>
+    <string name="settings_conversion_currency_hint">Также используется для портфеля, оповещений в вашей валюте, карточки «Криптовалютный рынок» и виджета «Портфель».</string>
+    <string name="settings_cost_method">Метод расчёта стоимости покупки</string>
+    <string name="settings_cost_method_average">Средняя (Ø)</string>
+    <string name="settings_cost_method_average_hint">Продажи оцениваются по скользящей средней цене покупки.</string>
+    <string name="settings_cost_method_fifo">FIFO (по умолчанию)</string>
+    <string name="settings_cost_method_fifo_hint">Сначала продаются самые старые монеты – по всем биржам и кошелькам.</string>
+    <string name="settings_cost_method_fifo_wallet">FIFO по кошельку/бирже</string>
+    <string name="settings_cost_method_fifo_wallet_hint">Сначала самые старые монеты в пределах каждой биржи или кошелька; переводы переносят лоты с датой покупки.</string>
+    <string name="settings_portfolio_lock">Блокировка портфеля</string>
+    <string name="settings_portfolio_lock_footer">Блокировка скрывает то, что видно на экране. Данные хранятся на этом устройстве и защищены шифрованием устройства. Резервные копии можно защитить паролем.</string>
+    <string name="settings_portfolio_lock_hint">Скрывает только портфель: разблокировка отпечатком пальца, лицом или PIN-кодом устройства. Снова блокируется после более чем минуты в фоне. Список наблюдения, оповещения и другие виджеты остаются доступными.</string>
+    <string name="settings_portfolio_lock_no_device_lock">Без PIN-кода или пароля устройства блокировка ничего не скрывает – настройте блокировку экрана.</string>
+    <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">Портфель в системной копии</string>
+    <string name="settings_portfolio_system_backup_hint">Выкл.: ваши сделки не попадают в системную резервную копию устройства и при переносе на новый телефон. Чтобы перенести их, используйте резервную копию приложения с паролем.</string>
+    <string name="settings_portfolio_system_backup_unavailable">Нужен Android 9 или новее – более старые версии сохранили бы портфель без шифрования в резервной копии Google.</string>
+    <string name="settings_portfolio_tab">Показывать вкладку «Портфель»</string>
+    <string name="settings_portfolio_value_locked">Вкл., с блокировкой</string>
+    <string name="settings_show_converted">Пересчитанные цены</string>
+    <string name="settings_show_converted_hint">Показывает цены в списке также в %1$s</string>
+
+    <!-- Einstellungen › Markt-Meldungen -->
+    <string name="settings_depeg_alarm">Сообщать об отвязке USDT</string>
+    <string name="settings_depeg_alarm_hint">Сообщает один раз, когда USDT отклоняется от 1 USD на порог (Kraken USDT/USD, Binance USDC/USDT). Значения в приложении по-прежнему считаются с USDT = 1.</string>
+    <string name="settings_depeg_threshold">Порог отвязки</string>
+    <string name="settings_fng_above">Fear &amp; Greed: сообщать выше</string>
+    <string name="settings_fng_below">Fear &amp; Greed: сообщать ниже</string>
+    <string name="settings_gas_alert_hint">Сообщает один раз, когда обычная комиссия опускается ниже порога. Проверяется при обновлении курсов, не чаще раза в 10 минут.</string>
+    <string name="settings_gas_btc_below">Комиссия Bitcoin ниже (sat/vB)</string>
+    <string name="settings_gas_eth_below">Газ Ethereum ниже (gwei)</string>
+    <string name="settings_ind_ath_within">Падение от исторического максимума не больше</string>
+    <string name="settings_ind_mayer_above">Mayer Multiple выше</string>
+    <string name="settings_ind_mayer_below">Mayer Multiple ниже</string>
+    <string name="settings_ind_mvrv_above">MVRV выше</string>
+    <string name="settings_ind_mvrv_below">MVRV ниже</string>
+    <string name="settings_indicator_alerts_hint">Показатели биткоина проверяются дважды в день. Границы выбираешь ты – приложение не оценивает значения.</string>
+    <string name="settings_macro_notifications">Экономический календарь</string>
+    <string name="settings_macro_notifications_hint">В 08:00 в дни важных экономических данных США (инфляция, рынок труда, решение ФРС). Календарь загружается с сайта приложения раз в день.</string>
+    <string name="settings_market_alerts">Рыночные уведомления</string>
+    <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
+    <plurals name="settings_market_alerts_active">
+        <item quantity="one">%1$d активное</item>
+        <item quantity="few">%1$d активных</item>
+        <item quantity="many">%1$d активных</item>
+        <item quantity="other">%1$d активных</item>
+    </plurals>
+
+    <!-- Einstellungen › Sprachausgabe -->
+    <string name="settings_speech_rate">Скорость речи: %1$.1f×</string>
+    <string name="settings_tts">Озвучивание</string>
+    <string name="settings_tts_alarms_only">Только оповещения</string>
+    <string name="settings_tts_alarms_only_hint">Выкл.: озвучивается каждое обновление пары с отметкой «Озвучивать цену».</string>
+    <!-- Sprachausgabe schweigt im Lautlos-/Vibrationsmodus -->
+    <string name="settings_tts_hint_silent">Зачитывает цены и оповещения вслух. Молчит, пока устройство в беззвучном режиме или режиме вибрации.</string>
+    <string name="settings_tts_test">Проверить голос</string>
+
+    <!-- Einstellungen › Daten: App zurücksetzen -->
+    <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
+    <string name="settings_reset_app">Сбросить приложение</string>
+    <string name="settings_reset_app_action">Удалить всё</string>
+    <string name="settings_reset_app_confirm">Удаляет список наблюдения, сигналы, портфель, настройки и все сохранённые данные, как после установки. Отменить нельзя. Совет: сначала создайте резервную копию.</string>
+    <string name="settings_reset_app_title">Сбросить приложение?</string>
+
+    <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
+    <!-- Suchfeld der Währungsseite -->
+    <string name="currency_search">Поиск валюты</string>
+    <string name="language_search">Поиск языка</string>
+
+    <!-- Theme -->
+    <string name="theme_dark">Тёмная</string>
+    <string name="theme_light">Светлая</string>
+    <string name="theme_system">Системная</string>
+
+    <!-- Akzentfarben -->
+    <string name="accent_blue">Синий</string>
+    <string name="accent_green">Зелёный</string>
+    <!-- Eigenname, in allen Sprachen gleich -->
+    <string name="accent_marrs_green">Marrs Green</string>
+    <string name="accent_orange">Оранжевый</string>
+    <string name="accent_red">Красный</string>
+
+    <!-- Kursfarben -->
+    <string name="price_colors_red_up_hint">Принято в Китае, Японии, Корее и на Тайване</string>
+    <string name="price_colors_swap">Поменять цвета (рост ↔ падение)</string>
+    <string name="price_style_calm">Спокойный</string>
+    <string name="price_style_calm_color_vision">Спокойный · Нарушение цветовосприятия</string>
+    <string name="price_style_color_vision">Нарушение цветовосприятия</string>
+    <string name="price_style_fresh">Свежий</string>
+    <string name="price_style_traditional">Традиционный</string>
+
+    <!-- Über die App -->
+    <string name="about_exchanges_verified">Подключения к биржам последний раз проверены на реальных ответах: %1$s</string>
+    <string name="about_license">Цены поступают напрямую с бирж; без аккаунта и без отслеживания.</string>
+    <!-- Texte der Lizenzen liegen in assets/licenses -->
+    <string name="about_licenses">Лицензии</string>
+    <string name="about_privacy_policy">Политика конфиденциальности</string>
+    <!-- GitHub-Vorlage exchange_request.md -->
+    <string name="about_request_exchange">Предложить биржу</string>
+    <string name="about_source_code">Исходный код на GitHub</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_why">Crypto Checker – независимый проект r1AD: спокойный обзор курсов без аккаунта, рекламы и отслеживания. Вопросы и пожелания: %1$s</string>
+
+    <!-- Lizenzhinweise -->
+    <string name="licenses_app_intro">Crypto Checker — приложение с открытым исходным кодом (лицензия MIT).</string>
+    <string name="licenses_font_title">Шрифт Rubik</string>
+    <string name="licenses_icons_bundled_text">В составе приложения: значки из «Cryptocurrency Icons» Кристофера Дауэра (Christopher Downer) и соавторов (github.com/spothq/cryptocurrency-icons), выпущенные под CC0 1.0 Universal. Они показываются, пока не загрузятся логотипы CoinGecko или Binance. Названия и логотипы остаются товарными знаками своих проектов.</string>
+    <string name="licenses_icons_title">Запасные значки монет</string>
+    <string name="licenses_libraries_intro">Приложение использует эти библиотеки по лицензии Apache License 2.0:</string>
+    <string name="licenses_libraries_title">Библиотеки Android</string>
+
+    <!-- Entwickleroptionen -->
+    <!-- Countdown der letzten Tipps auf die Version bis zu den Entwickleroptionen -->
+    <plurals name="developer_taps_left">
+        <item quantity="one">Ещё %d нажатие до открытия параметров разработчика</item>
+        <item quantity="few">Ещё %d нажатия до открытия параметров разработчика</item>
+        <item quantity="many">Ещё %d нажатий до открытия параметров разработчика</item>
+        <item quantity="other">Ещё %d нажатия до открытия параметров разработчика</item>
+    </plurals>
+    <string name="developer_unlocked">Параметры разработчика открыты</string>
+
+    <!-- Nur iOS: Einstellungen -->
+    <!-- Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">Вибрация зависит от настроек iPhone (Звуки, тактильные сигналы).</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Считает новые сигналы и рыночные уведомления; сбрасывается при открытии приложения.</string>
+</resources>

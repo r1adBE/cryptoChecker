@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Begrüssung beim ersten Start -->
+    <string name="welcome_alert">Riasztás – ár, százalék, volumen és szokatlan mozgások</string>
+    <string name="welcome_alert_q">Mikor szóljon?</string>
+    <string name="welcome_text">Az Ön árfolyamai. Az Ön riasztásai. Az Ön áttekintése.\nFiók nélkül. Reklám nélkül. Követés nélkül.</string>
+    <string name="welcome_understand">Megértés – mi mozog most együtt egy árfolyammal</string>
+    <string name="welcome_understand_q">Mi mozog vele együtt?</string>
+    <string name="welcome_watch">Figyelés – érmék, árfolyamok és alakulásuk</string>
+    <string name="welcome_watch_q">Mi történik?</string>
+
+    <!-- Start-Coins (Vorschlagsliste nach der Begrüssung) -->
+    <string name="starter_add_selected">Hozzáadás a figyelőlistához (%1$d)</string>
+    <string name="starter_loading_prices">Árfolyamok betöltése…</string>
+    <string name="starter_search_coin">Másik érme keresése</string>
+    <string name="starter_select_all">Összes kijelölése</string>
+    <string name="starter_select_none">Kijelölés megszüntetése</string>
+    <string name="starter_text">Vegye ki a jelölést abból, amit nem szeretne, a többit adja hozzá egyszerre. A tőzsdét és a párt később módosíthatja.</string>
+    <string name="starter_title">Kezdje ezekkel az érmékkel</string>
+    <string name="starter_watch_alarm_hint">Kövesd az árfolyamot, állíts be riasztást</string>
+</resources>

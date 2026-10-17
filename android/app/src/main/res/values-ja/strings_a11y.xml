@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Screenreader: Zeile eines Paars, Frische, Erreichbarkeit -->
+    <string name="a11y_alarm_count">アラーム: %1$d 件</string>
+    <!-- Alarm des Paars eben ausgelöst (bis 15 Min. danach im Zeilensatz) -->
+    <string name="a11y_alarm_fired">アラームが作動しました</string>
+    <string name="a11y_collapsed">折りたたみ済み</string>
+    <string name="a11y_converted">約 %1$s</string>
+    <string name="a11y_expanded">展開済み</string>
+    <!-- Vorgelesen bei Zeilen, die eine Website öffnen (Datenschutz, Börse wünschen, Quellcode) -->
+    <string name="a11y_external_link">ブラウザで開きます</string>
+    <string name="a11y_favorite">お気に入り</string>
+    <string name="a11y_in_watchlist">すでにウォッチリストにあります</string>
+    <!-- %1$s Börse, letzte Abfrage gescheitert -->
+    <string name="a11y_market_unreachable">%1$sに接続できません</string>
+    <string name="a11y_move_down">下へ移動</string>
+    <string name="a11y_move_up">上へ移動</string>
+    <string name="a11y_note">メモ: %1$s</string>
+    <string name="a11y_price">価格 %1$s</string>
+    <string name="a11y_price_notification_off">価格通知オフ</string>
+    <string name="a11y_price_notification_on">価格通知オン</string>
+    <!-- Frische einer Zeile, Teile mit «, » verbunden: «Kurs veraltet, zuletzt aktualisiert vor 45 Minuten» (A11ySpeech.freshnessText) -->
+    <string name="a11y_price_outdated">価格が古くなっています</string>
+    <!-- Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%2$s の %1$s</string>
+    <string name="a11y_stale">古いデータ、最終更新 %1$s</string>
+    <string name="a11y_warning">警告</string>
+
+    <!-- Screenreader: Veränderung (Prozent-Pille, Widgets) -->
+    <!-- %1$s Satz aus a11y_change_up/down/flat: Veränderung über 24 Stunden (Prozent-Pille, Widgets) -->
+    <string name="a11y_change_24h">24時間で%1$s</string>
+    <!-- Wenn die Pille «—» zeigt (keine Kerzen für das Paar) -->
+    <string name="a11y_change_24h_none">24時間の変動はありません</string>
+    <string name="a11y_change_down">%1$s 下落</string>
+    <string name="a11y_change_flat">変化なし</string>
+    <string name="a11y_change_since_last">前回の更新から %1$s</string>
+    <string name="a11y_change_since_last_none">前回の更新からの変動はありません</string>
+    <!-- %1$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_change_today">今日 %1$s</string>
+    <string name="a11y_change_today_none">今日の変動はありません</string>
+    <string name="a11y_change_today_zone">%2$s 午前0時から %1$s</string>
+    <string name="a11y_change_today_zone_none">%1$s 午前0時からの変動はありません</string>
+    <string name="a11y_change_up">%1$s 上昇</string>
+
+    <!-- Screenreader: Charts und Skalen -->
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">チャート %1$s：開始 %2$s、終了 %3$s、%4$s。高値 %5$s、安値 %6$s。</string>
+    <string name="a11y_chart_empty">チャート：データなし</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">サイクル %1$s：半減期から %2$s、%3$d 日目。</string>
+    <string name="a11y_cycle_bottom">%2$d 日目に底 %1$s。</string>
+    <string name="a11y_cycle_double_bottom">%2$d 日目にダブルボトム %1$s。</string>
+    <string name="a11y_cycle_double_top">%2$d 日目にダブルトップ %1$s。</string>
+    <string name="a11y_cycle_top">%2$d 日目に天井 %1$s。</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">%1$s から %2$s までのスケール：100 中 %3$d</string>
+
+    <!-- Screenreader: Puls-Zeile der Merkliste -->
+    <string name="a11y_watchlist_pulse">%1$s、%2$s、平均 %3$s</string>
+    <string name="a11y_watchlist_pulse_combined">%1$s。%2$s</string>
+    <plurals name="a11y_watchlist_pulse_falling">
+        <item quantity="other">%1$d ペアが下落</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing">
+        <item quantity="other">%1$d ペアは24時間の値がありません</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="other">%1$d ペアは今日の値がありません</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_rising">
+        <item quantity="other">%1$d ペアが上昇</item>
+    </plurals>
+
+    <!-- Screenreader: zuletzt aktualisiert -->
+    <plurals name="a11y_updated_days">
+        <item quantity="other">最終更新：%1$d日前</item>
+    </plurals>
+    <plurals name="a11y_updated_hours">
+        <item quantity="other">最終更新：%1$d時間前</item>
+    </plurals>
+    <string name="a11y_updated_just_now">最終更新：たった今</string>
+    <plurals name="a11y_updated_minutes">
+        <item quantity="other">最終更新：%1$d分前</item>
+    </plurals>
+
+    <!-- Screenreader: Portfolio und Portfolio-Widget -->
+    <string name="a11y_amount_hidden">金額非表示</string>
+    <!-- %1$s Kürzel, %2$s Wert mit Währung, %3$s Anteil «62.3%», %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_portfolio_position">%1$s %2$s、ポートフォリオの %3$s</string>
+    <!-- Position im Portfolio-Widget: %1$s Kürzel, %2$s Anteil «62.3%», %3$s Satz aus a11y_change_24h -->
+    <string name="a11y_portfolio_position_24h">%1$s、ポートフォリオの %2$s、%3$s</string>
+    <string name="a11y_portfolio_positions">上位ポジション: %1$s</string>
+    <string name="a11y_portfolio_show_amounts">金額を表示</string>
+</resources>

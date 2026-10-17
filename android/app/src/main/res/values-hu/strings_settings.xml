@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen: Aufbau (Gruppen, Zeilen, Abschnitte, Suche, Kurzwerte) -->
+    <string name="settings_custom_value">Egyéni</string>
+    <string name="settings_group_general">Általános</string>
+    <string name="settings_group_more">Továbbiak</string>
+    <string name="settings_minutes">%1$d perc</string>
+    <string name="settings_row_about">Az alkalmazásról</string>
+    <string name="settings_row_advanced">Speciális</string>
+    <string name="settings_row_alarms">Riasztások</string>
+    <string name="settings_row_currency">Pénznem</string>
+    <string name="settings_row_dated_futures">Lejáratos határidős</string>
+    <string name="settings_row_updates">Árfolyam-frissítés</string>
+    <string name="settings_row_watchlist">Figyelőlista</string>
+    <string name="settings_search_hint">Keresés a beállításokban</string>
+    <string name="settings_seconds">%1$d mp</string>
+    <string name="settings_section_about">Névjegy</string>
+    <string name="settings_section_appearance">Megjelenés</string>
+    <string name="settings_section_developer">Fejlesztő</string>
+    <string name="settings_section_language">Nyelv</string>
+    <!-- Kurzwert «eingeschaltet» (Gegenstück zu option_off) -->
+    <string name="settings_summary_on">Be</string>
+    <string name="settings_title">Beállítások</string>
+
+    <!-- Einstellungen › Alarme (Ton, Signal, Ruhezeit, App-Symbol, exakte Prüfungen) -->
+    <string name="settings_alarm_cooldown">Várakozási idő a riasztás újbóli kioldása előtt</string>
+    <!-- Ton/Vibration der Kursalarme, je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">Riasztási jelzés</string>
+    <string name="settings_alarm_signal_open_system">Módosítás a rendszerbeállításokban</string>
+    <string name="settings_alarm_signal_system_hint">A telefon értesítési beállításait követi.</string>
+    <string name="settings_alarm_sound">Riasztási hang</string>
+    <string name="settings_alarm_sound_custom">Egyéni hang</string>
+    <string name="settings_alarm_sound_default">Alapértelmezett hang</string>
+    <string name="settings_alarm_sound_error">A hang nem használható.</string>
+    <string name="settings_alarm_sound_file">Saját hangfájl…</string>
+    <string name="settings_alarm_sound_reset">Alapértelmezett hang használata</string>
+    <string name="settings_alarm_sound_system">Rendszerhang kiválasztása…</string>
+    <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">Szám az alkalmazásikonon</string>
+    <string name="settings_app_badge_hint">Megszámolja a nyitott riasztási értesítéseket. Hogy szám vagy pont jelenik meg, azt a kezdőképernyő dönti el (pl. Samsung: «Számmal»).</string>
+    <string name="settings_exact_checks">Pontos ellenőrzés</string>
+    <string name="settings_exact_checks_grant">«Ébresztők és emlékeztetők» engedélyezése</string>
+    <string name="settings_exact_checks_hint">Az Android körülbelül 15 percenként ellenőriz, akkor is, ha az eszköz pihen. Kicsit több akkut fogyaszt.</string>
+    <string name="settings_exact_checks_nothing">Nincs aktív pár – nincs mit ellenőrizni.</string>
+    <string name="settings_exact_checks_permission_missing">Hiányzó engedély – az Android akkor ellenőriz, amikor neki megfelel (kb. 15 percenként vagy később).</string>
+    <string name="settings_notification_change">Értesítés csak árváltozáskor</string>
+    <string name="settings_notification_change_always">Mindig</string>
+    <string name="settings_notification_change_hint">Értesítés csak akkor jelenik meg, ha az ár az előző óta legalább ennyivel elmozdult. Hiányzó adatok esetén semmi sem jelenik meg. A riasztásokat ez nem érinti.</string>
+    <string name="settings_ongoing_notifications">Nem söpörhető el</string>
+    <string name="settings_ongoing_notifications_hint">Az árértesítések rögzítve maradnak.</string>
+    <string name="settings_price_notifications">Árértesítések</string>
+    <string name="settings_price_notifications_hint">A bekapcsolt párok aktuális árának megjelenítése az állapotsorban.</string>
+    <string name="settings_price_pairs">Párok</string>
+    <string name="settings_price_pairs_all_off">Mind ki</string>
+    <string name="settings_price_pairs_all_on">Mind be</string>
+    <string name="settings_price_pairs_count">%1$d / %2$d</string>
+    <string name="settings_price_pairs_empty">A figyelőlistán még nincsenek párok.</string>
+    <string name="settings_price_pairs_hint">Válaszd ki, mely párok árfolyama jelenjen meg az értesítési sávban.</string>
+    <string name="settings_quiet_hours">Csendes órák</string>
+    <string name="settings_quiet_hours_from">Kezdete</string>
+    <string name="settings_quiet_hours_hint">%1$s és %2$s között a riasztások megvárják a csendes órák végét, és utána hanggal szólalnak meg. A többi értesítés némán, felolvasás nélkül érkezik.</string>
+    <string name="settings_quiet_hours_to">Vége</string>
+
+    <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
+    <string name="settings_background_interval">Időköz</string>
+    <string name="settings_background_updates">Háttérfrissítés</string>
+    <string name="settings_battery_hint">Korlátozott módban az Android órákkal késleltetheti a háttérfrissítéseket.</string>
+    <string name="settings_battery_ok">Akkumulátorhasználat: korlátlan</string>
+    <string name="settings_battery_restricted">Akkumulátorhasználat: korlátozott</string>
+    <string name="settings_check_runs_empty">Még nincs rögzített ellenőrzés.</string>
+    <string name="settings_check_runs_honest_android">Az Android dönti el, mikor ellenőriz – itt látod, mikor történt valójában.</string>
+    <string name="settings_check_runs_honest_ios">Az iOS dönti el, mikor ellenőriz – itt látod, mikor történt valójában.</string>
+    <string name="settings_check_runs_title">Legutóbbi ellenőrzések</string>
+    <string name="settings_http_log">HTTP-napló megjelenítése</string>
+    <string name="settings_http_log_hint">A „Pár hozzáadása” oldal alján mutatja a tőzsdékhez küldött kéréseket – hibakereséshez.</string>
+    <string name="settings_live_service">Gyakori frissítés</string>
+    <string name="settings_live_websocket">Élő árfolyamok</string>
+
+    <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
+    <string name="settings_activity_alerts">Szokatlan aktivitás jelzése</string>
+    <string name="settings_activity_alerts_hint">Páronként legfeljebb óránként egyszer: szokatlan ármozgások, forgalmi kiugrások és határidős szélsőértékek (adatok: Binance).</string>
+    <string name="settings_activity_sensitivity">Érzékenység</string>
+    <string name="settings_activity_sensitivity_hint">Milyen könnyen számít egy érme szokatlannak – ugyanúgy a figyelőlista kártyájára és az értesítésekre. „Kevesebb” esetén a kártya csak a 3 legerősebbet mutatja.</string>
+    <string name="settings_watchlist_activity_card">Szokatlan aktivitás a listában</string>
+    <string name="settings_watchlist_activity_card_hint">Megjeleníti a ⚡ chipet a csoportok mellett: koppintva csak azokat a párokat látja, amelyeknél éppen történik valami. Az értesítéseket a Piaci értesítések alatt állíthatja be.</string>
+    <string name="settings_watchlist_names">Nevek megjelenítése</string>
+    <string name="settings_watchlist_names_hint">Név a pár alatt, pl. Bitcoin vagy NVIDIA. A logólistákkal érkezik, egyszer töltődik be minden érméhez.</string>
+    <string name="settings_watchlist_sparkline">Minidiagram a figyelőlistán</string>
+    <string name="settings_watchlist_sparkline_hint">24 órás alakulás az ár mellett</string>
+    <string name="settings_watchlist_value_names">Nevek</string>
+    <string name="settings_watchlist_value_price_only">Csak árfolyam</string>
+    <string name="settings_watchlist_value_sparkline">Minidiagram</string>
+
+    <!-- Einstellungen › Token & TradFi -->
+    <string name="settings_asset_scope_alpha">Alpha tokenekkel (α)</string>
+    <string name="settings_asset_scope_alpha_hint">Alpha tokenek: korai, többnyire kis projektek a Binance Alpha listáról – gyakran kevés kereskedéssel és erős ingadozással.</string>
+    <string name="settings_asset_scope_alpha_tradfi_hint">A tokenekhez tartozik. „Csak TradFi” mellett zárolva; a listán lévő Alpha tokenek maradnak.</string>
+    <string name="settings_asset_scope_both">Tokenek és TradFi</string>
+    <string name="settings_asset_scope_both_hint">Minden – kripto és TradFi</string>
+    <string name="settings_asset_scope_hint">Meghatározza, mely párokat mutat a választó és a keresés hozzáadáskor. A figyelőlistán már szereplő párok mindig maradnak.</string>
+    <string name="settings_asset_scope_title">Tokenek &amp; TradFi</string>
+    <string name="settings_asset_scope_tokens">Csak tokenek</string>
+    <string name="settings_asset_scope_tokens_hint">Kripto: azonnali és örökös</string>
+    <string name="settings_asset_scope_tradfi">Csak TradFi</string>
+    <string name="settings_asset_scope_tradfi_hint">Határidős ügyletek részvényekre, nyersanyagokra, devizákra – szerződések, nem tokenek</string>
+    <string name="settings_rolling_futures">Negyedéves és egyéb lejáratos határidős ügyletekkel</string>
+    <string name="settings_rolling_futures_hint">Ki: a tőzsde listájáról hiányzó lejáratos határidős ügyletek egyenkénti ellenőrzés helyett „már nem kereskedett” jelölést kapnak. Minden frissítésnél időt takarít meg.</string>
+    <string name="settings_rolling_futures_qtly">Negyedéves és egyéb lejáratos határidős ügyletekkel (QTLY)</string>
+    <string name="settings_rolling_futures_tradfi_hint">A tokenekhez tartozik. „Csak TradFi” mellett zárolva; a listán lévő lejáratos ügyletekre továbbra is érvényes.</string>
+    <string name="settings_tradfi_futures">Részvények, nyersanyagok és devizák (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">Párválasztáskor részvényekre, aranyra és más nyersanyagokra, devizákra és tőzsdére lépés előtti cégekre szóló határidős ügyleteket is mutat. Ezek szerződések, nem tokenek.</string>
+
+    <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
+    <string name="settings_accent">Kiemelőszín</string>
+    <string name="settings_accent_hint">Az alkalmazás, a widgetek és az alkalmazásikon színe.</string>
+    <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">Érmelogók</string>
+    <string name="settings_coin_logos_app">Az alkalmazásban</string>
+    <string name="settings_coin_logos_app_hint">Figyelőlista, a megnyitott pár és piaci kártyák</string>
+    <string name="settings_coin_logos_footer">A logók a CoinGeckótól származnak, amit a CoinGecko nem tart nyilván (pl. arany, ezüst, részvények), az a Binance-tól. Az alkalmazás egyszerre tölti le az összes logót, és ezen az eszközön tárolja őket, így egyik szolgáltató sem tudja, mely érméket követi. A logó nélküli érméknél a kezdőbetűk látszanak. A kedvencek kis csillagot kapnak a logón. Ahol egy kapcsoló ki van kapcsolva, ott sem logó, sem kezdőbetű nem jelenik meg; ha minden ki van kapcsolva, semmi sem töltődik be.</string>
+    <string name="settings_coin_logos_portfolio">A portfólióban</string>
+    <string name="settings_coin_logos_portfolio_hint">Pozíciók, érmeadatok és elemzések</string>
+    <string name="settings_coin_logos_value_app">Alkalmazás</string>
+    <string name="settings_coin_logos_widgets">A widgetekben</string>
+    <string name="settings_coin_logos_widgets_hint">Figyelőlista- és Egy érme widgetek</string>
+    <string name="settings_high_contrast">Nagy kontraszt</string>
+    <string name="settings_high_contrast_hint">Erősebb árszínek és sötétebb másodlagos szöveg. Akkor is bekapcsol, ha a rendszer nagyobb kontrasztot kér.</string>
+    <string name="settings_language_choose">Nyelv kiválasztása</string>
+    <string name="settings_language_system">Rendszer nyelve</string>
+    <string name="settings_price_colors">Árszínek</string>
+    <string name="settings_price_colors_hint">A kék / narancs minden színlátási zavar (vörös-zöld és kék-sárga) esetén jól megkülönböztethető. Az irányt ezenfelül mindig + / − is jelzi.</string>
+    <string name="settings_theme_mode">Világos / Sötét</string>
+    <string name="settings_widgets">Widgetek</string>
+
+    <!-- Einstellungen › %-Änderung -->
+    <!-- Einstellungszeile und Seitentitel «%-Änderung»; %1$s ist das Prozentzeichen «%» -->
+    <string name="settings_change_basis">%1$s-os változás és diagram-időzóna</string>
+    <string name="settings_change_basis_hint_1">A választott időzóna határozza meg, mikortól számít a százalékos változás (figyelőlista, pulzussor, a megnyitott pár, widgetek), és milyen időt mutatnak a diagramok.</string>
+    <string name="settings_change_basis_hint_2">A „%1$s” a pontosan 24 órával korábbi árfolyamhoz hasonlít. A „00:00” az ebben az időzónában éjfélkor érvényes nyitóárfolyamhoz hasonlít.</string>
+    <string name="settings_change_basis_hint_3">A riasztásokat ez nem érinti.</string>
+    <string name="settings_change_basis_hint_since_last">A „%1$s” az előző frissítés árfolyamához hasonlít. Élő árfolyamoknál 0%% közelében marad.</string>
+    <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
+    <string name="settings_change_period">Időszak megjelenítése a változás mellett</string>
+    <string name="settings_change_period_hint">Kis „24h”, „ma” vagy „utolsó frissítés” a változás mellett a figyelőlistában és az egyérmés widgetben. A képernyőolvasó mindig felolvassa.</string>
+
+    <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
+    <string name="settings_conversion_currency">Átváltási pénznem</string>
+    <string name="settings_conversion_currency_hint">A portfólióhoz, a saját pénznemében megadott riasztásokhoz, a Kriptopiac kártyához és a Portfólió widgethez is ezt használja az alkalmazás.</string>
+    <string name="settings_cost_method">Bekerülési érték módszere</string>
+    <string name="settings_cost_method_average">Átlag (Ø)</string>
+    <string name="settings_cost_method_average_hint">Az eladások a mozgó átlagos vételi áron számítanak.</string>
+    <string name="settings_cost_method_fifo">FIFO (alapértelmezett)</string>
+    <string name="settings_cost_method_fifo_hint">A legrégebbi coinok kelnek el először, az összes tőzsdén és tárcán át.</string>
+    <string name="settings_cost_method_fifo_wallet">FIFO tárcánként/tőzsdénként</string>
+    <string name="settings_cost_method_fifo_wallet_hint">A legrégebbi coinok először tőzsdénként vagy tárcánként; az átvezetések a tételeket a vételi dátummal együtt viszik.</string>
+    <string name="settings_portfolio_lock">Portfóliózár</string>
+    <string name="settings_portfolio_lock_footer">A zár eltakarja a megjelenítést. Az adatok ezen az eszközön vannak, és az eszköz titkosítása védi őket. A biztonsági mentéseket jelszóval védheti.</string>
+    <string name="settings_portfolio_lock_hint">Csak a portfóliót takarja el: feloldás ujjlenyomattal, arccal vagy az eszköz PIN-kódjával. Több mint egy perc háttérben töltött idő után újra zárol. A figyelőlista, a riasztások és a többi widget szabadon elérhető marad.</string>
+    <string name="settings_portfolio_lock_no_device_lock">Eszköz-PIN vagy jelkód nélkül a zár semmit sem takar el – állíts be képernyőzárat.</string>
+    <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">Portfólió a rendszermentésben</string>
+    <string name="settings_portfolio_system_backup_hint">Ki: a tranzakciók nem kerülnek bele az eszköz rendszermentésébe és az új telefonra való átvitelbe. Átköltöztetéshez használja az alkalmazás saját, jelszóval védett mentését.</string>
+    <string name="settings_portfolio_system_backup_unavailable">Android 9 vagy újabb kell – a régebbi verziók titkosítás nélkül mentenék a portfóliót a Google-mentésbe.</string>
+    <string name="settings_portfolio_tab">Portfólió lap megjelenítése</string>
+    <string name="settings_portfolio_value_locked">Be, zárral</string>
+    <string name="settings_show_converted">Átváltott árak</string>
+    <string name="settings_show_converted_hint">A figyelőlista árait %1$s pénznemben is mutatja</string>
+
+    <!-- Einstellungen › Markt-Meldungen -->
+    <string name="settings_depeg_alarm">USDT-depeg jelzése</string>
+    <string name="settings_depeg_alarm_hint">Egyszer jelez, ha az USDT a határral eltér 1 USD-tól (Kraken USDT/USD, Binance USDC/USDT). Az alkalmazás értékei továbbra is USDT = 1 alapon számolnak.</string>
+    <string name="settings_depeg_threshold">Depeg-határ</string>
+    <string name="settings_fng_above">Fear &amp; Greed: értesítés felette</string>
+    <string name="settings_fng_below">Fear &amp; Greed: értesítés alatta</string>
+    <string name="settings_gas_alert_hint">Egyszer értesít, ha a normál díj a határ alá esik. Az árfrissítéskor ellenőrizzük, legfeljebb 10 percenként.</string>
+    <string name="settings_gas_btc_below">Bitcoin díj: értesítés alatta (sat/vB)</string>
+    <string name="settings_gas_eth_below">Ethereum gas: értesítés alatta (gwei)</string>
+    <string name="settings_ind_ath_within">Csökkenés a csúcsról legfeljebb</string>
+    <string name="settings_ind_mayer_above">Mayer Multiple fölött</string>
+    <string name="settings_ind_mayer_below">Mayer Multiple alatt</string>
+    <string name="settings_ind_mvrv_above">MVRV fölött</string>
+    <string name="settings_ind_mvrv_below">MVRV alatt</string>
+    <string name="settings_indicator_alerts_hint">Bitcoin-mutatók, naponta kétszer ellenőrizve. A határokat te választod – az app nem értékeli az értékeket.</string>
+    <string name="settings_macro_notifications">Gazdasági naptár</string>
+    <string name="settings_macro_notifications_hint">08:00-kor azokon a napokon, amikor fontos amerikai gazdasági adatok jelennek meg (infláció, munkaerőpiac, kamatdöntés). A naptár az alkalmazás weboldaláról töltődik le naponta egyszer.</string>
+    <string name="settings_market_alerts">Piaci értesítések</string>
+    <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
+    <plurals name="settings_market_alerts_active">
+        <item quantity="one">%1$d aktív</item>
+        <item quantity="other">%1$d aktív</item>
+    </plurals>
+
+    <!-- Einstellungen › Sprachausgabe -->
+    <string name="settings_speech_rate">Beszédsebesség: %1$.1f×</string>
+    <string name="settings_tts">Hangkimenet</string>
+    <string name="settings_tts_alarms_only">Csak riasztások</string>
+    <string name="settings_tts_alarms_only_hint">Ki: minden „Ár felolvasása” jelölésű pár minden frissítése felolvasásra kerül.</string>
+    <!-- Sprachausgabe schweigt im Lautlos-/Vibrationsmodus -->
+    <string name="settings_tts_hint_silent">Felolvassa az árakat és a riasztásokat. Néma marad, amíg a készülék néma vagy rezgő módban van.</string>
+    <string name="settings_tts_test">Hang tesztelése</string>
+
+    <!-- Einstellungen › Daten: App zurücksetzen -->
+    <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
+    <string name="settings_reset_app">Alkalmazás visszaállítása</string>
+    <string name="settings_reset_app_action">Minden törlése</string>
+    <string name="settings_reset_app_confirm">Törli a figyelőlistát, riasztásokat, portfóliót, beállításokat és minden mentett adatot, mint telepítés után. Nem vonható vissza. Tipp: előbb készítsen biztonsági mentést.</string>
+    <string name="settings_reset_app_title">Visszaállítja az alkalmazást?</string>
+
+    <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
+    <!-- Suchfeld der Währungsseite -->
+    <string name="currency_search">Pénznem keresése</string>
+    <string name="language_search">Nyelv keresése</string>
+
+    <!-- Theme -->
+    <string name="theme_dark">Sötét</string>
+    <string name="theme_light">Világos</string>
+    <string name="theme_system">Rendszer</string>
+
+    <!-- Akzentfarben -->
+    <string name="accent_blue">Kék</string>
+    <string name="accent_green">Zöld</string>
+    <!-- Eigenname, in allen Sprachen gleich -->
+    <string name="accent_marrs_green">Marrs Green</string>
+    <string name="accent_orange">Narancs</string>
+    <string name="accent_red">Piros</string>
+
+    <!-- Kursfarben -->
+    <string name="price_colors_red_up_hint">Szokásos Kínában, Japánban, Koreában és Tajvanon</string>
+    <string name="price_colors_swap">Színek felcserélése (emelkedés ↔ esés)</string>
+    <string name="price_style_calm">Nyugodt</string>
+    <string name="price_style_calm_color_vision">Nyugodt · Színlátási zavar</string>
+    <string name="price_style_color_vision">Színlátási zavar</string>
+    <string name="price_style_fresh">Friss</string>
+    <string name="price_style_traditional">Hagyományos</string>
+
+    <!-- Über die App -->
+    <string name="about_exchanges_verified">Tőzsdei kapcsolatok utoljára valós válaszokkal ellenőrizve: %1$s</string>
+    <string name="about_license">Az árak közvetlenül a tőzsdékről érkeznek; nincs fiók és nincs követés.</string>
+    <!-- Texte der Lizenzen liegen in assets/licenses -->
+    <string name="about_licenses">Licencek</string>
+    <string name="about_privacy_policy">Adatvédelmi irányelvek</string>
+    <!-- GitHub-Vorlage exchange_request.md -->
+    <string name="about_request_exchange">Tőzsde kérése</string>
+    <string name="about_source_code">Forráskód a GitHubon</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_why">A Crypto Checker r1AD független projektje: nyugodt árfolyam-áttekintés fiók, reklám és követés nélkül. Kérdések és kívánságok: %1$s</string>
+
+    <!-- Lizenzhinweise -->
+    <string name="licenses_app_intro">A Crypto Checker nyílt forráskódú (MIT-licenc).</string>
+    <string name="licenses_font_title">Rubik betűtípus</string>
+    <string name="licenses_icons_bundled_text">Az alkalmazás része: ikonok a «Cryptocurrency Icons» gyűjteményből (Christopher Downer és közreműködők, github.com/spothq/cryptocurrency-icons), CC0 1.0 Universal licenccel. Addig látszanak, amíg a CoinGecko vagy a Binance logói be nem töltődnek. A nevek és logók a projektjeik védjegyei maradnak.</string>
+    <string name="licenses_icons_title">Tartalék coin-ikonok</string>
+    <string name="licenses_libraries_intro">Az alkalmazás ezeket a könyvtárakat az Apache License 2.0 alapján használja:</string>
+    <string name="licenses_libraries_title">Android-könyvtárak</string>
+
+    <!-- Entwickleroptionen -->
+    <!-- Countdown der letzten Tipps auf die Version bis zu den Entwickleroptionen -->
+    <plurals name="developer_taps_left">
+        <item quantity="one">Még %d koppintás a fejlesztői beállítások feloldásához</item>
+        <item quantity="other">Még %d koppintás a fejlesztői beállítások feloldásához</item>
+    </plurals>
+    <string name="developer_unlocked">Fejlesztői beállítások feloldva</string>
+
+    <!-- Nur iOS: Einstellungen -->
+    <!-- Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">A rezgés az iPhone beállításait követi (Hangok és haptika).</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Megszámolja az új riasztásokat és piaci értesítéseket; az app megnyitásakor visszaáll 0-ra.</string>
+</resources>

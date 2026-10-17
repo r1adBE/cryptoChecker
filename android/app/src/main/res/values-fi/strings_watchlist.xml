@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: leere Ansicht, Statuszeile, Frische -->
+    <string name="watchlist_all_fresh">Ajan tasalla · %1$s</string>
+    <string name="watchlist_empty_title">Ei vielä pareja</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="one">%1$d/%2$d ilman hintaa</item>
+        <item quantity="other">%1$d/%2$d ilman hintaa</item>
+    </plurals>
+    <string name="watchlist_last_run">Viimeisin ajo %1$s</string>
+    <string name="watchlist_live_a11y">Live-hinnat käytössä</string>
+    <string name="watchlist_live_badge">LIVE</string>
+    <string name="watchlist_offline_since">Ei yhteyttä · tilanne %1$s</string>
+    <string name="watchlist_pull_to_refresh">Päivitä vetämällä alas</string>
+    <string name="watchlist_refresh_report">Viimeisin päivitys</string>
+    <string name="watchlist_refresh_report_empty">Erittelyä ei vielä ole: täyttä päivitystä ei ole vielä tehty. Napauta päivitä ja odota, kunnes latausilmaisin pysähtyy.</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="one">%1$d / %2$d vanhentunut</item>
+        <item quantity="other">%1$d / %2$d vanhentunut</item>
+    </plurals>
+    <string name="watchlist_status_all_disabled">Kaikki tämän näkymän parit ovat pois käytöstä</string>
+    <string name="watchlist_status_exchange_prices">Hinnat valitsemistasi pörsseistä · %1$s</string>
+    <string name="watchlist_status_exchange_prices_short">Pörssihinnat · %1$s</string>
+    <string name="watchlist_status_group_empty">Tässä ryhmässä ei ole pareja</string>
+    <string name="watchlist_status_none_traded">Ei kaupankäynnissä olevia pareja</string>
+    <string name="watchlist_updated">Päivitetty: %1$s</string>
+
+    <!-- Merkliste: Puls-Zeile (Paare im Plus/Minus, ohne 24-h-Wert) -->
+    <string name="watchlist_pulse_avg">Ø %1$s</string>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="one">%1$d laskee</item>
+        <item quantity="other">%1$d laskee</item>
+    </plurals>
+    <!-- Paare mit Kurs, aber ohne 24-h-Wert («· 510 ohne 24h-Wert») -->
+    <plurals name="watchlist_pulse_missing">
+        <item quantity="one">%1$d ilman 24 h arvoa</item>
+        <item quantity="other">%1$d ilman 24 h arvoa</item>
+    </plurals>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="one">%1$d ilman tämän päivän arvoa</item>
+        <item quantity="other">%1$d ilman tämän päivän arvoa</item>
+    </plurals>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="one">%1$d nousee</item>
+        <item quantity="other">%1$d nousee</item>
+    </plurals>
+
+    <!-- Merkliste: Zeile eines Paars -->
+    <string name="watchlist_row_disabled">%1$s · pois käytöstä</string>
+    <string name="watchlist_row_outdated">%1$s · vanhentunut</string>
+    <string name="watchlist_row_outdated_age">vanhentunut · %1$s</string>
+    <string name="watchlist_row_price_unchanged_since">Hinta ennallaan klo %1$s alkaen</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s ei tavoitettavissa</string>
+
+    <!-- Merkliste: Suche, Sprungknopf, Sortieren nach Spalte -->
+    <string name="watchlist_jump_end">Loppuun</string>
+    <string name="watchlist_jump_start">Alkuun</string>
+    <string name="watchlist_search_close">Sulje haku</string>
+    <string name="watchlist_search_empty">Ei tuloksia haulle ”%1$s”</string>
+    <string name="watchlist_search_hint">Hae paria, nimeä tai pörssiä</string>
+    <string name="watchlist_search_open">Hae</string>
+    <string name="watchlist_sort_ascending">nouseva</string>
+    <string name="watchlist_sort_descending">laskeva</string>
+    <string name="watchlist_sort_hint">Pidä paria painettuna ja vedä, tai käytä kahvaa. Suosikit pysyvät ylhäällä.</string>
+    <string name="watchlist_sort_name">Nimi</string>
+    <string name="watchlist_sort_own">Oma järjestys</string>
+    <string name="watchlist_sort_price">Hinta</string>
+
+    <!-- Merkliste: Mehrfachauswahl, Ansichten, Entfernen -->
+    <string name="watchlist_clear">Tyhjennä seurantalista</string>
+    <string name="watchlist_clear_confirm">Poistetaanko kaikki parit seurantalistalta? Myös niiden hälytykset poistetaan.</string>
+    <plurals name="watchlist_disabled_count">
+        <item quantity="one">%1$d pois käytöstä</item>
+        <item quantity="other">%1$d pois käytöstä</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_action">Poista</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="one">Poistetaanko %1$d pari, jolla ei enää käydä kauppaa pörssissään? Myös sen hälytykset poistetaan.</item>
+        <item quantity="other">Poistetaanko %1$d paria, joilla ei enää käydä kauppaa pörssissään? Myös niiden hälytykset poistetaan.</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_menu">Poista parit, joilla ei käydä kauppaa (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">Poista parit, joilla ei käydä kauppaa</string>
+    <string name="watchlist_removed">%1$s poistettu</string>
+    <plurals name="watchlist_removed_count">
+        <item quantity="one">%1$d pari poistettu</item>
+        <item quantity="other">%1$d paria poistettu</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="one">%1$d pari ilman kaupankäyntiä poistettu</item>
+        <item quantity="other">%1$d paria ilman kaupankäyntiä poistettu</item>
+    </plurals>
+    <string name="watchlist_select">Valitse</string>
+    <string name="watchlist_select_all">Valitse kaikki</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="one">%1$d valittu</item>
+        <item quantity="other">%1$d valittu</item>
+    </plurals>
+    <string name="watchlist_show_all">Näytä kaikki</string>
+    <string name="watchlist_show_only_disabled">Näytä vain käytöstä poistetut</string>
+    <string name="watchlist_show_only_stale">Näytä vain vanhentuneet</string>
+
+    <!-- Merkliste: weitere Texte (Gruppen, Alarme, Mitteilung, Sprachausgabe) -->
+    <plurals name="watchlist_alarms_count">
+        <item quantity="one">Hälytys (%1$d)</item>
+        <item quantity="other">Hälytykset (%1$d)</item>
+    </plurals>
+    <string name="watchlist_favorites_empty_hint">Ei vielä suosikkeja. Pyyhkäise pari oikealle tai napauta parin näkymässä ”Suosikki”.</string>
+    <string name="watchlist_group_empty_hint">Valitse ryhmän parit painamalla ryhmää pitkään.</string>
+    <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
+    <string name="watchlist_groups_empty_hint">Ryhmäsi näkyvät tässä</string>
+    <string name="watchlist_notification">Ilmoitus</string>
+    <string name="watchlist_tts">Lue hinta ääneen</string>
+    <string name="watchlist_tts_speech_on">Puhe on päällä. Voit muuttaa sitä kohdassa Asetukset › Lisäasetukset › Ääneenluku.</string>
+
+    <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
+    <string name="watch_action_add_widget">Lisää widgetiksi</string>
+    <string name="watch_action_alarm">Hälytys</string>
+    <string name="watch_action_favorite">Suosikki</string>
+    <string name="watch_action_why">Mikä liikkuu mukana?</string>
+    <string name="watch_action_why_short">Mukana liikkuu?</string>
+    <string name="watch_change_mark">Mark</string>
+    <string name="watch_disable">Poista käytöstä</string>
+    <string name="watch_disable_hint">Ei hakuja, ei ilmoituksia</string>
+    <string name="watch_disabled">Pois käytöstä</string>
+    <string name="watch_disabled_banner">%1$s poistettu käytöstä</string>
+    <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
+    <string name="watch_edit_alarms_warning">Hälytykset säilyvät – tarkista rajat</string>
+    <!-- Titel des Formulars und Screenreader-Name des Stifts neben dem Paar -->
+    <string name="watch_edit_title">Muokkaa paria</string>
+    <string name="watch_enable">Ota käyttöön</string>
+    <string name="watch_enable_hint">Kurssit ja ilmoitukset jatkuvat</string>
+    <string name="watch_enabled_banner">%1$s otettu käyttöön</string>
+    <string name="watch_error_offline">Ei yhteyttä</string>
+    <string name="watch_gesture_hint_short">Napauta: hälytys ja ”Mikä liikkuu mukana?” · paina pitkään valitaksesi · pyyhkäise vasemmalle poistaaksesi · oikealle suosikiksi</string>
+    <string name="watch_hint_tap_why">Napauta kolikkoa nähdäksesi, mikä liikkuu sen mukana</string>
+    <string name="watch_not_traded">Ei enää kaupankäynnin kohteena pörssissä</string>
+    <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
+    <string name="watch_preview_not_watched">Ei seurantalistalla</string>
+    <string name="watch_price_mid">keskikurssi (muuten mark)</string>
+    <string name="watch_row_source_both">Muutos ja kaavio: %1$s</string>
+    <string name="watch_row_source_change">Muutos: %1$s</string>
+    <string name="watch_row_source_chart">Kaavio: %1$s</string>
+
+    <!-- Meldung nach dem Hinzufügen (ein Paar / mehrere Paare) -->
+    <string name="pair_added_watching">%1$s on nyt seurantalistallasi</string>
+    <!-- Ein Paar: pair_added_watching -->
+    <string name="pairs_added_watching">%1$s ovat nyt seurantalistallasi</string>
+
+    <!-- Favoriten -->
+    <string name="favorite_add">Lisää suosikkeihin</string>
+    <string name="favorite_added">%1$s lisätty suosikkeihin</string>
+    <string name="favorite_remove">Poista suosikeista</string>
+    <string name="favorite_removed">%1$s poistettu suosikeista</string>
+    <string name="hint_favorites_list">Vinkki: pyyhkäise riviä oikealle, niin siitä tulee suosikki – suosikit pysyvät ylhäällä.</string>
+
+    <!-- Gruppen und Chips der Merkliste -->
+    <string name="group_add">Uusi ryhmä</string>
+    <string name="group_all">Kaikki</string>
+    <!-- Alpha-Tokens: Chip «α», Art vor der Glocke, «inkl. Alpha-Tokens» -->
+    <string name="group_alpha">Alpha-tokenit</string>
+    <string name="group_delete">Poista ryhmä</string>
+    <string name="group_delete_confirm">Parit pysyvät seurantalistallasi.</string>
+    <string name="group_done">Valmis</string>
+    <string name="group_edit_title">Muokkaa ryhmää</string>
+    <!-- Chip «FAV» (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird vorgelesen) -->
+    <string name="group_favorites">Suosikit</string>
+    <string name="group_in_other">ryhmässä %1$s</string>
+    <string name="group_name">Ryhmän nimi</string>
+    <string name="group_new">Uusi ryhmä…</string>
+    <string name="group_next">Seuraava</string>
+    <string name="group_none">Ei ryhmää</string>
+    <string name="group_rename">Nimeä uudelleen</string>
+    <string name="group_search_hint">Hae paria, nimeä tai pörssiä</string>
+    <string name="group_target">Ryhmään</string>
+    <string name="group_title">Ryhmä</string>
+    <!-- Gruppen-Chip «Token» (alle Paare ausser der Gruppe «TradFi»), Screenreader und Widget-Einrichtung -->
+    <string name="group_tokens">Tokenit</string>
+    <string name="group_value">Ryhmä: %1$s</string>
+
+    <!-- Notiz zum Paar -->
+    <string name="note_add">Lisää muistiinpano</string>
+    <string name="note_edit">Muokkaa muistiinpanoa</string>
+    <string name="note_hint">esim. sisääntulo 0.42, tavoite 0.60</string>
+    <string name="note_remove">Poista</string>
+    <string name="note_title">Muistiinpano</string>
+
+    <!-- Reihenfolge ändern (Sortiermodus, Screenreader-Aktionen) -->
+    <string name="sort_drag_handle">Siirrä vetämällä</string>
+    <string name="sort_move_bottom">Alimmaksi</string>
+    <string name="sort_move_down">Alas</string>
+    <string name="sort_move_top">Ylimmäksi</string>
+    <string name="sort_move_up">Ylös</string>
+</resources>

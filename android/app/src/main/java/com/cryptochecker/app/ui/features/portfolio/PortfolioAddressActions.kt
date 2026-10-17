@@ -1,0 +1,92 @@
+// Beobachtete Adressen (Teil von `PortfolioViewModel`): hinzufügen, entfernen, Netze, «im Portfolio zählen»,
+// Tokens mitzählen und der Hinweis bei Überschneidung mit erfassten Transaktionen samt «Rückgängig».
+// Eigene Datei, weil die Adressen ein eigener Bereich neben den Transaktionen sind.
+package com.cryptochecker.app.ui.features.portfolio
+
+import androidx.lifecycle.viewModelScope
+import com.cryptochecker.app.data.portfolio.PortfolioRepository
+import com.cryptochecker.app.domain.portfolio.AddressChain
+import com.cryptochecker.app.domain.portfolio.PortfolioOff
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
+
+fun PortfolioViewModel.consumeAddressOverlapNotice() {
+    _addressOverlapNotice.value = null
+}
+
+/** «Rückgängig» zum Hinweis: Adressen zählen wieder (gilt als entschieden, kein zweites automatisches Umschalten). */
+fun PortfolioViewModel.undoAddressOverlap(notice: AddressOverlapNotice) {
+    viewModelScope.launch { notice.ids.forEach { id -> safe { repository.setWatchedAddressCountInPortfolio(id, true) } } }
+}
+
+fun PortfolioViewModel.consumeAddressOverlapRestored() {
+    _addressOverlapRestored.value = null
+}
+
+/** «Rückgängig» zum Hinweis [addressOverlapRestored]: wieder «Nur anzeigen» (gilt als entschieden). */
+fun PortfolioViewModel.undoAddressOverlapRestored(notice: AddressOverlapNotice) {
+    viewModelScope.launch { notice.ids.forEach { id -> safe { repository.setWatchedAddressCountInPortfolio(id, false) } } }
+}
+
+/**
+ * Adresse beobachten (Netz aus [AddressValidation][com.cryptochecker.app.domain.portfolio.AddressValidation]
+ * erkannt). [onResult] im Hauptthread; hinzugefügt mit ausgeschaltetem Portfolio schaltet es ein wie die
+ * erste Transaktion ([PortfolioOff.enableOnSave]) — dann [onPortfolioEnabled]. Das Guthaben wird gleich geladen.
+ */
+fun PortfolioViewModel.addWatchedAddress(
+    chain: AddressChain,
+    address: String,
+    label: String?,
+    countInPortfolio: Boolean = true,
+    onPortfolioEnabled: () -> Unit = {},
+    /** Überschneidung beim Hinzufügen gefragt und entschieden (kein späteres automatisches «Nur anzeigen»). */
+    overlapChecked: Boolean = false,
+    onResult: (PortfolioRepository.AddWatchedResult?) -> Unit,
+) {
+    viewModelScope.launch {
+        val result = safe { repository.addWatchedAddress(chain, address, label, countInPortfolio, overlapChecked) }
+        onResult(result)
+        if (result !is PortfolioRepository.AddWatchedResult.Added) return@launch
+        if (PortfolioOff.enableOnSave(true, settingsRepository.current().portfolioEnabled)) {
+            if (safe { settingsRepository.setPortfolioEnabled(true) } != null) {
+                onPortfolioEnabled()
+                safe { snapshotUpdater.redrawWidgets() }
+            }
+        }
+        // Neue Adresse ist sofort fällig (noch nie versucht); danach Kurse für BTC/ETH
+        addressRefresher.refresh(force = false)
+        calcTransactions.value?.let { list -> loadPrices(list.flatMap { it.coins() }.toSet(), force = false) }
+    }
+}
+
+/** Adresse entfernen (nach Bestätigung). */
+fun PortfolioViewModel.removeWatchedAddress(id: Long) {
+    viewModelScope.launch { safe { repository.removeWatchedAddress(id) } }
+}
+
+/** Gewählte EVM-Netze einer 0x-Adresse; ein neu gewähltes wird gleich gelesen. */
+fun PortfolioViewModel.setWatchedAddressNetworks(id: Long, networks: List<String>) {
+    viewModelScope.launch {
+        safe { repository.setWatchedAddressNetworks(id, networks) } ?: return@launch
+        addressRefresher.refresh(force = false)
+        calcTransactions.value?.let { list -> loadPrices(list.map { it.coin }.toSet(), force = false) }
+    }
+}
+
+/** «Nur anzeigen, nicht zum Portfolio zählen» (false) bzw. zählen (true). */
+fun PortfolioViewModel.setWatchedAddressCountInPortfolio(id: Long, on: Boolean) {
+    viewModelScope.launch { safe { repository.setWatchedAddressCountInPortfolio(id, on) } }
+}
+
+/**
+ * «Tokens mitzählen» einer Adresse. An: die Adresse ist sofort fällig — Token gleich lesen, dann Kurse der
+ * neuen Coins. Aus: Token-Bestand und -Reihen weg.
+ */
+fun PortfolioViewModel.setWatchedAddressCountTokens(id: Long, on: Boolean) {
+    viewModelScope.launch {
+        safe { repository.setWatchedAddressCountTokens(id, on) } ?: return@launch
+        if (!on) return@launch
+        addressRefresher.refresh(force = false)
+        calcTransactions.value?.let { list -> loadPrices(list.map { it.coin }.toSet(), force = false) }
+    }
+}

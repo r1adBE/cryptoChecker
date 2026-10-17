@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
+    <string name="widget_background">Háttér</string>
+    <string name="widget_configure_hint">Válasszon hátteret és átlátszóságot. A szín az alkalmazást követi. A widget a teljes listát mutatja; egy sorra koppintva megnyílik az alkalmazás.</string>
+    <string name="widget_configure_title">Widget beállítása</string>
+    <string name="widget_description">Egy pár árát mutatja a figyelőlistáról.</string>
+    <string name="widget_empty">Még nincsenek párok a figyelőlistán.</string>
+    <string name="widget_group_hint">Csak ennek a csoportnak a párjait mutassa.</string>
+    <string name="widget_kind_single">Egy érme</string>
+    <string name="widget_opacity">Háttér átlátszatlansága: %1$d%%</string>
+    <string name="widget_pulse_description">Ami most kiemelkedik a piacon: címsor, rövid összefoglaló, valamint Bitcoin, Ethereum és Solana.</string>
+
+    <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->
+    <!-- Allein, wenn für «outdated · 06:42» der Platz fehlt (Kopfzeile Listen-Widget) -->
+    <string name="widget_outdated">elavult</string>
+    <!-- Statt der Uhrzeit: «outdated · 06:42» (heute) bzw. «outdated · 5 Oct, 06:42» -->
+    <string name="widget_outdated_time">elavult · %1$s</string>
+
+    <!-- Widgets: Chart und Zeitraum -->
+    <string name="widget_chart_candles">Gyertyák</string>
+    <string name="widget_chart_line">Vonal</string>
+    <string name="widget_chart_range">Grafikon időtávja</string>
+    <string name="widget_chart_type">Diagram típusa</string>
+    <!-- «1 Jahr» im Chart des Aktionsblatts (365 Tageskerzen; Chip neben 24h · 7T · 30T) -->
+    <string name="widget_range_1y">1 év</string>
+    <string name="widget_range_24h">24h</string>
+    <string name="widget_range_30d">30 nap</string>
+    <string name="widget_range_7d">7 nap</string>
+    <string name="widget_range_short_1y">1É</string>
+    <string name="widget_range_short_24h">24h</string>
+    <string name="widget_range_short_30d">30N</string>
+    <string name="widget_range_short_7d">7N</string>
+
+    <!-- Portfolio-Widget -->
+    <!-- Fusszeile, %1$s Uhrzeit ohne Sekunden («Stand 15:19») -->
+    <string name="widget_portfolio_as_of">Állapot: %1$s</string>
+    <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
+    <string name="widget_portfolio_chart_pending">Értékalakulás hamarosan</string>
+    <string name="widget_portfolio_description">Portfóliója teljes értéke és mai változása</string>
+    <string name="widget_portfolio_display">Megjelenítés</string>
+    <string name="widget_portfolio_display_conversion">Csak átváltás</string>
+    <string name="widget_portfolio_display_conversion_usdt">Átváltás + USDT</string>
+    <string name="widget_portfolio_display_hint">Az USDT-sor nem jelenik meg, ha az átváltási pénznem USD.</string>
+    <string name="widget_portfolio_display_usdt">Csak USDT</string>
+    <string name="widget_portfolio_empty">Vásárlások rögzítése a Portfólió lapon</string>
+    <string name="widget_portfolio_list_hint">Nyissa meg az alkalmazást, hogy itt megjelenjenek a pozíciói.</string>
+    <string name="widget_portfolio_locked_hint">Zárolva – oldja fel az alkalmazásban</string>
+    <!-- Offene Coins ohne Kurs zählen im Gesamtwert als 0 -->
+    <plurals name="widget_portfolio_missing_coins">
+        <item quantity="one">%1$d érme nélkül</item>
+        <item quantity="other">%1$d érme nélkül</item>
+    </plurals>
+    <plurals name="widget_portfolio_more">
+        <item quantity="one">+ %1$d további</item>
+        <item quantity="other">+ %1$d további</item>
+    </plurals>
+    <string name="widget_portfolio_name">Portfólió</string>
+    <string name="widget_portfolio_off_hint">Bekapcsolás: %1$s.</string>
+    <string name="widget_portfolio_off_short">Portfólió ki</string>
+    <string name="widget_portfolio_off_title">A portfólió ki van kapcsolva</string>
+    <string name="widget_portfolio_partly_stale">részben régi árfolyam</string>
+    <string name="widget_portfolio_period">Időszak</string>
+    <string name="widget_portfolio_period_without">%1$s %2$s nélkül</string>
+    <string name="widget_portfolio_range_48h">48h</string>
+    <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
+    <string name="widget_portfolio_range_fallback">%1$s: nyissa meg a Portfóliót</string>
+    <string name="widget_portfolio_range_short_48h">48h</string>
+    <string name="widget_portfolio_today_without">Ma %1$s nélkül</string>
+    <string name="widget_portfolio_view">Nézet</string>
+    <string name="widget_portfolio_view_chart">Diagram</string>
+    <string name="widget_portfolio_view_list">Lista</string>
+    <string name="widget_portfolio_view_overview">Áttekintés</string>
+
+    <!-- Einzel-Widget -->
+    <string name="single_widget_choose">Pár kiválasztása</string>
+    <string name="single_widget_description">Egy érmét mutat nagyban: árfolyam, változás és 24 órás grafikon.</string>
+    <string name="single_widget_label">Crypto Checker – egy érme</string>
+    <string name="single_widget_title">Egyedi widget beállítása</string>
+
+    <!-- Widgets aus der App hinzufügen -->
+    <string name="widgets_add">Hozzáadás</string>
+    <!-- Screenreader: Knopf «Add» mit dem Namen des Widgets -->
+    <string name="widgets_add_named">%1$s widget hozzáadása</string>
+    <string name="widgets_manual_text">A kezdőképernyője nem tud widgetet hozzáadni az alkalmazásból. Tartsa lenyomva a kezdőképernyő egy üres részét, válassza a „Widgetek” lehetőséget, és keresse meg a „Crypto Checker” elemet.</string>
+    <!-- Startbildschirm (Launcher) kann keine Widgets aus der App annehmen -->
+    <string name="widgets_manual_title">Adja hozzá saját maga a widgetet</string>
+    <string name="widgets_sheet_title">Widget hozzáadása</string>
+
+    <!-- Nur iOS: Widget selbst hinzufügen (drei Schritte) -->
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">Az iOS nem engedi, hogy az alkalmazások maguk adjanak hozzá widgetet. Csak egy pillanat:</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">Elérhető widgetek</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">Tartsa lenyomva a Főképernyő egy üres részét, amíg az appok remegni nem kezdenek.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">Koppintson fent a „Szerkesztés” › „Widget hozzáadása” elemre (régebbi iOS-verziókban a „+” gombra).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">Keresse meg a „Crypto Checker” elemet, válasszon widgetet, és koppintson a „Widget hozzáadása” gombra.</string>
+</resources>

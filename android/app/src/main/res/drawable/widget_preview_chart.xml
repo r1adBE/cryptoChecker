@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Vorschau im Widget-Auswahlmenü (widget_preview_single): Kerzen-Chart wie WidgetChartRenderer,
+     feste Beispieldaten; Raster, Preisstufen, gestrichelte Akzentlinie und Etikett des aktuellen Kurses.
+     Farben: dunkle Widget-Palette, Akzent ORANGE (colors_widget_preview.xml). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="80dp"
+    android:viewportWidth="200"
+    android:viewportHeight="80">
+    <path
+        android:strokeColor="@color/widget_preview_grid"
+        android:strokeWidth="0.5"
+        android:pathData="M40,0V80 M80,0V80 M120,0V80" />
+    <path
+        android:strokeColor="@color/widget_preview_level"
+        android:strokeWidth="0.5"
+        android:pathData="M0,5.0H160 M0,40.0H160 M0,75.0H160" />
+    <path
+        android:fillColor="@color/widget_preview_up"
+        android:pathData="M19.50,59.91h1.0V74.66h-1.0z M17.50,63.97h5.0V70.16h-5.0z M35.50,54.2h1.0V73.62h-1.0z M33.50,57.83h5.0V73.25h-5.0z M59.50,58.49h1.0V63.28h-1.0z M57.50,59.77h5.0V63.05h-5.0z M67.50,52.81h1.0V63.82h-1.0z M65.50,55.37h5.0V59.77h-5.0z M75.50,44.9h1.0V57.96h-1.0z M73.50,51.52h5.0V55.37h-5.0z M91.50,56.99h1.0V62.7h-1.0z M89.50,59.87h5.0V61.9h-5.0z M99.50,28.84h1.0V62.98h-1.0z M97.50,29.02h5.0V59.87h-5.0z M115.50,35.99h1.0V38.95h-1.0z M113.50,37.36h5.0V38.57h-5.0z M131.50,23.9h1.0V46.67h-1.0z M129.50,25.77h5.0V44.14h-5.0z M139.50,20.21h1.0V27.99h-1.0z M137.50,23.73h5.0V25.77h-5.0z M147.50,12.53h1.0V28.4h-1.0z M145.50,12.99h5.0V23.73h-5.0z M155.50,5.0h1.0V15.87h-1.0z M153.50,5.52h5.0V12.99h-5.0z" />
+    <path
+        android:fillColor="@color/widget_preview_down"
+        android:pathData="M3.50,57.62h1.0V71.37h-1.0z M1.50,59.02h5.0V67.69h-5.0z M11.50,62.78h1.0V70.4h-1.0z M9.50,67.69h5.0V70.16h-5.0z M27.50,61.36h1.0V75.0h-1.0z M25.50,63.97h5.0V73.25h-5.0z M43.50,48.33h1.0V59.28h-1.0z M41.50,57.83h5.0V58.629999999999995h-5.0z M51.50,54.01h1.0V63.41h-1.0z M49.50,58.21h5.0V63.05h-5.0z M83.50,50.89h1.0V67.35h-1.0z M81.50,51.52h5.0V61.9h-5.0z M107.50,27.96h1.0V41.02h-1.0z M105.50,29.02h5.0V38.57h-5.0z M123.50,35.28h1.0V47.14h-1.0z M121.50,37.36h5.0V44.14h-5.0z" />
+    <path
+        android:strokeColor="@color/widget_preview_price_line"
+        android:strokeWidth="0.8"
+        android:pathData="M0.0,5.52h3 M5.5,5.52h3 M11.0,5.52h3 M16.5,5.52h3 M22.0,5.52h3 M27.5,5.52h3 M33.0,5.52h3 M38.5,5.52h3 M44.0,5.52h3 M49.5,5.52h3 M55.0,5.52h3 M60.5,5.52h3 M66.0,5.52h3 M71.5,5.52h3 M77.0,5.52h3 M82.5,5.52h3 M88.0,5.52h3 M93.5,5.52h3 M99.0,5.52h3 M104.5,5.52h3 M110.0,5.52h3 M115.5,5.52h3 M121.0,5.52h3 M126.5,5.52h3 M132.0,5.52h3 M137.5,5.52h3 M143.0,5.52h3 M148.5,5.52h3 M154.0,5.52h3" />
+    <path
+        android:fillColor="@color/widget_preview_text_secondary"
+        android:fillAlpha="0.6"
+        android:pathData="M164,39.00h24v2h-24z M164,73.00h24v2h-24z" />
+    <path
+        android:fillColor="@color/widget_preview_accent"
+        android:pathData="M164,2.02h32a2,2 0,0 1,2,2v3.00a2,2 0,0 1,-2,2h-32a2,2 0,0 1,-2,-2v-3.00a2,2 0,0 1,2,-2z" />
+    <path
+        android:fillColor="@color/widget_preview_on_accent"
+        android:pathData="M167,4.52h26v2h-26z" />
+</vector>

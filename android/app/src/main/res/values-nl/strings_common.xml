@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">Terug</string>
+    <string name="action_cancel">Annuleren</string>
+    <string name="action_clear">Wissen</string>
+    <string name="action_close">Sluiten</string>
+    <string name="action_delete">Verwijderen</string>
+    <string name="action_edit">Bewerken</string>
+    <string name="action_more">Meer opties</string>
+    <string name="action_refresh">Vernieuwen</string>
+    <string name="action_retry">Opnieuw proberen</string>
+    <string name="action_save">Opslaan</string>
+    <string name="action_sort">Sorteren</string>
+    <string name="action_sort_done">Klaar</string>
+    <string name="action_undo">Ongedaan maken</string>
+    <string name="action_view">Bekijken</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">Markt</string>
+    <string name="tab_portfolio">Portfolio</string>
+    <string name="tab_settings">Instellingen</string>
+    <string name="tab_watchlist">Lijst</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">Fout: %1$s</string>
+    <string name="error_market_unreachable">Beurs nu niet bereikbaar – de laatste koersen blijven zichtbaar.</string>
+    <string name="error_market_unreachable_short">Beurs nu niet bereikbaar</string>
+    <string name="loading_hint">Laden…</string>
+    <string name="no_internet_connection">Geen internetverbinding</string>
+    <string name="option_off">Uit</string>
+    <string name="something_went_wrong">Er ging iets mis</string>
+    <string name="time_just_now">zojuist</string>
+    <string name="timeout_error_message">De beurs reageert op dit moment niet.</string>
+    <string name="try_again">Opnieuw proberen</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">Geen verbinding</string>
+    <string name="offline_status_since">Geen verbinding · stand %1$s</string>
+    <string name="status_live">Live</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">Paar toevoegen</string>
+    <string name="shortcut_alarms">Alle alarmen</string>
+    <string name="shortcut_cycle">Markt</string>
+</resources>

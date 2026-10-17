@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Markt-Tab: Abschnitte, Zeilen, Herkunft und Alter -->
+    <!-- «… · CoinGecko · vor 3 Min.»; «gerade eben» = time_just_now, «veraltet» = widget_outdated -->
+    <plurals name="market_age_minutes">
+        <item quantity="one">πριν από %d λεπ.</item>
+        <item quantity="other">πριν από %d λεπ.</item>
+    </plurals>
+    <!-- «heute 02:00» (Uhrzeit ohne Sekunden) -->
+    <string name="market_age_today">σήμερα %1$s</string>
+    <string name="market_context_summary">Fear &amp; Greed, δείκτες Bitcoin, κυριαρχία, halving</string>
+    <string name="market_context_value">%1$s %2$s · %3$s</string>
+    <string name="market_more_data">Περισσότερα δεδομένα αγοράς</string>
+    <string name="market_phase_trend_failed">Τα δεδομένα τιμών δεν είναι διαθέσιμα</string>
+    <string name="market_plain_direction_down_clear">Η συνολική αξία όλων των κρυπτονομισμάτων είναι σαφώς χαμηλότερη από πριν από 24 ώρες (%1$s).</string>
+    <string name="market_plain_direction_down_slight">Η συνολική αξία όλων των κρυπτονομισμάτων είναι λίγο χαμηλότερη από πριν από 24 ώρες (%1$s).</string>
+    <string name="market_plain_direction_flat">Η συνολική αξία όλων των κρυπτονομισμάτων σχεδόν δεν άλλαξε σε 24 ώρες (%1$s).</string>
+    <string name="market_plain_direction_up_clear">Η συνολική αξία όλων των κρυπτονομισμάτων είναι σαφώς υψηλότερη από πριν από 24 ώρες (%1$s).</string>
+    <string name="market_plain_direction_up_slight">Η συνολική αξία όλων των κρυπτονομισμάτων είναι λίγο υψηλότερη από πριν από 24 ώρες (%1$s).</string>
+    <string name="market_plain_footnote">Περιγράφει τις τελευταίες 24 ώρες – καμία πρόβλεψη, καμία επενδυτική συμβουλή.</string>
+    <string name="market_plain_mood_extreme_fear">Οι επενδυτές είναι τώρα πολύ φοβισμένοι: ο δείκτης διάθεσης (Fear &amp; Greed) είναι στο %1$d από 100.</string>
+    <string name="market_plain_mood_extreme_greed">Οι επενδυτές είναι τώρα πολύ άπληστοι: ο δείκτης διάθεσης (Fear &amp; Greed) είναι στο %1$d από 100.</string>
+    <string name="market_plain_mood_fear">Οι επενδυτές είναι μάλλον φοβισμένοι: ο δείκτης διάθεσης (Fear &amp; Greed) είναι στο %1$d από 100.</string>
+    <string name="market_plain_mood_greed">Οι επενδυτές είναι μάλλον άπληστοι: ο δείκτης διάθεσης (Fear &amp; Greed) είναι στο %1$d από 100.</string>
+    <string name="market_plain_mood_neutral">Η διάθεση των επενδυτών είναι ισορροπημένη: ο δείκτης διάθεσης (Fear &amp; Greed) είναι στο %1$d από 100.</string>
+    <string name="market_plain_standout_above_btc">Ξεχωρίζει το %1$s: %2$s σε 24 ώρες, αρκετά πάνω από το Bitcoin (%3$s).</string>
+    <string name="market_plain_standout_against_btc">Ξεχωρίζει το %1$s: %2$s σε 24 ώρες, ενώ το Bitcoin κινήθηκε αντίθετα (%3$s).</string>
+    <string name="market_plain_standout_below_btc">Ξεχωρίζει το %1$s: %2$s σε 24 ώρες, αρκετά κάτω από το Bitcoin (%3$s).</string>
+    <string name="market_plain_standout_futures_down">Ξεχωρίζει το %1$s: ασυνήθιστα πολλοί traders futures ποντάρουν σε πτώση των τιμών.</string>
+    <string name="market_plain_standout_futures_up">Ξεχωρίζει το %1$s: ασυνήθιστα πολλοί traders futures ποντάρουν σε άνοδο των τιμών.</string>
+    <string name="market_plain_standout_quiet">Αυτή τη στιγμή κανένα νόμισμα δεν ξεχωρίζει ιδιαίτερα.</string>
+    <string name="market_plain_standout_volume">Ξεχωρίζει το %1$s: περίπου %2$s φορές περισσότερες συναλλαγές από το συνηθισμένο.</string>
+    <string name="market_plain_title">Με λίγα λόγια</string>
+    <!-- Nebenzeile der Fear-&-Greed-Zeile («Gier · gestern 65») -->
+    <string name="market_row_fng_yesterday">%1$s · χθες %2$s</string>
+    <string name="market_section_collapse">Απόκρυψη: %1$s</string>
+    <string name="market_section_context">Κλίμα &amp; κύκλος</string>
+    <string name="market_section_data">Δεδομένα αγοράς</string>
+    <!-- Bedienungshilfen: Aktion auf der Abschnittsüberschrift; %1$s = Name des Abschnitts -->
+    <string name="market_section_expand">Εμφάνιση: %1$s</string>
+    <string name="market_section_now">Τώρα</string>
+    <string name="market_source">Δεδομένα: Binance · Coin Metrics (CC BY-NC 4.0)</string>
+    <string name="market_unavailable_error">Το ανταλλακτήριο δεν είναι διαθέσιμο</string>
+
+    <!-- Markt-Tab: Info-Zeichen und Info-Blatt je Karte (was, wie, Quelle) -->
+    <string name="market_info_a11y">Πληροφορίες: %1$s</string>
+    <string name="market_info_alt_season_source">Ημερήσιες τιμές: Binance · επανυπολογίζεται περίπου κάθε 3 ώρες</string>
+    <string name="market_info_alt_season_what">Μετρά πόσα από περίπου 20 μεγάλα altcoins (π.χ. Ethereum, Solana, XRP) τα πήγαν καλύτερα από το Bitcoin τις τελευταίες 90 ημέρες. Η τιμή είναι το ποσοστό τους από 0 έως 100.</string>
+    <string name="market_info_coin_source">Τιμές: Binance ή Bybit · ανανεώνεται περίπου κάθε 15 λεπτά</string>
+    <string name="market_info_dominance_how">Αν η κυριαρχία ανεβαίνει, το Bitcoin τα πηγαίνει καλύτερα από την υπόλοιπη αγορά· αν πέφτει, άλλα νομίσματα αποκτούν βάρος. Μετρούν και τα stablecoins: αν η αξία τους αυξάνεται, το μερίδιο του Bitcoin πέφτει ακόμη κι αν η τιμή του Bitcoin μένει ίδια.</string>
+    <string name="market_info_dominance_source">Πηγή: CoinGecko · ανανεώνεται περίπου κάθε 30 λεπτά</string>
+    <string name="market_info_dominance_what">Το μερίδιο του Bitcoin στη συνολική αξία όλων των κρυπτονομισμάτων (κεφαλαιοποίηση αγοράς). Από κάτω εμφανίζεται το μερίδιο του Ethereum.</string>
+    <string name="market_info_fear_greed_how">Κάτω από 25 σημαίνει ακραίο φόβο, πάνω από 75 ακραία απληστία, γύρω στο 50 ουδέτερο. Ανοιχτή η κάρτα δείχνει τις τιμές της χθες, πριν από μία εβδομάδα και πριν από έναν μήνα. Δεν είναι σήμα αγοράς ή πώλησης.</string>
+    <string name="market_info_fear_greed_source">Πηγή: alternative.me · νέα τιμή μία φορά την ημέρα</string>
+    <string name="market_info_fear_greed_what">Ένας δείκτης κλίματος της αγοράς κρυπτονομισμάτων από 0 έως 100. Το alternative.me τον υπολογίζει από διάφορα στοιχεία, μεταξύ άλλων διακυμάνσεις τιμών, όγκο συναλλαγών, μέσα κοινωνικής δικτύωσης και κυριαρχία του Bitcoin.</string>
+    <string name="market_info_gas_how">Υψηλότερες τιμές σημαίνουν ότι το δίκτυο είναι φορτωμένο και οι μεταφορές κοστίζουν περισσότερο. Αργή, κανονική και γρήγορη είναι οι χρεώσεις για αργότερη ή ταχύτερη επιβεβαίωση. Ανοιχτή η κάρτα δείχνει το κατά προσέγγιση κόστος μιας απλής μεταφοράς.</string>
+    <string name="market_info_gas_source">Δημόσιοι κόμβοι RPC, mempool.space · ανανεώνεται κάθε λεπτό</string>
+    <string name="market_info_gas_what">Πόσο κοστίζει τώρα μια συναλλαγή σε κάθε δίκτυο. Στο Ethereum και σε παρόμοια δίκτυα σε gwei (ένα δισεκατομμυριοστό του ETH ανά μονάδα gas), στο Bitcoin σε sat/vB (satoshi ανά εικονικό byte της συναλλαγής).</string>
+    <string name="market_info_halving_source">Ημερομηνία: από το ύψος μπλοκ και τον μέσο χρόνο μπλοκ (mempool.space), αλλιώς από το ημερολόγιο · ιστορικό τιμών: Coin Metrics, Binance, επαναφόρτωση κάθε 12 ώρες</string>
+    <string name="market_info_halving_what">Στο halving η ανταμοιβή που παίρνουν οι miners για ένα νέο μπλοκ Bitcoin μειώνεται στο μισό. Αυτό συμβαίνει κάθε 210.000 μπλοκ, δηλαδή περίπου κάθε τέσσερα χρόνια. Μετά δημιουργούνται κάθε μέρα μόνο τα μισά νέα bitcoin.</string>
+    <string name="market_info_how">Πώς διαβάζεται</string>
+    <string name="market_info_macro_how">Η ειδοποίηση εμφανίζεται μόνο όταν μια τέτοια ημερομηνία είναι σήμερα ή αύριο. Γύρω από τη δημοσίευση οι τιμές συχνά κυμαίνονται περισσότερο από το συνηθισμένο. Η εφαρμογή δείχνει μόνο την ημερομηνία, όχι τα ίδια τα στοιχεία.</string>
+    <string name="market_info_macro_source">Ημερολόγιο από τον ιστότοπο της εφαρμογής · φορτώνεται μία φορά την ημέρα</string>
+    <string name="market_info_macro_what">Ημερομηνίες σημαντικών οικονομικών στοιχείων των ΗΠΑ: πληθωρισμός (CPI, PCE), τιμές παραγωγού (PPI), έκθεση απασχόλησης και αποφάσεις επιτοκίων της Federal Reserve. Τέτοια στοιχεία συχνά κινούν και τις τιμές των κρυπτονομισμάτων.</string>
+    <string name="market_info_no_advice">Όχι επενδυτική συμβουλή.</string>
+    <string name="market_info_phase_source">Binance, Coin Metrics · τιμές κάθε ώρα, δεδομένα on-chain ανανεώνονται κάθε 12 ώρες</string>
+    <string name="market_info_pulse_how">Ο τίτλος δείχνει την κατεύθυνση· ανοιχτή η κάρτα δείχνει τις λεπτομέρειες. Ευρεία κίνηση σημαίνει ότι τα περισσότερα μεγάλα νομίσματα κινούνται προς την ίδια κατεύθυνση. Υψηλό επιτόκιο χρηματοδότησης σημαίνει ότι πολλοί ποντάρουν σε άνοδο με μόχλευση. Ένα στιγμιότυπο, όχι πρόβλεψη.</string>
+    <string name="market_info_pulse_source">Binance, CoinGecko · ανανεώνεται περίπου κάθε 5 λεπτά</string>
+    <string name="market_info_pulse_what">Μια σύντομη σύνοψη της αγοράς των τελευταίων 24 ωρών: πώς κινούνται τα Bitcoin, Ethereum και Solana, πόσα από τα μεγαλύτερα νομίσματα ανεβαίνουν ή πέφτουν, πόσο Bitcoin διαπραγματεύεται αυτή τη στιγμή και σε ποιο επίπεδο βρίσκεται το επιτόκιο χρηματοδότησης στα συμβόλαια μελλοντικής εκπλήρωσης Bitcoin.</string>
+    <string name="market_info_totals_how">Δεξιά εμφανίζεται η μεταβολή της συνολικής αξίας σε 24 ώρες. Υψηλός όγκος σημαίνει ότι γίνονται πολλές συναλλαγές, αλλά όχι προς ποια κατεύθυνση. Εμφανίζεται, αν γίνεται, στο νόμισμα μετατροπής, αλλιώς σε δολάρια ΗΠΑ.</string>
+    <string name="market_info_totals_source">Όλα τα νομίσματα · CoinGecko · ανανεώνεται περίπου κάθε 30 λεπτά</string>
+    <string name="market_info_totals_what">Η συνολική αξία όλων των κρυπτονομισμάτων (κεφαλαιοποίηση αγοράς: τιμή επί ποσότητα σε κυκλοφορία, αθροισμένη για όλα τα νομίσματα) και ο όγκος συναλλαγών των τελευταίων 24 ωρών.</string>
+    <string name="market_info_unusual_how">Για κάθε νόμισμα εμφανίζεται η πιο αξιοσημείωτη παρατήρηση, δεξιά η μεταβολή 24 ωρών. Όγκος 2× σημαίνει διπλάσιο τζίρο από τον συνηθισμένο. Ασυνήθιστο δεν σημαίνει ούτε καλό ούτε κακό.</string>
+    <string name="market_info_unusual_source">Binance, CoinGecko · ανανεώνεται περίπου κάθε 10 λεπτά</string>
+    <string name="market_info_unusual_what">Έως πέντε νομίσματα από τα περίπου 30 μεγαλύτερα (χωρίς stablecoins) που συμπεριφέρονται ασυνήθιστα σήμερα: αισθητά ισχυρότερα ή ασθενέστερα από το Bitcoin, αντίθετα στην κατεύθυνση της αγοράς, με ασυνήθιστα υψηλό όγκο συναλλαγών ή με αξιοσημείωτο επιτόκιο χρηματοδότησης.</string>
+    <string name="market_info_what">Τι είναι αυτό;</string>
+
+    <!-- Markt-Tab: Krypto-Markt gesamt -->
+    <string name="market_cap_label">Κεφαλαιοποίηση</string>
+    <string name="market_cap_source">Όλα τα νομίσματα · CoinGecko</string>
+    <string name="market_cap_title">Αγορά κρυπτονομισμάτων</string>
+    <string name="market_volume_label">Όγκος 24ώρου</string>
+
+    <!-- Crypto Pulse «Was gerade auffällt»: Titel, Abschnitte, Hinweise -->
+    <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
+    <string name="pulse_details_action">Λεπτομέρειες</string>
+    <string name="pulse_disclaimer">Καμία πρόβλεψη · Όχι επενδυτική συμβουλή</string>
+    <string name="pulse_less">Εμφάνιση λιγότερων</string>
+    <string name="pulse_now_title">Τι ξεχωρίζει</string>
+    <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
+    <string name="pulse_period_24h_spoken">Μεταβολή σε 24 ώρες</string>
+    <string name="pulse_section_factors">Παράγοντες</string>
+    <string name="pulse_section_market">Η αγορά σήμερα</string>
+    <string name="pulse_unavailable">Τα δεδομένα αγοράς δεν είναι διαθέσιμα αυτή τη στιγμή</string>
+    <string name="pulse_updated">Στις %1$s</string>
+
+    <!-- Crypto Pulse: Schlagzeile und Leitsatz -->
+    <string name="pulse_headline_calm">Ήρεμη αγορά</string>
+    <string name="pulse_headline_down">Ευρεία πτώση</string>
+    <string name="pulse_headline_mixed">Μικτή εικόνα</string>
+    <string name="pulse_headline_up">Ευρεία άνοδος</string>
+    <string name="pulse_lead_alts_stronger">Τα altcoins είναι ισχυρότερα από το Bitcoin.</string>
+    <string name="pulse_lead_broad_down">Η αγορά πέφτει συνολικά.</string>
+    <string name="pulse_lead_broad_up">Η αγορά ανεβαίνει συνολικά.</string>
+    <string name="pulse_lead_btc_leads">Το Bitcoin ανεβαίνει περισσότερο.</string>
+    <string name="pulse_lead_btc_stronger">Το Bitcoin είναι ισχυρότερο από τα altcoins.</string>
+    <string name="pulse_lead_calm">Η αγορά σχεδόν δεν κινείται.</string>
+    <string name="pulse_lead_drift_down">Η αγορά υποχωρεί ελαφρά.</string>
+    <string name="pulse_lead_drift_up">Η αγορά ανεβαίνει ελαφρά.</string>
+    <string name="pulse_lead_mixed">Τα μεγάλα νομίσματα κινούνται σε διαφορετικές κατευθύνσεις.</string>
+
+    <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
+    <string name="pulse_detail_fund_high">Funding αυξημένο.</string>
+    <string name="pulse_detail_fund_negative">Funding αρνητικό.</string>
+    <string name="pulse_detail_fund_neutral">Funding ουδέτερο.</string>
+    <string name="pulse_detail_vol_above">Όγκος %1$d%% πάνω από το κανονικό.</string>
+    <string name="pulse_detail_vol_above_fund_high">Όγκος %1$d%% πάνω από το κανονικό, funding αυξημένο.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Όγκος %1$d%% πάνω από το κανονικό, funding αρνητικό.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Όγκος %1$d%% πάνω από το κανονικό, funding ουδέτερο.</string>
+    <string name="pulse_detail_vol_below">Όγκος %1$d%% κάτω από το κανονικό.</string>
+    <string name="pulse_detail_vol_below_fund_high">Όγκος %1$d%% κάτω από το κανονικό, funding αυξημένο.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Όγκος %1$d%% κάτω από το κανονικό, funding αρνητικό.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Όγκος %1$d%% κάτω από το κανονικό, funding ουδέτερο.</string>
+    <string name="pulse_detail_vol_normal">Όγκος κανονικός.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Όγκος κανονικός, funding αυξημένο.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Όγκος κανονικός, funding αρνητικό.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Όγκος κανονικός, funding ουδέτερο.</string>
+
+    <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
+    <string name="pulse_breadth_hint">Top %1$d: τα μεγαλύτερα νομίσματα κατά αξία αγοράς, χωρίς stablecoins· μεταβολή 24 ωρών (CoinGecko).</string>
+    <!-- «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">Top %1$d</string>
+    <string name="pulse_breadth_note_broad_down">Ευρεία πτώση: τα περισσότερα μεγάλα νομίσματα πέφτουν.</string>
+    <string name="pulse_breadth_note_broad_up">Ευρεία κίνηση: τα περισσότερα μεγάλα νομίσματα ανεβαίνουν.</string>
+    <string name="pulse_breadth_note_narrow_down">Το Bitcoin πέφτει, αλλά τα περισσότερα άλλα μεγάλα νομίσματα αντέχουν.</string>
+    <string name="pulse_breadth_note_narrow_up">Το Bitcoin ανεβαίνει, αλλά τα περισσότερα άλλα μεγάλα νομίσματα δεν ακολουθούν.</string>
+    <string name="pulse_breadth_spoken">Top %1$d: άνοδος %2$d, πτώση %3$d</string>
+
+    <!-- Crypto Pulse: Altcoins, Funding, Gas, Volumen -->
+    <string name="pulse_alts_even">Altcoins και Bitcoin κινούνται παρόμοια</string>
+    <string name="pulse_alts_stronger">Τα altcoins πιο δυνατά από το Bitcoin</string>
+    <string name="pulse_alts_weaker">Το Bitcoin πιο δυνατό από τα altcoins</string>
+    <string name="pulse_chip_funding_high">Funding αυξημένο</string>
+    <string name="pulse_chip_funding_negative">Funding αρνητικό</string>
+    <string name="pulse_funding_high">Funding σαφώς θετικό: πολλά long με μόχλευση</string>
+    <string name="pulse_funding_negative">Funding αρνητικό: πολλά short</string>
+    <string name="pulse_funding_neutral">Funding ουδέτερο</string>
+    <string name="pulse_funding_slight">Funding ελαφρώς θετικό</string>
+    <string name="pulse_gas_high">Gas Ethereum υψηλό (%1$s gwei)</string>
+    <string name="pulse_gas_low">Gas Ethereum χαμηλό (%1$s gwei)</string>
+    <string name="pulse_gas_normal">Gas Ethereum συνηθισμένο (%1$s gwei)</string>
+    <string name="pulse_volume_high">Όγκος συναλλαγών ασυνήθιστα υψηλός (%1$s× του συνήθους)</string>
+    <string name="pulse_volume_low">Όγκος συναλλαγών χαμηλός (%1$s× του συνήθους)</string>
+    <string name="pulse_volume_normal">Όγκος συναλλαγών συνήθης</string>
+
+    <!-- «Heute auffällig» (grösste Coins mit ungewöhnlicher Bewegung) -->
+    <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
+    <!-- Screenreader-Aktion einer Zeile (öffnet das Aktionsblatt bzw. die Vorschau) -->
+    <string name="unusual_action_open">Εμφάνιση τιμής και ενεργειών</string>
+    <string name="unusual_fact_against">Κινείται αντίθετα με την αγορά</string>
+    <string name="unusual_fact_funding_high">Funding αυξημένο (%1$s)</string>
+    <string name="unusual_fact_funding_negative">Funding αρνητικό (%1$s)</string>
+    <string name="unusual_fact_stronger">Κινείται πολύ πιο έντονα από το BTC</string>
+    <string name="unusual_fact_volume">Όγκος %1$s× του συνήθους</string>
+    <string name="unusual_fact_weaker">Κινείται πολύ πιο αδύναμα από το BTC</string>
+    <string name="unusual_nothing">Τίποτα ασυνήθιστο σήμερα</string>
+    <string name="unusual_source">Περίπου 30 μεγαλύτερα νομίσματα χωρίς stablecoins · Binance, CoinGecko</string>
+    <string name="unusual_title">Ξεχωρίζουν σήμερα</string>
+
+    <!-- Ungewöhnliche Aktivität eines Paars (Karte, Signale, Empfindlichkeit) -->
+    <string name="activity_card_title">Κάτι συμβαίνει αυτή τη στιγμή</string>
+    <string name="activity_indicator">Ασυνήθιστη δραστηριότητα</string>
+    <string name="activity_sensitivity_less">Λιγότερα</string>
+    <string name="activity_sensitivity_more">Περισσότερα</string>
+    <string name="activity_sensitivity_normal">Κανονικά</string>
+    <string name="activity_signal_funding_long">Funding %1$s — πολλά long με μόχλευση</string>
+    <string name="activity_signal_funding_short">Funding %1$s — πολλά short</string>
+    <string name="activity_signal_open_interest">Ανοιχτό ενδιαφέρον %1$s μέσα σε %2$d λεπ.</string>
+    <string name="activity_signal_open_interest_no_time">Ανοιχτό ενδιαφέρον %1$s</string>
+    <string name="activity_signal_price_move">Ασυνήθιστη κίνηση: %1$s σε μία ώρα (%2$s× του κανονικού)</string>
+    <string name="activity_signal_volume">Όγκος %1$s× του κανονικού την τελευταία ώρα</string>
+
+    <!-- Einordnung: Bitcoin-Dominanz, Fear & Greed, Halving, Altseason -->
+    <plurals name="insights_altseason_value">
+        <item quantity="one">%1$d από %2$d μεγάλα altcoin ξεπερνά το Bitcoin σε 90 ημέρες</item>
+        <item quantity="other">%1$d από %2$d μεγάλα altcoin ξεπερνούν το Bitcoin σε 90 ημέρες</item>
+    </plurals>
+    <string name="insights_chart_axis">Έτη από το halving</string>
+    <string name="insights_chart_hint">Τιμή ως πολλαπλάσιο της τιμής την ημέρα του halving (λογαριθμική κλίμακα). Οι παλιοί κύκλοι είναι μοτίβο, όχι πρόβλεψη.</string>
+    <string name="insights_cycle_chart">Κύκλοι από το halving</string>
+    <string name="insights_dominance_eth">ETH %1$s της συνολικής αγοράς</string>
+    <string name="insights_dominance_title">Κυριαρχία Bitcoin</string>
+    <string name="insights_fng_history">Χθες %1$s · πριν μία εβδομάδα %2$s · πριν έναν μήνα %3$s</string>
+    <string name="insights_fng_title">Fear &amp; Greed</string>
+    <string name="insights_halving_title">Halving του Bitcoin</string>
+    <string name="insights_source_dominance">Πηγή: CoinGecko, Binance</string>
+    <string name="insights_source_fng">Πηγή: alternative.me</string>
+    <string name="insights_source_history">Πηγή: Coin Metrics (CC BY-NC 4.0), Binance</string>
+
+    <!-- Fear & Greed: Stufen -->
+    <string name="fng_extreme_fear">Ακραίος φόβος</string>
+    <string name="fng_extreme_greed">Ακραία απληστία</string>
+    <string name="fng_fear">Φόβος</string>
+    <string name="fng_greed">Απληστία</string>
+    <string name="fng_neutral">Ουδέτερο</string>
+
+    <!-- Halving-Zyklus (Chart, Marken, Schätzung) -->
+    <string name="cycle_data_as_of">Δεδομένα έως %1$s · ενημέρωση…</string>
+    <string name="cycle_from_top">%1$s από την κορυφή</string>
+    <string name="cycle_marker_bottom">Πάτος %1$s</string>
+    <string name="cycle_marker_double_bottom">Διπλός πάτος %1$s</string>
+    <string name="cycle_marker_double_top">Διπλή κορυφή %1$s</string>
+    <string name="cycle_marker_high_so_far">Υψηλό μέχρι τώρα</string>
+    <!-- Hoch/Tief-Marken mit Sprechblase im Zyklus-Chart -->
+    <string name="cycle_marker_top">Κορυφή %1$s</string>
+    <string name="cycle_since_halving">%1$s από το halving</string>
+    <string name="halving_estimate_text">Επόμενο halving, βάσει υπολογισμού, περίπου %1$s: απομένουν %2$s μπλοκ με μέσο όρο %3$s λεπτά ανά μπλοκ (τρέχουσα περίοδος δυσκολίας). Προβολή, όχι υπόσχεση – ο χρόνος μπλοκ μεταβάλλεται.</string>
+
+    <!-- Netzwerkgebühren (Gas) -->
+    <string name="gas_alert_active">Συναγερμός: %1$s</string>
+    <string name="gas_slow_fast">Αργά %1$s · Γρήγορα %2$s</string>
+    <string name="gas_source">Δημόσιοι κόμβοι RPC και mempool.space · Κόστος απλής μεταφοράς, χωρίς το μερίδιο L1 στα L2</string>
+    <string name="gas_title">Τέλη δικτύου</string>
+    <string name="gas_transfer_cost">Μεταφορά ≈ %1$s</string>
+
+    <!-- Wirtschaftsdaten (US-Termine) -->
+    <string name="macro_cpi">πληθωρισμός ΗΠΑ (CPI)</string>
+    <string name="macro_fomc">απόφαση της Fed για τα επιτόκια</string>
+    <string name="macro_hint_list">%1$s – τέτοιες μέρες οι αγορές συχνά κινούνται πιο έντονα.</string>
+    <string name="macro_hint_today">Σήμερα %1$s: %2$s – τέτοιες μέρες οι αγορές συχνά κινούνται πιο έντονα.</string>
+    <string name="macro_hint_today_list">Σήμερα: %1$s – τέτοιες μέρες οι αγορές συχνά κινούνται πιο έντονα.</string>
+    <string name="macro_hint_tomorrow">Αύριο %1$s: %2$s – τέτοιες μέρες οι αγορές συχνά κινούνται πιο έντονα.</string>
+    <string name="macro_hint_tomorrow_list">Αύριο: %1$s – τέτοιες μέρες οι αγορές συχνά κινούνται πιο έντονα.</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">Σήμερα %1$s %2$s</string>
+    <string name="macro_item_tomorrow">Αύριο %1$s %2$s</string>
+    <string name="macro_nfp">έκθεση απασχόλησης ΗΠΑ</string>
+    <string name="macro_pce">πληθωρισμός PCE ΗΠΑ</string>
+    <string name="macro_ppi">τιμές παραγωγού ΗΠΑ (PPI)</string>
+    <string name="macro_released_list">Δημοσιεύθηκε σήμερα: %1$s.</string>
+    <string name="macro_released_one">Δημοσιεύθηκε σήμερα στις %1$s: %2$s.</string>
+    <string name="macro_title">Οικονομικά στοιχεία</string>
+
+    <!-- Coin-Analyse -->
+    <string name="coin_choose">Νόμισμα</string>
+    <string name="coin_no_data">Δεν υπάρχουν δεδομένα τιμής για αυτό το νόμισμα σε Binance ή Bybit.</string>
+    <string name="coin_price_only">Μόνο με βάση την τιμή – τα on-chain δεδομένα (MVRV, Puell, hashrate) είναι ελεύθερα μόνο για το Bitcoin.</string>
+    <plurals name="coin_short_history">
+        <item quantity="one">Μόνο %1$d ημέρα ιστορικού – λείπουν κάποιοι δείκτες.</item>
+        <item quantity="other">Μόνο %1$d ημέρες ιστορικού – λείπουν κάποιοι δείκτες.</item>
+    </plurals>
+    <string name="coin_title">Ανάλυση νομίσματος</string>
+</resources>

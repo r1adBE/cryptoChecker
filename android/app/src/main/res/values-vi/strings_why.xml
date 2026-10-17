@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Warum bewegt sich das?»: Titel, Abschnitte, Aufklappen -->
+    <string name="why_action">Cái gì biến động cùng?</string>
+    <string name="why_all_values">Tất cả giá trị và nguồn</string>
+    <string name="why_all_values_hint">Quan sát · Cách giải thích có thể · Nguồn</string>
+    <string name="why_details">Xem chi tiết</string>
+    <string name="why_details_hide">Ẩn chi tiết</string>
+    <string name="why_disclaimer">Đánh giá tự động từ dữ liệu thị trường: cho thấy những gì diễn ra cùng lúc, không phải bằng chứng về nguyên nhân.</string>
+    <string name="why_footer_short">Đồng thời không có nghĩa là nguyên nhân · Không phải lời khuyên đầu tư</string>
+    <string name="why_no_data">Không có dữ liệu Binance cho cặp này</string>
+    <string name="why_no_data_hint">Giá, khối lượng và độ biến động lấy từ nến giờ của Binance.</string>
+    <string name="why_ref_alts">Alts</string>
+    <string name="why_section_context">Cách hiểu có thể</string>
+    <string name="why_section_observation">Quan sát</string>
+    <string name="why_title">Cái gì biến động cùng?</string>
+    <string name="why_title_coin">Cái gì biến động cùng %1$s?</string>
+
+    <!-- «Warum?»: Kurz gesagt (ein Satz oben) -->
+    <string name="why_brief_head">Tóm lại · Lúc %1$s</string>
+    <string name="why_brief_label">Tóm lại:</string>
+    <string name="why_summary_against">Coin đang đi ngược thị trường.</string>
+    <string name="why_summary_calm">Không có biến động đáng chú ý: thị trường và coin đều yên ả.</string>
+    <string name="why_summary_coin">Chỉ coin này biến động – có thể là điều gì đó chỉ liên quan đến coin này.</string>
+    <string name="why_summary_coin_volume">Chỉ coin này biến động, với khối lượng cao hơn – có thể là điều gì đó chỉ liên quan đến coin này.</string>
+    <string name="why_summary_longs">Futures: nhiều vị thế long dùng đòn bẩy.</string>
+    <string name="why_summary_market">Biến động trùng thời điểm với toàn thị trường.</string>
+    <string name="why_summary_market_volume">Biến động trùng thời điểm với khối lượng giao dịch cao hơn và thị trường biến động rộng.</string>
+    <string name="why_summary_peg_near">Giá đang gần mức neo 1:1.</string>
+    <string name="why_summary_peg_off">Giá lệch đáng kể khỏi mức neo 1:1.</string>
+    <string name="why_summary_shorts">Futures: nhiều vị thế short.</string>
+    <string name="why_summary_thin">Biến động mỏng: ít khối lượng phía sau.</string>
+
+    <!-- «Warum?»: Faktorliste (Titel der Faktoren) -->
+    <string name="why_f_against">Ngược thị trường</string>
+    <string name="why_f_coin_only">Chỉ coin này</string>
+    <string name="why_f_leader">Bitcoin với vai trò dẫn đầu thị trường</string>
+    <string name="why_f_leverage_balanced">Đòn bẩy cân bằng</string>
+    <string name="why_f_leverage_longs">Đòn bẩy: nhiều long</string>
+    <string name="why_f_leverage_shorts">Đòn bẩy: nhiều short</string>
+    <string name="why_f_market_calm">Thị trường yên ả</string>
+    <string name="why_f_market_wide">Cả thị trường biến động</string>
+    <string name="why_factor_funding">Funding</string>
+    <string name="why_factor_futures">Hợp đồng tương lai</string>
+    <string name="why_factor_market">Toàn thị trường</string>
+    <string name="why_factor_near_high">Gần đỉnh</string>
+    <string name="why_factor_near_low">Gần đáy</string>
+    <string name="why_factor_peg">Neo giá (1:1)</string>
+    <string name="why_factor_range3d">Biên độ 3 ngày</string>
+
+    <!-- «Warum?»: Nebenzeilen der Faktoren -->
+    <string name="why_fn_estimated">ước tính</string>
+    <string name="why_fn_funding_longs">nhiều người đặt cược giá tăng</string>
+    <string name="why_fn_funding_neutral">trung lập</string>
+    <string name="why_fn_funding_shorts">nhiều người đặt cược giá giảm</string>
+    <string name="why_fn_high_at">ở đỉnh 30 ngày</string>
+    <string name="why_fn_high_below">dưới đỉnh 30 ngày</string>
+    <string name="why_fn_leader_calm">Bitcoin yên</string>
+    <string name="why_fn_leader_moves">Bitcoin biến động rõ rệt</string>
+    <string name="why_fn_low_above">trên đáy 30 ngày</string>
+    <string name="why_fn_low_at">ở đáy 30 ngày</string>
+    <string name="why_fn_market_against">Coin đi ngược thị trường</string>
+    <string name="why_fn_market_alone">Thị trường yên – coin này tự biến động</string>
+    <string name="why_fn_market_calm">Thị trường yên</string>
+    <string name="why_fn_market_lags">Thị trường biến động, coin này hầu như không</string>
+    <string name="why_fn_market_moves">Thị trường đi cùng hướng</string>
+    <string name="why_fn_market_pulls">Thị trường đang biến động cùng BTC</string>
+    <string name="why_fn_oi_down">Open interest giảm</string>
+    <string name="why_fn_oi_flat">Open interest gần như không đổi</string>
+    <string name="why_fn_oi_mixed">Open interest không đồng nhất</string>
+    <string name="why_fn_oi_up">Open interest tăng</string>
+    <string name="why_fn_peg_above">%1$s trên mức neo 1:1</string>
+    <string name="why_fn_peg_below">%1$s dưới mức neo 1:1</string>
+    <string name="why_fn_peg_near">gần mức neo 1:1</string>
+    <string name="why_fn_range_above_low">kể từ đáy 3 ngày</string>
+    <string name="why_fn_range_below_high">kể từ đỉnh 3 ngày</string>
+    <string name="why_fn_range_near_high">gần đỉnh 3 ngày</string>
+    <string name="why_fn_range_near_low">gần đáy 3 ngày</string>
+    <string name="why_fn_volatility_stronger">mạnh hơn bình thường</string>
+    <string name="why_fn_volatility_tiny">nhỏ về giá trị tuyệt đối (dưới %1$s)</string>
+    <string name="why_fn_volatility_usual">như bình thường</string>
+    <string name="why_fn_volume_higher">cao hơn bình thường</string>
+    <string name="why_fn_volume_lower">thấp hơn bình thường</string>
+    <string name="why_fn_volume_usual">như bình thường</string>
+
+    <!-- «Warum?»: ausführliche Sätze je Beobachtung -->
+    <string name="why_against_market_text">Coin này %1$s, BTC %2$s trong 24h — một biến động độc lập đáng chú ý.</string>
+    <string name="why_against_ref_text">Coin này %1$s, %2$s %3$s trong 24 giờ — một biến động độc lập rõ rệt.</string>
+    <string name="why_btc_independent">%1$s hiện đang biến động độc lập với Bitcoin.</string>
+    <string name="why_btc_tight">%1$s hiện đang biến động sát với Bitcoin.</string>
+    <string name="why_change_1h">1h</string>
+    <string name="why_change_24h">24h</string>
+    <string name="why_coin_only_text">%1$s trong 24h khi thị trường yên ắng – có thể là điều gì đó chỉ liên quan đến coin này.</string>
+    <string name="why_leverage_balanced_text">Không có sự dồn ứ vị thế long hay short trên thị trường futures.</string>
+    <string name="why_leverage_longs_text">Nhiều người dùng tiền vay để đặt cược giá tăng. Long trả phí cho short — rủi ro thanh lý tăng nếu giá giảm.</string>
+    <string name="why_leverage_shorts_text">Nhiều người dùng tiền vay để đặt cược giá giảm. Short trả phí cho long – nếu giá tăng, có thể xảy ra short squeeze.</string>
+    <string name="why_market_calm_text">Coin này: %1$s trong 24h. Cả thị trường lẫn coin đều không biến động nhiều.</string>
+    <string name="why_market_leader_text">Là coin lớn nhất, BTC thường biến động cùng nhịp với phần còn lại của thị trường. ETH: %1$s trong 24h.</string>
+    <string name="why_market_leader_text_no_eth">Là coin lớn nhất, BTC thường biến động cùng nhịp với phần còn lại của thị trường.</string>
+    <string name="why_market_similar_text">Coin này: %1$s trong 24 giờ — cùng lúc, thị trường đi cùng hướng, dù kém rõ rệt hơn.</string>
+    <string name="why_market_wide_text">Coin này: %1$s trong 24h – cùng lúc đó, toàn thị trường cũng biến động rõ rệt.</string>
+    <string name="why_open_interest_change">Open interest %1$s kể từ lần kiểm tra trước.</string>
+    <string name="why_peg_text">Stablecoin: so với mức neo 1:1 theo đồng định giá, chênh lệch %1$s.</string>
+    <string name="why_sentiment_text">Chỉ số Sợ hãi &amp; Tham lam của toàn thị trường crypto, %1$s so với hôm qua.</string>
+    <string name="why_sentiment_text_no_change">Chỉ số Sợ hãi &amp; Tham lam của toàn thị trường crypto.</string>
+    <plurals name="why_trend_falling">
+        <item quantity="other">giảm trong %1$d giờ</item>
+    </plurals>
+    <plurals name="why_trend_rising">
+        <item quantity="other">tăng trong %1$d giờ</item>
+    </plurals>
+    <plurals name="why_trend_stable">
+        <item quantity="other">ổn định trong %1$d giờ</item>
+    </plurals>
+    <string name="why_volatility_high_text">Giờ qua: %1$s — so với mức dao động theo giờ điển hình trong 24 giờ qua.</string>
+    <string name="why_volatility_normal_text">Giờ qua: %1$s — trong phạm vi thông thường.</string>
+    <string name="why_volatility_tiny_text">Giờ qua: %1$s — bất thường với coin này, nhưng nhỏ về giá trị tuyệt đối.</string>
+    <string name="why_volume_estimated_text">Ước tính: nguồn này không cung cấp doanh số, nên so sánh theo số lượng coin được giao dịch.</string>
+    <string name="why_volume_high_text">Giao dịch trong giờ qua nhiều hơn hẳn bình thường – biến động đi kèm khối lượng cao.</string>
+    <string name="why_volume_low_text">Ít giao dịch đứng sau biến động – những biến động như vậy thường kém ổn định hơn.</string>
+    <string name="why_volume_normal_text">Giao dịch trong giờ qua tương đương 24 giờ vừa qua.</string>
+
+    <!-- «Warum?»: Signal-Punkte (stützt, neutral, Vorsicht) -->
+    <string name="why_dot_caution">tăng cao</string>
+    <string name="why_dot_neutral">trung tính</string>
+    <string name="why_dot_supports">khớp với biến động</string>
+
+    <!-- «Warum?»: Frische und Quellen der Daten -->
+    <string name="why_data_time">Dữ liệu lúc %1$s</string>
+    <string name="why_fresh_breadth">Độ rộng thị trường: %1$s · %2$s</string>
+    <string name="why_fresh_candles">Nến: %1$s · %2$s</string>
+    <string name="why_fresh_fng">Fear &amp; Greed: %1$s</string>
+    <string name="why_fresh_futures">Futures: %1$s</string>
+    <plurals name="why_fresh_oi_hours">
+        <item quantity="other">open interest so với %1$d giờ trước</item>
+    </plurals>
+    <plurals name="why_fresh_oi_minutes">
+        <item quantity="other">open interest so với %1$d phút trước</item>
+    </plurals>
+    <string name="why_fresh_today">hôm nay</string>
+    <string name="why_fresh_yesterday">hôm qua</string>
+    <string name="why_source_fallback">%1$s (nguồn dự phòng)</string>
+    <string name="why_source_reference">%1$s (giá trị tham khảo)</string>
+    <string name="why_sources">Nguồn: nến giờ của sàn (thường là Binance), dữ liệu futures từ các sàn, Fear &amp; Greed từ alternative.me.</string>
+    <string name="why_sources_list">Nguồn: %1$s.</string>
+    <string name="why_src_breadth">%1$s (độ rộng thị trường)</string>
+    <string name="why_src_candles">%1$s (nến)</string>
+    <string name="why_src_comparison">%1$s (so sánh thị trường)</string>
+    <string name="why_src_fng">%1$s (Fear &amp; Greed)</string>
+    <string name="why_src_futures">%1$s (futures)</string>
+
+    <!-- Faktor-Checkliste (Crypto Pulse und «Warum?») -->
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">Funding</string>
+    <string name="factor_spoken_volatility">gấp %1$s lần mức dao động thường lệ</string>
+    <string name="factor_spoken_volume">gấp %1$s lần bình thường</string>
+    <string name="factor_volatility">Biến động (1h)</string>
+    <string name="factor_volume">Khối lượng</string>
+</resources>

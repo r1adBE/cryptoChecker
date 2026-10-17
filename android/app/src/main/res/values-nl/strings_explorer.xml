@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="explorer_coin_back">Alle resultaten</string>
+    <plurals name="explorer_coin_exchanges">
+        <item quantity="one">%1$d beurs</item>
+        <item quantity="other">%1$d beurzen</item>
+    </plurals>
+    <string name="explorer_coin_no_pairs">Geen paar voor deze munt in de geladen lijsten.</string>
+    <string name="explorer_coin_not_loaded">Parenlijsten nog niet geladen</string>
+    <string name="explorer_coin_other_pairs">Andere paren</string>
+    <string name="explorer_coin_show_pairs">Paren tonen</string>
+    <string name="explorer_coin_suggested">Voorstel</string>
+    <string name="explorer_coins_title">Munten</string>
+    <string name="explorer_lists_load">Lijsten laden</string>
+    <string name="explorer_lists_loading">Parenlijsten laden… %1$d/%2$d</string>
+    <plurals name="explorer_lists_missing">
+        <item quantity="one">De parenlijst van %1$d beurs staat nog niet op het apparaat.</item>
+        <item quantity="other">De parenlijsten van %1$d beurzen staan nog niet op het apparaat.</item>
+    </plurals>
+    <string name="explorer_lists_privacy">Laadt per beurs de volledige openbare lijst – voor iedereen gelijk. Je zoekopdracht blijft op het apparaat.</string>
+    <!-- Paar hinzufügen: Suche über alle Börsen, zuletzt gesucht -->
+    <string name="explorer_recent_a11y">Recent gezocht: %1$s</string>
+    <string name="explorer_recent_clear">Wissen</string>
+    <string name="explorer_recent_clear_a11y">Recente zoekopdrachten wissen</string>
+    <string name="explorer_recent_title">Recente zoekopdrachten</string>
+    <string name="explorer_search_choose_manually">Zelf beurs en paar kiezen</string>
+    <string name="explorer_search_empty">Geen resultaten.</string>
+    <string name="explorer_search_hint">Zoek munt, paar of beurs</string>
+    <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
+    <string name="explorer_search_intro">Typ de naam of het symbool van een munt, bijv. Bitcoin of BTC – en kies dan het paar.</string>
+
+    <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
+    <string name="explorer_add_to_watchlist">Aan volglijst toevoegen</string>
+    <string name="explorer_added_to_watchlist">Aan de volglijst toegevoegd.</string>
+    <string name="explorer_already_in_watchlist">Dit paar staat al in de volglijst.</string>
+    <string name="explorer_exchange_missing">Beurs ontbreekt?</string>
+    <string name="explorer_loading_pairs">Handelsparen laden…</string>
+    <string name="explorer_no_pair_selected">Kies eerst een paar.</string>
+    <string name="explorer_no_pairs_yet">Voor deze beurs zijn nog geen paren geladen.</string>
+    <plurals name="explorer_pairs_status">
+        <item quantity="one">%1$d paar · bijgewerkt %2$s</item>
+        <item quantity="other">%1$d paren · bijgewerkt %2$s</item>
+    </plurals>
+    <string name="explorer_pairs_title">Paren</string>
+    <string name="explorer_precise_title">Geavanceerd / per beurs</string>
+    <string name="explorer_price_loading">Koers laden…</string>
+    <string name="explorer_select_market_hint">Kies een beurs – de handelsparen laden automatisch.</string>
+    <string name="explorer_select_placeholder">Kies een optie</string>
+    <string name="explorer_step_pair">Paar kiezen</string>
+
+    <!-- Paar hinzufügen: Schnellfilter der Liste «Alle …-Paare» -->
+    <string name="explorer_filter_gainers">Stijgers</string>
+    <string name="explorer_filter_losers">Dalers</string>
+    <string name="explorer_filter_volume">Volume</string>
+
+    <!-- Paar hinzufügen: mehrere Paare auf einmal -->
+    <string name="bulk_all_pairs">Alle %1$s-paren van deze beurs</string>
+    <plurals name="bulk_all_pairs_applied">
+        <item quantity="one">%1$d %2$s-paar gevonden</item>
+        <item quantity="other">%1$d %2$s-paren gevonden</item>
+    </plurals>
+    <string name="bulk_all_pairs_empty">Geen %1$s-paren op deze beurs voor het gekozen contracttype. Synchroniseer eerst de beurs of kies een ander contracttype.</string>
+    <plurals name="explorer_add_all_pairs">
+        <item quantity="one">%1$d paar aan volglijst toevoegen</item>
+        <item quantity="other">Alle %1$d paren aan volglijst toevoegen</item>
+    </plurals>
+    <plurals name="explorer_bulk_added">
+        <item quantity="one">%1$d toegevoegd, %2$d al in de volglijst.</item>
+        <item quantity="other">%1$d toegevoegd, %2$d al in de volglijst.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_text">
+        <item quantity="one">%1$d %2$s-paar van %3$s wordt aan de lijst toegevoegd, tenzij het er al in staat.</item>
+        <item quantity="other">Alle %1$d %2$s-paren van %3$s worden aan de lijst toegevoegd. Paren die er al in staan worden overgeslagen.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_title">
+        <item quantity="one">%1$d paar toevoegen?</item>
+        <item quantity="other">%1$d paren toevoegen?</item>
+    </plurals>
+    <string name="explorer_bulk_hide_list">Lijst verbergen</string>
+    <string name="explorer_bulk_show_list">Lijst tonen</string>
+    <string name="explorer_bulk_tap_hint">Tik op een paar om het hierboven te kiezen.</string>
+    <string name="explorer_bulk_title">Meerdere paren tegelijk</string>
+
+    <!-- Handelspaare einer Börse laden und wählen -->
+    <string name="explorer_sync_sheet_text">Laadt de actuele paren van de gekozen beurs.</string>
+    <string name="explorer_no_pair_list">Geen valutaparen</string>
+    <string name="explorer_sync_sheet_last">Laatste sync: %1$s</string>
+    <string name="explorer_sync_never">nooit</string>
+    <string name="explorer_sync_sheet_action">Nu synchroniseren!</string>
+    <string name="explorer_sync_sheet_title">Valutaparen bijwerken</string>
+    <string name="explorer_field_coin">Basis</string>
+    <string name="explorer_field_contract">Contracttype</string>
+    <string name="explorer_field_exchange">Markt</string>
+    <string name="explorer_field_quote">Quote</string>
+    <string name="explorer_contract_spot">Spot</string>
+    <string name="explorer_reload_pairs">Synchroniseren</string>
+    <string name="sync_pairs_count">Handelsparen: %1$d</string>
+
+    <!-- Token von dezentralen Börsen (DEX) -->
+    <string name="dex_add">Toevoegen</string>
+    <string name="dex_added">%1$s toegevoegd aan de volglijst.</string>
+    <string name="dex_already">%1$s staat al in de volglijst.</string>
+    <string name="dex_intro">Tokens buiten de grote beurzen, van gedecentraliseerde beurzen (Uniswap, PancakeSwap, Raydium …) via DexScreener. Zoek een token en voeg een van de handelspools ervan toe – koersen in Amerikaanse dollars.</string>
+    <string name="dex_liquidity">Liquiditeit %1$s</string>
+    <string name="dex_no_results">Geen pools gevonden.</string>
+    <string name="dex_search">Zoeken</string>
+    <string name="dex_search_hint">Tokennaam, symbool of adres</string>
+
+    <!-- Art des Assets (Token, Alpha-Token, TradFi) -->
+    <string name="asset_kind_alpha">Alpha-token</string>
+    <string name="asset_kind_token">Token</string>
+    <string name="asset_kind_tradfi">TradFi</string>
+</resources>

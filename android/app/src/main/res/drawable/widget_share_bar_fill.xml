@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Füllung des Anteil-Balkens: von links abgeschnitten nach dem Level (0–10000 = 0–100 %),
+     gesetzt per setImageLevel; Farbe per setColorFilter (WidgetUpdater). -->
+<clip xmlns:android="http://schemas.android.com/apk/res/android"
+    android:clipOrientation="horizontal"
+    android:gravity="start"
+    android:drawable="@drawable/widget_share_bar" />

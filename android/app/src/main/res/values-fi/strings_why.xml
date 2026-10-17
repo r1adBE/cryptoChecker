@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Warum bewegt sich das?»: Titel, Abschnitte, Aufklappen -->
+    <string name="why_action">Mikä liikkuu mukana?</string>
+    <string name="why_all_values">Kaikki arvot ja lähteet</string>
+    <string name="why_all_values_hint">Havainto · Mahdollinen selitys · Lähteet</string>
+    <string name="why_details">Näytä tiedot</string>
+    <string name="why_details_hide">Piilota tiedot</string>
+    <string name="why_disclaimer">Automaattinen arvio markkinadatasta: näyttää, mitä tapahtuu samaan aikaan, ei todista syytä.</string>
+    <string name="why_footer_short">Samanaikaisuus ei ole syy · Ei sijoitusneuvontaa</string>
+    <string name="why_no_data">Ei Binance-tietoja tälle parille</string>
+    <string name="why_no_data_hint">Hinta, volyymi ja volatiliteetti tulevat Binancen tuntikynttilöistä.</string>
+    <string name="why_ref_alts">Altit</string>
+    <string name="why_section_context">Mahdollinen tulkinta</string>
+    <string name="why_section_observation">Havainto</string>
+    <string name="why_title">Mikä liikkuu mukana?</string>
+    <string name="why_title_coin">Mikä liikkuu yhdessä kohteen %1$s kanssa?</string>
+
+    <!-- «Warum?»: Kurz gesagt (ein Satz oben) -->
+    <string name="why_brief_head">Lyhyesti · Klo %1$s</string>
+    <string name="why_brief_label">Lyhyesti:</string>
+    <string name="why_summary_against">Kolikko liikkuu markkinaa vastaan.</string>
+    <string name="why_summary_calm">Ei huomattavaa liikettä: markkina ja kolikko ovat rauhallisia.</string>
+    <string name="why_summary_coin">Vain tämä kolikko liikkuu – mahdollisesti jotain, mikä koskee vain tätä kolikkoa.</string>
+    <string name="why_summary_coin_volume">Vain tämä kolikko liikkuu, suuremmalla volyymilla – mahdollisesti jotain, mikä koskee vain tätä kolikkoa.</string>
+    <string name="why_summary_longs">Futuurit: paljon vipuvoimalla otettuja long-positioita.</string>
+    <string name="why_summary_market">Liike osuu ajallisesti yhteen koko markkinan kanssa.</string>
+    <string name="why_summary_market_volume">Liike osuu ajallisesti yhteen suuremman kaupankäyntivolyymin ja laajasti liikkuvan markkinan kanssa.</string>
+    <string name="why_summary_peg_near">Kurssi on lähellä 1:1-sidontaa.</string>
+    <string name="why_summary_peg_off">Kurssi poikkeaa selvästi 1:1-sidonnasta.</string>
+    <string name="why_summary_shorts">Futuurit: paljon short-positioita.</string>
+    <string name="why_summary_thin">Liike on ohut: sen takana on vähän volyymia.</string>
+
+    <!-- «Warum?»: Faktorliste (Titel der Faktoren) -->
+    <string name="why_f_against">Markkinaa vastaan</string>
+    <string name="why_f_coin_only">Vain tämä kolikko</string>
+    <string name="why_f_leader">Bitcoin markkinajohtajana</string>
+    <string name="why_f_leverage_balanced">Vipu tasapainossa</string>
+    <string name="why_f_leverage_longs">Vipu: paljon longeja</string>
+    <string name="why_f_leverage_shorts">Vipu: paljon shortteja</string>
+    <string name="why_f_market_calm">Rauhallinen markkina</string>
+    <string name="why_f_market_wide">Koko markkina liikkuu</string>
+    <string name="why_factor_funding">Funding</string>
+    <string name="why_factor_futures">Futuurit</string>
+    <string name="why_factor_market">Koko markkina</string>
+    <string name="why_factor_near_high">Lähellä huippua</string>
+    <string name="why_factor_near_low">Lähellä pohjaa</string>
+    <string name="why_factor_peg">Sidonta (1:1)</string>
+    <string name="why_factor_range3d">3 päivän vaihteluväli</string>
+
+    <!-- «Warum?»: Nebenzeilen der Faktoren -->
+    <string name="why_fn_estimated">arvio</string>
+    <string name="why_fn_funding_longs">moni veikkaa nousua</string>
+    <string name="why_fn_funding_neutral">neutraali</string>
+    <string name="why_fn_funding_shorts">moni veikkaa laskua</string>
+    <string name="why_fn_high_at">30 päivän huipussa</string>
+    <string name="why_fn_high_below">alle 30 päivän huipun</string>
+    <string name="why_fn_leader_calm">Bitcoin rauhallinen</string>
+    <string name="why_fn_leader_moves">Bitcoin liikkuu selvästi</string>
+    <string name="why_fn_low_above">yli 30 päivän pohjan</string>
+    <string name="why_fn_low_at">30 päivän pohjalla</string>
+    <string name="why_fn_market_against">Kolikko liikkuu markkinaa vastaan</string>
+    <string name="why_fn_market_alone">Markkina rauhallinen – tämä kolikko liikkuu yksin</string>
+    <string name="why_fn_market_calm">Markkina rauhallinen</string>
+    <string name="why_fn_market_lags">Markkina liikkuu, tämä kolikko tuskin</string>
+    <string name="why_fn_market_moves">Markkina liikkuu samaan suuntaan</string>
+    <string name="why_fn_market_pulls">Markkina liikkuu BTC:n mukana</string>
+    <string name="why_fn_oi_down">Open interest laskenut</string>
+    <string name="why_fn_oi_flat">Open interest lähes ennallaan</string>
+    <string name="why_fn_oi_mixed">Open interest vaihteleva</string>
+    <string name="why_fn_oi_up">Open interest kasvanut</string>
+    <string name="why_fn_peg_above">%1$s yli 1:1-sidonnan</string>
+    <string name="why_fn_peg_below">%1$s alle 1:1-sidonnan</string>
+    <string name="why_fn_peg_near">lähellä 1:1-sidontaa</string>
+    <string name="why_fn_range_above_low">3 päivän pohjasta</string>
+    <string name="why_fn_range_below_high">3 päivän huipusta</string>
+    <string name="why_fn_range_near_high">lähellä 3 päivän huippua</string>
+    <string name="why_fn_range_near_low">lähellä 3 päivän pohjaa</string>
+    <string name="why_fn_volatility_stronger">tavallista voimakkaampi</string>
+    <string name="why_fn_volatility_tiny">absoluuttisesti pieni (alle %1$s)</string>
+    <string name="why_fn_volatility_usual">tavanomainen</string>
+    <string name="why_fn_volume_higher">tavallista suurempi</string>
+    <string name="why_fn_volume_lower">tavallista pienempi</string>
+    <string name="why_fn_volume_usual">tavanomainen</string>
+
+    <!-- «Warum?»: ausführliche Sätze je Beobachtung -->
+    <string name="why_against_market_text">Tämä kolikko %1$s, BTC %2$s 24 h – selvästi itsenäinen liike.</string>
+    <string name="why_against_ref_text">Tämä kolikko %1$s, %2$s %3$s 24 h:ssa – huomattavan itsenäinen liike.</string>
+    <string name="why_btc_independent">%1$s liikkuu tällä hetkellä Bitcoinista riippumatta.</string>
+    <string name="why_btc_tight">%1$s liikkuu tällä hetkellä tiiviisti Bitcoinin kanssa.</string>
+    <string name="why_change_1h">1h</string>
+    <string name="why_change_24h">24h</string>
+    <string name="why_coin_only_text">%1$s 24 h markkinan ollessa rauhallinen – mahdollisesti jotain, mikä koskee vain tätä kolikkoa.</string>
+    <string name="why_leverage_balanced_text">Futuurimarkkinoilla ei ole long- tai short-positioiden kasaumaa.</string>
+    <string name="why_leverage_longs_text">Moni lyö vetoa lainarahalla hintojen noususta. Longit maksavat shorteille – likvidaatioiden riski kasvaa, jos hinta laskee.</string>
+    <string name="why_leverage_shorts_text">Moni lyö vetoa lainarahalla hintojen laskusta. Shortit maksavat longeille – jos hinta nousee, short squeeze on mahdollinen.</string>
+    <string name="why_market_calm_text">Tämä kolikko: %1$s 24 h. Markkina tai kolikko eivät juuri liiku.</string>
+    <string name="why_market_leader_text">Suurimpana kolikkona BTC liikkuu yleensä samassa tahdissa muun markkinan kanssa. ETH: %1$s 24 h.</string>
+    <string name="why_market_leader_text_no_eth">Suurimpana kolikkona BTC liikkuu yleensä samassa tahdissa muun markkinan kanssa.</string>
+    <string name="why_market_similar_text">Tämä kolikko: %1$s 24 h:ssa – samaan aikaan markkina liikkuu samaan suuntaan, joskin vähemmän selvästi.</string>
+    <string name="why_market_wide_text">Tämä kolikko: %1$s 24 h – samaan aikaan koko markkina liikkuu selvästi.</string>
+    <string name="why_open_interest_change">Avoimet positiot %1$s edellisestä tarkistuksesta.</string>
+    <string name="why_peg_text">Vakaakolikko: verrattuna 1:1-sidontaan noteerausvaluuttaan, poikkeama %1$s.</string>
+    <string name="why_sentiment_text">Koko kryptomarkkinan Fear &amp; Greed -indeksi, %1$s eiliseen verrattuna.</string>
+    <string name="why_sentiment_text_no_change">Koko kryptomarkkinan Fear &amp; Greed -indeksi.</string>
+    <plurals name="why_trend_falling">
+        <item quantity="one">laskenut %1$d tunnin ajan</item>
+        <item quantity="other">laskenut %1$d tunnin ajan</item>
+    </plurals>
+    <plurals name="why_trend_rising">
+        <item quantity="one">noussut %1$d tunnin ajan</item>
+        <item quantity="other">noussut %1$d tunnin ajan</item>
+    </plurals>
+    <plurals name="why_trend_stable">
+        <item quantity="one">vakaa %1$d tunnin ajan</item>
+        <item quantity="other">vakaa %1$d tunnin ajan</item>
+    </plurals>
+    <string name="why_volatility_high_text">Viime tunti: %1$s – verrattuna viimeisen 24 tunnin tyypilliseen tuntiheilahteluun.</string>
+    <string name="why_volatility_normal_text">Viime tunti: %1$s – tavanomaisissa rajoissa.</string>
+    <string name="why_volatility_tiny_text">Viime tunti: %1$s – epätavallinen tälle kolikolle, mutta absoluuttisesti pieni.</string>
+    <string name="why_volume_estimated_text">Arvio: tämä lähde ei anna vaihtoa rahassa, joten verrataan kaupankäynnin kolikkomääriä.</string>
+    <string name="why_volume_high_text">Viime tunnin aikana on käyty kauppaa paljon tavallista enemmän – liikkeeseen liittyy suuri volyymi.</string>
+    <string name="why_volume_low_text">Liikkeen takana on vähän kauppaa – tällaiset liikkeet ovat usein epävakaampia.</string>
+    <string name="why_volume_normal_text">Viime tunnin kaupankäynti vastaa viimeistä 24 tuntia.</string>
+
+    <!-- «Warum?»: Signal-Punkte (stützt, neutral, Vorsicht) -->
+    <string name="why_dot_caution">koholla</string>
+    <string name="why_dot_neutral">neutraali</string>
+    <string name="why_dot_supports">sopii liikkeeseen</string>
+
+    <!-- «Warum?»: Frische und Quellen der Daten -->
+    <string name="why_data_time">Tiedot ajalta %1$s</string>
+    <string name="why_fresh_breadth">Markkinan laajuus: %1$s · %2$s</string>
+    <string name="why_fresh_candles">Kynttilät: %1$s · %2$s</string>
+    <string name="why_fresh_fng">Fear &amp; Greed: %1$s</string>
+    <string name="why_fresh_futures">Futuurit: %1$s</string>
+    <plurals name="why_fresh_oi_hours">
+        <item quantity="one">open interest verrattuna %1$d tunnin takaiseen</item>
+        <item quantity="other">open interest verrattuna %1$d tunnin takaiseen</item>
+    </plurals>
+    <plurals name="why_fresh_oi_minutes">
+        <item quantity="one">open interest verrattuna %1$d minuutin takaiseen</item>
+        <item quantity="other">open interest verrattuna %1$d minuutin takaiseen</item>
+    </plurals>
+    <string name="why_fresh_today">tänään</string>
+    <string name="why_fresh_yesterday">eilen</string>
+    <string name="why_source_fallback">%1$s (varalähde)</string>
+    <string name="why_source_reference">%1$s (suuntaa antava)</string>
+    <string name="why_sources">Lähteet: pörssin tuntikynttilät (yleensä Binance), futuuridata pörsseiltä, Fear &amp; Greed lähteestä alternative.me.</string>
+    <string name="why_sources_list">Lähteet: %1$s.</string>
+    <string name="why_src_breadth">%1$s (markkinan laajuus)</string>
+    <string name="why_src_candles">%1$s (kynttilät)</string>
+    <string name="why_src_comparison">%1$s (markkinavertailu)</string>
+    <string name="why_src_fng">%1$s (Fear &amp; Greed)</string>
+    <string name="why_src_futures">%1$s (futuurit)</string>
+
+    <!-- Faktor-Checkliste (Crypto Pulse und «Warum?») -->
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">Funding</string>
+    <string name="factor_spoken_volatility">%1$s kertaa tavallinen heilahtelu</string>
+    <string name="factor_spoken_volume">%1$s kertaa tavallinen</string>
+    <string name="factor_volatility">Vaihtelu (1h)</string>
+    <string name="factor_volume">Volyymi</string>
+</resources>

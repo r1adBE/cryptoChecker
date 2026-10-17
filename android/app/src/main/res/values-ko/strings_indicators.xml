@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Neutrale Indikatoren: Titel, Hinweise, Halving -->
+    <string name="neutral_alt_title">알트코인 대 비트코인</string>
+    <string name="neutral_btc_indicators_title">비트코인 지표</string>
+    <string name="neutral_halving_last">지난 반감기: %1$s</string>
+    <string name="neutral_halving_next">다음 반감기는 %1$s 무렵 예상(달력 기준 추정 – 블록 높이를 지금 가져올 수 없음).</string>
+    <string name="neutral_indicators_disclaimer">측정값만 보여주며 평가는 하지 않습니다. 예측이나 투자 조언이 아닙니다.</string>
+    <string name="neutral_onchain_missing">온체인 데이터(Coin Metrics)를 지금은 사용할 수 없습니다.</string>
+
+    <!-- Neutrale Indikatoren: was der Wert misst -->
+    <string name="neutral_explain_ath_distance">가격이 이전 사상 최고가보다 얼마나 낮은지.</string>
+    <string name="neutral_explain_change_30d">오늘 가격과 30일 전 가격의 비교.</string>
+    <string name="neutral_explain_hashrate">30일 평균 해시레이트와 60일 평균의 비교.</string>
+    <string name="neutral_explain_ma200w">최근 200주 종가의 평균.</string>
+    <string name="neutral_explain_mayer">가격을 200일 평균으로 나눈 값.</string>
+    <string name="neutral_explain_mvrv">시가총액을 실현 가치로 나눈 값(온체인).</string>
+    <string name="neutral_explain_pi_gap">111일 평균과 350일 평균의 두 배 비교.</string>
+    <string name="neutral_explain_puell">채굴자 일일 수익을 365일 평균으로 나눈 값.</string>
+    <string name="neutral_explain_rsi_daily">최근 14일의 상대강도지수(0–100).</string>
+    <string name="neutral_explain_rsi_weekly">최근 14주의 상대강도지수(0–100).</string>
+    <string name="neutral_explain_sma50_200">50일 평균과 200일 평균의 비교.</string>
+    <string name="neutral_explain_vs_btc">90일 동안 비트코인 대비 가격 변화.</string>
+
+    <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
+    <string name="neutral_info_alt_season_how">앱은 개수만 보여주고 \"시즌\"이라고 부르지 않습니다. 값은 보통 시간이 아니라 며칠에 걸쳐 바뀝니다.</string>
+    <string name="neutral_info_btc_how">각 값에는 무엇을 측정하는지와 2016년 이후 자체 이력에서 어디쯤인지 한 문장으로 적습니다. 앱은 값을 평가하거나 시장 국면을 도출하지 않으며, 알림 기준은 직접 정한 것뿐입니다. 과거 패턴이 반복된다는 보장은 없습니다.</string>
+    <string name="neutral_info_btc_what">흔히 쓰는 비트코인 지표를 측정값으로만 표시: Mayer Multiple, 200주 평균, 사상 최고가 대비 하락, 30일 변화, Pi Cycle 간격, 온체인 값 MVRV·Puell Multiple·해시레이트.</string>
+    <string name="neutral_info_coin_how">각 값에는 무엇을 측정하는지 한 문장이 붙으며 평가는 하지 않습니다. 가격 이력이 짧은 코인은 일부 값이 없습니다. 여기에는 온체인 데이터가 포함되지 않습니다.</string>
+    <string name="neutral_info_coin_what">선택한 코인에 대해 가격 데이터만으로 같은 지표를 보여줍니다: Mayer Multiple, 200주 평균, 최고가 대비 하락률, 30일 변화, 50/200일 추세, RSI, 90일간 비트코인 대비 강도.</string>
+    <string name="neutral_info_halving_how">다음 반감기는 현재 블록 높이와 진행 중인 난이도 기간의 평균 블록 시간(mempool.space)으로 계산하며, 데이터가 없으면 달력(지난 반감기 + 약 4년)으로 추정합니다. 차트는 과거 사이클의 반감기 이후 가격 흐름으로, 역사일 뿐 예측이 아닙니다.</string>
+
+    <!-- Indikator-Namen -->
+    <string name="ind_cross">추세 50/200일</string>
+    <string name="ind_drawdown">사상 최고가 대비 하락률</string>
+    <string name="ind_missing">데이터 부족</string>
+    <string name="ind_rsi_daily">RSI (일간)</string>
+    <string name="ind_rsi_weekly">RSI (주간)</string>
+    <string name="ind_vs_btc">비트코인 대비 강도 (90일)</string>
+    <string name="neutral_ind_change_30d">30일 변화</string>
+    <string name="neutral_ind_hashrate">해시레이트 30/60일</string>
+    <string name="neutral_ind_ma200w">200주 평균</string>
+    <string name="neutral_ind_pi_gap">Pi Cycle 간격</string>
+
+    <!-- Indikatoren: «hoch heisst …, tief heisst …» -->
+    <string name="ind_read_alt_season">높으면 대형 알트코인 대부분이 90일 동안 비트코인을 앞섰고, 낮으면 비트코인이 대부분을 앞섰다는 뜻입니다.</string>
+    <string name="ind_read_ath_distance">작으면 가격이 최고가에 가깝고, 크면 훨씬 아래에 있다는 뜻입니다.</string>
+    <string name="ind_read_change_30d">플러스면 30일 전보다 높고, 마이너스면 낮다는 뜻입니다.</string>
+    <string name="ind_read_funding">높으면 많은 이가 레버리지로 상승에, 마이너스면 많은 이가 하락에 베팅한다는 뜻입니다.</string>
+    <string name="ind_read_hashrate_30_60">플러스면 연산력이 늘고, 마이너스면 채굴자가 장비를 끄고 있다는 뜻입니다.</string>
+    <string name="ind_read_leverage">롱이 많으면 빌린 돈으로 상승에, 숏이 많으면 하락에 베팅하는 사람이 많다는 뜻입니다.</string>
+    <string name="ind_read_ma200w">가격이 훨씬 위면 긴 상승, 가까우면 깊은 조정을 뜻합니다.</string>
+    <string name="ind_read_mayer">높으면 가격이 200일 평균보다 훨씬 위에, 낮으면 그 아래에 있다는 뜻입니다.</string>
+    <string name="ind_read_mvrv">높으면 가격이 보유자의 평균 매입가보다 훨씬 위, 낮으면 그 근처나 아래라는 뜻입니다.</string>
+    <string name="ind_read_pi_cycle_gap">0에 가까우면 두 평균이 거의 만나고, 크게 마이너스면 멀리 떨어져 있다는 뜻입니다.</string>
+    <string name="ind_read_puell">높으면 채굴자 수입이 평소보다 훨씬 많고, 낮으면 훨씬 적다는 뜻입니다.</string>
+    <string name="ind_read_rsi_daily">70 이상이면 최근 며칠 동안 크게 올랐고, 30 미만이면 크게 내렸다는 뜻입니다.</string>
+    <string name="ind_read_rsi_weekly">70 이상이면 최근 몇 주 동안 크게 올랐고, 30 미만이면 크게 내렸다는 뜻입니다.</string>
+    <string name="ind_read_sma50_vs_200">플러스면 단기 평균이 장기 평균보다 위, 마이너스면 아래라는 뜻입니다.</string>
+    <string name="ind_read_vs_btc">플러스면 비트코인보다 좋았고, 마이너스면 나빴다는 뜻입니다.</string>
+
+    <!-- Indikatoren: Einordnung in die Vergangenheit -->
+    <string name="ind_context_flat30">30일간 같은 가격이면: %1$s</string>
+    <string name="ind_context_note">과거 값과 “같은 가격이면” 계산은 산술일 뿐 예측이 아닙니다.</string>
+    <string name="ind_context_percentile">%1$s 이후 %2$s의 날에 더 낮음</string>
+</resources>

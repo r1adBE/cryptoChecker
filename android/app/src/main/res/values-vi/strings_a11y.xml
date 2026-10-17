@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Screenreader: Zeile eines Paars, Frische, Erreichbarkeit -->
+    <string name="a11y_alarm_count">cảnh báo: %1$d</string>
+    <!-- Alarm des Paars eben ausgelöst (bis 15 Min. danach im Zeilensatz) -->
+    <string name="a11y_alarm_fired">Cảnh báo đã kích hoạt</string>
+    <string name="a11y_collapsed">Đã thu gọn</string>
+    <string name="a11y_converted">khoảng %1$s</string>
+    <string name="a11y_expanded">Đã mở rộng</string>
+    <!-- Vorgelesen bei Zeilen, die eine Website öffnen (Datenschutz, Börse wünschen, Quellcode) -->
+    <string name="a11y_external_link">mở trong trình duyệt</string>
+    <string name="a11y_favorite">Yêu thích</string>
+    <string name="a11y_in_watchlist">Đã có trong danh sách theo dõi</string>
+    <!-- %1$s Börse, letzte Abfrage gescheitert -->
+    <string name="a11y_market_unreachable">Không thể kết nối %1$s</string>
+    <string name="a11y_move_down">Di chuyển xuống</string>
+    <string name="a11y_move_up">Di chuyển lên</string>
+    <string name="a11y_note">ghi chú: %1$s</string>
+    <string name="a11y_price">giá %1$s</string>
+    <string name="a11y_price_notification_off">Thông báo giá đang tắt</string>
+    <string name="a11y_price_notification_on">Thông báo giá đang bật</string>
+    <!-- Frische einer Zeile, Teile mit «, » verbunden: «Kurs veraltet, zuletzt aktualisiert vor 45 Minuten» (A11ySpeech.freshnessText) -->
+    <string name="a11y_price_outdated">Giá đã cũ</string>
+    <!-- Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%1$s trên %2$s</string>
+    <string name="a11y_stale">đã cũ, cập nhật lần cuối %1$s</string>
+    <string name="a11y_warning">Cảnh báo</string>
+
+    <!-- Screenreader: Veränderung (Prozent-Pille, Widgets) -->
+    <!-- %1$s Satz aus a11y_change_up/down/flat: Veränderung über 24 Stunden (Prozent-Pille, Widgets) -->
+    <string name="a11y_change_24h">%1$s trong 24 giờ</string>
+    <!-- Wenn die Pille «—» zeigt (keine Kerzen für das Paar) -->
+    <string name="a11y_change_24h_none">Không có biến động 24 giờ</string>
+    <string name="a11y_change_down">giảm %1$s</string>
+    <string name="a11y_change_flat">không đổi</string>
+    <string name="a11y_change_since_last">%1$s từ lần cập nhật gần nhất</string>
+    <string name="a11y_change_since_last_none">Không có biến động từ lần cập nhật gần nhất</string>
+    <!-- %1$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_change_today">%1$s hôm nay</string>
+    <string name="a11y_change_today_none">Không có biến động hôm nay</string>
+    <string name="a11y_change_today_zone">%1$s từ nửa đêm %2$s</string>
+    <string name="a11y_change_today_zone_none">Không có biến động từ nửa đêm %1$s</string>
+    <string name="a11y_change_up">tăng %1$s</string>
+
+    <!-- Screenreader: Charts und Skalen -->
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">Biểu đồ %1$s: từ %2$s đến %3$s, %4$s. Cao nhất %5$s, thấp nhất %6$s.</string>
+    <string name="a11y_chart_empty">Biểu đồ: không có dữ liệu</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">Chu kỳ %1$s: %2$s kể từ halving, ngày %3$d.</string>
+    <string name="a11y_cycle_bottom">Đáy %1$s vào ngày %2$d.</string>
+    <string name="a11y_cycle_double_bottom">Đáy đôi %1$s vào ngày %2$d.</string>
+    <string name="a11y_cycle_double_top">Đỉnh đôi %1$s vào ngày %2$d.</string>
+    <string name="a11y_cycle_top">Đỉnh %1$s vào ngày %2$d.</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">Thang từ %1$s đến %2$s: %3$d trên 100</string>
+
+    <!-- Screenreader: Puls-Zeile der Merkliste -->
+    <string name="a11y_watchlist_pulse">%1$s, %2$s, trung bình %3$s</string>
+    <string name="a11y_watchlist_pulse_combined">%1$s. %2$s</string>
+    <plurals name="a11y_watchlist_pulse_falling">
+        <item quantity="other">%1$d giảm</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing">
+        <item quantity="other">%1$d cặp không có giá trị 24 giờ</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="other">%1$d cặp không có giá trị cho hôm nay</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_rising">
+        <item quantity="other">%1$d cặp tăng</item>
+    </plurals>
+
+    <!-- Screenreader: zuletzt aktualisiert -->
+    <plurals name="a11y_updated_days">
+        <item quantity="other">cập nhật lần cuối %1$d ngày trước</item>
+    </plurals>
+    <plurals name="a11y_updated_hours">
+        <item quantity="other">cập nhật lần cuối %1$d giờ trước</item>
+    </plurals>
+    <string name="a11y_updated_just_now">cập nhật lần cuối vừa xong</string>
+    <plurals name="a11y_updated_minutes">
+        <item quantity="other">cập nhật lần cuối %1$d phút trước</item>
+    </plurals>
+
+    <!-- Screenreader: Portfolio und Portfolio-Widget -->
+    <string name="a11y_amount_hidden">số tiền bị ẩn</string>
+    <!-- %1$s Kürzel, %2$s Wert mit Währung, %3$s Anteil «62.3%», %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_portfolio_position">%1$s %2$s, %3$s danh mục</string>
+    <!-- Position im Portfolio-Widget: %1$s Kürzel, %2$s Anteil «62.3%», %3$s Satz aus a11y_change_24h -->
+    <string name="a11y_portfolio_position_24h">%1$s, %2$s danh mục, %3$s</string>
+    <string name="a11y_portfolio_positions">Vị thế lớn nhất: %1$s</string>
+    <string name="a11y_portfolio_show_amounts">Hiện số tiền</string>
+</resources>

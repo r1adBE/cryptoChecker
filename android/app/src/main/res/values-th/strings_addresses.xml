@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: beobachtete Adressen (Wallets) -->
+    <string name="portfolio_address_add">เพิ่มที่อยู่</string>
+    <string name="portfolio_address_count">นับรวม</string>
+    <string name="portfolio_address_error">อัปเดตไม่สำเร็จ</string>
+    <string name="portfolio_address_hint">ที่อยู่สาธารณะ (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) หรือ xpub</string>
+    <string name="portfolio_address_label">ป้ายชื่อ (ไม่บังคับ)</string>
+    <string name="portfolio_address_not_since_buy">จากที่อยู่ · ไม่รวมใน «ตั้งแต่ซื้อ»: %1$s</string>
+    <string name="portfolio_address_overlap">มีในรายการของคุณเองด้วย: %1$s – ทั้งสองจะถูกรวมกัน เป็นเหรียญเดียวกันหรือไม่? เลือก «แสดงอย่างเดียว»</string>
+    <string name="portfolio_address_overlap_ask">คุณบันทึก %1$s ด้วยรายการของคุณเองอยู่แล้ว จะรวมยอดของที่อยู่นี้ในพอร์ตหรือแค่แสดงเท่านั้น?</string>
+    <string name="portfolio_address_overlap_auto">«%1$s» จะแสดงอย่างเดียวและไม่นับรวมแล้ว – %2$s มีอยู่ในรายการของคุณด้วย</string>
+    <string name="portfolio_address_overlap_restored">«%1$s» ถูกนับรวมอีกครั้ง – จำนวนไม่ตรงกับรายการของคุณ หากเป็นเหรียญเดียวกันให้เลือก «แสดงอย่างเดียว»</string>
+    <string name="portfolio_address_overlap_title">เหรียญเดียวกับในรายการของคุณหรือไม่?</string>
+    <string name="portfolio_address_overlap_tx">จำนวนเท่ากับการฝาก/โอนย้ายของคุณเอง (%1$s) – อาจถูกนับซ้ำ</string>
+    <string name="portfolio_address_period_observed">ที่อยู่ที่ติดตามจะนับตั้งแต่ยอดคงเหลือแรกที่พบ การเปลี่ยนแปลงหลังจากนั้นเป็นเงินเข้า/ออก ไม่ใช่กำไร</string>
+    <string name="portfolio_address_privacy">ส่งเฉพาะที่อยู่สาธารณะไปยัง %1$s – ไม่ส่งคีย์หรือ seed phrase เด็ดขาด ผู้ให้บริการจะเห็นที่อยู่นี้พร้อมที่อยู่ IP ของคุณ ตรวจสอบไม่บ่อยกว่าทุก 10 นาที</string>
+    <string name="portfolio_address_remove">ลบที่อยู่</string>
+    <string name="portfolio_address_show_only">แสดงอย่างเดียว ไม่รวมในพอร์ต</string>
+    <string name="portfolio_address_show_only_short">แสดงอย่างเดียว</string>
+    <string name="portfolio_address_tokens">นับรวมโทเคน</string>
+    <string name="portfolio_address_unknown_tokens">+%1$d โทเคนที่ไม่รู้จัก (ไม่นับรวม)</string>
+    <string name="portfolio_address_xpub_privacy">xpub เปิดเผยที่อยู่ทั้งหมดของวอลเล็ตนี้ ที่อยู่จะถูกสร้างบนอุปกรณ์ของคุณ ส่งไปยัง %1$s เฉพาะที่อยู่ทีละรายการ – การค้นหาครั้งแรกอย่างน้อย 40 คำขอ หลังจากนั้นน้อยลง ไม่รับคีย์ส่วนตัว (xprv) เด็ดขาด</string>
+    <string name="portfolio_address_xpub_used">ที่อยู่ที่ใช้งาน: %1$d</string>
+    <string name="portfolio_addresses_title">ที่อยู่</string>
+
+    <!-- Prüfung einer eingegebenen Adresse -->
+    <string name="address_bch_unsupported">ไม่สามารถติดตามที่อยู่ Bitcoin Cash ได้: ไม่มีบริการสาธารณะฟรีที่ไม่ต้องใช้คีย์ API ซึ่งเงื่อนไขอนุญาต</string>
+    <string name="address_bep2_shutdown">BNB Beacon Chain (BEP-2) ปิดตัวในปี 2024 – ยอดคงเหลืออยู่บน BNB Smart Chain (0x…) แล้ว</string>
+    <string name="address_checksum">ผลรวมตรวจสอบไม่ถูกต้อง – พิมพ์ผิดหรือไม่</string>
+    <string name="address_doge_unsupported">ไม่สามารถติดตามที่อยู่ Dogecoin ได้: ไม่มีบริการสาธารณะฟรีที่ไม่ต้องใช้คีย์ API ซึ่งเงื่อนไขอนุญาต</string>
+    <string name="address_duplicate">เพิ่มที่อยู่นี้แล้ว</string>
+    <string name="address_ens">ไม่รองรับชื่อ ENS – กรอกที่อยู่ 0x</string>
+    <string name="address_invalid">ไม่ใช่ที่อยู่ที่ถูกต้องของเครือข่ายที่รองรับ</string>
+    <string name="address_limit">สูงสุด 20 ที่อยู่</string>
+    <string name="address_secret">ดูเหมือนคีย์ส่วนตัวหรือ seed phrase – อย่ากรอกที่ไหนเด็ดขาด ใช้เฉพาะที่อยู่สาธารณะ</string>
+    <string name="address_testnet">ไม่รองรับที่อยู่ Testnet</string>
+    <string name="address_unsupported">ไม่รองรับที่อยู่ประเภทนี้</string>
+    <string name="address_wrong_chain">ที่อยู่นี้เป็นของเครือข่ายอื่น</string>
+    <string name="address_xpub_multisig">ไม่รองรับคีย์ multisig (Ypub/Zpub)</string>
+</resources>

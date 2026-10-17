@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Begrüssung beim ersten Start -->
+    <string name="welcome_alert">提醒——价格、百分比、成交量和异常波动</string>
+    <string name="welcome_alert_q">何时提醒？</string>
+    <string name="welcome_text">你的行情。你的提醒。你的概览。\n无需账户。没有广告。不做追踪。</string>
+    <string name="welcome_understand">理解——此刻有什么在随某个价格一起波动</string>
+    <string name="welcome_understand_q">哪些在同步波动？</string>
+    <string name="welcome_watch">关注——你的币种、行情和走势</string>
+    <string name="welcome_watch_q">发生了什么？</string>
+
+    <!-- Start-Coins (Vorschlagsliste nach der Begrüssung) -->
+    <string name="starter_add_selected">加入自选 (%1$d)</string>
+    <string name="starter_loading_prices">正在加载价格…</string>
+    <string name="starter_search_coin">搜索其他币种</string>
+    <string name="starter_select_all">全选</string>
+    <string name="starter_select_none">全不选</string>
+    <string name="starter_text">取消不需要的，其余一次性全部添加。交易所和交易对稍后可以更改。</string>
+    <string name="starter_title">从这些币种开始</string>
+    <string name="starter_watch_alarm_hint">关注价格，设置提醒</string>
+</resources>

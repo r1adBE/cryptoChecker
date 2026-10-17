@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Aktionsblatt: Kurs-Chart (Zeitraum, Kerzenwerte beim Ziehen, Umrechnung) und «Mehr» -->
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s Zeitraum kurz (widget_range_short_24h/7d/30d) -->
+    <string name="sheet_chart_change">%1$s în %2$s</string>
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s change_short_today(_zone) -->
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="sheet_chart_close">Închidere</string>
+    <string name="sheet_chart_converted_current">%1$s, convertit (curs actual)</string>
+    <!-- Zeile unter dem Chart, %1$s = umgerechnete Reihe («BTC/USDT») -->
+    <string name="sheet_chart_converted_daily">%1$s, convertit la cursurile zilnice</string>
+    <!-- Keine Kerzen für das Paar -->
+    <string name="sheet_chart_no_data">Nu există date de preț pentru această pereche</string>
+    <!-- Kerzenwerte beim Ziehen (Hoch/Tief: ticker_high/ticker_low) -->
+    <string name="sheet_chart_open">Deschidere</string>
+    <!-- Zeitraum-Chip statt «24h» bei Tages-Basis -->
+    <string name="sheet_chart_today">Azi</string>
+    <!-- Umsatz der Kerze beim Ziehen; %1$s z. B. «12.3M USDT» -->
+    <string name="sheet_chart_volume">Vol. %1$s</string>
+    <string name="sheet_more">Mai mult</string>
+
+    <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
+    <string name="ticker_ask">Ofertă</string>
+    <string name="ticker_bid">Cerere</string>
+    <string name="ticker_high">Maxim</string>
+    <string name="ticker_low">Minim</string>
+    <string name="ticker_timestamp">Ora</string>
+    <string name="ticker_vol_base">Volum (bază)</string>
+    <string name="ticker_vol_quote">Volum (cotare)</string>
+
+    <!-- Basis der %-Änderung (Prozent-Pille, Chart, Widgets) -->
+    <string name="change_basis_device">%1$s, 00:00 (fusul orar al dispozitivului)</string>
+    <string name="change_basis_local">De la 00:00 ora locală</string>
+    <string name="change_basis_rolling">Ultimele 24 h</string>
+    <!-- Letzter gegen vorherigen Kurs des Paars; ausgeschrieben (Auswahl). Kurz neben Pille und Widgets: change_short_since_last -->
+    <string name="change_basis_since_last">De la ultima actualizare</string>
+    <string name="change_basis_utc_zone">De la 00:00 %1$s</string>
+    <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
+    <string name="change_candle_source">Variație după lumânările %1$s</string>
+    <string name="change_short_since_last">ultima actualizare</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
+    <string name="change_short_today">azi</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 einer gewählten Zeitzone; %1$s = Zeitzone (z. B. UTC) -->
+    <string name="change_short_today_zone">azi %1$s</string>
+
+    <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
+    <string name="market_data_empty_error">Nu s-au primit date de la bursă.</string>
+    <string name="market_data_summary">Capitalizare, taxe gas, date economice, analiza monedelor</string>
+    <string name="market_data_tab_futures">Futures</string>
+    <string name="market_data_title">Date de piață</string>
+
+    <!-- Marktdaten Spot (Marktkapitalisierung, Angebot, Volumen) -->
+    <string name="spot_circulating">Ofertă în circulație</string>
+    <string name="spot_fdv">FDV</string>
+    <string name="spot_market_cap">Capitalizare</string>
+    <string name="spot_max_supply">Ofertă maximă</string>
+    <string name="spot_no_data">Nu există date spot pentru această monedă</string>
+    <string name="spot_source_updated">Sursă: %1$s · la %2$s</string>
+    <string name="spot_supply_of_max">%1$s din oferta maximă în circulație</string>
+    <string name="spot_total_supply">Ofertă totală</string>
+    <string name="spot_vol_mcap">Vol./Cap.</string>
+    <string name="spot_volume_24h">Volum (24h)</string>
+
+    <!-- Futures-Kennzahlen (Funding, Open Interest, Referenzbörse) -->
+    <string name="futures_alarm_reference">Valoare orientativă %1$s</string>
+    <string name="futures_funding">Rata de finanțare</string>
+    <string name="futures_funding_interval_unknown">interval necunoscut</string>
+    <string name="futures_funding_per8h_equiv">= %1$s la 8 ore (ca în alarme)</string>
+    <!-- Einheit neben der Funding-Pille, wenn die Börse stündlich abrechnet (Hyperliquid) -->
+    <string name="futures_funding_per_hour">pe oră</string>
+    <string name="futures_funding_per_hours">la %1$d ore</string>
+    <string name="futures_next_funding">următoarea în %1$d h %2$d min</string>
+    <string name="futures_no_data">Nu există date futures pentru această monedă</string>
+    <string name="futures_open_interest">Interes deschis</string>
+    <!-- Futures-Kennzahlen von einer anderen Börse als der beobachteten (Richtwert) -->
+    <string name="futures_reference_hint">Valoare orientativă de la %1$s – funding-ul și open interest diferă de la o bursă la alta; pe %2$s pot fi diferite.</string>
+    <string name="futures_reference_spot">Valoare orientativă de la %1$s (perpetual USDT al monedei)</string>
+    <string name="futures_source">Sursă: %1$s</string>
+
+    <!-- Erklärungen hinter dem ⓘ-Knopf -->
+    <string name="explain_funding">Mulți pariază cu bani împrumutați pe creșterea sau scăderea prețurilor. Taxă între pozițiile long și short. Puternic pozitivă înseamnă că mulți pariază pe creșterea prețurilor.</string>
+    <string name="explain_open_interest">Futures sunt pariuri pe preț, adesea cu bani împrumutați. Valoarea tuturor pozițiilor futures deschise. Dacă crește, mai mulți bani pariază pe mișcare.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">Explicație</string>
+    <string name="explain_spot_fdv">Evaluare complet diluată: preț × oferta maximă (sau totală, dacă nu există limită).</string>
+    <string name="explain_spot_market_cap">Preț × oferta în circulație. Pastila arată variația pe 24 de ore.</string>
+    <string name="explain_spot_source">Cifre de pe toate bursele în dolari americani, de la CoinGecko.</string>
+    <string name="explain_spot_supply">În circulație: monede aflate acum pe piață. Totală: toate monedele create minus cele arse. Maximă: cel mai mult care poate exista vreodată.</string>
+    <string name="explain_spot_volume">Valoarea tranzacționată în 24 de ore. Vol./Cap.: volumul raportat la capitalizare — mare înseamnă tranzacționare foarte activă.</string>
+
+    <!-- Umrechnung und Sats -->
+    <string name="converted_fx_stale">%1$s · curs %2$s</string>
+    <string name="sats_per_unit">%1$s %2$s = %3$s sats</string>
+</resources>

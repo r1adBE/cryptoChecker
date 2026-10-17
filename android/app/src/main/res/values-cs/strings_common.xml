@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">Zpět</string>
+    <string name="action_cancel">Zrušit</string>
+    <string name="action_clear">Vymazat</string>
+    <string name="action_close">Zavřít</string>
+    <string name="action_delete">Smazat</string>
+    <string name="action_edit">Upravit</string>
+    <string name="action_more">Další možnosti</string>
+    <string name="action_refresh">Obnovit</string>
+    <string name="action_retry">Zkusit znovu</string>
+    <string name="action_save">Uložit</string>
+    <string name="action_sort">Seřadit</string>
+    <string name="action_sort_done">Hotovo</string>
+    <string name="action_undo">Zpět</string>
+    <string name="action_view">Zobrazit</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">Trh</string>
+    <string name="tab_portfolio">Portfolio</string>
+    <string name="tab_settings">Nastavení</string>
+    <string name="tab_watchlist">Seznam</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">Chyba: %1$s</string>
+    <string name="error_market_unreachable">Burza je teď nedostupná – poslední ceny zůstávají vidět.</string>
+    <string name="error_market_unreachable_short">Burza je teď nedostupná</string>
+    <string name="loading_hint">Načítání…</string>
+    <string name="no_internet_connection">Žádné připojení k internetu</string>
+    <string name="option_off">Vyp.</string>
+    <string name="something_went_wrong">Něco se pokazilo</string>
+    <string name="time_just_now">právě teď</string>
+    <string name="timeout_error_message">Burza právě neodpovídá.</string>
+    <string name="try_again">Zkusit znovu</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">Bez připojení</string>
+    <string name="offline_status_since">Bez připojení · stav k %1$s</string>
+    <string name="status_live">Živě</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">Přidat pár</string>
+    <string name="shortcut_alarms">Všechny alarmy</string>
+    <string name="shortcut_cycle">Trh</string>
+</resources>

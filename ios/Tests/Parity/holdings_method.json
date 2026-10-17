@@ -1,0 +1,728 @@
+{
+  "description": "Bestand je Einstandsmethode überall gleich (PortfolioHoldingsBook in PortfolioLedger.kt/.swift, PortfolioCalculator.holdingsAt): Karte (position.ledgerHoldingsExact), Stichtag (CutoffExport.holdingsAt), «7 T» (PortfolioPeriodChange.gain) und Wertverlauf (PortfolioHistory.build) rechnen mit denselben Mengen. FIFO je Wallet: Abgang gekappt auf die Wallet, ungedeckter Rest nimmt nichts aus anderen Wallets. Zeiten in ms (UTC), today = UTC-Tag, closes = Tagesschluss USDT je Tag, live = aktueller Kurs. holdings = erwarteter eigener Bestand (Text, exakt) je Methode bei cutoff (null = alle Transaktionen); weekGain = «7 T» in USDT; historyLast/historyPnl = letzter Punkt bzw. Gewinn/Verlust des Wertverlaufs «7 T». disposals (optional) je Coin aus PortfolioCalculator.disposals: proceeds = Erlös der gedeckten Teile, uncoveredProceeds = Erlös des ungedeckten Rests (Text, exakt), realized/incomplete der Karte (CoinPosition.realizedExact/realizedIncomplete). feeRows (optional) = Zeilen mit Vermerk «Gebühr» im Steuer-Export (TaxExport.gainRows, Jahr des Verkaufs, UTC, USD; CSV-Zeile «Fee» = Verkauf zum Preis 0 = Kennzeichen, bewertet zum Tagesschluss aus closes: disposals/realized über PortfolioLedger.valueFeeDisposals, Steuer-Export mit priceAt aus closes).",
+  "cases": [
+    {
+      "name": "FIFO je Wallet: Verkauf grösser als Binance-Bestand",
+      "today": 20000,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "100",
+          "time": 1726315200000,
+          "exchange": "Binance"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "100",
+          "time": 1726401600000,
+          "exchange": "Kraken"
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "2",
+          "price": "120",
+          "time": 1727784000000,
+          "exchange": "Binance"
+        }
+      ],
+      "closes": {
+        "BTC": {
+          "19975": 110,
+          "19976": 110,
+          "19977": 110,
+          "19978": 110,
+          "19979": 110,
+          "19980": 110,
+          "19981": 110,
+          "19982": 110,
+          "19983": 110,
+          "19984": 110,
+          "19985": 110,
+          "19986": 110,
+          "19987": 110,
+          "19988": 110,
+          "19989": 110,
+          "19990": 110,
+          "19991": 110,
+          "19992": 110,
+          "19993": 110,
+          "19994": 110,
+          "19995": 110,
+          "19996": 110,
+          "19997": 110,
+          "19998": 110,
+          "19999": 110
+        }
+      },
+      "live": {
+        "BTC": 130
+      },
+      "methods": {
+        "FIFO_WALLET": {
+          "holdings": {
+            "BTC": "1"
+          },
+          "weekGain": 30,
+          "historyLast": 130,
+          "historyPnl": 30
+        },
+        "FIFO": {
+          "holdings": {},
+          "weekGain": 20,
+          "historyLast": 0,
+          "historyPnl": 20
+        },
+        "AVERAGE": {
+          "holdings": {},
+          "weekGain": 20,
+          "historyLast": 0,
+          "historyPnl": 20
+        }
+      }
+    },
+    {
+      "name": "Umbuchung, Gebühr im dritten Coin, Tausch",
+      "today": 20000,
+      "trades": [
+        {
+          "id": 5,
+          "coin": "BNB",
+          "type": "BUY",
+          "amount": "0.05",
+          "price": "500",
+          "time": 1725451200000,
+          "exchange": "Kraken"
+        },
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "100",
+          "time": 1725537600000,
+          "exchange": "Binance"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "0.5",
+          "price": "200",
+          "time": 1725624000000,
+          "exchange": "Kraken"
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "TRANSFER",
+          "amount": "0.3",
+          "price": null,
+          "time": 1725710400000,
+          "fee": "0.01",
+          "feeUnit": "COIN",
+          "transferFrom": "Binance",
+          "transferTo": "kraken "
+        },
+        {
+          "id": 4,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "1",
+          "price": "300",
+          "time": 1725883200000,
+          "exchange": "Kraken",
+          "feeCoin": "BNB",
+          "feeCoinAmount": "0.1",
+          "feeCoinPrice": "500"
+        },
+        {
+          "id": 6,
+          "coin": "BTC",
+          "type": "SWAP",
+          "amount": "0.1",
+          "price": null,
+          "time": 1725969600000,
+          "exchange": "Binance",
+          "toCoin": "ETH",
+          "toAmount": "2",
+          "swapValue": "30"
+        }
+      ],
+      "cutoffs": [
+        {
+          "cutoff": 1725796800000,
+          "methods": {
+            "FIFO_WALLET": {
+              "BNB": "0.05",
+              "BTC": "1.49"
+            },
+            "FIFO": {
+              "BNB": "0.05",
+              "BTC": "1.49"
+            },
+            "AVERAGE": {
+              "BNB": "0.05",
+              "BTC": "1.49"
+            }
+          }
+        },
+        {
+          "cutoff": null,
+          "methods": {
+            "FIFO_WALLET": {
+              "BTC": "0.59",
+              "ETH": "2"
+            },
+            "FIFO": {
+              "BTC": "0.39",
+              "ETH": "2"
+            },
+            "AVERAGE": {
+              "BTC": "0.39",
+              "ETH": "2"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Teilverkauf über Bestand mit Gebühr USDT",
+      "today": 20000,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "100",
+          "time": 1726315200000
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "2",
+          "price": "150",
+          "time": 1727784000000,
+          "fee": "10",
+          "feeUnit": "QUOTE"
+        }
+      ],
+      "closes": {
+        "BTC": {
+          "19975": 110,
+          "19976": 110,
+          "19977": 110,
+          "19978": 110,
+          "19979": 110,
+          "19980": 110,
+          "19981": 110,
+          "19982": 110,
+          "19983": 110,
+          "19984": 110,
+          "19985": 110,
+          "19986": 110,
+          "19987": 110,
+          "19988": 110,
+          "19989": 110,
+          "19990": 110,
+          "19991": 110,
+          "19992": 110,
+          "19993": 110,
+          "19994": 110,
+          "19995": 110,
+          "19996": 110,
+          "19997": 110,
+          "19998": 110,
+          "19999": 110
+        }
+      },
+      "live": {
+        "BTC": 130
+      },
+      "methods": {
+        "FIFO": {
+          "holdings": {},
+          "weekGain": 35,
+          "historyLast": 0,
+          "historyPnl": 35,
+          "disposals": {
+            "BTC": {
+              "proceeds": "145",
+              "uncoveredProceeds": "145",
+              "realized": "45",
+              "incomplete": true
+            }
+          }
+        },
+        "FIFO_WALLET": {
+          "holdings": {},
+          "weekGain": 35,
+          "historyLast": 0,
+          "historyPnl": 35,
+          "disposals": {
+            "BTC": {
+              "proceeds": "145",
+              "uncoveredProceeds": "145",
+              "realized": "45",
+              "incomplete": true
+            }
+          }
+        },
+        "AVERAGE": {
+          "holdings": {},
+          "weekGain": 35,
+          "historyLast": 0,
+          "historyPnl": 35,
+          "disposals": {
+            "BTC": {
+              "proceeds": "145",
+              "uncoveredProceeds": "145",
+              "realized": "45",
+              "incomplete": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Teilverkauf über Bestand mit Gebühr im dritten Coin",
+      "today": 20000,
+      "trades": [
+        {
+          "id": 5,
+          "coin": "BNB",
+          "type": "BUY",
+          "amount": "0.02",
+          "price": "500",
+          "time": 1726315200000
+        },
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "100",
+          "time": 1726315200000
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "2",
+          "price": "150",
+          "time": 1727784000000,
+          "feeCoin": "BNB",
+          "feeCoinAmount": "0.02",
+          "feeCoinPrice": "500"
+        }
+      ],
+      "closes": {
+        "BTC": {
+          "19975": 110,
+          "19976": 110,
+          "19977": 110,
+          "19978": 110,
+          "19979": 110,
+          "19980": 110,
+          "19981": 110,
+          "19982": 110,
+          "19983": 110,
+          "19984": 110,
+          "19985": 110,
+          "19986": 110,
+          "19987": 110,
+          "19988": 110,
+          "19989": 110,
+          "19990": 110,
+          "19991": 110,
+          "19992": 110,
+          "19993": 110,
+          "19994": 110,
+          "19995": 110,
+          "19996": 110,
+          "19997": 110,
+          "19998": 110,
+          "19999": 110
+        },
+        "BNB": {
+          "19975": 500,
+          "19976": 500,
+          "19977": 500,
+          "19978": 500,
+          "19979": 500,
+          "19980": 500,
+          "19981": 500,
+          "19982": 500,
+          "19983": 500,
+          "19984": 500,
+          "19985": 500,
+          "19986": 500,
+          "19987": 500,
+          "19988": 500,
+          "19989": 500,
+          "19990": 500,
+          "19991": 500,
+          "19992": 500,
+          "19993": 500,
+          "19994": 500,
+          "19995": 500,
+          "19996": 500,
+          "19997": 500,
+          "19998": 500,
+          "19999": 500
+        }
+      },
+      "live": {
+        "BTC": 130,
+        "BNB": 500
+      },
+      "methods": {
+        "FIFO": {
+          "holdings": {},
+          "weekGain": 35,
+          "historyLast": 0,
+          "historyPnl": 35,
+          "disposals": {
+            "BTC": {
+              "proceeds": "145",
+              "uncoveredProceeds": "145",
+              "realized": "45",
+              "incomplete": true
+            }
+          }
+        },
+        "FIFO_WALLET": {
+          "holdings": {},
+          "weekGain": 35,
+          "historyLast": 0,
+          "historyPnl": 35,
+          "disposals": {
+            "BTC": {
+              "proceeds": "145",
+              "uncoveredProceeds": "145",
+              "realized": "45",
+              "incomplete": true
+            }
+          }
+        },
+        "AVERAGE": {
+          "holdings": {},
+          "weekGain": 35,
+          "historyLast": 0,
+          "historyPnl": 35,
+          "disposals": {
+            "BTC": {
+              "proceeds": "145",
+              "uncoveredProceeds": "145",
+              "realized": "45",
+              "incomplete": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Gebühr im Coin über Bestand",
+      "today": 20000,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "100",
+          "time": 1726315200000
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "1",
+          "price": "120",
+          "time": 1727784000000,
+          "fee": "0.01",
+          "feeUnit": "COIN"
+        }
+      ],
+      "closes": {
+        "BTC": {
+          "19975": 110,
+          "19976": 110,
+          "19977": 110,
+          "19978": 110,
+          "19979": 110,
+          "19980": 110,
+          "19981": 110,
+          "19982": 110,
+          "19983": 110,
+          "19984": 110,
+          "19985": 110,
+          "19986": 110,
+          "19987": 110,
+          "19988": 110,
+          "19989": 110,
+          "19990": 110,
+          "19991": 110,
+          "19992": 110,
+          "19993": 110,
+          "19994": 110,
+          "19995": 110,
+          "19996": 110,
+          "19997": 110,
+          "19998": 110,
+          "19999": 110
+        }
+      },
+      "live": {
+        "BTC": 130
+      },
+      "methods": {
+        "FIFO": {
+          "holdings": {},
+          "weekGain": 10,
+          "historyLast": 0,
+          "historyPnl": 10,
+          "disposals": {
+            "BTC": {
+              "proceeds": "120",
+              "uncoveredProceeds": "0",
+              "realized": "20",
+              "incomplete": true
+            }
+          }
+        },
+        "FIFO_WALLET": {
+          "holdings": {},
+          "weekGain": 10,
+          "historyLast": 0,
+          "historyPnl": 10,
+          "disposals": {
+            "BTC": {
+              "proceeds": "120",
+              "uncoveredProceeds": "0",
+              "realized": "20",
+              "incomplete": true
+            }
+          }
+        },
+        "AVERAGE": {
+          "holdings": {},
+          "weekGain": 8.81188118811881,
+          "historyLast": 0,
+          "historyPnl": 8.81188118811881,
+          "disposals": {
+            "BTC": {
+              "proceeds": "118.8118811881188118811881188118812",
+              "uncoveredProceeds": "1.1881188118811881188118811881188",
+              "realized": "18.8118811881188118811881188118812",
+              "incomplete": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "CSV-Gebühr-Zeile: Veräusserung zum Tageskurs (Schluss 110: Erlös 11, realisiert +1; Abfluss 11 im Verlauf)",
+      "today": 20000,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "100",
+          "time": 1726315200000
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "0.1",
+          "price": "0",
+          "importKey": "csv:fee:550",
+          "time": 1727784000000,
+          "note": "Fee"
+        }
+      ],
+      "closes": {
+        "BTC": {
+          "19975": 110,
+          "19976": 110,
+          "19977": 110,
+          "19978": 110,
+          "19979": 110,
+          "19980": 110,
+          "19981": 110,
+          "19982": 110,
+          "19983": 110,
+          "19984": 110,
+          "19985": 110,
+          "19986": 110,
+          "19987": 110,
+          "19988": 110,
+          "19989": 110,
+          "19990": 110,
+          "19991": 110,
+          "19992": 110,
+          "19993": 110,
+          "19994": 110,
+          "19995": 110,
+          "19996": 110,
+          "19997": 110,
+          "19998": 110,
+          "19999": 110
+        }
+      },
+      "live": {
+        "BTC": 130
+      },
+      "methods": {
+        "FIFO": {
+          "holdings": {
+            "BTC": "0.9"
+          },
+          "weekGain": 18,
+          "historyLast": 117,
+          "historyPnl": 18,
+          "feeRows": 1,
+          "disposals": {
+            "BTC": {
+              "proceeds": "11",
+              "uncoveredProceeds": "0",
+              "realized": "1",
+              "incomplete": false
+            }
+          }
+        },
+        "FIFO_WALLET": {
+          "holdings": {
+            "BTC": "0.9"
+          },
+          "weekGain": 18,
+          "historyLast": 117,
+          "historyPnl": 18,
+          "feeRows": 1,
+          "disposals": {
+            "BTC": {
+              "proceeds": "11",
+              "uncoveredProceeds": "0",
+              "realized": "1",
+              "incomplete": false
+            }
+          }
+        },
+        "AVERAGE": {
+          "holdings": {
+            "BTC": "0.9"
+          },
+          "weekGain": 18,
+          "historyLast": 117,
+          "historyPnl": 18,
+          "feeRows": 1,
+          "disposals": {
+            "BTC": {
+              "proceeds": "11",
+              "uncoveredProceeds": "0",
+              "realized": "1",
+              "incomplete": false
+            }
+          }
+        }
+      }
+    }
+  ],
+  "realizedDescription": "realizedIncomplete der Karte (CoinPosition.realizedIncomplete) aus denselben Veräusserungen wie der Steuer-Export: ein Teil ohne Einstand oder Erlös (auch die Gebühr im Coin aus einem Posten ohne Kaufpreis) → unvollständig. realized = bekannter Teil (USDT).",
+  "realized": [
+    {
+      "name": "Gebühr im Coin verbraucht nur Posten ohne Kaufpreis",
+      "coin": "BTC",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "100",
+          "time": 1725451200000
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "DEPOSIT",
+          "amount": "1",
+          "price": null,
+          "time": 1725537600000
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "1",
+          "price": "150",
+          "time": 1725624000000,
+          "fee": "0.1",
+          "feeUnit": "COIN"
+        }
+      ],
+      "methods": {
+        "FIFO": {
+          "incomplete": true,
+          "realized": "50"
+        },
+        "FIFO_WALLET": {
+          "incomplete": true,
+          "realized": "50"
+        }
+      }
+    },
+    {
+      "name": "ohne Gebühr nur Posten mit Kaufpreis",
+      "coin": "BTC",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "100",
+          "time": 1725451200000
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "DEPOSIT",
+          "amount": "1",
+          "price": null,
+          "time": 1725537600000
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "1",
+          "price": "150",
+          "time": 1725624000000
+        }
+      ],
+      "methods": {
+        "FIFO": {
+          "incomplete": false,
+          "realized": "50"
+        },
+        "FIFO_WALLET": {
+          "incomplete": false,
+          "realized": "50"
+        }
+      }
+    }
+  ]
+}

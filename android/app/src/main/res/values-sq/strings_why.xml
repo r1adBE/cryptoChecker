@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Warum bewegt sich das?»: Titel, Abschnitte, Aufklappen -->
+    <string name="why_action">Çfarë lëviz bashkë?</string>
+    <string name="why_all_values">Të gjitha vlerat dhe burimet</string>
+    <string name="why_all_values_hint">Vëzhgim · Shpjegim i mundshëm · Burimet</string>
+    <string name="why_details">Shfaq detajet</string>
+    <string name="why_details_hide">Fshih detajet</string>
+    <string name="why_disclaimer">Vlerësim automatik nga të dhënat e tregut: tregon çfarë ndodh në të njëjtën kohë, jo provë për një shkak.</string>
+    <string name="why_footer_short">Njëkohësisht nuk do të thotë shkak · Jo këshillë investimi</string>
+    <string name="why_no_data">Nuk ka të dhëna nga Binance për këtë çift</string>
+    <string name="why_no_data_hint">Çmimi, vëllimi dhe luhatshmëria vijnë nga qirinjtë orarë të Binance.</string>
+    <string name="why_ref_alts">Alts</string>
+    <string name="why_section_context">Lexim i mundshëm</string>
+    <string name="why_section_observation">Vëzhgim</string>
+    <string name="why_title">Çfarë lëviz bashkë?</string>
+    <string name="why_title_coin">Çfarë lëviz bashkë me %1$s?</string>
+
+    <!-- «Warum?»: Kurz gesagt (ein Satz oben) -->
+    <string name="why_brief_head">Shkurt · Në %1$s</string>
+    <string name="why_brief_label">Shkurt:</string>
+    <string name="why_summary_against">Monedha lëviz kundër tregut.</string>
+    <string name="why_summary_calm">Asnjë lëvizje e dukshme: tregu dhe monedha janë të qetë.</string>
+    <string name="why_summary_coin">Lëviz vetëm kjo monedhë – ndoshta diçka që prek vetëm këtë monedhë.</string>
+    <string name="why_summary_coin_volume">Lëviz vetëm kjo monedhë, me vëllim më të lartë – ndoshta diçka që prek vetëm këtë monedhë.</string>
+    <string name="why_summary_longs">Futures: shumë pozicione long me levë.</string>
+    <string name="why_summary_market">Lëvizja përkon në kohë me tregun në tërësi.</string>
+    <string name="why_summary_market_volume">Lëvizja përkon në kohë me vëllim më të lartë tregtimi dhe një treg që lëviz gjerësisht.</string>
+    <string name="why_summary_peg_near">Çmimi është afër lidhjes së tij 1:1.</string>
+    <string name="why_summary_peg_off">Çmimi devijon dukshëm nga lidhja e tij 1:1.</string>
+    <string name="why_summary_shorts">Futures: shumë pozicione short.</string>
+    <string name="why_summary_thin">Lëvizja është e dobët: pak vëllim pas saj.</string>
+
+    <!-- «Warum?»: Faktorliste (Titel der Faktoren) -->
+    <string name="why_f_against">Kundër tregut</string>
+    <string name="why_f_coin_only">Vetëm kjo monedhë</string>
+    <string name="why_f_leader">Bitcoin si lider i tregut</string>
+    <string name="why_f_leverage_balanced">Leva e ekuilibruar</string>
+    <string name="why_f_leverage_longs">Leva: shumë long</string>
+    <string name="why_f_leverage_shorts">Leva: shumë short</string>
+    <string name="why_f_market_calm">Treg i qetë</string>
+    <string name="why_f_market_wide">Po lëviz i gjithë tregu</string>
+    <string name="why_factor_funding">Funding</string>
+    <string name="why_factor_futures">Futures</string>
+    <string name="why_factor_market">Tregu i përgjithshëm</string>
+    <string name="why_factor_near_high">Afër majës</string>
+    <string name="why_factor_near_low">Afër fundit</string>
+    <string name="why_factor_peg">Lidhja (1:1)</string>
+    <string name="why_factor_range3d">Diapazoni 3-ditor</string>
+
+    <!-- «Warum?»: Nebenzeilen der Faktoren -->
+    <string name="why_fn_estimated">e vlerësuar</string>
+    <string name="why_fn_funding_longs">shumë po vënë bast për rritje</string>
+    <string name="why_fn_funding_neutral">neutral</string>
+    <string name="why_fn_funding_shorts">shumë po vënë bast për rënie</string>
+    <string name="why_fn_high_at">në majën 30-ditore</string>
+    <string name="why_fn_high_below">nën majën 30-ditore</string>
+    <string name="why_fn_leader_calm">Bitcoin i qetë</string>
+    <string name="why_fn_leader_moves">Bitcoin lëviz qartë</string>
+    <string name="why_fn_low_above">mbi fundin 30-ditor</string>
+    <string name="why_fn_low_at">në fundin 30-ditor</string>
+    <string name="why_fn_market_against">Monedha lëviz kundër tregut</string>
+    <string name="why_fn_market_alone">Treg i qetë – kjo monedhë lëviz vetë</string>
+    <string name="why_fn_market_calm">Treg i qetë</string>
+    <string name="why_fn_market_lags">Tregu lëviz, kjo monedhë mezi</string>
+    <string name="why_fn_market_moves">Tregu lëviz në të njëjtin drejtim</string>
+    <string name="why_fn_market_pulls">Tregu lëviz bashkë me BTC</string>
+    <string name="why_fn_oi_down">Open interest ra</string>
+    <string name="why_fn_oi_flat">Open interest pothuajse i pandryshuar</string>
+    <string name="why_fn_oi_mixed">Open interest i përzier</string>
+    <string name="why_fn_oi_up">Open interest u rrit</string>
+    <string name="why_fn_peg_above">%1$s mbi lidhjen 1:1</string>
+    <string name="why_fn_peg_below">%1$s nën lidhjen 1:1</string>
+    <string name="why_fn_peg_near">afër lidhjes 1:1</string>
+    <string name="why_fn_range_above_low">që nga fundi 3-ditor</string>
+    <string name="why_fn_range_below_high">që nga maja 3-ditore</string>
+    <string name="why_fn_range_near_high">afër majës 3-ditore</string>
+    <string name="why_fn_range_near_low">afër fundit 3-ditor</string>
+    <string name="why_fn_volatility_stronger">më e fortë se zakonisht</string>
+    <string name="why_fn_volatility_tiny">e vogël në terma absolutë (nën %1$s)</string>
+    <string name="why_fn_volatility_usual">si zakonisht</string>
+    <string name="why_fn_volume_higher">më i lartë se zakonisht</string>
+    <string name="why_fn_volume_lower">më i ulët se zakonisht</string>
+    <string name="why_fn_volume_usual">si zakonisht</string>
+
+    <!-- «Warum?»: ausführliche Sätze je Beobachtung -->
+    <string name="why_against_market_text">Kjo monedhë %1$s, BTC %2$s në 24 orë — një lëvizje dukshëm e pavarur.</string>
+    <string name="why_against_ref_text">Kjo monedhë %1$s, %2$s %3$s në 24 orë — një lëvizje dukshëm e pavarur.</string>
+    <string name="why_btc_independent">%1$s aktualisht lëviz në mënyrë të pavarur nga Bitcoin.</string>
+    <string name="why_btc_tight">%1$s aktualisht lëviz në lidhje të ngushtë me Bitcoin.</string>
+    <string name="why_change_1h">1h</string>
+    <string name="why_change_24h">24h</string>
+    <string name="why_coin_only_text">%1$s në 24 orë ndërsa tregu është i qetë – ndoshta diçka që prek vetëm këtë monedhë.</string>
+    <string name="why_leverage_balanced_text">Asnjë grumbullim pozicionesh long apo short në tregun e futures.</string>
+    <string name="why_leverage_longs_text">Shumë vënë baste me para të huazuara për rritje të çmimeve. Long-et paguajnë short-et — rrezik më i lartë likuidimesh nëse çmimi bie.</string>
+    <string name="why_leverage_shorts_text">Shumë vënë baste me para të huazuara për rënie të çmimeve. Short-et paguajnë long-et – nëse çmimi rritet, një short squeeze është i mundur.</string>
+    <string name="why_market_calm_text">Kjo monedhë: %1$s në 24 orë. As tregu, as monedha nuk lëvizin shumë.</string>
+    <string name="why_market_leader_text">Si monedha më e madhe, BTC zakonisht lëviz njëkohësisht me pjesën tjetër të tregut. ETH: %1$s në 24 orë.</string>
+    <string name="why_market_leader_text_no_eth">Si monedha më e madhe, BTC zakonisht lëviz njëkohësisht me pjesën tjetër të tregut.</string>
+    <string name="why_market_similar_text">Kjo monedhë: %1$s në 24 orë — njëkohësisht tregu lëviz në të njëjtin drejtim, ndonëse më pak qartë.</string>
+    <string name="why_market_wide_text">Kjo monedhë: %1$s në 24 orë – në të njëjtën kohë, tregu në tërësi lëviz qartë.</string>
+    <string name="why_open_interest_change">Open interest %1$s që nga kontrolli i fundit.</string>
+    <string name="why_peg_text">Stablecoin: krahasuar me një lidhje 1:1 me monedhën e kuotimit, devijim %1$s.</string>
+    <string name="why_sentiment_text">Indeksi Fear &amp; Greed i gjithë tregut kripto, %1$s krahasuar me dje.</string>
+    <string name="why_sentiment_text_no_change">Indeksi Fear &amp; Greed i gjithë tregut kripto.</string>
+    <plurals name="why_trend_falling">
+        <item quantity="one">në rënie prej %1$d ore</item>
+        <item quantity="other">në rënie prej %1$d orësh</item>
+    </plurals>
+    <plurals name="why_trend_rising">
+        <item quantity="one">në rritje prej %1$d ore</item>
+        <item quantity="other">në rritje prej %1$d orësh</item>
+    </plurals>
+    <plurals name="why_trend_stable">
+        <item quantity="one">e qëndrueshme prej %1$d ore</item>
+        <item quantity="other">e qëndrueshme prej %1$d orësh</item>
+    </plurals>
+    <string name="why_volatility_high_text">Ora e fundit: %1$s — krahasuar me luhatjen tipike orare të 24 orëve të fundit.</string>
+    <string name="why_volatility_normal_text">Ora e fundit: %1$s — brenda kufijve të zakonshëm.</string>
+    <string name="why_volatility_tiny_text">Ora e fundit: %1$s — e pazakontë për këtë monedhë, por e vogël në terma absolutë.</string>
+    <string name="why_volume_estimated_text">E vlerësuar: ky burim nuk jep qarkullim, ndaj krahasohen sasitë e monedhave të tregtuara.</string>
+    <string name="why_volume_high_text">Shumë më tepër tregtim se zakonisht në orën e fundit – lëvizja shoqërohet me vëllim të lartë.</string>
+    <string name="why_volume_low_text">Pak tregtim pas lëvizjes – lëvizje të tilla shpesh janë më pak të qëndrueshme.</string>
+    <string name="why_volume_normal_text">Tregtimi i orës së fundit përputhet me 24 orët e fundit.</string>
+
+    <!-- «Warum?»: Signal-Punkte (stützt, neutral, Vorsicht) -->
+    <string name="why_dot_caution">e rritur</string>
+    <string name="why_dot_neutral">neutral</string>
+    <string name="why_dot_supports">përputhet me lëvizjen</string>
+
+    <!-- «Warum?»: Frische und Quellen der Daten -->
+    <string name="why_data_time">Të dhëna të %1$s</string>
+    <string name="why_fresh_breadth">Gjerësia e tregut: %1$s · %2$s</string>
+    <string name="why_fresh_candles">Qirinjtë: %1$s · %2$s</string>
+    <string name="why_fresh_fng">Fear &amp; Greed: %1$s</string>
+    <string name="why_fresh_futures">Futures: %1$s</string>
+    <plurals name="why_fresh_oi_hours">
+        <item quantity="one">open interest krahasuar me %1$d orë më parë</item>
+        <item quantity="other">open interest krahasuar me %1$d orë më parë</item>
+    </plurals>
+    <plurals name="why_fresh_oi_minutes">
+        <item quantity="one">open interest krahasuar me %1$d minutë më parë</item>
+        <item quantity="other">open interest krahasuar me %1$d minuta më parë</item>
+    </plurals>
+    <string name="why_fresh_today">sot</string>
+    <string name="why_fresh_yesterday">dje</string>
+    <string name="why_source_fallback">%1$s (burim rezervë)</string>
+    <string name="why_source_reference">%1$s (vlerë orientuese)</string>
+    <string name="why_sources">Burimet: qirinjtë orarë të bursës (zakonisht Binance), të dhëna futures nga burset, Fear &amp; Greed nga alternative.me.</string>
+    <string name="why_sources_list">Burimet: %1$s.</string>
+    <string name="why_src_breadth">%1$s (gjerësia e tregut)</string>
+    <string name="why_src_candles">%1$s (qirinj)</string>
+    <string name="why_src_comparison">%1$s (krahasim me tregun)</string>
+    <string name="why_src_fng">%1$s (Fear &amp; Greed)</string>
+    <string name="why_src_futures">%1$s (futures)</string>
+
+    <!-- Faktor-Checkliste (Crypto Pulse und «Warum?») -->
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">Funding</string>
+    <string name="factor_spoken_volatility">%1$s herë luhatja e zakonshme</string>
+    <string name="factor_spoken_volume">%1$s herë më shumë se zakonisht</string>
+    <string name="factor_volatility">Luhatja (1h)</string>
+    <string name="factor_volume">Vëllimi</string>
+</resources>

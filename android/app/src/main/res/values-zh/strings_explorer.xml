@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="explorer_coin_back">全部结果</string>
+    <plurals name="explorer_coin_exchanges">
+        <item quantity="other">%1$d 家交易所</item>
+    </plurals>
+    <string name="explorer_coin_no_pairs">已加载的列表中没有该币种的交易对。</string>
+    <string name="explorer_coin_not_loaded">交易对列表尚未加载</string>
+    <string name="explorer_coin_other_pairs">其他交易对</string>
+    <string name="explorer_coin_show_pairs">显示交易对</string>
+    <string name="explorer_coin_suggested">推荐</string>
+    <string name="explorer_coins_title">币种</string>
+    <string name="explorer_lists_load">加载列表</string>
+    <string name="explorer_lists_loading">正在加载交易对列表… %1$d/%2$d</string>
+    <plurals name="explorer_lists_missing">
+        <item quantity="other">%1$d 家交易所的交易对列表尚未保存在设备上。</item>
+    </plurals>
+    <string name="explorer_lists_privacy">为每家交易所加载完整的公开列表（对所有人相同）。你的搜索只留在设备上。</string>
+    <!-- Paar hinzufügen: Suche über alle Börsen, zuletzt gesucht -->
+    <string name="explorer_recent_a11y">最近搜索：%1$s</string>
+    <string name="explorer_recent_clear">清除</string>
+    <string name="explorer_recent_clear_a11y">清除最近搜索</string>
+    <string name="explorer_recent_title">最近搜索</string>
+    <string name="explorer_search_choose_manually">自行选择交易所和交易对</string>
+    <string name="explorer_search_empty">无匹配结果。</string>
+    <string name="explorer_search_hint">搜索币种、交易对或交易所</string>
+    <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
+    <string name="explorer_search_intro">输入币种名称或代码，例如 Bitcoin 或 BTC，然后选择交易对。</string>
+
+    <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
+    <string name="explorer_add_to_watchlist">加入自选</string>
+    <string name="explorer_added_to_watchlist">已加入自选。</string>
+    <string name="explorer_already_in_watchlist">该交易对已在自选中。</string>
+    <string name="explorer_exchange_missing">缺少交易所？</string>
+    <string name="explorer_loading_pairs">正在加载交易对…</string>
+    <string name="explorer_no_pair_selected">请先选择交易对。</string>
+    <string name="explorer_no_pairs_yet">尚未加载此交易所的交易对。</string>
+    <plurals name="explorer_pairs_status">
+        <item quantity="other">%1$d 个交易对 · 更新于 %2$s</item>
+    </plurals>
+    <string name="explorer_pairs_title">交易对</string>
+    <string name="explorer_precise_title">高级 / 按交易所</string>
+    <string name="explorer_price_loading">正在加载价格…</string>
+    <string name="explorer_select_market_hint">选择交易所后，交易对会自动加载。</string>
+    <string name="explorer_select_placeholder">请选择</string>
+    <string name="explorer_step_pair">选择交易对</string>
+
+    <!-- Paar hinzufügen: Schnellfilter der Liste «Alle …-Paare» -->
+    <string name="explorer_filter_gainers">涨幅榜</string>
+    <string name="explorer_filter_losers">跌幅榜</string>
+    <string name="explorer_filter_volume">成交量</string>
+
+    <!-- Paar hinzufügen: mehrere Paare auf einmal -->
+    <string name="bulk_all_pairs">该交易所的所有 %1$s 交易对</string>
+    <plurals name="bulk_all_pairs_applied">
+        <item quantity="other">找到 %1$d 个 %2$s 交易对</item>
+    </plurals>
+    <string name="bulk_all_pairs_empty">该交易所在所选合约类型下没有 %1$s 交易对。请先同步交易所，或尝试其他合约类型。</string>
+    <plurals name="explorer_add_all_pairs">
+        <item quantity="other">将全部 %1$d 个交易对加入自选</item>
+    </plurals>
+    <plurals name="explorer_bulk_added">
+        <item quantity="other">已添加 %1$d 个，%2$d 个已在自选中。</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_text">
+        <item quantity="other">%3$s 的全部 %1$d 个 %2$s 交易对将加入列表，已存在的会跳过。</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_title">
+        <item quantity="other">添加 %1$d 个交易对？</item>
+    </plurals>
+    <string name="explorer_bulk_hide_list">隐藏列表</string>
+    <string name="explorer_bulk_show_list">显示列表</string>
+    <string name="explorer_bulk_tap_hint">点按交易对即可在上方选中。</string>
+    <string name="explorer_bulk_title">一次添加多个交易对</string>
+
+    <!-- Handelspaare einer Börse laden und wählen -->
+    <string name="explorer_sync_sheet_text">加载所选交易所的最新交易对。</string>
+    <string name="explorer_no_pair_list">没有交易对</string>
+    <string name="explorer_sync_sheet_last">上次同步：%1$s</string>
+    <string name="explorer_sync_never">从未</string>
+    <string name="explorer_sync_sheet_action">立即同步</string>
+    <string name="explorer_sync_sheet_title">更新交易对</string>
+    <string name="explorer_field_coin">基础币</string>
+    <string name="explorer_field_contract">合约类型</string>
+    <string name="explorer_field_exchange">交易所</string>
+    <string name="explorer_field_quote">计价币</string>
+    <string name="explorer_contract_spot">现货</string>
+    <string name="explorer_reload_pairs">同步</string>
+    <string name="sync_pairs_count">交易对：%1$d</string>
+
+    <!-- Token von dezentralen Börsen (DEX) -->
+    <string name="dex_add">添加</string>
+    <string name="dex_added">已将 %1$s 加入自选。</string>
+    <string name="dex_already">%1$s 已在自选中。</string>
+    <string name="dex_intro">大型交易所之外的代币，来自去中心化交易所（Uniswap、PancakeSwap、Raydium …），通过 DexScreener 获取。搜索代币并添加其中一个交易池——价格以美元计。</string>
+    <string name="dex_liquidity">流动性 %1$s</string>
+    <string name="dex_no_results">未找到流动性池。</string>
+    <string name="dex_search">搜索</string>
+    <string name="dex_search_hint">代币名称、符号或地址</string>
+
+    <!-- Art des Assets (Token, Alpha-Token, TradFi) -->
+    <string name="asset_kind_alpha">Alpha 代币</string>
+    <string name="asset_kind_token">代币</string>
+    <string name="asset_kind_tradfi">TradFi</string>
+</resources>

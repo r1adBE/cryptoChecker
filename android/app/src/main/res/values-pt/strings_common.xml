@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">Voltar</string>
+    <string name="action_cancel">Cancelar</string>
+    <string name="action_clear">Limpar</string>
+    <string name="action_close">Fechar</string>
+    <string name="action_delete">Eliminar</string>
+    <string name="action_edit">Editar</string>
+    <string name="action_more">Mais opções</string>
+    <string name="action_refresh">Atualizar</string>
+    <string name="action_retry">Tentar novamente</string>
+    <string name="action_save">Guardar</string>
+    <string name="action_sort">Ordenar</string>
+    <string name="action_sort_done">Concluído</string>
+    <string name="action_undo">Anular</string>
+    <string name="action_view">Ver</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">Mercado</string>
+    <string name="tab_portfolio">Portfólio</string>
+    <string name="tab_settings">Definições</string>
+    <string name="tab_watchlist">Lista</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">Erro: %1$s</string>
+    <string name="error_market_unreachable">Exchange inacessível neste momento – os últimos preços continuam visíveis.</string>
+    <string name="error_market_unreachable_short">Exchange inacessível neste momento</string>
+    <string name="loading_hint">A carregar…</string>
+    <string name="no_internet_connection">Sem ligação à Internet</string>
+    <string name="option_off">Não</string>
+    <string name="something_went_wrong">Algo correu mal</string>
+    <string name="time_just_now">agora mesmo</string>
+    <string name="timeout_error_message">A exchange não está a responder neste momento.</string>
+    <string name="try_again">Tentar novamente</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">Sem ligação</string>
+    <string name="offline_status_since">Sem ligação · dados de %1$s</string>
+    <string name="status_live">Em direto</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">Adicionar par</string>
+    <string name="shortcut_alarms">Todos os alarmes</string>
+    <string name="shortcut_cycle">Mercado</string>
+</resources>

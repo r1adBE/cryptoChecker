@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Tab, leere Ansicht, Einschalten, Sperre -->
+    <string name="app_lock_unavailable">此设备未设置屏幕锁定。请先在系统设置中设置。</string>
+    <string name="app_lock_unlock">解锁</string>
+    <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
+    <string name="portfolio_clear">清空投资组合</string>
+    <plurals name="portfolio_clear_confirm_count">
+        <item quantity="other">要删除全部 %d 笔交易吗？观察的地址会保留。此操作无法撤销。</item>
+    </plurals>
+    <string name="portfolio_disclaimer">除非你自行导出，金额会保留在你的设备上；获取价格时只把交易对代码发送到该交易对的交易所。公共区块链节点能看到观察的地址和你的 IP。不构成投资建议。</string>
+    <string name="portfolio_empty_action">添加第一笔买入</string>
+    <string name="portfolio_empty_address">仅关注一个钱包地址</string>
+    <string name="portfolio_empty_csv">在交易所买的？导入其文件</string>
+    <string name="portfolio_empty_example_plain">示例：3 月 1 日买入 0.01 BTC。应用会显示它今天值多少，以及你是赚是亏——仅保存在本设备上。</string>
+    <string name="portfolio_empty_text">记下你买了什么——应用会显示它今天值多少，以及你赚了或亏了多少。</string>
+    <string name="portfolio_empty_title">暂无交易</string>
+    <string name="portfolio_enable_ask_text">你的交易已保存。“投资组合”标签页会显示你的持仓及其价值。</string>
+    <string name="portfolio_enable_ask_title">开启“投资组合”标签页？</string>
+    <string name="portfolio_enable_later_hint">交易已保存。你可以在“设置 › 高级 › 投资组合”中开启“投资组合”标签页。</string>
+    <string name="portfolio_enabled_banner">已开启投资组合，可在“投资组合”标签中找到。</string>
+    <string name="portfolio_lock_reason">解锁投资组合</string>
+    <string name="portfolio_locked_text">解锁后可查看持仓和价值。</string>
+    <string name="portfolio_locked_title">投资组合已锁定</string>
+    <string name="portfolio_setting_hint">可选：记录买入和卖出，并在单独的标签页中查看市值和盈亏。</string>
+    <!-- Status-Pille wie in der Merkliste: Kurse älter als die Frische-Schwelle, Gerät online. Offline: offline_status_since, alles aktuell: watchlist_all_fresh -->
+    <string name="portfolio_status_stale">已过时 · 截至 %1$s</string>
+    <plurals name="portfolio_system_restore_invalid">
+        <item quantity="other">系统备份中有 %d 条记录无效，未恢复。</item>
+    </plurals>
+    <string name="portfolio_title">投资组合</string>
+    <string name="portfolio_unassigned_fee">手续费未分配——成本未知：%1$s</string>
+    <string name="portfolio_updated">价格更新于 %1$s</string>
+
+    <!-- Portfolio: Gesamtwert-Kopf (Heute · 7 T · Gesamt) und Aufteilung -->
+    <string name="portfolio_allocation_other">其他</string>
+    <string name="portfolio_allocation_title">资产分布</string>
+    <string name="portfolio_card_details">详情</string>
+    <!-- Screenreader, Kennzahl ohne Wert; %1$s Beschriftung (z. B. «7 Tage») -->
+    <string name="portfolio_card_figure_none_a11y">%1$s：暂不可用</string>
+    <string name="portfolio_card_hints_count">说明（%1$d）</string>
+    <string name="portfolio_card_today">今日</string>
+    <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
+    <string name="portfolio_card_total">总计</string>
+    <string name="portfolio_hide_amounts">隐藏金额</string>
+    <string name="portfolio_hide_amounts_hint">在投资组合和投资组合小部件中以 ••• 显示金额和价值，百分比仍然可见。</string>
+    <string name="portfolio_invested">成本</string>
+    <string name="portfolio_total_no_fx">没有 %1$s 的汇率——金额以 USDT 计</string>
+    <string name="portfolio_total_value">总市值</string>
+    <string name="portfolio_value">市值</string>
+
+    <!-- Portfolio: Bestand, offene Positionen, Durchschnittspreis -->
+    <string name="portfolio_avg_and_now">均价 %1$s · 现价 %2$s</string>
+    <string name="portfolio_avg_only">平均 %1$s</string>
+    <string name="portfolio_avg_open_lots">持有币的平均成本</string>
+    <string name="portfolio_avg_partial">有买入价的 %1$s 的均价</string>
+    <string name="portfolio_avg_price">平均买入价</string>
+    <string name="portfolio_avg_price_hint">平均买入价：所有买入按数量加权的平均值。卖出按此平均价计算。</string>
+    <plurals name="portfolio_closed">
+        <item quantity="other">已平仓（%1$d）</item>
+    </plurals>
+    <string name="portfolio_fifo_hint">FIFO：卖出时先用最早的币。平均 = 剩余成本 ÷ 有买入价的数量。</string>
+    <string name="portfolio_holdings">持仓</string>
+    <string name="portfolio_lost_fee_cost">无已付批次的网络手续费成本：%1$s</string>
+    <string name="portfolio_open_lots">未平仓买入批次（%1$d）</string>
+    <string name="portfolio_open_lots_avg">有买入价（Ø）</string>
+    <string name="portfolio_open_lots_no_cost">无买入价</string>
+    <string name="portfolio_open_lots_without_price">无买入价</string>
+    <string name="portfolio_realized">已实现盈亏</string>
+    <string name="portfolio_unrealized">未实现盈亏</string>
+    <string name="portfolio_unrealized_without_unpriced">不含无买入价的 %1$s</string>
+    <string name="portfolio_withdrawn_gain">已提取：%1$s（截至提取的价值变化）</string>
+
+    <!-- Portfolio: Kurse und Umrechnung -->
+    <string name="portfolio_convert_to">换算为</string>
+    <string name="portfolio_convert_to_value">换算为：%1$s</string>
+    <string name="portfolio_current_missing">%1$s 暂无当前价格</string>
+    <string name="portfolio_current_price">当前价格</string>
+    <string name="portfolio_price_missing">缺少价格</string>
+    <string name="portfolio_price_missing_hint">部分买入没有价格。补充买入价即可查看盈亏。</string>
+    <string name="portfolio_price_source">价格：Binance · USDT = 1</string>
+    <string name="portfolio_price_source_routes">价格：%1$s，其余 Binance · USDT = 1</string>
+    <string name="portfolio_price_unavailable">暂时无法获取价格</string>
+    <string name="portfolio_price_unchecked">价格未核实</string>
+    <string name="portfolio_price_via_base">≈ %1$s 价格（跨链/包装）</string>
+    <string name="portfolio_usdt_as_usd">USDT 按 USD 汇率换算</string>
+    <string name="portfolio_usdt_assumed">假定 USDT = 1</string>
+    <string name="portfolio_usdt_depeg_warning">假定 USDT = 1——市场为 %1$s USD（%2$s）</string>
+
+    <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
+    <string name="portfolio_add_from_watch">添加到投资组合</string>
+    <string name="portfolio_add_tx">记录交易</string>
+    <string name="portfolio_buy">买入</string>
+    <string name="portfolio_coin">币种</string>
+    <string name="portfolio_coin_invalid">请输入币种代码</string>
+    <string name="portfolio_coin_search">搜索代码，例如 BTC</string>
+    <string name="portfolio_discard_confirm">放弃</string>
+    <string name="portfolio_discard_keep">继续编辑</string>
+    <string name="portfolio_discard_title">放弃更改？</string>
+    <string name="portfolio_edit_tx">编辑交易</string>
+    <string name="portfolio_invalid">数量无效</string>
+    <string name="portfolio_oversold">卖出数量超过持仓，请检查交易记录。</string>
+    <string name="portfolio_sell">卖出</string>
+    <string name="portfolio_sell_exceeds">超过你的持仓（%1$s）</string>
+    <string name="portfolio_sell_exceeds_fee">数量加手续费超过持有量（%1$s）</string>
+    <string name="portfolio_sell_exceeds_wallet">超过你在 %2$s 的持有量（%1$s）</string>
+    <string name="portfolio_transactions">交易记录</string>
+    <string name="portfolio_tx_acquired_date">原始买入日期（可选）</string>
+    <string name="portfolio_tx_acquired_date_hint">用于税务导出中的持有期</string>
+    <string name="portfolio_tx_amount">数量</string>
+    <string name="portfolio_tx_coin_fee">手续费（以币计，可选）</string>
+    <string name="portfolio_tx_date">日期</string>
+    <string name="portfolio_tx_delete_confirm">此交易将从投资组合中移除。</string>
+    <string name="portfolio_tx_delete_title">删除此交易？</string>
+    <string name="portfolio_tx_deposit">存入</string>
+    <string name="portfolio_tx_entry_currency">输入币种</string>
+    <string name="portfolio_tx_explain_deposit">非交易所得的持仓，例如以前的币</string>
+    <string name="portfolio_tx_explain_gift">币像提取一样离开持仓——仅在对赠与如此征税的国家（UK、CA、AU）按市值视为处置</string>
+    <string name="portfolio_tx_explain_payment">用于支付商品或服务——像卖出一样按市值视为处置，但未收到资金</string>
+    <string name="portfolio_tx_explain_reward">成本 = 收到时的市场价值</string>
+    <string name="portfolio_tx_explain_swap">币换币：卖出付出的币，买入收到的币</string>
+    <string name="portfolio_tx_explain_transfer">无收益——成本随币一起转移</string>
+    <string name="portfolio_tx_explain_withdrawal">持仓移出投资组合——不算卖出，也无收益</string>
+    <string name="portfolio_tx_fee_consumes_amount">手续费与收到的数量一样多——将不会剩下任何东西。</string>
+    <string name="portfolio_tx_fees_toggle">手续费</string>
+    <string name="portfolio_tx_fiat_converted">≈ %1$s（按 %2$s 的汇率）</string>
+    <string name="portfolio_tx_fiat_loading">正在加载汇率…</string>
+    <string name="portfolio_tx_fiat_no_fx">这一天没有汇率——请以 USDT 输入金额。</string>
+    <string name="portfolio_tx_gift">赠与</string>
+    <string name="portfolio_tx_gift_price_hint">以 USDT 计。留空 = 当日收盘价（估算）</string>
+    <string name="portfolio_tx_gift_spouse">给配偶 / 伴侣</string>
+    <string name="portfolio_tx_gift_spouse_hint">英国和加拿大：无盈亏——你的伴侣承接你的成本。其他国家不考虑这一点。</string>
+    <string name="portfolio_tx_market_value">每枚币的市值</string>
+    <string name="portfolio_tx_more_buy">手续费、交易所、备注</string>
+    <string name="portfolio_tx_network_fee">网络手续费（以币计，可选）</string>
+    <string name="portfolio_tx_note">备注（可选）</string>
+    <string name="portfolio_tx_payment">用于支付</string>
+    <string name="portfolio_tx_price">每枚价格</string>
+    <string name="portfolio_tx_price_hint">以 USDT 计。未知可留空。</string>
+    <string name="portfolio_tx_price_historic">已核对 %1$s 的日收盘价——如有需要可修改</string>
+    <string name="portfolio_tx_price_invalid">价格无效</string>
+    <string name="portfolio_tx_price_past_hint">请输入交易当天的价格（未知则留空）</string>
+    <string name="portfolio_tx_price_receipt_hint">以 USDT 计。留空 = 无成本的持仓。</string>
+    <string name="portfolio_tx_price_zero">导入的交易价格不能为 0——留空则使用市场价</string>
+    <string name="portfolio_tx_removed">交易已删除</string>
+    <string name="portfolio_tx_reward">奖励</string>
+    <string name="portfolio_tx_save_failed">无法保存交易。你输入的内容仍在——请重试。</string>
+    <string name="portfolio_tx_swap">兑换</string>
+    <string name="portfolio_tx_swap_fee_received">以 %1$s 支付的手续费：从收到的数量中扣除，无需价格。</string>
+    <string name="portfolio_tx_swap_from">从 %1$s 兑换</string>
+    <string name="portfolio_tx_swap_given_amount">付出的数量</string>
+    <string name="portfolio_tx_swap_given_coin">付出的币</string>
+    <string name="portfolio_tx_swap_received_amount">收到的数量</string>
+    <string name="portfolio_tx_swap_received_coin">收到的币</string>
+    <string name="portfolio_tx_swap_same_coin">请选择与付出的币不同的币</string>
+    <string name="portfolio_tx_swap_to">兑换为 %1$s</string>
+    <string name="portfolio_tx_swap_value">兑换价值（可选）</string>
+    <string name="portfolio_tx_swap_value_hint">总价值。留空 = 未知——收益将不完整（兑换中含 USDT 时自动计算）。</string>
+    <string name="portfolio_tx_third_fee_amount">手续费数量</string>
+    <string name="portfolio_tx_third_fee_coin">手续费币种</string>
+    <string name="portfolio_tx_third_fee_incomplete">没有价格时，手续费不计入成本和卖出所得；税务导出会标记此类卖出。</string>
+    <string name="portfolio_tx_third_fee_price">每枚手续费币的价格（可选）</string>
+    <string name="portfolio_tx_third_fee_toggle">以其他币支付的手续费</string>
+    <string name="portfolio_tx_total">合计：%1$s</string>
+    <string name="portfolio_tx_transfer">转移</string>
+    <string name="portfolio_tx_transfer_from">转出方（可选）</string>
+    <string name="portfolio_tx_transfer_to">转入方（可选）</string>
+    <string name="portfolio_tx_transfer_to_hint">交易所或钱包——此后按该处估值。</string>
+    <string name="portfolio_tx_type_select">类型：%1$s</string>
+    <string name="portfolio_tx_value_received">收到时每枚币的价值（可选）</string>
+    <string name="portfolio_tx_withdrawal">提取</string>
+    <string name="portfolio_tx_withdrawal_gift_hint">送人了或用于支付？请记为‹赠与›或‹用于支付›——视国家而定，税务上属于卖出。</string>
+    <string name="portfolio_tx_withdrawal_price_hint">可选：以 USDT 计的市场价值，仅用于历史计算（留空 = 当日价格）。币始终按成本移出。</string>
+    <string name="portfolio_wallet_did_you_mean">你是指 %1$s 吗？写法不同会算作另一个钱包。</string>
+    <string name="portfolio_wallet_shortfall">%1$s 中的持有量不足——是否漏记了转移？</string>
+
+    <!-- Portfolio: Wertverlauf (Zeitraum, Vergleich Währung | USDT, Währungseffekt) -->
+    <!-- Höchster Tageswert des Zeitraums am Punkt («Hoch 12’345») -->
+    <string name="portfolio_chart_high">最高 %1$s</string>
+    <string name="portfolio_compare">对比</string>
+    <!-- Umschalter «Vergleich», Screenreader: %1$s Währung -->
+    <string name="portfolio_compare_a11y">以百分比对比 %1$s 和 USDT</string>
+    <!-- %1$s Zeitraum, %2$s Währung, %3$s und %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="portfolio_compare_chart_a11y">百分比对比，%1$s：%2$s %3$s，USDT %4$s</string>
+    <!-- %1$s Prozentpunkte mit Vorzeichen («−5.10%»): Veränderung in der Währung minus in USDT -->
+    <string name="portfolio_currency_effect">汇率影响：%1$s</string>
+    <!-- «Seit 1. Kauf» beginnt frühestens beim ersten Tag mit Kursdaten -->
+    <string name="portfolio_history_capped_data_start">价格数据最早只到 2017 年 8 月，走势从那时开始。</string>
+    <string name="portfolio_history_chip_since_first">自买入</string>
+    <string name="portfolio_history_collapse">隐藏价值走势</string>
+    <string name="portfolio_history_converted">按今日汇率换算</string>
+    <string name="portfolio_history_expand">显示价值走势</string>
+    <string name="portfolio_history_gain_a11y">价值 %1$s。盈亏（%2$s）：%3$s</string>
+    <string name="portfolio_history_gain_label">盈亏</string>
+    <!-- Umschalter, Screenreader: %1$s Währung («CHF») oder «USDT» -->
+    <string name="portfolio_history_in_a11y">以 %1$s 计价</string>
+    <string name="portfolio_history_incl_fx">含汇率</string>
+    <string name="portfolio_history_incl_withdrawn">含已提取币的价值变化</string>
+    <string name="portfolio_history_includes_trades">包含此期间的买入和卖出</string>
+    <string name="portfolio_history_loading">正在加载价值走势</string>
+    <string name="portfolio_history_period_1y">1 年</string>
+    <string name="portfolio_history_period_30d">30 天</string>
+    <string name="portfolio_history_period_7d">7 天</string>
+    <string name="portfolio_history_period_since_first">自首次买入以来</string>
+    <string name="portfolio_history_pnl_needs_prices">缺少买入价，无法计算盈亏——请在交易中补充。</string>
+    <string name="portfolio_history_pnl_without">不含 %1$s 的盈亏（缺少价格）</string>
+    <string name="portfolio_history_range_1y">1年</string>
+    <string name="portfolio_history_range_30d">30天</string>
+    <string name="portfolio_history_range_7d">7天</string>
+    <string name="portfolio_history_range_a11y">显示 %1$s 走势</string>
+    <string name="portfolio_history_range_since_first">自首次买入</string>
+    <string name="portfolio_history_scaled">%1$s 的走势：按交易所价格换算的 Binance 走势</string>
+    <string name="portfolio_history_title">价值走势</string>
+    <string name="portfolio_history_today">今天</string>
+    <string name="portfolio_history_too_short">走势从你的第一个完整日之后开始。</string>
+    <string name="portfolio_history_unavailable">暂无走势数据。</string>
+    <string name="portfolio_history_utc_days">日期按 UTC（日K线）</string>
+    <string name="portfolio_history_without_matching">不含 %1$s（无匹配的每日价格）</string>
+    <string name="portfolio_period_rewards">奖励 +%1$s（不计入盈亏）</string>
+    <string name="portfolio_period_scaled">%1$s 的 7天/1年：按交易所价格换算的 Binance 走势</string>
+
+    <!-- Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_alarm_action">提醒</string>
+    <!-- %1$s = Währung, z. B. CHF -->
+    <string name="portfolio_alarm_amount">金额（%1$s）</string>
+    <string name="portfolio_alarm_hint">每次刷新后检查。与提醒相同：越过阈值时通知，数值回落后才会再次通知。</string>
+    <string name="portfolio_alarm_kind_above">投资组合高于金额</string>
+    <string name="portfolio_alarm_kind_below">投资组合低于金额</string>
+    <string name="portfolio_alarm_kind_down">投资组合下跌</string>
+    <string name="portfolio_alarm_kind_up">投资组合上涨</string>
+    <!-- %1$s = Betrag mit Währung (oder •••) -->
+    <string name="portfolio_alarm_sentence_above">投资组合高于 %1$s</string>
+    <string name="portfolio_alarm_sentence_below">投资组合低于 %1$s</string>
+    <string name="portfolio_alarm_sentence_down">投资组合下跌 %1$s（%2$s）</string>
+    <!-- %1$s = Prozent, %2$s = Basis der %-Änderung kurz (24h, heute …) -->
+    <string name="portfolio_alarm_sentence_up">投资组合上涨 %1$s（%2$s）</string>
+    <string name="portfolio_alarm_title">提醒“投资组合价值”</string>
+
+    <!-- Gebühr, Börse und Gewinn/Verlust einer Position -->
+    <string name="ledger_exchange">交易所（可选）</string>
+    <string name="ledger_exchange_failed">%1$s：目前没有 %2$s 的价格——按 Binance 估值。</string>
+    <string name="ledger_exchange_hint">该币按此交易所价格估值（否则 Binance）。走势、7天和1年：使用按比例换算的 Binance 每日价格。</string>
+    <string name="ledger_exchange_mixed">%1$s：填写了多个交易所——按 Binance 估值。移动过币？请记录为 «转移»。</string>
+    <string name="ledger_exchange_none">无（Binance）</string>
+    <string name="ledger_fee">手续费（可选）</string>
+    <string name="ledger_fee_coin">币</string>
+    <string name="ledger_fee_hint">以 USDT 计时计入成本（卖出时从所得中扣除）；以币计时减少数量。</string>
+    <string name="ledger_fee_line">手续费 %1$s</string>
+    <string name="ledger_fifo_cost_note">自购入：含手续费的 FIFO 成本（最早的币最先卖出）。</string>
+    <string name="ledger_gain_info">今天、7天、1年：期间内的价值变化——买入和卖出不算作收益。买入以来：仍持有币的当前价值减去成本（含手续费的平均成本）。</string>
+    <string name="ledger_gain_info_a11y">盈亏的计算方式</string>
+    <string name="ledger_gain_info_fifo">今天、7天、1年：期间内的价值变化——买入和卖出不算作收益。买入以来：仍持有币的当前价值减去成本（含手续费的 FIFO）。</string>
+    <string name="ledger_gain_title">盈亏</string>
+    <string name="ledger_more_toggle">手续费和交易所</string>
+    <string name="ledger_partial_cost">«自买入» 只计算有买入价的部分——不含无买入价的 %1$s。</string>
+    <string name="ledger_period_without">今天 / 7天 / 1年不含 %1$s – 没有匹配的起始价格。</string>
+    <string name="ledger_since_purchase_currency">自买入（%1$s）</string>
+    <string name="ledger_since_purchase_spoken">自买入以来的盈亏（未卖出）</string>
+    <plurals name="ledger_without_cost">
+        <item quantity="other">不含 %1$d 个没有买入价的币（%2$s）——补充价格后即可计入。</item>
+    </plurals>
+</resources>

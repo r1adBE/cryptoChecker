@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Neutrale Indikatoren: Titel, Hinweise, Halving -->
+    <string name="neutral_alt_title">Altcoin-et kundrejt Bitcoin</string>
+    <string name="neutral_btc_indicators_title">Treguesit e Bitcoin</string>
+    <string name="neutral_halving_last">Halvingu i fundit: %1$s</string>
+    <string name="neutral_halving_next">Halving-u i ardhshëm pritet rreth %1$s (vlerësuar sipas kalendarit – lartësia e bllokut tani nuk është e disponueshme).</string>
+    <string name="neutral_indicators_disclaimer">Vetëm vlera të matura, pa vlerësim. Nuk është parashikim dhe as këshillë investimi.</string>
+    <string name="neutral_onchain_missing">Të dhënat on-chain (Coin Metrics) nuk janë të disponueshme tani.</string>
+
+    <!-- Neutrale Indikatoren: was der Wert misst -->
+    <string name="neutral_explain_ath_distance">Sa larg ndodhet çmimi nën kulmin e mëparshëm historik.</string>
+    <string name="neutral_explain_change_30d">Çmimi sot krahasuar me 30 ditë më parë.</string>
+    <string name="neutral_explain_hashrate">Hashrate mesatar 30-ditor krahasuar me mesataren 60-ditore.</string>
+    <string name="neutral_explain_ma200w">Mesatarja e 200 mbylljeve të fundit javore.</string>
+    <string name="neutral_explain_mayer">Çmimi i pjesëtuar me mesataren 200-ditore.</string>
+    <string name="neutral_explain_mvrv">Vlera e tregut e pjesëtuar me vlerën e realizuar (on-chain).</string>
+    <string name="neutral_explain_pi_gap">Mesatarja 111-ditore krahasuar me dyfishin e mesatares 350-ditore.</string>
+    <string name="neutral_explain_puell">Të ardhurat ditore të minatorëve të pjesëtuara me mesataren e tyre 365-ditore.</string>
+    <string name="neutral_explain_rsi_daily">Indeksi i forcës relative i 14 ditëve të fundit, 0–100.</string>
+    <string name="neutral_explain_rsi_weekly">Indeksi i forcës relative i 14 javëve të fundit, 0–100.</string>
+    <string name="neutral_explain_sma50_200">Mesatarja 50-ditore krahasuar me mesataren 200-ditore.</string>
+    <string name="neutral_explain_vs_btc">Ndryshimi i çmimit kundrejt Bitcoin në 90 ditë.</string>
+
+    <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
+    <string name="neutral_info_alt_season_how">Aplikacioni tregon vetëm numërimin dhe nuk e quan „sezon”. Vlera zakonisht ndryshon brenda ditësh, jo orësh.</string>
+    <string name="neutral_info_btc_how">Çdo vlerë ka një fjali se çfarë mat dhe ku ndodhet në historikun e vet që nga 2016. Aplikacioni nuk i vlerëson vlerat dhe nuk nxjerr fazë tregu; kufijtë për njoftime janë vetëm ata që vendos ti. Modelet e kaluara nuk kanë pse të përsëriten.</string>
+    <string name="neutral_info_btc_what">Tregues të zakonshëm të Bitcoin si vlera të thjeshta të matura: Mayer Multiple, mesatarja 200-javore, rënia nga maksimumi, ndryshimi në 30 ditë, distanca Pi Cycle dhe vlerat on-chain MVRV, Puell Multiple dhe hashrate.</string>
+    <string name="neutral_info_coin_how">Çdo vlerë ka një fjali për atë që mat, pa vlerësim. Për monedhat me histori të shkurtër çmimesh mungojnë disa vlera. Të dhënat on-chain nuk përfshihen këtu.</string>
+    <string name="neutral_info_coin_what">Të njëjtët tregues të thjeshtë për një monedhë sipas zgjedhjes, vetëm nga të dhënat e çmimit: Mayer Multiple, mesatarja 200-javore, rënia nga kulmi, ndryshimi në 30 ditë, trendi 50/200 ditë, RSI dhe forca kundrejt Bitcoin në 90 ditë.</string>
+    <string name="neutral_info_halving_how">Halving-u i ardhshëm llogaritet nga lartësia aktuale e bllokut dhe koha mesatare e bllokut në periudhën aktuale të vështirësisë (mempool.space); pa këto të dhëna, sipas kalendarit (halving-u i fundit plus rreth katër vjet). Grafiku tregon ecurinë e cikleve të kaluara nga halving-u i tyre – histori, jo parashikim.</string>
+
+    <!-- Indikator-Namen -->
+    <string name="ind_cross">Trendi 50/200 ditë</string>
+    <string name="ind_drawdown">Rënia nga maksimumi historik</string>
+    <string name="ind_missing">të dhëna të pamjaftueshme</string>
+    <string name="ind_rsi_daily">RSI (ditor)</string>
+    <string name="ind_rsi_weekly">RSI (javor)</string>
+    <string name="ind_vs_btc">Forca ndaj Bitcoin (90 ditë)</string>
+    <string name="neutral_ind_change_30d">Ndryshimi 30 ditë</string>
+    <string name="neutral_ind_hashrate">Hashrate 30/60 ditë</string>
+    <string name="neutral_ind_ma200w">Mesatarja 200-javore</string>
+    <string name="neutral_ind_pi_gap">Distanca Pi Cycle</string>
+
+    <!-- Indikatoren: «hoch heisst …, tief heisst …» -->
+    <string name="ind_read_alt_season">E lartë do të thotë se shumica e altcoin-eve të mëdha e mundën Bitcoin në 90 ditë, e ulët se Bitcoin mundi shumicën.</string>
+    <string name="ind_read_ath_distance">E vogël do të thotë se çmimi është afër rekordit, e madhe se është shumë poshtë tij.</string>
+    <string name="ind_read_change_30d">Pozitive do të thotë më lart se 30 ditë më parë, negative më poshtë.</string>
+    <string name="ind_read_funding">E lartë do të thotë se shumë vënë bast me levë për rritje, negative se shumë vënë bast për rënie.</string>
+    <string name="ind_read_hashrate_30_60">Pozitive do të thotë se fuqia llogaritëse rritet, negative se minatorët po fiken.</string>
+    <string name="ind_read_leverage">Shumë long do të thotë se shumë vënë bast për rritje me para të huazuara, shumë short për rënie.</string>
+    <string name="ind_read_ma200w">Çmim shumë mbi të do të thotë rritje e gjatë, çmim afër saj tërheqje e thellë.</string>
+    <string name="ind_read_mayer">E lartë do të thotë se çmimi është shumë mbi mesataren 200-ditore, e ulët se është poshtë saj.</string>
+    <string name="ind_read_mvrv">E lartë do të thotë se çmimi është shumë mbi atë që mbajtësit paguan mesatarisht, e ulët se është afër ose poshtë.</string>
+    <string name="ind_read_pi_cycle_gap">Afër zeros do të thotë se dy mesataret pothuajse takohen, shumë negative se janë larg njëra-tjetrës.</string>
+    <string name="ind_read_puell">E lartë do të thotë se minatorët fitojnë shumë më tepër se zakonisht, e ulët shumë më pak.</string>
+    <string name="ind_read_rsi_daily">Mbi 70 do të thotë rritje të forta në ditët e fundit, nën 30 rënie të forta.</string>
+    <string name="ind_read_rsi_weekly">Mbi 70 do të thotë rritje të forta në javët e fundit, nën 30 rënie të forta.</string>
+    <string name="ind_read_sma50_vs_200">Pozitive do të thotë se mesatarja e shkurtër është mbi të gjatën, negative poshtë saj.</string>
+    <string name="ind_read_vs_btc">Pozitive do të thotë më mirë se Bitcoin, negative më keq.</string>
+
+    <!-- Indikatoren: Einordnung in die Vergangenheit -->
+    <string name="ind_context_flat30">I njëjti çmim për 30 ditë: %1$s</string>
+    <string name="ind_context_note">Vlerat e kaluara dhe llogaritjet «i njëjti çmim» janë aritmetikë, jo parashikim.</string>
+    <string name="ind_context_percentile">Që nga %1$s më i ulët në %2$s të ditëve</string>
+</resources>

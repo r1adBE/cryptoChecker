@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Markt-Tab: Abschnitte, Zeilen, Herkunft und Alter -->
+    <!-- «… · CoinGecko · vor 3 Min.»; «gerade eben» = time_just_now, «veraltet» = widget_outdated -->
+    <plurals name="market_age_minutes">
+        <item quantity="other">%d분 전</item>
+    </plurals>
+    <!-- «heute 02:00» (Uhrzeit ohne Sekunden) -->
+    <string name="market_age_today">오늘 %1$s</string>
+    <string name="market_context_summary">Fear &amp; Greed, 비트코인 지표, 도미넌스, 반감기</string>
+    <string name="market_context_value">%1$s %2$s · %3$s</string>
+    <string name="market_more_data">시장 데이터 더 보기</string>
+    <string name="market_phase_trend_failed">가격 데이터를 사용할 수 없음</string>
+    <string name="market_plain_direction_down_clear">모든 암호화폐의 총 가치는 24시간 전보다 뚜렷하게 낮습니다(%1$s).</string>
+    <string name="market_plain_direction_down_slight">모든 암호화폐의 총 가치는 24시간 전보다 약간 낮습니다(%1$s).</string>
+    <string name="market_plain_direction_flat">모든 암호화폐의 총 가치는 24시간 동안 거의 변하지 않았습니다(%1$s).</string>
+    <string name="market_plain_direction_up_clear">모든 암호화폐의 총 가치는 24시간 전보다 뚜렷하게 높습니다(%1$s).</string>
+    <string name="market_plain_direction_up_slight">모든 암호화폐의 총 가치는 24시간 전보다 약간 높습니다(%1$s).</string>
+    <string name="market_plain_footnote">지난 24시간을 설명합니다 – 예측도 투자 조언도 아닙니다.</string>
+    <string name="market_plain_mood_extreme_fear">투자자들은 지금 매우 두려워하고 있습니다: 심리 지수(Fear &amp; Greed)는 100 중 %1$d입니다.</string>
+    <string name="market_plain_mood_extreme_greed">투자자들은 지금 매우 탐욕적입니다: 심리 지수(Fear &amp; Greed)는 100 중 %1$d입니다.</string>
+    <string name="market_plain_mood_fear">투자자들은 다소 두려워하고 있습니다: 심리 지수(Fear &amp; Greed)는 100 중 %1$d입니다.</string>
+    <string name="market_plain_mood_greed">투자자들은 다소 탐욕적입니다: 심리 지수(Fear &amp; Greed)는 100 중 %1$d입니다.</string>
+    <string name="market_plain_mood_neutral">투자자 심리는 균형을 이루고 있습니다: 심리 지수(Fear &amp; Greed)는 100 중 %1$d입니다.</string>
+    <string name="market_plain_standout_above_btc">눈에 띄는 코인은 %1$s: 24시간 동안 %2$s, Bitcoin보다 크게 높습니다(%3$s).</string>
+    <string name="market_plain_standout_against_btc">눈에 띄는 코인은 %1$s: 24시간 동안 %2$s, Bitcoin은 반대 방향으로 움직였습니다(%3$s).</string>
+    <string name="market_plain_standout_below_btc">눈에 띄는 코인은 %1$s: 24시간 동안 %2$s, Bitcoin보다 크게 낮습니다(%3$s).</string>
+    <string name="market_plain_standout_futures_down">눈에 띄는 코인은 %1$s: 가격 하락에 거는 futures 트레이더가 이례적으로 많습니다.</string>
+    <string name="market_plain_standout_futures_up">눈에 띄는 코인은 %1$s: 가격 상승에 거는 futures 트레이더가 이례적으로 많습니다.</string>
+    <string name="market_plain_standout_quiet">지금은 특별히 눈에 띄는 코인이 없습니다.</string>
+    <string name="market_plain_standout_volume">눈에 띄는 코인은 %1$s: 거래량이 평소의 약 %2$s배입니다.</string>
+    <string name="market_plain_title">한눈에</string>
+    <!-- Nebenzeile der Fear-&-Greed-Zeile («Gier · gestern 65») -->
+    <string name="market_row_fng_yesterday">%1$s · 어제 %2$s</string>
+    <string name="market_section_collapse">%1$s 접기</string>
+    <string name="market_section_context">심리와 사이클</string>
+    <string name="market_section_data">시장 데이터</string>
+    <!-- Bedienungshilfen: Aktion auf der Abschnittsüberschrift; %1$s = Name des Abschnitts -->
+    <string name="market_section_expand">%1$s 펼치기</string>
+    <string name="market_section_now">지금</string>
+    <string name="market_source">데이터: Binance · Coin Metrics (CC BY-NC 4.0)</string>
+    <string name="market_unavailable_error">거래소를 사용할 수 없음</string>
+
+    <!-- Markt-Tab: Info-Zeichen und Info-Blatt je Karte (was, wie, Quelle) -->
+    <string name="market_info_a11y">정보: %1$s</string>
+    <string name="market_info_alt_season_source">일별 가격: Binance · 약 3시간마다 다시 계산</string>
+    <string name="market_info_alt_season_what">대형 알트코인 약 20개(예: Ethereum, Solana, XRP) 가운데 지난 90일 동안 Bitcoin보다 성과가 좋았던 코인이 몇 개인지 셉니다. 값은 그 비율을 0에서 100으로 나타낸 것입니다.</string>
+    <string name="market_info_coin_source">가격: Binance 또는 Bybit · 약 15분마다 다시 불러옴</string>
+    <string name="market_info_dominance_how">도미넌스가 오르면 Bitcoin이 나머지 시장보다 강하다는 뜻이고, 내리면 다른 코인의 비중이 커진다는 뜻입니다. 스테이블코인도 포함됩니다. 스테이블코인의 가치가 늘면 Bitcoin 가격이 그대로여도 Bitcoin 비중은 줄어듭니다.</string>
+    <string name="market_info_dominance_source">출처: CoinGecko · 약 30분마다 다시 불러옴</string>
+    <string name="market_info_dominance_what">모든 암호화폐의 전체 가치(시가총액)에서 Bitcoin이 차지하는 비중입니다. 아래에는 Ethereum의 비중이 표시됩니다.</string>
+    <string name="market_info_fear_greed_how">25 미만은 극도의 공포, 75 초과는 극도의 탐욕, 50 안팎은 중립입니다. 카드를 펼치면 어제, 일주일 전, 한 달 전 값이 나옵니다. 매수나 매도 신호가 아닙니다.</string>
+    <string name="market_info_fear_greed_source">출처: alternative.me · 하루에 한 번 새 값</string>
+    <string name="market_info_fear_greed_what">암호화폐 시장의 심리 지수로 0에서 100까지입니다. alternative.me가 가격 변동성, 거래량, 소셜 미디어, Bitcoin 도미넌스 등 여러 데이터로 계산합니다.</string>
+    <string name="market_info_gas_how">값이 높을수록 네트워크가 붐비고 송금 비용이 커집니다. 느림, 보통, 빠름은 더 늦거나 더 빠른 확인을 위한 수수료입니다. 카드를 펼치면 간단한 송금의 대략적인 비용이 나옵니다.</string>
+    <string name="market_info_gas_source">공개 RPC 노드, mempool.space · 매분 다시 불러옴</string>
+    <string name="market_info_gas_what">각 네트워크에서 지금 거래 한 건에 드는 비용입니다. Ethereum과 비슷한 네트워크는 gwei(가스 1단위당 ETH의 10억분의 1), Bitcoin은 sat/vB(거래의 가상 바이트당 satoshi)로 표시합니다.</string>
+    <string name="market_info_halving_source">날짜: 블록 높이와 평균 블록 시간으로 계산(mempool.space), 없으면 달력 기준 · 가격 기록: Coin Metrics, Binance, 12시간마다 다시 불러옴</string>
+    <string name="market_info_halving_what">반감기에는 채굴자가 새 Bitcoin 블록으로 받는 보상이 절반으로 줄어듭니다. 이는 210,000블록마다, 즉 약 4년마다 일어납니다. 그 뒤로는 하루에 새로 생기는 bitcoin이 절반으로 줄어듭니다.</string>
+    <string name="market_info_how">읽는 방법</string>
+    <string name="market_info_macro_how">이 안내는 그런 일정이 오늘이나 내일일 때만 나타납니다. 발표 전후에는 가격이 평소보다 크게 흔들리는 경우가 많습니다. 앱은 일정만 보여 주며 수치 자체는 보여 주지 않습니다.</string>
+    <string name="market_info_macro_source">앱 웹사이트의 일정 · 하루에 한 번 불러옴</string>
+    <string name="market_info_macro_what">중요한 미국 경제 지표의 발표 일정입니다. 물가(CPI, PCE), 생산자 물가(PPI), 고용보고서, 미국 연방준비제도의 금리 결정이 해당하며, 이런 수치는 암호화폐 가격도 자주 움직입니다.</string>
+    <string name="market_info_no_advice">투자 조언이 아닙니다.</string>
+    <string name="market_info_phase_source">Binance, Coin Metrics · 가격은 매시간, 온체인 값은 12시간마다 다시 불러옴</string>
+    <string name="market_info_pulse_how">헤드라인은 방향을 알려 주고, 카드를 펼치면 자세한 내용이 나옵니다. 폭넓은 움직임은 대부분의 큰 코인이 같은 방향으로 움직인다는 뜻입니다. 펀딩비가 높다는 것은 많은 사람이 레버리지로 상승에 걸고 있다는 뜻입니다. 지금 이 순간의 모습일 뿐, 예측이 아닙니다.</string>
+    <string name="market_info_pulse_source">Binance, CoinGecko · 약 5분마다 다시 불러옴</string>
+    <string name="market_info_pulse_what">지난 24시간 시장의 짧은 요약입니다. Bitcoin, Ethereum, Solana가 어떻게 움직이는지, 가장 큰 코인 가운데 몇 개가 오르거나 내리는지, 지금 Bitcoin이 얼마나 거래되는지, Bitcoin 선물의 펀딩비가 어느 수준인지를 보여 줍니다.</string>
+    <string name="market_info_totals_how">옆에는 24시간 동안의 전체 가치 변동이 나옵니다. 거래량이 많다는 것은 거래가 활발하다는 뜻일 뿐, 방향을 알려 주지는 않습니다. 가능하면 환산 통화로, 아니면 미국 달러로 표시합니다.</string>
+    <string name="market_info_totals_source">전체 코인 · CoinGecko · 약 30분마다 다시 불러옴</string>
+    <string name="market_info_totals_what">모든 암호화폐의 전체 가치(시가총액: 가격 × 유통량을 모든 코인에 대해 더한 값)와 지난 24시간의 거래량입니다.</string>
+    <string name="market_info_unusual_how">코인마다 가장 눈에 띄는 점이 표시되고, 옆에 24시간 변동이 나옵니다. 거래량 2×는 평소의 두 배 거래라는 뜻입니다. 눈에 띈다는 것이 좋거나 나쁘다는 뜻은 아닙니다.</string>
+    <string name="market_info_unusual_source">Binance, CoinGecko · 약 10분마다 다시 불러옴</string>
+    <string name="market_info_unusual_what">시가총액 상위 약 30개 코인(스테이블코인 제외) 가운데 오늘 평소와 다르게 움직이는 최대 5개입니다. Bitcoin보다 뚜렷이 강하거나 약한 경우, 시장 방향과 반대로 가는 경우, 거래량이 유난히 많은 경우, 펀딩비가 눈에 띄는 경우입니다.</string>
+    <string name="market_info_what">이것은 무엇인가요?</string>
+
+    <!-- Markt-Tab: Krypto-Markt gesamt -->
+    <string name="market_cap_label">시가총액</string>
+    <string name="market_cap_source">전체 코인 · CoinGecko</string>
+    <string name="market_cap_title">암호화폐 시장</string>
+    <string name="market_volume_label">거래량 24시간</string>
+
+    <!-- Crypto Pulse «Was gerade auffällt»: Titel, Abschnitte, Hinweise -->
+    <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
+    <string name="pulse_details_action">상세</string>
+    <string name="pulse_disclaimer">예측 아님 · 투자 조언 아님</string>
+    <string name="pulse_less">간단히 보기</string>
+    <string name="pulse_now_title">지금 눈에 띄는 점</string>
+    <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
+    <string name="pulse_period_24h_spoken">24시간 변동</string>
+    <string name="pulse_section_factors">요인</string>
+    <string name="pulse_section_market">오늘의 시장</string>
+    <string name="pulse_unavailable">현재 시장 데이터를 사용할 수 없습니다</string>
+    <string name="pulse_updated">%1$s 기준</string>
+
+    <!-- Crypto Pulse: Schlagzeile und Leitsatz -->
+    <string name="pulse_headline_calm">차분한 시장</string>
+    <string name="pulse_headline_down">전반적 약세</string>
+    <string name="pulse_headline_mixed">혼조세</string>
+    <string name="pulse_headline_up">전반적 강세</string>
+    <string name="pulse_lead_alts_stronger">알트코인이 비트코인보다 강합니다.</string>
+    <string name="pulse_lead_broad_down">시장이 전반적으로 내리고 있습니다.</string>
+    <string name="pulse_lead_broad_up">시장이 전반적으로 오르고 있습니다.</string>
+    <string name="pulse_lead_btc_leads">비트코인이 가장 크게 오르고 있습니다.</string>
+    <string name="pulse_lead_btc_stronger">비트코인이 알트코인보다 강합니다.</string>
+    <string name="pulse_lead_calm">시장이 거의 움직이지 않습니다.</string>
+    <string name="pulse_lead_drift_down">시장이 소폭 내리고 있습니다.</string>
+    <string name="pulse_lead_drift_up">시장이 소폭 오르고 있습니다.</string>
+    <string name="pulse_lead_mixed">대형 코인들이 서로 다르게 움직입니다.</string>
+
+    <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
+    <string name="pulse_detail_fund_high">펀딩비 높음.</string>
+    <string name="pulse_detail_fund_negative">펀딩비 마이너스.</string>
+    <string name="pulse_detail_fund_neutral">펀딩비 중립.</string>
+    <string name="pulse_detail_vol_above">거래량 평소보다 %1$d%% 많음.</string>
+    <string name="pulse_detail_vol_above_fund_high">거래량 평소보다 %1$d%% 많음, 펀딩비 높음.</string>
+    <string name="pulse_detail_vol_above_fund_negative">거래량 평소보다 %1$d%% 많음, 펀딩비 마이너스.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">거래량 평소보다 %1$d%% 많음, 펀딩비 중립.</string>
+    <string name="pulse_detail_vol_below">거래량 평소보다 %1$d%% 적음.</string>
+    <string name="pulse_detail_vol_below_fund_high">거래량 평소보다 %1$d%% 적음, 펀딩비 높음.</string>
+    <string name="pulse_detail_vol_below_fund_negative">거래량 평소보다 %1$d%% 적음, 펀딩비 마이너스.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">거래량 평소보다 %1$d%% 적음, 펀딩비 중립.</string>
+    <string name="pulse_detail_vol_normal">거래량 평소 수준.</string>
+    <string name="pulse_detail_vol_normal_fund_high">거래량 평소 수준, 펀딩비 높음.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">거래량 평소 수준, 펀딩비 마이너스.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">거래량 평소 수준, 펀딩비 중립.</string>
+
+    <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
+    <string name="pulse_breadth_hint">상위 %1$d: 시가총액 기준 가장 큰 코인(스테이블코인 제외), 24시간 변동(CoinGecko).</string>
+    <!-- «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">상위 %1$d</string>
+    <string name="pulse_breadth_note_broad_down">폭넓은 하락: 대형 코인 대부분이 내리고 있습니다.</string>
+    <string name="pulse_breadth_note_broad_up">폭넓은 상승: 대형 코인 대부분이 오르고 있습니다.</string>
+    <string name="pulse_breadth_note_narrow_down">비트코인은 내리지만 다른 대형 코인 대부분은 버티고 있습니다.</string>
+    <string name="pulse_breadth_note_narrow_up">비트코인은 오르지만 다른 대형 코인 대부분은 따라오지 않습니다.</string>
+    <string name="pulse_breadth_spoken">상위 %1$d: 상승 %2$d, 하락 %3$d</string>
+
+    <!-- Crypto Pulse: Altcoins, Funding, Gas, Volumen -->
+    <string name="pulse_alts_even">알트코인과 Bitcoin이 비슷하게 움직임</string>
+    <string name="pulse_alts_stronger">알트코인이 Bitcoin보다 강세</string>
+    <string name="pulse_alts_weaker">Bitcoin이 알트코인보다 강세</string>
+    <string name="pulse_chip_funding_high">펀딩비 높음</string>
+    <string name="pulse_chip_funding_negative">펀딩비 마이너스</string>
+    <string name="pulse_funding_high">펀딩비 뚜렷한 양수: 레버리지 롱 많음</string>
+    <string name="pulse_funding_negative">펀딩비 음수: 숏 많음</string>
+    <string name="pulse_funding_neutral">펀딩비 중립</string>
+    <string name="pulse_funding_slight">펀딩비 약간 양수</string>
+    <string name="pulse_gas_high">Ethereum 가스 높음(%1$s gwei)</string>
+    <string name="pulse_gas_low">Ethereum 가스 낮음(%1$s gwei)</string>
+    <string name="pulse_gas_normal">Ethereum 가스 보통(%1$s gwei)</string>
+    <string name="pulse_volume_high">거래량 이례적으로 많음(평소의 %1$s×)</string>
+    <string name="pulse_volume_low">거래량 적음(평소의 %1$s×)</string>
+    <string name="pulse_volume_normal">거래량 평소 수준</string>
+
+    <!-- «Heute auffällig» (grösste Coins mit ungewöhnlicher Bewegung) -->
+    <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
+    <!-- Screenreader-Aktion einer Zeile (öffnet das Aktionsblatt bzw. die Vorschau) -->
+    <string name="unusual_action_open">가격 및 작업 보기</string>
+    <string name="unusual_fact_against">시장과 반대로 움직임</string>
+    <string name="unusual_fact_funding_high">펀딩비 높음 (%1$s)</string>
+    <string name="unusual_fact_funding_negative">펀딩비 마이너스 (%1$s)</string>
+    <string name="unusual_fact_stronger">BTC보다 훨씬 강하게 움직임</string>
+    <string name="unusual_fact_volume">거래량 평소의 %1$s×</string>
+    <string name="unusual_fact_weaker">BTC보다 훨씬 약하게 움직임</string>
+    <string name="unusual_nothing">오늘은 특별한 움직임 없음</string>
+    <string name="unusual_source">스테이블코인 제외 상위 약 30개 코인 · Binance, CoinGecko</string>
+    <string name="unusual_title">오늘 눈에 띄는 코인</string>
+
+    <!-- Ungewöhnliche Aktivität eines Paars (Karte, Signale, Empfindlichkeit) -->
+    <string name="activity_card_title">지금 무언가 일어나고 있습니다</string>
+    <string name="activity_indicator">이상 움직임</string>
+    <string name="activity_sensitivity_less">적게</string>
+    <string name="activity_sensitivity_more">많이</string>
+    <string name="activity_sensitivity_normal">보통</string>
+    <string name="activity_signal_funding_long">펀딩비 %1$s — 레버리지 롱 많음</string>
+    <string name="activity_signal_funding_short">펀딩비 %1$s — 숏 많음</string>
+    <string name="activity_signal_open_interest">미결제약정 %1$s (%2$d분 이내)</string>
+    <string name="activity_signal_open_interest_no_time">미결제약정 %1$s</string>
+    <string name="activity_signal_price_move">이상 움직임: 1시간 동안 %1$s (평소의 %2$s×)</string>
+    <string name="activity_signal_volume">최근 1시간 거래량이 평소의 %1$s×</string>
+
+    <!-- Einordnung: Bitcoin-Dominanz, Fear & Greed, Halving, Altseason -->
+    <plurals name="insights_altseason_value">
+        <item quantity="other">대형 알트코인 %2$d개 중 %1$d개가 90일간 비트코인을 앞섬</item>
+    </plurals>
+    <string name="insights_chart_axis">반감기 이후 연수</string>
+    <string name="insights_chart_hint">반감기 당일 가격 대비 배수 (로그 스케일). 과거 사이클은 패턴일 뿐 예측이 아닙니다.</string>
+    <string name="insights_cycle_chart">반감기 이후 사이클</string>
+    <string name="insights_dominance_eth">전체 시장 중 ETH %1$s</string>
+    <string name="insights_dominance_title">비트코인 도미넌스</string>
+    <string name="insights_fng_history">어제 %1$s · 일주일 전 %2$s · 한 달 전 %3$s</string>
+    <string name="insights_fng_title">공포·탐욕 지수</string>
+    <string name="insights_halving_title">비트코인 반감기</string>
+    <string name="insights_source_dominance">출처: CoinGecko, Binance</string>
+    <string name="insights_source_fng">출처: alternative.me</string>
+    <string name="insights_source_history">출처: Coin Metrics (CC BY-NC 4.0), Binance</string>
+
+    <!-- Fear & Greed: Stufen -->
+    <string name="fng_extreme_fear">극도의 공포</string>
+    <string name="fng_extreme_greed">극도의 탐욕</string>
+    <string name="fng_fear">공포</string>
+    <string name="fng_greed">탐욕</string>
+    <string name="fng_neutral">중립</string>
+
+    <!-- Halving-Zyklus (Chart, Marken, Schätzung) -->
+    <string name="cycle_data_as_of">%1$s 기준 데이터 · 업데이트 중…</string>
+    <string name="cycle_from_top">고점 대비 %1$s</string>
+    <string name="cycle_marker_bottom">저점 %1$s</string>
+    <string name="cycle_marker_double_bottom">이중 저점 %1$s</string>
+    <string name="cycle_marker_double_top">이중 고점 %1$s</string>
+    <string name="cycle_marker_high_so_far">현재까지 최고</string>
+    <!-- Hoch/Tief-Marken mit Sprechblase im Zyklus-Chart -->
+    <string name="cycle_marker_top">고점 %1$s</string>
+    <string name="cycle_since_halving">반감기 이후 %1$s</string>
+    <string name="halving_estimate_text">다음 반감기는 계산상 %1$s 무렵: 현재 난이도 기간 평균 블록당 %3$s분으로 %2$s 블록 남음. 연장 계산일 뿐 약속이 아닙니다 – 블록 시간은 변합니다.</string>
+
+    <!-- Netzwerkgebühren (Gas) -->
+    <string name="gas_alert_active">경보: %1$s</string>
+    <string name="gas_slow_fast">느림 %1$s · 빠름 %2$s</string>
+    <string name="gas_source">공개 RPC 노드 및 mempool.space · 단순 전송 비용, L2는 L1 몫 제외</string>
+    <string name="gas_title">네트워크 수수료</string>
+    <string name="gas_transfer_cost">전송 ≈ %1$s</string>
+
+    <!-- Wirtschaftsdaten (US-Termine) -->
+    <string name="macro_cpi">미국 소비자물가지수(CPI)</string>
+    <string name="macro_fomc">미 연준 금리 결정</string>
+    <string name="macro_hint_list">%1$s – 이런 날에는 시장 변동이 커지는 경우가 많습니다.</string>
+    <string name="macro_hint_today">오늘 %1$s: %2$s – 이런 날에는 시장 변동이 커지는 경우가 많습니다.</string>
+    <string name="macro_hint_today_list">오늘: %1$s – 이런 날에는 시장 변동이 커지는 경우가 많습니다.</string>
+    <string name="macro_hint_tomorrow">내일 %1$s: %2$s – 이런 날에는 시장 변동이 커지는 경우가 많습니다.</string>
+    <string name="macro_hint_tomorrow_list">내일: %1$s – 이런 날에는 시장 변동이 커지는 경우가 많습니다.</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">오늘 %1$s %2$s</string>
+    <string name="macro_item_tomorrow">내일 %1$s %2$s</string>
+    <string name="macro_nfp">미국 고용보고서</string>
+    <string name="macro_pce">미국 PCE 물가지수</string>
+    <string name="macro_ppi">미국 생산자물가지수(PPI)</string>
+    <string name="macro_released_list">오늘 발표: %1$s.</string>
+    <string name="macro_released_one">오늘 %1$s 발표: %2$s.</string>
+    <string name="macro_title">경제 지표</string>
+
+    <!-- Coin-Analyse -->
+    <string name="coin_choose">코인</string>
+    <string name="coin_no_data">이 코인은 Binance나 Bybit에 가격 데이터가 없습니다.</string>
+    <string name="coin_price_only">가격만으로 계산 – 온체인 데이터(MVRV, Puell, 해시레이트)는 비트코인만 무료로 제공됩니다.</string>
+    <plurals name="coin_short_history">
+        <item quantity="other">가격 기록이 %1$d일분밖에 없어 일부 지표가 없습니다.</item>
+    </plurals>
+    <string name="coin_title">코인 분석</string>
+</resources>

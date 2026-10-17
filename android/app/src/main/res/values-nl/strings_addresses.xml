@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: beobachtete Adressen (Wallets) -->
+    <string name="portfolio_address_add">Adres toevoegen</string>
+    <string name="portfolio_address_count">Meetellen</string>
+    <string name="portfolio_address_error">Bijwerken mislukt</string>
+    <string name="portfolio_address_hint">Openbaar adres (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) of xpub</string>
+    <string name="portfolio_address_label">Label (optioneel)</string>
+    <string name="portfolio_address_not_since_buy">Van adres · niet in «Sinds aankoop»: %1$s</string>
+    <string name="portfolio_address_overlap">Ook in je eigen transacties: %1$s – beide worden opgeteld. Dezelfde munten? Kies «Alleen tonen».</string>
+    <string name="portfolio_address_overlap_ask">Je legt %1$s al vast met eigen transacties. Het saldo van dit adres bij het portfolio optellen of alleen tonen?</string>
+    <string name="portfolio_address_overlap_auto">«%1$s» wordt nu alleen getoond, niet meegeteld – %2$s staan ook in je transacties.</string>
+    <string name="portfolio_address_overlap_restored">«%1$s» telt weer mee – de hoeveelheden passen niet bij je transacties. Kies «Alleen tonen» als het dezelfde munten zijn.</string>
+    <string name="portfolio_address_overlap_title">Dezelfde munten als in je transacties?</string>
+    <string name="portfolio_address_overlap_tx">Zelfde hoeveelheid als je eigen storting/overboeking (%1$s) – waarschijnlijk dubbel geteld.</string>
+    <string name="portfolio_address_period_observed">Gevolgde adressen tellen vanaf het eerst waargenomen saldo; latere wijzigingen zijn in-/uitstromen, geen winst.</string>
+    <string name="portfolio_address_privacy">Alleen het openbare adres wordt naar %1$s gestuurd – nooit sleutels of seedzinnen. De aanbieder ziet het samen met je IP-adres. Hooguit elke 10 minuten opgevraagd.</string>
+    <string name="portfolio_address_remove">Adres verwijderen</string>
+    <string name="portfolio_address_show_only">Alleen tonen, niet bij portfolio optellen</string>
+    <string name="portfolio_address_show_only_short">Alleen tonen</string>
+    <string name="portfolio_address_tokens">Tokens meetellen</string>
+    <string name="portfolio_address_unknown_tokens">+%1$d onbekende tokens (niet meegeteld)</string>
+    <string name="portfolio_address_xpub_privacy">Een xpub onthult alle adressen van deze wallet. Ze worden op je apparaat afgeleid; naar %1$s gaan alleen losse adressen – bij de eerste zoektocht minstens 40 verzoeken, daarna minder. Privésleutels (xprv) worden nooit geaccepteerd.</string>
+    <string name="portfolio_address_xpub_used">Gebruikte adressen: %1$d</string>
+    <string name="portfolio_addresses_title">Adressen</string>
+
+    <!-- Prüfung einer eingegebenen Adresse -->
+    <string name="address_bch_unsupported">Bitcoin Cash-adressen kunnen niet worden gevolgd: er is geen gratis openbare dienst zonder API-sleutel waarvan de voorwaarden dat toestaan.</string>
+    <string name="address_bep2_shutdown">BNB Beacon Chain (BEP-2) is in 2024 uitgeschakeld – saldi staan nu op BNB Smart Chain (0x…)</string>
+    <string name="address_checksum">Controlesom onjuist – typfout?</string>
+    <string name="address_doge_unsupported">Dogecoin-adressen kunnen niet worden gevolgd: er is geen gratis openbare dienst zonder API-sleutel waarvan de voorwaarden dat toestaan.</string>
+    <string name="address_duplicate">Dit adres is al toegevoegd</string>
+    <string name="address_ens">ENS-namen worden niet ondersteund – voer het 0x-adres in</string>
+    <string name="address_invalid">Geen geldig adres van een ondersteund netwerk</string>
+    <string name="address_limit">Maximaal 20 adressen</string>
+    <string name="address_secret">Dit lijkt op een privésleutel of seedzin – voer dit nergens in. Alleen openbare adressen.</string>
+    <string name="address_testnet">Testnet-adressen worden niet ondersteund</string>
+    <string name="address_unsupported">Dit adrestype wordt niet ondersteund</string>
+    <string name="address_wrong_chain">Adres hoort bij een ander netwerk</string>
+    <string name="address_xpub_multisig">Multisig-sleutels (Ypub/Zpub) worden niet ondersteund</string>
+</resources>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Begrüssung beim ersten Start -->
+    <string name="welcome_alert">نبّه – السعر والنسبة المئوية والحجم والحركات غير العادية</string>
+    <string name="welcome_alert_q">متى أتلقى تنبيهًا؟</string>
+    <string name="welcome_text">أسعارك. تنبيهاتك. نظرتك العامة.\nبلا حساب. بلا إعلانات. بلا تتبع.</string>
+    <string name="welcome_understand">افهم – ما الذي يتحرك مع السعر الآن</string>
+    <string name="welcome_understand_q">ما الذي يتحرك معه؟</string>
+    <string name="welcome_watch">راقب – عملاتك وأسعارها وتطورها</string>
+    <string name="welcome_watch_q">ماذا يحدث؟</string>
+
+    <!-- Start-Coins (Vorschlagsliste nach der Begrüssung) -->
+    <string name="starter_add_selected">إضافة إلى قائمة المتابعة (%1$d)</string>
+    <string name="starter_loading_prices">جارٍ تحميل الأسعار…</string>
+    <string name="starter_search_coin">ابحث عن عملة أخرى</string>
+    <string name="starter_select_all">تحديد الكل</string>
+    <string name="starter_select_none">إلغاء تحديد الكل</string>
+    <string name="starter_text">ألغِ تحديد ما لا تريده وأضف الباقي دفعة واحدة. يمكنك تغيير المنصة والزوج لاحقًا.</string>
+    <string name="starter_title">ابدأ بهذه العملات</string>
+    <string name="starter_watch_alarm_hint">تابع السعر واضبط تنبيهًا</string>
+</resources>

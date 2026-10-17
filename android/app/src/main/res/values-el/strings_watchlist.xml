@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: leere Ansicht, Statuszeile, Frische -->
+    <string name="watchlist_all_fresh">Ενημερωμένο · %1$s</string>
+    <string name="watchlist_empty_title">Δεν υπάρχουν ζεύγη ακόμα</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="one">%1$d από %2$d χωρίς τιμή</item>
+        <item quantity="other">%1$d από %2$d χωρίς τιμή</item>
+    </plurals>
+    <string name="watchlist_last_run">Τελευταία εκτέλεση %1$s</string>
+    <string name="watchlist_live_a11y">Τιμές live ενεργές</string>
+    <string name="watchlist_live_badge">LIVE</string>
+    <string name="watchlist_offline_since">Χωρίς σύνδεση · κατάσταση %1$s</string>
+    <string name="watchlist_pull_to_refresh">Σύρετε προς τα κάτω για ανανέωση</string>
+    <string name="watchlist_refresh_report">Τελευταία ανανέωση</string>
+    <string name="watchlist_refresh_report_empty">Δεν υπάρχει ανάλυση ακόμα: δεν έχει γίνει ακόμη πλήρης ανανέωση. Πατήστε ανανέωση και περιμένετε να σταματήσει η ένδειξη φόρτωσης.</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="one">%1$d από %2$d παρωχημένο</item>
+        <item quantity="other">%1$d από %2$d παρωχημένα</item>
+    </plurals>
+    <string name="watchlist_status_all_disabled">Όλα τα ζεύγη εδώ είναι απενεργοποιημένα</string>
+    <string name="watchlist_status_exchange_prices">Τιμές από τα ανταλλακτήριά σου · %1$s</string>
+    <string name="watchlist_status_exchange_prices_short">Τιμές ανταλλακτηρίων · %1$s</string>
+    <string name="watchlist_status_group_empty">Δεν υπάρχουν ζεύγη σε αυτή την ομάδα</string>
+    <string name="watchlist_status_none_traded">Κανένα ζεύγος σε διαπραγμάτευση εδώ</string>
+    <string name="watchlist_updated">Ενημέρωση: %1$s</string>
+
+    <!-- Merkliste: Puls-Zeile (Paare im Plus/Minus, ohne 24-h-Wert) -->
+    <string name="watchlist_pulse_avg">Ø %1$s</string>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="one">%1$d πέφτει</item>
+        <item quantity="other">%1$d πέφτουν</item>
+    </plurals>
+    <!-- Paare mit Kurs, aber ohne 24-h-Wert («· 510 ohne 24h-Wert») -->
+    <plurals name="watchlist_pulse_missing">
+        <item quantity="one">%1$d χωρίς τιμή 24ω</item>
+        <item quantity="other">%1$d χωρίς τιμή 24ω</item>
+    </plurals>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="one">%1$d χωρίς σημερινή τιμή</item>
+        <item quantity="other">%1$d χωρίς σημερινή τιμή</item>
+    </plurals>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="one">%1$d ανεβαίνει</item>
+        <item quantity="other">%1$d ανεβαίνουν</item>
+    </plurals>
+
+    <!-- Merkliste: Zeile eines Paars -->
+    <string name="watchlist_row_disabled">%1$s · απενεργοποιημένο</string>
+    <string name="watchlist_row_outdated">%1$s · παρωχημένο</string>
+    <string name="watchlist_row_outdated_age">παρωχημένο · %1$s</string>
+    <string name="watchlist_row_price_unchanged_since">Τιμή αμετάβλητη από %1$s</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s μη προσβάσιμο</string>
+
+    <!-- Merkliste: Suche, Sprungknopf, Sortieren nach Spalte -->
+    <string name="watchlist_jump_end">Στο τέλος</string>
+    <string name="watchlist_jump_start">Στην αρχή</string>
+    <string name="watchlist_search_close">Κλείσιμο αναζήτησης</string>
+    <string name="watchlist_search_empty">Κανένα αποτέλεσμα για «%1$s»</string>
+    <string name="watchlist_search_hint">Αναζήτηση ζεύγους, ονόματος ή ανταλλακτηρίου</string>
+    <string name="watchlist_search_open">Αναζήτηση</string>
+    <string name="watchlist_sort_ascending">αύξουσα</string>
+    <string name="watchlist_sort_descending">φθίνουσα</string>
+    <string name="watchlist_sort_hint">Κρατήστε και σύρετε ένα ζεύγος ή χρησιμοποιήστε τη λαβή. Τα αγαπημένα μένουν πάνω.</string>
+    <string name="watchlist_sort_name">Όνομα</string>
+    <string name="watchlist_sort_own">Δική σας σειρά</string>
+    <string name="watchlist_sort_price">Τιμή</string>
+
+    <!-- Merkliste: Mehrfachauswahl, Ansichten, Entfernen -->
+    <string name="watchlist_clear">Εκκαθάριση λίστας</string>
+    <string name="watchlist_clear_confirm">Να αφαιρεθούν όλα τα ζεύγη από τη λίστα παρακολούθησης; Θα διαγραφούν και οι συναγερμοί τους.</string>
+    <plurals name="watchlist_disabled_count">
+        <item quantity="one">%1$d απενεργοποιημένο</item>
+        <item quantity="other">%1$d απενεργοποιημένα</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_action">Αφαίρεση</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="one">Να αφαιρεθεί %1$d ζεύγος που δεν διαπραγματεύεται πλέον στο ανταλλακτήριό του; Θα διαγραφούν και οι συναγερμοί του.</item>
+        <item quantity="other">Να αφαιρεθούν %1$d ζεύγη που δεν διαπραγματεύονται πλέον στο ανταλλακτήριό τους; Θα διαγραφούν και οι συναγερμοί τους.</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_menu">Αφαίρεση ζευγών χωρίς διαπραγμάτευση (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">Αφαίρεση ζευγών χωρίς διαπραγμάτευση</string>
+    <string name="watchlist_removed">Το %1$s αφαιρέθηκε</string>
+    <plurals name="watchlist_removed_count">
+        <item quantity="one">Αφαιρέθηκε %1$d ζεύγος</item>
+        <item quantity="other">Αφαιρέθηκαν %1$d ζεύγη</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="one">Αφαιρέθηκε %1$d ζεύγος χωρίς διαπραγμάτευση</item>
+        <item quantity="other">Αφαιρέθηκαν %1$d ζεύγη χωρίς διαπραγμάτευση</item>
+    </plurals>
+    <string name="watchlist_select">Επιλογή</string>
+    <string name="watchlist_select_all">Επιλογή όλων</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="one">Επιλεγμένα: %1$d</item>
+        <item quantity="other">Επιλεγμένα: %1$d</item>
+    </plurals>
+    <string name="watchlist_show_all">Εμφάνιση όλων</string>
+    <string name="watchlist_show_only_disabled">Εμφάνιση μόνο των απενεργοποιημένων</string>
+    <string name="watchlist_show_only_stale">Εμφάνιση μόνο των παρωχημένων</string>
+
+    <!-- Merkliste: weitere Texte (Gruppen, Alarme, Mitteilung, Sprachausgabe) -->
+    <plurals name="watchlist_alarms_count">
+        <item quantity="one">Συναγερμός (%1$d)</item>
+        <item quantity="other">Συναγερμοί (%1$d)</item>
+    </plurals>
+    <string name="watchlist_favorites_empty_hint">Δεν υπάρχουν ακόμη αγαπημένα. Σύρετε ένα ζεύγος προς τα δεξιά ή ανοίξτε το και πατήστε «Αγαπημένο».</string>
+    <string name="watchlist_group_empty_hint">Πατήστε παρατεταμένα μια ομάδα για να επιλέξετε τα ζεύγη της.</string>
+    <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
+    <string name="watchlist_groups_empty_hint">Εδώ θα εμφανίζονται οι ομάδες σας</string>
+    <string name="watchlist_notification">Ειδοποίηση τιμής</string>
+    <string name="watchlist_tts">Εκφώνηση τιμής</string>
+    <string name="watchlist_tts_speech_on">Η φωνητική έξοδος είναι ενεργή. Μπορείς να την αλλάξεις στο Ρυθμίσεις › Για προχωρημένους › Φωνητική έξοδος.</string>
+
+    <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
+    <string name="watch_action_add_widget">Προσθήκη ως widget</string>
+    <string name="watch_action_alarm">Συναγερμός</string>
+    <string name="watch_action_favorite">Αγαπημένο</string>
+    <string name="watch_action_why">Τι κινείται μαζί;</string>
+    <string name="watch_action_why_short">Τι κινείται;</string>
+    <string name="watch_change_mark">Mark</string>
+    <string name="watch_disable">Απενεργοποίηση</string>
+    <string name="watch_disable_hint">Χωρίς ερωτήματα, χωρίς ειδοποιήσεις</string>
+    <string name="watch_disabled">Απενεργοποιημένο</string>
+    <string name="watch_disabled_banner">Το %1$s απενεργοποιήθηκε</string>
+    <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
+    <string name="watch_edit_alarms_warning">Οι συναγερμοί παραμένουν – ελέγξτε τα όρια</string>
+    <!-- Titel des Formulars und Screenreader-Name des Stifts neben dem Paar -->
+    <string name="watch_edit_title">Επεξεργασία ζεύγους</string>
+    <string name="watch_enable">Ενεργοποίηση</string>
+    <string name="watch_enable_hint">Οι τιμές και οι ειδοποιήσεις επανέρχονται</string>
+    <string name="watch_enabled_banner">Το %1$s ενεργοποιήθηκε</string>
+    <string name="watch_error_offline">Χωρίς σύνδεση</string>
+    <string name="watch_gesture_hint_short">Πατήστε: συναγερμός και «Τι κινείται μαζί;» · παρατεταμένο πάτημα για επιλογή · σύρετε αριστερά για διαγραφή · δεξιά για αγαπημένο</string>
+    <string name="watch_hint_tap_why">Πατήστε ένα νόμισμα για να δείτε τι κινείται μαζί του</string>
+    <string name="watch_not_traded">Δεν διαπραγματεύεται πλέον σε αυτό το ανταλλακτήριο</string>
+    <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
+    <string name="watch_preview_not_watched">Δεν είναι στη λίστα</string>
+    <string name="watch_price_mid">μέση τιμή (αλλιώς mark)</string>
+    <string name="watch_row_source_both">Μεταβολή και γράφημα: %1$s</string>
+    <string name="watch_row_source_change">Μεταβολή: %1$s</string>
+    <string name="watch_row_source_chart">Γράφημα: %1$s</string>
+
+    <!-- Meldung nach dem Hinzufügen (ein Paar / mehrere Paare) -->
+    <string name="pair_added_watching">Το %1$s είναι τώρα στη λίστα παρακολούθησης</string>
+    <!-- Ein Paar: pair_added_watching -->
+    <string name="pairs_added_watching">Τα %1$s είναι τώρα στη λίστα παρακολούθησης</string>
+
+    <!-- Favoriten -->
+    <string name="favorite_add">Προσθήκη στα αγαπημένα</string>
+    <string name="favorite_added">Το %1$s προστέθηκε στα αγαπημένα</string>
+    <string name="favorite_remove">Αφαίρεση από τα αγαπημένα</string>
+    <string name="favorite_removed">Το %1$s αφαιρέθηκε από τα αγαπημένα</string>
+    <string name="hint_favorites_list">Συμβουλή: σύρετε μια γραμμή προς τα δεξιά για αγαπημένο – τα αγαπημένα μένουν πάνω.</string>
+
+    <!-- Gruppen und Chips der Merkliste -->
+    <string name="group_add">Νέα ομάδα</string>
+    <string name="group_all">Όλα</string>
+    <!-- Alpha-Tokens: Chip «α», Art vor der Glocke, «inkl. Alpha-Tokens» -->
+    <string name="group_alpha">Alpha tokens</string>
+    <string name="group_delete">Διαγραφή ομάδας</string>
+    <string name="group_delete_confirm">Τα ζεύγη παραμένουν στη λίστα παρακολούθησης.</string>
+    <string name="group_done">Τέλος</string>
+    <string name="group_edit_title">Επεξεργασία ομάδας</string>
+    <!-- Chip «FAV» (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird vorgelesen) -->
+    <string name="group_favorites">Αγαπημένα</string>
+    <string name="group_in_other">σε %1$s</string>
+    <string name="group_name">Όνομα ομάδας</string>
+    <string name="group_new">Νέα ομάδα…</string>
+    <string name="group_next">Επόμενο</string>
+    <string name="group_none">Χωρίς ομάδα</string>
+    <string name="group_rename">Μετονομασία</string>
+    <string name="group_search_hint">Αναζήτηση ζεύγους, ονόματος ή ανταλλακτηρίου</string>
+    <string name="group_target">Στην ομάδα</string>
+    <string name="group_title">Ομάδα</string>
+    <!-- Gruppen-Chip «Token» (alle Paare ausser der Gruppe «TradFi»), Screenreader und Widget-Einrichtung -->
+    <string name="group_tokens">Tokens</string>
+    <string name="group_value">Ομάδα: %1$s</string>
+
+    <!-- Notiz zum Paar -->
+    <string name="note_add">Προσθήκη σημείωσης</string>
+    <string name="note_edit">Επεξεργασία σημείωσης</string>
+    <string name="note_hint">π.χ. είσοδος στο 0,42, στόχος 0,60</string>
+    <string name="note_remove">Αφαίρεση</string>
+    <string name="note_title">Σημείωση</string>
+
+    <!-- Reihenfolge ändern (Sortiermodus, Screenreader-Aktionen) -->
+    <string name="sort_drag_handle">Σύρετε για μετακίνηση</string>
+    <string name="sort_move_bottom">Στο τέλος</string>
+    <string name="sort_move_down">Κάτω</string>
+    <string name="sort_move_top">Στην κορυφή</string>
+    <string name="sort_move_up">Πάνω</string>
+</resources>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Begrüssung beim ersten Start -->
+    <string name="welcome_alert">เตือน – ราคา เปอร์เซ็นต์ ปริมาณ และการเคลื่อนไหวที่ผิดปกติ</string>
+    <string name="welcome_alert_q">ควรแจ้งเมื่อไร?</string>
+    <string name="welcome_text">ราคาของคุณ สัญญาณเตือนของคุณ ภาพรวมของคุณ\nไม่ต้องมีบัญชี ไม่มีโฆษณา ไม่มีการติดตาม</string>
+    <string name="welcome_understand">เข้าใจ – อะไรเคลื่อนไหวไปพร้อมกับราคาตอนนี้</string>
+    <string name="welcome_understand_q">อะไรเคลื่อนไหวไปด้วย?</string>
+    <string name="welcome_watch">ติดตาม – เหรียญ ราคา และความเคลื่อนไหวของคุณ</string>
+    <string name="welcome_watch_q">เกิดอะไรขึ้น?</string>
+
+    <!-- Start-Coins (Vorschlagsliste nach der Begrüssung) -->
+    <string name="starter_add_selected">เพิ่มไปยังรายการติดตาม (%1$d)</string>
+    <string name="starter_loading_prices">กำลังโหลดราคา…</string>
+    <string name="starter_search_coin">ค้นหาเหรียญอื่น</string>
+    <string name="starter_select_all">เลือกทั้งหมด</string>
+    <string name="starter_select_none">ไม่เลือกเลย</string>
+    <string name="starter_text">ยกเลิกเลือกเหรียญที่ไม่ต้องการ แล้วเพิ่มที่เหลือได้ในครั้งเดียว คุณเปลี่ยนกระดานเทรดและคู่เหรียญได้ภายหลัง</string>
+    <string name="starter_title">เริ่มต้นด้วยเหรียญเหล่านี้</string>
+    <string name="starter_watch_alarm_hint">ติดตามราคา ตั้งสัญญาณเตือน</string>
+</resources>

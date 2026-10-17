@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Neutrale Indikatoren: Titel, Hinweise, Halving -->
+    <string name="neutral_alt_title">العملات البديلة مقابل بيتكوين</string>
+    <string name="neutral_btc_indicators_title">مؤشرات بيتكوين</string>
+    <string name="neutral_halving_last">آخر تنصيف: %1$s</string>
+    <string name="neutral_halving_next">يُتوقع الهالفينغ التالي نحو %1$s (تقدير وفق التقويم – ارتفاع الكتلة غير متاح حاليًا).</string>
+    <string name="neutral_indicators_disclaimer">قيم مقاسة فقط دون تقييم. ليست توقعًا ولا نصيحة استثمارية.</string>
+    <string name="neutral_onchain_missing">بيانات السلسلة (Coin Metrics) غير متاحة حاليًا.</string>
+
+    <!-- Neutrale Indikatoren: was der Wert misst -->
+    <string name="neutral_explain_ath_distance">كم يبعد السعر تحت أعلى مستوى تاريخي سابق.</string>
+    <string name="neutral_explain_change_30d">سعر اليوم مقارنة بسعره قبل 30 يومًا.</string>
+    <string name="neutral_explain_hashrate">متوسط معدل التجزئة لـ 30 يومًا مقارنة بمتوسط 60 يومًا.</string>
+    <string name="neutral_explain_ma200w">متوسط آخر 200 إغلاق أسبوعي.</string>
+    <string name="neutral_explain_mayer">السعر مقسومًا على متوسط 200 يوم.</string>
+    <string name="neutral_explain_mvrv">القيمة السوقية مقسومة على القيمة المحققة (على السلسلة).</string>
+    <string name="neutral_explain_pi_gap">متوسط 111 يومًا مقارنةً بضعف متوسط 350 يومًا.</string>
+    <string name="neutral_explain_puell">الإيرادات اليومية للمعدّنين مقسومة على متوسطها لـ 365 يومًا.</string>
+    <string name="neutral_explain_rsi_daily">مؤشر القوة النسبية لآخر 14 يومًا، من 0 إلى 100.</string>
+    <string name="neutral_explain_rsi_weekly">مؤشر القوة النسبية لآخر 14 أسبوعًا، من 0 إلى 100.</string>
+    <string name="neutral_explain_sma50_200">متوسط 50 يومًا مقارنة بمتوسط 200 يوم.</string>
+    <string name="neutral_explain_vs_btc">تغيّر السعر مقارنة ببيتكوين خلال 90 يومًا.</string>
+
+    <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
+    <string name="neutral_info_alt_season_how">يعرض التطبيق العدد فقط ولا يسمّيه «موسمًا». تتغير القيمة عادة خلال أيام لا ساعات.</string>
+    <string name="neutral_info_btc_how">لكل قيمة جملة توضح ما تقيسه وأين تقع في تاريخها منذ 2016. لا يقيّم التطبيق القيم ولا يستنتج مرحلة سوق؛ حدود التنبيهات هي فقط ما تضبطه بنفسك. الأنماط السابقة لا يلزم أن تتكرر.</string>
+    <string name="neutral_info_btc_what">مؤشرات بيتكوين الشائعة كقيم مقيسة فقط: Mayer Multiple ومتوسط 200 أسبوع والانخفاض من القمة التاريخية والتغير خلال 30 يومًا وفجوة Pi Cycle والقيم على السلسلة MVRV وPuell Multiple ومعدل التجزئة.</string>
+    <string name="neutral_info_coin_how">لكل قيمة جملة توضح ما تقيسه دون تقييم. في العملات ذات السجل السعري القصير تغيب بعض القيم. لا تُدرج بيانات السلسلة هنا.</string>
+    <string name="neutral_info_coin_what">المؤشرات البسيطة نفسها لعملة تختارها، من بيانات السعر فقط: Mayer Multiple ومتوسط 200 أسبوع والتراجع عن القمة والتغيّر خلال 30 يومًا واتجاه 50/200 يوم وRSI والقوة مقابل بيتكوين خلال 90 يومًا.</string>
+    <string name="neutral_info_halving_how">يُحسب الهالفينغ التالي من ارتفاع الكتلة الحالي ومتوسط زمن الكتلة في فترة الصعوبة الجارية (mempool.space)؛ وبدون هذه البيانات وفق التقويم (آخر هالفينغ زائد نحو أربع سنوات). يعرض الرسم مسار السعر في الدورات السابقة منذ الهالفينغ – تاريخ، لا توقّع.</string>
+
+    <!-- Indikator-Namen -->
+    <string name="ind_cross">الاتجاه 50/200 يوم</string>
+    <string name="ind_drawdown">الانخفاض من أعلى مستوى تاريخي</string>
+    <string name="ind_missing">بيانات غير كافية</string>
+    <string name="ind_rsi_daily">RSI (يومي)</string>
+    <string name="ind_rsi_weekly">RSI (أسبوعي)</string>
+    <string name="ind_vs_btc">القوة مقابل البيتكوين (90 يومًا)</string>
+    <string name="neutral_ind_change_30d">التغيّر خلال 30 يومًا</string>
+    <string name="neutral_ind_hashrate">معدل التجزئة 30/60 يومًا</string>
+    <string name="neutral_ind_ma200w">متوسط 200 أسبوع</string>
+    <string name="neutral_ind_pi_gap">فجوة Pi Cycle</string>
+
+    <!-- Indikatoren: «hoch heisst …, tief heisst …» -->
+    <string name="ind_read_alt_season">المرتفع يعني أن معظم العملات البديلة الكبيرة تفوقت على Bitcoin خلال 90 يومًا، والمنخفض يعني أن Bitcoin تفوق على معظمها.</string>
+    <string name="ind_read_ath_distance">الصغير يعني أن السعر قريب من رقمه القياسي، والكبير يعني أنه أدنى منه بكثير.</string>
+    <string name="ind_read_change_30d">الموجب يعني أعلى مما كان قبل 30 يومًا، والسالب يعني أدنى.</string>
+    <string name="ind_read_funding">المرتفع يعني أن كثيرين يراهنون بالرافعة على الصعود، والسالب يعني أن كثيرين يراهنون على الهبوط.</string>
+    <string name="ind_read_hashrate_30_60">الموجب يعني أن قوة الحوسبة تزداد، والسالب يعني أن معدّنين يتوقفون.</string>
+    <string name="ind_read_leverage">كثرة مراكز الشراء تعني أن كثيرين يراهنون على الصعود بأموال مقترضة، وكثرة مراكز البيع تعني الرهان على الهبوط.</string>
+    <string name="ind_read_ma200w">السعر الأعلى بكثير يعني صعودًا طويلًا، والسعر القريب منه يعني تراجعًا عميقًا.</string>
+    <string name="ind_read_mayer">المرتفع يعني أن السعر أعلى بكثير من متوسط 200 يوم، والمنخفض يعني أنه دونه.</string>
+    <string name="ind_read_mvrv">المرتفع يعني أن السعر أعلى بكثير مما دفعه الحاملون في المتوسط، والمنخفض يعني أنه قريب منه أو دونه.</string>
+    <string name="ind_read_pi_cycle_gap">القريب من الصفر يعني أن المتوسطين يكادان يلتقيان، والسالب بشدة يعني أنهما متباعدان.</string>
+    <string name="ind_read_puell">المرتفع يعني أن المعدّنين يكسبون أكثر بكثير من المعتاد، والمنخفض أقل بكثير.</string>
+    <string name="ind_read_rsi_daily">فوق 70 يعني مكاسب قوية في الأيام الأخيرة، وتحت 30 يعني خسائر قوية.</string>
+    <string name="ind_read_rsi_weekly">فوق 70 يعني مكاسب قوية في الأسابيع الأخيرة، وتحت 30 يعني خسائر قوية.</string>
+    <string name="ind_read_sma50_vs_200">الموجب يعني أن المتوسط القصير فوق الطويل، والسالب يعني أنه تحته.</string>
+    <string name="ind_read_vs_btc">الموجب يعني أداءً أفضل من Bitcoin، والسالب أسوأ.</string>
+
+    <!-- Indikatoren: Einordnung in die Vergangenheit -->
+    <string name="ind_context_flat30">بالسعر نفسه لمدة 30 يومًا: %1$s</string>
+    <string name="ind_context_note">القيم السابقة وحسابات «بالسعر نفسه» حساب، لا توقّع.</string>
+    <string name="ind_context_percentile">منذ %1$s كان أدنى في %2$s من الأيام</string>
+</resources>

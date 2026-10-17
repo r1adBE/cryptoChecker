@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Sicherung exportieren und wiederherstellen -->
+    <string name="backup_export">Vie</string>
+    <string name="backup_exported">Varmuuskopio tallennettu.</string>
+    <string name="backup_failed">Ei onnistunut. Onko tämä Crypto Checkerin varmuuskopio?</string>
+    <string name="backup_hint">Tallentaa listan muistiinpanoineen ja ryhmineen, hälytykset, suosikit, salkun ja asetukset tiedostoon, jonka säilytät itse – esim. uutta puhelinta varten.</string>
+    <string name="backup_import">Tuo</string>
+    <string name="backup_title">Varmuuskopio</string>
+    <string name="backup_too_large">Tiedosto on liian suuri tai ei kelvollinen varmuuskopio (enintään 16 Mt).</string>
+
+    <!-- Passwort der Sicherungsdatei -->
+    <string name="backup_password">Salasana</string>
+    <string name="backup_password_continue">Jatka</string>
+    <string name="backup_password_hide">Piilota salasana</string>
+    <!-- %1$d = Mindestlänge des Passworts (8) -->
+    <string name="backup_password_min">Vähintään %1$d merkkiä</string>
+    <string name="backup_password_mismatch">Salasanat eivät täsmää</string>
+    <string name="backup_password_prompt">Anna tämän varmuuskopion salasana.</string>
+    <string name="backup_password_repeat">Toista salasana</string>
+    <string name="backup_password_show">Näytä salasana</string>
+    <string name="backup_password_title">Salasanalla suojattu varmuuskopio</string>
+    <string name="backup_password_too_weak">Liian helppo arvata – ei pelkkiä numeroita, ei yhtä toistettua merkkiä eikä tavallista sarjaa kuten «12345678» tai «salasana».</string>
+    <string name="backup_password_warning">Ilman salasanaa varmuuskopiota ei voi palauttaa.</string>
+    <string name="backup_password_wrong">Väärä salasana tai tiedosto on vioittunut. Yritä uudelleen.</string>
+    <string name="backup_protect">Suojaa salasanalla</string>
+    <string name="backup_protect_hint">Salaa tiedoston (AES-256). Suositellaan, jos se sisältää salkun tietoja.</string>
+
+    <!-- Sicherung ohne Passwort, Wiederherstellen -->
+    <string name="backup_plain_confirm">Tallenna ilman salasanaa</string>
+    <string name="backup_plain_confirm_text">Tiedostoa ei ole salattu. Kuka tahansa sen saava voi lukea:</string>
+    <string name="backup_plain_confirm_title">Tallennetaanko ilman salasanaa?</string>
+    <string name="backup_plain_contents_addresses">Tallennetut lompakko-osoitteet</string>
+    <string name="backup_plain_contents_base">Seurantalista muistiinpanoineen ja ryhmineen, hälytykset, suosikit ja asetukset</string>
+    <string name="backup_plain_contents_portfolio">Salkku: tapahtumat määrineen ja hintoineen</string>
+    <string name="backup_restore_app_lock_kept">Salkun lukitus pysyy päällä – salaamaton varmuuskopio ei voi poistaa sitä.</string>
+    <string name="backup_restore_confirm">Tuonti korvaa listan (muistiinpanoineen ja ryhmineen), hälytykset, suosikit, salkun ja asetukset varmuuskopiolla.</string>
+    <plurals name="backup_restore_invalid">
+        <item quantity="one">%d varmuuskopion merkintä (salkku tai hälytys) on virheellinen eikä sitä tuoda.</item>
+        <item quantity="other">%d varmuuskopion merkintää (salkku tai hälytykset) on virheellisiä eikä niitä tuoda.</item>
+    </plurals>
+    <string name="backup_restore_newer_version">Tämä varmuuskopio on uudemmasta sovellusversiosta – päivitä sovellus ensin. Mitään ei tuotu.</string>
+    <string name="backup_restore_unencrypted_warning">Tätä varmuuskopiota ei ole salattu – varmista, että se on sinun. Asetukset otetaan käyttöön; päällä oleva salkun lukitus pysyy päällä.</string>
+    <string name="backup_restored">Palautettu: %1$s, %2$s.</string>
+    <plurals name="backup_restored_alarms">
+        <item quantity="one">%1$d hälytys</item>
+        <item quantity="other">%1$d hälytystä</item>
+    </plurals>
+    <plurals name="backup_restored_pairs">
+        <item quantity="one">%1$d pari</item>
+        <item quantity="other">%1$d paria</item>
+    </plurals>
+
+    <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
+    <string name="storage_recovery_message">Tältä laitteelta puuttuu sovelluksen salattujen tietojen avain, joten sovellus käynnistyi tyhjänä. Mitään ei poistettu. Saat listan ja salkun takaisin tuomalla varmuuskopiotiedoston asetuksista kohdasta «%1$s».</string>
+    <string name="storage_recovery_title">Tallennettuja tietoja ei voitu avata</string>
+</resources>

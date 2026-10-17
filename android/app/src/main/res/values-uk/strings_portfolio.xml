@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Tab, leere Ansicht, Einschalten, Sperre -->
+    <string name="app_lock_unavailable">На цьому пристрої не налаштовано блокування екрана. Спершу налаштуйте його в системних налаштуваннях.</string>
+    <string name="app_lock_unlock">Розблокувати</string>
+    <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
+    <string name="portfolio_clear">Очистити портфель</string>
+    <plurals name="portfolio_clear_confirm_count">
+        <item quantity="one">Видалити %d транзакцію? Відстежувані адреси залишаться. Цю дію не можна скасувати.</item>
+        <item quantity="few">Видалити всі %d транзакції? Відстежувані адреси залишаться. Цю дію не можна скасувати.</item>
+        <item quantity="many">Видалити всі %d транзакцій? Відстежувані адреси залишаться. Цю дію не можна скасувати.</item>
+        <item quantity="other">Видалити всі %d транзакцій? Відстежувані адреси залишаться. Цю дію не можна скасувати.</item>
+    </plurals>
+    <string name="portfolio_disclaimer">Суми залишаються на пристрої, якщо ви самі їх не експортуєте; для курсів на біржу пари надсилаються лише тікери пар. Публічні вузли блокчейну бачать відстежувані адреси та ваш IP. Не інвестиційна порада.</string>
+    <string name="portfolio_empty_action">Додати першу покупку</string>
+    <string name="portfolio_empty_address">Лише стежити за адресою гаманця</string>
+    <string name="portfolio_empty_csv">Купили на біржі? Імпортувати файл</string>
+    <string name="portfolio_empty_example_plain">Приклад: 0,01 BTC куплено 1 березня. Застосунок покаже, скільки це коштує сьогодні і чи ви в плюсі, чи в мінусі – зберігається лише на цьому пристрої.</string>
+    <string name="portfolio_empty_text">Вкажіть, що ви купили, – застосунок покаже, скільки це коштує сьогодні й наскільки ви в плюсі чи мінусі.</string>
+    <string name="portfolio_empty_title">Операцій ще немає</string>
+    <string name="portfolio_enable_ask_text">Вашу транзакцію збережено. Вкладка «Портфель» показує ваші активи та їхню вартість.</string>
+    <string name="portfolio_enable_ask_title">Увімкнути вкладку «Портфель»?</string>
+    <string name="portfolio_enable_later_hint">Транзакцію збережено. Увімкнути вкладку «Портфель» можна в розділі Налаштування › Додатково › Портфель.</string>
+    <string name="portfolio_enabled_banner">Портфель увімкнено – він у вкладці «Портфель».</string>
+    <string name="portfolio_lock_reason">Розблокувати портфель</string>
+    <string name="portfolio_locked_text">Розблокуйте, щоб побачити активи та вартість.</string>
+    <string name="portfolio_locked_title">Портфель заблоковано</string>
+    <string name="portfolio_setting_hint">Необов\'язково: записуйте купівлі й продажі та переглядайте вартість і прибуток/збиток на окремій вкладці.</string>
+    <!-- Status-Pille wie in der Merkliste: Kurse älter als die Frische-Schwelle, Gerät online. Offline: offline_status_since, alles aktuell: watchlist_all_fresh -->
+    <string name="portfolio_status_stale">Застаріло · на %1$s</string>
+    <plurals name="portfolio_system_restore_invalid">
+        <item quantity="one">%d запис із системної копії був недійсним і не відновлений.</item>
+        <item quantity="few">%d записів із системної копії були недійсними й не відновлені.</item>
+        <item quantity="many">%d записів із системної копії були недійсними й не відновлені.</item>
+        <item quantity="other">%d записів із системної копії були недійсними й не відновлені.</item>
+    </plurals>
+    <string name="portfolio_title">Портфель</string>
+    <string name="portfolio_unassigned_fee">Комісію не розподілено – вартість невідома: %1$s</string>
+    <string name="portfolio_updated">Курси на %1$s</string>
+
+    <!-- Portfolio: Gesamtwert-Kopf (Heute · 7 T · Gesamt) und Aufteilung -->
+    <string name="portfolio_allocation_other">Інші</string>
+    <string name="portfolio_allocation_title">Розподіл</string>
+    <string name="portfolio_card_details">Подробиці</string>
+    <!-- Screenreader, Kennzahl ohne Wert; %1$s Beschriftung (z. B. «7 Tage») -->
+    <string name="portfolio_card_figure_none_a11y">%1$s: поки недоступно</string>
+    <string name="portfolio_card_hints_count">Примітки (%1$d)</string>
+    <string name="portfolio_card_today">Сьогодні</string>
+    <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
+    <string name="portfolio_card_total">Усього</string>
+    <string name="portfolio_hide_amounts">Сховати суми</string>
+    <string name="portfolio_hide_amounts_hint">Показує суми та значення в портфелі й віджеті портфеля як ••• – відсотки залишаються видимими.</string>
+    <string name="portfolio_invested">Вартість купівлі</string>
+    <string name="portfolio_total_no_fx">Немає валютного курсу для %1$s – суми в USDT</string>
+    <string name="portfolio_total_value">Загальна вартість</string>
+    <string name="portfolio_value">Вартість</string>
+
+    <!-- Portfolio: Bestand, offene Positionen, Durchschnittspreis -->
+    <string name="portfolio_avg_and_now">Сер. %1$s · зараз %2$s</string>
+    <string name="portfolio_avg_only">Сер. %1$s</string>
+    <string name="portfolio_avg_open_lots">Сер. вартість купівлі наявних монет</string>
+    <string name="portfolio_avg_partial">Сер. за %1$s із ціною купівлі</string>
+    <string name="portfolio_avg_price">Сер. ціна купівлі</string>
+    <string name="portfolio_avg_price_hint">Середня ціна купівлі: середнє за всіма купівлями, зважене за кількістю. Продажі оцінюються за цим середнім.</string>
+    <plurals name="portfolio_closed">
+        <item quantity="one">Закрита позиція (%1$d)</item>
+        <item quantity="few">Закриті позиції (%1$d)</item>
+        <item quantity="many">Закриті позиції (%1$d)</item>
+        <item quantity="other">Закриті позиції (%1$d)</item>
+    </plurals>
+    <string name="portfolio_fifo_hint">FIFO: під час продажу спершу списуються найстаріші монети. Сер. = залишкова вартість купівлі ÷ кількість із ціною купівлі.</string>
+    <string name="portfolio_holdings">Активи</string>
+    <string name="portfolio_lost_fee_cost">Вартість мережевої комісії без оплаченого лоту: %1$s</string>
+    <string name="portfolio_open_lots">Відкриті лоти купівлі (%1$d)</string>
+    <string name="portfolio_open_lots_avg">З ціною купівлі (Ø)</string>
+    <string name="portfolio_open_lots_no_cost">Без ціни купівлі</string>
+    <string name="portfolio_open_lots_without_price">без ціни купівлі</string>
+    <string name="portfolio_realized">Реалізований прибуток/збиток</string>
+    <string name="portfolio_unrealized">Нереалізований прибуток/збиток</string>
+    <string name="portfolio_unrealized_without_unpriced">без %1$s без ціни купівлі</string>
+    <string name="portfolio_withdrawn_gain">Виведено: %1$s (зміна вартості до виведення)</string>
+
+    <!-- Portfolio: Kurse und Umrechnung -->
+    <string name="portfolio_convert_to">Перерахувати в</string>
+    <string name="portfolio_convert_to_value">Перерахувати в: %1$s</string>
+    <string name="portfolio_current_missing">Немає поточного курсу для %1$s</string>
+    <string name="portfolio_current_price">Поточний курс</string>
+    <string name="portfolio_price_missing">Немає ціни</string>
+    <string name="portfolio_price_missing_hint">Для деяких купівель немає ціни. Додайте ціну купівлі, щоб бачити прибуток/збиток.</string>
+    <string name="portfolio_price_source">Курси: Binance · USDT = 1</string>
+    <string name="portfolio_price_source_routes">Курси: %1$s, інакше Binance · USDT = 1</string>
+    <string name="portfolio_price_unavailable">Курс зараз недоступний</string>
+    <string name="portfolio_price_unchecked">Ціна не перевірена</string>
+    <string name="portfolio_price_via_base">≈ курс %1$s (через міст/обгорнутий)</string>
+    <string name="portfolio_usdt_as_usd">USDT перераховано за курсом USD</string>
+    <string name="portfolio_usdt_assumed">Прийнято USDT = 1</string>
+    <string name="portfolio_usdt_depeg_warning">Прийнято USDT = 1 – ринок по %1$s USD (%2$s)</string>
+
+    <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
+    <string name="portfolio_add_from_watch">Додати до портфеля</string>
+    <string name="portfolio_add_tx">Записати транзакцію</string>
+    <string name="portfolio_buy">Купівля</string>
+    <string name="portfolio_coin">Монета</string>
+    <string name="portfolio_coin_invalid">Введіть символ</string>
+    <string name="portfolio_coin_search">Пошук символу, напр. BTC</string>
+    <string name="portfolio_discard_confirm">Скасувати</string>
+    <string name="portfolio_discard_keep">Продовжити редагування</string>
+    <string name="portfolio_discard_title">Скасувати зміни?</string>
+    <string name="portfolio_edit_tx">Редагувати операцію</string>
+    <string name="portfolio_invalid">Неправильна кількість</string>
+    <string name="portfolio_oversold">Продажі перевищують залишок – перевірте операції.</string>
+    <string name="portfolio_sell">Продаж</string>
+    <string name="portfolio_sell_exceeds">Більше за ваш залишок (%1$s)</string>
+    <string name="portfolio_sell_exceeds_fee">Кількість із комісією більша за ваш залишок (%1$s)</string>
+    <string name="portfolio_sell_exceeds_wallet">Більше за ваш залишок у %2$s (%1$s)</string>
+    <string name="portfolio_transactions">Операції</string>
+    <string name="portfolio_tx_acquired_date">Початкова дата купівлі (необов’язково)</string>
+    <string name="portfolio_tx_acquired_date_hint">Для строку володіння в податковому експорті</string>
+    <string name="portfolio_tx_amount">Кількість</string>
+    <string name="portfolio_tx_coin_fee">Комісія в монеті (необов’язково)</string>
+    <string name="portfolio_tx_date">Дата</string>
+    <string name="portfolio_tx_delete_confirm">Цю операцію буде видалено з портфеля.</string>
+    <string name="portfolio_tx_delete_title">Видалити операцію?</string>
+    <string name="portfolio_tx_deposit">Поповнення</string>
+    <string name="portfolio_tx_entry_currency">Введення в</string>
+    <string name="portfolio_tx_explain_deposit">Залишок без угоди, напр. раніше отримані монети</string>
+    <string name="portfolio_tx_explain_gift">Монети виходять з активів як виведення – відчуження за ринковою вартістю лише там, де країна так оподатковує подарунки (UK, CA, AU)</string>
+    <string name="portfolio_tx_explain_payment">Оплата товарів або послуг – відчуження за ринковою вартістю як продаж, без отримання грошей</string>
+    <string name="portfolio_tx_explain_reward">Вартість купівлі = ринкова вартість під час отримання</string>
+    <string name="portfolio_tx_explain_swap">Монета на монету: продаж відданої, купівля отриманої</string>
+    <string name="portfolio_tx_explain_transfer">Без прибутку – вартість купівлі переходить разом із монетами</string>
+    <string name="portfolio_tx_explain_withdrawal">Залишок виходить із портфеля – без продажу й без прибутку</string>
+    <string name="portfolio_tx_fee_consumes_amount">Комісія дорівнює отриманій кількості – нічого б не залишилося.</string>
+    <string name="portfolio_tx_fees_toggle">Комісії</string>
+    <string name="portfolio_tx_fiat_converted">≈ %1$s за курсом на %2$s</string>
+    <string name="portfolio_tx_fiat_loading">Завантаження валютного курсу…</string>
+    <string name="portfolio_tx_fiat_no_fx">Немає валютного курсу на цей день – введіть суму в USDT.</string>
+    <string name="portfolio_tx_gift">Подарунок</string>
+    <string name="portfolio_tx_gift_price_hint">В USDT. Порожньо = ціна закриття дня (оцінка).</string>
+    <string name="portfolio_tx_gift_spouse">Чоловіку/дружині / партнеру</string>
+    <string name="portfolio_tx_gift_spouse_hint">Велика Британія і Канада: без прибутку й збитку – партнер переймає твою вартість придбання. Інші країни цього не враховують.</string>
+    <string name="portfolio_tx_market_value">Ринкова вартість за монету</string>
+    <string name="portfolio_tx_more_buy">Комісія, біржа, нотатка</string>
+    <string name="portfolio_tx_network_fee">Комісія мережі в монеті (необов’язково)</string>
+    <string name="portfolio_tx_note">Нотатка (необов\'язково)</string>
+    <string name="portfolio_tx_payment">Оплачено</string>
+    <string name="portfolio_tx_price">Ціна за монету</string>
+    <string name="portfolio_tx_price_hint">У USDT. Залиште порожнім, якщо невідомо.</string>
+    <string name="portfolio_tx_price_historic">Перевірена ціна закриття за %1$s – за потреби змініть</string>
+    <string name="portfolio_tx_price_invalid">Неправильна ціна</string>
+    <string name="portfolio_tx_price_past_hint">Вкажіть ціну на день угоди – залиште порожнім, якщо не знаєте</string>
+    <string name="portfolio_tx_price_receipt_hint">У USDT. Порожньо = залишок без вартості купівлі.</string>
+    <string name="portfolio_tx_price_zero">Ціна 0 неможлива для імпортованих транзакцій – залиште порожнім для ринкового курсу</string>
+    <string name="portfolio_tx_removed">Операцію видалено</string>
+    <string name="portfolio_tx_reward">Винагорода</string>
+    <string name="portfolio_tx_save_failed">Не вдалося зберегти транзакцію. Введені дані збережено – спробуйте ще раз.</string>
+    <string name="portfolio_tx_swap">Обмін</string>
+    <string name="portfolio_tx_swap_fee_received">Комісія в %1$s: зменшує отриману кількість, ціна не потрібна.</string>
+    <string name="portfolio_tx_swap_from">Обмін з %1$s</string>
+    <string name="portfolio_tx_swap_given_amount">Віддана кількість</string>
+    <string name="portfolio_tx_swap_given_coin">Віддана монета</string>
+    <string name="portfolio_tx_swap_received_amount">Отримана кількість</string>
+    <string name="portfolio_tx_swap_received_coin">Отримана монета</string>
+    <string name="portfolio_tx_swap_same_coin">Виберіть монету, відмінну від відданої</string>
+    <string name="portfolio_tx_swap_to">Обмін у %1$s</string>
+    <string name="portfolio_tx_swap_value">Вартість обміну (необов’язково)</string>
+    <string name="portfolio_tx_swap_value_hint">Загальна вартість. Порожньо = невідома – прибуток лишається неповним (з USDT в обміні – автоматично).</string>
+    <string name="portfolio_tx_third_fee_amount">Розмір комісії</string>
+    <string name="portfolio_tx_third_fee_coin">Монета комісії</string>
+    <string name="portfolio_tx_third_fee_incomplete">Без ціни комісія не враховується у вартості купівлі та виручці; податковий експорт позначає такі продажі.</string>
+    <string name="portfolio_tx_third_fee_price">Ціна за монету комісії (необов’язково)</string>
+    <string name="portfolio_tx_third_fee_toggle">Комісія в іншій монеті</string>
+    <string name="portfolio_tx_total">Разом: %1$s</string>
+    <string name="portfolio_tx_transfer">Переказ</string>
+    <string name="portfolio_tx_transfer_from">Звідки (необов’язково)</string>
+    <string name="portfolio_tx_transfer_to">Куди (необов’язково)</string>
+    <string name="portfolio_tx_transfer_to_hint">Біржа або гаманець – відтепер оцінюється там.</string>
+    <string name="portfolio_tx_type_select">Тип: %1$s</string>
+    <string name="portfolio_tx_value_received">Вартість за монету під час отримання (необов’язково)</string>
+    <string name="portfolio_tx_withdrawal">Виведення</string>
+    <string name="portfolio_tx_withdrawal_gift_hint">Подарували чи розрахувалися? Запишіть як ‹Подарунок› або ‹Оплачено› – залежно від країни для податків це продаж.</string>
+    <string name="portfolio_tx_withdrawal_price_hint">Необов’язково: ринкова вартість у USDT, лише для історії (порожньо = курс того дня). Монети завжди списуються за вартістю купівлі.</string>
+    <string name="portfolio_wallet_did_you_mean">Ви мали на увазі %1$s? Інше написання вважається окремим гаманцем.</string>
+    <string name="portfolio_wallet_shortfall">Залишку в %1$s замало – бракує переказу?</string>
+
+    <!-- Portfolio: Wertverlauf (Zeitraum, Vergleich Währung | USDT, Währungseffekt) -->
+    <!-- Höchster Tageswert des Zeitraums am Punkt («Hoch 12’345») -->
+    <string name="portfolio_chart_high">Макс. %1$s</string>
+    <string name="portfolio_compare">Порівняння</string>
+    <!-- Umschalter «Vergleich», Screenreader: %1$s Währung -->
+    <string name="portfolio_compare_a11y">Порівняти %1$s і USDT у відсотках</string>
+    <!-- %1$s Zeitraum, %2$s Währung, %3$s und %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="portfolio_compare_chart_a11y">Порівняння у відсотках, %1$s: %2$s %3$s, USDT %4$s</string>
+    <!-- %1$s Prozentpunkte mit Vorzeichen («−5.10%»): Veränderung in der Währung minus in USDT -->
+    <string name="portfolio_currency_effect">Валютний ефект: %1$s</string>
+    <!-- «Seit 1. Kauf» beginnt frühestens beim ersten Tag mit Kursdaten -->
+    <string name="portfolio_history_capped_data_start">Дані про курси є лише з серпня 2017 року — історія починається звідти.</string>
+    <string name="portfolio_history_chip_since_first">З купівлі</string>
+    <string name="portfolio_history_collapse">Сховати динаміку вартості</string>
+    <string name="portfolio_history_converted">Перераховано за сьогоднішнім курсом</string>
+    <string name="portfolio_history_expand">Показати динаміку вартості</string>
+    <string name="portfolio_history_gain_a11y">Вартість %1$s. Прибуток/збиток, %2$s: %3$s</string>
+    <string name="portfolio_history_gain_label">Прибуток/збиток</string>
+    <!-- Umschalter, Screenreader: %1$s Währung («CHF») oder «USDT» -->
+    <string name="portfolio_history_in_a11y">Вартість у %1$s</string>
+    <string name="portfolio_history_incl_fx">З урахуванням валютного курсу</string>
+    <string name="portfolio_history_incl_withdrawn">З урахуванням зміни вартості виведених монет</string>
+    <string name="portfolio_history_includes_trades">Містить купівлі та продажі за цей період</string>
+    <string name="portfolio_history_loading">Завантаження динаміки вартості</string>
+    <string name="portfolio_history_period_1y">1 рік</string>
+    <string name="portfolio_history_period_30d">30 днів</string>
+    <string name="portfolio_history_period_7d">7 днів</string>
+    <string name="portfolio_history_period_since_first">з першої купівлі</string>
+    <string name="portfolio_history_pnl_needs_prices">Для розрахунку прибутку/збитку бракує цін купівлі – додайте їх у транзакціях.</string>
+    <string name="portfolio_history_pnl_without">Прибуток/збиток без %1$s (немає ціни)</string>
+    <string name="portfolio_history_range_1y">1 Р</string>
+    <string name="portfolio_history_range_30d">30 Д</string>
+    <string name="portfolio_history_range_7d">7 Д</string>
+    <string name="portfolio_history_range_a11y">Показати динаміку за %1$s</string>
+    <string name="portfolio_history_range_since_first">З 1-ї купівлі</string>
+    <string name="portfolio_history_scaled">Історія для %1$s: історія Binance, зведена до ціни біржі</string>
+    <string name="portfolio_history_title">Динаміка вартості</string>
+    <string name="portfolio_history_today">Сьогодні</string>
+    <string name="portfolio_history_too_short">Динаміка починається після першого повного дня.</string>
+    <string name="portfolio_history_unavailable">Зараз динаміка недоступна.</string>
+    <string name="portfolio_history_utc_days">Дні в UTC (денні свічки)</string>
+    <string name="portfolio_history_without_matching">Без %1$s (немає відповідних денних цін)</string>
+    <string name="portfolio_period_rewards">Винагороди +%1$s (не в прибутку)</string>
+    <string name="portfolio_period_scaled">7 Д/1 Р для %1$s: історія Binance, зведена до ціни біржі</string>
+
+    <!-- Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_alarm_action">Сигнал</string>
+    <!-- %1$s = Währung, z. B. CHF -->
+    <string name="portfolio_alarm_amount">Сума (%1$s)</string>
+    <string name="portfolio_alarm_hint">Перевіряється після кожного оновлення. Як сигнали: спрацьовує при перетині порогу і знову — лише після повернення значення.</string>
+    <string name="portfolio_alarm_kind_above">Портфель вище суми</string>
+    <string name="portfolio_alarm_kind_below">Портфель нижче суми</string>
+    <string name="portfolio_alarm_kind_down">Портфель падає</string>
+    <string name="portfolio_alarm_kind_up">Портфель зростає</string>
+    <!-- %1$s = Betrag mit Währung (oder •••) -->
+    <string name="portfolio_alarm_sentence_above">Портфель вище %1$s</string>
+    <string name="portfolio_alarm_sentence_below">Портфель нижче %1$s</string>
+    <string name="portfolio_alarm_sentence_down">Портфель упав на %1$s (%2$s)</string>
+    <!-- %1$s = Prozent, %2$s = Basis der %-Änderung kurz (24h, heute …) -->
+    <string name="portfolio_alarm_sentence_up">Портфель зріс на %1$s (%2$s)</string>
+    <string name="portfolio_alarm_title">Сигнал вартості портфеля</string>
+
+    <!-- Gebühr, Börse und Gewinn/Verlust einer Position -->
+    <string name="ledger_exchange">Біржа (необов’язково)</string>
+    <string name="ledger_exchange_failed">%1$s: зараз немає курсу з %2$s – оцінено за Binance.</string>
+    <string name="ledger_exchange_hint">Монета оцінюється за курсом цієї біржі (інакше Binance). Історія, 7 Д і 1 Р: денні курси Binance, приведені до нього.</string>
+    <string name="ledger_exchange_mixed">%1$s: зазначено кілька бірж – оцінено за Binance. Переміщували монети? Запишіть це як «Переказ».</string>
+    <string name="ledger_exchange_none">Немає (Binance)</string>
+    <string name="ledger_fee">Комісія (необов’язково)</string>
+    <string name="ledger_fee_coin">Монета</string>
+    <string name="ledger_fee_hint">У USDT збільшує вартість купівлі (продаж: зменшує виручку), у монеті зменшує кількість.</string>
+    <string name="ledger_fee_line">Комісія %1$s</string>
+    <string name="ledger_fifo_cost_note">З купівлі: вартість за FIFO з комісіями (спершу продаються найстаріші монети).</string>
+    <string name="ledger_gain_info">Сьогодні, 7 Д, 1 Р: зміна вартості за період – купівлі й продажі не вважаються прибутком. З купівлі: поточна вартість мінус собівартість (середня ціна з комісіями) монет, які ще у вас.</string>
+    <string name="ledger_gain_info_a11y">Як рахується прибуток і збиток</string>
+    <string name="ledger_gain_info_fifo">Сьогодні, 7 Д, 1 Р: зміна вартості за період – купівлі й продажі не вважаються прибутком. З купівлі: поточна вартість мінус собівартість (FIFO з комісіями) монет, які ще у вас.</string>
+    <string name="ledger_gain_title">Прибуток/збиток</string>
+    <string name="ledger_more_toggle">Комісія і біржа</string>
+    <string name="ledger_partial_cost">«З купівлі» враховує лише частину з ціною купівлі – без %1$s без ціни купівлі.</string>
+    <string name="ledger_period_without">Сьогодні / 7 Д / 1 Р без %1$s – немає відповідного початкового курсу.</string>
+    <string name="ledger_since_purchase_currency">З купівлі (%1$s)</string>
+    <string name="ledger_since_purchase_spoken">Прибуток/збиток з купівлі, ще не продано</string>
+    <plurals name="ledger_without_cost">
+        <item quantity="one">Без %1$d монети без ціни купівлі (%2$s) — додайте ціну, щоб вона враховувалась.</item>
+        <item quantity="few">Без %1$d монет без ціни купівлі (%2$s) — додайте ціни, щоб вони враховувались.</item>
+        <item quantity="many">Без %1$d монет без ціни купівлі (%2$s) — додайте ціни, щоб вони враховувались.</item>
+        <item quantity="other">Без %1$d монети без ціни купівлі (%2$s) — додайте ціни, щоб вони враховувались.</item>
+    </plurals>
+</resources>

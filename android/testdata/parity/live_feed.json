@@ -1,0 +1,669 @@
+{
+  "description": "Live prices via WebSocket (Android domain/live/LiveFeed.kt / iOS App/Services/LiveFeed.swift): parser per exchange (sample messages -> ticks; change24h in percent, null = not in the message), stream symbol per pair, subscribe messages, connection plan, reconnect backoff, which 24 h change is kept and when REST may skip a live pair.",
+  "parse": [
+    {
+      "name": "binance spot 24hrTicker",
+      "exchange": "BINANCE",
+      "message": "{\"e\":\"24hrTicker\",\"E\":1672515782136,\"s\":\"BNBBTC\",\"p\":\"0.0015\",\"P\":\"250.00\",\"w\":\"0.0018\",\"x\":\"0.0009\",\"c\":\"0.0025\",\"Q\":\"10\",\"b\":\"0.0024\",\"B\":\"10\",\"a\":\"0.0026\",\"A\":\"100\",\"o\":\"0.0010\",\"h\":\"0.0025\",\"l\":\"0.0010\",\"v\":\"10000\",\"q\":\"18\",\"O\":0,\"C\":86400000,\"F\":0,\"L\":18150,\"n\":18151}",
+      "ticks": [
+        {
+          "symbol": "BNBBTC",
+          "price": 0.0025,
+          "change24h": 250.0,
+          "time": 1672515782136
+        }
+      ]
+    },
+    {
+      "name": "binance combined stream",
+      "exchange": "BINANCE",
+      "message": "{\"stream\":\"bnbbtc@ticker\",\"data\":{\"e\":\"24hrTicker\",\"E\":1672515782136,\"s\":\"BNBBTC\",\"p\":\"0.0015\",\"P\":\"250.00\",\"w\":\"0.0018\",\"x\":\"0.0009\",\"c\":\"0.0025\",\"Q\":\"10\",\"b\":\"0.0024\",\"B\":\"10\",\"a\":\"0.0026\",\"A\":\"100\",\"o\":\"0.0010\",\"h\":\"0.0025\",\"l\":\"0.0010\",\"v\":\"10000\",\"q\":\"18\",\"O\":0,\"C\":86400000,\"F\":0,\"L\":18150,\"n\":18151}}",
+      "ticks": [
+        {
+          "symbol": "BNBBTC",
+          "price": 0.0025,
+          "change24h": 250.0,
+          "time": 1672515782136
+        }
+      ]
+    },
+    {
+      "name": "binance subscribe ack",
+      "exchange": "BINANCE",
+      "message": "{\"result\":null,\"id\":1}",
+      "ticks": []
+    },
+    {
+      "name": "binance futures 24hrTicker",
+      "exchange": "BINANCE_FUTURES",
+      "message": "{\"e\":\"24hrTicker\",\"E\":123456789,\"s\":\"BTCUSDT\",\"p\":\"0.0015\",\"P\":\"-1.25\",\"w\":\"0.0018\",\"c\":\"0.0025\",\"Q\":\"10\",\"o\":\"0.0010\",\"h\":\"0.0025\",\"l\":\"0.0010\",\"v\":\"10000\",\"q\":\"18\",\"O\":0,\"C\":0,\"F\":0,\"L\":18150,\"n\":18151}",
+      "ticks": [
+        {
+          "symbol": "BTCUSDT",
+          "price": 0.0025,
+          "change24h": -1.25,
+          "time": 123456789
+        }
+      ]
+    },
+    {
+      "name": "bybit spot snapshot",
+      "exchange": "BYBIT",
+      "message": "{\"topic\":\"tickers.BTCUSDT\",\"ts\":1673853746003,\"type\":\"snapshot\",\"cs\":2588407389,\"data\":{\"symbol\":\"BTCUSDT\",\"lastPrice\":\"21109.77\",\"highPrice24h\":\"21426.99\",\"lowPrice24h\":\"20575\",\"prevPrice24h\":\"20704.93\",\"volume24h\":\"6780.866843\",\"turnover24h\":\"141946527.22907118\",\"price24hPcnt\":\"0.0196\",\"usdIndexPrice\":\"21120.2400136\"}}",
+      "ticks": [
+        {
+          "symbol": "BTCUSDT",
+          "price": 21109.77,
+          "change24h": 1.96,
+          "time": 1673853746003
+        }
+      ]
+    },
+    {
+      "name": "bybit linear delta without price",
+      "exchange": "BYBIT_FUTURES",
+      "message": "{\"topic\":\"tickers.BTCUSDT\",\"type\":\"delta\",\"data\":{\"symbol\":\"BTCUSDT\",\"fundingRate\":\"0.0001\",\"bid1Price\":\"17215.50\"},\"cs\":24987956059,\"ts\":1673272861686}",
+      "ticks": [
+        {
+          "symbol": "BTCUSDT",
+          "price": null,
+          "change24h": null,
+          "time": 1673272861686
+        }
+      ]
+    },
+    {
+      "name": "bybit pong",
+      "exchange": "BYBIT",
+      "message": "{\"success\":true,\"ret_msg\":\"pong\",\"conn_id\":\"0970e817-426e-429a-a679-ff7f55e0b16a\",\"op\":\"ping\"}",
+      "ticks": []
+    },
+    {
+      "name": "okx tickers push",
+      "exchange": "OKX",
+      "message": "{\"arg\":{\"channel\":\"tickers\",\"instId\":\"BTC-USDT\"},\"data\":[{\"instType\":\"SPOT\",\"instId\":\"BTC-USDT\",\"last\":\"9999.99\",\"lastSz\":\"0.1\",\"askPx\":\"9999.99\",\"askSz\":\"11\",\"bidPx\":\"8888.88\",\"bidSz\":\"5\",\"open24h\":\"9000\",\"high24h\":\"10000\",\"low24h\":\"8888.88\",\"volCcy24h\":\"2222\",\"vol24h\":\"2222\",\"sodUtc0\":\"2222\",\"sodUtc8\":\"2222\",\"ts\":\"1597026383085\"}]}",
+      "ticks": [
+        {
+          "symbol": "BTC-USDT",
+          "price": 9999.99,
+          "change24h": 11.110999999999997,
+          "time": 1597026383085
+        }
+      ]
+    },
+    {
+      "name": "okx subscribe ack",
+      "exchange": "OKX_SWAP",
+      "message": "{\"event\":\"subscribe\",\"arg\":{\"channel\":\"tickers\",\"instId\":\"BTC-USDT-SWAP\"},\"connId\":\"a4d3ae55\"}",
+      "ticks": []
+    },
+    {
+      "name": "okx pong",
+      "exchange": "OKX",
+      "message": "pong",
+      "ticks": []
+    },
+    {
+      "name": "coinbase ticker",
+      "exchange": "COINBASE",
+      "message": "{\"type\":\"ticker\",\"sequence\":37475248783,\"product_id\":\"ETH-USD\",\"price\":\"1285.22\",\"open_24h\":\"1310.79\",\"volume_24h\":\"245532.79269678\",\"low_24h\":\"1280.52\",\"high_24h\":\"1313.8\",\"volume_30d\":\"9788783.60117027\",\"best_bid\":\"1285.04\",\"best_bid_size\":\"0.46688654\",\"best_ask\":\"1285.27\",\"best_ask_size\":\"1.56637040\",\"side\":\"buy\",\"time\":\"2022-10-19T23:28:22.061769Z\",\"trade_id\":370843401,\"last_size\":\"11.4396987\"}",
+      "ticks": [
+        {
+          "symbol": "ETH-USD",
+          "price": 1285.22,
+          "change24h": -1.9507320013121812,
+          "time": null
+        }
+      ]
+    },
+    {
+      "name": "coinbase subscriptions ack",
+      "exchange": "COINBASE",
+      "message": "{\"type\":\"subscriptions\",\"channels\":[{\"name\":\"ticker\",\"product_ids\":[\"ETH-USD\"]}]}",
+      "ticks": []
+    },
+    {
+      "name": "kraken v2 snapshot (change_pct ignored)",
+      "exchange": "KRAKEN",
+      "message": "{\"channel\":\"ticker\",\"type\":\"snapshot\",\"data\":[{\"symbol\":\"ALGO/USD\",\"bid\":0.10025,\"bid_qty\":740.0,\"ask\":0.10035,\"ask_qty\":740.0,\"last\":0.10035,\"volume\":997038.98383185,\"vwap\":0.10148,\"low\":0.09979,\"high\":0.10285,\"change\":-0.00017,\"change_pct\":-0.17}]}",
+      "ticks": [
+        {
+          "symbol": "ALGO/USD",
+          "price": 0.10035,
+          "change24h": null,
+          "time": null
+        }
+      ]
+    },
+    {
+      "name": "kraken heartbeat",
+      "exchange": "KRAKEN",
+      "message": "{\"channel\":\"heartbeat\"}",
+      "ticks": []
+    },
+    {
+      "name": "broken json",
+      "exchange": "BINANCE",
+      "message": "{\"e\":\"24hrTicker\",",
+      "ticks": []
+    },
+    {
+      "name": "zero price is no price",
+      "exchange": "BINANCE",
+      "message": "{\"e\":\"24hrTicker\",\"E\":5,\"s\":\"XUSDT\",\"c\":\"0\",\"P\":\"NaN\"}",
+      "ticks": [
+        {
+          "symbol": "XUSDT",
+          "price": null,
+          "change24h": null,
+          "time": 5
+        }
+      ]
+    }
+  ],
+  "symbols": [
+    {
+      "exchange": "BINANCE",
+      "pair": {
+        "watchId": 1,
+        "marketKey": "Binance",
+        "marketName": "Binance",
+        "pairId": "btcusdt",
+        "base": "BTC",
+        "quote": "USDT",
+        "contract": "NONE",
+        "notTraded": false
+      },
+      "symbol": "BTCUSDT"
+    },
+    {
+      "exchange": "BINANCE_FUTURES",
+      "pair": {
+        "watchId": 1,
+        "marketKey": "BinanceFutures",
+        "marketName": "BinanceFutures",
+        "pairId": "BTCUSDT",
+        "base": "BTC",
+        "quote": "USDT",
+        "contract": "PERPETUAL",
+        "notTraded": false
+      },
+      "symbol": "BTCUSDT"
+    },
+    {
+      "exchange": "BINANCE_FUTURES",
+      "pair": {
+        "watchId": 1,
+        "marketKey": "BinanceFutures",
+        "marketName": "BinanceFutures",
+        "pairId": "BTCUSDT_251226",
+        "base": "BTC",
+        "quote": "USDT",
+        "contract": "QUARTERLY",
+        "notTraded": false
+      },
+      "symbol": null
+    },
+    {
+      "exchange": "BINANCE_FUTURES",
+      "pair": {
+        "watchId": 1,
+        "marketKey": "BinanceFutures",
+        "marketName": "BinanceFutures",
+        "pairId": "2:BTCUSD_PERP",
+        "base": "BTC",
+        "quote": "USD",
+        "contract": "PERPETUAL",
+        "notTraded": false
+      },
+      "symbol": null
+    },
+    {
+      "exchange": "BYBIT",
+      "pair": {
+        "watchId": 1,
+        "marketKey": "Bybit",
+        "marketName": "Bybit",
+        "pairId": "ETHUSDT",
+        "base": "ETH",
+        "quote": "USDT",
+        "contract": "NONE",
+        "notTraded": false
+      },
+      "symbol": "ETHUSDT"
+    },
+    {
+      "exchange": "BYBIT",
+      "pair": {
+        "watchId": 1,
+        "marketKey": "Bybit",
+        "marketName": "Bybit",
+        "pairId": null,
+        "base": "ETH",
+        "quote": "USDT",
+        "contract": "NONE",
+        "notTraded": false
+      },
+      "symbol": null
+    },
+    {
+      "exchange": "BYBIT_FUTURES",
+      "pair": {
+        "watchId": 1,
+        "marketKey": "BybitFutures",
+        "marketName": "BybitFutures",
+        "pairId": "SOLUSDT",
+        "base": "SOL",
+        "quote": "USDT",
+        "contract": "PERPETUAL",
+        "notTraded": false
+      },
+      "symbol": "SOLUSDT"
+    },
+    {
+      "exchange": "OKX",
+      "pair": {
+        "watchId": 1,
+        "marketKey": "Okex",
+        "marketName": "Okex",
+        "pairId": null,
+        "base": "btc",
+        "quote": "usdt",
+        "contract": "NONE",
+        "notTraded": false
+      },
+      "symbol": "BTC-USDT"
+    },
+    {
+      "exchange": "OKX_SWAP",
+      "pair": {
+        "watchId": 1,
+        "marketKey": "OkexFutures",
+        "marketName": "OkexFutures",
+        "pairId": "BTC-USDT-SWAP",
+        "base": "BTC",
+        "quote": "USDT",
+        "contract": "PERPETUAL",
+        "notTraded": false
+      },
+      "symbol": "BTC-USDT-SWAP"
+    },
+    {
+      "exchange": "OKX_SWAP",
+      "pair": {
+        "watchId": 1,
+        "marketKey": "OkexFutures",
+        "marketName": "OkexFutures",
+        "pairId": "BTC-USD-250926",
+        "base": "BTC",
+        "quote": "USD",
+        "contract": "QUARTERLY",
+        "notTraded": false
+      },
+      "symbol": null
+    },
+    {
+      "exchange": "COINBASE",
+      "pair": {
+        "watchId": 1,
+        "marketKey": "Coinbase",
+        "marketName": "Coinbase",
+        "pairId": "ETH-USD",
+        "base": "ETH",
+        "quote": "USD",
+        "contract": "NONE",
+        "notTraded": false
+      },
+      "symbol": "ETH-USD"
+    },
+    {
+      "exchange": "KRAKEN",
+      "pair": {
+        "watchId": 1,
+        "marketKey": "Kraken",
+        "marketName": "Kraken",
+        "pairId": "XXBTZUSD",
+        "base": "BTC",
+        "quote": "USD",
+        "contract": "NONE",
+        "notTraded": false
+      },
+      "symbol": "BTC/USD"
+    }
+  ],
+  "subscribe": [
+    {
+      "exchange": "BINANCE",
+      "symbols": [
+        "BTCUSDT",
+        "ETHUSDT"
+      ],
+      "messages": [
+        "{\"method\":\"SUBSCRIBE\",\"params\":[\"btcusdt@ticker\",\"ethusdt@ticker\"],\"id\":1}"
+      ]
+    },
+    {
+      "exchange": "BYBIT",
+      "symbols": [
+        "S0",
+        "S1",
+        "S2",
+        "S3",
+        "S4",
+        "S5",
+        "S6",
+        "S7",
+        "S8",
+        "S9",
+        "S10",
+        "S11"
+      ],
+      "messages": [
+        "{\"op\":\"subscribe\",\"args\":[\"tickers.S0\",\"tickers.S1\",\"tickers.S2\",\"tickers.S3\",\"tickers.S4\",\"tickers.S5\",\"tickers.S6\",\"tickers.S7\",\"tickers.S8\",\"tickers.S9\"]}",
+        "{\"op\":\"subscribe\",\"args\":[\"tickers.S10\",\"tickers.S11\"]}"
+      ]
+    },
+    {
+      "exchange": "OKX_SWAP",
+      "symbols": [
+        "BTC-USDT-SWAP"
+      ],
+      "messages": [
+        "{\"op\":\"subscribe\",\"args\":[{\"channel\":\"tickers\",\"instId\":\"BTC-USDT-SWAP\"}]}"
+      ]
+    },
+    {
+      "exchange": "COINBASE",
+      "symbols": [
+        "ETH-USD",
+        "BTC-USD"
+      ],
+      "messages": [
+        "{\"type\":\"subscribe\",\"product_ids\":[\"ETH-USD\",\"BTC-USD\"],\"channels\":[\"ticker\"]}"
+      ]
+    },
+    {
+      "exchange": "KRAKEN",
+      "symbols": [
+        "BTC/USD"
+      ],
+      "messages": [
+        "{\"method\":\"subscribe\",\"params\":{\"channel\":\"ticker\",\"symbol\":[\"BTC/USD\"]}}"
+      ]
+    }
+  ],
+  "plan": [
+    {
+      "name": "mixed list",
+      "paused": [
+        "Bybit"
+      ],
+      "pairs": [
+        {
+          "watchId": 1,
+          "marketKey": "Binance",
+          "marketName": "Binance",
+          "pairId": "ETHUSDT",
+          "base": "ETH",
+          "quote": "USDT",
+          "contract": "NONE",
+          "notTraded": false
+        },
+        {
+          "watchId": 2,
+          "marketKey": "Binance",
+          "marketName": "Binance",
+          "pairId": "BTCUSDT",
+          "base": "BTC",
+          "quote": "USDT",
+          "contract": "NONE",
+          "notTraded": false
+        },
+        {
+          "watchId": 3,
+          "marketKey": "Binance",
+          "marketName": "Binance",
+          "pairId": "BTCUSDT",
+          "base": "BTC",
+          "quote": "USDT",
+          "contract": "NONE",
+          "notTraded": false
+        },
+        {
+          "watchId": 4,
+          "marketKey": "Binance",
+          "marketName": "Binance",
+          "pairId": "LUNAUSDT",
+          "base": "LUNA",
+          "quote": "USDT",
+          "contract": "NONE",
+          "notTraded": true
+        },
+        {
+          "watchId": 5,
+          "marketKey": "Bybit",
+          "marketName": "Bybit",
+          "pairId": "BTCUSDT",
+          "base": "BTC",
+          "quote": "USDT",
+          "contract": "NONE",
+          "notTraded": false
+        },
+        {
+          "watchId": 6,
+          "marketKey": "Bitstamp",
+          "marketName": "Bitstamp",
+          "pairId": "btcusd",
+          "base": "BTC",
+          "quote": "USD",
+          "contract": "NONE",
+          "notTraded": false
+        },
+        {
+          "watchId": 7,
+          "marketKey": "Kraken",
+          "marketName": "Kraken",
+          "pairId": "XXBTZEUR",
+          "base": "BTC",
+          "quote": "EUR",
+          "contract": "NONE",
+          "notTraded": false
+        }
+      ],
+      "connections": [
+        {
+          "exchange": "BINANCE",
+          "symbols": [
+            "BTCUSDT",
+            "ETHUSDT"
+          ]
+        },
+        {
+          "exchange": "KRAKEN",
+          "symbols": [
+            "BTC/EUR"
+          ]
+        }
+      ],
+      "watchIds": {
+        "BINANCE": {
+          "BTCUSDT": [
+            2,
+            3
+          ],
+          "ETHUSDT": [
+            1
+          ]
+        },
+        "KRAKEN": {
+          "BTC/EUR": [
+            7
+          ]
+        }
+      }
+    },
+    {
+      "name": "nothing live",
+      "paused": [],
+      "pairs": [
+        {
+          "watchId": 1,
+          "marketKey": "Bitstamp",
+          "marketName": "Bitstamp",
+          "pairId": "btcusd",
+          "base": "BTC",
+          "quote": "USD",
+          "contract": "NONE",
+          "notTraded": false
+        }
+      ],
+      "connections": [],
+      "watchIds": {}
+    }
+  ],
+  "backoff": [
+    {
+      "attempt": 0,
+      "rateLimited": false,
+      "millis": 1000
+    },
+    {
+      "attempt": 1,
+      "rateLimited": false,
+      "millis": 2000
+    },
+    {
+      "attempt": 5,
+      "rateLimited": false,
+      "millis": 32000
+    },
+    {
+      "attempt": 6,
+      "rateLimited": false,
+      "millis": 60000
+    },
+    {
+      "attempt": 40,
+      "rateLimited": false,
+      "millis": 60000
+    },
+    {
+      "attempt": -3,
+      "rateLimited": false,
+      "millis": 1000
+    },
+    {
+      "attempt": 0,
+      "rateLimited": true,
+      "millis": 300000
+    }
+  ],
+  "chooseChange": [
+    {
+      "rolling": true,
+      "stampCurrent": true,
+      "exchangeRolling": true,
+      "live": 2.5,
+      "existing": 1.0,
+      "expected": 2.5
+    },
+    {
+      "rolling": false,
+      "stampCurrent": true,
+      "exchangeRolling": true,
+      "live": 2.5,
+      "existing": 1.0,
+      "expected": 1.0
+    },
+    {
+      "rolling": true,
+      "stampCurrent": false,
+      "exchangeRolling": true,
+      "live": 2.5,
+      "existing": 1.0,
+      "expected": 1.0
+    },
+    {
+      "rolling": true,
+      "stampCurrent": true,
+      "exchangeRolling": false,
+      "live": 2.5,
+      "existing": null,
+      "expected": null
+    },
+    {
+      "rolling": true,
+      "stampCurrent": true,
+      "exchangeRolling": true,
+      "live": null,
+      "existing": -3.0,
+      "expected": -3.0
+    }
+  ],
+  "skipRest": [
+    {
+      "lastTickAt": 100000,
+      "now": 120000,
+      "rolling": true,
+      "stampUnchanged": true,
+      "exchangeRolling": true,
+      "expected": true
+    },
+    {
+      "lastTickAt": 100000,
+      "now": 130000,
+      "rolling": true,
+      "stampUnchanged": true,
+      "exchangeRolling": true,
+      "expected": true
+    },
+    {
+      "lastTickAt": 100000,
+      "now": 130001,
+      "rolling": true,
+      "stampUnchanged": true,
+      "exchangeRolling": true,
+      "expected": false
+    },
+    {
+      "lastTickAt": null,
+      "now": 130000,
+      "rolling": true,
+      "stampUnchanged": true,
+      "exchangeRolling": true,
+      "expected": false
+    },
+    {
+      "lastTickAt": 100000,
+      "now": 110000,
+      "rolling": false,
+      "stampUnchanged": true,
+      "exchangeRolling": true,
+      "expected": false
+    },
+    {
+      "lastTickAt": 100000,
+      "now": 110000,
+      "rolling": true,
+      "stampUnchanged": false,
+      "exchangeRolling": true,
+      "expected": false
+    },
+    {
+      "lastTickAt": 100000,
+      "now": 110000,
+      "rolling": true,
+      "stampUnchanged": true,
+      "exchangeRolling": false,
+      "expected": false
+    },
+    {
+      "lastTickAt": 120000,
+      "now": 110000,
+      "rolling": true,
+      "stampUnchanged": true,
+      "exchangeRolling": true,
+      "expected": false
+    }
+  ]
+}

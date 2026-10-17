@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Begrüssung beim ersten Start -->
+    <string name="welcome_alert">Cảnh báo – giá, phần trăm, khối lượng và biến động bất thường</string>
+    <string name="welcome_alert_q">Khi nào cần báo?</string>
+    <string name="welcome_text">Giá của bạn. Cảnh báo của bạn. Tổng quan của bạn.\nKhông tài khoản. Không quảng cáo. Không theo dõi.</string>
+    <string name="welcome_understand">Hiểu – điều gì đang biến động cùng một mức giá</string>
+    <string name="welcome_understand_q">Cái gì biến động cùng?</string>
+    <string name="welcome_watch">Theo dõi – coin, giá và diễn biến của bạn</string>
+    <string name="welcome_watch_q">Chuyện gì đang xảy ra?</string>
+
+    <!-- Start-Coins (Vorschlagsliste nach der Begrüssung) -->
+    <string name="starter_add_selected">Thêm vào danh sách (%1$d)</string>
+    <string name="starter_loading_prices">Đang tải giá…</string>
+    <string name="starter_search_coin">Tìm coin khác</string>
+    <string name="starter_select_all">Chọn tất cả</string>
+    <string name="starter_select_none">Bỏ chọn tất cả</string>
+    <string name="starter_text">Bỏ chọn những coin bạn không muốn và thêm phần còn lại cùng lúc. Bạn có thể đổi sàn và cặp sau.</string>
+    <string name="starter_title">Bắt đầu với các coin này</string>
+    <string name="starter_watch_alarm_hint">Theo dõi giá, đặt cảnh báo</string>
+</resources>

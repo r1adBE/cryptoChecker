@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: leere Ansicht, Statuszeile, Frische -->
+    <string name="watchlist_all_fresh">Aktuální · %1$s</string>
+    <string name="watchlist_empty_title">Zatím žádné páry</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="one">%1$d z %2$d bez ceny</item>
+        <item quantity="few">%1$d z %2$d bez ceny</item>
+        <item quantity="many">%1$d z %2$d bez ceny</item>
+        <item quantity="other">%1$d z %2$d bez ceny</item>
+    </plurals>
+    <string name="watchlist_last_run">Poslední běh %1$s</string>
+    <string name="watchlist_live_a11y">Živé kurzy zapnuté</string>
+    <string name="watchlist_live_badge">LIVE</string>
+    <string name="watchlist_offline_since">Bez připojení · stav k %1$s</string>
+    <string name="watchlist_pull_to_refresh">Potažením dolů obnovíte</string>
+    <string name="watchlist_refresh_report">Poslední obnovení</string>
+    <string name="watchlist_refresh_report_empty">Zatím žádný rozpis: ještě neproběhlo úplné obnovení. Klepněte na obnovit a počkejte, až se indikátor zastaví.</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="one">Zastaralé: %1$d z %2$d</item>
+        <item quantity="few">Zastaralé: %1$d z %2$d</item>
+        <item quantity="many">Zastaralé: %1$d z %2$d</item>
+        <item quantity="other">Zastaralé: %1$d z %2$d</item>
+    </plurals>
+    <string name="watchlist_status_all_disabled">Všechny páry zde jsou vypnuté</string>
+    <string name="watchlist_status_exchange_prices">Kurzy z tvých burz · %1$s</string>
+    <string name="watchlist_status_exchange_prices_short">Burzovní kurzy · %1$s</string>
+    <string name="watchlist_status_group_empty">V této skupině nejsou žádné páry</string>
+    <string name="watchlist_status_none_traded">Žádné obchodované páry</string>
+    <string name="watchlist_updated">Aktualizováno: %1$s</string>
+
+    <!-- Merkliste: Puls-Zeile (Paare im Plus/Minus, ohne 24-h-Wert) -->
+    <string name="watchlist_pulse_avg">Ø %1$s</string>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="one">%1$d klesá</item>
+        <item quantity="few">%1$d klesají</item>
+        <item quantity="many">%1$d klesá</item>
+        <item quantity="other">%1$d klesá</item>
+    </plurals>
+    <!-- Paare mit Kurs, aber ohne 24-h-Wert («· 510 ohne 24h-Wert») -->
+    <plurals name="watchlist_pulse_missing">
+        <item quantity="one">%1$d bez 24h hodnoty</item>
+        <item quantity="few">%1$d bez 24h hodnoty</item>
+        <item quantity="many">%1$d bez 24h hodnoty</item>
+        <item quantity="other">%1$d bez 24h hodnoty</item>
+    </plurals>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="one">%1$d bez dnešní hodnoty</item>
+        <item quantity="few">%1$d bez dnešní hodnoty</item>
+        <item quantity="many">%1$d bez dnešní hodnoty</item>
+        <item quantity="other">%1$d bez dnešní hodnoty</item>
+    </plurals>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="one">%1$d roste</item>
+        <item quantity="few">%1$d rostou</item>
+        <item quantity="many">%1$d roste</item>
+        <item quantity="other">%1$d roste</item>
+    </plurals>
+
+    <!-- Merkliste: Zeile eines Paars -->
+    <string name="watchlist_row_disabled">%1$s · vypnuto</string>
+    <string name="watchlist_row_outdated">%1$s · zastaralé</string>
+    <string name="watchlist_row_outdated_age">zastaralé · %1$s</string>
+    <string name="watchlist_row_price_unchanged_since">Cena beze změny od %1$s</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s není dostupná</string>
+
+    <!-- Merkliste: Suche, Sprungknopf, Sortieren nach Spalte -->
+    <string name="watchlist_jump_end">Na konec</string>
+    <string name="watchlist_jump_start">Na začátek</string>
+    <string name="watchlist_search_close">Zavřít hledání</string>
+    <string name="watchlist_search_empty">Žádné výsledky pro „%1$s“</string>
+    <string name="watchlist_search_hint">Hledat pár, název nebo burzu</string>
+    <string name="watchlist_search_open">Hledat</string>
+    <string name="watchlist_sort_ascending">vzestupně</string>
+    <string name="watchlist_sort_descending">sestupně</string>
+    <string name="watchlist_sort_hint">Podržte a táhněte pár, nebo použijte úchyt. Oblíbené zůstávají nahoře.</string>
+    <string name="watchlist_sort_name">Název</string>
+    <string name="watchlist_sort_own">Vlastní pořadí</string>
+    <string name="watchlist_sort_price">Cena</string>
+
+    <!-- Merkliste: Mehrfachauswahl, Ansichten, Entfernen -->
+    <string name="watchlist_clear">Vymazat sledované</string>
+    <string name="watchlist_clear_confirm">Odebrat všechny páry ze sledovaných? Odstraní se i jejich alarmy.</string>
+    <plurals name="watchlist_disabled_count">
+        <item quantity="one">Vypnuto: %1$d</item>
+        <item quantity="few">Vypnuto: %1$d</item>
+        <item quantity="many">Vypnuto: %1$d</item>
+        <item quantity="other">Vypnuto: %1$d</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_action">Odebrat</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="one">Odebrat %1$d pár, se kterým se na jeho burze již neobchoduje? Odstraní se i jeho alarmy.</item>
+        <item quantity="few">Odebrat %1$d páry, se kterými se na jejich burze již neobchoduje? Odstraní se i jejich alarmy.</item>
+        <item quantity="many">Odebrat %1$d páru, se kterými se na jejich burze již neobchoduje? Odstraní se i jejich alarmy.</item>
+        <item quantity="other">Odebrat %1$d párů, se kterými se na jejich burze již neobchoduje? Odstraní se i jejich alarmy.</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_menu">Odebrat neobchodované páry (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">Odebrat neobchodované páry</string>
+    <string name="watchlist_removed">%1$s odebráno</string>
+    <plurals name="watchlist_removed_count">
+        <item quantity="one">Odebráno párů: %1$d</item>
+        <item quantity="few">Odebráno párů: %1$d</item>
+        <item quantity="many">Odebráno párů: %1$d</item>
+        <item quantity="other">Odebráno párů: %1$d</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="one">Odebrán %1$d neobchodovaný pár</item>
+        <item quantity="few">Odebrány %1$d neobchodované páry</item>
+        <item quantity="many">Odebráno %1$d neobchodovaného páru</item>
+        <item quantity="other">Odebráno %1$d neobchodovaných párů</item>
+    </plurals>
+    <string name="watchlist_select">Vybrat</string>
+    <string name="watchlist_select_all">Vybrat vše</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="one">Vybráno: %1$d</item>
+        <item quantity="few">Vybráno: %1$d</item>
+        <item quantity="many">Vybráno: %1$d</item>
+        <item quantity="other">Vybráno: %1$d</item>
+    </plurals>
+    <string name="watchlist_show_all">Zobrazit vše</string>
+    <string name="watchlist_show_only_disabled">Zobrazit jen vypnuté</string>
+    <string name="watchlist_show_only_stale">Zobrazit jen zastaralé</string>
+
+    <!-- Merkliste: weitere Texte (Gruppen, Alarme, Mitteilung, Sprachausgabe) -->
+    <plurals name="watchlist_alarms_count">
+        <item quantity="one">Alarm (%1$d)</item>
+        <item quantity="few">Alarmy (%1$d)</item>
+        <item quantity="many">Alarmy (%1$d)</item>
+        <item quantity="other">Alarmy (%1$d)</item>
+    </plurals>
+    <string name="watchlist_favorites_empty_hint">Zatím žádné oblíbené. Přejeďte pár doprava, nebo ho otevřete a klepněte na „Oblíbené“.</string>
+    <string name="watchlist_group_empty_hint">Dlouhým stiskem skupiny vyberete její páry.</string>
+    <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
+    <string name="watchlist_groups_empty_hint">Zde se zobrazí vaše skupiny</string>
+    <string name="watchlist_notification">Oznámení</string>
+    <string name="watchlist_tts">Číst cenu nahlas</string>
+    <string name="watchlist_tts_speech_on">Hlasový výstup je zapnutý. Změníš ho v Nastavení › Rozšířené › Hlasový výstup.</string>
+
+    <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
+    <string name="watch_action_add_widget">Přidat jako widget</string>
+    <string name="watch_action_alarm">Alarm</string>
+    <string name="watch_action_favorite">Oblíbené</string>
+    <string name="watch_action_why">Co se hýbe s ním?</string>
+    <string name="watch_action_why_short">Co se hýbe?</string>
+    <string name="watch_change_mark">Mark</string>
+    <string name="watch_disable">Vypnout</string>
+    <string name="watch_disable_hint">Žádné dotazy, žádná oznámení</string>
+    <string name="watch_disabled">Vypnuto</string>
+    <string name="watch_disabled_banner">Pár %1$s vypnut</string>
+    <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
+    <string name="watch_edit_alarms_warning">Alarmy zůstanou – zkontrolujte limity</string>
+    <!-- Titel des Formulars und Screenreader-Name des Stifts neben dem Paar -->
+    <string name="watch_edit_title">Upravit pár</string>
+    <string name="watch_enable">Zapnout</string>
+    <string name="watch_enable_hint">Kurzy a oznámení znovu běží</string>
+    <string name="watch_enabled_banner">Pár %1$s zapnut</string>
+    <string name="watch_error_offline">Bez připojení</string>
+    <string name="watch_gesture_hint_short">Klepnutím alarm a „Co se hýbe s ním?“ · podržením výběr · přejetím doleva smazat · doprava oblíbené</string>
+    <string name="watch_hint_tap_why">Klepnutím na minci uvidíte, co se hýbe spolu s ní</string>
+    <string name="watch_not_traded">Na této burze se již neobchoduje</string>
+    <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
+    <string name="watch_preview_not_watched">Není ve sledovaných</string>
+    <string name="watch_price_mid">střední kurz (jinak mark)</string>
+    <string name="watch_row_source_both">Změna a graf: %1$s</string>
+    <string name="watch_row_source_change">Změna: %1$s</string>
+    <string name="watch_row_source_chart">Graf: %1$s</string>
+
+    <!-- Meldung nach dem Hinzufügen (ein Paar / mehrere Paare) -->
+    <string name="pair_added_watching">%1$s je teď ve sledovaných</string>
+    <!-- Ein Paar: pair_added_watching -->
+    <string name="pairs_added_watching">%1$s jsou teď ve sledovaných</string>
+
+    <!-- Favoriten -->
+    <string name="favorite_add">Přidat do oblíbených</string>
+    <string name="favorite_added">%1$s přidáno do oblíbených</string>
+    <string name="favorite_remove">Odebrat z oblíbených</string>
+    <string name="favorite_removed">%1$s odebráno z oblíbených</string>
+    <string name="hint_favorites_list">Tip: přejetím řádku doprava ho přidáte do oblíbených – oblíbené zůstávají nahoře.</string>
+
+    <!-- Gruppen und Chips der Merkliste -->
+    <string name="group_add">Nová skupina</string>
+    <string name="group_all">Vše</string>
+    <!-- Alpha-Tokens: Chip «α», Art vor der Glocke, «inkl. Alpha-Tokens» -->
+    <string name="group_alpha">Alpha tokeny</string>
+    <string name="group_delete">Smazat skupinu</string>
+    <string name="group_delete_confirm">Páry zůstanou ve sledovaných.</string>
+    <string name="group_done">Hotovo</string>
+    <string name="group_edit_title">Upravit skupinu</string>
+    <!-- Chip «FAV» (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird vorgelesen) -->
+    <string name="group_favorites">Oblíbené</string>
+    <string name="group_in_other">v %1$s</string>
+    <string name="group_name">Název skupiny</string>
+    <string name="group_new">Nová skupina…</string>
+    <string name="group_next">Další</string>
+    <string name="group_none">Bez skupiny</string>
+    <string name="group_rename">Přejmenovat</string>
+    <string name="group_search_hint">Hledat pár, název nebo burzu</string>
+    <string name="group_target">Ve skupině</string>
+    <string name="group_title">Skupina</string>
+    <!-- Gruppen-Chip «Token» (alle Paare ausser der Gruppe «TradFi»), Screenreader und Widget-Einrichtung -->
+    <string name="group_tokens">Tokeny</string>
+    <string name="group_value">Skupina: %1$s</string>
+
+    <!-- Notiz zum Paar -->
+    <string name="note_add">Přidat poznámku</string>
+    <string name="note_edit">Upravit poznámku</string>
+    <string name="note_hint">např. vstup na 0,42, cíl 0,60</string>
+    <string name="note_remove">Odebrat</string>
+    <string name="note_title">Poznámka</string>
+
+    <!-- Reihenfolge ändern (Sortiermodus, Screenreader-Aktionen) -->
+    <string name="sort_drag_handle">Přetažením přesunout</string>
+    <string name="sort_move_bottom">Úplně dolů</string>
+    <string name="sort_move_down">Dolů</string>
+    <string name="sort_move_top">Úplně nahoru</string>
+    <string name="sort_move_up">Nahoru</string>
+</resources>

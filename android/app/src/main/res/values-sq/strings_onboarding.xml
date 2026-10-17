@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Begrüssung beim ersten Start -->
+    <string name="welcome_alert">Alarmo – çmim, përqindje, vëllim dhe lëvizje të pazakonta</string>
+    <string name="welcome_alert_q">Kur të njoftohem?</string>
+    <string name="welcome_text">Çmimet e tua. Alarmet e tua. Pasqyra jote.\nPa llogari. Pa reklama. Pa gjurmim.</string>
+    <string name="welcome_understand">Kupto – çfarë lëviz tani bashkë me një çmim</string>
+    <string name="welcome_understand_q">Çfarë lëviz bashkë?</string>
+    <string name="welcome_watch">Ndiq – monedhat e tua, çmimet dhe ecurinë e tyre</string>
+    <string name="welcome_watch_q">Çfarë po ndodh?</string>
+
+    <!-- Start-Coins (Vorschlagsliste nach der Begrüssung) -->
+    <string name="starter_add_selected">Shto në listën e ndjekjes (%1$d)</string>
+    <string name="starter_loading_prices">Po ngarkohen çmimet…</string>
+    <string name="starter_search_coin">Kërko një monedhë tjetër</string>
+    <string name="starter_select_all">Zgjidh të gjitha</string>
+    <string name="starter_select_none">Hiq zgjedhjen</string>
+    <string name="starter_text">Hiq zgjedhjen nga ato që nuk i do dhe shto të tjerat njëherësh. Bursën dhe çiftin mund t\'i ndryshosh më vonë.</string>
+    <string name="starter_title">Fillo me këto monedha</string>
+    <string name="starter_watch_alarm_hint">Ndiq çmimin, vendos një alarm</string>
+</resources>

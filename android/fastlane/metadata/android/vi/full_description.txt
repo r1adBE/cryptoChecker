@@ -1,0 +1,42 @@
+Cảnh báo khi Bitcoin chạm mức giá của bạn – từ chính sàn bạn đang dùng. Giá của sàn bạn, không phải giá trung bình – miễn phí, không cần tài khoản.
+
+ĐIỀU LÀM NÊN KHÁC BIỆT
+• Sàn của bạn, không phải giá trung bình: mỗi dòng hiển thị giá gần nhất của cặp trên sàn bạn đã chọn – Binance, Coinbase, Kraken, OKX, Bybit và nhiều sàn khác.
+• Cảnh báo chỉ báo một lần: “Báo cho tôi khi BTC vượt 100.000 USDT.” Nó kêu khi giá vượt mốc, không phải mỗi lần cập nhật – “Một lần” sẽ tắt sau đó, “Mỗi lần” sẽ bật lại khi giá quay về.
+• “Cái gì biến động cùng?”: danh sách yếu tố cho một đồng coin – toàn thị trường, khối lượng, độ biến động, funding và open interest, khoảng cách tới đỉnh hoặc đáy, Fear & Greed. Nó cho thấy những gì biến động cùng lúc – không phải nguyên nhân, không phải tin tức, không phải tư vấn đầu tư.
+• Không tài khoản, không quảng cáo, không theo dõi. Nhà phát triển không nhận bất kỳ dữ liệu nào của bạn.
+
+MINH BẠCH VỀ DỮ LIỆU
+• “Tiết kiệm” là mặc định: giá được làm mới khi mở ứng dụng và theo chu kỳ ở chế độ nền. “Trực tiếp khi đang mở” thêm giá trực tiếp cho Binance, Bybit, OKX, Coinbase và Kraken khi danh sách đang mở.
+• % thay đổi và biểu đồ lấy trước tiên từ chính sàn của cặp; nếu sàn không có nến, ứng dụng dùng Binance hoặc Coinbase và cho bạn biết.
+• Fear & Greed, tỷ lệ thống trị và chỉ số on-chain từ alternative.me, CoinGecko và Coin Metrics.
+• Khi ứng dụng đóng, Android quyết định lúc nào kiểm tra cảnh báo – khoảng 15 phút một lần, thường thưa hơn. Biến động ngắn ở giữa có thể bị lỡ; ứng dụng sẽ cho bạn biết điều này.
+• Số tiền nằm trên thiết bị, trừ khi bạn tự xuất ra (CSV, bản sao lưu). Để lấy giá, chỉ mã cặp được gửi đến sàn của cặp đó; thêm vào đó là tỷ giá (Frankfurter), dữ liệu thị trường và logo (CoinGecko, Binance), bản sao dữ liệu (GitHub). Nếu bạn theo dõi địa chỉ hoặc xpub, các nút blockchain công khai thấy các địa chỉ (với xpub là các địa chỉ dẫn xuất) và IP của bạn.
+
+DANH SÁCH THEO DÕI
+• 41 thị trường trên 32 sàn: spot và futures, token DEX qua DexScreener, tùy chọn cổ phiếu, vàng và ngoại hối (TradFi)
+• Dòng thứ hai “≈ giá trị” bằng một trong 31 loại tiền (EUR, CHF, USD …), quy đổi theo tỷ giá
+• Biểu đồ mini và % thay đổi trong 24 giờ hoặc từ 00:00 theo múi giờ của bạn
+• Nhóm, yêu thích, kéo để sắp xếp và ghi chú cho từng coin
+• Dòng báo “đã cũ” hoặc “không kết nối được sàn”
+
+CẢNH BÁO
+• Giá trên hoặc dưới một mốc, hoặc tăng/giảm theo phần trăm – cả bằng tiền của bạn, vd. 60.000 EUR trên cặp USDT
+• Biến động x % trong một khung thời gian, khối lượng tăng vọt
+• Âm thanh (cả tệp âm thanh của bạn), rung và đọc thông báo tùy chọn
+• Giờ yên lặng và “Thử cảnh báo”: nghe trước cảnh báo sẽ đến thế nào
+
+THỊ TRƯỜNG
+• Hoạt động bất thường: biến động giá và khối lượng bất thường trong danh sách, tùy chọn thông báo
+• Crypto Pulse, Fear & Greed, chỉ số Bitcoin, funding và open interest – chỉ là giá trị đo
+• Phí mạng cho Ethereum, Bitcoin và hơn nữa, có cảnh báo gas
+
+NGOÀI RA
+• Widget: danh sách, tổng giá trị danh mục, một coin kèm biểu đồ
+• Danh mục tùy chọn (bật trong Cài đặt): mua, bán, hoán đổi, chuyển, phần thưởng, nạp và rút; FIFO (mặc định) hoặc trung bình (Ø); địa chỉ chỉ đọc, không cần seed, cho BTC (cả xpub), ETH & chuỗi EVM, SOL, TRX, XRP, LTC và TON; nhập CSV từ Relai, Swissquote và Kraken; tổng hợp năm dạng CSV; khóa riêng
+• Dễ đọc cho mọi người: xanh/đỏ hoặc xanh dương/cam, dấu và mũi tên thay vì chỉ màu; TalkBack đọc mỗi dòng thành một câu
+• Sao lưu và khôi phục ra tệp – cả giữa Android và iPhone
+• Chế độ sáng và tối, năm màu nhấn, 31 ngôn ngữ
+• Mã nguồn mở (MIT) – mã công khai trên GitHub
+
+Lưu ý: Crypto Checker hiển thị giá và danh mục do bạn tự nhập. Ứng dụng không phải sàn hay ví, không giao dịch và không tư vấn đầu tư.

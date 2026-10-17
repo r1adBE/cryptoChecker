@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Sicherung exportieren und wiederherstellen -->
+    <string name="backup_export">Ekspor</string>
+    <string name="backup_exported">Cadangan disimpan.</string>
+    <string name="backup_failed">Gagal. Apakah ini cadangan Crypto Checker?</string>
+    <string name="backup_hint">Menyimpan daftar beserta catatan dan grup, alarm, favorit, portofolio, dan pengaturan ke file yang Anda simpan sendiri – mis. untuk ponsel baru.</string>
+    <string name="backup_import">Impor</string>
+    <string name="backup_title">Cadangkan &amp; pulihkan</string>
+    <string name="backup_too_large">File terlalu besar atau bukan cadangan yang valid (maks. 16 MB).</string>
+
+    <!-- Passwort der Sicherungsdatei -->
+    <string name="backup_password">Kata sandi</string>
+    <string name="backup_password_continue">Lanjutkan</string>
+    <string name="backup_password_hide">Sembunyikan kata sandi</string>
+    <!-- %1$d = Mindestlänge des Passworts (8) -->
+    <string name="backup_password_min">Minimal %1$d karakter</string>
+    <string name="backup_password_mismatch">Kata sandi tidak cocok</string>
+    <string name="backup_password_prompt">Masukkan kata sandi cadangan ini.</string>
+    <string name="backup_password_repeat">Ulangi kata sandi</string>
+    <string name="backup_password_show">Tampilkan kata sandi</string>
+    <string name="backup_password_title">Cadangan dengan kata sandi</string>
+    <string name="backup_password_too_weak">Terlalu mudah ditebak – jangan hanya angka, jangan satu karakter berulang, jangan urutan umum seperti «12345678» atau «password».</string>
+    <string name="backup_password_warning">Tanpa kata sandi, cadangan tidak dapat dipulihkan.</string>
+    <string name="backup_password_wrong">Kata sandi salah, atau file rusak. Coba lagi.</string>
+    <string name="backup_protect">Lindungi dengan kata sandi</string>
+    <string name="backup_protect_hint">Mengenkripsi file (AES-256). Disarankan jika berisi data portofolio.</string>
+
+    <!-- Sicherung ohne Passwort, Wiederherstellen -->
+    <string name="backup_plain_confirm">Simpan tanpa kata sandi</string>
+    <string name="backup_plain_confirm_text">File tidak dienkripsi. Siapa pun yang mendapatkannya dapat membaca:</string>
+    <string name="backup_plain_confirm_title">Simpan tanpa kata sandi?</string>
+    <string name="backup_plain_contents_addresses">Alamat dompet tersimpan</string>
+    <string name="backup_plain_contents_base">Daftar pantau dengan catatan dan grup, alarm, favorit, dan pengaturan</string>
+    <string name="backup_plain_contents_portfolio">Portofolio: transaksi dengan jumlah dan harga</string>
+    <string name="backup_restore_app_lock_kept">Kunci portofolio tetap aktif – cadangan tanpa enkripsi tidak dapat mematikannya.</string>
+    <string name="backup_restore_confirm">Impor mengganti daftar (beserta catatan dan grup), alarm, favorit, portofolio, dan pengaturan Anda dengan cadangan.</string>
+    <plurals name="backup_restore_invalid">
+        <item quantity="other">%d entri di cadangan (portofolio atau alarm) tidak valid dan tidak akan diimpor.</item>
+    </plurals>
+    <string name="backup_restore_newer_version">Cadangan ini dari versi aplikasi yang lebih baru – perbarui aplikasi terlebih dulu. Tidak ada yang diimpor.</string>
+    <string name="backup_restore_unencrypted_warning">Cadangan ini tidak dienkripsi – pastikan itu milikmu. Pengaturan akan diterapkan; kunci portofolio yang aktif tetap aktif.</string>
+    <string name="backup_restored">Dipulihkan: %1$s, %2$s.</string>
+    <plurals name="backup_restored_alarms">
+        <item quantity="other">%1$d alarm</item>
+    </plurals>
+    <plurals name="backup_restored_pairs">
+        <item quantity="other">%1$d pasangan</item>
+    </plurals>
+
+    <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
+    <string name="storage_recovery_message">Perangkat ini tidak lagi memiliki kunci data terenkripsi aplikasi, jadi aplikasi dimulai kosong. Tidak ada yang dihapus. Untuk mendapatkan kembali daftar dan portofolio Anda, impor file cadangan di Pengaturan, bagian «%1$s».</string>
+    <string name="storage_recovery_title">Data tersimpan tidak dapat dibuka</string>
+</resources>

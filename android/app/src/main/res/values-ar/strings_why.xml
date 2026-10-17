@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Warum bewegt sich das?»: Titel, Abschnitte, Aufklappen -->
+    <string name="why_action">ما الذي يتحرك معه؟</string>
+    <string name="why_all_values">كل القيم والمصادر</string>
+    <string name="why_all_values_hint">الملاحظة · تفسير محتمل · المصادر</string>
+    <string name="why_details">عرض التفاصيل</string>
+    <string name="why_details_hide">إخفاء التفاصيل</string>
+    <string name="why_disclaimer">تقييم تلقائي من بيانات السوق: يُظهر ما يحدث في الوقت نفسه، وليس دليلًا على سبب.</string>
+    <string name="why_footer_short">التزامن لا يعني السبب · ليست نصيحة استثمارية</string>
+    <string name="why_no_data">لا توجد بيانات من Binance لهذا الزوج</string>
+    <string name="why_no_data_hint">السعر والحجم والتقلب مصدرها شموع Binance الساعية.</string>
+    <string name="why_ref_alts">Alts</string>
+    <string name="why_section_context">قراءة محتملة</string>
+    <string name="why_section_observation">الملاحظة</string>
+    <string name="why_title">ما الذي يتحرك معه؟</string>
+    <string name="why_title_coin">ما الذي يتحرك مع %1$s؟</string>
+
+    <!-- «Warum?»: Kurz gesagt (ein Satz oben) -->
+    <string name="why_brief_head">باختصار · حتى %1$s</string>
+    <string name="why_brief_label">باختصار:</string>
+    <string name="why_summary_against">العملة تتحرك عكس السوق.</string>
+    <string name="why_summary_calm">لا حركة لافتة: السوق والعملة هادئان.</string>
+    <string name="why_summary_coin">هذه العملة وحدها تتحرك – ربما أمر يخص هذه العملة وحدها.</string>
+    <string name="why_summary_coin_volume">هذه العملة وحدها تتحرك، بحجم أعلى – ربما أمر يخص هذه العملة وحدها.</string>
+    <string name="why_summary_longs">العقود الآجلة: كثير من مراكز الشراء بالرافعة.</string>
+    <string name="why_summary_market">تتوافق الحركة زمنيًا مع السوق ككل.</string>
+    <string name="why_summary_market_volume">تتزامن الحركة مع حجم تداول أعلى وسوق يتحرك على نطاق واسع.</string>
+    <string name="why_summary_peg_near">السعر قريب من ربطه بنسبة 1:1.</string>
+    <string name="why_summary_peg_off">السعر ينحرف بشكل ملحوظ عن ربطه بنسبة 1:1.</string>
+    <string name="why_summary_shorts">العقود الآجلة: كثير من مراكز البيع.</string>
+    <string name="why_summary_thin">الحركة ضعيفة: حجم قليل وراءها.</string>
+
+    <!-- «Warum?»: Faktorliste (Titel der Faktoren) -->
+    <string name="why_f_against">عكس السوق</string>
+    <string name="why_f_coin_only">هذه العملة وحدها</string>
+    <string name="why_f_leader">Bitcoin كقائد للسوق</string>
+    <string name="why_f_leverage_balanced">الرافعة متوازنة</string>
+    <string name="why_f_leverage_longs">الرافعة: كثير من مراكز الشراء</string>
+    <string name="why_f_leverage_shorts">الرافعة: كثير من مراكز البيع</string>
+    <string name="why_f_market_calm">سوق هادئ</string>
+    <string name="why_f_market_wide">السوق بأكمله يتحرك</string>
+    <string name="why_factor_funding">التمويل</string>
+    <string name="why_factor_futures">العقود الآجلة</string>
+    <string name="why_factor_market">السوق ككل</string>
+    <string name="why_factor_near_high">قريب من القمة</string>
+    <string name="why_factor_near_low">قريب من القاع</string>
+    <string name="why_factor_peg">الربط (1:1)</string>
+    <string name="why_factor_range3d">نطاق 3 أيام</string>
+
+    <!-- «Warum?»: Nebenzeilen der Faktoren -->
+    <string name="why_fn_estimated">تقديري</string>
+    <string name="why_fn_funding_longs">كثيرون يراهنون على الصعود</string>
+    <string name="why_fn_funding_neutral">محايد</string>
+    <string name="why_fn_funding_shorts">كثيرون يراهنون على الهبوط</string>
+    <string name="why_fn_high_at">عند قمة 30 يومًا</string>
+    <string name="why_fn_high_below">تحت قمة 30 يومًا</string>
+    <string name="why_fn_leader_calm">البيتكوين هادئ</string>
+    <string name="why_fn_leader_moves">البيتكوين يتحرك بوضوح</string>
+    <string name="why_fn_low_above">فوق قاع 30 يومًا</string>
+    <string name="why_fn_low_at">عند قاع 30 يومًا</string>
+    <string name="why_fn_market_against">العملة تتحرك عكس السوق</string>
+    <string name="why_fn_market_alone">السوق هادئ – هذه العملة تتحرك وحدها</string>
+    <string name="why_fn_market_calm">السوق هادئ</string>
+    <string name="why_fn_market_lags">السوق يتحرك، وهذه العملة بالكاد</string>
+    <string name="why_fn_market_moves">السوق يتحرك في الاتجاه نفسه</string>
+    <string name="why_fn_market_pulls">السوق يتحرك مع BTC</string>
+    <string name="why_fn_oi_down">انخفاض الفائدة المفتوحة</string>
+    <string name="why_fn_oi_flat">الفائدة المفتوحة شبه ثابتة</string>
+    <string name="why_fn_oi_mixed">الفائدة المفتوحة متباينة</string>
+    <string name="why_fn_oi_up">ارتفاع الفائدة المفتوحة</string>
+    <string name="why_fn_peg_above">%1$s فوق ربط 1:1</string>
+    <string name="why_fn_peg_below">%1$s تحت ربط 1:1</string>
+    <string name="why_fn_peg_near">قريب من ربط 1:1</string>
+    <string name="why_fn_range_above_low">منذ قاع 3 أيام</string>
+    <string name="why_fn_range_below_high">منذ قمة 3 أيام</string>
+    <string name="why_fn_range_near_high">قريب من قمة 3 أيام</string>
+    <string name="why_fn_range_near_low">قريب من قاع 3 أيام</string>
+    <string name="why_fn_volatility_stronger">أقوى من المعتاد</string>
+    <string name="why_fn_volatility_tiny">صغير بالقيمة المطلقة (أقل من %1$s)</string>
+    <string name="why_fn_volatility_usual">كالمعتاد</string>
+    <string name="why_fn_volume_higher">أعلى من المعتاد</string>
+    <string name="why_fn_volume_lower">أقل من المعتاد</string>
+    <string name="why_fn_volume_usual">كالمعتاد</string>
+
+    <!-- «Warum?»: ausführliche Sätze je Beobachtung -->
+    <string name="why_against_market_text">هذه العملة %1$s، وBTC %2$s خلال 24 ساعة — حركة مستقلة بشكل لافت.</string>
+    <string name="why_against_ref_text">هذه العملة %1$s، و%2$s %3$s خلال 24 ساعة — حركة مستقلة بشكل لافت.</string>
+    <string name="why_btc_independent">يتحرك %1$s حاليًا بشكل مستقل عن البيتكوين.</string>
+    <string name="why_btc_tight">يتحرك %1$s حاليًا بشكل وثيق مع البيتكوين.</string>
+    <string name="why_change_1h">1h</string>
+    <string name="why_change_24h">24h</string>
+    <string name="why_coin_only_text">%1$s خلال 24 ساعة بينما السوق هادئ – ربما أمر يخص هذه العملة وحدها.</string>
+    <string name="why_leverage_balanced_text">لا تكدّس لمراكز الشراء أو البيع في سوق العقود الآجلة.</string>
+    <string name="why_leverage_longs_text">كثيرون يراهنون بأموال مقترضة على ارتفاع الأسعار. مراكز الشراء تدفع لمراكز البيع — خطر أعلى للتصفية إذا انخفض السعر.</string>
+    <string name="why_leverage_shorts_text">كثيرون يراهنون بأموال مقترضة على انخفاض الأسعار. مراكز البيع تدفع لمراكز الشراء – إذا ارتفع السعر فقد يحدث Short Squeeze.</string>
+    <string name="why_market_calm_text">هذه العملة: %1$s خلال 24 ساعة. لا السوق ولا العملة يتحركان كثيرًا.</string>
+    <string name="why_market_leader_text">بصفتها أكبر عملة، تتحرك BTC عادةً بالتوازي مع بقية السوق. ETH: %1$s خلال 24 ساعة.</string>
+    <string name="why_market_leader_text_no_eth">بصفتها أكبر عملة، تتحرك BTC عادةً بالتوازي مع بقية السوق.</string>
+    <string name="why_market_similar_text">هذه العملة: %1$s خلال 24 ساعة — وفي الوقت نفسه يتحرك السوق في الاتجاه نفسه، وإن بوضوح أقل.</string>
+    <string name="why_market_wide_text">هذه العملة: %1$s خلال 24 ساعة – وفي الوقت نفسه يتحرك السوق ككل بوضوح.</string>
+    <string name="why_open_interest_change">الفائدة المفتوحة %1$s منذ آخر فحص.</string>
+    <string name="why_peg_text">عملة مستقرة: مقارنة بربط 1:1 بعملة التسعير، الانحراف %1$s.</string>
+    <string name="why_sentiment_text">مؤشر الخوف والطمع لسوق العملات المشفرة بأكمله، %1$s مقارنةً بالأمس.</string>
+    <string name="why_sentiment_text_no_change">مؤشر الخوف والطمع لسوق العملات المشفرة بأكمله.</string>
+    <plurals name="why_trend_falling">
+        <item quantity="zero">في انخفاض منذ %1$d ساعة</item>
+        <item quantity="one">في انخفاض منذ ساعة واحدة (%1$d)</item>
+        <item quantity="two">في انخفاض منذ ساعتين (%1$d)</item>
+        <item quantity="few">في انخفاض منذ %1$d ساعات</item>
+        <item quantity="many">في انخفاض منذ %1$d ساعة</item>
+        <item quantity="other">في انخفاض منذ %1$d ساعة</item>
+    </plurals>
+    <plurals name="why_trend_rising">
+        <item quantity="zero">في ارتفاع منذ %1$d ساعة</item>
+        <item quantity="one">في ارتفاع منذ ساعة واحدة (%1$d)</item>
+        <item quantity="two">في ارتفاع منذ ساعتين (%1$d)</item>
+        <item quantity="few">في ارتفاع منذ %1$d ساعات</item>
+        <item quantity="many">في ارتفاع منذ %1$d ساعة</item>
+        <item quantity="other">في ارتفاع منذ %1$d ساعة</item>
+    </plurals>
+    <plurals name="why_trend_stable">
+        <item quantity="zero">مستقر منذ %1$d ساعة</item>
+        <item quantity="one">مستقر منذ ساعة واحدة (%1$d)</item>
+        <item quantity="two">مستقر منذ ساعتين (%1$d)</item>
+        <item quantity="few">مستقر منذ %1$d ساعات</item>
+        <item quantity="many">مستقر منذ %1$d ساعة</item>
+        <item quantity="other">مستقر منذ %1$d ساعة</item>
+    </plurals>
+    <string name="why_volatility_high_text">الساعة الأخيرة: %1$s — مقارنةً بالتذبذب الساعي المعتاد خلال آخر 24 ساعة.</string>
+    <string name="why_volatility_normal_text">الساعة الأخيرة: %1$s — ضمن النطاق المعتاد.</string>
+    <string name="why_volatility_tiny_text">الساعة الأخيرة: %1$s — غير معتاد لهذه العملة، لكنه صغير بالقيمة المطلقة.</string>
+    <string name="why_volume_estimated_text">تقديري: هذا المصدر لا يوفر حجم التداول بالعملة، لذا تُقارَن كميات العملات المتداولة.</string>
+    <string name="why_volume_high_text">تداول أكثر بكثير من المعتاد في الساعة الأخيرة – الحركة مصحوبة بحجم مرتفع.</string>
+    <string name="why_volume_low_text">تداول قليل وراء الحركة – مثل هذه الحركات غالبًا أقل استقرارًا.</string>
+    <string name="why_volume_normal_text">التداول في الساعة الأخيرة يتماشى مع آخر 24 ساعة.</string>
+
+    <!-- «Warum?»: Signal-Punkte (stützt, neutral, Vorsicht) -->
+    <string name="why_dot_caution">مرتفع</string>
+    <string name="why_dot_neutral">محايد</string>
+    <string name="why_dot_supports">يتوافق مع الحركة</string>
+
+    <!-- «Warum?»: Frische und Quellen der Daten -->
+    <string name="why_data_time">البيانات حتى %1$s</string>
+    <string name="why_fresh_breadth">اتساع السوق: %1$s · %2$s</string>
+    <string name="why_fresh_candles">الشموع: %1$s · %2$s</string>
+    <string name="why_fresh_fng">Fear &amp; Greed: %1$s</string>
+    <string name="why_fresh_futures">العقود الآجلة: %1$s</string>
+    <plurals name="why_fresh_oi_hours">
+        <item quantity="zero">الفائدة المفتوحة مقارنة بما قبل %1$d ساعة</item>
+        <item quantity="one">الفائدة المفتوحة مقارنة بما قبل ساعة واحدة (%1$d)</item>
+        <item quantity="two">الفائدة المفتوحة مقارنة بما قبل ساعتين (%1$d)</item>
+        <item quantity="few">الفائدة المفتوحة مقارنة بما قبل %1$d ساعات</item>
+        <item quantity="many">الفائدة المفتوحة مقارنة بما قبل %1$d ساعة</item>
+        <item quantity="other">الفائدة المفتوحة مقارنة بما قبل %1$d ساعة</item>
+    </plurals>
+    <plurals name="why_fresh_oi_minutes">
+        <item quantity="zero">الفائدة المفتوحة مقارنة بما قبل %1$d دقيقة</item>
+        <item quantity="one">الفائدة المفتوحة مقارنة بما قبل دقيقة واحدة (%1$d)</item>
+        <item quantity="two">الفائدة المفتوحة مقارنة بما قبل دقيقتين (%1$d)</item>
+        <item quantity="few">الفائدة المفتوحة مقارنة بما قبل %1$d دقائق</item>
+        <item quantity="many">الفائدة المفتوحة مقارنة بما قبل %1$d دقيقة</item>
+        <item quantity="other">الفائدة المفتوحة مقارنة بما قبل %1$d دقيقة</item>
+    </plurals>
+    <string name="why_fresh_today">اليوم</string>
+    <string name="why_fresh_yesterday">أمس</string>
+    <string name="why_source_fallback">%1$s (مصدر احتياطي)</string>
+    <string name="why_source_reference">%1$s (قيمة استرشادية)</string>
+    <string name="why_sources">المصادر: شموع الساعة من المنصة (غالبًا Binance)، بيانات العقود الآجلة من المنصات، Fear &amp; Greed من alternative.me.</string>
+    <string name="why_sources_list">المصادر: %1$s.</string>
+    <string name="why_src_breadth">%1$s (اتساع السوق)</string>
+    <string name="why_src_candles">%1$s (الشموع)</string>
+    <string name="why_src_comparison">%1$s (مقارنة بالسوق)</string>
+    <string name="why_src_fng">%1$s (Fear &amp; Greed)</string>
+    <string name="why_src_futures">%1$s (العقود الآجلة)</string>
+
+    <!-- Faktor-Checkliste (Crypto Pulse und «Warum?») -->
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">التمويل</string>
+    <string name="factor_spoken_volatility">%1$s أضعاف التذبذب المعتاد</string>
+    <string name="factor_spoken_volume">%1$s أضعاف المعتاد</string>
+    <string name="factor_volatility">التذبذب (1h)</string>
+    <string name="factor_volume">الحجم</string>
+</resources>

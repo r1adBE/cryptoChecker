@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Aktionsblatt: Kurs-Chart (Zeitraum, Kerzenwerte beim Ziehen, Umrechnung) und «Mehr» -->
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s Zeitraum kurz (widget_range_short_24h/7d/30d) -->
+    <string name="sheet_chart_change">%1$s på %2$s</string>
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s change_short_today(_zone) -->
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="sheet_chart_close">Lukning</string>
+    <string name="sheet_chart_converted_current">%1$s, omregnet (aktuel kurs)</string>
+    <!-- Zeile unter dem Chart, %1$s = umgerechnete Reihe («BTC/USDT») -->
+    <string name="sheet_chart_converted_daily">%1$s, omregnet med dagskurser</string>
+    <!-- Keine Kerzen für das Paar -->
+    <string name="sheet_chart_no_data">Ingen kursdata for dette par</string>
+    <!-- Kerzenwerte beim Ziehen (Hoch/Tief: ticker_high/ticker_low) -->
+    <string name="sheet_chart_open">Åbning</string>
+    <!-- Zeitraum-Chip statt «24h» bei Tages-Basis -->
+    <string name="sheet_chart_today">I dag</string>
+    <!-- Umsatz der Kerze beim Ziehen; %1$s z. B. «12.3M USDT» -->
+    <string name="sheet_chart_volume">Vol. %1$s</string>
+    <string name="sheet_more">Mere</string>
+
+    <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
+    <string name="ticker_ask">Udbud</string>
+    <string name="ticker_bid">Bud</string>
+    <string name="ticker_high">Høj</string>
+    <string name="ticker_low">Lav</string>
+    <string name="ticker_timestamp">Tid</string>
+    <string name="ticker_vol_base">Volumen (basis)</string>
+    <string name="ticker_vol_quote">Volumen (modvaluta)</string>
+
+    <!-- Basis der %-Änderung (Prozent-Pille, Chart, Widgets) -->
+    <string name="change_basis_device">%1$s, 00:00 (enhedens tidszone)</string>
+    <string name="change_basis_local">Siden 00:00 lokal tid</string>
+    <string name="change_basis_rolling">Seneste 24 timer</string>
+    <!-- Letzter gegen vorherigen Kurs des Paars; ausgeschrieben (Auswahl). Kurz neben Pille und Widgets: change_short_since_last -->
+    <string name="change_basis_since_last">Siden sidste opdatering</string>
+    <string name="change_basis_utc_zone">Siden 00:00 %1$s</string>
+    <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
+    <string name="change_candle_source">Ændring ud fra %1$s-candlesticks</string>
+    <string name="change_short_since_last">sidste opdatering</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
+    <string name="change_short_today">i dag</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 einer gewählten Zeitzone; %1$s = Zeitzone (z. B. UTC) -->
+    <string name="change_short_today_zone">i dag %1$s</string>
+
+    <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
+    <string name="market_data_empty_error">Ingen data modtaget fra børsen.</string>
+    <string name="market_data_summary">Markedsværdi, gasgebyrer, økonomiske data, coin-analyse</string>
+    <string name="market_data_tab_futures">Futures</string>
+    <string name="market_data_title">Markedsdata</string>
+
+    <!-- Marktdaten Spot (Marktkapitalisierung, Angebot, Volumen) -->
+    <string name="spot_circulating">Cirkulerende mængde</string>
+    <string name="spot_fdv">FDV</string>
+    <string name="spot_market_cap">Markedsværdi</string>
+    <string name="spot_max_supply">Maks. mængde</string>
+    <string name="spot_no_data">Ingen spotdata for denne coin</string>
+    <string name="spot_source_updated">Kilde: %1$s · kl. %2$s</string>
+    <string name="spot_supply_of_max">%1$s af maks. mængden i omløb</string>
+    <string name="spot_total_supply">Samlet mængde</string>
+    <string name="spot_vol_mcap">Vol./Markedsv.</string>
+    <string name="spot_volume_24h">Volumen (24t)</string>
+
+    <!-- Futures-Kennzahlen (Funding, Open Interest, Referenzbörse) -->
+    <string name="futures_alarm_reference">Vejledende %1$s</string>
+    <string name="futures_funding">Funding rate</string>
+    <string name="futures_funding_interval_unknown">interval ukendt</string>
+    <string name="futures_funding_per8h_equiv">= %1$s pr. 8 timer (som i alarmer)</string>
+    <!-- Einheit neben der Funding-Pille, wenn die Börse stündlich abrechnet (Hyperliquid) -->
+    <string name="futures_funding_per_hour">pr. time</string>
+    <string name="futures_funding_per_hours">pr. %1$d timer</string>
+    <string name="futures_next_funding">næste om %1$d t %2$d min</string>
+    <string name="futures_no_data">Ingen futures-data for denne coin</string>
+    <string name="futures_open_interest">Open interest</string>
+    <!-- Futures-Kennzahlen von einer anderen Börse als der beobachteten (Richtwert) -->
+    <string name="futures_reference_hint">Vejledende fra %1$s – funding og open interest gælder pr. børs; på %2$s kan de afvige.</string>
+    <string name="futures_reference_spot">Vejledende fra %1$s (møntens USDT-perpetual)</string>
+    <string name="futures_source">Kilde: %1$s</string>
+
+    <!-- Erklärungen hinter dem ⓘ-Knopf -->
+    <string name="explain_funding">Mange satser med lånte penge på stigende eller faldende kurser. Gebyr mellem long- og short-positioner. Stærkt positiv betyder, at mange satser på stigende kurser.</string>
+    <string name="explain_open_interest">Futures er væddemål på kursen, ofte med lånte penge. Værdien af alle åbne futures-positioner. Stiger den, satser flere penge på bevægelsen.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">Forklaring</string>
+    <string name="explain_spot_fdv">Fuldt udvandet værdi: kurs × maks. mængde (eller samlet mængde, hvis der ikke er nogen grænse).</string>
+    <string name="explain_spot_market_cap">Kurs × cirkulerende mængde. Pillen viser ændringen over 24 timer.</string>
+    <string name="explain_spot_source">Tal på tværs af alle børser i amerikanske dollar, fra CoinGecko.</string>
+    <string name="explain_spot_supply">Cirkulerende: coins på markedet nu. Samlet: alle skabte coins minus brændte. Maks.: det højeste antal, der nogensinde kan findes.</string>
+    <string name="explain_spot_volume">Handlet værdi på 24 timer. Vol./Markedsv.: volumen i forhold til markedsværdien — højt betyder meget aktiv handel.</string>
+
+    <!-- Umrechnung und Sats -->
+    <string name="converted_fx_stale">%1$s · kurs %2$s</string>
+    <string name="sats_per_unit">%1$s %2$s = %3$s sats</string>
+</resources>

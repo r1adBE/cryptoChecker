@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Begrüssung beim ersten Start -->
+    <string name="welcome_alert">경보 – 가격, 퍼센트, 거래량, 이상 움직임</string>
+    <string name="welcome_alert_q">언제 알릴까요?</string>
+    <string name="welcome_text">내 시세. 내 경보. 내 개요.\n계정 없음. 광고 없음. 추적 없음.</string>
+    <string name="welcome_understand">이해하기 – 지금 시세와 함께 무엇이 움직이는지</string>
+    <string name="welcome_understand_q">함께 움직이는 것은?</string>
+    <string name="welcome_watch">지켜보기 – 내 코인, 시세, 흐름</string>
+    <string name="welcome_watch_q">무슨 일이 있나요?</string>
+
+    <!-- Start-Coins (Vorschlagsliste nach der Begrüssung) -->
+    <string name="starter_add_selected">관심 목록에 추가 (%1$d)</string>
+    <string name="starter_loading_prices">가격 불러오는 중…</string>
+    <string name="starter_search_coin">다른 코인 검색</string>
+    <string name="starter_select_all">모두 선택</string>
+    <string name="starter_select_none">선택 해제</string>
+    <string name="starter_text">원하지 않는 코인은 선택 해제하고 나머지를 한 번에 추가하세요. 거래소와 거래쌍은 나중에 바꿀 수 있습니다.</string>
+    <string name="starter_title">이 코인으로 시작하세요</string>
+    <string name="starter_watch_alarm_hint">가격을 지켜보고 경보 설정</string>
+</resources>

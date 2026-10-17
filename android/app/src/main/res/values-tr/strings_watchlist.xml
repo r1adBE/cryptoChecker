@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: leere Ansicht, Statuszeile, Frische -->
+    <string name="watchlist_all_fresh">Güncel · %1$s</string>
+    <string name="watchlist_empty_title">Henüz çift yok</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="one">%2$d içinden %1$d fiyatsız</item>
+        <item quantity="other">%2$d içinden %1$d fiyatsız</item>
+    </plurals>
+    <string name="watchlist_last_run">Son çalışma %1$s</string>
+    <string name="watchlist_live_a11y">Canlı fiyatlar açık</string>
+    <string name="watchlist_live_badge">LIVE</string>
+    <string name="watchlist_offline_since">Bağlantı yok · %1$s itibarıyla</string>
+    <string name="watchlist_pull_to_refresh">Yenilemek için aşağı çekin</string>
+    <string name="watchlist_refresh_report">Son yenileme</string>
+    <string name="watchlist_refresh_report_empty">Henüz döküm yok: henüz tam bir yenileme yapılmadı. Yenile\'ye dokunun ve yükleme göstergesi durana kadar bekleyin.</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="one">%2$d çiftten %1$d tanesi güncel değil</item>
+        <item quantity="other">%2$d çiftten %1$d tanesi güncel değil</item>
+    </plurals>
+    <string name="watchlist_status_all_disabled">Buradaki tüm çiftler devre dışı</string>
+    <string name="watchlist_status_exchange_prices">Seçtiğin borsalardan fiyatlar · %1$s</string>
+    <string name="watchlist_status_exchange_prices_short">Borsa fiyatları · %1$s</string>
+    <string name="watchlist_status_group_empty">Bu grupta çift yok</string>
+    <string name="watchlist_status_none_traded">Burada işlem gören çift yok</string>
+    <string name="watchlist_updated">Güncellendi: %1$s</string>
+
+    <!-- Merkliste: Puls-Zeile (Paare im Plus/Minus, ohne 24-h-Wert) -->
+    <string name="watchlist_pulse_avg">Ø %1$s</string>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="one">%1$d düşüyor</item>
+        <item quantity="other">%1$d düşüyor</item>
+    </plurals>
+    <!-- Paare mit Kurs, aber ohne 24-h-Wert («· 510 ohne 24h-Wert») -->
+    <plurals name="watchlist_pulse_missing">
+        <item quantity="one">%1$d 24 sa değeri yok</item>
+        <item quantity="other">%1$d 24 sa değeri yok</item>
+    </plurals>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="one">%1$d bugünkü değer yok</item>
+        <item quantity="other">%1$d bugünkü değer yok</item>
+    </plurals>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="one">%1$d yükseliyor</item>
+        <item quantity="other">%1$d yükseliyor</item>
+    </plurals>
+
+    <!-- Merkliste: Zeile eines Paars -->
+    <string name="watchlist_row_disabled">%1$s · devre dışı</string>
+    <string name="watchlist_row_outdated">%1$s · güncel değil</string>
+    <string name="watchlist_row_outdated_age">güncel değil · %1$s</string>
+    <string name="watchlist_row_price_unchanged_since">Fiyat %1$s itibarıyla değişmedi</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s erişilemiyor</string>
+
+    <!-- Merkliste: Suche, Sprungknopf, Sortieren nach Spalte -->
+    <string name="watchlist_jump_end">Sona git</string>
+    <string name="watchlist_jump_start">Başa git</string>
+    <string name="watchlist_search_close">Aramayı kapat</string>
+    <string name="watchlist_search_empty">“%1$s” için sonuç yok</string>
+    <string name="watchlist_search_hint">Çift, ad veya borsa ara</string>
+    <string name="watchlist_search_open">Ara</string>
+    <string name="watchlist_sort_ascending">artan</string>
+    <string name="watchlist_sort_descending">azalan</string>
+    <string name="watchlist_sort_hint">Bir çifti basılı tutup sürükleyin veya tutamacı kullanın. Favoriler üstte kalır.</string>
+    <string name="watchlist_sort_name">Ad</string>
+    <string name="watchlist_sort_own">Kendi sıranız</string>
+    <string name="watchlist_sort_price">Fiyat</string>
+
+    <!-- Merkliste: Mehrfachauswahl, Ansichten, Entfernen -->
+    <string name="watchlist_clear">İzleme listesini temizle</string>
+    <string name="watchlist_clear_confirm">Tüm çiftler izleme listesinden kaldırılsın mı? Alarmları da silinir.</string>
+    <plurals name="watchlist_disabled_count">
+        <item quantity="one">%1$d devre dışı</item>
+        <item quantity="other">%1$d devre dışı</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_action">Kaldır</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="one">Borsasında artık işlem görmeyen %1$d çift kaldırılsın mı? Alarmları da silinir.</item>
+        <item quantity="other">Borsasında artık işlem görmeyen %1$d çift kaldırılsın mı? Alarmları da silinir.</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_menu">İşlem görmeyen çiftleri kaldır (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">İşlem görmeyen çiftleri kaldır</string>
+    <string name="watchlist_removed">%1$s kaldırıldı</string>
+    <plurals name="watchlist_removed_count">
+        <item quantity="one">%1$d çift kaldırıldı</item>
+        <item quantity="other">%1$d çift kaldırıldı</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="one">İşlem görmeyen %1$d çift kaldırıldı</item>
+        <item quantity="other">İşlem görmeyen %1$d çift kaldırıldı</item>
+    </plurals>
+    <string name="watchlist_select">Seç</string>
+    <string name="watchlist_select_all">Tümünü seç</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="one">%1$d seçildi</item>
+        <item quantity="other">%1$d seçildi</item>
+    </plurals>
+    <string name="watchlist_show_all">Tümünü göster</string>
+    <string name="watchlist_show_only_disabled">Yalnızca devre dışı olanları göster</string>
+    <string name="watchlist_show_only_stale">Yalnızca güncel olmayanları göster</string>
+
+    <!-- Merkliste: weitere Texte (Gruppen, Alarme, Mitteilung, Sprachausgabe) -->
+    <plurals name="watchlist_alarms_count">
+        <item quantity="one">Alarm (%1$d)</item>
+        <item quantity="other">Alarmlar (%1$d)</item>
+    </plurals>
+    <string name="watchlist_favorites_empty_hint">Henüz favori yok. Bir çifti sağa kaydırın veya çift sayfasında “Favori”ye dokunun.</string>
+    <string name="watchlist_group_empty_hint">Çiftlerini seçmek için bir gruba uzun basın.</string>
+    <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
+    <string name="watchlist_groups_empty_hint">Gruplarınız burada görünecek</string>
+    <string name="watchlist_notification">Bildirim</string>
+    <string name="watchlist_tts">Fiyatı sesli oku</string>
+    <string name="watchlist_tts_speech_on">Sesli okuma açık. Değiştirmek için: Ayarlar › Gelişmiş › Sesli çıkış.</string>
+
+    <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
+    <string name="watch_action_add_widget">Widget olarak ekle</string>
+    <string name="watch_action_alarm">Alarm</string>
+    <string name="watch_action_favorite">Favori</string>
+    <string name="watch_action_why">Onunla birlikte ne hareket ediyor?</string>
+    <string name="watch_action_why_short">Ne birlikte?</string>
+    <string name="watch_change_mark">Mark</string>
+    <string name="watch_disable">Devre dışı bırak</string>
+    <string name="watch_disable_hint">Sorgu yok, bildirim yok</string>
+    <string name="watch_disabled">Devre dışı</string>
+    <string name="watch_disabled_banner">%1$s devre dışı bırakıldı</string>
+    <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
+    <string name="watch_edit_alarms_warning">Alarmlar korunur – eşikleri kontrol edin</string>
+    <!-- Titel des Formulars und Screenreader-Name des Stifts neben dem Paar -->
+    <string name="watch_edit_title">Çifti düzenle</string>
+    <string name="watch_enable">Etkinleştir</string>
+    <string name="watch_enable_hint">Fiyatlar ve bildirimler yeniden açık</string>
+    <string name="watch_enabled_banner">%1$s etkinleştirildi</string>
+    <string name="watch_error_offline">Bağlantı yok</string>
+    <string name="watch_gesture_hint_short">Dokun: alarm ve “Onunla birlikte ne hareket ediyor?” · seçmek için basılı tut · silmek için sola kaydır · favori için sağa kaydır</string>
+    <string name="watch_hint_tap_why">Onunla birlikte neyin hareket ettiğini görmek için bir coin’e dokun</string>
+    <string name="watch_not_traded">Bu borsada artık işlem görmüyor</string>
+    <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
+    <string name="watch_preview_not_watched">İzleme listesinde değil</string>
+    <string name="watch_price_mid">orta fiyat (yoksa mark)</string>
+    <string name="watch_row_source_both">Değişim ve grafik: %1$s</string>
+    <string name="watch_row_source_change">Değişim: %1$s</string>
+    <string name="watch_row_source_chart">Grafik: %1$s</string>
+
+    <!-- Meldung nach dem Hinzufügen (ein Paar / mehrere Paare) -->
+    <string name="pair_added_watching">%1$s artık izleme listenizde</string>
+    <!-- Ein Paar: pair_added_watching -->
+    <string name="pairs_added_watching">%1$s artık izleme listenizde</string>
+
+    <!-- Favoriten -->
+    <string name="favorite_add">Favorilere ekle</string>
+    <string name="favorite_added">%1$s favorilere eklendi</string>
+    <string name="favorite_remove">Favorilerden çıkar</string>
+    <string name="favorite_removed">%1$s favorilerden çıkarıldı</string>
+    <string name="hint_favorites_list">İpucu: bir satırı sağa kaydırarak favori yap – favoriler üstte kalır.</string>
+
+    <!-- Gruppen und Chips der Merkliste -->
+    <string name="group_add">Yeni grup</string>
+    <string name="group_all">Tümü</string>
+    <!-- Alpha-Tokens: Chip «α», Art vor der Glocke, «inkl. Alpha-Tokens» -->
+    <string name="group_alpha">Alpha tokenleri</string>
+    <string name="group_delete">Grubu sil</string>
+    <string name="group_delete_confirm">Çiftler izleme listenizde kalır.</string>
+    <string name="group_done">Bitti</string>
+    <string name="group_edit_title">Grubu düzenle</string>
+    <!-- Chip «FAV» (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird vorgelesen) -->
+    <string name="group_favorites">Favoriler</string>
+    <string name="group_in_other">%1$s içinde</string>
+    <string name="group_name">Grup adı</string>
+    <string name="group_new">Yeni grup…</string>
+    <string name="group_next">İleri</string>
+    <string name="group_none">Grup yok</string>
+    <string name="group_rename">Yeniden adlandır</string>
+    <string name="group_search_hint">Çift, ad veya borsa ara</string>
+    <string name="group_target">Gruba</string>
+    <string name="group_title">Grup</string>
+    <!-- Gruppen-Chip «Token» (alle Paare ausser der Gruppe «TradFi»), Screenreader und Widget-Einrichtung -->
+    <string name="group_tokens">Tokenler</string>
+    <string name="group_value">Grup: %1$s</string>
+
+    <!-- Notiz zum Paar -->
+    <string name="note_add">Not ekle</string>
+    <string name="note_edit">Notu düzenle</string>
+    <string name="note_hint">örn. giriş 0.42, hedef 0.60</string>
+    <string name="note_remove">Kaldır</string>
+    <string name="note_title">Not</string>
+
+    <!-- Reihenfolge ändern (Sortiermodus, Screenreader-Aktionen) -->
+    <string name="sort_drag_handle">Taşımak için sürükleyin</string>
+    <string name="sort_move_bottom">En alta</string>
+    <string name="sort_move_down">Aşağı</string>
+    <string name="sort_move_top">En üste</string>
+    <string name="sort_move_up">Yukarı</string>
+</resources>

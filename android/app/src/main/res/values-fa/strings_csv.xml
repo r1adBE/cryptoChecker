@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: CSV-Import -->
+    <string name="portfolio_csv_import_action">وارد کردن CSV</string>
+    <string name="portfolio_csv_import_all_transfer">همه به کیف پول خودم</string>
+    <string name="portfolio_csv_import_all_withdrawal">همه از سبد خارج می‌شوند</string>
+    <string name="portfolio_csv_import_choice_proposed">پیشنهاد: با %1$s جور است</string>
+    <string name="portfolio_csv_import_choice_transfer">به کیف پول خودم (انتقال)</string>
+    <string name="portfolio_csv_import_choice_withdrawal">از سبد خارج می‌شود (برداشت)</string>
+    <string name="portfolio_csv_import_choose_each">برای هر برداشت انتخاب کن کجا رفت.</string>
+    <string name="portfolio_csv_import_columns">ستون‌های شناسایی‌شده: %1$s</string>
+    <string name="portfolio_csv_import_confirm">وارد کردن (%1$d)</string>
+    <string name="portfolio_csv_import_date_day_first">روز/ماه</string>
+    <string name="portfolio_csv_import_date_month_first">ماه/روز</string>
+    <string name="portfolio_csv_import_date_order">تاریخ‌های مبهم (مثلاً 03/04/2024) خوانده شوند به‌صورت:</string>
+    <string name="portfolio_csv_import_decimal">عددهای مبهم (مثلاً %1$s) خوانده شوند به‌صورت:</string>
+    <plurals name="portfolio_csv_import_done">
+        <item quantity="one">%d تراکنش وارد شد</item>
+        <item quantity="other">%d تراکنش وارد شد</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_duplicates">
+        <item quantity="one">%d مورد قبلاً وارد شده (رد شد)</item>
+        <item quantity="other">%d مورد قبلاً وارد شده (رد شدند)</item>
+    </plurals>
+    <string name="portfolio_csv_import_format">قالب: %1$s</string>
+    <string name="portfolio_csv_import_line">سطر %1$d: %2$s</string>
+    <string name="portfolio_csv_import_loading">در حال خواندن فایل و نرخ‌های روزانه…</string>
+    <string name="portfolio_csv_import_missing_fx">نرخ روزانه برای سطر %1$s نیست – بدون قیمت و کارمزد وارد شد.</string>
+    <string name="portfolio_csv_import_missing_price">در فایل برای سطر %1$s قیمتی نیست – بدون قیمت وارد شد.</string>
+    <string name="portfolio_csv_import_more">+ %1$d مورد دیگر</string>
+    <plurals name="portfolio_csv_import_new">
+        <item quantity="one">%d تراکنش جدید</item>
+        <item quantity="other">%d تراکنش جدید</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_skipped">
+        <item quantity="one">%d سطر رد شد</item>
+        <item quantity="other">%d سطر رد شد</item>
+    </plurals>
+    <string name="portfolio_csv_import_stable_swaps">خرید و فروش در برابر استیبل‌کوین‌ها (USDT، USDC …) به‌صورت تبادل ثبت می‌شود – استیبل‌کوین در دارایی تو نمایش داده می‌شود.</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">چند تطابق ممکن است – درست را انتخاب کن یا هیچ‌کدام.</string>
+    <string name="portfolio_csv_import_transfer_fee">کارمزد شبکه: %1$s</string>
+    <string name="portfolio_csv_import_transfer_link">ثبت به‌عنوان یک انتقال</string>
+    <string name="portfolio_csv_import_transfer_stored">طرف مقابل از یک وارد کردن قبلی</string>
+    <string name="portfolio_csv_import_transfers_hint">یک برداشت و واریز متناظر همان کوین یک انتقال می‌شوند: قیمت خرید و مدت نگهداری حفظ می‌شود و تفاوت، کارمزد شبکه حساب می‌شود.</string>
+    <string name="portfolio_csv_import_transfers_title">انتقال بین حساب‌های تو</string>
+    <string name="portfolio_csv_import_unreadable">تراکنش پشتیبانی‌شده‌ای پیدا نشد. پشتیبانی‌شده: خروجی‌های CSV از Relai، Swissquote، Kraken، Binance، Coinbase و Bitpanda.</string>
+    <string name="portfolio_csv_import_withdrawals_title">برداشت‌ها – سکه‌ها کجا رفتند؟</string>
+    <string name="portfolio_csv_import_zone">زمان‌های بدون منطقهٔ زمانی خوانده می‌شوند به‌صورت: %1$s</string>
+    <string name="portfolio_csv_import_zone_device">دستگاه (%1$s)</string>
+    <string name="portfolio_csv_skip_bad_date">تاریخ ناخوانا</string>
+    <string name="portfolio_csv_skip_bad_number">عدد ناخوانا</string>
+    <string name="portfolio_csv_skip_fee_exceeds">کارمزد ≥ مقدار دریافتی</string>
+    <string name="portfolio_csv_skip_internal_move">جابه‌جایی بین حساب‌های خودت – چیزی برای ثبت نیست</string>
+    <string name="portfolio_csv_skip_missing">فیلد ناقص</string>
+    <string name="portfolio_csv_skip_not_crypto">رمزارز نیست</string>
+    <string name="portfolio_csv_skip_possible_duplicate">احتمالاً قبلاً وارد شده (معامله‌ای تقریباً یکسان) – دستی بررسی کن</string>
+    <string name="portfolio_csv_skip_two_fees">دو کارمزد با واحدهای متفاوت – معاوضه را دستی وارد کن</string>
+    <string name="portfolio_csv_skip_unsupported">نوع پشتیبانی‌نشده</string>
+
+    <!-- Portfolio: Importe ansehen und rückgängig machen -->
+    <string name="portfolio_import_undo">واگرد</string>
+    <plurals name="portfolio_import_undo_confirm">
+        <item quantity="one">%d تراکنش این وارد کردن حذف شود؟ ورودی‌های دستی و وارد کردن‌های دیگر باقی می‌مانند.</item>
+        <item quantity="other">%d تراکنش این وارد کردن حذف شوند؟ ورودی‌های دستی و وارد کردن‌های دیگر باقی می‌مانند.</item>
+    </plurals>
+    <string name="portfolio_import_undo_title">واگرد وارد کردن؟</string>
+    <plurals name="portfolio_import_undone">
+        <item quantity="one">%d تراکنش واردشده حذف شد</item>
+        <item quantity="other">%d تراکنش واردشده حذف شد</item>
+    </plurals>
+    <plurals name="portfolio_imports_count">
+        <item quantity="one">%d تراکنش</item>
+        <item quantity="other">%d تراکنش</item>
+    </plurals>
+    <string name="portfolio_imports_empty">وارد کردنی نیست</string>
+    <string name="portfolio_imports_title">وارد کردن‌ها</string>
+</resources>

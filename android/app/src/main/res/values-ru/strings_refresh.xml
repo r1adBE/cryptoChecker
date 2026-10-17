@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Wie aktuell? (Sparsam / Live) -->
+    <string name="update_mode_for_pros">расходует больше трафика и заряда</string>
+    <string name="update_mode_live">Онлайн, пока открыто</string>
+    <string name="update_mode_live_hint">Если биржа даёт курс в реальном времени: сразу, пока список открыт. Иначе при следующем запросе. Закрыт: не чаще чем каждые %1$s, часто реже.</string>
+    <string name="update_mode_live_hint_ios">Если биржа даёт курс в реальном времени: сразу, пока список открыт. Иначе при следующем запросе. Закрыт: когда позволит iOS, иногда с перерывом в часы. Если смахнуть приложение, iOS прекращает эти проверки до следующего открытия.</string>
+    <string name="update_mode_recommended">рекомендуется</string>
+    <string name="update_mode_sparsam">Экономно</string>
+    <string name="update_mode_sparsam_hint">При закрытом приложении не чаще чем каждые %1$s, часто реже (оповещения, виджеты). Открыто: при каждом открытии.</string>
+    <string name="update_mode_sparsam_hint_ios">Когда приложение закрыто, iOS сама решает, когда проверять (оповещения, виджеты), иногда с перерывом в часы. Открыто: при каждом открытии.</string>
+    <string name="update_mode_title">Насколько актуально?</string>
+
+    <!-- Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <string name="refresh_sheet_aborted">Обновление прервано</string>
+    <string name="refresh_sheet_alarms">Оповещения</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="one">сработало: %1$d</item>
+        <item quantity="few">сработало: %1$d</item>
+        <item quantity="many">сработало: %1$d</item>
+        <item quantity="other">сработало: %1$d</item>
+    </plurals>
+    <!-- Grosse Statuszeile oben im Blatt -->
+    <string name="refresh_sheet_all_updated">Всё обновлено</string>
+    <string name="refresh_sheet_app_start">Запуск приложения</string>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="one">пакетный запрос %1$s · %2$d курс</item>
+        <item quantity="few">пакетный запрос %1$s · %2$d курса</item>
+        <item quantity="many">пакетный запрос %1$s · %2$d курсов</item>
+        <item quantity="other">пакетный запрос %1$s · %2$d курса</item>
+    </plurals>
+    <string name="refresh_sheet_database">База данных</string>
+    <string name="refresh_sheet_market_unreachable">Биржа %1$s недоступна</string>
+    <plurals name="refresh_sheet_markets_unreachable">
+        <item quantity="one">%1$d биржа недоступна</item>
+        <item quantity="few">%1$d биржи недоступны</item>
+        <item quantity="many">%1$d бирж недоступно</item>
+        <item quantity="other">%1$d биржи недоступны</item>
+    </plurals>
+    <string name="refresh_sheet_network">Сеть</string>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="one">%1$d уведомление</item>
+        <item quantity="few">%1$d уведомления</item>
+        <item quantity="many">%1$d уведомлений</item>
+        <item quantity="other">%1$d уведомления</item>
+    </plurals>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="one">%1$d пара</item>
+        <item quantity="few">%1$d пары</item>
+        <item quantity="many">%1$d пар</item>
+        <item quantity="other">%1$d пары</item>
+    </plurals>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="one">%1$d пара не обновлена</item>
+        <item quantity="few">%1$d пары не обновлены</item>
+        <item quantity="many">%1$d пар не обновлено</item>
+        <item quantity="other">%1$d пары не обновлены</item>
+    </plurals>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="one">%2$d из %1$d пары</item>
+        <item quantity="few">%2$d из %1$d пар</item>
+        <item quantity="many">%2$d из %1$d пар</item>
+        <item quantity="other">%2$d из %1$d пар</item>
+    </plurals>
+    <string name="refresh_sheet_paused_until">пауза до %1$s</string>
+    <string name="refresh_sheet_paused_until_reason">пауза до %1$s (%2$s)</string>
+    <string name="refresh_sheet_reason_no_data">нет данных</string>
+    <string name="refresh_sheet_reason_offline">нет соединения</string>
+    <string name="refresh_sheet_reason_rate_limit">слишком много запросов</string>
+    <string name="refresh_sheet_reason_server">ошибка сервера</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">тайм-аут</string>
+    <string name="refresh_sheet_reason_unavailable">биржа недоступна</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s секунды</string>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_markets">Биржи</string>
+    <string name="refresh_sheet_section_steps">Этапы</string>
+    <string name="refresh_sheet_status_failed">не обновлено</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">всё обновлено</string>
+    <string name="refresh_sheet_status_partial">обновлено частично</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">Ожидание до старта</string>
+    <string name="refresh_sheet_widgets">Виджеты</string>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+
+    <!-- Kurzbericht der Aktualisierung je Börse -->
+    <string name="refresh_report_bulk_failed">пакетный запрос %1$s (ошибка)</string>
+    <plurals name="refresh_report_errors">
+        <item quantity="one">%1$d ошибка</item>
+        <item quantity="few">%1$d ошибки</item>
+        <item quantity="many">%1$d ошибок</item>
+        <item quantity="other">%1$d ошибки</item>
+    </plurals>
+    <string name="refresh_report_live">В реальном времени: %1$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="one">больше не торгуются: %1$d</item>
+        <item quantity="few">больше не торгуются: %1$d</item>
+        <item quantity="many">больше не торгуются: %1$d</item>
+        <item quantity="other">больше не торгуются: %1$d</item>
+    </plurals>
+    <string name="refresh_report_singles">по отдельности: %1$d</string>
+
+    <!-- Prüfprotokoll der Hintergrundprüfungen (Ergebnis, Auslöser) -->
+    <string name="check_result_failed">Ошибка</string>
+    <string name="check_result_ok">OK</string>
+    <string name="check_result_partial">Частично</string>
+    <string name="check_result_skipped">Пропущено</string>
+    <string name="check_trigger_bgtask">Фон</string>
+    <string name="check_trigger_exact">Вовремя</string>
+    <string name="check_trigger_foreground">Приложение</string>
+    <string name="check_trigger_widget">Виджет</string>
+    <string name="check_trigger_widget_ios">Виджет · курсы и ценовые оповещения</string>
+    <string name="check_trigger_worker">Фон</string>
+
+    <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
+    <string name="battery_delay_hint">Android может откладывать проверки – выберите для батареи «Без ограничений»</string>
+    <string name="battery_later">Позже</string>
+    <string name="battery_message">Android откладывает фоновую работу ради экономии энергии — тогда цены и виджеты могут отставать на несколько часов. Неограниченный расход батареи сохраняет их актуальными. Это можно изменить в любой момент в настройках Android.</string>
+    <string name="battery_open_settings">Открыть настройки батареи</string>
+    <string name="battery_steps">В сведениях о приложении нажмите «Батарея» (или «Расход заряда батареи») и выберите «Без ограничений».</string>
+    <string name="battery_title">Актуальные цены</string>
+    <string name="ios_background_refresh_off">Фоновое обновление для приложения выключено. Без него оповещения проверяются, только пока приложение открыто.</string>
+    <string name="ios_low_power_mode">Включён режим энергосбережения. iOS редко проверяет в фоне, оповещения могут опаздывать.</string>
+</resources>

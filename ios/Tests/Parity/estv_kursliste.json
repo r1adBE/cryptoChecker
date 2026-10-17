@@ -1,0 +1,20 @@
+{
+  "_comment": "Hinweis auf die ESTV-Kursliste (ICTax) im Stichtag-Export: Link je Jahr/Sprache, nur CHF per 31.12. (EstvKursliste.kt / EstvKursliste.swift)",
+  "urls": [
+    {"year": 2025, "language": "de", "expected": "https://www.ictax.admin.ch/extern/de.html#/ratelist/2025"},
+    {"year": 2025, "language": "de-CH", "expected": "https://www.ictax.admin.ch/extern/de.html#/ratelist/2025"},
+    {"year": 2024, "language": "fr_CH", "expected": "https://www.ictax.admin.ch/extern/fr.html#/ratelist/2024"},
+    {"year": 2024, "language": "IT", "expected": "https://www.ictax.admin.ch/extern/it.html#/ratelist/2024"},
+    {"year": 2025, "language": "en", "expected": "https://www.ictax.admin.ch/extern/en.html#/ratelist/2025"},
+    {"year": 2025, "language": "ja", "expected": "https://www.ictax.admin.ch/extern/en.html#/ratelist/2025"},
+    {"year": 2025, "language": "", "expected": "https://www.ictax.admin.ch/extern/en.html#/ratelist/2025"}
+  ],
+  "applies": [
+    {"date": "2025-12-31", "currency": "CHF", "expected": true},
+    {"date": "2025-12-31", "currency": "chf", "expected": true},
+    {"date": "2025-12-30", "currency": "CHF", "expected": false},
+    {"date": "2025-06-30", "currency": "CHF", "expected": false},
+    {"date": "2025-12-31", "currency": "EUR", "expected": false},
+    {"date": "2025-12-31", "currency": "USD", "expected": false}
+  ]
+}

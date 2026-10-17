@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Kopfzeile aller Portfolio-Widget-Layouts: Logo und «Portfolio». Keine Pille — das Prozent steht als
+     Text in der Kursfarbe in der Betragszeile («↘ −1’968.40 CHF  −2.31% · 24h», PortfolioWidgetRenderer). -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:baselineAligned="false">
+
+    <ImageView
+        android:id="@+id/portfolio_logo"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginEnd="6dp"
+        android:src="@drawable/ic_app_logo_orange_dark"
+        android:contentDescription="@null" />
+
+    <TextView
+        android:id="@+id/portfolio_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:text="@string/widget_portfolio_name"
+        android:textSize="13sp"
+        android:textStyle="bold" />
+</LinearLayout>

@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Tab, leere Ansicht, Einschalten, Sperre -->
+    <string name="app_lock_unavailable">Det er ikke satt opp skjermlås på denne enheten. Sett opp en i systeminnstillingene først.</string>
+    <string name="app_lock_unlock">Lås opp</string>
+    <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
+    <string name="portfolio_clear">Tøm portefølje</string>
+    <plurals name="portfolio_clear_confirm_count">
+        <item quantity="one">Slette %d transaksjon? Overvåkede adresser blir værende. Dette kan ikke angres.</item>
+        <item quantity="other">Slette alle %d transaksjoner? Overvåkede adresser blir værende. Dette kan ikke angres.</item>
+    </plurals>
+    <string name="portfolio_disclaimer">Beløp blir på enheten med mindre du eksporterer dem selv; for kurser sendes bare parsymboler til parets børs. Offentlige blokkjedenoder ser overvåkede adresser og IP-en din. Ikke investeringsråd.</string>
+    <string name="portfolio_empty_action">Legg inn ditt første kjøp</string>
+    <string name="portfolio_empty_address">Bare følg en lommebokadresse</string>
+    <string name="portfolio_empty_csv">Kjøpt på en børs? Importer filen</string>
+    <string name="portfolio_empty_example_plain">Eksempel: 0,01 BTC kjøpt 1. mars. Appen viser da hva den er verdt i dag og om du er i pluss eller minus – lagret bare på denne enheten.</string>
+    <string name="portfolio_empty_text">Legg inn det du har kjøpt – appen viser hva det er verdt i dag og hvor mye du er i pluss eller minus.</string>
+    <string name="portfolio_empty_title">Ingen transaksjoner ennå</string>
+    <string name="portfolio_enable_ask_text">Transaksjonen din er lagret. Fanen Portefølje viser beholdningene dine og verdien deres.</string>
+    <string name="portfolio_enable_ask_title">Slå på fanen Portefølje?</string>
+    <string name="portfolio_enable_later_hint">Transaksjonen er lagret. Du kan slå på fanen Portefølje under Innstillinger › Avansert › Portefølje.</string>
+    <string name="portfolio_enabled_banner">Portefølje slått på – du finner den i fanen Portefølje.</string>
+    <string name="portfolio_lock_reason">Lås opp porteføljen</string>
+    <string name="portfolio_locked_text">Lås opp for å se beholdninger og verdier.</string>
+    <string name="portfolio_locked_title">Porteføljen er låst</string>
+    <string name="portfolio_setting_hint">Valgfritt: registrer kjøp og salg og se verdi og gevinst/tap i en egen fane.</string>
+    <!-- Status-Pille wie in der Merkliste: Kurse älter als die Frische-Schwelle, Gerät online. Offline: offline_status_since, alles aktuell: watchlist_all_fresh -->
+    <string name="portfolio_status_stale">Utdatert · per %1$s</string>
+    <plurals name="portfolio_system_restore_invalid">
+        <item quantity="one">%d oppføring fra systemsikkerhetskopien var ugyldig og ble ikke gjenopprettet.</item>
+        <item quantity="other">%d oppføringer fra systemsikkerhetskopien var ugyldige og ble ikke gjenopprettet.</item>
+    </plurals>
+    <string name="portfolio_title">Portefølje</string>
+    <string name="portfolio_unassigned_fee">Gebyr ikke fordelt – inngangsverdi ukjent: %1$s</string>
+    <string name="portfolio_updated">Kurser fra %1$s</string>
+
+    <!-- Portfolio: Gesamtwert-Kopf (Heute · 7 T · Gesamt) und Aufteilung -->
+    <string name="portfolio_allocation_other">Andre</string>
+    <string name="portfolio_allocation_title">Fordeling</string>
+    <string name="portfolio_card_details">Detaljer</string>
+    <!-- Screenreader, Kennzahl ohne Wert; %1$s Beschriftung (z. B. «7 Tage») -->
+    <string name="portfolio_card_figure_none_a11y">%1$s: ikke tilgjengelig ennå</string>
+    <string name="portfolio_card_hints_count">Merknader (%1$d)</string>
+    <string name="portfolio_card_today">I dag</string>
+    <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
+    <string name="portfolio_card_total">Totalt</string>
+    <string name="portfolio_hide_amounts">Skjul beløp</string>
+    <string name="portfolio_hide_amounts_hint">Viser beløp og verdier i porteføljen og porteføljewidgeten som ••• – prosenter forblir synlige.</string>
+    <string name="portfolio_invested">Inngangsverdi</string>
+    <string name="portfolio_total_no_fx">Ingen valutakurs for %1$s – beløp i USDT</string>
+    <string name="portfolio_total_value">Samlet verdi</string>
+    <string name="portfolio_value">Verdi</string>
+
+    <!-- Portfolio: Bestand, offene Positionen, Durchschnittspreis -->
+    <string name="portfolio_avg_and_now">Snitt %1$s · nå %2$s</string>
+    <string name="portfolio_avg_only">Snitt %1$s</string>
+    <string name="portfolio_avg_open_lots">Snittlig inngangsverdi for beholdte coins</string>
+    <string name="portfolio_avg_partial">Snitt av %1$s med kjøpspris</string>
+    <string name="portfolio_avg_price">Snittkjøpspris</string>
+    <string name="portfolio_avg_price_hint">Snittkjøpspris: gjennomsnittet av alle kjøp, vektet etter mengde. Salg verdsettes til dette gjennomsnittet.</string>
+    <plurals name="portfolio_closed">
+        <item quantity="one">Lukket posisjon (%1$d)</item>
+        <item quantity="other">Lukkede posisjoner (%1$d)</item>
+    </plurals>
+    <string name="portfolio_fifo_hint">FIFO: salg bruker de eldste coinene dine først. Snitt = gjenværende inngangsverdi ÷ mengde med kjøpspris.</string>
+    <string name="portfolio_holdings">Beholdning</string>
+    <string name="portfolio_lost_fee_cost">Inngangsverdi for nettverksgebyr uten betalt lott: %1$s</string>
+    <string name="portfolio_open_lots">Åpne kjøpslotter (%1$d)</string>
+    <string name="portfolio_open_lots_avg">Med kjøpspris (Ø)</string>
+    <string name="portfolio_open_lots_no_cost">Uten kjøpspris</string>
+    <string name="portfolio_open_lots_without_price">uten kjøpspris</string>
+    <string name="portfolio_realized">Realisert gevinst/tap</string>
+    <string name="portfolio_unrealized">Urealisert gevinst/tap</string>
+    <string name="portfolio_unrealized_without_unpriced">uten %1$s uten kjøpspris</string>
+    <string name="portfolio_withdrawn_gain">Tatt ut: %1$s (verdiendring frem til uttaket)</string>
+
+    <!-- Portfolio: Kurse und Umrechnung -->
+    <string name="portfolio_convert_to">Regn om til</string>
+    <string name="portfolio_convert_to_value">Regn om til: %1$s</string>
+    <string name="portfolio_current_missing">Ingen gjeldende kurs for %1$s</string>
+    <string name="portfolio_current_price">Gjeldende kurs</string>
+    <string name="portfolio_price_missing">Pris mangler</string>
+    <string name="portfolio_price_missing_hint">Noen kjøp mangler pris. Legg inn kjøpsprisen for å se gevinst/tap.</string>
+    <string name="portfolio_price_source">Kurser: Binance · USDT = 1</string>
+    <string name="portfolio_price_source_routes">Kurser: %1$s, ellers Binance · USDT = 1</string>
+    <string name="portfolio_price_unavailable">Kurs ikke tilgjengelig akkurat nå</string>
+    <string name="portfolio_price_unchecked">Kurs ikke kontrollert</string>
+    <string name="portfolio_price_via_base">≈ %1$s-kurs (bridget/wrappet)</string>
+    <string name="portfolio_usdt_as_usd">USDT omregnet til USD-kurs</string>
+    <string name="portfolio_usdt_assumed">USDT = 1 antatt</string>
+    <string name="portfolio_usdt_depeg_warning">USDT = 1 antatt – markedet på %1$s USD (%2$s)</string>
+
+    <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
+    <string name="portfolio_add_from_watch">Legg til i porteføljen</string>
+    <string name="portfolio_add_tx">Registrer transaksjon</string>
+    <string name="portfolio_buy">Kjøp</string>
+    <string name="portfolio_coin">Coin</string>
+    <string name="portfolio_coin_invalid">Skriv inn et symbol</string>
+    <string name="portfolio_coin_search">Søk symbol, f.eks. BTC</string>
+    <string name="portfolio_discard_confirm">Forkast</string>
+    <string name="portfolio_discard_keep">Fortsett redigering</string>
+    <string name="portfolio_discard_title">Forkaste endringene?</string>
+    <string name="portfolio_edit_tx">Rediger transaksjon</string>
+    <string name="portfolio_invalid">Ugyldig mengde</string>
+    <string name="portfolio_oversold">Salg overstiger beholdningen – sjekk transaksjonene.</string>
+    <string name="portfolio_sell">Salg</string>
+    <string name="portfolio_sell_exceeds">Mer enn beholdningen din (%1$s)</string>
+    <string name="portfolio_sell_exceeds_fee">Mengde pluss gebyr er mer enn beholdningen din (%1$s)</string>
+    <string name="portfolio_sell_exceeds_wallet">Mer enn beholdningen din i %2$s (%1$s)</string>
+    <string name="portfolio_transactions">Transaksjoner</string>
+    <string name="portfolio_tx_acquired_date">Opprinnelig kjøpsdato (valgfritt)</string>
+    <string name="portfolio_tx_acquired_date_hint">For eiertiden i skatteeksporten</string>
+    <string name="portfolio_tx_amount">Mengde</string>
+    <string name="portfolio_tx_coin_fee">Gebyr i coinen (valgfritt)</string>
+    <string name="portfolio_tx_date">Dato</string>
+    <string name="portfolio_tx_delete_confirm">Denne transaksjonen fjernes fra porteføljen.</string>
+    <string name="portfolio_tx_delete_title">Slette transaksjonen?</string>
+    <string name="portfolio_tx_deposit">Innskudd</string>
+    <string name="portfolio_tx_entry_currency">Angi i</string>
+    <string name="portfolio_tx_explain_deposit">Beholdning uten handel, f.eks. coins fra tidligere</string>
+    <string name="portfolio_tx_explain_gift">Coins forlater beholdningen som et uttak – avhendelse til markedsverdi bare der landet beskatter gaver slik (UK, CA, AU)</string>
+    <string name="portfolio_tx_explain_payment">Betalt for varer eller tjenester – avhendelse til markedsverdi som et salg, uten å motta penger</string>
+    <string name="portfolio_tx_explain_reward">Inngangsverdi = markedsverdi ved mottak</string>
+    <string name="portfolio_tx_explain_swap">Coin mot coin: salg av den avgitte, kjøp av den mottatte coinen</string>
+    <string name="portfolio_tx_explain_transfer">Ingen gevinst – inngangsverdien følger med coinene</string>
+    <string name="portfolio_tx_explain_withdrawal">Beholdningen forlater porteføljen – ikke salg, ingen gevinst</string>
+    <string name="portfolio_tx_fee_consumes_amount">Gebyret er like stort som mottatt mengde – ingenting ville bli igjen.</string>
+    <string name="portfolio_tx_fees_toggle">Gebyrer</string>
+    <string name="portfolio_tx_fiat_converted">≈ %1$s til kursen fra %2$s</string>
+    <string name="portfolio_tx_fiat_loading">Henter valutakurs…</string>
+    <string name="portfolio_tx_fiat_no_fx">Ingen valutakurs for denne dagen – angi beløpet i USDT.</string>
+    <string name="portfolio_tx_gift">Gave</string>
+    <string name="portfolio_tx_gift_price_hint">I USDT. Tom = dagens sluttkurs (anslått).</string>
+    <string name="portfolio_tx_gift_spouse">Til ektefelle / partner</string>
+    <string name="portfolio_tx_gift_spouse_hint">Storbritannia og Canada: ingen gevinst og intet tap – partneren din overtar inngangsverdien din. Andre land ignorerer dette.</string>
+    <string name="portfolio_tx_market_value">Markedsverdi per coin</string>
+    <string name="portfolio_tx_more_buy">Gebyr, børs, notat</string>
+    <string name="portfolio_tx_network_fee">Nettverksgebyr i coinen (valgfritt)</string>
+    <string name="portfolio_tx_note">Notat (valgfritt)</string>
+    <string name="portfolio_tx_payment">Betalt med</string>
+    <string name="portfolio_tx_price">Pris per coin</string>
+    <string name="portfolio_tx_price_hint">I USDT. La stå tomt hvis ukjent.</string>
+    <string name="portfolio_tx_price_historic">Kontrollert sluttkurs for %1$s – juster ved behov</string>
+    <string name="portfolio_tx_price_invalid">Ugyldig pris</string>
+    <string name="portfolio_tx_price_past_hint">Oppgi kursen på handelsdagen – la stå tomt hvis ukjent</string>
+    <string name="portfolio_tx_price_receipt_hint">I USDT. Tom = beholdning uten inngangsverdi.</string>
+    <string name="portfolio_tx_price_zero">Pris 0 er ikke mulig for importerte transaksjoner – la feltet stå tomt for markedskurs</string>
+    <string name="portfolio_tx_removed">Transaksjon slettet</string>
+    <string name="portfolio_tx_reward">Belønning</string>
+    <string name="portfolio_tx_save_failed">Transaksjonen kunne ikke lagres. Det du skrev inn er der fortsatt – prøv igjen.</string>
+    <string name="portfolio_tx_swap">Bytte</string>
+    <string name="portfolio_tx_swap_fee_received">Gebyr i %1$s: reduserer mottatt mengde, ingen pris nødvendig.</string>
+    <string name="portfolio_tx_swap_from">Bytte fra %1$s</string>
+    <string name="portfolio_tx_swap_given_amount">Avgitt mengde</string>
+    <string name="portfolio_tx_swap_given_coin">Avgitt coin</string>
+    <string name="portfolio_tx_swap_received_amount">Mottatt mengde</string>
+    <string name="portfolio_tx_swap_received_coin">Mottatt coin</string>
+    <string name="portfolio_tx_swap_same_coin">Velg en annen coin enn den avgitte</string>
+    <string name="portfolio_tx_swap_to">Bytte til %1$s</string>
+    <string name="portfolio_tx_swap_value">Verdi av byttet (valgfritt)</string>
+    <string name="portfolio_tx_swap_value_hint">Samlet verdi. Tom = ukjent – gevinsten forblir ufullstendig (automatisk med USDT i byttet).</string>
+    <string name="portfolio_tx_third_fee_amount">Gebyrmengde</string>
+    <string name="portfolio_tx_third_fee_coin">Gebyr-coin</string>
+    <string name="portfolio_tx_third_fee_incomplete">Uten pris inngår gebyret ikke i inngangsverdi eller salgssum; skatteeksporten markerer slike salg.</string>
+    <string name="portfolio_tx_third_fee_price">Pris per gebyr-coin (valgfritt)</string>
+    <string name="portfolio_tx_third_fee_toggle">Gebyr i en annen coin</string>
+    <string name="portfolio_tx_total">Totalt: %1$s</string>
+    <string name="portfolio_tx_transfer">Overføring</string>
+    <string name="portfolio_tx_transfer_from">Fra (valgfritt)</string>
+    <string name="portfolio_tx_transfer_to">Til (valgfritt)</string>
+    <string name="portfolio_tx_transfer_to_hint">Børs eller wallet – verdsettes der fra nå av.</string>
+    <string name="portfolio_tx_type_select">Type: %1$s</string>
+    <string name="portfolio_tx_value_received">Verdi per coin ved mottak (valgfritt)</string>
+    <string name="portfolio_tx_withdrawal">Uttak</string>
+    <string name="portfolio_tx_withdrawal_gift_hint">Gitt bort eller betalt med? Registrer som ‹Gave› eller ‹Betalt med› – avhengig av landet er det skattemessig et salg.</string>
+    <string name="portfolio_tx_withdrawal_price_hint">Valgfritt: markedsverdi i USDT, brukes bare for historikken (tom = dagens kurs). Coinene går alltid ut til inngangsverdien.</string>
+    <string name="portfolio_wallet_did_you_mean">Mente du %1$s? En annen skrivemåte teller som en egen wallet.</string>
+    <string name="portfolio_wallet_shortfall">Beholdningen i %1$s strekker ikke til – mangler det en overføring?</string>
+
+    <!-- Portfolio: Wertverlauf (Zeitraum, Vergleich Währung | USDT, Währungseffekt) -->
+    <!-- Höchster Tageswert des Zeitraums am Punkt («Hoch 12’345») -->
+    <string name="portfolio_chart_high">Høy %1$s</string>
+    <string name="portfolio_compare">Sammenlign</string>
+    <!-- Umschalter «Vergleich», Screenreader: %1$s Währung -->
+    <string name="portfolio_compare_a11y">Sammenlign %1$s og USDT i prosent</string>
+    <!-- %1$s Zeitraum, %2$s Währung, %3$s und %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="portfolio_compare_chart_a11y">Sammenligning i prosent, %1$s: %2$s %3$s, USDT %4$s</string>
+    <!-- %1$s Prozentpunkte mit Vorzeichen («−5.10%»): Veränderung in der Währung minus in USDT -->
+    <string name="portfolio_currency_effect">Valutaeffekt: %1$s</string>
+    <!-- «Seit 1. Kauf» beginnt frühestens beim ersten Tag mit Kursdaten -->
+    <string name="portfolio_history_capped_data_start">Kursdata går bare tilbake til august 2017 — forløpet starter der.</string>
+    <string name="portfolio_history_chip_since_first">Siden kjøp</string>
+    <string name="portfolio_history_collapse">Skjul verdiutvikling</string>
+    <string name="portfolio_history_converted">Omregnet til dagens kurs</string>
+    <string name="portfolio_history_expand">Vis verdiutvikling</string>
+    <string name="portfolio_history_gain_a11y">Verdi %1$s. Gevinst/tap, %2$s: %3$s</string>
+    <string name="portfolio_history_gain_label">Gevinst/tap</string>
+    <!-- Umschalter, Screenreader: %1$s Währung («CHF») oder «USDT» -->
+    <string name="portfolio_history_in_a11y">Verdi i %1$s</string>
+    <string name="portfolio_history_incl_fx">Inkl. valutakurs</string>
+    <string name="portfolio_history_incl_withdrawn">Inkl. verdiendring for uttatte coins</string>
+    <string name="portfolio_history_includes_trades">Inkluderer kjøp og salg i denne perioden</string>
+    <string name="portfolio_history_loading">Laster inn verdiutvikling</string>
+    <string name="portfolio_history_period_1y">1 år</string>
+    <string name="portfolio_history_period_30d">30 dager</string>
+    <string name="portfolio_history_period_7d">7 dager</string>
+    <string name="portfolio_history_period_since_first">siden første kjøp</string>
+    <string name="portfolio_history_pnl_needs_prices">Kjøpspriser mangler for gevinst/tap – legg dem inn i transaksjonene.</string>
+    <string name="portfolio_history_pnl_without">Gevinst/tap uten %1$s (pris mangler)</string>
+    <string name="portfolio_history_range_1y">1 Å</string>
+    <string name="portfolio_history_range_30d">30 D</string>
+    <string name="portfolio_history_range_7d">7 D</string>
+    <string name="portfolio_history_range_a11y">Vis utvikling for %1$s</string>
+    <string name="portfolio_history_range_since_first">Siden 1. kjøp</string>
+    <string name="portfolio_history_scaled">Historikk for %1$s: Binance-historikk skalert til børskursen</string>
+    <string name="portfolio_history_title">Verdiutvikling</string>
+    <string name="portfolio_history_today">I dag</string>
+    <string name="portfolio_history_too_short">Utviklingen starter etter din første hele dag.</string>
+    <string name="portfolio_history_unavailable">Ingen utvikling tilgjengelig akkurat nå.</string>
+    <string name="portfolio_history_utc_days">Dager i UTC (daglige lys)</string>
+    <string name="portfolio_history_without_matching">Uten %1$s (ingen passende dagskurser)</string>
+    <string name="portfolio_period_rewards">Belønninger +%1$s (ikke i gevinst)</string>
+    <string name="portfolio_period_scaled">7 D/1 Å for %1$s: Binance-historikk skalert til børskursen</string>
+
+    <!-- Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_alarm_action">Alarm</string>
+    <!-- %1$s = Währung, z. B. CHF -->
+    <string name="portfolio_alarm_amount">Beløp (%1$s)</string>
+    <string name="portfolio_alarm_hint">Sjekkes etter hver oppdatering. Som alarmer: varsler når grensen krysses, og først igjen når verdien har gått tilbake.</string>
+    <string name="portfolio_alarm_kind_above">Portefølje over beløp</string>
+    <string name="portfolio_alarm_kind_below">Portefølje under beløp</string>
+    <string name="portfolio_alarm_kind_down">Portefølje faller</string>
+    <string name="portfolio_alarm_kind_up">Portefølje stiger</string>
+    <!-- %1$s = Betrag mit Währung (oder •••) -->
+    <string name="portfolio_alarm_sentence_above">Portefølje over %1$s</string>
+    <string name="portfolio_alarm_sentence_below">Portefølje under %1$s</string>
+    <string name="portfolio_alarm_sentence_down">Portefølje faller %1$s (%2$s)</string>
+    <!-- %1$s = Prozent, %2$s = Basis der %-Änderung kurz (24h, heute …) -->
+    <string name="portfolio_alarm_sentence_up">Portefølje stiger %1$s (%2$s)</string>
+    <string name="portfolio_alarm_title">Alarm «porteføljeverdi»</string>
+
+    <!-- Gebühr, Börse und Gewinn/Verlust einer Position -->
+    <string name="ledger_exchange">Børs (valgfritt)</string>
+    <string name="ledger_exchange_failed">%1$s: ingen kurs fra %2$s akkurat nå – verdsatt med Binance.</string>
+    <string name="ledger_exchange_hint">Mynten verdsettes til denne børsens kurs (ellers Binance). Forløp, 7 D og 1 Å: Binance-dagskurser, skalert.</string>
+    <string name="ledger_exchange_mixed">%1$s: flere børser oppgitt – verdsatt med Binance. Flyttet coins? Registrer flyttingen som «Overføring».</string>
+    <string name="ledger_exchange_none">Ingen (Binance)</string>
+    <string name="ledger_fee">Gebyr (valgfritt)</string>
+    <string name="ledger_fee_coin">Coin</string>
+    <string name="ledger_fee_hint">I USDT øker det inngangsverdien (salg: senker salgssummen); i coinen reduserer det mengden.</string>
+    <string name="ledger_fee_line">Gebyr %1$s</string>
+    <string name="ledger_fifo_cost_note">Siden kjøp: FIFO-kost inkl. gebyrer (eldste coins selges først).</string>
+    <string name="ledger_gain_info">I dag, 7 D, 1 Å: verdiendring i perioden – kjøp og salg regnes ikke som gevinst. Siden kjøp: nåverdi minus anskaffelseskost (snittkost inkl. gebyrer) for myntene du fortsatt har.</string>
+    <string name="ledger_gain_info_a11y">Slik beregnes gevinst og tap</string>
+    <string name="ledger_gain_info_fifo">I dag, 7 D, 1 Å: verdiendring i perioden – kjøp og salg regnes ikke som gevinst. Siden kjøp: nåverdi minus anskaffelseskost (FIFO inkl. gebyrer) for myntene du fortsatt har.</string>
+    <string name="ledger_gain_title">Gevinst/tap</string>
+    <string name="ledger_more_toggle">Gebyr og børs</string>
+    <string name="ledger_partial_cost">«Siden kjøp» teller bare delen med kjøpspris – uten %1$s uten kjøpspris.</string>
+    <string name="ledger_period_without">I dag / 7 D / 1 Å uten %1$s – ingen passende startkurs.</string>
+    <string name="ledger_since_purchase_currency">Siden kjøp (%1$s)</string>
+    <string name="ledger_since_purchase_spoken">Gevinst/tap siden kjøp, ennå ikke solgt</string>
+    <plurals name="ledger_without_cost">
+        <item quantity="one">Uten %1$d coin uten kjøpspris (%2$s) – legg inn prisen så den teller med.</item>
+        <item quantity="other">Uten %1$d coins uten kjøpspris (%2$s) – legg inn prisene så de teller med.</item>
+    </plurals>
+</resources>

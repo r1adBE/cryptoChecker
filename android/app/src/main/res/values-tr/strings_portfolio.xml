@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Tab, leere Ansicht, Einschalten, Sperre -->
+    <string name="app_lock_unavailable">Bu cihazda ekran kilidi ayarlanmamış. Önce sistem ayarlarından bir tane ayarlayın.</string>
+    <string name="app_lock_unlock">Kilidi aç</string>
+    <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
+    <string name="portfolio_clear">Portföyü temizle</string>
+    <plurals name="portfolio_clear_confirm_count">
+        <item quantity="one">%d işlem silinsin mi? İzlenen adresler kalır. Bu işlem geri alınamaz.</item>
+        <item quantity="other">Tüm %d işlem silinsin mi? İzlenen adresler kalır. Bu işlem geri alınamaz.</item>
+    </plurals>
+    <string name="portfolio_disclaimer">Tutarlar sen dışa aktarmadıkça cihazında kalır; fiyatlar için yalnızca parite sembolleri paritenin borsasına gider. Herkese açık blokzincir düğümleri izlenen adresleri ve IP’ni görür. Yatırım tavsiyesi değildir.</string>
+    <string name="portfolio_empty_action">İlk alımını ekle</string>
+    <string name="portfolio_empty_address">Yalnızca bir cüzdan adresini izle</string>
+    <string name="portfolio_empty_csv">Borsadan mı aldınız? Dosyayı içe aktar</string>
+    <string name="portfolio_empty_example_plain">Örnek: 1 Mart’ta 0,01 BTC alındı. Uygulama bugün ne kadar ettiğini ve kârda mı zararda mı olduğunuzu gösterir – yalnızca bu cihazda saklanır.</string>
+    <string name="portfolio_empty_text">Ne aldığınızı girin – uygulama bugün ne kadar ettiğini ve ne kadar kârda ya da zararda olduğunuzu gösterir.</string>
+    <string name="portfolio_empty_title">Henüz işlem yok</string>
+    <string name="portfolio_enable_ask_text">İşlemin kaydedildi. Portföy sekmesi varlıklarını ve değerlerini gösterir.</string>
+    <string name="portfolio_enable_ask_title">Portföy sekmesi açılsın mı?</string>
+    <string name="portfolio_enable_later_hint">İşlem kaydedildi. Portföy sekmesini Ayarlar › Gelişmiş › Portföy bölümünden açabilirsin.</string>
+    <string name="portfolio_enabled_banner">Portföy açıldı – Portföy sekmesinde bulabilirsin.</string>
+    <string name="portfolio_lock_reason">Portföyün kilidini aç</string>
+    <string name="portfolio_locked_text">Varlıklarınızı ve değerlerini görmek için kilidi açın.</string>
+    <string name="portfolio_locked_title">Portföy kilitli</string>
+    <string name="portfolio_setting_hint">İsteğe bağlı: alım ve satımları kaydedin, değeri ve kâr/zararı ayrı bir sekmede görün.</string>
+    <!-- Status-Pille wie in der Merkliste: Kurse älter als die Frische-Schwelle, Gerät online. Offline: offline_status_since, alles aktuell: watchlist_all_fresh -->
+    <string name="portfolio_status_stale">Eski · %1$s itibarıyla</string>
+    <plurals name="portfolio_system_restore_invalid">
+        <item quantity="one">Sistem yedeğindeki %d kayıt geçersizdi ve geri yüklenmedi.</item>
+        <item quantity="other">Sistem yedeğindeki %d kayıt geçersizdi ve geri yüklenmedi.</item>
+    </plurals>
+    <string name="portfolio_title">Portföy</string>
+    <string name="portfolio_unassigned_fee">Ücret atanmadı – maliyet bilinmiyor: %1$s</string>
+    <string name="portfolio_updated">Fiyatlar: %1$s</string>
+
+    <!-- Portfolio: Gesamtwert-Kopf (Heute · 7 T · Gesamt) und Aufteilung -->
+    <string name="portfolio_allocation_other">Diğer</string>
+    <string name="portfolio_allocation_title">Dağılım</string>
+    <string name="portfolio_card_details">Ayrıntılar</string>
+    <!-- Screenreader, Kennzahl ohne Wert; %1$s Beschriftung (z. B. «7 Tage») -->
+    <string name="portfolio_card_figure_none_a11y">%1$s: henüz mevcut değil</string>
+    <string name="portfolio_card_hints_count">Notlar (%1$d)</string>
+    <string name="portfolio_card_today">Bugün</string>
+    <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
+    <string name="portfolio_card_total">Toplam</string>
+    <string name="portfolio_hide_amounts">Tutarları gizle</string>
+    <string name="portfolio_hide_amounts_hint">Portföydeki ve portföy widget’ındaki tutarları ve değerleri ••• olarak gösterir – yüzdeler görünür kalır.</string>
+    <string name="portfolio_invested">Maliyet</string>
+    <string name="portfolio_total_no_fx">%1$s için döviz kuru yok – tutarlar USDT olarak</string>
+    <string name="portfolio_total_value">Toplam değer</string>
+    <string name="portfolio_value">Değer</string>
+
+    <!-- Portfolio: Bestand, offene Positionen, Durchschnittspreis -->
+    <string name="portfolio_avg_and_now">Ort. %1$s · şimdi %2$s</string>
+    <string name="portfolio_avg_only">Ort. %1$s</string>
+    <string name="portfolio_avg_open_lots">Eldeki coin\'lerin ort. maliyeti</string>
+    <string name="portfolio_avg_partial">Fiyatlı %1$s ortalaması</string>
+    <string name="portfolio_avg_price">Ort. alış fiyatı</string>
+    <string name="portfolio_avg_price_hint">Ort. alış fiyatı: tüm alımların miktara göre ağırlıklı ortalaması. Satışlar bu ortalamayla değerlenir.</string>
+    <plurals name="portfolio_closed">
+        <item quantity="one">Kapalı pozisyon (%1$d)</item>
+        <item quantity="other">Kapalı pozisyonlar (%1$d)</item>
+    </plurals>
+    <string name="portfolio_fifo_hint">FIFO: satışlar önce en eski coin\'lerini kullanır. Ort. = kalan maliyet ÷ alış fiyatlı miktar.</string>
+    <string name="portfolio_holdings">Varlıklar</string>
+    <string name="portfolio_lost_fee_cost">Ödenmiş lotu olmayan ağ ücreti maliyeti: %1$s</string>
+    <string name="portfolio_open_lots">Açık alış lotları (%1$d)</string>
+    <string name="portfolio_open_lots_avg">Alış fiyatlı (Ø)</string>
+    <string name="portfolio_open_lots_no_cost">Alış fiyatı olmadan</string>
+    <string name="portfolio_open_lots_without_price">alış fiyatı yok</string>
+    <string name="portfolio_realized">Gerçekleşen kâr/zarar</string>
+    <string name="portfolio_unrealized">Gerçekleşmemiş kâr/zarar</string>
+    <string name="portfolio_unrealized_without_unpriced">alış fiyatı olmayan %1$s hariç</string>
+    <string name="portfolio_withdrawn_gain">Çekilen: %1$s (çekime kadar değer değişimi)</string>
+
+    <!-- Portfolio: Kurse und Umrechnung -->
+    <string name="portfolio_convert_to">Şuna çevir</string>
+    <string name="portfolio_convert_to_value">Şuna çevir: %1$s</string>
+    <string name="portfolio_current_missing">%1$s için güncel fiyat yok</string>
+    <string name="portfolio_current_price">Güncel fiyat</string>
+    <string name="portfolio_price_missing">Fiyat eksik</string>
+    <string name="portfolio_price_missing_hint">Bazı alımların fiyatı yok. Kâr/zararı görmek için alış fiyatını ekleyin.</string>
+    <string name="portfolio_price_source">Fiyatlar: Binance · USDT = 1</string>
+    <string name="portfolio_price_source_routes">Fiyatlar: %1$s, diğerleri Binance · USDT = 1</string>
+    <string name="portfolio_price_unavailable">Fiyat şu an alınamıyor</string>
+    <string name="portfolio_price_unchecked">Fiyat doğrulanmadı</string>
+    <string name="portfolio_price_via_base">≈ %1$s fiyatı (köprülenmiş/sarılmış)</string>
+    <string name="portfolio_usdt_as_usd">USDT USD kuruyla çevrildi</string>
+    <string name="portfolio_usdt_assumed">USDT = 1 varsayıldı</string>
+    <string name="portfolio_usdt_depeg_warning">USDT = 1 varsayıldı – piyasa %1$s USD (%2$s)</string>
+
+    <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
+    <string name="portfolio_add_from_watch">Portföye ekle</string>
+    <string name="portfolio_add_tx">İşlem kaydet</string>
+    <string name="portfolio_buy">Alım</string>
+    <string name="portfolio_coin">Coin</string>
+    <string name="portfolio_coin_invalid">Bir sembol girin</string>
+    <string name="portfolio_coin_search">Sembol ara, örn. BTC</string>
+    <string name="portfolio_discard_confirm">At</string>
+    <string name="portfolio_discard_keep">Düzenlemeye devam et</string>
+    <string name="portfolio_discard_title">Değişiklikler atılsın mı?</string>
+    <string name="portfolio_edit_tx">İşlemi düzenle</string>
+    <string name="portfolio_invalid">Geçersiz miktar</string>
+    <string name="portfolio_oversold">Satışlar varlığı aşıyor – işlemleri kontrol edin.</string>
+    <string name="portfolio_sell">Satım</string>
+    <string name="portfolio_sell_exceeds">Varlığınızdan fazla (%1$s)</string>
+    <string name="portfolio_sell_exceeds_fee">Miktar ve ücret, varlığından fazla (%1$s)</string>
+    <string name="portfolio_sell_exceeds_wallet">%2$s içindeki varlığından fazla (%1$s)</string>
+    <string name="portfolio_transactions">İşlemler</string>
+    <string name="portfolio_tx_acquired_date">İlk alış tarihi (isteğe bağlı)</string>
+    <string name="portfolio_tx_acquired_date_hint">Vergi dışa aktarımındaki elde tutma süresi için</string>
+    <string name="portfolio_tx_amount">Miktar</string>
+    <string name="portfolio_tx_coin_fee">Coin olarak ücret (isteğe bağlı)</string>
+    <string name="portfolio_tx_date">Tarih</string>
+    <string name="portfolio_tx_delete_confirm">Bu işlem portföyden kaldırılacak.</string>
+    <string name="portfolio_tx_delete_title">İşlem silinsin mi?</string>
+    <string name="portfolio_tx_deposit">Yatırma</string>
+    <string name="portfolio_tx_entry_currency">Giriş birimi</string>
+    <string name="portfolio_tx_explain_deposit">İşlemsiz varlık, ör. önceden kalan coin\'ler</string>
+    <string name="portfolio_tx_explain_gift">Coin’ler varlıklarından çekim gibi çıkar – piyasa değerinden elden çıkarma yalnızca ülkenin hediyeleri böyle vergilendirdiği yerde (UK, CA, AU)</string>
+    <string name="portfolio_tx_explain_payment">Mal veya hizmet için ödendi – satış gibi piyasa değerinden elden çıkarma, para alınmadan</string>
+    <string name="portfolio_tx_explain_reward">Maliyet = alındığı andaki piyasa değeri</string>
+    <string name="portfolio_tx_explain_swap">Coin karşılığı coin: verilenin satışı, alınanın alımı</string>
+    <string name="portfolio_tx_explain_transfer">Kazanç yok – maliyet coin\'lerle birlikte taşınır</string>
+    <string name="portfolio_tx_explain_withdrawal">Varlık portföyden çıkar – satış yok, kazanç yok</string>
+    <string name="portfolio_tx_fee_consumes_amount">Ücret alınan miktar kadar büyük – geriye hiçbir şey kalmazdı.</string>
+    <string name="portfolio_tx_fees_toggle">Ücretler</string>
+    <string name="portfolio_tx_fiat_converted">≈ %1$s (%2$s kuruyla)</string>
+    <string name="portfolio_tx_fiat_loading">Döviz kuru yükleniyor…</string>
+    <string name="portfolio_tx_fiat_no_fx">Bu gün için döviz kuru yok – tutarı USDT olarak gir.</string>
+    <string name="portfolio_tx_gift">Hediye</string>
+    <string name="portfolio_tx_gift_price_hint">USDT cinsinden. Boş = o günün kapanışı (tahmini).</string>
+    <string name="portfolio_tx_gift_spouse">Eşe / partnere</string>
+    <string name="portfolio_tx_gift_spouse_hint">Birleşik Krallık ve Kanada: kâr da zarar da yok – maliyetini partnerin devralır. Diğer ülkeler bunu dikkate almaz.</string>
+    <string name="portfolio_tx_market_value">Coin başına piyasa değeri</string>
+    <string name="portfolio_tx_more_buy">Ücret, borsa, not</string>
+    <string name="portfolio_tx_network_fee">Coin olarak ağ ücreti (isteğe bağlı)</string>
+    <string name="portfolio_tx_note">Not (isteğe bağlı)</string>
+    <string name="portfolio_tx_payment">Ödeme yapıldı</string>
+    <string name="portfolio_tx_price">Coin başına fiyat</string>
+    <string name="portfolio_tx_price_hint">USDT cinsinden. Bilinmiyorsa boş bırakın.</string>
+    <string name="portfolio_tx_price_historic">%1$s tarihli doğrulanmış günlük kapanış – gerekirse düzelt</string>
+    <string name="portfolio_tx_price_invalid">Geçersiz fiyat</string>
+    <string name="portfolio_tx_price_past_hint">İşlem günündeki fiyatı gir – bilmiyorsan boş bırak</string>
+    <string name="portfolio_tx_price_receipt_hint">USDT olarak. Boş = maliyetsiz varlık.</string>
+    <string name="portfolio_tx_price_zero">İçe aktarılan işlemlerde fiyat 0 olamaz – piyasa fiyatı için boş bırak</string>
+    <string name="portfolio_tx_removed">İşlem silindi</string>
+    <string name="portfolio_tx_reward">Ödül</string>
+    <string name="portfolio_tx_save_failed">İşlem kaydedilemedi. Girdiklerin duruyor – lütfen tekrar dene.</string>
+    <string name="portfolio_tx_swap">Takas</string>
+    <string name="portfolio_tx_swap_fee_received">%1$s cinsinden ücret: alınan miktarı azaltır, fiyat gerekmez.</string>
+    <string name="portfolio_tx_swap_from">Takas – verilen: %1$s</string>
+    <string name="portfolio_tx_swap_given_amount">Verilen miktar</string>
+    <string name="portfolio_tx_swap_given_coin">Verilen coin</string>
+    <string name="portfolio_tx_swap_received_amount">Alınan miktar</string>
+    <string name="portfolio_tx_swap_received_coin">Alınan coin</string>
+    <string name="portfolio_tx_swap_same_coin">Verilenden farklı bir coin seç</string>
+    <string name="portfolio_tx_swap_to">Takas – alınan: %1$s</string>
+    <string name="portfolio_tx_swap_value">Takas değeri (isteğe bağlı)</string>
+    <string name="portfolio_tx_swap_value_hint">Toplam değer. Boş = bilinmiyor – kâr eksik kalır (takasta USDT varsa otomatik).</string>
+    <string name="portfolio_tx_third_fee_amount">Ücret miktarı</string>
+    <string name="portfolio_tx_third_fee_coin">Ücret coin\'i</string>
+    <string name="portfolio_tx_third_fee_incomplete">Fiyat olmadan ücret maliyete ve satış gelirine dahil edilmez; vergi dışa aktarımı bu satışları işaretler.</string>
+    <string name="portfolio_tx_third_fee_price">Ücret coin\'i başına fiyat (isteğe bağlı)</string>
+    <string name="portfolio_tx_third_fee_toggle">Başka coin ile ücret</string>
+    <string name="portfolio_tx_total">Toplam: %1$s</string>
+    <string name="portfolio_tx_transfer">Transfer</string>
+    <string name="portfolio_tx_transfer_from">Nereden (isteğe bağlı)</string>
+    <string name="portfolio_tx_transfer_to">Nereye (isteğe bağlı)</string>
+    <string name="portfolio_tx_transfer_to_hint">Borsa veya cüzdan – bundan sonra orada değerlenir.</string>
+    <string name="portfolio_tx_type_select">Tür: %1$s</string>
+    <string name="portfolio_tx_value_received">Alındığında coin başına değer (isteğe bağlı)</string>
+    <string name="portfolio_tx_withdrawal">Çekme</string>
+    <string name="portfolio_tx_withdrawal_gift_hint">Hediye mi ettin, ödeme mi yaptın? ‹Hediye› veya ‹Ödeme yapıldı› olarak kaydet – ülkeye göre vergi açısından bu bir satıştır.</string>
+    <string name="portfolio_tx_withdrawal_price_hint">İsteğe bağlı: USDT piyasa değeri, yalnızca geçmiş için (boş = o günün fiyatı). Coin\'ler her zaman maliyetinden çıkar.</string>
+    <string name="portfolio_wallet_did_you_mean">%1$s mi demek istedin? Farklı yazım ayrı bir cüzdan sayılır.</string>
+    <string name="portfolio_wallet_shortfall">%1$s içindeki varlık yetmiyor – bir transfer mi eksik?</string>
+
+    <!-- Portfolio: Wertverlauf (Zeitraum, Vergleich Währung | USDT, Währungseffekt) -->
+    <!-- Höchster Tageswert des Zeitraums am Punkt («Hoch 12’345») -->
+    <string name="portfolio_chart_high">En yüksek %1$s</string>
+    <string name="portfolio_compare">Karşılaştır</string>
+    <!-- Umschalter «Vergleich», Screenreader: %1$s Währung -->
+    <string name="portfolio_compare_a11y">%1$s ile USDT yüzde olarak karşılaştırması</string>
+    <!-- %1$s Zeitraum, %2$s Währung, %3$s und %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="portfolio_compare_chart_a11y">Yüzde olarak karşılaştırma, %1$s: %2$s %3$s, USDT %4$s</string>
+    <!-- %1$s Prozentpunkte mit Vorzeichen («−5.10%»): Veränderung in der Währung minus in USDT -->
+    <string name="portfolio_currency_effect">Kur etkisi: %1$s</string>
+    <!-- «Seit 1. Kauf» beginnt frühestens beim ersten Tag mit Kursdaten -->
+    <string name="portfolio_history_capped_data_start">Fiyat verileri yalnızca Ağustos 2017\'ye kadar uzanıyor — geçmiş oradan başlıyor.</string>
+    <string name="portfolio_history_chip_since_first">Alıştan beri</string>
+    <string name="portfolio_history_collapse">Değer geçmişini gizle</string>
+    <string name="portfolio_history_converted">Bugünkü kurla çevrildi</string>
+    <string name="portfolio_history_expand">Değer geçmişini göster</string>
+    <string name="portfolio_history_gain_a11y">Değer %1$s. Kâr/zarar, %2$s: %3$s</string>
+    <string name="portfolio_history_gain_label">Kâr/zarar</string>
+    <!-- Umschalter, Screenreader: %1$s Währung («CHF») oder «USDT» -->
+    <string name="portfolio_history_in_a11y">%1$s cinsinden değer</string>
+    <string name="portfolio_history_incl_fx">Döviz kuru dahil</string>
+    <string name="portfolio_history_incl_withdrawn">Çekilen coin\'lerin değer değişimi dahil</string>
+    <string name="portfolio_history_includes_trades">Bu dönemdeki alım ve satımları içerir</string>
+    <string name="portfolio_history_loading">Değer geçmişi yükleniyor</string>
+    <string name="portfolio_history_period_1y">1 yıl</string>
+    <string name="portfolio_history_period_30d">30 gün</string>
+    <string name="portfolio_history_period_7d">7 gün</string>
+    <string name="portfolio_history_period_since_first">ilk alımdan beri</string>
+    <string name="portfolio_history_pnl_needs_prices">Kâr/zarar için alış fiyatları eksik – işlemlerde ekle.</string>
+    <string name="portfolio_history_pnl_without">%1$s hariç kâr/zarar (fiyat eksik)</string>
+    <string name="portfolio_history_range_1y">1 Y</string>
+    <string name="portfolio_history_range_30d">30 G</string>
+    <string name="portfolio_history_range_7d">7 G</string>
+    <string name="portfolio_history_range_a11y">%1$s için geçmişi göster</string>
+    <string name="portfolio_history_range_since_first">İlk alımdan beri</string>
+    <string name="portfolio_history_scaled">%1$s geçmişi: Binance geçmişi borsa fiyatına ölçeklendi</string>
+    <string name="portfolio_history_title">Değer geçmişi</string>
+    <string name="portfolio_history_today">Bugün</string>
+    <string name="portfolio_history_too_short">Geçmiş, ilk tam gününüzden sonra başlar.</string>
+    <string name="portfolio_history_unavailable">Şu anda geçmiş mevcut değil.</string>
+    <string name="portfolio_history_utc_days">UTC’ye göre günler (günlük mumlar)</string>
+    <string name="portfolio_history_without_matching">%1$s hariç (eşleşen günlük fiyat yok)</string>
+    <string name="portfolio_period_rewards">Ödüller +%1$s (kâra dahil değil)</string>
+    <string name="portfolio_period_scaled">%1$s için 7 G/1 Y: Binance geçmişi borsa fiyatına ölçeklendi</string>
+
+    <!-- Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_alarm_action">Alarm</string>
+    <!-- %1$s = Währung, z. B. CHF -->
+    <string name="portfolio_alarm_amount">Tutar (%1$s)</string>
+    <string name="portfolio_alarm_hint">Her yenilemeden sonra kontrol edilir. Alarmlar gibi: eşik aşıldığında tetiklenir, yeniden ancak değer geri döndükten sonra tetiklenir.</string>
+    <string name="portfolio_alarm_kind_above">Portföy tutarın üstünde</string>
+    <string name="portfolio_alarm_kind_below">Portföy tutarın altında</string>
+    <string name="portfolio_alarm_kind_down">Portföy düşer</string>
+    <string name="portfolio_alarm_kind_up">Portföy yükselir</string>
+    <!-- %1$s = Betrag mit Währung (oder •••) -->
+    <string name="portfolio_alarm_sentence_above">Portföy %1$s üstünde</string>
+    <string name="portfolio_alarm_sentence_below">Portföy %1$s altında</string>
+    <string name="portfolio_alarm_sentence_down">Portföy %1$s düştü (%2$s)</string>
+    <!-- %1$s = Prozent, %2$s = Basis der %-Änderung kurz (24h, heute …) -->
+    <string name="portfolio_alarm_sentence_up">Portföy %1$s yükseldi (%2$s)</string>
+    <string name="portfolio_alarm_title">Portföy değeri alarmı</string>
+
+    <!-- Gebühr, Börse und Gewinn/Verlust einer Position -->
+    <string name="ledger_exchange">Borsa (isteğe bağlı)</string>
+    <string name="ledger_exchange_failed">%1$s: şu an %2$s fiyatı yok – Binance ile değerlendi.</string>
+    <string name="ledger_exchange_hint">Coin bu borsanın fiyatıyla değerlenir (yoksa Binance). Geçmiş, 7 G ve 1 Y: Binance günlük fiyatları, buna ölçeklenmiş.</string>
+    <string name="ledger_exchange_mixed">%1$s: birden fazla borsa girildi – Binance ile değerlendi. Coin\'leri taşıdın mı? Bunu «Transfer» olarak kaydet.</string>
+    <string name="ledger_exchange_none">Yok (Binance)</string>
+    <string name="ledger_fee">Ücret (isteğe bağlı)</string>
+    <string name="ledger_fee_coin">Coin</string>
+    <string name="ledger_fee_hint">USDT olarak maliyeti artırır (satış: geliri azaltır); coin olarak miktarı azaltır.</string>
+    <string name="ledger_fee_line">Ücret %1$s</string>
+    <string name="ledger_fifo_cost_note">Alımdan beri: ücretler dahil FIFO maliyeti (önce en eski coin\'ler satılır).</string>
+    <string name="ledger_gain_info">Bugün, 7 G, 1 Y: dönem içindeki değer değişimi – alımlar ve satımlar kazanç sayılmaz. Alımdan beri: hâlâ tuttuğun coinlerin güncel değeri eksi maliyeti (ücretler dahil ortalama maliyet).</string>
+    <string name="ledger_gain_info_a11y">Kâr ve zarar nasıl hesaplanır</string>
+    <string name="ledger_gain_info_fifo">Bugün, 7 G, 1 Y: dönem içindeki değer değişimi – alımlar ve satımlar kazanç sayılmaz. Alımdan beri: hâlâ tuttuğun coinlerin güncel değeri eksi maliyeti (ücretler dahil FIFO).</string>
+    <string name="ledger_gain_title">Kâr/zarar</string>
+    <string name="ledger_more_toggle">Ücret ve borsa</string>
+    <string name="ledger_partial_cost">«Alıştan beri» yalnızca alış fiyatı olan kısmı sayar – alış fiyatı olmayan %1$s hariç.</string>
+    <string name="ledger_period_without">Bugün / 7 G / 1 Y %1$s hariç – uygun başlangıç fiyatı yok.</string>
+    <string name="ledger_since_purchase_currency">Alıştan beri (%1$s)</string>
+    <string name="ledger_since_purchase_spoken">Alıştan beri kâr/zarar, henüz satılmadı</string>
+    <plurals name="ledger_without_cost">
+        <item quantity="one">Alış fiyatı olmayan %1$d coin hariç (%2$s) – sayılması için fiyatı ekleyin.</item>
+        <item quantity="other">Alış fiyatı olmayan %1$d coin hariç (%2$s) – sayılmaları için fiyatları ekleyin.</item>
+    </plurals>
+</resources>

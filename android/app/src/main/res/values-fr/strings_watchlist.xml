@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: leere Ansicht, Statuszeile, Frische -->
+    <string name="watchlist_all_fresh">À jour · %1$s</string>
+    <string name="watchlist_empty_title">Aucune paire pour l\'instant</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="one">%1$d sur %2$d sans cours</item>
+        <item quantity="many">%1$d sur %2$d sans cours</item>
+        <item quantity="other">%1$d sur %2$d sans cours</item>
+    </plurals>
+    <string name="watchlist_last_run">Dernier passage %1$s</string>
+    <string name="watchlist_live_a11y">Cours en direct actifs</string>
+    <string name="watchlist_live_badge">LIVE</string>
+    <string name="watchlist_offline_since">Pas de connexion · état à %1$s</string>
+    <string name="watchlist_pull_to_refresh">Tirer vers le bas pour actualiser</string>
+    <string name="watchlist_refresh_report">Dernière actualisation</string>
+    <string name="watchlist_refresh_report_empty">Pas encore de détail : aucune actualisation complète pour l\'instant. Touchez Actualiser et attendez que l\'indicateur s\'arrête.</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="one">%1$d sur %2$d obsolète</item>
+        <item quantity="many">%1$d sur %2$d obsolètes</item>
+        <item quantity="other">%1$d sur %2$d obsolètes</item>
+    </plurals>
+    <string name="watchlist_status_all_disabled">Toutes les paires ici sont désactivées</string>
+    <string name="watchlist_status_exchange_prices">Cours de vos plateformes · %1$s</string>
+    <string name="watchlist_status_exchange_prices_short">Cours des plateformes · %1$s</string>
+    <string name="watchlist_status_group_empty">Aucune paire dans ce groupe</string>
+    <string name="watchlist_status_none_traded">Aucune paire négociée ici</string>
+    <string name="watchlist_updated">Mis à jour : %1$s</string>
+
+    <!-- Merkliste: Puls-Zeile (Paare im Plus/Minus, ohne 24-h-Wert) -->
+    <string name="watchlist_pulse_avg">Ø %1$s</string>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="one">%1$d en baisse</item>
+        <item quantity="many">%1$d en baisse</item>
+        <item quantity="other">%1$d en baisse</item>
+    </plurals>
+    <!-- Paare mit Kurs, aber ohne 24-h-Wert («· 510 ohne 24h-Wert») -->
+    <plurals name="watchlist_pulse_missing">
+        <item quantity="one">%1$d sans valeur 24 h</item>
+        <item quantity="many">%1$d sans valeur 24 h</item>
+        <item quantity="other">%1$d sans valeur 24 h</item>
+    </plurals>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="one">%1$d sans valeur du jour</item>
+        <item quantity="many">%1$d sans valeur du jour</item>
+        <item quantity="other">%1$d sans valeur du jour</item>
+    </plurals>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="one">%1$d en hausse</item>
+        <item quantity="many">%1$d en hausse</item>
+        <item quantity="other">%1$d en hausse</item>
+    </plurals>
+
+    <!-- Merkliste: Zeile eines Paars -->
+    <string name="watchlist_row_disabled">%1$s · désactivée</string>
+    <string name="watchlist_row_outdated">%1$s · obsolète</string>
+    <string name="watchlist_row_outdated_age">obsolète · %1$s</string>
+    <string name="watchlist_row_price_unchanged_since">Cours inchangé depuis %1$s</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s injoignable</string>
+
+    <!-- Merkliste: Suche, Sprungknopf, Sortieren nach Spalte -->
+    <string name="watchlist_jump_end">Aller à la fin</string>
+    <string name="watchlist_jump_start">Aller au début</string>
+    <string name="watchlist_search_close">Fermer la recherche</string>
+    <string name="watchlist_search_empty">Aucun résultat pour « %1$s »</string>
+    <string name="watchlist_search_hint">Rechercher une paire, un nom ou une plateforme</string>
+    <string name="watchlist_search_open">Rechercher</string>
+    <string name="watchlist_sort_ascending">croissant</string>
+    <string name="watchlist_sort_descending">décroissant</string>
+    <string name="watchlist_sort_hint">Maintenez et faites glisser une paire, ou utilisez la poignée. Les favoris restent en haut.</string>
+    <string name="watchlist_sort_name">Nom</string>
+    <string name="watchlist_sort_own">Ordre personnel</string>
+    <string name="watchlist_sort_price">Cours</string>
+
+    <!-- Merkliste: Mehrfachauswahl, Ansichten, Entfernen -->
+    <string name="watchlist_clear">Vider la liste de suivi</string>
+    <string name="watchlist_clear_confirm">Retirer toutes les paires de la liste de suivi ? Leurs alertes seront aussi supprimées.</string>
+    <plurals name="watchlist_disabled_count">
+        <item quantity="one">%1$d désactivée</item>
+        <item quantity="many">%1$d désactivées</item>
+        <item quantity="other">%1$d désactivées</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_action">Retirer</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="one">Retirer %1$d paire qui n\'est plus négociée sur sa plateforme ? Ses alertes seront aussi supprimées.</item>
+        <item quantity="many">Retirer %1$d paires qui ne sont plus négociées sur leur plateforme ? Leurs alertes seront aussi supprimées.</item>
+        <item quantity="other">Retirer %1$d paires qui ne sont plus négociées sur leur plateforme ? Leurs alertes seront aussi supprimées.</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_menu">Retirer les paires non négociées (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">Retirer les paires non négociées</string>
+    <string name="watchlist_removed">%1$s retiré</string>
+    <plurals name="watchlist_removed_count">
+        <item quantity="one">%1$d paire supprimée</item>
+        <item quantity="many">%1$d paires supprimées</item>
+        <item quantity="other">%1$d paires supprimées</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="one">%1$d paire non négociée retirée</item>
+        <item quantity="many">%1$d paires non négociées retirées</item>
+        <item quantity="other">%1$d paires non négociées retirées</item>
+    </plurals>
+    <string name="watchlist_select">Sélectionner</string>
+    <string name="watchlist_select_all">Tout sélectionner</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="one">%1$d sélectionné</item>
+        <item quantity="many">%1$d sélectionnés</item>
+        <item quantity="other">%1$d sélectionnés</item>
+    </plurals>
+    <string name="watchlist_show_all">Tout afficher</string>
+    <string name="watchlist_show_only_disabled">Afficher seulement les désactivées</string>
+    <string name="watchlist_show_only_stale">Afficher seulement les obsolètes</string>
+
+    <!-- Merkliste: weitere Texte (Gruppen, Alarme, Mitteilung, Sprachausgabe) -->
+    <plurals name="watchlist_alarms_count">
+        <item quantity="one">Alerte (%1$d)</item>
+        <item quantity="many">Alertes (%1$d)</item>
+        <item quantity="other">Alertes (%1$d)</item>
+    </plurals>
+    <string name="watchlist_favorites_empty_hint">Pas encore de favoris. Balayez une paire vers la droite, ou ouvrez-la et touchez « Favori ».</string>
+    <string name="watchlist_group_empty_hint">Appuyez longuement sur un groupe pour choisir ses paires.</string>
+    <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
+    <string name="watchlist_groups_empty_hint">Vos groupes s\'afficheront ici</string>
+    <string name="watchlist_notification">Notification</string>
+    <string name="watchlist_tts">Annoncer le prix</string>
+    <string name="watchlist_tts_speech_on">L’annonce vocale est activée. Vous pouvez la modifier dans Paramètres › Avancé › Annonce vocale.</string>
+
+    <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
+    <string name="watch_action_add_widget">Ajouter en widget</string>
+    <string name="watch_action_alarm">Alerte</string>
+    <string name="watch_action_favorite">Favori</string>
+    <string name="watch_action_why">Qu’est-ce qui bouge avec ?</string>
+    <string name="watch_action_why_short">Ça bouge aussi ?</string>
+    <string name="watch_change_mark">Mark</string>
+    <string name="watch_disable">Désactiver</string>
+    <string name="watch_disable_hint">Aucune requête, aucune notification</string>
+    <string name="watch_disabled">Désactivée</string>
+    <string name="watch_disabled_banner">%1$s désactivée</string>
+    <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
+    <string name="watch_edit_alarms_warning">Les alertes sont conservées – vérifiez les seuils</string>
+    <!-- Titel des Formulars und Screenreader-Name des Stifts neben dem Paar -->
+    <string name="watch_edit_title">Modifier la paire</string>
+    <string name="watch_enable">Activer</string>
+    <string name="watch_enable_hint">Cours et notifications reprennent</string>
+    <string name="watch_enabled_banner">%1$s activée</string>
+    <string name="watch_error_offline">Pas de connexion</string>
+    <string name="watch_gesture_hint_short">Touchez : alerte et « Qu’est-ce qui bouge avec ? » · appui long pour sélectionner · balayez à gauche pour supprimer · à droite pour favori</string>
+    <string name="watch_hint_tap_why">Touchez une crypto pour voir ce qui bouge avec elle</string>
+    <string name="watch_not_traded">N\'est plus négocié sur cette plateforme</string>
+    <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
+    <string name="watch_preview_not_watched">Pas dans la liste de suivi</string>
+    <string name="watch_price_mid">cours moyen (sinon mark)</string>
+    <string name="watch_row_source_both">Variation et graphique : %1$s</string>
+    <string name="watch_row_source_change">Variation : %1$s</string>
+    <string name="watch_row_source_chart">Graphique : %1$s</string>
+
+    <!-- Meldung nach dem Hinzufügen (ein Paar / mehrere Paare) -->
+    <string name="pair_added_watching">%1$s est maintenant dans votre liste de suivi</string>
+    <!-- Ein Paar: pair_added_watching -->
+    <string name="pairs_added_watching">%1$s sont maintenant dans votre liste de suivi</string>
+
+    <!-- Favoriten -->
+    <string name="favorite_add">Ajouter aux favoris</string>
+    <string name="favorite_added">%1$s ajouté aux favoris</string>
+    <string name="favorite_remove">Retirer des favoris</string>
+    <string name="favorite_removed">%1$s retiré des favoris</string>
+    <string name="hint_favorites_list">Astuce : balayez une ligne vers la droite pour la mettre en favori – les favoris restent en haut.</string>
+
+    <!-- Gruppen und Chips der Merkliste -->
+    <string name="group_add">Nouveau groupe</string>
+    <string name="group_all">Tous</string>
+    <!-- Alpha-Tokens: Chip «α», Art vor der Glocke, «inkl. Alpha-Tokens» -->
+    <string name="group_alpha">Jetons Alpha</string>
+    <string name="group_delete">Supprimer le groupe</string>
+    <string name="group_delete_confirm">Les paires restent dans votre liste de suivi.</string>
+    <string name="group_done">Terminé</string>
+    <string name="group_edit_title">Modifier le groupe</string>
+    <!-- Chip «FAV» (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird vorgelesen) -->
+    <string name="group_favorites">Favoris</string>
+    <string name="group_in_other">dans %1$s</string>
+    <string name="group_name">Nom du groupe</string>
+    <string name="group_new">Nouveau groupe…</string>
+    <string name="group_next">Suivant</string>
+    <string name="group_none">Aucun groupe</string>
+    <string name="group_rename">Renommer</string>
+    <string name="group_search_hint">Rechercher une paire, un nom ou une plateforme</string>
+    <string name="group_target">Dans le groupe</string>
+    <string name="group_title">Groupe</string>
+    <!-- Gruppen-Chip «Token» (alle Paare ausser der Gruppe «TradFi»), Screenreader und Widget-Einrichtung -->
+    <string name="group_tokens">Jetons</string>
+    <string name="group_value">Groupe : %1$s</string>
+
+    <!-- Notiz zum Paar -->
+    <string name="note_add">Ajouter une note</string>
+    <string name="note_edit">Modifier la note</string>
+    <string name="note_hint">p. ex. entrée à 0.42, objectif 0.60</string>
+    <string name="note_remove">Retirer</string>
+    <string name="note_title">Note</string>
+
+    <!-- Reihenfolge ändern (Sortiermodus, Screenreader-Aktionen) -->
+    <string name="sort_drag_handle">Glisser pour déplacer</string>
+    <string name="sort_move_bottom">Tout en bas</string>
+    <string name="sort_move_down">Descendre</string>
+    <string name="sort_move_top">Tout en haut</string>
+    <string name="sort_move_up">Monter</string>
+</resources>

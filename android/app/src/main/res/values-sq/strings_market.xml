@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Markt-Tab: Abschnitte, Zeilen, Herkunft und Alter -->
+    <!-- «… · CoinGecko · vor 3 Min.»; «gerade eben» = time_just_now, «veraltet» = widget_outdated -->
+    <plurals name="market_age_minutes">
+        <item quantity="one">para %d min</item>
+        <item quantity="other">para %d min</item>
+    </plurals>
+    <!-- «heute 02:00» (Uhrzeit ohne Sekunden) -->
+    <string name="market_age_today">sot %1$s</string>
+    <string name="market_context_summary">Fear &amp; Greed, tregues të Bitcoin, dominimi, halving</string>
+    <string name="market_context_value">%1$s %2$s · %3$s</string>
+    <string name="market_more_data">Më shumë të dhëna tregu</string>
+    <string name="market_phase_trend_failed">Të dhënat e çmimit nuk janë të disponueshme</string>
+    <string name="market_plain_direction_down_clear">Vlera totale e të gjitha kriptomonedhave është qartë më e ulët se 24 orë më parë (%1$s).</string>
+    <string name="market_plain_direction_down_slight">Vlera totale e të gjitha kriptomonedhave është pak më e ulët se 24 orë më parë (%1$s).</string>
+    <string name="market_plain_direction_flat">Vlera totale e të gjitha kriptomonedhave pothuajse nuk ka ndryshuar në 24 orë (%1$s).</string>
+    <string name="market_plain_direction_up_clear">Vlera totale e të gjitha kriptomonedhave është qartë më e lartë se 24 orë më parë (%1$s).</string>
+    <string name="market_plain_direction_up_slight">Vlera totale e të gjitha kriptomonedhave është pak më e lartë se 24 orë më parë (%1$s).</string>
+    <string name="market_plain_footnote">Përshkruan 24 orët e fundit – asnjë parashikim, asnjë këshillë investimi.</string>
+    <string name="market_plain_mood_extreme_fear">Investitorët janë shumë të frikësuar tani: indeksi i disponimit (Fear &amp; Greed) është %1$d nga 100.</string>
+    <string name="market_plain_mood_extreme_greed">Investitorët janë shumë lakmitarë tani: indeksi i disponimit (Fear &amp; Greed) është %1$d nga 100.</string>
+    <string name="market_plain_mood_fear">Investitorët janë disi të frikësuar: indeksi i disponimit (Fear &amp; Greed) është %1$d nga 100.</string>
+    <string name="market_plain_mood_greed">Investitorët janë disi lakmitarë: indeksi i disponimit (Fear &amp; Greed) është %1$d nga 100.</string>
+    <string name="market_plain_mood_neutral">Disponimi i investitorëve është i ekuilibruar: indeksi i disponimit (Fear &amp; Greed) është %1$d nga 100.</string>
+    <string name="market_plain_standout_above_btc">Bie në sy %1$s: %2$s në 24 orë, qartë mbi Bitcoin (%3$s).</string>
+    <string name="market_plain_standout_against_btc">Bie në sy %1$s: %2$s në 24 orë, ndërsa Bitcoin shkoi në drejtimin tjetër (%3$s).</string>
+    <string name="market_plain_standout_below_btc">Bie në sy %1$s: %2$s në 24 orë, qartë nën Bitcoin (%3$s).</string>
+    <string name="market_plain_standout_futures_down">Bie në sy %1$s: jashtëzakonisht shumë tregtarë futures vënë bast për rënie çmimesh.</string>
+    <string name="market_plain_standout_futures_up">Bie në sy %1$s: jashtëzakonisht shumë tregtarë futures vënë bast për rritje çmimesh.</string>
+    <string name="market_plain_standout_quiet">Tani për tani asnjë monedhë nuk bie veçanërisht në sy.</string>
+    <string name="market_plain_standout_volume">Bie në sy %1$s: rreth %2$s herë më shumë tregtim se zakonisht.</string>
+    <string name="market_plain_title">Shkurt</string>
+    <!-- Nebenzeile der Fear-&-Greed-Zeile («Gier · gestern 65») -->
+    <string name="market_row_fng_yesterday">%1$s · dje %2$s</string>
+    <string name="market_section_collapse">Fshih %1$s</string>
+    <string name="market_section_context">Sentimenti dhe cikli</string>
+    <string name="market_section_data">Të dhëna tregu</string>
+    <!-- Bedienungshilfen: Aktion auf der Abschnittsüberschrift; %1$s = Name des Abschnitts -->
+    <string name="market_section_expand">Shfaq %1$s</string>
+    <string name="market_section_now">Tani</string>
+    <string name="market_source">Të dhëna: Binance · Coin Metrics (CC BY-NC 4.0)</string>
+    <string name="market_unavailable_error">Bursa nuk është e disponueshme</string>
+
+    <!-- Markt-Tab: Info-Zeichen und Info-Blatt je Karte (was, wie, Quelle) -->
+    <string name="market_info_a11y">Info: %1$s</string>
+    <string name="market_info_alt_season_source">Çmimet ditore: Binance · rillogaritet afërsisht çdo 3 orë</string>
+    <string name="market_info_alt_season_what">Numëron sa nga rreth 20 altcoin-e të mëdha (p.sh. Ethereum, Solana, XRP) kanë ecur më mirë se Bitcoin në 90 ditët e fundit. Vlera është pjesa e tyre nga 0 deri në 100.</string>
+    <string name="market_info_coin_source">Çmimet: Binance ose Bybit · rifreskohet afërsisht çdo 15 minuta</string>
+    <string name="market_info_dominance_how">Nëse dominimi rritet, Bitcoin ecën më mirë se pjesa tjetër e tregut; nëse bie, monedhat e tjera fitojnë peshë. Edhe stablecoin-et llogariten: nëse vlera e tyre rritet, pjesa e Bitcoin bie edhe kur çmimi i Bitcoin mbetet i njëjtë.</string>
+    <string name="market_info_dominance_source">Burimi: CoinGecko · rifreskohet afërsisht çdo 30 minuta</string>
+    <string name="market_info_dominance_what">Pjesa e Bitcoin në vlerën totale të të gjitha kriptomonedhave (kapitalizimi i tregut). Poshtë shfaqet pjesa e Ethereum.</string>
+    <string name="market_info_fear_greed_how">Nën 25 do të thotë frikë ekstreme, mbi 75 lakmi ekstreme, rreth 50 neutral. Karta e hapur tregon vlerat e djeshme, të një jave më parë dhe të një muaji më parë. Nuk është sinjal blerjeje ose shitjeje.</string>
+    <string name="market_info_fear_greed_source">Burimi: alternative.me · vlerë e re një herë në ditë</string>
+    <string name="market_info_fear_greed_what">Një indeks i disponimit të tregut kripto nga 0 deri në 100. alternative.me e llogarit nga disa të dhëna, ndër to luhatjet e çmimeve, vëllimi i tregtimit, mediat sociale dhe dominimi i Bitcoin.</string>
+    <string name="market_info_gas_how">Vlerat më të larta do të thonë që rrjeti është i ngarkuar dhe transfertat kushtojnë më shumë. I ngadaltë, normal dhe i shpejtë janë tarifat për një konfirmim më të vonë ose më të shpejtë. Karta e hapur tregon koston e përafërt të një transferte të thjeshtë.</string>
+    <string name="market_info_gas_source">Nyje publike RPC, mempool.space · rifreskohet çdo minutë</string>
+    <string name="market_info_gas_what">Sa kushton tani një transaksion në secilin rrjet. Në Ethereum dhe rrjete të ngjashme në gwei (një e miliarta e ETH për njësi gas), në Bitcoin në sat/vB (satoshi për bajt virtual të transaksionit).</string>
+    <string name="market_info_halving_source">Data: nga lartësia e bllokut dhe koha mesatare e bllokut (mempool.space), përndryshe sipas kalendarit · historiku i kursit: Coin Metrics, Binance, rringarkohet çdo 12 orë</string>
+    <string name="market_info_halving_what">Në halving, shpërblimi që marrin minatorët për një bllok të ri Bitcoin përgjysmohet. Kjo ndodh çdo 210 000 blloqe, pra afërsisht çdo katër vjet. Pas kësaj krijohen në ditë vetëm gjysma e bitcoin-eve të reja.</string>
+    <string name="market_info_how">Si lexohet</string>
+    <string name="market_info_macro_how">Njoftimi shfaqet vetëm kur një datë e tillë është sot ose nesër. Rreth publikimit, çmimet shpesh luhaten më shumë se zakonisht. Aplikacioni tregon vetëm datën, jo vetë shifrat.</string>
+    <string name="market_info_macro_source">Kalendari nga faqja e internetit e aplikacionit · ngarkohet një herë në ditë</string>
+    <string name="market_info_macro_what">Datat e të dhënave të rëndësishme ekonomike të SHBA-së: inflacioni (CPI, PCE), çmimet e prodhuesve (PPI), raporti i punësimit dhe vendimet për normat e interesit të Rezervës Federale. Këto shifra shpesh lëvizin edhe çmimet e kriptomonedhave.</string>
+    <string name="market_info_no_advice">Jo këshillë investimi.</string>
+    <string name="market_info_phase_source">Binance, Coin Metrics · çmimet çdo orë, të dhënat on-chain rifreskohen çdo 12 orë</string>
+    <string name="market_info_pulse_how">Titulli tregon drejtimin; karta e hapur tregon hollësitë. Lëvizje e gjerë do të thotë që shumica e monedhave të mëdha lëvizin në të njëjtin drejtim. Normë e lartë financimi do të thotë që shumë vënë bast për rritje me levë. Një pamje e çastit, jo parashikim.</string>
+    <string name="market_info_pulse_source">Binance, CoinGecko · rifreskohet afërsisht çdo 5 minuta</string>
+    <string name="market_info_pulse_what">Një përmbledhje e shkurtër e tregut për 24 orët e fundit: si lëvizin Bitcoin, Ethereum dhe Solana, sa nga monedhat më të mëdha rriten ose bien, sa Bitcoin tregtohet tani dhe në çfarë niveli është norma e financimit për kontratat e së ardhmes së Bitcoin.</string>
+    <string name="market_info_totals_how">Djathtas shfaqet ndryshimi i vlerës totale për 24 orë. Vëllimi i lartë do të thotë që tregtohet shumë, por nuk tregon në cilin drejtim. Shfaqet sipas mundësisë në monedhën e konvertimit, përndryshe në dollarë amerikanë.</string>
+    <string name="market_info_totals_source">Të gjitha monedhat · CoinGecko · rifreskohet afërsisht çdo 30 minuta</string>
+    <string name="market_info_totals_what">Vlera totale e të gjitha kriptomonedhave (kapitalizimi i tregut: çmimi herë sasia në qarkullim, e mbledhur për të gjitha monedhat) dhe vëllimi i tregtimit i 24 orëve të fundit.</string>
+    <string name="market_info_unusual_how">Për çdo monedhë shfaqet vëzhgimi më i dukshëm, djathtas ndryshimi për 24 orë. Vëllim 2× do të thotë dyfishi i qarkullimit të zakonshëm. E pazakontë nuk do të thotë as mirë, as keq.</string>
+    <string name="market_info_unusual_source">Binance, CoinGecko · rifreskohet afërsisht çdo 10 minuta</string>
+    <string name="market_info_unusual_what">Deri në pesë monedha nga rreth 30 më të mëdhatë (pa stablecoin) që sot sillen në mënyrë të pazakontë: dukshëm më të forta ose më të dobëta se Bitcoin, kundër drejtimit të tregut, me vëllim tregtimi pazakonshëm të lartë ose me normë financimi të dukshme.</string>
+    <string name="market_info_what">Çfarë është kjo?</string>
+
+    <!-- Markt-Tab: Krypto-Markt gesamt -->
+    <string name="market_cap_label">Kapitalizimi i tregut</string>
+    <string name="market_cap_source">Të gjitha monedhat · CoinGecko</string>
+    <string name="market_cap_title">Tregu kripto</string>
+    <string name="market_volume_label">Vëllimi 24 orë</string>
+
+    <!-- Crypto Pulse «Was gerade auffällt»: Titel, Abschnitte, Hinweise -->
+    <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
+    <string name="pulse_details_action">Detaje</string>
+    <string name="pulse_disclaimer">Pa parashikim · Jo këshillë investimi</string>
+    <string name="pulse_less">Shfaq më pak</string>
+    <string name="pulse_now_title">Çfarë bie në sy</string>
+    <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
+    <string name="pulse_period_24h_spoken">Ndryshimi në 24 orë</string>
+    <string name="pulse_section_factors">Faktorët</string>
+    <string name="pulse_section_market">Tregu sot</string>
+    <string name="pulse_unavailable">Të dhënat e tregut nuk janë të disponueshme tani</string>
+    <string name="pulse_updated">Më %1$s</string>
+
+    <!-- Crypto Pulse: Schlagzeile und Leitsatz -->
+    <string name="pulse_headline_calm">Treg i qetë</string>
+    <string name="pulse_headline_down">Rënie e gjerë</string>
+    <string name="pulse_headline_mixed">Pamje e përzier</string>
+    <string name="pulse_headline_up">Rritje e gjerë</string>
+    <string name="pulse_lead_alts_stronger">Altcoin-et janë më të forta se Bitcoin.</string>
+    <string name="pulse_lead_broad_down">Tregu po bie gjerësisht.</string>
+    <string name="pulse_lead_broad_up">Tregu po rritet gjerësisht.</string>
+    <string name="pulse_lead_btc_leads">Bitcoin po rritet më shumë.</string>
+    <string name="pulse_lead_btc_stronger">Bitcoin është më i fortë se altcoin-et.</string>
+    <string name="pulse_lead_calm">Tregu mezi lëviz.</string>
+    <string name="pulse_lead_drift_down">Tregu po bie lehtë.</string>
+    <string name="pulse_lead_drift_up">Tregu po rritet lehtë.</string>
+    <string name="pulse_lead_mixed">Monedhat e mëdha po lëvizin në drejtime të ndryshme.</string>
+
+    <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
+    <string name="pulse_detail_fund_high">Funding i lartë.</string>
+    <string name="pulse_detail_fund_negative">Funding negativ.</string>
+    <string name="pulse_detail_fund_neutral">Funding neutral.</string>
+    <string name="pulse_detail_vol_above">Vëllimi %1$d%% mbi normalen.</string>
+    <string name="pulse_detail_vol_above_fund_high">Vëllimi %1$d%% mbi normalen, funding i lartë.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Vëllimi %1$d%% mbi normalen, funding negativ.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Vëllimi %1$d%% mbi normalen, funding neutral.</string>
+    <string name="pulse_detail_vol_below">Vëllimi %1$d%% nën normalen.</string>
+    <string name="pulse_detail_vol_below_fund_high">Vëllimi %1$d%% nën normalen, funding i lartë.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Vëllimi %1$d%% nën normalen, funding negativ.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Vëllimi %1$d%% nën normalen, funding neutral.</string>
+    <string name="pulse_detail_vol_normal">Vëllimi normal.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Vëllimi normal, funding i lartë.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Vëllimi normal, funding negativ.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Vëllimi normal, funding neutral.</string>
+
+    <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
+    <string name="pulse_breadth_hint">Top %1$d: monedhat më të mëdha sipas vlerës së tregut, pa stablecoin; ndryshimi në 24 orë (CoinGecko).</string>
+    <!-- «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">Top %1$d</string>
+    <string name="pulse_breadth_note_broad_down">Rënie e gjerë: shumica e monedhave të mëdha bien.</string>
+    <string name="pulse_breadth_note_broad_up">Lëvizje e gjerë: shumica e monedhave të mëdha rriten.</string>
+    <string name="pulse_breadth_note_narrow_down">Bitcoin bie, por shumica e monedhave të tjera të mëdha qëndrojnë.</string>
+    <string name="pulse_breadth_note_narrow_up">Bitcoin rritet, por shumica e monedhave të tjera të mëdha nuk e ndjekin.</string>
+    <string name="pulse_breadth_spoken">Top %1$d: %2$d në rritje, %3$d në rënie</string>
+
+    <!-- Crypto Pulse: Altcoins, Funding, Gas, Volumen -->
+    <string name="pulse_alts_even">Altcoin-et dhe Bitcoin lëvizin njësoj</string>
+    <string name="pulse_alts_stronger">Altcoin-et më të fortë se Bitcoin</string>
+    <string name="pulse_alts_weaker">Bitcoin më i fortë se altcoin-et</string>
+    <string name="pulse_chip_funding_high">Funding i lartë</string>
+    <string name="pulse_chip_funding_negative">Funding negativ</string>
+    <string name="pulse_funding_high">Funding qartë pozitiv: shumë long me levë</string>
+    <string name="pulse_funding_negative">Funding negativ: shumë short</string>
+    <string name="pulse_funding_neutral">Funding neutral</string>
+    <string name="pulse_funding_slight">Funding pak pozitiv</string>
+    <string name="pulse_gas_high">Gas Ethereum i lartë (%1$s gwei)</string>
+    <string name="pulse_gas_low">Gas Ethereum i ulët (%1$s gwei)</string>
+    <string name="pulse_gas_normal">Gas Ethereum i zakonshëm (%1$s gwei)</string>
+    <string name="pulse_volume_high">Vëllimi i tregtimit jashtëzakonisht i lartë (%1$s× i zakonshmi)</string>
+    <string name="pulse_volume_low">Vëllimi i tregtimit i ulët (%1$s× i zakonshmi)</string>
+    <string name="pulse_volume_normal">Vëllimi i tregtimit i zakonshëm</string>
+
+    <!-- «Heute auffällig» (grösste Coins mit ungewöhnlicher Bewegung) -->
+    <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
+    <!-- Screenreader-Aktion einer Zeile (öffnet das Aktionsblatt bzw. die Vorschau) -->
+    <string name="unusual_action_open">Shfaq çmimin dhe veprimet</string>
+    <string name="unusual_fact_against">Lëviz kundër tregut</string>
+    <string name="unusual_fact_funding_high">Funding i lartë (%1$s)</string>
+    <string name="unusual_fact_funding_negative">Funding negativ (%1$s)</string>
+    <string name="unusual_fact_stronger">Lëviz shumë më fort se BTC</string>
+    <string name="unusual_fact_volume">Vëllimi %1$s× sa zakonisht</string>
+    <string name="unusual_fact_weaker">Lëviz shumë më dobët se BTC</string>
+    <string name="unusual_nothing">Asgjë e pazakontë sot</string>
+    <string name="unusual_source">Rreth 30 monedhat më të mëdha pa stablecoin · Binance, CoinGecko</string>
+    <string name="unusual_title">Bie në sy sot</string>
+
+    <!-- Ungewöhnliche Aktivität eines Paars (Karte, Signale, Empfindlichkeit) -->
+    <string name="activity_card_title">Diçka po ndodh tani</string>
+    <string name="activity_indicator">Aktivitet i pazakontë</string>
+    <string name="activity_sensitivity_less">Më pak</string>
+    <string name="activity_sensitivity_more">Më shumë</string>
+    <string name="activity_sensitivity_normal">Normale</string>
+    <string name="activity_signal_funding_long">Funding %1$s — shumë long me levë</string>
+    <string name="activity_signal_funding_short">Funding %1$s — shumë short</string>
+    <string name="activity_signal_open_interest">Open interest %1$s brenda %2$d min</string>
+    <string name="activity_signal_open_interest_no_time">Open interest %1$s</string>
+    <string name="activity_signal_price_move">Lëvizje e pazakontë: %1$s brenda një ore (%2$s× normales)</string>
+    <string name="activity_signal_volume">Vëllimi %1$s× normales në orën e fundit</string>
+
+    <!-- Einordnung: Bitcoin-Dominanz, Fear & Greed, Halving, Altseason -->
+    <plurals name="insights_altseason_value">
+        <item quantity="one">%1$d nga %2$d altcoin të mëdhenj e mund Bitcoin në 90 ditë</item>
+        <item quantity="other">%1$d nga %2$d altcoin të mëdhenj e mundin Bitcoin në 90 ditë</item>
+    </plurals>
+    <string name="insights_chart_axis">Vite që nga halving-u</string>
+    <string name="insights_chart_hint">Çmimi si shumëfish i çmimit në ditën e halving-ut (shkallë log). Ciklet e kaluara janë model, jo parashikim.</string>
+    <string name="insights_cycle_chart">Ciklet që nga halving-u</string>
+    <string name="insights_dominance_eth">ETH %1$s e tregut total</string>
+    <string name="insights_dominance_title">Dominanca e Bitcoin</string>
+    <string name="insights_fng_history">Dje %1$s · para një jave %2$s · para një muaji %3$s</string>
+    <string name="insights_fng_title">Fear &amp; Greed</string>
+    <string name="insights_halving_title">Halving-u i Bitcoin</string>
+    <string name="insights_source_dominance">Burimi: CoinGecko, Binance</string>
+    <string name="insights_source_fng">Burimi: alternative.me</string>
+    <string name="insights_source_history">Burimi: Coin Metrics (CC BY-NC 4.0), Binance</string>
+
+    <!-- Fear & Greed: Stufen -->
+    <string name="fng_extreme_fear">Frikë ekstreme</string>
+    <string name="fng_extreme_greed">Lakmi ekstreme</string>
+    <string name="fng_fear">Frikë</string>
+    <string name="fng_greed">Lakmi</string>
+    <string name="fng_neutral">Neutral</string>
+
+    <!-- Halving-Zyklus (Chart, Marken, Schätzung) -->
+    <string name="cycle_data_as_of">Të dhëna deri në %1$s · po përditësohet…</string>
+    <string name="cycle_from_top">%1$s nga maja</string>
+    <string name="cycle_marker_bottom">Fundi %1$s</string>
+    <string name="cycle_marker_double_bottom">Fund i dyfishtë %1$s</string>
+    <string name="cycle_marker_double_top">Majë e dyfishtë %1$s</string>
+    <string name="cycle_marker_high_so_far">Më e larta deri tani</string>
+    <!-- Hoch/Tief-Marken mit Sprechblase im Zyklus-Chart -->
+    <string name="cycle_marker_top">Maja %1$s</string>
+    <string name="cycle_since_halving">%1$s që nga halving-u</string>
+    <string name="halving_estimate_text">Halving-u i ardhshëm sipas llogaritjes rreth %1$s: edhe %2$s blloqe me mesatarisht %3$s min për bllok (periudha aktuale e vështirësisë). Një projeksion, jo premtim – koha e bllokut ndryshon.</string>
+
+    <!-- Netzwerkgebühren (Gas) -->
+    <string name="gas_alert_active">Alarm: %1$s</string>
+    <string name="gas_slow_fast">Ngadalë %1$s · Shpejt %2$s</string>
+    <string name="gas_source">Nyje publike RPC dhe mempool.space · Kostoja e një transferimi të thjeshtë, në L2 pa pjesën L1</string>
+    <string name="gas_title">Tarifat e rrjetit</string>
+    <string name="gas_transfer_cost">Transferim ≈ %1$s</string>
+
+    <!-- Wirtschaftsdaten (US-Termine) -->
+    <string name="macro_cpi">inflacioni në SHBA (CPI)</string>
+    <string name="macro_fomc">vendimi i Fed-it për normat e interesit</string>
+    <string name="macro_hint_list">%1$s – në ditë të tilla tregjet shpesh luhaten më shumë.</string>
+    <string name="macro_hint_today">Sot %1$s: %2$s – në ditë të tilla tregjet shpesh luhaten më shumë.</string>
+    <string name="macro_hint_today_list">Sot: %1$s – në ditë të tilla tregjet shpesh luhaten më shumë.</string>
+    <string name="macro_hint_tomorrow">Nesër %1$s: %2$s – në ditë të tilla tregjet shpesh luhaten më shumë.</string>
+    <string name="macro_hint_tomorrow_list">Nesër: %1$s – në ditë të tilla tregjet shpesh luhaten më shumë.</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">Sot %1$s %2$s</string>
+    <string name="macro_item_tomorrow">Nesër %1$s %2$s</string>
+    <string name="macro_nfp">raporti i punësimit në SHBA</string>
+    <string name="macro_pce">inflacioni PCE në SHBA</string>
+    <string name="macro_ppi">çmimet e prodhuesit në SHBA (PPI)</string>
+    <string name="macro_released_list">Publikuar sot: %1$s.</string>
+    <string name="macro_released_one">Publikuar sot në %1$s: %2$s.</string>
+    <string name="macro_title">Të dhëna ekonomike</string>
+
+    <!-- Coin-Analyse -->
+    <string name="coin_choose">Monedha</string>
+    <string name="coin_no_data">Nuk ka të dhëna çmimi për këtë monedhë në Binance ose Bybit.</string>
+    <string name="coin_price_only">Vetëm sipas çmimit – të dhënat on-chain (MVRV, Puell, hashrate) janë falas vetëm për Bitcoin.</string>
+    <plurals name="coin_short_history">
+        <item quantity="one">Vetëm %1$d ditë histori – mungojnë disa tregues.</item>
+        <item quantity="other">Vetëm %1$d ditë histori – mungojnë disa tregues.</item>
+    </plurals>
+    <string name="coin_title">Analiza e monedhës</string>
+</resources>

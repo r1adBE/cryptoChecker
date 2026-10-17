@@ -1,0 +1,1 @@
+btc,ethereum,eth,coin,danh mục,altcoin,futures,dex,ticker

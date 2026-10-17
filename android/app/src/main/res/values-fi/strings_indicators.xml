@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Neutrale Indikatoren: Titel, Hinweise, Halving -->
+    <string name="neutral_alt_title">Altcoinit vs. Bitcoin</string>
+    <string name="neutral_btc_indicators_title">Bitcoinin tunnusluvut</string>
+    <string name="neutral_halving_last">Edellinen puoliintuminen: %1$s</string>
+    <string name="neutral_halving_next">Seuraava puoliintuminen odotetaan noin %1$s (arvioitu kalenterin mukaan – lohkokorkeus ei nyt saatavilla).</string>
+    <string name="neutral_indicators_disclaimer">Vain mitattuja arvoja ilman arviota. Ei ennuste eikä sijoitusneuvontaa.</string>
+    <string name="neutral_onchain_missing">Ketjudata (Coin Metrics) ei ole juuri nyt saatavilla.</string>
+
+    <!-- Neutrale Indikatoren: was der Wert misst -->
+    <string name="neutral_explain_ath_distance">Kuinka paljon hinta on aiemman kaikkien aikojen huipun alla.</string>
+    <string name="neutral_explain_change_30d">Hinta tänään verrattuna 30 päivän takaiseen.</string>
+    <string name="neutral_explain_hashrate">Hashrate 30 päivän keskiarvona verrattuna 60 päivän keskiarvoon.</string>
+    <string name="neutral_explain_ma200w">Viimeisten 200 viikon päätöshintojen keskiarvo.</string>
+    <string name="neutral_explain_mayer">Hinta jaettuna 200 päivän keskiarvolla.</string>
+    <string name="neutral_explain_mvrv">Markkina-arvo jaettuna toteutuneella arvolla (ketjudata).</string>
+    <string name="neutral_explain_pi_gap">111 päivän keskiarvo verrattuna kaksinkertaiseen 350 päivän keskiarvoon.</string>
+    <string name="neutral_explain_puell">Louhijoiden päivätulot jaettuna niiden 365 päivän keskiarvolla.</string>
+    <string name="neutral_explain_rsi_daily">Suhteellisen voiman indeksi viimeiseltä 14 päivältä, 0–100.</string>
+    <string name="neutral_explain_rsi_weekly">Suhteellisen voiman indeksi viimeiseltä 14 viikolta, 0–100.</string>
+    <string name="neutral_explain_sma50_200">50 päivän keskiarvo verrattuna 200 päivän keskiarvoon.</string>
+    <string name="neutral_explain_vs_btc">Hinnanmuutos suhteessa Bitcoiniin 90 päivässä.</string>
+
+    <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
+    <string name="neutral_info_alt_season_how">Sovellus näyttää vain lukumäärän eikä nimitä sitä ”kaudeksi”. Arvo muuttuu yleensä päivien, ei tuntien, aikana.</string>
+    <string name="neutral_info_btc_how">Jokaisen arvon kohdalla kerrotaan, mitä se mittaa ja missä se on omassa historiassaan vuodesta 2016. Sovellus ei arvioi arvoja eikä päättele markkinavaihetta; ilmoitusrajat ovat vain ne, jotka itse asetat. Menneet kuviot eivät välttämättä toistu.</string>
+    <string name="neutral_info_btc_what">Yleiset Bitcoinin tunnusluvut pelkkinä mittausarvoina: Mayer Multiple, 200 viikon keskiarvo, pudotus huipusta, muutos 30 päivässä, Pi Cycle -ero sekä on-chain-arvot MVRV, Puell Multiple ja hashrate.</string>
+    <string name="neutral_info_coin_how">Jokaisen arvon yhteydessä on lause siitä, mitä se mittaa, ilman arviota. Lyhyen hintahistorian kolikoilta osa arvoista puuttuu. Ketjudataa ei käytetä tässä.</string>
+    <string name="neutral_info_coin_what">Samat pelkät tunnusluvut valitsemallesi kolikolle, vain hintadatasta: Mayer Multiple, 200 viikon keskiarvo, lasku huipusta, muutos 30 päivässä, trendi 50/200 päivää, RSI ja vahvuus Bitcoiniin nähden 90 päivässä.</string>
+    <string name="neutral_info_halving_how">Seuraava puoliintuminen lasketaan nykyisestä lohkokorkeudesta ja käynnissä olevan vaikeusjakson keskimääräisestä lohkoajasta (mempool.space); ilman näitä tietoja kalenterin mukaan (edellinen puoliintuminen plus noin neljä vuotta). Kaavio näyttää aiempien syklien kurssikehityksen puoliintumisesta alkaen – historiaa, ei ennuste.</string>
+
+    <!-- Indikator-Namen -->
+    <string name="ind_cross">Trendi 50/200 päivää</string>
+    <string name="ind_drawdown">Lasku kaikkien aikojen huipusta</string>
+    <string name="ind_missing">liian vähän dataa</string>
+    <string name="ind_rsi_daily">RSI (päivä)</string>
+    <string name="ind_rsi_weekly">RSI (viikko)</string>
+    <string name="ind_vs_btc">Vahvuus Bitcoiniin nähden (90 päivää)</string>
+    <string name="neutral_ind_change_30d">Muutos 30 päivää</string>
+    <string name="neutral_ind_hashrate">Hashrate 30/60 päivää</string>
+    <string name="neutral_ind_ma200w">200 viikon keskiarvo</string>
+    <string name="neutral_ind_pi_gap">Pi Cycle -ero</string>
+
+    <!-- Indikatoren: «hoch heisst …, tief heisst …» -->
+    <string name="ind_read_alt_season">Korkea tarkoittaa, että useimmat suuret altcoinit voittivat Bitcoinin 90 päivässä, matala, että Bitcoin voitti useimmat.</string>
+    <string name="ind_read_ath_distance">Pieni tarkoittaa, että hinta on lähellä ennätystä, suuri, että se on kaukana sen alla.</string>
+    <string name="ind_read_change_30d">Positiivinen tarkoittaa korkeampaa kuin 30 päivää sitten, negatiivinen matalampaa.</string>
+    <string name="ind_read_funding">Korkea tarkoittaa, että moni lyö vipuvaikutuksella vetoa noususta, negatiivinen, että moni vetoaa laskuun.</string>
+    <string name="ind_read_hashrate_30_60">Positiivinen tarkoittaa, että laskentateho kasvaa, negatiivinen, että louhijoita sammuu.</string>
+    <string name="ind_read_leverage">Paljon longeja tarkoittaa, että moni vetoaa nousuun lainarahalla, paljon shortteja laskuun.</string>
+    <string name="ind_read_ma200w">Hinta selvästi yläpuolella tarkoittaa pitkää nousua, lähellä syvää notkahdusta.</string>
+    <string name="ind_read_mayer">Korkea tarkoittaa, että hinta on selvästi 200 päivän keskiarvon yläpuolella, matala, että se on sen alla.</string>
+    <string name="ind_read_mvrv">Korkea tarkoittaa, että hinta on selvästi yli sen, mitä haltijat ovat keskimäärin maksaneet, matala, että se on lähellä tai alle.</string>
+    <string name="ind_read_pi_cycle_gap">Lähellä nollaa tarkoittaa, että keskiarvot melkein kohtaavat, selvästi negatiivinen, että ne ovat kaukana toisistaan.</string>
+    <string name="ind_read_puell">Korkea tarkoittaa, että louhijat ansaitsevat paljon tavallista enemmän, matala paljon vähemmän.</string>
+    <string name="ind_read_rsi_daily">Yli 70 tarkoittaa vahvaa nousua viime päivinä, alle 30 vahvaa laskua.</string>
+    <string name="ind_read_rsi_weekly">Yli 70 tarkoittaa vahvaa nousua viime viikkoina, alle 30 vahvaa laskua.</string>
+    <string name="ind_read_sma50_vs_200">Positiivinen tarkoittaa, että lyhyt keskiarvo on pitkän yläpuolella, negatiivinen alapuolella.</string>
+    <string name="ind_read_vs_btc">Positiivinen tarkoittaa parempaa kuin Bitcoin, negatiivinen huonompaa.</string>
+
+    <!-- Indikatoren: Einordnung in die Vergangenheit -->
+    <string name="ind_context_flat30">Sama kurssi 30 päivää: %1$s</string>
+    <string name="ind_context_note">Menneet arvot ja ”sama kurssi” -laskelmat ovat laskentaa, eivät ennuste.</string>
+    <string name="ind_context_percentile">Vuodesta %1$s alempi %2$s päivistä</string>
+</resources>

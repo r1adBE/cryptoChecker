@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: beobachtete Adressen (Wallets) -->
+    <string name="portfolio_address_add">Tambah alamat</string>
+    <string name="portfolio_address_count">Hitung</string>
+    <string name="portfolio_address_error">Pembaruan gagal</string>
+    <string name="portfolio_address_hint">Alamat publik (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) atau xpub</string>
+    <string name="portfolio_address_label">Label (opsional)</string>
+    <string name="portfolio_address_not_since_buy">Dari alamat · tidak termasuk «Sejak beli»: %1$s</string>
+    <string name="portfolio_address_overlap">Juga ada di transaksimu sendiri: %1$s – keduanya dijumlahkan. Koin yang sama? Pilih «Hanya tampilkan».</string>
+    <string name="portfolio_address_overlap_ask">Kamu sudah mencatat %1$s dengan transaksimu sendiri. Tambahkan saldo alamat ini ke portofolio atau hanya tampilkan?</string>
+    <string name="portfolio_address_overlap_auto">«%1$s» kini hanya ditampilkan dan tidak dihitung – %2$s juga ada di transaksimu.</string>
+    <string name="portfolio_address_overlap_restored">«%1$s» dihitung lagi – jumlahnya tidak cocok dengan transaksimu. Pilih «Hanya tampilkan» jika itu koin yang sama.</string>
+    <string name="portfolio_address_overlap_title">Koin yang sama dengan transaksimu?</string>
+    <string name="portfolio_address_overlap_tx">Jumlah sama dengan setoran/transfermu sendiri (%1$s) – kemungkinan dihitung dua kali.</string>
+    <string name="portfolio_address_period_observed">Alamat yang dipantau dihitung sejak saldo pertama yang teramati; perubahan berikutnya adalah arus masuk/keluar, bukan untung.</string>
+    <string name="portfolio_address_privacy">Hanya alamat publik yang dikirim ke %1$s – tidak pernah kunci atau seed phrase. Penyedia melihatnya bersama alamat IP-mu. Dicek paling sering setiap 10 menit.</string>
+    <string name="portfolio_address_remove">Hapus alamat</string>
+    <string name="portfolio_address_show_only">Hanya tampilkan, jangan tambahkan ke portofolio</string>
+    <string name="portfolio_address_show_only_short">Hanya tampilkan</string>
+    <string name="portfolio_address_tokens">Hitung token</string>
+    <string name="portfolio_address_unknown_tokens">+%1$d token tak dikenal (tidak dihitung)</string>
+    <string name="portfolio_address_xpub_privacy">xpub mengungkap semua alamat dompet ini. Alamat diturunkan di perangkatmu; hanya alamat satu per satu yang dikirim ke %1$s – minimal 40 permintaan pada pemindaian pertama, setelahnya lebih sedikit. Kunci privat (xprv) tidak pernah diterima.</string>
+    <string name="portfolio_address_xpub_used">Alamat terpakai: %1$d</string>
+    <string name="portfolio_addresses_title">Alamat</string>
+
+    <!-- Prüfung einer eingegebenen Adresse -->
+    <string name="address_bch_unsupported">Alamat Bitcoin Cash tidak dapat dipantau: tidak ada layanan publik gratis tanpa kunci API yang ketentuannya mengizinkan.</string>
+    <string name="address_bep2_shutdown">BNB Beacon Chain (BEP-2) dihentikan pada 2024 – saldo kini ada di BNB Smart Chain (0x…)</string>
+    <string name="address_checksum">Checksum salah – ada salah ketik?</string>
+    <string name="address_doge_unsupported">Alamat Dogecoin tidak dapat dipantau: tidak ada layanan publik gratis tanpa kunci API yang ketentuannya mengizinkan.</string>
+    <string name="address_duplicate">Alamat ini sudah ditambahkan</string>
+    <string name="address_ens">Nama ENS tidak didukung – masukkan alamat 0x</string>
+    <string name="address_invalid">Bukan alamat valid dari jaringan yang didukung</string>
+    <string name="address_limit">Maksimal 20 alamat</string>
+    <string name="address_secret">Ini tampak seperti kunci privat atau seed phrase – jangan pernah memasukkannya di mana pun. Hanya alamat publik.</string>
+    <string name="address_testnet">Alamat Testnet tidak didukung</string>
+    <string name="address_unsupported">Jenis alamat ini tidak didukung</string>
+    <string name="address_wrong_chain">Alamat milik jaringan lain</string>
+    <string name="address_xpub_multisig">Kunci multisig (Ypub/Zpub) tidak didukung</string>
+</resources>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: CSV-Import -->
+    <string name="portfolio_csv_import_action">CSV importeren</string>
+    <string name="portfolio_csv_import_all_transfer">Alles naar eigen wallet</string>
+    <string name="portfolio_csv_import_all_withdrawal">Alles verlaat het portfolio</string>
+    <string name="portfolio_csv_import_choice_proposed">Voorstel: past bij %1$s</string>
+    <string name="portfolio_csv_import_choice_transfer">Naar eigen wallet (overboeking)</string>
+    <string name="portfolio_csv_import_choice_withdrawal">Verlaat het portfolio (opname)</string>
+    <string name="portfolio_csv_import_choose_each">Kies per opname waar die naartoe ging.</string>
+    <string name="portfolio_csv_import_columns">Herkende kolommen: %1$s</string>
+    <string name="portfolio_csv_import_confirm">Importeren (%1$d)</string>
+    <string name="portfolio_csv_import_date_day_first">Dag/Maand</string>
+    <string name="portfolio_csv_import_date_month_first">Maand/Dag</string>
+    <string name="portfolio_csv_import_date_order">Dubbelzinnige datums (bijv. 03/04/2024) lezen als:</string>
+    <string name="portfolio_csv_import_decimal">Dubbelzinnige getallen (bijv. %1$s) lezen als:</string>
+    <plurals name="portfolio_csv_import_done">
+        <item quantity="one">%d transactie geïmporteerd</item>
+        <item quantity="other">%d transacties geïmporteerd</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_duplicates">
+        <item quantity="one">%d al geïmporteerd (overgeslagen)</item>
+        <item quantity="other">%d al geïmporteerd (overgeslagen)</item>
+    </plurals>
+    <string name="portfolio_csv_import_format">Formaat: %1$s</string>
+    <string name="portfolio_csv_import_line">Regel %1$d: %2$s</string>
+    <string name="portfolio_csv_import_loading">Bestand en dagkoersen worden gelezen…</string>
+    <string name="portfolio_csv_import_missing_fx">Geen dagkoers voor regel %1$s – zonder prijs of kosten overgenomen.</string>
+    <string name="portfolio_csv_import_missing_price">Geen prijs in het bestand voor regel %1$s – zonder prijs overgenomen.</string>
+    <string name="portfolio_csv_import_more">+ nog %1$d</string>
+    <plurals name="portfolio_csv_import_new">
+        <item quantity="one">%d nieuwe transactie</item>
+        <item quantity="other">%d nieuwe transacties</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_skipped">
+        <item quantity="one">%d regel overgeslagen</item>
+        <item quantity="other">%d regels overgeslagen</item>
+    </plurals>
+    <string name="portfolio_csv_import_stable_swaps">Aan- en verkopen tegen stablecoins (USDT, USDC …) worden als ruil geboekt – de stablecoin verschijnt in je bezit.</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">Meerdere overeenkomsten mogelijk – kies de juiste of geen.</string>
+    <string name="portfolio_csv_import_transfer_fee">Netwerkkosten: %1$s</string>
+    <string name="portfolio_csv_import_transfer_link">Als één overboeking boeken</string>
+    <string name="portfolio_csv_import_transfer_stored">Tegenhanger uit een eerdere import</string>
+    <string name="portfolio_csv_import_transfers_hint">Een opname en de bijbehorende storting van dezelfde coin worden één overboeking: aankoopprijs en bezitsduur blijven behouden, het verschil telt als netwerkkosten.</string>
+    <string name="portfolio_csv_import_transfers_title">Overboekingen tussen je rekeningen</string>
+    <string name="portfolio_csv_import_unreadable">Geen ondersteunde transacties gevonden. Ondersteund: CSV-exports van Relai, Swissquote, Kraken, Binance, Coinbase en Bitpanda.</string>
+    <string name="portfolio_csv_import_withdrawals_title">Opnames – waar zijn de munten naartoe?</string>
+    <string name="portfolio_csv_import_zone">Tijden zonder tijdzone gelezen als: %1$s</string>
+    <string name="portfolio_csv_import_zone_device">Apparaat (%1$s)</string>
+    <string name="portfolio_csv_skip_bad_date">onleesbare datum</string>
+    <string name="portfolio_csv_skip_bad_number">onleesbaar getal</string>
+    <string name="portfolio_csv_skip_fee_exceeds">kosten ≥ ontvangen hoeveelheid</string>
+    <string name="portfolio_csv_skip_internal_move">verplaatsing tussen je eigen rekeningen – niets te boeken</string>
+    <string name="portfolio_csv_skip_missing">veld ontbreekt</string>
+    <string name="portfolio_csv_skip_not_crypto">geen crypto</string>
+    <string name="portfolio_csv_skip_possible_duplicate">mogelijk al geïmporteerd (bijna dezelfde transactie) – handmatig controleren</string>
+    <string name="portfolio_csv_skip_two_fees">twee kosten in verschillende eenheden – ruil handmatig invoeren</string>
+    <string name="portfolio_csv_skip_unsupported">niet-ondersteund type</string>
+
+    <!-- Portfolio: Importe ansehen und rückgängig machen -->
+    <string name="portfolio_import_undo">Ongedaan maken</string>
+    <plurals name="portfolio_import_undo_confirm">
+        <item quantity="one">De %d transactie van deze import verwijderen? Handmatige invoer en andere imports blijven.</item>
+        <item quantity="other">De %d transacties van deze import verwijderen? Handmatige invoer en andere imports blijven.</item>
+    </plurals>
+    <string name="portfolio_import_undo_title">Import ongedaan maken?</string>
+    <plurals name="portfolio_import_undone">
+        <item quantity="one">%d geïmporteerde transactie verwijderd</item>
+        <item quantity="other">%d geïmporteerde transacties verwijderd</item>
+    </plurals>
+    <plurals name="portfolio_imports_count">
+        <item quantity="one">%d transactie</item>
+        <item quantity="other">%d transacties</item>
+    </plurals>
+    <string name="portfolio_imports_empty">Geen imports</string>
+    <string name="portfolio_imports_title">Imports</string>
+</resources>

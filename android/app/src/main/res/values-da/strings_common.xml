@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">Tilbage</string>
+    <string name="action_cancel">Annuller</string>
+    <string name="action_clear">Ryd</string>
+    <string name="action_close">Luk</string>
+    <string name="action_delete">Slet</string>
+    <string name="action_edit">Rediger</string>
+    <string name="action_more">Flere muligheder</string>
+    <string name="action_refresh">Opdater</string>
+    <string name="action_retry">Prøv igen</string>
+    <string name="action_save">Gem</string>
+    <string name="action_sort">Sortér</string>
+    <string name="action_sort_done">Færdig</string>
+    <string name="action_undo">Fortryd</string>
+    <string name="action_view">Vis</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">Marked</string>
+    <string name="tab_portfolio">Portefølje</string>
+    <string name="tab_settings">Indstillinger</string>
+    <string name="tab_watchlist">Liste</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">Fejl: %1$s</string>
+    <string name="error_market_unreachable">Børsen kan ikke nås lige nu – de seneste kurser bliver stående.</string>
+    <string name="error_market_unreachable_short">Børsen kan ikke nås lige nu</string>
+    <string name="loading_hint">Indlæser…</string>
+    <string name="no_internet_connection">Ingen internetforbindelse</string>
+    <string name="option_off">Fra</string>
+    <string name="something_went_wrong">Noget gik galt</string>
+    <string name="time_just_now">lige nu</string>
+    <string name="timeout_error_message">Børsen svarer ikke lige nu.</string>
+    <string name="try_again">Prøv igen</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">Ingen forbindelse</string>
+    <string name="offline_status_since">Ingen forbindelse · pr. %1$s</string>
+    <string name="status_live">Live</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">Tilføj par</string>
+    <string name="shortcut_alarms">Alle alarmer</string>
+    <string name="shortcut_cycle">Marked</string>
+</resources>

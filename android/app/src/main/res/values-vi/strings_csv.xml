@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: CSV-Import -->
+    <string name="portfolio_csv_import_action">Nhập CSV</string>
+    <string name="portfolio_csv_import_all_transfer">Tất cả vào ví của mình</string>
+    <string name="portfolio_csv_import_all_withdrawal">Tất cả rời danh mục</string>
+    <string name="portfolio_csv_import_choice_proposed">Gợi ý: khớp với %1$s</string>
+    <string name="portfolio_csv_import_choice_transfer">Vào ví của mình (chuyển)</string>
+    <string name="portfolio_csv_import_choice_withdrawal">Rời danh mục (rút)</string>
+    <string name="portfolio_csv_import_choose_each">Chọn cho từng lệnh rút nơi nó đã đến.</string>
+    <string name="portfolio_csv_import_columns">Các cột được nhận diện: %1$s</string>
+    <string name="portfolio_csv_import_confirm">Nhập (%1$d)</string>
+    <string name="portfolio_csv_import_date_day_first">Ngày/Tháng</string>
+    <string name="portfolio_csv_import_date_month_first">Tháng/Ngày</string>
+    <string name="portfolio_csv_import_date_order">Ngày không rõ ràng (vd. 03/04/2024) được đọc là:</string>
+    <string name="portfolio_csv_import_decimal">Số không rõ ràng (vd. %1$s) được đọc là:</string>
+    <plurals name="portfolio_csv_import_done">
+        <item quantity="other">Đã nhập %d giao dịch</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_duplicates">
+        <item quantity="other">%d đã nhập trước đó (bỏ qua)</item>
+    </plurals>
+    <string name="portfolio_csv_import_format">Định dạng: %1$s</string>
+    <string name="portfolio_csv_import_line">Dòng %1$d: %2$s</string>
+    <string name="portfolio_csv_import_loading">Đang đọc tệp và tỷ giá theo ngày…</string>
+    <string name="portfolio_csv_import_missing_fx">Không có tỷ giá ngày cho dòng %1$s – đã nhập không kèm giá/phí.</string>
+    <string name="portfolio_csv_import_missing_price">Tệp không có giá cho dòng %1$s – đã nhập không kèm giá.</string>
+    <string name="portfolio_csv_import_more">+ %1$d mục khác</string>
+    <plurals name="portfolio_csv_import_new">
+        <item quantity="other">%d giao dịch mới</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_skipped">
+        <item quantity="other">Đã bỏ qua %d dòng</item>
+    </plurals>
+    <string name="portfolio_csv_import_stable_swaps">Mua và bán lấy stablecoin (USDT, USDC …) được ghi nhận là hoán đổi – stablecoin sẽ xuất hiện trong số lượng nắm giữ của bạn.</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">Có thể khớp nhiều bản ghi – hãy chọn bản ghi đúng hoặc không chọn.</string>
+    <string name="portfolio_csv_import_transfer_fee">Phí mạng: %1$s</string>
+    <string name="portfolio_csv_import_transfer_link">Ghi thành một lần chuyển</string>
+    <string name="portfolio_csv_import_transfer_stored">Bản ghi đối ứng từ lần nhập trước</string>
+    <string name="portfolio_csv_import_transfers_hint">Một lần rút và lần nạp tương ứng của cùng một coin trở thành một lần chuyển: giá mua và thời gian nắm giữ được giữ nguyên, phần chênh lệch được tính là phí mạng.</string>
+    <string name="portfolio_csv_import_transfers_title">Chuyển giữa các tài khoản của bạn</string>
+    <string name="portfolio_csv_import_unreadable">Không tìm thấy giao dịch được hỗ trợ. Hỗ trợ: tệp CSV xuất từ Relai, Swissquote, Kraken, Binance, Coinbase và Bitpanda.</string>
+    <string name="portfolio_csv_import_withdrawals_title">Lệnh rút – coin đã đi đâu?</string>
+    <string name="portfolio_csv_import_zone">Thời gian không có múi giờ được đọc theo: %1$s</string>
+    <string name="portfolio_csv_import_zone_device">Thiết bị (%1$s)</string>
+    <string name="portfolio_csv_skip_bad_date">ngày không đọc được</string>
+    <string name="portfolio_csv_skip_bad_number">số không đọc được</string>
+    <string name="portfolio_csv_skip_fee_exceeds">phí ≥ số lượng nhận về</string>
+    <string name="portfolio_csv_skip_internal_move">di chuyển giữa các tài khoản của chính bạn – không có gì để ghi</string>
+    <string name="portfolio_csv_skip_missing">thiếu trường</string>
+    <string name="portfolio_csv_skip_not_crypto">không phải tiền mã hóa</string>
+    <string name="portfolio_csv_skip_possible_duplicate">có thể đã nhập (giao dịch gần giống hệt) – hãy kiểm tra thủ công</string>
+    <string name="portfolio_csv_skip_two_fees">hai khoản phí khác đơn vị – nhập giao dịch hoán đổi thủ công</string>
+    <string name="portfolio_csv_skip_unsupported">loại không được hỗ trợ</string>
+
+    <!-- Portfolio: Importe ansehen und rückgängig machen -->
+    <string name="portfolio_import_undo">Hoàn tác</string>
+    <plurals name="portfolio_import_undo_confirm">
+        <item quantity="other">Xóa %d giao dịch của lần nhập này? Mục nhập thủ công và các lần nhập khác vẫn giữ nguyên.</item>
+    </plurals>
+    <string name="portfolio_import_undo_title">Hoàn tác lần nhập?</string>
+    <plurals name="portfolio_import_undone">
+        <item quantity="other">Đã xóa %d giao dịch đã nhập</item>
+    </plurals>
+    <plurals name="portfolio_imports_count">
+        <item quantity="other">%d giao dịch</item>
+    </plurals>
+    <string name="portfolio_imports_empty">Chưa có lần nhập nào</string>
+    <string name="portfolio_imports_title">Các lần nhập</string>
+</resources>

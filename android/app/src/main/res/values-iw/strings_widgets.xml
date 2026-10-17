@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
+    <string name="widget_background">רקע</string>
+    <string name="widget_configure_hint">בחרו רקע ושקיפות. הצבע תואם לאפליקציה. הווידג׳ט מציג את כל הרשימה; הקישו על שורה כדי לפתוח את האפליקציה.</string>
+    <string name="widget_configure_title">הגדרת ווידג׳ט</string>
+    <string name="widget_description">מציג את המחיר של צמד מרשימת המעקב שלך.</string>
+    <string name="widget_empty">אין עדיין צמדים ברשימת המעקב.</string>
+    <string name="widget_group_hint">הצג רק את הצמדים של קבוצה זו.</string>
+    <string name="widget_kind_single">מטבע אחד</string>
+    <string name="widget_opacity">אטימות הרקע: %1$d%%</string>
+    <string name="widget_pulse_description">מה בולט כרגע בשוק: כותרת, סיכום קצר וגם Bitcoin, Ethereum ו־Solana.</string>
+
+    <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->
+    <!-- Allein, wenn für «outdated · 06:42» der Platz fehlt (Kopfzeile Listen-Widget) -->
+    <string name="widget_outdated">לא עדכני</string>
+    <!-- Statt der Uhrzeit: «outdated · 06:42» (heute) bzw. «outdated · 5 Oct, 06:42» -->
+    <string name="widget_outdated_time">לא עדכני · %1$s</string>
+
+    <!-- Widgets: Chart und Zeitraum -->
+    <string name="widget_chart_candles">נרות</string>
+    <string name="widget_chart_line">קו</string>
+    <string name="widget_chart_range">טווח הגרף</string>
+    <string name="widget_chart_type">סוג תרשים</string>
+    <!-- «1 Jahr» im Chart des Aktionsblatts (365 Tageskerzen; Chip neben 24h · 7T · 30T) -->
+    <string name="widget_range_1y">שנה</string>
+    <string name="widget_range_24h">24h</string>
+    <string name="widget_range_30d">30 יום</string>
+    <string name="widget_range_7d">7 ימים</string>
+    <string name="widget_range_short_1y">שנה</string>
+    <string name="widget_range_short_24h">24h</string>
+    <string name="widget_range_short_30d">30י׳</string>
+    <string name="widget_range_short_7d">7י׳</string>
+
+    <!-- Portfolio-Widget -->
+    <!-- Fusszeile, %1$s Uhrzeit ohne Sekunden («Stand 15:19») -->
+    <string name="widget_portfolio_as_of">נכון ל-%1$s</string>
+    <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
+    <string name="widget_portfolio_chart_pending">ההיסטוריה תגיע בקרוב</string>
+    <string name="widget_portfolio_description">השווי הכולל של תיק ההשקעות שלכם והשינוי היום</string>
+    <string name="widget_portfolio_display">תצוגה</string>
+    <string name="widget_portfolio_display_conversion">המרה בלבד</string>
+    <string name="widget_portfolio_display_conversion_usdt">המרה + USDT</string>
+    <string name="widget_portfolio_display_hint">שורת USDT מוסתרת כשמטבע ההמרה הוא USD.</string>
+    <string name="widget_portfolio_display_usdt">USDT בלבד</string>
+    <string name="widget_portfolio_empty">הוסיפו רכישות בלשונית תיק השקעות</string>
+    <string name="widget_portfolio_list_hint">יש לפתוח את האפליקציה כדי להציג כאן את הפוזיציות.</string>
+    <string name="widget_portfolio_locked_hint">נעול – יש לבטל נעילה באפליקציה</string>
+    <!-- Offene Coins ohne Kurs zählen im Gesamtwert als 0 -->
+    <plurals name="widget_portfolio_missing_coins">
+        <item quantity="one">בלי מטבע אחד (%1$d)</item>
+        <item quantity="two">בלי %1$d מטבעות</item>
+        <item quantity="other">בלי %1$d מטבעות</item>
+    </plurals>
+    <plurals name="widget_portfolio_more">
+        <item quantity="one">+ עוד %1$d</item>
+        <item quantity="two">+ עוד %1$d</item>
+        <item quantity="other">+ עוד %1$d</item>
+    </plurals>
+    <string name="widget_portfolio_name">תיק השקעות</string>
+    <string name="widget_portfolio_off_hint">הפעלה ב-%1$s.</string>
+    <string name="widget_portfolio_off_short">התיק כבוי</string>
+    <string name="widget_portfolio_off_title">התיק כבוי</string>
+    <string name="widget_portfolio_partly_stale">מחיר ישן בחלקו</string>
+    <string name="widget_portfolio_period">תקופה</string>
+    <string name="widget_portfolio_period_without">%1$s ללא %2$s</string>
+    <string name="widget_portfolio_range_48h">48h</string>
+    <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
+    <string name="widget_portfolio_range_fallback">%1$s: פתחו את תיק השקעות</string>
+    <string name="widget_portfolio_range_short_48h">48h</string>
+    <string name="widget_portfolio_today_without">היום ללא %1$s</string>
+    <string name="widget_portfolio_view">תצוגה</string>
+    <string name="widget_portfolio_view_chart">תרשים</string>
+    <string name="widget_portfolio_view_list">רשימה</string>
+    <string name="widget_portfolio_view_overview">סקירה</string>
+
+    <!-- Einzel-Widget -->
+    <string name="single_widget_choose">בחירת צמד</string>
+    <string name="single_widget_description">מציג מטבע אחד בגדול עם מחיר, שינוי וגרף 24 שעות.</string>
+    <string name="single_widget_label">Crypto Checker – מטבע אחד</string>
+    <string name="single_widget_title">הגדרת ווידג׳ט מטבע יחיד</string>
+
+    <!-- Widgets aus der App hinzufügen -->
+    <string name="widgets_add">הוסף</string>
+    <!-- Screenreader: Knopf «Add» mit dem Namen des Widgets -->
+    <string name="widgets_add_named">הוסף ווידג׳ט %1$s</string>
+    <string name="widgets_manual_text">מסך הבית שלכם לא יכול להוסיף ווידג׳טים מתוך האפליקציה. לחצו לחיצה ארוכה על מקום ריק במסך הבית, בחרו ״ווידג׳טים״ וחפשו ״Crypto Checker״.</string>
+    <!-- Startbildschirm (Launcher) kann keine Widgets aus der App annehmen -->
+    <string name="widgets_manual_title">הוסיפו את הווידג׳ט בעצמכם</string>
+    <string name="widgets_sheet_title">הוספת ווידג׳ט</string>
+
+    <!-- Nur iOS: Widget selbst hinzufügen (drei Schritte) -->
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">ב־iOS אפליקציות לא יכולות להוסיף ווידג׳טים בעצמן. זה לוקח רק רגע:</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">ווידג׳טים זמינים</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">לחצו לחיצה ארוכה על מקום ריק במסך הבית עד שהאפליקציות מתחילות לרעוד.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">הקישו למעלה על ״עריכה״ › ״הוספת וידג׳ט״ (או על ״+״ בגרסאות iOS ישנות יותר).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">חפשו ״Crypto Checker״, בחרו ווידג׳ט והקישו על ״הוספת וידג׳ט״.</string>
+</resources>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Screenreader: Zeile eines Paars, Frische, Erreichbarkeit -->
+    <string name="a11y_alarm_count">alertes : %1$d</string>
+    <!-- Alarm des Paars eben ausgelöst (bis 15 Min. danach im Zeilensatz) -->
+    <string name="a11y_alarm_fired">Alarme déclenchée</string>
+    <string name="a11y_collapsed">Réduit</string>
+    <string name="a11y_converted">environ %1$s</string>
+    <string name="a11y_expanded">Développé</string>
+    <!-- Vorgelesen bei Zeilen, die eine Website öffnen (Datenschutz, Börse wünschen, Quellcode) -->
+    <string name="a11y_external_link">s’ouvre dans le navigateur</string>
+    <string name="a11y_favorite">Favori</string>
+    <string name="a11y_in_watchlist">Déjà dans la liste de suivi</string>
+    <!-- %1$s Börse, letzte Abfrage gescheitert -->
+    <string name="a11y_market_unreachable">%1$s injoignable</string>
+    <string name="a11y_move_down">Descendre</string>
+    <string name="a11y_move_up">Monter</string>
+    <string name="a11y_note">note : %1$s</string>
+    <string name="a11y_price">prix %1$s</string>
+    <string name="a11y_price_notification_off">Notification de cours désactivée</string>
+    <string name="a11y_price_notification_on">Notification de cours activée</string>
+    <!-- Frische einer Zeile, Teile mit «, » verbunden: «Kurs veraltet, zuletzt aktualisiert vor 45 Minuten» (A11ySpeech.freshnessText) -->
+    <string name="a11y_price_outdated">Cours obsolète</string>
+    <!-- Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%1$s sur %2$s</string>
+    <string name="a11y_stale">obsolète, dernière mise à jour %1$s</string>
+    <string name="a11y_warning">Avertissement</string>
+
+    <!-- Screenreader: Veränderung (Prozent-Pille, Widgets) -->
+    <!-- %1$s Satz aus a11y_change_up/down/flat: Veränderung über 24 Stunden (Prozent-Pille, Widgets) -->
+    <string name="a11y_change_24h">%1$s en 24 heures</string>
+    <!-- Wenn die Pille «—» zeigt (keine Kerzen für das Paar) -->
+    <string name="a11y_change_24h_none">Variation sur 24 heures non disponible</string>
+    <string name="a11y_change_down">en baisse de %1$s</string>
+    <string name="a11y_change_flat">inchangé</string>
+    <string name="a11y_change_since_last">%1$s depuis la dernière mise à jour</string>
+    <string name="a11y_change_since_last_none">Variation depuis la dernière mise à jour non disponible</string>
+    <!-- %1$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_change_today">%1$s aujourd’hui</string>
+    <string name="a11y_change_today_none">Variation du jour non disponible</string>
+    <string name="a11y_change_today_zone">%1$s depuis minuit %2$s</string>
+    <string name="a11y_change_today_zone_none">Variation depuis minuit %1$s non disponible</string>
+    <string name="a11y_change_up">en hausse de %1$s</string>
+
+    <!-- Screenreader: Charts und Skalen -->
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">Graphique %1$s : de %2$s à %3$s, %4$s. Haut %5$s, bas %6$s.</string>
+    <string name="a11y_chart_empty">Graphique : aucune donnée</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">Cycle %1$s : %2$s depuis le halving, jour %3$d.</string>
+    <string name="a11y_cycle_bottom">Creux %1$s au jour %2$d.</string>
+    <string name="a11y_cycle_double_bottom">Double creux %1$s au jour %2$d.</string>
+    <string name="a11y_cycle_double_top">Double sommet %1$s au jour %2$d.</string>
+    <string name="a11y_cycle_top">Sommet %1$s au jour %2$d.</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">Échelle de %1$s à %2$s : %3$d sur 100</string>
+
+    <!-- Screenreader: Puls-Zeile der Merkliste -->
+    <string name="a11y_watchlist_pulse">%1$s, %2$s, en moyenne %3$s</string>
+    <string name="a11y_watchlist_pulse_combined">%1$s. %2$s</string>
+    <plurals name="a11y_watchlist_pulse_falling">
+        <item quantity="one">%1$d en baisse</item>
+        <item quantity="many">%1$d en baisse</item>
+        <item quantity="other">%1$d en baisse</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing">
+        <item quantity="one">%1$d paire sans valeur sur 24 heures</item>
+        <item quantity="many">%1$d paires sans valeur sur 24 heures</item>
+        <item quantity="other">%1$d paires sans valeur sur 24 heures</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="one">%1$d paire sans valeur pour aujourd’hui</item>
+        <item quantity="many">%1$d paires sans valeur pour aujourd’hui</item>
+        <item quantity="other">%1$d paires sans valeur pour aujourd’hui</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_rising">
+        <item quantity="one">%1$d paire en hausse</item>
+        <item quantity="many">%1$d paires en hausse</item>
+        <item quantity="other">%1$d paires en hausse</item>
+    </plurals>
+
+    <!-- Screenreader: zuletzt aktualisiert -->
+    <plurals name="a11y_updated_days">
+        <item quantity="one">dernière mise à jour il y a %1$d jour</item>
+        <item quantity="many">dernière mise à jour il y a %1$d jours</item>
+        <item quantity="other">dernière mise à jour il y a %1$d jours</item>
+    </plurals>
+    <plurals name="a11y_updated_hours">
+        <item quantity="one">dernière mise à jour il y a %1$d heure</item>
+        <item quantity="many">dernière mise à jour il y a %1$d heures</item>
+        <item quantity="other">dernière mise à jour il y a %1$d heures</item>
+    </plurals>
+    <string name="a11y_updated_just_now">dernière mise à jour à l\'instant</string>
+    <plurals name="a11y_updated_minutes">
+        <item quantity="one">dernière mise à jour il y a %1$d minute</item>
+        <item quantity="many">dernière mise à jour il y a %1$d minutes</item>
+        <item quantity="other">dernière mise à jour il y a %1$d minutes</item>
+    </plurals>
+
+    <!-- Screenreader: Portfolio und Portfolio-Widget -->
+    <string name="a11y_amount_hidden">montant masqué</string>
+    <!-- %1$s Kürzel, %2$s Wert mit Währung, %3$s Anteil «62.3%», %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_portfolio_position">%1$s %2$s, %3$s du portefeuille</string>
+    <!-- Position im Portfolio-Widget: %1$s Kürzel, %2$s Anteil «62.3%», %3$s Satz aus a11y_change_24h -->
+    <string name="a11y_portfolio_position_24h">%1$s, %2$s du portefeuille, %3$s</string>
+    <string name="a11y_portfolio_positions">Plus grandes positions : %1$s</string>
+    <string name="a11y_portfolio_show_amounts">Afficher les montants</string>
+</resources>

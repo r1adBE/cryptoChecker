@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Begrüssung beim ersten Start -->
+    <string name="welcome_alert">Оповещать – цена, процент, объём и необычные движения</string>
+    <string name="welcome_alert_q">Когда сообщить?</string>
+    <string name="welcome_text">Ваши курсы. Ваши оповещения. Ваш обзор.\nБез аккаунта. Без рекламы. Без отслеживания.</string>
+    <string name="welcome_understand">Понимать – что движется вместе с курсом прямо сейчас</string>
+    <string name="welcome_understand_q">Что движется вместе?</string>
+    <string name="welcome_watch">Следить – ваши монеты, курсы и их динамика</string>
+    <string name="welcome_watch_q">Что происходит?</string>
+
+    <!-- Start-Coins (Vorschlagsliste nach der Begrüssung) -->
+    <string name="starter_add_selected">Добавить в список (%1$d)</string>
+    <string name="starter_loading_prices">Загрузка цен…</string>
+    <string name="starter_search_coin">Найти другую монету</string>
+    <string name="starter_select_all">Выбрать все</string>
+    <string name="starter_select_none">Снять выбор</string>
+    <string name="starter_text">Снимите отметку с ненужных и добавьте остальные за один раз. Биржу и пару можно изменить позже.</string>
+    <string name="starter_title">Начните с этих монет</string>
+    <string name="starter_watch_alarm_hint">Следите за курсом, задайте оповещение</string>
+</resources>

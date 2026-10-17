@@ -1,0 +1,192 @@
+{
+  "exchange": "Gemini",
+  "description": "Hand-written in the documented response format (no live capture possible in the build environment); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS).",
+  "endpoints": {
+    "single": "GET https://api.gemini.com/v1/pubticker/btcusd",
+    "bulk": "GET https://api.gemini.com/v1/pricefeed",
+    "pairs": "GET https://api.gemini.com/v1/symbols",
+    "pairDetails": "GET https://api.gemini.com/v1/symbols/details/{symbol} (only for symbols the list cannot split)"
+  },
+  "cases": [
+    {
+      "kind": "single",
+      "name": "pubticker btcusd (volume object keyed by currency)",
+      "market": "Gemini",
+      "pair": {
+        "base": "BTC",
+        "quote": "USD",
+        "id": "btcusd",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"bid\":\"62000.00\",\"ask\":\"62000.10\",\"volume\":{\"BTC\":\"1234.5678\",\"USD\":\"76543210.12\",\"timestamp\":1728540000000},\"last\":\"62000.05\"}",
+      "expect": {
+        "last": 62000.05,
+        "bid": 62000.0,
+        "ask": 62000.1,
+        "vol": 1234.5678,
+        "volQuote": 76543210.12,
+        "high": -1.0,
+        "low": -1.0,
+        "change24hPercent": null,
+        "exchangeTime": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "error payload",
+      "market": "Gemini",
+      "pair": {
+        "base": "FOO",
+        "quote": "USD",
+        "id": "foousd",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"result\":\"error\",\"reason\":\"InvalidSymbol\",\"message\":\"Supplied value 'foousd' is not a valid symbol\"}",
+      "expect": {
+        "error": true,
+        "message": "Supplied value 'foousd' is not a valid symbol"
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "pricefeed: only price; percentChange24h ignored (unit unclear); null price skipped, not reported as unreadable",
+      "market": "Gemini",
+      "requestId": 0,
+      "body": "[{\"pair\":\"BTCUSD\",\"price\":\"62000.05\",\"percentChange24h\":\"0.0146\"},{\"pair\":\"ETHUSD\",\"price\":\"2450.12\",\"percentChange24h\":\"-0.0050\"},{\"pair\":\"NEWUSD\",\"price\":null,\"percentChange24h\":\"0\"}]",
+      "expect": {
+        "count": 2,
+        "absent": [
+          "newusd"
+        ],
+        "tickers": {
+          "btcusd": {
+            "last": 62000.05,
+            "change24hPercent": null,
+            "bid": -1.0,
+            "exchangeTime": null
+          },
+          "ethusd": {
+            "last": 2450.12,
+            "exchangeTime": null
+          }
+        }
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk: renamed field «price» in one row — that pair is reported as unreadable, the rest stays; row with null «price» (inactive) is skipped, not failed",
+      "market": "Gemini",
+      "requestId": 0,
+      "body": "[{\"pair\":\"BTCUSD\",\"price\":\"62000.05\",\"percentChange24h\":\"0.0146\"},{\"pair\":\"ETHUSD\",\"price\":\"2450.12\",\"percentChange24h\":\"-0.0050\"},{\"pair\":\"SOLUSD\",\"percentChange24h\":\"0.0146\",\"price_renamed\":\"62000.05\"},{\"pair\":\"OLDUSD\",\"price\":null,\"percentChange24h\":\"0.0146\"}]",
+      "expect": {
+        "count": 2,
+        "absent": [
+          "solusd",
+          "oldusd"
+        ],
+        "failed": [
+          "solusd"
+        ],
+        "tickers": {
+          "btcusd": {
+            "last": 62000.05
+          }
+        }
+      }
+    },
+    {
+      "kind": "pairs",
+      "name": "symbols: suffix split; symbols with more than one matching quote ending (btcgusd: BTC/GUSD or BTCG/USD, mogusd: MOG/USD or MO/GUSD, xrprlusd) are never split from the list — not even when exactly one base is known from an unambiguous symbol — but fetched as follow-up pages from /v1/symbols/details",
+      "market": "Gemini",
+      "requestId": 0,
+      "note": "/v1/symbols lists only concatenated lowercase names; base/quote exist only per symbol (/v1/symbols/details/{symbol}: base_currency, quote_currency — field names as in ccxt gemini.py, commit 9a42b3f), no bulk endpoint. Perpetuals (…perp) and unknown quotes are skipped.",
+      "body": "[\"btcusd\",\"ethusd\",\"aaveusd\",\"xrpusd\",\"btcgusd\",\"ethgusd\",\"aavegusd\",\"mogusd\",\"xrprlusd\",\"rlusdusd\",\"usdcusd\",\"ethbtc\",\"dogeusd\",\"btcperp\",\"abcgusd\",\"foobar\"]",
+      "expect": {
+        "count": 8,
+        "absent": [
+          "btcperp",
+          "foobar",
+          "btcgusd",
+          "ethgusd",
+          "aavegusd",
+          "mogusd",
+          "xrprlusd",
+          "abcgusd"
+        ],
+        "pairs": {
+          "btcusd": {
+            "base": "BTC",
+            "quote": "USD"
+          },
+          "rlusdusd": {
+            "base": "RLUSD",
+            "quote": "USD"
+          },
+          "usdcusd": {
+            "base": "USDC",
+            "quote": "USD"
+          },
+          "ethbtc": {
+            "base": "ETH",
+            "quote": "BTC"
+          },
+          "dogeusd": {
+            "base": "DOGE",
+            "quote": "USD"
+          }
+        },
+        "nextPage": "https://api.gemini.com/v1/symbols/details/btcgusd"
+      }
+    },
+    {
+      "kind": "pairs",
+      "name": "symbols/details btcgusd: BTC/GUSD from base_currency/quote_currency (a known base BTC is no proof)",
+      "market": "Gemini",
+      "requestId": 0,
+      "body": "{\"symbol\":\"BTCGUSD\",\"base_currency\":\"BTC\",\"quote_currency\":\"GUSD\",\"tick_size\":1e-08,\"quote_increment\":0.01,\"min_order_size\":\"0.00001\",\"status\":\"open\",\"wrap_enabled\":false}",
+      "expect": {
+        "count": 1,
+        "pairs": {
+          "btcgusd": {
+            "base": "BTC",
+            "quote": "GUSD"
+          }
+        }
+      }
+    },
+    {
+      "kind": "pairs",
+      "name": "symbols/details mogusd: base_currency/quote_currency decide (no guess)",
+      "market": "Gemini",
+      "requestId": 0,
+      "body": "{\"symbol\":\"MOGUSD\",\"base_currency\":\"MOG\",\"quote_currency\":\"USD\",\"tick_size\":1e-08,\"quote_increment\":1e-09,\"min_order_size\":\"1000\",\"status\":\"open\",\"wrap_enabled\":false}",
+      "expect": {
+        "count": 1,
+        "pairs": {
+          "mogusd": {
+            "base": "MOG",
+            "quote": "USD"
+          }
+        }
+      }
+    },
+    {
+      "kind": "pairs",
+      "name": "symbols/details abcgusd: ABC/GUSD (the list split would have said ABCG/USD)",
+      "market": "Gemini",
+      "requestId": 0,
+      "body": "{\"symbol\":\"ABCGUSD\",\"base_currency\":\"ABC\",\"quote_currency\":\"GUSD\",\"tick_size\":1e-06,\"quote_increment\":0.0001,\"min_order_size\":\"0.1\",\"status\":\"open\",\"wrap_enabled\":false}",
+      "expect": {
+        "count": 1,
+        "pairs": {
+          "abcgusd": {
+            "base": "ABC",
+            "quote": "GUSD"
+          }
+        }
+      }
+    }
+  ]
+}

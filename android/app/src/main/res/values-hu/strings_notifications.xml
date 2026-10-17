@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Texte der Mitteilungen -->
+    <string name="notification_activity_title">%1$s · %2$s</string>
+    <string name="notification_alarm_text">%1$s — most %2$s</string>
+    <string name="notification_alarm_title">Riasztás: %1$s · %2$s</string>
+    <string name="notification_depeg_action_exchange">Tőzsde megnyitása</string>
+    <string name="notification_depeg_text">Az alkalmazás értékei továbbra is USDT = 1 alapon számolnak.</string>
+    <string name="notification_depeg_title">USDT: %1$s USD (%2$s)</string>
+    <string name="notification_fng_above">Az index %1$d fölé emelkedett – az index szerint a piacon kapzsiság uralkodik.</string>
+    <string name="notification_fng_below">Az index %1$d alá esett – az index szerint a piacon félelem uralkodik.</string>
+    <string name="notification_fng_title">Fear &amp; Greed: %1$d</string>
+    <string name="notification_gas_btc_text">A beállított határ alatt (%1$s sat/vB) · Átutalás ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Bitcoin díj: %1$s sat/vB</string>
+    <string name="notification_gas_eth_text">A beállított határ alatt (%1$s gwei) · Átutalás ≈ %2$s</string>
+    <string name="notification_gas_eth_title">Ethereum gas: %1$s gwei</string>
+    <string name="notification_indicator_above">A határod fölött: %1$s – mért érték, nem ajánlás.</string>
+    <string name="notification_indicator_below">A határod alatt: %1$s – mért érték, nem ajánlás.</string>
+    <string name="notification_indicator_title">%1$s: %2$s</string>
+    <string name="notification_macro_title">Ma gazdasági adatok jönnek</string>
+    <string name="notification_portfolio_alarm_locked">A riasztásod megszólalt – nyisd meg az appot a részletekért.</string>
+    <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
+    <string name="notification_portfolio_alarm_text">%1$s – most %2$s</string>
+    <string name="notification_portfolio_alarm_title">Portfólióérték</string>
+    <string name="notification_price_change">%1$s, korábban %2$s (%3$s ezelőtt)</string>
+    <string name="notification_price_change_no_age">%1$s, korábban %2$s</string>
+    <string name="notification_price_first">Első értesítés ehhez a párhoz</string>
+    <plurals name="notification_price_overflow_title">
+        <item quantity="one">+%1$d további árfolyam</item>
+        <item quantity="other">+%1$d további árfolyam</item>
+    </plurals>
+    <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
+    <string name="notification_refreshing">Árak frissítése…</string>
+    <string name="notification_volume_spike_text">Forgalom a szokásos %1$s×-e az utolsó órában</string>
+
+    <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
+    <string name="channel_alarms">Riasztások</string>
+    <string name="channel_alarms_description">Értesítés, ha egy árriasztás kiold.</string>
+    <string name="channel_alarms_quiet">Riasztások (csendes órák)</string>
+    <string name="channel_alarms_quiet_description">Néma riasztások a csendes órákban.</string>
+    <string name="channel_alarms_silent">Riasztások (néma)</string>
+    <string name="channel_alarms_sound">Riasztások (csak hang)</string>
+    <string name="channel_alarms_sound_vibrate">Riasztások (hang és rezgés)</string>
+    <string name="channel_alarms_vibrate">Riasztások (csak rezgés)</string>
+    <string name="channel_prices">Árértesítések</string>
+    <string name="channel_prices_description">Néma értesítés egy pár aktuális árával.</string>
+    <string name="channel_service">Árfolyam-frissítés</string>
+    <string name="channel_service_description">Jelzés, amíg az árak frissülnek.</string>
+    <string name="neutral_channel_market">Piaci értesítések</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed, gas-díjak, szokatlan aktivitás és gazdasági időpontok</string>
+
+    <!-- Sprachausgabe -->
+    <string name="tts_alarm">Riasztás. %1$s, %2$s %3$s %4$s, most %5$s</string>
+    <string name="tts_direction_down">esett</string>
+    <string name="tts_direction_funding_above">magas fundinggal</string>
+    <string name="tts_direction_funding_below">alacsony fundinggal</string>
+    <string name="tts_direction_move">erősen mozog</string>
+    <string name="tts_direction_near_high">a csúcs közelében</string>
+    <string name="tts_direction_near_low">a mélypont közelében</string>
+    <string name="tts_direction_oi_down">csökkenő nyitott pozíciókkal</string>
+    <string name="tts_direction_oi_up">növekvő nyitott pozíciókkal</string>
+    <string name="tts_direction_up">emelkedett</string>
+    <string name="tts_direction_volume_spike">forgalmi kiugrással</string>
+    <string name="tts_price">%1$s, %2$s %3$s, %4$s</string>
+</resources>

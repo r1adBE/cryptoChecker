@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Neutrale Indikatoren: Titel, Hinweise, Halving -->
+    <string name="neutral_alt_title">ऑल्टकॉइन बनाम बिटकॉइन</string>
+    <string name="neutral_btc_indicators_title">बिटकॉइन संकेतक</string>
+    <string name="neutral_halving_last">पिछला हॉल्विंग: %1$s</string>
+    <string name="neutral_halving_next">अगला हॉल्विंग लगभग %1$s अपेक्षित (कैलेंडर से अनुमान – ब्लॉक ऊँचाई अभी उपलब्ध नहीं)।</string>
+    <string name="neutral_indicators_disclaimer">केवल मापे गए मान, बिना आकलन के। यह कोई पूर्वानुमान या निवेश सलाह नहीं है।</string>
+    <string name="neutral_onchain_missing">ऑन-चेन डेटा (Coin Metrics) अभी उपलब्ध नहीं है।</string>
+
+    <!-- Neutrale Indikatoren: was der Wert misst -->
+    <string name="neutral_explain_ath_distance">कीमत पिछले सर्वकालिक उच्च से कितनी नीचे है।</string>
+    <string name="neutral_explain_change_30d">आज की कीमत 30 दिन पहले की तुलना में।</string>
+    <string name="neutral_explain_hashrate">30-दिन का औसत हैशरेट 60-दिन के औसत की तुलना में।</string>
+    <string name="neutral_explain_ma200w">पिछले 200 साप्ताहिक बंद भावों का औसत।</string>
+    <string name="neutral_explain_mayer">कीमत को 200-दिन के औसत से भाग दिया गया।</string>
+    <string name="neutral_explain_mvrv">बाज़ार मूल्य को रियलाइज़्ड मूल्य से भाग दिया गया (ऑन-चेन)।</string>
+    <string name="neutral_explain_pi_gap">111-दिन का औसत, 350-दिन के औसत के दोगुने की तुलना में।</string>
+    <string name="neutral_explain_puell">माइनरों की दैनिक आय को उसके 365-दिन के औसत से भाग दिया गया।</string>
+    <string name="neutral_explain_rsi_daily">पिछले 14 दिनों का रिलेटिव स्ट्रेंथ इंडेक्स, 0–100।</string>
+    <string name="neutral_explain_rsi_weekly">पिछले 14 सप्ताह का रिलेटिव स्ट्रेंथ इंडेक्स, 0–100।</string>
+    <string name="neutral_explain_sma50_200">50-दिन का औसत 200-दिन के औसत की तुलना में।</string>
+    <string name="neutral_explain_vs_btc">90 दिनों में बिटकॉइन की तुलना में कीमत में बदलाव।</string>
+
+    <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
+    <string name="neutral_info_alt_season_how">ऐप केवल गिनती दिखाता है और इसे \"सीज़न\" नहीं कहता। यह मान आमतौर पर घंटों में नहीं, दिनों में बदलता है।</string>
+    <string name="neutral_info_btc_how">हर मान के साथ एक वाक्य है कि वह क्या मापता है और 2016 से अपने इतिहास में कहाँ है। ऐप मानों का मूल्यांकन नहीं करता और बाज़ार चरण नहीं निकालता; सूचना की सीमाएँ वही हैं जो आप तय करते हैं। पिछले पैटर्न दोहराएँ, ज़रूरी नहीं।</string>
+    <string name="neutral_info_btc_what">आम बिटकॉइन संकेतक केवल मापे गए मान के रूप में: Mayer Multiple, 200-सप्ताह औसत, सर्वकालिक उच्च से गिरावट, 30 दिन में बदलाव, Pi Cycle अंतर और ऑन-चेन मान MVRV, Puell Multiple व हैशरेट।</string>
+    <string name="neutral_info_coin_how">हर मान के साथ एक वाक्य है कि वह क्या मापता है, बिना आकलन के। छोटे मूल्य इतिहास वाले कॉइन में कुछ मान नहीं होते। यहाँ ऑन-चेन डेटा शामिल नहीं है।</string>
+    <string name="neutral_info_coin_what">अपनी पसंद के कॉइन के लिए वही सरल संकेतक, केवल कीमत डेटा से: Mayer Multiple, 200-सप्ताह का औसत, उच्च से गिरावट, 30 दिन का बदलाव, 50/200 दिन का ट्रेंड, RSI और 90 दिनों में बिटकॉइन की तुलना में मज़बूती।</string>
+    <string name="neutral_info_halving_how">अगला हॉल्विंग मौजूदा ब्लॉक ऊँचाई और चालू डिफिकल्टी अवधि के औसत ब्लॉक समय से निकाला जाता है (mempool.space); ये डेटा न हों तो कैलेंडर से (पिछला हॉल्विंग + लगभग चार साल)। चार्ट पिछले चक्रों का भाव उनके हॉल्विंग से दिखाता है – इतिहास, पूर्वानुमान नहीं।</string>
+
+    <!-- Indikator-Namen -->
+    <string name="ind_cross">रुझान 50/200 दिन</string>
+    <string name="ind_drawdown">सर्वकालिक उच्च से गिरावट</string>
+    <string name="ind_missing">अपर्याप्त डेटा</string>
+    <string name="ind_rsi_daily">RSI (दैनिक)</string>
+    <string name="ind_rsi_weekly">RSI (साप्ताहिक)</string>
+    <string name="ind_vs_btc">बिटकॉइन के मुकाबले ताकत (90 दिन)</string>
+    <string name="neutral_ind_change_30d">30 दिन में बदलाव</string>
+    <string name="neutral_ind_hashrate">हैशरेट 30/60 दिन</string>
+    <string name="neutral_ind_ma200w">200-सप्ताह का औसत</string>
+    <string name="neutral_ind_pi_gap">Pi Cycle अंतर</string>
+
+    <!-- Indikatoren: «hoch heisst …, tief heisst …» -->
+    <string name="ind_read_alt_season">ऊँचा मतलब ज़्यादातर बड़े altcoin ने 90 दिनों में Bitcoin को पीछे छोड़ा, नीचा मतलब Bitcoin ने ज़्यादातर को।</string>
+    <string name="ind_read_ath_distance">कम मतलब क़ीमत रिकॉर्ड के पास है, ज़्यादा मतलब उससे काफ़ी नीचे।</string>
+    <string name="ind_read_change_30d">धनात्मक मतलब 30 दिन पहले से ऊपर, ऋणात्मक मतलब नीचे।</string>
+    <string name="ind_read_funding">ऊँचा मतलब कई लोग लीवरेज के साथ बढ़त पर दाँव लगा रहे हैं, ऋणात्मक मतलब कई गिरावट पर।</string>
+    <string name="ind_read_hashrate_30_60">धनात्मक मतलब कंप्यूटिंग शक्ति बढ़ रही है, ऋणात्मक मतलब माइनर बंद हो रहे हैं।</string>
+    <string name="ind_read_leverage">ज़्यादा लॉन्ग मतलब कई लोग उधार के पैसे से बढ़त पर दाँव लगा रहे हैं, ज़्यादा शॉर्ट मतलब गिरावट पर।</string>
+    <string name="ind_read_ma200w">क़ीमत इससे काफ़ी ऊपर मतलब लंबी तेज़ी, इसके पास मतलब गहरी गिरावट।</string>
+    <string name="ind_read_mayer">ऊँचा मतलब क़ीमत अपने 200-दिन के औसत से काफ़ी ऊपर है, नीचा मतलब उससे नीचे।</string>
+    <string name="ind_read_mvrv">ऊँचा मतलब क़ीमत धारकों की औसत ख़रीद क़ीमत से काफ़ी ऊपर है, नीचा मतलब उसके पास या नीचे।</string>
+    <string name="ind_read_pi_cycle_gap">शून्य के पास मतलब दोनों औसत लगभग मिल रहे हैं, काफ़ी ऋणात्मक मतलब वे दूर हैं।</string>
+    <string name="ind_read_puell">ऊँचा मतलब माइनर सामान्य से कहीं ज़्यादा कमा रहे हैं, नीचा मतलब कहीं कम।</string>
+    <string name="ind_read_rsi_daily">70 से ऊपर मतलब पिछले दिनों में तेज़ बढ़त, 30 से नीचे मतलब तेज़ गिरावट।</string>
+    <string name="ind_read_rsi_weekly">70 से ऊपर मतलब पिछले हफ़्तों में तेज़ बढ़त, 30 से नीचे मतलब तेज़ गिरावट।</string>
+    <string name="ind_read_sma50_vs_200">धनात्मक मतलब छोटा औसत लंबे औसत से ऊपर है, ऋणात्मक मतलब नीचे।</string>
+    <string name="ind_read_vs_btc">धनात्मक मतलब Bitcoin से बेहतर, ऋणात्मक मतलब कमज़ोर।</string>
+
+    <!-- Indikatoren: Einordnung in die Vergangenheit -->
+    <string name="ind_context_flat30">30 दिन तक यही भाव रहे तो: %1$s</string>
+    <string name="ind_context_note">पिछले मान और “यही भाव” वाली गणनाएँ गणित हैं, पूर्वानुमान नहीं।</string>
+    <string name="ind_context_percentile">%1$s से %2$s दिनों में कम</string>
+</resources>

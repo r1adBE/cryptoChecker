@@ -1,0 +1,119 @@
+{
+  "description": "Stichtag-Export (CutoffExport.kt / PortfolioCutoffExport.swift) exakt: holdings = exakte Mengen (Text), prices = Tagesschluss in USDT (Text), fxRate = USD→Ziel (Text, null = keiner), unchecked = ungeprüfte Coins. Wert = Menge × Kurs, Zielwert = Wert × Devisenkurs, je 34 gültige Stellen (halbe auf gerade); gerundet wird nur im Text (HALF_UP): Geld 2, Devisenkurs 6, Kurs 10 Nachkommastellen bzw. 10 gültige Stellen, Menge exakt (max. 18). expected = CSV-Zeilen ab der ersten Datenzeile bis Total (ohne Kommentar und Kopf), Texte: noPrice «kein Kurs», noFx «kein Devisenkurs», unchecked «ungeprüft», incomplete «unvollständig», total «Total». Mit Double wären u. a. ETH 0.075×3 (0.22 statt 0.23) und XRP+ZZZ falsch.",
+  "cases": [
+    {
+      "name": "exact products and sum",
+      "separator": ";",
+      "decimal": ".",
+      "holdings": [
+        [
+          "BTC",
+          "123456789.123456789"
+        ],
+        [
+          "ETH",
+          "0.075"
+        ],
+        [
+          "FOO",
+          "2"
+        ],
+        [
+          "SOL",
+          "0.000000000000000001"
+        ],
+        [
+          "USDT",
+          "0.3"
+        ],
+        [
+          "XRP",
+          "0.105"
+        ],
+        [
+          "ZZZ",
+          "0.105"
+        ]
+      ],
+      "prices": {
+        "BTC": "12345.6789",
+        "ETH": "3",
+        "SOL": "150.5",
+        "XRP": "1",
+        "ZZZ": "2"
+      },
+      "fxRate": "0.79123",
+      "unchecked": [],
+      "expected": [
+        "BTC;123456789.123456789;12345.6789;1524157876543.21;0.79123;1205959436657.28;",
+        "ETH;0.075;3;0.23;0.79123;0.18;",
+        "FOO;2;;;0.79123;;kein Kurs",
+        "SOL;0.000000000000000001;150.5;0.00;0.79123;0.00;",
+        "USDT;0.3;1;0.30;0.79123;0.24;",
+        "XRP;0.105;1;0.11;0.79123;0.08;",
+        "ZZZ;0.105;2;0.21;0.79123;0.17;",
+        "Total;;;1524157876544.05;0.79123;1205959436657.95;unvollständig"
+      ]
+    },
+    {
+      "name": "decimal comma, halfway after fx",
+      "separator": ";",
+      "decimal": ",",
+      "holdings": [
+        [
+          "ADA",
+          "0.145"
+        ],
+        [
+          "DOT",
+          "1000000000.000000001"
+        ],
+        [
+          "ETH",
+          "0.1"
+        ]
+      ],
+      "prices": {
+        "ADA": "3",
+        "DOT": "0.000000123456789",
+        "ETH": "0.2"
+      },
+      "fxRate": "1.1",
+      "unchecked": [
+        "ETH"
+      ],
+      "expected": [
+        "ADA;0,145;3;0,44;1,1;0,48;",
+        "DOT;1000000000,000000001;0,000000123456789;123,46;1,1;135,80;",
+        "ETH;0,1;;;1,1;;ungeprüft",
+        "Total;;;123,89;1,1;136,28;unvollständig"
+      ]
+    },
+    {
+      "name": "no fx, comma separator",
+      "separator": ",",
+      "decimal": ".",
+      "holdings": [
+        [
+          "BTC",
+          "0.30000000000000000"
+        ],
+        [
+          "PEPE",
+          "98765432109.87654321"
+        ]
+      ],
+      "prices": {
+        "BTC": "87654.321",
+        "PEPE": "0.00000000003"
+      },
+      "fxRate": null,
+      "unchecked": [],
+      "expected": [
+        "BTC,0.3,87654.321,26296.30,,,kein Devisenkurs",
+        "PEPE,98765432109.87654321,0.00000000003,2.96,,,kein Devisenkurs",
+        "Total,,,26299.26,,,kein Devisenkurs"
+      ]
+    }
+  ]
+}

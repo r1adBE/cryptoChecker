@@ -1,0 +1,38 @@
+// Erzeugt das Baseline Profile der App: startet sie, scrollt die Merkliste und öffnet ein
+// Aktionsblatt (BaselineProfileGenerator). Läuft nur auf einem Gerät/Emulator (API 28+):
+//   ./gradlew :app:generateBaselineProfile
+// Ergebnis: app/src/release/generated/baselineProfiles/ (einchecken). Siehe DEVELOPMENT.md.
+plugins {
+    id 'com.android.test'
+    id 'androidx.baselineprofile'
+}
+
+android {
+    namespace 'com.cryptochecker.baselineprofile'
+    compileSdk = compile_sdk_version
+
+    defaultConfig {
+        minSdk min_sdk_version
+        targetSdk target_sdk_version
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    targetProjectPath = ':app'
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+// Angeschlossenes Gerät bzw. laufender Emulator (keine verwalteten Geräte)
+baselineProfile {
+    useConnectedDevices = true
+}
+
+dependencies {
+    implementation "androidx.test:runner:$androidx_test_version"
+    implementation "androidx.test.ext:junit:$androidx_test_ext_junit_version"
+    implementation "androidx.test.uiautomator:uiautomator:$uiautomator_version"
+    implementation "androidx.benchmark:benchmark-macro-junit4:$benchmark_version"
+}

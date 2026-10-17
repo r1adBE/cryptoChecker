@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Sicherung exportieren und wiederherstellen -->
+    <string name="backup_export">تصدير</string>
+    <string name="backup_exported">تم حفظ النسخة الاحتياطية.</string>
+    <string name="backup_failed">لم ينجح ذلك. هل هذه نسخة احتياطية من Crypto Checker؟</string>
+    <string name="backup_hint">يحفظ القائمة مع الملاحظات والمجموعات، والتنبيهات والمفضلة والمحفظة والإعدادات في ملف تحتفظ به بنفسك – مثلًا لهاتف جديد.</string>
+    <string name="backup_import">استيراد</string>
+    <string name="backup_title">نسخ احتياطي واستعادة</string>
+    <string name="backup_too_large">الملف كبير جدًا أو ليس نسخة احتياطية صالحة (الحد 16 ميغابايت).</string>
+
+    <!-- Passwort der Sicherungsdatei -->
+    <string name="backup_password">كلمة المرور</string>
+    <string name="backup_password_continue">متابعة</string>
+    <string name="backup_password_hide">إخفاء كلمة المرور</string>
+    <!-- %1$d = Mindestlänge des Passworts (8) -->
+    <string name="backup_password_min">%1$d أحرف على الأقل</string>
+    <string name="backup_password_mismatch">كلمتا المرور غير متطابقتين</string>
+    <string name="backup_password_prompt">أدخل كلمة مرور هذه النسخة الاحتياطية.</string>
+    <string name="backup_password_repeat">تكرار كلمة المرور</string>
+    <string name="backup_password_show">إظهار كلمة المرور</string>
+    <string name="backup_password_title">نسخة احتياطية محمية بكلمة مرور</string>
+    <string name="backup_password_too_weak">سهل التخمين جدًا – ليست أرقامًا فقط، ولا حرفًا واحدًا مكررًا، ولا تسلسلًا شائعًا مثل «12345678» أو «password».</string>
+    <string name="backup_password_warning">بدون كلمة المرور لا يمكن استعادة النسخة الاحتياطية.</string>
+    <string name="backup_password_wrong">كلمة مرور خاطئة أو أن الملف تالف. حاول مرة أخرى.</string>
+    <string name="backup_protect">الحماية بكلمة مرور</string>
+    <string name="backup_protect_hint">يشفّر الملف (AES-256). يُنصح به إذا كان يحتوي على بيانات المحفظة.</string>
+
+    <!-- Sicherung ohne Passwort, Wiederherstellen -->
+    <string name="backup_plain_confirm">الحفظ بدون كلمة مرور</string>
+    <string name="backup_plain_confirm_text">الملف غير مشفر. يمكن لأي شخص يحصل عليه قراءة:</string>
+    <string name="backup_plain_confirm_title">الحفظ بدون كلمة مرور؟</string>
+    <string name="backup_plain_contents_addresses">عناوين wallet المحفوظة</string>
+    <string name="backup_plain_contents_base">قائمة المتابعة مع الملاحظات والمجموعات، التنبيهات، المفضلة والإعدادات</string>
+    <string name="backup_plain_contents_portfolio">المحفظة: المعاملات بالكميات والأسعار</string>
+    <string name="backup_restore_app_lock_kept">يبقى قفل المحفظة مفعّلًا – لا يمكن لنسخة غير مشفرة إيقافه.</string>
+    <string name="backup_restore_confirm">الاستيراد يستبدل قائمتك (مع الملاحظات والمجموعات) وتنبيهاتك ومفضلتك ومحفظتك وإعداداتك بالنسخة الاحتياطية.</string>
+    <plurals name="backup_restore_invalid">
+        <item quantity="zero">%d إدخالات في النسخة (المحفظة أو التنبيهات) غير صالحة ولن تُستورد.</item>
+        <item quantity="one">%d إدخال في النسخة (المحفظة أو تنبيه) غير صالح ولن يُستورد.</item>
+        <item quantity="two">%d إدخالات في النسخة (المحفظة أو التنبيهات) غير صالحة ولن تُستورد.</item>
+        <item quantity="few">%d إدخالات في النسخة (المحفظة أو التنبيهات) غير صالحة ولن تُستورد.</item>
+        <item quantity="many">%d إدخالات في النسخة (المحفظة أو التنبيهات) غير صالحة ولن تُستورد.</item>
+        <item quantity="other">%d إدخالات في النسخة (المحفظة أو التنبيهات) غير صالحة ولن تُستورد.</item>
+    </plurals>
+    <string name="backup_restore_newer_version">هذه النسخة من إصدار أحدث من التطبيق – حدّث التطبيق أولًا. لم يُستورد شيء.</string>
+    <string name="backup_restore_unencrypted_warning">هذه النسخة غير مشفرة – تأكد أنها منك. ستُطبَّق الإعدادات؛ ويبقى قفل المحفظة المفعّل مفعّلًا.</string>
+    <string name="backup_restored">تمت الاستعادة: %1$s، %2$s.</string>
+    <plurals name="backup_restored_alarms">
+        <item quantity="zero">%1$d تنبيه</item>
+        <item quantity="one">%1$d تنبيه</item>
+        <item quantity="two">%1$d تنبيه</item>
+        <item quantity="few">%1$d تنبيهات</item>
+        <item quantity="many">%1$d تنبيهًا</item>
+        <item quantity="other">%1$d تنبيه</item>
+    </plurals>
+    <plurals name="backup_restored_pairs">
+        <item quantity="zero">%1$d زوج</item>
+        <item quantity="one">%1$d زوج</item>
+        <item quantity="two">%1$d زوج</item>
+        <item quantity="few">%1$d أزواج</item>
+        <item quantity="many">%1$d زوجًا</item>
+        <item quantity="other">%1$d زوج</item>
+    </plurals>
+
+    <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
+    <string name="storage_recovery_message">لم يعد هذا الجهاز يملك مفتاح البيانات المشفّرة للتطبيق، لذلك بدأ فارغًا. لم يُحذف شيء. لاستعادة قائمتك ومحفظتك، استورد ملف نسخة احتياطية من الإعدادات ضمن «%1$s».</string>
+    <string name="storage_recovery_title">تعذّر فتح البيانات المحفوظة</string>
+</resources>

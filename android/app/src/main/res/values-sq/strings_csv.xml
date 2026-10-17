@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: CSV-Import -->
+    <string name="portfolio_csv_import_action">Importo CSV</string>
+    <string name="portfolio_csv_import_all_transfer">Të gjitha në wallet-in tim</string>
+    <string name="portfolio_csv_import_all_withdrawal">Të gjitha dalin nga portofoli</string>
+    <string name="portfolio_csv_import_choice_proposed">Sugjerim: përputhet me %1$s</string>
+    <string name="portfolio_csv_import_choice_transfer">Në wallet-in tim (transferim)</string>
+    <string name="portfolio_csv_import_choice_withdrawal">Del nga portofoli (tërheqje)</string>
+    <string name="portfolio_csv_import_choose_each">Zgjidh për çdo tërheqje ku shkoi.</string>
+    <string name="portfolio_csv_import_columns">Kolonat e njohura: %1$s</string>
+    <string name="portfolio_csv_import_confirm">Importo (%1$d)</string>
+    <string name="portfolio_csv_import_date_day_first">Dita/Muaji</string>
+    <string name="portfolio_csv_import_date_month_first">Muaji/Dita</string>
+    <string name="portfolio_csv_import_date_order">Data të paqarta (p.sh. 03/04/2024) lexohen si:</string>
+    <string name="portfolio_csv_import_decimal">Numra të paqartë (p.sh. %1$s) lexohen si:</string>
+    <plurals name="portfolio_csv_import_done">
+        <item quantity="one">%d transaksion u importua</item>
+        <item quantity="other">%d transaksione u importuan</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_duplicates">
+        <item quantity="one">%d e importuar tashmë (u anashkalua)</item>
+        <item quantity="other">%d të importuara tashmë (u anashkaluan)</item>
+    </plurals>
+    <string name="portfolio_csv_import_format">Formati: %1$s</string>
+    <string name="portfolio_csv_import_line">Rreshti %1$d: %2$s</string>
+    <string name="portfolio_csv_import_loading">Po lexohen skedari dhe kurset ditore…</string>
+    <string name="portfolio_csv_import_missing_fx">Asnjë kurs ditor për rreshtin %1$s – u importua pa çmim e tarifë.</string>
+    <string name="portfolio_csv_import_missing_price">Asnjë çmim në skedar për rreshtin %1$s – u importua pa çmim.</string>
+    <string name="portfolio_csv_import_more">+ %1$d të tjera</string>
+    <plurals name="portfolio_csv_import_new">
+        <item quantity="one">%d transaksion i ri</item>
+        <item quantity="other">%d transaksione të reja</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_skipped">
+        <item quantity="one">%d rresht u anashkalua</item>
+        <item quantity="other">%d rreshta u anashkaluan</item>
+    </plurals>
+    <string name="portfolio_csv_import_stable_swaps">Blerjet dhe shitjet kundrejt stablecoin-ëve (USDT, USDC …) regjistrohen si shkëmbime – stablecoin-i shfaqet në zotërimin tënd.</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">Disa përputhje të mundshme – zgjidh të saktën ose asnjë.</string>
+    <string name="portfolio_csv_import_transfer_fee">Tarifë rrjeti: %1$s</string>
+    <string name="portfolio_csv_import_transfer_link">Regjistroje si një transferim</string>
+    <string name="portfolio_csv_import_transfer_stored">Pala tjetër nga një import i mëparshëm</string>
+    <string name="portfolio_csv_import_transfers_hint">Një tërheqje dhe depozita përkatëse e të njëjtit coin bëhen një transferim i vetëm: çmimi i blerjes dhe periudha e mbajtjes ruhen, diferenca llogaritet si tarifë rrjeti.</string>
+    <string name="portfolio_csv_import_transfers_title">Transferime ndërmjet llogarive të tua</string>
+    <string name="portfolio_csv_import_unreadable">Nuk u gjetën transaksione të mbështetura. Mbështeten: eksportet CSV nga Relai, Swissquote, Kraken, Binance, Coinbase dhe Bitpanda.</string>
+    <string name="portfolio_csv_import_withdrawals_title">Tërheqjet – ku shkuan monedhat?</string>
+    <string name="portfolio_csv_import_zone">Orët pa zonë kohore lexohen si: %1$s</string>
+    <string name="portfolio_csv_import_zone_device">Pajisja (%1$s)</string>
+    <string name="portfolio_csv_skip_bad_date">datë e palexueshme</string>
+    <string name="portfolio_csv_skip_bad_number">numër i palexueshëm</string>
+    <string name="portfolio_csv_skip_fee_exceeds">tarifa ≥ sasia e marrë</string>
+    <string name="portfolio_csv_skip_internal_move">zhvendosje ndërmjet llogarive të tua – asgjë për të regjistruar</string>
+    <string name="portfolio_csv_skip_missing">mungon fusha</string>
+    <string name="portfolio_csv_skip_not_crypto">jo kripto</string>
+    <string name="portfolio_csv_skip_possible_duplicate">ndoshta i importuar tashmë (pothuajse i njëjti tregtim) – kontrolloje me dorë</string>
+    <string name="portfolio_csv_skip_two_fees">dy tarifa në njësi të ndryshme – fute shkëmbimin me dorë</string>
+    <string name="portfolio_csv_skip_unsupported">lloj i pambështetur</string>
+
+    <!-- Portfolio: Importe ansehen und rückgängig machen -->
+    <string name="portfolio_import_undo">Zhbëj</string>
+    <plurals name="portfolio_import_undo_confirm">
+        <item quantity="one">Të fshihet %d transaksion i këtij importi? Regjistrimet manuale dhe importet e tjera mbeten.</item>
+        <item quantity="other">Të fshihen %d transaksionet e këtij importi? Regjistrimet manuale dhe importet e tjera mbeten.</item>
+    </plurals>
+    <string name="portfolio_import_undo_title">Të zhbëhet importimi?</string>
+    <plurals name="portfolio_import_undone">
+        <item quantity="one">U hoq %d transaksion i importuar</item>
+        <item quantity="other">U hoqën %d transaksione të importuara</item>
+    </plurals>
+    <plurals name="portfolio_imports_count">
+        <item quantity="one">%d transaksion</item>
+        <item quantity="other">%d transaksione</item>
+    </plurals>
+    <string name="portfolio_imports_empty">Asnjë import</string>
+    <string name="portfolio_imports_title">Importet</string>
+</resources>

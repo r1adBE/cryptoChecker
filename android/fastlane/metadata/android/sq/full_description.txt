@@ -1,0 +1,42 @@
+Një alarm kur Bitcoin arrin çmimin tënd – nga bursa që përdor vërtet. Çmimi i bursës sate, jo një mesatare – falas, pa llogari.
+
+ÇFARË E BËN TË NDRYSHME
+• Bursa jote, jo një mesatare: çdo rresht tregon çmimin e fundit të çiftit në bursën që ke zgjedhur – Binance, Coinbase, Kraken, OKX, Bybit dhe shumë të tjera.
+• Një alarm që njofton një herë: «Më njofto kur BTC të kalojë mbi 100 000 USDT.» Bie kur niveli kapërcehet, jo në çdo përditësim – «Një herë» pastaj e çaktivizon, «Çdo herë» e riaktivizon kur çmimi kthehet.
+• «Çfarë lëviz bashkë?»: një listë faktorësh për një monedhë – tregu i përgjithshëm, vëllimi, luhatshmëria, funding dhe open interest, largësia nga maksimumi ose minimumi, Fear & Greed. Tregon çfarë lëviz në të njëjtën kohë – jo shkak, jo lajm, jo këshillë investimi.
+• Pa llogari, pa reklama, pa gjurmim. Zhvilluesi nuk merr asnjë nga të dhënat e tua.
+
+TË SINQERTË PËR TË DHËNAT
+• «Kursyes» është parazgjedhja: çmimet rifreskohen kur hap aplikacionin dhe me intervale në sfond. «Live sa është e hapur» shton çmime live për Binance, Bybit, OKX, Coinbase dhe Kraken sa kohë lista është e hapur.
+• Ndryshimi në % dhe grafikët vijnë së pari nga bursa e vetë çiftit; nëse ajo nuk ka qirinj, aplikacioni përdor Binance ose Coinbase dhe të njofton.
+• Fear & Greed, dominanca dhe vlerat on-chain nga alternative.me, CoinGecko dhe Coin Metrics.
+• Me aplikacionin të mbyllur, Android vendos kur kontrollohen alarmet – rreth çdo 15 minuta, shpesh më rrallë. Kërcime të shkurtra në mes mund të humbasin; aplikacioni ta thotë këtë.
+• Shumat mbeten në pajisje, përveç nëse i eksporton vetë (CSV, kopje rezervë). Për çmimet, vetëm simbolet e çiftit shkojnë te bursa e atij çifti; përveç kësaj kurset e këmbimit (Frankfurter), të dhënat e tregut dhe logot (CoinGecko, Binance), pasqyrat e të dhënave (GitHub). Nëse ndjek adresa ose një xpub, nyjet publike blockchain shohin adresat (te xpub ato të derivuara) dhe IP-në tënde.
+
+LISTA E NDJEKJES
+• 41 tregje në 32 bursa: spot dhe futures, tokenë DEX përmes DexScreener, sipas dëshirës aksione, ar dhe valuta (TradFi)
+• Rreshti i dytë «≈ vlera» në një nga 31 monedha (EUR, CHF, USD …), e konvertuar me kursin e këmbimit
+• Mini-grafik dhe ndryshim në % për 24 orë ose që nga 00:00 në zonën tënde kohore
+• Grupe, të preferuara, renditje me tërheqje dhe një shënim për çdo monedhë
+• Rreshtat tregojnë «i vjetëruar» ose «bursa nuk arrihet»
+
+ALARMET
+• Çmim mbi ose nën një nivel, ose rritje apo rënie me një përqindje – edhe në monedhën tënde, p.sh. 60 000 EUR në një çift USDT
+• Lëvizje prej x % brenda një dritareje kohe, kërcim vëllimi
+• Tingull (edhe skedar audio i yti), dridhje dhe njoftim me zë sipas dëshirës
+• Orët e heshtjes dhe «Testo alarmin»: dëgjo paraprakisht si vjen një alarm
+
+TREGU
+• Aktivitet i pazakontë: lëvizje të pazakonta çmimi dhe vëllimi në listën tënde, sipas dëshirës me njoftim
+• Crypto Pulse, Fear & Greed, tregues të Bitcoin, funding dhe open interest – si vlera të matura
+• Tarifat e rrjetit për Ethereum, Bitcoin e të tjera, me alarm gas
+
+GJITHASHTU
+• Widget-e: lista, vlera totale e portofolit, një monedhë me grafik
+• Portofoli sipas dëshirës (aktivizohet te Cilësimet): blerje, shitje, shkëmbime, transferime, shpërblime, depozita dhe tërheqje; FIFO (parazgjedhje) ose mesatare (Ø); adresa vetëm për lexim, pa seed, për BTC (edhe xpub), ETH dhe zinxhirë EVM, SOL, TRX, XRP, LTC dhe TON; import CSV nga Relai, Swissquote dhe Kraken; përmbledhje vjetore në CSV; kyçje e veçantë
+• E lexueshme për të gjithë: jeshile/kuqe ose blu/portokalli, shenjë dhe shigjetë në vend të vetëm ngjyrës; TalkBack lexon çdo rresht si një fjali
+• Kopje rezervë dhe rikthim në një skedar – edhe mes Android dhe iPhone
+• Modalitet i çelët dhe i errët, pesë ngjyra theksi, 31 gjuhë
+• Burim i hapur (MIT) – kodi është publik në GitHub
+
+Shënim: Crypto Checker shfaq çmime dhe një portofol investimesh që e fut vetë. Nuk është bursë as portofol, nuk tregton dhe nuk jep këshilla investimi.

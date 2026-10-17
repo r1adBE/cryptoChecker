@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="explorer_coin_back">כל התוצאות</string>
+    <plurals name="explorer_coin_exchanges">
+        <item quantity="one">%1$d בורסה</item>
+        <item quantity="two">%1$d בורסות</item>
+        <item quantity="other">%1$d בורסות</item>
+    </plurals>
+    <string name="explorer_coin_no_pairs">אין צמד למטבע הזה ברשימות שנטענו.</string>
+    <string name="explorer_coin_not_loaded">רשימות הצמדים עוד לא נטענו</string>
+    <string name="explorer_coin_other_pairs">צמדים נוספים</string>
+    <string name="explorer_coin_show_pairs">הצגת צמדים</string>
+    <string name="explorer_coin_suggested">הצעה</string>
+    <string name="explorer_coins_title">מטבעות</string>
+    <string name="explorer_lists_load">טעינת רשימות</string>
+    <string name="explorer_lists_loading">טוען רשימות צמדים… %1$d/%2$d</string>
+    <plurals name="explorer_lists_missing">
+        <item quantity="one">רשימת הצמדים של %1$d בורסה עוד לא נמצאת במכשיר.</item>
+        <item quantity="two">רשימות הצמדים של %1$d בורסות עוד לא נמצאות במכשיר.</item>
+        <item quantity="other">רשימות הצמדים של %1$d בורסות עוד לא נמצאות במכשיר.</item>
+    </plurals>
+    <string name="explorer_lists_privacy">טוען את הרשימה הציבורית המלאה של כל בורסה – זהה לכולם. החיפוש שלכם נשאר במכשיר.</string>
+    <!-- Paar hinzufügen: Suche über alle Börsen, zuletzt gesucht -->
+    <string name="explorer_recent_a11y">חיפוש אחרון: %1$s</string>
+    <string name="explorer_recent_clear">ניקוי</string>
+    <string name="explorer_recent_clear_a11y">ניקוי החיפושים האחרונים</string>
+    <string name="explorer_recent_title">חיפושים אחרונים</string>
+    <string name="explorer_search_choose_manually">בחירה ידנית של בורסה וצמד</string>
+    <string name="explorer_search_empty">אין תוצאות.</string>
+    <string name="explorer_search_hint">חיפוש מטבע, צמד או בורסה</string>
+    <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
+    <string name="explorer_search_intro">הקלידו שם או סימול של מטבע, למשל Bitcoin או BTC – ואז בחרו צמד.</string>
+
+    <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
+    <string name="explorer_add_to_watchlist">הוסף לרשימת המעקב</string>
+    <string name="explorer_added_to_watchlist">נוסף לרשימת המעקב.</string>
+    <string name="explorer_already_in_watchlist">הצמד הזה כבר ברשימת המעקב.</string>
+    <string name="explorer_exchange_missing">חסרה בורסה?</string>
+    <string name="explorer_loading_pairs">טוען צמדי מסחר…</string>
+    <string name="explorer_no_pair_selected">בחרו קודם צמד.</string>
+    <string name="explorer_no_pairs_yet">עדיין לא נטענו צמדים לבורסה הזו.</string>
+    <plurals name="explorer_pairs_status">
+        <item quantity="one">%1$d צמד · עודכן %2$s</item>
+        <item quantity="two">%1$d צמדים · עודכן %2$s</item>
+        <item quantity="other">%1$d צמדים · עודכן %2$s</item>
+    </plurals>
+    <string name="explorer_pairs_title">צמדים</string>
+    <string name="explorer_precise_title">מתקדם / לפי בורסה</string>
+    <string name="explorer_price_loading">טוען מחיר…</string>
+    <string name="explorer_select_market_hint">בחרו בורסה – הצמדים שלה ייטענו אוטומטית.</string>
+    <string name="explorer_select_placeholder">נא לבחור</string>
+    <string name="explorer_step_pair">בחירת צמד</string>
+
+    <!-- Paar hinzufügen: Schnellfilter der Liste «Alle …-Paare» -->
+    <string name="explorer_filter_gainers">עולים</string>
+    <string name="explorer_filter_losers">יורדים</string>
+    <string name="explorer_filter_volume">מחזור</string>
+
+    <!-- Paar hinzufügen: mehrere Paare auf einmal -->
+    <string name="bulk_all_pairs">כל צמדי %1$s בבורסה זו</string>
+    <plurals name="bulk_all_pairs_applied">
+        <item quantity="one">נמצא צמד %2$s אחד (%1$d)</item>
+        <item quantity="two">נמצאו %1$d צמדי %2$s</item>
+        <item quantity="other">נמצאו %1$d צמדי %2$s</item>
+    </plurals>
+    <string name="bulk_all_pairs_empty">אין צמדי %1$s בבורסה זו עבור סוג החוזה שנבחר. סנכרנו קודם את הבורסה או נסו סוג חוזה אחר.</string>
+    <plurals name="explorer_add_all_pairs">
+        <item quantity="one">הוסף את הצמד (%1$d) לרשימת המעקב</item>
+        <item quantity="two">הוסף את שני הצמדים (%1$d) לרשימת המעקב</item>
+        <item quantity="other">הוסף את כל %1$d הצמדים לרשימת המעקב</item>
+    </plurals>
+    <plurals name="explorer_bulk_added">
+        <item quantity="one">נוסף %1$d, %2$d כבר ברשימת המעקב.</item>
+        <item quantity="two">נוספו %1$d, %2$d כבר ברשימת המעקב.</item>
+        <item quantity="other">נוספו %1$d, %2$d כבר ברשימת המעקב.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_text">
+        <item quantity="one">%1$d צמד %2$s מ-%3$s יתווסף לרשימה, אם הוא עדיין לא קיים בה.</item>
+        <item quantity="two">כל %1$d צמדי %2$s מ-%3$s יתווספו לרשימה. צמדים שכבר קיימים ידולגו.</item>
+        <item quantity="other">כל %1$d צמדי %2$s מ-%3$s יתווספו לרשימה. צמדים שכבר קיימים ידולגו.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_title">
+        <item quantity="one">להוסיף %1$d צמד?</item>
+        <item quantity="two">להוסיף %1$d צמדים?</item>
+        <item quantity="other">להוסיף %1$d צמדים?</item>
+    </plurals>
+    <string name="explorer_bulk_hide_list">הסתרת רשימה</string>
+    <string name="explorer_bulk_show_list">הצגת רשימה</string>
+    <string name="explorer_bulk_tap_hint">הקישו על צמד כדי לבחור אותו למעלה.</string>
+    <string name="explorer_bulk_title">כמה צמדים בבת אחת</string>
+
+    <!-- Handelspaare einer Börse laden und wählen -->
+    <string name="explorer_sync_sheet_text">טוען את הצמדים הנוכחיים של הבורסה שנבחרה.</string>
+    <string name="explorer_no_pair_list">אין צמדי מטבעות</string>
+    <string name="explorer_sync_sheet_last">סנכרון אחרון: %1$s</string>
+    <string name="explorer_sync_never">אף פעם</string>
+    <string name="explorer_sync_sheet_action">סנכרן עכשיו!</string>
+    <string name="explorer_sync_sheet_title">עדכון צמדי מטבעות</string>
+    <string name="explorer_field_coin">בסיס</string>
+    <string name="explorer_field_contract">סוג חוזה</string>
+    <string name="explorer_field_exchange">שוק</string>
+    <string name="explorer_field_quote">מטבע ציטוט</string>
+    <string name="explorer_contract_spot">ספוט</string>
+    <string name="explorer_reload_pairs">סנכרון</string>
+    <string name="sync_pairs_count">צמדי מסחר: %1$d</string>
+
+    <!-- Token von dezentralen Börsen (DEX) -->
+    <string name="dex_add">הוסף</string>
+    <string name="dex_added">%1$s נוסף לרשימת המעקב.</string>
+    <string name="dex_already">%1$s כבר ברשימת המעקב.</string>
+    <string name="dex_intro">טוקנים מחוץ לבורסות הגדולות, מבורסות מבוזרות (Uniswap, PancakeSwap, Raydium …) דרך DexScreener. חפשו טוקן והוסיפו אחד ממאגרי המסחר שלו – מחירים בדולר אמריקאי.</string>
+    <string name="dex_liquidity">נזילות %1$s</string>
+    <string name="dex_no_results">לא נמצאו פולים.</string>
+    <string name="dex_search">חיפוש</string>
+    <string name="dex_search_hint">שם טוקן, סימול או כתובת</string>
+
+    <!-- Art des Assets (Token, Alpha-Token, TradFi) -->
+    <string name="asset_kind_alpha">טוקן Alpha</string>
+    <string name="asset_kind_token">טוקן</string>
+    <string name="asset_kind_tradfi">TradFi</string>
+</resources>

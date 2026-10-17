@@ -1,0 +1,472 @@
+package com.cryptochecker.app.settings
+
+/** Momentaufnahme aller Einstellungen. */
+data class AppSettings(
+    /**
+     * «Wie aktuell?»: Sparsam oder Live, solange offen (Standard) ([UpdateMode]). Ersetzt
+     * die früheren Schalter «backgroundUpdates», «liveService» und «liveWebSocket»; die
+     * Hintergrund-Aktualisierung (WorkManager) läuft in jeder Wahl.
+     */
+    val updateMode: UpdateMode = UpdateMode.DEFAULT,
+
+    /** Intervall der Hintergrund-Aktualisierung in Minuten (mindestens 15). */
+    val backgroundIntervalMinutes: Int = 15,
+
+    /**
+     * «Pünktlich prüfen» (Build 46, nur Android): exakter Wecker alle 15 Min. statt nur WorkManager
+     * (`ExactCheckScheduler`). Standard aus; braucht «Wecker und Erinnerungen» (SCHEDULE_EXACT_ALARM).
+     */
+    val exactChecks: Boolean = false,
+
+    /**
+     * Intervall des früheren Vordergrunddienstes («Wie oft» bei «Immer kurz», vor 1.0 entfernt) in
+     * Sekunden. Ohne Wirkung und ohne Einstellung; nur noch gespeichert und gesichert, damit
+     * Sicherungen mit älteren Versionen austauschbar bleiben.
+     */
+    val liveIntervalSeconds: Int = 60,
+
+    /** Kurs-Benachrichtigungen global erlauben. */
+    val priceNotifications: Boolean = true,
+
+    /**
+     * Kurs-Benachrichtigungen sind nicht wegwischbar. Ab Build 42 für neue Installationen aus;
+     * bestehende behalten den bisherigen Wert ([ongoingForMigration], OngoingNotificationsMigration).
+     */
+    val ongoingNotifications: Boolean = false,
+
+    /**
+     * Mindestveränderung in Prozent, ab der eine Kurs-Benachrichtigung
+     * gezeigt wird. 0 bedeutet: bei jeder Aktualisierung melden.
+     */
+    val notificationChangePercent: Double = 5.0,
+
+    /** Sprachausgabe global erlauben. */
+    val ttsEnabled: Boolean = false,
+
+    /** Nur Alarme vorlesen, nicht jede Aktualisierung. */
+    val ttsAlarmsOnly: Boolean = true,
+
+    /** Sprechgeschwindigkeit (0.5 – 2.0). */
+    val ttsSpeechRate: Float = 1.0f,
+
+    /** Ruhezeit, bevor derselbe Alarm erneut auslöst (Minuten). */
+    val alarmCooldownMinutes: Int = 0,
+
+    /**
+     * Quartals- und andere Laufzeit-Futures einzeln nachprüfen, wenn sie in
+     * der Sammelabfrage fehlen (ihre Kennung wechselt beim Verfall). Aus:
+     * werden wie andere fehlende Paare als „nicht mehr gehandelt“ markiert.
+     */
+    val includeRollingFutures: Boolean = false,
+
+    /**
+     * «Token & TradFi»: Was die Paar-Auswahl zeigt — nur Token (Krypto, Standard), nur TradFi
+     * (Futures auf Aktien, Rohstoffe, Devisen und Pre-IPO) oder beides. Schon gemerkte Paare
+     * bleiben in der Merkliste. Ersetzt den früheren Schalter «includeTradFiFutures».
+     */
+    val assetScope: AssetScope = AssetScope.DEFAULT,
+
+    /**
+     * «inkl. Alpha-Tokens» (bei «Token & TradFi»): Alpha-Tokens ([com.cryptochecker.app.domain.watch.AssetKind.ALPHA])
+     * in der Paar-Auswahl zeigen. Ab Build 43 für neue Installationen aus; bestehende behalten den
+     * bisherigen Standard an ([LEGACY_INCLUDE_ALPHA_TOKENS], InstallDefaultsMigration). Gemerkte Paare bleiben immer.
+     */
+    val includeAlphaTokens: Boolean = false,
+
+    /** Akzentfarbe für App, Widgets, Benachrichtigungen und App-Icon. */
+    val accentColor: AccentColor = AccentColor.DEFAULT,
+
+    /**
+     * Dunkles Erscheinungsbild für App und Widgets. null = wie das System
+     * (Standard bei neuer Installation).
+     */
+    val darkMode: Boolean? = null,
+
+    /** Entwickleroption: HTTP-Protokoll unten im Märkte-Tab anzeigen. */
+    val showHttpLog: Boolean = false,
+
+    /** Entwickler-Bereich freigeschaltet (sieben Mal auf die Version tippen). */
+    val developerUnlocked: Boolean = false,
+
+    /**
+     * Fear & Greed: melden, wenn der Index unter/über diesen Wert fällt/steigt (0 = aus). Ab Werk
+     * aus — am ersten Tag soll nur kommen, was man selbst eingestellt hat (nur die Marktphase ist an).
+     */
+    val fearGreedBelow: Int = 0,
+    val fearGreedAbove: Int = 0,
+
+    /**
+     * Eigene Grenzen für Bitcoin-Kennzahlen ([com.cryptochecker.app.domain.market.IndicatorAlertKind]), je Art die
+     * gespeicherte Ganzzahl; fehlt bzw. 0 = aus. Ab Werk alles aus.
+     */
+    val indicatorAlerts: Map<com.cryptochecker.app.domain.market.IndicatorAlertKind, Int> = emptyMap(),
+
+    /** Gas-Alarm Ethereum: melden, wenn die normale Gebühr unter diesen Wert fällt — in Zehntel-gwei (0 = aus). */
+    val gasAlertEthTenths: Int = 0,
+
+    /** Gas-Alarm Bitcoin: melden, wenn die normale Gebühr unter diesen Wert (sat/vB) fällt (0 = aus). */
+    val gasAlertBtc: Int = 0,
+
+    /**
+     * USDT-Depeg melden ([com.cryptochecker.app.domain.alarm.DepegAlarm]): ab Werk aus (zusätzliche
+     * Abfragen nur, wenn eingeschaltet). Bewertungen rechnen weiter mit USDT = 1.
+     */
+    val depegAlarm: Boolean = false,
+
+    /** Schwelle des Depeg-Alarms in Zehntel-Prozent (3 / 5 / 10 / 20), Standard 0.5 %. */
+    val depegThresholdTenths: Int = com.cryptochecker.app.domain.alarm.DepegAlarm.DEFAULT_THRESHOLD_TENTHS,
+
+    /** Eigener Alarmton (Inhalts-URI). null = Standardton des Systems. */
+    val alarmSoundUri: String? = null,
+
+    /** Anzeigename des Alarmtons. */
+    val alarmSoundName: String? = null,
+
+    /**
+     * Zähler für den Mitteilungskanal der Alarme: Android erlaubt keinen
+     * Tonwechsel bei einem bestehenden Kanal, also entsteht je Ton ein neuer.
+     */
+    val alarmChannelVersion: Int = 0,
+
+    /**
+     * «Alarm-Signal»: System (bisheriger Kanal), Ton und Vibration, nur Ton, nur Vibration
+     * oder lautlos (nur Mitteilung). Je Signal ein eigener Mitteilungskanal.
+     */
+    val alarmSignal: com.cryptochecker.app.domain.alarm.AlarmSignal =
+        com.cryptochecker.app.domain.alarm.AlarmSignal.DEFAULT,
+
+    /** Der Gesten-Hinweis in der Merkliste wurde weggeklickt. */
+    val gestureHintSeen: Boolean = false,
+
+    /** Der Willkommensdialog wurde bereits bestätigt. */
+    val aboutSeen: Boolean = false,
+
+    /** Der Hinweis zur Akku-Optimierung wurde bereits gezeigt. */
+    val batteryPromptSeen: Boolean = false,
+
+    /** Gewählte Gruppe in der Merkliste. null = «Alle». */
+    val watchlistGroup: String? = null,
+
+    /** Sortieren nach Spalte in der Merkliste ([com.cryptochecker.app.domain.watch.ColumnSort.encode]); null = eigene Reihenfolge. */
+    val watchlistColumnSort: String? = null,
+
+    /**
+     * Ungewöhnliche Aktivität (Bewegung, Volumen, Futures) als Benachrichtigung melden. Ab Werk aus;
+     * das ⚡ in der Merkliste und die Karte «Hier passiert gerade etwas» bleiben.
+     */
+    val activityAlerts: Boolean = false,
+
+    /** Empfindlichkeit von «Ungewöhnliche Aktivität» (Karte und Meldungen); Standard = bisherige Schwellen. */
+    val activitySensitivity: com.cryptochecker.app.domain.activity.ActivitySensitivity =
+        com.cryptochecker.app.domain.activity.ActivitySensitivity.NORMAL,
+
+    /** Morgen-Meldung (08:00) an Tagen mit wichtigen US-Wirtschaftsdaten. Ab Werk aus. */
+    val macroNotifications: Boolean = false,
+
+    /**
+     * Optionaler Bereich «Portfolio» (eigener Tab vor den Optionen). Ab Build 44 für neue Installationen
+     * ab Werk aus; bestehende Installationen behalten den bisherigen Standard an
+     * ([LEGACY_PORTFOLIO_ENABLED], einmalig festgeschrieben von InstallDefaultsMigration), wer ihn
+     * umgeschaltet hat, behält seine Wahl.
+     */
+    val portfolioEnabled: Boolean = false,
+
+    /**
+     * Umrechnungswährung: Zielwährung der Umrechnungszeile im Portfolio und der
+     * umgerechneten Kurse in der Merkliste (USD = keine Umrechnung im Portfolio).
+     */
+    val portfolioCurrency: String = defaultCurrency(),
+
+    /**
+     * Kurse in der Merkliste zusätzlich in der Umrechnungswährung zeigen (« ≈ 61’234 CHF »). Ab Build 43
+     * für neue Installationen an; bestehende behalten den bisherigen Standard aus ([LEGACY_SHOW_CONVERTED]).
+     */
+    val showConverted: Boolean = true,
+
+    /** Kursfarben steigend/fallend: Grün/Rot oder Blau/Orange (Rot-Grün-Sehschwäche). */
+    val priceColorScheme: PriceColorScheme = PriceColorScheme.DEFAULT,
+
+    /** Mini-Chart (24-Stunden-Verlauf) in den Zeilen der Merkliste. */
+    val watchlistSparkline: Boolean = false,
+
+    /**
+     * Name unter dem Paar in der Merkliste («Bitcoin», «NVIDIA»). Ab Build 43 für neue Installationen an;
+     * bestehende behalten den bisherigen Standard aus ([LEGACY_WATCHLIST_NAMES]).
+     */
+    val watchlistNames: Boolean = true,
+
+    /**
+     * Zeitraum der %-Änderung («24h», «heute», «letzter Stand») klein neben der Änderung, Puls und
+     * Einzel-Widget; ab Werk aus. Der Screenreader nennt ihn immer.
+     */
+    val showChangePeriod: Boolean = false,
+
+    /**
+     * «Zahl am App-Symbol»: Alarme und Marktmeldungen zählen am App-Symbol (iOS-Kennzeichen;
+     * Android gibt je Mitteilung 1 mit, Zahl oder Punkt entscheidet der Startbildschirm). Ab Werk an.
+     */
+    val appIconBadge: Boolean = true,
+
+    /**
+     * Karte «Hier passiert gerade etwas» (ungewöhnliche Aktivität) über der Merkliste. Nur die
+     * Anzeige: Meldungen dazu stellt man unter Markt-Meldungen ein, das ⚡ an den Paaren bleibt.
+     */
+    val watchlistActivityCard: Boolean = true,
+
+    /**
+     * Echte Coin-Logos (alle auf einmal von CoinGecko geladen, auf dem Gerät gespeichert) in
+     * Merkliste, Aktionsblatt, Start-Auswahl und Markt-Karten. Aus (Standard): keine Plakette.
+     */
+    val coinLogos: Boolean = true,
+
+    /** Coin-Logos im Portfolio (Positionen, Coin-Details, Auswertungen) — ab Werk an. */
+    val portfolioCoinLogos: Boolean = true,
+
+    /** Coin-Logos in den Widgets «Merkliste» und «Einzelner Coin» — ab Werk aus. */
+    val widgetCoinLogos: Boolean = false,
+
+    /**
+     * «Basis der %-Änderung»: rollende 24 Stunden (Standard), seit 00:00 UTC oder seit 00:00
+     * Ortszeit — für Änderung, Puls, Aktionsblatt und Widgets; Alarme rechnen unabhängig davon.
+     */
+    val changeBasis: com.cryptochecker.app.domain.watch.ChangeBasis =
+        com.cryptochecker.app.domain.watch.ChangeBasis.DEFAULT,
+
+    /**
+     * Hoher Kontrast: kräftigere Kursfarben und dunklere Nebentexte (App und Widgets).
+     * Wirkt zusätzlich, wenn das System mehr Kontrast verlangt (siehe [HighContrast]).
+     */
+    val highContrast: Boolean = false,
+
+    /**
+     * Kursfarben tauschen (Rot = steigend, Grün = fallend, wie in Ostasien üblich).
+     * Nur die Farben; Vorzeichen und Screenreader-Wörter bleiben. Standard nach Region.
+     */
+    val priceColorsInverted: Boolean = defaultPriceColorsInverted(),
+
+    /** Nachtruhe: Alarme warten in diesem Zeitraum, übrige Meldungen kommen lautlos (siehe QuietHours). */
+    val quietHoursEnabled: Boolean = false,
+
+    /** Beginn der Nachtruhe in Minuten seit Mitternacht (Standard 23:00). */
+    val quietHoursStart: Int = com.cryptochecker.app.domain.alarm.QuietHours.DEFAULT_START,
+
+    /** Ende der Nachtruhe in Minuten seit Mitternacht (Standard 07:00). */
+    val quietHoursEnd: Int = com.cryptochecker.app.domain.alarm.QuietHours.DEFAULT_END,
+
+    /**
+     * Portfolio-Sperre (Schlüssel «app_lock» wie bisher): Portfolio-Tab, seine Unterseiten,
+     * Sicherung mit Portfolio-Daten und Portfolio-Widget erst nach Biometrie oder Geräte-PIN
+     * (Kaltstart, nach > 60 s im Hintergrund). Die übrige App ist nie gesperrt.
+     */
+    val appLock: Boolean = false,
+
+    /**
+     * «Beträge verbergen»: Portfolio-Beträge und -Werte als «•••» (Prozente bleiben) — im
+     * Portfolio, im Portfolio-Widget und in Portfolio-Alarmen. Auch in der Sicherung.
+     */
+    val hidePortfolioAmounts: Boolean = false,
+
+    /**
+     * «Portfolio in Systemsicherung» (Schlüssel «portfolio_system_backup», iOS/Sicherung
+     * «portfolioSystemBackup»): an = Transaktionen und Portfolio-Alarme kommen in die Android-
+     * Systemsicherung (über eine Kopie, siehe PortfolioBackupMirror). Standard aus: Wer die Sicherung
+     * des Geräts wiederherstellt, bekäme sonst die Trades ohne die Portfolio-Sperre. Umziehen geht mit
+     * der eigenen (verschlüsselten) Sicherung. Auch in der Sicherung.
+     */
+    val portfolioSystemBackup: Boolean = false,
+
+    /**
+     * Die Bestätigung nach dem ersten Alarm wurde gezeigt (oder es gab schon Alarme).
+     * Nur auf diesem Gerät, nicht in der Sicherung.
+     */
+    val firstAlarmShown: Boolean = false,
+
+    /**
+     * Hinweis «Wann Alarme geprüft werden» ([com.cryptochecker.app.domain.alarm.AlarmTimingHint]) wurde
+     * einmal gezeigt. Reiner Merker der Oberfläche: nur auf diesem Gerät, nicht in der Sicherung.
+     */
+    val alarmTimingHintShown: Boolean = false,
+
+    /**
+     * Das allererste Paar wurde hinzugefügt (Erst-Moment gezeigt oder die Merkliste
+     * war beim Update schon gefüllt). Nur auf diesem Gerät, nicht in der Sicherung.
+     */
+    val firstPairAdded: Boolean = false,
+
+    /**
+     * Chart im Aktionsblatt eines Paars als Linie statt Kerzen (zuletzt gewählt, für alle
+     * Paare gleich). Nur auf diesem Gerät, nicht in der Sicherung.
+     */
+    val sheetChartLine: Boolean = false,
+
+    /** Karte «Wertverlauf» im Portfolio aufgeklappt (Standard zu). Nur auf diesem Gerät, nicht in der Sicherung. */
+    val portfolioHistoryExpanded: Boolean = false,
+
+    /**
+     * Der Markt-Tab wurde schon einmal gesehen (mindestens 3 s sichtbar): «Einordnung» und
+     * «Daten» beginnen danach zugeklappt. Nur auf diesem Gerät, nicht in der Sicherung.
+     */
+    val marketTabSeen: Boolean = false,
+
+    /**
+     * Markt-Tab: «Mehr Marktdaten» (Zeilen zu «Stimmung & Zyklus» und «Marktdaten») aufgeklappt
+     * (Standard zu). Nur auf diesem Gerät, nicht in der Sicherung.
+     */
+    val marketMoreExpanded: Boolean = false,
+
+    /** Zuletzt gewählter Zeitraum des Wertverlaufs. Nur auf diesem Gerät, nicht in der Sicherung. */
+    val portfolioHistoryRange: com.cryptochecker.app.domain.portfolio.PortfolioHistoryRange =
+        com.cryptochecker.app.domain.portfolio.PortfolioHistoryRange.MONTH,
+
+    /**
+     * Darstellung des Wertverlaufs bei einer Umrechnungswährung («CHF | USDT | Vergleich»,
+     * Standard in der Währung). Nur auf diesem Gerät, nicht in der Sicherung.
+     */
+    val portfolioHistoryView: com.cryptochecker.app.domain.portfolio.PortfolioHistoryView =
+        com.cryptochecker.app.domain.portfolio.PortfolioHistoryView.CURRENCY,
+
+    /**
+     * Wertverlauf als Kerzen statt Linie (Kerzen | Linie wie im Aktionsblatt, Standard Linie).
+     * Nur auf diesem Gerät, nicht in der Sicherung.
+     */
+    val portfolioHistoryCandles: Boolean = false,
+
+    /**
+     * Wertverlauf zeigt «Gewinn/Verlust» statt «Wert» (Chips über dem Chart, Standard Wert).
+     * Nur auf diesem Gerät, nicht in der Sicherung.
+     */
+    val portfolioHistoryPnl: Boolean = false,
+
+    /**
+     * Einstandsmethode des Portfolios (FIFO | Ø): Einstand, Ø, «Seit Kauf», realisiert und Steuer-Export.
+     * Standard FIFO für alle (neue und bestehende Installationen). In der App-Sicherung («costMethod»; ältere
+     * Sicherungen ohne den Schlüssel → FIFO).
+     */
+    val costMethod: com.cryptochecker.app.domain.portfolio.CostMethod =
+        com.cryptochecker.app.domain.portfolio.CostMethod.DEFAULT,
+
+    /**
+     * Steuer-Vorlage der Arbeitsunterlage (Neutral | DE | AT | CH | UK | US | CA | AU | FR | JP), Standard Neutral. Die
+     * Region des Geräts wird nur vorgeschlagen, nie still übernommen. In der App-Sicherung («taxTemplate»; ältere
+     * Sicherungen ohne den Schlüssel lassen die Einstellung stehen).
+     */
+    val taxTemplate: com.cryptochecker.app.domain.portfolio.TaxTemplate =
+        com.cryptochecker.app.domain.portfolio.TaxTemplate.DEFAULT,
+    /**
+     * Hinweis «Beta, vereinfachte Regeln …» zu den Länder-Vorlagen einmal mit OK bestätigt (Dialog beim ersten Wählen einer
+     * Länder-Vorlage). Nur auf diesem Gerät, nicht in der Sicherung.
+     */
+    val taxTemplateConfirmed: Boolean = false,
+) {
+    /**
+     * Live-Kurse per WebSocket, solange die Merkliste offen ist (Binance, Bybit, OKX, Coinbase,
+     * Kraken; siehe `LivePriceStream`) — bei «Live, solange offen». Hintergrund und
+     * Widgets fragen weiter per REST ab.
+     */
+    val liveWebSocket: Boolean get() = updateMode.liveWhileOpen
+
+    /**
+     * Werden Kurse von Paaren mit «Kurs vorlesen» angesagt? Nur mit Sprachausgabe an und «Nur Alarme»
+     * aus. Sonst schaltet «Kurs vorlesen» beides passend um (WatchlistViewModel.setTtsEnabled).
+     */
+    val speaksPairPrices: Boolean get() = ttsEnabled && !ttsAlarmsOnly
+
+    companion object {
+        const val MIN_BACKGROUND_INTERVAL_MINUTES = 15
+        const val MIN_LIVE_INTERVAL_SECONDS = 15
+
+        /**
+         * Obergrenzen (weit über den Wahlmöglichkeiten): Werte aus Sicherungen und gespeicherten Einstellungen
+         * werden darauf gekürzt, wie iOS (dort liessen riesige Werte Zeitrechnungen überlaufen).
+         */
+        const val MAX_BACKGROUND_INTERVAL_MINUTES = 1_440
+        const val MAX_LIVE_INTERVAL_SECONDS = 3_600
+        const val MAX_ALARM_COOLDOWN_MINUTES = 1_440
+
+        fun clampBackgroundInterval(minutes: Int): Int =
+            minutes.coerceIn(MIN_BACKGROUND_INTERVAL_MINUTES, MAX_BACKGROUND_INTERVAL_MINUTES)
+
+        fun clampLiveInterval(seconds: Int): Int = seconds.coerceIn(MIN_LIVE_INTERVAL_SECONDS, MAX_LIVE_INTERVAL_SECONDS)
+
+        fun clampAlarmCooldown(minutes: Int): Int = minutes.coerceIn(0, MAX_ALARM_COOLDOWN_MINUTES)
+
+        val BACKGROUND_INTERVAL_CHOICES = listOf(15, 30, 60)
+        val ALARM_COOLDOWN_CHOICES = listOf(0, 5, 15, 60)
+        val FEAR_GREED_BELOW_CHOICES = listOf(0, 10, 20, 25)
+        val FEAR_GREED_ABOVE_CHOICES = listOf(0, 75, 80, 90)
+
+        /** Gas-Alarm Ethereum in Zehntel-gwei: aus, 0.5, 1, 2, 5. */
+        val GAS_ETH_CHOICES = listOf(0, 5, 10, 20, 50)
+
+        /** Gas-Alarm Bitcoin in sat/vB. */
+        val GAS_BTC_CHOICES = listOf(0, 1, 2, 5, 10)
+
+        /** Bisheriger Standard von «Nicht wegwischbar» (bis Build 41). */
+        const val LEGACY_ONGOING_NOTIFICATIONS = true
+
+        /**
+         * Einmalige Festschreibung von «Nicht wegwischbar», wenn der Schlüssel fehlt (Android
+         * speichert ihn nur beim Umschalten): bestehende Installation → bisheriger Standard (an),
+         * neue Installation → neuer Standard (aus).
+         */
+        fun ongoingForMigration(existingInstall: Boolean): Boolean =
+            if (existingInstall) LEGACY_ONGOING_NOTIFICATIONS else AppSettings().ongoingNotifications
+
+        /** Bisherige Standards (bis Build 42) der in Build 43 geänderten Schalter. */
+        const val LEGACY_WATCHLIST_NAMES = false
+        const val LEGACY_SHOW_CONVERTED = false
+        const val LEGACY_INCLUDE_ALPHA_TOKENS = true
+
+        /** Bisheriger Standard (bis Build 43) des Portfolio-Tabs; auch für Sicherungen ohne das Feld. */
+        const val LEGACY_PORTFOLIO_ENABLED = true
+
+        /**
+         * Einmalige Festschreibung eines geänderten Standards, wenn der Schlüssel fehlt: bestehende
+         * Installation → bisheriger Standard [legacy], neue → neuer Standard [current].
+         */
+        fun defaultForMigration(existingInstall: Boolean, legacy: Boolean, current: Boolean): Boolean =
+            if (existingInstall) legacy else current
+
+        /**
+         * Bestehende Installation? Ja, sobald ein gespeicherter Schlüssel nicht zu [ignored] gehört
+         * (Schlüssel, die eine vorher gelaufene Migration auch bei neuen Installationen schreibt).
+         */
+        fun isExistingInstall(storedKeys: Collection<String>, ignored: Set<String>): Boolean =
+            storedKeys.any { it !in ignored }
+    }
+}
+
+/** Regionen, in denen Rot für steigende Kurse steht. */
+private val INVERTED_PRICE_COLOR_REGIONS = setOf("CN", "TW", "HK", "MO", "JP", "KR")
+
+/**
+ * Standard für «Farben tauschen»: an in CN, TW, HK, MO, JP und KR (Region des Geräts).
+ * Region aus der System-Konfiguration: Ist in der App eine Sprache gewählt, setzt
+ * [AppLanguages] `Locale.setDefault` auf ein Tag ohne Region (z. B. «ja»), dann wäre
+ * `Locale.getDefault().country` leer.
+ */
+fun defaultPriceColorsInverted(locale: java.util.Locale = deviceRegionLocale()): Boolean =
+    locale.country.uppercase() in INVERTED_PRICE_COLOR_REGIONS
+
+/** Region des Geräts (System-Konfiguration), auch wenn in der App eine Sprache gewählt ist. */
+internal fun deviceRegionLocale(): java.util.Locale =
+    runCatching { android.content.res.Resources.getSystem().configuration.locales[0] }.getOrNull()
+        ?.takeIf { it.country.isNotEmpty() }
+        ?: java.util.Locale.getDefault()
+
+/**
+ * Dezimalzeichen für Zahleneingaben (Schwellwerte, Menge/Kurs im Bestand): Sprache der App,
+ * Region des Geräts — gleich wie `ThresholdParser.localeDecimalSeparator` (iOS, `Locale.current`).
+ */
+internal fun inputDecimalSeparator(): Char =
+    com.cryptochecker.app.util.LocaleNumbers.inputDecimalSeparator(java.util.Locale.getDefault(), deviceRegionLocale().country)
+
+/**
+ * Standard-Umrechnungswährung: die Währung des Geräte-Landes (Schweiz → CHF,
+ * Deutschland → EUR, USA → USD …), sofern dafür ein Devisenkurs verfügbar ist,
+ * sonst USD. Gilt nur, bis jemand selbst eine Währung wählt.
+ */
+fun defaultCurrency(locale: java.util.Locale = java.util.Locale.getDefault()): String {
+    val code = runCatching { java.util.Currency.getInstance(locale)?.currencyCode }.getOrNull()
+    return code?.takeIf { it in com.cryptochecker.app.data.portfolio.FxRateSource.CURRENCIES } ?: "USD"
+}

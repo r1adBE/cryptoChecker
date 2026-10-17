@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
+    <string name="widget_background">Bakgrunn</string>
+    <string name="widget_configure_hint">Velg bakgrunn og gjennomsiktighet. Fargen følger appen. Widgeten viser hele listen; trykk på en rad for å åpne appen.</string>
+    <string name="widget_configure_title">Konfigurer widget</string>
+    <string name="widget_description">Viser kursen for et par fra overvåkingslisten din.</string>
+    <string name="widget_empty">Ingen par i overvåkingslisten ennå.</string>
+    <string name="widget_group_hint">Vis bare parene i denne gruppen.</string>
+    <string name="widget_kind_single">Én mynt</string>
+    <string name="widget_opacity">Bakgrunnens ugjennomsiktighet: %1$d %%</string>
+    <string name="widget_pulse_description">Det som skiller seg ut i markedet akkurat nå: overskrift, kort sammendrag og Bitcoin, Ethereum og Solana.</string>
+
+    <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->
+    <!-- Allein, wenn für «outdated · 06:42» der Platz fehlt (Kopfzeile Listen-Widget) -->
+    <string name="widget_outdated">utdatert</string>
+    <!-- Statt der Uhrzeit: «outdated · 06:42» (heute) bzw. «outdated · 5 Oct, 06:42» -->
+    <string name="widget_outdated_time">utdatert · %1$s</string>
+
+    <!-- Widgets: Chart und Zeitraum -->
+    <string name="widget_chart_candles">Candlestick</string>
+    <string name="widget_chart_line">Linje</string>
+    <string name="widget_chart_range">Grafperiode</string>
+    <string name="widget_chart_type">Diagramtype</string>
+    <!-- «1 Jahr» im Chart des Aktionsblatts (365 Tageskerzen; Chip neben 24h · 7T · 30T) -->
+    <string name="widget_range_1y">1 år</string>
+    <string name="widget_range_24h">24h</string>
+    <string name="widget_range_30d">30 dager</string>
+    <string name="widget_range_7d">7 dager</string>
+    <string name="widget_range_short_1y">1Å</string>
+    <string name="widget_range_short_24h">24h</string>
+    <string name="widget_range_short_30d">30D</string>
+    <string name="widget_range_short_7d">7D</string>
+
+    <!-- Portfolio-Widget -->
+    <!-- Fusszeile, %1$s Uhrzeit ohne Sekunden («Stand 15:19») -->
+    <string name="widget_portfolio_as_of">Per %1$s</string>
+    <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
+    <string name="widget_portfolio_chart_pending">Forløp kommer</string>
+    <string name="widget_portfolio_description">Samlet verdi av porteføljen din og dagens endring</string>
+    <string name="widget_portfolio_display">Visning</string>
+    <string name="widget_portfolio_display_conversion">Bare omregning</string>
+    <string name="widget_portfolio_display_conversion_usdt">Omregning + USDT</string>
+    <string name="widget_portfolio_display_hint">USDT-linjen vises ikke når omregningsvalutaen er USD.</string>
+    <string name="widget_portfolio_display_usdt">Bare USDT</string>
+    <string name="widget_portfolio_empty">Legg til kjøp i Portefølje-fanen</string>
+    <string name="widget_portfolio_list_hint">Åpne appen for å vise posisjonene dine her.</string>
+    <string name="widget_portfolio_locked_hint">Låst – lås opp i appen</string>
+    <!-- Offene Coins ohne Kurs zählen im Gesamtwert als 0 -->
+    <plurals name="widget_portfolio_missing_coins">
+        <item quantity="one">uten %1$d coin</item>
+        <item quantity="other">uten %1$d coins</item>
+    </plurals>
+    <plurals name="widget_portfolio_more">
+        <item quantity="one">+ %1$d til</item>
+        <item quantity="other">+ %1$d til</item>
+    </plurals>
+    <string name="widget_portfolio_name">Portefølje</string>
+    <string name="widget_portfolio_off_hint">Slå på under %1$s.</string>
+    <string name="widget_portfolio_off_short">Portefølje av</string>
+    <string name="widget_portfolio_off_title">Porteføljen er av</string>
+    <string name="widget_portfolio_partly_stale">delvis gammel kurs</string>
+    <string name="widget_portfolio_period">Periode</string>
+    <string name="widget_portfolio_period_without">%1$s uten %2$s</string>
+    <string name="widget_portfolio_range_48h">48h</string>
+    <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
+    <string name="widget_portfolio_range_fallback">%1$s: åpne Portefølje</string>
+    <string name="widget_portfolio_range_short_48h">48h</string>
+    <string name="widget_portfolio_today_without">I dag uten %1$s</string>
+    <string name="widget_portfolio_view">Visning</string>
+    <string name="widget_portfolio_view_chart">Diagram</string>
+    <string name="widget_portfolio_view_list">Liste</string>
+    <string name="widget_portfolio_view_overview">Oversikt</string>
+
+    <!-- Einzel-Widget -->
+    <string name="single_widget_choose">Velg et par</string>
+    <string name="single_widget_description">Viser én mynt stort med kurs, endring og 24-timers graf.</string>
+    <string name="single_widget_label">Crypto Checker – én mynt</string>
+    <string name="single_widget_title">Konfigurer enkelt-widget</string>
+
+    <!-- Widgets aus der App hinzufügen -->
+    <string name="widgets_add">Legg til</string>
+    <!-- Screenreader: Knopf «Add» mit dem Namen des Widgets -->
+    <string name="widgets_add_named">Legg til widgeten %1$s</string>
+    <string name="widgets_manual_text">Startskjermen din kan ikke legge til widgeter fra appen. Trykk og hold på et tomt sted på startskjermen, velg «Moduler» og se etter «Crypto Checker».</string>
+    <!-- Startbildschirm (Launcher) kann keine Widgets aus der App annehmen -->
+    <string name="widgets_manual_title">Legg til widgeten selv</string>
+    <string name="widgets_sheet_title">Legg til en widget</string>
+
+    <!-- Nur iOS: Widget selbst hinzufügen (drei Schritte) -->
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS lar ikke apper legge til widgeter selv. Det tar bare et øyeblikk:</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">Tilgjengelige widgeter</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">Trykk og hold på et tomt sted på Hjem-skjermen til appene begynner å vrikke.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">Trykk på «Rediger» › «Legg til widget» øverst (eller «+» i eldre iOS-versjoner).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">Søk etter «Crypto Checker», velg en widget og trykk på «Legg til widget».</string>
+</resources>

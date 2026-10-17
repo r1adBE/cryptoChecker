@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: beobachtete Adressen (Wallets) -->
+    <string name="portfolio_address_add">Thêm địa chỉ</string>
+    <string name="portfolio_address_count">Tính vào</string>
+    <string name="portfolio_address_error">Cập nhật thất bại</string>
+    <string name="portfolio_address_hint">Địa chỉ công khai (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) hoặc xpub</string>
+    <string name="portfolio_address_label">Nhãn (không bắt buộc)</string>
+    <string name="portfolio_address_not_since_buy">Từ địa chỉ · không tính vào «Từ khi mua»: %1$s</string>
+    <string name="portfolio_address_overlap">Cũng có trong giao dịch của bạn: %1$s – cả hai đều được cộng. Cùng một coin? Hãy chọn «Chỉ hiển thị».</string>
+    <string name="portfolio_address_overlap_ask">Bạn đã ghi %1$s bằng giao dịch của mình. Cộng số dư của địa chỉ này vào danh mục hay chỉ hiển thị?</string>
+    <string name="portfolio_address_overlap_auto">«%1$s» giờ chỉ hiển thị, không tính vào – %2$s cũng có trong giao dịch của bạn.</string>
+    <string name="portfolio_address_overlap_restored">«%1$s» được tính lại – số lượng không khớp với giao dịch của bạn. Hãy chọn «Chỉ hiển thị» nếu là cùng một coin.</string>
+    <string name="portfolio_address_overlap_title">Cùng coin với giao dịch của bạn?</string>
+    <string name="portfolio_address_overlap_tx">Cùng số lượng với lệnh nạp/chuyển của bạn (%1$s) – có thể bị tính hai lần.</string>
+    <string name="portfolio_address_period_observed">Các địa chỉ theo dõi được tính từ số dư quan sát đầu tiên; thay đổi sau đó là dòng vào/ra, không phải lãi.</string>
+    <string name="portfolio_address_privacy">Chỉ địa chỉ công khai được gửi đến %1$s – không bao giờ gửi khóa hay cụm từ khôi phục. Nhà cung cấp thấy nó cùng địa chỉ IP của bạn. Kiểm tra tối đa mỗi 10 phút một lần.</string>
+    <string name="portfolio_address_remove">Xóa địa chỉ</string>
+    <string name="portfolio_address_show_only">Chỉ hiển thị, không cộng vào danh mục</string>
+    <string name="portfolio_address_show_only_short">Chỉ hiển thị</string>
+    <string name="portfolio_address_tokens">Tính cả token</string>
+    <string name="portfolio_address_unknown_tokens">+%1$d token không xác định (không tính)</string>
+    <string name="portfolio_address_xpub_privacy">Một xpub để lộ mọi địa chỉ của ví này. Chúng được tạo trên thiết bị của bạn; chỉ từng địa chỉ riêng lẻ được gửi đến %1$s – lần quét đầu ít nhất 40 yêu cầu, về sau ít hơn. Không bao giờ chấp nhận khóa riêng tư (xprv).</string>
+    <string name="portfolio_address_xpub_used">Địa chỉ đã dùng: %1$d</string>
+    <string name="portfolio_addresses_title">Địa chỉ</string>
+
+    <!-- Prüfung einer eingegebenen Adresse -->
+    <string name="address_bch_unsupported">Không thể theo dõi địa chỉ Bitcoin Cash: không có dịch vụ công khai miễn phí nào không cần khóa API mà điều khoản cho phép.</string>
+    <string name="address_bep2_shutdown">BNB Beacon Chain (BEP-2) đã ngừng hoạt động năm 2024 – số dư giờ nằm trên BNB Smart Chain (0x…)</string>
+    <string name="address_checksum">Sai mã kiểm tra – có gõ nhầm không?</string>
+    <string name="address_doge_unsupported">Không thể theo dõi địa chỉ Dogecoin: không có dịch vụ công khai miễn phí nào không cần khóa API mà điều khoản cho phép.</string>
+    <string name="address_duplicate">Địa chỉ này đã được thêm</string>
+    <string name="address_ens">Không hỗ trợ tên ENS – hãy nhập địa chỉ 0x</string>
+    <string name="address_invalid">Không phải địa chỉ hợp lệ của mạng được hỗ trợ</string>
+    <string name="address_limit">Tối đa 20 địa chỉ</string>
+    <string name="address_secret">Đây có vẻ là khóa riêng tư hoặc cụm từ khôi phục – đừng bao giờ nhập nó ở bất kỳ đâu. Chỉ dùng địa chỉ công khai.</string>
+    <string name="address_testnet">Không hỗ trợ địa chỉ Testnet</string>
+    <string name="address_unsupported">Loại địa chỉ này không được hỗ trợ</string>
+    <string name="address_wrong_chain">Địa chỉ thuộc mạng khác</string>
+    <string name="address_xpub_multisig">Không hỗ trợ khóa multisig (Ypub/Zpub)</string>
+</resources>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="explorer_coin_back">すべての結果</string>
+    <plurals name="explorer_coin_exchanges">
+        <item quantity="other">%1$d取引所</item>
+    </plurals>
+    <string name="explorer_coin_no_pairs">読み込んだ一覧にこのコインのペアはありません。</string>
+    <string name="explorer_coin_not_loaded">ペア一覧はまだ読み込まれていません</string>
+    <string name="explorer_coin_other_pairs">その他のペア</string>
+    <string name="explorer_coin_show_pairs">ペアを表示</string>
+    <string name="explorer_coin_suggested">おすすめ</string>
+    <string name="explorer_coins_title">コイン</string>
+    <string name="explorer_lists_load">一覧を読み込む</string>
+    <string name="explorer_lists_loading">ペア一覧を読み込み中… %1$d/%2$d</string>
+    <plurals name="explorer_lists_missing">
+        <item quantity="other">%1$d取引所のペア一覧がまだ端末にありません。</item>
+    </plurals>
+    <string name="explorer_lists_privacy">各取引所の公開リストを丸ごと読み込みます（誰でも同じ内容）。検索内容は端末から出ません。</string>
+    <!-- Paar hinzufügen: Suche über alle Börsen, zuletzt gesucht -->
+    <string name="explorer_recent_a11y">最近の検索: %1$s</string>
+    <string name="explorer_recent_clear">消去</string>
+    <string name="explorer_recent_clear_a11y">最近の検索を消去</string>
+    <string name="explorer_recent_title">最近の検索</string>
+    <string name="explorer_search_choose_manually">取引所とペアを自分で選ぶ</string>
+    <string name="explorer_search_empty">見つかりません。</string>
+    <string name="explorer_search_hint">コイン、ペア、取引所を検索</string>
+    <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
+    <string name="explorer_search_intro">コイン名かシンボル（例：Bitcoin、BTC）を入力して、ペアを選びます。</string>
+
+    <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
+    <string name="explorer_add_to_watchlist">ウォッチリストに追加</string>
+    <string name="explorer_added_to_watchlist">ウォッチリストに追加しました。</string>
+    <string name="explorer_already_in_watchlist">このペアはすでにウォッチリストにあります。</string>
+    <string name="explorer_exchange_missing">取引所が見つからない？</string>
+    <string name="explorer_loading_pairs">取引ペアを読み込み中…</string>
+    <string name="explorer_no_pair_selected">先にペアを選択してください。</string>
+    <string name="explorer_no_pairs_yet">この取引所のペアはまだ読み込まれていません。</string>
+    <plurals name="explorer_pairs_status">
+        <item quantity="other">%1$d ペア · 更新 %2$s</item>
+    </plurals>
+    <string name="explorer_pairs_title">ペア</string>
+    <string name="explorer_precise_title">詳細 / 取引所から</string>
+    <string name="explorer_price_loading">価格を読み込み中…</string>
+    <string name="explorer_select_market_hint">取引所を選ぶと、取引ペアが自動で読み込まれます。</string>
+    <string name="explorer_select_placeholder">選択してください</string>
+    <string name="explorer_step_pair">ペアを選択</string>
+
+    <!-- Paar hinzufügen: Schnellfilter der Liste «Alle …-Paare» -->
+    <string name="explorer_filter_gainers">値上がり</string>
+    <string name="explorer_filter_losers">値下がり</string>
+    <string name="explorer_filter_volume">出来高</string>
+
+    <!-- Paar hinzufügen: mehrere Paare auf einmal -->
+    <string name="bulk_all_pairs">この取引所のすべての %1$s ペア</string>
+    <plurals name="bulk_all_pairs_applied">
+        <item quantity="other">%1$d 件の %2$s ペアが見つかりました</item>
+    </plurals>
+    <string name="bulk_all_pairs_empty">この取引所には、選択した契約タイプの %1$s ペアがありません。先に取引所を同期するか、別の契約タイプをお試しください。</string>
+    <plurals name="explorer_add_all_pairs">
+        <item quantity="other">%1$d ペアすべてをウォッチリストに追加</item>
+    </plurals>
+    <plurals name="explorer_bulk_added">
+        <item quantity="other">%1$d 件を追加、%2$d 件は登録済みです。</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_text">
+        <item quantity="other">%3$s の %2$s ペア %1$d 件をすべてリストに追加します。既にあるものはスキップします。</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_title">
+        <item quantity="other">%1$d ペアを追加しますか？</item>
+    </plurals>
+    <string name="explorer_bulk_hide_list">リストを隠す</string>
+    <string name="explorer_bulk_show_list">リストを表示</string>
+    <string name="explorer_bulk_tap_hint">ペアをタップすると上で選択されます。</string>
+    <string name="explorer_bulk_title">複数ペアをまとめて</string>
+
+    <!-- Handelspaare einer Börse laden und wählen -->
+    <string name="explorer_sync_sheet_text">選択した取引所の最新ペアを読み込みます。</string>
+    <string name="explorer_no_pair_list">通貨ペアがありません</string>
+    <string name="explorer_sync_sheet_last">最終同期: %1$s</string>
+    <string name="explorer_sync_never">なし</string>
+    <string name="explorer_sync_sheet_action">今すぐ同期</string>
+    <string name="explorer_sync_sheet_title">通貨ペアを更新</string>
+    <string name="explorer_field_coin">コイン</string>
+    <string name="explorer_field_contract">契約タイプ</string>
+    <string name="explorer_field_exchange">取引所</string>
+    <string name="explorer_field_quote">クオート通貨</string>
+    <string name="explorer_contract_spot">現物</string>
+    <string name="explorer_reload_pairs">同期</string>
+    <string name="sync_pairs_count">取引ペア: %1$d</string>
+
+    <!-- Token von dezentralen Börsen (DEX) -->
+    <string name="dex_add">追加</string>
+    <string name="dex_added">%1$s をウォッチリストに追加しました。</string>
+    <string name="dex_already">%1$s はすでにウォッチリストにあります。</string>
+    <string name="dex_intro">大手取引所以外のトークンを、分散型取引所（Uniswap、PancakeSwap、Raydium …）から DexScreener 経由で表示します。トークンを検索して取引プールのいずれかを追加 – 価格は米ドル表示です。</string>
+    <string name="dex_liquidity">流動性 %1$s</string>
+    <string name="dex_no_results">プールが見つかりません。</string>
+    <string name="dex_search">検索</string>
+    <string name="dex_search_hint">トークン名、シンボルまたはアドレス</string>
+
+    <!-- Art des Assets (Token, Alpha-Token, TradFi) -->
+    <string name="asset_kind_alpha">Alphaトークン</string>
+    <string name="asset_kind_token">トークン</string>
+    <string name="asset_kind_tradfi">TradFi</string>
+</resources>

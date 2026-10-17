@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Screenreader: Zeile eines Paars, Frische, Erreichbarkeit -->
+    <string name="a11y_alarm_count">अलार्म: %1$d</string>
+    <!-- Alarm des Paars eben ausgelöst (bis 15 Min. danach im Zeilensatz) -->
+    <string name="a11y_alarm_fired">अलार्म ट्रिगर हुआ</string>
+    <string name="a11y_collapsed">संक्षिप्त</string>
+    <string name="a11y_converted">लगभग %1$s</string>
+    <string name="a11y_expanded">विस्तारित</string>
+    <!-- Vorgelesen bei Zeilen, die eine Website öffnen (Datenschutz, Börse wünschen, Quellcode) -->
+    <string name="a11y_external_link">ब्राउज़र में खुलता है</string>
+    <string name="a11y_favorite">पसंदीदा</string>
+    <string name="a11y_in_watchlist">पहले से वॉचलिस्ट में</string>
+    <!-- %1$s Börse, letzte Abfrage gescheitert -->
+    <string name="a11y_market_unreachable">%1$s उपलब्ध नहीं</string>
+    <string name="a11y_move_down">नीचे ले जाएँ</string>
+    <string name="a11y_move_up">ऊपर ले जाएँ</string>
+    <string name="a11y_note">नोट: %1$s</string>
+    <string name="a11y_price">भाव %1$s</string>
+    <string name="a11y_price_notification_off">भाव सूचना बंद</string>
+    <string name="a11y_price_notification_on">भाव सूचना चालू</string>
+    <!-- Frische einer Zeile, Teile mit «, » verbunden: «Kurs veraltet, zuletzt aktualisiert vor 45 Minuten» (A11ySpeech.freshnessText) -->
+    <string name="a11y_price_outdated">भाव पुराना है</string>
+    <!-- Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%2$s पर %1$s</string>
+    <string name="a11y_stale">पुराना, अंतिम अपडेट %1$s</string>
+    <string name="a11y_warning">चेतावनी</string>
+
+    <!-- Screenreader: Veränderung (Prozent-Pille, Widgets) -->
+    <!-- %1$s Satz aus a11y_change_up/down/flat: Veränderung über 24 Stunden (Prozent-Pille, Widgets) -->
+    <string name="a11y_change_24h">24 घंटों में %1$s</string>
+    <!-- Wenn die Pille «—» zeigt (keine Kerzen für das Paar) -->
+    <string name="a11y_change_24h_none">24 घंटे का बदलाव उपलब्ध नहीं</string>
+    <string name="a11y_change_down">%1$s नीचे</string>
+    <string name="a11y_change_flat">अपरिवर्तित</string>
+    <string name="a11y_change_since_last">पिछले अपडेट से %1$s</string>
+    <string name="a11y_change_since_last_none">पिछले अपडेट से बदलाव उपलब्ध नहीं</string>
+    <!-- %1$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_change_today">आज %1$s</string>
+    <string name="a11y_change_today_none">आज का बदलाव उपलब्ध नहीं</string>
+    <string name="a11y_change_today_zone">मध्यरात्रि %2$s से %1$s</string>
+    <string name="a11y_change_today_zone_none">मध्यरात्रि %1$s से बदलाव उपलब्ध नहीं</string>
+    <string name="a11y_change_up">%1$s ऊपर</string>
+
+    <!-- Screenreader: Charts und Skalen -->
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">चार्ट %1$s: %2$s से %3$s तक, %4$s। उच्च %5$s, निम्न %6$s।</string>
+    <string name="a11y_chart_empty">चार्ट: कोई डेटा नहीं</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">चक्र %1$s: हॉल्विंग से %2$s, दिन %3$d।</string>
+    <string name="a11y_cycle_bottom">दिन %2$d पर निचला स्तर %1$s।</string>
+    <string name="a11y_cycle_double_bottom">दिन %2$d पर डबल बॉटम %1$s।</string>
+    <string name="a11y_cycle_double_top">दिन %2$d पर डबल टॉप %1$s।</string>
+    <string name="a11y_cycle_top">दिन %2$d पर शिखर %1$s।</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">%1$s से %2$s तक का पैमाना: 100 में से %3$d</string>
+
+    <!-- Screenreader: Puls-Zeile der Merkliste -->
+    <string name="a11y_watchlist_pulse">%1$s, %2$s, औसतन %3$s</string>
+    <string name="a11y_watchlist_pulse_combined">%1$s। %2$s</string>
+    <plurals name="a11y_watchlist_pulse_falling">
+        <item quantity="one">%1$d गिर रहा है</item>
+        <item quantity="other">%1$d गिर रहे हैं</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing">
+        <item quantity="one">%1$d पेयर का 24 घंटे का मान नहीं है</item>
+        <item quantity="other">%1$d पेयर का 24 घंटे का मान नहीं है</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="one">%1$d पेयर का आज का मान नहीं है</item>
+        <item quantity="other">%1$d पेयर का आज का मान नहीं है</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_rising">
+        <item quantity="one">%1$d पेयर चढ़ रहा है</item>
+        <item quantity="other">%1$d पेयर चढ़ रहे हैं</item>
+    </plurals>
+
+    <!-- Screenreader: zuletzt aktualisiert -->
+    <plurals name="a11y_updated_days">
+        <item quantity="one">अंतिम अपडेट %1$d दिन पहले</item>
+        <item quantity="other">अंतिम अपडेट %1$d दिन पहले</item>
+    </plurals>
+    <plurals name="a11y_updated_hours">
+        <item quantity="one">अंतिम अपडेट %1$d घंटा पहले</item>
+        <item quantity="other">अंतिम अपडेट %1$d घंटे पहले</item>
+    </plurals>
+    <string name="a11y_updated_just_now">अंतिम अपडेट अभी-अभी</string>
+    <plurals name="a11y_updated_minutes">
+        <item quantity="one">अंतिम अपडेट %1$d मिनट पहले</item>
+        <item quantity="other">अंतिम अपडेट %1$d मिनट पहले</item>
+    </plurals>
+
+    <!-- Screenreader: Portfolio und Portfolio-Widget -->
+    <string name="a11y_amount_hidden">राशि छिपी है</string>
+    <!-- %1$s Kürzel, %2$s Wert mit Währung, %3$s Anteil «62.3%», %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_portfolio_position">%1$s %2$s, पोर्टफ़ोलियो का %3$s</string>
+    <!-- Position im Portfolio-Widget: %1$s Kürzel, %2$s Anteil «62.3%», %3$s Satz aus a11y_change_24h -->
+    <string name="a11y_portfolio_position_24h">%1$s, पोर्टफ़ोलियो का %2$s, %3$s</string>
+    <string name="a11y_portfolio_positions">सबसे बड़ी पोज़िशन: %1$s</string>
+    <string name="a11y_portfolio_show_amounts">राशियाँ दिखाएँ</string>
+</resources>

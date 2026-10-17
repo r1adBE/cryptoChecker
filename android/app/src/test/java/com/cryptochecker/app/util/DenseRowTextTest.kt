@@ -1,0 +1,44 @@
+package com.cryptochecker.app.util
+
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
+import org.junit.Test
+
+/** Wie `DenseRowTextTests.swift`. */
+class DenseRowTextTest {
+
+    @Test
+    fun `Standardgroessen einzeilig nebeneinander`() {
+        for (scale in listOf(0.85f, 1f, 1.15f)) {
+            assertEquals(1, DenseRowText.maxLines(scale))
+            assertFalse(DenseRowText.stacksTrailing(scale))
+        }
+    }
+
+    @Test
+    fun `Grosse Schrift bricht um`() {
+        // Android 1.3, iOS xxLarge (21/17) und xxxLarge (23/17): zwei Zeilen, Kurs noch daneben
+        for (scale in listOf(1.3f, 21f / 17f, 23f / 17f)) {
+            assertEquals(2, DenseRowText.maxLines(scale))
+            assertFalse(DenseRowText.stacksTrailing(scale))
+        }
+    }
+
+    @Test
+    fun `Mini-Chart in schmalen Zeilen 48 sonst 56`() {
+        assertEquals(48f, DenseRowText.sparklineWidth(320f), 0f)
+        assertEquals(48f, DenseRowText.sparklineWidth(359.5f), 0f)
+        assertEquals(56f, DenseRowText.sparklineWidth(360f), 0f)
+        assertEquals(56f, DenseRowText.sparklineWidth(412f), 0f)
+    }
+
+    @Test
+    fun `Groesste Schrift stellt die rechte Spalte darunter`() {
+        // Android 1.5 / 1.8 / 2.0, iOS accessibility1 (28/17) und grösser
+        for (scale in listOf(1.5f, 1.8f, 2f, 28f / 17f, 53f / 17f)) {
+            assertEquals(2, DenseRowText.maxLines(scale))
+            assertTrue(DenseRowText.stacksTrailing(scale))
+        }
+    }
+}

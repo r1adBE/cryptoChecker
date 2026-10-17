@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Screenreader: Zeile eines Paars, Frische, Erreichbarkeit -->
+    <string name="a11y_alarm_count">alarme: %1$d</string>
+    <!-- Alarm des Paars eben ausgelöst (bis 15 Min. danach im Zeilensatz) -->
+    <string name="a11y_alarm_fired">Alarmă declanșată</string>
+    <string name="a11y_collapsed">Restrâns</string>
+    <string name="a11y_converted">aproximativ %1$s</string>
+    <string name="a11y_expanded">Extins</string>
+    <!-- Vorgelesen bei Zeilen, die eine Website öffnen (Datenschutz, Börse wünschen, Quellcode) -->
+    <string name="a11y_external_link">se deschide în browser</string>
+    <string name="a11y_favorite">Favorit</string>
+    <string name="a11y_in_watchlist">Deja în lista de urmărire</string>
+    <!-- %1$s Börse, letzte Abfrage gescheitert -->
+    <string name="a11y_market_unreachable">%1$s nu poate fi accesat</string>
+    <string name="a11y_move_down">Mută în jos</string>
+    <string name="a11y_move_up">Mută în sus</string>
+    <string name="a11y_note">notă: %1$s</string>
+    <string name="a11y_price">preț %1$s</string>
+    <string name="a11y_price_notification_off">Notificare de preț oprită</string>
+    <string name="a11y_price_notification_on">Notificare de preț pornită</string>
+    <!-- Frische einer Zeile, Teile mit «, » verbunden: «Kurs veraltet, zuletzt aktualisiert vor 45 Minuten» (A11ySpeech.freshnessText) -->
+    <string name="a11y_price_outdated">Curs învechit</string>
+    <!-- Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%1$s pe %2$s</string>
+    <string name="a11y_stale">învechit, ultima actualizare %1$s</string>
+    <string name="a11y_warning">Avertisment</string>
+
+    <!-- Screenreader: Veränderung (Prozent-Pille, Widgets) -->
+    <!-- %1$s Satz aus a11y_change_up/down/flat: Veränderung über 24 Stunden (Prozent-Pille, Widgets) -->
+    <string name="a11y_change_24h">%1$s în 24 de ore</string>
+    <!-- Wenn die Pille «—» zeigt (keine Kerzen für das Paar) -->
+    <string name="a11y_change_24h_none">Variația pe 24 de ore nu este disponibilă</string>
+    <string name="a11y_change_down">în scădere cu %1$s</string>
+    <string name="a11y_change_flat">neschimbat</string>
+    <string name="a11y_change_since_last">%1$s de la ultima actualizare</string>
+    <string name="a11y_change_since_last_none">Variația de la ultima actualizare nu este disponibilă</string>
+    <!-- %1$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_change_today">%1$s azi</string>
+    <string name="a11y_change_today_none">Variația de azi nu este disponibilă</string>
+    <string name="a11y_change_today_zone">%1$s de la miezul nopții %2$s</string>
+    <string name="a11y_change_today_zone_none">Variația de la miezul nopții %1$s nu este disponibilă</string>
+    <string name="a11y_change_up">în creștere cu %1$s</string>
+
+    <!-- Screenreader: Charts und Skalen -->
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">Grafic %1$s: de la %2$s la %3$s, %4$s. Maxim %5$s, minim %6$s.</string>
+    <string name="a11y_chart_empty">Grafic: fără date</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">Ciclu %1$s: %2$s de la halving, ziua %3$d.</string>
+    <string name="a11y_cycle_bottom">Minim %1$s în ziua %2$d.</string>
+    <string name="a11y_cycle_double_bottom">Minim dublu %1$s în ziua %2$d.</string>
+    <string name="a11y_cycle_double_top">Vârf dublu %1$s în ziua %2$d.</string>
+    <string name="a11y_cycle_top">Vârf %1$s în ziua %2$d.</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">Scală de la %1$s la %2$s: %3$d din 100</string>
+
+    <!-- Screenreader: Puls-Zeile der Merkliste -->
+    <string name="a11y_watchlist_pulse">%1$s, %2$s, în medie %3$s</string>
+    <string name="a11y_watchlist_pulse_combined">%1$s. %2$s</string>
+    <plurals name="a11y_watchlist_pulse_falling">
+        <item quantity="one">%1$d scade</item>
+        <item quantity="few">%1$d scad</item>
+        <item quantity="other">%1$d scad</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing">
+        <item quantity="one">%1$d pereche fără valoare pe 24 de ore</item>
+        <item quantity="few">%1$d perechi fără valoare pe 24 de ore</item>
+        <item quantity="other">%1$d de perechi fără valoare pe 24 de ore</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="one">%1$d pereche fără valoare pentru azi</item>
+        <item quantity="few">%1$d perechi fără valoare pentru azi</item>
+        <item quantity="other">%1$d de perechi fără valoare pentru azi</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_rising">
+        <item quantity="one">%1$d pereche crește</item>
+        <item quantity="few">%1$d perechi cresc</item>
+        <item quantity="other">%1$d de perechi cresc</item>
+    </plurals>
+
+    <!-- Screenreader: zuletzt aktualisiert -->
+    <plurals name="a11y_updated_days">
+        <item quantity="one">actualizat ultima dată acum %1$d zi</item>
+        <item quantity="few">actualizat ultima dată acum %1$d zile</item>
+        <item quantity="other">actualizat ultima dată acum %1$d de zile</item>
+    </plurals>
+    <plurals name="a11y_updated_hours">
+        <item quantity="one">actualizat ultima dată acum %1$d oră</item>
+        <item quantity="few">actualizat ultima dată acum %1$d ore</item>
+        <item quantity="other">actualizat ultima dată acum %1$d de ore</item>
+    </plurals>
+    <string name="a11y_updated_just_now">actualizat ultima dată chiar acum</string>
+    <plurals name="a11y_updated_minutes">
+        <item quantity="one">actualizat ultima dată acum %1$d minut</item>
+        <item quantity="few">actualizat ultima dată acum %1$d minute</item>
+        <item quantity="other">actualizat ultima dată acum %1$d de minute</item>
+    </plurals>
+
+    <!-- Screenreader: Portfolio und Portfolio-Widget -->
+    <string name="a11y_amount_hidden">sumă ascunsă</string>
+    <!-- %1$s Kürzel, %2$s Wert mit Währung, %3$s Anteil «62.3%», %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_portfolio_position">%1$s %2$s, %3$s din portofoliu</string>
+    <!-- Position im Portfolio-Widget: %1$s Kürzel, %2$s Anteil «62.3%», %3$s Satz aus a11y_change_24h -->
+    <string name="a11y_portfolio_position_24h">%1$s, %2$s din portofoliu, %3$s</string>
+    <string name="a11y_portfolio_positions">Cele mai mari poziții: %1$s</string>
+    <string name="a11y_portfolio_show_amounts">Afișează sumele</string>
+</resources>

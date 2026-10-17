@@ -1,0 +1,270 @@
+import SwiftUI
+
+/// Statuszeile der Merkliste — wie `WatchlistStatus.kt`.
+extension WatchlistScreen {
+    /// Ehrlicher Status: wie viele Kurse sind veraltet? Daneben die Dauer des
+    /// letzten Durchlaufs, ein Tipp zeigt die Aufschlüsselung.
+    func statusRow(_ watches: [Watch]) -> some View {
+        let staleAfter = data.staleAfterMillis
+        // Paare am Live-Strom: eigene Frische-Schwelle (2 Min.), «Live» nur mit allen (K-1, `LiveStatus`)
+        let liveIds = data.liveWatchIds
+        // «Nicht mehr gehandelt» ist kein Fehler: zählt weder als veraltet noch als gescheitert;
+        // deaktivierte Paare zählen gar nicht (weder veraltet noch gescheitert noch «aktuell»)
+        let traded = DisabledView.active(watches) { $0.disabled }.filter { !ConnectionErrors.isNotTraded($0.lastError) }
+        let allDisabled = !watches.isEmpty && watches.allSatisfy(\.disabled)
+        let staleCount = traded.filter {
+            WatchlistTime.isStale($0, now: now, staleAfter: LiveStatus.staleAfterMillis(
+                onLiveSocket: liveIds.contains($0.id), pollingAfter: staleAfter))
+        }.count
+        let newest = traded.map(\.lastUpdate).max() ?? 0
+        let allLive = LiveStatus.allLive(tradedIds: traded.map(\.id), liveIds: liveIds, stale: staleCount)
+        // «vor X Min.» bei «Kurse der gewählten Börsen»: gemischt die Zeit der abgefragten Paare
+        let shownTime = LiveStatus.shownTime(updates: traded.map { (id: $0.id, time: $0.lastUpdate) }, liveIds: liveIds)
+        // Keine Verbindung: der letzte Durchlauf scheiterte bei ALLEN Paaren am Netz
+        let offline = !traded.isEmpty && traded.allSatisfy { ConnectionErrors.isOffline($0.lastError) }
+        let failed = traded.filter { $0.lastError != nil }.count
+        let warn = staleCount > 0 || offline || failed > 0
+        // Kein gehandeltes Paar in der Ansicht (leere Gruppe, alle nicht mehr gehandelt):
+        // neutral statt grün — es gibt nichts, das «aktuell» sein könnte
+        let none = traded.isEmpty
+        // Gerät offline: ruhig (neutral), kein Rot — es wird dann nicht aktualisiert
+        let deviceOffline = !data.online && !none
+        // Aktuell: ruhig in der Textfarbe, nicht in der Steigen-Farbe (frisch ≠ gestiegen) — wie Android
+        let tone = none || deviceOffline ? AppColors.onSurfaceVariant : (warn ? AppColors.error : AppColors.onSurface)
+        let text: String
+        // Kurzform bei Platzmangel (nur «Kurse der gewählten Börsen · …»), siehe `statusTextFit`
+        var shortText: String?
+        var showsLive = false
+        if watches.isEmpty {
+            text = L("watchlist_status_group_empty")
+        } else if allDisabled {
+            text = L("watchlist_status_all_disabled")
+        } else if none {
+            text = L("watchlist_status_none_traded")
+        } else if deviceOffline {
+            text = newest > 0
+                ? L("offline_status_since", PriceFormat.shortTime(newest))
+                : L("offline_status")
+        } else if offline {
+            text = newest > 0 ? L("watchlist_offline_since", WatchlistTime.ago(newest, now: now)) : L("watch_error_offline")
+        } else if staleCount > 0 {
+            text = L("watchlist_stale_count", count: staleCount, staleCount, traded.count)
+        } else if failed > 0 {
+            text = L("watchlist_failed_count", count: failed, failed, traded.count)
+        } else if newest > 0 && allLive {
+            // D3: ein Wort vorne — «Live» nur, wenn ALLE Paare frisch am Strom sind (K-1), sonst
+            // «Kurse der gewählten Börsen · vor 2 Min.» (gemischt mit der Zeit der abgefragten Paare):
+            // sagt wie der Store-Text, woher der Kurs kommt und wie alt er ist
+            text = L("status_live")
+            showsLive = true
+        } else if newest > 0 {
+            let age = WatchlistTime.ago(shownTime, now: now)
+            text = L("watchlist_status_exchange_prices", age)
+            shortText = L("watchlist_status_exchange_prices_short", age)
+        } else {
+            text = L("watchlist_pull_to_refresh")
+        }
+        // VoiceOver: derselbe Satz, Zeit ausgeschrieben («vor 2 Minuten» statt «vor 2 Min.») und
+        // « · » als Pause; Live-Hinweis wie bisher dahinter
+        let agoTime = !warn && !deviceOffline ? shownTime : newest
+        let shortAgo = agoTime > 0 ? WatchlistTime.ago(agoTime, now: now) : ""
+        let longAgo = agoTime > 0 ? WatchlistTime.spokenAgo(agoTime, now: now) : ""
+        let spokenText = A11ySpeech.spokenDots(shortAgo.isEmpty ? text : text.replacingOccurrences(of: shortAgo, with: longAgo))
+        // «Live-Kurse aktiv» nur, wenn auch sichtbar «Live» steht (K-1)
+        let spokenLabel = A11ySpeech.join([spokenText, showsLive ? L("watchlist_live_a11y") : nil])
+        // Höflich ansagen, aber nur beim Wechsel aktuell / veraltet / offline (nicht jede Minute) — wie Android
+        let kind = A11ySpeech.statusKind(none: none, offline: deviceOffline || offline, warn: warn, newest: newest)
+        // Tipp auf den Status: nur die veralteten Paare zeigen bzw. wieder alle (wie Android)
+        let staleOnly = quickView == .stale
+        let tappable = staleOnly || staleCount > 0
+        return HStack(spacing: 8) {
+            HStack(spacing: 8) {
+                Circle()
+                    .fill(tone)
+                    .frame(width: 8, height: 8)
+                    .shadow(color: tone.opacity(0.7), radius: 4)
+                    .phaseAnimator(data.refreshing ? [0.35, 1.0] : [1.0]) { view, phase in
+                        view.opacity(phase)
+                    } animation: { _ in .easeInOut(duration: 0.6) }
+                // Einzeilig: zu eng (z. B. 390 pt mit «3 deaktiviert») → Kurzform «Börsenkurse · vor 1 Min.»,
+                // noch enger nur die Zeit — das Alter hat Vorrang vor dem Wort davor (VoiceOver: ganzer Satz); wie Android
+                statusTextFit(text, short: shortText,
+                              ageOnly: !shortAgo.isEmpty && shortAgo != text && text.contains(shortAgo) ? shortAgo : nil)
+                    .contentTransition(.opacity)
+                // Kurse per WebSocket: steht jetzt als Wort «Live» im Status (D3), kein zweites Abzeichen
+                if staleOnly {
+                    Image(systemName: "xmark")
+                        .scaledFont(size: 10, weight: .bold, relativeTo: .caption)
+                        .foregroundStyle(AppColors.onSurfaceVariant)
+                        .accessibilityHidden(true)
+                }
+            }
+            .padding(.horizontal, 12)
+            .padding(.vertical, Spacing.sm)
+            .background(tone.opacity(0.12), in: Capsule())
+            .contentShape(Capsule())
+            .onTapGesture { if tappable { toggleQuickView(.stale) } }
+            .accessibilityElement(children: .combine)
+            .accessibilityAddTraits(tappable ? .isButton : [])
+            .accessibilityHint(tappable ? L(staleOnly ? "watchlist_show_all" : "watchlist_show_only_stale") : "")
+            .modifier(WatchlistStatusSpeech(label: spokenLabel, announcement: spokenText, kind: kind))
+            // Nach einer Aktualisierung wechseln Farbe und Text weich (nicht hart)
+            .animation(reduceMotion ? nil : .easeInOut(duration: 0.2), value: text)
+
+            // «3 deaktiviert» neben dem Status (deaktivierte Paare der Gruppen-Ansicht)
+            disabledChip
+
+            Spacer(minLength: 4)
+
+            if data.lastRefreshMillis > 0 {
+                Button { showReport = true } label: {
+                    HStack(spacing: 4) {
+                        Image(systemName: "timer").scaledFont(size: 11, weight: .semibold, relativeTo: .caption)
+                        Text(L("watchlist_last_run", PriceFormat.duration(data.lastRefreshMillis)))
+                            .font(.caption.monospacedDigit())
+                            .lineLimit(1)
+                    }
+                    .foregroundStyle(AppColors.onSurfaceVariant)
+                    .padding(.horizontal, Spacing.sm)
+                    .padding(.vertical, Spacing.sm)
+                    .background(.ultraThinMaterial, in: Capsule())
+                    .overlay(Capsule().strokeBorder(AppColors.outlineVariant.opacity(0.5), lineWidth: 0.5))
+                }
+                .buttonStyle(.borderless)
+                .accessibilityLabel(L("watchlist_refresh_report"))
+            }
+
+            // Lupe und «+»: beim Sortieren und Auswählen ausgeblendet
+            if !sorting && !selecting {
+                Button { openSearch() } label: {
+                    // Gefüllter Kreis wie «+» daneben (neutral statt Akzentfarbe)
+                    Image(systemName: "magnifyingglass")
+                        .scaledFont(size: WatchlistSearch.buttonSymbolSize, weight: .bold, relativeTo: .caption)
+                        .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
+                        .foregroundStyle(AppColors.onSurface)
+                        .frame(width: WatchlistSearch.buttonSize, height: WatchlistSearch.buttonSize)
+                        .background(AppColors.containerHighest, in: Circle())
+                        // Tippfläche 44 pt, sichtbar bleibt der kleine Kreis
+                        .contentShape(Circle().inset(by: -(44 - WatchlistSearch.buttonSize) / 2))
+                }
+                .buttonStyle(.borderless)
+                .accessibilityLabel(L("watchlist_search_open"))
+
+                // «+» rechts neben der Lupe (Label «Paar hinzufügen»): ohne Text bricht der Status nicht um
+                addPairButton(labelled: false)
+            }
+        }
+    }
+
+    /// Hinweis «3 deaktiviert» neben dem Status: kleine neutrale Kapsel im Stil des Status
+    /// (Pause-Symbol, Zahl). Tipp zeigt nur die deaktivierten Paare (`QuickView.disabled`); ist die
+    /// Ansicht an, steht ✕ am Ende und der Tipp zeigt wieder alle. Wie `DisabledChip` (Android).
+    @ViewBuilder
+    var disabledChip: some View {
+        let count = DisabledView.count(data.visibleWatches) { $0.disabled }
+        let selected = quickView == .disabled
+        if count > 0 || selected {
+            Button { toggleQuickView(.disabled) } label: {
+                disabledChipLabel(count: count, selected: selected)
+            }
+            .buttonStyle(.plain)
+            .accessibilityHint(L(selected ? "watchlist_show_all" : "watchlist_show_only_disabled"))
+        }
+    }
+
+    /// Erste Fassung, die einzeilig passt: ganzer Satz, Kurzform, nur die Zeit; passt keine, die letzte mit «…» —
+    /// wie `FirstFitText` (Android).
+    private func statusTextFit(_ text: String, short: String?, ageOnly: String?) -> some View {
+        ViewThatFits(in: .horizontal) {
+            statusLabel(text).fixedSize()
+            if let short {
+                statusLabel(short).fixedSize()
+            }
+            statusLabel(ageOnly ?? short ?? text)
+        }
+    }
+
+    private func statusLabel(_ value: String) -> some View {
+        Text(value)
+            .font(.caption.weight(.medium).monospacedDigit())
+            .foregroundStyle(AppColors.onSurface)
+            .lineLimit(1)
+    }
+
+    private func disabledChipLabel(count: Int, selected: Bool) -> some View {
+        let tone = AppColors.onSurfaceVariant
+        return HStack(spacing: 6) {
+            Image(systemName: "pause.circle")
+                .scaledFont(size: 12, weight: .semibold, relativeTo: .caption)
+                .foregroundStyle(tone)
+                .accessibilityHidden(true)
+            Text(L("watchlist_disabled_count", count: count))
+                .font(.caption.weight(.medium).monospacedDigit())
+                .foregroundStyle(AppColors.onSurface)
+                .lineLimit(1)
+            if selected {
+                Image(systemName: "xmark")
+                    .scaledFont(size: 10, weight: .bold, relativeTo: .caption)
+                    .foregroundStyle(tone)
+                    .accessibilityHidden(true)
+            }
+        }
+        .padding(.horizontal, 10)
+        .padding(.vertical, Spacing.sm)
+        .background(tone.opacity(selected ? 0.22 : 0.12), in: Capsule())
+        .contentShape(Capsule())
+    }
+}
+
+/// VoiceOver der Status-Pille: Satz wie sichtbar (Zeit ausgeschrieben) und höfliche Ansage nur beim
+/// Wechsel aktuell / veraltet / offline (`A11ySpeech.shouldAnnounce`) — wie Android `AnnounceStatusChange`.
+private struct WatchlistStatusSpeech: ViewModifier {
+    let label: String
+    let announcement: String
+    let kind: A11ySpeech.StatusKind?
+
+    func body(content: Content) -> some View {
+        content
+            .accessibilityLabel(label)
+            .onChange(of: kind) { old, new in
+                guard A11ySpeech.shouldAnnounce(previous: old, current: new) else { return }
+                AccessibilityNotification.Announcement(announcement).post()
+            }
+    }
+}
+
+/// Zeitangaben der Merkliste.
+enum WatchlistTime {
+    private static let relative: RelativeDateTimeFormatter = {
+        let f = RelativeDateTimeFormatter()
+        f.unitsStyle = .abbreviated
+        f.dateTimeStyle = .numeric
+        return f
+    }()
+
+    /// «gerade eben» bzw. «vor 2 Min.» in der Sprache des Geräts.
+    static func ago(_ millis: Int64, now: Int64) -> String {
+        if now - millis < 60_000 { return L("time_just_now") }
+        return relative.localizedString(for: Date(millis: millis), relativeTo: Date(millis: now))
+    }
+
+    private static let spokenRelative: RelativeDateTimeFormatter = {
+        let f = RelativeDateTimeFormatter()
+        f.unitsStyle = .full
+        f.dateTimeStyle = .numeric
+        return f
+    }()
+
+    /// Wie `ago`, aber ausgeschrieben für VoiceOver: «vor 2 Minuten» — wie Android `spokenAgo`.
+    static func spokenAgo(_ millis: Int64, now: Int64) -> String {
+        if now - millis < 60_000 { return L("time_just_now") }
+        return spokenRelative.localizedString(for: Date(millis: millis), relativeTo: Date(millis: now))
+    }
+
+    /// Veraltet: noch nie aktualisiert oder älter als die Schwelle — nie bei deaktivierten oder
+    /// nicht mehr gehandelten Paaren (`DisabledView.isStale`).
+    static func isStale(_ watch: Watch, now: Int64, staleAfter: Int64) -> Bool {
+        DisabledView.isStale(disabled: watch.disabled, notTraded: ConnectionErrors.isNotTraded(watch.lastError),
+                             lastUpdate: watch.lastUpdate, now: now, staleAfter: staleAfter)
+    }
+}

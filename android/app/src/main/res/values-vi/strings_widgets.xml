@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
+    <string name="widget_background">Nền</string>
+    <string name="widget_configure_hint">Chọn nền và độ mờ. Màu theo ứng dụng. Tiện ích hiển thị toàn bộ danh sách; chạm vào một dòng để mở ứng dụng.</string>
+    <string name="widget_configure_title">Thiết lập tiện ích</string>
+    <string name="widget_description">Hiển thị giá của một cặp trong danh sách theo dõi.</string>
+    <string name="widget_empty">Chưa có cặp nào trong danh sách theo dõi.</string>
+    <string name="widget_group_hint">Chỉ hiển thị các cặp của nhóm này.</string>
+    <string name="widget_kind_single">Một coin</string>
+    <string name="widget_opacity">Độ mờ nền: %1$d%%</string>
+    <string name="widget_pulse_description">Điều nổi bật trên thị trường lúc này: tiêu đề, tóm tắt ngắn cùng Bitcoin, Ethereum và Solana.</string>
+
+    <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->
+    <!-- Allein, wenn für «outdated · 06:42» der Platz fehlt (Kopfzeile Listen-Widget) -->
+    <string name="widget_outdated">đã cũ</string>
+    <!-- Statt der Uhrzeit: «outdated · 06:42» (heute) bzw. «outdated · 5 Oct, 06:42» -->
+    <string name="widget_outdated_time">đã cũ · %1$s</string>
+
+    <!-- Widgets: Chart und Zeitraum -->
+    <string name="widget_chart_candles">Nến</string>
+    <string name="widget_chart_line">Đường</string>
+    <string name="widget_chart_range">Khoảng biểu đồ</string>
+    <string name="widget_chart_type">Loại biểu đồ</string>
+    <!-- «1 Jahr» im Chart des Aktionsblatts (365 Tageskerzen; Chip neben 24h · 7T · 30T) -->
+    <string name="widget_range_1y">1 năm</string>
+    <string name="widget_range_24h">24h</string>
+    <string name="widget_range_30d">30 ngày</string>
+    <string name="widget_range_7d">7 ngày</string>
+    <string name="widget_range_short_1y">1 năm</string>
+    <string name="widget_range_short_24h">24h</string>
+    <string name="widget_range_short_30d">30N</string>
+    <string name="widget_range_short_7d">7N</string>
+
+    <!-- Portfolio-Widget -->
+    <!-- Fusszeile, %1$s Uhrzeit ohne Sekunden («Stand 15:19») -->
+    <string name="widget_portfolio_as_of">Lúc %1$s</string>
+    <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
+    <string name="widget_portfolio_chart_pending">Diễn biến sắp có</string>
+    <string name="widget_portfolio_description">Tổng giá trị danh mục của bạn và thay đổi hôm nay</string>
+    <string name="widget_portfolio_display">Hiển thị</string>
+    <string name="widget_portfolio_display_conversion">Chỉ quy đổi</string>
+    <string name="widget_portfolio_display_conversion_usdt">Quy đổi + USDT</string>
+    <string name="widget_portfolio_display_hint">Dòng USDT bị ẩn khi tiền tệ quy đổi là USD.</string>
+    <string name="widget_portfolio_display_usdt">Chỉ USDT</string>
+    <string name="widget_portfolio_empty">Thêm giao dịch mua trong tab Danh mục</string>
+    <string name="widget_portfolio_list_hint">Mở ứng dụng để hiển thị các vị thế của bạn tại đây.</string>
+    <string name="widget_portfolio_locked_hint">Đã khóa – mở khóa trong ứng dụng</string>
+    <!-- Offene Coins ohne Kurs zählen im Gesamtwert als 0 -->
+    <plurals name="widget_portfolio_missing_coins">
+        <item quantity="other">không gồm %1$d coin</item>
+    </plurals>
+    <plurals name="widget_portfolio_more">
+        <item quantity="other">+ %1$d mục khác</item>
+    </plurals>
+    <string name="widget_portfolio_name">Danh mục</string>
+    <string name="widget_portfolio_off_hint">Bật trong %1$s.</string>
+    <string name="widget_portfolio_off_short">Danh mục tắt</string>
+    <string name="widget_portfolio_off_title">Danh mục đang tắt</string>
+    <string name="widget_portfolio_partly_stale">giá cũ một phần</string>
+    <string name="widget_portfolio_period">Khoảng thời gian</string>
+    <string name="widget_portfolio_period_without">%1$s không gồm %2$s</string>
+    <string name="widget_portfolio_range_48h">48h</string>
+    <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
+    <string name="widget_portfolio_range_fallback">%1$s: mở Danh mục</string>
+    <string name="widget_portfolio_range_short_48h">48h</string>
+    <string name="widget_portfolio_today_without">Hôm nay không gồm %1$s</string>
+    <string name="widget_portfolio_view">Chế độ xem</string>
+    <string name="widget_portfolio_view_chart">Biểu đồ</string>
+    <string name="widget_portfolio_view_list">Danh sách</string>
+    <string name="widget_portfolio_view_overview">Tổng quan</string>
+
+    <!-- Einzel-Widget -->
+    <string name="single_widget_choose">Chọn cặp</string>
+    <string name="single_widget_description">Hiển thị một coin lớn với giá, thay đổi và biểu đồ 24 giờ.</string>
+    <string name="single_widget_label">Crypto Checker – một coin</string>
+    <string name="single_widget_title">Thiết lập tiện ích đơn</string>
+
+    <!-- Widgets aus der App hinzufügen -->
+    <string name="widgets_add">Thêm</string>
+    <!-- Screenreader: Knopf «Add» mit dem Namen des Widgets -->
+    <string name="widgets_add_named">Thêm tiện ích %1$s</string>
+    <string name="widgets_manual_text">Màn hình chính của bạn không thể thêm tiện ích từ ứng dụng. Chạm và giữ một chỗ trống trên màn hình chính, chọn “Tiện ích” rồi tìm “Crypto Checker”.</string>
+    <!-- Startbildschirm (Launcher) kann keine Widgets aus der App annehmen -->
+    <string name="widgets_manual_title">Tự thêm tiện ích</string>
+    <string name="widgets_sheet_title">Thêm tiện ích</string>
+
+    <!-- Nur iOS: Widget selbst hinzufügen (drei Schritte) -->
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS không cho phép ứng dụng tự thêm tiện ích. Chỉ mất một chút thời gian:</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">Tiện ích có sẵn</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">Chạm và giữ một chỗ trống trên Màn hình chính cho đến khi các ứng dụng rung lên.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">Chạm vào “Sửa” › “Thêm tiện ích” ở trên cùng (hoặc “+” trên các phiên bản iOS cũ hơn).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">Tìm “Crypto Checker”, chọn một tiện ích rồi chạm vào “Thêm tiện ích”.</string>
+</resources>

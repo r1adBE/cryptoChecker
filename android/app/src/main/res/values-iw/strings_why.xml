@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Warum bewegt sich das?»: Titel, Abschnitte, Aufklappen -->
+    <string name="why_action">מה זז יחד איתו?</string>
+    <string name="why_all_values">כל הערכים והמקורות</string>
+    <string name="why_all_values_hint">תצפית · הסבר אפשרי · מקורות</string>
+    <string name="why_details">הצגת פרטים</string>
+    <string name="why_details_hide">הסתרת פרטים</string>
+    <string name="why_disclaimer">הערכה אוטומטית מנתוני שוק: מראה מה קורה באותו זמן, לא הוכחה לסיבה.</string>
+    <string name="why_footer_short">בו-זמנית אין פירושו סיבה · אין ייעוץ השקעות</string>
+    <string name="why_no_data">אין נתונים מ-Binance לצמד זה</string>
+    <string name="why_no_data_hint">מחיר, מחזור ותנודתיות מגיעים מנרות שעתיים של Binance.</string>
+    <string name="why_ref_alts">Alts</string>
+    <string name="why_section_context">פרשנות אפשרית</string>
+    <string name="why_section_observation">תצפית</string>
+    <string name="why_title">מה זז יחד איתו?</string>
+    <string name="why_title_coin">מה זז יחד עם %1$s?</string>
+
+    <!-- «Warum?»: Kurz gesagt (ein Satz oben) -->
+    <string name="why_brief_head">בקיצור · נכון ל-%1$s</string>
+    <string name="why_brief_label">בקיצור:</string>
+    <string name="why_summary_against">המטבע נע נגד השוק.</string>
+    <string name="why_summary_calm">אין תנועה בולטת: השוק והמטבע רגועים.</string>
+    <string name="why_summary_coin">רק המטבע הזה זז – אולי משהו שנוגע רק למטבע הזה.</string>
+    <string name="why_summary_coin_volume">רק המטבע הזה זז, במחזור גבוה יותר – אולי משהו שנוגע רק למטבע הזה.</string>
+    <string name="why_summary_longs">חוזים: הרבה פוזיציות לונג ממונפות.</string>
+    <string name="why_summary_market">התנועה תואמת בזמן את השוק כולו.</string>
+    <string name="why_summary_market_volume">התנועה חופפת בזמן למחזור מסחר גבוה יותר ולשוק שזז באופן רחב.</string>
+    <string name="why_summary_peg_near">השער קרוב להצמדה 1:1 שלו.</string>
+    <string name="why_summary_peg_off">השער סוטה באופן מורגש מההצמדה 1:1 שלו.</string>
+    <string name="why_summary_shorts">חוזים: הרבה פוזיציות שורט.</string>
+    <string name="why_summary_thin">התנועה דלילה: מעט נפח מאחוריה.</string>
+
+    <!-- «Warum?»: Faktorliste (Titel der Faktoren) -->
+    <string name="why_f_against">נגד השוק</string>
+    <string name="why_f_coin_only">רק המטבע הזה</string>
+    <string name="why_f_leader">ביטקוין כמוביל השוק</string>
+    <string name="why_f_leverage_balanced">מינוף מאוזן</string>
+    <string name="why_f_leverage_longs">מינוף: הרבה לונגים</string>
+    <string name="why_f_leverage_shorts">מינוף: הרבה שורטים</string>
+    <string name="why_f_market_calm">שוק רגוע</string>
+    <string name="why_f_market_wide">כל השוק זז</string>
+    <string name="why_factor_funding">מימון</string>
+    <string name="why_factor_futures">חוזים עתידיים</string>
+    <string name="why_factor_market">השוק כולו</string>
+    <string name="why_factor_near_high">קרוב לשיא</string>
+    <string name="why_factor_near_low">קרוב לשפל</string>
+    <string name="why_factor_peg">הצמדה (1:1)</string>
+    <string name="why_factor_range3d">טווח של 3 ימים</string>
+
+    <!-- «Warum?»: Nebenzeilen der Faktoren -->
+    <string name="why_fn_estimated">משוער</string>
+    <string name="why_fn_funding_longs">רבים מהמרים על עליות</string>
+    <string name="why_fn_funding_neutral">ניטרלי</string>
+    <string name="why_fn_funding_shorts">רבים מהמרים על ירידות</string>
+    <string name="why_fn_high_at">בשיא של 30 יום</string>
+    <string name="why_fn_high_below">מתחת לשיא של 30 יום</string>
+    <string name="why_fn_leader_calm">ביטקוין רגוע</string>
+    <string name="why_fn_leader_moves">ביטקוין זז בבירור</string>
+    <string name="why_fn_low_above">מעל השפל של 30 יום</string>
+    <string name="why_fn_low_at">בשפל של 30 יום</string>
+    <string name="why_fn_market_against">המטבע נע נגד השוק</string>
+    <string name="why_fn_market_alone">השוק רגוע – המטבע הזה זז לבד</string>
+    <string name="why_fn_market_calm">השוק רגוע</string>
+    <string name="why_fn_market_lags">השוק זז, המטבע הזה כמעט לא</string>
+    <string name="why_fn_market_moves">השוק נע באותו כיוון</string>
+    <string name="why_fn_market_pulls">השוק נע יחד עם BTC</string>
+    <string name="why_fn_oi_down">Open interest ירד</string>
+    <string name="why_fn_oi_flat">Open interest כמעט לא השתנה</string>
+    <string name="why_fn_oi_mixed">Open interest מעורב</string>
+    <string name="why_fn_oi_up">Open interest עלה</string>
+    <string name="why_fn_peg_above">%1$s מעל להצמדה 1:1</string>
+    <string name="why_fn_peg_below">%1$s מתחת להצמדה 1:1</string>
+    <string name="why_fn_peg_near">קרוב להצמדה 1:1</string>
+    <string name="why_fn_range_above_low">מאז השפל של 3 ימים</string>
+    <string name="why_fn_range_below_high">מאז השיא של 3 ימים</string>
+    <string name="why_fn_range_near_high">קרוב לשיא של 3 ימים</string>
+    <string name="why_fn_range_near_low">קרוב לשפל של 3 ימים</string>
+    <string name="why_fn_volatility_stronger">חזק מהרגיל</string>
+    <string name="why_fn_volatility_tiny">קטן במונחים מוחלטים (מתחת ל-%1$s)</string>
+    <string name="why_fn_volatility_usual">כרגיל</string>
+    <string name="why_fn_volume_higher">גבוה מהרגיל</string>
+    <string name="why_fn_volume_lower">נמוך מהרגיל</string>
+    <string name="why_fn_volume_usual">כרגיל</string>
+
+    <!-- «Warum?»: ausführliche Sätze je Beobachtung -->
+    <string name="why_against_market_text">המטבע הזה %1$s, BTC %2$s ב-24 שעות — תנועה עצמאית באופן בולט.</string>
+    <string name="why_against_ref_text">המטבע הזה %1$s, %2$s %3$s ב-24 שעות — תנועה עצמאית באופן בולט.</string>
+    <string name="why_btc_independent">%1$s נע כרגע באופן עצמאי מביטקוין.</string>
+    <string name="why_btc_tight">%1$s נע כרגע בצמוד לביטקוין.</string>
+    <string name="why_change_1h">1h</string>
+    <string name="why_change_24h">24h</string>
+    <string name="why_coin_only_text">%1$s ב-24 שעות בזמן שהשוק רגוע – אולי משהו שנוגע רק למטבע הזה.</string>
+    <string name="why_leverage_balanced_text">אין הצטברות של פוזיציות לונג או שורט בשוק החוזים העתידיים.</string>
+    <string name="why_leverage_longs_text">רבים מהמרים בכסף שאול על עליית מחירים. הלונגים משלמים לשורטים — סיכון מוגבר לחיסולים אם המחיר יורד.</string>
+    <string name="why_leverage_shorts_text">רבים מהמרים בכסף שאול על ירידת מחירים. השורטים משלמים ללונגים – אם המחיר יעלה, ייתכן Short Squeeze.</string>
+    <string name="why_market_calm_text">המטבע הזה: %1$s ב-24 שעות. לא השוק ולא המטבע זזים הרבה.</string>
+    <string name="why_market_leader_text">כמטבע הגדול ביותר, BTC נוטה לנוע בתיאום עם שאר השוק. ETH: %1$s ב-24 שעות.</string>
+    <string name="why_market_leader_text_no_eth">כמטבע הגדול ביותר, BTC נוטה לנוע בתיאום עם שאר השוק.</string>
+    <string name="why_market_similar_text">המטבע הזה: %1$s ב-24 שעות — באותו זמן השוק נע באותו כיוון, אם כי באופן פחות ברור.</string>
+    <string name="why_market_wide_text">המטבע הזה: %1$s ב-24 שעות – באותו זמן השוק כולו זז בבירור.</string>
+    <string name="why_open_interest_change">Open interest %1$s מאז הבדיקה האחרונה.</string>
+    <string name="why_peg_text">מטבע יציב: בהשוואה להצמדה 1:1 למטבע הציטוט, סטייה %1$s.</string>
+    <string name="why_sentiment_text">מדד פחד ותאוות בצע של כל שוק הקריפטו, %1$s לעומת אתמול.</string>
+    <string name="why_sentiment_text_no_change">מדד פחד ותאוות בצע של כל שוק הקריפטו.</string>
+    <plurals name="why_trend_falling">
+        <item quantity="one">יורד כבר שעה (%1$d)</item>
+        <item quantity="two">יורד כבר שעתיים (%1$d)</item>
+        <item quantity="other">יורד כבר %1$d שעות</item>
+    </plurals>
+    <plurals name="why_trend_rising">
+        <item quantity="one">עולה כבר שעה (%1$d)</item>
+        <item quantity="two">עולה כבר שעתיים (%1$d)</item>
+        <item quantity="other">עולה כבר %1$d שעות</item>
+    </plurals>
+    <plurals name="why_trend_stable">
+        <item quantity="one">יציב כבר שעה (%1$d)</item>
+        <item quantity="two">יציב כבר שעתיים (%1$d)</item>
+        <item quantity="other">יציב כבר %1$d שעות</item>
+    </plurals>
+    <string name="why_volatility_high_text">השעה האחרונה: %1$s — ביחס לתנודה השעתית הטיפוסית ב-24 השעות האחרונות.</string>
+    <string name="why_volatility_normal_text">השעה האחרונה: %1$s — בטווח הרגיל.</string>
+    <string name="why_volatility_tiny_text">השעה האחרונה: %1$s — חריג למטבע הזה, אבל קטן במונחים מוחלטים.</string>
+    <string name="why_volume_estimated_text">משוער: המקור הזה לא מספק מחזור, לכן משווים את כמויות המטבעות שנסחרו.</string>
+    <string name="why_volume_high_text">הרבה יותר מסחר מהרגיל בשעה האחרונה – התנועה מלווה במחזור גבוה.</string>
+    <string name="why_volume_low_text">מעט מסחר מאחורי התנועה – תנועות כאלה לרוב פחות יציבות.</string>
+    <string name="why_volume_normal_text">המסחר בשעה האחרונה תואם את 24 השעות האחרונות.</string>
+
+    <!-- «Warum?»: Signal-Punkte (stützt, neutral, Vorsicht) -->
+    <string name="why_dot_caution">מוגבר</string>
+    <string name="why_dot_neutral">ניטרלי</string>
+    <string name="why_dot_supports">תואם את התנועה</string>
+
+    <!-- «Warum?»: Frische und Quellen der Daten -->
+    <string name="why_data_time">נתונים נכון ל-%1$s</string>
+    <string name="why_fresh_breadth">רוחב השוק: %1$s · %2$s</string>
+    <string name="why_fresh_candles">נרות: %1$s · %2$s</string>
+    <string name="why_fresh_fng">Fear &amp; Greed: %1$s</string>
+    <string name="why_fresh_futures">חוזים עתידיים: %1$s</string>
+    <plurals name="why_fresh_oi_hours">
+        <item quantity="one">Open interest בהשוואה לפני שעה (%1$d)</item>
+        <item quantity="two">Open interest בהשוואה לפני שעתיים (%1$d)</item>
+        <item quantity="other">Open interest בהשוואה לפני %1$d שעות</item>
+    </plurals>
+    <plurals name="why_fresh_oi_minutes">
+        <item quantity="one">Open interest בהשוואה לפני דקה (%1$d)</item>
+        <item quantity="two">Open interest בהשוואה לפני שתי דקות (%1$d)</item>
+        <item quantity="other">Open interest בהשוואה לפני %1$d דקות</item>
+    </plurals>
+    <string name="why_fresh_today">היום</string>
+    <string name="why_fresh_yesterday">אתמול</string>
+    <string name="why_source_fallback">%1$s (מקור חלופי)</string>
+    <string name="why_source_reference">%1$s (ערך מנחה)</string>
+    <string name="why_sources">מקורות: נרות שעתיים של הבורסה (בדרך כלל Binance), נתוני חוזים עתידיים מהבורסות, Fear &amp; Greed מ-alternative.me.</string>
+    <string name="why_sources_list">מקורות: %1$s.</string>
+    <string name="why_src_breadth">%1$s (רוחב השוק)</string>
+    <string name="why_src_candles">%1$s (נרות)</string>
+    <string name="why_src_comparison">%1$s (השוואה לשוק)</string>
+    <string name="why_src_fng">%1$s (Fear &amp; Greed)</string>
+    <string name="why_src_futures">%1$s (חוזים עתידיים)</string>
+
+    <!-- Faktor-Checkliste (Crypto Pulse und «Warum?») -->
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">מימון</string>
+    <string name="factor_spoken_volatility">פי %1$s מהתנודה הרגילה</string>
+    <string name="factor_spoken_volume">פי %1$s מהרגיל</string>
+    <string name="factor_volatility">תנודתיות (1h)</string>
+    <string name="factor_volume">נפח</string>
+</resources>

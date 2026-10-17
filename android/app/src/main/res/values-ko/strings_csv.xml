@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: CSV-Import -->
+    <string name="portfolio_csv_import_action">CSV 가져오기</string>
+    <string name="portfolio_csv_import_all_transfer">모두 내 지갑으로</string>
+    <string name="portfolio_csv_import_all_withdrawal">모두 포트폴리오에서 빠짐</string>
+    <string name="portfolio_csv_import_choice_proposed">추천: %1$s와(과) 일치</string>
+    <string name="portfolio_csv_import_choice_transfer">내 지갑으로(이체)</string>
+    <string name="portfolio_csv_import_choice_withdrawal">포트폴리오에서 빠짐(출금)</string>
+    <string name="portfolio_csv_import_choose_each">출금마다 어디로 갔는지 선택하세요.</string>
+    <string name="portfolio_csv_import_columns">인식된 열: %1$s</string>
+    <string name="portfolio_csv_import_confirm">가져오기(%1$d)</string>
+    <string name="portfolio_csv_import_date_day_first">일/월</string>
+    <string name="portfolio_csv_import_date_month_first">월/일</string>
+    <string name="portfolio_csv_import_date_order">모호한 날짜(예: 03/04/2024) 해석 방식:</string>
+    <string name="portfolio_csv_import_decimal">모호한 숫자(예: %1$s) 해석 방식:</string>
+    <plurals name="portfolio_csv_import_done">
+        <item quantity="other">거래 %d건을 가져왔습니다</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_duplicates">
+        <item quantity="other">이미 가져온 %d건(건너뜀)</item>
+    </plurals>
+    <string name="portfolio_csv_import_format">형식: %1$s</string>
+    <string name="portfolio_csv_import_line">%1$d행: %2$s</string>
+    <string name="portfolio_csv_import_loading">파일과 일별 환율을 읽는 중…</string>
+    <string name="portfolio_csv_import_missing_fx">%1$s행의 일별 환율이 없습니다 – 가격/수수료 없이 가져왔습니다.</string>
+    <string name="portfolio_csv_import_missing_price">파일에 %1$s행의 가격이 없습니다 – 가격 없이 가져왔습니다.</string>
+    <string name="portfolio_csv_import_more">+ %1$d개 더</string>
+    <plurals name="portfolio_csv_import_new">
+        <item quantity="other">새 거래 %d건</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_skipped">
+        <item quantity="other">%d행 건너뜀</item>
+    </plurals>
+    <string name="portfolio_csv_import_stable_swaps">스테이블코인(USDT, USDC …)으로 한 매수·매도는 스왑으로 기록됩니다 – 스테이블코인이 보유량에 표시됩니다.</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">여러 후보가 있습니다 – 맞는 것을 고르거나 고르지 마세요.</string>
+    <string name="portfolio_csv_import_transfer_fee">네트워크 수수료: %1$s</string>
+    <string name="portfolio_csv_import_transfer_link">하나의 이체로 기록</string>
+    <string name="portfolio_csv_import_transfer_stored">이전 가져오기의 상대 거래</string>
+    <string name="portfolio_csv_import_transfers_hint">같은 코인의 출금과 그에 맞는 입금이 하나의 이체가 됩니다: 매수가와 보유 기간은 유지되고, 차액은 네트워크 수수료로 처리됩니다.</string>
+    <string name="portfolio_csv_import_transfers_title">내 계정 간 이체</string>
+    <string name="portfolio_csv_import_unreadable">지원되는 거래를 찾지 못했습니다. 지원: Relai, Swissquote, Kraken, Binance, Coinbase 및 Bitpanda CSV 내보내기.</string>
+    <string name="portfolio_csv_import_withdrawals_title">출금 – 코인은 어디로 갔나요?</string>
+    <string name="portfolio_csv_import_zone">시간대 없는 시각은 다음으로 읽음: %1$s</string>
+    <string name="portfolio_csv_import_zone_device">기기(%1$s)</string>
+    <string name="portfolio_csv_skip_bad_date">날짜를 읽을 수 없음</string>
+    <string name="portfolio_csv_skip_bad_number">숫자를 읽을 수 없음</string>
+    <string name="portfolio_csv_skip_fee_exceeds">수수료 ≥ 받은 수량</string>
+    <string name="portfolio_csv_skip_internal_move">내 계정 간 이동 – 기록할 내용 없음</string>
+    <string name="portfolio_csv_skip_missing">항목 누락</string>
+    <string name="portfolio_csv_skip_not_crypto">암호화폐 아님</string>
+    <string name="portfolio_csv_skip_possible_duplicate">이미 가져왔을 수 있음(거의 같은 거래) – 직접 확인하세요</string>
+    <string name="portfolio_csv_skip_two_fees">단위가 다른 수수료 2건 – 스왑을 직접 입력</string>
+    <string name="portfolio_csv_skip_unsupported">지원되지 않는 유형</string>
+
+    <!-- Portfolio: Importe ansehen und rückgängig machen -->
+    <string name="portfolio_import_undo">실행 취소</string>
+    <plurals name="portfolio_import_undo_confirm">
+        <item quantity="other">이 가져오기의 거래 %d건을 삭제할까요? 직접 입력한 내역과 다른 가져오기는 유지됩니다.</item>
+    </plurals>
+    <string name="portfolio_import_undo_title">가져오기를 취소할까요?</string>
+    <plurals name="portfolio_import_undone">
+        <item quantity="other">가져온 거래 %d건을 삭제했습니다</item>
+    </plurals>
+    <plurals name="portfolio_imports_count">
+        <item quantity="other">거래 %d건</item>
+    </plurals>
+    <string name="portfolio_imports_empty">가져오기 없음</string>
+    <string name="portfolio_imports_title">가져오기</string>
+</resources>

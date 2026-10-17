@@ -1,0 +1,324 @@
+#!/usr/bin/env python3
+"""Weekly live check of the exchange APIs the apps read.
+
+Queries the public single-ticker endpoint of every exchange adapter for one
+major pair and checks that the fields the adapters parse are still there and
+numeric (last price, plus bid/ask/volume/change where the adapter reads them).
+The table below mirrors the adapters in
+android/marketdata/.../model/market/*.kt and ios/Shared/Markets/*.swift and the
+endpoints listed in android/testdata/exchanges/exchange_*.json - keep it in sync
+when an adapter changes its URL or fields.
+
+Result handling (GitHub Actions, gh CLI with GITHUB_TOKEN):
+  - any failure: open ONE issue "Exchange API check failed" or update the open one
+  - all pass:    close that issue (with a comment) if it is open
+Geo-blocked answers (HTTP 451, or 403 for exchanges that block US cloud IPs)
+count as "skipped", not as failure: GitHub's runners are in the US.
+
+Usage:
+  python3 exchange_live_check.py              # check and manage the issue (CI)
+  python3 exchange_live_check.py --dry-run    # check only, print the issue text
+  python3 exchange_live_check.py --only kraken,okx --dry-run
+
+Exit code: 0 = all passed (or --dry-run), 1 = failures (after the issue was handled).
+Python 3.9+ standard library only.
+"""
+import argparse
+import json
+import os
+import subprocess
+import sys
+import time
+import urllib.error
+import urllib.request
+
+ISSUE_TITLE = "Exchange API check failed"
+TIMEOUT_SECONDS = 20
+USER_AGENT = "CryptoChecker-ExchangeLiveCheck/1.0 (+https://github.com/r1adBE/cryptoChecker)"
+
+# Pfad in die Antwort: Schlüssel (str) oder Index (int)
+# key, Name, URL, Pfade der Pflichtfelder (zahlig), optional POST-Body, geo = 403 gilt als gesperrt
+EXCHANGES = [
+    {"key": "coinbase", "name": "Coinbase",
+     "url": "https://api.exchange.coinbase.com/products/BTC-USD/stats",
+     "fields": [["last"], ["open"], ["volume"]]},
+    {"key": "kraken", "name": "Kraken",
+     "url": "https://api.kraken.com/0/public/Ticker?pair=XXBTZUSD",
+     "fields": [["result", "XXBTZUSD", "c", 0], ["result", "XXBTZUSD", "b", 0], ["result", "XXBTZUSD", "a", 0],
+                ["result", "XXBTZUSD", "v", 1]]},
+    {"key": "gateio", "name": "Gate.io",
+     "url": "https://api.gateio.ws/api/v4/spot/tickers?currency_pair=BTC_USDT",
+     "fields": [[0, "last"], [0, "change_percentage"], [0, "quote_volume"]]},
+    {"key": "binance", "name": "Binance",
+     "url": "https://api.binance.com/api/v3/ticker/24hr?symbol=BTCUSDT", "geo": True,
+     "fields": [["lastPrice"], ["priceChangePercent"], ["quoteVolume"]]},
+    {"key": "binanceus", "name": "Binance.US",
+     "url": "https://api.binance.us/api/v3/ticker/24hr?symbol=BTCUSDT", "geo": True,
+     "fields": [["lastPrice"], ["priceChangePercent"], ["quoteVolume"]]},
+    {"key": "kucoin", "name": "KuCoin",
+     "url": "https://api.kucoin.com/api/v1/market/stats?symbol=BTC-USDT",
+     "fields": [["data", "last"], ["data", "changeRate"], ["data", "volValue"]]},
+    {"key": "okx", "name": "OKX",
+     "url": "https://www.okx.com/api/v5/market/ticker?instId=BTC-USDT",
+     "fields": [["data", 0, "last"], ["data", 0, "open24h"], ["data", 0, "volCcy24h"]]},
+    {"key": "okxfutures", "name": "OKX Futures",
+     "url": "https://www.okx.com/api/v5/market/ticker?instId=BTC-USDT-SWAP",
+     "fields": [["data", 0, "last"], ["data", 0, "open24h"]]},
+    {"key": "binancefutures", "name": "Binance Futures",
+     "url": "https://fapi.binance.com/fapi/v1/ticker/24hr?symbol=BTCUSDT", "geo": True,
+     "fields": [["lastPrice"], ["priceChangePercent"], ["quoteVolume"]]},
+    {"key": "bybit", "name": "Bybit",
+     "url": "https://api.bybit.com/v5/market/tickers?category=spot&symbol=BTCUSDT", "geo": True,
+     "fields": [["result", "list", 0, "lastPrice"], ["result", "list", 0, "price24hPcnt"]]},
+    {"key": "bybitfutures", "name": "Bybit Futures",
+     "url": "https://api.bybit.com/v5/market/tickers?category=linear&symbol=BTCUSDT", "geo": True,
+     "fields": [["result", "list", 0, "lastPrice"], ["result", "list", 0, "price24hPcnt"]]},
+    {"key": "bitget", "name": "Bitget",
+     "url": "https://api.bitget.com/api/v2/spot/market/tickers?symbol=BTCUSDT",
+     "fields": [["data", 0, "lastPr"], ["data", 0, "open"], ["data", 0, "quoteVolume"]]},
+    {"key": "bitgetfutures", "name": "Bitget Futures",
+     "url": "https://api.bitget.com/api/v2/mix/market/ticker?symbol=BTCUSDT&productType=USDT-FUTURES",
+     "fields": [["data", 0, "lastPr"], ["data", 0, "change24h"]]},
+    {"key": "mexc", "name": "MEXC",
+     "url": "https://api.mexc.com/api/v3/ticker/24hr?symbol=BTCUSDT",
+     "fields": [["lastPrice"], ["priceChangePercent"], ["quoteVolume"]]},
+    {"key": "mexcfutures", "name": "MEXC Futures",
+     "url": "https://contract.mexc.com/api/v1/contract/ticker?symbol=BTC_USDT",
+     "fields": [["data", "lastPrice"], ["data", "riseFallRate"]]},
+    {"key": "htx", "name": "HTX",
+     "url": "https://api.huobi.pro/market/detail/merged?symbol=btcusdt",
+     "fields": [["tick", "close"], ["tick", "open"], ["tick", "vol"]]},
+    {"key": "htxfutures", "name": "HTX Futures",
+     "url": "https://api.hbdm.com/linear-swap-ex/market/detail/merged?contract_code=BTC-USDT",
+     "fields": [["tick", "close"], ["tick", "open"]]},
+    {"key": "bitfinex", "name": "Bitfinex",
+     "url": "https://api-pub.bitfinex.com/v2/ticker/tBTCUSD",
+     "fields": [[6], [5], [7]]},
+    {"key": "bitstamp", "name": "Bitstamp",
+     "url": "https://www.bitstamp.net/api/v2/ticker/btcusd/",
+     "fields": [["last"], ["open_24"], ["volume"]]},
+    {"key": "bitvavo", "name": "Bitvavo",
+     "url": "https://api.bitvavo.com/v2/ticker/24h?market=BTC-EUR",
+     "fields": [["last"], ["open"], ["volumeQuote"]]},
+    {"key": "cryptocom", "name": "Crypto.com",
+     "url": "https://api.crypto.com/exchange/v1/public/get-tickers?instrument_name=BTC_USDT",
+     "fields": [["result", "data", 0, "a"], ["result", "data", 0, "c"]]},
+    {"key": "gemini", "name": "Gemini",
+     "url": "https://api.gemini.com/v1/pubticker/btcusd",
+     "fields": [["last"], ["bid"], ["ask"]]},
+    {"key": "hyperliquid", "name": "Hyperliquid",
+     "url": "https://api.hyperliquid.xyz/info", "post": {"type": "metaAndAssetCtxs"},
+     "fields": [[1, 0, "midPx"], [1, 0, "prevDayPx"], [1, 0, "funding"]],
+     "names": [0, "universe", 0, "name"]},
+    {"key": "woo", "name": "WOO X",
+     "url": "https://api.woox.io/v3/public/kline?symbol=SPOT_BTC_USDT&type=1h&limit=25",
+     "fields": [["data", "rows", 0, "close"], ["data", "rows", 0, "open"]]},
+    {"key": "woofutures", "name": "WOO X Futures",
+     "url": "https://api.woox.io/v3/public/futures?symbol=PERP_BTC_USDT",
+     "fields": [["data", "rows", 0, "24hClose"], ["data", "rows", 0, "24hOpen"]]},
+    {"key": "deribit", "name": "Deribit",
+     "url": "https://www.deribit.com/api/v2/public/ticker?instrument_name=BTC-PERPETUAL",
+     "fields": [["result", "last_price"], ["result", "stats", "price_change"]]},
+    {"key": "phemex", "name": "Phemex",
+     "url": "https://api.phemex.com/md/spot/ticker/24hr?symbol=sBTCUSDT",
+     "fields": [["result", "lastEp"], ["result", "openEp"]]},
+    {"key": "phemexfutures", "name": "Phemex Futures",
+     "url": "https://api.phemex.com/md/v2/ticker/24hr?symbol=BTCUSDT",
+     "fields": [["result", "closeRp"], ["result", "openRp"]]},
+    {"key": "poloniex", "name": "Poloniex",
+     "url": "https://api.poloniex.com/markets/BTC_USDT/ticker24h",
+     "fields": [["close"], ["dailyChange"], ["amount"]]},
+    {"key": "onetrading", "name": "One Trading",
+     "url": "https://api.onetrading.com/fast/v1/market-ticker/BTC_EUR",
+     "fields": [["last_price"], ["quote_volume"]]},
+    {"key": "upbit", "name": "Upbit",
+     "url": "https://api.upbit.com/v1/ticker?markets=KRW-BTC",
+     "fields": [[0, "trade_price"], [0, "change_rate"], [0, "acc_trade_price_24h"]]},
+    {"key": "bithumb", "name": "Bithumb",
+     "url": "https://api.bithumb.com/v1/ticker?markets=KRW-BTC",
+     "fields": [[0, "trade_price"], [0, "change_rate"]]},
+    {"key": "bitflyer", "name": "bitFlyer",
+     "url": "https://api.bitflyer.com/v1/ticker?product_code=BTC_JPY",
+     "fields": [["ltp"], ["best_bid"], ["best_ask"]]},
+    {"key": "btcturk", "name": "BtcTurk",
+     "url": "https://api.btcturk.com/api/v2/ticker?pairSymbol=BTCTRY",
+     "fields": [["data", 0, "last"], ["data", 0, "dailyPercent"]]},
+    {"key": "bitso", "name": "Bitso",
+     "url": "https://bitso.com/api/v3/ticker?book=btc_mxn",
+     "fields": [["payload", "last"], ["payload", "volume"]]},
+    {"key": "indodax", "name": "Indodax",
+     "url": "https://indodax.com/api/ticker/btcidr",
+     "fields": [["ticker", "last"], ["ticker", "buy"], ["ticker", "sell"]]},
+    {"key": "zebpay", "name": "ZebPay",
+     "url": "https://sapi.zebpay.com/api/v2/market/ticker?symbol=BTC-INR",
+     "fields": [["data", "last"], ["data", "quoteVolume"]]},
+    {"key": "independentreserve", "name": "Independent Reserve",
+     "url": "https://api.independentreserve.com/Public/GetMarketSummary?primaryCurrencyCode=Xbt&secondaryCurrencyCode=Aud",
+     "fields": [["LastPrice"], ["CurrentHighestBidPrice"], ["CurrentLowestOfferPrice"]]},
+    {"key": "latoken", "name": "LATOKEN",
+     # BTC/USDT über die Währungs-IDs (wie der Adapter, siehe exchange_latoken.json)
+     "url": "https://api.latoken.com/v2/ticker/92151d82-df98-4d88-9a4d-284fa9eca49f/0c3a106d-bde3-4c13-a26e-3fd2394529e5",
+     "fields": [["lastPrice"], ["change24h"], ["volume24h"]]},
+    {"key": "nonkyc", "name": "NonKYC",
+     "url": "https://api.nonkyc.io/api/v2/ticker/BTC_USDT",
+     "fields": [["last_price"], ["target_volume"]]},
+    {"key": "dexscreener", "name": "DexScreener",
+     "url": "https://api.dexscreener.com/latest/dex/pairs/ethereum/0x11950d141EcB863F01007AdD7D1A342041227b58",
+     "fields": [["pairs", 0, "priceNative"], ["pairs", 0, "priceChange", "h24"]]},
+]
+
+OK, FAIL, SKIP = "ok", "fail", "skip"
+
+
+def fetch(entry):
+    """Antwort als (HTTP-Status, Text); Status 0 = keine Verbindung."""
+    data = None
+    headers = {"User-Agent": USER_AGENT, "Accept": "application/json"}
+    if "post" in entry:
+        data = json.dumps(entry["post"]).encode()
+        headers["Content-Type"] = "application/json"
+    req = urllib.request.Request(entry["url"], data=data, headers=headers)
+    try:
+        with urllib.request.urlopen(req, timeout=TIMEOUT_SECONDS) as resp:
+            # Wie die Apps: höchstens 2 MB lesen
+            return resp.status, resp.read(2 * 1024 * 1024 + 1).decode("utf-8", "replace")
+    except urllib.error.HTTPError as e:
+        return e.code, ""
+    except Exception as e:  # Zeitüberschreitung, DNS, TLS …
+        return 0, type(e).__name__
+
+
+def walk(obj, path):
+    for step in path:
+        if isinstance(step, int):
+            if not isinstance(obj, list) or len(obj) <= step:
+                return None
+        elif not isinstance(obj, dict) or step not in obj:
+            return None
+        obj = obj[step]
+    return obj
+
+
+def numeric(value):
+    if isinstance(value, bool) or value is None:
+        return False
+    try:
+        float(value)
+        return True
+    except (TypeError, ValueError):
+        return False
+
+
+def path_text(path):
+    return "".join(f"[{p}]" if isinstance(p, int) else f".{p}" for p in path).lstrip(".")
+
+
+def check(entry):
+    """(Status, Hinweis) für eine Börse; ein zweiter Versuch bei Netz-/Serverfehlern."""
+    status, body = fetch(entry)
+    if status == 0 or status >= 500 or status == 429:
+        time.sleep(3)
+        status, body = fetch(entry)
+    if status == 451 or (status == 403 and entry.get("geo")):
+        return SKIP, f"HTTP {status} (geo-blocked from this runner)"
+    if status != 200:
+        return FAIL, f"HTTP {status}" if status else f"no connection ({body})"
+    if len(body) > 2 * 1024 * 1024:
+        return FAIL, "response larger than 2 MB"
+    try:
+        data = json.loads(body)
+    except ValueError:
+        return FAIL, "response is not JSON"
+    missing = [path_text(p) for p in entry["fields"] if not numeric(walk(data, p))]
+    if "names" in entry and walk(data, entry["names"]) is None:
+        missing.append(path_text(entry["names"]))
+    if missing:
+        return FAIL, "missing or non-numeric: " + ", ".join(missing)
+    last = float(walk(data, entry["fields"][0]))
+    if last <= 0:
+        return FAIL, f"{path_text(entry['fields'][0])} is {last}"
+    return OK, ""
+
+
+def issue_body(results):
+    lines = [
+        "The weekly exchange API check (`.github/workflows/exchange-live-check.yml`) found "
+        "endpoints whose response no longer contains the fields the apps parse.",
+        "",
+        "| Exchange | Result | Detail | Endpoint |",
+        "|---|---|---|---|",
+    ]
+    for entry, (status, note) in results:
+        if status == OK:
+            continue
+        lines.append(f"| {entry['name']} | {status} | {note} | `{entry['url']}` |")
+    passed = sum(1 for _, (s, _) in results if s == OK)
+    lines += ["", f"{passed} of {len(results)} passed. Updated {time.strftime('%Y-%m-%d %H:%M UTC', time.gmtime())}.",
+              "", "This issue is closed automatically once all checks pass again."]
+    return "\n".join(lines)
+
+
+def gh(*args):
+    return subprocess.run(["gh", *args], check=True, capture_output=True, text=True).stdout
+
+
+def open_issue_number():
+    out = gh("issue", "list", "--state", "open", "--search", f'"{ISSUE_TITLE}" in:title',
+             "--json", "number,title", "--limit", "20")
+    for item in json.loads(out or "[]"):
+        if item.get("title") == ISSUE_TITLE:
+            return item["number"]
+    return None
+
+
+def manage_issue(failed, body):
+    number = open_issue_number()
+    if failed:
+        if number is None:
+            gh("issue", "create", "--title", ISSUE_TITLE, "--body", body)
+            print("Opened issue.")
+        else:
+            gh("issue", "edit", str(number), "--body", body)
+            gh("issue", "comment", str(number), "--body", "Still failing - table above updated.")
+            print(f"Updated issue #{number}.")
+    elif number is not None:
+        gh("issue", "close", str(number), "--comment", "All exchange API checks passed again.")
+        print(f"Closed issue #{number}.")
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+    parser.add_argument("--dry-run", action="store_true", help="only check and print, no GitHub issue")
+    parser.add_argument("--only", help="comma-separated exchange keys")
+    args = parser.parse_args()
+
+    entries = EXCHANGES
+    if args.only:
+        wanted = {k.strip().lower() for k in args.only.split(",")}
+        entries = [e for e in EXCHANGES if e["key"] in wanted]
+        unknown = wanted - {e["key"] for e in entries}
+        if unknown:
+            print("Unknown keys: " + ", ".join(sorted(unknown)), file=sys.stderr)
+            return 2
+
+    results = []
+    for entry in entries:
+        status, note = check(entry)
+        results.append((entry, (status, note)))
+        print(f"{status.upper():4}  {entry['name']:<20} {note}")
+
+    failed = [e for e, (s, _) in results if s == FAIL]
+    body = issue_body(results)
+    if args.dry_run:
+        if failed:
+            print("\n--- issue text (dry run) ---\n" + body)
+        return 0
+    if os.environ.get("GITHUB_ACTIONS") != "true" and not os.environ.get("GH_TOKEN"):
+        print("Not in GitHub Actions and no GH_TOKEN: use --dry-run.", file=sys.stderr)
+        return 2
+    manage_issue(bool(failed), body)
+    return 1 if failed else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

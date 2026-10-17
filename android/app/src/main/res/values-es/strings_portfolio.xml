@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Tab, leere Ansicht, Einschalten, Sperre -->
+    <string name="app_lock_unavailable">Este dispositivo no tiene bloqueo de pantalla. Configura uno primero en los ajustes del sistema.</string>
+    <string name="app_lock_unlock">Desbloquear</string>
+    <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
+    <string name="portfolio_clear">Vaciar cartera</string>
+    <plurals name="portfolio_clear_confirm_count">
+        <item quantity="one">¿Eliminar %d transacción? Las direcciones vigiladas se mantienen. No se puede deshacer.</item>
+        <item quantity="many">¿Eliminar las %d transacciones? Las direcciones vigiladas se mantienen. No se puede deshacer.</item>
+        <item quantity="other">¿Eliminar las %d transacciones? Las direcciones vigiladas se mantienen. No se puede deshacer.</item>
+    </plurals>
+    <string name="portfolio_disclaimer">Los importes se quedan en el dispositivo salvo que los exportes tú; para los precios solo se envían los símbolos de los pares al exchange del par. Los nodos públicos de blockchain ven las direcciones vigiladas y tu IP. No es asesoramiento de inversión.</string>
+    <string name="portfolio_empty_action">Añadir tu primera compra</string>
+    <string name="portfolio_empty_address">Solo seguir una dirección de wallet</string>
+    <string name="portfolio_empty_csv">¿Compraste en un exchange? Importa su archivo</string>
+    <string name="portfolio_empty_example_plain">Ejemplo: 0,01 BTC comprado el 1 de marzo. La app muestra cuánto vale hoy y si ganas o pierdes – guardado solo en este dispositivo.</string>
+    <string name="portfolio_empty_text">Anota lo que compraste – la app muestra cuánto vale hoy y cuánto ganas o pierdes.</string>
+    <string name="portfolio_empty_title">Aún no hay transacciones</string>
+    <string name="portfolio_enable_ask_text">Tu transacción está guardada. La pestaña Cartera muestra tus tenencias y su valor.</string>
+    <string name="portfolio_enable_ask_title">¿Activar la pestaña Cartera?</string>
+    <string name="portfolio_enable_later_hint">Transacción guardada. Puedes activar la pestaña Cartera en Ajustes › Avanzado › Cartera.</string>
+    <string name="portfolio_enabled_banner">Cartera activada: la encontrarás en la pestaña Cartera.</string>
+    <string name="portfolio_lock_reason">Desbloquear cartera</string>
+    <string name="portfolio_locked_text">Desbloquéala para ver tus posiciones y valores.</string>
+    <string name="portfolio_locked_title">La cartera está bloqueada</string>
+    <string name="portfolio_setting_hint">Opcional: registra compras y ventas y ve el valor y las ganancias/pérdidas en una pestaña aparte.</string>
+    <!-- Status-Pille wie in der Merkliste: Kurse älter als die Frische-Schwelle, Gerät online. Offline: offline_status_since, alles aktuell: watchlist_all_fresh -->
+    <string name="portfolio_status_stale">Desactualizado · a las %1$s</string>
+    <plurals name="portfolio_system_restore_invalid">
+        <item quantity="one">%d entrada de la copia del sistema no era válida y no se restauró.</item>
+        <item quantity="many">%d entradas de la copia del sistema no eran válidas y no se restauraron.</item>
+        <item quantity="other">%d entradas de la copia del sistema no eran válidas y no se restauraron.</item>
+    </plurals>
+    <string name="portfolio_title">Cartera</string>
+    <string name="portfolio_unassigned_fee">Comisión no asignada – coste desconocido: %1$s</string>
+    <string name="portfolio_updated">Precios de las %1$s</string>
+
+    <!-- Portfolio: Gesamtwert-Kopf (Heute · 7 T · Gesamt) und Aufteilung -->
+    <string name="portfolio_allocation_other">Otros</string>
+    <string name="portfolio_allocation_title">Distribución</string>
+    <string name="portfolio_card_details">Detalles</string>
+    <!-- Screenreader, Kennzahl ohne Wert; %1$s Beschriftung (z. B. «7 Tage») -->
+    <string name="portfolio_card_figure_none_a11y">%1$s: aún no disponible</string>
+    <string name="portfolio_card_hints_count">Notas (%1$d)</string>
+    <string name="portfolio_card_today">Hoy</string>
+    <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
+    <string name="portfolio_card_total">Total</string>
+    <string name="portfolio_hide_amounts">Ocultar importes</string>
+    <string name="portfolio_hide_amounts_hint">Muestra los importes y valores de la cartera y del widget de cartera como ••• – los porcentajes siguen visibles.</string>
+    <string name="portfolio_invested">Coste de adquisición</string>
+    <string name="portfolio_total_no_fx">Sin tipo de cambio para %1$s: importes en USDT</string>
+    <string name="portfolio_total_value">Valor total</string>
+    <string name="portfolio_value">Valor</string>
+
+    <!-- Portfolio: Bestand, offene Positionen, Durchschnittspreis -->
+    <string name="portfolio_avg_and_now">Media %1$s · ahora %2$s</string>
+    <string name="portfolio_avg_only">Media %1$s</string>
+    <string name="portfolio_avg_open_lots">Coste medio de las monedas en cartera</string>
+    <string name="portfolio_avg_partial">Media de %1$s con precio de compra</string>
+    <string name="portfolio_avg_price">Precio medio de compra</string>
+    <string name="portfolio_avg_price_hint">Precio medio de compra: la media de todas las compras, ponderada por cantidad. Las ventas se valoran a esa media.</string>
+    <plurals name="portfolio_closed">
+        <item quantity="one">Posición cerrada (%1$d)</item>
+        <item quantity="many">Posiciones cerradas (%1$d)</item>
+        <item quantity="other">Posiciones cerradas (%1$d)</item>
+    </plurals>
+    <string name="portfolio_fifo_hint">FIFO: las ventas usan primero tus monedas más antiguas. Media = coste de adquisición restante ÷ cantidad con precio de compra.</string>
+    <string name="portfolio_holdings">Tenencia</string>
+    <string name="portfolio_lost_fee_cost">Coste de la comisión de red sin lote pagado: %1$s</string>
+    <string name="portfolio_open_lots">Lotes de compra abiertos (%1$d)</string>
+    <string name="portfolio_open_lots_avg">Con precio de compra (Ø)</string>
+    <string name="portfolio_open_lots_no_cost">Sin precio de compra</string>
+    <string name="portfolio_open_lots_without_price">sin precio de compra</string>
+    <string name="portfolio_realized">Ganancia/pérdida realizada</string>
+    <string name="portfolio_unrealized">Ganancia/pérdida no realizada</string>
+    <string name="portfolio_unrealized_without_unpriced">sin %1$s sin precio de compra</string>
+    <string name="portfolio_withdrawn_gain">Retirado: %1$s (cambio de valor hasta la retirada)</string>
+
+    <!-- Portfolio: Kurse und Umrechnung -->
+    <string name="portfolio_convert_to">Convertir a</string>
+    <string name="portfolio_convert_to_value">Convertir a: %1$s</string>
+    <string name="portfolio_current_missing">Sin precio actual para %1$s</string>
+    <string name="portfolio_current_price">Precio actual</string>
+    <string name="portfolio_price_missing">Falta el precio</string>
+    <string name="portfolio_price_missing_hint">Algunas compras no tienen precio. Añade el precio de compra para ver ganancias/pérdidas.</string>
+    <string name="portfolio_price_source">Precios: Binance · USDT = 1</string>
+    <string name="portfolio_price_source_routes">Precios: %1$s; si no, Binance · USDT = 1</string>
+    <string name="portfolio_price_unavailable">Precio no disponible ahora mismo</string>
+    <string name="portfolio_price_unchecked">Precio sin verificar</string>
+    <string name="portfolio_price_via_base">≈ precio de %1$s (puenteado/envuelto)</string>
+    <string name="portfolio_usdt_as_usd">USDT convertido al cambio del USD</string>
+    <string name="portfolio_usdt_assumed">Se asume USDT = 1</string>
+    <string name="portfolio_usdt_depeg_warning">Se asume USDT = 1 – mercado a %1$s USD (%2$s)</string>
+
+    <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
+    <string name="portfolio_add_from_watch">Añadir a la cartera</string>
+    <string name="portfolio_add_tx">Registrar transacción</string>
+    <string name="portfolio_buy">Compra</string>
+    <string name="portfolio_coin">Moneda</string>
+    <string name="portfolio_coin_invalid">Introduce un símbolo</string>
+    <string name="portfolio_coin_search">Buscar símbolo, p. ej. BTC</string>
+    <string name="portfolio_discard_confirm">Descartar</string>
+    <string name="portfolio_discard_keep">Seguir editando</string>
+    <string name="portfolio_discard_title">¿Descartar los cambios?</string>
+    <string name="portfolio_edit_tx">Editar transacción</string>
+    <string name="portfolio_invalid">Cantidad no válida</string>
+    <string name="portfolio_oversold">Las ventas superan las tenencias: revisa las transacciones.</string>
+    <string name="portfolio_sell">Venta</string>
+    <string name="portfolio_sell_exceeds">Más que tus tenencias (%1$s)</string>
+    <string name="portfolio_sell_exceeds_fee">La cantidad más la comisión supera tus tenencias (%1$s)</string>
+    <string name="portfolio_sell_exceeds_wallet">Más que tus tenencias en %2$s (%1$s)</string>
+    <string name="portfolio_transactions">Transacciones</string>
+    <string name="portfolio_tx_acquired_date">Fecha de compra original (opcional)</string>
+    <string name="portfolio_tx_acquired_date_hint">Para el periodo de tenencia en la exportación fiscal</string>
+    <string name="portfolio_tx_amount">Cantidad</string>
+    <string name="portfolio_tx_coin_fee">Comisión en la moneda (opcional)</string>
+    <string name="portfolio_tx_date">Fecha</string>
+    <string name="portfolio_tx_delete_confirm">Esta transacción se eliminará de la cartera.</string>
+    <string name="portfolio_tx_delete_title">¿Eliminar transacción?</string>
+    <string name="portfolio_tx_deposit">Depósito</string>
+    <string name="portfolio_tx_entry_currency">Introducir en</string>
+    <string name="portfolio_tx_explain_deposit">Tenencias sin operación, p. ej. monedas de antes</string>
+    <string name="portfolio_tx_explain_gift">Las monedas salen de tu tenencia como un retiro; transmisión a valor de mercado solo donde el país grava así las donaciones (UK, CA, AU)</string>
+    <string name="portfolio_tx_explain_payment">Pagado por bienes o servicios: transmisión a valor de mercado como una venta, sin recibir dinero</string>
+    <string name="portfolio_tx_explain_reward">Coste de adquisición = valor de mercado al recibirlo</string>
+    <string name="portfolio_tx_explain_swap">Una moneda por otra: venta de la entregada y compra de la recibida</string>
+    <string name="portfolio_tx_explain_transfer">Sin ganancia: el coste de adquisición se mueve con las monedas</string>
+    <string name="portfolio_tx_explain_withdrawal">Las tenencias salen de la cartera: sin venta ni ganancia</string>
+    <string name="portfolio_tx_fee_consumes_amount">La comisión es tan grande como la cantidad recibida: no quedaría nada.</string>
+    <string name="portfolio_tx_fees_toggle">Comisiones</string>
+    <string name="portfolio_tx_fiat_converted">≈ %1$s al cambio del %2$s</string>
+    <string name="portfolio_tx_fiat_loading">Cargando el tipo de cambio…</string>
+    <string name="portfolio_tx_fiat_no_fx">No hay tipo de cambio para este día: introduce el importe en USDT.</string>
+    <string name="portfolio_tx_gift">Regalo</string>
+    <string name="portfolio_tx_gift_price_hint">En USDT. Vacío = cierre del día (estimado).</string>
+    <string name="portfolio_tx_gift_spouse">Al cónyuge / pareja</string>
+    <string name="portfolio_tx_gift_spouse_hint">Reino Unido y Canadá: sin ganancia ni pérdida – tu pareja asume tu coste. Los demás países lo ignoran.</string>
+    <string name="portfolio_tx_market_value">Valor de mercado por moneda</string>
+    <string name="portfolio_tx_more_buy">Comisión, exchange, nota</string>
+    <string name="portfolio_tx_network_fee">Comisión de red en la moneda (opcional)</string>
+    <string name="portfolio_tx_note">Nota (opcional)</string>
+    <string name="portfolio_tx_payment">Pagado con ello</string>
+    <string name="portfolio_tx_price">Precio por moneda</string>
+    <string name="portfolio_tx_price_hint">En USDT. Déjalo vacío si no lo sabes.</string>
+    <string name="portfolio_tx_price_historic">Cierre diario verificado del %1$s; ajústalo si hace falta</string>
+    <string name="portfolio_tx_price_invalid">Precio no válido</string>
+    <string name="portfolio_tx_price_past_hint">Introduce el precio del día de la operación; déjalo vacío si no lo sabes</string>
+    <string name="portfolio_tx_price_receipt_hint">En USDT. Vacío = tenencias sin coste de adquisición.</string>
+    <string name="portfolio_tx_price_zero">Precio 0 no posible en transacciones importadas – déjalo vacío para el precio de mercado</string>
+    <string name="portfolio_tx_removed">Transacción eliminada</string>
+    <string name="portfolio_tx_reward">Recompensa</string>
+    <string name="portfolio_tx_save_failed">No se pudo guardar la transacción. Tus datos siguen aquí: inténtalo de nuevo.</string>
+    <string name="portfolio_tx_swap">Intercambio</string>
+    <string name="portfolio_tx_swap_fee_received">Comisión en %1$s: reduce la cantidad recibida; no hace falta precio.</string>
+    <string name="portfolio_tx_swap_from">Intercambio desde %1$s</string>
+    <string name="portfolio_tx_swap_given_amount">Cantidad entregada</string>
+    <string name="portfolio_tx_swap_given_coin">Moneda entregada</string>
+    <string name="portfolio_tx_swap_received_amount">Cantidad recibida</string>
+    <string name="portfolio_tx_swap_received_coin">Moneda recibida</string>
+    <string name="portfolio_tx_swap_same_coin">Elige una moneda distinta de la entregada</string>
+    <string name="portfolio_tx_swap_to">Intercambio a %1$s</string>
+    <string name="portfolio_tx_swap_value">Valor del intercambio (opcional)</string>
+    <string name="portfolio_tx_swap_value_hint">Valor total. Vacío = desconocido: la ganancia queda incompleta (automático con USDT en el intercambio).</string>
+    <string name="portfolio_tx_third_fee_amount">Cantidad de la comisión</string>
+    <string name="portfolio_tx_third_fee_coin">Moneda de la comisión</string>
+    <string name="portfolio_tx_third_fee_incomplete">Sin precio, la comisión no se incluye en el coste de adquisición ni en el importe de venta; la exportación fiscal marca esas ventas.</string>
+    <string name="portfolio_tx_third_fee_price">Precio por moneda de la comisión (opcional)</string>
+    <string name="portfolio_tx_third_fee_toggle">Comisión en otra moneda</string>
+    <string name="portfolio_tx_total">Total: %1$s</string>
+    <string name="portfolio_tx_transfer">Transferencia</string>
+    <string name="portfolio_tx_transfer_from">Origen (opcional)</string>
+    <string name="portfolio_tx_transfer_to">Destino (opcional)</string>
+    <string name="portfolio_tx_transfer_to_hint">Exchange o wallet: a partir de ahora se valora allí.</string>
+    <string name="portfolio_tx_type_select">Tipo: %1$s</string>
+    <string name="portfolio_tx_value_received">Valor por moneda al recibirla (opcional)</string>
+    <string name="portfolio_tx_withdrawal">Retirada</string>
+    <string name="portfolio_tx_withdrawal_gift_hint">¿Lo regalaste o pagaste con ello? Regístralo como ‹Regalo› o ‹Pagado con ello›: según el país, fiscalmente es una venta.</string>
+    <string name="portfolio_tx_withdrawal_price_hint">Opcional: valor de mercado en USDT, solo para el historial (vacío = precio de ese día). Las monedas siempre salen a su coste de adquisición.</string>
+    <string name="portfolio_wallet_did_you_mean">¿Querías decir %1$s? Otra forma de escribirlo cuenta como una wallet distinta.</string>
+    <string name="portfolio_wallet_shortfall">Las tenencias en %1$s no alcanzan: ¿falta una transferencia?</string>
+
+    <!-- Portfolio: Wertverlauf (Zeitraum, Vergleich Währung | USDT, Währungseffekt) -->
+    <!-- Höchster Tageswert des Zeitraums am Punkt («Hoch 12’345») -->
+    <string name="portfolio_chart_high">Máx. %1$s</string>
+    <string name="portfolio_compare">Comparar</string>
+    <!-- Umschalter «Vergleich», Screenreader: %1$s Währung -->
+    <string name="portfolio_compare_a11y">Comparar %1$s y USDT en porcentaje</string>
+    <!-- %1$s Zeitraum, %2$s Währung, %3$s und %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="portfolio_compare_chart_a11y">Comparación en porcentaje, %1$s: %2$s %3$s, USDT %4$s</string>
+    <!-- %1$s Prozentpunkte mit Vorzeichen («−5.10%»): Veränderung in der Währung minus in USDT -->
+    <string name="portfolio_currency_effect">Efecto divisa: %1$s</string>
+    <!-- «Seit 1. Kauf» beginnt frühestens beim ersten Tag mit Kursdaten -->
+    <string name="portfolio_history_capped_data_start">Los datos de precios solo llegan hasta agosto de 2017; el historial empieza ahí.</string>
+    <string name="portfolio_history_chip_since_first">Desde la compra</string>
+    <string name="portfolio_history_collapse">Ocultar evolución del valor</string>
+    <string name="portfolio_history_converted">Convertido al cambio de hoy</string>
+    <string name="portfolio_history_expand">Mostrar evolución del valor</string>
+    <string name="portfolio_history_gain_a11y">Valor %1$s. Ganancia/pérdida, %2$s: %3$s</string>
+    <string name="portfolio_history_gain_label">Ganancia/pérdida</string>
+    <!-- Umschalter, Screenreader: %1$s Währung («CHF») oder «USDT» -->
+    <string name="portfolio_history_in_a11y">Valor en %1$s</string>
+    <string name="portfolio_history_incl_fx">Incl. tipo de cambio</string>
+    <string name="portfolio_history_incl_withdrawn">Incluye el cambio de valor de las monedas retiradas</string>
+    <string name="portfolio_history_includes_trades">Incluye compras y ventas de este periodo</string>
+    <string name="portfolio_history_loading">Cargando evolución del valor</string>
+    <string name="portfolio_history_period_1y">1 año</string>
+    <string name="portfolio_history_period_30d">30 días</string>
+    <string name="portfolio_history_period_7d">7 días</string>
+    <string name="portfolio_history_period_since_first">desde la primera compra</string>
+    <string name="portfolio_history_pnl_needs_prices">Faltan precios de compra para la ganancia/pérdida: añádelos en las transacciones.</string>
+    <string name="portfolio_history_pnl_without">Ganancia/pérdida sin %1$s (falta el precio)</string>
+    <string name="portfolio_history_range_1y">1 A</string>
+    <string name="portfolio_history_range_30d">30 D</string>
+    <string name="portfolio_history_range_7d">7 D</string>
+    <string name="portfolio_history_range_a11y">Mostrar evolución de %1$s</string>
+    <string name="portfolio_history_range_since_first">Desde 1.ª compra</string>
+    <string name="portfolio_history_scaled">Historial de %1$s: historial de Binance escalado al precio del exchange</string>
+    <string name="portfolio_history_title">Evolución del valor</string>
+    <string name="portfolio_history_today">Hoy</string>
+    <string name="portfolio_history_too_short">La evolución empieza tras tu primer día completo.</string>
+    <string name="portfolio_history_unavailable">Ahora no hay evolución disponible.</string>
+    <string name="portfolio_history_utc_days">Días en UTC (velas diarias)</string>
+    <string name="portfolio_history_without_matching">Sin %1$s (sin precios diarios coincidentes)</string>
+    <string name="portfolio_period_rewards">Recompensas +%1$s (no incluidas en la ganancia)</string>
+    <string name="portfolio_period_scaled">7 D/1 A para %1$s: historial de Binance escalado al precio del exchange</string>
+
+    <!-- Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_alarm_action">Alarma</string>
+    <!-- %1$s = Währung, z. B. CHF -->
+    <string name="portfolio_alarm_amount">Importe (%1$s)</string>
+    <string name="portfolio_alarm_hint">Se comprueba tras cada actualización. Como las alarmas: avisa al cruzar el umbral y de nuevo solo cuando el valor haya vuelto.</string>
+    <string name="portfolio_alarm_kind_above">Cartera por encima de un importe</string>
+    <string name="portfolio_alarm_kind_below">Cartera por debajo de un importe</string>
+    <string name="portfolio_alarm_kind_down">Cartera baja</string>
+    <string name="portfolio_alarm_kind_up">Cartera sube</string>
+    <!-- %1$s = Betrag mit Währung (oder •••) -->
+    <string name="portfolio_alarm_sentence_above">Cartera por encima de %1$s</string>
+    <string name="portfolio_alarm_sentence_below">Cartera por debajo de %1$s</string>
+    <string name="portfolio_alarm_sentence_down">Cartera baja %1$s (%2$s)</string>
+    <!-- %1$s = Prozent, %2$s = Basis der %-Änderung kurz (24h, heute …) -->
+    <string name="portfolio_alarm_sentence_up">Cartera sube %1$s (%2$s)</string>
+    <string name="portfolio_alarm_title">Alarma «valor de la cartera»</string>
+
+    <!-- Gebühr, Börse und Gewinn/Verlust einer Position -->
+    <string name="ledger_exchange">Exchange (opcional)</string>
+    <string name="ledger_exchange_failed">%1$s: ahora sin precio de %2$s – valorado con Binance.</string>
+    <string name="ledger_exchange_hint">La moneda se valora al precio de este exchange (si no, Binance). Historial, 7 D y 1 A: precios diarios de Binance, escalados.</string>
+    <string name="ledger_exchange_mixed">%1$s: varios exchanges indicados – valorado con Binance. ¿Moviste monedas? Registra el movimiento como «Transferencia».</string>
+    <string name="ledger_exchange_none">Ninguno (Binance)</string>
+    <string name="ledger_fee">Comisión (opcional)</string>
+    <string name="ledger_fee_coin">Moneda</string>
+    <string name="ledger_fee_hint">En USDT aumenta el coste de adquisición (venta: reduce el importe); en la moneda reduce la cantidad.</string>
+    <string name="ledger_fee_line">Comisión %1$s</string>
+    <string name="ledger_fifo_cost_note">Desde la compra: coste FIFO con comisiones (las monedas más antiguas se venden primero).</string>
+    <string name="ledger_gain_info">Hoy, 7 D, 1 A: cambio de valor en el periodo – compras y ventas no cuentan como ganancia. Desde la compra: valor actual menos coste de adquisición (coste medio con comisiones) de las monedas que aún tienes.</string>
+    <string name="ledger_gain_info_a11y">Cómo se calculan ganancia y pérdida</string>
+    <string name="ledger_gain_info_fifo">Hoy, 7 D, 1 A: cambio de valor en el periodo – compras y ventas no cuentan como ganancia. Desde la compra: valor actual menos coste de adquisición (FIFO con comisiones) de las monedas que aún tienes.</string>
+    <string name="ledger_gain_title">Ganancia/pérdida</string>
+    <string name="ledger_more_toggle">Comisión y exchange</string>
+    <string name="ledger_partial_cost">«Desde la compra» cuenta solo la parte con precio de compra: sin %1$s sin precio de compra.</string>
+    <string name="ledger_period_without">Hoy / 7 D / 1 A sin %1$s – no hay precio inicial adecuado.</string>
+    <string name="ledger_since_purchase_currency">Desde la compra (%1$s)</string>
+    <string name="ledger_since_purchase_spoken">Ganancia/pérdida desde la compra, aún no vendida</string>
+    <plurals name="ledger_without_cost">
+        <item quantity="one">Sin %1$d moneda sin precio de compra (%2$s): añade el precio para que cuente.</item>
+        <item quantity="many">Sin %1$d monedas sin precio de compra (%2$s): añade los precios para que cuenten.</item>
+        <item quantity="other">Sin %1$d monedas sin precio de compra (%2$s): añade los precios para que cuenten.</item>
+    </plurals>
+</resources>

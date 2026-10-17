@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: leere Ansicht, Statuszeile, Frische -->
+    <string name="watchlist_all_fresh">Mới · %1$s</string>
+    <string name="watchlist_empty_title">Chưa có cặp nào</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="other">%1$d/%2$d không có giá</item>
+    </plurals>
+    <string name="watchlist_last_run">Lần chạy gần nhất %1$s</string>
+    <string name="watchlist_live_a11y">Giá trực tiếp đang bật</string>
+    <string name="watchlist_live_badge">LIVE</string>
+    <string name="watchlist_offline_since">Không có kết nối · cập nhật %1$s</string>
+    <string name="watchlist_pull_to_refresh">Kéo xuống để làm mới</string>
+    <string name="watchlist_refresh_report">Lần làm mới gần nhất</string>
+    <string name="watchlist_refresh_report_empty">Chưa có chi tiết: chưa có lần làm mới đầy đủ nào. Nhấn làm mới và chờ đến khi biểu tượng tải dừng lại.</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="other">%1$d/%2$d đã cũ</item>
+    </plurals>
+    <string name="watchlist_status_all_disabled">Tất cả cặp ở đây đã tắt</string>
+    <string name="watchlist_status_exchange_prices">Giá từ các sàn của bạn · %1$s</string>
+    <string name="watchlist_status_exchange_prices_short">Giá sàn · %1$s</string>
+    <string name="watchlist_status_group_empty">Không có cặp nào trong nhóm này</string>
+    <string name="watchlist_status_none_traded">Không có cặp đang giao dịch</string>
+    <string name="watchlist_updated">Cập nhật: %1$s</string>
+
+    <!-- Merkliste: Puls-Zeile (Paare im Plus/Minus, ohne 24-h-Wert) -->
+    <string name="watchlist_pulse_avg">Ø %1$s</string>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="other">%1$d giảm</item>
+    </plurals>
+    <!-- Paare mit Kurs, aber ohne 24-h-Wert («· 510 ohne 24h-Wert») -->
+    <plurals name="watchlist_pulse_missing">
+        <item quantity="other">%1$d không có giá trị 24h</item>
+    </plurals>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="other">%1$d không có giá trị hôm nay</item>
+    </plurals>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="other">%1$d tăng</item>
+    </plurals>
+
+    <!-- Merkliste: Zeile eines Paars -->
+    <string name="watchlist_row_disabled">%1$s · đã tắt</string>
+    <string name="watchlist_row_outdated">%1$s · đã cũ</string>
+    <string name="watchlist_row_outdated_age">đã cũ · %1$s</string>
+    <string name="watchlist_row_price_unchanged_since">Giá không đổi từ %1$s</string>
+    <string name="watchlist_row_unreachable">%1$s · Không kết nối được %2$s</string>
+
+    <!-- Merkliste: Suche, Sprungknopf, Sortieren nach Spalte -->
+    <string name="watchlist_jump_end">Xuống cuối</string>
+    <string name="watchlist_jump_start">Lên đầu</string>
+    <string name="watchlist_search_close">Đóng tìm kiếm</string>
+    <string name="watchlist_search_empty">Không có kết quả cho “%1$s”</string>
+    <string name="watchlist_search_hint">Tìm cặp, tên hoặc sàn</string>
+    <string name="watchlist_search_open">Tìm kiếm</string>
+    <string name="watchlist_sort_ascending">tăng dần</string>
+    <string name="watchlist_sort_descending">giảm dần</string>
+    <string name="watchlist_sort_hint">Giữ và kéo một cặp, hoặc dùng tay cầm. Mục yêu thích luôn ở trên cùng.</string>
+    <string name="watchlist_sort_name">Tên</string>
+    <string name="watchlist_sort_own">Thứ tự riêng</string>
+    <string name="watchlist_sort_price">Giá</string>
+
+    <!-- Merkliste: Mehrfachauswahl, Ansichten, Entfernen -->
+    <string name="watchlist_clear">Xóa danh sách theo dõi</string>
+    <string name="watchlist_clear_confirm">Xóa tất cả cặp khỏi danh sách theo dõi? Các cảnh báo của chúng cũng sẽ bị xóa.</string>
+    <plurals name="watchlist_disabled_count">
+        <item quantity="other">%1$d đã tắt</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_action">Xóa</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="other">Xóa %1$d cặp không còn giao dịch trên sàn của chúng? Các cảnh báo của chúng cũng sẽ bị xóa.</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_menu">Xóa cặp không còn giao dịch (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">Xóa cặp không còn giao dịch</string>
+    <string name="watchlist_removed">Đã xóa %1$s</string>
+    <plurals name="watchlist_removed_count">
+        <item quantity="other">Đã xóa %1$d cặp</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="other">Đã xóa %1$d cặp không còn giao dịch</item>
+    </plurals>
+    <string name="watchlist_select">Chọn</string>
+    <string name="watchlist_select_all">Chọn tất cả</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="other">Đã chọn %1$d</item>
+    </plurals>
+    <string name="watchlist_show_all">Hiện tất cả</string>
+    <string name="watchlist_show_only_disabled">Chỉ hiện mục đã tắt</string>
+    <string name="watchlist_show_only_stale">Chỉ hiện mục đã cũ</string>
+
+    <!-- Merkliste: weitere Texte (Gruppen, Alarme, Mitteilung, Sprachausgabe) -->
+    <plurals name="watchlist_alarms_count">
+        <item quantity="other">Cảnh báo (%1$d)</item>
+    </plurals>
+    <string name="watchlist_favorites_empty_hint">Chưa có mục yêu thích. Vuốt một cặp sang phải hoặc chạm “Yêu thích” trong trang cặp.</string>
+    <string name="watchlist_group_empty_hint">Nhấn giữ một nhóm để chọn các cặp của nhóm.</string>
+    <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
+    <string name="watchlist_groups_empty_hint">Các nhóm của bạn sẽ xuất hiện ở đây</string>
+    <string name="watchlist_notification">Thông báo</string>
+    <string name="watchlist_tts">Đọc giá</string>
+    <string name="watchlist_tts_speech_on">Đọc giọng nói đã bật. Bạn có thể đổi trong Cài đặt › Nâng cao › Đọc bằng giọng nói.</string>
+
+    <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
+    <string name="watch_action_add_widget">Thêm dưới dạng tiện ích</string>
+    <string name="watch_action_alarm">Cảnh báo</string>
+    <string name="watch_action_favorite">Yêu thích</string>
+    <string name="watch_action_why">Cái gì biến động cùng?</string>
+    <string name="watch_action_why_short">Cùng biến động?</string>
+    <string name="watch_change_mark">Mark</string>
+    <string name="watch_disable">Tắt</string>
+    <string name="watch_disable_hint">Không truy vấn, không thông báo</string>
+    <string name="watch_disabled">Đã tắt</string>
+    <string name="watch_disabled_banner">Đã tắt %1$s</string>
+    <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
+    <string name="watch_edit_alarms_warning">Cảnh báo vẫn giữ nguyên – hãy kiểm tra ngưỡng</string>
+    <!-- Titel des Formulars und Screenreader-Name des Stifts neben dem Paar -->
+    <string name="watch_edit_title">Sửa cặp</string>
+    <string name="watch_enable">Bật</string>
+    <string name="watch_enable_hint">Giá và thông báo hoạt động lại</string>
+    <string name="watch_enabled_banner">Đã bật %1$s</string>
+    <string name="watch_error_offline">Không có kết nối</string>
+    <string name="watch_gesture_hint_short">Chạm: cảnh báo và “Cái gì biến động cùng?” · nhấn giữ để chọn · vuốt trái để xóa · vuốt phải để yêu thích</string>
+    <string name="watch_hint_tap_why">Chạm vào một coin để xem điều gì đang biến động cùng nó</string>
+    <string name="watch_not_traded">Không còn giao dịch trên sàn này</string>
+    <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
+    <string name="watch_preview_not_watched">Không có trong danh sách</string>
+    <string name="watch_price_mid">giá giữa (nếu không thì mark)</string>
+    <string name="watch_row_source_both">Thay đổi và biểu đồ: %1$s</string>
+    <string name="watch_row_source_change">Thay đổi: %1$s</string>
+    <string name="watch_row_source_chart">Biểu đồ: %1$s</string>
+
+    <!-- Meldung nach dem Hinzufügen (ein Paar / mehrere Paare) -->
+    <string name="pair_added_watching">%1$s đã có trong danh sách theo dõi</string>
+    <!-- Ein Paar: pair_added_watching -->
+    <string name="pairs_added_watching">%1$s đã có trong danh sách theo dõi</string>
+
+    <!-- Favoriten -->
+    <string name="favorite_add">Thêm vào yêu thích</string>
+    <string name="favorite_added">Đã thêm %1$s vào yêu thích</string>
+    <string name="favorite_remove">Bỏ khỏi yêu thích</string>
+    <string name="favorite_removed">Đã bỏ %1$s khỏi yêu thích</string>
+    <string name="hint_favorites_list">Mẹo: vuốt một dòng sang phải để đánh dấu yêu thích – mục yêu thích luôn ở trên cùng.</string>
+
+    <!-- Gruppen und Chips der Merkliste -->
+    <string name="group_add">Nhóm mới</string>
+    <string name="group_all">Tất cả</string>
+    <!-- Alpha-Tokens: Chip «α», Art vor der Glocke, «inkl. Alpha-Tokens» -->
+    <string name="group_alpha">Token Alpha</string>
+    <string name="group_delete">Xóa nhóm</string>
+    <string name="group_delete_confirm">Các cặp vẫn còn trong danh sách theo dõi của bạn.</string>
+    <string name="group_done">Xong</string>
+    <string name="group_edit_title">Sửa nhóm</string>
+    <!-- Chip «FAV» (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird vorgelesen) -->
+    <string name="group_favorites">Yêu thích</string>
+    <string name="group_in_other">trong %1$s</string>
+    <string name="group_name">Tên nhóm</string>
+    <string name="group_new">Nhóm mới…</string>
+    <string name="group_next">Tiếp</string>
+    <string name="group_none">Không có nhóm</string>
+    <string name="group_rename">Đổi tên</string>
+    <string name="group_search_hint">Tìm cặp, tên hoặc sàn</string>
+    <string name="group_target">Vào nhóm</string>
+    <string name="group_title">Nhóm</string>
+    <!-- Gruppen-Chip «Token» (alle Paare ausser der Gruppe «TradFi»), Screenreader und Widget-Einrichtung -->
+    <string name="group_tokens">Token</string>
+    <string name="group_value">Nhóm: %1$s</string>
+
+    <!-- Notiz zum Paar -->
+    <string name="note_add">Thêm ghi chú</string>
+    <string name="note_edit">Sửa ghi chú</string>
+    <string name="note_hint">vd. vào lệnh ở 0,42, mục tiêu 0,60</string>
+    <string name="note_remove">Bỏ</string>
+    <string name="note_title">Ghi chú</string>
+
+    <!-- Reihenfolge ändern (Sortiermodus, Screenreader-Aktionen) -->
+    <string name="sort_drag_handle">Kéo để di chuyển</string>
+    <string name="sort_move_bottom">Xuống dưới cùng</string>
+    <string name="sort_move_down">Xuống</string>
+    <string name="sort_move_top">Lên trên cùng</string>
+    <string name="sort_move_up">Lên</string>
+</resources>

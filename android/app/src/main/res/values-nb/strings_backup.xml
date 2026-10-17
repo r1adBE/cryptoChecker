@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Sicherung exportieren und wiederherstellen -->
+    <string name="backup_export">Eksporter</string>
+    <string name="backup_exported">Sikkerhetskopi lagret.</string>
+    <string name="backup_failed">Det gikk ikke. Er det en Crypto Checker-kopi?</string>
+    <string name="backup_hint">Lagrer liste med notater og grupper, alarmer, favoritter, portefølje og innstillinger i en fil du tar vare på selv – f.eks. til ny telefon.</string>
+    <string name="backup_import">Importer</string>
+    <string name="backup_title">Sikkerhetskopi</string>
+    <string name="backup_too_large">Filen er for stor eller ikke en gyldig sikkerhetskopi (maks. 16 MB).</string>
+
+    <!-- Passwort der Sicherungsdatei -->
+    <string name="backup_password">Passord</string>
+    <string name="backup_password_continue">Fortsett</string>
+    <string name="backup_password_hide">Skjul passord</string>
+    <!-- %1$d = Mindestlänge des Passworts (8) -->
+    <string name="backup_password_min">Minst %1$d tegn</string>
+    <string name="backup_password_mismatch">Passordene er ikke like</string>
+    <string name="backup_password_prompt">Skriv inn passordet for denne sikkerhetskopien.</string>
+    <string name="backup_password_repeat">Gjenta passord</string>
+    <string name="backup_password_show">Vis passord</string>
+    <string name="backup_password_title">Passordbeskyttet sikkerhetskopi</string>
+    <string name="backup_password_too_weak">For lett å gjette – ikke bare tall, ikke ett gjentatt tegn, ingen vanlig rekke som «12345678» eller «passord».</string>
+    <string name="backup_password_warning">Uten passordet kan sikkerhetskopien ikke gjenopprettes.</string>
+    <string name="backup_password_wrong">Feil passord, eller filen er skadet. Prøv igjen.</string>
+    <string name="backup_protect">Beskytt med passord</string>
+    <string name="backup_protect_hint">Krypterer filen (AES-256). Anbefales når den inneholder porteføljedata.</string>
+
+    <!-- Sicherung ohne Passwort, Wiederherstellen -->
+    <string name="backup_plain_confirm">Lagre uten passord</string>
+    <string name="backup_plain_confirm_text">Filen er ikke kryptert. Den som får den, kan lese:</string>
+    <string name="backup_plain_confirm_title">Lagre uten passord?</string>
+    <string name="backup_plain_contents_addresses">Lagrede wallet-adresser</string>
+    <string name="backup_plain_contents_base">Overvåkningsliste med notater og grupper, alarmer, favoritter og innstillinger</string>
+    <string name="backup_plain_contents_portfolio">Portefølje: transaksjoner med mengder og priser</string>
+    <string name="backup_restore_app_lock_kept">Porteføljelåsen forblir på – en ukryptert sikkerhetskopi kan ikke slå den av.</string>
+    <string name="backup_restore_confirm">Import erstatter listen (med notater og grupper), alarmene, favorittene, porteføljen og innstillingene med kopien.</string>
+    <plurals name="backup_restore_invalid">
+        <item quantity="one">%d oppføring i sikkerhetskopien (portefølje eller alarm) er ugyldig og importeres ikke.</item>
+        <item quantity="other">%d oppføringer i sikkerhetskopien (portefølje eller alarmer) er ugyldige og importeres ikke.</item>
+    </plurals>
+    <string name="backup_restore_newer_version">Denne sikkerhetskopien er fra en nyere appversjon – oppdater appen først. Ingenting ble importert.</string>
+    <string name="backup_restore_unencrypted_warning">Denne sikkerhetskopien er ikke kryptert – sjekk at den er din. Innstillinger overføres; en aktiv porteføljelås forblir på.</string>
+    <string name="backup_restored">Gjenopprettet: %1$s, %2$s.</string>
+    <plurals name="backup_restored_alarms">
+        <item quantity="one">%1$d alarm</item>
+        <item quantity="other">%1$d alarmer</item>
+    </plurals>
+    <plurals name="backup_restored_pairs">
+        <item quantity="one">%1$d par</item>
+        <item quantity="other">%1$d par</item>
+    </plurals>
+
+    <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
+    <string name="storage_recovery_message">Denne enheten har ikke lenger nøkkelen til appens krypterte data, så appen startet tom. Ingenting er slettet. Få tilbake listen og porteføljen ved å importere en sikkerhetskopi under «%1$s» i innstillingene.</string>
+    <string name="storage_recovery_title">Lagrede data kunne ikke låses opp</string>
+</resources>

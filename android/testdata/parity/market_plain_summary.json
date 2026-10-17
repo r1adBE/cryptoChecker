@@ -1,0 +1,1130 @@
+{
+ "description": "Plain-language summary at the top of the market tab (Android MarketPlainSummary.kt / iOS MarketPlainSummary.swift). Stamps are given relative to now: savedAt = now - ageMillis, ttlMillis = validity of the source; a value counts only while not stale (age <= 3 x ttl, DataFreshness.isStale). fearGreedTimeAgeMillis: age of the index value itself (null = unknown). unusual.rows are already sorted (first row = most unusual); facts[0] is the main fact. expected: null = sentence omitted.",
+ "now": 1760700000000,
+ "cases": [
+  {
+   "name": "all fresh: slightly up, fear, coin above bitcoin",
+   "input": {
+    "pulseMarketChange24h": 1.8,
+    "pulseStamp": {
+     "ageMillis": 120000,
+     "ttlMillis": 300000
+    },
+    "fearGreed": 28,
+    "fearGreedTimeAgeMillis": 36000000,
+    "fearGreedStamp": {
+     "ageMillis": 1200000,
+     "ttlMillis": 3600000
+    },
+    "unusual": {
+     "btc24h": 1.2,
+     "rows": [
+      {
+       "symbol": "SOL",
+       "name": "Solana",
+       "change24h": 8.1,
+       "facts": [
+        {
+         "kind": "STRONGER_THAN_BTC",
+         "strength": 2.3
+        }
+       ]
+      },
+      {
+       "symbol": "DOGE",
+       "name": "Dogecoin",
+       "change24h": 5.0,
+       "facts": [
+        {
+         "kind": "VOLUME",
+         "strength": 1.2,
+         "volumeRatio": 2.4
+        }
+       ]
+      }
+     ]
+    },
+    "unusualStamp": {
+     "ageMillis": 180000,
+     "ttlMillis": 600000
+    }
+   },
+   "expected": {
+    "direction": {
+     "kind": "UP_SLIGHT",
+     "changePercent": 1.8
+    },
+    "mood": {
+     "kind": "FEAR",
+     "value": 28
+    },
+    "standout": {
+     "kind": "ABOVE_BTC",
+     "coin": "Solana",
+     "change24h": 8.1,
+     "btc24h": 1.2,
+     "volumeRatio": null
+    }
+   }
+  },
+  {
+   "name": "direction band 0.0",
+   "input": {
+    "pulseMarketChange24h": 0.0,
+    "pulseStamp": {
+     "ageMillis": 120000,
+     "ttlMillis": 300000
+    }
+   },
+   "expected": {
+    "direction": {
+     "kind": "FLAT",
+     "changePercent": 0.0
+    },
+    "mood": null,
+    "standout": null
+   }
+  },
+  {
+   "name": "direction band 0.4",
+   "input": {
+    "pulseMarketChange24h": 0.4,
+    "pulseStamp": {
+     "ageMillis": 120000,
+     "ttlMillis": 300000
+    }
+   },
+   "expected": {
+    "direction": {
+     "kind": "FLAT",
+     "changePercent": 0.4
+    },
+    "mood": null,
+    "standout": null
+   }
+  },
+  {
+   "name": "direction band -0.99",
+   "input": {
+    "pulseMarketChange24h": -0.99,
+    "pulseStamp": {
+     "ageMillis": 120000,
+     "ttlMillis": 300000
+    }
+   },
+   "expected": {
+    "direction": {
+     "kind": "FLAT",
+     "changePercent": -0.99
+    },
+    "mood": null,
+    "standout": null
+   }
+  },
+  {
+   "name": "direction band 0.99",
+   "input": {
+    "pulseMarketChange24h": 0.99,
+    "pulseStamp": {
+     "ageMillis": 120000,
+     "ttlMillis": 300000
+    }
+   },
+   "expected": {
+    "direction": {
+     "kind": "FLAT",
+     "changePercent": 0.99
+    },
+    "mood": null,
+    "standout": null
+   }
+  },
+  {
+   "name": "direction band 1.0",
+   "input": {
+    "pulseMarketChange24h": 1.0,
+    "pulseStamp": {
+     "ageMillis": 120000,
+     "ttlMillis": 300000
+    }
+   },
+   "expected": {
+    "direction": {
+     "kind": "UP_SLIGHT",
+     "changePercent": 1.0
+    },
+    "mood": null,
+    "standout": null
+   }
+  },
+  {
+   "name": "direction band -1.0",
+   "input": {
+    "pulseMarketChange24h": -1.0,
+    "pulseStamp": {
+     "ageMillis": 120000,
+     "ttlMillis": 300000
+    }
+   },
+   "expected": {
+    "direction": {
+     "kind": "DOWN_SLIGHT",
+     "changePercent": -1.0
+    },
+    "mood": null,
+    "standout": null
+   }
+  },
+  {
+   "name": "direction band 2.99",
+   "input": {
+    "pulseMarketChange24h": 2.99,
+    "pulseStamp": {
+     "ageMillis": 120000,
+     "ttlMillis": 300000
+    }
+   },
+   "expected": {
+    "direction": {
+     "kind": "UP_SLIGHT",
+     "changePercent": 2.99
+    },
+    "mood": null,
+    "standout": null
+   }
+  },
+  {
+   "name": "direction band -2.99",
+   "input": {
+    "pulseMarketChange24h": -2.99,
+    "pulseStamp": {
+     "ageMillis": 120000,
+     "ttlMillis": 300000
+    }
+   },
+   "expected": {
+    "direction": {
+     "kind": "DOWN_SLIGHT",
+     "changePercent": -2.99
+    },
+    "mood": null,
+    "standout": null
+   }
+  },
+  {
+   "name": "direction band 3.0",
+   "input": {
+    "pulseMarketChange24h": 3.0,
+    "pulseStamp": {
+     "ageMillis": 120000,
+     "ttlMillis": 300000
+    }
+   },
+   "expected": {
+    "direction": {
+     "kind": "UP_CLEAR",
+     "changePercent": 3.0
+    },
+    "mood": null,
+    "standout": null
+   }
+  },
+  {
+   "name": "direction band -3.0",
+   "input": {
+    "pulseMarketChange24h": -3.0,
+    "pulseStamp": {
+     "ageMillis": 120000,
+     "ttlMillis": 300000
+    }
+   },
+   "expected": {
+    "direction": {
+     "kind": "DOWN_CLEAR",
+     "changePercent": -3.0
+    },
+    "mood": null,
+    "standout": null
+   }
+  },
+  {
+   "name": "direction band 7.5",
+   "input": {
+    "pulseMarketChange24h": 7.5,
+    "pulseStamp": {
+     "ageMillis": 120000,
+     "ttlMillis": 300000
+    }
+   },
+   "expected": {
+    "direction": {
+     "kind": "UP_CLEAR",
+     "changePercent": 7.5
+    },
+    "mood": null,
+    "standout": null
+   }
+  },
+  {
+   "name": "direction band -12.4",
+   "input": {
+    "pulseMarketChange24h": -12.4,
+    "pulseStamp": {
+     "ageMillis": 120000,
+     "ttlMillis": 300000
+    }
+   },
+   "expected": {
+    "direction": {
+     "kind": "DOWN_CLEAR",
+     "changePercent": -12.4
+    },
+    "mood": null,
+    "standout": null
+   }
+  },
+  {
+   "name": "pulse exactly 3 x ttl old: still fresh",
+   "input": {
+    "pulseMarketChange24h": 2.0,
+    "pulseStamp": {
+     "ageMillis": 900000,
+     "ttlMillis": 300000
+    }
+   },
+   "expected": {
+    "direction": {
+     "kind": "UP_SLIGHT",
+     "changePercent": 2.0
+    },
+    "mood": null,
+    "standout": null
+   }
+  },
+  {
+   "name": "pulse 3 x ttl + 1 ms old: stale, no fallback -> nothing",
+   "input": {
+    "pulseMarketChange24h": 2.0,
+    "pulseStamp": {
+     "ageMillis": 900001,
+     "ttlMillis": 300000
+    }
+   },
+   "expected": {
+    "direction": null,
+    "mood": null,
+    "standout": null
+   }
+  },
+  {
+   "name": "pulse stale -> fresh market card value",
+   "input": {
+    "pulseMarketChange24h": 2.0,
+    "pulseStamp": {
+     "ageMillis": 2400000,
+     "ttlMillis": 300000
+    },
+    "globalMarketChange24h": -3.4,
+    "globalStamp": {
+     "ageMillis": 600000,
+     "ttlMillis": 1800000
+    }
+   },
+   "expected": {
+    "direction": {
+     "kind": "DOWN_CLEAR",
+     "changePercent": -3.4
+    },
+    "mood": null,
+    "standout": null
+   }
+  },
+  {
+   "name": "pulse without market value -> market card value",
+   "input": {
+    "pulseStamp": {
+     "ageMillis": 120000,
+     "ttlMillis": 300000
+    },
+    "globalMarketChange24h": 0.5,
+    "globalStamp": {
+     "ageMillis": 600000,
+     "ttlMillis": 1800000
+    }
+   },
+   "expected": {
+    "direction": {
+     "kind": "FLAT",
+     "changePercent": 0.5
+    },
+    "mood": null,
+    "standout": null
+   }
+  },
+  {
+   "name": "pulse NaN -> market card value",
+   "input": {
+    "pulseMarketChange24h": "NaN",
+    "pulseStamp": {
+     "ageMillis": 120000,
+     "ttlMillis": 300000
+    },
+    "globalMarketChange24h": 1.1,
+    "globalStamp": {
+     "ageMillis": 600000,
+     "ttlMillis": 1800000
+    }
+   },
+   "expected": {
+    "direction": {
+     "kind": "UP_SLIGHT",
+     "changePercent": 1.1
+    },
+    "mood": null,
+    "standout": null
+   }
+  },
+  {
+   "name": "pulse infinite, market card stale -> nothing",
+   "input": {
+    "pulseMarketChange24h": "Infinity",
+    "pulseStamp": {
+     "ageMillis": 120000,
+     "ttlMillis": 300000
+    },
+    "globalMarketChange24h": 1.1,
+    "globalStamp": {
+     "ageMillis": 5400001,
+     "ttlMillis": 1800000
+    }
+   },
+   "expected": {
+    "direction": null,
+    "mood": null,
+    "standout": null
+   }
+  },
+  {
+   "name": "value without stamp: unknown age -> nothing",
+   "input": {
+    "pulseMarketChange24h": 2.5,
+    "globalMarketChange24h": 2.5
+   },
+   "expected": {
+    "direction": null,
+    "mood": null,
+    "standout": null
+   }
+  },
+  {
+   "name": "pulse preferred over market card",
+   "input": {
+    "pulseMarketChange24h": -1.5,
+    "pulseStamp": {
+     "ageMillis": 120000,
+     "ttlMillis": 300000
+    },
+    "globalMarketChange24h": 4.0,
+    "globalStamp": {
+     "ageMillis": 600000,
+     "ttlMillis": 1800000
+    }
+   },
+   "expected": {
+    "direction": {
+     "kind": "DOWN_SLIGHT",
+     "changePercent": -1.5
+    },
+    "mood": null,
+    "standout": null
+   }
+  },
+  {
+   "name": "clock set back (stamp in the future): not stale",
+   "input": {
+    "pulseMarketChange24h": 1.2,
+    "pulseStamp": {
+     "ageMillis": -600000,
+     "ttlMillis": 300000
+    }
+   },
+   "expected": {
+    "direction": {
+     "kind": "UP_SLIGHT",
+     "changePercent": 1.2
+    },
+    "mood": null,
+    "standout": null
+   }
+  },
+  {
+   "name": "mood band 0",
+   "input": {
+    "fearGreed": 0,
+    "fearGreedTimeAgeMillis": 18000000,
+    "fearGreedStamp": {
+     "ageMillis": 1200000,
+     "ttlMillis": 3600000
+    }
+   },
+   "expected": {
+    "direction": null,
+    "mood": {
+     "kind": "EXTREME_FEAR",
+     "value": 0
+    },
+    "standout": null
+   }
+  },
+  {
+   "name": "mood band 24",
+   "input": {
+    "fearGreed": 24,
+    "fearGreedTimeAgeMillis": 18000000,
+    "fearGreedStamp": {
+     "ageMillis": 1200000,
+     "ttlMillis": 3600000
+    }
+   },
+   "expected": {
+    "direction": null,
+    "mood": {
+     "kind": "EXTREME_FEAR",
+     "value": 24
+    },
+    "standout": null
+   }
+  },
+  {
+   "name": "mood band 25",
+   "input": {
+    "fearGreed": 25,
+    "fearGreedTimeAgeMillis": 18000000,
+    "fearGreedStamp": {
+     "ageMillis": 1200000,
+     "ttlMillis": 3600000
+    }
+   },
+   "expected": {
+    "direction": null,
+    "mood": {
+     "kind": "FEAR",
+     "value": 25
+    },
+    "standout": null
+   }
+  },
+  {
+   "name": "mood band 44",
+   "input": {
+    "fearGreed": 44,
+    "fearGreedTimeAgeMillis": 18000000,
+    "fearGreedStamp": {
+     "ageMillis": 1200000,
+     "ttlMillis": 3600000
+    }
+   },
+   "expected": {
+    "direction": null,
+    "mood": {
+     "kind": "FEAR",
+     "value": 44
+    },
+    "standout": null
+   }
+  },
+  {
+   "name": "mood band 45",
+   "input": {
+    "fearGreed": 45,
+    "fearGreedTimeAgeMillis": 18000000,
+    "fearGreedStamp": {
+     "ageMillis": 1200000,
+     "ttlMillis": 3600000
+    }
+   },
+   "expected": {
+    "direction": null,
+    "mood": {
+     "kind": "NEUTRAL",
+     "value": 45
+    },
+    "standout": null
+   }
+  },
+  {
+   "name": "mood band 55",
+   "input": {
+    "fearGreed": 55,
+    "fearGreedTimeAgeMillis": 18000000,
+    "fearGreedStamp": {
+     "ageMillis": 1200000,
+     "ttlMillis": 3600000
+    }
+   },
+   "expected": {
+    "direction": null,
+    "mood": {
+     "kind": "NEUTRAL",
+     "value": 55
+    },
+    "standout": null
+   }
+  },
+  {
+   "name": "mood band 56",
+   "input": {
+    "fearGreed": 56,
+    "fearGreedTimeAgeMillis": 18000000,
+    "fearGreedStamp": {
+     "ageMillis": 1200000,
+     "ttlMillis": 3600000
+    }
+   },
+   "expected": {
+    "direction": null,
+    "mood": {
+     "kind": "GREED",
+     "value": 56
+    },
+    "standout": null
+   }
+  },
+  {
+   "name": "mood band 75",
+   "input": {
+    "fearGreed": 75,
+    "fearGreedTimeAgeMillis": 18000000,
+    "fearGreedStamp": {
+     "ageMillis": 1200000,
+     "ttlMillis": 3600000
+    }
+   },
+   "expected": {
+    "direction": null,
+    "mood": {
+     "kind": "GREED",
+     "value": 75
+    },
+    "standout": null
+   }
+  },
+  {
+   "name": "mood band 76",
+   "input": {
+    "fearGreed": 76,
+    "fearGreedTimeAgeMillis": 18000000,
+    "fearGreedStamp": {
+     "ageMillis": 1200000,
+     "ttlMillis": 3600000
+    }
+   },
+   "expected": {
+    "direction": null,
+    "mood": {
+     "kind": "EXTREME_GREED",
+     "value": 76
+    },
+    "standout": null
+   }
+  },
+  {
+   "name": "mood band 100",
+   "input": {
+    "fearGreed": 100,
+    "fearGreedTimeAgeMillis": 18000000,
+    "fearGreedStamp": {
+     "ageMillis": 1200000,
+     "ttlMillis": 3600000
+    }
+   },
+   "expected": {
+    "direction": null,
+    "mood": {
+     "kind": "EXTREME_GREED",
+     "value": 100
+    },
+    "standout": null
+   }
+  },
+  {
+   "name": "mood out of range 101 -> nothing",
+   "input": {
+    "fearGreed": 101,
+    "fearGreedStamp": {
+     "ageMillis": 1200000,
+     "ttlMillis": 3600000
+    }
+   },
+   "expected": {
+    "direction": null,
+    "mood": null,
+    "standout": null
+   }
+  },
+  {
+   "name": "mood out of range -1 -> nothing",
+   "input": {
+    "fearGreed": -1,
+    "fearGreedStamp": {
+     "ageMillis": 1200000,
+     "ttlMillis": 3600000
+    }
+   },
+   "expected": {
+    "direction": null,
+    "mood": null,
+    "standout": null
+   }
+  },
+  {
+   "name": "mood without value time: fetch time decides",
+   "input": {
+    "fearGreed": 60,
+    "fearGreedStamp": {
+     "ageMillis": 1200000,
+     "ttlMillis": 3600000
+    }
+   },
+   "expected": {
+    "direction": null,
+    "mood": {
+     "kind": "GREED",
+     "value": 60
+    },
+    "standout": null
+   }
+  },
+  {
+   "name": "mood fetch 3 h + 1 ms old -> nothing",
+   "input": {
+    "fearGreed": 60,
+    "fearGreedTimeAgeMillis": 18000000,
+    "fearGreedStamp": {
+     "ageMillis": 10800001,
+     "ttlMillis": 3600000
+    }
+   },
+   "expected": {
+    "direction": null,
+    "mood": null,
+    "standout": null
+   }
+  },
+  {
+   "name": "mood value exactly 48 h old: still shown",
+   "input": {
+    "fearGreed": 50,
+    "fearGreedTimeAgeMillis": 172800000,
+    "fearGreedStamp": {
+     "ageMillis": 1200000,
+     "ttlMillis": 3600000
+    }
+   },
+   "expected": {
+    "direction": null,
+    "mood": {
+     "kind": "NEUTRAL",
+     "value": 50
+    },
+    "standout": null
+   }
+  },
+  {
+   "name": "mood value 48 h + 1 ms old (provider stuck) -> nothing",
+   "input": {
+    "fearGreed": 50,
+    "fearGreedTimeAgeMillis": 172800001,
+    "fearGreedStamp": {
+     "ageMillis": 1200000,
+     "ttlMillis": 3600000
+    }
+   },
+   "expected": {
+    "direction": null,
+    "mood": null,
+    "standout": null
+   }
+  },
+  {
+   "name": "mood without stamp -> nothing",
+   "input": {
+    "fearGreed": 50,
+    "fearGreedTimeAgeMillis": 3600000
+   },
+   "expected": {
+    "direction": null,
+    "mood": null,
+    "standout": null
+   }
+  },
+  {
+   "name": "unusual fresh but empty -> quiet",
+   "input": {
+    "unusual": {
+     "btc24h": 0.3,
+     "rows": []
+    },
+    "unusualStamp": {
+     "ageMillis": 180000,
+     "ttlMillis": 600000
+    }
+   },
+   "expected": {
+    "direction": null,
+    "mood": null,
+    "standout": {
+     "kind": "QUIET",
+     "coin": null,
+     "change24h": null,
+     "btc24h": null,
+     "volumeRatio": null
+    }
+   }
+  },
+  {
+   "name": "unusual stale -> nothing",
+   "input": {
+    "unusual": {
+     "btc24h": 0.3,
+     "rows": []
+    },
+    "unusualStamp": {
+     "ageMillis": 1800001,
+     "ttlMillis": 600000
+    }
+   },
+   "expected": {
+    "direction": null,
+    "mood": null,
+    "standout": null
+   }
+  },
+  {
+   "name": "unusual exactly 3 x ttl old: still shown",
+   "input": {
+    "unusual": {
+     "btc24h": 0.3,
+     "rows": []
+    },
+    "unusualStamp": {
+     "ageMillis": 1800000,
+     "ttlMillis": 600000
+    }
+   },
+   "expected": {
+    "direction": null,
+    "mood": null,
+    "standout": {
+     "kind": "QUIET",
+     "coin": null,
+     "change24h": null,
+     "btc24h": null,
+     "volumeRatio": null
+    }
+   }
+  },
+  {
+   "name": "unusual without stamp -> nothing",
+   "input": {
+    "unusual": {
+     "btc24h": 0.3,
+     "rows": []
+    }
+   },
+   "expected": {
+    "direction": null,
+    "mood": null,
+    "standout": null
+   }
+  },
+  {
+   "name": "coin below bitcoin",
+   "input": {
+    "unusual": {
+     "btc24h": -1.0,
+     "rows": [
+      {
+       "symbol": "ADA",
+       "name": "Cardano",
+       "change24h": -6.2,
+       "facts": [
+        {
+         "kind": "WEAKER_THAN_BTC",
+         "strength": 1.5
+        }
+       ]
+      }
+     ]
+    },
+    "unusualStamp": {
+     "ageMillis": 180000,
+     "ttlMillis": 600000
+    }
+   },
+   "expected": {
+    "direction": null,
+    "mood": null,
+    "standout": {
+     "kind": "BELOW_BTC",
+     "coin": "Cardano",
+     "change24h": -6.2,
+     "btc24h": -1.0,
+     "volumeRatio": null
+    }
+   }
+  },
+  {
+   "name": "coin against bitcoin",
+   "input": {
+    "unusual": {
+     "btc24h": -2.1,
+     "rows": [
+      {
+       "symbol": "XRP",
+       "name": "XRP",
+       "change24h": 4.4,
+       "facts": [
+        {
+         "kind": "AGAINST_MARKET",
+         "strength": 1.5
+        }
+       ]
+      }
+     ]
+    },
+    "unusualStamp": {
+     "ageMillis": 180000,
+     "ttlMillis": 600000
+    }
+   },
+   "expected": {
+    "direction": null,
+    "mood": null,
+    "standout": {
+     "kind": "AGAINST_BTC",
+     "coin": "XRP",
+     "change24h": 4.4,
+     "btc24h": -2.1,
+     "volumeRatio": null
+    }
+   }
+  },
+  {
+   "name": "coin with unusual volume",
+   "input": {
+    "unusual": {
+     "btc24h": 0.2,
+     "rows": [
+      {
+       "symbol": "PEPE",
+       "name": "Pepe",
+       "change24h": 1.0,
+       "facts": [
+        {
+         "kind": "VOLUME",
+         "strength": 1.5,
+         "volumeRatio": 3.25
+        }
+       ]
+      }
+     ]
+    },
+    "unusualStamp": {
+     "ageMillis": 180000,
+     "ttlMillis": 600000
+    }
+   },
+   "expected": {
+    "direction": null,
+    "mood": null,
+    "standout": {
+     "kind": "VOLUME",
+     "coin": "Pepe",
+     "change24h": null,
+     "btc24h": null,
+     "volumeRatio": 3.25
+    }
+   }
+  },
+  {
+   "name": "volume fact without ratio -> nothing",
+   "input": {
+    "unusual": {
+     "btc24h": 0.2,
+     "rows": [
+      {
+       "symbol": "PEPE",
+       "name": "Pepe",
+       "change24h": 1.0,
+       "facts": [
+        {
+         "kind": "VOLUME",
+         "strength": 1.5
+        }
+       ]
+      }
+     ]
+    },
+    "unusualStamp": {
+     "ageMillis": 180000,
+     "ttlMillis": 600000
+    }
+   },
+   "expected": {
+    "direction": null,
+    "mood": null,
+    "standout": null
+   }
+  },
+  {
+   "name": "futures traders bet on rising prices",
+   "input": {
+    "unusual": {
+     "btc24h": 0.2,
+     "rows": [
+      {
+       "symbol": "WIF",
+       "name": "dogwifhat",
+       "change24h": 2.0,
+       "facts": [
+        {
+         "kind": "FUNDING_HIGH",
+         "strength": 1.5,
+         "fundingPercent": 0.08
+        }
+       ]
+      }
+     ]
+    },
+    "unusualStamp": {
+     "ageMillis": 180000,
+     "ttlMillis": 600000
+    }
+   },
+   "expected": {
+    "direction": null,
+    "mood": null,
+    "standout": {
+     "kind": "FUTURES_UP",
+     "coin": "dogwifhat",
+     "change24h": null,
+     "btc24h": null,
+     "volumeRatio": null
+    }
+   }
+  },
+  {
+   "name": "futures traders bet on falling prices",
+   "input": {
+    "unusual": {
+     "btc24h": 0.2,
+     "rows": [
+      {
+       "symbol": "ENA",
+       "name": "Ethena",
+       "change24h": -1.0,
+       "facts": [
+        {
+         "kind": "FUNDING_NEGATIVE",
+         "strength": 1.5,
+         "fundingPercent": -0.05
+        }
+       ]
+      }
+     ]
+    },
+    "unusualStamp": {
+     "ageMillis": 180000,
+     "ttlMillis": 600000
+    }
+   },
+   "expected": {
+    "direction": null,
+    "mood": null,
+    "standout": {
+     "kind": "FUTURES_DOWN",
+     "coin": "Ethena",
+     "change24h": null,
+     "btc24h": null,
+     "volumeRatio": null
+    }
+   }
+  },
+  {
+   "name": "blank name -> symbol",
+   "input": {
+    "unusual": {
+     "btc24h": 1.0,
+     "rows": [
+      {
+       "symbol": "TAO",
+       "name": "  ",
+       "change24h": 9.0,
+       "facts": [
+        {
+         "kind": "STRONGER_THAN_BTC",
+         "strength": 1.5
+        }
+       ]
+      }
+     ]
+    },
+    "unusualStamp": {
+     "ageMillis": 180000,
+     "ttlMillis": 600000
+    }
+   },
+   "expected": {
+    "direction": null,
+    "mood": null,
+    "standout": {
+     "kind": "ABOVE_BTC",
+     "coin": "TAO",
+     "change24h": 9.0,
+     "btc24h": 1.0,
+     "volumeRatio": null
+    }
+   }
+  },
+  {
+   "name": "comparison without bitcoin value -> nothing",
+   "input": {
+    "unusual": {
+     "btc24h": null,
+     "rows": [
+      {
+       "symbol": "SOL",
+       "name": "Solana",
+       "change24h": 8.0,
+       "facts": [
+        {
+         "kind": "STRONGER_THAN_BTC",
+         "strength": 1.5
+        }
+       ]
+      }
+     ]
+    },
+    "unusualStamp": {
+     "ageMillis": 180000,
+     "ttlMillis": 600000
+    }
+   },
+   "expected": {
+    "direction": null,
+    "mood": null,
+    "standout": null
+   }
+  },
+  {
+   "name": "nothing known -> all empty",
+   "input": {},
+   "expected": {
+    "direction": null,
+    "mood": null,
+    "standout": null
+   }
+  }
+ ]
+}

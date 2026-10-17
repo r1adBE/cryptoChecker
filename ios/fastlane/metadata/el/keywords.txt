@@ -1,0 +1,1 @@
+btc,ethereum,eth,χαρτοφυλάκιο,altcoin,alert,dex,ticker

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">Πίσω</string>
+    <string name="action_cancel">Ακύρωση</string>
+    <string name="action_clear">Καθαρισμός</string>
+    <string name="action_close">Κλείσιμο</string>
+    <string name="action_delete">Διαγραφή</string>
+    <string name="action_edit">Επεξεργασία</string>
+    <string name="action_more">Περισσότερες επιλογές</string>
+    <string name="action_refresh">Ανανέωση</string>
+    <string name="action_retry">Επανάληψη</string>
+    <string name="action_save">Αποθήκευση</string>
+    <string name="action_sort">Ταξινόμηση</string>
+    <string name="action_sort_done">Τέλος</string>
+    <string name="action_undo">Αναίρεση</string>
+    <string name="action_view">Προβολή</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">Αγορά</string>
+    <string name="tab_portfolio">Χαρτοφυλάκιο</string>
+    <string name="tab_settings">Ρυθμίσεις</string>
+    <string name="tab_watchlist">Λίστα</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">Σφάλμα: %1$s</string>
+    <string name="error_market_unreachable">Το ανταλλακτήριο δεν είναι διαθέσιμο αυτή τη στιγμή – οι τελευταίες τιμές παραμένουν ορατές.</string>
+    <string name="error_market_unreachable_short">Το ανταλλακτήριο δεν είναι διαθέσιμο</string>
+    <string name="loading_hint">Φόρτωση…</string>
+    <string name="no_internet_connection">Δεν υπάρχει σύνδεση στο διαδίκτυο</string>
+    <string name="option_off">Ανενεργό</string>
+    <string name="something_went_wrong">Κάτι πήγε στραβά</string>
+    <string name="time_just_now">μόλις τώρα</string>
+    <string name="timeout_error_message">Το ανταλλακτήριο δεν απαντά αυτή τη στιγμή.</string>
+    <string name="try_again">Δοκιμάστε ξανά</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">Χωρίς σύνδεση</string>
+    <string name="offline_status_since">Χωρίς σύνδεση · κατάσταση %1$s</string>
+    <string name="status_live">Ζωντανά</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">Προσθήκη ζεύγους</string>
+    <string name="shortcut_alarms">Όλοι οι συναγερμοί</string>
+    <string name="shortcut_cycle">Αγορά</string>
+</resources>

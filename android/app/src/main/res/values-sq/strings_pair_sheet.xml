@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Aktionsblatt: Kurs-Chart (Zeitraum, Kerzenwerte beim Ziehen, Umrechnung) und «Mehr» -->
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s Zeitraum kurz (widget_range_short_24h/7d/30d) -->
+    <string name="sheet_chart_change">%1$s në %2$s</string>
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s change_short_today(_zone) -->
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="sheet_chart_close">Mbyllja</string>
+    <string name="sheet_chart_converted_current">%1$s, konvertuar (kursi aktual)</string>
+    <!-- Zeile unter dem Chart, %1$s = umgerechnete Reihe («BTC/USDT») -->
+    <string name="sheet_chart_converted_daily">%1$s, konvertuar me kurset ditore</string>
+    <!-- Keine Kerzen für das Paar -->
+    <string name="sheet_chart_no_data">Nuk ka të dhëna çmimi për këtë çift</string>
+    <!-- Kerzenwerte beim Ziehen (Hoch/Tief: ticker_high/ticker_low) -->
+    <string name="sheet_chart_open">Hapja</string>
+    <!-- Zeitraum-Chip statt «24h» bei Tages-Basis -->
+    <string name="sheet_chart_today">Sot</string>
+    <!-- Umsatz der Kerze beim Ziehen; %1$s z. B. «12.3M USDT» -->
+    <string name="sheet_chart_volume">Vël. %1$s</string>
+    <string name="sheet_more">Më shumë</string>
+
+    <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
+    <string name="ticker_ask">Shitje</string>
+    <string name="ticker_bid">Blerje</string>
+    <string name="ticker_high">Më i larti</string>
+    <string name="ticker_low">Më i ulëti</string>
+    <string name="ticker_timestamp">Koha</string>
+    <string name="ticker_vol_base">Vëllimi (bazë)</string>
+    <string name="ticker_vol_quote">Vëllimi (kuotë)</string>
+
+    <!-- Basis der %-Änderung (Prozent-Pille, Chart, Widgets) -->
+    <string name="change_basis_device">%1$s, 00:00 (zona kohore e pajisjes)</string>
+    <string name="change_basis_local">Që nga 00:00 ora lokale</string>
+    <string name="change_basis_rolling">24 orët e fundit</string>
+    <!-- Letzter gegen vorherigen Kurs des Paars; ausgeschrieben (Auswahl). Kurz neben Pille und Widgets: change_short_since_last -->
+    <string name="change_basis_since_last">Që nga përditësimi i fundit</string>
+    <string name="change_basis_utc_zone">Që nga 00:00 %1$s</string>
+    <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
+    <string name="change_candle_source">Ndryshimi sipas qirinjve të %1$s</string>
+    <string name="change_short_since_last">përditësimi i fundit</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
+    <string name="change_short_today">sot</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 einer gewählten Zeitzone; %1$s = Zeitzone (z. B. UTC) -->
+    <string name="change_short_today_zone">sot %1$s</string>
+
+    <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
+    <string name="market_data_empty_error">Nuk u morën të dhëna nga bursa.</string>
+    <string name="market_data_summary">Kapitalizimi, tarifat e gas, të dhëna ekonomike, analiza e coin-eve</string>
+    <string name="market_data_tab_futures">Futures</string>
+    <string name="market_data_title">Të dhëna tregu</string>
+
+    <!-- Marktdaten Spot (Marktkapitalisierung, Angebot, Volumen) -->
+    <string name="spot_circulating">Furnizimi në qarkullim</string>
+    <string name="spot_fdv">FDV</string>
+    <string name="spot_market_cap">Kapitalizimi</string>
+    <string name="spot_max_supply">Furnizimi maks.</string>
+    <string name="spot_no_data">Nuk ka të dhëna spot për këtë monedhë</string>
+    <string name="spot_source_updated">Burimi: %1$s · më %2$s</string>
+    <string name="spot_supply_of_max">%1$s e furnizimit maks. në qarkullim</string>
+    <string name="spot_total_supply">Furnizimi total</string>
+    <string name="spot_vol_mcap">Vol./Kap.</string>
+    <string name="spot_volume_24h">Volumi (24 orë)</string>
+
+    <!-- Futures-Kennzahlen (Funding, Open Interest, Referenzbörse) -->
+    <string name="futures_alarm_reference">Vlerë orientuese %1$s</string>
+    <string name="futures_funding">Funding rate</string>
+    <string name="futures_funding_interval_unknown">interval i panjohur</string>
+    <string name="futures_funding_per8h_equiv">= %1$s në 8 orë (si te alarmet)</string>
+    <!-- Einheit neben der Funding-Pille, wenn die Börse stündlich abrechnet (Hyperliquid) -->
+    <string name="futures_funding_per_hour">në orë</string>
+    <string name="futures_funding_per_hours">në %1$d orë</string>
+    <string name="futures_next_funding">tjetra pas %1$d orë %2$d min</string>
+    <string name="futures_no_data">Nuk ka të dhëna futures për këtë monedhë</string>
+    <string name="futures_open_interest">Open interest</string>
+    <!-- Futures-Kennzahlen von einer anderen Börse als der beobachteten (Richtwert) -->
+    <string name="futures_reference_hint">Vlerë orientuese nga %1$s – funding dhe open interest ndryshojnë sipas bursës; në %2$s mund të jenë ndryshe.</string>
+    <string name="futures_reference_spot">Vlerë orientuese nga %1$s (perpetual USDT i monedhës)</string>
+    <string name="futures_source">Burimi: %1$s</string>
+
+    <!-- Erklärungen hinter dem ⓘ-Knopf -->
+    <string name="explain_funding">Shumë vënë baste me para të huazuara për rritje ose rënie të çmimeve. Tarifë midis pozicioneve long dhe short. Shumë pozitive do të thotë se shumë vënë bast për rritjen e çmimeve.</string>
+    <string name="explain_open_interest">Futures janë baste mbi çmimin, shpesh me para të huazuara. Vlera e të gjitha pozicioneve të hapura futures. Nëse rritet, më shumë para vihen bast për lëvizjen.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">Shpjegim</string>
+    <string name="explain_spot_fdv">Vlerësimi plotësisht i holluar: çmimi × furnizimi maks. (ose total nëse nuk ka kufi).</string>
+    <string name="explain_spot_market_cap">Çmimi × furnizimi në qarkullim. Etiketa tregon ndryshimin në 24 orë.</string>
+    <string name="explain_spot_source">Shifra nga të gjitha bursat në dollarë amerikanë, nga CoinGecko.</string>
+    <string name="explain_spot_supply">Në qarkullim: monedhat në treg tani. Total: të gjitha monedhat e krijuara minus të djegurat. Maks.: sasia më e madhe që mund të ekzistojë ndonjëherë.</string>
+    <string name="explain_spot_volume">Vlera e tregtuar në 24 orë. Vol./Kap.: volumi kundrejt kapitalizimit — i lartë do të thotë tregti shumë aktive.</string>
+
+    <!-- Umrechnung und Sats -->
+    <string name="converted_fx_stale">%1$s · kursi %2$s</string>
+    <string name="sats_per_unit">%1$s %2$s = %3$s sats</string>
+</resources>

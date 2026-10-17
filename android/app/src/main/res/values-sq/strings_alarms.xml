@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Alarmliste und Übersicht aller Alarme -->
+    <string name="add_alarm_action">Vendos alarm</string>
+    <string name="alarms_add">Alarm i ri</string>
+    <string name="alarms_edit">Ndrysho alarmin</string>
+    <string name="alarms_empty">Ende nuk ka alarme për këtë çift.</string>
+    <string name="alarms_empty_example">Për shembull: më njofto kur BTC rritet mbi %1$s.</string>
+    <!-- Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
+    <string name="alarms_notifications_off">Njoftimet janë të fikura – alarmet nuk do të të arrijnë.</string>
+    <string name="alarms_notifications_turn_on">Aktivizo</string>
+    <plurals name="alarms_overview_active">
+        <item quantity="one">%1$d aktive</item>
+        <item quantity="other">%1$d aktive</item>
+    </plurals>
+    <string name="alarms_overview_empty">Ende pa alarme. Hap një çift dhe shto një te Alarmet.</string>
+    <string name="alarms_overview_title">Të gjitha alarmet</string>
+    <string name="alarms_title">Alarmet</string>
+
+    <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
+    <string name="alarm_advanced">Të avancuara</string>
+    <string name="alarm_change_updates">Ndrysho përditësimin e çmimeve</string>
+    <string name="alarm_create">Krijo alarmin</string>
+    <string name="alarm_currency_label">Monedha</string>
+    <string name="alarm_delete_confirm">Ky alarm do të hiqet.</string>
+    <string name="alarm_delete_title">Të fshihet alarmi?</string>
+    <string name="alarm_field_percent">Përqindja</string>
+    <string name="alarm_field_price">Çmimi</string>
+    <string name="alarm_fires_now_above">Çmimi është tashmë mbi %1$s. Ta ruaj gjithsesi?</string>
+    <string name="alarm_fires_now_below">Çmimi është tashmë nën %1$s. Ta ruaj gjithsesi?</string>
+    <string name="alarm_fires_now_change">Ndrysho</string>
+    <string name="alarm_fires_now_save">Ruaje gjithsesi</string>
+    <string name="alarm_fires_now_title">Alarmi do të aktivizohej menjëherë</string>
+    <string name="alarm_first_battery_hint">Optimizimi i baterisë e kufizon aplikacionin – alarmet mund të vijnë me vonesë.</string>
+    <string name="alarm_first_title">Gjithçka gati</string>
+    <string name="alarm_last_triggered">së fundmi më %1$s</string>
+    <string name="alarm_new_extreme">%1$s i ri</string>
+    <string name="alarm_once">Një herë</string>
+    <string name="alarm_option_repeating">Mbaje alarmin pasi të aktivizohet</string>
+    <string name="alarm_option_sound">Tingull</string>
+    <string name="alarm_option_speak">Lexo alarmin me zë</string>
+    <string name="alarm_option_vibrate">Dridhje</string>
+    <string name="alarm_repeat_each">Çdo herë</string>
+    <string name="alarm_repeat_once">Një herë</string>
+    <string name="alarm_repeating">Çdo herë</string>
+    <string name="alarm_threshold_error_empty">Fut një vlerë për të ruajtur alarmin.</string>
+    <string name="alarm_threshold_error_funding">Funding rate duhet të jetë një numër midis −10 dhe +10 përqind.</string>
+    <string name="alarm_threshold_error_invalid">Fut një numër të vlefshëm më të madh se 0.</string>
+    <string name="alarm_threshold_error_oi">Ndryshimi i open interest: deri në 1000 përqind.</string>
+    <plurals name="alarm_window_hours">
+        <item quantity="one">brenda %1$d ore</item>
+        <item quantity="other">brenda %1$d orësh</item>
+    </plurals>
+    <string name="alarm_window_label">Dritarja kohore</string>
+
+    <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
+    <string name="alarm_simple_above">kalon mbi</string>
+    <string name="alarm_simple_below">bie nën</string>
+    <string name="alarm_simple_direction_a11y">Drejtimi: %1$s</string>
+    <string name="alarm_simple_end"></string>
+    <string name="alarm_simple_when">Kur %1$s</string>
+    <string name="alarm_template_a11y">Krijo alarmin: %1$s</string>
+    <string name="alarm_template_a11y_down">Krijo alarm në minus %1$s për qind</string>
+    <string name="alarm_template_a11y_up">Krijo alarm në plus %1$s për qind</string>
+    <string name="alarm_template_created">Alarmi u krijua</string>
+    <string name="alarm_template_volume">Vëllimi ×%1$s</string>
+    <string name="alarm_templates_title">Alarme të shpejta</string>
+
+    <!-- Alarm-Bedingungen -->
+    <string name="alarm_condition_above">Çmimi mbi</string>
+    <string name="alarm_condition_below">Çmimi nën</string>
+    <string name="alarm_condition_down_percent">Bie me</string>
+    <string name="alarm_condition_funding_above">Funding mbi</string>
+    <string name="alarm_condition_funding_below">Funding nën</string>
+    <string name="alarm_condition_move_percent">Lëviz me</string>
+    <string name="alarm_condition_near_high">Afër maksimumit</string>
+    <string name="alarm_condition_near_low">Afër minimumit</string>
+    <string name="alarm_condition_oi_down">Open interest bie</string>
+    <string name="alarm_condition_oi_up">Open interest rritet</string>
+    <string name="alarm_condition_up_percent">Rritet me</string>
+    <string name="alarm_condition_volume_spike">Kërcim vëllimi</string>
+
+    <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
+    <string name="alarm_sentence_above">Më njofto kur %1$s të ngjitet mbi %2$s.</string>
+    <string name="alarm_sentence_below">Më njofto kur %1$s të bjerë nën %2$s.</string>
+    <string name="alarm_sentence_down_percent">Më njofto kur %1$s të bjerë me %2$s.</string>
+    <string name="alarm_sentence_funding_above">Më njofto kur funding-u i %1$s të rritet mbi %2$s.</string>
+    <string name="alarm_sentence_funding_below">Më njofto kur funding-u i %1$s të bjerë nën %2$s.</string>
+    <string name="alarm_sentence_incomplete">Fut një vlerë për ta parë alarmin si fjali.</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="one">Më njofto kur %1$s të lëvizë me %2$s brenda %3$d ore.</item>
+        <item quantity="other">Më njofto kur %1$s të lëvizë me %2$s brenda %3$d orëve.</item>
+    </plurals>
+    <string name="alarm_sentence_near_high">Më njofto kur %1$s të jetë më së shumti %2$s më poshtë se %3$s.</string>
+    <string name="alarm_sentence_near_low">Më njofto kur %1$s të jetë më së shumti %2$s më lart se %3$s.</string>
+    <string name="alarm_sentence_new_extreme">Më njofto kur %1$s arrin një %2$s të ri.</string>
+    <plurals name="alarm_sentence_oi_down">
+        <item quantity="one">Më njofto kur open interest i %1$s të bjerë me %2$s brenda %3$d ore.</item>
+        <item quantity="other">Më njofto kur open interest i %1$s të bjerë me %2$s brenda %3$d orëve.</item>
+    </plurals>
+    <plurals name="alarm_sentence_oi_up">
+        <item quantity="one">Më njofto kur open interest i %1$s të rritet me %2$s brenda %3$d ore.</item>
+        <item quantity="other">Më njofto kur open interest i %1$s të rritet me %2$s brenda %3$d orëve.</item>
+    </plurals>
+    <string name="alarm_sentence_up_percent">Më njofto kur %1$s të rritet me %2$s.</string>
+    <string name="alarm_sentence_volume">Më njofto kur vëllimi i tregtimit për %1$s të arrijë %2$s× normalen.</string>
+
+    <!-- Alarm «Nahe am Hoch / Tief» -->
+    <string name="alarm_near_extreme_high_30">maksimumi 30-ditor</string>
+    <string name="alarm_near_extreme_high_365">maksimumi vjetor</string>
+    <string name="alarm_near_extreme_high_90">maksimumi 90-ditor</string>
+    <string name="alarm_near_extreme_low_30">minimumi 30-ditor</string>
+    <string name="alarm_near_extreme_low_365">minimumi vjetor</string>
+    <string name="alarm_near_extreme_low_90">minimumi 90-ditor</string>
+    <string name="alarm_near_field_distance">Distanca</string>
+    <string name="alarm_near_hint">Njofton edhe kur arrihet një maksimum ose minimum i ri. Bazuar në qirinjtë ditorë, rifreskohet çdo 6 orë.</string>
+    <string name="alarm_near_new_only">Vetëm maksimum ose minimum i ri</string>
+    <string name="alarm_near_notification_high">%1$s është %2$s më poshtë se %3$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_low">%1$s është %2$s më lart se %3$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_new">%2$s: %1$s i ri – %3$s (më parë %4$s)</string>
+    <plurals name="alarm_near_window_days">
+        <item quantity="one">%1$d ditë</item>
+        <item quantity="other">%1$d ditë</item>
+    </plurals>
+    <string name="alarm_near_window_label">Periudha</string>
+    <string name="alarm_near_window_year">1 vit</string>
+
+    <!-- Futures- und Volumen-Alarme (Funding pro 8 Stunden, Open Interest, Volumen-Spike) -->
+    <!-- Funding-Schwelle gilt pro 8 Stunden; stündliches Funding wird umgerechnet -->
+    <string name="alarm_funding_hint_8h">Funding në 8 orë. Kontratat me interval tjetër konvertohen (1 orë × 8, 4 orë × 2); karta e futures tregon vlerën e konvertuar. Nëse intervali është i panjohur, alarmi nuk kontrollon. Negativ: shortet paguajnë longet. ± ndërron shenjën.</string>
+    <string name="alarm_funding_sign_a11y">Ndrysho shenjën</string>
+    <string name="alarm_oi_hint">Krahason open interest me vlerën e ruajtur para po aq orësh. Një alarm i ri njofton vetëm pasi aplikacioni të ketë mbledhur të dhëna për aq kohë; kontrollohet jo më shpesh se çdo 5 minuta.</string>
+    <string name="alarm_volume_factor_label">Vëllimi i orës së fundit kundrejt normales</string>
+    <string name="alarm_volume_hint">Të dhënat e vëllimit vijnë nga Binance — çiftet që nuk janë të listuara atje nuk aktivizohen kurrë.</string>
+
+    <!-- Bestätigung nach dem Speichern -->
+    <string name="alarm_saved_active">Alarmi aktiv</string>
+    <!-- «Alarm gespeichert: BTC Kurs über 70’000 USDT · einmalig» -->
+    <string name="alarm_saved_banner">Alarmi u ruajt: %1$s</string>
+    <!-- Zusatz in der Bestätigung, wenn Mitteilungen aus sind (dazu Aktion «Einstellungen») -->
+    <string name="alarm_saved_notifications_off">Njoftimet të fikura</string>
+
+    <!-- Wann Alarme geprüft werden -->
+    <string name="alarm_timing_hint_android">Me aplikacionin të mbyllur, Android kontrollon në mënyrë të parregullt (me «%1$s» rreth çdo 15 minuta), ndaj kulmet e shkurtra mund të humbasin.</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">Kur aplikacioni mbyllet, iOS vendos kur kontrollohet, ndaj kulmet e shkurtra mund të humbasin; sa është i hapur, kontrolli është i besueshëm.</string>
+    <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
+    <string name="alarm_timing_title">Kur kontrollohen alarmet</string>
+    <string name="alarm_timing_where">Cakto sa shpesh përditësohen çmimet te %1$s.</string>
+
+    <!-- Alarm-Signal und Test-Alarm -->
+    <string name="alarm_signal_silent">Pa zë (vetëm njoftim)</string>
+    <string name="alarm_signal_sound">Vetëm tingull</string>
+    <string name="alarm_signal_sound_vibrate">Tingull dhe dridhje</string>
+    <string name="alarm_signal_system">Sistemi</string>
+    <string name="alarm_signal_vibrate">Vetëm dridhje</string>
+    <string name="alarm_test">Testo alarmin</string>
+    <string name="alarm_test_action">Testo</string>
+    <string name="alarm_test_denied">Njoftimet janë të çaktivizuara për Crypto Checker.</string>
+    <string name="alarm_test_hint">Dërgon një alarm shembull me cilësimet e tua të tingullit, dridhjes dhe leximit me zë.</string>
+    <string name="alarm_test_open_settings">Hap cilësimet</string>
+    <string name="alarm_test_quiet">Tani janë orët e heshtjes: alarmet e vërteta do të prisnin deri në fund dhe pastaj do të binin me tingull.</string>
+    <string name="alarm_test_text">Kështu duket dhe kështu tingëllon një alarm.</string>
+    <string name="alarm_test_title">Test: alarm nga Crypto Checker</string>
+
+    <!-- Ehrliche Alarme: Vorlesetexte Ton/Ansage, ungeprüfte Alarme -->
+    <string name="alarm_a11y_sound_on">Tingulli aktiv</string>
+    <string name="alarm_a11y_speak_on">Leximi me zë aktiv</string>
+    <string name="alarm_unchecked_no_candles">Nuk u kontrollua dot (pa qirinj)</string>
+    <string name="alarm_unchecked_no_rate">Nuk u kontrollua dot (pa kurs këmbimi)</string>
+</resources>

@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Markt-Tab: Abschnitte, Zeilen, Herkunft und Alter -->
+    <!-- «… · CoinGecko · vor 3 Min.»; «gerade eben» = time_just_now, «veraltet» = widget_outdated -->
+    <plurals name="market_age_minutes">
+        <item quantity="one">for %d min. siden</item>
+        <item quantity="other">for %d min. siden</item>
+    </plurals>
+    <!-- «heute 02:00» (Uhrzeit ohne Sekunden) -->
+    <string name="market_age_today">i dag %1$s</string>
+    <string name="market_context_summary">Fear &amp; Greed, Bitcoin-nøgletal, dominans, halving</string>
+    <string name="market_context_value">%1$s %2$s · %3$s</string>
+    <string name="market_more_data">Flere markedsdata</string>
+    <string name="market_phase_trend_failed">Kursdata ikke tilgængelige</string>
+    <string name="market_plain_direction_down_clear">Den samlede værdi af alle kryptovalutaer er tydeligt lavere end for 24 timer siden (%1$s).</string>
+    <string name="market_plain_direction_down_slight">Den samlede værdi af alle kryptovalutaer er lidt lavere end for 24 timer siden (%1$s).</string>
+    <string name="market_plain_direction_flat">Den samlede værdi af alle kryptovalutaer har næsten ikke ændret sig på 24 timer (%1$s).</string>
+    <string name="market_plain_direction_up_clear">Den samlede værdi af alle kryptovalutaer er tydeligt højere end for 24 timer siden (%1$s).</string>
+    <string name="market_plain_direction_up_slight">Den samlede værdi af alle kryptovalutaer er lidt højere end for 24 timer siden (%1$s).</string>
+    <string name="market_plain_footnote">Beskriver de seneste 24 timer – ingen prognose, ingen investeringsrådgivning.</string>
+    <string name="market_plain_mood_extreme_fear">Investorerne er meget frygtsomme lige nu: stemningsindekset (Fear &amp; Greed) står på %1$d ud af 100.</string>
+    <string name="market_plain_mood_extreme_greed">Investorerne er meget grådige lige nu: stemningsindekset (Fear &amp; Greed) står på %1$d ud af 100.</string>
+    <string name="market_plain_mood_fear">Investorerne er nærmest frygtsomme: stemningsindekset (Fear &amp; Greed) står på %1$d ud af 100.</string>
+    <string name="market_plain_mood_greed">Investorerne er nærmest grådige: stemningsindekset (Fear &amp; Greed) står på %1$d ud af 100.</string>
+    <string name="market_plain_mood_neutral">Stemningen blandt investorerne er afbalanceret: stemningsindekset (Fear &amp; Greed) står på %1$d ud af 100.</string>
+    <string name="market_plain_standout_above_btc">%1$s skiller sig ud: %2$s på 24 timer, et godt stykke over Bitcoin (%3$s).</string>
+    <string name="market_plain_standout_against_btc">%1$s skiller sig ud: %2$s på 24 timer, mens Bitcoin gik den modsatte vej (%3$s).</string>
+    <string name="market_plain_standout_below_btc">%1$s skiller sig ud: %2$s på 24 timer, et godt stykke under Bitcoin (%3$s).</string>
+    <string name="market_plain_standout_futures_down">%1$s skiller sig ud: usædvanligt mange futures-handlere satser på faldende kurser.</string>
+    <string name="market_plain_standout_futures_up">%1$s skiller sig ud: usædvanligt mange futures-handlere satser på stigende kurser.</string>
+    <string name="market_plain_standout_quiet">Lige nu skiller ingen enkelt mønt sig ud.</string>
+    <string name="market_plain_standout_volume">%1$s skiller sig ud: omkring %2$s gange så meget handel som normalt.</string>
+    <string name="market_plain_title">Kort fortalt</string>
+    <!-- Nebenzeile der Fear-&-Greed-Zeile («Gier · gestern 65») -->
+    <string name="market_row_fng_yesterday">%1$s · i går %2$s</string>
+    <string name="market_section_collapse">Skjul %1$s</string>
+    <string name="market_section_context">Stemning &amp; cyklus</string>
+    <string name="market_section_data">Markedsdata</string>
+    <!-- Bedienungshilfen: Aktion auf der Abschnittsüberschrift; %1$s = Name des Abschnitts -->
+    <string name="market_section_expand">Vis %1$s</string>
+    <string name="market_section_now">Lige nu</string>
+    <string name="market_source">Data: Binance · Coin Metrics (CC BY-NC 4.0)</string>
+    <string name="market_unavailable_error">Børsen er ikke tilgængelig</string>
+
+    <!-- Markt-Tab: Info-Zeichen und Info-Blatt je Karte (was, wie, Quelle) -->
+    <string name="market_info_a11y">Info: %1$s</string>
+    <string name="market_info_alt_season_source">Dagskurser: Binance · beregnes igen cirka hver 3. time</string>
+    <string name="market_info_alt_season_what">Tæller, hvor mange af cirka 20 store altcoins (f.eks. Ethereum, Solana, XRP) der har klaret sig bedre end Bitcoin de seneste 90 dage. Værdien er deres andel fra 0 til 100.</string>
+    <string name="market_info_coin_source">Kurser: Binance eller Bybit · hentes igen cirka hvert 15. minut</string>
+    <string name="market_info_dominance_how">Stiger dominansen, klarer Bitcoin sig bedre end resten af markedet; falder den, får andre coins mere vægt. Stablecoins tæller med: vokser deres værdi, falder Bitcoins andel, selv om Bitcoin-kursen er uændret.</string>
+    <string name="market_info_dominance_source">Kilde: CoinGecko · hentes igen cirka hvert 30. minut</string>
+    <string name="market_info_dominance_what">Bitcoins andel af den samlede værdi af alle kryptovalutaer (markedsværdi). Nedenunder står Ethereums andel.</string>
+    <string name="market_info_fear_greed_how">Under 25 betyder ekstrem frygt, over 75 ekstrem grådighed, omkring 50 neutral. Foldet ud står værdierne fra i går, for en uge siden og for en måned siden. Intet købs- eller salgssignal.</string>
+    <string name="market_info_fear_greed_source">Kilde: alternative.me · ny værdi én gang om dagen</string>
+    <string name="market_info_fear_greed_what">Et stemningsindeks for kryptomarkedet fra 0 til 100. alternative.me beregner det ud fra flere data, blandt andet kursudsving, handelsvolumen, sociale medier og Bitcoin-dominans.</string>
+    <string name="market_info_gas_how">Højere værdier betyder, at netværket er belastet, og at overførsler koster mere. Langsom, normal og hurtig er gebyrer for en senere eller hurtigere bekræftelse. Foldet ud står de omtrentlige omkostninger ved en simpel overførsel.</string>
+    <string name="market_info_gas_source">Offentlige RPC-noder, mempool.space · hentes igen hvert minut</string>
+    <string name="market_info_gas_what">Hvad en transaktion koster på hvert netværk lige nu. På Ethereum og lignende netværk i gwei (en milliardtedel ETH pr. gasenhed), på Bitcoin i sat/vB (satoshi pr. virtuel byte i transaktionen).</string>
+    <string name="market_info_halving_source">Dato: ud fra blokhøjde og gennemsnitlig bloktid (mempool.space), ellers efter kalender · kursforløb: Coin Metrics, Binance, genindlæst hver 12. time</string>
+    <string name="market_info_halving_what">Ved halveringen bliver den belønning, minere får for en ny Bitcoin-blok, halveret. Det sker for hver 210.000 blokke, altså cirka hvert fjerde år. Derefter opstår der kun halvt så mange nye bitcoin om dagen.</string>
+    <string name="market_info_how">Sådan læser du det</string>
+    <string name="market_info_macro_how">Meddelelsen vises kun, når en sådan dato er i dag eller i morgen. Omkring offentliggørelsen svinger kurserne ofte mere end ellers. Appen viser kun datoen, ikke selve tallene.</string>
+    <string name="market_info_macro_source">Kalender fra appens hjemmeside · hentes én gang om dagen</string>
+    <string name="market_info_macro_what">Datoer for vigtige amerikanske økonomiske tal: inflation (CPI, PCE), producentpriser (PPI), jobrapporten og rentebeslutninger fra den amerikanske centralbank. Den slags tal flytter ofte også kurserne på kryptovalutaer.</string>
+    <string name="market_info_no_advice">Ingen investeringsrådgivning.</string>
+    <string name="market_info_phase_source">Binance, Coin Metrics · kurser hver time, on-chain-værdier hentes igen hver 12. time</string>
+    <string name="market_info_pulse_how">Overskriften angiver retningen; foldet ud står detaljerne. En bred bevægelse betyder, at de fleste store coins bevæger sig samme vej. En høj funding-rate betyder, at mange satser på stigende kurser med gearing. Et øjebliksbillede, ikke en prognose.</string>
+    <string name="market_info_pulse_source">Binance, CoinGecko · hentes igen cirka hvert 5. minut</string>
+    <string name="market_info_pulse_what">Et kort resumé af markedet over de seneste 24 timer: hvordan Bitcoin, Ethereum og Solana bevæger sig, hvor mange af de største coins der stiger eller falder, hvor meget Bitcoin der handles lige nu, og hvor funding-raten på Bitcoin-futures ligger.</string>
+    <string name="market_info_totals_how">Til højre står ændringen i den samlede værdi over 24 timer. Højt volumen betyder, at der handles meget, men ikke i hvilken retning. Vises om muligt i omregningsvalutaen, ellers i amerikanske dollar.</string>
+    <string name="market_info_totals_source">Alle coins · CoinGecko · hentes igen cirka hvert 30. minut</string>
+    <string name="market_info_totals_what">Den samlede værdi af alle kryptovalutaer (markedsværdi: kurs gange mængde i omløb, lagt sammen for alle coins) og handelsvolumen for de seneste 24 timer.</string>
+    <string name="market_info_unusual_how">For hver coin står den mest påfaldende iagttagelse, til højre ændringen over 24 timer. Et volumen på 2× betyder dobbelt så meget omsætning som normalt. Påfaldende betyder hverken godt eller skidt.</string>
+    <string name="market_info_unusual_source">Binance, CoinGecko · hentes igen cirka hvert 10. minut</string>
+    <string name="market_info_unusual_what">Op til fem coins blandt de cirka 30 største (uden stablecoins), der opfører sig usædvanligt i dag: tydeligt stærkere eller svagere end Bitcoin, imod markedets retning, med usædvanligt meget handelsvolumen eller med en påfaldende funding-rate.</string>
+    <string name="market_info_what">Hvad er det?</string>
+
+    <!-- Markt-Tab: Krypto-Markt gesamt -->
+    <string name="market_cap_label">Markedsværdi</string>
+    <string name="market_cap_source">Alle mønter · CoinGecko</string>
+    <string name="market_cap_title">Kryptomarkedet</string>
+    <string name="market_volume_label">Volumen 24 t</string>
+
+    <!-- Crypto Pulse «Was gerade auffällt»: Titel, Abschnitte, Hinweise -->
+    <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
+    <string name="pulse_details_action">Detaljer</string>
+    <string name="pulse_disclaimer">Ingen prognose · Ingen investeringsrådgivning</string>
+    <string name="pulse_less">Vis mindre</string>
+    <string name="pulse_now_title">Det falder i øjnene</string>
+    <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
+    <string name="pulse_period_24h_spoken">Ændring over 24 timer</string>
+    <string name="pulse_section_factors">Faktorer</string>
+    <string name="pulse_section_market">Markedet i dag</string>
+    <string name="pulse_unavailable">Markedsdata er ikke tilgængelige lige nu</string>
+    <string name="pulse_updated">Pr. %1$s</string>
+
+    <!-- Crypto Pulse: Schlagzeile und Leitsatz -->
+    <string name="pulse_headline_calm">Roligt marked</string>
+    <string name="pulse_headline_down">Bred svaghed</string>
+    <string name="pulse_headline_mixed">Blandet billede</string>
+    <string name="pulse_headline_up">Bred styrke</string>
+    <string name="pulse_lead_alts_stronger">Altcoins er stærkere end Bitcoin.</string>
+    <string name="pulse_lead_broad_down">Markedet falder bredt.</string>
+    <string name="pulse_lead_broad_up">Markedet stiger bredt.</string>
+    <string name="pulse_lead_btc_leads">Bitcoin stiger mest.</string>
+    <string name="pulse_lead_btc_stronger">Bitcoin er stærkere end altcoins.</string>
+    <string name="pulse_lead_calm">Markedet bevæger sig næsten ikke.</string>
+    <string name="pulse_lead_drift_down">Markedet falder let.</string>
+    <string name="pulse_lead_drift_up">Markedet stiger let.</string>
+    <string name="pulse_lead_mixed">De store mønter går hver sin vej.</string>
+
+    <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
+    <string name="pulse_detail_fund_high">Funding forhøjet.</string>
+    <string name="pulse_detail_fund_negative">Funding negativ.</string>
+    <string name="pulse_detail_fund_neutral">Funding neutral.</string>
+    <string name="pulse_detail_vol_above">Volumen %1$d %% over normalt.</string>
+    <string name="pulse_detail_vol_above_fund_high">Volumen %1$d %% over normalt, funding forhøjet.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Volumen %1$d %% over normalt, funding negativ.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Volumen %1$d %% over normalt, funding neutral.</string>
+    <string name="pulse_detail_vol_below">Volumen %1$d %% under normalt.</string>
+    <string name="pulse_detail_vol_below_fund_high">Volumen %1$d %% under normalt, funding forhøjet.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Volumen %1$d %% under normalt, funding negativ.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Volumen %1$d %% under normalt, funding neutral.</string>
+    <string name="pulse_detail_vol_normal">Volumen normal.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Volumen normal, funding forhøjet.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Volumen normal, funding negativ.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Volumen normal, funding neutral.</string>
+
+    <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
+    <string name="pulse_breadth_hint">Top %1$d: de største mønter efter markedsværdi, uden stablecoins; ændring over 24 timer (CoinGecko).</string>
+    <!-- «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">Top %1$d</string>
+    <string name="pulse_breadth_note_broad_down">Bredt fald: de fleste store mønter falder.</string>
+    <string name="pulse_breadth_note_broad_up">Bred bevægelse: de fleste store mønter stiger.</string>
+    <string name="pulse_breadth_note_narrow_down">Bitcoin falder, men de fleste andre store mønter holder stand.</string>
+    <string name="pulse_breadth_note_narrow_up">Bitcoin stiger, men de fleste andre store mønter følger ikke med.</string>
+    <string name="pulse_breadth_spoken">Top %1$d: %2$d op, %3$d ned</string>
+
+    <!-- Crypto Pulse: Altcoins, Funding, Gas, Volumen -->
+    <string name="pulse_alts_even">Altcoins og Bitcoin bevæger sig ens</string>
+    <string name="pulse_alts_stronger">Altcoins stærkere end Bitcoin</string>
+    <string name="pulse_alts_weaker">Bitcoin stærkere end altcoins</string>
+    <string name="pulse_chip_funding_high">Funding forhøjet</string>
+    <string name="pulse_chip_funding_negative">Funding negativ</string>
+    <string name="pulse_funding_high">Funding tydeligt positiv: mange gearede longs</string>
+    <string name="pulse_funding_negative">Funding negativ: mange shorts</string>
+    <string name="pulse_funding_neutral">Funding neutral</string>
+    <string name="pulse_funding_slight">Funding let positiv</string>
+    <string name="pulse_gas_high">Ethereum-gas høj (%1$s gwei)</string>
+    <string name="pulse_gas_low">Ethereum-gas lav (%1$s gwei)</string>
+    <string name="pulse_gas_normal">Ethereum-gas normal (%1$s gwei)</string>
+    <string name="pulse_volume_high">Handelsvolumen usædvanligt høj (%1$s× normalt)</string>
+    <string name="pulse_volume_low">Handelsvolumen lav (%1$s× normalt)</string>
+    <string name="pulse_volume_normal">Handelsvolumen normal</string>
+
+    <!-- «Heute auffällig» (grösste Coins mit ungewöhnlicher Bewegung) -->
+    <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
+    <!-- Screenreader-Aktion einer Zeile (öffnet das Aktionsblatt bzw. die Vorschau) -->
+    <string name="unusual_action_open">Vis kurs og handlinger</string>
+    <string name="unusual_fact_against">Går mod markedet</string>
+    <string name="unusual_fact_funding_high">Funding forhøjet (%1$s)</string>
+    <string name="unusual_fact_funding_negative">Funding negativ (%1$s)</string>
+    <string name="unusual_fact_stronger">Bevæger sig langt kraftigere end BTC</string>
+    <string name="unusual_fact_volume">Volumen %1$s× normalt</string>
+    <string name="unusual_fact_weaker">Bevæger sig langt svagere end BTC</string>
+    <string name="unusual_nothing">Intet påfaldende i dag</string>
+    <string name="unusual_source">De ca. 30 største mønter uden stablecoins · Binance, CoinGecko</string>
+    <string name="unusual_title">Påfaldende i dag</string>
+
+    <!-- Ungewöhnliche Aktivität eines Paars (Karte, Signale, Empfindlichkeit) -->
+    <string name="activity_card_title">Her sker der noget lige nu</string>
+    <string name="activity_indicator">Usædvanlig aktivitet</string>
+    <string name="activity_sensitivity_less">Mindre</string>
+    <string name="activity_sensitivity_more">Mere</string>
+    <string name="activity_sensitivity_normal">Normal</string>
+    <string name="activity_signal_funding_long">Funding %1$s – mange gearede longs</string>
+    <string name="activity_signal_funding_short">Funding %1$s – mange shorts</string>
+    <string name="activity_signal_open_interest">Open interest %1$s inden for %2$d min</string>
+    <string name="activity_signal_open_interest_no_time">Open interest %1$s</string>
+    <string name="activity_signal_price_move">Usædvanlig bevægelse: %1$s på en time (%2$s× normalt)</string>
+    <string name="activity_signal_volume">Volumen %1$s× normalt i den sidste time</string>
+
+    <!-- Einordnung: Bitcoin-Dominanz, Fear & Greed, Halving, Altseason -->
+    <plurals name="insights_altseason_value">
+        <item quantity="one">%1$d af %2$d store altcoins slår Bitcoin over 90 dage</item>
+        <item quantity="other">%1$d af %2$d store altcoins slår Bitcoin over 90 dage</item>
+    </plurals>
+    <string name="insights_chart_axis">År siden halvering</string>
+    <string name="insights_chart_hint">Kurs som multiplum af kursen på halveringsdagen (log-skala). Tidligere cyklusser er et mønster, ikke en prognose.</string>
+    <string name="insights_cycle_chart">Cyklusser siden halveringen</string>
+    <string name="insights_dominance_eth">ETH %1$s af det samlede marked</string>
+    <string name="insights_dominance_title">Bitcoin-dominans</string>
+    <string name="insights_fng_history">I går %1$s · for en uge siden %2$s · for en måned siden %3$s</string>
+    <string name="insights_fng_title">Fear &amp; Greed</string>
+    <string name="insights_halving_title">Bitcoin-halvering</string>
+    <string name="insights_source_dominance">Kilde: CoinGecko, Binance</string>
+    <string name="insights_source_fng">Kilde: alternative.me</string>
+    <string name="insights_source_history">Kilde: Coin Metrics (CC BY-NC 4.0), Binance</string>
+
+    <!-- Fear & Greed: Stufen -->
+    <string name="fng_extreme_fear">Ekstrem frygt</string>
+    <string name="fng_extreme_greed">Ekstrem grådighed</string>
+    <string name="fng_fear">Frygt</string>
+    <string name="fng_greed">Grådighed</string>
+    <string name="fng_neutral">Neutral</string>
+
+    <!-- Halving-Zyklus (Chart, Marken, Schätzung) -->
+    <string name="cycle_data_as_of">Data pr. %1$s · opdaterer…</string>
+    <string name="cycle_from_top">%1$s fra toppen</string>
+    <string name="cycle_marker_bottom">Bund %1$s</string>
+    <string name="cycle_marker_double_bottom">Dobbeltbund %1$s</string>
+    <string name="cycle_marker_double_top">Dobbelttop %1$s</string>
+    <string name="cycle_marker_high_so_far">Højeste indtil nu</string>
+    <!-- Hoch/Tief-Marken mit Sprechblase im Zyklus-Chart -->
+    <string name="cycle_marker_top">Top %1$s</string>
+    <string name="cycle_since_halving">%1$s siden halveringen</string>
+    <string name="halving_estimate_text">Næste halving beregnet omkring %1$s: %2$s blokke tilbage ved i gennemsnit %3$s min pr. blok (nuværende sværhedsperiode). En fremskrivning, ikke et løfte – bloktiden svinger.</string>
+
+    <!-- Netzwerkgebühren (Gas) -->
+    <string name="gas_alert_active">Alarm: %1$s</string>
+    <string name="gas_slow_fast">Langsom %1$s · Hurtig %2$s</string>
+    <string name="gas_source">Offentlige RPC-noder og mempool.space · Pris for en simpel overførsel, ved L2 uden L1-andel</string>
+    <string name="gas_title">Netværksgebyrer</string>
+    <string name="gas_transfer_cost">Overførsel ≈ %1$s</string>
+
+    <!-- Wirtschaftsdaten (US-Termine) -->
+    <string name="macro_cpi">amerikansk inflation (CPI)</string>
+    <string name="macro_fomc">Fed-rentebeslutning</string>
+    <string name="macro_hint_list">%1$s – på sådanne dage svinger markedet ofte mere.</string>
+    <string name="macro_hint_today">I dag %1$s: %2$s – på sådanne dage svinger markedet ofte mere.</string>
+    <string name="macro_hint_today_list">I dag: %1$s – på sådanne dage svinger markedet ofte mere.</string>
+    <string name="macro_hint_tomorrow">I morgen %1$s: %2$s – på sådanne dage svinger markedet ofte mere.</string>
+    <string name="macro_hint_tomorrow_list">I morgen: %1$s – på sådanne dage svinger markedet ofte mere.</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">I dag %1$s %2$s</string>
+    <string name="macro_item_tomorrow">I morgen %1$s %2$s</string>
+    <string name="macro_nfp">amerikansk jobrapport</string>
+    <string name="macro_pce">amerikansk PCE-inflation</string>
+    <string name="macro_ppi">amerikanske producentpriser (PPI)</string>
+    <string name="macro_released_list">Offentliggjort i dag: %1$s.</string>
+    <string name="macro_released_one">Offentliggjort i dag kl. %1$s: %2$s.</string>
+    <string name="macro_title">Økonomiske tal</string>
+
+    <!-- Coin-Analyse -->
+    <string name="coin_choose">Mønt</string>
+    <string name="coin_no_data">Ingen kursdata for denne mønt på Binance eller Bybit.</string>
+    <string name="coin_price_only">Kun kursbaseret – on-chain-data (MVRV, Puell, hashrate) er kun frit tilgængelige for Bitcoin.</string>
+    <plurals name="coin_short_history">
+        <item quantity="one">Kun %1$d dags kurshistorik – nogle indikatorer mangler.</item>
+        <item quantity="other">Kun %1$d dages kurshistorik – nogle indikatorer mangler.</item>
+    </plurals>
+    <string name="coin_title">Mønt-analyse</string>
+</resources>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: CSV-Import -->
+    <string name="portfolio_csv_import_action">Importar CSV</string>
+    <string name="portfolio_csv_import_all_transfer">Todo a mi propia wallet</string>
+    <string name="portfolio_csv_import_all_withdrawal">Todo sale de la cartera</string>
+    <string name="portfolio_csv_import_choice_proposed">Sugerencia: coincide con %1$s</string>
+    <string name="portfolio_csv_import_choice_transfer">A mi propia wallet (transferencia)</string>
+    <string name="portfolio_csv_import_choice_withdrawal">Sale de la cartera (retirada)</string>
+    <string name="portfolio_csv_import_choose_each">Elige para cada retirada adónde fue.</string>
+    <string name="portfolio_csv_import_columns">Columnas reconocidas: %1$s</string>
+    <string name="portfolio_csv_import_confirm">Importar (%1$d)</string>
+    <string name="portfolio_csv_import_date_day_first">Día/Mes</string>
+    <string name="portfolio_csv_import_date_month_first">Mes/Día</string>
+    <string name="portfolio_csv_import_date_order">Fechas ambiguas (p. ej. 03/04/2024) leídas como:</string>
+    <string name="portfolio_csv_import_decimal">Números ambiguos (p. ej. %1$s) leídos como:</string>
+    <plurals name="portfolio_csv_import_done">
+        <item quantity="one">%d transacción importada</item>
+        <item quantity="many">%d transacciones importadas</item>
+        <item quantity="other">%d transacciones importadas</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_duplicates">
+        <item quantity="one">%d ya importada (omitida)</item>
+        <item quantity="many">%d ya importadas (omitidas)</item>
+        <item quantity="other">%d ya importadas (omitidas)</item>
+    </plurals>
+    <string name="portfolio_csv_import_format">Formato: %1$s</string>
+    <string name="portfolio_csv_import_line">Línea %1$d: %2$s</string>
+    <string name="portfolio_csv_import_loading">Leyendo el archivo y los cambios diarios…</string>
+    <string name="portfolio_csv_import_missing_fx">Sin cambio diario para la línea %1$s; importado sin precio ni comisión.</string>
+    <string name="portfolio_csv_import_missing_price">Sin precio en el archivo para la línea %1$s; importado sin precio.</string>
+    <string name="portfolio_csv_import_more">+ %1$d más</string>
+    <plurals name="portfolio_csv_import_new">
+        <item quantity="one">%d transacción nueva</item>
+        <item quantity="many">%d transacciones nuevas</item>
+        <item quantity="other">%d transacciones nuevas</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_skipped">
+        <item quantity="one">%d fila omitida</item>
+        <item quantity="many">%d filas omitidas</item>
+        <item quantity="other">%d filas omitidas</item>
+    </plurals>
+    <string name="portfolio_csv_import_stable_swaps">Las compras y ventas a cambio de stablecoins (USDT, USDC …) se registran como intercambios – la stablecoin aparece en tu tenencia.</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">Varias coincidencias posibles – elige la correcta o ninguna.</string>
+    <string name="portfolio_csv_import_transfer_fee">Comisión de red: %1$s</string>
+    <string name="portfolio_csv_import_transfer_link">Registrar como una sola transferencia</string>
+    <string name="portfolio_csv_import_transfer_stored">Contrapartida de una importación anterior</string>
+    <string name="portfolio_csv_import_transfers_hint">Una retirada y el depósito correspondiente de la misma moneda se convierten en una sola transferencia: el precio de compra y el periodo de tenencia se mantienen, la diferencia cuenta como comisión de red.</string>
+    <string name="portfolio_csv_import_transfers_title">Transferencias entre tus cuentas</string>
+    <string name="portfolio_csv_import_unreadable">No se encontraron transacciones compatibles. Compatibles: exportaciones CSV de Relai, Swissquote, Kraken, Binance, Coinbase y Bitpanda.</string>
+    <string name="portfolio_csv_import_withdrawals_title">Retiradas: ¿adónde fueron las monedas?</string>
+    <string name="portfolio_csv_import_zone">Horas sin zona horaria leídas como: %1$s</string>
+    <string name="portfolio_csv_import_zone_device">Dispositivo (%1$s)</string>
+    <string name="portfolio_csv_skip_bad_date">fecha ilegible</string>
+    <string name="portfolio_csv_skip_bad_number">número ilegible</string>
+    <string name="portfolio_csv_skip_fee_exceeds">comisión ≥ cantidad recibida</string>
+    <string name="portfolio_csv_skip_internal_move">movimiento entre tus propias cuentas – nada que registrar</string>
+    <string name="portfolio_csv_skip_missing">falta un campo</string>
+    <string name="portfolio_csv_skip_not_crypto">no es cripto</string>
+    <string name="portfolio_csv_skip_possible_duplicate">posiblemente ya importado (operación casi idéntica) – revísalo a mano</string>
+    <string name="portfolio_csv_skip_two_fees">dos comisiones en unidades distintas – registra el intercambio a mano</string>
+    <string name="portfolio_csv_skip_unsupported">tipo no compatible</string>
+
+    <!-- Portfolio: Importe ansehen und rückgängig machen -->
+    <string name="portfolio_import_undo">Deshacer</string>
+    <plurals name="portfolio_import_undo_confirm">
+        <item quantity="one">¿Eliminar la %d transacción de esta importación? Las entradas manuales y otras importaciones se mantienen.</item>
+        <item quantity="many">¿Eliminar las %d transacciones de esta importación? Las entradas manuales y otras importaciones se mantienen.</item>
+        <item quantity="other">¿Eliminar las %d transacciones de esta importación? Las entradas manuales y otras importaciones se mantienen.</item>
+    </plurals>
+    <string name="portfolio_import_undo_title">¿Deshacer la importación?</string>
+    <plurals name="portfolio_import_undone">
+        <item quantity="one">%d transacción importada eliminada</item>
+        <item quantity="many">%d transacciones importadas eliminadas</item>
+        <item quantity="other">%d transacciones importadas eliminadas</item>
+    </plurals>
+    <plurals name="portfolio_imports_count">
+        <item quantity="one">%d transacción</item>
+        <item quantity="many">%d transacciones</item>
+        <item quantity="other">%d transacciones</item>
+    </plurals>
+    <string name="portfolio_imports_empty">Sin importaciones</string>
+    <string name="portfolio_imports_title">Importaciones</string>
+</resources>

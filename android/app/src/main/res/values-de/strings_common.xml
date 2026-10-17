@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">Zurück</string>
+    <string name="action_cancel">Abbrechen</string>
+    <string name="action_clear">Leeren</string>
+    <string name="action_close">Schliessen</string>
+    <string name="action_delete">Löschen</string>
+    <string name="action_edit">Bearbeiten</string>
+    <string name="action_more">Weitere Optionen</string>
+    <string name="action_refresh">Aktualisieren</string>
+    <string name="action_retry">Erneut versuchen</string>
+    <string name="action_save">Speichern</string>
+    <string name="action_sort">Sortieren</string>
+    <string name="action_sort_done">Fertig</string>
+    <string name="action_undo">Rückgängig</string>
+    <string name="action_view">Ansehen</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">Markt</string>
+    <string name="tab_portfolio">Portfolio</string>
+    <string name="tab_settings">Einstellungen</string>
+    <string name="tab_watchlist">Merkliste</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">Das hat nicht geklappt: %1$s</string>
+    <string name="error_market_unreachable">Börse gerade nicht erreichbar – letzte Kurse bleiben sichtbar.</string>
+    <string name="error_market_unreachable_short">Börse gerade nicht erreichbar</string>
+    <string name="loading_hint">Wird geladen…</string>
+    <string name="no_internet_connection">Keine Internetverbindung</string>
+    <string name="option_off">Aus</string>
+    <string name="something_went_wrong">Da ist etwas schiefgelaufen</string>
+    <string name="time_just_now">gerade eben</string>
+    <string name="timeout_error_message">Die Börse antwortet gerade nicht.</string>
+    <string name="try_again">Erneut versuchen</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">Keine Verbindung</string>
+    <string name="offline_status_since">Keine Verbindung · Stand %1$s</string>
+    <string name="status_live">Live</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">Paar hinzufügen</string>
+    <string name="shortcut_alarms">Alle Alarme</string>
+    <string name="shortcut_cycle">Markt</string>
+</resources>

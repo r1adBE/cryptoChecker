@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Aktionsblatt: Kurs-Chart (Zeitraum, Kerzenwerte beim Ziehen, Umrechnung) und «Mehr» -->
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s Zeitraum kurz (widget_range_short_24h/7d/30d) -->
+    <string name="sheet_chart_change">%1$s за %2$s</string>
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s change_short_today(_zone) -->
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="sheet_chart_close">Закрытие</string>
+    <string name="sheet_chart_converted_current">%1$s, пересчитано (текущий курс)</string>
+    <!-- Zeile unter dem Chart, %1$s = umgerechnete Reihe («BTC/USDT») -->
+    <string name="sheet_chart_converted_daily">%1$s, пересчитано по дневным курсам</string>
+    <!-- Keine Kerzen für das Paar -->
+    <string name="sheet_chart_no_data">Нет данных о цене для этой пары</string>
+    <!-- Kerzenwerte beim Ziehen (Hoch/Tief: ticker_high/ticker_low) -->
+    <string name="sheet_chart_open">Открытие</string>
+    <!-- Zeitraum-Chip statt «24h» bei Tages-Basis -->
+    <string name="sheet_chart_today">Сегодня</string>
+    <!-- Umsatz der Kerze beim Ziehen; %1$s z. B. «12.3M USDT» -->
+    <string name="sheet_chart_volume">Объём %1$s</string>
+    <string name="sheet_more">Ещё</string>
+
+    <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
+    <string name="ticker_ask">Продажа</string>
+    <string name="ticker_bid">Покупка</string>
+    <string name="ticker_high">Макс.</string>
+    <string name="ticker_low">Мин.</string>
+    <string name="ticker_timestamp">Время</string>
+    <string name="ticker_vol_base">Объём (базовая)</string>
+    <string name="ticker_vol_quote">Объём (котируемая)</string>
+
+    <!-- Basis der %-Änderung (Prozent-Pille, Chart, Widgets) -->
+    <string name="change_basis_device">%1$s, 00:00 (часовой пояс устройства)</string>
+    <string name="change_basis_local">С 00:00 по местному времени</string>
+    <string name="change_basis_rolling">Последние 24 ч</string>
+    <!-- Letzter gegen vorherigen Kurs des Paars; ausgeschrieben (Auswahl). Kurz neben Pille und Widgets: change_short_since_last -->
+    <string name="change_basis_since_last">С последнего обновления</string>
+    <string name="change_basis_utc_zone">С 00:00 %1$s</string>
+    <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
+    <string name="change_candle_source">Изменение по свечам %1$s</string>
+    <string name="change_short_since_last">посл. обновление</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
+    <string name="change_short_today">сегодня</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 einer gewählten Zeitzone; %1$s = Zeitzone (z. B. UTC) -->
+    <string name="change_short_today_zone">сегодня %1$s</string>
+
+    <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
+    <string name="market_data_empty_error">Биржа не вернула данных.</string>
+    <string name="market_data_summary">Капитализация, комиссии за газ, экономические данные, анализ монет</string>
+    <string name="market_data_tab_futures">Фьючерсы</string>
+    <string name="market_data_title">Рыночные данные</string>
+
+    <!-- Marktdaten Spot (Marktkapitalisierung, Angebot, Volumen) -->
+    <string name="spot_circulating">В обращении</string>
+    <string name="spot_fdv">FDV</string>
+    <string name="spot_market_cap">Капитализация</string>
+    <string name="spot_max_supply">Макс. предложение</string>
+    <string name="spot_no_data">Нет спотовых данных для этой монеты</string>
+    <string name="spot_source_updated">Источник: %1$s · на %2$s</string>
+    <string name="spot_supply_of_max">%1$s от макс. предложения в обращении</string>
+    <string name="spot_total_supply">Общее предложение</string>
+    <string name="spot_vol_mcap">Объём/Кап.</string>
+    <string name="spot_volume_24h">Объём (24ч)</string>
+
+    <!-- Futures-Kennzahlen (Funding, Open Interest, Referenzbörse) -->
+    <string name="futures_alarm_reference">Ориентир %1$s</string>
+    <string name="futures_funding">Ставка финансирования</string>
+    <string name="futures_funding_interval_unknown">интервал неизвестен</string>
+    <string name="futures_funding_per8h_equiv">= %1$s за 8 ч (как в оповещениях)</string>
+    <!-- Einheit neben der Funding-Pille, wenn die Börse stündlich abrechnet (Hyperliquid) -->
+    <string name="futures_funding_per_hour">в час</string>
+    <string name="futures_funding_per_hours">за %1$d ч</string>
+    <string name="futures_next_funding">следующая через %1$d ч %2$d мин</string>
+    <string name="futures_no_data">Нет фьючерсных данных для этой монеты</string>
+    <string name="futures_open_interest">Открытый интерес</string>
+    <!-- Futures-Kennzahlen von einer anderen Börse als der beobachteten (Richtwert) -->
+    <string name="futures_reference_hint">Ориентир от %1$s – фандинг и открытый интерес у каждой биржи свои, на %2$s они могут отличаться.</string>
+    <string name="futures_reference_spot">Ориентир от %1$s (бессрочный USDT-контракт монеты)</string>
+    <string name="futures_source">Источник: %1$s</string>
+
+    <!-- Erklärungen hinter dem ⓘ-Knopf -->
+    <string name="explain_funding">Многие ставят на рост или падение цен на заёмные деньги. Плата между длинными и короткими позициями. Сильно положительная — многие ставят на рост цен.</string>
+    <string name="explain_open_interest">Фьючерсы – это ставки на цену, часто на заёмные деньги. Стоимость всех открытых фьючерсных позиций. Если растёт, на движение ставится больше денег.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">Пояснение</string>
+    <string name="explain_spot_fdv">Полностью разводнённая оценка: цена × макс. предложение (или общее, если предела нет).</string>
+    <string name="explain_spot_market_cap">Цена × монеты в обращении. Плашка показывает изменение за 24 часа.</string>
+    <string name="explain_spot_source">Данные по всем биржам в долларах США, от CoinGecko.</string>
+    <string name="explain_spot_supply">В обращении: монеты на рынке сейчас. Общее: все созданные монеты минус сожжённые. Макс.: больше всего, сколько может существовать.</string>
+    <string name="explain_spot_volume">Объём торгов за 24 часа. Объём/Кап.: объём относительно капитализации — высокий означает очень активную торговлю.</string>
+
+    <!-- Umrechnung und Sats -->
+    <string name="converted_fx_stale">%1$s · курс %2$s</string>
+    <string name="sats_per_unit">%1$s %2$s = %3$s сат.</string>
+</resources>

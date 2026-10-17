@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
+    <string name="widget_background">Pozadí</string>
+    <string name="widget_configure_hint">Vyberte pozadí a průhlednost. Barva odpovídá aplikaci. Widget ukazuje celý seznam; klepnutím na řádek otevřete aplikaci.</string>
+    <string name="widget_configure_title">Nastavit widget</string>
+    <string name="widget_description">Zobrazuje cenu páru ze sledovaných.</string>
+    <string name="widget_empty">Ve sledovaných zatím nejsou žádné páry.</string>
+    <string name="widget_group_hint">Zobrazit jen páry této skupiny.</string>
+    <string name="widget_kind_single">Jedna mince</string>
+    <string name="widget_opacity">Neprůhlednost pozadí: %1$d%%</string>
+    <string name="widget_pulse_description">Co je teď na trhu nápadné: titulek, krátké shrnutí a také Bitcoin, Ethereum a Solana.</string>
+
+    <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->
+    <!-- Allein, wenn für «outdated · 06:42» der Platz fehlt (Kopfzeile Listen-Widget) -->
+    <string name="widget_outdated">zastaralé</string>
+    <!-- Statt der Uhrzeit: «outdated · 06:42» (heute) bzw. «outdated · 5 Oct, 06:42» -->
+    <string name="widget_outdated_time">zastaralé · %1$s</string>
+
+    <!-- Widgets: Chart und Zeitraum -->
+    <string name="widget_chart_candles">Svíčky</string>
+    <string name="widget_chart_line">Čára</string>
+    <string name="widget_chart_range">Rozsah grafu</string>
+    <string name="widget_chart_type">Typ grafu</string>
+    <!-- «1 Jahr» im Chart des Aktionsblatts (365 Tageskerzen; Chip neben 24h · 7T · 30T) -->
+    <string name="widget_range_1y">1 rok</string>
+    <string name="widget_range_24h">24h</string>
+    <string name="widget_range_30d">30 dní</string>
+    <string name="widget_range_7d">7 dní</string>
+    <string name="widget_range_short_1y">1R</string>
+    <string name="widget_range_short_24h">24h</string>
+    <string name="widget_range_short_30d">30D</string>
+    <string name="widget_range_short_7d">7D</string>
+
+    <!-- Portfolio-Widget -->
+    <!-- Fusszeile, %1$s Uhrzeit ohne Sekunden («Stand 15:19») -->
+    <string name="widget_portfolio_as_of">Stav k %1$s</string>
+    <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
+    <string name="widget_portfolio_chart_pending">Vývoj již brzy</string>
+    <string name="widget_portfolio_description">Celková hodnota vašeho portfolia a dnešní změna</string>
+    <string name="widget_portfolio_display">Zobrazení</string>
+    <string name="widget_portfolio_display_conversion">Jen přepočet</string>
+    <string name="widget_portfolio_display_conversion_usdt">Přepočet + USDT</string>
+    <string name="widget_portfolio_display_hint">Řádek USDT se nezobrazí, pokud je měnou přepočtu USD.</string>
+    <string name="widget_portfolio_display_usdt">Jen USDT</string>
+    <string name="widget_portfolio_empty">Nákupy zadejte na kartě Portfolio</string>
+    <string name="widget_portfolio_list_hint">Otevřete aplikaci, aby se zde zobrazily vaše pozice.</string>
+    <string name="widget_portfolio_locked_hint">Zamčeno – odemkněte v aplikaci</string>
+    <!-- Offene Coins ohne Kurs zählen im Gesamtwert als 0 -->
+    <plurals name="widget_portfolio_missing_coins">
+        <item quantity="one">bez %1$d mince</item>
+        <item quantity="few">bez %1$d mincí</item>
+        <item quantity="many">bez %1$d mince</item>
+        <item quantity="other">bez %1$d mincí</item>
+    </plurals>
+    <plurals name="widget_portfolio_more">
+        <item quantity="one">+ %1$d další</item>
+        <item quantity="few">+ %1$d další</item>
+        <item quantity="many">+ %1$d další</item>
+        <item quantity="other">+ %1$d další</item>
+    </plurals>
+    <string name="widget_portfolio_name">Portfolio</string>
+    <string name="widget_portfolio_off_hint">Zapni v %1$s.</string>
+    <string name="widget_portfolio_off_short">Portfolio vyp.</string>
+    <string name="widget_portfolio_off_title">Portfolio je vypnuté</string>
+    <string name="widget_portfolio_partly_stale">částečně starý kurz</string>
+    <string name="widget_portfolio_period">Období</string>
+    <string name="widget_portfolio_period_without">%1$s bez %2$s</string>
+    <string name="widget_portfolio_range_48h">48h</string>
+    <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
+    <string name="widget_portfolio_range_fallback">%1$s: otevřete Portfolio</string>
+    <string name="widget_portfolio_range_short_48h">48h</string>
+    <string name="widget_portfolio_today_without">Dnes bez %1$s</string>
+    <string name="widget_portfolio_view">Zobrazení</string>
+    <string name="widget_portfolio_view_chart">Graf</string>
+    <string name="widget_portfolio_view_list">Seznam</string>
+    <string name="widget_portfolio_view_overview">Přehled</string>
+
+    <!-- Einzel-Widget -->
+    <string name="single_widget_choose">Vyberte pár</string>
+    <string name="single_widget_description">Zobrazí jednu minci ve velkém formátu s cenou, změnou a 24hodinovým grafem.</string>
+    <string name="single_widget_label">Crypto Checker – jedna mince</string>
+    <string name="single_widget_title">Nastavit widget jedné mince</string>
+
+    <!-- Widgets aus der App hinzufügen -->
+    <string name="widgets_add">Přidat</string>
+    <!-- Screenreader: Knopf «Add» mit dem Namen des Widgets -->
+    <string name="widgets_add_named">Přidat widget %1$s</string>
+    <string name="widgets_manual_text">Vaše plocha neumí přidávat widgety z aplikace. Podržte prst na volném místě plochy, zvolte „Widgety“ a vyhledejte „Crypto Checker“.</string>
+    <!-- Startbildschirm (Launcher) kann keine Widgets aus der App annehmen -->
+    <string name="widgets_manual_title">Přidejte widget sami</string>
+    <string name="widgets_sheet_title">Přidat widget</string>
+
+    <!-- Nur iOS: Widget selbst hinzufügen (drei Schritte) -->
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS aplikacím nedovoluje přidávat widgety samy. Zabere to jen chvilku:</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">Dostupné widgety</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">Podržte prst na volném místě plochy, dokud se aplikace nezačnou třást.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">Nahoře klepněte na „Upravit“ › „Přidat widget“ (ve starších verzích iOS na „+“).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">Vyhledejte „Crypto Checker“, vyberte widget a klepněte na „Přidat widget“.</string>
+</resources>

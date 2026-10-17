@@ -1,0 +1,133 @@
+{
+ "description": "Mitgelieferte Icons aus «Cryptocurrency Icons» (CC0, 0.18.1, coin_icons.bin): Inhaltsverzeichnis «CCIP1», je Icon «name länge», Leerzeile, dann die PNG-Bytes (iconPack: Name → [Anfang, Länge], doppelte Namen: der erste gilt; invalidPack → kein Paket); bundledName: Kürzel → Name im Paket (normalize, klein; TradFi/ungültig: null). Dazu Pausen der Bild-Server (429/403/503).",
+ "iconPack": {
+  "text": "CCIP1\nbtc 3\neth 2\nbtc 1\n\nAAABBC",
+  "expected": {
+   "btc": [
+    25,
+    3
+   ],
+   "eth": [
+    28,
+    2
+   ]
+  },
+  "emptyText": "CCIP1\n\n"
+ },
+ "invalidPack": [
+  "",
+  "CCIP1\nbtc 1",
+  "CCIP2\nbtc 1\n\nA",
+  "CCIP1\nbtc 5\n\nAB",
+  "CCIP1\nBTC 1\n\nA",
+  "CCIP1\nbtc x\n\nA",
+  "CCIP1\nbt-c 1\n\nA",
+  "CCIP1\nbtc 0\n\nA",
+  "CCIP1\nbtc 1 2\n\nA"
+ ],
+ "bundledName": [
+  [
+   "BTC",
+   "btc"
+  ],
+  [
+   "eth",
+   "eth"
+  ],
+  [
+   "1000PEPE",
+   "pepe"
+  ],
+  [
+   "xbt",
+   "btc"
+  ],
+  [
+   "TRADFI:NVDA",
+   null
+  ],
+  [
+   "$PAC",
+   null
+  ],
+  [
+   "",
+   null
+  ]
+ ],
+ "pauseCodes": [
+  [
+   429,
+   true
+  ],
+  [
+   403,
+   true
+  ],
+  [
+   503,
+   true
+  ],
+  [
+   404,
+   false
+  ],
+  [
+   500,
+   false
+  ],
+  [
+   200,
+   false
+  ]
+ ],
+ "pauseMillis": [
+  [
+   null,
+   900000
+  ],
+  [
+   0,
+   60000
+  ],
+  [
+   30,
+   60000
+  ],
+  [
+   120,
+   120000
+  ],
+  [
+   999999,
+   21600000
+  ]
+ ],
+ "host": [
+  [
+   "https://coin-images.coingecko.com/coins/images/1/small/btc.png",
+   "coin-images.coingecko.com"
+  ],
+  [
+   "https://CDN.jsdelivr.net:443/npm/x",
+   "cdn.jsdelivr.net"
+  ],
+  [
+   "http://a.b/c",
+   null
+  ],
+  [
+   "https://",
+   null
+  ]
+ ],
+ "pauses": {
+  "now": 1000000,
+  "text": "cdn.jsdelivr.net=1600000;coin-images.coingecko.com=900000;bad;x=abc;far.example=99999999999;bin.bnbstatic.com=1000001",
+  "expected": {
+   "bin.bnbstatic.com": 1000001,
+   "cdn.jsdelivr.net": 1600000
+  },
+  "encoded": "bin.bnbstatic.com=1000001;cdn.jsdelivr.net=1600000"
+ }
+}

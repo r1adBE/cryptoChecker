@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Markt-Tab: Abschnitte, Zeilen, Herkunft und Alter -->
+    <!-- «… · CoinGecko · vor 3 Min.»; «gerade eben» = time_just_now, «veraltet» = widget_outdated -->
+    <plurals name="market_age_minutes">
+        <item quantity="one">%d دقیقه پیش</item>
+        <item quantity="other">%d دقیقه پیش</item>
+    </plurals>
+    <!-- «heute 02:00» (Uhrzeit ohne Sekunden) -->
+    <string name="market_age_today">امروز %1$s</string>
+    <string name="market_context_summary">Fear &amp; Greed، شاخص‌های بیت‌کوین، دامیننس، هاوینگ</string>
+    <string name="market_context_value">%1$s %2$s · %3$s</string>
+    <string name="market_more_data">داده‌های بیشتر بازار</string>
+    <string name="market_phase_trend_failed">داده‌های قیمت در دسترس نیست</string>
+    <string name="market_plain_direction_down_clear">ارزش کل همه رمزارزها به‌وضوح پایین‌تر از ۲۴ ساعت پیش است (%1$s).</string>
+    <string name="market_plain_direction_down_slight">ارزش کل همه رمزارزها کمی پایین‌تر از ۲۴ ساعت پیش است (%1$s).</string>
+    <string name="market_plain_direction_flat">ارزش کل همه رمزارزها در ۲۴ ساعت تقریباً تغییری نکرده است (%1$s).</string>
+    <string name="market_plain_direction_up_clear">ارزش کل همه رمزارزها به‌وضوح بالاتر از ۲۴ ساعت پیش است (%1$s).</string>
+    <string name="market_plain_direction_up_slight">ارزش کل همه رمزارزها کمی بالاتر از ۲۴ ساعت پیش است (%1$s).</string>
+    <string name="market_plain_footnote">۲۴ ساعت گذشته را توصیف می‌کند – بدون پیش‌بینی و بدون توصیهٔ سرمایه‌گذاری.</string>
+    <string name="market_plain_mood_extreme_fear">سرمایه‌گذاران اکنون بسیار ترسیده‌اند: شاخص حال‌وهوا (Fear &amp; Greed) روی %1$d از ۱۰۰ است.</string>
+    <string name="market_plain_mood_extreme_greed">سرمایه‌گذاران اکنون بسیار طمع‌کارند: شاخص حال‌وهوا (Fear &amp; Greed) روی %1$d از ۱۰۰ است.</string>
+    <string name="market_plain_mood_fear">سرمایه‌گذاران تا حدی ترسیده‌اند: شاخص حال‌وهوا (Fear &amp; Greed) روی %1$d از ۱۰۰ است.</string>
+    <string name="market_plain_mood_greed">سرمایه‌گذاران تا حدی طمع‌کارند: شاخص حال‌وهوا (Fear &amp; Greed) روی %1$d از ۱۰۰ است.</string>
+    <string name="market_plain_mood_neutral">حال‌وهوای سرمایه‌گذاران متعادل است: شاخص حال‌وهوا (Fear &amp; Greed) روی %1$d از ۱۰۰ است.</string>
+    <string name="market_plain_standout_above_btc">برجسته: %1$s – ‏%2$s در ۲۴ ساعت، به‌وضوح بالاتر از Bitcoin ‏(%3$s).</string>
+    <string name="market_plain_standout_against_btc">برجسته: %1$s – ‏%2$s در ۲۴ ساعت، در حالی که Bitcoin در جهت مخالف رفت ‏(%3$s).</string>
+    <string name="market_plain_standout_below_btc">برجسته: %1$s – ‏%2$s در ۲۴ ساعت، به‌وضوح پایین‌تر از Bitcoin ‏(%3$s).</string>
+    <string name="market_plain_standout_futures_down">برجسته: %1$s – تعداد غیرعادی از معامله‌گران futures روی کاهش قیمت شرط بسته‌اند.</string>
+    <string name="market_plain_standout_futures_up">برجسته: %1$s – تعداد غیرعادی از معامله‌گران futures روی افزایش قیمت شرط بسته‌اند.</string>
+    <string name="market_plain_standout_quiet">در حال حاضر هیچ کوینی به‌طور خاص برجسته نیست.</string>
+    <string name="market_plain_standout_volume">برجسته: %1$s – حدود %2$s برابر معاملهٔ معمول.</string>
+    <string name="market_plain_title">به‌طور خلاصه</string>
+    <!-- Nebenzeile der Fear-&-Greed-Zeile («Gier · gestern 65») -->
+    <string name="market_row_fng_yesterday">%1$s · دیروز %2$s</string>
+    <string name="market_section_collapse">پنهان کردن %1$s</string>
+    <string name="market_section_context">احساسات و چرخه</string>
+    <string name="market_section_data">داده‌های بازار</string>
+    <!-- Bedienungshilfen: Aktion auf der Abschnittsüberschrift; %1$s = Name des Abschnitts -->
+    <string name="market_section_expand">نمایش %1$s</string>
+    <string name="market_section_now">هم‌اکنون</string>
+    <string name="market_source">داده‌ها: Binance · Coin Metrics (CC BY-NC 4.0)</string>
+    <string name="market_unavailable_error">صرافی در دسترس نیست</string>
+
+    <!-- Markt-Tab: Info-Zeichen und Info-Blatt je Karte (was, wie, Quelle) -->
+    <string name="market_info_a11y">اطلاعات: %1$s</string>
+    <string name="market_info_alt_season_source">قیمت‌های روزانه: Binance · تقریباً هر ۳ ساعت دوباره محاسبه می‌شود</string>
+    <string name="market_info_alt_season_what">می‌شمارد از حدود ۲۰ آلت‌کوین بزرگ (مثلاً Ethereum، Solana، XRP) چند تا در ۹۰ روز گذشته بهتر از Bitcoin عمل کرده‌اند. مقدار، سهم آن‌ها از ۰ تا ۱۰۰ است.</string>
+    <string name="market_info_coin_source">قیمت‌ها: Binance یا Bybit · تقریباً هر ۱۵ دقیقه دوباره بارگیری می‌شود</string>
+    <string name="market_info_dominance_how">اگر سلطه بالا برود، Bitcoin بهتر از بقیه بازار عمل می‌کند؛ اگر پایین بیاید، کوین‌های دیگر وزن بیشتری می‌گیرند. استیبل‌کوین‌ها هم حساب می‌شوند: اگر ارزش آن‌ها بالا برود، سهم Bitcoin پایین می‌آید حتی اگر قیمت Bitcoin تغییر نکند.</string>
+    <string name="market_info_dominance_source">منبع: CoinGecko · تقریباً هر ۳۰ دقیقه دوباره بارگیری می‌شود</string>
+    <string name="market_info_dominance_what">سهم Bitcoin از ارزش کل همه رمزارزها (ارزش بازار). زیر آن سهم Ethereum آمده است.</string>
+    <string name="market_info_fear_greed_how">زیر ۲۵ یعنی ترس شدید، بالای ۷۵ طمع شدید و حدود ۵۰ خنثی. با باز کردن کارت مقادیر دیروز، یک هفته پیش و یک ماه پیش دیده می‌شود. سیگنال خرید یا فروش نیست.</string>
+    <string name="market_info_fear_greed_source">منبع: alternative.me · مقدار جدید روزی یک بار</string>
+    <string name="market_info_fear_greed_what">شاخص احساسات بازار رمزارز از ۰ تا ۱۰۰. alternative.me آن را از چند داده محاسبه می‌کند، از جمله نوسان قیمت، حجم معاملات، شبکه‌های اجتماعی و سلطه Bitcoin.</string>
+    <string name="market_info_gas_how">مقادیر بالاتر یعنی شبکه شلوغ است و انتقال‌ها گران‌تر تمام می‌شوند. کند، عادی و سریع کارمزدهایی برای تأیید دیرتر یا سریع‌تر هستند. با باز کردن کارت هزینه تقریبی یک انتقال ساده دیده می‌شود.</string>
+    <string name="market_info_gas_source">گره‌های عمومی RPC، mempool.space · هر دقیقه دوباره بارگیری می‌شود</string>
+    <string name="market_info_gas_what">هزینه فعلی یک تراکنش در هر شبکه. در Ethereum و شبکه‌های مشابه به gwei (یک‌میلیاردم ETH برای هر واحد گس)، در Bitcoin به sat/vB (ساتوشی برای هر بایت مجازی تراکنش).</string>
+    <string name="market_info_halving_source">تاریخ: از ارتفاع بلاک و میانگین زمان بلاک (mempool.space)، وگرنه بر اساس تقویم · تاریخچه قیمت: Coin Metrics، Binance، هر ۱۲ ساعت دوباره بارگذاری</string>
+    <string name="market_info_halving_what">در هاوینگ، پاداشی که ماینرها برای یک بلاک جدید Bitcoin می‌گیرند نصف می‌شود. این کار هر ۲۱۰٬۰۰۰ بلاک، یعنی تقریباً هر چهار سال یک بار، رخ می‌دهد. پس از آن روزانه فقط نصف تعداد قبلی بیت‌کوین جدید ایجاد می‌شود.</string>
+    <string name="market_info_how">چطور بخوانیم</string>
+    <string name="market_info_macro_how">این یادآوری فقط وقتی نمایش داده می‌شود که چنین تاریخی امروز یا فردا باشد. حوالی انتشار، قیمت‌ها اغلب بیش از معمول نوسان دارند. برنامه فقط تاریخ را نشان می‌دهد، نه خود ارقام را.</string>
+    <string name="market_info_macro_source">تقویم از وب‌سایت برنامه · روزی یک بار بارگیری می‌شود</string>
+    <string name="market_info_macro_what">تاریخ انتشار داده‌های مهم اقتصادی آمریکا: تورم (CPI، PCE)، قیمت تولیدکننده (PPI)، گزارش اشتغال و تصمیم‌های نرخ بهره فدرال رزرو. این ارقام اغلب قیمت رمزارزها را هم جابه‌جا می‌کنند.</string>
+    <string name="market_info_no_advice">مشاوره سرمایه‌گذاری نیست.</string>
+    <string name="market_info_phase_source">Binance، Coin Metrics · قیمت‌ها هر ساعت، داده‌های آن‌چین هر ۱۲ ساعت دوباره بارگیری می‌شوند</string>
+    <string name="market_info_pulse_how">تیتر جهت را نشان می‌دهد و با باز کردن کارت جزئیات دیده می‌شود. حرکت گسترده یعنی بیشتر کوین‌های بزرگ در یک جهت حرکت می‌کنند. نرخ تأمین مالی بالا یعنی بسیاری با اهرم روی افزایش قیمت شرط بسته‌اند. یک تصویر لحظه‌ای است، نه پیش‌بینی.</string>
+    <string name="market_info_pulse_source">Binance، CoinGecko · تقریباً هر ۵ دقیقه دوباره بارگیری می‌شود</string>
+    <string name="market_info_pulse_what">خلاصه‌ای کوتاه از بازار در ۲۴ ساعت گذشته: Bitcoin، Ethereum و Solana چطور حرکت می‌کنند، چند تا از بزرگ‌ترین کوین‌ها بالا یا پایین می‌روند، الان چقدر Bitcoin معامله می‌شود و نرخ تأمین مالی قراردادهای آتی Bitcoin در چه سطحی است.</string>
+    <string name="market_info_totals_how">در کنار آن تغییر ارزش کل در ۲۴ ساعت آمده است. حجم بالا یعنی معاملات زیادی انجام می‌شود، اما جهت را نمی‌گوید. در صورت امکان با ارز تبدیل و در غیر این صورت با دلار آمریکا نمایش داده می‌شود.</string>
+    <string name="market_info_totals_source">همه کوین‌ها · CoinGecko · تقریباً هر ۳۰ دقیقه دوباره بارگیری می‌شود</string>
+    <string name="market_info_totals_what">ارزش کل همه رمزارزها (ارزش بازار: قیمت ضرب در مقدار در گردش، جمع‌شده برای همه کوین‌ها) و حجم معاملات ۲۴ ساعت گذشته.</string>
+    <string name="market_info_unusual_how">برای هر کوین چشمگیرترین مشاهده و در کنار آن تغییر ۲۴ ساعته نشان داده می‌شود. حجم ۲× یعنی دو برابر گردش معمول. غیرعادی نه به معنای خوب است و نه بد.</string>
+    <string name="market_info_unusual_source">Binance، CoinGecko · تقریباً هر ۱۰ دقیقه دوباره بارگیری می‌شود</string>
+    <string name="market_info_unusual_what">حداکثر پنج کوین از حدود ۳۰ کوین بزرگ (بدون استیبل‌کوین‌ها) که امروز رفتار غیرعادی دارند: به‌وضوح قوی‌تر یا ضعیف‌تر از Bitcoin، خلاف جهت بازار، با حجم معاملات غیرعادی بالا یا با نرخ تأمین مالی چشمگیر.</string>
+    <string name="market_info_what">این چیست؟</string>
+
+    <!-- Markt-Tab: Krypto-Markt gesamt -->
+    <string name="market_cap_label">ارزش بازار</string>
+    <string name="market_cap_source">همه کوین‌ها · CoinGecko</string>
+    <string name="market_cap_title">بازار رمزارز</string>
+    <string name="market_volume_label">حجم ۲۴ ساعته</string>
+
+    <!-- Crypto Pulse «Was gerade auffällt»: Titel, Abschnitte, Hinweise -->
+    <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
+    <string name="pulse_details_action">جزئیات</string>
+    <string name="pulse_disclaimer">بدون پیش‌بینی · مشاوره سرمایه‌گذاری نیست</string>
+    <string name="pulse_less">نمایش کمتر</string>
+    <string name="pulse_now_title">آنچه اکنون جلب توجه می‌کند</string>
+    <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
+    <string name="pulse_period_24h_spoken">تغییر در ۲۴ ساعت</string>
+    <string name="pulse_section_factors">عوامل</string>
+    <string name="pulse_section_market">بازار امروز</string>
+    <string name="pulse_unavailable">داده‌های بازار در حال حاضر در دسترس نیست</string>
+    <string name="pulse_updated">تا %1$s</string>
+
+    <!-- Crypto Pulse: Schlagzeile und Leitsatz -->
+    <string name="pulse_headline_calm">بازار آرام</string>
+    <string name="pulse_headline_down">ضعف گسترده</string>
+    <string name="pulse_headline_mixed">تصویر ناهمگون</string>
+    <string name="pulse_headline_up">قدرت گسترده</string>
+    <string name="pulse_lead_alts_stronger">آلت‌کوین‌ها از بیت‌کوین قوی‌ترند.</string>
+    <string name="pulse_lead_broad_down">بازار به‌طور گسترده پایین می‌آید.</string>
+    <string name="pulse_lead_broad_up">بازار به‌طور گسترده بالا می‌رود.</string>
+    <string name="pulse_lead_btc_leads">بیت‌کوین بیشترین رشد را دارد.</string>
+    <string name="pulse_lead_btc_stronger">بیت‌کوین از آلت‌کوین‌ها قوی‌تر است.</string>
+    <string name="pulse_lead_calm">بازار تقریباً حرکتی ندارد.</string>
+    <string name="pulse_lead_drift_down">بازار کمی پایین می‌آید.</string>
+    <string name="pulse_lead_drift_up">بازار کمی بالا می‌رود.</string>
+    <string name="pulse_lead_mixed">کوین‌های بزرگ از هم فاصله می‌گیرند.</string>
+
+    <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
+    <string name="pulse_detail_fund_high">فاندینگ بالا.</string>
+    <string name="pulse_detail_fund_negative">فاندینگ منفی.</string>
+    <string name="pulse_detail_fund_neutral">فاندینگ خنثی.</string>
+    <string name="pulse_detail_vol_above">حجم %1$d%% بالاتر از حالت عادی.</string>
+    <string name="pulse_detail_vol_above_fund_high">حجم %1$d%% بالاتر از حالت عادی، فاندینگ بالا.</string>
+    <string name="pulse_detail_vol_above_fund_negative">حجم %1$d%% بالاتر از حالت عادی، فاندینگ منفی.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">حجم %1$d%% بالاتر از حالت عادی، فاندینگ خنثی.</string>
+    <string name="pulse_detail_vol_below">حجم %1$d%% پایین‌تر از حالت عادی.</string>
+    <string name="pulse_detail_vol_below_fund_high">حجم %1$d%% پایین‌تر از حالت عادی، فاندینگ بالا.</string>
+    <string name="pulse_detail_vol_below_fund_negative">حجم %1$d%% پایین‌تر از حالت عادی، فاندینگ منفی.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">حجم %1$d%% پایین‌تر از حالت عادی، فاندینگ خنثی.</string>
+    <string name="pulse_detail_vol_normal">حجم عادی.</string>
+    <string name="pulse_detail_vol_normal_fund_high">حجم عادی، فاندینگ بالا.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">حجم عادی، فاندینگ منفی.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">حجم عادی، فاندینگ خنثی.</string>
+
+    <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
+    <string name="pulse_breadth_hint">%1$d ارز برتر: بزرگ‌ترین ارزها بر اساس ارزش بازار، بدون استیبل‌کوین‌ها؛ تغییر در ۲۴ ساعت (CoinGecko).</string>
+    <!-- «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">%1$d ارز برتر</string>
+    <string name="pulse_breadth_note_broad_down">افت گسترده: بیشتر ارزهای بزرگ پایین می‌آیند.</string>
+    <string name="pulse_breadth_note_broad_up">حرکت گسترده: بیشتر ارزهای بزرگ بالا می‌روند.</string>
+    <string name="pulse_breadth_note_narrow_down">بیت‌کوین پایین می‌آید، اما بیشتر ارزهای بزرگ دیگر مقاومت می‌کنند.</string>
+    <string name="pulse_breadth_note_narrow_up">بیت‌کوین بالا می‌رود، اما بیشتر ارزهای بزرگ دیگر همراهی نمی‌کنند.</string>
+    <string name="pulse_breadth_spoken">%1$d ارز برتر: %2$d صعودی، %3$d نزولی</string>
+
+    <!-- Crypto Pulse: Altcoins, Funding, Gas, Volumen -->
+    <string name="pulse_alts_even">آلت‌کوین‌ها و Bitcoin هم‌جهت حرکت می‌کنند</string>
+    <string name="pulse_alts_stronger">آلت‌کوین‌ها قوی‌تر از Bitcoin</string>
+    <string name="pulse_alts_weaker">Bitcoin قوی‌تر از آلت‌کوین‌ها</string>
+    <string name="pulse_chip_funding_high">فاندینگ بالا</string>
+    <string name="pulse_chip_funding_negative">فاندینگ منفی</string>
+    <string name="pulse_funding_high">نرخ تأمین مالی به‌وضوح مثبت: لانگ‌های اهرمی زیاد</string>
+    <string name="pulse_funding_negative">نرخ تأمین مالی منفی: شورت‌های زیاد</string>
+    <string name="pulse_funding_neutral">نرخ تأمین مالی خنثی</string>
+    <string name="pulse_funding_slight">نرخ تأمین مالی کمی مثبت</string>
+    <string name="pulse_gas_high">گس Ethereum بالا (%1$s gwei)</string>
+    <string name="pulse_gas_low">گس Ethereum پایین (%1$s gwei)</string>
+    <string name="pulse_gas_normal">گس Ethereum معمول (%1$s gwei)</string>
+    <string name="pulse_volume_high">حجم معاملات به‌طور غیرعادی بالا (%1$s برابر حالت معمول)</string>
+    <string name="pulse_volume_low">حجم معاملات پایین (%1$s برابر حالت معمول)</string>
+    <string name="pulse_volume_normal">حجم معاملات معمول</string>
+
+    <!-- «Heute auffällig» (grösste Coins mit ungewöhnlicher Bewegung) -->
+    <string name="unusual_a11y_row">%1$s، %2$s. %3$s.</string>
+    <!-- Screenreader-Aktion einer Zeile (öffnet das Aktionsblatt bzw. die Vorschau) -->
+    <string name="unusual_action_open">نمایش قیمت و اقدامات</string>
+    <string name="unusual_fact_against">خلاف جهت بازار حرکت می‌کند</string>
+    <string name="unusual_fact_funding_high">فاندینگ بالا (%1$s)</string>
+    <string name="unusual_fact_funding_negative">فاندینگ منفی (%1$s)</string>
+    <string name="unusual_fact_stronger">خیلی قوی‌تر از BTC حرکت می‌کند</string>
+    <string name="unusual_fact_volume">حجم %1$s برابر حالت عادی</string>
+    <string name="unusual_fact_weaker">خیلی ضعیف‌تر از BTC حرکت می‌کند</string>
+    <string name="unusual_nothing">امروز چیز غیرعادی‌ای نیست</string>
+    <string name="unusual_source">حدود ۳۰ ارز بزرگ بدون استیبل‌کوین‌ها · Binance، CoinGecko</string>
+    <string name="unusual_title">نکات قابل توجه امروز</string>
+
+    <!-- Ungewöhnliche Aktivität eines Paars (Karte, Signale, Empfindlichkeit) -->
+    <string name="activity_card_title">همین حالا اتفاقی در جریان است</string>
+    <string name="activity_indicator">فعالیت غیرعادی</string>
+    <string name="activity_sensitivity_less">کمتر</string>
+    <string name="activity_sensitivity_more">بیشتر</string>
+    <string name="activity_sensitivity_normal">عادی</string>
+    <string name="activity_signal_funding_long">نرخ تأمین مالی %1$s — لانگ‌های اهرمی زیاد</string>
+    <string name="activity_signal_funding_short">نرخ تأمین مالی %1$s — شورت‌های زیاد</string>
+    <string name="activity_signal_open_interest">موقعیت‌های باز %1$s در %2$d دقیقه</string>
+    <string name="activity_signal_open_interest_no_time">موقعیت‌های باز %1$s</string>
+    <string name="activity_signal_price_move">حرکت غیرعادی: %1$s در یک ساعت (%2$s برابر حالت عادی)</string>
+    <string name="activity_signal_volume">حجم %1$s برابر حالت عادی در ساعت گذشته</string>
+
+    <!-- Einordnung: Bitcoin-Dominanz, Fear & Greed, Halving, Altseason -->
+    <plurals name="insights_altseason_value">
+        <item quantity="one">%1$d از %2$d آلت‌کوین بزرگ در ۹۰ روز از بیت‌کوین جلو زده‌اند</item>
+        <item quantity="other">%1$d از %2$d آلت‌کوین بزرگ در ۹۰ روز از بیت‌کوین جلو زده‌اند</item>
+    </plurals>
+    <string name="insights_chart_axis">سال‌ها از هاوینگ</string>
+    <string name="insights_chart_hint">قیمت به‌صورت مضربی از قیمت روز هاوینگ (مقیاس لگاریتمی). چرخه‌های قبلی یک الگو هستند، نه پیش‌بینی.</string>
+    <string name="insights_cycle_chart">چرخه‌ها از هاوینگ</string>
+    <string name="insights_dominance_eth">ETH %1$s از کل بازار</string>
+    <string name="insights_dominance_title">سلطه بیت‌کوین</string>
+    <string name="insights_fng_history">دیروز %1$s · یک هفته پیش %2$s · یک ماه پیش %3$s</string>
+    <string name="insights_fng_title">شاخص ترس و طمع</string>
+    <string name="insights_halving_title">هاوینگ بیت‌کوین</string>
+    <string name="insights_source_dominance">منبع: CoinGecko، Binance</string>
+    <string name="insights_source_fng">منبع: alternative.me</string>
+    <string name="insights_source_history">منبع: Coin Metrics (CC BY-NC 4.0)، Binance</string>
+
+    <!-- Fear & Greed: Stufen -->
+    <string name="fng_extreme_fear">ترس شدید</string>
+    <string name="fng_extreme_greed">طمع شدید</string>
+    <string name="fng_fear">ترس</string>
+    <string name="fng_greed">طمع</string>
+    <string name="fng_neutral">خنثی</string>
+
+    <!-- Halving-Zyklus (Chart, Marken, Schätzung) -->
+    <string name="cycle_data_as_of">داده‌ها تا %1$s · در حال به‌روزرسانی…</string>
+    <string name="cycle_from_top">%1$s از قله</string>
+    <string name="cycle_marker_bottom">کف %1$s</string>
+    <string name="cycle_marker_double_bottom">کف دوقلو %1$s</string>
+    <string name="cycle_marker_double_top">قله دوقلو %1$s</string>
+    <string name="cycle_marker_high_so_far">بالاترین تاکنون</string>
+    <!-- Hoch/Tief-Marken mit Sprechblase im Zyklus-Chart -->
+    <string name="cycle_marker_top">قله %1$s</string>
+    <string name="cycle_since_halving">%1$s از زمان هاوینگ</string>
+    <string name="halving_estimate_text">هاوینگ بعدی به‌طور محاسباتی حدود %1$s: %2$s بلوک باقی‌مانده با میانگین %3$s دقیقه برای هر بلوک (دورهٔ سختی فعلی). یک برون‌یابی است نه وعده – زمان بلوک نوسان دارد.</string>
+
+    <!-- Netzwerkgebühren (Gas) -->
+    <string name="gas_alert_active">هشدار: %1$s</string>
+    <string name="gas_slow_fast">کند %1$s · سریع %2$s</string>
+    <string name="gas_source">نودهای عمومی RPC و mempool.space · هزینه یک انتقال ساده، بدون سهم L1 در L2ها</string>
+    <string name="gas_title">کارمزدهای شبکه</string>
+    <string name="gas_transfer_cost">انتقال ≈ %1$s</string>
+
+    <!-- Wirtschaftsdaten (US-Termine) -->
+    <string name="macro_cpi">تورم آمریکا (CPI)</string>
+    <string name="macro_fomc">تصمیم نرخ بهره فدرال رزرو</string>
+    <string name="macro_hint_list">%1$s – در چنین روزهایی بازار اغلب نوسان بیشتری دارد.</string>
+    <string name="macro_hint_today">امروز %1$s: %2$s – در چنین روزهایی بازار اغلب نوسان بیشتری دارد.</string>
+    <string name="macro_hint_today_list">امروز: %1$s – در چنین روزهایی بازار اغلب نوسان بیشتری دارد.</string>
+    <string name="macro_hint_tomorrow">فردا %1$s: %2$s – در چنین روزهایی بازار اغلب نوسان بیشتری دارد.</string>
+    <string name="macro_hint_tomorrow_list">فردا: %1$s – در چنین روزهایی بازار اغلب نوسان بیشتری دارد.</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">امروز %1$s %2$s</string>
+    <string name="macro_item_tomorrow">فردا %1$s %2$s</string>
+    <string name="macro_nfp">گزارش اشتغال آمریکا</string>
+    <string name="macro_pce">شاخص قیمت PCE آمریکا</string>
+    <string name="macro_ppi">شاخص قیمت تولیدکننده آمریکا (PPI)</string>
+    <string name="macro_released_list">امروز منتشر شد: %1$s.</string>
+    <string name="macro_released_one">امروز ساعت %1$s منتشر شد: %2$s.</string>
+    <string name="macro_title">داده‌های اقتصادی</string>
+
+    <!-- Coin-Analyse -->
+    <string name="coin_choose">ارز</string>
+    <string name="coin_no_data">برای این ارز در Binance یا Bybit داده قیمتی نیست.</string>
+    <string name="coin_price_only">فقط بر پایه قیمت – داده‌های آنچین (MVRV، Puell، هش‌ریت) تنها برای بیت‌کوین رایگان است.</string>
+    <plurals name="coin_short_history">
+        <item quantity="one">فقط %1$d روز سابقه – برخی شاخص‌ها در دسترس نیستند.</item>
+        <item quantity="other">فقط %1$d روز سابقه – برخی شاخص‌ها نیستند.</item>
+    </plurals>
+    <string name="coin_title">تحلیل ارز</string>
+</resources>

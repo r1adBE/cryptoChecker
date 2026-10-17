@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen: Aufbau (Gruppen, Zeilen, Abschnitte, Suche, Kurzwerte) -->
+    <string name="settings_custom_value">Tùy chỉnh</string>
+    <string name="settings_group_general">Chung</string>
+    <string name="settings_group_more">Thêm</string>
+    <string name="settings_minutes">%1$d phút</string>
+    <string name="settings_row_about">Giới thiệu ứng dụng</string>
+    <string name="settings_row_advanced">Nâng cao</string>
+    <string name="settings_row_alarms">Cảnh báo</string>
+    <string name="settings_row_currency">Tiền tệ</string>
+    <string name="settings_row_dated_futures">Futures có kỳ hạn</string>
+    <string name="settings_row_updates">Cập nhật giá</string>
+    <string name="settings_row_watchlist">Danh sách</string>
+    <string name="settings_search_hint">Tìm trong cài đặt</string>
+    <string name="settings_seconds">%1$d giây</string>
+    <string name="settings_section_about">Giới thiệu</string>
+    <string name="settings_section_appearance">Giao diện</string>
+    <string name="settings_section_developer">Nhà phát triển</string>
+    <string name="settings_section_language">Ngôn ngữ</string>
+    <!-- Kurzwert «eingeschaltet» (Gegenstück zu option_off) -->
+    <string name="settings_summary_on">Bật</string>
+    <string name="settings_title">Cài đặt</string>
+
+    <!-- Einstellungen › Alarme (Ton, Signal, Ruhezeit, App-Symbol, exakte Prüfungen) -->
+    <string name="settings_alarm_cooldown">Thời gian chờ trước khi cảnh báo kích hoạt lại</string>
+    <!-- Ton/Vibration der Kursalarme, je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">Tín hiệu cảnh báo</string>
+    <string name="settings_alarm_signal_open_system">Điều chỉnh trong cài đặt hệ thống</string>
+    <string name="settings_alarm_signal_system_hint">Theo cài đặt thông báo của điện thoại.</string>
+    <string name="settings_alarm_sound">Âm thanh cảnh báo</string>
+    <string name="settings_alarm_sound_custom">Âm thanh tùy chỉnh</string>
+    <string name="settings_alarm_sound_default">Âm thanh mặc định</string>
+    <string name="settings_alarm_sound_error">Không thể dùng âm thanh này.</string>
+    <string name="settings_alarm_sound_file">Tệp âm thanh riêng…</string>
+    <string name="settings_alarm_sound_reset">Dùng âm thanh mặc định</string>
+    <string name="settings_alarm_sound_system">Chọn âm thanh hệ thống…</string>
+    <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">Số trên biểu tượng ứng dụng</string>
+    <string name="settings_app_badge_hint">Đếm các thông báo cảnh báo đang mở. Màn hình chính quyết định hiện số hay dấu chấm (vd. Samsung: «Có số»).</string>
+    <string name="settings_exact_checks">Kiểm tra đúng giờ</string>
+    <string name="settings_exact_checks_grant">Cho phép «Báo thức và lời nhắc»</string>
+    <string name="settings_exact_checks_hint">Android kiểm tra khoảng mỗi 15 phút, kể cả khi thiết bị đang nghỉ. Tốn pin hơn một chút.</string>
+    <string name="settings_exact_checks_nothing">Không có cặp nào đang bật – không có gì để kiểm tra.</string>
+    <string name="settings_exact_checks_permission_missing">Thiếu quyền – Android kiểm tra khi nào tiện (khoảng mỗi 15 phút hoặc muộn hơn).</string>
+    <string name="settings_notification_change">Chỉ thông báo khi giá thay đổi</string>
+    <string name="settings_notification_change_always">Luôn luôn</string>
+    <string name="settings_notification_change_hint">Thông báo chỉ xuất hiện khi giá đã thay đổi ít nhất mức này so với lần trước. Không hiển thị gì khi thiếu dữ liệu. Cảnh báo không bị ảnh hưởng.</string>
+    <string name="settings_ongoing_notifications">Không thể vuốt để xóa</string>
+    <string name="settings_ongoing_notifications_hint">Giữ cố định thông báo giá.</string>
+    <string name="settings_price_notifications">Thông báo giá</string>
+    <string name="settings_price_notifications_hint">Hiển thị giá hiện tại của các cặp đã bật trên thanh trạng thái.</string>
+    <string name="settings_price_pairs">Cặp</string>
+    <string name="settings_price_pairs_all_off">Tắt tất cả</string>
+    <string name="settings_price_pairs_all_on">Bật tất cả</string>
+    <string name="settings_price_pairs_count">%1$d/%2$d</string>
+    <string name="settings_price_pairs_empty">Chưa có cặp nào trong danh sách theo dõi.</string>
+    <string name="settings_price_pairs_hint">Chọn các cặp hiển thị giá trên thanh thông báo.</string>
+    <string name="settings_quiet_hours">Giờ yên lặng</string>
+    <string name="settings_quiet_hours_from">Từ</string>
+    <string name="settings_quiet_hours_hint">Từ %1$s đến %2$s, cảnh báo sẽ chờ đến khi hết giờ yên lặng rồi mới kêu có âm thanh. Các thông báo khác đến trong im lặng, không có giọng nói.</string>
+    <string name="settings_quiet_hours_to">Đến</string>
+
+    <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
+    <string name="settings_background_interval">Chu kỳ cập nhật</string>
+    <string name="settings_background_updates">Cập nhật nền</string>
+    <string name="settings_battery_hint">Bị hạn chế nghĩa là Android có thể trì hoãn cập nhật nền đến vài giờ.</string>
+    <string name="settings_battery_ok">Sử dụng pin: không hạn chế</string>
+    <string name="settings_battery_restricted">Sử dụng pin: bị hạn chế</string>
+    <string name="settings_check_runs_empty">Chưa ghi nhận lần kiểm tra nào.</string>
+    <string name="settings_check_runs_honest_android">Android quyết định khi nào kiểm tra – tại đây bạn thấy thực tế đã diễn ra lúc nào.</string>
+    <string name="settings_check_runs_honest_ios">iOS quyết định khi nào kiểm tra – tại đây bạn thấy thực tế đã diễn ra lúc nào.</string>
+    <string name="settings_check_runs_title">Lần kiểm tra gần đây</string>
+    <string name="settings_http_log">Hiện nhật ký HTTP</string>
+    <string name="settings_http_log_hint">Hiển thị các yêu cầu tới sàn ở cuối trang “Thêm cặp” – để gỡ lỗi.</string>
+    <string name="settings_live_service">Cập nhật thường xuyên</string>
+    <string name="settings_live_websocket">Giá trực tiếp</string>
+
+    <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
+    <string name="settings_activity_alerts">Báo hoạt động bất thường</string>
+    <string name="settings_activity_alerts_hint">Tối đa mỗi giờ một lần cho mỗi cặp: biến động giá bất thường, khối lượng tăng vọt và mức cực đoan trên futures (dữ liệu từ Binance).</string>
+    <string name="settings_activity_sensitivity">Độ nhạy</string>
+    <string name="settings_activity_sensitivity_hint">Mức dễ để một coin bị coi là bất thường – giống nhau cho thẻ trong danh sách theo dõi và thông báo. Với “Ít hơn”, thẻ chỉ hiện 3 coin mạnh nhất.</string>
+    <string name="settings_watchlist_activity_card">Hoạt động bất thường trong danh sách</string>
+    <string name="settings_watchlist_activity_card_hint">Hiển thị chip ⚡ cạnh các nhóm: chạm vào để chỉ xem các cặp đang có điều gì đó xảy ra. Thông báo được đặt trong Thông báo thị trường.</string>
+    <string name="settings_watchlist_names">Hiện tên</string>
+    <string name="settings_watchlist_names_hint">Tên dưới cặp, ví dụ Bitcoin hoặc NVIDIA. Đi kèm danh sách logo, tải một lần cho mọi đồng coin.</string>
+    <string name="settings_watchlist_sparkline">Biểu đồ mini trong danh sách</string>
+    <string name="settings_watchlist_sparkline_hint">Xu hướng 24 giờ cạnh giá</string>
+    <string name="settings_watchlist_value_names">Tên</string>
+    <string name="settings_watchlist_value_price_only">Chỉ giá</string>
+    <string name="settings_watchlist_value_sparkline">Biểu đồ mini</string>
+
+    <!-- Einstellungen › Token & TradFi -->
+    <string name="settings_asset_scope_alpha">Gồm token Alpha (α)</string>
+    <string name="settings_asset_scope_alpha_hint">Token Alpha: dự án giai đoạn đầu, phần lớn quy mô nhỏ, từ danh sách Binance Alpha – thường ít giao dịch và biến động mạnh.</string>
+    <string name="settings_asset_scope_alpha_tradfi_hint">Thuộc về token. Bị khóa khi chọn “Chỉ TradFi”; token Alpha đã có trong danh sách vẫn được giữ.</string>
+    <string name="settings_asset_scope_both">Token và TradFi</string>
+    <string name="settings_asset_scope_both_hint">Tất cả – crypto và TradFi</string>
+    <string name="settings_asset_scope_hint">Quyết định các cặp mà phần chọn và tìm kiếm hiển thị khi thêm. Các cặp đã có trong danh sách luôn được giữ.</string>
+    <string name="settings_asset_scope_title">Token &amp; TradFi</string>
+    <string name="settings_asset_scope_tokens">Chỉ token</string>
+    <string name="settings_asset_scope_tokens_hint">Crypto: spot và perpetual</string>
+    <string name="settings_asset_scope_tradfi">Chỉ TradFi</string>
+    <string name="settings_asset_scope_tradfi_hint">Hợp đồng tương lai trên cổ phiếu, hàng hóa, ngoại hối – hợp đồng, không phải token</string>
+    <string name="settings_rolling_futures">Gồm futures theo quý &amp; futures có kỳ hạn khác</string>
+    <string name="settings_rolling_futures_hint">Tắt: các futures có kỳ hạn không còn trong danh sách của sàn sẽ được đánh dấu là ngừng giao dịch thay vì kiểm tra từng cái. Tiết kiệm thời gian mỗi lần làm mới.</string>
+    <string name="settings_rolling_futures_qtly">Gồm futures theo quý &amp; futures có kỳ hạn khác (QTLY)</string>
+    <string name="settings_rolling_futures_tradfi_hint">Thuộc về token. Bị khóa khi chọn “Chỉ TradFi”; vẫn áp dụng cho futures có kỳ hạn đã có trong danh sách.</string>
+    <string name="settings_tradfi_futures">Cổ phiếu, hàng hóa và ngoại hối (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">Khi chọn cặp, cũng hiển thị hợp đồng tương lai trên cổ phiếu, vàng và hàng hóa khác, tiền tệ và công ty trước IPO. Đây là hợp đồng, không phải token.</string>
+
+    <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
+    <string name="settings_accent">Màu nhấn</string>
+    <string name="settings_accent_hint">Màu cho ứng dụng, tiện ích và biểu tượng ứng dụng.</string>
+    <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">Logo coin</string>
+    <string name="settings_coin_logos_app">Trong ứng dụng</string>
+    <string name="settings_coin_logos_app_hint">Danh sách, trang cặp và thẻ thị trường</string>
+    <string name="settings_coin_logos_footer">Logo lấy từ CoinGecko, và từ Binance cho những gì CoinGecko không có (ví dụ vàng, bạc, cổ phiếu). Ứng dụng tải tất cả logo cùng một lúc và lưu trên thiết bị này, nên không bên nào biết bạn theo dõi coin nào. Coin không có logo sẽ hiện chữ viết tắt. Mục yêu thích có một ngôi sao nhỏ trên logo. Ở nơi công tắc tắt, không hiện logo cũng không hiện chữ viết tắt; khi tắt tất cả, không tải gì cả.</string>
+    <string name="settings_coin_logos_portfolio">Trong danh mục</string>
+    <string name="settings_coin_logos_portfolio_hint">Vị thế, chi tiết coin và phân tích</string>
+    <string name="settings_coin_logos_value_app">Ứng dụng</string>
+    <string name="settings_coin_logos_widgets">Trong tiện ích</string>
+    <string name="settings_coin_logos_widgets_hint">Tiện ích danh sách và một coin</string>
+    <string name="settings_high_contrast">Độ tương phản cao</string>
+    <string name="settings_high_contrast_hint">Màu giá đậm hơn và chữ phụ tối hơn. Cũng bật khi hệ thống yêu cầu độ tương phản cao hơn.</string>
+    <string name="settings_language_choose">Chọn ngôn ngữ</string>
+    <string name="settings_language_system">Ngôn ngữ hệ thống</string>
+    <string name="settings_price_colors">Màu giá</string>
+    <string name="settings_price_colors_hint">Xanh dương / cam dễ phân biệt với mọi dạng rối loạn sắc giác (đỏ-xanh lá và xanh dương-vàng). Hướng thay đổi cũng luôn được hiển thị bằng + / −.</string>
+    <string name="settings_theme_mode">Sáng / Tối</string>
+    <string name="settings_widgets">Tiện ích</string>
+
+    <!-- Einstellungen › %-Änderung -->
+    <!-- Einstellungszeile und Seitentitel «%-Änderung»; %1$s ist das Prozentzeichen «%» -->
+    <string name="settings_change_basis">Thay đổi %1$s &amp; múi giờ biểu đồ</string>
+    <string name="settings_change_basis_hint_1">Múi giờ đã chọn quyết định thay đổi phần trăm được tính từ lúc nào (danh sách theo dõi, dòng nhịp, trang cặp, tiện ích) và giờ hiển thị trên biểu đồ.</string>
+    <string name="settings_change_basis_hint_2">“%1$s” so với giá đúng 24 giờ trước. “00:00” so với giá mở cửa lúc nửa đêm theo múi giờ đó.</string>
+    <string name="settings_change_basis_hint_3">Không ảnh hưởng đến cảnh báo.</string>
+    <string name="settings_change_basis_hint_since_last">“%1$s” so với giá của lần cập nhật trước. Với giá trực tiếp, giá trị luôn gần 0%%.</string>
+    <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
+    <string name="settings_change_period">Hiện khoảng thời gian cạnh biến động</string>
+    <string name="settings_change_period_hint">“24h”, “hôm nay” hoặc “lần cập nhật cuối” cỡ nhỏ cạnh biến động trong danh sách và tiện ích một coin. Trình đọc màn hình luôn đọc.</string>
+
+    <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
+    <string name="settings_conversion_currency">Tiền tệ quy đổi</string>
+    <string name="settings_conversion_currency_hint">Cũng dùng cho danh mục, cảnh báo theo tiền tệ của bạn, thẻ Thị trường crypto và tiện ích Danh mục.</string>
+    <string name="settings_cost_method">Phương pháp tính giá vốn</string>
+    <string name="settings_cost_method_average">Trung bình (Ø)</string>
+    <string name="settings_cost_method_average_hint">Lệnh bán được tính theo giá mua trung bình động.</string>
+    <string name="settings_cost_method_fifo">FIFO (mặc định)</string>
+    <string name="settings_cost_method_fifo_hint">Coin cũ nhất được bán trước, trên mọi sàn và ví.</string>
+    <string name="settings_cost_method_fifo_wallet">FIFO theo từng ví/sàn</string>
+    <string name="settings_cost_method_fifo_wallet_hint">Coin cũ nhất trước trong từng sàn hoặc ví; lệnh chuyển di chuyển các lô kèm ngày mua.</string>
+    <string name="settings_portfolio_lock">Khóa danh mục</string>
+    <string name="settings_portfolio_lock_footer">Khóa ẩn nội dung hiển thị. Dữ liệu nằm trên thiết bị này và được bảo vệ bằng mã hóa của thiết bị. Bạn có thể bảo vệ bản sao lưu bằng mật khẩu.</string>
+    <string name="settings_portfolio_lock_hint">Chỉ ẩn danh mục: mở khóa bằng vân tay, khuôn mặt hoặc mã PIN thiết bị. Khóa lại sau hơn một phút chạy nền. Danh sách theo dõi, cảnh báo và các tiện ích khác vẫn mở.</string>
+    <string name="settings_portfolio_lock_no_device_lock">Không có mã PIN hoặc mật mã thiết bị thì khóa không ẩn được gì – hãy thiết lập khóa màn hình.</string>
+    <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">Danh mục trong sao lưu hệ thống</string>
+    <string name="settings_portfolio_system_backup_hint">Tắt: giao dịch của bạn không nằm trong bản sao lưu hệ thống của thiết bị và khi chuyển sang điện thoại mới. Để chuyển, hãy dùng bản sao lưu của ứng dụng có mật khẩu.</string>
+    <string name="settings_portfolio_system_backup_unavailable">Cần Android 9 trở lên – phiên bản cũ hơn sẽ lưu danh mục không mã hóa trong bản sao lưu Google.</string>
+    <string name="settings_portfolio_tab">Hiện thẻ Danh mục</string>
+    <string name="settings_portfolio_value_locked">Bật, có khóa</string>
+    <string name="settings_show_converted">Giá quy đổi</string>
+    <string name="settings_show_converted_hint">Hiển thị giá trong danh sách theo dõi cả bằng %1$s</string>
+
+    <!-- Einstellungen › Markt-Meldungen -->
+    <string name="settings_depeg_alarm">Báo khi USDT mất neo</string>
+    <string name="settings_depeg_alarm_hint">Báo một lần khi USDT lệch khỏi 1 USD theo ngưỡng (Kraken USDT/USD, Binance USDC/USDT). Các giá trị trong ứng dụng vẫn tính với USDT = 1.</string>
+    <string name="settings_depeg_threshold">Ngưỡng mất neo</string>
+    <string name="settings_fng_above">Fear &amp; Greed: báo khi trên</string>
+    <string name="settings_fng_below">Fear &amp; Greed: báo khi dưới</string>
+    <string name="settings_gas_alert_hint">Báo một lần khi phí thông thường xuống dưới ngưỡng. Kiểm tra khi cập nhật giá, tối đa mỗi 10 phút một lần.</string>
+    <string name="settings_gas_btc_below">Phí Bitcoin dưới (sat/vB)</string>
+    <string name="settings_gas_eth_below">Gas Ethereum dưới (gwei)</string>
+    <string name="settings_ind_ath_within">Giảm từ đỉnh mọi thời đại tối đa</string>
+    <string name="settings_ind_mayer_above">Mayer Multiple trên</string>
+    <string name="settings_ind_mayer_below">Mayer Multiple dưới</string>
+    <string name="settings_ind_mvrv_above">MVRV trên</string>
+    <string name="settings_ind_mvrv_below">MVRV dưới</string>
+    <string name="settings_indicator_alerts_hint">Chỉ số Bitcoin, kiểm tra hai lần mỗi ngày. Bạn tự chọn ngưỡng – ứng dụng không đánh giá giá trị.</string>
+    <string name="settings_macro_notifications">Lịch kinh tế</string>
+    <string name="settings_macro_notifications_hint">Lúc 08:00 vào những ngày có dữ liệu kinh tế Mỹ quan trọng (lạm phát, việc làm, quyết định của Fed). Lịch được tải từ trang web của ứng dụng mỗi ngày một lần.</string>
+    <string name="settings_market_alerts">Thông báo thị trường</string>
+    <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
+    <plurals name="settings_market_alerts_active">
+        <item quantity="other">%1$d đang bật</item>
+    </plurals>
+
+    <!-- Einstellungen › Sprachausgabe -->
+    <string name="settings_speech_rate">Tốc độ đọc: %1$.1f×</string>
+    <string name="settings_tts">Đọc bằng giọng nói</string>
+    <string name="settings_tts_alarms_only">Chỉ cảnh báo</string>
+    <string name="settings_tts_alarms_only_hint">Tắt: mọi cập nhật của cặp có bật “Đọc giá” đều được đọc to.</string>
+    <!-- Sprachausgabe schweigt im Lautlos-/Vibrationsmodus -->
+    <string name="settings_tts_hint_silent">Đọc to giá và cảnh báo. Giữ im lặng khi thiết bị ở chế độ im lặng hoặc rung.</string>
+    <string name="settings_tts_test">Thử giọng nói</string>
+
+    <!-- Einstellungen › Daten: App zurücksetzen -->
+    <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
+    <string name="settings_reset_app">Đặt lại ứng dụng</string>
+    <string name="settings_reset_app_action">Xóa tất cả</string>
+    <string name="settings_reset_app_confirm">Xóa danh sách theo dõi, cảnh báo, danh mục, cài đặt và mọi dữ liệu đã lưu, như sau khi cài đặt. Không thể hoàn tác. Mẹo: hãy sao lưu trước.</string>
+    <string name="settings_reset_app_title">Đặt lại ứng dụng?</string>
+
+    <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
+    <!-- Suchfeld der Währungsseite -->
+    <string name="currency_search">Tìm tiền tệ</string>
+    <string name="language_search">Tìm ngôn ngữ</string>
+
+    <!-- Theme -->
+    <string name="theme_dark">Tối</string>
+    <string name="theme_light">Sáng</string>
+    <string name="theme_system">Hệ thống</string>
+
+    <!-- Akzentfarben -->
+    <string name="accent_blue">Xanh dương</string>
+    <string name="accent_green">Xanh lá</string>
+    <!-- Eigenname, in allen Sprachen gleich -->
+    <string name="accent_marrs_green">Marrs Green</string>
+    <string name="accent_orange">Cam</string>
+    <string name="accent_red">Đỏ</string>
+
+    <!-- Kursfarben -->
+    <string name="price_colors_red_up_hint">Phổ biến ở Trung Quốc, Nhật Bản, Hàn Quốc và Đài Loan</string>
+    <string name="price_colors_swap">Đổi màu (tăng ↔ giảm)</string>
+    <string name="price_style_calm">Dịu nhẹ</string>
+    <string name="price_style_calm_color_vision">Dịu nhẹ · Suy giảm thị lực màu</string>
+    <string name="price_style_color_vision">Suy giảm thị lực màu</string>
+    <string name="price_style_fresh">Tươi mới</string>
+    <string name="price_style_traditional">Truyền thống</string>
+
+    <!-- Über die App -->
+    <string name="about_exchanges_verified">Kết nối sàn được kiểm tra lần cuối với phản hồi thực: %1$s</string>
+    <string name="about_license">Giá lấy trực tiếp từ các sàn; không cần tài khoản và không theo dõi người dùng.</string>
+    <!-- Texte der Lizenzen liegen in assets/licenses -->
+    <string name="about_licenses">Giấy phép</string>
+    <string name="about_privacy_policy">Chính sách quyền riêng tư</string>
+    <!-- GitHub-Vorlage exchange_request.md -->
+    <string name="about_request_exchange">Đề xuất sàn</string>
+    <string name="about_source_code">Mã nguồn trên GitHub</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_why">Crypto Checker là dự án độc lập của r1AD: tổng quan giá bình yên, không tài khoản, không quảng cáo, không theo dõi. Câu hỏi và góp ý: %1$s</string>
+
+    <!-- Lizenzhinweise -->
+    <string name="licenses_app_intro">Crypto Checker là mã nguồn mở (Giấy phép MIT).</string>
+    <string name="licenses_font_title">Phông chữ Rubik</string>
+    <string name="licenses_icons_bundled_text">Đi kèm ứng dụng: biểu tượng từ «Cryptocurrency Icons» của Christopher Downer và những người đóng góp (github.com/spothq/cryptocurrency-icons), phát hành theo CC0 1.0 Universal. Chúng hiển thị cho đến khi logo từ CoinGecko hoặc Binance được tải. Tên và logo vẫn là nhãn hiệu của các dự án tương ứng.</string>
+    <string name="licenses_icons_title">Biểu tượng coin dự phòng</string>
+    <string name="licenses_libraries_intro">Ứng dụng sử dụng các thư viện này theo Apache License 2.0:</string>
+    <string name="licenses_libraries_title">Thư viện Android</string>
+
+    <!-- Entwickleroptionen -->
+    <!-- Countdown der letzten Tipps auf die Version bis zu den Entwickleroptionen -->
+    <plurals name="developer_taps_left">
+        <item quantity="other">Chạm thêm %d lần để mở tùy chọn nhà phát triển</item>
+    </plurals>
+    <string name="developer_unlocked">Đã mở tùy chọn nhà phát triển</string>
+
+    <!-- Nur iOS: Einstellungen -->
+    <!-- Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">Rung tuân theo cài đặt iPhone (Âm thanh &amp; cảm ứng).</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Đếm cảnh báo và thông báo thị trường mới; về 0 khi mở ứng dụng.</string>
+</resources>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">بازگشت</string>
+    <string name="action_cancel">لغو</string>
+    <string name="action_clear">پاک کردن</string>
+    <string name="action_close">بستن</string>
+    <string name="action_delete">حذف</string>
+    <string name="action_edit">ویرایش</string>
+    <string name="action_more">گزینه‌های بیشتر</string>
+    <string name="action_refresh">تازه‌سازی</string>
+    <string name="action_retry">تلاش دوباره</string>
+    <string name="action_save">ذخیره</string>
+    <string name="action_sort">مرتب‌سازی</string>
+    <string name="action_sort_done">تمام</string>
+    <string name="action_undo">واگرد</string>
+    <string name="action_view">مشاهده</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">بازار</string>
+    <string name="tab_portfolio">پرتفوی</string>
+    <string name="tab_settings">تنظیمات</string>
+    <string name="tab_watchlist">فهرست</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">خطا: %1$s</string>
+    <string name="error_market_unreachable">صرافی الان در دسترس نیست – آخرین قیمت‌ها نمایش داده می‌شوند.</string>
+    <string name="error_market_unreachable_short">صرافی الان در دسترس نیست</string>
+    <string name="loading_hint">در حال بارگیری…</string>
+    <string name="no_internet_connection">اتصال اینترنت برقرار نیست</string>
+    <string name="option_off">خاموش</string>
+    <string name="something_went_wrong">مشکلی پیش آمد</string>
+    <string name="time_just_now">همین حالا</string>
+    <string name="timeout_error_message">صرافی در حال حاضر پاسخ نمی‌دهد.</string>
+    <string name="try_again">تلاش دوباره</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">اتصال برقرار نیست</string>
+    <string name="offline_status_since">اتصال برقرار نیست · آخرین به‌روزرسانی %1$s</string>
+    <string name="status_live">زنده</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">افزودن جفت</string>
+    <string name="shortcut_alarms">همه هشدارها</string>
+    <string name="shortcut_cycle">بازار</string>
+</resources>

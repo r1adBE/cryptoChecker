@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="explorer_coin_back">Všechny výsledky</string>
+    <plurals name="explorer_coin_exchanges">
+        <item quantity="one">%1$d burza</item>
+        <item quantity="few">%1$d burzy</item>
+        <item quantity="many">%1$d burzy</item>
+        <item quantity="other">%1$d burz</item>
+    </plurals>
+    <string name="explorer_coin_no_pairs">V načtených seznamech není pro tuto minci žádný pár.</string>
+    <string name="explorer_coin_not_loaded">Seznamy párů zatím nenačteny</string>
+    <string name="explorer_coin_other_pairs">Další páry</string>
+    <string name="explorer_coin_show_pairs">Zobrazit páry</string>
+    <string name="explorer_coin_suggested">Návrh</string>
+    <string name="explorer_coins_title">Mince</string>
+    <string name="explorer_lists_load">Načíst seznamy</string>
+    <string name="explorer_lists_loading">Načítání seznamů párů… %1$d/%2$d</string>
+    <plurals name="explorer_lists_missing">
+        <item quantity="one">Seznam párů %1$d burzy zatím není v zařízení.</item>
+        <item quantity="few">Seznamy párů %1$d burz zatím nejsou v zařízení.</item>
+        <item quantity="many">Seznamy párů %1$d burzy zatím nejsou v zařízení.</item>
+        <item quantity="other">Seznamy párů %1$d burz zatím nejsou v zařízení.</item>
+    </plurals>
+    <string name="explorer_lists_privacy">Načte úplný veřejný seznam každé burzy – stejný pro všechny. Vaše hledání zůstává v zařízení.</string>
+    <!-- Paar hinzufügen: Suche über alle Börsen, zuletzt gesucht -->
+    <string name="explorer_recent_a11y">Nedávno hledáno: %1$s</string>
+    <string name="explorer_recent_clear">Vymazat</string>
+    <string name="explorer_recent_clear_a11y">Vymazat nedávná hledání</string>
+    <string name="explorer_recent_title">Nedávná hledání</string>
+    <string name="explorer_search_choose_manually">Vybrat burzu a pár ručně</string>
+    <string name="explorer_search_empty">Žádné výsledky.</string>
+    <string name="explorer_search_hint">Hledat minci, pár nebo burzu</string>
+    <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
+    <string name="explorer_search_intro">Zadejte název nebo symbol mince, např. Bitcoin nebo BTC, a pak vyberte pár.</string>
+
+    <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
+    <string name="explorer_add_to_watchlist">Přidat do sledovaných</string>
+    <string name="explorer_added_to_watchlist">Přidáno do sledovaných.</string>
+    <string name="explorer_already_in_watchlist">Tento pár už je ve sledovaných.</string>
+    <string name="explorer_exchange_missing">Chybí burza?</string>
+    <string name="explorer_loading_pairs">Načítání párů…</string>
+    <string name="explorer_no_pair_selected">Nejprve vyberte pár.</string>
+    <string name="explorer_no_pairs_yet">Pro tuto burzu zatím nejsou načtené žádné páry.</string>
+    <plurals name="explorer_pairs_status">
+        <item quantity="one">%1$d pár · aktualizováno %2$s</item>
+        <item quantity="few">%1$d páry · aktualizováno %2$s</item>
+        <item quantity="many">%1$d párů · aktualizováno %2$s</item>
+        <item quantity="other">%1$d párů · aktualizováno %2$s</item>
+    </plurals>
+    <string name="explorer_pairs_title">Páry</string>
+    <string name="explorer_precise_title">Pokročilé / podle burzy</string>
+    <string name="explorer_price_loading">Načítání kurzu…</string>
+    <string name="explorer_select_market_hint">Vyberte burzu – její páry se načtou automaticky.</string>
+    <string name="explorer_select_placeholder">Vyberte</string>
+    <string name="explorer_step_pair">Vybrat pár</string>
+
+    <!-- Paar hinzufügen: Schnellfilter der Liste «Alle …-Paare» -->
+    <string name="explorer_filter_gainers">Rostoucí</string>
+    <string name="explorer_filter_losers">Klesající</string>
+    <string name="explorer_filter_volume">Objem</string>
+
+    <!-- Paar hinzufügen: mehrere Paare auf einmal -->
+    <string name="bulk_all_pairs">Všechny %1$s páry této burzy</string>
+    <plurals name="bulk_all_pairs_applied">
+        <item quantity="one">Nalezen %1$d pár %2$s</item>
+        <item quantity="few">Nalezeny %1$d páry %2$s</item>
+        <item quantity="many">Nalezeno %1$d párů %2$s</item>
+        <item quantity="other">Nalezeno %1$d párů %2$s</item>
+    </plurals>
+    <string name="bulk_all_pairs_empty">Tato burza nemá pro vybraný typ kontraktu žádné %1$s páry. Nejprve burzu synchronizujte, nebo zkuste jiný typ kontraktu.</string>
+    <plurals name="explorer_add_all_pairs">
+        <item quantity="one">Přidat %1$d pár do sledovaných</item>
+        <item quantity="few">Přidat všechny %1$d páry do sledovaných</item>
+        <item quantity="many">Přidat všech %1$d párů do sledovaných</item>
+        <item quantity="other">Přidat všech %1$d párů do sledovaných</item>
+    </plurals>
+    <plurals name="explorer_bulk_added">
+        <item quantity="one">Přidáno: %1$d, již ve sledovaných: %2$d.</item>
+        <item quantity="few">Přidáno: %1$d, již ve sledovaných: %2$d.</item>
+        <item quantity="many">Přidáno: %1$d, již ve sledovaných: %2$d.</item>
+        <item quantity="other">Přidáno: %1$d, již ve sledovaných: %2$d.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_text">
+        <item quantity="one">%1$d pár %2$s z %3$s bude přidán do seznamu, pokud tam ještě není.</item>
+        <item quantity="few">Všechny %1$d páry %2$s z %3$s budou přidány do seznamu. Již přidané budou přeskočeny.</item>
+        <item quantity="many">Všech %1$d párů %2$s z %3$s bude přidáno do seznamu. Již přidané budou přeskočeny.</item>
+        <item quantity="other">Všech %1$d párů %2$s z %3$s bude přidáno do seznamu. Již přidané budou přeskočeny.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_title">
+        <item quantity="one">Přidat %1$d pár?</item>
+        <item quantity="few">Přidat %1$d páry?</item>
+        <item quantity="many">Přidat %1$d párů?</item>
+        <item quantity="other">Přidat %1$d párů?</item>
+    </plurals>
+    <string name="explorer_bulk_hide_list">Skrýt seznam</string>
+    <string name="explorer_bulk_show_list">Zobrazit seznam</string>
+    <string name="explorer_bulk_tap_hint">Klepnutím na pár ho vyberete nahoře.</string>
+    <string name="explorer_bulk_title">Více párů najednou</string>
+
+    <!-- Handelspaare einer Börse laden und wählen -->
+    <string name="explorer_sync_sheet_text">Načte aktuální páry vybrané burzy.</string>
+    <string name="explorer_no_pair_list">Žádné měnové páry</string>
+    <string name="explorer_sync_sheet_last">Poslední synchronizace: %1$s</string>
+    <string name="explorer_sync_never">nikdy</string>
+    <string name="explorer_sync_sheet_action">Synchronizovat nyní!</string>
+    <string name="explorer_sync_sheet_title">Aktualizovat měnové páry</string>
+    <string name="explorer_field_coin">Základní</string>
+    <string name="explorer_field_contract">Typ kontraktu</string>
+    <string name="explorer_field_exchange">Trh</string>
+    <string name="explorer_field_quote">Kotovaná</string>
+    <string name="explorer_contract_spot">Spot</string>
+    <string name="explorer_reload_pairs">Synchronizovat</string>
+    <string name="sync_pairs_count">Obchodní páry: %1$d</string>
+
+    <!-- Token von dezentralen Börsen (DEX) -->
+    <string name="dex_add">Přidat</string>
+    <string name="dex_added">%1$s přidáno do sledovaných.</string>
+    <string name="dex_already">%1$s už je ve sledovaných.</string>
+    <string name="dex_intro">Tokeny mimo velké burzy, z decentralizovaných burz (Uniswap, PancakeSwap, Raydium …) přes DexScreener. Vyhledejte token a přidejte jeden z jeho obchodních poolů – ceny v amerických dolarech.</string>
+    <string name="dex_liquidity">Likvidita %1$s</string>
+    <string name="dex_no_results">Nebyly nalezeny žádné pooly.</string>
+    <string name="dex_search">Hledat</string>
+    <string name="dex_search_hint">Název, symbol nebo adresa tokenu</string>
+
+    <!-- Art des Assets (Token, Alpha-Token, TradFi) -->
+    <string name="asset_kind_alpha">Alpha token</string>
+    <string name="asset_kind_token">Token</string>
+    <string name="asset_kind_tradfi">TradFi</string>
+</resources>

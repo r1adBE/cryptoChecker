@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Aktionsblatt: Kurs-Chart (Zeitraum, Kerzenwerte beim Ziehen, Umrechnung) und «Mehr» -->
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s Zeitraum kurz (widget_range_short_24h/7d/30d) -->
+    <string name="sheet_chart_change">%1$s in %2$s</string>
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s change_short_today(_zone) -->
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="sheet_chart_close">Schluss</string>
+    <string name="sheet_chart_converted_current">%1$s, umgerechnet (aktueller Kurs)</string>
+    <!-- Zeile unter dem Chart, %1$s = umgerechnete Reihe («BTC/USDT») -->
+    <string name="sheet_chart_converted_daily">%1$s, umgerechnet mit Tageskursen</string>
+    <!-- Keine Kerzen für das Paar -->
+    <string name="sheet_chart_no_data">Keine Kursdaten für dieses Paar</string>
+    <!-- Kerzenwerte beim Ziehen (Hoch/Tief: ticker_high/ticker_low) -->
+    <string name="sheet_chart_open">Eröffnung</string>
+    <!-- Zeitraum-Chip statt «24h» bei Tages-Basis -->
+    <string name="sheet_chart_today">Heute</string>
+    <!-- Umsatz der Kerze beim Ziehen; %1$s z. B. «12.3M USDT» -->
+    <string name="sheet_chart_volume">Vol. %1$s</string>
+    <string name="sheet_more">Mehr</string>
+
+    <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
+    <string name="ticker_ask">Brief</string>
+    <string name="ticker_bid">Geld</string>
+    <string name="ticker_high">Hoch</string>
+    <string name="ticker_low">Tief</string>
+    <string name="ticker_timestamp">Zeit</string>
+    <string name="ticker_vol_base">Volumen (in Coins)</string>
+    <string name="ticker_vol_quote">Volumen (in Gegenwährung)</string>
+
+    <!-- Basis der %-Änderung (Prozent-Pille, Chart, Widgets) -->
+    <string name="change_basis_device">%1$s, 00:00 (Zeitzone des Geräts)</string>
+    <string name="change_basis_local">Seit 00:00 Ortszeit</string>
+    <string name="change_basis_rolling">Letzte 24 Std.</string>
+    <!-- Letzter gegen vorherigen Kurs des Paars; ausgeschrieben (Auswahl). Kurz neben Pille und Widgets: change_short_since_last -->
+    <string name="change_basis_since_last">Seit letzter Aktualisierung</string>
+    <string name="change_basis_utc_zone">Seit 00:00 %1$s</string>
+    <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
+    <string name="change_candle_source">Veränderung aus %1$s-Kerzen</string>
+    <string name="change_short_since_last">letzter Stand</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
+    <string name="change_short_today">heute</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 einer gewählten Zeitzone; %1$s = Zeitzone (z. B. UTC) -->
+    <string name="change_short_today_zone">heute %1$s</string>
+
+    <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
+    <string name="market_data_empty_error">Keine Daten von der Börse erhalten.</string>
+    <string name="market_data_summary">Marktkapitalisierung, Gasgebühren, Wirtschaftsdaten, Coin-Analyse</string>
+    <string name="market_data_tab_futures">Futures</string>
+    <string name="market_data_title">Marktdaten</string>
+
+    <!-- Marktdaten Spot (Marktkapitalisierung, Angebot, Volumen) -->
+    <string name="spot_circulating">Umlaufmenge</string>
+    <string name="spot_fdv">FDV</string>
+    <string name="spot_market_cap">Marktkapitalisierung</string>
+    <string name="spot_max_supply">Höchstmenge</string>
+    <string name="spot_no_data">Keine Spot-Daten für diesen Coin</string>
+    <string name="spot_source_updated">Quelle: %1$s · Stand %2$s</string>
+    <string name="spot_supply_of_max">%1$s der Höchstmenge im Umlauf</string>
+    <string name="spot_total_supply">Gesamtmenge</string>
+    <string name="spot_vol_mcap">Vol./Marktkap.</string>
+    <string name="spot_volume_24h">Volumen (24h)</string>
+
+    <!-- Futures-Kennzahlen (Funding, Open Interest, Referenzbörse) -->
+    <string name="futures_alarm_reference">Richtwert %1$s</string>
+    <string name="futures_funding">Funding Rate</string>
+    <string name="futures_funding_interval_unknown">Intervall unbekannt</string>
+    <string name="futures_funding_per8h_equiv">= %1$s pro 8 Std. (wie im Alarm)</string>
+    <!-- Einheit neben der Funding-Pille, wenn die Börse stündlich abrechnet (Hyperliquid) -->
+    <string name="futures_funding_per_hour">pro Std.</string>
+    <string name="futures_funding_per_hours">pro %1$d Std.</string>
+    <string name="futures_next_funding">nächste in %1$d Std. %2$d Min.</string>
+    <string name="futures_no_data">Keine Futures-Daten für diesen Coin</string>
+    <string name="futures_open_interest">Open Interest</string>
+    <!-- Futures-Kennzahlen von einer anderen Börse als der beobachteten (Richtwert) -->
+    <string name="futures_reference_hint">Richtwert von %1$s – Funding und Open Interest gelten je Börse, bei %2$s können sie abweichen.</string>
+    <string name="futures_reference_spot">Richtwert von %1$s (USDT-Perpetual des Coins)</string>
+    <string name="futures_source">Quelle: %1$s</string>
+
+    <!-- Erklärungen hinter dem ⓘ-Knopf -->
+    <string name="explain_funding">Viele wetten mit Kredit auf steigende oder fallende Kurse. Gebühr zwischen Long- und Short-Positionen. Stark positiv heisst: viele wetten auf steigende Kurse.</string>
+    <string name="explain_open_interest">Futures sind Wetten auf den Kurs, oft mit Kredit. Wert aller offenen Futures-Positionen. Steigt er, setzt mehr Geld auf die Bewegung.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">Erklärung</string>
+    <string name="explain_spot_fdv">Voll verwässerte Bewertung: Kurs × Höchstmenge (oder Gesamtmenge, wenn es keine Grenze gibt).</string>
+    <string name="explain_spot_market_cap">Kurs × Umlaufmenge. Die Pille zeigt die Veränderung über 24 Stunden.</string>
+    <string name="explain_spot_source">Zahlen über alle Börsen in US-Dollar, von CoinGecko.</string>
+    <string name="explain_spot_supply">Umlauf: Coins, die jetzt am Markt sind. Gesamt: alle geschaffenen Coins abzüglich verbrannter. Höchst: die grösste Menge, die es je geben kann.</string>
+    <string name="explain_spot_volume">In 24 Stunden gehandelter Wert. Vol./Marktkap.: Volumen im Verhältnis zur Marktkapitalisierung — hoch heisst sehr reger Handel.</string>
+
+    <!-- Umrechnung und Sats -->
+    <string name="converted_fx_stale">%1$s · Kurs %2$s</string>
+    <string name="sats_per_unit">%1$s %2$s = %3$s Sats</string>
+</resources>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Sicherung exportieren und wiederherstellen -->
+    <string name="backup_export">Exportar</string>
+    <string name="backup_exported">Cópia guardada.</string>
+    <string name="backup_failed">Não resultou. É uma cópia do Crypto Checker?</string>
+    <string name="backup_hint">Guarda a lista com notas e grupos, alarmes, favoritos, portfólio e definições num ficheiro que guarda – p. ex. para um telemóvel novo.</string>
+    <string name="backup_import">Importar</string>
+    <string name="backup_title">Cópia de segurança</string>
+    <string name="backup_too_large">O ficheiro é demasiado grande ou não é uma cópia válida (máx. 16 MB).</string>
+
+    <!-- Passwort der Sicherungsdatei -->
+    <string name="backup_password">Palavra-passe</string>
+    <string name="backup_password_continue">Continuar</string>
+    <string name="backup_password_hide">Ocultar palavra-passe</string>
+    <!-- %1$d = Mindestlänge des Passworts (8) -->
+    <string name="backup_password_min">Pelo menos %1$d caracteres</string>
+    <string name="backup_password_mismatch">As palavras-passe não coincidem</string>
+    <string name="backup_password_prompt">Introduza a palavra-passe desta cópia de segurança.</string>
+    <string name="backup_password_repeat">Repetir palavra-passe</string>
+    <string name="backup_password_show">Mostrar palavra-passe</string>
+    <string name="backup_password_title">Cópia protegida por palavra-passe</string>
+    <string name="backup_password_too_weak">Demasiado fácil de adivinhar – não só algarismos, não um único carácter repetido, nada de sequências comuns como «12345678» ou «password».</string>
+    <string name="backup_password_warning">Sem a palavra-passe, a cópia de segurança não pode ser restaurada.</string>
+    <string name="backup_password_wrong">Palavra-passe errada ou ficheiro danificado. Tente novamente.</string>
+    <string name="backup_protect">Proteger com palavra-passe</string>
+    <string name="backup_protect_hint">Encripta o ficheiro (AES-256). Recomendado se contiver dados do portfólio.</string>
+
+    <!-- Sicherung ohne Passwort, Wiederherstellen -->
+    <string name="backup_plain_confirm">Guardar sem palavra-passe</string>
+    <string name="backup_plain_confirm_text">O ficheiro não está encriptado. Quem o obtiver pode ler:</string>
+    <string name="backup_plain_confirm_title">Guardar sem palavra-passe?</string>
+    <string name="backup_plain_contents_addresses">Endereços de carteira guardados</string>
+    <string name="backup_plain_contents_base">Lista de observação com notas e grupos, alarmes, favoritos e definições</string>
+    <string name="backup_plain_contents_portfolio">Portefólio: transações com quantidades e preços</string>
+    <string name="backup_restore_app_lock_kept">O bloqueio do portefólio mantém-se – uma cópia não encriptada não o pode desativar.</string>
+    <string name="backup_restore_confirm">Importar substitui a lista (com notas e grupos), alarmes, favoritos, portfólio e definições pela cópia.</string>
+    <plurals name="backup_restore_invalid">
+        <item quantity="one">%d entrada da cópia (portefólio ou alarme) é inválida e não será importada.</item>
+        <item quantity="many">%d entradas da cópia (portefólio ou alarmes) são inválidas e não serão importadas.</item>
+        <item quantity="other">%d entradas da cópia (portefólio ou alarmes) são inválidas e não serão importadas.</item>
+    </plurals>
+    <string name="backup_restore_newer_version">Esta cópia é de uma versão mais recente da app – atualize primeiro a app. Nada foi importado.</string>
+    <string name="backup_restore_unencrypted_warning">Esta cópia não está encriptada – confirme que é sua. As definições serão aplicadas; um bloqueio do portefólio ativo mantém-se.</string>
+    <string name="backup_restored">Restaurado: %1$s, %2$s.</string>
+    <plurals name="backup_restored_alarms">
+        <item quantity="one">%1$d alarme</item>
+        <item quantity="many">%1$d alarmes</item>
+        <item quantity="other">%1$d alarmes</item>
+    </plurals>
+    <plurals name="backup_restored_pairs">
+        <item quantity="one">%1$d par</item>
+        <item quantity="many">%1$d pares</item>
+        <item quantity="other">%1$d pares</item>
+    </plurals>
+
+    <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
+    <string name="storage_recovery_message">Este dispositivo já não tem a chave dos dados cifrados da app, por isso ela arrancou vazia. Nada foi apagado. Para recuperar a lista e o portfólio, importe um ficheiro de cópia nas definições, em «%1$s».</string>
+    <string name="storage_recovery_title">Não foi possível desbloquear os dados guardados</string>
+</resources>

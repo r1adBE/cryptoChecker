@@ -1,0 +1,646 @@
+{
+  "description": "Gleicher Token? (K-8) — TokenIdentity.kt / TokenIdentity.swift. match: STRONG (gleicher Vertrag), MEDIUM (gleicher Name), WEAK (unbekannt/ähnlich: Kürzel + Kursband wie bisher), MISMATCH (Namen/Verträge bekannt und verschieden).",
+  "normalize": [
+    {
+      "name": "plain",
+      "symbol": "BTC",
+      "input": "Bitcoin",
+      "expected": "bitcoin"
+    },
+    {
+      "name": "apostrophe joins",
+      "symbol": "CAT",
+      "input": "Simon's Cat",
+      "expected": "simons cat"
+    },
+    {
+      "name": "typographic apostrophe",
+      "symbol": "CAT",
+      "input": "Simon’s Cat",
+      "expected": "simons cat"
+    },
+    {
+      "name": "stop words dropped",
+      "symbol": "GT",
+      "input": "Gate Token",
+      "expected": "gate"
+    },
+    {
+      "name": "parenthesis dropped",
+      "symbol": "S",
+      "input": "Sonic (prev. FTM)",
+      "expected": "sonic"
+    },
+    {
+      "name": "accents folded",
+      "symbol": "XYZ",
+      "input": "Café Coin",
+      "expected": "cafe"
+    },
+    {
+      "name": "only the symbol",
+      "symbol": "BNB",
+      "input": "BNB",
+      "expected": null
+    },
+    {
+      "name": "symbol plus stop word",
+      "symbol": "CAT",
+      "input": "Cat Token",
+      "expected": null
+    },
+    {
+      "name": "parenthesis only leaves symbol",
+      "symbol": "POL",
+      "input": "POL (ex-MATIC)",
+      "expected": null
+    },
+    {
+      "name": "non-latin",
+      "symbol": "BTC",
+      "input": "비트코인",
+      "expected": null
+    },
+    {
+      "name": "blank",
+      "symbol": "BTC",
+      "input": "  ",
+      "expected": null
+    },
+    {
+      "name": "missing",
+      "symbol": "BTC",
+      "input": null,
+      "expected": null
+    }
+  ],
+  "names": [
+    {
+      "name": "same name",
+      "symbol": "BTC",
+      "a": "Bitcoin",
+      "b": "Bitcoin",
+      "expected": "MEDIUM"
+    },
+    {
+      "name": "case and punctuation",
+      "symbol": "CAT",
+      "a": "Simon's Cat",
+      "b": "SIMONS CAT",
+      "expected": "MEDIUM"
+    },
+    {
+      "name": "contained name",
+      "symbol": "USDT",
+      "a": "Tether USD",
+      "b": "TetherUS",
+      "expected": "MEDIUM"
+    },
+    {
+      "name": "contained with suffix",
+      "symbol": "DOT",
+      "a": "Polkadot",
+      "b": "Polkadot Network",
+      "expected": "MEDIUM"
+    },
+    {
+      "name": "one side unknown",
+      "symbol": "BTC",
+      "a": "Bitcoin",
+      "b": null,
+      "expected": "WEAK"
+    },
+    {
+      "name": "name is just the symbol",
+      "symbol": "XRP",
+      "a": "XRP",
+      "b": "Ripple",
+      "expected": "WEAK"
+    },
+    {
+      "name": "shared word only",
+      "symbol": "ABC",
+      "a": "Alpha Bridge",
+      "b": "Alpha Chain Capital",
+      "expected": "WEAK"
+    },
+    {
+      "name": "subsequence (Gate QTUM)",
+      "symbol": "QTM",
+      "a": "Quantum",
+      "b": "Qtum",
+      "expected": "WEAK"
+    },
+    {
+      "name": "clearly different",
+      "symbol": "ABC",
+      "a": "Apple Banana",
+      "b": "Zebra Moon",
+      "expected": "MISMATCH"
+    },
+    {
+      "name": "LUNA vs Terra Classic",
+      "symbol": "LUNA",
+      "a": "Terra",
+      "b": "Terra Classic",
+      "expected": "MISMATCH"
+    },
+    {
+      "name": "LUNA 2.0 alias",
+      "symbol": "LUNA",
+      "a": "Terra",
+      "b": "Terra 2.0",
+      "expected": "MEDIUM"
+    },
+    {
+      "name": "LUNC aliases",
+      "symbol": "LUNC",
+      "a": "Terra Luna Classic",
+      "b": "Terra Classic",
+      "expected": "MEDIUM"
+    },
+    {
+      "name": "LUNC vs Terra 2.0",
+      "symbol": "LUNC",
+      "a": "Terra Classic",
+      "b": "Terra",
+      "expected": "MISMATCH"
+    },
+    {
+      "name": "classic marker on any symbol",
+      "symbol": "ETX",
+      "a": "Ether X",
+      "b": "Ether X Classic",
+      "expected": "MISMATCH"
+    },
+    {
+      "name": "CAT Simon's Cat vs Catcoin",
+      "symbol": "CAT",
+      "a": "Simon's Cat",
+      "b": "Catcoin",
+      "expected": "MISMATCH"
+    },
+    {
+      "name": "CAT unknown other cat",
+      "symbol": "CAT",
+      "a": "Simon's Cat",
+      "b": "Cat in a Box",
+      "expected": "WEAK"
+    },
+    {
+      "name": "NVDA stock vs tokenized",
+      "symbol": "NVDA",
+      "a": "NVIDIA Corporation",
+      "b": "NVIDIA xStock",
+      "expected": "MISMATCH"
+    },
+    {
+      "name": "NVDA stock spellings",
+      "symbol": "NVDA",
+      "a": "NVIDIA",
+      "b": "NVIDIA Corp",
+      "expected": "MEDIUM"
+    },
+    {
+      "name": "tokenized marker on any symbol",
+      "symbol": "AAPL",
+      "a": "Apple",
+      "b": "Apple Tokenized Stock",
+      "expected": "MISMATCH"
+    },
+    {
+      "name": "TON Toncoin vs Tokamak",
+      "symbol": "TON",
+      "a": "Toncoin",
+      "b": "Tokamak Network",
+      "expected": "MISMATCH"
+    },
+    {
+      "name": "TON rename",
+      "symbol": "TON",
+      "a": "Toncoin",
+      "b": "The Open Network",
+      "expected": "MEDIUM"
+    },
+    {
+      "name": "GMT STEPN vs GoMining",
+      "symbol": "GMT",
+      "a": "STEPN",
+      "b": "GoMining Token",
+      "expected": "MISMATCH"
+    },
+    {
+      "name": "HOT Holo vs Hydro",
+      "symbol": "HOT",
+      "a": "Holo",
+      "b": "Hydro Protocol",
+      "expected": "MISMATCH"
+    },
+    {
+      "name": "FET rename",
+      "symbol": "FET",
+      "a": "Fetch.ai",
+      "b": "Artificial Superintelligence Alliance",
+      "expected": "MEDIUM"
+    },
+    {
+      "name": "EGLD rename",
+      "symbol": "EGLD",
+      "a": "Elrond",
+      "b": "MultiversX",
+      "expected": "MEDIUM"
+    },
+    {
+      "name": "S rename",
+      "symbol": "S",
+      "a": "Sonic (prev. FTM)",
+      "b": "Fantom",
+      "expected": "MEDIUM"
+    },
+    {
+      "name": "XRP Ledger vs Ripple",
+      "symbol": "XRP",
+      "a": "XRP Ledger",
+      "b": "Ripple",
+      "expected": "MEDIUM"
+    },
+    {
+      "name": "QTUM Gate spelling",
+      "symbol": "QTUM",
+      "a": "Quantum",
+      "b": "Qtum",
+      "expected": "WEAK"
+    }
+  ],
+  "identities": [
+    {
+      "name": "same contract",
+      "symbol": "PEPE",
+      "a": {
+        "name": "Pepe",
+        "contracts": [
+          "ethereum:0x6982508145454Ce325dDbE47a25d4ec3d2311933"
+        ]
+      },
+      "b": {
+        "name": "Pepe Coin",
+        "contracts": [
+          "Ethereum:0x6982508145454ce325ddbe47a25d4ec3d2311933"
+        ]
+      },
+      "expected": "STRONG"
+    },
+    {
+      "name": "contract wins over different names",
+      "symbol": "PEPE",
+      "a": {
+        "name": "Pepe",
+        "contracts": [
+          "ethereum:0x6982508145454ce325ddbe47a25d4ec3d2311933"
+        ]
+      },
+      "b": {
+        "name": "Zebra Moon",
+        "contracts": [
+          "ethereum:0x6982508145454ce325ddbe47a25d4ec3d2311933",
+          "bsc:0x25d887ce7a35172c62febfd67a1856f20faebb00"
+        ]
+      },
+      "expected": "STRONG"
+    },
+    {
+      "name": "same chain other address",
+      "symbol": "CAT",
+      "a": {
+        "name": "Simon's Cat",
+        "contracts": [
+          "bsc:0x6894cde390a3f51155ea41ed24a33a4827d3063d"
+        ]
+      },
+      "b": {
+        "name": "Simon's Cat",
+        "contracts": [
+          "bsc:0x0000000000000000000000000000000000000001"
+        ]
+      },
+      "expected": "MISMATCH"
+    },
+    {
+      "name": "solana address keeps case",
+      "symbol": "WIF",
+      "a": {
+        "name": null,
+        "contracts": [
+          "solana:EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm"
+        ]
+      },
+      "b": {
+        "name": null,
+        "contracts": [
+          "solana:ekpqgsjtjmfqkz9kqansqyxrcf8fbopzlhyxdm65zcjm"
+        ]
+      },
+      "expected": "MISMATCH"
+    },
+    {
+      "name": "different chains fall back to names",
+      "symbol": "XYZ",
+      "a": {
+        "name": "Xyz Finance",
+        "contracts": [
+          "ethereum:0x1111111111111111111111111111111111111111"
+        ]
+      },
+      "b": {
+        "name": "XYZ",
+        "contracts": [
+          "bsc:0x2222222222222222222222222222222222222222"
+        ]
+      },
+      "expected": "WEAK"
+    },
+    {
+      "name": "one side without contracts uses names",
+      "symbol": "CAT",
+      "a": {
+        "name": "Simon's Cat",
+        "contracts": [
+          "bsc:0x6894cde390a3f51155ea41ed24a33a4827d3063d"
+        ]
+      },
+      "b": {
+        "name": "Catcoin",
+        "contracts": []
+      },
+      "expected": "MISMATCH"
+    },
+    {
+      "name": "nothing known",
+      "symbol": "XYZ",
+      "a": null,
+      "b": null,
+      "expected": "WEAK"
+    }
+  ],
+  "accept": [
+    {
+      "match": "STRONG",
+      "band": false,
+      "expected": true
+    },
+    {
+      "match": "STRONG",
+      "band": true,
+      "expected": true
+    },
+    {
+      "match": "MEDIUM",
+      "band": true,
+      "expected": true
+    },
+    {
+      "match": "MEDIUM",
+      "band": false,
+      "expected": false
+    },
+    {
+      "match": "WEAK",
+      "band": true,
+      "expected": true
+    },
+    {
+      "match": "WEAK",
+      "band": false,
+      "expected": false
+    },
+    {
+      "match": "MISMATCH",
+      "band": true,
+      "expected": false
+    },
+    {
+      "match": "MISMATCH",
+      "band": false,
+      "expected": false
+    }
+  ],
+  "consensus": [
+    {
+      "name": "first known name",
+      "symbol": "CAT",
+      "names": [
+        null,
+        "Simon's Cat",
+        "Simons Cat"
+      ],
+      "expected": "Simon's Cat",
+      "conflict": false
+    },
+    {
+      "name": "conflict",
+      "symbol": "CAT",
+      "names": [
+        "Simon's Cat",
+        null,
+        "Catcoin"
+      ],
+      "expected": null,
+      "conflict": true
+    },
+    {
+      "name": "nothing known",
+      "symbol": "CAT",
+      "names": [
+        null,
+        "CAT"
+      ],
+      "expected": null,
+      "conflict": false
+    },
+    {
+      "name": "weak pair is no conflict",
+      "symbol": "QTUM",
+      "names": [
+        "Quantum",
+        "Qtum Foundation"
+      ],
+      "expected": "Quantum",
+      "conflict": false
+    }
+  ],
+  "fallbackSeries": [
+    {
+      "name": "binance series, same name",
+      "symbol": "CAT",
+      "own": "Simon's Cat",
+      "provider": "Binance",
+      "binance": "Simons Cat",
+      "expected": true,
+      "providerName": null
+    },
+    {
+      "name": "binance series, other token: no chart, no 24 h reference",
+      "symbol": "CAT",
+      "own": "Catcoin",
+      "provider": "Binance",
+      "binance": "Simon's Cat",
+      "expected": false,
+      "providerName": null
+    },
+    {
+      "name": "binance futures series, other token",
+      "symbol": "TON",
+      "own": "Tokamak Network",
+      "provider": "Binance Futures",
+      "binance": "Toncoin",
+      "expected": false,
+      "providerName": null
+    },
+    {
+      "name": "own name unknown: symbol + band",
+      "symbol": "CAT",
+      "own": null,
+      "provider": "Binance",
+      "binance": "Simon's Cat",
+      "expected": true,
+      "providerName": null
+    },
+    {
+      "name": "binance name unknown: symbol + band",
+      "symbol": "CAT",
+      "own": "Catcoin",
+      "provider": "Binance",
+      "binance": null,
+      "expected": true,
+      "providerName": null
+    },
+    {
+      "name": "Coinbase series after a Binance name contradiction: blocked too (no fallback from any source)",
+      "symbol": "CAT",
+      "own": "Catcoin",
+      "provider": "Coinbase",
+      "binance": "Simon's Cat",
+      "expected": false,
+      "providerName": null
+    },
+    {
+      "name": "Binance.US series after a Binance name contradiction: blocked too",
+      "symbol": "CAT",
+      "own": "Catcoin",
+      "provider": "Binance.US",
+      "binance": "Simon's Cat",
+      "expected": false,
+      "providerName": null
+    },
+    {
+      "name": "Coinbase without any contradiction: symbol + band",
+      "symbol": "CAT",
+      "own": "Catcoin",
+      "provider": "Coinbase",
+      "binance": null,
+      "providerName": null,
+      "expected": true
+    },
+    {
+      "name": "Bybit series with own matching name",
+      "symbol": "CAT",
+      "own": "Catcoin",
+      "provider": "Bybit",
+      "binance": null,
+      "providerName": "CatCoin",
+      "expected": true
+    },
+    {
+      "name": "Coinbase series whose own name contradicts: blocked",
+      "symbol": "TON",
+      "own": "Tokamak Network",
+      "provider": "Coinbase",
+      "binance": null,
+      "providerName": "Toncoin",
+      "expected": false
+    },
+    {
+      "name": "Binance same name but provider name contradicts: blocked",
+      "symbol": "TON",
+      "own": "Toncoin",
+      "provider": "Binance.US",
+      "binance": "Toncoin",
+      "providerName": "Tokamak Network",
+      "expected": false
+    },
+    {
+      "name": "no provider",
+      "symbol": "CAT",
+      "own": "Catcoin",
+      "provider": null,
+      "binance": "Simon's Cat",
+      "expected": true,
+      "providerName": null
+    }
+  ],
+  "chainSources": [
+    {
+      "name": "binance host, other token: skipped",
+      "symbol": "CAT",
+      "own": "Catcoin",
+      "host": "data-api.binance.vision",
+      "binance": "Simon's Cat",
+      "providerName": null,
+      "expected": false
+    },
+    {
+      "name": "coinbase host, binance name contradicts: whole chain skipped (action sheet, volume)",
+      "symbol": "CAT",
+      "own": "Catcoin",
+      "host": "api.exchange.coinbase.com",
+      "binance": "Simon's Cat",
+      "providerName": null,
+      "expected": false
+    },
+    {
+      "name": "binance.us host, binance name contradicts",
+      "symbol": "TON",
+      "own": "Tokamak Network",
+      "host": "api.binance.us",
+      "binance": "Toncoin",
+      "providerName": null,
+      "expected": false
+    },
+    {
+      "name": "own name unknown: symbol + band",
+      "symbol": "CAT",
+      "own": null,
+      "host": "api.exchange.coinbase.com",
+      "binance": "Simon's Cat",
+      "providerName": null,
+      "expected": true
+    },
+    {
+      "name": "coinbase name contradicts own name",
+      "symbol": "CAT",
+      "own": "Simon's Cat",
+      "host": "api.exchange.coinbase.com",
+      "binance": "Simons Cat",
+      "providerName": "Catcoin",
+      "expected": false
+    },
+    {
+      "name": "futures host, same token",
+      "symbol": "TON",
+      "own": "Toncoin",
+      "host": "fapi.binance.com",
+      "binance": "Toncoin",
+      "providerName": null,
+      "expected": true
+    },
+    {
+      "name": "coinbase host, binance name unknown",
+      "symbol": "CAT",
+      "own": "Simon's Cat",
+      "host": "api.exchange.coinbase.com",
+      "binance": null,
+      "providerName": null,
+      "expected": true
+    }
+  ]
+}

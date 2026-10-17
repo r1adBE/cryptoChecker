@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">Retour</string>
+    <string name="action_cancel">Annuler</string>
+    <string name="action_clear">Effacer</string>
+    <string name="action_close">Fermer</string>
+    <string name="action_delete">Supprimer</string>
+    <string name="action_edit">Modifier</string>
+    <string name="action_more">Plus d\'options</string>
+    <string name="action_refresh">Actualiser</string>
+    <string name="action_retry">Réessayer</string>
+    <string name="action_save">Enregistrer</string>
+    <string name="action_sort">Trier</string>
+    <string name="action_sort_done">Terminé</string>
+    <string name="action_undo">Annuler</string>
+    <string name="action_view">Voir</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">Marché</string>
+    <string name="tab_portfolio">Portefeuille</string>
+    <string name="tab_settings">Paramètres</string>
+    <string name="tab_watchlist">Liste</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">Erreur : %1$s</string>
+    <string name="error_market_unreachable">Plateforme injoignable pour le moment – les derniers cours restent affichés.</string>
+    <string name="error_market_unreachable_short">Plateforme injoignable pour le moment</string>
+    <string name="loading_hint">Chargement…</string>
+    <string name="no_internet_connection">Pas de connexion Internet</string>
+    <string name="option_off">Non</string>
+    <string name="something_went_wrong">Une erreur s\'est produite</string>
+    <string name="time_just_now">à l\'instant</string>
+    <string name="timeout_error_message">La plateforme ne répond pas pour le moment.</string>
+    <string name="try_again">Réessayer</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">Pas de connexion</string>
+    <string name="offline_status_since">Pas de connexion · état à %1$s</string>
+    <string name="status_live">En direct</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">Ajouter une paire</string>
+    <string name="shortcut_alarms">Toutes les alertes</string>
+    <string name="shortcut_cycle">Marché</string>
+</resources>

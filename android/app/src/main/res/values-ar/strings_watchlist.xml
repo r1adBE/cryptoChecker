@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: leere Ansicht, Statuszeile, Frische -->
+    <string name="watchlist_all_fresh">محدّث · %1$s</string>
+    <string name="watchlist_empty_title">لا توجد أزواج بعد</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="zero">%1$d من %2$d بدون سعر</item>
+        <item quantity="one">%1$d من %2$d بدون سعر</item>
+        <item quantity="two">%1$d من %2$d بدون سعر</item>
+        <item quantity="few">%1$d من %2$d بدون سعر</item>
+        <item quantity="many">%1$d من %2$d بدون سعر</item>
+        <item quantity="other">%1$d من %2$d بدون سعر</item>
+    </plurals>
+    <string name="watchlist_last_run">آخر تشغيل %1$s</string>
+    <string name="watchlist_live_a11y">الأسعار المباشرة مفعّلة</string>
+    <string name="watchlist_live_badge">LIVE</string>
+    <string name="watchlist_offline_since">لا يوجد اتصال · آخر تحديث %1$s</string>
+    <string name="watchlist_pull_to_refresh">اسحب للأسفل للتحديث</string>
+    <string name="watchlist_refresh_report">آخر تحديث</string>
+    <string name="watchlist_refresh_report_empty">لا يوجد تفصيل بعد: لم يكتمل أي تحديث كامل حتى الآن. اضغط على «تحديث» وانتظر حتى يتوقف مؤشر التحميل.</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="zero">%1$d من %2$d قديمة</item>
+        <item quantity="one">%1$d من %2$d قديمة</item>
+        <item quantity="two">%1$d من %2$d قديمة</item>
+        <item quantity="few">%1$d من %2$d قديمة</item>
+        <item quantity="many">%1$d من %2$d قديمة</item>
+        <item quantity="other">%1$d من %2$d قديمة</item>
+    </plurals>
+    <string name="watchlist_status_all_disabled">كل الأزواج هنا معطَّلة</string>
+    <string name="watchlist_status_exchange_prices">أسعار منصاتك · %1$s</string>
+    <string name="watchlist_status_exchange_prices_short">أسعار المنصات · %1$s</string>
+    <string name="watchlist_status_group_empty">لا توجد أزواج في هذه المجموعة</string>
+    <string name="watchlist_status_none_traded">لا توجد أزواج متداولة هنا</string>
+    <string name="watchlist_updated">آخر تحديث: %1$s</string>
+
+    <!-- Merkliste: Puls-Zeile (Paare im Plus/Minus, ohne 24-h-Wert) -->
+    <string name="watchlist_pulse_avg">Ø %1$s</string>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="zero">%1$d هابط</item>
+        <item quantity="one">%1$d هابط</item>
+        <item quantity="two">%1$d هابط</item>
+        <item quantity="few">%1$d هابط</item>
+        <item quantity="many">%1$d هابط</item>
+        <item quantity="other">%1$d هابط</item>
+    </plurals>
+    <!-- Paare mit Kurs, aber ohne 24-h-Wert («· 510 ohne 24h-Wert») -->
+    <plurals name="watchlist_pulse_missing">
+        <item quantity="zero">%1$d بلا قيمة 24 س</item>
+        <item quantity="one">%1$d بلا قيمة 24 س</item>
+        <item quantity="two">%1$d بلا قيمة 24 س</item>
+        <item quantity="few">%1$d بلا قيمة 24 س</item>
+        <item quantity="many">%1$d بلا قيمة 24 س</item>
+        <item quantity="other">%1$d بلا قيمة 24 س</item>
+    </plurals>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="zero">%1$d بلا قيمة اليوم</item>
+        <item quantity="one">%1$d بلا قيمة اليوم</item>
+        <item quantity="two">%1$d بلا قيمة اليوم</item>
+        <item quantity="few">%1$d بلا قيمة اليوم</item>
+        <item quantity="many">%1$d بلا قيمة اليوم</item>
+        <item quantity="other">%1$d بلا قيمة اليوم</item>
+    </plurals>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="zero">%1$d صاعد</item>
+        <item quantity="one">%1$d صاعد</item>
+        <item quantity="two">%1$d صاعد</item>
+        <item quantity="few">%1$d صاعد</item>
+        <item quantity="many">%1$d صاعد</item>
+        <item quantity="other">%1$d صاعد</item>
+    </plurals>
+
+    <!-- Merkliste: Zeile eines Paars -->
+    <string name="watchlist_row_disabled">%1$s · معطَّل</string>
+    <string name="watchlist_row_outdated">%1$s · غير محدَّث</string>
+    <string name="watchlist_row_outdated_age">غير محدَّث · %1$s</string>
+    <string name="watchlist_row_price_unchanged_since">السعر دون تغيير منذ %1$s</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s غير متاحة</string>
+
+    <!-- Merkliste: Suche, Sprungknopf, Sortieren nach Spalte -->
+    <string name="watchlist_jump_end">إلى النهاية</string>
+    <string name="watchlist_jump_start">إلى البداية</string>
+    <string name="watchlist_search_close">إغلاق البحث</string>
+    <string name="watchlist_search_empty">لا توجد نتائج لـ «%1$s»</string>
+    <string name="watchlist_search_hint">ابحث عن زوج أو اسم أو منصة</string>
+    <string name="watchlist_search_open">بحث</string>
+    <string name="watchlist_sort_ascending">تصاعدي</string>
+    <string name="watchlist_sort_descending">تنازلي</string>
+    <string name="watchlist_sort_hint">اضغط مطولًا واسحب زوجًا، أو استخدم المقبض. تبقى المفضلة في الأعلى.</string>
+    <string name="watchlist_sort_name">الاسم</string>
+    <string name="watchlist_sort_own">ترتيبك الخاص</string>
+    <string name="watchlist_sort_price">السعر</string>
+
+    <!-- Merkliste: Mehrfachauswahl, Ansichten, Entfernen -->
+    <string name="watchlist_clear">مسح قائمة المتابعة</string>
+    <string name="watchlist_clear_confirm">إزالة كل الأزواج من قائمة المتابعة؟ ستُحذف تنبيهاتها أيضًا.</string>
+    <plurals name="watchlist_disabled_count">
+        <item quantity="zero">معطَّلة: %1$d</item>
+        <item quantity="one">معطَّلة: %1$d</item>
+        <item quantity="two">معطَّلة: %1$d</item>
+        <item quantity="few">معطَّلة: %1$d</item>
+        <item quantity="many">معطَّلة: %1$d</item>
+        <item quantity="other">معطَّلة: %1$d</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_action">إزالة</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="zero">إزالة الأزواج التي لم تعد تُتداول في منصتها (%1$d)؟ ستُحذف تنبيهاتها أيضًا.</item>
+        <item quantity="one">إزالة الأزواج التي لم تعد تُتداول في منصتها (%1$d)؟ ستُحذف تنبيهاتها أيضًا.</item>
+        <item quantity="two">إزالة الأزواج التي لم تعد تُتداول في منصتها (%1$d)؟ ستُحذف تنبيهاتها أيضًا.</item>
+        <item quantity="few">إزالة الأزواج التي لم تعد تُتداول في منصتها (%1$d)؟ ستُحذف تنبيهاتها أيضًا.</item>
+        <item quantity="many">إزالة الأزواج التي لم تعد تُتداول في منصتها (%1$d)؟ ستُحذف تنبيهاتها أيضًا.</item>
+        <item quantity="other">إزالة الأزواج التي لم تعد تُتداول في منصتها (%1$d)؟ ستُحذف تنبيهاتها أيضًا.</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_menu">إزالة الأزواج غير المتداولة (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">إزالة الأزواج غير المتداولة</string>
+    <string name="watchlist_removed">تمت إزالة %1$s</string>
+    <plurals name="watchlist_removed_count">
+        <item quantity="zero">تمت إزالة الأزواج: %1$d</item>
+        <item quantity="one">تمت إزالة الأزواج: %1$d</item>
+        <item quantity="two">تمت إزالة الأزواج: %1$d</item>
+        <item quantity="few">تمت إزالة الأزواج: %1$d</item>
+        <item quantity="many">تمت إزالة الأزواج: %1$d</item>
+        <item quantity="other">تمت إزالة الأزواج: %1$d</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="zero">تمت إزالة الأزواج غير المتداولة: %1$d</item>
+        <item quantity="one">تمت إزالة الأزواج غير المتداولة: %1$d</item>
+        <item quantity="two">تمت إزالة الأزواج غير المتداولة: %1$d</item>
+        <item quantity="few">تمت إزالة الأزواج غير المتداولة: %1$d</item>
+        <item quantity="many">تمت إزالة الأزواج غير المتداولة: %1$d</item>
+        <item quantity="other">تمت إزالة الأزواج غير المتداولة: %1$d</item>
+    </plurals>
+    <string name="watchlist_select">تحديد</string>
+    <string name="watchlist_select_all">تحديد الكل</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="zero">المحدد: %1$d</item>
+        <item quantity="one">المحدد: %1$d</item>
+        <item quantity="two">المحدد: %1$d</item>
+        <item quantity="few">المحدد: %1$d</item>
+        <item quantity="many">المحدد: %1$d</item>
+        <item quantity="other">المحدد: %1$d</item>
+    </plurals>
+    <string name="watchlist_show_all">عرض الكل</string>
+    <string name="watchlist_show_only_disabled">عرض المعطَّلة فقط</string>
+    <string name="watchlist_show_only_stale">عرض القديمة فقط</string>
+
+    <!-- Merkliste: weitere Texte (Gruppen, Alarme, Mitteilung, Sprachausgabe) -->
+    <plurals name="watchlist_alarms_count">
+        <item quantity="zero">التنبيهات (%1$d)</item>
+        <item quantity="one">التنبيهات (%1$d)</item>
+        <item quantity="two">التنبيهات (%1$d)</item>
+        <item quantity="few">التنبيهات (%1$d)</item>
+        <item quantity="many">التنبيهات (%1$d)</item>
+        <item quantity="other">التنبيهات (%1$d)</item>
+    </plurals>
+    <string name="watchlist_favorites_empty_hint">لا توجد مفضلة بعد. اسحب زوجًا إلى اليمين أو افتحه واضغط «المفضلة».</string>
+    <string name="watchlist_group_empty_hint">اضغط مطولًا على مجموعة لاختيار أزواجها.</string>
+    <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
+    <string name="watchlist_groups_empty_hint">ستظهر مجموعاتك هنا</string>
+    <string name="watchlist_notification">إشعار</string>
+    <string name="watchlist_tts">نطق السعر</string>
+    <string name="watchlist_tts_speech_on">النطق مفعّل. يمكنك تغييره من الإعدادات › متقدم › الإخراج الصوتي.</string>
+
+    <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
+    <string name="watch_action_add_widget">إضافة كأداة</string>
+    <string name="watch_action_alarm">تنبيه</string>
+    <string name="watch_action_favorite">المفضلة</string>
+    <string name="watch_action_why">ما الذي يتحرك معه؟</string>
+    <string name="watch_action_why_short">ما يتحرك معه؟</string>
+    <string name="watch_change_mark">Mark</string>
+    <string name="watch_disable">تعطيل</string>
+    <string name="watch_disable_hint">بلا طلبات وبلا إشعارات</string>
+    <string name="watch_disabled">معطَّل</string>
+    <string name="watch_disabled_banner">تم تعطيل %1$s</string>
+    <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
+    <string name="watch_edit_alarms_warning">تبقى التنبيهات – تحقق من حدودها</string>
+    <!-- Titel des Formulars und Screenreader-Name des Stifts neben dem Paar -->
+    <string name="watch_edit_title">تعديل الزوج</string>
+    <string name="watch_enable">تفعيل</string>
+    <string name="watch_enable_hint">تعود الأسعار والإشعارات</string>
+    <string name="watch_enabled_banner">تم تفعيل %1$s</string>
+    <string name="watch_error_offline">لا يوجد اتصال</string>
+    <string name="watch_gesture_hint_short">انقر: التنبيه و«ما الذي يتحرك معه؟» · اضغط مطولًا للتحديد · اسحب لليسار للحذف · اسحب لليمين للمفضلة</string>
+    <string name="watch_hint_tap_why">انقر على عملة لترى ما الذي يتحرك معها</string>
+    <string name="watch_not_traded">لم يعد يُتداول في هذه المنصة</string>
+    <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
+    <string name="watch_preview_not_watched">ليست في قائمة المتابعة</string>
+    <string name="watch_price_mid">السعر المتوسط (وإلا mark)</string>
+    <string name="watch_row_source_both">التغيّر والرسم: %1$s</string>
+    <string name="watch_row_source_change">التغيّر: %1$s</string>
+    <string name="watch_row_source_chart">الرسم: %1$s</string>
+
+    <!-- Meldung nach dem Hinzufügen (ein Paar / mehrere Paare) -->
+    <string name="pair_added_watching">%1$s الآن في قائمة المتابعة</string>
+    <!-- Ein Paar: pair_added_watching -->
+    <string name="pairs_added_watching">%1$s الآن في قائمة المتابعة</string>
+
+    <!-- Favoriten -->
+    <string name="favorite_add">إضافة إلى المفضلة</string>
+    <string name="favorite_added">تمت إضافة %1$s إلى المفضلة</string>
+    <string name="favorite_remove">إزالة من المفضلة</string>
+    <string name="favorite_removed">تمت إزالة %1$s من المفضلة</string>
+    <string name="hint_favorites_list">نصيحة: اسحب الصف إلى اليمين لجعله مفضلًا – المفضلة تبقى في الأعلى.</string>
+
+    <!-- Gruppen und Chips der Merkliste -->
+    <string name="group_add">مجموعة جديدة</string>
+    <string name="group_all">الكل</string>
+    <!-- Alpha-Tokens: Chip «α», Art vor der Glocke, «inkl. Alpha-Tokens» -->
+    <string name="group_alpha">رموز Alpha</string>
+    <string name="group_delete">حذف المجموعة</string>
+    <string name="group_delete_confirm">تبقى الأزواج في قائمة المتابعة.</string>
+    <string name="group_done">تم</string>
+    <string name="group_edit_title">تعديل المجموعة</string>
+    <!-- Chip «FAV» (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird vorgelesen) -->
+    <string name="group_favorites">المفضلة</string>
+    <string name="group_in_other">في %1$s</string>
+    <string name="group_name">اسم المجموعة</string>
+    <string name="group_new">مجموعة جديدة…</string>
+    <string name="group_next">التالي</string>
+    <string name="group_none">بدون مجموعة</string>
+    <string name="group_rename">إعادة تسمية</string>
+    <string name="group_search_hint">ابحث عن زوج أو اسم أو منصة</string>
+    <string name="group_target">في المجموعة</string>
+    <string name="group_title">المجموعة</string>
+    <!-- Gruppen-Chip «Token» (alle Paare ausser der Gruppe «TradFi»), Screenreader und Widget-Einrichtung -->
+    <string name="group_tokens">الرموز المميزة</string>
+    <string name="group_value">المجموعة: %1$s</string>
+
+    <!-- Notiz zum Paar -->
+    <string name="note_add">إضافة ملاحظة</string>
+    <string name="note_edit">تعديل الملاحظة</string>
+    <string name="note_hint">مثلًا دخول عند 0.42، الهدف 0.60</string>
+    <string name="note_remove">إزالة</string>
+    <string name="note_title">ملاحظة</string>
+
+    <!-- Reihenfolge ändern (Sortiermodus, Screenreader-Aktionen) -->
+    <string name="sort_drag_handle">اسحب للنقل</string>
+    <string name="sort_move_bottom">إلى الأسفل تمامًا</string>
+    <string name="sort_move_down">لأسفل</string>
+    <string name="sort_move_top">إلى الأعلى تمامًا</string>
+    <string name="sort_move_up">لأعلى</string>
+</resources>

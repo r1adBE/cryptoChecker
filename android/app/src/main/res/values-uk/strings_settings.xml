@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen: Aufbau (Gruppen, Zeilen, Abschnitte, Suche, Kurzwerte) -->
+    <string name="settings_custom_value">Своє</string>
+    <string name="settings_group_general">Загальні</string>
+    <string name="settings_group_more">Більше</string>
+    <string name="settings_minutes">%1$d хв</string>
+    <string name="settings_row_about">Про застосунок</string>
+    <string name="settings_row_advanced">Додатково</string>
+    <string name="settings_row_alarms">Сигнали</string>
+    <string name="settings_row_currency">Валюта</string>
+    <string name="settings_row_dated_futures">Строкові ф’ючерси</string>
+    <string name="settings_row_updates">Оновлення курсів</string>
+    <string name="settings_row_watchlist">Список</string>
+    <string name="settings_search_hint">Пошук у налаштуваннях</string>
+    <string name="settings_seconds">%1$d с</string>
+    <string name="settings_section_about">Про застосунок</string>
+    <string name="settings_section_appearance">Вигляд</string>
+    <string name="settings_section_developer">Розробник</string>
+    <string name="settings_section_language">Мова</string>
+    <!-- Kurzwert «eingeschaltet» (Gegenstück zu option_off) -->
+    <string name="settings_summary_on">Увімк.</string>
+    <string name="settings_title">Налаштування</string>
+
+    <!-- Einstellungen › Alarme (Ton, Signal, Ruhezeit, App-Symbol, exakte Prüfungen) -->
+    <string name="settings_alarm_cooldown">Пауза перед повторним спрацюванням сигналу</string>
+    <!-- Ton/Vibration der Kursalarme, je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">Тип сигналу</string>
+    <string name="settings_alarm_signal_open_system">Змінити в налаштуваннях системи</string>
+    <string name="settings_alarm_signal_system_hint">Як у налаштуваннях сповіщень телефона.</string>
+    <string name="settings_alarm_sound">Звук сигналу</string>
+    <string name="settings_alarm_sound_custom">Власний звук</string>
+    <string name="settings_alarm_sound_default">Стандартний звук</string>
+    <string name="settings_alarm_sound_error">Не вдалося використати звук.</string>
+    <string name="settings_alarm_sound_file">Власний аудіофайл…</string>
+    <string name="settings_alarm_sound_reset">Використовувати стандартний звук</string>
+    <string name="settings_alarm_sound_system">Вибрати системний звук…</string>
+    <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">Число на значку застосунку</string>
+    <string name="settings_app_badge_hint">Рахує відкриті сповіщення про сигнали. Чи буде число, чи крапка, вирішує головний екран (напр. Samsung: «З числом»).</string>
+    <string name="settings_exact_checks">Перевіряти вчасно</string>
+    <string name="settings_exact_checks_grant">Дозволити «Будильники й нагадування»</string>
+    <string name="settings_exact_checks_hint">Android перевіряє приблизно кожні 15 хвилин, навіть коли пристрій у спокої. Витрачає трохи більше батареї.</string>
+    <string name="settings_exact_checks_nothing">Немає активних пар – нічого перевіряти.</string>
+    <string name="settings_exact_checks_permission_missing">Немає дозволу – Android перевіряє, коли йому зручно (приблизно кожні 15 хв або пізніше).</string>
+    <string name="settings_notification_change">Сповіщати лише при зміні ціни</string>
+    <string name="settings_notification_change_always">Завжди</string>
+    <string name="settings_notification_change_hint">Сповіщення з\'являється лише тоді, коли ціна змінилася щонайменше на цю величину від попереднього. Поки даних немає, нічого не показується. На сигнали це не впливає.</string>
+    <string name="settings_ongoing_notifications">Не можна змахнути</string>
+    <string name="settings_ongoing_notifications_hint">Цінові сповіщення залишаються закріпленими.</string>
+    <string name="settings_price_notifications">Цінові сповіщення</string>
+    <string name="settings_price_notifications_hint">Показувати поточну ціну ввімкнених пар у рядку стану.</string>
+    <string name="settings_price_pairs">Пари</string>
+    <string name="settings_price_pairs_all_off">Усі вимк.</string>
+    <string name="settings_price_pairs_all_on">Усі увімк.</string>
+    <string name="settings_price_pairs_count">%1$d з %2$d</string>
+    <string name="settings_price_pairs_empty">У списку стеження ще немає пар.</string>
+    <string name="settings_price_pairs_hint">Виберіть, для яких пар курс показується на панелі сповіщень.</string>
+    <string name="settings_quiet_hours">Тихі години</string>
+    <string name="settings_quiet_hours_from">З</string>
+    <string name="settings_quiet_hours_hint">З %1$s до %2$s сигнали чекають до кінця тихих годин, а потім спрацьовують зі звуком. Інші сповіщення надходять беззвучно, без озвучення.</string>
+    <string name="settings_quiet_hours_to">До</string>
+
+    <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
+    <string name="settings_background_interval">Інтервал</string>
+    <string name="settings_background_updates">Фонові оновлення</string>
+    <string name="settings_battery_hint">Обмежено означає, що Android може відкладати фонові оновлення на години.</string>
+    <string name="settings_battery_ok">Використання батареї: без обмежень</string>
+    <string name="settings_battery_restricted">Використання батареї: обмежено</string>
+    <string name="settings_check_runs_empty">Перевірок ще не записано.</string>
+    <string name="settings_check_runs_honest_android">Android вирішує, коли перевіряти – тут видно, коли це справді сталося.</string>
+    <string name="settings_check_runs_honest_ios">iOS вирішує, коли перевіряти – тут видно, коли це справді сталося.</string>
+    <string name="settings_check_runs_title">Останні перевірки</string>
+    <string name="settings_http_log">Показувати журнал HTTP</string>
+    <string name="settings_http_log_hint">Показує внизу сторінки «Додати пару» запити до бірж – для діагностики.</string>
+    <string name="settings_live_service">Оновлювати часто</string>
+    <string name="settings_live_websocket">Курси наживо</string>
+
+    <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
+    <string name="settings_activity_alerts">Повідомляти про незвичайну активність</string>
+    <string name="settings_activity_alerts_hint">Не частіше разу на годину для кожної пари: незвичайні рухи ціни, сплески обсягу та екстремуми на ф\'ючерсах (дані Binance).</string>
+    <string name="settings_activity_sensitivity">Чутливість</string>
+    <string name="settings_activity_sensitivity_hint">Наскільки легко монета вважається незвичайною – однаково для картки в списку та для сповіщень. За «Менше» картка показує лише 3 найсильніші.</string>
+    <string name="settings_watchlist_activity_card">Незвичайна активність у списку</string>
+    <string name="settings_watchlist_activity_card_hint">Показує чип ⚡ поруч із групами: торкніться, щоб побачити лише пари, де просто зараз щось відбувається. Сповіщення налаштовуються в розділі «Ринкові сповіщення».</string>
+    <string name="settings_watchlist_names">Показувати назви</string>
+    <string name="settings_watchlist_names_hint">Назва під парою, наприклад Bitcoin або NVIDIA. Надходить зі списками логотипів, завантажується один раз для всіх монет.</string>
+    <string name="settings_watchlist_sparkline">Міні-графік у списку</string>
+    <string name="settings_watchlist_sparkline_hint">Динаміка за 24 години поруч із ціною</string>
+    <string name="settings_watchlist_value_names">Назви</string>
+    <string name="settings_watchlist_value_price_only">Лише ціна</string>
+    <string name="settings_watchlist_value_sparkline">Міні-графік</string>
+
+    <!-- Einstellungen › Token & TradFi -->
+    <string name="settings_asset_scope_alpha">Разом з Alpha-токенами (α)</string>
+    <string name="settings_asset_scope_alpha_hint">Alpha-токени: ранні, здебільшого невеликі проєкти зі списку Binance Alpha – часто з малим обсягом торгів і сильними коливаннями.</string>
+    <string name="settings_asset_scope_alpha_tradfi_hint">Належить до токенів. Заблоковано за «Лише TradFi»; Alpha-токени в списку залишаються.</string>
+    <string name="settings_asset_scope_both">Токени й TradFi</string>
+    <string name="settings_asset_scope_both_hint">Усе – крипто й TradFi</string>
+    <string name="settings_asset_scope_hint">Визначає, які пари показують вибір і пошук під час додавання. Пари, що вже є в списку, лишаються завжди.</string>
+    <string name="settings_asset_scope_title">Токени й TradFi</string>
+    <string name="settings_asset_scope_tokens">Лише токени</string>
+    <string name="settings_asset_scope_tokens_hint">Крипто: спот і безстрокові</string>
+    <string name="settings_asset_scope_tradfi">Лише TradFi</string>
+    <string name="settings_asset_scope_tradfi_hint">Ф’ючерси на акції, сировину, валюти – контракти, а не токени</string>
+    <string name="settings_rolling_futures">Квартальні та інші строкові ф\'ючерси</string>
+    <string name="settings_rolling_futures_hint">Вимкнено: строкові ф\'ючерси, яких немає у списку біржі, позначаються як такі, що більше не торгуються, замість перевірки кожного окремо. Заощаджує час під час кожного оновлення.</string>
+    <string name="settings_rolling_futures_qtly">Квартальні та інші строкові ф’ючерси (QTLY)</string>
+    <string name="settings_rolling_futures_tradfi_hint">Належить до токенів. Заблоковано за «Лише TradFi»; і далі діє для строкових ф’ючерсів у списку.</string>
+    <string name="settings_tradfi_futures">Акції, сировина та валюти (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">Під час вибору пари показує також ф’ючерси на акції, золото й іншу сировину, валюти та компанії до IPO. Це контракти, а не токени.</string>
+
+    <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
+    <string name="settings_accent">Колір акценту</string>
+    <string name="settings_accent_hint">Колір застосунку, віджетів і значка застосунку.</string>
+    <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">Логотипи монет</string>
+    <string name="settings_coin_logos_app">У застосунку</string>
+    <string name="settings_coin_logos_app_hint">Список, картка пари й картки ринку</string>
+    <string name="settings_coin_logos_footer">Логотипи надходять із CoinGecko, а те, чого немає в CoinGecko (наприклад, золото, срібло, акції), — із Binance. Застосунок завантажує всі логотипи одразу й зберігає їх на цьому пристрої, тож жоден із сервісів не знає, які монети ви відстежуєте. Монети без логотипа показують ініціали. Обране отримує маленьку зірочку на логотипі. Де перемикач вимкнено, не показуються ні логотипи, ні ініціали; якщо все вимкнено, нічого не завантажується.</string>
+    <string name="settings_coin_logos_portfolio">У портфелі</string>
+    <string name="settings_coin_logos_portfolio_hint">Позиції, відомості про монети й огляд</string>
+    <string name="settings_coin_logos_value_app">Застосунок</string>
+    <string name="settings_coin_logos_widgets">У віджетах</string>
+    <string name="settings_coin_logos_widgets_hint">Віджети списку й однієї монети</string>
+    <string name="settings_high_contrast">Висока контрастність</string>
+    <string name="settings_high_contrast_hint">Яскравіші кольори цін і темніший другорядний текст. Вмикається також, коли система запитує вищу контрастність.</string>
+    <string name="settings_language_choose">Вибрати мову</string>
+    <string name="settings_language_system">Мова системи</string>
+    <string name="settings_price_colors">Кольори цін</string>
+    <string name="settings_price_colors_hint">Синій / помаранчевий добре розрізняються за будь-якого порушення колірного зору (червоно-зеленого та синьо-жовтого). Напрямок до того ж завжди позначено знаками + / −.</string>
+    <string name="settings_theme_mode">Світла / Темна</string>
+    <string name="settings_widgets">Віджети</string>
+
+    <!-- Einstellungen › %-Änderung -->
+    <!-- Einstellungszeile und Seitentitel «%-Änderung»; %1$s ist das Prozentzeichen «%» -->
+    <string name="settings_change_basis">Зміна в %1$s і часовий пояс графіка</string>
+    <string name="settings_change_basis_hint_1">Вибраний часовий пояс визначає, з якого моменту рахується відсоткова зміна (список спостереження, рядок пульсу, картка пари, віджети), і час на графіках.</string>
+    <string name="settings_change_basis_hint_2">«%1$s» порівнює з ціною рівно 24 години тому. «00:00» порівнює з ціною відкриття опівночі в цьому часовому поясі.</string>
+    <string name="settings_change_basis_hint_3">На сигнали це не впливає.</string>
+    <string name="settings_change_basis_hint_since_last">«%1$s» порівнює з ціною попереднього оновлення. За живих цін значення лишається близько 0%%.</string>
+    <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
+    <string name="settings_change_period">Показувати період біля зміни</string>
+    <string name="settings_change_period_hint">Дрібно «24г», «сьогодні» або «ост. оновлення» біля зміни у списку та у віджеті однієї монети. Екранний диктор завжди його називає.</string>
+
+    <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
+    <string name="settings_conversion_currency">Валюта перерахунку</string>
+    <string name="settings_conversion_currency_hint">Також використовується для портфеля, сигналів у вашій валюті, картки «Криптовалютний ринок» і віджета «Портфель».</string>
+    <string name="settings_cost_method">Метод розрахунку вартості купівлі</string>
+    <string name="settings_cost_method_average">Середня (Ø)</string>
+    <string name="settings_cost_method_average_hint">Продажі оцінюються за ковзною середньою ціною купівлі.</string>
+    <string name="settings_cost_method_fifo">FIFO (за замовчуванням)</string>
+    <string name="settings_cost_method_fifo_hint">Спершу продаються найстаріші монети – за всіма біржами й гаманцями.</string>
+    <string name="settings_cost_method_fifo_wallet">FIFO за гаманцем/біржею</string>
+    <string name="settings_cost_method_fifo_wallet_hint">Спершу найстаріші монети в межах кожної біржі чи гаманця; перекази переносять лоти з датою купівлі.</string>
+    <string name="settings_portfolio_lock">Блокування портфеля</string>
+    <string name="settings_portfolio_lock_footer">Блокування приховує те, що видно на екрані. Дані зберігаються на цьому пристрої й захищені шифруванням пристрою. Резервні копії можна захистити паролем.</string>
+    <string name="settings_portfolio_lock_hint">Приховує лише портфель: розблокування відбитком пальця, обличчям або PIN-кодом пристрою. Знову блокується після понад хвилини у фоні. Список спостереження, сигнали та інші віджети залишаються доступними.</string>
+    <string name="settings_portfolio_lock_no_device_lock">Без PIN-коду чи пароля пристрою блокування нічого не приховує – налаштуйте блокування екрана.</string>
+    <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">Портфель у системній копії</string>
+    <string name="settings_portfolio_system_backup_hint">Вимк.: ваші угоди не потрапляють до системної резервної копії пристрою та під час перенесення на новий телефон. Щоб перенести їх, використовуйте резервну копію застосунку з паролем.</string>
+    <string name="settings_portfolio_system_backup_unavailable">Потрібен Android 9 або новіший – старіші версії зберегли б портфель без шифрування в резервній копії Google.</string>
+    <string name="settings_portfolio_tab">Показувати вкладку «Портфель»</string>
+    <string name="settings_portfolio_value_locked">Увімк., з блокуванням</string>
+    <string name="settings_show_converted">Перераховані ціни</string>
+    <string name="settings_show_converted_hint">Показує ціни у списку також у %1$s</string>
+
+    <!-- Einstellungen › Markt-Meldungen -->
+    <string name="settings_depeg_alarm">Повідомляти про відв’язку USDT</string>
+    <string name="settings_depeg_alarm_hint">Повідомляє один раз, коли USDT відхиляється від 1 USD на поріг (Kraken USDT/USD, Binance USDC/USDT). Значення в застосунку й далі рахуються з USDT = 1.</string>
+    <string name="settings_depeg_threshold">Поріг відв’язки</string>
+    <string name="settings_fng_above">Fear &amp; Greed: повідомляти вище</string>
+    <string name="settings_fng_below">Fear &amp; Greed: повідомляти нижче</string>
+    <string name="settings_gas_alert_hint">Повідомляє один раз, коли звичайна комісія опускається нижче межі. Перевіряється під час оновлення курсів, не частіше ніж раз на 10 хвилин.</string>
+    <string name="settings_gas_btc_below">Комісія Bitcoin нижче (sat/vB)</string>
+    <string name="settings_gas_eth_below">Газ Ethereum нижче (gwei)</string>
+    <string name="settings_ind_ath_within">Падіння від історичного максимуму не більше</string>
+    <string name="settings_ind_mayer_above">Mayer Multiple вище</string>
+    <string name="settings_ind_mayer_below">Mayer Multiple нижче</string>
+    <string name="settings_ind_mvrv_above">MVRV вище</string>
+    <string name="settings_ind_mvrv_below">MVRV нижче</string>
+    <string name="settings_indicator_alerts_hint">Показники біткоїна перевіряються двічі на день. Межі обираєш ти – застосунок не оцінює значення.</string>
+    <string name="settings_macro_notifications">Економічний календар</string>
+    <string name="settings_macro_notifications_hint">О 08:00 у дні важливих економічних даних США (інфляція, ринок праці, рішення ФРС). Календар завантажується з вебсайту застосунку раз на день.</string>
+    <string name="settings_market_alerts">Ринкові сповіщення</string>
+    <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
+    <plurals name="settings_market_alerts_active">
+        <item quantity="one">%1$d активне</item>
+        <item quantity="few">%1$d активні</item>
+        <item quantity="many">%1$d активних</item>
+        <item quantity="other">%1$d активних</item>
+    </plurals>
+
+    <!-- Einstellungen › Sprachausgabe -->
+    <string name="settings_speech_rate">Швидкість мовлення: %1$.1f×</string>
+    <string name="settings_tts">Голосовий вивід</string>
+    <string name="settings_tts_alarms_only">Лише сигнали</string>
+    <string name="settings_tts_alarms_only_hint">Вимкнено: озвучується кожне оновлення пари з позначкою «Озвучувати ціну».</string>
+    <!-- Sprachausgabe schweigt im Lautlos-/Vibrationsmodus -->
+    <string name="settings_tts_hint_silent">Зачитує ціни й сигнали вголос. Мовчить, поки пристрій у беззвучному режимі або режимі вібрації.</string>
+    <string name="settings_tts_test">Перевірити голос</string>
+
+    <!-- Einstellungen › Daten: App zurücksetzen -->
+    <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
+    <string name="settings_reset_app">Скинути застосунок</string>
+    <string name="settings_reset_app_action">Видалити все</string>
+    <string name="settings_reset_app_confirm">Видаляє список спостереження, сигнали, портфель, налаштування й усі збережені дані, як після встановлення. Скасувати не можна. Порада: спершу створіть резервну копію.</string>
+    <string name="settings_reset_app_title">Скинути застосунок?</string>
+
+    <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
+    <!-- Suchfeld der Währungsseite -->
+    <string name="currency_search">Пошук валюти</string>
+    <string name="language_search">Пошук мови</string>
+
+    <!-- Theme -->
+    <string name="theme_dark">Темний</string>
+    <string name="theme_light">Світлий</string>
+    <string name="theme_system">Системний</string>
+
+    <!-- Akzentfarben -->
+    <string name="accent_blue">Синій</string>
+    <string name="accent_green">Зелений</string>
+    <!-- Eigenname, in allen Sprachen gleich -->
+    <string name="accent_marrs_green">Marrs Green</string>
+    <string name="accent_orange">Помаранчевий</string>
+    <string name="accent_red">Червоний</string>
+
+    <!-- Kursfarben -->
+    <string name="price_colors_red_up_hint">Прийнято в Китаї, Японії, Кореї та на Тайвані</string>
+    <string name="price_colors_swap">Поміняти кольори (зростання ↔ падіння)</string>
+    <string name="price_style_calm">Спокійний</string>
+    <string name="price_style_calm_color_vision">Спокійний · Порушення кольоросприйняття</string>
+    <string name="price_style_color_vision">Порушення кольоросприйняття</string>
+    <string name="price_style_fresh">Свіжий</string>
+    <string name="price_style_traditional">Традиційний</string>
+
+    <!-- Über die App -->
+    <string name="about_exchanges_verified">Підключення до бірж востаннє перевірено на реальних відповідях: %1$s</string>
+    <string name="about_license">Ціни надходять безпосередньо з бірж; без облікового запису й без стеження.</string>
+    <!-- Texte der Lizenzen liegen in assets/licenses -->
+    <string name="about_licenses">Ліцензії</string>
+    <string name="about_privacy_policy">Політика конфіденційності</string>
+    <!-- GitHub-Vorlage exchange_request.md -->
+    <string name="about_request_exchange">Запропонувати біржу</string>
+    <string name="about_source_code">Вихідний код на GitHub</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_why">Crypto Checker – незалежний проєкт r1AD: спокійний огляд курсів без акаунта, реклами та стеження. Запитання й побажання: %1$s</string>
+
+    <!-- Lizenzhinweise -->
+    <string name="licenses_app_intro">Crypto Checker — застосунок із відкритим кодом (ліцензія MIT).</string>
+    <string name="licenses_font_title">Шрифт Rubik</string>
+    <string name="licenses_icons_bundled_text">У складі застосунку: значки з «Cryptocurrency Icons» Крістофера Дауера (Christopher Downer) і співавторів (github.com/spothq/cryptocurrency-icons), випущені під CC0 1.0 Universal. Вони показуються, доки не завантажаться логотипи CoinGecko або Binance. Назви та логотипи залишаються торговельними марками своїх проєктів.</string>
+    <string name="licenses_icons_title">Запасні значки монет</string>
+    <string name="licenses_libraries_intro">Застосунок використовує ці бібліотеки за ліцензією Apache License 2.0:</string>
+    <string name="licenses_libraries_title">Бібліотеки Android</string>
+
+    <!-- Entwickleroptionen -->
+    <!-- Countdown der letzten Tipps auf die Version bis zu den Entwickleroptionen -->
+    <plurals name="developer_taps_left">
+        <item quantity="one">Ще %d дотик до відкриття параметрів розробника</item>
+        <item quantity="few">Ще %d дотики до відкриття параметрів розробника</item>
+        <item quantity="many">Ще %d дотиків до відкриття параметрів розробника</item>
+        <item quantity="other">Ще %d дотику до відкриття параметрів розробника</item>
+    </plurals>
+    <string name="developer_unlocked">Параметри розробника відкрито</string>
+
+    <!-- Nur iOS: Einstellungen -->
+    <!-- Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">Вібрація залежить від налаштувань iPhone (Звуки й тактильні сигнали).</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Рахує нові сигнали й ринкові сповіщення; скидається, коли відкриваєте застосунок.</string>
+</resources>

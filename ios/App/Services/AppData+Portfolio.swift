@@ -1,0 +1,331 @@
+import BackgroundTasks
+import Foundation
+import SwiftUI
+import WidgetKit
+import UIKit
+import UserNotifications
+
+// Portfolio in AppData: Transaktion speichern, CSV-Import und Rücknahme, löschen, wiederherstellen, Bestände,
+// Übernahme alter Merklisten-Bestände und die Portfolio-Datei.
+// Eigene Datei, weil das Portfolio ein eigener Bereich ist (wie `PortfolioEditActions.kt` auf Android).
+
+extension AppData {
+    // MARK: Portfolio
+
+    /// Neu anlegen (id 0) oder ändern — wie `PortfolioRepository.save`.
+    /// Coin wird vereinheitlicht (Grossbuchstaben), leere Notiz entfällt.
+    /// Ungültige Einträge (ohne Coin, Menge ≤ 0) werden nicht gespeichert.
+    @discardableResult
+    func savePortfolioTx(_ tx: PortfolioTx) -> Int64? {
+        guard let clean = Self.cleanedPortfolioTx(tx) else { return nil }
+        var file = currentPortfolioFile()
+        let id: Int64
+        if clean.id <= 0 {
+            id = PortfolioStore.insert(clean, into: &file)
+        } else {
+            // Wie `@Update`: gibt es die Transaktion nicht mehr, passiert nichts
+            guard PortfolioStore.update(clean, in: &file) else { return nil }
+            id = clean.id
+        }
+        guard setPortfolioFile(file) else { return nil }
+        return id
+    }
+
+    /// Herkunftsschlüssel schon importierter Zeilen (CSV-Import: Doppelte) samt dem zweiten Schlüssel verknüpfter
+    /// Umbuchungen (`linkedImportKey`: beide Seiten gelten als importiert) — wie `PortfolioRepository.importKeys`.
+    var portfolioImportKeys: Set<String> { Self.importKeys(portfolio) }
+
+    private static func importKeys(_ txs: [PortfolioTx]) -> Set<String> {
+        Set(txs.compactMap(\.importKey) + txs.compactMap(\.linkedImportKey))
+    }
+
+    /// Importierte Transaktionen in einem Schreibvorgang anlegen (gleiche Bereinigung wie von Hand); Zeilen, deren
+    /// Herkunftsschlüssel (`importKey` oder `linkedImportKey`) schon da ist, werden übersprungen — wie
+    /// `PortfolioRepository.insertImported`.
+    /// `batch` = Kennung des Importlaufs (`PortfolioImportBatch.newId`) für alle angelegten Transaktionen (nil = keine).
+    /// - Returns: Anzahl angelegter Transaktionen (0 auch, wenn nicht geschrieben werden konnte).
+    @discardableResult
+    func insertImportedPortfolioTxs(_ list: [PortfolioTx], batch: String? = nil) -> Int {
+        var file = currentPortfolioFile()
+        var known = Self.importKeys(file.transactions)
+        var count = 0
+        for tx in list {
+            let keys = [tx.importKey, tx.linkedImportKey].compactMap { $0 }
+            if keys.contains(where: { known.contains($0) }) { continue }
+            known.formUnion(keys)
+            var item = tx
+            item.id = 0
+            if let batch { item.importBatch = batch }
+            guard let clean = Self.cleanedPortfolioTx(item) else { continue }
+            PortfolioStore.insert(clean, into: &file)
+            count += 1
+        }
+        guard count > 0, setPortfolioFile(file) else { return 0 }
+        return count
+    }
+
+    /// CSV-Importläufe mit Anzahl, Zeit und Format, neueste zuerst — wie `PortfolioRepository.importBatches`.
+    var portfolioImportBatches: [PortfolioImportBatchInfo] { PortfolioImportBatch.summarize(portfolio.map(\.importBatch)) }
+
+    /// «Import rückgängig»: löscht die Transaktionen des Laufs `batch`; eine vom Lauf verknüpfte Umbuchung mit gespeicherter
+    /// Seite eines früheren Imports wird auf deren Zustand davor zurückgesetzt, eine verknüpfte Umbuchung, deren gespeicherte
+    /// Seite aus diesem Lauf stammt, wieder die darin aufgegangene Zeile der späteren Datei (bleibt in deren Lauf)
+    /// (`CsvTransferMatch.undoPlan`; beide verlieren Verknüpfung und Zustand) — wie `PortfolioRepository.undoImport`. Gibt
+    /// die gelöschten und zurückgesetzten Transaktionen im Zustand vorher zurück (`restorePortfolioTxs` ersetzt je id und
+    /// stellt die Verknüpfung wieder her). Leer, wenn nichts da ist oder nicht geschrieben wurde.
+    @discardableResult
+    func undoPortfolioImport(_ batch: String) -> [PortfolioTx] {
+        var file = currentPortfolioFile()
+        let plan = CsvTransferMatch.undoPlan(
+            file.transactions.map { CsvImportedRef(id: $0.id, importBatch: $0.importBatch, restoreState: $0.importRestoreState) },
+            batch: batch)
+        let touched = file.transactions.filter {
+            plan.delete.contains($0.id) || plan.revert[$0.id] != nil || plan.detach[$0.id] != nil
+        }
+        guard !touched.isEmpty else { return [] }
+        file.transactions = file.transactions.compactMap { tx in
+            if plan.delete.contains(tx.id) { return nil }
+            if let a = plan.detach[tx.id] {
+                var detached = tx
+                detached.type = a.type
+                detached.amountExact = a.amount
+                detached.priceExact = a.priceUsdt
+                detached.time = a.time
+                detached.note = nil
+                detached.feeExact = a.fee
+                detached.feeUnit = a.feeUnit
+                detached.exchange = nil
+                detached.transferFrom = nil
+                detached.transferTo = nil
+                detached.feeCoin = a.feeCoin
+                detached.feeCoinAmountExact = a.feeCoinAmount
+                detached.feeCoinPriceExact = nil
+                detached.importKey = a.importKey
+                detached.acquiredTime = nil
+                detached.linkedImportKey = nil
+                detached.importRestoreState = nil
+                return detached
+            }
+            guard let o = plan.revert[tx.id] else { return tx }
+            var reverted = tx
+            reverted.type = o.type
+            reverted.amountExact = o.amount
+            reverted.priceExact = o.priceUsdt
+            reverted.time = o.time
+            reverted.feeExact = o.fee
+            reverted.feeUnit = o.feeUnit
+            reverted.feeCoin = o.feeCoin
+            reverted.feeCoinAmountExact = o.feeCoinAmount
+            reverted.feeCoinPriceExact = o.feeCoinPrice
+            reverted.transferFrom = o.transferFrom
+            reverted.transferTo = o.transferTo
+            reverted.acquiredTime = o.acquiredTime
+            reverted.exchange = o.exchange
+            reverted.importKey = o.importKey
+            reverted.importBatch = o.importBatch
+            reverted.linkedImportKey = nil
+            reverted.importRestoreState = nil
+            return reverted
+        }
+        guard setPortfolioFile(file) else { return [] }
+        return touched
+    }
+
+    /// Bereinigt wie `PortfolioRepository.save`; ungültig (ohne Coin, Menge ≤ 0) = nil.
+    private static func cleanedPortfolioTx(_ tx: PortfolioTx) -> PortfolioTx? {
+        var clean = tx
+        clean.coin = PortfolioCalculator.normalizeCoin(tx.coin)
+        clean.note = tx.note.map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }.flatMap { $0.isEmpty ? nil : $0 }
+        // Gebühr nur gültig (> 0) und dann immer mit Einheit; ohne Gebühr keine Einheit (wie Android)
+        clean.feeExact = PortfolioTx.validFee(tx.feeExact)
+        clean.feeUnit = clean.feeExact == nil ? nil : (tx.feeUnit ?? .QUOTE)
+        // Umbuchung: von/nach statt Börse (wie Android)
+        let transfer = tx.type == .TRANSFER
+        clean.exchange = transfer ? nil : PortfolioTx.cleanExchange(tx.exchange)
+        clean.transferFrom = transfer ? PortfolioTx.cleanExchange(tx.transferFrom) : nil
+        clean.transferTo = transfer ? PortfolioTx.cleanExchange(tx.transferTo) : nil
+        // An Ehe-/Lebenspartner gibt es nur bei einer Schenkung (wie Android)
+        clean.giftToSpouse = tx.isGiftToSpouse
+        // Gebühr im dritten Coin nur vollständig (Coin ≠ Coin der Transaktion, Menge > 0); Preis ≥ 0 oder keiner
+        let third = PortfolioTx.cleanFeeCoin(tx.feeCoin, coin: clean.coin, amount: tx.feeCoinAmountExact)
+        clean.feeCoin = third?.coin
+        clean.feeCoinAmountExact = third?.amount
+        clean.feeCoinPriceExact = third == nil ? nil : tx.feeCoinPriceExact.flatMap { $0 >= 0 ? $0 : nil }
+        clean.importKey = PortfolioTx.cleanImportKey(tx.importKey)
+        // Verknüpfte Umbuchung: zweiter Herkunftsschlüssel nur zu einem ersten, Zustand für «Rückgängig» nur zur Verknüpfung
+        clean.linkedImportKey = clean.importKey == nil ? nil : PortfolioTx.cleanImportKey(tx.linkedImportKey)
+        clean.importRestoreState = clean.linkedImportKey == nil ? nil : tx.importRestoreState
+        clean.acquiredTime = PortfolioTx.cleanAcquiredTime(tx.type, tx.acquiredTime)
+        // Tausch: erhaltener Coin ≠ Coin und Menge > 0 (sonst ungültig), Wert ≥ 0 oder unbekannt (wie Android)
+        let swap = tx.type == .SWAP
+        clean.toCoin = swap ? PortfolioTx.cleanToCoin(tx.toCoin, coin: clean.coin) : nil
+        clean.toAmountExact = swap ? tx.toAmountExact.flatMap { $0 > 0 ? $0 : nil } : nil
+        clean.swapValueExact = swap ? tx.swapValueExact.flatMap { $0 >= 0 ? $0 : nil } : nil
+        clean.importBatch = PortfolioImportBatch.clean(tx.importBatch)
+        if swap && (clean.toCoin == nil || clean.toAmountExact == nil) { return nil }
+        guard !clean.coin.isEmpty, clean.amountExact > 0 else { return nil }
+        return clean
+    }
+
+    func deletePortfolioTx(_ id: Int64) {
+        var file = currentPortfolioFile()
+        file.transactions.removeAll { $0.id == id }
+        setPortfolioFile(file)
+    }
+
+    /// Wischen auf einem Coin: alle seine Transaktionen (auch Tausche in diesen Coin) löschen und zurückgeben (für
+    /// «Rückgängig») — wie `PortfolioRepository.deleteCoin`.
+    @discardableResult
+    func deletePortfolioCoin(_ coin: String) -> [PortfolioTx] {
+        let key = PortfolioCalculator.normalizeCoin(coin)
+        var file = currentPortfolioFile()
+        let involves: (PortfolioTx) -> Bool = { tx in tx.coins.contains { PortfolioCalculator.normalizeCoin($0) == key } }
+        let removed = file.transactions.filter(involves)
+        guard !removed.isEmpty else { return [] }
+        file.transactions.removeAll(where: involves)
+        setPortfolioFile(file)
+        return removed
+    }
+
+    /// «Rückgängig»: gelöschte Transaktionen mit ihren alten ids wieder anlegen — wie
+    /// `PortfolioRepository.restore`. Die ids vergibt `nextId` nie doppelt.
+    func restorePortfolioTxs(_ transactions: [PortfolioTx]) {
+        guard !transactions.isEmpty else { return }
+        var file = currentPortfolioFile()
+        let ids = Set(transactions.map(\.id))
+        file.transactions.removeAll { ids.contains($0.id) }
+        file.transactions.append(contentsOf: transactions)
+        setPortfolioFile(file)
+    }
+
+    /// «Portfolio leeren» (nach Rückfrage): alle Transaktionen löschen — wie
+    /// `PortfolioRepository.clearAll`.
+    func clearPortfolio() {
+        var file = currentPortfolioFile()
+        file.transactions.removeAll()
+        setPortfolioFile(file)
+        // Gemerkte Kurse nennen die gehaltenen Coins: mit dem Portfolio weg (wie Android)
+        PortfolioPriceSource.clearStored()
+    }
+
+    /// Bestand eines Coins ohne die Transaktion `excludingId` (für die Verkaufs-Warnung).
+    /// Exakter Bestand ohne die Transaktion `excludingId` (Prüfung «mehr als vorhanden»).
+    func portfolioHoldings(of coin: String, excludingId: Int64) -> Decimal {
+        // Nur eigener Bestand: Adress-Guthaben sind keine Posten, ein Verkauf kann sie nicht abgeben (wie Android)
+        let trades = AddressBalance.withAddresses(portfolio, addresses: watchedAddresses).filter { $0.id != excludingId }
+        return PortfolioCalculator.position(coin, trades: trades, currentPrice: nil).ledgerHoldingsExact
+    }
+
+    /// `.FIFO_WALLET`: Bestand von `coin` in `wallet` ohne die Transaktion `excludingId` (offene Posten dieser Wallet,
+    /// `PortfolioTxForm.walletHoldings`); andere Methoden: nil — wie `walletHoldingsOf` (Android).
+    func portfolioWalletHoldings(of coin: String, wallet: String?, excludingId: Int64) -> Decimal? {
+        guard settings.costMethod == .FIFO_WALLET else { return nil }
+        let trades = portfolio.filter { $0.id != excludingId }
+        return PortfolioTxForm.walletHoldings(PortfolioCalculator.openLots(coin, trades: trades, method: .FIFO_WALLET), wallet: wallet)
+    }
+
+    /// Einmalige Übernahme des alten Bestands je Paar (`Watch.holdings`) ins
+    /// Portfolio: je Coin ein Kauf ohne Preis (Mengen gleicher Coins addiert),
+    /// danach wird der Bestand in der Merkliste geleert — wie
+    /// `PortfolioRepository.migrateHoldingsOnce`. Merker «holdings_migrated».
+    func migrateHoldingsOnce() {
+        guard !PortfolioStore.holdingsMigrated else { return }
+        if currentPortfolioFile().holdingsImportDone {
+            // Käufe stehen schon im Portfolio (Abbruch nach dem Speichern): nur noch leeren
+            clearWatchHoldings()
+        } else {
+            // Portfolio-Datei gerade nicht schreibbar: beim nächsten Start nochmals versuchen
+            guard importHoldings(onlyNewCoins: false, markDone: true) else { return }
+        }
+        PortfolioStore.holdingsMigrated = true
+    }
+
+    /// Nach einer Wiederherstellung — wie Android: Transaktionen der Sicherung
+    /// übernehmen (fehlt «portfolio», bleibt das bestehende stehen), dann den
+    /// Bestand alter Sicherungen ins Portfolio übernehmen (nur Coins ohne Transaktion).
+    /// - Returns: false, wenn das Portfolio nicht geschrieben werden konnte.
+    @discardableResult
+    func restorePortfolio(_ transactions: [PortfolioTx]?) -> Bool {
+        if let transactions {
+            let current = currentPortfolioFile()
+            var file = PortfolioFile(transactions: [], nextId: current.nextId,
+                                     holdingsImportDone: current.holdingsImportDone)
+            for tx in transactions {
+                var item = tx
+                item.coin = PortfolioCalculator.normalizeCoin(tx.coin)
+                PortfolioStore.insert(item, into: &file)
+            }
+            guard setPortfolioFile(file) else { return false }
+        }
+        importHoldings(onlyNewCoins: true)
+        return true
+    }
+
+    /// Stand der Portfolio-Datei vor dem Wiederherstellen (für das Rückrollen, `RestoreSteps`).
+    func portfolioFileForRollback() -> PortfolioFile { currentPortfolioFile() }
+
+    /// Wiederherstellen gescheitert: vorherige Portfolio-Datei unverändert zurückschreiben.
+    @discardableResult
+    func rollBackPortfolioFile(_ file: PortfolioFile) -> Bool { setPortfolioFile(file) }
+
+    /// Bestände der Merkliste in Käufe umwandeln und leeren. Erst das Portfolio
+    /// speichern, dann die Merkliste — so geht bei einem Abbruch nichts verloren.
+    /// `markDone`: Merker «übernommen» in derselben Portfolio-Datei setzen (einmalige Übernahme),
+    /// damit ein Abbruch vor dem Leeren der Merkliste keine doppelten Käufe ergibt.
+    /// - Returns: false, wenn die Portfolio-Datei nicht geschrieben werden konnte (dann bleibt der Bestand
+    ///   in der Merkliste stehen).
+    @discardableResult
+    private func importHoldings(onlyNewCoins: Bool, markDone: Bool = false) -> Bool {
+        var watches = snapshot.watches
+        var file = currentPortfolioFile()
+        PortfolioStore.importHoldings(watches: &watches, into: &file, onlyNewCoins: onlyNewCoins, now: TimeUtils.nowMillis)
+        guard watches != snapshot.watches else { return true }
+        if markDone { file.holdingsImportDone = true }
+        // Erst nach gespeichertem Portfolio den Bestand der Merkliste leeren
+        guard setPortfolioFile(file) else { return false }
+        clearWatchHoldings()
+        return true
+    }
+
+    private func clearWatchHoldings() {
+        guard snapshot.watches.contains(where: { $0.holdings != nil }) else { return }
+        mutate({ s in
+            for i in s.watches.indices { s.watches[i].holdings = nil }
+        }, reloadWidgets: false)
+    }
+
+    /// Stand zum Ändern: war die Datei nicht lesbar, zuerst neu lesen (z. B. jetzt entsperrt).
+    private func currentPortfolioFile() -> PortfolioFile {
+        if !portfolioIntact {
+            let loaded = PortfolioStore.loadChecked()
+            if loaded.intact {
+                portfolioFile = loaded.file
+                portfolioIntact = true
+                portfolio = PortfolioStore.newestFirst(loaded.file.transactions)
+            } else if loaded.file.dropped > 0 {
+                // Teilweise lesbar: mit dem Lesbaren weiterarbeiten (die Datei wird vor dem Schreiben gesichert)
+                portfolioFile = loaded.file
+                portfolio = PortfolioStore.newestFirst(loaded.file.transactions)
+            }
+        }
+        return portfolioFile
+    }
+
+    /// - Returns: false, wenn nicht gespeichert (nicht lesbare, gesperrte Datei).
+    @discardableResult
+    func setPortfolioFile(_ file: PortfolioFile) -> Bool {
+        // Nicht (ganz) lesbare Datei nie still überschreiben: erst daneben sichern; geht nicht einmal das
+        // (Datei gesperrt), gar nicht schreiben — die Änderung fällt dann weg, die Daten bleiben
+        if !portfolioIntact {
+            guard PortfolioStore.preserveUnreadable(includeInBackup: settings.portfolioSystemBackup) else { return false }
+            portfolioIntact = true
+        }
+        // Erst schreiben, dann anzeigen: Scheitert das Schreiben, zeigt die Liste nichts, was nicht gespeichert ist
+        guard PortfolioStore.save(file, includeInBackup: settings.portfolioSystemBackup) else { return false }
+        portfolioFile = file
+        portfolio = PortfolioStore.newestFirst(file.transactions)
+        // Portfolio-Widget mit den bekannten Kursen nachführen
+        PortfolioWidgetStore.updateFromCache(transactions: file.transactions, currency: settings.portfolioCurrency)
+        return true
+    }
+}

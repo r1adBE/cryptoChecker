@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">Indietro</string>
+    <string name="action_cancel">Annulla</string>
+    <string name="action_clear">Cancella</string>
+    <string name="action_close">Chiudi</string>
+    <string name="action_delete">Elimina</string>
+    <string name="action_edit">Modifica</string>
+    <string name="action_more">Altre opzioni</string>
+    <string name="action_refresh">Aggiorna</string>
+    <string name="action_retry">Riprova</string>
+    <string name="action_save">Salva</string>
+    <string name="action_sort">Ordina</string>
+    <string name="action_sort_done">Fatto</string>
+    <string name="action_undo">Annulla</string>
+    <string name="action_view">Vedi</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">Mercato</string>
+    <string name="tab_portfolio">Portafoglio</string>
+    <string name="tab_settings">Impostazioni</string>
+    <string name="tab_watchlist">Lista</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">Errore: %1$s</string>
+    <string name="error_market_unreachable">Exchange non raggiungibile al momento – gli ultimi prezzi restano visibili.</string>
+    <string name="error_market_unreachable_short">Exchange non raggiungibile al momento</string>
+    <string name="loading_hint">Caricamento…</string>
+    <string name="no_internet_connection">Nessuna connessione a Internet</string>
+    <string name="option_off">Off</string>
+    <string name="something_went_wrong">Si è verificato un errore</string>
+    <string name="time_just_now">poco fa</string>
+    <string name="timeout_error_message">L\'exchange non risponde al momento.</string>
+    <string name="try_again">Riprova</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">Nessuna connessione</string>
+    <string name="offline_status_since">Nessuna connessione · dati di %1$s</string>
+    <string name="status_live">Live</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">Aggiungi coppia</string>
+    <string name="shortcut_alarms">Tutti gli allarmi</string>
+    <string name="shortcut_cycle">Mercato</string>
+</resources>

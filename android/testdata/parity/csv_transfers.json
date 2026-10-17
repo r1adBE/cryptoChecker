@@ -1,0 +1,1637 @@
+{
+ "_comment": "Gemeinsame Testfälle der Umbuchungen über Börsen und Dateien hinweg (CsvTransferMatch, Android CsvTransferMatchParityTest / iOS CsvTransferMatchTests). Mengen als Text, Zeiten ISO-UTC; Kandidat: gleicher Coin, Einzahlung ≤ 72 h nach (≥ 2 h vor) der Auszahlung, angekommen ≤ abgeschickt, Differenz ≤ 5 %, nicht dieselbe Börse, höchstens eine Seite gespeichert. Kennung eines Kandidaten (key) = «Auszahlung → Einzahlung» (CsvTransferMatch.linkId, nur Vorschau). Verknüpfte Umbuchung: importKey = Auszahlung, linkedImportKey = Einzahlung; gegen eine gespeicherte Seite dazu restoreState (Format CsvRestoreState, Fassung 1).",
+ "cases": [
+  {
+   "name": "new withdrawal and deposit in one generic file become one transfer",
+   "place": null,
+   "txs": [
+    {
+     "key": "GENERIC|W1",
+     "type": "WITHDRAWAL",
+     "coin": "BTC",
+     "amount": "1",
+     "time": "2024-01-11T15:30:00Z",
+     "line": 2,
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null
+    },
+    {
+     "key": "GENERIC|B1",
+     "type": "BUY",
+     "coin": "ETH",
+     "amount": "2",
+     "time": "2024-01-11T15:00:00Z",
+     "line": 3,
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null
+    },
+    {
+     "key": "GENERIC|D1",
+     "type": "DEPOSIT",
+     "coin": "BTC",
+     "amount": "0.9995",
+     "time": "2024-01-11T16:30:00Z",
+     "line": 4,
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null
+    }
+   ],
+   "stored": [],
+   "links": [
+    {
+     "key": "GENERIC|W1 → GENERIC|D1",
+     "withdrawalKey": "GENERIC|W1",
+     "depositKey": "GENERIC|D1",
+     "withdrawalId": null,
+     "depositId": null,
+     "sent": "1",
+     "received": "0.9995",
+     "fee": "0.0005",
+     "feeUnit": "COIN",
+     "feeCoin": null,
+     "feeCoinAmount": null,
+     "from": null,
+     "to": null,
+     "unambiguous": true
+    }
+   ],
+   "default": [
+    "GENERIC|W1 → GENERIC|D1"
+   ],
+   "apply": {
+    "transactions": [
+     {
+      "key": "GENERIC|W1",
+      "type": "TRANSFER",
+      "amount": "1",
+      "fee": "0.0005",
+      "feeUnit": "COIN",
+      "transferFrom": null,
+      "transferTo": null,
+      "time": "2024-01-11T15:30:00Z",
+      "linkedKey": "GENERIC|D1"
+     },
+     {
+      "key": "GENERIC|B1",
+      "type": "BUY",
+      "amount": "2",
+      "fee": null,
+      "feeUnit": null,
+      "transferFrom": null,
+      "transferTo": null,
+      "time": null,
+      "linkedKey": null
+     }
+    ],
+    "storedUpdates": []
+   }
+  },
+  {
+   "name": "never across coins",
+   "place": null,
+   "txs": [
+    {
+     "key": "GENERIC|W1",
+     "type": "WITHDRAWAL",
+     "coin": "BTC",
+     "amount": "1",
+     "time": "2024-01-11T15:30:00Z",
+     "line": 2,
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null
+    },
+    {
+     "key": "GENERIC|D1",
+     "type": "DEPOSIT",
+     "coin": "WBTC",
+     "amount": "0.9995",
+     "time": "2024-01-11T16:30:00Z",
+     "line": 3,
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null
+    }
+   ],
+   "stored": [],
+   "links": [],
+   "default": []
+  },
+  {
+   "name": "time window: up to 72 h after, up to 2 h before",
+   "place": null,
+   "txs": [
+    {
+     "key": "GENERIC|W1",
+     "type": "WITHDRAWAL",
+     "coin": "BTC",
+     "amount": "1",
+     "time": "2024-01-11T15:30:00Z",
+     "line": 2,
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null
+    },
+    {
+     "key": "GENERIC|D_LATE",
+     "type": "DEPOSIT",
+     "coin": "BTC",
+     "amount": "0.999",
+     "time": "2024-01-14T16:30:00Z",
+     "line": 3,
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null
+    },
+    {
+     "key": "GENERIC|W2",
+     "type": "WITHDRAWAL",
+     "coin": "ETH",
+     "amount": "1",
+     "time": "2024-02-01T12:00:00Z",
+     "line": 4,
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null
+    },
+    {
+     "key": "GENERIC|D_EARLY",
+     "type": "DEPOSIT",
+     "coin": "ETH",
+     "amount": "0.999",
+     "time": "2024-02-01T10:30:00Z",
+     "line": 5,
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null
+    },
+    {
+     "key": "GENERIC|W3",
+     "type": "WITHDRAWAL",
+     "coin": "SOL",
+     "amount": "10",
+     "time": "2024-03-01T12:00:00Z",
+     "line": 6,
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null
+    },
+    {
+     "key": "GENERIC|D_TOO_EARLY",
+     "type": "DEPOSIT",
+     "coin": "SOL",
+     "amount": "9.99",
+     "time": "2024-03-01T09:59:00Z",
+     "line": 7,
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null
+    },
+    {
+     "key": "GENERIC|W4",
+     "type": "WITHDRAWAL",
+     "coin": "ADA",
+     "amount": "100",
+     "time": "2024-04-01T00:00:00Z",
+     "line": 8,
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null
+    },
+    {
+     "key": "GENERIC|D_72H",
+     "type": "DEPOSIT",
+     "coin": "ADA",
+     "amount": "99",
+     "time": "2024-04-04T00:00:00Z",
+     "line": 9,
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null
+    }
+   ],
+   "stored": [],
+   "links": [
+    {
+     "key": "GENERIC|W2 → GENERIC|D_EARLY",
+     "withdrawalKey": "GENERIC|W2",
+     "depositKey": "GENERIC|D_EARLY",
+     "withdrawalId": null,
+     "depositId": null,
+     "sent": "1",
+     "received": "0.999",
+     "fee": "0.001",
+     "feeUnit": "COIN",
+     "feeCoin": null,
+     "feeCoinAmount": null,
+     "from": null,
+     "to": null,
+     "unambiguous": true
+    },
+    {
+     "key": "GENERIC|W4 → GENERIC|D_72H",
+     "withdrawalKey": "GENERIC|W4",
+     "depositKey": "GENERIC|D_72H",
+     "withdrawalId": null,
+     "depositId": null,
+     "sent": "100",
+     "received": "99",
+     "fee": "1",
+     "feeUnit": "COIN",
+     "feeCoin": null,
+     "feeCoinAmount": null,
+     "from": null,
+     "to": null,
+     "unambiguous": true
+    }
+   ],
+   "default": [
+    "GENERIC|W2 → GENERIC|D_EARLY",
+    "GENERIC|W4 → GENERIC|D_72H"
+   ]
+  },
+  {
+   "name": "fee share at most 5 %, never more received than sent",
+   "place": null,
+   "txs": [
+    {
+     "key": "GENERIC|W1",
+     "type": "WITHDRAWAL",
+     "coin": "BTC",
+     "amount": "1",
+     "time": "2024-01-11T15:30:00Z",
+     "line": 2,
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null
+    },
+    {
+     "key": "GENERIC|D1",
+     "type": "DEPOSIT",
+     "coin": "BTC",
+     "amount": "0.94",
+     "time": "2024-01-11T16:00:00Z",
+     "line": 3,
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null
+    },
+    {
+     "key": "GENERIC|W2",
+     "type": "WITHDRAWAL",
+     "coin": "ETH",
+     "amount": "1",
+     "time": "2024-01-11T15:30:00Z",
+     "line": 4,
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null
+    },
+    {
+     "key": "GENERIC|D2",
+     "type": "DEPOSIT",
+     "coin": "ETH",
+     "amount": "0.95",
+     "time": "2024-01-11T16:00:00Z",
+     "line": 5,
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null
+    },
+    {
+     "key": "GENERIC|W3",
+     "type": "WITHDRAWAL",
+     "coin": "SOL",
+     "amount": "1",
+     "time": "2024-01-11T15:30:00Z",
+     "line": 6,
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null
+    },
+    {
+     "key": "GENERIC|D3",
+     "type": "DEPOSIT",
+     "coin": "SOL",
+     "amount": "1.01",
+     "time": "2024-01-11T16:00:00Z",
+     "line": 7,
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null
+    },
+    {
+     "key": "GENERIC|W4",
+     "type": "WITHDRAWAL",
+     "coin": "ADA",
+     "amount": "5",
+     "time": "2024-01-11T15:30:00Z",
+     "line": 8,
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null
+    },
+    {
+     "key": "GENERIC|D4",
+     "type": "DEPOSIT",
+     "coin": "ADA",
+     "amount": "5",
+     "time": "2024-01-11T16:00:00Z",
+     "line": 9,
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null
+    }
+   ],
+   "stored": [],
+   "links": [
+    {
+     "key": "GENERIC|W2 → GENERIC|D2",
+     "withdrawalKey": "GENERIC|W2",
+     "depositKey": "GENERIC|D2",
+     "withdrawalId": null,
+     "depositId": null,
+     "sent": "1",
+     "received": "0.95",
+     "fee": "0.05",
+     "feeUnit": "COIN",
+     "feeCoin": null,
+     "feeCoinAmount": null,
+     "from": null,
+     "to": null,
+     "unambiguous": true
+    },
+    {
+     "key": "GENERIC|W4 → GENERIC|D4",
+     "withdrawalKey": "GENERIC|W4",
+     "depositKey": "GENERIC|D4",
+     "withdrawalId": null,
+     "depositId": null,
+     "sent": "5",
+     "received": "5",
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null,
+     "from": null,
+     "to": null,
+     "unambiguous": true
+    }
+   ],
+   "default": [
+    "GENERIC|W2 → GENERIC|D2",
+    "GENERIC|W4 → GENERIC|D4"
+   ]
+  },
+  {
+   "name": "ambiguous candidates are shown, not chosen",
+   "place": null,
+   "txs": [
+    {
+     "key": "GENERIC|W1",
+     "type": "WITHDRAWAL",
+     "coin": "BTC",
+     "amount": "1",
+     "time": "2024-01-11T15:30:00Z",
+     "line": 2,
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null
+    },
+    {
+     "key": "GENERIC|W2",
+     "type": "WITHDRAWAL",
+     "coin": "BTC",
+     "amount": "1",
+     "time": "2024-01-11T15:40:00Z",
+     "line": 3,
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null
+    },
+    {
+     "key": "GENERIC|D1",
+     "type": "DEPOSIT",
+     "coin": "BTC",
+     "amount": "0.999",
+     "time": "2024-01-11T16:30:00Z",
+     "line": 4,
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null
+    }
+   ],
+   "stored": [],
+   "links": [
+    {
+     "key": "GENERIC|W1 → GENERIC|D1",
+     "withdrawalKey": "GENERIC|W1",
+     "depositKey": "GENERIC|D1",
+     "withdrawalId": null,
+     "depositId": null,
+     "sent": "1",
+     "received": "0.999",
+     "fee": "0.001",
+     "feeUnit": "COIN",
+     "feeCoin": null,
+     "feeCoinAmount": null,
+     "from": null,
+     "to": null,
+     "unambiguous": false
+    },
+    {
+     "key": "GENERIC|W2 → GENERIC|D1",
+     "withdrawalKey": "GENERIC|W2",
+     "depositKey": "GENERIC|D1",
+     "withdrawalId": null,
+     "depositId": null,
+     "sent": "1",
+     "received": "0.999",
+     "fee": "0.001",
+     "feeUnit": "COIN",
+     "feeCoin": null,
+     "feeCoinAmount": null,
+     "from": null,
+     "to": null,
+     "unambiguous": false
+    }
+   ],
+   "default": [],
+   "toggle": [
+    {
+     "chosen": [],
+     "key": "GENERIC|W1 → GENERIC|D1",
+     "on": true,
+     "expected": [
+      "GENERIC|W1 → GENERIC|D1"
+     ]
+    },
+    {
+     "chosen": [
+      "GENERIC|W1 → GENERIC|D1"
+     ],
+     "key": "GENERIC|W2 → GENERIC|D1",
+     "on": true,
+     "expected": [
+      "GENERIC|W2 → GENERIC|D1"
+     ]
+    },
+    {
+     "chosen": [
+      "GENERIC|W2 → GENERIC|D1"
+     ],
+     "key": "GENERIC|W2 → GENERIC|D1",
+     "on": false,
+     "expected": []
+    }
+   ],
+   "apply": {
+    "chosen": [
+     "GENERIC|W2 → GENERIC|D1"
+    ],
+    "transactions": [
+     {
+      "key": "GENERIC|W1",
+      "type": "WITHDRAWAL",
+      "amount": "1",
+      "fee": null,
+      "feeUnit": null,
+      "transferFrom": null,
+      "transferTo": null,
+      "time": null,
+      "linkedKey": null
+     },
+     {
+      "key": "GENERIC|W2",
+      "type": "TRANSFER",
+      "amount": "1",
+      "fee": "0.001",
+      "feeUnit": "COIN",
+      "transferFrom": null,
+      "transferTo": null,
+      "time": "2024-01-11T15:40:00Z",
+      "linkedKey": "GENERIC|D1"
+     }
+    ],
+    "storedUpdates": []
+   }
+  },
+  {
+   "name": "new deposit against a stored withdrawal of an earlier import",
+   "place": "Coinbase",
+   "txs": [
+    {
+     "key": "COINBASE|65a1b2c3d4e5f60718293a01",
+     "type": "DEPOSIT",
+     "coin": "BTC",
+     "amount": "0.0049",
+     "time": "2024-01-11T16:05:00Z",
+     "line": 7,
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null
+    }
+   ],
+   "stored": [
+    {
+     "id": 7,
+     "importKey": "BINANCE|WITHDRAWAL|BTC|L1704987000000|0.005|-",
+     "type": "WITHDRAWAL",
+     "coin": "BTC",
+     "amount": "0.005",
+     "time": "2024-01-11T15:30:00Z",
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null,
+     "transferFrom": null,
+     "transferTo": null,
+     "importBatch": "BINANCE:1729000000000:0a1b2c3d",
+     "priceUsdt": null,
+     "exchange": null,
+     "acquiredTime": null
+    }
+   ],
+   "links": [
+    {
+     "key": "BINANCE|WITHDRAWAL|BTC|L1704987000000|0.005|- → COINBASE|65a1b2c3d4e5f60718293a01",
+     "withdrawalKey": "BINANCE|WITHDRAWAL|BTC|L1704987000000|0.005|-",
+     "depositKey": "COINBASE|65a1b2c3d4e5f60718293a01",
+     "withdrawalId": 7,
+     "depositId": null,
+     "sent": "0.005",
+     "received": "0.0049",
+     "fee": "0.0001",
+     "feeUnit": "COIN",
+     "feeCoin": null,
+     "feeCoinAmount": null,
+     "from": "Binance",
+     "to": "Coinbase",
+     "unambiguous": true
+    }
+   ],
+   "default": [
+    "BINANCE|WITHDRAWAL|BTC|L1704987000000|0.005|- → COINBASE|65a1b2c3d4e5f60718293a01"
+   ],
+   "apply": {
+    "transactions": [],
+    "storedUpdates": [
+     {
+      "id": 7,
+      "amount": "0.005",
+      "fee": "0.0001",
+      "feeUnit": "COIN",
+      "feeCoin": null,
+      "feeCoinAmount": null,
+      "time": "2024-01-11T15:30:00Z",
+      "transferFrom": "Binance",
+      "transferTo": "Coinbase",
+      "importKey": "BINANCE|WITHDRAWAL|BTC|L1704987000000|0.005|-",
+      "linkedImportKey": "COINBASE|65a1b2c3d4e5f60718293a01",
+      "restoreState": {
+       "v": 1,
+       "stored": {
+        "type": "WITHDRAWAL",
+        "amount": "0.005",
+        "time": 1704987000000,
+        "importKey": "BINANCE|WITHDRAWAL|BTC|L1704987000000|0.005|-",
+        "importBatch": "BINANCE:1729000000000:0a1b2c3d"
+       },
+       "absorbed": {
+        "type": "DEPOSIT",
+        "amount": "0.0049",
+        "time": 1704989100000,
+        "importKey": "COINBASE|65a1b2c3d4e5f60718293a01"
+       }
+      }
+     }
+    ]
+   }
+  },
+  {
+   "name": "new withdrawal with coin fee against a stored deposit",
+   "place": "Bitpanda",
+   "txs": [
+    {
+     "key": "BITPANDA|T0a1b2c3d-0006",
+     "type": "WITHDRAWAL",
+     "coin": "BTC",
+     "amount": "0.005",
+     "time": "2024-01-06T12:00:00Z",
+     "line": 12,
+     "fee": "0.0001",
+     "feeUnit": "COIN",
+     "feeCoin": null,
+     "feeCoinAmount": null
+    }
+   ],
+   "stored": [
+    {
+     "id": 9,
+     "importKey": "KRAKEN|QX1",
+     "type": "DEPOSIT",
+     "coin": "BTC",
+     "amount": "0.005",
+     "time": "2024-01-06T12:40:00Z",
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null,
+     "transferFrom": null,
+     "transferTo": null,
+     "importBatch": null,
+     "priceUsdt": "43000",
+     "exchange": "Kraken",
+     "acquiredTime": 1700000000000
+    }
+   ],
+   "links": [
+    {
+     "key": "BITPANDA|T0a1b2c3d-0006 → KRAKEN|QX1",
+     "withdrawalKey": "BITPANDA|T0a1b2c3d-0006",
+     "depositKey": "KRAKEN|QX1",
+     "withdrawalId": null,
+     "depositId": 9,
+     "sent": "0.0051",
+     "received": "0.005",
+     "fee": "0.0001",
+     "feeUnit": "COIN",
+     "feeCoin": null,
+     "feeCoinAmount": null,
+     "from": "Bitpanda",
+     "to": "Kraken",
+     "unambiguous": true
+    }
+   ],
+   "default": [
+    "BITPANDA|T0a1b2c3d-0006 → KRAKEN|QX1"
+   ],
+   "apply": {
+    "transactions": [],
+    "storedUpdates": [
+     {
+      "id": 9,
+      "amount": "0.0051",
+      "fee": "0.0001",
+      "feeUnit": "COIN",
+      "feeCoin": null,
+      "feeCoinAmount": null,
+      "time": "2024-01-06T12:00:00Z",
+      "transferFrom": "Bitpanda",
+      "transferTo": "Kraken",
+      "importKey": "BITPANDA|T0a1b2c3d-0006",
+      "linkedImportKey": "KRAKEN|QX1",
+      "restoreState": {
+       "v": 1,
+       "stored": {
+        "type": "DEPOSIT",
+        "amount": "0.005",
+        "priceUsdt": "43000",
+        "time": 1704544800000,
+        "acquiredTime": 1700000000000,
+        "exchange": "Kraken",
+        "importKey": "KRAKEN|QX1"
+       },
+       "absorbed": {
+        "type": "WITHDRAWAL",
+        "amount": "0.005",
+        "time": 1704542400000,
+        "fee": "0.0001",
+        "feeUnit": "COIN",
+        "importKey": "BITPANDA|T0a1b2c3d-0006"
+       }
+      }
+     }
+    ]
+   }
+  },
+  {
+   "name": "same exchange, both stored, already linked or with destination: no candidate",
+   "place": "Binance",
+   "txs": [
+    {
+     "key": "BINANCE|W",
+     "type": "WITHDRAWAL",
+     "coin": "BTC",
+     "amount": "1",
+     "time": "2024-01-11T15:30:00Z",
+     "line": 2,
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null
+    },
+    {
+     "key": "BINANCE|D",
+     "type": "DEPOSIT",
+     "coin": "BTC",
+     "amount": "0.999",
+     "time": "2024-01-11T16:00:00Z",
+     "line": 3,
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null
+    }
+   ],
+   "stored": [
+    {
+     "id": 1,
+     "importKey": "BINANCE|OLD_D",
+     "type": "DEPOSIT",
+     "coin": "BTC",
+     "amount": "0.999",
+     "time": "2024-01-11T16:10:00Z",
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null,
+     "transferFrom": null,
+     "transferTo": null,
+     "importBatch": null,
+     "priceUsdt": null,
+     "exchange": null,
+     "acquiredTime": null
+    },
+    {
+     "id": 2,
+     "importKey": "KRAKEN|W",
+     "type": "TRANSFER",
+     "coin": "BTC",
+     "amount": "1",
+     "time": "2024-01-11T15:00:00Z",
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null,
+     "transferFrom": null,
+     "transferTo": null,
+     "importBatch": null,
+     "priceUsdt": null,
+     "exchange": null,
+     "acquiredTime": null,
+     "linkedImportKey": "COINBASE|D"
+    },
+    {
+     "id": 3,
+     "importKey": "KRAKEN|W2",
+     "type": "TRANSFER",
+     "coin": "BTC",
+     "amount": "1",
+     "time": "2024-01-11T15:00:00Z",
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null,
+     "transferFrom": null,
+     "transferTo": "Ledger",
+     "importBatch": null,
+     "priceUsdt": null,
+     "exchange": null,
+     "acquiredTime": null
+    },
+    {
+     "id": 4,
+     "importKey": "KRAKEN|W3",
+     "type": "WITHDRAWAL",
+     "coin": "ETH",
+     "amount": "1",
+     "time": "2024-01-11T15:30:00Z",
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null,
+     "transferFrom": null,
+     "transferTo": null,
+     "importBatch": null,
+     "priceUsdt": null,
+     "exchange": null,
+     "acquiredTime": null
+    },
+    {
+     "id": 5,
+     "importKey": "COINBASE|D3",
+     "type": "DEPOSIT",
+     "coin": "ETH",
+     "amount": "0.999",
+     "time": "2024-01-11T16:00:00Z",
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null,
+     "transferFrom": null,
+     "transferTo": null,
+     "importBatch": null,
+     "priceUsdt": null,
+     "exchange": null,
+     "acquiredTime": null
+    }
+   ],
+   "links": [],
+   "default": []
+  },
+  {
+   "name": "quote fee only with equal amounts, third-coin fee kept, deposit with foreign fee not linked",
+   "place": null,
+   "txs": [
+    {
+     "key": "GENERIC|W1",
+     "type": "WITHDRAWAL",
+     "coin": "BTC",
+     "amount": "1",
+     "time": "2024-01-11T15:30:00Z",
+     "line": 2,
+     "fee": "1.5",
+     "feeUnit": "QUOTE",
+     "feeCoin": null,
+     "feeCoinAmount": null
+    },
+    {
+     "key": "GENERIC|D1",
+     "type": "DEPOSIT",
+     "coin": "BTC",
+     "amount": "1",
+     "time": "2024-01-11T16:00:00Z",
+     "line": 3,
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null
+    },
+    {
+     "key": "GENERIC|W2",
+     "type": "WITHDRAWAL",
+     "coin": "ETH",
+     "amount": "1",
+     "time": "2024-01-11T15:30:00Z",
+     "line": 4,
+     "fee": "1.5",
+     "feeUnit": "QUOTE",
+     "feeCoin": null,
+     "feeCoinAmount": null
+    },
+    {
+     "key": "GENERIC|D2",
+     "type": "DEPOSIT",
+     "coin": "ETH",
+     "amount": "0.99",
+     "time": "2024-01-11T16:00:00Z",
+     "line": 5,
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null
+    },
+    {
+     "key": "GENERIC|W3",
+     "type": "WITHDRAWAL",
+     "coin": "SOL",
+     "amount": "10",
+     "time": "2024-01-11T15:30:00Z",
+     "line": 6,
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": "BNB",
+     "feeCoinAmount": "0.001"
+    },
+    {
+     "key": "GENERIC|D3",
+     "type": "DEPOSIT",
+     "coin": "SOL",
+     "amount": "9.9",
+     "time": "2024-01-11T16:00:00Z",
+     "line": 7,
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null
+    },
+    {
+     "key": "GENERIC|W4",
+     "type": "WITHDRAWAL",
+     "coin": "ADA",
+     "amount": "100",
+     "time": "2024-01-11T15:30:00Z",
+     "line": 8,
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null
+    },
+    {
+     "key": "GENERIC|D4",
+     "type": "DEPOSIT",
+     "coin": "ADA",
+     "amount": "99",
+     "time": "2024-01-11T16:00:00Z",
+     "line": 9,
+     "fee": "0.2",
+     "feeUnit": "QUOTE",
+     "feeCoin": null,
+     "feeCoinAmount": null
+    }
+   ],
+   "stored": [],
+   "links": [
+    {
+     "key": "GENERIC|W1 → GENERIC|D1",
+     "withdrawalKey": "GENERIC|W1",
+     "depositKey": "GENERIC|D1",
+     "withdrawalId": null,
+     "depositId": null,
+     "sent": "1",
+     "received": "1",
+     "fee": "1.5",
+     "feeUnit": "QUOTE",
+     "feeCoin": null,
+     "feeCoinAmount": null,
+     "from": null,
+     "to": null,
+     "unambiguous": true
+    },
+    {
+     "key": "GENERIC|W3 → GENERIC|D3",
+     "withdrawalKey": "GENERIC|W3",
+     "depositKey": "GENERIC|D3",
+     "withdrawalId": null,
+     "depositId": null,
+     "sent": "10",
+     "received": "9.9",
+     "fee": "0.1",
+     "feeUnit": "COIN",
+     "feeCoin": "BNB",
+     "feeCoinAmount": "0.001",
+     "from": null,
+     "to": null,
+     "unambiguous": true
+    }
+   ],
+   "default": [
+    "GENERIC|W1 → GENERIC|D1",
+    "GENERIC|W3 → GENERIC|D3"
+   ]
+  },
+  {
+   "name": "stored transfer without destination acts as the withdrawal",
+   "place": "Coinbase",
+   "txs": [
+    {
+     "key": "COINBASE|X9",
+     "type": "DEPOSIT",
+     "coin": "ETH",
+     "amount": "1.995",
+     "time": "2024-05-02T08:00:00Z",
+     "line": 9,
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null
+    }
+   ],
+   "stored": [
+    {
+     "id": 11,
+     "importKey": "KRAKEN|R1",
+     "type": "TRANSFER",
+     "coin": "ETH",
+     "amount": "2",
+     "time": "2024-05-02T07:00:00Z",
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null,
+     "transferFrom": "Kraken Pro",
+     "transferTo": null,
+     "importBatch": null,
+     "priceUsdt": null,
+     "exchange": null,
+     "acquiredTime": null
+    }
+   ],
+   "links": [
+    {
+     "key": "KRAKEN|R1 → COINBASE|X9",
+     "withdrawalKey": "KRAKEN|R1",
+     "depositKey": "COINBASE|X9",
+     "withdrawalId": 11,
+     "depositId": null,
+     "sent": "2",
+     "received": "1.995",
+     "fee": "0.005",
+     "feeUnit": "COIN",
+     "feeCoin": null,
+     "feeCoinAmount": null,
+     "from": "Kraken Pro",
+     "to": "Coinbase",
+     "unambiguous": true
+    }
+   ],
+   "default": [
+    "KRAKEN|R1 → COINBASE|X9"
+   ]
+  },
+  {
+   "name": "long keys stay complete (no length limit for links)",
+   "place": null,
+   "txs": [
+    {
+     "key": "GENERIC|WITHDRAWAL|BTC|L1704987000000|0.005|-|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+     "type": "WITHDRAWAL",
+     "coin": "BTC",
+     "amount": "1",
+     "time": "2024-01-11T15:30:00Z",
+     "line": 2,
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null
+    },
+    {
+     "key": "GENERIC|D",
+     "type": "DEPOSIT",
+     "coin": "BTC",
+     "amount": "1",
+     "time": "2024-01-11T16:00:00Z",
+     "line": 3,
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null
+    }
+   ],
+   "stored": [],
+   "links": [
+    {
+     "key": "GENERIC|WITHDRAWAL|BTC|L1704987000000|0.005|-|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx → GENERIC|D",
+     "withdrawalKey": "GENERIC|WITHDRAWAL|BTC|L1704987000000|0.005|-|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+     "depositKey": "GENERIC|D",
+     "withdrawalId": null,
+     "depositId": null,
+     "sent": "1",
+     "received": "1",
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null,
+     "from": null,
+     "to": null,
+     "unambiguous": true
+    }
+   ],
+   "default": [
+    "GENERIC|WITHDRAWAL|BTC|L1704987000000|0.005|-|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx → GENERIC|D"
+   ]
+  },
+  {
+   "name": "stored side with separators in its text and a long key both link",
+   "place": "Coinbase",
+   "txs": [
+    {
+     "key": "COINBASE|X10",
+     "type": "DEPOSIT",
+     "coin": "ETH",
+     "amount": "1",
+     "time": "2024-06-01T08:00:00Z",
+     "line": 9,
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null
+    },
+    {
+     "key": "COINBASE|X11",
+     "type": "DEPOSIT",
+     "coin": "SOL",
+     "amount": "5",
+     "time": "2024-06-01T08:00:00Z",
+     "line": 10,
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null
+    }
+   ],
+   "stored": [
+    {
+     "id": 12,
+     "importKey": "KRAKEN|R2",
+     "type": "TRANSFER",
+     "coin": "ETH",
+     "amount": "1",
+     "time": "2024-06-01T07:00:00Z",
+     "fee": "0.5",
+     "feeUnit": "QUOTE",
+     "feeCoin": null,
+     "feeCoinAmount": null,
+     "transferFrom": "Kraken | Pro ⇄ 100%",
+     "transferTo": null,
+     "importBatch": "KRAKEN:1720000000000:00ff00ff",
+     "priceUsdt": null,
+     "exchange": null,
+     "acquiredTime": null
+    },
+    {
+     "id": 13,
+     "importKey": "KRAKEN|yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+     "type": "WITHDRAWAL",
+     "coin": "SOL",
+     "amount": "5",
+     "time": "2024-06-01T07:00:00Z",
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null,
+     "transferFrom": null,
+     "transferTo": null,
+     "importBatch": null,
+     "priceUsdt": null,
+     "exchange": null,
+     "acquiredTime": null
+    }
+   ],
+   "links": [
+    {
+     "key": "KRAKEN|R2 → COINBASE|X10",
+     "withdrawalKey": "KRAKEN|R2",
+     "depositKey": "COINBASE|X10",
+     "withdrawalId": 12,
+     "depositId": null,
+     "sent": "1",
+     "received": "1",
+     "fee": "0.5",
+     "feeUnit": "QUOTE",
+     "feeCoin": null,
+     "feeCoinAmount": null,
+     "from": "Kraken | Pro ⇄ 100%",
+     "to": "Coinbase",
+     "unambiguous": true
+    },
+    {
+     "key": "KRAKEN|yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy → COINBASE|X11",
+     "withdrawalKey": "KRAKEN|yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+     "depositKey": "COINBASE|X11",
+     "withdrawalId": 13,
+     "depositId": null,
+     "sent": "5",
+     "received": "5",
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null,
+     "from": "Kraken",
+     "to": "Coinbase",
+     "unambiguous": true
+    }
+   ],
+   "default": [
+    "KRAKEN|R2 → COINBASE|X10",
+    "KRAKEN|yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy → COINBASE|X11"
+   ],
+   "apply": {
+    "transactions": [],
+    "storedUpdates": [
+     {
+      "id": 12,
+      "amount": "1",
+      "fee": "0.5",
+      "feeUnit": "QUOTE",
+      "feeCoin": null,
+      "feeCoinAmount": null,
+      "time": "2024-06-01T07:00:00Z",
+      "transferFrom": "Kraken | Pro ⇄ 100%",
+      "transferTo": "Coinbase",
+      "importKey": "KRAKEN|R2",
+      "linkedImportKey": "COINBASE|X10",
+      "restoreState": {
+       "v": 1,
+       "stored": {
+        "type": "TRANSFER",
+        "amount": "1",
+        "time": 1717225200000,
+        "fee": "0.5",
+        "feeUnit": "QUOTE",
+        "transferFrom": "Kraken | Pro ⇄ 100%",
+        "importKey": "KRAKEN|R2",
+        "importBatch": "KRAKEN:1720000000000:00ff00ff"
+       },
+       "absorbed": {
+        "type": "DEPOSIT",
+        "amount": "1",
+        "time": 1717228800000,
+        "importKey": "COINBASE|X10"
+       }
+      }
+     },
+     {
+      "id": 13,
+      "amount": "5",
+      "fee": null,
+      "feeUnit": null,
+      "feeCoin": null,
+      "feeCoinAmount": null,
+      "time": "2024-06-01T07:00:00Z",
+      "transferFrom": "Kraken",
+      "transferTo": "Coinbase",
+      "importKey": "KRAKEN|yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+      "linkedImportKey": "COINBASE|X11",
+      "restoreState": {
+       "v": 1,
+       "stored": {
+        "type": "WITHDRAWAL",
+        "amount": "5",
+        "time": 1717225200000,
+        "importKey": "KRAKEN|yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"
+       },
+       "absorbed": {
+        "type": "DEPOSIT",
+        "amount": "5",
+        "time": 1717228800000,
+        "importKey": "COINBASE|X11"
+       }
+      }
+     }
+    ]
+   }
+  }
+ ],
+ "_undoComment": "«Import rückgängig» (CsvTransferMatch.undoPlan): Zeilen mit id, Importlauf, Schlüsseln und Zustand vor der Verknüpfung (restoreState); erwartet gelöscht, zurückgesetzt (mit Zustand davor) bzw. in die aufgegangene Zeile zurückverwandelt.",
+ "undo": [
+  {
+   "_comment": "späterer Lauf: verknüpfte Seite zurücksetzen, eigene Zeilen löschen; anderes bleibt",
+   "batch": "COINBASE:1729100000000:1b2c3d4e",
+   "rows": [
+    {
+     "id": 1,
+     "importBatch": "COINBASE:1729100000000:1b2c3d4e",
+     "importKey": "BINANCE|W",
+     "linkedImportKey": "COINBASE|D",
+     "restoreState": {
+      "v": 1,
+      "stored": {
+       "type": "WITHDRAWAL",
+       "amount": "0.005",
+       "time": 1704987000000,
+       "importKey": "BINANCE|W",
+       "importBatch": "BINANCE:1729000000000:0a1b2c3d"
+      },
+      "absorbed": {
+       "type": "DEPOSIT",
+       "amount": "0.0049",
+       "time": 1704989100000,
+       "importKey": "COINBASE|D"
+      }
+     }
+    },
+    {
+     "id": 2,
+     "importBatch": "COINBASE:1729100000000:1b2c3d4e",
+     "importKey": "COINBASE|Y"
+    },
+    {
+     "id": 3,
+     "importBatch": "BINANCE:1729000000000:0a1b2c3d",
+     "importKey": "BINANCE|Z"
+    },
+    {
+     "id": 4,
+     "importBatch": "COINBASE:1729100000000:1b2c3d4e",
+     "importKey": "GENERIC|W",
+     "linkedImportKey": "GENERIC|D"
+    },
+    {
+     "id": 5
+    }
+   ],
+   "delete": [
+    2,
+    4
+   ],
+   "revert": [
+    1
+   ],
+   "detach": [],
+   "origin": {
+    "id": 1,
+    "type": "WITHDRAWAL",
+    "amount": "0.005",
+    "time": "2024-01-11T15:30:00Z",
+    "importKey": "BINANCE|W",
+    "importBatch": "BINANCE:1729000000000:0a1b2c3d"
+   }
+  },
+  {
+   "_comment": "früherer Lauf: die verknüpfte Umbuchung wird wieder die Einzahlung der späteren Datei (bleibt im späteren Lauf); Zustand aus Build 56 ohne aufgegangene Zeile: gelöscht",
+   "batch": "BINANCE:1729000000000:0a1b2c3d",
+   "rows": [
+    {
+     "id": 1,
+     "importBatch": "COINBASE:1729100000000:1b2c3d4e",
+     "importKey": "BINANCE|W",
+     "linkedImportKey": "COINBASE|D",
+     "restoreState": {
+      "v": 1,
+      "stored": {
+       "type": "WITHDRAWAL",
+       "amount": "0.005",
+       "time": 1704987000000,
+       "importKey": "BINANCE|W",
+       "importBatch": "BINANCE:1729000000000:0a1b2c3d"
+      },
+      "absorbed": {
+       "type": "DEPOSIT",
+       "amount": "0.0049",
+       "time": 1704989100000,
+       "importKey": "COINBASE|D"
+      }
+     }
+    },
+    {
+     "id": 2,
+     "importBatch": "COINBASE:1729100000000:1b2c3d4e",
+     "importKey": "COINBASE|Y"
+    },
+    {
+     "id": 3,
+     "importBatch": "BINANCE:1729000000000:0a1b2c3d",
+     "importKey": "BINANCE|Z"
+    },
+    {
+     "id": 6,
+     "importBatch": "COINBASE:1729100000000:1b2c3d4e",
+     "importKey": "BINANCE|W5",
+     "linkedImportKey": "COINBASE|D5",
+     "restoreState": {
+      "v": 1,
+      "stored": {
+       "type": "WITHDRAWAL",
+       "amount": "0.005",
+       "time": 1704987000000,
+       "importKey": "BINANCE|W5",
+       "importBatch": "BINANCE:1729000000000:0a1b2c3d"
+      }
+     }
+    }
+   ],
+   "delete": [
+    3,
+    6
+   ],
+   "revert": [],
+   "detach": [
+    1
+   ],
+   "absorbed": {
+    "id": 1,
+    "type": "DEPOSIT",
+    "amount": "0.0049",
+    "time": "2024-01-11T16:05:00Z",
+    "importKey": "COINBASE|D"
+   }
+  }
+ ],
+ "_undoSequenceComment": "beide Läufe nacheinander rückgängig (beide Reihenfolgen): Zeilen nach jedem Schritt (id, Lauf, Schlüssel; Verknüpfung und Zustand danach leer)",
+ "undoSequence": [
+  {
+   "_comment": "erst der frühere, dann der spätere Lauf: übrig bleibt nur die Zeile ohne Lauf",
+   "rows": [
+    {
+     "id": 1,
+     "importBatch": "COINBASE:1729100000000:1b2c3d4e",
+     "importKey": "BINANCE|W",
+     "linkedImportKey": "COINBASE|D",
+     "restoreState": {
+      "v": 1,
+      "stored": {
+       "type": "WITHDRAWAL",
+       "amount": "0.005",
+       "time": 1704987000000,
+       "importKey": "BINANCE|W",
+       "importBatch": "BINANCE:1729000000000:0a1b2c3d"
+      },
+      "absorbed": {
+       "type": "DEPOSIT",
+       "amount": "0.0049",
+       "time": 1704989100000,
+       "importKey": "COINBASE|D"
+      }
+     }
+    },
+    {
+     "id": 2,
+     "importBatch": "COINBASE:1729100000000:1b2c3d4e",
+     "importKey": "COINBASE|Y"
+    },
+    {
+     "id": 3,
+     "importBatch": "BINANCE:1729000000000:0a1b2c3d",
+     "importKey": "BINANCE|Z"
+    },
+    {
+     "id": 4,
+     "importKey": "GENERIC|M"
+    }
+   ],
+   "batches": [
+    "BINANCE:1729000000000:0a1b2c3d",
+    "COINBASE:1729100000000:1b2c3d4e"
+   ],
+   "after": [
+    [
+     {
+      "id": 1,
+      "importBatch": "COINBASE:1729100000000:1b2c3d4e",
+      "importKey": "COINBASE|D"
+     },
+     {
+      "id": 2,
+      "importBatch": "COINBASE:1729100000000:1b2c3d4e",
+      "importKey": "COINBASE|Y"
+     },
+     {
+      "id": 4,
+      "importBatch": null,
+      "importKey": "GENERIC|M"
+     }
+    ],
+    [
+     {
+      "id": 4,
+      "importBatch": null,
+      "importKey": "GENERIC|M"
+     }
+    ]
+   ]
+  },
+  {
+   "_comment": "erst der spätere, dann der frühere Lauf",
+   "rows": [
+    {
+     "id": 1,
+     "importBatch": "COINBASE:1729100000000:1b2c3d4e",
+     "importKey": "BINANCE|W",
+     "linkedImportKey": "COINBASE|D",
+     "restoreState": {
+      "v": 1,
+      "stored": {
+       "type": "WITHDRAWAL",
+       "amount": "0.005",
+       "time": 1704987000000,
+       "importKey": "BINANCE|W",
+       "importBatch": "BINANCE:1729000000000:0a1b2c3d"
+      },
+      "absorbed": {
+       "type": "DEPOSIT",
+       "amount": "0.0049",
+       "time": 1704989100000,
+       "importKey": "COINBASE|D"
+      }
+     }
+    },
+    {
+     "id": 2,
+     "importBatch": "COINBASE:1729100000000:1b2c3d4e",
+     "importKey": "COINBASE|Y"
+    },
+    {
+     "id": 3,
+     "importBatch": "BINANCE:1729000000000:0a1b2c3d",
+     "importKey": "BINANCE|Z"
+    },
+    {
+     "id": 4,
+     "importKey": "GENERIC|M"
+    }
+   ],
+   "batches": [
+    "COINBASE:1729100000000:1b2c3d4e",
+    "BINANCE:1729000000000:0a1b2c3d"
+   ],
+   "after": [
+    [
+     {
+      "id": 1,
+      "importBatch": "BINANCE:1729000000000:0a1b2c3d",
+      "importKey": "BINANCE|W"
+     },
+     {
+      "id": 3,
+      "importBatch": "BINANCE:1729000000000:0a1b2c3d",
+      "importKey": "BINANCE|Z"
+     },
+     {
+      "id": 4,
+      "importBatch": null,
+      "importKey": "GENERIC|M"
+     }
+    ],
+    [
+     {
+      "id": 4,
+      "importBatch": null,
+      "importKey": "GENERIC|M"
+     }
+    ]
+   ]
+  }
+ ],
+ "carryOver": [
+  {
+   "_comment": "gezeigt + gewählt bleibt, gezeigt + abgewählt bleibt ab, neu = Vorauswahl (eindeutig)",
+   "case": "ambiguous candidates are shown, not chosen",
+   "seen": [
+    "GENERIC|W1 → GENERIC|D1"
+   ],
+   "chosen": [
+    "GENERIC|W1 → GENERIC|D1"
+   ],
+   "expected": [
+    "GENERIC|W1 → GENERIC|D1"
+   ]
+  },
+  {
+   "case": "new withdrawal and deposit in one generic file become one transfer",
+   "seen": [
+    "GENERIC|W1 → GENERIC|D1"
+   ],
+   "chosen": [],
+   "expected": []
+  },
+  {
+   "case": "new withdrawal and deposit in one generic file become one transfer",
+   "seen": [],
+   "chosen": [],
+   "expected": [
+    "GENERIC|W1 → GENERIC|D1"
+   ]
+  }
+ ],
+ "duplicates": {
+  "_comment": "gespeicherte Schlüssel samt linkedImportKey verknüpfter Umbuchungen: beide Seiten gelten als importiert; vor Build 58 gekürzte Teile (LegacyStorageMigration.shortKey von longKey) ebenso",
+  "existing": [
+   "BINANCE|WITHDRAWAL|BTC|L1704987000000|0.005|-",
+   "COINBASE|65a1b2c3d4e5f60718293a01",
+   "KRAKEN|R7"
+  ],
+  "longKey": "GENERIC|WITHDRAWAL|BTC|L1704987000000|0.005|-|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  "known": [
+   "COINBASE|65a1b2c3d4e5f60718293a01",
+   "BINANCE|WITHDRAWAL|BTC|L1704987000000|0.005|-",
+   "KRAKEN|R7"
+  ],
+  "unknown": [
+   "COINBASE|65a1b2c3d4e5f60718293a02"
+  ]
+ },
+ "endToEnd": {
+  "_comment": "Binance-Auszahlung schon gespeichert (Id 1), danach der Coinbase-Bericht: die Einzahlung wird mit ihr verknüpft",
+  "storedFile": "synthetic_binance_transaction_history.csv",
+  "storedType": "WITHDRAWAL",
+  "importFile": "synthetic_coinbase_transaction_report.csv",
+  "links": [
+   {
+    "key": "BINANCE|WITHDRAWAL|BTC|L1704987000000|0.005|- → COINBASE|65a1b2c3d4e5f60718293a01",
+    "withdrawalKey": "BINANCE|WITHDRAWAL|BTC|L1704987000000|0.005|-",
+    "depositKey": "COINBASE|65a1b2c3d4e5f60718293a01",
+    "withdrawalId": 1,
+    "depositId": null,
+    "sent": "0.005",
+    "received": "0.0049",
+    "fee": "0.0001",
+    "feeUnit": "COIN",
+    "feeCoin": null,
+    "feeCoinAmount": null,
+    "from": "Binance",
+    "to": "Coinbase",
+    "unambiguous": true
+   }
+  ]
+ }
+}

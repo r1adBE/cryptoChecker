@@ -1,0 +1,19 @@
+* text=auto eol=lf
+# Windows scripts keep CRLF
+*.bat text eol=crlf
+*.cmd text eol=crlf
+gradlew text eol=lf
+# Binary files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.gif binary
+*.ico binary
+*.jar binary
+*.ttf binary
+*.otf binary
+*.wav binary
+*.caf binary
+*.mp3 binary
+*.zip binary

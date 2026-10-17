@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Wie aktuell? (Sparsam / Live) -->
+    <string name="update_mode_for_pros">ใช้ข้อมูลและแบตเตอรี่มากขึ้น</string>
+    <string name="update_mode_live">สดขณะเปิดอยู่</string>
+    <string name="update_mode_live_hint">หากกระดานเทรดมีราคาสด: ทันทีขณะเปิดรายการอยู่ มิฉะนั้นในการดึงข้อมูลครั้งถัดไป ปิดอยู่: ไม่บ่อยกว่าทุก %1$s และมักช้ากว่านั้น</string>
+    <string name="update_mode_live_hint_ios">หากกระดานเทรดมีราคาสด: ทันทีขณะเปิดรายการอยู่ มิฉะนั้นในการดึงข้อมูลครั้งถัดไป ปิดอยู่: เมื่อ iOS อนุญาต บางครั้งห่างกันหลายชั่วโมง หากปัดแอปออก iOS จะหยุดการตรวจสอบเหล่านี้จนกว่าคุณจะเปิดแอปอีกครั้ง</string>
+    <string name="update_mode_recommended">แนะนำ</string>
+    <string name="update_mode_sparsam">ประหยัด</string>
+    <string name="update_mode_sparsam_hint">เมื่อปิดแอป ไม่บ่อยกว่าทุก %1$s และมักช้ากว่านั้น (การแจ้งเตือน วิดเจ็ต) เมื่อเปิด: ทุกครั้งที่เปิด</string>
+    <string name="update_mode_sparsam_hint_ios">เมื่อปิดแอป iOS จะเป็นผู้กำหนดเวลาตรวจสอบ (การแจ้งเตือน, วิดเจ็ต) บางครั้งห่างกันหลายชั่วโมง เปิดอยู่: ทุกครั้งที่เปิด</string>
+    <string name="update_mode_title">อัปเดตแค่ไหน</string>
+
+    <!-- Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <string name="refresh_sheet_aborted">รีเฟรชถูกยกเลิก</string>
+    <string name="refresh_sheet_alarms">สัญญาณเตือน</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="other">ทำงาน %1$d รายการ</item>
+    </plurals>
+    <!-- Grosse Statuszeile oben im Blatt -->
+    <string name="refresh_sheet_all_updated">อัปเดตครบทั้งหมด</string>
+    <string name="refresh_sheet_app_start">การเปิดแอป</string>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="other">คำขอแบบรวม %1$s · %2$d ราคา</item>
+    </plurals>
+    <string name="refresh_sheet_database">ฐานข้อมูล</string>
+    <string name="refresh_sheet_market_unreachable">เชื่อมต่อ %1$s ไม่ได้</string>
+    <plurals name="refresh_sheet_markets_unreachable">
+        <item quantity="other">เชื่อมต่อกระดานเทรดไม่ได้ %1$d แห่ง</item>
+    </plurals>
+    <string name="refresh_sheet_network">เครือข่าย</string>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="other">การแจ้งเตือน %1$d รายการ</item>
+    </plurals>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="other">%1$d คู่</item>
+    </plurals>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="other">%1$d คู่ไม่ได้อัปเดต</item>
+    </plurals>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="other">%2$d จาก %1$d คู่</item>
+    </plurals>
+    <string name="refresh_sheet_paused_until">หยุดชั่วคราวถึง %1$s</string>
+    <string name="refresh_sheet_paused_until_reason">หยุดชั่วคราวถึง %1$s (%2$s)</string>
+    <string name="refresh_sheet_reason_no_data">ไม่มีข้อมูล</string>
+    <string name="refresh_sheet_reason_offline">ไม่มีการเชื่อมต่อ</string>
+    <string name="refresh_sheet_reason_rate_limit">คำขอมากเกินไป</string>
+    <string name="refresh_sheet_reason_server">เซิร์ฟเวอร์ผิดพลาด</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">หมดเวลา</string>
+    <string name="refresh_sheet_reason_unavailable">กระดานเทรดไม่พร้อมใช้งาน</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s วินาที</string>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_markets">กระดานเทรด</string>
+    <string name="refresh_sheet_section_steps">รายละเอียด</string>
+    <string name="refresh_sheet_status_failed">ไม่ได้อัปเดต</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">อัปเดตครบ</string>
+    <string name="refresh_sheet_status_partial">อัปเดตบางส่วน</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">รอจนเริ่ม</string>
+    <string name="refresh_sheet_widgets">วิดเจ็ต</string>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+
+    <!-- Kurzbericht der Aktualisierung je Börse -->
+    <string name="refresh_report_bulk_failed">คำขอแบบรวม %1$s (ล้มเหลว)</string>
+    <plurals name="refresh_report_errors">
+        <item quantity="other">ข้อผิดพลาด %1$d</item>
+    </plurals>
+    <string name="refresh_report_live">สด: %1$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="other">ไม่มีการซื้อขายแล้ว %1$d</item>
+    </plurals>
+    <string name="refresh_report_singles">แยกทีละรายการ %1$d</string>
+
+    <!-- Prüfprotokoll der Hintergrundprüfungen (Ergebnis, Auslöser) -->
+    <string name="check_result_failed">ล้มเหลว</string>
+    <string name="check_result_ok">สำเร็จ</string>
+    <string name="check_result_partial">บางส่วน</string>
+    <string name="check_result_skipped">ข้าม</string>
+    <string name="check_trigger_bgtask">เบื้องหลัง</string>
+    <string name="check_trigger_exact">ตรงเวลา</string>
+    <string name="check_trigger_foreground">แอป</string>
+    <string name="check_trigger_widget">วิดเจ็ต</string>
+    <string name="check_trigger_widget_ios">วิดเจ็ต · ราคาและสัญญาณเตือนราคา</string>
+    <string name="check_trigger_worker">เบื้องหลัง</string>
+
+    <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
+    <string name="battery_delay_hint">Android อาจหน่วงการตรวจสอบ – ตั้งค่าแบตเตอรี่เป็น «ไม่จำกัด»</string>
+    <string name="battery_later">ภายหลัง</string>
+    <string name="battery_message">Android หน่วงงานเบื้องหลังเพื่อประหยัดพลังงาน — ราคาและวิดเจ็ตอาจล้าหลังหลายชั่วโมง การตั้งค่าการใช้แบตเตอรี่เป็นไม่จำกัดจะช่วยให้ข้อมูลเป็นปัจจุบัน คุณเปลี่ยนได้ทุกเมื่อในการตั้งค่า Android</string>
+    <string name="battery_open_settings">เปิดการตั้งค่าแบตเตอรี่</string>
+    <string name="battery_steps">ในข้อมูลแอป แตะแบตเตอรี่ (หรือการใช้แบตเตอรี่ของแอป) แล้วเลือกไม่จำกัด</string>
+    <string name="battery_title">ให้ราคาเป็นปัจจุบันเสมอ</string>
+    <string name="ios_background_refresh_off">การรีเฟรชแอปในเบื้องหลังปิดอยู่สำหรับแอปนี้ หากไม่เปิด การแจ้งเตือนจะถูกตรวจเฉพาะตอนเปิดแอป</string>
+    <string name="ios_low_power_mode">โหมดพลังงานต่ำเปิดอยู่ iOS แทบไม่ตรวจในเบื้องหลัง การแจ้งเตือนจึงอาจมาช้า</string>
+</resources>

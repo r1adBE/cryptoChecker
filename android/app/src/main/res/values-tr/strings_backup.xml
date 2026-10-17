@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Sicherung exportieren und wiederherstellen -->
+    <string name="backup_export">Dışa aktar</string>
+    <string name="backup_exported">Yedek kaydedildi.</string>
+    <string name="backup_failed">Olmadı. Bu bir Crypto Checker yedeği mi?</string>
+    <string name="backup_hint">Notlar ve gruplarla birlikte listeyi, alarmları, favorileri, portföyü ve ayarları kendi saklayacağınız bir dosyaya kaydeder – ör. yeni telefon için.</string>
+    <string name="backup_import">İçe aktar</string>
+    <string name="backup_title">Yedekleme ve geri yükleme</string>
+    <string name="backup_too_large">Dosya çok büyük veya geçerli bir yedek değil (en fazla 16 MB).</string>
+
+    <!-- Passwort der Sicherungsdatei -->
+    <string name="backup_password">Parola</string>
+    <string name="backup_password_continue">Devam</string>
+    <string name="backup_password_hide">Parolayı gizle</string>
+    <!-- %1$d = Mindestlänge des Passworts (8) -->
+    <string name="backup_password_min">En az %1$d karakter</string>
+    <string name="backup_password_mismatch">Parolalar eşleşmiyor</string>
+    <string name="backup_password_prompt">Bu yedeğin parolasını girin.</string>
+    <string name="backup_password_repeat">Parolayı tekrar girin</string>
+    <string name="backup_password_show">Parolayı göster</string>
+    <string name="backup_password_title">Parola korumalı yedek</string>
+    <string name="backup_password_too_weak">Tahmini çok kolay – yalnızca rakam olmasın, tek bir tekrar eden karakter olmasın, «12345678» ya da «sifre» gibi yaygın diziler olmasın.</string>
+    <string name="backup_password_warning">Parola olmadan yedek geri yüklenemez.</string>
+    <string name="backup_password_wrong">Yanlış parola veya dosya bozuk. Tekrar deneyin.</string>
+    <string name="backup_protect">Parolayla koru</string>
+    <string name="backup_protect_hint">Dosyayı şifreler (AES-256). Portföy verisi içeriyorsa önerilir.</string>
+
+    <!-- Sicherung ohne Passwort, Wiederherstellen -->
+    <string name="backup_plain_confirm">Parola olmadan kaydet</string>
+    <string name="backup_plain_confirm_text">Dosya şifreli değil. Eline geçen herkes şunları okuyabilir:</string>
+    <string name="backup_plain_confirm_title">Parola olmadan kaydedilsin mi?</string>
+    <string name="backup_plain_contents_addresses">Kayıtlı cüzdan adresleri</string>
+    <string name="backup_plain_contents_base">Notlar ve gruplarla izleme listesi, alarmlar, favoriler ve ayarlar</string>
+    <string name="backup_plain_contents_portfolio">Portföy: miktar ve fiyatlarıyla işlemler</string>
+    <string name="backup_restore_app_lock_kept">Portföy kilidi açık kalır – şifresiz bir yedek onu kapatamaz.</string>
+    <string name="backup_restore_confirm">İçe aktarma; listenizi (notlar ve gruplarla birlikte), alarmlarınızı, favorilerinizi, portföyünüzü ve ayarlarınızı yedekle değiştirir.</string>
+    <plurals name="backup_restore_invalid">
+        <item quantity="one">Yedekteki %d kayıt (portföy veya alarm) geçersiz ve içe aktarılmayacak.</item>
+        <item quantity="other">Yedekteki %d kayıt (portföy veya alarmlar) geçersiz ve içe aktarılmayacak.</item>
+    </plurals>
+    <string name="backup_restore_newer_version">Bu yedek daha yeni bir uygulama sürümünden – önce uygulamayı güncelle. Hiçbir şey içe aktarılmadı.</string>
+    <string name="backup_restore_unencrypted_warning">Bu yedek şifreli değil – senden geldiğini kontrol et. Ayarlar uygulanır; açık olan portföy kilidi açık kalır.</string>
+    <string name="backup_restored">Geri yüklendi: %1$s, %2$s.</string>
+    <plurals name="backup_restored_alarms">
+        <item quantity="one">%1$d alarm</item>
+        <item quantity="other">%1$d alarm</item>
+    </plurals>
+    <plurals name="backup_restored_pairs">
+        <item quantity="one">%1$d çift</item>
+        <item quantity="other">%1$d çift</item>
+    </plurals>
+
+    <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
+    <string name="storage_recovery_message">Bu cihazda uygulamanın şifreli verilerinin anahtarı artık yok, bu yüzden uygulama boş başladı. Hiçbir şey silinmedi. Listenizi ve portföyünüzü geri almak için ayarlarda «%1$s» altında bir yedek dosyası içe aktarın.</string>
+    <string name="storage_recovery_title">Kayıtlı veriler açılamadı</string>
+</resources>

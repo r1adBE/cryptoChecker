@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: beobachtete Adressen (Wallets) -->
+    <string name="portfolio_address_add">افزودن آدرس</string>
+    <string name="portfolio_address_count">احتساب</string>
+    <string name="portfolio_address_error">به‌روزرسانی ناموفق بود</string>
+    <string name="portfolio_address_hint">آدرس عمومی (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) یا xpub</string>
+    <string name="portfolio_address_label">برچسب (اختیاری)</string>
+    <string name="portfolio_address_not_since_buy">از آدرس · خارج از «از زمان خرید»: %1$s</string>
+    <string name="portfolio_address_overlap">در تراکنش‌های خودت هم هست: %1$s – هر دو جمع می‌شوند. همان سکه‌ها؟ «فقط نمایش» را انتخاب کن.</string>
+    <string name="portfolio_address_overlap_ask">%1$s را از قبل با تراکنش‌های خودت ثبت می‌کنی. موجودی این آدرس به سبد اضافه شود یا فقط نمایش داده شود؟</string>
+    <string name="portfolio_address_overlap_auto">«%1$s» اکنون فقط نمایش داده می‌شود و حساب نمی‌شود – %2$s در تراکنش‌هایت هم هست.</string>
+    <string name="portfolio_address_overlap_restored">«%1$s» دوباره حساب می‌شود – مقدارها با تراکنش‌هایت جور نیست. اگر همان سکه‌هاست «فقط نمایش» را انتخاب کن.</string>
+    <string name="portfolio_address_overlap_title">همان سکه‌های تراکنش‌هایت؟</string>
+    <string name="portfolio_address_overlap_tx">همان مقدارِ واریز/انتقال خودت (%1$s) – احتمالاً دو بار حساب می‌شود.</string>
+    <string name="portfolio_address_period_observed">آدرس‌های زیر نظر از نخستین موجودی مشاهده‌شده حساب می‌شوند؛ تغییرات بعدی ورود/خروج است، نه سود.</string>
+    <string name="portfolio_address_privacy">فقط آدرس عمومی به %1$s فرستاده می‌شود – هرگز کلید یا عبارت بازیابی (seed). ارائه‌دهنده آن را همراه با آدرس IP تو می‌بیند. حداکثر هر 10 دقیقه یک بار بررسی می‌شود.</string>
+    <string name="portfolio_address_remove">حذف آدرس</string>
+    <string name="portfolio_address_show_only">فقط نمایش، بدون افزودن به سبد</string>
+    <string name="portfolio_address_show_only_short">فقط نمایش</string>
+    <string name="portfolio_address_tokens">احتساب توکن‌ها</string>
+    <string name="portfolio_address_unknown_tokens">+%1$d توکن ناشناخته (حساب نشده)</string>
+    <string name="portfolio_address_xpub_privacy">یک xpub همهٔ آدرس‌های این کیف پول را آشکار می‌کند. آن‌ها روی دستگاه تو ساخته می‌شوند؛ به %1$s فقط آدرس‌های جداگانه فرستاده می‌شود – در اولین جست‌وجو دست‌کم 40 درخواست و بعد کمتر. کلیدهای خصوصی (xprv) هرگز پذیرفته نمی‌شوند.</string>
+    <string name="portfolio_address_xpub_used">آدرس‌های استفاده‌شده: %1$d</string>
+    <string name="portfolio_addresses_title">آدرس‌ها</string>
+
+    <!-- Prüfung einer eingegebenen Adresse -->
+    <string name="address_bch_unsupported">آدرس‌های Bitcoin Cash را نمی‌توان زیر نظر گرفت: هیچ سرویس عمومی رایگانی بدون کلید API نیست که شرایطش این را مجاز کند.</string>
+    <string name="address_bep2_shutdown">BNB Beacon Chain (BEP-2) در 2024 خاموش شد – موجودی‌ها اکنون روی BNB Smart Chain هستند (0x…)</string>
+    <string name="address_checksum">چک‌سام نادرست است – غلط تایپی؟</string>
+    <string name="address_doge_unsupported">آدرس‌های Dogecoin را نمی‌توان زیر نظر گرفت: هیچ سرویس عمومی رایگانی بدون کلید API نیست که شرایطش این را مجاز کند.</string>
+    <string name="address_duplicate">این آدرس قبلاً اضافه شده است</string>
+    <string name="address_ens">نام‌های ENS پشتیبانی نمی‌شوند – آدرس 0x را وارد کن</string>
+    <string name="address_invalid">آدرس معتبری از یک شبکهٔ پشتیبانی‌شده نیست</string>
+    <string name="address_limit">حداکثر 20 آدرس</string>
+    <string name="address_secret">این شبیه کلید خصوصی یا عبارت بازیابی (seed) است – هرگز آن را جایی وارد نکن. فقط آدرس‌های عمومی.</string>
+    <string name="address_testnet">آدرس‌های Testnet پشتیبانی نمی‌شوند</string>
+    <string name="address_unsupported">این نوع آدرس پشتیبانی نمی‌شود</string>
+    <string name="address_wrong_chain">آدرس متعلق به شبکهٔ دیگری است</string>
+    <string name="address_xpub_multisig">کلیدهای multisig (Ypub/Zpub) پشتیبانی نمی‌شوند</string>
+</resources>

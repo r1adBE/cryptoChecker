@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: leere Ansicht, Statuszeile, Frische -->
+    <string name="watchlist_all_fresh">Aktual · %1$s</string>
+    <string name="watchlist_empty_title">Ende nuk ka çifte</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="one">%1$d nga %2$d pa çmim</item>
+        <item quantity="other">%1$d nga %2$d pa çmim</item>
+    </plurals>
+    <string name="watchlist_last_run">Kalimi i fundit %1$s</string>
+    <string name="watchlist_live_a11y">Çmimet live janë aktive</string>
+    <string name="watchlist_live_badge">LIVE</string>
+    <string name="watchlist_offline_since">Pa lidhje · gjendja %1$s</string>
+    <string name="watchlist_pull_to_refresh">Tërhiq poshtë për ta rifreskuar</string>
+    <string name="watchlist_refresh_report">Rifreskimi i fundit</string>
+    <string name="watchlist_refresh_report_empty">Ende pa detaje: ende nuk ka pasur rifreskim të plotë. Prek rifreskimin dhe prit derisa treguesi të ndalojë.</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="one">%1$d nga %2$d të vjetruara</item>
+        <item quantity="other">%1$d nga %2$d të vjetruara</item>
+    </plurals>
+    <string name="watchlist_status_all_disabled">Të gjitha çiftet këtu janë çaktivizuar</string>
+    <string name="watchlist_status_exchange_prices">Çmimet nga bursat e tua · %1$s</string>
+    <string name="watchlist_status_exchange_prices_short">Çmimet e bursës · %1$s</string>
+    <string name="watchlist_status_group_empty">Nuk ka çifte në këtë grup</string>
+    <string name="watchlist_status_none_traded">Nuk ka çifte të tregtuara këtu</string>
+    <string name="watchlist_updated">Përditësuar: %1$s</string>
+
+    <!-- Merkliste: Puls-Zeile (Paare im Plus/Minus, ohne 24-h-Wert) -->
+    <string name="watchlist_pulse_avg">Ø %1$s</string>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="one">%1$d bie</item>
+        <item quantity="other">%1$d bien</item>
+    </plurals>
+    <!-- Paare mit Kurs, aber ohne 24-h-Wert («· 510 ohne 24h-Wert») -->
+    <plurals name="watchlist_pulse_missing">
+        <item quantity="one">%1$d pa vlerë 24-orëshe</item>
+        <item quantity="other">%1$d pa vlerë 24-orëshe</item>
+    </plurals>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="one">%1$d pa vlerë sot</item>
+        <item quantity="other">%1$d pa vlerë sot</item>
+    </plurals>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="one">%1$d rritet</item>
+        <item quantity="other">%1$d rriten</item>
+    </plurals>
+
+    <!-- Merkliste: Zeile eines Paars -->
+    <string name="watchlist_row_disabled">%1$s · çaktivizuar</string>
+    <string name="watchlist_row_outdated">%1$s · i vjetëruar</string>
+    <string name="watchlist_row_outdated_age">i vjetëruar · %1$s</string>
+    <string name="watchlist_row_price_unchanged_since">Çmimi i pandryshuar që nga %1$s</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s nuk arrihet</string>
+
+    <!-- Merkliste: Suche, Sprungknopf, Sortieren nach Spalte -->
+    <string name="watchlist_jump_end">Në fund</string>
+    <string name="watchlist_jump_start">Në fillim</string>
+    <string name="watchlist_search_close">Mbyll kërkimin</string>
+    <string name="watchlist_search_empty">Asnjë rezultat për «%1$s»</string>
+    <string name="watchlist_search_hint">Kërko çift, emër ose bursë</string>
+    <string name="watchlist_search_open">Kërko</string>
+    <string name="watchlist_sort_ascending">rritës</string>
+    <string name="watchlist_sort_descending">zbritës</string>
+    <string name="watchlist_sort_hint">Mbaj dhe tërhiq një çift, ose përdor dorezën. Të preferuarat mbeten lart.</string>
+    <string name="watchlist_sort_name">Emri</string>
+    <string name="watchlist_sort_own">Renditja juaj</string>
+    <string name="watchlist_sort_price">Çmimi</string>
+
+    <!-- Merkliste: Mehrfachauswahl, Ansichten, Entfernen -->
+    <string name="watchlist_clear">Pastro listën e ndjekjes</string>
+    <string name="watchlist_clear_confirm">Të hiqen të gjitha çiftet nga lista e ndjekjes? Bashkë me to hiqen edhe alarmet e tyre.</string>
+    <plurals name="watchlist_disabled_count">
+        <item quantity="one">%1$d i çaktivizuar</item>
+        <item quantity="other">%1$d të çaktivizuara</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_action">Hiq</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="one">Të hiqet %1$d çift që nuk tregtohet më në bursën e vet? Bashkë me të hiqen edhe alarmet e tij.</item>
+        <item quantity="other">Të hiqen %1$d çifte që nuk tregtohen më në bursën e tyre? Bashkë me to hiqen edhe alarmet e tyre.</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_menu">Hiq çiftet që nuk tregtohen (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">Hiq çiftet që nuk tregtohen</string>
+    <string name="watchlist_removed">%1$s u hoq</string>
+    <plurals name="watchlist_removed_count">
+        <item quantity="one">U hoq %1$d çift</item>
+        <item quantity="other">U hoqën %1$d çifte</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="one">U hoq %1$d çift që nuk tregtohet</item>
+        <item quantity="other">U hoqën %1$d çifte që nuk tregtohen</item>
+    </plurals>
+    <string name="watchlist_select">Zgjidh</string>
+    <string name="watchlist_select_all">Zgjidh të gjitha</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="one">%1$d e zgjedhur</item>
+        <item quantity="other">%1$d të zgjedhura</item>
+    </plurals>
+    <string name="watchlist_show_all">Shfaq të gjitha</string>
+    <string name="watchlist_show_only_disabled">Shfaq vetëm të çaktivizuarat</string>
+    <string name="watchlist_show_only_stale">Shfaq vetëm të vjetruarat</string>
+
+    <!-- Merkliste: weitere Texte (Gruppen, Alarme, Mitteilung, Sprachausgabe) -->
+    <plurals name="watchlist_alarms_count">
+        <item quantity="one">Alarmi (%1$d)</item>
+        <item quantity="other">Alarmet (%1$d)</item>
+    </plurals>
+    <string name="watchlist_favorites_empty_hint">Ende pa të preferuara. Rrëshqit një çift djathtas ose hape dhe prek «I preferuar».</string>
+    <string name="watchlist_group_empty_hint">Shtyp gjatë një grup për të zgjedhur çiftet e tij.</string>
+    <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
+    <string name="watchlist_groups_empty_hint">Grupet e tua do të shfaqen këtu</string>
+    <string name="watchlist_notification">Njoftim</string>
+    <string name="watchlist_tts">Lexo çmimin</string>
+    <string name="watchlist_tts_speech_on">Zëri është aktiv. Mund ta ndryshosh te Cilësimet › Të avancuara › Dalja zanore.</string>
+
+    <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
+    <string name="watch_action_add_widget">Shto si widget</string>
+    <string name="watch_action_alarm">Alarm</string>
+    <string name="watch_action_favorite">I preferuar</string>
+    <string name="watch_action_why">Çfarë lëviz bashkë?</string>
+    <string name="watch_action_why_short">Çfarë lëviz?</string>
+    <string name="watch_change_mark">Mark</string>
+    <string name="watch_disable">Çaktivizo</string>
+    <string name="watch_disable_hint">Pa kërkesa, pa njoftime</string>
+    <string name="watch_disabled">Çaktivizuar</string>
+    <string name="watch_disabled_banner">%1$s u çaktivizua</string>
+    <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
+    <string name="watch_edit_alarms_warning">Alarmet mbeten – kontrollo kufijtë</string>
+    <!-- Titel des Formulars und Screenreader-Name des Stifts neben dem Paar -->
+    <string name="watch_edit_title">Ndrysho çiftin</string>
+    <string name="watch_enable">Aktivizo</string>
+    <string name="watch_enable_hint">Kurset dhe njoftimet rifillojnë</string>
+    <string name="watch_enabled_banner">%1$s u aktivizua</string>
+    <string name="watch_error_offline">Pa lidhje</string>
+    <string name="watch_gesture_hint_short">Prek: alarm dhe “Çfarë lëviz bashkë?” · shtyp gjatë për të zgjedhur · rrëshqit majtas për ta fshirë · djathtas për të preferuar</string>
+    <string name="watch_hint_tap_why">Prek një monedhë për të parë çfarë lëviz bashkë me të</string>
+    <string name="watch_not_traded">Nuk tregtohet më në këtë bursë</string>
+    <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
+    <string name="watch_preview_not_watched">Nuk është në listën e ndjekjes</string>
+    <string name="watch_price_mid">çmim mesatar (ndryshe mark)</string>
+    <string name="watch_row_source_both">Ndryshimi dhe grafiku: %1$s</string>
+    <string name="watch_row_source_change">Ndryshimi: %1$s</string>
+    <string name="watch_row_source_chart">Grafiku: %1$s</string>
+
+    <!-- Meldung nach dem Hinzufügen (ein Paar / mehrere Paare) -->
+    <string name="pair_added_watching">%1$s tani është në listën e ndjekjes</string>
+    <!-- Ein Paar: pair_added_watching -->
+    <string name="pairs_added_watching">%1$s tani janë në listën e ndjekjes</string>
+
+    <!-- Favoriten -->
+    <string name="favorite_add">Shto te të preferuarat</string>
+    <string name="favorite_added">%1$s u shtua te të preferuarat</string>
+    <string name="favorite_remove">Hiq nga të preferuarat</string>
+    <string name="favorite_removed">%1$s u hoq nga të preferuarat</string>
+    <string name="hint_favorites_list">Këshillë: rrëshqit një rresht djathtas për ta bërë të preferuar – të preferuarat qëndrojnë lart.</string>
+
+    <!-- Gruppen und Chips der Merkliste -->
+    <string name="group_add">Grup i ri</string>
+    <string name="group_all">Të gjitha</string>
+    <!-- Alpha-Tokens: Chip «α», Art vor der Glocke, «inkl. Alpha-Tokens» -->
+    <string name="group_alpha">Tokenë Alpha</string>
+    <string name="group_delete">Fshi grupin</string>
+    <string name="group_delete_confirm">Çiftet mbeten në listën tënde të ndjekjes.</string>
+    <string name="group_done">U krye</string>
+    <string name="group_edit_title">Ndrysho grupin</string>
+    <!-- Chip «FAV» (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird vorgelesen) -->
+    <string name="group_favorites">Të preferuarat</string>
+    <string name="group_in_other">në %1$s</string>
+    <string name="group_name">Emri i grupit</string>
+    <string name="group_new">Grup i ri…</string>
+    <string name="group_next">Vazhdo</string>
+    <string name="group_none">Pa grup</string>
+    <string name="group_rename">Riemërto</string>
+    <string name="group_search_hint">Kërko çift, emër ose bursë</string>
+    <string name="group_target">Në grup</string>
+    <string name="group_title">Grupi</string>
+    <!-- Gruppen-Chip «Token» (alle Paare ausser der Gruppe «TradFi»), Screenreader und Widget-Einrichtung -->
+    <string name="group_tokens">Tokenë</string>
+    <string name="group_value">Grupi: %1$s</string>
+
+    <!-- Notiz zum Paar -->
+    <string name="note_add">Shto shënim</string>
+    <string name="note_edit">Ndrysho shënimin</string>
+    <string name="note_hint">p.sh. hyrje në 0,42, objektiv 0,60</string>
+    <string name="note_remove">Hiq</string>
+    <string name="note_title">Shënim</string>
+
+    <!-- Reihenfolge ändern (Sortiermodus, Screenreader-Aktionen) -->
+    <string name="sort_drag_handle">Tërhiq për ta zhvendosur</string>
+    <string name="sort_move_bottom">Në fund</string>
+    <string name="sort_move_down">Poshtë</string>
+    <string name="sort_move_top">Në krye</string>
+    <string name="sort_move_up">Lart</string>
+</resources>

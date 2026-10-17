@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
+    <string name="widget_background">Fundo</string>
+    <string name="widget_configure_hint">Escolha o fundo e a opacidade. A cor segue o app. O widget mostra a lista inteira; toque em uma linha para abrir o app.</string>
+    <string name="widget_configure_title">Configurar widget</string>
+    <string name="widget_description">Mostra o preço de um par da sua lista de acompanhamento.</string>
+    <string name="widget_empty">Ainda sem pares na lista de acompanhamento.</string>
+    <string name="widget_group_hint">Mostrar apenas os pares deste grupo.</string>
+    <string name="widget_kind_single">Uma moeda</string>
+    <string name="widget_opacity">Opacidade do fundo: %1$d%%</string>
+    <string name="widget_pulse_description">O que se destaca agora no mercado: manchete, resumo curto e também Bitcoin, Ethereum e Solana.</string>
+
+    <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->
+    <!-- Allein, wenn für «outdated · 06:42» der Platz fehlt (Kopfzeile Listen-Widget) -->
+    <string name="widget_outdated">desatualizado</string>
+    <!-- Statt der Uhrzeit: «outdated · 06:42» (heute) bzw. «outdated · 5 Oct, 06:42» -->
+    <string name="widget_outdated_time">desatualizado · %1$s</string>
+
+    <!-- Widgets: Chart und Zeitraum -->
+    <string name="widget_chart_candles">Candles</string>
+    <string name="widget_chart_line">Linha</string>
+    <string name="widget_chart_range">Período do gráfico</string>
+    <string name="widget_chart_type">Tipo de gráfico</string>
+    <!-- «1 Jahr» im Chart des Aktionsblatts (365 Tageskerzen; Chip neben 24h · 7T · 30T) -->
+    <string name="widget_range_1y">1 ano</string>
+    <string name="widget_range_24h">24h</string>
+    <string name="widget_range_30d">30 dias</string>
+    <string name="widget_range_7d">7 dias</string>
+    <string name="widget_range_short_1y">1A</string>
+    <string name="widget_range_short_24h">24h</string>
+    <string name="widget_range_short_30d">30D</string>
+    <string name="widget_range_short_7d">7D</string>
+
+    <!-- Portfolio-Widget -->
+    <!-- Fusszeile, %1$s Uhrzeit ohne Sekunden («Stand 15:19») -->
+    <string name="widget_portfolio_as_of">Às %1$s</string>
+    <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
+    <string name="widget_portfolio_chart_pending">Histórico em breve</string>
+    <string name="widget_portfolio_description">Valor total do seu portfólio e variação de hoje</string>
+    <string name="widget_portfolio_display">Exibição</string>
+    <string name="widget_portfolio_display_conversion">Só conversão</string>
+    <string name="widget_portfolio_display_conversion_usdt">Conversão + USDT</string>
+    <string name="widget_portfolio_display_hint">A linha USDT fica oculta quando a moeda de conversão é USD.</string>
+    <string name="widget_portfolio_display_usdt">Só USDT</string>
+    <string name="widget_portfolio_empty">Adicione compras na aba Portfólio</string>
+    <string name="widget_portfolio_list_hint">Abra o app para mostrar suas posições aqui.</string>
+    <string name="widget_portfolio_locked_hint">Bloqueado – desbloqueie no app</string>
+    <!-- Offene Coins ohne Kurs zählen im Gesamtwert als 0 -->
+    <plurals name="widget_portfolio_missing_coins">
+        <item quantity="one">sem %1$d moeda</item>
+        <item quantity="many">sem %1$d moedas</item>
+        <item quantity="other">sem %1$d moedas</item>
+    </plurals>
+    <plurals name="widget_portfolio_more">
+        <item quantity="one">+ %1$d outra</item>
+        <item quantity="many">+ %1$d outras</item>
+        <item quantity="other">+ %1$d outras</item>
+    </plurals>
+    <string name="widget_portfolio_name">Portfólio</string>
+    <string name="widget_portfolio_off_hint">Ative em %1$s.</string>
+    <string name="widget_portfolio_off_short">Portfólio desativado</string>
+    <string name="widget_portfolio_off_title">Portfólio desativado</string>
+    <string name="widget_portfolio_partly_stale">preço em parte antigo</string>
+    <string name="widget_portfolio_period">Período</string>
+    <string name="widget_portfolio_period_without">%1$s sem %2$s</string>
+    <string name="widget_portfolio_range_48h">48h</string>
+    <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
+    <string name="widget_portfolio_range_fallback">%1$s: abra o Portfólio</string>
+    <string name="widget_portfolio_range_short_48h">48h</string>
+    <string name="widget_portfolio_today_without">Hoje sem %1$s</string>
+    <string name="widget_portfolio_view">Visualização</string>
+    <string name="widget_portfolio_view_chart">Gráfico</string>
+    <string name="widget_portfolio_view_list">Lista</string>
+    <string name="widget_portfolio_view_overview">Resumo</string>
+
+    <!-- Einzel-Widget -->
+    <string name="single_widget_choose">Escolher par</string>
+    <string name="single_widget_description">Mostra uma moeda em grande com preço, variação e gráfico de 24 horas.</string>
+    <string name="single_widget_label">Crypto Checker – uma moeda</string>
+    <string name="single_widget_title">Configurar widget individual</string>
+
+    <!-- Widgets aus der App hinzufügen -->
+    <string name="widgets_add">Adicionar</string>
+    <!-- Screenreader: Knopf «Add» mit dem Namen des Widgets -->
+    <string name="widgets_add_named">Adicionar widget %1$s</string>
+    <string name="widgets_manual_text">Sua tela inicial não consegue adicionar widgets pelo app. Toque e segure um espaço vazio da tela inicial, escolha “Widgets” e procure “Crypto Checker”.</string>
+    <!-- Startbildschirm (Launcher) kann keine Widgets aus der App annehmen -->
+    <string name="widgets_manual_title">Adicione o widget você mesmo</string>
+    <string name="widgets_sheet_title">Adicionar um widget</string>
+
+    <!-- Nur iOS: Widget selbst hinzufügen (drei Schritte) -->
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">O iOS não permite que apps adicionem widgets sozinhos. Leva só um instante:</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">Widgets disponíveis</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">Toque e segure um espaço vazio da Tela de Início até os apps começarem a tremer.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">Toque em “Editar” › “Adicionar Widget” na parte de cima (ou em “+” em versões mais antigas do iOS).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">Busque “Crypto Checker”, escolha um widget e toque em “Adicionar Widget”.</string>
+</resources>
