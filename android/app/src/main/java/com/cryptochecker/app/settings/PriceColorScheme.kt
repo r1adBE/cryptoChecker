@@ -10,21 +10,22 @@ package com.cryptochecker.app.settings
  * Farben nutzen. Im Dunkeln jeweils hellere Fassungen, im Hellen dunklere.
  * Normal: mindestens 4.5:1 (WCAG AA), hoher Kontrast: mindestens 7:1 (AAA) — auf
  * allen hellen/dunklen Flächen bis #E2E2E2 bzw. #353535 (Änderungen als Schrift ohne Pille).
- * Knappste Werte: Rot dunkel #FF6F69 («Frisch») 4.51 auf #353535, hoher Kontrast #002A5A (hell)
- * und #FFB469 (dunkel) je 7.00. Siehe PriceColorSchemeTest.
+ * Knappste Werte: Börsenfarben je knapp über 4.5:1 bzw. 7:1 (z. B. #3EAE97 4.50 auf #353535,
+ * #C3213A 4.50 auf #E2E2E2) — sie liegen so nah am Börsenton, wie der Kontrast erlaubt.
+ * Siehe PriceColorSchemeTest.
  *
- * Feste Börsenfarben («Frisch», «Traditionell», «Farbsehschwäche», Entscheid 18. Oktober 2026),
- * geprüft mit `android/tools/check_price_colors.py` und PriceColorSchemeTest:
- *  - hell ist fallend die hellere, kräftigere Farbe (echtes Rot/Orange auf Papier), dunkel die
- *    dunklere (wie Binance); Leuchtdichte-Verhältnis ≥ 1.4 («Farbsehschwäche» ≥ 1.5), hoher
- *    Kontrast ≥ 1.25 wie «Ruhig» — auch bei Deuteranopie;
- *  - ΔE2000 ≥ 10 («Farbsehschwäche» ≥ 15) zu jedem Akzent ([AccentColor.primary]) ausser dem
- *    derselben Farbfamilie (Rot neben Rot, Grün neben Grün/Marrs Green, Blau neben Blau, Orange
- *    neben Orange: Börsenfarben bleiben, was sie sind);
- *  - «Frisch» Farbton (HSL) steigend 140–165°, fallend 350–10°; «Traditionell» 115–135° / 0–8°,
- *    je ΔE2000 ≥ 10 zur selben Farbe von «Frisch»;
- *  - «Farbsehschwäche»: steigend/fallend ΔE2000 ≥ 40 (hoher Kontrast ≥ 35) unter Protanopie,
- *    Deuteranopie und Tritanopie (Machado 2009).
+ * Feste Börsenfarben («Frisch», «Traditionell», «Farbsehschwäche», Entscheid 18. Oktober 2026:
+ * «Farben wie bei allen Börsen, die Akzentfarbe soll nicht irritieren»), geprüft mit
+ * `android/tools/check_price_colors.py` und PriceColorSchemeTest:
+ *  - je Farbe der Ton der Börsen-App, so nah wie möglich (CIEDE2000): «Frisch» = Binance
+ *    #0ECB81 / #F6465D, «Traditionell» = TradingView #089981 / #F23645, «Farbsehschwäche» =
+ *    Blau/Orange (hell #1565C0 / #E65100, dunkel #3D9BFF / #F7931A); bevorzugt gleicher Farbton
+ *    (HSL ± 3°), nur die Helligkeit angepasst;
+ *  - hart nur der Kontrast als Schrift (≥ 4.5:1, hoher Kontrast ≥ 7:1) auf allen Flächen;
+ *  - «Frisch» und «Traditionell» je Farbe ΔE2000 ≥ 8 (sonst «Traditionell» dunkler/kräftiger);
+ *  - nur «Farbsehschwäche»: steigend/fallend ΔE2000 ≥ 35 unter Protanopie, Deuteranopie und
+ *    Tritanopie (Machado 2009) und Leuchtdichte-Verhältnis ≥ 1.4;
+ *  - kein Abstand zur Akzentfarbe, keine Regel, welche Richtung heller ist.
  *
  * `inverted` tauscht nur die Farben (Ostasien: Rot = steigend), nie Vorzeichen oder Wörter.
  *
@@ -51,8 +52,8 @@ enum class PriceColorScheme(
     /**
      * Standard «Ruhig»: gedämpftes Grün steigend, gedämpftes Rot fallend (weniger Sättigung als
      * «Frisch»). Fallend mit anderer Helligkeit als steigend (hell dunkler, dunkel heller), damit
-     * die Richtung auch ohne Rot-Grün-Sehen erkennbar bleibt: Leuchtdichte 1.78:1 hell, 1.51:1
-     * dunkel (Deuteranopie simuliert 1.54 / 1.68). Knappste Werte: #396E54 4.59 auf #E2E2E2,
+     * die Richtung auch ohne Rot-Grün-Sehen erkennbar bleibt: Leuchtdichte 1.78:1 hell, 1.505:1
+     * dunkel (Deuteranopie simuliert 1.54 / 1.66). Knappste Werte: #396E54 4.59 auf #E2E2E2,
      * #61AE87 4.62 auf #353535.
      */
     CALM(
@@ -61,49 +62,47 @@ enum class PriceColorScheme(
     ),
 
     /**
-     * «Frisch»: Börsengrün (Smaragd, HSL ≈ 150°) steigend, kräftiges Rot (354–4°) fallend wie in
-     * Börsen-Apps (bis Build 45 der Standard). Wie «Traditionell» und «Farbsehschwäche» feste
-     * Standardfarben wie an jeder Börse (Entscheid 16. Oktober 2026): nur «Ruhig» und «Ruhig
-     * Farbsehschwäche» weichen je Akzent aus. Hell das hellste Rot, das 4.5:1 erlaubt (#CC0015,
-     * C* 84), darunter dunkleres Grün; dunkel ein Rot (#FF6F69), so bunt wie 4.5:1 auf #353535 erlaubt.
+     * «Frisch»: Binance-Grün/-Rot (#0ECB81 / #F6465D, bis Build 45 der Standard). Wie «Traditionell»
+     * und «Farbsehschwäche» feste Standardfarben wie an jeder Börse (Entscheid 16. Oktober 2026):
+     * nur «Ruhig» und «Ruhig Farbsehschwäche» weichen je Akzent aus. Dunkel steigend genau der
+     * Binance-Ton; sonst gleicher Farbton, so hell bzw. dunkel wie der Kontrast verlangt.
      */
     GREEN_RED(
         listOf(
-            PriceTone(0xFF005A30.toInt(), 0xFF18EA96.toInt(), 0xFF00421E.toInt(), 0xFF81FFBA.toInt()),
+            PriceTone(0xFF127248.toInt(), 0xFF0ECB81.toInt(), 0xFF025430.toInt(), 0xFF30DE92.toInt()),
         ),
         listOf(
-            PriceTone(0xFFCC0015.toInt(), 0xFFFF6F69.toInt(), 0xFF960000.toInt(), 0xFFFFB1AB.toInt()),
+            PriceTone(0xFFC3213A.toInt(), 0xFFFC6F7D.toInt(), 0xFF911127.toInt(), 0xFFFFAEB7.toInt()),
         ),
     ),
 
     /**
-     * «Traditionell»: klassisches reines Grün (HSL 115–120°) steigend, reines Rot (0–7°) fallend
-     * (Zeitungs-Kursteil); je ΔE2000 ≥ 10 zur selben Farbe von «Frisch». Hell ein tiefes Rot
-     * (#990000): ein reines Rot heller als L* ≈ 33 liegt näher als ΔE 10 am orangen Akzent #A64827;
-     * dunkel ein helles Rot (#FF9C99), weil reines Rot neben «Frisch» und Orange sonst keinen Platz hat.
+     * «Traditionell»: TradingView-Kerzen (#089981 / #F23645), nur so weit angepasst, wie der
+     * Kontrast verlangt; je ΔE2000 ≥ 8 zu «Frisch». Fallend dunkel #FE7062 (≈ 6°) statt
+     * Binance-nahem Rosa-Rot, damit es sich von «Frisch» abhebt.
      */
     TRADITIONAL(
         listOf(
-            PriceTone(0xFF033C00.toInt(), 0xFF87FF7E.toInt(), 0xFF002100.toInt(), 0xFFE4FFE4.toInt()),
+            PriceTone(0xFF0A7262.toInt(), 0xFF3EAE97.toInt(), 0xFF005246.toInt(), 0xFF5AD8BE.toInt()),
         ),
         listOf(
-            PriceTone(0xFF990000.toInt(), 0xFFFF9C99.toInt(), 0xFF630000.toInt(), 0xFFF9D2CD.toInt()),
+            PriceTone(0xFFCC0416.toInt(), 0xFFFE7062.toInt(), 0xFF960208.toInt(), 0xFFFEB2A4.toInt()),
         ),
     ),
 
     /**
-     * «Farbsehschwäche»: Blau steigend, Orange fallend – feste Standardfarben wie an jeder Börse,
-     * kein Ersatz je Akzent (Entscheid 16. Oktober 2026; die früheren, ruhigeren Werte trägt
-     * [CALM_COLOR_VISION]). Hell Orange #AE4200 über dunklem Blau #003372, dunkel Orange #ED810C
-     * unter Himmelblau #96D8FF — so trennt auch die Helligkeit (≥ 1.5:1, bei jeder simulierten
-     * Farbsehschwäche), nicht nur der Farbton.
+     * «Farbsehschwäche»: Blau steigend, Orange fallend wie die Farbsehschwäche-Option der
+     * Börsen-Apps – feste Standardfarben, kein Ersatz je Akzent (Entscheid 16. Oktober 2026; die
+     * früheren, ruhigeren Werte trägt [CALM_COLOR_VISION]). Nah an #1565C0 / #E65100 (hell) bzw.
+     * #3D9BFF / #F7931A (dunkel); Helligkeit ≥ 1.4:1 getrennt und bei jeder simulierten
+     * Farbsehschwäche ΔE2000 ≥ 35.
      */
     BLUE_ORANGE(
         listOf(
-            PriceTone(0xFF003372.toInt(), 0xFF96D8FF.toInt(), 0xFF002A5A.toInt(), 0xFFC9E7FF.toInt()),
+            PriceTone(0xFF064E93.toInt(), 0xFF4F9FFD.toInt(), 0xFF00335F.toInt(), 0xFFCFEAFF.toInt()),
         ),
         listOf(
-            PriceTone(0xFFAE4200.toInt(), 0xFFED810C.toInt(), 0xFF7B3300.toInt(), 0xFFFFB469.toInt()),
+            PriceTone(0xFFB73900.toInt(), 0xFFFFA73E.toInt(), 0xFF842A00.toInt(), 0xFFFFB46A.toInt()),
         ),
     ),
 
@@ -211,23 +210,29 @@ internal object PriceTones {
     val CALM_GREEN = PriceTone(0xFF396E54.toInt(), 0xFF61AE87.toInt(), 0xFF294F3C.toInt(), 0xFFA1CFB8.toInt())
 
     /**
-     * «Ruhig» fallend: hell dunkles Rot (#771D23, ≥ 8.1:1 auf allen hellen Flächen), dunkel helles
-     * Rot (#FFAFA8, C* 32.3; ΔE ≥ 37 zu Blau, Grün, Marrs Green).
+     * «Ruhig» fallend: hell dunkles Rot (#771D23, ≥ 8.1:1 auf allen hellen Flächen), dunkel
+     * Lachs-Rot (#FFB097, HSL 14°, C* 35.6 — das bunteste Rot 5–15°, das 1.5:1 heller als das Grün
+     * bleibt, auch bei Deuteranopie; bis 18. Oktober 2026 das rosigere #FFAFA8; ΔE ≥ 39 zu Blau,
+     * Grün, Marrs Green).
      */
-    val CALM_RED = PriceTone(0xFF771D23.toInt(), 0xFFFFAFA8.toInt(), 0xFF5A0813.toInt(), 0xFFFFD1CF.toInt())
+    val CALM_RED = PriceTone(0xFF771D23.toInt(), 0xFFFFB097.toInt(), 0xFF5A0813.toInt(), 0xFFFFD1CF.toInt())
 
     /**
      * «Ruhig» fallend neben Orange (Standard-Akzent): Karmin, liest sich als Rot. Ein Rot neben Orange
      * erreicht ΔE 24 nicht (heller als L* ≈ 27 bzw. bunt genug nur bis ≈ 19 / 21), daher eigene
-     * Schwelle 19 hell / 20 dunkel: ΔE 19.3 / 20.9 zu #A64827 / #ED835E, C* 40.3 / 30.6.
+     * Schwelle 19 hell / 20 dunkel: ΔE 19.3 / 20.3 zu #A64827 / #ED835E, C* 40.3 / 31.4 (dunkel
+     * #FFAFBB, HSL 351°: so rot, wie ΔE 20 zu Orange und C* ≥ 30 erlauben).
      * Hoher Kontrast: ΔE 15.2 / 15.0 zum Akzent mit hohem Kontrast.
      */
     val CALM_CRIMSON = PriceTone(
-        0xFF77212F.toInt(), 0xFFFFB1BE.toInt(), 0xFF51000D.toInt(), 0xFFFFE3E7.toInt(),
+        0xFF77212F.toInt(), 0xFFFFAFBB.toInt(), 0xFF51000D.toInt(), 0xFFFFE3E7.toInt(),
         minAccentLight = 19.0, minAccentDark = 20.0,
     )
 
-    /** «Ruhig» fallend neben Rot: Pflaume (ΔE 27.4 / 25.2 zu #BE2B38 / #FF7173). */
+    /**
+     * «Ruhig» fallend neben Rot: Pflaume (ΔE 27.4 / 25.2 zu #BE2B38 / #FF7173). Röter geht dunkel
+     * nicht: jedes Rot mit ΔE ≥ 24 zum roten Akzent und 1.5:1 heller als das Grün ist fast weiss (C* ≤ 17).
+     */
     val CALM_PLUM = PriceTone(0xFF672B61.toInt(), 0xFFE7B4E0.toInt(), 0xFF4A1446.toInt(), 0xFFFFD6F9.toInt())
 
     /** «Ruhig» steigend neben Grün/Marrs Green: gedämpftes Blau, gleiche Helligkeit wie das Grün. */

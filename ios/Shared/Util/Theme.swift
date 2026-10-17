@@ -341,16 +341,17 @@ enum AssetColors {
 ///
 /// Normale Werte erreichen WCAG AA (≥ 4.5:1), die Werte für hohen Kontrast AAA (≥ 7:1)
 /// — auf allen hellen Flächen #FFFFFF … #E2E2E2 bzw. dunklen #0E0E0E … #353535 (Änderungen als
-/// Schrift ohne Pille). Knappste Werte: Rot dunkel #FF6F69 («Frisch») 4.51 auf #353535, hoher
-/// Kontrast #002A5A (hell) und #FFB469 (dunkel) je 7.00.
+/// Schrift ohne Pille). Die Börsenfarben liegen je knapp über 4.5:1 bzw. 7:1 (so nah am Börsenton,
+/// wie der Kontrast erlaubt).
 ///
-/// Feste Börsenfarben («Frisch», «Traditionell», «Farbsehschwäche», Entscheid 18. Oktober 2026),
-/// geprüft mit `android/tools/check_price_colors.py` und `SettingsLogicTests`: hell ist fallend die
-/// hellere, kräftigere Farbe (echtes Rot/Orange auf Papier), dunkel die dunklere (Leuchtdichte ≥ 1.4, «Farbsehschwäche» ≥ 1.5, hoher Kontrast ≥ 1.25,
-/// auch bei Deuteranopie); ΔE2000 ≥ 10 («Farbsehschwäche» ≥ 15) zu jedem Akzent ausser dem derselben
-/// Farbfamilie; Farbton «Frisch» 140–165° / 350–10°, «Traditionell» 115–135° / 0–8°, je ΔE2000 ≥ 10
-/// zu «Frisch»; «Farbsehschwäche» ΔE2000 ≥ 40 (hoher Kontrast ≥ 35) unter Protanopie, Deuteranopie,
-/// Tritanopie (Machado 2009). Wie Android.
+/// Feste Börsenfarben («Frisch», «Traditionell», «Farbsehschwäche», Entscheid 18. Oktober 2026:
+/// «Farben wie bei allen Börsen, die Akzentfarbe soll nicht irritieren»), geprüft mit
+/// `android/tools/check_price_colors.py` und `SettingsLogicTests`: je Farbe der Börsenton so nah wie
+/// möglich (CIEDE2000; «Frisch» = Binance #0ECB81 / #F6465D, «Traditionell» = TradingView #089981 /
+/// #F23645, «Farbsehschwäche» = Blau/Orange #1565C0 / #E65100 hell, #3D9BFF / #F7931A dunkel),
+/// hart nur der Kontrast (≥ 4.5:1, hoher Kontrast ≥ 7:1); «Frisch» und «Traditionell» je Farbe
+/// ΔE2000 ≥ 8; nur «Farbsehschwäche» ΔE2000 ≥ 35 unter Protanopie, Deuteranopie, Tritanopie (Machado
+/// 2009) und Leuchtdichte ≥ 1.4:1. Kein Abstand zur Akzentfarbe. Wie Android.
 ///
 /// `inverted` («Farben tauschen»): steigend in der Fall-Farbe und umgekehrt (Rot =
 /// steigend wie in China, Japan, Korea, Taiwan). Nur die Farben tauschen — Vorzeichen,
@@ -365,7 +366,7 @@ enum PriceColorScheme: String, CaseIterable, Codable, Identifiable, Sendable {
     /// Farbsehschwäche, Ruhig Farbsehschwäche); gespeichert wird der Name, nie die Position. Wie Android `PriceColorScheme`.
     case CALM, GREEN_RED, TRADITIONAL, BLUE_ORANGE, CALM_COLOR_VISION
 
-    /// Standard seit Build 46: «Ruhig» (gedämpftes Grün/Rot); «Frisch» (Börsengrün/Rot) bleibt wählbar.
+    /// Standard seit Build 46: «Ruhig» (gedämpftes Grün/Rot); «Frisch» (Binance-Grün/-Rot) bleibt wählbar.
     static let `default`: PriceColorScheme = .CALM
 
     /// Gespeicherte Einstellungen ohne Merker `priceColorDefaultV2`: «Frisch» war der mitgespeicherte
@@ -384,12 +385,12 @@ enum PriceColorScheme: String, CaseIterable, Codable, Identifiable, Sendable {
     private var rises: [PriceTone] {
         switch self {
         case .CALM: [.calmGreen, .calmBlue]
-        // Börsengrün (HSL ≈ 150°); hell dunkler als das Rot, dunkel heller
-        case .GREEN_RED: [PriceTone(0x005A30, 0x18EA96, 0x00421E, 0x81FFBA)]
-        // Klassisches reines Grün (115–120°)
-        case .TRADITIONAL: [PriceTone(0x033C00, 0x87FF7E, 0x002100, 0xE4FFE4)]
-        // Blau: hell dunkler als das Orange, dunkel heller (Entscheid 18. Oktober 2026)
-        case .BLUE_ORANGE: [PriceTone(0x003372, 0x96D8FF, 0x002A5A, 0xC9E7FF)]
+        // Binance-Grün #0ECB81 (dunkel genau, sonst gleicher Farbton mit nötigem Kontrast)
+        case .GREEN_RED: [PriceTone(0x127248, 0x0ECB81, 0x025430, 0x30DE92)]
+        // TradingView-Grün #089981
+        case .TRADITIONAL: [PriceTone(0x0A7262, 0x3EAE97, 0x005246, 0x5AD8BE)]
+        // Blau nahe #1565C0 / #3D9BFF (Entscheid 18. Oktober 2026)
+        case .BLUE_ORANGE: [PriceTone(0x064E93, 0x4F9FFD, 0x00335F, 0xCFEAFF)]
         // Ersatz auf der Blau-Gelb-Achse: Petrol bzw. Blau-Violett statt Blau
         case .CALM_COLOR_VISION: [PriceTone(0x1460AB, 0x64B5F6, 0x093D83, 0xA6D4FF), .petrol, .vividBlue]
         }
@@ -399,12 +400,12 @@ enum PriceColorScheme: String, CaseIterable, Codable, Identifiable, Sendable {
     private var falls: [PriceTone] {
         switch self {
         case .CALM: [.calmRed, .calmCrimson, .calmPlum]
-        // Kräftiges Rot (354–4°): hell das hellste, das 4.5:1 erlaubt, dunkel so bunt wie möglich
-        case .GREEN_RED: [PriceTone(0xCC0015, 0xFF6F69, 0x960000, 0xFFB1AB)]
-        // Reines Rot (0–7°); hell tief, weil ein helleres reines Rot zu nah am orangen Akzent liegt
-        case .TRADITIONAL: [PriceTone(0x990000, 0xFF9C99, 0x630000, 0xF9D2CD)]
-        // Orange: hell über dem Blau, dunkel darunter
-        case .BLUE_ORANGE: [PriceTone(0xAE4200, 0xED810C, 0x7B3300, 0xFFB469)]
+        // Binance-Rot #F6465D
+        case .GREEN_RED: [PriceTone(0xC3213A, 0xFC6F7D, 0x911127, 0xFFAEB7)]
+        // TradingView-Rot #F23645; dunkel röter (≈ 6°), damit ΔE ≥ 8 zu «Frisch»
+        case .TRADITIONAL: [PriceTone(0xCC0416, 0xFE7062, 0x960208, 0xFEB2A4)]
+        // Orange nahe #E65100 / #F7931A
+        case .BLUE_ORANGE: [PriceTone(0xB73900, 0xFFA73E, 0x842A00, 0xFFB46A)]
         case .CALM_COLOR_VISION: [PriceTone(0x9F4300, 0xFFA040, 0x6C2E00, 0xFFC685), .mustard]
         }
     }
@@ -532,15 +533,16 @@ struct PriceTone: Equatable, Sendable {
 
     /// «Ruhig» steigend: knappste #396E54 4.59 auf #E2E2E2, #61AE87 4.62 auf #353535.
     static let calmGreen = PriceTone(0x396E54, 0x61AE87, 0x294F3C, 0xA1CFB8)
-    /// «Ruhig» fallend: hell dunkler, dunkel heller als steigend (Leuchtdichte 1.78:1 / 1.51:1,
-    /// Deuteranopie simuliert 1.54 / 1.68). Dunkel #FFAFA8 (C* 32.3; ΔE ≥ 37 zu Blau, Grün, Marrs Green).
-    static let calmRed = PriceTone(0x771D23, 0xFFAFA8, 0x5A0813, 0xFFD1CF)
+    /// «Ruhig» fallend: hell dunkler, dunkel heller als steigend (Leuchtdichte 1.78:1 / 1.505:1,
+    /// Deuteranopie simuliert 1.54 / 1.66). Dunkel Lachs-Rot #FFB097 (HSL 14°, C* 35.6; bis 18. Oktober
+    /// 2026 das rosigere #FFAFA8; ΔE ≥ 39 zu Blau, Grün, Marrs Green).
+    static let calmRed = PriceTone(0x771D23, 0xFFB097, 0x5A0813, 0xFFD1CF)
     /// «Ruhig» fallend neben Orange (Standard-Akzent): Karmin, liest sich als Rot. Ein Rot neben
-    /// Orange erreicht ΔE 24 nicht, daher eigene Schwelle 19 hell / 20 dunkel: ΔE 19.3 / 20.9 zu
-    /// #A64827 / #ED835E — wie Android `CALM_CRIMSON`.
-    static let calmCrimson = PriceTone(0x77212F, 0xFFB1BE, 0x51000D, 0xFFE3E7,
+    /// Orange erreicht ΔE 24 nicht, daher eigene Schwelle 19 hell / 20 dunkel: ΔE 19.3 / 20.3 zu
+    /// #A64827 / #ED835E; dunkel #FFAFBB (HSL 351°, C* 31.4), so rot wie erlaubt — wie Android `CALM_CRIMSON`.
+    static let calmCrimson = PriceTone(0x77212F, 0xFFAFBB, 0x51000D, 0xFFE3E7,
                                        minAccentLight: 19, minAccentDark: 20)
-    /// «Ruhig» fallend neben Rot: Pflaume.
+    /// «Ruhig» fallend neben Rot: Pflaume (röter geht dunkel nur fast weiss, C* ≤ 17).
     static let calmPlum = PriceTone(0x672B61, 0xE7B4E0, 0x4A1446, 0xFFD6F9)
     /// «Ruhig» steigend neben Grün/Marrs Green: gedämpftes Blau.
     static let calmBlue = PriceTone(0x506299, 0x8D9CD3, 0x364673, 0xB9C3F2)

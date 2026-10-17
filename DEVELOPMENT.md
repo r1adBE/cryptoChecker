@@ -1722,30 +1722,28 @@ Layout decisions that keep the app calm. Same structure on Android and iOS, same
   (`outlineVariant`, all light schemes and iOS `ColorTokens.outlineVariant`) are `#ADA9A0` since build 58:
   2.23:1 on `#FBF9F6` (before `#C9C6BF`, 1.62:1), deliberately below 3:1 – the only outline of a control is
   `outline`. Dark mode unchanged (`#474747`).
-* **Fixed exchange price colours** (decision 18 October 2026). «Fresh», «Traditional» and «Colour vision» keep
-  one tone per direction for every accent; only the two «Calm» schemes dodge a similar accent. Rules, checked by
-  `android/tools/check_price_colors.py` (pure Python, exit code 1 on a violation) and `PriceColorSchemeTest` /
-  `SettingsLogicTests`: text contrast ≥ 4.5:1 (high contrast ≥ 7:1) on every light, warm and dark surface;
-  in light mode falling is the lighter, stronger colour (true red / orange on paper), in dark mode the darker one
-  (like Binance); luminance ratio ≥ 1.4 («Colour vision»
-  ≥ 1.5, high contrast ≥ 1.25), also after deuteranopia simulation (Machado 2009, severity 1.0; «Colour vision»
-  after protan, deutan and tritan); CIEDE2000 ≥ 10 («Colour vision» ≥ 15) from every accent primary of the same
-  mode except the accent of the same colour family (red falling beside the red accent, green rising beside
-  green / Marrs Green, blue beside blue, orange beside orange); HSL hue «Fresh» rising 140–165° / falling
-  350–10°, «Traditional» 115–135° / 0–8° and ≥ 10 from the matching «Fresh» colour; «Colour vision» rising vs
-  falling ≥ 40 after each simulation (high contrast ≥ 35: dark high contrast only leaves pastels, the best
-  blue/orange pair reaches ≈ 38.7).
+* **Fixed exchange price colours** (decision 18 October 2026: «colours like every exchange; the accent
+  colour must not confuse»). «Fresh», «Traditional» and «Colour vision» keep one tone per direction for every
+  accent; only the two «Calm» schemes dodge a similar accent. Each colour is the nearest (CIEDE2000) to the
+  exchange's own tone, preferring the same HSL hue with only the lightness adjusted: «Fresh» = Binance
+  `#0ECB81` / `#F6465D`, «Traditional» = TradingView `#089981` / `#F23645`, «Colour vision» = blue/orange
+  (light `#1565C0` / `#E65100`, dark `#3D9BFF` / `#F7931A`). Hard rule: text contrast ≥ 4.5:1 (high contrast
+  ≥ 7:1) on every light, warm and dark surface. «Fresh» and «Traditional» differ by ≥ 8 per colour
+  («Traditional» is moved, e.g. dark falling `#FE7062`, ≈ 6°). Only «Colour vision»: rising vs falling
+  ≥ 35 after protan, deutan and tritan simulation (Machado 2009, severity 1.0) and luminance ratio ≥ 1.4.
+  No accent distance, no rule which direction is lighter. Checked by `android/tools/check_price_colors.py`
+  (pure Python, prints target and distance, exit code 1 on a violation) and `PriceColorSchemeTest` /
+  `SettingsLogicTests`.
 
   | Scheme | Light ↑ / ↓ | Dark ↑ / ↓ | High contrast light ↑ / ↓ | High contrast dark ↑ / ↓ |
   |---|---|---|---|---|
-  | Fresh | `#005A30` / `#CC0015` | `#18EA96` / `#FF6F69` | `#00421E` / `#960000` | `#81FFBA` / `#FFB1AB` |
-  | Traditional | `#033C00` / `#990000` | `#87FF7E` / `#FF9C99` | `#002100` / `#630000` | `#E4FFE4` / `#F9D2CD` |
-  | Colour vision | `#003372` / `#AE4200` | `#96D8FF` / `#ED810C` | `#002A5A` / `#7B3300` | `#C9E7FF` / `#FFB469` |
+  | Fresh | `#127248` / `#C3213A` | `#0ECB81` / `#FC6F7D` | `#025430` / `#911127` | `#30DE92` / `#FFAEB7` |
+  | Traditional | `#0A7262` / `#CC0416` | `#3EAE97` / `#FE7062` | `#005246` / `#960208` | `#5AD8BE` / `#FEB2A4` |
+  | Colour vision | `#064E93` / `#B73900` | `#4F9FFD` / `#FFA73E` | `#00335F` / `#842A00` | `#CFEAFF` / `#FFB46A` |
 
-  Trade-offs: «Traditional» red stays 0–8° and ≥ 10 from both the orange accent and «Fresh», so it is deep in
-  light mode (a pure red lighter than L* ≈ 33 is within ΔE 10 of the orange accent `#A64827`) and light in dark
-  mode; its rising green is darker in light mode accordingly. In dark high contrast one of the two schemes has
-  to be pastel; «Fresh» keeps the stronger pair.
+  «Calm» dark falling (same decision): salmon red `#FFB097` (HSL 14°, C* 35.6, before the pinker `#FFAFA8`),
+  still 1.5:1 lighter than rising, also after deuteranopia simulation; beside the orange accent `#FFAFBB`
+  (HSL 351°, ΔE 20.3 to `#ED835E`); beside the red accent plum stays (any red ≥ 24 from `#FF7173` is almost white).
 * **Alarms wait for a deliverable notification.** One-time and repeating alarms (pair and portfolio, both
   platforms) fire only via `QuietHours.mayFire(holdAlarms, deliverable)`: during quiet hours or without a
   deliverable notification nothing is written and the alarm stays armed. Never mark an alarm as triggered
