@@ -5,7 +5,7 @@
     <string name="notification_alarm_text">%1$s — 現在 %2$s</string>
     <string name="notification_alarm_title">アラーム: %1$s · %2$s</string>
     <string name="notification_depeg_action_exchange">取引所を開く</string>
-    <string name="notification_depeg_text">アプリ内の値は引き続き USDT = 1 で計算されます。</string>
+    <string name="notification_depeg_text">アプリ内の値はこの市場価格で計算されます。</string>
     <string name="notification_depeg_title">USDT が %1$s USD（%2$s）</string>
     <string name="notification_fng_above">指数が %1$d を上回りました – この指数では、市場は「強欲」とされます。</string>
     <string name="notification_fng_below">指数が %1$d を下回りました – この指数では、市場は「恐怖」とされます。</string>

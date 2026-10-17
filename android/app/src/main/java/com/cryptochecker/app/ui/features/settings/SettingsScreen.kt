@@ -210,8 +210,8 @@ fun SettingsScreen(
                         )
                     }
 
-                    // 3 Mehr: Sicherung, «Erweitert» (Token & TradFi, Portfolio, Markt-Meldungen,
-                    // Sprachausgabe, %-Änderung, Coin-Logos, Entwickler), Über die App
+                    // 3 Mehr: Sicherung, Portfolio (Schalter), «Erweitert» (Token & TradFi, Portfolio,
+                    // Markt-Meldungen, Sprachausgabe, %-Änderung, Coin-Logos, Entwickler), Über die App
                     SettingsSection(stringResource(R.string.settings_group_more)) {
                         SettingsNavRow(
                             title = stringResource(R.string.backup_title),
@@ -219,6 +219,16 @@ fun SettingsScreen(
                             modifier = Modifier.testTag(UiTestTags.SETTINGS_BACKUP),
                             onClick = { onOpenPage(SettingsPage.BACKUP) }
                         )
+                        // Portfolio direkt einschalten — derselbe Schalter wie Erweitert › Portfolio
+                        SettingsAnchor("main.portfolio") {
+                            SettingsSwitchRow(
+                                title = stringResource(R.string.portfolio_title),
+                                icon = R.drawable.ic_portfolio,
+                                subtitle = stringResource(R.string.portfolio_setting_hint),
+                                checked = settings.portfolioEnabled,
+                                onCheckedChange = viewModel::setPortfolioEnabled,
+                            )
+                        }
                         SettingsNavRow(
                             title = stringResource(R.string.settings_row_advanced),
                             icon = R.drawable.ic_settings_advanced,

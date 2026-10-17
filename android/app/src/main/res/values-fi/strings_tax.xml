@@ -8,7 +8,7 @@
     <string name="portfolio_export_col_coin">Kolikko</string>
     <string name="portfolio_export_col_note">Huomautus</string>
     <string name="portfolio_export_col_price">Hinta USDT</string>
-    <string name="portfolio_export_col_rate">Kurssi USD→%1$s</string>
+    <string name="portfolio_export_col_rate">Kurssi USDT→%1$s</string>
     <string name="portfolio_export_col_value">Arvo USDT</string>
     <string name="portfolio_export_col_value_cur">Arvo %1$s</string>
     <!-- Inhalt der CSV-Datei -->
@@ -83,7 +83,7 @@
     <string name="tax_export_time_zone">Aikavyöhyke: %1$s</string>
     <string name="tax_export_transfer_fee_info">Siirtokulu USDT:nä/käteisenä – ei tappio, ei hankintahinnassa, vain tiedoksi</string>
     <string name="tax_export_unassigned_fee">kulua ei kohdistettu – hankintahinta tuntematon</string>
-    <string name="tax_export_usdt_usd_note">Oletettu USDT = 1 USD (väärin jos kytkös pettää)</string>
+    <string name="tax_export_usdt_usd_note">USDT muunnettu USDT/USD-päivän päätöskurssilla; ilman päätöskurssia 1 USD (merkitty riville)</string>
     <string name="tax_export_value_estimated">Arvo arvioitu (päätöskurssi)</string>
     <string name="tax_export_value_missing">vastaanottohetken arvo puuttuu</string>
     <string name="tax_export_wallet">Lompakko: %1$s</string>

@@ -36,6 +36,7 @@
     <string name="alarm_first_battery_hint">Optimalizace baterie aplikaci omezuje – upozornění mohou přijít později.</string>
     <string name="alarm_first_title">Vše nastaveno</string>
     <string name="alarm_last_triggered">naposledy %1$s</string>
+    <string name="alarm_more_conditions">Další podmínky</string>
     <string name="alarm_new_extreme">Nová hodnota %1$s</string>
     <string name="alarm_once">Jednou</string>
     <string name="alarm_option_repeating">Ponechat alarm po spuštění</string>

@@ -8,7 +8,7 @@
     <string name="portfolio_export_col_coin">Monedă</string>
     <string name="portfolio_export_col_note">Notă</string>
     <string name="portfolio_export_col_price">Preț USDT</string>
-    <string name="portfolio_export_col_rate">Curs USD→%1$s</string>
+    <string name="portfolio_export_col_rate">Curs USDT→%1$s</string>
     <string name="portfolio_export_col_value">Valoare USDT</string>
     <string name="portfolio_export_col_value_cur">Valoare %1$s</string>
     <!-- Inhalt der CSV-Datei -->
@@ -83,7 +83,7 @@
     <string name="tax_export_time_zone">Fus orar: %1$s</string>
     <string name="tax_export_transfer_fee_info">Comision de transfer în USDT/numerar – nu e pierdere, în afara costului de achiziție, doar informativ</string>
     <string name="tax_export_unassigned_fee">comision nealocat – cost necunoscut</string>
-    <string name="tax_export_usdt_usd_note">Presupus USDT = 1 USD (greșit la depeg)</string>
+    <string name="tax_export_usdt_usd_note">USDT convertit la închiderea zilnică USDT/USD; fără închidere 1 USD (marcat pe rând)</string>
     <string name="tax_export_value_estimated">Valoare estimată (închidere zilnică)</string>
     <string name="tax_export_value_missing">lipsește valoarea la primire</string>
     <string name="tax_export_wallet">Wallet: %1$s</string>

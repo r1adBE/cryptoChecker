@@ -5,7 +5,7 @@
     <string name="notification_alarm_text">%1$s — nu %2$s</string>
     <string name="notification_alarm_title">Alarm: %1$s · %2$s</string>
     <string name="notification_depeg_action_exchange">Åbn børs</string>
-    <string name="notification_depeg_text">Værdier i appen regner fortsat med USDT = 1.</string>
+    <string name="notification_depeg_text">Værdier i appen regner med denne markedskurs.</string>
     <string name="notification_depeg_title">USDT på %1$s USD (%2$s)</string>
     <string name="notification_fng_above">Indekset steg over %1$d – ifølge dette indeks regnes markedet som grådigt.</string>
     <string name="notification_fng_below">Indekset faldt under %1$d – ifølge dette indeks regnes markedet som bange.</string>

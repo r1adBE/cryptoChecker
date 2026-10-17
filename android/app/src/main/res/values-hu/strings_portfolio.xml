@@ -81,14 +81,13 @@
     <string name="portfolio_current_price">Aktuális árfolyam</string>
     <string name="portfolio_price_missing">Hiányzó ár</string>
     <string name="portfolio_price_missing_hint">Néhány vételnél hiányzik az ár. Adja meg a vételárat a nyereség/veszteség megjelenítéséhez.</string>
-    <string name="portfolio_price_source">Árfolyamok: Binance · USDT = 1</string>
-    <string name="portfolio_price_source_routes">Árfolyamok: %1$s, egyébként Binance · USDT = 1</string>
+    <string name="portfolio_price_source">Árfolyamok: Binance · USDT piaci árfolyamon</string>
+    <string name="portfolio_price_source_routes">Árfolyamok: %1$s, egyébként Binance · USDT piaci árfolyamon</string>
     <string name="portfolio_price_unavailable">Az árfolyam most nem érhető el</string>
     <string name="portfolio_price_unchecked">Árfolyam ellenőrizetlen</string>
     <string name="portfolio_price_via_base">≈ %1$s árfolyam (hídon át/csomagolt)</string>
-    <string name="portfolio_usdt_as_usd">USDT átszámítva USD-árfolyamon</string>
+    <string name="portfolio_usdt_as_usd">USDT átszámítva USD-piaci árfolyamán</string>
     <string name="portfolio_usdt_assumed">USDT = 1 feltételezve</string>
-    <string name="portfolio_usdt_depeg_warning">USDT = 1 feltételezve – piac: %1$s USD (%2$s)</string>
 
     <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
     <string name="portfolio_add_from_watch">Hozzáadás a portfólióhoz</string>

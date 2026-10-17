@@ -5,7 +5,7 @@
     <string name="notification_alarm_text">%1$s — sekarang %2$s</string>
     <string name="notification_alarm_title">Alarm: %1$s · %2$s</string>
     <string name="notification_depeg_action_exchange">Buka exchange</string>
-    <string name="notification_depeg_text">Nilai di aplikasi tetap memakai USDT = 1.</string>
+    <string name="notification_depeg_text">Nilai di aplikasi memakai harga pasar ini.</string>
     <string name="notification_depeg_title">USDT di %1$s USD (%2$s)</string>
     <string name="notification_fng_above">Indeks naik di atas %1$d – menurut indeks ini, pasar sedang serakah.</string>
     <string name="notification_fng_below">Indeks turun di bawah %1$d – menurut indeks ini, pasar sedang takut.</string>

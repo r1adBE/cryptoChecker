@@ -5,7 +5,7 @@
     <string name="notification_alarm_text">%1$s — اکنون %2$s</string>
     <string name="notification_alarm_title">هشدار: %1$s · %2$s</string>
     <string name="notification_depeg_action_exchange">باز کردن صرافی</string>
-    <string name="notification_depeg_text">مقادیر در برنامه همچنان با USDT = 1 حساب می‌شوند.</string>
+    <string name="notification_depeg_text">مقادیر در برنامه با این قیمت بازار حساب می‌شوند.</string>
     <string name="notification_depeg_title">USDT روی %1$s USD (%2$s)</string>
     <string name="notification_fng_above">شاخص به بالای %1$d رسید – طبق این شاخص، طمع بر بازار حاکم است.</string>
     <string name="notification_fng_below">شاخص به زیر %1$d رسید – طبق این شاخص، ترس بر بازار حاکم است.</string>

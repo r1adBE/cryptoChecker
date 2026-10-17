@@ -12,9 +12,10 @@ package com.cryptochecker.app.domain.portfolio
  *    nur noch das Ziel und die Börsen der späteren Transaktionen; alles davor (auch frühere Umbuchungen)
  *    nicht mehr. Ziel = Wallet oder unbekannter Name → kein eigener Weg (Binance, wie freier Text).
  *  - Nur Spot-Börsen der App ([isSpot]); Binance ist ohnehin die Standardquelle (kein eigener Weg).
- *  - Paar: zuerst USDT, dann USD, dann Fiat-Währungen, die die App umrechnen kann ([QUOTES]); USD gilt als
- *    1 USDT wie überall in der App, Fiat über den Devisenkurs ([toUsdt]). Andere Stablecoins (USDC …) nicht
- *    — sie gelten im Portfolio nicht automatisch als 1.
+ *  - Paar: zuerst USDT, dann USD, dann Fiat-Währungen, die die App umrechnen kann ([QUOTES]); USD über den
+ *    Marktkurs USDT/USD in USDT (ohne Kurs 1 — dann als Näherung markiert, [PortfolioStables.usdtUsd]), Fiat über
+ *    den Devisenkurs und denselben USDT/USD-Kurs ([toUsdt]). Andere Stablecoins (USDC …) nicht — sie gelten im
+ *    Portfolio nicht automatisch als 1.
  *  - Klappt der Weg nicht (Börse nicht erreichbar, kein Paar, kein Devisenkurs), bleibt der Binance-Kurs und
  *    der Coin steht in [PortfolioPrices.exchangeFailed].
  *  - Wertverlauf, «7 T» und «1 J» (auch Widget und Alarme): Tageskerzen der eigenen Börse, in USDT
@@ -30,7 +31,7 @@ object PortfolioExchangeRoute {
     /** Standardquelle des Portfolios; dafür braucht es keinen eigenen Weg. */
     const val DEFAULT_MARKET = "Binance"
 
-    /** Gegenwährungen in dieser Reihenfolge; USD = 1 USDT, Fiat über den Devisenkurs. */
+    /** Gegenwährungen in dieser Reihenfolge; USD über USDT/USD, Fiat über den Devisenkurs ([toUsdt]). */
     val QUOTES = listOf(
         "USDT", "USD", "EUR", "CHF", "GBP", "JPY", "KRW", "TRY", "BRL", "MXN", "INR", "IDR", "AUD", "CAD",
         "SGD", "HKD", "PLN", "SEK", "NOK", "DKK", "CZK", "HUF", "RON", "NZD", "ZAR", "THB",
@@ -121,17 +122,19 @@ object PortfolioExchangeRoute {
     }
 
     /**
-     * Kurs in USDT: USDT und USD unverändert (wie überall in der App), Fiat geteilt durch den Kurs
-     * USD → Fiat ([usdTo]); sonst null.
+     * Kurs in USDT: USDT unverändert; USD geteilt durch den Marktkurs USDT/USD [usdtUsd] (ungültig oder Standard = 1,
+     * USDT = USD wie bis Build 58); Fiat geteilt durch den Kurs USD → Fiat ([usdTo]) und durch [usdtUsd]; sonst null.
      */
-    fun toUsdt(price: Double, quote: String, usdTo: (String) -> Double?): Double? {
+    fun toUsdt(price: Double, quote: String, usdtUsd: Double = 1.0, usdTo: (String) -> Double?): Double? {
         if (!(price > 0.0) || !price.isFinite()) return null
+        val usdt = usdtUsd.takeIf { it > 0.0 && it.isFinite() } ?: 1.0
         return when (val q = quote.uppercase()) {
-            "USDT", "USD" -> price
+            "USDT" -> price
+            "USD" -> price / usdt
             else -> {
                 if (q !in QUOTES) return null
                 val rate = usdTo(q)?.takeIf { it > 0.0 && it.isFinite() } ?: return null
-                price / rate
+                price / rate / usdt
             }
         }
     }
@@ -232,9 +235,15 @@ object PortfolioExchangeRoute {
      * Tageskerzen der eigenen Börse (Gegenwährung [quote]) in USDT: USDT/USD unverändert, Fiat je Tag
      * geteilt durch den Devisenkurs USD → Fiat dieses Tags ([usdToByDay], fehlt er: der letzte davor,
      * [PortfolioHistoryFx.rateOn]); Tage ohne Kurs fallen weg. null = Gegenwährung nicht umrechenbar,
-     * keine Devisen-Tageskurse oder nichts übrig.
+     * keine Devisen-Tageskurse oder nichts übrig. Mit [usdtUsdByDay] (USDT/USD-Tagesschluss): USD- und Fiat-Kerzen
+     * zusätzlich geteilt durch USDT/USD DES Tags (ohne Schluss 1, [PortfolioStables.usdtUsd]); USDT-Kerzen unverändert.
      */
-    fun ownDailyUsdt(daily: PortfolioCoinDaily, quote: String, usdToByDay: Map<Long, Double>?): PortfolioCoinDaily? {
+    fun ownDailyUsdt(
+        daily: PortfolioCoinDaily,
+        quote: String,
+        usdToByDay: Map<Long, Double>?,
+        usdtUsdByDay: Map<Long, Double>? = null,
+    ): PortfolioCoinDaily? {
         val q = quote.uppercase()
         if (q !in QUOTES) return null
         val direct = q == "USDT" || q == "USD"
@@ -243,7 +252,8 @@ object PortfolioExchangeRoute {
                 .sortedBy { it.key }.map { it.key to it.value }
                 .takeIf { it.isNotEmpty() } ?: return null
         }
-        fun rate(day: Long): Double? = if (direct) 1.0 else PortfolioHistoryFx.rateOn(sorted, day)
+        fun usdt(day: Long): Double = if (q == "USDT" || usdtUsdByDay == null) 1.0 else PortfolioStables.usdtUsd(usdtUsdByDay[day]).rate
+        fun rate(day: Long): Double? = (if (direct) 1.0 else PortfolioHistoryFx.rateOn(sorted, day))?.let { it * usdt(day) }
         val closes = HashMap<Long, Double>()
         val ranges = HashMap<Long, PortfolioDayRange>()
         for ((day, close) in daily.closes) {
@@ -298,10 +308,11 @@ object PortfolioExchangeRoute {
             .entries.joinToString("; ") { (exchange, coins) -> "$exchange (${coins.sorted().joinToString(", ")})" }
 
     /**
-     * Hängen die Werte der Gesamtkarte an «USDT = 1»? Ja, wenn in eine Anzeigewährung umgerechnet
-     * wird ([converted]: Devisenkurs USD → Währung auf USDT-Beträge), wenn USD gewählt ist (USDT
-     * steht für USD) oder wenn Kurse anderer Börsen in USD ([sources]) mit Binance-USDT gemischt
-     * werden. Dann steht der Hinweis auf der Karte selbst, nicht nur unter «Hinweise».
+     * Hängen die Werte der Gesamtkarte am Kurs USDT/USD? Ja, wenn in eine Anzeigewährung umgerechnet
+     * wird ([converted]: Devisenkurs USD → Währung auf USDT-Beträge), wenn USD gewählt ist oder wenn
+     * Kurse anderer Börsen in USD ([sources]) mit Binance-USDT gemischt werden. Mit USDT zum Marktkurs
+     * zählt das nur noch ohne Kurs (Ersatz 1, [com.cryptochecker.app.domain.alarm.DepegAlarm.cardNote]);
+     * bis dahin steht «USDT = 1» auf der Karte selbst, nicht nur unter «Hinweise».
      */
     fun usdtParityShown(displayCurrency: String, converted: Boolean, sources: Map<String, String>): Boolean {
         val currency = displayCurrency.trim().uppercase()

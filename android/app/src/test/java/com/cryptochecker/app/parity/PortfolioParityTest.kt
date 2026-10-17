@@ -10,8 +10,10 @@ import com.cryptochecker.app.domain.portfolio.PortfolioHistoryRange
 import com.cryptochecker.app.domain.portfolio.PortfolioImportBatch
 import com.cryptochecker.app.domain.portfolio.PortfolioLedger
 import com.cryptochecker.app.domain.portfolio.PortfolioPeriodChange
+import com.cryptochecker.app.domain.portfolio.PortfolioStables
 import com.cryptochecker.app.domain.portfolio.PortfolioTrade
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
+import com.cryptochecker.app.domain.portfolio.UsdtUsdRates
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
@@ -417,7 +419,9 @@ class PortfolioParityTest {
             val c = raw.obj()
             val name = c["name"] as String
             val rates = c["rates"]?.let { daily(it) }
-            val result = PortfolioExchangeRoute.ownDailyUsdt(PortfolioCoinDaily(daily(c["closes"])), c["quote"] as String, rates)
+            // USDT zum Marktkurs (optional): USDT/USD-Tagesschluss
+            val usdtUsd = c["usdtUsd"]?.let { daily(it) }
+            val result = PortfolioExchangeRoute.ownDailyUsdt(PortfolioCoinDaily(daily(c["closes"])), c["quote"] as String, rates, usdtUsd)
             val expected = c["expected"]?.let { daily(it) }
             if (expected == null) {
                 assertNull("$name: expected null", result)
@@ -426,6 +430,54 @@ class PortfolioParityTest {
             assertEquals("$name days", expected.keys, result?.closes?.keys)
             for ((day, value) in expected) near("$name $day", value, result?.closes?.get(day))
         }
+    }
+
+    /** USDT zum Marktkurs USDT/USD in Fiat (Owner-Entscheid Okt. 2026); ohne Kurs 1, als Näherung markiert. */
+    @Test
+    fun usdtMarket() {
+        val m = data["usdtMarket"].obj()
+        for (raw in m["usdtUsd"].list()) {
+            val c = raw.obj()
+            val u = PortfolioStables.usdtUsd(c["market"].num())
+            near("usdtUsd $c", c["rate"].num(), u.rate)
+            assertEquals("usdtUsd approximate $c", c["approximate"], u.approximate)
+        }
+        for (raw in m["usdtTo"].list()) {
+            val c = raw.obj()
+            near("usdtTo $c", c["expected"].num(), PortfolioStables.usdtTo(c["usdToTarget"].num(), PortfolioStables.usdtUsd(c["market"].num())))
+        }
+        for (raw in m["ratesOn"].list()) {
+            val c = raw.obj()
+            val rates = UsdtUsdRates(c["live"].num(), daily(c["daily"]))
+            val u = rates.on(c["day"].num()!!.toLong(), c["today"].num()!!.toLong())
+            near("ratesOn $c", c["rate"].num(), u.rate)
+            assertEquals("ratesOn approximate $c", c["approximate"], u.approximate)
+        }
+        for (raw in m["toUsdt"].list()) {
+            val c = raw.obj()
+            val usdTo = c["usdTo"].obj()
+            val result = PortfolioExchangeRoute.toUsdt(c["price"].num()!!, c["quote"] as String, c["usdtUsd"].num()!!) { usdTo[it].num() }
+            near("toUsdt $c", c["expected"].num(), result)
+        }
+        for (raw in m["holdings"].list()) {
+            val c = raw.obj()
+            val name = c["name"] as String
+            val total = PortfolioCalculator.summarize(c["trades"].list().map(::trade), prices(c["prices"])).totalValue
+            val usdt = PortfolioStables.usdtUsd(c["usdtMarket"].num())
+            val rate = PortfolioStables.usdtTo(c["usdToTarget"].num(), usdt)!!
+            val par = PortfolioStables.usdtTo(c["usdToTarget"].num(), PortfolioStables.usdtUsd(1.0))!!
+            near("$name valueUsdt", c["valueUsdt"].num(), total)
+            near("$name valueTarget", c["valueTarget"].num(), total * rate)
+            assertEquals("$name approximate", c["approximate"], usdt.approximate)
+            near("$name change vs USDT = 1", c["changeVsParPercent"].num(), (rate / par - 1.0) * 100.0)
+            // Anzeigewährung (auch USD): Faktor von Widget und Karte = derselbe Wert, Verlauf wird umgerechnet
+            (c["currency"] as? String)?.let { currency ->
+                val factor = com.cryptochecker.app.widget.PortfolioWidgetChart.usdtFactor(currency, c["usdToTarget"].num()!!, c["usdtMarket"].num())
+                near("$name valueTarget ($currency, widget/card)", c["valueTarget"].num(), total * factor)
+                assertTrue("$name history converted", com.cryptochecker.app.domain.portfolio.PortfolioHistoryFx.convertsUsdt(currency, usdtMarket = true))
+            }
+        }
+        assertTrue("USD display case", m["holdings"].list().any { (it.obj()["currency"] as? String) == "USD" })
     }
 
     @Test

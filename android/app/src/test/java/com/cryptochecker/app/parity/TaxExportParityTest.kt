@@ -12,6 +12,7 @@ import com.cryptochecker.app.domain.portfolio.TaxExport
 import com.cryptochecker.app.domain.portfolio.TaxMethod
 import com.cryptochecker.app.domain.portfolio.TaxTemplate
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import java.math.BigDecimal
@@ -96,6 +97,52 @@ class TaxExportParityTest {
         data["fxFrom"].obj().forEach { (method, expected) ->
             assertEquals("fxFrom $method", LocalDate.parse(expected as String), TaxExport.fxFrom(trades, CostMethod.fromName(method), year, zone))
         }
+    }
+
+    /**
+     * USDT zum Marktkurs (Owner-Entscheid Okt. 2026): Umrechnung × USDT/USD-Tagesschluss; ohne Schluss USDT = 1 als
+     * Näherung, je Zeile vermerkt. Wie iOS.
+     */
+    @Test
+    fun usdtMarket() {
+        val m = data["usdtMarket"].obj()
+        val usdt = m["usdtUsd"].obj().entries.associate { it.key.toLong() to BigDecimal(it.value as String) }
+        m["rateOn"].list().map { it.list() }.forEach { c ->
+            val date = LocalDate.parse(c[0] as String)
+            val rate = TaxExport.rateOn(rates, date, c[1] as String, usdt)
+            val expected = dec(c[2])
+            if (expected == null) assertNull("rateOn $c", rate) else assertEquals("rateOn $c", 0, expected.compareTo(rate!!))
+            assertEquals("usdtApproximateOn $c", c[3], TaxExport.usdtApproximateOn(usdt, date))
+        }
+        val txs = parseTrades(m["trades"])
+        val method = TaxMethod.of(CostMethod.FIFO)
+        val period = TaxTemplate.NEUTRAL.period(2025)
+        for ((key, usdtUsd) in listOf("gains" to usdt, "gainsPar" to null)) {
+            val rows = TaxExport.gainRows(txs, method, period, zone, currency, rates, usdtUsd = usdtUsd)
+            val expected = m[key].list().map { it.obj() }
+            assertEquals("$key rows", expected.size, rows.size)
+            expected.zip(rows).forEach { (e, r) ->
+                assertEquals("$key coin", e["coin"], r.coin)
+                assertEquals("$key cost ${r.costTarget}", 0, dec(e["costTarget"])!!.compareTo(r.costTarget!!))
+                assertEquals("$key proceeds ${r.proceedsTarget}", 0, dec(e["proceedsTarget"])!!.compareTo(r.proceedsTarget!!))
+                assertEquals("$key gain ${r.gainTarget}", 0, dec(e["gainTarget"])!!.compareTo(r.gainTarget!!))
+                assertEquals("$key usdtApproximate", e["usdtApproximate"], r.usdtApproximate)
+            }
+        }
+        for ((key, usdtUsd) in listOf("income" to usdt, "incomePar" to null)) {
+            val rows = TaxExport.incomeRows(txs, period, zone, currency, rates, usdtUsd = usdtUsd)
+            val expected = m[key].list().map { it.obj() }
+            assertEquals("$key rows", expected.size, rows.size)
+            expected.zip(rows).forEach { (e, r) ->
+                assertEquals("$key date", LocalDate.parse(e["date"] as String), r.date)
+                assertEquals("$key value ${r.valueTarget}", 0, dec(e["valueTarget"])!!.compareTo(r.valueTarget!!))
+                assertEquals("$key usdtApproximate", e["usdtApproximate"], r.usdtApproximate)
+            }
+        }
+        // Vermerk je Zeile: nie still mit USDT = 1 gerechnet
+        val marked = texts.copy(usdtAssumed = m["usdtAssumed"] as String)
+        val csv = lines(TaxExport.incomeCsv(TaxExport.incomeRows(txs, period, zone, currency, rates, usdtUsd = usdt), marked, header))
+        m["incomeLines"].list().map { it as String }.forEach { assertTrue("income line $it in $csv", it in csv) }
     }
 
     @Test

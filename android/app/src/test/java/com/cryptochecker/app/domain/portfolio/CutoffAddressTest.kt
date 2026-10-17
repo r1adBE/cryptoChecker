@@ -55,6 +55,21 @@ class CutoffAddressTest {
         )
     }
 
+    /** USDT zum Marktkurs ohne USDT/USD am Stichtag: Zeile «USDT = 1 angenommen» nach dem Kommentar (wie iOS). */
+    @Test
+    fun usdtApproximateLine() {
+        val withText = texts.copy(usdtAssumed = "USDT = 1 angenommen")
+        val rows = CutoffExport.rows(emptyList(), emptyMap(), BigDecimal("0.9"))
+        val marked = CutoffExport.csv(LocalDate.ofEpochDay(day), "CHF", "2024-10-04", rows, withText, usdtApproximate = true)
+            .removePrefix("\uFEFF").split("\r\n")
+        assertEquals("USDT = 1 angenommen", marked[1])
+        val plain = CutoffExport.csv(LocalDate.ofEpochDay(day), "CHF", "2024-10-04", rows, withText)
+        assertTrue("USDT = 1 angenommen" !in plain)
+        // Umgerechnet wird jede Währung ausser USDT selbst (auch USD)
+        assertTrue(CutoffExport.convertsUsdt("CHF") && CutoffExport.convertsUsdt(" usd "))
+        assertTrue(!CutoffExport.convertsUsdt("usdt"))
+    }
+
     @Test
     fun todayUsesCurrentBalance() {
         // Stichtag heute: alle Beobachtungen bis jetzt — das aktuelle Guthaben, nichts fehlt

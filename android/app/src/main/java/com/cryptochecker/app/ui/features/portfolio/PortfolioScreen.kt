@@ -96,7 +96,8 @@ fun PortfolioScreen(
     val prices by viewModel.prices.collectAsStateWithLifecycle()
     val refreshing by viewModel.refreshing.collectAsStateWithLifecycle()
     val currency by viewModel.currency.collectAsStateWithLifecycle()
-    val fxRate by viewModel.fxRate.collectAsStateWithLifecycle()
+    // Faktor USDT → Anzeigewährung: Devisenkurs × USDT/USD (USDT zum Marktkurs)
+    val fxRate by viewModel.displayFxRate.collectAsStateWithLifecycle()
     val todayPercent by viewModel.todayPercent.collectAsStateWithLifecycle()
     val todayAmount by viewModel.todayAmount.collectAsStateWithLifecycle()
     val todaySkipped by viewModel.todaySkipped.collectAsStateWithLifecycle()
@@ -466,7 +467,7 @@ fun PortfolioScreen(
                                 periodScaled = periodScaled,
                                 walletShortfalls = walletShortfalls,
                                 onShortfall = { id -> transactions?.firstOrNull { it.id == id }?.let { sheet = it.toDraft() } },
-                                // «USDT = 1»-Zeile: Messung 30 Min gültig, Uhr alle 30 s ([DepegAlarm.cardNote] in der Karte)
+                                // «USDT = 1 angenommen»: Messung 6 Std. gültig, Uhr alle 30 s ([DepegAlarm.cardNote] in der Karte)
                                 depegReading = depegReading,
                                 depegThresholdTenths = depegThreshold,
                                 now = now,

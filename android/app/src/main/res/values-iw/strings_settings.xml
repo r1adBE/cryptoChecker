@@ -168,7 +168,7 @@
 
     <!-- Einstellungen › Markt-Meldungen -->
     <string name="settings_depeg_alarm">דווח על שבירת הצמדה של USDT</string>
-    <string name="settings_depeg_alarm_hint">מתריע פעם אחת כש-USDT סוטה מ-1 USD בגובה הסף (Kraken USDT/USD, Binance USDC/USDT). הערכים באפליקציה ממשיכים לחשב לפי USDT = 1.</string>
+    <string name="settings_depeg_alarm_hint">מתריע פעם אחת כש-USDT סוטה מ-1 USD בגובה הסף (Kraken USDT/USD, Binance USDC/USDT).</string>
     <string name="settings_depeg_threshold">סף שבירת הצמדה</string>
     <string name="settings_fng_above">Fear &amp; Greed: הודעה מעל</string>
     <string name="settings_fng_below">Fear &amp; Greed: הודעה מתחת ל-</string>

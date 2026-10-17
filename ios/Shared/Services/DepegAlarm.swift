@@ -1,7 +1,8 @@
 import Foundation
 
 /// USDT-Depeg-Alarm (Build 46): meldet einmal je Abweichung, wenn USDT um mindestens die Schwelle
-/// von 1 USD abweicht. Bewertungen in der App rechnen weiter mit USDT = 1 (nur ein Hinweis).
+/// von 1 USD abweicht. Dieselbe Messung ist der Live-Kurs USDT/USD der Bewertung (`liveUsdtUsd`): USDT gilt in Fiat seinen
+/// Marktkurs (`PortfolioStables.usdtUsd`); ohne frische Messung 1 als Näherung.
 ///
 /// Quellen (bestehende Kurs-Abrufe, kein neuer Anbieter): Kraken USDT/USD (direkt) und Binance
 /// USDC/USDT (USDT = 1 / Kurs, USDC als 1 USD angenommen). Beide da: der Wert näher bei 1 zählt —
@@ -11,6 +12,13 @@ import Foundation
 /// zurückgeht. Kann die Mitteilung gerade nicht ankommen (Nachtruhe, keine Erlaubnis), bleibt der Alarm
 /// scharf (`QuietHours.mayFire`) — wie die Kursalarme. Reine Logik — wie `DepegAlarm.kt`.
 enum DepegAlarm {
+    /// Messen? Mit eingeschaltetem Alarm immer; sonst, sobald ein Portfolio da ist (eingeschaltet und mit Transaktionen
+    /// oder beobachteten Adressen): Die Messung ist der Live-Kurs USDT/USD der Bewertung (`liveUsdtUsd`, Owner-Entscheid
+    /// Okt. 2026). Gemeldet wird weiterhin nur mit eingeschaltetem Alarm. Wie `DepegAlarm.shouldMeasure` (Android).
+    static func shouldMeasure(depegAlarm: Bool, portfolioEnabled: Bool, hasPortfolioData: Bool) -> Bool {
+        depegAlarm || (portfolioEnabled && hasPortfolioData)
+    }
+
     /// Schwelle in Zehntel-Prozent: 0.3 / 0.5 / 1 / 2 %.
     static let thresholdChoices = [3, 5, 10, 20]
     static let defaultThresholdTenths = 5
@@ -89,6 +97,12 @@ enum DepegAlarm {
     /// So lange gilt eine Messung auf der Portfolio-Karte (Prüfung höchstens alle 5 Minuten).
     static let cardMaxAgeMillis: Int64 = 30 * 60_000
 
+    /// So lange gilt eine Messung als Live-Kurs USDT/USD der Bewertung (`liveUsdtUsd`): 6 Std. — mit langen
+    /// Hintergrund-Intervallen fiele die Bewertung sonst oft auf Ersatz 1 («USDT = 1 angenommen») zurück; USDT bewegt
+    /// sich in dieser Zeit kaum. Die Warnzeile der Karte (`cardWarning`) bleibt bei `cardMaxAgeMillis`. Wie Android
+    /// `LIVE_MAX_AGE_MILLIS`.
+    static let liveMaxAgeMillis: Int64 = 6 * 60 * 60_000
+
     /// Uhr leicht vorgestellt/zurückgestellt: kleine Abweichung in die Zukunft noch gültig.
     private static let cardFutureToleranceMillis: Int64 = 60_000
 
@@ -103,13 +117,22 @@ enum DepegAlarm {
         return magnitude(deviationPercent(reading.price)) >= thresholdPercent(thresholdTenths) ? reading : nil
     }
 
+    /// Live-Kurs USDT/USD für die Bewertung (`UsdtUsdRates.live`): die letzte Messung, wenn höchstens `liveMaxAgeMillis`
+    /// alt und plausibel; sonst nil (Bewertung mit Ersatz 1, Näherung). Wie Android `liveUsdtUsd`.
+    static func liveUsdtUsd(_ reading: Reading?, now: Int64) -> Double? {
+        guard let reading else { return nil }
+        let age = now - reading.atMillis
+        if age > liveMaxAgeMillis || age < -cardFutureToleranceMillis { return nil }
+        return plausible(reading.price) ? reading.price : nil
+    }
+
     /// Art der Zeile zu «USDT = 1» auf der Portfolio-Karte (`cardNote`) — wie `CardNoteKind` (Android).
     enum CardNoteKind: String, Equatable {
         /// Frische Messung weicht um mindestens die Schwelle ab: «USDT = 1 angenommen – Markt bei …» (Warnfarbe).
         case DEVIATION
         /// Werte hängen an USDT = USD (Anzeigewährung, USD, gemischte Börsen): «Kurse: Binance · USDT = 1».
         case PRICE_SOURCE
-        /// Der Bestand enthält USDT (zählt immer genau 1): «USDT = 1 angenommen».
+        /// Der Bestand enthält USDT (zählt 1) bzw. mit USDT zum Marktkurs: Ersatz 1 ohne Kurs — «USDT = 1 angenommen».
         case USDT_ASSUMED
     }
 
@@ -125,8 +148,16 @@ enum DepegAlarm {
     ///  2. sonst `valuesViaUsdt` (`PortfolioExchangeRoute.usdtParityShown`) → `.PRICE_SOURCE`;
     ///  3. sonst enthält der Bestand `holdingCoins` USDT (`PortfolioStables.isValuation`) → `.USDT_ASSUMED`;
     ///  4. sonst keine Zeile (nil).
+    /// Mit USDT zum Marktkurs (`usdtMarket`, Owner-Entscheid Okt. 2026): frischer Kurs (`liveUsdtUsd`) → keine Zeile
+    /// (nichts angenommen, die Werte rechnen mit dem Markt); ohne ihn trägt Ersatz 1 die Zahlen → wie 2./3., aber immer
+    /// `.USDT_ASSUMED` («USDT = 1 angenommen» = Markierung der Näherung).
     static func cardNote(holdingCoins: [String], valuesViaUsdt: Bool, reading: Reading?, thresholdTenths: Int,
-                         now: Int64) -> CardNote? {
+                         now: Int64, usdtMarket: Bool = false) -> CardNote? {
+        if usdtMarket {
+            if liveUsdtUsd(reading, now: now) != nil { return nil }
+            let assumed = valuesViaUsdt || holdingCoins.contains(where: { PortfolioStables.isValuation($0) })
+            return assumed ? CardNote(kind: .USDT_ASSUMED) : nil
+        }
         if let warning = cardWarning(reading, thresholdTenths: thresholdTenths, now: now) {
             return CardNote(kind: .DEVIATION, reading: warning)
         }

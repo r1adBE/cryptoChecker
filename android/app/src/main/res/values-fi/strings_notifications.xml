@@ -5,7 +5,7 @@
     <string name="notification_alarm_text">%1$s — nyt %2$s</string>
     <string name="notification_alarm_title">Hälytys: %1$s · %2$s</string>
     <string name="notification_depeg_action_exchange">Avaa pörssi</string>
-    <string name="notification_depeg_text">Sovelluksen arvot käyttävät edelleen USDT = 1.</string>
+    <string name="notification_depeg_text">Sovelluksen arvot käyttävät tätä markkinakurssia.</string>
     <string name="notification_depeg_title">USDT %1$s USD (%2$s)</string>
     <string name="notification_fng_above">Indeksi nousi yli %1$d – tämän indeksin mukaan markkinoilla vallitsee ahneus.</string>
     <string name="notification_fng_below">Indeksi laski alle %1$d – tämän indeksin mukaan markkinoilla vallitsee pelko.</string>

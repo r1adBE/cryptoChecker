@@ -92,6 +92,58 @@ final class TaxExportTests: XCTestCase {
         }
     }
 
+    /// USDT zum Marktkurs (Owner-Entscheid Okt. 2026): Umrechnung × USDT/USD-Tagesschluss; ohne Schluss USDT = 1 als
+    /// Näherung, je Zeile vermerkt. Wie Android.
+    func testUsdtMarket() throws {
+        let d = try data()
+        let zone = try XCTUnwrap(TimeZone(identifier: d["zone"] as? String ?? ""))
+        let currency = d["currency"] as? String ?? ""
+        let m = try XCTUnwrap(d["usdtMarket"] as? [String: Any])
+        var usdt: [Int: Decimal] = [:]
+        for (key, value) in m["usdtUsd"] as? [String: Any] ?? [:] {
+            if let k = Int(key), let r = dec(value) { usdt[k] = r }
+        }
+        for case let c as [Any] in m["rateOn"] as? [Any] ?? [] {
+            XCTAssertEqual(TaxExport.rateOn(rates(d), date: day(c[0]), currency: c[1] as? String ?? "", usdtUsd: usdt),
+                           dec(c[2]), "rateOn \(c)")
+            XCTAssertEqual(TaxExport.usdtApproximateOn(usdt, date: day(c[0])), c[3] as? Bool, "usdtApproximateOn \(c)")
+        }
+        let txs = trades(m)
+        let method = TaxMethod.of(.FIFO)
+        let period = TaxTemplate.NEUTRAL.period(2025)
+        for (key, usdtUsd) in [("gains", usdt), ("gainsPar", nil)] as [(String, [Int: Decimal]?)] {
+            let rows = TaxExport.gainRows(txs, method: method, period: period, timeZone: zone, currency: currency,
+                                          rates: rates(d), usdtUsd: usdtUsd)
+            let expected = S.list(m[key])
+            XCTAssertEqual(rows.count, expected.count, "\(key) rows")
+            for (e, r) in zip(expected, rows) {
+                XCTAssertEqual(r.coin, e["coin"] as? String, "\(key) coin")
+                XCTAssertEqual(r.costTarget, dec(e["costTarget"]), "\(key) cost")
+                XCTAssertEqual(r.proceedsTarget, dec(e["proceedsTarget"]), "\(key) proceeds")
+                XCTAssertEqual(r.gainTarget, dec(e["gainTarget"]), "\(key) gain")
+                XCTAssertEqual(r.usdtApproximate, e["usdtApproximate"] as? Bool, "\(key) usdtApproximate")
+            }
+        }
+        for (key, usdtUsd) in [("income", usdt), ("incomePar", nil)] as [(String, [Int: Decimal]?)] {
+            let rows = TaxExport.incomeRows(txs, period: period, timeZone: zone, currency: currency, rates: rates(d),
+                                            usdtUsd: usdtUsd)
+            let expected = S.list(m[key])
+            XCTAssertEqual(rows.count, expected.count, "\(key) rows")
+            for (e, r) in zip(expected, rows) {
+                XCTAssertEqual(r.date, day(e["date"]), "\(key) date")
+                XCTAssertEqual(r.valueTarget, dec(e["valueTarget"]), "\(key) value")
+                XCTAssertEqual(r.usdtApproximate, e["usdtApproximate"] as? Bool, "\(key) usdtApproximate")
+            }
+        }
+        // Vermerk je Zeile: nie still mit USDT = 1 gerechnet
+        var marked = texts(d)
+        marked.usdtAssumed = m["usdtAssumed"] as? String ?? ""
+        let csv = lines(TaxExport.incomeCsv(TaxExport.incomeRows(txs, period: period, timeZone: zone, currency: currency,
+                                                                 rates: rates(d), usdtUsd: usdt),
+                                            texts: marked, header: d["header"] as? [String] ?? []))
+        for line in m["incomeLines"] as? [String] ?? [] { XCTAssertTrue(csv.contains(line), "income line \(line) in \(csv)") }
+    }
+
     func testCsvCases() throws {
         let d = try data()
         let zone = try XCTUnwrap(TimeZone(identifier: d["zone"] as? String ?? ""))

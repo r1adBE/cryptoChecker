@@ -8,11 +8,15 @@ struct PortfolioHistoryConverted: Equatable, Sendable {
     /// im Kopf rechnen dann mit denselben Tageskursen (`PortfolioPeriodChange.gain` `fx`, `rateFunction`); die reine
     /// USDT-Zahl steht separat. Kopf «inkl. Devisenkurs». Wie Android.
     var includesFx: Bool { !approximate }
+    /// Mit USDT/USD-Marktkursen (`UsdtUsdRates`) umgerechnet, aber an mindestens einem Tag ohne Kurs: dort USDT = 1.
+    var usdtApproximate: Bool = false
 }
 
 /// Wertverlauf in einer anderen Währung als USD mit historischen Tageskursen — Spiegel von
 /// `PortfolioHistoryFx.kt`:
-///  - Jeder Punkt (Wert in USDT, USDT = USD) × Kurs USD → Zielwährung SEINES Tags. Wochenenden und
+///  - Jeder Punkt (Wert in USDT) × Kurs USD → Zielwährung SEINES Tags (× USDT/USD-Tagesschluss, wenn `UsdtUsdRates`
+///    mitgegeben: USDT zum Marktkurs, Tag ohne Schluss = 1 als Näherung, `PortfolioHistoryConverted.usdtApproximate`;
+///    ohne sie USDT = USD wie bis Build 58). Wochenenden und
 ///    Feiertage (keine EZB-Fixierung) nehmen den Kurs des letzten Geschäftstags davor (`rateOn`).
 ///  - Der heutige Punkt nimmt den aktuellen Kurs (wie die Umrechnungszeile im Kopf).
 ///  - Liegt ein Tag vor dem ersten Tageskurs, gilt der erste (die Abfrage beginnt ohnehin
@@ -40,6 +44,27 @@ enum PortfolioHistoryFx {
     static func convertsUsdtAsUsd(_ currency: String) -> Bool {
         let code = CurrencyConversion.normalize(currency)
         return code != "USD" && code != "USDT"
+    }
+
+    /// Werden USDT-Beträge für `currency` umgerechnet? Mit USDT zum Marktkurs (`usdtMarket`) auch für USD (USDT/USD ≠ 1);
+    /// sonst wie `convertsUsdtAsUsd`. Nie für USDT selbst. Wie Android.
+    static func convertsUsdt(_ currency: String, usdtMarket: Bool) -> Bool {
+        let code = CurrencyConversion.normalize(currency)
+        return code != "USDT" && (usdtMarket || code != "USD")
+    }
+
+    /// Tageskurse USD → USD für `convert` in USD: an jedem Tag 1 (keine Devisen-Abfrage, nie «mit heutigem Kurs»).
+    static func usdParity(fromEpochDay: Int, toEpochDay: Int) -> [Int: Double] {
+        guard fromEpochDay <= toEpochDay else { return [:] }
+        var out: [Int: Double] = [:]
+        for day in fromEpochDay...toEpochDay { out[day] = 1 }
+        return out
+    }
+
+    /// Hängt an einem der Tage `days` die Umrechnung an USDT = 1 (kein USDT/USD-Kurs)? false ohne `usdt`.
+    static func usdtApproximate(_ usdt: UsdtUsdRates?, days: [Int], todayEpochDay: Int) -> Bool {
+        guard let usdt else { return false }
+        return days.contains { usdt.on($0, todayEpochDay: todayEpochDay).approximate }
     }
 
     /// Verlauf in `currency` mit Tageskursen enthält die Devisenbewegung, ebenso «7 T»/«1 J» im Kopf, sobald dieselben
@@ -95,16 +120,22 @@ enum PortfolioHistoryFx {
     /// Kurs USD → Zielwährung je Tag, wie `convert` ihn nutzt: ab `todayEpochDay` (und ohne Tageskurse) der aktuelle
     /// `currentRate`, sonst der Kurs des Tags bzw. des letzten Geschäftstags davor (`rateOn`), vor dem ersten der erste.
     /// Auch für «7 T»/«1 J» in der Anzeigewährung (`PortfolioPeriodChange.gain` `fx`) — damit Kopf und Kurve dieselbe
-    /// Zahl zeigen. Wie Android.
+    /// Zahl zeigen. Mit `usdt`: × USDT/USD des Tags (`UsdtUsdRates.on`) — Faktor USDT → Zielwährung. Wie Android.
     static func rateFunction(dailyRates: [Int: Double]?, currentRate: Double,
-                             todayEpochDay: Int) -> @Sendable (Int) -> Double {
+                             todayEpochDay: Int, usdt: UsdtUsdRates? = nil) -> @Sendable (Int) -> Double {
         let current = valid(currentRate) ?? 1
         let sorted = (dailyRates ?? [:])
             .compactMap { entry -> (day: Int, rate: Double)? in valid(entry.value).map { (day: entry.key, rate: $0) } }
             .sorted { $0.day < $1.day }
         return { day in
-            if day >= todayEpochDay || sorted.isEmpty { return current }
-            return rateOn(sorted, day: day) ?? sorted[0].rate
+            let fx: Double
+            if day >= todayEpochDay || sorted.isEmpty {
+                fx = current
+            } else {
+                fx = rateOn(sorted, day: day) ?? sorted[0].rate
+            }
+            guard let usdt else { return fx }
+            return fx * usdt.on(day, todayEpochDay: todayEpochDay).rate
         }
     }
 
@@ -119,11 +150,19 @@ enum PortfolioHistoryFx {
         return out
     }
 
+    /// `usdt`: Marktkurse USDT/USD; nil = USDT gilt 1 USD (bisherige Rechnung).
     static func convert(_ series: PortfolioHistorySeries, dailyRates: [Int: Double]?,
-                        currentRate: Double, todayEpochDay: Int) -> PortfolioHistoryConverted {
+                        currentRate: Double, todayEpochDay: Int,
+                        usdt: UsdtUsdRates? = nil) -> PortfolioHistoryConverted {
         let approximate = !(dailyRates ?? [:]).values.contains { valid($0) != nil }
         guard !series.points.isEmpty else { return PortfolioHistoryConverted(series: series, approximate: approximate) }
-        let rateFor = rateFunction(dailyRates: dailyRates, currentRate: currentRate, todayEpochDay: todayEpochDay)
+        let rateFor = rateFunction(dailyRates: dailyRates, currentRate: currentRate, todayEpochDay: todayEpochDay,
+                                   usdt: usdt)
+        let usdtApprox = usdtApproximate(
+            usdt,
+            days: series.points.map(\.epochDay) + (series.cashFlows ?? []).map(\.epochDay)
+                + series.pnlValues.map(\.epochDay) + series.pnlFlows.map(\.epochDay),
+            todayEpochDay: todayEpochDay)
         func convertPoint(_ p: PortfolioHistoryPoint) -> PortfolioHistoryPoint {
             let rate = rateFor(p.epochDay)
             // Eröffnung/Hoch/Tief mit demselben Tageskurs wie der Wert
@@ -145,6 +184,6 @@ enum PortfolioHistoryFx {
                                                pnlValues: series.pnlValues.map(convertPoint), pnlFlows: pnlFlows,
                                                pnlSkipped: series.pnlSkipped, pnlSinceFirst: series.pnlSinceFirst,
                                                withdrawalsInRange: series.withdrawalsInRange)
-        return PortfolioHistoryConverted(series: converted, approximate: approximate)
+        return PortfolioHistoryConverted(series: converted, approximate: approximate, usdtApproximate: usdtApprox)
     }
 }

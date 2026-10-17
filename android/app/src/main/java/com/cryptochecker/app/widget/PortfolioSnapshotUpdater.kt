@@ -66,6 +66,8 @@ class PortfolioSnapshotUpdater @Inject constructor(
     private val historySource: PortfolioHistorySource,
     /** Guthaben beobachteter Adressen (10 min Zwischenspeicher; ohne Adressen keine Anfrage). */
     private val addressRefresher: WatchedAddressRefresher,
+    /** Live-Kurs USDT/USD: Faktor USDT → Währung der Aufnahme ([PortfolioWidgetChart.usdtFactor]). */
+    private val depegReadings: com.cryptochecker.app.domain.alarm.DepegReadingStore,
 ) {
     private val mutex = Mutex()
 
@@ -151,7 +153,7 @@ class PortfolioSnapshotUpdater @Inject constructor(
     /**
      * Nimmt die aktuelle Lage auf und zeichnet die Widgets neu.
      * @param prices USDT-Kurs je Coin
-     * @param fxRate USD → [currency]; null = unbekannt, dann in USD
+     * @param fxRate USD → [currency]; null = unbekannt, dann in USDT. USDT/USD (Marktkurs) kommt hier dazu.
      * @return die neue Momentaufnahme (auch für «heute» im Portfolio-Tab); null, wenn
      *   mangels Kursen nichts aufgenommen wurde
      */
@@ -188,8 +190,10 @@ class PortfolioSnapshotUpdater @Inject constructor(
             PortfolioWidgetChart.fxMemoToSave(currency, fxRate, fxSource.cached(currency), fxSource.fetchedAt(currency), now)
                 ?.let { store.saveFxMemo(it) }
             val resolvedFx = PortfolioWidgetChart.fxRateFor(currency, fxRate, store.fxMemo(), now)
-            val rate = resolvedFx ?: 1.0
-            val code = if (resolvedFx != null) currency else "USD"
+            // USDT zum Marktkurs: Devisenkurs × USDT/USD (Widget, «Heute» und Portfolio-Alarme in der Währung)
+            val rate = resolvedFx?.let { PortfolioWidgetChart.usdtFactor(currency, it, depegReadings.liveUsdtUsd(now)) } ?: 1.0
+            // Ohne Devisenkurs in USDT (1:1 gerechnet) — nicht «USD», das in USD nun USDT zum Marktkurs meint
+            val code = if (resolvedFx != null) currency else PortfolioStables.VALUATION
             val history = store.history()
             val holdings = summary.open.associate { it.coin to it.holdings }
             // Aktuelle Kurse der offenen Coins (Stablecoin-Regel setzt der Rechner: USDT 1, andere Marktkurs, sonst 1)

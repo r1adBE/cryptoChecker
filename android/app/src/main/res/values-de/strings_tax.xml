@@ -8,7 +8,7 @@
     <string name="portfolio_export_col_coin">Coin</string>
     <string name="portfolio_export_col_note">Hinweis</string>
     <string name="portfolio_export_col_price">Kurs USDT</string>
-    <string name="portfolio_export_col_rate">Kurs USD→%1$s</string>
+    <string name="portfolio_export_col_rate">Kurs USDT→%1$s</string>
     <string name="portfolio_export_col_value">Wert USDT</string>
     <string name="portfolio_export_col_value_cur">Wert %1$s</string>
     <!-- Inhalt der CSV-Datei -->
@@ -83,7 +83,7 @@
     <string name="tax_export_time_zone">Zeitzone: %1$s</string>
     <string name="tax_export_transfer_fee_info">Umbuchungsgebühr in USDT/Fiat – kein Verlust, nicht im Einstand, nur Information</string>
     <string name="tax_export_unassigned_fee">Gebühr nicht zugeordnet – Einstand unbekannt</string>
-    <string name="tax_export_usdt_usd_note">USDT = 1 USD angenommen (bei Depeg falsch)</string>
+    <string name="tax_export_usdt_usd_note">USDT zum USDT/USD-Tagesschluss umgerechnet; ohne Schluss 1 USD (je Zeile vermerkt)</string>
     <string name="tax_export_value_estimated">Wert geschätzt (Tagesschluss)</string>
     <string name="tax_export_value_missing">Wert beim Erhalt fehlt</string>
     <string name="tax_export_wallet">Wallet: %1$s</string>

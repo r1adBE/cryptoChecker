@@ -51,6 +51,23 @@ class SettingsSearchTest {
         assertEquals(listOf("updates.background"), ids("hintergr"))
     }
 
+    /**
+     * Schalter «Portfolio» auf der Hauptseite (Gruppe «Mehr»): gleicher Titel wie die Seite Erweitert ›
+     * Portfolio, steht im Index davor (`settingsSearchItems`) und darum bei «Portfolio» zuerst — wie
+     * `testPortfolioSearchFindsMainRowFirst` (iOS, mit dem echten Katalog).
+     */
+    @Test
+    fun portfolio_mainRowComesFirst() {
+        val catalog = listOf(
+            SettingsSearchEntry("page.advanced", "Erweitert", "Mehr"),
+            SettingsSearchEntry("main.portfolio", "Portfolio", "Mehr", listOf("Portfolio-Tab anzeigen")),
+            SettingsSearchEntry("page.portfolio", "Portfolio", "Erweitert"),
+            SettingsSearchEntry("portfolio.tab", "Portfolio-Tab anzeigen", "Portfolio"),
+        )
+        val hits = SettingsSearch.search(catalog, "Portfolio", de).map { it.id }
+        assertEquals(listOf("main.portfolio", "page.portfolio", "portfolio.tab"), hits)
+    }
+
     @Test
     fun everyToken_mustMatch() {
         assertEquals(listOf("updates.background"), ids("hintergrund kurse"))

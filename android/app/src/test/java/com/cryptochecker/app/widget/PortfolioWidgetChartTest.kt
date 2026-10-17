@@ -68,14 +68,19 @@ class PortfolioWidgetChartTest {
     @Test
     fun defaultDisplayIsConversionUnlessUsd() {
         assertEquals(PortfolioDisplay.CONVERSION, PortfolioDisplay.defaultFor("CHF"))
-        assertEquals(PortfolioDisplay.USDT, PortfolioDisplay.defaultFor("USD"))
+        // USD: USDT zum Marktkurs USDT/USD wie jede Fiat-Währung
+        assertEquals(PortfolioDisplay.CONVERSION, PortfolioDisplay.defaultFor("USD"))
         assertEquals(PortfolioDisplay.USDT, PortfolioDisplay.defaultFor("USDT"))
+        assertEquals(PortfolioDisplay.USDT, PortfolioDisplay.defaultFor("USDC"))
     }
 
     @Test
     fun effectiveDisplayCollapsesForUsdAndOldSnapshots() {
-        assertEquals(PortfolioDisplay.USDT, PortfolioWidgetChart.effectiveDisplay(PortfolioDisplay.CONVERSION_USDT, "USD", true))
-        assertEquals(PortfolioDisplay.USDT, PortfolioWidgetChart.effectiveDisplay(PortfolioDisplay.CONVERSION, "USD", true))
+        assertEquals(PortfolioDisplay.USDT, PortfolioWidgetChart.effectiveDisplay(PortfolioDisplay.CONVERSION_USDT, "USDT", true))
+        assertEquals(PortfolioDisplay.USDT, PortfolioWidgetChart.effectiveDisplay(PortfolioDisplay.CONVERSION, "usdc", true))
+        // USD fällt nicht mehr zusammen (USDT zum Marktkurs USDT/USD)
+        assertEquals(PortfolioDisplay.CONVERSION, PortfolioWidgetChart.effectiveDisplay(PortfolioDisplay.CONVERSION, "USD", true))
+        assertEquals(PortfolioDisplay.CONVERSION_USDT, PortfolioWidgetChart.effectiveDisplay(PortfolioDisplay.CONVERSION_USDT, "USD", true))
         assertEquals(PortfolioDisplay.CONVERSION, PortfolioWidgetChart.effectiveDisplay(PortfolioDisplay.USDT, "CHF", false))
         assertEquals(PortfolioDisplay.CONVERSION_USDT, PortfolioWidgetChart.effectiveDisplay(PortfolioDisplay.CONVERSION_USDT, "CHF", true))
     }
@@ -131,10 +136,10 @@ class PortfolioWidgetChartTest {
 
     @Test
     fun usdSnapshotIsRebasedToTheConversionCurrency() {
-        // Ohne Kurs in USD aufgenommen: Gesamtwert = USDT-Wert
-        val usd = snapshot(total = 1000.0, totalUsdt = 1000.0, currency = "USD", change = 10.0, history = hourly(1000.0, 990.0))
+        // Ohne Devisenkurs aufgenommen (in USDT): Gesamtwert = USDT-Wert
+        val usd = snapshot(total = 1000.0, totalUsdt = 1000.0, currency = "USDT", change = 10.0, history = hourly(1000.0, 990.0))
             .let { it.copy(positions = listOf(PortfolioPosition("BTC", 1000.0, 100.0, 1.0, pnlAmount = 10.0))) }
-        // Vor dem Fix: «Umrechnung» fiel bei USD auf «Nur USDT» zurück
+        // Bis zum Umrechnen zeigt «Umrechnung» USDT
         assertEquals(PortfolioDisplay.USDT, PortfolioWidgetChart.effectiveDisplay(PortfolioDisplay.CONVERSION, usd.currency, true))
         val chf = PortfolioWidgetChart.rebased(usd, "CHF", 0.9)
         assertEquals("CHF", chf.currency)
@@ -414,5 +419,19 @@ class PortfolioWidgetChartTest {
         // Die Linie liegt nahe der Mitte statt von ganz oben nach ganz unten
         assertTrue(geo.y(1000.0) > 30f && geo.y(1000.0) < 50f)
         assertTrue(geo.y(1000.5) > 10f && geo.y(1000.5) < 30f)
+    }
+
+    /** Faktor USDT → Währung der Aufnahme: Devisenkurs × USDT/USD, auch für USD; USD-Stablecoins bleiben. Wie iOS. */
+    @Test
+    fun usdtFactorUsesMarketPrice() {
+        assertEquals(0.9 * 0.998, PortfolioWidgetChart.usdtFactor("CHF", 0.9, 0.998), 1e-12)
+        // Ohne Messung bzw. unplausibel: USDT = 1
+        assertEquals(0.9, PortfolioWidgetChart.usdtFactor("CHF", 0.9, null), 1e-12)
+        assertEquals(0.9, PortfolioWidgetChart.usdtFactor("CHF", 0.9, 2.0), 1e-12)
+        // USD: USDT zum Marktkurs (0.97 → 1000 USDT = 970 USD); ohne Messung 1
+        assertEquals(0.97, PortfolioWidgetChart.usdtFactor("USD", 1.0, 0.97), 1e-12)
+        assertEquals(1.0, PortfolioWidgetChart.usdtFactor("USD", 1.0, null), 1e-12)
+        // USD-Stablecoin als Anzeige: unverändert (Widget zeigt dort USDT)
+        assertEquals(1.0, PortfolioWidgetChart.usdtFactor("USDC", 1.0, 0.97), 1e-12)
     }
 }

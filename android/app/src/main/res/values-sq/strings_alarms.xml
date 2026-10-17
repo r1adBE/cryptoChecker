@@ -34,6 +34,7 @@
     <string name="alarm_first_battery_hint">Optimizimi i baterisë e kufizon aplikacionin – alarmet mund të vijnë me vonesë.</string>
     <string name="alarm_first_title">Gjithçka gati</string>
     <string name="alarm_last_triggered">së fundmi më %1$s</string>
+    <string name="alarm_more_conditions">Më shumë kushte</string>
     <string name="alarm_new_extreme">%1$s i ri</string>
     <string name="alarm_once">Një herë</string>
     <string name="alarm_option_repeating">Mbaje alarmin pasi të aktivizohet</string>

@@ -8,7 +8,7 @@
     <string name="portfolio_export_col_coin">コイン</string>
     <string name="portfolio_export_col_note">メモ</string>
     <string name="portfolio_export_col_price">価格 USDT</string>
-    <string name="portfolio_export_col_rate">レート USD→%1$s</string>
+    <string name="portfolio_export_col_rate">レート USDT→%1$s</string>
     <string name="portfolio_export_col_value">評価額 USDT</string>
     <string name="portfolio_export_col_value_cur">評価額 %1$s</string>
     <!-- Inhalt der CSV-Datei -->
@@ -83,7 +83,7 @@
     <string name="tax_export_time_zone">タイムゾーン：%1$s</string>
     <string name="tax_export_transfer_fee_info">USDT・法定通貨の振替手数料 – 損失ではなく取得原価にも含めない参考情報</string>
     <string name="tax_export_unassigned_fee">手数料は未配分 – 取得原価不明</string>
-    <string name="tax_export_usdt_usd_note">USDT = 1 USD と仮定（ペッグが外れると誤り）</string>
+    <string name="tax_export_usdt_usd_note">USDT は USDT/USD の日次終値で換算。終値がない日は 1 USD（行ごとに注記）</string>
     <string name="tax_export_value_estimated">推定値（日次終値）</string>
     <string name="tax_export_value_missing">受取時の価値なし</string>
     <string name="tax_export_wallet">ウォレット：%1$s</string>

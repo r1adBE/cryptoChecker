@@ -210,11 +210,11 @@ object PortfolioWidgetMath {
     }
 
     /**
-     * Zweite Zeile «≈ … USDT» nur, wenn gewünscht und die Anzeigewährung nicht selbst
-     * USD bzw. ein USD-Stablecoin ist (ohne Devisenkurs zeigt das Widget USD).
+     * Zweite Zeile «≈ … USDT» nur, wenn gewünscht und die Anzeigewährung nicht selbst ein USD-Stablecoin ist (ohne
+     * Devisenkurs zeigt das Widget USDT). USD zeigt sie wie jede Fiat-Währung (USDT zum Marktkurs USDT/USD).
      */
     fun showsUsdt(enabled: Boolean, currency: String): Boolean =
-        enabled && CurrencyConversion.normalize(currency) !in CurrencyConversion.USD_STABLES
+        enabled && CurrencyConversion.normalize(currency).let { it == "USD" || it !in CurrencyConversion.USD_STABLES }
 
     /** Anteil von [value] an [total] in Prozent (0–100); ohne Gesamtwert 0. */
     fun sharePercent(value: Double, total: Double): Double =

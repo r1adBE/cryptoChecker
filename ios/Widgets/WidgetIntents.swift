@@ -305,7 +305,7 @@ struct SingleWidgetIntent: WidgetConfigurationIntent {
 }
 
 /// Portfolio-Widget: Ansicht, Anzeige, Zeitraum, Chart-Art und Hintergrund (wie die Einrichtung in Android).
-/// Standard: Chart, «Umrechnung» (bei USD als Umrechnungswährung zeigt das Widget ohnehin «Nur USDT»,
+/// Standard: Chart, «Umrechnung» (bei einem USD-Stablecoin als Umrechnungswährung zeigt das Widget ohnehin «Nur USDT»,
 /// `PortfolioWidgetChart.effectiveDisplay`), 24 h, Linie. Bereits abgelegte Widgets ohne Ansicht zeigen
 /// den Chart wie bisher; mit früherer Wahl «Umrechnung + USDT» behalten sie diese. Die Chart-Art
 /// erscheint nur bei der Ansicht «Chart», der Zeitraum nicht bei «Liste» (`parameterSummary`).

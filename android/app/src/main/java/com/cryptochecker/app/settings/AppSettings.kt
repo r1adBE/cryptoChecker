@@ -109,7 +109,8 @@ data class AppSettings(
 
     /**
      * USDT-Depeg melden ([com.cryptochecker.app.domain.alarm.DepegAlarm]): ab Werk aus (zusätzliche
-     * Abfragen nur, wenn eingeschaltet). Bewertungen rechnen weiter mit USDT = 1.
+     * Meldungen nur, wenn eingeschaltet). Bewertungen rechnen mit dem gemessenen USDT/USD-Marktkurs (gemessen auch ohne
+     * Alarm, sobald ein Portfolio da ist).
      */
     val depegAlarm: Boolean = false,
 

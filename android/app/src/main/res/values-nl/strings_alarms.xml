@@ -34,6 +34,7 @@
     <string name="alarm_first_battery_hint">Batterijoptimalisatie beperkt de app – alarmen kunnen later aankomen.</string>
     <string name="alarm_first_title">Alles ingesteld</string>
     <string name="alarm_last_triggered">laatst om %1$s</string>
+    <string name="alarm_more_conditions">Meer voorwaarden</string>
     <string name="alarm_new_extreme">Nieuwe %1$s</string>
     <string name="alarm_once">Eenmalig</string>
     <string name="alarm_option_repeating">Alarm behouden na afgaan</string>

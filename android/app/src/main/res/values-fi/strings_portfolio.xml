@@ -81,14 +81,13 @@
     <string name="portfolio_current_price">Nykyinen hinta</string>
     <string name="portfolio_price_missing">Hinta puuttuu</string>
     <string name="portfolio_price_missing_hint">Joistakin ostoista puuttuu hinta. Lisää ostohinta nähdäksesi voiton/tappion.</string>
-    <string name="portfolio_price_source">Kurssit: Binance · USDT = 1</string>
-    <string name="portfolio_price_source_routes">Kurssit: %1$s, muuten Binance · USDT = 1</string>
+    <string name="portfolio_price_source">Kurssit: Binance · USDT markkinakurssiin</string>
+    <string name="portfolio_price_source_routes">Kurssit: %1$s, muuten Binance · USDT markkinakurssiin</string>
     <string name="portfolio_price_unavailable">Hinta ei ole juuri nyt saatavilla</string>
     <string name="portfolio_price_unchecked">Hinta tarkistamatta</string>
     <string name="portfolio_price_via_base">≈ %1$s-hinta (silloitettu/kääritty)</string>
-    <string name="portfolio_usdt_as_usd">USDT muunnettu USD-kurssilla</string>
+    <string name="portfolio_usdt_as_usd">USDT muunnettu sen USD-markkinakurssilla</string>
     <string name="portfolio_usdt_assumed">Oletettu USDT = 1</string>
-    <string name="portfolio_usdt_depeg_warning">Oletettu USDT = 1 – markkina %1$s USD (%2$s)</string>
 
     <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
     <string name="portfolio_add_from_watch">Lisää salkkuun</string>

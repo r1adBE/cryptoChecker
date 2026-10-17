@@ -33,6 +33,7 @@
     <string name="alarm_first_battery_hint">バッテリーの最適化でアプリが制限されています – アラームが遅れて届くことがあります。</string>
     <string name="alarm_first_title">設定完了</string>
     <string name="alarm_last_triggered">前回 %1$s</string>
+    <string name="alarm_more_conditions">その他の条件</string>
     <string name="alarm_new_extreme">%1$s更新</string>
     <string name="alarm_once">1回</string>
     <string name="alarm_option_repeating">作動後もアラームを残す</string>

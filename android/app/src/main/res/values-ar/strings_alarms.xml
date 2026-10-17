@@ -38,6 +38,7 @@
     <string name="alarm_first_battery_hint">تحسين البطارية يقيّد التطبيق – قد تصل التنبيهات متأخرة.</string>
     <string name="alarm_first_title">كل شيء جاهز</string>
     <string name="alarm_last_triggered">آخر مرة %1$s</string>
+    <string name="alarm_more_conditions">شروط إضافية</string>
     <string name="alarm_new_extreme">جديد: %1$s</string>
     <string name="alarm_once">مرة واحدة</string>
     <string name="alarm_option_repeating">إبقاء التنبيه بعد انطلاقه</string>

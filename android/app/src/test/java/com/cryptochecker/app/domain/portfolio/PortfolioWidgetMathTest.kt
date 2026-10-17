@@ -39,7 +39,8 @@ class PortfolioWidgetMathTest {
     fun usdtLineOnlyForNonUsdCurrencies() {
         assertTrue(PortfolioWidgetMath.showsUsdt(true, "CHF"))
         assertFalse(PortfolioWidgetMath.showsUsdt(false, "CHF"))
-        assertFalse(PortfolioWidgetMath.showsUsdt(true, "USD"))
+        // USD: USDT zum Marktkurs USDT/USD — wie jede Fiat-Währung mit «≈ … USDT»
+        assertTrue(PortfolioWidgetMath.showsUsdt(true, "USD"))
         assertFalse(PortfolioWidgetMath.showsUsdt(true, "usdt"))
         assertFalse(PortfolioWidgetMath.showsUsdt(true, "USDC"))
     }

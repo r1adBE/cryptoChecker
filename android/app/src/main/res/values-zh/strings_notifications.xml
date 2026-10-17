@@ -5,7 +5,7 @@
     <string name="notification_alarm_text">%1$s——当前 %2$s</string>
     <string name="notification_alarm_title">提醒：%1$s · %2$s</string>
     <string name="notification_depeg_action_exchange">打开交易所</string>
-    <string name="notification_depeg_text">应用内的数值仍按 USDT = 1 计算。</string>
+    <string name="notification_depeg_text">应用内的数值按此市场价计算。</string>
     <string name="notification_depeg_title">USDT 为 %1$s USD（%2$s）</string>
     <string name="notification_fng_above">指数升破 %1$d——按该指数，市场情绪为贪婪。</string>
     <string name="notification_fng_below">指数跌破 %1$d——按该指数，市场情绪为恐惧。</string>

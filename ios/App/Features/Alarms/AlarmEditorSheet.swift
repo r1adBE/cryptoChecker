@@ -1,9 +1,10 @@
 import SwiftUI
 
 /// Alarm anlegen/bearbeiten als Blatt von unten — wie `AlarmEditorSheet` in Android. Oben die Schnell-Alarme
-/// (nur beim Anlegen), dann der einfache Satz «Wenn BTC über [Betrag] geht» mit «Einmal /
-/// Jedes Mal»; alle übrigen Bedingungen und Optionen unter «Erweitert» (zugeklappt, ausser beim
-/// Bearbeiten eines Alarms, den der Satz nicht zeigt). Volle Höhe: Aufklappen scrollt im Inhalt.
+/// (nur beim Anlegen), dann nur die einfachen Bedingungen (Kurs über/unter, Steigt/Fällt um) — die
+/// Kursmarke als Satz «Wenn BTC über [Betrag] geht». Alle übrigen Bedingungen unter «Mehr Bedingungen»,
+/// Währung, Ton und Vorlesen unter «Erweitert» (beide zugeklappt, ausser beim Bearbeiten eines Alarms,
+/// der sie braucht), dazwischen «Einmal / Jedes Mal». Volle Höhe: Aufklappen scrollt im Inhalt.
 @MainActor
 struct AlarmEditorSheet: View {
     let initial: AlarmDraft
@@ -22,6 +23,8 @@ struct AlarmEditorSheet: View {
     /// Faktor Quote → Währung, soweit bekannt (zum Umrechnen des getippten Schwellwerts).
     @State var rates: [String: Double] = [:]
     @FocusState var fieldFocused: Bool
+    /// «Mehr Bedingungen» aufgeklappt.
+    @State var moreConditions: Bool
     /// «Erweitert» aufgeklappt.
     @State var advanced: Bool
     /// Hat das Paar Tageskerzen (30-Tage-Hoch/-Tief) bzw. Stundenvolumen? Für die Schnell-Alarme.
@@ -41,7 +44,9 @@ struct AlarmEditorSheet: View {
         self.onSave = onSave
         self.onTemplate = onTemplate
         _draft = State(initialValue: initial)
-        // Offen, wenn der einfache Satz den Alarm nicht zeigen kann (z. B. Volumen-Spike)
+        // «Mehr Bedingungen» offen beim Bearbeiten eines Alarms mit einer davon (z. B. Volumen-Spike),
+        // «Erweitert» bei einer Kursmarke in eigener Währung
+        _moreConditions = State(initialValue: AlarmTemplates.opensMoreConditions(condition: initial.condition))
         _advanced = State(initialValue: AlarmTemplates.opensAdvanced(condition: initial.condition, currency: initial.currency))
     }
 
@@ -106,9 +111,22 @@ struct AlarmEditorSheet: View {
                         templateChips
                     }
 
-                    // Einfacher Modus: «Wenn BTC [über ▾] [Betrag] geht»
+                    // Einfache Bedingungen: Kurs über/unter, Steigt/Fällt um
+                    simpleConditionTiles
+
                     if draft.condition.isPriceThreshold {
+                        // Kursmarke als Satz: «Wenn BTC [über ▾] [Betrag] geht»
                         simpleSentence
+                    } else if draft.condition.isPercent && !AlarmTemplates.opensMoreConditions(condition: draft.condition) {
+                        thresholdField
+                    }
+
+                    // Alle übrigen Bedingungen (Zeitfenster, Volumen, Hoch/Tief, Funding, Open Interest)
+                    sectionHeader(L("alarm_more_conditions"), expanded: $moreConditions)
+
+                    if moreConditions {
+                        moreConditionsContent
+                            .transition(.opacity)
                     }
 
                     // Einmal / Jedes Mal
@@ -118,7 +136,7 @@ struct AlarmEditorSheet: View {
                     }
                     .pickerStyle(.segmented)
 
-                    advancedHeader
+                    sectionHeader(L("alarm_advanced"), expanded: $advanced)
 
                     if advanced {
                         advancedContent
@@ -146,6 +164,7 @@ struct AlarmEditorSheet: View {
                 .padding(.bottom, 24)
                 .animation(.spring(duration: 0.3), value: draft.condition)
                 .animation(.easeInOut(duration: 0.2), value: advanced)
+                .animation(.easeInOut(duration: 0.2), value: moreConditions)
             }
             .scrollDismissesKeyboard(.interactively)
             .background(AppColors.background.ignoresSafeArea())

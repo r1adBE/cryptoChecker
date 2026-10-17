@@ -78,14 +78,13 @@
     <string name="portfolio_current_price">현재가</string>
     <string name="portfolio_price_missing">가격 없음</string>
     <string name="portfolio_price_missing_hint">일부 매수에 가격이 없습니다. 손익을 보려면 매수가를 입력하세요.</string>
-    <string name="portfolio_price_source">시세: Binance · USDT = 1</string>
-    <string name="portfolio_price_source_routes">시세: %1$s, 그 외 Binance · USDT = 1</string>
+    <string name="portfolio_price_source">시세: Binance · USDT는 시장가</string>
+    <string name="portfolio_price_source_routes">시세: %1$s, 그 외 Binance · USDT는 시장가</string>
     <string name="portfolio_price_unavailable">지금은 가격을 가져올 수 없습니다</string>
     <string name="portfolio_price_unchecked">가격 미확인</string>
     <string name="portfolio_price_via_base">≈ %1$s 가격(브리지/래핑)</string>
-    <string name="portfolio_usdt_as_usd">USDT는 USD 환율로 환산</string>
+    <string name="portfolio_usdt_as_usd">USDT는 USD 시장가로 환산</string>
     <string name="portfolio_usdt_assumed">USDT = 1로 가정</string>
-    <string name="portfolio_usdt_depeg_warning">USDT = 1로 가정 – 시장 %1$s USD(%2$s)</string>
 
     <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
     <string name="portfolio_add_from_watch">포트폴리오에 추가</string>

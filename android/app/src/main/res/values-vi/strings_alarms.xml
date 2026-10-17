@@ -33,6 +33,7 @@
     <string name="alarm_first_battery_hint">Tối ưu hóa pin đang hạn chế ứng dụng – cảnh báo có thể đến muộn.</string>
     <string name="alarm_first_title">Đã thiết lập xong</string>
     <string name="alarm_last_triggered">lần cuối lúc %1$s</string>
+    <string name="alarm_more_conditions">Thêm điều kiện</string>
     <string name="alarm_new_extreme">%1$s mới</string>
     <string name="alarm_once">Một lần</string>
     <string name="alarm_option_repeating">Giữ cảnh báo sau khi kích hoạt</string>

@@ -77,7 +77,8 @@ struct TaxPeriod: Sendable, Equatable {
 /// Wallet); AT Tausch steuerneutral ab 01.03.2022, davor bzw. Altvermögen Realisation nach § 31 EStG a. F. (EStR Rz
 /// 6103k); FR/AT: Verkauf gegen Stablecoin = Tausch Krypto↔Krypto; CA CRA (Stand 05.02.2026),
 /// T4037 2025; AU ATO CGT discount (Stand 29.06.2026); FR art. 150 VH bis CGI, BOI-RPPM-PVBMC-30-20 (§ 50 Gebühren),
-/// BOI-RPPM-PVBMC-30-10 § 70, formulaire 2086 (2025); JP 国税庁 A1-20. USDT = 1 USD angenommen (Hinweis in der Kopfzeile).
+/// BOI-RPPM-PVBMC-30-10 § 70, formulaire 2086 (2025); JP 国税庁 A1-20. Umrechnung × USDT/USD-Tagesschluss
+/// (`TaxExport.rateOn` `usdtUsd`); ohne Schluss des Tags USDT = 1 USD als Näherung, je Zeile vermerkt (`TaxCsvTexts.usdtAssumed`).
 enum TaxTemplate: String, Codable, CaseIterable, Sendable {
     case NEUTRAL
     case DE

@@ -168,7 +168,7 @@
 
     <!-- Einstellungen › Markt-Meldungen -->
     <string name="settings_depeg_alarm">Hlásit depeg USDT</string>
-    <string name="settings_depeg_alarm_hint">Upozorní jednou, když se USDT odchýlí od 1 USD o hranici (Kraken USDT/USD, Binance USDC/USDT). Hodnoty v aplikaci dál počítají s USDT = 1.</string>
+    <string name="settings_depeg_alarm_hint">Upozorní jednou, když se USDT odchýlí od 1 USD o hranici (Kraken USDT/USD, Binance USDC/USDT).</string>
     <string name="settings_depeg_threshold">Hranice depegu</string>
     <string name="settings_fng_above">Fear &amp; Greed: upozornit nad</string>
     <string name="settings_fng_below">Fear &amp; Greed: upozornit pod</string>

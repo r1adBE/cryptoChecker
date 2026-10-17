@@ -115,5 +115,16 @@ final class SettingsSearchTests: XCTestCase {
         XCTAssertEqual(path("page.widgets"), L("settings_section_appearance"))
         XCTAssertEqual(path("page.coin_logos"), L("settings_row_advanced"))
         XCTAssertEqual(path("page.advanced"), L("settings_group_more"))
+        XCTAssertEqual(path("main.portfolio"), L("settings_group_more"))
+    }
+
+    /// Schalter «Portfolio» auf der Hauptseite (Gruppe «Mehr»): die Suche nach «Portfolio» zeigt ihn zuerst,
+    /// vor der Seite Erweitert › Portfolio — wie `portfolio_mainRowComesFirst` (Android).
+    @MainActor
+    func testPortfolioSearchFindsMainRowFirst() {
+        let entries = SettingsSearchCatalog.items(settings: AppSettings()).map(\.entry)
+        let hits = SettingsSearch.search(entries, query: L("portfolio_title"), locale: Locale.current).map(\.id)
+        XCTAssertEqual(hits.first, "main.portfolio")
+        XCTAssertTrue(hits.contains("page.portfolio"))
     }
 }

@@ -16,11 +16,14 @@ import javax.inject.Singleton
  * Portfolio-Regel [com.cryptochecker.app.domain.portfolio.PortfolioStables]), Fiat über [FxRateSource],
  * alles andere als Krypto über den USDT-Kurs der [PortfolioPriceSource]. Danach USD → Ziel über
  * [FxRateSource]. Beide Quellen haben eigene Zwischenspeicher; Alter der Devisenkurse: [staleFxTime].
+ * USDT zum Marktkurs (Owner-Entscheid Okt. 2026): USDT und alles, was über USDT bewertet wird, × Live-Kurs USDT/USD
+ * ([DepegReadingStore.liveUsdtUsd], gemessen mit Portfolio oder Depeg-Alarm); ohne frische Messung 1 (bisherige Rechnung).
  */
 @Singleton
 class CurrencyConverter @Inject constructor(
     private val fxRateSource: FxRateSource,
     private val priceSource: PortfolioPriceSource,
+    private val depegReadings: com.cryptochecker.app.domain.alarm.DepegReadingStore,
 ) {
     private val fiat: List<String> get() = FxRateSource.CURRENCIES
 
@@ -33,7 +36,7 @@ class CurrencyConverter @Inject constructor(
         if (classify(to) != QuoteKind.USD && classify(to) != QuoteKind.FIAT) return null
         return try {
             val quoteUsd = quoteToUsd(quote) ?: return null
-            val usdToTarget = if (to in CurrencyConversion.USD_STABLES) 1.0 else fxRateSource.usdTo(to)
+            val usdToTarget = if (to in CurrencyConversion.USD_STABLES) usdToStable(to) else fxRateSource.usdTo(to)
             CurrencyConversion.rate(quoteUsd, usdToTarget)
         } catch (e: CancellationException) {
             throw e
@@ -65,13 +68,13 @@ class CurrencyConverter @Inject constructor(
         val to = CurrencyConversion.normalize(target)
         val from = CurrencyConversion.normalize(quote)
         val quoteUsd = when (val kind = classify(from)) {
-            QuoteKind.USD -> CurrencyConversion.quoteToUsd(kind, null, stableMarket(from), from)
+            QuoteKind.USD -> CurrencyConversion.quoteToUsd(kind, null, stableMarket(from), from, liveUsdtUsd())
             QuoteKind.FIAT -> CurrencyConversion.quoteToUsd(kind, fxRateSource.cached(from), null)
-            QuoteKind.CRYPTO -> CurrencyConversion.quoteToUsd(kind, null, priceSource.cached(listOf(from)).prices[from])
+            QuoteKind.CRYPTO -> CurrencyConversion.quoteToUsd(kind, null, priceSource.cached(listOf(from)).prices[from], usdtUsd = liveUsdtUsd())
             QuoteKind.INVALID -> null
         }
         val usdToTarget = when (classify(to)) {
-            QuoteKind.USD -> 1.0
+            QuoteKind.USD -> usdToStable(to)
             QuoteKind.FIAT -> fxRateSource.cached(to)
             else -> null
         }
@@ -111,15 +114,26 @@ class CurrencyConverter @Inject constructor(
     private fun stableMarket(code: String): Double? =
         if (!CurrencyConversion.stableNeedsMarket(code)) null else priceSource.cached(listOf(code)).prices[code]
 
+    /** Live-Kurs USDT/USD ([DepegReadingStore.liveUsdtUsd]); null = keiner (USDT gilt 1, bisherige Rechnung). */
+    private fun liveUsdtUsd(): Double? = depegReadings.liveUsdtUsd()
+
+    /**
+     * Einheiten der Ziel-Stablecoin-Währung [code] je USD: USDT = 1 ÷ USDT/USD (Marktkurs, ohne Messung 1); USD und
+     * andere Stablecoins 1 (wie bisher).
+     */
+    private fun usdToStable(code: String): Double =
+        if (code == "USDT") 1.0 / (CurrencyConversion.stableToUsd("USDT", null, liveUsdtUsd()) ?: 1.0) else 1.0
+
     private suspend fun quoteToUsd(quote: String): Double? {
         val code = CurrencyConversion.normalize(quote)
         return when (val kind = classify(code)) {
-            // Stablecoin ausser USD/USDT: Marktkurs (wie das Portfolio), ohne Kurs kein Faktor
+            // Stablecoin ausser USD/USDT: Marktkurs (wie das Portfolio), ohne Kurs kein Faktor; USDT × USDT/USD
             QuoteKind.USD -> CurrencyConversion.quoteToUsd(
                 kind, null, if (CurrencyConversion.stableNeedsMarket(code)) priceSource.price(code) else null, code,
+                liveUsdtUsd(),
             )
             QuoteKind.FIAT -> CurrencyConversion.quoteToUsd(kind, fxRateSource.usdTo(code), null)
-            QuoteKind.CRYPTO -> CurrencyConversion.quoteToUsd(kind, null, priceSource.price(code))
+            QuoteKind.CRYPTO -> CurrencyConversion.quoteToUsd(kind, null, priceSource.price(code), usdtUsd = liveUsdtUsd())
             QuoteKind.INVALID -> null
         }
     }

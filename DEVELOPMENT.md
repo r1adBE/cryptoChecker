@@ -989,8 +989,9 @@ the tests named here.
   rarely traded coin must not block the alarm for the whole portfolio.
 * **Price from the entered exchange.** `PortfolioExchangeRoute` (both platforms, tests
   `PortfolioExchangeRouteTest(s)`): a coin whose transactions with an exchange all name the same
-  spot exchange is valued at that exchange's spot price – pair order USDT, USD (= 1 USDT), then fiat
-  via the FX rate (`QUOTES`); other stablecoins are never assumed at 1. Mixed exchanges on one coin
+  spot exchange is valued at that exchange's spot price – pair order USDT, USD (÷ USDT/USD market price,
+  `toUsdt` `usdtUsd`; default 1), then fiat via the FX rate and the same USDT/USD price (`QUOTES`); other
+  stablecoins are never assumed at 1. Mixed exchanges on one coin
   → Binance and `mixedExchange`; exchange unreachable / no pair / no FX → Binance and
   `exchangeFailed`; both are named on the card. Value history, 7 d, 1 y and the widget chart use the
   **route exchange's own daily candles** first (`PortfolioHistorySource`, see «Portfolio history from
@@ -1007,7 +1008,7 @@ the tests named here.
   (pair lists from `MarketRepository`, FX from `FxRateSource`); iOS resolves them in the app
   (`PortfolioRouteResolver`, `PairCache`) into `PortfolioExchangeRouteStore` (App Group), so the
   widget and background use the same prices. The card shows the sources in one line
-  («Prices: Binance · USDT = 1» / `portfolio_price_source_routes`). Only the trading pair is sent
+  («Prices: Binance · USDT at market price» / `portfolio_price_source_routes`). Only the trading pair is sent
   to the exchange; a new route needs a privacy-policy check.
 
 * **Two different plausibility checks.** `DayChange` (the % change) rejects a 24 h reference price
@@ -1204,6 +1205,8 @@ the tests named here.
   decides the «USDT = 1» line independently of the depeg alarm: fresh reading ≥ threshold → deviation warning (as
   before, always shown); else values hanging on USDT = USD (`PortfolioExchangeRoute.usdtParityShown`) → price-source
   line; else holdings containing USDT → `portfolio_usdt_assumed` («USDT = 1 assumed»); else no line.
+  With `usdtMarket = true` (USDT at market price, see below): a fresh plausible reading (`DepegAlarm.liveUsdtUsd`) →
+  no line; otherwise `USDT_ASSUMED` whenever values depend on USDT – the visible marker of the 1-fallback.
   The total card gets the last reading, the threshold and the screen clock (`depegReading`, `depegThresholdTenths`,
   `now`) and calls `cardNote` itself; the price-source line moves under «Hints» unless it is the card line.
 * **Exchange connections checked (build 58).** `ExchangeVerification.LAST_VERIFIED` (Swift `lastVerified`) is the UTC
@@ -1383,7 +1386,38 @@ the tests named here.
   rebuy covers one loss; FR uncovered part unknown; UK late deposit joins the pool on its booking day.
 * **One number locale.** Display and input use app language + device region (`LocaleNumbers.formatLocale`).
 * **USDT depeg alarm.** Pure rule in `DepegAlarm` (parity `depeg_alarm.json`): both sources must deviate,
-  fire once per episode, re-arm at half the threshold, quiet hours hold it. Valuation stays USDT = 1.
+  fire once per episode, re-arm at half the threshold, quiet hours hold it. Its reading doubles as the live
+  USDT/USD price of the valuation (`DepegAlarm.liveUsdtUsd`, ≤ 30 min, 0.5…1.5).
+* **USDT at market price (owner decision Oct 2026).** USDT stays the internal unit (1 USDT = 1 USDT, all
+  ledgers/history in USDT), but USDT → fiat (USD included; USD itself stays 1) uses the USDT/USD market price like
+  USDC/DAI: `PortfolioStables.usdtUsd` (plausible 0.5…1.5, else **1 marked approximate** – never silent, values never
+  go blank), `usdtTo` (USD→target × USDT/USD), `UsdtUsdRates` (live from today, daily close before; a day without
+  close = 1 approximate). Wired through `PortfolioHistoryFx.convert/rateFunction` (`usdt`, flag `usdtApproximate`,
+  `convertsUsdt`, `usdParity` for USD), `PortfolioExchangeRoute.toUsdt/ownDailyUsdt` (USD/fiat quotes ÷ USDT/USD),
+  `CurrencyConversion.stableToUsd/quoteToUsd` (`usdtUsd`) and `TaxExport.rateOn/gainRows/incomeRows/yearSummary`
+  (`usdtUsd` = daily closes per date; rows without close get `usdtApproximate` and the note
+  `TaxCsvTexts.usdtAssumed`). Every new parameter defaults to null/1 = the old USDT = 1 maths; the callers pass them
+  explicitly. Parity: `portfolio.json` › `usdtMarket` and `ownDailyUsdt`, `depeg_alarm.json` › `cardNote`
+  (`usdtMarket`) and `liveUsdtUsd`, `tax_export.json` › `usdtMarket`.
+* **USDT at market price – wiring (live).** Measurement: `DepegAlarmChecker` / `DepegAlarmCheck` measure whenever
+  `DepegAlarm.shouldMeasure` (depeg alarm on, or portfolio on with transactions or watched addresses) – same Kraken
+  `USDTZUSD` / Binance `USDCUSDT` tickers, at most every 5 min; with the alarm off they only store the reading
+  (`DepegReadingStore` / `DepegAlarmCheck.lastReading`), never notify. Also started from the portfolio refresh.
+  Daily closes: `PortfolioHistorySource.usdtUsdDaily` = Kraken daily candles `USDTZUSD` through `OwnCandleDataSource`
+  and the own-candle cache (`phisto_USDTZUSD`, 12 h); `PortfolioDailyPrices.usdtUsd` carries them with every history
+  load, and USD/fiat candles of own exchanges divide by them (`ownDailyUsdt`). Callers: total card and rows use
+  `displayFxRate` / `displayRate(for:)` (FX × live USDT/USD) and `cardNote(usdtMarket = true)` (the deviation line
+  and `portfolio_usdt_depeg_warning` are gone); history and «7 d»/«1 y» pass `UsdtUsdRates(live, daily)`
+  (`PortfolioHistoryUi.usdtApproximate` → caption `portfolio_usdt_assumed`); widget snapshot and its draw-time rebase
+  multiply by `PortfolioWidgetChart.usdtFactor` (not for USD – the widget shows USDT there); «Today» converts back
+  with the snapshot's own factor (`fxFactor`); `PortfolioPriceSource` passes the live rate to `toUsdt`;
+  `CurrencyConverter` passes it to `quoteToUsd` (watchlist «≈», alarms in another currency; target USDT ÷ USDT/USD);
+  tax export passes `usdtUsd` (daily closes since the first needed date) and `TaxCsvTexts.usdtAssumed =
+  portfolio_usdt_assumed`; the cut-off export multiplies its rate by USDT/USD of the date (today live) and adds the
+  line `CutoffCsvTexts.usdtAssumed` when there is none (`CutoffExport.csv(usdtApproximate)`, column «Rate USDT→…»).
+  The USD display currency keeps showing USDT on the card (no conversion); the portfolio-alarm fallback
+  `PortfolioAlarmLogic.totalIn` (alarm in a currency other than the snapshot's) and the fiat-entry/CSV-import
+  conversions still treat USDT as 1 USD.
 * **Change basis must be visible.** A % from a UTC day open (`StarterPrice.sinceUtcDay`, currently unused since starters are Binance) is labelled «since
   00:00 UTC»; Hyperliquid's % (mark vs prevDayPx) is labelled «Mark» (`Market.changeIsMark`). WOO spot needs 24
   contiguous hourly candles.
@@ -1570,8 +1604,10 @@ Layout decisions that keep the app calm. Same structure on Android and iOS, same
 
 * **Settings structure.** Main page (`SettingsScreen.kt` / `SettingsScreen.swift`): **General**
   (Language – on iOS it opens the system Settings app –, Currency, Watchlist, Alarms, Price updates),
-  **Appearance** (Mode, Theme, Price colours, Widgets), **More** (Data / backup, one row **Advanced**, About)
-  and «Reset app» alone in its own red card at the very bottom (build 53 «Weg 1», regrouped in build 55).
+  **Appearance** (Mode, Theme, Price colours, Widgets), **More** (Data / backup, a **Portfolio** switch, one row
+  **Advanced**, About) and «Reset app» alone in its own red card at the very bottom (build 53 «Weg 1», regrouped in
+  build 55). The Portfolio switch (`SettingsSwitchRow` / `SettingsMainSwitchRow`, anchor `main.portfolio`) is bound to
+  the same `portfolioEnabled` as Advanced › Portfolio › «Show Portfolio tab»; the search lists it before that page.
   «Advanced» (`AdvancedSettingsPage` on both platforms) holds Token & TradFi, Portfolio, Market alerts, Speech
   output, % change, Coin logos and Developer; its sub-pages
   are unchanged and «back» returns to the Advanced page. **Rule: the main page stays short.** A new
@@ -1686,6 +1722,30 @@ Layout decisions that keep the app calm. Same structure on Android and iOS, same
   (`outlineVariant`, all light schemes and iOS `ColorTokens.outlineVariant`) are `#ADA9A0` since build 58:
   2.23:1 on `#FBF9F6` (before `#C9C6BF`, 1.62:1), deliberately below 3:1 – the only outline of a control is
   `outline`. Dark mode unchanged (`#474747`).
+* **Fixed exchange price colours** (decision 18 October 2026). «Fresh», «Traditional» and «Colour vision» keep
+  one tone per direction for every accent; only the two «Calm» schemes dodge a similar accent. Rules, checked by
+  `android/tools/check_price_colors.py` (pure Python, exit code 1 on a violation) and `PriceColorSchemeTest` /
+  `SettingsLogicTests`: text contrast ≥ 4.5:1 (high contrast ≥ 7:1) on every light, warm and dark surface;
+  in light mode falling is the lighter, stronger colour (true red / orange on paper), in dark mode the darker one
+  (like Binance); luminance ratio ≥ 1.4 («Colour vision»
+  ≥ 1.5, high contrast ≥ 1.25), also after deuteranopia simulation (Machado 2009, severity 1.0; «Colour vision»
+  after protan, deutan and tritan); CIEDE2000 ≥ 10 («Colour vision» ≥ 15) from every accent primary of the same
+  mode except the accent of the same colour family (red falling beside the red accent, green rising beside
+  green / Marrs Green, blue beside blue, orange beside orange); HSL hue «Fresh» rising 140–165° / falling
+  350–10°, «Traditional» 115–135° / 0–8° and ≥ 10 from the matching «Fresh» colour; «Colour vision» rising vs
+  falling ≥ 40 after each simulation (high contrast ≥ 35: dark high contrast only leaves pastels, the best
+  blue/orange pair reaches ≈ 38.7).
+
+  | Scheme | Light ↑ / ↓ | Dark ↑ / ↓ | High contrast light ↑ / ↓ | High contrast dark ↑ / ↓ |
+  |---|---|---|---|---|
+  | Fresh | `#005A30` / `#CC0015` | `#18EA96` / `#FF6F69` | `#00421E` / `#960000` | `#81FFBA` / `#FFB1AB` |
+  | Traditional | `#033C00` / `#990000` | `#87FF7E` / `#FF9C99` | `#002100` / `#630000` | `#E4FFE4` / `#F9D2CD` |
+  | Colour vision | `#003372` / `#AE4200` | `#96D8FF` / `#ED810C` | `#002A5A` / `#7B3300` | `#C9E7FF` / `#FFB469` |
+
+  Trade-offs: «Traditional» red stays 0–8° and ≥ 10 from both the orange accent and «Fresh», so it is deep in
+  light mode (a pure red lighter than L* ≈ 33 is within ΔE 10 of the orange accent `#A64827`) and light in dark
+  mode; its rising green is darker in light mode accordingly. In dark high contrast one of the two schemes has
+  to be pastel; «Fresh» keeps the stronger pair.
 * **Alarms wait for a deliverable notification.** One-time and repeating alarms (pair and portfolio, both
   platforms) fire only via `QuietHours.mayFire(holdAlarms, deliverable)`: during quiet hours or without a
   deliverable notification nothing is written and the alarm stays armed. Never mark an alarm as triggered

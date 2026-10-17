@@ -35,6 +35,7 @@
     <string name="alarm_first_battery_hint">A otimização de bateria limita o app – os alarmes podem chegar atrasados.</string>
     <string name="alarm_first_title">Tudo pronto</string>
     <string name="alarm_last_triggered">último: %1$s</string>
+    <string name="alarm_more_conditions">Mais condições</string>
     <string name="alarm_new_extreme">Novo %1$s</string>
     <string name="alarm_once">Uma vez</string>
     <string name="alarm_option_repeating">Manter o alarme depois de disparar</string>

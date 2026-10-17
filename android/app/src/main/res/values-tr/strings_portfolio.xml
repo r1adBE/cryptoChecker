@@ -81,14 +81,13 @@
     <string name="portfolio_current_price">Güncel fiyat</string>
     <string name="portfolio_price_missing">Fiyat eksik</string>
     <string name="portfolio_price_missing_hint">Bazı alımların fiyatı yok. Kâr/zararı görmek için alış fiyatını ekleyin.</string>
-    <string name="portfolio_price_source">Fiyatlar: Binance · USDT = 1</string>
-    <string name="portfolio_price_source_routes">Fiyatlar: %1$s, diğerleri Binance · USDT = 1</string>
+    <string name="portfolio_price_source">Fiyatlar: Binance · USDT piyasa fiyatından</string>
+    <string name="portfolio_price_source_routes">Fiyatlar: %1$s, diğerleri Binance · USDT piyasa fiyatından</string>
     <string name="portfolio_price_unavailable">Fiyat şu an alınamıyor</string>
     <string name="portfolio_price_unchecked">Fiyat doğrulanmadı</string>
     <string name="portfolio_price_via_base">≈ %1$s fiyatı (köprülenmiş/sarılmış)</string>
-    <string name="portfolio_usdt_as_usd">USDT USD kuruyla çevrildi</string>
+    <string name="portfolio_usdt_as_usd">USDT, USD piyasa fiyatıyla çevrildi</string>
     <string name="portfolio_usdt_assumed">USDT = 1 varsayıldı</string>
-    <string name="portfolio_usdt_depeg_warning">USDT = 1 varsayıldı – piyasa %1$s USD (%2$s)</string>
 
     <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
     <string name="portfolio_add_from_watch">Portföye ekle</string>

@@ -34,6 +34,7 @@
     <string name="alarm_first_battery_hint">Pil optimizasyonu uygulamayı kısıtlıyor – alarmlar geç gelebilir.</string>
     <string name="alarm_first_title">Her şey hazır</string>
     <string name="alarm_last_triggered">son: %1$s</string>
+    <string name="alarm_more_conditions">Daha fazla koşul</string>
     <string name="alarm_new_extreme">Yeni %1$s</string>
     <string name="alarm_once">Bir kez</string>
     <string name="alarm_option_repeating">Tetiklendikten sonra alarmı koru</string>

@@ -168,7 +168,7 @@
 
     <!-- Einstellungen › Markt-Meldungen -->
     <string name="settings_depeg_alarm">USDT depeg bildir</string>
-    <string name="settings_depeg_alarm_hint">USDT 1 USD’den eşik kadar saptığında bir kez bildirir (Kraken USDT/USD, Binance USDC/USDT). Uygulamadaki değerler USDT = 1 ile hesaplanmaya devam eder.</string>
+    <string name="settings_depeg_alarm_hint">USDT 1 USD’den eşik kadar saptığında bir kez bildirir (Kraken USDT/USD, Binance USDC/USDT).</string>
     <string name="settings_depeg_threshold">Depeg eşiği</string>
     <string name="settings_fng_above">Fear &amp; Greed: üstüne çıkınca bildir</string>
     <string name="settings_fng_below">Fear &amp; Greed: altına inince bildir</string>

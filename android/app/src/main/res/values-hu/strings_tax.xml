@@ -8,7 +8,7 @@
     <string name="portfolio_export_col_coin">Érme</string>
     <string name="portfolio_export_col_note">Megjegyzés</string>
     <string name="portfolio_export_col_price">Ár USDT</string>
-    <string name="portfolio_export_col_rate">Árfolyam USD→%1$s</string>
+    <string name="portfolio_export_col_rate">Árfolyam USDT→%1$s</string>
     <string name="portfolio_export_col_value">Érték USDT</string>
     <string name="portfolio_export_col_value_cur">Érték %1$s</string>
     <!-- Inhalt der CSV-Datei -->
@@ -83,7 +83,7 @@
     <string name="tax_export_time_zone">Időzóna: %1$s</string>
     <string name="tax_export_transfer_fee_info">Átvezetési díj USDT-ben/készpénzben – nem veszteség, nem része a bekerülési értéknek, csak tájékoztatás</string>
     <string name="tax_export_unassigned_fee">díj nincs hozzárendelve – bekerülési érték ismeretlen</string>
-    <string name="tax_export_usdt_usd_note">USDT = 1 USD feltételezve (depeg esetén hibás)</string>
+    <string name="tax_export_usdt_usd_note">USDT átszámítva az USDT/USD napi záróárfolyamán; záró nélkül 1 USD (soronként jelölve)</string>
     <string name="tax_export_value_estimated">Becsült érték (napi záróár)</string>
     <string name="tax_export_value_missing">hiányzó érték a beérkezéskor</string>
     <string name="tax_export_wallet">Tárca: %1$s</string>

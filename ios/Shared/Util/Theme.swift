@@ -341,8 +341,16 @@ enum AssetColors {
 ///
 /// Normale Werte erreichen WCAG AA (≥ 4.5:1), die Werte für hohen Kontrast AAA (≥ 7:1)
 /// — auf allen hellen Flächen #FFFFFF … #E2E2E2 bzw. dunklen #0E0E0E … #353535 (Änderungen als
-/// Schrift ohne Pille). Knappste Werte: Korallrot dunkel #FF6E6E 4.50, Himbeer dunkel #FF6A96 4.53
-/// auf #353535.
+/// Schrift ohne Pille). Knappste Werte: Rot dunkel #FF6F69 («Frisch») 4.51 auf #353535, hoher
+/// Kontrast #002A5A (hell) und #FFB469 (dunkel) je 7.00.
+///
+/// Feste Börsenfarben («Frisch», «Traditionell», «Farbsehschwäche», Entscheid 18. Oktober 2026),
+/// geprüft mit `android/tools/check_price_colors.py` und `SettingsLogicTests`: hell ist fallend die
+/// hellere, kräftigere Farbe (echtes Rot/Orange auf Papier), dunkel die dunklere (Leuchtdichte ≥ 1.4, «Farbsehschwäche» ≥ 1.5, hoher Kontrast ≥ 1.25,
+/// auch bei Deuteranopie); ΔE2000 ≥ 10 («Farbsehschwäche» ≥ 15) zu jedem Akzent ausser dem derselben
+/// Farbfamilie; Farbton «Frisch» 140–165° / 350–10°, «Traditionell» 115–135° / 0–8°, je ΔE2000 ≥ 10
+/// zu «Frisch»; «Farbsehschwäche» ΔE2000 ≥ 40 (hoher Kontrast ≥ 35) unter Protanopie, Deuteranopie,
+/// Tritanopie (Machado 2009). Wie Android.
 ///
 /// `inverted` («Farben tauschen»): steigend in der Fall-Farbe und umgekehrt (Rot =
 /// steigend wie in China, Japan, Korea, Taiwan). Nur die Farben tauschen — Vorzeichen,
@@ -357,7 +365,7 @@ enum PriceColorScheme: String, CaseIterable, Codable, Identifiable, Sendable {
     /// Farbsehschwäche, Ruhig Farbsehschwäche); gespeichert wird der Name, nie die Position. Wie Android `PriceColorScheme`.
     case CALM, GREEN_RED, TRADITIONAL, BLUE_ORANGE, CALM_COLOR_VISION
 
-    /// Standard seit Build 46: «Ruhig» (gedämpftes Grün/Rot); «Frisch» (Mint/Koralle) bleibt wählbar.
+    /// Standard seit Build 46: «Ruhig» (gedämpftes Grün/Rot); «Frisch» (Börsengrün/Rot) bleibt wählbar.
     static let `default`: PriceColorScheme = .CALM
 
     /// Gespeicherte Einstellungen ohne Merker `priceColorDefaultV2`: «Frisch» war der mitgespeicherte
@@ -376,10 +384,12 @@ enum PriceColorScheme: String, CaseIterable, Codable, Identifiable, Sendable {
     private var rises: [PriceTone] {
         switch self {
         case .CALM: [.calmGreen, .calmBlue]
-        case .GREEN_RED: [PriceTone(0x0A6D3E, 0x3DD68C, 0x004A27, 0x7CF2B8)]
-        case .TRADITIONAL: [PriceTone(0x4A6410, 0x8FB532, 0x334509, 0xB9DA6A)]
-        // Kräftig, so satt wie AA/AAA auf allen Flächen erlauben (Entscheid 16. Oktober 2026)
-        case .BLUE_ORANGE: [PriceTone(0x005ED6, 0x52A0FF, 0x00439D, 0xA0C8FF)]
+        // Börsengrün (HSL ≈ 150°); hell dunkler als das Rot, dunkel heller
+        case .GREEN_RED: [PriceTone(0x005A30, 0x18EA96, 0x00421E, 0x81FFBA)]
+        // Klassisches reines Grün (115–120°)
+        case .TRADITIONAL: [PriceTone(0x033C00, 0x87FF7E, 0x002100, 0xE4FFE4)]
+        // Blau: hell dunkler als das Orange, dunkel heller (Entscheid 18. Oktober 2026)
+        case .BLUE_ORANGE: [PriceTone(0x003372, 0x96D8FF, 0x002A5A, 0xC9E7FF)]
         // Ersatz auf der Blau-Gelb-Achse: Petrol bzw. Blau-Violett statt Blau
         case .CALM_COLOR_VISION: [PriceTone(0x1460AB, 0x64B5F6, 0x093D83, 0xA6D4FF), .petrol, .vividBlue]
         }
@@ -389,9 +399,12 @@ enum PriceColorScheme: String, CaseIterable, Codable, Identifiable, Sendable {
     private var falls: [PriceTone] {
         switch self {
         case .CALM: [.calmRed, .calmCrimson, .calmPlum]
-        case .GREEN_RED: [PriceTone(0xB22727, 0xFF6E6E, 0x800B0B, 0xFFB0B0)]
-        case .TRADITIONAL: [PriceTone(0xAA1850, 0xFF6A96, 0x7A0F38, 0xFFB8CE)]
-        case .BLUE_ORANGE: [PriceTone(0xB63900, 0xFF7500, 0x852800, 0xFFB47C)]
+        // Kräftiges Rot (354–4°): hell das hellste, das 4.5:1 erlaubt, dunkel so bunt wie möglich
+        case .GREEN_RED: [PriceTone(0xCC0015, 0xFF6F69, 0x960000, 0xFFB1AB)]
+        // Reines Rot (0–7°); hell tief, weil ein helleres reines Rot zu nah am orangen Akzent liegt
+        case .TRADITIONAL: [PriceTone(0x990000, 0xFF9C99, 0x630000, 0xF9D2CD)]
+        // Orange: hell über dem Blau, dunkel darunter
+        case .BLUE_ORANGE: [PriceTone(0xAE4200, 0xED810C, 0x7B3300, 0xFFB469)]
         case .CALM_COLOR_VISION: [PriceTone(0x9F4300, 0xFFA040, 0x6C2E00, 0xFFC685), .mustard]
         }
     }

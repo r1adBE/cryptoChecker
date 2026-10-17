@@ -16,7 +16,7 @@ struct AlarmSettingsPage: View {
 
     private var settings: AppSettings { data.settings }
 
-    /// USDT-Depeg melden: einmal je Abweichung, Bewertungen rechnen weiter mit USDT = 1 — wie Android.
+    /// USDT-Depeg melden: einmal je Abweichung; Bewertungen rechnen mit dem gemessenen Marktkurs — wie Android.
     @ViewBuilder
     private var depegRows: some View {
         SwitchRow(

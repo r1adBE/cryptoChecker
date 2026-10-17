@@ -10,9 +10,9 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 /**
- * Letzte Messung des USDT-Depeg-Alarms ([DepegAlarm.Reading]): schreibt [DepegAlarmChecker] nach jeder
- * erfolgreichen Prüfung, liest die Portfolio-Karte (Warnzeile, [DepegAlarm.cardWarning]). So zeigen
- * Karte und Alarm denselben Wert. Wie `DepegAlarmCheck.lastReading` (iOS).
+ * Letzte Messung USDT in USD ([DepegAlarm.Reading]): schreibt [DepegAlarmChecker] nach jeder erfolgreichen Messung
+ * (mit Alarm oder Portfolio), liest die Bewertung als Live-Kurs USDT/USD ([liveUsdtUsd]). So rechnen Portfolio,
+ * «≈ Umrechnung» und Alarm mit demselben Wert. Wie `DepegAlarmCheck.lastReading` (iOS).
  */
 @Singleton
 class DepegReadingStore @Inject constructor(
@@ -22,6 +22,9 @@ class DepegReadingStore @Inject constructor(
     private val state by lazy { MutableStateFlow(load()) }
 
     val reading: StateFlow<DepegAlarm.Reading?> get() = state.asStateFlow()
+
+    /** Live-Kurs USDT/USD ([DepegAlarm.liveUsdtUsd]: höchstens 6 Std. alt, plausibel); null = keiner (Ersatz 1). */
+    fun liveUsdtUsd(now: Long = System.currentTimeMillis()): Double? = DepegAlarm.liveUsdtUsd(state.value, now)
 
     fun save(price: Double, atMillis: Long) {
         prefs.edit {

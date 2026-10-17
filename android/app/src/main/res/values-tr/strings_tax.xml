@@ -8,7 +8,7 @@
     <string name="portfolio_export_col_coin">Coin</string>
     <string name="portfolio_export_col_note">Not</string>
     <string name="portfolio_export_col_price">Fiyat USDT</string>
-    <string name="portfolio_export_col_rate">Kur USD→%1$s</string>
+    <string name="portfolio_export_col_rate">Kur USDT→%1$s</string>
     <string name="portfolio_export_col_value">Değer USDT</string>
     <string name="portfolio_export_col_value_cur">Değer %1$s</string>
     <!-- Inhalt der CSV-Datei -->
@@ -83,7 +83,7 @@
     <string name="tax_export_time_zone">Saat dilimi: %1$s</string>
     <string name="tax_export_transfer_fee_info">USDT/nakit transfer ücreti – zarar değil, maliyete dahil değil, yalnızca bilgi</string>
     <string name="tax_export_unassigned_fee">ücret atanmadı – maliyet bilinmiyor</string>
-    <string name="tax_export_usdt_usd_note">USDT = 1 USD varsayıldı (depeg olursa yanlış)</string>
+    <string name="tax_export_usdt_usd_note">USDT, USDT/USD günlük kapanışıyla çevrildi; kapanış yoksa 1 USD (satırda belirtilir)</string>
     <string name="tax_export_value_estimated">Tahmini değer (günlük kapanış)</string>
     <string name="tax_export_value_missing">alındığı andaki değer eksik</string>
     <string name="tax_export_wallet">Cüzdan: %1$s</string>

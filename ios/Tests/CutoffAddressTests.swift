@@ -58,4 +58,21 @@ final class CutoffAddressTests: XCTestCase {
         XCTAssertTrue(rows.allSatisfy { $0.fromAddress && !$0.addressUnobserved })
         XCTAssertEqual(rows.map(\.coin), ["BTC", "ETH"])
     }
+
+    /// USDT zum Marktkurs ohne USDT/USD am Stichtag: Zeile «USDT = 1 angenommen» nach dem Kommentar (wie Android).
+    func testUsdtApproximateLine() {
+        var withText = texts
+        withText.usdtAssumed = "USDT = 1 angenommen"
+        let rows = CutoffExport.rows([], prices: [:], fxRate: Decimal(string: "0.9"))
+        let day = CutoffDay(year: 2024, month: 10, day: 4)
+        let marked = CutoffExport.csv(day: day, currency: "CHF", fxDate: "2024-10-04", rows: rows, texts: withText,
+                                      usdtApproximate: true)
+            .replacingOccurrences(of: "\u{FEFF}", with: "").components(separatedBy: "\r\n")
+        XCTAssertEqual(marked[1], "USDT = 1 angenommen")
+        let plain = CutoffExport.csv(day: day, currency: "CHF", fxDate: "2024-10-04", rows: rows, texts: withText)
+        XCTAssertFalse(plain.contains("USDT = 1 angenommen"))
+        // Umgerechnet wird jede Währung ausser USDT selbst (auch USD)
+        XCTAssertTrue(CutoffExport.convertsUsdt("CHF") && CutoffExport.convertsUsdt(" usd "))
+        XCTAssertFalse(CutoffExport.convertsUsdt("usdt"))
+    }
 }

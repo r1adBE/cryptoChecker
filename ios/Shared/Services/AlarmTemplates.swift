@@ -121,10 +121,20 @@ enum AlarmTemplates {
         return text.replacingOccurrences(of: ".", with: String(ThresholdParser.normalized(decimalSeparator)))
     }
 
-    /// Öffnet der Editor gleich mit «Erweitert»? Ja bei allem, was der einfache Satz nicht
-    /// zeigt: andere Bedingungen als Kursmarken oder ein Schwellwert in eigener Währung.
+    /// Bedingungen, die der Editor gleich zeigt: Kursmarke über/unter und «Steigt/Fällt um x %».
+    /// Alle übrigen (Zeitfenster, Volumen, Hoch/Tief, Funding, Open Interest) stehen unter
+    /// «Mehr Bedingungen».
+    static let simpleConditions: [AlarmCondition] = [.PRICE_ABOVE, .PRICE_BELOW, .CHANGE_PERCENT_UP, .CHANGE_PERCENT_DOWN]
+
+    /// Öffnet der Editor gleich mit «Mehr Bedingungen»? Ja bei jeder Bedingung ausser den einfachen.
+    static func opensMoreConditions(condition: AlarmCondition) -> Bool {
+        !simpleConditions.contains(condition)
+    }
+
+    /// Öffnet der Editor gleich mit «Erweitert» (Währung, Ton, Vorlesen)? Ja bei einer Kursmarke
+    /// mit Schwellwert in eigener Währung — die zeigt nur «Erweitert».
     static func opensAdvanced(condition: AlarmCondition, currency: String?) -> Bool {
         let hasCurrency = !(currency ?? "").trimmingCharacters(in: .whitespaces).isEmpty
-        return !condition.isPriceThreshold || hasCurrency
+        return condition.isPriceThreshold && hasCurrency
     }
 }

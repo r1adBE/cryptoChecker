@@ -28,7 +28,9 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
+import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.Semaphore
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.sync.withPermit
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
@@ -63,6 +65,11 @@ data class PortfolioDailyPrices(
     val own: Set<String> = emptySet(),
     val binanceBefore: Map<String, Long> = emptyMap(),
     val routed: Set<String> = emptySet(),
+    /**
+     * Tagesschluss USDT/USD je UTC-Tag (Kraken USDTZUSD, [PortfolioHistorySource.usdtUsdDaily]) für USDT zum Marktkurs
+     * ([com.cryptochecker.app.domain.portfolio.UsdtUsdRates.daily]); leer = keiner (dann 1 als Näherung).
+     */
+    val usdtUsd: Map<Long, Double> = emptyMap(),
 )
 
 /** Eigene Tageskerzen eines Coins (USDT) und für welchen Weg ([route] = Schlüssel des Paars). */
@@ -92,6 +99,11 @@ private class HistoryRoutes(val pairs: Map<String, CandlePair>, val unresolved: 
  * Coins mit eigener Börse ([PortfolioExchangeRoute], Paar aus der gespeicherten Paarliste): Tageskerzen
  * dieser Börse ([OwnCandleDataSource], höchstens 1000 je Abfrage), in USDT umgerechnet (Fiat mit den
  * Devisen-Tageskursen, [HistoricPriceSource.usdToSeries]); ebenfalls 12 h gemerkt («phisto_<COIN>»).
+ *
+ * USDT zum Marktkurs (Owner-Entscheid Okt. 2026): Tagesschlüsse USDT/USD von Kraken ([usdtUsdDaily], Paar USDTZUSD über
+ * dieselben eigenen Tageskerzen, 12 h gemerkt «phisto_USDTZUSD») — nur mit Portfolio (nur dessen Abrufe holen sie). Damit
+ * rechnen USD- und Fiat-Kerzen eigener Börsen in USDT ([PortfolioExchangeRoute.ownDailyUsdt]) und die Umrechnung von
+ * Verlauf und Export in Fiat ([com.cryptochecker.app.domain.portfolio.UsdtUsdRates]).
  */
 @Singleton
 class PortfolioHistorySource @Inject constructor(
@@ -107,6 +119,9 @@ class PortfolioHistorySource @Inject constructor(
 
     /** Coin → (eigene Tageskerzen in USDT, Abfragezeit). */
     private val ownMemory = ConcurrentHashMap<String, Pair<OwnCloses, Long>>()
+
+    /** Schützt [usdtUsdDaily] vor parallelen Abfragen desselben Paars. */
+    private val usdtUsdMutex = Mutex()
 
     /**
      * Schlusskurse je Coin (Grossschreibung) für mindestens die letzten [days] Tage. Coins
@@ -138,8 +153,27 @@ class PortfolioHistorySource @Inject constructor(
             val own = coroutineScope {
                 routes.pairs.map { (coin, pair) -> async { coin to limiter.withPermit { ownOf(coin, pair, span) } } }.awaitAll()
             }.mapNotNull { (coin, entry) -> entry?.let { coin to it } }.toMap()
-            mergeOwn(loaded.toMap(), own, routes.routed).withWrapped(requested)
+            mergeOwn(loaded.toMap(), own, routes.routed).withWrapped(requested).copy(usdtUsd = usdtUsdDaily(span))
         }
+
+    /**
+     * Tagesschlüsse USDT/USD (UTC-Tag → Schluss) für mindestens die letzten [days] Tage: Kraken-Tageskerzen USDTZUSD
+     * (höchstens 720 Tage, ältere Tage ohne Schluss = 1 als Näherung, [com.cryptochecker.app.domain.portfolio.UsdtUsdRates.on]).
+     * Speicher, Gerät (12 h), sonst Abfrage; nicht erreichbar → älterer Stand oder leer.
+     */
+    suspend fun usdtUsdDaily(days: Int = PortfolioHistory.MAX_DAYS): Map<Long, Double> = withContext(Dispatchers.IO) {
+        // Eine Abfrage für alle gleichzeitig ladenden Coins (die übrigen warten auf den Speicher)
+        usdtUsdMutex.withLock { ownOf(USDT_USD_KEY, USDT_USD_PAIR, days.coerceAtLeast(PortfolioHistory.MAX_DAYS))?.closes.orEmpty() }
+    }
+
+    /** Wie [usdtUsdDaily], nur was schon da ist (Speicher, Gerät) — ohne Netz, ohne Altersgrenze (Widget). */
+    private suspend fun cachedUsdtUsdDaily(): Map<Long, Double> {
+        val route = USDT_USD_PAIR.cacheKey
+        val entry = ownMemory[USDT_USD_KEY]?.first?.takeIf { it.route == route }
+            ?: cacheStore.read(ownCacheName(USDT_USD_KEY), OWN_CODEC)?.takeIf { it.value.route == route }
+                ?.also { ownMemory.putIfAbsent(USDT_USD_KEY, it.value to it.savedAt) }?.value
+        return entry?.entry?.closes.orEmpty()
+    }
 
     /**
      * Binance-Reihen [binance] mit den eigenen Reihen [own] zusammenführen: eigene Reihe ersetzt Binance,
@@ -265,6 +299,8 @@ class PortfolioHistorySource @Inject constructor(
         }
         val first = closes.keys.minOrNull() ?: return null
         val quote = pair.quote.uppercase()
+        // USD- und Fiat-Kerzen: zusätzlich durch USDT/USD des Tags (USDT zum Marktkurs); nicht für USDT/USD selbst
+        val usdtUsd = if (quote == "USDT" || pair.cacheKey == USDT_USD_PAIR.cacheKey) null else usdtUsdDaily(span)
         val rates = if (quote == "USDT" || quote == "USD") {
             emptyMap()
         } else {
@@ -277,7 +313,7 @@ class PortfolioHistorySource @Inject constructor(
                 null
             } ?: return null
         }
-        val usdt = PortfolioExchangeRoute.ownDailyUsdt(PortfolioCoinDaily(closes, ranges), quote, rates) ?: return null
+        val usdt = PortfolioExchangeRoute.ownDailyUsdt(PortfolioCoinDaily(closes, ranges), quote, rates, usdtUsd) ?: return null
         return CoinCloses(usdt.closes, span, usdt.ranges)
     }
 
@@ -307,7 +343,7 @@ class PortfolioHistorySource @Inject constructor(
                         ?.also { ownMemory.putIfAbsent(coin, it.value to it.savedAt) }?.value
                 entry?.entry?.takeIf { it.closes.isNotEmpty() }?.let { coin to it }
             }.toMap()
-            mergeOwn(loaded.toMap(), own, routes.routed).withWrapped(requested)
+            mergeOwn(loaded.toMap(), own, routes.routed).withWrapped(requested).copy(usdtUsd = cachedUsdtUsdDaily())
         }
 
     /**
@@ -403,6 +439,13 @@ class PortfolioHistorySource @Inject constructor(
 
         /** Eigene Tageskerzen höchstens so viele (Grenze der eigenen Kerzen); davor Binance angeglichen. */
         const val MAX_OWN_DAYS = 1000
+
+        /** USDT/USD-Tagesschlüsse: Kraken USDTZUSD (dasselbe Paar wie die Messung des Depeg-Alarms). */
+        const val USDT_USD_KEY = "USDTZUSD"
+        val USDT_USD_PAIR = CandlePair(
+            com.cryptochecker.app.domain.alarm.DepegAlarm.KRAKEN_KEY, com.cryptochecker.app.domain.alarm.DepegAlarm.KRAKEN_KEY,
+            "USDT", "USD", com.cryptochecker.app.domain.alarm.DepegAlarm.KRAKEN_PAIR_ID,
+        )
 
         val HOSTS = listOf(
             "data-api.binance.vision" to "https://data-api.binance.vision/api/v3/klines",

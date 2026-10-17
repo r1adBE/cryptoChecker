@@ -34,6 +34,7 @@
     <string name="alarm_first_battery_hint">Die Akku-Optimierung schränkt die App ein – Alarme können später ankommen.</string>
     <string name="alarm_first_title">Alles eingerichtet</string>
     <string name="alarm_last_triggered">zuletzt %1$s</string>
+    <string name="alarm_more_conditions">Mehr Bedingungen</string>
     <string name="alarm_new_extreme">Neues %1$s</string>
     <string name="alarm_once">Einmal</string>
     <string name="alarm_option_repeating">Alarm nach dem Auslösen aktiv lassen</string>

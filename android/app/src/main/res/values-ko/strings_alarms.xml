@@ -33,6 +33,7 @@
     <string name="alarm_first_battery_hint">배터리 최적화가 앱을 제한합니다 – 알람이 늦게 올 수 있습니다.</string>
     <string name="alarm_first_title">설정 완료</string>
     <string name="alarm_last_triggered">최근: %1$s</string>
+    <string name="alarm_more_conditions">추가 조건</string>
     <string name="alarm_new_extreme">%1$s 경신</string>
     <string name="alarm_once">한 번</string>
     <string name="alarm_option_repeating">울린 후에도 경보 유지</string>

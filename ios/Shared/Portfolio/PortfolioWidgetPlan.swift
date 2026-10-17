@@ -8,9 +8,10 @@ import Foundation
 enum PortfolioWidgetDisplay: String, Sendable, CaseIterable {
     case usdt, conversion, conversionUsdt
 
-    /// Ohne Wahl: «Umrechnung», ist die Umrechnungswährung USD (bzw. ein USD-Stablecoin) «Nur USDT».
+    /// Ohne Wahl: «Umrechnung» — auch für USD (USDT zum Marktkurs USDT/USD); ist die Umrechnungswährung ein
+    /// USD-Stablecoin, «Nur USDT». Wie Android `PortfolioDisplay.defaultFor`.
     static func defaultFor(currency: String) -> PortfolioWidgetDisplay {
-        CurrencyConversion.usdStables.contains(CurrencyConversion.normalize(currency)) ? .usdt : .conversion
+        PortfolioWidgetChart.collapsesToUsdt(currency) ? .usdt : .conversion
     }
 }
 
@@ -147,10 +148,19 @@ enum PortfolioWidgetChart {
     /// Tageskurse eines Coins zählen nur, wenn der jüngste Schluss höchstens so viele UTC-Tage alt ist.
     static let maxCloseAgeDays = 1
 
-    /// Wirksame Anzeige: Anzeigewährung USD (bzw. USD-Stablecoin) → «Nur USDT»; ohne USDT-Wert nur Umrechnung.
+    /// Anzeigewährung ein USD-Stablecoin (USDT, USDC …)? Dann fallen die drei Anzeigen auf «Nur USDT» zusammen. USD
+    /// selbst nicht mehr: USDT gilt dort seinen Marktkurs USDT/USD (`usdtFactor`) wie in jeder anderen Fiat-Währung.
+    /// Wie Android `collapsesToUsdt`.
+    static func collapsesToUsdt(_ currency: String) -> Bool {
+        let code = CurrencyConversion.normalize(currency)
+        return CurrencyConversion.usdStables.contains(code) && code != "USD"
+    }
+
+    /// Wirksame Anzeige: Anzeigewährung ein USD-Stablecoin (`collapsesToUsdt`) → «Nur USDT» (USD nicht: dort wie jede
+    /// Fiat-Währung); ohne USDT-Wert nur Umrechnung.
     static func effectiveDisplay(_ chosen: PortfolioWidgetDisplay, currency: String, hasUsdt: Bool) -> PortfolioWidgetDisplay {
         if !hasUsdt { return .conversion }
-        if CurrencyConversion.usdStables.contains(CurrencyConversion.normalize(currency)) { return .usdt }
+        if collapsesToUsdt(currency) { return .usdt }
         return chosen
     }
 
@@ -208,6 +218,14 @@ enum PortfolioWidgetChart {
         let age = now - memo.fetchedAt
         guard age >= 0 && age < fxMemoMaxAgeMillis else { return nil }
         return validRate(memo.rate)
+    }
+
+    /// Faktor USDT → `currency` für den Stand: Devisenkurs `fx` (USD → Währung) × Live-Kurs USDT/USD `usdtLive`
+    /// (`PortfolioStables.usdtTo`, USDT zum Marktkurs; ohne Messung × 1) — auch für USD (`fx` = 1). USD-Stablecoins: `fx`
+    /// unverändert — das Widget zeigt dort USDT (`effectiveDisplay`). Wie Android `usdtFactor`.
+    static func usdtFactor(currency: String, fx: Double, usdtLive: Double?) -> Double {
+        if collapsesToUsdt(currency) { return fx }
+        return PortfolioStables.usdtTo(fx, usdt: PortfolioStables.usdtUsd(usdtLive)) ?? fx
     }
 
     /// Zu merkender Kurs: nur ein gültiger `fresh`, der zur Währung gehört (`cachedForCurrency` = derselbe Kurs

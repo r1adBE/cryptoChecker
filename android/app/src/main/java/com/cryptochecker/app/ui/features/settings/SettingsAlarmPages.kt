@@ -164,7 +164,7 @@ internal fun AlarmsPage(
                 )
             }
             RowDivider()
-            // USDT-Depeg melden: einmal je Abweichung, Bewertungen rechnen weiter mit USDT = 1
+            // USDT-Depeg melden: einmal je Abweichung; Bewertungen rechnen mit dem gemessenen Marktkurs
             SettingsAnchor("alarms.depeg") {
                 SwitchRow(
                     title = stringResource(R.string.settings_depeg_alarm),

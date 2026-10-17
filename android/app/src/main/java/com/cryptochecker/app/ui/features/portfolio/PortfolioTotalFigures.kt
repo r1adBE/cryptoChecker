@@ -58,7 +58,7 @@ import com.cryptochecker.app.util.PriceFormat
 /**
  * Kleine Überschrift «Gewinn/Verlust» über Heute · 7 T · Seit Kauf, rechts ein (i): erklärt in
  * wenigen Sätzen, wie die Zahlen gerechnet sind (Käufe/Verkäufe im Zeitraum herausgerechnet,
- * Einstand nach der gewählten Methode [method] (FIFO oder Ø), Gebühren, Bewertung mit Binance-Kursen, USDT = 1).
+ * Einstand nach der gewählten Methode [method] (FIFO oder Ø), Gebühren, Bewertung mit Binance-Kursen, USDT zum Marktkurs).
  */
 @Composable
 internal fun GainHeader(method: CostMethod, modifier: Modifier = Modifier) {
@@ -282,8 +282,8 @@ private fun signedPlain(value: Double): String =
     PortfolioFormat.signedUsdt(value).removeSuffix(" " + PortfolioFormat.USDT)
 
 /**
- * Einheit der Gesamtkarte: die Anzeigewährung mit dem Devisenkurs [rate] (USD → Währung, USDT = USD),
- * sonst USDT mit Kurs 1. Beträge kommen in USDT und werden mit [of] umgerechnet.
+ * Einheit der Gesamtkarte: die Anzeigewährung mit dem Faktor [rate] (USDT → Währung: Devisenkurs × USDT/USD,
+ * [PortfolioViewModel.displayFxRate]), sonst USDT mit Kurs 1. Beträge kommen in USDT und werden mit [of] umgerechnet.
  */
 internal class CardUnit(val code: String, private val rate: Double) {
     fun of(usdt: Double): Double = usdt * rate
@@ -293,7 +293,10 @@ internal class CardUnit(val code: String, private val rate: Double) {
     fun signed(value: Double): String = signedPlain(value) + " " + code
 }
 
-/** Anzeigewährung mit gültigem Devisenkurs (nicht USD: dort gilt USDT) — sonst USDT. Wie iOS `PortfolioCardUnit`. */
+/**
+ * Anzeigewährung mit gültigem Faktor — sonst USDT. Auch USD: USDT gilt dort seinen Marktkurs USDT/USD (Faktor = 1 ×
+ * USDT/USD, ohne Messung 1 mit «USDT = 1 angenommen»), nicht mehr still 1:1. Wie iOS `PortfolioCardUnit`.
+ */
 internal fun cardUnit(currency: String, fxRate: Double?): CardUnit =
-    fxRate?.takeIf { currency != "USD" && currency != PortfolioFormat.USDT && it > 0.0 && it.isFinite() }
+    fxRate?.takeIf { currency != PortfolioFormat.USDT && it > 0.0 && it.isFinite() }
         ?.let { CardUnit(currency, it) } ?: CardUnit(PortfolioFormat.USDT, 1.0)

@@ -122,9 +122,22 @@ object AlarmTemplates {
     private const val SUGGESTED_DIGITS = 3
 
     /**
-     * Öffnet der Editor gleich mit «Erweitert»? Ja bei allem, was der einfache Satz nicht
-     * zeigt: andere Bedingungen als Kursmarken oder ein Schwellwert in eigener Währung.
+     * Bedingungen, die der Editor gleich zeigt: Kursmarke über/unter und «Steigt/Fällt um x %».
+     * Alle übrigen (Zeitfenster, Volumen, Hoch/Tief, Funding, Open Interest) stehen unter
+     * «Mehr Bedingungen».
+     */
+    val SIMPLE_CONDITIONS: List<AlarmCondition> = listOf(
+        AlarmCondition.PRICE_ABOVE, AlarmCondition.PRICE_BELOW,
+        AlarmCondition.CHANGE_PERCENT_UP, AlarmCondition.CHANGE_PERCENT_DOWN,
+    )
+
+    /** Öffnet der Editor gleich mit «Mehr Bedingungen»? Ja bei jeder Bedingung ausser den einfachen. */
+    fun opensMoreConditions(condition: AlarmCondition): Boolean = condition !in SIMPLE_CONDITIONS
+
+    /**
+     * Öffnet der Editor gleich mit «Erweitert» (Währung, Ton, Vibration, Vorlesen)? Ja bei einer
+     * Kursmarke mit Schwellwert in eigener Währung — die zeigt nur «Erweitert».
      */
     fun opensAdvanced(condition: AlarmCondition, currency: String?): Boolean =
-        !condition.isPriceThreshold || !currency.isNullOrBlank()
+        condition.isPriceThreshold && !currency.isNullOrBlank()
 }

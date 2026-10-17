@@ -5,7 +5,7 @@
     <string name="notification_alarm_text">%1$s — зараз %2$s</string>
     <string name="notification_alarm_title">Сигнал: %1$s · %2$s</string>
     <string name="notification_depeg_action_exchange">Відкрити біржу</string>
-    <string name="notification_depeg_text">Значення в застосунку й далі рахуються з USDT = 1.</string>
+    <string name="notification_depeg_text">Значення в застосунку рахуються за цим ринковим курсом.</string>
     <string name="notification_depeg_title">USDT по %1$s USD (%2$s)</string>
     <string name="notification_fng_above">Індекс піднявся вище %1$d — за цим індексом на ринку жадібність.</string>
     <string name="notification_fng_below">Індекс упав нижче %1$d — за цим індексом на ринку страх.</string>

@@ -150,6 +150,10 @@ enum SettingsSearchCatalog {
             add(id, title, homePath(page), .page(page, anchor: anchor), synonyms)
         }
         addPage("page.advanced", .advanced, advanced)
+        // Schalter «Portfolio» der Hauptseite (Gruppe «Mehr»): früh im Index, damit er bei «Portfolio» vor der
+        // Seite Erweitert › Portfolio steht (gleich viele Punkte → frühere Stelle zuerst) — wie Android
+        add("main.portfolio", L("portfolio_title"), more, .main("main.portfolio"),
+            [L("settings_portfolio_tab"), L("portfolio_setting_hint")])
         add("main.language", L("settings_section_language"), general, .main("main.language"), [L("ios_settings_language_hint")])
         let currency = L("settings_row_currency")
         addPage("page.currency", .currency, currency, [L("currency_search")])

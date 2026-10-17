@@ -38,18 +38,48 @@ data class PortfolioHistoryUi(
     val compare: PortfolioCompareSeries? = null,
     /** Coins mit Binance-Verlauf, auf den Börsenkurs skaliert ([PortfolioExchangeRoute.scaledHint]); leer = keiner. */
     val scaled: List<String> = emptyList(),
+    /**
+     * Mit USDT zum Marktkurs umgerechnet, aber an mindestens einem Tag ohne USDT/USD-Kurs (dort 1 als Näherung,
+     * [com.cryptochecker.app.domain.portfolio.PortfolioHistoryConverted.usdtApproximate]) — Hinweis «USDT = 1 angenommen».
+     */
+    val usdtApproximate: Boolean = false,
 )
 
 /** Tageskurse USD → [currency] ab [from] (bis heute); [rates] null = nicht zu haben. */
 internal data class FxSeriesLoad(val currency: String, val from: LocalDate, val rates: Map<Long, Double>?)
 
-/** Adressen und Devisenkurse für «7 T»/«1 J» ([PortfolioViewModel.weekChange]). */
+/** Adressen, Devisenkurse und Live-Kurs USDT/USD für «7 T»/«1 J» ([PortfolioViewModel.weekChange]). */
 internal data class PeriodFx(
     val addresses: List<AddressBalanceHistory>,
     val currency: String,
     val fxRate: Double?,
     val fxSeries: FxSeriesLoad?,
+    val usdtLive: Double?,
 )
+
+/** Währung, Devisenkurs, Devisen-Reihe und Live-Kurs USDT/USD für den Wertverlauf ([PortfolioViewModel.history]). */
+internal data class HistoryFx(
+    val currency: String,
+    val fxRate: Double?,
+    val fxSeries: FxSeriesLoad?,
+    val usdtLive: Double?,
+)
+
+/** Jede Minute die Uhrzeit (Frische des Live-Kurses USDT/USD, [com.cryptochecker.app.domain.alarm.DepegAlarm.liveUsdtUsd]). */
+internal fun minuteTicks(): kotlinx.coroutines.flow.Flow<Long> = kotlinx.coroutines.flow.flow {
+    while (true) {
+        emit(System.currentTimeMillis())
+        kotlinx.coroutines.delay(60_000L)
+    }
+}
+
+/**
+ * Faktor USDT → Anzeigewährung einer Aufnahme ([com.cryptochecker.app.widget.PortfolioWidgetChart.fxFactor]: Gesamtwert ÷
+ * Gesamtwert in USDT — enthält Devisenkurs und USDT/USD); ohne USDT-Wert: in USD 1, sonst [fxRate] (USD → Währung).
+ */
+internal fun snapshotUsdtFactor(snapshot: com.cryptochecker.app.domain.portfolio.PortfolioSnapshot, fxRate: Double?): Double? =
+    com.cryptochecker.app.widget.PortfolioWidgetChart.fxFactor(snapshot)
+        ?: if (snapshot.currency == "USD") 1.0 else fxRate?.takeIf { it > 0.0 }
 
 /** Beginn der Devisenkurs-Abfrage für den Verlauf [range] (siehe [PortfolioHistoryFx.requestRange]). */
 internal fun fxSeriesFrom(txs: List<PortfolioTxEntity>, range: PortfolioHistoryRange): LocalDate {

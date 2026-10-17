@@ -8,7 +8,7 @@
     <string name="portfolio_export_col_coin">Mince</string>
     <string name="portfolio_export_col_note">Poznámka</string>
     <string name="portfolio_export_col_price">Cena USDT</string>
-    <string name="portfolio_export_col_rate">Kurz USD→%1$s</string>
+    <string name="portfolio_export_col_rate">Kurz USDT→%1$s</string>
     <string name="portfolio_export_col_value">Hodnota USDT</string>
     <string name="portfolio_export_col_value_cur">Hodnota %1$s</string>
     <!-- Inhalt der CSV-Datei -->
@@ -83,7 +83,7 @@
     <string name="tax_export_time_zone">Časové pásmo: %1$s</string>
     <string name="tax_export_transfer_fee_info">Poplatek za převod v USDT/hotovosti – není ztráta, mimo pořizovací cenu, jen pro informaci</string>
     <string name="tax_export_unassigned_fee">poplatek nepřiřazen – pořizovací cena neznámá</string>
-    <string name="tax_export_usdt_usd_note">Předpokládá se USDT = 1 USD (při depegu chybné)</string>
+    <string name="tax_export_usdt_usd_note">USDT přepočteno denní uzavírací cenou USDT/USD; bez ní 1 USD (označeno u řádku)</string>
     <string name="tax_export_value_estimated">Hodnota odhadnuta (závěrečný kurz)</string>
     <string name="tax_export_value_missing">chybí hodnota při přijetí</string>
     <string name="tax_export_wallet">Peněženka: %1$s</string>

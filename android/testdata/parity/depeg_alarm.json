@@ -1,5 +1,5 @@
 {
-  "description": "USDT depeg alarm (Android DepegAlarm.kt / iOS DepegAlarm.swift). threshold: stored tenths of a percent -> effective (unknown -> 5). combine: Kraken USDT/USD last and Binance USDC/USDT last (null = missing) -> USDT in USD (closer to 1 wins; implausible values outside 0.5..1.5 dropped), tolerance 1e-9. evaluate: deviation in percent, threshold in percent, armed, mayFire -> fire, armed (re-armed at half the threshold; magnitude rounded to 4 decimals, threshold inclusive). episodes: prices in order (start armed, every fired notification is posted; quiet = mayFire false) -> fired per step. mainExchange: watchlist market keys -> exchange key and URL of the 'Open exchange' button. cardWarning: last reading (price in USD, ageMillis = now - reading time; null price = no reading) and stored thresholdTenths -> shown on the portfolio card (magnitude >= threshold, same rounding as evaluate; hidden when older than 30 minutes or more than 1 minute in the future). cardNote (Build 58): «USDT = 1» line of the portfolio card independent of the alarm — holdings (coin symbols, any case), valuesViaUsdt (values hang on USDT = USD: display currency, USD or mixed exchanges) and the last reading as in cardWarning -> kind DEVIATION (fresh reading >= threshold, as today), PRICE_SOURCE («Prices: Binance · USDT = 1»), USDT_ASSUMED (holdings contain USDT, counted as 1) or null (no line).",
+  "description": "USDT depeg alarm (Android DepegAlarm.kt / iOS DepegAlarm.swift). threshold: stored tenths of a percent -> effective (unknown -> 5). combine: Kraken USDT/USD last and Binance USDC/USDT last (null = missing) -> USDT in USD (closer to 1 wins; implausible values outside 0.5..1.5 dropped), tolerance 1e-9. evaluate: deviation in percent, threshold in percent, armed, mayFire -> fire, armed (re-armed at half the threshold; magnitude rounded to 4 decimals, threshold inclusive). episodes: prices in order (start armed, every fired notification is posted; quiet = mayFire false) -> fired per step. mainExchange: watchlist market keys -> exchange key and URL of the 'Open exchange' button. cardWarning: last reading (price in USD, ageMillis = now - reading time; null price = no reading) and stored thresholdTenths -> shown on the portfolio card (magnitude >= threshold, same rounding as evaluate; hidden when older than 30 minutes or more than 1 minute in the future). cardNote (Build 58): «USDT = 1» line of the portfolio card independent of the alarm — holdings (coin symbols, any case), valuesViaUsdt (values hang on USDT = USD: display currency, USD or mixed exchanges) and the last reading as in cardWarning -> kind DEVIATION (fresh reading >= threshold, as today), PRICE_SOURCE («Prices: Binance · USDT = 1»), USDT_ASSUMED (holdings contain USDT, counted as 1) or null (no line). usdtMarket (default false; owner decision Oct 2026, USDT valued at its market price): a fresh plausible reading (liveUsdtUsd, up to 6 hours old) -> no line; otherwise USDT_ASSUMED whenever values depend on USDT (valuesViaUsdt or USDT held) = marker of the 1-fallback, else no line. liveUsdtUsd: last reading -> live USDT/USD for valuation if at most 6 hours old (21600000 ms; up to 60 s in the future; the cardWarning limit of 30 minutes does not apply) and within 0.5..1.5, else null.",
   "threshold": [
     {"stored": 3, "expected": 3},
     {"stored": 5, "expected": 5},
@@ -69,6 +69,26 @@
     {"holdings": ["BTC", "USDT"], "valuesViaUsdt": true, "price": null, "ageMillis": 0, "thresholdTenths": 5, "kind": "PRICE_SOURCE"},
     {"holdings": ["BTC"], "valuesViaUsdt": true, "price": 1.006, "ageMillis": 600000, "thresholdTenths": 5, "kind": "DEVIATION"},
     {"holdings": ["BTC"], "valuesViaUsdt": false, "price": 0.993, "ageMillis": 0, "thresholdTenths": 5, "kind": "DEVIATION"},
-    {"holdings": [], "valuesViaUsdt": false, "price": null, "ageMillis": 0, "thresholdTenths": 5, "kind": null}
+    {"holdings": [], "valuesViaUsdt": false, "price": null, "ageMillis": 0, "thresholdTenths": 5, "kind": null},
+    {"holdings": ["BTC", "USDT"], "valuesViaUsdt": false, "price": 0.97, "ageMillis": 60000, "thresholdTenths": 5, "usdtMarket": true, "kind": null},
+    {"holdings": ["USDT"], "valuesViaUsdt": true, "price": 0.9999, "ageMillis": -30000, "thresholdTenths": 5, "usdtMarket": true, "kind": null},
+    {"holdings": ["BTC", "USDT"], "valuesViaUsdt": false, "price": null, "ageMillis": 0, "thresholdTenths": 5, "usdtMarket": true, "kind": "USDT_ASSUMED"},
+    {"holdings": ["BTC"], "valuesViaUsdt": true, "price": null, "ageMillis": 0, "thresholdTenths": 5, "usdtMarket": true, "kind": "USDT_ASSUMED"},
+    {"holdings": ["BTC"], "valuesViaUsdt": true, "price": 0.993, "ageMillis": 1800001, "thresholdTenths": 5, "usdtMarket": true, "kind": null},
+    {"holdings": ["BTC"], "valuesViaUsdt": true, "price": 0.993, "ageMillis": 21600000, "thresholdTenths": 5, "usdtMarket": true, "kind": null},
+    {"holdings": ["BTC"], "valuesViaUsdt": true, "price": 0.993, "ageMillis": 21600001, "thresholdTenths": 5, "usdtMarket": true, "kind": "USDT_ASSUMED"},
+    {"holdings": ["BTC", "USDT"], "valuesViaUsdt": false, "price": 0.3, "ageMillis": 0, "thresholdTenths": 5, "usdtMarket": true, "kind": "USDT_ASSUMED"},
+    {"holdings": ["BTC"], "valuesViaUsdt": false, "price": null, "ageMillis": 0, "thresholdTenths": 5, "usdtMarket": true, "kind": null}
+  ],
+  "liveUsdtUsd": [
+    {"price": 0.97, "ageMillis": 0, "expected": 0.97},
+    {"price": 1.0, "ageMillis": 1800000, "expected": 1.0},
+    {"price": 0.97, "ageMillis": 1800001, "expected": 0.97},
+    {"price": 0.98, "ageMillis": 21600000, "expected": 0.98},
+    {"price": 0.97, "ageMillis": 21600001, "expected": null},
+    {"price": 0.99, "ageMillis": -60000, "expected": 0.99},
+    {"price": 0.99, "ageMillis": -60001, "expected": null},
+    {"price": 1.6, "ageMillis": 0, "expected": null},
+    {"price": null, "ageMillis": 0, "expected": null}
   ]
 }

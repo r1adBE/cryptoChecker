@@ -150,9 +150,12 @@ final class PortfolioModel: ObservableObject {
 
     /// «Heute» aus dem Portfolio-Stand: Prozent wie gerechnet, Betrag aus der Anzeigewährung des
     /// Stands zurück in USDT (wie der Gesamtwert); leeres Portfolio → nil.
+    /// Faktor des Stands (`PortfolioWidgetChart.fxFactor`: Gesamtwert ÷ Gesamtwert in USDT — enthält Devisenkurs und
+    /// USDT/USD); ohne USDT-Wert: in USD 1, sonst `rate`. Wie Android `snapshotUsdtFactor`.
     static func todayChange(_ widget: PortfolioWidgetSnapshot, rate: Double?) -> (amount: Double?, percent: Double?)? {
         guard !widget.empty, let percent = widget.changePercent else { return nil }
-        let factor: Double? = widget.currency == "USD" ? 1 : rate.flatMap { $0 > 0 ? $0 : nil }
+        let factor: Double? = PortfolioWidgetChart.fxFactor(widget)
+            ?? (widget.currency == "USD" ? 1 : rate.flatMap { $0 > 0 ? $0 : nil })
         let amount = widget.changeAmount.flatMap { a in factor.map { a / $0 } }
         return (amount: amount, percent: percent)
     }
@@ -195,17 +198,32 @@ final class PortfolioModel: ObservableObject {
         // Anzeigewährung: dieselben Tageskurse wie der Wertverlauf, sofern sie bis zum Stichtag zurückreichen — Kopf
         // und Kurve zeigen dieselbe Zahl; sonst wie bisher USDT (× heutiger Kurs in der Karte). Wie Android.
         let currency = data.settings.portfolioCurrency
-        let fxNow = PortfolioHistoryFx.convertsUsdtAsUsd(currency) ? rate(for: currency).flatMap { $0 > 0 && $0.isFinite ? $0 : nil } : nil
+        // Auch USD: USDT zum Marktkurs (`convertsUsdt`); Devisenkurs dort an jedem Tag 1
+        let fxNow = PortfolioHistoryFx.convertsUsdt(currency, usdtMarket: true)
+            ? rate(for: currency).flatMap { $0 > 0 && $0.isFinite ? $0 : nil } : nil
+        let viaFx = PortfolioHistoryFx.convertsUsdtAsUsd(currency)
+        // USDT zum Marktkurs: je Tag × USDT/USD-Tagesschluss, ab heute × Live-Kurs (wie der Wertverlauf)
+        let usdt = UsdtUsdRates(live: DepegAlarmCheck.liveUsdtUsd(), daily: loaded.prices.usdtUsd)
         func period(_ days: Int) -> PortfolioChange? {
             var fx: ((Int) -> Double)?
-            if let fxNow, let known = fxSeries, known.currency == currency,
-               known.from <= LocalDay(epochDay: today - days), let rates = known.rates, !rates.isEmpty {
-                fx = PortfolioHistoryFx.rateFunction(dailyRates: rates, currentRate: fxNow, todayEpochDay: today)
+            if let fxNow {
+                var rates: [Int: Double]?
+                if !viaFx {
+                    rates = PortfolioHistoryFx.usdParity(fromEpochDay: today - days - PortfolioHistoryFx.leadDays,
+                                                         toEpochDay: today)
+                } else if let known = fxSeries, known.currency == currency, known.from <= LocalDay(epochDay: today - days) {
+                    rates = known.rates
+                }
+                if let rates, !rates.isEmpty {
+                    fx = PortfolioHistoryFx.rateFunction(dailyRates: rates, currentRate: fxNow, todayEpochDay: today,
+                                                         usdt: usdt)
+                }
             }
             let change = PortfolioPeriodChange.gain(trades: trades, current: current, closes: scaled,
                                                     baseDay: today - days, addresses: addresses, method: method, fx: fx)
             guard let change, fx != nil, let fxNow else { return change }
-            return PortfolioHistoryFx.forCard(change, currentRate: fxNow)
+            // Gegenwert zum Faktor der Karte (Devisenkurs × USDT/USD jetzt, `displayRate`)
+            return PortfolioHistoryFx.forCard(change, currentRate: fxNow * usdt.current().rate)
         }
         weekChange = period(PortfolioPeriodChange.days)
         weekChangeUsdt = PortfolioPeriodChange.gain(trades: trades, current: current, closes: scaled,
@@ -236,10 +254,14 @@ final class PortfolioModel: ObservableObject {
         }
         let currency = data.settings.portfolioCurrency
         let fx = rate(for: currency)
-        let converted = currency != "USD" && fx != nil
+        // Auch USD: USDT zum Marktkurs (je Tag × USDT/USD-Tagesschluss), Devisenkurs dort an jedem Tag 1
+        let converted = PortfolioHistoryFx.convertsUsdt(currency, usdtMarket: true) && fx != nil
         // Devisen-Tageskurse dieses Zeitraums noch nicht da: Platzhalter statt still falscher Kurve
         let dailyRates: [Int: Double]?
-        if converted {
+        if converted && !PortfolioHistoryFx.convertsUsdtAsUsd(currency) {
+            dailyRates = PortfolioHistoryFx.usdParity(fromEpochDay: fxSeriesFrom().epochDay,
+                                                      toEpochDay: LocalDay.today().epochDay)
+        } else if converted {
             guard let known = fxSeries, known.currency == currency, known.from <= fxSeriesFrom() else {
                 historyTask?.cancel()
                 history = nil
@@ -260,6 +282,8 @@ final class PortfolioModel: ObservableObject {
         let scaledCoins = routedHistory.scaled
         let binanceBefore = loaded.prices.binanceBefore
         let method = data.settings.costMethod
+        // USDT zum Marktkurs: je Tag × USDT/USD-Tagesschluss (Tag ohne Schluss: 1, als Näherung markiert)
+        let usdt = UsdtUsdRates(live: DepegAlarmCheck.liveUsdtUsd(), daily: loaded.prices.usdtUsd)
         historyTask?.cancel()
         historyTask = Task { [weak self] in
             let ui = await Task.detached(priority: .userInitiated) { () -> PortfolioHistoryUi in
@@ -279,17 +303,18 @@ final class PortfolioModel: ObservableObject {
                 }
                 // Je Punkt der Kurs seines Tags, heute der aktuelle (`PortfolioHistoryFx`)
                 let result = PortfolioHistoryFx.convert(series, dailyRates: dailyRates, currentRate: fxFactor,
-                                                        todayEpochDay: today)
+                                                        todayEpochDay: today, usdt: usdt)
                 // Vergleich mit USDT nur mit Tageskursen — mit dem heutigen Kurs wäre er bedeutungslos
                 guard !result.approximate else {
                     return PortfolioHistoryUi(range: range, series: result.series, unit: unit, converted: true,
-                                              approximateFx: true, scaled: scaled)
+                                              approximateFx: true, scaled: scaled,
+                                              usdtApproximate: result.usdtApproximate)
                 }
                 return PortfolioHistoryUi(range: range, series: result.series, unit: unit, converted: true,
                                           approximateFx: false, usdtSeries: series,
                                           compare: PortfolioCompare.build(currency: result.series.points,
                                                                           usdt: series.points),
-                                          scaled: scaled)
+                                          scaled: scaled, usdtApproximate: result.usdtApproximate)
             }.value
             guard !Task.isCancelled else { return }
             self?.history = ui
@@ -299,6 +324,12 @@ final class PortfolioModel: ObservableObject {
     /// Kurs für die Umrechnungszeile — nur, wenn er zur gewählten Währung gehört.
     func rate(for currency: String) -> Double? {
         fxCurrency == currency ? fxRate : nil
+    }
+
+    /// Faktor USDT → `currency` für Gesamtkarte und Zeilen: Devisenkurs × USDT/USD (`PortfolioStables.usdtTo`, USDT zum
+    /// Marktkurs; ohne frische Messung × 1). nil = kein Devisenkurs. Wie Android `PortfolioViewModel.displayFxRate`.
+    func displayRate(for currency: String) -> Double? {
+        PortfolioStables.usdtTo(rate(for: currency), usdt: PortfolioStables.usdtUsd(DepegAlarmCheck.liveUsdtUsd()))
     }
 
     func loadCoins() async {

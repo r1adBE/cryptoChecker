@@ -8,7 +8,7 @@
     <string name="portfolio_export_col_coin">العملة</string>
     <string name="portfolio_export_col_note">ملاحظة</string>
     <string name="portfolio_export_col_price">السعر USDT</string>
-    <string name="portfolio_export_col_rate">سعر USD→%1$s</string>
+    <string name="portfolio_export_col_rate">سعر USDT→%1$s</string>
     <string name="portfolio_export_col_value">القيمة USDT</string>
     <string name="portfolio_export_col_value_cur">القيمة %1$s</string>
     <!-- Inhalt der CSV-Datei -->
@@ -83,7 +83,7 @@
     <string name="tax_export_time_zone">المنطقة الزمنية: %1$s</string>
     <string name="tax_export_transfer_fee_info">رسوم التحويل بـ USDT/نقدًا – ليست خسارة، خارج التكلفة، للعلم فقط</string>
     <string name="tax_export_unassigned_fee">رسوم غير مُخصَّصة – التكلفة غير معروفة</string>
-    <string name="tax_export_usdt_usd_note">يُفترض USDT = 1 USD (خطأ عند فك الربط)</string>
+    <string name="tax_export_usdt_usd_note">USDT محوّل بسعر إغلاق USDT/USD اليومي؛ 1 USD عند عدم وجود إغلاق (مُشار إليه في كل سطر)</string>
     <string name="tax_export_value_estimated">قيمة تقديرية (إغلاق اليوم)</string>
     <string name="tax_export_value_missing">القيمة عند الاستلام مفقودة</string>
     <string name="tax_export_wallet">Wallet: %1$s</string>

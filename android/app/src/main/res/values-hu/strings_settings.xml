@@ -168,7 +168,7 @@
 
     <!-- Einstellungen › Markt-Meldungen -->
     <string name="settings_depeg_alarm">USDT-depeg jelzése</string>
-    <string name="settings_depeg_alarm_hint">Egyszer jelez, ha az USDT a határral eltér 1 USD-tól (Kraken USDT/USD, Binance USDC/USDT). Az alkalmazás értékei továbbra is USDT = 1 alapon számolnak.</string>
+    <string name="settings_depeg_alarm_hint">Egyszer jelez, ha az USDT a határral eltér 1 USD-tól (Kraken USDT/USD, Binance USDC/USDT).</string>
     <string name="settings_depeg_threshold">Depeg-határ</string>
     <string name="settings_fng_above">Fear &amp; Greed: értesítés felette</string>
     <string name="settings_fng_below">Fear &amp; Greed: értesítés alatta</string>

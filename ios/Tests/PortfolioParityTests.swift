@@ -405,8 +405,11 @@ final class PortfolioParityTests: XCTestCase {
         for c in TestSupport.list(try TestSupport.fixture("portfolio")["ownDailyUsdt"]) {
             let name = c["name"] as? String ?? ""
             let rates: [Int: Double]? = c["rates"] is [String: Any] ? daily(c["rates"]) : nil
+            // USDT zum Marktkurs (optional): USDT/USD-Tagesschluss
+            let usdtUsd: [Int: Double]? = c["usdtUsd"] is [String: Any] ? daily(c["usdtUsd"]) : nil
             let result = PortfolioExchangeRoute.ownDailyUsdt(PortfolioCoinDaily(closes: daily(c["closes"])),
-                                                             quote: c["quote"] as? String ?? "", usdToByDay: rates)
+                                                             quote: c["quote"] as? String ?? "", usdToByDay: rates,
+                                                             usdtUsdByDay: usdtUsd)
             guard c["expected"] is [String: Any] else {
                 XCTAssertNil(result, "\(name): expected nil")
                 continue
@@ -415,6 +418,55 @@ final class PortfolioParityTests: XCTestCase {
             XCTAssertEqual(Set(result?.closes.keys.map { $0 } ?? []), Set(expected.keys), "\(name) days")
             for (day, value) in expected { near("\(name) \(day)", value, result?.closes[day]) }
         }
+    }
+
+    /// USDT zum Marktkurs USDT/USD in Fiat (Owner-Entscheid Okt. 2026); ohne Kurs 1, als Näherung markiert.
+    func testUsdtMarket() throws {
+        let m = try TestSupport.fixture("portfolio")["usdtMarket"] as? [String: Any] ?? [:]
+        for c in TestSupport.list(m["usdtUsd"]) {
+            let u = PortfolioStables.usdtUsd(TestSupport.number(c["market"]))
+            near("usdtUsd \(c)", TestSupport.number(c["rate"]), u.rate)
+            XCTAssertEqual(u.approximate, c["approximate"] as? Bool, "usdtUsd approximate \(c)")
+        }
+        for c in TestSupport.list(m["usdtTo"]) {
+            near("usdtTo \(c)", TestSupport.number(c["expected"]),
+                 PortfolioStables.usdtTo(TestSupport.number(c["usdToTarget"]),
+                                         usdt: PortfolioStables.usdtUsd(TestSupport.number(c["market"]))))
+        }
+        for c in TestSupport.list(m["ratesOn"]) {
+            let rates = UsdtUsdRates(live: TestSupport.number(c["live"]), daily: daily(c["daily"]))
+            let u = rates.on(Int(TestSupport.number(c["day"]) ?? 0), todayEpochDay: Int(TestSupport.number(c["today"]) ?? 0))
+            near("ratesOn \(c)", TestSupport.number(c["rate"]), u.rate)
+            XCTAssertEqual(u.approximate, c["approximate"] as? Bool, "ratesOn approximate \(c)")
+        }
+        for c in TestSupport.list(m["toUsdt"]) {
+            let usdTo = c["usdTo"] as? [String: Any] ?? [:]
+            let result = PortfolioExchangeRoute.toUsdt(TestSupport.number(c["price"]) ?? 0, quote: c["quote"] as? String ?? "",
+                                                       usdtUsd: TestSupport.number(c["usdtUsd"]) ?? 1) {
+                TestSupport.number(usdTo[$0])
+            }
+            near("toUsdt \(c)", TestSupport.number(c["expected"]), result)
+        }
+        for c in TestSupport.list(m["holdings"]) {
+            let name = c["name"] as? String ?? ""
+            let trades = (c["trades"] as? [Any] ?? []).map(trade)
+            let total = PortfolioCalculator.summarize(trades, prices: prices(c["prices"])).totalValue
+            let usdt = PortfolioStables.usdtUsd(TestSupport.number(c["usdtMarket"]))
+            let rate = PortfolioStables.usdtTo(TestSupport.number(c["usdToTarget"]), usdt: usdt) ?? .nan
+            let par = PortfolioStables.usdtTo(TestSupport.number(c["usdToTarget"]), usdt: PortfolioStables.usdtUsd(1)) ?? .nan
+            near("\(name) valueUsdt", TestSupport.number(c["valueUsdt"]), total)
+            near("\(name) valueTarget", TestSupport.number(c["valueTarget"]), total * rate)
+            XCTAssertEqual(usdt.approximate, c["approximate"] as? Bool, "\(name) approximate")
+            near("\(name) change vs USDT = 1", TestSupport.number(c["changeVsParPercent"]), (rate / par - 1) * 100)
+            // Anzeigewährung (auch USD): Faktor von Widget und Karte = derselbe Wert, Verlauf wird umgerechnet
+            if let currency = c["currency"] as? String {
+                let factor = PortfolioWidgetChart.usdtFactor(currency: currency, fx: TestSupport.number(c["usdToTarget"]) ?? .nan,
+                                                             usdtLive: TestSupport.number(c["usdtMarket"]))
+                near("\(name) valueTarget (\(currency), widget/card)", TestSupport.number(c["valueTarget"]), total * factor)
+                XCTAssertTrue(PortfolioHistoryFx.convertsUsdt(currency, usdtMarket: true), "\(name) history converted")
+            }
+        }
+        XCTAssertTrue(TestSupport.list(m["holdings"]).contains { $0["currency"] as? String == "USD" }, "USD display case")
     }
 
     func testStitch() throws {

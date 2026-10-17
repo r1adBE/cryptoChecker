@@ -76,7 +76,8 @@ data class TaxPeriod(val startYear: Int, val start: LocalDate, val end: LocalDat
  * Arbeitsunterlage nennen nur Tatsachen (Daten, Haltedauer, Beträge); Schlüsse wie «steuerfrei» stehen nur in der
  * Jahresübersicht als «Orientierung» mit Hinweis. Je Vorlage: erlaubte Methoden (erste = Standard), Steuerjahr,
  * Haltedauer-Gruppen, Tausch Krypto↔Krypto, Grenzen. Quellen und Stand (14./15.10.2026, alle abgerufen). Alle Beträge in
- * USDT; Umrechnung mit USD-Kursen — USDT = 1 USD angenommen (bei einem Depeg falsch, Hinweis in der Kopfzeile):
+ * USDT; Umrechnung mit USD-Kursen × USDT/USD-Tagesschluss ([TaxExport.rateOn] `usdtUsd`, Owner-Entscheid Okt. 2026);
+ * ohne Schluss des Tags USDT = 1 USD als Näherung, je Zeile vermerkt ([TaxCsvTexts.usdtAssumed]):
  *  - DE: § 23 Abs. 1 Nr. 2, Abs. 3 Satz 5 EStG (Freigrenze 1000 € ab 2024, 600 € 2009–2023), § 22 Nr. 3 Satz 2 EStG (256 €);
  *    BMF-Schreiben Kryptowerte vom 06.03.2025 (Rn. 61 f.: FIFO, walletbezogen zulässig). Kalenderjahr.
  *  - AT: BMF «Steuerliche Behandlung von Kryptowährungen» (Stand 01.01.2026): Neuvermögen = angeschafft nach 28.02.2021,

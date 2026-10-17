@@ -158,7 +158,14 @@ Zuletzt dazugekommen:
 - **Einstellungs-Symbole einfarbig**: Symbole der Hauptseite in der Textfarbe (dunkel weiss, hell schwarz), Alarme mit
   Glocke, Markt-Meldungen mit Blitz; nur «App zurücksetzen» bleibt in der Fehlerfarbe. Die Themenfarbe bleibt für
   Titel-Striche, Schalter und Auswahl.
-- **Ehrliche Portfolio-Kurse** (wie Android): nur USDT gilt als Bewertungsbasis immer 1; USDC, DAI … ohne Marktkurs
+- **USDT zum Marktkurs** (wie Android, Owner-Entscheid Okt. 2026): USDT bleibt die interne Rechenwährung, in Fiat gilt
+  sein Marktkurs USDT/USD: live die Messung von `DepegAlarmCheck` (Kraken USDT/USD, Binance USDC/USDT; gemessen, sobald
+  ein Portfolio da ist, auch ohne Depeg-Alarm; `DepegAlarmCheck.liveUsdtUsd`, höchstens 6 Std. alt), für vergangene
+  Tage der Kraken-Tagesschluss USDTZUSD (`PortfolioHistorySource.usdtUsdDaily`, 12 h gemerkt). Gesamtkarte, Zeilen,
+  Wertverlauf, «7 T»/«1 J», Widget, Portfolio-Alarme, «≈ Umrechnung», Kurse eigener Börsen in USD/Fiat, Steuer- und
+  Stichtag-Export rechnen damit (`UsdtUsdRates`, `PortfolioStables.usdtTo`). Ohne Kurs gilt 1 als Näherung und ist
+  markiert («USDT = 1 angenommen», im CSV je Zeile). Auch in USD: Karte, Verlauf und Widget zeigen USD (USDT × USDT/USD), nicht mehr USDT 1:1.
+- **Ehrliche Portfolio-Kurse** (wie Android): USDT ist die Bewertungsbasis (1 USDT = 1 USDT, in Fiat zum Marktkurs, siehe oben); USDC, DAI … ohne Marktkurs
   haben keinen Wert («—», «ohne Kurs», zählt unter «ohne N Coins», Gesamtgewinn unbekannt;
   `Shared/Portfolio/PortfolioStables.swift`), im Wertverlauf landen solche Stablecoins ohne Kerzen unter «ohne …»;
   die ≈-Umrechnung der Merkliste zeigt für sie seit Build 45 ohne Marktkurs keinen Wert (nur USD/USDT = 1). Kerzenkurs für Coins, die Binance Spot nicht führt, nur
@@ -375,10 +382,11 @@ Davor:
   (Build 44), je Tick wird nur die betroffene Zeile neu
   gezeichnet (`App/Services/LivePriceStream.swift`, `Shared/Services/LiveFeed.swift`).
 - **4 Tabs**: Merkliste · Markt · Portfolio (optional; bei Neuinstallation seit Build 44 aus, unter Einstellungen ›
-  Erweitert › Portfolio einschaltbar) · Einstellungen; «Paar hinzufügen» über «+»
+  Erweitert › Portfolio oder direkt auf der Einstellungs-Startseite einschaltbar) · Einstellungen; «Paar hinzufügen» über «+»
   in der Merkliste. **Kein Willkommensdialog** mehr – direkt die Startauswahl; «Was die App kann»
   unter Einstellungen › Über die App.
-- **Alarm-Editor als Satz** («Wenn BTC über … geht», «Einmal / Jedes Mal», «Erweitert») mit
+- **Alarm-Editor als Satz** («Wenn BTC über … geht», «Einmal / Jedes Mal»; gleich sichtbar nur Kurs über/unter und
+  Steigt/Fällt um, alle übrigen Bedingungen unter «Mehr Bedingungen», Währung, Ton und Vorlesen unter «Erweitert») mit
   **Vorlagen** ±1 %, ±5 %, neues 30-Tage-Hoch/-Tief, Volumen ×3 (`Shared/Services/AlarmTemplates.swift`); ein neuer
   Kursalarm schlägt 5 % über bzw. unter dem Kurs vor, eine schon erreichte Marke fragt beim Speichern nach
   («Alarm löst sofort aus», `Shared/Services/AlarmEdit.swift`); Bearbeiten stellt nur bei geänderter Bedingung neu

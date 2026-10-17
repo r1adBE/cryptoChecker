@@ -1,9 +1,10 @@
 import Foundation
 
-/// Prüft nach einer Kursaktualisierung (Vordergrund und Hintergrund) den USDT-Depeg-Alarm (`DepegAlarm`):
-/// nur wenn eingeschaltet, höchstens alle 5 Minuten, mit den bestehenden Ticker-Abrufen von Kraken
-/// (USDT/USD) und Binance (USDC/USDT). Pausierte Börsen (Backoff, gemeinsame Binance-Pause) werden nicht
-/// abgefragt. Wie `DepegAlarmChecker` (Android).
+/// Misst nach einer Kursaktualisierung (Vordergrund und Hintergrund) USDT in USD und prüft den USDT-Depeg-Alarm
+/// (`DepegAlarm`): gemessen wird mit eingeschaltetem Alarm ODER sobald ein Portfolio da ist (`DepegAlarm.shouldMeasure`
+/// — die Messung ist der Live-Kurs USDT/USD der Bewertung), höchstens alle 5 Minuten, mit den bestehenden
+/// Ticker-Abrufen von Kraken (USDT/USD) und Binance (USDC/USDT). Gemeldet wird nur mit eingeschaltetem Alarm.
+/// Pausierte Börsen (Backoff, gemeinsame Binance-Pause) werden nicht abgefragt. Wie `DepegAlarmChecker` (Android).
 enum DepegAlarmCheck {
     private static let keyLastCheck = "depeg_last_check"
     private static let keyArmed = "depeg_armed"
@@ -14,9 +15,11 @@ enum DepegAlarmCheck {
     /// Keine Quelle erreichbar: so lange bis zum nächsten Versuch (wie Android).
     private static let retryAfterFailure: Int64 = 2 * 60_000
 
-    /// Nach einer Kursaktualisierung aufrufen; tut nichts, solange der Alarm aus ist.
-    static func runIfDue(settings: AppSettings) async {
-        guard settings.depegAlarm else { return }
+    /// Nach einer Kursaktualisierung aufrufen; tut nichts ohne Alarm und ohne Portfolio.
+    /// - Parameter hasPortfolioData: Transaktionen oder beobachtete Adressen vorhanden (`AppData.hasPortfolioData`).
+    static func runIfDue(settings: AppSettings, hasPortfolioData: Bool) async {
+        guard DepegAlarm.shouldMeasure(depegAlarm: settings.depegAlarm, portfolioEnabled: settings.portfolioEnabled,
+                                       hasPortfolioData: hasPortfolioData) else { return }
         let defaults = SharedStorage.defaults
         let now = TimeUtils.nowMillis
         let last = Int64(defaults.double(forKey: keyLastCheck))
@@ -27,9 +30,11 @@ enum DepegAlarmCheck {
             defaults.set(Double(now - minInterval + retryAfterFailure), forKey: keyLastCheck)
             return
         }
-        // Messung merken: Portfolio-Karte zeigt dieselbe Abweichung (`DepegAlarm.cardWarning`)
+        // Messung merken: Live-Kurs USDT/USD der Bewertung (`DepegAlarm.liveUsdtUsd`)
         defaults.set(price, forKey: keyLastPrice)
         defaults.set(Double(now), forKey: keyLastPriceAt)
+        // Alarm aus: nur gemessen (Portfolio), nichts melden
+        guard settings.depegAlarm else { return }
         let deviation = DepegAlarm.deviationPercent(price)
         // Wie Kursalarme: in der Nachtruhe nicht auslösen, ohne zustellbare Mitteilung scharf bleiben
         let deliverable = await Notifier.isAuthorized()
@@ -43,12 +48,18 @@ enum DepegAlarmCheck {
                      forKey: keyArmed)
     }
 
-    /// Letzte Messung der Prüfung (für die Warnzeile der Portfolio-Karte); nil = noch keine — wie `DepegReadingStore` (Android).
+    /// Letzte Messung (USDT in USD, Zeitpunkt); nil = noch keine — wie `DepegReadingStore` (Android).
     static var lastReading: DepegAlarm.Reading? {
         let defaults = SharedStorage.defaults
         let at = Int64(defaults.double(forKey: keyLastPriceAt))
         guard at > 0, defaults.object(forKey: keyLastPrice) != nil else { return nil }
         return DepegAlarm.Reading(price: defaults.double(forKey: keyLastPrice), atMillis: at)
+    }
+
+    /// Live-Kurs USDT/USD der Bewertung (`DepegAlarm.liveUsdtUsd`: höchstens 6 Std. alt, plausibel); nil = keiner
+    /// (Ersatz 1, Näherung) — wie `DepegReadingStore.liveUsdtUsd` (Android).
+    static func liveUsdtUsd(now: Int64 = TimeUtils.nowMillis) -> Double? {
+        DepegAlarm.liveUsdtUsd(lastReading, now: now)
     }
 
     private static func notify(price: Double, deviation: Double, settings: AppSettings) async -> Bool {

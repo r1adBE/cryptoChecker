@@ -81,14 +81,13 @@
     <string name="portfolio_current_price">Current price</string>
     <string name="portfolio_price_missing">Price missing</string>
     <string name="portfolio_price_missing_hint">Some buys have no price. Add the buy price to see gain/loss.</string>
-    <string name="portfolio_price_source">Prices: Binance · USDT = 1</string>
-    <string name="portfolio_price_source_routes">Prices: %1$s, otherwise Binance · USDT = 1</string>
+    <string name="portfolio_price_source">Prices: Binance · USDT at market price</string>
+    <string name="portfolio_price_source_routes">Prices: %1$s, otherwise Binance · USDT at market price</string>
     <string name="portfolio_price_unavailable">Price unavailable right now</string>
     <string name="portfolio_price_unchecked">Price unchecked</string>
     <string name="portfolio_price_via_base">≈ %1$s price (bridged/wrapped)</string>
-    <string name="portfolio_usdt_as_usd">USDT converted at the USD rate</string>
+    <string name="portfolio_usdt_as_usd">USDT converted at its USD market price</string>
     <string name="portfolio_usdt_assumed">USDT = 1 assumed</string>
-    <string name="portfolio_usdt_depeg_warning">USDT = 1 assumed – market at %1$s USD (%2$s)</string>
 
     <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
     <string name="portfolio_add_from_watch">Add to portfolio</string>

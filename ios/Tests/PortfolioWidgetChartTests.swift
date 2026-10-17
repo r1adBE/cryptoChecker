@@ -44,13 +44,19 @@ final class PortfolioWidgetChartTests: XCTestCase {
 
     func testDefaultDisplayIsConversionUnlessUsd() {
         XCTAssertEqual(PortfolioWidgetDisplay.defaultFor(currency: "CHF"), .conversion)
-        XCTAssertEqual(PortfolioWidgetDisplay.defaultFor(currency: "USD"), .usdt)
+        // USD: USDT zum Marktkurs USDT/USD wie jede Fiat-Währung
+        XCTAssertEqual(PortfolioWidgetDisplay.defaultFor(currency: "USD"), .conversion)
         XCTAssertEqual(PortfolioWidgetDisplay.defaultFor(currency: "USDT"), .usdt)
+        XCTAssertEqual(PortfolioWidgetDisplay.defaultFor(currency: "USDC"), .usdt)
     }
 
     func testEffectiveDisplayCollapsesForUsdAndOldSnapshots() {
-        XCTAssertEqual(PortfolioWidgetChart.effectiveDisplay(.conversionUsdt, currency: "USD", hasUsdt: true), .usdt)
-        XCTAssertEqual(PortfolioWidgetChart.effectiveDisplay(.conversion, currency: "USD", hasUsdt: true), .usdt)
+        XCTAssertEqual(PortfolioWidgetChart.effectiveDisplay(.conversionUsdt, currency: "USDT", hasUsdt: true), .usdt)
+        XCTAssertEqual(PortfolioWidgetChart.effectiveDisplay(.conversion, currency: "usdc", hasUsdt: true), .usdt)
+        // USD fällt nicht mehr zusammen (USDT zum Marktkurs USDT/USD)
+        XCTAssertEqual(PortfolioWidgetChart.effectiveDisplay(.conversion, currency: "USD", hasUsdt: true), .conversion)
+        XCTAssertEqual(PortfolioWidgetChart.effectiveDisplay(.conversionUsdt, currency: "USD", hasUsdt: true),
+                       .conversionUsdt)
         XCTAssertEqual(PortfolioWidgetChart.effectiveDisplay(.usdt, currency: "CHF", hasUsdt: false), .conversion)
         XCTAssertEqual(PortfolioWidgetChart.effectiveDisplay(.conversionUsdt, currency: "CHF", hasUsdt: true),
                        .conversionUsdt)
@@ -110,11 +116,11 @@ final class PortfolioWidgetChartTests: XCTestCase {
     }
 
     func testUsdSnapshotIsRebasedToTheConversionCurrency() {
-        // Ohne Kurs in USD aufgenommen: Gesamtwert = USDT-Wert
-        var usd = snapshot(total: 1000, totalUsdt: 1000, currency: "USD", change: 10, history: hourly([1000, 990]))
+        // Ohne Devisenkurs aufgenommen (in USDT): Gesamtwert = USDT-Wert
+        var usd = snapshot(total: 1000, totalUsdt: 1000, currency: "USDT", change: 10, history: hourly([1000, 990]))
         usd.positions = [PortfolioWidgetPosition(symbol: "BTC", value: 1000, sharePercent: 100, change24hPercent: 1,
                                                  pnlAmount: 10)]
-        // Vor dem Fix: «Umrechnung» fiel bei USD auf «Nur USDT» zurück
+        // Bis zum Umrechnen zeigt «Umrechnung» USDT
         XCTAssertEqual(PortfolioWidgetChart.effectiveDisplay(.conversion, currency: usd.currency, hasUsdt: true), .usdt)
         let chf = PortfolioWidgetChart.rebased(usd, currency: "CHF", rate: 0.9)
         XCTAssertEqual(chf.currency, "CHF")
@@ -651,5 +657,18 @@ final class PortfolioWidgetChartTests: XCTestCase {
         noChange.todaySkipped = ["SOL"]
         XCTAssertEqual(PortfolioWidgetViews.todaySkipped(noChange, plan: plan(.day, change: nil), overview: true), [])
         XCTAssertEqual(PortfolioWidgetViews.todaySkipped(snapshot(), plan: plan(.day), overview: true), [])
+    }
+
+    /// Faktor USDT → Währung des Stands: Devisenkurs × USDT/USD, auch für USD; USD-Stablecoins bleiben. Wie Android.
+    func testUsdtFactorUsesMarketPrice() {
+        XCTAssertEqual(PortfolioWidgetChart.usdtFactor(currency: "CHF", fx: 0.9, usdtLive: 0.998), 0.9 * 0.998, accuracy: 1e-12)
+        // Ohne Messung bzw. unplausibel: USDT = 1
+        XCTAssertEqual(PortfolioWidgetChart.usdtFactor(currency: "CHF", fx: 0.9, usdtLive: nil), 0.9, accuracy: 1e-12)
+        XCTAssertEqual(PortfolioWidgetChart.usdtFactor(currency: "CHF", fx: 0.9, usdtLive: 2), 0.9, accuracy: 1e-12)
+        // USD: USDT zum Marktkurs (0.97 → 1000 USDT = 970 USD); ohne Messung 1
+        XCTAssertEqual(PortfolioWidgetChart.usdtFactor(currency: "USD", fx: 1, usdtLive: 0.97), 0.97, accuracy: 1e-12)
+        XCTAssertEqual(PortfolioWidgetChart.usdtFactor(currency: "USD", fx: 1, usdtLive: nil), 1, accuracy: 1e-12)
+        // USD-Stablecoin als Anzeige: unverändert (Widget zeigt dort USDT)
+        XCTAssertEqual(PortfolioWidgetChart.usdtFactor(currency: "USDC", fx: 1, usdtLive: 0.97), 1, accuracy: 1e-12)
     }
 }

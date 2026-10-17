@@ -84,14 +84,13 @@
     <string name="portfolio_current_price">Cours actuel</string>
     <string name="portfolio_price_missing">Prix manquant</string>
     <string name="portfolio_price_missing_hint">Certains achats n\'ont pas de prix. Ajoutez le prix d\'achat pour voir les gains/pertes.</string>
-    <string name="portfolio_price_source">Cours : Binance · USDT = 1</string>
-    <string name="portfolio_price_source_routes">Cours : %1$s, sinon Binance · USDT = 1</string>
+    <string name="portfolio_price_source">Cours : Binance · USDT au cours du marché</string>
+    <string name="portfolio_price_source_routes">Cours : %1$s, sinon Binance · USDT au cours du marché</string>
     <string name="portfolio_price_unavailable">Cours indisponible pour le moment</string>
     <string name="portfolio_price_unchecked">Cours non vérifié</string>
     <string name="portfolio_price_via_base">≈ cours de %1$s (bridgé/wrappé)</string>
-    <string name="portfolio_usdt_as_usd">USDT converti au cours de l’USD</string>
+    <string name="portfolio_usdt_as_usd">USDT converti à son cours de marché en USD</string>
     <string name="portfolio_usdt_assumed">USDT = 1 supposé</string>
-    <string name="portfolio_usdt_depeg_warning">USDT = 1 supposé – marché à %1$s USD (%2$s)</string>
 
     <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
     <string name="portfolio_add_from_watch">Ajouter au portefeuille</string>

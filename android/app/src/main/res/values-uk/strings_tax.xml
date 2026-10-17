@@ -8,7 +8,7 @@
     <string name="portfolio_export_col_coin">Монета</string>
     <string name="portfolio_export_col_note">Примітка</string>
     <string name="portfolio_export_col_price">Ціна USDT</string>
-    <string name="portfolio_export_col_rate">Курс USD→%1$s</string>
+    <string name="portfolio_export_col_rate">Курс USDT→%1$s</string>
     <string name="portfolio_export_col_value">Вартість USDT</string>
     <string name="portfolio_export_col_value_cur">Вартість %1$s</string>
     <!-- Inhalt der CSV-Datei -->
@@ -83,7 +83,7 @@
     <string name="tax_export_time_zone">Часовий пояс: %1$s</string>
     <string name="tax_export_transfer_fee_info">Комісія за переказ в USDT/фіаті – не збиток, не у вартості купівлі, лише для довідки</string>
     <string name="tax_export_unassigned_fee">комісію не розподілено – вартість невідома</string>
-    <string name="tax_export_usdt_usd_note">Прийнято USDT = 1 USD (хибно при відв’язці курсу)</string>
+    <string name="tax_export_usdt_usd_note">USDT перераховано за денним закриттям USDT/USD; без закриття 1 USD (позначено в рядку)</string>
     <string name="tax_export_value_estimated">Вартість оцінено (закриття дня)</string>
     <string name="tax_export_value_missing">немає вартості під час отримання</string>
     <string name="tax_export_wallet">Гаманець: %1$s</string>

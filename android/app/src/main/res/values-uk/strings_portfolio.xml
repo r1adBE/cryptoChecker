@@ -87,14 +87,13 @@
     <string name="portfolio_current_price">Поточний курс</string>
     <string name="portfolio_price_missing">Немає ціни</string>
     <string name="portfolio_price_missing_hint">Для деяких купівель немає ціни. Додайте ціну купівлі, щоб бачити прибуток/збиток.</string>
-    <string name="portfolio_price_source">Курси: Binance · USDT = 1</string>
-    <string name="portfolio_price_source_routes">Курси: %1$s, інакше Binance · USDT = 1</string>
+    <string name="portfolio_price_source">Курси: Binance · USDT за ринковим курсом</string>
+    <string name="portfolio_price_source_routes">Курси: %1$s, інакше Binance · USDT за ринковим курсом</string>
     <string name="portfolio_price_unavailable">Курс зараз недоступний</string>
     <string name="portfolio_price_unchecked">Ціна не перевірена</string>
     <string name="portfolio_price_via_base">≈ курс %1$s (через міст/обгорнутий)</string>
-    <string name="portfolio_usdt_as_usd">USDT перераховано за курсом USD</string>
+    <string name="portfolio_usdt_as_usd">USDT перераховано за ринковим курсом у USD</string>
     <string name="portfolio_usdt_assumed">Прийнято USDT = 1</string>
-    <string name="portfolio_usdt_depeg_warning">Прийнято USDT = 1 – ринок по %1$s USD (%2$s)</string>
 
     <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
     <string name="portfolio_add_from_watch">Додати до портфеля</string>

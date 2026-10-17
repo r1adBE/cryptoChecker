@@ -168,7 +168,7 @@
 
     <!-- Einstellungen › Markt-Meldungen -->
     <string name="settings_depeg_alarm">Avisar depeg do USDT</string>
-    <string name="settings_depeg_alarm_hint">Avisa uma vez quando o USDT se afasta de 1 USD pelo limite (Kraken USDT/USD, Binance USDC/USDT). Os valores no app continuam usando USDT = 1.</string>
+    <string name="settings_depeg_alarm_hint">Avisa uma vez quando o USDT se afasta de 1 USD pelo limite (Kraken USDT/USD, Binance USDC/USDT).</string>
     <string name="settings_depeg_threshold">Limite de depeg</string>
     <string name="settings_fng_above">Fear &amp; Greed: avisar acima de</string>
     <string name="settings_fng_below">Fear &amp; Greed: avisar abaixo de</string>

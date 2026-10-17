@@ -155,8 +155,10 @@ struct PortfolioHistoryCard: View {
             && PortfolioHistoryFx.includesFxMovement(history.unit, approximate: history.approximateFx) {
             caption(L("portfolio_history_incl_fx"))
         }
+        // USDT zum USD-Marktkurs (Tagesschluss USDT/USD); an Tagen ohne Kurs 1 als Näherung — dann «USDT = 1 angenommen»
         if series.hasChart && history.converted && PortfolioHistoryFx.convertsUsdtAsUsd(history.unit) {
             caption(L("portfolio_usdt_as_usd"))
+            if history.usdtApproximate { caption(L("portfolio_usdt_assumed")) }
         }
         if !series.skipped.isEmpty {
             // Grund: keine oder nicht passende Tageskurse (anderer Token, kein aktueller Kurs)

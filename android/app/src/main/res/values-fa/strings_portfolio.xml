@@ -81,14 +81,13 @@
     <string name="portfolio_current_price">قیمت فعلی</string>
     <string name="portfolio_price_missing">قیمت ثبت نشده</string>
     <string name="portfolio_price_missing_hint">برخی خریدها قیمت ندارند. برای دیدن سود/زیان، قیمت خرید را اضافه کنید.</string>
-    <string name="portfolio_price_source">قیمت‌ها: Binance · ‏USDT = 1</string>
-    <string name="portfolio_price_source_routes">قیمت‌ها: %1$s، در غیر این صورت Binance · ‏USDT = 1</string>
+    <string name="portfolio_price_source">قیمت‌ها: Binance · ‏USDT به قیمت بازار</string>
+    <string name="portfolio_price_source_routes">قیمت‌ها: %1$s، در غیر این صورت Binance · ‏USDT به قیمت بازار</string>
     <string name="portfolio_price_unavailable">قیمت فعلاً در دسترس نیست</string>
     <string name="portfolio_price_unchecked">قیمت بررسی‌نشده</string>
     <string name="portfolio_price_via_base">≈ قیمت %1$s (پل‌شده/بسته‌بندی‌شده)</string>
-    <string name="portfolio_usdt_as_usd">USDT با نرخ USD تبدیل شده</string>
+    <string name="portfolio_usdt_as_usd">USDT با قیمت بازار آن به USD تبدیل شده</string>
     <string name="portfolio_usdt_assumed">فرض شده USDT = 1</string>
-    <string name="portfolio_usdt_depeg_warning">فرض شده USDT = 1 – بازار روی %1$s USD (%2$s)</string>
 
     <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
     <string name="portfolio_add_from_watch">افزودن به پرتفوی</string>

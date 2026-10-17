@@ -78,14 +78,13 @@
     <string name="portfolio_current_price">ราคาปัจจุบัน</string>
     <string name="portfolio_price_missing">ไม่มีราคา</string>
     <string name="portfolio_price_missing_hint">การซื้อบางรายการไม่มีราคา เพิ่มราคาซื้อเพื่อดูกำไร/ขาดทุน</string>
-    <string name="portfolio_price_source">ราคา: Binance · USDT = 1</string>
-    <string name="portfolio_price_source_routes">ราคา: %1$s นอกนั้น Binance · USDT = 1</string>
+    <string name="portfolio_price_source">ราคา: Binance · USDT ตามราคาตลาด</string>
+    <string name="portfolio_price_source_routes">ราคา: %1$s นอกนั้น Binance · USDT ตามราคาตลาด</string>
     <string name="portfolio_price_unavailable">ไม่มีราคาในขณะนี้</string>
     <string name="portfolio_price_unchecked">ราคายังไม่ตรวจสอบ</string>
     <string name="portfolio_price_via_base">≈ ราคา %1$s (บริดจ์/แรป)</string>
-    <string name="portfolio_usdt_as_usd">แปลง USDT ด้วยอัตรา USD</string>
+    <string name="portfolio_usdt_as_usd">แปลง USDT ด้วยราคาตลาดเป็น USD</string>
     <string name="portfolio_usdt_assumed">สมมติ USDT = 1</string>
-    <string name="portfolio_usdt_depeg_warning">สมมติ USDT = 1 – ตลาดอยู่ที่ %1$s USD (%2$s)</string>
 
     <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
     <string name="portfolio_add_from_watch">เพิ่มในพอร์ตโฟลิโอ</string>

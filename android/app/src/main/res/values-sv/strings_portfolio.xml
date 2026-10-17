@@ -81,14 +81,13 @@
     <string name="portfolio_current_price">Aktuell kurs</string>
     <string name="portfolio_price_missing">Pris saknas</string>
     <string name="portfolio_price_missing_hint">Vissa köp saknar pris. Lägg till köppriset för att se vinst/förlust.</string>
-    <string name="portfolio_price_source">Kurser: Binance · USDT = 1</string>
-    <string name="portfolio_price_source_routes">Kurser: %1$s, annars Binance · USDT = 1</string>
+    <string name="portfolio_price_source">Kurser: Binance · USDT till marknadskurs</string>
+    <string name="portfolio_price_source_routes">Kurser: %1$s, annars Binance · USDT till marknadskurs</string>
     <string name="portfolio_price_unavailable">Kursen är inte tillgänglig just nu</string>
     <string name="portfolio_price_unchecked">Kurs okontrollerad</string>
     <string name="portfolio_price_via_base">≈ %1$s-kurs (bryggad/wrappad)</string>
-    <string name="portfolio_usdt_as_usd">USDT omräknat till USD-kurs</string>
+    <string name="portfolio_usdt_as_usd">USDT omräknat till sin USD-marknadskurs</string>
     <string name="portfolio_usdt_assumed">USDT = 1 antaget</string>
-    <string name="portfolio_usdt_depeg_warning">USDT = 1 antaget – marknaden på %1$s USD (%2$s)</string>
 
     <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
     <string name="portfolio_add_from_watch">Lägg till i portföljen</string>

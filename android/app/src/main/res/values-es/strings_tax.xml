@@ -8,7 +8,7 @@
     <string name="portfolio_export_col_coin">Moneda</string>
     <string name="portfolio_export_col_note">Nota</string>
     <string name="portfolio_export_col_price">Precio USDT</string>
-    <string name="portfolio_export_col_rate">Tipo USD→%1$s</string>
+    <string name="portfolio_export_col_rate">Tipo USDT→%1$s</string>
     <string name="portfolio_export_col_value">Valor USDT</string>
     <string name="portfolio_export_col_value_cur">Valor %1$s</string>
     <!-- Inhalt der CSV-Datei -->
@@ -83,7 +83,7 @@
     <string name="tax_export_time_zone">Zona horaria: %1$s</string>
     <string name="tax_export_transfer_fee_info">Comisión de transferencia en USDT/efectivo – no es pérdida, fuera del coste, solo información</string>
     <string name="tax_export_unassigned_fee">comisión no asignada – coste desconocido</string>
-    <string name="tax_export_usdt_usd_note">Se asume USDT = 1 USD (incorrecto si pierde la paridad)</string>
+    <string name="tax_export_usdt_usd_note">USDT convertido al cierre diario USDT/USD; sin cierre, 1 USD (indicado por fila)</string>
     <string name="tax_export_value_estimated">Valor estimado (cierre diario)</string>
     <string name="tax_export_value_missing">falta el valor al recibir</string>
     <string name="tax_export_wallet">Wallet: %1$s</string>

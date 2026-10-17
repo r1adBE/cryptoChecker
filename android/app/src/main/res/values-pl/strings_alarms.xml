@@ -36,6 +36,7 @@
     <string name="alarm_first_battery_hint">Optymalizacja baterii ogranicza aplikację – alarmy mogą przychodzić z opóźnieniem.</string>
     <string name="alarm_first_title">Wszystko gotowe</string>
     <string name="alarm_last_triggered">ostatnio o %1$s</string>
+    <string name="alarm_more_conditions">Więcej warunków</string>
     <string name="alarm_new_extreme">Nowe %1$s</string>
     <string name="alarm_once">Raz</string>
     <string name="alarm_option_repeating">Zachowaj alarm po wyzwoleniu</string>

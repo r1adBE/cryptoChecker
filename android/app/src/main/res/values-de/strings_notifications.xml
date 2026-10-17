@@ -5,7 +5,7 @@
     <string name="notification_alarm_text">%1$s — jetzt %2$s</string>
     <string name="notification_alarm_title">Alarm: %1$s · %2$s</string>
     <string name="notification_depeg_action_exchange">Börse öffnen</string>
-    <string name="notification_depeg_text">Werte in der App rechnen weiter mit USDT = 1.</string>
+    <string name="notification_depeg_text">Werte in der App rechnen mit diesem Marktkurs.</string>
     <string name="notification_depeg_title">USDT bei %1$s USD (%2$s)</string>
     <string name="notification_fng_above">Fear &amp; Greed ist über %1$d gestiegen – nach diesem Index gilt der Markt als gierig.</string>
     <string name="notification_fng_below">Fear &amp; Greed ist unter %1$d gefallen – nach diesem Index gilt der Markt als ängstlich.</string>

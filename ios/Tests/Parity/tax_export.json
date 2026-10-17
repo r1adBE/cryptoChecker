@@ -840,5 +840,138 @@
     ]
    }
   ]
+ },
+ "usdtMarket": {
+  "_comment": "USDT zum Marktkurs (Owner-Entscheid Okt. 2026): TaxExport.rateOn mit usdtUsd (USDT/USD-Tagesschluss je Datum, Tag = Datum der Arbeitsunterlage) = Devisenkurs (rates oben, CHF) × USDT/USD DES Tags; ohne (plausiblen, 0.5..1.5) Schluss × 1 und usdtApproximateOn = true. rateOn: [Datum, Währung, erwarteter Kurs, usdtApproximateOn]. Zeilen gainRows/incomeRows (FIFO, Steuerjahr 2025, CHF) mit usdtUsd: Beträge CHF und usdtApproximate; ohne usdtUsd (null) wie bisher USDT = 1 (gainsPar/incomePar). incomeLines: Zeilen der Einkünfte-CSV (Semikolon/Punkt) mit Vermerk usdtAssumed.",
+  "usdtUsd": {
+   "20213": "0.97",
+   "20270": "0.98",
+   "20087": "3"
+  },
+  "rateOn": [
+   [
+    "2025-05-05",
+    "CHF",
+    "0.8051",
+    false
+   ],
+   [
+    "2025-07-01",
+    "CHF",
+    "0.784",
+    false
+   ],
+   [
+    "2025-03-15",
+    "CHF",
+    "0.88",
+    true
+   ],
+   [
+    "2025-03-22",
+    "CHF",
+    null,
+    true
+   ],
+   [
+    "2024-12-30",
+    "CHF",
+    "0.905",
+    true
+   ],
+   [
+    "2025-05-05",
+    "USD",
+    "0.97",
+    false
+   ],
+   [
+    "2025-01-01",
+    "USD",
+    "1",
+    true
+   ]
+  ],
+  "trades": [
+   {
+    "id": 1,
+    "coin": "BTC",
+    "type": "BUY",
+    "amount": "1",
+    "price": "10000",
+    "time": 1746446400000
+   },
+   {
+    "id": 2,
+    "coin": "BTC",
+    "type": "SELL",
+    "amount": "1",
+    "price": "12000",
+    "time": 1751371200000
+   },
+   {
+    "id": 3,
+    "coin": "SOL",
+    "type": "REWARD",
+    "amount": "1",
+    "price": "100",
+    "time": 1741953600000
+   },
+   {
+    "id": 4,
+    "coin": "SOL",
+    "type": "REWARD",
+    "amount": "1",
+    "price": "100",
+    "time": 1746446400000
+   }
+  ],
+  "usdtAssumed": "USDT = 1 USD assumed",
+  "gains": [
+   {
+    "coin": "BTC",
+    "costTarget": "8051",
+    "proceedsTarget": "9408",
+    "gainTarget": "1357",
+    "usdtApproximate": false
+   }
+  ],
+  "gainsPar": [
+   {
+    "coin": "BTC",
+    "costTarget": "8300",
+    "proceedsTarget": "9600",
+    "gainTarget": "1300",
+    "usdtApproximate": false
+   }
+  ],
+  "income": [
+   {
+    "date": "2025-03-14",
+    "valueTarget": "88",
+    "usdtApproximate": true
+   },
+   {
+    "date": "2025-05-05",
+    "valueTarget": "80.51",
+    "usdtApproximate": false
+   }
+  ],
+  "incomePar": [
+   {
+    "date": "2025-03-14",
+    "valueTarget": "88",
+    "usdtApproximate": false
+   },
+   {
+    "date": "2025-05-05",
+    "valueTarget": "83",
+    "usdtApproximate": false
+   }
+  ],
+  "incomeLines": [
+   "2025-03-14;SOL;1;100.00;88.00;USDT = 1 USD assumed",
+   "2025-05-05;SOL;1;100.00;80.51;"
+  ]
  }
 }

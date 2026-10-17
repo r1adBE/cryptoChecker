@@ -20,6 +20,9 @@ struct PortfolioDailyPrices: Sendable {
     var own: Set<String> = []
     var binanceBefore: [String: Int] = [:]
     var routed: Set<String> = []
+    /// Tagesschluss USDT/USD je UTC-Tag (Kraken USDTZUSD, `PortfolioHistorySource.usdtUsdDaily`) für USDT zum Marktkurs
+    /// (`UsdtUsdRates.daily`); leer = keiner (dann 1 als Näherung).
+    var usdtUsd: [Int: Double] = [:]
 }
 
 /// Eigene Tageskerzen eines Coins (USDT) und für welchen Weg (`route` = Schlüssel des Paars).
@@ -43,6 +46,11 @@ private struct PortfolioOwnCloses: Codable {
 /// Coins mit eigener Börse (`PortfolioExchangeRouteStore`): Tageskerzen dieser Börse (`OwnCandleDataSource`,
 /// höchstens 1000), in USDT umgerechnet (Fiat mit den Devisen-Tageskursen, `HistoricPriceSource.usdToSeries`);
 /// ebenfalls 12 h gemerkt («phisto_<COIN>»).
+///
+/// USDT zum Marktkurs (Owner-Entscheid Okt. 2026): Tagesschlüsse USDT/USD von Kraken (`usdtUsdDaily`, Paar USDTZUSD über
+/// dieselben eigenen Tageskerzen, 12 h gemerkt «phisto_USDTZUSD») — nur mit Portfolio (nur dessen Abrufe holen sie). Damit
+/// rechnen USD- und Fiat-Kerzen eigener Börsen in USDT (`PortfolioExchangeRoute.ownDailyUsdt`) und die Umrechnung von
+/// Verlauf und Export in Fiat (`UsdtUsdRates`).
 enum PortfolioHistorySource {
     private static let ttl: Int64 = 12 * 60 * 60_000
     private static let parallel = 4
@@ -60,6 +68,20 @@ enum PortfolioHistorySource {
     nonisolated(unsafe) private static var ownMemory: [String: (entry: PortfolioOwnCloses, at: Int64)] = [:]
     /// Eigene Tageskerzen höchstens so viele (Grenze der eigenen Kerzen); davor Binance angeglichen.
     private static let maxOwnDays = 1000
+
+    /// USDT/USD-Tagesschlüsse: Kraken USDTZUSD (dasselbe Paar wie die Messung des Depeg-Alarms).
+    private static let usdtUsdKey = "USDTZUSD"
+    private static let usdtUsdPair = CandlePair(marketKey: DepegAlarm.krakenKey, marketName: DepegAlarm.krakenKey,
+                                                base: "USDT", quote: "USD", pairId: DepegAlarm.krakenPairId)
+
+    /// Tagesschlüsse USDT/USD (UTC-Tag → Schluss) für mindestens die letzten `days` Tage: Kraken-Tageskerzen USDTZUSD
+    /// (höchstens 720 Tage, ältere Tage ohne Schluss = 1 als Näherung, `UsdtUsdRates.on`). Speicher, Gerät (12 h), sonst
+    /// Abfrage; nicht erreichbar → älterer Stand oder leer. Wie Android `usdtUsdDaily`.
+    static func usdtUsdDaily(days: Int = PortfolioHistory.maxDays) async -> [Int: Double] {
+        let entry = await ownCloses(of: usdtUsdKey, pair: usdtUsdPair, span: max(days, PortfolioHistory.maxDays),
+                                    usdtUsd: nil)
+        return entry?.closes ?? [:]
+    }
 
     private static let session: URLSession = {
         let c = URLSessionConfiguration.default
@@ -107,6 +129,8 @@ enum PortfolioHistorySource {
                 }
             }
         }
+        // USDT/USD-Tagesschlüsse einmal (USD-/Fiat-Kerzen eigener Börsen und Umrechnung in Fiat)
+        let usdtUsd = await usdtUsdDaily(days: span)
         // Eingetragene Börse: deren eigene Tageskerzen statt Binance (Wege aus der App Group)
         let wanted = Set(symbols)
         let stored = PortfolioExchangeRouteStore.load()
@@ -123,7 +147,7 @@ enum PortfolioHistorySource {
             await withTaskGroup(of: (String, PortfolioCoinCloses?).self) { group in
                 for (coin, route) in batch {
                     group.addTask {
-                        let value = await ownCloses(of: coin, route: route, span: span)
+                        let value = await ownCloses(of: coin, route: route, span: span, usdtUsd: usdtUsd)
                         return (coin, value)
                     }
                 }
@@ -134,7 +158,8 @@ enum PortfolioHistorySource {
             }
         }
         let routed: Set<String> = Set(routes.keys).union(unresolved)
-        let result = withWrapped(mergeOwn(binance: binance, own: own, routed: routed), requested: requested)
+        var result = withWrapped(mergeOwn(binance: binance, own: own, routed: routed), requested: requested)
+        result.usdtUsd = usdtUsd
         // Portfolio-Widget (7 T / 30 T / 1 J): dieselben Kurse in die App Group spiegeln — das Widget
         // fragt selbst nicht ab (wie Android `PortfolioHistorySource.cachedDailyPrices`)
         PortfolioWidgetDailyStore.save(closes: result.closes, ranges: result.ranges,
@@ -188,9 +213,17 @@ enum PortfolioHistorySource {
     }
 
     /// Eigene Tageskerzen (USDT) des Wegs `route`: Speicher, Gerät, sonst Abfrage; nil = keine.
-    private static func ownCloses(of coin: String, route: PortfolioRoute, span: Int) async -> PortfolioCoinCloses? {
+    private static func ownCloses(of coin: String, route: PortfolioRoute, span: Int,
+                                  usdtUsd: [Int: Double]) async -> PortfolioCoinCloses? {
         let pair = CandlePair(marketKey: route.marketKey, marketName: route.marketName, base: route.base,
                               quote: route.quote, pairId: route.pairId)
+        return await ownCloses(of: coin, pair: pair, span: span, usdtUsd: usdtUsd)
+    }
+
+    /// Eigene Tageskerzen (USDT) von `pair`: Speicher, Gerät, sonst Abfrage; nil = keine. `usdtUsd`: USDT/USD-Tagesschlüsse
+    /// für USD- und Fiat-Kerzen (nil = USDT/USD selbst bzw. keine Umrechnung).
+    private static func ownCloses(of coin: String, pair: CandlePair, span: Int,
+                                  usdtUsd: [Int: Double]?) async -> PortfolioCoinCloses? {
         let key = pair.cacheKey
         let now = TimeUtils.nowMillis
         if let hit = cachedOwn(coin), hit.entry.route == key, hit.entry.entry.span >= span,
@@ -202,7 +235,7 @@ enum PortfolioHistorySource {
             rememberOwn(coin, stored.value, at: stored.savedAt)
             return stored.value.entry
         }
-        if let fresh = await fetchOwn(pair, span: span, now: now) {
+        if let fresh = await fetchOwn(pair, span: span, now: now, usdtUsd: usdtUsd) {
             let value = PortfolioOwnCloses(route: key, entry: fresh)
             rememberOwn(coin, value, at: now)
             CycleCache.write(ownCacheKey(coin), value, savedAt: now)
@@ -215,7 +248,8 @@ enum PortfolioHistorySource {
     }
 
     /// Tageskerzen der eigenen Börse holen und in USDT umrechnen; nil = keine (dann Ausweich).
-    private static func fetchOwn(_ pair: CandlePair, span: Int, now: Int64) async -> PortfolioCoinCloses? {
+    private static func fetchOwn(_ pair: CandlePair, span: Int, now: Int64,
+                                 usdtUsd: [Int: Double]?) async -> PortfolioCoinCloses? {
         guard let candles = await OwnCandleDataSource.shared.candles(pair, interval: .d1, limit: min(span, maxOwnDays))?.value
         else { return nil }
         var closes: [Int: Double] = [:]
@@ -235,8 +269,11 @@ enum PortfolioHistorySource {
             guard let series = await HistoricPriceSource.usdToSeries(quote, from: from, to: today) else { return nil }
             rates = series
         }
+        // USD- und Fiat-Kerzen: zusätzlich durch USDT/USD des Tags (USDT zum Marktkurs); USDT-Kerzen unverändert
+        let usdtByDay: [Int: Double]? = quote == "USDT" ? nil : usdtUsd
         guard let usdt = PortfolioExchangeRoute.ownDailyUsdt(PortfolioCoinDaily(closes: closes, ranges: ranges),
-                                                             quote: quote, usdToByDay: rates) else { return nil }
+                                                             quote: quote, usdToByDay: rates,
+                                                             usdtUsdByDay: usdtByDay) else { return nil }
         return PortfolioCoinCloses(closes: usdt.closes, span: span, ranges: usdt.ranges)
     }
 

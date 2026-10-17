@@ -168,7 +168,7 @@
 
     <!-- Einstellungen › Markt-Meldungen -->
     <string name="settings_depeg_alarm">Avisar si USDT pierde la paridad</string>
-    <string name="settings_depeg_alarm_hint">Avisa una vez cuando USDT se desvía de 1 USD en el umbral (Kraken USDT/USD, Binance USDC/USDT). Los valores de la app siguen usando USDT = 1.</string>
+    <string name="settings_depeg_alarm_hint">Avisa una vez cuando USDT se desvía de 1 USD en el umbral (Kraken USDT/USD, Binance USDC/USDT).</string>
     <string name="settings_depeg_threshold">Umbral de pérdida de paridad</string>
     <string name="settings_fng_above">Fear &amp; Greed: avisar por encima de</string>
     <string name="settings_fng_below">Fear &amp; Greed: avisar por debajo de</string>
