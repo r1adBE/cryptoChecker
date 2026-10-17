@@ -81,8 +81,8 @@ struct CoinLogosSettingsPage: View {
     }
 }
 
-/// Kursfarben: fünf Stile als Karten — «Ruhig» (Standard), «Frisch» (Börsengrün/Rot),
-/// «Traditionell» (reines Grün/Rot), «Farbsehschwäche» (Blau/Orange) und «Ruhig
+/// Kursfarben: fünf Stile als Karten — «Ruhig» (Standard), «Frisch» (Binance),
+/// «Traditionell» (TradingView), «Farbsehschwäche» (Blau/Orange) und «Ruhig
 /// Farbsehschwäche»; darunter «Farben tauschen»
 /// (Ostasien: Rot = steigend) und hoher Kontrast. Gespeichert als Schema + «getauscht».
 /// Wie Android `PriceColorsPage`.

@@ -38,9 +38,11 @@ Twenty-third review.
   back to 1 and says «USDT = 1 assumed». USD as display currency converts too.
 * Alarm editor: price above/below and rises/falls by % up front, the other eight conditions behind «More conditions».
 * Settings start page: own «Portfolio» switch in «More» (the page under Advanced stays).
-* Price colours «Fresh», «Traditional» and «Colour vision» redefined as real exchange colours with fixed rules
-  (AA/7:1 contrast, lightness gap rise/fall, colour-blind simulation, distance to the other accents); in light mode
-  falling is the stronger red/orange, in dark mode the darker one; checked by android/tools/check_price_colors.py.
+* Price colours follow the exchanges: «Fresh» = Binance (#0ECB81 / #F6465D), «Traditional» = TradingView
+  (#089981 / #F23645), «Colour vision» = blue/orange – each as close to the original as text contrast (AA, high
+  contrast 7:1) allows, independent of the theme colour; «Calm» dark falling is now salmon red instead of pink.
+  Checked by android/tools/check_price_colors.py.
+* Build tooling: GitHub actions setup-gradle / dependency-submission 6.4, setup-java 6.1; KSP 2.3.12, uiautomator 2.4.
 
 ## 16.2.2 (build 73)
 

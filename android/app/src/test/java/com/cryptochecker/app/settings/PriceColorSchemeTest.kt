@@ -57,12 +57,12 @@ class PriceColorSchemeTest {
     @Test
     fun `Werte wie in der Spezifikation`() {
         // Feste Börsenfarben (Entscheid 18. Oktober 2026): hell, dunkel, je normal und hoher Kontrast
-        assertTones(PriceColorScheme.GREEN_RED, 0xFF005A30, 0xFF18EA96, 0xFF00421E, 0xFF81FFBA, up = true)
-        assertTones(PriceColorScheme.GREEN_RED, 0xFFCC0015, 0xFFFF6F69, 0xFF960000, 0xFFFFB1AB, up = false)
-        assertTones(PriceColorScheme.TRADITIONAL, 0xFF033C00, 0xFF87FF7E, 0xFF002100, 0xFFE4FFE4, up = true)
-        assertTones(PriceColorScheme.TRADITIONAL, 0xFF990000, 0xFFFF9C99, 0xFF630000, 0xFFF9D2CD, up = false)
-        assertTones(PriceColorScheme.BLUE_ORANGE, 0xFF003372, 0xFF96D8FF, 0xFF002A5A, 0xFFC9E7FF, up = true)
-        assertTones(PriceColorScheme.BLUE_ORANGE, 0xFFAE4200, 0xFFED810C, 0xFF7B3300, 0xFFFFB469, up = false)
+        assertTones(PriceColorScheme.GREEN_RED, 0xFF127248, 0xFF0ECB81, 0xFF025430, 0xFF30DE92, up = true)
+        assertTones(PriceColorScheme.GREEN_RED, 0xFFC3213A, 0xFFFC6F7D, 0xFF911127, 0xFFFFAEB7, up = false)
+        assertTones(PriceColorScheme.TRADITIONAL, 0xFF0A7262, 0xFF3EAE97, 0xFF005246, 0xFF5AD8BE, up = true)
+        assertTones(PriceColorScheme.TRADITIONAL, 0xFFCC0416, 0xFFFE7062, 0xFF960208, 0xFFFEB2A4, up = false)
+        assertTones(PriceColorScheme.BLUE_ORANGE, 0xFF064E93, 0xFF4F9FFD, 0xFF00335F, 0xFFCFEAFF, up = true)
+        assertTones(PriceColorScheme.BLUE_ORANGE, 0xFFB73900, 0xFFFFA73E, 0xFF842A00, 0xFFFFB46A, up = false)
         // «Ruhig Farbsehschwäche»: die früheren Werte von «Farbsehschwäche»
         assertEquals(0xFF1460AB.toInt(), PriceColorScheme.CALM_COLOR_VISION.up(dark = false))
         assertEquals(0xFF9F4300.toInt(), PriceColorScheme.CALM_COLOR_VISION.down(dark = false))
@@ -120,7 +120,8 @@ class PriceColorSchemeTest {
         assertEquals(0xFF396E54.toInt(), PriceColorScheme.CALM.up(dark = false))
         assertEquals(0xFF61AE87.toInt(), PriceColorScheme.CALM.up(dark = true))
         assertEquals(0xFF771D23.toInt(), PriceColorScheme.CALM.down(dark = false))
-        assertEquals(0xFFFFAFA8.toInt(), PriceColorScheme.CALM.down(dark = true))
+        // Dunkel Lachs-Rot statt Rosa (Entscheid 18. Oktober 2026, früher #FFAFA8)
+        assertEquals(0xFFFFB097.toInt(), PriceColorScheme.CALM.down(dark = true))
         for (up in listOf(true, false)) {
             val color = if (up) PriceColorScheme.CALM.up(dark = true) else PriceColorScheme.CALM.down(dark = true)
             assertTrue(contrast(color, 0xFF131313.toInt()) >= 6.5)
@@ -254,10 +255,10 @@ class PriceColorSchemeTest {
         // Belegt: Standard «Ruhig» neben Orange (Standard-Akzent) lag bei ΔE ≈ 9.5
         assertTrue(deltaE2000(0xFFA74340.toInt(), AccentColor.ORANGE.primary(dark = false)) < 10.0)
         assertEquals(0xFF77212F.toInt(), PriceColorScheme.CALM.down(dark = false, accent = AccentColor.ORANGE))
-        assertEquals(0xFFFFB1BE.toInt(), PriceColorScheme.CALM.down(dark = true, accent = AccentColor.ORANGE))
+        assertEquals(0xFFFFAFBB.toInt(), PriceColorScheme.CALM.down(dark = true, accent = AccentColor.ORANGE))
         assertEquals(0xFF672B61.toInt(), PriceColorScheme.CALM.down(dark = false, accent = AccentColor.RED))
         assertEquals(0xFF506299.toInt(), PriceColorScheme.CALM.up(dark = false, accent = AccentColor.GREEN))
-        assertEquals(0xFFAE4200.toInt(), PriceColorScheme.BLUE_ORANGE.down(dark = false, accent = AccentColor.ORANGE))
+        assertEquals(0xFFB73900.toInt(), PriceColorScheme.BLUE_ORANGE.down(dark = false, accent = AccentColor.ORANGE))
         assertEquals(0xFF786200.toInt(), PriceColorScheme.CALM_COLOR_VISION.down(dark = false, accent = AccentColor.ORANGE))
         assertTrue(PriceColorScheme.CALM_COLOR_VISION.clashesWith(AccentColor.BLUE))
         assertTrue(!PriceColorScheme.BLUE_ORANGE.clashesWith(AccentColor.BLUE))
@@ -325,93 +326,68 @@ class PriceColorSchemeTest {
     }
 
     /*
-     * Feste Börsenfarben «Frisch», «Traditionell», «Farbsehschwäche» (Entscheid 18. Oktober 2026).
-     * Die Regeln gelten für jeden künftigen Wert; nachrechnen mit android/tools/check_price_colors.py.
+     * Feste Börsenfarben «Frisch», «Traditionell», «Farbsehschwäche» (Entscheid 18. Oktober 2026:
+     * «Farben wie bei allen Börsen»). Hart nur der Kontrast (`Kontrast auf allen Flaechen`); die
+     * Zieltöne und der Abstand dazu stehen in android/tools/check_price_colors.py.
      */
 
-    /**
-     * Regel 3: hell ist fallend die hellere, kräftigere Farbe (echtes Rot/Orange auf Papier), dunkel
-     * die dunklere (wie an den Börsen); Leuchtdichte-Verhältnis ≥ 1.4 («Farbsehschwäche» ≥ 1.5), hoher Kontrast ≥ 1.25 wie «Ruhig». Regel 5: auch
-     * nach Deuteranopie-Simulation, bei «Farbsehschwäche» nach allen drei Simulationen.
-     */
+    /** «Frisch» dunkel steigend ist genau das Binance-Grün (erreicht 4.5:1 auf #353535 ohne Anpassung). */
     @Test
-    fun `Boersenfarben in der Helligkeit getrennt`() {
-        for (scheme in FIXED) for (dark in listOf(false, true)) for (hc in listOf(false, true)) {
-            val up = scheme.up(dark, hc)
-            val down = scheme.down(dark, hc)
-            val min = minRatio(scheme, hc)
-            val key = "${scheme.name}/dark=$dark/hc=$hc"
-            // Hell fallend heller, dunkel fallend dunkler
-            assertTrue("$key: Richtung", if (dark) luminance(down) < luminance(up) else luminance(down) > luminance(up))
-            assertTrue("$key: %.3f".format(contrast(up, down)), contrast(up, down) >= min)
-            val sims = if (scheme == PriceColorScheme.BLUE_ORANGE) CVD.keys else setOf("deut")
-            for (sim in sims) {
-                val r = simulatedContrast(up, down, CVD.getValue(sim))
-                assertTrue("$key $sim: %.3f".format(r), r >= min)
-            }
-        }
+    fun `Frisch ist Binance`() {
+        assertEquals(0xFF0ECB81.toInt(), PriceColorScheme.GREEN_RED.up(dark = true))
+        // Binance-Rot #F6465D erreicht dunkel kein AA → so nah wie möglich
+        assertTrue(contrast(0xFFF6465D.toInt(), 0xFF353535.toInt()) < 4.5)
+        assertTrue(deltaE2000(PriceColorScheme.GREEN_RED.down(dark = true), 0xFFF6465D.toInt()) < 10.0)
     }
 
-    /**
-     * Regeln 4/5: ΔE2000 ≥ 10 («Farbsehschwäche» ≥ 15) zu jedem Akzent (primary desselben Modus,
-     * auch für hohen Kontrast) — ausser dem derselben Farbfamilie (Rot neben Rot, Grün neben
-     * Grün/Marrs Green, Blau neben Blau, Orange neben Orange).
-     */
+    /** «Frisch» und «Traditionell» je Farbe sichtbar verschieden: ΔE2000 ≥ 8, in jeder Fassung. */
     @Test
-    fun `Boersenfarben klar verschieden von fremden Akzenten`() {
-        for (scheme in FIXED) for (dark in listOf(false, true)) for (hc in listOf(false, true)) for (up in listOf(true, false)) {
-            val color = if (up) scheme.up(dark, hc) else scheme.down(dark, hc)
-            val family = SAME_FAMILY.getValue(scheme).let { if (up) it.first else it.second }
-            val min = if (scheme == PriceColorScheme.BLUE_ORANGE) 15.0 else 10.0
-            for (accent in AccentColor.entries - family) {
-                val d = deltaE2000(color, accent.primary(dark))
-                assertTrue("${scheme.name}/${accent.name}/dark=$dark/hc=$hc/up=$up: ΔE %.2f".format(d), d >= min)
-            }
-        }
-    }
-
-    /**
-     * Regel 1: echte Farbtöne (HSL) — «Frisch» steigend 140–165°, fallend 350–10°; «Traditionell»
-     * 115–135° / 0–8°, je ΔE2000 ≥ 10 zur selben Farbe von «Frisch», damit die Karten verschieden aussehen.
-     */
-    @Test
-    fun `Frisch und Traditionell echte Farbtoene und verschieden`() {
+    fun `Frisch und Traditionell verschieden`() {
         for (dark in listOf(false, true)) for (hc in listOf(false, true)) {
             val key = "dark=$dark/hc=$hc"
             val fresh = PriceColorScheme.GREEN_RED
             val trad = PriceColorScheme.TRADITIONAL
-            assertTrue("$key Frisch up", hslHue(fresh.up(dark, hc)) in 140.0..165.0)
-            hslHue(fresh.down(dark, hc)).let { assertTrue("$key Frisch down %.1f".format(it), it >= 350.0 || it <= 10.0) }
-            assertTrue("$key Trad up", hslHue(trad.up(dark, hc)) in 115.0..135.0)
-            assertTrue("$key Trad down", hslHue(trad.down(dark, hc)) in 0.0..8.0)
-            assertTrue("$key up", deltaE2000(fresh.up(dark, hc), trad.up(dark, hc)) >= 10.0)
-            assertTrue("$key down", deltaE2000(fresh.down(dark, hc), trad.down(dark, hc)) >= 10.0)
+            val up = deltaE2000(fresh.up(dark, hc), trad.up(dark, hc))
+            val down = deltaE2000(fresh.down(dark, hc), trad.down(dark, hc))
+            assertTrue("$key up: ΔE %.2f".format(up), up >= 8.0)
+            assertTrue("$key down: ΔE %.2f".format(down), down >= 8.0)
         }
     }
 
     /**
-     * Regel 4: «Farbsehschwäche» steigend/fallend nach Protanopie-, Deuteranopie- und Tritanopie-
-     * Simulation (Machado 2009, volle Ausprägung) ΔE2000 ≥ 40; hoher Kontrast ≥ 35 (dunkel lassen
-     * ≥ 7:1 und 1.25:1 Abstand nur Pastelltöne zu, Blau/Orange erreicht dort höchstens ≈ 38.7).
+     * Nur «Farbsehschwäche»: steigend/fallend nach Protanopie-, Deuteranopie- und Tritanopie-
+     * Simulation (Machado 2009, volle Ausprägung) ΔE2000 ≥ 35 und Leuchtdichte-Verhältnis ≥ 1.4,
+     * in jeder Fassung (hell/dunkel, normal/hoher Kontrast).
      */
     @Test
     fun `Farbsehschwaeche simuliert klar getrennt`() {
         val scheme = PriceColorScheme.BLUE_ORANGE
-        for (dark in listOf(false, true)) for (hc in listOf(false, true)) for ((sim, m) in CVD) {
-            val a = simulate(scheme.up(dark, hc), m)
-            val b = simulate(scheme.down(dark, hc), m)
-            val d = ColorDifference.deltaE2000(labLinear(a), labLinear(b))
-            assertTrue("dark=$dark/hc=$hc/$sim: ΔE %.2f".format(d), d >= if (hc) 35.0 else 40.0)
+        for (dark in listOf(false, true)) for (hc in listOf(false, true)) {
+            val up = scheme.up(dark, hc)
+            val down = scheme.down(dark, hc)
+            val key = "dark=$dark/hc=$hc"
+            assertTrue("$key: Leuchtdichte %.3f".format(contrast(up, down)), contrast(up, down) >= 1.4)
+            for ((sim, m) in CVD) {
+                val d = ColorDifference.deltaE2000(labLinear(simulate(up, m)), labLinear(simulate(down, m)))
+                assertTrue("$key/$sim: ΔE %.2f".format(d), d >= 35.0)
+            }
         }
-        // Belegt: die früheren Werte lagen gleich hell (1.00:1) und neben dem blauen Akzent (ΔE 1.9)
+        // Belegt: die Werte bis 16. Oktober 2026 lagen gleich hell (1.00:1)
         assertTrue(contrast(0xFF005ED6.toInt(), 0xFFB63900.toInt()) < 1.05)
-        assertTrue(deltaE2000(0xFF005ED6.toInt(), AccentColor.BLUE.primary(dark = false)) < 2.0)
     }
 
-    private fun minRatio(scheme: PriceColorScheme, hc: Boolean) = when {
-        hc -> 1.25
-        scheme == PriceColorScheme.BLUE_ORANGE -> 1.5
-        else -> 1.4
+    /**
+     * «Ruhig» dunkel fallend: Lachs-Rot (HSL 5–15°, C* ≥ 35) statt Rosa; Karmin neben Orange so rot,
+     * wie ΔE 20 zum Akzent erlaubt (HSL ≥ 350° oder ≤ 10°). Entscheid 18. Oktober 2026.
+     */
+    @Test
+    fun `Ruhig dunkel fallend Lachs-Rot`() {
+        val red = PriceColorScheme.CALM.down(dark = true)
+        assertTrue("HSL %.1f".format(hslHue(red)), hslHue(red) in 5.0..15.0)
+        val lab = ColorDifference.lab(red)
+        assertTrue(kotlin.math.hypot(lab[1], lab[2]) >= 35.0)
+        val crimson = PriceColorScheme.CALM.down(dark = true, accent = AccentColor.ORANGE)
+        assertTrue(hslHue(crimson) >= 350.0 || hslHue(crimson) <= 10.0)
     }
 
     /** Lineares sRGB nach Simulation [m] (3×3, zeilenweise), auf 0…1 begrenzt, ohne Rundung auf 8 Bit. */
@@ -420,13 +396,6 @@ class PriceColorSchemeTest {
         val g = channel((argb shr 8) and 0xFF)
         val b = channel(argb and 0xFF)
         return DoubleArray(3) { i -> (m[3 * i] * r + m[3 * i + 1] * g + m[3 * i + 2] * b).coerceIn(0.0, 1.0) }
-    }
-
-    private fun simulatedContrast(a: Int, b: Int, m: DoubleArray): Double {
-        fun lum(c: DoubleArray) = 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]
-        val la = lum(simulate(a, m))
-        val lb = lum(simulate(b, m))
-        return (maxOf(la, lb) + 0.05) / (minOf(la, lb) + 0.05)
     }
 
     /** CIELAB (D65) aus linearem sRGB, wie [ColorDifference.lab]. */
@@ -461,16 +430,6 @@ class PriceColorSchemeTest {
     private companion object {
         /** Schemata, die neben einer zu ähnlichen Akzentfarbe ausweichen. */
         val ADAPTIVE = setOf(PriceColorScheme.CALM, PriceColorScheme.CALM_COLOR_VISION)
-
-        /** Feste Börsenfarben (kein Ersatz je Akzent). */
-        val FIXED = listOf(PriceColorScheme.GREEN_RED, PriceColorScheme.TRADITIONAL, PriceColorScheme.BLUE_ORANGE)
-
-        /** Akzente derselben Farbfamilie (steigend, fallend): für sie gilt kein Mindestabstand. */
-        val SAME_FAMILY = mapOf(
-            PriceColorScheme.GREEN_RED to (setOf(AccentColor.GREEN, AccentColor.MARRS_GREEN) to setOf(AccentColor.RED)),
-            PriceColorScheme.TRADITIONAL to (setOf(AccentColor.GREEN, AccentColor.MARRS_GREEN) to setOf(AccentColor.RED)),
-            PriceColorScheme.BLUE_ORANGE to (setOf(AccentColor.BLUE) to setOf(AccentColor.ORANGE)),
-        )
 
         /** Machado, Oliveira, Fernandes 2009, volle Ausprägung (lineares sRGB, zeilenweise). */
         val CVD = mapOf(

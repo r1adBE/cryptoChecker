@@ -1,24 +1,24 @@
 #!/usr/bin/env python3
 """
-Prüft die festen Kursfarben «Frisch», «Traditionell» und «Farbsehschwäche» gegen die Regeln
-aus public/DEVELOPMENT.md (Abschnitt Kursfarben). Reines Python, keine Abhängigkeiten.
+Prüft die Kursfarben der Börsen-Schemata «Frisch», «Traditionell», «Farbsehschwäche» und
+«Ruhig» dunkel gegen die Regeln aus public/DEVELOPMENT.md (Abschnitt Kursfarben).
+Reines Python, keine Abhängigkeiten. Gibt je Farbe den Zielton und den Abstand dazu aus.
 
-Regeln (normal und hoher Kontrast, hell und dunkel):
-  1. Farbton (HSL): Frisch steigend 140–165°, fallend 350–10°; Traditionell steigend 115–135°,
-     fallend 0–8°; Traditionell je ΔE2000 ≥ 10 zur selben Farbe von Frisch.
-  2. Kontrast als Schrift: normal ≥ 4.5:1, hoher Kontrast ≥ 7:1 auf allen hellen/warmen bzw.
-     dunklen Flächen.
-  3. Steigend und fallend in der Helligkeit getrennt: Leuchtdichte-Verhältnis ≥ 1.4
-     (Farbsehschwäche ≥ 1.5, hoher Kontrast ≥ 1.25 wie «Ruhig»). Hell ist fallend die hellere,
-     kräftigere Farbe (echtes Rot/Orange auf Papier), dunkel die dunklere (Entscheid 18. Oktober 2026).
-  4. Farbsehschwäche: steigend/fallend ΔE2000 ≥ 40 unter Protanopie, Deuteranopie und
-     Tritanopie (Machado 2009, volle Ausprägung); ΔE2000 ≥ 15 zu jedem Akzent desselben Modus
-     ausser dem derselben Farbfamilie (steigend Blau, fallend Orange).
-  5. Frisch/Traditionell: ΔE2000 ≥ 10 zu jedem Akzent desselben Modus ausser dem derselben
-     Farbfamilie (steigend Grün/Marrs Green, fallend Rot); bei Deuteranopie Leuchtdichte-
-     Verhältnis steigend/fallend wie Regel 3.
-Abstand zum Akzent: gegen AccentColor.primary(dark) desselben Modus, auch für hohen Kontrast.
-Hoher Kontrast: Farbsehschwäche-Simulation ΔE2000 ≥ 35 (siehe MIN_CVD_DELTA_HC).
+Börsen-Schemata (Entscheid 18. Oktober 2026: «Farben wie bei allen Börsen, die Akzentfarbe
+soll nicht irritieren»):
+  - Ziel: der Ton der Börsen-App, so nah wie möglich (CIEDE2000) — Frisch = Binance
+    #0ECB81 / #F6465D, Traditionell = TradingView #089981 / #F23645, Farbsehschwäche =
+    Blau/Orange (hell #1565C0 / #E65100, dunkel #3D9BFF / #F7931A). Hoher Kontrast ebenso.
+  - Hart: Kontrast als Schrift ≥ 4.5:1 (hoher Kontrast ≥ 7:1) auf allen hellen/warmen bzw.
+    dunklen Flächen.
+  - Frisch und Traditionell je Farbe ΔE2000 ≥ 8 (sichtbar verschieden).
+  - Nur Farbsehschwäche: steigend/fallend ΔE2000 ≥ 35 unter Protanopie, Deuteranopie und
+    Tritanopie (Machado 2009, volle Ausprägung) und Leuchtdichte-Verhältnis ≥ 1.4.
+  - Kein Abstand zu Akzentfarben, keine Richtung hell/dunkel für Frisch/Traditionell.
+«Ruhig» dunkel (fallend, Entscheid 18. Oktober 2026): Lachs-Rot statt Rosa; ≥ 4.5:1 auf allen
+dunklen Flächen, heller als steigend mit Leuchtdichte-Verhältnis ≥ 1.5 (auch bei Deuteranopie),
+ΔE2000 ≥ 24 zu Blau/Grün/Marrs Green (Rot/Orange nehmen Ersatzfassungen), Karmin (neben Orange)
+ΔE2000 ≥ 20 zu Orange und C* ≥ 30.
 
 Aufruf: python3 android/tools/check_price_colors.py  (Exit-Code 1 bei Verstoss)
 Werte wie PriceColorScheme.kt / ios/Shared/Util/Theme.swift (vom Skript nicht gelesen).
@@ -26,46 +26,37 @@ Werte wie PriceColorScheme.kt / ios/Shared/Util/Theme.swift (vom Skript nicht ge
 import math
 import sys
 
+VARIANTS = ("hell", "dunkel", "hell HK", "dunkel HK")
+
 # Schema → (steigend, fallend), je (hell, dunkel, hell hoher Kontrast, dunkel hoher Kontrast)
 SCHEMES = {
-    "Frisch": ((0x005A30, 0x18EA96, 0x00421E, 0x81FFBA), (0xCC0015, 0xFF6F69, 0x960000, 0xFFB1AB)),
-    "Traditionell": ((0x033C00, 0x87FF7E, 0x002100, 0xE4FFE4), (0x990000, 0xFF9C99, 0x630000, 0xF9D2CD)),
-    "Farbsehschwäche": ((0x003372, 0x96D8FF, 0x002A5A, 0xC9E7FF), (0xAE4200, 0xED810C, 0x7B3300, 0xFFB469)),
+    "Frisch": ((0x127248, 0x0ECB81, 0x025430, 0x30DE92), (0xC3213A, 0xFC6F7D, 0x911127, 0xFFAEB7)),
+    "Traditionell": ((0x0A7262, 0x3EAE97, 0x005246, 0x5AD8BE), (0xCC0416, 0xFE7062, 0x960208, 0xFEB2A4)),
+    "Farbsehschwäche": ((0x064E93, 0x4F9FFD, 0x00335F, 0xCFEAFF), (0xB73900, 0xFFA73E, 0x842A00, 0xFFB46A)),
 }
 
-# Akzent (primary): hell, dunkel, hell hoher Kontrast, dunkel hoher Kontrast (AccentColor.kt / Theme.swift)
-ACCENTS = {
-    "Orange": (0xA64827, 0xED835E, 0x78341C, 0xF5B7A2),
-    "Rot": (0xBE2B38, 0xFF7173, 0x891F28, 0xFFAFB1),
-    "Blau": (0x2B5FC8, 0x73A3FC, 0x1F4490, 0xA8C6FD),
-    "Grün": (0x107348, 0x4ABE83, 0x0C5334, 0x88D4AD),
-    "Marrs Green": (0x22706B, 0x5FB8B1, 0x184E4B, 0x95D0CC),
+# Zieltöne (steigend, fallend) je (hell, dunkel); hoher Kontrast nimmt den Zielton des Modus
+TARGETS = {
+    "Frisch": ((0x0ECB81, 0x0ECB81), (0xF6465D, 0xF6465D)),
+    "Traditionell": ((0x089981, 0x089981), (0xF23645, 0xF23645)),
+    "Farbsehschwäche": ((0x1565C0, 0x3D9BFF), (0xE65100, 0xF7931A)),
 }
+
+# «Ruhig» dunkel: steigend (Grün, Blau neben grünem Akzent), fallend (Rot, Karmin neben Orange)
+CALM_RISES_DARK = (0x61AE87, 0x8D9CD3)
+CALM_RED_DARK = 0xFFB097
+CALM_CRIMSON_DARK = 0xFFAFBB
+
+# Akzent (primary dunkel) für «Ruhig» (AccentColor.kt / Theme.swift)
+ACCENTS_DARK = {"Orange": 0xED835E, "Rot": 0xFF7173, "Blau": 0x73A3FC, "Grün": 0x4ABE83, "Marrs Green": 0x5FB8B1}
 
 LIGHT_SURFACES = [0xFFFFFF, 0xF9F9F9, 0xF3F3F3, 0xEEEEEE, 0xE8E8E8, 0xE4E4E4, 0xE2E2E2,
                   0xFFFDFA, 0xFBF9F6, 0xF6F3EE, 0xF1EEE9, 0xEBE8E2, 0xE7E4DD, 0xE5E2DB]
 DARK_SURFACES = [0x0E0E0E, 0x121212, 0x131313, 0x1B1B1B, 0x1F1F1F, 0x2A2A2A, 0x333333, 0x353535]
 
-HUE = {  # (steigend, fallend) als (von, bis) in Grad, über 0° hinweg erlaubt
-    "Frisch": ((140, 165), (350, 10)),
-    "Traditionell": ((115, 135), (0, 8)),
-}
-MIN_RATIO = {"Frisch": 1.4, "Traditionell": 1.4, "Farbsehschwäche": 1.5}
-MIN_RATIO_HC = 1.25  # hoher Kontrast: wie «Ruhig»
-# Akzente derselben Farbfamilie zählen nicht (Entscheid 18. Oktober 2026: Börsenfarben bleiben
-# rot/grün bzw. blau/orange, auch wenn der Akzent dieselbe Farbe hat).
-SAME_FAMILY = {
-    "Frisch": ({"Grün", "Marrs Green"}, {"Rot"}),
-    "Traditionell": ({"Grün", "Marrs Green"}, {"Rot"}),
-    "Farbsehschwäche": ({"Blau"}, {"Orange"}),
-}
-MIN_ACCENT = {"Frisch": 10.0, "Traditionell": 10.0, "Farbsehschwäche": 15.0}
-MIN_CVD_DELTA = 40.0
-# Hoher Kontrast dunkel: ≥ 7:1 auf #353535 und 1.25:1 Abstand lassen nur Pastelltöne zu, dort
-# erreicht Blau/Orange höchstens ≈ 38.7 (Suche über alle Töne); daher 35.
-MIN_CVD_DELTA_HC = 35.0
-MIN_TRAD_VS_FRESH = 10.0
-VARIANTS = ("hell", "dunkel", "hell HK", "dunkel HK")
+MIN_FRESH_VS_TRAD = 8.0
+MIN_CVD_DELTA = 35.0
+MIN_CVD_RATIO = 1.4
 
 # Machado, Oliveira, Fernandes 2009, Ausprägung 1.0 (lineares sRGB)
 CVD = {
@@ -200,79 +191,66 @@ def hsl_hue(rgb):
     return h * 60
 
 
-def in_hue(h, rng):
-    lo, hi = rng
-    return lo <= h <= hi if lo <= hi else (h >= lo or h <= hi)
-
-
-def accent_distance(color, i, skip):
-    """Kleinster ΔE2000 zum Akzent (primary, ohne [skip]) desselben Modus hell/dunkel; dazu der Name."""
-    return min((delta_e(color, a[i % 2]), n) for n, a in ACCENTS.items() if n not in skip)
+def chroma(rgb):
+    _, a, b = lab(rgb)
+    return math.hypot(a, b)
 
 
 def check():
     failures = []
-    rows = []
 
     def need(ok, text):
         if not ok:
             failures.append(text)
 
+    print(f"{'Schema':<24}{'Ziel ↑':>9}{'gewählt':>9}{'ΔE':>6}{'Ziel ↓':>9}{'gewählt':>9}{'ΔE':>6}{'Kontr.':>8}{'Zusatz':>22}")
     for name, (rise, fall) in SCHEMES.items():
         for i, variant in enumerate(VARIANTS):
             dark = i % 2 == 1
             hc = i >= 2
             up, down = rise[i], fall[i]
+            t_up, t_down = TARGETS[name][0][i % 2], TARGETS[name][1][i % 2]
             key = f"{name} {variant}"
-            # 1 Farbton
-            if name in HUE:
-                need(in_hue(hsl_hue(up), HUE[name][0]), f"{key}: Farbton steigend {hsl_hue(up):.0f}°")
-                need(in_hue(hsl_hue(down), HUE[name][1]), f"{key}: Farbton fallend {hsl_hue(down):.0f}°")
-            if name == "Traditionell":
-                f_rise, f_fall = SCHEMES["Frisch"]
-                for c, other, side in ((up, f_rise[i], "steigend"), (down, f_fall[i], "fallend")):
-                    d = delta_e(c, other)
-                    need(d >= MIN_TRAD_VS_FRESH, f"{key}: {side} ΔE {d:.1f} zu Frisch")
-            # 2 Kontrast
             surfaces = DARK_SURFACES if dark else LIGHT_SURFACES
             floor = 7.0 if hc else 4.5
-            min_up = min(contrast(up, s) for s in surfaces)
-            min_down = min(contrast(down, s) for s in surfaces)
-            need(min_up >= floor, f"{key}: Kontrast steigend {min_up:.2f}")
-            need(min_down >= floor, f"{key}: Kontrast fallend {min_down:.2f}")
-            # 3 Helligkeit getrennt
-            min_ratio = MIN_RATIO_HC if hc else MIN_RATIO[name]
-            ratio = contrast(up, down)
-            need(ratio >= min_ratio, f"{key}: Leuchtdichte steigend/fallend {ratio:.2f}")
-            # Hell: fallend die hellere, kräftigere Farbe (Rot/Orange auf Papier); dunkel: fallend dunkler
-            if dark:
-                need(luminance(down) < luminance(up), f"{key}: fallend nicht dunkler als steigend")
-            else:
-                need(luminance(down) > luminance(up), f"{key}: fallend nicht heller als steigend")
-            # 4/5 Simulation
-            sim_ratios = {k: sim_ratio(up, down, k) for k in CVD}
-            sim_deltas = {k: sim_delta(up, down, k) for k in CVD}
+            min_c = min(contrast(c, s) for c in (up, down) for s in surfaces)
+            need(min_c >= floor, f"{key}: Kontrast {min_c:.2f}")
+            extra = ""
+            if name == "Traditionell":
+                f_rise, f_fall = SCHEMES["Frisch"]
+                d_up, d_down = delta_e(up, f_rise[i]), delta_e(down, f_fall[i])
+                need(d_up >= MIN_FRESH_VS_TRAD, f"{key}: steigend ΔE {d_up:.1f} zu Frisch")
+                need(d_down >= MIN_FRESH_VS_TRAD, f"{key}: fallend ΔE {d_down:.1f} zu Frisch")
+                extra = f"zu Frisch {d_up:.1f}/{d_down:.1f}"
             if name == "Farbsehschwäche":
-                for k, d in sim_deltas.items():
-                    need(d >= (MIN_CVD_DELTA_HC if hc else MIN_CVD_DELTA), f"{key}: {k} ΔE {d:.1f}")
-                    need(sim_ratios[k] >= min_ratio, f"{key}: {k} Leuchtdichte {sim_ratios[k]:.2f}")
-            else:
-                need(sim_ratios["Deuteranopie"] >= min_ratio,
-                     f"{key}: Deuteranopie Leuchtdichte {sim_ratios['Deuteranopie']:.2f}")
-            # Abstand zum Akzent desselben Modus (hoher Kontrast: Akzent mit hohem Kontrast)
-            acc_up, near_up = accent_distance(up, i, SAME_FAMILY[name][0])
-            acc_down, near_down = accent_distance(down, i, SAME_FAMILY[name][1])
-            need(acc_up >= MIN_ACCENT[name], f"{key}: steigend ΔE {acc_up:.1f} zu Akzent {near_up}")
-            need(acc_down >= MIN_ACCENT[name], f"{key}: fallend ΔE {acc_down:.1f} zu Akzent {near_down}")
-            rows.append((key, up, down, min(min_up, min_down), ratio, sim_ratios["Deuteranopie"],
-                         min(sim_deltas.values()), acc_up, acc_down))
+                ratio = contrast(up, down)
+                sims = min(sim_delta(up, down, k) for k in CVD)
+                need(ratio >= MIN_CVD_RATIO, f"{key}: Leuchtdichte steigend/fallend {ratio:.2f}")
+                need(sims >= MIN_CVD_DELTA, f"{key}: ΔE simuliert {sims:.1f}")
+                extra = f"L {ratio:.2f} CVD {sims:.1f}"
+            print(f"{key:<24}{'#%06X' % t_up:>9}{'#%06X' % up:>9}{delta_e(up, t_up):>6.1f}"
+                  f"{'#%06X' % t_down:>9}{'#%06X' % down:>9}{delta_e(down, t_down):>6.1f}{min_c:>8.2f}{extra:>22}")
 
-    print(f"{'Schema':<24}{'steigend':>9}{'fallend':>9}{'Kontr.':>8}{'L-Verh.':>8}{'Deut.':>7}"
-          f"{'ΔE CVD':>8}{'ΔE Akz.↑':>10}{'ΔE Akz.↓':>10}")
-    for key, up, down, c, r, dr, cvd, au, ad in rows:
-        print(f"{key:<24}{'#%06X' % up:>9}{'#%06X' % down:>9}{c:>8.2f}{r:>8.2f}{dr:>7.2f}{cvd:>8.1f}{au:>10.1f}{ad:>10.1f}")
-    print("Hinweis: Kontr. = knappster Kontrast auf allen Flächen; ΔE CVD = kleinster Abstand "
-          "steigend/fallend unter Protanopie, Deuteranopie, Tritanopie.")
+    print()
+    for label, color, accents, min_acc in (
+        ("Ruhig fallend dunkel", CALM_RED_DARK, ("Blau", "Grün", "Marrs Green"), 24.0),
+        ("Ruhig Karmin dunkel", CALM_CRIMSON_DARK, ("Orange",), 20.0),
+    ):
+        min_c = min(contrast(color, s) for s in DARK_SURFACES)
+        need(min_c >= 4.5, f"{label}: Kontrast {min_c:.2f}")
+        rises = CALM_RISES_DARK if color == CALM_RED_DARK else CALM_RISES_DARK[:1]
+        ratios = [contrast(color, u) for u in rises]
+        deut = [sim_ratio(color, u, "Deuteranopie") for u in rises]
+        for u, r, d in zip(rises, ratios, deut):
+            need(luminance(color) > luminance(u), f"{label}: nicht heller als #{u:06X}")
+            need(r >= 1.5 and d >= 1.5, f"{label}: Leuchtdichte zu #{u:06X} {r:.2f} / Deuteranopie {d:.2f}")
+        acc = min(delta_e(color, ACCENTS_DARK[n]) for n in accents)
+        need(acc >= min_acc, f"{label}: ΔE {acc:.1f} zum Akzent")
+        if color == CALM_CRIMSON_DARK:
+            need(chroma(color) >= 30, f"{label}: C* {chroma(color):.1f}")
+        print(f"{label:<24}#{color:06X}  HSL {hsl_hue(color):5.1f}°  C* {chroma(color):4.1f}  Kontr. {min_c:.2f}  "
+              f"L-Verh. {min(ratios):.3f}  Deut. {min(deut):.3f}  ΔE Akzent {acc:.1f}")
+
     if failures:
         print("\nVerstösse:")
         for f in failures:
