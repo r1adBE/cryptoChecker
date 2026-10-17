@@ -97,18 +97,18 @@
 
     <!-- Steuer-Export: Zeilen und Spalten -->
     <string name="tax_line_at_interest">Lainauksen korot (arvo vastaanotettaessa)</string>
-    <string name="tax_line_at_old_long">Hankittu ennen 1.3.2021 – omistettu &gt; 1 vuosi: ei veronalaista</string>
-    <string name="tax_line_at_rate">Erityisverokanta 27,5 prosenttia: netto 1.3.2021 alkaen hankitusta + korot</string>
+    <string name="tax_line_at_old_long">Hankittu ennen 1.3.2021 – omistettu &gt; 1 vuosi: yleensä ei veronalaista – tarkista</string>
+    <string name="tax_line_at_rate">Erityisverokanta 27,5 prosenttia: netto 1.3.2021 alkaen hankitusta + korot (1.3.2021–28.2.2022: katso huomautus)</string>
     <string name="tax_line_au_discounted">Nettoluovutusvoitto tappioiden ja 50 prosentin alennuksen jälkeen</string>
     <string name="tax_line_ca_taxable">Veronalainen luovutusvoitto (sisällytysosuus 1/2)</string>
     <string name="tax_line_ch_income">Palkkiot listattu – käsittely ks. ESTV:n työpaperi</string>
     <string name="tax_line_ch_private">Yksityisvarallisuuden luovutusvoitot: ei laskettu – luokittelu ks. ESTV</string>
     <string name="tax_line_ch_wealth">Varallisuusvero: ei laskettu – omistus-CSV käyttää pörssikurssia × USD/CHF 31.12. – verotusarvot: ESTV:n kurssiluettelo</string>
-    <string name="tax_line_de_long">Omistettu &gt; 1 vuosi: ei veronalaista DE:ssä (§ 23 EStG)</string>
+    <string name="tax_line_de_long">Omistettu &gt; 1 vuosi: § 23 EStG:n mukaan yleensä ei veronalaista – tarkista</string>
     <string name="tax_line_denied_loss">Vähennyskelvottomat tappiot (näennäinen tappio / superficial loss)</string>
     <string name="tax_line_fr_outflow">Poistumat ilman myyntiä (nostot) – hankintahintojen summaa pienennetty suhteessa</string>
     <string name="tax_line_fr_rate">Kiinteä 12,8 prosenttia sekä sosiaalimaksut (tai asteikko valinnan mukaan)</string>
-    <string name="tax_line_fr_threshold">Luovutukset 305 € asti vuodessa verovapaita (myyntihintojen summa)</string>
+    <string name="tax_line_fr_threshold">Luovutukset 305 € asti vuodessa: yleensä verovapaita (myyntihintojen summa) – tarkista</string>
     <string name="tax_line_gains">Voitot</string>
     <string name="tax_line_income">Tulot (palkkiot vastaanottohetken arvossa)</string>
     <string name="tax_line_jp_misc">Muut tulot (雑所得): nettovoitot + tulot</string>
@@ -121,8 +121,8 @@
     <string name="tax_line_proceeds">Myyntituotot</string>
     <string name="tax_line_short_net">Netto – omistettu ≤ 1 vuosi</string>
     <string name="tax_line_transfer_fees">Siirtokulut (omat lompakot)</string>
-    <string name="tax_line_uk_after_exempt">Nettovoitot verovapaan määrän ylittävältä osin</string>
-    <string name="tax_line_uk_exempt">Vuotuinen verovapaa määrä (Annual Exempt Amount)</string>
+    <string name="tax_line_uk_after_exempt">Nettovoitot verovapaan määrän ylittävältä osin (vain kryptot)</string>
+    <string name="tax_line_uk_exempt">Vuotuinen verovapaa määrä (Annual Exempt Amount) – koskee kaikkia luovutuksia yhteensä, tässä vähennetty kokonaan</string>
     <string name="tax_line_us_terms">Lyhyt aika (≤ 1 vuosi): tavalliset verokannat – pitkä aika (&gt; 1 vuosi): luovutusvoittojen verokannat</string>
     <string name="tax_line_withdrawal_fees">Nostokulut</string>
 
@@ -144,7 +144,7 @@
     <string name="tax_de_needs_eur">vaatii EUR-arvot (valuuttakurssit puuttuvat)</string>
     <string name="tax_de_needs_holding">omistusaika puuttuu (keskiarvomenetelmä) – valitse FIFO tarkistusta varten</string>
     <string name="tax_de_private_limit">Verovapausraja yksityiset myynnit (§ 23 EStG)</string>
-    <string name="tax_de_reached">raja ylittyi – koko summa on veronalainen</string>
+    <string name="tax_de_reached">raja ylittyi – yleensä koko summa lasketaan – tarkista</string>
     <string name="tax_de_short_gains">Voitot – omistettu ≤ 1 vuosi</string>
     <string name="tax_de_short_losses">Tappiot – omistettu ≤ 1 vuosi</string>
     <string name="tax_de_unclassified">Ilman omistusaikaa</string>
@@ -162,7 +162,7 @@
     <string name="tax_template_current">Pohja: %1$s · Menetelmä: %2$s · Valuutta: %3$s</string>
     <string name="tax_template_de">Saksa</string>
     <string name="tax_template_fr">Ranska</string>
-    <string name="tax_template_hint">Vain suuntaa antava: määrittää menetelmän / verovuoden ja työpaperin koosteen. Rivit näyttävät aina neutraalit tiedot.</string>
+    <string name="tax_template_hint">Vain suuntaa antava: määrittää menetelmän / verovuoden ja työpaperin koosteen. Salkku-kortti pysyy neutraalina – lahjat ja siirtokulut voivat poiketa työpaperista.</string>
     <string name="tax_template_jp">Japani</string>
     <string name="tax_template_neutral">Neutraali (kaikki maat)</string>
     <string name="tax_template_suggestion">Ehdotus alueellesi: %1$s</string>
@@ -186,7 +186,7 @@
     <string name="tax_note_stable_swap">Myynti stablecoinia (USDT/USDC/DAI …) vastaan, jonka pidät, on tässä kryptoa kryptoa vastaan eikä verotettavaa – kirjaa se vaihdoksi stablecoiniin. Vain myynti euroja vastaan on verotettavaa – «Myynti» lasketaan myynniksi euroja vastaan.</string>
     <string name="tax_note_transfer_fee">Sama koskee USDT:nä tai käteisenä maksettua kulua siirrossa omien lompakoidesi välillä: sitä ei lisätä hankintahintaan, vaan se näytetään vain tiedoksi.</string>
     <string name="tax_note_uk">Kohdistus HMRC:n mukaan: sama päivä → sitten seuraavat 30 päivää → sitten yhteispooli Section 104:n mukaan (Section 104 pool).</string>
-    <string name="tax_note_us_transition">Siirtymä 1.1.2025 (Rev. Proc. 2024-28, safe harbor): jos aiempina vuosina käytettiin FIFOa kaikkien lompakoiden yli, jäljellä olevat erät 31.12.2024 siirtyvät lompakoihin, joissa coinit ovat – vanhimmat coinit sisältävä lompakko saa vanhimman hankintamenon.</string>
+    <string name="tax_note_us_transition">Siirtymä 1.1.2025 (Rev. Proc. 2024-28, safe harbor): jos aiempina vuosina käytettiin FIFOa kaikkien lompakoiden yli, jäljellä olevat erät 31.12.2024 siirtyvät lompakoihin, joissa coinit ovat – vanhimmat coinit sisältävä lompakko saa vanhimman hankintamenon. Tämä kohdistus on sovelluksen sääntö – vertaa sitä omiin tietoihisi.</string>
     <string name="tax_note_us_wallet">Verovuodesta 2025 IRS vaatii hankintahinnan lompakoittain/pörsseittäin (Rev. Proc. 2024-28) – vienti laskee FIFO:n lompakoittain vuodesta 2025 – sitä ennen pätee oma hankintahinnan laskentatapasi.</string>
     <string name="tax_note_withdrawal_fee">Nostokulu USDT:nä tai käteisenä ei ole tappio: käteiskulu ei ole vähennyskelpoinen, USDT-kulu on luovutus nimellisarvoon ilman voittoa – se näytetään vain tiedoksi (%1$s).</string>
     <string name="tax_summary_at_interest_income">lasketaan: tuloa vastaanotettaessa 27,5 prosentin erityisverokannalla (§ 27b mom. 2 kohta 1 EStG / BMF) – kolikot säilyttävät tämän arvon hankintamenona</string>

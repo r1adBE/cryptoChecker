@@ -97,18 +97,18 @@
 
     <!-- Steuer-Export: Zeilen und Spalten -->
     <string name="tax_line_at_interest">Rente uit lending (waarde bij ontvangst)</string>
-    <string name="tax_line_at_old_long">Verworven vóór 1-3-2021 – aangehouden &gt; 1 jaar: niet belastbaar</string>
-    <string name="tax_line_at_rate">Bijzonder tarief 27,5 procent: netto verworven vanaf 1-3-2021 + rente</string>
+    <string name="tax_line_at_old_long">Verworven vóór 1-3-2021 – aangehouden &gt; 1 jaar: doorgaans niet belastbaar – controleer</string>
+    <string name="tax_line_at_rate">Bijzonder tarief 27,5 procent: netto verworven vanaf 1-3-2021 + rente (1-3-2021–28-2-2022: zie opmerking)</string>
     <string name="tax_line_au_discounted">Netto vermogenswinst na verliezen en 50 procent korting</string>
     <string name="tax_line_ca_taxable">Belastbare vermogenswinst (inclusiepercentage 1/2)</string>
     <string name="tax_line_ch_income">Beloningen vermeld – behandeling zie ESTV-werkdocument</string>
     <string name="tax_line_ch_private">Vermogenswinsten in privévermogen: niet berekend – indeling zie ESTV</string>
     <string name="tax_line_ch_wealth">Vermogensbelasting: niet berekend – bezit-CSV gebruikt beurskoers × USD/CHF op 31-12 – fiscale waarden: ESTV-koerslijst</string>
-    <string name="tax_line_de_long">Aangehouden &gt; 1 jaar: niet belastbaar in DE (§ 23 EStG)</string>
+    <string name="tax_line_de_long">Aangehouden &gt; 1 jaar: volgens § 23 EStG doorgaans niet belastbaar – controleer</string>
     <string name="tax_line_denied_loss">Niet-aftrekbare verliezen (schijnverlies / superficial loss)</string>
     <string name="tax_line_fr_outflow">Uitstromen zonder verkoop (opnames) – totale verwervingsprijs naar rato verlaagd</string>
     <string name="tax_line_fr_rate">Vast tarief 12,8 procent plus sociale lasten (of schaal naar keuze)</string>
-    <string name="tax_line_fr_threshold">Overdrachten tot € 305 per jaar vrijgesteld (totaal van verkoopprijzen)</string>
+    <string name="tax_line_fr_threshold">Overdrachten tot € 305 per jaar: doorgaans vrijgesteld (totaal van verkoopprijzen) – controleer</string>
     <string name="tax_line_gains">Winsten</string>
     <string name="tax_line_income">Inkomsten (beloningen tegen waarde bij ontvangst)</string>
     <string name="tax_line_jp_misc">Overige inkomsten (雑所得): nettowinst + inkomsten</string>
@@ -121,8 +121,8 @@
     <string name="tax_line_proceeds">Opbrengsten</string>
     <string name="tax_line_short_net">Netto – aangehouden ≤ 1 jaar</string>
     <string name="tax_line_transfer_fees">Overboekingskosten (eigen wallets)</string>
-    <string name="tax_line_uk_after_exempt">Nettowinst boven de vrijstelling</string>
-    <string name="tax_line_uk_exempt">Jaarlijkse vrijstelling (Annual Exempt Amount)</string>
+    <string name="tax_line_uk_after_exempt">Nettowinst boven de vrijstelling (alleen crypto)</string>
+    <string name="tax_line_uk_exempt">Jaarlijkse vrijstelling (Annual Exempt Amount) – geldt voor alle vervreemdingen samen, hier volledig verrekend</string>
     <string name="tax_line_us_terms">Korte termijn (≤ 1 jaar): gewone tarieven – lange termijn (&gt; 1 jaar): vermogenswinsttarieven</string>
     <string name="tax_line_withdrawal_fees">Opnamekosten</string>
 
@@ -144,7 +144,7 @@
     <string name="tax_de_needs_eur">vereist EUR-waarden (wisselkoersen ontbreken)</string>
     <string name="tax_de_needs_holding">aanhoudduur ontbreekt (gemiddelde methode) – kies FIFO voor de controle</string>
     <string name="tax_de_private_limit">Vrijstellingsgrens particuliere verkopen (§ 23 EStG)</string>
-    <string name="tax_de_reached">grens bereikt – het hele bedrag is belastbaar</string>
+    <string name="tax_de_reached">grens bereikt – doorgaans telt het hele bedrag – controleer</string>
     <string name="tax_de_short_gains">Winsten – aangehouden ≤ 1 jaar</string>
     <string name="tax_de_short_losses">Verliezen – aangehouden ≤ 1 jaar</string>
     <string name="tax_de_unclassified">Zonder aanhoudduur</string>
@@ -162,7 +162,7 @@
     <string name="tax_template_current">Sjabloon: %1$s · Methode: %2$s · Valuta: %3$s</string>
     <string name="tax_template_de">Duitsland</string>
     <string name="tax_template_fr">Frankrijk</string>
-    <string name="tax_template_hint">Alleen ter oriëntatie: bepaalt methode / belastingjaar en overzicht van het werkdocument. De regels tonen altijd neutrale feiten.</string>
+    <string name="tax_template_hint">Alleen ter oriëntatie: bepaalt methode / belastingjaar en overzicht van het werkdocument. De Portfolio-kaart blijft neutraal – schenkingen en overboekingskosten kunnen afwijken van het werkdocument.</string>
     <string name="tax_template_jp">Japan</string>
     <string name="tax_template_neutral">Neutraal (alle landen)</string>
     <string name="tax_template_suggestion">Suggestie voor je regio: %1$s</string>
@@ -186,7 +186,7 @@
     <string name="tax_note_stable_swap">Een verkoop tegen een stablecoin (USDT/USDC/DAI …) die je houdt is hier crypto tegen crypto en niet belast – leg hem vast als ruil naar de stablecoin. Alleen een verkoop tegen euro is belast – «Verkoop» geldt als verkoop tegen euro.</string>
     <string name="tax_note_transfer_fee">Hetzelfde geldt voor kosten in USDT of contant bij een overboeking tussen je eigen wallets: ze tellen niet mee in de kostprijs en staan er alleen ter informatie.</string>
     <string name="tax_note_uk">Toewijzing volgens HMRC: zelfde dag → dan de 30 dagen erna → dan de gezamenlijke positie volgens Section 104 (Section 104 pool).</string>
-    <string name="tax_note_us_transition">Overgang 1-1-2025 (Rev. Proc. 2024-28, safe harbor): gebruikten eerdere jaren FIFO over alle wallets, dan gaan de resterende posten per 31-12-2024 naar de wallets waarin de coins staan – de wallet met de oudste coins krijgt de oudste kostprijs.</string>
+    <string name="tax_note_us_transition">Overgang 1-1-2025 (Rev. Proc. 2024-28, safe harbor): gebruikten eerdere jaren FIFO over alle wallets, dan gaan de resterende posten per 31-12-2024 naar de wallets waarin de coins staan – de wallet met de oudste coins krijgt de oudste kostprijs. Deze toewijzing is een regel van de app – vergelijk met je eigen administratie.</string>
     <string name="tax_note_us_wallet">Vanaf belastingjaar 2025 eist de IRS de kostprijs per wallet/beurs (Rev. Proc. 2024-28) – de export rekent vanaf 2025 FIFO per wallet – daarvoor geldt je kostprijsmethode.</string>
     <string name="tax_note_withdrawal_fee">Opnamekosten in USDT of contant zijn geen verlies: contante kosten zijn niet aftrekbaar, kosten in USDT zijn een vervreemding tegen pari zonder winst – ze staan er alleen ter informatie (%1$s).</string>
     <string name="tax_summary_at_interest_income">telt mee: inkomen bij ontvangst tegen het bijzondere tarief van 27,5 procent (§ 27b lid 2 nr. 1 EStG / BMF) – de munten houden deze waarde als aanschaffingskosten</string>

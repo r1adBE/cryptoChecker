@@ -328,8 +328,8 @@ object WatchedAddressRules {
 
     /**
      * Coins der Adresse ([overlap]), deren Menge zu eigenen Transaktionen passt: Guthaben ≈ eigener Bestand des Coins
-     * ([PortfolioCalculator.holdingsAt], ± 1 %) oder eine eigene Einzahlung/Umbuchung wie ein beobachteter Zugang
-     * ([transferMatches]). Reihenfolge wie [AddressBalance.holdings].
+     * ([PortfolioCalculator.holdingsAt], ± 5 % — [OVERLAP_TOLERANCE]) oder eine eigene Einzahlung/Umbuchung wie ein
+     * beobachteter Zugang ([transferMatches], ± 1 %). Reihenfolge wie [AddressBalance.holdings].
      */
     fun overlapMatched(a: WatchedAddress, trades: List<PortfolioTrade>): List<String> {
         val real = trades.filter { !AddressBalance.isAddressTrade(it.id) }
@@ -338,7 +338,7 @@ object WatchedAddressRules {
         return AddressBalance.holdings(listOf(a.copy(countInPortfolio = true))).mapNotNull { (coin, text) ->
             val balance = PortfolioDecimal.parse(text)?.takeIf { it.signum() > 0 } ?: return@mapNotNull null
             val mine = own[coin]
-            coin.takeIf { (mine != null && nearlyEqual(mine, balance)) || coin in transferred }
+            coin.takeIf { (mine != null && nearlyEqual(mine, balance, OVERLAP_TOLERANCE)) || coin in transferred }
         }
     }
 
@@ -373,6 +373,14 @@ object WatchedAddressRules {
 
     /** Toleranz für [transferMatches]: ± 1 % des Guthabens bzw. der Änderung. */
     private val MATCH_TOLERANCE = BigDecimal("0.01")
+
+    /**
+     * Toleranz für «Guthaben ≈ eigener Bestand» ([overlapMatched], einmal automatisch «Nur anzeigen»): ± 5 % des Guthabens.
+     * Gebühren, Staub und kleine nicht gebuchte Zugänge trennen Buchung und Kette oft um mehr als 1 % (1.02 auf der Kette
+     * gegen 1.00 gebucht) — dann zählten sonst beide (Bestand zu hoch). Innerhalb von 5 % gilt die Buchung, die Adresse
+     * wird nur angezeigt (Hinweis, «Rückgängig»); weiter auseinander zählt sie weiter, der Hinweis bleibt.
+     */
+    private val OVERLAP_TOLERANCE = BigDecimal("0.05")
 
     /**
      * Eigene Einzahlungen ([PortfolioTxType.DEPOSIT]) und Umbuchungen ([PortfolioTxType.TRANSFER]) im Coin der Adresse,
@@ -418,9 +426,9 @@ object WatchedAddressRules {
             .sortedBy { it.time }
     }
 
-    /** |[x] − [goal]| ≤ 1 % von [goal] (goal > 0). */
-    private fun nearlyEqual(x: BigDecimal, goal: BigDecimal): Boolean =
-        x.signum() > 0 && (x - goal).abs() <= goal * MATCH_TOLERANCE
+    /** |[x] − [goal]| ≤ [tolerance] von [goal] (goal > 0; Standard 1 %). */
+    private fun nearlyEqual(x: BigDecimal, goal: BigDecimal, tolerance: BigDecimal = MATCH_TOLERANCE): Boolean =
+        x.signum() > 0 && (x - goal).abs() <= goal * tolerance
 
     /**
      * Für die App-Sicherung: `[{"chain":"BTC","address":"…","label":"…","addedAt":…,"observations":[{"t":…,"b":"…"}]}]`

@@ -141,8 +141,8 @@
     <string name="alarm_saved_notifications_off">Értesítések kikapcsolva</string>
 
     <!-- Wann Alarme geprüft werden -->
-    <string name="alarm_timing_hint_android">Bezárt alkalmazásnál az Android rendszertelenül ellenőriz («%1$s» mellett kb. 15 percenként), így rövid kiugrások kimaradhatnak.</string>
-    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">Bezárt alkalmazásnál az iOS dönti el, mikor ellenőriz, így rövid kiugrások kimaradhatnak; amíg nyitva van, az ellenőrzés megbízható.</string>
+    <string name="alarm_timing_hint_android">Bezárt alkalmazásnál az Android rendszertelenül ellenőriz – gyakran 15 percnél később, «%1$s» mellett is. Rövid kiugrások kimaradhatnak.</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">Bezárt alkalmazásnál az iOS gyakran 15 percnél később ellenőriz, néha csak a következő megnyitáskor. Rövid kiugrások kimaradhatnak.</string>
     <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
     <string name="alarm_timing_title">Mikor ellenőrződnek a riasztások</string>
     <string name="alarm_timing_where">Az árfrissítés gyakoriságát itt állíthatod be: %1$s.</string>

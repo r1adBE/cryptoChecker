@@ -97,18 +97,18 @@
 
     <!-- Steuer-Export: Zeilen und Spalten -->
     <string name="tax_line_at_interest">Lending-kamatok (beérkezéskori érték)</string>
-    <string name="tax_line_at_old_long">2021.03.01. előtt szerzett – tartva &gt; 1 év: nem adóköteles</string>
-    <string name="tax_line_at_rate">Különadókulcs 27,5 százalék: 2021.03.01-től szerzett nettó + kamatok</string>
+    <string name="tax_line_at_old_long">2021.03.01. előtt szerzett – tartva &gt; 1 év: általában nem adóköteles – ellenőrizd</string>
+    <string name="tax_line_at_rate">Különadókulcs 27,5 százalék: 2021.03.01-től szerzett nettó + kamatok (2021.03.01.–2022.02.28.: lásd a megjegyzést)</string>
     <string name="tax_line_au_discounted">Nettó árfolyamnyereség a veszteségek és az 50 százalékos kedvezmény után</string>
     <string name="tax_line_ca_taxable">Adóköteles árfolyamnyereség (beszámítási arány 1/2)</string>
     <string name="tax_line_ch_income">Jutalmak felsorolva – kezelés lásd ESTV munkaanyag</string>
     <string name="tax_line_ch_private">Magánvagyon árfolyamnyeresége: nincs kiszámítva – besorolás lásd ESTV</string>
     <string name="tax_line_ch_wealth">Vagyonadó: nincs kiszámítva – az állomány-CSV a 12.31-i tőzsdei árat × USD/CHF használja – adóértékek: ESTV árfolyamlista</string>
-    <string name="tax_line_de_long">Tartva &gt; 1 év: DE-ben nem adóköteles (§ 23 EStG)</string>
+    <string name="tax_line_de_long">Tartva &gt; 1 év: a § 23 EStG szerint általában nem adóköteles – ellenőrizd</string>
     <string name="tax_line_denied_loss">Nem levonható veszteségek (látszólagos veszteség / superficial loss)</string>
     <string name="tax_line_fr_outflow">Eladás nélküli kiáramlások (kifizetések) – teljes beszerzési ár arányosan csökkentve</string>
     <string name="tax_line_fr_rate">Átalány 12,8 százalék plusz szociális hozzájárulás (vagy sávos adó választásra)</string>
-    <string name="tax_line_fr_threshold">Évi 305 €-ig az elidegenítések mentesek (eladási árak összege)</string>
+    <string name="tax_line_fr_threshold">Évi 305 €-ig az elidegenítések: általában mentesek (eladási árak összege) – ellenőrizd</string>
     <string name="tax_line_gains">Nyereségek</string>
     <string name="tax_line_income">Jövedelem (jutalmak a beérkezéskori értéken)</string>
     <string name="tax_line_jp_misc">Egyéb jövedelem (雑所得): nettó nyereség + jövedelem</string>
@@ -121,8 +121,8 @@
     <string name="tax_line_proceeds">Bevételek</string>
     <string name="tax_line_short_net">Nettó – tartva ≤ 1 év</string>
     <string name="tax_line_transfer_fees">Átvezetési díjak (saját tárcák)</string>
-    <string name="tax_line_uk_after_exempt">Nettó nyereség a mentes összeg felett</string>
-    <string name="tax_line_uk_exempt">Éves mentes összeg (Annual Exempt Amount)</string>
+    <string name="tax_line_uk_after_exempt">Nettó nyereség a mentes összeg felett (csak kripto)</string>
+    <string name="tax_line_uk_exempt">Éves mentes összeg (Annual Exempt Amount) – az összes elidegenítésre együtt érvényes, itt teljes egészében levonva</string>
     <string name="tax_line_us_terms">Rövid távú (≤ 1 év): általános kulcsok – hosszú távú (&gt; 1 év): árfolyamnyereség-kulcsok</string>
     <string name="tax_line_withdrawal_fees">Kifizetési díjak</string>
 
@@ -144,7 +144,7 @@
     <string name="tax_de_needs_eur">EUR-értékek kellenek (hiányzó árfolyamok)</string>
     <string name="tax_de_needs_holding">hiányzik a tartási idő (átlagmódszer) – az ellenőrzéshez válaszd a FIFO-t</string>
     <string name="tax_de_private_limit">Mentességi határ magáneladások (§ 23 EStG)</string>
-    <string name="tax_de_reached">határ elérve – a teljes összeg adóköteles</string>
+    <string name="tax_de_reached">határ elérve – általában a teljes összeg számít – ellenőrizd</string>
     <string name="tax_de_short_gains">Nyereségek – tartva ≤ 1 év</string>
     <string name="tax_de_short_losses">Veszteségek – tartva ≤ 1 év</string>
     <string name="tax_de_unclassified">Tartási idő nélkül</string>
@@ -162,7 +162,7 @@
     <string name="tax_template_current">Sablon: %1$s · Módszer: %2$s · Pénznem: %3$s</string>
     <string name="tax_template_de">Németország</string>
     <string name="tax_template_fr">Franciaország</string>
-    <string name="tax_template_hint">Csak tájékoztató: meghatározza a módszert / az adóévet és a munkaanyag összesítőjét. A sorok mindig semleges tényeket mutatnak.</string>
+    <string name="tax_template_hint">Csak tájékoztató: meghatározza a módszert / az adóévet és a munkaanyag összesítőjét. A Portfólió kártya semleges marad – az ajándékok és az átvezetési díjak eltérhetnek a munkaanyagtól.</string>
     <string name="tax_template_jp">Japán</string>
     <string name="tax_template_neutral">Semleges (minden ország)</string>
     <string name="tax_template_suggestion">Javaslat a régiódhoz: %1$s</string>
@@ -186,7 +186,7 @@
     <string name="tax_note_stable_swap">A megtartott stablecoinért (USDT/USDC/DAI …) történő eladás itt kripto kriptóért és nem adóköteles – rögzítsd cseréként a stablecoinba. Csak az euróért történő eladás adóköteles – az «Eladás» euróért történő eladásnak számít.</string>
     <string name="tax_note_transfer_fee">Ugyanez vonatkozik a saját tárcáid közötti átvezetés USDT-ben vagy készpénzben fizetett díjára: nem növeli a bekerülési értéket, csak tájékoztatásként szerepel.</string>
     <string name="tax_note_uk">Párosítás a HMRC szerint: azonos nap → majd a következő 30 nap → majd a összevont állomány a Section 104 szerint (Section 104 pool).</string>
-    <string name="tax_note_us_transition">Átmenet 2025.1.1. (Rev. Proc. 2024-28, safe harbor): ha a korábbi években az összes tárcán átívelő FIFO-t használtad, a 2024.12.31-i maradék tételek azokhoz a tárcákhoz kerülnek, amelyekben az érmék vannak – a legrégebbi érméket tartó tárca kapja a legrégebbi bekerülési értéket.</string>
+    <string name="tax_note_us_transition">Átmenet 2025.1.1. (Rev. Proc. 2024-28, safe harbor): ha a korábbi években az összes tárcán átívelő FIFO-t használtad, a 2024.12.31-i maradék tételek azokhoz a tárcákhoz kerülnek, amelyekben az érmék vannak – a legrégebbi érméket tartó tárca kapja a legrégebbi bekerülési értéket. Ez a hozzárendelés az alkalmazás szabálya – vesd össze a saját nyilvántartásoddal.</string>
     <string name="tax_note_us_wallet">A 2025-ös adóévtől az IRS tárcánként/tőzsdénként kéri a bekerülési értéket (Rev. Proc. 2024-28) – az export 2025-től tárcánkénti FIFO-val számol – előtte a te bekerülési érték módszered érvényes.</string>
     <string name="tax_note_withdrawal_fee">Az USDT-ben vagy készpénzben fizetett kifizetési díj nem veszteség: a készpénzes díj nem vonható le, az USDT-díj névértéken történő elidegenítés nyereség nélkül – csak tájékoztatásként szerepel (%1$s).</string>
     <string name="tax_summary_at_interest_income">beszámít: jövedelem a beérkezéskor 27,5 százalékos különadókulccsal (EStG 27b. § (2) 1. pont / BMF) – a coinok ezt az értéket tartják meg bekerülési értékként</string>

@@ -141,8 +141,8 @@
     <string name="alarm_saved_notifications_off">Aviseringar av</string>
 
     <!-- Wann Alarme geprüft werden -->
-    <string name="alarm_timing_hint_android">När appen är stängd kontrollerar Android oregelbundet (med «%1$s» ungefär var 15:e minut), så korta toppar kan missas.</string>
-    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">När appen är stängd bestämmer iOS när kontrollen sker, så korta toppar kan missas; medan den är öppen kontrolleras pålitligt.</string>
+    <string name="alarm_timing_hint_android">När appen är stängd kontrollerar Android oregelbundet – ofta senare än efter 15 minuter, även med «%1$s». Korta toppar kan missas.</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">När appen är stängd kontrollerar iOS ofta senare än efter 15 minuter, ibland först när du öppnar appen nästa gång. Korta toppar kan missas.</string>
     <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
     <string name="alarm_timing_title">När larm kontrolleras</string>
     <string name="alarm_timing_where">Ställ in hur ofta kurserna uppdateras under %1$s.</string>

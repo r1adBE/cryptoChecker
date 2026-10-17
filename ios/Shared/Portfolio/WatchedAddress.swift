@@ -505,7 +505,7 @@ enum WatchedAddressRules {
         var out: [String] = []
         for h in AddressBalance.holdings([counted]) {
             guard let balance = PortfolioDecimal.parse(h.amount), balance > 0 else { continue }
-            let amountMatch: Bool = own[h.coin].map { nearlyEqual($0, balance) } ?? false
+            let amountMatch: Bool = own[h.coin].map { nearlyEqual($0, balance, tolerance: overlapTolerance) } ?? false
             if amountMatch || transferred.contains(h.coin) { out.append(h.coin) }
         }
         return out
@@ -544,6 +544,10 @@ enum WatchedAddressRules {
 
     /// Toleranz für `transferMatches`: ± 1 % des Guthabens bzw. der Änderung.
     private static let matchTolerance: Decimal = Decimal(string: "0.01") ?? 0
+
+    /// Toleranz für «Guthaben ≈ eigener Bestand» (`overlapMatched`, einmal automatisch «Nur anzeigen»): ± 5 % — Gebühren,
+    /// Staub und kleine nicht gebuchte Zugänge trennen Buchung und Kette oft um mehr als 1 % (sonst zählten beide). Wie Android.
+    private static let overlapTolerance: Decimal = Decimal(string: "0.05") ?? 0
 
     /// Eigene Einzahlungen (`.DEPOSIT`) und Umbuchungen (`.TRANSFER`) im Coin der Adresse, deren Menge (oder erhaltene
     /// Menge nach Coin-Gebühr) dem aktuellen Guthaben oder einem beobachteten Zugang (erste Beobachtung, Zunahme zwischen
@@ -598,10 +602,10 @@ enum WatchedAddressRules {
         }.map(\.element)
     }
 
-    /// |x − goal| ≤ 1 % von goal (goal > 0).
-    private static func nearlyEqual(_ x: Decimal, _ goal: Decimal) -> Bool {
+    /// |x − goal| ≤ `tolerance` von goal (goal > 0; Standard 1 %).
+    private static func nearlyEqual(_ x: Decimal, _ goal: Decimal, tolerance: Decimal = matchTolerance) -> Bool {
         let diff: Decimal = x - goal
-        let limit: Decimal = goal * matchTolerance
+        let limit: Decimal = goal * tolerance
         return x > 0 && abs(diff) <= limit
     }
 

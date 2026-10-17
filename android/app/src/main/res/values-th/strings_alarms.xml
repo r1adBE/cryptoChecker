@@ -135,8 +135,8 @@
     <string name="alarm_saved_notifications_off">การแจ้งเตือนปิดอยู่</string>
 
     <!-- Wann Alarme geprüft werden -->
-    <string name="alarm_timing_hint_android">เมื่อปิดแอป Android จะตรวจไม่สม่ำเสมอ (ประมาณทุก 15 นาทีเมื่อเปิด «%1$s») จึงอาจพลาดการพุ่งขึ้นลงช่วงสั้น ๆ</string>
-    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">เมื่อปิดแอป iOS จะเป็นผู้ตัดสินว่าจะตรวจเมื่อใด จึงอาจพลาดการพุ่งขึ้นลงช่วงสั้น ๆ ส่วนขณะเปิดแอปจะตรวจได้อย่างเชื่อถือได้</string>
+    <string name="alarm_timing_hint_android">เมื่อปิดแอป Android จะตรวจไม่สม่ำเสมอ – มักช้ากว่า 15 นาที แม้เปิด «%1$s» อาจพลาดการพุ่งขึ้นลงช่วงสั้น ๆ</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">เมื่อปิดแอป iOS มักตรวจช้ากว่า 15 นาที บางครั้งจนกว่าจะเปิดแอปครั้งถัดไป อาจพลาดการพุ่งขึ้นลงช่วงสั้น ๆ</string>
     <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
     <string name="alarm_timing_title">สัญญาณเตือนถูกตรวจเมื่อใด</string>
     <string name="alarm_timing_where">ตั้งค่าความถี่ในการอัปเดตราคาได้ที่ %1$s</string>

@@ -97,18 +97,18 @@
 
     <!-- Steuer-Export: Zeilen und Spalten -->
     <string name="tax_line_at_interest">Проценты от лендинга (стоимость при получении)</string>
-    <string name="tax_line_at_old_long">Приобретено до 01.03.2021 – владение &gt; 1 года: не облагается</string>
-    <string name="tax_line_at_rate">Специальная ставка 27,5 процента: нетто по приобретённому с 01.03.2021 + проценты</string>
+    <string name="tax_line_at_old_long">Приобретено до 01.03.2021 – владение &gt; 1 года: как правило, не облагается – проверьте</string>
+    <string name="tax_line_at_rate">Специальная ставка 27,5 процента: нетто по приобретённому с 01.03.2021 + проценты (01.03.2021–28.02.2022: см. примечание)</string>
     <string name="tax_line_au_discounted">Чистый прирост капитала после убытков и скидки 50 процентов</string>
     <string name="tax_line_ca_taxable">Налогооблагаемый прирост капитала (доля включения 1/2)</string>
     <string name="tax_line_ch_income">Награды перечислены – порядок см. рабочий документ ESTV</string>
     <string name="tax_line_ch_private">Прирост капитала в частном имуществе: не рассчитан – классификация см. ESTV</string>
     <string name="tax_line_ch_wealth">Налог на имущество: не рассчитывается – CSV остатков использует курс биржи × USD/CHF на 31.12 – налоговые стоимости: курсовой лист ESTV</string>
-    <string name="tax_line_de_long">Владение &gt; 1 года: в DE не облагается (§ 23 EStG)</string>
+    <string name="tax_line_de_long">Владение &gt; 1 года: по § 23 EStG, как правило, не облагается – проверьте</string>
     <string name="tax_line_denied_loss">Невычитаемые убытки (фиктивный убыток / superficial loss)</string>
     <string name="tax_line_fr_outflow">Выбытия без продажи (выводы) – общая стоимость приобретения уменьшена пропорционально</string>
     <string name="tax_line_fr_rate">Фиксированная ставка 12,8 процента плюс социальные взносы (или шкала по выбору)</string>
-    <string name="tax_line_fr_threshold">Отчуждения до 305 € в год освобождены (сумма цен продажи)</string>
+    <string name="tax_line_fr_threshold">Отчуждения до 305 € в год: как правило, освобождены (сумма цен продажи) – проверьте</string>
     <string name="tax_line_gains">Прибыль</string>
     <string name="tax_line_income">Доходы (награды по стоимости при получении)</string>
     <string name="tax_line_jp_misc">Прочие доходы (雑所得): чистая прибыль + доходы</string>
@@ -121,8 +121,8 @@
     <string name="tax_line_proceeds">Выручка</string>
     <string name="tax_line_short_net">Нетто – владение ≤ 1 года</string>
     <string name="tax_line_transfer_fees">Комиссии за перевод (свои кошельки)</string>
-    <string name="tax_line_uk_after_exempt">Чистая прибыль сверх необлагаемой суммы</string>
-    <string name="tax_line_uk_exempt">Годовая необлагаемая сумма (Annual Exempt Amount)</string>
+    <string name="tax_line_uk_after_exempt">Чистая прибыль сверх необлагаемой суммы (только крипто)</string>
+    <string name="tax_line_uk_exempt">Годовая необлагаемая сумма (Annual Exempt Amount) – действует для всех отчуждений вместе, здесь учтена полностью</string>
     <string name="tax_line_us_terms">Краткосрочно (≤ 1 года): обычные ставки – долгосрочно (&gt; 1 года): ставки на прирост капитала</string>
     <string name="tax_line_withdrawal_fees">Комиссии за вывод</string>
 
@@ -144,7 +144,7 @@
     <string name="tax_de_needs_eur">нужны значения в EUR (нет валютных курсов)</string>
     <string name="tax_de_needs_holding">нет срока владения (метод средней) – для проверки выберите FIFO</string>
     <string name="tax_de_private_limit">Порог освобождения частные продажи (§ 23 EStG)</string>
-    <string name="tax_de_reached">порог достигнут – вся сумма облагается налогом</string>
+    <string name="tax_de_reached">порог достигнут – как правило, учитывается вся сумма – проверьте</string>
     <string name="tax_de_short_gains">Прибыль – владение ≤ 1 года</string>
     <string name="tax_de_short_losses">Убытки – владение ≤ 1 года</string>
     <string name="tax_de_unclassified">Без срока владения</string>
@@ -162,7 +162,7 @@
     <string name="tax_template_current">Шаблон: %1$s · Метод: %2$s · Валюта: %3$s</string>
     <string name="tax_template_de">Германия</string>
     <string name="tax_template_fr">Франция</string>
-    <string name="tax_template_hint">Только ориентир: задаёт метод / налоговый год и сводку рабочего документа. Строки всегда показывают нейтральные факты.</string>
+    <string name="tax_template_hint">Только ориентир: задаёт метод / налоговый год и сводку рабочего документа. Карточка «Портфель» остаётся нейтральной – подарки и комиссии за переводы могут отличаться от рабочего документа.</string>
     <string name="tax_template_jp">Япония</string>
     <string name="tax_template_neutral">Нейтральный (все страны)</string>
     <string name="tax_template_suggestion">Предложение для вашего региона: %1$s</string>
@@ -186,7 +186,7 @@
     <string name="tax_note_stable_swap">Продажа за стейблкоин (USDT/USDC/DAI …), который вы оставляете у себя, здесь считается обменом криптовалюты на криптовалюту и не облагается налогом – запишите её как обмен на стейблкоин. Налогом облагается только продажа за евро – «Продажа» считается продажей за евро.</string>
     <string name="tax_note_transfer_fee">То же касается комиссии в USDT или фиате при переводе между своими кошельками: она не добавляется к стоимости покупки и показана только для сведения.</string>
     <string name="tax_note_uk">Сопоставление по HMRC: тот же день → затем следующие 30 дней → затем общий пул по Section 104 (Section 104 pool).</string>
-    <string name="tax_note_us_transition">Переход 1.1.2025 (Rev. Proc. 2024-28, safe harbor): если в прошлые годы применялся FIFO по всем кошелькам, остатки партий на 31.12.2024 переходят в кошельки, где лежат монеты – кошелёк с самыми старыми монетами получает самую раннюю стоимость.</string>
+    <string name="tax_note_us_transition">Переход 1.1.2025 (Rev. Proc. 2024-28, safe harbor): если в прошлые годы применялся FIFO по всем кошелькам, остатки партий на 31.12.2024 переходят в кошельки, где лежат монеты – кошелёк с самыми старыми монетами получает самую раннюю стоимость. Это распределение — правило приложения; сверьте его со своими записями.</string>
     <string name="tax_note_us_wallet">С 2025 налогового года IRS требует стоимость покупки по каждому кошельку/бирже (Rev. Proc. 2024-28) – экспорт с 2025 года считает FIFO по кошельку – до 2025 года действует ваш метод расчёта стоимости покупки.</string>
     <string name="tax_note_withdrawal_fee">Комиссия за вывод в USDT или фиате – не убыток: фиатная комиссия не вычитается, комиссия в USDT – отчуждение по номиналу без прибыли; она показана только для сведения (%1$s).</string>
     <string name="tax_summary_at_interest_income">учитывается: доход при получении по специальной ставке 27,5 процента (§ 27b абз. 2 п. 1 EStG / BMF) – монеты сохраняют эту стоимость как стоимость приобретения</string>

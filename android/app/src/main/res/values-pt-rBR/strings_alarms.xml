@@ -147,8 +147,8 @@
     <string name="alarm_saved_notifications_off">Notificações desativadas</string>
 
     <!-- Wann Alarme geprüft werden -->
-    <string name="alarm_timing_hint_android">Com o app fechado, o Android verifica de forma irregular (a cada 15 minutos mais ou menos com «%1$s»), então picos curtos podem passar.</string>
-    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">Com o app fechado, o iOS decide quando verificar, então picos curtos podem passar; enquanto ele está aberto, a verificação é confiável.</string>
+    <string name="alarm_timing_hint_android">Com o app fechado, o Android verifica de forma irregular – muitas vezes após mais de 15 minutos, mesmo com «%1$s». Picos curtos podem passar.</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">Com o app fechado, o iOS muitas vezes verifica após mais de 15 minutos, às vezes só quando você abre o app de novo. Picos curtos podem passar.</string>
     <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
     <string name="alarm_timing_title">Quando os alarmes são verificados</string>
     <string name="alarm_timing_where">Defina a frequência de atualização dos preços em %1$s.</string>

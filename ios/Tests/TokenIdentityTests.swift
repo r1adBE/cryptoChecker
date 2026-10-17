@@ -93,6 +93,30 @@ final class TokenIdentityTests: XCTestCase {
         XCTAssertFalse(TokenIdentity.compatible(symbol: "CAT", "Simon's Cat", "Catcoin"))
     }
 
+    func testFallbackChangeNeedsAVerifiedName() {
+        // Ohne eigenen Namen reicht die Preisnähe für die %-Veränderung NICHT (Reihe/Chart dürfte noch)
+        XCTAssertTrue(TokenIdentity.fallbackSeriesAllowed(symbol: "ABC", ownName: nil, provider: "Binance",
+                                                          binanceName: "Alpha Beta"))
+        XCTAssertFalse(TokenIdentity.fallbackChangeAllowed(symbol: "ABC", ownName: nil, provider: "Binance",
+                                                           binanceName: "Alpha Beta"))
+        // Anbieter ohne Namen oder unbekannter Anbieter: ebenfalls keine Veränderung
+        XCTAssertFalse(TokenIdentity.fallbackChangeAllowed(symbol: "ABC", ownName: "Alpha Beta", provider: "Binance",
+                                                           binanceName: nil))
+        XCTAssertFalse(TokenIdentity.fallbackChangeAllowed(symbol: "ABC", ownName: "Alpha Beta", provider: nil,
+                                                           binanceName: "Alpha Beta"))
+        // Nur ähnlich (WEAK) oder klar anders: keine
+        XCTAssertFalse(TokenIdentity.fallbackChangeAllowed(symbol: "CAT", ownName: "Simon's Cat", provider: "Binance",
+                                                           binanceName: "Catcoin"))
+        // Gleicher Name (MEDIUM): ja — beim Anbieter selbst, sonst bei Binance
+        XCTAssertTrue(TokenIdentity.fallbackChangeAllowed(symbol: "CAT", ownName: "Simon's Cat", provider: "Binance",
+                                                          binanceName: "Simons Cat"))
+        XCTAssertTrue(TokenIdentity.fallbackChangeAllowed(symbol: "CAT", ownName: "Simon's Cat", provider: "Coinbase",
+                                                          binanceName: "Simons Cat", providerName: "Simon's Cat"))
+        // Binance gleich, Anbieter selbst klar anders: nein
+        XCTAssertFalse(TokenIdentity.fallbackChangeAllowed(symbol: "CAT", ownName: "Simon's Cat", provider: "Coinbase",
+                                                           binanceName: "Simons Cat", providerName: "Catcoin"))
+    }
+
     func testContractKeyNormalizesEvmOnly() {
         XCTAssertEqual(TokenIdentity.contractKey(chain: " Ethereum ", address: "0xABC"), "ethereum:0xabc")
         XCTAssertEqual(TokenIdentity.contractKey(chain: "SOLANA", address: "AbC"), "solana:AbC")

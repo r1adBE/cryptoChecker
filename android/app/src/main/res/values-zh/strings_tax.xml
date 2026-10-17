@@ -97,18 +97,18 @@
 
     <!-- Steuer-Export: Zeilen und Spalten -->
     <string name="tax_line_at_interest">借贷利息（收到时的价值）</string>
-    <string name="tax_line_at_old_long">2021年3月1日前取得、持有 &gt; 1 年：不征税</string>
-    <string name="tax_line_at_rate">特别税率 百分之 27.5：2021年3月1日起取得部分的净额 + 利息</string>
+    <string name="tax_line_at_old_long">2021年3月1日前取得、持有 &gt; 1 年：通常不征税——请核实</string>
+    <string name="tax_line_at_rate">特别税率 百分之 27.5：2021年3月1日起取得部分的净额 + 利息（2021年3月1日至2022年2月28日：见备注）</string>
     <string name="tax_line_au_discounted">扣除亏损和百分之 50 的折扣后的净资本利得</string>
     <string name="tax_line_ca_taxable">应税资本利得（计入比例 1/2）</string>
     <string name="tax_line_ch_income">已列出奖励——处理方式见 ESTV 工作文件</string>
     <string name="tax_line_ch_private">私人资产的资本利得：未计算——分类见 ESTV</string>
     <string name="tax_line_ch_wealth">财富税：不计算 – 持仓 CSV 使用 12 月 31 日交易所价格 × USD/CHF – 计税价值：ESTV 价目表</string>
-    <string name="tax_line_de_long">持有 &gt; 1 年：在 DE 不征税（§ 23 EStG）</string>
+    <string name="tax_line_de_long">持有 &gt; 1 年：依 § 23 EStG 通常不征税——请核实</string>
     <string name="tax_line_denied_loss">不可扣除亏损（表面亏损 / superficial loss）</string>
     <string name="tax_line_fr_outflow">无卖出的流出（提取）——总取得成本按比例减少</string>
     <string name="tax_line_fr_rate">统一税率 百分之 12.8 加社会分摊（或选择累进税率）</string>
-    <string name="tax_line_fr_threshold">每年不超过 305 € 的转让免税（卖出价格合计）</string>
+    <string name="tax_line_fr_threshold">每年不超过 305 € 的转让：通常免税（卖出价格合计）——请核实</string>
     <string name="tax_line_gains">收益</string>
     <string name="tax_line_income">收入（奖励按收到时的价值）</string>
     <string name="tax_line_jp_misc">杂项所得（雑所得）：净收益 + 收入</string>
@@ -121,8 +121,8 @@
     <string name="tax_line_proceeds">卖出所得</string>
     <string name="tax_line_short_net">净额、持有 ≤ 1 年</string>
     <string name="tax_line_transfer_fees">转移手续费（自己的钱包之间）</string>
-    <string name="tax_line_uk_after_exempt">超出免税额的净收益</string>
-    <string name="tax_line_uk_exempt">年度免税额（Annual Exempt Amount）</string>
+    <string name="tax_line_uk_after_exempt">超出免税额的净收益（仅加密资产）</string>
+    <string name="tax_line_uk_exempt">年度免税额（Annual Exempt Amount） – 适用于全部处置合计，此处全额扣除</string>
     <string name="tax_line_us_terms">短期（≤ 1 年）：普通税率／长期（&gt; 1 年）：资本利得税率</string>
     <string name="tax_line_withdrawal_fees">提取手续费</string>
 
@@ -144,7 +144,7 @@
     <string name="tax_de_needs_eur">需要 EUR 数值（缺少汇率）</string>
     <string name="tax_de_needs_holding">缺少持有期（平均法）——如需核查请选择 FIFO</string>
     <string name="tax_de_private_limit">私人出售免税限额（§ 23 EStG）</string>
-    <string name="tax_de_reached">已达限额——全部金额需纳税</string>
+    <string name="tax_de_reached">已达限额——通常全部金额计入——请核实</string>
     <string name="tax_de_short_gains">收益、持有 ≤ 1 年</string>
     <string name="tax_de_short_losses">亏损、持有 ≤ 1 年</string>
     <string name="tax_de_unclassified">无持有期</string>
@@ -162,7 +162,7 @@
     <string name="tax_template_current">模板：%1$s · 方法：%2$s · 货币：%3$s</string>
     <string name="tax_template_de">德国</string>
     <string name="tax_template_fr">法国</string>
-    <string name="tax_template_hint">仅供参考：决定工作底稿的方法、纳税年度和汇总。各行始终显示中性的事实。</string>
+    <string name="tax_template_hint">仅供参考：决定工作底稿的方法、纳税年度和汇总。投资组合卡片保持中性——赠与和转账手续费可能与工作底稿不同。</string>
     <string name="tax_template_jp">日本</string>
     <string name="tax_template_neutral">中性（所有国家）</string>
     <string name="tax_template_suggestion">适合你所在地区的建议：%1$s</string>
@@ -186,7 +186,7 @@
     <string name="tax_note_stable_swap">卖出换成你继续持有的稳定币（USDT/USDC/DAI …）在此属于加密货币换加密货币，不征税——请记为兑换为该稳定币。只有卖出换成欧元才征税——«卖出» 视为卖出换成欧元。</string>
     <string name="tax_note_transfer_fee">在你自己的钱包之间转移时以 USDT 或法币支付的手续费同样如此：不计入成本，仅作参考列出。</string>
     <string name="tax_note_uk">按 HMRC 匹配：同一天，然后之后 30 天，然后 依 Section 104 的合并持仓（Section 104 pool）。</string>
-    <string name="tax_note_us_transition">2025年1月1日过渡（Rev. Proc. 2024-28，安全港）：若以前年度对所有钱包统一使用 FIFO，截至 2024年12月31日的剩余批次分配给持有这些币的钱包——持有最早币的钱包获得最早的成本。</string>
+    <string name="tax_note_us_transition">2025年1月1日过渡（Rev. Proc. 2024-28，安全港）：若以前年度对所有钱包统一使用 FIFO，截至 2024年12月31日的剩余批次分配给持有这些币的钱包——持有最早币的钱包获得最早的成本。此分配为应用自身的规则——请与你自己的记录核对。</string>
     <string name="tax_note_us_wallet">自 2025 纳税年度起 IRS 要求按钱包/交易所计算成本（Rev. Proc. 2024-28）——导出自 2025 年起按钱包使用 FIFO——2025 年之前适用你设置的成本计算方法。</string>
     <string name="tax_note_withdrawal_fee">USDT 或法币支付的提取手续费不算亏损：法币手续费不可扣除，USDT 手续费是按面值处置、没有收益——仅作参考列出（%1$s）。</string>
     <string name="tax_summary_at_interest_income">计入：收到时按百分之 27.5 特别税率计为收入（§ 27b 第2款第1项 EStG / BMF）——币以该价值作为取得成本</string>

@@ -153,8 +153,8 @@
     <string name="alarm_saved_notifications_off">Oznámení vypnuta</string>
 
     <!-- Wann Alarme geprüft werden -->
-    <string name="alarm_timing_hint_android">Při zavřené aplikaci kontroluje Android nepravidelně (s «%1$s» zhruba každých 15 minut), krátké výkyvy tak mohou uniknout.</string>
-    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">Po zavření aplikace rozhoduje iOS, kdy kontrolovat – krátké výkyvy tak mohou uniknout; dokud je aplikace otevřená, kontroluje se spolehlivě.</string>
+    <string name="alarm_timing_hint_android">Při zavřené aplikaci kontroluje Android nepravidelně – často později než po 15 minutách, i s «%1$s». Krátké výkyvy mohou uniknout.</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">Při zavřené aplikaci kontroluje iOS často později než po 15 minutách, někdy až při dalším otevření. Krátké výkyvy mohou uniknout.</string>
     <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
     <string name="alarm_timing_title">Kdy se alarmy kontrolují</string>
     <string name="alarm_timing_where">Jak často se ceny aktualizují, nastavíš v %1$s.</string>

@@ -97,18 +97,18 @@
 
     <!-- Steuer-Export: Zeilen und Spalten -->
     <string name="tax_line_at_interest">ดอกเบี้ยจากการให้ยืม (มูลค่าตอนที่ได้รับ)</string>
-    <string name="tax_line_at_old_long">ได้มาก่อน 1.3.2021 ถือ &gt; 1 ปี: ไม่ต้องเสียภาษี</string>
-    <string name="tax_line_at_rate">อัตราพิเศษ 27.5 เปอร์เซ็นต์: สุทธิของที่ได้มาตั้งแต่ 1.3.2021 + ดอกเบี้ย</string>
+    <string name="tax_line_at_old_long">ได้มาก่อน 1.3.2021 ถือ &gt; 1 ปี: โดยทั่วไปไม่ต้องเสียภาษี – โปรดตรวจสอบ</string>
+    <string name="tax_line_at_rate">อัตราพิเศษ 27.5 เปอร์เซ็นต์: สุทธิของที่ได้มาตั้งแต่ 1.3.2021 + ดอกเบี้ย (1.3.2021–28.2.2022: ดูหมายเหตุ)</string>
     <string name="tax_line_au_discounted">กำไรจากทุนสุทธิหลังหักขาดทุนและส่วนลด 50 เปอร์เซ็นต์</string>
     <string name="tax_line_ca_taxable">กำไรจากทุนที่ต้องเสียภาษี (อัตรารวม 1/2)</string>
     <string name="tax_line_ch_income">แสดงรายการรางวัลแล้ว – การปฏิบัติดูเอกสารประกอบงานของ ESTV</string>
     <string name="tax_line_ch_private">กำไรจากทุนในทรัพย์สินส่วนบุคคล: ไม่ได้คำนวณ – การจัดประเภทดู ESTV</string>
     <string name="tax_line_ch_wealth">ภาษีทรัพย์สิน: ไม่ได้คำนวณ – CSV ยอดถือครองใช้ราคากระดานเทรด × USD/CHF ณ 31 ธ.ค. – มูลค่าทางภาษี: รายการราคา ESTV</string>
-    <string name="tax_line_de_long">ถือ &gt; 1 ปี: ไม่ต้องเสียภาษีใน DE (§ 23 EStG)</string>
+    <string name="tax_line_de_long">ถือ &gt; 1 ปี: ตาม § 23 EStG โดยทั่วไปไม่ต้องเสียภาษี – โปรดตรวจสอบ</string>
     <string name="tax_line_denied_loss">ขาดทุนที่หักไม่ได้ (ขาดทุนเทียม / superficial loss)</string>
     <string name="tax_line_fr_outflow">การออกโดยไม่ขาย (การถอน) – ต้นทุนการได้มารวมลดลงตามสัดส่วน</string>
     <string name="tax_line_fr_rate">อัตราคงที่ 12.8 เปอร์เซ็นต์ บวกเงินสมทบทางสังคม (หรืออัตราก้าวหน้าตามที่เลือก)</string>
-    <string name="tax_line_fr_threshold">การจำหน่ายไม่เกิน 305 € ต่อปีได้รับยกเว้น (ผลรวมราคาขาย)</string>
+    <string name="tax_line_fr_threshold">การจำหน่ายไม่เกิน 305 € ต่อปี: โดยทั่วไปได้รับยกเว้น (ผลรวมราคาขาย) – โปรดตรวจสอบ</string>
     <string name="tax_line_gains">กำไร</string>
     <string name="tax_line_income">รายได้ (รางวัลตามมูลค่าตอนที่ได้รับ)</string>
     <string name="tax_line_jp_misc">รายได้อื่น (雑所得): กำไรสุทธิ + รายได้</string>
@@ -121,8 +121,8 @@
     <string name="tax_line_proceeds">รายรับ</string>
     <string name="tax_line_short_net">สุทธิ ถือ ≤ 1 ปี</string>
     <string name="tax_line_transfer_fees">ค่าธรรมเนียมโอนย้าย (วอลเล็ตของตัวเอง)</string>
-    <string name="tax_line_uk_after_exempt">กำไรสุทธิที่เกินจำนวนยกเว้น</string>
-    <string name="tax_line_uk_exempt">จำนวนยกเว้นรายปี (Annual Exempt Amount)</string>
+    <string name="tax_line_uk_after_exempt">กำไรสุทธิที่เกินจำนวนยกเว้น (เฉพาะคริปโต)</string>
+    <string name="tax_line_uk_exempt">จำนวนยกเว้นรายปี (Annual Exempt Amount) – ใช้กับการจำหน่ายทั้งหมดรวมกัน ที่นี่หักเต็มจำนวน</string>
     <string name="tax_line_us_terms">ระยะสั้น (≤ 1 ปี): อัตราปกติ ระยะยาว (&gt; 1 ปี): อัตรากำไรจากทุน</string>
     <string name="tax_line_withdrawal_fees">ค่าธรรมเนียมการถอน</string>
 
@@ -144,7 +144,7 @@
     <string name="tax_de_needs_eur">ต้องใช้มูลค่าเป็น EUR (ไม่มีอัตราแลกเปลี่ยน)</string>
     <string name="tax_de_needs_holding">ไม่มีระยะเวลาถือ (วิธีเฉลี่ย) – เลือก FIFO เพื่อตรวจสอบ</string>
     <string name="tax_de_private_limit">เกณฑ์ยกเว้นภาษีการขายส่วนบุคคล (§ 23 EStG)</string>
-    <string name="tax_de_reached">ถึงเกณฑ์แล้ว – ทั้งจำนวนต้องเสียภาษี</string>
+    <string name="tax_de_reached">ถึงเกณฑ์แล้ว – โดยทั่วไปนับทั้งจำนวน – โปรดตรวจสอบ</string>
     <string name="tax_de_short_gains">กำไร ถือ ≤ 1 ปี</string>
     <string name="tax_de_short_losses">ขาดทุน ถือ ≤ 1 ปี</string>
     <string name="tax_de_unclassified">ไม่มีระยะเวลาถือ</string>
@@ -162,7 +162,7 @@
     <string name="tax_template_current">เทมเพลต: %1$s · วิธี: %2$s · สกุลเงิน: %3$s</string>
     <string name="tax_template_de">เยอรมนี</string>
     <string name="tax_template_fr">ฝรั่งเศส</string>
-    <string name="tax_template_hint">เพื่อเป็นแนวทางเท่านั้น: กำหนดวิธี ปีภาษี และสรุปของเอกสารประกอบงาน แถวต่าง ๆ แสดงข้อเท็จจริงที่เป็นกลางเสมอ</string>
+    <string name="tax_template_hint">เพื่อเป็นแนวทางเท่านั้น: กำหนดวิธี ปีภาษี และสรุปของเอกสารประกอบงาน การ์ดพอร์ตโฟลิโอยังคงเป็นกลาง – ของขวัญและค่าธรรมเนียมการโอนอาจต่างจากเอกสารประกอบงาน</string>
     <string name="tax_template_jp">ญี่ปุ่น</string>
     <string name="tax_template_neutral">เป็นกลาง (ทุกประเทศ)</string>
     <string name="tax_template_suggestion">คำแนะนำสำหรับภูมิภาคของคุณ: %1$s</string>
@@ -186,7 +186,7 @@
     <string name="tax_note_stable_swap">การขายแลกกับสเตเบิลคอยน์ (USDT/USDC/DAI …) ที่คุณถือต่อ ในที่นี้ถือเป็นคริปโตแลกคริปโตและไม่ต้องเสียภาษี – ให้บันทึกเป็นการสลับเป็นสเตเบิลคอยน์ เฉพาะการขายแลกกับยูโรเท่านั้นที่ต้องเสียภาษี – «ขาย» นับเป็นการขายแลกกับยูโร</string>
     <string name="tax_note_transfer_fee">ค่าธรรมเนียมเป็น USDT หรือเงินสดในการโอนย้ายระหว่างวอลเล็ตของตัวเองก็เช่นกัน: ไม่บวกเข้าต้นทุนและแสดงเพื่อทราบเท่านั้น</string>
     <string name="tax_note_uk">การจับคู่ตาม HMRC: วันเดียวกัน จากนั้น 30 วันถัดไป จากนั้นพูลรวมตาม Section 104 (Section 104 pool)</string>
-    <string name="tax_note_us_transition">การเปลี่ยนผ่าน 1.1.2025 (Rev. Proc. 2024-28, safe harbor): หากปีก่อนหน้าใช้ FIFO รวมทุกกระเป๋า ล็อตที่เหลือ ณ 31.12.2024 จะไปอยู่ในกระเป๋าที่ถือเหรียญ – กระเป๋าที่มีเหรียญเก่าสุดได้ต้นทุนเก่าสุด</string>
+    <string name="tax_note_us_transition">การเปลี่ยนผ่าน 1.1.2025 (Rev. Proc. 2024-28, safe harbor): หากปีก่อนหน้าใช้ FIFO รวมทุกกระเป๋า ล็อตที่เหลือ ณ 31.12.2024 จะไปอยู่ในกระเป๋าที่ถือเหรียญ – กระเป๋าที่มีเหรียญเก่าสุดได้ต้นทุนเก่าสุด การจัดสรรนี้เป็นกฎของแอป – โปรดเทียบกับบันทึกของคุณเอง</string>
     <string name="tax_note_us_wallet">ตั้งแต่ปีภาษี 2025 IRS กำหนดให้คิดต้นทุนแยกตามวอลเล็ต/กระดานเทรด (Rev. Proc. 2024-28) – การส่งออกใช้ FIFO แยกตามวอลเล็ตตั้งแต่ปี 2025 – ก่อนปี 2025 ใช้วิธีคิดต้นทุนของคุณ</string>
     <string name="tax_note_withdrawal_fee">ค่าธรรมเนียมการถอนเป็น USDT หรือเงินสดไม่ใช่ขาดทุน: ค่าธรรมเนียมเงินสดหักไม่ได้ ค่าธรรมเนียม USDT คือการจำหน่ายที่มูลค่าตราไว้โดยไม่มีกำไร – แสดงเพื่อทราบเท่านั้น (%1$s)</string>
     <string name="tax_summary_at_interest_income">นับรวม: เป็นรายได้ตอนที่ได้รับ ในอัตราพิเศษ 27.5 เปอร์เซ็นต์ (§ 27b วรรค 2 ข้อ 1 EStG / BMF) – เหรียญใช้มูลค่านี้เป็นต้นทุนการได้มา</string>

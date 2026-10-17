@@ -68,6 +68,7 @@
     <string name="portfolio_csv_skip_fee_exceeds">الرسوم ≥ الكمية المُستلَمة</string>
     <string name="portfolio_csv_skip_internal_move">نقل بين حساباتك الخاصة – لا شيء للتسجيل</string>
     <string name="portfolio_csv_skip_missing">حقل مفقود</string>
+    <string name="portfolio_csv_skip_ambiguous">عدة صفقات في الثانية نفسها لا يمكن فصلها – أدخلها يدويًا</string>
     <string name="portfolio_csv_skip_not_crypto">ليست عملة مشفرة</string>
     <string name="portfolio_csv_skip_possible_duplicate">ربما استُورد مسبقًا (صفقة شبه مطابقة) – تحقّق يدويًا</string>
     <string name="portfolio_csv_skip_two_fees">رسومان بوحدتين مختلفتين – أدخل المبادلة يدويًا</string>

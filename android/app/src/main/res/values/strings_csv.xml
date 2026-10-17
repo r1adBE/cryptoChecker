@@ -52,6 +52,7 @@
     <string name="portfolio_csv_skip_fee_exceeds">fee ≥ amount received</string>
     <string name="portfolio_csv_skip_internal_move">move between your own accounts – nothing to book</string>
     <string name="portfolio_csv_skip_missing">field missing</string>
+    <string name="portfolio_csv_skip_ambiguous">several trades in the same second that cannot be told apart – enter them by hand</string>
     <string name="portfolio_csv_skip_not_crypto">not crypto</string>
     <string name="portfolio_csv_skip_possible_duplicate">possibly already imported (nearly the same trade) – check by hand</string>
     <string name="portfolio_csv_skip_two_fees">two fees in different units – enter the swap by hand</string>

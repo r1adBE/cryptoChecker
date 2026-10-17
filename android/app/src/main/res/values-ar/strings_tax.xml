@@ -97,18 +97,18 @@
 
     <!-- Steuer-Export: Zeilen und Spalten -->
     <string name="tax_line_at_interest">فوائد الإقراض (القيمة عند الاستلام)</string>
-    <string name="tax_line_at_old_long">مكتسب قبل 1.3.2021، احتفاظ &gt; سنة: غير خاضع للضريبة</string>
-    <string name="tax_line_at_rate">نسبة خاصة 27.5 بالمئة: الصافي للمكتسب منذ 1.3.2021 + الفوائد</string>
+    <string name="tax_line_at_old_long">مكتسب قبل 1.3.2021، احتفاظ &gt; سنة: عادةً غير خاضع للضريبة – تحقّق</string>
+    <string name="tax_line_at_rate">نسبة خاصة 27.5 بالمئة: الصافي للمكتسب منذ 1.3.2021 + الفوائد (1.3.2021–28.2.2022: انظر الملاحظة)</string>
     <string name="tax_line_au_discounted">صافي ربح رأس المال بعد الخسائر وخصم 50 بالمئة</string>
     <string name="tax_line_ca_taxable">ربح رأس المال الخاضع للضريبة (نسبة الإدراج 1/2)</string>
     <string name="tax_line_ch_income">المكافآت مُدرجة – للمعاملة راجع ورقة عمل ESTV</string>
     <string name="tax_line_ch_private">أرباح رأس المال في الأصول الخاصة: غير محسوبة – للتصنيف راجع ESTV</string>
     <string name="tax_line_ch_wealth">ضريبة الثروة: غير محسوبة – ملف CSV للرصيد يستخدم سعر المنصة × USD/CHF في 31/12 – القيم الضريبية: قائمة أسعار ESTV</string>
-    <string name="tax_line_de_long">احتفاظ &gt; سنة: غير خاضع للضريبة في DE (§ 23 EStG)</string>
+    <string name="tax_line_de_long">احتفاظ &gt; سنة: عادةً غير خاضع للضريبة وفق § 23 EStG – تحقّق</string>
     <string name="tax_line_denied_loss">خسائر غير قابلة للخصم (خسارة ظاهرية / superficial loss)</string>
     <string name="tax_line_fr_outflow">تدفقات خارجة بلا بيع (سحوبات) – إجمالي تكلفة الاقتناء مخفّض نسبيًا</string>
     <string name="tax_line_fr_rate">نسبة ثابتة 12.8 بالمئة زائد الاشتراكات الاجتماعية (أو الجدول عند الاختيار)</string>
-    <string name="tax_line_fr_threshold">التنازلات حتى 305 € سنويًا معفاة (مجموع أسعار البيع)</string>
+    <string name="tax_line_fr_threshold">التنازلات حتى 305 € سنويًا: معفاة عادةً (مجموع أسعار البيع) – تحقّق</string>
     <string name="tax_line_gains">الأرباح</string>
     <string name="tax_line_income">الدخل (المكافآت بقيمتها عند الاستلام)</string>
     <string name="tax_line_jp_misc">دخل متنوع (雑所得): صافي الأرباح + الدخل</string>
@@ -121,8 +121,8 @@
     <string name="tax_line_proceeds">العوائد</string>
     <string name="tax_line_short_net">الصافي، احتفاظ ≤ سنة</string>
     <string name="tax_line_transfer_fees">رسوم التحويل (محافظك)</string>
-    <string name="tax_line_uk_after_exempt">صافي الأرباح فوق المبلغ المعفى</string>
-    <string name="tax_line_uk_exempt">المبلغ السنوي المعفى (Annual Exempt Amount)</string>
+    <string name="tax_line_uk_after_exempt">صافي الأرباح فوق المبلغ المعفى (العملات المشفرة فقط)</string>
+    <string name="tax_line_uk_exempt">المبلغ السنوي المعفى (Annual Exempt Amount) – يسري على كل التصرفات معًا، ومُحتسب هنا بالكامل</string>
     <string name="tax_line_us_terms">قصير الأجل (≤ سنة): المعدلات العادية؛ طويل الأجل (&gt; سنة): معدلات أرباح رأس المال</string>
     <string name="tax_line_withdrawal_fees">رسوم السحب</string>
 
@@ -144,7 +144,7 @@
     <string name="tax_de_needs_eur">يتطلب قيمًا باليورو (أسعار الصرف مفقودة)</string>
     <string name="tax_de_needs_holding">مدة الاحتفاظ مفقودة (طريقة المتوسط) – اختر FIFO للتحقق</string>
     <string name="tax_de_private_limit">حد الإعفاء للمبيعات الخاصة (§ 23 EStG)</string>
-    <string name="tax_de_reached">بلغ الحد – المبلغ كله خاضع للضريبة</string>
+    <string name="tax_de_reached">بلغ الحد – عادةً يُحتسب المبلغ كله – تحقّق</string>
     <string name="tax_de_short_gains">الأرباح، احتفاظ ≤ سنة</string>
     <string name="tax_de_short_losses">الخسائر، احتفاظ ≤ سنة</string>
     <string name="tax_de_unclassified">دون مدة احتفاظ</string>
@@ -162,7 +162,7 @@
     <string name="tax_template_current">القالب: %1$s · الطريقة: %2$s · العملة: %3$s</string>
     <string name="tax_template_de">ألمانيا</string>
     <string name="tax_template_fr">فرنسا</string>
-    <string name="tax_template_hint">للاسترشاد فقط: يحدد الطريقة والسنة الضريبية وملخص ورقة العمل. تعرض الأسطر دائمًا حقائق محايدة.</string>
+    <string name="tax_template_hint">للاسترشاد فقط: يحدد الطريقة والسنة الضريبية وملخص ورقة العمل. تبقى بطاقة المحفظة محايدة – قد تختلف الهدايا ورسوم التحويل عن ورقة العمل.</string>
     <string name="tax_template_jp">اليابان</string>
     <string name="tax_template_neutral">محايد (جميع البلدان)</string>
     <string name="tax_template_suggestion">اقتراح لمنطقتك: %1$s</string>
@@ -186,7 +186,7 @@
     <string name="tax_note_stable_swap">البيع مقابل عملة مستقرة (USDT/USDC/DAI …) تحتفظ بها يُعد هنا تبادل عملة مشفرة بأخرى ولا يخضع للضريبة – سجّله كمبادلة إلى العملة المستقرة. لا يخضع للضريبة إلا البيع مقابل اليورو – ويُحتسب «بيع» بيعًا مقابل اليورو.</string>
     <string name="tax_note_transfer_fee">ينطبق الأمر نفسه على رسوم بـ USDT أو نقدًا عند التحويل بين محافظك: لا تُضاف إلى التكلفة وتظهر للعلم فقط.</string>
     <string name="tax_note_uk">المطابقة وفق HMRC: اليوم نفسه، ثم الأيام الثلاثون التالية، ثم المجمع المشترك وفق Section 104 (Section 104 pool).</string>
-    <string name="tax_note_us_transition">الانتقال في 1.1.2025 (Rev. Proc. 2024-28، الملاذ الآمن): إذا استُخدم FIFO عبر كل المحافظ في السنوات السابقة، تذهب الدفعات المتبقية في 31.12.2024 إلى المحافظ التي تحتفظ بالعملات – وتحصل المحفظة ذات العملات الأقدم على التكلفة الأقدم.</string>
+    <string name="tax_note_us_transition">الانتقال في 1.1.2025 (Rev. Proc. 2024-28، الملاذ الآمن): إذا استُخدم FIFO عبر كل المحافظ في السنوات السابقة، تذهب الدفعات المتبقية في 31.12.2024 إلى المحافظ التي تحتفظ بالعملات – وتحصل المحفظة ذات العملات الأقدم على التكلفة الأقدم. هذا التوزيع قاعدة من التطبيق – قارنه بسجلاتك.</string>
     <string name="tax_note_us_wallet">اعتبارًا من السنة الضريبية 2025 تطلب IRS تكلفة الشراء لكل wallet/منصة (Rev. Proc. 2024-28) – ويستخدم التصدير FIFO لكل wallet من 2025 – وقبل 2025 تنطبق طريقة حساب تكلفة الشراء الخاصة بك.</string>
     <string name="tax_note_withdrawal_fee">رسوم السحب بـ USDT أو نقدًا ليست خسارة: الرسوم النقدية غير قابلة للخصم، ورسوم USDT تصرّف بالقيمة الاسمية بلا ربح – تظهر للعلم فقط (%1$s).</string>
     <string name="tax_summary_at_interest_income">يُحتسب: دخل عند الاستلام بالنسبة الخاصة 27.5 بالمئة (§ 27b الفقرة 2 البند 1 EStG / BMF) – تحتفظ العملات بهذه القيمة كتكلفة اقتناء</string>

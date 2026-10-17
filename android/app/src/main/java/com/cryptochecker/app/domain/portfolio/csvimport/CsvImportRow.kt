@@ -44,10 +44,13 @@ enum class CsvImportFormat(val exchangeName: String?) {
  * ([CsvImport.feeConsumesAmount]) — wie das Erfassen-Blatt nicht speicherbar. [INTERNAL_MOVE]: Verschiebung zwischen
  * Konten derselben Börse (Spot ↔ Earn/Funding, Coinbase ↔ Coinbase Pro) — der Bestand bleibt gleich, nichts zu buchen.
  * [POSSIBLE_DUPLICATE]: fast gleich wie ein schon importiertes Geschäft (anderer Binance-Export,
- * [CsvImportBinance.possibleDuplicates]) — lieber prüfen lassen als doppelt zählen.
+ * [CsvImportBinance.possibleDuplicates]) — lieber prüfen lassen als doppelt zählen. [AMBIGUOUS_GROUP]: mehrere Geschäfte
+ * in derselben Sekunde, die sich nicht eindeutig trennen lassen (Binance: mehrere Coins je Seite, z. B. Kleinbeträge in
+ * BNB) — von Hand erfassen. Nur anhängen (Name steht in Fixtures).
  */
 enum class CsvImportSkipReason {
     UNSUPPORTED_KIND, NOT_CRYPTO, BAD_NUMBER, BAD_DATE, MISSING_FIELD, FEE_EXCEEDS_AMOUNT, TWO_FEES, INTERNAL_MOVE, POSSIBLE_DUPLICATE,
+    AMBIGUOUS_GROUP,
 }
 
 /** Übersprungene Zeile; [line] = Zeilennummer in der Datei (1 = erste Zeile). */
@@ -260,6 +263,29 @@ object CsvImport {
         val ru = receivedUnit?.trim()?.uppercase().orEmpty()
         if (gu != ru) return null
         return givenFee.add(receivedFee) to givenUnit
+    }
+
+    /**
+     * Gebühren eines Geschäfts in mehreren Einheiten (Binance, Kraken; [fees] = (Einheit, Menge > 0), je Einheit
+     * höchstens einmal): eine bleibt am Geschäft, jede weitere wird eine eigene Gebühr-Zeile ([CsvImportKind.FEE],
+     * Veräusserung zum Tageskurs wie eine Gebühr im dritten Coin) — statt das ganze Geschäft zu überspringen. Am Geschäft
+     * bleibt, unabhängig von der Reihenfolge (beide Binance-Exporte ergeben dieselben Zeilen): die Fiat-Gebühr, sonst die
+     * im abgegebenen [given], dann im erhaltenen Coin [received], sonst die alphabetisch erste. Zwei Fiat-Gebühren lassen
+     * sich nicht als Gebühr-Zeile buchen → null ([CsvImportSkipReason.TWO_FEES]).
+     * @return (Gebühr am Geschäft oder null, weitere Gebühren in Reihenfolge von [fees])
+     */
+    fun splitFees(
+        fees: List<Pair<String, BigDecimal>>,
+        given: String?,
+        received: String?,
+    ): Pair<Pair<String, BigDecimal>?, List<Pair<String, BigDecimal>>>? {
+        if (fees.size <= 1) return fees.firstOrNull() to emptyList()
+        if (fees.count { isFiat(it.first) } > 1) return null
+        val primary = fees.firstOrNull { isFiat(it.first) }
+            ?: fees.firstOrNull { it.first == given }
+            ?: fees.firstOrNull { it.first == received }
+            ?: fees.sortedBy { it.first }.first()
+        return primary to fees.filter { it.first != primary.first }
     }
 
     /**

@@ -52,6 +52,7 @@
     <string name="portfolio_csv_skip_fee_exceeds">tarifa ≥ sasia e marrë</string>
     <string name="portfolio_csv_skip_internal_move">zhvendosje ndërmjet llogarive të tua – asgjë për të regjistruar</string>
     <string name="portfolio_csv_skip_missing">mungon fusha</string>
+    <string name="portfolio_csv_skip_ambiguous">disa tregtime në të njëjtën sekondë që s’ndahen dot – futi me dorë</string>
     <string name="portfolio_csv_skip_not_crypto">jo kripto</string>
     <string name="portfolio_csv_skip_possible_duplicate">ndoshta i importuar tashmë (pothuajse i njëjti tregtim) – kontrolloje me dorë</string>
     <string name="portfolio_csv_skip_two_fees">dy tarifa në njësi të ndryshme – fute shkëmbimin me dorë</string>

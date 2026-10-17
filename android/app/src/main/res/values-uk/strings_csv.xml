@@ -60,6 +60,7 @@
     <string name="portfolio_csv_skip_fee_exceeds">комісія ≥ отриманої кількості</string>
     <string name="portfolio_csv_skip_internal_move">переміщення між вашими рахунками – записувати нічого</string>
     <string name="portfolio_csv_skip_missing">немає поля</string>
+    <string name="portfolio_csv_skip_ambiguous">кілька угод в одну секунду, їх не можна розділити – введіть вручну</string>
     <string name="portfolio_csv_skip_not_crypto">не криптовалюта</string>
     <string name="portfolio_csv_skip_possible_duplicate">можливо, вже імпортовано (майже та сама угода) – перевірте вручну</string>
     <string name="portfolio_csv_skip_two_fees">дві комісії в різних одиницях – введіть обмін вручну</string>

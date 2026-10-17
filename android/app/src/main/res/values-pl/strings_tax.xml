@@ -97,18 +97,18 @@
 
     <!-- Steuer-Export: Zeilen und Spalten -->
     <string name="tax_line_at_interest">Odsetki z lendingu (wartość w chwili otrzymania)</string>
-    <string name="tax_line_at_old_long">Nabyte przed 1.03.2021 – posiadane &gt; 1 rok: nieopodatkowane</string>
-    <string name="tax_line_at_rate">Stawka specjalna 27,5 procent: netto z nabytych od 1.03.2021 + odsetki</string>
+    <string name="tax_line_at_old_long">Nabyte przed 1.03.2021 – posiadane &gt; 1 rok: zwykle nieopodatkowane – sprawdź</string>
+    <string name="tax_line_at_rate">Stawka specjalna 27,5 procent: netto z nabytych od 1.03.2021 + odsetki (1.03.2021–28.02.2022: zob. uwagę)</string>
     <string name="tax_line_au_discounted">Zysk kapitałowy netto po stratach i 50-procentowej zniżce</string>
     <string name="tax_line_ca_taxable">Opodatkowany zysk kapitałowy (stopa włączenia 1/2)</string>
     <string name="tax_line_ch_income">Nagrody wymienione – traktowanie zob. dokument roboczy ESTV</string>
     <string name="tax_line_ch_private">Zyski kapitałowe w majątku prywatnym: nie obliczono – klasyfikacja zob. ESTV</string>
     <string name="tax_line_ch_wealth">Podatek od majątku: nie jest liczony – CSV stanu używa kursu giełdy × USD/CHF na 31.12 – wartości podatkowe: lista kursów ESTV</string>
-    <string name="tax_line_de_long">Posiadane &gt; 1 rok: nieopodatkowane w DE (§ 23 EStG)</string>
+    <string name="tax_line_de_long">Posiadane &gt; 1 rok: wg § 23 EStG zwykle nieopodatkowane – sprawdź</string>
     <string name="tax_line_denied_loss">Straty niepodlegające odliczeniu (strata pozorna / superficial loss)</string>
     <string name="tax_line_fr_outflow">Wypływy bez sprzedaży (wypłaty) – łączny koszt nabycia proporcjonalnie obniżony</string>
     <string name="tax_line_fr_rate">Stawka ryczałtowa 12,8 procent plus składki społeczne (lub skala na wniosek)</string>
-    <string name="tax_line_fr_threshold">Zbycia do 305 € rocznie zwolnione (suma cen sprzedaży)</string>
+    <string name="tax_line_fr_threshold">Zbycia do 305 € rocznie: zwykle zwolnione (suma cen sprzedaży) – sprawdź</string>
     <string name="tax_line_gains">Zyski</string>
     <string name="tax_line_income">Przychody (nagrody wg wartości w chwili otrzymania)</string>
     <string name="tax_line_jp_misc">Przychody różne (雑所得): zysk netto + przychody</string>
@@ -121,8 +121,8 @@
     <string name="tax_line_proceeds">Przychody</string>
     <string name="tax_line_short_net">Netto – posiadane ≤ 1 rok</string>
     <string name="tax_line_transfer_fees">Opłaty za przeniesienie (własne portfele)</string>
-    <string name="tax_line_uk_after_exempt">Zysk netto powyżej kwoty wolnej</string>
-    <string name="tax_line_uk_exempt">Roczna kwota wolna (Annual Exempt Amount)</string>
+    <string name="tax_line_uk_after_exempt">Zysk netto powyżej kwoty wolnej (tylko krypto)</string>
+    <string name="tax_line_uk_exempt">Roczna kwota wolna (Annual Exempt Amount) – dotyczy wszystkich zbyć łącznie, tu odliczona w całości</string>
     <string name="tax_line_us_terms">Krótkoterminowe (≤ 1 rok): stawki zwykłe – długoterminowe (&gt; 1 rok): stawki od zysków kapitałowych</string>
     <string name="tax_line_withdrawal_fees">Opłaty za wypłatę</string>
 
@@ -144,7 +144,7 @@
     <string name="tax_de_needs_eur">wymaga wartości w EUR (brak kursów walut)</string>
     <string name="tax_de_needs_holding">brak okresu posiadania (metoda średniej) – wybierz FIFO do sprawdzenia</string>
     <string name="tax_de_private_limit">Próg zwolnienia prywatna sprzedaż (§ 23 EStG)</string>
-    <string name="tax_de_reached">próg osiągnięty – cała kwota podlega opodatkowaniu</string>
+    <string name="tax_de_reached">próg osiągnięty – zwykle liczy się cała kwota – sprawdź</string>
     <string name="tax_de_short_gains">Zyski – posiadane ≤ 1 rok</string>
     <string name="tax_de_short_losses">Straty – posiadane ≤ 1 rok</string>
     <string name="tax_de_unclassified">Bez okresu posiadania</string>
@@ -162,7 +162,7 @@
     <string name="tax_template_current">Szablon: %1$s · Metoda: %2$s · Waluta: %3$s</string>
     <string name="tax_template_de">Niemcy</string>
     <string name="tax_template_fr">Francja</string>
-    <string name="tax_template_hint">Tylko orientacyjnie: określa metodę / rok podatkowy i podsumowanie dokumentu roboczego. Wiersze zawsze pokazują neutralne fakty.</string>
+    <string name="tax_template_hint">Tylko orientacyjnie: określa metodę / rok podatkowy i podsumowanie dokumentu roboczego. Karta Portfel pozostaje neutralna – darowizny i opłaty za przeniesienia mogą różnić się od dokumentu roboczego.</string>
     <string name="tax_template_jp">Japonia</string>
     <string name="tax_template_neutral">Neutralny (wszystkie kraje)</string>
     <string name="tax_template_suggestion">Propozycja dla twojego regionu: %1$s</string>
@@ -186,7 +186,7 @@
     <string name="tax_note_stable_swap">Sprzedaż za stablecoina (USDT/USDC/DAI …), którego zatrzymujesz, to tu krypto za krypto i nie podlega opodatkowaniu – zapisz ją jako wymianę na stablecoina. Opodatkowana jest dopiero sprzedaż za euro – «Sprzedaż» liczy się jako sprzedaż za euro.</string>
     <string name="tax_note_transfer_fee">To samo dotyczy opłaty w USDT lub gotówce przy przeniesieniu między własnymi portfelami: nie zwiększa kosztu nabycia i widnieje tylko jako informacja.</string>
     <string name="tax_note_uk">Dopasowanie wg HMRC: ten sam dzień → potem kolejne 30 dni → potem wspólna pula wg Section 104 (Section 104 pool).</string>
-    <string name="tax_note_us_transition">Przejście 1.1.2025 (Rev. Proc. 2024-28, safe harbor): jeśli wcześniejsze lata liczono FIFO dla wszystkich portfeli, pozostałe partie na 31.12.2024 trafiają do portfeli, w których są coiny – portfel z najstarszymi coinami otrzymuje najstarszy koszt.</string>
+    <string name="tax_note_us_transition">Przejście 1.1.2025 (Rev. Proc. 2024-28, safe harbor): jeśli wcześniejsze lata liczono FIFO dla wszystkich portfeli, pozostałe partie na 31.12.2024 trafiają do portfeli, w których są coiny – portfel z najstarszymi coinami otrzymuje najstarszy koszt. Ten podział to reguła aplikacji – porównaj go z własnymi zapisami.</string>
     <string name="tax_note_us_wallet">Od roku podatkowego 2025 IRS wymaga kosztu nabycia osobno dla walleta/giełdy (Rev. Proc. 2024-28) – eksport liczy FIFO osobno dla walleta od 2025 – wcześniej obowiązuje twoja metoda kosztu nabycia.</string>
     <string name="tax_note_withdrawal_fee">Opłata za wypłatę w USDT lub gotówce nie jest stratą: opłaty w gotówce nie można odliczyć, opłata w USDT to zbycie po wartości nominalnej bez zysku – widnieje tylko jako informacja (%1$s).</string>
     <string name="tax_summary_at_interest_income">liczy się: przychód w chwili otrzymania według stawki specjalnej 27,5 procent (§ 27b ust. 2 pkt 1 EStG / BMF) – monety zachowują tę wartość jako koszt nabycia</string>

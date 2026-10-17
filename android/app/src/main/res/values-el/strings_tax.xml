@@ -97,18 +97,18 @@
 
     <!-- Steuer-Export: Zeilen und Spalten -->
     <string name="tax_line_at_interest">Τόκοι από lending (αξία κατά την παραλαβή)</string>
-    <string name="tax_line_at_old_long">Αποκτήθηκε πριν από 1.3.2021 – διακράτηση &gt; 1 έτος: αφορολόγητο</string>
-    <string name="tax_line_at_rate">Ειδικός συντελεστής 27,5 τοις εκατό: καθαρό από αποκτήσεις από 1.3.2021 + τόκοι</string>
+    <string name="tax_line_at_old_long">Αποκτήθηκε πριν από 1.3.2021 – διακράτηση &gt; 1 έτος: κατά κανόνα αφορολόγητο – έλεγξε</string>
+    <string name="tax_line_at_rate">Ειδικός συντελεστής 27,5 τοις εκατό: καθαρό από αποκτήσεις από 1.3.2021 + τόκοι (1.3.2021–28.2.2022: δες σημείωση)</string>
     <string name="tax_line_au_discounted">Καθαρό κεφαλαιακό κέρδος μετά από ζημίες και έκπτωση 50 τοις εκατό</string>
     <string name="tax_line_ca_taxable">Φορολογητέο κεφαλαιακό κέρδος (συντελεστής ένταξης 1/2)</string>
     <string name="tax_line_ch_income">Ανταμοιβές καταγεγραμμένες – αντιμετώπιση βλ. έγγραφο εργασίας ESTV</string>
     <string name="tax_line_ch_private">Κεφαλαιακά κέρδη ιδιωτικής περιουσίας: δεν υπολογίζονται – κατάταξη βλ. ESTV</string>
     <string name="tax_line_ch_wealth">Φόρος περιουσίας: δεν υπολογίζεται – το CSV υπολοίπου χρησιμοποιεί τιμή ανταλλακτηρίου × USD/CHF στις 31/12 – φορολογικές αξίες: κατάλογος τιμών ESTV</string>
-    <string name="tax_line_de_long">Διακράτηση &gt; 1 έτος: αφορολόγητο στη DE (§ 23 EStG)</string>
+    <string name="tax_line_de_long">Διακράτηση &gt; 1 έτος: κατά § 23 EStG κατά κανόνα αφορολόγητο – έλεγξε</string>
     <string name="tax_line_denied_loss">Μη εκπιπτόμενες ζημίες (φαινομενική ζημία / superficial loss)</string>
     <string name="tax_line_fr_outflow">Εκροές χωρίς πώληση (αναλήψεις) – συνολικό κόστος απόκτησης μειωμένο αναλογικά</string>
     <string name="tax_line_fr_rate">Κατ’ αποκοπή 12,8 τοις εκατό συν κοινωνικές εισφορές (ή κλίμακα κατ’ επιλογή)</string>
-    <string name="tax_line_fr_threshold">Εκχωρήσεις έως 305 € τον χρόνο απαλλάσσονται (σύνολο τιμών πώλησης)</string>
+    <string name="tax_line_fr_threshold">Εκχωρήσεις έως 305 € τον χρόνο: κατά κανόνα απαλλάσσονται (σύνολο τιμών πώλησης) – έλεγξε</string>
     <string name="tax_line_gains">Κέρδη</string>
     <string name="tax_line_income">Εισόδημα (ανταμοιβές στην αξία κατά την παραλαβή)</string>
     <string name="tax_line_jp_misc">Λοιπά εισοδήματα (雑所得): καθαρά κέρδη + εισόδημα</string>
@@ -121,8 +121,8 @@
     <string name="tax_line_proceeds">Έσοδα</string>
     <string name="tax_line_short_net">Καθαρό – διακράτηση ≤ 1 έτος</string>
     <string name="tax_line_transfer_fees">Χρεώσεις μεταφοράς (δικά σου πορτοφόλια)</string>
-    <string name="tax_line_uk_after_exempt">Καθαρά κέρδη πάνω από το αφορολόγητο ποσό</string>
-    <string name="tax_line_uk_exempt">Ετήσιο αφορολόγητο ποσό (Annual Exempt Amount)</string>
+    <string name="tax_line_uk_after_exempt">Καθαρά κέρδη πάνω από το αφορολόγητο ποσό (μόνο κρυπτο)</string>
+    <string name="tax_line_uk_exempt">Ετήσιο αφορολόγητο ποσό (Annual Exempt Amount) – ισχύει για όλες τις διαθέσεις μαζί, εδώ αφαιρείται ολόκληρο</string>
     <string name="tax_line_us_terms">Βραχυπρόθεσμα (≤ 1 έτος): κανονικοί συντελεστές· μακροπρόθεσμα (&gt; 1 έτος): συντελεστές κεφαλαιακών κερδών</string>
     <string name="tax_line_withdrawal_fees">Χρεώσεις ανάληψης</string>
 
@@ -144,7 +144,7 @@
     <string name="tax_de_needs_eur">απαιτεί τιμές σε EUR (λείπουν ισοτιμίες)</string>
     <string name="tax_de_needs_holding">λείπει η διάρκεια διακράτησης (μέθοδος μέσου όρου) – επίλεξε FIFO για τον έλεγχο</string>
     <string name="tax_de_private_limit">Όριο απαλλαγής ιδιωτικές πωλήσεις (§ 23 EStG)</string>
-    <string name="tax_de_reached">όριο καλύφθηκε – όλο το ποσό φορολογείται</string>
+    <string name="tax_de_reached">όριο καλύφθηκε – κατά κανόνα μετρά όλο το ποσό – έλεγξε</string>
     <string name="tax_de_short_gains">Κέρδη – διακράτηση ≤ 1 έτος</string>
     <string name="tax_de_short_losses">Ζημίες – διακράτηση ≤ 1 έτος</string>
     <string name="tax_de_unclassified">Χωρίς διάρκεια διακράτησης</string>
@@ -162,7 +162,7 @@
     <string name="tax_template_current">Πρότυπο: %1$s · Μέθοδος: %2$s · Νόμισμα: %3$s</string>
     <string name="tax_template_de">Γερμανία</string>
     <string name="tax_template_fr">Γαλλία</string>
-    <string name="tax_template_hint">Μόνο ενδεικτικά: ορίζει μέθοδο / φορολογικό έτος και σύνοψη του εγγράφου εργασίας. Οι γραμμές δείχνουν πάντα ουδέτερα στοιχεία.</string>
+    <string name="tax_template_hint">Μόνο ενδεικτικά: ορίζει μέθοδο / φορολογικό έτος και σύνοψη του εγγράφου εργασίας. Η κάρτα Χαρτοφυλακίου μένει ουδέτερη – δωρεές και τέλη μεταφοράς μπορεί να διαφέρουν από το έγγραφο εργασίας.</string>
     <string name="tax_template_jp">Ιαπωνία</string>
     <string name="tax_template_neutral">Ουδέτερο (όλες οι χώρες)</string>
     <string name="tax_template_suggestion">Πρόταση για την περιοχή σου: %1$s</string>
@@ -186,7 +186,7 @@
     <string name="tax_note_stable_swap">Μια πώληση έναντι stablecoin (USDT/USDC/DAI …) που κρατάς είναι εδώ κρύπτο έναντι κρύπτο και δεν φορολογείται – κατάγραψέ την ως ανταλλαγή στο stablecoin. Φορολογείται μόνο η πώληση έναντι ευρώ – η «Πώληση» μετρά ως πώληση έναντι ευρώ.</string>
     <string name="tax_note_transfer_fee">Το ίδιο ισχύει για χρέωση σε USDT ή μετρητά σε μεταφορά ανάμεσα στα δικά σου πορτοφόλια: δεν προστίθεται στο κόστος κτήσης και εμφανίζεται μόνο ενημερωτικά.</string>
     <string name="tax_note_uk">Αντιστοίχιση κατά HMRC: ίδια ημέρα → μετά οι επόμενες 30 ημέρες → μετά το κοινό απόθεμα κατά τη Section 104 (Section 104 pool).</string>
-    <string name="tax_note_us_transition">Μετάβαση 1.1.2025 (Rev. Proc. 2024-28, safe harbor): αν τα προηγούμενα έτη χρησιμοποιούσαν FIFO σε όλα τα πορτοφόλια, οι υπόλοιπες παρτίδες στις 31.12.2024 πηγαίνουν στα πορτοφόλια που κρατούν τα coins – το πορτοφόλι με τα παλαιότερα coins παίρνει το παλαιότερο κόστος.</string>
+    <string name="tax_note_us_transition">Μετάβαση 1.1.2025 (Rev. Proc. 2024-28, safe harbor): αν τα προηγούμενα έτη χρησιμοποιούσαν FIFO σε όλα τα πορτοφόλια, οι υπόλοιπες παρτίδες στις 31.12.2024 πηγαίνουν στα πορτοφόλια που κρατούν τα coins – το πορτοφόλι με τα παλαιότερα coins παίρνει το παλαιότερο κόστος. Αυτή η κατανομή είναι κανόνας της εφαρμογής – σύγκρινέ την με τα δικά σου αρχεία.</string>
     <string name="tax_note_us_wallet">Από το φορολογικό έτος 2025 η IRS απαιτεί κόστος κτήσης ανά πορτοφόλι/ανταλλακτήριο (Rev. Proc. 2024-28) – η εξαγωγή χρησιμοποιεί FIFO ανά πορτοφόλι από το 2025 – πριν από το 2025 ισχύει η μέθοδος κόστους κτήσης σου.</string>
     <string name="tax_note_withdrawal_fee">Μια χρέωση ανάληψης σε USDT ή μετρητά δεν είναι ζημία: σε μετρητά δεν εκπίπτει, σε USDT είναι διάθεση στο άρτιο χωρίς κέρδος – εμφανίζεται μόνο ενημερωτικά (%1$s).</string>
     <string name="tax_summary_at_interest_income">μετράει: εισόδημα κατά την παραλαβή με τον ειδικό συντελεστή 27,5 τοις εκατό (§ 27b παρ. 2 αρ. 1 EStG / BMF) – τα νομίσματα κρατούν αυτή την αξία ως κόστος κτήσης</string>

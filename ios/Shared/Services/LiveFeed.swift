@@ -15,11 +15,15 @@ struct LiveTick: Equatable, Sendable {
     var time: Int64?
 }
 
-/// Letzter bekannter Live-Stand eines Paars (Watch-Id).
+/// Letzter bekannter Live-Stand eines Paars (Watch-Id). `time` = Zeit des Takts mit diesem Kurs (Empfang bzw.
+/// Ereigniszeit, gilt als Abrufzeit). `tradeTime` = belegte Handelszeit: nur gesetzt, wenn der Strom selbst einen
+/// Kurswechsel gezeigt hat (zweiter Takt mit anderem Kurs) — der erste Takt nach dem Verbinden ist nur eine
+/// Momentaufnahme (Binance «E», Bybit/OKX «ts»), kein Handel; nil = keine Handelszeit bekannt. Wie Android.
 struct LiveQuote: Equatable, Sendable {
     var price: Double
     var change24h: Double?
     var time: Int64
+    var tradeTime: Int64? = nil
 }
 
 /// Paar der sichtbaren Merkliste, soweit der Datenstrom es braucht.
@@ -369,6 +373,15 @@ enum LiveRules {
         return existing
     }
 
+    /// Zeit laut Börse (`exchangeTime`), die ein Live-Kurs hinterlässt: die belegte Handelszeit des Stroms
+    /// (`LiveQuote.tradeTime`); ohne sie bei gleichem Kurs die bisherige (nil bleibt nil), bei anderem Kurs als dem
+    /// gespeicherten nil — gehandelt wurde dann irgendwann seit dem letzten Abruf, die alte Zeit wäre falsch.
+    /// Die Takt- bzw. Abrufzeit ist nie Börsenzeit (sie steckt in `lastUpdate`). Wie Android.
+    static func exchangeTime(_ quote: LiveQuote, storedPrice: Double?, storedExchangeTime: Int64?) -> Int64? {
+        if let trade = quote.tradeTime, trade > 0 { return trade }
+        return storedPrice == quote.price ? storedExchangeTime : nil
+    }
+
     static func isFresh(lastTickAt: Int64?, now: Int64) -> Bool {
         guard let lastTickAt, lastTickAt > 0 else { return false }
         let age = now - lastTickAt
@@ -400,14 +413,22 @@ struct LiveBuffer: Sendable {
             // mit gleichem Kurs (Binance schickt «c» jede Sekunde mit neuer Ereigniszeit «E»).
             // Sonst wirkte ein stehender Kurs frisch und «veraltet» käme nie. Wie `LiveBuffer.offer` (Android).
             let time: Int64
+            // Handelszeit nur mit einem im Strom gesehenen Kurswechsel; der erste Takt (previous nil) belegt keinen
+            // Handel — sonst sähe ein seit Stunden stehendes Buch frisch gehandelt aus («Unverändert seit» fiele weg)
+            let tradeTime: Int64?
             if let previous, tick.price == nil || tick.price == previous.price {
                 time = previous.time
-            } else if let t = tick.time, t > 0 {
-                time = t
+                tradeTime = previous.tradeTime
             } else {
-                time = now
+                if let t = tick.time, t > 0 {
+                    time = t
+                } else {
+                    time = now
+                }
+                tradeTime = previous == nil ? nil : time
             }
-            let quote = LiveQuote(price: price, change24h: tick.change24h ?? previous?.change24h, time: time)
+            let quote = LiveQuote(price: price, change24h: tick.change24h ?? previous?.change24h, time: time,
+                                  tradeTime: tradeTime)
             if quote == previous { continue }
             latest[id] = quote
             if previous == nil || previous?.price != quote.price || previous?.change24h != quote.change24h {
@@ -477,9 +498,9 @@ extension Watch {
         copy.lastPrice = quote.price
         copy.lastUpdate = max(lastUpdate, quote.time)
         copy.lastError = nil
-        // Frische wie beim Speichern (`PriceRefresher`, Live): Zeit des Stroms gilt als Börsenzeit
+        // Frische wie beim Speichern (`PriceRefresher`, Live): Börsenzeit nur als belegte Handelszeit
         if lastPrice != quote.price { copy.priceChangedAt = quote.time }
-        copy.exchangeTime = max(lastUpdate, quote.time)
+        copy.exchangeTime = LiveRules.exchangeTime(quote, storedPrice: lastPrice, storedExchangeTime: exchangeTime)
         copy.change24h = LiveRules.chooseChange(
             rollingBasis: rollingBasis, stampCurrent: true,
             exchangeRolling: LiveExchange.from(marketKey: marketKey)?.rollingChange == true,

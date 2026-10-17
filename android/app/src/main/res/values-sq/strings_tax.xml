@@ -97,18 +97,18 @@
 
     <!-- Steuer-Export: Zeilen und Spalten -->
     <string name="tax_line_at_interest">Interesa nga lending (vlera në marrje)</string>
-    <string name="tax_line_at_old_long">Fituar para 1.3.2021 – mbajtur &gt; 1 vit: nuk tatohet</string>
-    <string name="tax_line_at_rate">Normë e veçantë 27,5 përqind: neto e fituar nga 1.3.2021 + interesa</string>
+    <string name="tax_line_at_old_long">Fituar para 1.3.2021 – mbajtur &gt; 1 vit: zakonisht nuk tatohet – kontrollo</string>
+    <string name="tax_line_at_rate">Normë e veçantë 27,5 përqind: neto e fituar nga 1.3.2021 + interesa (1.3.2021–28.2.2022: shih shënimin)</string>
     <string name="tax_line_au_discounted">Fitim kapital neto pas humbjeve dhe zbritjes 50 përqind</string>
     <string name="tax_line_ca_taxable">Fitim kapital i tatueshëm (norma e përfshirjes 1/2)</string>
     <string name="tax_line_ch_income">Shpërblimet të listuara – trajtimi shih dokumentin e punës ESTV</string>
     <string name="tax_line_ch_private">Fitime kapitale në pasurinë private: të pallogaritura – klasifikimi shih ESTV</string>
     <string name="tax_line_ch_wealth">Tatimi mbi pasurinë: nuk llogaritet – CSV-ja e zotërimeve përdor çmimin e bursës × USD/CHF më 31.12 – vlerat tatimore: lista e kurseve ESTV</string>
-    <string name="tax_line_de_long">Mbajtur &gt; 1 vit: nuk tatohet në DE (§ 23 EStG)</string>
+    <string name="tax_line_de_long">Mbajtur &gt; 1 vit: sipas § 23 EStG zakonisht nuk tatohet – kontrollo</string>
     <string name="tax_line_denied_loss">Humbje të pazbritshme (humbje e dukshme / superficial loss)</string>
     <string name="tax_line_fr_outflow">Dalje pa shitje (tërheqje) – kostoja totale e blerjes e ulur në proporcion</string>
     <string name="tax_line_fr_rate">Normë fikse 12,8 përqind plus kontribute sociale (ose shkallë me zgjedhje)</string>
-    <string name="tax_line_fr_threshold">Tjetërsimet deri në 305 € në vit të përjashtuara (shuma e çmimeve të shitjes)</string>
+    <string name="tax_line_fr_threshold">Tjetërsimet deri në 305 € në vit: zakonisht të përjashtuara (shuma e çmimeve të shitjes) – kontrollo</string>
     <string name="tax_line_gains">Fitime</string>
     <string name="tax_line_income">Të ardhura (shpërblime me vlerën në marrje)</string>
     <string name="tax_line_jp_misc">Të ardhura të tjera (雑所得): fitime neto + të ardhura</string>
@@ -121,8 +121,8 @@
     <string name="tax_line_proceeds">Të ardhurat</string>
     <string name="tax_line_short_net">Neto – mbajtur ≤ 1 vit</string>
     <string name="tax_line_transfer_fees">Tarifat e transferimit (portofolet e tua)</string>
-    <string name="tax_line_uk_after_exempt">Fitime neto mbi shumën e përjashtuar</string>
-    <string name="tax_line_uk_exempt">Shuma vjetore e përjashtuar (Annual Exempt Amount)</string>
+    <string name="tax_line_uk_after_exempt">Fitime neto mbi shumën e përjashtuar (vetëm kripto)</string>
+    <string name="tax_line_uk_exempt">Shuma vjetore e përjashtuar (Annual Exempt Amount) – vlen për të gjitha tjetërsimet së bashku, këtu e zbritur plotësisht</string>
     <string name="tax_line_us_terms">Afatshkurtër (≤ 1 vit): norma të zakonshme – afatgjatë (&gt; 1 vit): norma për fitimet kapitale</string>
     <string name="tax_line_withdrawal_fees">Tarifat e tërheqjes</string>
 
@@ -144,7 +144,7 @@
     <string name="tax_de_needs_eur">kërkon vlera në EUR (mungojnë kurset e këmbimit)</string>
     <string name="tax_de_needs_holding">mungon koha e mbajtjes (metoda mesatare) – zgjidh FIFO për kontrollin</string>
     <string name="tax_de_private_limit">Pragu i përjashtimit shitje private (§ 23 EStG)</string>
-    <string name="tax_de_reached">pragu u arrit – e gjithë shuma tatohet</string>
+    <string name="tax_de_reached">pragu u arrit – zakonisht llogaritet e gjithë shuma – kontrollo</string>
     <string name="tax_de_short_gains">Fitime – mbajtur ≤ 1 vit</string>
     <string name="tax_de_short_losses">Humbje – mbajtur ≤ 1 vit</string>
     <string name="tax_de_unclassified">Pa kohë mbajtjeje</string>
@@ -162,7 +162,7 @@
     <string name="tax_template_current">Shabllon: %1$s · Metoda: %2$s · Monedha: %3$s</string>
     <string name="tax_template_de">Gjermania</string>
     <string name="tax_template_fr">Franca</string>
-    <string name="tax_template_hint">Vetëm orientuese: përcakton metodën / vitin tatimor dhe përmbledhjen e dokumentit të punës. Rreshtat tregojnë gjithmonë fakte neutrale.</string>
+    <string name="tax_template_hint">Vetëm orientuese: përcakton metodën / vitin tatimor dhe përmbledhjen e dokumentit të punës. Karta e Portofolit mbetet neutrale – dhuratat dhe tarifat e transferimit mund të ndryshojnë nga dokumenti i punës.</string>
     <string name="tax_template_jp">Japonia</string>
     <string name="tax_template_neutral">Neutral (të gjitha vendet)</string>
     <string name="tax_template_suggestion">Sugjerim për rajonin tënd: %1$s</string>
@@ -186,7 +186,7 @@
     <string name="tax_note_stable_swap">Një shitje kundrejt një stablecoin (USDT/USDC/DAI …) që e mban është këtu kripto me kripto dhe nuk tatohet – regjistroje si shkëmbim në stablecoin. Tatohet vetëm shitja kundrejt euros – «Shitje» llogaritet si shitje kundrejt euros.</string>
     <string name="tax_note_transfer_fee">E njëjta vlen për një tarifë në USDT ose para në dorë gjatë një transferimi mes portofoleve të tua: nuk i shtohet kostos dhe shfaqet vetëm si informacion.</string>
     <string name="tax_note_uk">Përputhja sipas HMRC: e njëjta ditë → pastaj 30 ditët pasuese → pastaj grup i përbashkët sipas Section 104 (Section 104 pool).</string>
-    <string name="tax_note_us_transition">Kalimi më 1.1.2025 (Rev. Proc. 2024-28, safe harbor): nëse vitet e mëparshme përdornin FIFO për të gjitha portofolet, njësitë e mbetura më 31.12.2024 shkojnë te portofolet që mbajnë monedhat – portofoli me monedhat më të vjetra merr koston më të vjetër.</string>
+    <string name="tax_note_us_transition">Kalimi më 1.1.2025 (Rev. Proc. 2024-28, safe harbor): nëse vitet e mëparshme përdornin FIFO për të gjitha portofolet, njësitë e mbetura më 31.12.2024 shkojnë te portofolet që mbajnë monedhat – portofoli me monedhat më të vjetra merr koston më të vjetër. Ky caktim është rregull i aplikacionit – krahasoje me të dhënat e tua.</string>
     <string name="tax_note_us_wallet">Nga viti tatimor 2025 IRS kërkon koston e blerjes për çdo wallet/bursë (Rev. Proc. 2024-28) – eksporti përdor FIFO për wallet nga 2025 – para 2025 vlen metoda jote e kostos së blerjes.</string>
     <string name="tax_note_withdrawal_fee">Një tarifë tërheqjeje në USDT ose para në dorë nuk është humbje: në para në dorë nuk zbritet, në USDT është tjetërsim me vlerën nominale pa fitim – shfaqet vetëm si informacion (%1$s).</string>
     <string name="tax_summary_at_interest_income">llogaritet: e ardhur në marrje me normën e veçantë 27,5 përqind (§ 27b par. 2 nr. 1 EStG / BMF) – monedhat e ruajnë këtë vlerë si kosto blerjeje</string>

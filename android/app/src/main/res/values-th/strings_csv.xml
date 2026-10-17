@@ -48,6 +48,7 @@
     <string name="portfolio_csv_skip_fee_exceeds">ค่าธรรมเนียม ≥ จำนวนที่ได้รับ</string>
     <string name="portfolio_csv_skip_internal_move">การย้ายระหว่างบัญชีของคุณเอง – ไม่มีอะไรต้องบันทึก</string>
     <string name="portfolio_csv_skip_missing">ข้อมูลไม่ครบ</string>
+    <string name="portfolio_csv_skip_ambiguous">หลายรายการในวินาทีเดียวกันที่แยกไม่ได้ – บันทึกด้วยตนเอง</string>
     <string name="portfolio_csv_skip_not_crypto">ไม่ใช่คริปโต</string>
     <string name="portfolio_csv_skip_possible_duplicate">อาจนำเข้าแล้ว (การซื้อขายเกือบเหมือนกัน) – ตรวจสอบด้วยตนเอง</string>
     <string name="portfolio_csv_skip_two_fees">ค่าธรรมเนียมสองรายการต่างหน่วย – บันทึกการแลกด้วยตนเอง</string>

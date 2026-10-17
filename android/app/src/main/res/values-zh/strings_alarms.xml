@@ -135,8 +135,8 @@
     <string name="alarm_saved_notifications_off">通知已关闭</string>
 
     <!-- Wann Alarme geprüft werden -->
-    <string name="alarm_timing_hint_android">应用关闭时，Android 的检查不规律（开启«%1$s»时约每 15 分钟一次），因此可能错过短暂的波动。</string>
-    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">应用关闭时由 iOS 决定何时检查，因此可能错过短暂的波动；应用打开时会可靠地检查。</string>
+    <string name="alarm_timing_hint_android">应用关闭时，Android 的检查不规律——即使开启«%1$s»，也常常晚于 15 分钟。可能错过短暂的波动。</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">应用关闭时，iOS 常常晚于 15 分钟才检查，有时要等到下次打开应用。可能错过短暂的波动。</string>
     <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
     <string name="alarm_timing_title">提醒何时检查</string>
     <string name="alarm_timing_where">可在 %1$s 中设置价格更新频率。</string>

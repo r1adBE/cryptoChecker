@@ -14,8 +14,9 @@ import java.math.RoundingMode
  *    gleichem Konto = ein Geschäft (Mengen je Coin zusammengezählt). Ein Coin ab, einer zu: gegen Fiat ([CsvImport.isFiat])
  *    Kauf bzw. Verkauf (Preis = Fiat-Betrag / Menge), sonst Tausch (Wert nur mit USDT-Seite, [CsvImport.stableSwapValue]).
  *    Nur ein Coin zu (Kartenkauf) bzw. nur ab: Kauf bzw. Verkauf ohne Preis. Nur Gebühr: Gebühr-Zeile (Veräusserung).
- *    Gebühren in zwei Coins → [CsvImportSkipReason.TWO_FEES]; mehrere Coins je Seite (Kleinbeträge in BNB, zwei Geschäfte
- *    in derselben Sekunde) → [CsvImportSkipReason.MISSING_FIELD] (Prüfliste, von Hand erfassen).
+ *    Gebühren in mehreren Coins: eine am Geschäft, die übrigen als eigene Gebühr-Zeilen ([CsvImport.splitFees]). Kauf und
+ *    Verkauf desselben Coins in der Sekunde mit genau zwei Coins (A → B, B → A) → zwei Geschäfte; mehrere Coins je Seite
+ *    (Kleinbeträge in BNB, zwei Geschäfte in derselben Sekunde) → [CsvImportSkipReason.AMBIGUOUS_GROUP] (Prüfliste).
  *  - «Deposit» / «Withdraw» → Einzahlung / Auszahlung (Fiat → [CsvImportSkipReason.NOT_CRYPTO]); die Auszahlung zählt
  *    brutto (Change enthält die Netzwerkgebühr), die Differenz zur Einzahlung woanders wird beim Verknüpfen die Gebühr.
  *  - Zinsen, Staking-, Launchpool-, Airdrop-, Empfehlungs- und Cashback-Gutschriften → Belohnung (nur Zugänge).
@@ -29,8 +30,8 @@ import java.math.RoundingMode
  *
  * Nie doppelt aus beiden Exporten: Schlüssel ohne Preis und mit der Kalenderzeit (UTC ohne Versatz); beide Leser fassen
  * Ausführungen je Sekunde zusammen (Transaktionsverlauf je Konto, Handelsverlauf je Paar und Seite), so ergibt dasselbe
- * Geschäft denselben Schlüssel. Kauf und Verkauf desselben Coins in einer Sekunde kann der Transaktionsverlauf nicht
- * trennen → Prüfliste. Was trotzdem nur fast gleich ist (Ausführungen über mehrere Sekunden, versetzte Zeit), hält die
+ * Geschäft denselben Schlüssel. Kauf und Verkauf desselben Coins in einer Sekunde trennt der Transaktionsverlauf nur
+ * mit genau zwei Coins, sonst Prüfliste. Was trotzdem nur fast gleich ist (Ausführungen über mehrere Sekunden, versetzte Zeit), hält die
  * Vorschau als möglichen Doppelten zurück ([possibleDuplicates]).
  */
 internal object CsvImportBinance {
@@ -150,75 +151,121 @@ internal object CsvImportBinance {
         }
     }
 
-    /** Ein Geschäft aus den Zeilen einer Gruppe (gleiche Zeit, gleiches Konto). */
+    /**
+     * Ein Geschäft aus den Zeilen einer Gruppe (gleiche Zeit, gleiches Konto). Kauf UND Verkauf desselben Coins in der
+     * Sekunde: eindeutig nur mit genau zwei Coins, die beide in beide Richtungen gehen (A → B und B → A; Gebühren nur in
+     * A oder B, je am Geschäft, das diesen Coin erhält) → zwei Geschäfte; sonst wie mehrere Coins je Seite
+     * [CsvImportSkipReason.AMBIGUOUS_GROUP] (nicht raten: Summen verschleiern, welcher Betrag zu welchem Geschäft gehört).
+     */
     private fun trade(group: List<Leg>, rows: MutableList<CsvImportRow>, skipped: MutableList<CsvImportSkip>) {
         fun skipAll(reason: CsvImportSkipReason) = group.forEach { skipped += CsvImportSkip(it.line, reason) }
-        val nets = LinkedHashMap<String, BigDecimal>()
-        val fees = LinkedHashMap<String, BigDecimal>()
-        for (leg in group) {
-            val sums = if (leg.op == Op.FEE) fees else nets
-            sums[leg.coin] = (sums[leg.coin] ?: BigDecimal.ZERO).add(leg.change)
+        val tradeLegs = group.filter { it.op == Op.TRADE }
+        val feeLegs = group.filter { it.op == Op.FEE }
+        val feeSums = LinkedHashMap<String, BigDecimal>()
+        for (leg in feeLegs) feeSums[leg.coin] = (feeSums[leg.coin] ?: BigDecimal.ZERO).add(leg.change)
+        val fees = feeSums.filterValues { it.signum() != 0 }.map { it.key to it.value.abs() }
+        val byCoin = tradeLegs.groupBy { it.coin }
+        val bothWays = byCoin.filterValues { legs -> legs.any { it.change.signum() > 0 } && legs.any { it.change.signum() < 0 } }
+        if (bothWays.isNotEmpty()) {
+            if (byCoin.size != 2 || bothWays.size != 2 || fees.any { it.first !in byCoin.keys }) {
+                return skipAll(CsvImportSkipReason.AMBIGUOUS_GROUP)
+            }
+            val (a, b) = byCoin.keys.toList()
+            for ((out, inn) in listOf(a to b, b to a)) {
+                val outLegs = byCoin.getValue(out).filter { it.change.signum() < 0 }
+                val inLegs = byCoin.getValue(inn).filter { it.change.signum() > 0 }
+                val outSum = outLegs.fold(BigDecimal.ZERO) { s, l -> s + l.change }.abs()
+                val inSum = inLegs.fold(BigDecimal.ZERO) { s, l -> s + l.change }
+                val ownFeeLegs = feeLegs.filter { it.coin == inn }
+                emit((outLegs + inLegs + ownFeeLegs).sortedBy { it.line }, out to outSum, inn to inSum,
+                    fees.filter { it.first == inn }, rows, skipped)
+            }
+            return
         }
-        // Ein Coin in derselben Sekunde gekauft UND verkauft: Summen verschleiern zwei Geschäfte, der Handelsverlauf hätte
-        // zwei Zeilen — nicht raten (sonst doppelt oder falsch), sondern prüfen lassen
-        val directions = group.filter { it.op == Op.TRADE }.groupBy { it.coin }.values.map { legs -> legs.map { it.change.signum() }.toSet() }
-        if (directions.any { 1 in it && -1 in it }) return skipAll(CsvImportSkipReason.MISSING_FIELD)
+        val nets = LinkedHashMap<String, BigDecimal>()
+        for (leg in tradeLegs) nets[leg.coin] = (nets[leg.coin] ?: BigDecimal.ZERO).add(leg.change)
         val given = nets.filterValues { it.signum() < 0 }
         val received = nets.filterValues { it.signum() > 0 }
-        val feeEntry = fees.filterValues { it.signum() != 0 }
-        if (feeEntry.size > 1) return skipAll(CsvImportSkipReason.TWO_FEES)
-        val fee = feeEntry.entries.firstOrNull()
-        val first = group.first()
-        val line = group.minOf { it.line }
+        if (given.size > 1 || received.size > 1) return skipAll(CsvImportSkipReason.AMBIGUOUS_GROUP)
+        emit(group, given.entries.firstOrNull()?.let { it.key to it.value.abs() }, received.entries.firstOrNull()?.toPair(),
+            fees, rows, skipped)
+    }
+
+    /**
+     * Zeilen eines Geschäfts aus [legs]: höchstens ein Coin ab ([given]) und einer zu ([received]), [fees] je Einheit.
+     * Gebühren in mehreren Einheiten: eine am Geschäft, die übrigen als eigene Gebühr-Zeilen ([CsvImport.splitFees]).
+     */
+    private fun emit(
+        legs: List<Leg>,
+        given: Pair<String, BigDecimal>?,
+        received: Pair<String, BigDecimal>?,
+        fees: List<Pair<String, BigDecimal>>,
+        rows: MutableList<CsvImportRow>,
+        skipped: MutableList<CsvImportSkip>,
+    ) {
+        fun skipAll(reason: CsvImportSkipReason) = legs.forEach { skipped += CsvImportSkip(it.line, reason) }
+        val first = legs.first()
+        val line = legs.minOf { it.line }
         // Art wie in der Datei: Zeile des gekauften Coins beim Kauf, sonst des abgegebenen
-        fun rawKind(coin: String) = group.first { it.op == Op.TRADE && it.coin == coin }.rawKind
-        when {
-            given.isEmpty() && received.isEmpty() -> {
-                // Nur Gebühr: Veräusserung der Gebühr-Coins zum Tageskurs
-                val f = fee ?: return skipAll(CsvImportSkipReason.BAD_NUMBER)
-                if (CsvImport.isFiat(f.key)) return skipAll(CsvImportSkipReason.NOT_CRYPTO)
-                rows += row(line, CsvImportKind.FEE, first.rawKind, f.key, f.value.abs(), null, null, null, null, first)
+        fun rawKind(coin: String) = legs.firstOrNull { it.op == Op.TRADE && it.coin == coin }?.rawKind ?: first.rawKind
+        fun feeRow(unit: String, amount: BigDecimal, at: Int) {
+            val kind = legs.firstOrNull { it.op == Op.FEE && it.coin == unit }?.rawKind ?: first.rawKind
+            rows += row(at, CsvImportKind.FEE, kind, unit, amount, null, null, null, null, first)
+        }
+        if (given == null && received == null) {
+            // Nur Gebühr: Veräusserung der Gebühr-Coins zum Tageskurs (je Einheit eine Zeile; Fiat ist kein Krypto)
+            if (fees.isEmpty()) return skipAll(CsvImportSkipReason.BAD_NUMBER)
+            if (fees.all { CsvImport.isFiat(it.first) }) return skipAll(CsvImportSkipReason.NOT_CRYPTO)
+            if (fees.size == 1) return feeRow(fees[0].first, fees[0].second, line)
+            for ((unit, amount) in fees) {
+                val own = legs.filter { it.coin == unit }
+                if (CsvImport.isFiat(unit)) own.forEach { skipped += CsvImportSkip(it.line, CsvImportSkipReason.NOT_CRYPTO) }
+                else feeRow(unit, amount, own.minOfOrNull { it.line } ?: line)
             }
-            given.size > 1 || received.size > 1 -> skipAll(CsvImportSkipReason.MISSING_FIELD)
-            given.isEmpty() || received.isEmpty() -> {
+            return
+        }
+        val split = CsvImport.splitFees(fees, given?.first, received?.first) ?: return skipAll(CsvImportSkipReason.TWO_FEES)
+        if (given != null && received != null && CsvImport.isFiat(given.first) && CsvImport.isFiat(received.first)) {
+            return skipAll(CsvImportSkipReason.NOT_CRYPTO)
+        }
+        val one = given == null || received == null
+        if (one && CsvImport.isFiat((received ?: given)!!.first)) return skipAll(CsvImportSkipReason.NOT_CRYPTO)
+        val feeAmount = split.first?.second
+        val feeUnit = split.first?.first
+        when {
+            one -> {
                 // Nur eine Seite (Kartenkauf, P2P): Kauf bzw. Verkauf ohne Preis
-                val (coin, amount) = (received.entries.firstOrNull() ?: given.entries.first()).let { it.key to it.value.abs() }
-                if (CsvImport.isFiat(coin)) return skipAll(CsvImportSkipReason.NOT_CRYPTO)
-                val kind = if (received.isNotEmpty()) CsvImportKind.BUY else CsvImportKind.SELL
-                rows += row(line, kind, rawKind(coin), coin, amount, null, null, fee?.value?.abs(), fee?.key, first)
+                val (coin, amount) = (received ?: given)!!
+                val kind = if (received != null) CsvImportKind.BUY else CsvImportKind.SELL
+                rows += row(line, kind, rawKind(coin), coin, amount, null, null, feeAmount, feeUnit, first)
             }
             else -> {
-                val out = given.entries.first()
-                val inn = received.entries.first()
-                val outAmount = out.value.abs()
-                val inAmount = inn.value
-                val feeAmount = fee?.value?.abs()
-                val feeUnit = fee?.key
-                val outFiat = CsvImport.isFiat(out.key)
-                val inFiat = CsvImport.isFiat(inn.key)
+                val (out, outAmount) = given!!
+                val (inn, inAmount) = received!!
                 when {
-                    outFiat && inFiat -> skipAll(CsvImportSkipReason.NOT_CRYPTO)
-                    outFiat -> {
+                    CsvImport.isFiat(out) -> {
                         val price = outAmount.divide(inAmount, CsvImport.DERIVED_SCALE, RoundingMode.HALF_EVEN).stripTrailingZeros()
-                        rows += row(line, CsvImportKind.BUY, rawKind(inn.key), inn.key, inAmount, price, out.key, feeAmount, feeUnit, first)
+                        rows += row(line, CsvImportKind.BUY, rawKind(inn), inn, inAmount, price, out, feeAmount, feeUnit, first)
                     }
-                    inFiat -> {
+                    CsvImport.isFiat(inn) -> {
                         val price = inAmount.divide(outAmount, CsvImport.DERIVED_SCALE, RoundingMode.HALF_EVEN).stripTrailingZeros()
-                        rows += row(line, CsvImportKind.SELL, rawKind(out.key), out.key, outAmount, price, inn.key, feeAmount, feeUnit, first)
+                        rows += row(line, CsvImportKind.SELL, rawKind(out), out, outAmount, price, inn, feeAmount, feeUnit, first)
                     }
                     else -> {
-                        val (value, valueQuote) = CsvImport.stableSwapValue(out.key, outAmount, inn.key, inAmount)
-                        rows += row(line, CsvImportKind.SWAP, rawKind(out.key), out.key, outAmount, null, valueQuote, feeAmount, feeUnit, first)
+                        val (value, valueQuote) = CsvImport.stableSwapValue(out, outAmount, inn, inAmount)
+                        rows += row(line, CsvImportKind.SWAP, rawKind(out), out, outAmount, null, valueQuote, feeAmount, feeUnit, first)
                             .copy(
-                                toCoin = inn.key,
+                                toCoin = inn,
                                 toAmount = inAmount,
                                 swapValue = value,
-                                stableSwap = CsvImport.isStable(out.key) || CsvImport.isStable(inn.key),
+                                stableSwap = CsvImport.isStable(out) || CsvImport.isStable(inn),
                             )
                     }
                 }
             }
         }
+        // Weitere Gebühren (andere Einheit): eigene Gebühr-Zeilen statt das Geschäft zu überspringen
+        for ((unit, amount) in split.second) feeRow(unit, amount, line)
     }
 
     /** Zeile mit Schlüssel ohne Preis (siehe Kopf), Zeit von [leg]. */
@@ -340,25 +387,37 @@ internal object CsvImportBinance {
                 CsvImportParser.localTime(timeText), second)
             groups.getOrPut("$second|$base|$quote|${kind.name}") { ArrayList() } += fill
         }
-        val rows = groups.values.mapNotNull { order(it, skipped) }
+        val rows = groups.values.flatMap { order(it, skipped) }
         return CsvImport.finish(CsvImportFormat.BINANCE, rows, skipped, zone, localTimes = true)
     }
 
     /**
      * Ausführungen einer Order in derselben Sekunde → ein Kauf/Verkauf mit Summen (so fasst sie auch der
      * Transaktionsverlauf zusammen: gleicher Schlüssel, nie doppelt); Preis = Quote-Summe / Menge (bei einer Ausführung
-     * der Preis der Datei). Gebühren in verschiedenen Einheiten → [CsvImportSkipReason.TWO_FEES].
+     * der Preis der Datei). Gebühren in verschiedenen Einheiten: eine am Geschäft, die übrigen als eigene Gebühr-Zeilen
+     * ([CsvImport.splitFees], gleiche Wahl wie im Transaktionsverlauf).
      */
-    private fun order(fills: List<Fill>, skipped: MutableList<CsvImportSkip>): CsvImportRow? {
+    private fun order(fills: List<Fill>, skipped: MutableList<CsvImportSkip>): List<CsvImportRow> {
         val first = fills.first()
-        val feeUnits = fills.mapNotNull { it.feeUnit }.toSet()
-        if (feeUnits.size > 1) {
+        val feeSums = LinkedHashMap<String, BigDecimal>()
+        for (f in fills) {
+            val unit = f.feeUnit ?: continue
+            val fee = f.fee ?: continue
+            feeSums[unit] = (feeSums[unit] ?: BigDecimal.ZERO) + fee
+        }
+        val buy = first.kind == CsvImportKind.BUY
+        val split = CsvImport.splitFees(
+            feeSums.map { it.key to it.value },
+            given = if (buy) first.quote else first.base,
+            received = if (buy) first.base else first.quote,
+        )
+        if (split == null) {
             fills.forEach { skipped += CsvImportSkip(it.line, CsvImportSkipReason.TWO_FEES) }
-            return null
+            return emptyList()
         }
         val amount = fills.fold(BigDecimal.ZERO) { sum, f -> sum + f.amount }
         val total = fills.fold(BigDecimal.ZERO) { sum, f -> sum + f.total }
-        val fee = fills.mapNotNull { it.fee }.takeIf { it.isNotEmpty() }?.fold(BigDecimal.ZERO) { sum, f -> sum + f }
+        val fee = split.first?.second
         val price = if (fills.size == 1) first.price
         else total.divide(amount, CsvImport.DERIVED_SCALE, RoundingMode.HALF_EVEN).stripTrailingZeros()
         val draft = CsvImportRow(
@@ -370,14 +429,33 @@ internal object CsvImportBinance {
             price = price,
             quote = first.quote,
             fee = fee,
-            feeUnit = feeUnits.firstOrNull().takeIf { fee != null },
+            feeUnit = split.first?.first.takeIf { fee != null },
             timeMillis = first.time,
             externalId = null,
             key = CsvImport.key(CsvImportFormat.BINANCE, first.kind, first.base, amount, null, first.time, null, first.local),
             localTime = first.local,
         )
         // Gegen Stablecoin oder Krypto-Coin: Tausch mit dem Quote-Betrag der Datei
-        return CsvImportParser.stableSwap(CsvImportFormat.BINANCE, draft, total) ?: draft
+        val trade = CsvImportParser.stableSwap(CsvImportFormat.BINANCE, draft, total) ?: draft
+        // Weitere Gebühren: Veräusserung zum Tageskurs (Schlüssel wie im Transaktionsverlauf)
+        val extra = split.second.map { (unit, amount) ->
+            CsvImportRow(
+                line = first.line,
+                kind = CsvImportKind.FEE,
+                rawKind = "Fee",
+                coin = unit,
+                amount = amount,
+                price = null,
+                quote = null,
+                fee = null,
+                feeUnit = null,
+                timeMillis = first.time,
+                externalId = null,
+                key = CsvImport.key(CsvImportFormat.BINANCE, CsvImportKind.FEE, unit, amount, null, first.time, null, first.local),
+                localTime = first.local,
+            )
+        }
+        return listOf(trade) + extra
     }
 
     /** Zeitraum, in dem ein Binance-Geschäft mit gleicher Art und gleichem Coin als möglicherweise dasselbe gilt. */

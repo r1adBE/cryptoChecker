@@ -141,8 +141,8 @@
     <string name="alarm_saved_notifications_off">Ειδοποιήσεις απενεργοποιημένες</string>
 
     <!-- Wann Alarme geprüft werden -->
-    <string name="alarm_timing_hint_android">Με κλειστή εφαρμογή, το Android ελέγχει ακανόνιστα (με «%1$s» περίπου κάθε 15 λεπτά), οπότε σύντομες αιχμές μπορεί να χαθούν.</string>
-    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">Με κλειστή εφαρμογή το iOS αποφασίζει πότε γίνεται έλεγχος, οπότε σύντομες αιχμές μπορεί να χαθούν· όσο είναι ανοιχτή, ο έλεγχος είναι αξιόπιστος.</string>
+    <string name="alarm_timing_hint_android">Με κλειστή εφαρμογή, το Android ελέγχει ακανόνιστα – συχνά αργότερα από 15 λεπτά, ακόμη και με «%1$s». Σύντομες αιχμές μπορεί να χαθούν.</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">Με κλειστή εφαρμογή, το iOS συχνά ελέγχει αργότερα από 15 λεπτά, μερικές φορές μόνο στο επόμενο άνοιγμα. Σύντομες αιχμές μπορεί να χαθούν.</string>
     <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
     <string name="alarm_timing_title">Πότε ελέγχονται οι συναγερμοί</string>
     <string name="alarm_timing_where">Ρύθμισε πόσο συχνά ενημερώνονται οι τιμές στο %1$s.</string>

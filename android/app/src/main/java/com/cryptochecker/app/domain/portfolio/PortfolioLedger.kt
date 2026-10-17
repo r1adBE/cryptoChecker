@@ -149,13 +149,13 @@ object PortfolioLedger {
     /**
      * (Coin, Zeit), für die [valueAtDayClose] einen Tagesschluss braucht (Coins normalisiert): Gebühr-Zeile, Damit bezahlt
      * und Verschenkt (Schenkung als Veräusserung, [TaxEngines.applyRules]) ohne Marktwert der Coin selbst, Tausch beide Coins (abgegeben
-     * zuerst, sonst erhalten).
+     * zuerst, sonst erhalten); dazu Belohnungen ohne Wert für den Steuer-Export ([valueRewardsAtDayClose]).
      */
     fun dayCloseNeeds(trades: List<PortfolioTrade>): Set<Pair<String, Long>> {
         val out = LinkedHashSet<Pair<String, Long>>()
         for (t in trades) {
             val gift = t.type == PortfolioTxType.GIFT && t.validPrice == null
-            if (t.amount.signum() <= 0 || !(needsDayClose(t) || gift)) continue
+            if (t.amount.signum() <= 0 || !(needsDayClose(t) || gift || rewardNeedsDayClose(t))) continue
             out += PortfolioCalculator.normalizeCoin(t.coin) to t.time
             t.swapToCoin?.takeIf { t.type == PortfolioTxType.SWAP }?.let { out += it to t.time }
         }
@@ -187,6 +187,26 @@ object PortfolioLedger {
                     value?.let { t.copy(swapValueUsdt = it, valueEstimated = true) } ?: t
                 }
             }
+        }
+    }
+
+    /** Belohnung ohne Wert (Kraken-/Binance-Import kennen keinen Preis), gültige Menge — für [valueRewardsAtDayClose]. */
+    fun rewardNeedsDayClose(t: PortfolioTrade): Boolean =
+        t.type == PortfolioTxType.REWARD && t.validPrice == null && t.amount.signum() > 0
+
+    /**
+     * Nur Steuer-Export ([TaxEngines.disposals], [TaxExport.incomeRows]): Belohnung ohne Wert ([rewardNeedsDayClose]) zum
+     * Tagesschluss ihres Tags [price] (> 0) — Wert je Coin = Kurs, [PortfolioTrade.valueEstimated] (Vermerk «Wert
+     * geschätzt»). So zählen die Einkünfte, und der spätere Verkauf hat einen Einstand statt «unvollständig» aus der Summe
+     * zu fallen. Ohne Kurs bleibt sie ohne Wert (Einkünfte und Verkauf «unvollständig», beides vermerkt). Karte und
+     * Wertverlauf bleiben wie oben (Einstand ohne Wert, Zufluss zum Marktkurs). Ohne solche Belohnungen dieselbe Liste.
+     */
+    fun valueRewardsAtDayClose(trades: List<PortfolioTrade>, price: ((String, Long) -> BigDecimal?)?): List<PortfolioTrade> {
+        if (price == null || trades.none(::rewardNeedsDayClose)) return trades
+        return trades.map { t ->
+            if (!rewardNeedsDayClose(t)) t
+            else price(PortfolioCalculator.normalizeCoin(t.coin), t.time)?.takeIf { it.signum() > 0 }
+                ?.let { t.copy(priceUsdt = it, valueEstimated = true) } ?: t
         }
     }
 

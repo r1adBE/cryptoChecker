@@ -52,6 +52,7 @@
     <string name="portfolio_csv_skip_fee_exceeds">Gebühr ≥ erhaltene Menge</string>
     <string name="portfolio_csv_skip_internal_move">Verschiebung zwischen deinen eigenen Konten – nichts zu buchen</string>
     <string name="portfolio_csv_skip_missing">Angabe fehlt</string>
+    <string name="portfolio_csv_skip_ambiguous">mehrere Geschäfte in derselben Sekunde, nicht eindeutig trennbar – von Hand erfassen</string>
     <string name="portfolio_csv_skip_not_crypto">kein Krypto</string>
     <string name="portfolio_csv_skip_possible_duplicate">möglicherweise schon importiert (fast gleiches Geschäft) – von Hand prüfen</string>
     <string name="portfolio_csv_skip_two_fees">zwei Gebühren in verschiedenen Einheiten – Tausch von Hand erfassen</string>

@@ -165,8 +165,8 @@
     <string name="alarm_saved_notifications_off">الإشعارات متوقفة</string>
 
     <!-- Wann Alarme geprüft werden -->
-    <string name="alarm_timing_hint_android">عند إغلاق التطبيق يفحص Android بشكل غير منتظم (كل 15 دقيقة تقريبًا مع «%1$s»)، لذا قد تفوتك القفزات القصيرة.</string>
-    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">عند إغلاق التطبيق يقرر iOS متى يتم الفحص، لذا قد تفوتك القفزات القصيرة؛ وما دام التطبيق مفتوحًا يتم الفحص بشكل موثوق.</string>
+    <string name="alarm_timing_hint_android">عند إغلاق التطبيق يفحص Android بشكل غير منتظم – غالبًا بعد أكثر من 15 دقيقة، حتى مع «%1$s». قد تفوتك القفزات القصيرة.</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">عند إغلاق التطبيق يفحص iOS غالبًا بعد أكثر من 15 دقيقة، وأحيانًا فقط عند فتحه التالي. قد تفوتك القفزات القصيرة.</string>
     <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
     <string name="alarm_timing_title">متى يتم التحقق من التنبيهات</string>
     <string name="alarm_timing_where">اضبط عدد مرات تحديث الأسعار من %1$s.</string>

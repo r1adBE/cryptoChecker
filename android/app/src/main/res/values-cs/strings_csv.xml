@@ -60,6 +60,7 @@
     <string name="portfolio_csv_skip_fee_exceeds">poplatek ≥ přijaté množství</string>
     <string name="portfolio_csv_skip_internal_move">přesun mezi vašimi vlastními účty – nic k zaúčtování</string>
     <string name="portfolio_csv_skip_missing">chybí pole</string>
+    <string name="portfolio_csv_skip_ambiguous">více obchodů ve stejné sekundě, nelze je rozlišit – zadejte je ručně</string>
     <string name="portfolio_csv_skip_not_crypto">není krypto</string>
     <string name="portfolio_csv_skip_possible_duplicate">možná už importováno (téměř stejný obchod) – zkontrolujte ručně</string>
     <string name="portfolio_csv_skip_two_fees">dva poplatky v různých jednotkách – zadejte směnu ručně</string>

@@ -17,8 +17,13 @@ import com.cryptochecker.marketdata.model.market.BinanceAlpha
  */
 data class LiveTick(val symbol: String, val price: Double?, val change24h: Double?, val time: Long?)
 
-/** Letzter bekannter Live-Stand eines Paars (Watch-Id). */
-data class LiveQuote(val price: Double, val change24h: Double?, val time: Long)
+/**
+ * Letzter bekannter Live-Stand eines Paars (Watch-Id). [time] = Zeit des Takts mit diesem Kurs (Empfang bzw.
+ * Ereigniszeit, gilt als Abrufzeit). [tradeTime] = belegte Handelszeit: nur gesetzt, wenn der Strom selbst einen
+ * Kurswechsel gezeigt hat (zweiter Takt mit anderem Kurs) — der erste Takt nach dem Verbinden ist nur eine
+ * Momentaufnahme (Binance «E», Bybit/OKX «ts»), kein Handel; null = keine Handelszeit bekannt.
+ */
+data class LiveQuote(val price: Double, val change24h: Double?, val time: Long, val tradeTime: Long? = null)
 
 /** Paar der sichtbaren Merkliste, soweit der Datenstrom es braucht. */
 data class LivePair(
@@ -302,6 +307,15 @@ object LiveRules {
         existing: Double?,
     ): Double? = if (rollingBasis && stampCurrent && exchangeRolling && live != null && live.isFinite()) live else existing
 
+    /**
+     * Zeit laut Börse (`exchangeTime`), die ein Live-Kurs hinterlässt: die belegte Handelszeit des Stroms
+     * ([LiveQuote.tradeTime]); ohne sie bei gleichem Kurs die bisherige (null bleibt null), bei anderem Kurs als
+     * dem gespeicherten null — gehandelt wurde dann irgendwann seit dem letzten Abruf, die alte Zeit wäre falsch.
+     * Die Takt- bzw. Abrufzeit ist nie Börsenzeit (sie steckt in `lastUpdate`).
+     */
+    fun exchangeTime(quote: LiveQuote, storedPrice: Double?, storedExchangeTime: Long?): Long? =
+        quote.tradeTime?.takeIf { it > 0 } ?: if (storedPrice == quote.price) storedExchangeTime else null
+
     /** Kurs vor höchstens [FRESH_MILLIS] aus dem Strom? */
     fun isFresh(lastTickAt: Long?, now: Long): Boolean =
         lastTickAt != null && lastTickAt > 0 && now - lastTickAt in 0..FRESH_MILLIS
@@ -333,15 +347,22 @@ class LiveBuffer {
             // oder Volumen geändert) behält den alten Kurs — und damit dessen Zeit. Ebenso ein Takt
             // mit gleichem Kurs (Binance schickt «c» jede Sekunde mit neuer Ereigniszeit «E»).
             // Sonst wirkte ein stehender Kurs frisch und «veraltet» käme nie.
-            val time = if (previous != null && (tick.price == null || tick.price == previous.price)) {
-                previous.time
+            // Handelszeit nur mit einem im Strom gesehenen Kurswechsel; der erste Takt (previous null) belegt keinen
+            // Handel — sonst sähe ein seit Stunden stehendes Buch frisch gehandelt aus («Unverändert seit» fiele weg)
+            val time: Long
+            val tradeTime: Long?
+            if (previous != null && (tick.price == null || tick.price == previous.price)) {
+                time = previous.time
+                tradeTime = previous.tradeTime
             } else {
-                tick.time?.takeIf { it > 0 } ?: now
+                time = tick.time?.takeIf { it > 0 } ?: now
+                tradeTime = if (previous == null) null else time
             }
             val quote = LiveQuote(
                 price = price,
                 change24h = tick.change24h ?: previous?.change24h,
                 time = time,
+                tradeTime = tradeTime,
             )
             if (quote == previous) continue
             latest[id] = quote

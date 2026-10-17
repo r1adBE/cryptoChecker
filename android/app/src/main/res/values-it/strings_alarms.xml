@@ -147,8 +147,8 @@
     <string name="alarm_saved_notifications_off">Notifiche disattivate</string>
 
     <!-- Wann Alarme geprüft werden -->
-    <string name="alarm_timing_hint_android">Con l’app chiusa, Android controlla in modo irregolare (circa ogni 15 minuti con «%1$s»), quindi brevi picchi possono sfuggire.</string>
-    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">Con l’app chiusa decide iOS quando controllare, quindi brevi picchi possono sfuggire; finché l’app è aperta il controllo è affidabile.</string>
+    <string name="alarm_timing_hint_android">Con l’app chiusa, Android controlla in modo irregolare – spesso dopo più di 15 minuti, anche con «%1$s». Brevi picchi possono sfuggire.</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">Con l’app chiusa, iOS controlla spesso dopo più di 15 minuti, a volte solo alla successiva apertura. Brevi picchi possono sfuggire.</string>
     <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
     <string name="alarm_timing_title">Quando vengono controllati gli allarmi</string>
     <string name="alarm_timing_where">Imposta la frequenza di aggiornamento dei prezzi in %1$s.</string>

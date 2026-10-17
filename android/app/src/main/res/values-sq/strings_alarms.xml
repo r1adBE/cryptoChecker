@@ -141,8 +141,8 @@
     <string name="alarm_saved_notifications_off">Njoftimet të fikura</string>
 
     <!-- Wann Alarme geprüft werden -->
-    <string name="alarm_timing_hint_android">Me aplikacionin të mbyllur, Android kontrollon në mënyrë të parregullt (me «%1$s» rreth çdo 15 minuta), ndaj kulmet e shkurtra mund të humbasin.</string>
-    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">Kur aplikacioni mbyllet, iOS vendos kur kontrollohet, ndaj kulmet e shkurtra mund të humbasin; sa është i hapur, kontrolli është i besueshëm.</string>
+    <string name="alarm_timing_hint_android">Me aplikacion të mbyllur, Android kontrollon parregullisht – shpesh më vonë se 15 minuta, edhe me «%1$s». Kulmet e shkurtra mund të humbasin.</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">Me aplikacionin të mbyllur, iOS shpesh kontrollon më vonë se 15 minuta, ndonjëherë vetëm kur e hap herën tjetër. Kulmet e shkurtra mund të humbasin.</string>
     <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
     <string name="alarm_timing_title">Kur kontrollohen alarmet</string>
     <string name="alarm_timing_where">Cakto sa shpesh përditësohen çmimet te %1$s.</string>

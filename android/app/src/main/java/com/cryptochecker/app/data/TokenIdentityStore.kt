@@ -114,6 +114,21 @@ class TokenIdentityStore @Inject constructor(
     }
 
     /**
+     * Darf die Ausweich-Reihe von [provider] die %-Veränderung des Paars [base] an [marketKey] ([marketName])
+     * liefern? Kerzen derselben Börse ([com.cryptochecker.app.domain.watch.DayChange.foreignCandleSource] null):
+     * wie [fallbackSeriesAllowed]. Kerzen einer anderen Börse oder unbekannter Anbieter: nur mit belegt gleichem
+     * Namen ([TokenIdentity.fallbackChangeAllowed]) — sonst keine Veränderung statt eines fremden Werts.
+     */
+    fun fallbackChangeAllowed(marketKey: String, marketName: String, base: String, provider: String?): Boolean {
+        val p = provider?.trim()?.takeIf { it.isNotEmpty() } ?: return false
+        if (com.cryptochecker.app.domain.watch.DayChange.foreignCandleSource(listOf(marketKey, marketName), p) == null) {
+            return fallbackSeriesAllowed(marketKey, base, p)
+        }
+        val providerName = TokenIdentity.PROVIDER_MARKETS[p]?.let { pairName(it, base) }
+        return TokenIdentity.fallbackChangeAllowed(base, pairName(marketKey, base), p, binanceName(base), providerName)
+    }
+
+    /**
      * Darf die Quelle [host] der Kerzen-Kette für [base] einspringen, wenn die eigene Seite [ownName] heisst?
      * Gleiche Namenssperre wie Mini-Chart und Widget ([TokenIdentity.chainSourceAllowed]).
      */

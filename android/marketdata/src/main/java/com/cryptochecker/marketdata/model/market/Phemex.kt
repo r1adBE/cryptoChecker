@@ -23,7 +23,7 @@ private const val PHEMEX_MD = "https://api.phemex.com/md"
 
 /**
  * Phemex Spot. Symbole beginnen mit «s» (sBTCUSDT). Die Börse liefert ganze Zahlen (Ep/Ev), die erst mit
- * [PhemexScales] zu Kursen werden: Preise (Ep) durch 10^`priceScale` des Produkts (Spot laut Public-Spot-API 8),
+ * [PhemexScales] zu Kursen werden: Preise (Ep) durch 10^`priceScale` des Produkts (ohne Angabe kein Kurs),
  * Menge (volumeEv, Basis) und Umsatz (turnoverEv, Kotierung) durch 10^`valueScale` der jeweiligen Währung aus
  * `/public/products` (meist 8; SHIB 2, VPAD 4). Doku: github.com/phemex/phemex-api-docs.
  * [PhemexFutures] bekommt Dezimaltexte (Rp) und braucht keine Faktoren.
@@ -103,7 +103,9 @@ class Phemex : PhemexBase(
         // Ohne Faktoren aus der Produktliste (oder ihrer Kopie) kein Kurs: geraten läge er Zehnerpotenzen daneben
         val scales = PhemexScales.current
         if (!scales.loaded) throw MarketParseException(PhemexScales.NOT_LOADED)
+        // Symbol ohne priceScale in der Liste (fehlt oder neu): ebenfalls kein Kurs statt geratener 10^8
         val priceDivisor = scales.priceDivisor(symbol)
+            ?: throw MarketParseException(PhemexScales.UNKNOWN_SCALE.format(symbol))
         val (baseCode, quoteCode) = scales.currencies(symbol, base, quote)
 
         val last = row.getLong("lastEp") / priceDivisor
@@ -260,7 +262,7 @@ abstract class PhemexBase(
 /**
  * Faktoren der Phemex-Spot-Produkte aus `/public/products`, geladen mit der Paarliste und im Speicher wie als Datei
  * gehalten ([store]):
- *  - [priceScale] je Symbol (Ep; ohne Angabe 8 laut Public-Spot-API),
+ *  - [priceScale] je Symbol (Ep; ohne Angabe kein Kurs — nie geraten),
  *  - [valueScale] je Währung (Ev, Liste `currencies`),
  *  - [pairs] Symbol → (Basis, Kotierung).
  * Ohne Produktliste ([loaded] false) zeigt Phemex keinen Kurs; die Sammelabfrage holt sie dann zuerst
@@ -283,8 +285,12 @@ class PhemexScales(
         return age < 0 || age >= REFRESH_MILLIS
     }
 
-    /** Teiler der Preise (Ep) von [symbol]. */
-    fun priceDivisor(symbol: String): Double = tenTo(priceScale[symbol] ?: DEFAULT_SCALE)
+    /**
+     * Teiler der Preise (Ep) von [symbol]; null, wenn die Produktliste für das Symbol keinen `priceScale` nennt
+     * (fehlt in der Liste, neu gelistet). Dann zeigt das Paar einen Fehler: 8 zu raten läge bei anderen Faktoren
+     * Zehnerpotenzen daneben.
+     */
+    fun priceDivisor(symbol: String): Double? = priceScale[symbol]?.let { tenTo(it) }
 
     /** Teiler der Werte (Ev) in [currency]: Liste, dann dokumentierte Ausnahme, sonst 8. */
     fun valueDivisor(currency: String?): Double {
@@ -354,6 +360,9 @@ class PhemexScales(
 
         /** Fehlertext, solange die Produktliste fehlt (lieber kein Kurs als ein falscher). */
         const val NOT_LOADED = "Phemex: product list not loaded yet"
+
+        /** Fehlertext für ein Symbol ohne `priceScale` in der Produktliste (%s = Symbol). */
+        const val UNKNOWN_SCALE = "Phemex: no price scale for %s in the product list"
 
         /** Fehlertext der Einzelabfrage, deren Anfrage 0 eben die fehlende Produktliste geholt hat. */
         const val JUST_LOADED = "Phemex: product list loaded, price follows with the next update"

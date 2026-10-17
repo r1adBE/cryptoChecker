@@ -135,8 +135,8 @@
     <string name="alarm_saved_notifications_off">通知オフ</string>
 
     <!-- Wann Alarme geprüft werden -->
-    <string name="alarm_timing_hint_android">アプリを閉じていると Android の確認は不定期（「%1$s」なら約15分ごと）なので、短い急変を見逃すことがあります。</string>
-    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">アプリを閉じているときは iOS が確認のタイミングを決めるため、短い急変を見逃すことがあります。開いている間は確実に確認します。</string>
+    <string name="alarm_timing_hint_android">アプリを閉じていると Android の確認は不定期で、「%1$s」でも15分より遅れることがよくあります。短い急変を見逃すことがあります。</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">アプリを閉じていると iOS の確認は15分より遅れることが多く、次に開くまで行われないこともあります。短い急変を見逃すことがあります。</string>
     <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
     <string name="alarm_timing_title">アラームが確認されるタイミング</string>
     <string name="alarm_timing_where">価格の更新頻度は %1$s で設定できます。</string>

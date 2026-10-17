@@ -56,6 +56,7 @@
     <string name="portfolio_csv_skip_fee_exceeds">frais ≥ quantité reçue</string>
     <string name="portfolio_csv_skip_internal_move">déplacement entre vos propres comptes – rien à enregistrer</string>
     <string name="portfolio_csv_skip_missing">champ manquant</string>
+    <string name="portfolio_csv_skip_ambiguous">plusieurs opérations dans la même seconde, impossibles à distinguer – les saisir à la main</string>
     <string name="portfolio_csv_skip_not_crypto">pas une crypto</string>
     <string name="portfolio_csv_skip_possible_duplicate">peut-être déjà importé (opération presque identique) – à vérifier manuellement</string>
     <string name="portfolio_csv_skip_two_fees">deux frais en unités différentes – saisir l’échange à la main</string>

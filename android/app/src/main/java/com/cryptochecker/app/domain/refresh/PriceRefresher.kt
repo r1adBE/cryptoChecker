@@ -491,6 +491,7 @@ class PriceRefresher @Inject constructor(
                     val ticker = SimpleTicker().apply {
                         last = quote.price
                         timestamp = quote.time
+                        exchangeTime = LiveRules.exchangeTime(quote, watch.lastPrice, watch.exchangeTime)
                         change24hPercent = LiveRules.chooseChange(
                             rollingBasis, stampCurrent,
                             LiveExchange.fromMarketKey(watch.marketKey)?.rollingChange == true,
@@ -555,16 +556,18 @@ class PriceRefresher @Inject constructor(
 
             val time = ticker.timestamp.takeIf { it > 0 } ?: now
             val dayChange = if (live) {
-                // Live-Wert aus dem Ticker: kein Kerzen-Hinweis
-                dayReferences.notePillSource(watch.id, null)
+                // Live-Wert aus dem Ticker: kein Kerzen-Hinweis — aber nur, wenn er die Veränderung ersetzt hat.
+                // Bleibt die bisherige ([LiveRules.chooseChange], z. B. Tages-Basis), bleibt auch ihr Anbieter:
+                // sonst stünde ein Wert aus fremden Kerzen ohne Hinweis da, als käme er von der eigenen Börse
+                if (ticker.change24hPercent != watch.change24h) dayReferences.notePillSource(watch.id, null)
                 ticker.change24hPercent
             } else {
                 dayReferences.change24h(watch, price, ticker, settings.changeBasis, dayStart)
             }
             // Frische (PriceFreshness): letzte echte Kursänderung und Zeit laut Börse (null = keine).
-            // Live: ein neuer Kurs aus dem Strom ist selbst der Beleg, seine Zeit gilt als Börsenzeit.
+            // Live: nur eine im Strom belegte Handelszeit ([LiveRules.exchangeTime], in [applyLive] gesetzt).
             val changedAt = PriceFreshness.nextPriceChangedAt(watch.lastPrice, watch.priceChangedAt, price, time)
-            val exchangeTime = if (live) time else ticker.exchangeTime
+            val exchangeTime = ticker.exchangeTime
             // Mit dem Paar, für das der Kurs geholt wurde: ist der Eintrag inzwischen ein anderes, wird nichts gespeichert
             priceWrites += PriceWrite(watch.id, price, time, dayChange, changedAt, exchangeTime, watch.pairIdentity)
             // Entspricht dem, was das UPDATE in der Datenbank setzt.

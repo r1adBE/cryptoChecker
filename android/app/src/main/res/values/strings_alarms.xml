@@ -141,8 +141,8 @@
     <string name="alarm_saved_notifications_off">Notifications off</string>
 
     <!-- Wann Alarme geprüft werden -->
-    <string name="alarm_timing_hint_android">With the app closed, Android checks irregularly (about every 15 minutes with “%1$s”), so short spikes can be missed.</string>
-    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">When the app is closed, iOS decides when to check, so short spikes can be missed; while it is open, checks are reliable.</string>
+    <string name="alarm_timing_hint_android">With the app closed, Android checks irregularly – often later than 15 minutes, even with “%1$s”. Short spikes can be missed.</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">With the app closed, iOS often checks later than 15 minutes, sometimes only when you next open the app. Short spikes can be missed.</string>
     <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
     <string name="alarm_timing_title">When alerts are checked</string>
     <string name="alarm_timing_where">Change how often prices update in %1$s.</string>

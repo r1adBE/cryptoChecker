@@ -5604,6 +5604,38 @@
         ]
       },
       {
+        "name": "[R12] within ±5 % (1.53 booked vs 1.5 on chain — fees/dust): same coins, auto «show only», never counted twice",
+        "address": 0,
+        "trades": [
+          {
+            "id": 1,
+            "coin": "ETH",
+            "type": "BUY",
+            "amount": "1.53",
+            "time": 86400000,
+            "price": "2000"
+          }
+        ],
+        "matched": [
+          "ETH"
+        ]
+      },
+      {
+        "name": "[R12] more than 5 % apart (1.6 vs 1.5) — keeps counting (soft hint only)",
+        "address": 0,
+        "trades": [
+          {
+            "id": 1,
+            "coin": "ETH",
+            "type": "BUY",
+            "amount": "1.6",
+            "time": 86400000,
+            "price": "2000"
+          }
+        ],
+        "matched": []
+      },
+      {
         "name": "same symbols, different amounts — keeps counting (soft hint only)",
         "address": 0,
         "trades": [

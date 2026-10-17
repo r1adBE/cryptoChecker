@@ -97,18 +97,18 @@
 
     <!-- Steuer-Export: Zeilen und Spalten -->
     <string name="tax_line_at_interest">Lending interest (value on receipt)</string>
-    <string name="tax_line_at_old_long">Acquired before 1 Mar 2021 – held &gt; 1 year: not taxable</string>
-    <string name="tax_line_at_rate">Special rate 27.5 percent: net acquired from 1 Mar 2021 + interest</string>
+    <string name="tax_line_at_old_long">Acquired before 1 Mar 2021 – held &gt; 1 year: usually not taxable – check</string>
+    <string name="tax_line_at_rate">Special rate 27.5 percent: net acquired from 1 Mar 2021 + interest (1 Mar 2021–28 Feb 2022: see note)</string>
     <string name="tax_line_au_discounted">Net capital gain after losses and 50 percent discount</string>
     <string name="tax_line_ca_taxable">Taxable capital gain (inclusion rate 1/2)</string>
     <string name="tax_line_ch_income">Rewards listed – see the ESTV working paper for their treatment</string>
     <string name="tax_line_ch_private">Capital gains on private assets: not calculated – see ESTV for classification</string>
     <string name="tax_line_ch_wealth">Wealth tax: not calculated – holdings CSV uses exchange price × USD/CHF on 31 Dec – official tax values: ESTV price list</string>
-    <string name="tax_line_de_long">Held &gt; 1 year: not taxable in DE (§ 23 EStG)</string>
+    <string name="tax_line_de_long">Held &gt; 1 year: usually not taxable under § 23 EStG – check</string>
     <string name="tax_line_denied_loss">Disallowed losses (superficial loss)</string>
     <string name="tax_line_fr_outflow">Outflows without sale (withdrawals) – total acquisition cost reduced proportionally</string>
     <string name="tax_line_fr_rate">Flat rate 12.8 percent plus social contributions (or scale on option)</string>
-    <string name="tax_line_fr_threshold">Disposals up to €305 a year exempt (total of sale prices)</string>
+    <string name="tax_line_fr_threshold">Disposals up to €305 a year: generally exempt (total of sale prices) – check</string>
     <string name="tax_line_gains">Gains</string>
     <string name="tax_line_income">Income (rewards at value on receipt)</string>
     <string name="tax_line_jp_misc">Miscellaneous income (雑所得): net gains + income</string>
@@ -121,8 +121,8 @@
     <string name="tax_line_proceeds">Proceeds</string>
     <string name="tax_line_short_net">Net – held ≤ 1 year</string>
     <string name="tax_line_transfer_fees">Transfer fees (own wallets)</string>
-    <string name="tax_line_uk_after_exempt">Net gains above the exempt amount</string>
-    <string name="tax_line_uk_exempt">Annual exempt amount</string>
+    <string name="tax_line_uk_after_exempt">Net gains above the exempt amount (crypto only)</string>
+    <string name="tax_line_uk_exempt">Annual exempt amount – applies to all disposals together, fully applied here</string>
     <string name="tax_line_us_terms">Short-term (≤ 1 year): ordinary rates – long-term (&gt; 1 year): capital gains rates</string>
     <string name="tax_line_withdrawal_fees">Withdrawal fees</string>
 
@@ -144,7 +144,7 @@
     <string name="tax_de_needs_eur">needs EUR values (exchange rates missing)</string>
     <string name="tax_de_needs_holding">holding period missing (average method) – choose FIFO for the check</string>
     <string name="tax_de_private_limit">Exemption limit for private sales (§ 23 EStG)</string>
-    <string name="tax_de_reached">limit reached – the whole amount is taxable</string>
+    <string name="tax_de_reached">limit reached – the whole amount usually counts – check</string>
     <string name="tax_de_short_gains">Gains – held ≤ 1 year</string>
     <string name="tax_de_short_losses">Losses – held ≤ 1 year</string>
     <string name="tax_de_unclassified">Holding period unknown</string>
@@ -162,7 +162,7 @@
     <string name="tax_template_current">Template: %1$s · Method: %2$s · Currency: %3$s</string>
     <string name="tax_template_de">Germany</string>
     <string name="tax_template_fr">France</string>
-    <string name="tax_template_hint">For guidance only: sets the method, tax year and summary of the tax worksheet. Rows always show neutral facts.</string>
+    <string name="tax_template_hint">For guidance only: sets the method, tax year and summary of the tax worksheet. The Portfolio card stays neutral – gifts and transfer fees can differ from the worksheet.</string>
     <string name="tax_template_jp">Japan</string>
     <string name="tax_template_neutral">Neutral (all countries)</string>
     <string name="tax_template_suggestion">Suggestion for your region: %1$s</string>
@@ -186,7 +186,7 @@
     <string name="tax_note_stable_swap">Selling crypto for a stablecoin (USDT/USDC/DAI …) that you keep is crypto-to-crypto here and not taxed – record it as a swap into the stablecoin. Only a sale for euros is taxed – “Sell” counts as a sale for euros.</string>
     <string name="tax_note_transfer_fee">The same applies to a USDT or cash fee on a transfer between your own wallets: it is not added to the cost basis and is listed as information only.</string>
     <string name="tax_note_uk">Matching per HMRC: same day → next 30 days → Section 104 pool.</string>
-    <string name="tax_note_us_transition">Transition 1 Jan 2025 (Rev. Proc. 2024-28 safe harbor): if earlier years used FIFO across all wallets, the remaining lots as of 31 Dec 2024 go to the wallets holding the coins – the wallet with the oldest coins gets the oldest cost basis.</string>
+    <string name="tax_note_us_transition">Transition 1 Jan 2025 (Rev. Proc. 2024-28 safe harbor): if earlier years used FIFO across all wallets, the remaining lots as of 31 Dec 2024 go to the wallets holding the coins – the wallet with the oldest coins gets the oldest cost basis. This allocation is an app rule – check it against your own records.</string>
     <string name="tax_note_us_wallet">From tax year 2025 the IRS requires cost basis per wallet or exchange (Rev. Proc. 2024-28): the export uses FIFO per wallet from 2025 and your cost method for earlier years.</string>
     <string name="tax_note_withdrawal_fee">A withdrawal fee in USDT or cash is not a loss: a cash fee is not a deductible cost, a USDT fee is a disposal at par without gain – it is listed as information only (%1$s).</string>
     <string name="tax_summary_at_interest_income">counts: income on receipt at the special rate of 27.5 percent (§ 27b(2) no. 1 EStG / BMF) – the coins keep this value as acquisition cost</string>

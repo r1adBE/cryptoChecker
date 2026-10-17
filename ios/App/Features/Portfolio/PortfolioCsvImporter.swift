@@ -156,6 +156,7 @@ enum PortfolioCsvImporter {
         case .TWO_FEES: return "portfolio_csv_skip_two_fees"
         case .INTERNAL_MOVE: return "portfolio_csv_skip_internal_move"
         case .POSSIBLE_DUPLICATE: return "portfolio_csv_skip_possible_duplicate"
+        case .AMBIGUOUS_GROUP: return "portfolio_csv_skip_ambiguous"
         }
     }
 }

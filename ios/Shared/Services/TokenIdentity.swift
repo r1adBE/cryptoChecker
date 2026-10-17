@@ -180,6 +180,20 @@ enum TokenIdentity {
         return compatible(symbol: symbol, ownName, providerName)
     }
 
+    /// Darf die Reihe der Ausweich-Kette von `provider` (eine ANDERE Börse) die %-Veränderung des Paars liefern?
+    /// Strenger als `fallbackSeriesAllowed`: Kurs des Paars gegen die Eröffnung einer fremden Reihe ist nur
+    /// sinnvoll, wenn es belegt derselbe Token ist — Kürzel + Kursband (±25 %) allein liessen einen anderen Token
+    /// oder eine fremde Prämie als Veränderung durch (bis gut 20 Punkte daneben). Verlangt also den eigenen Namen
+    /// und einen gleichen Namen (`.medium`) beim Anbieter (`providerName`, sonst `binanceName`). Unbekannt →
+    /// false: lieber «—» als ein geratener Wert. Wie `TokenIdentity.fallbackChangeAllowed` (Android).
+    static func fallbackChangeAllowed(symbol: String, ownName: String?, provider: String?, binanceName: String?,
+                                      providerName: String? = nil) -> Bool {
+        guard let provider, !provider.trimmingCharacters(in: .whitespaces).isEmpty else { return false }
+        guard fallbackSeriesAllowed(symbol: symbol, ownName: ownName, provider: provider, binanceName: binanceName,
+                                    providerName: providerName) else { return false }
+        return matchNames(symbol: symbol, ownName, providerName ?? binanceName) == .medium
+    }
+
     /// Darf die Quelle `host` der Kerzen-Kette (Aktionsblatt-Chart, Volumen-Reihe) für `symbol` einspringen?
     /// Gleiche Regel wie `fallbackSeriesAllowed` mit dem Anbieter des Hosts (`DataFreshness.candleProvider`):
     /// Widerspricht der eigene Name `ownName` dem Binance-Namen, fällt die ganze Kette aus (auch Binance.US,

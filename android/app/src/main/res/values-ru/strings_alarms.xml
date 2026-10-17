@@ -153,8 +153,8 @@
     <string name="alarm_saved_notifications_off">Уведомления выключены</string>
 
     <!-- Wann Alarme geprüft werden -->
-    <string name="alarm_timing_hint_android">При закрытом приложении Android проверяет нерегулярно (с «%1$s» примерно каждые 15 минут), поэтому короткие скачки можно пропустить.</string>
-    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">При закрытом приложении iOS решает, когда проверять, поэтому короткие скачки можно пропустить; пока приложение открыто, проверка надёжна.</string>
+    <string name="alarm_timing_hint_android">При закрытом приложении Android проверяет нерегулярно – часто реже чем раз в 15 минут, даже с «%1$s». Короткие скачки можно пропустить.</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">При закрытом приложении iOS часто проверяет позже чем через 15 минут, иногда только при следующем открытии. Короткие скачки можно пропустить.</string>
     <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
     <string name="alarm_timing_title">Когда проверяются оповещения</string>
     <string name="alarm_timing_where">Как часто обновлять курсы, можно настроить в разделе %1$s.</string>

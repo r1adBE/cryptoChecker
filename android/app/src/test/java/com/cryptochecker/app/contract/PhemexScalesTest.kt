@@ -9,15 +9,16 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 /**
- * Phemex-Faktoren aus `/public/products` ([PhemexScales]): Preis (Ep) je Produkt, Werte (Ev) je Währung, Standard 8
- * nur ohne Angabe. Gegenstück: `Tests/PhemexScalesTests.swift`.
+ * Phemex-Faktoren aus `/public/products` ([PhemexScales]): Preis (Ep) je Produkt (ohne Angabe kein Kurs), Werte (Ev)
+ * je Währung, Standard 8 nur ohne Angabe. Gegenstück: `Tests/PhemexScalesTests.swift`.
  */
 class PhemexScalesTest {
 
     private val data = JSONObject(
         """{"currencies":[{"currency":"BTC","valueScale":8},{"currency":"SHIB","valueScale":2},{"currency":"VPAD","valueScale":4},
         {"currency":"USDT","valueScale":8},{"currency":"NEW","valueScale":6}],
-        "products":[{"symbol":"sBTCUSDT","type":"Spot","baseCurrency":"BTC","quoteCurrency":"USDT"},
+        "products":[{"symbol":"sBTCUSDT","type":"Spot","baseCurrency":"BTC","quoteCurrency":"USDT","priceScale":8},
+        {"symbol":"sNOSCALEUSDT","type":"Spot","baseCurrency":"NOSCALE","quoteCurrency":"USDT"},
         {"symbol":"sNEWUSDT","type":"Spot","baseCurrency":"NEW","quoteCurrency":"USDT","priceScale":6},
         {"symbol":"BTCUSD","type":"Perpetual","priceScale":4,"baseCurrency":"BTC","quoteCurrency":"USD"}]}""",
     )
@@ -25,10 +26,12 @@ class PhemexScalesTest {
     @Test
     fun scalesFromProducts() {
         val s = PhemexScales.parse(data)
-        // Spot ohne priceScale: 8 (Public-Spot-API), mit Angabe die Angabe; Kontrakte zählen nicht
-        assertEquals(1e8, s.priceDivisor("sBTCUSDT"), 0.0)
-        assertEquals(1e6, s.priceDivisor("sNEWUSDT"), 0.0)
-        assertEquals(1e8, s.priceDivisor("BTCUSD"), 0.0)
+        // Preis je Produkt aus der Angabe; Spot ohne priceScale, fremdes Symbol und Kontrakte: kein Teiler (nie 8 geraten)
+        assertEquals(1e8, s.priceDivisor("sBTCUSDT")!!, 0.0)
+        assertEquals(1e6, s.priceDivisor("sNEWUSDT")!!, 0.0)
+        assertNull(s.priceDivisor("sNOSCALEUSDT"))
+        assertNull(s.priceDivisor("sMISSINGUSDT"))
+        assertNull(s.priceDivisor("BTCUSD"))
         // Werte je Währung: SHIB 2, VPAD 4, NEW 6 aus der Liste
         assertEquals(1e2, s.valueDivisor("SHIB"), 0.0)
         assertEquals(1e4, s.valueDivisor("VPAD"), 0.0)
@@ -40,8 +43,8 @@ class PhemexScalesTest {
     @Test
     fun fallbackWithoutProductList() {
         val s = PhemexScales()
-        // Ohne Produktliste: 10^8, nur die dokumentierten Ausnahmen (SHIB 2, VPAD 4)
-        assertEquals(1e8, s.priceDivisor("sSHIBUSDT"), 0.0)
+        // Ohne Produktliste: kein Preisteiler; Werte 10^8, nur die dokumentierten Ausnahmen (SHIB 2, VPAD 4)
+        assertNull(s.priceDivisor("sSHIBUSDT"))
         assertEquals(1e2, s.valueDivisor("SHIB"), 0.0)
         assertEquals(1e4, s.valueDivisor("vpad"), 0.0)
         assertEquals(1e8, s.valueDivisor("ETH"), 0.0)
@@ -79,7 +82,7 @@ class PhemexScalesTest {
             PhemexScales.store = PhemexScales.FileStore(file)
             val restored = PhemexScales.current
             assertTrue(restored.loaded)
-            assertEquals(1e6, restored.priceDivisor("sNEWUSDT"), 0.0)
+            assertEquals(1e6, restored.priceDivisor("sNEWUSDT")!!, 0.0)
             assertEquals(1e2, restored.valueDivisor("SHIB"), 0.0)
             assertEquals("NEW" to "USDT", restored.currencies("sNEWUSDT", null, null))
             // Kaputte oder fremde Datei: nichts geladen
@@ -156,5 +159,33 @@ class PhemexScalesTest {
         // Inaktiv (0/null) still weg; fehlendes Feld bleibt ein Fehler
         assertEquals(setOf("sBTCUSDT"), parsed.tickers.keys)
         assertEquals(setOf("sBADUSDT"), parsed.failed)
+    }
+
+    @Test
+    fun symbolWithoutPriceScaleIsAnErrorNotAGuess() {
+        val market = com.cryptochecker.marketdata.model.market.Phemex()
+        try {
+            PhemexScales.store = null
+            PhemexScales.current = PhemexScales.parse(data)
+            // Sammelabfrage: fremdes oder skalenloses Symbol landet in «failed», statt durch 10^8 geteilt zu werden
+            // (zwei lesbare Zeilen, sonst gälte die Antwort als Formatfehler: mehr unlesbare als lesbare)
+            val body = """{"result":[{"symbol":"sBTCUSDT","lastEp":6200010000000},{"symbol":"sNEWUSDT","lastEp":1500000},
+                {"symbol":"sMISSINGUSDT","lastEp":123456},{"symbol":"sNOSCALEUSDT","lastEp":123456}]}"""
+            val parsed = market.parseBulkTickersDetailed(0, body)
+            assertEquals(setOf("sBTCUSDT", "sNEWUSDT"), parsed.tickers.keys)
+            assertEquals(setOf("sMISSINGUSDT", "sNOSCALEUSDT"), parsed.failed)
+            // Einzelabfrage: Fehler mit Symbol
+            val info = com.cryptochecker.marketdata.model.PairQuery(
+                "MISSING", "USDT", "sMISSINGUSDT", com.cryptochecker.marketdata.model.FuturesContractType.NONE,
+            )
+            val single = """{"error":null,"id":0,"result":{"lastEp":123456,"symbol":"sMISSINGUSDT"}}"""
+            val err = assertThrows(Exception::class.java) {
+                market.readTicker(0, single, com.cryptochecker.marketdata.model.SimpleTicker(), info)
+            }
+            assertEquals(PhemexScales.UNKNOWN_SCALE.format("sMISSINGUSDT"), err.message)
+        } finally {
+            PhemexScales.store = null
+            PhemexScales.current = PhemexScales.parse(data)
+        }
     }
 }

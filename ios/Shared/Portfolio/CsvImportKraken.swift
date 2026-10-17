@@ -7,7 +7,8 @@ import Foundation
 ///  - type «trade», «spend», «receive»: zwei Zeilen mit gleicher refid = ein Geschäft. Krypto (auch Stablecoin) gegen
 ///    Fiat (`CsvImport.fiat`) → Kauf bzw. Verkauf (Preis = Fiat-Betrag / Menge, ohne Gebühr); Krypto gegen Krypto →
 ///    Tausch, auch gegen Stablecoins (`CsvImport.stables`; Wert nur mit USDT-Seite = USDT-Menge, sonst unbekannt).
-///    Gebühren wie `CsvImport.swapFee`; zwei in verschiedenen Einheiten → `.TWO_FEES`. Fiat gegen Fiat → `.NOT_CRYPTO`.
+///    Gebühren gleicher Einheit zusammen; verschiedene → eine am Geschäft, die andere eigene Gebühr-Zeile («refid/fee»,
+///    `CsvImport.splitFees`). Fiat gegen Fiat → `.NOT_CRYPTO`.
 ///  - «deposit» / «withdrawal» (Krypto, auch Stablecoins) → Einzahlung / Auszahlung; Fiat → `.NOT_CRYPTO`.
 ///  - «staking», oder «earn» mit subtype «reward» → Belohnung (nur Zugänge).
 ///  - Umbuchungen zwischen Kraken-Konten, Margin, Rollover, Anpassungen → `.UNSUPPORTED_KIND`; ebenso Spot ↔ Staking als
@@ -186,11 +187,19 @@ enum CsvImportKraken {
         }
         let out = given[0]
         let inn = received[0]
-        guard let fees = CsvImport.swapFee(givenFee: out.fee, givenUnit: out.fee == nil ? nil : out.asset,
-                                           receivedFee: inn.fee, receivedUnit: inn.fee == nil ? nil : inn.asset) else {
+        // Gebühren beider Seiten: gleiche Einheit zusammen; verschiedene → eine am Geschäft, die andere eigene Gebühr-Zeile
+        var feeList: [(unit: String, amount: Decimal)] = []
+        if let a = out.fee, let b = inn.fee, out.asset == inn.asset {
+            feeList = [(unit: out.asset, amount: a + b)]
+        } else {
+            if let a = out.fee { feeList.append((unit: out.asset, amount: a)) }
+            if let b = inn.fee { feeList.append((unit: inn.asset, amount: b)) }
+        }
+        guard let split = CsvImport.splitFees(feeList, given: out.asset, received: inn.asset) else {
             for leg in group { skipped.append(CsvImportSkip(line: leg.line, reason: .TWO_FEES)) }
             return
         }
+        let fees: (fee: Decimal?, unit: String?) = (split.primary?.amount, split.primary?.unit)
         let line: Int = min(out.line, inn.line)
         let outAmount: Decimal = -out.signed
         let inAmount: Decimal = inn.signed
@@ -218,6 +227,13 @@ enum CsvImportKraken {
             r.swapValue = value.value
             r.stableSwap = CsvImport.isStable(out.asset) || CsvImport.isStable(inn.asset)
             rows.append(r)
+        }
+        // Weitere Gebühr (andere Einheit): eigene Gebühr-Zeile nach dem Geschäft, eigene Kennung (die refid trägt das Geschäft)
+        if !(isMoney(out.asset) && isMoney(inn.asset)) {
+            for extra in split.extra {
+                let leg = extra.unit == out.asset ? out : inn
+                rows.append(row(line, .FEE, rawKind(leg), extra.unit, extra.amount, nil, nil, nil, nil, leg.time, refid + "/fee"))
+            }
         }
     }
 

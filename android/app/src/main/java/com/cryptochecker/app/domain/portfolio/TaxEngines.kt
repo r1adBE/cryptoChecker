@@ -326,7 +326,8 @@ object TaxEngines {
         /** US-Übergang ([TaxTemplate.walletFrom]): mit [TaxMethod.FIFO_WALLET] universell bis vor diesen Tag; sonst null. */
         walletFrom: LocalDate? = null,
     ): List<PortfolioDisposal> {
-        val input = applyRules(trades, rules, priceAt)
+        // Belohnungen ohne Wert zum Tagesschluss (Einstand statt unbekannt, [PortfolioLedger.valueRewardsAtDayClose])
+        val input = applyRules(PortfolioLedger.valueRewardsAtDayClose(trades, priceAt), rules, priceAt)
         val rows = method.costMethod?.let {
             val valued = PortfolioLedger.valueAtDayClose(input, priceAt)
             if (walletFrom != null && it == CostMethod.FIFO_WALLET) usTransition(valued, walletFrom, zone)
@@ -513,7 +514,7 @@ object TaxEngines {
     /** [TaxMethod.FR_PTA]: Abgänge ohne Verkauf mit Kürzung der Erwerbspreis-Summe, zeitlich; sonst leer. */
     fun outflows(trades: List<PortfolioTrade>, method: TaxMethod, priceAt: ((String, Long) -> BigDecimal?)? = null): List<TaxOutflow> =
         if (method != TaxMethod.FR_PTA) emptyList()
-        else run(applyRules(trades, TaxEventRules.of(method), priceAt), method, ZoneId.of("UTC"), priceAt).outflows
+        else run(applyRules(PortfolioLedger.valueRewardsAtDayClose(trades, priceAt), TaxEventRules.of(method), priceAt), method, ZoneId.of("UTC"), priceAt).outflows
 
     /** Ergebnis einer Rechnung: Veräusserungen, vermerkter Gebühr-Einstand, nicht zugeordnete Gebühren, FR-Abgänge ohne Verkauf. */
     private class TaxRun(

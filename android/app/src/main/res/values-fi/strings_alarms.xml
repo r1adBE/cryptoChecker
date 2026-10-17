@@ -141,8 +141,8 @@
     <string name="alarm_saved_notifications_off">Ilmoitukset pois</string>
 
     <!-- Wann Alarme geprüft werden -->
-    <string name="alarm_timing_hint_android">Sovellus suljettuna Android tarkistaa epäsäännöllisesti («%1$s»: noin 15 min välein), joten lyhyet piikit voivat jäädä huomaamatta.</string>
-    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">Suljettuna iOS päättää, milloin tarkistetaan, joten lyhyet piikit voivat jäädä huomaamatta; sovelluksen ollessa auki tarkistus on luotettava.</string>
+    <string name="alarm_timing_hint_android">Sovellus suljettuna Android tarkistaa epäsäännöllisesti – usein yli 15 min välein, myös asetuksella «%1$s». Lyhyet piikit voivat jäädä huomaamatta.</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">Sovellus suljettuna iOS tarkistaa usein yli 15 minuutin välein, joskus vasta seuraavalla avauskerralla. Lyhyet piikit voivat jäädä huomaamatta.</string>
     <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
     <string name="alarm_timing_title">Milloin hälytykset tarkistetaan</string>
     <string name="alarm_timing_where">Valitse hintojen päivitystiheys kohdassa %1$s.</string>

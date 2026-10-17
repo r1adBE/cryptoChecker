@@ -97,18 +97,18 @@
 
     <!-- Steuer-Export: Zeilen und Spalten -->
     <string name="tax_line_at_interest">Lãi cho vay (giá trị lúc nhận)</string>
-    <string name="tax_line_at_old_long">Mua trước 1.3.2021 – nắm giữ &gt; 1 năm: không chịu thuế</string>
-    <string name="tax_line_at_rate">Thuế suất đặc biệt 27,5 phần trăm: ròng của phần mua từ 1.3.2021 + lãi</string>
+    <string name="tax_line_at_old_long">Mua trước 1.3.2021 – nắm giữ &gt; 1 năm: thường không chịu thuế – hãy kiểm tra</string>
+    <string name="tax_line_at_rate">Thuế suất đặc biệt 27,5 phần trăm: ròng của phần mua từ 1.3.2021 + lãi (1.3.2021–28.2.2022: xem ghi chú)</string>
     <string name="tax_line_au_discounted">Lãi vốn ròng sau lỗ và giảm 50 phần trăm</string>
     <string name="tax_line_ca_taxable">Lãi vốn chịu thuế (tỷ lệ tính 1/2)</string>
     <string name="tax_line_ch_income">Đã liệt kê phần thưởng – cách xử lý xem tài liệu làm việc của ESTV</string>
     <string name="tax_line_ch_private">Lãi vốn trong tài sản cá nhân: chưa tính – phân loại xem ESTV</string>
     <string name="tax_line_ch_wealth">Thuế tài sản: không tính – CSV số nắm giữ dùng giá sàn × USD/CHF ngày 31/12 – giá trị tính thuế: bảng giá ESTV</string>
-    <string name="tax_line_de_long">Nắm giữ &gt; 1 năm: không chịu thuế tại DE (§ 23 EStG)</string>
+    <string name="tax_line_de_long">Nắm giữ &gt; 1 năm: theo § 23 EStG thường không chịu thuế – hãy kiểm tra</string>
     <string name="tax_line_denied_loss">Khoản lỗ không được khấu trừ (lỗ bề ngoài / superficial loss)</string>
     <string name="tax_line_fr_outflow">Rút ra không bán (lệnh rút) – tổng giá mua giảm theo tỷ lệ</string>
     <string name="tax_line_fr_rate">Thuế suất cố định 12,8 phần trăm cộng các khoản đóng góp xã hội (hoặc biểu lũy tiến nếu chọn)</string>
-    <string name="tax_line_fr_threshold">Chuyển nhượng tới 305 € mỗi năm được miễn (tổng giá bán)</string>
+    <string name="tax_line_fr_threshold">Chuyển nhượng tới 305 € mỗi năm: thường được miễn (tổng giá bán) – hãy kiểm tra</string>
     <string name="tax_line_gains">Lãi</string>
     <string name="tax_line_income">Thu nhập (phần thưởng theo giá trị lúc nhận)</string>
     <string name="tax_line_jp_misc">Thu nhập khác (雑所得): lãi ròng + thu nhập</string>
@@ -121,8 +121,8 @@
     <string name="tax_line_proceeds">Số tiền thu</string>
     <string name="tax_line_short_net">Ròng – nắm giữ ≤ 1 năm</string>
     <string name="tax_line_transfer_fees">Phí chuyển (ví của bạn)</string>
-    <string name="tax_line_uk_after_exempt">Lãi ròng vượt mức miễn thuế</string>
-    <string name="tax_line_uk_exempt">Mức miễn thuế hằng năm (Annual Exempt Amount)</string>
+    <string name="tax_line_uk_after_exempt">Lãi ròng vượt mức miễn thuế (chỉ tiền mã hóa)</string>
+    <string name="tax_line_uk_exempt">Mức miễn thuế hằng năm (Annual Exempt Amount) – áp dụng chung cho mọi lần chuyển nhượng, ở đây trừ toàn bộ</string>
     <string name="tax_line_us_terms">Ngắn hạn (≤ 1 năm): thuế suất thông thường – dài hạn (&gt; 1 năm): thuế suất lãi vốn</string>
     <string name="tax_line_withdrawal_fees">Phí rút</string>
 
@@ -144,7 +144,7 @@
     <string name="tax_de_needs_eur">cần giá trị EUR (thiếu tỷ giá)</string>
     <string name="tax_de_needs_holding">thiếu thời gian nắm giữ (phương pháp trung bình) – hãy chọn FIFO để kiểm tra</string>
     <string name="tax_de_private_limit">Ngưỡng miễn thuế bán cá nhân (§ 23 EStG)</string>
-    <string name="tax_de_reached">đạt ngưỡng – toàn bộ số tiền chịu thuế</string>
+    <string name="tax_de_reached">đạt ngưỡng – thường tính toàn bộ số tiền – hãy kiểm tra</string>
     <string name="tax_de_short_gains">Lãi – nắm giữ ≤ 1 năm</string>
     <string name="tax_de_short_losses">Lỗ – nắm giữ ≤ 1 năm</string>
     <string name="tax_de_unclassified">Không có thời gian nắm giữ</string>
@@ -162,7 +162,7 @@
     <string name="tax_template_current">Mẫu: %1$s · Phương pháp: %2$s · Tiền tệ: %3$s</string>
     <string name="tax_template_de">Đức</string>
     <string name="tax_template_fr">Pháp</string>
-    <string name="tax_template_hint">Chỉ để tham khảo: xác định phương pháp / năm tính thuế và phần tổng hợp của tài liệu làm việc. Các dòng luôn hiển thị dữ kiện trung lập.</string>
+    <string name="tax_template_hint">Chỉ để tham khảo: xác định phương pháp / năm tính thuế và phần tổng hợp của tài liệu làm việc. Thẻ Danh mục vẫn trung lập – quà tặng và phí chuyển có thể khác với tài liệu làm việc.</string>
     <string name="tax_template_jp">Nhật Bản</string>
     <string name="tax_template_neutral">Trung lập (mọi quốc gia)</string>
     <string name="tax_template_suggestion">Gợi ý cho khu vực của bạn: %1$s</string>
@@ -186,7 +186,7 @@
     <string name="tax_note_stable_swap">Bán lấy stablecoin (USDT/USDC/DAI …) mà bạn giữ lại ở đây là crypto đổi crypto và không chịu thuế – hãy ghi nhận là hoán đổi sang stablecoin. Chỉ bán lấy euro mới chịu thuế – «Bán» được tính là bán lấy euro.</string>
     <string name="tax_note_transfer_fee">Điều tương tự áp dụng cho phí bằng USDT hoặc tiền mặt khi chuyển giữa các ví của bạn: phí không cộng vào giá vốn và chỉ hiển thị để tham khảo.</string>
     <string name="tax_note_uk">Đối chiếu theo HMRC: cùng ngày → rồi 30 ngày tiếp theo → rồi nhóm chung theo Section 104 (Section 104 pool).</string>
-    <string name="tax_note_us_transition">Chuyển tiếp 1.1.2025 (Rev. Proc. 2024-28, safe harbor): nếu các năm trước dùng FIFO trên mọi ví, các lô còn lại tại 31.12.2024 chuyển sang các ví đang giữ coin – ví có coin cũ nhất nhận giá vốn cũ nhất.</string>
+    <string name="tax_note_us_transition">Chuyển tiếp 1.1.2025 (Rev. Proc. 2024-28, safe harbor): nếu các năm trước dùng FIFO trên mọi ví, các lô còn lại tại 31.12.2024 chuyển sang các ví đang giữ coin – ví có coin cũ nhất nhận giá vốn cũ nhất. Cách phân bổ này là quy tắc của ứng dụng – hãy đối chiếu với hồ sơ của bạn.</string>
     <string name="tax_note_us_wallet">Từ năm thuế 2025 IRS yêu cầu giá vốn theo từng ví/sàn (Rev. Proc. 2024-28) – bản xuất dùng FIFO theo từng ví từ 2025 – trước 2025 áp dụng phương pháp tính giá vốn của bạn.</string>
     <string name="tax_note_withdrawal_fee">Phí rút bằng USDT hoặc tiền mặt không phải là lỗ: phí tiền mặt không được khấu trừ, phí USDT là chuyển nhượng theo mệnh giá không có lãi – chỉ hiển thị để tham khảo (%1$s).</string>
     <string name="tax_summary_at_interest_income">được tính: thu nhập lúc nhận với thuế suất đặc biệt 27,5 phần trăm (§ 27b khoản 2 số 1 EStG / BMF) – coin giữ giá trị này làm giá mua</string>

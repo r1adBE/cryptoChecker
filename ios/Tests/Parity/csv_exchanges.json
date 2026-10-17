@@ -172,6 +172,42 @@
      "stableSwap": true
     },
     {
+     "line": 33,
+     "kind": "SWAP",
+     "rawKind": "Transaction Spend",
+     "coin": "USDT",
+     "amount": "50",
+     "price": null,
+     "quote": "USDT",
+     "fee": null,
+     "feeUnit": null,
+     "time": "2024-01-19T12:00:00Z",
+     "externalId": null,
+     "key": "BINANCE|SWAP|USDT|L1705665600000|50|-",
+     "toCoin": "BTC",
+     "toAmount": "0.001",
+     "swapValue": "50",
+     "stableSwap": true
+    },
+    {
+     "line": 35,
+     "kind": "SWAP",
+     "rawKind": "Transaction Sold",
+     "coin": "BTC",
+     "amount": "0.001",
+     "price": null,
+     "quote": "USDT",
+     "fee": null,
+     "feeUnit": null,
+     "time": "2024-01-19T12:00:00Z",
+     "externalId": null,
+     "key": "BINANCE|SWAP|BTC|L1705665600000|0.001|-",
+     "toCoin": "USDT",
+     "toAmount": "50.1",
+     "swapValue": "50.1",
+     "stableSwap": true
+    },
+    {
      "line": 37,
      "kind": "SWAP",
      "rawKind": "Transaction Spend",
@@ -188,6 +224,38 @@
      "toAmount": "0.3",
      "swapValue": "30",
      "stableSwap": true
+    },
+    {
+     "line": 39,
+     "kind": "SWAP",
+     "rawKind": "Transaction Spend",
+     "coin": "USDT",
+     "amount": "100",
+     "price": null,
+     "quote": "USDT",
+     "fee": "0.000001",
+     "feeUnit": "BTC",
+     "time": "2024-01-21T09:00:00Z",
+     "externalId": null,
+     "key": "BINANCE|SWAP|USDT|L1705827600000|100|-",
+     "toCoin": "BTC",
+     "toAmount": "0.002",
+     "swapValue": "100",
+     "stableSwap": true
+    },
+    {
+     "line": 39,
+     "kind": "FEE",
+     "rawKind": "Transaction Fee",
+     "coin": "BNB",
+     "amount": "0.0001",
+     "price": null,
+     "quote": null,
+     "fee": null,
+     "feeUnit": null,
+     "time": "2024-01-21T09:00:00Z",
+     "externalId": null,
+     "key": "BINANCE|FEE|BNB|L1705827600000|0.0001|-"
     }
    ],
    "skipped": [
@@ -209,31 +277,15 @@
     },
     {
      "line": 21,
-     "reason": "MISSING_FIELD"
+     "reason": "AMBIGUOUS_GROUP"
     },
     {
      "line": 22,
-     "reason": "MISSING_FIELD"
+     "reason": "AMBIGUOUS_GROUP"
     },
     {
      "line": 23,
-     "reason": "MISSING_FIELD"
-    },
-    {
-     "line": 33,
-     "reason": "MISSING_FIELD"
-    },
-    {
-     "line": 34,
-     "reason": "MISSING_FIELD"
-    },
-    {
-     "line": 35,
-     "reason": "MISSING_FIELD"
-    },
-    {
-     "line": 36,
-     "reason": "MISSING_FIELD"
+     "reason": "AMBIGUOUS_GROUP"
     }
    ]
   },
@@ -379,6 +431,38 @@
      "toCoin": "FDUSD",
      "toAmount": "43",
      "stableSwap": true
+    },
+    {
+     "line": 13,
+     "kind": "SWAP",
+     "rawKind": "BUY",
+     "coin": "USDT",
+     "amount": "46",
+     "price": null,
+     "quote": "USDT",
+     "fee": "0.00001",
+     "feeUnit": "ETH",
+     "time": "2024-02-04T10:00:00Z",
+     "externalId": null,
+     "key": "BINANCE|SWAP|USDT|L1707040800000|46|-",
+     "toCoin": "ETH",
+     "toAmount": "0.02",
+     "swapValue": "46",
+     "stableSwap": true
+    },
+    {
+     "line": 13,
+     "kind": "FEE",
+     "rawKind": "Fee",
+     "coin": "BNB",
+     "amount": "0.00002",
+     "price": null,
+     "quote": null,
+     "fee": null,
+     "feeUnit": null,
+     "time": "2024-02-04T10:00:00Z",
+     "externalId": null,
+     "key": "BINANCE|FEE|BNB|L1707040800000|0.00002|-"
     }
    ],
    "skipped": [
@@ -825,6 +909,15 @@
      "feeUnit": null,
      "feeCoin": null,
      "feeCoinAmount": null
+    },
+    {
+     "line": 39,
+     "type": "SWAP",
+     "priceUsdt": null,
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": "BTC",
+     "feeCoinAmount": "0.000001"
     }
    ]
   },
@@ -891,35 +984,37 @@
   }
  ],
  "sharedKeys": {
-  "_comment": "dasselbe Geschäft im Transaktions- und im Handelsverlauf: gleicher Schlüssel, auch bei mehreren Ausführungen in derselben Sekunde (Zeilen 27–32 bzw. 8–9)",
+  "_comment": "dasselbe Geschäft im Transaktions- und im Handelsverlauf: gleicher Schlüssel, auch bei mehreren Ausführungen in derselben Sekunde (Zeilen 27–32 bzw. 8–9) und bei Kauf und Verkauf desselben Coins in derselben Sekunde (Zeilen 33–36 bzw. 10–11, zwei Geschäfte)",
   "ledger": "synthetic_binance_transaction_history.csv",
   "trades": "synthetic_binance_trade_history.csv",
   "shared": [
    "BINANCE|SWAP|USDT|L1704542400000|200|-",
    "BINANCE|SELL|ETH|L1705042800000|0.02|-",
-   "BINANCE|SWAP|USDT|L1705572000000|150|-"
+   "BINANCE|SWAP|USDT|L1705572000000|150|-",
+   "BINANCE|SWAP|USDT|L1705665600000|50|-",
+   "BINANCE|SWAP|BTC|L1705665600000|0.001|-"
   ]
  },
- "_bothExportsComment": "Beide Binance-Exporte nacheinander importiert (in beiden Reihenfolgen): nie doppelt. Genau gleiche Geschäfte sind Doppelte, fast gleiche (um 1 s versetzt) gehen als POSSIBLE_DUPLICATE in die Prüfliste; Kauf und Verkauf desselben Coins in einer Sekunde lässt der Transaktionsverlauf prüfen (MISSING_FIELD) und der Handelsverlauf zählt sie einmal.",
+ "_bothExportsComment": "Beide Binance-Exporte nacheinander importiert (in beiden Reihenfolgen): nie doppelt. Genau gleiche Geschäfte sind Doppelte, fast gleiche (um 1 s versetzt) gehen als POSSIBLE_DUPLICATE in die Prüfliste; Kauf und Verkauf desselben Coins in einer Sekunde trennt der Transaktionsverlauf (genau zwei Coins) in zwei Geschäfte mit denselben Schlüsseln wie der Handelsverlauf. Zweite Gebühr in anderer Einheit = eigene Gebühr-Zeile (FEE).",
  "bothExports": [
   {
    "first": "synthetic_binance_transaction_history.csv",
    "second": "synthetic_binance_trade_history.csv",
-   "duplicates": 3,
+   "duplicates": 5,
    "possibleDuplicates": [
     12
    ],
    "transactions": [
-    10,
-    11,
     5,
-    6
+    6,
+    13,
+    13
    ]
   },
   {
    "first": "synthetic_binance_trade_history.csv",
    "second": "synthetic_binance_transaction_history.csv",
-   "duplicates": 3,
+   "duplicates": 5,
    "possibleDuplicates": [
     37
    ],
@@ -931,7 +1026,9 @@
     16,
     24,
     25,
-    26
+    26,
+    39,
+    39
    ]
   }
  ]

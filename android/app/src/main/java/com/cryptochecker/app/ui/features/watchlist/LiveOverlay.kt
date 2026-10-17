@@ -30,9 +30,9 @@ internal object LiveOverlay {
             lastPrice = quote.price,
             lastUpdate = maxOf(watch.lastUpdate, quote.time),
             lastError = null,
-            // Frische wie beim Speichern (PriceRefresher.applyLive): Zeit des Stroms gilt als Börsenzeit
+            // Frische wie beim Speichern (PriceRefresher.applyLive): Börsenzeit nur als belegte Handelszeit
             priceChangedAt = if (watch.lastPrice != quote.price) quote.time else watch.priceChangedAt,
-            exchangeTime = maxOf(watch.lastUpdate, quote.time),
+            exchangeTime = LiveRules.exchangeTime(quote, watch.lastPrice, watch.exchangeTime),
             change24h = LiveRules.chooseChange(
                 rollingBasis = rollingBasis,
                 stampCurrent = true,

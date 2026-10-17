@@ -48,6 +48,7 @@
     <string name="portfolio_csv_skip_fee_exceeds">biaya ≥ jumlah diterima</string>
     <string name="portfolio_csv_skip_internal_move">perpindahan antar akunmu sendiri – tidak ada yang dicatat</string>
     <string name="portfolio_csv_skip_missing">kolom hilang</string>
+    <string name="portfolio_csv_skip_ambiguous">beberapa transaksi di detik yang sama yang tak bisa dipisahkan – catat secara manual</string>
     <string name="portfolio_csv_skip_not_crypto">bukan kripto</string>
     <string name="portfolio_csv_skip_possible_duplicate">mungkin sudah diimpor (transaksi hampir sama) – periksa secara manual</string>
     <string name="portfolio_csv_skip_two_fees">dua biaya dalam satuan berbeda – catat penukaran secara manual</string>
