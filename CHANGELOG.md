@@ -1,5 +1,10 @@
 # Changelog
 
+## 16.2.2 (build 64)
+
+* iOS: first GitHub build found a compile error in the Kraken CSV reader – a local constant was named `internal`, a
+  reserved word in Swift. Renamed (`stakingIndices`); no behaviour change.
+
 ## 16.2.2 (build 63)
 
 * UI tests: the fixed test passphrase and the backup field tags are named so the upload script's secret scan no

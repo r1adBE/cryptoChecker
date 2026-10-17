@@ -117,9 +117,9 @@ enum CsvImportKraken {
         var rows: [CsvImportRow] = []
         var tradeOrder: [String] = []
         var trades: [String: [Leg]] = [:]
-        let internal = stakingMoves(legs)
+        let stakingIndices = stakingMoves(legs)
         for (i, leg) in legs.enumerated() {
-            if internal.contains(i) {
+            if stakingIndices.contains(i) {
                 // Spot ↔ Staking: bleibt im selben Bestand
                 skipped.append(CsvImportSkip(line: leg.line, reason: .UNSUPPORTED_KIND))
                 continue
