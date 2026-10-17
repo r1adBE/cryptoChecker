@@ -1,6 +1,6 @@
 # Screenshot-Kit für Google Play und App Store
 
-Version 16.2.2 (Build 67). Dieses Kit enthält alles, um die Store-Screenshots in allen Sprachen gleich aussehen zu lassen:
+Version 16.2.2 (Build 68). Dieses Kit enthält alles, um die Store-Screenshots in allen Sprachen gleich aussehen zu lassen:
 
 | Datei | Zweck |
 |---|---|
