@@ -172,6 +172,25 @@ final class CryptoCheckerUITests: XCTestCase {
             // Ein zweiter Tipp, falls der erste noch in eine Scroll-Bewegung fiel
             if row.exists && row.isHittable { row.tap() }
         }
+        if !app.tagged(UiTestTags.settingsBackup).isHittable {
+            // Diagnose: lässt sich das Portfolio überhaupt verlassen? Erst Merkliste, dann Einstellungen
+            let before = app.navigationBars.allElementsBoundByIndex.map(\.identifier)
+            tap(app, UiTestTags.tabWatchlist)
+            let afterWatchlist = app.navigationBars.allElementsBoundByIndex.map(\.identifier)
+            let watchRowVisible = app.tagged(UiTestTags.watchRow).waitForExistence(timeout: 3)
+            tap(app, UiTestTags.tabSettings)
+            let afterSettings = app.navigationBars.allElementsBoundByIndex.map(\.identifier)
+            let backupRow = app.tagged(UiTestTags.settingsBackup)
+            if backupRow.waitForExistence(timeout: 4) {
+                var s2 = 0
+                while !backupRow.isHittable && s2 < 6 { app.swipeUp(); s2 += 1 }
+                backupRow.tap()
+            }
+            print("UITEST-DIAG before=\(before) afterWatchlist=\(afterWatchlist) watchRow=\(watchRowVisible) afterSettings=\(afterSettings)")
+            if !app.tagged(UiTestTags.backupExport).waitForExistence(timeout: 6) {
+                XCTFail("tab switch from Portfolio: before=\(before) afterWatchlist=\(afterWatchlist) watchRow=\(watchRowVisible) afterSettings=\(afterSettings)")
+            }
+        }
         if !app.tagged(UiTestTags.backupExport).waitForExistence(timeout: uiTimeout) {
             // Hinweis für die CI-Meldung: was ist stattdessen zu sehen? (Kennungen und Titel, gekürzt)
             let ids = app.descendants(matching: .any).allElementsBoundByIndex.prefix(400)
