@@ -13,6 +13,8 @@ Eighteenth review and the last red iOS UI test.
 * iOS tab bar: the selected tab has the same 64 × 32 pill as Android.
 * iOS: the widget's daily price file is also in the backup-exclusion repair at start.
 * Docs: backup passwords need at least 12 characters everywhere (SECURITY, README, test plan).
+* Docs: Portfolio switch path is Settings › Advanced › Portfolio everywhere; Android README version line 70; market count
+  «40 markets on 32 exchanges plus DexScreener».
 * iOS UI test: the Backup row is scrolled clear of the tab bar before it is tapped – the CI screen recording showed
   the tap landing on the Portfolio tab behind it.
 
@@ -1621,7 +1623,7 @@ with every delivered state.
 * 15 new exchanges: WOO X (spot, futures), Deribit (futures), Phemex (spot,
   futures), Poloniex, One Trading, Upbit, Bithumb, bitFlyer, BtcTurk, Bitso,
   Indodax, ZebPay, Independent Reserve, LATOKEN, NonKYC.
-* Now 41 markets on 32 exchanges plus DexScreener.
+* Now 40 markets on 32 exchanges plus DexScreener.
 * Combined pair lists (LATOKEN, Independent Reserve) parsed in one request.
 * Swift versions of all adapters for the iOS app.
 

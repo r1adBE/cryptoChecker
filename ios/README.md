@@ -375,7 +375,7 @@ Davor:
   (Build 44), je Tick wird nur die betroffene Zeile neu
   gezeichnet (`App/Services/LivePriceStream.swift`, `Shared/Services/LiveFeed.swift`).
 - **4 Tabs**: Merkliste · Markt · Portfolio (optional; bei Neuinstallation seit Build 44 aus, unter Einstellungen ›
-  Allgemein › Portfolio einschaltbar) · Einstellungen; «Paar hinzufügen» über «+»
+  Erweitert › Portfolio einschaltbar) · Einstellungen; «Paar hinzufügen» über «+»
   in der Merkliste. **Kein Willkommensdialog** mehr – direkt die Startauswahl; «Was die App kann»
   unter Einstellungen › Über die App.
 - **Alarm-Editor als Satz** («Wenn BTC über … geht», «Einmal / Jedes Mal», «Erweitert») mit
@@ -404,7 +404,7 @@ Frühere Runden:
 
 - **Theme «Marrs Green»** (#4BACA5) als fünfte Akzentfarbe mit alternativem App-Icon
   (`AppIconMarrsGreen`) und Logo; die Einstellung heisst jetzt **Theme** (vorher «Farbe»).
-- **15 neue Börsen** (41 Märkte, 32 Börsen), **Notiz pro Coin**, **Alarmton** zur Auswahl,
+- **15 neue Börsen** (40 Märkte auf 32 Börsen plus DexScreener), **Notiz pro Coin**, **Alarmton** zur Auswahl,
   **Netzwerkgebühren** (Ethereum, L2s, Bitcoin) mit Gas-Alarm im Markt-Tab.
 - **Zyklus-Vergleich** mit Doppel-Top/-Bottom (`Shared/Insights/CycleExtremes.swift`).
 - **«≈ Umrechnung»** in der Merkliste und **Alarme in deiner Währung** (31 Währungen, Standard nach
