@@ -15,7 +15,7 @@ Riad Work (r1AD) — riad.work@outlook.com
 * applicationId: `com.cryptochecker.app`
 * Module: `marketdata` (Börsen-Bibliothek), `app` (die App)
 * Pakete: `com.cryptochecker.marketdata`, `com.cryptochecker.app`
-* Version: **16.2.2** (versionCode 52 – wird mit jedem Stand um eins erhöht)
+* Version: **16.2.2** (versionCode 70 – wird mit jedem Stand um eins erhöht)
 * Quellcode: <https://github.com/r1adBE/cryptoChecker> (öffentlich, MIT; dieser Ordner = `android/`)
 
 ## Neu in 16.2.2
@@ -411,7 +411,7 @@ Riad Work (r1AD) — riad.work@outlook.com
   in der Status-Pille nur, wenn alle sichtbaren gehandelten Paare live und frisch sind (Build 44), Schalter unter Einstellungen › Erweitert › Aktualisierung
   (`domain/live/LiveFeed.kt`, `data/live/LivePriceStream.kt`, siehe `DEVELOPMENT.md`).
 * **4 Tabs** — Merkliste · Markt · Portfolio (optional; bei Neuinstallation seit Build 44 aus, unter Einstellungen ›
-  Allgemein › Portfolio einschaltbar) · Einstellungen; «Paar
+  Erweitert › Portfolio einschaltbar) · Einstellungen; «Paar
   hinzufügen» öffnet sich über «+» in der Merkliste, kein eigener Such-Tab mehr.
 * **Kein Willkommensdialog** — eine Neuinstallation zeigt direkt die Startauswahl;
   «Was die App kann» steht unter Einstellungen › Über.
@@ -472,7 +472,7 @@ Riad Work (r1AD) — riad.work@outlook.com
 * **Zahl am App-Symbol** (Einstellungen › Alarme, ab Werk an): jede Alarm- und
   Marktmeldung zählt 1; ob Zahl oder Punkt, entscheidet der Startbildschirm
   (Samsung «Mit Zahl», Pixel nur Punkt). Kurs- und Dienst-Mitteilung zählen nie.
-* **Portfolio** — eigener Tab (unter Einstellungen › Allgemein › Portfolio ein- und ausschaltbar; bei
+* **Portfolio** — eigener Tab (unter Einstellungen › Erweitert › Portfolio ein- und ausschaltbar; bei
   Neuinstallation seit Build 44 aus, bestehende Installationen behalten ihn): Käufe und
   Verkäufe mit Datum und Preis, Durchschnittspreis, Gewinn/Verlust, Summe in
   USDT plus Umrechnung in eine wählbare Währung (31 Währungen; Standard
