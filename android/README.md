@@ -59,7 +59,7 @@ Riad Work (r1AD) — riad.work@outlook.com
   Zeile (nur die Alarmglocke, und nur mit aktivem Alarm; Herkunft von Änderung/Mini-Chart steht im Aktionsblatt);
   Gesamtkarte mit Hinweisen im Block «Hinweise» darunter und ruhigerem Verlauf; Aktionsblatt öffnet halb hoch;
   Sortierpfeile 11 sp mit 48-dp-Tippfläche; leere Alarmliste mit Beispielsatz. Sicherung: unverschlüsselte Datei
-  warnt beim Einspielen und kann die Portfolio-Sperre nicht ausschalten; neue Passwörter mindestens 10 Zeichen,
+  warnt beim Einspielen und kann die Portfolio-Sperre nicht ausschalten; neue Passwörter mindestens 12 Zeichen,
   leicht zu erratende gesperrt (ältere Dateien bleiben lesbar); Wiederherstellen aus der Systemsicherung zählt
   ungültige Einträge und meldet sie einmal (`PortfolioRestoreNoticeDialog.kt`).
 * **Build 44 – ehrliche Frische, eigene Kerzen** — «Live» in der Status-Pille nur, wenn alle sichtbaren gehandelten
@@ -306,7 +306,7 @@ Riad Work (r1AD) — riad.work@outlook.com
   Marktpreis des Portfolios (`PortfolioPriceSource.cached`), ohne ihn seit Build 45 kein ≈-Wert, ohne neue Abfrage. Präfix «1000» bewusst
   unverändert (1000SATS = 1000 × SATS, 1000CAT = 1000 × Simon's Cat; Parity-Fälle). Sicherung: neue Dateien mit
   PBKDF2-HMAC-SHA256 und 600 000 Durchläufen (bisher 210 000), ältere bleiben lesbar («iter» aus der Datei);
-  seit Build 45 neue Passwörter mindestens 10 Zeichen, schwache (nur Ziffern, Wiederholung, häufige Folge) gesperrt,
+  seit Build 45 neue Passwörter mindestens 10, seit Build 69 12 Zeichen, schwache (nur Ziffern, Wiederholung, häufige Folge) gesperrt,
   ältere Dateien bleiben lesbar (`BackupCrypto.ITERATIONS`, `MIN_PASSWORD_LENGTH`, `isWeak`).
 
 * **Suche nach Coin-Namen** — Hinweis «Paar, Name oder Börse suchen» bei «Paar hinzufügen», in der

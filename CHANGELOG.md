@@ -1,5 +1,15 @@
 # Changelog
 
+## 16.2.2 (build 70)
+
+Eighteenth review and the last red iOS UI test.
+
+* Right-to-left languages: the drop-down arrows in the alarm editor (above/below) and the group picker of «Add pair»
+  point down instead of up (own arrow that is not mirrored).
+* Docs: backup passwords need at least 12 characters everywhere (SECURITY, README, test plan).
+* iOS UI test: the Backup row is scrolled clear of the tab bar before it is tapped – the CI screen recording showed
+  the tap landing on the Portfolio tab behind it.
+
 ## 16.2.2 (build 69)
 
 Fixes from the seventeenth review and first green CI runs.
