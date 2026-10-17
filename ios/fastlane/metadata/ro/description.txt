@@ -1,4 +1,4 @@
-O alarmă când Bitcoin atinge prețul tău – de la bursa pe care o folosești cu adevărat. Prețul bursei tale, nu o medie – gratuit, fără cont.
+O alarmă când Bitcoin atinge prețul tău – de la bursa pe care o folosești cu adevărat. Gratuit, fără cont.
 
 CE O FACE DIFERITĂ
 • Bursa ta, nu o medie: fiecare rând arată ultimul preț al perechii pe bursa pe care ai ales-o – Binance, Coinbase, Kraken, OKX, Bybit și multe altele.
@@ -18,13 +18,12 @@ LISTA DE URMĂRIRE
 • A doua linie „≈ valoare” într-una din 31 de monede (EUR, CHF, USD …), convertită la cursul valutar
 • Minigrafic și variație în % pe 24 h sau de la 00:00 în fusul tău orar
 • Grupuri, favorite, sortare prin tragere și o notă pentru fiecare monedă
-• Rândurile arată „învechit” sau „bursă indisponibilă”
 
 ALARME
 • Preț peste sau sub un nivel, creștere sau scădere cu un procent – și în moneda ta, ex. 60.000 EUR pe o pereche USDT
 • Mișcare de x % într-un interval, vârf de volum
 • Notificare urgentă, sunet de alarmă la alegere, citire cu voce opțională
-• Ore de liniște și „Testează alarma”: auzi dinainte cum sosește o alarmă
+• Ore de liniște și „Testează alarma”
 
 PIAȚĂ
 • Activitate neobișnuită: mișcări atipice de preț și volum în lista ta, opțional cu notificare
@@ -33,7 +32,7 @@ PIAȚĂ
 
 ÎN PLUS
 • Widgeturi pentru ecranul principal și ecranul de blocare, Activitate live pentru o monedă
-• Portofoliu opțional (se activează din Setări): cumpărări, vânzări, swapuri, transferuri, recompense, depuneri și retrageri; FIFO (implicit) sau medie (Ø); adrese doar pentru citire, fără seed, pentru BTC (inclusiv xpub), ETH și rețele EVM, SOL, TRX, XRP, LTC și TON; import CSV din Relai, Swissquote și Kraken; sinteză anuală în CSV; blocare proprie
+• Portofoliu opțional (se activează din Setări): cumpărări, vânzări, swapuri, transferuri, recompense, depuneri și retrageri; FIFO (implicit) sau medie (Ø); adrese doar pentru citire, fără seed, pentru BTC (inclusiv xpub), ETH și rețele EVM, SOL, TRX, XRP, LTC și TON; import CSV din Relai, Swissquote, Bitpanda, Kraken, Binance și Coinbase; sinteză anuală în CSV; blocare proprie. Bitpanda și Swissquote nu au un flux public de prețuri, deci nici preț live – tranzacțiile lor intră prin import CSV.
 • Lizibil pentru toți: verde/roșu sau albastru/portocaliu, semn și săgeată în loc de doar culoare, Dynamic Type; VoiceOver citește fiecare rând ca o propoziție
 • Backup și restaurare prin aplicația Fișiere
 • Mod luminos și întunecat, cinci culori de accent, 31 de limbi

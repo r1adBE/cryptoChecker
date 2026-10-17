@@ -1,4 +1,4 @@
-Alarm, gdy Bitcoin osiągnie Twoją cenę – z giełdy, której naprawdę używasz. Cena Twojej giełdy, nie średnia – za darmo, bez konta.
+Alarm, gdy Bitcoin osiągnie Twoją cenę – z giełdy, której naprawdę używasz. Za darmo, bez konta.
 
 CO JĄ WYRÓŻNIA
 • Twoja giełda, nie średnia: każdy wiersz pokazuje ostatnią cenę pary na wybranej giełdzie – Binance, Coinbase, Kraken, OKX, Bybit i wiele innych.
@@ -24,7 +24,7 @@ ALARMY
 • Cena powyżej lub poniżej poziomu albo wzrost lub spadek o procent – także w Twojej walucie, np. 60 000 EUR na parze USDT
 • Ruch o x % w oknie czasowym, skok wolumenu
 • Pilne powiadomienie, wybór dźwięku alarmu, opcjonalne odczytanie na głos
-• Godziny ciszy i „Testuj alarm”: usłysz wcześniej, jak dociera alarm
+• Godziny ciszy i „Testuj alarm”
 
 RYNEK
 • Nietypowa aktywność: nietypowe ruchy ceny i wolumenu na Twojej liście, opcjonalnie z powiadomieniem
@@ -33,7 +33,7 @@ RYNEK
 
 PONADTO
 • Widżety na ekran początkowy i blokady, Live Activity dla jednej monety
-• Portfel opcjonalnie (włączany w Ustawieniach): zakupy, sprzedaże, swapy, transfery, nagrody, wpłaty i wypłaty; FIFO (domyślnie) lub średnia (Ø); adresy tylko do odczytu, bez seeda, dla BTC (też xpub), ETH i sieci EVM, SOL, TRX, XRP, LTC i TON; import CSV z Relai, Swissquote i Kraken; podsumowanie roczne w CSV; osobna blokada
+• Portfel opcjonalnie (włączany w Ustawieniach): zakupy, sprzedaże, swapy, transfery, nagrody, wpłaty i wypłaty; FIFO (domyślnie) lub średnia (Ø); adresy tylko do odczytu, bez seeda, dla BTC (też xpub), ETH i sieci EVM, SOL, TRX, XRP, LTC i TON; import CSV z Relai, Swissquote, Bitpanda, Kraken, Binance i Coinbase; podsumowanie roczne w CSV; osobna blokada. Bitpanda i Swissquote nie mają publicznego źródła cen, więc nie pokazują ceny na żywo – ich transakcje trafiają przez import CSV.
 • Czytelna dla wszystkich: zielony/czerwony lub niebieski/pomarańczowy, znak i strzałka zamiast samego koloru, Dynamic Type; VoiceOver czyta każdy wiersz jako jedno zdanie
 • Kopia zapasowa i przywracanie przez aplikację Pliki
 • Tryb jasny i ciemny, pięć kolorów akcentu, 31 języków

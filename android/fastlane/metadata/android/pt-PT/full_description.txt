@@ -1,4 +1,4 @@
-Um alarme quando a Bitcoin atingir o seu preço – da exchange que realmente usa. O preço da sua exchange, não uma média – grátis, sem conta.
+Um alarme quando a Bitcoin atingir o seu preço – da exchange que realmente usa. Grátis, sem conta.
 
 O QUE A TORNA DIFERENTE
 • A sua exchange, não uma média: cada linha mostra o último preço do par na exchange que escolheu – Binance, Coinbase, Kraken, OKX, Bybit e muitas mais.
@@ -18,13 +18,12 @@ LISTA
 • Segunda linha «≈ valor» numa de 31 moedas (EUR, CHF, USD …), convertida à taxa de câmbio
 • Minigráfico e variação em % em 24 h ou desde as 00:00 no seu fuso horário
 • Grupos, favoritos, ordenação por arrastar e uma nota por moeda
-• As linhas indicam «desatualizado» ou «exchange inacessível»
 
 ALARMES
 • Preço acima ou abaixo de um nível, ou subida ou descida numa percentagem – também na sua moeda, p. ex. 60 000 EUR num par USDT
 • Movimento de x % numa janela de tempo, pico de volume
 • Som (incluindo um ficheiro de áudio seu), vibração e anúncio por voz opcional
-• Horas de silêncio e «Testar alarme»: ouça antes como chega um alarme
+• Horas de silêncio e «Testar alarme»
 
 MERCADO
 • Atividade invulgar: movimentos de preço e volume invulgares na sua lista, com notificação opcional
@@ -33,7 +32,7 @@ MERCADO
 
 E AINDA
 • Widgets: lista, valor total do portefólio, uma moeda com gráfico
-• Portefólio opcional (ative nas definições): compras, vendas, swaps, transferências, recompensas, depósitos e levantamentos; FIFO (predefinido) ou média (Ø); endereços só de leitura, sem seed, para BTC (incl. xpub), ETH e redes EVM, SOL, TRX, XRP, LTC e TON; importação CSV da Relai, da Swissquote e da Kraken; resumo anual em CSV; bloqueio próprio
+• Portefólio opcional (ative nas definições): compras, vendas, swaps, transferências, recompensas, depósitos e levantamentos; FIFO (predefinido) ou média (Ø); endereços só de leitura, sem seed, para BTC (incl. xpub), ETH e redes EVM, SOL, TRX, XRP, LTC e TON; importação CSV da Relai, Swissquote, Bitpanda, Kraken, Binance e Coinbase; resumo anual em CSV; bloqueio próprio. A Bitpanda e a Swissquote não têm feed público de preços, por isso não mostram preço em direto – as operações entram por importação CSV.
 • Legível para todos: verde/vermelho ou azul/laranja, sinal e seta em vez de só cor; o TalkBack lê cada linha como uma frase
 • Cópia de segurança e restauro num ficheiro – também entre Android e iPhone
 • Modo claro e escuro, cinco cores de destaque, 31 idiomas

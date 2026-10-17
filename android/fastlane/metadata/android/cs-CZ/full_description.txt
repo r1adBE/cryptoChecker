@@ -33,7 +33,7 @@ TRH
 
 DÁLE
 • Widgety: seznam, celková hodnota portfolia, jedna mince s grafem
-• Portfolio volitelně (zapíná se v Nastavení): nákupy, prodeje, směny, převody, odměny, vklady a výběry; FIFO (výchozí) nebo průměr (Ø); adresy jen pro čtení, bez seedu, pro BTC (i xpub), ETH a sítě EVM, SOL, TRX, XRP, LTC a TON; import CSV z Relai, Swissquote a Kraken; roční přehled jako CSV; vlastní zámek
+• Portfolio volitelně (zapíná se v Nastavení): nákupy, prodeje, směny, převody, odměny, vklady a výběry; FIFO (výchozí) nebo průměr (Ø); adresy jen pro čtení, bez seedu, pro BTC (i xpub), ETH a sítě EVM, SOL, TRX, XRP, LTC a TON; import CSV z Relai, Swissquote, Bitpanda, Kraken, Binance a Coinbase; roční přehled jako CSV; vlastní zámek. Bitpanda a Swissquote nemají veřejný cenový feed, a proto ani živou cenu – jejich obchody přidáte importem CSV.
 • Čitelné pro všechny: zelená/červená nebo modrá/oranžová, znaménko a šipka místo pouhé barvy; TalkBack čte každý řádek jako jednu větu
 • Záloha a obnovení do souboru – i mezi Androidem a iPhonem
 • Světlý a tmavý režim, pět barev zvýraznění, 31 jazyků

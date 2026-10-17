@@ -1,8 +1,8 @@
-Ein Alarm, wenn Bitcoin deinen Kurs erreicht – von der Börse, die du wirklich nutzt. Der Kurs deiner Börse, kein Durchschnitt – gratis, ohne Konto.
+Ein Alarm, wenn Bitcoin deinen Kurs erreicht – von der Börse, die du wirklich nutzt. Gratis, ohne Konto.
 
 WAS DIE APP ANDERS MACHT
 • Deine Börse, kein Mittelwert: Jede Zeile zeigt den letzten Kurs des Paars an der Börse, die du gewählt hast – Binance, Coinbase, Kraken, OKX, Bybit und viele mehr.
-• Ein Alarm, der einmal Bescheid gibt: «Sag mir Bescheid, wenn BTC über 100 000 USDT steigt.» Er meldet sich, wenn die Marke überschritten wird, nicht bei jeder Aktualisierung – «Einmal» schaltet ihn danach aus, «Jedes Mal» macht ihn wieder scharf, sobald der Kurs zurückkommt.
+• Ein Alarm, der einmal Bescheid gibt: «Sag mir Bescheid, wenn BTC über 100 000 USDT steigt.» Er meldet sich beim Überschreiten der Marke, nicht bei jeder Aktualisierung – «Einmal» schaltet ihn aus, «Jedes Mal» macht ihn wieder scharf, sobald der Kurs zurückkommt.
 • «Was bewegt sich mit?»: eine Faktorliste zu einem Coin – Gesamtmarkt, Volumen, Schwankung, Funding und Open Interest, Abstand zu Hoch oder Tief, Fear & Greed. Sie zeigt, was sich gleichzeitig bewegt – keine Ursache, keine Nachricht, keine Anlageberatung.
 • Kein Konto, keine Werbung, kein Tracking. Der Entwickler bekommt keine deiner Daten.
 
@@ -18,13 +18,12 @@ MERKLISTE
 • Zweite Zeile «≈ Wert» in einer von 31 Währungen (EUR, CHF, USD …), umgerechnet zum Devisenkurs
 • Mini-Chart und %-Änderung über 24 Std. oder seit 00:00 in deiner Zeitzone
 • Gruppen, Favoriten, Sortieren per Ziehen und eine Notiz pro Coin
-• Zeilen zeigen «veraltet» oder «Börse nicht erreichbar»
 
 ALARME
 • Kurs über oder unter einer Marke, Anstieg oder Fall um einen Prozentwert – auch in deiner Währung, z. B. 60 000 EUR auf einem USDT-Paar
 • Bewegung um x % in einem Zeitfenster, Volumensprung
 • Ton (auch eigene Audiodatei), Vibration und optionale Ansage
-• Nachtruhe und «Alarm testen»: vorab hören, wie ein Alarm ankommt
+• Nachtruhe und «Alarm testen»
 
 MARKT
 • Ungewöhnliche Aktivität: auffällige Kurs- und Volumenbewegungen in deiner Merkliste, optional als Markt-Meldung
@@ -33,7 +32,7 @@ MARKT
 
 AUSSERDEM
 • Widgets: Merkliste, Portfolio-Gesamtwert, ein Coin mit Chart
-• Portfolio optional, einschaltbar unter Einstellungen: Käufe, Verkäufe, Tausch, Transfers, Rewards, Ein- und Auszahlungen; FIFO (Standard) oder Durchschnitt (Ø); Adressen nur lesend, ohne Seed, für BTC (auch xpub), ETH & EVM-Chains, SOL, TRX, XRP, LTC und TON; CSV-Import von Relai, Swissquote und Kraken; Jahresübersicht als CSV; eigene Sperre
+• Portfolio optional, einschaltbar unter Einstellungen: Käufe, Verkäufe, Tausch, Transfers, Rewards, Ein- und Auszahlungen; FIFO (Standard) oder Durchschnitt (Ø); Adressen nur lesend, ohne Seed, für BTC (auch xpub), ETH & EVM-Chains, SOL, TRX, XRP, LTC und TON; CSV-Import von Relai, Swissquote, Bitpanda, Kraken, Binance und Coinbase; Jahresübersicht als CSV; eigene Sperre. Bitpanda und Swissquote haben keinen öffentlichen Kursfeed und darum keinen Live-Kurs – ihre Käufe kommen per CSV-Import.
 • Lesbar für alle: Grün/Rot oder Blau/Orange, Vorzeichen und Pfeil statt nur Farbe; TalkBack liest jede Zeile als einen Satz
 • Sichern & Wiederherstellen in eine Datei – auch zwischen Android und iPhone
 • Heller und dunkler Modus, fünf Akzentfarben, 31 Sprachen

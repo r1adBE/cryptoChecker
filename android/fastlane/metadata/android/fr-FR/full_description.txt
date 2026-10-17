@@ -1,9 +1,9 @@
-Une alerte quand le Bitcoin atteint votre cours – sur la plateforme que vous utilisez vraiment. Le cours de votre plateforme, pas une moyenne – gratuit, sans compte.
+Une alerte quand le Bitcoin atteint votre cours – sur la plateforme que vous utilisez vraiment. Gratuit, sans compte.
 
 CE QUI LA DISTINGUE
-• Votre plateforme, pas une moyenne : chaque ligne affiche le dernier cours de la paire sur la plateforme choisie – Binance, Coinbase, Kraken, OKX, Bybit et bien d’autres.
-• Une alerte qui prévient une fois : « Préviens-moi quand BTC dépasse 100 000 USDT. » Elle sonne quand le seuil est franchi, pas à chaque mise à jour – « Une fois » la désactive ensuite, « À chaque fois » la réarme quand le cours revient.
-• « Qu’est-ce qui bouge avec ? » : une liste de facteurs pour une crypto – marché global, volume, volatilité, funding et open interest, écart au plus haut/bas, Fear & Greed. Elle montre ce qui bouge en même temps – ni cause, ni actualité, ni conseil en investissement.
+• Votre plateforme, pas une moyenne : chaque ligne affiche le dernier cours de la paire sur la plateforme choisie – Binance, Coinbase, Kraken, OKX, Bybit…
+• Une alerte qui prévient une fois : « Préviens-moi quand BTC dépasse 100 000 USDT. » Elle sonne au franchissement du seuil, pas à chaque mise à jour – « Une fois » la désactive, « À chaque fois » la réarme au retour du cours.
+• « Qu’est-ce qui bouge avec ? » : une liste de facteurs pour une crypto – marché global, volume, volatilité, funding et open interest, écart au plus haut/bas, Fear & Greed. Juste ce qui bouge en même temps – ni cause, ni actualité, ni conseil en investissement.
 • Sans compte, sans publicité, sans pistage. Le développeur ne reçoit aucune de vos données.
 
 TRANSPARENT SUR LES DONNÉES
@@ -15,27 +15,27 @@ TRANSPARENT SUR LES DONNÉES
 
 LISTE DE SUIVI
 • 41 marchés sur 32 plateformes : spot et futures, tokens DEX via DexScreener, en option actions, or et devises (TradFi)
-• Deuxième ligne « ≈ valeur » dans l’une des 31 devises (EUR, CHF, USD …), convertie au taux de change
+• Deuxième ligne « ≈ valeur » en 31 devises (EUR, CHF, USD …), au taux de change
 • Mini-graphique et variation en % sur 24 h ou depuis 00:00 (votre fuseau)
-• Groupes, favoris, tri par glisser-déposer et une note par crypto
+• Groupes, favoris, glisser-déposer et une note par crypto
 
 ALERTES
 • Cours au-dessus ou en dessous d’un seuil, hausse ou baisse d’un pourcentage – aussi dans votre devise, p. ex. 60 000 EUR sur une paire USDT
-• Mouvement de x % dans une fenêtre de temps, pic de volume
+• Mouvement de x % sur une période, pic de volume
 • Son (y compris votre propre fichier audio), vibration et annonce vocale en option
-• Heures calmes et « Tester l’alerte » : entendez d’avance une alerte
+• Heures calmes et « Tester l’alerte »
 
 MARCHÉ
 • Activité inhabituelle : mouvements de cours et de volume inhabituels dans votre liste, en option par notification
-• Crypto Pulse, Fear & Greed, indicateurs Bitcoin, funding et open interest – en simples valeurs mesurées
+• Crypto Pulse, Fear & Greed, indicateurs Bitcoin, funding et open interest – en valeurs mesurées
 • Frais de réseau pour Ethereum, Bitcoin et d’autres, avec alerte gas
 
 ET AUSSI
 • Widgets : liste de suivi, valeur totale du portefeuille, une crypto avec graphique
-• Portefeuille en option (dans les réglages) : achats, ventes, swaps, transferts, récompenses, dépôts et retraits ; FIFO (par défaut) ou moyenne (Ø) ; adresses en lecture seule, sans seed, pour BTC (xpub inclus), ETH et chaînes EVM, SOL, TRX, XRP, LTC et TON ; import CSV de Relai, Swissquote et Kraken ; bilan annuel en CSV ; verrou dédié
+• Portefeuille en option (dans les réglages) : achats, ventes, swaps, transferts, récompenses, dépôts et retraits ; FIFO (par défaut) ou moyenne (Ø) ; adresses en lecture seule, sans seed, pour BTC (xpub inclus), ETH et chaînes EVM, SOL, TRX, XRP, LTC et TON ; import CSV de Relai, Swissquote, Bitpanda, Kraken, Binance et Coinbase ; bilan annuel en CSV ; verrou dédié. Sans flux de cours public, Bitpanda et Swissquote n’ont pas de cours en direct : importez leurs ordres en CSV.
 • Lisible pour tous : vert/rouge ou bleu/orange, signe et flèche, pas que la couleur ; TalkBack lit chaque ligne comme une phrase
 • Sauvegarde et restauration dans un fichier – aussi entre Android et iPhone
 • Modes clair et sombre, cinq couleurs d’accent, 31 langues
-• Open source (MIT) – le code est public sur GitHub
+• Open source (MIT), code public sur GitHub
 
 Remarque : Crypto Checker affiche des cours et un portefeuille saisi par vous. Ni plateforme d’échange ni wallet, l’app ne trade pas et ne donne aucun conseil en investissement.

@@ -1,4 +1,4 @@
-Een alarm wanneer Bitcoin jouw koers raakt – van de beurs die je echt gebruikt. De koers van jouw beurs, geen gemiddelde – gratis, zonder account.
+Een alarm wanneer Bitcoin jouw koers raakt – van de beurs die je echt gebruikt. Gratis, zonder account.
 
 WAT HET ANDERS MAAKT
 • Jouw beurs, geen gemiddelde: elke rij toont de laatste koers van het paar op de beurs die je hebt gekozen – Binance, Coinbase, Kraken, OKX, Bybit en vele andere.
@@ -18,13 +18,12 @@ VOLGLIJST
 • Tweede regel ‘≈ waarde’ in een van 31 valuta (EUR, CHF, USD …), omgerekend tegen de wisselkoers
 • Minigrafiek en %-wijziging over 24 uur of sinds 00:00 in je tijdzone
 • Groepen, favorieten, sorteren door slepen en een notitie per munt
-• Rijen melden ‘verouderd’ of ‘beurs niet bereikbaar’
 
 ALARMEN
 • Koers boven of onder een grens, of een stijging of daling met een percentage – ook in je eigen valuta, bijv. 60.000 EUR op een USDT-paar
 • Beweging van x % binnen een tijdvenster, volumepiek
 • Tijdgevoelige melding, alarmgeluid naar keuze, optioneel voorgelezen
-• Stille uren en ‘Alarm testen’: hoor vooraf hoe een alarm binnenkomt
+• Stille uren en ‘Alarm testen’
 
 MARKT
 • Ongewone activiteit: opvallende koers- en volumebewegingen in je volglijst, optioneel met melding
@@ -33,7 +32,7 @@ MARKT
 
 VERDER
 • Widgets voor beginscherm en toegangsscherm, Live Activity voor één munt
-• Portfolio optioneel (aan te zetten in Instellingen): aankopen, verkopen, swaps, transfers, rewards, stortingen en opnames; FIFO (standaard) of gemiddelde (Ø); adressen alleen-lezen, zonder seed, voor BTC (ook xpub), ETH & EVM-chains, SOL, TRX, XRP, LTC en TON; CSV-import van Relai, Swissquote en Kraken; jaaroverzicht als CSV; eigen vergrendeling
+• Portfolio optioneel (aan te zetten in Instellingen): aankopen, verkopen, swaps, transfers, rewards, stortingen en opnames; FIFO (standaard) of gemiddelde (Ø); adressen alleen-lezen, zonder seed, voor BTC (ook xpub), ETH & EVM-chains, SOL, TRX, XRP, LTC en TON; CSV-import van Relai, Swissquote, Bitpanda, Kraken, Binance en Coinbase; jaaroverzicht als CSV; eigen vergrendeling. Bitpanda en Swissquote hebben geen openbare koersfeed en dus geen livekoers – hun transacties komen binnen via CSV-import.
 • Leesbaar voor iedereen: groen/rood of blauw/oranje, teken en pijl in plaats van alleen kleur, Dynamic Type; VoiceOver leest elke rij als één zin
 • Back-up en herstel via de Bestanden-app
 • Lichte en donkere modus, vijf accentkleuren, 31 talen

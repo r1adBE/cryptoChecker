@@ -24,7 +24,7 @@ ALARMER
 • Kurs over eller under et niveau, eller stigning eller fald med en procentsats – også i din valuta, f.eks. 60.000 EUR på et USDT-par
 • Bevægelse på x % inden for et tidsvindue, volumenspike
 • Tidsfølsom notifikation, valgfri alarmlyd, valgfri oplæsning
-• Nattero og »Test alarm«: hør på forhånd, hvordan en alarm kommer frem
+• Nattero og »Test alarm«
 
 MARKED
 • Usædvanlig aktivitet: usædvanlige kurs- og volumenbevægelser i din liste, valgfrit som notifikation
@@ -33,7 +33,7 @@ MARKED
 
 DESUDEN
 • Widgets til hjemmeskærm og låseskærm, Live Activity for én coin
-• Portefølje valgfrit (slås til under Indstillinger): køb, salg, swaps, overførsler, rewards, ind- og udbetalinger; FIFO (standard) eller gennemsnit (Ø); adresser kun til læsning, uden seed, for BTC (også xpub), ETH & EVM-kæder, SOL, TRX, XRP, LTC og TON; CSV-import fra Relai, Swissquote og Kraken; årsoversigt som CSV; egen lås
+• Portefølje valgfrit (slås til under Indstillinger): køb, salg, swaps, overførsler, rewards, ind- og udbetalinger; FIFO (standard) eller gennemsnit (Ø); adresser kun til læsning, uden seed, for BTC (også xpub), ETH & EVM-kæder, SOL, TRX, XRP, LTC og TON; CSV-import fra Relai, Swissquote, Bitpanda, Kraken, Binance og Coinbase; årsoversigt som CSV; egen lås. Bitpanda og Swissquote har intet offentligt kursfeed og derfor ingen livekurs – deres handler kommer ind via CSV-import.
 • Læsbar for alle: grøn/rød eller blå/orange, fortegn og pil frem for kun farve, Dynamic Type; VoiceOver læser hver række som én sætning
 • Sikkerhedskopi og gendannelse via appen Filer
 • Lyst og mørkt tema, fem accentfarver, 31 sprog

@@ -1,4 +1,4 @@
-Një alarm kur Bitcoin arrin çmimin tënd – nga bursa që përdor vërtet. Çmimi i bursës sate, jo një mesatare – falas, pa llogari.
+Një alarm kur Bitcoin arrin çmimin tënd – nga bursa që përdor vërtet. Falas, pa llogari.
 
 ÇFARË E BËN TË NDRYSHME
 • Bursa jote, jo një mesatare: çdo rresht tregon çmimin e fundit të çiftit në bursën që ke zgjedhur – Binance, Coinbase, Kraken, OKX, Bybit dhe shumë të tjera.
@@ -18,13 +18,12 @@ LISTA E NDJEKJES
 • Rreshti i dytë «≈ vlera» në një nga 31 monedha (EUR, CHF, USD …), e konvertuar me kursin e këmbimit
 • Mini-grafik dhe ndryshim në % për 24 orë ose që nga 00:00 në zonën tënde kohore
 • Grupe, të preferuara, renditje me tërheqje dhe një shënim për çdo monedhë
-• Rreshtat tregojnë «i vjetëruar» ose «bursa nuk arrihet»
 
 ALARMET
 • Çmim mbi ose nën një nivel, ose rritje apo rënie me një përqindje – edhe në monedhën tënde, p.sh. 60 000 EUR në një çift USDT
 • Lëvizje prej x % brenda një dritareje kohe, kërcim vëllimi
 • Tingull (edhe skedar audio i yti), dridhje dhe njoftim me zë sipas dëshirës
-• Orët e heshtjes dhe «Testo alarmin»: dëgjo paraprakisht si vjen një alarm
+• Orët e heshtjes dhe «Testo alarmin»
 
 TREGU
 • Aktivitet i pazakontë: lëvizje të pazakonta çmimi dhe vëllimi në listën tënde, sipas dëshirës me njoftim
@@ -33,7 +32,7 @@ TREGU
 
 GJITHASHTU
 • Widget-e: lista, vlera totale e portofolit, një monedhë me grafik
-• Portofoli sipas dëshirës (aktivizohet te Cilësimet): blerje, shitje, shkëmbime, transferime, shpërblime, depozita dhe tërheqje; FIFO (parazgjedhje) ose mesatare (Ø); adresa vetëm për lexim, pa seed, për BTC (edhe xpub), ETH dhe zinxhirë EVM, SOL, TRX, XRP, LTC dhe TON; import CSV nga Relai, Swissquote dhe Kraken; përmbledhje vjetore në CSV; kyçje e veçantë
+• Portofoli sipas dëshirës (aktivizohet te Cilësimet): blerje, shitje, shkëmbime, transferime, shpërblime, depozita dhe tërheqje; FIFO (parazgjedhje) ose mesatare (Ø); adresa vetëm për lexim, pa seed, për BTC (edhe xpub), ETH dhe zinxhirë EVM, SOL, TRX, XRP, LTC dhe TON; import CSV nga Relai, Swissquote, Bitpanda, Kraken, Binance dhe Coinbase; përmbledhje vjetore në CSV; kyçje e veçantë. Bitpanda dhe Swissquote nuk kanë burim publik çmimesh, prandaj nuk kanë çmim live – transaksionet e tyre vijnë me import CSV.
 • E lexueshme për të gjithë: jeshile/kuqe ose blu/portokalli, shenjë dhe shigjetë në vend të vetëm ngjyrës; TalkBack lexon çdo rresht si një fjali
 • Kopje rezervë dhe rikthim në një skedar – edhe mes Android dhe iPhone
 • Modalitet i çelët dhe i errët, pesë ngjyra theksi, 31 gjuhë
