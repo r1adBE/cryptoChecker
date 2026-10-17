@@ -11,6 +11,9 @@ Eighteenth review and the last red iOS UI test.
 * iOS start page: «Search coin» has a real outline like Android instead of a faint accent line.
 * Group selector in «Add pair»: tap area at least 48 dp / 44 pt high.
 * iOS tab bar: the selected tab has the same 64 × 32 pill as Android.
+* «N disabled» pill above the watchlist: tap area 48 dp / 44 pt high; the status line does not grow.
+* Pair editor: the alarm warning icon is amber (warning colour) on both platforms instead of olive / text colour.
+* iOS: futures pairs show «/USDT PERP» small and grey after the base like Android, no accent capsule.
 * iOS: the widget's daily price file is also in the backup-exclusion repair at start.
 * Docs: backup passwords need at least 12 characters everywhere (SECURITY, README, test plan).
 * Docs: Portfolio switch path is Settings › Advanced › Portfolio everywhere; Android README version line 70; market count
