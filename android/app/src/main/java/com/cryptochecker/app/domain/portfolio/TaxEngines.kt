@@ -228,11 +228,13 @@ internal class TaxPool(
  *  - [TaxMethod.UK_POOL]: je Coin zuerst Zugänge DESSELBEN Tags (alle Abgänge eines Tags = eine Veräusserung, alle Zugänge
  *    eines Tags = ein Zugang zum Durchschnitt), dann Zugänge der 30 Tage danach (früheste Veräusserung zuerst, früheste
  *    Zugänge zuerst), der Rest aus dem Section-104-Pool (Durchschnitt). Was nicht zugeordnet wird, kommt am Tag des
- *    Zugangs in den Pool. Einzahlung mit früherem ursprünglichem Kaufdatum ([PortfolioTrade.acquiredTime]): die App
- *    kennt die Coins erst ab der Buchung — sie kommen am BUCHUNGSTAG direkt in den Pool (eine frühere Veräusserung kann
- *    sie nicht nutzen) und gelten nicht für «gleicher Tag»/«30 Tage» (erworben wurden sie am ursprünglichen Datum, nicht
- *    in diesem Fenster); Einstand-Herkunft (Devisenkurs) bleibt das ursprüngliche Datum. Einzahlung OHNE Kaufdatum
- *    ebenso (eigene Coins, kein Erwerb im Fenster — nur Käufe, Belohnungen und Zugänge aus Tausch sind Erwerbe). UK kennt keine Haltedauer. Tausch und Gebühr in Krypto sind Veräusserungen — auch die Netzwerkgebühr einer
+ *    Zugangs in den Pool. Einzahlung mit früherem ursprünglichem Kaufdatum ([PortfolioTrade.acquiredTime]): Umbuchung
+ *    zwischen eigenen Wallets ist kein Erwerb — «gleicher Tag»/«30 Tage» gelten am ursprünglichen Kaufdatum (Teil des
+ *    Tages-Zugangs dieses Tags, auch für eine Veräusserung vor der Buchung); was davon übrig bleibt, kommt erst am
+ *    BUCHUNGSTAG in den Pool (die App kennt die Coins erst ab da — eine Veräusserung davor nutzt sie im Pool nicht);
+ *    Einstand-Herkunft (Devisenkurs) bleibt das ursprüngliche Datum. Einzahlung OHNE Kaufdatum: am Buchungstag direkt
+ *    in den Pool, nicht «gleicher Tag»/«30 Tage» (eigene Coins, kein Erwerb im Fenster — nur Käufe, Belohnungen,
+ *    Zugänge aus Tausch und Einzahlungen mit Kaufdatum zählen). UK kennt keine Haltedauer. Tausch und Gebühr in Krypto sind Veräusserungen — auch die Netzwerkgebühr einer
  *    Umbuchung oder Auszahlung ([applyRules], HMRC CRYPTO22280 «Fees satisfied in tokens»: eigene Veräusserung zum
  *    Marktwert; am selben Tag mit den übrigen Abgängen EINE Veräusserung nach der Same-Day-Regel). Schenkung an Ehe-/
  *    Lebenspartner (TCGA 1992 s. 58): Veräusserung ohne Gewinn und Verlust — Erlös = zugeordneter Einstand (gleiche
@@ -717,18 +719,25 @@ object TaxEngines {
     ): List<PortfolioDisposal> {
         // Netzwerkgebühren sind hier schon eigene Verkäufe ([applyRules], HMRC CRYPTO22280) — sie zählen so in der
         // Same-Day-Gruppe ihres Tags und in der 30-Tage-Regel wie jeder andere Abgang
-        // Einzahlung mit früherem ursprünglichem Kaufdatum: erst ab dem Buchungstag bekannt → direkt in den Pool, nicht
-        // «gleicher Tag»/«30 Tage». Einzahlung ohne Kaufdatum ebenso: eigene Coins von anderswo sind kein Erwerb an diesem
-        // Tag (CRYPTO22200 ordnet nur Erwerbe zu) — sie dürfen keinen früheren Verkauf nach der 30-Tage-Regel umleiten
-        fun late(s: TaxStep): Boolean =
-            (s.trade.type == PortfolioTxType.DEPOSIT && s.trade.acquiredTime == null) || day(s.acquired, zone) != day(s.time, zone)
+        // Einzahlung ohne Kaufdatum: eigene Coins von anderswo sind kein Erwerb an diesem Tag (CRYPTO22200 ordnet nur
+        // Erwerbe zu) — direkt in den Pool, nicht «gleicher Tag»/«30 Tage»; sie dürfen keinen früheren Verkauf umleiten
+        fun late(s: TaxStep): Boolean = s.trade.type == PortfolioTxType.DEPOSIT && s.trade.acquiredTime == null
+        // Einzahlung mit früherem ursprünglichem Kaufdatum: Umbuchung zwischen eigenen Wallets ist kein Erwerb — erworben
+        // wurde am Kaufdatum, also «gleicher Tag»/«30 Tage» nach dem Kaufdatum (Teil des Tages-Zugangs dieses Tags); den
+        // Rest übernimmt der Pool erst am BUCHUNGSTAG (die App kennt die Coins erst ab da, siehe Schritt 3)
+        fun moved(s: TaxStep): Boolean = day(s.acquired, zone) != day(s.time, zone)
         // Zugänge je Tag (Erwerbsdatum) als ein Zugang zum Durchschnitt
         val dayPools = sortedMapOf<LocalDate, TaxPool>()
         val dayFirst = HashMap<LocalDate, Long>()
+        // Menge je Tag noch nicht im Pool (alle Zugänge) bzw. am Tag selbst gebucht (ohne nachgebuchte Einzahlungen)
+        val dayLeft = HashMap<LocalDate, BigDecimal>()
+        val dayOwn = HashMap<LocalDate, BigDecimal>()
         for (s in steps) if (s.kind == TaxStepKind.ACQUIRE && !late(s)) {
             val d = day(s.acquired, zone)
             dayPools.getOrPut(d) { TaxPool() }.add(s.qty, s.cost, s.acquired)
             dayFirst[d] = minOf(dayFirst[d] ?: Long.MAX_VALUE, s.acquired)
+            dayLeft[d] = (dayLeft[d] ?: BigDecimal.ZERO) + s.qty
+            if (!moved(s)) dayOwn[d] = (dayOwn[d] ?: BigDecimal.ZERO) + s.qty
         }
         val disposes = steps.filter { it.kind == TaxStepKind.DISPOSE }
         val remaining = HashMap<TaxStep, BigDecimal>()
@@ -761,17 +770,32 @@ object TaxEngines {
                 pieces.getValue(s) += piecesOf(taken, TaxMatch.THIRTY_DAY, dayFirst[ad])
             }
         }
-        // 3. Section-104-Pool: Rest der Tages-Zugänge am Tag des Zugangs, Rest der Abgänge aus dem Pool
+        // 3. Section-104-Pool: Rest der Tages-Zugänge am Tag des Zugangs (Anteil nachgebuchter Einzahlungen erst an ihrem
+        // Buchungstag), Rest der Abgänge aus dem Pool
         val pool = TaxPool(zone)
         val added = HashSet<LocalDate>()
         val out = ArrayList<PortfolioDisposal>()
+        // Anteil [q] der noch nicht übernommenen Menge des Tages [d] vom Rest seines Tages-Zugangs in den Pool (zuletzt: alles)
+        fun enter(d: LocalDate, q: BigDecimal) {
+            val dp = dayPools[d] ?: return
+            val left = dayLeft.getValue(d)
+            dayLeft[d] = left - q
+            if (q >= left) {
+                pool.absorb(dp)
+                return
+            }
+            val taken = dp.take(dp.held.multiply(q).divide(left, PortfolioDecimal.MC))
+            pool.addCarried(taken.removedPriced, taken.parts)
+            pool.add(taken.removedUnpriced, null, dayFirst.getValue(d))
+        }
         for (s in steps) {
             when (s.kind) {
                 TaxStepKind.ACQUIRE -> {
-                    if (late(s)) pool.add(s.qty, s.cost, s.acquired)
-                    else {
-                        val d = day(s.acquired, zone)
-                        if (added.add(d)) dayPools[d]?.let { pool.absorb(it) }
+                    val d = day(s.acquired, zone)
+                    when {
+                        late(s) -> pool.add(s.qty, s.cost, s.acquired)
+                        moved(s) -> enter(d, s.qty)
+                        added.add(d) -> enter(d, dayOwn.getValue(d))
                     }
                 }
                 TaxStepKind.DISPOSE -> {

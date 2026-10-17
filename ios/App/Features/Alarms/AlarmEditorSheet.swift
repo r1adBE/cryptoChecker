@@ -393,7 +393,7 @@ struct AlarmEditorSheet: View {
 
     /// «Der Kurs liegt schon über 66’600 USDT. Trotzdem speichern?»
     private var firesNowMessage: String {
-        let amount = PriceFormat.priceWithCurrency(draft.threshold, sentenceCurrency)
+        let amount = PriceFormat.thresholdWithCurrency(draft.threshold, sentenceCurrency)
         return L(draft.condition == .PRICE_BELOW ? "alarm_fires_now_below" : "alarm_fires_now_above", amount)
     }
 }

@@ -50,7 +50,8 @@ struct WatchlistStarterPicker: View {
             Label {
                 Text(L("starter_watch_alarm_hint"))
             } icon: {
-                Image(systemName: "bell")
+                // Dieselbe Alarm-Glocke wie oben rechts (die schlichte Glocke = Kurs-Mitteilung)
+                Image(systemName: "bell.and.waves.left.and.right")
                     .accessibilityHidden(true)
             }
             .font(.subheadline)
@@ -381,7 +382,8 @@ extension WatchlistScreen {
                 Button {
                     openBell()
                 } label: {
-                    Image(systemName: "bell")
+                    // Alarm-Glocke mit Wellen (Umriss: noch kein Alarm) wie im Kopf der Merkliste
+                    Image(systemName: "bell.and.waves.left.and.right")
                         .font(.body)
                         .imageScale(.large)
                         .frame(width: 44, height: 44)
@@ -415,9 +417,10 @@ extension WatchlistScreen {
         let added = withAnimation(.spring(duration: 0.35)) {
             data.addStarterCoins(symbols)
         }
-        // Neue Paare haben Kurs-Mitteilungen an: Erlaubnis jetzt fragen (wie im Explorer, Review 12)
+        // Neue Paare haben Kurs-Mitteilungen an: Erlaubnis jetzt fragen (wie im Explorer, Review 12) — vorher
+        // die kurze Erklärung (`NotificationPrePrompt`)
         if added > 0 {
-            Task { _ = await Notifier.requestPermission() }
+            NotificationPrePrompt.request(.pairsAdded)
         }
         // Gleich abholen, damit die neuen Zeilen schon im ersten Bild verborgen sind
         takeCelebration()

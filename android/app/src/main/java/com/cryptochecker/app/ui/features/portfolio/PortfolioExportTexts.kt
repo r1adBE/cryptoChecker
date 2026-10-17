@@ -275,5 +275,6 @@ internal fun taxSummaryTexts(t: TaxTemplate, yearLabel: String, currency: String
         TaxSummaryNote.WITHDRAWAL_FEE_INFO to stringResource(R.string.tax_summary_withdrawal_fee_info),
         TaxSummaryNote.TRANSFER_FEE_INFO to stringResource(R.string.tax_summary_transfer_fee_info),
         TaxSummaryNote.AT_INTEREST_INCOME to stringResource(R.string.tax_summary_at_interest_income),
+        TaxSummaryNote.AT_TRANSITION_2021 to stringResource(R.string.tax_summary_at_transition_2021),
     ),
 )

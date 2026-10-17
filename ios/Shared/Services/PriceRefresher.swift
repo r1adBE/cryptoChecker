@@ -160,10 +160,13 @@ enum PriceRefresher {
         ///   gelöscht → keine Mitteilung.
         /// - Parameter save: überträgt den Zustand eines Alarms auf den gespeicherten Stand (App: Stand im
         ///   Speicher und Datei; Hintergrund und Widget: `saveAlarmOnDisk`); true = gespeichert.
+        /// - Parameter reloadStored: liest die Alarme vor jeder Meldung frisch von der Platte; nil = nicht
+        ///   lesbar (dann gilt allein `current`, Fail-open). Tests: Fake.
         /// - Parameter notifier, delivery, now: Mitteilungs-Weg, Speicher der unbestätigten Versuche und Uhr (Tests: Fakes).
         /// - Returns: gemeldete und gespeicherte Alarme (für die Ansagen).
         func deliverAlarms(settings: AppSettings, current: [Alarm],
                            save: @escaping @Sendable (Int64, AlarmUpdate) async -> Bool,
+                           reloadStored: @Sendable () async -> [Alarm]? = { SharedStorage.readSnapshot().snapshot?.alarms },
                            notifier: AlarmNotifier = .system, delivery: AlarmDelivery = .pairs,
                            now: @Sendable () -> Int64 = { TimeUtils.nowMillis }) async -> [PendingAlarm] {
             defer { alarmLease?.release() }
@@ -176,6 +179,15 @@ enum PriceRefresher {
             var delivered: [PendingAlarm] = []
             for item in pendingAlarms {
                 guard let stored = byId[item.alarm.id], item.update.matches(stored) else { continue }
+                // Lease vor jeder Meldung auffrischen: Langes Melden (viele Alarme) liesse sie sonst nach
+                // `AlarmLease.staleAfterSeconds` verwaisen, ein zweiter Prozess übernähme und meldete doppelt
+                alarmLease?.refresh()
+                // Frisch von der Platte: Hat ein anderer Prozess den Alarm seit der Auswertung schon
+                // ausgelöst (z. B. nach übernommener Lease), bearbeitet oder gelöscht → nicht noch einmal melden
+                if let onDisk = await reloadStored() {
+                    guard let fresh = onDisk.first(where: { $0.id == item.alarm.id }), item.update.matches(fresh),
+                          fresh.lastTriggeredAt <= item.alarm.lastTriggeredAt else { continue }
+                }
                 let saved = await delivery.deliver(
                     alarmId: item.alarm.id, now: now(), cooldownMinutes: settings.alarmCooldownMinutes,
                     holdAlarms: holdAlarms, canShow: { deliverable },

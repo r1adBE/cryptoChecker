@@ -18,6 +18,10 @@
     <string name="notification_indicator_below">Poniżej twojego progu %1$s – wartość zmierzona, nie rekomendacja.</string>
     <string name="notification_indicator_title">%1$s: %2$s</string>
     <string name="notification_macro_title">Dziś dane gospodarcze</string>
+    <string name="notification_permission_preprompt_continue">Dalej</string>
+    <string name="notification_permission_preprompt_later">Później</string>
+    <string name="notification_permission_preprompt_text">Aby alarmy i powiadomienia o cenie do Ciebie docierały, aplikacja potrzebuje zgody na powiadomienia. Są używane tylko do Twoich własnych alarmów.</string>
+    <string name="notification_permission_preprompt_title">Zezwolić na powiadomienia?</string>
     <string name="notification_portfolio_alarm_locked">Twój alarm się uruchomił – otwórz aplikację, aby zobaczyć szczegóły.</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
     <string name="notification_portfolio_alarm_text">%1$s – teraz %2$s</string>

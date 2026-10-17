@@ -18,6 +18,10 @@
     <string name="notification_indicator_below">Under grensen din %1$s – måleverdi, ikke en anbefaling.</string>
     <string name="notification_indicator_title">%1$s: %2$s</string>
     <string name="notification_macro_title">Økonomiske tall i dag</string>
+    <string name="notification_permission_preprompt_continue">Fortsett</string>
+    <string name="notification_permission_preprompt_later">Senere</string>
+    <string name="notification_permission_preprompt_text">For at alarmer og kursvarsler skal nå frem, trenger appen tillatelse til å sende varsler. De brukes bare til dine egne alarmer.</string>
+    <string name="notification_permission_preprompt_title">Tillate varsler?</string>
     <string name="notification_portfolio_alarm_locked">Alarmen din er utløst – åpne appen for detaljer.</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
     <string name="notification_portfolio_alarm_text">%1$s – nå %2$s</string>

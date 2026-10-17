@@ -27,6 +27,7 @@ import com.cryptochecker.app.domain.watch.ChangeView
 import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.app.lock.PortfolioAccess
 import com.cryptochecker.app.lock.findFragmentActivity
+import com.cryptochecker.app.ui.components.NotificationAsk
 import com.cryptochecker.app.ui.components.rememberNotificationPermissionRequest
 import com.cryptochecker.app.ui.features.portfolio.PortfolioQuickAddSheet
 import com.cryptochecker.app.ui.features.watchlist.LocalChangeView
@@ -162,6 +163,8 @@ internal fun MarketCoinSheets(
     // Texte über LocalResources (Lint: kein getString über LocalContext in Compose)
     val resources = LocalResources.current
     val requestNotifications = rememberNotificationPermissionRequest()
+    // Paar aus der Vorschau übernommen: erst kurz erklären, dann die System-Abfrage
+    val requestNotificationsAdded = rememberNotificationPermissionRequest(NotificationAsk.PAIRS_ADDED)
     val alarmCounts by watchlist.alarmCounts.collectAsStateWithLifecycle()
     val sheetChartLine by watchlist.sheetChartLine.collectAsStateWithLifecycle()
     val changeBasis by watchlist.changeBasis.collectAsStateWithLifecycle()
@@ -312,7 +315,7 @@ internal fun MarketCoinSheets(
                         }
                         // Wie der Hinzufügen-Tab: neue Paare haben Meldungen an — Erlaubnis jetzt fragen
                         if (added) {
-                            requestNotifications()
+                            requestNotificationsAdded()
                         } else {
                             // Stand schon in der Merkliste: gleich dessen Blatt
                             state.adding = false

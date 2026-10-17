@@ -172,8 +172,8 @@ internal fun WatchlistHeader(
                 }
             } else {
                 // Glocke immer (ohne einen einzigen Alarm: gleich zum Anlegen statt in die leere Übersicht,
-                // [onBellClick]), ohne Zahl (eine Zahl läse sich leicht als «so oft ausgelöst»); mit aktiven
-                // Alarmen gefüllt
+                // [onBellClick]), ohne Zahl (eine Zahl läse sich leicht als «so oft ausgelöst»); immer die
+                // Alarm-Glocke mit Wellen, mit aktiven Alarmen gefüllt
                 // Build 46: Glocke mit vollem 48-dp-Platz — die Tippflächen von Glocke und Menü
                 // überlappen nicht mehr (früher 34 dp Platz, 14 dp der Glocke lagen unter dem Menü)
                 AlarmBell(
@@ -240,14 +240,15 @@ private fun Modifier.overhangEnd(amount: Dp): Modifier = layout { measurable, co
 }
 
 /**
- * Glocke: öffnet alle Alarme; pulsiert bei einem ausgelösten Alarm ([scale]). [active]: es gibt
- * aktive Alarme (Glocke mit Wellen), sonst die schlichte Glocke.
+ * Glocke: öffnet alle Alarme; pulsiert bei einem ausgelösten Alarm ([scale]). Immer die Alarm-Glocke mit
+ * Wellen wie die Alarme in Zeile und Aktionen — die schlichte Glocke heisst dort «Kurs-Mitteilung an».
+ * [active]: es gibt aktive Alarme (gefüllt), sonst nur der Umriss.
  */
 @Composable
 private fun AlarmBell(scale: () -> Float, active: Boolean, onClick: () -> Unit, modifier: Modifier = Modifier) {
     IconButton(onClick = onClick, modifier = modifier) {
         Icon(
-            painterResource(if (active) R.drawable.ic_notifications_active else R.drawable.ic_notifications),
+            painterResource(if (active) R.drawable.ic_notifications_active else R.drawable.ic_notifications_active_outline),
             contentDescription = stringResource(R.string.alarms_overview_title),
             modifier = Modifier.graphicsLayer {
                 scaleX = scale()

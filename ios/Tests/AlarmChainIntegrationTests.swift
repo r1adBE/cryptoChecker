@@ -78,7 +78,8 @@ final class AlarmChainIntegrationTests: XCTestCase {
     /// - Returns: gemeldete und gespeicherte Alarme.
     private func refresh(_ market: FakeMarket, store: FakeStore, notifier: FakeNotifier, delivery: AlarmDelivery,
                          deliverableAtCheck: Bool = true, at: Int64,
-                         editBeforeSave: ((inout SharedStorage.Snapshot) -> Void)? = nil) async -> Int {
+                         editBeforeSave: ((inout SharedStorage.Snapshot) -> Void)? = nil,
+                         diskAlarms: (@Sendable () -> [Alarm]?)? = nil) async -> Int {
         let price = market.last()
         let before = store.snapshot.watches[0]
         var updated = before
@@ -94,7 +95,9 @@ final class AlarmChainIntegrationTests: XCTestCase {
         outcome.apply(to: &store.snapshot)
         store.snapshot.watches[0] = updated
         let delivered = await outcome.deliverAlarms(settings: AppSettings(), current: store.snapshot.alarms,
-                                                    save: { store.save($0, $1) }, notifier: notifier.notifier,
+                                                    save: { store.save($0, $1) },
+                                                    reloadStored: { if let diskAlarms { return diskAlarms() }; return store.snapshot.alarms },
+                                                    notifier: notifier.notifier,
                                                     delivery: delivery, now: { at })
         return delivered.count
     }
@@ -202,6 +205,32 @@ final class AlarmChainIntegrationTests: XCTestCase {
         XCTAssertEqual(store.snapshot.alarms[0].threshold, 150)
         XCTAssertEqual(store.snapshot.alarms[0].lastTriggeredAt, 0)
         XCTAssertTrue(store.snapshot.alarms[0].enabled)
+    }
+
+    func testAlarmFiredByOtherProcessSinceEvaluationIsNotPostedAgain() async {
+        let store = makeStore(previous: 99, alarm: alarmAbove(100))
+        let notifier = FakeNotifier()
+        // Stand im Speicher veraltet; auf der Platte hat ein anderer Prozess (übernommene Lease) den
+        // Alarm seit der Auswertung schon ausgelöst → keine zweite Meldung
+        var fired = store.snapshot.alarms
+        fired[0].lastTriggeredAt = now - 1_000
+        let onDisk = fired
+        let count = await refresh(FakeMarket(price: 101), store: store, notifier: notifier,
+                                  delivery: AlarmDelivery(storeKey: "pairs", store: defaults), at: now,
+                                  diskAlarms: { onDisk })
+        XCTAssertEqual(count, 0)
+        XCTAssertTrue(notifier.posts.isEmpty)
+    }
+
+    func testUnreadableDiskFallsBackToCurrent() async {
+        let store = makeStore(previous: 99, alarm: alarmAbove(100))
+        let notifier = FakeNotifier()
+        // Platte nicht lesbar (nil): Fail-open, gemeldet wird nach dem übergebenen Stand
+        let count = await refresh(FakeMarket(price: 101), store: store, notifier: notifier,
+                                  delivery: AlarmDelivery(storeKey: "pairs", store: defaults), at: now,
+                                  diskAlarms: { nil })
+        XCTAssertEqual(count, 1)
+        XCTAssertEqual(notifier.posts.map { $0.alarmId }, [7])
     }
 
     func testPriceBelowLevelDoesNothing() async {

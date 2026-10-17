@@ -2013,9 +2013,9 @@
       ]
     },
     {
-      "name": "UK Einzahlung mit früherem Kaufdatum: erst ab Buchung im Pool — eine Veräusserung davor nutzt sie nicht (auch nicht «30 Tage»)",
+      "name": "UK Einzahlung mit früherem Kaufdatum: «30 Tage» nach dem Kaufdatum (Umbuchung eigener Coins ist kein Erwerb), Rest erst ab Buchung im Pool",
       "method": "UK_POOL",
-      "_calc": "Kauf 1 BTC 2024-01-10 zu 100. Verkauf 2 BTC 2024-06-01 zu 300: Pool 1 BTC (Einstand 100), Rest 1 BTC ohne Einstand — die Einzahlung (gebucht 2025-03-01, ursprünglich 2024-06-10, Einstand 200) liegt zwar ursprünglich in den 30 Tagen, ist aber erst ab 2025-03-01 erfasst. Verkauf 1 BTC 2025-04-01 zu 500: aus dem Pool (Einzahlung) Einstand 200, Gewinn 300",
+      "_calc": "Kauf 1 BTC 2024-01-10 zu 100. Verkauf 2 BTC 2024-06-01 zu 300: die Einzahlung (gebucht 2025-03-01, ursprünglich gekauft 2024-06-10, Einstand 200) ist kein Erwerb am Buchungstag — erworben am 2024-06-10, also «30 Tage»: 1 BTC Einstand 200, Gewinn 100; 1 BTC aus dem Pool Einstand 100, Gewinn 200 (zusammen 300 im Steuerjahr 2024/25). Nichts bleibt für den Pool am Buchungstag. Verkauf 1 BTC 2025-04-01 zu 500: Pool leer → ohne Einstand",
       "trades": [
         {
           "id": 1,
@@ -2055,6 +2055,16 @@
         {
           "coin": "BTC",
           "sold": "2024-06-01",
+          "acquired": "2024-06-10",
+          "amount": "1",
+          "cost": "200",
+          "proceeds": "300",
+          "gain": "100",
+          "match": "THIRTY_DAY"
+        },
+        {
+          "coin": "BTC",
+          "sold": "2024-06-01",
           "acquired": null,
           "amount": "1",
           "cost": "100",
@@ -2064,22 +2074,12 @@
         },
         {
           "coin": "BTC",
-          "sold": "2024-06-01",
-          "acquired": null,
-          "amount": "1",
-          "cost": null,
-          "proceeds": "300",
-          "gain": null
-        },
-        {
-          "coin": "BTC",
           "sold": "2025-04-01",
           "acquired": null,
           "amount": "1",
-          "cost": "200",
+          "cost": null,
           "proceeds": "500",
-          "gain": "300",
-          "match": "POOL"
+          "gain": null
         }
       ]
     },
@@ -5206,6 +5206,133 @@
           "AT_RATE",
           "925",
           "925",
+          null
+        ]
+      ]
+    },
+    {
+      "template": "AT",
+      "method": "AT_MOVING_AVERAGE",
+      "year": 2021,
+      "_calc": "Neuvermögen (Kauf 1.4.2021) verkauft am 1.10.2021: mit 27,5 % im Neubestand gebucht, Vermerk am Neubestand netto — alte Rechtslage (§ 31 EStG a. F.) mit Option auf 27,5 %.",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1617278400000,
+          "price": "1000"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1633089600000,
+          "price": "1500"
+        }
+      ],
+      "lines": [
+        [
+          "GAINS",
+          "500",
+          "500",
+          null
+        ],
+        [
+          "LOSSES",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "NEW_NET",
+          "500",
+          "500",
+          null,
+          "AT_TRANSITION_2021"
+        ],
+        [
+          "PROCEEDS",
+          "1500",
+          "1500",
+          null
+        ],
+        [
+          "INCOME",
+          "0",
+          "0",
+          null,
+          "AT_REWARD_INFO"
+        ],
+        [
+          "AT_RATE",
+          "500",
+          "500",
+          null
+        ]
+      ]
+    },
+    {
+      "template": "AT",
+      "method": "AT_MOVING_AVERAGE",
+      "year": 2023,
+      "_calc": "Neuvermögen (Kauf 10.1.2023) verkauft am 1.6.2023: nach dem 28.2.2022 — kein Vermerk zur Übergangszeit.",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1673352000000,
+          "price": "1000"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1685620800000,
+          "price": "1500"
+        }
+      ],
+      "lines": [
+        [
+          "GAINS",
+          "500",
+          "500",
+          null
+        ],
+        [
+          "LOSSES",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "NEW_NET",
+          "500",
+          "500",
+          null
+        ],
+        [
+          "PROCEEDS",
+          "1500",
+          "1500",
+          null
+        ],
+        [
+          "INCOME",
+          "0",
+          "0",
+          null,
+          "AT_REWARD_INFO"
+        ],
+        [
+          "AT_RATE",
+          "500",
+          "500",
           null
         ]
       ]

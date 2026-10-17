@@ -207,7 +207,9 @@ enum ActivityMonitor {
         let isEth = base == "ETH"
         // Stablecoins: kein Markt-Vergleich (Abweichung von 1:1), also auch keine Vergleichsdaten dafür
         let stable = StablePeg.isPegged(base: watch.baseAsset, quote: watch.quoteAsset)
-        let compare = !isBtc && !stable
+        // Quote nicht USD (z. B. ETH/BTC, SOL/EUR): kein Markt-Vergleich, also auch keine Vergleichsdaten
+        let usdQuote = ActivityAnalyzer.isUsdQuote(watch.quoteAsset)
+        let compare = !isBtc && !stable && usdQuote
         let count = ActivityAnalyzer.whyHourlyLimit
         // Kerzen der eigenen Börse des Paars; sonst Ausweich-Kette (Futures-Paar: USDⓈ-M zuerst) nur bei
         // gleichem Token wie der Chart (`VolumeDataSource.pairCandles`; nicht für TradFi, DEX, Laufzeit-Kontrakte)
@@ -218,7 +220,7 @@ enum ActivityMonitor {
         }
         let referenceBase = isBtc ? "ETH" : "BTC"
         async let referenceJob = timed { () async -> Sourced<[MarketCandle]>? in
-            if stable { return nil }
+            if stable || !usdQuote { return nil }
             return await VolumeDataSource.hourlyCandlesSourced(base: referenceBase, quote: "USDT", count: count)
         }
         // Zweite Markt-Referenz ETH (für BTC ist ETH schon die Referenz, für ETH ist BTC sie)

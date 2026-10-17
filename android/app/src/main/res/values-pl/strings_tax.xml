@@ -191,6 +191,7 @@
     <string name="tax_note_withdrawal_fee">Opłata za wypłatę w USDT lub gotówce nie jest stratą: opłaty w gotówce nie można odliczyć, opłata w USDT to zbycie po wartości nominalnej bez zysku – widnieje tylko jako informacja (%1$s).</string>
     <string name="tax_summary_at_interest_income">liczy się: przychód w chwili otrzymania według stawki specjalnej 27,5 procent (§ 27b ust. 2 pkt 1 EStG / BMF) – monety zachowują tę wartość jako koszt nabycia</string>
     <string name="tax_summary_at_reward_info">tylko informacyjnie – w żadnej sumie: nagrody trafiają do nowego stanu z kosztem nabycia 0 i są opodatkowane dopiero przy sprzedaży (już w zyskach) – § 27b Abs. 2 EStG / BMF</string>
+    <string name="tax_summary_at_transition_2021">Sprzedaż/zamiana nowego stanu 1.03.2021–28.02.2022: dawne przepisy (§ 31 EStG w poprzednim brzmieniu) z opcją 27,5 procent – wyjaśnij z doradcą podatkowym</string>
     <string name="tax_summary_at_withdrawal_fee">Opłata za wypłatę – nierozliczona z nowym stanem (koszty niepodlegające odliczeniu przy stawce specjalnej, § 20 ust. 2 EStG)</string>
     <string name="tax_summary_ch_fifo_info">tylko informacyjnie – obliczenie FIFO aplikacji – bez klasyfikacji – zob. ESTV</string>
     <string name="tax_summary_ch_year_end_value">wartość na 31.12 w CSV stanu = kurs giełdowy × USD/CHF – nie wartości podatkowe z listy kursów ESTV</string>

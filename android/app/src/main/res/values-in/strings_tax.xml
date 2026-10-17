@@ -191,6 +191,7 @@
     <string name="tax_note_withdrawal_fee">Biaya penarikan dalam USDT atau tunai bukan rugi: biaya tunai tidak dapat dikurangkan, biaya USDT adalah pelepasan pada nilai nominal tanpa untung – hanya ditampilkan sebagai informasi (%1$s).</string>
     <string name="tax_summary_at_interest_income">dihitung: pendapatan saat diterima dengan tarif khusus 27,5 persen (§ 27b ayat 2 no. 1 EStG / BMF) – koin mempertahankan nilai ini sebagai biaya perolehan</string>
     <string name="tax_summary_at_reward_info">hanya sebagai informasi – tidak masuk total mana pun: hadiah masuk ke kepemilikan baru dengan biaya perolehan 0 dan baru dikenai pajak saat dijual (sudah di keuntungan) – § 27b Abs. 2 EStG / BMF</string>
+    <string name="tax_summary_at_transition_2021">Penjualan/penukaran kepemilikan baru 1.3.2021–28.2.2022: ketentuan lama (§ 31 EStG versi lama) dengan opsi tarif 27,5 persen – konsultasikan dengan konsultan pajak</string>
     <string name="tax_summary_at_withdrawal_fee">Biaya penarikan – tidak dikompensasikan dengan kepemilikan baru (biaya tidak dapat dikurangkan pada tarif khusus, § 20(2) EStG)</string>
     <string name="tax_summary_ch_fifo_info">hanya sebagai informasi – perhitungan FIFO aplikasi – tidak diklasifikasikan – lihat ESTV</string>
     <string name="tax_summary_ch_year_end_value">nilai per 31.12 di CSV kepemilikan = harga bursa × USD/CHF – bukan nilai pajak dari daftar kurs ESTV</string>

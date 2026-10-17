@@ -274,6 +274,27 @@ class ParityFixturesTest {
         assertTrue(export.size >= 5)
     }
 
+    /** Alarm-Schwellwert genau wie gespeichert (1.0005 nicht «1») und vorgelesene Kurse unter 1 mit vier Stellen. */
+    @Test
+    fun thresholdAndSpokenPrice() {
+        val data = ParityJson.load("threshold.json")
+        val display = data["thresholdDisplay"].list()
+        display.forEach { raw ->
+            val c = raw.obj()
+            val value = (c["value"] as String?)?.toDouble()
+            val locale = java.util.Locale.forLanguageTag((c["locale"] as String).replace('_', '-'))
+            assertEquals("threshold ${c["value"]} ${c["locale"]}", c["expected"], PriceFormat.threshold(value, locale))
+        }
+        assertTrue(display.size >= 5)
+        val spoken = data["spokenPrice"].list()
+        spoken.forEach { raw ->
+            val c = raw.obj()
+            val value = (c["value"] as String).toDouble()
+            assertEquals("spokenPrice ${c["value"]}", c["expected"], PriceFormat.spokenPrice(value))
+        }
+        assertTrue(spoken.size >= 5)
+    }
+
     // ---------------- Stichtag-Export exakt
 
     @Test

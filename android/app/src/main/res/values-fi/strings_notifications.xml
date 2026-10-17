@@ -18,6 +18,10 @@
     <string name="notification_indicator_below">Alle rajasi %1$s – mittausarvo, ei suositus.</string>
     <string name="notification_indicator_title">%1$s: %2$s</string>
     <string name="notification_macro_title">Talouslukuja tänään</string>
+    <string name="notification_permission_preprompt_continue">Jatka</string>
+    <string name="notification_permission_preprompt_later">Myöhemmin</string>
+    <string name="notification_permission_preprompt_text">Jotta hälytykset ja hintailmoitukset tavoittavat sinut, sovellus tarvitsee luvan ilmoituksiin. Niitä käytetään vain omiin hälytyksiisi.</string>
+    <string name="notification_permission_preprompt_title">Sallitaanko ilmoitukset?</string>
     <string name="notification_portfolio_alarm_locked">Hälytyksesi laukesi – avaa sovellus nähdäksesi tiedot.</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
     <string name="notification_portfolio_alarm_text">%1$s – nyt %2$s</string>

@@ -251,6 +251,8 @@ enum BackupManager {
         let oldColumnSort = UserDefaults.standard.string(forKey: ColumnSort.storageKey)
         let oldPortfolio = data.portfolioFileForRollback()
         let oldWatched = data.currentWatchedAddressFile()
+        // Unlesbare Datei: Rückrollen legt sie unverändert zurück statt den leeren Stand zu schreiben
+        let oldWatchedIntact = data.watchedAddressIntact
         let watched = watchedEntries(root)
 
         var steps = RestoreSteps()
@@ -276,7 +278,7 @@ enum BackupManager {
             if let watched {
                 try steps.run({
                     guard data.replaceWatchedAddresses(watched) != nil else { throw Failure.invalid(WatchedAddressRules.backupKey) }
-                }, undo: { _ = data.setWatchedAddressFile(oldWatched) })
+                }, undo: { data.rollBackWatchedAddresses(oldWatched, wasIntact: oldWatchedIntact) })
             }
         } catch {
             steps.rollBack()

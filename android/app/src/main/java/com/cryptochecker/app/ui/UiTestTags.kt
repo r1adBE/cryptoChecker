@@ -20,6 +20,10 @@ object UiTestTags {
     const val WATCHLIST_ADD_PAIR = "watchlist_add_pair"
     const val WATCH_ACTION_ALARM = "watch_action_alarm"
 
+    // ── Mitteilungen ──
+    /** «Weiter» der Erklärung vor der System-Abfrage (`NotificationPrePrompt`). */
+    const val NOTIFICATION_PREPROMPT_CONTINUE = "notification_preprompt_continue"
+
     // ── Paar hinzufügen (Coin-Suche) ──
     const val EXPLORER_SEARCH = "explorer_search"
     const val EXPLORER_LISTS_LOAD = "explorer_lists_load"

@@ -191,6 +191,7 @@
     <string name="tax_note_withdrawal_fee">Una commissione di prelievo in USDT o contanti non è una perdita: in contanti non è deducibile, in USDT è una cessione alla pari senza guadagno – compare solo come informazione (%1$s).</string>
     <string name="tax_summary_at_interest_income">conta: reddito alla ricezione con aliquota speciale del 27,5 per cento (§ 27b c. 2 n. 1 EStG / BMF) – le monete mantengono questo valore come costo d’acquisto</string>
     <string name="tax_summary_at_reward_info">solo a titolo informativo – in nessun totale: le ricompense entrano nel nuovo patrimonio a costo d’acquisto 0 e sono tassate solo alla vendita (già nelle plusvalenze) – § 27b Abs. 2 EStG / BMF</string>
+    <string name="tax_summary_at_transition_2021">Vendite/scambi di nuove consistenze dall’1.3.2021 al 28.2.2022: vecchia normativa (§ 31 EStG versione previgente) con opzione per il 27,5 per cento – da chiarire con un consulente fiscale</string>
     <string name="tax_summary_at_withdrawal_fee">Commissione di prelievo – non compensata con le nuove consistenze (spese non deducibili all’aliquota speciale, § 20 c. 2 EStG)</string>
     <string name="tax_summary_ch_fifo_info">solo a titolo informativo – calcolo FIFO dell’app – non classificato – vedi AFC</string>
     <string name="tax_summary_ch_year_end_value">valore al 31.12 nel CSV delle posizioni = prezzo dell’exchange × USD/CHF – non i valori fiscali della lista dei corsi AFC</string>

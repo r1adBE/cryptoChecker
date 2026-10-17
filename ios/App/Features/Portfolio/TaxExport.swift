@@ -276,6 +276,10 @@ enum TaxSummaryNote: String, Sendable, Equatable, Hashable {
     /// UK, US, CA, AU, JP Umbuchungsgebühren in USDT/Fiat (`TaxLine.TRANSFER_FEES`, Build 57): kein Verlust und nicht im
     /// Einstand, nur Information.
     case TRANSFER_FEE_INFO
+    /// AT Neubestand netto (`TaxLine.NEW_NET`): Verkäufe bzw. Tausch von Neuvermögen vom 1.3.2021 (`TaxTemplate.atNewFrom`)
+    /// bis 28.2.2022 (vor `TaxTemplate.atSwapNeutralFrom`) sind mit 27,5 % gebucht — rechtlich galt dort noch die alte
+    /// Rechtslage (§ 31 EStG a. F.) mit Option auf 27,5 % (§ 124b Z 384 EStG): mit Steuerberatung klären.
+    case AT_TRANSITION_2021
 }
 
 /// Jahresübersicht Deutschland (`TaxExport.deYearSummary`) — Orientierung, keine Steuerberatung. Wie `TaxYearSummaryDe`
@@ -1215,7 +1219,11 @@ enum TaxExport {
             net = Acc(newRows, all, fx: fx)
             lines.append(Acc(newRows, pos, fx: fx).line(.GAINS, fx: fx, countUnknown: false))
             lines.append(Acc(newRows, neg, fx: fx).line(.LOSSES, fx: fx, countUnknown: false))
-            lines.append(net.line(.NEW_NET, fx: fx))
+            // Verkäufe/Tausch von Neuvermögen 1.3.2021–28.2.2022: alte Rechtslage mit Option auf 27,5 % — Vermerk am Posten
+            let transition = newRows.contains {
+                $0.soldDate >= TaxTemplate.atNewFrom && $0.soldDate < TaxTemplate.atSwapNeutralFrom
+            }
+            lines.append(net.line(.NEW_NET, fx: fx, note: transition ? .AT_TRANSITION_2021 : nil))
             if !old.isEmpty {
                 lines.append(Acc(old.filter { $0.longTerm != true }, all, fx: fx).line(.OLD_SHORT_NET, fx: fx))
                 lines.append(Acc(old.filter { $0.longTerm == true }, all, fx: fx).line(.OLD_LONG_NET, fx: fx))
@@ -1580,6 +1588,7 @@ extension TaxSummaryTexts {
                 .WITHDRAWAL_FEE_INFO: L("tax_summary_withdrawal_fee_info"),
                 .TRANSFER_FEE_INFO: L("tax_summary_transfer_fee_info"),
                 .AT_INTEREST_INCOME: L("tax_summary_at_interest_income"),
+                .AT_TRANSITION_2021: L("tax_summary_at_transition_2021"),
             ]
         )
     }

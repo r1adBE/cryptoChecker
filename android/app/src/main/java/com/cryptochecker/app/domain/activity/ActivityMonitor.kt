@@ -210,9 +210,11 @@ class ActivityMonitor @Inject constructor(
             }
             // Stablecoins: kein Markt-Vergleich (Abweichung von 1:1), also auch keine Vergleichsdaten dafür
             val stable = StablePeg.isPegged(watch.baseAsset, watch.quoteAsset)
-            val compare = !isBtc && !stable
+            // Quote nicht USD (z. B. ETH/BTC, SOL/EUR): kein Markt-Vergleich, also auch keine Vergleichsdaten
+            val usdQuote = ActivityAnalyzer.isUsdQuote(watch.quoteAsset)
+            val compare = !isBtc && !stable && usdQuote
             val referenceJob = async {
-                if (stable) {
+                if (stable || !usdQuote) {
                     null
                 } else {
                     timed { volumeDataSource.hourlyCandlesSourced(if (isBtc) "ETH" else "BTC", "USDT", limit = limit) }

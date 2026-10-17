@@ -6,7 +6,9 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 import java.text.DateFormat
 import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
 import java.util.Date
+import java.util.Locale
 import kotlin.math.abs
 
 object PriceFormat {
@@ -16,6 +18,31 @@ object PriceFormat {
 
     fun priceWithCurrency(value: Double?, quoteAsset: String): String =
         if (value == null || value <= 0.0) "—" else "${price(value)} $quoteAsset"
+
+    /**
+     * Schwellwert eines Kursalarms genau so, wie er gespeichert ist — nie gerundet wie [price]
+     * (sonst stünde 1.0005 als «1» da): Tausendertrennung und Dezimalzeichen der Region wie
+     * [price], ohne Exponent und ohne Nullen am Ende (1.0005 → «1.0005», 65000 → «65,000»,
+     * 0.00000712 → «0.00000712»). Gerechnet mit der kürzesten Dezimaldarstellung des Double
+     * (wie [DecimalText]), höchstens [THRESHOLD_MAX_DECIMALS] Nachkommastellen. Nicht positiv
+     * oder nicht endlich → «—». Wie `PriceFormat.threshold` (iOS).
+     */
+    fun threshold(value: Double?, locale: Locale = Locale.getDefault(Locale.Category.FORMAT)): String {
+        if (value == null || !value.isFinite() || value <= 0.0) return "—"
+        val exact = BigDecimal.valueOf(value).stripTrailingZeros()
+        val format = DecimalFormat("#,##0", DecimalFormatSymbols.getInstance(locale)).apply {
+            maximumFractionDigits = THRESHOLD_MAX_DECIMALS
+            minimumFractionDigits = 0
+        }
+        return format.format(exact)
+    }
+
+    /** Schwellwert wie [threshold] mit Währung: «1.0005 USDT». */
+    fun thresholdWithCurrency(value: Double?, quoteAsset: String): String =
+        if (value == null || !value.isFinite() || value <= 0.0) "—" else "${threshold(value)} $quoteAsset"
+
+    /** Höchstens so viele Nachkommastellen zeigt [threshold] (wie die exakte Menge). */
+    const val THRESHOLD_MAX_DECIMALS = 18
 
     /** Gehaltene Menge: Tausendertrennung, bis acht Nachkommastellen, ohne Nullen am Ende. */
     fun amount(value: Double): String = DecimalFormat("#,##0.########").format(value)
@@ -154,13 +181,21 @@ object PriceFormat {
         else -> "%.1f s".format(millis / 1000.0)
     }
 
-    /** Kurs so aufbereiten, dass die Sprachausgabe ihn sinnvoll vorliest. */
+    /**
+     * Kurs so aufbereiten, dass die Sprachausgabe ihn sinnvoll vorliest. Unter 1 vier
+     * signifikante Stellen (kaufmännisch gerundet, ohne Exponent und Nullen am Ende), damit
+     * kleine Kurse nicht zu «0» werden: 0.00000712 → «0.00000712», 0.123456 → «0.1235».
+     * Wie `PriceFormat.spokenPrice` (iOS).
+     */
     fun spokenPrice(value: Double): String {
         val formatted = when {
             value >= 1000 -> "%.0f".format(value)
             value >= 1 -> "%.2f".format(value)
-            else -> "%.6f".format(value).trimEnd('0').trimEnd('.')
+            else -> DecimalText.plain(value, DecimalText.significantScale(value, 0, SPOKEN_SIGNIFICANT))
         }
         return formatted.replace(",", ".")
     }
+
+    /** Signifikante Stellen eines vorgelesenen Kurses unter 1. */
+    private const val SPOKEN_SIGNIFICANT = 4
 }

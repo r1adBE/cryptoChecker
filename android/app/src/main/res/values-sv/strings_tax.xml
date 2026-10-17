@@ -191,6 +191,7 @@
     <string name="tax_note_withdrawal_fee">En uttagsavgift i USDT eller kontanter är ingen förlust: en kontantavgift är inte avdragsgill, en USDT-avgift är en avyttring till pari utan vinst – den visas endast som information (%1$s).</string>
     <string name="tax_summary_at_interest_income">räknas: inkomst vid mottagandet till den särskilda skattesatsen 27,5 procent (§ 27b st. 2 nr 1 EStG / BMF) – mynten behåller detta värde som anskaffningsvärde</string>
     <string name="tax_summary_at_reward_info">endast för information – ingår inte i någon summa: belöningar går in i det nya innehavet med anskaffningsvärde 0 och beskattas först vid försäljning (redan i vinsterna) – § 27b Abs. 2 EStG / BMF</string>
+    <string name="tax_summary_at_transition_2021">Försäljningar/byten av nytt innehav 1.3.2021–28.2.2022: tidigare regler (§ 31 EStG äldre lydelse) med option på 27,5 procent – stäm av med en skatterådgivare</string>
     <string name="tax_summary_at_withdrawal_fee">Uttagsavgift – inte kvittad mot nytt innehav (kostnader ej avdragsgilla vid specialskattesatsen, § 20 st. 2 EStG)</string>
     <string name="tax_summary_ch_fifo_info">endast för information – appens FIFO-beräkning – inte klassificerad – se ESTV</string>
     <string name="tax_summary_ch_year_end_value">värde per 31.12. i innehavs-CSV = börskurs × USD/CHF – inte skattevärdena i ESTV:s kurslista</string>

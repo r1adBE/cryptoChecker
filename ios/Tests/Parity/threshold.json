@@ -133,5 +133,30 @@
     {"value": "1.005", "amount": "1.005", "rate": "1.005", "money": "1.01"},
     {"value": "-0.0000000000001", "amount": "-0.0000000000001", "rate": "0", "money": "0.00"},
     {"value": "NaN", "amount": "", "rate": "", "money": ""}
+  ],
+  "thresholdDisplayDescription": "PriceFormat.threshold: stored alarm threshold (string, null = none) shown exactly in the given locale - grouping and decimal separator of the region, no exponent, no trailing zeros, no rounding (never 4 significant digits like price). Not positive -> em dash.",
+  "thresholdDisplay": [
+    {"value": "1.0005", "locale": "en_US", "expected": "1.0005"},
+    {"value": "65000", "locale": "en_US", "expected": "65,000"},
+    {"value": "0.00000712", "locale": "en_US", "expected": "0.00000712"},
+    {"value": "1.2345e-10", "locale": "en_US", "expected": "0.00000000012345"},
+    {"value": "70000.12345678", "locale": "en_US", "expected": "70,000.12345678"},
+    {"value": "66600.5", "locale": "en_US", "expected": "66,600.5"},
+    {"value": "1.0005", "locale": "de_DE", "expected": "1,0005"},
+    {"value": "65000", "locale": "de_DE", "expected": "65.000"},
+    {"value": "0", "locale": "en_US", "expected": "\u2014"},
+    {"value": null, "locale": "en_US", "expected": "\u2014"}
+  ],
+  "spokenPriceDescription": "PriceFormat.spokenPrice: price -> text for speech output (point as decimal separator). From 1000 no decimals, from 1 two decimals, below 1 four significant digits rounded HALF_UP, no exponent, no trailing zeros.",
+  "spokenPrice": [
+    {"value": "0.00000712", "expected": "0.00000712"},
+    {"value": "0.0000004", "expected": "0.0000004"},
+    {"value": "0.00001234567", "expected": "0.00001235"},
+    {"value": "0.123456", "expected": "0.1235"},
+    {"value": "0.5", "expected": "0.5"},
+    {"value": "0.99996", "expected": "1"},
+    {"value": "0", "expected": "0"},
+    {"value": "1.5", "expected": "1.50"},
+    {"value": "65000.4", "expected": "65000"}
   ]
 }

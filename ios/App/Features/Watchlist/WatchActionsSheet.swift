@@ -119,7 +119,8 @@ struct WatchActionsSheet: View {
             addedId = id
             UINotificationFeedbackGenerator().notificationOccurred(.success)
             if firstEver { _ = data.celebrateFirstAdd(id, announceInWatchlist: true) }
-            Task { _ = await Notifier.requestPermission() }
+            // Neues Paar mit Kurs-Mitteilungen: erst kurz erklären, dann die System-Abfrage
+            NotificationPrePrompt.request(.pairsAdded)
             Task { await data.refreshOne(id) }
         } else if let existing = data.watches.first(where: { $0.samePair(as: preview) }) {
             addedId = existing.id

@@ -191,6 +191,7 @@
     <string name="tax_note_withdrawal_fee">Eine Auszahlungsgebühr in USDT oder Fiat ist kein Verlust: eine Fiat-Gebühr ist nicht abziehbar, eine USDT-Gebühr eine Veräusserung zum Nennwert ohne Gewinn – sie steht nur als Information da (%1$s).</string>
     <string name="tax_summary_at_interest_income">zählt: Einkünfte beim Zufluss zum Sondersteuersatz 27,5 Prozent (§ 27b Abs. 2 Z 1 EStG / BMF) – die Coins behalten diesen Wert als Anschaffungskosten</string>
     <string name="tax_summary_at_reward_info">nur zur Information – in keiner Summe: Belohnungen kommen mit Anschaffungskosten 0 in den Neubestand und werden erst beim Verkauf besteuert (dort in den Gewinnen) – § 27b Abs. 2 EStG / BMF</string>
+    <string name="tax_summary_at_transition_2021">Verkäufe/Tausch von Neuvermögen 1.3.2021–28.2.2022: alte Rechtslage (§ 31 EStG a. F.) mit Option auf 27,5 Prozent – mit Steuerberatung klären</string>
     <string name="tax_summary_at_withdrawal_fee">Auszahlungsgebühr – nicht mit dem Neubestand verrechnet (Aufwendungen beim Sondersteuersatz nicht abzugsfähig, § 20 Abs. 2 EStG)</string>
     <string name="tax_summary_ch_fifo_info">nur zur Information – FIFO-Rechnung der App – nicht eingeordnet – siehe ESTV</string>
     <string name="tax_summary_ch_year_end_value">Wert per 31.12. in der Bestand-CSV = Börsenkurs × USD/CHF – nicht die Steuerwerte der ESTV-Kursliste</string>

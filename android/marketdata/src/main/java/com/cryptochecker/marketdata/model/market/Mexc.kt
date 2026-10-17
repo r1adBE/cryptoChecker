@@ -146,7 +146,7 @@ class MexcFutures : SimpleMarket(
         // «volume24» zählt Kontrakte: kein Coin-Volumen, nur der Umsatz in der Kotierung
         ticker.vol = Ticker.MISSING
         ticker.volQuote = row.optDoubleOrMissing("amount24")
-        // «timestamp» = Momentaufnahme, kein Handel. «riseFallRate» = Bruchteil über gleitende 24 h
-        ticker.change24hPercent = Change24h.fraction(row.optDouble("riseFallRate"))
+        // «timestamp» = Momentaufnahme, kein Handel.
+        // «riseFallRate» ist die Veränderung seit 00:00 UTC+8, nicht über 24 h — darum keine 24-h-Veränderung
     }
 }

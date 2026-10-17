@@ -206,8 +206,9 @@ final class ExplorerViewModel: ObservableObject {
         UINotificationFeedbackGenerator().notificationOccurred(kind)
     }
 
-    /// Erst wenn neue Paare (mit Meldungen) dazukommen, um Erlaubnis für Mitteilungen bitten.
+    /// Erst wenn neue Paare (mit Meldungen) dazukommen, um Erlaubnis für Mitteilungen bitten — vorher die kurze
+    /// Erklärung (`NotificationPrePrompt`, nur wenn das System wirklich fragen würde).
     func requestNotifications() {
-        Task { _ = await Notifier.requestPermission() }
+        NotificationPrePrompt.request(.pairsAdded)
     }
 }

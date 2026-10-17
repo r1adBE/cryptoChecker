@@ -145930,6 +145930,770 @@
         }
       }
     },
+    "notification_permission_preprompt_continue" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "متابعة"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pokračovat"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fortsæt"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weiter"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Συνέχεια"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continue"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continuar"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ادامه"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jatka"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continuer"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "המשך"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "जारी रखें"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tovább"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lanjutkan"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continua"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "続ける"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "계속"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fortsett"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Doorgaan"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dalej"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continuar"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continuar"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continuă"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Продолжить"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vazhdo"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fortsätt"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ดำเนินการต่อ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Devam"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Продовжити"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tiếp tục"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "继续"
+          }
+        }
+      }
+    },
+    "notification_permission_preprompt_later" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لاحقًا"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Později"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Senere"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Später"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Αργότερα"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Later"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Más tarde"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بعداً"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Myöhemmin"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plus tard"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "אחר כך"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "बाद में"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Később"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nanti"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Più tardi"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "後で"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "나중에"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Senere"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Later"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Później"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mais tarde"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mais tarde"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mai târziu"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Позже"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Më vonë"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Senare"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ภายหลัง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sonra"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пізніше"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Để sau"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "稍后"
+          }
+        }
+      }
+    },
+    "notification_permission_preprompt_text" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لكي تصلك التنبيهات وإشعارات الأسعار، يحتاج التطبيق إلى إذن الإشعارات. تُستخدم فقط لتنبيهاتك الخاصة."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aby k vám upozornění a cenová oznámení dorazila, aplikace potřebuje povolení k oznámením. Používají se jen pro vaše vlastní upozornění."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "For at alarmer og kursnotifikationer kan nå frem, skal appen have tilladelse til notifikationer. De bruges kun til dine egne alarmer."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Damit Alarme und Kursmitteilungen ankommen, braucht die App die Erlaubnis für Mitteilungen. Sie werden nur für deine eigenen Alarme genutzt."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Για να σας φτάνουν οι συναγερμοί και οι ειδοποιήσεις τιμής, η εφαρμογή χρειάζεται άδεια για ειδοποιήσεις. Χρησιμοποιούνται μόνο για τους δικούς σας συναγερμούς."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "So that alerts and price notifications reach you, the app needs permission to send notifications. They are only used for your own alerts."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Para que te lleguen las alarmas y las notificaciones de precio, la app necesita permiso para enviar notificaciones. Solo se usan para tus propias alarmas."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "برای اینکه هشدارها و اعلان‌های قیمت به شما برسند، برنامه به اجازهٔ اعلان‌ها نیاز دارد. این اعلان‌ها فقط برای هشدارهای خودتان استفاده می‌شوند."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jotta hälytykset ja hintailmoitukset tavoittavat sinut, sovellus tarvitsee luvan ilmoituksiin. Niitä käytetään vain omiin hälytyksiisi."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pour que les alertes et les notifications de prix vous parviennent, l’app a besoin de l’autorisation d’envoyer des notifications. Elles ne servent qu’à vos propres alertes."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "כדי שההתראות שהגדרת ועדכוני המחיר יגיעו אליך, האפליקציה צריכה הרשאה להתראות מערכת. הן משמשות רק להתראות שהגדרת בעצמך."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "अलार्म और प्राइस नोटिफ़िकेशन आप तक पहुँचें, इसके लिए ऐप को नोटिफ़िकेशन की अनुमति चाहिए। इनका उपयोग केवल आपके अपने अलार्म के लिए होता है।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ahhoz, hogy a riasztások és az árértesítések megérkezzenek, az alkalmazásnak engedély kell az értesítésekhez. Csak a saját riasztásaidhoz használja őket."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agar alarm dan notifikasi harga sampai kepada Anda, aplikasi memerlukan izin notifikasi. Notifikasi hanya digunakan untuk alarm Anda sendiri."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Perché gli avvisi e le notifiche di prezzo ti arrivino, l’app ha bisogno del permesso per le notifiche. Vengono usate solo per i tuoi avvisi."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アラームと価格通知を受け取るには、アプリに通知の許可が必要です。通知はご自身のアラームにのみ使われます。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "알람과 가격 알림을 받으려면 앱에 알림 권한이 필요합니다. 알림은 직접 설정한 알람에만 사용됩니다."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "For at alarmer og kursvarsler skal nå frem, trenger appen tillatelse til å sende varsler. De brukes bare til dine egne alarmer."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zodat alarmen en koersmeldingen aankomen, heeft de app toestemming nodig voor meldingen. Ze worden alleen gebruikt voor je eigen alarmen."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aby alarmy i powiadomienia o cenie do Ciebie docierały, aplikacja potrzebuje zgody na powiadomienia. Są używane tylko do Twoich własnych alarmów."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Para que os alarmes e as notificações de preço lhe cheguem, a app precisa de autorização para enviar notificações. São usadas apenas para os seus próprios alarmes."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Para que os alarmes e as notificações de preço cheguem até você, o app precisa de permissão para enviar notificações. Elas são usadas só para os seus próprios alarmes."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ca alarmele și notificările de preț să ajungă la tine, aplicația are nevoie de permisiunea pentru notificări. Sunt folosite doar pentru alarmele tale."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Чтобы оповещения и уведомления о цене доходили до вас, приложению нужно разрешение на уведомления. Они используются только для ваших собственных оповещений."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Që alarmet dhe njoftimet e çmimit të të arrijnë, aplikacioni ka nevojë për leje për njoftime. Ato përdoren vetëm për alarmet e tua."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "För att larm och kursaviseringar ska nå fram behöver appen tillåtelse att skicka aviseringar. De används bara för dina egna larm."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "เพื่อให้สัญญาณเตือนและการแจ้งเตือนราคาถึงคุณ แอปต้องได้รับอนุญาตให้ส่งการแจ้งเตือน ซึ่งจะใช้เฉพาะกับสัญญาณเตือนของคุณเองเท่านั้น"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmların ve fiyat bildirimlerinin sana ulaşması için uygulamanın bildirim iznine ihtiyacı var. Bildirimler yalnızca kendi alarmların için kullanılır."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Щоб оповіщення і цінові сповіщення доходили до вас, застосунку потрібен дозвіл на сповіщення. Вони використовуються лише для ваших власних оповіщень."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Để cảnh báo và thông báo giá đến được với bạn, ứng dụng cần quyền gửi thông báo. Thông báo chỉ được dùng cho các cảnh báo của riêng bạn."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "为了让提醒和价格通知能送达，应用需要通知权限。通知只用于你自己设置的提醒。"
+          }
+        }
+      }
+    },
+    "notification_permission_preprompt_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "السماح بالإشعارات؟"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Povolit oznámení?"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tillad notifikationer?"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mitteilungen erlauben?"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Να επιτρέπονται οι ειδοποιήσεις;"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Allow notifications?"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Permitir notificaciones?"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اجازهٔ اعلان‌ها داده شود؟"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sallitaanko ilmoitukset?"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Autoriser les notifications ?"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "לאפשר התראות מערכת?"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "नोटिफ़िकेशन की अनुमति दें?"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Engedélyezed az értesítéseket?"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Izinkan notifikasi?"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Consentire le notifiche?"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "通知を許可しますか？"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "알림을 허용할까요?"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tillate varsler?"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Meldingen toestaan?"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zezwolić na powiadomienia?"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Permitir notificações?"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Permitir notificações?"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Permiți notificările?"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Разрешить уведомления?"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "T’i lejosh njoftimet?"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tillåta aviseringar?"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "อนุญาตการแจ้งเตือนไหม"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bildirimlere izin verilsin mi?"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Дозволити сповіщення?"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cho phép thông báo?"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "允许通知？"
+          }
+        }
+      }
+    },
     "notification_portfolio_alarm_locked" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -303448,6 +304212,197 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "仅供参考——不计入任何合计：奖励以取得成本 0 计入新持仓，仅在出售时征税（已含在收益中）——§ 27b Abs. 2 EStG / BMF"
+          }
+        }
+      }
+    },
+    "tax_summary_at_transition_2021" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مبيعات/مبادلات الرصيد الجديد من 1.3.2021 إلى 28.2.2022: النظام القانوني السابق (§ 31 EStG بالصيغة القديمة) مع خيار نسبة 27.5 بالمئة – يُرجى التحقق مع مستشار ضريبي"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prodeje/směny nové držby 1. 3. 2021–28. 2. 2022: dřívější právní úprava (§ 31 EStG ve starém znění) s možností 27,5 procenta – ověřte s daňovým poradcem"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salg/bytte af ny beholdning 1.3.2021–28.2.2022: tidligere regler (§ 31 EStG tidligere affattelse) med option på 27,5 procent – afklar med en skatterådgiver"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verkäufe/Tausch von Neuvermögen 1.3.2021–28.2.2022: alte Rechtslage (§ 31 EStG a. F.) mit Option auf 27,5 Prozent – mit Steuerberatung klären"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Πωλήσεις/ανταλλαγές νέας κατοχής 1.3.2021–28.2.2022: παλαιό καθεστώς (§ 31 EStG παλαιά διατύπωση) με επιλογή 27,5 τοις εκατό – συζητήστε το με φοροτεχνικό"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sales/swaps of new holdings 1 Mar 2021–28 Feb 2022: former law (§ 31 EStG old version) with option for 27.5 percent – check with a tax adviser"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ventas/permutas de nuevas tenencias del 1.3.2021 al 28.2.2022: normativa anterior (§ 31 EStG versión anterior) con opción al 27,5 por ciento – consultar con un asesor fiscal"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "فروش/معاوضهٔ دارایی جدید از 1.3.2021 تا 28.2.2022: قانون قبلی (§ 31 EStG نسخهٔ قدیم) با امکان انتخاب نرخ 27.5 درصد – با مشاور مالیاتی بررسی کنید"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uuden omistuksen myynnit/vaihdot 1.3.2021–28.2.2022: aiempi sääntely (§ 31 EStG vanha versio) ja mahdollisuus 27,5 prosenttiin – selvitä veroneuvojan kanssa"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ventes/échanges de nouveaux avoirs du 1.3.2021 au 28.2.2022 : ancien régime (§ 31 EStG ancienne version) avec option pour 27,5 pour cent – à clarifier avec un conseiller fiscal"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "מכירות/החלפות של אחזקה חדשה 1.3.2021–28.2.2022: הדין הקודם (§ 31 EStG בנוסח הישן) עם אפשרות לשיעור של 27.5 אחוז – יש לברר מול יועץ מס"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "नई होल्डिंग की बिक्री/अदला-बदली 1.3.2021–28.2.2022: पुराना कानून (§ 31 EStG पुराना संस्करण), 27.5 प्रतिशत के विकल्प के साथ – टैक्स सलाहकार से स्पष्ट करें"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Az új állomány eladásai/cseréi 2021.03.01. és 2022.02.28. között: korábbi szabályozás (EStG 31. § régi változat) 27,5 százalékos opcióval – egyeztesd adótanácsadóval"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Penjualan/penukaran kepemilikan baru 1.3.2021–28.2.2022: ketentuan lama (§ 31 EStG versi lama) dengan opsi tarif 27,5 persen – konsultasikan dengan konsultan pajak"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vendite/scambi di nuove consistenze dall’1.3.2021 al 28.2.2022: vecchia normativa (§ 31 EStG versione previgente) con opzione per il 27,5 per cento – da chiarire con un consulente fiscale"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2021年3月1日～2022年2月28日の新規保有分の売却・交換：旧法（§ 31 EStG 旧規定）、27.5パーセントの選択可 – 税理士にご確認ください"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2021년 3월 1일–2022년 2월 28일 신규 보유분 매도/교환: 구법(§ 31 EStG 구 규정) 적용, 27.5퍼센트 선택 가능 – 세무사와 확인하세요"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salg/bytte av ny beholdning 1.3.2021–28.2.2022: tidligere regler (§ 31 EStG tidligere ordlyd) med valg av 27,5 prosent – avklar med en skatterådgiver"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verkopen/ruil van nieuw bezit 1-3-2021–28-2-2022: oude regeling (§ 31 EStG oude versie) met optie voor 27,5 procent – met een belastingadviseur bespreken"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sprzedaż/zamiana nowego stanu 1.03.2021–28.02.2022: dawne przepisy (§ 31 EStG w poprzednim brzmieniu) z opcją 27,5 procent – wyjaśnij z doradcą podatkowym"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vendas/trocas da nova posse de 1.3.2021 a 28.2.2022: regime anterior (§ 31 EStG versão anterior) com opção pelos 27,5 por cento – esclarecer com um consultor fiscal"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vendas/trocas da nova posição de 1/3/2021 a 28/2/2022: legislação anterior (§ 31 EStG versão anterior) com opção pelos 27,5 por cento – verificar com um contador"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vânzări/schimburi din noua deținere 1.03.2021–28.02.2022: vechiul regim (§ 31 EStG forma anterioară) cu opțiune pentru 27,5 la sută – de clarificat cu un consultant fiscal"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Продажи/обмен новых активов 01.03.2021–28.02.2022: прежние правила (§ 31 EStG в старой редакции) с опцией ставки 27,5 процента – уточните у налогового консультанта"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shitje/shkëmbime të zotërimit të ri 1.3.2021–28.2.2022: rregullimi i vjetër (§ 31 EStG versioni i mëparshëm) me opsion për 27,5 përqind – sqaroje me një këshilltar tatimor"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Försäljningar/byten av nytt innehav 1.3.2021–28.2.2022: tidigare regler (§ 31 EStG äldre lydelse) med option på 27,5 procent – stäm av med en skatterådgivare"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "การขาย/แลกเปลี่ยนยอดถือครองใหม่ 1.3.2021–28.2.2022: ใช้กฎหมายเดิม (§ 31 EStG ฉบับเดิม) โดยเลือกอัตรา 27.5 เปอร์เซ็นต์ได้ – ควรสอบถามที่ปรึกษาภาษี"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yeni varlığın 1.3.2021–28.2.2022 arası satışları/takasları: eski mevzuat (§ 31 EStG eski hâli) ve yüzde 27,5 seçeneği – bir vergi danışmanıyla netleştir"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Продаж/обмін нових активів 01.03.2021–28.02.2022: попередні правила (§ 31 EStG у старій редакції) з опцією ставки 27,5 відсотка – уточніть у податкового консультанта"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bán/hoán đổi số nắm giữ mới 1.3.2021–28.2.2022: quy định cũ (§ 31 EStG bản cũ) với lựa chọn thuế suất 27,5 phần trăm – hãy làm rõ với cố vấn thuế"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2021年3月1日至2022年2月28日出售/兑换新持仓：适用旧法（§ 31 EStG 旧版），可选择百分之 27.5 税率——请咨询税务顾问"
           }
         }
       }

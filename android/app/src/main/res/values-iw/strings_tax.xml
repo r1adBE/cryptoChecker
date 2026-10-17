@@ -191,6 +191,7 @@
     <string name="tax_note_withdrawal_fee">עמלת משיכה ב-USDT או במזומן אינה הפסד: עמלה במזומן אינה ניתנת לניכוי, עמלה ב-USDT היא מימוש לפי הערך הנקוב ללא רווח – היא מוצגת לידיעה בלבד (%1$s).</string>
     <string name="tax_summary_at_interest_income">נספר: הכנסה בעת הקבלה בשיעור המיוחד של 27.5 אחוז (§ 27b ס׳ 2 מס׳ 1 EStG / BMF) – המטבעות שומרים על שווי זה כעלות רכישה</string>
     <string name="tax_summary_at_reward_info">לידיעה בלבד – לא נכלל באף סכום: תגמולים נכנסים ליתרה החדשה בעלות רכישה 0 וממוסים רק במכירה (כבר ברווחים) – § 27b Abs. 2 EStG / BMF</string>
+    <string name="tax_summary_at_transition_2021">מכירות/החלפות של אחזקה חדשה 1.3.2021–28.2.2022: הדין הקודם (§ 31 EStG בנוסח הישן) עם אפשרות לשיעור של 27.5 אחוז – יש לברר מול יועץ מס</string>
     <string name="tax_summary_at_withdrawal_fee">עמלת משיכה – לא מקוזזת מול האחזקה החדשה (הוצאות אינן מותרות בניכוי בשיעור המיוחד, § 20(2) EStG)</string>
     <string name="tax_summary_ch_fifo_info">לידיעה בלבד – חישוב FIFO של האפליקציה – ללא סיווג – ראה ESTV</string>
     <string name="tax_summary_ch_year_end_value">שווי ל-31.12 ב-CSV היתרות = שער הבורסה × USD/CHF – לא ערכי המס מרשימת השערים של ESTV</string>

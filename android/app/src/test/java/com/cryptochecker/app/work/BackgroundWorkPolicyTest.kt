@@ -114,8 +114,9 @@ class BackgroundWorkPolicyTest {
     }
 
     @Test
-    fun retryOnlyWhenScheduledAndEverythingFailed() {
-        assertEquals(WorkOutcome.RETRY, BackgroundWorkPolicy.outcome(manual = false, checked = 3, failed = 3))
+    fun noRetryEvenWhenEverythingFailed() {
+        // Börsenausfall: kein Retry (Backoff verschöbe Alarme um Stunden), nächster Lauf im Takt
+        assertEquals(WorkOutcome.SUCCESS, BackgroundWorkPolicy.outcome(manual = false, checked = 3, failed = 3))
         assertEquals(WorkOutcome.SUCCESS, BackgroundWorkPolicy.outcome(manual = false, checked = 3, failed = 2))
         assertEquals(WorkOutcome.SUCCESS, BackgroundWorkPolicy.outcome(manual = false, checked = 0, failed = 0))
         // Knopfdruck: sofort fertig, nie Retry
@@ -123,9 +124,19 @@ class BackgroundWorkPolicyTest {
     }
 
     @Test
+    fun allFailedOnlyWhenSomethingWasChecked() {
+        assertTrue(BackgroundWorkPolicy.allFailed(checked = 3, failed = 3))
+        assertFalse(BackgroundWorkPolicy.allFailed(checked = 3, failed = 2))
+        assertFalse(BackgroundWorkPolicy.allFailed(checked = 0, failed = 0))
+    }
+
+    @Test
     fun errorMapping() {
-        assertEquals(WorkOutcome.RETRY, BackgroundWorkPolicy.outcomeOnError(manual = false))
+        // Geplanter Lauf: kein Retry, wartet auf den nächsten Takt
+        assertEquals(WorkOutcome.SUCCESS, BackgroundWorkPolicy.outcomeOnError(manual = false))
         assertEquals(WorkOutcome.FAILURE, BackgroundWorkPolicy.outcomeOnError(manual = true))
+        // Datenbank-Schlüssel vorübergehend nicht lesbar: einziger Retry (kurzer linearer Backoff)
+        assertEquals(WorkOutcome.RETRY, BackgroundWorkPolicy.outcomeOnKeyUnavailable())
     }
 
     @Test

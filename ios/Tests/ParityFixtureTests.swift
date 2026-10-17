@@ -224,6 +224,25 @@ final class ParityFixtureTests: XCTestCase {
         }
     }
 
+    /// Alarm-Schwellwert genau wie gespeichert (1.0005 nicht «1») und vorgelesene Kurse unter 1 mit vier Stellen.
+    func testThresholdAndSpokenPrice() throws {
+        let data = try S.fixture("threshold")
+        let display = S.list(data["thresholdDisplay"])
+        XCTAssertGreaterThanOrEqual(display.count, 5)
+        for c in display {
+            let value = (c["value"] as? String).flatMap { Double($0) }
+            let locale = Locale(identifier: c["locale"] as? String ?? "en_US")
+            XCTAssertEqual(PriceFormat.threshold(value, locale: locale), c["expected"] as? String,
+                           "threshold \(c["value"] ?? "nil") \(c["locale"] ?? "")")
+        }
+        let spoken = S.list(data["spokenPrice"])
+        XCTAssertGreaterThanOrEqual(spoken.count, 5)
+        for c in spoken {
+            let value = try XCTUnwrap(Double(c["value"] as? String ?? ""))
+            XCTAssertEqual(PriceFormat.spokenPrice(value), c["expected"] as? String, "spokenPrice \(c["value"] ?? "")")
+        }
+    }
+
     // MARK: Stichtag-Export exakt
 
     func testCutoffExport() throws {

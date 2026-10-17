@@ -28,6 +28,8 @@
     "refresh_sheet_notifications": {
       "one": "%1$d Kursmitteilung",
       "other": "%1$d Kursmitteilungen"
-    }
+    },
+    "notification_permission_preprompt_title": "Mitteilungen erlauben?",
+    "notification_permission_preprompt_text": "Damit Alarme und Kursmitteilungen ankommen, braucht die App die Erlaubnis für Mitteilungen. Sie werden nur für deine eigenen Alarme genutzt."
   }
 }

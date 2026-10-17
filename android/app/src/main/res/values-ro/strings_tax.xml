@@ -191,6 +191,7 @@
     <string name="tax_note_withdrawal_fee">Un comision de retragere în USDT sau numerar nu e pierdere: în numerar nu e deductibil, în USDT e o înstrăinare la paritate fără câștig – apare doar informativ (%1$s).</string>
     <string name="tax_summary_at_interest_income">contează: venit la primire la cota specială de 27,5 la sută (§ 27b alin. 2 pct. 1 EStG / BMF) – monedele păstrează această valoare drept cost de achiziție</string>
     <string name="tax_summary_at_reward_info">doar informativ – în niciun total: recompensele intră în noile dețineri cu cost de achiziție 0 și sunt impozitate abia la vânzare (deja în câștiguri) – § 27b Abs. 2 EStG / BMF</string>
+    <string name="tax_summary_at_transition_2021">Vânzări/schimburi din noua deținere 1.03.2021–28.02.2022: vechiul regim (§ 31 EStG forma anterioară) cu opțiune pentru 27,5 la sută – de clarificat cu un consultant fiscal</string>
     <string name="tax_summary_at_withdrawal_fee">Comision de retragere – necompensat cu noua deținere (cheltuieli nedeductibile la cota specială, § 20 alin. 2 EStG)</string>
     <string name="tax_summary_ch_fifo_info">doar informativ – calcul FIFO al aplicației – neîncadrat – vezi ESTV</string>
     <string name="tax_summary_ch_year_end_value">valoare la 31.12 în CSV-ul deținerilor = curs bursier × USD/CHF – nu valorile fiscale din lista de cursuri ESTV</string>

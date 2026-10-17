@@ -18,6 +18,10 @@
     <string name="notification_indicator_below">Sotto la tua soglia %1$s – valore misurato, non un consiglio.</string>
     <string name="notification_indicator_title">%1$s: %2$s</string>
     <string name="notification_macro_title">Dati economici oggi</string>
+    <string name="notification_permission_preprompt_continue">Continua</string>
+    <string name="notification_permission_preprompt_later">Più tardi</string>
+    <string name="notification_permission_preprompt_text">Perché gli avvisi e le notifiche di prezzo ti arrivino, l’app ha bisogno del permesso per le notifiche. Vengono usate solo per i tuoi avvisi.</string>
+    <string name="notification_permission_preprompt_title">Consentire le notifiche?</string>
     <string name="notification_portfolio_alarm_locked">Il tuo allarme è scattato – apri l’app per i dettagli.</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
     <string name="notification_portfolio_alarm_text">%1$s – ora %2$s</string>

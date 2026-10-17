@@ -288,7 +288,8 @@ final class TaxTemplatesTests: XCTestCase {
                 noFx: "nofx", orientationHeading: heading, orientationItem: "Orientation: %s", loss: "loss",
                 notes: [.AT_REWARD_INFO: "atinfo", .CH_EXCHANGE_VALUE: "chvalue", .CH_FIFO_INFO: "chfifo",
                         .DE_WITHDRAWAL_FEE: "dewfee", .AT_WITHDRAWAL_FEE: "atwfee", .AT_INTEREST_INCOME: "atinterest",
-                        .WITHDRAWAL_FEE_INFO: "wfeeinfo", .TRANSFER_FEE_INFO: "tfeeinfo"])
+                        .WITHDRAWAL_FEE_INFO: "wfeeinfo", .TRANSFER_FEE_INFO: "tfeeinfo",
+                        .AT_TRANSITION_2021: "attransition"])
             let csv = TaxExport.summaryCsv(s, texts: texts, header: ["H"])
             let lines = String(csv.dropFirst()).components(separatedBy: "\r\n").filter { !$0.isEmpty }
             // Zusatz-Vermerke und Status «Verlust» stehen in der Hinweis-Spalte ihres Postens

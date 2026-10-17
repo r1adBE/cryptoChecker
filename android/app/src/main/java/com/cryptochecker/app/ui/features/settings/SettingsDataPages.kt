@@ -61,8 +61,11 @@ internal fun BackupPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltV
         ActivityResultContracts.CreateDocument("application/json")
     ) { uri -> if (uri != null) viewModel.exportBackup(uri) else viewModel.cancelExport() }
     // Nach dem Einspielen: Erlaubnis für Mitteilungen erfragen (Android 13+), sonst kommen Alarme und
-    // Kurs-Mitteilungen der eingespielten Paare nie an — eine Neuinstallation hat sie noch nie gefragt
-    val requestNotifications = com.cryptochecker.app.ui.components.rememberNotificationPermissionRequest()
+    // Kurs-Mitteilungen der eingespielten Paare nie an — eine Neuinstallation hat sie noch nie gefragt.
+    // Wie neue Paare: erst kurz erklären, dann die System-Abfrage
+    val requestNotifications = com.cryptochecker.app.ui.components.rememberNotificationPermissionRequest(
+        com.cryptochecker.app.ui.components.NotificationAsk.PAIRS_ADDED
+    )
     val importLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.OpenDocument()
     ) { uri -> uri?.let(viewModel::restorePicked) }

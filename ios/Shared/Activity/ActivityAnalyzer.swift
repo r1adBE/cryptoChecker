@@ -341,6 +341,8 @@ enum ActivityAnalyzer {
         let reference = CandleSeries.usable(input.referenceCandles, now: now, tickerChange24h: nil)
         let stable = StablePeg.isPegged(base: input.baseAsset, quote: input.quoteAsset)
         let isBtc = input.baseAsset.trimmingCharacters(in: .whitespacesAndNewlines).uppercased() == "BTC"
+        // Referenzen (BTCUSDT, ETHUSDT, breiter Markt) sind in USD: nur bei USD-Quote vergleichbar
+        let usdQuote = isUsdQuote(input.quoteAsset)
 
         // Deutliche Bewegung des Coins: relativ zur eigenen Schwankung vor dem 24-h-Fenster
         let coinThreshold = RelativeMove.coinThreshold(RelativeMove.sigmaBefore24h(candles, now: now))
@@ -356,6 +358,8 @@ enum ActivityAnalyzer {
                 let notable = StablePeg.isNotable(deviation)
                 reasons.append(WhyReason(kind: .PEG, tone: notable ? .warning : .neutral, value: deviation, strong: notable))
             }
+        } else if !usdQuote {
+            // Quote nicht USD (z. B. ETH/BTC, SOL/EUR): Kerzen und Referenzen nicht vergleichbar — kein Markt-Grund
         } else if isBtc {
             if let change24h {
                 // Bitcoin ist selbst der Markt: Schwelle aus seiner eigenen Schwankung
@@ -439,8 +443,8 @@ enum ActivityAnalyzer {
         let high: Double? = withRange ? high30d(input.dailyCandles, now: now) : nil
         let low: Double? = withRange ? low30d(input.dailyCandles, now: now) : nil
         let position: Position3d? = rangeCandles.flatMap { position3d($0, now: now) }
-        // Referenz ist BTCUSDT (bei Bitcoin selbst ETH — dann ohnehin kein Satz)
-        let link: BtcLink? = stable ? nil : BtcCorrelation.link(base: input.baseAsset, candles: candles, btc: reference)
+        // Referenz ist BTCUSDT (bei Bitcoin selbst ETH — dann ohnehin kein Satz); nur bei USD-Quote
+        let link: BtcLink? = stable || !usdQuote ? nil : BtcCorrelation.link(base: input.baseAsset, candles: candles, btc: reference)
         var fundingTrend: FundingTrend? = nil
         if input.fundingPercent != nil {
             fundingTrend = FundingTrendRules.trend(input.fundingHistory, current: input.fundingPercent,
@@ -466,6 +470,13 @@ enum ActivityAnalyzer {
             stable: stable,
             sources: input.sources
         )
+    }
+
+    /// Quote USD oder ein USD-Stablecoin (`CurrencyConversion.classify` → `.usd`)? Nur dann sind die Kerzen
+    /// des Paars mit den USD-Referenzen vergleichbar. Ohne Quote (unbekannt) wie bisher USD. Wie Android.
+    static func isUsdQuote(_ quoteAsset: String?) -> Bool {
+        let code = CurrencyConversion.normalize(quoteAsset)
+        return code.isEmpty || CurrencyConversion.classify(code, fiat: []) == .usd
     }
 
     /// Eine Markt-Referenz: 24-h-Veränderung in % und ihre Schwelle.
