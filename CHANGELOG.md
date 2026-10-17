@@ -1,5 +1,10 @@
 # Changelog
 
+## 16.2.2 (build 66)
+
+* iOS builds on GitHub for the first time since the rewrite. One unit test compared watched-address networks in the
+  fixture's free order with the saved (sorted) order; it now compares the sorted form, like the app stores it.
+
 ## 16.2.2 (build 65)
 
 * iOS: the alarm pair picker (bell without alarms) used an interpolated button title that the compiler could not

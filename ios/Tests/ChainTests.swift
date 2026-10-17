@@ -279,7 +279,8 @@ final class ChainTests: XCTestCase {
         var base = watched(firstAddress)
         base.lastAttempt = 5
         let de = try XCTUnwrap(r["deselect"] as? [String: Any])
-        XCTAssertEqual(base.networks, de["before"] as? [String])
+        // watched() ordnet die Netze wie nach dem Speichern (cleanNetworks); die Vorlage nennt sie in freier Reihenfolge
+        XCTAssertEqual(base.networks, WatchedAddressRules.cleanNetworks(de["before"] as? [String]))
         let off = WatchedAddressRules.withNetworks(base, de["after"] as? [String] ?? [])
         XCTAssertEqual(off.networks, de["after"] as? [String])
         XCTAssertEqual(Set(off.tokenBalances.keys), Set(de["keptKeys"] as? [String] ?? []))
