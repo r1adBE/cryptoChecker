@@ -22,7 +22,7 @@
     <string name="backup_password_repeat">Repetă parola</string>
     <string name="backup_password_show">Afișează parola</string>
     <string name="backup_password_title">Copie protejată cu parolă</string>
-    <string name="backup_password_too_weak">Prea ușor de ghicit – nu doar cifre, nu un singur caracter repetat, fără secvențe comune ca «12345678» sau «parola».</string>
+    <string name="backup_password_too_weak">Prea ușor de ghicit – nu doar cifre, nu un singur caracter repetat, fără secvențe comune ca „12345678” sau „parola”.</string>
     <string name="backup_password_warning">Fără parolă, copia de rezervă nu poate fi restaurată.</string>
     <string name="backup_password_wrong">Parolă greșită sau fișier deteriorat. Încearcă din nou.</string>
     <string name="backup_protect">Protejează cu parolă</string>
@@ -57,6 +57,6 @@
     </plurals>
 
     <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
-    <string name="storage_recovery_message">Acest dispozitiv nu mai are cheia datelor criptate ale aplicației, așa că aceasta a pornit goală. Nu s-a șters nimic. Pentru a recupera lista și portofoliul, importă un fișier de backup în setări, la «%1$s».</string>
+    <string name="storage_recovery_message">Acest dispozitiv nu mai are cheia datelor criptate ale aplicației, așa că aceasta a pornit goală. Nu s-a șters nimic. Pentru a recupera lista și portofoliul, importă un fișier de backup în setări, la „%1$s”.</string>
     <string name="storage_recovery_title">Datele salvate nu au putut fi deblocate</string>
 </resources>

@@ -68,6 +68,11 @@ internal fun WatchlistHeader(
     sortMode: Boolean,
     onSortDone: () -> Unit,
     activeAlarms: Int,
+    /**
+     * Alle Alarme, zu denen die Glocke führt (wie [com.cryptochecker.app.domain.watch.AlarmBellRoute]); null = noch nicht
+     * geladen. Nur für die Beschriftung: 0 → «Neuer Alarm», sonst «Alarme (n)».
+     */
+    alarmTotal: Int? = null,
     /** Grösse der Glocke (Puls bei einem neuen Alarm); nur beim Zeichnen gelesen. */
     bellScale: () -> Float,
     /** Glocke: Übersicht bzw. ohne Alarm gleich zum Anlegen ([com.cryptochecker.app.domain.watch.AlarmBellRoute]). */
@@ -188,6 +193,7 @@ internal fun WatchlistHeader(
                 AlarmBell(
                     scale = bellScale,
                     active = activeAlarms > 0,
+                    alarmTotal = alarmTotal,
                     onClick = onBellClick,
                 )
                 WatchlistMenu(
@@ -254,11 +260,24 @@ private fun Modifier.overhangEnd(amount: Dp): Modifier = layout { measurable, co
  * [active]: es gibt aktive Alarme (gefüllt), sonst nur der Umriss.
  */
 @Composable
-private fun AlarmBell(scale: () -> Float, active: Boolean, onClick: () -> Unit, modifier: Modifier = Modifier) {
+private fun AlarmBell(
+    scale: () -> Float,
+    active: Boolean,
+    alarmTotal: Int?,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    // Beschriftung nach dem Ziel: ohne Alarm führt die Glocke zum Anlegen («Neuer Alarm»), sonst zur Übersicht
+    // («Alarme (3)»); noch nicht geladen → «Alle Alarme» (gleich wie iOS)
+    val label = when {
+        alarmTotal == null -> stringResource(R.string.alarms_overview_title)
+        alarmTotal == 0 -> stringResource(R.string.alarms_add)
+        else -> pluralStringResource(R.plurals.watchlist_alarms_count, alarmTotal, alarmTotal)
+    }
     IconButton(onClick = onClick, modifier = modifier) {
         Icon(
             painterResource(if (active) R.drawable.ic_notifications_active else R.drawable.ic_notifications_active_outline),
-            contentDescription = stringResource(R.string.alarms_overview_title),
+            contentDescription = label,
             modifier = Modifier.graphicsLayer {
                 scaleX = scale()
                 scaleY = scale()

@@ -194,6 +194,35 @@ enum WidgetRefresh {
         TimeUtils.nowMillis - SharedStorage.lastRefreshAt >= staleAfterMillis
     }
 
+    /// Schützt Prüfen und Setzen von `runningKey` im selben Prozess: zwei gleichzeitige Timeline-Anfragen sahen sonst
+    /// beide «frei» und aktualisierten doppelt. Prozessübergreifend bleibt der Zeitstempel in den App-Group-Defaults.
+    private static let runLock = NSLock()
+    /// Läuft in diesem Prozess gerade eine Aktualisierung? Nur unter `runLock` lesen oder schreiben.
+    private static var runningInProcess = false
+
+    /// Aktualisierung übernehmen (atomar im Prozess); false = läuft schon (hier oder, innerhalb der Frist, anderswo).
+    private static func claimRun(started: Int64) -> Bool {
+        runLock.lock()
+        defer { runLock.unlock() }
+        guard !runningInProcess else { return false }
+        let defaults = SharedStorage.defaults
+        let running = Int64(defaults.double(forKey: runningKey))
+        if running > 0, started - running >= 0, started - running < runningTimeoutMillis { return false }
+        defaults.set(Double(started), forKey: runningKey)
+        runningInProcess = true
+        return true
+    }
+
+    /// Nur der Besitzer gibt frei: Den Zeitstempel löschen, solange es noch der eigene ist (hat nach Ablauf der Frist
+    /// ein anderer Prozess übernommen, bleibt dessen Merker stehen).
+    private static func releaseRun(started: Int64) {
+        runLock.lock()
+        defer { runLock.unlock() }
+        runningInProcess = false
+        let defaults = SharedStorage.defaults
+        if Int64(defaults.double(forKey: runningKey)) == started { defaults.removeObject(forKey: runningKey) }
+    }
+
     /// Ist der letzte misslungene Versuch jünger als `retryAfterMillis`? (Uhr zurückgestellt: nein.)
     static var recentlyFailed: Bool {
         let failedAt = Int64(SharedStorage.defaults.double(forKey: failedAtKey))
@@ -207,10 +236,8 @@ enum WidgetRefresh {
     static func run() async -> RunResult {
         let defaults = SharedStorage.defaults
         let started = TimeUtils.nowMillis
-        let running = Int64(defaults.double(forKey: runningKey))
-        if running > 0, started - running >= 0, started - running < runningTimeoutMillis { return .busy }
-        defaults.set(Double(started), forKey: runningKey)
-        defer { defaults.removeObject(forKey: runningKey) }
+        guard claimRun(started: started) else { return .busy }
+        defer { releaseRun(started: started) }
 
         let settings = SharedStorage.loadSettings()
         let snapshot = SharedStorage.loadSnapshot()

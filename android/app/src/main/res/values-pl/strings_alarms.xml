@@ -39,7 +39,7 @@
     <string name="alarm_more_conditions">Więcej warunków</string>
     <string name="alarm_new_extreme">Nowe %1$s</string>
     <string name="alarm_once">Raz</string>
-    <string name="alarm_option_repeating">Zachowaj alarm po wyzwoleniu</string>
+    <string name="alarm_option_repeating">Powiadamiaj</string>
     <string name="alarm_option_sound">Dźwięk</string>
     <string name="alarm_option_speak">Czytaj alarm</string>
     <string name="alarm_option_vibrate">Wibracja</string>
@@ -61,7 +61,6 @@
     <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
     <string name="alarm_simple_above">wzrośnie powyżej</string>
     <string name="alarm_simple_below">spadnie poniżej</string>
-    <string name="alarm_simple_direction_a11y">Kierunek: %1$s</string>
     <string name="alarm_simple_end"></string>
     <string name="alarm_simple_when">Gdy %1$s</string>
     <string name="alarm_template_a11y">Utwórz alarm: %1$s</string>
@@ -88,7 +87,7 @@
     <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
     <string name="alarm_sentence_above">Powiadom mnie, gdy %1$s wzrośnie powyżej %2$s.</string>
     <string name="alarm_sentence_below">Powiadom mnie, gdy %1$s spadnie poniżej %2$s.</string>
-    <string name="alarm_sentence_down_percent">Powiadom mnie, gdy %1$s spadnie o %2$s.</string>
+    <string name="alarm_sentence_down_percent">Powiadom mnie, gdy %1$s spadnie o %2$s poniżej ceny z chwili zapisania (lub ostatniego alarmu).</string>
     <string name="alarm_sentence_funding_above">Powiadom mnie, gdy funding %1$s wzrośnie powyżej %2$s.</string>
     <string name="alarm_sentence_funding_below">Powiadom mnie, gdy funding %1$s spadnie poniżej %2$s.</string>
     <string name="alarm_sentence_incomplete">Wpisz wartość, aby zobaczyć alarm jako zdanie.</string>
@@ -113,7 +112,7 @@
         <item quantity="many">Powiadom mnie, gdy otwarte pozycje %1$s wzrosną o %2$s w ciągu %3$d godzin.</item>
         <item quantity="other">Powiadom mnie, gdy otwarte pozycje %1$s wzrosną o %2$s w ciągu %3$d godzin.</item>
     </plurals>
-    <string name="alarm_sentence_up_percent">Powiadom mnie, gdy %1$s wzrośnie o %2$s.</string>
+    <string name="alarm_sentence_up_percent">Powiadom mnie, gdy %1$s wzrośnie o %2$s ponad cenę z chwili zapisania (lub ostatniego alarmu).</string>
     <string name="alarm_sentence_volume">Powiadom mnie, gdy wolumen %1$s osiągnie %2$s× normy.</string>
 
     <!-- Alarm «Nahe am Hoch / Tief» -->
@@ -154,7 +153,7 @@
     <string name="alarm_saved_notifications_off">Powiadomienia wyłączone</string>
 
     <!-- Wann Alarme geprüft werden -->
-    <string name="alarm_timing_hint_android">Przy zamkniętej aplikacji Android sprawdza nieregularnie – często później niż po 15 minutach, nawet z «%1$s». Krótkie skoki mogą umknąć.</string>
+    <string name="alarm_timing_hint_android">Przy zamkniętej aplikacji Android sprawdza nieregularnie – często później niż po 15 minutach, nawet z „%1$s”. Krótkie skoki mogą umknąć.</string>
     <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">Przy zamkniętej aplikacji iOS często sprawdza później niż po 15 minutach, czasem dopiero przy następnym otwarciu. Krótkie skoki mogą umknąć.</string>
     <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
     <string name="alarm_timing_title">Kiedy alarmy są sprawdzane</string>

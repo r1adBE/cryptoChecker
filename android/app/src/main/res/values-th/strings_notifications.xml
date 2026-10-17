@@ -20,7 +20,7 @@
     <string name="notification_macro_title">วันนี้มีข้อมูลเศรษฐกิจ</string>
     <string name="notification_permission_preprompt_continue">ดำเนินการต่อ</string>
     <string name="notification_permission_preprompt_later">ภายหลัง</string>
-    <string name="notification_permission_preprompt_text">เพื่อให้สัญญาณเตือนและการแจ้งเตือนราคาถึงคุณ แอปต้องได้รับอนุญาตให้ส่งการแจ้งเตือน ซึ่งจะใช้เฉพาะกับสัญญาณเตือนของคุณเองเท่านั้น</string>
+    <string name="notification_permission_preprompt_text">เพื่อให้สัญญาณเตือนและการแจ้งเตือนราคาถึงคุณ แอปต้องได้รับอนุญาตให้ส่งการแจ้งเตือน แอปจะใช้การแจ้งเตือนเฉพาะกับสัญญาณเตือนและการแจ้งเตือนราคาของคุณเท่านั้น</string>
     <string name="notification_permission_preprompt_title">อนุญาตการแจ้งเตือนไหม</string>
     <string name="notification_portfolio_alarm_locked">การแจ้งเตือนของคุณทำงานแล้ว – เปิดแอปเพื่อดูรายละเอียด</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->

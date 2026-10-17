@@ -67,7 +67,13 @@ class DatabaseEncryptionMigrationTest {
     private class FakeKeys(var stored: KeyLookup) : DatabaseEncryptionMigration.Keys {
         var created = 0
         var failCreate = false
+        var discarded = 0
+        var failDiscard = false
         override fun load(database: String) = stored
+        override fun discardPrevious(database: String) {
+            if (failDiscard) throw IllegalStateException("gesperrt")
+            discarded++
+        }
         override fun create(database: String): ByteArray {
             if (failCreate) throw IllegalStateException("Keystore")
             created++
@@ -288,6 +294,33 @@ class DatabaseEncryptionMigrationTest {
     }
 
     // ── Hilfen ──
+
+    @Test
+    fun previousKeyIsDiscardedOnlyAfterVerifiedOpen() {
+        // Gespeicherter Schlüssel öffnet die Datei: früherer Schlüssel weg
+        val keys = FakeKeys(found)
+        assertTrue(prepare(FakeFiles(FileKind.ENCRYPTED, content), keys) is Decision.Encrypted)
+        assertEquals(1, keys.discarded)
+        // Passt nicht (beiseitegelegt, neuer Schlüssel): nichts löschen
+        val mismatch = FakeKeys(found)
+        prepare(FakeFiles(FileKind.ENCRYPTED, content).apply { keyMatches = false }, mismatch)
+        assertEquals(0, mismatch.discarded)
+        // Prüfung scheitert: nichts löschen
+        val failing = FakeKeys(found)
+        prepare(FakeFiles(FileKind.ENCRYPTED, content).apply { failAt = "opens" }, failing)
+        assertEquals(0, failing.discarded)
+        // Neue Datei bzw. Überführung: noch nicht mit dem Schlüssel geöffnet
+        val fresh = FakeKeys(KeyLookup.Absent)
+        prepare(FakeFiles(FileKind.ABSENT, null), fresh)
+        prepare(FakeFiles(FileKind.PLAINTEXT, content), fresh)
+        assertEquals(0, fresh.discarded)
+    }
+
+    @Test
+    fun failedDiscardStillOpensEncrypted() {
+        val keys = FakeKeys(found).apply { failDiscard = true }
+        assertTrue(prepare(FakeFiles(FileKind.ENCRYPTED, content), keys) is Decision.Encrypted)
+    }
 
     @Test
     fun rawKeyLiteralIsHexInQuotes() {

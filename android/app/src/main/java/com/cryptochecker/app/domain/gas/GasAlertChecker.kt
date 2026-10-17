@@ -62,7 +62,7 @@ class GasAlertChecker @Inject constructor(
         val btcThreshold = settings.gasAlertBtc.toDouble()
         if (ethThreshold <= 0 && btcThreshold <= 0) return@withLock
         val now = System.currentTimeMillis()
-        if (now - prefs.getLong(KEY_LAST_CHECK, 0) < MIN_INTERVAL_MILLIS) return@withLock
+        if (!isDue(now, prefs.getLong(KEY_LAST_CHECK, 0))) return@withLock
         prefs.edit { putLong(KEY_LAST_CHECK, now) }
 
         // Abbruch (Job beendet, Zeitgrenze des Hintergrund-Jobs) weiterreichen statt als «keine Daten» zu werten
@@ -106,7 +106,14 @@ class GasAlertChecker @Inject constructor(
         prefs.edit { putBoolean(key, GasAlertLogic.armedAfter(fire, posted, before, next)) }
     }
 
-    private companion object {
+    internal companion object {
+        /**
+         * Fällig, wenn seit [lastCheck] mindestens [MIN_INTERVAL_MILLIS] vergangen sind. Liegt
+         * [lastCheck] in der Zukunft (Uhr war vorgestellt und wurde zurückgestellt), gilt die Prüfung
+         * ebenfalls als fällig — sonst bliebe sie bis zu jenem Zeitpunkt stumm, womöglich monatelang.
+         */
+        fun isDue(now: Long, lastCheck: Long): Boolean = now - lastCheck !in 0 until MIN_INTERVAL_MILLIS
+
         const val PREFS = "gas_alerts"
         const val KEY_LAST_CHECK = "last_check"
         const val KEY_ETH_ARMED = "eth_armed"

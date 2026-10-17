@@ -117,7 +117,7 @@
     <string name="check_trigger_worker">Tło</string>
 
     <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
-    <string name="battery_delay_hint">Android może opóźniać sprawdzanie – ustaw baterię na «Bez ograniczeń»</string>
+    <string name="battery_delay_hint">Android może opóźniać sprawdzanie – ustaw baterię na „Bez ograniczeń”</string>
     <string name="battery_later">Później</string>
     <string name="battery_message">Android opóźnia pracę w tle, aby oszczędzać energię — ceny i widżety mogą być wtedy nieaktualne o kilka godzin. Ustawienie nieograniczonego zużycia baterii utrzymuje je na bieżąco. Możesz to zmienić w każdej chwili w ustawieniach Androida.</string>
     <string name="battery_open_settings">Otwórz ustawienia baterii</string>

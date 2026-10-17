@@ -22,7 +22,7 @@
     <string name="backup_password_repeat">Zopakovat heslo</string>
     <string name="backup_password_show">Zobrazit heslo</string>
     <string name="backup_password_title">Záloha chráněná heslem</string>
-    <string name="backup_password_too_weak">Příliš snadné uhodnout – ne jen číslice, ne jeden opakovaný znak, žádná běžná řada jako «12345678» nebo «heslo».</string>
+    <string name="backup_password_too_weak">Příliš snadné uhodnout – ne jen číslice, ne jeden opakovaný znak, žádná běžná řada jako „12345678“ nebo „heslo“.</string>
     <string name="backup_password_warning">Bez hesla nelze zálohu obnovit.</string>
     <string name="backup_password_wrong">Špatné heslo, nebo je soubor poškozený. Zkuste to znovu.</string>
     <string name="backup_protect">Chránit heslem</string>
@@ -60,6 +60,6 @@
     </plurals>
 
     <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
-    <string name="storage_recovery_message">Tomuto zařízení chybí klíč k šifrovaným datům aplikace, proto se spustila prázdná. Nic nebylo smazáno. Seznam a portfolio obnovíte importem souboru zálohy v nastavení v části «%1$s».</string>
+    <string name="storage_recovery_message">Tomuto zařízení chybí klíč k šifrovaným datům aplikace, proto se spustila prázdná. Nic nebylo smazáno. Seznam a portfolio obnovíte importem souboru zálohy v nastavení v části „%1$s“.</string>
     <string name="storage_recovery_title">Uložená data nelze odemknout</string>
 </resources>

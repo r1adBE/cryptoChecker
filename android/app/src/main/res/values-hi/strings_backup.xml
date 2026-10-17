@@ -22,7 +22,7 @@
     <string name="backup_password_repeat">पासवर्ड दोबारा लिखें</string>
     <string name="backup_password_show">पासवर्ड दिखाएँ</string>
     <string name="backup_password_title">पासवर्ड से सुरक्षित बैकअप</string>
-    <string name="backup_password_too_weak">अनुमान लगाना बहुत आसान – सिर्फ़ अंक नहीं, एक ही दोहराया अक्षर नहीं, «12345678» या «password» जैसा आम क्रम नहीं।</string>
+    <string name="backup_password_too_weak">अनुमान लगाना बहुत आसान – सिर्फ़ अंक नहीं, एक ही दोहराया अक्षर नहीं, “12345678” या “password” जैसा आम क्रम नहीं।</string>
     <string name="backup_password_warning">पासवर्ड के बिना बैकअप बहाल नहीं किया जा सकता।</string>
     <string name="backup_password_wrong">गलत पासवर्ड, या फ़ाइल खराब है। फिर से कोशिश करें।</string>
     <string name="backup_protect">पासवर्ड से सुरक्षित करें</string>
@@ -54,6 +54,6 @@
     </plurals>
 
     <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
-    <string name="storage_recovery_message">इस डिवाइस पर अब ऐप के एन्क्रिप्टेड डेटा की कुंजी नहीं है, इसलिए ऐप खाली शुरू हुआ। कुछ भी हटाया नहीं गया। अपनी सूची और पोर्टफ़ोलियो वापस पाने के लिए सेटिंग में «%1$s» के अंतर्गत बैकअप फ़ाइल आयात करें।</string>
+    <string name="storage_recovery_message">इस डिवाइस पर अब ऐप के एन्क्रिप्टेड डेटा की कुंजी नहीं है, इसलिए ऐप खाली शुरू हुआ। कुछ भी हटाया नहीं गया। अपनी सूची और पोर्टफ़ोलियो वापस पाने के लिए सेटिंग में “%1$s” के अंतर्गत बैकअप फ़ाइल आयात करें।</string>
     <string name="storage_recovery_title">सहेजा गया डेटा अनलॉक नहीं हो सका</string>
 </resources>

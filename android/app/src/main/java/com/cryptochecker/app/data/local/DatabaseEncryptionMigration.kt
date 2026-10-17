@@ -52,6 +52,12 @@ class DatabaseEncryptionMigration(
 
         /** Neuen Schlüssel anlegen und speichern (ersetzt einen gespeicherten); Passphrase wie [KeyLookup.Found]. */
         fun create(database: String): ByteArray
+
+        /**
+         * Von [create] beiseitegelegten früheren Schlüssel löschen. Nur aufgerufen, nachdem sich die verschlüsselte
+         * Datei mit dem gespeicherten (neuen) Schlüssel öffnen liess; Fehler bleiben still.
+         */
+        fun discardPrevious(database: String) {}
     }
 
     /** Datei- und SQL-Schicht; `database` ist der Dateiname wie bei Room (z. B. `cryptochecker.db`). */
@@ -159,7 +165,12 @@ class DatabaseEncryptionMigration(
                 } catch (e: Exception) {
                     return Decision.KeyUnavailable(e)
                 }
-                if (opens) return Decision.Encrypted(lookup.passphrase)
+                if (opens) {
+                    // Gespeicherter Schlüssel öffnet die Datei: ein früher beiseitegelegter wird nicht mehr gebraucht
+                    runCatching { keys.discardPrevious(database) }
+                        .onFailure { log("$database: früherer Schlüssel nicht gelöscht", it) }
+                    return Decision.Encrypted(lookup.passphrase)
+                }
                 log("$database: gespeicherter Schlüssel passt nicht", null)
             }
             KeyLookup.Absent -> log("$database: Schlüssel verloren", null)

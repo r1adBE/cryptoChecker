@@ -39,6 +39,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -87,8 +88,11 @@ internal fun StarterPicker(
     onToggleAll: () -> Unit,
     onAdd: () -> Unit,
     onAddClick: () -> Unit,
-    /** Glocke oben rechts: Übersicht bzw. ohne Alarm zum Anlegen ([com.cryptochecker.app.domain.watch.AlarmBellRoute]). */
-    onOpenAlarms: () -> Unit = {},
+    /**
+     * Glocke oben rechts: Alarm-Übersicht (z. B. Portfolio-Alarme). null = keine Glocke — ohne Paar und ohne Alarm
+     * führte sie nur zu «Coin hinzufügen» und doppelte das «+» daneben.
+     */
+    onOpenAlarms: (() -> Unit)? = null,
 ) {
     LaunchedEffect(Unit) { onLoad() }
     val selectedCount = StarterSelection.selected(coins, deselected).size
@@ -114,7 +118,8 @@ internal fun StarterPicker(
                 text = stringResource(R.string.starter_title),
                 style = MaterialTheme.typography.titleLarge,
                 textAlign = TextAlign.Center,
-                modifier = Modifier.padding(top = Spacing.md, start = 16.dp, end = 16.dp)
+                // Screenreader: Überschrift (wie iOS .isHeader)
+                modifier = Modifier.padding(top = Spacing.md, start = 16.dp, end = 16.dp).semantics { heading() }
             )
             // Unterzeile «Ohne Konto. Ohne Werbung. Ohne Tracking.»: letzte Zeile von welcome_text (wie «Über die App»)
             Text(
@@ -157,6 +162,28 @@ internal fun StarterPicker(
                         onToggle = { onToggle(coin.symbol) },
                     )
                     }
+                }
+            }
+            // Kein einziger Kurs (offline, Börse nicht erreichbar): sagen, was los ist, und erneut laden lassen.
+            // Hinzufügen geht trotzdem (gleich wie iOS)
+            if (prices.failed && !prices.loading) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.padding(top = Spacing.sm).fillMaxWidth()
+                ) {
+                    Icon(
+                        painterResource(R.drawable.ic_cloud_off),
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.size(18.dp)
+                    )
+                    Text(
+                        text = stringResource(R.string.offline_status),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.weight(1f).padding(start = 6.dp)
+                    )
+                    TextButton(onClick = onLoad) { Text(stringResource(R.string.try_again)) }
                 }
             }
 
@@ -219,17 +246,19 @@ internal fun StarterPicker(
                 Text(stringResource(R.string.starter_search_coin), modifier = Modifier.padding(start = 8.dp))
             }
         }
-        // Glocke und «+» wie in der Merkliste, hier nur als Kreise (darunter steht der Textknopf)
+        // «+» (und mit Alarmen die Glocke) wie in der Merkliste, hier nur als Kreise (darunter steht der Textknopf)
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.align(Alignment.TopEnd).padding(top = Spacing.sm, end = Spacing.md)
         ) {
-            IconButton(onClick = onOpenAlarms) {
-                // Alarm-Glocke mit Wellen (Umriss: noch kein Alarm) wie im Kopf der Merkliste
-                Icon(
-                    painterResource(R.drawable.ic_notifications_active_outline),
-                    contentDescription = stringResource(R.string.alarms_overview_title)
-                )
+            if (onOpenAlarms != null) {
+                IconButton(onClick = onOpenAlarms) {
+                    // Alarm-Glocke mit Wellen wie im Kopf der Merkliste
+                    Icon(
+                        painterResource(R.drawable.ic_notifications_active_outline),
+                        contentDescription = stringResource(R.string.alarms_overview_title)
+                    )
+                }
             }
             AddPairButton(onClick = onAddClick, modifier = Modifier, labelled = false)
         }

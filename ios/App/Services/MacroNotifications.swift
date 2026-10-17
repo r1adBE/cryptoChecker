@@ -65,13 +65,27 @@ enum MacroNotifications {
     /// Geplante Mitteilungen an Einstellung und Kalender anpassen.
     static func refresh(settings: AppSettings) {
         Task.detached {
-            var events: [MacroEvent] = []
-            if settings.macroNotifications { events = await MacroCalendarSource.shared.events() }
-            await reschedule(settings: settings, events: events)
+            await MacroRescheduleQueue.shared.run { isCurrent in
+                var events: [MacroEvent] = []
+                if settings.macroNotifications { events = await MacroCalendarSource.shared.events() }
+                guard await isCurrent() else { return }
+                await plan(settings: settings, events: events, isCurrent: isCurrent)
+            }
         }
     }
 
+    /// Wie `refresh`, mit schon geladenen Terminen; reiht sich in dieselbe Warteschlange ein.
     static func reschedule(settings: AppSettings, events: [MacroEvent]) async {
+        await MacroRescheduleQueue.shared.run { isCurrent in
+            await plan(settings: settings, events: events, isCurrent: isCurrent)
+        }
+    }
+
+    /// Ein Durchlauf (nie zwei gleichzeitig, siehe `MacroRescheduleQueue`). Vor jedem `center.add` wird geprüft, ob der
+    /// Durchlauf noch der neueste ist und die gespeicherte Einstellung noch an — sonst könnte ein älterer Durchlauf
+    /// Mitteilungen planen, nachdem der Nutzer sie eben ausgeschaltet hat.
+    private static func plan(settings: AppSettings, events: [MacroEvent],
+                             isCurrent: @escaping @Sendable () async -> Bool) async {
         let center = UNUserNotificationCenter.current()
         let pending = await center.pendingNotificationRequests()
         let old = pending.map(\.identifier).filter { $0.hasPrefix(idPrefix) }
@@ -103,8 +117,44 @@ enum MacroNotifications {
             let parts = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: notifyAt)
             let trigger = UNCalendarNotificationTrigger(dateMatching: parts, repeats: false)
             let id = idPrefix + String(Int64(day.timeIntervalSince1970))
+            // Unmittelbar davor: neuerer Durchlauf eingereiht oder inzwischen ausgeschaltet → abbrechen
+            guard await isCurrent(), SharedStorage.loadSettings().macroNotifications else { return }
             try? await center.add(UNNotificationRequest(identifier: id, content: content, trigger: trigger))
             planned += 1
         }
     }
+}
+
+/// Reiht die Neuplanungen der Wirtschaftstermine ein: Durchläufe laufen nacheinander, nie gleichzeitig. Jeder neue
+/// Auftrag erhöht den Zähler; ältere, noch wartende Aufträge fallen weg, ein laufender sieht über `isCurrent`, dass er
+/// überholt ist, und plant nichts mehr.
+actor MacroRescheduleQueue {
+    static let shared = MacroRescheduleQueue()
+
+    typealias Work = @Sendable (_ isCurrent: @escaping @Sendable () async -> Bool) async -> Void
+
+    private var generation = 0
+    private var last: Task<Void, Never>?
+
+    /// Einreihen und warten, bis dieser Auftrag erledigt (bzw. verworfen) ist.
+    func run(_ work: @escaping Work) async {
+        let task = enqueue(work)
+        await task.value
+    }
+
+    /// Einreihen: wartet auf den vorigen Auftrag; ist inzwischen ein neuerer eingereiht, entfällt dieser.
+    func enqueue(_ work: @escaping Work) -> Task<Void, Never> {
+        generation += 1
+        let mine = generation
+        let previous = last
+        let task = Task {
+            await previous?.value
+            guard await self.isCurrent(mine) else { return }
+            await work { await self.isCurrent(mine) }
+        }
+        last = task
+        return task
+    }
+
+    func isCurrent(_ value: Int) -> Bool { value == generation }
 }

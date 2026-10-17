@@ -120,7 +120,7 @@
     <string name="watchlist_group_empty_hint">Apasă lung pe un grup pentru a-i alege perechile.</string>
     <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
     <string name="watchlist_groups_empty_hint">Aici vor apărea grupurile tale</string>
-    <string name="watchlist_notification">Notificare</string>
+    <string name="watchlist_notification">Notificare de preț</string>
     <string name="watchlist_tts">Citește prețul</string>
     <string name="watchlist_tts_speech_on">Vocea este activată. O poți schimba în Setări › Avansat › Ieșire vocală.</string>
 

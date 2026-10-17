@@ -32,6 +32,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.CustomAccessibilityAction
 import androidx.compose.ui.semantics.Role
@@ -200,11 +201,12 @@ internal fun WatchRow(
         // stünde sonst in jeder Zeile
         kind = if (kind == AssetKind.TOKEN) null else stringResource(kind.spokenRes),
         alarms = listOf(
-            // Kursmitteilung wie die Glocke der Zeile (WatchlistRowInfo): an bzw. aus
-            stringResource(if (priceNotificationOn) R.string.a11y_price_notification_on else R.string.a11y_price_notification_off),
+            // Kursmitteilung nur, wenn sie aus ist — «an» ist der Normalfall und stünde sonst in jeder Zeile (wie iOS)
+            if (!priceNotificationOn) stringResource(R.string.a11y_price_notification_off) else null,
             // Alarm eben ausgelöst (Mitteilung kam bei offener App): bis 15 Min. danach
             if (A11ySpeech.firedRecently(alarmFiredAt, now)) stringResource(R.string.a11y_alarm_fired) else null,
-            if (alarmCount > 0) stringResource(R.string.a11y_alarm_count, alarmCount) else null,
+            // «Alarme (2)» wie die Glocke der Zeile und das Aktionsblatt (Mehrzahl je Sprache)
+            if (alarmCount > 0) pluralStringResource(R.plurals.watchlist_alarms_count, alarmCount, alarmCount) else null,
         ),
         rest = listOf(
             // Verständlicher Fehler (z. B. Paar unbekannt); «nicht mehr gehandelt» steht schon oben

@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.data.BackupLimits
 import com.cryptochecker.app.data.portfolio.HistoricPriceSource
+import com.cryptochecker.app.data.portfolio.PortfolioHistorySource
 import com.cryptochecker.app.data.portfolio.PortfolioRepository
 import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
@@ -70,6 +71,7 @@ class PortfolioCsvImportViewModel @Inject constructor(
     @param:ApplicationContext private val context: Context,
     private val repository: PortfolioRepository,
     private val historic: HistoricPriceSource,
+    private val historySource: PortfolioHistorySource,
     private val settingsRepository: SettingsRepository,
     private val coinLogoSync: com.cryptochecker.app.data.CoinLogoSync,
     private val snapshotUpdater: com.cryptochecker.app.widget.PortfolioSnapshotUpdater,
@@ -106,8 +108,17 @@ class PortfolioCsvImportViewModel @Inject constructor(
     /** Dezimalzeichen bei mehrdeutigen Zahlen («42,000»), in der Vorschau gewählt; null = Standard (Zeichen = Dezimal). */
     private val _decimalMark = MutableStateFlow<Char?>(null)
 
-    /** Gelesener Text, Ergebnis, Tageskurse und vorhandene Schlüssel — für eine neue Vorschau beim Umschalten. */
-    private class Input(val text: String, val result: CsvImportResult, val keys: Set<String>, val rates: Map<String, List<Pair<Long, Double>>>)
+    /**
+     * Gelesener Text, Ergebnis, Tageskurse, USDT/USD-Tagesschlüsse ([CsvImport.priceInUsdt] `usdtUsd`) und vorhandene
+     * Schlüssel — für eine neue Vorschau beim Umschalten.
+     */
+    private class Input(
+        val text: String,
+        val result: CsvImportResult,
+        val keys: Set<String>,
+        val rates: Map<String, List<Pair<Long, Double>>>,
+        val usdtUsd: Map<Long, java.math.BigDecimal>,
+    )
     private var input: Input? = null
 
     fun load(uri: Uri) {
@@ -178,9 +189,30 @@ class PortfolioCsvImportViewModel @Inject constructor(
             if (series != null) rates[currency] = series.entries.map { it.key to it.value }.sortedBy { it.first }
         }
         val keys = repository.importKeys()
-        val read = Input(text, result, keys, rates)
+        val read = Input(text, result, keys, rates, usdtUsdCloses(result))
         input = read
         return mapPreview(read)
+    }
+
+    /**
+     * USDT/USD-Tagesschlüsse (Kraken, [PortfolioHistorySource.usdtUsdDaily]) vom frühesten Tag der Datei bis heute — wie
+     * der Steuer-Export (`usdtUsdCloses`), damit Import und Export denselben Schluss DES Tags nehmen. Nicht erreichbar →
+     * leer (USD/Fiat dann mit USDT = 1, Zeilen als Näherung markiert, [CsvImportPreview.usdtApproximate]).
+     */
+    private suspend fun usdtUsdCloses(result: CsvImportResult): Map<Long, java.math.BigDecimal> {
+        val first = result.rows.minOfOrNull { com.cryptochecker.app.domain.portfolio.csvimport.CsvImport.epochDay(it.timeMillis, result.fxZone) }
+            ?: return emptyMap()
+        val today = LocalDate.now(ZoneId.systemDefault()).toEpochDay()
+        val days = (today - first + 1 + PortfolioHistoryFx.LEAD_DAYS).coerceIn(1L, Int.MAX_VALUE.toLong()).toInt()
+        val closes = try {
+            historySource.usdtUsdDaily(days)
+        } catch (e: kotlinx.coroutines.CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            Timber.w(e, "CSV-Import: USDT/USD-Tagesschlüsse fehlen")
+            emptyMap()
+        }
+        return closes.mapNotNull { (day, close) -> PortfolioDecimal.of(close)?.let { day to it } }.toMap()
     }
 
     /**
@@ -188,7 +220,7 @@ class PortfolioCsvImportViewModel @Inject constructor(
      * Auszahlungen; die Wahl je Zeile ([choices]) gilt beim Speichern ([CsvImportMapping.applyWithdrawalChoices]).
      */
     private suspend fun mapPreview(read: Input): CsvImportPreview = withContext(Dispatchers.Default) {
-        CsvImportMapping.preview(read.result, read.keys) { currency, day ->
+        CsvImportMapping.preview(read.result, read.keys, usdtUsd = read.usdtUsd) { currency, day ->
             read.rates[currency]?.let { PortfolioHistoryFx.rateOn(it, day) }?.let { PortfolioDecimal.of(it) }
         }
     }
@@ -205,7 +237,7 @@ class PortfolioCsvImportViewModel @Inject constructor(
                 val result = withContext(Dispatchers.Default) {
                     CsvImportParser.parse(read.text, ZoneId.systemDefault().id, zone, _dateOrder.value, _decimalMark.value)
                 }
-                val updated = Input(read.text, result, read.keys, read.rates)
+                val updated = Input(read.text, result, read.keys, read.rates, read.usdtUsd)
                 input = updated
                 mapPreview(updated)
             }.getOrNull() ?: return@launch

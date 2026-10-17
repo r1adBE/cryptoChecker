@@ -132,7 +132,7 @@
     <string name="watchlist_group_empty_hint">Dlouhým stiskem skupiny vyberete její páry.</string>
     <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
     <string name="watchlist_groups_empty_hint">Zde se zobrazí vaše skupiny</string>
-    <string name="watchlist_notification">Oznámení</string>
+    <string name="watchlist_notification">Cenové oznámení</string>
     <string name="watchlist_tts">Číst cenu nahlas</string>
     <string name="watchlist_tts_speech_on">Hlasový výstup je zapnutý. Změníš ho v Nastavení › Rozšířené › Hlasový výstup.</string>
 

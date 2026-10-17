@@ -83,7 +83,16 @@ class AppNotifier @Inject constructor(
         // Zuerst Platz schaffen, dann melden
         plan.demoted.forEach { cancelPriceSingle(it) }
         val shown = HashSet<Long>()
+        // Mehr als 5 Meldungen: gedrosselt (Android verwirft sonst die überzähligen still, sie zählten
+        // aber als gezeigt). Blockiert kurz — Aufrufer laufen auf Dispatchers.IO; ein einzelnes Paar nie
+        val gap = NotificationBudget.postGapMillis(plan.individual.size + if (plan.overflow.isEmpty()) 0 else 1)
+        var posted = 0
+        fun spaceOut() {
+            if (gap > 0 && posted > 0) Thread.sleep(gap)
+            posted++
+        }
         for (id in plan.individual) {
+            spaceOut()
             if (postPrice(byId.getValue(id), ongoing)) shown += id
         }
         // Zeilen: frischer Kurs, sonst die bisherige Zeile (Sammelmeldung bzw. verschobene Einzelmeldung)
@@ -97,6 +106,7 @@ class AppNotifier @Inject constructor(
         }
         val unchanged = active != null && active.overflowShown &&
             active.overflow.entries.toList() == lines.entries.toList()
+        if (!unchanged && lines.isNotEmpty()) spaceOut()
         if (unchanged || postOverflow(lines, ongoing)) {
             lines.keys.filterTo(shown) { it in byId }
         }
@@ -303,8 +313,10 @@ class AppNotifier @Inject constructor(
         val id = alarmNotificationId(alarm.id)
         // Alarme haben Vorrang vor Kurs-Mitteilungen (Grenze von rund 50 offenen Mitteilungen je App)
         makeRoomForAlarm(id)
+        // Zeit vor dem Melden: nur eine Meldung ab da bestätigt den Alarm (awaitActive)
+        val postedAt = System.currentTimeMillis()
         if (!notifyInGroup(id, builder.build(), Group.ALARMS)) return false
-        return awaitActive(id)
+        return awaitActive(id, postedAt)
     }
 
     /** Kanal eines Paar-Alarms: in der Nachtruhe der lautlose, sonst der des «Alarm-Signals». */
@@ -383,8 +395,10 @@ class AppNotifier @Inject constructor(
         if (quiet) builder.setSilent(true)
         val id = portfolioAlarmNotificationId(alarm.id)
         makeRoomForAlarm(id)
+        // Zeit vor dem Melden: nur eine Meldung ab da bestätigt den Alarm (awaitActive)
+        val postedAt = System.currentTimeMillis()
         if (!notifyInGroup(id, builder.build(), Group.ALARMS)) return false
-        return awaitActive(id)
+        return awaitActive(id, postedAt)
     }
 
     /**
@@ -458,6 +472,20 @@ class AppNotifier @Inject constructor(
     }
 
     fun cancelActivity(watchId: Long) = manager.cancel(activityNotificationId(watchId))
+
+    /**
+     * Alarm-Meldungen der Paar-Alarme [alarmIds] und der Portfolio-Alarme [portfolioAlarmIds] entfernen
+     * (Sicherung wiederhergestellt: die alten Alarme gibt es nicht mehr); danach die Zusammenfassung
+     * der Gruppe, falls sie leer ist.
+     */
+    fun cancelAlarms(alarmIds: Collection<Long>, portfolioAlarmIds: Collection<Long> = emptyList()) {
+        if (alarmIds.isEmpty() && portfolioAlarmIds.isEmpty()) return
+        val removed = HashSet<Int>()
+        alarmIds.mapTo(removed) { alarmNotificationId(it) }
+        portfolioAlarmIds.mapTo(removed) { portfolioAlarmNotificationId(it) }
+        removed.forEach { manager.cancel(it) }
+        cancelSummaryIfEmpty(Group.ALARMS, removed)
+    }
 
     // ---------------- Fear & Greed ----------------
 
@@ -587,8 +615,10 @@ class AppNotifier @Inject constructor(
             .addAction(0, context.getString(R.string.notification_depeg_action_exchange), openExchange)
             .build()
         makeRoomForAlarm(DEPEG_NOTIFICATION_ID)
+        // Zeit vor dem Melden: nur eine Meldung ab da bestätigt den Alarm (awaitActive)
+        val postedAt = System.currentTimeMillis()
         if (!notifyInGroup(DEPEG_NOTIFICATION_ID, notification, Group.ALARMS)) return false
-        return awaitActive(DEPEG_NOTIFICATION_ID)
+        return awaitActive(DEPEG_NOTIFICATION_ID, postedAt)
     }
 
     // ---------------- Nachtruhe ----------------

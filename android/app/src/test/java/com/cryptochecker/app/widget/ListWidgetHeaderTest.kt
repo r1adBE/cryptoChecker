@@ -31,8 +31,15 @@ class ListWidgetHeaderTest {
     }
 
     @Test
-    fun dropsDurationFirst() {
-        assertEquals(ListWidgetHeader.Layout(13f, "06:42:15"), layout(fixed + 60f + 84f))
+    fun shrinksTitleBeforeDroppingDuration() {
+        // Dauer bleibt sichtbar: erst wird der Titel kleiner (50 + 85 dp)
+        assertEquals(ListWidgetHeader.Layout(11f, "06:42:15 · 840 ms"), layout(fixed + 60f + 84f))
+        assertEquals(ListWidgetHeader.Layout(11f, "06:42:15 · 840 ms"), layout(fixed + 50f + 85f))
+    }
+
+    @Test
+    fun dropsDurationWhenEvenSmallTitleDoesNotFit() {
+        assertEquals(ListWidgetHeader.Layout(13f, "06:42:15"), layout(fixed + 50f + 84f))
         assertEquals(ListWidgetHeader.Layout(13f, "06:42:15"), layout(fixed + 60f + 40f))
     }
 
@@ -57,9 +64,10 @@ class ListWidgetHeaderTest {
 
     @Test
     fun withoutTimeOnlyDurationCanDrop() {
-        // Noch nie aktualisiert: nur die Dauer; fällt sie weg, bleibt der Titel in 13 sp
+        // Noch nie aktualisiert: nur die Dauer; erst kleinerer Titel, dann fällt sie weg (Titel wieder 13 sp)
         assertEquals(ListWidgetHeader.Layout(13f, "840 ms"), layout(fixed + 60f + 30f, time = null))
-        assertEquals(ListWidgetHeader.Layout(13f, ""), layout(fixed + 60f + 29f, time = null))
+        assertEquals(ListWidgetHeader.Layout(11f, "840 ms"), layout(fixed + 60f + 29f, time = null))
+        assertEquals(ListWidgetHeader.Layout(13f, ""), layout(fixed + 50f + 29f, time = null))
         assertEquals(ListWidgetHeader.Layout(13f, ""), layout(400f, time = null, duration = null))
     }
 

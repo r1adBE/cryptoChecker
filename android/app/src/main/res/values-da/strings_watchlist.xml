@@ -108,7 +108,7 @@
     <string name="watchlist_group_empty_hint">Tryk længe på en gruppe for at vælge dens par.</string>
     <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
     <string name="watchlist_groups_empty_hint">Dine grupper vises her</string>
-    <string name="watchlist_notification">Notifikation</string>
+    <string name="watchlist_notification">Kursnotifikation</string>
     <string name="watchlist_tts">Læs kurs op</string>
     <string name="watchlist_tts_speech_on">Oplæsning er slået til. Du kan ændre det under Indstillinger › Avanceret › Oplæsning.</string>
 

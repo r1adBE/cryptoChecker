@@ -239,7 +239,7 @@
     <string name="ledger_exchange">거래소(선택)</string>
     <string name="ledger_exchange_failed">%1$s: 지금 %2$s 시세가 없어 Binance로 평가했습니다.</string>
     <string name="ledger_exchange_hint">이 코인은 이 거래소 시세로 평가합니다(그 외 Binance). 추이·7일·1년은 Binance 일별 시세를 맞춰 씁니다.</string>
-    <string name="ledger_exchange_mixed">%1$s: 여러 거래소가 입력되어 Binance로 평가했습니다. 코인을 옮겼나요? «이체»로 기록하세요.</string>
+    <string name="ledger_exchange_mixed">%1$s: 여러 거래소가 입력되어 Binance로 평가했습니다. 코인을 옮겼나요? “이체”로 기록하세요.</string>
     <string name="ledger_exchange_none">없음(Binance)</string>
     <string name="ledger_fee">수수료(선택)</string>
     <string name="ledger_fee_coin">코인</string>
@@ -251,7 +251,7 @@
     <string name="ledger_gain_info_fifo">오늘·7일·1년: 기간 동안의 가치 변화 – 매수와 매도는 수익으로 치지 않습니다. 매수 이후: 아직 보유한 코인의 현재 가치에서 취득원가(수수료 포함 FIFO)를 뺀 값입니다.</string>
     <string name="ledger_gain_title">손익</string>
     <string name="ledger_more_toggle">수수료와 거래소</string>
-    <string name="ledger_partial_cost">«매수 이후»은(는) 매수가가 있는 부분만 계산합니다 – 매수가 없는 %1$s 제외.</string>
+    <string name="ledger_partial_cost">“매수 이후”은(는) 매수가가 있는 부분만 계산합니다 – 매수가 없는 %1$s 제외.</string>
     <string name="ledger_period_without">오늘 / 7일 / 1년에서 %1$s 제외 – 맞는 시작 시세가 없습니다.</string>
     <string name="ledger_since_purchase_currency">매수 이후 (%1$s)</string>
     <string name="ledger_since_purchase_spoken">매수 이후 손익(미매도)</string>

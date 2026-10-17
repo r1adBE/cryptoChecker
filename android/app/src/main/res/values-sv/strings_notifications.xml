@@ -20,7 +20,7 @@
     <string name="notification_macro_title">Ekonomisk statistik i dag</string>
     <string name="notification_permission_preprompt_continue">Fortsätt</string>
     <string name="notification_permission_preprompt_later">Senare</string>
-    <string name="notification_permission_preprompt_text">För att larm och kursaviseringar ska nå fram behöver appen tillåtelse att skicka aviseringar. De används bara för dina egna larm.</string>
+    <string name="notification_permission_preprompt_text">För att larm och kursaviseringar ska nå fram behöver appen tillåtelse att skicka aviseringar. Appen använder dem bara för dina larm och kursaviseringar.</string>
     <string name="notification_permission_preprompt_title">Tillåta aviseringar?</string>
     <string name="notification_portfolio_alarm_locked">Ditt larm har utlösts – öppna appen för detaljer.</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->

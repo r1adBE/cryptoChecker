@@ -15,7 +15,7 @@ Riad Work (r1AD) — riad.work@outlook.com
 * applicationId: `com.cryptochecker.app`
 * Module: `marketdata` (Börsen-Bibliothek), `app` (die App)
 * Pakete: `com.cryptochecker.marketdata`, `com.cryptochecker.app`
-* Version: **16.2.2** (versionCode 74 – wird mit jedem Stand um eins erhöht)
+* Version: **16.2.2** (versionCode 75 – wird mit jedem Stand um eins erhöht)
 * Quellcode: <https://github.com/r1adBE/cryptoChecker> (öffentlich, MIT; dieser Ordner = `android/`)
 
 ## Neu in 16.2.2
@@ -900,8 +900,7 @@ schreiben – sie sind die Grundlage für Migrationstests und für jede weitere 
 ## Dokumentation
 
 * Datenschutzerklärung (Android und iOS, DE/EN): [`docs/privacy/index.html`](docs/privacy/index.html)
-* Anleitung Google Play: `docs/PLAY_STORE.md` (intern, wird nicht im öffentlichen Repository veröffentlicht)
-* Store-Texte und Versionshinweise: `fastlane/metadata/android/`
+* Veröffentlichung bei Google Play: Store-Texte und Versionshinweise liegen unter `fastlane/metadata/android/`; Signieren siehe `keystore.properties.example`
 
 ## Unterstützen
 

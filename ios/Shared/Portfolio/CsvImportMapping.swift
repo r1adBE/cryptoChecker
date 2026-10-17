@@ -50,6 +50,9 @@ struct CsvImportPreview {
     var decimalMark: Character? = nil
     /// Erkannte Spalten (`CsvImportResult.columns`).
     var columns: [String] = []
+    /// Zeilen, deren USD-/Fiat-Betrag mit USDT = 1 USD umgerechnet ist (kein USDT/USD-Tagesschluss DES Tags,
+    /// `CsvImportPriced.usdtApproximate`) — die Vorschau nennt sie wie `missingFx`. Wie Android.
+    var usdtApproximate: [Int] = []
 }
 
 /// Wahl je Auszahlung der Vorschau (`CsvImportMapping.proposeWithdrawals`) — wie Kotlin.
@@ -151,6 +154,7 @@ enum CsvImportMapping {
 
     static func preview(_ result: CsvImportResult, existingKeys: Set<String>,
                         zone: String? = nil, withdrawalsAsTransfer: Bool = false,
+                        usdtUsd: [Int: Decimal]? = nil,
                         fx: (String, Int64) -> Decimal?) -> CsvImportPreview {
         let split = CsvImport.splitDuplicates(result.rows, existingKeys: existingKeys)
         // Binance: fast gleiche Geschäfte wie schon importierte in die Übersprungenen statt doppelt (wie Android)
@@ -162,7 +166,7 @@ enum CsvImportMapping {
         // stabil nach Zeile (wie Android `sortedBy`)
         skipped = skipped.enumerated().sorted { ($0.element.line, $0.offset) < ($1.element.line, $1.offset) }.map(\.element)
         // Ohne Angabe: Zeitzone der Tageskurse (`result.fxZone` = Gerät, wie der Steuer-Export), wie Android
-        let priced = CsvImport.priceInUsdt(fresh, zone: zone ?? result.fxZone, fx: fx)
+        let priced = CsvImport.priceInUsdt(fresh, zone: zone ?? result.fxZone, usdtUsd: usdtUsd, fx: fx)
         return CsvImportPreview(format: result.format,
                                 transactions: priced.map { toTx($0, withdrawalsAsTransfer: withdrawalsAsTransfer) },
                                 duplicates: split.duplicates.count, skipped: skipped,
@@ -172,7 +176,8 @@ enum CsvImportMapping {
                                 dateOrder: result.dateOrder, dateOrderAmbiguous: result.dateOrderAmbiguous,
                                 stableSwaps: fresh.contains { $0.stableSwap },
                                 decimalSample: result.decimalSample, decimalMark: result.decimalMark,
-                                columns: result.columns)
+                                columns: result.columns,
+                                usdtApproximate: priced.filter(\.usdtApproximate).map(\.row.line))
     }
 
     /// Reihenfolge beim Speichern (die Id folgt ihr und entscheidet bei gleicher Zeit) — wie Android `insertOrder`: Datei

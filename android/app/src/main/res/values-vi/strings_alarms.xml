@@ -36,7 +36,7 @@
     <string name="alarm_more_conditions">Thêm điều kiện</string>
     <string name="alarm_new_extreme">%1$s mới</string>
     <string name="alarm_once">Một lần</string>
-    <string name="alarm_option_repeating">Giữ cảnh báo sau khi kích hoạt</string>
+    <string name="alarm_option_repeating">Thông báo</string>
     <string name="alarm_option_sound">Âm thanh</string>
     <string name="alarm_option_speak">Đọc cảnh báo</string>
     <string name="alarm_option_vibrate">Rung</string>
@@ -55,7 +55,6 @@
     <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
     <string name="alarm_simple_above">vượt lên trên</string>
     <string name="alarm_simple_below">giảm xuống dưới</string>
-    <string name="alarm_simple_direction_a11y">Hướng: %1$s</string>
     <string name="alarm_simple_end"></string>
     <string name="alarm_simple_when">Khi %1$s</string>
     <string name="alarm_template_a11y">Tạo cảnh báo: %1$s</string>
@@ -82,7 +81,7 @@
     <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
     <string name="alarm_sentence_above">Báo cho tôi khi %1$s tăng lên trên %2$s.</string>
     <string name="alarm_sentence_below">Báo cho tôi khi %1$s giảm xuống dưới %2$s.</string>
-    <string name="alarm_sentence_down_percent">Báo cho tôi khi %1$s giảm %2$s.</string>
+    <string name="alarm_sentence_down_percent">Báo cho tôi khi %1$s giảm %2$s so với giá lúc lưu (hoặc lúc cảnh báo gần nhất).</string>
     <string name="alarm_sentence_funding_above">Báo cho tôi khi funding của %1$s tăng lên trên %2$s.</string>
     <string name="alarm_sentence_funding_below">Báo cho tôi khi funding của %1$s giảm xuống dưới %2$s.</string>
     <string name="alarm_sentence_incomplete">Nhập một giá trị để xem cảnh báo dưới dạng câu.</string>
@@ -98,7 +97,7 @@
     <plurals name="alarm_sentence_oi_up">
         <item quantity="other">Báo cho tôi khi open interest của %1$s tăng %2$s trong vòng %3$d giờ.</item>
     </plurals>
-    <string name="alarm_sentence_up_percent">Báo cho tôi khi %1$s tăng %2$s.</string>
+    <string name="alarm_sentence_up_percent">Báo cho tôi khi %1$s tăng %2$s so với giá lúc lưu (hoặc lúc cảnh báo gần nhất).</string>
     <string name="alarm_sentence_volume">Báo cho tôi khi khối lượng giao dịch của %1$s đạt %2$s× mức bình thường.</string>
 
     <!-- Alarm «Nahe am Hoch / Tief» -->
@@ -136,7 +135,7 @@
     <string name="alarm_saved_notifications_off">Thông báo đang tắt</string>
 
     <!-- Wann Alarme geprüft werden -->
-    <string name="alarm_timing_hint_android">Khi đóng ứng dụng, Android kiểm tra không đều – thường muộn hơn 15 phút, kể cả khi bật «%1$s». Có thể bỏ lỡ các biến động ngắn.</string>
+    <string name="alarm_timing_hint_android">Khi đóng ứng dụng, Android kiểm tra không đều – thường muộn hơn 15 phút, kể cả khi bật “%1$s”. Có thể bỏ lỡ các biến động ngắn.</string>
     <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">Khi đóng ứng dụng, iOS thường kiểm tra muộn hơn 15 phút, đôi khi chỉ khi bạn mở lại ứng dụng. Có thể bỏ lỡ các biến động ngắn.</string>
     <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
     <string name="alarm_timing_title">Khi nào cảnh báo được kiểm tra</string>

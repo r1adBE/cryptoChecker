@@ -37,9 +37,9 @@
     <string name="settings_alarm_sound_system">Pilih suara sistem…</string>
     <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
     <string name="settings_app_badge">Angka di ikon aplikasi</string>
-    <string name="settings_app_badge_hint">Menghitung notifikasi alarm yang terbuka. Layar utama menentukan apakah muncul angka atau titik (mis. Samsung: «Dengan angka»).</string>
+    <string name="settings_app_badge_hint">Menghitung notifikasi alarm yang terbuka. Layar utama menentukan apakah muncul angka atau titik (mis. Samsung: “Dengan angka”).</string>
     <string name="settings_exact_checks">Periksa tepat waktu</string>
-    <string name="settings_exact_checks_grant">Izinkan «Alarm &amp; pengingat»</string>
+    <string name="settings_exact_checks_grant">Izinkan “Alarm &amp; pengingat”</string>
     <string name="settings_exact_checks_hint">Android memeriksa kira-kira setiap 15 menit, bahkan saat perangkat diam. Memakai sedikit lebih banyak baterai.</string>
     <string name="settings_exact_checks_nothing">Tidak ada pasangan aktif – tidak ada yang diperiksa.</string>
     <string name="settings_exact_checks_permission_missing">Izin tidak ada – Android memeriksa kapan saja sesuai jadwalnya (kira-kira setiap 15 menit atau lebih lama).</string>
@@ -247,7 +247,7 @@
     <!-- Lizenzhinweise -->
     <string name="licenses_app_intro">Crypto Checker bersifat sumber terbuka (Lisensi MIT).</string>
     <string name="licenses_font_title">Font Rubik</string>
-    <string name="licenses_icons_bundled_text">Disertakan dalam aplikasi: ikon dari «Cryptocurrency Icons» oleh Christopher Downer dan kontributor (github.com/spothq/cryptocurrency-icons), dirilis di bawah CC0 1.0 Universal. Ikon ini tampil sampai logo dari CoinGecko atau Binance dimuat. Nama dan logo tetap merupakan merek dagang proyek masing-masing.</string>
+    <string name="licenses_icons_bundled_text">Disertakan dalam aplikasi: ikon dari “Cryptocurrency Icons” oleh Christopher Downer dan kontributor (github.com/spothq/cryptocurrency-icons), dirilis di bawah CC0 1.0 Universal. Ikon ini tampil sampai logo dari CoinGecko atau Binance dimuat. Nama dan logo tetap merupakan merek dagang proyek masing-masing.</string>
     <string name="licenses_icons_title">Ikon koin cadangan</string>
     <string name="licenses_libraries_intro">Aplikasi menggunakan pustaka ini di bawah Apache License 2.0:</string>
     <string name="licenses_libraries_title">Pustaka Android</string>

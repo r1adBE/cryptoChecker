@@ -147,6 +147,14 @@ class PortfolioTxFormTest {
         assertEquals(null, PortfolioTxForm.fiatToUsdt(null, dec("0.8")))
         // 1 / 3: 34 gültige Stellen
         assertEquals(34, PortfolioTxForm.fiatToUsdt(BigDecimal.ONE, dec("3"))!!.precision())
+        // USDT zum Marktkurs (wie CSV-Import und Export): Faktor = Devisenkurs × USDT/USD; 898.2 CHF bei 0.9 × 0.998 = 1000 USDT
+        val rate = PortfolioTxForm.entryRate(dec("0.9"), dec("0.998"))
+        assertEquals(0, dec("0.8982").compareTo(rate))
+        assertEquals(0, dec("1000").compareTo(PortfolioTxForm.fiatToUsdt(dec("898.2"), rate)))
+        // ohne bzw. unplausibler USDT/USD-Kurs: × 1; ohne Devisenkurs: keiner
+        assertEquals(0, dec("0.9").compareTo(PortfolioTxForm.entryRate(dec("0.9"), null)))
+        assertEquals(0, dec("0.9").compareTo(PortfolioTxForm.entryRate(dec("0.9"), dec("3"))))
+        assertEquals(null, PortfolioTxForm.entryRate(null, dec("0.998")))
     }
 
     @Test

@@ -37,7 +37,7 @@
     <string name="alarm_more_conditions">Më shumë kushte</string>
     <string name="alarm_new_extreme">%1$s i ri</string>
     <string name="alarm_once">Një herë</string>
-    <string name="alarm_option_repeating">Mbaje alarmin pasi të aktivizohet</string>
+    <string name="alarm_option_repeating">Njofto</string>
     <string name="alarm_option_sound">Tingull</string>
     <string name="alarm_option_speak">Lexo alarmin me zë</string>
     <string name="alarm_option_vibrate">Dridhje</string>
@@ -57,7 +57,6 @@
     <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
     <string name="alarm_simple_above">kalon mbi</string>
     <string name="alarm_simple_below">bie nën</string>
-    <string name="alarm_simple_direction_a11y">Drejtimi: %1$s</string>
     <string name="alarm_simple_end"></string>
     <string name="alarm_simple_when">Kur %1$s</string>
     <string name="alarm_template_a11y">Krijo alarmin: %1$s</string>
@@ -84,7 +83,7 @@
     <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
     <string name="alarm_sentence_above">Më njofto kur %1$s të ngjitet mbi %2$s.</string>
     <string name="alarm_sentence_below">Më njofto kur %1$s të bjerë nën %2$s.</string>
-    <string name="alarm_sentence_down_percent">Më njofto kur %1$s të bjerë me %2$s.</string>
+    <string name="alarm_sentence_down_percent">Më njofto kur %1$s të bjerë me %2$s nën çmimin në ruajtje (ose në alarmin e fundit).</string>
     <string name="alarm_sentence_funding_above">Më njofto kur funding-u i %1$s të rritet mbi %2$s.</string>
     <string name="alarm_sentence_funding_below">Më njofto kur funding-u i %1$s të bjerë nën %2$s.</string>
     <string name="alarm_sentence_incomplete">Fut një vlerë për ta parë alarmin si fjali.</string>
@@ -103,7 +102,7 @@
         <item quantity="one">Më njofto kur open interest i %1$s të rritet me %2$s brenda %3$d ore.</item>
         <item quantity="other">Më njofto kur open interest i %1$s të rritet me %2$s brenda %3$d orëve.</item>
     </plurals>
-    <string name="alarm_sentence_up_percent">Më njofto kur %1$s të rritet me %2$s.</string>
+    <string name="alarm_sentence_up_percent">Më njofto kur %1$s të rritet me %2$s mbi çmimin në ruajtje (ose në alarmin e fundit).</string>
     <string name="alarm_sentence_volume">Më njofto kur vëllimi i tregtimit për %1$s të arrijë %2$s× normalen.</string>
 
     <!-- Alarm «Nahe am Hoch / Tief» -->

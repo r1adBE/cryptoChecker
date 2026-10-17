@@ -21,6 +21,11 @@ struct WatchlistStarterPicker: View {
     @State private var selection: Set<String>?
     @State private var prices: [String: StarterPrice] = [:]
     @State private var loadingPrices = true
+    /// Abruf fertig, aber kein einziger Kurs (offline, Börse nicht erreichbar): «Keine Verbindung» mit
+    /// «Erneut versuchen» unter der Karte (wie Android `StarterPricesState.failed`).
+    @State private var pricesFailed = false
+    /// «Erneut versuchen»: startet das Laden der Kurse neu.
+    @State private var retryTick = 0
     /// Schutz gegen doppeltes Tippen.
     @State private var adding = false
     @State private var selectionTick = 0
@@ -45,6 +50,22 @@ struct WatchlistStarterPicker: View {
         VStack(spacing: 12) {
             card
                 .padding(.top, 4)
+
+            if pricesFailed && !loadingPrices {
+                // Hinzufügen geht trotzdem; nur sagen, was los ist, und erneut laden lassen
+                HStack(spacing: 6) {
+                    Image(systemName: "icloud.slash")
+                        .accessibilityHidden(true)
+                    Text(L("offline_status"))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    Button(L("try_again")) { retryTick += 1 }
+                        .font(.subheadline.weight(.semibold))
+                        .foregroundStyle(accent.primary)
+                        .frame(minHeight: 44)
+                }
+                .font(.subheadline)
+                .foregroundStyle(AppColors.onSurfaceVariant)
+            }
 
             // Ein Satz, was die App hier tut: «Kurs beobachten, Alarm setzen» (Glocke oben rechts)
             Label {
@@ -102,7 +123,8 @@ struct WatchlistStarterPicker: View {
         .sensoryFeedback(.selection, trigger: selectionTick)
         // Kurse: einmal für alle fünf, neu bei einer anderen Liste
         // Auch bei gewechselter Startbörse (Standort-Sperre → Binance.US) neu laden
-        .task(id: coins.map(\.symbol) + [region ?? ""]) { await loadPrices() }
+        // «Erneut versuchen» zählt `retryTick` hoch und lädt damit ebenfalls neu
+        .task(id: coins.map(\.symbol) + [region ?? "", String(retryTick)]) { await loadPrices() }
         // Logos der Start-Coins zuerst (höchstens 4 s warten, danach Initialen)
         .task(id: coins.map(\.symbol)) { await loadStarterLogos() }
     }
@@ -257,14 +279,18 @@ struct WatchlistStarterPicker: View {
         if let hit = await StarterPriceSource.shared.cached(symbols: symbols, region: region) {
             prices = hit
             loadingPrices = false
+            pricesFailed = hit.isEmpty
             return
         }
         loadingPrices = true
+        pricesFailed = false
         let loaded = await StarterPriceSource.shared.prices(symbols: symbols, region: region)
         if Task.isCancelled { return }
         withAnimation(reduceMotion ? nil : .easeInOut(duration: 0.25)) {
-            prices = loaded
+            // Fehler: alte Kurse bleiben (wie Android); gar keiner da → «Keine Verbindung»
+            if !loaded.isEmpty { prices = loaded }
             loadingPrices = false
+            pricesFailed = prices.isEmpty
         }
     }
 }
@@ -303,6 +329,11 @@ extension WatchlistScreen {
             try? await Task.sleep(nanoseconds: nanos)
             if Set(celebrating.keys) == ids { celebrating = [:] }
         }
+    }
+
+    /// Leere Merkliste: gibt es trotzdem Alarme (Portfolio)? Gleiche Zählung wie `openBell`.
+    private var starterHasAlarms: Bool {
+        data.alarmsWithWatch.count + (data.settings.portfolioEnabled ? data.portfolioAlarms.count : 0) > 0
     }
 
     /// Start-Tipp: frische Liste, sonst Zwischenspeicher (auch älter), sonst Ersatzliste —
@@ -381,23 +412,26 @@ extension WatchlistScreen {
             }
             .refreshable { await data.refreshAll() }
         }
-        // Glocke und «+» oben rechts (der Hinweis verweist darauf); in der Merkliste neben der Lupe
+        // «+» oben rechts (der Hinweis verweist darauf); in der Merkliste neben der Lupe
         .overlay(alignment: .topTrailing) {
             HStack(spacing: Spacing.sm) {
-                // Wie die Glocke der Merkliste: ohne Alarm gleich zum Anlegen (`openBell`)
-                Button {
-                    openBell()
-                } label: {
-                    // Alarm-Glocke mit Wellen (Umriss: noch kein Alarm) wie im Kopf der Merkliste
-                    Image(systemName: "bell.and.waves.left.and.right")
-                        .font(.body)
-                        .imageScale(.large)
-                        .frame(width: 44, height: 44)
-                        .contentShape(Rectangle())
+                // Glocke nur mit Alarmen (z. B. im Portfolio): ohne Paar und ohne Alarm führte sie nur zu «Coin
+                // hinzufügen» und doppelte das «+» daneben (wie Android)
+                if starterHasAlarms {
+                    Button {
+                        openBell()
+                    } label: {
+                        // Alarm-Glocke mit Wellen wie im Kopf der Merkliste
+                        Image(systemName: "bell.and.waves.left.and.right")
+                            .font(.body)
+                            .imageScale(.large)
+                            .frame(width: 44, height: 44)
+                            .contentShape(Rectangle())
+                    }
+                    .buttonStyle(.borderless)
+                    .tint(accent.primary)
+                    .accessibilityLabel(L("alarms_overview_title"))
                 }
-                .buttonStyle(.borderless)
-                .tint(accent.primary)
-                .accessibilityLabel(L("alarms_overview_title"))
                 addPairButton(labelled: false)
             }
             .padding(.trailing, Spacing.md)
@@ -423,12 +457,22 @@ extension WatchlistScreen {
         let added = withAnimation(.spring(duration: 0.35)) {
             data.addStarterCoins(symbols)
         }
-        // Neue Paare haben Kurs-Mitteilungen an: Erlaubnis jetzt fragen (wie im Explorer, Review 12) — vorher
-        // die kurze Erklärung (`NotificationPrePrompt`)
-        if added > 0 {
-            NotificationPrePrompt.request(.pairsAdded)
-        }
+        // Neue Paare haben Kurs-Mitteilungen an: Erlaubnis fragen (wie im Explorer, Review 12) — vorher die kurze
+        // Erklärung (`NotificationPrePrompt`), aber erst nach dem Banner mit «Alarm setzen» (`askNotificationsAfterHint`)
+        if added > 0 { notificationAskPending = true }
         // Gleich abholen, damit die neuen Zeilen schon im ersten Bild verborgen sind
         takeCelebration()
+        // Kein Banner mit «Alarm setzen» (z. B. schon Alarme da): gleich fragen
+        if banner?.action == nil { askNotificationsAfterHint() }
+    }
+
+    /// Ausstehende Frage nach Mitteilungen stellen, sobald kein Banner mit Aktion mehr steht. Wurde «Alarm setzen»
+    /// getippt (Alarme offen), fragt das Speichern des Alarms selbst (`.alarmCreated`) — hier dann nichts.
+    func askNotificationsAfterHint() {
+        guard notificationAskPending, banner?.action == nil else { return }
+        notificationAskPending = false
+        if alarmsFor == nil {
+            NotificationPrePrompt.request(.pairsAdded)
+        }
     }
 }

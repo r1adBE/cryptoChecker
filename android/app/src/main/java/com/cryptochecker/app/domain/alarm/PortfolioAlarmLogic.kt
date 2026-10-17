@@ -1,6 +1,7 @@
 package com.cryptochecker.app.domain.alarm
 
 import com.cryptochecker.app.domain.convert.CurrencyConversion
+import com.cryptochecker.app.domain.portfolio.PortfolioStables
 
 /**
  * Art eines Portfolio-Alarms («Portfolio-Wert»). Der Name wird so in Datenbank und
@@ -73,6 +74,11 @@ data class PortfolioReading(
      * alter Kurs gälte sonst als «jetzt» — dann prüft KEIN Portfolio-Alarm (weder melden noch wieder scharf stellen).
      */
     val stalePrices: Int = 0,
+    /**
+     * Live-Kurs USDT/USD ([DepegAlarm.liveUsdtUsd]) für Alarme in einer anderen Währung als der Stand: USDT gilt in
+     * Fiat (auch USD) seinen Marktkurs wie im Portfolio-Kopf ([PortfolioStables.usdtUsd]); null = keiner (× 1, Näherung).
+     */
+    val usdtUsdLive: Double? = null,
 )
 
 /** Ergebnis der Prüfung eines Portfolio-Alarms. */
@@ -102,18 +108,22 @@ object PortfolioAlarmLogic {
 
     /**
      * Gesamtwert in der Alarmwährung [currency]: der Wert der Momentaufnahme, wenn sie in
-     * derselben Währung ist; bei USD bzw. einem USD-Stablecoin der USDT-Wert; sonst der USDT-Wert mal
-     * Devisenkurs ([PortfolioReading.usdTo]). So bleibt ein Alarm in CHF wirksam, nachdem die
-     * Umrechnungswährung auf EUR wechselte. Ohne Kurs null (diesmal nicht prüfen).
+     * derselben Währung ist; bei einem USD-Stablecoin der USDT-Wert; bei USD der USDT-Wert mal USDT/USD
+     * ([PortfolioReading.usdtUsdLive]); sonst der USDT-Wert mal Devisenkurs ([PortfolioReading.usdTo]) mal USDT/USD
+     * ([PortfolioStables.usdtTo]) — wie der Portfolio-Kopf (`PortfolioSnapshotUpdater`, USDT zum Marktkurs). So bleibt
+     * ein Alarm in CHF wirksam, nachdem die Umrechnungswährung auf EUR wechselte. Ohne Kurs null (diesmal nicht prüfen).
      */
     fun totalIn(currency: String?, reading: PortfolioReading): Double? {
         val wanted = currency?.trim()?.uppercase()?.takeIf { it.isNotEmpty() } ?: return null
         if (wanted == reading.currency.uppercase()) return reading.total.takeIf { it.isFinite() }
         val usdt = reading.totalUsdt?.takeIf { it.isFinite() } ?: return null
+        val usdtUsd = PortfolioStables.usdtUsd(reading.usdtUsdLive)
+        if (wanted == "USD") return usdt * usdtUsd.rate
         val stables = CurrencyConversion.USD_STABLES
         if (CurrencyConversion.normalize(wanted) in stables) return usdt
         val rate = reading.usdTo[wanted]?.takeIf { it.isFinite() && it > 0.0 } ?: return null
-        return usdt * rate
+        val factor = PortfolioStables.usdtTo(rate, usdtUsd) ?: return null
+        return usdt * factor
     }
 
     /** Alarmwährungen, für die ein Devisenkurs nötig ist (nicht die des Stands, kein USD-Stablecoin). */

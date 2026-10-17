@@ -239,7 +239,7 @@
     <string name="ledger_exchange">กระดานเทรด (ไม่บังคับ)</string>
     <string name="ledger_exchange_failed">%1$s: ตอนนี้ไม่มีราคาจาก %2$s – ประเมินด้วย Binance</string>
     <string name="ledger_exchange_hint">เหรียญประเมินด้วยราคาของกระดานนี้ (ไม่เช่นนั้น Binance) ประวัติ 7 วัน และ 1 ปี: ราคารายวันของ Binance ปรับสัดส่วนตามนั้น</string>
-    <string name="ledger_exchange_mixed">%1$s: ระบุหลายกระดานเทรด – ประเมินด้วย Binance ย้ายเหรียญหรือเปล่า? บันทึกเป็น «โอนย้าย»</string>
+    <string name="ledger_exchange_mixed">%1$s: ระบุหลายกระดานเทรด – ประเมินด้วย Binance ย้ายเหรียญหรือเปล่า? บันทึกเป็น “โอนย้าย”</string>
     <string name="ledger_exchange_none">ไม่มี (Binance)</string>
     <string name="ledger_fee">ค่าธรรมเนียม (ไม่บังคับ)</string>
     <string name="ledger_fee_coin">เหรียญ</string>
@@ -251,7 +251,7 @@
     <string name="ledger_gain_info_fifo">วันนี้ 7 วัน 1 ปี: มูลค่าที่เปลี่ยนในช่วงเวลา – การซื้อและขายไม่นับเป็นกำไร ตั้งแต่ซื้อ: มูลค่าปัจจุบันลบต้นทุน (FIFO รวมค่าธรรมเนียม) ของเหรียญที่ยังถืออยู่</string>
     <string name="ledger_gain_title">กำไร/ขาดทุน</string>
     <string name="ledger_more_toggle">ค่าธรรมเนียมและกระดานเทรด</string>
-    <string name="ledger_partial_cost">«ตั้งแต่ซื้อ» นับเฉพาะส่วนที่มีราคาซื้อ – ไม่รวม %1$s ที่ไม่มีราคาซื้อ</string>
+    <string name="ledger_partial_cost">“ตั้งแต่ซื้อ” นับเฉพาะส่วนที่มีราคาซื้อ – ไม่รวม %1$s ที่ไม่มีราคาซื้อ</string>
     <string name="ledger_period_without">วันนี้ / 7 วัน / 1 ปี ไม่รวม %1$s – ไม่มีราคาเริ่มต้นที่ตรงกัน</string>
     <string name="ledger_since_purchase_currency">ตั้งแต่ซื้อ (%1$s)</string>
     <string name="ledger_since_purchase_spoken">กำไร/ขาดทุนตั้งแต่ซื้อ ยังไม่ได้ขาย</string>

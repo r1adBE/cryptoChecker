@@ -20,7 +20,7 @@
     <string name="notification_macro_title">今日有经济数据</string>
     <string name="notification_permission_preprompt_continue">继续</string>
     <string name="notification_permission_preprompt_later">稍后</string>
-    <string name="notification_permission_preprompt_text">为了让提醒和价格通知能送达，应用需要通知权限。通知只用于你自己设置的提醒。</string>
+    <string name="notification_permission_preprompt_text">为了让提醒和价格通知能送达，应用需要通知权限。应用只将通知用于你的提醒和价格通知。</string>
     <string name="notification_permission_preprompt_title">允许通知？</string>
     <string name="notification_portfolio_alarm_locked">你的提醒已触发，打开应用查看详情。</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->

@@ -99,7 +99,7 @@
     <string name="check_trigger_worker">Tausta</string>
 
     <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
-    <string name="battery_delay_hint">Android voi viivästyttää tarkistuksia – aseta akku tilaan «Rajoittamaton»</string>
+    <string name="battery_delay_hint">Android voi viivästyttää tarkistuksia – aseta akku tilaan ”Rajoittamaton”</string>
     <string name="battery_later">Myöhemmin</string>
     <string name="battery_message">Android viivästää taustatyötä virran säästämiseksi — hinnat ja widgetit voivat silloin olla tunteja vanhoja. Kun akun käyttö on rajoittamaton, ne pysyvät ajan tasalla. Voit muuttaa tätä milloin tahansa Androidin asetuksista.</string>
     <string name="battery_open_settings">Avaa akkuasetukset</string>

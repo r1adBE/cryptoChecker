@@ -90,7 +90,7 @@
     <string name="check_trigger_worker">Nền</string>
 
     <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
-    <string name="battery_delay_hint">Android có thể trì hoãn việc kiểm tra – đặt pin thành «Không hạn chế»</string>
+    <string name="battery_delay_hint">Android có thể trì hoãn việc kiểm tra – đặt pin thành “Không hạn chế”</string>
     <string name="battery_later">Để sau</string>
     <string name="battery_message">Android trì hoãn tác vụ nền để tiết kiệm pin — khi đó giá và tiện ích có thể cũ đến vài giờ. Đặt mức sử dụng pin thành không hạn chế giúp chúng luôn cập nhật. Bạn có thể thay đổi bất cứ lúc nào trong cài đặt Android.</string>
     <string name="battery_open_settings">Mở cài đặt pin</string>

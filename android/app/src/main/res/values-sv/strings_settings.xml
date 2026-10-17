@@ -37,9 +37,9 @@
     <string name="settings_alarm_sound_system">Välj systemljud…</string>
     <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
     <string name="settings_app_badge">Siffra på appikonen</string>
-    <string name="settings_app_badge_hint">Räknar öppna larmaviseringar. Om en siffra eller en prick visas avgör hemskärmen (t.ex. Samsung: «Med siffra»).</string>
+    <string name="settings_app_badge_hint">Räknar öppna larmaviseringar. Om en siffra eller en prick visas avgör hemskärmen (t.ex. Samsung: ”Med siffra”).</string>
     <string name="settings_exact_checks">Kontrollera i tid</string>
-    <string name="settings_exact_checks_grant">Tillåt «Alarm och påminnelser»</string>
+    <string name="settings_exact_checks_grant">Tillåt ”Alarm och påminnelser”</string>
     <string name="settings_exact_checks_hint">Android kontrollerar ungefär var 15:e minut, även när enheten vilar. Drar lite mer batteri.</string>
     <string name="settings_exact_checks_nothing">Inga aktiva par – inget att kontrollera.</string>
     <string name="settings_exact_checks_permission_missing">Behörighet saknas – Android kontrollerar när det passar (ungefär var 15:e min eller senare).</string>
@@ -248,7 +248,7 @@
     <!-- Lizenzhinweise -->
     <string name="licenses_app_intro">Crypto Checker är öppen källkod (MIT-licens).</string>
     <string name="licenses_font_title">Typsnittet Rubik</string>
-    <string name="licenses_icons_bundled_text">Ingår i appen: ikoner från «Cryptocurrency Icons» av Christopher Downer med bidragsgivare (github.com/spothq/cryptocurrency-icons), släppta under CC0 1.0 Universal. De visas tills logotyper från CoinGecko eller Binance har hämtats. Namn och logotyper förblir varumärken för respektive projekt.</string>
+    <string name="licenses_icons_bundled_text">Ingår i appen: ikoner från ”Cryptocurrency Icons” av Christopher Downer med bidragsgivare (github.com/spothq/cryptocurrency-icons), släppta under CC0 1.0 Universal. De visas tills logotyper från CoinGecko eller Binance har hämtats. Namn och logotyper förblir varumärken för respektive projekt.</string>
     <string name="licenses_icons_title">Reservikoner för mynt</string>
     <string name="licenses_libraries_intro">Appen använder dessa bibliotek under Apache License 2.0:</string>
     <string name="licenses_libraries_title">Android-bibliotek</string>

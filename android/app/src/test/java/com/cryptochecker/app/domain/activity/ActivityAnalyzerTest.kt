@@ -213,6 +213,16 @@ class ActivityAnalyzerTest {
     }
 
     @Test
+    fun notify_lastNoticeInFuture_afterClockCorrection() {
+        // Uhr war Monate vorgestellt, letzte Meldung «in der Zukunft»: nicht bis dahin stumm bleiben
+        val kinds = setOf(SignalKind.PRICE_MOVE)
+        assertTrue(ActivityAnalyzer.shouldNotify(true, kinds, now + 90L * 24 * 60 * 60_000L, now))
+        assertTrue(ActivityAnalyzer.shouldNotify(true, kinds, now + 1, now))
+        // Gerade eben gemeldet: weiter gesperrt
+        assertFalse(ActivityAnalyzer.shouldNotify(true, kinds, now, now))
+    }
+
+    @Test
     fun undeliverableNotice_staysPendingWhileSignalActive() {
         val move = setOf(SignalKind.PRICE_MOVE)
         val report = ActivityReport(

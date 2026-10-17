@@ -43,7 +43,17 @@ import javax.inject.Singleton
  * Was eine Wiederherstellung übernommen hat. [appLockKept] = eine Sicherung ohne Passwort wollte die
  * Portfolio-Sperre ausschalten, sie blieb an ([BackupRestorePolicy.appLock]).
  */
-data class RestoreResult(val watches: Int, val alarms: Int, val appLockKept: Boolean = false)
+data class RestoreResult(
+    val watches: Int,
+    val alarms: Int,
+    val appLockKept: Boolean = false,
+    /** Ids der ersetzten Paare: ihre Kurs- und Aktivitäts-Meldungen gehören zu den alten Paaren. */
+    val replacedWatchIds: List<Long> = emptyList(),
+    /** Ids der ersetzten Alarme: ihre Alarm-Meldungen gehören zu den alten Alarmen. */
+    val replacedAlarmIds: List<Long> = emptyList(),
+    /** Ids der ersetzten Portfolio-Alarme (leer, wenn die Sicherung keine enthielt und sie blieben). */
+    val replacedPortfolioAlarmIds: List<Long> = emptyList(),
+)
 
 /** Sicherung enthält mehr ungültige Portfolio-Einträge, als der Nutzer bestätigt hat. */
 class UnconfirmedInvalidEntriesException(val invalid: Int) :
@@ -226,7 +236,13 @@ class BackupManager @Inject constructor(
         // Alte ⚡-Ergebnisse gehören zu den alten Paaren (Ids können sich decken).
         activityRepository.retain(emptySet())
 
-        RestoreResult(watches.size, alarms.size, appLockKept)
+        RestoreResult(
+            watches.size, alarms.size, appLockKept,
+            // Alte Meldungen entfernt der Aufrufer (Ids können sich mit den neuen decken)
+            replacedWatchIds = previous.watches.map { it.id },
+            replacedAlarmIds = previous.alarms.map { it.id },
+            replacedPortfolioAlarmIds = if (portfolioAlarms != null) previous.portfolioAlarms.map { it.id } else emptyList(),
+        )
     }
 
     /** Was vor dem Wiederherstellen da war. */

@@ -37,7 +37,7 @@
     <string name="alarm_more_conditions">Mehr Bedingungen</string>
     <string name="alarm_new_extreme">Neues %1$s</string>
     <string name="alarm_once">Einmal</string>
-    <string name="alarm_option_repeating">Alarm nach dem Auslösen aktiv lassen</string>
+    <string name="alarm_option_repeating">Melden</string>
     <string name="alarm_option_sound">Ton</string>
     <string name="alarm_option_speak">Alarm vorlesen</string>
     <string name="alarm_option_vibrate">Vibration</string>
@@ -57,7 +57,6 @@
     <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
     <string name="alarm_simple_above">über</string>
     <string name="alarm_simple_below">unter</string>
-    <string name="alarm_simple_direction_a11y">Richtung: %1$s</string>
     <string name="alarm_simple_end">geht</string>
     <string name="alarm_simple_when">Wenn %1$s</string>
     <string name="alarm_template_a11y">Alarm erstellen: %1$s</string>
@@ -84,7 +83,7 @@
     <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
     <string name="alarm_sentence_above">Sag mir Bescheid, wenn %1$s über %2$s steigt.</string>
     <string name="alarm_sentence_below">Sag mir Bescheid, wenn %1$s unter %2$s fällt.</string>
-    <string name="alarm_sentence_down_percent">Sag mir Bescheid, wenn %1$s um %2$s fällt.</string>
+    <string name="alarm_sentence_down_percent">Sag mir Bescheid, wenn %1$s um %2$s unter den Kurs beim Speichern (bzw. beim letzten Alarm) fällt.</string>
     <string name="alarm_sentence_funding_above">Sag mir Bescheid, wenn das Funding von %1$s über %2$s steigt.</string>
     <string name="alarm_sentence_funding_below">Sag mir Bescheid, wenn das Funding von %1$s unter %2$s fällt.</string>
     <string name="alarm_sentence_incomplete">Wert eingeben, dann steht der Alarm hier als Satz.</string>
@@ -103,7 +102,7 @@
         <item quantity="one">Sag mir Bescheid, wenn das Open Interest von %1$s innerhalb von %3$d Stunde um %2$s steigt.</item>
         <item quantity="other">Sag mir Bescheid, wenn das Open Interest von %1$s innerhalb von %3$d Stunden um %2$s steigt.</item>
     </plurals>
-    <string name="alarm_sentence_up_percent">Sag mir Bescheid, wenn %1$s um %2$s steigt.</string>
+    <string name="alarm_sentence_up_percent">Sag mir Bescheid, wenn %1$s um %2$s über den Kurs beim Speichern (bzw. beim letzten Alarm) steigt.</string>
     <string name="alarm_sentence_volume">Sag mir Bescheid, wenn bei %1$s %2$s-mal so viel gehandelt wird wie üblich.</string>
 
     <!-- Alarm «Nahe am Hoch / Tief» -->

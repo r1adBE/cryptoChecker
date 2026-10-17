@@ -4,7 +4,6 @@ import androidx.compose.ui.platform.LocalConfiguration
 import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -18,13 +17,9 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.Button
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
@@ -43,7 +38,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.clearAndSetSemantics
@@ -62,6 +56,14 @@ import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.headline
 import com.cryptochecker.app.util.BidiText
 import com.cryptochecker.app.util.LocaleNumbers
+import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.app.ui.theme.amountNumbers
+import com.cryptochecker.app.ui.components.CoinBadge
+import com.cryptochecker.app.domain.logos.CoinLogos
+import com.cryptochecker.app.data.local.model.WatchEntity
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.semantics.heading
+import androidx.compose.foundation.layout.Row
 
 /**
  * Alarm anlegen/bearbeiten als Blatt von unten. Oben die Schnell-Alarme (nur beim Anlegen),
@@ -86,6 +88,8 @@ internal fun AlarmEditorSheet(
     onTemplate: (AlarmTemplates.Template) -> Unit,
     onDismiss: () -> Unit,
     onConfirm: () -> Unit,
+    /** Paar des Alarms: Kopf mit Logo, Name, Börse und aktuellem Kurs (wie iOS); null = ohne Kopf. */
+    watch: WatchEntity? = null,
 ) {
     val context = LocalContext.current
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
@@ -110,12 +114,19 @@ internal fun AlarmEditorSheet(
                 // Gleich in voller Höhe: ändert sich der Inhalt (Laden, «Erweitert»), springt das Blatt nicht
                 .fillMaxHeight()
                 .verticalScroll(rememberScrollState())
-                .padding(start = Spacing.xl, end = Spacing.xl, bottom = Spacing.xl)
+                // Seitenrand 16 dp wie iOS
+                .padding(start = Spacing.lg, end = Spacing.lg, bottom = Spacing.xl)
         ) {
             Text(
                 stringResource(if (draft.id == 0L) R.string.alarms_add else R.string.alarms_edit),
-                style = MaterialTheme.typography.headline
+                style = MaterialTheme.typography.headline,
+                // Screenreader: Überschrift des Blatts
+                modifier = Modifier.semantics { heading() }
             )
+            // Kopf wie iOS: Logo, Paar und Börse, rechts der aktuelle Kurs
+            if (watch != null) {
+                AlarmEditorPairHeader(watch)
+            }
 
             // Schnell-Alarme: ein Antippen legt den Alarm sofort an (nur beim Anlegen)
             if (draft.id == 0L && templates.isNotEmpty()) {
@@ -127,7 +138,7 @@ internal fun AlarmEditorSheet(
                 ConditionChips(conditions = AlarmTemplates.SIMPLE_CONDITIONS, draft = draft, onDraftChange = onDraftChange)
             }
             if (draft.condition.isPriceThreshold) {
-                // Kursmarke als Satz: «Wenn BTC [über ▾] [Betrag] geht»
+                // Kursmarke als Satz: «Wenn BTC über [Betrag] geht»
                 SimpleSentence(
                     draft = draft,
                     symbol = baseAsset,
@@ -148,8 +159,14 @@ internal fun AlarmEditorSheet(
                 MoreConditionOptions(draft = draft, derivatives = derivatives, onDraftChange = onDraftChange)
             }
 
-            // Einmal / Jedes Mal
-            SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth().padding(top = Spacing.lg)) {
+            // «Melden: Einmal / Jedes Mal» — sichtbare Beschriftung wie iOS
+            Text(
+                stringResource(R.string.alarm_option_repeating),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.padding(top = Spacing.lg)
+            )
+            SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth().padding(top = Spacing.xs)) {
                 listOf(false, true).forEachIndexed { index, repeating ->
                     SegmentedButton(
                         selected = draft.repeating == repeating,
@@ -369,7 +386,7 @@ internal fun thresholdErrorText(problem: ThresholdProblem?): (@Composable () -> 
     return { Text(stringResource(res)) }
 }
 
-/** «Wenn BTC [über ▾] [Betrag] geht» — Kursmarke als Satz; der Betrag läuft über den ThresholdParser. */
+/** «Wenn BTC über [Betrag] geht» — Kursmarke als Satz; der Betrag läuft über den ThresholdParser. */
 @OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
 @Composable
 private fun SimpleSentence(
@@ -390,41 +407,12 @@ private fun SimpleSentence(
             style = MaterialTheme.typography.titleMedium,
             modifier = Modifier.align(Alignment.Top).alignToInputLine()
         )
-        Box(contentAlignment = Alignment.CenterStart, modifier = Modifier.align(Alignment.Top).alignToInputLine()) {
-            var menu by remember { mutableStateOf(false) }
-            val above = draft.condition == AlarmCondition.PRICE_ABOVE
-            val directionLabel = stringResource(if (above) R.string.alarm_simple_above else R.string.alarm_simple_below)
-            val directionA11y = stringResource(R.string.alarm_simple_direction_a11y, directionLabel)
-            OutlinedButton(
-                onClick = { menu = true },
-                modifier = Modifier.semantics { contentDescription = directionA11y }
-            ) {
-                Text(directionLabel, style = MaterialTheme.typography.titleMedium, modifier = Modifier.clearAndSetSemantics {})
-                Icon(
-                    painterResource(R.drawable.ic_chevron_down),
-                    contentDescription = null,
-                    modifier = Modifier.padding(start = Spacing.xs)
-                )
-            }
-            DropdownMenu(expanded = menu, onDismissRequest = { menu = false }) {
-                listOf(AlarmCondition.PRICE_ABOVE, AlarmCondition.PRICE_BELOW).forEach { condition ->
-                    DropdownMenuItem(
-                        text = {
-                            Text(
-                                stringResource(
-                                    if (condition == AlarmCondition.PRICE_ABOVE) R.string.alarm_simple_above
-                                    else R.string.alarm_simple_below
-                                )
-                            )
-                        },
-                        onClick = {
-                            menu = false
-                            onDraftChange(draft.withCondition(condition))
-                        }
-                    )
-                }
-            }
-        }
+        // Richtung nur als Wort im Satz: gewählt wird sie oben mit den Chips «Kurs über/unter» (ein Bedienelement)
+        Text(
+            stringResource(if (draft.condition == AlarmCondition.PRICE_ABOVE) R.string.alarm_simple_above else R.string.alarm_simple_below),
+            style = MaterialTheme.typography.titleMedium,
+            modifier = Modifier.align(Alignment.Top).alignToInputLine()
+        )
         val placeholderHint = draft.pricePlaceholder
         OutlinedTextField(
             value = draft.thresholdText,
@@ -453,3 +441,45 @@ private fun SimpleSentence(
  */
 private fun Modifier.alignToInputLine(): Modifier =
     padding(top = 8.dp).heightIn(min = 56.dp).wrapContentHeight(Alignment.CenterVertically)
+
+/** Kopf des Editors wie iOS: Logo, Paar, Börse und rechts der aktuelle Kurs (ein Element für den Screenreader). */
+@Composable
+private fun AlarmEditorPairHeader(watch: WatchEntity) {
+    val price = PriceFormat.priceWithCurrency(watch.lastPrice, watch.quoteAsset)
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = Spacing.md)
+            .semantics(mergeDescendants = true) {}
+    ) {
+        CoinBadge(
+            watch.baseAsset,
+            size = 36.dp,
+            logo = CoinLogos.allowedFor(watch.marketKey),
+            pair = CoinLogos.pairKey(watch.marketKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name),
+            modifier = Modifier.padding(end = 12.dp)
+        )
+        Column(modifier = Modifier.weight(1f)) {
+            Text(
+                BidiText.isolate(watch.displayName),
+                style = MaterialTheme.typography.titleMedium,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+            Text(
+                BidiText.isolate(watch.marketName),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+        }
+        Text(
+            price,
+            style = MaterialTheme.typography.titleSmall.amountNumbers(),
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.padding(start = Spacing.sm)
+        )
+    }
+}

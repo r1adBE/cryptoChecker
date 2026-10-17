@@ -36,7 +36,7 @@
     <string name="alarm_more_conditions">เงื่อนไขเพิ่มเติม</string>
     <string name="alarm_new_extreme">%1$sใหม่</string>
     <string name="alarm_once">ครั้งเดียว</string>
-    <string name="alarm_option_repeating">เก็บสัญญาณเตือนไว้หลังทำงาน</string>
+    <string name="alarm_option_repeating">แจ้งเตือน</string>
     <string name="alarm_option_sound">เสียง</string>
     <string name="alarm_option_speak">อ่านสัญญาณเตือนออกเสียง</string>
     <string name="alarm_option_vibrate">สั่น</string>
@@ -55,7 +55,6 @@
     <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
     <string name="alarm_simple_above">ขึ้นเหนือ</string>
     <string name="alarm_simple_below">ลงต่ำกว่า</string>
-    <string name="alarm_simple_direction_a11y">ทิศทาง: %1$s</string>
     <string name="alarm_simple_end"></string>
     <string name="alarm_simple_when">เมื่อ %1$s</string>
     <string name="alarm_template_a11y">สร้างสัญญาณเตือน: %1$s</string>
@@ -82,7 +81,7 @@
     <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
     <string name="alarm_sentence_above">แจ้งฉันเมื่อ %1$s ขึ้นเหนือ %2$s</string>
     <string name="alarm_sentence_below">แจ้งฉันเมื่อ %1$s ลงต่ำกว่า %2$s</string>
-    <string name="alarm_sentence_down_percent">แจ้งฉันเมื่อ %1$s ลง %2$s</string>
+    <string name="alarm_sentence_down_percent">แจ้งฉันเมื่อ %1$s ลง %2$s ต่ำกว่าราคาตอนบันทึก (หรือตอนแจ้งเตือนครั้งล่าสุด)</string>
     <string name="alarm_sentence_funding_above">แจ้งฉันเมื่อ Funding ของ %1$s ขึ้นเกิน %2$s</string>
     <string name="alarm_sentence_funding_below">แจ้งฉันเมื่อ Funding ของ %1$s ลงต่ำกว่า %2$s</string>
     <string name="alarm_sentence_incomplete">ป้อนค่าเพื่อดูสัญญาณเตือนเป็นประโยค</string>
@@ -98,7 +97,7 @@
     <plurals name="alarm_sentence_oi_up">
         <item quantity="other">แจ้งฉันเมื่อ Open interest ของ %1$s เพิ่มขึ้น %2$s ภายใน %3$d ชั่วโมง</item>
     </plurals>
-    <string name="alarm_sentence_up_percent">แจ้งฉันเมื่อ %1$s ขึ้น %2$s</string>
+    <string name="alarm_sentence_up_percent">แจ้งฉันเมื่อ %1$s ขึ้น %2$s เหนือราคาตอนบันทึก (หรือตอนแจ้งเตือนครั้งล่าสุด)</string>
     <string name="alarm_sentence_volume">แจ้งฉันเมื่อปริมาณซื้อขาย %1$s สูงถึง %2$s เท่าของปกติ</string>
 
     <!-- Alarm «Nahe am Hoch / Tief» -->
@@ -136,7 +135,7 @@
     <string name="alarm_saved_notifications_off">การแจ้งเตือนปิดอยู่</string>
 
     <!-- Wann Alarme geprüft werden -->
-    <string name="alarm_timing_hint_android">เมื่อปิดแอป Android จะตรวจไม่สม่ำเสมอ – มักช้ากว่า 15 นาที แม้เปิด «%1$s» อาจพลาดการพุ่งขึ้นลงช่วงสั้น ๆ</string>
+    <string name="alarm_timing_hint_android">เมื่อปิดแอป Android จะตรวจไม่สม่ำเสมอ – มักช้ากว่า 15 นาที แม้เปิด “%1$s” อาจพลาดการพุ่งขึ้นลงช่วงสั้น ๆ</string>
     <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">เมื่อปิดแอป iOS มักตรวจช้ากว่า 15 นาที บางครั้งจนกว่าจะเปิดแอปครั้งถัดไป อาจพลาดการพุ่งขึ้นลงช่วงสั้น ๆ</string>
     <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
     <string name="alarm_timing_title">สัญญาณเตือนถูกตรวจเมื่อใด</string>

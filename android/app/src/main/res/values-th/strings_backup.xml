@@ -22,7 +22,7 @@
     <string name="backup_password_repeat">ยืนยันรหัสผ่าน</string>
     <string name="backup_password_show">แสดงรหัสผ่าน</string>
     <string name="backup_password_title">ข้อมูลสำรองที่มีรหัสผ่าน</string>
-    <string name="backup_password_too_weak">เดาง่ายเกินไป – ไม่ใช่ตัวเลขล้วน ไม่ใช่อักขระซ้ำตัวเดียว ไม่ใช่ลำดับทั่วไปอย่าง «12345678» หรือ «password»</string>
+    <string name="backup_password_too_weak">เดาง่ายเกินไป – ไม่ใช่ตัวเลขล้วน ไม่ใช่อักขระซ้ำตัวเดียว ไม่ใช่ลำดับทั่วไปอย่าง “12345678” หรือ “password”</string>
     <string name="backup_password_warning">หากไม่มีรหัสผ่าน จะกู้คืนข้อมูลสำรองไม่ได้</string>
     <string name="backup_password_wrong">รหัสผ่านไม่ถูกต้อง หรือไฟล์เสียหาย ลองอีกครั้ง</string>
     <string name="backup_protect">ป้องกันด้วยรหัสผ่าน</string>
@@ -51,6 +51,6 @@
     </plurals>
 
     <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
-    <string name="storage_recovery_message">อุปกรณ์นี้ไม่มีกุญแจของข้อมูลที่เข้ารหัสของแอปแล้ว แอปจึงเริ่มแบบว่างเปล่า ไม่มีสิ่งใดถูกลบ หากต้องการรายการและพอร์ตโฟลิโอคืน ให้นำเข้าไฟล์สำรองในการตั้งค่า ที่ «%1$s»</string>
+    <string name="storage_recovery_message">อุปกรณ์นี้ไม่มีกุญแจของข้อมูลที่เข้ารหัสของแอปแล้ว แอปจึงเริ่มแบบว่างเปล่า ไม่มีสิ่งใดถูกลบ หากต้องการรายการและพอร์ตโฟลิโอคืน ให้นำเข้าไฟล์สำรองในการตั้งค่า ที่ “%1$s”</string>
     <string name="storage_recovery_title">ไม่สามารถปลดล็อกข้อมูลที่บันทึกไว้</string>
 </resources>

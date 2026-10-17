@@ -1,7 +1,6 @@
 package com.cryptochecker.app.domain.portfolio.csvimport
 
 import java.math.BigDecimal
-import java.math.RoundingMode
 
 /**
  * Kraken «Ledgers»-Export (History › Export › Ledgers) → [CsvImportRow]. Gespiegelt in `CsvImportKraken.swift`.
@@ -26,7 +25,8 @@ import java.math.RoundingMode
  *  - Doppelte Ledger-Zeilen (gleiche txid; Kraken-Exporte wiederholen Ein-/Auszahlungen) zählen einmal, die Wiederholung
  *    fällt still weg.
  * Kraken-Kürzel werden vereinheitlicht ([asset]): «XXBT»/«XBT» → BTC, «ZEUR» → EUR, «XXDG» → DOGE, Staking-
- * Varianten «ETH2.S», «DOT.S», «USDC.M», «BTC.F» → Basis. Formate nur aus der Kraken-Dokumentation bekannt.
+ * Varianten «ETH2.S», «DOT.S», «DOT28.S», «USDC.M», «BTC.F» → Basis, «EUR.HOLD» → EUR (Fiat). Formate nur aus der
+ * Kraken-Dokumentation bekannt.
  */
 internal object CsvImportKraken {
 
@@ -39,15 +39,30 @@ internal object CsvImportKraken {
         "ZCHF" to "CHF", "ETH2" to "ETH",
     )
 
-    /** Staking-/Earn-Varianten: «.S» (Staking), «.M» (Opt-in Rewards), «.B», «.F» (Flex), «.P», «.T». */
-    private val SUFFIX = Regex("\\.[A-Z]$")
+    /**
+     * Staking-/Earn-Varianten: «.S» (Staking), «.M» (Opt-in Rewards), «.B», «.F» (Flex), «.P», «.T»; dazu «.HOLD»
+     * (gehaltenes Guthaben, z. B. «EUR.HOLD» = EUR, also Fiat).
+     */
+    private val SUFFIX = Regex("\\.([A-Z]|HOLD)$")
+
+    /** Nur die Staking-/Earn-Suffixe (ohne «.HOLD»: gehaltenes Guthaben ist keine Staking-Variante, [isStakedAsset]). */
+    private val STAKING_SUFFIX = Regex("\\.[A-Z]$")
+
+    /**
+     * Basis einer Staking-Variante mit Ziffern vor dem Suffix («DOT28.S», «KAVA21.S», «SOL03.S»): mindestens zwei
+     * Buchstaben, dann nur Ziffern. Nur zusammen mit einem Suffix ([SUFFIX]) — echte Kürzel mit Ziffern am Ende
+     * ohne Suffix bleiben, wie sie sind.
+     */
+    private val STAKED_DIGITS = Regex("^([A-Z]{2,})[0-9]+$")
 
     /** Kraken-Kürzel → einheitliches Kürzel (gross). */
     fun asset(raw: String): String {
         val t = raw.trim().uppercase()
         LEGACY[t]?.let { return it }
         val base = t.replace(SUFFIX, "")
-        return LEGACY[base] ?: base
+        LEGACY[base]?.let { return it }
+        if (base != t) STAKED_DIGITS.matchEntire(base)?.let { m -> m.groupValues[1].let { return LEGACY[it] ?: it } }
+        return base
     }
 
     private class Leg(
@@ -66,7 +81,7 @@ internal object CsvImportKraken {
     /** Staking-/Earn-Variante eines Kraken-Kürzels (vor dem Vereinheitlichen). */
     private fun isStakedAsset(raw: String): Boolean {
         val t = raw.trim().uppercase()
-        return t == "ETH2" || SUFFIX.containsMatchIn(t)
+        return t == "ETH2" || STAKING_SUFFIX.containsMatchIn(t)
     }
 
     /** Höchster Abstand zwischen Spot- und Staking-Buchung derselben Umbuchung ohne gemeinsame refid. */
@@ -212,12 +227,12 @@ internal object CsvImportKraken {
                 group.forEach { skipped += CsvImportSkip(it.line, CsvImportSkipReason.NOT_CRYPTO) }
             isMoney(out.asset) -> {
                 // Kauf: Geld weg, Coin rein
-                val price = outAmount.divide(inAmount, CsvImport.DERIVED_SCALE, RoundingMode.HALF_EVEN).stripTrailingZeros()
+                val price = CsvImport.derive(outAmount, inAmount)
                 rows += row(line, CsvImportKind.BUY, rawKind(inn), inn.asset, inAmount, price, out.asset, fees.first, fees.second, inn.time, refid)
             }
             isMoney(inn.asset) -> {
                 // Verkauf: Coin weg, Geld rein
-                val price = inAmount.divide(outAmount, CsvImport.DERIVED_SCALE, RoundingMode.HALF_EVEN).stripTrailingZeros()
+                val price = CsvImport.derive(inAmount, outAmount)
                 rows += row(line, CsvImportKind.SELL, rawKind(out), out.asset, outAmount, price, inn.asset, fees.first, fees.second, out.time, refid)
             }
             else -> {

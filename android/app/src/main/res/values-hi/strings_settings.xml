@@ -37,9 +37,9 @@
     <string name="settings_alarm_sound_system">सिस्टम आवाज़ चुनें…</string>
     <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
     <string name="settings_app_badge">ऐप आइकन पर संख्या</string>
-    <string name="settings_app_badge_hint">खुली अलार्म सूचनाएँ गिनता है। संख्या दिखे या बिंदु, यह होम स्क्रीन तय करती है (जैसे Samsung: «संख्या के साथ»)।</string>
+    <string name="settings_app_badge_hint">खुली अलार्म सूचनाएँ गिनता है। संख्या दिखे या बिंदु, यह होम स्क्रीन तय करती है (जैसे Samsung: “संख्या के साथ”)।</string>
     <string name="settings_exact_checks">समय पर जाँच</string>
-    <string name="settings_exact_checks_grant">«अलार्म और रिमाइंडर» की अनुमति दें</string>
+    <string name="settings_exact_checks_grant">“अलार्म और रिमाइंडर” की अनुमति दें</string>
     <string name="settings_exact_checks_hint">Android लगभग हर 15 मिनट में जाँचता है, डिवाइस निष्क्रिय होने पर भी। थोड़ी ज़्यादा बैटरी लगती है।</string>
     <string name="settings_exact_checks_nothing">कोई सक्रिय पेयर नहीं – जाँचने को कुछ नहीं।</string>
     <string name="settings_exact_checks_permission_missing">अनुमति नहीं है – Android जब ठीक समझे तब जाँचता है (लगभग हर 15 मिनट या बाद में)।</string>
@@ -248,7 +248,7 @@
     <!-- Lizenzhinweise -->
     <string name="licenses_app_intro">Crypto Checker ओपन सोर्स है (MIT लाइसेंस)।</string>
     <string name="licenses_font_title">Rubik फ़ॉन्ट</string>
-    <string name="licenses_icons_bundled_text">ऐप के साथ शामिल: Christopher Downer और योगदानकर्ताओं के «Cryptocurrency Icons» (github.com/spothq/cryptocurrency-icons) से आइकन, जो CC0 1.0 Universal के तहत जारी हैं। ये तब तक दिखते हैं जब तक CoinGecko या Binance के लोगो लोड नहीं हो जाते। नाम और लोगो अपने-अपने प्रोजेक्ट के ट्रेडमार्क बने रहते हैं।</string>
+    <string name="licenses_icons_bundled_text">ऐप के साथ शामिल: Christopher Downer और योगदानकर्ताओं के “Cryptocurrency Icons” (github.com/spothq/cryptocurrency-icons) से आइकन, जो CC0 1.0 Universal के तहत जारी हैं। ये तब तक दिखते हैं जब तक CoinGecko या Binance के लोगो लोड नहीं हो जाते। नाम और लोगो अपने-अपने प्रोजेक्ट के ट्रेडमार्क बने रहते हैं।</string>
     <string name="licenses_icons_title">वैकल्पिक कॉइन आइकन</string>
     <string name="licenses_libraries_intro">ऐप इन लाइब्रेरी का उपयोग Apache License 2.0 के तहत करता है:</string>
     <string name="licenses_libraries_title">Android लाइब्रेरी</string>

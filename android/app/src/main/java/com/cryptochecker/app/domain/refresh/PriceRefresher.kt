@@ -52,6 +52,7 @@ import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
 import timber.log.Timber
+import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -135,6 +136,13 @@ class PriceRefresher @Inject constructor(
             return RefreshSummary()
         }
         val summary = refreshAllGuarded(deadlineAt)
+        // Widget-Charts: unter der Sperre nur aus dem Zwischenspeicher gezeichnet — jetzt, ohne
+        // Sperre, nachladen; mit Frist nur, wenn noch genug Zeit bleibt (sonst bleibt der alte Chart)
+        val chartTimeout = if (chartsPending.getAndSet(false)) {
+            CheckBudget.chartFetchMillis(deadlineAt, System.currentTimeMillis())
+        } else {
+            null
+        }
         // Ungewöhnliche Aktivität: erst nach gespeicherten Kursen und gezeichneten
         // Widgets, ausserhalb der Sperre — bremst den nächsten Durchlauf nicht,
         // Fehler bleiben still. Prüft jedes Paar höchstens alle 10 Minuten.
@@ -163,6 +171,7 @@ class PriceRefresher @Inject constructor(
                 launch { awaitSideCheck("Depeg-Alarm", depegCheck, sideTimeout) }
                 // Auch die Momentaufnahme mit Zeitgrenze: sonst hielte eine hängende Abfrage den Job (und die Frist des Weckers) auf
                 launch { awaitSideCheck("Portfolio", { portfolioSnapshotUpdater.refreshIfWidgets() }, sideTimeout) }
+                if (chartTimeout != null) launch { awaitSideCheck("Widget-Charts", { refreshChartsUnlocked() }, chartTimeout) }
             }
         } else {
             // Eigene Hintergrund-Jobs: Die Aktualisierung (und ihr Spinner) wartet nicht auf
@@ -172,8 +181,53 @@ class PriceRefresher @Inject constructor(
             activityScope.launch { runCatching { depegCheck() } }
             // Portfolio-Widget: Momentaufnahme auch ohne geöffnete App (nur mit Widget, Fehler still)
             activityScope.launch { runCatching { portfolioSnapshotUpdater.refreshIfWidgets() } }
+            if (chartTimeout != null) launchChartRefresh(chartTimeout)
         }
         return summary
+    }
+
+    /**
+     * Unter der Sperre gezeichnete Widgets ([LiveWidgetGate.drawAll] mit `fetch = false`) vermissten
+     * Kerzen: Charts ausserhalb der Sperre nachladen lassen ([refreshChartsUnlocked]).
+     */
+    private val chartsPending = AtomicBoolean(false)
+
+    /** Nach einem Zeichnen ohne Netz: fehlten Kerzen ([WidgetUpdater.takeStaleCharts]), Nachladen vormerken. */
+    private fun markChartsIfStale() {
+        if (widgetUpdater.takeStaleCharts()) chartsPending.set(true)
+    }
+
+    /** Höchstens ein Nachladen der Charts gleichzeitig. */
+    private val chartMutex = Mutex()
+
+    /**
+     * Charts der Einzel-Widgets mit Netz nachladen — nie unter der Sperre der Aktualisierung (Kerzen
+     * können je Widget bis zu 20 s dauern; Frist des Weckers, Vordergrund und Live-Speichern warteten
+     * sonst). Läuft schon ein Nachladen, wird nur vorgemerkt: der nächste Durchlauf holt es nach.
+     */
+    private suspend fun refreshChartsUnlocked() {
+        if (!chartMutex.tryLock()) {
+            chartsPending.set(true)
+            return
+        }
+        try {
+            widgetUpdater.refreshSingleCharts()
+        } finally {
+            chartMutex.unlock()
+        }
+    }
+
+    /** [refreshChartsUnlocked] im eigenen Hintergrund-Job, höchstens [timeoutMillis]; Fehler bleiben still. */
+    private fun launchChartRefresh(timeoutMillis: Long) {
+        activityScope.launch {
+            try {
+                withTimeoutOrNull(timeoutMillis) { refreshChartsUnlocked() }
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                Timber.d(e, "Widget-Charts nicht nachgeladen")
+            }
+        }
     }
 
     /**
@@ -234,7 +288,8 @@ class PriceRefresher @Inject constructor(
 
         if (allWatches.isEmpty()) {
             refreshStats.setLastRefresh(System.currentTimeMillis() - startedAt)
-            liveWidgetGate.drawAll(deferWhenOff = false)
+            // Unter der Sperre ohne Netz zeichnen, Charts danach (refreshAll)
+            if (liveWidgetGate.drawAll(deferWhenOff = false, fetch = false)) markChartsIfStale()
             return RefreshSummary(
                 durationMillis = System.currentTimeMillis() - startedAt
             )
@@ -383,8 +438,11 @@ class PriceRefresher @Inject constructor(
         if (BackgroundSchedule.isFullCheck(processed.checked, processed.failed)) refreshStats.setLastFullCheck()
 
         val widgetStartedAt = System.currentTimeMillis()
-        // Voller Durchlauf zeichnet immer (bei ausgeschaltetem Bildschirm ist er die einzige Aktualisierung)
-        val drawWidgets = liveWidgetGate.drawAll(deferWhenOff = false)
+        // Voller Durchlauf zeichnet immer (bei ausgeschaltetem Bildschirm ist er die einzige Aktualisierung).
+        // Unter der Sperre nur aus dem Zwischenspeicher (kein Kerzen-Abruf): die Charts lädt refreshAll
+        // danach ausserhalb der Sperre nach, sofern die Frist es erlaubt
+        val drawWidgets = liveWidgetGate.drawAll(deferWhenOff = false, fetch = false)
+        if (drawWidgets) markChartsIfStale()
         val widgetMillis = if (drawWidgets) System.currentTimeMillis() - widgetStartedAt else null
 
         val report = RefreshReport(
@@ -410,7 +468,15 @@ class PriceRefresher @Inject constructor(
         )
     }
 
-    suspend fun refreshOne(watchId: Long): RefreshSummary = mutex.withLock {
+    suspend fun refreshOne(watchId: Long): RefreshSummary {
+        val summary = refreshOneLocked(watchId)
+        // Chart des Einzel-Widgets ausserhalb der Sperre nachladen (unter der Sperre: Zwischenspeicher).
+        // Alle Einzel-Widgets: der Merker sagt nicht, welches Kerzen vermisste
+        if (chartsPending.getAndSet(false)) launchChartRefresh(CheckBudget.CHART_TIMEOUT_MILLIS)
+        return summary
+    }
+
+    private suspend fun refreshOneLocked(watchId: Long): RefreshSummary = mutex.withLock {
         withContext(Dispatchers.IO) {
             val startedAt = System.currentTimeMillis()
 
@@ -439,7 +505,9 @@ class PriceRefresher @Inject constructor(
             // Ein einzelnes Paar sagt nichts über die Dauer eines vollen Durchlaufs,
             // deshalb bleibt die angezeigte Zeit im Widget hier unverändert.
             // Nur die Widgets, die dieses Paar zeigen (Liste mit dem Paar, Einzel-Widget).
-            widgetUpdater.updateForWatch(watch.id)
+            // Unter der Sperre ohne Kerzen-Abruf, siehe refreshOne
+            widgetUpdater.updateForWatch(watch.id, fetch = false)
+            markChartsIfStale()
 
             RefreshSummary(
                 checked = processed.checked,
@@ -472,6 +540,32 @@ class PriceRefresher @Inject constructor(
     ): Boolean {
         if (quotes.isEmpty()) return true
         if (!mutex.tryLock()) return false
+        return applyLiveLocked(quotes, redrawWidgets, pairs)
+    }
+
+    /**
+     * Letztes Speichern beim Beenden des Stroms ([com.cryptochecker.app.data.live.LivePriceStream.stopAll]):
+     * wie [applyLive], wartet aber höchstens [timeoutMillis] auf die Sperre statt sofort aufzugeben —
+     * sonst gingen die letzten Live-Kurse während einer laufenden Aktualisierung verloren.
+     * @return false, wenn die Sperre nicht rechtzeitig frei wurde (nichts gespeichert)
+     */
+    suspend fun applyLiveFinal(
+        quotes: Map<Long, LiveQuote>,
+        redrawWidgets: Boolean,
+        pairs: Map<Long, PairIdentity>? = null,
+        timeoutMillis: Long = FINAL_SAVE_WAIT_MILLIS,
+    ): Boolean {
+        if (quotes.isEmpty()) return true
+        withTimeoutOrNull(timeoutMillis) { mutex.lock() } ?: return false
+        return applyLiveLocked(quotes, redrawWidgets, pairs)
+    }
+
+    /** Hält die Sperre bereits (von [applyLive] bzw. [applyLiveFinal]) und gibt sie am Ende frei. */
+    private suspend fun applyLiveLocked(
+        quotes: Map<Long, LiveQuote>,
+        redrawWidgets: Boolean,
+        pairs: Map<Long, PairIdentity>?,
+    ): Boolean {
         try {
             withContext(Dispatchers.IO) {
                 val now = System.currentTimeMillis()
@@ -505,14 +599,17 @@ class PriceRefresher @Inject constructor(
                     if (redrawWidgets) {
                         // Zeit zuerst (Widget-Kopfzeile), die Dauer des letzten Durchlaufs bleibt
                         refreshStats.setLastRefresh(refreshStats.lastDurationMillis.value)
-                        // Bildschirm aus: nur merken, beim Einschalten einmal nachzeichnen
-                        liveWidgetGate.drawAll(deferWhenOff = true)
+                        // Bildschirm aus: nur merken, beim Einschalten einmal nachzeichnen.
+                        // Unter der Sperre ohne Kerzen-Abruf, Charts danach ausserhalb
+                        if (liveWidgetGate.drawAll(deferWhenOff = true, fetch = false)) markChartsIfStale()
                     }
                 }
             }
         } finally {
             mutex.unlock()
         }
+        // Charts mit fehlenden Kerzen (auch Vorgemerktes eines früheren Laufs) ausserhalb der Sperre nachladen
+        if (chartsPending.getAndSet(false)) launchChartRefresh(CheckBudget.CHART_TIMEOUT_MILLIS)
         return true
     }
 
@@ -706,6 +803,9 @@ class PriceRefresher @Inject constructor(
 
         /** Mit Frist: so viel bleibt nach den Nebenprüfungen (Ansagen abwarten, Lauf vermerken). */
         const val SIDE_CHECK_RESERVE_MILLIS = 2_000L
+
+        /** Letztes Live-Speichern ([applyLiveFinal]): höchstens so lange auf die Sperre warten. */
+        const val FINAL_SAVE_WAIT_MILLIS = 3_000L
     }
 }
 

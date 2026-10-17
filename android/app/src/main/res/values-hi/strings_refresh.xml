@@ -99,7 +99,7 @@
     <string name="check_trigger_worker">बैकग्राउंड</string>
 
     <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
-    <string name="battery_delay_hint">Android जाँच में देरी कर सकता है – बैटरी को «अप्रतिबंधित» पर सेट करें</string>
+    <string name="battery_delay_hint">Android जाँच में देरी कर सकता है – बैटरी को “अप्रतिबंधित” पर सेट करें</string>
     <string name="battery_later">बाद में</string>
     <string name="battery_message">बैटरी बचाने के लिए Android बैकग्राउंड काम में देरी करता है — तब कीमतें और विजेट घंटों पुराने हो सकते हैं। बैटरी उपयोग को अप्रतिबंधित करने से वे अपडेट रहते हैं। आप इसे कभी भी Android सेटिंग्स में बदल सकते हैं।</string>
     <string name="battery_open_settings">बैटरी सेटिंग खोलें</string>

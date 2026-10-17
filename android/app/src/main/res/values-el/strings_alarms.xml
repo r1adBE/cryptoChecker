@@ -37,7 +37,7 @@
     <string name="alarm_more_conditions">Περισσότερες συνθήκες</string>
     <string name="alarm_new_extreme">Νέο %1$s</string>
     <string name="alarm_once">Μία φορά</string>
-    <string name="alarm_option_repeating">Διατήρηση μετά την ενεργοποίηση</string>
+    <string name="alarm_option_repeating">Ειδοποίηση</string>
     <string name="alarm_option_sound">Ήχος</string>
     <string name="alarm_option_speak">Εκφώνηση συναγερμού</string>
     <string name="alarm_option_vibrate">Δόνηση</string>
@@ -57,7 +57,6 @@
     <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
     <string name="alarm_simple_above">ανέβει πάνω από</string>
     <string name="alarm_simple_below">πέσει κάτω από</string>
-    <string name="alarm_simple_direction_a11y">Κατεύθυνση: %1$s</string>
     <string name="alarm_simple_end"></string>
     <string name="alarm_simple_when">Όταν το %1$s</string>
     <string name="alarm_template_a11y">Δημιουργία συναγερμού: %1$s</string>
@@ -84,7 +83,7 @@
     <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
     <string name="alarm_sentence_above">Ειδοποίηση όταν το %1$s ανέβει πάνω από %2$s.</string>
     <string name="alarm_sentence_below">Ειδοποίηση όταν το %1$s πέσει κάτω από %2$s.</string>
-    <string name="alarm_sentence_down_percent">Ειδοποίηση όταν το %1$s πέσει κατά %2$s.</string>
+    <string name="alarm_sentence_down_percent">Ειδοποίηση όταν το %1$s πέσει κατά %2$s κάτω από την τιμή κατά την αποθήκευση (ή στον τελευταίο συναγερμό).</string>
     <string name="alarm_sentence_funding_above">Ειδοποίηση όταν το funding του %1$s ανέβει πάνω από %2$s.</string>
     <string name="alarm_sentence_funding_below">Ειδοποίηση όταν το funding του %1$s πέσει κάτω από %2$s.</string>
     <string name="alarm_sentence_incomplete">Εισαγάγετε μια τιμή για να δείτε τον συναγερμό ως πρόταση.</string>
@@ -103,7 +102,7 @@
         <item quantity="one">Ειδοποίηση όταν το ανοιχτό ενδιαφέρον του %1$s ανέβει κατά %2$s μέσα σε %3$d ώρα.</item>
         <item quantity="other">Ειδοποίηση όταν το ανοιχτό ενδιαφέρον του %1$s ανέβει κατά %2$s μέσα σε %3$d ώρες.</item>
     </plurals>
-    <string name="alarm_sentence_up_percent">Ειδοποίηση όταν το %1$s ανέβει κατά %2$s.</string>
+    <string name="alarm_sentence_up_percent">Ειδοποίηση όταν το %1$s ανέβει κατά %2$s πάνω από την τιμή κατά την αποθήκευση (ή στον τελευταίο συναγερμό).</string>
     <string name="alarm_sentence_volume">Ειδοποίηση όταν ο όγκος συναλλαγών του %1$s φτάσει %2$s× τον κανονικό.</string>
 
     <!-- Alarm «Nahe am Hoch / Tief» -->

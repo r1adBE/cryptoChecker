@@ -37,9 +37,9 @@
     <string name="settings_alarm_sound_system">Chọn âm thanh hệ thống…</string>
     <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
     <string name="settings_app_badge">Số trên biểu tượng ứng dụng</string>
-    <string name="settings_app_badge_hint">Đếm các thông báo cảnh báo đang mở. Màn hình chính quyết định hiện số hay dấu chấm (vd. Samsung: «Có số»).</string>
+    <string name="settings_app_badge_hint">Đếm các thông báo cảnh báo đang mở. Màn hình chính quyết định hiện số hay dấu chấm (vd. Samsung: “Có số”).</string>
     <string name="settings_exact_checks">Kiểm tra đúng giờ</string>
-    <string name="settings_exact_checks_grant">Cho phép «Báo thức và lời nhắc»</string>
+    <string name="settings_exact_checks_grant">Cho phép “Báo thức và lời nhắc”</string>
     <string name="settings_exact_checks_hint">Android kiểm tra khoảng mỗi 15 phút, kể cả khi thiết bị đang nghỉ. Tốn pin hơn một chút.</string>
     <string name="settings_exact_checks_nothing">Không có cặp nào đang bật – không có gì để kiểm tra.</string>
     <string name="settings_exact_checks_permission_missing">Thiếu quyền – Android kiểm tra khi nào tiện (khoảng mỗi 15 phút hoặc muộn hơn).</string>
@@ -247,7 +247,7 @@
     <!-- Lizenzhinweise -->
     <string name="licenses_app_intro">Crypto Checker là mã nguồn mở (Giấy phép MIT).</string>
     <string name="licenses_font_title">Phông chữ Rubik</string>
-    <string name="licenses_icons_bundled_text">Đi kèm ứng dụng: biểu tượng từ «Cryptocurrency Icons» của Christopher Downer và những người đóng góp (github.com/spothq/cryptocurrency-icons), phát hành theo CC0 1.0 Universal. Chúng hiển thị cho đến khi logo từ CoinGecko hoặc Binance được tải. Tên và logo vẫn là nhãn hiệu của các dự án tương ứng.</string>
+    <string name="licenses_icons_bundled_text">Đi kèm ứng dụng: biểu tượng từ “Cryptocurrency Icons” của Christopher Downer và những người đóng góp (github.com/spothq/cryptocurrency-icons), phát hành theo CC0 1.0 Universal. Chúng hiển thị cho đến khi logo từ CoinGecko hoặc Binance được tải. Tên và logo vẫn là nhãn hiệu của các dự án tương ứng.</string>
     <string name="licenses_icons_title">Biểu tượng coin dự phòng</string>
     <string name="licenses_libraries_intro">Ứng dụng sử dụng các thư viện này theo Apache License 2.0:</string>
     <string name="licenses_libraries_title">Thư viện Android</string>

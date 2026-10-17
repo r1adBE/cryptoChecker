@@ -108,7 +108,7 @@
     <string name="watchlist_group_empty_hint">Valitse ryhmän parit painamalla ryhmää pitkään.</string>
     <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
     <string name="watchlist_groups_empty_hint">Ryhmäsi näkyvät tässä</string>
-    <string name="watchlist_notification">Ilmoitus</string>
+    <string name="watchlist_notification">Hintailmoitus</string>
     <string name="watchlist_tts">Lue hinta ääneen</string>
     <string name="watchlist_tts_speech_on">Puhe on päällä. Voit muuttaa sitä kohdassa Asetukset › Lisäasetukset › Ääneenluku.</string>
 

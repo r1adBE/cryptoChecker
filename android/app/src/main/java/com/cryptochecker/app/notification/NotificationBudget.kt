@@ -114,4 +114,29 @@ object NotificationBudget {
         val wait = max(cooldownMinutes, MIN_RETRY_MINUTES) * 60_000L
         return now - unconfirmedAt in 0 until wait
     }
+
+    /** Android verwirft mehr als rund so viele Aktualisierungen je Sekunde und App still. */
+    const val POSTS_PER_SECOND = 5
+
+    /** Abstand zwischen zwei Meldungen, wenn gedrosselt wird (etwas über 1 s / [POSTS_PER_SECOND]). */
+    const val POST_GAP_MILLIS = 220L
+
+    /**
+     * Pause zwischen zwei Meldungen eines Stapels von [posts] Meldungen: bis [POSTS_PER_SECOND] ohne
+     * Pause, darüber [POST_GAP_MILLIS] — sonst verwirft Android die überzähligen still, sie zählten
+     * aber als gezeigt (und der Bezugskurs der Kurs-Mitteilung rückte vor).
+     */
+    fun postGapMillis(posts: Int): Long = if (posts > POSTS_PER_SECOND) POST_GAP_MILLIS else 0L
+
+    /**
+     * Ist die eben gemeldete Mitteilung [id] angekommen? [postTimes]: Meldezeit (StatusBarNotification.postTime)
+     * je offener Mitteilung, null = nicht abfragbar (gilt als ja). Nur eine Meldezeit ab [postedAfter]
+     * (Zeit direkt vor dem Melden) bestätigt die NEUE Meldung — sonst stünde eine ältere Meldung
+     * desselben Alarms (gleiche Id) für eine verworfene neue.
+     */
+    fun confirmedPost(postTimes: Map<Int, Long>?, id: Int, postedAfter: Long): Boolean {
+        if (postTimes == null) return true
+        val postTime = postTimes[id] ?: return false
+        return postTime >= postedAfter
+    }
 }

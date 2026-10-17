@@ -25,10 +25,10 @@
     <!-- Einstellungen › Alarme (Ton, Signal, Ruhezeit, App-Symbol, exakte Prüfungen) -->
     <string name="settings_alarm_cooldown">Quiet time before an alert fires again</string>
     <!-- Ton/Vibration der Kursalarme, je Signal ein Mitteilungskanal -->
-    <string name="settings_alarm_signal">Alarm signal</string>
+    <string name="settings_alarm_signal">Alert signal</string>
     <string name="settings_alarm_signal_open_system">Adjust in system settings</string>
     <string name="settings_alarm_signal_system_hint">Follows your phone\'s notification settings.</string>
-    <string name="settings_alarm_sound">Alarm sound</string>
+    <string name="settings_alarm_sound">Alert sound</string>
     <string name="settings_alarm_sound_custom">Custom sound</string>
     <string name="settings_alarm_sound_default">Default sound</string>
     <string name="settings_alarm_sound_error">The sound could not be used.</string>
@@ -264,5 +264,5 @@
     <!-- Nur iOS: Einstellungen -->
     <!-- Fusszeile unter «Alarm-Signal» -->
     <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">Vibration follows the iPhone settings (Sounds &amp; Haptics).</string>
-    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Counts new price alerts and market alerts; back to 0 when you open the app.</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Counts new alerts and market alerts; back to 0 when you open the app.</string>
 </resources>

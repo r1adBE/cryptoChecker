@@ -37,9 +37,9 @@
     <string name="settings_alarm_sound_system">Wybierz dźwięk systemowy…</string>
     <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
     <string name="settings_app_badge">Liczba na ikonie aplikacji</string>
-    <string name="settings_app_badge_hint">Liczy otwarte powiadomienia o alarmach. Czy pojawi się liczba, czy kropka, decyduje ekran główny (np. Samsung: «Z liczbą»).</string>
+    <string name="settings_app_badge_hint">Liczy otwarte powiadomienia o alarmach. Czy pojawi się liczba, czy kropka, decyduje ekran główny (np. Samsung: „Z liczbą”).</string>
     <string name="settings_exact_checks">Sprawdzaj punktualnie</string>
-    <string name="settings_exact_checks_grant">Zezwól na «Alarmy i przypomnienia»</string>
+    <string name="settings_exact_checks_grant">Zezwól na „Alarmy i przypomnienia”</string>
     <string name="settings_exact_checks_hint">Android sprawdza mniej więcej co 15 minut, także gdy urządzenie jest bezczynne. Zużywa nieco więcej baterii.</string>
     <string name="settings_exact_checks_nothing">Brak aktywnych par – nie ma czego sprawdzać.</string>
     <string name="settings_exact_checks_permission_missing">Brak uprawnienia – Android sprawdza, kiedy mu pasuje (mniej więcej co 15 min lub później).</string>
@@ -250,7 +250,7 @@
     <!-- Lizenzhinweise -->
     <string name="licenses_app_intro">Crypto Checker to oprogramowanie open source (licencja MIT).</string>
     <string name="licenses_font_title">Czcionka Rubik</string>
-    <string name="licenses_icons_bundled_text">Dołączone do aplikacji: ikony z «Cryptocurrency Icons» autorstwa Christophera Downera i współtwórców (github.com/spothq/cryptocurrency-icons), udostępnione na licencji CC0 1.0 Universal. Są widoczne, dopóki nie wczytają się loga z CoinGecko lub Binance. Nazwy i loga pozostają znakami towarowymi swoich projektów.</string>
+    <string name="licenses_icons_bundled_text">Dołączone do aplikacji: ikony z „Cryptocurrency Icons” autorstwa Christophera Downera i współtwórców (github.com/spothq/cryptocurrency-icons), udostępnione na licencji CC0 1.0 Universal. Są widoczne, dopóki nie wczytają się loga z CoinGecko lub Binance. Nazwy i loga pozostają znakami towarowymi swoich projektów.</string>
     <string name="licenses_icons_title">Zapasowe ikony monet</string>
     <string name="licenses_libraries_intro">Aplikacja korzysta z tych bibliotek na licencji Apache 2.0:</string>
     <string name="licenses_libraries_title">Biblioteki Androida</string>

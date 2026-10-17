@@ -132,7 +132,7 @@
     <string name="watchlist_group_empty_hint">Утримуйте групу, щоб вибрати її пари.</string>
     <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
     <string name="watchlist_groups_empty_hint">Тут з’являться ваші групи</string>
-    <string name="watchlist_notification">Сповіщення</string>
+    <string name="watchlist_notification">Цінове сповіщення</string>
     <string name="watchlist_tts">Озвучувати ціну</string>
     <string name="watchlist_tts_speech_on">Озвучення увімкнено. Змінити можна в розділі Налаштування › Додатково › Голосовий вивід.</string>
 

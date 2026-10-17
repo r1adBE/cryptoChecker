@@ -38,32 +38,53 @@ internal class WatchlistBanner(
 
     private var job: Job? = null
 
-    /** Banner mit Aktion [label] (z. B. «Alarm setzen») für [millis]; [onAction] beim Tippen darauf. */
-    fun showAction(text: String, label: String, millis: Long, onAction: () -> Unit) {
+    /**
+     * Banner mit Aktion [label] (z. B. «Alarm setzen») für [millis]; [onAction] beim Tippen darauf.
+     * [onClosed] einmal, sobald das Banner weg ist (abgelaufen, weggewischt, ersetzt oder Aktion getippt) —
+     * mit `true`, wenn die Aktion getippt wurde.
+     */
+    fun showAction(
+        text: String,
+        label: String,
+        millis: Long,
+        onClosed: ((actionPerformed: Boolean) -> Unit)? = null,
+        onAction: () -> Unit,
+    ) {
         job?.cancel()
         job = scope.launch {
-            host.currentSnackbarData?.dismiss()
-            // Mit Screenreader ggf. länger (Systemeinstellung «Zeit für Aktionen»)
-            val timeout = accessibilityManager?.calculateRecommendedTimeoutMillis(
-                millis, containsIcons = false, containsText = true, containsControls = true
-            ) ?: millis
-            val result = withTimeoutOrNull(timeout) {
-                host.showSnackbar(text, actionLabel = label, duration = SnackbarDuration.Indefinite)
+            var performed = false
+            try {
+                host.currentSnackbarData?.dismiss()
+                // Mit Screenreader ggf. länger (Systemeinstellung «Zeit für Aktionen»)
+                val timeout = accessibilityManager?.calculateRecommendedTimeoutMillis(
+                    millis, containsIcons = false, containsText = true, containsControls = true
+                ) ?: millis
+                val result = withTimeoutOrNull(timeout) {
+                    host.showSnackbar(text, actionLabel = label, duration = SnackbarDuration.Indefinite)
+                }
+                performed = result == SnackbarResult.ActionPerformed
+                if (performed) onAction()
+            } finally {
+                // Auch beim Ersetzen durch ein neues Banner (Job abgebrochen)
+                onClosed?.invoke(performed)
             }
-            if (result == SnackbarResult.ActionPerformed) onAction()
         }
     }
 
-    /** Kurzes Banner; mit [onUndo] steht «Rückgängig» daneben ([UNDO_MILLIS]). */
-    fun show(text: String, onUndo: (() -> Unit)? = null) {
+    /** Kurzes Banner; mit [onUndo] steht «Rückgängig» daneben ([UNDO_MILLIS]). [onClosed] wie bei [showAction]. */
+    fun show(text: String, onClosed: ((actionPerformed: Boolean) -> Unit)? = null, onUndo: (() -> Unit)? = null) {
         if (onUndo == null) {
             job?.cancel()
             job = scope.launch {
-                host.currentSnackbarData?.dismiss()
-                host.showSnackbar(text, duration = SnackbarDuration.Short)
+                try {
+                    host.currentSnackbarData?.dismiss()
+                    host.showSnackbar(text, duration = SnackbarDuration.Short)
+                } finally {
+                    onClosed?.invoke(false)
+                }
             }
         } else {
-            showAction(text, undoLabel, UNDO_MILLIS, onUndo)
+            showAction(text, undoLabel, UNDO_MILLIS, onClosed = onClosed, onAction = onUndo)
         }
     }
 }

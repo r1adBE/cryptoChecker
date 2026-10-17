@@ -20,7 +20,7 @@
     <string name="notification_macro_title">بيانات اقتصادية اليوم</string>
     <string name="notification_permission_preprompt_continue">متابعة</string>
     <string name="notification_permission_preprompt_later">لاحقًا</string>
-    <string name="notification_permission_preprompt_text">لكي تصلك التنبيهات وإشعارات الأسعار، يحتاج التطبيق إلى إذن الإشعارات. تُستخدم فقط لتنبيهاتك الخاصة.</string>
+    <string name="notification_permission_preprompt_text">لكي تصلك التنبيهات وإشعارات الأسعار، يحتاج التطبيق إلى إذن الإشعارات. يستخدمها التطبيق فقط لتنبيهاتك وإشعارات الأسعار.</string>
     <string name="notification_permission_preprompt_title">السماح بالإشعارات؟</string>
     <string name="notification_portfolio_alarm_locked">تم تشغيل التنبيه – افتح التطبيق لمعرفة التفاصيل.</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->

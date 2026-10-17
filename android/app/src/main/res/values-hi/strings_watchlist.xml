@@ -108,7 +108,7 @@
     <string name="watchlist_group_empty_hint">किसी समूह के पेयर चुनने के लिए उसे देर तक दबाएँ।</string>
     <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
     <string name="watchlist_groups_empty_hint">आपके समूह यहाँ दिखेंगे</string>
-    <string name="watchlist_notification">नोटिफ़िकेशन</string>
+    <string name="watchlist_notification">प्राइस नोटिफ़िकेशन</string>
     <string name="watchlist_tts">कीमत बोलें</string>
     <string name="watchlist_tts_speech_on">बोलकर सुनाना चालू है। इसे यहाँ बदल सकते हैं: सेटिंग्स › उन्नत › बोलकर आउटपुट।</string>
 

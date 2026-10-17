@@ -111,6 +111,24 @@ final class TaxTemplatesTests: XCTestCase {
         XCTAssertEqual(s.walletFrom, walletFrom)
     }
 
+    /// Steuerjahr-Grenze in der Ortszeit (UK 6. April, AU 1. Juli, JP 1. Januar): ein Verkauf kurz nach Mitternacht
+    /// Ortszeit gehört ins neue Steuerjahr, auch wenn es in UTC noch der Vortag ist. Wie Android `zoneBoundary`.
+    func testZoneBoundary() throws {
+        for c in S.list(try data()["zoneBoundary"]) {
+            let tpl = try XCTUnwrap(TaxTemplate(rawValue: c["template"] as? String ?? ""))
+            let tz = try XCTUnwrap(TimeZone(identifier: c["zone"] as? String ?? ""))
+            let year = Int(int64(c["year"]))
+            let sell = PortfolioTx(id: 2, coin: "BTC", type: .SELL, amountExact: 1, priceExact: 200, time: int64(c["sellTime"]))
+            let trades = [PortfolioTx(id: 1, coin: "BTC", type: .BUY, amountExact: 1, priceExact: 100, time: 1_577_836_800_000), sell]
+            let label = "zoneBoundary \(c)"
+            XCTAssertEqual(TaxExport.years([sell], timeZone: tz, template: tpl), [year], label)
+            let method = tpl.methodFor(.FIFO, year)
+            XCTAssertEqual(TaxExport.disposals(in: trades, method: method, period: tpl.period(year), timeZone: tz).count, 1, label)
+            XCTAssertEqual(TaxExport.disposals(in: trades, method: method, period: tpl.period(year - 1), timeZone: tz).count, 0, label)
+            XCTAssertEqual(TaxExport.disposals(in: trades, method: method, period: tpl.period(year + 1), timeZone: tz).count, 0, label)
+        }
+    }
+
     func testPeriodsLabelsSuggestions() throws {
         let d = try data()
         for case let c as [Any] in d["periodOf"] as? [Any] ?? [] {

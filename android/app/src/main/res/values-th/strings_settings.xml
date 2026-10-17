@@ -37,9 +37,9 @@
     <string name="settings_alarm_sound_system">เลือกเสียงระบบ…</string>
     <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
     <string name="settings_app_badge">ตัวเลขบนไอคอนแอป</string>
-    <string name="settings_app_badge_hint">นับการแจ้งเตือนสัญญาณที่ยังเปิดอยู่ หน้าจอหลักเป็นตัวกำหนดว่าจะแสดงตัวเลขหรือจุด (เช่น Samsung: «แสดงตัวเลข»)</string>
+    <string name="settings_app_badge_hint">นับการแจ้งเตือนสัญญาณที่ยังเปิดอยู่ หน้าจอหลักเป็นตัวกำหนดว่าจะแสดงตัวเลขหรือจุด (เช่น Samsung: “แสดงตัวเลข”)</string>
     <string name="settings_exact_checks">ตรวจตรงเวลา</string>
-    <string name="settings_exact_checks_grant">อนุญาต «การปลุกและการช่วยเตือน»</string>
+    <string name="settings_exact_checks_grant">อนุญาต “การปลุกและการช่วยเตือน”</string>
     <string name="settings_exact_checks_hint">Android ตรวจสอบประมาณทุก 15 นาที แม้อุปกรณ์อยู่ในโหมดพัก ใช้แบตเตอรี่มากขึ้นเล็กน้อย</string>
     <string name="settings_exact_checks_nothing">ไม่มีคู่ที่ใช้งานอยู่ – ไม่มีอะไรต้องตรวจสอบ</string>
     <string name="settings_exact_checks_permission_missing">ไม่มีสิทธิ์ – Android จะตรวจสอบเมื่อสะดวก (ประมาณทุก 15 นาทีหรือช้ากว่านั้น)</string>
@@ -247,7 +247,7 @@
     <!-- Lizenzhinweise -->
     <string name="licenses_app_intro">Crypto Checker เป็นโอเพนซอร์ส (สัญญาอนุญาต MIT)</string>
     <string name="licenses_font_title">ฟอนต์ Rubik</string>
-    <string name="licenses_icons_bundled_text">รวมมากับแอป: ไอคอนจาก «Cryptocurrency Icons» โดย Christopher Downer และผู้ร่วมพัฒนา (github.com/spothq/cryptocurrency-icons) ซึ่งเผยแพร่ภายใต้ CC0 1.0 Universal จะแสดงจนกว่าโลโก้จาก CoinGecko หรือ Binance จะโหลดเสร็จ ชื่อและโลโก้ยังคงเป็นเครื่องหมายการค้าของโครงการนั้น ๆ</string>
+    <string name="licenses_icons_bundled_text">รวมมากับแอป: ไอคอนจาก “Cryptocurrency Icons” โดย Christopher Downer และผู้ร่วมพัฒนา (github.com/spothq/cryptocurrency-icons) ซึ่งเผยแพร่ภายใต้ CC0 1.0 Universal จะแสดงจนกว่าโลโก้จาก CoinGecko หรือ Binance จะโหลดเสร็จ ชื่อและโลโก้ยังคงเป็นเครื่องหมายการค้าของโครงการนั้น ๆ</string>
     <string name="licenses_icons_title">ไอคอนเหรียญสำรอง</string>
     <string name="licenses_libraries_intro">แอปใช้ไลบรารีเหล่านี้ภายใต้ Apache License 2.0:</string>
     <string name="licenses_libraries_title">ไลบรารี Android</string>

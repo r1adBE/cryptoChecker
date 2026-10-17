@@ -16,6 +16,8 @@ struct CsvImportLoaded: Identifiable {
     let rates: [String: [(day: Int, rate: Double)]]
     /// Vorschau ohne Umbuchung (Grundeinstellung).
     let preview: CsvImportPreview
+    /// USDT/USD-Tagesschlüsse (`CsvImport.priceInUsdt` `usdtUsd`), beim Laden geholt; leer = keine (Näherung markiert).
+    var usdtUsd: [Int: Decimal] = [:]
 
     /// Vorschau neu zuordnen (`CsvImportMapping`, `withdrawalsAsTransfer`) — wie `mapPreview` (Android); `zone` =
     /// gewählte Zeitzone der Zeiten ohne Versatz (nil = Regel `CsvImportParser.zoneFor`): Text im Speicher neu lesen,
@@ -33,7 +35,7 @@ struct CsvImportLoaded: Identifiable {
             r = result
         }
         return PortfolioCsvImporter.mapPreview(r, existingKeys: existingKeys, rates: current ?? rates,
-                                               withdrawalsAsTransfer: withdrawalsAsTransfer)
+                                               withdrawalsAsTransfer: withdrawalsAsTransfer, usdtUsd: usdtUsd)
     }
 }
 
@@ -62,10 +64,25 @@ enum PortfolioCsvImporter {
         let text = CsvImportParser.decode(data)
         let result = CsvImportParser.parse(text, deviceZone: TimeZone.current.identifier)
         let rates = await fetchRates(result)
-        let preview = mapPreview(result, existingKeys: existingKeys, rates: rates, withdrawalsAsTransfer: false)
+        let usdtUsd = await fetchUsdtUsd(result)
+        let preview = mapPreview(result, existingKeys: existingKeys, rates: rates, withdrawalsAsTransfer: false,
+                                 usdtUsd: usdtUsd)
         guard preview.format != .UNKNOWN,
               !preview.transactions.isEmpty || preview.duplicates > 0 || !preview.skipped.isEmpty else { return nil }
-        return CsvImportLoaded(text: text, result: result, existingKeys: existingKeys, rates: rates, preview: preview)
+        return CsvImportLoaded(text: text, result: result, existingKeys: existingKeys, rates: rates, preview: preview,
+                               usdtUsd: usdtUsd)
+    }
+
+    /// USDT/USD-Tagesschlüsse (Kraken, `PortfolioHistorySource.usdtUsdDaily`) vom frühesten Tag der Datei bis heute — wie
+    /// der Steuer-Export (`usdtUsdCloses`), damit Import und Export denselben Schluss DES Tags nehmen. Nicht erreichbar →
+    /// leer (USD/Fiat dann mit USDT = 1, Zeilen als Näherung markiert). Wie Android `usdtUsdCloses`.
+    static func fetchUsdtUsd(_ result: CsvImportResult) async -> [Int: Decimal] {
+        guard let first = result.rows.map({ CsvImport.epochDay($0.timeMillis, zone: result.fxZone) }).min() else { return [:] }
+        let days = max(1, LocalDay.today().epochDay - Int(first) + 1 + PortfolioHistoryFx.leadDays)
+        let closes = await PortfolioHistorySource.usdtUsdDaily(days: days)
+        var exact: [Int: Decimal] = [:]
+        for (day, close) in closes { if let c = PortfolioDecimal.of(close) { exact[day] = c } }
+        return exact
     }
 
     /// Tageskurse je Währung: eine Abfrage über den ganzen Zeitraum (mit Vorlauf für Wochenenden/Feiertage).
@@ -83,8 +100,9 @@ enum PortfolioCsvImporter {
 
     /// Abgleich, Umrechnung und Zuordnung (`withdrawalsAsTransfer`: Auszahlung → Umbuchung).
     static func mapPreview(_ result: CsvImportResult, existingKeys: Set<String>, rates: [String: [(day: Int, rate: Double)]],
-                           withdrawalsAsTransfer: Bool) -> CsvImportPreview {
-        CsvImportMapping.preview(result, existingKeys: existingKeys, withdrawalsAsTransfer: withdrawalsAsTransfer) { currency, day in
+                           withdrawalsAsTransfer: Bool, usdtUsd: [Int: Decimal] = [:]) -> CsvImportPreview {
+        CsvImportMapping.preview(result, existingKeys: existingKeys, withdrawalsAsTransfer: withdrawalsAsTransfer,
+                                 usdtUsd: usdtUsd) { currency, day in
             guard let list = rates[currency], let r = PortfolioHistoryFx.rateOn(list, day: Int(day)) else { return nil }
             return PortfolioDecimal.of(r)
         }

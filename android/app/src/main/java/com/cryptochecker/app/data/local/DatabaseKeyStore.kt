@@ -39,6 +39,9 @@ class DatabaseKeyStore(
 
     private fun keyFile(database: String) = File(directory, "$database.key")
 
+    /** Von [create] beiseitegelegter früherer Schlüssel ([PREVIOUS_SUFFIX]). */
+    private fun previousKeyFile(database: String) = File(keyFile(database).path + PREVIOUS_SUFFIX)
+
     override fun load(database: String): KeyLookup {
         val file = keyFile(database)
         if (!file.exists()) return KeyLookup.Absent
@@ -82,7 +85,8 @@ class DatabaseKeyStore(
         val file = keyFile(database)
         // Den bisherigen Schlüssel (endgültig unbrauchbar oder nie genutzt) nicht überschreiben, sondern daneben
         // behalten — falls «endgültig» doch falsch war, liesse sich die beiseitegelegte Datenbank noch öffnen
-        if (file.exists()) file.renameTo(File(file.path + ".previous"))
+        // — bis sich die Datenbank mit dem neuen Schlüssel öffnen liess ([discardPrevious])
+        if (file.exists()) file.renameTo(previousKeyFile(database))
         val temp = File(file.path + ".tmp")
         temp.outputStream().use { out ->
             out.write(sealed)
@@ -90,6 +94,15 @@ class DatabaseKeyStore(
         }
         if (!temp.renameTo(file)) throw IOException("$database: Schlüsseldatei nicht gespeichert")
         return DatabaseEncryptionMigration.rawKeyLiteral(raw)
+    }
+
+    /**
+     * Früheren Schlüssel löschen: Die verschlüsselte Datenbank liess sich eben mit dem gespeicherten Schlüssel öffnen
+     * ([DatabaseEncryptionMigration]) — der beiseitegelegte bliebe sonst für immer liegen.
+     */
+    override fun discardPrevious(database: String) {
+        val previous = previousKeyFile(database)
+        if (previous.exists() && !previous.delete()) throw IOException("$database: früherer Schlüssel nicht gelöscht")
     }
 
     private fun keyStore(): KeyStore = KeyStore.getInstance(ANDROID_KEYSTORE).apply { load(null) }
@@ -140,6 +153,9 @@ class DatabaseKeyStore(
             else -> database
         }
         const val DIRECTORY = "db_keys"
+
+        /** Endung des von [create] beiseitegelegten früheren Schlüssels. */
+        const val PREVIOUS_SUFFIX = ".previous"
         private const val ANDROID_KEYSTORE = "AndroidKeyStore"
         private const val TRANSFORMATION = "AES/GCM/NoPadding"
         private const val FORMAT_VERSION: Byte = 1

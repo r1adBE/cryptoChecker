@@ -127,10 +127,26 @@ extension WatchActionsSheet {
                     .tint(accent.primary)
                     .disabled(data.refreshingWatchIds.contains(watch.id))
                 }
+            } else if let error = watch.lastError, !error.isEmpty, !ConnectionErrors.isNotTraded(error) {
+                // Jeder andere Fehler (auch ohne älteren Kurs): Fehlertext plus «Erneut versuchen» als nächster
+                // Schritt — nur «nicht gehandelt» bleibt ohne Knopf (wie Android)
+                HStack(alignment: .firstTextBaseline, spacing: 8) {
+                    Text(ConnectionErrors.display(error))
+                        .font(.footnote)
+                        .foregroundStyle(AppColors.error)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    Button(L("try_again")) {
+                        if isPreview { previewReload += 1 } else { Task { await data.refreshOne(watch.id) } }
+                    }
+                    .font(.footnote.weight(.semibold))
+                    .buttonStyle(.borderless)
+                    .tint(accent.primary)
+                    .disabled(data.refreshingWatchIds.contains(watch.id))
+                }
             } else if let error = watch.lastError, !error.isEmpty {
                 Text(ConnectionErrors.display(error))
                     .font(.footnote)
-                    .foregroundStyle(ConnectionErrors.isNotTraded(error) ? AppColors.onSurfaceVariant : AppColors.error)
+                    .foregroundStyle(AppColors.onSurfaceVariant)
             } else if isPreview && watch.lastUpdate <= 0 {
                 // Vorschau: Kurs wird noch geholt
                 Text(L("loading_hint"))

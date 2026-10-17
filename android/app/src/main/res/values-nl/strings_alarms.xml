@@ -37,7 +37,7 @@
     <string name="alarm_more_conditions">Meer voorwaarden</string>
     <string name="alarm_new_extreme">Nieuwe %1$s</string>
     <string name="alarm_once">Eenmalig</string>
-    <string name="alarm_option_repeating">Alarm behouden na afgaan</string>
+    <string name="alarm_option_repeating">Melden</string>
     <string name="alarm_option_sound">Geluid</string>
     <string name="alarm_option_speak">Alarm voorlezen</string>
     <string name="alarm_option_vibrate">Trillen</string>
@@ -57,7 +57,6 @@
     <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
     <string name="alarm_simple_above">boven</string>
     <string name="alarm_simple_below">onder</string>
-    <string name="alarm_simple_direction_a11y">Richting: %1$s</string>
     <string name="alarm_simple_end">komt</string>
     <string name="alarm_simple_when">Als %1$s</string>
     <string name="alarm_template_a11y">Alarm aanmaken: %1$s</string>
@@ -84,7 +83,7 @@
     <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
     <string name="alarm_sentence_above">Laat het me weten als %1$s boven %2$s stijgt.</string>
     <string name="alarm_sentence_below">Laat het me weten als %1$s onder %2$s daalt.</string>
-    <string name="alarm_sentence_down_percent">Laat het me weten als %1$s %2$s daalt.</string>
+    <string name="alarm_sentence_down_percent">Laat het me weten als %1$s %2$s onder de koers bij het opslaan (of bij het laatste alarm) daalt.</string>
     <string name="alarm_sentence_funding_above">Laat het me weten als de funding van %1$s boven %2$s stijgt.</string>
     <string name="alarm_sentence_funding_below">Laat het me weten als de funding van %1$s onder %2$s daalt.</string>
     <string name="alarm_sentence_incomplete">Vul een waarde in om het alarm als zin te zien.</string>
@@ -103,7 +102,7 @@
         <item quantity="one">Laat het me weten als de open interest van %1$s binnen %3$d uur %2$s stijgt.</item>
         <item quantity="other">Laat het me weten als de open interest van %1$s binnen %3$d uur %2$s stijgt.</item>
     </plurals>
-    <string name="alarm_sentence_up_percent">Laat het me weten als %1$s %2$s stijgt.</string>
+    <string name="alarm_sentence_up_percent">Laat het me weten als %1$s %2$s boven de koers bij het opslaan (of bij het laatste alarm) stijgt.</string>
     <string name="alarm_sentence_volume">Laat het me weten als het volume van %1$s %2$s× het normale is.</string>
 
     <!-- Alarm «Nahe am Hoch / Tief» -->

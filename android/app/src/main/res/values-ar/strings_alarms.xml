@@ -41,7 +41,7 @@
     <string name="alarm_more_conditions">شروط إضافية</string>
     <string name="alarm_new_extreme">جديد: %1$s</string>
     <string name="alarm_once">مرة واحدة</string>
-    <string name="alarm_option_repeating">إبقاء التنبيه بعد انطلاقه</string>
+    <string name="alarm_option_repeating">الإبلاغ</string>
     <string name="alarm_option_sound">الصوت</string>
     <string name="alarm_option_speak">نطق التنبيه</string>
     <string name="alarm_option_vibrate">الاهتزاز</string>
@@ -65,7 +65,6 @@
     <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
     <string name="alarm_simple_above">يرتفع فوق</string>
     <string name="alarm_simple_below">ينخفض تحت</string>
-    <string name="alarm_simple_direction_a11y">الاتجاه: %1$s</string>
     <string name="alarm_simple_end"></string>
     <string name="alarm_simple_when">عندما %1$s</string>
     <string name="alarm_template_a11y">إنشاء تنبيه: %1$s</string>
@@ -92,7 +91,7 @@
     <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
     <string name="alarm_sentence_above">أبلغني عندما يرتفع %1$s فوق %2$s.</string>
     <string name="alarm_sentence_below">أبلغني عندما ينخفض %1$s تحت %2$s.</string>
-    <string name="alarm_sentence_down_percent">أبلغني عندما ينخفض %1$s بنسبة %2$s.</string>
+    <string name="alarm_sentence_down_percent">أبلغني عندما ينخفض %1$s بنسبة %2$s دون السعر عند الحفظ (أو عند آخر تنبيه).</string>
     <string name="alarm_sentence_funding_above">أبلغني عندما يرتفع تمويل %1$s فوق %2$s.</string>
     <string name="alarm_sentence_funding_below">أبلغني عندما ينخفض تمويل %1$s تحت %2$s.</string>
     <string name="alarm_sentence_incomplete">أدخل قيمة لترى التنبيه كجملة.</string>
@@ -123,7 +122,7 @@
         <item quantity="many">أبلغني عندما ترتفع الفائدة المفتوحة لـ %1$s بنسبة %2$s خلال %3$d ساعة.</item>
         <item quantity="other">أبلغني عندما ترتفع الفائدة المفتوحة لـ %1$s بنسبة %2$s خلال %3$d ساعة.</item>
     </plurals>
-    <string name="alarm_sentence_up_percent">أبلغني عندما يرتفع %1$s بنسبة %2$s.</string>
+    <string name="alarm_sentence_up_percent">أبلغني عندما يرتفع %1$s بنسبة %2$s فوق السعر عند الحفظ (أو عند آخر تنبيه).</string>
     <string name="alarm_sentence_volume">أبلغني عندما يصل حجم تداول %1$s إلى %2$s× المعتاد.</string>
 
     <!-- Alarm «Nahe am Hoch / Tief» -->

@@ -60,3 +60,46 @@ final class NotificationDeliveryTests: XCTestCase {
                           L("notification_portfolio_alarm_locked"))
     }
 }
+
+/// Neuplanung der Wirtschaftstermine: nacheinander, ein überholter Durchlauf plant nichts mehr, wartende ältere entfallen.
+final class MacroRescheduleQueueTests: XCTestCase {
+    private actor Recorder {
+        var events: [String] = []
+        func add(_ event: String) { events.append(event) }
+    }
+
+    func testNewerRescheduleDropsOlderOnes() async {
+        let queue = MacroRescheduleQueue()
+        let recorder = Recorder()
+        let (started, startedSignal) = AsyncStream<Void>.makeStream()
+        let (gate, gateSignal) = AsyncStream<Void>.makeStream()
+        // A läuft und wartet; B und C werden eingereiht, während A noch läuft
+        let a = await queue.enqueue { isCurrent in
+            startedSignal.yield(())
+            for await _ in gate { break }
+            let current = await isCurrent()
+            await recorder.add("A:\(current)")
+        }
+        for await _ in started { break }
+        let b = await queue.enqueue { _ in await recorder.add("B") }
+        let c = await queue.enqueue { isCurrent in
+            let current = await isCurrent()
+            await recorder.add("C:\(current)")
+        }
+        gateSignal.yield(())
+        await a.value
+        await b.value
+        await c.value
+        let events = await recorder.events
+        // A sieht, dass es überholt ist; B entfällt ganz; C läuft als neuester
+        XCTAssertEqual(events, ["A:false", "C:true"])
+    }
+
+    func testRunWaitsForCompletion() async {
+        let queue = MacroRescheduleQueue()
+        let recorder = Recorder()
+        await queue.run { _ in await recorder.add("done") }
+        let events = await recorder.events
+        XCTAssertEqual(events, ["done"])
+    }
+}

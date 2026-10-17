@@ -223,8 +223,10 @@ class LivePriceStream @Inject constructor(
         _prices.value = emptyMap()
         _liveExchanges.value = emptyList()
         _liveWatchIds.value = emptySet()
-        // Widgets und Alarme sollen den neuesten Stand haben
-        withContext(NonCancellable) { save(batch, keys, force = true) }
+        // Widgets und Alarme sollen den neuesten Stand haben. Letztes Speichern wartet kurz auf die
+        // Sperre (läuft gerade eine Aktualisierung, gab applyLive sofort auf und markUnsaved lief
+        // ins Leere — der Puffer ist schon geleert): der Stapel bleibt bis dahin hier erhalten
+        withContext(NonCancellable) { save(batch, keys, force = true, final = true) }
     }
 
     /**
@@ -280,13 +282,16 @@ class LivePriceStream @Inject constructor(
         save(batch, keys, force)
     }
 
-    private suspend fun save(batch: Map<Long, LiveQuote>, keys: Map<Long, PairIdentity>, force: Boolean) {
+    /** [final]: letztes Speichern beim Beenden ([stopAll]) — auf die Sperre warten statt aufgeben. */
+    private suspend fun save(batch: Map<Long, LiveQuote>, keys: Map<Long, PairIdentity>, force: Boolean, final: Boolean = false) {
         if (batch.isEmpty()) return
         val now = System.currentTimeMillis()
         val redraw = force || now - lastWidgetAt >= LiveRules.WIDGET_INTERVAL_MILLIS
         val saved = try {
             // Mit dem abonnierten Paar je Id: ohne Zuordnung (sollte nicht vorkommen) wird verworfen
-            priceRefresher.applyLive(batch, redrawWidgets = redraw, pairs = keys.filterKeys { it in batch })
+            val pairs = keys.filterKeys { it in batch }
+            if (final) priceRefresher.applyLiveFinal(batch, redrawWidgets = redraw, pairs = pairs)
+            else priceRefresher.applyLive(batch, redrawWidgets = redraw, pairs = pairs)
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {
@@ -295,6 +300,9 @@ class LivePriceStream @Inject constructor(
         }
         if (saved) {
             if (redraw) lastWidgetAt = now
+        } else if (final) {
+            // Puffer schon geleert (stopAll): kein «nächstes Mal» mehr
+            Timber.w("Live-Kurse: letzte %d Kurse nicht gespeichert (Sperre nicht frei)", batch.size)
         } else {
             synchronized(lock) { buffer.markUnsaved(batch.keys) }
         }

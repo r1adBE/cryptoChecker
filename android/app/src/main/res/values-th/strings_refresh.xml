@@ -90,7 +90,7 @@
     <string name="check_trigger_worker">เบื้องหลัง</string>
 
     <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
-    <string name="battery_delay_hint">Android อาจหน่วงการตรวจสอบ – ตั้งค่าแบตเตอรี่เป็น «ไม่จำกัด»</string>
+    <string name="battery_delay_hint">Android อาจหน่วงการตรวจสอบ – ตั้งค่าแบตเตอรี่เป็น “ไม่จำกัด”</string>
     <string name="battery_later">ภายหลัง</string>
     <string name="battery_message">Android หน่วงงานเบื้องหลังเพื่อประหยัดพลังงาน — ราคาและวิดเจ็ตอาจล้าหลังหลายชั่วโมง การตั้งค่าการใช้แบตเตอรี่เป็นไม่จำกัดจะช่วยให้ข้อมูลเป็นปัจจุบัน คุณเปลี่ยนได้ทุกเมื่อในการตั้งค่า Android</string>
     <string name="battery_open_settings">เปิดการตั้งค่าแบตเตอรี่</string>

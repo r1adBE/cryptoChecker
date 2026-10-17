@@ -132,7 +132,7 @@
     <string name="watchlist_group_empty_hint">Удерживайте группу, чтобы выбрать её пары.</string>
     <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
     <string name="watchlist_groups_empty_hint">Здесь появятся ваши группы</string>
-    <string name="watchlist_notification">Уведомление</string>
+    <string name="watchlist_notification">Уведомление о цене</string>
     <string name="watchlist_tts">Озвучивать цену</string>
     <string name="watchlist_tts_speech_on">Озвучивание включено. Изменить можно в разделе Настройки › Дополнительно › Озвучивание.</string>
 

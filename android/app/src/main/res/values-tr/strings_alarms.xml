@@ -37,7 +37,7 @@
     <string name="alarm_more_conditions">Daha fazla koşul</string>
     <string name="alarm_new_extreme">Yeni %1$s</string>
     <string name="alarm_once">Bir kez</string>
-    <string name="alarm_option_repeating">Tetiklendikten sonra alarmı koru</string>
+    <string name="alarm_option_repeating">Bildir</string>
     <string name="alarm_option_sound">Ses</string>
     <string name="alarm_option_speak">Alarmı sesli oku</string>
     <string name="alarm_option_vibrate">Titreşim</string>
@@ -57,7 +57,6 @@
     <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
     <string name="alarm_simple_above">şunun üstüne çıkınca:</string>
     <string name="alarm_simple_below">şunun altına inince:</string>
-    <string name="alarm_simple_direction_a11y">Yön: %1$s</string>
     <string name="alarm_simple_end"></string>
     <string name="alarm_simple_when">%1$s fiyatı</string>
     <string name="alarm_template_a11y">Alarm oluştur: %1$s</string>
@@ -84,7 +83,7 @@
     <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
     <string name="alarm_sentence_above">%1$s fiyatı %2$s üzerine çıktığında bana haber ver.</string>
     <string name="alarm_sentence_below">%1$s fiyatı %2$s altına düştüğünde bana haber ver.</string>
-    <string name="alarm_sentence_down_percent">%1$s fiyatı %2$s düştüğünde bana haber ver.</string>
+    <string name="alarm_sentence_down_percent">%1$s fiyatı kaydetme anındaki (veya son alarmdaki) fiyatın %2$s altına indiğinde bana haber ver.</string>
     <string name="alarm_sentence_funding_above">%1$s fonlaması %2$s üstüne çıktığında bana haber ver.</string>
     <string name="alarm_sentence_funding_below">%1$s fonlaması %2$s altına düştüğünde bana haber ver.</string>
     <string name="alarm_sentence_incomplete">Alarmı cümle olarak görmek için bir değer girin.</string>
@@ -103,7 +102,7 @@
         <item quantity="one">%1$s açık pozisyonu %3$d saat içinde %2$s arttığında bana haber ver.</item>
         <item quantity="other">%1$s açık pozisyonu %3$d saat içinde %2$s arttığında bana haber ver.</item>
     </plurals>
-    <string name="alarm_sentence_up_percent">%1$s fiyatı %2$s yükseldiğinde bana haber ver.</string>
+    <string name="alarm_sentence_up_percent">%1$s fiyatı kaydetme anındaki (veya son alarmdaki) fiyatın %2$s üstüne çıktığında bana haber ver.</string>
     <string name="alarm_sentence_volume">%1$s işlem hacmi normalin %2$s katına çıktığında bana haber ver.</string>
 
     <!-- Alarm «Nahe am Hoch / Tief» -->
@@ -142,7 +141,7 @@
     <string name="alarm_saved_notifications_off">Bildirimler kapalı</string>
 
     <!-- Wann Alarme geprüft werden -->
-    <string name="alarm_timing_hint_android">Uygulama kapalıyken Android düzensiz kontrol eder – «%1$s» açıkken bile çoğu zaman 15 dakikadan geç. Kısa sıçramalar kaçabilir.</string>
+    <string name="alarm_timing_hint_android">Uygulama kapalıyken Android düzensiz kontrol eder – “%1$s” açıkken bile çoğu zaman 15 dakikadan geç. Kısa sıçramalar kaçabilir.</string>
     <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">Uygulama kapalıyken iOS çoğu zaman 15 dakikadan geç kontrol eder, bazen ancak uygulamayı yeniden açtığınızda. Kısa sıçramalar kaçabilir.</string>
     <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
     <string name="alarm_timing_title">Alarmlar ne zaman kontrol edilir</string>

@@ -234,8 +234,8 @@ private struct WatchlistListView: View {
 
 /// Titel «Merkliste» und «Uhrzeit · Dauer» der Kopfzeile, nie abgeschnitten (wie
 /// ListWidgetHeader auf Android): `ViewThatFits` nimmt die erste Stufe, die ganz passt —
-/// erst fällt die Dauer weg, dann wird der Titel kleiner, dann fällt die Uhrzeit weg.
-/// Der Titel bleibt immer. Veraltet: «veraltet · 06:42» ohne Dauer, eng nur «veraltet».
+/// erst wird der Titel kleiner (die Dauer der Aktualisierung bleibt so sichtbar), dann fällt die Dauer
+/// weg, dann die Uhrzeit. Der Titel bleibt immer. Veraltet: «veraltet · 06:42» ohne Dauer, eng nur «veraltet».
 private struct WatchlistHeaderTitle: View {
     let entry: WatchlistEntry
     let palette: WidgetPalette
@@ -253,6 +253,7 @@ private struct WatchlistHeaderTitle: View {
         let timeOnly = outdated ? stale : WidgetData.refreshMeta(at: entry.lastRefreshAt, duration: 0)
         ViewThatFits(in: .horizontal) {
             row(titleSize: titleSizes.normal, meta: full)
+            row(titleSize: titleSizes.small, meta: full)
             row(titleSize: titleSizes.normal, meta: timeOnly)
             row(titleSize: titleSizes.small, meta: timeOnly)
             if outdated {
@@ -384,7 +385,7 @@ private struct WatchlistSmallView: View {
         VStack(alignment: .leading, spacing: 0) {
             HStack(spacing: 5) {
                 WidgetLogo(accent: entry.accent, dark: palette.dark, size: 14)
-                // «Merkliste» · «Uhrzeit · Dauer»; eng: ohne Dauer, kleinerer Titel, ohne Uhrzeit
+                // «Merkliste» · «Uhrzeit · Dauer»; eng: kleinerer Titel, ohne Dauer, ohne Uhrzeit
                 WatchlistHeaderTitle(entry: entry, palette: palette,
                                      titleSizes: (normal: 12, small: 11), metaSize: 12)
                 WidgetRefreshButton(palette: palette, size: 24)

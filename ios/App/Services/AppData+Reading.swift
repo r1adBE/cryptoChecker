@@ -142,7 +142,7 @@ extension AppData {
     func alarms(for watchId: Int64) -> [Alarm] { alarms.filter { $0.watchId == watchId } }
 
     var alarmsWithWatch: [AlarmWithWatch] {
-        let byId = Dictionary(uniqueKeysWithValues: snapshot.watches.map { ($0.id, $0) })
+        let byId = Dictionary(snapshot.watches.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
         return alarms.compactMap { a in byId[a.watchId].map { AlarmWithWatch(alarm: a, watch: $0) } }
     }
 

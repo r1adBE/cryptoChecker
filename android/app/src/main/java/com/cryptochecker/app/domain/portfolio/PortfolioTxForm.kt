@@ -219,8 +219,21 @@ object PortfolioTxForm {
     fun priceZero(entered: BigDecimal?, imported: Boolean): Boolean = imported && entered != null && entered.signum() == 0
 
     /**
-     * Eingabe in der Anzeigewährung (CHF/EUR/…) → USDT: Betrag ÷ Devisenkurs USD → Währung ([usdToFiat] > 0; USDT
-     * gilt als USD), 34 Stellen ([PortfolioDecimal.MC]). null ohne Betrag oder Kurs.
+     * Faktor USDT → Anzeigewährung für die Eingabe (Owner-Entscheid Okt. 2026, wie CSV-Import, Steuer-Export
+     * `TaxExport.rateOn` und Live-Kurse): Devisenkurs USD → Währung [usdToFiat] × USDT/USD [usdtUsd] (heute der
+     * Live-Kurs, sonst der Tagesschluss DES Tags). Ohne gültigen, plausiblen USDT/USD-Kurs ([PortfolioStables.usdtUsd])
+     * × 1 (Näherung). [fiatToUsdt]/[usdtToFiat] rechnen mit diesem Faktor. null ohne Devisenkurs. Wie iOS.
+     */
+    fun entryRate(usdToFiat: BigDecimal?, usdtUsd: BigDecimal?): BigDecimal? {
+        if (usdToFiat == null || usdToFiat.signum() <= 0) return null
+        val usdt = usdtUsd?.takeIf { it.signum() > 0 && !PortfolioStables.usdtUsd(it.toDouble()).approximate }
+            ?: return usdToFiat
+        return usdToFiat.multiply(usdt, PortfolioDecimal.MC)
+    }
+
+    /**
+     * Eingabe in der Anzeigewährung (CHF/EUR/…) → USDT: Betrag ÷ Faktor USDT → Währung ([usdToFiat] > 0, aus
+     * [entryRate]: Devisenkurs × USDT/USD), 34 Stellen ([PortfolioDecimal.MC]). null ohne Betrag oder Kurs.
      */
     fun fiatToUsdt(fiat: BigDecimal?, usdToFiat: BigDecimal?): BigDecimal? {
         if (fiat == null || usdToFiat == null || usdToFiat.signum() <= 0) return null

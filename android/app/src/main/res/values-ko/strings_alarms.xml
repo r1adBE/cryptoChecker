@@ -36,7 +36,7 @@
     <string name="alarm_more_conditions">추가 조건</string>
     <string name="alarm_new_extreme">%1$s 경신</string>
     <string name="alarm_once">한 번</string>
-    <string name="alarm_option_repeating">울린 후에도 경보 유지</string>
+    <string name="alarm_option_repeating">알림</string>
     <string name="alarm_option_sound">소리</string>
     <string name="alarm_option_speak">경보 읽어주기</string>
     <string name="alarm_option_vibrate">진동</string>
@@ -55,7 +55,6 @@
     <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
     <string name="alarm_simple_above">다음보다 오르면:</string>
     <string name="alarm_simple_below">다음보다 내리면:</string>
-    <string name="alarm_simple_direction_a11y">방향: %1$s</string>
     <string name="alarm_simple_end"></string>
     <string name="alarm_simple_when">%1$s 가격이</string>
     <string name="alarm_template_a11y">경보 만들기: %1$s</string>
@@ -82,7 +81,7 @@
     <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
     <string name="alarm_sentence_above">%1$s 가격이 %2$s 위로 오르면 알려 주세요.</string>
     <string name="alarm_sentence_below">%1$s 가격이 %2$s 아래로 내려가면 알려 주세요.</string>
-    <string name="alarm_sentence_down_percent">%1$s 가격이 %2$s 내리면 알려 주세요.</string>
+    <string name="alarm_sentence_down_percent">%1$s 가격이 저장 시점(또는 마지막 경보) 가격보다 %2$s 내리면 알려 주세요.</string>
     <string name="alarm_sentence_funding_above">%1$s 펀딩비가 %2$s 위로 오르면 알려 주세요.</string>
     <string name="alarm_sentence_funding_below">%1$s 펀딩비가 %2$s 아래로 내려가면 알려 주세요.</string>
     <string name="alarm_sentence_incomplete">값을 입력하면 경보가 문장으로 표시됩니다.</string>
@@ -98,7 +97,7 @@
     <plurals name="alarm_sentence_oi_up">
         <item quantity="other">%1$s 미결제약정이 %3$d시간 안에 %2$s 늘면 알려 주세요.</item>
     </plurals>
-    <string name="alarm_sentence_up_percent">%1$s 가격이 %2$s 오르면 알려 주세요.</string>
+    <string name="alarm_sentence_up_percent">%1$s 가격이 저장 시점(또는 마지막 경보) 가격보다 %2$s 오르면 알려 주세요.</string>
     <string name="alarm_sentence_volume">%1$s 거래량이 평소의 %2$s배가 되면 알려 주세요.</string>
 
     <!-- Alarm «Nahe am Hoch / Tief» -->
@@ -136,7 +135,7 @@
     <string name="alarm_saved_notifications_off">알림 꺼짐</string>
 
     <!-- Wann Alarme geprüft werden -->
-    <string name="alarm_timing_hint_android">앱을 닫으면 Android는 불규칙하게 확인하며, «%1$s»을 켜도 15분보다 늦을 때가 많습니다. 짧은 급등락을 놓칠 수 있습니다.</string>
+    <string name="alarm_timing_hint_android">앱을 닫으면 Android는 불규칙하게 확인하며, “%1$s”을 켜도 15분보다 늦을 때가 많습니다. 짧은 급등락을 놓칠 수 있습니다.</string>
     <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">앱을 닫으면 iOS는 15분보다 늦게 확인할 때가 많고, 다음에 앱을 열 때에야 확인하기도 합니다. 짧은 급등락을 놓칠 수 있습니다.</string>
     <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
     <string name="alarm_timing_title">경보 확인 시점</string>

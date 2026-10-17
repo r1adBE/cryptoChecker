@@ -242,7 +242,7 @@
     <string name="ledger_exchange">Tőzsde (nem kötelező)</string>
     <string name="ledger_exchange_failed">%1$s: most nincs árfolyam innen: %2$s – Binance alapján értékelve.</string>
     <string name="ledger_exchange_hint">A coin e tőzsde árfolyamán értékelődik (egyébként Binance). Előzmények, 7 N és 1 É: Binance napi árfolyamai, átskálázva.</string>
-    <string name="ledger_exchange_mixed">%1$s: több tőzsde megadva – Binance alapján értékelve. Áthelyezted a coinokat? Rögzítsd «Átvezetés» típussal.</string>
+    <string name="ledger_exchange_mixed">%1$s: több tőzsde megadva – Binance alapján értékelve. Áthelyezted a coinokat? Rögzítsd „Átvezetés” típussal.</string>
     <string name="ledger_exchange_none">Nincs (Binance)</string>
     <string name="ledger_fee">Díj (nem kötelező)</string>
     <string name="ledger_fee_coin">Coin</string>
@@ -254,7 +254,7 @@
     <string name="ledger_gain_info_fifo">Ma, 7 N, 1 É: értékváltozás az időszakban – a vételek és eladások nem számítanak nyereségnek. Vétel óta: jelenlegi érték mínusz bekerülési érték (FIFO díjakkal) a még meglévő coinokra.</string>
     <string name="ledger_gain_title">Nyereség/veszteség</string>
     <string name="ledger_more_toggle">Díj és tőzsde</string>
-    <string name="ledger_partial_cost">«Vétel óta» csak a vételi árral rendelkező részt számolja – %1$s nélkül (vételi ár nélküli).</string>
+    <string name="ledger_partial_cost">„Vétel óta” csak a vételi árral rendelkező részt számolja – %1$s nélkül (vételi ár nélküli).</string>
     <string name="ledger_period_without">Ma / 7 N / 1 É %1$s nélkül – nincs megfelelő kezdő árfolyam.</string>
     <string name="ledger_since_purchase_currency">Vétel óta (%1$s)</string>
     <string name="ledger_since_purchase_spoken">Nyereség/veszteség a vétel óta, még nem eladva</string>

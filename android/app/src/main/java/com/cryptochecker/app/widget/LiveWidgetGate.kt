@@ -47,11 +47,12 @@ class LiveWidgetGate @Inject constructor(
 
     /**
      * Ein Takt mit neuen Kursen: alle Widgets zeichnen oder (Bildschirm aus, [deferWhenOff])
-     * aufschieben. @return true = gezeichnet
+     * aufschieben. [fetch] false: Charts nur aus dem Zwischenspeicher (unter der Sperre der
+     * Aktualisierung, siehe [WidgetUpdater.updateAll]). @return true = gezeichnet
      */
-    suspend fun drawAll(deferWhenOff: Boolean): Boolean {
+    suspend fun drawAll(deferWhenOff: Boolean, fetch: Boolean = true): Boolean {
         val draw = gate.onTick(deferWhenOff, widgetUpdater.isScreenInteractive())
-        if (draw) widgetUpdater.updateAll() else listenForScreenOn()
+        if (draw) widgetUpdater.updateAll(fetch) else listenForScreenOn()
         return draw
     }
 

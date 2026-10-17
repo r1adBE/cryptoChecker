@@ -179,8 +179,8 @@ extension WatchlistScreen {
                 }
                 .buttonStyle(.borderless)
                 .tint(accent.primary)
-                .accessibilityLabel(L("alarms_overview_title"))
-                .largeContentLabel(L("alarms_overview_title"), systemImage: "bell.and.waves.left.and.right")
+                .accessibilityLabel(bellLabel)
+                .largeContentLabel(bellLabel, systemImage: "bell.and.waves.left.and.right")
                 // Build 46: volle 44 pt Platz — die Tippflächen von Glocke und Menü überlappen nicht mehr
                 // (früher 30 pt Platz, 14 pt der Glocke lagen unter dem Menü). Wie Android
 
@@ -295,6 +295,13 @@ extension WatchlistScreen {
 
     private var hasActiveAlarms: Bool {
         data.activeAlarmCounts.values.contains { $0 > 0 }
+    }
+
+    /// Beschriftung der Glocke nach ihrem Ziel (`openBell`): ohne Alarm «Neuer Alarm», sonst «Alarme (3)» — gleiche
+    /// Zählung wie `openBell` (wie Android `AlarmBell`).
+    private var bellLabel: String {
+        let count = data.alarmsWithWatch.count + (data.settings.portfolioEnabled ? data.portfolioAlarms.count : 0)
+        return count == 0 ? L("alarms_add") : L("watchlist_alarms_count", count: count)
     }
 }
 

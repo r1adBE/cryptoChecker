@@ -39,7 +39,7 @@
     <string name="settings_app_badge">应用图标上的数字</string>
     <string name="settings_app_badge_hint">统计未处理的警报通知。显示数字还是圆点由主屏幕决定（例如 Samsung：“显示数字”）。</string>
     <string name="settings_exact_checks">准时检查</string>
-    <string name="settings_exact_checks_grant">允许 «闹钟和提醒»</string>
+    <string name="settings_exact_checks_grant">允许 「闹钟和提醒」</string>
     <string name="settings_exact_checks_hint">即使设备处于空闲状态，Android 也会大约每 15 分钟检查一次。会多耗一点电量。</string>
     <string name="settings_exact_checks_nothing">没有启用的交易对——无需检查。</string>
     <string name="settings_exact_checks_permission_missing">缺少权限——Android 会在合适时检查（大约每 15 分钟或更晚）。</string>
@@ -247,7 +247,7 @@
     <!-- Lizenzhinweise -->
     <string name="licenses_app_intro">Crypto Checker 是开源软件（MIT 许可证）。</string>
     <string name="licenses_font_title">Rubik 字体</string>
-    <string name="licenses_icons_bundled_text">随应用附带：Christopher Downer 及贡献者的 «Cryptocurrency Icons»（github.com/spothq/cryptocurrency-icons）中的图标，以 CC0 1.0 Universal 发布。在 CoinGecko 或 Binance 的图标加载前显示。名称和标志仍为各自项目的商标。</string>
+    <string name="licenses_icons_bundled_text">随应用附带：Christopher Downer 及贡献者的 「Cryptocurrency Icons」（github.com/spothq/cryptocurrency-icons）中的图标，以 CC0 1.0 Universal 发布。在 CoinGecko 或 Binance 的图标加载前显示。名称和标志仍为各自项目的商标。</string>
     <string name="licenses_icons_title">备用币种图标</string>
     <string name="licenses_libraries_intro">本应用依据 Apache License 2.0 使用以下库：</string>
     <string name="licenses_libraries_title">Android 库</string>

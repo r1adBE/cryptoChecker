@@ -302,9 +302,13 @@ object ActivityAnalyzer {
         )
     }
 
-    /** Melden, wenn etwas Neues dazukam und die letzte Meldung über 60 Min. her ist. */
+    /**
+     * Melden, wenn etwas Neues dazukam und die letzte Meldung über 60 Min. her ist. Liegt die letzte
+     * Meldung in der Zukunft (Uhr vor- und wieder zurückgestellt), gilt das als «her» — sonst bliebe
+     * die Meldung bis zu jenem Zeitpunkt stumm.
+     */
     fun shouldNotify(enabled: Boolean, newKinds: Set<SignalKind>, lastNotifiedAt: Long, now: Long): Boolean =
-        enabled && newKinds.isNotEmpty() && now - lastNotifiedAt >= NOTIFY_INTERVAL_MILLIS
+        enabled && newKinds.isNotEmpty() && now - lastNotifiedAt !in 0 until NOTIFY_INTERVAL_MILLIS
 
     /**
      * Arten für die Meldung: neue plus die zurückgehaltenen [pending] (Meldung kam zuletzt nicht an),

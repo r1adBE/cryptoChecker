@@ -103,14 +103,15 @@ extension WatchlistRow {
                 // nur bei mind. einem aktiven Alarm — wie Android
                 let priceOn: Bool = A11ySpeech.priceNotificationOn(pairOn: watch.notificationEnabled,
                                                                    masterOn: priceNotificationsOn)
+                // 13 pt wie die 13-dp-Glocken in Android
                 Image(systemName: priceOn ? "bell" : "bell.slash")
-                    .scaledFont(size: 11, relativeTo: .caption2)
+                    .scaledFont(size: 13, relativeTo: .caption2)
                     .foregroundStyle(AppColors.onSurfaceVariant)
                     .opacity(iconOpacity)
                     .accessibilityLabel(L(priceOn ? "a11y_price_notification_on" : "a11y_price_notification_off"))
                 if alarmCount > 0 {
                     HStack(spacing: 2) {
-                        Image(systemName: "bell.and.waves.left.and.right.fill").scaledFont(size: 11, relativeTo: .caption2)
+                        Image(systemName: "bell.and.waves.left.and.right.fill").scaledFont(size: 13, relativeTo: .caption2)
                             .opacity(iconOpacity)
                         Text(verbatim: LocaleNumbers.integer(alarmCount)).font(.caption.weight(.semibold).monospacedDigit())
                     }

@@ -108,7 +108,7 @@
     <string name="watchlist_group_empty_hint">Nyomja hosszan a csoportot a párjai kiválasztásához.</string>
     <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
     <string name="watchlist_groups_empty_hint">Itt jelennek meg a csoportjai</string>
-    <string name="watchlist_notification">Értesítés</string>
+    <string name="watchlist_notification">Árértesítés</string>
     <string name="watchlist_tts">Ár felolvasása</string>
     <string name="watchlist_tts_speech_on">A felolvasás be van kapcsolva. Módosíthatod itt: Beállítások › Speciális › Hangkimenet.</string>
 

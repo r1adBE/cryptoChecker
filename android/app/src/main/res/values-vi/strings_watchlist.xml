@@ -96,7 +96,7 @@
     <string name="watchlist_group_empty_hint">Nhấn giữ một nhóm để chọn các cặp của nhóm.</string>
     <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
     <string name="watchlist_groups_empty_hint">Các nhóm của bạn sẽ xuất hiện ở đây</string>
-    <string name="watchlist_notification">Thông báo</string>
+    <string name="watchlist_notification">Thông báo giá</string>
     <string name="watchlist_tts">Đọc giá</string>
     <string name="watchlist_tts_speech_on">Đọc giọng nói đã bật. Bạn có thể đổi trong Cài đặt › Nâng cao › Đọc bằng giọng nói.</string>
 

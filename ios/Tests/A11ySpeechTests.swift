@@ -144,11 +144,13 @@ final class A11ySpeechTests: XCTestCase {
                        + "Kursmitteilung an, Alarme: 2")
     }
 
-    func testWatchRowSaysPriceNotificationOnlyWhenGiven() {
+    func testWatchRowSaysPriceNotificationOnlyWhenOff() {
         let watch = Watch(id: 1, marketKey: "Binance", marketName: "Binance", baseAsset: "BTC", quoteAsset: "USDT")
         let on = A11y.watchRow(watch, priceNotificationOn: true)
         let off = A11y.watchRow(watch, priceNotificationOn: false)
-        XCTAssertTrue(on.contains(L("a11y_price_notification_on")))
+        // «An» ist der Normalfall: nicht in jeder Zeile vorlesen
+        XCTAssertFalse(on.contains(L("a11y_price_notification_on")))
+        XCTAssertFalse(on.contains(L("a11y_price_notification_off")))
         XCTAssertTrue(off.contains(L("a11y_price_notification_off")))
         // Widgets ohne Glocke: kein Satzteil
         let widget = A11y.watchRow(watch)

@@ -22,7 +22,7 @@
     <string name="backup_password_repeat">Nhập lại mật khẩu</string>
     <string name="backup_password_show">Hiện mật khẩu</string>
     <string name="backup_password_title">Bản sao lưu có mật khẩu</string>
-    <string name="backup_password_too_weak">Quá dễ đoán – không chỉ toàn số, không một ký tự lặp lại, không dãy phổ biến như «12345678» hay «password».</string>
+    <string name="backup_password_too_weak">Quá dễ đoán – không chỉ toàn số, không một ký tự lặp lại, không dãy phổ biến như “12345678” hay “password”.</string>
     <string name="backup_password_warning">Không có mật khẩu thì không thể khôi phục bản sao lưu.</string>
     <string name="backup_password_wrong">Sai mật khẩu hoặc tệp bị hỏng. Hãy thử lại.</string>
     <string name="backup_protect">Bảo vệ bằng mật khẩu</string>
@@ -51,6 +51,6 @@
     </plurals>
 
     <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
-    <string name="storage_recovery_message">Thiết bị này không còn khóa của dữ liệu đã mã hóa của ứng dụng, nên ứng dụng khởi động trống. Không có gì bị xóa. Để lấy lại danh sách và danh mục, hãy nhập tệp sao lưu trong Cài đặt, mục «%1$s».</string>
+    <string name="storage_recovery_message">Thiết bị này không còn khóa của dữ liệu đã mã hóa của ứng dụng, nên ứng dụng khởi động trống. Không có gì bị xóa. Để lấy lại danh sách và danh mục, hãy nhập tệp sao lưu trong Cài đặt, mục “%1$s”.</string>
     <string name="storage_recovery_title">Không thể mở khóa dữ liệu đã lưu</string>
 </resources>

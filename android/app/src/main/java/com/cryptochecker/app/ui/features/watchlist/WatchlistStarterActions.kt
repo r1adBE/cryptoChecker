@@ -71,12 +71,15 @@ fun WatchlistViewModel.toggleAllStarters() {
 }
 
 internal suspend fun WatchlistViewModel.loadStarterPrices(coins: List<StarterPairs.Coin>) {
-    _starterPrices.value = _starterPrices.value.copy(loading = true)
+    _starterPrices.value = _starterPrices.value.copy(loading = true, failed = false)
     val prices = starterCoinsRepository.prices(coins.map { it.symbol }, starterRegion())
-    // Fehler: Zeilen ohne Kurs (alte Kurse bleiben, falls die Coins dieselben sind)
+    // Fehler: Zeilen ohne Kurs (alte Kurse bleiben, falls die Coins dieselben sind); gar keiner da → «Keine
+    // Verbindung» mit «Erneut versuchen»
+    val shown = prices.ifEmpty { _starterPrices.value.prices }
     _starterPrices.value = StarterPricesState(
         loading = false,
-        prices = prices.ifEmpty { _starterPrices.value.prices },
+        prices = shown,
+        failed = shown.isEmpty(),
     )
 }
 
@@ -134,8 +137,15 @@ internal suspend fun WatchlistViewModel.addStarterPairs(symbols: List<String>) {
     }
 }
 
-/** Kurse der Start-Merkliste: [loading] = Abruf läuft; fehlende Coins haben keinen Kurs. */
-data class StarterPricesState(val loading: Boolean, val prices: Map<String, StarterPrice>)
+/**
+ * Kurse der Start-Merkliste: [loading] = Abruf läuft; fehlende Coins haben keinen Kurs. [failed] = Abruf fertig,
+ * aber kein einziger Kurs (offline bzw. Börse nicht erreichbar) — die Auswahl zeigt dann «Erneut versuchen».
+ */
+data class StarterPricesState(
+    val loading: Boolean,
+    val prices: Map<String, StarterPrice>,
+    val failed: Boolean = false,
+)
 
 /** So lange wartet die Start-Auswahl höchstens auf die Logos der Start-Coins, dann Initialen. */
 private const val STARTER_LOGO_WAIT_MILLIS = 4_000L

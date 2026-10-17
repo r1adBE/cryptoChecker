@@ -157,17 +157,26 @@ extension PortfolioTxSheet {
         priceHistoricDay = nil
     }
 
-    /// Devisenkurs USD → `currency`: heute der aktuelle Kurs, sonst der Tageskurs (EZB, letzter Geschäftstag ≤ Tag) mit
-    /// seinem tatsächlichen Datum — wie `PortfolioViewModel.entryFx` (Android). nil = kein Kurs.
+    /// Faktor USDT → `currency`: Devisenkurs USD → Währung × USDT/USD (`PortfolioTxForm.entryRate`, wie CSV-Import und
+    /// Steuer-Export). Heute der aktuelle Kurs und der Live-Kurs USDT/USD, sonst der Tageskurs (EZB, letzter Geschäftstag
+    /// ≤ Tag) mit seinem tatsächlichen Datum und der USDT/USD-Tagesschluss DES Tags (fehlt er: × 1) — wie
+    /// `PortfolioViewModel.entryFx` (Android). nil = kein Kurs.
     private static func fetchEntryFx(currency: String, date: Date) async -> (rate: Decimal, day: CutoffDay)? {
         let day = CutoffDay(date)
         let today = CutoffDay(Date())
         if day.iso >= today.iso {
-            guard let r = await FxRateSource.usdTo(currency), r.isFinite, r > 0, let exact = PortfolioDecimal.of(r) else { return nil }
+            guard let r = await FxRateSource.usdTo(currency), r.isFinite, r > 0,
+                  let exact = PortfolioTxForm.entryRate(usdToFiat: PortfolioDecimal.of(r),
+                                                        usdtUsd: PortfolioDecimal.of(DepegAlarmCheck.liveUsdtUsd()))
+            else { return nil }
             return (exact, today)
         }
-        guard let fx = await HistoricPriceSource.usdTo(currency, day: day), fx.rate.isFinite, fx.rate > 0,
-              let exact = PortfolioDecimal.of(fx.rate) else { return nil }
+        guard let fx = await HistoricPriceSource.usdTo(currency, day: day), fx.rate.isFinite, fx.rate > 0 else { return nil }
+        let epochDay = LocalDay(date: date).epochDay
+        let days = max(1, LocalDay.today().epochDay - epochDay + 1)
+        let close = await PortfolioHistorySource.usdtUsdDaily(days: days)[epochDay]
+        guard let exact = PortfolioTxForm.entryRate(usdToFiat: PortfolioDecimal.of(fx.rate),
+                                                    usdtUsd: PortfolioDecimal.of(close)) else { return nil }
         return (exact, fx.date.flatMap(cutoffDay(iso:)) ?? day)
     }
 

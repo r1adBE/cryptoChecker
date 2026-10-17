@@ -248,7 +248,7 @@
     <string name="ledger_exchange">Giełda (opcjonalnie)</string>
     <string name="ledger_exchange_failed">%1$s: teraz brak kursu z %2$s – wycenione według Binance.</string>
     <string name="ledger_exchange_hint">Moneta jest wyceniana po kursie tej giełdy (inaczej Binance). Przebieg, 7 D i 1 R: dzienne kursy Binance, przeskalowane.</string>
-    <string name="ledger_exchange_mixed">%1$s: wpisano kilka giełd – wycenione według Binance. Przeniesione monety? Zapisz to jako «Przeniesienie».</string>
+    <string name="ledger_exchange_mixed">%1$s: wpisano kilka giełd – wycenione według Binance. Przeniesione monety? Zapisz to jako „Przeniesienie”.</string>
     <string name="ledger_exchange_none">Brak (Binance)</string>
     <string name="ledger_fee">Opłata (opcjonalnie)</string>
     <string name="ledger_fee_coin">Moneta</string>
@@ -260,7 +260,7 @@
     <string name="ledger_gain_info_fifo">Dziś, 7 D, 1 R: zmiana wartości w okresie – zakupy i sprzedaże nie liczą się jako zysk. Od zakupu: bieżąca wartość minus koszt nabycia (FIFO z opłatami) monet, które nadal masz.</string>
     <string name="ledger_gain_title">Zysk/strata</string>
     <string name="ledger_more_toggle">Opłata i giełda</string>
-    <string name="ledger_partial_cost">«Od zakupu» liczy tylko część z ceną zakupu – bez %1$s bez ceny zakupu.</string>
+    <string name="ledger_partial_cost">„Od zakupu” liczy tylko część z ceną zakupu – bez %1$s bez ceny zakupu.</string>
     <string name="ledger_period_without">Dziś / 7 D / 1 R bez %1$s – brak pasującego kursu początkowego.</string>
     <string name="ledger_since_purchase_currency">Od zakupu (%1$s)</string>
     <string name="ledger_since_purchase_spoken">Zysk/strata od zakupu, jeszcze niesprzedane</string>

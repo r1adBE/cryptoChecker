@@ -20,7 +20,7 @@
     <string name="notification_macro_title">Bugün ekonomik veri var</string>
     <string name="notification_permission_preprompt_continue">Devam</string>
     <string name="notification_permission_preprompt_later">Sonra</string>
-    <string name="notification_permission_preprompt_text">Alarmların ve fiyat bildirimlerinin sana ulaşması için uygulamanın bildirim iznine ihtiyacı var. Bildirimler yalnızca kendi alarmların için kullanılır.</string>
+    <string name="notification_permission_preprompt_text">Alarmların ve fiyat bildirimlerinin sana ulaşması için uygulamanın bildirim iznine ihtiyacı var. Uygulama bildirimleri yalnızca alarmların ve fiyat bildirimlerin için kullanır.</string>
     <string name="notification_permission_preprompt_title">Bildirimlere izin verilsin mi?</string>
     <string name="notification_portfolio_alarm_locked">Alarmın tetiklendi – ayrıntılar için uygulamayı aç.</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->

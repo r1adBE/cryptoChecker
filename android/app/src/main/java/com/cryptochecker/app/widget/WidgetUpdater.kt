@@ -127,20 +127,42 @@ class WidgetUpdater @Inject constructor(
     fun isScreenInteractive(): Boolean =
         context.getSystemService(PowerManager::class.java)?.isInteractive ?: true
 
-    suspend fun updateAll() {
+    /**
+     * Alle Widgets neu zeichnen. [fetch] false: Charts der Einzel-Widgets nur aus dem
+     * Zwischenspeicher — so unter der Sperre der Aktualisierung (Kerzen laden kann je Widget bis
+     * zu 20 s dauern); die Charts holt danach [refreshSingleCharts] ausserhalb der Sperre nach.
+     */
+    suspend fun updateAll(fetch: Boolean = true) {
         update(widgetIds())
-        updateSingle(singleWidgetIds())
+        updateSingle(singleWidgetIds(), fetch)
         updatePortfolio(portfolioWidgetIds())
         pulseWidgets.updateWithOthers()
+    }
+
+    /** Fehlten beim letzten Zeichnen ohne Netz Kerzen ([SingleWidgetRenderer.takeStaleCharts])? Setzt zurück. */
+    fun takeStaleCharts(): Boolean = singleWidgets.takeStaleCharts()
+
+    /**
+     * Charts der Einzel-Widgets mit Netz nachladen und neu zeichnen (nach einem Zeichnen mit
+     * `fetch = false`); [watchId] gesetzt: nur die Einzel-Widgets dieses Paares.
+     * @return false, wenn es keine passenden Einzel-Widgets gibt (nichts zu tun)
+     */
+    suspend fun refreshSingleCharts(watchId: Long? = null): Boolean {
+        val ids = singleWidgetIds().let { all ->
+            if (watchId == null) all else all.filter { widgetPrefs.getWatchId(it) == watchId }.toIntArray()
+        }
+        if (ids.isEmpty()) return false
+        updateSingle(ids, fetch = true)
+        return true
     }
 
     /**
      * Nach der Aktualisierung EINES Paares: nur, was dieses Paar zeigt — Listen-Widgets,
      * deren Liste es enthält, und Einzel-Widgets dieses Paares. Portfolio-Widgets nur, wenn
      * sich die Momentaufnahme seit dem letzten Zeichnen geändert hat; «Was gerade auffällt»
-     * hängt nicht an einem einzelnen Paar und bleibt.
+     * hängt nicht an einem einzelnen Paar und bleibt. [fetch] wie bei [updateAll].
      */
-    suspend fun updateForWatch(watchId: Long) {
+    suspend fun updateForWatch(watchId: Long, fetch: Boolean = true) {
         val listIds = widgetIds()
         if (listIds.isNotEmpty()) {
             val watches = watchRepository.getWatches()
@@ -153,7 +175,7 @@ class WidgetUpdater @Inject constructor(
                 }.toIntArray()
             )
         }
-        updateSingle(singleWidgetIds().filter { widgetPrefs.getWatchId(it) == watchId }.toIntArray())
+        updateSingle(singleWidgetIds().filter { widgetPrefs.getWatchId(it) == watchId }.toIntArray(), fetch)
 
         val portfolioIds = portfolioWidgetIds()
         if (portfolioIds.isNotEmpty()) {

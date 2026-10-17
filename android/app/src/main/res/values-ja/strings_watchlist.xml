@@ -96,7 +96,7 @@
     <string name="watchlist_group_empty_hint">グループを長押ししてペアを選択します。</string>
     <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
     <string name="watchlist_groups_empty_hint">ここにグループが表示されます</string>
-    <string name="watchlist_notification">通知</string>
+    <string name="watchlist_notification">価格通知</string>
     <string name="watchlist_tts">価格を読み上げ</string>
     <string name="watchlist_tts_speech_on">読み上げをオンにしました。変更は「設定 › 詳細設定 › 音声出力」で行えます。</string>
 

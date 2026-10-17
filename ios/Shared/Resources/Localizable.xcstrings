@@ -24006,7 +24006,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Change price updates"
+            "value" : "Adjust price updates"
           }
         },
         "es" : {
@@ -33785,187 +33785,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "إبقاء التنبيه بعد انطلاقه"
+            "value" : "الإبلاغ"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ponechat alarm po spuštění"
+            "value" : "Upozornit"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Behold alarmen, når den er udløst"
+            "value" : "Giv besked"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alarm nach dem Auslösen aktiv lassen"
+            "value" : "Melden"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Διατήρηση μετά την ενεργοποίηση"
+            "value" : "Ειδοποίηση"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Keep alert after it fires"
+            "value" : "Notify"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mantener la alarma tras saltar"
+            "value" : "Avisar"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "هشدار پس از فعال شدن باقی بماند"
+            "value" : "اطلاع‌رسانی"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Säilytä hälytys laukeamisen jälkeen"
+            "value" : "Ilmoita"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Conserver l'alerte après déclenchement"
+            "value" : "Prévenir"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "השאר את ההתראה לאחר שהופעלה"
+            "value" : "להודיע"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "बजने के बाद भी अलार्म रखें"
+            "value" : "सूचित करें"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Riasztás megtartása kioldás után"
+            "value" : "Értesítés"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Pertahankan alarm setelah berbunyi"
+            "value" : "Beri tahu"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mantieni l'allarme dopo che scatta"
+            "value" : "Avvisa"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "作動後もアラームを残す"
+            "value" : "通知"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "울린 후에도 경보 유지"
+            "value" : "알림"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Behold alarmen etter at den er utløst"
+            "value" : "Varsle"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alarm behouden na afgaan"
+            "value" : "Melden"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Zachowaj alarm po wyzwoleniu"
+            "value" : "Powiadamiaj"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Manter o alarme depois de disparar"
+            "value" : "Avisar"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Manter o alarme depois de disparar"
+            "value" : "Avisar"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Păstrează alarma după declanșare"
+            "value" : "Anunță"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Сохранять после срабатывания"
+            "value" : "Уведомлять"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mbaje alarmin pasi të aktivizohet"
+            "value" : "Njofto"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Behåll larmet efter att det utlösts"
+            "value" : "Meddela"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "เก็บสัญญาณเตือนไว้หลังทำงาน"
+            "value" : "แจ้งเตือน"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tetiklendikten sonra alarmı koru"
+            "value" : "Bildir"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Залишати сигнал після спрацювання"
+            "value" : "Сповіщати"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Giữ cảnh báo sau khi kích hoạt"
+            "value" : "Thông báo"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "触发后保留提醒"
+            "value" : "提醒"
           }
         }
       }
@@ -36077,187 +36077,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "أبلغني عندما ينخفض %1$@ بنسبة %2$@."
+            "value" : "أبلغني عندما ينخفض %1$@ بنسبة %2$@ دون السعر عند الحفظ (أو عند آخر تنبيه)."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Upozornit, až %1$@ klesne o %2$@."
+            "value" : "Upozornit, až %1$@ klesne o %2$@ pod cenu při uložení (nebo při posledním alarmu)."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Giv mig besked, når %1$@ falder med %2$@."
+            "value" : "Giv mig besked, når %1$@ falder %2$@ under kursen ved lagring (eller ved sidste alarm)."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sag mir Bescheid, wenn %1$@ um %2$@ fällt."
+            "value" : "Sag mir Bescheid, wenn %1$@ um %2$@ unter den Kurs beim Speichern (bzw. beim letzten Alarm) fällt."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ειδοποίηση όταν το %1$@ πέσει κατά %2$@."
+            "value" : "Ειδοποίηση όταν το %1$@ πέσει κατά %2$@ κάτω από την τιμή κατά την αποθήκευση (ή στον τελευταίο συναγερμό)."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tell me when %1$@ falls by %2$@."
+            "value" : "Tell me when %1$@ falls %2$@ below the price when saved (or at the last alert)."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Avísame cuando %1$@ baje un %2$@."
+            "value" : "Avísame cuando %1$@ baje un %2$@ por debajo del precio al guardar (o en la última alarma)."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "وقتی %1$@ به اندازه %2$@ پایین آمد، به من خبر بده."
+            "value" : "وقتی %1$@ به اندازه %2$@ پایین‌تر از قیمت هنگام ذخیره (یا آخرین هشدار) آمد، به من خبر بده."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ilmoita, kun %1$@ laskee vähintään %2$@."
+            "value" : "Ilmoita, kun %1$@ laskee vähintään %2$@ alle tallennushetken hinnan (tai viimeisimmän hälytyksen)."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Me prévenir quand %1$@ baisse de %2$@."
+            "value" : "Me prévenir quand %1$@ baisse de %2$@ sous le prix à l’enregistrement (ou à la dernière alerte)."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "להודיע לי כש־%1$@ יורד ב־%2$@."
+            "value" : "להודיע לי כש־%1$@ יורד ב־%2$@ מתחת למחיר בעת השמירה (או בהתראה האחרונה)."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "जब %1$@ %2$@ गिरे, तो मुझे बताएँ।"
+            "value" : "जब %1$@ सेव करते समय के भाव (या पिछले अलार्म) से %2$@ नीचे जाए, तो मुझे बताएँ।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ – értesítés, ha az ár %2$@ értékkel esik."
+            "value" : "%1$@ – értesítés, ha az ár %2$@ értékkel a mentéskori (vagy az utolsó riasztáskori) ár alá esik."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beri tahu saya saat %1$@ turun %2$@."
+            "value" : "Beri tahu saya saat %1$@ turun %2$@ di bawah harga saat disimpan (atau saat alarm terakhir)."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Avvisami quando %1$@ scende del %2$@."
+            "value" : "Avvisami quando %1$@ scende del %2$@ sotto il prezzo al salvataggio (o all’ultimo allarme)."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ が %2$@ 下落したら知らせる。"
+            "value" : "%1$@ が保存時（または前回のアラーム時）の価格から %2$@ 下落したら知らせる。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ 가격이 %2$@ 내리면 알려 주세요."
+            "value" : "%1$@ 가격이 저장 시점(또는 마지막 경보) 가격보다 %2$@ 내리면 알려 주세요."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gi meg beskjed når %1$@ faller med %2$@."
+            "value" : "Gi meg beskjed når %1$@ faller %2$@ under kursen ved lagring (eller ved siste alarm)."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Laat het me weten als %1$@ %2$@ daalt."
+            "value" : "Laat het me weten als %1$@ %2$@ onder de koers bij het opslaan (of bij het laatste alarm) daalt."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Powiadom mnie, gdy %1$@ spadnie o %2$@."
+            "value" : "Powiadom mnie, gdy %1$@ spadnie o %2$@ poniżej ceny z chwili zapisania (lub ostatniego alarmu)."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Avisar-me quando %1$@ descer %2$@."
+            "value" : "Avisar-me quando %1$@ descer %2$@ abaixo do preço ao guardar (ou no último alarme)."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Avise-me quando %1$@ cair %2$@."
+            "value" : "Avise-me quando %1$@ cair %2$@ abaixo do preço ao salvar (ou no último alarme)."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Anunță-mă când %1$@ scade cu %2$@."
+            "value" : "Anunță-mă când %1$@ scade cu %2$@ sub prețul de la salvare (sau de la ultima alarmă)."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Сообщить, когда %1$@ упадёт на %2$@."
+            "value" : "Сообщить, когда %1$@ опустится на %2$@ ниже цены при сохранении (или при последнем оповещении)."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Më njofto kur %1$@ të bjerë me %2$@."
+            "value" : "Më njofto kur %1$@ të bjerë me %2$@ nën çmimin në ruajtje (ose në alarmin e fundit)."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Meddela mig när %1$@ sjunker med %2$@."
+            "value" : "Meddela mig när %1$@ sjunker %2$@ under kursen vid sparandet (eller vid senaste larmet)."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "แจ้งฉันเมื่อ %1$@ ลง %2$@"
+            "value" : "แจ้งฉันเมื่อ %1$@ ลง %2$@ ต่ำกว่าราคาตอนบันทึก (หรือตอนแจ้งเตือนครั้งล่าสุด)"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ fiyatı %2$@ düştüğünde bana haber ver."
+            "value" : "%1$@ fiyatı kaydetme anındaki (veya son alarmdaki) fiyatın %2$@ altına indiğinde bana haber ver."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Повідомити, коли %1$@ впаде на %2$@."
+            "value" : "Повідомити, коли %1$@ опуститься на %2$@ нижче ціни під час збереження (або останнього сигналу)."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Báo cho tôi khi %1$@ giảm %2$@."
+            "value" : "Báo cho tôi khi %1$@ giảm %2$@ so với giá lúc lưu (hoặc lúc cảnh báo gần nhất)."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "当 %1$@ 下跌 %2$@ 时提醒我。"
+            "value" : "当 %1$@ 比保存时（或上次提醒时）的价格下跌 %2$@ 时提醒我。"
           }
         }
       }
@@ -40267,187 +40267,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "أبلغني عندما يرتفع %1$@ بنسبة %2$@."
+            "value" : "أبلغني عندما يرتفع %1$@ بنسبة %2$@ فوق السعر عند الحفظ (أو عند آخر تنبيه)."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Upozornit, až %1$@ stoupne o %2$@."
+            "value" : "Upozornit, až %1$@ stoupne o %2$@ nad cenu při uložení (nebo při posledním alarmu)."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Giv mig besked, når %1$@ stiger med %2$@."
+            "value" : "Giv mig besked, når %1$@ stiger %2$@ over kursen ved lagring (eller ved sidste alarm)."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sag mir Bescheid, wenn %1$@ um %2$@ steigt."
+            "value" : "Sag mir Bescheid, wenn %1$@ um %2$@ über den Kurs beim Speichern (bzw. beim letzten Alarm) steigt."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ειδοποίηση όταν το %1$@ ανέβει κατά %2$@."
+            "value" : "Ειδοποίηση όταν το %1$@ ανέβει κατά %2$@ πάνω από την τιμή κατά την αποθήκευση (ή στον τελευταίο συναγερμό)."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tell me when %1$@ rises by %2$@."
+            "value" : "Tell me when %1$@ rises %2$@ above the price when saved (or at the last alert)."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Avísame cuando %1$@ suba un %2$@."
+            "value" : "Avísame cuando %1$@ suba un %2$@ por encima del precio al guardar (o en la última alarma)."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "وقتی %1$@ به اندازه %2$@ بالا رفت، به من خبر بده."
+            "value" : "وقتی %1$@ به اندازه %2$@ بالاتر از قیمت هنگام ذخیره (یا آخرین هشدار) رفت، به من خبر بده."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ilmoita, kun %1$@ nousee vähintään %2$@."
+            "value" : "Ilmoita, kun %1$@ nousee vähintään %2$@ yli tallennushetken hinnan (tai viimeisimmän hälytyksen)."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Me prévenir quand %1$@ monte de %2$@."
+            "value" : "Me prévenir quand %1$@ monte de %2$@ au-dessus du prix à l’enregistrement (ou à la dernière alerte)."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "להודיע לי כש־%1$@ עולה ב־%2$@."
+            "value" : "להודיע לי כש־%1$@ עולה ב־%2$@ מעל המחיר בעת השמירה (או בהתראה האחרונה)."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "जब %1$@ %2$@ बढ़े, तो मुझे बताएँ।"
+            "value" : "जब %1$@ सेव करते समय के भाव (या पिछले अलार्म) से %2$@ ऊपर जाए, तो मुझे बताएँ।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ – értesítés, ha az ár %2$@ értékkel emelkedik."
+            "value" : "%1$@ – értesítés, ha az ár %2$@ értékkel a mentéskori (vagy az utolsó riasztáskori) ár fölé emelkedik."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beri tahu saya saat %1$@ naik %2$@."
+            "value" : "Beri tahu saya saat %1$@ naik %2$@ di atas harga saat disimpan (atau saat alarm terakhir)."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Avvisami quando %1$@ sale del %2$@."
+            "value" : "Avvisami quando %1$@ sale del %2$@ sopra il prezzo al salvataggio (o all’ultimo allarme)."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ が %2$@ 上昇したら知らせる。"
+            "value" : "%1$@ が保存時（または前回のアラーム時）の価格から %2$@ 上昇したら知らせる。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ 가격이 %2$@ 오르면 알려 주세요."
+            "value" : "%1$@ 가격이 저장 시점(또는 마지막 경보) 가격보다 %2$@ 오르면 알려 주세요."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gi meg beskjed når %1$@ stiger med %2$@."
+            "value" : "Gi meg beskjed når %1$@ stiger %2$@ over kursen ved lagring (eller ved siste alarm)."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Laat het me weten als %1$@ %2$@ stijgt."
+            "value" : "Laat het me weten als %1$@ %2$@ boven de koers bij het opslaan (of bij het laatste alarm) stijgt."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Powiadom mnie, gdy %1$@ wzrośnie o %2$@."
+            "value" : "Powiadom mnie, gdy %1$@ wzrośnie o %2$@ ponad cenę z chwili zapisania (lub ostatniego alarmu)."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Avisar-me quando %1$@ subir %2$@."
+            "value" : "Avisar-me quando %1$@ subir %2$@ acima do preço ao guardar (ou no último alarme)."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Avise-me quando %1$@ subir %2$@."
+            "value" : "Avise-me quando %1$@ subir %2$@ acima do preço ao salvar (ou no último alarme)."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Anunță-mă când %1$@ crește cu %2$@."
+            "value" : "Anunță-mă când %1$@ crește cu %2$@ peste prețul de la salvare (sau de la ultima alarmă)."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Сообщить, когда %1$@ вырастет на %2$@."
+            "value" : "Сообщить, когда %1$@ поднимется на %2$@ выше цены при сохранении (или при последнем оповещении)."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Më njofto kur %1$@ të rritet me %2$@."
+            "value" : "Më njofto kur %1$@ të rritet me %2$@ mbi çmimin në ruajtje (ose në alarmin e fundit)."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Meddela mig när %1$@ stiger med %2$@."
+            "value" : "Meddela mig när %1$@ stiger %2$@ över kursen vid sparandet (eller vid senaste larmet)."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "แจ้งฉันเมื่อ %1$@ ขึ้น %2$@"
+            "value" : "แจ้งฉันเมื่อ %1$@ ขึ้น %2$@ เหนือราคาตอนบันทึก (หรือตอนแจ้งเตือนครั้งล่าสุด)"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ fiyatı %2$@ yükseldiğinde bana haber ver."
+            "value" : "%1$@ fiyatı kaydetme anındaki (veya son alarmdaki) fiyatın %2$@ üstüne çıktığında bana haber ver."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Повідомити, коли %1$@ зросте на %2$@."
+            "value" : "Повідомити, коли %1$@ підніметься на %2$@ вище ціни під час збереження (або останнього сигналу)."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Báo cho tôi khi %1$@ tăng %2$@."
+            "value" : "Báo cho tôi khi %1$@ tăng %2$@ so với giá lúc lưu (hoặc lúc cảnh báo gần nhất)."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "当 %1$@ 上涨 %2$@ 时提醒我。"
+            "value" : "当 %1$@ 比保存时（或上次提醒时）的价格上涨 %2$@ 时提醒我。"
           }
         }
       }
@@ -41976,197 +41976,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "跌破"
-          }
-        }
-      }
-    },
-    "alarm_simple_direction_a11y" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "الاتجاه: %1$@"
-          }
-        },
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Směr: %1$@"
-          }
-        },
-        "da" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Retning: %1$@"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Richtung: %1$@"
-          }
-        },
-        "el" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Κατεύθυνση: %1$@"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Direction: %1$@"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Dirección: %1$@"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "جهت: %1$@"
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Suunta: %1$@"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sens : %1$@"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "כיוון: %1$@"
-          }
-        },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "दिशा: %1$@"
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Irány: %1$@"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Arah: %1$@"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Direzione: %1$@"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "方向：%1$@"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "방향: %1$@"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Retning: %1$@"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Richting: %1$@"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Kierunek: %1$@"
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Direção: %1$@"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Direção: %1$@"
-          }
-        },
-        "ro" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Direcție: %1$@"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Направление: %1$@"
-          }
-        },
-        "sq" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Drejtimi: %1$@"
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Riktning: %1$@"
-          }
-        },
-        "th" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ทิศทาง: %1$@"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Yön: %1$@"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Напрямок: %1$@"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Hướng: %1$@"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "方向：%1$@"
           }
         }
       }
@@ -46194,7 +46003,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Při zavřené aplikaci kontroluje Android nepravidelně – často později než po 15 minutách, i s «%1$@». Krátké výkyvy mohou uniknout."
+            "value" : "Při zavřené aplikaci kontroluje Android nepravidelně – často později než po 15 minutách, i s „%1$@“. Krátké výkyvy mohou uniknout."
           }
         },
         "da" : {
@@ -46236,7 +46045,7 @@
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sovellus suljettuna Android tarkistaa epäsäännöllisesti – usein yli 15 min välein, myös asetuksella «%1$@». Lyhyet piikit voivat jäädä huomaamatta."
+            "value" : "Sovellus suljettuna Android tarkistaa epäsäännöllisesti – usein yli 15 min välein, myös asetuksella ”%1$@”. Lyhyet piikit voivat jäädä huomaamatta."
           }
         },
         "fr" : {
@@ -46254,19 +46063,19 @@
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ऐप बंद होने पर Android अनियमित रूप से जाँचता है – अक्सर 15 मिनट से देर से, «%1$@» के साथ भी। छोटे उछाल छूट सकते हैं।"
+            "value" : "ऐप बंद होने पर Android अनियमित रूप से जाँचता है – अक्सर 15 मिनट से देर से, “%1$@” के साथ भी। छोटे उछाल छूट सकते हैं।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bezárt alkalmazásnál az Android rendszertelenül ellenőriz – gyakran 15 percnél később, «%1$@» mellett is. Rövid kiugrások kimaradhatnak."
+            "value" : "Bezárt alkalmazásnál az Android rendszertelenül ellenőriz – gyakran 15 percnél később, „%1$@” mellett is. Rövid kiugrások kimaradhatnak."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Saat aplikasi ditutup, Android memeriksa tidak teratur – sering lebih lambat dari 15 menit, bahkan dengan «%1$@». Lonjakan singkat bisa terlewat."
+            "value" : "Saat aplikasi ditutup, Android memeriksa tidak teratur – sering lebih lambat dari 15 menit, bahkan dengan “%1$@”. Lonjakan singkat bisa terlewat."
           }
         },
         "it" : {
@@ -46284,7 +46093,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "앱을 닫으면 Android는 불규칙하게 확인하며, «%1$@»을 켜도 15분보다 늦을 때가 많습니다. 짧은 급등락을 놓칠 수 있습니다."
+            "value" : "앱을 닫으면 Android는 불규칙하게 확인하며, “%1$@”을 켜도 15분보다 늦을 때가 많습니다. 짧은 급등락을 놓칠 수 있습니다."
           }
         },
         "nb" : {
@@ -46302,7 +46111,7 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Przy zamkniętej aplikacji Android sprawdza nieregularnie – często później niż po 15 minutach, nawet z «%1$@». Krótkie skoki mogą umknąć."
+            "value" : "Przy zamkniętej aplikacji Android sprawdza nieregularnie – często później niż po 15 minutach, nawet z „%1$@”. Krótkie skoki mogą umknąć."
           }
         },
         "pt" : {
@@ -46314,13 +46123,13 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Com o app fechado, o Android verifica de forma irregular – muitas vezes após mais de 15 minutos, mesmo com «%1$@». Picos curtos podem passar."
+            "value" : "Com o app fechado, o Android verifica de forma irregular – muitas vezes após mais de 15 minutos, mesmo com “%1$@”. Picos curtos podem passar."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cu aplicația închisă, Android verifică neregulat – adesea mai târziu de 15 minute, chiar și cu «%1$@». Salturile scurte pot fi ratate."
+            "value" : "Cu aplicația închisă, Android verifică neregulat – adesea mai târziu de 15 minute, chiar și cu „%1$@”. Salturile scurte pot fi ratate."
           }
         },
         "ru" : {
@@ -46338,19 +46147,19 @@
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "När appen är stängd kontrollerar Android oregelbundet – ofta senare än efter 15 minuter, även med «%1$@». Korta toppar kan missas."
+            "value" : "När appen är stängd kontrollerar Android oregelbundet – ofta senare än efter 15 minuter, även med ”%1$@”. Korta toppar kan missas."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "เมื่อปิดแอป Android จะตรวจไม่สม่ำเสมอ – มักช้ากว่า 15 นาที แม้เปิด «%1$@» อาจพลาดการพุ่งขึ้นลงช่วงสั้น ๆ"
+            "value" : "เมื่อปิดแอป Android จะตรวจไม่สม่ำเสมอ – มักช้ากว่า 15 นาที แม้เปิด “%1$@” อาจพลาดการพุ่งขึ้นลงช่วงสั้น ๆ"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Uygulama kapalıyken Android düzensiz kontrol eder – «%1$@» açıkken bile çoğu zaman 15 dakikadan geç. Kısa sıçramalar kaçabilir."
+            "value" : "Uygulama kapalıyken Android düzensiz kontrol eder – “%1$@” açıkken bile çoğu zaman 15 dakikadan geç. Kısa sıçramalar kaçabilir."
           }
         },
         "uk" : {
@@ -46362,13 +46171,13 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Khi đóng ứng dụng, Android kiểm tra không đều – thường muộn hơn 15 phút, kể cả khi bật «%1$@». Có thể bỏ lỡ các biến động ngắn."
+            "value" : "Khi đóng ứng dụng, Android kiểm tra không đều – thường muộn hơn 15 phút, kể cả khi bật “%1$@”. Có thể bỏ lỡ các biến động ngắn."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "应用关闭时，Android 的检查不规律——即使开启«%1$@»，也常常晚于 15 分钟。可能错过短暂的波动。"
+            "value" : "应用关闭时，Android 的检查不规律——即使开启「%1$@」，也常常晚于 15 分钟。可能错过短暂的波动。"
           }
         }
       }
@@ -54937,7 +54746,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Příliš snadné uhodnout – ne jen číslice, ne jeden opakovaný znak, žádná běžná řada jako «12345678» nebo «heslo»."
+            "value" : "Příliš snadné uhodnout – ne jen číslice, ne jeden opakovaný znak, žádná běžná řada jako „12345678“ nebo „heslo“."
           }
         },
         "da" : {
@@ -54979,7 +54788,7 @@
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Liian helppo arvata – ei pelkkiä numeroita, ei yhtä toistettua merkkiä eikä tavallista sarjaa kuten «12345678» tai «salasana»."
+            "value" : "Liian helppo arvata – ei pelkkiä numeroita, ei yhtä toistettua merkkiä eikä tavallista sarjaa kuten ”12345678” tai ”salasana”."
           }
         },
         "fr" : {
@@ -54997,19 +54806,19 @@
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "अनुमान लगाना बहुत आसान – सिर्फ़ अंक नहीं, एक ही दोहराया अक्षर नहीं, «12345678» या «password» जैसा आम क्रम नहीं।"
+            "value" : "अनुमान लगाना बहुत आसान – सिर्फ़ अंक नहीं, एक ही दोहराया अक्षर नहीं, “12345678” या “password” जैसा आम क्रम नहीं।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Túl könnyű kitalálni – ne csak számjegy, ne egy ismételt karakter, ne gyakori sor, mint «12345678» vagy «jelszo»."
+            "value" : "Túl könnyű kitalálni – ne csak számjegy, ne egy ismételt karakter, ne gyakori sor, mint „12345678” vagy „jelszo”."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Terlalu mudah ditebak – jangan hanya angka, jangan satu karakter berulang, jangan urutan umum seperti «12345678» atau «password»."
+            "value" : "Terlalu mudah ditebak – jangan hanya angka, jangan satu karakter berulang, jangan urutan umum seperti “12345678” atau “password”."
           }
         },
         "it" : {
@@ -55027,7 +54836,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "너무 쉽게 추측됩니다. 숫자만, 같은 문자 반복, «12345678»이나 «password» 같은 흔한 순서는 안 됩니다."
+            "value" : "너무 쉽게 추측됩니다. 숫자만, 같은 문자 반복, “12345678”이나 “password” 같은 흔한 순서는 안 됩니다."
           }
         },
         "nb" : {
@@ -55045,7 +54854,7 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Zbyt łatwe do odgadnięcia – nie same cyfry, nie jeden powtarzany znak, bez typowych ciągów jak «12345678» czy «haslo»."
+            "value" : "Zbyt łatwe do odgadnięcia – nie same cyfry, nie jeden powtarzany znak, bez typowych ciągów jak „12345678” czy „haslo”."
           }
         },
         "pt" : {
@@ -55057,13 +54866,13 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fácil demais de adivinhar – não só números, não um único caractere repetido, nada de sequências comuns como «12345678» ou «senha»."
+            "value" : "Fácil demais de adivinhar – não só números, não um único caractere repetido, nada de sequências comuns como “12345678” ou “senha”."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Prea ușor de ghicit – nu doar cifre, nu un singur caracter repetat, fără secvențe comune ca «12345678» sau «parola»."
+            "value" : "Prea ușor de ghicit – nu doar cifre, nu un singur caracter repetat, fără secvențe comune ca „12345678” sau „parola”."
           }
         },
         "ru" : {
@@ -55081,19 +54890,19 @@
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "För lätt att gissa – inte bara siffror, inte ett upprepat tecken, ingen vanlig följd som «12345678» eller «lösenord»."
+            "value" : "För lätt att gissa – inte bara siffror, inte ett upprepat tecken, ingen vanlig följd som ”12345678” eller ”lösenord”."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "เดาง่ายเกินไป – ไม่ใช่ตัวเลขล้วน ไม่ใช่อักขระซ้ำตัวเดียว ไม่ใช่ลำดับทั่วไปอย่าง «12345678» หรือ «password»"
+            "value" : "เดาง่ายเกินไป – ไม่ใช่ตัวเลขล้วน ไม่ใช่อักขระซ้ำตัวเดียว ไม่ใช่ลำดับทั่วไปอย่าง “12345678” หรือ “password”"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tahmini çok kolay – yalnızca rakam olmasın, tek bir tekrar eden karakter olmasın, «12345678» ya da «sifre» gibi yaygın diziler olmasın."
+            "value" : "Tahmini çok kolay – yalnızca rakam olmasın, tek bir tekrar eden karakter olmasın, “12345678” ya da “sifre” gibi yaygın diziler olmasın."
           }
         },
         "uk" : {
@@ -55105,13 +54914,13 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Quá dễ đoán – không chỉ toàn số, không một ký tự lặp lại, không dãy phổ biến như «12345678» hay «password»."
+            "value" : "Quá dễ đoán – không chỉ toàn số, không một ký tự lặp lại, không dãy phổ biến như “12345678” hay “password”."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "太容易被猜到——不能只有数字、不能是同一字符重复、不能是 «12345678» 或 «password» 这类常见序列。"
+            "value" : "太容易被猜到——不能只有数字、不能是同一字符重复、不能是 「12345678」 或 「password」 这类常见序列。"
           }
         }
       }
@@ -60298,7 +60107,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Android může kontroly zpozdit – nastav baterii na «Neomezeno»"
+            "value" : "Android může kontroly zpozdit – nastav baterii na „Neomezeno“"
           }
         },
         "da" : {
@@ -60340,7 +60149,7 @@
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Android voi viivästyttää tarkistuksia – aseta akku tilaan «Rajoittamaton»"
+            "value" : "Android voi viivästyttää tarkistuksia – aseta akku tilaan ”Rajoittamaton”"
           }
         },
         "fr" : {
@@ -60358,19 +60167,19 @@
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Android जाँच में देरी कर सकता है – बैटरी को «अप्रतिबंधित» पर सेट करें"
+            "value" : "Android जाँच में देरी कर सकता है – बैटरी को “अप्रतिबंधित” पर सेट करें"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Az Android késleltetheti az ellenőrzést – állítsd az akkut erre: «Korlátlan»"
+            "value" : "Az Android késleltetheti az ellenőrzést – állítsd az akkut erre: „Korlátlan”"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Android dapat menunda pemeriksaan – atur baterai ke «Tidak dibatasi»"
+            "value" : "Android dapat menunda pemeriksaan – atur baterai ke “Tidak dibatasi”"
           }
         },
         "it" : {
@@ -60388,7 +60197,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Android가 확인을 지연할 수 있습니다 – 배터리를 «제한 없음»(으)로 설정하세요"
+            "value" : "Android가 확인을 지연할 수 있습니다 – 배터리를 “제한 없음”(으)로 설정하세요"
           }
         },
         "nb" : {
@@ -60406,7 +60215,7 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Android może opóźniać sprawdzanie – ustaw baterię na «Bez ograniczeń»"
+            "value" : "Android może opóźniać sprawdzanie – ustaw baterię na „Bez ograniczeń”"
           }
         },
         "pt" : {
@@ -60418,13 +60227,13 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "O Android pode atrasar as verificações – ajuste a bateria para «Sem restrições»"
+            "value" : "O Android pode atrasar as verificações – ajuste a bateria para “Sem restrições”"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Android poate întârzia verificările – setează bateria la «Nerestricționat»"
+            "value" : "Android poate întârzia verificările – setează bateria la „Nerestricționat”"
           }
         },
         "ru" : {
@@ -60442,19 +60251,19 @@
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Android kan fördröja kontroller – ställ batteriet på «Obegränsad»"
+            "value" : "Android kan fördröja kontroller – ställ batteriet på ”Obegränsad”"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Android อาจหน่วงการตรวจสอบ – ตั้งค่าแบตเตอรี่เป็น «ไม่จำกัด»"
+            "value" : "Android อาจหน่วงการตรวจสอบ – ตั้งค่าแบตเตอรี่เป็น “ไม่จำกัด”"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Android kontrolleri geciktirebilir – pili «Kısıtlanmamış» olarak ayarla"
+            "value" : "Android kontrolleri geciktirebilir – pili “Kısıtlanmamış” olarak ayarla"
           }
         },
         "uk" : {
@@ -60466,13 +60275,13 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Android có thể trì hoãn việc kiểm tra – đặt pin thành «Không hạn chế»"
+            "value" : "Android có thể trì hoãn việc kiểm tra – đặt pin thành “Không hạn chế”"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Android 可能会延迟检查——请将电池设为 «无限制»"
+            "value" : "Android 可能会延迟检查——请将电池设为 「无限制」"
           }
         }
       }
@@ -111522,7 +111331,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Counts new price alerts and market alerts; back to 0 when you open the app."
+            "value" : "Counts new alerts and market alerts; back to 0 when you open the app."
           }
         },
         "es" : {
@@ -112835,7 +112644,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: zadáno více burz – oceněno podle Binance. Přesunuté mince? Zapiš to jako «Převod»."
+            "value" : "%1$@: zadáno více burz – oceněno podle Binance. Přesunuté mince? Zapiš to jako „Převod“."
           }
         },
         "da" : {
@@ -112877,7 +112686,7 @@
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: useita pörssejä merkitty – arvostettu Binancella. Siirsitkö kolikoita? Kirjaa siirto tyypillä «Siirto»."
+            "value" : "%1$@: useita pörssejä merkitty – arvostettu Binancella. Siirsitkö kolikoita? Kirjaa siirto tyypillä ”Siirto”."
           }
         },
         "fr" : {
@@ -112895,19 +112704,19 @@
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: कई एक्सचेंज दर्ज – Binance से आँका गया। कॉइन कहीं और भेजे? इसे «ट्रांसफ़र» के रूप में दर्ज करें।"
+            "value" : "%1$@: कई एक्सचेंज दर्ज – Binance से आँका गया। कॉइन कहीं और भेजे? इसे “ट्रांसफ़र” के रूप में दर्ज करें।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: több tőzsde megadva – Binance alapján értékelve. Áthelyezted a coinokat? Rögzítsd «Átvezetés» típussal."
+            "value" : "%1$@: több tőzsde megadva – Binance alapján értékelve. Áthelyezted a coinokat? Rögzítsd „Átvezetés” típussal."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: beberapa bursa dicatat – dinilai dengan Binance. Memindahkan koin? Catat sebagai «Transfer»."
+            "value" : "%1$@: beberapa bursa dicatat – dinilai dengan Binance. Memindahkan koin? Catat sebagai “Transfer”."
           }
         },
         "it" : {
@@ -112925,7 +112734,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: 여러 거래소가 입력되어 Binance로 평가했습니다. 코인을 옮겼나요? «이체»로 기록하세요."
+            "value" : "%1$@: 여러 거래소가 입력되어 Binance로 평가했습니다. 코인을 옮겼나요? “이체”로 기록하세요."
           }
         },
         "nb" : {
@@ -112943,7 +112752,7 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: wpisano kilka giełd – wycenione według Binance. Przeniesione monety? Zapisz to jako «Przeniesienie»."
+            "value" : "%1$@: wpisano kilka giełd – wycenione według Binance. Przeniesione monety? Zapisz to jako „Przeniesienie”."
           }
         },
         "pt" : {
@@ -112955,13 +112764,13 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: várias corretoras informadas – avaliado com a Binance. Moveu moedas? Registre a movimentação como «Transferência»."
+            "value" : "%1$@: várias corretoras informadas – avaliado com a Binance. Moveu moedas? Registre a movimentação como “Transferência”."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: mai multe burse introduse – evaluat cu Binance. Ai mutat monede? Înregistrează mutarea ca «Transfer»."
+            "value" : "%1$@: mai multe burse introduse – evaluat cu Binance. Ai mutat monede? Înregistrează mutarea ca „Transfer”."
           }
         },
         "ru" : {
@@ -112979,19 +112788,19 @@
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: flera börser angivna – värderat med Binance. Flyttat mynt? Registrera flytten som «Överföring»."
+            "value" : "%1$@: flera börser angivna – värderat med Binance. Flyttat mynt? Registrera flytten som ”Överföring”."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: ระบุหลายกระดานเทรด – ประเมินด้วย Binance ย้ายเหรียญหรือเปล่า? บันทึกเป็น «โอนย้าย»"
+            "value" : "%1$@: ระบุหลายกระดานเทรด – ประเมินด้วย Binance ย้ายเหรียญหรือเปล่า? บันทึกเป็น “โอนย้าย”"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: birden fazla borsa girildi – Binance ile değerlendi. Coin'leri taşıdın mı? Bunu «Transfer» olarak kaydet."
+            "value" : "%1$@: birden fazla borsa girildi – Binance ile değerlendi. Coin'leri taşıdın mı? Bunu “Transfer” olarak kaydet."
           }
         },
         "uk" : {
@@ -113003,13 +112812,13 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@: đã nhập nhiều sàn – định giá theo Binance. Đã chuyển coin? Hãy ghi lại là «Chuyển»."
+            "value" : "%1$@: đã nhập nhiều sàn – định giá theo Binance. Đã chuyển coin? Hãy ghi lại là “Chuyển”."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@：填写了多个交易所——按 Binance 估值。移动过币？请记录为 «转移»。"
+            "value" : "%1$@：填写了多个交易所——按 Binance 估值。移动过币？请记录为 「转移」。"
           }
         }
       }
@@ -115127,7 +114936,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "«Od nákupu» počítá jen část s nákupní cenou – bez %1$@ bez nákupní ceny."
+            "value" : "„Od nákupu“ počítá jen část s nákupní cenou – bez %1$@ bez nákupní ceny."
           }
         },
         "da" : {
@@ -115169,7 +114978,7 @@
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "«Ostosta» laskee vain osan, jolla on ostohinta – ilman %1$@ ilman ostohintaa."
+            "value" : "”Ostosta” laskee vain osan, jolla on ostohinta – ilman %1$@ ilman ostohintaa."
           }
         },
         "fr" : {
@@ -115187,19 +114996,19 @@
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "«खरीद से» सिर्फ़ खरीद भाव वाले हिस्से को गिनता है – बिना खरीद भाव वाले %1$@ के बिना।"
+            "value" : "“खरीद से” सिर्फ़ खरीद भाव वाले हिस्से को गिनता है – बिना खरीद भाव वाले %1$@ के बिना।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "«Vétel óta» csak a vételi árral rendelkező részt számolja – %1$@ nélkül (vételi ár nélküli)."
+            "value" : "„Vétel óta” csak a vételi árral rendelkező részt számolja – %1$@ nélkül (vételi ár nélküli)."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "«Sejak beli» hanya menghitung bagian yang punya harga beli – tanpa %1$@ yang tidak punya harga beli."
+            "value" : "“Sejak beli” hanya menghitung bagian yang punya harga beli – tanpa %1$@ yang tidak punya harga beli."
           }
         },
         "it" : {
@@ -115217,7 +115026,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "«매수 이후»은(는) 매수가가 있는 부분만 계산합니다 – 매수가 없는 %1$@ 제외."
+            "value" : "“매수 이후”은(는) 매수가가 있는 부분만 계산합니다 – 매수가 없는 %1$@ 제외."
           }
         },
         "nb" : {
@@ -115235,7 +115044,7 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "«Od zakupu» liczy tylko część z ceną zakupu – bez %1$@ bez ceny zakupu."
+            "value" : "„Od zakupu” liczy tylko część z ceną zakupu – bez %1$@ bez ceny zakupu."
           }
         },
         "pt" : {
@@ -115247,13 +115056,13 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "«Desde a compra» conta só a parte com preço de compra – sem %1$@ sem preço de compra."
+            "value" : "“Desde a compra” conta só a parte com preço de compra – sem %1$@ sem preço de compra."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "«De la cumpărare» ia în calcul doar partea cu preț de cumpărare – fără %1$@ fără preț de cumpărare."
+            "value" : "„De la cumpărare” ia în calcul doar partea cu preț de cumpărare – fără %1$@ fără preț de cumpărare."
           }
         },
         "ru" : {
@@ -115271,19 +115080,19 @@
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "«Sedan köp» räknar bara delen med köppris – utan %1$@ utan köppris."
+            "value" : "”Sedan köp” räknar bara delen med köppris – utan %1$@ utan köppris."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "«ตั้งแต่ซื้อ» นับเฉพาะส่วนที่มีราคาซื้อ – ไม่รวม %1$@ ที่ไม่มีราคาซื้อ"
+            "value" : "“ตั้งแต่ซื้อ” นับเฉพาะส่วนที่มีราคาซื้อ – ไม่รวม %1$@ ที่ไม่มีราคาซื้อ"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "«Alıştan beri» yalnızca alış fiyatı olan kısmı sayar – alış fiyatı olmayan %1$@ hariç."
+            "value" : "“Alıştan beri” yalnızca alış fiyatı olan kısmı sayar – alış fiyatı olmayan %1$@ hariç."
           }
         },
         "uk" : {
@@ -115295,13 +115104,13 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "«Từ khi mua» chỉ tính phần có giá mua – không gồm %1$@ chưa có giá mua."
+            "value" : "“Từ khi mua” chỉ tính phần có giá mua – không gồm %1$@ chưa có giá mua."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "«自买入» 只计算有买入价的部分——不含无买入价的 %1$@。"
+            "value" : "「自买入」 只计算有买入价的部分——不含无买入价的 %1$@。"
           }
         }
       }
@@ -117224,7 +117033,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Součást aplikace: ikony z «Cryptocurrency Icons» od Christophera Downera a přispěvatelů (github.com/spothq/cryptocurrency-icons), vydané pod CC0 1.0 Universal. Zobrazují se, dokud se nenačtou loga z CoinGecko nebo Binance. Názvy a loga zůstávají ochrannými známkami svých projektů."
+            "value" : "Součást aplikace: ikony z „Cryptocurrency Icons“ od Christophera Downera a přispěvatelů (github.com/spothq/cryptocurrency-icons), vydané pod CC0 1.0 Universal. Zobrazují se, dokud se nenačtou loga z CoinGecko nebo Binance. Názvy a loga zůstávají ochrannými známkami svých projektů."
           }
         },
         "da" : {
@@ -117266,7 +117075,7 @@
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sovelluksen mukana: kuvakkeet kokoelmasta «Cryptocurrency Icons» (Christopher Downer ja muut tekijät, github.com/spothq/cryptocurrency-icons), julkaistu lisenssillä CC0 1.0 Universal. Ne näkyvät, kunnes CoinGeckon tai Binancen logot on ladattu. Nimet ja logot ovat edelleen projektiensa tavaramerkkejä."
+            "value" : "Sovelluksen mukana: kuvakkeet kokoelmasta ”Cryptocurrency Icons” (Christopher Downer ja muut tekijät, github.com/spothq/cryptocurrency-icons), julkaistu lisenssillä CC0 1.0 Universal. Ne näkyvät, kunnes CoinGeckon tai Binancen logot on ladattu. Nimet ja logot ovat edelleen projektiensa tavaramerkkejä."
           }
         },
         "fr" : {
@@ -117284,19 +117093,19 @@
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ऐप के साथ शामिल: Christopher Downer और योगदानकर्ताओं के «Cryptocurrency Icons» (github.com/spothq/cryptocurrency-icons) से आइकन, जो CC0 1.0 Universal के तहत जारी हैं। ये तब तक दिखते हैं जब तक CoinGecko या Binance के लोगो लोड नहीं हो जाते। नाम और लोगो अपने-अपने प्रोजेक्ट के ट्रेडमार्क बने रहते हैं।"
+            "value" : "ऐप के साथ शामिल: Christopher Downer और योगदानकर्ताओं के “Cryptocurrency Icons” (github.com/spothq/cryptocurrency-icons) से आइकन, जो CC0 1.0 Universal के तहत जारी हैं। ये तब तक दिखते हैं जब तक CoinGecko या Binance के लोगो लोड नहीं हो जाते। नाम और लोगो अपने-अपने प्रोजेक्ट के ट्रेडमार्क बने रहते हैं।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Az alkalmazás része: ikonok a «Cryptocurrency Icons» gyűjteményből (Christopher Downer és közreműködők, github.com/spothq/cryptocurrency-icons), CC0 1.0 Universal licenccel. Addig látszanak, amíg a CoinGecko vagy a Binance logói be nem töltődnek. A nevek és logók a projektjeik védjegyei maradnak."
+            "value" : "Az alkalmazás része: ikonok a „Cryptocurrency Icons” gyűjteményből (Christopher Downer és közreműködők, github.com/spothq/cryptocurrency-icons), CC0 1.0 Universal licenccel. Addig látszanak, amíg a CoinGecko vagy a Binance logói be nem töltődnek. A nevek és logók a projektjeik védjegyei maradnak."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Disertakan dalam aplikasi: ikon dari «Cryptocurrency Icons» oleh Christopher Downer dan kontributor (github.com/spothq/cryptocurrency-icons), dirilis di bawah CC0 1.0 Universal. Ikon ini tampil sampai logo dari CoinGecko atau Binance dimuat. Nama dan logo tetap merupakan merek dagang proyek masing-masing."
+            "value" : "Disertakan dalam aplikasi: ikon dari “Cryptocurrency Icons” oleh Christopher Downer dan kontributor (github.com/spothq/cryptocurrency-icons), dirilis di bawah CC0 1.0 Universal. Ikon ini tampil sampai logo dari CoinGecko atau Binance dimuat. Nama dan logo tetap merupakan merek dagang proyek masing-masing."
           }
         },
         "it" : {
@@ -117314,7 +117123,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "앱에 포함: Christopher Downer와 기여자들의 «Cryptocurrency Icons»(github.com/spothq/cryptocurrency-icons) 아이콘으로, CC0 1.0 Universal로 공개되었습니다. CoinGecko 또는 Binance 로고를 불러올 때까지 표시됩니다. 이름과 로고는 각 프로젝트의 상표로 남습니다."
+            "value" : "앱에 포함: Christopher Downer와 기여자들의 “Cryptocurrency Icons”(github.com/spothq/cryptocurrency-icons) 아이콘으로, CC0 1.0 Universal로 공개되었습니다. CoinGecko 또는 Binance 로고를 불러올 때까지 표시됩니다. 이름과 로고는 각 프로젝트의 상표로 남습니다."
           }
         },
         "nb" : {
@@ -117332,7 +117141,7 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dołączone do aplikacji: ikony z «Cryptocurrency Icons» autorstwa Christophera Downera i współtwórców (github.com/spothq/cryptocurrency-icons), udostępnione na licencji CC0 1.0 Universal. Są widoczne, dopóki nie wczytają się loga z CoinGecko lub Binance. Nazwy i loga pozostają znakami towarowymi swoich projektów."
+            "value" : "Dołączone do aplikacji: ikony z „Cryptocurrency Icons” autorstwa Christophera Downera i współtwórców (github.com/spothq/cryptocurrency-icons), udostępnione na licencji CC0 1.0 Universal. Są widoczne, dopóki nie wczytają się loga z CoinGecko lub Binance. Nazwy i loga pozostają znakami towarowymi swoich projektów."
           }
         },
         "pt" : {
@@ -117344,13 +117153,13 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Incluídos no app: ícones de «Cryptocurrency Icons» de Christopher Downer e colaboradores (github.com/spothq/cryptocurrency-icons), publicados sob CC0 1.0 Universal. Eles aparecem até os logos da CoinGecko ou da Binance serem carregados. Nomes e logos continuam sendo marcas dos respectivos projetos."
+            "value" : "Incluídos no app: ícones de “Cryptocurrency Icons” de Christopher Downer e colaboradores (github.com/spothq/cryptocurrency-icons), publicados sob CC0 1.0 Universal. Eles aparecem até os logos da CoinGecko ou da Binance serem carregados. Nomes e logos continuam sendo marcas dos respectivos projetos."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Incluse în aplicație: pictograme din «Cryptocurrency Icons» de Christopher Downer și colaboratori (github.com/spothq/cryptocurrency-icons), publicate sub CC0 1.0 Universal. Sunt afișate până se încarcă logourile de la CoinGecko sau Binance. Numele și logourile rămân mărci ale proiectelor lor."
+            "value" : "Incluse în aplicație: pictograme din „Cryptocurrency Icons” de Christopher Downer și colaboratori (github.com/spothq/cryptocurrency-icons), publicate sub CC0 1.0 Universal. Sunt afișate până se încarcă logourile de la CoinGecko sau Binance. Numele și logourile rămân mărci ale proiectelor lor."
           }
         },
         "ru" : {
@@ -117368,19 +117177,19 @@
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ingår i appen: ikoner från «Cryptocurrency Icons» av Christopher Downer med bidragsgivare (github.com/spothq/cryptocurrency-icons), släppta under CC0 1.0 Universal. De visas tills logotyper från CoinGecko eller Binance har hämtats. Namn och logotyper förblir varumärken för respektive projekt."
+            "value" : "Ingår i appen: ikoner från ”Cryptocurrency Icons” av Christopher Downer med bidragsgivare (github.com/spothq/cryptocurrency-icons), släppta under CC0 1.0 Universal. De visas tills logotyper från CoinGecko eller Binance har hämtats. Namn och logotyper förblir varumärken för respektive projekt."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "รวมมากับแอป: ไอคอนจาก «Cryptocurrency Icons» โดย Christopher Downer และผู้ร่วมพัฒนา (github.com/spothq/cryptocurrency-icons) ซึ่งเผยแพร่ภายใต้ CC0 1.0 Universal จะแสดงจนกว่าโลโก้จาก CoinGecko หรือ Binance จะโหลดเสร็จ ชื่อและโลโก้ยังคงเป็นเครื่องหมายการค้าของโครงการนั้น ๆ"
+            "value" : "รวมมากับแอป: ไอคอนจาก “Cryptocurrency Icons” โดย Christopher Downer และผู้ร่วมพัฒนา (github.com/spothq/cryptocurrency-icons) ซึ่งเผยแพร่ภายใต้ CC0 1.0 Universal จะแสดงจนกว่าโลโก้จาก CoinGecko หรือ Binance จะโหลดเสร็จ ชื่อและโลโก้ยังคงเป็นเครื่องหมายการค้าของโครงการนั้น ๆ"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Uygulamayla birlikte gelir: Christopher Downer ve katkıda bulunanların «Cryptocurrency Icons» setinden simgeler (github.com/spothq/cryptocurrency-icons); CC0 1.0 Universal ile yayımlanmıştır. CoinGecko veya Binance logoları yüklenene kadar gösterilir. Adlar ve logolar ilgili projelerin markaları olarak kalır."
+            "value" : "Uygulamayla birlikte gelir: Christopher Downer ve katkıda bulunanların “Cryptocurrency Icons” setinden simgeler (github.com/spothq/cryptocurrency-icons); CC0 1.0 Universal ile yayımlanmıştır. CoinGecko veya Binance logoları yüklenene kadar gösterilir. Adlar ve logolar ilgili projelerin markaları olarak kalır."
           }
         },
         "uk" : {
@@ -117392,13 +117201,13 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Đi kèm ứng dụng: biểu tượng từ «Cryptocurrency Icons» của Christopher Downer và những người đóng góp (github.com/spothq/cryptocurrency-icons), phát hành theo CC0 1.0 Universal. Chúng hiển thị cho đến khi logo từ CoinGecko hoặc Binance được tải. Tên và logo vẫn là nhãn hiệu của các dự án tương ứng."
+            "value" : "Đi kèm ứng dụng: biểu tượng từ “Cryptocurrency Icons” của Christopher Downer và những người đóng góp (github.com/spothq/cryptocurrency-icons), phát hành theo CC0 1.0 Universal. Chúng hiển thị cho đến khi logo từ CoinGecko hoặc Binance được tải. Tên và logo vẫn là nhãn hiệu của các dự án tương ứng."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "随应用附带：Christopher Downer 及贡献者的 «Cryptocurrency Icons»（github.com/spothq/cryptocurrency-icons）中的图标，以 CC0 1.0 Universal 发布。在 CoinGecko 或 Binance 的图标加载前显示。名称和标志仍为各自项目的商标。"
+            "value" : "随应用附带：Christopher Downer 及贡献者的 「Cryptocurrency Icons」（github.com/spothq/cryptocurrency-icons）中的图标，以 CC0 1.0 Universal 发布。在 CoinGecko 或 Binance 的图标加载前显示。名称和标志仍为各自项目的商标。"
           }
         }
       }
@@ -140714,7 +140523,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "O app mostra apenas a contagem e não a chama de «temporada». O valor costuma mudar ao longo de dias, não de horas."
+            "value" : "O app mostra apenas a contagem e não a chama de “temporada”. O valor costuma mudar ao longo de dias, não de horas."
           }
         },
         "ro" : {
@@ -146700,187 +146509,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "لكي تصلك التنبيهات وإشعارات الأسعار، يحتاج التطبيق إلى إذن الإشعارات. تُستخدم فقط لتنبيهاتك الخاصة."
+            "value" : "لكي تصلك التنبيهات وإشعارات الأسعار، يحتاج التطبيق إلى إذن الإشعارات. يستخدمها التطبيق فقط لتنبيهاتك وإشعارات الأسعار."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Aby k vám upozornění a cenová oznámení dorazila, aplikace potřebuje povolení k oznámením. Používají se jen pro vaše vlastní upozornění."
+            "value" : "Aby k vám upozornění a cenová oznámení dorazila, aplikace potřebuje povolení k oznámením. Aplikace je používá jen pro vaše upozornění a cenová oznámení."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "For at alarmer og kursnotifikationer kan nå frem, skal appen have tilladelse til notifikationer. De bruges kun til dine egne alarmer."
+            "value" : "For at alarmer og kursnotifikationer kan nå frem, skal appen have tilladelse til notifikationer. Appen bruger dem kun til dine alarmer og kursnotifikationer."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Damit Alarme und Kursmitteilungen ankommen, braucht die App die Erlaubnis für Mitteilungen. Sie werden nur für deine eigenen Alarme genutzt."
+            "value" : "Damit Alarme und Kursmitteilungen ankommen, braucht die App die Erlaubnis für Mitteilungen. Die App nutzt sie nur für deine Alarme und Kursmitteilungen."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Για να σας φτάνουν οι συναγερμοί και οι ειδοποιήσεις τιμής, η εφαρμογή χρειάζεται άδεια για ειδοποιήσεις. Χρησιμοποιούνται μόνο για τους δικούς σας συναγερμούς."
+            "value" : "Για να σας φτάνουν οι συναγερμοί και οι ειδοποιήσεις τιμής, η εφαρμογή χρειάζεται άδεια για ειδοποιήσεις. Η εφαρμογή τις χρησιμοποιεί μόνο για τους συναγερμούς σας και τις ειδοποιήσεις τιμής."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "So that alerts and price notifications reach you, the app needs permission to send notifications. They are only used for your own alerts."
+            "value" : "So that alerts and price notifications reach you, the app needs permission to send notifications. The app only uses them for your alerts and price notifications."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Para que te lleguen las alarmas y las notificaciones de precio, la app necesita permiso para enviar notificaciones. Solo se usan para tus propias alarmas."
+            "value" : "Para que te lleguen las alarmas y las notificaciones de precio, la app necesita permiso para enviar notificaciones. La app solo las usa para tus alarmas y notificaciones de precio."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "برای اینکه هشدارها و اعلان‌های قیمت به شما برسند، برنامه به اجازهٔ اعلان‌ها نیاز دارد. این اعلان‌ها فقط برای هشدارهای خودتان استفاده می‌شوند."
+            "value" : "برای اینکه هشدارها و اعلان‌های قیمت به شما برسند، برنامه به اجازهٔ اعلان‌ها نیاز دارد. برنامه فقط برای هشدارها و اعلان‌های قیمت شما از آن‌ها استفاده می‌کند."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Jotta hälytykset ja hintailmoitukset tavoittavat sinut, sovellus tarvitsee luvan ilmoituksiin. Niitä käytetään vain omiin hälytyksiisi."
+            "value" : "Jotta hälytykset ja hintailmoitukset tavoittavat sinut, sovellus tarvitsee luvan ilmoituksiin. Sovellus käyttää niitä vain hälytyksiisi ja hintailmoituksiin."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Pour que les alertes et les notifications de prix vous parviennent, l’app a besoin de l’autorisation d’envoyer des notifications. Elles ne servent qu’à vos propres alertes."
+            "value" : "Pour que les alertes et les notifications de prix vous parviennent, l’app a besoin de l’autorisation d’envoyer des notifications. L’app ne les utilise que pour vos alertes et vos notifications de prix."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "כדי שההתראות שהגדרת ועדכוני המחיר יגיעו אליך, האפליקציה צריכה הרשאה להתראות מערכת. הן משמשות רק להתראות שהגדרת בעצמך."
+            "value" : "כדי שההתראות שהגדרת ועדכוני המחיר יגיעו אליך, האפליקציה צריכה הרשאה להתראות מערכת. האפליקציה משתמשת בהן רק להתראות שהגדרת ולעדכוני המחיר."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "अलार्म और प्राइस नोटिफ़िकेशन आप तक पहुँचें, इसके लिए ऐप को नोटिफ़िकेशन की अनुमति चाहिए। इनका उपयोग केवल आपके अपने अलार्म के लिए होता है।"
+            "value" : "अलार्म और प्राइस नोटिफ़िकेशन आप तक पहुँचें, इसके लिए ऐप को नोटिफ़िकेशन की अनुमति चाहिए। ऐप इनका उपयोग केवल आपके अलार्म और प्राइस नोटिफ़िकेशन के लिए करता है।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ahhoz, hogy a riasztások és az árértesítések megérkezzenek, az alkalmazásnak engedély kell az értesítésekhez. Csak a saját riasztásaidhoz használja őket."
+            "value" : "Ahhoz, hogy a riasztások és az árértesítések megérkezzenek, az alkalmazásnak engedély kell az értesítésekhez. Az alkalmazás csak a riasztásaidhoz és az árértesítésekhez használja őket."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Agar alarm dan notifikasi harga sampai kepada Anda, aplikasi memerlukan izin notifikasi. Notifikasi hanya digunakan untuk alarm Anda sendiri."
+            "value" : "Agar alarm dan notifikasi harga sampai kepada Anda, aplikasi memerlukan izin notifikasi. Aplikasi hanya menggunakannya untuk alarm dan notifikasi harga Anda."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Perché gli avvisi e le notifiche di prezzo ti arrivino, l’app ha bisogno del permesso per le notifiche. Vengono usate solo per i tuoi avvisi."
+            "value" : "Perché gli avvisi e le notifiche di prezzo ti arrivino, l’app ha bisogno del permesso per le notifiche. L’app le usa solo per i tuoi avvisi e le notifiche di prezzo."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "アラームと価格通知を受け取るには、アプリに通知の許可が必要です。通知はご自身のアラームにのみ使われます。"
+            "value" : "アラームと価格通知を受け取るには、アプリに通知の許可が必要です。アプリは通知をアラームと価格通知にのみ使います。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "알람과 가격 알림을 받으려면 앱에 알림 권한이 필요합니다. 알림은 직접 설정한 알람에만 사용됩니다."
+            "value" : "알람과 가격 알림을 받으려면 앱에 알림 권한이 필요합니다. 앱은 알림을 알람과 가격 알림에만 사용합니다."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "For at alarmer og kursvarsler skal nå frem, trenger appen tillatelse til å sende varsler. De brukes bare til dine egne alarmer."
+            "value" : "For at alarmer og kursvarsler skal nå frem, trenger appen tillatelse til å sende varsler. Appen bruker dem bare til alarmene og kursvarslene dine."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Zodat alarmen en koersmeldingen aankomen, heeft de app toestemming nodig voor meldingen. Ze worden alleen gebruikt voor je eigen alarmen."
+            "value" : "Zodat alarmen en koersmeldingen aankomen, heeft de app toestemming nodig voor meldingen. De app gebruikt ze alleen voor je alarmen en koersmeldingen."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Aby alarmy i powiadomienia o cenie do Ciebie docierały, aplikacja potrzebuje zgody na powiadomienia. Są używane tylko do Twoich własnych alarmów."
+            "value" : "Aby alarmy i powiadomienia o cenie do Ciebie docierały, aplikacja potrzebuje zgody na powiadomienia. Aplikacja używa ich tylko do Twoich alarmów i powiadomień o cenie."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Para que os alarmes e as notificações de preço lhe cheguem, a app precisa de autorização para enviar notificações. São usadas apenas para os seus próprios alarmes."
+            "value" : "Para que os alarmes e as notificações de preço lhe cheguem, a app precisa de autorização para enviar notificações. A app usa-as apenas para os seus alarmes e notificações de preço."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Para que os alarmes e as notificações de preço cheguem até você, o app precisa de permissão para enviar notificações. Elas são usadas só para os seus próprios alarmes."
+            "value" : "Para que os alarmes e as notificações de preço cheguem até você, o app precisa de permissão para enviar notificações. O app as usa só para os seus alarmes e notificações de preço."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ca alarmele și notificările de preț să ajungă la tine, aplicația are nevoie de permisiunea pentru notificări. Sunt folosite doar pentru alarmele tale."
+            "value" : "Ca alarmele și notificările de preț să ajungă la tine, aplicația are nevoie de permisiunea pentru notificări. Aplicația le folosește doar pentru alarmele și notificările tale de preț."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Чтобы оповещения и уведомления о цене доходили до вас, приложению нужно разрешение на уведомления. Они используются только для ваших собственных оповещений."
+            "value" : "Чтобы оповещения и уведомления о цене доходили до вас, приложению нужно разрешение на уведомления. Приложение использует их только для ваших оповещений и уведомлений о цене."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Që alarmet dhe njoftimet e çmimit të të arrijnë, aplikacioni ka nevojë për leje për njoftime. Ato përdoren vetëm për alarmet e tua."
+            "value" : "Që alarmet dhe njoftimet e çmimit të të arrijnë, aplikacioni ka nevojë për leje për njoftime. Aplikacioni i përdor vetëm për alarmet dhe njoftimet e tua të çmimit."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "För att larm och kursaviseringar ska nå fram behöver appen tillåtelse att skicka aviseringar. De används bara för dina egna larm."
+            "value" : "För att larm och kursaviseringar ska nå fram behöver appen tillåtelse att skicka aviseringar. Appen använder dem bara för dina larm och kursaviseringar."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "เพื่อให้สัญญาณเตือนและการแจ้งเตือนราคาถึงคุณ แอปต้องได้รับอนุญาตให้ส่งการแจ้งเตือน ซึ่งจะใช้เฉพาะกับสัญญาณเตือนของคุณเองเท่านั้น"
+            "value" : "เพื่อให้สัญญาณเตือนและการแจ้งเตือนราคาถึงคุณ แอปต้องได้รับอนุญาตให้ส่งการแจ้งเตือน แอปจะใช้การแจ้งเตือนเฉพาะกับสัญญาณเตือนและการแจ้งเตือนราคาของคุณเท่านั้น"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alarmların ve fiyat bildirimlerinin sana ulaşması için uygulamanın bildirim iznine ihtiyacı var. Bildirimler yalnızca kendi alarmların için kullanılır."
+            "value" : "Alarmların ve fiyat bildirimlerinin sana ulaşması için uygulamanın bildirim iznine ihtiyacı var. Uygulama bildirimleri yalnızca alarmların ve fiyat bildirimlerin için kullanır."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Щоб оповіщення і цінові сповіщення доходили до вас, застосунку потрібен дозвіл на сповіщення. Вони використовуються лише для ваших власних оповіщень."
+            "value" : "Щоб оповіщення і цінові сповіщення доходили до вас, застосунку потрібен дозвіл на сповіщення. Застосунок використовує їх лише для ваших оповіщень і цінових сповіщень."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Để cảnh báo và thông báo giá đến được với bạn, ứng dụng cần quyền gửi thông báo. Thông báo chỉ được dùng cho các cảnh báo của riêng bạn."
+            "value" : "Để cảnh báo và thông báo giá đến được với bạn, ứng dụng cần quyền gửi thông báo. Ứng dụng chỉ dùng thông báo cho cảnh báo và thông báo giá của bạn."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "为了让提醒和价格通知能送达，应用需要通知权限。通知只用于你自己设置的提醒。"
+            "value" : "为了让提醒和价格通知能送达，应用需要通知权限。应用只将通知用于你的提醒和价格通知。"
           }
         }
       }
@@ -151740,7 +151549,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Z adresy · není v «Od nákupu»: %1$@"
+            "value" : "Z adresy · není v „Od nákupu“: %1$@"
           }
         },
         "da" : {
@@ -151782,7 +151591,7 @@
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Osoitteesta · ei mukana kohdassa «Ostosta»: %1$@"
+            "value" : "Osoitteesta · ei mukana kohdassa ”Ostosta”: %1$@"
           }
         },
         "fr" : {
@@ -151800,19 +151609,19 @@
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "पते से · «खरीद से» में शामिल नहीं: %1$@"
+            "value" : "पते से · “खरीद से” में शामिल नहीं: %1$@"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Címről · nincs benne a «Vétel óta» értékben: %1$@"
+            "value" : "Címről · nincs benne a „Vétel óta” értékben: %1$@"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dari alamat · tidak termasuk «Sejak beli»: %1$@"
+            "value" : "Dari alamat · tidak termasuk “Sejak beli”: %1$@"
           }
         },
         "it" : {
@@ -151830,7 +151639,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "주소에서 · «매수 이후»에 포함 안 됨: %1$@"
+            "value" : "주소에서 · “매수 이후”에 포함 안 됨: %1$@"
           }
         },
         "nb" : {
@@ -151848,7 +151657,7 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Z adresu · poza «Od zakupu»: %1$@"
+            "value" : "Z adresu · poza „Od zakupu”: %1$@"
           }
         },
         "pt" : {
@@ -151860,13 +151669,13 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Do endereço · fora de «Desde a compra»: %1$@"
+            "value" : "Do endereço · fora de “Desde a compra”: %1$@"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Din adresă · nu e inclus în «De la cumpărare»: %1$@"
+            "value" : "Din adresă · nu e inclus în „De la cumpărare”: %1$@"
           }
         },
         "ru" : {
@@ -151884,19 +151693,19 @@
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Från adress · inte i «Sedan köp»: %1$@"
+            "value" : "Från adress · inte i ”Sedan köp”: %1$@"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "จากที่อยู่ · ไม่รวมใน «ตั้งแต่ซื้อ»: %1$@"
+            "value" : "จากที่อยู่ · ไม่รวมใน “ตั้งแต่ซื้อ”: %1$@"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Adresten · «Alıştan beri» dışında: %1$@"
+            "value" : "Adresten · “Alıştan beri” dışında: %1$@"
           }
         },
         "uk" : {
@@ -151908,13 +151717,13 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Từ địa chỉ · không tính vào «Từ khi mua»: %1$@"
+            "value" : "Từ địa chỉ · không tính vào “Từ khi mua”: %1$@"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "来自地址 · 不计入 «自买入»：%1$@"
+            "value" : "来自地址 · 不计入 「自买入」：%1$@"
           }
         }
       }
@@ -151931,7 +151740,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Také ve tvých vlastních transakcích: %1$@ – sčítá se obojí. Stejné mince? Zvol «Jen zobrazit»."
+            "value" : "Také ve tvých vlastních transakcích: %1$@ – sčítá se obojí. Stejné mince? Zvol „Jen zobrazit“."
           }
         },
         "da" : {
@@ -151973,7 +151782,7 @@
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Myös omissa tapahtumissasi: %1$@ – molemmat lasketaan yhteen. Samat kolikot? Valitse «Näytä vain»."
+            "value" : "Myös omissa tapahtumissasi: %1$@ – molemmat lasketaan yhteen. Samat kolikot? Valitse ”Näytä vain”."
           }
         },
         "fr" : {
@@ -151991,19 +151800,19 @@
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "आपके अपने लेन-देन में भी: %1$@ – दोनों जोड़े जाते हैं। वही कॉइन? «सिर्फ़ दिखाएँ» चुनें।"
+            "value" : "आपके अपने लेन-देन में भी: %1$@ – दोनों जोड़े जाते हैं। वही कॉइन? “सिर्फ़ दिखाएँ” चुनें।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A saját tranzakcióidban is: %1$@ – mindkettő összeadódik. Ugyanazok a coinok? Válaszd ezt: «Csak megjelenítés»."
+            "value" : "A saját tranzakcióidban is: %1$@ – mindkettő összeadódik. Ugyanazok a coinok? Válaszd ezt: „Csak megjelenítés”."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Juga ada di transaksimu sendiri: %1$@ – keduanya dijumlahkan. Koin yang sama? Pilih «Hanya tampilkan»."
+            "value" : "Juga ada di transaksimu sendiri: %1$@ – keduanya dijumlahkan. Koin yang sama? Pilih “Hanya tampilkan”."
           }
         },
         "it" : {
@@ -152021,7 +151830,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "내 거래에도 있습니다: %1$@ – 둘 다 합산됩니다. 같은 코인인가요? «표시만»을 선택하세요."
+            "value" : "내 거래에도 있습니다: %1$@ – 둘 다 합산됩니다. 같은 코인인가요? “표시만”을 선택하세요."
           }
         },
         "nb" : {
@@ -152039,7 +151848,7 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Także w twoich transakcjach: %1$@ – oba są sumowane. Te same monety? Wybierz «Tylko pokaż»."
+            "value" : "Także w twoich transakcjach: %1$@ – oba są sumowane. Te same monety? Wybierz „Tylko pokaż”."
           }
         },
         "pt" : {
@@ -152051,13 +151860,13 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Também nas suas próprias transações: %1$@ – os dois são somados. As mesmas moedas? Escolha «Só mostrar»."
+            "value" : "Também nas suas próprias transações: %1$@ – os dois são somados. As mesmas moedas? Escolha “Só mostrar”."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Și în propriile tranzacții: %1$@ – ambele se adună. Aceleași monede? Alege «Doar afișează»."
+            "value" : "Și în propriile tranzacții: %1$@ – ambele se adună. Aceleași monede? Alege „Doar afișează”."
           }
         },
         "ru" : {
@@ -152075,19 +151884,19 @@
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Finns även i dina egna transaktioner: %1$@ – båda läggs ihop. Samma mynt? Välj «Visa bara»."
+            "value" : "Finns även i dina egna transaktioner: %1$@ – båda läggs ihop. Samma mynt? Välj ”Visa bara”."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "มีในรายการของคุณเองด้วย: %1$@ – ทั้งสองจะถูกรวมกัน เป็นเหรียญเดียวกันหรือไม่? เลือก «แสดงอย่างเดียว»"
+            "value" : "มีในรายการของคุณเองด้วย: %1$@ – ทั้งสองจะถูกรวมกัน เป็นเหรียญเดียวกันหรือไม่? เลือก “แสดงอย่างเดียว”"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kendi işlemlerinde de var: %1$@ – ikisi de toplanır. Aynı coin'ler mi? «Yalnızca göster» seç."
+            "value" : "Kendi işlemlerinde de var: %1$@ – ikisi de toplanır. Aynı coin'ler mi? “Yalnızca göster” seç."
           }
         },
         "uk" : {
@@ -152099,13 +151908,13 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cũng có trong giao dịch của bạn: %1$@ – cả hai đều được cộng. Cùng một coin? Hãy chọn «Chỉ hiển thị»."
+            "value" : "Cũng có trong giao dịch của bạn: %1$@ – cả hai đều được cộng. Cùng một coin? Hãy chọn “Chỉ hiển thị”."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "你自己的交易中也有：%1$@——两者会相加。是同一批币？请选择 «仅显示»。"
+            "value" : "你自己的交易中也有：%1$@——两者会相加。是同一批币？请选择 「仅显示」。"
           }
         }
       }
@@ -152313,7 +152122,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "«%1$@» se teď jen zobrazuje, nezapočítává – %2$@ jsou i ve tvých transakcích."
+            "value" : "„%1$@“ se teď jen zobrazuje, nezapočítává – %2$@ jsou i ve tvých transakcích."
           }
         },
         "da" : {
@@ -152355,7 +152164,7 @@
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "«%1$@» näytetään nyt vain eikä sitä lasketa mukaan – %2$@ näkyvät myös tapahtumissasi."
+            "value" : "”%1$@” näytetään nyt vain eikä sitä lasketa mukaan – %2$@ näkyvät myös tapahtumissasi."
           }
         },
         "fr" : {
@@ -152373,19 +152182,19 @@
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "«%1$@» अब सिर्फ़ दिखाया जाता है, गिना नहीं जाता – %2$@ आपके लेन-देन में भी हैं।"
+            "value" : "“%1$@” अब सिर्फ़ दिखाया जाता है, गिना नहीं जाता – %2$@ आपके लेन-देन में भी हैं।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "«%1$@» mostantól csak megjelenik, nem számít bele – %2$@ a tranzakcióidban is szerepelnek."
+            "value" : "„%1$@” mostantól csak megjelenik, nem számít bele – %2$@ a tranzakcióidban is szerepelnek."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "«%1$@» kini hanya ditampilkan dan tidak dihitung – %2$@ juga ada di transaksimu."
+            "value" : "“%1$@” kini hanya ditampilkan dan tidak dihitung – %2$@ juga ada di transaksimu."
           }
         },
         "it" : {
@@ -152403,7 +152212,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "«%1$@»은(는) 이제 표시만 되고 계산되지 않습니다 – %2$@은(는) 내 거래에도 있습니다."
+            "value" : "“%1$@”은(는) 이제 표시만 되고 계산되지 않습니다 – %2$@은(는) 내 거래에도 있습니다."
           }
         },
         "nb" : {
@@ -152421,7 +152230,7 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "«%1$@» jest teraz tylko pokazywany, nie wliczany – %2$@ są też w twoich transakcjach."
+            "value" : "„%1$@” jest teraz tylko pokazywany, nie wliczany – %2$@ są też w twoich transakcjach."
           }
         },
         "pt" : {
@@ -152433,13 +152242,13 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "«%1$@» agora só é mostrado, não somado – %2$@ também aparecem nas suas transações."
+            "value" : "“%1$@” agora só é mostrado, não somado – %2$@ também aparecem nas suas transações."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "«%1$@» este acum doar afișat, nu inclus – %2$@ apar și în tranzacțiile tale."
+            "value" : "„%1$@” este acum doar afișat, nu inclus – %2$@ apar și în tranzacțiile tale."
           }
         },
         "ru" : {
@@ -152457,19 +152266,19 @@
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "«%1$@» visas nu bara och räknas inte – %2$@ finns även i dina transaktioner."
+            "value" : "”%1$@” visas nu bara och räknas inte – %2$@ finns även i dina transaktioner."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "«%1$@» จะแสดงอย่างเดียวและไม่นับรวมแล้ว – %2$@ มีอยู่ในรายการของคุณด้วย"
+            "value" : "“%1$@” จะแสดงอย่างเดียวและไม่นับรวมแล้ว – %2$@ มีอยู่ในรายการของคุณด้วย"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "«%1$@» artık yalnızca gösteriliyor, sayılmıyor – %2$@ işlemlerinde de var."
+            "value" : "“%1$@” artık yalnızca gösteriliyor, sayılmıyor – %2$@ işlemlerinde de var."
           }
         },
         "uk" : {
@@ -152481,13 +152290,13 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "«%1$@» giờ chỉ hiển thị, không tính vào – %2$@ cũng có trong giao dịch của bạn."
+            "value" : "“%1$@” giờ chỉ hiển thị, không tính vào – %2$@ cũng có trong giao dịch của bạn."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "«%1$@» 现在仅显示，不计入——%2$@ 也出现在你的交易中。"
+            "value" : "「%1$@」 现在仅显示，不计入——%2$@ 也出现在你的交易中。"
           }
         }
       }
@@ -152504,7 +152313,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "«%1$@» se znovu započítává – množství neodpovídají tvým transakcím. Zvol «Jen zobrazit», pokud jde o stejné mince."
+            "value" : "„%1$@“ se znovu započítává – množství neodpovídají tvým transakcím. Zvol „Jen zobrazit“, pokud jde o stejné mince."
           }
         },
         "da" : {
@@ -152546,7 +152355,7 @@
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "«%1$@» lasketaan taas mukaan – määrät eivät vastaa tapahtumiasi. Valitse «Näytä vain», jos kyse on samoista kolikoista."
+            "value" : "”%1$@” lasketaan taas mukaan – määrät eivät vastaa tapahtumiasi. Valitse ”Näytä vain”, jos kyse on samoista kolikoista."
           }
         },
         "fr" : {
@@ -152564,19 +152373,19 @@
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "«%1$@» फिर से गिना जा रहा है – मात्राएँ आपके लेन-देन से मेल नहीं खातीं। अगर वही कॉइन हैं तो «सिर्फ़ दिखाएँ» चुनें।"
+            "value" : "“%1$@” फिर से गिना जा रहा है – मात्राएँ आपके लेन-देन से मेल नहीं खातीं। अगर वही कॉइन हैं तो “सिर्फ़ दिखाएँ” चुनें।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "«%1$@» ismét beszámít – a mennyiségek nem egyeznek a tranzakcióiddal. Válaszd ezt: «Csak megjelenítés», ha ugyanazokról a coinokról van szó."
+            "value" : "„%1$@” ismét beszámít – a mennyiségek nem egyeznek a tranzakcióiddal. Válaszd ezt: „Csak megjelenítés”, ha ugyanazokról a coinokról van szó."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "«%1$@» dihitung lagi – jumlahnya tidak cocok dengan transaksimu. Pilih «Hanya tampilkan» jika itu koin yang sama."
+            "value" : "“%1$@” dihitung lagi – jumlahnya tidak cocok dengan transaksimu. Pilih “Hanya tampilkan” jika itu koin yang sama."
           }
         },
         "it" : {
@@ -152594,7 +152403,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "«%1$@»이(가) 다시 계산됩니다 – 수량이 거래와 맞지 않습니다. 같은 코인이면 «표시만»을 선택하세요."
+            "value" : "“%1$@”이(가) 다시 계산됩니다 – 수량이 거래와 맞지 않습니다. 같은 코인이면 “표시만”을 선택하세요."
           }
         },
         "nb" : {
@@ -152612,7 +152421,7 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "«%1$@» znowu się liczy – ilości nie pasują do twoich transakcji. Wybierz «Tylko pokaż», jeśli to te same monety."
+            "value" : "„%1$@” znowu się liczy – ilości nie pasują do twoich transakcji. Wybierz „Tylko pokaż”, jeśli to te same monety."
           }
         },
         "pt" : {
@@ -152624,13 +152433,13 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "«%1$@» volta a contar – as quantidades não batem com suas transações. Escolha «Só mostrar» se forem as mesmas moedas."
+            "value" : "“%1$@” volta a contar – as quantidades não batem com suas transações. Escolha “Só mostrar” se forem as mesmas moedas."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "«%1$@» contează din nou – cantitățile nu se potrivesc cu tranzacțiile tale. Alege «Doar afișează» dacă sunt aceleași monede."
+            "value" : "„%1$@” contează din nou – cantitățile nu se potrivesc cu tranzacțiile tale. Alege „Doar afișează” dacă sunt aceleași monede."
           }
         },
         "ru" : {
@@ -152648,19 +152457,19 @@
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "«%1$@» räknas igen – mängderna stämmer inte med dina transaktioner. Välj «Visa bara» om det är samma mynt."
+            "value" : "”%1$@” räknas igen – mängderna stämmer inte med dina transaktioner. Välj ”Visa bara” om det är samma mynt."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "«%1$@» ถูกนับรวมอีกครั้ง – จำนวนไม่ตรงกับรายการของคุณ หากเป็นเหรียญเดียวกันให้เลือก «แสดงอย่างเดียว»"
+            "value" : "“%1$@” ถูกนับรวมอีกครั้ง – จำนวนไม่ตรงกับรายการของคุณ หากเป็นเหรียญเดียวกันให้เลือก “แสดงอย่างเดียว”"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "«%1$@» yeniden sayılıyor – miktarlar işlemlerinle uyuşmuyor. Aynı coin'lerse «Yalnızca göster» seç."
+            "value" : "“%1$@” yeniden sayılıyor – miktarlar işlemlerinle uyuşmuyor. Aynı coin'lerse “Yalnızca göster” seç."
           }
         },
         "uk" : {
@@ -152672,13 +152481,13 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "«%1$@» được tính lại – số lượng không khớp với giao dịch của bạn. Hãy chọn «Chỉ hiển thị» nếu là cùng một coin."
+            "value" : "“%1$@” được tính lại – số lượng không khớp với giao dịch của bạn. Hãy chọn “Chỉ hiển thị” nếu là cùng một coin."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "«%1$@» 重新计入——其数量与你的交易不符。如果是同一批币，请选择 «仅显示»。"
+            "value" : "「%1$@」 重新计入——其数量与你的交易不符。如果是同一批币，请选择 「仅显示」。"
           }
         }
       }
@@ -237716,7 +237525,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alarm signal"
+            "value" : "Alert signal"
           }
         },
         "es" : {
@@ -238289,7 +238098,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alarm sound"
+            "value" : "Alert sound"
           }
         },
         "es" : {
@@ -239793,7 +239602,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Počítá otevřená upozornění na alarmy. Zda se zobrazí číslo, nebo tečka, rozhoduje domovská obrazovka (např. Samsung: «S číslem»)."
+            "value" : "Počítá otevřená upozornění na alarmy. Zda se zobrazí číslo, nebo tečka, rozhoduje domovská obrazovka (např. Samsung: „S číslem“)."
           }
         },
         "da" : {
@@ -239835,7 +239644,7 @@
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Laskee avoimet hälytysilmoitukset. Aloitusnäyttö päättää, näkyykö numero vai piste (esim. Samsung: «Numerolla»)."
+            "value" : "Laskee avoimet hälytysilmoitukset. Aloitusnäyttö päättää, näkyykö numero vai piste (esim. Samsung: ”Numerolla”)."
           }
         },
         "fr" : {
@@ -239853,19 +239662,19 @@
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "खुली अलार्म सूचनाएँ गिनता है। संख्या दिखे या बिंदु, यह होम स्क्रीन तय करती है (जैसे Samsung: «संख्या के साथ»)।"
+            "value" : "खुली अलार्म सूचनाएँ गिनता है। संख्या दिखे या बिंदु, यह होम स्क्रीन तय करती है (जैसे Samsung: “संख्या के साथ”)।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Megszámolja a nyitott riasztási értesítéseket. Hogy szám vagy pont jelenik meg, azt a kezdőképernyő dönti el (pl. Samsung: «Számmal»)."
+            "value" : "Megszámolja a nyitott riasztási értesítéseket. Hogy szám vagy pont jelenik meg, azt a kezdőképernyő dönti el (pl. Samsung: „Számmal”)."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Menghitung notifikasi alarm yang terbuka. Layar utama menentukan apakah muncul angka atau titik (mis. Samsung: «Dengan angka»)."
+            "value" : "Menghitung notifikasi alarm yang terbuka. Layar utama menentukan apakah muncul angka atau titik (mis. Samsung: “Dengan angka”)."
           }
         },
         "it" : {
@@ -239883,7 +239692,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "열려 있는 알림 수를 셉니다. 숫자 또는 점 표시는 홈 화면이 결정합니다(예: Samsung «숫자 표시»)."
+            "value" : "열려 있는 알림 수를 셉니다. 숫자 또는 점 표시는 홈 화면이 결정합니다(예: Samsung “숫자 표시”)."
           }
         },
         "nb" : {
@@ -239901,7 +239710,7 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Liczy otwarte powiadomienia o alarmach. Czy pojawi się liczba, czy kropka, decyduje ekran główny (np. Samsung: «Z liczbą»)."
+            "value" : "Liczy otwarte powiadomienia o alarmach. Czy pojawi się liczba, czy kropka, decyduje ekran główny (np. Samsung: „Z liczbą”)."
           }
         },
         "pt" : {
@@ -239913,13 +239722,13 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Conta as notificações de alarme abertas. A tela inicial decide se aparece um número ou um ponto (ex.: Samsung: «Com número»)."
+            "value" : "Conta as notificações de alarme abertas. A tela inicial decide se aparece um número ou um ponto (ex.: Samsung: “Com número”)."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Numără notificările de alarmă deschise. Dacă apare un număr sau un punct decide ecranul de pornire (de ex. Samsung: «Cu număr»)."
+            "value" : "Numără notificările de alarmă deschise. Dacă apare un număr sau un punct decide ecranul de pornire (de ex. Samsung: „Cu număr”)."
           }
         },
         "ru" : {
@@ -239937,19 +239746,19 @@
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Räknar öppna larmaviseringar. Om en siffra eller en prick visas avgör hemskärmen (t.ex. Samsung: «Med siffra»)."
+            "value" : "Räknar öppna larmaviseringar. Om en siffra eller en prick visas avgör hemskärmen (t.ex. Samsung: ”Med siffra”)."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "นับการแจ้งเตือนสัญญาณที่ยังเปิดอยู่ หน้าจอหลักเป็นตัวกำหนดว่าจะแสดงตัวเลขหรือจุด (เช่น Samsung: «แสดงตัวเลข»)"
+            "value" : "นับการแจ้งเตือนสัญญาณที่ยังเปิดอยู่ หน้าจอหลักเป็นตัวกำหนดว่าจะแสดงตัวเลขหรือจุด (เช่น Samsung: “แสดงตัวเลข”)"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Açık alarm bildirimlerini sayar. Sayı mı nokta mı görüneceğine ana ekran karar verir (ör. Samsung: «Sayıyla»)."
+            "value" : "Açık alarm bildirimlerini sayar. Sayı mı nokta mı görüneceğine ana ekran karar verir (ör. Samsung: “Sayıyla”)."
           }
         },
         "uk" : {
@@ -239961,7 +239770,7 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Đếm các thông báo cảnh báo đang mở. Màn hình chính quyết định hiện số hay dấu chấm (vd. Samsung: «Có số»)."
+            "value" : "Đếm các thông báo cảnh báo đang mở. Màn hình chính quyết định hiện số hay dấu chấm (vd. Samsung: “Có số”)."
           }
         },
         "zh-Hans" : {
@@ -249534,7 +249343,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Povolit «Budíky a připomenutí»"
+            "value" : "Povolit „Budíky a připomenutí“"
           }
         },
         "da" : {
@@ -249576,7 +249385,7 @@
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Salli «Herätykset ja muistutukset»"
+            "value" : "Salli ”Herätykset ja muistutukset”"
           }
         },
         "fr" : {
@@ -249594,19 +249403,19 @@
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "«अलार्म और रिमाइंडर» की अनुमति दें"
+            "value" : "“अलार्म और रिमाइंडर” की अनुमति दें"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "«Ébresztők és emlékeztetők» engedélyezése"
+            "value" : "„Ébresztők és emlékeztetők” engedélyezése"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Izinkan «Alarm & pengingat»"
+            "value" : "Izinkan “Alarm & pengingat”"
           }
         },
         "it" : {
@@ -249624,7 +249433,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "«알람 및 리마인더» 허용"
+            "value" : "“알람 및 리마인더” 허용"
           }
         },
         "nb" : {
@@ -249642,7 +249451,7 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Zezwól na «Alarmy i przypomnienia»"
+            "value" : "Zezwól na „Alarmy i przypomnienia”"
           }
         },
         "pt" : {
@@ -249654,13 +249463,13 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Permitir «Alarmes e lembretes»"
+            "value" : "Permitir “Alarmes e lembretes”"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Permite «Alarme și mementouri»"
+            "value" : "Permite „Alarme și mementouri”"
           }
         },
         "ru" : {
@@ -249678,19 +249487,19 @@
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tillåt «Alarm och påminnelser»"
+            "value" : "Tillåt ”Alarm och påminnelser”"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "อนุญาต «การปลุกและการช่วยเตือน»"
+            "value" : "อนุญาต “การปลุกและการช่วยเตือน”"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "«Alarmlar ve hatırlatıcılar» izni ver"
+            "value" : "“Alarmlar ve hatırlatıcılar” izni ver"
           }
         },
         "uk" : {
@@ -249702,13 +249511,13 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cho phép «Báo thức và lời nhắc»"
+            "value" : "Cho phép “Báo thức và lời nhắc”"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "允许 «闹钟和提醒»"
+            "value" : "允许 「闹钟和提醒」"
           }
         }
       }
@@ -259015,7 +258824,7 @@
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "עדכוני מחיר בשורת המצב"
+            "value" : "עדכוני מחיר"
           }
         },
         "hi" : {
@@ -277679,7 +277488,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tomuto zařízení chybí klíč k šifrovaným datům aplikace, proto se spustila prázdná. Nic nebylo smazáno. Seznam a portfolio obnovíte importem souboru zálohy v nastavení v části «%1$@»."
+            "value" : "Tomuto zařízení chybí klíč k šifrovaným datům aplikace, proto se spustila prázdná. Nic nebylo smazáno. Seznam a portfolio obnovíte importem souboru zálohy v nastavení v části „%1$@“."
           }
         },
         "da" : {
@@ -277721,7 +277530,7 @@
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tältä laitteelta puuttuu sovelluksen salattujen tietojen avain, joten sovellus käynnistyi tyhjänä. Mitään ei poistettu. Saat listan ja salkun takaisin tuomalla varmuuskopiotiedoston asetuksista kohdasta «%1$@»."
+            "value" : "Tältä laitteelta puuttuu sovelluksen salattujen tietojen avain, joten sovellus käynnistyi tyhjänä. Mitään ei poistettu. Saat listan ja salkun takaisin tuomalla varmuuskopiotiedoston asetuksista kohdasta ”%1$@”."
           }
         },
         "fr" : {
@@ -277739,19 +277548,19 @@
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "इस डिवाइस पर अब ऐप के एन्क्रिप्टेड डेटा की कुंजी नहीं है, इसलिए ऐप खाली शुरू हुआ। कुछ भी हटाया नहीं गया। अपनी सूची और पोर्टफ़ोलियो वापस पाने के लिए सेटिंग में «%1$@» के अंतर्गत बैकअप फ़ाइल आयात करें।"
+            "value" : "इस डिवाइस पर अब ऐप के एन्क्रिप्टेड डेटा की कुंजी नहीं है, इसलिए ऐप खाली शुरू हुआ। कुछ भी हटाया नहीं गया। अपनी सूची और पोर्टफ़ोलियो वापस पाने के लिए सेटिंग में “%1$@” के अंतर्गत बैकअप फ़ाइल आयात करें।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ezen az eszközön már nincs meg az alkalmazás titkosított adatainak kulcsa, ezért az alkalmazás üresen indult. Semmi sem törlődött. A listát és a portfóliót egy mentésfájl importálásával kaphatod vissza a beállítások «%1$@» részében."
+            "value" : "Ezen az eszközön már nincs meg az alkalmazás titkosított adatainak kulcsa, ezért az alkalmazás üresen indult. Semmi sem törlődött. A listát és a portfóliót egy mentésfájl importálásával kaphatod vissza a beállítások „%1$@” részében."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Perangkat ini tidak lagi memiliki kunci data terenkripsi aplikasi, jadi aplikasi dimulai kosong. Tidak ada yang dihapus. Untuk mendapatkan kembali daftar dan portofolio Anda, impor file cadangan di Pengaturan, bagian «%1$@»."
+            "value" : "Perangkat ini tidak lagi memiliki kunci data terenkripsi aplikasi, jadi aplikasi dimulai kosong. Tidak ada yang dihapus. Untuk mendapatkan kembali daftar dan portofolio Anda, impor file cadangan di Pengaturan, bagian “%1$@”."
           }
         },
         "it" : {
@@ -277769,7 +277578,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "이 기기에 앱의 암호화된 데이터 키가 더 이상 없어 앱이 빈 상태로 시작되었습니다. 삭제된 것은 없습니다. 목록과 포트폴리오를 되찾으려면 설정의 «%1$@»에서 백업 파일을 가져오세요."
+            "value" : "이 기기에 앱의 암호화된 데이터 키가 더 이상 없어 앱이 빈 상태로 시작되었습니다. 삭제된 것은 없습니다. 목록과 포트폴리오를 되찾으려면 설정의 “%1$@”에서 백업 파일을 가져오세요."
           }
         },
         "nb" : {
@@ -277787,7 +277596,7 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "To urządzenie nie ma już klucza do zaszyfrowanych danych aplikacji, więc uruchomiła się pusta. Nic nie zostało usunięte. Aby odzyskać listę i portfel, zaimportuj plik kopii w ustawieniach, w sekcji «%1$@»."
+            "value" : "To urządzenie nie ma już klucza do zaszyfrowanych danych aplikacji, więc uruchomiła się pusta. Nic nie zostało usunięte. Aby odzyskać listę i portfel, zaimportuj plik kopii w ustawieniach, w sekcji „%1$@”."
           }
         },
         "pt" : {
@@ -277799,13 +277608,13 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Este dispositivo não tem mais a chave dos dados criptografados do app, por isso ele abriu vazio. Nada foi apagado. Para recuperar sua lista e seu portfólio, importe um arquivo de backup nas configurações, em «%1$@»."
+            "value" : "Este dispositivo não tem mais a chave dos dados criptografados do app, por isso ele abriu vazio. Nada foi apagado. Para recuperar sua lista e seu portfólio, importe um arquivo de backup nas configurações, em “%1$@”."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Acest dispozitiv nu mai are cheia datelor criptate ale aplicației, așa că aceasta a pornit goală. Nu s-a șters nimic. Pentru a recupera lista și portofoliul, importă un fișier de backup în setări, la «%1$@»."
+            "value" : "Acest dispozitiv nu mai are cheia datelor criptate ale aplicației, așa că aceasta a pornit goală. Nu s-a șters nimic. Pentru a recupera lista și portofoliul, importă un fișier de backup în setări, la „%1$@”."
           }
         },
         "ru" : {
@@ -277823,19 +277632,19 @@
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Den här enheten saknar nyckeln till appens krypterade data, så appen startade tom. Inget har raderats. Få tillbaka din lista och portfölj genom att importera en säkerhetskopia under «%1$@» i inställningarna."
+            "value" : "Den här enheten saknar nyckeln till appens krypterade data, så appen startade tom. Inget har raderats. Få tillbaka din lista och portfölj genom att importera en säkerhetskopia under ”%1$@” i inställningarna."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "อุปกรณ์นี้ไม่มีกุญแจของข้อมูลที่เข้ารหัสของแอปแล้ว แอปจึงเริ่มแบบว่างเปล่า ไม่มีสิ่งใดถูกลบ หากต้องการรายการและพอร์ตโฟลิโอคืน ให้นำเข้าไฟล์สำรองในการตั้งค่า ที่ «%1$@»"
+            "value" : "อุปกรณ์นี้ไม่มีกุญแจของข้อมูลที่เข้ารหัสของแอปแล้ว แอปจึงเริ่มแบบว่างเปล่า ไม่มีสิ่งใดถูกลบ หากต้องการรายการและพอร์ตโฟลิโอคืน ให้นำเข้าไฟล์สำรองในการตั้งค่า ที่ “%1$@”"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bu cihazda uygulamanın şifreli verilerinin anahtarı artık yok, bu yüzden uygulama boş başladı. Hiçbir şey silinmedi. Listenizi ve portföyünüzü geri almak için ayarlarda «%1$@» altında bir yedek dosyası içe aktarın."
+            "value" : "Bu cihazda uygulamanın şifreli verilerinin anahtarı artık yok, bu yüzden uygulama boş başladı. Hiçbir şey silinmedi. Listenizi ve portföyünüzü geri almak için ayarlarda “%1$@” altında bir yedek dosyası içe aktarın."
           }
         },
         "uk" : {
@@ -277847,13 +277656,13 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Thiết bị này không còn khóa của dữ liệu đã mã hóa của ứng dụng, nên ứng dụng khởi động trống. Không có gì bị xóa. Để lấy lại danh sách và danh mục, hãy nhập tệp sao lưu trong Cài đặt, mục «%1$@»."
+            "value" : "Thiết bị này không còn khóa của dữ liệu đã mã hóa của ứng dụng, nên ứng dụng khởi động trống. Không có gì bị xóa. Để lấy lại danh sách và danh mục, hãy nhập tệp sao lưu trong Cài đặt, mục “%1$@”."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "此设备上已没有应用加密数据的密钥，因此应用以空白状态启动。没有删除任何内容。要找回列表和投资组合，请在设置的«%1$@»中导入备份文件。"
+            "value" : "此设备上已没有应用加密数据的密钥，因此应用以空白状态启动。没有删除任何内容。要找回列表和投资组合，请在设置的「%1$@」中导入备份文件。"
           }
         }
       }
@@ -303082,7 +302891,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Prodej za stablecoin (USDT/USDC/DAI …), který si ponecháš, je zde krypto za krypto a nedaní se – zapiš ho jako směnu do stablecoinu. Daní se až prodej za eura – «Prodej» se počítá jako prodej za eura."
+            "value" : "Prodej za stablecoin (USDT/USDC/DAI …), který si ponecháš, je zde krypto za krypto a nedaní se – zapiš ho jako směnu do stablecoinu. Daní se až prodej za eura – „Prodej“ se počítá jako prodej za eura."
           }
         },
         "da" : {
@@ -303124,7 +302933,7 @@
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Myynti stablecoinia (USDT/USDC/DAI …) vastaan, jonka pidät, on tässä kryptoa kryptoa vastaan eikä verotettavaa – kirjaa se vaihdoksi stablecoiniin. Vain myynti euroja vastaan on verotettavaa – «Myynti» lasketaan myynniksi euroja vastaan."
+            "value" : "Myynti stablecoinia (USDT/USDC/DAI …) vastaan, jonka pidät, on tässä kryptoa kryptoa vastaan eikä verotettavaa – kirjaa se vaihdoksi stablecoiniin. Vain myynti euroja vastaan on verotettavaa – ”Myynti” lasketaan myynniksi euroja vastaan."
           }
         },
         "fr" : {
@@ -303142,19 +302951,19 @@
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "जिस स्टेबलकॉइन (USDT/USDC/DAI …) को आप रखते हैं, उसके बदले बिक्री यहाँ क्रिप्टो से क्रिप्टो है और कर योग्य नहीं – इसे स्टेबलकॉइन में स्वैप के रूप में दर्ज करें। केवल यूरो के बदले बिक्री कर योग्य है – «बिक्री» यूरो के बदले बिक्री मानी जाती है।"
+            "value" : "जिस स्टेबलकॉइन (USDT/USDC/DAI …) को आप रखते हैं, उसके बदले बिक्री यहाँ क्रिप्टो से क्रिप्टो है और कर योग्य नहीं – इसे स्टेबलकॉइन में स्वैप के रूप में दर्ज करें। केवल यूरो के बदले बिक्री कर योग्य है – “बिक्री” यूरो के बदले बिक्री मानी जाती है।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A megtartott stablecoinért (USDT/USDC/DAI …) történő eladás itt kripto kriptóért és nem adóköteles – rögzítsd cseréként a stablecoinba. Csak az euróért történő eladás adóköteles – az «Eladás» euróért történő eladásnak számít."
+            "value" : "A megtartott stablecoinért (USDT/USDC/DAI …) történő eladás itt kripto kriptóért és nem adóköteles – rögzítsd cseréként a stablecoinba. Csak az euróért történő eladás adóköteles – az „Eladás” euróért történő eladásnak számít."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Penjualan ke stablecoin (USDT/USDC/DAI …) yang kamu simpan di sini dianggap kripto ke kripto dan tidak dikenai pajak – catat sebagai tukar ke stablecoin. Hanya penjualan ke euro yang dikenai pajak – «Jual» dihitung sebagai penjualan ke euro."
+            "value" : "Penjualan ke stablecoin (USDT/USDC/DAI …) yang kamu simpan di sini dianggap kripto ke kripto dan tidak dikenai pajak – catat sebagai tukar ke stablecoin. Hanya penjualan ke euro yang dikenai pajak – “Jual” dihitung sebagai penjualan ke euro."
           }
         },
         "it" : {
@@ -303172,7 +302981,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "보유할 스테이블코인(USDT/USDC/DAI …)으로의 매도는 여기서 암호화폐 간 교환이며 과세되지 않습니다 – 스테이블코인으로의 스왑으로 기록하세요. 유로로의 매도만 과세됩니다 – «매도»는 유로로의 매도로 간주됩니다."
+            "value" : "보유할 스테이블코인(USDT/USDC/DAI …)으로의 매도는 여기서 암호화폐 간 교환이며 과세되지 않습니다 – 스테이블코인으로의 스왑으로 기록하세요. 유로로의 매도만 과세됩니다 – “매도”는 유로로의 매도로 간주됩니다."
           }
         },
         "nb" : {
@@ -303190,7 +302999,7 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sprzedaż za stablecoina (USDT/USDC/DAI …), którego zatrzymujesz, to tu krypto za krypto i nie podlega opodatkowaniu – zapisz ją jako wymianę na stablecoina. Opodatkowana jest dopiero sprzedaż za euro – «Sprzedaż» liczy się jako sprzedaż za euro."
+            "value" : "Sprzedaż za stablecoina (USDT/USDC/DAI …), którego zatrzymujesz, to tu krypto za krypto i nie podlega opodatkowaniu – zapisz ją jako wymianę na stablecoina. Opodatkowana jest dopiero sprzedaż za euro – „Sprzedaż” liczy się jako sprzedaż za euro."
           }
         },
         "pt" : {
@@ -303202,13 +303011,13 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Uma venda por uma stablecoin (USDT/USDC/DAI …) que você mantém é aqui cripto por cripto e não é tributada – registre-a como troca para a stablecoin. Só é tributada a venda por euros – «Venda» conta como venda por euros."
+            "value" : "Uma venda por uma stablecoin (USDT/USDC/DAI …) que você mantém é aqui cripto por cripto e não é tributada – registre-a como troca para a stablecoin. Só é tributada a venda por euros – “Venda” conta como venda por euros."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "O vânzare contra unui stablecoin (USDT/USDC/DAI …) pe care îl păstrezi este aici cripto contra cripto și nu se impozitează – înregistreaz-o ca schimb în stablecoin. Se impozitează doar vânzarea contra euro – «Vânzare» contează ca vânzare contra euro."
+            "value" : "O vânzare contra unui stablecoin (USDT/USDC/DAI …) pe care îl păstrezi este aici cripto contra cripto și nu se impozitează – înregistreaz-o ca schimb în stablecoin. Se impozitează doar vânzarea contra euro – „Vânzare” contează ca vânzare contra euro."
           }
         },
         "ru" : {
@@ -303226,19 +303035,19 @@
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "En försäljning mot en stablecoin (USDT/USDC/DAI …) som du behåller är här krypto mot krypto och inte skattepliktig – registrera den som byte till stablecoinen. Bara en försäljning mot euro är skattepliktig – «Försäljning» räknas som försäljning mot euro."
+            "value" : "En försäljning mot en stablecoin (USDT/USDC/DAI …) som du behåller är här krypto mot krypto och inte skattepliktig – registrera den som byte till stablecoinen. Bara en försäljning mot euro är skattepliktig – ”Försäljning” räknas som försäljning mot euro."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "การขายแลกกับสเตเบิลคอยน์ (USDT/USDC/DAI …) ที่คุณถือต่อ ในที่นี้ถือเป็นคริปโตแลกคริปโตและไม่ต้องเสียภาษี – ให้บันทึกเป็นการสลับเป็นสเตเบิลคอยน์ เฉพาะการขายแลกกับยูโรเท่านั้นที่ต้องเสียภาษี – «ขาย» นับเป็นการขายแลกกับยูโร"
+            "value" : "การขายแลกกับสเตเบิลคอยน์ (USDT/USDC/DAI …) ที่คุณถือต่อ ในที่นี้ถือเป็นคริปโตแลกคริปโตและไม่ต้องเสียภาษี – ให้บันทึกเป็นการสลับเป็นสเตเบิลคอยน์ เฉพาะการขายแลกกับยูโรเท่านั้นที่ต้องเสียภาษี – “ขาย” นับเป็นการขายแลกกับยูโร"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Elinde tuttuğun bir stablecoin (USDT/USDC/DAI …) karşılığında satış burada kriptodan kriptoya sayılır ve vergilendirilmez – bunu stablecoin’e takas olarak kaydet. Yalnızca euro karşılığı satış vergilendirilir – «Satım» euro karşılığı satış sayılır."
+            "value" : "Elinde tuttuğun bir stablecoin (USDT/USDC/DAI …) karşılığında satış burada kriptodan kriptoya sayılır ve vergilendirilmez – bunu stablecoin’e takas olarak kaydet. Yalnızca euro karşılığı satış vergilendirilir – “Satım” euro karşılığı satış sayılır."
           }
         },
         "uk" : {
@@ -303250,13 +303059,13 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bán lấy stablecoin (USDT/USDC/DAI …) mà bạn giữ lại ở đây là crypto đổi crypto và không chịu thuế – hãy ghi nhận là hoán đổi sang stablecoin. Chỉ bán lấy euro mới chịu thuế – «Bán» được tính là bán lấy euro."
+            "value" : "Bán lấy stablecoin (USDT/USDC/DAI …) mà bạn giữ lại ở đây là crypto đổi crypto và không chịu thuế – hãy ghi nhận là hoán đổi sang stablecoin. Chỉ bán lấy euro mới chịu thuế – “Bán” được tính là bán lấy euro."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "卖出换成你继续持有的稳定币（USDT/USDC/DAI …）在此属于加密货币换加密货币，不征税——请记为兑换为该稳定币。只有卖出换成欧元才征税——«卖出» 视为卖出换成欧元。"
+            "value" : "卖出换成你继续持有的稳定币（USDT/USDC/DAI …）在此属于加密货币换加密货币，不征税——请记为兑换为该稳定币。只有卖出换成欧元才征税——「卖出」 视为卖出换成欧元。"
           }
         }
       }
@@ -328229,19 +328038,19 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "إشعار"
+            "value" : "إشعار السعر"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Oznámení"
+            "value" : "Cenové oznámení"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Notifikation"
+            "value" : "Kursnotifikation"
           }
         },
         "de" : {
@@ -328265,25 +328074,25 @@
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Notificación"
+            "value" : "Notificación de precio"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "اعلان"
+            "value" : "اعلان قیمت"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ilmoitus"
+            "value" : "Hintailmoitus"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Notification"
+            "value" : "Notification de prix"
           }
         },
         "he" : {
@@ -328295,121 +328104,121 @@
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "नोटिफ़िकेशन"
+            "value" : "प्राइस नोटिफ़िकेशन"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Értesítés"
+            "value" : "Árértesítés"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Notifikasi"
+            "value" : "Notifikasi harga"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Notifica"
+            "value" : "Notifica di prezzo"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "通知"
+            "value" : "価格通知"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "알림"
+            "value" : "가격 알림"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Varsel"
+            "value" : "Kursvarsel"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Melding"
+            "value" : "Koersmelding"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Powiadomienie"
+            "value" : "Powiadomienie o cenie"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Notificação"
+            "value" : "Notificação de preço"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Notificação"
+            "value" : "Notificação de preço"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Notificare"
+            "value" : "Notificare de preț"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Уведомление"
+            "value" : "Уведомление о цене"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Njoftim"
+            "value" : "Njoftimi i çmimit"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Avisering"
+            "value" : "Kursavisering"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "การแจ้งเตือน"
+            "value" : "การแจ้งเตือนราคา"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bildirim"
+            "value" : "Fiyat bildirimi"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Сповіщення"
+            "value" : "Цінове сповіщення"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Thông báo"
+            "value" : "Thông báo giá"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "通知"
+            "value" : "价格通知"
           }
         }
       }

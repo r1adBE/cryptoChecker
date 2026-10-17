@@ -38,7 +38,7 @@
     <string name="alarm_more_conditions">Mai multe condiții</string>
     <string name="alarm_new_extreme">Nou %1$s</string>
     <string name="alarm_once">O dată</string>
-    <string name="alarm_option_repeating">Păstrează alarma după declanșare</string>
+    <string name="alarm_option_repeating">Anunță</string>
     <string name="alarm_option_sound">Sunet</string>
     <string name="alarm_option_speak">Citește alarma</string>
     <string name="alarm_option_vibrate">Vibrație</string>
@@ -59,7 +59,6 @@
     <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
     <string name="alarm_simple_above">trece peste</string>
     <string name="alarm_simple_below">scade sub</string>
-    <string name="alarm_simple_direction_a11y">Direcție: %1$s</string>
     <string name="alarm_simple_end"></string>
     <string name="alarm_simple_when">Când %1$s</string>
     <string name="alarm_template_a11y">Creează alarma: %1$s</string>
@@ -86,7 +85,7 @@
     <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
     <string name="alarm_sentence_above">Anunță-mă când %1$s urcă peste %2$s.</string>
     <string name="alarm_sentence_below">Anunță-mă când %1$s coboară sub %2$s.</string>
-    <string name="alarm_sentence_down_percent">Anunță-mă când %1$s scade cu %2$s.</string>
+    <string name="alarm_sentence_down_percent">Anunță-mă când %1$s scade cu %2$s sub prețul de la salvare (sau de la ultima alarmă).</string>
     <string name="alarm_sentence_funding_above">Anunță-mă când funding-ul pentru %1$s trece peste %2$s.</string>
     <string name="alarm_sentence_funding_below">Anunță-mă când funding-ul pentru %1$s coboară sub %2$s.</string>
     <string name="alarm_sentence_incomplete">Introdu o valoare pentru a vedea alarma ca propoziție.</string>
@@ -108,7 +107,7 @@
         <item quantity="few">Anunță-mă când interesul deschis pentru %1$s crește cu %2$s în %3$d ore.</item>
         <item quantity="other">Anunță-mă când interesul deschis pentru %1$s crește cu %2$s în %3$d de ore.</item>
     </plurals>
-    <string name="alarm_sentence_up_percent">Anunță-mă când %1$s crește cu %2$s.</string>
+    <string name="alarm_sentence_up_percent">Anunță-mă când %1$s crește cu %2$s peste prețul de la salvare (sau de la ultima alarmă).</string>
     <string name="alarm_sentence_volume">Anunță-mă când volumul pentru %1$s ajunge la %2$s× față de normal.</string>
 
     <!-- Alarm «Nahe am Hoch / Tief» -->
@@ -148,7 +147,7 @@
     <string name="alarm_saved_notifications_off">Notificări dezactivate</string>
 
     <!-- Wann Alarme geprüft werden -->
-    <string name="alarm_timing_hint_android">Cu aplicația închisă, Android verifică neregulat – adesea mai târziu de 15 minute, chiar și cu «%1$s». Salturile scurte pot fi ratate.</string>
+    <string name="alarm_timing_hint_android">Cu aplicația închisă, Android verifică neregulat – adesea mai târziu de 15 minute, chiar și cu „%1$s”. Salturile scurte pot fi ratate.</string>
     <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">Cu aplicația închisă, iOS verifică adesea mai târziu de 15 minute, uneori abia la următoarea deschidere. Salturile scurte pot fi ratate.</string>
     <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
     <string name="alarm_timing_title">Când sunt verificate alarmele</string>

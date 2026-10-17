@@ -245,7 +245,7 @@
     <string name="ledger_exchange">Corretora (opcional)</string>
     <string name="ledger_exchange_failed">%1$s: sem cotação de %2$s no momento – avaliado com a Binance.</string>
     <string name="ledger_exchange_hint">A moeda é avaliada pelo preço desta corretora (senão, Binance). Histórico, 7 D e 1 A: cotações diárias da Binance, ajustadas.</string>
-    <string name="ledger_exchange_mixed">%1$s: várias corretoras informadas – avaliado com a Binance. Moveu moedas? Registre a movimentação como «Transferência».</string>
+    <string name="ledger_exchange_mixed">%1$s: várias corretoras informadas – avaliado com a Binance. Moveu moedas? Registre a movimentação como “Transferência”.</string>
     <string name="ledger_exchange_none">Nenhuma (Binance)</string>
     <string name="ledger_fee">Taxa (opcional)</string>
     <string name="ledger_fee_coin">Moeda</string>
@@ -257,7 +257,7 @@
     <string name="ledger_gain_info_fifo">Hoje, 7 D, 1 A: variação do valor no período – compras e vendas não contam como ganho. Desde a compra: valor atual menos custo de aquisição (FIFO com taxas) das moedas que você ainda tem.</string>
     <string name="ledger_gain_title">Ganho/perda</string>
     <string name="ledger_more_toggle">Taxa e corretora</string>
-    <string name="ledger_partial_cost">«Desde a compra» conta só a parte com preço de compra – sem %1$s sem preço de compra.</string>
+    <string name="ledger_partial_cost">“Desde a compra” conta só a parte com preço de compra – sem %1$s sem preço de compra.</string>
     <string name="ledger_period_without">Hoje / 7 D / 1 A sem %1$s – sem cotação inicial adequada.</string>
     <string name="ledger_since_purchase_currency">Desde a compra (%1$s)</string>
     <string name="ledger_since_purchase_spoken">Ganho/perda desde a compra, ainda não vendido</string>

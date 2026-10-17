@@ -156,7 +156,7 @@
     <string name="watchlist_group_empty_hint">اضغط مطولًا على مجموعة لاختيار أزواجها.</string>
     <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
     <string name="watchlist_groups_empty_hint">ستظهر مجموعاتك هنا</string>
-    <string name="watchlist_notification">إشعار</string>
+    <string name="watchlist_notification">إشعار السعر</string>
     <string name="watchlist_tts">نطق السعر</string>
     <string name="watchlist_tts_speech_on">النطق مفعّل. يمكنك تغييره من الإعدادات › متقدم › الإخراج الصوتي.</string>
 

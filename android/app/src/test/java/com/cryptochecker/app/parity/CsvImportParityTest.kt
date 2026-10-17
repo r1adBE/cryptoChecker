@@ -1,8 +1,12 @@
 package com.cryptochecker.app.parity
 
 import com.cryptochecker.app.data.portfolio.FxRateSource
+import com.cryptochecker.app.domain.portfolio.CostMethod
+import com.cryptochecker.app.domain.portfolio.CutoffExport
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.TaxExport
+import com.cryptochecker.app.domain.portfolio.TaxMethod
+import com.cryptochecker.app.domain.portfolio.TaxTemplate
 import com.cryptochecker.app.domain.portfolio.PortfolioTrade
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvDateOrder
@@ -119,7 +123,10 @@ class CsvImportParityTest {
             val rates = c["rates"].obj().mapValues { (_, byDay) ->
                 byDay.obj().entries.associate { LocalDate.parse(it.key).toEpochDay() to BigDecimal(it.value as String) }
             }
-            val priced = CsvImport.priceInUsdt(parse(c["file"] as String).rows) { cur, day -> rates[cur]?.get(day) }
+            // USDT/USD-Tagesschlüsse (Datum → Schluss); fehlt im Fixture = null (USD gilt 1:1 als USDT)
+            val usdtUsd = (c["usdtUsd"] as Map<*, *>?)?.entries
+                ?.associate { LocalDate.parse(it.key as String).toEpochDay() to BigDecimal(it.value as String) }
+            val priced = CsvImport.priceInUsdt(parse(c["file"] as String).rows, usdtUsd = usdtUsd) { cur, day -> rates[cur]?.get(day) }
             val expected = c["expected"].list().map { it.obj() }
             assertEquals(expected.map { it["line"].num()!!.toInt() }, priced.map { it.row.line })
             expected.zip(priced).forEach { (e, p) ->
@@ -129,6 +136,45 @@ class CsvImportParityTest {
                 assertEquals("$m needsFx", e["needsFx"], p.needsFx)
                 assertEquals("$m missingPrice", e["missingPrice"], p.missingPrice)
                 assertEquals("$m swapValueUsdt", e["swapValueUsdt"], text(p.swapValueUsdt))
+                assertEquals("$m usdtApproximate", e["usdtApproximate"] ?: false, p.usdtApproximate)
+            }
+        }
+    }
+
+    /**
+     * USDT zum Marktkurs, Rundlauf Import → Steuer-Export: USD/Fiat → USDT mit dem USDT/USD-Schluss DES Tags, der Export
+     * rechnet mit demselben Schluss zurück — ein USD-Kauf über 10 000 ergibt 10 000 USD Einstand, CHF ohne Scheingewinn.
+     */
+    @Test
+    fun usdtRoundTrip() {
+        data["usdtRoundTrip"].list().map { it.obj() }.forEach { c ->
+            val name = c["name"] as String
+            fun byDay(raw: Any?) = raw.obj().entries.associate { LocalDate.parse(it.key).toEpochDay() to BigDecimal(it.value as String) }
+            val rates = c["rates"].obj().mapValues { (_, v) -> byDay(v) }
+            val usdtUsd = byDay(c["usdtUsd"])
+            val currency = c["currency"] as String
+            val result = CsvImportParser.parse(c["csv"] as String, "UTC")
+            val preview = CsvImportMapping.preview(result, emptySet(), usdtUsd = usdtUsd) { cur, day -> rates[cur]?.get(day) }
+            assertEquals("$name priceUsdt", c["priceUsdt"], preview.transactions.map { text(it.priceUsdt) })
+            assertEquals("$name usdtApproximate", c["usdtApproximate"].list().map { it.num()!!.toInt() }, preview.usdtApproximate)
+            val trades = preview.transactions.mapIndexed { i, t ->
+                PortfolioTrade(
+                    id = i + 1L, coin = t.coin, type = t.type, amount = t.amount, priceUsdt = t.priceUsdt, time = t.time,
+                    fee = t.fee, feeUnit = t.feeUnit, feeCoin = t.feeCoin, feeCoinAmount = t.feeCoinAmount,
+                )
+            }
+            val rows = TaxExport.gainRows(
+                trades, TaxMethod.of(CostMethod.FIFO), TaxTemplate.NEUTRAL.period(c["year"].num()!!.toInt()),
+                java.time.ZoneId.of("UTC"), currency, rates[currency] ?: emptyMap(), usdtUsd = usdtUsd,
+            )
+            val expected = c["gains"].list().map { it.obj() }
+            assertEquals("$name rows", expected.size, rows.size)
+            expected.zip(rows).forEach { (e, r) ->
+                assertEquals("$name coin", e["coin"], r.coin)
+                assertEquals("$name cost", e["costTarget"], CutoffExport.money(r.costTarget!!))
+                assertEquals("$name proceeds", e["proceedsTarget"], CutoffExport.money(r.proceedsTarget!!))
+                assertEquals("$name gain", e["gainTarget"], CutoffExport.money(r.gainTarget!!))
+                assertEquals("$name usdtApproximate", e["usdtApproximate"], r.usdtApproximate)
             }
         }
     }

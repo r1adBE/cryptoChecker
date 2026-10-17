@@ -120,7 +120,7 @@
     <string name="watchlist_group_empty_hint">Appuyez longuement sur un groupe pour choisir ses paires.</string>
     <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
     <string name="watchlist_groups_empty_hint">Vos groupes s\'afficheront ici</string>
-    <string name="watchlist_notification">Notification</string>
+    <string name="watchlist_notification">Notification de prix</string>
     <string name="watchlist_tts">Annoncer le prix</string>
     <string name="watchlist_tts_speech_on">L’annonce vocale est activée. Vous pouvez la modifier dans Paramètres › Avancé › Annonce vocale.</string>
 

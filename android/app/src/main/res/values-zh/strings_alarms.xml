@@ -36,7 +36,7 @@
     <string name="alarm_more_conditions">更多条件</string>
     <string name="alarm_new_extreme">刷新%1$s</string>
     <string name="alarm_once">一次</string>
-    <string name="alarm_option_repeating">触发后保留提醒</string>
+    <string name="alarm_option_repeating">提醒</string>
     <string name="alarm_option_sound">声音</string>
     <string name="alarm_option_speak">语音播报提醒</string>
     <string name="alarm_option_vibrate">振动</string>
@@ -55,7 +55,6 @@
     <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
     <string name="alarm_simple_above">涨破</string>
     <string name="alarm_simple_below">跌破</string>
-    <string name="alarm_simple_direction_a11y">方向：%1$s</string>
     <string name="alarm_simple_end">时</string>
     <string name="alarm_simple_when">当 %1$s</string>
     <string name="alarm_template_a11y">创建提醒：%1$s</string>
@@ -82,7 +81,7 @@
     <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
     <string name="alarm_sentence_above">当 %1$s 涨破 %2$s 时提醒我。</string>
     <string name="alarm_sentence_below">当 %1$s 跌破 %2$s 时提醒我。</string>
-    <string name="alarm_sentence_down_percent">当 %1$s 下跌 %2$s 时提醒我。</string>
+    <string name="alarm_sentence_down_percent">当 %1$s 比保存时（或上次提醒时）的价格下跌 %2$s 时提醒我。</string>
     <string name="alarm_sentence_funding_above">当 %1$s 的资金费率升至 %2$s 以上时提醒我。</string>
     <string name="alarm_sentence_funding_below">当 %1$s 的资金费率降至 %2$s 以下时提醒我。</string>
     <string name="alarm_sentence_incomplete">输入数值后，提醒将以句子形式显示。</string>
@@ -98,7 +97,7 @@
     <plurals name="alarm_sentence_oi_up">
         <item quantity="other">当 %1$s 的持仓量在 %3$d 小时内上升 %2$s 时提醒我。</item>
     </plurals>
-    <string name="alarm_sentence_up_percent">当 %1$s 上涨 %2$s 时提醒我。</string>
+    <string name="alarm_sentence_up_percent">当 %1$s 比保存时（或上次提醒时）的价格上涨 %2$s 时提醒我。</string>
     <string name="alarm_sentence_volume">当 %1$s 成交量达到正常水平的 %2$s 倍时提醒我。</string>
 
     <!-- Alarm «Nahe am Hoch / Tief» -->
@@ -136,7 +135,7 @@
     <string name="alarm_saved_notifications_off">通知已关闭</string>
 
     <!-- Wann Alarme geprüft werden -->
-    <string name="alarm_timing_hint_android">应用关闭时，Android 的检查不规律——即使开启«%1$s»，也常常晚于 15 分钟。可能错过短暂的波动。</string>
+    <string name="alarm_timing_hint_android">应用关闭时，Android 的检查不规律——即使开启「%1$s」，也常常晚于 15 分钟。可能错过短暂的波动。</string>
     <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">应用关闭时，iOS 常常晚于 15 分钟才检查，有时要等到下次打开应用。可能错过短暂的波动。</string>
     <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
     <string name="alarm_timing_title">提醒何时检查</string>

@@ -99,7 +99,7 @@
     <string name="check_trigger_worker">Arka plan</string>
 
     <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
-    <string name="battery_delay_hint">Android kontrolleri geciktirebilir – pili «Kısıtlanmamış» olarak ayarla</string>
+    <string name="battery_delay_hint">Android kontrolleri geciktirebilir – pili “Kısıtlanmamış” olarak ayarla</string>
     <string name="battery_later">Sonra</string>
     <string name="battery_message">Android enerji tasarrufu için arka plan işlerini geciktirir — fiyatlar ve widget\'lar bu durumda saatlerce eski kalabilir. Pil kullanımını kısıtlamasız yapmak onları güncel tutar. Bunu Android ayarlarından istediğiniz zaman değiştirebilirsiniz.</string>
     <string name="battery_open_settings">Pil ayarlarını aç</string>

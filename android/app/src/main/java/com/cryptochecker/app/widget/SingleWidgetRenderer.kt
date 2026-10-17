@@ -49,6 +49,15 @@ class SingleWidgetRenderer @Inject constructor(
     /** Mini-Chart-Kerzen je Symbol und Zeitraum, 10 Minuten zwischengespeichert (für Kerzen und Linie). */
     internal val sparkCache = java.util.concurrent.ConcurrentHashMap<String, Pair<Long, List<WidgetCandle>>>()
 
+    /**
+     * Gesetzt, wenn ein Zeichnen ohne Netz (`fetch = false`) Kerzen brauchte, die im Zwischenspeicher
+     * fehlten oder älter als 10 Minuten waren: Dann lohnt das Nachladen ([takeStaleCharts]).
+     */
+    internal val staleCharts = java.util.concurrent.atomic.AtomicBoolean(false)
+
+    /** Fehlten seit dem letzten Aufruf Kerzen beim Zeichnen ohne Netz? Setzt den Merker zurück. */
+    fun takeStaleCharts(): Boolean = staleCharts.getAndSet(false)
+
     /** Börse der Kerzen aus der Ausweich-Kette je Schlüssel von [sparkCache] (für «Chart: Binance»). */
     internal val sparkProvider = java.util.concurrent.ConcurrentHashMap<String, String>()
 

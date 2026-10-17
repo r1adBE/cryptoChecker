@@ -6,11 +6,11 @@
     <string name="portfolio_address_error">อัปเดตไม่สำเร็จ</string>
     <string name="portfolio_address_hint">ที่อยู่สาธารณะ (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) หรือ xpub</string>
     <string name="portfolio_address_label">ป้ายชื่อ (ไม่บังคับ)</string>
-    <string name="portfolio_address_not_since_buy">จากที่อยู่ · ไม่รวมใน «ตั้งแต่ซื้อ»: %1$s</string>
-    <string name="portfolio_address_overlap">มีในรายการของคุณเองด้วย: %1$s – ทั้งสองจะถูกรวมกัน เป็นเหรียญเดียวกันหรือไม่? เลือก «แสดงอย่างเดียว»</string>
+    <string name="portfolio_address_not_since_buy">จากที่อยู่ · ไม่รวมใน “ตั้งแต่ซื้อ”: %1$s</string>
+    <string name="portfolio_address_overlap">มีในรายการของคุณเองด้วย: %1$s – ทั้งสองจะถูกรวมกัน เป็นเหรียญเดียวกันหรือไม่? เลือก “แสดงอย่างเดียว”</string>
     <string name="portfolio_address_overlap_ask">คุณบันทึก %1$s ด้วยรายการของคุณเองอยู่แล้ว จะรวมยอดของที่อยู่นี้ในพอร์ตหรือแค่แสดงเท่านั้น?</string>
-    <string name="portfolio_address_overlap_auto">«%1$s» จะแสดงอย่างเดียวและไม่นับรวมแล้ว – %2$s มีอยู่ในรายการของคุณด้วย</string>
-    <string name="portfolio_address_overlap_restored">«%1$s» ถูกนับรวมอีกครั้ง – จำนวนไม่ตรงกับรายการของคุณ หากเป็นเหรียญเดียวกันให้เลือก «แสดงอย่างเดียว»</string>
+    <string name="portfolio_address_overlap_auto">“%1$s” จะแสดงอย่างเดียวและไม่นับรวมแล้ว – %2$s มีอยู่ในรายการของคุณด้วย</string>
+    <string name="portfolio_address_overlap_restored">“%1$s” ถูกนับรวมอีกครั้ง – จำนวนไม่ตรงกับรายการของคุณ หากเป็นเหรียญเดียวกันให้เลือก “แสดงอย่างเดียว”</string>
     <string name="portfolio_address_overlap_title">เหรียญเดียวกับในรายการของคุณหรือไม่?</string>
     <string name="portfolio_address_overlap_tx">จำนวนเท่ากับการฝาก/โอนย้ายของคุณเอง (%1$s) – อาจถูกนับซ้ำ</string>
     <string name="portfolio_address_period_observed">ที่อยู่ที่ติดตามจะนับตั้งแต่ยอดคงเหลือแรกที่พบ การเปลี่ยนแปลงหลังจากนั้นเป็นเงินเข้า/ออก ไม่ใช่กำไร</string>

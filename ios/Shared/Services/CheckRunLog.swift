@@ -94,18 +94,22 @@ enum CheckRunStore {
         CheckRunLog.decode(try? String(contentsOf: url, encoding: .utf8))
     }
 
-    /// Lauf vorne anfügen (höchstens `CheckRunLog.max`) und schreiben.
+    /// Lauf vorne anfügen (höchstens `CheckRunLog.max`) und schreiben. Lesen und Schreiben als ein abgestimmter
+    /// Schritt über die Prozesse (App, Hintergrund-Aufgabe, Widget: `SharedStorage.coordinatedWrite`), sonst ginge
+    /// ein gleichzeitig vermerkter Lauf verloren; `lock` hält zusätzlich den eigenen Prozess in Reihe.
     static func add(_ run: CheckRun, to url: URL = CheckRunStore.url) {
         lock.lock()
         defer { lock.unlock() }
-        let next = CheckRunLog.add(load(from: url), run)
-        guard let data = CheckRunLog.encode(next).data(using: .utf8) else { return }
-        do {
-            try data.write(to: url, options: .atomic)
-            // Atomares Schreiben ersetzt die Datei: Merkmal jedes Mal neu setzen
-            BackupExclusion.set(excluded: true, for: url)
-        } catch {
-            return
+        SharedStorage.coordinatedWrite(at: url) { () -> Void in
+            let next = CheckRunLog.add(load(from: url), run)
+            guard let data = CheckRunLog.encode(next).data(using: .utf8) else { return }
+            do {
+                try data.write(to: url, options: .atomic)
+                // Atomares Schreiben ersetzt die Datei: Merkmal jedes Mal neu setzen
+                BackupExclusion.set(excluded: true, for: url)
+            } catch {
+                return
+            }
         }
     }
 

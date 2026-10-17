@@ -72,6 +72,9 @@ struct WatchlistScreen: View {
     @State var celebrating: [Int64: Int] = [:]
     /// Banner unten: «… wird jetzt überwacht», «… entfernt» (mit «Rückgängig»), Favorit.
     @State var banner: WatchlistBannerMessage?
+    /// Start-Auswahl übernommen: nach der Mitteilungs-Erlaubnis erst fragen, wenn das Banner mit «Alarm setzen» weg
+    /// ist — sonst verdeckt die Erklärung genau diesen ersten Schritt (wie Android).
+    @State var notificationAskPending = false
     /// Eine Erfolgs-Haptik je Hinzufügen (nicht je Zeile).
     @State var firstAddHaptic = 0
     /// Haptik beim Wischen: Favorit (leicht) bzw. Löschen.
@@ -163,6 +166,8 @@ struct WatchlistScreen: View {
             WatchlistBanner(message: $banner) { deleted in undoDelete(deleted) }
                 .animation(reduceMotion ? nil : .spring(duration: 0.35), value: banner)
         }
+        // Banner «Alarm setzen» weg (abgelaufen, weggewischt, ersetzt): jetzt nach Mitteilungen fragen
+        .onChange(of: banner?.id) { _, _ in askNotificationsAfterHint() }
         .sensoryFeedback(.success, trigger: firstAddHaptic)
         .sensoryFeedback(.impact(weight: .light), trigger: swipeFavoriteTick)
         .sensoryFeedback(.impact(weight: .medium), trigger: swipeDeleteTick)

@@ -96,7 +96,7 @@
     <string name="watchlist_group_empty_hint">그룹을 길게 눌러 거래쌍을 선택하세요.</string>
     <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
     <string name="watchlist_groups_empty_hint">여기에 그룹이 표시됩니다</string>
-    <string name="watchlist_notification">알림</string>
+    <string name="watchlist_notification">가격 알림</string>
     <string name="watchlist_tts">가격 읽어주기</string>
     <string name="watchlist_tts_speech_on">음성 출력이 켜졌습니다. 변경: 설정 › 고급 › 음성 출력.</string>
 

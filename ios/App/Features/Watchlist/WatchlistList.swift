@@ -45,7 +45,7 @@ extension WatchlistScreen {
         // mit VoiceOver immer da, damit er erreichbar bleibt
         let rows = favorites + others
         // Platz jeder Zeile in der Liste: Form wie eine Einheit (`ListSegment`)
-        let positions = Dictionary(uniqueKeysWithValues: rows.enumerated().map { ($1.id, $0) })
+        let positions = Dictionary(rows.enumerated().map { ($1.id, $0) }, uniquingKeysWith: { first, _ in first })
         // Kein Sprungknopf in der Mehrfachauswahl: unten steht dann die Leiste
         let jumpEligible = WatchlistJump.eligible(pairs: rows.count, sorting: sorting || selecting)
         let jumpVisible = jumpEligible && (jumpScrolled || voiceOver)

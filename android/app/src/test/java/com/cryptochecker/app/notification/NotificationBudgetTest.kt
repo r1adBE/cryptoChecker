@@ -83,4 +83,28 @@ class NotificationBudgetTest {
         // Uhr zurückgestellt: nicht blockieren
         assertFalse(NotificationBudget.retryBlocked(t, t - 1, 15))
     }
+
+    @Test
+    fun `more than five posts are spaced out`() {
+        assertEquals(0L, NotificationBudget.postGapMillis(1))
+        assertEquals(0L, NotificationBudget.postGapMillis(5))
+        assertEquals(NotificationBudget.POST_GAP_MILLIS, NotificationBudget.postGapMillis(6))
+        assertEquals(NotificationBudget.POST_GAP_MILLIS, NotificationBudget.postGapMillis(21))
+        // Gedrosselt höchstens 5 je Sekunde
+        assertTrue(1_000L / NotificationBudget.POST_GAP_MILLIS <= NotificationBudget.POSTS_PER_SECOND)
+    }
+
+    @Test
+    fun `alarm counts as shown only with a post time of the new post`() {
+        val start = 1_000_000L
+        // Nicht abfragbar: gilt als gezeigt
+        assertTrue(NotificationBudget.confirmedPost(null, 7, start))
+        // Fehlt: nicht gezeigt
+        assertFalse(NotificationBudget.confirmedPost(mapOf(8 to start), 7, start))
+        // Alte Meldung desselben Alarms (vor dem Melden): bestätigt die neue nicht
+        assertFalse(NotificationBudget.confirmedPost(mapOf(7 to start - 60_000L), 7, start))
+        // Neue Meldung
+        assertTrue(NotificationBudget.confirmedPost(mapOf(7 to start), 7, start))
+        assertTrue(NotificationBudget.confirmedPost(mapOf(7 to start + 40L), 7, start))
+    }
 }

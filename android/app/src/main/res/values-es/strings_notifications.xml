@@ -20,7 +20,7 @@
     <string name="notification_macro_title">Hoy hay datos económicos</string>
     <string name="notification_permission_preprompt_continue">Continuar</string>
     <string name="notification_permission_preprompt_later">Más tarde</string>
-    <string name="notification_permission_preprompt_text">Para que te lleguen las alarmas y las notificaciones de precio, la app necesita permiso para enviar notificaciones. Solo se usan para tus propias alarmas.</string>
+    <string name="notification_permission_preprompt_text">Para que te lleguen las alarmas y las notificaciones de precio, la app necesita permiso para enviar notificaciones. La app solo las usa para tus alarmas y notificaciones de precio.</string>
     <string name="notification_permission_preprompt_title">¿Permitir notificaciones?</string>
     <string name="notification_portfolio_alarm_locked">Tu alarma se ha activado: abre la app para ver los detalles.</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->

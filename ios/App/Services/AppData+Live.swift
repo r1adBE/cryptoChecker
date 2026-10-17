@@ -69,7 +69,10 @@ extension AppData {
             chosen[id] = LiveQuote(price: quote.price, change24h: change, time: quote.time, tradeTime: quote.tradeTime)
         }
         guard !chosen.isEmpty else { return true }
+        let resetBefore = resetGeneration
         let outcome = await PriceRefresher.refresh(snapshot: snapshot, settings: settings, liveQuotes: chosen)
+        // Während der Abfrage «App zurücksetzen»: Ergebnis gehört zum gelöschten Stand
+        guard resetGeneration == resetBefore else { return true }
         // Zeit zuerst (Widget-Kopfzeile), die Dauer des letzten Durchlaufs bleibt
         // Live-Takte setzen nur die Uhrzeit — nicht `lastAlarmCheckAt` (keine volle Prüfung, Review 12)
         if reloadWidgets && outcome.checked > outcome.failed {

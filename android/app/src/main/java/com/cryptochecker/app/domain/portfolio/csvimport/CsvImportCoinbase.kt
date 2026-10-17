@@ -1,7 +1,6 @@
 package com.cryptochecker.app.domain.portfolio.csvimport
 
 import java.math.BigDecimal
-import java.math.RoundingMode
 
 /**
  * Coinbase «Transaction report» (Profil › Berichte › Transaktionsbericht CSV) → [CsvImportRow]. Gespiegelt in
@@ -100,7 +99,7 @@ internal object CsvImportCoinbase {
                 val externalId = cell(iId).ifEmpty { null }
                 val priced = kind == CsvImportKind.BUY || kind == CsvImportKind.SELL || kind == CsvImportKind.REWARD
                 val price = if (!priced) null
-                else subtotal?.divide(amount, CsvImport.DERIVED_SCALE, RoundingMode.HALF_EVEN)?.stripTrailingZeros() ?: spot
+                else subtotal?.let { CsvImport.derive(it, amount) } ?: spot
                 if (price != null && quote == null) throw Skip(CsvImportSkipReason.MISSING_FIELD)
                 var draft = CsvImportRow(
                     line = rec.line,

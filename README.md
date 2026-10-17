@@ -50,6 +50,14 @@ your own keystore. Without it the release build stays unsigned.
 2. Open `ios/CryptoChecker.xcodeproj`, choose the scheme `CryptoChecker`
    and a simulator, then *Run*. For a real device select your own team under
    *Signing & Capabilities* (app and widget extension).
+3. A real device also needs **your own App Group** (`group.com.cryptochecker.app`
+   belongs to the original developer account). Register one in your team, then
+   replace the identifier in all three places:
+   * `ios/App/CryptoChecker.entitlements` and
+     `ios/Widgets/CryptoCheckerWidgets.entitlements` (App Groups),
+   * `SharedStorage.appGroup` in `ios/Shared/Storage/SharedStorage.swift` –
+     the same value is also the keychain access group of the encrypted files
+     (`ios/Shared/Storage/ProtectedFile.swift`).
 
 Helper scripts (Python 3, run from `ios/`):
 

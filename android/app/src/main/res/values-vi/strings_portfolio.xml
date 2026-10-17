@@ -239,7 +239,7 @@
     <string name="ledger_exchange">Sàn (không bắt buộc)</string>
     <string name="ledger_exchange_failed">%1$s: hiện không có giá từ %2$s – định giá theo Binance.</string>
     <string name="ledger_exchange_hint">Coin được định giá theo giá của sàn này (nếu không thì Binance). Lịch sử, 7 N và 1 N: giá ngày của Binance, quy đổi theo đó.</string>
-    <string name="ledger_exchange_mixed">%1$s: đã nhập nhiều sàn – định giá theo Binance. Đã chuyển coin? Hãy ghi lại là «Chuyển».</string>
+    <string name="ledger_exchange_mixed">%1$s: đã nhập nhiều sàn – định giá theo Binance. Đã chuyển coin? Hãy ghi lại là “Chuyển”.</string>
     <string name="ledger_exchange_none">Không (Binance)</string>
     <string name="ledger_fee">Phí (không bắt buộc)</string>
     <string name="ledger_fee_coin">Coin</string>
@@ -251,7 +251,7 @@
     <string name="ledger_gain_info_fifo">Hôm nay, 7 N, 1 N: thay đổi giá trị trong kỳ – mua và bán không tính là lãi. Từ khi mua: giá trị hiện tại trừ giá vốn (FIFO gồm phí) của các coin bạn vẫn giữ.</string>
     <string name="ledger_gain_title">Lãi/lỗ</string>
     <string name="ledger_more_toggle">Phí và sàn</string>
-    <string name="ledger_partial_cost">«Từ khi mua» chỉ tính phần có giá mua – không gồm %1$s chưa có giá mua.</string>
+    <string name="ledger_partial_cost">“Từ khi mua” chỉ tính phần có giá mua – không gồm %1$s chưa có giá mua.</string>
     <string name="ledger_period_without">Hôm nay / 7 N / 1 N không gồm %1$s – không có giá đầu kỳ phù hợp.</string>
     <string name="ledger_since_purchase_currency">Từ khi mua (%1$s)</string>
     <string name="ledger_since_purchase_spoken">Lãi/lỗ từ khi mua, chưa bán</string>

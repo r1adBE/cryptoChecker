@@ -27,6 +27,9 @@ struct PortfolioCsvImportSheet: View {
     @State private var decimalMark: Character? = nil
     /// Tageskurse nach einer anderen Reihenfolge Tag/Monat neu geladen (nil = die beim Laden).
     @State private var rates: [String: [(day: Int, rate: Double)]]? = nil
+    /// Tag/Monat bzw. Dezimalzeichen geändert, die Tageskurse dazu aber noch nicht übernommen: die nächste Neuzuordnung
+    /// lädt sie (auch wenn inzwischen nur die Zeitzone gewechselt hat und die frühere Neuzuordnung verworfen wird).
+    @State private var ratesStale = false
 
     init(loaded: CsvImportLoaded, onImported: @escaping (_ count: Int, _ enabled: Bool) -> Void) {
         self.loaded = loaded
@@ -257,9 +260,7 @@ struct PortfolioCsvImportSheet: View {
             get: { preview.zone },
             set: { z in
                 zone = z
-                preview = loaded.remapped(withdrawalsAsTransfer: false, zone: z, dateOrder: dateOrder,
-                                          decimalMark: decimalMark, rates: rates)
-                propose()
+                remap()
             }
         )
         return VStack(alignment: .leading, spacing: 2) {
@@ -281,20 +282,8 @@ struct PortfolioCsvImportSheet: View {
             get: { preview.dateOrder },
             set: { order in
                 dateOrder = order
-                let text = loaded.text
-                let chosenZone = zone
-                let mark = decimalMark
-                Task { @MainActor in
-                    let result = CsvImportParser.parse(text, deviceZone: TimeZone.current.identifier, zone: chosenZone,
-                                                       dateOrder: order, decimalMark: mark)
-                    let fresh = await PortfolioCsvImporter.fetchRates(result)
-                    // Inzwischen anders gewählt: verwerfen
-                    guard dateOrder == order, decimalMark == mark else { return }
-                    rates = fresh
-                    preview = loaded.remapped(withdrawalsAsTransfer: false, zone: chosenZone, dateOrder: order,
-                                              decimalMark: mark, rates: fresh)
-                    propose()
-                }
+                ratesStale = true
+                remap()
             }
         )
         return VStack(alignment: .leading, spacing: 2) {
@@ -321,20 +310,8 @@ struct PortfolioCsvImportSheet: View {
             set: { raw in
                 guard let mark = raw.first else { return }
                 decimalMark = mark
-                let text = loaded.text
-                let chosenZone = zone
-                let order = dateOrder
-                Task { @MainActor in
-                    let result = CsvImportParser.parse(text, deviceZone: TimeZone.current.identifier, zone: chosenZone,
-                                                       dateOrder: order, decimalMark: mark)
-                    let fresh = await PortfolioCsvImporter.fetchRates(result)
-                    // Inzwischen anders gewählt: verwerfen
-                    guard decimalMark == mark, dateOrder == order else { return }
-                    rates = fresh
-                    preview = loaded.remapped(withdrawalsAsTransfer: false, zone: chosenZone, dateOrder: order,
-                                              decimalMark: mark, rates: fresh)
-                    propose()
-                }
+                ratesStale = true
+                remap()
             }
         )
         return VStack(alignment: .leading, spacing: 2) {
@@ -345,6 +322,39 @@ struct PortfolioCsvImportSheet: View {
                 }
             }
             .pickerStyle(.segmented)
+        }
+    }
+
+    /// Datei mit der gewählten Zeitzone, Reihenfolge Tag/Monat und dem Dezimalzeichen neu lesen und zuordnen — einmal
+    /// lesen (bis 16 MB) und zuordnen abseits des Haupt-Threads; Tageskurse nur neu laden, wenn sie veraltet sind
+    /// (`ratesStale`). Die Vorschau wird auf dem MainActor übernommen; inzwischen anders gewählt: verwerfen.
+    private func remap() {
+        let text = loaded.text
+        let existingKeys = loaded.existingKeys
+        let knownRates = rates ?? loaded.rates
+        let deviceZone = TimeZone.current.identifier
+        let chosenZone = zone
+        let order = dateOrder
+        let mark = decimalMark
+        let refetch = ratesStale
+        Task { @MainActor in
+            let computed = await Task.detached(priority: .userInitiated) {
+                () -> (preview: CsvImportPreview, rates: [String: [(day: Int, rate: Double)]]) in
+                let result = CsvImportParser.parse(text, deviceZone: deviceZone, zone: chosenZone, dateOrder: order,
+                                                   decimalMark: mark)
+                let fresh = refetch ? await PortfolioCsvImporter.fetchRates(result) : knownRates
+                let mapped = PortfolioCsvImporter.mapPreview(result, existingKeys: existingKeys, rates: fresh,
+                                                             withdrawalsAsTransfer: false)
+                return (preview: mapped, rates: fresh)
+            }.value
+            // Inzwischen anders gewählt: verwerfen (die neuere Neuzuordnung übernimmt)
+            guard zone == chosenZone, dateOrder == order, decimalMark == mark else { return }
+            if refetch {
+                rates = computed.rates
+                ratesStale = false
+            }
+            preview = computed.preview
+            propose()
         }
     }
 

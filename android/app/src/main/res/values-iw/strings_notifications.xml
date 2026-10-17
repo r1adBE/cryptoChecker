@@ -20,7 +20,7 @@
     <string name="notification_macro_title">נתונים כלכליים היום</string>
     <string name="notification_permission_preprompt_continue">המשך</string>
     <string name="notification_permission_preprompt_later">אחר כך</string>
-    <string name="notification_permission_preprompt_text">כדי שההתראות שהגדרת ועדכוני המחיר יגיעו אליך, האפליקציה צריכה הרשאה להתראות מערכת. הן משמשות רק להתראות שהגדרת בעצמך.</string>
+    <string name="notification_permission_preprompt_text">כדי שההתראות שהגדרת ועדכוני המחיר יגיעו אליך, האפליקציה צריכה הרשאה להתראות מערכת. האפליקציה משתמשת בהן רק להתראות שהגדרת ולעדכוני המחיר.</string>
     <string name="notification_permission_preprompt_title">לאפשר התראות מערכת?</string>
     <string name="notification_portfolio_alarm_locked">ההתראה שלך הופעלה – פתח את האפליקציה לפרטים.</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->

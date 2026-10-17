@@ -108,7 +108,7 @@
     <string name="watchlist_group_empty_hint">Çiftlerini seçmek için bir gruba uzun basın.</string>
     <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
     <string name="watchlist_groups_empty_hint">Gruplarınız burada görünecek</string>
-    <string name="watchlist_notification">Bildirim</string>
+    <string name="watchlist_notification">Fiyat bildirimi</string>
     <string name="watchlist_tts">Fiyatı sesli oku</string>
     <string name="watchlist_tts_speech_on">Sesli okuma açık. Değiştirmek için: Ayarlar › Gelişmiş › Sesli çıkış.</string>
 

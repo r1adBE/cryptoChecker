@@ -234,6 +234,14 @@ final class PortfolioTxFormTests: XCTestCase {
         XCTAssertNil(PortfolioTxForm.fiatToUsdt(dec("1000"), usdToFiat: nil))
         XCTAssertNil(PortfolioTxForm.fiatToUsdt(dec("1000"), usdToFiat: 0))
         XCTAssertNil(PortfolioTxForm.fiatToUsdt(nil, usdToFiat: dec("0.8")))
+        // USDT zum Marktkurs (wie CSV-Import und Export): Faktor = Devisenkurs × USDT/USD; 898.2 CHF bei 0.9 × 0.998 = 1000 USDT
+        let rate = PortfolioTxForm.entryRate(usdToFiat: dec("0.9"), usdtUsd: dec("0.998"))
+        XCTAssertEqual(rate, dec("0.8982"))
+        XCTAssertEqual(PortfolioTxForm.fiatToUsdt(dec("898.2"), usdToFiat: rate), dec("1000"))
+        // ohne bzw. unplausibler USDT/USD-Kurs: × 1; ohne Devisenkurs: keiner
+        XCTAssertEqual(PortfolioTxForm.entryRate(usdToFiat: dec("0.9"), usdtUsd: nil), dec("0.9"))
+        XCTAssertEqual(PortfolioTxForm.entryRate(usdToFiat: dec("0.9"), usdtUsd: dec("3")), dec("0.9"))
+        XCTAssertNil(PortfolioTxForm.entryRate(usdToFiat: nil, usdtUsd: dec("0.998")))
     }
 
     func testWalletHoldingsFromOpenLots() {

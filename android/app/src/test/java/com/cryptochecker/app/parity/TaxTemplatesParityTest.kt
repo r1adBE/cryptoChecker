@@ -125,6 +125,27 @@ class TaxTemplatesParityTest {
         assertEquals(TaxTemplate.UK, TaxTemplate.fromName("UK"))
     }
 
+    /**
+     * Steuerjahr-Grenze in der Ortszeit (UK 6. April, AU 1. Juli, JP 1. Januar): ein Verkauf kurz nach Mitternacht
+     * Ortszeit gehört ins neue Steuerjahr, auch wenn es in UTC noch der Vortag ist. Wie iOS.
+     */
+    @Test
+    fun zoneBoundary() {
+        data["zoneBoundary"].list().map { it.obj() }.forEach { c ->
+            val tpl = TaxTemplate.valueOf(c["template"] as String)
+            val tz = ZoneId.of(c["zone"] as String)
+            val year = c["year"].num()!!.toInt()
+            val sell = PortfolioTrade(2, "BTC", PortfolioTxType.SELL, BigDecimal.ONE, BigDecimal(200), c["sellTime"].num()!!.toLong())
+            val trades = listOf(PortfolioTrade(1, "BTC", PortfolioTxType.BUY, BigDecimal.ONE, BigDecimal(100), 1_577_836_800_000L), sell)
+            val label = "zoneBoundary $c"
+            assertEquals(label, listOf(year), TaxExport.years(listOf(sell), tz, tpl))
+            val method = tpl.methodFor(CostMethod.FIFO, year)
+            assertEquals(label, 1, TaxExport.disposalsIn(trades, method, tpl.period(year), tz).size)
+            assertEquals(label, 0, TaxExport.disposalsIn(trades, method, tpl.period(year - 1), tz).size)
+            assertEquals(label, 0, TaxExport.disposalsIn(trades, method, tpl.period(year + 1), tz).size)
+        }
+    }
+
     @Test
     fun engines() {
         val cases = data["cases"].list().map { it.obj() }

@@ -15,9 +15,36 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 75)
+
+In-depth check of all areas before the device test.
+
+* Android: widget charts are loaded outside the refresh lock and the background time budget (no aborted runs in
+  Doze); price notification updates are paced so Android doesn't drop them, and an alarm only counts as shown when
+  the new notification is really there; the last live prices are saved when the watchlist closes during a refresh;
+  clock jumps no longer silence gas, depeg and activity alerts; a restore clears notifications of old pairs and
+  alarms; release builds keep readable error names; an old database key file is removed once the new key works.
+* iPhone: portfolio and watched addresses are re-read after the first unlock; CSV preview parses off the main
+  thread; morning notifications can no longer be scheduled after being switched off; widgets never refresh twice at
+  once; refresh time only counts when something was saved; reset can't bring back portfolio alarms; duplicate ids
+  in an old watchlist file no longer crash; badge and check log are written safely between app and widget.
+* Money: CSV import and the entry form convert USD and fiat with the day's USDT/USD close (same as the export, no
+  phantom gains); Binance «ETH 2.0 Staking Rewards» are rewards; Kraken staking assets (DOT28.S, ETH2.S …) and
+  EUR.HOLD/USD.HOLD are recognised; derived prices keep 34 significant digits (tiny-price coins); portfolio alarms in
+  another currency use the USDT/USD price.
+* First run: the notification question comes after the «Set alert» hint; the starter shows an offline state with
+  «Try again»; the bell is hidden on an empty watchlist; the header bell says what it does.
+* Alarm editor: one direction control, a pair header with the current price on Android, «Notify» label for once /
+  every time; «rises by 5 %» says from which price.
+* Pair sheet: «Try again» for every error; screen readers announce the price notification only when it's off.
+* Texts: clearer notification wording, English «alert» everywhere, correct quotation marks in 15 languages.
+* Widgets: the refresh duration stays visible – the title gets smaller first.
+* Build tooling: Kotlin 2.4.21, Android Gradle Plugin 9.4.1, Navigation 2.10.2; Dependabot only for security updates.
+* Privacy page names every file you pick yourself (backup, CSV import, alarm sound).
+
 ## 16.2.2 (build 74)
 
-Twenty-third review.
+Fixes and polish.
 
 * Phemex Spot: a symbol without a price scale in the product list is an error, never a guessed 10^8.
 * Live prices: a stream tick is no longer stored as the exchange's trade time – «unchanged since» works again and a
@@ -46,7 +73,7 @@ Twenty-third review.
 
 ## 16.2.2 (build 73)
 
-Twenty-first and twenty-second review plus two follow-up checks.
+Fixes and polish.
 
 * Android: after «Edit pair» or a restore, a price fetched or streamed for the previous pair can no longer be written
   into the row (the write is bound to the pair; the live buffer forgets edited rows; edit and restore run under the
@@ -81,7 +108,7 @@ Twenty-first and twenty-second review plus two follow-up checks.
 
 ## 16.2.2 (build 72)
 
-Twentieth review.
+Fixes and polish.
 
 * MEXC Futures: the 24 h change is computed from hourly candles; the exchange's `riseFallRate` only counts since
   00:00 UTC+8 (it showed +0.35 % while every other exchange showed −0.72 %). %-alarms were not affected.
@@ -107,7 +134,7 @@ Twentieth review.
 
 ## 16.2.2 (build 71)
 
-Nineteenth review.
+Fixes and polish.
 
 * «N disabled» pill above the watchlist: tap area 48 dp / 44 pt high; the status line does not grow.
 * Pair editor: the alarm warning icon is amber (warning colour) on both platforms instead of olive / text colour.
@@ -116,7 +143,7 @@ Nineteenth review.
 
 ## 16.2.2 (build 70)
 
-Eighteenth review and the last red iOS UI test.
+Fixes and polish; the last failing iOS UI test passes.
 
 * Right-to-left languages: the drop-down arrows in the alarm editor (above/below) and the group picker of «Add pair»
   point down instead of up (own arrow that is not mirrored).
@@ -132,7 +159,7 @@ Eighteenth review and the last red iOS UI test.
 
 ## 16.2.2 (build 69)
 
-Fixes from the seventeenth review and first green CI runs.
+Fixes and polish; first green CI runs.
 
 * Kraken: pairs that are not "online" (e.g. cancel_only) are no longer offered; watched ones show «no longer traded»
   instead of a frozen price.
@@ -200,7 +227,7 @@ Fixes from the seventeenth review and first green CI runs.
 
 ## 16.2.2 (build 60)
 
-Fixes from the sixteenth review.
+Fixes and polish.
 
 * Arabic, Hebrew and Persian: pair, name and the activity chip in watchlist rows now sit on the correct side.
 * Android: the portfolio widget's values are stored encrypted (AES-256-GCM, own Keystore key); older plaintext
@@ -228,7 +255,7 @@ Fixes from the sixteenth review.
 
 ## 16.2.2 (build 58)
 
-Code quality and the fifteenth review (Android and iOS alike).
+Code quality, fixes and polish (Android and iOS alike).
 
 **Portfolio and tax**
 * Tax export: the FIFO cost basis is kept in dated parts and each part is converted at the exchange rate of its own
@@ -261,7 +288,7 @@ Code quality and the fifteenth review (Android and iOS alike).
 
 ## 16.2.2 (build 57)
 
-Owner decisions on the open points of build 56.
+Follow-ups to the open points of build 56.
 
 * Tax (UK, US, CA, AU, JP): a fee in USDT or cash on a transfer between your own wallets is no longer added to the
   cost basis; like the withdrawal fee it is listed as information only (own summary line «Transfer fees (own
@@ -276,7 +303,7 @@ Owner decisions on the open points of build 56.
 
 ## 16.2.2 (build 56)
 
-Aimed at the remaining weak areas of the fourteenth review (Android and iOS alike unless noted).
+Work on the remaining weak areas (Android and iOS alike unless noted).
 
 **Add a coin, watchlist and market tab**
 * Add pair: the search finds coins by name or symbol («Bitcoin», «btc») and suggests the best pair – your
@@ -332,7 +359,7 @@ Aimed at the remaining weak areas of the fourteenth review (Android and iOS alik
 
 ## 16.2.2 (build 55)
 
-Fixes from the fourteenth review (Android and iOS alike unless noted).
+Fixes and polish (Android and iOS alike unless noted).
 
 **Alerts and widgets**
 * Notifications and alerts show the app logo as status icon (no rising-chart symbol).
@@ -371,7 +398,7 @@ Fixes from the fourteenth review (Android and iOS alike unless noted).
 **Code base and tools**
 * Remains of the former live service removed (backups stay compatible with older versions both ways).
 * Release builds really strip Timber debug logs.
-* String resources grouped by area instead of review round.
+* String resources grouped by area.
 * Opt-in recording of real exchange responses (`android/tools/record_exchange_fixtures.py`, manual GitHub
   workflow) and a contract test that runs them when present.
 * Privacy policy: watched addresses are also refreshed in the background (for portfolio alerts and the widget).
@@ -404,7 +431,7 @@ Fixes from the fourteenth review (Android and iOS alike unless noted).
 
 ## 16.2.2 (build 52)
 
-Fixes from the thirteenth review (Android and iOS alike unless noted).
+Fixes and polish (Android and iOS alike unless noted).
 
 **Alerts**
 * Android 15+: spoken alerts also speak without audio focus (alarm stream, no ducking); silent during calls, Do Not
@@ -459,7 +486,7 @@ Fixes from the thirteenth review (Android and iOS alike unless noted).
 
 ## 16.2.2 (build 48)
 
-Fixes from the twelfth review (Android and iOS alike unless noted).
+Fixes and polish (Android and iOS alike unless noted).
 
 **Alarms**
 * Android: at most 20 price notifications are shown on their own, the rest go into one summary («+N more prices»);
@@ -496,7 +523,7 @@ Fixes from the twelfth review (Android and iOS alike unless noted).
 
 ## 16.2.2 (build 47)
 
-Fixes from the eleventh review (Android and iOS alike unless noted). From now on the build number goes up by one
+Fixes and polish (Android and iOS alike unless noted). From now on the build number goes up by one
 with every delivered state.
 
 **Alarms and background**

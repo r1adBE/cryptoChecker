@@ -108,7 +108,7 @@
     <string name="check_trigger_worker">Segundo plano</string>
 
     <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
-    <string name="battery_delay_hint">O Android pode atrasar as verificações – ajuste a bateria para «Sem restrições»</string>
+    <string name="battery_delay_hint">O Android pode atrasar as verificações – ajuste a bateria para “Sem restrições”</string>
     <string name="battery_later">Mais tarde</string>
     <string name="battery_message">O Android adia tarefas em segundo plano para economizar energia — preços e widgets podem então atrasar horas. Definir o uso da bateria como sem restrições os mantém atualizados. Você pode alterar isso a qualquer momento nas configurações do Android.</string>
     <string name="battery_open_settings">Abrir configurações de bateria</string>

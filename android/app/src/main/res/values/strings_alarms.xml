@@ -19,7 +19,7 @@
 
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">Advanced</string>
-    <string name="alarm_change_updates">Change price updates</string>
+    <string name="alarm_change_updates">Adjust price updates</string>
     <string name="alarm_create">Create alert</string>
     <string name="alarm_currency_label">Currency</string>
     <string name="alarm_delete_confirm">This alert will be removed.</string>
@@ -37,7 +37,7 @@
     <string name="alarm_more_conditions">More conditions</string>
     <string name="alarm_new_extreme">New %1$s</string>
     <string name="alarm_once">Once</string>
-    <string name="alarm_option_repeating">Keep alert after it fires</string>
+    <string name="alarm_option_repeating">Notify</string>
     <string name="alarm_option_sound">Sound</string>
     <string name="alarm_option_speak">Speak alert</string>
     <string name="alarm_option_vibrate">Vibration</string>
@@ -57,7 +57,6 @@
     <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
     <string name="alarm_simple_above">goes above</string>
     <string name="alarm_simple_below">goes below</string>
-    <string name="alarm_simple_direction_a11y">Direction: %1$s</string>
     <string name="alarm_simple_end"></string>
     <string name="alarm_simple_when">When %1$s</string>
     <string name="alarm_template_a11y">Create alert: %1$s</string>
@@ -84,7 +83,7 @@
     <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
     <string name="alarm_sentence_above">Tell me when %1$s rises above %2$s.</string>
     <string name="alarm_sentence_below">Tell me when %1$s falls below %2$s.</string>
-    <string name="alarm_sentence_down_percent">Tell me when %1$s falls by %2$s.</string>
+    <string name="alarm_sentence_down_percent">Tell me when %1$s falls %2$s below the price when saved (or at the last alert).</string>
     <string name="alarm_sentence_funding_above">Tell me when the funding of %1$s rises above %2$s.</string>
     <string name="alarm_sentence_funding_below">Tell me when the funding of %1$s falls below %2$s.</string>
     <string name="alarm_sentence_incomplete">Enter a value to see the alert as a sentence.</string>
@@ -103,7 +102,7 @@
         <item quantity="one">Tell me when the open interest of %1$s rises by %2$s within %3$d hour.</item>
         <item quantity="other">Tell me when the open interest of %1$s rises by %2$s within %3$d hours.</item>
     </plurals>
-    <string name="alarm_sentence_up_percent">Tell me when %1$s rises by %2$s.</string>
+    <string name="alarm_sentence_up_percent">Tell me when %1$s rises %2$s above the price when saved (or at the last alert).</string>
     <string name="alarm_sentence_volume">Tell me when %1$s trades %2$s× its normal volume.</string>
 
     <!-- Alarm «Nahe am Hoch / Tief» -->

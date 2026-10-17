@@ -22,7 +22,7 @@
     <string name="backup_password_repeat">Upprepa lösenord</string>
     <string name="backup_password_show">Visa lösenord</string>
     <string name="backup_password_title">Lösenordsskyddad säkerhetskopia</string>
-    <string name="backup_password_too_weak">För lätt att gissa – inte bara siffror, inte ett upprepat tecken, ingen vanlig följd som «12345678» eller «lösenord».</string>
+    <string name="backup_password_too_weak">För lätt att gissa – inte bara siffror, inte ett upprepat tecken, ingen vanlig följd som ”12345678” eller ”lösenord”.</string>
     <string name="backup_password_warning">Utan lösenordet kan säkerhetskopian inte återställas.</string>
     <string name="backup_password_wrong">Fel lösenord, eller så är filen skadad. Försök igen.</string>
     <string name="backup_protect">Skydda med lösenord</string>
@@ -54,6 +54,6 @@
     </plurals>
 
     <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
-    <string name="storage_recovery_message">Den här enheten saknar nyckeln till appens krypterade data, så appen startade tom. Inget har raderats. Få tillbaka din lista och portfölj genom att importera en säkerhetskopia under «%1$s» i inställningarna.</string>
+    <string name="storage_recovery_message">Den här enheten saknar nyckeln till appens krypterade data, så appen startade tom. Inget har raderats. Få tillbaka din lista och portfölj genom att importera en säkerhetskopia under ”%1$s” i inställningarna.</string>
     <string name="storage_recovery_title">Sparade data kunde inte låsas upp</string>
 </resources>

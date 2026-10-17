@@ -6093,5 +6093,50 @@
     ],
     "withoutTransitionGain": "70000",
     "year2023Gain": "30000"
-  }
+  },
+  "_zoneBoundaryComment": "Steuerjahr-Grenze in der Ortszeit (nicht UTC): Verkauf 1 BTC (Kauf 1 BTC zu 100 am 1.1.2020 00:00 UTC, Id 1; Verkauf zu 200, Id 2) zur Zeit sellTime (Epoch-ms) in der Zeitzone zone. Erwartet: TaxExport.years(Verkauf, zone, Vorlage) = [year]; TaxExport.disposalsIn mit methodFor(FIFO) findet den Verkauf im Steuerjahr year und nicht im Jahr davor bzw. danach. UK 6. April, AU 1. Juli, JP 1. Januar, je eine halbe Stunde nach bzw. vor Mitternacht Ortszeit (in UTC noch der Vortag).",
+  "zoneBoundary": [
+    {
+      "template": "UK",
+      "zone": "Europe/London",
+      "sellTime": 1743895800000,
+      "year": 2025,
+      "_local": "6.4.2025 00:30 BST"
+    },
+    {
+      "template": "UK",
+      "zone": "Europe/London",
+      "sellTime": 1743892200000,
+      "year": 2024,
+      "_local": "5.4.2025 23:30 BST"
+    },
+    {
+      "template": "AU",
+      "zone": "Australia/Sydney",
+      "sellTime": 1751293800000,
+      "year": 2025,
+      "_local": "1.7.2025 00:30 AEST"
+    },
+    {
+      "template": "AU",
+      "zone": "Australia/Sydney",
+      "sellTime": 1751290200000,
+      "year": 2024,
+      "_local": "30.6.2025 23:30 AEST"
+    },
+    {
+      "template": "JP",
+      "zone": "Asia/Tokyo",
+      "sellTime": 1735659000000,
+      "year": 2025,
+      "_local": "1.1.2025 00:30 JST"
+    },
+    {
+      "template": "JP",
+      "zone": "Asia/Tokyo",
+      "sellTime": 1735655400000,
+      "year": 2024,
+      "_local": "31.12.2024 23:30 JST"
+    }
+  ]
 }

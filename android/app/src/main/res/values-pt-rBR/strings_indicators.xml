@@ -23,7 +23,7 @@
     <string name="neutral_explain_vs_btc">Variação do preço em relação ao Bitcoin em 90 dias.</string>
 
     <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
-    <string name="neutral_info_alt_season_how">O app mostra apenas a contagem e não a chama de «temporada». O valor costuma mudar ao longo de dias, não de horas.</string>
+    <string name="neutral_info_alt_season_how">O app mostra apenas a contagem e não a chama de “temporada”. O valor costuma mudar ao longo de dias, não de horas.</string>
     <string name="neutral_info_btc_how">Cada valor tem uma frase sobre o que mede e onde fica no próprio histórico desde 2016. O app não avalia os valores nem deduz uma fase de mercado; os limites de notificação são só os que você define. Padrões passados não precisam se repetir.</string>
     <string name="neutral_info_btc_what">Indicadores comuns de Bitcoin como simples valores medidos: Mayer Multiple, média de 200 semanas, queda desde a máxima histórica, variação em 30 dias, distância Pi Cycle e os valores on-chain MVRV, Puell Multiple e hashrate.</string>
     <string name="neutral_info_coin_how">Cada valor vem com uma frase sobre o que mede, sem avaliação. Em moedas com histórico curto faltam alguns valores. Dados on-chain não entram aqui.</string>

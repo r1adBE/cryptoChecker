@@ -63,4 +63,17 @@ class CheckBudgetTest {
         // Nie länger als die normale Grenze
         assertEquals(10_000L, CheckBudget.exactTimeoutMillis(true, 10_000L, 1_000L))
     }
+
+    @Test
+    fun `widget charts load outside the lock only with enough time left`() {
+        // Ohne Frist: Gesamtgrenze
+        assertEquals(CheckBudget.CHART_TIMEOUT_MILLIS, CheckBudget.chartFetchMillis(null, 5_000L))
+        // Doze: Frist 14 s, Auswerten fertig nach 10 s → nur noch 4 s, keine Charts
+        assertNull(CheckBudget.chartFetchMillis(14_000L, 10_000L))
+        assertNull(CheckBudget.chartFetchMillis(14_000L, 14_500L))
+        // Genug Zeit: bis zur Frist minus Reserve
+        assertEquals(6_000L, CheckBudget.chartFetchMillis(19_000L, 11_000L))
+        // Viel Zeit: höchstens die Gesamtgrenze
+        assertEquals(CheckBudget.CHART_TIMEOUT_MILLIS, CheckBudget.chartFetchMillis(100_000L, 0L))
+    }
 }

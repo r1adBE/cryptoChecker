@@ -24,8 +24,11 @@ internal suspend fun SingleWidgetRenderer.chartCandles(
     if (ownCandles.supports(pair, range.candleInterval)) {
         val cacheKey = "own|${pair.cacheKey}|${range.name}"
         // Ohne Netz: auch ältere Kerzen aus dem Zwischenspeicher (nicht neu datiert)
-        val cached = if (!fetch) sparkCache[cacheKey]?.second
-        else sparkCache[cacheKey]?.takeIf { System.currentTimeMillis() - it.first < 10 * 60_000L }?.second
+        val entry = sparkCache[cacheKey]
+        // Ohne Netz und fehlend bzw. veraltet: zum Nachladen vormerken ([SingleWidgetRenderer.takeStaleCharts])
+        if (!fetch && !isFreshSpark(entry?.first)) staleCharts.set(true)
+        val cached = if (!fetch) entry?.second
+        else entry?.takeIf { isFreshSpark(it.first) }?.second
         val own = cached ?: if (!fetch) null else try {
             withTimeoutOrNull(SPARKLINE_TIMEOUT_MILLIS) {
                 ownCandles.candles(pair, range.candleInterval, range.limit)?.value?.map {
@@ -77,10 +80,15 @@ internal suspend fun SingleWidgetRenderer.sparkline(
     val symbol = base.uppercase() + q
     val cacheKey = sparkCacheKey(base, quote, range, preferFutures)
     sparkCache[cacheKey]?.let { (time, data) ->
-        if (!fetch || System.currentTimeMillis() - time < 10 * 60_000L) return data
+        val fresh = isFreshSpark(time)
+        if (!fetch && !fresh) staleCharts.set(true)
+        if (!fetch || fresh) return data
     }
-    // Ohne Netz (Widget-Empfänger): nichts im Zwischenspeicher → kein Chart
-    if (!fetch) return null
+    // Ohne Netz (Widget-Empfänger): nichts im Zwischenspeicher → kein Chart (zum Nachladen vormerken)
+    if (!fetch) {
+        staleCharts.set(true)
+        return null
+    }
     fun toWidget(list: List<com.cryptochecker.app.domain.activity.HourCandle>) = list.map {
         WidgetCandle(openTime = it.openTime, open = it.open, high = it.high, low = it.low, close = it.close)
     }
@@ -108,6 +116,13 @@ internal suspend fun SingleWidgetRenderer.sparkline(
     }
     return null
 }
+
+/** Kerzen in [SingleWidgetRenderer.sparkCache] gelten so lange als frisch (gespeichert um [savedAt]; null = keine). */
+internal fun isFreshSpark(savedAt: Long?, now: Long = System.currentTimeMillis()): Boolean =
+    savedAt != null && now - savedAt in 0 until SPARK_FRESH_MILLIS
+
+/** Frische der zwischengespeicherten Widget-Kerzen. */
+internal const val SPARK_FRESH_MILLIS = 10 * 60_000L
 
 /** Höchstens so lange auf die Kerzen eines Widgets warten (ganze Ausweich-Kette). */
 private const val SPARKLINE_TIMEOUT_MILLIS = 20_000L

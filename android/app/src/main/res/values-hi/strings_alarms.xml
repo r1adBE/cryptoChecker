@@ -37,7 +37,7 @@
     <string name="alarm_more_conditions">और शर्तें</string>
     <string name="alarm_new_extreme">नया %1$s</string>
     <string name="alarm_once">एक बार</string>
-    <string name="alarm_option_repeating">बजने के बाद भी अलार्म रखें</string>
+    <string name="alarm_option_repeating">सूचित करें</string>
     <string name="alarm_option_sound">आवाज़</string>
     <string name="alarm_option_speak">अलार्म बोलें</string>
     <string name="alarm_option_vibrate">वाइब्रेशन</string>
@@ -57,7 +57,6 @@
     <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
     <string name="alarm_simple_above">इस स्तर से ऊपर जाए:</string>
     <string name="alarm_simple_below">इस स्तर से नीचे जाए:</string>
-    <string name="alarm_simple_direction_a11y">दिशा: %1$s</string>
     <string name="alarm_simple_end"></string>
     <string name="alarm_simple_when">जब %1$s</string>
     <string name="alarm_template_a11y">अलार्म बनाएँ: %1$s</string>
@@ -84,7 +83,7 @@
     <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
     <string name="alarm_sentence_above">जब %1$s %2$s से ऊपर जाए, तो मुझे बताएँ।</string>
     <string name="alarm_sentence_below">जब %1$s %2$s से नीचे जाए, तो मुझे बताएँ।</string>
-    <string name="alarm_sentence_down_percent">जब %1$s %2$s गिरे, तो मुझे बताएँ।</string>
+    <string name="alarm_sentence_down_percent">जब %1$s सेव करते समय के भाव (या पिछले अलार्म) से %2$s नीचे जाए, तो मुझे बताएँ।</string>
     <string name="alarm_sentence_funding_above">जब %1$s की फ़ंडिंग %2$s से ऊपर जाए, तो मुझे बताएँ।</string>
     <string name="alarm_sentence_funding_below">जब %1$s की फ़ंडिंग %2$s से नीचे जाए, तो मुझे बताएँ।</string>
     <string name="alarm_sentence_incomplete">अलार्म को वाक्य के रूप में देखने के लिए कोई मान दर्ज करें।</string>
@@ -103,7 +102,7 @@
         <item quantity="one">जब %1$s का ओपन इंटरेस्ट %3$d घंटे के भीतर %2$s बढ़े, तो मुझे बताएँ।</item>
         <item quantity="other">जब %1$s का ओपन इंटरेस्ट %3$d घंटों के भीतर %2$s बढ़े, तो मुझे बताएँ।</item>
     </plurals>
-    <string name="alarm_sentence_up_percent">जब %1$s %2$s बढ़े, तो मुझे बताएँ।</string>
+    <string name="alarm_sentence_up_percent">जब %1$s सेव करते समय के भाव (या पिछले अलार्म) से %2$s ऊपर जाए, तो मुझे बताएँ।</string>
     <string name="alarm_sentence_volume">जब %1$s का वॉल्यूम सामान्य का %2$s× हो जाए, तो मुझे बताएँ।</string>
 
     <!-- Alarm «Nahe am Hoch / Tief» -->
@@ -142,7 +141,7 @@
     <string name="alarm_saved_notifications_off">नोटिफ़िकेशन बंद</string>
 
     <!-- Wann Alarme geprüft werden -->
-    <string name="alarm_timing_hint_android">ऐप बंद होने पर Android अनियमित रूप से जाँचता है – अक्सर 15 मिनट से देर से, «%1$s» के साथ भी। छोटे उछाल छूट सकते हैं।</string>
+    <string name="alarm_timing_hint_android">ऐप बंद होने पर Android अनियमित रूप से जाँचता है – अक्सर 15 मिनट से देर से, “%1$s” के साथ भी। छोटे उछाल छूट सकते हैं।</string>
     <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">ऐप बंद होने पर iOS अक्सर 15 मिनट से देर से जाँचता है, कभी-कभी अगली बार ऐप खोलने पर ही। छोटे उछाल छूट सकते हैं।</string>
     <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
     <string name="alarm_timing_title">अलार्म कब जाँचे जाते हैं</string>

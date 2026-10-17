@@ -39,7 +39,7 @@
     <string name="alarm_more_conditions">Další podmínky</string>
     <string name="alarm_new_extreme">Nová hodnota %1$s</string>
     <string name="alarm_once">Jednou</string>
-    <string name="alarm_option_repeating">Ponechat alarm po spuštění</string>
+    <string name="alarm_option_repeating">Upozornit</string>
     <string name="alarm_option_sound">Zvuk</string>
     <string name="alarm_option_speak">Přečíst alarm nahlas</string>
     <string name="alarm_option_vibrate">Vibrace</string>
@@ -61,7 +61,6 @@
     <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
     <string name="alarm_simple_above">stoupne nad</string>
     <string name="alarm_simple_below">klesne pod</string>
-    <string name="alarm_simple_direction_a11y">Směr: %1$s</string>
     <string name="alarm_simple_end"></string>
     <string name="alarm_simple_when">Až %1$s</string>
     <string name="alarm_template_a11y">Vytvořit alarm: %1$s</string>
@@ -88,7 +87,7 @@
     <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
     <string name="alarm_sentence_above">Upozornit, až %1$s stoupne nad %2$s.</string>
     <string name="alarm_sentence_below">Upozornit, až %1$s klesne pod %2$s.</string>
-    <string name="alarm_sentence_down_percent">Upozornit, až %1$s klesne o %2$s.</string>
+    <string name="alarm_sentence_down_percent">Upozornit, až %1$s klesne o %2$s pod cenu při uložení (nebo při posledním alarmu).</string>
     <string name="alarm_sentence_funding_above">Upozornit, až funding %1$s stoupne nad %2$s.</string>
     <string name="alarm_sentence_funding_below">Upozornit, až funding %1$s klesne pod %2$s.</string>
     <string name="alarm_sentence_incomplete">Zadejte hodnotu a alarm se tu zobrazí jako věta.</string>
@@ -113,7 +112,7 @@
         <item quantity="many">Upozornit, až open interest %1$s během %3$d h stoupne o %2$s.</item>
         <item quantity="other">Upozornit, až open interest %1$s během %3$d h stoupne o %2$s.</item>
     </plurals>
-    <string name="alarm_sentence_up_percent">Upozornit, až %1$s stoupne o %2$s.</string>
+    <string name="alarm_sentence_up_percent">Upozornit, až %1$s stoupne o %2$s nad cenu při uložení (nebo při posledním alarmu).</string>
     <string name="alarm_sentence_volume">Upozornit, až objem obchodů %1$s dosáhne %2$s× běžné hodnoty.</string>
 
     <!-- Alarm «Nahe am Hoch / Tief» -->
@@ -154,7 +153,7 @@
     <string name="alarm_saved_notifications_off">Oznámení vypnuta</string>
 
     <!-- Wann Alarme geprüft werden -->
-    <string name="alarm_timing_hint_android">Při zavřené aplikaci kontroluje Android nepravidelně – často později než po 15 minutách, i s «%1$s». Krátké výkyvy mohou uniknout.</string>
+    <string name="alarm_timing_hint_android">Při zavřené aplikaci kontroluje Android nepravidelně – často později než po 15 minutách, i s „%1$s“. Krátké výkyvy mohou uniknout.</string>
     <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">Při zavřené aplikaci kontroluje iOS často později než po 15 minutách, někdy až při dalším otevření. Krátké výkyvy mohou uniknout.</string>
     <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
     <string name="alarm_timing_title">Kdy se alarmy kontrolují</string>

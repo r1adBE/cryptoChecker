@@ -203,8 +203,19 @@ enum PortfolioTxForm {
         return entered == 0
     }
 
-    /// Eingabe in der Anzeigewährung → USDT: Betrag ÷ Devisenkurs USD → Währung (> 0; USDT gilt als USD), 34 Stellen.
-    /// nil ohne Betrag oder Kurs — wie `fiatToUsdt` (Kotlin).
+    /// Faktor USDT → Anzeigewährung für die Eingabe (Owner-Entscheid Okt. 2026, wie CSV-Import, Steuer-Export
+    /// `TaxExport.rateOn` und Live-Kurse): Devisenkurs USD → Währung `usdToFiat` × USDT/USD `usdtUsd` (heute der Live-Kurs,
+    /// sonst der Tagesschluss DES Tags). Ohne gültigen, plausiblen USDT/USD-Kurs (`PortfolioStables.usdtUsd`) × 1
+    /// (Näherung). `fiatToUsdt`/`usdtToFiat` rechnen mit diesem Faktor. nil ohne Devisenkurs — wie `entryRate` (Kotlin).
+    static func entryRate(usdToFiat: Decimal?, usdtUsd: Decimal?) -> Decimal? {
+        guard let usdToFiat, usdToFiat > 0 else { return nil }
+        guard let usdt = usdtUsd, usdt > 0,
+              !PortfolioStables.usdtUsd(PortfolioDecimal.double(usdt)).approximate else { return usdToFiat }
+        return PortfolioDecimal.multiply(usdToFiat, usdt)
+    }
+
+    /// Eingabe in der Anzeigewährung → USDT: Betrag ÷ Faktor USDT → Währung (> 0, aus `entryRate`: Devisenkurs ×
+    /// USDT/USD), 34 Stellen. nil ohne Betrag oder Kurs — wie `fiatToUsdt` (Kotlin).
     static func fiatToUsdt(_ fiat: Decimal?, usdToFiat: Decimal?) -> Decimal? {
         guard let fiat, let usdToFiat, usdToFiat > 0 else { return nil }
         return PortfolioDecimal.divide(fiat, usdToFiat)

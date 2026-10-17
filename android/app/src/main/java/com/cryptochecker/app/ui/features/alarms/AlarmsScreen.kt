@@ -336,6 +336,8 @@ fun AlarmsScreen(
                 }
             },
             onDismiss = { draft = null },
+            // Kopf mit Paar und aktuellem Kurs (wie iOS)
+            watch = watch,
             onConfirm = {
                 // Kursmarke schon erreicht: erst nachfragen (sonst meldet der Alarm sofort)
                 if (viewModel.firesOnSave(current)) {

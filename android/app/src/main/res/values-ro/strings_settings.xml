@@ -37,9 +37,9 @@
     <string name="settings_alarm_sound_system">Alege sunet de sistem…</string>
     <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
     <string name="settings_app_badge">Număr pe pictograma aplicației</string>
-    <string name="settings_app_badge_hint">Numără notificările de alarmă deschise. Dacă apare un număr sau un punct decide ecranul de pornire (de ex. Samsung: «Cu număr»).</string>
+    <string name="settings_app_badge_hint">Numără notificările de alarmă deschise. Dacă apare un număr sau un punct decide ecranul de pornire (de ex. Samsung: „Cu număr”).</string>
     <string name="settings_exact_checks">Verificare punctuală</string>
-    <string name="settings_exact_checks_grant">Permite «Alarme și mementouri»</string>
+    <string name="settings_exact_checks_grant">Permite „Alarme și mementouri”</string>
     <string name="settings_exact_checks_hint">Android verifică aproximativ la fiecare 15 minute, chiar și când dispozitivul e inactiv. Consumă puțin mai multă baterie.</string>
     <string name="settings_exact_checks_nothing">Nicio pereche activă – nimic de verificat.</string>
     <string name="settings_exact_checks_permission_missing">Lipsește permisiunea – Android verifică atunci când îi convine (cam la 15 min sau mai târziu).</string>
@@ -249,7 +249,7 @@
     <!-- Lizenzhinweise -->
     <string name="licenses_app_intro">Crypto Checker este open source (licența MIT).</string>
     <string name="licenses_font_title">Fontul Rubik</string>
-    <string name="licenses_icons_bundled_text">Incluse în aplicație: pictograme din «Cryptocurrency Icons» de Christopher Downer și colaboratori (github.com/spothq/cryptocurrency-icons), publicate sub CC0 1.0 Universal. Sunt afișate până se încarcă logourile de la CoinGecko sau Binance. Numele și logourile rămân mărci ale proiectelor lor.</string>
+    <string name="licenses_icons_bundled_text">Incluse în aplicație: pictograme din „Cryptocurrency Icons” de Christopher Downer și colaboratori (github.com/spothq/cryptocurrency-icons), publicate sub CC0 1.0 Universal. Sunt afișate până se încarcă logourile de la CoinGecko sau Binance. Numele și logourile rămân mărci ale proiectelor lor.</string>
     <string name="licenses_icons_title">Pictograme de rezervă pentru monede</string>
     <string name="licenses_libraries_intro">Aplicația folosește aceste biblioteci sub Apache License 2.0:</string>
     <string name="licenses_libraries_title">Biblioteci Android</string>

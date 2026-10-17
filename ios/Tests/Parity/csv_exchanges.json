@@ -759,7 +759,7 @@
      "rawKind": "buy",
      "coin": "ETH",
      "amount": "0.08888888",
-     "price": "2250.000225000023",
+     "price": "2250.000225000022500002250000225",
      "quote": "EUR",
      "fee": null,
      "feeUnit": null,
@@ -787,7 +787,7 @@
      "rawKind": "sell",
      "coin": "ETH",
      "amount": "0.048",
-     "price": "2291.666666666667",
+     "price": "2291.666666666666666666666666666667",
      "quote": "EUR",
      "fee": null,
      "feeUnit": null,
@@ -859,7 +859,7 @@
     {
      "line": 4,
      "type": "BUY",
-     "priceUsdt": "44444.444444444444",
+     "priceUsdt": "44444.44444444444444444444444444444",
      "fee": null,
      "feeUnit": null,
      "feeCoin": "BNB",
@@ -895,8 +895,8 @@
     {
      "line": 17,
      "type": "SELL",
-     "priceUsdt": "2505.555555555556",
-     "fee": "0.050111111111",
+     "priceUsdt": "2505.555555555555555555555555555556",
+     "fee": "0.05011111111111111111111111111111111",
      "feeUnit": "QUOTE",
      "feeCoin": null,
      "feeCoinAmount": null
@@ -939,8 +939,8 @@
     {
      "line": 8,
      "type": "BUY",
-     "priceUsdt": "44333.333333333333",
-     "fee": "2.211111111111",
+     "priceUsdt": "44333.33333333333333333333333333333",
+     "fee": "2.211111111111111111111111111111111",
      "feeUnit": "QUOTE",
      "feeCoin": null,
      "feeCoinAmount": null
@@ -965,7 +965,7 @@
     {
      "line": 8,
      "type": "BUY",
-     "priceUsdt": "44444.444444444444",
+     "priceUsdt": "44444.44444444444444444444444444444",
      "fee": null,
      "feeUnit": null,
      "feeCoin": "BEST",

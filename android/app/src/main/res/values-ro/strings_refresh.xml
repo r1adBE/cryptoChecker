@@ -108,7 +108,7 @@
     <string name="check_trigger_worker">Fundal</string>
 
     <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
-    <string name="battery_delay_hint">Android poate întârzia verificările – setează bateria la «Nerestricționat»</string>
+    <string name="battery_delay_hint">Android poate întârzia verificările – setează bateria la „Nerestricționat”</string>
     <string name="battery_later">Mai târziu</string>
     <string name="battery_message">Android amână activitatea în fundal pentru a economisi energie — prețurile și widgeturile pot fi atunci vechi de câteva ore. Setarea utilizării bateriei la nerestricționat le menține actualizate. Poți schimba oricând acest lucru în setările Android.</string>
     <string name="battery_open_settings">Deschide setările bateriei</string>

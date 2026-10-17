@@ -3,6 +3,13 @@
 # Einträge und Widgets unbrauchbar machen.
 -keep class com.cryptochecker.marketdata.model.market.** { *; }
 
+# Fehlerklassen: Ohne Meldungstext zeigt die App den einfachen Klassennamen (Bericht der
+# Aktualisierung, Explorer, «Paar bearbeiten», Drosselung). Umbenannt stünde dort «a» oder «b».
+# keepnames: nur die Namen bleiben, ungenutzte Klassen darf R8 weiterhin entfernen.
+# (Das Modul marketdata wird nicht selbst verkleinert und hat keine consumer-Regeln: die Regel gilt hier.)
+-keepnames class com.cryptochecker.marketdata.exceptions.** { *; }
+-keepnames class com.cryptochecker.app.domain.exceptions.** { *; }
+
 # Room-Entitäten
 -keep class com.cryptochecker.app.data.local.model.** { *; }
 

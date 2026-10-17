@@ -20,7 +20,7 @@
     <string name="notification_macro_title">Të dhëna ekonomike sot</string>
     <string name="notification_permission_preprompt_continue">Vazhdo</string>
     <string name="notification_permission_preprompt_later">Më vonë</string>
-    <string name="notification_permission_preprompt_text">Që alarmet dhe njoftimet e çmimit të të arrijnë, aplikacioni ka nevojë për leje për njoftime. Ato përdoren vetëm për alarmet e tua.</string>
+    <string name="notification_permission_preprompt_text">Që alarmet dhe njoftimet e çmimit të të arrijnë, aplikacioni ka nevojë për leje për njoftime. Aplikacioni i përdor vetëm për alarmet dhe njoftimet e tua të çmimit.</string>
     <string name="notification_permission_preprompt_title">T’i lejosh njoftimet?</string>
     <string name="notification_portfolio_alarm_locked">Alarmi yt u aktivizua – hap aplikacionin për detaje.</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->

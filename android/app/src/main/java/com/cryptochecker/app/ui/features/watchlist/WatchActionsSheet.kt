@@ -338,6 +338,21 @@ internal fun WatchActionsSheet(
             } else if (updatedInline) {
                 // Stand steht schon in der Zeile der Änderung unter dem Kurs
                 Spacer(modifier = Modifier.height(12.dp))
+            } else if (watch.lastError != null && !isNotTraded(watch.lastError)) {
+                // Jeder andere Fehler (auch ohne älteren Kurs): Fehlertext plus «Erneut versuchen» als nächster
+                // Schritt — nur «nicht gehandelt» bleibt ohne Knopf (gleich wie iOS)
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.padding(top = 4.dp, bottom = 8.dp)
+                ) {
+                    Text(
+                        text = friendlyError(watch.lastError),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.error,
+                        modifier = Modifier.weight(1f)
+                    )
+                    TextButton(onClick = onRefresh) { Text(stringResource(R.string.try_again)) }
+                }
             } else {
                 val updatedText = stringResource(R.string.watchlist_updated, PriceFormat.time(watch.lastUpdate))
                 Text(
@@ -346,8 +361,7 @@ internal fun WatchActionsSheet(
                         ?: if (preview && watch.lastUpdate <= 0) stringResource(R.string.loading_hint)
                         else updatedText,
                     style = MaterialTheme.typography.bodySmall,
-                    color = if (watch.lastError != null && !isNotTraded(watch.lastError)) MaterialTheme.colorScheme.error
-                    else MaterialTheme.colorScheme.onSurfaceVariant,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.padding(top = 4.dp, bottom = 12.dp)
                 )
             }

@@ -20,7 +20,7 @@
     <string name="notification_macro_title">Heute Wirtschaftsdaten</string>
     <string name="notification_permission_preprompt_continue">Weiter</string>
     <string name="notification_permission_preprompt_later">Später</string>
-    <string name="notification_permission_preprompt_text">Damit Alarme und Kursbenachrichtigungen ankommen, braucht die App die Erlaubnis für Benachrichtigungen. Sie werden nur für deine eigenen Alarme genutzt.</string>
+    <string name="notification_permission_preprompt_text">Damit Alarme und Kursbenachrichtigungen ankommen, braucht die App die Erlaubnis für Benachrichtigungen. Die App nutzt sie nur für deine Alarme und Kursbenachrichtigungen.</string>
     <string name="notification_permission_preprompt_title">Benachrichtigungen erlauben?</string>
     <string name="notification_portfolio_alarm_locked">Dein Alarm hat ausgelöst – öffne die App für Details.</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->

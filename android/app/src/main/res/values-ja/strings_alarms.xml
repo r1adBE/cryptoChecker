@@ -36,7 +36,7 @@
     <string name="alarm_more_conditions">その他の条件</string>
     <string name="alarm_new_extreme">%1$s更新</string>
     <string name="alarm_once">1回</string>
-    <string name="alarm_option_repeating">作動後もアラームを残す</string>
+    <string name="alarm_option_repeating">通知</string>
     <string name="alarm_option_sound">サウンド</string>
     <string name="alarm_option_speak">アラームを読み上げ</string>
     <string name="alarm_option_vibrate">バイブレーション</string>
@@ -55,7 +55,6 @@
     <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
     <string name="alarm_simple_above">上回ったら：</string>
     <string name="alarm_simple_below">下回ったら：</string>
-    <string name="alarm_simple_direction_a11y">方向：%1$s</string>
     <string name="alarm_simple_end"></string>
     <string name="alarm_simple_when">%1$s が</string>
     <string name="alarm_template_a11y">アラームを作成：%1$s</string>
@@ -82,7 +81,7 @@
     <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
     <string name="alarm_sentence_above">%1$s が %2$s を上回ったら知らせる。</string>
     <string name="alarm_sentence_below">%1$s が %2$s を下回ったら知らせる。</string>
-    <string name="alarm_sentence_down_percent">%1$s が %2$s 下落したら知らせる。</string>
+    <string name="alarm_sentence_down_percent">%1$s が保存時（または前回のアラーム時）の価格から %2$s 下落したら知らせる。</string>
     <string name="alarm_sentence_funding_above">%1$s の資金調達率が %2$s を上回ったら知らせる。</string>
     <string name="alarm_sentence_funding_below">%1$s の資金調達率が %2$s を下回ったら知らせる。</string>
     <string name="alarm_sentence_incomplete">値を入力すると、アラームが文章で表示されます。</string>
@@ -98,7 +97,7 @@
     <plurals name="alarm_sentence_oi_up">
         <item quantity="other">%1$s の建玉が %3$d 時間以内に %2$s 増えたら知らせる。</item>
     </plurals>
-    <string name="alarm_sentence_up_percent">%1$s が %2$s 上昇したら知らせる。</string>
+    <string name="alarm_sentence_up_percent">%1$s が保存時（または前回のアラーム時）の価格から %2$s 上昇したら知らせる。</string>
     <string name="alarm_sentence_volume">%1$s の出来高が通常の %2$s 倍になったら知らせる。</string>
 
     <!-- Alarm «Nahe am Hoch / Tief» -->

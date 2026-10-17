@@ -57,18 +57,26 @@ internal fun AppNotifier.makeRoomForAlarm(id: Int) {
 }
 
 /**
- * Steht die Mitteilung [id] unter den offenen? Der Systemdienst führt eine eben gemeldete
- * evtl. erst kurz danach — darum einige Male kurz nachsehen; nicht abfragbar = ja.
+ * Steht die Mitteilung [id] unter den offenen — und zwar die NEUE, gemeldet ab [postedAfter]
+ * (Zeit direkt vor dem Melden)? Steht schon eine ältere Meldung mit derselben Id da (gleicher
+ * Alarm), genügte die Id allein nicht: eine verworfene neue Meldung (Drosselung) zählte sonst als
+ * gezeigt. Der Systemdienst führt eine eben gemeldete evtl. erst kurz danach — darum einige Male
+ * kurz nachsehen; nicht abfragbar = ja ([NotificationBudget.confirmedPost]).
  */
-internal suspend fun AppNotifier.awaitActive(id: Int): Boolean {
+internal suspend fun AppNotifier.awaitActive(id: Int, postedAfter: Long): Boolean {
     repeat(VERIFY_ATTEMPTS) { attempt ->
-        val ids = activeNotificationIds() ?: return true
-        if (id in ids) return true
+        if (NotificationBudget.confirmedPost(activePostTimes(), id, postedAfter)) return true
         if (attempt < VERIFY_ATTEMPTS - 1) delay(VERIFY_STEP_MILLIS)
     }
     Timber.w("Mitteilung %d nicht unter den offenen", id)
     return false
 }
+
+/** Meldezeit (postTime) je offener Mitteilung der App; null, wenn das nicht abfragbar ist. */
+internal fun AppNotifier.activePostTimes(): Map<Int, Long>? = runCatching {
+    context.getSystemService(android.app.NotificationManager::class.java)
+        ?.activeNotifications?.associate { it.id to it.postTime }
+}.getOrNull()
 
 internal fun AppNotifier.notify(id: Int, notification: Notification) {
     notifyChecked(id, notification)

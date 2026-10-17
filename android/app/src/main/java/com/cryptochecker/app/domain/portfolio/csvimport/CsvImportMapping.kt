@@ -66,6 +66,11 @@ data class CsvImportPreview(
     val decimalMark: Char? = null,
     /** Erkannte Spalten ([CsvImportResult.columns]). */
     val columns: List<String> = emptyList(),
+    /**
+     * Zeilen, deren USD-/Fiat-Betrag mit USDT = 1 USD umgerechnet ist (kein USDT/USD-Tagesschluss DES Tags,
+     * [CsvImportPriced.usdtApproximate]) — die Vorschau nennt sie wie [missingFx].
+     */
+    val usdtApproximate: List<Int> = emptyList(),
 )
 
 /** Wahl je Auszahlung der Vorschau ([CsvImportMapping.proposeWithdrawals]). */
@@ -171,7 +176,7 @@ object CsvImportMapping {
     }
 
     /**
-     * Vorschau: Doppelte gegen [existingKeys] abtrennen, die neuen umrechnen ([fx] wie [CsvImport.priceInUsdt])
+     * Vorschau: Doppelte gegen [existingKeys] abtrennen, die neuen umrechnen ([fx] und [usdtUsd] wie [CsvImport.priceInUsdt])
      * und zuordnen. Binance: fast gleiche Geschäfte wie schon importierte ([CsvImportBinance.possibleDuplicates]) kommen
      * in die Übersprungenen statt ein zweites Mal ins Portfolio.
      */
@@ -180,6 +185,7 @@ object CsvImportMapping {
         existingKeys: Set<String>,
         zone: String = result.fxZone,
         withdrawalsAsTransfer: Boolean = false,
+        usdtUsd: Map<Long, BigDecimal>? = null,
         fx: (String, Long) -> BigDecimal?,
     ): CsvImportPreview {
         val split = CsvImport.splitDuplicates(result.rows, existingKeys)
@@ -187,7 +193,7 @@ object CsvImportMapping {
             CsvImportBinance.possibleDuplicates(split.fresh, existingKeys).mapTo(HashSet()) { it.key }
         } else emptySet()
         val fresh = split.fresh.filter { it.key !in held }
-        val priced = CsvImport.priceInUsdt(fresh, zone, fx)
+        val priced = CsvImport.priceInUsdt(fresh, zone, usdtUsd, fx)
         return CsvImportPreview(
             format = result.format,
             transactions = priced.map { toTx(it, withdrawalsAsTransfer) },
@@ -204,6 +210,7 @@ object CsvImportMapping {
             decimalSample = result.decimalSample,
             decimalMark = result.decimalMark,
             columns = result.columns,
+            usdtApproximate = priced.filter { it.usdtApproximate }.map { it.row.line },
         )
     }
 

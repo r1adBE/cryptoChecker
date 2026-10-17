@@ -33,6 +33,7 @@ import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.withFrameNanos
 import androidx.compose.ui.Alignment
@@ -219,6 +220,10 @@ fun WatchlistScreen(
     val requestNotifications = com.cryptochecker.app.ui.components.rememberNotificationPermissionRequest(
         com.cryptochecker.app.ui.components.NotificationAsk.PAIRS_ADDED
     )
+    // Erst fragen, wenn das Banner «… wird jetzt überwacht» mit «Alarm setzen» weg ist (abgelaufen oder
+    // weggewischt) — sonst verdeckt die Erklärung genau diesen ersten Schritt. Mit «Alarm setzen» getippt fragt
+    // das Speichern des Alarms selbst (gleich wie iOS).
+    var askNotificationsAfterHint by rememberSaveable { mutableStateOf(false) }
     val starterPrices by viewModel.starterPrices.collectAsStateWithLifecycle()
     val starterAdding by viewModel.starterAdding.collectAsStateWithLifecycle()
     val starterLogosReady by viewModel.starterLogosReady.collectAsStateWithLifecycle()
@@ -293,7 +298,12 @@ fun WatchlistScreen(
     // Alarm löst bei offener App aus: Glocke im Kopf pulsiert einmal (ohne Bewegung: nicht)
     val bellScale = rememberBellPulse(latestAlarmTrigger, reduceMotion)
     // Erst-Moment (Start-Merkliste, allererstes Paar), siehe [rememberAddMoment]
-    val moment = rememberAddMoment(viewModel, watches, loaded, alarmCounts, banner, onOpenAlarms)
+    val moment = rememberAddMoment(viewModel, watches, loaded, alarmCounts, banner, onOpenAlarms) { alarmTapped ->
+        if (askNotificationsAfterHint) {
+            askNotificationsAfterHint = false
+            if (!alarmTapped) requestNotifications()
+        }
+    }
 
     // Alles aktualisieren (nach unten ziehen, Menü). Eben erst aktualisiert (unter 15 s): kein
     // neuer Durchlauf und keine Meldung — der Menüpunkt ist dann grau ([WatchlistViewModel.canRefreshNow]).
@@ -422,10 +432,12 @@ fun WatchlistScreen(
                 onAdd = {
                     val count = com.cryptochecker.app.domain.starter.StarterSelection.selected(starterCoins, starterDeselected).size
                     viewModel.addSelectedStarters()
-                    if (count > 0) requestNotifications()
+                    // Mitteilungs-Erlaubnis erst nach dem Banner (siehe askNotificationsAfterHint)
+                    if (count > 0) askNotificationsAfterHint = true
                 },
                 onAddClick = onAddClick,
-                onOpenAlarms = onBellClick,
+                // Glocke nur, wenn sie mehr kann als «+» (Alarme vorhanden, z. B. im Portfolio)
+                onOpenAlarms = onBellClick.takeIf { (alarmTotal ?: 0) > 0 },
             )
             return@Scaffold
         }
@@ -493,6 +505,7 @@ fun WatchlistScreen(
                         sortMode = ui.sortMode,
                         onSortDone = { ui.sortMode = false },
                         activeAlarms = alarmCounts.values.sum(),
+                        alarmTotal = alarmTotal,
                         bellScale = { bellScale.value },
                         onBellClick = onBellClick,
                         onOpenAllAlarms = onOpenAllAlarms,

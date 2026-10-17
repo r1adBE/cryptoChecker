@@ -37,7 +37,7 @@
     <string name="alarm_more_conditions">شرط‌های بیشتر</string>
     <string name="alarm_new_extreme">تازه: %1$s</string>
     <string name="alarm_once">یک بار</string>
-    <string name="alarm_option_repeating">هشدار پس از فعال شدن باقی بماند</string>
+    <string name="alarm_option_repeating">اطلاع‌رسانی</string>
     <string name="alarm_option_sound">صدا</string>
     <string name="alarm_option_speak">خواندن صوتی هشدار</string>
     <string name="alarm_option_vibrate">لرزش</string>
@@ -57,7 +57,6 @@
     <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
     <string name="alarm_simple_above">بالاتر از</string>
     <string name="alarm_simple_below">پایین‌تر از</string>
-    <string name="alarm_simple_direction_a11y">جهت: %1$s</string>
     <string name="alarm_simple_end">برود</string>
     <string name="alarm_simple_when">وقتی %1$s</string>
     <string name="alarm_template_a11y">ساخت هشدار: %1$s</string>
@@ -84,7 +83,7 @@
     <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
     <string name="alarm_sentence_above">وقتی %1$s از %2$s بالاتر رفت، به من خبر بده.</string>
     <string name="alarm_sentence_below">وقتی %1$s از %2$s پایین‌تر رفت، به من خبر بده.</string>
-    <string name="alarm_sentence_down_percent">وقتی %1$s به اندازه %2$s پایین آمد، به من خبر بده.</string>
+    <string name="alarm_sentence_down_percent">وقتی %1$s به اندازه %2$s پایین‌تر از قیمت هنگام ذخیره (یا آخرین هشدار) آمد، به من خبر بده.</string>
     <string name="alarm_sentence_funding_above">وقتی نرخ تأمین مالی %1$s از %2$s بالاتر رفت، به من خبر بده.</string>
     <string name="alarm_sentence_funding_below">وقتی نرخ تأمین مالی %1$s از %2$s پایین‌تر رفت، به من خبر بده.</string>
     <string name="alarm_sentence_incomplete">یک مقدار وارد کنید تا هشدار به صورت جمله نمایش داده شود.</string>
@@ -103,7 +102,7 @@
         <item quantity="one">وقتی موقعیت‌های باز %1$s ظرف %3$d ساعت به اندازه %2$s افزایش یافت، به من خبر بده.</item>
         <item quantity="other">وقتی موقعیت‌های باز %1$s ظرف %3$d ساعت به اندازه %2$s افزایش یافت، به من خبر بده.</item>
     </plurals>
-    <string name="alarm_sentence_up_percent">وقتی %1$s به اندازه %2$s بالا رفت، به من خبر بده.</string>
+    <string name="alarm_sentence_up_percent">وقتی %1$s به اندازه %2$s بالاتر از قیمت هنگام ذخیره (یا آخرین هشدار) رفت، به من خبر بده.</string>
     <string name="alarm_sentence_volume">وقتی حجم معاملات %1$s به %2$s برابر حالت عادی رسید، به من خبر بده.</string>
 
     <!-- Alarm «Nahe am Hoch / Tief» -->

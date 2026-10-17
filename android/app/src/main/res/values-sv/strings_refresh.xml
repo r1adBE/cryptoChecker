@@ -99,7 +99,7 @@
     <string name="check_trigger_worker">Bakgrund</string>
 
     <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
-    <string name="battery_delay_hint">Android kan fördröja kontroller – ställ batteriet på «Obegränsad»</string>
+    <string name="battery_delay_hint">Android kan fördröja kontroller – ställ batteriet på ”Obegränsad”</string>
     <string name="battery_later">Senare</string>
     <string name="battery_message">Android skjuter upp bakgrundsarbete för att spara ström — kurser och widgetar kan då vara flera timmar gamla. Med obegränsad batterianvändning hålls de aktuella. Du kan ändra detta när som helst i Androids inställningar.</string>
     <string name="battery_open_settings">Öppna batteriinställningar</string>

@@ -37,7 +37,7 @@
     <string name="alarm_more_conditions">Lisää ehtoja</string>
     <string name="alarm_new_extreme">Uusi %1$s</string>
     <string name="alarm_once">Kerran</string>
-    <string name="alarm_option_repeating">Säilytä hälytys laukeamisen jälkeen</string>
+    <string name="alarm_option_repeating">Ilmoita</string>
     <string name="alarm_option_sound">Ääni</string>
     <string name="alarm_option_speak">Lue hälytys ääneen</string>
     <string name="alarm_option_vibrate">Värinä</string>
@@ -57,7 +57,6 @@
     <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
     <string name="alarm_simple_above">nousee yli</string>
     <string name="alarm_simple_below">laskee alle</string>
-    <string name="alarm_simple_direction_a11y">Suunta: %1$s</string>
     <string name="alarm_simple_end"></string>
     <string name="alarm_simple_when">Kun %1$s</string>
     <string name="alarm_template_a11y">Luo hälytys: %1$s</string>
@@ -84,7 +83,7 @@
     <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
     <string name="alarm_sentence_above">Ilmoita, kun %1$s nousee yli %2$s.</string>
     <string name="alarm_sentence_below">Ilmoita, kun %1$s laskee alle %2$s.</string>
-    <string name="alarm_sentence_down_percent">Ilmoita, kun %1$s laskee vähintään %2$s.</string>
+    <string name="alarm_sentence_down_percent">Ilmoita, kun %1$s laskee vähintään %2$s alle tallennushetken hinnan (tai viimeisimmän hälytyksen).</string>
     <string name="alarm_sentence_funding_above">Ilmoita, kun kohteen %1$s funding nousee yli %2$s.</string>
     <string name="alarm_sentence_funding_below">Ilmoita, kun kohteen %1$s funding laskee alle %2$s.</string>
     <string name="alarm_sentence_incomplete">Syötä arvo, niin hälytys näkyy tässä lauseena.</string>
@@ -103,7 +102,7 @@
         <item quantity="one">Ilmoita, kun kohteen %1$s avoimet positiot nousevat vähintään %2$s %3$d tunnin sisällä.</item>
         <item quantity="other">Ilmoita, kun kohteen %1$s avoimet positiot nousevat vähintään %2$s %3$d tunnin sisällä.</item>
     </plurals>
-    <string name="alarm_sentence_up_percent">Ilmoita, kun %1$s nousee vähintään %2$s.</string>
+    <string name="alarm_sentence_up_percent">Ilmoita, kun %1$s nousee vähintään %2$s yli tallennushetken hinnan (tai viimeisimmän hälytyksen).</string>
     <string name="alarm_sentence_volume">Ilmoita, kun kohteen %1$s kaupankäyntivolyymi on %2$s× tavallinen.</string>
 
     <!-- Alarm «Nahe am Hoch / Tief» -->
@@ -142,7 +141,7 @@
     <string name="alarm_saved_notifications_off">Ilmoitukset pois</string>
 
     <!-- Wann Alarme geprüft werden -->
-    <string name="alarm_timing_hint_android">Sovellus suljettuna Android tarkistaa epäsäännöllisesti – usein yli 15 min välein, myös asetuksella «%1$s». Lyhyet piikit voivat jäädä huomaamatta.</string>
+    <string name="alarm_timing_hint_android">Sovellus suljettuna Android tarkistaa epäsäännöllisesti – usein yli 15 min välein, myös asetuksella ”%1$s”. Lyhyet piikit voivat jäädä huomaamatta.</string>
     <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">Sovellus suljettuna iOS tarkistaa usein yli 15 minuutin välein, joskus vasta seuraavalla avauskerralla. Lyhyet piikit voivat jäädä huomaamatta.</string>
     <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
     <string name="alarm_timing_title">Milloin hälytykset tarkistetaan</string>

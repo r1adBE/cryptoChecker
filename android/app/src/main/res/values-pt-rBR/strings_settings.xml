@@ -37,9 +37,9 @@
     <string name="settings_alarm_sound_system">Escolher som do sistema…</string>
     <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
     <string name="settings_app_badge">Número no ícone do app</string>
-    <string name="settings_app_badge_hint">Conta as notificações de alarme abertas. A tela inicial decide se aparece um número ou um ponto (ex.: Samsung: «Com número»).</string>
+    <string name="settings_app_badge_hint">Conta as notificações de alarme abertas. A tela inicial decide se aparece um número ou um ponto (ex.: Samsung: “Com número”).</string>
     <string name="settings_exact_checks">Verificação pontual</string>
-    <string name="settings_exact_checks_grant">Permitir «Alarmes e lembretes»</string>
+    <string name="settings_exact_checks_grant">Permitir “Alarmes e lembretes”</string>
     <string name="settings_exact_checks_hint">O Android verifica a cada 15 minutos mais ou menos, mesmo com o dispositivo em repouso. Gasta um pouco mais de bateria.</string>
     <string name="settings_exact_checks_nothing">Nenhum par ativo – nada a verificar.</string>
     <string name="settings_exact_checks_permission_missing">Permissão ausente – o Android verifica quando quiser (a cada 15 min ou mais tarde).</string>
@@ -249,7 +249,7 @@
     <!-- Lizenzhinweise -->
     <string name="licenses_app_intro">O Crypto Checker é de código aberto (licença MIT).</string>
     <string name="licenses_font_title">Fonte Rubik</string>
-    <string name="licenses_icons_bundled_text">Incluídos no app: ícones de «Cryptocurrency Icons» de Christopher Downer e colaboradores (github.com/spothq/cryptocurrency-icons), publicados sob CC0 1.0 Universal. Eles aparecem até os logos da CoinGecko ou da Binance serem carregados. Nomes e logos continuam sendo marcas dos respectivos projetos.</string>
+    <string name="licenses_icons_bundled_text">Incluídos no app: ícones de “Cryptocurrency Icons” de Christopher Downer e colaboradores (github.com/spothq/cryptocurrency-icons), publicados sob CC0 1.0 Universal. Eles aparecem até os logos da CoinGecko ou da Binance serem carregados. Nomes e logos continuam sendo marcas dos respectivos projetos.</string>
     <string name="licenses_icons_title">Ícones de moedas alternativos</string>
     <string name="licenses_libraries_intro">O app usa estas bibliotecas sob a Apache License 2.0:</string>
     <string name="licenses_libraries_title">Bibliotecas Android</string>

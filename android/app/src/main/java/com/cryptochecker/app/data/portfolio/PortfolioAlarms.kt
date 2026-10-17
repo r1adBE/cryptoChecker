@@ -63,6 +63,7 @@ class PortfolioAlarmChecker @Inject constructor(
     private val settingsRepository: SettingsRepository,
     private val notifier: AppNotifier,
     private val fxSource: FxRateSource,
+    private val depegReadings: com.cryptochecker.app.domain.alarm.DepegReadingStore,
 ) {
     private val mutex = Mutex()
 
@@ -97,6 +98,8 @@ class PortfolioAlarmChecker @Inject constructor(
             todaySkipped = snapshot.todaySkipped.size,
             // Teilweise alter Kurs: diesmal gar nicht prüfen (kein Melden, kein Wieder-scharf-Stellen)
             stalePrices = snapshot.stalePrices,
+            // USDT zum Marktkurs wie der Portfolio-Kopf (Alarm in einer anderen Währung als der Stand)
+            usdtUsdLive = depegReadings.liveUsdtUsd(),
         )
         val now = System.currentTimeMillis()
         // Nachtruhe: Alarme warten bis zum Ende und melden sich dann mit Ton (wie Paar-Alarme)

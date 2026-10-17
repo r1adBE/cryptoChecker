@@ -37,9 +37,9 @@
     <string name="settings_alarm_sound_system">Valitse järjestelmän ääni…</string>
     <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
     <string name="settings_app_badge">Numero sovelluskuvakkeessa</string>
-    <string name="settings_app_badge_hint">Laskee avoimet hälytysilmoitukset. Aloitusnäyttö päättää, näkyykö numero vai piste (esim. Samsung: «Numerolla»).</string>
+    <string name="settings_app_badge_hint">Laskee avoimet hälytysilmoitukset. Aloitusnäyttö päättää, näkyykö numero vai piste (esim. Samsung: ”Numerolla”).</string>
     <string name="settings_exact_checks">Tarkista ajallaan</string>
-    <string name="settings_exact_checks_grant">Salli «Herätykset ja muistutukset»</string>
+    <string name="settings_exact_checks_grant">Salli ”Herätykset ja muistutukset”</string>
     <string name="settings_exact_checks_hint">Android tarkistaa noin 15 minuutin välein myös laitteen ollessa levossa. Kuluttaa hieman enemmän akkua.</string>
     <string name="settings_exact_checks_nothing">Ei aktiivisia pareja – ei tarkistettavaa.</string>
     <string name="settings_exact_checks_permission_missing">Lupa puuttuu – Android tarkistaa, kun sille sopii (noin 15 min välein tai myöhemmin).</string>
@@ -248,7 +248,7 @@
     <!-- Lizenzhinweise -->
     <string name="licenses_app_intro">Crypto Checker on avointa lähdekoodia (MIT-lisenssi).</string>
     <string name="licenses_font_title">Rubik-fontti</string>
-    <string name="licenses_icons_bundled_text">Sovelluksen mukana: kuvakkeet kokoelmasta «Cryptocurrency Icons» (Christopher Downer ja muut tekijät, github.com/spothq/cryptocurrency-icons), julkaistu lisenssillä CC0 1.0 Universal. Ne näkyvät, kunnes CoinGeckon tai Binancen logot on ladattu. Nimet ja logot ovat edelleen projektiensa tavaramerkkejä.</string>
+    <string name="licenses_icons_bundled_text">Sovelluksen mukana: kuvakkeet kokoelmasta ”Cryptocurrency Icons” (Christopher Downer ja muut tekijät, github.com/spothq/cryptocurrency-icons), julkaistu lisenssillä CC0 1.0 Universal. Ne näkyvät, kunnes CoinGeckon tai Binancen logot on ladattu. Nimet ja logot ovat edelleen projektiensa tavaramerkkejä.</string>
     <string name="licenses_icons_title">Varakolikkokuvakkeet</string>
     <string name="licenses_libraries_intro">Sovellus käyttää näitä kirjastoja lisenssillä Apache License 2.0:</string>
     <string name="licenses_libraries_title">Android-kirjastot</string>

@@ -48,7 +48,7 @@
     <string name="settings_notification_change_hint">עדכון מחיר מופיע רק כשהמחיר זז לפחות בשיעור זה מאז העדכון הקודם. כשחסרים נתונים לא מוצג דבר. ההתראות אינן מושפעות.</string>
     <string name="settings_ongoing_notifications">לא ניתן להחליק לסגירה</string>
     <string name="settings_ongoing_notifications_hint">משאיר את עדכוני המחיר מוצמדים.</string>
-    <string name="settings_price_notifications">עדכוני מחיר בשורת המצב</string>
+    <string name="settings_price_notifications">עדכוני מחיר</string>
     <string name="settings_price_notifications_hint">הצג את המחיר הנוכחי של צמדים מופעלים בשורת המצב.</string>
     <string name="settings_price_pairs">צמדים</string>
     <string name="settings_price_pairs_all_off">הכול כבוי</string>

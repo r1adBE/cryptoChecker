@@ -115,7 +115,7 @@ struct AlarmEditorSheet: View {
                     simpleConditionTiles
 
                     if draft.condition.isPriceThreshold {
-                        // Kursmarke als Satz: «Wenn BTC [über ▾] [Betrag] geht»
+                        // Kursmarke als Satz: «Wenn BTC über [Betrag] geht»
                         simpleSentence
                     } else if draft.condition.isPercent && !AlarmTemplates.opensMoreConditions(condition: draft.condition) {
                         thresholdField
@@ -129,12 +129,18 @@ struct AlarmEditorSheet: View {
                             .transition(.opacity)
                     }
 
-                    // Einmal / Jedes Mal
-                    Picker(L("alarm_option_repeating"), selection: $draft.repeating) {
-                        Text(L("alarm_repeat_once")).tag(false)
-                        Text(L("alarm_repeat_each")).tag(true)
+                    // «Melden: Einmal / Jedes Mal» — sichtbare Beschriftung (die des Pickers zeigt .segmented nicht), wie Android
+                    VStack(alignment: .leading, spacing: Spacing.xs) {
+                        Text(L("alarm_option_repeating"))
+                            .font(.subheadline)
+                            .foregroundStyle(AppColors.onSurfaceVariant)
+                            .accessibilityHidden(true)
+                        Picker(L("alarm_option_repeating"), selection: $draft.repeating) {
+                            Text(L("alarm_repeat_once")).tag(false)
+                            Text(L("alarm_repeat_each")).tag(true)
+                        }
+                        .pickerStyle(.segmented)
                     }
-                    .pickerStyle(.segmented)
 
                     sectionHeader(L("alarm_advanced"), expanded: $advanced)
 
@@ -286,7 +292,7 @@ struct AlarmEditorSheet: View {
         return L(percent > 0 ? "alarm_template_a11y_up" : "alarm_template_a11y_down", amount)
     }
 
-    /// «Wenn BTC [über ▾]» / «[Betrag] geht» — Kursmarke als Satz; der Betrag läuft über den ThresholdParser.
+    /// «Wenn BTC über» / «[Betrag] geht» — Kursmarke als Satz; der Betrag läuft über den ThresholdParser.
     private var simpleSentence: some View {
         let above = draft.condition == .PRICE_ABOVE
         let direction = L(above ? "alarm_simple_above" : "alarm_simple_below")
@@ -297,30 +303,9 @@ struct AlarmEditorSheet: View {
             HStack(spacing: 8) {
                 Text(L("alarm_simple_when", BidiText.isolate(watch?.baseAsset ?? "")))
                     .font(.title3.weight(.semibold))
-                Menu {
-                    Picker(L("alarm_simple_direction_a11y", direction), selection: Binding<AlarmCondition>(
-                        get: { draft.condition },
-                        set: { value in
-                            WatchlistHaptics.selection()
-                            draft = draft.withCondition(value)
-                        }
-                    )) {
-                        Text(L("alarm_simple_above")).tag(AlarmCondition.PRICE_ABOVE)
-                        Text(L("alarm_simple_below")).tag(AlarmCondition.PRICE_BELOW)
-                    }
-                } label: {
-                    HStack(spacing: 4) {
-                        Text(direction)
-                            .font(.title3.weight(.semibold))
-                        Image(systemName: "chevron.down")
-                            .scaledFont(size: 12, weight: .bold, relativeTo: .caption)
-                    }
-                    .foregroundStyle(accent.primary)
-                    .padding(.horizontal, Spacing.md)
-                    .padding(.vertical, Spacing.sm)
-                    .background(accent.container.opacity(0.6), in: Capsule())
-                }
-                .accessibilityLabel(L("alarm_simple_direction_a11y", direction))
+                // Richtung nur als Wort im Satz: gewählt wird sie oben mit «Kurs über/unter» (ein Bedienelement, wie Android)
+                Text(direction)
+                    .font(.title3.weight(.semibold))
                 Spacer(minLength: 0)
             }
             // Build 46: Satzende auf der Grundlinie der Eingabe (nicht mittig über Feld samt Fehlertext) — wie Android

@@ -99,7 +99,7 @@
     <string name="check_trigger_worker">Háttér</string>
 
     <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
-    <string name="battery_delay_hint">Az Android késleltetheti az ellenőrzést – állítsd az akkut erre: «Korlátlan»</string>
+    <string name="battery_delay_hint">Az Android késleltetheti az ellenőrzést – állítsd az akkut erre: „Korlátlan”</string>
     <string name="battery_later">Később</string>
     <string name="battery_message">Az Android energiatakarékosság miatt késlelteti a háttérfolyamatokat — az árak és widgetek így órákkal elavultak lehetnek. Korlátlan akkumulátorhasználattal naprakészek maradnak. Ezt bármikor módosíthatja az Android beállításaiban.</string>
     <string name="battery_open_settings">Akkubeállítások megnyitása</string>

@@ -295,7 +295,7 @@ extension AppData {
     }
 
     /// Stand zum Ändern: war die Datei nicht lesbar, zuerst neu lesen (z. B. jetzt entsperrt).
-    private func currentPortfolioFile() -> PortfolioFile {
+    func currentPortfolioFile() -> PortfolioFile {
         if !portfolioIntact {
             let loaded = PortfolioStore.loadChecked()
             if loaded.intact {

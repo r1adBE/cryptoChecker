@@ -161,7 +161,8 @@ extension AppData {
         let reading = PortfolioReading(total: widget.total, currency: widget.currency, totalUsdt: widget.totalUsdt,
                                        changePercent: widget.changePercent, empty: widget.empty, usdTo: usdTo,
                                        missingPrices: widget.missingCount, todaySkipped: widget.todaySkipped?.count ?? 0,
-                                       stalePrices: widget.staleCount)
+                                       stalePrices: widget.staleCount,
+                                       usdtUsdLive: DepegAlarmCheck.liveUsdtUsd(now: TimeUtils.nowMillis))
         let now = TimeUtils.nowMillis
         var list = snapshot.portfolioAlarms ?? []
         var fired: [(alarm: PortfolioAlarm, value: Double)] = []

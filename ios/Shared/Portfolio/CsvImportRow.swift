@@ -127,15 +127,15 @@ struct CsvImportPriced {
     let missingPrice: Bool
     /// Tausch: Wert in USDT; nil = unbekannt (kein Wert in der Datei oder kein Tageskurs).
     var swapValueUsdt: Decimal? = nil
+    /// USD/Fiat mit USDT = 1 USD umgerechnet, weil der USDT/USD-Tagesschluss DES Tags fehlt (Näherung wie
+    /// `TaxExport.usdtApproximateOn` — die Vorschau nennt die Zeile). Wie Android.
+    var usdtApproximate = false
 }
 
 /// Schlüssel, Duplikate und Umrechnung in USDT — wie Android (`CsvImport`).
 enum CsvImport {
 
-    /// Nachkommastellen für abgeleitete Preise (Teilungen), halbe auf gerade.
-    static let derivedScale = 12
-
-    /// Währungen, die 1:1 als USDT gelten.
+    /// Rechenwährung (USDT gilt 1:1). USD ist Fiat: in USDT über den USDT/USD-Tagesschluss (`priceInUsdt`).
     private static let usdLike: Set<String> = ["USD", "USDT"]
 
     /// Fiat (mit USD): nur Geschäfte gegen diese Währungen sind Kauf/Verkauf; Ein-/Auszahlungen davon sind kein Krypto.
@@ -205,9 +205,11 @@ enum CsvImport {
         return r
     }
 
-    /// `a / b` auf `derivedScale` Stellen (wie Android `divide(b, 12, HALF_EVEN)`).
+    /// Abgeleiteter Preis bzw. Umrechnung `a / b` mit 34 gültigen Stellen (`PortfolioDecimal.divide`, halbe auf gerade)
+    /// — keine feste Zahl Nachkommastellen: früher 12, das rundete Preise winziger Coins (z. B. 10¹² BABYDOGE für
+    /// CHF 1234.56 → 1.23456E-9) auf wenige Stellen. Wie Android `CsvImport.derive`.
     static func divide(_ a: Decimal, _ b: Decimal) -> Decimal {
-        round(a / b, scale: derivedScale)
+        PortfolioDecimal.divide(a, b)
     }
 
     /// Schlüssel gegen doppelten Import (Aufbau wie Android `CsvImport.key`). Zeit: UTC-ms; steht sie ohne Versatz in
@@ -323,16 +325,32 @@ enum CsvImport {
         return floorDiv(floorDiv(timeMillis, 1000) + offset, 86_400)
     }
 
+    /// USDT/USD-Tagesschluss am Tag `day` aus `usdtUsd` (Tag → Schluss), nur plausibel (`PortfolioStables.usdtUsd`);
+    /// nil = keiner (kein Schluss eines anderen Tags) — wie `TaxExport.usdtUsdOn`. Wie Android.
+    static func usdtUsdOn(_ usdtUsd: [Int: Decimal]?, day: Int64) -> Decimal? {
+        guard let close = usdtUsd?[Int(day)], close > 0,
+              !PortfolioStables.usdtUsd(PortfolioDecimal.double(close)).approximate else { return nil }
+        return close
+    }
+
     /// Preise in USDT umrechnen. `fx(Währung, Tag)` = Einheiten dieser Währung je 1 USD; nil = kein Kurs.
+    /// `usdtUsd` = USDT/USD-Tagesschlüsse (Tag → Schluss; Owner-Entscheid Okt. 2026, wie der Steuer-Export
+    /// `TaxExport.rateOn`): USD bzw. Fiat → USDT = Betrag ÷ (Devisenkurs × USDT/USD DES Tags) — ein Kauf über 10 000 USD
+    /// ergibt im Export wieder 10 000 USD Einstand. Fehlt der Schluss des Tags: × 1, Zeile als Näherung markiert
+    /// (`usdtApproximate`). nil = USD gilt 1:1 als USDT (frühere Rechnung, ohne Markierung). Wie Android.
     static func priceInUsdt(_ rows: [CsvImportRow], zone: String = CsvImportParser.defaultZone,
+                            usdtUsd: [Int: Decimal]? = nil,
                             fx: (String, Int64) -> Decimal?) -> [CsvImportPriced] {
         rows.map { row -> CsvImportPriced in
             let day = epochDay(row.timeMillis, zone: zone)
+            let close = usdtUsdOn(usdtUsd, day: day)
+            var usdtApproximate = false
             var needsFx = false
             var priceUsdt: Decimal?
             if let p = row.price {
-                if let q = row.quote, let r = rate(q, day, fx) {
-                    priceUsdt = toUsdt(p, r)
+                if let q = row.quote, let r = usdtRate(q, day, fx, usdtUsd: usdtUsd, close: close) {
+                    if r.approximate { usdtApproximate = true }
+                    priceUsdt = toUsdt(p, r.rate)
                 } else {
                     needsFx = true
                 }
@@ -340,28 +358,41 @@ enum CsvImport {
             // Tausch: Wert aus der Datei (Fiat) zum Tageskurs
             var swapValueUsdt: Decimal?
             if let v = row.swapValue {
-                if let q = row.quote, let r = rate(q, day, fx) {
-                    swapValueUsdt = toUsdt(v, r)
+                if let q = row.quote, let r = usdtRate(q, day, fx, usdtUsd: usdtUsd, close: close) {
+                    if r.approximate { usdtApproximate = true }
+                    swapValueUsdt = toUsdt(v, r.rate)
                 } else {
                     needsFx = true
                 }
             }
             var feeUsdt: Decimal?
             if let fee = row.fee, let unit = row.feeUnit, unit == row.quote || usdLike.contains(unit) {
-                if let r = rate(unit, day, fx) {
-                    feeUsdt = toUsdt(fee, r)
+                if let r = usdtRate(unit, day, fx, usdtUsd: usdtUsd, close: close) {
+                    if r.approximate { usdtApproximate = true }
+                    feeUsdt = toUsdt(fee, r.rate)
                 } else {
                     needsFx = true
                 }
             }
             return CsvImportPriced(row: row, priceUsdt: priceUsdt, feeUsdt: feeUsdt, needsFx: needsFx,
                                    missingPrice: row.price == nil && (row.kind == .BUY || row.kind == .SELL),
-                                   swapValueUsdt: swapValueUsdt)
+                                   swapValueUsdt: swapValueUsdt, usdtApproximate: usdtApproximate)
         }
     }
 
-    /// Kurs der Währung am Tag; USD/USDT = 1; ungültig = nil.
-    private static func rate(_ currency: String, _ day: Int64, _ fx: (String, Int64) -> Decimal?) -> Decimal? {
+    /// Einheiten der Währung je 1 USDT am Tag (wie Android `rate` in `priceInUsdt`): USDT 1; sonst Devisenkurs
+    /// (`baseRate`) × USDT/USD-Schluss `close`; mit `usdtUsd`, aber ohne Schluss des Tags × 1 und `approximate`;
+    /// ohne `usdtUsd` der Devisenkurs allein. nil ohne Devisenkurs.
+    private static func usdtRate(_ currency: String, _ day: Int64, _ fx: (String, Int64) -> Decimal?,
+                                 usdtUsd: [Int: Decimal]?, close: Decimal?) -> (rate: Decimal, approximate: Bool)? {
+        guard let r = baseRate(currency, day, fx) else { return nil }
+        if currency == PortfolioStables.valuation || usdtUsd == nil { return (r, false) }
+        guard let close else { return (r, true) }
+        return (PortfolioDecimal.multiply(r, close), false)
+    }
+
+    /// Devisenkurs der Währung am Tag (Einheiten je 1 USD); USD/USDT = 1; ungültig = nil.
+    private static func baseRate(_ currency: String, _ day: Int64, _ fx: (String, Int64) -> Decimal?) -> Decimal? {
         if usdLike.contains(currency) { return 1 }
         guard let r = fx(currency, day), r > 0 else { return nil }
         return r

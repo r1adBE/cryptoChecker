@@ -6,11 +6,11 @@
     <string name="portfolio_address_error">更新失败</string>
     <string name="portfolio_address_hint">公开地址（BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA）或 xpub</string>
     <string name="portfolio_address_label">标签（可选）</string>
-    <string name="portfolio_address_not_since_buy">来自地址 · 不计入 «自买入»：%1$s</string>
-    <string name="portfolio_address_overlap">你自己的交易中也有：%1$s——两者会相加。是同一批币？请选择 «仅显示»。</string>
+    <string name="portfolio_address_not_since_buy">来自地址 · 不计入 「自买入」：%1$s</string>
+    <string name="portfolio_address_overlap">你自己的交易中也有：%1$s——两者会相加。是同一批币？请选择 「仅显示」。</string>
     <string name="portfolio_address_overlap_ask">你已用自己的交易记录了 %1$s。要把此地址的余额计入投资组合，还是仅显示？</string>
-    <string name="portfolio_address_overlap_auto">«%1$s» 现在仅显示，不计入——%2$s 也出现在你的交易中。</string>
-    <string name="portfolio_address_overlap_restored">«%1$s» 重新计入——其数量与你的交易不符。如果是同一批币，请选择 «仅显示»。</string>
+    <string name="portfolio_address_overlap_auto">「%1$s」 现在仅显示，不计入——%2$s 也出现在你的交易中。</string>
+    <string name="portfolio_address_overlap_restored">「%1$s」 重新计入——其数量与你的交易不符。如果是同一批币，请选择 「仅显示」。</string>
     <string name="portfolio_address_overlap_title">与你交易中的币相同？</string>
     <string name="portfolio_address_overlap_tx">与你自己的存入/转移（%1$s）数量相同——可能被重复计算。</string>
     <string name="portfolio_address_period_observed">观察的地址从首次观察到的余额开始计算；之后的变化属于流入/流出，不算收益。</string>

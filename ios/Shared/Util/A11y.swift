@@ -145,14 +145,13 @@ enum A11y {
             return L("a11y_converted", t)
         }
         let note = watch.note.flatMap { $0.isEmpty ? nil : L("a11y_note", $0) }
-        // Kursmitteilung wie die Glocke der Merkliste-Zeile (nil = ohne Glocke, z. B. Widgets)
-        var priceNotification: String?
-        if let priceNotificationOn {
-            priceNotification = L(priceNotificationOn ? "a11y_price_notification_on" : "a11y_price_notification_off")
-        }
+        // Kursmitteilung nur, wenn sie aus ist — «an» ist der Normalfall und stünde sonst in jeder Zeile
+        // (nil = ohne Glocke, z. B. Widgets; wie Android)
+        let priceNotification: String? = priceNotificationOn == false ? L("a11y_price_notification_off") : nil
+        // «Alarme (2)» wie die Glocke der Zeile und das Aktionsblatt (Mehrzahl je Sprache)
         let alarms: [String?] = [priceNotification,
                                  fired ? L("a11y_alarm_fired") : nil,
-                                 alarmCount > 0 ? L("a11y_alarm_count", alarmCount) : nil]
+                                 alarmCount > 0 ? L("watchlist_alarms_count", count: alarmCount) : nil]
         let error = watch.lastError.flatMap { e -> String? in
             if e.isEmpty { return nil }
             if stateCoversError && (ConnectionErrors.isNotTraded(e) || ConnectionErrors.isRetryable(e)) { return nil }

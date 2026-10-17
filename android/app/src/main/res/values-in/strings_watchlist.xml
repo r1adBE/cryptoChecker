@@ -96,7 +96,7 @@
     <string name="watchlist_group_empty_hint">Tekan lama grup untuk memilih pasangannya.</string>
     <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
     <string name="watchlist_groups_empty_hint">Grup Anda akan muncul di sini</string>
-    <string name="watchlist_notification">Notifikasi</string>
+    <string name="watchlist_notification">Notifikasi harga</string>
     <string name="watchlist_tts">Ucapkan harga</string>
     <string name="watchlist_tts_speech_on">Suara aktif. Kamu bisa mengubahnya di Pengaturan › Lanjutan › Output suara.</string>
 

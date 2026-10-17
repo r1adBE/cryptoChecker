@@ -242,7 +242,7 @@
     <string name="ledger_exchange">एक्सचेंज (वैकल्पिक)</string>
     <string name="ledger_exchange_failed">%1$s: अभी %2$s से भाव नहीं – Binance से आँका गया।</string>
     <string name="ledger_exchange_hint">कॉइन का मूल्य इस एक्सचेंज के भाव से (अन्यथा Binance)। इतिहास, 7 दिन और 1 वर्ष: Binance के दैनिक भाव, उसी पर समायोजित।</string>
-    <string name="ledger_exchange_mixed">%1$s: कई एक्सचेंज दर्ज – Binance से आँका गया। कॉइन कहीं और भेजे? इसे «ट्रांसफ़र» के रूप में दर्ज करें।</string>
+    <string name="ledger_exchange_mixed">%1$s: कई एक्सचेंज दर्ज – Binance से आँका गया। कॉइन कहीं और भेजे? इसे “ट्रांसफ़र” के रूप में दर्ज करें।</string>
     <string name="ledger_exchange_none">कोई नहीं (Binance)</string>
     <string name="ledger_fee">शुल्क (वैकल्पिक)</string>
     <string name="ledger_fee_coin">कॉइन</string>
@@ -254,7 +254,7 @@
     <string name="ledger_gain_info_fifo">आज, 7 दिन, 1 वर्ष: अवधि में मूल्य बदलाव – खरीद और बिक्री लाभ नहीं गिनी जातीं। खरीद से: जो कॉइन अभी आपके पास हैं उनका मौजूदा मूल्य घटा लागत (शुल्क सहित FIFO)।</string>
     <string name="ledger_gain_title">लाभ/हानि</string>
     <string name="ledger_more_toggle">शुल्क और एक्सचेंज</string>
-    <string name="ledger_partial_cost">«खरीद से» सिर्फ़ खरीद भाव वाले हिस्से को गिनता है – बिना खरीद भाव वाले %1$s के बिना।</string>
+    <string name="ledger_partial_cost">“खरीद से” सिर्फ़ खरीद भाव वाले हिस्से को गिनता है – बिना खरीद भाव वाले %1$s के बिना।</string>
     <string name="ledger_period_without">आज / 7 दिन / 1 वर्ष %1$s के बिना – मेल खाता शुरुआती भाव नहीं।</string>
     <string name="ledger_since_purchase_currency">खरीद से (%1$s)</string>
     <string name="ledger_since_purchase_spoken">खरीद से लाभ/हानि, अभी बेचा नहीं</string>

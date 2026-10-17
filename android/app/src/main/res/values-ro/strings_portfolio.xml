@@ -245,7 +245,7 @@
     <string name="ledger_exchange">Bursă (opțional)</string>
     <string name="ledger_exchange_failed">%1$s: acum niciun preț de la %2$s – evaluat cu Binance.</string>
     <string name="ledger_exchange_hint">Moneda este evaluată la prețul acestei burse (altfel Binance). Istoric, 7 Z și 1 A: prețuri zilnice Binance, scalate.</string>
-    <string name="ledger_exchange_mixed">%1$s: mai multe burse introduse – evaluat cu Binance. Ai mutat monede? Înregistrează mutarea ca «Transfer».</string>
+    <string name="ledger_exchange_mixed">%1$s: mai multe burse introduse – evaluat cu Binance. Ai mutat monede? Înregistrează mutarea ca „Transfer”.</string>
     <string name="ledger_exchange_none">Niciuna (Binance)</string>
     <string name="ledger_fee">Comision (opțional)</string>
     <string name="ledger_fee_coin">Monedă</string>
@@ -257,7 +257,7 @@
     <string name="ledger_gain_info_fifo">Azi, 7 Z, 1 A: variația valorii în perioadă – cumpărările și vânzările nu contează drept câștig. De la cumpărare: valoarea actuală minus costul de achiziție (FIFO cu comisioane) al monedelor încă deținute.</string>
     <string name="ledger_gain_title">Câștig/pierdere</string>
     <string name="ledger_more_toggle">Comision și bursă</string>
-    <string name="ledger_partial_cost">«De la cumpărare» ia în calcul doar partea cu preț de cumpărare – fără %1$s fără preț de cumpărare.</string>
+    <string name="ledger_partial_cost">„De la cumpărare” ia în calcul doar partea cu preț de cumpărare – fără %1$s fără preț de cumpărare.</string>
     <string name="ledger_period_without">Azi / 7 Z / 1 A fără %1$s – niciun preț inițial potrivit.</string>
     <string name="ledger_since_purchase_currency">De la cumpărare (%1$s)</string>
     <string name="ledger_since_purchase_spoken">Câștig/pierdere de la cumpărare, încă nevândut</string>

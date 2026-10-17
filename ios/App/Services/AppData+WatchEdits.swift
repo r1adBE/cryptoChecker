@@ -200,7 +200,7 @@ extension AppData {
     /// Favoriten bleiben trotzdem immer vor den übrigen — wie `WatchRepository.reorder`.
     func reorder(_ orderedIds: [Int64]) {
         let all = watches
-        let byId = Dictionary(uniqueKeysWithValues: all.map { ($0.id, $0) })
+        let byId = Dictionary(all.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
         var seen = Set<Int64>()
         let wanted = orderedIds.filter { seen.insert($0).inserted }.compactMap { byId[$0] }
         renumber(Self.placeInSlots(all, wanted).map(\.id))

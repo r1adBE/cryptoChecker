@@ -1,7 +1,6 @@
 package com.cryptochecker.app.domain.portfolio.csvimport
 
 import java.math.BigDecimal
-import java.math.RoundingMode
 import java.time.Instant
 import java.time.ZoneId
 
@@ -599,7 +598,7 @@ object CsvImportParser {
         var price = number(Role.PRICE)?.abs()?.takeIf { it.signum() > 0 }
         if (price == null && (kind == CsvImportKind.BUY || kind == CsvImportKind.SELL)) {
             price = number(Role.FIAT_AMOUNT)?.abs()?.takeIf { it.signum() > 0 }
-                ?.divide(amount, CsvImport.DERIVED_SCALE, RoundingMode.HALF_EVEN)?.stripTrailingZeros()
+                ?.let { CsvImport.derive(it, amount) }
         }
         // Tausch: kein Preis, sondern Wert (Fiat-Betrag, sonst Preis × Menge) — nur in Geld, sonst unbekannt
         var swapValue: BigDecimal? = null

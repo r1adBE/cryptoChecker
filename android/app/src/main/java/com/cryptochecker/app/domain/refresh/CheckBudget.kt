@@ -50,6 +50,27 @@ object CheckBudget {
         return (deadline - reserve - now).coerceIn(0L, cap)
     }
 
+    /** Widget-Charts nach dem Durchlauf nur, wenn bis zur Frist noch mindestens so viel bleibt. */
+    const val CHART_MIN_MILLIS = 8_000L
+
+    /** Gesamtgrenze für das Nachladen der Widget-Charts (alle Einzel-Widgets zusammen). */
+    const val CHART_TIMEOUT_MILLIS = 25_000L
+
+    /** Mit Frist: so viel bleibt nach dem Nachladen der Charts übrig (Ansagen, Lauf vermerken). */
+    const val CHART_RESERVE_MILLIS = 2_000L
+
+    /**
+     * Zeitgrenze für das Nachladen der Widget-Charts ausserhalb der Sperre; null = gar nicht erst
+     * versuchen (weniger als [CHART_MIN_MILLIS] bis zur Frist). Ohne Frist [CHART_TIMEOUT_MILLIS],
+     * mit Frist höchstens bis dahin minus [CHART_RESERVE_MILLIS].
+     */
+    fun chartFetchMillis(deadline: Long?, now: Long): Long? {
+        if (deadline == null) return CHART_TIMEOUT_MILLIS
+        val left = deadline - now
+        if (left < CHART_MIN_MILLIS) return null
+        return (left - CHART_RESERVE_MILLIS).coerceIn(0L, CHART_TIMEOUT_MILLIS)
+    }
+
     /**
      * Pause je Börse ([ExchangeBackoff]) nach einem Lauf mit Budget: Paare, die nur am eigenen
      * Budget scheiterten ([cutByBudget]), sagen nichts über die Börse. Kam kein Kurs und gab es

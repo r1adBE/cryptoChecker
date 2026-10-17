@@ -22,7 +22,7 @@
     <string name="backup_password_repeat">Ulangi kata sandi</string>
     <string name="backup_password_show">Tampilkan kata sandi</string>
     <string name="backup_password_title">Cadangan dengan kata sandi</string>
-    <string name="backup_password_too_weak">Terlalu mudah ditebak – jangan hanya angka, jangan satu karakter berulang, jangan urutan umum seperti «12345678» atau «password».</string>
+    <string name="backup_password_too_weak">Terlalu mudah ditebak – jangan hanya angka, jangan satu karakter berulang, jangan urutan umum seperti “12345678” atau “password”.</string>
     <string name="backup_password_warning">Tanpa kata sandi, cadangan tidak dapat dipulihkan.</string>
     <string name="backup_password_wrong">Kata sandi salah, atau file rusak. Coba lagi.</string>
     <string name="backup_protect">Lindungi dengan kata sandi</string>
@@ -51,6 +51,6 @@
     </plurals>
 
     <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
-    <string name="storage_recovery_message">Perangkat ini tidak lagi memiliki kunci data terenkripsi aplikasi, jadi aplikasi dimulai kosong. Tidak ada yang dihapus. Untuk mendapatkan kembali daftar dan portofolio Anda, impor file cadangan di Pengaturan, bagian «%1$s».</string>
+    <string name="storage_recovery_message">Perangkat ini tidak lagi memiliki kunci data terenkripsi aplikasi, jadi aplikasi dimulai kosong. Tidak ada yang dihapus. Untuk mendapatkan kembali daftar dan portofolio Anda, impor file cadangan di Pengaturan, bagian “%1$s”.</string>
     <string name="storage_recovery_title">Data tersimpan tidak dapat dibuka</string>
 </resources>

@@ -20,7 +20,7 @@
     <string name="notification_macro_title">Talouslukuja tänään</string>
     <string name="notification_permission_preprompt_continue">Jatka</string>
     <string name="notification_permission_preprompt_later">Myöhemmin</string>
-    <string name="notification_permission_preprompt_text">Jotta hälytykset ja hintailmoitukset tavoittavat sinut, sovellus tarvitsee luvan ilmoituksiin. Niitä käytetään vain omiin hälytyksiisi.</string>
+    <string name="notification_permission_preprompt_text">Jotta hälytykset ja hintailmoitukset tavoittavat sinut, sovellus tarvitsee luvan ilmoituksiin. Sovellus käyttää niitä vain hälytyksiisi ja hintailmoituksiin.</string>
     <string name="notification_permission_preprompt_title">Sallitaanko ilmoitukset?</string>
     <string name="notification_portfolio_alarm_locked">Hälytyksesi laukesi – avaa sovellus nähdäksesi tiedot.</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->

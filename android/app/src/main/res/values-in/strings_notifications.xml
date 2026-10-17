@@ -20,7 +20,7 @@
     <string name="notification_macro_title">Ada data ekonomi hari ini</string>
     <string name="notification_permission_preprompt_continue">Lanjutkan</string>
     <string name="notification_permission_preprompt_later">Nanti</string>
-    <string name="notification_permission_preprompt_text">Agar alarm dan notifikasi harga sampai kepada Anda, aplikasi memerlukan izin notifikasi. Notifikasi hanya digunakan untuk alarm Anda sendiri.</string>
+    <string name="notification_permission_preprompt_text">Agar alarm dan notifikasi harga sampai kepada Anda, aplikasi memerlukan izin notifikasi. Aplikasi hanya menggunakannya untuk alarm dan notifikasi harga Anda.</string>
     <string name="notification_permission_preprompt_title">Izinkan notifikasi?</string>
     <string name="notification_portfolio_alarm_locked">Alarm kamu berbunyi – buka aplikasi untuk detailnya.</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->

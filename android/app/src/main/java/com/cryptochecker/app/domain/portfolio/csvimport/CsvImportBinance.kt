@@ -1,7 +1,6 @@
 package com.cryptochecker.app.domain.portfolio.csvimport
 
 import java.math.BigDecimal
-import java.math.RoundingMode
 
 /**
  * Binance-Exporte → [CsvImportRow]. Gespiegelt in `CsvImportBinance.swift`. Aufbau nur aus den öffentlichen
@@ -64,8 +63,14 @@ internal object CsvImportBinance {
     private val DEPOSIT_OPS = setOf("deposit", "fiatdeposit")
     private val WITHDRAWAL_OPS = setOf("withdraw", "withdrawal", "fiatwithdraw", "fiatwithdrawal")
 
+    /**
+     * Verschiebungen zwischen eigenen Konten mit genauem Namen: «ETH 2.0 Staking» (ETH → BETH) und ihre Rücknahme. Genau,
+     * nicht als Teilwort — sonst fiele «ETH 2.0 Staking Rewards» (Belohnung) als Verschiebung weg.
+     */
+    private val INTERNAL_OPS = setOf("eth20staking", "eth20stakingwithdrawals")
+
     /** Teilwörter einer Verschiebung zwischen eigenen Konten (vor den Belohnungen: «Staking Purchase» ist keine). */
-    private val INTERNAL_PARTS = listOf("transferbetween", "transferfunds", "subscription", "redemption", "purchase", "eth20staking")
+    private val INTERNAL_PARTS = listOf("transferbetween", "transferfunds", "subscription", "redemption", "purchase")
 
     /** Teilwörter einer Gutschrift (Zins, Staking, Launchpool, Airdrop, Empfehlung, Cashback, Mining). */
     private val REWARD_PARTS = listOf(
@@ -78,6 +83,7 @@ internal object CsvImportBinance {
         normalized in TRADE_OPS -> Op.TRADE
         normalized in DEPOSIT_OPS -> Op.DEPOSIT
         normalized in WITHDRAWAL_OPS -> Op.WITHDRAWAL
+        normalized in INTERNAL_OPS -> Op.INTERNAL
         INTERNAL_PARTS.any { it in normalized } -> Op.INTERNAL
         REWARD_PARTS.any { it in normalized } -> Op.REWARD
         else -> Op.UNKNOWN
@@ -244,11 +250,11 @@ internal object CsvImportBinance {
                 val (inn, inAmount) = received!!
                 when {
                     CsvImport.isFiat(out) -> {
-                        val price = outAmount.divide(inAmount, CsvImport.DERIVED_SCALE, RoundingMode.HALF_EVEN).stripTrailingZeros()
+                        val price = CsvImport.derive(outAmount, inAmount)
                         rows += row(line, CsvImportKind.BUY, rawKind(inn), inn, inAmount, price, out, feeAmount, feeUnit, first)
                     }
                     CsvImport.isFiat(inn) -> {
-                        val price = inAmount.divide(outAmount, CsvImport.DERIVED_SCALE, RoundingMode.HALF_EVEN).stripTrailingZeros()
+                        val price = CsvImport.derive(inAmount, outAmount)
                         rows += row(line, CsvImportKind.SELL, rawKind(out), out, outAmount, price, inn, feeAmount, feeUnit, first)
                     }
                     else -> {
@@ -419,7 +425,7 @@ internal object CsvImportBinance {
         val total = fills.fold(BigDecimal.ZERO) { sum, f -> sum + f.total }
         val fee = split.first?.second
         val price = if (fills.size == 1) first.price
-        else total.divide(amount, CsvImport.DERIVED_SCALE, RoundingMode.HALF_EVEN).stripTrailingZeros()
+        else CsvImport.derive(total, amount)
         val draft = CsvImportRow(
             line = first.line,
             kind = first.kind,

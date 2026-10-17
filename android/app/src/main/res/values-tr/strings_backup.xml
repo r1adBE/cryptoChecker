@@ -22,7 +22,7 @@
     <string name="backup_password_repeat">Parolayı tekrar girin</string>
     <string name="backup_password_show">Parolayı göster</string>
     <string name="backup_password_title">Parola korumalı yedek</string>
-    <string name="backup_password_too_weak">Tahmini çok kolay – yalnızca rakam olmasın, tek bir tekrar eden karakter olmasın, «12345678» ya da «sifre» gibi yaygın diziler olmasın.</string>
+    <string name="backup_password_too_weak">Tahmini çok kolay – yalnızca rakam olmasın, tek bir tekrar eden karakter olmasın, “12345678” ya da “sifre” gibi yaygın diziler olmasın.</string>
     <string name="backup_password_warning">Parola olmadan yedek geri yüklenemez.</string>
     <string name="backup_password_wrong">Yanlış parola veya dosya bozuk. Tekrar deneyin.</string>
     <string name="backup_protect">Parolayla koru</string>
@@ -54,6 +54,6 @@
     </plurals>
 
     <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
-    <string name="storage_recovery_message">Bu cihazda uygulamanın şifreli verilerinin anahtarı artık yok, bu yüzden uygulama boş başladı. Hiçbir şey silinmedi. Listenizi ve portföyünüzü geri almak için ayarlarda «%1$s» altında bir yedek dosyası içe aktarın.</string>
+    <string name="storage_recovery_message">Bu cihazda uygulamanın şifreli verilerinin anahtarı artık yok, bu yüzden uygulama boş başladı. Hiçbir şey silinmedi. Listenizi ve portföyünüzü geri almak için ayarlarda “%1$s” altında bir yedek dosyası içe aktarın.</string>
     <string name="storage_recovery_title">Kayıtlı veriler açılamadı</string>
 </resources>

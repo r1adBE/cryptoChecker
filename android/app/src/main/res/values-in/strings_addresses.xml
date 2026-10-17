@@ -6,11 +6,11 @@
     <string name="portfolio_address_error">Pembaruan gagal</string>
     <string name="portfolio_address_hint">Alamat publik (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) atau xpub</string>
     <string name="portfolio_address_label">Label (opsional)</string>
-    <string name="portfolio_address_not_since_buy">Dari alamat · tidak termasuk «Sejak beli»: %1$s</string>
-    <string name="portfolio_address_overlap">Juga ada di transaksimu sendiri: %1$s – keduanya dijumlahkan. Koin yang sama? Pilih «Hanya tampilkan».</string>
+    <string name="portfolio_address_not_since_buy">Dari alamat · tidak termasuk “Sejak beli”: %1$s</string>
+    <string name="portfolio_address_overlap">Juga ada di transaksimu sendiri: %1$s – keduanya dijumlahkan. Koin yang sama? Pilih “Hanya tampilkan”.</string>
     <string name="portfolio_address_overlap_ask">Kamu sudah mencatat %1$s dengan transaksimu sendiri. Tambahkan saldo alamat ini ke portofolio atau hanya tampilkan?</string>
-    <string name="portfolio_address_overlap_auto">«%1$s» kini hanya ditampilkan dan tidak dihitung – %2$s juga ada di transaksimu.</string>
-    <string name="portfolio_address_overlap_restored">«%1$s» dihitung lagi – jumlahnya tidak cocok dengan transaksimu. Pilih «Hanya tampilkan» jika itu koin yang sama.</string>
+    <string name="portfolio_address_overlap_auto">“%1$s” kini hanya ditampilkan dan tidak dihitung – %2$s juga ada di transaksimu.</string>
+    <string name="portfolio_address_overlap_restored">“%1$s” dihitung lagi – jumlahnya tidak cocok dengan transaksimu. Pilih “Hanya tampilkan” jika itu koin yang sama.</string>
     <string name="portfolio_address_overlap_title">Koin yang sama dengan transaksimu?</string>
     <string name="portfolio_address_overlap_tx">Jumlah sama dengan setoran/transfermu sendiri (%1$s) – kemungkinan dihitung dua kali.</string>
     <string name="portfolio_address_period_observed">Alamat yang dipantau dihitung sejak saldo pertama yang teramati; perubahan berikutnya adalah arus masuk/keluar, bukan untung.</string>

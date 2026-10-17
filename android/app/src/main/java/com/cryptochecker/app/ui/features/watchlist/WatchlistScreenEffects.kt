@@ -33,6 +33,8 @@ import kotlinx.coroutines.delay
  * sind — ein leichtes Haptik-Signal und das Banner «… wird jetzt überwacht»; haben die neuen
  * Paare noch keinen Alarm, mit «Alarm setzen» (öffnet die Alarme des ersten neuen Paars — wie
  * im Aktionsblatt). Nur dieser Zustandswechsel wird animiert, nichts Dauerhaftes.
+ * [onHintClosed] kommt einmal, sobald dieses Banner wieder weg ist (mit `true`, wenn «Alarm setzen» getippt
+ * wurde) — erst dann fragt die Merkliste nach der Mitteilungs-Erlaubnis, damit die Erklärung das Banner nicht verdeckt.
  * @return der laufende Moment (für die Staffelung der Zeilen) oder null
  */
 @Composable
@@ -43,6 +45,7 @@ internal fun rememberAddMoment(
     alarmCounts: Map<Long, Int>,
     banner: WatchlistBanner,
     onOpenAlarms: (Long) -> Unit,
+    onHintClosed: (alarmTapped: Boolean) -> Unit = {},
 ): AddMoment? {
     val pendingMoment by viewModel.addMoment.collectAsStateWithLifecycle()
     val view = LocalView.current
@@ -77,9 +80,9 @@ internal fun rememberAddMoment(
         }
         // Der SnackbarHost meldet Text und Aktion dem Screenreader (Live-Region)
         if (first != null && added.none { (alarmCounts[it.id] ?: 0) > 0 }) {
-            banner.showAction(text, alarmActionLabel, ALARM_HINT_MILLIS) { onOpenAlarms(first.id) }
+            banner.showAction(text, alarmActionLabel, ALARM_HINT_MILLIS, onClosed = onHintClosed) { onOpenAlarms(first.id) }
         } else {
-            banner.show(text)
+            banner.show(text, onClosed = onHintClosed)
         }
         viewModel.consumeAddMoment(m)
     }

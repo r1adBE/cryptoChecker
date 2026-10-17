@@ -6,11 +6,11 @@
     <string name="portfolio_address_error">Päivitys epäonnistui</string>
     <string name="portfolio_address_hint">Julkinen osoite (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) tai xpub</string>
     <string name="portfolio_address_label">Nimi (valinnainen)</string>
-    <string name="portfolio_address_not_since_buy">Osoitteesta · ei mukana kohdassa «Ostosta»: %1$s</string>
-    <string name="portfolio_address_overlap">Myös omissa tapahtumissasi: %1$s – molemmat lasketaan yhteen. Samat kolikot? Valitse «Näytä vain».</string>
+    <string name="portfolio_address_not_since_buy">Osoitteesta · ei mukana kohdassa ”Ostosta”: %1$s</string>
+    <string name="portfolio_address_overlap">Myös omissa tapahtumissasi: %1$s – molemmat lasketaan yhteen. Samat kolikot? Valitse ”Näytä vain”.</string>
     <string name="portfolio_address_overlap_ask">Kirjaat jo %1$s omilla tapahtumilla. Lasketaanko tämän osoitteen saldo salkkuun vai näytetäänkö se vain?</string>
-    <string name="portfolio_address_overlap_auto">«%1$s» näytetään nyt vain eikä sitä lasketa mukaan – %2$s näkyvät myös tapahtumissasi.</string>
-    <string name="portfolio_address_overlap_restored">«%1$s» lasketaan taas mukaan – määrät eivät vastaa tapahtumiasi. Valitse «Näytä vain», jos kyse on samoista kolikoista.</string>
+    <string name="portfolio_address_overlap_auto">”%1$s” näytetään nyt vain eikä sitä lasketa mukaan – %2$s näkyvät myös tapahtumissasi.</string>
+    <string name="portfolio_address_overlap_restored">”%1$s” lasketaan taas mukaan – määrät eivät vastaa tapahtumiasi. Valitse ”Näytä vain”, jos kyse on samoista kolikoista.</string>
     <string name="portfolio_address_overlap_title">Samat kolikot kuin tapahtumissasi?</string>
     <string name="portfolio_address_overlap_tx">Sama määrä kuin oma talletuksesi/siirtosi (%1$s) – todennäköisesti laskettu kahdesti.</string>
     <string name="portfolio_address_period_observed">Seuratut osoitteet lasketaan ensimmäisestä havaitusta saldosta; myöhemmät muutokset ovat sisään- ja ulosvirtoja, eivät voittoa.</string>

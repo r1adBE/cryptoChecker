@@ -44,8 +44,12 @@ enum CsvImportBinance {
     private static let depositOps: Set<String> = ["deposit", "fiatdeposit"]
     private static let withdrawalOps: Set<String> = ["withdraw", "withdrawal", "fiatwithdraw", "fiatwithdrawal"]
 
+    /// Verschiebungen zwischen eigenen Konten mit genauem Namen: «ETH 2.0 Staking» (ETH → BETH) und ihre Rücknahme. Genau,
+    /// nicht als Teilwort — sonst fiele «ETH 2.0 Staking Rewards» (Belohnung) als Verschiebung weg. Wie Android.
+    private static let internalOps: Set<String> = ["eth20staking", "eth20stakingwithdrawals"]
+
     /// Teilwörter einer Verschiebung zwischen eigenen Konten (vor den Belohnungen: «Staking Purchase» ist keine).
-    private static let internalParts = ["transferbetween", "transferfunds", "subscription", "redemption", "purchase", "eth20staking"]
+    private static let internalParts = ["transferbetween", "transferfunds", "subscription", "redemption", "purchase"]
 
     /// Teilwörter einer Gutschrift (Zins, Staking, Launchpool, Airdrop, Empfehlung, Cashback, Mining).
     private static let rewardParts = ["interest", "reward", "airdrop", "distribution", "cashback", "commission", "kickback",
@@ -56,6 +60,7 @@ enum CsvImportBinance {
         if tradeOps.contains(normalized) { return .trade }
         if depositOps.contains(normalized) { return .deposit }
         if withdrawalOps.contains(normalized) { return .withdrawal }
+        if internalOps.contains(normalized) { return .internalMove }
         if internalParts.contains(where: { normalized.contains($0) }) { return .internalMove }
         if rewardParts.contains(where: { normalized.contains($0) }) { return .reward }
         return .unknown

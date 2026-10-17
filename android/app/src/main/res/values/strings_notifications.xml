@@ -21,7 +21,7 @@
     <!-- Kurze Erklärung vor der System-Abfrage der Mitteilungs-Erlaubnis (NotificationPrePrompt) -->
     <string name="notification_permission_preprompt_continue">Continue</string>
     <string name="notification_permission_preprompt_later">Later</string>
-    <string name="notification_permission_preprompt_text">So that alerts and price notifications reach you, the app needs permission to send notifications. They are only used for your own alerts.</string>
+    <string name="notification_permission_preprompt_text">So that alerts and price notifications reach you, the app needs permission to send notifications. The app only uses them for your alerts and price notifications.</string>
     <string name="notification_permission_preprompt_title">Allow notifications?</string>
     <string name="notification_portfolio_alarm_locked">Your alert was triggered – open the app for details.</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->

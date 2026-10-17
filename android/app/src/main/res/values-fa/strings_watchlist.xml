@@ -108,7 +108,7 @@
     <string name="watchlist_group_empty_hint">برای انتخاب جفت‌های یک گروه، آن را لمس طولانی کنید.</string>
     <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
     <string name="watchlist_groups_empty_hint">گروه‌های شما اینجا نمایش داده می‌شوند</string>
-    <string name="watchlist_notification">اعلان</string>
+    <string name="watchlist_notification">اعلان قیمت</string>
     <string name="watchlist_tts">خواندن قیمت</string>
     <string name="watchlist_tts_speech_on">خواندن صوتی روشن است. می‌توانی آن را اینجا تغییر دهی: تنظیمات › پیشرفته › خروجی صوتی.</string>
 

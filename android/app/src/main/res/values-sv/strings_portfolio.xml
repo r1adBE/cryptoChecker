@@ -242,7 +242,7 @@
     <string name="ledger_exchange">Börs (valfritt)</string>
     <string name="ledger_exchange_failed">%1$s: ingen kurs från %2$s just nu – värderat med Binance.</string>
     <string name="ledger_exchange_hint">Myntet värderas till den här börsens kurs (annars Binance). Förlopp, 7 D och 1 Å: Binances dagskurser, skalade.</string>
-    <string name="ledger_exchange_mixed">%1$s: flera börser angivna – värderat med Binance. Flyttat mynt? Registrera flytten som «Överföring».</string>
+    <string name="ledger_exchange_mixed">%1$s: flera börser angivna – värderat med Binance. Flyttat mynt? Registrera flytten som ”Överföring”.</string>
     <string name="ledger_exchange_none">Ingen (Binance)</string>
     <string name="ledger_fee">Avgift (valfritt)</string>
     <string name="ledger_fee_coin">Mynt</string>
@@ -254,7 +254,7 @@
     <string name="ledger_gain_info_fifo">I dag, 7 D, 1 Å: värdeförändring under perioden – köp och sälj räknas inte som vinst. Sedan köp: aktuellt värde minus anskaffningsvärde (FIFO inkl. avgifter) för mynten du fortfarande har.</string>
     <string name="ledger_gain_title">Vinst/förlust</string>
     <string name="ledger_more_toggle">Avgift och börs</string>
-    <string name="ledger_partial_cost">«Sedan köp» räknar bara delen med köppris – utan %1$s utan köppris.</string>
+    <string name="ledger_partial_cost">”Sedan köp” räknar bara delen med köppris – utan %1$s utan köppris.</string>
     <string name="ledger_period_without">I dag / 7 D / 1 Å utan %1$s – ingen passande startkurs.</string>
     <string name="ledger_since_purchase_currency">Sedan köp (%1$s)</string>
     <string name="ledger_since_purchase_spoken">Vinst/förlust sedan köp, ännu inte sålt</string>

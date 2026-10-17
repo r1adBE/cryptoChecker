@@ -132,7 +132,7 @@
     <string name="watchlist_group_empty_hint">Przytrzymaj grupę, aby wybrać jej pary.</string>
     <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
     <string name="watchlist_groups_empty_hint">Tu pojawią się Twoje grupy</string>
-    <string name="watchlist_notification">Powiadomienie</string>
+    <string name="watchlist_notification">Powiadomienie o cenie</string>
     <string name="watchlist_tts">Czytaj cenę</string>
     <string name="watchlist_tts_speech_on">Mowa jest włączona. Możesz to zmienić w Ustawienia › Zaawansowane › Komunikaty głosowe.</string>
 

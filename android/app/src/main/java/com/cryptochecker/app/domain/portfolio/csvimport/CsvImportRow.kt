@@ -1,9 +1,9 @@
 package com.cryptochecker.app.domain.portfolio.csvimport
 
 import com.cryptochecker.app.domain.portfolio.LegacyStorageMigration
+import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
 import com.cryptochecker.app.domain.portfolio.PortfolioStables
 import java.math.BigDecimal
-import java.math.RoundingMode
 import java.time.Instant
 import java.time.ZoneId
 
@@ -140,6 +140,8 @@ data class CsvImportSplit(val fresh: List<CsvImportRow>, val duplicates: List<Cs
  * @param needsFx Tageskurs für [CsvImportRow.quote] (oder Gebührenwährung) fehlt
  * @param missingPrice Kauf/Verkauf ohne Preis in der Datei
  * @param swapValueUsdt Tausch: Wert in USDT; null = unbekannt (kein Wert in der Datei oder kein Tageskurs)
+ * @param usdtApproximate USD/Fiat mit USDT = 1 USD umgerechnet, weil der USDT/USD-Tagesschluss DES Tags fehlt
+ *   (Näherung wie `TaxExport.usdtApproximateOn` — die Vorschau nennt die Zeile)
  */
 data class CsvImportPriced(
     val row: CsvImportRow,
@@ -148,15 +150,20 @@ data class CsvImportPriced(
     val needsFx: Boolean,
     val missingPrice: Boolean,
     val swapValueUsdt: BigDecimal? = null,
+    val usdtApproximate: Boolean = false,
 )
 
 /** Schlüssel, Duplikate und Umrechnung in USDT (reines Kotlin; iOS `CsvImport` in `CsvImportRow.swift`). */
 object CsvImport {
 
-    /** Nachkommastellen für abgeleitete Preise (Teilungen), halbe auf gerade. */
-    const val DERIVED_SCALE = 12
+    /**
+     * Abgeleiteter Preis bzw. Umrechnung `a / b` mit 34 gültigen Stellen ([PortfolioDecimal.MC], halbe auf gerade),
+     * ohne Nullen am Ende — keine feste Zahl Nachkommastellen: früher 12, das rundete Preise winziger Coins
+     * (z. B. 10¹² BABYDOGE für CHF 1234.56 → 1.23456E-9) auf wenige Stellen. iOS: `CsvImport.divide`.
+     */
+    fun derive(a: BigDecimal, b: BigDecimal): BigDecimal = a.divide(b, PortfolioDecimal.MC).stripTrailingZeros()
 
-    /** Währungen, die 1:1 als USDT gelten. */
+    /** Rechenwährung (USDT gilt 1:1). USD ist Fiat: in USDT über den USDT/USD-Tagesschluss ([priceInUsdt]). */
     private val USD_LIKE = setOf("USD", "USDT")
 
     /** Fiat (mit USD): nur Geschäfte gegen diese Währungen sind Kauf/Verkauf; Ein-/Auszahlungen davon sind kein Krypto. */
@@ -350,19 +357,40 @@ object CsvImport {
     }
 
     /**
+     * USDT/USD-Tagesschluss am Tag [day] aus [usdtUsd] (Tag → Schluss), nur plausibel ([PortfolioStables.usdtUsd]);
+     * null = keiner (kein Schluss eines anderen Tags) — wie `TaxExport.usdtUsdOn`.
+     */
+    fun usdtUsdOn(usdtUsd: Map<Long, BigDecimal>?, day: Long): BigDecimal? =
+        usdtUsd?.get(day)?.takeIf { it.signum() > 0 && !PortfolioStables.usdtUsd(it.toDouble()).approximate }
+
+    /**
      * Preise in USDT umrechnen.
      * @param fx (Währung, Tag) → Einheiten dieser Währung je 1 USD (wie `PortfolioHistoryFx`); null = kein Kurs.
      *   USD/USDT brauchen keinen Kurs. Die Integration reicht hier die Tageskurse samt Rückgriff auf den
      *   letzten Geschäftstag davor (`PortfolioHistoryFx.rateOn`) durch.
+     * @param usdtUsd USDT/USD-Tagesschlüsse (Tag → Schluss; Owner-Entscheid Okt. 2026, wie der Steuer-Export
+     *   `TaxExport.rateOn`): USD bzw. Fiat → USDT = Betrag ÷ (Devisenkurs × USDT/USD DES Tags). So ergibt ein Kauf über
+     *   10 000 USD im Export wieder 10 000 USD Einstand (Export: USDT × Devisenkurs × USDT/USD desselben Tags). Fehlt
+     *   der Schluss des Tags: × 1, Zeile als Näherung markiert ([CsvImportPriced.usdtApproximate]). null = USD gilt
+     *   1:1 als USDT (frühere Rechnung, ohne Markierung).
      */
     fun priceInUsdt(
         rows: List<CsvImportRow>,
         zone: String = CsvImportParser.DEFAULT_ZONE,
+        usdtUsd: Map<Long, BigDecimal>? = null,
         fx: (String, Long) -> BigDecimal?,
     ): List<CsvImportPriced> = rows.map { row ->
         val day = epochDay(row.timeMillis, zone)
-        fun rate(currency: String): BigDecimal? =
-            if (currency in USD_LIKE) BigDecimal.ONE else fx(currency, day)?.takeIf { it.signum() > 0 }
+        val close = usdtUsdOn(usdtUsd, day)
+        var usdtApproximate = false
+        // Einheiten der Währung je 1 USDT; USDT selbst 1
+        fun rate(currency: String): BigDecimal? {
+            if (currency == PortfolioStables.VALUATION) return BigDecimal.ONE
+            val fxRate = if (currency in USD_LIKE) BigDecimal.ONE else fx(currency, day)?.takeIf { it.signum() > 0 } ?: return null
+            if (usdtUsd == null) return fxRate
+            if (close == null) { usdtApproximate = true; return fxRate }
+            return fxRate.multiply(close, PortfolioDecimal.MC)
+        }
         var needsFx = false
         val priceUsdt = row.price?.let { p ->
             val r = row.quote?.let { rate(it) }
@@ -385,10 +413,10 @@ object CsvImport {
             needsFx = needsFx,
             missingPrice = row.price == null && (row.kind == CsvImportKind.BUY || row.kind == CsvImportKind.SELL),
             swapValueUsdt = swapValueUsdt,
+            usdtApproximate = usdtApproximate,
         )
     }
 
     private fun toUsdt(value: BigDecimal, rate: BigDecimal): BigDecimal =
-        if (rate.compareTo(BigDecimal.ONE) == 0) value
-        else value.divide(rate, DERIVED_SCALE, RoundingMode.HALF_EVEN).stripTrailingZeros()
+        if (rate.compareTo(BigDecimal.ONE) == 0) value else derive(value, rate)
 }

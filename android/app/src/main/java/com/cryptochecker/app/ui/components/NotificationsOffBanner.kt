@@ -3,6 +3,7 @@ package com.cryptochecker.app.ui.components
 import android.content.Intent
 import android.provider.Settings
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -19,6 +20,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.LiveRegionMode
@@ -55,23 +57,52 @@ fun NotificationsOffBanner(modifier: Modifier = Modifier) {
         shape = MaterialTheme.shapes.medium,
         modifier = modifier.fillMaxWidth().semantics { liveRegion = LiveRegionMode.Polite },
     ) {
-        Row(
-            modifier = Modifier.padding(horizontal = Spacing.lg, vertical = Spacing.md),
-            horizontalArrangement = Arrangement.spacedBy(Spacing.md),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Icon(painterResource(R.drawable.ic_notifications_off), contentDescription = null)
-            Text(
-                stringResource(R.string.alarms_notifications_off),
-                style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier.weight(1f),
-            )
-            FilledTonalButton(onClick = { openAppNotificationSettings(context) }) {
-                Text(stringResource(R.string.alarms_notifications_turn_on), maxLines = 1)
+        // Grosse Schrift (ab 130 %): Knopf unter den Text statt daneben — sonst bleibt dem Text kaum Breite
+        if (LocalDensity.current.fontScale >= STACK_FONT_SCALE) {
+            Column(
+                modifier = Modifier.padding(horizontal = Spacing.lg, vertical = Spacing.md),
+                verticalArrangement = Arrangement.spacedBy(Spacing.sm),
+            ) {
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(Spacing.md),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Icon(painterResource(R.drawable.ic_notifications_off), contentDescription = null)
+                    Text(
+                        stringResource(R.string.alarms_notifications_off),
+                        style = MaterialTheme.typography.bodyMedium,
+                        modifier = Modifier.weight(1f),
+                    )
+                }
+                FilledTonalButton(
+                    onClick = { openAppNotificationSettings(context) },
+                    modifier = Modifier.align(Alignment.End),
+                ) {
+                    Text(stringResource(R.string.alarms_notifications_turn_on))
+                }
+            }
+        } else {
+            Row(
+                modifier = Modifier.padding(horizontal = Spacing.lg, vertical = Spacing.md),
+                horizontalArrangement = Arrangement.spacedBy(Spacing.md),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Icon(painterResource(R.drawable.ic_notifications_off), contentDescription = null)
+                Text(
+                    stringResource(R.string.alarms_notifications_off),
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier.weight(1f),
+                )
+                FilledTonalButton(onClick = { openAppNotificationSettings(context) }) {
+                    Text(stringResource(R.string.alarms_notifications_turn_on), maxLines = 1)
+                }
             }
         }
     }
 }
+
+/** Ab dieser Schriftgrösse steht «Einschalten» unter dem Text ([NotificationsOffBanner]). */
+private const val STACK_FONT_SCALE = 1.3f
 
 /** Öffnet die Mitteilungs-Einstellungen der App (Hinweis über der Alarmliste, Bestätigung nach dem Speichern). */
 fun openAppNotificationSettings(context: android.content.Context) {

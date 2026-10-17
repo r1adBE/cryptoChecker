@@ -22,7 +22,7 @@
     <string name="backup_password_repeat">Jelszó ismét</string>
     <string name="backup_password_show">Jelszó megjelenítése</string>
     <string name="backup_password_title">Jelszóval védett mentés</string>
-    <string name="backup_password_too_weak">Túl könnyű kitalálni – ne csak számjegy, ne egy ismételt karakter, ne gyakori sor, mint «12345678» vagy «jelszo».</string>
+    <string name="backup_password_too_weak">Túl könnyű kitalálni – ne csak számjegy, ne egy ismételt karakter, ne gyakori sor, mint „12345678” vagy „jelszo”.</string>
     <string name="backup_password_warning">Jelszó nélkül a biztonsági mentés nem állítható vissza.</string>
     <string name="backup_password_wrong">Hibás jelszó, vagy a fájl sérült. Próbálja újra.</string>
     <string name="backup_protect">Védelem jelszóval</string>
@@ -54,6 +54,6 @@
     </plurals>
 
     <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
-    <string name="storage_recovery_message">Ezen az eszközön már nincs meg az alkalmazás titkosított adatainak kulcsa, ezért az alkalmazás üresen indult. Semmi sem törlődött. A listát és a portfóliót egy mentésfájl importálásával kaphatod vissza a beállítások «%1$s» részében.</string>
+    <string name="storage_recovery_message">Ezen az eszközön már nincs meg az alkalmazás titkosított adatainak kulcsa, ezért az alkalmazás üresen indult. Semmi sem törlődött. A listát és a portfóliót egy mentésfájl importálásával kaphatod vissza a beállítások „%1$s” részében.</string>
     <string name="storage_recovery_title">A mentett adatok nem oldhatók fel</string>
 </resources>

@@ -22,7 +22,7 @@
     <string name="backup_password_repeat">Powtórz hasło</string>
     <string name="backup_password_show">Pokaż hasło</string>
     <string name="backup_password_title">Kopia zabezpieczona hasłem</string>
-    <string name="backup_password_too_weak">Zbyt łatwe do odgadnięcia – nie same cyfry, nie jeden powtarzany znak, bez typowych ciągów jak «12345678» czy «haslo».</string>
+    <string name="backup_password_too_weak">Zbyt łatwe do odgadnięcia – nie same cyfry, nie jeden powtarzany znak, bez typowych ciągów jak „12345678” czy „haslo”.</string>
     <string name="backup_password_warning">Bez hasła nie da się przywrócić kopii zapasowej.</string>
     <string name="backup_password_wrong">Błędne hasło lub plik jest uszkodzony. Spróbuj ponownie.</string>
     <string name="backup_protect">Zabezpiecz hasłem</string>
@@ -60,6 +60,6 @@
     </plurals>
 
     <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
-    <string name="storage_recovery_message">To urządzenie nie ma już klucza do zaszyfrowanych danych aplikacji, więc uruchomiła się pusta. Nic nie zostało usunięte. Aby odzyskać listę i portfel, zaimportuj plik kopii w ustawieniach, w sekcji «%1$s».</string>
+    <string name="storage_recovery_message">To urządzenie nie ma już klucza do zaszyfrowanych danych aplikacji, więc uruchomiła się pusta. Nic nie zostało usunięte. Aby odzyskać listę i portfel, zaimportuj plik kopii w ustawieniach, w sekcji „%1$s”.</string>
     <string name="storage_recovery_title">Nie udało się odblokować zapisanych danych</string>
 </resources>

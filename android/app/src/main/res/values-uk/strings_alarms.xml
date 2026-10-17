@@ -39,7 +39,7 @@
     <string name="alarm_more_conditions">Інші умови</string>
     <string name="alarm_new_extreme">Оновлення %1$s</string>
     <string name="alarm_once">Один раз</string>
-    <string name="alarm_option_repeating">Залишати сигнал після спрацювання</string>
+    <string name="alarm_option_repeating">Сповіщати</string>
     <string name="alarm_option_sound">Звук</string>
     <string name="alarm_option_speak">Озвучувати сигнал</string>
     <string name="alarm_option_vibrate">Вібрація</string>
@@ -61,7 +61,6 @@
     <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
     <string name="alarm_simple_above">підніметься вище</string>
     <string name="alarm_simple_below">опуститься нижче</string>
-    <string name="alarm_simple_direction_a11y">Напрямок: %1$s</string>
     <string name="alarm_simple_end"></string>
     <string name="alarm_simple_when">Коли %1$s</string>
     <string name="alarm_template_a11y">Створити сигнал: %1$s</string>
@@ -88,7 +87,7 @@
     <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
     <string name="alarm_sentence_above">Повідомити, коли %1$s підніметься вище %2$s.</string>
     <string name="alarm_sentence_below">Повідомити, коли %1$s опуститься нижче %2$s.</string>
-    <string name="alarm_sentence_down_percent">Повідомити, коли %1$s впаде на %2$s.</string>
+    <string name="alarm_sentence_down_percent">Повідомити, коли %1$s опуститься на %2$s нижче ціни під час збереження (або останнього сигналу).</string>
     <string name="alarm_sentence_funding_above">Повідомити, коли фандинг %1$s підніметься вище %2$s.</string>
     <string name="alarm_sentence_funding_below">Повідомити, коли фандинг %1$s опуститься нижче %2$s.</string>
     <string name="alarm_sentence_incomplete">Введіть значення, щоб побачити сигнал у вигляді речення.</string>
@@ -113,7 +112,7 @@
         <item quantity="many">Повідомити, коли відкритий інтерес %1$s зросте на %2$s за %3$d годин.</item>
         <item quantity="other">Повідомити, коли відкритий інтерес %1$s зросте на %2$s за %3$d години.</item>
     </plurals>
-    <string name="alarm_sentence_up_percent">Повідомити, коли %1$s зросте на %2$s.</string>
+    <string name="alarm_sentence_up_percent">Повідомити, коли %1$s підніметься на %2$s вище ціни під час збереження (або останнього сигналу).</string>
     <string name="alarm_sentence_volume">Повідомити, коли обсяг торгів %1$s сягне %2$s× від звичайного.</string>
 
     <!-- Alarm «Nahe am Hoch / Tief» -->

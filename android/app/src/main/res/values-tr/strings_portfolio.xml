@@ -242,7 +242,7 @@
     <string name="ledger_exchange">Borsa (isteğe bağlı)</string>
     <string name="ledger_exchange_failed">%1$s: şu an %2$s fiyatı yok – Binance ile değerlendi.</string>
     <string name="ledger_exchange_hint">Coin bu borsanın fiyatıyla değerlenir (yoksa Binance). Geçmiş, 7 G ve 1 Y: Binance günlük fiyatları, buna ölçeklenmiş.</string>
-    <string name="ledger_exchange_mixed">%1$s: birden fazla borsa girildi – Binance ile değerlendi. Coin\'leri taşıdın mı? Bunu «Transfer» olarak kaydet.</string>
+    <string name="ledger_exchange_mixed">%1$s: birden fazla borsa girildi – Binance ile değerlendi. Coin\'leri taşıdın mı? Bunu “Transfer” olarak kaydet.</string>
     <string name="ledger_exchange_none">Yok (Binance)</string>
     <string name="ledger_fee">Ücret (isteğe bağlı)</string>
     <string name="ledger_fee_coin">Coin</string>
@@ -254,7 +254,7 @@
     <string name="ledger_gain_info_fifo">Bugün, 7 G, 1 Y: dönem içindeki değer değişimi – alımlar ve satımlar kazanç sayılmaz. Alımdan beri: hâlâ tuttuğun coinlerin güncel değeri eksi maliyeti (ücretler dahil FIFO).</string>
     <string name="ledger_gain_title">Kâr/zarar</string>
     <string name="ledger_more_toggle">Ücret ve borsa</string>
-    <string name="ledger_partial_cost">«Alıştan beri» yalnızca alış fiyatı olan kısmı sayar – alış fiyatı olmayan %1$s hariç.</string>
+    <string name="ledger_partial_cost">“Alıştan beri” yalnızca alış fiyatı olan kısmı sayar – alış fiyatı olmayan %1$s hariç.</string>
     <string name="ledger_period_without">Bugün / 7 G / 1 Y %1$s hariç – uygun başlangıç fiyatı yok.</string>
     <string name="ledger_since_purchase_currency">Alıştan beri (%1$s)</string>
     <string name="ledger_since_purchase_spoken">Alıştan beri kâr/zarar, henüz satılmadı</string>

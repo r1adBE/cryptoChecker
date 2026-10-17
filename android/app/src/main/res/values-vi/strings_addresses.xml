@@ -6,11 +6,11 @@
     <string name="portfolio_address_error">Cập nhật thất bại</string>
     <string name="portfolio_address_hint">Địa chỉ công khai (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) hoặc xpub</string>
     <string name="portfolio_address_label">Nhãn (không bắt buộc)</string>
-    <string name="portfolio_address_not_since_buy">Từ địa chỉ · không tính vào «Từ khi mua»: %1$s</string>
-    <string name="portfolio_address_overlap">Cũng có trong giao dịch của bạn: %1$s – cả hai đều được cộng. Cùng một coin? Hãy chọn «Chỉ hiển thị».</string>
+    <string name="portfolio_address_not_since_buy">Từ địa chỉ · không tính vào “Từ khi mua”: %1$s</string>
+    <string name="portfolio_address_overlap">Cũng có trong giao dịch của bạn: %1$s – cả hai đều được cộng. Cùng một coin? Hãy chọn “Chỉ hiển thị”.</string>
     <string name="portfolio_address_overlap_ask">Bạn đã ghi %1$s bằng giao dịch của mình. Cộng số dư của địa chỉ này vào danh mục hay chỉ hiển thị?</string>
-    <string name="portfolio_address_overlap_auto">«%1$s» giờ chỉ hiển thị, không tính vào – %2$s cũng có trong giao dịch của bạn.</string>
-    <string name="portfolio_address_overlap_restored">«%1$s» được tính lại – số lượng không khớp với giao dịch của bạn. Hãy chọn «Chỉ hiển thị» nếu là cùng một coin.</string>
+    <string name="portfolio_address_overlap_auto">“%1$s” giờ chỉ hiển thị, không tính vào – %2$s cũng có trong giao dịch của bạn.</string>
+    <string name="portfolio_address_overlap_restored">“%1$s” được tính lại – số lượng không khớp với giao dịch của bạn. Hãy chọn “Chỉ hiển thị” nếu là cùng một coin.</string>
     <string name="portfolio_address_overlap_title">Cùng coin với giao dịch của bạn?</string>
     <string name="portfolio_address_overlap_tx">Cùng số lượng với lệnh nạp/chuyển của bạn (%1$s) – có thể bị tính hai lần.</string>
     <string name="portfolio_address_period_observed">Các địa chỉ theo dõi được tính từ số dư quan sát đầu tiên; thay đổi sau đó là dòng vào/ra, không phải lãi.</string>

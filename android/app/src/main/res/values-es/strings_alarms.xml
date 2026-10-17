@@ -38,7 +38,7 @@
     <string name="alarm_more_conditions">Más condiciones</string>
     <string name="alarm_new_extreme">Nuevo %1$s</string>
     <string name="alarm_once">Una vez</string>
-    <string name="alarm_option_repeating">Mantener la alarma tras saltar</string>
+    <string name="alarm_option_repeating">Avisar</string>
     <string name="alarm_option_sound">Sonido</string>
     <string name="alarm_option_speak">Decir alarma</string>
     <string name="alarm_option_vibrate">Vibración</string>
@@ -59,7 +59,6 @@
     <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
     <string name="alarm_simple_above">supere</string>
     <string name="alarm_simple_below">baje de</string>
-    <string name="alarm_simple_direction_a11y">Dirección: %1$s</string>
     <string name="alarm_simple_end"></string>
     <string name="alarm_simple_when">Cuando %1$s</string>
     <string name="alarm_template_a11y">Crear alarma: %1$s</string>
@@ -86,7 +85,7 @@
     <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
     <string name="alarm_sentence_above">Avísame cuando %1$s supere %2$s.</string>
     <string name="alarm_sentence_below">Avísame cuando %1$s baje de %2$s.</string>
-    <string name="alarm_sentence_down_percent">Avísame cuando %1$s baje un %2$s.</string>
+    <string name="alarm_sentence_down_percent">Avísame cuando %1$s baje un %2$s por debajo del precio al guardar (o en la última alarma).</string>
     <string name="alarm_sentence_funding_above">Avísame cuando el funding de %1$s supere %2$s.</string>
     <string name="alarm_sentence_funding_below">Avísame cuando el funding de %1$s baje de %2$s.</string>
     <string name="alarm_sentence_incomplete">Introduce un valor para ver la alarma como frase.</string>
@@ -108,7 +107,7 @@
         <item quantity="many">Avísame cuando el interés abierto de %1$s suba un %2$s en %3$d horas.</item>
         <item quantity="other">Avísame cuando el interés abierto de %1$s suba un %2$s en %3$d horas.</item>
     </plurals>
-    <string name="alarm_sentence_up_percent">Avísame cuando %1$s suba un %2$s.</string>
+    <string name="alarm_sentence_up_percent">Avísame cuando %1$s suba un %2$s por encima del precio al guardar (o en la última alarma).</string>
     <string name="alarm_sentence_volume">Avísame cuando el volumen de %1$s llegue a %2$s× lo normal.</string>
 
     <!-- Alarm «Nahe am Hoch / Tief» -->

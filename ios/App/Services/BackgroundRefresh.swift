@@ -211,12 +211,14 @@ enum BackgroundRefresh {
             let priceResult: CheckResult = (saved == nil && outcome.checked > 0)
                 ? .failed : CheckRunLog.result(checked: outcome.checked, failed: outcome.failed)
             priceBox.set(priceResult)
-            if outcome.failed < outcome.checked {
+            // Uhrzeit nur mit gespeichertem Stand: Ohne (unlesbar, nicht zugreifbar) hielten die Widgets die alten Kurse
+            // auf der Platte sonst für frisch (`WidgetDataFreshness`)
+            if saved != nil && outcome.failed < outcome.checked {
                 SharedStorage.lastRefreshAt = TimeUtils.nowMillis
                 SharedStorage.lastRefreshDuration = outcome.durationMillis
-                // Alarme ausgewertet, gemeldet gleich danach (nur mit gespeichertem Stand und voller Prüfung — die meisten
-                // Paare mit Kurs, wie `AppData.apply` und Android `lastFullCheck`)
-                if saved != nil && BackgroundSchedule.isFullCheck(attempted: outcome.checked, failed: outcome.failed) {
+                // Alarme ausgewertet, gemeldet gleich danach (nur mit voller Prüfung — die meisten Paare mit Kurs,
+                // wie `AppData.apply` und Android `lastFullCheck`)
+                if BackgroundSchedule.isFullCheck(attempted: outcome.checked, failed: outcome.failed) {
                     SharedStorage.lastAlarmCheckAt = TimeUtils.nowMillis
                 }
             }

@@ -89,6 +89,29 @@ final class SharedStorageTests: XCTestCase {
         XCTAssertEqual(SharedStorage.nextId(stored: 1, used: [Int64.max]), Int64.max)
     }
 
+    /// Doppelte Paar-Ids: der erste Eintrag bleibt (sonst stürzt `Dictionary(uniqueKeysWithValues:)` ab), gezählt wie
+    /// ein übersprungener Eintrag (Kopie der Datei bleibt).
+    func testDuplicateWatchIdsKeepFirst() throws {
+        let json = """
+        {"watches":[{"id":4,"marketKey":"m","baseAsset":"BTC","quoteAsset":"USDT"},
+                    {"id":5,"marketKey":"m","baseAsset":"ETH","quoteAsset":"USDT"},
+                    {"id":4,"marketKey":"m","baseAsset":"SOL","quoteAsset":"USDT"}],"nextWatchId":6}
+        """
+        let counter = SharedStorage.DropCounter()
+        let decoder = JSONDecoder()
+        decoder.userInfo[SharedStorage.DropCounter.key] = counter
+        let snap = try decoder.decode(SharedStorage.Snapshot.self, from: Data(json.utf8))
+        XCTAssertEqual(snap.watches.map(\.id), [4, 5])
+        XCTAssertEqual(snap.watches.first?.baseAsset, "BTC")
+        XCTAssertEqual(counter.count, 1)
+        XCTAssertEqual(snap.nextWatchId, 6)
+    }
+
+    func testUniqueByIdKeepsOrderAndFirst() {
+        let items = [(1, "a"), (2, "b"), (1, "c"), (3, "d"), (2, "e")]
+        XCTAssertEqual(SharedStorage.uniqueById(items) { $0.0 }.map(\.1), ["a", "b", "d"])
+    }
+
     /// Keine Liste, wo eine stehen muss: die Datei gilt als unlesbar (statt leer).
     func testWrongTypeForListIsHardFailure() {
         let json = #"{"watches":{"id":1}}"#

@@ -37,7 +37,7 @@
     <string name="alarm_more_conditions">Fler villkor</string>
     <string name="alarm_new_extreme">Ny %1$s</string>
     <string name="alarm_once">En gång</string>
-    <string name="alarm_option_repeating">Behåll larmet efter att det utlösts</string>
+    <string name="alarm_option_repeating">Meddela</string>
     <string name="alarm_option_sound">Ljud</string>
     <string name="alarm_option_speak">Läs upp larm</string>
     <string name="alarm_option_vibrate">Vibration</string>
@@ -57,7 +57,6 @@
     <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
     <string name="alarm_simple_above">går över</string>
     <string name="alarm_simple_below">går under</string>
-    <string name="alarm_simple_direction_a11y">Riktning: %1$s</string>
     <string name="alarm_simple_end"></string>
     <string name="alarm_simple_when">När %1$s</string>
     <string name="alarm_template_a11y">Skapa larm: %1$s</string>
@@ -84,7 +83,7 @@
     <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
     <string name="alarm_sentence_above">Meddela mig när %1$s stiger över %2$s.</string>
     <string name="alarm_sentence_below">Meddela mig när %1$s sjunker under %2$s.</string>
-    <string name="alarm_sentence_down_percent">Meddela mig när %1$s sjunker med %2$s.</string>
+    <string name="alarm_sentence_down_percent">Meddela mig när %1$s sjunker %2$s under kursen vid sparandet (eller vid senaste larmet).</string>
     <string name="alarm_sentence_funding_above">Meddela mig när funding för %1$s stiger över %2$s.</string>
     <string name="alarm_sentence_funding_below">Meddela mig när funding för %1$s sjunker under %2$s.</string>
     <string name="alarm_sentence_incomplete">Ange ett värde för att se larmet som en mening.</string>
@@ -103,7 +102,7 @@
         <item quantity="one">Meddela mig när open interest för %1$s stiger med %2$s inom %3$d timme.</item>
         <item quantity="other">Meddela mig när open interest för %1$s stiger med %2$s inom %3$d timmar.</item>
     </plurals>
-    <string name="alarm_sentence_up_percent">Meddela mig när %1$s stiger med %2$s.</string>
+    <string name="alarm_sentence_up_percent">Meddela mig när %1$s stiger %2$s över kursen vid sparandet (eller vid senaste larmet).</string>
     <string name="alarm_sentence_volume">Meddela mig när %1$s handlas med %2$s× den normala volymen.</string>
 
     <!-- Alarm «Nahe am Hoch / Tief» -->
@@ -142,7 +141,7 @@
     <string name="alarm_saved_notifications_off">Aviseringar av</string>
 
     <!-- Wann Alarme geprüft werden -->
-    <string name="alarm_timing_hint_android">När appen är stängd kontrollerar Android oregelbundet – ofta senare än efter 15 minuter, även med «%1$s». Korta toppar kan missas.</string>
+    <string name="alarm_timing_hint_android">När appen är stängd kontrollerar Android oregelbundet – ofta senare än efter 15 minuter, även med ”%1$s”. Korta toppar kan missas.</string>
     <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">När appen är stängd kontrollerar iOS ofta senare än efter 15 minuter, ibland först när du öppnar appen nästa gång. Korta toppar kan missas.</string>
     <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
     <string name="alarm_timing_title">När larm kontrolleras</string>

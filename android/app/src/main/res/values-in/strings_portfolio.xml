@@ -239,7 +239,7 @@
     <string name="ledger_exchange">Bursa (opsional)</string>
     <string name="ledger_exchange_failed">%1$s: saat ini tidak ada harga dari %2$s – dinilai dengan Binance.</string>
     <string name="ledger_exchange_hint">Koin dinilai dengan harga bursa ini (jika tidak, Binance). Riwayat, 7 H dan 1 T: harga harian Binance, disesuaikan.</string>
-    <string name="ledger_exchange_mixed">%1$s: beberapa bursa dicatat – dinilai dengan Binance. Memindahkan koin? Catat sebagai «Transfer».</string>
+    <string name="ledger_exchange_mixed">%1$s: beberapa bursa dicatat – dinilai dengan Binance. Memindahkan koin? Catat sebagai “Transfer”.</string>
     <string name="ledger_exchange_none">Tidak ada (Binance)</string>
     <string name="ledger_fee">Biaya (opsional)</string>
     <string name="ledger_fee_coin">Koin</string>
@@ -251,7 +251,7 @@
     <string name="ledger_gain_info_fifo">Hari ini, 7 H, 1 T: perubahan nilai dalam periode – pembelian dan penjualan tidak dihitung sebagai untung. Sejak beli: nilai saat ini dikurangi biaya perolehan (FIFO termasuk biaya) koin yang masih Anda pegang.</string>
     <string name="ledger_gain_title">Untung/rugi</string>
     <string name="ledger_more_toggle">Biaya dan bursa</string>
-    <string name="ledger_partial_cost">«Sejak beli» hanya menghitung bagian yang punya harga beli – tanpa %1$s yang tidak punya harga beli.</string>
+    <string name="ledger_partial_cost">“Sejak beli” hanya menghitung bagian yang punya harga beli – tanpa %1$s yang tidak punya harga beli.</string>
     <string name="ledger_period_without">Hari ini / 7 H / 1 T tanpa %1$s – tidak ada harga awal yang cocok.</string>
     <string name="ledger_since_purchase_currency">Sejak beli (%1$s)</string>
     <string name="ledger_since_purchase_spoken">Untung/rugi sejak beli, belum dijual</string>

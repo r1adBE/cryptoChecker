@@ -25,16 +25,39 @@ enum CsvImportKraken {
         "ZCHF": "CHF", "ETH2": "ETH",
     ]
 
-    /// Kraken-Kürzel → einheitliches Kürzel (gross); Staking-Varianten «.S», «.M», «.F» … → Basis.
+    /// Kraken-Kürzel → einheitliches Kürzel (gross); Staking-Varianten «.S», «.M», «.F» …, «.HOLD» → Basis («EUR.HOLD»
+    /// = EUR, Fiat); mit Ziffern vor dem Suffix («DOT28.S») → Buchstaben davor (`stakedCore`). Wie Android.
     static func asset(_ raw: String) -> String {
         let t: String = raw.trimmingCharacters(in: .whitespaces).uppercased()
         if let mapped = legacy[t] { return mapped }
-        var base: String = t
+        let base = stripSuffix(t)
+        if let mapped = legacy[base] { return mapped }
+        if base != t, let core = stakedCore(base) { return legacy[core] ?? core }
+        return base
+    }
+
+    /// Suffix einer Staking-/Earn-Variante entfernen: «.» + ein Buchstabe A–Z («.S», «.M», «.B», «.F», «.P», «.T») oder
+    /// «.HOLD» (gehaltenes Guthaben); sonst unverändert — wie Android `SUFFIX`.
+    private static func stripSuffix(_ t: String) -> String {
+        if t.hasSuffix(".HOLD") { return String(t.dropLast(5)) }
+        return hasStakingSuffix(t) ? String(t.dropLast(2)) : t
+    }
+
+    /// Nur die Staking-/Earn-Suffixe «.» + ein Buchstabe A–Z (ohne «.HOLD»: gehaltenes Guthaben ist keine
+    /// Staking-Variante, `isStakedAsset`) — wie Android `STAKING_SUFFIX`.
+    private static func hasStakingSuffix(_ t: String) -> Bool {
         let chars = Array(t)
-        if chars.count >= 2, chars[chars.count - 2] == ".", let last = chars.last, last.isLetter, last.isASCII {
-            base = String(chars.dropLast(2))
-        }
-        return legacy[base] ?? base
+        guard chars.count >= 2, chars[chars.count - 2] == ".", let last = chars.last else { return false }
+        return ("A"..."Z").contains(last)
+    }
+
+    /// Basis einer Staking-Variante mit Ziffern vor dem Suffix («DOT28» aus «DOT28.S»): mindestens zwei Buchstaben A–Z,
+    /// dann nur Ziffern 0–9; sonst nil — wie Android `STAKED_DIGITS`. Nur zusammen mit einem Suffix.
+    private static func stakedCore(_ base: String) -> String? {
+        let letters = base.prefix { ("A"..."Z").contains($0) }
+        let rest = base.dropFirst(letters.count)
+        guard letters.count >= 2, !rest.isEmpty, rest.allSatisfy({ ("0"..."9").contains($0) }) else { return nil }
+        return String(letters)
     }
 
     private struct Leg {
@@ -52,9 +75,8 @@ enum CsvImportKraken {
 
     /// Staking-/Earn-Variante eines Kraken-Kürzels (vor dem Vereinheitlichen) — wie Android `isStakedAsset`.
     private static func isStakedAsset(_ raw: String) -> Bool {
-        let chars = Array(raw.trimmingCharacters(in: .whitespaces).uppercased())
-        if String(chars) == "ETH2" { return true }
-        return chars.count >= 2 && chars[chars.count - 2] == "." && (chars.last.map { $0.isLetter && $0.isASCII } ?? false)
+        let t = raw.trimmingCharacters(in: .whitespaces).uppercased()
+        return t == "ETH2" || hasStakingSuffix(t)
     }
 
     /// Höchster Abstand zwischen Spot- und Staking-Buchung derselben Umbuchung ohne gemeinsame refid.

@@ -37,7 +37,7 @@
     <string name="alarm_more_conditions">Flere betingelser</string>
     <string name="alarm_new_extreme">Ny %1$s</string>
     <string name="alarm_once">Én gang</string>
-    <string name="alarm_option_repeating">Behold alarmen, når den er udløst</string>
+    <string name="alarm_option_repeating">Giv besked</string>
     <string name="alarm_option_sound">Lyd</string>
     <string name="alarm_option_speak">Læs alarm op</string>
     <string name="alarm_option_vibrate">Vibration</string>
@@ -57,7 +57,6 @@
     <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
     <string name="alarm_simple_above">går over</string>
     <string name="alarm_simple_below">går under</string>
-    <string name="alarm_simple_direction_a11y">Retning: %1$s</string>
     <string name="alarm_simple_end"></string>
     <string name="alarm_simple_when">Når %1$s</string>
     <string name="alarm_template_a11y">Opret alarm: %1$s</string>
@@ -84,7 +83,7 @@
     <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
     <string name="alarm_sentence_above">Giv mig besked, når %1$s stiger over %2$s.</string>
     <string name="alarm_sentence_below">Giv mig besked, når %1$s falder under %2$s.</string>
-    <string name="alarm_sentence_down_percent">Giv mig besked, når %1$s falder med %2$s.</string>
+    <string name="alarm_sentence_down_percent">Giv mig besked, når %1$s falder %2$s under kursen ved lagring (eller ved sidste alarm).</string>
     <string name="alarm_sentence_funding_above">Giv mig besked, når funding for %1$s stiger over %2$s.</string>
     <string name="alarm_sentence_funding_below">Giv mig besked, når funding for %1$s falder under %2$s.</string>
     <string name="alarm_sentence_incomplete">Indtast en værdi for at se alarmen som en sætning.</string>
@@ -103,7 +102,7 @@
         <item quantity="one">Giv mig besked, når open interest for %1$s stiger med %2$s inden for %3$d time.</item>
         <item quantity="other">Giv mig besked, når open interest for %1$s stiger med %2$s inden for %3$d timer.</item>
     </plurals>
-    <string name="alarm_sentence_up_percent">Giv mig besked, når %1$s stiger med %2$s.</string>
+    <string name="alarm_sentence_up_percent">Giv mig besked, når %1$s stiger %2$s over kursen ved lagring (eller ved sidste alarm).</string>
     <string name="alarm_sentence_volume">Giv mig besked, når %1$s handles med %2$s× den normale volumen.</string>
 
     <!-- Alarm «Nahe am Hoch / Tief» -->

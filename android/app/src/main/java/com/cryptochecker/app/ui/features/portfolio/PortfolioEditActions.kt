@@ -49,19 +49,32 @@ fun PortfolioViewModel.walletHoldingsOf(coin: String, wallet: String?, excluding
 }
 
 /**
- * Devisenkurs USD → [currency] für die Eingabe in der Anzeigewährung (K-2): heute der aktuelle Kurs, sonst der
- * Tageskurs (EZB, letzter Geschäftstag ≤ [date]) mit seinem tatsächlichen Datum. null = kein Kurs.
+ * Faktor USDT → [currency] für die Eingabe in der Anzeigewährung (K-2): Devisenkurs USD → Währung × USDT/USD
+ * ([PortfolioTxForm.entryRate], wie CSV-Import und Steuer-Export). Heute der aktuelle Kurs und der Live-Kurs USDT/USD,
+ * sonst der Tageskurs (EZB, letzter Geschäftstag ≤ [date]) mit seinem tatsächlichen Datum und der USDT/USD-Tagesschluss
+ * DES Tags [date] (fehlt er: × 1). null = kein Kurs.
  */
 suspend fun PortfolioViewModel.entryFx(currency: String, date: LocalDate): Pair<BigDecimal, LocalDate>? = safe {
     val today = LocalDate.now(ZoneId.systemDefault())
     if (!date.isBefore(today)) {
-        fxSource.usdTo(currency)?.takeIf { it > 0.0 && it.isFinite() }
-            ?.let { com.cryptochecker.app.domain.portfolio.PortfolioDecimal.of(it) }?.let { it to today }
+        val fx = fxSource.usdTo(currency)?.takeIf { it > 0.0 && it.isFinite() }
+            ?.let { com.cryptochecker.app.domain.portfolio.PortfolioDecimal.of(it) }
+        val usdt = com.cryptochecker.app.domain.portfolio.PortfolioDecimal.of(liveUsdtUsd.value)
+        PortfolioTxForm.entryRate(fx, usdt)?.let { it to today }
     } else {
         historicSource.usdTo(currency, date)?.let { fx ->
             val day = fx.date?.let { runCatching { LocalDate.parse(it) }.getOrNull() } ?: date
-            fx.rate.takeIf { it > 0.0 && it.isFinite() }
-                ?.let { com.cryptochecker.app.domain.portfolio.PortfolioDecimal.of(it) }?.let { it to day }
+            val rate = fx.rate.takeIf { it > 0.0 && it.isFinite() }
+                ?.let { com.cryptochecker.app.domain.portfolio.PortfolioDecimal.of(it) }
+            val days = (java.time.temporal.ChronoUnit.DAYS.between(date, today) + 1).coerceIn(1L, Int.MAX_VALUE.toLong()).toInt()
+            val close = try {
+                historySource.usdtUsdDaily(days)[date.toEpochDay()]
+            } catch (e: kotlinx.coroutines.CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                null // ohne Schluss: × 1 (Näherung, wie der Steuer-Export)
+            }
+            PortfolioTxForm.entryRate(rate, com.cryptochecker.app.domain.portfolio.PortfolioDecimal.of(close))?.let { it to day }
         }
     }
 }

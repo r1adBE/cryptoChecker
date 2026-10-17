@@ -20,7 +20,7 @@
     <string name="notification_macro_title">Сьогодні економічні дані</string>
     <string name="notification_permission_preprompt_continue">Продовжити</string>
     <string name="notification_permission_preprompt_later">Пізніше</string>
-    <string name="notification_permission_preprompt_text">Щоб оповіщення і цінові сповіщення доходили до вас, застосунку потрібен дозвіл на сповіщення. Вони використовуються лише для ваших власних оповіщень.</string>
+    <string name="notification_permission_preprompt_text">Щоб оповіщення і цінові сповіщення доходили до вас, застосунку потрібен дозвіл на сповіщення. Застосунок використовує їх лише для ваших оповіщень і цінових сповіщень.</string>
     <string name="notification_permission_preprompt_title">Дозволити сповіщення?</string>
     <string name="notification_portfolio_alarm_locked">Ваше сповіщення спрацювало – відкрийте застосунок, щоб дізнатися подробиці.</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->

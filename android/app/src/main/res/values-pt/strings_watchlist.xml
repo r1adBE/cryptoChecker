@@ -120,7 +120,7 @@
     <string name="watchlist_group_empty_hint">Mantenha premido um grupo para escolher os pares.</string>
     <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
     <string name="watchlist_groups_empty_hint">Os seus grupos aparecerão aqui</string>
-    <string name="watchlist_notification">Notificação</string>
+    <string name="watchlist_notification">Notificação de preço</string>
     <string name="watchlist_tts">Falar preço</string>
     <string name="watchlist_tts_speech_on">A saída de voz está ativa. Pode alterá-la em Definições › Avançado › Saída de voz.</string>
 

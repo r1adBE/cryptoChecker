@@ -119,7 +119,14 @@ final class CsvImportTests: XCTestCase {
                 }
                 rates[cur] = m
             }
-            let priced = CsvImport.priceInUsdt(try parse(file).rows) { cur, d in rates[cur]?[d] }
+            // USDT/USD-Tagesschlüsse (Datum → Schluss); fehlt im Fixture = nil (USD gilt 1:1 als USDT)
+            var usdtUsd: [Int: Decimal]?
+            if let raw = c["usdtUsd"] as? [String: Any] {
+                var m: [Int: Decimal] = [:]
+                for (d, v) in raw { m[Int(day(d))] = Decimal(string: string(v) ?? "", locale: Locale(identifier: "en_US_POSIX")) }
+                usdtUsd = m
+            }
+            let priced = CsvImport.priceInUsdt(try parse(file).rows, usdtUsd: usdtUsd) { cur, d in rates[cur]?[d] }
             let expected = S.list(c["expected"])
             XCTAssertEqual(priced.map(\.row.line), expected.map { int($0["line"]) }, file)
             for (e, p) in zip(expected, priced) {
@@ -129,6 +136,51 @@ final class CsvImportTests: XCTestCase {
                 XCTAssertEqual(p.needsFx, e["needsFx"] as? Bool, "\(m) needsFx")
                 XCTAssertEqual(p.missingPrice, e["missingPrice"] as? Bool, "\(m) missingPrice")
                 XCTAssertEqual(text(p.swapValueUsdt), string(e["swapValueUsdt"]), "\(m) swapValueUsdt")
+                XCTAssertEqual(p.usdtApproximate, e["usdtApproximate"] as? Bool ?? false, "\(m) usdtApproximate")
+            }
+        }
+    }
+
+    /// USDT zum Marktkurs, Rundlauf Import → Steuer-Export: USD/Fiat → USDT mit dem USDT/USD-Schluss DES Tags, der Export
+    /// rechnet mit demselben Schluss zurück — ein USD-Kauf über 10 000 ergibt 10 000 USD Einstand, CHF ohne Scheingewinn.
+    /// Wie Android `usdtRoundTrip`.
+    func testUsdtRoundTrip() throws {
+        let posix = Locale(identifier: "en_US_POSIX")
+        for c in S.list(try S.fixture("csv_import")["usdtRoundTrip"]) {
+            let name = string(c["name"]) ?? ""
+            func byDay(_ raw: Any?) -> [Int: Decimal] {
+                var m: [Int: Decimal] = [:]
+                for (d, v) in (raw as? [String: Any]) ?? [:] { m[Int(day(d))] = Decimal(string: string(v) ?? "", locale: posix) }
+                return m
+            }
+            var rates: [String: [Int: Decimal]] = [:]
+            for (cur, v) in (c["rates"] as? [String: Any]) ?? [:] { rates[cur] = byDay(v) }
+            let usdtUsd = byDay(c["usdtUsd"])
+            let currency = string(c["currency"]) ?? ""
+            let result = CsvImportParser.parse(string(c["csv"]) ?? "", deviceZone: "UTC")
+            let preview = CsvImportMapping.preview(result, existingKeys: [], usdtUsd: usdtUsd) { cur, d in rates[cur]?[Int(d)] }
+            XCTAssertEqual(preview.transactions.map { text($0.priceUsdt) }, (c["priceUsdt"] as? [Any] ?? []).map { string($0) },
+                           "\(name) priceUsdt")
+            XCTAssertEqual(preview.usdtApproximate, (c["usdtApproximate"] as? [Any] ?? []).map { int($0) }, "\(name) usdtApproximate")
+            let trades = preview.transactions.enumerated().map { item -> PortfolioTx in
+                let t = item.element
+                var tx = PortfolioTx(id: Int64(item.offset + 1), coin: t.coin, type: t.type, amountExact: t.amount, priceExact: t.priceUsdt,
+                                     time: t.time, feeExact: t.fee, feeUnit: t.feeUnit)
+                tx.feeCoin = t.feeCoin
+                tx.feeCoinAmountExact = t.feeCoinAmount
+                return tx
+            }
+            let zone = try XCTUnwrap(TimeZone(identifier: "UTC"))
+            let rows = TaxExport.gainRows(trades, method: TaxMethod.of(.FIFO), period: TaxTemplate.NEUTRAL.period(int(c["year"])),
+                                          timeZone: zone, currency: currency, rates: rates[currency] ?? [:], usdtUsd: usdtUsd)
+            let expected = S.list(c["gains"])
+            XCTAssertEqual(rows.count, expected.count, "\(name) rows")
+            for (e, r) in zip(expected, rows) {
+                XCTAssertEqual(r.coin, string(e["coin"]), "\(name) coin")
+                XCTAssertEqual(r.costTarget.map { CutoffExport.money($0) }, string(e["costTarget"]), "\(name) cost")
+                XCTAssertEqual(r.proceedsTarget.map { CutoffExport.money($0) }, string(e["proceedsTarget"]), "\(name) proceeds")
+                XCTAssertEqual(r.gainTarget.map { CutoffExport.money($0) }, string(e["gainTarget"]), "\(name) gain")
+                XCTAssertEqual(r.usdtApproximate, e["usdtApproximate"] as? Bool, "\(name) usdtApproximate")
             }
         }
     }

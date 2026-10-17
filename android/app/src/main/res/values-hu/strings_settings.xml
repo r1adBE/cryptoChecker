@@ -37,9 +37,9 @@
     <string name="settings_alarm_sound_system">Rendszerhang kiválasztása…</string>
     <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
     <string name="settings_app_badge">Szám az alkalmazásikonon</string>
-    <string name="settings_app_badge_hint">Megszámolja a nyitott riasztási értesítéseket. Hogy szám vagy pont jelenik meg, azt a kezdőképernyő dönti el (pl. Samsung: «Számmal»).</string>
+    <string name="settings_app_badge_hint">Megszámolja a nyitott riasztási értesítéseket. Hogy szám vagy pont jelenik meg, azt a kezdőképernyő dönti el (pl. Samsung: „Számmal”).</string>
     <string name="settings_exact_checks">Pontos ellenőrzés</string>
-    <string name="settings_exact_checks_grant">«Ébresztők és emlékeztetők» engedélyezése</string>
+    <string name="settings_exact_checks_grant">„Ébresztők és emlékeztetők” engedélyezése</string>
     <string name="settings_exact_checks_hint">Az Android körülbelül 15 percenként ellenőriz, akkor is, ha az eszköz pihen. Kicsit több akkut fogyaszt.</string>
     <string name="settings_exact_checks_nothing">Nincs aktív pár – nincs mit ellenőrizni.</string>
     <string name="settings_exact_checks_permission_missing">Hiányzó engedély – az Android akkor ellenőriz, amikor neki megfelel (kb. 15 percenként vagy később).</string>
@@ -248,7 +248,7 @@
     <!-- Lizenzhinweise -->
     <string name="licenses_app_intro">A Crypto Checker nyílt forráskódú (MIT-licenc).</string>
     <string name="licenses_font_title">Rubik betűtípus</string>
-    <string name="licenses_icons_bundled_text">Az alkalmazás része: ikonok a «Cryptocurrency Icons» gyűjteményből (Christopher Downer és közreműködők, github.com/spothq/cryptocurrency-icons), CC0 1.0 Universal licenccel. Addig látszanak, amíg a CoinGecko vagy a Binance logói be nem töltődnek. A nevek és logók a projektjeik védjegyei maradnak.</string>
+    <string name="licenses_icons_bundled_text">Az alkalmazás része: ikonok a „Cryptocurrency Icons” gyűjteményből (Christopher Downer és közreműködők, github.com/spothq/cryptocurrency-icons), CC0 1.0 Universal licenccel. Addig látszanak, amíg a CoinGecko vagy a Binance logói be nem töltődnek. A nevek és logók a projektjeik védjegyei maradnak.</string>
     <string name="licenses_icons_title">Tartalék coin-ikonok</string>
     <string name="licenses_libraries_intro">Az alkalmazás ezeket a könyvtárakat az Apache License 2.0 alapján használja:</string>
     <string name="licenses_libraries_title">Android-könyvtárak</string>

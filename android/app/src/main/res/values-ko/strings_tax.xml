@@ -183,7 +183,7 @@
     <string name="tax_note_network_fee">암호화폐로 낸 네트워크 수수료(내 지갑으로 이체, 출금)는 수수료로 쓴 코인을 시가로 처분한 것입니다 – 손익은 그 코인에만 생기며 수수료 전액이 손실은 아닙니다(%1$s). 기록된 가격이 없으면 전일 종가, 종가가 없으면 매도 금액은 비어 있습니다.</string>
     <string name="tax_note_specific_id">개별 식별법(Specific Identification)은 지원되지 않습니다 – FIFO(선입선출)를 적용합니다.</string>
     <string name="tax_note_spouse_gift">“배우자 / 파트너에게”로 표시한 증여는 손익이 없습니다: 매도 금액 = 내 취득가액이며 파트너가 이를 이어받습니다(%1$s).</string>
-    <string name="tax_note_stable_swap">보유할 스테이블코인(USDT/USDC/DAI …)으로의 매도는 여기서 암호화폐 간 교환이며 과세되지 않습니다 – 스테이블코인으로의 스왑으로 기록하세요. 유로로의 매도만 과세됩니다 – «매도»는 유로로의 매도로 간주됩니다.</string>
+    <string name="tax_note_stable_swap">보유할 스테이블코인(USDT/USDC/DAI …)으로의 매도는 여기서 암호화폐 간 교환이며 과세되지 않습니다 – 스테이블코인으로의 스왑으로 기록하세요. 유로로의 매도만 과세됩니다 – “매도”는 유로로의 매도로 간주됩니다.</string>
     <string name="tax_note_transfer_fee">내 지갑 간 이체에서 USDT 또는 현금으로 낸 수수료도 마찬가지입니다: 매입 원가에 더하지 않고 참고용으로만 표시됩니다.</string>
     <string name="tax_note_uk">HMRC 기준 매칭: 같은 날 → 그다음 이후 30일 → 그다음 Section 104에 따른 통합 보유분(Section 104 pool).</string>
     <string name="tax_note_us_transition">2025년 1월 1일 전환(Rev. Proc. 2024-28, 세이프 하버): 이전 연도에 모든 지갑에 걸쳐 FIFO를 썼다면 2024년 12월 31일 기준 남은 로트는 코인을 보유한 지갑으로 배분되며, 가장 오래된 코인이 있는 지갑이 가장 오래된 취득가를 받습니다. 이 배분은 앱의 규칙입니다. 본인 기록과 대조하세요.</string>

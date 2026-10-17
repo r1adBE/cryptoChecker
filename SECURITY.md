@@ -1,7 +1,9 @@
 # Security
 
 Please report security issues **privately** by e-mail to
-riad.work@outlook.com – not as a public issue.
+riad.work@outlook.com – not as a public issue. Alternatively use GitHub's
+private vulnerability reporting: *Security* tab of this repository › *Report a
+vulnerability*. Both channels reach the maintainer only.
 
 Helpful information:
 
@@ -12,6 +14,12 @@ Helpful information:
 
 You will get an answer within a few days. Please allow reasonable time for a fix
 before publishing details.
+
+## Supported versions
+
+Security fixes go into the **latest release** in Google Play and the App Store
+(and the matching state of this repository). Older versions get no separate
+fixes – please update before reporting, if you can.
 
 Crypto Checker reads only public market data, has no accounts and stores no
 user data on servers. The complete source code is public; signing keys, API

@@ -117,6 +117,9 @@ final class AppData: ObservableObject {
     /// Dateien mit Nutzerdaten blieben beim Start unverschlüsselt (`LaunchOutcome.encryptionPending`): Einstellungen ›
     /// Sicherung nennt «Verschlüsselung noch nicht aktiv» — wie Android `DatabaseEncryptionNotice`.
     private(set) var encryptionPending = false
+    /// Zähler für «App zurücksetzen»: Ein Ablauf, der über ein `await` hinweg läuft (z. B. `applyLive`),
+    /// übernimmt sein Ergebnis nicht mehr, wenn inzwischen zurückgesetzt wurde.
+    private(set) var resetGeneration = 0
 
     /// «In Gruppe» beim Hinzufügen: nur für die laufende Sitzung, nicht gespeichert.
     /// nil = «Keine Gruppe».
@@ -196,6 +199,8 @@ final class AppData: ObservableObject {
     /// Einstellungen waren beim Start nicht zugänglich: jetzt neu lesen (Gerät entsperrt, App aktiv) und
     /// übernehmen — mit allen Folgen (`settingsChanged`) und dem Sperrzustand.
     func reloadSettingsIfInaccessible() {
+        // Unabhängig von den Einstellungen: Portfolio, Adressen und Verschlüsselung nachholen
+        reloadProtectedFilesIfNeeded()
         guard !settingsAccessible else { return }
         let loaded = AppData.readSettings()
         guard loaded.state != .inaccessible else { return }
@@ -206,6 +211,23 @@ final class AppData: ObservableObject {
         PortfolioStore.applyBackupPolicy(includeInBackup: settings.portfolioSystemBackup)
         AppLock.shared.settingsReloaded()
         BackgroundRefresh.schedule(settings: settings)
+    }
+
+    /// Beim Start vor dem ersten Entsperren nicht lesbar: `portfolio.json` und `watched_addresses.json` blieben
+    /// leer, und die Verschlüsselung (`prepareAtLaunch`) stand aus. Sobald die geschützten Daten zugänglich sind
+    /// (Entsperren, App aktiv, `reloadFromDisk`), hier nachholen — sonst bliebe das Portfolio die ganze Sitzung leer.
+    func reloadProtectedFilesIfNeeded() {
+        guard UIApplication.shared.isProtectedDataAvailable else { return }
+        guard encryptionPending || !portfolioIntact || !watchedAddressIntact else { return }
+        // Zuerst verschlüsseln (wie beim Start vor dem ersten Lesen), dann neu lesen
+        if encryptionPending {
+            let protection = ProtectedStorage.prepareAtLaunch()
+            if !protection.setAside.isEmpty { StorageRecoveryNotice.record() }
+            encryptionPending = protection.encryptionPending
+        }
+        // `current…File()` liest nur neu, solange der Stand als nicht lesbar gilt, und übernimmt ihn dann
+        if !portfolioIntact { _ = currentPortfolioFile() }
+        if !watchedAddressIntact { _ = currentWatchedAddressFile() }
     }
 
     private func networkChanged(_ isOnline: Bool) {
@@ -280,6 +302,14 @@ final class AppData: ObservableObject {
         center.removeAllDeliveredNotifications()
         center.removeAllPendingNotificationRequests()
         Notifier.clearBadge()
+        // Live-Strom anhalten (leere Paarliste: startet auch mit neuen Einstellungen nicht wieder) und laufende
+        // `applyLive` verwerfen; dann alle noch eingereihten Speichervorgänge abwarten — sonst könnte ein
+        // gepufferter Stand nach dem Löschen `watchlist.json` bzw. `portfolio_alarms.json` neu anlegen.
+        // Hier auf dem MainActor kann zwischen dem Abwarten und dem Löschen nichts Neues eingereiht werden.
+        resetGeneration &+= 1
+        clearLive()
+        Task { await LivePriceStream.shared.setPairs([]) }
+        SharedStorage.flushSnapshotWrites()
 
         Self.clearStoredFiles()
 

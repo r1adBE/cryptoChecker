@@ -248,7 +248,7 @@
     <string name="ledger_exchange">Burza (nepovinné)</string>
     <string name="ledger_exchange_failed">%1$s: teď není kurz z %2$s – oceněno podle Binance.</string>
     <string name="ledger_exchange_hint">Mince se oceňuje kurzem této burzy (jinak Binance). Vývoj, 7 D a 1 R: denní kurzy Binance, přepočtené.</string>
-    <string name="ledger_exchange_mixed">%1$s: zadáno více burz – oceněno podle Binance. Přesunuté mince? Zapiš to jako «Převod».</string>
+    <string name="ledger_exchange_mixed">%1$s: zadáno více burz – oceněno podle Binance. Přesunuté mince? Zapiš to jako „Převod“.</string>
     <string name="ledger_exchange_none">Žádná (Binance)</string>
     <string name="ledger_fee">Poplatek (nepovinné)</string>
     <string name="ledger_fee_coin">Mince</string>
@@ -260,7 +260,7 @@
     <string name="ledger_gain_info_fifo">Dnes, 7 D, 1 R: změna hodnoty za období – nákupy a prodeje se nepočítají jako zisk. Od nákupu: aktuální hodnota minus pořizovací cena (FIFO vč. poplatků) mincí, které stále držíte.</string>
     <string name="ledger_gain_title">Zisk/ztráta</string>
     <string name="ledger_more_toggle">Poplatek a burza</string>
-    <string name="ledger_partial_cost">«Od nákupu» počítá jen část s nákupní cenou – bez %1$s bez nákupní ceny.</string>
+    <string name="ledger_partial_cost">„Od nákupu“ počítá jen část s nákupní cenou – bez %1$s bez nákupní ceny.</string>
     <string name="ledger_period_without">Dnes / 7 D / 1 R bez %1$s – chybí odpovídající počáteční kurz.</string>
     <string name="ledger_since_purchase_currency">Od nákupu (%1$s)</string>
     <string name="ledger_since_purchase_spoken">Zisk/ztráta od nákupu, zatím neprodáno</string>

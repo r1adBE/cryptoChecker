@@ -20,7 +20,7 @@
     <string name="notification_macro_title">Date economice azi</string>
     <string name="notification_permission_preprompt_continue">Continuă</string>
     <string name="notification_permission_preprompt_later">Mai târziu</string>
-    <string name="notification_permission_preprompt_text">Ca alarmele și notificările de preț să ajungă la tine, aplicația are nevoie de permisiunea pentru notificări. Sunt folosite doar pentru alarmele tale.</string>
+    <string name="notification_permission_preprompt_text">Ca alarmele și notificările de preț să ajungă la tine, aplicația are nevoie de permisiunea pentru notificări. Aplicația le folosește doar pentru alarmele și notificările tale de preț.</string>
     <string name="notification_permission_preprompt_title">Permiți notificările?</string>
     <string name="notification_portfolio_alarm_locked">Alarma ta s-a declanșat – deschide aplicația pentru detalii.</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->

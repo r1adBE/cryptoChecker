@@ -146,4 +146,37 @@ final class BackgroundScheduleTests: XCTestCase {
         XCTAssertFalse(BackgroundSchedule.showBatteryHint(batteryRestricted: true, hasWork: false))
         XCTAssertFalse(BackgroundSchedule.showBatteryHint(batteryRestricted: false, hasWork: true))
     }
+
+    // MARK: Abgestimmtes Schreiben (Zähler am App-Symbol, «Letzte Prüfungen»)
+
+    private func tempDir() throws -> URL {
+        let dir = FileManager.default.temporaryDirectory.appendingPathComponent("coordinated-\(UUID().uuidString)")
+        try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
+        addTeardownBlock { try? FileManager.default.removeItem(at: dir) }
+        return dir
+    }
+
+    /// Gleichzeitige Läufe gehen nicht verloren: Lesen und Schreiben sind ein abgestimmter Schritt.
+    func testConcurrentAddsKeepEveryRun() throws {
+        let url = try tempDir().appendingPathComponent(CheckRunStore.fileName)
+        DispatchQueue.concurrentPerform(iterations: 15) { i in CheckRunStore.add(run(Int64(i + 1)), to: url) }
+        XCTAssertEqual(Set(CheckRunStore.load(from: url).map(\.at)), Set((1...15).map(Int64.init)))
+    }
+
+    /// Zähler am App-Symbol: ohne Datei ab dem alten Wert (Defaults), danach aus der Datei; nie eine Mitteilung verloren.
+    func testBadgeCounterStartsFromFallbackThenCountsInFile() throws {
+        let url = try tempDir().appendingPathComponent("app_icon_badge.txt")
+        XCTAssertNil(Notifier.readBadge(at: url))
+        XCTAssertEqual(Notifier.incrementBadge(at: url, fallback: 3), 4)
+        XCTAssertEqual(Notifier.incrementBadge(at: url, fallback: 0), 5)
+        Notifier.storeBadgeCount(0, at: url)
+        XCTAssertEqual(Notifier.readBadge(at: url), 0)
+        XCTAssertEqual(Notifier.incrementBadge(at: url, fallback: 9), 1)
+    }
+
+    func testConcurrentBadgeIncrementsAreNotLost() throws {
+        let url = try tempDir().appendingPathComponent("app_icon_badge.txt")
+        DispatchQueue.concurrentPerform(iterations: 40) { _ in _ = Notifier.incrementBadge(at: url, fallback: 0) }
+        XCTAssertEqual(Notifier.readBadge(at: url), 40)
+    }
 }

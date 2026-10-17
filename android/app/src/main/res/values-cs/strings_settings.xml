@@ -37,9 +37,9 @@
     <string name="settings_alarm_sound_system">Vybrat systémový zvuk…</string>
     <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
     <string name="settings_app_badge">Číslo na ikoně aplikace</string>
-    <string name="settings_app_badge_hint">Počítá otevřená upozornění na alarmy. Zda se zobrazí číslo, nebo tečka, rozhoduje domovská obrazovka (např. Samsung: «S číslem»).</string>
+    <string name="settings_app_badge_hint">Počítá otevřená upozornění na alarmy. Zda se zobrazí číslo, nebo tečka, rozhoduje domovská obrazovka (např. Samsung: „S číslem“).</string>
     <string name="settings_exact_checks">Kontrolovat včas</string>
-    <string name="settings_exact_checks_grant">Povolit «Budíky a připomenutí»</string>
+    <string name="settings_exact_checks_grant">Povolit „Budíky a připomenutí“</string>
     <string name="settings_exact_checks_hint">Android kontroluje zhruba každých 15 minut, i když zařízení odpočívá. Spotřebuje trochu víc baterie.</string>
     <string name="settings_exact_checks_nothing">Žádné aktivní páry – není co kontrolovat.</string>
     <string name="settings_exact_checks_permission_missing">Chybí oprávnění – Android kontroluje, kdy se mu to hodí (zhruba každých 15 min nebo později).</string>
@@ -250,7 +250,7 @@
     <!-- Lizenzhinweise -->
     <string name="licenses_app_intro">Crypto Checker je open source (licence MIT).</string>
     <string name="licenses_font_title">Písmo Rubik</string>
-    <string name="licenses_icons_bundled_text">Součást aplikace: ikony z «Cryptocurrency Icons» od Christophera Downera a přispěvatelů (github.com/spothq/cryptocurrency-icons), vydané pod CC0 1.0 Universal. Zobrazují se, dokud se nenačtou loga z CoinGecko nebo Binance. Názvy a loga zůstávají ochrannými známkami svých projektů.</string>
+    <string name="licenses_icons_bundled_text">Součást aplikace: ikony z „Cryptocurrency Icons“ od Christophera Downera a přispěvatelů (github.com/spothq/cryptocurrency-icons), vydané pod CC0 1.0 Universal. Zobrazují se, dokud se nenačtou loga z CoinGecko nebo Binance. Názvy a loga zůstávají ochrannými známkami svých projektů.</string>
     <string name="licenses_icons_title">Náhradní ikony mincí</string>
     <string name="licenses_libraries_intro">Aplikace používá tyto knihovny pod licencí Apache 2.0:</string>
     <string name="licenses_libraries_title">Knihovny pro Android</string>

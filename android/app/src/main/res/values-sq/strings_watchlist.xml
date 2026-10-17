@@ -108,7 +108,7 @@
     <string name="watchlist_group_empty_hint">Shtyp gjatë një grup për të zgjedhur çiftet e tij.</string>
     <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
     <string name="watchlist_groups_empty_hint">Grupet e tua do të shfaqen këtu</string>
-    <string name="watchlist_notification">Njoftim</string>
+    <string name="watchlist_notification">Njoftimi i çmimit</string>
     <string name="watchlist_tts">Lexo çmimin</string>
     <string name="watchlist_tts_speech_on">Zëri është aktiv. Mund ta ndryshosh te Cilësimet › Të avancuara › Dalja zanore.</string>
 

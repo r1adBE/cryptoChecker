@@ -96,7 +96,7 @@
     <string name="watchlist_group_empty_hint">กดค้างที่กลุ่มเพื่อเลือกคู่เหรียญ</string>
     <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
     <string name="watchlist_groups_empty_hint">กลุ่มของคุณจะแสดงที่นี่</string>
-    <string name="watchlist_notification">การแจ้งเตือน</string>
+    <string name="watchlist_notification">การแจ้งเตือนราคา</string>
     <string name="watchlist_tts">อ่านราคา</string>
     <string name="watchlist_tts_speech_on">เปิดเสียงอ่านแล้ว เปลี่ยนได้ที่ ตั้งค่า › ขั้นสูง › อ่านออกเสียง</string>
 

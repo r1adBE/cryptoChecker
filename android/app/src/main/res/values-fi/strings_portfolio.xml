@@ -242,7 +242,7 @@
     <string name="ledger_exchange">Pörssi (valinnainen)</string>
     <string name="ledger_exchange_failed">%1$s: ei juuri nyt kurssia pörssistä %2$s – arvostettu Binancella.</string>
     <string name="ledger_exchange_hint">Kolikko arvostetaan tämän pörssin kurssilla (muuten Binance). Kehitys, 7 pv ja 1 v: Binancen päiväkurssit skaalattuina.</string>
-    <string name="ledger_exchange_mixed">%1$s: useita pörssejä merkitty – arvostettu Binancella. Siirsitkö kolikoita? Kirjaa siirto tyypillä «Siirto».</string>
+    <string name="ledger_exchange_mixed">%1$s: useita pörssejä merkitty – arvostettu Binancella. Siirsitkö kolikoita? Kirjaa siirto tyypillä ”Siirto”.</string>
     <string name="ledger_exchange_none">Ei mitään (Binance)</string>
     <string name="ledger_fee">Kulu (valinnainen)</string>
     <string name="ledger_fee_coin">Kolikko</string>
@@ -254,7 +254,7 @@
     <string name="ledger_gain_info_fifo">Tänään, 7 pv, 1 v: arvon muutos jaksolla – ostot ja myynnit eivät ole voittoa. Oston jälkeen: nykyarvo miinus hankintameno (FIFO kuluineen) kolikoista, jotka sinulla yhä on.</string>
     <string name="ledger_gain_title">Voitto/tappio</string>
     <string name="ledger_more_toggle">Kulu ja pörssi</string>
-    <string name="ledger_partial_cost">«Ostosta» laskee vain osan, jolla on ostohinta – ilman %1$s ilman ostohintaa.</string>
+    <string name="ledger_partial_cost">”Ostosta” laskee vain osan, jolla on ostohinta – ilman %1$s ilman ostohintaa.</string>
     <string name="ledger_period_without">Tänään / 7 pv / 1 v ilman %1$s – ei sopivaa alkukurssia.</string>
     <string name="ledger_since_purchase_currency">Ostosta (%1$s)</string>
     <string name="ledger_since_purchase_spoken">Voitto/tappio ostosta, ei vielä myyty</string>

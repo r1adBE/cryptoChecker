@@ -1,7 +1,6 @@
 package com.cryptochecker.app.domain.portfolio.csvimport
 
 import java.math.BigDecimal
-import java.math.RoundingMode
 
 /**
  * Bitpanda «Transaction history» (Verlauf › CSV exportieren) → [CsvImportRow]. Gespiegelt in `CsvImportBitpanda.swift`.
@@ -90,7 +89,7 @@ internal object CsvImportBitpanda {
                 if (kind == CsvImportKind.BUY || kind == CsvImportKind.SELL || kind == CsvImportKind.REWARD) {
                     val paid = fiatAmount?.takeIf { fiat != null && kind != CsvImportKind.REWARD }
                     if (paid != null) {
-                        price = paid.divide(amount, CsvImport.DERIVED_SCALE, RoundingMode.HALF_EVEN).stripTrailingZeros()
+                        price = CsvImport.derive(paid, amount)
                         quote = fiat
                     } else if (marketPrice != null && marketCurrency != null) {
                         price = marketPrice

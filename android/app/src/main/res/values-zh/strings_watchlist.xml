@@ -96,7 +96,7 @@
     <string name="watchlist_group_empty_hint">长按分组以选择其交易对。</string>
     <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
     <string name="watchlist_groups_empty_hint">你的分组会显示在这里</string>
-    <string name="watchlist_notification">通知</string>
+    <string name="watchlist_notification">价格通知</string>
     <string name="watchlist_tts">播报价格</string>
     <string name="watchlist_tts_speech_on">语音播报已开启。可在此更改：设置 › 高级 › 语音播报。</string>
 

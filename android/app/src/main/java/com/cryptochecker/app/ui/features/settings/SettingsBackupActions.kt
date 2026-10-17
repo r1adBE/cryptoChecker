@@ -85,6 +85,13 @@ fun SettingsViewModel.restoreBackup(uri: android.net.Uri, password: String?, acc
     _backupMessage.value = runCatching { backupManager.restore(uri, password, acceptInvalid) }
         .fold(
             onSuccess = { result ->
+                // Meldungen der ersetzten Paare und Alarme entfernen: sie zeigten alte Daten, und
+                // gleiche Ids neuer Paare bzw. Alarme würden sie sonst stillschweigend «übernehmen»
+                runCatching {
+                    notifier.cancelAllPrices(result.replacedWatchIds)
+                    result.replacedWatchIds.forEach { notifier.cancelActivity(it) }
+                    notifier.cancelAlarms(result.replacedAlarmIds, result.replacedPortfolioAlarmIds)
+                }.onFailure { timber.log.Timber.w(it, "Meldungen nach dem Wiederherstellen nicht entfernt") }
                 // Neue Einstellungen gleich anwenden
                 val s = settingsRepository.current()
                 scheduler.apply(s)

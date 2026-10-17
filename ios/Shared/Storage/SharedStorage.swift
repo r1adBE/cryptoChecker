@@ -198,6 +198,22 @@ enum SharedStorage {
         return body()
     }
 
+    /// Lesen → ändern → schreiben an einer anderen Datei als `watchlist.json` prozessübergreifend abstimmen
+    /// (`NSFileCoordinator`, wie `updateSnapshot`) — z. B. Zähler am App-Symbol, «Letzte Prüfungen». Die Datei muss nicht
+    /// existieren. Schlägt die Abstimmung fehl, läuft `body` trotzdem. Nie für dieselbe Datei verschachteln.
+    @discardableResult
+    static func coordinatedWrite<T>(at url: URL, _ body: () -> T) -> T {
+        var error: NSError?
+        var ran = false
+        var result: T?
+        NSFileCoordinator(filePresenter: nil).coordinate(writingItemAt: url, options: .forMerging, error: &error) { _ in
+            ran = true
+            result = body()
+        }
+        if ran, let result { return result }
+        return body()
+    }
+
     /// Liest `watchlist.json` (tolerant, siehe `Snapshot.init(from:)`) und `portfolio_alarms.json`.
     static func readFiles(watchlist: URL, portfolioAlarms: URL) -> SnapshotRead {
         let fm = FileManager.default
@@ -398,6 +414,12 @@ enum SharedStorage {
         return values
     }
 
+    /// Einträge mit schon gesehener Id weglassen (der erste bleibt), Reihenfolge unverändert.
+    static func uniqueById<T, ID: Hashable>(_ items: [T], id: (T) -> ID) -> [T] {
+        var seen = Set<ID>()
+        return items.filter { seen.insert(id($0)).inserted }
+    }
+
     /// Nächste freie Id: nie kleiner als 1 und nie eine schon vergebene (Ids werden nicht wiederverwendet).
     static func nextId(stored: Int64, used: [Int64]) -> Int64 {
         guard let maxUsed = used.max() else { return max(stored, 1) }
@@ -580,7 +602,15 @@ extension SharedStorage.Snapshot {
     /// Merkliste löschte alle Paare und Alarme. Die nächsten Ids laufen nie hinter vergebene zurück.
     init(from decoder: Decoder) throws {
         let c = try decoder.container(keyedBy: CodingKeys.self)
-        watches = try SharedStorage.lenientArray(c, .watches, decoder: decoder) ?? []
+        // Doppelte Paar-Ids (z. B. von Hand bearbeitete Datei, alter Fehler) behalten nur den ersten Eintrag —
+        // sonst stürzt jedes `Dictionary(uniqueKeysWithValues:)` über die Paare ab. Gezählt wie ein
+        // übersprungener Eintrag, damit eine Kopie der Datei erhalten bleibt.
+        let decodedWatches: [Watch] = try SharedStorage.lenientArray(c, .watches, decoder: decoder) ?? []
+        watches = SharedStorage.uniqueById(decodedWatches) { $0.id }
+        if watches.count < decodedWatches.count {
+            (decoder.userInfo[SharedStorage.DropCounter.key] as? SharedStorage.DropCounter)?.count +=
+                decodedWatches.count - watches.count
+        }
         alarms = try SharedStorage.lenientArray(c, .alarms, decoder: decoder) ?? []
         // Auch die Paar-Ids der Alarme zählen: Ein übersprungenes Paar darf seine Id nicht an ein neues
         // weitergeben, sonst hinge dessen verwaister Alarm plötzlich an diesem
