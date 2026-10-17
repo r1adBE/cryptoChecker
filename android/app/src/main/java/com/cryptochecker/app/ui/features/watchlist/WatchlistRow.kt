@@ -175,6 +175,10 @@ internal fun WatchRow(
         now = now,
         outdatedAfter = minOf(staleAfter, outdatedAfter),
     )
+    val priceNotificationOn = A11ySpeech.priceNotificationOn(
+        pairOn = watch.notificationEnabled,
+        masterOn = com.cryptochecker.app.ui.components.LocalPriceNotificationsOn.current,
+    )
     val rowDescription = A11yText.row(
         context = context,
         pair = if (name == null) watch.displayName else "${watch.displayName}, $name",
@@ -196,12 +200,13 @@ internal fun WatchRow(
         // stünde sonst in jeder Zeile
         kind = if (kind == AssetKind.TOKEN) null else stringResource(kind.spokenRes),
         alarms = listOf(
+            // Kursmitteilung wie die Glocke der Zeile (WatchlistRowInfo): an bzw. aus
+            stringResource(if (priceNotificationOn) R.string.a11y_price_notification_on else R.string.a11y_price_notification_off),
             // Alarm eben ausgelöst (Mitteilung kam bei offener App): bis 15 Min. danach
             if (A11ySpeech.firedRecently(alarmFiredAt, now)) stringResource(R.string.a11y_alarm_fired) else null,
             if (alarmCount > 0) stringResource(R.string.a11y_alarm_count, alarmCount) else null,
         ),
         rest = listOf(
-            // Kurs-Benachrichtigung steht (L-14) nicht mehr als Glocke in der Zeile, nur im Aktionsblatt
             // Verständlicher Fehler (z. B. Paar unbekannt); «nicht mehr gehandelt» steht schon oben
             status.error.takeIf { freshness != A11ySpeech.Freshness.NOT_TRADED },
         ),

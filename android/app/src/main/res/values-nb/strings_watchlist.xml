@@ -117,7 +117,7 @@
     <string name="watch_action_alarm">Alarm</string>
     <string name="watch_action_favorite">Favoritt</string>
     <string name="watch_action_why">Hva beveger seg med?</string>
-    <string name="watch_action_why_short">Beveger seg med?</string>
+    <string name="watch_action_why_short">Hva beveger seg med?</string>
     <string name="watch_change_mark">Mark</string>
     <string name="watch_disable">Deaktiver</string>
     <string name="watch_disable_hint">Ingen forespørsler, ingen varsler</string>

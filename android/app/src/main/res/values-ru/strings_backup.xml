@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="backup_device_bound">Перед сменой устройства создайте файл резервной копии – зашифрованные данные открываются только на этом устройстве.</string>
+    <string name="backup_encryption_pending">Шифрование ещё не активно – приложение попробует снова при следующем запуске.</string>
     <!-- Sicherung exportieren und wiederherstellen -->
     <string name="backup_export">Экспорт</string>
     <string name="backup_exported">Копия сохранена.</string>

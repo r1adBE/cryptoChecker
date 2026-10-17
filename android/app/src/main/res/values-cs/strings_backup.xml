@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="backup_device_bound">Před výměnou zařízení si vytvořte soubor zálohy – šifrovaná data lze otevřít jen na tomto zařízení.</string>
+    <string name="backup_encryption_pending">Šifrování ještě není aktivní – aplikace to zkusí znovu při příštím spuštění.</string>
     <!-- Sicherung exportieren und wiederherstellen -->
     <string name="backup_export">Exportovat</string>
     <string name="backup_exported">Záloha uložena.</string>

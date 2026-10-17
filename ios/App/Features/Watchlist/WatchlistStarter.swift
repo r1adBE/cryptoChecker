@@ -4,7 +4,7 @@ import SwiftUI
 /// Start-Auswahl der leeren Merkliste — wie `StarterPicker` in Android.
 ///
 /// Karte im Stil von «Ungewöhnliche Aktivität»: die fünf Startcoins mit Kurs in der
-/// Start-Quote (USDT; Region USA: USD; CH/LI: CHF bzw. USD je Coin), 24-h-Änderung und Auswahlkreis rechts. Zeile
+/// Start-Quote USDT (Binance, in den USA Binance.US — `StarterPairs.marketKey`), 24-h-Änderung und Auswahlkreis rechts. Zeile
 /// tippen = an/ab; anfangs sind alle gewählt. Darunter «Zur Merkliste hinzufügen (n)»
 /// und «Alle/Keine auswählen». Hinzufügen geht über `onAdd` (gleicher Weg wie bisher).
 @MainActor

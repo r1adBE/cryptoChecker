@@ -142,4 +142,22 @@ class A11ySpeechTest {
             sentence
         )
     }
+
+    @Test
+    fun `Kursmitteilung wie die Glocke, vor den Alarmen`() {
+        assertTrue(A11ySpeech.priceNotificationOn(pairOn = true, masterOn = true))
+        // Paar aus oder Hauptschalter aus: durchgestrichene Glocke → «aus»
+        assertFalse(A11ySpeech.priceNotificationOn(pairOn = false, masterOn = true))
+        assertFalse(A11ySpeech.priceNotificationOn(pairOn = true, masterOn = false))
+        val sentence = A11ySpeech.row(
+            pair = "BTC/USDT an Binance",
+            price = "Kurs 61’234.00 USDT",
+            change = "gestiegen um 2.14% in 24 Stunden",
+            alarms = listOf("Kursmitteilung an", null, "Alarme: 2"),
+        )
+        assertEquals(
+            "BTC/USDT an Binance, Kurs 61’234.00 USDT, gestiegen um 2.14% in 24 Stunden, Kursmitteilung an, Alarme: 2",
+            sentence
+        )
+    }
 }

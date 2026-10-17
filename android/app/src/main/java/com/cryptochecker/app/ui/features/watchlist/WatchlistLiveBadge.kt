@@ -64,6 +64,9 @@ internal fun LiveBadge(color: Color, reduceMotion: Boolean, modifier: Modifier =
             style = MaterialTheme.typography.label,
             fontWeight = FontWeight.Bold,
             color = color,
+            // Übersetzt teils länger als «LIVE» (z. B. «TRỰC TIẾP»): eine Zeile wie iOS (`lineLimit(1)`)
+            maxLines = 1,
+            softWrap = false,
             modifier = Modifier.padding(start = 4.dp)
         )
     }

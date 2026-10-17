@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="backup_device_bound">Eszközcsere előtt készíts biztonsági mentést – a titkosított adatok csak ezen az eszközön nyithatók meg.</string>
+    <string name="backup_encryption_pending">A titkosítás még nem aktív – az app a következő indításkor újra megpróbálja.</string>
     <!-- Sicherung exportieren und wiederherstellen -->
     <string name="backup_export">Exportálás</string>
     <string name="backup_exported">Mentés elkészült.</string>

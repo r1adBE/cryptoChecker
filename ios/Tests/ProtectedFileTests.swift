@@ -17,6 +17,11 @@ final class ProtectedFileTests: XCTestCase {
         /// Ein anderer Prozess legt beim Hinzufügen gleichzeitig diesen Schlüssel an.
         var racingKey: Data?
         private(set) var adds = 0
+        /// Zugriff des Eintrags: true = `…ThisDeviceOnly`; neu angelegte Einträge sind es immer (Build 69).
+        var deviceOnly = true
+        /// Fehler beim Umstellen (z. B. vor dem ersten Entsperren).
+        var updateStatus: OSStatus?
+        private(set) var updates = 0
 
         func read() throws -> Data? {
             if let readStatus { throw StorageKeychainError(status: readStatus) }
@@ -28,8 +33,20 @@ final class ProtectedFileTests: XCTestCase {
             if let racingKey { stored = racingKey; return false }
             guard stored == nil else { return false }
             stored = key
+            deviceOnly = true
             adds += 1
             return true
+        }
+
+        func isDeviceOnly() throws -> Bool? {
+            if let readStatus { throw StorageKeychainError(status: readStatus) }
+            return stored == nil ? nil : deviceOnly
+        }
+
+        func makeDeviceOnly() throws {
+            if let updateStatus { throw StorageKeychainError(status: updateStatus) }
+            deviceOnly = true
+            updates += 1
         }
     }
 
@@ -221,6 +238,59 @@ final class ProtectedFileTests: XCTestCase {
         XCTAssertEqual(ProtectedStorage.prepareAtLaunch(files: files(watchlist, portfolio), keys: k), .init())
     }
 
+    func testEncryptionPendingOnlyWhileSomethingStaysPlain() throws {
+        try json.write(to: watchlist)
+        let fake = keychain(with: nil)
+        let first = ProtectedStorage.prepareAtLaunch(files: files(watchlist), keys: keys(fake))
+        XCTAssertEqual(first.encrypted, ["watchlist.json"])
+        XCTAssertFalse(first.encryptionPending)
+        // Alles verschlüsselt, Schlüsselbund später gesperrt: verschlüsselte Dateien sind kein «noch nicht aktiv»
+        fake.readStatus = errSecInteractionNotAllowed
+        XCTAssertFalse(ProtectedStorage.prepareAtLaunch(files: files(watchlist), keys: keys(fake)).encryptionPending)
+    }
+
+    // MARK: Schlüssel nur auf diesem Gerät (Build 69)
+
+    func testOldKeychainItemIsRestrictedToThisDeviceKeepingTheKey() throws {
+        let sealed = try ProtectedContainer.seal(json, key: fixedKey)
+        try sealed.write(to: watchlist)
+        let fake = keychain(with: fixedKey)
+        fake.deviceOnly = false // angelegt bis Build 68 (`…AfterFirstUnlock`)
+        let outcome = ProtectedStorage.prepareAtLaunch(files: files(watchlist), keys: keys(fake))
+        XCTAssertEqual(outcome, .init())
+        XCTAssertTrue(fake.deviceOnly)
+        XCTAssertEqual(fake.updates, 1)
+        XCTAssertEqual(fake.adds, 0)
+        // Dieselben Schlüsselbytes: die Datei bleibt lesbar
+        XCTAssertEqual(fake.stored, fixedKey.withUnsafeBytes { Data($0) })
+        XCTAssertEqual(try ProtectedFile.read(watchlist, keys: keys(fake)), json)
+        // Nächster Start: schon umgestellt, keine weitere Änderung
+        ProtectedStorage.prepareAtLaunch(files: files(watchlist), keys: keys(fake))
+        XCTAssertEqual(fake.updates, 1)
+    }
+
+    func testFailedRestrictionChangesNothingAndRetriesNextLaunch() throws {
+        let sealed = try ProtectedContainer.seal(json, key: fixedKey)
+        try sealed.write(to: watchlist)
+        let fake = keychain(with: fixedKey)
+        fake.deviceOnly = false
+        fake.updateStatus = errSecInteractionNotAllowed
+        XCTAssertFalse(keys(fake).restrictToThisDevice())
+        XCTAssertFalse(fake.deviceOnly)
+        XCTAssertEqual(fake.stored, fixedKey.withUnsafeBytes { Data($0) })
+        XCTAssertEqual(try ProtectedFile.read(watchlist, keys: keys(fake)), json)
+        fake.updateStatus = nil
+        XCTAssertTrue(keys(fake).restrictToThisDevice())
+        XCTAssertTrue(fake.deviceOnly)
+    }
+
+    func testRestrictionWithoutKeychainItemDoesNothing() {
+        let fake = keychain(with: nil)
+        XCTAssertTrue(keys(fake).restrictToThisDevice())
+        XCTAssertEqual(fake.updates, 0)
+        XCTAssertNil(fake.stored)
+    }
+
     func testMissingFilesAreSkipped() {
         let outcome = ProtectedStorage.prepareAtLaunch(files: files(watchlist), keys: keys(keychain(with: nil)))
         XCTAssertEqual(outcome, .init())
@@ -231,7 +301,10 @@ final class ProtectedFileTests: XCTestCase {
         try json.write(to: watchlist)
         let fake = FakeKeychain()
         fake.readStatus = errSecInteractionNotAllowed
-        XCTAssertEqual(ProtectedStorage.prepareAtLaunch(files: files(watchlist), keys: keys(fake)), .init())
+        let outcome = ProtectedStorage.prepareAtLaunch(files: files(watchlist), keys: keys(fake))
+        // Unverändert, aber vermerkt: Einstellungen › Sicherung nennt «Verschlüsselung noch nicht aktiv»
+        XCTAssertEqual(outcome, ProtectedStorage.LaunchOutcome(keptPlain: ["watchlist.json"]))
+        XCTAssertTrue(outcome.encryptionPending)
         XCTAssertEqual(try Data(contentsOf: watchlist), json)
         XCTAssertEqual(fake.adds, 0)
     }
@@ -240,7 +313,9 @@ final class ProtectedFileTests: XCTestCase {
         try json.write(to: watchlist)
         let fake = keychain(with: nil)
         fake.addStatus = errSecMissingEntitlement
-        XCTAssertEqual(ProtectedStorage.prepareAtLaunch(files: files(watchlist), keys: keys(fake)), .init())
+        let outcome = ProtectedStorage.prepareAtLaunch(files: files(watchlist), keys: keys(fake))
+        XCTAssertEqual(outcome, ProtectedStorage.LaunchOutcome(keptPlain: ["watchlist.json"]))
+        XCTAssertTrue(outcome.encryptionPending)
         XCTAssertEqual(try Data(contentsOf: watchlist), json)
     }
 

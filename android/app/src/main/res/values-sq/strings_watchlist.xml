@@ -9,7 +9,7 @@
     </plurals>
     <string name="watchlist_last_run">Kalimi i fundit %1$s</string>
     <string name="watchlist_live_a11y">Çmimet live janë aktive</string>
-    <string name="watchlist_live_badge">LIVE</string>
+    <string name="watchlist_live_badge">DIREKT</string>
     <string name="watchlist_offline_since">Pa lidhje · gjendja %1$s</string>
     <string name="watchlist_pull_to_refresh">Tërhiq poshtë për ta rifreskuar</string>
     <string name="watchlist_refresh_report">Rifreskimi i fundit</string>
@@ -117,7 +117,7 @@
     <string name="watch_action_alarm">Alarm</string>
     <string name="watch_action_favorite">I preferuar</string>
     <string name="watch_action_why">Çfarë lëviz bashkë?</string>
-    <string name="watch_action_why_short">Çfarë lëviz?</string>
+    <string name="watch_action_why_short">Çfarë lëviz bashkë?</string>
     <string name="watch_change_mark">Mark</string>
     <string name="watch_disable">Çaktivizo</string>
     <string name="watch_disable_hint">Pa kërkesa, pa njoftime</string>

@@ -205,7 +205,10 @@ internal fun RowInfo(
             // Kursmitteilung (Entscheid 16. Oktober 2026, wieder in der Zeile): schlichte Glocke = an, durchgestrichene
             // = aus (Paar aus oder Hauptschalter «Kursmitteilungen» aus). Danach die Alarmglocke (mit Wellen), nur bei
             // mind. einem aktiven Alarm ([alarmCount] zählt nur eingeschaltete).
-            val priceOn = watch.notificationEnabled && com.cryptochecker.app.ui.components.LocalPriceNotificationsOn.current
+            val priceOn = com.cryptochecker.app.util.A11ySpeech.priceNotificationOn(
+                pairOn = watch.notificationEnabled,
+                masterOn = com.cryptochecker.app.ui.components.LocalPriceNotificationsOn.current,
+            )
             Icon(
                 painterResource(if (priceOn) R.drawable.ic_notifications else R.drawable.ic_notifications_off),
                 contentDescription = stringResource(

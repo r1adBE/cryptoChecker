@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="backup_device_bound">Before switching devices, create a backup file – the encrypted data can only be opened on this device.</string>
+    <string name="backup_encryption_pending">Encryption not active yet – the app will try again at the next start.</string>
     <!-- Sicherung exportieren und wiederherstellen -->
     <string name="backup_export">Export</string>
     <string name="backup_exported">Backup saved.</string>

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="backup_device_bound">डिवाइस बदलने से पहले बैकअप फ़ाइल बनाएँ – एन्क्रिप्ट किया गया डेटा केवल इसी डिवाइस पर खुलता है।</string>
+    <string name="backup_encryption_pending">एन्क्रिप्शन अभी सक्रिय नहीं है – ऐप अगली बार शुरू होने पर फिर कोशिश करेगा।</string>
     <!-- Sicherung exportieren und wiederherstellen -->
     <string name="backup_export">निर्यात</string>
     <string name="backup_exported">बैकअप सहेजा गया।</string>

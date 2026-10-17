@@ -8,6 +8,7 @@ import com.cryptochecker.marketdata.model.market.generic.SimpleMarket
 import com.cryptochecker.marketdata.util.BulkPairChunks
 import com.cryptochecker.marketdata.util.BulkTickerRows
 import com.cryptochecker.marketdata.util.forEachName
+import com.cryptochecker.marketdata.util.optText
 import org.json.JSONObject
 
 /** Öffentliche REST-Schnittstelle von Kraken (docs.kraken.com, «Market Data»). */
@@ -18,6 +19,9 @@ private const val KRAKEN_TICKER = "$KRAKEN_PUBLIC/Ticker"
 
 /** Ticker mit Paarliste («?pair=A,B,C»). */
 private const val KRAKEN_TICKER_FOR = "$KRAKEN_TICKER?pair="
+
+/** AssetPairs-`status` eines handelbaren Paars; andere Werte (z. B. «cancel_only») stehen nicht zur Wahl. */
+private const val KRAKEN_STATUS_ONLINE = "online"
 
 /** Grund, wenn `result` leer ist und Kraken keinen eigenen Fehler nennt. */
 private const val KRAKEN_EMPTY_RESULT = "Empty result"
@@ -38,7 +42,11 @@ class Kraken : SimpleMarket(
         val result = json.getJSONObject("result")
         // Eine Anfrage = ein Paar: Der einzige Schlüssel ist dessen Kennung; ohne Schlüssel kein Kurs
         val onlyKey = result.names()?.getString(0) ?: throw MarketParseException(KRAKEN_EMPTY_RESULT)
-        copyRow(result.getJSONObject(onlyKey), ticker)
+        val row = result.getJSONObject(onlyKey)
+        // Schlusskurs 0 (z. B. «cancel_only»): kein Kurs statt 0 — sonst bliebe der alte Kurs still stehen.
+        // Ohne Kurs bestätigt die Einzelabfrage «nicht mehr gehandelt» (NotTraded.confirmedBySingle).
+        if (isDormant(row)) return
+        copyRow(row, ticker)
     }
 
     override fun errorMessageJson(call: Int, json: JSONObject, info: PairQuery): String? =
@@ -94,6 +102,9 @@ class Kraken : SimpleMarket(
         json.getJSONObject("result").forEachName { id, asset ->
             // Kennungen mit Punkt (z. B. «.d») sind Varianten, keine eigenen Märkte
             if ('.' in id) return@forEachName
+            // Nur handelbare Paare («online»); ältere Antworten ohne `status` gelten als handelbar
+            val status = asset.optText("status")
+            if (status.isNotEmpty() && status != KRAKEN_STATUS_ONLINE) return@forEachName
             // Basis/Gegenwährung aus `wsname` («XBT/USD»), nicht aus `base`/`quote` mit alten Präfixen (KrakenAssetCodes)
             val (base, quote) = KrakenAssetCodes.fromWsName(asset.optString("wsname")) ?: return@forEachName
             out += MarketPair(base, quote, id)
@@ -115,7 +126,7 @@ class Kraken : SimpleMarket(
         // «o» ist die Tageseröffnung (UTC), nicht der Kurs vor 24 h — darum keine 24-h-Veränderung
     }
 
-    /** Der Schlusskurs «c» ist leer — als Feld oder als erster Listeneintrag. */
+    /** Der Schlusskurs «c» ist leer — als Feld oder als erster Listeneintrag (Einzel- und Sammelabfrage). */
     private fun isDormant(row: JSONObject): Boolean {
         if (BulkTickerRows.inactivePrice(row, "c")) return true
         val close = row.optJSONArray("c") ?: return false

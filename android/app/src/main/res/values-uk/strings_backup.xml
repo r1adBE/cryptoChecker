@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="backup_device_bound">Перед зміною пристрою створіть файл резервної копії – зашифровані дані відкриваються лише на цьому пристрої.</string>
+    <string name="backup_encryption_pending">Шифрування ще не активне – застосунок спробує знову під час наступного запуску.</string>
     <!-- Sicherung exportieren und wiederherstellen -->
     <string name="backup_export">Експорт</string>
     <string name="backup_exported">Копію збережено.</string>

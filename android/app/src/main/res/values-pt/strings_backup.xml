@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="backup_device_bound">Antes de mudar de dispositivo, cria um ficheiro de cópia de segurança – os dados encriptados só abrem neste dispositivo.</string>
+    <string name="backup_encryption_pending">Encriptação ainda não ativa – a app tenta novamente no próximo arranque.</string>
     <!-- Sicherung exportieren und wiederherstellen -->
     <string name="backup_export">Exportar</string>
     <string name="backup_exported">Cópia guardada.</string>

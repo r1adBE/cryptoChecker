@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="backup_device_bound">לפני החלפת מכשיר צרו קובץ גיבוי – את הנתונים המוצפנים אפשר לפתוח רק במכשיר הזה.</string>
+    <string name="backup_encryption_pending">ההצפנה עדיין לא פעילה – האפליקציה תנסה שוב בהפעלה הבאה.</string>
     <!-- Sicherung exportieren und wiederherstellen -->
     <string name="backup_export">ייצוא</string>
     <string name="backup_exported">הגיבוי נשמר.</string>

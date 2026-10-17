@@ -9,7 +9,7 @@
     </plurals>
     <string name="watchlist_last_run">Viimeisin ajo %1$s</string>
     <string name="watchlist_live_a11y">Live-hinnat käytössä</string>
-    <string name="watchlist_live_badge">LIVE</string>
+    <string name="watchlist_live_badge">SUORA</string>
     <string name="watchlist_offline_since">Ei yhteyttä · tilanne %1$s</string>
     <string name="watchlist_pull_to_refresh">Päivitä vetämällä alas</string>
     <string name="watchlist_refresh_report">Viimeisin päivitys</string>
@@ -117,7 +117,7 @@
     <string name="watch_action_alarm">Hälytys</string>
     <string name="watch_action_favorite">Suosikki</string>
     <string name="watch_action_why">Mikä liikkuu mukana?</string>
-    <string name="watch_action_why_short">Mukana liikkuu?</string>
+    <string name="watch_action_why_short">Mikä liikkuu mukana?</string>
     <string name="watch_change_mark">Mark</string>
     <string name="watch_disable">Poista käytöstä</string>
     <string name="watch_disable_hint">Ei hakuja, ei ilmoituksia</string>

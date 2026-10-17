@@ -9,7 +9,7 @@
     </plurals>
     <string name="watchlist_last_run">Τελευταία εκτέλεση %1$s</string>
     <string name="watchlist_live_a11y">Τιμές live ενεργές</string>
-    <string name="watchlist_live_badge">LIVE</string>
+    <string name="watchlist_live_badge">ΖΩΝΤΑΝΑ</string>
     <string name="watchlist_offline_since">Χωρίς σύνδεση · κατάσταση %1$s</string>
     <string name="watchlist_pull_to_refresh">Σύρετε προς τα κάτω για ανανέωση</string>
     <string name="watchlist_refresh_report">Τελευταία ανανέωση</string>
@@ -117,7 +117,7 @@
     <string name="watch_action_alarm">Συναγερμός</string>
     <string name="watch_action_favorite">Αγαπημένο</string>
     <string name="watch_action_why">Τι κινείται μαζί;</string>
-    <string name="watch_action_why_short">Τι κινείται;</string>
+    <string name="watch_action_why_short">Τι κινείται μαζί;</string>
     <string name="watch_change_mark">Mark</string>
     <string name="watch_disable">Απενεργοποίηση</string>
     <string name="watch_disable_hint">Χωρίς ερωτήματα, χωρίς ειδοποιήσεις</string>

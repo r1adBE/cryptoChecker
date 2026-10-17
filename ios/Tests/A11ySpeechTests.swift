@@ -128,6 +128,34 @@ final class A11ySpeechTests: XCTestCase {
                        + "Alarm ausgelöst, Alarme: 2, Mitteilung")
     }
 
+    /// Kursmitteilung wie die Glocke, vor den Alarmen — wie Android.
+    func testPriceNotificationLikeTheBellBeforeAlarms() {
+        XCTAssertTrue(A11ySpeech.priceNotificationOn(pairOn: true, masterOn: true))
+        // Paar aus oder Hauptschalter aus: durchgestrichene Glocke → «aus»
+        XCTAssertFalse(A11ySpeech.priceNotificationOn(pairOn: false, masterOn: true))
+        XCTAssertFalse(A11ySpeech.priceNotificationOn(pairOn: true, masterOn: false))
+        let sentence = A11ySpeech.row(
+            pair: "BTC/USDT an Binance",
+            price: "Kurs 61’234.00 USDT",
+            change: "gestiegen um 2.14% in 24 Stunden",
+            alarms: ["Kursmitteilung an", nil, "Alarme: 2"])
+        XCTAssertEqual(sentence,
+                       "BTC/USDT an Binance, Kurs 61’234.00 USDT, gestiegen um 2.14% in 24 Stunden, "
+                       + "Kursmitteilung an, Alarme: 2")
+    }
+
+    func testWatchRowSaysPriceNotificationOnlyWhenGiven() {
+        let watch = Watch(id: 1, marketKey: "Binance", marketName: "Binance", baseAsset: "BTC", quoteAsset: "USDT")
+        let on = A11y.watchRow(watch, priceNotificationOn: true)
+        let off = A11y.watchRow(watch, priceNotificationOn: false)
+        XCTAssertTrue(on.contains(L("a11y_price_notification_on")))
+        XCTAssertTrue(off.contains(L("a11y_price_notification_off")))
+        // Widgets ohne Glocke: kein Satzteil
+        let widget = A11y.watchRow(watch)
+        XCTAssertFalse(widget.contains(L("a11y_price_notification_on")))
+        XCTAssertFalse(widget.contains(L("a11y_price_notification_off")))
+    }
+
     /// Tableiste: bei Standardschrift 64 pt, mit grosser Schrift höher (Beschriftung nicht abgeschnitten).
     func testTabBarGrowsWithDynamicType() {
         XCTAssertEqual(AppTabBarMetrics.scaledHeight(labelLine: AppTabBarMetrics.labelLineHeight), AppTabBarMetrics.height)

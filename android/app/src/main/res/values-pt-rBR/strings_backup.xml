@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="backup_device_bound">Antes de trocar de aparelho, crie um arquivo de backup – os dados criptografados só podem ser abertos neste aparelho.</string>
+    <string name="backup_encryption_pending">Criptografia ainda não ativa – o app tentará de novo na próxima abertura.</string>
     <!-- Sicherung exportieren und wiederherstellen -->
     <string name="backup_export">Exportar</string>
     <string name="backup_exported">Backup salvo.</string>

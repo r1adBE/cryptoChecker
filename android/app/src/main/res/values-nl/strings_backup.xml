@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="backup_device_bound">Maak vóór een apparaatwissel een back-upbestand – de versleutelde gegevens zijn alleen op dit apparaat te openen.</string>
+    <string name="backup_encryption_pending">Versleuteling nog niet actief – de app probeert het bij de volgende start opnieuw.</string>
     <!-- Sicherung exportieren und wiederherstellen -->
     <string name="backup_export">Exporteren</string>
     <string name="backup_exported">Back-up opgeslagen.</string>

@@ -1,0 +1,7 @@
+# App-Review-Angaben (Kontakt, Notizen für Apple) bleiben lokal — nie ins öffentliche Repository
+fastlane/metadata/review_information/
+
+# Xcode: Benutzerzustand und Build-Ausgaben
+xcuserdata/
+*.xcuserstate
+DerivedData/

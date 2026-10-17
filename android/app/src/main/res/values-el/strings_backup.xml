@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="backup_device_bound">Πριν αλλάξεις συσκευή, δημιούργησε αρχείο αντιγράφου ασφαλείας – τα κρυπτογραφημένα δεδομένα ανοίγουν μόνο σε αυτή τη συσκευή.</string>
+    <string name="backup_encryption_pending">Η κρυπτογράφηση δεν είναι ακόμη ενεργή – η εφαρμογή θα δοκιμάσει ξανά στην επόμενη εκκίνηση.</string>
     <!-- Sicherung exportieren und wiederherstellen -->
     <string name="backup_export">Εξαγωγή</string>
     <string name="backup_exported">Το αντίγραφο αποθηκεύτηκε.</string>

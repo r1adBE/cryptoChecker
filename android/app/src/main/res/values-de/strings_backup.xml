@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="backup_device_bound">Vor einem Gerätewechsel eine Sicherungsdatei erstellen – die verschlüsselten Daten lassen sich nur auf diesem Gerät öffnen.</string>
+    <string name="backup_encryption_pending">Verschlüsselung noch nicht aktiv – die App versucht es beim nächsten Start erneut.</string>
     <!-- Sicherung exportieren und wiederherstellen -->
     <string name="backup_export">Exportieren</string>
     <string name="backup_exported">Sicherung gespeichert.</string>

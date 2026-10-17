@@ -17,7 +17,8 @@ import timber.log.Timber
  * - gar nicht, solange der Keystore den Schlüssel einer verschlüsselten Datei gerade nicht herausgibt (Ausnahme;
  *   der nächste Zugriff versucht es erneut, verändert wird nichts).
  * War die verschlüsselte Datei ohne Schlüssel unlesbar, liegt sie beiseite und die App nennt das einmal
- * ([StorageRecoveryNotice]).
+ * ([StorageRecoveryNotice]). Ein unverschlüsselter Rückfall steht unter Einstellungen › Sicherung, bis ein Start die
+ * Datei verschlüsselt ([DatabaseEncryptionNotice]).
  */
 class EncryptingOpenHelperFactory(
     private val context: Context,
@@ -61,6 +62,8 @@ class EncryptingOpenHelperFactory(
             val decision = DatabaseEncryptionMigration(files, keys) { message, error ->
                 if (error == null) Timber.i(message) else Timber.w(error, message)
             }.prepare(name)
+            // Unverschlüsselt bleiben nennt Einstellungen › Sicherung (EncryptionPending); verschlüsselt löscht es
+            DatabaseEncryptionNotice.note(context, name, decision)
             val helper = when (decision) {
                 is Decision.Encrypted -> {
                     if (decision.setAside) StorageRecoveryNotice.record(context, name)

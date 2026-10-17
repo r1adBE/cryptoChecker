@@ -165,25 +165,26 @@ class BackupCryptoTest {
 
     @Test
     fun passwordRules() {
-        // Mindestlänge 10 (neue Sicherungen)
-        assertFalse(BackupCrypto.isPasswordLongEnough("123456789"))
-        assertTrue(BackupCrypto.isPasswordLongEnough("1234567890"))
+        // Mindestlänge 12 (neue Sicherungen, seit Build 69)
+        assertFalse(BackupCrypto.isPasswordLongEnough("12345678901"))
+        assertTrue(BackupCrypto.isPasswordLongEnough("123456789012"))
         // Emoji zählt als ein Zeichen (zwei UTF-16-Einheiten)
-        assertFalse(BackupCrypto.isPasswordLongEnough("12345678🔒"))
-        assertTrue(BackupCrypto.isPasswordLongEnough("123456789🔒"))
+        assertFalse(BackupCrypto.isPasswordLongEnough("1234567890🔒"))
+        assertTrue(BackupCrypto.isPasswordLongEnough("12345678901🔒"))
         val good = "Kryptö-Test 2026!"
         assertTrue(BackupCrypto.canExport(protect = false, password = "", repeat = ""))
         assertFalse(BackupCrypto.canExport(protect = true, password = good, repeat = "Kryptö-Test 2027!"))
         assertFalse(BackupCrypto.canExport(protect = true, password = "1234", repeat = "1234"))
         assertTrue(BackupCrypto.canExport(protect = true, password = good, repeat = good))
-        // Schwache Passwörter sperren das Sichern, auch ab 10 Zeichen
+        // Schwache Passwörter sperren das Sichern, auch ab 12 Zeichen
         // Liste statt Literal am Parameter: das Upload-Skript meldet sonst ein Passwort im Klartext
-        val weakSamples = listOf("1234567890", "aaaaaaaaaaaa", "MeinPasswort")
+        val weakSamples = listOf("123456789012", "aaaaaaaaaaaa", "MeinPasswort")
         for (weak in weakSamples) {
             assertFalse(weak, BackupCrypto.canExport(protect = true, password = weak, repeat = weak))
         }
-        assertFalse(BackupCrypto.isPasswordAllowed("Abc!def9x"))     // 9 Zeichen
-        assertTrue(BackupCrypto.isPasswordAllowed("Abc!def9xy"))     // 10 Zeichen
+        assertFalse(BackupCrypto.isPasswordAllowed("Abc!def9xy"))    // 10 Zeichen (bis Build 68 erlaubt)
+        assertFalse(BackupCrypto.isPasswordAllowed("Abc!def9xyZ"))   // 11 Zeichen
+        assertTrue(BackupCrypto.isPasswordAllowed("Abc!def9xyZ2"))   // 12 Zeichen
     }
 
     @Test

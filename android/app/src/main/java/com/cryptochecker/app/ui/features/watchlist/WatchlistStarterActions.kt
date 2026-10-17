@@ -81,10 +81,10 @@ internal suspend fun WatchlistViewModel.loadStarterPrices(coins: List<StarterPai
 }
 
 /**
- * Start-Merkliste: Paare der gewählten Coins anlegen (Binance …/USDT, in den USA
- * Coinbase …/USD; CH/LI: Kraken …/CHF bzw. …/USD), genau wie «Hinzufügen» (WatchRepository.addWatch, gleiche
- * Standardwerte, aber Kurs-Benachrichtigung aus). Vorhandene Paare werden nicht doppelt angelegt. Danach gleich
- * aktualisieren. Einstellungen (z. B. Umrechnung) bleiben unverändert.
+ * Start-Merkliste: Paare der gewählten Coins anlegen — Börse nach [StarterPairs.marketKey]: Binance …/USDT in allen
+ * Regionen (auch CH/LI), in den USA und bei Standort-Sperre von Binance (451/403) Binance.US …/USDT. Genau wie
+ * «Hinzufügen» (WatchRepository.addWatch, gleiche Standardwerte samt Kurs-Benachrichtigung). Vorhandene Paare werden
+ * nicht doppelt angelegt. Danach gleich aktualisieren. Einstellungen (z. B. Umrechnung) bleiben unverändert.
  */
 internal fun WatchlistViewModel.addStarter(symbols: List<String>) {
     // Doppeltipp: kein zweiter Durchlauf, der doppelt anlegt oder den Moment verwirft

@@ -9,7 +9,7 @@
     </plurals>
     <string name="watchlist_last_run">पिछला रन %1$s</string>
     <string name="watchlist_live_a11y">लाइव भाव चालू</string>
-    <string name="watchlist_live_badge">LIVE</string>
+    <string name="watchlist_live_badge">लाइव</string>
     <string name="watchlist_offline_since">कनेक्शन नहीं · अंतिम अपडेट %1$s</string>
     <string name="watchlist_pull_to_refresh">रीफ़्रेश के लिए नीचे खींचें</string>
     <string name="watchlist_refresh_report">पिछला रीफ़्रेश</string>
@@ -117,7 +117,7 @@
     <string name="watch_action_alarm">अलार्म</string>
     <string name="watch_action_favorite">पसंदीदा</string>
     <string name="watch_action_why">साथ में किसमें हलचल है?</string>
-    <string name="watch_action_why_short">साथ क्या चला?</string>
+    <string name="watch_action_why_short">साथ में क्या चल रहा है?</string>
     <string name="watch_change_mark">मार्क</string>
     <string name="watch_disable">बंद करें</string>
     <string name="watch_disable_hint">कोई अनुरोध नहीं, कोई सूचना नहीं</string>

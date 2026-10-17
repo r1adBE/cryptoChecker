@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="backup_device_bound">Trước khi đổi thiết bị, hãy tạo tệp sao lưu – dữ liệu đã mã hóa chỉ mở được trên thiết bị này.</string>
+    <string name="backup_encryption_pending">Mã hóa chưa được bật – ứng dụng sẽ thử lại ở lần khởi động tới.</string>
     <!-- Sicherung exportieren und wiederherstellen -->
     <string name="backup_export">Xuất</string>
     <string name="backup_exported">Đã lưu bản sao lưu.</string>

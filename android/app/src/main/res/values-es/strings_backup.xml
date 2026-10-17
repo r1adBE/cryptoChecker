@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="backup_device_bound">Antes de cambiar de dispositivo, crea un archivo de copia de seguridad: los datos cifrados solo se pueden abrir en este dispositivo.</string>
+    <string name="backup_encryption_pending">El cifrado aún no está activo: la app lo intentará de nuevo en el próximo inicio.</string>
     <!-- Sicherung exportieren und wiederherstellen -->
     <string name="backup_export">Exportar</string>
     <string name="backup_exported">Copia guardada.</string>

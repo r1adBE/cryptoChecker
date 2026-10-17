@@ -28,9 +28,9 @@ enum BackupCrypto {
     static let ivBytes = 12
     static let tagBytes = 16
     static let keyBytes = 32
-    /// Mindestlänge des Passworts (Unicode-Zeichen, wie `codePointCount` unter Android).
-    /// Mindestlänge für neue Sicherungen; ältere Dateien (Mindestlänge 8) lassen sich mit jedem Passwort entschlüsseln.
-    static let minPasswordLength = 10
+    /// Mindestlänge des Passworts für neue Sicherungen (Unicode-Zeichen, wie `codePointCount` unter Android; seit
+    /// Build 69 12, vorher 10 bzw. 8). Ältere Dateien lassen sich mit jedem Passwort entschlüsseln.
+    static let minPasswordLength = 12
     /// Grenzen für «iter» beim Lesen: Schutz vor unsinnigen oder absichtlich lähmenden Werten (umfasst 210 000 und 600 000).
     private static let iterationRange = 10_000...10_000_000
 
@@ -249,7 +249,7 @@ enum BackupVersion {
 
 /// Schwache Passwörter im Blatt «Sichern» — wie `BackupPasswordStrength` in `BackupCrypto.kt` (gemeinsame Beispiele in
 /// `testdata/parity/backup_passwords.json`): sperren das Sichern mit Passwort (`BackupCrypto.canExport`). Entschlüsseln
-/// prüft das Passwort nicht. Zeichenklassen nur ASCII (a–z, A–Z, 0–9, alles andere), damit beide Plattformen gleich zählen.
+/// prüft das Passwort nicht.
 enum BackupPasswordStrength {
     /// Häufige Folgen (klein geschrieben); kommt eine davon vor, ist das Passwort schwach.
     private static let common = ["password", "passwort", "12345678", "87654321", "abcdefgh"]
@@ -279,15 +279,13 @@ enum BackupPasswordStrength {
     /// Höchstens so viele Ziffern/Zeichen um ein Wort herum gelten als Schmuck.
     private static let decoration = 6
 
-    /// Unter dieser Länge sind ≤ 2 Zeichenklassen schwach.
-    private static let classLength = 12
-
     /// Schwach (für neue Sicherungen gesperrt) — Regeln wie Android:
     ///  - kürzer als `BackupCrypto.minPasswordLength`, nur Ziffern oder ein einziges Zeichen wiederholt;
     ///  - eine häufige Folge oder ein Tastatur-Spaziergang (6 Zeichen einer Reihe, auch rückwärts);
     ///  - ein Wort (Jahreszeit, Monat, häufiges Wort, Name der App) mit höchstens 6 Ziffern/Zeichen davor bzw. danach;
-    ///  - ein wiederholtes Stück («abcabcabcabc», «Test1Test1»);
-    ///  - höchstens 2 Zeichenklassen und kürzer als 12 Zeichen.
+    ///  - ein wiederholtes Stück («abcabcabcabc», «Test1Test1»).
+    /// Die frühere Regel «höchstens 2 Zeichenklassen und kürzer als 12 Zeichen» deckt seit Build 69 die
+    /// Mindestlänge 12 ab (Zeichenklassen spielen ab 12 Zeichen keine Rolle).
     static func isWeak(_ password: String) -> Bool {
         let normalized = password.precomposedStringWithCanonicalMapping
         let scalars = Array(normalized.unicodeScalars)
@@ -299,8 +297,7 @@ enum BackupPasswordStrength {
         if common.contains(where: { lower.contains($0) }) { return true }
         if keyboardWalk(lower) { return true }
         if decoratedWord(lower) { return true }
-        if repeatedChunk(scalars) { return true }
-        return classes(scalars) <= 2 && scalars.count < classLength
+        return repeatedChunk(scalars)
     }
 
     /// 6 aufeinanderfolgende Zeichen einer Tastaturreihe (vorwärts oder rückwärts).
@@ -337,21 +334,7 @@ enum BackupPasswordStrength {
         return false
     }
 
-    /// Zeichenklassen (ASCII): Kleinbuchstaben, Grossbuchstaben, Ziffern, Übrige.
-    private static func classes(_ s: [Unicode.Scalar]) -> Int {
-        var lower = false, upper = false, digit = false, other = false
-        for c in s {
-            switch c.value {
-            case 0x61...0x7A: lower = true
-            case 0x41...0x5A: upper = true
-            case 0x30...0x39: digit = true
-            default: other = true
-            }
-        }
-        return [lower, upper, digit, other].filter { $0 }.count
-    }
-
-    /// Hinweis «zu leicht zu erraten» zeigen? Erst ab der Mindestlänge (vorher gilt «mindestens 10 Zeichen»).
+    /// Hinweis «zu leicht zu erraten» zeigen? Erst ab der Mindestlänge (vorher gilt «mindestens 12 Zeichen»).
     static func showWeakHint(_ password: String) -> Bool {
         BackupCrypto.isPasswordLongEnough(password) && isWeak(password)
     }

@@ -140,6 +140,24 @@
       }
     },
     {
+      "kind": "single",
+      "name": "cancel_only pair (ACAUSD): close price 0 is no price, not 0",
+      "market": "Kraken",
+      "pair": {
+        "base": "ACA",
+        "quote": "USD",
+        "id": "ACAUSD",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"error\":[],\"result\":{\"ACAUSD\":{\"a\":[\"0.00000\",\"0\",\"0.000\"],\"b\":[\"0.00000\",\"0\",\"0.000\"],\"c\":[\"0.00000\",\"0.00000000\"],\"v\":[\"0.00000000\",\"0.00000000\"],\"p\":[\"0.00000\",\"0.00000\"],\"t\":[0,0],\"l\":[\"0.00000\",\"0.00000\"],\"h\":[\"0.00000\",\"0.00000\"],\"o\":\"0.00000\"}}}",
+      "expect": {
+        "error": true,
+        "message": null
+      },
+      "note": "Shape as recorded live on 2026-10-16 for the four cancel_only pairs. Without a price the app confirms «not traded any more» (NotTraded) instead of silently keeping the old price."
+    },
+    {
       "kind": "bulk",
       "name": "bulk filtered ?pair=XXBTZUSD,XETHZEUR",
       "market": "Kraken",
@@ -360,6 +378,33 @@
         }
       },
       "note": "Kraken AssetPairs: wsname is 'BASE/QUOTE' in Kraken's own codes; base/quote may carry the pre-2018 X/Z prefixes (XXBT, ZUSD)"
+    },
+    {
+      "kind": "pairs",
+      "name": "pair list: only status 'online' is offered; cancel_only/post_only/limit_only/reduce_only dropped, missing status kept (older responses)",
+      "market": "Kraken",
+      "requestId": 0,
+      "body": "{\"error\":[],\"result\":{\"XXBTZUSD\":{\"altname\":\"XBTUSD\",\"wsname\":\"XBT/USD\",\"base\":\"XXBT\",\"quote\":\"ZUSD\",\"status\":\"online\"},\"ACAUSD\":{\"altname\":\"ACAUSD\",\"wsname\":\"ACA/USD\",\"base\":\"ACA\",\"quote\":\"ZUSD\",\"status\":\"cancel_only\"},\"ACXEUR\":{\"altname\":\"ACXEUR\",\"wsname\":\"ACX/EUR\",\"base\":\"ACX\",\"quote\":\"ZEUR\",\"status\":\"post_only\"},\"FOOUSD\":{\"altname\":\"FOOUSD\",\"wsname\":\"FOO/USD\",\"base\":\"FOO\",\"quote\":\"ZUSD\",\"status\":\"limit_only\"},\"BARUSD\":{\"altname\":\"BARUSD\",\"wsname\":\"BAR/USD\",\"base\":\"BAR\",\"quote\":\"ZUSD\",\"status\":\"reduce_only\"},\"XETHZEUR\":{\"altname\":\"ETHEUR\",\"wsname\":\"ETH/EUR\",\"base\":\"XETH\",\"quote\":\"ZEUR\"}}}",
+      "expect": {
+        "count": 2,
+        "absent": [
+          "ACAUSD",
+          "ACXEUR",
+          "FOOUSD",
+          "BARUSD"
+        ],
+        "pairs": {
+          "XXBTZUSD": {
+            "base": "BTC",
+            "quote": "USD"
+          },
+          "XETHZEUR": {
+            "base": "ETH",
+            "quote": "EUR"
+          }
+        }
+      },
+      "note": "Kraken AssetPairs status values: online, cancel_only, post_only, limit_only, reduce_only. Only online pairs can be traded normally."
     }
   ]
 }

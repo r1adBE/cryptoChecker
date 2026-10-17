@@ -11,7 +11,7 @@
     </plurals>
     <string name="watchlist_last_run">Poslední běh %1$s</string>
     <string name="watchlist_live_a11y">Živé kurzy zapnuté</string>
-    <string name="watchlist_live_badge">LIVE</string>
+    <string name="watchlist_live_badge">ŽIVĚ</string>
     <string name="watchlist_offline_since">Bez připojení · stav k %1$s</string>
     <string name="watchlist_pull_to_refresh">Potažením dolů obnovíte</string>
     <string name="watchlist_refresh_report">Poslední obnovení</string>
@@ -141,7 +141,7 @@
     <string name="watch_action_alarm">Alarm</string>
     <string name="watch_action_favorite">Oblíbené</string>
     <string name="watch_action_why">Co se hýbe s ním?</string>
-    <string name="watch_action_why_short">Co se hýbe?</string>
+    <string name="watch_action_why_short">Co se hýbe s ním?</string>
     <string name="watch_change_mark">Mark</string>
     <string name="watch_disable">Vypnout</string>
     <string name="watch_disable_hint">Žádné dotazy, žádná oznámení</string>

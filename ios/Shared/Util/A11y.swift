@@ -128,6 +128,7 @@ enum A11y {
                          chart: String? = nil,
                          alarmCount: Int = 0,
                          fired: Bool = false,
+                         priceNotificationOn: Bool? = nil,
                          details: [String?] = [],
                          extra: [String?] = [],
                          stale: String? = nil,
@@ -144,7 +145,13 @@ enum A11y {
             return L("a11y_converted", t)
         }
         let note = watch.note.flatMap { $0.isEmpty ? nil : L("a11y_note", $0) }
-        let alarms: [String?] = [fired ? L("a11y_alarm_fired") : nil,
+        // Kursmitteilung wie die Glocke der Merkliste-Zeile (nil = ohne Glocke, z. B. Widgets)
+        var priceNotification: String?
+        if let priceNotificationOn {
+            priceNotification = L(priceNotificationOn ? "a11y_price_notification_on" : "a11y_price_notification_off")
+        }
+        let alarms: [String?] = [priceNotification,
+                                 fired ? L("a11y_alarm_fired") : nil,
                                  alarmCount > 0 ? L("a11y_alarm_count", alarmCount) : nil]
         let error = watch.lastError.flatMap { e -> String? in
             if e.isEmpty { return nil }
@@ -253,6 +260,12 @@ enum A11ySpeech {
     /// Alarm dieses Paars eben ausgelöst (innerhalb von `firedMillis`)? Zukunft zählt nicht.
     static func firedRecently(_ lastTriggeredAt: Int64, now: Int64) -> Bool {
         lastTriggeredAt > 0 && now >= lastTriggeredAt && now - lastTriggeredAt <= firedMillis
+    }
+
+    /// Kursmitteilung der Zeile an — wie die schlichte Glocke (an) bzw. die durchgestrichene (aus): das Paar UND der
+    /// Hauptschalter «Kursmitteilungen». Der Zeilensatz sagt es vor den Alarmen. Wie Android.
+    static func priceNotificationOn(pairOn: Bool, masterOn: Bool) -> Bool {
+        pairOn && masterOn
     }
 
     /// Zustand der Status-Pille oben, soweit er angesagt wird.

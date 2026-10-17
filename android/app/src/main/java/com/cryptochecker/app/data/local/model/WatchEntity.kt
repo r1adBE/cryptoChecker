@@ -17,7 +17,10 @@ const val NOTE_MAX = 120
  */
 @Entity(
     tableName = "watches",
-    indices = [Index(value = ["marketKey", "baseAsset", "quoteAsset", "contractType"], unique = true)]
+    // Eindeutig je Paar; `pairId` gehört dazu, damit zwei DexScreener-Pools mit gleichem Symbol auf derselben
+    // Chain zwei Einträge sein können (WatchIdentity, seit v16). Bei den Börsen prüft die App vor dem Einfügen
+    // ohne Kennung (WatchDao.findWatchId); SQLite zählt NULL-Kennungen ohnehin als verschieden.
+    indices = [Index(value = ["marketKey", "baseAsset", "quoteAsset", "contractType", "pairId"], unique = true)]
 )
 data class WatchEntity(
     @PrimaryKey(autoGenerate = true)

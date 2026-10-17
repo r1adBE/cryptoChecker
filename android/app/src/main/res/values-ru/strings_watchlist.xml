@@ -11,7 +11,7 @@
     </plurals>
     <string name="watchlist_last_run">Последний проход %1$s</string>
     <string name="watchlist_live_a11y">Котировки в реальном времени включены</string>
-    <string name="watchlist_live_badge">LIVE</string>
+    <string name="watchlist_live_badge">ОНЛАЙН</string>
     <string name="watchlist_offline_since">Нет соединения · данные на %1$s</string>
     <string name="watchlist_pull_to_refresh">Потяните вниз, чтобы обновить</string>
     <string name="watchlist_refresh_report">Последнее обновление</string>
@@ -141,7 +141,7 @@
     <string name="watch_action_alarm">Оповещение</string>
     <string name="watch_action_favorite">Избранное</string>
     <string name="watch_action_why">Что движется вместе?</string>
-    <string name="watch_action_why_short">Что движется?</string>
+    <string name="watch_action_why_short">Что движется вместе?</string>
     <string name="watch_change_mark">Mark</string>
     <string name="watch_disable">Отключить</string>
     <string name="watch_disable_hint">Без запросов и уведомлений</string>

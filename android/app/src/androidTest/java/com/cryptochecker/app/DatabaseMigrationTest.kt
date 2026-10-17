@@ -23,8 +23,8 @@ import org.junit.runner.RunWith
 /**
  * Update-Pfad der Datenbank: eine alte Datenbank anlegen, mit Daten füllen und dann von Room
  * öffnen lassen. Room führt die Migrationen aus und prüft danach das Schema gegen die Entities
- * (sonst «Migration didn't properly handle …»). So ist die ganze Kette 3 → 15 und der reale
- * Update-Weg der Version 16.2.x (Datenbank v10/v12/v13/v14 → v15) geprüft, ohne die Schema-Dateien 4–12.
+ * (sonst «Migration didn't properly handle …»). So ist die ganze Kette 3 → 16 und der reale
+ * Update-Weg der Version 16.2.x (Datenbank v10/v12/v13/v14/v15 → v16) geprüft, ohne die Schema-Dateien 4–12.
  * Ab v13 liegt das Portfolio in einer eigenen Datei (PortfolioDatabase); die Tests unten prüfen
  * auch die einmalige Übernahme (PortfolioLegacyImport) samt Wiederholung und Systemsicherungs-Kopie.
  *
@@ -257,6 +257,46 @@ class DatabaseMigrationTest {
                 assertTrue(c.moveToFirst())
                 assertEquals(0L, c.getLong(0))
                 assertTrue(c.isNull(1))
+            }
+        }
+    }
+
+    @Test
+    fun upgradeFromVersion15AllowsTwoDexPoolsWithTheSameSymbol() {
+        oldDatabase(version = 15) { db ->
+            insertV3Data(db)
+            db.execSQL(
+                "INSERT INTO watches (marketKey, marketName, baseAsset, quoteAsset, contractType, pairId, sortOrder, " +
+                    "notificationEnabled, ttsEnabled, lastUpdate, notifiedAt) " +
+                    "VALUES ('DexScreener', 'DexScreener', 'PEPE', 'USD (ethereum)', 'NONE', 'ethereum/0xaaa', 5, 0, 0, 0, 0)"
+            )
+        }
+
+        withRoom { db ->
+            assertEquals(AppDatabase.VERSION, db.version)
+            // 15 → 16: zweiter Pool mit gleichem Symbol auf derselben Chain ist ein eigener Eintrag
+            db.execSQL(
+                "INSERT INTO watches (marketKey, marketName, baseAsset, quoteAsset, contractType, pairId, sortOrder, " +
+                    "notificationEnabled, ttsEnabled, lastUpdate, notifiedAt) " +
+                    "VALUES ('DexScreener', 'DexScreener', 'PEPE', 'USD (ethereum)', 'NONE', 'ethereum/0xbbb', 6, 0, 0, 0, 0)"
+            )
+            assertEquals(2, count(db, "watches WHERE marketKey = 'DexScreener'"))
+            // Derselbe Pool bleibt eindeutig
+            var duplicateRejected = false
+            try {
+                db.execSQL(
+                    "INSERT INTO watches (marketKey, marketName, baseAsset, quoteAsset, contractType, pairId, sortOrder, " +
+                        "notificationEnabled, ttsEnabled, lastUpdate, notifiedAt) " +
+                        "VALUES ('DexScreener', 'DexScreener', 'PEPE', 'USD (ethereum)', 'NONE', 'ethereum/0xaaa', 7, 0, 0, 0, 0)"
+                )
+            } catch (e: android.database.sqlite.SQLiteConstraintException) {
+                duplicateRejected = true
+            }
+            assertTrue(duplicateRejected)
+            // Bestehende Daten unverändert
+            db.query("SELECT threshold FROM alarms").use { c ->
+                assertTrue(c.moveToFirst())
+                assertEquals(90_000.0, c.getDouble(0), 0.0)
             }
         }
     }

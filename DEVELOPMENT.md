@@ -146,6 +146,13 @@ Override `fillPairList(call, body, out)` (whole response as text) or
 `MarketPair(base, quote, pairId)` per tradable pair. Swift returns the list:
 `fillPairList(call:body:)` / `fillPairList(call:json:)`.
 
+Offer only pairs that can be traded normally: Binance `status == "TRADING"`, Kraken AssetPairs
+`status == "online"` (since build 69; `cancel_only`, `post_only`, `limit_only`, `reduce_only` are dropped, a missing
+`status` in older responses counts as online). A watched pair that drops out is not removed: its row ends as «no
+longer traded» through the bulk/single path below (section 6). Kraken reports such pairs with close price 0; the
+single ticker treats that as «no price» (not 0), so `NotTraded.confirmedBySingle` marks the pair instead of the
+old price staying silently (`KrakenTradableTest` / `KrakenTradableTests` on `recorded/recorded_kraken.json`).
+
 ```kotlin
 override fun fillPairList(call: Int, body: String, out: MutableList<MarketPair>) {
     JSONArray(body).forEachJSONObject { entry ->
@@ -854,7 +861,10 @@ shared building blocks instead of styling numbers by hand:
   in the accent colour, rotated 180° when open); buttons with a text label use
   `ExpandToggleButton` / `ExpandToggleLabel`.
 * **Screen readers** get words, not symbols: pass a `contentDescription` / accessibility label
-  such as «up 2.35%» when the change text is only symbols and digits.
+  such as «up 2.35%» when the change text is only symbols and digits. The watchlist row sentence says every
+  icon of the row, including the price-notification bell («Price notification on/off»,
+  `A11ySpeech.priceNotificationOn` = pair switch AND master switch, the same rule as the plain/struck-through
+  bell), before the alarms.
 * **«Powered by CoinGecko».** Everything that shows CoinGecko data carries the line
   `DataFreshness.POWERED_BY_COINGECKO` (iOS `poweredByCoinGecko`; brand name, never translated) at
   ≥ 10 sp/pt, readable: under the CoinGecko-based Market cards (`MarketCardParts`), on the «Coin logos»
@@ -1113,12 +1123,13 @@ the tests named here.
   on both platforms and add a vector; never change how existing files are read. 600 000
   iterations take about a second on older devices – call encryption and decryption only off the
   main thread (Android `Dispatchers.IO`, iOS a detached task; the iOS «Continue» button stays
-  disabled while checking). New backup passwords need at least **10** characters
-  (`MIN_PASSWORD_LENGTH` / `minPasswordLength`, Unicode characters); `isWeak` (shorter than 10, only
-  digits, one repeated character, a common sequence such as «12345678» or «password») **blocks** the
-  export (`isPasswordAllowed`, `canExport`, `backup_password_too_weak`; the hint appears from the
-  minimum length on). Reading is not affected: older files (minimum 8 back then) decrypt with any
-  password. Since build 45.
+  disabled while checking). New backup passwords need at least **12** characters (since build 69;
+  10 from build 45, 8 before) (`MIN_PASSWORD_LENGTH` / `minPasswordLength`, Unicode characters); `isWeak`
+  (shorter than 12, only digits, one repeated character, a common sequence such as «12345678» or «password»,
+  a keyboard walk, a decorated common word, a repeated chunk) **blocks** the export (`isPasswordAllowed`,
+  `canExport`, `backup_password_too_weak`; the hint appears from the minimum length on). The former rule
+  «≤ 2 character classes and shorter than 12» is covered by the minimum length and was removed. Reading is not
+  affected: older files decrypt with any password. Cases in `testdata/parity/backup_passwords.json`.
 * **iOS widget caches.** Portfolio widget data that is not needed for a restore (hourly prices,
   value history, candle attempts) is stored as files in the App Group and always excluded from
   backup (`BackupExclusion`), not in the App Group `UserDefaults`, which cannot be excluded.
@@ -1392,6 +1403,13 @@ the tests named here.
   (`CheckBudget`); widget receivers stop after 9 s and draw from cache first. A timeout marks only that pair.
 * **One path for price notifications.** Every place that turns a price notification on goes through
   `showPriceNow` / `Notifier.showPriceNow` (`PriceNotificationRule`): master switch and «pin» setting apply.
+* **When two rows are the same pair (`WatchIdentity`).** Exchange, base, quote and contract — for DexScreener
+  additionally the pool (`pairId` = `chainId/pairAddress`): two pools with the same symbol on the same chain are two
+  rows. Exchanges keep the key without the id (ids are spelled differently in old entries). Used for adding
+  (`WatchDao.findWatchId(…, pool)` / `AppData.insert`), editing (`WatchEdit.Key.pool`), undo (`restore`) and backup
+  restore (`WatchlistRestoreCleanup`). Android's unique index includes `pairId` since app DB v16
+  (`MIGRATION_15_16`); NULL ids never collide in SQLite, so the app-side check stays the rule for exchanges.
+  Cases in `testdata/parity/watch_identity.json`.
 
 ## 17. «Why?», futures data, chart and asset kinds
 
@@ -1623,8 +1641,9 @@ Layout decisions that keep the app calm. Same structure on Android and iOS, same
   data)». Memory only (this device, not in the backup, no database column); cleared by the next
   successful check or an app restart. Never treat a skipped check as «not met».
 * **Calm defaults for new installs (Build 42).** Non-dismissible («ongoing») price notifications are
-  off and new pairs (also the starter watchlist) are added without a price notification
-  (`WatchRepository.DEFAULT_NOTIFICATION_ENABLED = false`). Existing installs keep their value through
+  off. New pairs (also the starter watchlist) get the price notification since 16 Oct 2026
+  (`WatchRepository.DEFAULT_NOTIFICATION_ENABLED = true`; owner decision: someone installing a price checker
+  wants to see the price; before that it was off). Existing installs keep their value through
   a one-time migration (`OngoingNotificationsMigration`, `AppSettings.ongoingForMigration`). Changing a
   default means a migration that keeps the stored behaviour of existing users.
 * **Watchlist header.** The add-pair button carries its text («+ Add pair», `AddPairButton`, iOS
@@ -1661,8 +1680,9 @@ Layout decisions that keep the app calm. Same structure on Android and iOS, same
   notification centre on.
 * **Contrast is computed, not assumed.** Accent primaries (light) reach 4.5:1 on every surface up to
   `#E2E2E2`, price colours on every surface up to `#353535`/`#E2E2E2` (`AccentContrastTest`, price colour
-  tests). Zone colours (Fear & Greed) are only for non-text marks (≥ 3:1) and follow the price colour scheme
-  (`MarketScalePalette`); numbers stay in text colour. Widget text at least 11 sp/pt. Light dividers
+  tests). Zone colours are only for non-text marks (≥ 3:1); numbers stay in text colour. The Fear & Greed card
+  (since build 69, like the pulse widget) shows the number large with the level word next to it and one level dot
+  (`MarketScaleColors`, fixed scale) on a neutral `outlineVariant` track — no five-colour gradient. Widget text at least 11 sp/pt. Light dividers
   (`outlineVariant`, all light schemes and iOS `ColorTokens.outlineVariant`) are `#ADA9A0` since build 58:
   2.23:1 on `#FBF9F6` (before `#C9C6BF`, 1.62:1), deliberately below 3:1 – the only outline of a control is
   `outline`. Dark mode unchanged (`#474747`).
@@ -1788,8 +1808,14 @@ next start.
   fallback) → fingerprint (user_version, per table row count + order-independent row checksum over all columns,
   incl. `sqlite_sequence`, without `android_metadata`) → `ATTACH … KEY` + `sqlcipher_export` + `user_version` into
   `<db>.encrypting` → fingerprint of the copy with the key must be identical → delete `-wal/-shm/-journal` →
-  rename the copy over the database. Room migrations (app DB 1 → 15, portfolio 1 → 4) run afterwards on the
+  rename the copy over the database. Room migrations (app DB 1 → 16, portfolio 1 → 4) run afterwards on the
   encrypted file. `MarketDatabase.db` (predecessor project) is still only deleted, never migrated.
+* Plaintext fallback is not silent (build 69): `EncryptingOpenHelperFactory` records every decision in
+  `DatabaseEncryptionNotice` (own SharedPreferences, never in a backup; rule `EncryptionPending`, pure Kotlin +
+  `EncryptionPendingTest`): `Plaintext` adds the database, `Encrypted` removes it, `KeyUnavailable` changes
+  nothing. While the set is not empty, Settings › Backup shows «Encryption not active yet – the app will try again
+  at the next start» (`backup_encryption_pending`); persisted, so it also covers a database not opened in this
+  process (portfolio).
 * Before Room opens an encrypted file the key is checked (`opens`): Room's `onCorruption` would delete a file that
   SQLite does not recognise. All own connections use an error handler that never deletes.
 * Key permanently lost (alias gone, invalidated, wrong tag, or key does not open the file): the file is renamed to
@@ -1842,9 +1868,18 @@ next start.
 * Key: 256 bit in the keychain (`StorageKey`, service `com.cryptochecker.storage-key`), access group = the App Group
   `group.com.cryptochecker.app` (works with the existing `application-groups` entitlement for app and widgets; a
   `keychain-access-groups` entitlement is deliberately not added because it would change the default group of all
-  keychain items). `kSecAttrAccessibleAfterFirstUnlock`, not `…ThisDeviceOnly`: the key must travel with encrypted
-  iCloud/computer backups and device transfer, because `watchlist.json` (and the portfolio with «Portfolio in system
-  backup») are part of device backups. Only the app creates the key; widgets only read it.
+  keychain items). `kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly` since build 69 (owner decision 17 Oct 2026;
+  before `kSecAttrAccessibleAfterFirstUnlock`): readable after the first unlock (widgets, background), but never
+  part of an iCloud/computer backup and never moved to another iPhone — whoever gets hold of a device backup has
+  the sealed files but never their key. Consequence, said up front under Settings › Backup on both platforms
+  («Before switching devices, create a backup file…», `backup_device_bound`; Android Keystore keys are
+  device-bound too): after restoring a device backup on a **new** iPhone the sealed files cannot be opened;
+  `prepareAtLaunch` sets them aside (`.locked`) and `StorageRecoveryNotice` names it once — the way back is the
+  backup file. Existing installs: `StorageKey.restrictToThisDevice` (called by `prepareAtLaunch` when the key was
+  found) reads the item's `kSecAttrAccessible` and changes only that attribute with `SecItemUpdate` — same key
+  bytes, same service/account/access group (widgets keep reading); never delete and recreate (every file would
+  become unreadable). If it fails (e.g. before the first unlock) nothing changes and the next start retries.
+  Only the app creates the key; widgets only read it.
 * Protected files (`ProtectedStorage.files`): watchlist, portfolio alarms, portfolio, watched addresses, portfolio
   widget snapshot and their `.unreadable` copies. The widget snapshot is written only sealed
   (`PortfolioWidgetStore.writeSnapshotFile` checks the key first, since build 60): without a key or when the
@@ -1858,8 +1893,12 @@ next start.
   reads it back, decrypts and compares, then `rename(2)`; without key it writes plaintext as before.
 * `ProtectedStorage.prepareAtLaunch` (first thing in `AppData.init`): keychain unreadable → touch nothing; no key
   but sealed files → move them to `<name>.locked` (never delete), then create the key and show
-  `StorageRecoveryNotice`; then encrypt every plaintext file (coordinated like `SharedStorage`, only replaced if the
-  file is still byte-identical, backup-exclusion flag restored). Tests: `ProtectedFileTests` (fake keychain).
+  `StorageRecoveryNotice`; key found → restrict an old keychain item to this device (above); then encrypt every
+  plaintext file (coordinated like `SharedStorage`, only replaced if the file is still byte-identical,
+  backup-exclusion flag restored). Every file left plaintext (keychain unreadable, no key possible, failed
+  encryption) is listed in `LaunchOutcome.keptPlain`; `encryptionPending` → Settings › Backup shows
+  `backup_encryption_pending` like Android. Tests: `ProtectedFileTests` (fake keychain, incl. the
+  accessibility migration).
 * File protection stays the system default (complete until first user authentication).
 
 **Rules for later changes.** Never open an encrypted database with a helper that deletes on corruption; never create

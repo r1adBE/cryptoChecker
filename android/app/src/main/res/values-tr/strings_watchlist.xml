@@ -9,7 +9,7 @@
     </plurals>
     <string name="watchlist_last_run">Son çalışma %1$s</string>
     <string name="watchlist_live_a11y">Canlı fiyatlar açık</string>
-    <string name="watchlist_live_badge">LIVE</string>
+    <string name="watchlist_live_badge">CANLI</string>
     <string name="watchlist_offline_since">Bağlantı yok · %1$s itibarıyla</string>
     <string name="watchlist_pull_to_refresh">Yenilemek için aşağı çekin</string>
     <string name="watchlist_refresh_report">Son yenileme</string>
@@ -117,7 +117,7 @@
     <string name="watch_action_alarm">Alarm</string>
     <string name="watch_action_favorite">Favori</string>
     <string name="watch_action_why">Onunla birlikte ne hareket ediyor?</string>
-    <string name="watch_action_why_short">Ne birlikte?</string>
+    <string name="watch_action_why_short">Birlikte ne oynuyor?</string>
     <string name="watch_change_mark">Mark</string>
     <string name="watch_disable">Devre dışı bırak</string>
     <string name="watch_disable_hint">Sorgu yok, bildirim yok</string>

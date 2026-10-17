@@ -117,7 +117,7 @@
     <string name="watch_action_alarm">Larm</string>
     <string name="watch_action_favorite">Favorit</string>
     <string name="watch_action_why">Vad rör sig med?</string>
-    <string name="watch_action_why_short">Rör sig med?</string>
+    <string name="watch_action_why_short">Vad rör sig med?</string>
     <string name="watch_change_mark">Mark</string>
     <string name="watch_disable">Inaktivera</string>
     <string name="watch_disable_hint">Inga förfrågningar, inga notiser</string>

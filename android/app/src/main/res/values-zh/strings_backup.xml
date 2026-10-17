@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="backup_device_bound">更换设备前请先创建备份文件——加密数据只能在本设备上打开。</string>
+    <string name="backup_encryption_pending">加密尚未启用——应用会在下次启动时重试。</string>
     <!-- Sicherung exportieren und wiederherstellen -->
     <string name="backup_export">导出</string>
     <string name="backup_exported">备份已保存。</string>

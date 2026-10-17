@@ -317,8 +317,8 @@ enum AppColors {
 }
 
 /// Fünfstufige Skala von «Extrem Bear» bis «Extrem Bull» — wie `MarketScaleColors` in Android.
-/// Feste Farben je Hell/Dunkel (`ColorTokens.scale*`), auch als Schrift ≥ 4.5:1; die
-/// Fear-&-Greed-Karte nimmt `MarketScalePalette` (aus den Kursfarben).
+/// Feste Farben je Hell/Dunkel (`ColorTokens.scale*`), auch als Schrift ≥ 4.5:1; auch der Stufenpunkt der
+/// Fear-&-Greed-Karte (wie im Puls-Widget, seit Build 69 statt des Verlaufs aus `MarketScalePalette.steps`).
 enum MarketScaleColors {
     static let steps: [Color] = ColorTokens.scaleSteps.map { Color.dynamic($0) }
 

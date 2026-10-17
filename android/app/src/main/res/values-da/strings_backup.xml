@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="backup_device_bound">Opret en sikkerhedskopi-fil, før du skifter enhed – de krypterede data kan kun åbnes på denne enhed.</string>
+    <string name="backup_encryption_pending">Kryptering er endnu ikke aktiv – appen prøver igen ved næste start.</string>
     <!-- Sicherung exportieren und wiederherstellen -->
     <string name="backup_export">Eksportér</string>
     <string name="backup_exported">Backup gemt.</string>

@@ -8,7 +8,7 @@
     </plurals>
     <string name="watchlist_last_run">Proses terakhir %1$s</string>
     <string name="watchlist_live_a11y">Harga live aktif</string>
-    <string name="watchlist_live_badge">LIVE</string>
+    <string name="watchlist_live_badge">LANGSUNG</string>
     <string name="watchlist_offline_since">Tidak ada koneksi · per %1$s</string>
     <string name="watchlist_pull_to_refresh">Tarik ke bawah untuk memperbarui</string>
     <string name="watchlist_refresh_report">Pembaruan terakhir</string>
@@ -105,7 +105,7 @@
     <string name="watch_action_alarm">Alarm</string>
     <string name="watch_action_favorite">Favorit</string>
     <string name="watch_action_why">Apa yang ikut bergerak?</string>
-    <string name="watch_action_why_short">Ikut bergerak?</string>
+    <string name="watch_action_why_short">Apa yang ikut bergerak?</string>
     <string name="watch_change_mark">Mark</string>
     <string name="watch_disable">Nonaktifkan</string>
     <string name="watch_disable_hint">Tanpa permintaan, tanpa notifikasi</string>

@@ -11,7 +11,7 @@
     </plurals>
     <string name="watchlist_last_run">Ostatnie odświeżenie %1$s</string>
     <string name="watchlist_live_a11y">Kursy na żywo włączone</string>
-    <string name="watchlist_live_badge">LIVE</string>
+    <string name="watchlist_live_badge">NA ŻYWO</string>
     <string name="watchlist_offline_since">Brak połączenia · stan z %1$s</string>
     <string name="watchlist_pull_to_refresh">Przeciągnij w dół, aby odświeżyć</string>
     <string name="watchlist_refresh_report">Ostatnie odświeżenie</string>
@@ -141,7 +141,7 @@
     <string name="watch_action_alarm">Alarm</string>
     <string name="watch_action_favorite">Ulubione</string>
     <string name="watch_action_why">Co rusza się razem?</string>
-    <string name="watch_action_why_short">Co się rusza?</string>
+    <string name="watch_action_why_short">Co rusza się razem?</string>
     <string name="watch_change_mark">Mark</string>
     <string name="watch_disable">Wyłącz</string>
     <string name="watch_disable_hint">Bez zapytań, bez powiadomień</string>

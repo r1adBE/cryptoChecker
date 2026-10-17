@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="backup_device_bound">Przed zmianą urządzenia utwórz plik kopii zapasowej – zaszyfrowane dane można otworzyć tylko na tym urządzeniu.</string>
+    <string name="backup_encryption_pending">Szyfrowanie nie jest jeszcze aktywne – aplikacja spróbuje ponownie przy następnym uruchomieniu.</string>
     <!-- Sicherung exportieren und wiederherstellen -->
     <string name="backup_export">Eksportuj</string>
     <string name="backup_exported">Kopia zapisana.</string>

@@ -11,7 +11,7 @@
     </plurals>
     <string name="watchlist_last_run">Останній прохід %1$s</string>
     <string name="watchlist_live_a11y">Курси наживо ввімкнено</string>
-    <string name="watchlist_live_badge">LIVE</string>
+    <string name="watchlist_live_badge">НАЖИВО</string>
     <string name="watchlist_offline_since">Немає з\'єднання · дані станом на %1$s</string>
     <string name="watchlist_pull_to_refresh">Потягніть униз, щоб оновити</string>
     <string name="watchlist_refresh_report">Останнє оновлення</string>
@@ -141,7 +141,7 @@
     <string name="watch_action_alarm">Сигнал</string>
     <string name="watch_action_favorite">Обране</string>
     <string name="watch_action_why">Що рухається разом?</string>
-    <string name="watch_action_why_short">Що рухається?</string>
+    <string name="watch_action_why_short">Що рухається разом?</string>
     <string name="watch_change_mark">Mark</string>
     <string name="watch_disable">Вимкнути</string>
     <string name="watch_disable_hint">Без запитів і сповіщень</string>

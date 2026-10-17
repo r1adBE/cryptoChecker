@@ -45,11 +45,17 @@ interface WatchDao {
     @Query("DELETE FROM watches")
     suspend fun deleteAllWatches()
 
+    /**
+     * Eintrag mit diesem Schlüssel ([com.cryptochecker.app.domain.watch.WatchIdentity]); [pool] (nur DexScreener,
+     * sonst null) grenzt zusätzlich auf die Paar-Kennung ein — gleiche Symbole, anderer Pool = anderer Eintrag.
+     */
     @Query(
         """
         SELECT id FROM watches
         WHERE marketKey = :marketKey AND baseAsset = :base
           AND quoteAsset = :quote AND contractType = :contractType
+          AND (:pool IS NULL OR pairId = :pool)
+        LIMIT 1
         """
     )
     suspend fun findWatchId(
@@ -57,6 +63,7 @@ interface WatchDao {
         base: String,
         quote: String,
         contractType: String,
+        pool: String?,
     ): Long?
 
     /**
