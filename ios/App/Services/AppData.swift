@@ -113,6 +113,10 @@ final class AppData: ObservableObject {
     /// false = `portfolio.json` war beim Lesen da, aber nicht (ganz) lesbar: vor jedem Schreiben neu lesen
     /// bzw. die Datei sichern, statt sie mit einem leeren Stand zu überschreiben.
     var portfolioIntact = true
+    /// Portfolio bzw. Portfolio-Alarme konnten nicht versiegelt gespeichert werden (Schlüsselbund gerade nicht lesbar) und
+    /// warten im Speicher — nie im Klartext geschrieben. Das Portfolio nennt es; das nächste Speichern bzw. die Rückkehr
+    /// der App nach vorne versucht es erneut (`retryPendingPortfolioSaves`).
+    @Published var portfolioSavePending = false
     var appActive = false
     /// Dateien mit Nutzerdaten blieben beim Start unverschlüsselt (`LaunchOutcome.encryptionPending`): Einstellungen ›
     /// Sicherung nennt «Verschlüsselung noch nicht aktiv» — wie Android `DatabaseEncryptionNotice`.
@@ -127,9 +131,11 @@ final class AppData: ObservableObject {
 
     private init() {
         // Vor dem ersten Lesen: Dateien mit Nutzerdaten verschlüsseln (einmalig, Build 59); ohne Schlüssel
-        // unlesbare beiseitelegen und das einmal nennen (`StorageRecoveryNotice`)
+        // unlesbare beiseitelegen und das nennen, bis der Nutzer es bestätigt (`StorageRecoveryNotice`); öffnen
+        // beiseitegelegte Dateien doch mit dem Schlüssel, kommen sie zurück (einmal genannt)
         let protection = ProtectedStorage.prepareAtLaunch()
         if !protection.setAside.isEmpty { StorageRecoveryNotice.record() }
+        if !protection.restored.isEmpty && protection.setAside.isEmpty { StorageRecoveryNotice.recordRestored() }
         encryptionPending = protection.encryptionPending
         snapshot = SharedStorage.loadSnapshot()
         let loadedSettings = AppData.readSettings()
@@ -258,18 +264,24 @@ final class AppData: ObservableObject {
         snapshot = s
         quietPriceSave = false
         dropMissingWatchlistGroup()
-        // Speichern im Hintergrund; die Widgets erst danach neu laden (sie lesen die Datei)
-        SharedStorage.saveSnapshotInBackground(s, done: reloadWidgets ? {
+        // Speichern im Hintergrund; die Widgets erst danach neu laden (sie lesen die Datei). Danach: warten Portfolio-Alarme
+        // auf den Schlüssel (nie Klartext), nennt das Portfolio es
+        SharedStorage.saveSnapshotInBackground(s, done: { [weak self] in
+            if SharedStorage.portfolioAlarmsPending { self?.portfolioSavePending = true }
+            guard reloadWidgets else { return }
             if let widgetKinds {
                 widgetKinds.forEach { WidgetCenter.shared.reloadTimelines(ofKind: $0) }
             } else {
                 WidgetCenter.shared.reloadAllTimelines()
             }
-        } : nil)
+        })
     }
 
     /// Stand von der Platte neu laden (z. B. nachdem das Widget aktualisiert hat).
     func reloadFromDisk() {
+        // Wartet noch ein nicht versiegelt gespeicherter Stand: erst schreiben — sonst ersetzte der ältere Stand der Datei
+        // die Änderungen im Speicher. Geht es noch nicht, bleibt der Speicher massgebend
+        guard retryPendingPortfolioSaves() else { return }
         // Nur einen gelesenen Stand übernehmen: Ist die Datei gerade unlesbar oder nicht zugreifbar,
         // bleibt der Stand im Speicher (sonst stünde eine leere Merkliste da)
         if let fresh = SharedStorage.readSnapshot().snapshot { snapshot = fresh }

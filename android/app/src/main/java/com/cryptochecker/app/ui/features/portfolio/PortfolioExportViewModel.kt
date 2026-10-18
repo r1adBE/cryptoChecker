@@ -103,7 +103,7 @@ class PortfolioExportViewModel @Inject constructor(
 
     /** Steuerjahre (Beginnjahr) der Vorlage mit Transaktionen (neueste zuerst); leer, bis geladen. */
     val years: StateFlow<List<Int>> = combine(_trades, taxTemplate) { t, tpl ->
-        t?.let { TaxExport.years(it, ZoneId.systemDefault(), tpl) }.orEmpty()
+        t?.let { TaxExport.years(it, tpl.zone(), tpl) }.orEmpty()
     }.stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
 
     /** Jahresübersicht (Orientierung) der Vorlage und des gewählten Jahrs für die Karte; null = noch nicht gerechnet. */
@@ -177,9 +177,10 @@ class PortfolioExportViewModel @Inject constructor(
 
     private suspend fun buildSummary(year: Int, tpl: TaxTemplate, method: TaxMethod, currency: String): TaxYearSummary {
         val trades = withAddressTrades(trades(), method)
-        val zone = ZoneId.systemDefault()
+        // Daten in der Zeitzone der Vorlage (Neutral: Gerät), wie in der CSV genannt
+        val zone = tpl.zone()
         val period = tpl.period(year)
-        val priceAt = taxPrices(tpl, method, trades, period)
+        val priceAt = taxPrices(tpl, method, trades, period, zone)
         // US: Übergang 1.1.2025 (universelles FIFO bis dahin, [TaxTemplate.walletFrom])
         val walletFrom = tpl.walletFrom(costMethod.value, year)
         val from = withContext(Dispatchers.Default) { TaxExport.fxFrom(trades, method, period, zone, priceAt, tpl.eventRules, walletFrom) }
@@ -242,8 +243,9 @@ class PortfolioExportViewModel @Inject constructor(
 
     private suspend fun buildTax(kind: TaxExportKind, year: Int, displayCurrency: String, texts: TaxCsvTexts, header: List<String>): String {
         val trades = trades()
-        val zone = ZoneId.systemDefault()
         val tpl = taxTemplate.value
+        // Daten in der Zeitzone der Vorlage (Neutral: Gerät), wie in der CSV genannt
+        val zone = tpl.zone()
         val method = tpl.methodFor(costMethod.value, year)
         val currency = workCurrency(tpl, displayCurrency)
         val period = tpl.period(year)
@@ -251,7 +253,7 @@ class PortfolioExportViewModel @Inject constructor(
         return when (kind) {
             TaxExportKind.GAINS -> {
                 val trades = withAddressTrades(trades, method)
-                val priceAt = taxPrices(tpl, method, trades, period)
+                val priceAt = taxPrices(tpl, method, trades, period, zone)
                 // Devisen-Tageskurse ab dem frühesten Kauf-/Herkunftsdatum (Einstand zum Kurs seines Datums)
                 val walletFrom = tpl.walletFrom(costMethod.value, year)
                 val from = withContext(Dispatchers.Default) { TaxExport.fxFrom(trades, method, period, zone, priceAt, tpl.eventRules, walletFrom) }
@@ -274,19 +276,29 @@ class PortfolioExportViewModel @Inject constructor(
                 val rates = rates(currency, period.start, period.end)
                 val usdtUsd = usdtUsdCloses(currency, period.start)
                 // Belohnungen ohne Wert (Kraken/Binance) zum Tagesschluss geschätzt, wie in der Jahresübersicht
-                val priceAt = feeDisposalPrices(trades, period)
+                val priceAt = feeDisposalPrices(trades, period, zone)
                 TaxExport.incomeCsv(TaxExport.incomeRows(trades, period, zone, currency, rates, priceAt, usdtUsd), texts, header, format)
             }
         }
     }
 
-    /** Stichtag-Export; [header] = Kopfzeilen davor (Bestand der Arbeitsunterlage), leer = keine. */
-    fun export(uri: Uri, date: LocalDate, currency: String, texts: CutoffCsvTexts, header: List<String> = emptyList()) {
+    /**
+     * Stichtag-Export; [header] = Kopfzeilen davor (Bestand der Arbeitsunterlage), leer = keine. [zone]: Ende des Tags in
+     * dieser Zeitzone — für den Bestand der Arbeitsunterlage die der Vorlage, sonst die des Geräts.
+     */
+    fun export(
+        uri: Uri,
+        date: LocalDate,
+        currency: String,
+        texts: CutoffCsvTexts,
+        header: List<String> = emptyList(),
+        zone: ZoneId = ZoneId.systemDefault(),
+    ) {
         if (_state.value == CutoffExportState.Running) return
         _state.value = CutoffExportState.Running
         viewModelScope.launch {
             _state.value = try {
-                val csv = build(date, currency, texts, header)
+                val csv = build(date, currency, texts, header, zone)
                 withContext(Dispatchers.IO) {
                     val stream = context.contentResolver.openOutputStream(uri, "wt")
                         ?: error("Datei kann nicht geschrieben werden")
@@ -306,9 +318,9 @@ class PortfolioExportViewModel @Inject constructor(
         if (_state.value != CutoffExportState.Running) _state.value = CutoffExportState.Idle
     }
 
-    private suspend fun build(date: LocalDate, currency: String, texts: CutoffCsvTexts, header: List<String>): String {
+    private suspend fun build(date: LocalDate, currency: String, texts: CutoffCsvTexts, header: List<String>, zone: ZoneId): String {
         val trades = repository.getTransactions().map { it.toTrade() }
-        val cutoff = CutoffExport.endOfDayMillis(date, ZoneId.systemDefault())
+        val cutoff = CutoffExport.endOfDayMillis(date, zone)
         // Bestand nach derselben Einstandsmethode wie Karte, Verlauf und Steuer-Export (FIFO je Wallet je Wallet gekappt)
         val holdings = CutoffExport.holdingsAt(trades, cutoff, settingsRepository.current().costMethod)
         // Beobachtete Adressen, die im Portfolio zählen: heute das aktuelle, früher das an dem Tag beobachtete Guthaben

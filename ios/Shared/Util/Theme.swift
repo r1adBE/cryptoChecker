@@ -593,11 +593,31 @@ extension EnvironmentValues {
 /// Ändern der Einstellungen (AppData); Ansichten nehmen besser
 /// `@Environment(\.priceColorScheme)`, damit sie beim Umstellen neu zeichnen.
 enum PriceColors {
-    nonisolated(unsafe) static var scheme: PriceColorScheme = .default
+    /// Gelesen aus jedem Thread (Widgets, Hintergrund-Aufgabe, Ansichten), geschrieben von AppData:
+    /// darum hinter einer Sperre statt `nonisolated(unsafe)` (gleichzeitiges Lesen und Schreiben wäre ein
+    /// Datenwettlauf).
+    private static let state = LockedBox(State())
+
+    private struct State {
+        var scheme: PriceColorScheme = .default
+        var inverted = false
+        var accent: AccentColor = .default
+    }
+
+    static var scheme: PriceColorScheme {
+        get { state.read { $0.scheme } }
+        set { state.write { $0.scheme = newValue } }
+    }
     /// «Farben tauschen» (setzt AppData).
-    nonisolated(unsafe) static var inverted = false
+    static var inverted: Bool {
+        get { state.read { $0.inverted } }
+        set { state.write { $0.inverted = newValue } }
+    }
     /// Akzentfarbe der App (setzt AppData): Kursfarben, die ihr zu ähnlich sind, nehmen ihre Ersatzfassung.
-    nonisolated(unsafe) static var accent: AccentColor = .default
+    static var accent: AccentColor {
+        get { state.read { $0.accent } }
+        set { state.write { $0.accent = newValue } }
+    }
 
     /// Richtung steigend/fallend (mit Tausch); hoher Kontrast über `HighContrast`.
     static var up: Color { scheme.up(highContrast: false, inverted: inverted) }
@@ -608,4 +628,27 @@ enum PriceColors {
     static var ok: Color { scheme.up }
 
     static func forChange(_ change: Double?) -> Color { scheme.forChange(change, inverted: inverted) }
+}
+
+/// Kleiner Wert hinter einer `NSLock` (thread-sicher) für globale Einstellungen, die aus mehreren Threads
+/// gelesen werden.
+final class LockedBox<Value>: @unchecked Sendable {
+    private let lock = NSLock()
+    private var value: Value
+
+    init(_ value: Value) {
+        self.value = value
+    }
+
+    func read<R>(_ body: (Value) -> R) -> R {
+        lock.lock()
+        defer { lock.unlock() }
+        return body(value)
+    }
+
+    func write(_ body: (inout Value) -> Void) {
+        lock.lock()
+        defer { lock.unlock() }
+        body(&value)
+    }
 }

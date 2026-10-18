@@ -10,18 +10,19 @@ import kotlin.math.abs
 object CompactAmount {
 
     /** @param currency Währungscode, wird angehängt (z. B. «CHF»). */
-    fun format(value: Double, currency: String, locale: Locale = LocaleNumbers.appLocale): String {
-        val number = runCatching {
-            val f = android.icu.text.CompactDecimalFormat.getInstance(
-                locale, android.icu.text.CompactDecimalFormat.CompactStyle.SHORT
-            )
-            f.setSignificantDigitsUsed(true)
-            f.setMinimumSignificantDigits(1)
-            f.setMaximumSignificantDigits(3)
-            f.format(value)
-        }.getOrNull()?.takeIf { it.isNotBlank() } ?: fallback(value)
-        return "$number ${currency.uppercase(Locale.ROOT)}"
-    }
+    fun format(value: Double, currency: String, locale: Locale = LocaleNumbers.appLocale): String =
+        "${number(value, locale)} ${currency.uppercase(Locale.ROOT)}"
+
+    /** Nur die Zahl, kurz und in der Sprache der App: «1,2 Mio.», "1.2M", «1,2 млн». */
+    fun number(value: Double, locale: Locale = LocaleNumbers.appLocale): String = runCatching {
+        val f = android.icu.text.CompactDecimalFormat.getInstance(
+            locale, android.icu.text.CompactDecimalFormat.CompactStyle.SHORT
+        )
+        f.setSignificantDigitsUsed(true)
+        f.setMinimumSignificantDigits(1)
+        f.setMaximumSignificantDigits(3)
+        f.format(value)
+    }.getOrNull()?.takeIf { it.isNotBlank() } ?: fallback(value)
 
     /** Ersatz ohne ICU (Englisch, K/M/B/T), z. B. in Tests. */
     internal fun fallback(value: Double): String {

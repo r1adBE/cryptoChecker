@@ -233,7 +233,7 @@ object PortfolioWidgetChart {
     fun usdtFactor(currency: String, fx: Double, usdtLive: Double?): Double {
         if (collapsesToUsdt(currency)) return fx
         return com.cryptochecker.app.domain.portfolio.PortfolioStables.usdtTo(
-            fx, com.cryptochecker.app.domain.portfolio.PortfolioStables.usdtUsd(usdtLive),
+            fx, com.cryptochecker.app.domain.portfolio.PortfolioStables.usdtUsdLive(usdtLive),
         ) ?: fx
     }
 

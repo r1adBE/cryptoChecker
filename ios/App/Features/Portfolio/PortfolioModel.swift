@@ -329,7 +329,7 @@ final class PortfolioModel: ObservableObject {
     /// Faktor USDT → `currency` für Gesamtkarte und Zeilen: Devisenkurs × USDT/USD (`PortfolioStables.usdtTo`, USDT zum
     /// Marktkurs; ohne frische Messung × 1). nil = kein Devisenkurs. Wie Android `PortfolioViewModel.displayFxRate`.
     func displayRate(for currency: String) -> Double? {
-        PortfolioStables.usdtTo(rate(for: currency), usdt: PortfolioStables.usdtUsd(DepegAlarmCheck.liveUsdtUsd()))
+        PortfolioStables.usdtTo(rate(for: currency), usdt: PortfolioStables.usdtUsdLive(DepegAlarmCheck.liveUsdtUsd()))
     }
 
     func loadCoins() async {

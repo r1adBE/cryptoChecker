@@ -50,17 +50,16 @@
 
         <!-- Startpunkt ohne eigenes Launcher-Icon: Die Einträge im Launcher
              kommen von den activity-alias unten, je einer pro Akzentfarbe.
-             Aktiv ist immer genau einer (siehe AppearanceApplier). Die «…Light»-Aliase
-             (bis Build 46 bei hellem Erscheinungsbild aktiv) werden nicht mehr eingeschaltet,
-             bleiben aber stehen: Geräte, auf denen einer noch aktiv ist, behalten nach dem
-             Update ihr Icon (und angeheftete Verknüpfungen), bis die App sie einmal umstellt. -->
+             Aktiv ist immer genau einer (siehe AppearanceApplier). -->
         <!-- adjustResize (K-5): mit randloser Darstellung verschiebt Android das Fenster nicht mehr
              (sonst sprang die Tableiste über die Tastatur); den Abstand zur Tastatur setzt AppNavHost. -->
         <!-- singleTop: Tipp auf Mitteilung oder Widget (NEW_TASK|CLEAR_TOP) erreicht die laufende
              Activity über onNewIntent, statt sie neu aufzubauen. -->
+        <!-- Startbildschirm: Theme.CryptoChecker.Starting (installSplashScreen in MainActivity). -->
         <activity
             android:name=".ui.MainActivity"
             android:exported="true"
+            android:theme="@style/Theme.CryptoChecker.Starting"
             android:launchMode="singleTop"
             android:windowSoftInputMode="adjustResize" />
 
@@ -80,21 +79,6 @@
                 android:resource="@xml/shortcuts" />
         </activity-alias>
 
-        <activity-alias
-            android:name=".LauncherOrangeLight"
-            android:enabled="false"
-            android:exported="true"
-            android:icon="@mipmap/ic_launcher_orange_light"
-            android:roundIcon="@mipmap/ic_launcher_orange_light_round"
-            android:targetActivity=".ui.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            <meta-data
-                android:name="android.app.shortcuts"
-                android:resource="@xml/shortcuts" />
-        </activity-alias>
 
         <activity-alias
             android:name=".LauncherRed"
@@ -112,21 +96,6 @@
                 android:resource="@xml/shortcuts" />
         </activity-alias>
 
-        <activity-alias
-            android:name=".LauncherRedLight"
-            android:enabled="false"
-            android:exported="true"
-            android:icon="@mipmap/ic_launcher_red_light"
-            android:roundIcon="@mipmap/ic_launcher_red_light_round"
-            android:targetActivity=".ui.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            <meta-data
-                android:name="android.app.shortcuts"
-                android:resource="@xml/shortcuts" />
-        </activity-alias>
 
         <activity-alias
             android:name=".LauncherBlue"
@@ -144,21 +113,6 @@
                 android:resource="@xml/shortcuts" />
         </activity-alias>
 
-        <activity-alias
-            android:name=".LauncherBlueLight"
-            android:enabled="false"
-            android:exported="true"
-            android:icon="@mipmap/ic_launcher_blue_light"
-            android:roundIcon="@mipmap/ic_launcher_blue_light_round"
-            android:targetActivity=".ui.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            <meta-data
-                android:name="android.app.shortcuts"
-                android:resource="@xml/shortcuts" />
-        </activity-alias>
 
         <activity-alias
             android:name=".LauncherGreen"
@@ -176,21 +130,6 @@
                 android:resource="@xml/shortcuts" />
         </activity-alias>
 
-        <activity-alias
-            android:name=".LauncherGreenLight"
-            android:enabled="false"
-            android:exported="true"
-            android:icon="@mipmap/ic_launcher_green_light"
-            android:roundIcon="@mipmap/ic_launcher_green_light_round"
-            android:targetActivity=".ui.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            <meta-data
-                android:name="android.app.shortcuts"
-                android:resource="@xml/shortcuts" />
-        </activity-alias>
 
         <activity-alias
             android:name=".LauncherMarrsGreen"
@@ -207,23 +146,6 @@
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
         </activity-alias>
-
-        <activity-alias
-            android:name=".LauncherMarrsGreenLight"
-            android:enabled="false"
-            android:exported="true"
-            android:icon="@mipmap/ic_launcher_marrs_green_light"
-            android:roundIcon="@mipmap/ic_launcher_marrs_green_light_round"
-            android:targetActivity=".ui.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            <meta-data
-                android:name="android.app.shortcuts"
-                android:resource="@xml/shortcuts" />
-        </activity-alias>
-
 
         <!-- Auswahl des Paares beim Ablegen eines Widgets -->
         <activity

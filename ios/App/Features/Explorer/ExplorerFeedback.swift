@@ -214,7 +214,7 @@ struct ExplorerLogBox: View {
 
     private var titleBar: some View {
         HStack {
-            Label("Logs", systemImage: "terminal")
+            Label(L("log_box_title"), systemImage: "terminal")
                 .font(.subheadline.weight(.semibold))
             Spacer()
             Button {

@@ -2,6 +2,7 @@ package com.cryptochecker.app.domain.portfolio
 
 import java.math.BigDecimal
 import java.time.LocalDate
+import java.time.ZoneId
 
 /**
  * Zuordnung Abgang ↔ Einstand im Steuer-Export (reines Kotlin, Spiegel: `TaxTemplates.swift`).
@@ -133,6 +134,29 @@ enum class TaxTemplate {
             AU -> "AUD"
             JP -> "JPY"
         }
+
+    /**
+     * Zeitzone der Daten (Steuerjahr, Kauf-/Verkaufsdatum, Haltedauer): massgebend ist das rechtliche Datum im Land der
+     * Vorlage, nicht die Zeitzone des Geräts — ein in Zürich eingestelltes Gerät, das die UK-Vorlage rechnet, ordnet einen
+     * Verkauf um 23:30 Londoner Zeit dem Londoner Tag zu. Steht in jeder CSV («Daten in Ortszeit (Zone)»). Länder mit
+     * mehreren Zonen: die der Hauptstadt bzw. des Finanzplatzes (US New York, CA Toronto, AU Sydney). null = Gerät ([NEUTRAL]).
+     */
+    val zoneId: String?
+        get() = when (this) {
+            NEUTRAL -> null
+            DE -> "Europe/Berlin"
+            AT -> "Europe/Vienna"
+            CH -> "Europe/Zurich"
+            UK -> "Europe/London"
+            US -> "America/New_York"
+            CA -> "America/Toronto"
+            AU -> "Australia/Sydney"
+            FR -> "Europe/Paris"
+            JP -> "Asia/Tokyo"
+        }
+
+    /** Zeitzone der Arbeitsunterlage ([zoneId]); Neutral die des Geräts ([device]). */
+    fun zone(device: ZoneId = ZoneId.systemDefault()): ZoneId = zoneId?.let { ZoneId.of(it) } ?: device
 
     /** Erlaubte Methoden nach den aktuellen Regeln, erste = Standard ([methodsIn] ohne Steuerjahr). */
     val methods: List<TaxMethod>

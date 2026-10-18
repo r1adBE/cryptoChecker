@@ -6,8 +6,6 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.SystemClock
-import android.view.View
-import android.view.ViewTreeObserver
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
@@ -18,6 +16,8 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.core.splashscreen.SplashScreen
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.launch
@@ -55,6 +55,8 @@ class MainActivity : AppCompatActivity() {
     private val openTarget = androidx.compose.runtime.mutableStateOf<String?>(null)
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Startbildschirm (Theme.CryptoChecker.Starting) vor super.onCreate: danach gilt das App-Theme
+        val splash = installSplashScreen()
         // Ab Android 16 (targetSdk 36) zeichnet das System ohnehin randlos.
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
@@ -68,7 +70,7 @@ class MainActivity : AppCompatActivity() {
             // ein Neuaufbau kurz nach dem Verlassen nicht (siehe AppLockState.onColdStart)
             appLockState.onColdStart()
         }
-        holdFirstFrameUntilSettingsShown()
+        keepSplashUntilSettingsShown(splash)
 
         setContent {
             // Zuerst «gelesen?», dann den Wert: loaded wird erst nach cached gesetzt
@@ -126,12 +128,12 @@ class MainActivity : AppCompatActivity() {
 
     /**
      * Ersatz für das frühere runBlocking beim Prozessstart (K-6): Die Einstellungen kommen
-     * asynchron aus DataStore; bis sie in der Oberfläche stehen, hält ein PreDraw-Listener das
-     * erste Bild zurück (wie ein Startbildschirm) – der Hauptthread bleibt frei, kein ANR.
-     * So zeigt schon das erste Bild Akzent, Tabs und Hell/Dunkel wie gespeichert.
-     * Nach [FIRST_FRAME_WAIT_MILLIS] wird auf jeden Fall gezeichnet (Standardwerte).
+     * asynchron aus DataStore; bis sie in der Oberfläche stehen, bleibt der Startbildschirm
+     * stehen (setKeepOnScreenCondition, wird vor jedem Bild abgefragt) – der Hauptthread bleibt
+     * frei, kein ANR. So zeigt schon das erste Bild Akzent, Tabs und Hell/Dunkel wie gespeichert.
+     * Nach [FIRST_FRAME_WAIT_MILLIS] verschwindet er auf jeden Fall (dann mit Standardwerten).
      */
-    private fun holdFirstFrameUntilSettingsShown() {
+    private fun keepSplashUntilSettingsShown(splash: SplashScreen) {
         if (settingsRepository.loaded) {
             settingsShown = true
             return
@@ -139,21 +141,17 @@ class MainActivity : AppCompatActivity() {
         // Lesen anstossen (die App startet es in onCreate ohnehin; doppelt schadet nicht)
         lifecycleScope.launch { runCatching { settingsRepository.current() } }
         val since = SystemClock.uptimeMillis()
-        val content = findViewById<View>(android.R.id.content)
         var extraFrame = true
-        content.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
-            override fun onPreDraw(): Boolean {
-                val timedOut = SystemClock.uptimeMillis() - since > FIRST_FRAME_WAIT_MILLIS
-                if (settingsShown && extraFrame && !timedOut) {
-                    // Ein Bild mehr: ViewModels mit eigener Sammlung (z. B. Portfolio-Tab) ziehen nach
-                    extraFrame = false
-                    return false
-                }
-                val ready = (settingsShown && !extraFrame) || timedOut
-                if (ready) content.viewTreeObserver.removeOnPreDrawListener(this)
-                return ready
+        splash.setKeepOnScreenCondition {
+            val timedOut = SystemClock.uptimeMillis() - since > FIRST_FRAME_WAIT_MILLIS
+            if (settingsShown && extraFrame && !timedOut) {
+                // Ein Bild mehr: ViewModels mit eigener Sammlung (z. B. Portfolio-Tab) ziehen nach
+                extraFrame = false
+                true
+            } else {
+                !((settingsShown && !extraFrame) || timedOut)
             }
-        })
+        }
     }
 
     override fun onStart() {

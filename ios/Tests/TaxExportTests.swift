@@ -168,7 +168,8 @@ final class TaxExportTests: XCTestCase {
         }
     }
 
-    /// Jahresübersicht DE — wie `deSummary` (Kotlin): Summen, Freigrenzen je Jahr, CSV; Tausch als Veräusserung.
+    /// Jahresübersicht DE über die Vorlage (`yearSummary` mit `.DE`) — wie `deSummary` (Kotlin): Summen, Freigrenzen je
+    /// Jahr, CSV; Tausch als Veräusserung. Zähler des Fixtures als Merker der Posten (> 0 ↔ Merker gesetzt).
     func testDeSummary() throws {
         let d = try data()
         let de = try XCTUnwrap(d["deSummary"] as? [String: Any])
@@ -180,13 +181,14 @@ final class TaxExportTests: XCTestCase {
         }
         let t = de["texts"] as? [String: String] ?? [:]
         func s(_ k: String) -> String { t[k] ?? "" }
-        let deTexts = TaxDeTexts(
-            title: s("title"), disclaimer: s("disclaimer"), item: s("item"), usdt: s("usdt"), eur: s("eur"), note: s("note"),
-            shortGains: s("shortGains"), shortLosses: s("shortLosses"), netShort: s("netShort"), longGains: s("longGains"),
-            longLosses: s("longLosses"), unclassified: s("unclassified"), privateSalesLimit: s("privateSalesLimit"),
-            income: s("income"), incomeLimit: s("incomeLimit"), below: s("below"), reached: s("reached"),
-            unknown: s("unknown"), needsEur: s("needsEur"), incomplete: s("incomplete"), needsHolding: s("needsHolding"),
-            noFx: s("noFx"), limitScope: s("limitScope"),
+        var labels: [TaxLine: String] = [:]
+        for (key, value) in de["labels"] as? [String: String] ?? [:] {
+            if let line = TaxLine(rawValue: key) { labels[line] = value }
+        }
+        let summaryTexts = TaxSummaryTexts(
+            title: s("title"), disclaimer: s("disclaimer"), item: s("item"), usdt: s("usdt"), target: s("eur"), note: s("note"),
+            orientation: "Orientation", labels: labels, below: s("below"), reached: s("reached"), unknown: s("unknown"),
+            incomplete: s("incomplete"), noFx: s("noFx"),
             orientationHeading: s("orientationHeading"), orientationItem: s("orientationItem"))
         let deHeader = de["header"] as? [String] ?? []
         for case let pair as [Any] in de["limits"] as? [Any] ?? [] {
@@ -199,38 +201,47 @@ final class TaxExportTests: XCTestCase {
             let year = Int(int64(c["year"]))
             let method = CostMethod.fromName(c["method"] as? String)
             let eur = c["eur"] as? Bool ?? false
-            let sum = TaxExport.deYearSummary(txs, method: method, year: year, timeZone: zone, eurRates: eur ? eurRates : nil)
+            let sum = TaxExport.yearSummary(txs, template: .DE, method: TaxMethod.of(method), startYear: year, timeZone: zone,
+                                            currency: "EUR", rates: eur ? eurRates : nil)
             let label = "de \(year) \(method) eur=\(eur)"
+            func line(_ l: TaxLine) -> TaxSummaryLine? { sum.lines.first { $0.line == l } }
             func m(_ v: Decimal?) -> String? { v.map { CutoffExport.money($0) } }
-            func status(_ st: TaxLimitStatus) -> String {
+            // Posten fehlt (z. B. ohne Haltedauer): Betrag 0, in EUR nur mit Kursen
+            func usdt(_ l: TaxLine) -> String? { m(line(l)?.usdt ?? 0) }
+            func eurOf(_ l: TaxLine) -> String? { eur ? m(line(l)?.target ?? 0) : nil }
+            func status(_ st: TaxLimitStatus?) -> String? {
                 switch st {
-                case .below: return "BELOW"
-                case .reached: return "REACHED"
-                case .unknown: return "UNKNOWN"
-                case .loss: return "LOSS"
+                case .some(.below): return "BELOW"
+                case .some(.reached): return "REACHED"
+                case .some(.unknown): return "UNKNOWN"
+                case .some(.loss): return "LOSS"
+                case .none: return nil
                 }
             }
+            let unclassified = line(.UNCLASSIFIED)
             let money: [String: String?] = [
-                "shortGainsUsdt": m(sum.shortGainsUsdt), "shortLossesUsdt": m(sum.shortLossesUsdt),
-                "netShortUsdt": m(sum.netShortUsdt), "longGainsUsdt": m(sum.longGainsUsdt),
-                "longLossesUsdt": m(sum.longLossesUsdt), "unclassifiedUsdt": m(sum.unclassifiedUsdt),
-                "shortGainsEur": m(sum.shortGainsEur), "shortLossesEur": m(sum.shortLossesEur),
-                "netShortEur": m(sum.netShortEur), "longGainsEur": m(sum.longGainsEur),
-                "longLossesEur": m(sum.longLossesEur), "unclassifiedEur": m(sum.unclassifiedEur),
-                "privateSalesLimitEur": m(sum.privateSalesLimitEur), "incomeUsdt": m(sum.incomeUsdt),
-                "incomeEur": m(sum.incomeEur), "incomeLimitEur": m(sum.incomeLimitEur),
-                "privateSalesStatus": status(sum.privateSalesStatus), "incomeStatus": status(sum.incomeStatus),
+                "shortGainsUsdt": usdt(.SHORT_GAINS), "shortLossesUsdt": usdt(.SHORT_LOSSES),
+                "netShortUsdt": usdt(.SHORT_NET), "longGainsUsdt": usdt(.LONG_GAINS),
+                "longLossesUsdt": usdt(.LONG_LOSSES), "unclassifiedUsdt": usdt(.UNCLASSIFIED),
+                "shortGainsEur": eurOf(.SHORT_GAINS), "shortLossesEur": eurOf(.SHORT_LOSSES),
+                "netShortEur": eurOf(.SHORT_NET), "longGainsEur": eurOf(.LONG_GAINS),
+                "longLossesEur": eurOf(.LONG_LOSSES), "unclassifiedEur": eurOf(.UNCLASSIFIED),
+                "privateSalesLimitEur": m(line(.DE_PRIVATE_LIMIT)?.target), "incomeUsdt": m(line(.INCOME)?.usdt),
+                "incomeEur": m(line(.INCOME)?.target), "incomeLimitEur": m(line(.DE_INCOME_LIMIT)?.target),
+                "privateSalesStatus": status(line(.DE_PRIVATE_LIMIT)?.status), "incomeStatus": status(line(.DE_INCOME_LIMIT)?.status),
             ]
-            let counts: [String: Int] = [
-                "unknownGainCount": sum.unknownGainCount, "unclassifiedCount": sum.unclassifiedCount,
-                "eurFxMissingCount": sum.eurFxMissingCount, "incomeValueMissingCount": sum.incomeValueMissingCount,
-                "incomeFxMissingCount": sum.incomeFxMissingCount,
+            let flags: [String: Bool] = [
+                "unknownGainCount": line(.SHORT_NET)?.incomplete == true || unclassified?.incomplete == true,
+                "unclassifiedCount": unclassified != nil,
+                "eurFxMissingCount": line(.SHORT_NET)?.noFx == true || unclassified?.noFx == true,
+                "incomeValueMissingCount": line(.INCOME)?.incomplete == true,
+                "incomeFxMissingCount": line(.INCOME)?.noFx == true,
             ]
             for (k, v) in c["expected"] as? [String: Any] ?? [:] {
                 if k == "eurAvailable" {
-                    XCTAssertEqual(sum.eurAvailable, v as? Bool, "\(label) \(k)")
-                } else if let n = counts[k] {
-                    XCTAssertEqual(n, Int(int64(v)), "\(label) \(k)")
+                    XCTAssertEqual(sum.fxAvailable, v as? Bool, "\(label) \(k)")
+                } else if let flag = flags[k] {
+                    XCTAssertEqual(flag, int64(v) > 0, "\(label) \(k)")
                 } else if let actual = money[k] {
                     XCTAssertEqual(actual, v as? String, "\(label) \(k)")
                 } else {
@@ -238,7 +249,7 @@ final class TaxExportTests: XCTestCase {
                 }
             }
             if let expected = c["csv"] as? [String] {
-                let csv = TaxExport.deSummaryCsv(sum, texts: deTexts, header: deHeader, zoneLine: de["zoneLine"] as? String ?? "")
+                let csv = TaxExport.summaryCsv(sum, texts: summaryTexts, header: deHeader, zoneLine: de["zoneLine"] as? String ?? "")
                 XCTAssertEqual(lines(csv), expected, "\(label) csv")
             }
             if let swapLine = c["swapLine"] as? [String], swapLine.count == 2 {
@@ -339,23 +350,21 @@ final class TaxExportTests: XCTestCase {
         // EUR = USD (Kurs 1) an jedem Tag des Jahres
         var eur: [Int: Decimal] = [:]
         for d in LocalDay(2025, 1, 1).epochDay...LocalDay(2025, 12, 31).epochDay { eur[d] = 1 }
-        let s = TaxExport.deYearSummary(trades, method: .FIFO, year: 2025, timeZone: zone, eurRates: eur)
-        XCTAssertEqual(s.shortGainsUsdt, 1020)
-        XCTAssertEqual(s.shortLossesUsdt, 0)
-        XCTAssertEqual(s.netShortEur, 1020)
-        XCTAssertEqual(s.privateSalesStatus, .reached)
-        XCTAssertEqual(s.withdrawalFeeCount, 1)
-        XCTAssertEqual(s.withdrawalFeesUsdt, -25)
-        XCTAssertEqual(s.withdrawalFeesEur, -25)
-        var texts = TaxDeTexts(title: "T", disclaimer: "D", item: "I", usdt: "USDT", eur: "EUR", note: "N", shortGains: "SG",
-                               shortLosses: "SL", netShort: "NS", longGains: "LG", longLosses: "LL", unclassified: "U",
-                               privateSalesLimit: "PL", income: "IN", incomeLimit: "IL", below: "below", reached: "reached",
-                               unknown: "unknown", needsEur: "ne", incomplete: "inc", needsHolding: "nh", noFx: "nofx",
-                               limitScope: "")
-        texts.withdrawalFees = "WF"
-        texts.withdrawalFeeNote = "not netted"
-        let csv = TaxExport.deSummaryCsv(s, texts: texts, header: [])
+        let s = TaxExport.yearSummary(trades, template: .DE, method: .FIFO, startYear: 2025, timeZone: zone, currency: "EUR",
+                                      rates: eur)
+        func line(_ l: TaxLine) -> TaxSummaryLine? { s.lines.first { $0.line == l } }
+        XCTAssertEqual(line(.SHORT_GAINS)?.usdt, 1020)
+        XCTAssertEqual(line(.SHORT_LOSSES)?.usdt, 0)
+        XCTAssertEqual(line(.SHORT_NET)?.target, 1020)
+        XCTAssertEqual(line(.DE_PRIVATE_LIMIT)?.status, .reached)
+        XCTAssertEqual(line(.WITHDRAWAL_FEES)?.usdt, -25)
+        XCTAssertEqual(line(.WITHDRAWAL_FEES)?.target, -25)
+        XCTAssertEqual(line(.WITHDRAWAL_FEES)?.note, .DE_WITHDRAWAL_FEE)
+        let texts = TaxSummaryTexts(title: "T", disclaimer: "D", item: "I", usdt: "USDT", target: "EUR", note: "N", orientation: "O",
+                                    labels: [.WITHDRAWAL_FEES: "WF", .DE_PRIVATE_LIMIT: "PL"], below: "below", reached: "reached",
+                                    unknown: "unknown", incomplete: "inc", noFx: "nofx",
+                                    notes: [.DE_WITHDRAWAL_FEE: "not netted"])
+        let csv = TaxExport.summaryCsv(s, texts: texts, header: [])
         XCTAssertTrue(csv.contains("WF;-25.00;-25.00;not netted"), csv)
-        XCTAssertTrue(csv.contains("reached"), csv)
     }
 }

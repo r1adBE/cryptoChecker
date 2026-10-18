@@ -73,14 +73,15 @@ struct WatchlistProvider: AppIntentTimelineProvider {
 
     func timeline(for configuration: WatchlistWidgetIntent, in context: Context) async -> Timeline<WatchlistEntry> {
         // Eben eingerichtet oder geändert (z. B. andere Gruppe): sofort mit den gespeicherten Kursen
-        // zeichnen, statt bis zu 20 s auf das Auffrischen zu warten; die Kurse folgen kurz danach.
+        // zeichnen, statt auf das Auffrischen zu warten; die Kurse folgen kurz danach.
         // Sonst alte Kurse zuerst auffrischen (mit Kurs-Mitteilungen und Kursalarmen — siehe `WidgetRefresh`;
         // nach einem misslungenen Versuch erst nach `WidgetRefresh.retryAfterMillis` wieder).
         let configKey = WidgetGroupSelection.configKey(theme: configuration.theme.rawValue, group: configuration.group?.id)
         let newConfig = WidgetGroupSelection.markSeen(configKey)
         let refreshSoon = newConfig && WidgetRefresh.isStale
         if !newConfig {
-            await WidgetRefresh.refreshIfStale(deadline: 20, otherKinds: [WidgetData.singleKind])
+            // Höchstens `drawDeadlineSeconds` warten, sonst mit den gespeicherten Kursen zeichnen
+            await WidgetRefresh.refreshIfStale(ownKind: WidgetData.watchlistKind, otherKinds: [WidgetData.singleKind])
         }
         // Uhrzeit und Kurse aus demselben Stand: schreibt die App die Kurse noch, kurz darauf warten
         let pricesWritten = await WidgetData.awaitPricesForRefreshTime()

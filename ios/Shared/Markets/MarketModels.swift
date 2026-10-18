@@ -207,6 +207,9 @@ struct Ticker: Sendable, Codable, Equatable {
     /// ist dann der Abruf; bei lange gleichem Kurs zeigt die Merkliste «Kurs unverändert seit …»
     /// (`PriceFreshness`). Gesetzt in `Market.readTicker`. Wie Android.
     var exchangeTime: Int64? = nil
+    /// Liquidität des Pools in USD — nur DEX-Pools (`DexScreener`); nil = unbekannt bzw. keine DEX-Quelle. Ein dünner
+    /// Pool lässt sich mit kleinen Beträgen bewegen: dann kein Alarm. Wie Android `Ticker.liquidityUsd`.
+    var liquidityUsd: Double? = nil
 }
 
 /// Wandelt die 24-h-Angaben der Börsen in Prozent (1.5 = +1,5 %) um, wie `Change24h` auf Android. Nur für

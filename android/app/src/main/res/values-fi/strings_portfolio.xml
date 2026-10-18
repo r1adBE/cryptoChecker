@@ -18,7 +18,7 @@
     <string name="portfolio_empty_title">Ei vielä tapahtumia</string>
     <string name="portfolio_enable_ask_text">Tapahtumasi on tallennettu. Salkku-välilehti näyttää omistuksesi ja niiden arvon.</string>
     <string name="portfolio_enable_ask_title">Otetaanko Salkku-välilehti käyttöön?</string>
-    <string name="portfolio_enable_later_hint">Tapahtuma tallennettu. Voit ottaa Salkku-välilehden käyttöön kohdassa Asetukset › Lisäasetukset › Salkku.</string>
+    <string name="portfolio_enable_later_hint">Tapahtuma tallennettu. Voit ottaa Salkku-välilehden käyttöön kohdassa Asetukset › Salkku.</string>
     <string name="portfolio_enabled_banner">Salkku otettu käyttöön – löydät sen Salkku-välilehdeltä.</string>
     <string name="portfolio_lock_reason">Avaa salkun lukitus</string>
     <string name="portfolio_locked_text">Avaa lukitus nähdäksesi omistukset ja arvot.</string>

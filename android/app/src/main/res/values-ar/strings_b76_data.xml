@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Build 76: USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <string name="portfolio_usdt_break">انهيار USDT – السوق عند %1$s USD</string>
+    <string name="portfolio_usdt_via_usdc">USDT/USD عبر USDC/USDT (بافتراض USDC = 1)</string>
+    <string name="dex_low_liquidity_no_alarm">سيولة منخفضة – بلا تنبيه</string>
+    <string name="dex_low_liquidity_alarm_hint">سيولة هذا المجمّع أقل من 10,000 USD (أو غير متوفرة). المبالغ الصغيرة وحدها تحرّك سعره، لذا لا يمكن ضبط تنبيهات هنا. تبقى التنبيهات الحالية، لكنها لا تنطلق إلا بعد ارتفاع السيولة من جديد.</string>
+    <string name="portfolio_csv_skip_duplicate_txid_different">معرّف المعاملة نفسه بمبلغ مختلف – تحقّق يدويًا</string>
+    <string name="portfolio_csv_skip_staking_unpaired">قيد staking بلا قيد مقابل – تحقّق من الرصيد</string>
+    <string name="portfolio_amount_bridged_stable">≈ يشمل %1$s (عبر جسر)</string>
+</resources>

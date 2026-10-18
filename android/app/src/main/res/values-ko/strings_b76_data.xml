@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Build 76: USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <string name="portfolio_usdt_break">USDT 폭락 – 시장가 %1$s USD</string>
+    <string name="portfolio_usdt_via_usdc">USDC/USDT를 통한 USDT/USD (USDC = 1 가정)</string>
+    <string name="dex_low_liquidity_no_alarm">유동성 낮음 – 알림 없음</string>
+    <string name="dex_low_liquidity_alarm_hint">이 풀의 유동성은 10,000 USD 미만입니다(또는 정보 없음). 적은 금액으로도 가격이 움직일 수 있어 여기서는 알림을 설정할 수 없습니다. 기존 알림은 유지되지만 유동성이 다시 늘어날 때까지 울리지 않습니다.</string>
+    <string name="portfolio_csv_skip_duplicate_txid_different">같은 거래 ID, 다른 수량 – 직접 확인</string>
+    <string name="portfolio_csv_skip_staking_unpaired">상대 기록 없는 스테이킹 기록 – 잔액 확인</string>
+    <string name="portfolio_amount_bridged_stable">≈ %1$s 포함 (브리지)</string>
+</resources>

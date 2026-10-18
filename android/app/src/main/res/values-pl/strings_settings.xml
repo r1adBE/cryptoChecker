@@ -168,7 +168,7 @@
 
     <!-- Einstellungen › Markt-Meldungen -->
     <string name="settings_depeg_alarm">Zgłaszaj depeg USDT</string>
-    <string name="settings_depeg_alarm_hint">Powiadamia raz, gdy USDT odchyli się od 1 USD o próg (Kraken USDT/USD, Binance USDC/USDT).</string>
+    <string name="settings_depeg_alarm_hint">Powiadamia raz, gdy USDT odchyli się od 1 USD o próg (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
     <string name="settings_depeg_threshold">Próg depegu</string>
     <string name="settings_fng_above">Fear &amp; Greed: powiadom powyżej</string>
     <string name="settings_fng_below">Fear &amp; Greed: powiadom poniżej</string>

@@ -22,6 +22,7 @@ import com.cryptochecker.app.R
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.tabularNumbers
 import com.cryptochecker.app.util.BidiText
+import com.cryptochecker.app.util.CompactAmount
 import com.cryptochecker.marketdata.model.market.DexPool
 import com.cryptochecker.marketdata.util.FormatUtilsBase
 
@@ -106,11 +107,19 @@ internal fun DexSearchSection(dex: DexUi, groupTarget: GroupTargetUi) {
                         text = listOfNotNull(
                             BidiText.isolate("${pool.dexId} · ${pool.chainId}"),
                             pool.priceUsd?.let { "$" + formatDexPrice(it) },
-                            pool.liquidityUsd?.let { stringResource(R.string.dex_liquidity, "$" + formatCompact(it)) }
+                            pool.liquidityUsd?.let { stringResource(R.string.dex_liquidity, "$" + CompactAmount.number(it)) }
                         ).joinToString(" · "),
                         style = MaterialTheme.typography.bodySmall.tabularNumbers(),
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
+                    // Dünner Pool (unter DEX_MIN_ALARM_LIQUIDITY_USD oder unbekannt): kein Alarm möglich
+                    if (!pool.alarmCapable) {
+                        Text(
+                            text = stringResource(R.string.dex_low_liquidity_no_alarm),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.error
+                        )
+                    }
                 }
                 OutlinedButton(onClick = { dex.onAdd(pool) }) {
                     Text(stringResource(R.string.dex_add))
@@ -130,9 +139,3 @@ private fun formatDexPrice(value: Double): String = when {
     else -> FormatUtilsBase.formatDoubleWithFourMax(value)
 }
 
-private fun formatCompact(value: Double): String = when {
-    value >= 1e9 -> "%.1fB".format(value / 1e9)
-    value >= 1e6 -> "%.1fM".format(value / 1e6)
-    value >= 1e3 -> "%.0fK".format(value / 1e3)
-    else -> "%.0f".format(value)
-}

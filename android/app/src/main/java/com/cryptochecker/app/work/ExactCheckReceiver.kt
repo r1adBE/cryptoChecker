@@ -15,8 +15,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
 import timber.log.Timber
 import javax.inject.Inject
@@ -54,6 +56,9 @@ class ExactCheckReceiver : BroadcastReceiver() {
         val timeoutMillis = CheckBudget.exactTimeoutMillis(deviceIdle, TIMEOUT_MILLIS, DEADLINE_MARGIN_MILLIS)
         scope.launch {
             val startedAt = System.currentTimeMillis()
+            // Wecker schon neu gestellt bzw. bewusst abgesagt? Sonst stellt ihn finally — ein Fehler oder
+            // Abbruch vor dem Neustellen (Einstellungen, Datenbank, Berechtigung) liesse die Kette sonst abreissen
+            var chainHandled = false
             try {
                 val enabled = settingsRepository.current().exactChecks
                 val hasWork = backgroundCheck.hasWork()
@@ -64,16 +69,21 @@ class ExactCheckReceiver : BroadcastReceiver() {
                     // Aus, keine Berechtigung mehr oder keine Paare: absagen, nicht neu stellen
                     BackgroundWorkPolicy.FiredAction.CANCEL -> {
                         scheduler.sync(enabled, hasWork)
+                        chainHandled = true
                         return@launch
                     }
                     // Offline: kein Versuch — sonst stünden alle Paare auf Fehler. WorkManager holt
                     // nach, sobald Netz da ist.
                     BackgroundWorkPolicy.FiredAction.REARM_SKIP_OFFLINE -> {
                         scheduler.rearm()
+                        chainHandled = true
                         backgroundCheck.log(CheckTrigger.EXACT, CheckResult.SKIPPED, startedAt)
                         return@launch
                     }
-                    BackgroundWorkPolicy.FiredAction.REARM_AND_CHECK -> scheduler.rearm()
+                    BackgroundWorkPolicy.FiredAction.REARM_AND_CHECK -> {
+                        scheduler.rearm()
+                        chainHandled = true
+                    }
                 }
                 // Frist für die Prüfung selbst (etwas vor der harten Grenze): je Börse ein Budget,
                 // danach wird gespeichert und ausgewertet, was da ist (CheckBudget)
@@ -89,14 +99,19 @@ class ExactCheckReceiver : BroadcastReceiver() {
                 throw e
             } catch (e: Exception) {
                 if (e.isDatabaseKeyUnavailable()) {
-                    // Datenbank-Schlüssel gerade nicht lesbar: Lauf überspringen, Kette nicht abreissen lassen
-                    // (beim nächsten Wecker erneut; liefe der Fehler vor dem Neustellen, stünde sonst keiner)
+                    // Datenbank-Schlüssel gerade nicht lesbar: Lauf überspringen, beim nächsten Wecker erneut
                     Timber.d(e, "Pünktliche Prüfung: Datenbank-Schlüssel nicht verfügbar, später erneut")
-                    runCatching { if (settingsRepository.current().exactChecks) scheduler.rearm() }
                 } else {
                     Timber.w(e, "Pünktliche Prüfung fehlgeschlagen")
                 }
             } finally {
+                // Auch nach Abbruch noch neu stellen (NonCancellable), solange «Pünktlich prüfen» an ist
+                if (!chainHandled) {
+                    withContext(NonCancellable) {
+                        runCatching { if (settingsRepository.current().exactChecks) scheduler.rearm() }
+                            .onFailure { Timber.w(it, "Pünktliche Prüfung: Wecker nicht neu gestellt") }
+                    }
+                }
                 pendingResult.finish()
             }
         }

@@ -34,9 +34,11 @@ private class ResumeOnReply(private val cont: CancellableContinuation<Response>)
         }
     }
 
-    // Selbst abgebrochen (Abbruch der Coroutine): nichts mehr melden
+    // Nur wenn die Coroutine selbst abgebrochen ist, nimmt niemand den Fehler an. call.isCanceled()
+    // taugt dafür nicht: OkHttp bricht die Anfrage auch beim eigenen callTimeout ab — dieser Fehler
+    // muss als Zeitüberschreitung ankommen, sonst wartet die Coroutine bis zur äusseren Wache.
     override fun onFailure(call: Call, e: IOException) {
-        if (call.isCanceled()) return
+        if (cont.isCancelled) return
         cont.resumeWithException(e)
     }
 }

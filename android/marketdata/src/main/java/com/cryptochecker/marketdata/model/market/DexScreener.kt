@@ -31,6 +31,9 @@ data class DexPool(
      * verschiedener Chains auseinanderzuhalten sind.
      */
     val watchQuote: String get() = "USD ($chainId)"
+
+    /** Genug Liquidität für Alarme ([DexScreener.alarmCapable])? Sonst Hinweis «Geringe Liquidität – kein Alarm». */
+    val alarmCapable: Boolean get() = DexScreener.alarmCapable(liquidityUsd)
 }
 
 /**
@@ -57,6 +60,8 @@ class DexScreener : Market("DexScreener", "Dex Screener") {
         pool.optJSONObject("volume")?.let { ticker.volQuote = it.optDoubleOrMissing("h24") }
         // «priceChange.h24»: gleitende 24 h in Prozent
         ticker.change24hPercent = pool.optJSONObject("priceChange")?.let { Change24h.percent(it.optDouble("h24")) }
+        // Liquidität bei jeder Abfrage: Alarme pausieren, solange der Pool dünn ist (alarmCapable)
+        ticker.liquidityUsd = liquidityOf(pool)
     }
 
     // ── Lesen ──
@@ -70,6 +75,20 @@ class DexScreener : Market("DexScreener", "Dex Screener") {
     }
 
     companion object {
+        /**
+         * Mindest-Liquidität (USD) eines Pools für Alarme. Darunter (oder unbekannt) bewegen schon kleine Beträge den
+         * Kurs — ein Alarm wäre leicht auszulösen bzw. zu manipulieren. Wie iOS `DexScreener.minAlarmLiquidityUsd`.
+         */
+        const val DEX_MIN_ALARM_LIQUIDITY_USD = 10_000.0
+
+        /** Alarmfähig: bekannte Liquidität von mindestens [DEX_MIN_ALARM_LIQUIDITY_USD]. */
+        fun alarmCapable(liquidityUsd: Double?): Boolean =
+            liquidityUsd != null && liquidityUsd.isFinite() && liquidityUsd >= DEX_MIN_ALARM_LIQUIDITY_USD
+
+        /** «liquidity.usd» eines Pools; fehlend, NaN oder negativ = unbekannt (null). */
+        internal fun liquidityOf(entry: JSONObject): Double? =
+            entry.optJSONObject("liquidity")?.optDouble("usd")?.takeIf { it.isFinite() && it >= 0.0 }
+
         /**
          * Gehört ([chainId], [pairAddress]) zum gemerkten Pool [pairId] («chain/pairAddress»)? Die Adresse
          * vergleicht ohne Gross-/Kleinschreibung (EVM-Prüfsummen). Wie `DexScreener.isPool` (iOS).
@@ -96,7 +115,6 @@ class DexScreener : Market("DexScreener", "Dex Screener") {
             list.forEachJSONObject { entry ->
                 val base = entry.optJSONObject("baseToken") ?: return@forEachJSONObject
                 val quote = entry.optJSONObject("quoteToken") ?: return@forEachJSONObject
-                val liquidity = entry.optJSONObject("liquidity")?.optDouble("usd")
                 pools += DexPool(
                     chainId = entry.optString("chainId"),
                     dexId = entry.optString("dexId"),
@@ -104,7 +122,7 @@ class DexScreener : Market("DexScreener", "Dex Screener") {
                     baseSymbol = base.optString("symbol"),
                     quoteSymbol = quote.optString("symbol"),
                     priceUsd = entry.optString("priceUsd").toDoubleOrNull(),
-                    liquidityUsd = if (liquidity == null || liquidity.isNaN()) null else liquidity,
+                    liquidityUsd = liquidityOf(entry),
                 )
             }
             val usable = pools.filter { pool ->

@@ -114,14 +114,14 @@ object PortfolioLedger {
 
     /**
      * Gebühr-Zeile (CSV «Fee», [com.cryptochecker.app.domain.portfolio.csvimport.CsvImportMapping]), gespeichert als Verkauf
-     * zum Preis 0 MIT Import-Herkunft ([PortfolioTrade.imported], Build 47 — ein von Hand erfasster Verkauf zum Preis 0 ist
-     * ein Verkauf eines wertlosen Coins, keine Gebühr-Zeile): Veräusserung zum TAGESKURS — Erlös = Menge × Tagesschluss ihres Tags ([valueFeeDisposals]),
+     * mit eigenem Merker ([PortfolioTrade.feeRow], seit Portfolio-Datenbank v5; vorher aus «Preis 0 mit Import-Herkunft»
+     * geschlossen, [LegacyStorageMigration.legacyFeeRow] — ein von Hand erfasster Verkauf zum Preis 0 bleibt ein Verkauf
+     * eines wertlosen Coins): Veräusserung zum TAGESKURS — Erlös = Menge × Tagesschluss ihres Tags ([valueFeeDisposals]),
      * realisiert = Marktwert − Einstand; ohne Kurs Erlös unbekannt («unvollständig», nie 0). Steuer-Export: Vermerk
      * «Gebühr» ([TaxGainRow.feeRow]). Verlauf und «Heute/7 T/1 J» ([flow]): Abfluss zum Marktkurs — über die ganze
      * Haltedauer Gewinn/Verlust-Kurve = «Seit Kauf» + realisiert, kein Sprung am Gebühr-Tag.
      */
-    fun isFeeDisposal(t: PortfolioTrade): Boolean =
-        t.type == PortfolioTxType.SELL && t.imported && t.validPrice?.signum() == 0
+    fun isFeeDisposal(t: PortfolioTrade): Boolean = t.type == PortfolioTxType.SELL && t.feeRow
 
     /** Verkaufspreis für Einstand/Erlös: Gebühr-Zeile ohne Tageskurs = unbekannt (null), sonst [PortfolioTrade.validPrice]. */
     fun salePrice(t: PortfolioTrade): BigDecimal? = if (isFeeDisposal(t)) null else t.validPrice
@@ -134,7 +134,11 @@ object PortfolioLedger {
         if (trades.none(::isFeeDisposal)) return trades
         return trades.map { t ->
             if (!isFeeDisposal(t)) t
-            else t.copy(priceUsdt = price?.invoke(PortfolioCalculator.normalizeCoin(t.coin), t.time)?.takeIf { it.signum() > 0 })
+            // Bewertet ist sie ein gewöhnlicher Verkauf zu diesem Preis (der Merker gilt nur für die Rohdaten)
+            else t.copy(
+                priceUsdt = price?.invoke(PortfolioCalculator.normalizeCoin(t.coin), t.time)?.takeIf { it.signum() > 0 },
+                feeRow = false,
+            )
         }
     }
 
@@ -179,7 +183,8 @@ object PortfolioLedger {
         return trades.map { t ->
             when {
                 !needsDayClose(t) -> t
-                isFeeDisposal(t) -> t.copy(priceUsdt = close(t.coin, t.time))
+                // Bewertet ist sie ein gewöhnlicher Verkauf (der Merker gilt nur für die Rohdaten, wie bis v4 der Preis 0)
+                isFeeDisposal(t) -> t.copy(priceUsdt = close(t.coin, t.time), feeRow = false)
                 t.type == PortfolioTxType.PAYMENT -> close(t.coin, t.time)?.let { t.copy(priceUsdt = it, valueEstimated = true) } ?: t
                 else -> {
                     val value = close(t.coin, t.time)?.let { t.amount * it }
@@ -251,9 +256,11 @@ object PortfolioLedger {
     /**
      * Zufluss von [e] in USDT bei Bestand [holdingsBefore] (siehe oben); null = unbekannt.
      * [marketPrice] = Marktkurs des Coins zum Zeitpunkt von [e] (nur nötig, wenn [needsMarketPrice]);
-     * [feeMarketPrice] = Marktkurs des Gebühr-Coins dann (nur nötig, wenn [needsFeeMarketPrice]). Mit Börsenkursen
-     * bewertet wird in Double; Mengen kommen exakt. [method] = Einstandsmethode des Buchs ([PortfolioHoldingsBook.method]):
-     * bestimmt den gedeckten Anteil eines Verkaufs/Tauschs über den Bestand hinaus ([coveredFraction]).
+     * [feeMarketPrice] = Marktkurs des Gebühr-Coins dann (nur nötig, wenn [needsFeeMarketPrice]). Gerechnet wird exakt
+     * ([BigDecimal]: Menge × Kurs, Gebühren, Anteil) und erst das Ergebnis als Double zurückgegeben — Börsenkurse kommen
+     * als Double und gehen über ihre kürzeste Darstellung ein. [method] = Einstandsmethode des Buchs
+     * ([PortfolioHoldingsBook.method]): bestimmt den gedeckten Anteil eines Verkaufs/Tauschs über den Bestand hinaus
+     * ([coveredFraction]).
      */
     fun flow(
         e: PortfolioLedgerEvent,
@@ -261,61 +268,75 @@ object PortfolioLedger {
         marketPrice: Double? = null,
         feeMarketPrice: Double? = null,
         method: CostMethod = CostMethod.DEFAULT,
-    ): Double? {
+    ): Double? = flowExact(e, holdingsBefore, marketPrice, feeMarketPrice, method)?.toDouble()
+
+    /** [flow] exakt; null = unbekannt. */
+    fun flowExact(
+        e: PortfolioLedgerEvent,
+        holdingsBefore: BigDecimal,
+        marketPrice: Double? = null,
+        feeMarketPrice: Double? = null,
+        method: CostMethod = CostMethod.DEFAULT,
+    ): BigDecimal? {
         val t = e.trade
-        if (t.amount.signum() <= 0) return 0.0
+        if (t.amount.signum() <= 0) return BigDecimal.ZERO
         val h = holdingsBefore.max(BigDecimal.ZERO)
         if (e.feeLeg) {
             // Ohne Gebühr-Preis zum Marktkurs des Gebühr-Coins (neutral wie eine Auszahlung ohne Preis)
-            val feePrice = t.thirdFeePrice?.toDouble()
-                ?: marketPrice?.takeIf { it >= 0.0 && it.isFinite() }
-                ?: return null
+            val feePrice = t.thirdFeePrice ?: exactPrice(marketPrice) ?: return null
             val removed = t.thirdFeeAmount.min(h)
-            return if (removed.signum() > 0) -(removed.toDouble() * feePrice) else 0.0
+            return if (removed.signum() > 0) (removed * feePrice).negate() else BigDecimal.ZERO
         }
-        val market = marketPrice?.takeIf { it >= 0.0 && it.isFinite() }
+        val market = exactPrice(marketPrice)
         if (e.swapIn) {
             // Zugang aus Tausch: zum Wert des Tauschs, sonst erhaltene Menge (vor Gebühr) × Marktkurs; ohne gültigen Zugang unbekannt
             if (t.swapToCoin == null) return null
-            t.swapValue?.let { return it.toDouble() }
-            return market?.let { t.toAmount!!.toDouble() * it }
+            t.swapValue?.let { return it }
+            return market?.let { t.toAmount!! * it }
         }
         // Gebühr im dritten Coin ohne Preis: zum Marktkurs des Gebühr-Coins
-        val feeValue = t.thirdFeeValue?.toDouble()
-            ?: feeMarketPrice?.takeIf { it >= 0.0 && it.isFinite() }?.let { t.thirdFeeAmount.toDouble() * it }
+        val feeValue = t.thirdFeeValue
+            ?: exactPrice(feeMarketPrice)?.let { t.thirdFeeAmount * it }
             ?: return null
         // Gebühr-Zeile zum Marktkurs (Abfluss wie ein Verkauf, dessen Erlös das Portfolio verlässt)
-        val price = if (isFeeDisposal(t)) market else t.validPrice?.toDouble() ?: market?.takeIf { needsMarketPrice(e) }
+        val price = if (isFeeDisposal(t)) market else t.validPrice ?: market?.takeIf { needsMarketPrice(e) }
         return when (t.type) {
             PortfolioTxType.BUY, PortfolioTxType.REWARD, PortfolioTxType.DEPOSIT -> {
                 if (price == null) return null
-                t.amountValue * price + t.quoteFee.toDouble() + feeValue
+                t.amount * price + t.quoteFee + feeValue
             }
             // Damit bezahlt: Wert verlässt das Portfolio wie ein Verkauf (ohne Marktwert zum Marktkurs)
             PortfolioTxType.SELL, PortfolioTxType.PAYMENT -> {
                 if (price == null) return null
                 // Nichts mehr da: der Verkauf zählt nicht, auch nicht seine Gebühr — wie «realisiert»
-                val share = coveredFraction(t, h, method) ?: return 0.0
-                -(t.amountValue * price - t.quoteFee.toDouble() - feeValue) * share
+                val share = coveredFraction(t, h, method) ?: return BigDecimal.ZERO
+                partOf(t.amount * price - t.quoteFee - feeValue, share).negate()
             }
             // Verschenkt: wie eine Auszahlung (Wert verlässt das Portfolio zum Marktwert)
             PortfolioTxType.WITHDRAWAL, PortfolioTxType.GIFT -> {
-                val share = withdrawnFraction(t, h) ?: return 0.0
+                val share = withdrawnFraction(t, h) ?: return BigDecimal.ZERO
                 if (price == null) return null
                 // Wert und Gebühren zum gedeckten Anteil wie beim Verkauf (ungedeckter Rest: nichts abgegeben)
-                -(t.amountValue * price - t.quoteFee.toDouble() - feeValue) * share
+                partOf(t.amount * price - t.quoteFee - feeValue, share).negate()
             }
-            PortfolioTxType.TRANSFER -> t.quoteFee.toDouble() + feeValue
+            PortfolioTxType.TRANSFER -> t.quoteFee + feeValue
             PortfolioTxType.SWAP -> {
                 // Abgegebener Coin wie ein Verkauf: zum Wert des Tauschs, sonst zum Marktkurs; gedeckter Anteil wie dort
-                val share = coveredFraction(t, h, method) ?: return 0.0
+                val share = coveredFraction(t, h, method) ?: return BigDecimal.ZERO
                 // Zugang kaputt (kein gültiger erhaltener Coin): unbekannt statt still verloren
                 if (t.swapToCoin == null) return null
-                val gross = t.swapValue?.toDouble() ?: market?.let { t.amountValue * it } ?: return null
-                -(gross - t.quoteFee.toDouble() - feeValue) * share
+                val gross = t.swapValue ?: market?.let { t.amount * it } ?: return null
+                partOf(gross - t.quoteFee - feeValue, share).negate()
             }
         }
     }
+
+    /** Börsenkurs (≥ 0, endlich) exakt über seine kürzeste Darstellung; sonst null. */
+    private fun exactPrice(price: Double?): BigDecimal? = price?.takeIf { it >= 0.0 && it.isFinite() }?.let { BigDecimal.valueOf(it) }
+
+    /** [value] × Anteil [fraction] (ganz gedeckt: unverändert). */
+    private fun partOf(value: BigDecimal, fraction: Double): BigDecimal =
+        if (fraction == 1.0) value else value.multiply(BigDecimal.valueOf(fraction), PortfolioDecimal.MC)
 
     /**
      * Gedeckter Anteil (0…1] des ganzen Erlöses eines Verkaufs/Tauschs bei Bestand [holdings] — dieselbe Aufteilung wie

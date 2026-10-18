@@ -40,6 +40,20 @@ class RateLimitSignalTest {
     }
 
     @Test
+    fun `readable ok bodies count only in error fields`() {
+        // Kursliste bzw. Kurs, dessen Name «rate limit» enthält: keine Bremse
+        assertFalse(RateLimitSignal.okBodyRateLimited("""[{"symbol":"X","name":"Rate limit exceeded token"}]"""))
+        assertFalse(RateLimitSignal.okBodyRateLimited("""{"result":{"desc":"too many requests coin"},"error":[]}"""))
+        // Fehlerfelder und Codes
+        assertTrue(RateLimitSignal.okBodyRateLimited("""{"error":["EAPI:Rate limit exceeded"]}"""))
+        assertTrue(RateLimitSignal.okBodyRateLimited("""{"msg":"Too many requests"}"""))
+        assertTrue(RateLimitSignal.okBodyRateLimited("""{"retCode":"10006"}"""))
+        // Unlesbar: wie bisher der ganze Text
+        assertTrue(RateLimitSignal.okBodyRateLimited("Too many requests"))
+        assertTrue(RateLimitSignal.okBodyRateLimited("""[{"msg":"Too many requests"""))
+    }
+
+    @Test
     fun `rate limit text stops further singles`() {
         assertTrue(SingleRateGate.isRateLimit("EGeneral:Too many requests"))
         assertFalse(SingleRateGate.isRateLimit("EQuery:Unknown asset pair"))

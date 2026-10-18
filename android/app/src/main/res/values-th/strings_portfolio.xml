@@ -17,7 +17,7 @@
     <string name="portfolio_empty_title">ยังไม่มีรายการ</string>
     <string name="portfolio_enable_ask_text">บันทึกรายการแล้ว แท็บพอร์ตโฟลิโอจะแสดงยอดถือครองและมูลค่า</string>
     <string name="portfolio_enable_ask_title">เปิดแท็บพอร์ตโฟลิโอหรือไม่</string>
-    <string name="portfolio_enable_later_hint">บันทึกรายการแล้ว เปิดแท็บพอร์ตโฟลิโอได้ที่ ตั้งค่า › ขั้นสูง › พอร์ตโฟลิโอ</string>
+    <string name="portfolio_enable_later_hint">บันทึกรายการแล้ว เปิดแท็บพอร์ตโฟลิโอได้ที่ ตั้งค่า › พอร์ตโฟลิโอ</string>
     <string name="portfolio_enabled_banner">เปิดพอร์ตแล้ว – ดูได้ที่แท็บพอร์ต</string>
     <string name="portfolio_lock_reason">ปลดล็อกพอร์ตโฟลิโอ</string>
     <string name="portfolio_locked_text">ปลดล็อกเพื่อดูสินทรัพย์และมูลค่า</string>

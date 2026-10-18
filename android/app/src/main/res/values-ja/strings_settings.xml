@@ -168,7 +168,7 @@
 
     <!-- Einstellungen › Markt-Meldungen -->
     <string name="settings_depeg_alarm">USDT のペッグ外れを通知</string>
-    <string name="settings_depeg_alarm_hint">USDT が 1 USD からしきい値以上ずれたときに一度通知します（Kraken USDT/USD、Binance USDC/USDT）。</string>
+    <string name="settings_depeg_alarm_hint">USDT が 1 USD からしきい値以上ずれたときに一度通知します（Kraken USDT/USD、Coinbase USDT/USD、Binance USDC/USDT）。</string>
     <string name="settings_depeg_threshold">ペッグ外れのしきい値</string>
     <string name="settings_fng_above">Fear &amp; Greed: 上回ったら通知</string>
     <string name="settings_fng_below">Fear &amp; Greed: 下回ったら通知</string>

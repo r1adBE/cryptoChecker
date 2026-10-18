@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Build 76: Portfolio-Speicher, Sicherung, Steuer-Export, Sperre -->
+    <string name="storage_recovery_restore_action">Yedeği geri yükle</string>
+    <string name="storage_recovery_acknowledge">Anladım</string>
+    <string name="storage_recovery_restored_title">Kayıtlı veriler yeniden açıldı</string>
+    <string name="storage_recovery_restored_message">Bu cihazdaki önceki bir anahtar kenara ayrılan verileri yeniden açtı, böylece veriler geri geldi. Bu arada kaydedilenler değişmeden yanında duruyor.</string>
+    <string name="backup_restore_interrupted_title">Geri yükleme yarıda kaldı</string>
+    <string name="backup_restore_interrupted_rolled_back">Bir yedek geri yüklenirken uygulama kapandı. Önceki verilerin geri yazıldı; yedekten hiçbir şey alınmadı.</string>
+    <string name="backup_restore_interrupted_incomplete">Bir yedek geri yüklenirken uygulama kapandı ve önceki veriler tamamen geri yazılamadı. Lütfen izleme listesini ve portföyü kontrol et ya da yedeği Ayarlar\'daki “%1$s” bölümünden yeniden geri yükle.</string>
+    <string name="backup_not_verified">Yedek dosyası kaydedildikten sonra doğrulanamadı; geri okunduğunda farklı. Lütfen yedeği yeni bir dosyaya kaydet.</string>
+    <string name="tax_line_at_old_speculation_limit">1 Mart 2021\'den önce edinilmiş – ≤ 1 yıl tutulmuş: spekülatif işlemler muafiyet sınırı (§ 31 (3) EStG eski hâli)</string>
+    <string name="portfolio_tx_interest">Faiz (borç verme)</string>
+    <string name="portfolio_tx_interest_hint">Alındığında gelir sayılır (Avusturya). Staking ödülleri ve airdrop\'lar için kapalı bırak.</string>
+    <string name="app_lock_no_screen_lock">Portföyü açmak için bir ekran kilidi ayarla.</string>
+    <string name="app_lock_turn_off_action">Portföy kilidini kapat</string>
+    <string name="app_lock_turn_off_confirm_title">Portföy kilidi kapatılsın mı?</string>
+    <string name="app_lock_turn_off_confirm_message">Ekran kilidi olmadan portföyün kilidi açılamaz. Kapatıldığında uygulama portföyünü yeniden sormadan gösterir. Ekran kilidi ayarlandıktan sonra kilidi Ayarlar\'dan yeniden açabilirsin.</string>
+</resources>

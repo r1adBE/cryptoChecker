@@ -50,13 +50,6 @@ enum class AccentColor(
      */
     fun launcherAlias(): String = "$ALIAS_PREFIX$aliasBase"
 
-    /**
-     * Früherer Hell-Alias (bis Build 46, …LauncherOrangeLight). Bleibt im Manifest (aus), damit
-     * Geräte, auf denen er noch aktiv ist, nach dem Update ein Icon behalten, bis
-     * [AppearanceApplier.applyLauncherIcon] sie einmal auf [launcherAlias] umstellt.
-     */
-    fun legacyLightAlias(): String = launcherAlias() + "Light"
-
     companion object {
         val DEFAULT = ORANGE
 
@@ -65,8 +58,7 @@ enum class AccentColor(
 
         private const val ALIAS_PREFIX = "com.cryptochecker.app.Launcher"
 
-        /** Alle Launcher-Aliase im Manifest (je Farbe der aktuelle und der frühere Hell-Alias). */
-        fun allLauncherAliases(): List<String> =
-            entries.flatMap { listOf(it.launcherAlias(), it.legacyLightAlias()) }
+        /** Alle Launcher-Aliase im Manifest (je Farbe einer). */
+        fun allLauncherAliases(): List<String> = entries.map { it.launcherAlias() }
     }
 }

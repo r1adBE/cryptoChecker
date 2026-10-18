@@ -11,6 +11,7 @@ import com.cryptochecker.app.data.local.model.AlarmCondition
 import com.cryptochecker.app.data.local.model.AlarmEntity
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.data.remote.BlockedSources
+import com.cryptochecker.app.domain.alarm.AlarmFreshness
 import com.cryptochecker.app.domain.activity.ActivityAnalysisGate
 import com.cryptochecker.app.domain.activity.ActivityMonitor
 import com.cryptochecker.app.domain.alarm.DepegAlarmChecker
@@ -89,6 +90,8 @@ class PriceRefresher @Inject constructor(
     private val dayReferences: DayReferences,
     /** Alarme, Kurs-Meldungen und Ansagen nach einem neuen Kurs. */
     private val effects: RefreshEffects,
+    /** Liquidität der DEX-Pools: unter der Mindestmenge keine Alarme ([com.cryptochecker.app.domain.watch.DexLiquidity]). */
+    private val dexLiquidity: com.cryptochecker.app.data.DexLiquidityStore,
 ) {
     private val mutex = Mutex()
 
@@ -333,11 +336,15 @@ class PriceRefresher @Inject constructor(
         val earlyLoads = dayReferences.startDayReferenceLoads(earlyWatches, startedKeys, dayStart)
         // Alarm-Zusatzdaten ebenfalls parallel zu den Kursen (Doze: Netz-Fenster nach den Kursen oft zu)
         val prefetchBackoff = refreshStats.backoffStates()
+        val enabledAlarms = watchRepository.getAllEnabledAlarms()
         val alarmLoads = effects.startAlarmPrefetch(
             watches.filterNot { ExchangeBackoff.isPaused(prefetchBackoff[it.marketKey], startedAt) },
-            watchRepository.getAllEnabledAlarms(),
+            enabledAlarms,
             startedAt,
         )
+        // Je Börse Paare mit aktivem Alarm zuerst abfragen (FetchOrder): im kurzen Netz-Fenster des Ruhemodus
+        // kommen so die Alarme durch
+        val alarmedIds = enabledAlarms.mapTo(HashSet()) { it.watchId }
 
         // 1) Netz: alle Börsen gleichzeitig. Je Börse erst die Massenabfrage,
         //    was dort fehlt, parallel einzeln. Früher lief das strikt
@@ -362,7 +369,9 @@ class PriceRefresher @Inject constructor(
         val activeReports = coroutineScope {
             activeGroups
                 // Mit Frist: je Börse eigenes Budget, eine langsame Börse hält die anderen nicht auf
-                .map { group -> async { priceFetcher.fetchGroup(group.value, settings.includeRollingFutures, deadlineAt) } }
+                .map { group ->
+                    async { priceFetcher.fetchGroup(group.value, settings.includeRollingFutures, deadlineAt, alarmedIds) }
+                }
                 .awaitAll()
         }.map { (results, fetchedGroup) ->
             fetched.putAll(results)
@@ -652,6 +661,10 @@ class PriceRefresher @Inject constructor(
             }
 
             val time = ticker.timestamp.takeIf { it > 0 } ?: now
+            // DEX-Pool: Liquidität jeder Abfrage merken (Alarm-Sperre unten, Hinweis in Suche und Alarm-Liste)
+            if (!live && com.cryptochecker.app.domain.watch.DexLiquidity.isDex(watch.marketKey)) {
+                dexLiquidity.put(watch.pairId, ticker.liquidityUsd)
+            }
             val dayChange = if (live) {
                 // Live-Wert aus dem Ticker: kein Kerzen-Hinweis — aber nur, wenn er die Veränderung ersetzt hat.
                 // Bleibt die bisherige ([LiveRules.chooseChange], z. B. Tages-Basis), bleibt auch ihr Anbieter:
@@ -704,7 +717,14 @@ class PriceRefresher @Inject constructor(
         for (watch in updatedWatches) {
             val price = watch.lastPrice ?: continue
             // Ein Paar, dessen Alarme scheitern (Datenbank, Daten einer Quelle), hält die übrigen nicht auf
-            val triggered = try {
+            val triggered = if (dexLiquidity.blocksAlarms(watch.marketKey, watch.pairId)) {
+                // DEX-Pool mit zu wenig oder unbekannter Liquidität: Alarme bleiben, lösen aber nicht aus
+                0
+            } else if (AlarmFreshness.exchangeTimeTooOld(watch.exchangeTime, now)) {
+                // Kurs laut Börse zu alt (Handel ruht): Alarme bleiben scharf, lösen aber nicht aus
+                Timber.d("Alarme für %s ausgelassen: Kurs laut Börse zu alt", watch.displayName)
+                0
+            } else try {
                 effects.checkAlarms(
                     watch, price, watch.previousPrice,
                     alarmsByWatch[watch.id].orEmpty(), settings, now, live,

@@ -37,6 +37,8 @@ fun ExplorerViewModel.searchDex(query: String) {
 /** Einen Pool in die Merkliste. */
 fun ExplorerViewModel.addDexPool(pool: DexPool) {
     val selected = exchange.value ?: return
+    // Liquidität aus der Suche gleich merken: Alarm-Editor und Alarme richten sich bis zur ersten Abfrage danach
+    dexLiquidityStore.put(pool.pairId, pool.liquidityUsd)
     launchAdd(selected, MarketPair(pool.baseSymbol, pool.watchQuote, pool.pairId)) { added ->
         dexNotice.value = if (added) DexMessage.Added(pool.baseSymbol) else DexMessage.AlreadyInList(pool.baseSymbol)
     }

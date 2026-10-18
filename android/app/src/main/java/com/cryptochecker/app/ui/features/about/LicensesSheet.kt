@@ -35,7 +35,10 @@ import com.cryptochecker.app.domain.market.DataFreshness
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-/** Lizenz der App selbst — gleicher Text wie die Datei `LICENSE` des Projekts. */
+/**
+ * Lizenz der App selbst — gleicher Text wie die Datei `LICENSE` des Projekts, samt den ursprünglichen
+ * MIT-Vermerken von BitcoinChecker (mobnetic, Aneonex Software), die beim Weitergeben erhalten bleiben müssen.
+ */
 private const val ASSET_APP = "licenses/MIT-cryptochecker.txt"
 private const val ASSET_FONT = "licenses/Rubik-OFL.txt"
 private const val ASSET_APACHE = "licenses/Apache-2.0.txt"
@@ -57,7 +60,7 @@ private const val RATES_BY_EXCHANGERATE_API = "Rates By Exchange Rate API (https
 
 /** Fremdbibliotheken aus `app/build.gradle`, die in der App ausgeliefert werden (alle unter der Apache License 2.0). */
 private val ANDROID_LIBRARIES = listOf(
-    "AndroidX Core, AppCompat, Activity, Lifecycle, Navigation",
+    "AndroidX Core, Core SplashScreen, AppCompat, Activity, Lifecycle, Navigation",
     "Jetpack Compose (UI, UI Util, Material 3, ConstraintLayout)",
     "AndroidX Room",
     "AndroidX WorkManager",
@@ -67,7 +70,8 @@ private val ANDROID_LIBRARIES = listOf(
     "AndroidX Concurrent Futures",
     "Kotlin, kotlinx.coroutines",
     "Dagger / Hilt (Hilt Navigation Compose, Hilt Work)",
-    "OkHttp, OkHttp Logging Interceptor",
+    // Logging Interceptor nur im Debug-Build (debugImplementation), nicht in der ausgelieferten App
+    "OkHttp",
     "Okio",
     "OpenSSL libcrypto (in SQLCipher for Android)",
     "Timber"

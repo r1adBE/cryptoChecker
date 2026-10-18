@@ -3,6 +3,7 @@ package com.cryptochecker.app.domain.refresh
 import com.cryptochecker.app.parity.ParityJson
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 /** Gespeicherte Fehler ohne Hosts/URLs/Adressen; Fälle geteilt mit StoredErrorTests.swift. */
@@ -28,6 +29,29 @@ class StoredErrorTest {
                 RefreshReportLogic.classify(input),
                 RefreshReportLogic.classify(StoredError.sanitize(input)),
             )
+        }
+    }
+
+    /** Kurzer Börsentext für den Bericht; Fälle `exchange_detail.json`, wie iOS. */
+    @Test
+    fun exchangeDetailCases() {
+        @Suppress("UNCHECKED_CAST")
+        val data = ParityJson.load("exchange_detail.json")
+        @Suppress("UNCHECKED_CAST")
+        for (c in data["cases"] as List<Map<String, Any?>>) {
+            val out = StoredError.exchangeDetail(c["input"] as String?)
+            assertEquals(c["name"].toString(), c["expected"] as String?, out)
+            if (out != null) {
+                assertTrue(out.length <= StoredError.MAX_DETAIL)
+                assertFalse(c["name"].toString(), "://" in out || ".com" in out || ".io" in out)
+            }
+        }
+        @Suppress("UNCHECKED_CAST")
+        for (r in data["report"] as List<Map<String, Any?>>) {
+            @Suppress("UNCHECKED_CAST")
+            val errors = r["errors"] as List<String?>
+            val reason = (r["reason"] as String?)?.let { RefreshFailure.valueOf(it) }
+            assertEquals(r.toString(), r["expected"] as String?, StoredError.reportDetail(errors, reason))
         }
     }
 

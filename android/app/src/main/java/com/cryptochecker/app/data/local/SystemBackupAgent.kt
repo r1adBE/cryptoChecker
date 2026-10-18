@@ -9,6 +9,7 @@ import android.os.Build
 import android.os.ParcelFileDescriptor
 import com.cryptochecker.app.data.local.DatabaseEncryptionMigration.FileKind
 import com.cryptochecker.app.data.local.DatabaseEncryptionMigration.KeyLookup
+import com.cryptochecker.app.data.portfolio.PortfolioBackupMirror
 import timber.log.Timber
 import java.io.File
 import java.io.IOException
@@ -29,7 +30,9 @@ import java.io.IOException
  * unverschlüsselt in die Cloud; sie wird dort weder gesichert noch wiederhergestellt.
  *
  * Läuft im eingeschränkten App-Prozess der Systemsicherung (ohne `CryptoCheckerApp`, ohne Hilt): nur Context, Dateien
- * und Keystore. Die Portfolio-Datenbank bleibt wie bisher draussen (Kopie nur mit dem Schalter, PortfolioBackupMirror).
+ * und Keystore. Das Portfolio geht nur mit dem Schalter «Portfolio in Systemsicherung» mit (Merker-Datei,
+ * [PortfolioBackupMirror.isEnabled]): dann schreibt [onFullBackup] auch dessen Kopie und löscht sie danach — sie liegt
+ * nie länger als die Sicherung im Klartext da (Build 76; bis Build 75 dauernd).
  */
 class SystemBackupAgent : BackupAgent() {
 
@@ -39,6 +42,7 @@ class SystemBackupAgent : BackupAgent() {
         // auch ohne Ende-zu-Ende-Verschlüsselung in die Cloud. Also gar nicht erst anlegen (Rest wie gewohnt)
         if (!SystemBackupScope.writesDatabaseCopy(Build.VERSION.SDK_INT)) {
             export.delete()
+            runCatching { PortfolioBackupMirror.deleteNow(this) }
             super.onFullBackup(data)
             return
         }
@@ -51,9 +55,19 @@ class SystemBackupAgent : BackupAgent() {
                 Timber.w(e, "Systemsicherung: Kopie der Hauptdatenbank fehlgeschlagen")
                 throw IOException("Kopie der Hauptdatenbank fehlgeschlagen", e)
             }
+            // Portfolio nur mit dem Schalter; ohne Kopie ebenso abbrechen (die vorige Sicherung mit Portfolio bleibt)
+            try {
+                if (PortfolioBackupMirror.isEnabled(this)) PortfolioBackupMirror.writeForBackup(this)
+                else PortfolioBackupMirror.deleteNow(this)
+            } catch (e: Exception) {
+                Timber.w(e, "Systemsicherung: Kopie des Portfolios fehlgeschlagen")
+                throw IOException("Kopie des Portfolios fehlgeschlagen", e)
+            }
             super.onFullBackup(data)
         } finally {
             export.delete()
+            runCatching { PortfolioBackupMirror.deleteNow(this) }
+                .onFailure { Timber.w(it, "Systemsicherung: Kopie des Portfolios nicht gelöscht") }
         }
     }
 

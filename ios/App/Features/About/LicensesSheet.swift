@@ -1,7 +1,8 @@
 import SwiftUI
 
 /// Lizenzhinweise unter «Über die App»: die App selbst (MIT, Text unübersetzt in
-/// `App/Resources/Licenses/MIT-cryptochecker.txt`, gleich wie `LICENSE`), Schrift und Ersatz-Icons.
+/// `App/Resources/Licenses/MIT-cryptochecker.txt`, gleich wie `LICENSE`, samt den ursprünglichen
+/// MIT-Vermerken von BitcoinChecker: mobnetic, Aneonex Software), Schrift und Ersatz-Icons.
 /// Swift-Pakete von Dritten nutzt die App nicht (wie `LicensesSheet.kt`).
 enum LicenseNotices {
     /// Quellenangabe für den Ersatz-Wechselkurs (open.er-api.com, `FxRateSource`): von ExchangeRate-API

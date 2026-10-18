@@ -43,6 +43,8 @@ class PriceFetcher @Inject constructor(
         group: List<WatchEntity>,
         includeRollingFutures: Boolean,
         deadlineAt: Long? = null,
+        /** Paare mit aktivem Alarm: werden einzeln zuerst abgefragt ([FetchOrder]). */
+        alarmed: Set<Long> = emptySet(),
     ): Pair<Map<Long, Fetched>, FetchedGroup> {
         val groupStartedAt = System.currentTimeMillis()
         val groupDeadline = CheckBudget.groupDeadline(groupStartedAt, deadlineAt)
@@ -64,7 +66,7 @@ class PriceFetcher @Inject constructor(
         val gate = SingleRateGate()
 
         val results = coroutineScope {
-            group.map { watch ->
+            FetchOrder.alarmsFirst(group, alarmed) { it.id }.map { watch ->
                 async {
                     val bulkTicker = watch.pairId?.let { bulkTickers[it] }
                     watch to when {
@@ -100,6 +102,7 @@ class PriceFetcher @Inject constructor(
         // Am eigenen Budget gescheitert: zählt als Fehler im Bericht, aber nicht für die Pause je Börse
         val cut = errors.count { it.budgetCut }
 
+        val reason = RefreshReportLogic.reason(errors.map { it.error })
         val entry = MarketRefresh(
             name = group.first().marketName,
             millis = System.currentTimeMillis() - groupStartedAt,
@@ -111,7 +114,8 @@ class PriceFetcher @Inject constructor(
             bulkMillis = bulkMillis,
             bulkPrices = bulkTickers.size,
             singles = results.count { it.second.fromSingle },
-            reason = RefreshReportLogic.reason(errors.map { it.error }),
+            reason = reason,
+            detail = StoredError.reportDetail(errors.map { it.error }, reason),
         )
         val errorTexts = errors.filterNot { it.budgetCut }.map { it.error } +
             listOfNotNull(bulk.error.takeUnless { bulk.budgetCut })

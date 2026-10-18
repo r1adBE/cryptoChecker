@@ -19,7 +19,7 @@
     <string name="portfolio_empty_title">Aucune transaction</string>
     <string name="portfolio_enable_ask_text">Votre transaction est enregistrée. L’onglet Portefeuille affiche vos avoirs et leur valeur.</string>
     <string name="portfolio_enable_ask_title">Activer l’onglet Portefeuille ?</string>
-    <string name="portfolio_enable_later_hint">Transaction enregistrée. Vous pouvez activer l’onglet Portefeuille dans Paramètres › Avancé › Portefeuille.</string>
+    <string name="portfolio_enable_later_hint">Transaction enregistrée. Vous pouvez activer l’onglet Portefeuille dans Paramètres › Portefeuille.</string>
     <string name="portfolio_enabled_banner">Portefeuille activé – vous le trouvez dans l’onglet Portefeuille.</string>
     <string name="portfolio_lock_reason">Déverrouiller le portefeuille</string>
     <string name="portfolio_locked_text">Déverrouillez-le pour voir vos avoirs et leurs valeurs.</string>

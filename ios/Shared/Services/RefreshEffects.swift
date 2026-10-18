@@ -205,6 +205,8 @@ extension PriceRefresher {
     static func checkAlarms(_ alarms: [Alarm], watch: Watch, updated: Watch, price: Double, now: Int64,
                             settings: AppSettings, speechAllowed: Bool, inputs: AlarmInputs,
                             outcome: inout Outcome) -> Bool {
+        // DEX-Pool mit zu wenig oder unbekannter Liquidität: Alarme bleiben, lösen aber nicht aus (`DexLiquidity`)
+        if DexLiquidityStore.blocksAlarms(marketKey: watch.marketKey, pairId: watch.pairId) { return false }
         var spokeAlarm = false
         // Nachtruhe: Alarme warten bis zum Ende und melden sich dann mit Ton (`QuietHours.holdsAlarms`)
         let holdAlarms = QuietHours.holdsAlarmsNow(settings)

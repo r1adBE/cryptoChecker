@@ -39,8 +39,25 @@ class DatabaseKeyStore(
 
     private fun keyFile(database: String) = File(directory, "$database.key")
 
-    /** Von [create] beiseitegelegter früherer Schlüssel ([PREVIOUS_SUFFIX]). */
-    private fun previousKeyFile(database: String) = File(keyFile(database).path + PREVIOUS_SUFFIX)
+    /**
+     * Von [create] beiseitegelegte frühere Schlüssel ([PREVIOUS_SUFFIX], weitere nummeriert `.previous.1`, `.previous.2` …),
+     * neuester zuerst. Bis Build 75 überschrieb ein zweites Beiseitelegen den ersten — der Schlüssel einer früher
+     * beiseitegelegten Datei war dann weg.
+     */
+    private fun previousKeyFiles(database: String): List<File> =
+        slotFiles(database, PREVIOUS_SUFFIX).sortedByDescending { slotNumber(it.name, keyFile(database).name + PREVIOUS_SUFFIX) }
+
+    /** Dateien `<key><suffix>` und `<key><suffix>.<n>` im Schlüsselordner. */
+    private fun slotFiles(database: String, suffix: String): List<File> {
+        val base = keyFile(database).name + suffix
+        return directory.listFiles()?.filter { slotNumber(it.name, base) != null }.orEmpty()
+    }
+
+    /** Nächster freier Platz `<key><suffix>` bzw. `<key><suffix>.<n>` ([nextSlotName]). */
+    private fun nextSlot(database: String, suffix: String): File {
+        val base = keyFile(database).name + suffix
+        return File(directory, nextSlotName(slotFiles(database, suffix).map { it.name }.toSet(), base))
+    }
 
     override fun load(database: String): KeyLookup {
         val file = keyFile(database)
@@ -83,10 +100,12 @@ class DatabaseKeyStore(
         val sealed = encrypt(master, raw)
         directory.mkdirs()
         val file = keyFile(database)
-        // Den bisherigen Schlüssel (endgültig unbrauchbar oder nie genutzt) nicht überschreiben, sondern daneben
-        // behalten — falls «endgültig» doch falsch war, liesse sich die beiseitegelegte Datenbank noch öffnen
-        // — bis sich die Datenbank mit dem neuen Schlüssel öffnen liess ([discardPrevious])
-        if (file.exists()) file.renameTo(previousKeyFile(database))
+        // Den bisherigen Schlüssel (endgültig unbrauchbar oder nie genutzt) nicht überschreiben, sondern nummeriert daneben
+        // behalten — falls «endgültig» doch falsch war, holt der nächste Start die beiseitegelegte Datenbank damit zurück
+        // (DatabaseEncryptionMigration); gelöscht erst, wenn keine beiseitegelegte Datei mehr wartet ([discardPrevious])
+        if (file.exists() && !file.renameTo(nextSlot(database, PREVIOUS_SUFFIX))) {
+            throw IOException("$database: bisheriger Schlüssel nicht beiseitegelegt")
+        }
         val temp = File(file.path + ".tmp")
         temp.outputStream().use { out ->
             out.write(sealed)
@@ -101,8 +120,33 @@ class DatabaseKeyStore(
      * ([DatabaseEncryptionMigration]) — der beiseitegelegte bliebe sonst für immer liegen.
      */
     override fun discardPrevious(database: String) {
-        val previous = previousKeyFile(database)
-        if (previous.exists() && !previous.delete()) throw IOException("$database: früherer Schlüssel nicht gelöscht")
+        for (previous in previousKeyFiles(database)) {
+            if (previous.exists() && !previous.delete()) throw IOException("$database: früherer Schlüssel nicht gelöscht")
+        }
+    }
+
+    override fun previous(database: String): List<DatabaseEncryptionMigration.PreviousKey> {
+        val files = previousKeyFiles(database)
+        if (files.isEmpty()) return emptyList()
+        // Mit einem neu erzeugten Keystore-Schlüssel sind die früheren Dateien nicht mehr zu öffnen: dann keiner
+        val master = runCatching { masterKey(database) }.getOrNull() ?: return emptyList()
+        return files.mapNotNull { f ->
+            val raw = runCatching { decrypt(master, f.readBytes()) }.getOrNull() ?: return@mapNotNull null
+            if (raw.size != DatabaseEncryptionMigration.KEY_BYTES) return@mapNotNull null
+            DatabaseEncryptionMigration.PreviousKey(f.name, DatabaseEncryptionMigration.rawKeyLiteral(raw))
+        }
+    }
+
+    override fun promote(database: String, id: String) {
+        val source = File(directory, id)
+        val base = keyFile(database).name + PREVIOUS_SUFFIX
+        require(slotNumber(id, base) != null && source.exists()) { "$database: kein früherer Schlüssel $id" }
+        val file = keyFile(database)
+        // Der bisher gespeicherte gehört zur beiseitegelegten neuen Datei: als «ersetzt» behalten, nicht löschen
+        if (file.exists() && !file.renameTo(nextSlot(database, REPLACED_SUFFIX))) {
+            throw IOException("$database: gespeicherter Schlüssel nicht beiseitegelegt")
+        }
+        if (!source.renameTo(file)) throw IOException("$database: früherer Schlüssel nicht übernommen")
     }
 
     private fun keyStore(): KeyStore = KeyStore.getInstance(ANDROID_KEYSTORE).apply { load(null) }
@@ -154,8 +198,28 @@ class DatabaseKeyStore(
         }
         const val DIRECTORY = "db_keys"
 
-        /** Endung des von [create] beiseitegelegten früheren Schlüssels. */
+        /** Endung der von [create] beiseitegelegten früheren Schlüssel (weitere mit «.1», «.2» …). */
         const val PREVIOUS_SUFFIX = ".previous"
+
+        /** Endung eines durch einen früheren ersetzten Schlüssels ([promote]; gehört zur beiseitegelegten neuen Datei). */
+        const val REPLACED_SUFFIX = ".replaced"
+
+        /**
+         * Name eines Platzes [base] bzw. `[base].<n>` → Nummer (0 für [base] selbst); null = kein solcher Platz. Rein, für
+         * Tests.
+         */
+        fun slotNumber(name: String, base: String): Int? = when {
+            name == base -> 0
+            name.startsWith("$base.") -> name.removePrefix("$base.").toIntOrNull()?.takeIf { it > 0 }
+            else -> null
+        }
+
+        /** Nächster freier Platz neben [existing]: zuerst [base], dann `[base].<grösste Nummer + 1>`. Rein, für Tests. */
+        fun nextSlotName(existing: Set<String>, base: String): String {
+            val numbers = existing.mapNotNull { slotNumber(it, base) }
+            if (0 !in numbers) return base
+            return "$base.${(numbers.maxOrNull() ?: 0) + 1}"
+        }
         private const val ANDROID_KEYSTORE = "AndroidKeyStore"
         private const val TRANSFORMATION = "AES/GCM/NoPadding"
         private const val FORMAT_VERSION: Byte = 1

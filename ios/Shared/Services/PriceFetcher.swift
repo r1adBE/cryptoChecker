@@ -46,8 +46,9 @@ extension PriceRefresher {
 
     /// - Parameter lowMemory: Widget-Erweiterung (~30 MB Speichergrenze): keine grossen ungefilterten
     ///   Sammellisten (`LowMemoryBulk`), sondern gefiltert, einzeln oder gar nicht (gespeicherter Kurs bleibt).
+    /// - Parameter alarmed: Paare mit aktivem Alarm — werden einzeln zuerst abgefragt (`FetchOrder`).
     static func fetchGroup(_ group: [Watch], includeRollingFutures: Bool,
-                           lowMemory: Bool = false) async -> ([Int64: Fetched], GroupSignals?) {
+                           lowMemory: Bool = false, alarmed: Set<Int64> = []) async -> ([Int64: Fetched], GroupSignals?) {
         let started = TimeUtils.nowMillis
         guard let sample = group.first else { return ([:], nil) }
 
@@ -127,6 +128,8 @@ extension PriceRefresher {
         // ist, startet die nächste (bisher wartete jeder Viererblock auf seine langsamste).
         // Erste Antwort mit 429/418: die übrigen nicht mehr senden, derselbe Fehler (`SingleRateGate`).
         let confirmIds = missing
+        // Paare mit aktivem Alarm zuerst: im knappen Zeitfenster des Hintergrunds kommen so die Alarme durch
+        singles = FetchOrder.alarmsFirst(singles, alarmed: alarmed) { $0.id }
         var sent = 0
         if !singles.isEmpty {
             await withTaskGroup(of: (Int64, Fetched).self) { tg in
@@ -171,7 +174,8 @@ extension PriceRefresher {
             bulkMillis: bulkMillis,
             bulkPrices: bulk.tickers.count,
             singles: sent,
-            reason: reason
+            reason: reason,
+            detail: StoredError.reportDetail(errors.map(\.error), reason: reason)
         )
         let errorTexts = errors.map(\.error) + [bulk.error]
         let signals = GroupSignals(

@@ -13,6 +13,7 @@ import android.appwidget.AppWidgetManager
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -65,10 +66,16 @@ import com.cryptochecker.app.ui.theme.CryptoCheckerTheme
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.rememberHighContrast
 import com.cryptochecker.app.ui.theme.tabularNumbers
+import com.cryptochecker.app.util.BidiText
+import com.cryptochecker.app.util.PriceFormat
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
+/** Beispielpaar und -änderung der Vorschau (Deckkraft), formatiert wie im Widget. */
+private const val PREVIEW_PAIR = "BTC/USDT"
+private const val PREVIEW_CHANGE = 1.24
 
 /**
  * Einstellung beim Ablegen (und Neu-Einrichten) eines Widgets: Hintergrund
@@ -80,6 +87,9 @@ class WidgetConfigureActivity : AppCompatActivity() {
     @Inject lateinit var settingsRepository: SettingsRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Randlos wie die App (ab Android 15 ohnehin erzwungen); die Abstände zu Status- und
+        // Navigationsleiste setzt der Scaffold (TopAppBar oben, contentWindowInsets unten)
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
 
         // Bricht der Nutzer ab, darf kein Widget entstehen.
@@ -308,13 +318,14 @@ private fun WidgetConfigureContent(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
+                    // Beispielwerte in der Schreibweise der App-Sprache (Ziffern, Komma, RTL-Insel) wie im Widget
                     Text(
-                        text = "BTC/USDT",
+                        text = BidiText.ltr(PREVIEW_PAIR),
                         color = Color(background.textColor),
                         style = MaterialTheme.typography.bodyLarge
                     )
                     Text(
-                        text = "↗ +1.24%",
+                        text = "${PriceFormat.changeArrow(PREVIEW_CHANGE)} ${PriceFormat.changePercent(PREVIEW_CHANGE).orEmpty()}",
                         color = Color(background.upColor),
                         style = MaterialTheme.typography.bodyLarge.tabularNumbers()
                     )

@@ -13,7 +13,9 @@ package com.cryptochecker.app.domain.portfolio
  * [Asset.coin] = Coin im Portfolio (Kurs). Gekapselte/gebrückte Coins (WBTC, WETH, BTCB, BTC.b, WBNB, WAVAX, wSOL)
  * bleiben eigene Coins ([WRAPPED]): Kurs aus einem eigenen Börsenpaar, sonst ersatzweise der Kurs der Basis mit
  * Hinweis «≈ BTC-Kurs (gebrückt/verpackt)» ([priceViaBase]). Gebrückte Stablecoins (USDC.e, USDbC, USDT.e) zählen als
- * ihr Basis-Stablecoin; die Adress-Zeile zeigt Symbol und Netz.
+ * ihr Basis-Stablecoin, die Position markiert die zusammengezählte Menge aber mit «≈» ([isBridgedStable],
+ * [AddressBalance.bridgedStables]) — eine abgekoppelte Brücke soll nicht als exakter Bestand erscheinen; die
+ * Adress-Zeile zeigt Symbol und Netz.
  *
  * Quellen (übernommen 14.10.2026): Uniswap Default Token List (github.com/Uniswap/default-token-list, Commit 583cb69,
  * src/tokens/{bnb,polygon,arbitrum,base,optimism,avalanche,solana}.json), SushiSwap Default Token List
@@ -246,6 +248,13 @@ object ChainAssets {
         for ((coin, base) in via) values[base]?.let { out[coin] = it }
         return out
     }
+
+    /**
+     * Gebrückter Stablecoin: eigenes Symbol [label] (USDC.e, USDbC, USDT.e), gezählt als Basis-Stablecoin [coin]
+     * ([PortfolioStables.isStable]). Gleiches Symbol (z. B. Binance-Peg «USDC» auf BSC) zählt nicht.
+     */
+    fun isBridgedStable(label: String, coin: String): Boolean =
+        !label.trim().equals(coin.trim(), ignoreCase = true) && PortfolioStables.isStable(coin)
 
     /** Kann diese Kette Token/weitere Netze halten (Schalter «Tokens mitzählen»)? */
     fun hasTokens(chain: AddressChain): Boolean =

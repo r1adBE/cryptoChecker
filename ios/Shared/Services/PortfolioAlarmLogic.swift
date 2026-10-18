@@ -113,7 +113,7 @@ enum PortfolioAlarmLogic {
         guard !wanted.isEmpty else { return nil }
         if wanted == reading.currency.uppercased() { return reading.total.isFinite ? reading.total : nil }
         guard let usdt = reading.totalUsdt, usdt.isFinite else { return nil }
-        let usdtUsd = PortfolioStables.usdtUsd(reading.usdtUsdLive)
+        let usdtUsd = PortfolioStables.usdtUsdLive(reading.usdtUsdLive)
         if wanted == "USD" { return usdt * usdtUsd.rate }
         if CurrencyConversion.usdStables.contains(wanted) { return usdt }
         guard let rate = reading.usdTo[wanted], rate.isFinite, rate > 0,

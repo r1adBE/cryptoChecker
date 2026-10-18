@@ -105,25 +105,48 @@ enum MarketHTTP {
     }
 
     /// Antwort gestreamt lesen und abbrechen, sobald sie die Grenze überschreitet — eine angekündigte zu grosse
-    /// Antwort (`expectedContentLength`) gar nicht erst lesen. So landet nie mehr als die Grenze im Speicher.
+    /// Antwort (`expectedContentLength`) gar nicht erst lesen. So landet nie mehr als die Grenze (plus ein
+    /// Block) im Speicher.
     private static func readLimited(_ request: URLRequest, session: URLSession) async throws -> (Data, URLResponse) {
         let (bytes, response) = try await session.bytes(for: request)
         let limit = bodyLimit(session: session)
-        let expected = response.expectedContentLength
-        if expected > Int64(limit) {
+        do {
+            let data = try await collectLimited(bytes, limit: limit, expected: response.expectedContentLength)
+            return (data, response)
+        } catch {
+            // Zu gross oder abgebrochen: die Übertragung sofort beenden, nicht im Hintergrund weiterladen
             bytes.task.cancel()
-            throw ResponseTooLargeError()
+            throw error
         }
-        var buffer: [UInt8] = []
-        if expected > 0 { buffer.reserveCapacity(Int(expected)) }
+    }
+
+    /// Grösse eines Blocks beim Lesen: Bytes erst in einem kleinen Puffer sammeln und blockweise an `Data`
+    /// hängen — Byte für Byte in ein Array mit Grenzprüfung je Byte war bei grossen Listen (16 MB) spürbar langsam.
+    static let readChunkBytes = 64 * 1024
+
+    /// Liest `bytes` bis zum Ende, höchstens `limit` Bytes; mehr → `ResponseTooLargeError`. `expected` > `limit`
+    /// (angekündigte Länge) → sofort Fehler, ohne zu lesen. Prüft Grenze und Abbruch des Tasks je Block.
+    static func collectLimited<S: AsyncSequence>(_ bytes: S, limit: Int, expected: Int64,
+                                                 chunkSize: Int = readChunkBytes) async throws -> Data
+    where S.Element == UInt8 {
+        if expected > Int64(limit) { throw ResponseTooLargeError() }
+        var data = Data()
+        if expected > 0 { data.reserveCapacity(Int(expected)) }
+        let size = max(1, chunkSize)
+        var chunk: [UInt8] = []
+        chunk.reserveCapacity(size)
         for try await byte in bytes {
-            buffer.append(byte)
-            if buffer.count > limit {
-                bytes.task.cancel()
-                throw ResponseTooLargeError()
+            chunk.append(byte)
+            if chunk.count >= size {
+                if data.count + chunk.count > limit { throw ResponseTooLargeError() }
+                data.append(contentsOf: chunk)
+                chunk.removeAll(keepingCapacity: true)
+                try Task.checkCancellation()
             }
         }
-        return (Data(buffer), response)
+        if data.count + chunk.count > limit { throw ResponseTooLargeError() }
+        data.append(contentsOf: chunk)
+        return data
     }
 
     private static func load(_ request: URLRequest, url: String, session: URLSession) async throws -> String {
@@ -273,7 +296,8 @@ enum MarketService {
         return pairs
     }
 
-    /// Jede Anfrage für sich lesen (samt Folgeseiten); nur die erste muss gelingen.
+    /// Jede Anfrage für sich lesen (samt Folgeseiten); nur die erste muss gelingen — bei `pairListAllCallsRequired`
+    /// jede (sonst würde eine halbe Liste gespeichert).
     private static func loadPairListByCall(_ market: Market) async throws -> [MarketPair] {
         var collected: [MarketPair] = []
         var names: [String: String] = [:]
@@ -281,7 +305,7 @@ enum MarketService {
             do {
                 try await loadPairListCall(market, call: call, into: &collected, names: &names)
             } catch {
-                if call == 0 { throw error }
+                if call == 0 || market.pairListAllCallsRequired { throw error }
             }
         }
         if !collected.isEmpty { TokenIdentityStore.shared.saveMarket(market.key, names: names) }

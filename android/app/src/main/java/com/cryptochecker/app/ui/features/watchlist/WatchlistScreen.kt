@@ -5,6 +5,9 @@
 
 package com.cryptochecker.app.ui.features.watchlist
 
+import com.cryptochecker.app.domain.watch.FirstAlarmCard
+import com.cryptochecker.app.ui.navigation.ScreenRoute
+import com.cryptochecker.app.ui.navigation.OnTabReselect
 import com.cryptochecker.app.domain.watch.AlarmBellRoute
 import com.cryptochecker.app.ui.features.alarms.AlarmPairPicker
 import androidx.activity.compose.BackHandler
@@ -142,6 +145,7 @@ fun WatchlistScreen(
     val alarmFiredAt by viewModel.alarmFiredAt.collectAsStateWithLifecycle()
     val refreshing by viewModel.refreshing.collectAsStateWithLifecycle()
     val showGestureHint by viewModel.showGestureHint.collectAsStateWithLifecycle()
+    val firstAlarmCardDismissed by viewModel.firstAlarmCardDismissed.collectAsStateWithLifecycle()
     val staleAfter by viewModel.staleAfterMillis.collectAsStateWithLifecycle()
     val outdatedAfter by viewModel.outdatedAfterMillis.collectAsStateWithLifecycle()
     val convertTarget by viewModel.convertTarget.collectAsStateWithLifecycle()
@@ -294,6 +298,10 @@ fun WatchlistScreen(
     // Texte über LocalResources (Lint: kein getString über LocalContext in Compose)
     val resources = LocalResources.current
     val reduceMotion = rememberReduceMotion()
+    // Erneutes Tippen auf den Tab «Merkliste»: an den Anfang der Liste (wie iOS)
+    OnTabReselect(ScreenRoute.Watchlist) {
+        if (reduceMotion) listState.scrollToItem(0) else listState.animateScrollToItem(0)
+    }
     val banner = rememberWatchlistBanner(scope)
     // Alarm löst bei offener App aus: Glocke im Kopf pulsiert einmal (ohne Bewegung: nicht)
     val bellScale = rememberBellPulse(latestAlarmTrigger, reduceMotion)
@@ -576,6 +584,16 @@ fun WatchlistScreen(
                         sortMode = ui.sortMode,
                         showGestureHint = showGestureHint,
                         onDismissGestureHint = viewModel::dismissGestureHint,
+                        // Kein Alarm, aber Paare: bleibende Karte zusätzlich zum 6-s-Banner nach dem Hinzufügen
+                        onSetFirstAlarm = (listed.firstOrNull() ?: watches.firstOrNull())?.takeIf {
+                            FirstAlarmCard.shouldShow(
+                                alarmCount = alarmTotal,
+                                watchCount = watches.size,
+                                dismissed = firstAlarmCardDismissed,
+                                busy = ui.searching || ui.sortMode || ui.selecting,
+                            )
+                        }?.let { first -> { onOpenAlarms(first.id) } },
+                        onDismissFirstAlarm = viewModel::dismissFirstAlarmCard,
                         noSearchMatch = filtering && shown.isEmpty(),
                         query = trimmedQuery,
                         groupEmpty = visible.isEmpty() && !filtering,

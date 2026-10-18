@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Build 76: Portfolio-Speicher, Sicherung, Steuer-Export, Sperre -->
+    <string name="storage_recovery_restore_action">Відновити з копії</string>
+    <string name="storage_recovery_acknowledge">Зрозуміло</string>
+    <string name="storage_recovery_restored_title">Збережені дані знову розблоковано</string>
+    <string name="storage_recovery_restored_message">Попередній ключ цього пристрою знову відкрив відкладені дані, тож вони повернулися. Збережене за цей час залишилося без змін поруч.</string>
+    <string name="backup_restore_interrupted_title">Відновлення перервано</string>
+    <string name="backup_restore_interrupted_rolled_back">Застосунок закрився під час відновлення з копії. Попередні дані повернуто; з копії нічого не збережено.</string>
+    <string name="backup_restore_interrupted_incomplete">Застосунок закрився під час відновлення з копії, і попередні дані не вдалося повернути повністю. Перевірте список відстеження та портфель або знову відновіть копію в розділі «%1$s» у налаштуваннях.</string>
+    <string name="backup_not_verified">Не вдалося перевірити файл копії після збереження: під час повторного читання він відрізняється. Збережіть копію в новий файл.</string>
+    <string name="tax_line_at_old_speculation_limit">Придбано до 1.03.2021 – утримувалося ≤ 1 року: неоподатковувана межа спекулятивних угод (§ 31 абз. 3 EStG, стара редакція)</string>
+    <string name="portfolio_tx_interest">Відсотки (лендинг)</string>
+    <string name="portfolio_tx_interest_hint">Враховується як дохід під час надходження (Австрія). Для винагород за стейкінг і аірдропів залиште вимкненим.</string>
+    <string name="app_lock_no_screen_lock">Налаштуйте блокування екрана, щоб відкрити портфель.</string>
+    <string name="app_lock_turn_off_action">Вимкнути блокування портфеля</string>
+    <string name="app_lock_turn_off_confirm_title">Вимкнути блокування портфеля?</string>
+    <string name="app_lock_turn_off_confirm_message">Без блокування екрана портфель не можна розблокувати. Після вимкнення застосунок знову показує портфель без запиту. Коли блокування екрана буде налаштовано, блокування можна знову ввімкнути в налаштуваннях.</string>
+</resources>

@@ -168,7 +168,7 @@
 
     <!-- Einstellungen › Markt-Meldungen -->
     <string name="settings_depeg_alarm">Сообщать об отвязке USDT</string>
-    <string name="settings_depeg_alarm_hint">Сообщает один раз, когда USDT отклоняется от 1 USD на порог (Kraken USDT/USD, Binance USDC/USDT).</string>
+    <string name="settings_depeg_alarm_hint">Сообщает один раз, когда USDT отклоняется от 1 USD на порог (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
     <string name="settings_depeg_threshold">Порог отвязки</string>
     <string name="settings_fng_above">Fear &amp; Greed: сообщать выше</string>
     <string name="settings_fng_below">Fear &amp; Greed: сообщать ниже</string>

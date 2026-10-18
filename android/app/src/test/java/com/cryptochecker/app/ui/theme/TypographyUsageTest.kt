@@ -6,10 +6,11 @@ import org.junit.Test
 import java.io.File
 
 /**
- * Wache über die kleinste Schriftstufe: `typography.labelSmall` (11 sp) bzw. iOS `.caption2` (11 pt)
- * gehören nur zu Quellenangaben, rechtlichen Fusszeilen und Chart-Beschriftungen; Metadaten nehmen
- * `label` (12 sp) bzw. `.caption`. Die Obergrenzen sind der Stand nach Build 56 und dürfen nur
- * sinken — wer eine Stelle entfernt, senkt die Zahl hier mit. Liest die Quellen von der Platte
+ * Wache über die kleinste Schriftstufe: `typography.labelSmall` (seit Build 76 12 sp statt 11 sp,
+ * siehe `appTypography`) bzw. iOS `.caption2` (11 pt) gehören nur zu Quellenangaben, rechtlichen
+ * Fusszeilen und Chart-Beschriftungen; Metadaten nehmen `label` (12 sp) bzw. `.caption`. Die
+ * Obergrenzen sind der Stand nach Build 76 und dürfen nur sinken — wer eine Stelle entfernt,
+ * senkt die Zahl hier mit. Liest die Quellen von der Platte
  * (wie [AccentContrastTest]); das iOS-Verzeichnis ist optional (reiner Android-Checkout).
  */
 class TypographyUsageTest {
@@ -27,6 +28,20 @@ class TypographyUsageTest {
                 uses <= ceiling
             )
         }
+    }
+
+    /**
+     * labelSmall bleibt mindestens 12 sp (Material-Standard wären 11 sp). Liest die Quelle, weil
+     * Compose-Typen in den JVM-Tests nicht geladen werden.
+     */
+    @Test
+    fun labelSmallIsAtLeast12sp() {
+        val root = androidSources() ?: return
+        val source = File(root, "ui/theme/Typography.kt").readText(Charsets.UTF_8)
+        val match = Regex("""labelSmall = base\.labelSmall\.copy\(fontSize = (\d+)\.sp""").find(source)
+        assertNotNull("labelSmall-Grösse in Typography.kt nicht gefunden", match)
+        val size = match!!.groupValues[1].toInt()
+        assertTrue("labelSmall $size sp", size >= 12)
     }
 
     @Test

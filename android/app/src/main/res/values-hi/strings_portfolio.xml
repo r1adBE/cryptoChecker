@@ -18,7 +18,7 @@
     <string name="portfolio_empty_title">अभी कोई लेन-देन नहीं</string>
     <string name="portfolio_enable_ask_text">आपका लेन-देन सहेज लिया गया। पोर्टफ़ोलियो टैब आपकी होल्डिंग और उनका मूल्य दिखाता है।</string>
     <string name="portfolio_enable_ask_title">पोर्टफ़ोलियो टैब चालू करें?</string>
-    <string name="portfolio_enable_later_hint">लेन-देन सहेजा गया। पोर्टफ़ोलियो टैब को आप सेटिंग्स › उन्नत › पोर्टफ़ोलियो में चालू कर सकते हैं।</string>
+    <string name="portfolio_enable_later_hint">लेन-देन सहेजा गया। पोर्टफ़ोलियो टैब को आप सेटिंग्स › पोर्टफ़ोलियो में चालू कर सकते हैं।</string>
     <string name="portfolio_enabled_banner">पोर्टफ़ोलियो चालू हुआ – यह पोर्टफ़ोलियो टैब में है।</string>
     <string name="portfolio_lock_reason">पोर्टफ़ोलियो अनलॉक करें</string>
     <string name="portfolio_locked_text">अपनी होल्डिंग और मूल्य देखने के लिए अनलॉक करें।</string>

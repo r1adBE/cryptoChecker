@@ -1,4 +1,5 @@
 import Foundation
+import os
 import WidgetKit
 
 /// Gemeinsame Daten der Widgets.
@@ -60,16 +61,33 @@ enum WidgetData {
     /// Normales Neuladen (`WidgetCadence.reloadMinutes`).
     static var nextReload: Date { Date().addingTimeInterval(Double(WidgetCadence.reloadMinutes) * 60) }
 
+    /// Tageszähler der Neuladen (alle Widget-Arten, App-Group-Defaults).
+    static var reloadCounter: DailyReloadCounter { DailyReloadCounter(defaults: SharedStorage.defaults) }
+
     /// Neuladen mit gewünschtem frühem Neuversuch: höchstens einer je Takt und Widget-Art
-    /// (`WidgetCadence.nextReload`), sonst der normale Takt.
+    /// (`WidgetCadence.nextReload`) und nur unter der Tagesgrenze, sonst der normale Takt. Jede so gebaute
+    /// Timeline zählt als ein Neuladen.
     static func reload(kind: String, wantsQuickRetry: Bool) -> Date {
         let key = "widget_quick_retry_at_" + kind
         let stored = SharedStorage.defaults.double(forKey: key)
         let now = Date()
+        let today = reloadCounter.increment(now: now)
         let next = WidgetCadence.nextReload(now: now, wantsQuickRetry: wantsQuickRetry,
-                                            lastQuickRetryAt: stored > 0 ? Date(timeIntervalSince1970: stored) : nil)
+                                            lastQuickRetryAt: stored > 0 ? Date(timeIntervalSince1970: stored) : nil,
+                                            reloadsToday: today)
         if next.quickRetry { SharedStorage.defaults.set(now.timeIntervalSince1970, forKey: key) }
+        if wantsQuickRetry && !next.quickRetry {
+            AppLog.widget.info("Früher Neuversuch ausgelassen (heute \(today, privacy: .public) Neuladen)")
+        }
         return next.date
+    }
+
+    /// Andere Widget-Arten aus der Erweiterung neu laden (nur die, die geänderte Kurse zeigen) — gezählt.
+    static func reloadKinds(_ kinds: [String], reason: String) {
+        guard !kinds.isEmpty else { return }
+        let today = reloadCounter.increment(by: kinds.count)
+        AppLog.widget.info("Neuladen \(kinds.count, privacy: .public) Arten (\(reason, privacy: .public)), heute \(today, privacy: .public)")
+        for kind in kinds { WidgetCenter.shared.reloadTimelines(ofKind: kind) }
     }
 
     /// Wartet kurz (höchstens `maxWait` Sekunden), bis die Kurse zur Uhrzeit im Kopf auf der Platte
@@ -162,8 +180,8 @@ enum WidgetData {
 /// speichern (`Outcome.deliverAlarms`). So meldet kein zweiter Prozess dieselbe Auslösung; die App
 /// übernimmt sie beim Speichern (`SharedStorage.mergeNewerAlarmTriggers`) statt sie zurückzusetzen.
 /// Alarme mit Zusatzdaten (Volumen, Funding/OI, Hoch/Tief, Umrechnung) prüfen weiter nur App und
-/// Hintergrund-Aufgabe: Kerzen und Futures-Daten sprengten Zeit und Speicher der Erweiterung. Alarmtöne
-/// liegen nur im App-Bundle (im Widget kommt der Standardton), Ansagen gibt es im Widget nicht.
+/// Hintergrund-Aufgabe: Kerzen und Futures-Daten sprengten Zeit und Speicher der Erweiterung. Die Alarmtöne
+/// liegen auch im Bundle der Erweiterung (`tools/gen_xcodeproj.py`), Ansagen gibt es im Widget nicht.
 enum WidgetRefresh {
     /// Älter als das → beim Zeichnen zuerst neu holen (`WidgetCadence`).
     static let staleAfterMillis = WidgetCadence.staleAfterMillis
@@ -281,11 +299,18 @@ enum WidgetRefresh {
         return .failed
     }
 
+    /// Wartezeit beim Zeichnen: danach zeichnet das Widget sofort mit den gespeicherten Kursen, die
+    /// Aktualisierung läuft weiter und lädt bei Erfolg nach. Kurz gehalten, weil WidgetKit eine Timeline, die
+    /// zu lange braucht, verwirft (dann bliebe das Widget leer oder auf dem alten Stand stehen).
+    static let drawDeadlineSeconds: Double = 8
+
     /// Aktualisiert, wenn die Daten alt sind — wartet aber höchstens `deadline` Sekunden.
     /// Kein neuer Versuch innerhalb von `retryAfterMillis` nach einem misslungenen.
     /// Die anderen Widget-Arten werden nur neu gezeichnet, wenn wirklich Kurse gespeichert wurden:
-    /// rechtzeitig → `otherKinds`; erst später fertig → alle Widgets.
-    static func refreshIfStale(deadline: Double, otherKinds: [String]) async {
+    /// rechtzeitig → `otherKinds`; erst später fertig → `otherKinds` und die eigene Art (`ownKind`), die schon
+    /// mit den alten Kursen gezeichnet hat. Keine Schleife: nach dem Speichern sind die Daten nicht mehr alt,
+    /// das erneute Zeichnen holt also nichts. Andere Arten (Portfolio, Puls) zeigen diese Kurse nicht.
+    static func refreshIfStale(deadline: Double = drawDeadlineSeconds, ownKind: String, otherKinds: [String]) async {
         guard isStale, !recentlyFailed, !SharedStorage.loadSnapshot().watches.isEmpty else { return }
         let gate = WidgetDeadlineGate()
         let savedInTime: Bool = await withCheckedContinuation { continuation in
@@ -293,7 +318,7 @@ enum WidgetRefresh {
             Task {
                 let saved = (await run()) == .saved
                 if !gate.finish(saved), saved {
-                    WidgetCenter.shared.reloadAllTimelines()
+                    WidgetData.reloadKinds([ownKind] + otherKinds, reason: "spät gespeichert")
                 }
             }
             Task {
@@ -302,7 +327,9 @@ enum WidgetRefresh {
             }
         }
         if savedInTime {
-            for kind in otherKinds { WidgetCenter.shared.reloadTimelines(ofKind: kind) }
+            WidgetData.reloadKinds(otherKinds, reason: "gespeichert")
+        } else {
+            AppLog.widget.info("Zeichnen mit gespeicherten Kursen (Netz langsamer als \(Int(deadline), privacy: .public) s)")
         }
     }
 }
@@ -431,6 +458,8 @@ enum WidgetSparkline {
     }
 
     private static func save(_ key: String, _ candles: [MarketCandle], provider: String? = nil) {
+        // Einmal am Tag alte Einträge (entfernte Paare, andere Zeiträume) wegräumen
+        WidgetSparkCache.pruneIfDue()
         var entry: [String: Any] = ["t": Double(TimeUtils.nowMillis), "c": encode(candles)]
         if let provider { entry["p"] = provider }
         SharedStorage.defaults.set(entry, forKey: key)

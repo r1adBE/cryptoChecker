@@ -93,6 +93,9 @@ extension BackupManager {
         o["giftToSpouse"] = t.isGiftToSpouse
         o["linkedImportKey"] = t.linkedImportKey.map { $0 as Any } ?? NSNull()
         o["importRestoreState"] = t.importRestoreState?.json().map { $0 as Any } ?? NSNull()
+        // Build 76: Gebühr-Zeile und Zins als eigene Merker (wie Android); ältere Versionen ignorieren sie
+        o["feeRow"] = t.feeRow && t.type == .SELL
+        o["interest"] = t.interest && t.type == .REWARD
         return o
     }
 
@@ -155,6 +158,17 @@ extension BackupManager {
                 : PortfolioDecimal.parse(string(o, "swapValueText")).flatMap { $0 >= 0 ? $0 : nil }
         }
         tx.importBatch = isNull(o, "importBatch") ? nil : PortfolioImportBatch.clean(string(o, "importBatch"))
+        // Fehlen die Merker (Sicherung bis Build 75), einmal nach der früheren Regel ableiten — wie Android
+        if let flag = o["feeRow"] as? Bool {
+            tx.feeRow = flag && type == .SELL
+        } else {
+            tx.feeRow = LegacyStorageMigration.legacyFeeRow(type, importKey: tx.importKey, price: price)
+        }
+        if let flag = o["interest"] as? Bool {
+            tx.interest = flag && type == .REWARD
+        } else {
+            tx.interest = LegacyStorageMigration.legacyInterest(type, note: note)
+        }
         return tx
     }
 

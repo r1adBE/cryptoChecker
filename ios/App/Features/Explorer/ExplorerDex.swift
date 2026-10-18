@@ -93,6 +93,13 @@ extension ExplorerScreen {
                     .font(.caption.monospacedDigit())
                     .foregroundStyle(AppColors.onSurfaceVariant)
                     .lineLimit(2)
+                // Dünner Pool (unter `DexScreener.minAlarmLiquidityUsd` oder unbekannt): kein Alarm möglich
+                if !pool.alarmCapable {
+                    Text(L("dex_low_liquidity_no_alarm"))
+                        .font(.caption)
+                        .foregroundStyle(AppColors.error)
+                        .lineLimit(2)
+                }
             }
             Spacer(minLength: 8)
             Button {
@@ -112,7 +119,7 @@ extension ExplorerScreen {
     private func dexSubtitle(_ pool: DexPool) -> String {
         var parts = ["\(pool.dexId) · \(pool.chainId)"]
         if let price = pool.priceUsd { parts.append("$" + Self.formatDexPrice(price)) }
-        if let liquidity = pool.liquidityUsd { parts.append(L("dex_liquidity", "$" + PriceFormat.compact(liquidity))) }
+        if let liquidity = pool.liquidityUsd { parts.append(L("dex_liquidity", "$" + LocaleNumbers.compact(liquidity))) }
         return parts.joined(separator: " · ")
     }
 

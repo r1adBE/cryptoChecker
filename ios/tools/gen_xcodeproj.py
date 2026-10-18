@@ -36,7 +36,7 @@ PROJECT_NAME = "CryptoChecker"
 PROJ_DIR = os.path.join(ROOT, PROJECT_NAME + ".xcodeproj")
 
 MARKETING_VERSION = "16.2.2"
-CURRENT_PROJECT_VERSION = "75"
+CURRENT_PROJECT_VERSION = "76"
 DEPLOYMENT_TARGET = "17.0"
 APP_ID = "com.cryptochecker.app"
 WIDGET_ID = "com.cryptochecker.app.widgets"
@@ -54,6 +54,9 @@ APP_ONLY_RESOURCES = {"InfoPlist.xcstrings"}
 # Ressourcen aus App/, die auch die Widget-Erweiterung braucht (eigenes Bundle,
 # eigenes Datenschutz-Manifest: beide nutzen UserDefaults).
 BOTH_TARGET_RESOURCES = {os.path.join("App", "PrivacyInfo.xcprivacy")}
+# Ordner aus App/, deren Ressourcen auch die Widget-Erweiterung braucht: die Alarmtöne (cc_*.wav). Das Widget
+# meldet Kursalarme selbst; ohne die Töne im eigenen Bundle käme dort nur der Standardton.
+BOTH_TARGET_RESOURCE_DIRS = {os.path.join("App", "Resources", "Sounds")}
 # Quellen aus App/, die auch das UI-Test-Ziel kompiliert: die Kennungen der Oberfläche (eine Quelle für
 # `accessibilityIdentifier` in der App und die Abfragen der UI-Tests).
 APP_AND_UITEST_SOURCES = {os.path.join("App", "Components", "UiTestTags.swift")}
@@ -495,6 +498,8 @@ def build():
             if f.name in APP_ONLY_RESOURCES:
                 targets = [APP_TARGET]
             if f.rel in BOTH_TARGET_RESOURCES:
+                targets = [APP_TARGET, WIDGET_TARGET]
+            if ext in RESOURCE_EXTS and os.path.dirname(f.rel) in BOTH_TARGET_RESOURCE_DIRS:
                 targets = [APP_TARGET, WIDGET_TARGET]
             if f.rel in APP_AND_UITEST_SOURCES:
                 targets = [APP_TARGET, UITEST_TARGET]

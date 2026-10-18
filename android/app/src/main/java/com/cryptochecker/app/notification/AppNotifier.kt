@@ -21,6 +21,8 @@ import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.util.PriceFormat
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -58,7 +60,10 @@ class AppNotifier @Inject constructor(
         )
         if (!show) return false
         // Über die Grenze von 20 Einzelmeldungen: in der Sammelmeldung (zählt als gezeigt)
-        return watch.id in showPrices(listOf(watch), ongoing = settings.ongoingNotifications)
+        // Auf Dispatchers.IO: Ein laufender Kurs-Durchlauf hält [showPrices] bis zu einigen Sekunden
+        return withContext(Dispatchers.IO) {
+            watch.id in showPrices(listOf(watch), ongoing = settings.ongoingNotifications)
+        }
     }
 
     /**
@@ -68,52 +73,95 @@ class AppNotifier @Inject constructor(
      * («+N weitere Kurse»). Reihenfolge von [watches] = Vorrang für freie Plätze.
      * @return Paare, deren Kurs jetzt gezeigt wird (einzeln oder in der Sammelmeldung).
      */
-    @Synchronized
     fun showPrices(watches: List<WatchEntity>, ongoing: Boolean): Set<Long> {
-        val posts = watches.filter { it.lastPrice != null }.distinctBy { it.id }
-        if (posts.isEmpty() || !hasPermission()) return emptySet()
-        val active = activeState()
-        val plan = NotificationBudget.planPrices(
-            shown = active?.prices?.keys?.toList().orEmpty(),
-            overflowBefore = active?.overflow?.keys?.toList().orEmpty(),
-            posts = posts.map { it.id },
-            slots = NotificationBudget.priceSlots(active?.other ?: 0),
-        )
-        val byId = posts.associateBy { it.id }
-        // Zuerst Platz schaffen, dann melden
-        plan.demoted.forEach { cancelPriceSingle(it) }
-        val shown = HashSet<Long>()
-        // Mehr als 5 Meldungen: gedrosselt (Android verwirft sonst die überzähligen still, sie zählten
-        // aber als gezeigt). Blockiert kurz — Aufrufer laufen auf Dispatchers.IO; ein einzelnes Paar nie
-        val gap = NotificationBudget.postGapMillis(plan.individual.size + if (plan.overflow.isEmpty()) 0 else 1)
-        var posted = 0
-        fun spaceOut() {
-            if (gap > 0 && posted > 0) Thread.sleep(gap)
-            posted++
-        }
-        for (id in plan.individual) {
-            spaceOut()
-            if (postPrice(byId.getValue(id), ongoing)) shown += id
-        }
-        // Zeilen: frischer Kurs, sonst die bisherige Zeile (Sammelmeldung bzw. verschobene Einzelmeldung)
-        val lines = LinkedHashMap<Long, String>()
-        for (id in plan.overflow) {
-            val watch = byId[id]
-            val price = watch?.lastPrice
-            val line = if (watch != null && price != null) priceTitle(watch, price)
-            else active?.overflow?.get(id) ?: active?.prices?.get(id)
-            if (!line.isNullOrEmpty()) lines[id] = line
-        }
-        val unchanged = active != null && active.overflowShown &&
-            active.overflow.entries.toList() == lines.entries.toList()
-        if (!unchanged && lines.isNotEmpty()) spaceOut()
-        if (unchanged || postOverflow(lines, ongoing)) {
-            lines.keys.filterTo(shown) { it in byId }
-        }
-        return shown
+        synchronized(priceRunLock) { return showPricesLocked(watches, ongoing) }
     }
 
-    fun cancelPrice(watchId: Long) = cancelPrices(listOf(watchId), shown = null)
+    /** [showPrices] unter [priceRunLock]. */
+    private fun showPricesLocked(watches: List<WatchEntity>, ongoing: Boolean): Set<Long> {
+        val posts = watches.filter { it.lastPrice != null }.distinctBy { it.id }
+        if (posts.isEmpty() || !hasPermission()) return emptySet()
+        // Die Objektsperre nur für kurze Schritte, nie während der Pausen: Sonst warteten Entfernen
+        // (Paar gelöscht, Mitteilung aus) und das Melden eines Alarms ([makeRoomForAlarm]) bis zu
+        // mehreren Sekunden. Durchläufe untereinander bleiben über [priceRunLock] nacheinander.
+        val (active, plan) = synchronized(this) {
+            priceRunActive = true
+            cancelledDuringRun.clear()
+            val active = activeState()
+            val plan = NotificationBudget.planPrices(
+                shown = active?.prices?.keys?.toList().orEmpty(),
+                overflowBefore = active?.overflow?.keys?.toList().orEmpty(),
+                posts = posts.map { it.id },
+                slots = NotificationBudget.priceSlots(active?.other ?: 0),
+            )
+            // Zuerst Platz schaffen, dann melden
+            plan.demoted.forEach { cancelPriceSingle(it) }
+            active to plan
+        }
+        try {
+            val byId = posts.associateBy { it.id }
+            val shown = HashSet<Long>()
+            // Mehr als 5 Meldungen: gedrosselt (Android verwirft sonst die überzähligen still, sie zählten
+            // aber als gezeigt). Blockiert kurz — Aufrufer laufen auf Dispatchers.IO; ein einzelnes Paar nie
+            val gap = NotificationBudget.postGapMillis(plan.individual.size + if (plan.overflow.isEmpty()) 0 else 1)
+            var posted = 0
+            fun spaceOut() {
+                if (gap > 0 && posted > 0) Thread.sleep(gap)
+                posted++
+            }
+            for (id in plan.individual) {
+                spaceOut()
+                synchronized(this) {
+                    // Inzwischen entfernt (der Plan stammt von vorher): nicht wieder zeigen
+                    if (id !in cancelledDuringRun && postPrice(byId.getValue(id), ongoing)) shown += id
+                }
+            }
+            // Zeilen: frischer Kurs, sonst die bisherige Zeile (Sammelmeldung bzw. verschobene Einzelmeldung)
+            fun overflowLines(): LinkedHashMap<Long, String> {
+                val lines = LinkedHashMap<Long, String>()
+                for (id in plan.overflow) {
+                    if (id in cancelledDuringRun) continue
+                    val watch = byId[id]
+                    val price = watch?.lastPrice
+                    val line = if (watch != null && price != null) priceTitle(watch, price)
+                    else active?.overflow?.get(id) ?: active?.prices?.get(id)
+                    if (!line.isNullOrEmpty()) lines[id] = line
+                }
+                return lines
+            }
+            val (unchanged, anyLine) = synchronized(this) {
+                val lines = overflowLines()
+                val same = active != null && active.overflowShown &&
+                    active.overflow.entries.toList() == lines.entries.toList()
+                same to lines.isNotEmpty()
+            }
+            if (!unchanged && anyLine) spaceOut()
+            synchronized(this) {
+                val lines = overflowLines()
+                if (unchanged || postOverflow(lines, ongoing)) {
+                    lines.keys.filterTo(shown) { it in byId }
+                }
+            }
+            return shown
+        } finally {
+            synchronized(this) {
+                priceRunActive = false
+                cancelledDuringRun.clear()
+            }
+        }
+    }
+
+    /** Hält Kurs-Durchläufe ([showPrices]) nacheinander, ohne die Objektsperre zu belegen. */
+    private val priceRunLock = Any()
+
+    /** Läuft gerade [showPrices]? Dann merkt sich [cancelPrices] die entfernten Paare. */
+    private var priceRunActive = false
+
+    /** Während des laufenden [showPrices] entfernte Paare: werden in diesem Durchlauf nicht mehr gemeldet. */
+    private val cancelledDuringRun = HashSet<Long>()
+
+    /** Kurs-Meldung eines Paars entfernen; läuft nie auf dem Haupt-Thread (Systemdienst, Sperre). */
+    suspend fun cancelPrice(watchId: Long) = cancelAllPrices(listOf(watchId))
 
     /**
      * Ids aller gerade gezeigten Meldungen der App — EIN Aufruf an den Systemdienst;
@@ -137,6 +185,7 @@ class AppNotifier @Inject constructor(
     @Synchronized
     fun cancelPrices(watchIds: Collection<Long>, shown: Set<Int>?) {
         if (watchIds.isEmpty()) return
+        if (priceRunActive) cancelledDuringRun.addAll(watchIds)
         val removed = HashSet<Int>()
         for (watchId in watchIds) {
             val id = priceNotificationId(watchId)
@@ -173,7 +222,14 @@ class AppNotifier @Inject constructor(
         if (active.overflowShown) postOverflow(active.overflow, ongoing)
     }
 
-    fun cancelAllPrices(watchIds: Collection<Long>) = cancelPrices(watchIds, shown = null)
+    /**
+     * Kurs-Meldungen von [watchIds] in EINEM Schritt entfernen (die Sammelmeldung nur einmal neu) — auf
+     * Dispatchers.IO, damit Bildschirm-Aktionen nie auf den Systemdienst oder einen Kurs-Durchlauf warten.
+     */
+    suspend fun cancelAllPrices(watchIds: Collection<Long>) {
+        if (watchIds.isEmpty()) return
+        withContext(Dispatchers.IO) { cancelPrices(watchIds, shown = null) }
+    }
 
     // ---------------- Mitteilungs-Budget ----------------
 

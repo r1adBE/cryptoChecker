@@ -21,9 +21,12 @@ import java.math.BigDecimal
  *    ebenso Margin, Rollover, Anpassungen. Ebenso Spot ↔ Staking als Ein-/Auszahlung (Asset mit Staking-Variante, z. B.
  *    «withdrawal DOT» + «deposit DOT.S»: die Variante und ihr Gegenstück — Gegenrichtung, gleiches Basis-Asset, gleiche
  *    Menge, gleiche refid oder höchstens 1 h auseinander) und Paare spend/receive/trade mit gleichem Basis-Asset
- *    (ETH → ETH2.S) — sonst entstünde Bestand doppelt bzw. ginge ein Posten mit Kaufpreis ab.
- *  - Doppelte Ledger-Zeilen (gleiche txid; Kraken-Exporte wiederholen Ein-/Auszahlungen) zählen einmal, die Wiederholung
- *    fällt still weg.
+ *    (ETH → ETH2.S) — sonst entstünde Bestand doppelt bzw. ginge ein Posten mit Kaufpreis ab. Eine Staking-Zeile ohne
+ *    solches Gegenstück wird ebenfalls nicht gebucht, aber als [CsvImportSkipReason.STAKING_UNPAIRED] gemeldet
+ *    («Bestand prüfen»): Fehlt die Gegenbuchung im Export, stimmt der Bestand sonst unbemerkt nicht.
+ *  - Doppelte Ledger-Zeilen (gleiche txid; Kraken-Exporte wiederholen Ein-/Auszahlungen) zählen einmal, die gleiche
+ *    Wiederholung fällt still weg. Gleiche txid mit ANDERER Menge verschwindet nicht still:
+ *    [CsvImportSkipReason.DUPLICATE_TXID_DIFFERENT] in der Vorschau.
  * Kraken-Kürzel werden vereinheitlicht ([asset]): «XXBT»/«XBT» → BTC, «ZEUR» → EUR, «XXDG» → DOGE, Staking-
  * Varianten «ETH2.S», «DOT.S», «DOT28.S», «USDC.M», «BTC.F» → Basis, «EUR.HOLD» → EUR (Fiat). Formate nur aus der
  * Kraken-Dokumentation bekannt.
@@ -89,10 +92,12 @@ internal object CsvImportKraken {
 
     /**
      * Ein-/Auszahlungen zwischen Spot und Staking (Indizes in [legs]): jede Zeile mit Staking-Variante und ihr
-     * Gegenstück (Gegenrichtung, gleiches Basis-Asset, gleiche Menge, gleiche refid oder ≤ 1 h).
+     * Gegenstück (Gegenrichtung, gleiches Basis-Asset, gleiche Menge, gleiche refid oder ≤ 1 h). [StakingMoves.unpaired]:
+     * Staking-Zeilen ohne gefundenes Gegenstück.
      */
-    private fun stakingMoves(legs: List<Leg>): Set<Int> {
+    private fun stakingMoves(legs: List<Leg>): StakingMoves {
         val out = HashSet<Int>()
+        val unpaired = HashSet<Int>()
         fun move(l: Leg) = l.type == "deposit" || l.type == "withdrawal"
         legs.forEachIndexed { i, l ->
             if (!move(l) || !l.staked) return@forEachIndexed
@@ -103,10 +108,12 @@ internal object CsvImportKraken {
                     c.signed.abs().compareTo(l.signed.abs()) == 0 &&
                     ((l.refid.isNotEmpty() && c.refid == l.refid) || kotlin.math.abs(c.time - l.time) <= STAKING_PAIR_MILLIS)
             }
-            if (j != null) out += j
+            if (j != null) out += j else unpaired += i
         }
-        return out
+        return StakingMoves(out, unpaired)
     }
+
+    private class StakingMoves(val internal: Set<Int>, val unpaired: Set<Int>)
 
     fun build(names: List<String>, data: List<CsvImportParser.Record>, zone: String): CsvImportResult {
         fun col(n: String) = names.indexOf(n).takeIf { it >= 0 }
@@ -121,16 +128,26 @@ internal object CsvImportKraken {
         val skipped = ArrayList<CsvImportSkip>()
         val legs = ArrayList<Leg>()
         val hint: Char? = '.'
-        val seen = HashSet<String>()
+        // txid → Menge der ersten Zeile (Text, wenn unlesbar): Wiederholungen vergleichen
+        val seen = HashMap<String, Any>()
         for (rec in data) {
             fun cell(i: Int?) = i?.let { rec.cells.getOrNull(it) }.orEmpty()
-            // Wiederholte Ledger-Zeile (gleiche txid): nur einmal
+            val amount = CsvImportParser.parseNumber(cell(iAmount), hint)
+            // Wiederholte Ledger-Zeile (gleiche txid): gleiche Menge nur einmal, andere Menge in die Vorschau
             val txid = cell(iTx).trim()
-            if (txid.isNotEmpty() && !seen.add(txid)) continue
+            if (txid.isNotEmpty()) {
+                val first = seen[txid]
+                if (first != null) {
+                    if (!sameAmount(first, amount, cell(iAmount))) {
+                        skipped += CsvImportSkip(rec.line, CsvImportSkipReason.DUPLICATE_TXID_DIFFERENT)
+                    }
+                    continue
+                }
+                seen[txid] = amount ?: cell(iAmount).trim()
+            }
             val type = CsvImportParser.normalize(cell(iType))
             val sub = CsvImportParser.normalize(cell(iSub))
             val asset = asset(cell(iAsset))
-            val amount = CsvImportParser.parseNumber(cell(iAmount), hint)
             val feeText = cell(iFee)
             val fee = if (feeText.isEmpty()) BigDecimal.ZERO else CsvImportParser.parseNumber(feeText, hint)
             val time = CsvImportParser.parseTime(cell(iTime), zone)
@@ -147,11 +164,12 @@ internal object CsvImportKraken {
 
         val rows = ArrayList<CsvImportRow>()
         val trades = LinkedHashMap<String, MutableList<Leg>>()
-        val internal = stakingMoves(legs)
+        val moves = stakingMoves(legs)
         for ((i, leg) in legs.withIndex()) {
-            if (i in internal) {
-                // Spot ↔ Staking: bleibt im selben Bestand
-                skipped += CsvImportSkip(leg.line, CsvImportSkipReason.UNSUPPORTED_KIND)
+            if (i in moves.internal) {
+                // Spot ↔ Staking: bleibt im selben Bestand; ohne Gegenbuchung eigener Hinweis «Bestand prüfen»
+                val reason = if (i in moves.unpaired) CsvImportSkipReason.STAKING_UNPAIRED else CsvImportSkipReason.UNSUPPORTED_KIND
+                skipped += CsvImportSkip(leg.line, reason)
                 continue
             }
             when (leg.type) {
@@ -170,6 +188,12 @@ internal object CsvImportKraken {
         for ((refid, group) in trades) trade(refid, group, rows, skipped)
         // Kraken schreibt UTC ohne Versatz: die Zeitzone zählt (Vorschau zeigt UTC, wählbar)
         return CsvImport.finish(CsvImportFormat.KRAKEN, rows, skipped, zone, localTimes = true)
+    }
+
+    /** Gleiche Menge wie die erste Zeile derselben txid ([first]: Zahl oder, wenn unlesbar, der Text)? */
+    private fun sameAmount(first: Any, amount: BigDecimal?, text: String): Boolean = when (first) {
+        is BigDecimal -> amount != null && amount.compareTo(first) == 0
+        else -> amount == null && text.trim() == first
     }
 
     /** Fiat (Stablecoins zählen als Krypto, bis Build 46 galt USDT als Geld). */

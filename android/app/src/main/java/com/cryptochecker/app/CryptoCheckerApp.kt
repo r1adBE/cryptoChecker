@@ -42,8 +42,8 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
 
     @Inject lateinit var portfolioRepository: PortfolioRepository
 
-    /** Lazy: Kopie (und Portfolio-Datenbank) nur, wenn «Portfolio in Systemsicherung» an ist. */
-    @Inject lateinit var portfolioBackupMirror: dagger.Lazy<PortfolioBackupMirror>
+    /** Lazy: nur, wenn ein abgebrochenes Wiederherstellen zurückzurollen ist ([RestoreJournal]). */
+    @Inject lateinit var backupManager: dagger.Lazy<com.cryptochecker.app.data.BackupManager>
 
     /**
      * Hintergrundarbeit des Prozesses. Fehler (Datenbank, Datei, WorkManager) nur protokollieren:
@@ -78,6 +78,10 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
             runCatching { com.cryptochecker.app.data.local.DatabaseSystemBackup(this).cleanUpLeftover() }
                 .onFailure { Timber.w(it, "Systemsicherung: Aufräumen fehlgeschlagen") }
         }
+        // Ebenso eine unverschlüsselte Portfolio-Kopie neben der Portfolio-Datenbank (dauernd bis Build 75, oder eine
+        // abgebrochene Sicherung); ohne Datenbank bleibt sie für die Übernahme nach einer Wiederherstellung
+        runCatching { PortfolioBackupMirror.cleanUpLeftover(this) }
+            .onFailure { Timber.w(it, "Portfolio: Kopie für die Systemsicherung nicht aufgeräumt") }
         super.onCreate()
 
         AppLanguages.restoreForActivities(this)
@@ -101,11 +105,16 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
             scheduler.followWork()
         }
 
+        // Abgebrochenes Wiederherstellen (Journal liegt noch da): Stand davor zurückschreiben, Hinweis vormerken
+        if (java.io.File(noBackupFilesDir, com.cryptochecker.app.data.RestoreJournal.FILE_NAME).exists()) {
+            scope.launch { backupManager.get().recoverInterruptedRestore() }
+        }
+
         // Einmalig: alter Bestand aus der Merkliste wird zu Käufen im Portfolio
         scope.launch { portfolioRepository.migrateHoldingsOnce() }
 
-        // «Portfolio in Systemsicherung»: Kopie nachführen nur, solange der Schalter an ist; aus → Kopie
-        // löschen (auch bei jedem Start). Wechselt der Schalter, wird die Kopie gestartet bzw. beendet.
+        // «Portfolio in Systemsicherung»: Merker für den Sicherungs-Agenten nachführen (er schreibt die Kopie nur während
+        // einer Sicherung); aus → Merker und eine noch liegende Kopie weg (auch bei jedem Start)
         scope.launch {
             settingsRepository.settings
                 // Android 8/8.1: Schalter wirkungslos, Kopie wird gelöscht (requireFlags dort unbekannt)
@@ -113,8 +122,7 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
                 .distinctUntilChanged()
                 .catch { Timber.w(it, "Portfolio: Kopie für die Systemsicherung angehalten") }
                 .collectLatest { allowed ->
-                    if (allowed) portfolioBackupMirror.get().run()
-                    else PortfolioBackupMirror.deleteCopy(this@CryptoCheckerApp)
+                    PortfolioBackupMirror.setEnabled(this@CryptoCheckerApp, allowed)
                 }
         }
 

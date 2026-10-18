@@ -80,6 +80,9 @@ final class BinanceFutures: Market {
 
     override var pairListCallCount: Int { 2 }
 
+    /// Ohne COIN-M (dapi) keine halbe Liste speichern: dann bleibt die bisherige.
+    override var pairListAllCallsRequired: Bool { true }
+
     override func pairListAddress(call: Int) -> String? {
         call == 0 ? binanceFapi + "/exchangeInfo" : binanceDapi + "/exchangeInfo"
     }

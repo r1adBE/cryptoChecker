@@ -1,5 +1,5 @@
 {
-  "description": "USDT depeg alarm (Android DepegAlarm.kt / iOS DepegAlarm.swift). threshold: stored tenths of a percent -> effective (unknown -> 5). combine: Kraken USDT/USD last and Binance USDC/USDT last (null = missing) -> USDT in USD (closer to 1 wins; implausible values outside 0.5..1.5 dropped), tolerance 1e-9. evaluate: deviation in percent, threshold in percent, armed, mayFire -> fire, armed (re-armed at half the threshold; magnitude rounded to 4 decimals, threshold inclusive). episodes: prices in order (start armed, every fired notification is posted; quiet = mayFire false) -> fired per step. mainExchange: watchlist market keys -> exchange key and URL of the 'Open exchange' button. cardWarning: last reading (price in USD, ageMillis = now - reading time; null price = no reading) and stored thresholdTenths -> shown on the portfolio card (magnitude >= threshold, same rounding as evaluate; hidden when older than 30 minutes or more than 1 minute in the future). cardNote (Build 58): «USDT = 1» line of the portfolio card independent of the alarm — holdings (coin symbols, any case), valuesViaUsdt (values hang on USDT = USD: display currency, USD or mixed exchanges) and the last reading as in cardWarning -> kind DEVIATION (fresh reading >= threshold, as today), PRICE_SOURCE («Prices: Binance · USDT = 1»), USDT_ASSUMED (holdings contain USDT, counted as 1) or null (no line). usdtMarket (default false; owner decision Oct 2026, USDT valued at its market price): a fresh plausible reading (liveUsdtUsd, up to 6 hours old) -> no line; otherwise USDT_ASSUMED whenever values depend on USDT (valuesViaUsdt or USDT held) = marker of the 1-fallback, else no line. liveUsdtUsd: last reading -> live USDT/USD for valuation if at most 6 hours old (21600000 ms; up to 60 s in the future; the cardWarning limit of 30 minutes does not apply) and within 0.5..1.5, else null.",
+  "description": "USDT depeg alarm (Android DepegAlarm.kt / iOS DepegAlarm.swift). threshold: stored tenths of a percent -> effective (unknown -> 5). measure (Build 76): Kraken USDT/USD last, Coinbase USDT-USD last and Binance USDC/USDT last (null = missing) -> USDT in USD and viaUsdc, tolerance 1e-9; expected null = no measurement. Rules: any print outside 0.05..3 is an exchange error; inside 0.5..1.5 one source suffices; in the break range (0.05..0.5, 1.5..3) a print counts only if another source agrees within 5 % of the larger value (a single out-of-band print stays implausible, a real crash confirmed by two sources is kept). Both direct sources (Kraken, Coinbase) accepted -> the one closer to 1 (Binance ignored); one direct -> closer to 1 of it and Binance (1 / USDC/USDT); no direct -> Binance alone with viaUsdc true, which never fires the alarm (mayAlarm = !viaUsdc). evaluate: deviation in percent, threshold in percent, armed, mayFire -> fire, armed (re-armed at half the threshold; magnitude rounded to 4 decimals, threshold inclusive). episodes: prices in order (start armed, every fired notification is posted; quiet = mayFire false) -> fired per step. mainExchange: watchlist market keys -> exchange key and URL of the 'Open exchange' button. cardWarning: last reading (price in USD, ageMillis = now - reading time; null price = no reading) and stored thresholdTenths -> shown on the portfolio card (magnitude >= threshold, same rounding as evaluate; hidden when older than 30 minutes or more than 1 minute in the future). cardNote (Build 58; Build 76: optional viaUsdc of the reading, default false): «USDT = 1» line of the portfolio card independent of the alarm — holdings (coin symbols, any case), valuesViaUsdt (values hang on USDT = USD: display currency, USD or mixed exchanges) and the last reading as in cardWarning -> kind DEVIATION (fresh reading >= threshold, as today), PRICE_SOURCE («Prices: Binance · USDT = 1»), USDT_ASSUMED (holdings contain USDT, counted as 1) or null (no line). usdtMarket (default false; owner decision Oct 2026, USDT valued at its market price): a fresh reading (liveUsdtUsd, up to 6 hours old) -> USDT_BREAK when values depend on USDT and the price is outside 0.5..1.5 (confirmed crash, valued at market), else VIA_USDC when values depend on USDT and the reading came from Binance USDC/USDT alone, else no line; otherwise USDT_ASSUMED whenever values depend on USDT (valuesViaUsdt or USDT held) = marker of the 1-fallback, else no line. liveUsdtUsd: last reading -> live USDT/USD for valuation if at most 6 hours old (21600000 ms; up to 60 s in the future; the cardWarning limit of 30 minutes does not apply) and within 0.05..3 (stored readings were checked by measure, so outside 0.5..1.5 only a confirmed crash), else null.",
   "threshold": [
     {"stored": 3, "expected": 3},
     {"stored": 5, "expected": 5},
@@ -8,14 +8,28 @@
     {"stored": 7, "expected": 5},
     {"stored": 0, "expected": 5}
   ],
-  "combine": [
-    {"kraken": 0.993, "binance": 1.0071, "expected": 0.993},
-    {"kraken": null, "binance": 1.0071, "expected": 0.9929500546122529},
-    {"kraken": 0.993, "binance": null, "expected": 0.993},
-    {"kraken": null, "binance": null, "expected": null},
-    {"kraken": 2.5, "binance": 1.0, "expected": 1.0},
-    {"kraken": 0.994, "binance": 0.99, "expected": 0.994},
-    {"kraken": null, "binance": 0, "expected": null}
+  "measure": [
+    {"kraken": 0.3, "coinbase": 1.0, "binance": 3.3333333333333335, "expected": 0.3, "viaUsdc": false},
+    {"kraken": 0.3, "coinbase": 1.0, "binance": 1.0, "expected": 1.0, "viaUsdc": false},
+    {"kraken": 0.993, "coinbase": null, "binance": 1.0071, "expected": 0.993, "viaUsdc": false},
+    {"kraken": null, "coinbase": null, "binance": 1.0071, "expected": 0.9929500546122529, "viaUsdc": true},
+    {"kraken": 0.993, "coinbase": null, "binance": null, "expected": 0.993, "viaUsdc": false},
+    {"kraken": null, "coinbase": null, "binance": null, "expected": null},
+    {"kraken": 2.5, "coinbase": null, "binance": 1.0, "expected": 1.0, "viaUsdc": true},
+    {"kraken": 0.994, "coinbase": null, "binance": 0.99, "expected": 0.994, "viaUsdc": false},
+    {"kraken": null, "coinbase": null, "binance": 0, "expected": null},
+    {"kraken": null, "coinbase": 0.997, "binance": null, "expected": 0.997, "viaUsdc": false},
+    {"kraken": 0.98, "coinbase": 0.995, "binance": 1.0, "expected": 0.995, "viaUsdc": false},
+    {"kraken": 0.30, "coinbase": 0.31, "binance": null, "expected": 0.31, "viaUsdc": false},
+    {"kraken": 0.30, "coinbase": 0.31, "binance": 1.0, "expected": 0.31, "viaUsdc": false},
+    {"kraken": 0.30, "coinbase": 1.0, "binance": null, "expected": 1.0, "viaUsdc": false},
+    {"kraken": 0.30, "coinbase": null, "binance": null, "expected": null},
+    {"kraken": 0.30, "coinbase": null, "binance": 3.2, "expected": 0.3125, "viaUsdc": false},
+    {"kraken": null, "coinbase": null, "binance": 3.2, "expected": null},
+    {"kraken": 0.30, "coinbase": 0.40, "binance": null, "expected": null},
+    {"kraken": 0.04, "coinbase": 0.04, "binance": null, "expected": null},
+    {"kraken": 2.0, "coinbase": 2.05, "binance": null, "expected": 2.0, "viaUsdc": false},
+    {"kraken": 3.5, "coinbase": 3.5, "binance": 1.0, "expected": 1.0, "viaUsdc": true}
   ],
   "evaluate": [
     {"deviation": -0.7, "threshold": 0.5, "armed": true, "mayFire": true, "fire": true, "armedAfter": false},
@@ -77,7 +91,14 @@
     {"holdings": ["BTC"], "valuesViaUsdt": true, "price": 0.993, "ageMillis": 1800001, "thresholdTenths": 5, "usdtMarket": true, "kind": null},
     {"holdings": ["BTC"], "valuesViaUsdt": true, "price": 0.993, "ageMillis": 21600000, "thresholdTenths": 5, "usdtMarket": true, "kind": null},
     {"holdings": ["BTC"], "valuesViaUsdt": true, "price": 0.993, "ageMillis": 21600001, "thresholdTenths": 5, "usdtMarket": true, "kind": "USDT_ASSUMED"},
-    {"holdings": ["BTC", "USDT"], "valuesViaUsdt": false, "price": 0.3, "ageMillis": 0, "thresholdTenths": 5, "usdtMarket": true, "kind": "USDT_ASSUMED"},
+    {"holdings": ["BTC", "USDT"], "valuesViaUsdt": false, "price": 0.3, "ageMillis": 0, "thresholdTenths": 5, "usdtMarket": true, "kind": "USDT_BREAK"},
+    {"holdings": ["BTC"], "valuesViaUsdt": false, "price": 0.3, "ageMillis": 0, "thresholdTenths": 5, "usdtMarket": true, "kind": null},
+    {"holdings": ["USDT"], "valuesViaUsdt": false, "price": 1.6, "ageMillis": 0, "thresholdTenths": 5, "usdtMarket": true, "kind": "USDT_BREAK"},
+    {"holdings": ["USDT"], "valuesViaUsdt": false, "price": 3.5, "ageMillis": 0, "thresholdTenths": 5, "usdtMarket": true, "kind": "USDT_ASSUMED"},
+    {"holdings": ["USDT"], "valuesViaUsdt": false, "price": 0.3, "ageMillis": 21600001, "thresholdTenths": 5, "usdtMarket": true, "kind": "USDT_ASSUMED"},
+    {"holdings": ["USDT"], "valuesViaUsdt": false, "price": 0.993, "viaUsdc": true, "ageMillis": 0, "thresholdTenths": 5, "usdtMarket": true, "kind": "VIA_USDC"},
+    {"holdings": ["BTC"], "valuesViaUsdt": true, "price": 0.3, "viaUsdc": false, "ageMillis": 0, "thresholdTenths": 5, "usdtMarket": true, "kind": "USDT_BREAK"},
+    {"holdings": ["BTC"], "valuesViaUsdt": false, "price": 0.993, "viaUsdc": true, "ageMillis": 0, "thresholdTenths": 5, "usdtMarket": true, "kind": null},
     {"holdings": ["BTC"], "valuesViaUsdt": false, "price": null, "ageMillis": 0, "thresholdTenths": 5, "usdtMarket": true, "kind": null}
   ],
   "liveUsdtUsd": [
@@ -88,7 +109,10 @@
     {"price": 0.97, "ageMillis": 21600001, "expected": null},
     {"price": 0.99, "ageMillis": -60000, "expected": 0.99},
     {"price": 0.99, "ageMillis": -60001, "expected": null},
-    {"price": 1.6, "ageMillis": 0, "expected": null},
+    {"price": 1.6, "ageMillis": 0, "expected": 1.6},
+    {"price": 0.3, "ageMillis": 0, "expected": 0.3},
+    {"price": 3.5, "ageMillis": 0, "expected": null},
+    {"price": 0.04, "ageMillis": 0, "expected": null},
     {"price": null, "ageMillis": 0, "expected": null}
   ]
 }

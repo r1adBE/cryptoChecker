@@ -168,7 +168,7 @@
 
     <!-- Einstellungen › Markt-Meldungen -->
     <string name="settings_depeg_alarm">Njofto kur USDT humbet lidhjen</string>
-    <string name="settings_depeg_alarm_hint">Njofton një herë kur USDT largohet nga 1 USD me kufirin (Kraken USDT/USD, Binance USDC/USDT).</string>
+    <string name="settings_depeg_alarm_hint">Njofton një herë kur USDT largohet nga 1 USD me kufirin (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
     <string name="settings_depeg_threshold">Kufiri i humbjes së lidhjes</string>
     <string name="settings_fng_above">Fear &amp; Greed: njofto mbi</string>
     <string name="settings_fng_below">Fear &amp; Greed: njofto nën</string>

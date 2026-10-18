@@ -550,7 +550,8 @@
           "price": "0",
           "importKey": "csv:fee:550",
           "time": 1727784000000,
-          "note": "Fee"
+          "note": "Fee",
+          "feeRow": true
         }
       ],
       "closes": {

@@ -141,10 +141,9 @@ fun WatchlistViewModel.deleteNotTradedWithUndo(onDone: (Int) -> Unit) {
             val snapshots = ids.mapNotNull { watchRepository.snapshot(it) }
             if (snapshots.isEmpty()) return@withLock 0
             undo.put(NOT_TRADED_UNDO_KEY, snapshots)
-            snapshots.forEach {
-                notifier.cancelPrice(it.watch.id)
-                notifier.cancelActivity(it.watch.id)
-            }
+            // Kurs-Meldungen in einem Schritt (Sammelmeldung nur einmal neu)
+            notifier.cancelAllPrices(snapshots.map { it.watch.id })
+            snapshots.forEach { notifier.cancelActivity(it.watch.id) }
             watchRepository.deleteWatches(snapshots.map { it.watch.id })
             widgetUpdater.updateAll()
             snapshots.size
@@ -164,10 +163,9 @@ fun WatchlistViewModel.deleteSelectedWithUndo(ids: Collection<Long>, onDone: (In
             val snapshots = ids.mapNotNull { watchRepository.snapshot(it) }
             if (snapshots.isEmpty()) return@withLock 0
             undo.put(SELECTION_UNDO_KEY, snapshots)
-            snapshots.forEach {
-                notifier.cancelPrice(it.watch.id)
-                notifier.cancelActivity(it.watch.id)
-            }
+            // Kurs-Meldungen in einem Schritt (Sammelmeldung nur einmal neu)
+            notifier.cancelAllPrices(snapshots.map { it.watch.id })
+            snapshots.forEach { notifier.cancelActivity(it.watch.id) }
             watchRepository.deleteWatches(snapshots.map { it.watch.id })
             widgetUpdater.updateAll()
             snapshots.size
@@ -203,10 +201,8 @@ fun WatchlistViewModel.setDisabled(ids: Collection<Long>, disabled: Boolean) {
     viewModelScope.launch {
         watchRepository.setDisabled(ids, disabled)
         if (disabled) {
-            ids.forEach {
-                notifier.cancelPrice(it)
-                notifier.cancelActivity(it)
-            }
+            notifier.cancelAllPrices(ids)
+            ids.forEach { notifier.cancelActivity(it) }
         } else {
             ids.forEach { watchRepository.setNotifiedPrice(it, null) }
         }

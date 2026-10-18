@@ -19,7 +19,7 @@
     <string name="portfolio_empty_title">Ainda sem transações</string>
     <string name="portfolio_enable_ask_text">A sua transação foi guardada. O separador Portfólio mostra as suas posições e o respetivo valor.</string>
     <string name="portfolio_enable_ask_title">Ativar o separador Portfólio?</string>
-    <string name="portfolio_enable_later_hint">Transação guardada. Pode ativar o separador Portfólio em Definições › Avançado › Portfólio.</string>
+    <string name="portfolio_enable_later_hint">Transação guardada. Pode ativar o separador Portfólio em Definições › Portfólio.</string>
     <string name="portfolio_enabled_banner">Portefólio ativado – encontra-o no separador Portefólio.</string>
     <string name="portfolio_lock_reason">Desbloquear portfólio</string>
     <string name="portfolio_locked_text">Desbloqueie para ver as posições e os valores.</string>

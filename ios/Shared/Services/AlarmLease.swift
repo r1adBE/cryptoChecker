@@ -1,4 +1,5 @@
 import Foundation
+import os
 
 /// Nur eine Alarm-Auswertung zur Zeit — über alle Prozesse der App-Gruppe (App im
 /// Vordergrund, Hintergrund-Aufgabe, Widget mit den Kursalarmen).
@@ -44,8 +45,8 @@ final class AlarmLease: @unchecked Sendable {
     static var fileURL: URL { SharedStorage.directory.appendingPathComponent("alarm.lease") }
 
     /// Versucht einmal, die Lease zu nehmen; nil = ein anderer Prozess wertet gerade aus.
-    static func tryAcquire(now: Date = Date()) -> AlarmLease? {
-        let url = fileURL
+    /// `url`/`now` nur für Tests (eigener Ordner, Uhr nach vorne gestellt).
+    static func tryAcquire(now: Date = Date(), url: URL = fileURL) -> AlarmLease? {
         let token = UUID().uuidString
         if let lease = create(url: url, token: token) { return lease }
         // Verwaist (Prozess während der Auswertung beendet)? Dann übernehmen.
@@ -58,23 +59,43 @@ final class AlarmLease: @unchecked Sendable {
         _ = Darwin.unlink(url.path)
         guard let lease = create(url: url, token: token) else { return nil }
         lease.takenOver = !lease.failOpen
+        AppLog.lease.notice("Verwaiste Lease übernommen")
         return lease
     }
 
     /// Wartet höchstens `timeoutSeconds` (in Schritten von 0,1 s) auf die Lease.
-    static func acquire(timeoutSeconds: Double = 5) async -> AlarmLease? {
-        let deadline = Date().addingTimeInterval(timeoutSeconds)
+    static func acquire(timeoutSeconds: Double = 5, url: URL = fileURL) async -> AlarmLease? {
+        let started = Date()
+        let deadline = started.addingTimeInterval(timeoutSeconds)
         while true {
-            if let lease = tryAcquire() {
-                guard lease.takenOver else { return lease }
+            if let lease = tryAcquire(url: url) {
+                if !lease.takenOver {
+                    logAcquired(lease, since: started)
+                    return lease
+                }
                 // Übernommen: kurz warten und nachlesen — hat ein zweiter Prozess gleichzeitig übernommen,
                 // steht dessen Token drin und diese Lease gilt nicht
                 try? await Task.sleep(nanoseconds: takeoverVerifyNanos)
-                if lease.refresh() { return lease }
+                if lease.refresh() {
+                    logAcquired(lease, since: started)
+                    return lease
+                }
                 lease.release()
             }
-            if Date() >= deadline || Task.isCancelled { return nil }
+            if Date() >= deadline || Task.isCancelled {
+                AppLog.lease.notice("Lease nicht erhalten nach \(Int(Date().timeIntervalSince(started) * 1000), privacy: .public) ms")
+                return nil
+            }
             try? await Task.sleep(nanoseconds: 100_000_000)
+        }
+    }
+
+    private static func logAcquired(_ lease: AlarmLease, since started: Date) {
+        let millis = Int(Date().timeIntervalSince(started) * 1000)
+        if lease.failOpen {
+            AppLog.lease.error("Lease-Datei nicht anlegbar – Auswertung ohne Lease")
+        } else {
+            AppLog.lease.info("Lease erhalten nach \(millis, privacy: .public) ms")
         }
     }
 

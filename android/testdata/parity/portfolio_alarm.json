@@ -1,5 +1,5 @@
 {
-  "_comment": "Portfolio-Alarme in einer anderen Währung als der Stand (PortfolioAlarmLogic.totalIn / total(in:)): USDT zum Marktkurs wie der Portfolio-Kopf (Owner-Entscheid Okt. 2026). reading = Stand (total in currency, totalUsdt, usdTo = Devisenkurse USD → Währung, usdtUsdLive = Live-Kurs USDT/USD, null = keiner). Erwartet: Wert in der Alarmwährung (null = diesmal nicht prüfen). Gleiche Währung = total; USD = totalUsdt × USDT/USD; USD-Stablecoin = totalUsdt; andere Fiat = totalUsdt × Devisenkurs × USDT/USD; USDT/USD fehlt oder unplausibel (ausserhalb 0.5..1.5) → × 1 (Näherung).",
+  "_comment": "Portfolio-Alarme in einer anderen Währung als der Stand (PortfolioAlarmLogic.totalIn / total(in:)): USDT zum Marktkurs wie der Portfolio-Kopf (Owner-Entscheid Okt. 2026). reading = Stand (total in currency, totalUsdt, usdTo = Devisenkurse USD → Währung, usdtUsdLive = Live-Kurs USDT/USD, null = keiner; gültig 0.05…3 = PortfolioStables.usdtUsdLive, ausserhalb × 1). Erwartet: Wert in der Alarmwährung (null = diesmal nicht prüfen). Gleiche Währung = total; USD = totalUsdt × USDT/USD; USD-Stablecoin = totalUsdt; andere Fiat = totalUsdt × Devisenkurs × USDT/USD; USDT/USD fehlt oder unplausibel (ausserhalb 0.5..1.5) → × 1 (Näherung).",
   "totalIn": [
     {
       "name": "gleiche Währung",
@@ -94,10 +94,24 @@
         "usdTo": {
           "EUR": 0.92
         },
-        "usdtUsdLive": 3
+        "usdtUsdLive": 5
       },
       "currency": "EUR",
       "expected": 46000
+    },
+    {
+      "name": "EUR mit bestätigtem USDT-Einbruch (Live-Kurs 0.3, Messung von zwei Quellen bestätigt)",
+      "reading": {
+        "total": 45000,
+        "currency": "CHF",
+        "totalUsdt": 50000,
+        "usdTo": {
+          "EUR": 0.92
+        },
+        "usdtUsdLive": 0.3
+      },
+      "currency": "EUR",
+      "expected": 13800
     },
     {
       "name": "USD ohne USDT/USD (× 1)",

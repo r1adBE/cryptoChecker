@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="explorer_bulk_show_all">Alles tonen (%1$d)</string>
+    <string name="log_box_title">Logboek</string>
+    <string name="watchlist_first_alarm_title">Stel je eerste alarm in</string>
+    <string name="watchlist_first_alarm_text">Krijg een melding zodra een koers je grens bereikt.</string>
+</resources>

@@ -122,6 +122,9 @@ enum PortfolioCsvImporter {
         tx.toCoin = t.toCoin
         tx.toAmountExact = t.toAmount
         tx.swapValueExact = t.swapValueUsdt
+        // Gebühr-Zeile und Zins (eigene Merker)
+        tx.feeRow = t.feeRow && t.type == .SELL
+        tx.interest = t.interest && t.type == .REWARD
         return tx
     }
 
@@ -175,6 +178,8 @@ enum PortfolioCsvImporter {
         case .INTERNAL_MOVE: return "portfolio_csv_skip_internal_move"
         case .POSSIBLE_DUPLICATE: return "portfolio_csv_skip_possible_duplicate"
         case .AMBIGUOUS_GROUP: return "portfolio_csv_skip_ambiguous"
+        case .DUPLICATE_TXID_DIFFERENT: return "portfolio_csv_skip_duplicate_txid_different"
+        case .STAKING_UNPAIRED: return "portfolio_csv_skip_staking_unpaired"
         }
     }
 }

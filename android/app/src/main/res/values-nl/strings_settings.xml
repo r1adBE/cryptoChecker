@@ -168,7 +168,7 @@
 
     <!-- Einstellungen › Markt-Meldungen -->
     <string name="settings_depeg_alarm">USDT-depeg melden</string>
-    <string name="settings_depeg_alarm_hint">Meldt één keer wanneer USDT met de grens van 1 USD afwijkt (Kraken USDT/USD, Binance USDC/USDT).</string>
+    <string name="settings_depeg_alarm_hint">Meldt één keer wanneer USDT met de grens van 1 USD afwijkt (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
     <string name="settings_depeg_threshold">Depeg-grens</string>
     <string name="settings_fng_above">Fear &amp; Greed: melden boven</string>
     <string name="settings_fng_below">Fear &amp; Greed: melden onder</string>

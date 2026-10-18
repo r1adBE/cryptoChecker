@@ -18,7 +18,7 @@
     <string name="portfolio_empty_title">Noch keine Transaktionen</string>
     <string name="portfolio_enable_ask_text">Deine Transaktion ist gespeichert. Der Portfolio-Tab zeigt deine Bestände und ihren Wert.</string>
     <string name="portfolio_enable_ask_title">Portfolio-Tab einschalten?</string>
-    <string name="portfolio_enable_later_hint">Transaktion gespeichert. Den Portfolio-Tab schaltest du unter Einstellungen › Erweitert › Portfolio ein.</string>
+    <string name="portfolio_enable_later_hint">Transaktion gespeichert. Den Portfolio-Tab schaltest du unter Einstellungen › Portfolio ein.</string>
     <string name="portfolio_enabled_banner">Portfolio eingeschaltet – du findest es im Tab «Portfolio».</string>
     <string name="portfolio_lock_reason">Portfolio entsperren</string>
     <string name="portfolio_locked_text">Entsperre es, um Bestände und Werte zu sehen.</string>

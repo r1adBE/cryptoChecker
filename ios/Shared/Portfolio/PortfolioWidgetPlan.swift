@@ -225,7 +225,7 @@ enum PortfolioWidgetChart {
     /// unverändert — das Widget zeigt dort USDT (`effectiveDisplay`). Wie Android `usdtFactor`.
     static func usdtFactor(currency: String, fx: Double, usdtLive: Double?) -> Double {
         if collapsesToUsdt(currency) { return fx }
-        return PortfolioStables.usdtTo(fx, usdt: PortfolioStables.usdtUsd(usdtLive)) ?? fx
+        return PortfolioStables.usdtTo(fx, usdt: PortfolioStables.usdtUsdLive(usdtLive)) ?? fx
     }
 
     /// Zu merkender Kurs: nur ein gültiger `fresh`, der zur Währung gehört (`cachedForCurrency` = derselbe Kurs

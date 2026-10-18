@@ -1,6 +1,10 @@
 MIT License
 
 Copyright (c) 2026 r1adBE <riad.work@outlook.com>
+Copyright (c) 2022 Aneonex Software
+Portions Copyright (c) 2013-2016 mobnetic (BitcoinChecker)
+
+Portions derived from BitcoinChecker by mobnetic and Aneonex Software (MIT).
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -32,3 +36,9 @@ Market data shown by the apps is fetched at runtime from third-party APIs (for
 example CoinGecko, Binance, alternative.me, Coin Metrics) and is subject to the
 terms of those providers. It is not part of the Software and is not covered by
 the MIT License above.
+
+Alarm sounds
+
+The four iOS alarm sounds (cc_chime, cc_crystal, cc_dingdong, cc_pulse) are
+synthesised by ios/tools/gen_alarm_sounds.py (no third-party audio) and are
+dedicated to the public domain (CC0 1.0).

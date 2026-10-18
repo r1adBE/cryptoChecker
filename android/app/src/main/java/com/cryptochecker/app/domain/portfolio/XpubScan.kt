@@ -68,8 +68,10 @@ data class XpubCache(
  *
  * Arten:
  *  - [Mode.FULL] (neu oder ≥ [FULL_SCAN_MILLIS] seit der letzten): je Kette ab 0 bis [GAP] unbenutzte in Folge.
- *  - [Mode.QUICK] (Vordergrund sonst): bekannte benutzte Adressen + die nächsten [LOOKAHEAD] nach der letzten
- *    benutzten; wird dort eine benutzt, geht die Suche weiter, bis wieder [GAP] unbenutzte in Folge kommen.
+ *  - [Mode.QUICK] (Vordergrund sonst): bekannte benutzte Adressen + die nächsten [LOOKAHEAD] (= volles Gap-Limit)
+ *    nach der letzten benutzten; wird dort eine benutzt, geht die Suche weiter, bis wieder [GAP] unbenutzte in Folge
+ *    kommen. Mit nur 5 blieb eine Zahlung an eine weiter hinten abgeleitete Adresse (Wallets geben oft mehrere neue
+ *    Adressen auf einmal aus) bis zur täglichen vollständigen Suche unsichtbar.
  *  - [Mode.BACKGROUND]: nur bekannte benutzte Adressen (Zeitbudget).
  * Guthaben = Summe der gefragten Adressen (nicht gefragte, unbenutzte zählen 0). Höchstens [MAX_REQUESTS] Anfragen,
  * sonst Fehler ([TooMany]).
@@ -184,8 +186,8 @@ class XpubScan(val mode: Mode, cache: XpubCache?) {
     companion object {
         /** Gap-Limit (BIP44). */
         const val GAP = 20
-        /** QUICK: so viele Adressen nach der letzten benutzten je Kette. */
-        const val LOOKAHEAD = 5
+        /** QUICK: so viele Adressen nach der letzten benutzten je Kette — das volle Gap-Limit (BIP44). */
+        const val LOOKAHEAD = GAP
         /** Vollständige Suche höchstens einmal täglich. */
         const val FULL_SCAN_MILLIS = 24 * 60 * 60_000L
         /** Grenze je Aktualisierung (schont die Anbieter). */

@@ -19,7 +19,7 @@
     <string name="portfolio_empty_title">אין עדיין עסקאות</string>
     <string name="portfolio_enable_ask_text">העסקה שלך נשמרה. לשונית תיק השקעות מציגה את היתרות שלך ואת שוויין.</string>
     <string name="portfolio_enable_ask_title">להפעיל את לשונית תיק השקעות?</string>
-    <string name="portfolio_enable_later_hint">העסקה נשמרה. אפשר להפעיל את לשונית תיק השקעות בהגדרות › מתקדם › תיק השקעות.</string>
+    <string name="portfolio_enable_later_hint">העסקה נשמרה. אפשר להפעיל את לשונית תיק השקעות בהגדרות › תיק השקעות.</string>
     <string name="portfolio_enabled_banner">התיק הופעל – תמצא אותו בכרטיסייה תיק.</string>
     <string name="portfolio_lock_reason">ביטול נעילת תיק ההשקעות</string>
     <string name="portfolio_locked_text">יש לבטל את הנעילה כדי לראות אחזקות ושווי.</string>

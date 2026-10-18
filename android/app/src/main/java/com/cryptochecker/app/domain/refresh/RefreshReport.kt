@@ -46,6 +46,11 @@ data class MarketRefresh(
     val pausedUntil: Long? = null,
     /** Grund der Pause: [RefreshFailure.RATE_LIMIT] oder [RefreshFailure.TIMEOUT]. */
     val pauseReason: RefreshFailure? = null,
+    /**
+     * Kurzer Fehlertext der Börse zur häufigsten Ursache ([StoredError.reportDetail], z. B. «Invalid symbol.»),
+     * ohne Adressen und Schlüssel; null = nur die allgemeine Ursache. Steht nur im Bericht, nie in der Zeile.
+     */
+    val detail: String? = null,
 )
 
 /** Grün / Orange / Rot. */

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Build 76: Portfolio-Speicher, Sicherung, Steuer-Export, Sperre -->
+    <string name="storage_recovery_restore_action">Gendan backup</string>
+    <string name="storage_recovery_acknowledge">Forstået</string>
+    <string name="storage_recovery_restored_title">Gemte data er låst op igen</string>
+    <string name="storage_recovery_restored_message">En tidligere nøgle på denne enhed åbnede de lagte data til side igen, så de er tilbage. Det, der blev gemt i mellemtiden, ligger uændret ved siden af.</string>
+    <string name="backup_restore_interrupted_title">Gendannelsen blev afbrudt</string>
+    <string name="backup_restore_interrupted_rolled_back">Appen blev lukket under gendannelse af et backup. Dine tidligere data er lagt tilbage; intet fra backuppet blev beholdt.</string>
+    <string name="backup_restore_interrupted_incomplete">Appen blev lukket under gendannelse af et backup, og de tidligere data kunne ikke lægges helt tilbage. Tjek din overvågningsliste og portefølje, eller gendan backuppet igen under “%1$s” i Indstillinger.</string>
+    <string name="backup_not_verified">Backupfilen kunne ikke bekræftes efter gemning – den læses anderledes tilbage. Gem backuppet i en ny fil.</string>
+    <string name="tax_line_at_old_speculation_limit">Erhvervet før 1. marts 2021 – holdt ≤ 1 år: fritagelsesgrænse for spekulationshandler (§ 31, stk. 3 EStG, gammel affattelse)</string>
+    <string name="portfolio_tx_interest">Rente (udlån)</string>
+    <string name="portfolio_tx_interest_hint">Tæller som indkomst ved modtagelse (Østrig). Lad være slået fra for staking-belønninger og airdrops.</string>
+    <string name="app_lock_no_screen_lock">Opsæt en skærmlås for at åbne porteføljen.</string>
+    <string name="app_lock_turn_off_action">Slå porteføljelås fra</string>
+    <string name="app_lock_turn_off_confirm_title">Slå porteføljelås fra?</string>
+    <string name="app_lock_turn_off_confirm_message">Uden skærmlås kan porteføljen ikke låses op. Slået fra viser appen din portefølje igen uden at spørge. Når en skærmlås er sat op, kan du slå låsen til igen i Indstillinger.</string>
+</resources>

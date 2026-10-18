@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Build 76: Portfolio-Speicher, Sicherung, Steuer-Export, Sperre -->
+    <string name="storage_recovery_restore_action">Pulihkan cadangan</string>
+    <string name="storage_recovery_acknowledge">Mengerti</string>
+    <string name="storage_recovery_restored_title">Data tersimpan terbuka lagi</string>
+    <string name="storage_recovery_restored_message">Kunci sebelumnya di perangkat ini membuka lagi data yang disisihkan, jadi data itu kembali. Data yang disimpan sementara itu tetap utuh di sampingnya.</string>
+    <string name="backup_restore_interrupted_title">Pemulihan terhenti</string>
+    <string name="backup_restore_interrupted_rolled_back">Aplikasi ditutup saat memulihkan cadangan. Data sebelumnya telah dikembalikan; tidak ada yang diambil dari cadangan.</string>
+    <string name="backup_restore_interrupted_incomplete">Aplikasi ditutup saat memulihkan cadangan, dan data sebelumnya tidak dapat dikembalikan sepenuhnya. Periksa daftar pantau dan portofolio, atau pulihkan cadangan lagi di “%1$s” di Pengaturan.</string>
+    <string name="backup_not_verified">File cadangan tidak dapat diverifikasi setelah disimpan – saat dibaca ulang isinya berbeda. Simpan cadangan ke file baru.</string>
+    <string name="tax_line_at_old_speculation_limit">Diperoleh sebelum 1 Mar 2021 – dimiliki ≤ 1 tahun: batas bebas transaksi spekulatif (§ 31 (3) EStG versi lama)</string>
+    <string name="portfolio_tx_interest">Bunga (pinjaman)</string>
+    <string name="portfolio_tx_interest_hint">Dihitung sebagai penghasilan saat diterima (Austria). Biarkan nonaktif untuk hadiah staking dan airdrop.</string>
+    <string name="app_lock_no_screen_lock">Atur kunci layar untuk membuka portofolio.</string>
+    <string name="app_lock_turn_off_action">Matikan kunci portofolio</string>
+    <string name="app_lock_turn_off_confirm_title">Matikan kunci portofolio?</string>
+    <string name="app_lock_turn_off_confirm_message">Tanpa kunci layar, portofolio tidak dapat dibuka. Jika dimatikan, aplikasi menampilkan portofolio lagi tanpa bertanya. Setelah kunci layar diatur, kunci bisa diaktifkan lagi di Pengaturan.</string>
+</resources>

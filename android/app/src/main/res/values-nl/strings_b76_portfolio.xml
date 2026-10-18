@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Build 76: Portfolio-Speicher, Sicherung, Steuer-Export, Sperre -->
+    <string name="storage_recovery_restore_action">Back-up terugzetten</string>
+    <string name="storage_recovery_acknowledge">Begrepen</string>
+    <string name="storage_recovery_restored_title">Opgeslagen gegevens weer ontgrendeld</string>
+    <string name="storage_recovery_restored_message">Een eerdere sleutel op dit apparaat opende de apart gezette gegevens weer, dus ze zijn terug. Wat in de tussentijd is opgeslagen, staat ongewijzigd ernaast.</string>
+    <string name="backup_restore_interrupted_title">Terugzetten is onderbroken</string>
+    <string name="backup_restore_interrupted_rolled_back">De app werd gesloten tijdens het terugzetten van een back-up. Je vorige gegevens zijn teruggezet; er is niets uit de back-up behouden.</string>
+    <string name="backup_restore_interrupted_incomplete">De app werd gesloten tijdens het terugzetten van een back-up en de vorige gegevens konden niet volledig worden teruggezet. Controleer je volglijst en portfolio, of zet de back-up opnieuw terug onder ‘%1$s’ in Instellingen.</string>
+    <string name="backup_not_verified">Het back-upbestand kon na het opslaan niet worden gecontroleerd – teruggelezen wijkt het af. Sla de back-up op in een nieuw bestand.</string>
+    <string name="tax_line_at_old_speculation_limit">Verworven vóór 1-3-2021 – ≤ 1 jaar aangehouden: vrijstellingsgrens speculatieve transacties (§ 31 lid 3 EStG, oude versie)</string>
+    <string name="portfolio_tx_interest">Rente (uitlenen)</string>
+    <string name="portfolio_tx_interest_hint">Telt als inkomen bij ontvangst (Oostenrijk). Laat uit voor stakingbeloningen en airdrops.</string>
+    <string name="app_lock_no_screen_lock">Stel een schermvergrendeling in om het portfolio te openen.</string>
+    <string name="app_lock_turn_off_action">Portfoliovergrendeling uitzetten</string>
+    <string name="app_lock_turn_off_confirm_title">Portfoliovergrendeling uitzetten?</string>
+    <string name="app_lock_turn_off_confirm_message">Zonder schermvergrendeling kan het portfolio niet worden ontgrendeld. Uitgezet toont de app je portfolio weer zonder te vragen. Zodra er een schermvergrendeling is ingesteld, kun je de vergrendeling weer aanzetten in Instellingen.</string>
+</resources>

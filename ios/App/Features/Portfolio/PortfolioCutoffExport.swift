@@ -704,11 +704,12 @@ enum PortfolioCutoffExporter {
     /// Bestand am Ende des Tags (Zeitzone des Geräts), Kurse und Devisenkurs holen, CSV bauen.
     /// Bestand nach derselben Einstandsmethode `method` wie Karte, Verlauf und Steuer-Export.
     /// `addresses`: Reihen der beobachteten Adressen, die im Portfolio zählen (`AddressBalanceHistory.of`).
-    /// `header`: Kopfzeilen davor (Bestand der Arbeitsunterlage), leer = keine.
+    /// `header`: Kopfzeilen davor (Bestand der Arbeitsunterlage), leer = keine. `zone`: Ende des Tags in dieser Zeitzone —
+    /// für den Bestand der Arbeitsunterlage die der Vorlage, sonst die des Geräts (wie Android).
     static func build(transactions: [PortfolioTx], day: CutoffDay, currency: String, texts: CutoffCsvTexts,
                       method: CostMethod = .defaultMethod, addresses: [AddressBalanceHistory] = [],
-                      header: [String] = []) async -> String {
-        let cutoff = day.endOfDayMillis(in: .current)
+                      header: [String] = [], zone: TimeZone = .current) async -> String {
+        let cutoff = day.endOfDayMillis(in: zone)
         let holdings = CutoffExport.holdingsAt(transactions, cutoffMillis: cutoff, method: method)
         // Beobachtete Adressen, die im Portfolio zählen: heute das aktuelle, früher das an dem Tag beobachtete Guthaben
         // (eigene Zeilen «aus Adresse – ohne Kaufpreis») — wie Android

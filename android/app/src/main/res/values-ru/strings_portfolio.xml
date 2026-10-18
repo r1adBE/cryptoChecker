@@ -20,7 +20,7 @@
     <string name="portfolio_empty_title">Операций пока нет</string>
     <string name="portfolio_enable_ask_text">Ваша транзакция сохранена. Вкладка «Портфель» показывает ваши активы и их стоимость.</string>
     <string name="portfolio_enable_ask_title">Включить вкладку «Портфель»?</string>
-    <string name="portfolio_enable_later_hint">Транзакция сохранена. Включить вкладку «Портфель» можно в разделе Настройки › Дополнительно › Портфель.</string>
+    <string name="portfolio_enable_later_hint">Транзакция сохранена. Включить вкладку «Портфель» можно в разделе Настройки › Портфель.</string>
     <string name="portfolio_enabled_banner">Портфель включён – он во вкладке «Портфель».</string>
     <string name="portfolio_lock_reason">Разблокировать портфель</string>
     <string name="portfolio_locked_text">Разблокируйте, чтобы увидеть активы и стоимость.</string>

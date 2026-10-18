@@ -7,8 +7,9 @@ import com.cryptochecker.app.domain.portfolio.PortfolioTrade
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.portfolio.CutoffExport
 import com.cryptochecker.app.domain.portfolio.TaxCsvTexts
-import com.cryptochecker.app.domain.portfolio.TaxDeTexts
 import com.cryptochecker.app.domain.portfolio.TaxExport
+import com.cryptochecker.app.domain.portfolio.TaxLine
+import com.cryptochecker.app.domain.portfolio.TaxSummaryTexts
 import com.cryptochecker.app.domain.portfolio.TaxMethod
 import com.cryptochecker.app.domain.portfolio.TaxTemplate
 import org.junit.Assert.assertEquals
@@ -207,7 +208,10 @@ class TaxExportParityTest {
         }
     }
 
-    /** Jahresübersicht DE: Summen, Freigrenzen je Jahr (600/1000 €, 256 €), CSV; Tausch als Veräusserung. */
+    /**
+     * Jahresübersicht DE über die Vorlage ([TaxExport.yearSummary] mit [TaxTemplate.DE]): Summen, Freigrenzen je Jahr
+     * (600/1000 €, 256 €), CSV; Tausch als Veräusserung. Zähler des Fixtures als Merker der Posten (> 0 ↔ Merker gesetzt).
+     */
     @Test
     fun deSummary() {
         val de = data["deSummary"].obj()
@@ -215,15 +219,12 @@ class TaxExportParityTest {
         val deTrades = parseTrades(de["trades"])
         val eurRates = de["eurRates"].obj().entries.associate { it.key.toLong() to BigDecimal(it.value as String) }
         val t = de["texts"].obj().mapValues { it.value as String }
-        val deTexts = TaxDeTexts(
+        val labels = de["labels"].obj().entries.associate { TaxLine.valueOf(it.key) to it.value as String }
+        val summaryTexts = TaxSummaryTexts(
             title = t.getValue("title"), disclaimer = t.getValue("disclaimer"), item = t.getValue("item"), usdt = t.getValue("usdt"),
-            eur = t.getValue("eur"), note = t.getValue("note"), shortGains = t.getValue("shortGains"),
-            shortLosses = t.getValue("shortLosses"), netShort = t.getValue("netShort"), longGains = t.getValue("longGains"),
-            longLosses = t.getValue("longLosses"), unclassified = t.getValue("unclassified"),
-            privateSalesLimit = t.getValue("privateSalesLimit"), income = t.getValue("income"), incomeLimit = t.getValue("incomeLimit"),
+            target = t.getValue("eur"), note = t.getValue("note"), orientation = "Orientation", labels = labels,
             below = t.getValue("below"), reached = t.getValue("reached"), unknown = t.getValue("unknown"),
-            needsEur = t.getValue("needsEur"), incomplete = t.getValue("incomplete"), needsHolding = t.getValue("needsHolding"),
-            noFx = t.getValue("noFx"), limitScope = t.getValue("limitScope"),
+            incomplete = t.getValue("incomplete"), noFx = t.getValue("noFx"),
             orientationHeading = t.getValue("orientationHeading"), orientationItem = t.getValue("orientationItem"),
         )
         val deHeader = de["header"].list().map { it as String }
@@ -236,31 +237,47 @@ class TaxExportParityTest {
         for (c in cases) {
             val y = c["year"].num()!!.toInt()
             val method = CostMethod.fromName(c["method"] as String)
-            val rates = if (c["eur"] == true) eurRates else null
-            val sum = TaxExport.deYearSummary(deTrades, method, y, deZone, rates)
-            val label = "de $y $method eur=${c["eur"]}"
+            val eur = c["eur"] == true
+            val sum = TaxExport.yearSummary(
+                deTrades, TaxTemplate.DE, TaxMethod.of(method), y, deZone, "EUR", if (eur) eurRates else null,
+            )
+            val label = "de $y $method eur=$eur"
             val e = c["expected"].obj()
+            fun line(l: TaxLine) = sum.lines.firstOrNull { it.line == l }
             fun m(v: BigDecimal?): String? = v?.let { CutoffExport.money(it) }
+            // Posten fehlt (z. B. ohne Haltedauer): Betrag 0, in EUR nur mit Kursen
+            fun usdt(l: TaxLine): String? = m(line(l)?.usdt ?: BigDecimal.ZERO)
+            fun eurOf(l: TaxLine): String? = if (!eur) null else m(line(l)?.target ?: BigDecimal.ZERO)
+            val unclassified = line(TaxLine.UNCLASSIFIED)
             val got = mapOf(
-                "shortGainsUsdt" to m(sum.shortGainsUsdt), "shortLossesUsdt" to m(sum.shortLossesUsdt),
-                "netShortUsdt" to m(sum.netShortUsdt), "longGainsUsdt" to m(sum.longGainsUsdt),
-                "longLossesUsdt" to m(sum.longLossesUsdt), "unclassifiedUsdt" to m(sum.unclassifiedUsdt),
-                "shortGainsEur" to m(sum.shortGainsEur), "shortLossesEur" to m(sum.shortLossesEur),
-                "netShortEur" to m(sum.netShortEur), "longGainsEur" to m(sum.longGainsEur),
-                "longLossesEur" to m(sum.longLossesEur), "unclassifiedEur" to m(sum.unclassifiedEur),
-                "privateSalesLimitEur" to m(sum.privateSalesLimitEur), "privateSalesStatus" to sum.privateSalesStatus.name,
-                "incomeUsdt" to m(sum.incomeUsdt), "incomeEur" to m(sum.incomeEur), "incomeLimitEur" to m(sum.incomeLimitEur),
-                "incomeStatus" to sum.incomeStatus.name, "eurAvailable" to sum.eurAvailable,
-                "unknownGainCount" to sum.unknownGainCount, "unclassifiedCount" to sum.unclassifiedCount,
-                "eurFxMissingCount" to sum.eurFxMissingCount, "incomeValueMissingCount" to sum.incomeValueMissingCount,
-                "incomeFxMissingCount" to sum.incomeFxMissingCount,
+                "shortGainsUsdt" to usdt(TaxLine.SHORT_GAINS), "shortLossesUsdt" to usdt(TaxLine.SHORT_LOSSES),
+                "netShortUsdt" to usdt(TaxLine.SHORT_NET), "longGainsUsdt" to usdt(TaxLine.LONG_GAINS),
+                "longLossesUsdt" to usdt(TaxLine.LONG_LOSSES), "unclassifiedUsdt" to usdt(TaxLine.UNCLASSIFIED),
+                "shortGainsEur" to eurOf(TaxLine.SHORT_GAINS), "shortLossesEur" to eurOf(TaxLine.SHORT_LOSSES),
+                "netShortEur" to eurOf(TaxLine.SHORT_NET), "longGainsEur" to eurOf(TaxLine.LONG_GAINS),
+                "longLossesEur" to eurOf(TaxLine.LONG_LOSSES), "unclassifiedEur" to eurOf(TaxLine.UNCLASSIFIED),
+                "privateSalesLimitEur" to m(line(TaxLine.DE_PRIVATE_LIMIT)?.target),
+                "privateSalesStatus" to line(TaxLine.DE_PRIVATE_LIMIT)?.status?.name,
+                "incomeUsdt" to m(line(TaxLine.INCOME)?.usdt), "incomeEur" to m(line(TaxLine.INCOME)?.target),
+                "incomeLimitEur" to m(line(TaxLine.DE_INCOME_LIMIT)?.target),
+                "incomeStatus" to line(TaxLine.DE_INCOME_LIMIT)?.status?.name, "eurAvailable" to sum.fxAvailable,
+            )
+            val flags = mapOf(
+                "unknownGainCount" to (line(TaxLine.SHORT_NET)?.incomplete == true || unclassified?.incomplete == true),
+                "unclassifiedCount" to (unclassified != null),
+                "eurFxMissingCount" to (line(TaxLine.SHORT_NET)?.noFx == true || unclassified?.noFx == true),
+                "incomeValueMissingCount" to (line(TaxLine.INCOME)?.incomplete == true),
+                "incomeFxMissingCount" to (line(TaxLine.INCOME)?.noFx == true),
             )
             e.forEach { (k, v) ->
-                val actual = got[k]
-                if (v is Number) assertEquals("$label $k", v.toInt(), actual) else assertEquals("$label $k", v, actual)
+                when {
+                    k in flags -> assertEquals("$label $k", (v.num()?.toInt() ?: 0) > 0, flags.getValue(k))
+                    v is Number -> assertEquals("$label $k", v.toInt(), got[k])
+                    else -> assertEquals("$label $k", v, got[k])
+                }
             }
             c["csv"]?.let { expected ->
-                val csv = TaxExport.deSummaryCsv(sum, deTexts, deHeader, de["zoneLine"] as String)
+                val csv = TaxExport.summaryCsv(sum, summaryTexts, deHeader, de["zoneLine"] as String)
                 assertEquals("$label csv", expected.list(), lines(csv))
             }
             c["swapLine"]?.let { raw ->
@@ -313,23 +330,24 @@ class TaxExportParityTest {
         )
         // EUR = USD (Kurs 1) an jedem Tag des Jahres
         val eur = (LocalDate.of(2025, 1, 1).toEpochDay()..LocalDate.of(2025, 12, 31).toEpochDay()).associateWith { BigDecimal.ONE }
-        val s = TaxExport.deYearSummary(trades, CostMethod.FIFO, 2025, z, eur)
-        assertEquals(0, BigDecimal("1020").compareTo(s.shortGainsUsdt))
-        assertEquals(0, BigDecimal.ZERO.compareTo(s.shortLossesUsdt))
-        assertEquals(0, BigDecimal("1020").compareTo(s.netShortEur))
-        assertEquals(com.cryptochecker.app.domain.portfolio.TaxLimitStatus.REACHED, s.privateSalesStatus)
-        assertEquals(1, s.withdrawalFeeCount)
-        assertEquals(0, BigDecimal("-25").compareTo(s.withdrawalFeesUsdt))
-        assertEquals(0, BigDecimal("-25").compareTo(s.withdrawalFeesEur))
+        val s = TaxExport.yearSummary(trades, TaxTemplate.DE, TaxMethod.FIFO, 2025, z, "EUR", eur)
+        fun line(l: TaxLine) = s.lines.first { it.line == l }
+        assertEquals(0, BigDecimal("1020").compareTo(line(TaxLine.SHORT_GAINS).usdt))
+        assertEquals(0, BigDecimal.ZERO.compareTo(line(TaxLine.SHORT_LOSSES).usdt))
+        assertEquals(0, BigDecimal("1020").compareTo(line(TaxLine.SHORT_NET).target))
+        assertEquals(com.cryptochecker.app.domain.portfolio.TaxLimitStatus.REACHED, line(TaxLine.DE_PRIVATE_LIMIT).status)
+        val fees = line(TaxLine.WITHDRAWAL_FEES)
+        assertEquals(0, BigDecimal("-25").compareTo(fees.usdt))
+        assertEquals(0, BigDecimal("-25").compareTo(fees.target))
+        assertEquals(com.cryptochecker.app.domain.portfolio.TaxSummaryNote.DE_WITHDRAWAL_FEE, fees.note)
         // Eigener Posten in der CSV mit Vermerk
-        val texts = TaxDeTexts(
-            title = "T", disclaimer = "D", item = "I", usdt = "USDT", eur = "EUR", note = "N", shortGains = "SG",
-            shortLosses = "SL", netShort = "NS", longGains = "LG", longLosses = "LL", unclassified = "U",
-            privateSalesLimit = "PL", income = "IN", incomeLimit = "IL", below = "below", reached = "reached",
-            unknown = "unknown", needsEur = "ne", incomplete = "inc", needsHolding = "nh", noFx = "nofx", limitScope = "",
-            withdrawalFees = "WF", withdrawalFeeNote = "not netted",
+        val texts = TaxSummaryTexts(
+            title = "T", disclaimer = "D", item = "I", usdt = "USDT", target = "EUR", note = "N", orientation = "O",
+            labels = mapOf(TaxLine.WITHDRAWAL_FEES to "WF", TaxLine.DE_PRIVATE_LIMIT to "PL"),
+            below = "below", reached = "reached", unknown = "unknown", incomplete = "inc", noFx = "nofx",
+            notes = mapOf(com.cryptochecker.app.domain.portfolio.TaxSummaryNote.DE_WITHDRAWAL_FEE to "not netted"),
         )
-        val csv = TaxExport.deSummaryCsv(s, texts, emptyList())
+        val csv = TaxExport.summaryCsv(s, texts, emptyList())
         assertTrue(csv, csv.contains("WF;-25.00;-25.00;not netted"))
         assertTrue(csv, csv.contains("reached"))
     }

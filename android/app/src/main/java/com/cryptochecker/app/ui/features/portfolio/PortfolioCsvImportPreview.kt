@@ -376,4 +376,6 @@ private fun CsvImportSkipReason.labelRes(): Int = when (this) {
     CsvImportSkipReason.INTERNAL_MOVE -> R.string.portfolio_csv_skip_internal_move
     CsvImportSkipReason.POSSIBLE_DUPLICATE -> R.string.portfolio_csv_skip_possible_duplicate
     CsvImportSkipReason.AMBIGUOUS_GROUP -> R.string.portfolio_csv_skip_ambiguous
+    CsvImportSkipReason.DUPLICATE_TXID_DIFFERENT -> R.string.portfolio_csv_skip_duplicate_txid_different
+    CsvImportSkipReason.STAKING_UNPAIRED -> R.string.portfolio_csv_skip_staking_unpaired
 }

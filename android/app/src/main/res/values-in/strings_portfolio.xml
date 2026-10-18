@@ -17,7 +17,7 @@
     <string name="portfolio_empty_title">Belum ada transaksi</string>
     <string name="portfolio_enable_ask_text">Transaksimu sudah disimpan. Tab Portofolio menampilkan kepemilikan dan nilainya.</string>
     <string name="portfolio_enable_ask_title">Aktifkan tab Portofolio?</string>
-    <string name="portfolio_enable_later_hint">Transaksi disimpan. Kamu bisa mengaktifkan tab Portofolio di Pengaturan › Lanjutan › Portofolio.</string>
+    <string name="portfolio_enable_later_hint">Transaksi disimpan. Kamu bisa mengaktifkan tab Portofolio di Pengaturan › Portofolio.</string>
     <string name="portfolio_enabled_banner">Portofolio diaktifkan – ada di tab Portofolio.</string>
     <string name="portfolio_lock_reason">Buka kunci portofolio</string>
     <string name="portfolio_locked_text">Buka kunci untuk melihat kepemilikan dan nilainya.</string>

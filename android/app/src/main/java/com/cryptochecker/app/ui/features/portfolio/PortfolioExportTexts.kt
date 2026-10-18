@@ -20,7 +20,7 @@ import java.time.ZoneId
 
 /** Texte der CSV «Realisierte Veräusserungen» und «Einkünfte» ([TaxCsvTexts]); Währungsspalten mit [currency]. */
 @Composable
-internal fun taxCsvTexts(currency: String): TaxCsvTexts = TaxCsvTexts(
+internal fun taxCsvTexts(currency: String, zone: ZoneId = ZoneId.systemDefault()): TaxCsvTexts = TaxCsvTexts(
     coin = stringResource(R.string.portfolio_export_col_coin),
     acquired = stringResource(R.string.tax_export_col_acquired),
     sold = stringResource(R.string.tax_export_col_sold),
@@ -50,8 +50,8 @@ internal fun taxCsvTexts(currency: String): TaxCsvTexts = TaxCsvTexts(
     incomplete = stringResource(R.string.portfolio_export_incomplete),
     oversold = stringResource(R.string.tax_export_oversold),
     proceedsWithoutCost = stringResource(R.string.tax_export_proceeds_without_cost),
-    // Jahr und Daten in der Zeitzone des Geräts — in der CSV genannt («Daten in Ortszeit (Zone)»)
-    timeZone = stringResource(R.string.tax_export_year_local_zone, ZoneId.systemDefault().id),
+    // Jahr und Daten in der Zeitzone der Vorlage (Neutral: Gerät) — in der CSV genannt («Daten in Ortszeit (Zone)»)
+    timeZone = stringResource(R.string.tax_export_year_local_zone, zone.id),
     // Tausch und FIFO je Wallet (Platzhalter «%s» setzt der Export mit dem Namen der Wallet)
     swap = stringResource(R.string.tax_export_swap),
     wallet = stringResource(R.string.tax_export_wallet, "%s"),
@@ -227,6 +227,7 @@ private fun taxLineLabel(l: TaxLine): Int = when (l) {
     TaxLine.DE_INCOME_LIMIT -> R.string.tax_de_income_limit
     TaxLine.AT_RATE -> R.string.tax_line_at_rate
     TaxLine.AT_OLD_LONG -> R.string.tax_line_at_old_long
+    TaxLine.AT_OLD_SPECULATION_LIMIT -> R.string.tax_line_at_old_speculation_limit
     TaxLine.CH_PRIVATE -> R.string.tax_line_ch_private
     TaxLine.CH_INCOME -> R.string.tax_line_ch_income
     TaxLine.CH_WEALTH -> R.string.tax_line_ch_wealth

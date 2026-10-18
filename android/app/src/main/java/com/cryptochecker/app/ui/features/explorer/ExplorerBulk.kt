@@ -6,8 +6,6 @@ import com.cryptochecker.app.ui.theme.AppColors
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
@@ -36,6 +34,9 @@ import com.cryptochecker.app.ui.theme.amountNumbers
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.marketdata.model.MarketPair
 import com.cryptochecker.marketdata.model.FuturesContractType
+
+/** So viele Paare zeigt die Vorschau, bevor «Alle anzeigen» den Rest aufklappt. */
+private const val BULK_PREVIEW_ROWS = 25
 
 /**
  * Mehrere Paare auf einmal (Expertenfunktion, eingeklappt bis man sie öffnet): Gegenwährung
@@ -168,20 +169,33 @@ internal fun BulkPairsCard(
                     val sortedPairs = remember(pairs, stats, filter) {
                         QuickFilters.sort(pairs, filter) { p -> p.pairId?.let { stats[it] } }
                     }
-                    // Antippbare Vorschau: wählt das Paar oben in Schritt 2.
-                    // Alle Paare: eigene Liste, scrollt in sich (lazy, auch bei Hunderten flüssig)
-                    LazyColumn(modifier = Modifier.fillMaxWidth().heightIn(max = 420.dp)) {
-                        items(sortedPairs, key = { "${it.base}/${it.quote}/${it.contractType}" }) { pair ->
-                            val pairStats = pair.pairId?.let { stats[it] }
-                            BulkPairRow(
-                                pair = pair,
-                                metric = filter?.let { f -> quickFilterText(f, pairStats, pair.quote) },
-                                metricChange = filter?.let { f -> quickFilterChange(f, pairStats) },
-                                selected = pair.base == coin &&
-                                    pair.quote == pairQuote &&
-                                    pair.contractType == contract,
-                                onClick = { onSelectPair(pair) },
-                            )
+                    // Antippbare Vorschau: wählt das Paar oben in Schritt 2. Keine eigene rollende
+                    // Liste in der rollenden Seite (Scrollen im Scrollen): erst die ersten Paare,
+                    // «Alle anzeigen» klappt den Rest auf.
+                    var showAllPairs by rememberSaveable(quote) { mutableStateOf(false) }
+                    val visiblePairs = if (showAllPairs) sortedPairs else sortedPairs.take(BULK_PREVIEW_ROWS)
+                    Column(modifier = Modifier.fillMaxWidth()) {
+                        visiblePairs.forEach { pair ->
+                            key("${pair.base}/${pair.quote}/${pair.contractType}") {
+                                val pairStats = pair.pairId?.let { stats[it] }
+                                BulkPairRow(
+                                    pair = pair,
+                                    metric = filter?.let { f -> quickFilterText(f, pairStats, pair.quote) },
+                                    metricChange = filter?.let { f -> quickFilterChange(f, pairStats) },
+                                    selected = pair.base == coin &&
+                                        pair.quote == pairQuote &&
+                                        pair.contractType == contract,
+                                    onClick = { onSelectPair(pair) },
+                                )
+                            }
+                        }
+                    }
+                    if (!showAllPairs && sortedPairs.size > BULK_PREVIEW_ROWS) {
+                        TextButton(
+                            onClick = { showAllPairs = true },
+                            modifier = Modifier.fillMaxWidth(),
+                        ) {
+                            Text(stringResource(R.string.explorer_bulk_show_all, sortedPairs.size))
                         }
                     }
                 }

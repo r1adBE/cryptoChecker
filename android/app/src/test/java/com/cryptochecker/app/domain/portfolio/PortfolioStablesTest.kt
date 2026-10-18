@@ -115,4 +115,22 @@ class PortfolioStablesTest {
         assertEquals(500.0, change.amountUsd, d)
         assertEquals(5.0, change.percent!!, d)
     }
+
+    /** Build 76: Live-Kurs USDT/USD — bestätigter Einbruch zählt, Tagesschlüsse bleiben im Normalbereich. Wie iOS. */
+    @Test
+    fun usdtUsdLiveKeepsConfirmedBreak() {
+        assertEquals(UsdtUsd(0.3, approximate = false), PortfolioStables.usdtUsdLive(0.3))
+        assertEquals(UsdtUsd(2.0, approximate = false), PortfolioStables.usdtUsdLive(2.0))
+        assertEquals(PortfolioStables.USDT_USD_FALLBACK, PortfolioStables.usdtUsdLive(0.04))
+        assertEquals(PortfolioStables.USDT_USD_FALLBACK, PortfolioStables.usdtUsdLive(3.5))
+        assertEquals(PortfolioStables.USDT_USD_FALLBACK, PortfolioStables.usdtUsdLive(null))
+        // Tagesschluss (eine Quelle, kein Abgleich): 0.3 bleibt unplausibel
+        assertEquals(PortfolioStables.USDT_USD_FALLBACK, PortfolioStables.usdtUsd(0.3))
+        // Heute gilt der Live-Kurs auch im Einbruch, frühere Tage nur ein plausibler Schluss
+        val rates = UsdtUsdRates(0.3, mapOf(5L to 0.3))
+        assertEquals(0.3, rates.on(7, 7).rate, 0.0)
+        assertTrue(rates.on(5, 7).approximate)
+        assertTrue(PortfolioStables.isUsdtBreak(0.3))
+        assertFalse(PortfolioStables.isUsdtBreak(0.99))
+    }
 }

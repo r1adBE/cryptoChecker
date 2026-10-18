@@ -65,9 +65,17 @@ struct BackupSettingsPage: View {
                     contentType: .json,
                     defaultFilename: BackupManager.defaultFilename()
                 ) { result in
+                    let written = exportDocument?.data
                     exportDocument = nil
                     switch result {
-                    case .success:
+                    case .success(let url):
+                        // Zurücklesen und vergleichen (wie Android): ein Speicher-Anbieter, der die Datei kürzt, zeigte
+                        // sich sonst erst beim Wiederherstellen
+                        if let written, BackupManager.verifyWritten(url, expected: written) != nil {
+                            UINotificationFeedbackGenerator().notificationOccurred(.error)
+                            toast = L("backup_not_verified")
+                            return
+                        }
                         UINotificationFeedbackGenerator().notificationOccurred(.success)
                         toast = L("backup_exported")
                     case .failure(let error):

@@ -1,5 +1,5 @@
 // Tableiste unten (Merkliste · Markt · Portfolio · Einstellungen): Tabs je nach Portfolio-Schalter, Masse,
-// Icon-Skalierung, Beschriftung mit Obergrenze der Schriftgrösse.
+// Icon-Skalierung, Beschriftung (bis zwei Zeilen) mit Obergrenze der Schriftgrösse.
 // Eigene Datei, weil die Leiste eine eigenständige Ansicht ist; `AppNavHost` regelt nur die Navigation
 // (Aussehen wie `AppTabBar` in iOS `RootView.swift`).
 package com.cryptochecker.app.ui.navigation
@@ -22,7 +22,6 @@ import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.BasicText
-import androidx.compose.foundation.text.TextAutoSize
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -46,6 +45,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
@@ -81,15 +81,21 @@ private val TAB_BAR_HEIGHT = 64.dp
 /** Grösse der Tab-Symbole: die üblichen 24 dp (wie iOS). */
 private val TAB_ICON_SIZE = 24.dp
 
-/** Kleinste Schrift der Tab-Beschriftung (sp). */
-private const val TAB_LABEL_MIN_SP = 11f
+/** Kleinste Schrift der Tab-Beschriftung (sp); lange Namen brechen um statt kleiner zu werden. */
+private const val TAB_LABEL_MIN_SP = 12f
+
+/** Lange Beschriftungen (Übersetzungen) dürfen auf zwei Zeilen umbrechen statt «…». */
+private const val TAB_LABEL_MAX_LINES = 2
 
 /**
- * Die Beschriftung wächst höchstens bis zur 1,3-fachen Schrift (wie iOS bis `.xxxLarge` und wie
- * `NavigationBar`): Sonst würde sie bei Schriftgrösse 200 % unten abgeschnitten bzw. die Leiste fräße
- * auf jedem Tab Inhaltshöhe. Den vollen Namen zeigt der Tooltip beim langen Drücken.
+ * Die Beschriftung wächst höchstens bis zur 1,5-fachen Schrift (wie iOS bis `.accessibility1`):
+ * Sonst fräße die Leiste bei Schriftgrösse 200 % auf jedem Tab Inhaltshöhe. Den vollen Namen zeigt
+ * der Tooltip beim langen Drücken.
  */
-private const val TAB_LABEL_MAX_SCALE = 1.3f
+private const val TAB_LABEL_MAX_SCALE = 1.5f
+
+/** Luft über dem Symbol und unter der Beschriftung (Pille 32 + 2 + Zeile 16 + 2 × 7 = 64 dp, wie iOS). */
+private val TAB_VERTICAL_PADDING = 7.dp
 
 /** Das Symbol des gewählten Tabs ist 10 % grösser (wie iOS). */
 private const val TAB_ICON_SELECTED_SCALE = 1.1f
@@ -102,16 +108,12 @@ private val TAB_INDICATOR_WIDTH = 64.dp
 
 private val TAB_INDICATOR_HEIGHT = 32.dp
 
-/** Pille hell: Deckkraft der Akzentfarbe; dunkel: neutrales Grau (Kontrastwerte beim Anzeiger in [AppTabBar]). */
-private const val TAB_INDICATOR_LIGHT_ALPHA = 0.30f
-private val TAB_INDICATOR_DARK = Color(0xFF404040)
-
 /**
  * Eigene Tableiste statt `NavigationBar`. Fläche surfaceContainer wie zuvor, darunter der Abstand
  * zur Systemleiste. Symbole 24 dp; gewählt: das Symbol in der Themenfarbe auf dem Material-3-Anzeiger
- * (Pille 64 × 32 dp, hell Akzent 30 %, dunkel #404040 — Review D11) und kurz animiert
- * um 10 % vergrössert, sonst grau;
- * die Beschriftung bleibt immer gleich (dunkel: weiss, hell: onSurface). Für den Screenreader je
+ * (Pille 64 × 32 dp in der vollen Akzentfarbe, Symbol darauf onAccent) und kurz animiert
+ * um 10 % vergrössert, sonst grau; die Beschriftung bleibt immer gleich (dunkel: weiss,
+ * hell: onSurface), gewählt fett. Lange Namen brechen auf zwei Zeilen um. Für den Screenreader je
  * ein Tab mit «ausgewählt». Gleiches Aussehen wie `AppTabBar` (iOS).
  */
 @OptIn(ExperimentalMaterial3Api::class)
@@ -121,7 +123,8 @@ internal fun AppTabBar(tabs: List<BottomTab>, currentRoute: String?, onSelect: (
     val reduceMotion = rememberReduceMotion()
     Surface(color = MaterialTheme.colorScheme.surfaceContainer) {
         Row(
-            verticalAlignment = Alignment.CenterVertically,
+            // Oben ausgerichtet: bricht eine Beschriftung auf zwei Zeilen um, bleiben alle Symbole auf einer Höhe
+            verticalAlignment = Alignment.Top,
             modifier = Modifier
                 .fillMaxWidth()
                 .windowInsetsPadding(NavigationBarDefaults.windowInsets)
@@ -151,14 +154,14 @@ internal fun AppTabBar(tabs: List<BottomTab>, currentRoute: String?, onSelect: (
                     ) {
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.Center,
+                            verticalArrangement = Arrangement.Top,
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .heightIn(min = TAB_BAR_HEIGHT)
                                 .testTag(tab.testTag)
                                 .selectable(selected = selected, role = Role.Tab, onClick = { onSelect(tab.route) })
-                                // 2 dp statt 4 dp: lange Beschriftungen (z. B. «Einstellungen») bleiben bei 11 sp ganz
-                                .padding(horizontal = 2.dp)
+                                // 2 dp statt 4 dp: lange Beschriftungen (z. B. «Einstellungen») passen öfter auf eine Zeile
+                                .padding(horizontal = 2.dp, vertical = TAB_VERTICAL_PADDING)
                         ) {
                             // Anzeiger: blendet beim Wechsel ein und wächst aus der Mitte (wie NavigationBarItem)
                             val indicator by animateFloatAsState(
@@ -166,12 +169,12 @@ internal fun AppTabBar(tabs: List<BottomTab>, currentRoute: String?, onSelect: (
                                 animationSpec = tween(if (reduceMotion) 0 else TAB_ICON_SCALE_MILLIS),
                                 label = "tabIndicator"
                             )
-                            // Pille deutlich sichtbar (Review D11; vorher secondaryContainer: hell 1.11:1, dunkel 1.30:1).
-                            // Hell: Akzent zu 30 % auf surfaceContainer #F1EEE9 → Pille/Leiste 1.52–1.59:1, Symbol
-                            // (Akzent) auf der Pille 3.18–3.33:1. Dunkel: #404040 auf #1F1F1F → 1.59:1, Symbol 3.88–4.44:1.
-                            // Gewählt bleibt zudem an Akzentsymbol und fetter Beschriftung erkennbar. Gleiche Werte wie iOS.
-                            val indicatorColor = if (LocalDarkTheme.current) TAB_INDICATOR_DARK
-                            else MaterialTheme.colorScheme.primary.copy(alpha = TAB_INDICATOR_LIGHT_ALPHA)
+                            // Pille in der vollen Akzentfarbe, damit sie sich mit ≥ 3:1 von der Leiste abhebt
+                            // (vorher Akzent 30 % bzw. #404040: nur 1.5–1.6:1). Hell primary auf surfaceContainer
+                            // #F1EEE9 → 5.04–5.09:1, Symbol Weiss darauf 5.84–5.89:1; dunkel primary auf #1F1F1F →
+                            // 6.17–7.05:1, Symbol onPrimary darauf 6.15–6.70:1 (TabIndicatorContrastTest). Gewählt
+                            // zudem an fetter Beschriftung erkennbar. Gleiche Werte wie iOS.
+                            val indicatorColor = MaterialTheme.colorScheme.primary
                             Box(
                                 contentAlignment = Alignment.Center,
                                 // Schmale Tabs (viele Tabs, grosse Schrift): Pille höchstens so breit wie der Tab
@@ -189,7 +192,7 @@ internal fun AppTabBar(tabs: List<BottomTab>, currentRoute: String?, onSelect: (
                                 Icon(
                                     painterResource(tab.iconRes),
                                     contentDescription = null,
-                                    tint = if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
+                                    tint = if (selected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant,
                                     modifier = Modifier
                                         .size(TAB_ICON_SIZE)
                                         .graphicsLayer {
@@ -208,31 +211,33 @@ internal fun AppTabBar(tabs: List<BottomTab>, currentRoute: String?, onSelect: (
 }
 
 /**
- * Tab-Beschriftung auf einer Zeile (labelMedium, 12 sp): Lange Wörter (Übersetzungen) werden auf
- * schmalen Geräten verkleinert, aber nie unter 11 sp (vorher 9 sp — kaum lesbar); notfalls «…».
- * Beide Grenzen wachsen nur bis [TAB_LABEL_MAX_SCALE] mit der Schriftgrösse mit.
- * Gewählt fett, damit der Tab nicht nur am Farbton erkennbar ist.
+ * Tab-Beschriftung (labelMedium, 12 sp): lange Wörter (Übersetzungen) brechen auf schmalen Geräten
+ * auf zwei Zeilen um statt kleiner zu werden oder «…» zu zeigen (nie unter 12 sp); «…» nur, wenn
+ * selbst zwei Zeilen nicht reichen. Schrift und Zeilenhöhe wachsen bis [TAB_LABEL_MAX_SCALE] mit
+ * der Schriftgrösse mit. Gewählt fett, damit der Tab nicht nur am Farbton erkennbar ist.
  */
 @Composable
 private fun TabLabel(text: String, color: Color, selected: Boolean) {
     val style = MaterialTheme.typography.labelMedium
-    val baseSize = if (style.fontSize.isSp && style.fontSize.value >= TAB_LABEL_MIN_SP) style.fontSize else 12.sp
+    val baseSize = if (style.fontSize.isSp && style.fontSize.value >= TAB_LABEL_MIN_SP) style.fontSize else TAB_LABEL_MIN_SP.sp
+    val baseLine = if (style.lineHeight.isSp) style.lineHeight else 16.sp
     BasicText(
         text = text,
-        style = style.copy(color = color, fontWeight = if (selected) FontWeight.Bold else FontWeight.Medium),
-        maxLines = 1,
-        overflow = TextOverflow.Ellipsis,
-        autoSize = TextAutoSize.StepBased(
-            minFontSize = cappedTabSize(TAB_LABEL_MIN_SP.sp),
-            maxFontSize = cappedTabSize(baseSize),
-            stepSize = 0.5.sp
+        style = style.copy(
+            color = color,
+            fontWeight = if (selected) FontWeight.Bold else FontWeight.Medium,
+            fontSize = cappedTabSize(baseSize),
+            lineHeight = cappedTabSize(baseLine),
+            textAlign = TextAlign.Center,
         ),
+        maxLines = TAB_LABEL_MAX_LINES,
+        overflow = TextOverflow.Ellipsis,
         modifier = Modifier.padding(top = 2.dp)
     )
 }
 
 /**
- * [size] (sp), aber nie grösser gezeichnet als [size] bei 1,3-facher Schrift ([TAB_LABEL_MAX_SCALE]).
+ * [size] (sp), aber nie grösser gezeichnet als [size] bei 1,5-facher Schrift ([TAB_LABEL_MAX_SCALE]).
  * Über Pixel verglichen, weil Android grosse Schriftstufen nicht linear umrechnet.
  */
 @Composable

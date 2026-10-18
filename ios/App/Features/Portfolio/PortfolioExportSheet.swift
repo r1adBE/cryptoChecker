@@ -144,7 +144,7 @@ struct PortfolioExportSheet: View {
     /// Währung der Arbeitsunterlage: die der Vorlage, Neutral die Anzeigewährung.
     private var workCurrency: String { taxTemplate.currency ?? currency }
 
-    private var taxYears: [Int] { TaxExport.years(transactions, timeZone: .current, template: taxTemplate) }
+    private var taxYears: [Int] { TaxExport.years(transactions, timeZone: taxTemplate.zone(), template: taxTemplate) }
 
     private var taxYear: Int? {
         let years = taxYears
@@ -236,7 +236,7 @@ struct PortfolioExportSheet: View {
             .background(AppColors.container, in: RoundedRectangle(cornerRadius: Radius.card, style: .continuous))
             // Steuerjahr in Ortszeit (Verlauf/Heute in UTC) — Zone nennen (wie Android)
             PortfolioHint(text: L("tax_export_period", Self.dayText(period.start), Self.dayText(period.end)) + "\n"
-                + L("tax_export_year_local_zone", TimeZone.current.identifier))
+                + L("tax_export_year_local_zone", taxTemplate.zone().identifier))
                 .padding(.horizontal, 4)
             ForEach(templateNotes, id: \.self) { note in
                 PortfolioHint(text: note)
@@ -361,7 +361,7 @@ struct PortfolioExportSheet: View {
         let m = yearMethod(year)
         let walletFrom = template.walletFrom(costMethod, year)
         let code = workCurrency
-        let texts = TaxCsvTexts.localized(currency: code).withTemplateTexts(currency: code)
+        let texts = TaxCsvTexts.localized(currency: code, zone: template.zone()).withTemplateTexts(currency: code)
         let infoLine = info(year: year)
         let yearLabel = template.label(year)
         let header: [String]
@@ -406,9 +406,10 @@ struct PortfolioExportSheet: View {
         let end = CutoffDay(year: period.end.year, month: period.end.month, day: period.end.day)
         let header = [L("tax_export_holdings_title", Self.dayText(period.end)), info(year: year)] + rulesLine
             + [L("tax_export_usdt_usd_note"), L("tax_export_workpaper_disclaimer"),
-               L("tax_export_year_local_zone", TimeZone.current.identifier)]
+               L("tax_export_year_local_zone", taxTemplate.zone().identifier)]
         startExport(day: end, currency: workCurrency,
-                    header: TaxExport.withChWealthNote(taxTemplate, header: header, chWealthNote: Self.chWealthNote(year: year)))
+                    header: TaxExport.withChWealthNote(taxTemplate, header: header, chWealthNote: Self.chWealthNote(year: year)),
+                    zone: taxTemplate.zone())
     }
 
     /// «Vermögenssteuer nicht gerechnet – Kursliste ESTV: <Link>» für die Kopfzeilen der CH-Arbeitsunterlage — wie Android.
@@ -417,7 +418,8 @@ struct PortfolioExportSheet: View {
           EstvKursliste.listUrl(year: year, language: Bundle.main.preferredLocalizations.first ?? "en"))
     }
 
-    private func startExport(day: CutoffDay, currency exportCurrency: String? = nil, header: [String] = []) {
+    private func startExport(day: CutoffDay, currency exportCurrency: String? = nil, header: [String] = [],
+                             zone: TimeZone = .current) {
         guard !running else { return }
         running = true
         let txs = transactions
@@ -428,7 +430,7 @@ struct PortfolioExportSheet: View {
         let addresses = AddressBalanceHistory.of(WatchedAddressStore.load().addresses)
         Task {
             let csv = await PortfolioCutoffExporter.build(transactions: txs, day: day, currency: code, texts: texts,
-                                                          method: method, addresses: addresses, header: header)
+                                                          method: method, addresses: addresses, header: header, zone: zone)
             running = false
             guard let data = csv.data(using: .utf8) else {
                 UINotificationFeedbackGenerator().notificationOccurred(.error)

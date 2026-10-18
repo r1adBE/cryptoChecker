@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Kursblatt: Abstand Geld/Brief über 2 % der Mitte (BidAskSpread) -->
+    <string name="ticker_wide_spread">Nagy különbség a vételi és az eladási ár között (%1$s%%)</string>
+    <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
+    <string name="refresh_sheet_exchange_detail">A tőzsde üzenete: %1$s</string>
+</resources>

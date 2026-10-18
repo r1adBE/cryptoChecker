@@ -20,6 +20,9 @@ struct DexPool: Hashable, Sendable, Identifiable {
     /// Gegenwährung in der Merkliste: Kurse sind USD, die Chain steht dabei, damit gleichnamige Token verschiedener
     /// Chains auseinanderzuhalten sind.
     var watchQuote: String { "USD (" + chainId + ")" }
+
+    /// Genug Liquidität für Alarme (`DexScreener.alarmCapable`)? Sonst Hinweis «Geringe Liquidität – kein Alarm».
+    var alarmCapable: Bool { DexScreener.alarmCapable(liquidityUsd) }
 }
 
 /// Kurse dezentraler Börsen (Uniswap, PancakeSwap, Raydium …) über DexScreener. Keine Paarliste (Pools findet die
@@ -51,6 +54,8 @@ final class DexScreener: Market {
         if let volume = pool.optObject("volume") { ticker.volQuote = volume.optDoubleOrMissing("h24") }
         // «priceChange.h24»: gleitende 24 h in Prozent
         ticker.change24hPercent = pool.optObject("priceChange").flatMap { Change24h.percent($0.optDouble("h24")) }
+        // Liquidität bei jeder Abfrage: Alarme pausieren, solange der Pool dünn ist (`alarmCapable`)
+        ticker.liquidityUsd = DexScreener.liquidity(of: pool)
     }
 
     // MARK: Lesen
@@ -60,6 +65,24 @@ final class DexScreener: Market {
         var found = json.optArray("pairs")?.optObjects() ?? []
         if let single = json.optObject("pair") { found.append(single) }
         return found
+    }
+
+    // MARK: Liquidität
+
+    /// Mindest-Liquidität (USD) eines Pools für Alarme. Darunter (oder unbekannt) bewegen schon kleine Beträge den
+    /// Kurs — ein Alarm wäre leicht auszulösen bzw. zu manipulieren. Wie Android `DEX_MIN_ALARM_LIQUIDITY_USD`.
+    static let minAlarmLiquidityUsd = 10_000.0
+
+    /// Alarmfähig: bekannte Liquidität von mindestens `minAlarmLiquidityUsd`.
+    static func alarmCapable(_ liquidityUsd: Double?) -> Bool {
+        guard let liquidityUsd, liquidityUsd.isFinite else { return false }
+        return liquidityUsd >= minAlarmLiquidityUsd
+    }
+
+    /// «liquidity.usd» eines Pools; fehlend, NaN oder negativ = unbekannt (nil).
+    static func liquidity(of entry: JObject) -> Double? {
+        guard let usd = entry.optObject("liquidity")?.optDouble("usd"), usd.isFinite, usd >= 0 else { return nil }
+        return usd
     }
 
     // MARK: Suche
@@ -86,7 +109,6 @@ final class DexScreener: Market {
         var pools: [DexPool] = []
         for entry in try JObject(string: body).optArray("pairs")?.allObjects() ?? [] {
             guard let base = entry.optObject("baseToken"), let quote = entry.optObject("quoteToken") else { continue }
-            let liquidity = entry.optObject("liquidity")?.optDouble("usd")
             pools.append(DexPool(
                 chainId: entry.optString("chainId"),
                 dexId: entry.optString("dexId"),
@@ -94,7 +116,7 @@ final class DexScreener: Market {
                 baseSymbol: base.optString("symbol"),
                 quoteSymbol: quote.optString("symbol"),
                 priceUsd: Double(entry.optString("priceUsd")),
-                liquidityUsd: liquidity.flatMap { $0.isNaN ? nil : $0 }
+                liquidityUsd: DexScreener.liquidity(of: entry)
             ))
         }
         let usable = pools.filter { pool in

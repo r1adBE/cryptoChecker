@@ -26,7 +26,6 @@ class AppearanceApplier @Inject constructor(
      * nichts ([setState] prüft den Zustand) — umgeschaltet wird also nur nach einem Farbwechsel.
      * Manche Launcher brauchen ein paar Sekunden, bis das neue Icon erscheint,
      * und entfernen dabei eine Verknüpfung auf dem Startbildschirm.
-     * Übergang: Geräte mit einem früheren Hell-Alias werden hier einmal auf den Alias der Farbe umgestellt.
      */
     fun applyLauncherIcon(accent: AccentColor) {
         val pm = context.packageManager

@@ -9,17 +9,19 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.cryptochecker.app.R
 
-/** Entwickleroption: HTTP-Protokoll als nur lesbares Feld mit Kopfzeile «Logs». */
+/** Entwickleroption: HTTP-Protokoll als nur lesbares Feld mit Kopfzeile «Protokoll». */
 @Composable
 fun LogBox(logText: String) {
     val colors = MaterialTheme.colorScheme
     val boxModifier = Modifier.fillMaxWidth()
     Column {
         Text(
-            text = "Logs",
+            text = stringResource(R.string.log_box_title),
             color = colors.onTertiary,
             style = MaterialTheme.typography.titleMedium,
             modifier = boxModifier.background(colors.tertiary).padding(4.dp),

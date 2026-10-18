@@ -168,7 +168,7 @@
 
     <!-- Einstellungen › Markt-Meldungen -->
     <string name="settings_depeg_alarm">Varsle USDT-depeg</string>
-    <string name="settings_depeg_alarm_hint">Varsler én gang når USDT avviker fra 1 USD med grensen (Kraken USDT/USD, Binance USDC/USDT).</string>
+    <string name="settings_depeg_alarm_hint">Varsler én gang når USDT avviker fra 1 USD med grensen (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
     <string name="settings_depeg_threshold">Depeg-grense</string>
     <string name="settings_fng_above">Fear &amp; Greed: varsle over</string>
     <string name="settings_fng_below">Fear &amp; Greed: varsle under</string>

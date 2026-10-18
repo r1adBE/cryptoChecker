@@ -1,9 +1,8 @@
 package com.cryptochecker.app.settings
 
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
 import org.junit.Test
+import java.io.File
 
 /** B3: App-Icon hängt nur an der Akzentfarbe (kein Wechsel bei Hell/Dunkel). */
 class AccentColorTest {
@@ -20,15 +19,40 @@ class AccentColorTest {
     }
 
     @Test
-    fun `legacy light aliases are listed so the migration disables them`() {
+    fun `all launcher aliases are exactly one per accent`() {
         val all = AccentColor.allLauncherAliases()
-        assertEquals(AccentColor.entries.size * 2, all.toSet().size)
-        AccentColor.entries.forEach { accent ->
-            assertTrue(accent.launcherAlias() in all)
-            assertTrue(accent.legacyLightAlias() in all)
-            assertEquals(accent.launcherAlias() + "Light", accent.legacyLightAlias())
+        assertEquals(AccentColor.entries.map { it.launcherAlias() }, all)
+    }
+
+    /**
+     * Manifest und Code kennen dieselben Aliase (das Umschalten eines unbekannten Alias wirft), und ab
+     * Installation ist genau einer aktiv: der der Standardfarbe.
+     */
+    @Test
+    fun `manifest declares exactly these aliases with only the default enabled`() {
+        val manifest = findManifest() ?: return // anderes Arbeitsverzeichnis
+        val aliases = Regex("""<activity-alias\b(.*?)>""", RegexOption.DOT_MATCHES_ALL).findAll(manifest.readText())
+            .map { it.groupValues[1] }
+            .toList()
+        val names = aliases.map { Regex("""android:name="\.(\w+)"""").find(it)!!.groupValues[1] }
+        assertEquals(
+            AccentColor.allLauncherAliases().map { it.removePrefix("com.cryptochecker.app.") }.sorted(),
+            names.sorted(),
+        )
+        val enabled = aliases.filter { it.contains("""android:enabled="true"""") }
+            .map { Regex("""android:name="\.(\w+)"""").find(it)!!.groupValues[1] }
+        assertEquals(listOf(AccentColor.DEFAULT.launcherAlias().removePrefix("com.cryptochecker.app.")), enabled)
+    }
+
+    private fun findManifest(): File? {
+        var dir: File? = File(System.getProperty("user.dir") ?: ".").absoluteFile
+        while (dir != null) {
+            for (rel in listOf("src/main/AndroidManifest.xml", "app/src/main/AndroidManifest.xml", "android/app/src/main/AndroidManifest.xml")) {
+                val f = File(dir, rel)
+                if (f.isFile) return f
+            }
+            dir = dir.parentFile
         }
-        // Kein Ziel-Alias ist ein früherer Hell-Alias
-        assertFalse(AccentColor.entries.any { it.launcherAlias().endsWith("Light") })
+        return null
     }
 }

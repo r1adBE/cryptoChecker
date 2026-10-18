@@ -168,7 +168,7 @@
 
     <!-- Einstellungen › Markt-Meldungen -->
     <string name="settings_depeg_alarm">Ilmoita USDT:n kytköksen pettämisestä</string>
-    <string name="settings_depeg_alarm_hint">Ilmoittaa kerran, kun USDT poikkeaa 1 USD:sta rajan verran (Kraken USDT/USD, Binance USDC/USDT).</string>
+    <string name="settings_depeg_alarm_hint">Ilmoittaa kerran, kun USDT poikkeaa 1 USD:sta rajan verran (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
     <string name="settings_depeg_threshold">Kytköksen poikkeamaraja</string>
     <string name="settings_fng_above">Fear &amp; Greed: ilmoita yli</string>
     <string name="settings_fng_below">Fear &amp; Greed: ilmoita alle</string>

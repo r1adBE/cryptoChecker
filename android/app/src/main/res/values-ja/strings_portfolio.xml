@@ -17,7 +17,7 @@
     <string name="portfolio_empty_title">まだ取引がありません</string>
     <string name="portfolio_enable_ask_text">取引を保存しました。ポートフォリオタブには保有分とその評価額が表示されます。</string>
     <string name="portfolio_enable_ask_title">ポートフォリオタブをオンにしますか？</string>
-    <string name="portfolio_enable_later_hint">取引を保存しました。ポートフォリオタブは「設定 › 詳細設定 › ポートフォリオ」でオンにできます。</string>
+    <string name="portfolio_enable_later_hint">取引を保存しました。ポートフォリオタブは「設定 › ポートフォリオ」でオンにできます。</string>
     <string name="portfolio_enabled_banner">ポートフォリオをオンにしました。「ポートフォリオ」タブにあります。</string>
     <string name="portfolio_lock_reason">ポートフォリオのロックを解除</string>
     <string name="portfolio_locked_text">保有資産と評価額を見るにはロックを解除してください。</string>

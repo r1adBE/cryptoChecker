@@ -18,7 +18,7 @@
     <string name="portfolio_empty_title">Henüz işlem yok</string>
     <string name="portfolio_enable_ask_text">İşlemin kaydedildi. Portföy sekmesi varlıklarını ve değerlerini gösterir.</string>
     <string name="portfolio_enable_ask_title">Portföy sekmesi açılsın mı?</string>
-    <string name="portfolio_enable_later_hint">İşlem kaydedildi. Portföy sekmesini Ayarlar › Gelişmiş › Portföy bölümünden açabilirsin.</string>
+    <string name="portfolio_enable_later_hint">İşlem kaydedildi. Portföy sekmesini Ayarlar › Portföy bölümünden açabilirsin.</string>
     <string name="portfolio_enabled_banner">Portföy açıldı – Portföy sekmesinde bulabilirsin.</string>
     <string name="portfolio_lock_reason">Portföyün kilidini aç</string>
     <string name="portfolio_locked_text">Varlıklarınızı ve değerlerini görmek için kilidi açın.</string>

@@ -65,6 +65,9 @@ fun AlarmsScreen(
     val rates by viewModel.rates.collectAsStateWithLifecycle()
     val templates by viewModel.templates.collectAsStateWithLifecycle()
     val unchecked by viewModel.unchecked.collectAsStateWithLifecycle()
+    // DEX-Pool mit zu wenig Liquidität: kein neuer Alarm, kein Bearbeiten (Hinweis statt Editor)
+    val lowLiquidityState by viewModel.lowLiquidity.collectAsStateWithLifecycle()
+    val lowLiquidity = lowLiquidityState == true
     /** Rückfrage «Alarm löst sofort aus»: der Entwurf, der gespeichert würde. */
     var confirmFiresNow by remember { mutableStateOf<AlarmDraft?>(null) }
 
@@ -74,9 +77,11 @@ fun AlarmsScreen(
     // Paar ohne Alarm: gleich den Editor öffnen statt der leeren Liste (einmal je Besuch)
     val noAlarms by viewModel.noAlarms.collectAsStateWithLifecycle()
     var autoOpenDone by rememberSaveable { mutableStateOf(false) }
-    LaunchedEffect(noAlarms) {
+    LaunchedEffect(noAlarms, lowLiquidityState) {
         val empty = noAlarms ?: return@LaunchedEffect
-        if (!autoOpenDone && empty) draft = newDraft()
+        // Erst wenn feststeht, ob der DEX-Pool genug Liquidität hat (sonst kein Editor)
+        val low = lowLiquidityState ?: return@LaunchedEffect
+        if (!autoOpenDone && empty && !low) draft = newDraft()
         autoOpenDone = true
     }
     LaunchedEffect(draft?.id) {
@@ -211,12 +216,17 @@ fun AlarmsScreen(
             )
         },
         floatingActionButton = {
-            AppFab(onClick = { draft = newDraft() }, contentDescription = stringResource(R.string.alarms_add))
+            if (!lowLiquidity) {
+                AppFab(onClick = { draft = newDraft() }, contentDescription = stringResource(R.string.alarms_add))
+            }
         },
         // «Alarm erstellt · Rückgängig» nach einem Schnell-Alarm (Live-Region über den SnackbarHost)
         snackbarHost = { SnackbarHost(snackbar) }
     ) { padding ->
-        if (alarms.isEmpty()) {
+        if (alarms.isEmpty() && lowLiquidity) {
+            // DEX-Pool zu dünn: statt «Alarm hinzufügen» die Erklärung
+            Column(modifier = Modifier.fillMaxSize().padding(padding).padding(16.dp)) { DexLowLiquidityNote() }
+        } else if (alarms.isEmpty()) {
             // L-18: Beispiel im Stil der Alarm-Sätze, damit klar ist, was ein Alarm kann (wie iOS)
             EmptyState(
                 iconRes = R.drawable.ic_notifications_active,
@@ -237,6 +247,9 @@ fun AlarmsScreen(
                     if (!notificationsEnabled) {
                         item(key = "notifications_off") { com.cryptochecker.app.ui.components.NotificationsOffBanner() }
                     }
+                    if (lowLiquidity) {
+                        item(key = "dex_low_liquidity") { DexLowLiquidityNote() }
+                    }
                     items(alarms, key = { it.id }) { alarm ->
                         AlarmCard(
                             alarm = alarm,
@@ -244,7 +257,7 @@ fun AlarmsScreen(
                             quoteAsset = watch?.quoteAsset.orEmpty(),
                             unchecked = unchecked[alarm.id],
                             onToggle = { viewModel.setEnabled(alarm.id, it) },
-                            onEdit = { draft = AlarmDraft.from(alarm) },
+                            onEdit = { if (!lowLiquidity) draft = AlarmDraft.from(alarm) },
                             onDelete = { askDelete = alarm }
                         )
                     }
@@ -390,3 +403,20 @@ private const val ACTIVE_MILLIS = 6_000L
 @Composable
 internal fun alarmsEmptyExample(): String =
     stringResource(R.string.alarms_empty_example, LocaleNumbers.integer(90_000, grouping = true))
+
+/** Hinweis für DEX-Pools mit zu wenig Liquidität: kein Alarm, bestehende Alarme ruhen ([com.cryptochecker.app.domain.watch.DexLiquidity]). */
+@Composable
+private fun DexLowLiquidityNote() {
+    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+        Text(
+            stringResource(R.string.dex_low_liquidity_no_alarm),
+            style = MaterialTheme.typography.titleSmall,
+            color = MaterialTheme.colorScheme.error,
+        )
+        Text(
+            stringResource(R.string.dex_low_liquidity_alarm_hint),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+    }
+}

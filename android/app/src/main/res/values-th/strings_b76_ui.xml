@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="explorer_bulk_show_all">แสดงทั้งหมด (%1$d)</string>
+    <string name="log_box_title">บันทึก</string>
+    <string name="watchlist_first_alarm_title">ตั้งสัญญาณเตือนแรก</string>
+    <string name="watchlist_first_alarm_text">รับการแจ้งเตือนทันทีเมื่อราคาถึงระดับที่คุณกำหนด</string>
+</resources>

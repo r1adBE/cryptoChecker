@@ -77,4 +77,20 @@ enum LocaleNumbers {
         }
         return String(out)
     }
+
+    /// Grosse Zahl kurz in der Sprache der App, höchstens drei signifikante Stellen: «1,2 Mio.», "1.2M",
+    /// «1,2 млн» — wie Android `CompactAmount.number` (ICU CompactDecimalFormat, SHORT).
+    static func compact(_ value: Double, locale: Locale = appLocale) -> String {
+        guard value.isFinite else { return "—" }
+        return value.formatted(.number.notation(.compactName).precision(.significantDigits(1...3)).locale(locale))
+    }
+
+    /// Dauer in Sekunden mit einer Nachkommastelle und der Einheit der Sprache («0,5 s», «0.5秒») —
+    /// wie Android `seconds` im Bericht «Ablauf» (ICU MeasureFormat, SHORT).
+    static func seconds(_ millis: Int64, locale: Locale = appLocale) -> String {
+        Measurement(value: Double(millis) / 1000, unit: UnitDuration.seconds)
+            .formatted(.measurement(width: .abbreviated, usage: .asProvided,
+                                    numberFormatStyle: .number.precision(.fractionLength(1)))
+                .locale(locale))
+    }
 }

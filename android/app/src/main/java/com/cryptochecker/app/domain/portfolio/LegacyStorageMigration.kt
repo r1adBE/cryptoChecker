@@ -35,6 +35,22 @@ object LegacyStorageMigration {
     const val RESTORE = " ⟲ "
 
     private const val VERSION_WITH_ABSORBED = "2"
+
+    /**
+     * Gebühr-Zeile nach der Regel bis Portfolio-Datenbank v4 (Build 75): ein Verkauf zum Preis 0 MIT Import-Herkunft. Seit
+     * v5 steht das im eigenen Feld `feeRow`; diese Regel leitet es nur noch einmal ab — in
+     * [com.cryptochecker.app.data.portfolio.PortfolioDatabase.MIGRATION_4_5] und für Sicherungen ohne das Feld
+     * ([com.cryptochecker.app.data.portfolio.PortfolioJson.jsonToTx]). Wie iOS.
+     */
+    fun legacyFeeRow(type: PortfolioTxType?, importKey: String?, price: BigDecimal?): Boolean =
+        type == PortfolioTxType.SELL && !importKey.isNullOrBlank() && price != null && price.signum() == 0
+
+    /**
+     * Zins (Lending) nach der Regel bis v4: Belohnung, deren Notiz «interest», «lending», «Zins» … nennt
+     * ([TaxEngines.interestReward]). Seit v5 eigenes Feld `interest`; diese Regel nur noch beim einmaligen Ableiten.
+     */
+    fun legacyInterest(type: PortfolioTxType?, note: String?): Boolean =
+        type == PortfolioTxType.REWARD && TaxEngines.interestReward(note)
     private const val VERSION_STORED_ONLY = "1"
 
     /** Die betroffenen Felder einer Transaktion (vorher bzw. nachher). */

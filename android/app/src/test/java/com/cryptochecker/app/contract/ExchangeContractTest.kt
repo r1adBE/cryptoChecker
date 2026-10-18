@@ -96,6 +96,7 @@ class ExchangeContractTest {
                 "vol" -> check("$prefix vol", value, t.vol)
                 "volQuote" -> check("$prefix volQuote", value, t.volQuote)
                 "change24hPercent" -> check("$prefix change24hPercent", value, t.change24hPercent)
+                "liquidityUsd" -> check("$prefix liquidityUsd", value, t.liquidityUsd)
                 "timestamp" -> if (value.num()!!.toLong() != t.timestamp) {
                     throw CaseFailure("$prefix timestamp: expected ${value.num()!!.toLong()}, got ${t.timestamp}")
                 }

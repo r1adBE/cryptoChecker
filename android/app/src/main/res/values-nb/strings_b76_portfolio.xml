@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Build 76: Portfolio-Speicher, Sicherung, Steuer-Export, Sperre -->
+    <string name="storage_recovery_restore_action">Gjenopprett sikkerhetskopi</string>
+    <string name="storage_recovery_acknowledge">Forstått</string>
+    <string name="storage_recovery_restored_title">Lagrede data er låst opp igjen</string>
+    <string name="storage_recovery_restored_message">En tidligere nøkkel på denne enheten åpnet de tilsidesatte dataene igjen, så de er tilbake. Det som ble lagret i mellomtiden, ligger uendret ved siden av.</string>
+    <string name="backup_restore_interrupted_title">Gjenopprettingen ble avbrutt</string>
+    <string name="backup_restore_interrupted_rolled_back">Appen ble lukket mens en sikkerhetskopi ble gjenopprettet. De tidligere dataene dine er lagt tilbake; ingenting fra sikkerhetskopien ble beholdt.</string>
+    <string name="backup_restore_interrupted_incomplete">Appen ble lukket mens en sikkerhetskopi ble gjenopprettet, og de tidligere dataene kunne ikke legges helt tilbake. Sjekk overvåkingslisten og porteføljen, eller gjenopprett sikkerhetskopien på nytt under «%1$s» i Innstillinger.</string>
+    <string name="backup_not_verified">Sikkerhetskopifilen kunne ikke bekreftes etter lagring – den leses tilbake annerledes. Lagre sikkerhetskopien i en ny fil.</string>
+    <string name="tax_line_at_old_speculation_limit">Ervervet før 1.3.2021 – holdt ≤ 1 år: fritaksgrense for spekulasjonshandler (§ 31 (3) EStG, gammel versjon)</string>
+    <string name="portfolio_tx_interest">Rente (utlån)</string>
+    <string name="portfolio_tx_interest_hint">Teller som inntekt ved mottak (Østerrike). La være av for staking-belønninger og airdrops.</string>
+    <string name="app_lock_no_screen_lock">Konfigurer en skjermlås for å åpne porteføljen.</string>
+    <string name="app_lock_turn_off_action">Slå av porteføljelås</string>
+    <string name="app_lock_turn_off_confirm_title">Slå av porteføljelås?</string>
+    <string name="app_lock_turn_off_confirm_message">Uten skjermlås kan porteføljen ikke låses opp. Slått av viser appen porteføljen igjen uten å spørre. Når en skjermlås er konfigurert, kan du slå på låsen igjen i Innstillinger.</string>
+</resources>

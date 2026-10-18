@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Build 76: Portfolio-Speicher, Sicherung, Steuer-Export, Sperre -->
+    <string name="storage_recovery_restore_action">恢复备份</string>
+    <string name="storage_recovery_acknowledge">知道了</string>
+    <string name="storage_recovery_restored_title">已保存的数据重新解锁</string>
+    <string name="storage_recovery_restored_message">本设备之前的一个密钥重新打开了被搁置的数据，数据已恢复。在此期间保存的数据原样保留在旁边。</string>
+    <string name="backup_restore_interrupted_title">恢复被中断</string>
+    <string name="backup_restore_interrupted_rolled_back">恢复备份时应用被关闭。之前的数据已写回；未保留备份中的任何内容。</string>
+    <string name="backup_restore_interrupted_incomplete">恢复备份时应用被关闭，之前的数据未能完全写回。请检查自选列表和投资组合，或在设置的“%1$s”中重新恢复备份。</string>
+    <string name="backup_not_verified">保存后无法验证备份文件——读回的内容不一致。请将备份保存到新文件。</string>
+    <string name="tax_line_at_old_speculation_limit">2021年3月1日前取得 · 持有≤1年：投机交易免税限额（旧版EStG第31条第3款）</string>
+    <string name="portfolio_tx_interest">利息（借贷）</string>
+    <string name="portfolio_tx_interest_hint">收到时计为收入（奥地利）。质押奖励和空投请保持关闭。</string>
+    <string name="app_lock_no_screen_lock">请设置屏幕锁定以打开投资组合。</string>
+    <string name="app_lock_turn_off_action">关闭投资组合锁定</string>
+    <string name="app_lock_turn_off_confirm_title">关闭投资组合锁定？</string>
+    <string name="app_lock_turn_off_confirm_message">没有屏幕锁定就无法解锁投资组合。关闭后，应用会再次无需确认地显示投资组合。设置好屏幕锁定后，可在设置中重新开启锁定。</string>
+</resources>

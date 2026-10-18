@@ -19,7 +19,7 @@
     <string name="portfolio_empty_title">Aún no hay transacciones</string>
     <string name="portfolio_enable_ask_text">Tu transacción está guardada. La pestaña Cartera muestra tus tenencias y su valor.</string>
     <string name="portfolio_enable_ask_title">¿Activar la pestaña Cartera?</string>
-    <string name="portfolio_enable_later_hint">Transacción guardada. Puedes activar la pestaña Cartera en Ajustes › Avanzado › Cartera.</string>
+    <string name="portfolio_enable_later_hint">Transacción guardada. Puedes activar la pestaña Cartera en Ajustes › Cartera.</string>
     <string name="portfolio_enabled_banner">Cartera activada: la encontrarás en la pestaña Cartera.</string>
     <string name="portfolio_lock_reason">Desbloquear cartera</string>
     <string name="portfolio_locked_text">Desbloquéala para ver tus posiciones y valores.</string>

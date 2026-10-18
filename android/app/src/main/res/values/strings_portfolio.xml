@@ -18,7 +18,7 @@
     <string name="portfolio_empty_title">No transactions yet</string>
     <string name="portfolio_enable_ask_text">Your transaction is saved. The Portfolio tab shows your holdings and their value.</string>
     <string name="portfolio_enable_ask_title">Turn on the Portfolio tab?</string>
-    <string name="portfolio_enable_later_hint">Transaction saved. You can turn on the Portfolio tab in Settings › Advanced › Portfolio.</string>
+    <string name="portfolio_enable_later_hint">Transaction saved. You can turn on the Portfolio tab in Settings › Portfolio.</string>
     <string name="portfolio_enabled_banner">Portfolio turned on – you’ll find it in the Portfolio tab.</string>
     <string name="portfolio_lock_reason">Unlock portfolio</string>
     <string name="portfolio_locked_text">Unlock to see your holdings and values.</string>

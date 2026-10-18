@@ -289,12 +289,8 @@ struct WatchlistFuturesSection: View {
         return TonePill(text: text, tone: tone, size: .medium)
     }
 
-    /// Wie `compactNumber` in Android: 1.23 B, 4.5 M, 6.7 K.
+    /// Offene Positionen kurz in der Sprache der App («1,2 Mrd.», "1.2B") — wie Android `CompactAmount.number`.
     static func compactNumber(_ value: Double) -> String {
-        let l = Locale.current
-        if value >= 1e9 { return String(format: "%.2f B", locale: l, value / 1e9) }
-        if value >= 1e6 { return String(format: "%.1f M", locale: l, value / 1e6) }
-        if value >= 1e3 { return String(format: "%.1f K", locale: l, value / 1e3) }
-        return String(format: "%.0f", locale: l, value)
+        LocaleNumbers.compact(value)
     }
 }

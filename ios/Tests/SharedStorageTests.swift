@@ -495,4 +495,40 @@ final class SharedStorageTests: XCTestCase {
         settings.appLock = true
         XCTAssertTrue(SharedStorage.LoadedSettings(settings: settings, state: .ok).appLockAssumed)
     }
+
+    // MARK: Übernahme aus dem Ersatzordner (ohne App Group)
+
+    /// Fehlendes wird übernommen, Vorhandenes nie überschrieben; Paarlisten, Lease und der Merker bleiben weg.
+    func testFallbackMigrationCopiesOnlyMissing() throws {
+        let fm = FileManager.default
+        let source = dir.appendingPathComponent("fallback", isDirectory: true)
+        let target = dir.appendingPathComponent("group", isDirectory: true)
+        try fm.createDirectory(at: source, withIntermediateDirectories: true)
+        try fm.createDirectory(at: target, withIntermediateDirectories: true)
+        try Data("neu".utf8).write(to: source.appendingPathComponent("watchlist.json"))
+        try Data("alt".utf8).write(to: source.appendingPathComponent("portfolio.json"))
+        try Data("x".utf8).write(to: source.appendingPathComponent("alarm.lease"))
+        try fm.createDirectory(at: source.appendingPathComponent("pairs"), withIntermediateDirectories: true)
+        try Data("gruppe".utf8).write(to: target.appendingPathComponent("portfolio.json"))
+
+        let suite = "SharedStorageTests.\(UUID().uuidString)"
+        let defaults = try XCTUnwrap(UserDefaults(suiteName: suite))
+        defer { defaults.removePersistentDomain(forName: suite) }
+        defaults.set("gruppe", forKey: "settings_json")
+        let result = SharedStorage.migrateFallback(
+            from: source, to: target,
+            defaultsSources: [["settings_json": "ersatz", "last_refresh_at": 5.0,
+                               SharedStorage.fallbackUsedKey: true]],
+            into: defaults)
+
+        XCTAssertEqual(result, SharedStorage.FallbackMigration(files: 1, keys: 1))
+        XCTAssertEqual(try String(contentsOf: target.appendingPathComponent("watchlist.json"), encoding: .utf8), "neu")
+        XCTAssertEqual(try String(contentsOf: target.appendingPathComponent("portfolio.json"), encoding: .utf8), "gruppe")
+        XCTAssertFalse(fm.fileExists(atPath: target.appendingPathComponent("alarm.lease").path))
+        XCTAssertFalse(fm.fileExists(atPath: target.appendingPathComponent("pairs").path))
+        XCTAssertEqual(defaults.string(forKey: "settings_json"), "gruppe")
+        XCTAssertEqual(defaults.double(forKey: "last_refresh_at"), 5.0)
+        XCTAssertNil(defaults.object(forKey: SharedStorage.fallbackUsedKey))
+    }
 }
+

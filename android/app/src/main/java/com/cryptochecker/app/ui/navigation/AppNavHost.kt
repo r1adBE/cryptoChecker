@@ -112,8 +112,15 @@ fun AppNavHost(
         androidx.compose.runtime.mutableStateOf<String?>(null)
     }
 
-    // Verschlüsselte Daten ohne Schlüssel beiseitegelegt: einmal sagen, wie sie zurückkommen (über allen Tabs)
-    com.cryptochecker.app.ui.features.settings.StorageRecoveryNoticeDialog()
+    // Verschlüsselte Daten ohne Schlüssel beiseitegelegt: sagen, wie sie zurückkommen (über allen Tabs, bis bestätigt);
+    // «Sicherung wiederherstellen» öffnet Einstellungen › Sicherung mit hervorgehobenem «Wiederherstellen»
+    com.cryptochecker.app.ui.features.settings.StorageRecoveryNoticeDialog(
+        onRestoreBackup = {
+            settingsAnchor = "backup.actions"
+            navigation.navigateToTab(ScreenRoute.Settings)
+            navigation.navigate(ScreenRoute.settingsPage(SettingsPage.BACKUP.name)) { launchSingleTop = true }
+        }
+    )
 
     // Gesperrt, während eine Coin-Detailansicht offen ist: zurück zum (gesperrten) Portfolio-Tab
     androidx.compose.runtime.LaunchedEffect(portfolioAccess, currentRoute) {
@@ -185,14 +192,24 @@ fun AppNavHost(
     val openUpdateSettings: () -> Unit = remember(navigation) {
         { navigation.navigate(ScreenRoute.settingsPage(SettingsPage.UPDATES.name)) { launchSingleTop = true } }
     }
-    CompositionLocalProvider(LocalOpenUpdateSettings provides openUpdateSettings) {
+    // Erneutes Tippen auf den gewählten Tab: an den Anfang rollen (wie iOS)
+    val tabReselect = remember { TabReselectSignal() }
+    CompositionLocalProvider(LocalOpenUpdateSettings provides openUpdateSettings, LocalTabReselect provides tabReselect) {
         Scaffold(
             bottomBar = {
                 if (currentRoute in bottomTabs.map { it.route }) {
                     AppTabBar(
                         tabs = bottomTabs,
                         currentRoute = currentRoute,
-                        onSelect = { route -> navigation.navigateToTab(route) }
+                        onSelect = { route ->
+                            if (route == currentRoute) {
+                                // Schon gewählt: allfällige Unterseite schliessen, an den Anfang rollen
+                                navigation.popBackStack(route, inclusive = false)
+                                tabReselect.request(route)
+                            } else {
+                                navigation.navigateToTab(route)
+                            }
+                        }
                     )
                 }
             }
@@ -360,7 +377,7 @@ fun AppNavHost(
                 }
 
                 composable(ScreenRoute.Portfolio) {
-                    PortfolioGate(portfolioAccess, requestUnlock) {
+                    PortfolioGate(portfolioAccess, requestUnlock, lockViewModel) {
                         PortfolioScreen(
                             onOpenCoin = { coin -> navigation.navigate(ScreenRoute.portfolioCoin(coin)) },
                             onOpenAbout = {
@@ -376,7 +393,7 @@ fun AppNavHost(
                         navArgument(ScreenRoute.PortfolioArgCoin) { type = NavType.StringType }
                     )
                 ) { entry ->
-                    PortfolioGate(portfolioAccess, requestUnlock) {
+                    PortfolioGate(portfolioAccess, requestUnlock, lockViewModel) {
                         PortfolioDetailScreen(
                             coin = entry.arguments?.getString(ScreenRoute.PortfolioArgCoin).orEmpty(),
                             onBack = { navigation.popBackStack() }
@@ -415,12 +432,27 @@ private fun SettingsHighlightEntry(anchor: String?, onTaken: () -> Unit, content
     ProvideSettingsHighlight(taken, content)
 }
 
-/** Inhalt des Portfolios nur frei; gesperrt der ruhige Sperr-Zustand, beim Kaltstart leer. */
+/**
+ * Inhalt des Portfolios nur frei; gesperrt der ruhige Sperr-Zustand (ohne Displaysperre mit Hinweis und «Sperre
+ * ausschalten»), beim Kaltstart leer.
+ */
 @Composable
-private fun PortfolioGate(access: PortfolioAccess, onUnlock: () -> Unit, content: @Composable () -> Unit) {
+private fun PortfolioGate(
+    access: PortfolioAccess,
+    onUnlock: () -> Unit,
+    lockViewModel: PortfolioLockViewModel,
+    content: @Composable () -> Unit,
+) {
     when (access) {
         PortfolioAccess.OPEN -> content()
-        PortfolioAccess.LOCKED -> PortfolioLockedState(onUnlock = onUnlock)
+        PortfolioAccess.LOCKED -> {
+            val screenLockMissing by lockViewModel.screenLockMissing.collectAsStateWithLifecycle()
+            PortfolioLockedState(
+                onUnlock = onUnlock,
+                screenLockMissing = screenLockMissing,
+                onTurnOffLock = lockViewModel::turnOffLockWithoutScreenLock,
+            )
+        }
         PortfolioAccess.PENDING -> PortfolioPendingState()
     }
 }

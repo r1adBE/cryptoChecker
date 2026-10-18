@@ -32,11 +32,19 @@ enum PortfolioLockPolicy {
         lockSetting && lockRequested
     }
 
-    /// Nach der Rückkehr aus dem Hintergrund (seit `backgroundSince`, nil = nie) wieder sperren?
-    static func relockAfterBackground(backgroundSince: Date?, now: Date,
+    /// Nach der Rückkehr aus dem Hintergrund (seit `backgroundSince`, nil = nie) wieder sperren? Beide Zeiten in Sekunden
+    /// der monotonen Uhr (`monotonicSeconds`, läuft auch im Ruhezustand weiter): Eine zurückgestellte Systemuhr verlängert
+    /// die Frist nicht. Liegt `now` dennoch vor `backgroundSince`, lieber sperren — wie Android.
+    static func relockAfterBackground(backgroundSince: TimeInterval?, now: TimeInterval,
                                       limit: TimeInterval = backgroundLimitSeconds) -> Bool {
         guard let backgroundSince else { return false }
-        return now.timeIntervalSince(backgroundSince) > limit
+        return now - backgroundSince > limit || now < backgroundSince
+    }
+
+    /// Monotone Uhr in Sekunden (`CLOCK_MONOTONIC` zählt auf Apple-Geräten auch im Ruhezustand weiter) — wie Android
+    /// `SystemClock.elapsedRealtime`.
+    static func monotonicSeconds() -> TimeInterval {
+        Double(clock_gettime_nsec_np(CLOCK_MONOTONIC)) / 1_000_000_000
     }
 
     /// Sichern verlangt Entsperren, wenn die Datei Portfolio-Daten enthält und gesperrt ist.

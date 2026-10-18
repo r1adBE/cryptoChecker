@@ -20,26 +20,44 @@ enum NotTraded {
     /// jeder Durchlauf je Paar eine Anfrage, die ohnehin scheitert — bei 131 Paaren rund 11 s).
     static func askSingleWhenMissing(lastError: String?) -> Bool { !isMarker(lastError) }
 
-    /// Bestätigt die Einzelabfrage «nicht mehr gehandelt»? Ja, wenn die Börse geantwortet hat, aber
-    /// ohne Kurs: ihr Fehlertext (z. B. «Instrument ID does not exist»), eine Antwort ohne Kurs oder
-    /// HTTP 4xx (400, 404 …). Nein bei Kurs, Netz- und Zeitproblemen, Rate-Limit, Serverfehlern (5xx),
-    /// verweigertem Zugriff (401/403/451) oder fehlendem Adapter — das ist ein gewöhnlicher Fehler,
-    /// das Paar bleibt mit seinem letzten Kurs stehen. Wie `NotTraded.kt`.
+    /// Bestätigt die Einzelabfrage «nicht mehr gehandelt»? Nur bei einer klaren Aussage der Börse über
+    /// das Paar: Antwort ohne Kurs (auch ganz ohne Fehlertext), ausdrücklich unbekanntes Instrument
+    /// (z. B. «Instrument ID does not exist», «EQuery:Unknown asset pair», «Invalid symbol») oder
+    /// HTTP 400/404. Jeder andere Fehler — unlesbare Antwort, unbekannte Ausnahme, Netz, Zeit,
+    /// Rate-Limit, übrige 4xx/5xx, fehlender Adapter — ist ein gewöhnlicher Fehler: Das Paar bleibt mit
+    /// seinem letzten Kurs stehen. Wie `NotTraded.kt`.
     static func confirmedBySingle(gotPrice: Bool, error: String?) -> Bool {
         if gotPrice { return false }
+        guard let error, !error.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return true }
         switch RefreshReportLogic.classify(error) {
-        case .NO_DATA, .OTHER:
+        case .NO_DATA:
             return true
+        case .OTHER:
+            return isUnknownInstrument(error)
         case .SERVER:
             guard let code = RefreshReportLogic.httpStatus(error) else { return false }
-            return (400...499).contains(code) && !notConfirming4xx.contains(code)
+            return confirmingHTTP.contains(code)
         default:
             return false
         }
     }
 
-    /// 4xx ohne Aussage über das Paar: Anmeldung, Sperre, Proxy, Zeitgrenze, Rate-Limit, Rechtliches.
-    private static let notConfirming4xx: Set<Int> = [401, 403, 407, 408, 418, 429, 451]
+    /// Sagt der Fehlertext der Börse ausdrücklich, dass sie das Paar nicht kennt?
+    static func isUnknownInstrument(_ error: String?) -> Bool {
+        guard let lower = error?.lowercased() else { return false }
+        return unknownInstrumentHints.contains { lower.contains($0) }
+    }
+
+    /// HTTP-Status, die über das Paar etwas sagen (Anfrage abgelehnt bzw. nicht gefunden).
+    private static let confirmingHTTP: Set<Int> = [400, 404]
+
+    /// Fehlertexte der Börsen für ein unbekanntes Paar (klein geschrieben); Android gleich.
+    private static let unknownInstrumentHints = [
+        "does not exist", "not exist", "unknown asset pair", "unknown pair", "invalid pair", "pair not found",
+        "invalid symbol", "symbol invalid", "unknown symbol", "symbol not found", "not supported symbol",
+        "invalid instrument", "unknown instrument", "instrument not found", "invalid currency pair",
+        "invalid_currency_pair", "invalid market", "market not found", "delisted",
+    ]
 
     /// 24-h-Veränderung zum Anzeigen (Änderung, Puls, Widgets): nil («—») bei nicht gehandelten Paaren.
     static func shownChange24h(lastError: String?, change24h: Double?) -> Double? {

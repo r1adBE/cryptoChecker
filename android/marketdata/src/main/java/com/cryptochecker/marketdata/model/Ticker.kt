@@ -31,6 +31,14 @@ interface Ticker {
      */
     var change24hPercent: Double?
 
+    /**
+     * Liquidität des Pools in USD — nur DEX-Pools ([com.cryptochecker.marketdata.model.market.DexScreener]); null =
+     * unbekannt bzw. keine DEX-Quelle. Ein dünner Pool lässt sich mit kleinen Beträgen bewegen: dann kein Alarm.
+     */
+    var liquidityUsd: Double?
+        get() = null
+        set(@Suppress("UNUSED_PARAMETER") value) {}
+
     companion object {
         /** Platzhalter für «nicht geliefert» in den Zahlenfeldern (alle Kurswerte sind sonst positiv). Wie iOS `Ticker.missing`. */
         const val MISSING = -1.0

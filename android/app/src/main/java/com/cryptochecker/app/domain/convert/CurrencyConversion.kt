@@ -66,7 +66,7 @@ object CurrencyConversion {
 
     /** USDT in USD für die Umrechnung: [usdtUsd] (plausibel) oder 1; null = 1 (bisherige Rechnung). */
     private fun usdtFactor(usdtUsd: Double?): Double =
-        if (usdtUsd == null) 1.0 else com.cryptochecker.app.domain.portfolio.PortfolioStables.usdtUsd(usdtUsd).rate
+        if (usdtUsd == null) 1.0 else com.cryptochecker.app.domain.portfolio.PortfolioStables.usdtUsdLive(usdtUsd).rate
 
     /** Braucht die Quote [code] (Stablecoin) einen Marktkurs? Alle ausser USD und USDT (leer = USD). */
     fun stableNeedsMarket(code: String?): Boolean = normalize(code).let { it.isNotEmpty() && it != "USD" && it != "USDT" }

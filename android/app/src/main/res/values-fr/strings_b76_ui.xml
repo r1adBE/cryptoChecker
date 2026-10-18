@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="explorer_bulk_show_all">Tout afficher (%1$d)</string>
+    <string name="log_box_title">Journal</string>
+    <string name="watchlist_first_alarm_title">Créez votre première alerte</string>
+    <string name="watchlist_first_alarm_text">Soyez averti dès qu\'un cours atteint votre seuil.</string>
+</resources>

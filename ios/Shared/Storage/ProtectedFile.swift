@@ -258,9 +258,12 @@ enum ProtectedFile {
     /// Start der App überführt die Datei. Liegt dort aber schon eine verschlüsselte Datei, wird sie ohne Schlüssel nie
     /// durch Klartext ersetzt (`locked`): sonst stünden z. B. Widget-Daten nach einem kurz gesperrten Schlüsselbund
     /// wieder unverschlüsselt da. Das Backup-Merkmal setzen die Aufrufer danach neu (neue Datei).
-    static func write(_ data: Data, to url: URL, keys: StorageKey = .shared) throws {
+    /// `requireSealed` (Portfolio und Portfolio-Alarme): ohne Schlüssel nie Klartext, auch nicht für eine neue oder noch
+    /// unverschlüsselte Datei — `locked`; der Aufrufer behält den Stand im Speicher und schreibt beim nächsten Mal
+    /// (wie die Widget-Aufnahme, `PortfolioWidgetStore.writeSnapshotFile`).
+    static func write(_ data: Data, to url: URL, keys: StorageKey = .shared, requireSealed: Bool = false) throws {
         guard case .key(let key) = keys.lookup() else {
-            if ProtectedStorage.isSealedFile(url) { throw ReadError.locked }
+            if requireSealed || ProtectedStorage.isSealedFile(url) { throw ReadError.locked }
             try data.write(to: url, options: [.atomic])
             return
         }
@@ -342,6 +345,9 @@ enum ProtectedStorage {
         /// Bleibt unverschlüsselt (Überführung fehlgeschlagen, Schlüsselbund nicht lesbar oder kein Schlüssel möglich):
         /// nächster Start versucht es erneut.
         var keptPlain: [String] = []
+        /// Früher beiseitegelegt (`*.locked`), öffnet aber mit dem Schlüssel: wieder an ihrem Platz (die inzwischen neu
+        /// begonnene Datei liegt als `*.replaced` daneben) — wie Android `Decision.Encrypted.restored`.
+        var restored: [String] = []
 
         /// Hinweis «Verschlüsselung noch nicht aktiv» unter Einstellungen › Sicherung — wie Android
         /// `EncryptionPending.showNotice`. Nicht, wenn alles verschlüsselt ist.
@@ -389,7 +395,65 @@ enum ProtectedStorage {
                 outcome.keptPlain.append(file.url.lastPathComponent)
             }
         }
+        // Beiseitegelegte Dateien, die mit diesem Schlüssel doch öffnen («kein Schlüssel» war nur vorübergehend, z. B.
+        // ein Lesefehler des Schlüsselbunds direkt nach dem Start): zurückholen statt für immer liegen zu lassen
+        for file in files {
+            for locked in lockedCopies(of: file.url) {
+                guard let raw = try? Data(contentsOf: locked), (try? ProtectedContainer.open(raw, key: key)) != nil else { continue }
+                if restoreLocked(locked, to: file.url, coordination: file.coordination) {
+                    outcome.restored.append(file.url.lastPathComponent)
+                }
+                break
+            }
+        }
         return outcome
+    }
+
+    /// Beiseitegelegte Fassungen von `url` (`<Name>.locked`, `<Name>.<Zeit>.locked`), neueste zuerst.
+    static func lockedCopies(of url: URL) -> [URL] {
+        let dir = url.deletingLastPathComponent()
+        let name = url.lastPathComponent
+        let names = (try? FileManager.default.contentsOfDirectory(atPath: dir.path)) ?? []
+        let copies = names.filter { $0 == name + ".locked" || ($0.hasPrefix(name + ".") && $0.hasSuffix(".locked")) }
+            .map { dir.appendingPathComponent($0) }
+        func modified(_ u: URL) -> Date {
+            (try? FileManager.default.attributesOfItem(atPath: u.path)[.modificationDate] as? Date) ?? .distantPast
+        }
+        return copies.sorted { modified($0) > modified($1) }
+    }
+
+    /// `locked` wieder auf `url`; eine dort inzwischen neu begonnene Datei bleibt als `<Name>.replaced` (mit Zeitstempel,
+    /// falls schon vorhanden) — nie gelöscht. Abgestimmt mit den Schreibern der anderen Prozesse wie `encrypt`.
+    private static func restoreLocked(_ locked: URL, to url: URL, coordination: URL) -> Bool {
+        var done = false
+        var coordinated = false
+        var error: NSError?
+        let move = {
+            let fm = FileManager.default
+            var replaced = url.appendingPathExtension("replaced")
+            if fm.fileExists(atPath: replaced.path) {
+                replaced = url.appendingPathExtension("\(TimeUtils.nowMillis).replaced")
+            }
+            let hadFile = fm.fileExists(atPath: url.path)
+            do {
+                if hadFile { try fm.moveItem(at: url, to: replaced) }
+                do {
+                    try fm.moveItem(at: locked, to: url)
+                    done = true
+                } catch {
+                    // Zurück, wie es war: nie ohne Datei dastehen
+                    if hadFile { try? fm.moveItem(at: replaced, to: url) }
+                }
+            } catch {
+                done = false
+            }
+        }
+        NSFileCoordinator(filePresenter: nil).coordinate(writingItemAt: coordination, options: .forMerging, error: &error) { _ in
+            coordinated = true
+            move()
+        }
+        if !coordinated { move() }
+        return done
     }
 
     /// Klartext lesen → verschlüsselt in eine Nachbardatei → lesen, öffnen, vergleichen → atomar ersetzen (der Klartext

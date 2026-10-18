@@ -89,6 +89,14 @@ struct PortfolioScreen: View {
         .onChange(of: data.watchedAddresses.map { "\($0.chain.rawValue):\($0.address)" }) {
             Task { await model.refresh(force: false) }
         }
+        // Nicht versiegelt speicherbar (Schlüsselbund gerade nicht lesbar): Änderungen warten im Speicher — sagen, nicht
+        // still (nie im Klartext geschrieben); das nächste Speichern bzw. die Rückkehr der App versucht es erneut
+        .onChange(of: data.portfolioSavePending) { _, pending in
+            if pending {
+                banner = WatchlistBannerMessage(text: L("portfolio_save_pending"), icon: "lock.trianglebadge.exclamationmark",
+                                                long: true)
+            }
+        }
         // Später aufgetauchte Überschneidung Adresse ↔ eigene Transaktionen: einmal automatisch «Nur anzeigen» — wie Android
         .onAppear { checkAddressOverlap() }
         .onChange(of: data.watchedAddresses) { checkAddressOverlap() }
@@ -294,6 +302,8 @@ struct PortfolioScreen: View {
                                       by: { $0 })
                 .mapValues(\.count)
             let openIndex = Dictionary(summary.open.enumerated().map { ($1.coin, $0) }, uniquingKeysWith: { first, _ in first })
+            // Stablecoins mit gebrückten Varianten (USDC.e …): Zeile mit «≈» (`AddressBalance.bridgedStables`)
+            let bridgedStables = AddressBalance.bridgedStables(data.watchedAddresses)
             ForEach(summary.open) { position in
                 Button {
                     openCoin = position.coin
@@ -312,7 +322,8 @@ struct PortfolioScreen: View {
                         unit: PortfolioCardUnit(currency: currency, fxRate: model.displayRate(for: currency)),
                         // Build 46: Börse des Kurses klein in der Zeile (nicht nur unter «Hinweise»)
                         exchange: model.prices.sources[position.coin],
-                        viaBase: model.prices.viaBase[position.coin]
+                        viaBase: model.prices.viaBase[position.coin],
+                        bridgedStable: bridgedStables[position.coin]?.joined(separator: ", ")
                     )
                 }
                 .buttonStyle(.plain)

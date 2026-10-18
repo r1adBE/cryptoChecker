@@ -30,8 +30,9 @@ import kotlin.math.abs
  * Misst nach einer Kursaktualisierung (Vordergrund und Hintergrund) USDT in USD und prüft den USDT-Depeg-Alarm
  * ([DepegAlarm]): gemessen wird mit eingeschaltetem Alarm ODER sobald ein Portfolio da ist
  * ([DepegAlarm.shouldMeasure] — die Messung ist der Live-Kurs USDT/USD der Bewertung), höchstens alle
- * [MIN_INTERVAL_MILLIS], mit den bestehenden Ticker-Abrufen von Kraken (USDT/USD) und Binance (USDC/USDT). Gemeldet
- * wird nur mit eingeschaltetem Alarm. Pausierte Börsen (Backoff, gemeinsame Binance-Pause) werden nicht abgefragt.
+ * [MIN_INTERVAL_MILLIS], mit den bestehenden Ticker-Abrufen von Kraken (USDT/USD), Coinbase (USDT-USD) und Binance
+ * (USDC/USDT, nur dritte Quelle — [DepegAlarm.measure]). Gemeldet wird nur mit eingeschaltetem Alarm und nie aus
+ * USDC/USDT allein ([DepegAlarm.mayAlarm]). Pausierte Börsen (Backoff, gemeinsame Binance-Pause) werden nicht abgefragt.
  * Wie `DepegAlarmCheck` (iOS).
  */
 @Singleton
@@ -59,16 +60,19 @@ class DepegAlarmChecker @Inject constructor(
         if (!isDue(now, prefs.getLong(KEY_LAST_CHECK, 0))) return@withLock
         prefs.edit { putLong(KEY_LAST_CHECK, now) }
 
-        val price = fetchUsdt(now)
-        if (price == null) {
+        val measurement = fetchUsdt(now)
+        if (measurement == null) {
             // Keine Quelle: nächster Versuch frühestens in 2 Minuten
             prefs.edit { putLong(KEY_LAST_CHECK, now - MIN_INTERVAL_MILLIS + RETRY_AFTER_FAILURE_MILLIS) }
             return@withLock
         }
         // Messung merken: Live-Kurs USDT/USD der Bewertung (DepegAlarm.liveUsdtUsd)
-        readingStore.save(price, now)
+        readingStore.save(measurement.price, now, measurement.viaUsdc)
         // Alarm aus: nur gemessen (Portfolio), nichts melden
         if (!settings.depegAlarm) return@withLock
+        // Nur USDC/USDT: weicht USDT oder USDC ab? Nicht unterscheidbar — kein Alarm, Zustand bleibt
+        if (!DepegAlarm.mayAlarm(measurement)) return@withLock
+        val price = measurement.price
         val deviation = DepegAlarm.deviationPercent(price)
         // Wie Kursalarme: in der Nachtruhe nicht auslösen, ohne zustellbare Meldung scharf bleiben
         val hold = QuietHours.holdsAlarms(settings.quietHoursEnabled, settings.quietHoursStart, settings.quietHoursEnd, QuietHours.minuteOfDay())
@@ -100,17 +104,20 @@ class DepegAlarmChecker @Inject constructor(
         return notifier.showDepeg(title, context.getString(R.string.notification_depeg_text), DepegAlarm.exchangeUrl(keys))
     }
 
-    /** USDT in USD aus beiden Quellen (parallel); pausierte Börsen bleiben aussen vor. */
-    private suspend fun fetchUsdt(now: Long): Double? = coroutineScope {
+    /** USDT in USD aus den drei Quellen (parallel, [DepegAlarm.measure]); pausierte Börsen bleiben aussen vor. */
+    private suspend fun fetchUsdt(now: Long): DepegAlarm.Measurement? = coroutineScope {
         val backoff = refreshStats.backoffStates()
         fun available(key: String) = !ExchangeBackoff.isPaused(backoff[key], now) && BlockedSources.groupPausedUntil(key) == null
         val kraken = async {
-            if (available(DepegAlarm.KRAKEN_KEY)) DepegAlarm.fromKraken(last(DepegAlarm.KRAKEN_KEY, "USDT", "USD", DepegAlarm.KRAKEN_PAIR_ID)) else null
+            if (available(DepegAlarm.KRAKEN_KEY)) last(DepegAlarm.KRAKEN_KEY, "USDT", "USD", DepegAlarm.KRAKEN_PAIR_ID) else null
+        }
+        val coinbase = async {
+            if (available(DepegAlarm.COINBASE_KEY)) last(DepegAlarm.COINBASE_KEY, "USDT", "USD", DepegAlarm.COINBASE_PAIR_ID) else null
         }
         val binance = async {
-            if (available(DepegAlarm.BINANCE_KEY)) DepegAlarm.fromBinanceUsdc(last(DepegAlarm.BINANCE_KEY, "USDC", "USDT", DepegAlarm.BINANCE_PAIR_ID)) else null
+            if (available(DepegAlarm.BINANCE_KEY)) last(DepegAlarm.BINANCE_KEY, "USDC", "USDT", DepegAlarm.BINANCE_PAIR_ID) else null
         }
-        DepegAlarm.combine(kraken.await(), binance.await())
+        DepegAlarm.measure(kraken.await(), coinbase.await(), binance.await())
     }
 
     /** Letzter Kurs eines Paars; Fehler still (null). */

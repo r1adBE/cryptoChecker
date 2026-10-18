@@ -43,6 +43,8 @@ struct PortfolioTxSheet: View {
     @State var transferTo: String
     // Verschenkt an Ehe-/Lebenspartner (eigenes Feld, nur bei einer Schenkung)
     @State var giftToSpouse: Bool
+    // Belohnung als Zins (Lending; AT: Einkunft beim Zufluss) — eigenes Feld, nur bei einer Belohnung
+    @State var interest: Bool
     // Gebühr in einem dritten Coin
     @State var feeCoinText: String
     @State var feeCoinAmountText: String
@@ -101,6 +103,7 @@ struct PortfolioTxSheet: View {
         _transferFrom = State(initialValue: initial.transferFrom ?? "")
         _transferTo = State(initialValue: initial.transferTo ?? "")
         _giftToSpouse = State(initialValue: initial.type == .GIFT && initial.giftToSpouse)
+        _interest = State(initialValue: initial.type == .REWARD && initial.interest)
         _feeCoinText = State(initialValue: initial.feeCoin ?? "")
         _feeCoinAmountText = State(initialValue: PriceFormat.exactAmountForInput(initial.feeCoinAmount, decimalSeparator: separator))
         _feeCoinPriceText = State(initialValue: PriceFormat.exactAmountForInput(initial.feeCoinPriceUsdt, decimalSeparator: separator))
@@ -227,6 +230,7 @@ struct PortfolioTxSheet: View {
         let initialSpouse = initial.type == .GIFT && initial.giftToSpouse
         if exchange != (initial.exchange ?? "") || transferFrom != (initial.transferFrom ?? "")
             || transferTo != (initial.transferTo ?? "") || giftToSpouse != initialSpouse
+            || interest != (initial.type == .REWARD && initial.interest)
             || feeCoinText != (initial.feeCoin ?? "") { return true }
         if feeCoinAmountText != PriceFormat.exactAmountForInput(initial.feeCoinAmount, decimalSeparator: sep) { return true }
         if toCoinQuery != (initial.toCoin ?? "")
@@ -277,6 +281,11 @@ struct PortfolioTxSheet: View {
                     if type == .GIFT {
                         SwitchRow(title: L("portfolio_tx_gift_spouse"), subtitle: L("portfolio_tx_gift_spouse_hint"),
                                   isOn: $giftToSpouse)
+                    }
+                    // Belohnung als Zins (Lending): AT zählt ihn beim Zufluss (Anschaffungskosten = Wert), Staking nicht
+                    if type == .REWARD {
+                        SwitchRow(title: L("portfolio_tx_interest"), subtitle: L("portfolio_tx_interest_hint"),
+                                  isOn: $interest)
                     }
                     if fields.route {
                         routeField(L("portfolio_tx_transfer_from"), text: $transferFrom, focus: .transferFrom, hint: nil)

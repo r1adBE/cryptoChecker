@@ -245,16 +245,32 @@ enum PortfolioHistory {
     /// `method`, FIFO je Wallet je Wallet gekappt), exakt gezählt und als Double für die Bewertung — wie Android.
     static func holdingsTimeline(_ coin: String, trades: [PortfolioTx],
                                  method: CostMethod = .defaultMethod) -> [(time: Int64, holdings: Double)] {
+        holdingsTimelineExact(coin, trades: trades, method: method).map { (time: $0.time, holdings: PortfolioDecimal.double($0.holdings)) }
+    }
+
+    /// `holdingsTimeline` exakt: der Verlauf multipliziert damit, ohne Gleitkomma-Rundung der Menge — wie Android.
+    static func holdingsTimelineExact(_ coin: String, trades: [PortfolioTx],
+                                      method: CostMethod = .defaultMethod) -> [(time: Int64, holdings: Decimal)] {
         let events = PortfolioLedger.events(coin, trades: trades)
         var book = PortfolioHoldingsBook(method: method)
-        var out: [(time: Int64, holdings: Double)] = []
+        var out: [(time: Int64, holdings: Decimal)] = []
         out.reserveCapacity(events.count)
         for e in events {
             guard e.trade.amountExact > 0 else { continue }
             book.apply(e)
-            out.append((time: e.trade.time, holdings: PortfolioDecimal.double(book.total)))
+            out.append((time: e.trade.time, holdings: book.total))
         }
         return out
+    }
+
+    /// Exakter Bestand zum Zeitpunkt `atMillis` (einschliesslich) aus `holdingsTimelineExact`.
+    private static func holdingsAtExact(_ timeline: [(time: Int64, holdings: Decimal)], _ atMillis: Int64) -> Decimal {
+        var result: Decimal = 0
+        for entry in timeline {
+            if entry.time > atMillis { break }
+            result = entry.holdings
+        }
+        return result
     }
 
     /// Bestand zum Zeitpunkt `atMillis` (einschliesslich).
@@ -300,8 +316,14 @@ enum PortfolioHistory {
                               dayEndMillis: dayEndMillis)
 
         let coins = PortfolioLedger.coins(valid).sorted()
+        // Bestände exakt (Wert = Menge × Kurs ohne Gleitkomma-Rundung der Menge); als Double nur für die Prüfungen «gehalten»
+        var exactTimelines: [String: [(time: Int64, holdings: Decimal)]] = [:]
         var timelines: [String: [(time: Int64, holdings: Double)]] = [:]
-        for coin in coins { timelines[coin] = holdingsTimeline(coin, trades: valid, method: method) }
+        for coin in coins {
+            let exact = holdingsTimelineExact(coin, trades: valid, method: method)
+            exactTimelines[coin] = exact
+            timelines[coin] = exact.map { (time: $0.time, holdings: PortfolioDecimal.double($0.holdings)) }
+        }
 
         let startMillis = dayEndMillis(start - 1) + 1
         let held = coins.filter { heldWithin(timelines[$0] ?? [], from: startMillis) }
@@ -337,13 +359,13 @@ enum PortfolioHistory {
         // Gehalten, aber an einem Tag ohne Kurs (vor der ersten Kerze): fehlt im Gewinn/Verlust
         var unpriced: Set<String> = []
         for coin in included {
-            let timeline = timelines[coin] ?? []
+            let timeline = exactTimelines[coin] ?? []
             let series = sortedCloses[coin] ?? []
             var row = [DayCell?](repeating: nil, count: dayCount)
             for index in 0..<dayCount {
                 let day = start + index
                 let isToday = day == todayEpochDay
-                let amount = isToday ? (timeline.last?.holdings ?? 0) : holdingsAt(timeline, dayEndMillis(day))
+                let amount = isToday ? (timeline.last?.holdings ?? 0) : holdingsAtExact(timeline, dayEndMillis(day))
                 guard amount > 0 else { continue }
                 let dayMarket: Double?
                 if isToday, let live = livePrices[coin], live > 0, live.isFinite {
@@ -357,12 +379,14 @@ enum PortfolioHistory {
                     continue
                 }
                 // Kerze genau dieses Tags (nicht fortgeschrieben); Hoch/Tief schliessen den Tageswert ein
+                // Menge × Kurs exakt (Kurs über seine kürzeste Darstellung); Double erst in der Summe je Tag (`sumCells`)
+                func times(_ p: Double) -> Decimal { amount * (PortfolioDecimal.of(p) ?? 0) }
                 if PortfolioStables.needsQuote(coin), !series.isEmpty, let r = ranges[coin]?[day], r.valid {
-                    row[index] = DayCell(value: amount * price, open: amount * r.open,
-                                         high: amount * Swift.max(r.high, price), low: amount * Swift.min(r.low, price),
+                    row[index] = DayCell(value: times(price), open: times(r.open),
+                                         high: times(Swift.max(r.high, price)), low: times(Swift.min(r.low, price)),
                                          withRange: true)
                 } else {
-                    let v = amount * price
+                    let v = times(price)
                     row[index] = DayCell(value: v, open: v, high: v, low: v, withRange: false)
                 }
             }
@@ -428,10 +452,10 @@ enum PortfolioHistory {
 
     /// Wert eines Coins an einem Tag (USDT) mit Eröffnung/Hoch/Tief; `withRange` = aus einer Tageskerze.
     private struct DayCell {
-        let value: Double
-        let open: Double
-        let high: Double
-        let low: Double
+        let value: Decimal
+        let open: Decimal
+        let high: Decimal
+        let low: Decimal
         let withRange: Bool
     }
 
@@ -441,8 +465,9 @@ enum PortfolioHistory {
         var out: [PortfolioHistoryPoint] = []
         out.reserveCapacity(dayCount)
         for index in 0..<dayCount {
-            var total = 0.0
-            var bounds = (open: 0.0, high: 0.0, low: 0.0)
+            // Exakt summiert, als Double erst für den Punkt (Anzeige, Chart)
+            var total: Decimal = 0
+            var bounds: (open: Decimal, high: Decimal, low: Decimal) = (0, 0, 0)
             var withRange = false
             for coin in coins {
                 guard let cell = cells[coin]?[index] else { continue }
@@ -454,10 +479,12 @@ enum PortfolioHistory {
             }
             let day = start + index
             if withRange {
-                out.append(PortfolioHistoryPoint(epochDay: day, value: total * rate, open: bounds.open * rate,
-                                                 high: bounds.high * rate, low: bounds.low * rate))
+                out.append(PortfolioHistoryPoint(epochDay: day, value: PortfolioDecimal.double(total) * rate,
+                                                 open: PortfolioDecimal.double(bounds.open) * rate,
+                                                 high: PortfolioDecimal.double(bounds.high) * rate,
+                                                 low: PortfolioDecimal.double(bounds.low) * rate))
             } else {
-                out.append(PortfolioHistoryPoint(epochDay: day, value: total * rate))
+                out.append(PortfolioHistoryPoint(epochDay: day, value: PortfolioDecimal.double(total) * rate))
             }
         }
         return out

@@ -18,7 +18,7 @@
     <string name="portfolio_empty_title">Még nincs tranzakció</string>
     <string name="portfolio_enable_ask_text">A tranzakció mentve. A Portfólió lap mutatja az állományodat és az értékét.</string>
     <string name="portfolio_enable_ask_title">Bekapcsolod a Portfólió lapot?</string>
-    <string name="portfolio_enable_later_hint">Tranzakció mentve. A Portfólió lapot itt kapcsolhatod be: Beállítások › Speciális › Portfólió.</string>
+    <string name="portfolio_enable_later_hint">Tranzakció mentve. A Portfólió lapot itt kapcsolhatod be: Beállítások › Portfólió.</string>
     <string name="portfolio_enabled_banner">Portfólió bekapcsolva – a Portfólió lapon találod.</string>
     <string name="portfolio_lock_reason">Portfólió feloldása</string>
     <string name="portfolio_locked_text">Oldja fel a pozíciók és értékek megtekintéséhez.</string>

@@ -162,8 +162,15 @@ final class CycleViewModel: ObservableObject {
         }
     }
 
+    /// Bezugspunkt der monotonen Zeit (nur Abstände zählen).
+    private static let clockOrigin = ContinuousClock.now
+
+    /// Monotone Millisekunden seit `clockOrigin`. `ContinuousClock` läuft auch im Ruhezustand weiter
+    /// (anders als `DispatchTime.uptimeNanoseconds`): nach dem Aufwecken gelten die Fristen der Einblendung
+    /// als abgelaufen, statt um die Schlafdauer verschoben zu sein.
     private static var monotonicMillis: Int64 {
-        Int64(DispatchTime.now().uptimeNanoseconds / 1_000_000)
+        let parts = clockOrigin.duration(to: ContinuousClock.now).components
+        return parts.seconds * 1_000 + parts.attoseconds / 1_000_000_000_000_000
     }
 
     private func startReveal() {

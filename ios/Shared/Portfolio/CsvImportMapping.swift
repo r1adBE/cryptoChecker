@@ -25,6 +25,10 @@ struct CsvImportTx: Equatable {
     var swapValueUsdt: Decimal? = nil
     /// Verknüpfte Umbuchung zweier neuer Zeilen (`CsvTransferMatch.apply`): Herkunft der Einzahlung; sonst nil.
     var linkedImportKey: String? = nil
+    /// Gebühr-Zeile (CSV «Fee»): Veräusserung zum Tageskurs, gespeichert als Verkauf mit Merker — wie Kotlin.
+    var feeRow = false
+    /// Belohnung, die die Börse als Zins (Lending) ausweist (`TaxEngines.interestReward` auf der Art der Datei).
+    var interest = false
 }
 
 /// Vorschau eines Imports — wie `CsvImportPreview` (Kotlin).
@@ -149,7 +153,10 @@ enum CsvImportMapping {
                            note: note, importKey: row.key,
                            toCoin: row.kind == .SWAP ? row.toCoin.map { PortfolioCalculator.normalizeCoin($0) } : nil,
                            toAmount: row.kind == .SWAP ? row.toAmount : nil,
-                           swapValueUsdt: row.kind == .SWAP ? p.swapValueUsdt.flatMap { $0 >= 0 ? $0 : nil } : nil)
+                           swapValueUsdt: row.kind == .SWAP ? p.swapValueUsdt.flatMap { $0 >= 0 ? $0 : nil } : nil,
+                           // Eigene Merker (Build 76): Gebühr-Zeile und Zins — die Notiz bleibt nur zur Anzeige
+                           feeRow: row.kind == .FEE,
+                           interest: row.kind == .REWARD && TaxEngines.interestReward(row.rawKind))
     }
 
     static func preview(_ result: CsvImportResult, existingKeys: Set<String>,
@@ -191,39 +198,55 @@ enum CsvImportMapping {
         return down > up ? Array(txs.reversed()) : txs
     }
 
-    /// Toleranz des Vorschlags «Umbuchung»: ± 1 % der beobachteten Änderung.
+    /// Toleranz des Vorschlags «Umbuchung»: ± 1 % der beobachteten Änderung …
     private static let matchTolerance: Decimal = Decimal(string: "0.01") ?? 0
+
+    /// … mindestens aber ein Staubrest (Rundung der Explorer bei sehr kleinen Mengen).
+    private static let matchDust: Decimal = Decimal(string: "0.00000001") ?? 0
+
+    /// Die beobachtete Änderung liegt höchstens so lange nach der Auszahlung (Bestätigungen, seltene Abfragen).
+    static let matchWindowMillis: Int64 = 7 * 24 * 60 * 60 * 1000
 
     /// Vorschlag je Auszahlung der Vorschau (`.WITHDRAWAL`, Reihenfolge wie `txs`): gibt es eine ZÄHLENDE beobachtete
     /// Adresse dieses Coins, deren beobachtete Änderung (erste Beobachtung, Zunahme zwischen zwei Beobachtungen,
-    /// `AddressBalanceHistory.of`) der Menge entspricht (± 1 %; Menge oder Menge − Gebühr im Coin) → Umbuchung mit dieser
-    /// Adresse als Ziel (erste passende in der Reihenfolge der Adressen); sonst keine Vorauswahl. Wie Kotlin.
+    /// `AddressBalanceHistory.of`) der Menge entspricht (Abweichung höchstens max(1 % der Änderung, `matchDust`); Menge oder
+    /// Menge − Gebühr im Coin) und frühestens zur Zeit der Auszahlung, spätestens `matchWindowMillis` danach beobachtet
+    /// wurde → Umbuchung mit dieser Adresse als Ziel (erste passende in der Reihenfolge der Adressen); sonst keine
+    /// Vorauswahl. Jede beobachtete Änderung passt zu höchstens EINER Auszahlung. Wie Kotlin.
     static func proposeWithdrawals(_ txs: [CsvImportTx], addresses: [WatchedAddress]) -> [CsvWithdrawalProposal] {
-        // Zunahmen je Coin mit Ziel (nur zählende Adressen: «Nur anzeigen» hat keinen Verlauf)
-        var changes: [(coin: String, delta: Decimal, name: String)] = []
+        // Zunahmen je Coin mit Zeit und Ziel (nur zählende Adressen: «Nur anzeigen» hat keinen Verlauf)
+        var changes: [(coin: String, delta: Decimal, time: Int64, name: String)] = []
         for a in addresses where a.countInPortfolio {
             let name: String = a.label ?? WatchedAddressRules.shortAddress(a.address)
             for h in AddressBalanceHistory.of([a]) {
                 var before: Decimal = 0
                 for o in h.observations.sorted(by: { $0.time < $1.time }) {
                     let delta: Decimal = o.balance - before
-                    if delta > 0 { changes.append((coin: PortfolioCalculator.normalizeCoin(h.coin), delta: delta, name: name)) }
+                    if delta > 0 {
+                        changes.append((coin: PortfolioCalculator.normalizeCoin(h.coin), delta: delta, time: o.time, name: name))
+                    }
                     before = o.balance
                 }
             }
         }
+        var used = Set<Int>()
         return txs.filter { $0.type == .WITHDRAWAL }.map { tx -> CsvWithdrawalProposal in
             let coinFee: Decimal = tx.feeUnit == .COIN ? (tx.fee ?? 0) : 0
             let amounts: [Decimal] = [tx.amount, tx.amount - coinFee].filter { $0 > 0 }
-            let hit = changes.first { c -> Bool in
-                guard c.coin == tx.coin else { return false }
-                let limit: Decimal = c.delta * matchTolerance
+            let hit = changes.indices.first { i -> Bool in
+                let c = changes[i]
+                guard !used.contains(i), c.coin == tx.coin, c.time >= tx.time, c.time - tx.time <= matchWindowMillis else {
+                    return false
+                }
+                let limit: Decimal = max(c.delta * matchTolerance, matchDust)
                 return amounts.contains { x -> Bool in
                     let diff: Decimal = x - c.delta
                     return abs(diff) <= limit
                 }
             }
-            return CsvWithdrawalProposal(importKey: tx.importKey, choice: hit == nil ? nil : .TRANSFER, transferTo: hit?.name)
+            if let hit { used.insert(hit) }
+            return CsvWithdrawalProposal(importKey: tx.importKey, choice: hit == nil ? nil : .TRANSFER,
+                                         transferTo: hit.map { changes[$0].name })
         }
     }
 

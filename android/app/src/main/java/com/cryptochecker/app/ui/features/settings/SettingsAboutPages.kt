@@ -19,6 +19,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.cryptochecker.app.BuildConfig
 import com.cryptochecker.app.R
 import com.cryptochecker.app.ui.components.SwitchRow
 import com.cryptochecker.app.ui.features.about.AboutContent
@@ -144,12 +145,15 @@ internal fun WidgetsPage(onBack: () -> Unit, viewModel: SettingsViewModel = hilt
     }
 }
 
-/** Entwickler: HTTP-Protokoll unten auf der Seite «Paar hinzufügen». */
+/**
+ * Entwickler: HTTP-Protokoll unten auf der Seite «Paar hinzufügen». Nur im Debug-Build — der Release
+ * enthält den Mitschnitt (logging-interceptor) gar nicht, der Schalter hätte keine Wirkung.
+ */
 @Composable
 internal fun DeveloperPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltViewModel()) {
     val settings by viewModel.settings.collectAsStateWithLifecycle()
     SettingsSubPage(title = stringResource(R.string.settings_section_developer), onBack = onBack) {
-        GroupCard {
+        if (BuildConfig.DEBUG) GroupCard {
             SettingsAnchor("developer.http_log") {
                 SwitchRow(
                     title = stringResource(R.string.settings_http_log),

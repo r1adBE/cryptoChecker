@@ -79,8 +79,9 @@ final class XpubScan {
 
     /// Gap-Limit (BIP44).
     static let gap = 20
-    /// QUICK: so viele Adressen nach der letzten benutzten je Kette.
-    static let lookahead = 5
+    /// QUICK: so viele Adressen nach der letzten benutzten je Kette — das volle Gap-Limit (BIP44). Mit nur 5 blieb eine
+    /// Zahlung an eine weiter hinten abgeleitete Adresse bis zur täglichen vollständigen Suche unsichtbar. Wie Android.
+    static let lookahead = gap
     /// Vollständige Suche höchstens einmal täglich.
     static let fullScanMillis: Int64 = 24 * 60 * 60_000
     /// Grenze je Aktualisierung (schont die Anbieter).

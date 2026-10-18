@@ -19,7 +19,7 @@
     <string name="portfolio_empty_title">Ancora nessuna transazione</string>
     <string name="portfolio_enable_ask_text">La tua transazione è salvata. La scheda Portafoglio mostra il tuo saldo e il suo valore.</string>
     <string name="portfolio_enable_ask_title">Attivare la scheda Portafoglio?</string>
-    <string name="portfolio_enable_later_hint">Transazione salvata. Puoi attivare la scheda Portafoglio in Impostazioni › Avanzate › Portafoglio.</string>
+    <string name="portfolio_enable_later_hint">Transazione salvata. Puoi attivare la scheda Portafoglio in Impostazioni › Portafoglio.</string>
     <string name="portfolio_enabled_banner">Portafoglio attivato – lo trovi nella scheda Portafoglio.</string>
     <string name="portfolio_lock_reason">Sblocca portafoglio</string>
     <string name="portfolio_locked_text">Sbloccalo per vedere posizioni e valori.</string>

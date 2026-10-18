@@ -13,6 +13,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.cryptochecker.app.BuildConfig
 import com.cryptochecker.app.R
 
 // ── Erweitert ────────────────────────────────────────────────────────────────
@@ -83,8 +84,9 @@ internal fun AdvancedPage(
                 )
             }
         }
-        // «Entwickler» erst nach 7 Tipps auf die Version (Seite «Über die App»)
-        if (settings.developerUnlocked) {
+        // «Entwickler» erst nach 7 Tipps auf die Version (Seite «Über die App»); nur im Debug-Build,
+        // der Release enthält keinen HTTP-Mitschnitt
+        if (settings.developerUnlocked && BuildConfig.DEBUG) {
             NavCard {
                 SettingsNavRow(
                     title = stringResource(R.string.settings_section_developer),

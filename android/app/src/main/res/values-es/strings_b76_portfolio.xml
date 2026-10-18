@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Build 76: Portfolio-Speicher, Sicherung, Steuer-Export, Sperre -->
+    <string name="storage_recovery_restore_action">Restaurar copia</string>
+    <string name="storage_recovery_acknowledge">Entendido</string>
+    <string name="storage_recovery_restored_title">Los datos guardados se han desbloqueado de nuevo</string>
+    <string name="storage_recovery_restored_message">Una clave anterior de este dispositivo volvió a abrir los datos apartados, así que han vuelto. Lo guardado mientras tanto se conservó sin cambios al lado.</string>
+    <string name="backup_restore_interrupted_title">La restauración se interrumpió</string>
+    <string name="backup_restore_interrupted_rolled_back">La app se cerró mientras restauraba una copia. Se han repuesto tus datos anteriores; no se conservó nada de la copia.</string>
+    <string name="backup_restore_interrupted_incomplete">La app se cerró mientras restauraba una copia y no se pudieron reponer por completo los datos anteriores. Revisa tu lista de seguimiento y tu cartera, o vuelve a restaurar la copia en «%1$s» en Ajustes.</string>
+    <string name="backup_not_verified">No se pudo verificar el archivo de copia tras guardarlo: al leerlo de nuevo es distinto. Guarda la copia en un archivo nuevo.</string>
+    <string name="tax_line_at_old_speculation_limit">Adquirido antes del 1/3/2021 – mantenido ≤ 1 año: límite exento de operaciones especulativas (§ 31.3 EStG, versión antigua)</string>
+    <string name="portfolio_tx_interest">Interés (préstamo)</string>
+    <string name="portfolio_tx_interest_hint">Cuenta como ingreso al recibirse (Austria). Déjalo desactivado para recompensas de staking y airdrops.</string>
+    <string name="app_lock_no_screen_lock">Configura un bloqueo de pantalla para abrir la cartera.</string>
+    <string name="app_lock_turn_off_action">Desactivar bloqueo de cartera</string>
+    <string name="app_lock_turn_off_confirm_title">¿Desactivar el bloqueo de cartera?</string>
+    <string name="app_lock_turn_off_confirm_message">Sin bloqueo de pantalla no se puede desbloquear la cartera. Desactivado, la app vuelve a mostrar tu cartera sin preguntar. Cuando configures un bloqueo de pantalla, podrás activarlo de nuevo en Ajustes.</string>
+</resources>

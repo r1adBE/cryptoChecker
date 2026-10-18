@@ -8,6 +8,7 @@ import com.cryptochecker.app.domain.exceptions.HttpMarketError
 import com.cryptochecker.app.domain.exceptions.MarketError
 import com.cryptochecker.app.domain.exceptions.ParseError
 import com.cryptochecker.app.domain.exceptions.ResponseTooLargeError
+import com.cryptochecker.app.domain.exceptions.TimeoutError
 import com.cryptochecker.app.domain.exceptions.UserFriendlyMarketError
 import com.cryptochecker.app.domain.exceptions.parseMarketError
 import com.cryptochecker.app.domain.exceptions.rethrowIfCritical
@@ -29,13 +30,13 @@ import com.cryptochecker.marketdata.model.market.DexScreener
 import com.cryptochecker.marketdata.util.BulkCompleteness
 import com.cryptochecker.marketdata.util.BulkTickerParse
 import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.TimeoutCancellationException
-import kotlinx.coroutines.withTimeout
+import kotlinx.coroutines.withTimeoutOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Response
 import timber.log.Timber
+import java.io.InterruptedIOException
 import java.io.InvalidObjectException
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -85,7 +86,10 @@ class MarketRemoteDataSource @Inject constructor(
         return MarketPairsInfo(lastSyncDate = System.currentTimeMillis(), pairs = collected, baseNames = names)
     }
 
-    /** Jede Anfrage für sich lesen (samt Folgeseiten); nur die erste muss gelingen. */
+    /**
+     * Jede Anfrage für sich lesen (samt Folgeseiten); nur die erste muss gelingen — bei
+     * [Market.pairListAllCallsRequired] jede (sonst würde eine halbe Liste gespeichert).
+     */
     private suspend fun loadPairListByCall(market: Market, client: OkHttpClient): MarketPairsInfo {
         val collected = ArrayList<MarketPair>()
         val names = LinkedHashMap<String, String>()
@@ -94,7 +98,7 @@ class MarketRemoteDataSource @Inject constructor(
                 loadPairListCall(market, client, call, collected, names)
             } catch (ex: Exception) {
                 ex.rethrowIfCritical()
-                if (call == 0) throw ex
+                if (call == 0 || market.pairListAllCallsRequired) throw ex
             }
         }
         collected.sort()
@@ -138,7 +142,7 @@ class MarketRemoteDataSource @Inject constructor(
      * Eine Seite lesen. [strict]: Fehler als [ParseError] weiterwerfen; sonst zählt, was bis zum
      * Fehler gelesen wurde.
      */
-    private fun readPairPage(market: Market, call: Int, body: String, strict: Boolean): List<MarketPair> {
+    private suspend fun readPairPage(market: Market, call: Int, body: String, strict: Boolean): List<MarketPair> {
         val page = ArrayList<MarketPair>()
         try {
             market.readPairList(call, body, page)
@@ -396,7 +400,11 @@ suspend fun OkHttpClient.callMarket(
         val entry = DataMirror.entryFor(url)
         if (entry != null) fromMirror(entry, guardMillis, maxBytes)?.let { return it }
     }
-    return withTimeout(guardMillis) { request(url, postRequestInfo, maxBytes) }
+    // withTimeoutOrNull statt withTimeout: Die Wache endet als gewöhnliche Zeitüberschreitung der Börse,
+    // nie als TimeoutCancellationException — sonst sähe sie aus wie ein Abbruch des ganzen Durchlaufs und
+    // die Teilanfragen, die scheitern dürfen (Folgeanfragen, Zusatzkurse), rissen alles mit.
+    return withTimeoutOrNull(guardMillis) { request(url, postRequestInfo, maxBytes) }
+        ?: throw TimeoutError(InterruptedIOException("timeout"))
 }
 
 private const val GUARD_EXTRA_MILLIS = 5_000L
@@ -405,10 +413,8 @@ private const val GUARD_DEFAULT_MILLIS = 35_000L
 /** Text aus dem Spiegel, wenn erreichbar und frisch genug; sonst null (dann direkt beim Anbieter). */
 private suspend fun OkHttpClient.fromMirror(entry: DataMirror.Entry, guardMillis: Long, maxBytes: Long): String? =
     try {
-        val wrapped = withTimeout(guardMillis) { request(entry.url, null, maxBytes) }
-        DataMirror.unwrap(wrapped, System.currentTimeMillis(), entry.maxAgeMillis)
-    } catch (timeout: TimeoutCancellationException) {
-        null
+        withTimeoutOrNull(guardMillis) { request(entry.url, null, maxBytes) }
+            ?.let { DataMirror.unwrap(it, System.currentTimeMillis(), entry.maxAgeMillis) }
     } catch (cancel: CancellationException) {
         throw cancel
     } catch (ex: Exception) {

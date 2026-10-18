@@ -297,8 +297,8 @@ enum SettingsSearchCatalog {
         add("about.exchange", L("about_request_exchange"), about, .page(.about, anchor: "about.exchange"))
         add("about.source", L("about_source_code"), about, .page(.about, anchor: "about.source"))
         add("about.licenses", L("about_licenses"), about, .page(.licenses, anchor: nil))
-        // Entwickler nur, wenn freigeschaltet (wie die Zeile unter «Erweitert»)
-        if settings.developerUnlocked {
+        // Entwickler nur, wenn freigeschaltet und im Debug-Build (wie die Zeile unter «Erweitert»)
+        if settings.developerUnlocked && DeveloperOptions.available {
             let developer = L("settings_section_developer")
             addPage("page.developer", .developer, developer)
             add("developer.http_log", L("settings_http_log"), developer, .page(.developer, anchor: "developer.http_log"),

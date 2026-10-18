@@ -374,8 +374,9 @@ final class PortfolioTxTypesTests: XCTestCase {
         XCTAssertEqual(btc.position.costBasisExact, dec("2000"))
     }
 
-    /// Build 47: Verkauf zum Preis 0 nur MIT Import-Herkunft eine Gebühr-Zeile; von Hand ein Verkauf eines wertlosen Coins.
-    func testSaleAtPriceZeroIsFeeRowOnlyWhenImported() {
+    /// Build 76: Gebühr-Zeile nur mit eigenem Merker (`feeRow`) — ein Verkauf zum Preis 0 mit Import-Herkunft allein ist keine
+    /// mehr; von Hand ein Verkauf eines wertlosen Coins. Wie Android.
+    func testSaleIsFeeRowOnlyWithExplicitFlag() {
         let buy = tx(1, "BTC", .BUY, "1", "100", day)
         let manual = tx(2, "BTC", .SELL, "0.4", "0", 2 * day)
         XCTAssertFalse(PortfolioLedger.isFeeDisposal(manual))
@@ -385,7 +386,13 @@ final class PortfolioTxTypesTests: XCTestCase {
         XCTAssertFalse(l.position.realizedIncomplete)
         var imported = manual
         imported.importKey = "csv:fee"
-        XCTAssertTrue(PortfolioLedger.isFeeDisposal(imported))
-        XCTAssertTrue(PortfolioCalculator.ledger("BTC", trades: [buy, imported], currentPrice: nil).position.realizedIncomplete)
+        XCTAssertFalse(PortfolioLedger.isFeeDisposal(imported))
+        var feeRow = imported
+        feeRow.feeRow = true
+        XCTAssertTrue(PortfolioLedger.isFeeDisposal(feeRow))
+        var bought = feeRow
+        bought.type = .BUY
+        XCTAssertFalse(PortfolioLedger.isFeeDisposal(bought))
+        XCTAssertTrue(PortfolioCalculator.ledger("BTC", trades: [buy, feeRow], currentPrice: nil).position.realizedIncomplete)
     }
 }

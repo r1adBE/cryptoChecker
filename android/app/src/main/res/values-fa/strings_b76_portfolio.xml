@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Build 76: Portfolio-Speicher, Sicherung, Steuer-Export, Sperre -->
+    <string name="storage_recovery_restore_action">بازیابی نسخهٔ پشتیبان</string>
+    <string name="storage_recovery_acknowledge">متوجه شدم</string>
+    <string name="storage_recovery_restored_title">داده‌های ذخیره‌شده دوباره باز شدند</string>
+    <string name="storage_recovery_restored_message">یک کلید قبلی این دستگاه داده‌های کنارگذاشته را دوباره باز کرد و آن‌ها برگشتند. آنچه در این فاصله ذخیره شد، بدون تغییر در کنارشان مانده است.</string>
+    <string name="backup_restore_interrupted_title">بازیابی قطع شد</string>
+    <string name="backup_restore_interrupted_rolled_back">برنامه هنگام بازیابی نسخهٔ پشتیبان بسته شد. داده‌های قبلی‌ات برگردانده شد و چیزی از نسخهٔ پشتیبان نگه داشته نشد.</string>
+    <string name="backup_restore_interrupted_incomplete">برنامه هنگام بازیابی نسخهٔ پشتیبان بسته شد و داده‌های قبلی کامل برگردانده نشد. لطفاً فهرست پیگیری و سبد را بررسی کن یا نسخهٔ پشتیبان را دوباره در «%1$s» در تنظیمات بازیابی کن.</string>
+    <string name="backup_not_verified">فایل پشتیبان پس از ذخیره تأیید نشد؛ هنگام خواندن دوباره متفاوت است. لطفاً نسخهٔ پشتیبان را در فایل جدیدی ذخیره کن.</string>
+    <string name="tax_line_at_old_speculation_limit">خریداری‌شده پیش از ۱ مارس ۲۰۲۱ – نگهداری ≤ ۱ سال: سقف معافیت معاملات سفته‌بازی (§ 31 بند 3 EStG نسخهٔ قدیم)</string>
+    <string name="portfolio_tx_interest">سود (وام‌دهی)</string>
+    <string name="portfolio_tx_interest_hint">هنگام دریافت درآمد حساب می‌شود (اتریش). برای پاداش‌های استیکینگ و ایردراپ خاموش بگذار.</string>
+    <string name="app_lock_no_screen_lock">برای باز کردن سبد، قفل صفحه را تنظیم کن.</string>
+    <string name="app_lock_turn_off_action">خاموش کردن قفل سبد</string>
+    <string name="app_lock_turn_off_confirm_title">قفل سبد خاموش شود؟</string>
+    <string name="app_lock_turn_off_confirm_message">بدون قفل صفحه، سبد باز نمی‌شود. با خاموش کردن، برنامه سبد را دوباره بدون پرسش نشان می‌دهد. پس از تنظیم قفل صفحه می‌توانی قفل را در تنظیمات دوباره روشن کنی.</string>
+</resources>

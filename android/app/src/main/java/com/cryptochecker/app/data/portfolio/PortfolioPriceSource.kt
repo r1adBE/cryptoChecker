@@ -15,6 +15,7 @@ import com.cryptochecker.app.domain.model.MarketInfo
 import com.cryptochecker.app.domain.portfolio.ChainAssets
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioExchangeRoute
+import com.cryptochecker.app.domain.portfolio.PortfolioPriceIdentity
 import com.cryptochecker.app.domain.portfolio.PortfolioPriceFallback
 import com.cryptochecker.app.domain.portfolio.PortfolioStables
 import com.cryptochecker.app.domain.portfolio.PortfolioWatchPair
@@ -277,7 +278,11 @@ class PortfolioPriceSource @Inject constructor(
                         (force || cache[coin]?.let { now - it.second in 0 until PRICE_TTL_MILLIS } != true)
                 }
                 if (toFetch.isNotEmpty()) {
-                    val fetched = binanceBatch(toFetch).toMutableMap()
+                    // Binance-Ticker nur für denselben Token (Namen der Merkliste, K-8); sonst Merklisten-Paar/Kerzen
+                    val binanceCoins = PortfolioPriceIdentity.binanceTickerCoins(
+                        toFetch, watchNamesFor(toFetch), tokenIdentityStore::binanceName,
+                    )
+                    val fetched = binanceBatch(binanceCoins).toMutableMap()
                     // Nicht bei Binance: zuerst ein Merklisten-Paar an einer anderen Börse, dann die Kerze
                     if (toFetch.any { it !in fetched }) fetched += watchPairPrices(toFetch.filter { it !in fetched })
                     val missing = toFetch.filter { it !in fetched }
@@ -464,6 +469,22 @@ class PortfolioPriceSource @Inject constructor(
         val rate = if (quote == "USDT" || quote == "USD") null else fxSource.usdTo(quote)
         // USDT zum Marktkurs: USD-/Fiat-Kurs durch USDT/USD (ohne frische Messung 1, Karte markiert die Näherung)
         return PortfolioExchangeRoute.toUsdt(result.ticker.last, quote, depegReadings.liveUsdtUsd() ?: 1.0) { rate }
+    }
+
+    /** Name je Coin laut den Paaren der Merkliste ([PortfolioPriceIdentity.watchNames]); Fehler: keine Namen. */
+    private suspend fun watchNamesFor(coins: List<String>): Map<String, String?> {
+        val watches = try {
+            watchDao.getWatches()
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            Timber.d(e, "Portfolio: Merkliste nicht lesbar")
+            return emptyMap()
+        }
+        return PortfolioPriceIdentity.watchNames(
+            coins,
+            watches.map { PortfolioPriceIdentity.WatchName(it.baseAsset, tokenIdentityStore.pairName(it.marketKey, it.baseAsset), it.disabled) },
+        )
     }
 
     /** Sammelabfrage; Binance lehnt die ganze Anfrage ab, wenn ein Symbol unbekannt ist. */

@@ -50,7 +50,10 @@ class DatabaseEncryptionTest {
             context.deleteDatabase(name)
             val path = context.getDatabasePath(name).path
             context.getDatabasePath(name).parentFile?.listFiles()
-                ?.filter { it.path.startsWith(path + SqlCipherDatabaseFiles.COPY_SUFFIX) || it.path.startsWith(path + SqlCipherDatabaseFiles.ASIDE_SUFFIX) }
+                ?.filter {
+                    it.path.startsWith(path + SqlCipherDatabaseFiles.COPY_SUFFIX) || it.path.startsWith(path + SqlCipherDatabaseFiles.ASIDE_SUFFIX) ||
+                        it.path.startsWith(path + SqlCipherDatabaseFiles.REPLACED_SUFFIX)
+                }
                 ?.forEach { it.delete() }
         }
         keyDirectory.deleteRecursively()
@@ -177,8 +180,48 @@ class DatabaseEncryptionTest {
         val aside = File(context.getDatabasePath(MAIN).path + SqlCipherDatabaseFiles.ASIDE_SUFFIX)
         assertTrue(aside.exists())
         assertEquals(FileKind.ENCRYPTED, SqlCipherDatabaseFiles.kindOf(aside))
-        assertTrue(StorageRecoveryNotice.take(context))
-        assertFalse(StorageRecoveryNotice.take(context))
+        // Hinweis bleibt, bis er bestätigt ist (Build 76), danach keiner mehr
+        assertEquals(StorageRecoveryNotice.Kind.SET_ASIDE, StorageRecoveryNotice.pending(context))
+        assertEquals(StorageRecoveryNotice.Kind.SET_ASIDE, StorageRecoveryNotice.pending(context))
+        StorageRecoveryNotice.acknowledge(context, StorageRecoveryNotice.Kind.SET_ASIDE)
+        assertEquals(null, StorageRecoveryNotice.pending(context))
+    }
+
+    /**
+     * «Endgültig» war doch nur vorübergehend: Ein zweiter Schlüssel wurde angelegt, die Datei aber nie beiseitegelegt — der
+     * frühere (nummeriert behalten) öffnet sie wieder und gilt danach als gespeicherter. Nichts beiseite, kein Hinweis.
+     */
+    @Test
+    fun previousKeyStillOpeningTheFileIsTakenBack() {
+        withMain { main -> insertWatchAndAlarm(main) }
+        keys.create(MAIN) // bisheriger Schlüssel → «.previous», ein neuer (falscher) gespeichert
+
+        withMain { main -> assertEquals(1, count(main, "watches")) }
+        assertFalse(File(context.getDatabasePath(MAIN).path + SqlCipherDatabaseFiles.ASIDE_SUFFIX).exists())
+        assertEquals(null, StorageRecoveryNotice.pending(context))
+        // Danach öffnet der gespeicherte Schlüssel direkt
+        withMain { main -> assertEquals(1, count(main, "alarms")) }
+    }
+
+    /**
+     * Beiseitegelegte Datei und ein früherer Schlüssel, der sie öffnet: Der nächste Start holt sie zurück, die inzwischen
+     * neu begonnene Datei bleibt daneben; Hinweis «wieder entsperrt» statt «nicht entsperrt».
+     */
+    @Test
+    fun setAsideDatabaseComesBackWithKeptPreviousKey() {
+        withMain { main -> insertWatchAndAlarm(main) }
+        // Wie die Migration bei einem fälschlich «endgültigen» Fehler: Datei beiseite, neuer Schlüssel, Hinweis vorgemerkt
+        SqlCipherDatabaseFiles(context).setAside(MAIN)
+        keys.create(MAIN)
+        StorageRecoveryNotice.record(context, MAIN)
+        withMain { main -> assertEquals(0, count(main, "watches")) } // leer neu begonnen (neuer Schlüssel)
+
+        withMain { main -> assertEquals(1, count(main, "watches")) } // nächster Start: zurückgeholt
+        val dir = context.getDatabasePath(MAIN).parentFile!!
+        assertTrue(dir.listFiles()!!.any { it.name.startsWith(MAIN + SqlCipherDatabaseFiles.REPLACED_SUFFIX) && !it.name.endsWith("-wal") && !it.name.endsWith("-shm") })
+        assertEquals(StorageRecoveryNotice.Kind.KEY_RESTORED, StorageRecoveryNotice.pending(context))
+        StorageRecoveryNotice.acknowledge(context, StorageRecoveryNotice.Kind.KEY_RESTORED)
+        assertEquals(null, StorageRecoveryNotice.pending(context))
     }
 
     /** Kopie für die Systemsicherung: unverschlüsselt und vollständig; nach der Wiederherstellung wieder verschlüsselt. */

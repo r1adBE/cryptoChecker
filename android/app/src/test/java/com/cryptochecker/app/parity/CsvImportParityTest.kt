@@ -306,6 +306,7 @@ class CsvImportParityTest {
                         id = i + 1L, coin = t.coin, type = t.type, amount = t.amount, priceUsdt = t.priceUsdt, time = t.time,
                         fee = t.fee, feeUnit = t.feeUnit, feeCoin = t.feeCoin, feeCoinAmount = t.feeCoinAmount,
                         toCoin = t.toCoin, toAmount = t.toAmount, swapValueUsdt = t.swapValueUsdt, imported = true,
+                        feeRow = t.feeRow, interestIncome = t.interest,
                     )
                 }
                 val held = PortfolioCalculator.holdingsAt(trades)

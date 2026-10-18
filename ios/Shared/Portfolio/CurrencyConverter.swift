@@ -57,7 +57,7 @@ enum CurrencyConversion {
     /// USDT in USD für die Umrechnung: `usdtUsd` (plausibel) oder 1; nil = 1 (bisherige Rechnung).
     private static func usdtFactor(_ usdtUsd: Double?) -> Double {
         guard let usdtUsd else { return 1 }
-        return PortfolioStables.usdtUsd(usdtUsd).rate
+        return PortfolioStables.usdtUsdLive(usdtUsd).rate
     }
 
     /// Braucht die Quote `code` (Stablecoin) einen Marktkurs? Alle ausser USD und USDT (leer = USD).

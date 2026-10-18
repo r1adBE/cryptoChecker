@@ -100,13 +100,16 @@ enum PriceRefresher {
         var canShow: @Sendable () async -> Bool
         /// Meldet; true erst, wenn die Mitteilung bestätigt ist.
         var show: @Sendable (PendingAlarm) async -> Bool
+        /// Entfernt eine gezeigte Mitteilung wieder (Alarm liess sich danach nicht speichern).
+        var retract: @Sendable (PendingAlarm) async -> Void = { _ in }
 
         static let system = AlarmNotifier(
             canShow: { await Notifier.isAuthorized() },
             show: { item in
                 await Notifier.showAlarm(item.watch, item.alarm, price: item.shownPrice ?? item.price,
                                          volumeRatio: item.volumeRatio, text: item.text, currency: item.shownCurrency)
-            })
+            },
+            retract: { item in Notifier.cancelAlarm(item.alarm.id) })
     }
 
     /// Zurückgestellte Alarm-Prüfung (siehe `Outcome.deferredAlarms`): je Paar mit neuem Kurs der
@@ -201,7 +204,8 @@ enum PriceRefresher {
                     alarmId: item.alarm.id, now: now(), cooldownMinutes: settings.alarmCooldownMinutes,
                     holdAlarms: holdAlarms, canShow: { deliverable },
                     show: { await notifier.show(item) },
-                    mark: { await save(item.alarm.id, item.update) })
+                    mark: { await save(item.alarm.id, item.update) },
+                    retract: { await notifier.retract(item) })
                 if saved { delivered.append(item) }
             }
             return delivered
@@ -371,6 +375,8 @@ enum PriceRefresher {
 
             // 1) Netz: alle Börsen gleichzeitig, je Börse erst die Sammelabfrage.
             let groups = Dictionary(grouping: watches, by: \.marketKey)
+            // Je Börse Paare mit aktivem Alarm zuerst abfragen (`FetchOrder`)
+            let alarmedIds = Set(snapshot.alarms.filter(\.enabled).map(\.watchId))
             var signals: [GroupSignals] = []
             // Mit Endzeit: höchstens bis dahin (Speichern bleibt übrig)
             let networkBudget = deadline.map { $0.allowance(wanted: networkBudgetMillis ?? Int64.max) } ?? networkBudgetMillis
@@ -383,7 +389,7 @@ enum PriceRefresher {
                             return ([w.id: single], nil, false)
                         }
                         let (results, signal) = await fetchGroup(list, includeRollingFutures: settings.includeRollingFutures,
-                                                                 lowMemory: lowMemory)
+                                                                 lowMemory: lowMemory, alarmed: alarmedIds)
                         return (results, signal, false)
                     }
                 }
@@ -503,6 +509,10 @@ enum PriceRefresher {
             }
             let price = ticker.last
             let time = ticker.timestamp > 0 ? ticker.timestamp : now
+            // DEX-Pool: Liquidität jeder Abfrage merken (Alarm-Sperre in `checkAlarms`, Hinweis in Suche und Alarmen)
+            if liveQuotes == nil && DexLiquidity.isDex(watch.marketKey) {
+                DexLiquidityStore.put(watch.pairId, ticker.liquidityUsd)
+            }
             let dayChange: Double?
             if liveQuotes != nil {
                 // Live-Wert aus dem Ticker: kein Kerzen-Hinweis — aber nur, wenn er die Veränderung ersetzt hat.
@@ -531,16 +541,22 @@ enum PriceRefresher {
             updated.priceChangedAt = changedAt
             updated.exchangeTime = ticker.exchangeTime
 
+            // Kurs laut Börse zu alt (`AlarmFreshness`, Handel ruht): Alarme bleiben scharf, lösen aber nicht aus
+            let alarmsAllowed = !AlarmFreshness.exchangeTimeTooOld(updated.exchangeTime, now: now)
+
             // Alarme mit Zusatzdaten: nach dem Speichern prüfen
-            if deferExtra, outcome.deferredAlarms.prefetchByWatch[watch.id] != nil, let result {
+            if alarmsAllowed, deferExtra, outcome.deferredAlarms.prefetchByWatch[watch.id] != nil, let result {
                 outcome.deferredAlarms.items.append(DeferredAlarms.Item(watch: watch, updated: updated, price: price,
                                                                         fetched: result))
             }
 
             // Alarme
-            let spokeAlarm = checkAlarms(alarmsByWatch[watch.id] ?? [], watch: watch, updated: updated, price: price,
+            var spokeAlarm = false
+            if alarmsAllowed {
+                spokeAlarm = checkAlarms(alarmsByWatch[watch.id] ?? [], watch: watch, updated: updated, price: price,
                                          now: now, settings: settings, speechAllowed: speechAllowed, inputs: inputs,
                                          outcome: &outcome)
+            }
 
             priceEffects(watch: watch, updated: updated, price: price, now: now, settings: settings,
                          speechAllowed: speechAllowed, spokeAlarm: spokeAlarm, live: liveQuotes != nil,

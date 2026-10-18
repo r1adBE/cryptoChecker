@@ -18,7 +18,7 @@
     <string name="portfolio_empty_title">Inga transaktioner ännu</string>
     <string name="portfolio_enable_ask_text">Din transaktion är sparad. Fliken Portfölj visar dina innehav och deras värde.</string>
     <string name="portfolio_enable_ask_title">Slå på fliken Portfölj?</string>
-    <string name="portfolio_enable_later_hint">Transaktionen sparad. Du kan slå på fliken Portfölj under Inställningar › Avancerat › Portfölj.</string>
+    <string name="portfolio_enable_later_hint">Transaktionen sparad. Du kan slå på fliken Portfölj under Inställningar › Portfölj.</string>
     <string name="portfolio_enabled_banner">Portfölj påslagen – du hittar den under fliken Portfölj.</string>
     <string name="portfolio_lock_reason">Lås upp portföljen</string>
     <string name="portfolio_locked_text">Lås upp för att se innehav och värden.</string>

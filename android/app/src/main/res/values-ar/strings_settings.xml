@@ -168,7 +168,7 @@
 
     <!-- Einstellungen › Markt-Meldungen -->
     <string name="settings_depeg_alarm">الإبلاغ عن فك ربط USDT</string>
-    <string name="settings_depeg_alarm_hint">ينبّه مرة واحدة عندما ينحرف USDT عن 1 USD بمقدار الحد (Kraken USDT/USD وBinance USDC/USDT).</string>
+    <string name="settings_depeg_alarm_hint">ينبّه مرة واحدة عندما ينحرف USDT عن 1 USD بمقدار الحد (Kraken USDT/USD، Coinbase USDT/USD وBinance USDC/USDT).</string>
     <string name="settings_depeg_threshold">حد فك الربط</string>
     <string name="settings_fng_above">Fear &amp; Greed: تنبيه فوق</string>
     <string name="settings_fng_below">Fear &amp; Greed: تنبيه تحت</string>

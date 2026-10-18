@@ -32,6 +32,26 @@ final class StoredErrorTests: XCTestCase {
         }
     }
 
+    /// Kurzer Börsentext für den Bericht; Fälle `exchange_detail.json` (Android: `StoredErrorTest.kt`).
+    func testExchangeDetailCases() throws {
+        let data = try S.fixture("exchange_detail")
+        for c in S.list(data["cases"]) {
+            let out = StoredError.exchangeDetail(c["input"] as? String)
+            XCTAssertEqual(out, c["expected"] as? String, "\(c["name"] ?? "")")
+            if let out {
+                XCTAssertLessThanOrEqual(out.count, StoredError.maxDetail)
+                XCTAssertFalse(out.contains("://") || out.contains(".com") || out.contains(".io"), "\(c["name"] ?? "")")
+            }
+        }
+        for r in S.list(data["report"]) {
+            let errors = (r["errors"] as? [Any] ?? []).map { $0 as? String }
+            let reason = (r["reason"] as? String).flatMap(RefreshFailure.init(rawValue:))
+            XCTAssertEqual(StoredError.reportDetail(errors, reason: reason), r["expected"] as? String, "\(r)")
+        }
+        // Übersetzte eigene Texte sagen nichts Neues
+        XCTAssertNil(StoredError.exchangeDetail(L("something_went_wrong")))
+    }
+
     /// Eigene, übersetzte Texte (nur iOS gespeichert) bleiben.
     func testLocalizedTextsKept() {
         XCTAssertEqual(StoredError.sanitize(L("something_went_wrong")), L("something_went_wrong"))

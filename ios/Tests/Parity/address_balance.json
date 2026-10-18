@@ -2584,9 +2584,9 @@
     "_comment": "Schritte nacheinander mit WatchedAddressRules.applyFetched. history = Eintraege fuer USDT und LINK aus AddressBalanceHistory.trades(of([Zustand nach Schritt 2])) (Reihenfolge der Reihen: ETH, dann Token nach Liste)."
   },
   "gapScan": {
-    "_comment": "XpubScan: Gap 20 (BIP44), Vorausblick 5, hoechstens 400 Anfragen. used = [[index, sats]] je Kette (benutzt = tx_count > 0), alle anderen Adressen unbenutzt mit 0 Sat. Erwartet: Anzahl Anfragen, Summe, benutzte Indizes, hoechster gefragter Index je Kette.",
+    "_comment": "XpubScan: Gap 20 (BIP44), Vorausblick im Vordergrund (QUICK) = volles Gap-Limit 20 (Build 76, vorher 5), hoechstens 400 Anfragen. used = [[index, sats]] je Kette (benutzt = tx_count > 0), alle anderen Adressen unbenutzt mit 0 Sat. Erwartet: Anzahl Anfragen, Summe, benutzte Indizes, hoechster gefragter Index je Kette.",
     "gap": 20,
-    "lookahead": 5,
+    "lookahead": 20,
     "maxRequests": 400,
     "fullScanMillis": 86400000,
     "cases": [
@@ -2735,7 +2735,7 @@
           ]
         },
         "expected": {
-          "requests": 31,
+          "requests": 46,
           "totalSats": 15,
           "usedReceive": [
             0,
@@ -2747,7 +2747,7 @@
             0
           ],
           "maxReceive": 27,
-          "maxChange": 5
+          "maxChange": 20
         }
       },
       {
@@ -2789,7 +2789,7 @@
           ]
         },
         "expected": {
-          "requests": 14,
+          "requests": 44,
           "totalSats": 9,
           "usedReceive": [
             0,
@@ -2799,8 +2799,8 @@
           "usedChange": [
             0
           ],
-          "maxReceive": 10,
-          "maxChange": 5
+          "maxReceive": 25,
+          "maxChange": 20
         }
       },
       {
@@ -2823,14 +2823,51 @@
           "1": []
         },
         "expected": {
-          "requests": 28,
+          "requests": 43,
           "totalSats": 9,
           "usedReceive": [
             2
           ],
           "usedChange": [],
           "maxReceive": 22,
-          "maxChange": 4
+          "maxChange": 19
+        }
+      },
+      {
+        "name": "schnell, benutzte 15 nach der letzten (Vorausblick 20 findet sie, 5 fand sie nicht)",
+        "mode": "QUICK",
+        "cache": {
+          "usedReceive": [
+            0
+          ],
+          "usedChange": [],
+          "receive": 20,
+          "change": 20,
+          "fullScan": 1760000000000
+        },
+        "used": {
+          "0": [
+            [
+              0,
+              1
+            ],
+            [
+              15,
+              7
+            ]
+          ],
+          "1": []
+        },
+        "expected": {
+          "requests": 56,
+          "totalSats": 8,
+          "usedReceive": [
+            0,
+            15
+          ],
+          "usedChange": [],
+          "maxReceive": 35,
+          "maxChange": 19
         }
       },
       {

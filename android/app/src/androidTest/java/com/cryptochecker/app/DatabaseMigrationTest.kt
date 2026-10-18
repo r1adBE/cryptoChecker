@@ -30,8 +30,10 @@ import org.junit.runner.RunWith
  *
  * Schema v3 entspricht `app/schemas/…/3.json`; v10/v12 entstehen daraus mit den App-Migrationen.
  * Schema v1 entspricht `app/schemas/…/1.json`: damit laufen auch MIGRATION_1_2 und MIGRATION_2_3
- * (die ganze Kette 1 → 15) durch Room. Die Schema-Dateien 4–15 (AppDatabase) und 1 (PortfolioDatabase)
- * schreibt der nächste Gradle-Build (Room-Plugin, exportSchema); sie gehören ins Repository.
+ * (die ganze Kette 1 → 15) durch Room. Im Repository liegen für AppDatabase nur 1–3 und ab 13 (13–16), für
+ * PortfolioDatabase alle (1–5). Die Schemata 4–12 der AppDatabase wurden nie exportiert: Ein Gradle-Build schreibt
+ * nur das Schema der aktuellen Version, die alten liessen sich nur durch Bauen der damaligen Stände zurückgewinnen —
+ * darum legen die Tests hier die alten Tabellen von Hand an.
  */
 @RunWith(AndroidJUnit4::class)
 class DatabaseMigrationTest {
@@ -611,6 +613,8 @@ class DatabaseMigrationTest {
                 assertEquals(0L, c.getLong(3))
             }
         }
+        // Übernommen: die Klartext-Kopie ist danach gelöscht (Build 76)
+        assertFalse(mirrorFile.exists())
         // Nur beim Anlegen: eine spätere Kopie ändert eine bestehende Datenbank nicht
         mirrorFile.writeText(com.cryptochecker.app.data.portfolio.PortfolioBackupMirror.encode(emptyList(), emptyList()))
         withPortfolio { _, portfolio -> assertEquals(1, count(portfolio, "portfolio_tx")) }
@@ -699,6 +703,68 @@ class DatabaseMigrationTest {
             room.close()
             main.close()
         }
+    }
+
+    /**
+     * Portfolio v4 → v5 (Build 76): Gebühr-Zeile und Zins als eigene Merker, einmal nach der früheren Regel abgeleitet —
+     * Verkauf zum Preis 0 MIT Herkunft = Gebühr-Zeile (auch «0.00»), von Hand zum Preis 0 nicht; Belohnung mit Notiz
+     * «Lending interest» = Zins, Staking nicht.
+     */
+    @Test
+    fun portfolioVersion4DerivesFeeRowAndInterestOnce() {
+        val config = SupportSQLiteOpenHelper.Configuration.builder(context)
+            .name(TEST_PORTFOLIO_DB)
+            .callback(object : SupportSQLiteOpenHelper.Callback(4) {
+                override fun onCreate(db: SupportSQLiteDatabase) {
+                    PORTFOLIO_V3_SCHEMA.forEach(db::execSQL)
+                    db.execSQL("ALTER TABLE `portfolio_tx` ADD COLUMN `giftToSpouse` INTEGER NOT NULL DEFAULT 0")
+                    db.execSQL("ALTER TABLE `portfolio_tx` ADD COLUMN `linkedImportKey` TEXT")
+                    db.execSQL("ALTER TABLE `portfolio_tx` ADD COLUMN `importRestoreState` TEXT")
+                }
+                override fun onUpgrade(db: SupportSQLiteDatabase, oldVersion: Int, newVersion: Int) = Unit
+            })
+            .build()
+        val helper = FrameworkSQLiteOpenHelperFactory().create(config)
+        helper.writableDatabase.apply {
+            val insert = "INSERT INTO portfolio_tx (id, coin, type, amount, priceUsdt, time, note, importKey) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
+            execSQL(insert, arrayOf<Any?>(1, "BTC", "SELL", "0.0001", "0", 10, "Fee", "KRAKEN|F1"))
+            execSQL(insert, arrayOf<Any?>(2, "BTC", "SELL", "0.0002", "0.00", 20, null, "BINANCE|F2"))
+            execSQL(insert, arrayOf<Any?>(3, "BTC", "SELL", "0.4", "0", 30, null, null))
+            execSQL(insert, arrayOf<Any?>(4, "BTC", "SELL", "0.1", "50000", 40, null, "KRAKEN|S4"))
+            execSQL(insert, arrayOf<Any?>(5, "ETH", "REWARD", "0.1", "2500", 50, "Lending interest", "KRAKEN|R5"))
+            execSQL(insert, arrayOf<Any?>(6, "ETH", "REWARD", "0.1", "2500", 60, "staking", "KRAKEN|R6"))
+            execSQL(insert, arrayOf<Any?>(7, "ETH", "BUY", "1", "2000", 70, "interest", null))
+        }
+        helper.close()
+
+        val main = Room.databaseBuilder(context, AppDatabase::class.java, TEST_DB)
+            .addMigrations(*AppDatabase.ALL_MIGRATIONS)
+            .build()
+        val room = Room.databaseBuilder(context, PortfolioDatabase::class.java, TEST_PORTFOLIO_DB)
+            .addMigrations(*PortfolioDatabase.ALL_MIGRATIONS)
+            .addCallback(PortfolioDatabase.callback(context, main, mirrorFile))
+            .build()
+        try {
+            // Room prüft nach der Migration das Schema gegen die Entity (zwei neue Spalten samt DEFAULT 0)
+            room.openHelper.writableDatabase
+            kotlinx.coroutines.runBlocking {
+                val all = room.getPortfolioDao().getAll().associateBy { it.id }
+                assertEquals(listOf(1L, 2L), all.values.filter { it.feeRow }.map { it.id }.sorted())
+                assertEquals(listOf(5L), all.values.filter { it.interest }.map { it.id })
+                // Danach zählt nur das Feld: Gebühr-Zeile bleibt eine, auch wenn die Herkunft fehlt
+                assertTrue(PortfolioLedgerCheck.isFeeRow(all.getValue(1).copy(importKey = null)))
+                assertFalse(PortfolioLedgerCheck.isFeeRow(all.getValue(3)))
+            }
+        } finally {
+            room.close()
+            main.close()
+        }
+    }
+
+    /** Gebühr-Zeile nach der Rechnung (über die Umwandlung in [com.cryptochecker.app.domain.portfolio.PortfolioTrade]). */
+    private object PortfolioLedgerCheck {
+        fun isFeeRow(t: com.cryptochecker.app.data.portfolio.PortfolioTxEntity): Boolean =
+            com.cryptochecker.app.domain.portfolio.PortfolioLedger.isFeeDisposal(t.toTrade())
     }
 
     // ── Helfer ──

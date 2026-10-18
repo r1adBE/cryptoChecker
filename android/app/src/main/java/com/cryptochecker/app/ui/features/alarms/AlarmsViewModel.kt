@@ -48,6 +48,8 @@ class AlarmsViewModel @Inject constructor(
     alarmCheckStatus: AlarmCheckStatus,
     /** «Pünktlich prüfen» nach dem ersten Alarm einmal anbieten ([ExactCheckOffer]). */
     private val exactScheduler: com.cryptochecker.app.work.ExactCheckScheduler,
+    /** Liquidität der DEX-Pools: zu wenig → kein Alarm ([com.cryptochecker.app.domain.watch.DexLiquidity]). */
+    dexLiquidityStore: com.cryptochecker.app.data.DexLiquidityStore,
 ) : ViewModel() {
 
     /** Alarme, die zuletzt nicht geprüft werden konnten (kein Devisenkurs/keine Kerzen), für den Hinweis. */
@@ -129,6 +131,17 @@ class AlarmsViewModel @Inject constructor(
 
     val alarms: StateFlow<List<AlarmEntity>> = watchRepository.observeAlarms(watchId)
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
+
+    /**
+     * DEX-Pool mit zu wenig oder unbekannter Liquidität ([com.cryptochecker.app.domain.watch.DexLiquidity]): Editor zu,
+     * Hinweis «Geringe Liquidität – kein Alarm»; bestehende Alarme bleiben, lösen aber nicht aus. null = noch nicht geladen
+     * (der Editor öffnet sich erst danach von selbst).
+     */
+    val lowLiquidity: StateFlow<Boolean?> = combine(watchRepository.observeWatch(watchId), dexLiquidityStore.liquidity) { w, levels ->
+        w != null && com.cryptochecker.app.domain.watch.DexLiquidity.blocksAlarms(
+            w.marketKey, com.cryptochecker.app.domain.watch.DexLiquidity.key(w.pairId)?.let { levels[it] },
+        )
+    }.distinctUntilChanged().stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
 
     /**
      * Paar hat (nach dem Laden) keinen Alarm: Der Bildschirm öffnet dann gleich den Editor

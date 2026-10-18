@@ -153,12 +153,25 @@ struct RefreshReportMarketRow: View {
                         .foregroundStyle(RefreshReportColors.text(status))
                         .fixedSize(horizontal: false, vertical: true)
                 }
+                if let exchangeDetail {
+                    Text(exchangeDetail)
+                        .font(.footnote)
+                        .foregroundStyle(AppColors.onSurfaceVariant)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
             }
         }
         .padding(.vertical, Spacing.md)
         // Screenreader: ein Satz je Börse («Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden»)
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(spokenText(status: status, issues: issues))
+    }
+
+    /// Meldung der Börse zur häufigsten Ursache (gekürzt, ohne Adressen) — nur hier; die Zeile der Merkliste zeigt
+    /// weiterhin den allgemeinen Text. Wie Android.
+    private var exchangeDetail: String? {
+        guard market.failed > 0, let detail = market.detail else { return nil }
+        return L("refresh_sheet_exchange_detail", detail)
     }
 
     private var pairsText: String {
@@ -208,7 +221,7 @@ struct RefreshReportMarketRow: View {
         case .failed: statusText = L("refresh_sheet_status_failed")
         }
         let secs = String(format: "%.1f", locale: Locale.current, Double(market.millis) / 1000)
-        return [market.name, statusText, pairsText, L("refresh_sheet_seconds_a11y", secs), issues]
+        return [market.name, statusText, pairsText, L("refresh_sheet_seconds_a11y", secs), issues, exchangeDetail ?? ""]
             .filter { !$0.isEmpty }
             .joined(separator: ", ")
     }
@@ -318,9 +331,9 @@ enum RefreshReportColors {
 }
 
 enum RefreshReportFormat {
-    /// «0,5 s» in der Sprache des Geräts.
+    /// «0,5 s» in der Sprache des Geräts, Einheit lokalisiert («0.5秒») — wie Android `seconds`.
     static func seconds(_ millis: Int64) -> String {
-        String(format: "%.1f s", locale: Locale.current, Double(millis) / 1000)
+        LocaleNumbers.seconds(millis)
     }
 
     /// Kurze Ursache in Klammern; nil für «sonstiger Fehler».

@@ -1,5 +1,5 @@
 {
-  "description": "Pairs no longer traded (Android NotTraded.kt / iOS NotTraded.swift): stored lastError -> isMarker and the 24 h change that is shown (null = dash). Only the exact marker text counts. askSingleWhenMissing: pair missing from a complete bulk list -> ask it once by single ticker (not again once marked). confirmedBySingle: single result -> mark not traded only if the exchange answered without a price (its error text, no data, HTTP 4xx except 401/403/407/408/418/429/451); network, timeout, rate limit, 5xx or missing adapter stay ordinary errors.",
+  "description": "Pairs no longer traded (Android NotTraded.kt / iOS NotTraded.swift): stored lastError -> isMarker and the 24 h change that is shown (null = dash). Only the exact marker text counts. askSingleWhenMissing: pair missing from a complete bulk list -> ask it once by single ticker (not again once marked). confirmedBySingle: single result -> mark not traded only on a clear statement about the pair: answer without a price (no data, no error text), an explicit unknown-instrument text (does not exist, unknown asset pair, invalid symbol ...) or HTTP 400/404; any other error (unreadable answer, unknown exception, network, timeout, rate limit, other 4xx, 5xx, missing adapter) stays an ordinary error.",
   "marker": "Wird an der Börse nicht mehr gehandelt",
   "cases": [
     {"lastError": "Wird an der Börse nicht mehr gehandelt", "change24h": 13.9, "isMarker": true, "shown": null},
@@ -31,6 +31,14 @@
     {"gotPrice": false, "error": "EQuery:Unknown asset pair", "confirmed": true},
     {"gotPrice": false, "error": "EGeneral:Too many requests", "confirmed": false},
     {"gotPrice": false, "error": "EAPI:Rate limit exceeded", "confirmed": false},
-    {"gotPrice": false, "error": "Too many visits!", "confirmed": false}
+    {"gotPrice": false, "error": "Too many visits!", "confirmed": false},
+    {"gotPrice": false, "error": "Invalid symbol.", "confirmed": true},
+    {"gotPrice": false, "error": "INVALID_CURRENCY_PAIR", "confirmed": true},
+    {"gotPrice": false, "error": "Value <html> of type java.lang.String cannot be converted to JSONObject", "confirmed": false},
+    {"gotPrice": false, "error": "Unknown error (empty)", "confirmed": false},
+    {"gotPrice": false, "error": "Something went wrong", "confirmed": false},
+    {"gotPrice": false, "error": "HttpCode: 410", "confirmed": false},
+    {"gotPrice": false, "error": "HTTP 422", "confirmed": false},
+    {"gotPrice": false, "error": "   ", "confirmed": true}
   ]
 }

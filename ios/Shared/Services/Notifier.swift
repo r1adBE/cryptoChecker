@@ -164,6 +164,11 @@ enum Notifier {
     static func priceId(_ watchId: Int64) -> String { "price-\(watchId)" }
     static func alarmId(_ alarmId: Int64) -> String { "alarm-\(alarmId)" }
 
+    /// Gezeigte Mitteilung eines Paar-Alarms entfernen (Alarm liess sich nach dem Melden nicht speichern).
+    static func cancelAlarm(_ id: Int64) {
+        center.removeDeliveredNotifications(withIdentifiers: [alarmId(id)])
+    }
+
     /// Kurs-Mitteilung nach einer bewussten Handlung (Paar-Mitteilung ein, «Alle an»): einziger Weg dafür —
     /// nur mit Kurs-Mitteilungen an (`PriceNotificationRule.showNow`), wie Android `AppNotifier.showPriceNow`.
     /// - Returns: true = gezeigt.
@@ -186,7 +191,7 @@ enum Notifier {
         content.sound = nil
         content.threadIdentifier = "prices"
         content.userInfo = [userInfoWatchId: NSNumber(value: watch.id)]
-        if #available(iOS 15.0, *) { content.interruptionLevel = .passive }
+        content.interruptionLevel = .passive
         post(id: priceId(watch.id), content: content)
     }
 
@@ -238,7 +243,7 @@ enum Notifier {
         content.categoryIdentifier = watch.isNotTraded ? categoryAlarm : categoryAlarmWhy
         content.threadIdentifier = "alarms"
         content.userInfo = [userInfoWatchId: NSNumber(value: watch.id)]
-        if #available(iOS 15.0, *) { content.interruptionLevel = .timeSensitive }
+        content.interruptionLevel = .timeSensitive
         applyQuietHours(content, settings)
         badge(content, settings)
         return await postConfirmed(id: alarmId(alarm.id), content: content)
@@ -263,7 +268,7 @@ enum Notifier {
         content.categoryIdentifier = settings.appLock ? categoryPortfolioLocked : categoryAlarm
         content.threadIdentifier = "alarms"
         content.userInfo = ["open": "portfolio"]
-        if #available(iOS 15.0, *) { content.interruptionLevel = .timeSensitive }
+        content.interruptionLevel = .timeSensitive
         applyQuietHours(content, settings)
         badge(content, settings)
         return await postConfirmed(id: portfolioAlarmId(alarm.id), content: content)
@@ -281,7 +286,7 @@ enum Notifier {
         content.sound = settings.alarmSignal.notificationSound(tone: settings.alarmSound)
         content.categoryIdentifier = categoryAlarm
         content.threadIdentifier = "alarms"
-        if #available(iOS 15.0, *) { content.interruptionLevel = .timeSensitive }
+        content.interruptionLevel = .timeSensitive
         post(id: testAlarmId, content: content)
     }
 
@@ -300,7 +305,7 @@ enum Notifier {
         content.sound = .default
         content.threadIdentifier = "activity"
         content.userInfo = [userInfoWatchId: NSNumber(value: watch.id)]
-        if #available(iOS 15.0, *) { content.interruptionLevel = .active }
+        content.interruptionLevel = .active
         let settings = SharedStorage.loadSettings()
         applyQuietHours(content, settings)
         badge(content, settings)
@@ -380,7 +385,7 @@ enum Notifier {
         content.categoryIdentifier = categoryDepeg
         content.threadIdentifier = "alarms"
         content.userInfo = [userInfoExchangeUrl: exchangeUrl]
-        if #available(iOS 15.0, *) { content.interruptionLevel = .timeSensitive }
+        content.interruptionLevel = .timeSensitive
         applyQuietHours(content, settings)
         badge(content, settings)
         return await postChecked(id: depegId, content: content)
@@ -395,7 +400,7 @@ enum Notifier {
     static func applyQuietHours(_ content: UNMutableNotificationContent, _ settings: AppSettings, date: Date = Date()) {
         guard QuietHours.isQuietNow(settings, date: date) else { return }
         content.sound = nil
-        if #available(iOS 15.0, *) { content.interruptionLevel = .passive }
+        content.interruptionLevel = .passive
     }
 }
 

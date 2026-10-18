@@ -100,6 +100,23 @@ final class PortfolioNumbersTests: XCTestCase {
         XCTAssertEqual(delta?.percent ?? .nan, 5, accuracy: d)
     }
 
+    /// Build 76: Live-Kurs USDT/USD — bestätigter Einbruch zählt, Tagesschlüsse bleiben im Normalbereich. Wie Android.
+    func testUsdtUsdLiveKeepsConfirmedBreak() {
+        XCTAssertEqual(PortfolioStables.usdtUsdLive(0.3), UsdtUsd(rate: 0.3, approximate: false))
+        XCTAssertEqual(PortfolioStables.usdtUsdLive(2.0), UsdtUsd(rate: 2.0, approximate: false))
+        XCTAssertEqual(PortfolioStables.usdtUsdLive(0.04), PortfolioStables.usdtUsdFallback)
+        XCTAssertEqual(PortfolioStables.usdtUsdLive(3.5), PortfolioStables.usdtUsdFallback)
+        XCTAssertEqual(PortfolioStables.usdtUsdLive(nil), PortfolioStables.usdtUsdFallback)
+        // Tagesschluss (eine Quelle, kein Abgleich): 0.3 bleibt unplausibel
+        XCTAssertEqual(PortfolioStables.usdtUsd(0.3), PortfolioStables.usdtUsdFallback)
+        // Heute gilt der Live-Kurs auch im Einbruch, frühere Tage nur ein plausibler Schluss
+        let rates = UsdtUsdRates(live: 0.3, daily: [5: 0.3])
+        XCTAssertEqual(rates.on(7, todayEpochDay: 7).rate, 0.3)
+        XCTAssertTrue(rates.on(5, todayEpochDay: 7).approximate)
+        XCTAssertTrue(PortfolioStables.isUsdtBreak(0.3))
+        XCTAssertFalse(PortfolioStables.isUsdtBreak(0.99))
+    }
+
     func testConversionUsesPortfolioStableRule() {
         // ≈-Zeile der Merkliste: gleiche Regel wie das Portfolio (wie CurrencyConversionTest.kt)
         XCTAssertEqual(CurrencyConversion.stableToUsd("USDT", marketUsdt: 0.98), 1)

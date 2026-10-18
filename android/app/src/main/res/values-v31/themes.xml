@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Ab Android 12 zeichnet das System den Startbildschirm. Kein festes Icon (@null): Dann nimmt
+         das System das Icon des gestarteten Launcher-Alias, also das in der gewählten Akzentfarbe. -->
+    <style name="Theme.CryptoChecker.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/splash_background</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@null</item>
+        <item name="postSplashScreenTheme">@style/Theme.CryptoChecker</item>
+    </style>
+</resources>

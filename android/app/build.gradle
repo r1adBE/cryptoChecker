@@ -25,7 +25,7 @@ android {
         minSdk min_sdk_version
         targetSdk target_sdk_version
 
-        versionCode 75
+        versionCode 76
         versionName "16.2.2"
 
         // Instrumentierte Tests mit Hilt (HiltTestApplication); betrifft nur androidTest
@@ -89,6 +89,17 @@ android {
     }
 }
 
+// HttpLogInterceptorProvider: Debug hat ihn in src/debug (mit logging-interceptor), alle anderen
+// Build-Typen — Release und die vom Baseline-Profile-Plugin abgeleiteten (nonMinifiedRelease,
+// benchmarkRelease) — die leere Fassung ohne Mitschnitt.
+androidComponents {
+    onVariants(selector().all()) { variant ->
+        if (variant.buildType != 'debug') {
+            variant.sources.java?.addStaticSourceDirectory('src/withoutHttpLog/java')
+        }
+    }
+}
+
 // Room schreibt sein Schema hierhin; unter KSP geht das nur über das Room-Plugin.
 room {
     schemaDirectory "$projectDir/schemas"
@@ -100,6 +111,7 @@ dependencies {
     implementation project(':marketdata')
 
     implementation "androidx.core:core-ktx:$core_ktx_version"
+    implementation "androidx.core:core-splashscreen:$splashscreen_version"
     implementation "androidx.appcompat:appcompat:$appcompat_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine_version"
 
@@ -138,7 +150,9 @@ dependencies {
 
     // Netzwerk
     implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
-    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
+    // HTTP-Mitschnitt (Entwickler-Protokoll) nur im Debug-Build; die übrigen Build-Typen bekommen
+    // stattdessen src/withoutHttpLog (siehe androidComponents unten)
+    debugImplementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
 
     // Hintergrund-Aktualisierung (Kurse, Alarme, Widgets)
     implementation "androidx.work:work-runtime-ktx:$work_version"

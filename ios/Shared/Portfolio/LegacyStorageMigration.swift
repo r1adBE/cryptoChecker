@@ -10,6 +10,21 @@ import Foundation
 ///    unlesbar → keiner (die Schlüssel werden trotzdem getrennt).
 /// Werte ohne alte Form kommen unverändert zurück — die Umstellung ist beliebig oft anwendbar.
 enum LegacyStorageMigration {
+    /// Gebühr-Zeile nach der Regel bis Build 75: ein Verkauf zum Preis 0 MIT Import-Herkunft. Seit Build 76 steht das im
+    /// eigenen Feld `feeRow`; diese Regel leitet es nur noch einmal ab (Datei bzw. Sicherung ohne das Feld). Wie Android
+    /// `legacyFeeRow`.
+    static func legacyFeeRow(_ type: PortfolioTxType?, importKey: String?, price: Decimal?) -> Bool {
+        guard type == .SELL, let key = importKey, !key.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
+              let price else { return false }
+        return price == 0
+    }
+
+    /// Zins (Lending) nach der Regel bis Build 75: Belohnung, deren Notiz «interest», «lending», «Zins» … nennt
+    /// (`TaxEngines.interestReward`). Seit Build 76 eigenes Feld `interest`. Wie Android `legacyInterest`.
+    static func legacyInterest(_ type: PortfolioTxType?, note: String?) -> Bool {
+        type == .REWARD && TaxEngines.interestReward(note)
+    }
+
 
     /// Merker im Feld «nach» einer Schenkung (Build 56/57).
     static let spouseMarker = "@spouse"

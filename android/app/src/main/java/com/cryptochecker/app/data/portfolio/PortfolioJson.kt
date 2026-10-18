@@ -60,6 +60,10 @@ object PortfolioJson {
         .put("giftToSpouse", t.giftToSpouse && t.type == PortfolioTxType.GIFT)
         .put("linkedImportKey", t.linkedImportKey ?: JSONObject.NULL)
         .put("importRestoreState", t.importRestoreState?.toJson() ?: JSONObject.NULL)
+        // Build 76 (Portfolio-Datenbank v5): Gebühr-Zeile und Zins als eigene Merker. Ältere Versionen ignorieren sie und
+        // schliessen wie bisher aus Preis 0 + Herkunft bzw. aus der Notiz (beides bleibt gespeichert)
+        .put("feeRow", t.feeRow && t.type == PortfolioTxType.SELL)
+        .put("interest", t.interest && t.type == PortfolioTxType.REWARD)
 
     /** Gelesene Einträge und wie viele ungültig waren (nicht übernommen). */
     data class Parsed<T>(val items: List<T>, val invalid: Int)
@@ -108,15 +112,17 @@ object PortfolioJson {
             ),
         )
         val linkedImportKey = stored.linkedImportKey?.takeIf { stored.importKey != null }
+        val price = decimal(o, "priceText", "priceUsdt")?.takeIf { it.signum() >= 0 }
+        val note = if (o.isNull("note")) null else o.optString("note").trim().take(NOTE_MAX).trim().takeIf { it.isNotEmpty() }
         return PortfolioTxEntity(
             id = o.optLong("id", 0L).coerceAtLeast(0L),
             coin = coin,
             type = type,
             amount = amount,
-            priceUsdt = decimal(o, "priceText", "priceUsdt")?.takeIf { it.signum() >= 0 },
+            priceUsdt = price,
             time = o.optLong("time", System.currentTimeMillis()),
             // Höchstens 120 Zeichen wie die Notiz in der Merkliste
-            note = if (o.isNull("note")) null else o.optString("note").trim().take(NOTE_MAX).trim().takeIf { it.isNotEmpty() },
+            note = note,
             fee = fee,
             feeUnit = fee?.let { PortfolioFeeUnit.fromName(if (o.isNull("feeUnit")) null else o.optString("feeUnit")).name },
             exchange = if (o.isNull("exchange")) null else cleanExchange(o.optString("exchange")),
@@ -134,6 +140,11 @@ object PortfolioJson {
             giftToSpouse = stored.giftToSpouse && type == PortfolioTxType.GIFT,
             linkedImportKey = linkedImportKey,
             importRestoreState = stored.importRestoreState?.takeIf { linkedImportKey != null },
+            // Fehlen die Merker (Sicherung bis Build 75), einmal nach der früheren Regel ableiten
+            feeRow = type == PortfolioTxType.SELL &&
+                (if (o.has("feeRow")) o.optBoolean("feeRow", false) else LegacyStorageMigration.legacyFeeRow(type, stored.importKey, price)),
+            interest = type == PortfolioTxType.REWARD &&
+                (if (o.has("interest")) o.optBoolean("interest", false) else LegacyStorageMigration.legacyInterest(type, note)),
         )
     }
 

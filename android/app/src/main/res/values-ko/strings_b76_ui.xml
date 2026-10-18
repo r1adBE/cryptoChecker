@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="explorer_bulk_show_all">모두 보기(%1$d)</string>
+    <string name="log_box_title">로그</string>
+    <string name="watchlist_first_alarm_title">첫 경보 설정</string>
+    <string name="watchlist_first_alarm_text">가격이 정한 기준에 도달하면 바로 알려 드립니다.</string>
+</resources>

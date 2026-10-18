@@ -110,6 +110,14 @@ struct PortfolioTx: Codable, Identifiable, Hashable, Sendable {
     /// Verknüpfte Umbuchung aus einer gespeicherten Transaktion: deren Zustand davor samt der darin aufgegangenen neuen Zeile
     /// (`CsvRestoreState`) für «Import rückgängig»; sonst nil. Wie `PortfolioTxEntity.importRestoreState`.
     var importRestoreState: CsvRestoreState? = nil
+    /// Gebühr-Zeile (CSV «Fee»): eine Veräusserung zum Tageskurs (`PortfolioLedger.isFeeDisposal`), gespeichert als Verkauf.
+    /// Eigenes Feld seit Build 76 — bis dahin aus «Verkauf zum Preis 0 mit Import-Herkunft» geschlossen
+    /// (`LegacyStorageMigration.legacyFeeRow`). Nur bei `.SELL`. Wie `PortfolioTxEntity.feeRow`.
+    var feeRow = false
+    /// Belohnung ist ein Zins (Lending) — AT: Einkunft beim Zufluss, Anschaffungskosten = Wert. Eigenes Feld seit Build 76
+    /// (CSV-Import setzt es, im Erfassen-Blatt umschaltbar) — bis dahin aus der Notiz geschlossen
+    /// (`LegacyStorageMigration.legacyInterest`). Nur bei `.REWARD`. Wie `PortfolioTxEntity.interest`.
+    var interest = false
     /// Wert nur geschätzt (Tagesschluss, `PortfolioLedger.valueAtDayClose`): Verschenkt/bezahlt ohne Marktwert bzw. Tausch
     /// ohne Wert — Steuer-Export «Wert geschätzt (Tagesschluss)». Nie gespeichert (nicht in `CodingKeys`). Wie Android.
     var valueEstimated = false
@@ -117,8 +125,7 @@ struct PortfolioTx: Codable, Identifiable, Hashable, Sendable {
     /// Merker, Vermerk «Schenkung»). Nie gespeichert. Wie Android.
     var fromGift = false
 
-    /// Aus einem CSV-Import (`importKey` gesetzt) — nur so ist ein Verkauf zum Preis 0 eine Gebühr-Zeile
-    /// (`PortfolioLedger.isFeeDisposal`). Wie Android `PortfolioTrade.imported`.
+    /// Aus einem CSV-Import (`importKey` gesetzt). Wie Android `PortfolioTrade.imported`.
     var imported: Bool { !(importKey?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true) }
 
     /// Zeitpunkt des Erwerbs (FIFO-Reihenfolge, Haltedauer, Devisenkurs des Einstands): bei einer Einzahlung
@@ -190,6 +197,8 @@ struct PortfolioTx: Codable, Identifiable, Hashable, Sendable {
         case toCoin, toAmountText, swapValueText, importBatch
         // Seit Build 58 (eigene Felder statt der alten Formen in «transferTo»/«importKey», `LegacyStorageMigration`)
         case giftToSpouse, linkedImportKey, importRestoreState
+        // Seit Build 76 (eigene Merker statt Schluss aus Preis/Herkunft bzw. Notiz)
+        case feeRow, interest
     }
 
     /// Höchstlänge des Herkunftsschlüssels — wie `PortfolioJson.MAX_IMPORT_KEY` (Android).
@@ -404,6 +413,18 @@ struct PortfolioTx: Codable, Identifiable, Hashable, Sendable {
             }
         }
         importBatch = PortfolioImportBatch.clean((try? c.decodeIfPresent(String.self, forKey: .importBatch)) ?? nil)
+        // Fehlen die Merker (Datei bzw. Sicherung bis Build 75), einmal nach der früheren Regel ableiten — das nächste
+        // Speichern schreibt sie
+        if let flag = (try? c.decodeIfPresent(Bool.self, forKey: .feeRow)) ?? nil {
+            feeRow = flag && type == .SELL
+        } else {
+            feeRow = LegacyStorageMigration.legacyFeeRow(type, importKey: importKey, price: priceExact)
+        }
+        if let flag = (try? c.decodeIfPresent(Bool.self, forKey: .interest)) ?? nil {
+            interest = flag && type == .REWARD
+        } else {
+            interest = LegacyStorageMigration.legacyInterest(type, note: note)
+        }
         guard !coin.isEmpty, amountExact > 0 else {
             throw DecodingError.dataCorruptedError(forKey: .amount, in: c, debugDescription: "Ungültige Transaktion")
         }
@@ -440,6 +461,9 @@ struct PortfolioTx: Codable, Identifiable, Hashable, Sendable {
         if isGiftToSpouse { try c.encode(true, forKey: .giftToSpouse) }
         try c.encodeIfPresent(linkedImportKey, forKey: .linkedImportKey)
         try c.encodeIfPresent(importRestoreState, forKey: .importRestoreState)
+        // Immer geschrieben (auch false): ohne Feld schlösse eine andere Version wieder nach der früheren Regel
+        try c.encode(feeRow && type == .SELL, forKey: .feeRow)
+        try c.encode(interest && type == .REWARD, forKey: .interest)
     }
 }
 
@@ -536,19 +560,29 @@ enum PortfolioStore {
         return true
     }
 
-    /// Schreibt die Datei und setzt danach das Backup-Merkmal neu (das atomare Schreiben ersetzt die
-    /// Datei und verliert es). `includeInBackup` = Einstellung «Portfolio in Systemsicherung».
-    /// - Returns: false, wenn nicht geschrieben (Kodieren oder Schreiben gescheitert).
+    /// Ergebnis von `save`.
+    enum SaveResult: Equatable {
+        case saved
+        /// Kein Schlüssel (Schlüsselbund gerade nicht lesbar): nicht geschrieben, nie im Klartext — der Aufrufer behält
+        /// den Stand und versucht es beim nächsten Speichern bzw. wenn die App wieder vorne ist.
+        case needsKey
+        case failed
+    }
+
+    /// Schreibt die Datei versiegelt (`requireSealed`) und setzt danach das Backup-Merkmal neu (das atomare Schreiben
+    /// ersetzt die Datei und verliert es). `includeInBackup` = Einstellung «Portfolio in Systemsicherung».
     @discardableResult
-    static func save(_ file: PortfolioFile, includeInBackup: Bool) -> Bool {
-        guard let data = try? JSONEncoder().encode(file) else { return false }
+    static func save(_ file: PortfolioFile, includeInBackup: Bool, keys: StorageKey = .shared) -> SaveResult {
+        guard let data = try? JSONEncoder().encode(file) else { return .failed }
         do {
-            try ProtectedFile.write(data, to: url)
+            try ProtectedFile.write(data, to: url, keys: keys, requireSealed: true)
+        } catch ProtectedFile.ReadError.locked {
+            return .needsKey
         } catch {
-            return false
+            return .failed
         }
         BackupExclusion.set(excluded: !includeInBackup, for: url)
-        return true
+        return .saved
     }
 
     /// Dateien mit Portfolio-Daten, die dem Schalter folgen: Transaktionen, Portfolio-Alarme

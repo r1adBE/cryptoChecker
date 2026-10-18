@@ -3905,7 +3905,8 @@
           "amount": "0.2",
           "price": "0",
           "importKey": "csv:fee:3906",
-          "time": 172800000
+          "time": 172800000,
+          "feeRow": true
         }
       ],
       "expected": {
@@ -7313,7 +7314,8 @@
           "amount": "0.2",
           "price": "0",
           "importKey": "csv:fee:6671",
-          "time": 172800000
+          "time": 172800000,
+          "feeRow": true
         }
       ],
       "market": {

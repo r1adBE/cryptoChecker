@@ -43,6 +43,9 @@ struct MarketRefresh: Codable, Sendable, Equatable {
     var pausedUntil: Int64? = nil
     /// Grund der Pause: `.RATE_LIMIT` oder `.TIMEOUT`.
     var pauseReason: RefreshFailure? = nil
+    /// Kurzer Fehlertext der Börse zur häufigsten Ursache (`StoredError.reportDetail`, z. B. «Invalid symbol.»), ohne
+    /// Adressen und Schlüssel; nil = nur die allgemeine Ursache. Steht nur im Bericht, nie in der Zeile.
+    var detail: String? = nil
 }
 
 /// Grün / Orange / Rot (Reihenfolge = Schwere, wie `ordinal` in Kotlin).

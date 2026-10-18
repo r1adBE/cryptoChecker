@@ -11,6 +11,10 @@ struct CheckRunsCard: View {
     var body: some View {
         SettingsCard(title: L("settings_check_runs_title")) {
             SettingsHint(text: L("settings_check_runs_honest_ios"), top: 4)
+            // Ohne App Group sehen Widgets und Hintergrund-Aufgabe die Daten der App nicht (Fehler der Installation)
+            if !SharedStorage.isAppGroupAvailable {
+                SettingsHint(text: L("ios_storage_app_group_missing"))
+            }
             if runs.isEmpty {
                 SettingsHint(text: L("settings_check_runs_empty"))
             }

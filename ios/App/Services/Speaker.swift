@@ -110,7 +110,7 @@ final class Speaker: NSObject, AVSpeechSynthesizerDelegate {
         let clamped = min(max(rate, 0.5), 2.0)
         utterance.rate = Float(AVSpeechUtteranceDefaultSpeechRate) * Float(clamped)
         utterance.rate = min(max(utterance.rate, AVSpeechUtteranceMinimumSpeechRate), AVSpeechUtteranceMaximumSpeechRate)
-        let lang = Bundle.main.preferredLocalizations.first ?? Locale.current.identifier
+        let lang = SpokenText.ttsLanguage
         utterance.voice = AVSpeechSynthesisVoice(language: lang) ?? AVSpeechSynthesisVoice(language: Locale.current.identifier)
         return utterance
     }

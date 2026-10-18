@@ -1,6 +1,9 @@
 # Updates docs/macro/events.json (US economic release dates for the app's
 # "Wirtschaftsdaten" hint) from the official BLS, Federal Reserve and BEA pages.
 # Served by GitHub Pages at https://r1adbe.github.io/cryptoChecker/macro/events.json
+# Health check: a source failing on 2+ consecutive runs (counters in docs/macro/status.json) or an
+# event type without dates newer than 14 days opens/updates ONE issue "Macro calendar check failed"
+# (closed again once healthy). The job stays green for that; red only if the script itself fails.
 name: Macro calendar
 
 on:
@@ -22,6 +25,7 @@ jobs:
     permissions:
       contents: write   # commit and push docs/macro
       pages: write      # request a Pages build
+      issues: write     # health-check issue (macro_calendar.py)
     timeout-minutes: 10
     steps:
       # The token is not stored in .git/config, so the build step (third-party web pages)
@@ -33,6 +37,8 @@ jobs:
       - name: Build events.json
         env:
           PYTHONDONTWRITEBYTECODE: '1'
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
         run: python3 .github/scripts/macro_calendar.py --output docs/macro/events.json
 
       - name: Commit if changed
@@ -48,7 +54,8 @@ jobs:
           # Public commit identity: GitHub noreply address only, never a private email.
           git config user.name 'r1AD'
           git config user.email '68864596+r1adBE@users.noreply.github.com'
-          git add docs/macro/events.json
+          # events.json and the failure counters status.json (health check)
+          git add -A docs/macro
           git commit -m "Update macro calendar ($(date -u +%Y-%m-%d))"
           # checkout ran with persist-credentials: false, so pass the token for this step only
           AUTH=$(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)

@@ -44,6 +44,11 @@ struct CycleScreen: View {
                 .onChange(of: router.marketJump) { _, _ in handleJump(proxy) }
                 .onChange(of: viewModel.revealed) { _, _ in handleJump(proxy) }
                 .onAppear { handleJump(proxy) }
+                // Tab «Markt» noch einmal getippt: nach oben
+                .onChange(of: router.scrollToTop) { _, request in
+                    guard request?.tab == .cycle else { return }
+                    withAnimation { proxy.scrollTo(Self.topId, anchor: .top) }
+                }
         }
         .background(AppColors.background.ignoresSafeArea())
         .refreshable { await viewModel.refreshAll() }

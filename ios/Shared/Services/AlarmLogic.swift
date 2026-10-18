@@ -482,8 +482,14 @@ enum AlarmTexts {
 /// Sätze für die Sprachausgabe — wie `SpokenText.kt`.
 enum SpokenText {
     static func price(_ watch: Watch, _ price: Double) -> String {
-        L("tts_price", marketName(watch), watch.baseAsset, watch.quoteAsset, PriceFormat.spokenPrice(price))
+        L("tts_price", marketName(watch), watch.baseAsset, watch.quoteAsset, PriceFormat.spokenPrice(price, locale: ttsLocale))
     }
+
+    /// Sprache der Ansagen: die der App (Sätze aus dem Katalog); `Speaker` wählt dieselbe Stimme. Wie Android
+    /// `SpokenText.ttsLocale`.
+    static var ttsLanguage: String { Bundle.main.preferredLocalizations.first ?? Locale.current.identifier }
+
+    static var ttsLocale: Locale { Locale(identifier: ttsLanguage) }
 
     static func alarm(_ watch: Watch, _ condition: AlarmCondition, _ price: Double) -> String {
         let direction: String
@@ -499,7 +505,8 @@ enum SpokenText {
         case .OI_UP: direction = L("tts_direction_oi_up")
         case .OI_DOWN: direction = L("tts_direction_oi_down")
         }
-        return L("tts_alarm", marketName(watch), watch.baseAsset, watch.quoteAsset, direction, PriceFormat.spokenPrice(price))
+        return L("tts_alarm", marketName(watch), watch.baseAsset, watch.quoteAsset, direction,
+                 PriceFormat.spokenPrice(price, locale: ttsLocale))
     }
 
     private static func marketName(_ watch: Watch) -> String {

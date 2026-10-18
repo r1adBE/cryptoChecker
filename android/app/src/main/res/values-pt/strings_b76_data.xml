@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Build 76: USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <string name="portfolio_usdt_break">Colapso do USDT – mercado a %1$s USD</string>
+    <string name="portfolio_usdt_via_usdc">USDT/USD via USDC/USDT (USDC = 1 assumido)</string>
+    <string name="dex_low_liquidity_no_alarm">Liquidez baixa – sem alarme</string>
+    <string name="dex_low_liquidity_alarm_hint">Este pool tem menos de 10 000 USD de liquidez (ou sem indicação). Pequenos montantes bastam para mexer no preço, por isso aqui não é possível definir alarmes. Os alarmes existentes mantêm-se, mas só disparam quando a liquidez voltar a subir.</string>
+    <string name="portfolio_csv_skip_duplicate_txid_different">mesmo ID de transação com montante diferente – verificar manualmente</string>
+    <string name="portfolio_csv_skip_staking_unpaired">lançamento de staking sem contrapartida – verificar saldo</string>
+    <string name="portfolio_amount_bridged_stable">≈ incl. %1$s (em ponte)</string>
+</resources>

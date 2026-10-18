@@ -14,6 +14,7 @@ import com.cryptochecker.app.ui.theme.AppColors
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.gestures.detectDragGesturesAfterLongPress
 import androidx.compose.foundation.layout.Arrangement
@@ -46,6 +47,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
@@ -114,6 +116,53 @@ private fun GestureHint(onDismiss: () -> Unit) {
 }
 
 /**
+ * Karte «Ersten Alarm setzen» ([com.cryptochecker.app.domain.watch.FirstAlarmCard]): ganze Karte
+ * antippbar (öffnet die Alarme des ersten Paars, ohne Alarm gleich den Editor), ✕ schliesst sie für immer.
+ */
+@Composable
+private fun FirstAlarmCardView(onSetAlarm: () -> Unit, onDismiss: () -> Unit) {
+    val title = stringResource(R.string.watchlist_first_alarm_title)
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(MaterialTheme.shapes.medium)
+            .background(AppColors.accentTint(0.12f))
+            .clickable(onClickLabel = title, role = Role.Button, onClick = onSetAlarm)
+            .padding(start = Spacing.md, top = Spacing.sm, bottom = Spacing.sm)
+    ) {
+        Icon(
+            painterResource(R.drawable.ic_notifications_active_outline),
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.primary,
+            modifier = Modifier.size(20.dp)
+        )
+        Column(modifier = Modifier.weight(1f).padding(start = Spacing.sm)) {
+            Text(
+                text = title,
+                style = MaterialTheme.typography.bodyMedium,
+                fontWeight = FontWeight.SemiBold,
+                color = MaterialTheme.colorScheme.primary,
+            )
+            Text(
+                text = stringResource(R.string.watchlist_first_alarm_text),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurface,
+                modifier = Modifier.padding(top = 2.dp)
+            )
+        }
+        IconButton(onClick = onDismiss) {
+            Icon(
+                painterResource(R.drawable.ic_close),
+                contentDescription = stringResource(R.string.action_close),
+                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.size(18.dp)
+            )
+        }
+    }
+}
+
+/**
  * Die scrollende Liste unter dem festen Kopf: Puls, Hinweise, leere Zustände und die Paare
  * ([row] je Paar). «Hier passiert gerade etwas» ist keine Karte mehr, sondern der ⚡-Chip bei
  * den Gruppen ([GroupChips]). Kein schwebender Plus-Knopf: Hinzufügen läuft über
@@ -131,6 +180,9 @@ internal fun WatchlistList(
     sortMode: Boolean,
     showGestureHint: Boolean,
     onDismissGestureHint: () -> Unit,
+    /** Karte «Ersten Alarm setzen»: Tipp öffnet den Alarm-Editor; null = keine Karte. */
+    onSetFirstAlarm: (() -> Unit)? = null,
+    onDismissFirstAlarm: () -> Unit = {},
     /** Suche ohne Treffer. */
     noSearchMatch: Boolean,
     query: String,
@@ -160,6 +212,13 @@ internal fun WatchlistList(
         if (pulse != null) {
             item(key = "pulse") {
                 WatchPulseLine(pulse = pulse, modifier = Modifier.animateItem().padding(bottom = ListSegment.Spacing))
+            }
+        }
+        if (onSetFirstAlarm != null) {
+            item(key = "first_alarm") {
+                Box(Modifier.animateItem().padding(bottom = ListSegment.Spacing)) {
+                    FirstAlarmCardView(onSetAlarm = onSetFirstAlarm, onDismiss = onDismissFirstAlarm)
+                }
             }
         }
         if (sortBar != null) {

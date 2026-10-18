@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Startbildschirm: gleiche Fläche wie die App (surface hell #FBF9F6, AppColorSchemes.kt),
+         damit der Übergang zum ersten Bild nicht blitzt. Dunkel: values-night. -->
+    <color name="splash_background">#FBF9F6</color>
+</resources>

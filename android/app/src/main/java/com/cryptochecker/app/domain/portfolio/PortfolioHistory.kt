@@ -1,5 +1,6 @@
 package com.cryptochecker.app.domain.portfolio
 
+import java.math.BigDecimal
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.roundToInt
@@ -239,18 +240,34 @@ object PortfolioHistory {
         coin: String,
         trades: List<PortfolioTrade>,
         method: CostMethod = CostMethod.DEFAULT,
-    ): List<Pair<Long, Double>> {
+    ): List<Pair<Long, Double>> = holdingsTimelineExact(coin, trades, method).map { (time, holdings) -> time to holdings.toDouble() }
+
+    /** [holdingsTimeline] exakt ([PortfolioDecimal]): der Verlauf multipliziert damit, ohne Gleitkomma-Rundung der Menge. */
+    internal fun holdingsTimelineExact(
+        coin: String,
+        trades: List<PortfolioTrade>,
+        method: CostMethod = CostMethod.DEFAULT,
+    ): List<Pair<Long, BigDecimal>> {
         // Alle Arten und Gebühren im dritten Coin wie der Rechner ([PortfolioHoldingsBook])
         val events = PortfolioLedger.events(coin, trades)
-        // Exakt gezählt ([PortfolioDecimal]), als Double für die Bewertung mit Kursen
         val book = PortfolioHoldingsBook(method)
-        val out = ArrayList<Pair<Long, Double>>(events.size)
+        val out = ArrayList<Pair<Long, BigDecimal>>(events.size)
         for (e in events) {
             if (e.trade.amount.signum() <= 0) continue
             book.apply(e)
-            out += e.trade.time to book.total.toDouble()
+            out += e.trade.time to book.total
         }
         return out
+    }
+
+    /** Exakter Bestand zum Zeitpunkt [atMillis] (einschliesslich) aus [holdingsTimelineExact]. */
+    private fun holdingsAtExact(timeline: List<Pair<Long, BigDecimal>>, atMillis: Long): BigDecimal {
+        var result = BigDecimal.ZERO
+        for ((time, holdings) in timeline) {
+            if (time > atMillis) break
+            result = holdings
+        }
+        return result
     }
 
     /** Bestand zum Zeitpunkt [atMillis] (einschliesslich) aus [holdingsTimeline]. */
@@ -305,7 +322,9 @@ object PortfolioHistory {
         val capped = isCapped(range, firstTime, todayEpochDay, dayEndMillis)
 
         val coins = PortfolioLedger.coins(valid).sorted()
-        val timelines = coins.associateWith { holdingsTimeline(it, valid, method) }
+        // Bestände exakt (Wert = Menge × Kurs ohne Gleitkomma-Rundung der Menge); als Double nur für die Prüfungen «gehalten»
+        val exactTimelines = coins.associateWith { holdingsTimelineExact(it, valid, method) }
+        val timelines = exactTimelines.mapValues { (_, list) -> list.map { (time, holdings) -> time to holdings.toDouble() } }
 
         // Coins, die im Zeitraum etwas hielten
         val startMillis = dayEndMillis(start - 1) + 1
@@ -339,14 +358,14 @@ object PortfolioHistory {
         // Gehalten, aber an einem Tag ohne Kurs (vor der ersten Kerze): fehlt im Gewinn/Verlust
         val unpriced = HashSet<String>()
         for (coin in included) {
-            val timeline = timelines.getValue(coin)
+            val timeline = exactTimelines.getValue(coin)
             val series = sortedCloses[coin].orEmpty()
             val row = arrayOfNulls<DayCell>(dayCount)
             for (index in 0 until dayCount) {
                 val day = start + index
                 val isToday = day == todayEpochDay
-                val amount = if (isToday) timeline.lastOrNull()?.second ?: 0.0 else holdingsAt(timeline, dayEndMillis(day))
-                if (amount <= 0.0) continue
+                val amount = if (isToday) timeline.lastOrNull()?.second ?: BigDecimal.ZERO else holdingsAtExact(timeline, dayEndMillis(day))
+                if (amount.signum() <= 0) continue
                 val market = when {
                     isToday -> livePrices[coin]?.takeIf { it > 0.0 && it.isFinite() } ?: closeOnOrBefore(series, day)
                     else -> closeOnOrBefore(series, day)
@@ -361,10 +380,13 @@ object PortfolioHistory {
                 val dayRange = if (PortfolioStables.needsQuote(coin) && series.isNotEmpty()) {
                     ranges[coin]?.get(day)?.takeIf { it.valid }
                 } else null
+                // Menge × Kurs exakt (Kurs über seine kürzeste Darstellung); Double erst in der Summe je Tag ([sumCells])
+                fun times(p: Double): BigDecimal = amount.multiply(BigDecimal.valueOf(p))
                 row[index] = if (dayRange != null) {
-                    DayCell(amount * price, amount * dayRange.open, amount * max(dayRange.high, price), amount * min(dayRange.low, price), true)
+                    DayCell(times(price), times(dayRange.open), times(max(dayRange.high, price)), times(min(dayRange.low, price)), true)
                 } else {
-                    DayCell(amount * price, amount * price, amount * price, amount * price, false)
+                    val v = times(price)
+                    DayCell(v, v, v, v, false)
                 }
             }
             cells[coin] = row
@@ -421,7 +443,7 @@ object PortfolioHistory {
     }
 
     /** Wert eines Coins an einem Tag (USDT) mit Eröffnung/Hoch/Tief; [withRange] = aus einer Tageskerze. */
-    private class DayCell(val value: Double, val open: Double, val high: Double, val low: Double, val withRange: Boolean)
+    private class DayCell(val value: BigDecimal, val open: BigDecimal, val high: BigDecimal, val low: BigDecimal, val withRange: Boolean)
 
     /** Punkte je Tag als Summe der [coins] (× [rate]); Eröffnung/Hoch/Tief nur, wenn ein Coin eine Kerze hatte. */
     private fun sumCells(
@@ -433,10 +455,11 @@ object PortfolioHistory {
     ): List<PortfolioHistoryPoint> {
         val out = ArrayList<PortfolioHistoryPoint>(dayCount)
         for (index in 0 until dayCount) {
-            var total = 0.0
-            var totalOpen = 0.0
-            var totalHigh = 0.0
-            var totalLow = 0.0
+            // Exakt summiert, als Double erst für den Punkt (Anzeige, Chart)
+            var total = BigDecimal.ZERO
+            var totalOpen = BigDecimal.ZERO
+            var totalHigh = BigDecimal.ZERO
+            var totalLow = BigDecimal.ZERO
             var withRange = false
             for (coin in coins) {
                 val cell = cells[coin]?.get(index) ?: continue
@@ -448,9 +471,9 @@ object PortfolioHistory {
             }
             val day = start + index
             out += if (withRange) {
-                PortfolioHistoryPoint(day, total * rate, totalOpen * rate, totalHigh * rate, totalLow * rate)
+                PortfolioHistoryPoint(day, total.toDouble() * rate, totalOpen.toDouble() * rate, totalHigh.toDouble() * rate, totalLow.toDouble() * rate)
             } else {
-                PortfolioHistoryPoint(day, total * rate)
+                PortfolioHistoryPoint(day, total.toDouble() * rate)
             }
         }
         return out

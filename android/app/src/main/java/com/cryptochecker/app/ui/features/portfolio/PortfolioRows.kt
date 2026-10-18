@@ -96,6 +96,11 @@ internal fun CoinRow(
      * ([com.cryptochecker.app.data.portfolio.PortfolioPrices.viaBase]): Hinweis «≈ BTC-Kurs (gebrückt/verpackt)».
      */
     viaBase: String? = null,
+    /**
+     * Stablecoin, dessen Menge gebrückte Varianten enthält ([com.cryptochecker.app.domain.portfolio.AddressBalance.bridgedStables],
+     * z. B. «USDC.e»): Hinweis «≈ inkl. USDC.e (gebrückt)» — eine Brücke kann abkoppeln, die Menge gilt nur ungefähr.
+     */
+    bridgedStable: String? = null,
 ) {
     // Screenreader: Löschen (sonst nur per Wischen) als eigene Aktion der Zeile
     val deleteLabel = stringResource(R.string.action_delete)
@@ -151,6 +156,16 @@ internal fun CoinRow(
                     // Kein eigener Kurs: Wert mit dem Kurs der Basis — nie als eigener Kurs ausgeben
                     Text(
                         stringResource(R.string.portfolio_price_via_base, viaBase),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier.padding(top = 3.dp)
+                    )
+                } else if (bridgedStable != null) {
+                    // Gebrückte Stablecoin-Variante mitgezählt: Menge nur ungefähr, wie WBTC markiert
+                    Text(
+                        stringResource(R.string.portfolio_amount_bridged_stable, bridgedStable),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         maxLines = 1,

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Build 76: Portfolio-Speicher, Sicherung, Steuer-Export, Sperre -->
+    <string name="storage_recovery_restore_action">Obnovit zálohu</string>
+    <string name="storage_recovery_acknowledge">Rozumím</string>
+    <string name="storage_recovery_restored_title">Uložená data jsou opět odemčena</string>
+    <string name="storage_recovery_restored_message">Dřívější klíč tohoto zařízení odložená data znovu otevřel, takže jsou zpět. Co se mezitím uložilo, zůstalo beze změny vedle nich.</string>
+    <string name="backup_restore_interrupted_title">Obnovení bylo přerušeno</string>
+    <string name="backup_restore_interrupted_rolled_back">Aplikace byla ukončena během obnovy zálohy. Předchozí data byla vrácena; ze zálohy se nic nepřevzalo.</string>
+    <string name="backup_restore_interrupted_incomplete">Aplikace byla ukončena během obnovy zálohy a předchozí data se nepodařilo vrátit úplně. Zkontroluj prosím sledované a portfolio, nebo zálohu obnov znovu v Nastavení pod „%1$s“.</string>
+    <string name="backup_not_verified">Soubor zálohy se po uložení nepodařilo ověřit – při zpětném čtení se liší. Ulož prosím zálohu do nového souboru.</string>
+    <string name="tax_line_at_old_speculation_limit">Nabyto před 1. 3. 2021 – drženo ≤ 1 rok: hranice osvobození spekulačních obchodů (§ 31 odst. 3 EStG ve starém znění)</string>
+    <string name="portfolio_tx_interest">Úrok (půjčování)</string>
+    <string name="portfolio_tx_interest_hint">Počítá se jako příjem při připsání (Rakousko). U odměn ze stakingu a airdropů nech vypnuté.</string>
+    <string name="app_lock_no_screen_lock">Pro otevření portfolia nastav zámek obrazovky.</string>
+    <string name="app_lock_turn_off_action">Vypnout zámek portfolia</string>
+    <string name="app_lock_turn_off_confirm_title">Vypnout zámek portfolia?</string>
+    <string name="app_lock_turn_off_confirm_message">Bez zámku obrazovky nelze portfolio odemknout. Po vypnutí aplikace zobrazí portfolio opět bez dotazu. Až nastavíš zámek obrazovky, můžeš zámek znovu zapnout v Nastavení.</string>
+</resources>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Build 76: Portfolio-Speicher, Sicherung, Steuer-Export, Sperre -->
+    <string name="storage_recovery_restore_action">Sicherung wiederherstellen</string>
+    <string name="storage_recovery_acknowledge">Verstanden</string>
+    <string name="storage_recovery_restored_title">Gespeicherte Daten wieder entsperrt</string>
+    <string name="storage_recovery_restored_message">Ein früherer Schlüssel dieses Geräts hat die beiseitegelegten Daten wieder geöffnet – sie sind zurück. Was inzwischen gespeichert wurde, liegt unverändert daneben.</string>
+    <string name="backup_restore_interrupted_title">Wiederherstellen wurde unterbrochen</string>
+    <string name="backup_restore_interrupted_rolled_back">Die App wurde beim Wiederherstellen einer Sicherung beendet. Der vorherige Stand wurde zurückgeschrieben; aus der Sicherung wurde nichts übernommen.</string>
+    <string name="backup_restore_interrupted_incomplete">Die App wurde beim Wiederherstellen einer Sicherung beendet, und der vorherige Stand liess sich nicht vollständig zurückschreiben. Bitte prüfe Merkliste und Portfolio oder spiele die Sicherung unter «%1$s» in den Einstellungen erneut ein.</string>
+    <string name="backup_not_verified">Die Sicherungsdatei liess sich nach dem Speichern nicht bestätigen – sie liest sich anders zurück. Bitte speichere die Sicherung in eine neue Datei.</string>
+    <string name="tax_line_at_old_speculation_limit">Erworben vor 1.3.2021 – gehalten ≤ 1 Jahr: Freigrenze Spekulationsgeschäfte (§ 31 Abs. 3 EStG a. F.)</string>
+    <string name="portfolio_tx_interest">Zins (Lending)</string>
+    <string name="portfolio_tx_interest_hint">Zählt beim Zufluss als Einkunft (Österreich). Für Staking-Belohnungen und Airdrops ausgeschaltet lassen.</string>
+    <string name="app_lock_no_screen_lock">Displaysperre einrichten, um das Portfolio zu öffnen.</string>
+    <string name="app_lock_turn_off_action">Portfolio-Sperre ausschalten</string>
+    <string name="app_lock_turn_off_confirm_title">Portfolio-Sperre ausschalten?</string>
+    <string name="app_lock_turn_off_confirm_message">Ohne Displaysperre lässt sich das Portfolio nicht entsperren. Ausgeschaltet zeigt die App dein Portfolio wieder ohne Abfrage. Mit eingerichteter Displaysperre kannst du die Sperre in den Einstellungen wieder einschalten.</string>
+</resources>

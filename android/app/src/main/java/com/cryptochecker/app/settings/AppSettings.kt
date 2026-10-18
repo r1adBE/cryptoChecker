@@ -139,6 +139,9 @@ data class AppSettings(
     /** Der Gesten-Hinweis in der Merkliste wurde weggeklickt. */
     val gestureHintSeen: Boolean = false,
 
+    /** Die Karte «Ersten Alarm setzen» über der Merkliste wurde geschlossen. */
+    val firstAlarmCardDismissed: Boolean = false,
+
     /** Der Willkommensdialog wurde bereits bestätigt. */
     val aboutSeen: Boolean = false,
 

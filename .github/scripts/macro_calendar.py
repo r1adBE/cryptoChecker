@@ -17,10 +17,18 @@ The file is read by the Crypto Checker apps once a day. Schema:
 
 Behaviour:
   - A source that is unreachable or yields nothing keeps the previous events of
-    its types (warning, exit 0). Exit 1 only on a programming error.
+    its types (warning, exit 0). Exit 1 only on a programming error or when the
+    health-check issue could not be handled (see below).
   - Events of a type are replaced only for the years the source returned.
   - Keeps events from 7 days ago up to about 15 months ahead, sorted, unique.
   - Writes the file only if the event list changed.
+  - Health check: a source that failed on 2 or more consecutive runs (counters in
+    docs/macro/status.json next to the output, committed by the workflow), or an event
+    type whose newest event is older than 14 days, prints ::error:: and opens or
+    updates ONE issue "Macro calendar check failed" (gh CLI, like the exchange API
+    check); once everything is healthy again the issue is closed. The job stays green
+    for these findings; exit 1 only if the issue itself could not be handled.
+    Without GitHub Actions / GH_TOKEN (local run) or with --dry-run: print only.
 
 Python 3.9+ standard library only.
 """
@@ -30,6 +38,7 @@ import html
 import json
 import os
 import re
+import subprocess
 import sys
 import urllib.error
 import urllib.request
@@ -52,6 +61,14 @@ SOURCE_TEXT = ("BLS release schedule (CPI, PPI, Employment Situation); Federal R
                "(statement 14:00 ET, 2nd meeting day); BEA release schedule (Personal Income and Outlays)")
 
 TYPES = ("CPI", "PPI", "NFP", "FOMC", "PCE")
+SOURCES = ("BLS", "FOMC", "BEA")
+SOURCE_TYPES = {"BLS": ("CPI", "PPI", "NFP"), "FOMC": ("FOMC",), "BEA": ("PCE",)}
+# Health check: alarm after this many failed runs in a row, or when the newest event of a type is
+# older than STALE_AFTER (normally every type has dates months ahead)
+FAIL_RUNS_ALERT = 2
+STALE_AFTER = dt.timedelta(days=14)
+STATUS_FILE = "status.json"
+ISSUE_TITLE = "Macro calendar check failed"
 KEEP_PAST = dt.timedelta(days=7)
 KEEP_FUTURE = dt.timedelta(days=457)  # about 15 months
 
@@ -352,20 +369,125 @@ def load_previous(path):
         return []
 
 
-def run(output, now=None, fetcher=fetch):
+# --------------------------------------------------------------------------- health
+
+def load_failures(path):
+    """Consecutive failed runs per source from status.json (missing/unreadable = all 0)."""
+    try:
+        with open(path, encoding="utf-8") as f:
+            doc = json.load(f)
+        raw = doc.get("consecutiveFailures") if isinstance(doc, dict) else None
+    except (OSError, ValueError):
+        raw = None
+    raw = raw if isinstance(raw, dict) else {}
+    return {name: raw[name] if isinstance(raw.get(name), int) and raw[name] >= 0 else 0 for name in SOURCES}
+
+
+def save_failures(path, failures):
+    """Written only when the counters change, so a healthy week adds no commit."""
+    if load_failures(path) == failures and os.path.exists(path):
+        return
+    os.makedirs(os.path.dirname(os.path.abspath(path)), exist_ok=True)
+    with open(path, "w", encoding="utf-8", newline="\n") as f:
+        json.dump({"consecutiveFailures": failures}, f, indent=1, sort_keys=True)
+        f.write("\n")
+
+
+def health(failures, events, now):
+    """Problems as text lines: sources failing FAIL_RUNS_ALERT+ runs in a row, stale event types."""
+    problems = []
+    for name in SOURCES:
+        if failures.get(name, 0) >= FAIL_RUNS_ALERT:
+            problems.append(f"Source {name} ({', '.join(SOURCE_TYPES[name])}) failed on "
+                            f"{failures[name]} consecutive runs.")
+    for kind in TYPES:
+        times = [parse_time(e["time"]) for e in events if e["type"] == kind]
+        newest = max(times) if times else None
+        if newest is None or now - newest > STALE_AFTER:
+            when = iso(newest) if newest else "none"
+            problems.append(f"{kind}: newest event is older than {STALE_AFTER.days} days (newest: {when}).")
+    return problems
+
+
+def gh(*args):
+    return subprocess.run(["gh", *args], check=True, capture_output=True, text=True).stdout
+
+
+def open_issue_number():
+    out = gh("issue", "list", "--state", "open", "--search", f'"{ISSUE_TITLE}" in:title',
+             "--json", "number,title", "--limit", "20")
+    for item in json.loads(out or "[]"):
+        if item.get("title") == ISSUE_TITLE:
+            return item["number"]
+    return None
+
+
+def issue_body(problems, now):
+    lines = ["The weekly macro calendar update (`.github/scripts/macro_calendar.py`) found problems:", ""]
+    lines += [f"- {p}" for p in problems]
+    lines += ["", "Check the source pages (BLS, Federal Reserve, BEA) and the parsers in the script.",
+              f"Updated {now.strftime('%Y-%m-%d %H:%M UTC')}.", "",
+              "This issue is closed automatically once all sources work and every type has current dates again."]
+    return "\n".join(lines)
+
+
+def manage_issue(problems, now):
+    number = open_issue_number()
+    if problems:
+        body = issue_body(problems, now)
+        if number is None:
+            gh("issue", "create", "--title", ISSUE_TITLE, "--body", body)
+            print("Opened issue.")
+        else:
+            gh("issue", "edit", str(number), "--body", body)
+            gh("issue", "comment", str(number), "--body", "Still failing - list above updated.")
+            print(f"Updated issue #{number}.")
+    elif number is not None:
+        gh("issue", "close", str(number), "--comment", "Macro calendar sources work again.")
+        print(f"Closed issue #{number}.")
+
+
+def report(problems, now, dry_run=False):
+    """Annotations always; the issue only in GitHub Actions / with GH_TOKEN. Returns the exit code."""
+    for p in problems:
+        print(f"::error::{p}")
+    if dry_run or (os.environ.get("GITHUB_ACTIONS") != "true" and not os.environ.get("GH_TOKEN")):
+        if problems:
+            print("(no issue: dry run or not in GitHub Actions)")
+        return 0
+    try:
+        manage_issue(problems, now)
+    except (subprocess.CalledProcessError, OSError) as exc:
+        detail = getattr(exc, "stderr", "") or str(exc)
+        print(f"::error::could not manage the issue: {detail.strip()[:300]}")
+        return 1
+    return 0
+
+
+# --------------------------------------------------------------------------- main
+
+def run(output, now=None, fetcher=fetch, status_path=None):
+    """Updates the output file; returns (changed, health problems)."""
     now = now or dt.datetime.now(UTC).replace(microsecond=0)
+    status_path = status_path or os.path.join(os.path.dirname(os.path.abspath(output)), STATUS_FILE)
     previous = load_previous(output)
     fresh = collect(fetcher)
-    for name in ("BLS", "FOMC", "BEA"):
+    failures = load_failures(status_path)
+    for name in SOURCES:
         if name not in fresh:
             print(f"warning: source {name} unavailable - keeping previous events")
+            failures[name] += 1
+        else:
+            failures[name] = 0
+    save_failures(status_path, failures)
     events = merge(previous, fresh, now)
+    problems = health(failures, events, now)
     if os.path.exists(output) and events == previous:
         print(f"unchanged: {len(events)} events")
-        return False
+        return False, problems
     if not events:
         print("warning: no events at all - file not written")
-        return False
+        return False, problems
     os.makedirs(os.path.dirname(os.path.abspath(output)), exist_ok=True)
     tmp = output + ".tmp"
     with open(tmp, "w", encoding="utf-8", newline="\n") as f:
@@ -373,15 +495,17 @@ def run(output, now=None, fetcher=fetch):
     os.replace(tmp, output)
     counts = {t: sum(1 for e in events if e["type"] == t) for t in TYPES}
     print(f"written: {output} ({len(events)} events: {counts})")
-    return True
+    return True, problems
 
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.split("\n", 1)[0])
     ap.add_argument("--output", default=os.path.join("docs", "macro", "events.json"))
+    ap.add_argument("--dry-run", action="store_true", help="no GitHub issue, only print problems")
     args = ap.parse_args(argv)
-    run(args.output)
-    return 0
+    now = dt.datetime.now(UTC).replace(microsecond=0)
+    _, problems = run(args.output, now=now)
+    return report(problems, now, dry_run=args.dry_run)
 
 
 if __name__ == "__main__":

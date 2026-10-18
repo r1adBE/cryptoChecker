@@ -429,4 +429,7 @@ private fun CsvImportTx.toEntity() = PortfolioTxEntity(
     toCoin = toCoin,
     toAmount = toAmount,
     swapValueUsdt = swapValueUsdt,
+    // Gebühr-Zeile und Zins (eigene Merker)
+    feeRow = feeRow,
+    interest = interest,
 )

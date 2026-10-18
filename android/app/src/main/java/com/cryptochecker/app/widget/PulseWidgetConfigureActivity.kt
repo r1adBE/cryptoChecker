@@ -5,6 +5,7 @@ import android.appwidget.AppWidgetManager
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
@@ -56,6 +57,9 @@ class PulseWidgetConfigureActivity : AppCompatActivity() {
     @Inject lateinit var settingsRepository: SettingsRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Randlos wie die App (ab Android 15 ohnehin erzwungen); die Abstände zu Status- und
+        // Navigationsleiste setzt der Scaffold (TopAppBar oben, contentWindowInsets unten)
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         setResult(Activity.RESULT_CANCELED)
 

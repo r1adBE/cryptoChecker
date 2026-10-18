@@ -46,6 +46,8 @@ extension ExplorerViewModel {
 
     func addDexPool(_ pool: DexPool) {
         guard let market = exchange else { return }
+        // Liquidität aus der Suche gleich merken: Alarm-Editor und Alarme richten sich bis zur ersten Abfrage danach
+        DexLiquidityStore.put(pool.pairId, pool.liquidityUsd)
         insert(market: market, pair: MarketPair(pool.baseSymbol, pool.watchQuote, pool.pairId),
                addedText: L("dex_added", pool.baseSymbol),
                duplicateText: L("dex_already", pool.baseSymbol))

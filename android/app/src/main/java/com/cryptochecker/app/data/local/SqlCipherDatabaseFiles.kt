@@ -94,14 +94,63 @@ class SqlCipherDatabaseFiles(private val context: Context) : DatabaseEncryptionM
         File(original.path + "-journal").delete()
     }
 
-    override fun opens(database: String, passphrase: ByteArray): Boolean =
+    override fun opens(database: String, passphrase: ByteArray): Boolean = opensFile(file(database), passphrase)
+
+    private fun opensFile(file: File, passphrase: ByteArray): Boolean =
         try {
-            open(file(database), passphrase).use { db -> db.query("SELECT COUNT(*) FROM sqlite_master").use { it.moveToFirst() } }
+            open(file, passphrase).use { db -> db.query("SELECT COUNT(*) FROM sqlite_master").use { it.moveToFirst() } }
             true
         } catch (e: Exception) {
             // SQLITE_NOTADB: mit diesem Schlüssel keine Datenbank (die Klasse der Ausnahme hängt von der Bibliothek ab)
             if (e.isNotADatabase()) false else throw e
         }
+
+    override fun asideCopies(database: String): List<String> {
+        val original = file(database)
+        val base = original.name + ASIDE_SUFFIX
+        return original.parentFile?.listFiles()
+            ?.filter { f -> isAsideName(f.name, base) }
+            ?.sortedByDescending { it.lastModified() }
+            ?.map { it.name }
+            .orEmpty()
+    }
+
+    override fun asideOpens(database: String, copy: String, passphrase: ByteArray): Boolean {
+        val aside = File(file(database).parentFile, copy)
+        require(isAsideName(aside.name, file(database).name + ASIDE_SUFFIX)) { "$copy ist keine beiseitegelegte Datei" }
+        return opensFile(aside, passphrase)
+    }
+
+    override fun restoreAside(database: String, copy: String) {
+        val original = file(database)
+        val aside = File(original.parentFile, copy)
+        require(isAsideName(aside.name, original.name + ASIDE_SUFFIX) && aside.exists()) { "$copy fehlt" }
+        // Die inzwischen neu begonnene Datei bleibt erhalten (samt -wal/-shm): «.replaced», bei Bedarf mit Zeitstempel
+        var replaced = File(original.path + REPLACED_SUFFIX)
+        if (replaced.exists()) replaced = File(original.path + REPLACED_SUFFIX + "-" + System.currentTimeMillis())
+        val hadOriginal = original.exists()
+        if (hadOriginal) {
+            if (!original.renameTo(replaced)) throw IOException("$database nicht beiseitegelegt")
+            for (suffix in listOf("-wal", "-shm")) {
+                val side = File(original.path + suffix)
+                if (side.exists() && !side.renameTo(File(replaced.path + suffix))) side.delete()
+            }
+        }
+        File(original.path + "-journal").delete()
+        if (!aside.renameTo(original)) {
+            // Zurück, wie es war: nie ohne Datei dastehen
+            if (hadOriginal) replaced.renameTo(original)
+            throw IOException("$copy nicht zurückgeholt")
+        }
+        for (suffix in listOf("-wal", "-shm")) {
+            val side = File(aside.path + suffix)
+            if (side.exists() && !side.renameTo(File(original.path + suffix))) side.delete()
+        }
+    }
+
+    /** `<db>.unreadable` bzw. `<db>.unreadable-<Zeit>` ohne Nebendateien. */
+    private fun isAsideName(name: String, base: String): Boolean =
+        (name == base || name.startsWith("$base-")) && !name.endsWith("-wal") && !name.endsWith("-shm") && !name.endsWith("-journal")
 
     private fun Throwable.isNotADatabase(): Boolean =
         message.orEmpty().let { "SQLITE_NOTADB" in it || "file is not a database" in it } || cause?.isNotADatabase() == true
@@ -136,6 +185,9 @@ class SqlCipherDatabaseFiles(private val context: Context) : DatabaseEncryptionM
 
         const val COPY_SUFFIX = ".encrypting"
         const val ASIDE_SUFFIX = ".unreadable"
+
+        /** Durch eine zurückgeholte Datei ersetzte (inzwischen neu begonnene) Datenbank — bleibt, wird nie gelöscht. */
+        const val REPLACED_SUFFIX = ".replaced"
 
         /** Alle Tabellen samt Zähler der AUTOINCREMENT-Ids; ohne SQLite-Statistik und Android-Metadaten (Gebietsschema). */
         private const val TABLES_SQL =

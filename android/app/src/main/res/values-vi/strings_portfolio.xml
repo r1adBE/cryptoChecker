@@ -17,7 +17,7 @@
     <string name="portfolio_empty_title">Chưa có giao dịch</string>
     <string name="portfolio_enable_ask_text">Giao dịch của bạn đã được lưu. Tab Danh mục hiển thị số nắm giữ và giá trị của chúng.</string>
     <string name="portfolio_enable_ask_title">Bật tab Danh mục?</string>
-    <string name="portfolio_enable_later_hint">Đã lưu giao dịch. Bạn có thể bật tab Danh mục trong Cài đặt › Nâng cao › Danh mục.</string>
+    <string name="portfolio_enable_later_hint">Đã lưu giao dịch. Bạn có thể bật tab Danh mục trong Cài đặt › Danh mục.</string>
     <string name="portfolio_enabled_banner">Đã bật danh mục – bạn tìm thấy ở thẻ Danh mục.</string>
     <string name="portfolio_lock_reason">Mở khóa danh mục</string>
     <string name="portfolio_locked_text">Mở khóa để xem tài sản nắm giữ và giá trị.</string>

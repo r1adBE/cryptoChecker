@@ -118,6 +118,29 @@ enum TaxTemplate: String, Codable, CaseIterable, Sendable {
         }
     }
 
+    /// Zeitzone der Daten (Steuerjahr, Kauf-/Verkaufsdatum, Haltedauer): massgebend ist das rechtliche Datum im Land der
+    /// Vorlage, nicht die Zeitzone des Geräts. Steht in jeder CSV («Daten in Ortszeit (Zone)»). Länder mit mehreren Zonen:
+    /// die der Hauptstadt bzw. des Finanzplatzes (US New York, CA Toronto, AU Sydney). nil = Gerät (`NEUTRAL`). Wie Android.
+    var zoneId: String? {
+        switch self {
+        case .NEUTRAL: return nil
+        case .DE: return "Europe/Berlin"
+        case .AT: return "Europe/Vienna"
+        case .CH: return "Europe/Zurich"
+        case .UK: return "Europe/London"
+        case .US: return "America/New_York"
+        case .CA: return "America/Toronto"
+        case .AU: return "Australia/Sydney"
+        case .FR: return "Europe/Paris"
+        case .JP: return "Asia/Tokyo"
+        }
+    }
+
+    /// Zeitzone der Arbeitsunterlage (`zoneId`); Neutral die des Geräts (`device`) — wie Android `zone`.
+    func zone(device: TimeZone = .current) -> TimeZone {
+        zoneId.flatMap(TimeZone.init(identifier:)) ?? device
+    }
+
     /// Erlaubte Methoden nach den aktuellen Regeln, erste = Standard (`methodsIn(_:)` ohne Steuerjahr).
     var methods: [TaxMethod] { methodsIn(nil) }
 

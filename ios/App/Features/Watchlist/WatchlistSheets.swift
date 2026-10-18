@@ -133,13 +133,19 @@ extension WatchlistScreen {
     /// Gezählt wird, was die Übersicht zeigen würde — wie Android `WatchlistViewModel.alarmTotal`.
     func openBell() {
         let watches = data.watches
-        let alarmCount = data.alarmsWithWatch.count + (data.settings.portfolioEnabled ? data.portfolioAlarms.count : 0)
+        let alarmCount = totalAlarmCount
         switch AlarmBellRoute.of(alarmCount: alarmCount, watchCount: watches.count) {
         case .overview: showOverview = true
         case .editor: alarmsFor = watches.first?.id
         case .pickPair: pickAlarmPair = true
         case .addCoin: router.openExplorer()
         }
+    }
+
+    /// Alle Alarme, die die Übersicht zeigen würde (Paar-Alarme auch ausgeschaltet, Portfolio-Alarme nur mit
+    /// eingeschaltetem Portfolio) — Glocke und Karte «Ersten Alarm setzen».
+    var totalAlarmCount: Int {
+        data.alarmsWithWatch.count + (data.settings.portfolioEnabled ? data.portfolioAlarms.count : 0)
     }
 
     /// Nach dem Namen das Blatt öffnen; gibt es die Gruppe schon, wird sie bearbeitet.

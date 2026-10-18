@@ -115,13 +115,14 @@ enum PortfolioLedger {
         return out
     }
 
-    /// Gebühr-Zeile (CSV «Fee», `CsvImportMapping`), gespeichert als Verkauf zum Preis 0 MIT Import-Herkunft (`imported`,
-    /// Build 47 — von Hand erfasst ist ein Verkauf zum Preis 0 ein Verkauf eines wertlosen Coins): Veräusserung zum
+    /// Gebühr-Zeile (CSV «Fee», `CsvImportMapping`), gespeichert als Verkauf mit eigenem Merker (`feeRow`, seit Build 76;
+    /// vorher aus «Preis 0 mit Import-Herkunft» geschlossen, `LegacyStorageMigration.legacyFeeRow` — von Hand erfasst ist
+    /// ein Verkauf zum Preis 0 ein Verkauf eines wertlosen Coins): Veräusserung zum
     /// TAGESKURS — Erlös = Menge × Tagesschluss ihres Tags (`valueFeeDisposals`), realisiert = Marktwert − Einstand; ohne
     /// Kurs Erlös unbekannt («unvollständig», nie 0). Steuer-Export: Vermerk «Gebühr» (`TaxGainRow.feeRow`). Verlauf und
     /// «Heute/7 T/1 J» (`flow`): Abfluss zum Marktkurs — über die ganze Haltedauer Kurve = «Seit Kauf» + realisiert, kein
     /// Sprung am Gebühr-Tag. Wie Android.
-    static func isFeeDisposal(_ t: PortfolioTx) -> Bool { t.type == .SELL && t.imported && t.validPriceExact == 0 }
+    static func isFeeDisposal(_ t: PortfolioTx) -> Bool { t.type == .SELL && t.feeRow }
 
     /// Verkaufspreis für Einstand/Erlös: Gebühr-Zeile ohne Tageskurs = unbekannt (nil), sonst `validPriceExact`.
     static func salePrice(_ t: PortfolioTx) -> Decimal? { isFeeDisposal(t) ? nil : t.validPriceExact }
@@ -134,6 +135,8 @@ enum PortfolioLedger {
             guard isFeeDisposal(t) else { return t }
             var v = t
             v.priceExact = price?(PortfolioCalculator.normalizeCoin(t.coin), t.time).flatMap { $0 > 0 ? $0 : nil }
+            // Bewertet ist sie ein gewöhnlicher Verkauf zu diesem Preis (der Merker gilt nur für die Rohdaten)
+            v.feeRow = false
             return v
         }
     }
@@ -175,7 +178,9 @@ enum PortfolioLedger {
             guard needsDayClose(t) else { return t }
             var v = t
             if isFeeDisposal(t) {
+                // Bewertet ist sie ein gewöhnlicher Verkauf (der Merker gilt nur für die Rohdaten, wie bis v4 der Preis 0)
                 v.priceExact = close(t.coin, t.time)
+                v.feeRow = false
             } else if t.type == .PAYMENT {
                 guard let p = close(t.coin, t.time) else { return t }
                 v.priceExact = p
@@ -255,66 +260,78 @@ enum PortfolioLedger {
     /// Bewertet in Double wie Android.
     static func flow(_ e: PortfolioLedgerEvent, holdingsBefore: Decimal, marketPrice: Double? = nil,
                      feeMarketPrice: Double? = nil, method: CostMethod = .defaultMethod) -> Double? {
+        flowExact(e, holdingsBefore: holdingsBefore, marketPrice: marketPrice, feeMarketPrice: feeMarketPrice,
+                  method: method).map(PortfolioDecimal.double)
+    }
+
+    /// `flow` exakt (Decimal: Menge × Kurs, Gebühren, Anteil; Börsenkurse über ihre kürzeste Darstellung) — erst das
+    /// Ergebnis wird zur Double-Sicht. nil = unbekannt. Wie Android `flowExact`.
+    static func flowExact(_ e: PortfolioLedgerEvent, holdingsBefore: Decimal, marketPrice: Double? = nil,
+                          feeMarketPrice: Double? = nil, method: CostMethod = .defaultMethod) -> Decimal? {
         let t = e.trade
         guard t.amountExact > 0 else { return 0 }
         let h = max(0, holdingsBefore)
         if e.feeLeg {
             // Ohne Gebühr-Preis zum Marktkurs des Gebühr-Coins (neutral wie eine Auszahlung ohne Preis)
-            guard let feePrice = t.thirdFeePrice.map(PortfolioDecimal.double)
-                    ?? marketPrice.flatMap({ $0 >= 0 && $0.isFinite ? $0 : nil }) else { return nil }
+            guard let feePrice = t.thirdFeePrice ?? exactPrice(marketPrice) else { return nil }
             let removed = min(t.thirdFeeAmount, h)
-            return removed > 0 ? -(PortfolioDecimal.double(removed) * feePrice) : 0
+            return removed > 0 ? -(removed * feePrice) : 0
         }
-        let market = marketPrice.flatMap { $0 >= 0 && $0.isFinite ? $0 : nil }
+        let market = exactPrice(marketPrice)
         if e.swapIn {
             // Zugang aus Tausch: zum Wert des Tauschs, sonst erhaltene Menge (vor Gebühr) × Marktkurs; ohne gültigen Zugang unbekannt
             guard t.swapToCoin != nil else { return nil }
-            if let value = t.swapValue { return PortfolioDecimal.double(value) }
+            if let value = t.swapValue { return value }
             guard let market, let to = t.toAmountExact else { return nil }
-            return PortfolioDecimal.double(to) * market
+            return to * market
         }
         // Gebühr im dritten Coin ohne Preis: zum Marktkurs des Gebühr-Coins
-        guard let feeValue = t.thirdFeeValue.map(PortfolioDecimal.double)
-                ?? feeMarketPrice.flatMap({ $0 >= 0 && $0.isFinite ? PortfolioDecimal.double(t.thirdFeeAmount) * $0 : nil })
-        else { return nil }
+        guard let feeValue = t.thirdFeeValue ?? exactPrice(feeMarketPrice).map({ t.thirdFeeAmount * $0 }) else { return nil }
         // Gebühr-Zeile zum Marktkurs (Abfluss wie ein Verkauf, dessen Erlös das Portfolio verlässt)
-        let price = isFeeDisposal(t) ? market
-            : (t.validPriceExact.map(PortfolioDecimal.double) ?? (needsMarketPrice(e) ? market : nil))
+        let price = isFeeDisposal(t) ? market : (t.validPriceExact ?? (needsMarketPrice(e) ? market : nil))
         switch t.type {
         case .BUY, .REWARD, .DEPOSIT:
             guard let price else { return nil }
-            return t.amount * price + t.quoteFee + feeValue
+            return t.amountExact * price + t.quoteFeeExact + feeValue
         case .SELL, .PAYMENT:
             // Damit bezahlt: Wert verlässt das Portfolio wie ein Verkauf (ohne Marktwert zum Marktkurs)
             guard let price else { return nil }
             // Nichts mehr da: der Verkauf zählt nicht, auch nicht seine Gebühr — wie «realisiert»
             guard let share = coveredFraction(t, holdings: h, method: method) else { return 0 }
-            let proceeds: Double = t.amount * price - t.quoteFee - feeValue
-            return -proceeds * share
+            return -partOf(t.amountExact * price - t.quoteFeeExact - feeValue, share)
         case .WITHDRAWAL, .GIFT:
             // Verschenkt: wie eine Auszahlung (Wert verlässt das Portfolio zum Marktwert)
             guard let share = withdrawnFraction(t, holdings: h) else { return 0 }
             guard let price else { return nil }
             // Wert und Gebühren zum gedeckten Anteil wie beim Verkauf (ungedeckter Rest: nichts abgegeben)
-            let value: Double = t.amount * price - t.quoteFee - feeValue
-            return -value * share
+            return -partOf(t.amountExact * price - t.quoteFeeExact - feeValue, share)
         case .TRANSFER:
-            return t.quoteFee + feeValue
+            return t.quoteFeeExact + feeValue
         case .SWAP:
             // Abgegebener Coin wie ein Verkauf: zum Wert des Tauschs, sonst zum Marktkurs; gedeckter Anteil wie dort
             guard let share = coveredFraction(t, holdings: h, method: method) else { return 0 }
             // Zugang kaputt (kein gültiger erhaltener Coin): unbekannt statt still verloren
             guard t.swapToCoin != nil else { return nil }
-            let gross: Double
+            let gross: Decimal
             if let value = t.swapValue {
-                gross = PortfolioDecimal.double(value)
+                gross = value
             } else {
                 guard let market else { return nil }
-                gross = t.amount * market
+                gross = t.amountExact * market
             }
-            let proceeds: Double = gross - t.quoteFee - feeValue
-            return -proceeds * share
+            return -partOf(gross - t.quoteFeeExact - feeValue, share)
         }
+    }
+
+    /// Börsenkurs (≥ 0, endlich) exakt über seine kürzeste Darstellung; sonst nil.
+    private static func exactPrice(_ price: Double?) -> Decimal? {
+        guard let price, price >= 0, price.isFinite else { return nil }
+        return PortfolioDecimal.of(price)
+    }
+
+    /// `value` × Anteil `fraction` (ganz gedeckt: unverändert).
+    private static func partOf(_ value: Decimal, _ fraction: Double) -> Decimal {
+        fraction == 1 ? value : value * (PortfolioDecimal.of(fraction) ?? 0)
     }
 
     /// Gedeckter Anteil (0…1] des ganzen Erlöses eines Verkaufs/Tauschs bei Bestand `holdings` — dieselbe Aufteilung wie

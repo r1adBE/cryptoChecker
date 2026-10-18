@@ -228,6 +228,15 @@ enum PriceFormat {
                                                                             significant: spokenSignificant))
     }
 
+    /// Wie `spokenPrice(_:)`, aber mit dem Dezimalzeichen der Sprache, in der vorgelesen wird (`locale` = Sprache der
+    /// Stimme bzw. des Satzes): Eine deutsche Stimme liest «1.50» sonst als «eins Punkt fünfzig». Ziffern bleiben
+    /// lateinisch, ohne Tausendertrennung. Wie Android.
+    static func spokenPrice(_ value: Double, locale: Locale) -> String {
+        let plain = spokenPrice(value)
+        let separator = locale.decimalSeparator ?? "."
+        return separator == "." ? plain : plain.replacingOccurrences(of: ".", with: separator)
+    }
+
     /// Grosse Zahlen kurz: 1.2K, 3.4M, 5.6B, 7.8T.
     static func compact(_ value: Double) -> String {
         let a = abs(value)

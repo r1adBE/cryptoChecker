@@ -2,6 +2,9 @@
 
 package com.cryptochecker.app.ui.features.settings
 
+import com.cryptochecker.app.ui.components.rememberReduceMotion
+import com.cryptochecker.app.ui.navigation.ScreenRoute
+import com.cryptochecker.app.ui.navigation.OnTabReselect
 import androidx.compose.ui.platform.LocalContext
 import com.cryptochecker.app.ui.components.CardPadding
 import com.cryptochecker.app.ui.components.AppCard
@@ -115,6 +118,12 @@ fun SettingsScreen(
         }
     }
 
+    val scrollState = rememberScrollState()
+    val reduceMotion = rememberReduceMotion()
+    // Erneutes Tippen auf den Tab «Einstellungen»: an den Anfang (wie iOS)
+    OnTabReselect(ScreenRoute.Settings) {
+        if (reduceMotion) scrollState.scrollTo(0) else scrollState.animateScrollTo(0)
+    }
     // Kopfzeile wie Markt und Portfolio: einzeilig, gleiche Farbe beim Scrollen
     Scaffold(
         topBar = { TopAppBar(title = { TabTitle(stringResource(R.string.settings_title), R.drawable.ic_settings) }) }
@@ -123,7 +132,7 @@ fun SettingsScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
-                .verticalScroll(rememberScrollState())
+                .verticalScroll(scrollState)
                 // Tablet/Querformat: Inhalt höchstens 640 dp breit, mittig
                 .readableWidth()
                 .padding(bottom = 16.dp)

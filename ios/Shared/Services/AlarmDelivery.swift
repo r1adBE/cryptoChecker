@@ -42,11 +42,14 @@ final class AlarmDelivery: @unchecked Sendable {
     /// - Parameter canShow: kann eine Mitteilung gerade sichtbar ankommen (`Notifier.isAuthorized`)?
     /// - Parameter show: meldet; true erst, wenn die Mitteilung bestätigt ist.
     /// - Parameter mark: speichert den Zustand nach dem Auslösen; false = nicht gespeichert (z. B. inzwischen bearbeitet).
+    /// - Parameter retract: entfernt die schon gezeigte Mitteilung, wenn `mark` nichts speichern konnte — sie gehörte
+    ///   zu einem Alarm, den es so nicht mehr gibt. Wie Android.
     /// - Returns: true = gemeldet und gespeichert (zählt als ausgelöst).
     func deliver(alarmId: Int64, now: Int64, cooldownMinutes: Int, holdAlarms: Bool,
                  canShow: () async -> Bool,
                  show: @escaping @Sendable () async -> Bool,
-                 mark: @escaping @Sendable () async -> Bool) async -> Bool {
+                 mark: @escaping @Sendable () async -> Bool,
+                 retract: @escaping @Sendable () async -> Void = {}) async -> Bool {
         if holdAlarms { return false }
         let deliverable = await canShow()
         if !QuietHours.mayFire(holdAlarms: holdAlarms, deliverable: deliverable) { return false }
@@ -62,6 +65,7 @@ final class AlarmDelivery: @unchecked Sendable {
             guard await show() else { return false }
             let saved = await mark()
             self.setUnconfirmed(alarmId, at: nil)
+            if !saved { await retract() }
             return saved
         }.value
     }

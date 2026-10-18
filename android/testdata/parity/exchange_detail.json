@@ -1,0 +1,158 @@
+{
+  "description": "Short exchange error text for the refresh report (Android StoredError.exchangeDetail/reportDetail, iOS StoredError.exchangeDetail/reportDetail). exchangeDetail: raw error -> text without exception class, URLs, hosts, IPv4/IPv6, key-like tokens (>= 5 digits, or >= 12 chars with a digit) and leftover empty brackets/quotes, trimmed, at most 80 characters (79 + ellipsis); null for own markers, HTTP status texts, timeout, offline, rate limit, unavailable, or fewer than 3 letters left. report: most frequent exchangeDetail among errors classified as reason (ties: alphabetically first); reason null -> null.",
+  "cases": [
+    {
+      "name": "exchange message stays",
+      "input": "Invalid symbol.",
+      "expected": "Invalid symbol."
+    },
+    {
+      "name": "Kraken unknown pair",
+      "input": "EQuery:Unknown asset pair",
+      "expected": "EQuery:Unknown asset pair"
+    },
+    {
+      "name": "OKX unknown instrument",
+      "input": "Instrument ID does not exist",
+      "expected": "Instrument ID does not exist"
+    },
+    {
+      "name": "exception class, URL and IP dropped",
+      "input": "java.lang.IllegalStateException: Bad response from https://api.example.com/v1/ticker?symbol=BTC (10.0.0.12)",
+      "expected": "Bad response from"
+    },
+    {
+      "name": "key-like token dropped",
+      "input": "Signature for this request is not valid. key=ab12cd34ef56gh78ij90",
+      "expected": "Signature for this request is not valid."
+    },
+    {
+      "name": "digit-heavy id dropped",
+      "input": "Order 123456789 rejected",
+      "expected": "Order rejected"
+    },
+    {
+      "name": "host name dropped",
+      "input": "Pair BTC_USDT is not listed on api.exchange.io",
+      "expected": "Pair BTC_USDT is not listed on"
+    },
+    {
+      "name": "IPv6 dropped",
+      "input": "Peer fe80:0:0:0:200:f8ff:fe21:67cf refused the request",
+      "expected": "Peer refused the request"
+    },
+    {
+      "name": "parse error: class names dropped",
+      "input": "org.json.JSONException: Value <html> of type java.lang.String cannot be converted to JSONObject",
+      "expected": "Value <html> of type cannot be converted to JSONObject"
+    },
+    {
+      "name": "long text cut to 80",
+      "input": "The requested trading pair is currently suspended for maintenance and will be available again soon, please check the announcements",
+      "expected": "The requested trading pair is currently suspended for maintenance and will be a…"
+    },
+    {
+      "name": "HTTP status: generic reason suffices",
+      "input": "HttpCode: 400",
+      "expected": null
+    },
+    {
+      "name": "iOS HTTP with body: generic reason suffices",
+      "input": "HTTP 404: {\"msg\":\"not found\"}",
+      "expected": null
+    },
+    {
+      "name": "timeout",
+      "input": "Timed out waiting for 20000 ms",
+      "expected": null
+    },
+    {
+      "name": "offline marker",
+      "input": "NETWORK_OFFLINE",
+      "expected": null
+    },
+    {
+      "name": "EOF counts as offline",
+      "input": "java.io.EOFException",
+      "expected": null
+    },
+    {
+      "name": "rate limit",
+      "input": "EGeneral:Too many requests",
+      "expected": null
+    },
+    {
+      "name": "own marker",
+      "input": "Parsed ticker has no data",
+      "expected": null
+    },
+    {
+      "name": "unavailable",
+      "input": "Market unavailable",
+      "expected": null
+    },
+    {
+      "name": "bare exception class",
+      "input": "java.lang.IllegalStateException",
+      "expected": null
+    },
+    {
+      "name": "only numbers",
+      "input": "12345 67890",
+      "expected": null
+    },
+    {
+      "name": "blank",
+      "input": "   ",
+      "expected": null
+    },
+    {
+      "name": "null",
+      "input": null,
+      "expected": null
+    }
+  ],
+  "report": [
+    {
+      "errors": [
+        "Invalid symbol.",
+        "Instrument ID does not exist",
+        "Invalid symbol.",
+        "HttpCode: 502"
+      ],
+      "reason": "OTHER",
+      "expected": "Invalid symbol."
+    },
+    {
+      "errors": [
+        "Instrument ID does not exist",
+        "Invalid symbol."
+      ],
+      "reason": "OTHER",
+      "expected": "Instrument ID does not exist"
+    },
+    {
+      "errors": [
+        "HttpCode: 502",
+        "HttpCode: 503"
+      ],
+      "reason": "SERVER",
+      "expected": null
+    },
+    {
+      "errors": [
+        "Invalid symbol."
+      ],
+      "reason": null,
+      "expected": null
+    },
+    {
+      "errors": [
+        "Timed out waiting for 20000 ms",
+        "Invalid symbol."
+      ],
+      "reason": "TIMEOUT",
+      "expected": null
+    }
+  ]
+}

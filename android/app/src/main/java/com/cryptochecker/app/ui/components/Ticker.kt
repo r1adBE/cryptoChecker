@@ -15,9 +15,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
+import com.cryptochecker.app.domain.market.BidAskSpread
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.displayCompact
 import com.cryptochecker.app.ui.theme.tabularNumbers
+import com.cryptochecker.app.util.LocaleNumbers
 import com.cryptochecker.marketdata.model.Ticker
 import com.cryptochecker.marketdata.util.CurrencyText
 import com.cryptochecker.marketdata.util.FormatUtilsBase
@@ -79,6 +81,15 @@ fun Ticker(
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.padding(bottom = Spacing.sm)
             )
+            // Grosser Abstand Kauf/Verkauf (über 2 % der Mitte): dünner Markt, Hinweis nur hier im Blatt
+            BidAskSpread.widePercent(bid, ask)?.let { percent ->
+                Text(
+                    text = stringResource(R.string.ticker_wide_spread, LocaleNumbers.decimal(percent, maxDecimals = 1)),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.error,
+                    modifier = Modifier.padding(bottom = Spacing.sm)
+                )
+            }
         }
         if (volBase > Ticker.MISSING || volQuote > Ticker.MISSING) {
             StatRow(

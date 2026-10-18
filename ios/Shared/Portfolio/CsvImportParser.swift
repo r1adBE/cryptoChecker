@@ -137,11 +137,14 @@ enum CsvImportParser {
         let counts = candidates.map { d in firstLine.filter { $0 == d }.count }
         let order = candidates.indices.sorted { a, b in counts[a] != counts[b] ? counts[a] > counts[b] : a < b }
         for di in order {
-            let records = tokenize(clean, delimiter: candidates[di])
-            for h in 0..<min(headerSearch, records.count) {
-                let header = Header(records[h].cells)
+            // Für die Erkennung nur die ersten Zeilen zerlegen — eine grosse Datei mit falschem Trenner kostete sonst je
+            // Kandidat einen ganzen Durchlauf; zerlegt wird sie erst mit dem passenden Trenner ganz (wie Android)
+            let head = tokenize(clean, delimiter: candidates[di], maxRecords: headerSearch)
+            for h in head.indices {
+                let header = Header(head[h].cells)
                 let format = detect(header)
                 if format != .UNKNOWN {
+                    let records = tokenize(clean, delimiter: candidates[di])
                     let override = zone ?? (header.utcDate ? "UTC" : nil)
                     var result = build(format, header, Array(records[(h + 1)...]),
                                        zone: zoneFor(format, deviceZone: deviceZone, override: override), deviceZone: deviceZone,
@@ -192,7 +195,7 @@ enum CsvImportParser {
     }
 
     /// RFC-4180-Zerlegung («""» = «"», Umbruch in Anführungszeichen erlaubt); Zellen getrimmt, leere Zeilen weg.
-    static func tokenize(_ text: [Unicode.Scalar], delimiter: Unicode.Scalar) -> [Record] {
+    static func tokenize(_ text: [Unicode.Scalar], delimiter: Unicode.Scalar, maxRecords: Int = .max) -> [Record] {
         var out: [Record] = []
         var cells: [String] = []
         var cell = String.UnicodeScalarView()
@@ -210,7 +213,8 @@ enum CsvImportParser {
         }
         var i = 0
         let n = text.count
-        while i < n {
+        // Höchstens `maxRecords` Zeilen (Erkennung der Kopfzeile): danach nicht weiterlesen
+        while i < n && out.count < maxRecords {
             let c = text[i]
             if inQuotes && c == "\"" && i + 1 < n && text[i + 1] == "\"" {
                 cell.append("\"")
@@ -234,7 +238,7 @@ enum CsvImportParser {
             }
             i += 1
         }
-        if !cell.isEmpty || !cells.isEmpty { endRecord() }
+        if out.count < maxRecords && (!cell.isEmpty || !cells.isEmpty) { endRecord() }
         return out
     }
 

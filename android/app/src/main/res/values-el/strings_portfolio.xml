@@ -18,7 +18,7 @@
     <string name="portfolio_empty_title">Δεν υπάρχουν ακόμη συναλλαγές</string>
     <string name="portfolio_enable_ask_text">Η συναλλαγή σου αποθηκεύτηκε. Η καρτέλα Χαρτοφυλάκιο δείχνει τα υπόλοιπά σου και την αξία τους.</string>
     <string name="portfolio_enable_ask_title">Ενεργοποίηση της καρτέλας Χαρτοφυλάκιο;</string>
-    <string name="portfolio_enable_later_hint">Η συναλλαγή αποθηκεύτηκε. Μπορείς να ενεργοποιήσεις την καρτέλα Χαρτοφυλάκιο στο Ρυθμίσεις › Για προχωρημένους › Χαρτοφυλάκιο.</string>
+    <string name="portfolio_enable_later_hint">Η συναλλαγή αποθηκεύτηκε. Μπορείς να ενεργοποιήσεις την καρτέλα Χαρτοφυλάκιο στο Ρυθμίσεις › Χαρτοφυλάκιο.</string>
     <string name="portfolio_enabled_banner">Το χαρτοφυλάκιο ενεργοποιήθηκε – θα το βρεις στην καρτέλα Χαρτοφυλάκιο.</string>
     <string name="portfolio_lock_reason">Ξεκλείδωμα χαρτοφυλακίου</string>
     <string name="portfolio_locked_text">Ξεκλειδώστε για να δείτε τις θέσεις και τις αξίες σας.</string>

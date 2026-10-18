@@ -55,7 +55,8 @@ extension WatchActionsSheet {
                 HStack(spacing: Spacing.sm) {
                     Image(systemName: adding ? "checkmark" : "plus")
                         .scaledFont(size: 19, weight: .semibold, relativeTo: .body)
-                        .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
+                        // Kachel wächst mit (zweizeiliger Text daneben): Symbol bis AX2 wie der Inhalt
+                        .dynamicTypeSize(...DynamicTypeSize.accessibility2)
                     Text(L(adding ? "explorer_added_to_watchlist" : "explorer_add_to_watchlist"))
                         .font(.subheadline.weight(.semibold))
                         .multilineTextAlignment(.center)

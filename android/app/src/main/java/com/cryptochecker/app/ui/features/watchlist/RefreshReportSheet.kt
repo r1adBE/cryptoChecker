@@ -51,6 +51,7 @@ import com.cryptochecker.app.ui.theme.AppColors
 import com.cryptochecker.app.ui.theme.PriceColors
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.tabularNumbers
+import com.cryptochecker.app.util.LocaleNumbers
 import com.cryptochecker.app.util.PriceFormat
 import java.util.Locale
 
@@ -255,6 +256,10 @@ private fun MarketRow(market: MarketRefresh, locale: Locale) {
             )
         }
     }.joinToString(" · ")
+    // Meldung der Börse zur häufigsten Ursache (gekürzt, ohne Adressen) — nur hier; die Zeile der Merkliste
+    // zeigt weiterhin den allgemeinen Text
+    val exchangeDetail = market.detail?.takeIf { market.failed > 0 }
+        ?.let { stringResource(R.string.refresh_sheet_exchange_detail, it) }
     val statusText = stringResource(
         when (status) {
             RefreshStatus.OK -> R.string.refresh_sheet_status_ok
@@ -267,6 +272,7 @@ private fun MarketRow(market: MarketRefresh, locale: Locale) {
         market.name, statusText, pairsText,
         stringResource(R.string.refresh_sheet_seconds_a11y, "%.1f".format(locale, market.millis / 1000.0)),
         issues,
+        exchangeDetail.orEmpty(),
     ).filter { it.isNotEmpty() }.joinToString(", ")
 
     Row(
@@ -303,6 +309,14 @@ private fun MarketRow(market: MarketRefresh, locale: Locale) {
                     issues,
                     style = MaterialTheme.typography.bodySmall.tabularNumbers(),
                     color = statusTextColor(status),
+                    modifier = Modifier.padding(top = 2.dp)
+                )
+            }
+            if (exchangeDetail != null) {
+                Text(
+                    exchangeDetail,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.padding(top = 2.dp)
                 )
             }
@@ -408,5 +422,18 @@ private fun reasonText(reason: RefreshFailure): String? = when (reason) {
     RefreshFailure.OTHER -> null
 }
 
-/** «0,5 s» in der Sprache der App (Komma/Punkt je Sprache). */
-private fun seconds(millis: Long, locale: Locale): String = "%.1f s".format(locale, millis / 1000.0)
+/**
+ * «0,5 s» in der Sprache der App: Zahl und Einheit über ICU (z. B. «0,5 Sek.», «0.5秒», «٠٫٥ ث»),
+ * eine Nachkommastelle; ohne ICU (JVM-Tests) «0.5 s». Wie iOS `Measurement(…, unit: .seconds)`.
+ */
+internal fun seconds(millis: Long, locale: Locale): String {
+    val value = millis / 1000.0
+    return runCatching {
+        val number = android.icu.text.NumberFormat.getNumberInstance(locale).apply {
+            minimumFractionDigits = 1
+            maximumFractionDigits = 1
+        }
+        android.icu.text.MeasureFormat.getInstance(locale, android.icu.text.MeasureFormat.FormatWidth.SHORT, number)
+            .format(android.icu.util.Measure(value, android.icu.util.MeasureUnit.SECOND))
+    }.getOrNull()?.takeIf { it.isNotBlank() } ?: "${LocaleNumbers.decimal(value, 1, locale = locale)} s"
+}

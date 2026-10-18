@@ -311,6 +311,14 @@ struct TickerView: View {
                     .foregroundStyle(AppColors.onSurfaceVariant)
                     .fixedSize(horizontal: false, vertical: true)
                     .padding(.bottom, Spacing.sm)
+                // Grosser Abstand Kauf/Verkauf (über 2 % der Mitte): dünner Markt, Hinweis nur hier im Blatt
+                if let percent = BidAskSpread.widePercent(bid: ticker.bid, ask: ticker.ask) {
+                    Text(L("ticker_wide_spread", LocaleNumbers.decimal(percent, maxDecimals: 1, minDecimals: 1)))
+                        .font(.footnote)
+                        .foregroundStyle(AppColors.error)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .padding(.bottom, Spacing.sm)
+                }
             }
             if ticker.vol > Ticker.missing || ticker.volQuote > Ticker.missing {
                 let hasVol = ticker.vol > Ticker.missing

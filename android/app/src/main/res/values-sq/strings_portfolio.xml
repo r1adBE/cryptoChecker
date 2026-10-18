@@ -18,7 +18,7 @@
     <string name="portfolio_empty_title">Ende pa transaksione</string>
     <string name="portfolio_enable_ask_text">Transaksioni yt u ruajt. Skeda Portofoli tregon zotërimet e tua dhe vlerën e tyre.</string>
     <string name="portfolio_enable_ask_title">Të aktivizohet skeda Portofoli?</string>
-    <string name="portfolio_enable_later_hint">Transaksioni u ruajt. Skedën Portofoli mund ta aktivizosh te Cilësimet › Të avancuara › Portofoli.</string>
+    <string name="portfolio_enable_later_hint">Transaksioni u ruajt. Skedën Portofoli mund ta aktivizosh te Cilësimet › Portofoli.</string>
     <string name="portfolio_enabled_banner">Portofoli u aktivizua – e gjen te skeda Portofoli.</string>
     <string name="portfolio_lock_reason">Shkyç portofolin</string>
     <string name="portfolio_locked_text">Shkyçe për të parë zotërimet dhe vlerat.</string>

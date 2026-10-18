@@ -1,6 +1,7 @@
 package com.cryptochecker.app.domain.portfolio
 
 import java.math.BigDecimal
+import java.util.NavigableMap
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
@@ -205,7 +206,7 @@ data class TaxCsvTexts(
     val usdtAssumed: String = "",
 )
 
-/** Ergebnis einer Freigrenzen-Prüfung ([TaxYearSummaryDe]). */
+/** Ergebnis einer Freigrenzen-Prüfung ([TaxSummaryLine.status]). */
 enum class TaxLimitStatus {
     /** Unter der Freigrenze (steuerfrei). */
     BELOW,
@@ -268,104 +269,6 @@ enum class TaxSummaryNote {
 }
 
 /**
- * Jahresübersicht Deutschland ([TaxExport.deYearSummary]) — Orientierung, keine Steuerberatung. Beträge exakt; EUR-Werte
- * null, wenn keine EUR-Kurse übergeben wurden ([eurAvailable]). Gewinne > 0, Verluste ≤ 0 (negativ summiert).
- */
-data class TaxYearSummaryDe(
-    val year: Int,
-    val method: CostMethod,
-    /** Gewinne bis 1 Jahr gehalten (§ 23 EStG, privates Veräusserungsgeschäft). */
-    val shortGainsUsdt: BigDecimal,
-    /** Verluste bis 1 Jahr (negativ oder 0). */
-    val shortLossesUsdt: BigDecimal,
-    /** [shortGainsUsdt] + [shortLossesUsdt]. */
-    val netShortUsdt: BigDecimal,
-    /** Gewinne nach mehr als 1 Jahr (in DE steuerfrei). */
-    val longGainsUsdt: BigDecimal,
-    val longLossesUsdt: BigDecimal,
-    /** Bekannter Gewinn/Verlust ohne Haltedauer (Ø, mehr verkauft als erfasst) — weder kurz- noch langfristig. */
-    val unclassifiedUsdt: BigDecimal,
-    val eurAvailable: Boolean,
-    val shortGainsEur: BigDecimal?,
-    val shortLossesEur: BigDecimal?,
-    val netShortEur: BigDecimal?,
-    val longGainsEur: BigDecimal?,
-    val longLossesEur: BigDecimal?,
-    val unclassifiedEur: BigDecimal?,
-    /** Veräusserungen bis 1 Jahr oder ohne Haltedauer mit unbekanntem Gewinn (Kaufpreis/Erlös fehlt). */
-    val unknownGainCount: Int,
-    /** Veräusserungen ohne Haltedauer (Ø-Methode, ungedeckter Rest). */
-    val unclassifiedCount: Int,
-    /** Veräusserungen bis 1 Jahr / ohne Haltedauer mit bekanntem Gewinn, aber ohne EUR-Kurs. */
-    val eurFxMissingCount: Int,
-    /**
-     * Gebühren von Auszahlungen ([PortfolioFeeExpense.WITHDRAWAL], negativ oder 0) — eigener Posten: NICHT in den Summen
-     * ≤ 1 Jahr und nicht in der Freigrenze § 23 (keine Veräusserung; ggf. Werbungskosten).
-     */
-    val withdrawalFeesUsdt: BigDecimal = BigDecimal.ZERO,
-    val withdrawalFeesEur: BigDecimal? = null,
-    /** Anzahl solcher Gebühr-Zeilen (0 = kein Posten). */
-    val withdrawalFeeCount: Int = 0,
-    /** Freigrenze § 23 Abs. 3 Satz 5 EStG in EUR für [year] ([TaxExport.privateSalesLimitEur]). */
-    val privateSalesLimitEur: BigDecimal,
-    val privateSalesStatus: TaxLimitStatus,
-    /** Einkünfte aus Leistungen (§ 22 Nr. 3 EStG: Belohnungen/Staking) — Summe der bekannten Werte. */
-    val incomeUsdt: BigDecimal,
-    val incomeEur: BigDecimal?,
-    /** Belohnungen ohne Wert beim Erhalt. */
-    val incomeValueMissingCount: Int,
-    /** Belohnungen mit Wert, aber ohne EUR-Kurs. */
-    val incomeFxMissingCount: Int,
-    /** Freigrenze § 22 Nr. 3 Satz 2 EStG ([TaxExport.INCOME_LIMIT_EUR]). */
-    val incomeLimitEur: BigDecimal,
-    val incomeStatus: TaxLimitStatus,
-)
-
-/** Texte der «Jahresübersicht DE» (übersetzt). */
-data class TaxDeTexts(
-    /** «Jahresübersicht DE %d» mit dem Jahr eingesetzt. */
-    val title: String,
-    /** «Orientierung, keine Steuerberatung …» — steht immer in der Datei. */
-    val disclaimer: String,
-    val item: String,
-    /** Spalte «USDT». */
-    val usdt: String,
-    /** Spalte «EUR». */
-    val eur: String,
-    val note: String,
-    val shortGains: String,
-    val shortLosses: String,
-    val netShort: String,
-    val longGains: String,
-    val longLosses: String,
-    val unclassified: String,
-    val privateSalesLimit: String,
-    val income: String,
-    val incomeLimit: String,
-    val below: String,
-    val reached: String,
-    val unknown: String,
-    /** «Prüfung braucht EUR-Werte (Devisenkurse fehlen)». */
-    val needsEur: String,
-    val incomplete: String,
-    /** «Haltedauer fehlt (Ø-Methode) – für die Prüfung FIFO wählen». */
-    val needsHolding: String,
-    val noFx: String,
-    /** «Freigrenze gilt für alle privaten Veräusserungsgeschäfte bzw. Leistungen zusammen». */
-    val limitScope: String,
-    /** Kopf des Orientierungs-Blocks «Orientierung – keine Steuerberatung, keine Veranlagung»; leer = [disclaimer]. */
-    val orientationHeading: String = "",
-    /** Posten im Orientierungs-Block «Orientierung: %s»; leer = ohne Vorsatz. */
-    val orientationItem: String = "",
-    /** Status «Verlust» ([TaxLimitStatus.LOSS]); leer = [below]. */
-    val loss: String = "",
-    /** Posten «Auszahlungsgebühren»; leer = kein Posten. */
-    val withdrawalFees: String = "",
-    /** Vermerk «Auszahlungsgebühr – nicht mit § 23 verrechnet, ggf. Werbungskosten prüfen». */
-    val withdrawalFeeNote: String = "",
-)
-
-/**
  * Posten der Jahresübersicht einer Vorlage ([TaxExport.yearSummary]); die App nennt sie übersetzt. Tatsachen-Posten
  * (Summen) zuerst; [orientation] = Schluss nach den Regeln der Vorlage, nur als «Orientierung» mit Hinweis.
  */
@@ -399,6 +302,11 @@ enum class TaxLine(val orientation: Boolean = false) {
     TRANSFER_FEES,
     DE_LONG(true), DE_PRIVATE_LIMIT(true), DE_INCOME_LIMIT(true),
     AT_RATE(true), AT_OLD_LONG(true),
+    /**
+     * AT: Altbestand ≤ 1 Jahr gehalten = Spekulationsgeschäft nach alter Rechtslage (§ 30 EStG a. F.) — Freigrenze 440 €
+     * im Kalenderjahr (§ 31 Abs. 3 EStG a. F.: steuerfrei, wenn höchstens 440 €), Status wie [DE_PRIVATE_LIMIT].
+     */
+    AT_OLD_SPECULATION_LIMIT(true),
     CH_PRIVATE(true), CH_INCOME(true), CH_WEALTH(true),
     UK_EXEMPT(true), UK_AFTER_EXEMPT(true),
     US_TERMS(true),
@@ -495,12 +403,12 @@ fun taxOrientationLabel(item: String, fallback: String, label: String): String =
  *  - Summe: Einstand/Erlös/Gewinn nur über Zeilen, bei denen alle drei bekannt sind (die Summe geht auf);
  *    dazu eine Zeile «Erlös ohne Kaufpreis» für Zeilen mit unbekanntem Einstand; fehlt etwas: «unvollständig».
  *  - «> 1 Jahr» ([isLongTerm]): Verkaufsdatum NACH Kaufdatum + 1 Kalenderjahr (mehr als ein Jahr wie
- *    § 23 EStG; Kauf 29.2. → Grenze 28.2.). Daten und Jahr in der Zeitzone des Geräts; sie steht in der CSV
+ *    § 23 EStG; Kauf 29.2. → Grenze 28.2.). Daten und Jahr in der Zeitzone der Vorlage; sie steht in der CSV
  *    ([TaxCsvTexts.timeZone]).
  *  - Einkünfte: Belohnungen im Jahr mit Wert beim Erhalt (Menge × erfasster Wert je Coin), umgerechnet zum
  *    Kurs des Tags.
  *  - Bestand am Jahresende: der Stichtag-Export per 31.12. ([CutoffExport]).
- *  - Jahresübersicht DE ([deYearSummary], [deSummaryCsv]): kurz-/langfristig, Freigrenzen § 23 und § 22 Nr. 3 EStG.
+ *  - Jahresübersicht je Vorlage ([yearSummary], [summaryCsv]), DE: kurz-/langfristig, Freigrenzen § 23 und § 22 Nr. 3 EStG.
  *  - Tausch: Veräusserung wie ein Verkauf (Vermerk [TaxCsvTexts.swap]); FIFO je Wallet: Vermerk [TaxCsvTexts.wallet].
  * Exakt mit [BigDecimal]; gerundet wird nur im Text (wie [CutoffExport]). CSV wie der Stichtag-Export: UTF-8 mit
  * BOM, CRLF, Trenn-/Dezimalzeichen je Region ([CutoffCsvFormat]); Kopfzeilen (Methode, Währung, keine
@@ -515,9 +423,9 @@ object TaxExport {
     private const val EOL = "\r\n"
 
     /*
-     * Steuerjahr und Daten bewusst in der Zeitzone des Geräts ([zone]): massgebend ist das rechtliche (lokale) Datum
-     * des Geschäfts — ein Verkauf am 31.12. um 23:30 Zürich gehört ins alte Jahr, auch wenn es in UTC schon der 1.1.
-     * ist. Wertverlauf, «Heute/7 T/1 J» und Tageskerzen rechnen dagegen mit UTC-Tagen ([PortfolioHistory.utcDayEnd]) —
+     * Steuerjahr und Daten in der übergebenen Zeitzone ([zone]; die App nimmt die der Vorlage, [TaxTemplate.zone],
+     * Neutral die des Geräts): massgebend ist das rechtliche (lokale) Datum des Geschäfts — ein Verkauf am 31.12. um
+     * 23:30 Zürich gehört ins alte Jahr, auch wenn es in UTC schon der 1.1. ist. Wertverlauf, «Heute/7 T/1 J» und Tageskerzen rechnen dagegen mit UTC-Tagen ([PortfolioHistory.utcDayEnd]) —
      * eine Transaktion um Mitternacht kann im Chart daher auf einen anderen Tag fallen als in der Steuer-CSV.
      */
     fun localDate(millis: Long, zone: ZoneId): LocalDate = Instant.ofEpochMilli(millis).atZone(zone).toLocalDate()
@@ -555,8 +463,6 @@ object TaxExport {
 
     fun incomeFileName(year: Int): String = "cryptochecker-einkuenfte-$year.csv"
 
-    fun deSummaryFileName(year: Int): String = "cryptochecker-jahresuebersicht-de-$year.csv"
-
     /** Dateiname der Jahresübersicht einer Vorlage, z. B. «cryptochecker-jahresuebersicht-uk-2025.csv». */
     fun summaryFileName(template: TaxTemplate, year: Int): String =
         "cryptochecker-jahresuebersicht-${template.name.lowercase()}-$year.csv"
@@ -585,6 +491,12 @@ object TaxExport {
     val INCOME_LIMIT_EUR: BigDecimal = BigDecimal(256)
 
     /**
+     * AT Altbestand ≤ 1 Jahr (Spekulationsgeschäft, § 30 EStG a. F.): Freigrenze § 31 Abs. 3 EStG a. F. — steuerfrei, wenn die
+     * Einkünfte daraus im Kalenderjahr HÖCHSTENS 440 € betragen (darüber der ganze Betrag; Freigrenze, kein Freibetrag).
+     */
+    val AT_SPECULATION_LIMIT_EUR: BigDecimal = BigDecimal(440)
+
+    /**
      * USD → Zielwährung am [date]: USD = 1; sonst der Kurs des Tags oder des letzten Tags davor (höchstens
      * [FX_MAX_GAP_DAYS] Tage); [rates] = Tag (Tage seit 1970) → Kurs, null = nicht geladen.
      * Mit [usdtUsd] (USDT/USD-Tagesschluss je Datum, Owner-Entscheid Okt. 2026): USDT → Zielwährung = Kurs × USDT/USD
@@ -597,15 +509,32 @@ object TaxExport {
         usdtUsd: Map<Long, BigDecimal>? = null,
     ): BigDecimal? {
         val fx = if (currency.trim().uppercase() == "USD") BigDecimal.ONE else {
-            val day = date.toEpochDay()
-            val best = rates.orEmpty().entries
-                .filter { it.key <= day && day - it.key <= FX_MAX_GAP_DAYS && it.value.signum() > 0 }
-                .maxByOrNull { it.key }
-            best?.value ?: return null
+            fxOnOrBefore(rates, date.toEpochDay()) ?: return null
         }
         if (usdtUsd == null) return fx
         val usdt = usdtUsdOn(usdtUsd, date) ?: return fx
         return fx.multiply(usdt, PortfolioDecimal.MC)
+    }
+
+    /**
+     * Kurs des Tags [day] oder des letzten Tags davor mit Kurs > 0, höchstens [FX_MAX_GAP_DAYS] Tage zurück. Ein Export
+     * fragt das für jede Zeile ab: geordnete Kurse ([NavigableMap], z. B. [java.util.TreeMap]) über `floorEntry`, sonst
+     * höchstens acht direkte Abfragen — nie die ganze Kursreihe je Zeile durchsuchen.
+     */
+    internal fun fxOnOrBefore(rates: Map<Long, BigDecimal>?, day: Long): BigDecimal? {
+        if (rates.isNullOrEmpty()) return null
+        if (rates is NavigableMap<Long, BigDecimal>) {
+            var entry = rates.floorEntry(day)
+            while (entry != null && day - entry.key <= FX_MAX_GAP_DAYS) {
+                if (entry.value.signum() > 0) return entry.value
+                entry = rates.lowerEntry(entry.key)
+            }
+            return null
+        }
+        for (d in day downTo day - FX_MAX_GAP_DAYS) {
+            rates[d]?.takeIf { it.signum() > 0 }?.let { return it }
+        }
+        return null
     }
 
     /**
@@ -1112,176 +1041,6 @@ object TaxExport {
     }
 
     /**
-     * Jahresübersicht Deutschland für [year] — ORIENTIERUNG, KEINE STEUERBERATUNG. Aus den Veräusserungen nach [method]
-     * ([gainRows], in EUR mit [eurRates] = USD → EUR je Tag; null = keine EUR-Kurse):
-     *  - kurzfristig (≤ 1 Jahr, [isLongTerm] false): Gewinne und Verluste getrennt, netto = Summe (§ 23 EStG);
-     *  - langfristig (> 1 Jahr): in DE steuerfrei, nur zur Orientierung;
-     *  - ohne Haltedauer (Ø-Methode, mehr verkauft als erfasst): eigener Posten, die Prüfung bleibt offen.
-     * Freigrenze § 23: netto kurzfristig in EUR < 0 → [TaxLimitStatus.LOSS] (nur mit § 23-Gewinnen verrechenbar), sonst
-     * < [privateSalesLimitEur] → [TaxLimitStatus.BELOW], sonst REACHED (der ganze Betrag ist steuerpflichtig); UNKNOWN ohne EUR-Kurse oder wenn ein kurzfristiger/unklassierter Gewinn
-     * unbekannt ist, die Haltedauer fehlt oder ein EUR-Kurs fehlt. Die Grenze gilt für alle privaten
-     * Veräusserungsgeschäfte des Jahres zusammen (auch ausserhalb der App).
-     * Einkünfte aus Leistungen (§ 22 Nr. 3): Belohnungen ([incomeRows]) — < 256 € → BELOW; gilt für alle Leistungen
-     * zusammen. Gezählt wird nur Bekanntes; was fehlt, steht in den Zählern.
-     */
-    fun deYearSummary(
-        trades: List<PortfolioTrade>,
-        method: CostMethod,
-        year: Int,
-        zone: ZoneId,
-        eurRates: Map<Long, BigDecimal>?,
-    ): TaxYearSummaryDe {
-        val zero = BigDecimal.ZERO
-        val eur = eurRates != null
-        val all = gainRows(trades, method, year, zone, "EUR", eurRates ?: emptyMap())
-        // Auszahlungsgebühren: keine Veräusserung — eigener Posten, nicht in § 23 (Summe ≤ 1 Jahr, Freigrenze)
-        val (feeRows, rows) = all.partition { it.feeExpense == PortfolioFeeExpense.WITHDRAWAL }
-        val feeUsdt = feeRows.fold(zero) { a, r -> a + (r.gainUsdt ?: zero) }
-        val feeEur = feeRows.fold(zero) { a, r -> a + (r.gainTarget ?: zero) }
-        var sg = zero; var sl = zero; var lg = zero; var ll = zero; var un = zero
-        var sgE = zero; var slE = zero; var lgE = zero; var llE = zero; var unE = zero
-        var unknownGain = 0
-        var unclassified = 0
-        var fxMissing = 0
-        for (r in rows) {
-            val g = r.gainUsdt
-            val gE = r.gainTarget
-            when (r.longTerm) {
-                true -> {
-                    if (g != null) { if (g.signum() > 0) lg += g else ll += g }
-                    if (gE != null) { if (gE.signum() > 0) lgE += gE else llE += gE }
-                }
-                false -> {
-                    if (g == null) unknownGain++
-                    else { if (g.signum() > 0) sg += g else sl += g }
-                    if (gE != null) { if (gE.signum() > 0) sgE += gE else slE += gE }
-                    else if (g != null && eur) fxMissing++
-                }
-                null -> {
-                    unclassified++
-                    if (g == null) unknownGain++ else un += g
-                    if (gE != null) unE += gE else if (g != null && eur) fxMissing++
-                }
-            }
-        }
-        val netE = sgE + slE
-        val limit = privateSalesLimitEur(year)
-        val salesStatus = when {
-            !eur || unknownGain > 0 || unclassified > 0 || fxMissing > 0 -> TaxLimitStatus.UNKNOWN
-            // Netto-Verlust: nicht «unter der Freigrenze», sondern eigener Status (nur mit § 23-Gewinnen verrechenbar)
-            netE.signum() < 0 -> TaxLimitStatus.LOSS
-            netE < limit -> TaxLimitStatus.BELOW
-            else -> TaxLimitStatus.REACHED
-        }
-        val income = incomeRows(trades, year, zone, "EUR", eurRates ?: emptyMap())
-        val incomeUsdt = income.fold(zero) { a, r -> a + (r.valueUsdt ?: zero) }
-        val incomeEur = income.fold(zero) { a, r -> a + (r.valueTarget ?: zero) }
-        val valueMissing = income.count { it.valueMissing }
-        val incomeFx = if (eur) income.count { it.fxMissing } else 0
-        val incomeStatus = when {
-            !eur || valueMissing > 0 || incomeFx > 0 -> TaxLimitStatus.UNKNOWN
-            incomeEur < INCOME_LIMIT_EUR -> TaxLimitStatus.BELOW
-            else -> TaxLimitStatus.REACHED
-        }
-        return TaxYearSummaryDe(
-            year = year, method = method,
-            shortGainsUsdt = sg, shortLossesUsdt = sl, netShortUsdt = sg + sl,
-            longGainsUsdt = lg, longLossesUsdt = ll, unclassifiedUsdt = un,
-            eurAvailable = eur,
-            shortGainsEur = sgE.takeIf { eur }, shortLossesEur = slE.takeIf { eur }, netShortEur = netE.takeIf { eur },
-            longGainsEur = lgE.takeIf { eur }, longLossesEur = llE.takeIf { eur }, unclassifiedEur = unE.takeIf { eur },
-            unknownGainCount = unknownGain, unclassifiedCount = unclassified, eurFxMissingCount = fxMissing,
-            withdrawalFeesUsdt = feeUsdt, withdrawalFeesEur = feeEur.takeIf { eur }, withdrawalFeeCount = feeRows.size,
-            privateSalesLimitEur = limit, privateSalesStatus = salesStatus,
-            incomeUsdt = incomeUsdt, incomeEur = incomeEur.takeIf { eur },
-            incomeValueMissingCount = valueMissing, incomeFxMissingCount = incomeFx,
-            incomeLimitEur = INCOME_LIMIT_EUR, incomeStatus = incomeStatus,
-        )
-    }
-
-    /**
-     * CSV «Jahresübersicht DE» mit BOM: [header] (je ein Feld), Titel, Hinweis «Orientierung, keine Steuerberatung»,
-     * Zeitzone ([zoneLine], leer = keine), dann Posten | USDT | EUR | Hinweis. EUR leer ohne EUR-Kurse. Zuerst Tatsachen
-     * (Summen, Einkünfte), dann der Orientierungs-Block (Kopf [TaxDeTexts.orientationHeading], Freigrenzen mit Vorsatz).
-     */
-    fun deSummaryCsv(
-        s: TaxYearSummaryDe,
-        texts: TaxDeTexts,
-        header: List<String>,
-        zoneLine: String = "",
-        format: CutoffCsvFormat = CutoffCsvFormat.SEMICOLON_POINT,
-    ): String {
-        fun n(text: String): String = if (format.decimal == ',') text.replace('.', ',') else text
-        fun money(v: BigDecimal?): String = n(v?.let { CutoffExport.money(it) }.orEmpty())
-        fun status(st: TaxLimitStatus): String = when (st) {
-            TaxLimitStatus.BELOW -> texts.below
-            TaxLimitStatus.REACHED -> texts.reached
-            TaxLimitStatus.UNKNOWN -> texts.unknown
-            TaxLimitStatus.LOSS -> texts.loss.ifEmpty { texts.below }
-        }
-        val sb = StringBuilder(BOM)
-        header.forEach { sb.append(textLine(listOf(it), format)) }
-        sb.append(textLine(listOf(texts.title), format))
-        sb.append(textLine(listOf(texts.disclaimer), format))
-        if (zoneLine.isNotEmpty()) sb.append(textLine(listOf(zoneLine), format))
-        sb.append(textLine(listOf(texts.item, texts.usdt, texts.eur, texts.note), format))
-        val shortIncomplete = s.unknownGainCount > 0 || s.eurFxMissingCount > 0
-        sb.append(textLine(listOf(texts.shortGains, money(s.shortGainsUsdt), money(s.shortGainsEur), ""), format, setOf(1, 2)))
-        sb.append(textLine(listOf(texts.shortLosses, money(s.shortLossesUsdt), money(s.shortLossesEur), ""), format, setOf(1, 2)))
-        sb.append(
-            textLine(
-                listOf(
-                    texts.netShort, money(s.netShortUsdt), money(s.netShortEur),
-                    listOfNotNull(
-                        texts.incomplete.takeIf { s.unknownGainCount > 0 },
-                        texts.noFx.takeIf { s.eurFxMissingCount > 0 },
-                    ).joinToString(", "),
-                ),
-                format,
-                setOf(1, 2),
-            )
-        )
-        sb.append(textLine(listOf(texts.longGains, money(s.longGainsUsdt), money(s.longGainsEur), ""), format, setOf(1, 2)))
-        sb.append(textLine(listOf(texts.longLosses, money(s.longLossesUsdt), money(s.longLossesEur), ""), format, setOf(1, 2)))
-        if (s.unclassifiedCount > 0) {
-            sb.append(textLine(listOf(texts.unclassified, money(s.unclassifiedUsdt), money(s.unclassifiedEur), texts.needsHolding), format, setOf(1, 2)))
-        }
-        // Auszahlungsgebühren: eigener Posten, nicht mit § 23 verrechnet
-        if (s.withdrawalFeeCount > 0 && texts.withdrawalFees.isNotEmpty()) {
-            sb.append(
-                textLine(listOf(texts.withdrawalFees, money(s.withdrawalFeesUsdt), money(s.withdrawalFeesEur), texts.withdrawalFeeNote), format, setOf(1, 2))
-            )
-        }
-        sb.append(
-            textLine(
-                listOf(
-                    texts.income, money(s.incomeUsdt), money(s.incomeEur),
-                    listOfNotNull(
-                        texts.incomplete.takeIf { s.incomeValueMissingCount > 0 },
-                        texts.noFx.takeIf { s.incomeFxMissingCount > 0 },
-                    ).joinToString(", "),
-                ),
-                format,
-                setOf(1, 2),
-            )
-        )
-        // Freigrenzen nur im Orientierungs-Block (Kopf, jeder Posten mit Vorsatz «Orientierung:»), nie bei den Tatsachen
-        fun oriented(label: String): String = taxOrientationLabel(texts.orientationItem, "", label)
-        sb.append(textLine(listOf(texts.orientationHeading.ifEmpty { texts.disclaimer }), format))
-        val salesNote = listOfNotNull(
-            status(s.privateSalesStatus),
-            texts.needsEur.takeIf { !s.eurAvailable },
-            texts.needsHolding.takeIf { s.unclassifiedCount > 0 && s.eurAvailable },
-            texts.incomplete.takeIf { shortIncomplete && s.eurAvailable && s.unclassifiedCount == 0 },
-        ).joinToString(", ")
-        sb.append(textLine(listOf(oriented(texts.privateSalesLimit), "", money(s.privateSalesLimitEur), salesNote), format, setOf(1, 2)))
-        val incomeNote = listOfNotNull(status(s.incomeStatus), texts.needsEur.takeIf { !s.eurAvailable }).joinToString(", ")
-        sb.append(textLine(listOf(oriented(texts.incomeLimit), "", money(s.incomeLimitEur), incomeNote), format, setOf(1, 2)))
-        if (texts.limitScope.isNotEmpty()) sb.append(textLine(listOf(oriented(texts.limitScope)), format))
-        return sb.toString()
-    }
-
-    /**
      * Summe eines Teils der Zeilen: USDT, Steuerwährung, Anzahl ohne Gewinn, Anzahl mit Gewinn aus unvollständigem
      * Einstand (FR: Erwerbspreis-Summe nicht gesichert, [TaxGainRow.costIncomplete]), Anzahl ohne Devisenkurs.
      */
@@ -1513,6 +1272,17 @@ object TaxExport {
                 )
                 if (rows.any { it.oldHolding == true }) {
                     lines += Acc(rows.filter { it.oldHolding == true && it.longTerm == true }, all, fx).line(TaxLine.AT_OLD_LONG, fx)
+                    // Altbestand ≤ 1 Jahr: Freigrenze 440 € (§ 31 Abs. 3 EStG a. F.) — wie die Freigrenze § 23 in DE nicht
+                    // prüfbar, sobald ein Gewinn, ein Devisenkurs oder die Haltedauer fehlt
+                    val old = rows.filter { it.oldHolding == true }
+                    val spec = Acc(old.filter { it.longTerm == false }, all, fx)
+                    val specStatus = when {
+                        !fx || spec.unknown > 0 || spec.fxMissing > 0 || old.any { it.longTerm == null } -> TaxLimitStatus.UNKNOWN
+                        spec.target.signum() < 0 -> TaxLimitStatus.LOSS
+                        spec.target <= AT_SPECULATION_LIMIT_EUR -> TaxLimitStatus.BELOW
+                        else -> TaxLimitStatus.REACHED
+                    }
+                    lines += TaxSummaryLine(TaxLine.AT_OLD_SPECULATION_LIMIT, null, AT_SPECULATION_LIMIT_EUR, specStatus)
                 }
             }
             TaxTemplate.CH -> {

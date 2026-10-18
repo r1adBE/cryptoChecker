@@ -15,7 +15,6 @@ import okhttp3.OkHttpClient
 import okhttp3.Protocol
 import okhttp3.Response
 import okhttp3.ResponseBody.Companion.toResponseBody
-import okhttp3.logging.HttpLoggingInterceptor
 import javax.inject.Singleton
 
 /**
@@ -125,11 +124,6 @@ object FakeRemoteDataModule {
     @Provides
     fun provideOkHttpClient(): OkHttpClient =
         OkHttpClient.Builder().addInterceptor(FakeMarketInterceptor()).build()
-
-    @Singleton
-    @Provides
-    fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor =
-        HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.NONE }
 
     @Singleton
     @Provides

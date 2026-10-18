@@ -8,10 +8,11 @@ import kotlin.math.abs
  * von 1 USD abweicht. Dieselbe Messung ist der Live-Kurs USDT/USD der Bewertung ([liveUsdtUsd]): USDT gilt in Fiat seinen
  * Marktkurs ([com.cryptochecker.app.domain.portfolio.PortfolioStables.usdtUsd]); ohne frische Messung 1 als Näherung.
  *
- * Quellen (bestehende Kurs-Abrufe, kein neuer Anbieter): Kraken USDT/USD (direkt) und Binance
- * USDC/USDT (USDT = 1 / Kurs, USDC als 1 USD angenommen). Beide da: der Wert näher bei 1 zählt —
- * gemeldet wird also nur, wenn beide Quellen abweichen (eine Börse allein löst keinen Fehlalarm aus).
- * Nur eine da: diese. Keine: keine Prüfung.
+ * Quellen (bestehende Kurs-Abrufe, kein neuer Anbieter): Kraken USDT/USD (direkt, zuerst), Coinbase USDT-USD (direkt,
+ * zweite Quelle) und erst als dritte Quelle bzw. Ersatz Binance USDC/USDT (USDT = 1 / Kurs, USDC als 1 USD angenommen).
+ * Regeln siehe [measure]: Im Normalbereich zählt der Wert näher bei 1 (eine Börse allein löst keinen Fehlalarm aus);
+ * ein Kurs im Einbruch-Bereich (z. B. 0.30) zählt nur, wenn mindestens zwei Quellen innerhalb von 5 % übereinstimmen.
+ * Ein Wert allein aus USDC/USDT löst nie einen Alarm aus — er unterscheidet nicht, ob USDT oder USDC abweicht.
  *
  * Hysterese: Nach einer Meldung erst wieder scharf, wenn die Abweichung auf die halbe Schwelle
  * zurückgeht. Kann die Meldung gerade nicht ankommen (Nachtruhe, keine Erlaubnis), bleibt der Alarm
@@ -34,30 +35,78 @@ object DepegAlarm {
     // Quellen: Börsen-Schlüssel und Paar-Kennung (wie in der Paarliste der Börse)
     const val KRAKEN_KEY = "Kraken"
     const val KRAKEN_PAIR_ID = "USDTZUSD"
+    const val COINBASE_KEY = "Coinbase"
+    const val COINBASE_PAIR_ID = "USDT-USD"
     const val BINANCE_KEY = "Binance"
     const val BINANCE_PAIR_ID = "USDCUSDT"
 
-    /** Unplausible Kurse (Fehler der Börse) fallen weg. */
-    private const val MIN_PLAUSIBLE = 0.5
-    private const val MAX_PLAUSIBLE = 1.5
+    /** Normalbereich: eine Quelle allein genügt; ausserhalb braucht es eine Bestätigung ([measure]). */
+    private const val MIN_PLAUSIBLE = PortfolioStables.USDT_USD_MIN
+    private const val MAX_PLAUSIBLE = PortfolioStables.USDT_USD_MAX
+
+    /** Einbruch-Bereich: nur bestätigt gültig; ausserhalb davon immer Börsenfehler. */
+    private const val MIN_BREAK = PortfolioStables.USDT_USD_BREAK_MIN
+    private const val MAX_BREAK = PortfolioStables.USDT_USD_BREAK_MAX
+
+    /** Zwei Kurse stimmen überein, wenn sie höchstens 5 % (vom grösseren) auseinanderliegen. */
+    const val BREAK_AGREEMENT = 0.05
 
     /** Gespeicherte Schwelle; unbekannte Werte → Standard. */
     fun threshold(tenths: Int): Int = if (tenths in THRESHOLD_CHOICES) tenths else DEFAULT_THRESHOLD_TENTHS
 
     fun thresholdPercent(tenths: Int): Double = threshold(tenths) / 10.0
 
-    private fun plausible(price: Double): Boolean = price.isFinite() && price in MIN_PLAUSIBLE..MAX_PLAUSIBLE
+    private fun normal(price: Double): Boolean = price.isFinite() && price in MIN_PLAUSIBLE..MAX_PLAUSIBLE
 
-    /** USDT in USD aus Kraken USDT/USD. */
-    fun fromKraken(last: Double?): Double? = last?.takeIf { plausible(it) }
+    private fun inBreakRange(price: Double): Boolean = price.isFinite() && price in MIN_BREAK..MAX_BREAK
 
-    /** USDT in USD aus Binance USDC/USDT (1 USDC = [last] USDT). */
-    fun fromBinanceUsdc(last: Double?): Double? =
-        last?.takeIf { it.isFinite() && it > 0 }?.let { 1.0 / it }?.takeIf { plausible(it) }
+    private fun agree(a: Double, b: Double): Boolean = abs(a - b) <= BREAK_AGREEMENT * maxOf(a, b)
 
-    /** Beide Quellen: der Wert näher bei 1; eine: diese; keine: null. */
-    fun combine(kraken: Double?, binance: Double?): Double? =
-        listOfNotNull(kraken, binance).minByOrNull { abs(it - 1.0) }
+    /**
+     * Ergebnis einer Messung: USDT in USD [price]; [viaUsdc] = nur aus Binance USDC/USDT abgeleitet (USDC = 1
+     * angenommen) — dann nie ein Alarm ([mayAlarm]) und die Karte nennt die Herkunft.
+     */
+    data class Measurement(val price: Double, val viaUsdc: Boolean) {
+        /** Bestätigter Einbruch (ausserhalb des Normalbereichs). */
+        val broken: Boolean get() = PortfolioStables.isUsdtBreak(price)
+    }
+
+    /**
+     * USDT in USD aus den drei Quellen ([kraken], [coinbase] = letzter Kurs USDT/USD; [binanceUsdc] = letzter Kurs
+     * USDC/USDT; null = fehlt):
+     *  1. Jeder Kurs ausserhalb 0.05…3 ist ein Börsenfehler.
+     *  2. Im Normalbereich (0.5…1.5) genügt eine Quelle; im Einbruch-Bereich (0.05…0.5, 1.5…3) zählt ein Kurs nur,
+     *     wenn eine andere Quelle innerhalb von [BREAK_AGREEMENT] übereinstimmt — ein einzelner Ausreisser bleibt
+     *     unplausibel, ein echter Einbruch (mehrere Börsen bei 0.30) wird nicht mehr weggefiltert.
+     *  3. Beide direkten Quellen gültig: der Wert näher bei 1 (USDC/USDT zählt nicht). Eine direkte: der Wert näher bei
+     *     1 aus ihr und USDC/USDT (wie bisher: gemeldet wird nur, wenn beide abweichen). Keine direkte: USDC/USDT
+     *     allein ([Measurement.viaUsdc]).
+     */
+    fun measure(kraken: Double?, coinbase: Double?, binanceUsdc: Double?): Measurement? {
+        val usdc = binanceUsdc?.takeIf { it.isFinite() && it > 0 }?.let { 1.0 / it }
+        val raw = listOf(kraken, coinbase, usdc).map { v -> v?.takeIf { inBreakRange(it) } }
+        fun accepted(i: Int): Double? {
+            val v = raw[i] ?: return null
+            if (normal(v)) return v
+            return v.takeIf { raw.withIndex().any { (j, o) -> j != i && o != null && agree(v, o) } }
+        }
+        val direct = listOfNotNull(accepted(0), accepted(1))
+        val fromUsdc = accepted(2)
+        return when {
+            // Zwei Direktquellen widersprechen sich, USDC/USDT bestätigt eine davon: die Mehrheit (2 von 3) gilt
+            direct.size == 2 && !agree(direct[0], direct[1]) && fromUsdc != null &&
+                direct.count { agree(it, fromUsdc) } == 1 -> Measurement(direct.first { agree(it, fromUsdc) }, viaUsdc = false)
+            direct.size == 2 -> Measurement(closestToOne(direct), viaUsdc = false)
+            direct.size == 1 -> Measurement(closestToOne(direct + listOfNotNull(fromUsdc)), viaUsdc = false)
+            fromUsdc != null -> Measurement(fromUsdc, viaUsdc = true)
+            else -> null
+        }
+    }
+
+    private fun closestToOne(values: List<Double>): Double = values.minBy { abs(it - 1.0) }
+
+    /** Darf diese Messung den Alarm auslösen? Nicht, wenn sie allein aus USDC/USDT stammt. */
+    fun mayAlarm(measurement: Measurement): Boolean = !measurement.viaUsdc
 
     /** Abweichung von 1 USD in Prozent (negativ = unter 1). */
     fun deviationPercent(price: Double): Double = (price - 1.0) * 100.0
@@ -87,8 +136,11 @@ object DepegAlarm {
     fun armedAfter(fire: Boolean, posted: Boolean, armedBefore: Boolean, next: Boolean): Boolean =
         if (fire && !posted) armedBefore else next
 
-    /** Letzte Messung der Prüfung (USDT in USD, Zeitpunkt) — gespeichert, damit Karte und Alarm übereinstimmen. */
-    data class Reading(val price: Double, val atMillis: Long)
+    /**
+     * Letzte Messung der Prüfung (USDT in USD, Zeitpunkt) — gespeichert, damit Karte und Alarm übereinstimmen.
+     * [viaUsdc]: nur aus Binance USDC/USDT abgeleitet ([Measurement.viaUsdc]).
+     */
+    data class Reading(val price: Double, val atMillis: Long, val viaUsdc: Boolean = false)
 
     /** So lange gilt eine Messung auf der Portfolio-Karte (Prüfung höchstens alle 5 Minuten). */
     const val CARD_MAX_AGE_MILLIS = 30 * 60_000L
@@ -118,13 +170,15 @@ object DepegAlarm {
 
     /**
      * Live-Kurs USDT/USD für die Bewertung ([com.cryptochecker.app.domain.portfolio.UsdtUsdRates.live]): die letzte
-     * Messung, wenn höchstens [LIVE_MAX_AGE_MILLIS] alt und plausibel; sonst null (Bewertung mit Ersatz 1, Näherung).
+     * Messung, wenn höchstens [LIVE_MAX_AGE_MILLIS] alt und im Einbruch-Bereich 0.05…3 (gespeichert wird nur, was
+     * [measure] geprüft hat — ausserhalb des Normalbereichs also nur ein bestätigter Einbruch); sonst null (Bewertung
+     * mit Ersatz 1, Näherung).
      */
     fun liveUsdtUsd(reading: Reading?, now: Long): Double? {
         reading ?: return null
         val age = now - reading.atMillis
         if (age > LIVE_MAX_AGE_MILLIS || age < -CARD_FUTURE_TOLERANCE_MILLIS) return null
-        return reading.price.takeIf { plausible(it) }
+        return reading.price.takeIf { inBreakRange(it) }
     }
 
     /** Art der Zeile zu «USDT = 1» auf der Portfolio-Karte ([cardNote]). */
@@ -135,9 +189,13 @@ object DepegAlarm {
         PRICE_SOURCE,
         /** Der Bestand enthält USDT (zählt 1) bzw. mit USDT zum Marktkurs: Ersatz 1 ohne Kurs — «USDT = 1 angenommen». */
         USDT_ASSUMED,
+        /** Bestätigter USDT-Einbruch: die Werte rechnen mit dem Marktkurs — «USDT-Einbruch – Markt bei …» (Warnfarbe). */
+        USDT_BREAK,
+        /** Live-Kurs nur aus Binance USDC/USDT (USDC = 1 angenommen): «USDT/USD über USDC/USDT …». */
+        VIA_USDC,
     }
 
-    /** Zeile der Karte; [reading] nur bei [CardNoteKind.DEVIATION] (Zahlen der Warnzeile). */
+    /** Zeile der Karte; [reading] bei [CardNoteKind.DEVIATION], [CardNoteKind.USDT_BREAK] und [CardNoteKind.VIA_USDC]. */
     data class CardNote(val kind: CardNoteKind, val reading: Reading? = null)
 
     /**
@@ -149,7 +207,8 @@ object DepegAlarm {
      *  4. sonst keine Zeile (null).
      * Mit USDT zum Marktkurs ([usdtMarket], Owner-Entscheid Okt. 2026): frischer Kurs ([liveUsdtUsd]) → keine Zeile
      * (nichts angenommen, die Werte rechnen mit dem Markt); ohne ihn trägt Ersatz 1 die Zahlen → wie 2./3., aber immer
-     * [CardNoteKind.USDT_ASSUMED] («USDT = 1 angenommen» = Markierung der Näherung).
+     * [CardNoteKind.USDT_ASSUMED] («USDT = 1 angenommen» = Markierung der Näherung). Mit frischem Kurs und Werten, die
+     * an USDT hängen: bestätigter Einbruch → [CardNoteKind.USDT_BREAK]; Kurs nur aus USDC/USDT → [CardNoteKind.VIA_USDC].
      */
     fun cardNote(
         holdingCoins: Collection<String>,
@@ -160,9 +219,17 @@ object DepegAlarm {
         usdtMarket: Boolean = false,
     ): CardNote? {
         if (usdtMarket) {
-            if (liveUsdtUsd(reading, now) != null) return null
-            val assumed = valuesViaUsdt || holdingCoins.any { PortfolioStables.isValuation(it) }
-            return if (assumed) CardNote(CardNoteKind.USDT_ASSUMED) else null
+            val dependsOnUsdt = valuesViaUsdt || holdingCoins.any { PortfolioStables.isValuation(it) }
+            val live = liveUsdtUsd(reading, now)
+            if (live != null && reading != null) {
+                return when {
+                    !dependsOnUsdt -> null
+                    PortfolioStables.isUsdtBreak(live) -> CardNote(CardNoteKind.USDT_BREAK, reading)
+                    reading.viaUsdc -> CardNote(CardNoteKind.VIA_USDC, reading)
+                    else -> null
+                }
+            }
+            return if (dependsOnUsdt) CardNote(CardNoteKind.USDT_ASSUMED) else null
         }
         cardWarning(reading, thresholdTenths, now)?.let { return CardNote(CardNoteKind.DEVIATION, it) }
         if (valuesViaUsdt) return CardNote(CardNoteKind.PRICE_SOURCE)

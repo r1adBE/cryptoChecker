@@ -9,13 +9,16 @@ Besides plain copies it writes altseason.txt: the altcoin season already compute
 candles (data-api.binance.vision, else Binance.US) with the apps' rule, so a phone needs one
 request instead of about 21.
 
-coin_meta.json (plain JSON, not wrapped): coin names, logo URLs and Alpha flags built ONLY from
-Binance's public lists (website symbol list + Binance Alpha token list) — no images, no CoinGecko
-data. The apps read it only when the direct Binance lists fail (CoinMeta.kt / CoinMeta.swift);
-android/tools/gen_coin_assets.py turns the same data into the snapshot bundled with the apps.
-  {"v":1,"generated":<ms>,
-   "binance":[{"name","fullName","logo","tags","onlyFutures"}…],
-   "alpha":[{"symbol","name","iconUrl","chainId","contractAddress","alphaId","marketCap","offline","listingCex"}…]}
+coin_meta.json (plain JSON, not wrapped): the coin symbols currently traded on Binance Spot, built
+ONLY from the documented public REST endpoint GET /api/v3/exchangeInfo (data-api.binance.vision,
+else api.binance.com) — no images, no CoinGecko data, nothing from Binance's internal website API
+(www.binance.com/bapi). That endpoint has no coin names, logo URLs or Alpha tokens, so those fields
+are left out; the apps treat them as optional (CoinMeta.kt / CoinMeta.swift: missing fullName/logo/
+tags/onlyFutures are skipped, an empty "alpha" array is ignored and the apps keep their own list).
+The apps read the file only when the direct Binance lists fail.
+  {"v":1,"generated":<ms>,"binance":[{"name"}…],"alpha":[]}
+binance_entries / alpha_entries still parse the website lists for android/tools/gen_coin_assets.py
+(--binance-file / --alpha-file, local files only).
 
 File format (the apps read it with DataMirror.unwrap):
   first line  «CCDM1 <fetched, epoch milliseconds>»
@@ -43,9 +46,10 @@ import urllib.request
 USER_AGENT = "cryptoChecker-data-mirror (+https://github.com/r1adBE/cryptoChecker)"
 MAGIC = "CCDM1"
 COIN_METRICS = "https://community-api.coinmetrics.io/v4/timeseries/asset-metrics"
-# Same URLs as CoinLogos.BINANCE_LIST_URL / ALPHA_LIST_URL in the apps
-BINANCE_LIST_URL = "https://www.binance.com/bapi/composite/v1/public/marketing/symbol/list"
-ALPHA_LIST_URL = "https://www.binance.com/bapi/defi/v1/public/wallet-direct/buw/wallet/cex/alpha/all/token/list"
+# Documented public market-data endpoint (Binance Spot API). data-api.binance.vision first: it serves
+# public market data only and answers from GitHub's US runners, where api.binance.com may be blocked.
+EXCHANGE_INFO_URLS = ["https://data-api.binance.vision/api/v3/exchangeInfo",
+                      "https://api.binance.com/api/v3/exchangeInfo"]
 COIN_META_VERSION = 1
 
 
@@ -175,6 +179,24 @@ def alpha_entries(body):
     return out
 
 
+def exchange_info_entries(body):
+    """GET /api/v3/exchangeInfo -> [{name}]: base assets of the TRADING spot symbols, first occurrence
+    wins, upper case like the website list. No names or logos (the endpoint has none)."""
+    symbols = json.loads(body).get("symbols")
+    if not isinstance(symbols, list):
+        raise RuntimeError("exchangeInfo: no symbols array")
+    out, seen = [], set()
+    for o in symbols:
+        if not isinstance(o, dict) or o.get("status") != "TRADING":
+            continue
+        base = _text(o.get("baseAsset"))
+        if not base or base.upper() in seen:
+            continue
+        seen.add(base.upper())
+        out.append({"name": base.upper()})
+    return out
+
+
 def coin_meta(binance, alpha, generated_millis):
     return {"v": COIN_META_VERSION, "generated": generated_millis, "binance": binance, "alpha": alpha}
 
@@ -189,26 +211,19 @@ def coin_meta_snapshot(meta, top_binance=600):
 
 
 def build_coin_meta(fetcher=None):
-    """Both Binance lists; at least one must work (the other is then empty and the apps keep theirs)."""
+    """Spot symbols from exchangeInfo (first URL that answers with enough entries). No Alpha list:
+    there is no documented public endpoint for it, so "alpha" stays empty and the apps keep theirs."""
     fetcher = fetcher or (lambda url: fetch(url, {}))
-    binance, alpha, errors = [], [], []
-    try:
-        binance = binance_entries(fetcher(BINANCE_LIST_URL))
-        if len(binance) < 50:
-            raise RuntimeError(f"only {len(binance)} binance entries")
-    except Exception as e:
-        binance = []
-        errors.append(f"binance: {e}")
-    try:
-        alpha = alpha_entries(fetcher(ALPHA_LIST_URL))
-        if len(alpha) < 50:
-            raise RuntimeError(f"only {len(alpha)} alpha entries")
-    except Exception as e:
-        alpha = []
-        errors.append(f"alpha: {e}")
-    if not binance and not alpha:
-        raise RuntimeError("; ".join(errors))
-    return coin_meta(binance, alpha, int(time.time() * 1000)), errors
+    errors = []
+    for url in EXCHANGE_INFO_URLS:
+        try:
+            binance = exchange_info_entries(fetcher(url))
+            if len(binance) < 50:
+                raise RuntimeError(f"only {len(binance)} symbols")
+            return coin_meta(binance, [], int(time.time() * 1000)), []
+        except Exception as e:
+            errors.append(f"{url.split('/')[2]}: {e}")
+    raise RuntimeError("; ".join(errors))
 
 
 def selftest_coin_meta():
@@ -231,7 +246,13 @@ def selftest_coin_meta():
     snap = coin_meta_snapshot(meta, top_binance=2)
     assert [e["name"] for e in snap["binance"]] == ["BTC", "PEPE"] and "logo" not in snap["binance"][0]
     assert [e["symbol"] for e in snap["alpha"]] == ["FROGGIE\u200b"] and "iconUrl" not in snap["alpha"][0]
-    responses = {BINANCE_LIST_URL: binance_body, ALPHA_LIST_URL: "nonsense"}
+    info = json.dumps({"symbols": [
+        {"symbol": "BTCUSDT", "baseAsset": "BTC", "status": "TRADING"},
+        {"symbol": "BTCEUR", "baseAsset": "BTC", "status": "TRADING"},
+        {"symbol": "OLDUSDT", "baseAsset": "OLD", "status": "BREAK"},
+        {"symbol": "ethusdt", "baseAsset": "eth", "status": "TRADING"}, "broken", {"status": "TRADING"}]})
+    assert exchange_info_entries(info) == [{"name": "BTC"}, {"name": "ETH"}]
+    responses = {EXCHANGE_INFO_URLS[0]: info, EXCHANGE_INFO_URLS[1]: "nonsense"}
 
     def fake(url):
         if url not in responses:
@@ -242,11 +263,13 @@ def selftest_coin_meta():
         raise AssertionError("too few entries must fail")
     except RuntimeError:
         pass
-    many = json.dumps({"data": [{"name": f"C{i}", "fullName": f"Coin {i}"} for i in range(60)]})
-    responses[BINANCE_LIST_URL] = many
+    many = json.dumps({"symbols": [{"baseAsset": f"C{i}", "status": "TRADING"} for i in range(60)]})
+    responses[EXCHANGE_INFO_URLS[1]] = many
     built, errors = build_coin_meta(fake)
-    assert len(built["binance"]) == 60 and built["alpha"] == [] and len(errors) == 1
-    assert "coingecko" not in BINANCE_LIST_URL + ALPHA_LIST_URL
+    assert len(built["binance"]) == 60 and built["alpha"] == [] and errors == []
+    assert set(built["binance"][0]) == {"name"}
+    # Only the documented API, never the internal website API or CoinGecko
+    assert all("/api/v3/exchangeInfo" in u and "bapi" not in u and "coingecko" not in u for u in EXCHANGE_INFO_URLS)
 
 
 def fetch(url, headers, tries=3):

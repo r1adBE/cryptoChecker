@@ -314,6 +314,15 @@ class WatchlistViewModel @Inject constructor(
         viewModelScope.launch { settingsRepository.setGestureHintSeen(true) }
     }
 
+    /** Karte «Ersten Alarm setzen» geschlossen? (Bis geladen: ja, damit sie nicht kurz aufblitzt.) */
+    val firstAlarmCardDismissed: StateFlow<Boolean> = settingsRepository.settings
+        .map { it.firstAlarmCardDismissed }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), true)
+
+    fun dismissFirstAlarmCard() {
+        viewModelScope.launch { settingsRepository.setFirstAlarmCardDismissed(true) }
+    }
+
     /**
      * Eine Frische-Schwelle für alles, was «veraltet» zeigt: Status-Pille (Zählung), abgeblasste
      * Zeile, rote Zeit, das Wort «veraltet» und der vorgelesene Satz ([OutdatedRule], wie die

@@ -18,7 +18,7 @@
     <string name="portfolio_empty_title">Ingen transaksjoner ennå</string>
     <string name="portfolio_enable_ask_text">Transaksjonen din er lagret. Fanen Portefølje viser beholdningene dine og verdien deres.</string>
     <string name="portfolio_enable_ask_title">Slå på fanen Portefølje?</string>
-    <string name="portfolio_enable_later_hint">Transaksjonen er lagret. Du kan slå på fanen Portefølje under Innstillinger › Avansert › Portefølje.</string>
+    <string name="portfolio_enable_later_hint">Transaksjonen er lagret. Du kan slå på fanen Portefølje under Innstillinger › Portefølje.</string>
     <string name="portfolio_enabled_banner">Portefølje slått på – du finner den i fanen Portefølje.</string>
     <string name="portfolio_lock_reason">Lås opp porteføljen</string>
     <string name="portfolio_locked_text">Lås opp for å se beholdninger og verdier.</string>

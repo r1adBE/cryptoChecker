@@ -81,6 +81,29 @@ object PortfolioStables {
     }
 
     /**
+     * Einbruch-Bereich des LIVE-Kurses USDT/USD: ausserhalb [USDT_USD_MIN]…[USDT_USD_MAX], aber innerhalb
+     * [USDT_USD_BREAK_MIN]…[USDT_USD_BREAK_MAX] zählt ein Kurs nur, wenn die Depeg-Messung ihn von mindestens zwei
+     * Quellen bestätigt hat ([com.cryptochecker.app.domain.alarm.DepegAlarm.measure]). Ein echter USDT-Einbruch (z. B.
+     * 0.30) soll mit dem Marktkurs bewertet werden statt still mit 1.
+     */
+    const val USDT_USD_BREAK_MIN = 0.05
+    const val USDT_USD_BREAK_MAX = 3.0
+
+    /**
+     * USDT in USD aus dem Live-Kurs [live] ([com.cryptochecker.app.domain.alarm.DepegAlarm.liveUsdtUsd], schon von der
+     * Messung geprüft): gültig und im Einbruch-Bereich → dieser Kurs; sonst [USDT_USD_FALLBACK]. Tagesschlüsse bleiben
+     * bei [usdtUsd] (eine einzelne Quelle, kein Abgleich).
+     */
+    fun usdtUsdLive(live: Double?): UsdtUsd {
+        val m = live?.takeIf { it.isFinite() && it >= USDT_USD_BREAK_MIN && it <= USDT_USD_BREAK_MAX }
+            ?: return USDT_USD_FALLBACK
+        return UsdtUsd(m, approximate = false)
+    }
+
+    /** Liegt [rate] ausserhalb des Normalbereichs (bestätigter USDT-Einbruch, Anzeige «USDT-Einbruch»)? */
+    fun isUsdtBreak(rate: Double): Boolean = rate.isFinite() && (rate < USDT_USD_MIN || rate > USDT_USD_MAX)
+
+    /**
      * Faktor USDT → Zielwährung: [usdToTarget] (Einheiten Zielwährung je USD, USD = 1) × USDT/USD [usdt].
      * null ohne gültigen Devisenkurs.
      */
@@ -95,14 +118,14 @@ data class UsdtUsd(val rate: Double, val approximate: Boolean)
 
 /**
  * Marktkurse USDT/USD für Umrechnungen in Fiat: [live] = aktueller Kurs (Kraken USDT/USD bzw. Binance USDC/USDT wie der
- * Depeg-Alarm, [com.cryptochecker.app.domain.alarm.DepegAlarm.combine]); [daily] = Tagesschluss je Tag (Tage seit
+ * Depeg-Alarm, [com.cryptochecker.app.domain.alarm.DepegAlarm.measure]); [daily] = Tagesschluss je Tag (Tage seit
  * 1970-01-01). Ab [todayEpochDay] gilt der Live-Kurs, davor der Schluss DES Tags — fehlt er, 1 als Näherung
  * ([PortfolioStables.usdtUsd]), kein Schluss eines anderen Tags.
  */
 data class UsdtUsdRates(val live: Double?, val daily: Map<Long, Double> = emptyMap()) {
 
-    /** Aktueller Kurs (oder Ersatz 1, Näherung). */
-    fun current(): UsdtUsd = PortfolioStables.usdtUsd(live)
+    /** Aktueller Kurs (oder Ersatz 1, Näherung); bestätigter Einbruch zählt ([PortfolioStables.usdtUsdLive]). */
+    fun current(): UsdtUsd = PortfolioStables.usdtUsdLive(live)
 
     /** Kurs für den Tag [day]: ab [todayEpochDay] [current], sonst Tagesschluss oder Ersatz 1 (Näherung). */
     fun on(day: Long, todayEpochDay: Long): UsdtUsd =

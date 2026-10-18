@@ -39,6 +39,10 @@ data class CsvImportTx(
     val swapValueUsdt: BigDecimal? = null,
     /** Verknüpfte Umbuchung zweier neuer Zeilen ([CsvTransferMatch.apply]): Herkunft der Einzahlung; sonst null. */
     val linkedImportKey: String? = null,
+    /** Gebühr-Zeile (CSV «Fee»): Veräusserung zum Tageskurs, gespeichert als Verkauf mit Merker. */
+    val feeRow: Boolean = false,
+    /** Belohnung, die die Börse als Zins (Lending) ausweist ([TaxEngines.interestReward] auf der Art der Datei). */
+    val interest: Boolean = false,
 )
 
 /**
@@ -172,6 +176,9 @@ object CsvImportMapping {
             toCoin = row.toCoin?.let { PortfolioCalculator.normalizeCoin(it) }.takeIf { row.kind == CsvImportKind.SWAP },
             toAmount = row.toAmount.takeIf { row.kind == CsvImportKind.SWAP },
             swapValueUsdt = p.swapValueUsdt?.takeIf { row.kind == CsvImportKind.SWAP && it.signum() >= 0 },
+            // Eigene Merker (Build 76): Gebühr-Zeile und Zins — die Notiz bleibt nur zur Anzeige
+            feeRow = row.kind == CsvImportKind.FEE,
+            interest = row.kind == CsvImportKind.REWARD && TaxEngines.interestReward(row.rawKind),
         )
     }
 
@@ -228,36 +235,49 @@ object CsvImportMapping {
         return if (down > up) txs.asReversed().toList() else txs
     }
 
-    /** Toleranz des Vorschlags «Umbuchung»: ± 1 % der beobachteten Änderung. */
+    /** Toleranz des Vorschlags «Umbuchung»: ± 1 % der beobachteten Änderung … */
     private val MATCH_TOLERANCE = BigDecimal("0.01")
+
+    /** … mindestens aber ein Staubrest (Rundung der Explorer bei sehr kleinen Mengen). */
+    private val MATCH_DUST = BigDecimal("0.00000001")
+
+    /** Die beobachtete Änderung liegt höchstens so lange nach der Auszahlung (Bestätigungen, seltene Abfragen). */
+    const val MATCH_WINDOW_MILLIS = 7L * 24 * 60 * 60 * 1000
 
     /**
      * Vorschlag je Auszahlung der Vorschau ([PortfolioTxType.WITHDRAWAL], Reihenfolge wie [txs]): gibt es eine ZÄHLENDE
      * beobachtete Adresse dieses Coins, deren beobachtete Änderung (erste Beobachtung, Zunahme zwischen zwei
-     * Beobachtungen, [AddressBalanceHistory.of]) der Menge entspricht (± 1 %; Menge oder Menge − Gebühr im Coin) →
-     * Umbuchung mit dieser Adresse als Ziel (erste passende in der Reihenfolge der Adressen); sonst keine Vorauswahl.
+     * Beobachtungen, [AddressBalanceHistory.of]) der Menge entspricht (Abweichung höchstens max(1 % der Änderung,
+     * [MATCH_DUST]); Menge oder Menge − Gebühr im Coin) und frühestens zur Zeit der Auszahlung, spätestens
+     * [MATCH_WINDOW_MILLIS] danach beobachtet wurde → Umbuchung mit dieser Adresse als Ziel (erste passende in der
+     * Reihenfolge der Adressen); sonst keine Vorauswahl. Jede beobachtete Änderung passt zu höchstens EINER Auszahlung —
+     * zwei gleich grosse Auszahlungen werden sonst beide derselben Zunahme zugeordnet.
      */
     fun proposeWithdrawals(txs: List<CsvImportTx>, addresses: List<WatchedAddress>): List<CsvWithdrawalProposal> {
-        // Zunahmen je Coin mit Ziel (nur zählende Adressen: «Nur anzeigen» hat keinen Verlauf)
-        val changes = ArrayList<Triple<String, BigDecimal, String>>()
+        // Zunahmen je Coin mit Zeit und Ziel (nur zählende Adressen: «Nur anzeigen» hat keinen Verlauf)
+        class Change(val coin: String, val delta: BigDecimal, val time: Long, val name: String)
+        val changes = ArrayList<Change>()
         for (a in addresses.filter { it.countInPortfolio }) {
             val name = a.label ?: WatchedAddressRules.shortAddress(a.address)
             for (h in AddressBalanceHistory.of(listOf(a))) {
                 var before = BigDecimal.ZERO
                 for (o in h.observations.sortedBy { it.time }) {
                     val delta = o.balance - before
-                    if (delta.signum() > 0) changes += Triple(PortfolioCalculator.normalizeCoin(h.coin), delta, name)
+                    if (delta.signum() > 0) changes += Change(PortfolioCalculator.normalizeCoin(h.coin), delta, o.time, name)
                     before = o.balance
                 }
             }
         }
+        val used = HashSet<Change>()
         return txs.filter { it.type == PortfolioTxType.WITHDRAWAL }.map { tx ->
             val coinFee = if (tx.feeUnit == PortfolioFeeUnit.COIN) tx.fee ?: BigDecimal.ZERO else BigDecimal.ZERO
             val amounts = listOf(tx.amount, tx.amount - coinFee).filter { it.signum() > 0 }
-            val hit = changes.firstOrNull { (coin, delta, _) ->
-                coin == tx.coin && amounts.any { (it - delta).abs() <= delta * MATCH_TOLERANCE }
+            val hit = changes.firstOrNull { c ->
+                c !in used && c.coin == tx.coin && c.time >= tx.time && c.time - tx.time <= MATCH_WINDOW_MILLIS &&
+                    amounts.any { (it - c.delta).abs() <= (c.delta * MATCH_TOLERANCE).max(MATCH_DUST) }
             }
-            CsvWithdrawalProposal(tx.importKey, hit?.let { CsvWithdrawalChoice.TRANSFER }, hit?.third)
+            hit?.let { used += it }
+            CsvWithdrawalProposal(tx.importKey, hit?.let { CsvWithdrawalChoice.TRANSFER }, hit?.name)
         }
     }
 

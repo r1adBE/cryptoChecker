@@ -11,6 +11,7 @@ import com.cryptochecker.app.domain.portfolio.CostMethod
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioOff
 import com.cryptochecker.app.domain.portfolio.PortfolioTxForm
+import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -119,6 +120,8 @@ fun PortfolioViewModel.save(draft: TxDraft, onAskEnablePortfolio: () -> Unit = {
                     giftToSpouse = draft.giftToSpouse,
                     linkedImportKey = draft.linkedImportKey,
                     importRestoreState = draft.importRestoreState,
+                    feeRow = draft.feeRow && draft.type == PortfolioTxType.SELL,
+                    interest = draft.interest && draft.type == PortfolioTxType.REWARD,
                 )
             )
             true

@@ -17,6 +17,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -77,6 +79,20 @@ class PortfolioLockViewModel @Inject constructor(
         .map { it.appLock }
         .stateIn(viewModelScope, SharingStarted.Eagerly, settingsRepository.cached.appLock)
 
+    /** Entsperren verlangt, aber keine Displaysperre eingerichtet ([AppLockState.screenLockMissing]). */
+    val screenLockMissing: StateFlow<Boolean> = appLockState.screenLockMissing
+
+    /**
+     * «Portfolio-Sperre ausschalten» aus dem Sperr-Zustand ohne Displaysperre (nach Rückfrage): ohne Displaysperre lässt
+     * sich nicht entsperren — der einzige Weg zurück zum Portfolio, ausdrücklich statt still.
+     */
+    fun turnOffLockWithoutScreenLock() {
+        viewModelScope.launch {
+            settingsRepository.setAppLock(false)
+            appLockState.unlock()
+        }
+    }
+
     /**
      * [onUnlocked] sofort, wenn das Portfolio frei ist; sonst erst nach erfolgreicher
      * System-Abfrage. Die Einstellung wird dafür frisch gelesen.
@@ -95,11 +111,18 @@ class PortfolioLockViewModel @Inject constructor(
 /**
  * Ruhiger Sperr-Zustand im Portfolio-Tab (und in dessen Unterseiten): Schloss, kurzer Text,
  * «Entsperren». Fragt beim Erscheinen einmal von selbst nach; danach nur noch per Knopf.
- * Keine Beträge, keine Coins.
+ * Keine Beträge, keine Coins. Ohne Displaysperre ([screenLockMissing]) statt «Entsperren» der Hinweis
+ * «Displaysperre einrichten, um das Portfolio zu öffnen» und «Portfolio-Sperre ausschalten» (mit Rückfrage).
  */
 @Composable
-fun PortfolioLockedState(onUnlock: () -> Unit, modifier: Modifier = Modifier) {
+fun PortfolioLockedState(
+    onUnlock: () -> Unit,
+    modifier: Modifier = Modifier,
+    screenLockMissing: Boolean = false,
+    onTurnOffLock: () -> Unit = {},
+) {
     LaunchedEffect(Unit) { onUnlock() }
+    var confirmTurnOff by androidx.compose.runtime.saveable.rememberSaveable { androidx.compose.runtime.mutableStateOf(false) }
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
@@ -137,9 +160,38 @@ fun PortfolioLockedState(onUnlock: () -> Unit, modifier: Modifier = Modifier) {
             textAlign = TextAlign.Center,
             modifier = Modifier.padding(top = Spacing.xs)
         )
-        FilledTonalButton(onClick = onUnlock, modifier = Modifier.padding(top = Spacing.lg)) {
-            Text(stringResource(R.string.app_lock_unlock))
+        if (screenLockMissing) {
+            Text(
+                text = stringResource(R.string.app_lock_no_screen_lock),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.error,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.padding(top = Spacing.md)
+            )
+            androidx.compose.material3.OutlinedButton(onClick = { confirmTurnOff = true }, modifier = Modifier.padding(top = Spacing.lg)) {
+                Text(stringResource(R.string.app_lock_turn_off_action))
+            }
+        } else {
+            FilledTonalButton(onClick = onUnlock, modifier = Modifier.padding(top = Spacing.lg)) {
+                Text(stringResource(R.string.app_lock_unlock))
+            }
         }
+    }
+    if (confirmTurnOff) {
+        androidx.compose.material3.AlertDialog(
+            onDismissRequest = { confirmTurnOff = false },
+            title = { Text(stringResource(R.string.app_lock_turn_off_confirm_title)) },
+            text = { Text(stringResource(R.string.app_lock_turn_off_confirm_message)) },
+            confirmButton = {
+                androidx.compose.material3.TextButton(onClick = {
+                    confirmTurnOff = false
+                    onTurnOffLock()
+                }) { Text(stringResource(R.string.app_lock_turn_off_action), color = MaterialTheme.colorScheme.error) }
+            },
+            dismissButton = {
+                androidx.compose.material3.TextButton(onClick = { confirmTurnOff = false }) { Text(stringResource(R.string.action_cancel)) }
+            },
+        )
     }
 }
 

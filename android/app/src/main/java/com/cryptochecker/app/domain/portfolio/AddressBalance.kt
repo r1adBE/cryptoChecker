@@ -198,6 +198,31 @@ object AddressBalance {
         return sums.map { (coin, sum) -> coin to PortfolioDecimal.text(sum) }
     }
 
+    /**
+     * Coins aus [holdings], deren Summe gebrückte Stablecoins enthält (USDC.e, USDbC → USDC, USDT.e → USDT;
+     * [ChainAssets.isBridgedStable]) → Symbole dieser Varianten (Reihenfolge wie [holdings], je Symbol einmal). Eine
+     * Brücke kann abkoppeln: die Menge gilt dann nur ungefähr — die Zeile markiert sie mit «≈» wie WBTC
+     * ([ChainAssets.priceViaBase]) statt sie als exakten Bestand des Basis-Stablecoins auszugeben.
+     */
+    fun bridgedStables(addresses: List<WatchedAddress>): Map<String, List<String>> {
+        val out = LinkedHashMap<String, MutableList<String>>()
+        for (chain in AddressChain.entries) {
+            if (!ChainAssets.hasTokens(chain)) continue
+            val seen = ArrayList<String>()
+            for (a in addresses) {
+                if (!a.countInPortfolio || a.chain != chain) continue
+                if (seen.any { WatchedAddressRules.sameAddress(chain, it, a.address) }) continue
+                seen += a.address
+                for (h in a.tokenHoldings()) {
+                    if (!ChainAssets.isBridgedStable(h.label, h.coin)) continue
+                    val list = out.getOrPut(h.coin) { ArrayList() }
+                    if (h.label !in list) list += h.label
+                }
+            }
+        }
+        return out
+    }
+
     // --- Adress-Bestände im Portfolio-Rechner ---
     //
     // Ehrliche Regel (ab Build 46): Das Guthaben beobachteter Adressen ist ein EIGENER Teil der Position,

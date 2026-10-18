@@ -40,10 +40,12 @@ final class TaxTemplatesTests: XCTestCase {
             tx.transferTo = t["transferTo"] as? String
             tx.giftToSpouse = t["giftToSpouse"] as? Bool ?? false
             tx.acquiredTime = TestSupport.number(t["acquiredTime"]).map { Int64($0) }
-            // Build 47: Gebühr-Zeile nur mit Import-Herkunft
             tx.importKey = t["importKey"] as? String
-            // Zins (Lending): Notiz wie aus dem CSV-Import
             tx.note = t["note"] as? String
+            // Gebühr-Zeile und Zins: eigene Felder (Build 76); fehlen sie im Fixture, die frühere Regel
+            tx.feeRow = t["feeRow"] as? Bool
+                ?? LegacyStorageMigration.legacyFeeRow(tx.type, importKey: tx.importKey, price: tx.priceExact)
+            tx.interest = t["interest"] as? Bool ?? LegacyStorageMigration.legacyInterest(tx.type, note: tx.note)
             return tx
         }
     }

@@ -12,14 +12,22 @@ final class DepegAlarmParityTests: XCTestCase {
         }
     }
 
-    func testCombine() throws {
-        for c in TestSupport.list(try data()["combine"]) {
-            let price = DepegAlarm.combine(kraken: DepegAlarm.fromKraken(TestSupport.number(c["kraken"])),
-                                           binance: DepegAlarm.fromBinanceUsdc(TestSupport.number(c["binance"])))
+    /// Drei Quellen, Einbruch nur bestätigt, USDC/USDT allein nie alarmfähig.
+    func testMeasure() throws {
+        let cases = TestSupport.list(try data()["measure"])
+        XCTAssertGreaterThanOrEqual(cases.count, 15)
+        for c in cases {
+            let m = DepegAlarm.measure(kraken: TestSupport.number(c["kraken"]), coinbase: TestSupport.number(c["coinbase"]),
+                                       binanceUsdc: TestSupport.number(c["binance"]))
             if let expected = TestSupport.number(c["expected"]) {
-                XCTAssertEqual(price ?? .nan, expected, accuracy: 1e-9, "\(c)")
+                XCTAssertEqual(m?.price ?? .nan, expected, accuracy: 1e-9, "\(c)")
+                XCTAssertEqual(m?.viaUsdc, c["viaUsdc"] as? Bool, "viaUsdc \(c)")
+                if let m {
+                    XCTAssertEqual(DepegAlarm.mayAlarm(m), !m.viaUsdc, "mayAlarm \(c)")
+                    XCTAssertEqual(m.broken, expected < 0.5 || expected > 1.5, "broken \(c)")
+                }
             } else {
-                XCTAssertNil(price, "\(c)")
+                XCTAssertNil(m, "\(c)")
             }
         }
     }
@@ -76,14 +84,17 @@ final class DepegAlarmParityTests: XCTestCase {
         XCTAssertGreaterThanOrEqual(cases.count, 10)
         for c in cases {
             let reading = TestSupport.number(c["price"]).map {
-                DepegAlarm.Reading(price: $0, atMillis: now - Int64(TestSupport.number(c["ageMillis"]) ?? 0))
+                DepegAlarm.Reading(price: $0, atMillis: now - Int64(TestSupport.number(c["ageMillis"]) ?? 0),
+                                   viaUsdc: c["viaUsdc"] as? Bool ?? false)
             }
             let note = DepegAlarm.cardNote(holdingCoins: c["holdings"] as? [String] ?? [],
                                            valuesViaUsdt: c["valuesViaUsdt"] as? Bool ?? false, reading: reading,
                                            thresholdTenths: Int(TestSupport.number(c["thresholdTenths"]) ?? 0), now: now,
                                            usdtMarket: c["usdtMarket"] as? Bool ?? false)
             XCTAssertEqual(note?.kind.rawValue, c["kind"] as? String, "\(c)")
-            XCTAssertEqual(note?.reading, note?.kind == .DEVIATION ? reading : nil, "\(c)")
+            let kind = note?.kind
+            let withReading = kind == .DEVIATION || kind == .USDT_BREAK || kind == .VIA_USDC
+            XCTAssertEqual(note?.reading, withReading ? reading : nil, "\(c)")
         }
     }
 

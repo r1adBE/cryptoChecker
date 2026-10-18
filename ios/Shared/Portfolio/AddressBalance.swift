@@ -224,6 +224,27 @@ enum AddressBalance {
         return order.map { (coin: $0, amount: PortfolioDecimal.text(sums[$0] ?? 0)) }
     }
 
+    /// Coins aus `holdings`, deren Summe gebrückte Stablecoins enthält (USDC.e, USDbC → USDC, USDT.e → USDT;
+    /// `ChainAssets.isBridgedStable`) → Symbole dieser Varianten (Reihenfolge wie `holdings`, je Symbol einmal). Eine
+    /// Brücke kann abkoppeln: die Menge gilt dann nur ungefähr — die Zeile markiert sie mit «≈» wie WBTC
+    /// (`ChainAssets.priceViaBase`) statt sie als exakten Bestand des Basis-Stablecoins auszugeben. Wie Android.
+    static func bridgedStables(_ addresses: [WatchedAddress]) -> [String: [String]] {
+        var out: [String: [String]] = [:]
+        for chain in AddressChain.allCases where ChainAssets.hasTokens(chain) {
+            var seen: [String] = []
+            for a in addresses where a.countInPortfolio && a.chain == chain {
+                if seen.contains(where: { WatchedAddressRules.sameAddress(chain, $0, a.address) }) { continue }
+                seen.append(a.address)
+                for h in a.tokenHoldings() where ChainAssets.isBridgedStable(label: h.label, coin: h.coin) {
+                    var list = out[h.coin] ?? []
+                    if !list.contains(h.label) { list.append(h.label) }
+                    out[h.coin] = list
+                }
+            }
+        }
+        return out
+    }
+
     // MARK: Adress-Bestände im Portfolio-Rechner
     //
     // Ehrliche Regel (ab Build 46, wie `AddressBalance.kt`): Das Guthaben beobachteter Adressen ist ein EIGENER Teil

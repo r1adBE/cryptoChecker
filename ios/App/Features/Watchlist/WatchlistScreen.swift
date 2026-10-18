@@ -156,6 +156,15 @@ struct WatchlistScreen: View {
                 router.focusWatchId = nil
                 focus(on: id, proxy: proxy)
             }
+            // Tab «Merkliste» noch einmal getippt: ganz nach oben — erst zum ersten Paar, dann zur Zeile
+            // darüber (Puls, Hinweis), falls es sie gibt (sonst bleibt es beim ersten Paar)
+            .onChange(of: router.scrollToTop) { _, request in
+                guard request?.tab == .watchlist else { return }
+                withAnimation(reduceMotion ? nil : .easeInOut(duration: 0.35)) {
+                    if let first = visible.first { proxy.scrollTo(first.id, anchor: .top) }
+                    proxy.scrollTo(WatchlistJump.topId, anchor: .top)
+                }
+            }
         }
         // «Erst-Hinzufügen»: abholen, sobald die Merkliste sichtbar ist
         .onChange(of: data.addCelebration?.id, initial: true) { _, _ in takeCelebration() }

@@ -193,6 +193,7 @@ class RefreshEffects @Inject constructor(
             val saved = delivery.deliver(
                 alarm.id, now, settings.alarmCooldownMinutes, holdAlarms,
                 canShow = { notifier.canShowAlarm(alarm) }, show = show, mark = mark,
+                retract = { notifier.cancelAlarms(listOf(alarm.id)) },
             )
             if (!saved) return
             count++

@@ -15,7 +15,10 @@ package com.cryptochecker.app.data.local
  * 3. Jeder Fehler: Kopie löschen, unverschlüsselt öffnen wie bis Build 58, beim nächsten Start erneut versuchen.
  * 4. Ein neuer Schlüssel entsteht nur, solange keine verschlüsselte Datei von ihm abhängt. Ist der Schlüssel einer
  *    verschlüsselten Datei endgültig verloren, wird die Datei beiseitegelegt (nicht gelöscht) und neu begonnen;
- *    die App nennt das einmal ([Decision.Encrypted.setAside]).
+ *    die App nennt das, bis der Nutzer es bestätigt ([Decision.Encrypted.setAside]).
+ * 5. Frühere Schlüssel bleiben (nummeriert, [Keys.previous]), solange eine beiseitegelegte Datei auf einen warten kann.
+ *    Öffnet beim nächsten Start einer davon eine beiseitegelegte Datei («endgültig» war doch nur vorübergehend), kommt sie
+ *    zurück; die inzwischen neu begonnene Datei bleibt samt Schlüssel daneben ([Decision.Encrypted.restored]).
  *
  * Die Room-Migrationen laufen erst danach beim Öffnen durch Room — auf der verschlüsselten Datei; der Export
  * übernimmt Schema und `user_version` unverändert.
@@ -50,15 +53,33 @@ class DatabaseEncryptionMigration(
     interface Keys {
         fun load(database: String): KeyLookup
 
-        /** Neuen Schlüssel anlegen und speichern (ersetzt einen gespeicherten); Passphrase wie [KeyLookup.Found]. */
+        /**
+         * Neuen Schlüssel anlegen und speichern; ein gespeicherter wird nicht überschrieben, sondern als weiterer früherer
+         * Schlüssel nummeriert daneben behalten ([previous]). Passphrase wie [KeyLookup.Found].
+         */
         fun create(database: String): ByteArray
 
         /**
-         * Von [create] beiseitegelegten früheren Schlüssel löschen. Nur aufgerufen, nachdem sich die verschlüsselte
-         * Datei mit dem gespeicherten (neuen) Schlüssel öffnen liess; Fehler bleiben still.
+         * Von [create] beiseitegelegte frühere Schlüssel löschen. Nur aufgerufen, nachdem sich die verschlüsselte Datei
+         * mit dem gespeicherten (neuen) Schlüssel öffnen liess und keine beiseitegelegte Datei mehr auf einen wartet;
+         * Fehler bleiben still.
          */
         fun discardPrevious(database: String) {}
+
+        /** Noch lesbare frühere Schlüssel, neuester zuerst ([PreviousKey.id] für [promote]); unlesbare fehlen. */
+        fun previous(database: String): List<PreviousKey> = emptyList()
+
+        /**
+         * Früheren Schlüssel [id] wieder zum gespeicherten machen; der bisher gespeicherte bleibt als «ersetzt» daneben
+         * (er gehört zur beiseitegelegten neuen Datei).
+         */
+        fun promote(database: String, id: String) {
+            throw UnsupportedOperationException("promote")
+        }
     }
+
+    /** Früherer Schlüssel ([Keys.previous]): Kennung (Dateiname) und Passphrase wie [KeyLookup.Found]. */
+    class PreviousKey(val id: String, val passphrase: ByteArray)
 
     /** Datei- und SQL-Schicht; `database` ist der Dateiname wie bei Room (z. B. `cryptochecker.db`). */
     interface Files {
@@ -96,14 +117,34 @@ class DatabaseEncryptionMigration(
          * Datenbank erkennt (falscher Schlüssel); andere Fehler werfen.
          */
         fun opens(database: String, passphrase: ByteArray): Boolean
+
+        /** Mit [setAside] beiseitegelegte Dateien (Kennungen für [asideOpens]/[restoreAside]), neueste zuerst. */
+        fun asideCopies(database: String): List<String> = emptyList()
+
+        /** Lässt sich die beiseitegelegte Datei [copy] mit [passphrase] lesen? Wie [opens]. */
+        fun asideOpens(database: String, copy: String, passphrase: ByteArray): Boolean = false
+
+        /**
+         * Beiseitegelegte Datei [copy] samt `-wal`/`-shm` wieder auf den Dateinamen; die bisherige Datei bleibt unter
+         * neuem Namen erhalten (nie gelöscht). Scheitert das zweite Umbenennen, kommt die bisherige zurück.
+         */
+        fun restoreAside(database: String, copy: String) {
+            throw UnsupportedOperationException("restoreAside")
+        }
     }
 
     sealed interface Decision {
         /**
          * Verschlüsselt öffnen (oder neu anlegen). [migrated]: eben aus der unverschlüsselten Datei überführt;
-         * [setAside]: die alte verschlüsselte Datei war ohne Schlüssel unlesbar und liegt jetzt daneben.
+         * [setAside]: die alte verschlüsselte Datei war ohne Schlüssel unlesbar und liegt jetzt daneben; [restored]: eine
+         * früher beiseitegelegte Datei öffnete mit einem früheren Schlüssel und ist wieder die Datenbank.
          */
-        class Encrypted(val passphrase: ByteArray, val migrated: Boolean = false, val setAside: Boolean = false) : Decision
+        class Encrypted(
+            val passphrase: ByteArray,
+            val migrated: Boolean = false,
+            val setAside: Boolean = false,
+            val restored: Boolean = false,
+        ) : Decision
 
         /** Unverschlüsselt öffnen wie bis Build 58 (Rückfall; der nächste Start versucht es erneut). */
         data object Plaintext : Decision
@@ -166,15 +207,22 @@ class DatabaseEncryptionMigration(
                     return Decision.KeyUnavailable(e)
                 }
                 if (opens) {
-                    // Gespeicherter Schlüssel öffnet die Datei: ein früher beiseitegelegter wird nicht mehr gebraucht
-                    runCatching { keys.discardPrevious(database) }
-                        .onFailure { log("$database: früherer Schlüssel nicht gelöscht", it) }
+                    // Wartet eine beiseitegelegte Datei auf einen früheren Schlüssel, der sie doch öffnet: zurückholen
+                    restoreFromAside(database)?.let { return it }
+                    // Gespeicherter Schlüssel öffnet die Datei: frühere nur löschen, wenn keine beiseitegelegte Datei mehr
+                    // auf einen warten kann
+                    if (runCatching { files.asideCopies(database).isEmpty() }.getOrDefault(false)) {
+                        runCatching { keys.discardPrevious(database) }
+                            .onFailure { log("$database: früherer Schlüssel nicht gelöscht", it) }
+                    }
                     return Decision.Encrypted(lookup.passphrase)
                 }
                 log("$database: gespeicherter Schlüssel passt nicht", null)
             }
             KeyLookup.Absent -> log("$database: Schlüssel verloren", null)
         }
+        // Vor dem Beiseitelegen: öffnet ein früherer Schlüssel die Datei, gilt wieder er (nichts beiseitelegen)
+        previousOpening(database)?.let { return it }
         return try {
             // Ohne passenden Schlüssel ist die Datei endgültig unlesbar: beiseitelegen statt löschen, dann neu
             // beginnen. Erst danach ein neuer Schlüssel — vorher hinge die alte Datei an einem fremden Schlüssel.
@@ -183,6 +231,52 @@ class DatabaseEncryptionMigration(
         } catch (e: Exception) {
             Decision.KeyUnavailable(e)
         }
+    }
+
+    /** Früherer Schlüssel, der die (aktuelle) Datei öffnet → wieder der gespeicherte; null = keiner. */
+    private fun previousOpening(database: String): Decision? {
+        val previous = runCatching { keys.previous(database) }.getOrDefault(emptyList())
+        for (key in previous) {
+            val opens = runCatching { files.opens(database, key.passphrase) }.getOrDefault(false)
+            if (!opens) continue
+            // Mit diesem Schlüssel öffnen, auch wenn das Speichern als «gespeichert» scheitert (nächster Start erneut)
+            runCatching { keys.promote(database, key.id) }
+                .onSuccess { log("$database: früherer Schlüssel passt wieder", null) }
+                .onFailure { log("$database: früherer Schlüssel nicht übernommen", it) }
+            return Decision.Encrypted(key.passphrase)
+        }
+        return null
+    }
+
+    /**
+     * Beiseitegelegte Datei, die ein früherer Schlüssel öffnet → wieder die Datenbank (die inzwischen neu begonnene
+     * Datei bleibt unter neuem Namen, ihr Schlüssel als «ersetzt»). Erst die Dateien, dann der Schlüssel: bricht es
+     * dazwischen ab, findet der nächste Start den früheren Schlüssel über [previousOpening]. null = nichts zurückgeholt.
+     */
+    private fun restoreFromAside(database: String): Decision? {
+        val copies = runCatching { files.asideCopies(database) }.getOrDefault(emptyList())
+        if (copies.isEmpty()) return null
+        val previous = runCatching { keys.previous(database) }.getOrDefault(emptyList())
+        if (previous.isEmpty()) return null
+        for (copy in copies) {
+            for (key in previous) {
+                val opens = runCatching { files.asideOpens(database, copy, key.passphrase) }.getOrDefault(false)
+                if (!opens) continue
+                try {
+                    files.restoreAside(database, copy)
+                } catch (e: Exception) {
+                    log("$database: beiseitegelegte Datei nicht zurückgeholt", e)
+                    return null
+                }
+                // Die Datei ist jetzt die zurückgeholte: nur noch mit diesem Schlüssel öffnen — nie mit dem gespeicherten,
+                // sonst hielte Room sie für beschädigt. Scheitert das Speichern des Schlüssels, holt ihn der nächste Start
+                runCatching { keys.promote(database, key.id) }
+                    .onFailure { log("$database: früherer Schlüssel nicht übernommen", it) }
+                log("$database: beiseitegelegte Datei mit früherem Schlüssel zurückgeholt", null)
+                return Decision.Encrypted(key.passphrase, restored = true)
+            }
+        }
+        return null
     }
 
     /**

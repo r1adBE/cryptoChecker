@@ -117,7 +117,7 @@ object PortfolioAlarmLogic {
         val wanted = currency?.trim()?.uppercase()?.takeIf { it.isNotEmpty() } ?: return null
         if (wanted == reading.currency.uppercase()) return reading.total.takeIf { it.isFinite() }
         val usdt = reading.totalUsdt?.takeIf { it.isFinite() } ?: return null
-        val usdtUsd = PortfolioStables.usdtUsd(reading.usdtUsdLive)
+        val usdtUsd = PortfolioStables.usdtUsdLive(reading.usdtUsdLive)
         if (wanted == "USD") return usdt * usdtUsd.rate
         val stables = CurrencyConversion.USD_STABLES
         if (CurrencyConversion.normalize(wanted) in stables) return usdt

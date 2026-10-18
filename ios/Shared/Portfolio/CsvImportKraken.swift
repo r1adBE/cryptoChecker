@@ -13,7 +13,9 @@ import Foundation
 ///  - «staking», oder «earn» mit subtype «reward» → Belohnung (nur Zugänge).
 ///  - Umbuchungen zwischen Kraken-Konten, Margin, Rollover, Anpassungen → `.UNSUPPORTED_KIND`; ebenso Spot ↔ Staking als
 ///    Ein-/Auszahlung (Variante «DOT.S» und ihr Gegenstück) und spend/receive/trade mit gleichem Basis-Asset — wie Android.
-///  - Doppelte Ledger-Zeilen (gleiche txid) zählen einmal.
+///    Eine Staking-Zeile ohne Gegenstück → `.STAKING_UNPAIRED` («Bestand prüfen»).
+///  - Doppelte Ledger-Zeilen (gleiche txid) zählen einmal; gleiche txid mit ANDERER Menge → `.DUPLICATE_TXID_DIFFERENT`
+///    (nicht still verwerfen).
 enum CsvImportKraken {
 
     /// Alte Kraken-Kürzel mit X-/Z-Vorsatz → Kürzel (wie Android `LEGACY`).
@@ -82,9 +84,11 @@ enum CsvImportKraken {
     /// Höchster Abstand zwischen Spot- und Staking-Buchung derselben Umbuchung ohne gemeinsame refid.
     private static let stakingPairMillis: Int64 = 3_600_000
 
-    /// Ein-/Auszahlungen zwischen Spot und Staking (Indizes in `legs`) — wie Android `stakingMoves`.
-    private static func stakingMoves(_ legs: [Leg]) -> Set<Int> {
+    /// Ein-/Auszahlungen zwischen Spot und Staking (Indizes in `legs`) — wie Android `stakingMoves`. `unpaired`:
+    /// Staking-Zeilen ohne gefundenes Gegenstück.
+    private static func stakingMoves(_ legs: [Leg]) -> (moved: Set<Int>, unpaired: Set<Int>) {
         var out = Set<Int>()
+        var unpaired = Set<Int>()
         func move(_ l: Leg) -> Bool { l.type == "deposit" || l.type == "withdrawal" }
         func abs(_ d: Decimal) -> Decimal { d < 0 ? -d : d }
         for (i, l) in legs.enumerated() where move(l) && l.staked {
@@ -95,9 +99,15 @@ enum CsvImportKraken {
                       abs(c.signed) == abs(l.signed) else { return false }
                 return (!l.refid.isEmpty && c.refid == l.refid) || Swift.abs(c.time - l.time) <= stakingPairMillis
             }
-            if let j { out.insert(j) }
+            if let j { out.insert(j) } else { unpaired.insert(i) }
         }
-        return out
+        return (out, unpaired)
+    }
+
+    /// Erste Zeile einer txid: Menge, oder der Text, wenn unlesbar (Wiederholungen vergleichen).
+    private enum FirstAmount {
+        case number(Decimal)
+        case text(String)
     }
 
     static func build(names: [String], data: [CsvImportParser.Record], zone: String) -> CsvImportResult {
@@ -107,19 +117,31 @@ enum CsvImportKraken {
         let iAsset = col("asset"), iAmount = col("amount"), iFee = col("fee")
         var skipped: [CsvImportSkip] = []
         var legs: [Leg] = []
-        var seen = Set<String>()
+        var seen: [String: FirstAmount] = [:]
         for rec in data {
             func cell(_ i: Int?) -> String {
                 guard let i, i < rec.cells.count else { return "" }
                 return rec.cells[i]
             }
-            // Wiederholte Ledger-Zeile (gleiche txid): nur einmal
+            let amount: Decimal? = CsvImportParser.parseNumber(cell(iAmount), hint: ".")
+            // Wiederholte Ledger-Zeile (gleiche txid): gleiche Menge nur einmal, andere Menge in die Vorschau
             let txid = cell(iTx).trimmingCharacters(in: .whitespaces)
-            if !txid.isEmpty && !seen.insert(txid).inserted { continue }
+            if !txid.isEmpty {
+                let amountText = cell(iAmount).trimmingCharacters(in: .whitespaces)
+                if let first = seen[txid] {
+                    let same: Bool
+                    switch first {
+                    case .number(let n): same = amount == n
+                    case .text(let t): same = amount == nil && amountText == t
+                    }
+                    if !same { skipped.append(CsvImportSkip(line: rec.line, reason: .DUPLICATE_TXID_DIFFERENT)) }
+                    continue
+                }
+                seen[txid] = amount.map { .number($0) } ?? .text(amountText)
+            }
             let type: String = CsvImportParser.normalize(cell(iType))
             let sub: String = CsvImportParser.normalize(cell(iSub))
             let code: String = Self.asset(cell(iAsset))
-            let amount: Decimal? = CsvImportParser.parseNumber(cell(iAmount), hint: ".")
             let feeText: String = cell(iFee)
             let fee: Decimal? = feeText.isEmpty ? Decimal(0) : CsvImportParser.parseNumber(feeText, hint: ".")
             let time: Int64? = CsvImportParser.parseTime(cell(iTime), zone: zone)
@@ -140,11 +162,12 @@ enum CsvImportKraken {
         var rows: [CsvImportRow] = []
         var tradeOrder: [String] = []
         var trades: [String: [Leg]] = [:]
-        let stakingIndices = stakingMoves(legs)
+        let moves = stakingMoves(legs)
         for (i, leg) in legs.enumerated() {
-            if stakingIndices.contains(i) {
-                // Spot ↔ Staking: bleibt im selben Bestand
-                skipped.append(CsvImportSkip(line: leg.line, reason: .UNSUPPORTED_KIND))
+            if moves.moved.contains(i) {
+                // Spot ↔ Staking: bleibt im selben Bestand; ohne Gegenbuchung eigener Hinweis «Bestand prüfen»
+                let reason: CsvImportSkipReason = moves.unpaired.contains(i) ? .STAKING_UNPAIRED : .UNSUPPORTED_KIND
+                skipped.append(CsvImportSkip(line: leg.line, reason: reason))
                 continue
             }
             switch leg.type {

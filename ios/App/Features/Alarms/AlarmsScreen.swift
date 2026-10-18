@@ -28,11 +28,24 @@ struct AlarmsScreen: View {
         self.watchId = watchId
     }
 
+    /// DEX-Pool mit zu wenig oder unbekannter Liquidität (`DexLiquidity`)?
+    private static func lowLiquidity(_ watch: Watch?) -> Bool {
+        guard let watch else { return false }
+        return DexLiquidityStore.blocksAlarms(marketKey: watch.marketKey, pairId: watch.pairId)
+    }
+
     var body: some View {
         let watch = data.watch(watchId)
         let alarms = data.alarms(for: watchId)
+        // DEX-Pool mit zu wenig Liquidität: kein neuer Alarm, kein Bearbeiten (Hinweis statt Editor) — wie Android
+        let lowLiquidity = Self.lowLiquidity(watch)
         Group {
-            if alarms.isEmpty {
+            if alarms.isEmpty && lowLiquidity {
+                ScrollView {
+                    DexLowLiquidityNote()
+                        .padding(16)
+                }
+            } else if alarms.isEmpty {
                 ScrollView {
                     EmptyStateView(
                         systemImage: "bell.and.waves.left.and.right",
@@ -55,6 +68,12 @@ struct AlarmsScreen: View {
                         .listRowInsets(EdgeInsets(top: 5, leading: 16, bottom: 5, trailing: 16))
                         .listRowSeparator(.hidden)
                         .listRowBackground(Color.clear)
+                    if lowLiquidity {
+                        DexLowLiquidityNote()
+                            .listRowInsets(EdgeInsets(top: 5, leading: 16, bottom: 5, trailing: 16))
+                            .listRowSeparator(.hidden)
+                            .listRowBackground(Color.clear)
+                    }
                     ForEach(alarms) { alarm in
                         AlarmCard(
                             alarm: alarm,
@@ -65,7 +84,7 @@ struct AlarmsScreen: View {
                                 WatchlistHaptics.selection()
                                 data.setAlarmEnabled(alarm.id, enabled)
                             },
-                            onEdit: { draft = AlarmDraft.from(alarm) },
+                            onEdit: { if !lowLiquidity { draft = AlarmDraft.from(alarm) } },
                             onDelete: { askDelete = alarm }
                         )
                         .listRowInsets(EdgeInsets(top: 5, leading: 16, bottom: 5, trailing: 16))
@@ -93,7 +112,7 @@ struct AlarmsScreen: View {
             // Paar ohne Alarm: gleich den Editor öffnen statt der leeren Liste — wie Android
             guard !autoOpenDone else { return }
             autoOpenDone = true
-            if watch != nil && alarms.isEmpty { draft = AlarmDraft.blankFor() }
+            if watch != nil && alarms.isEmpty && !Self.lowLiquidity(watch) { draft = AlarmDraft.blankFor() }
         }
         .navigationTitle(L("alarms_title"))
         .navigationBarTitleDisplayMode(.inline)
@@ -111,7 +130,7 @@ struct AlarmsScreen: View {
                 .accessibilityElement(children: .combine)
             }
             ToolbarItem(placement: .topBarTrailing) {
-                if watch != nil {
+                if watch != nil && !lowLiquidity {
                     Button {
                         draft = AlarmDraft.blankFor()
                     } label: {
@@ -390,4 +409,21 @@ enum AlarmA11y {
 /// «Zum Beispiel: Sag mir Bescheid, wenn BTC über 90’000 steigt.» — Zahl im Format der Sprache.
 enum AlarmsEmptyExample {
     static var text: String { L("alarms_empty_example", LocaleNumbers.integer(90_000, grouping: true)) }
+}
+
+/// Hinweis für DEX-Pools mit zu wenig Liquidität: kein Alarm, bestehende Alarme ruhen (`DexLiquidity`). Wie Android.
+private struct DexLowLiquidityNote: View {
+    var body: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text(L("dex_low_liquidity_no_alarm"))
+                .font(.subheadline.weight(.semibold))
+                .foregroundStyle(AppColors.error)
+            Text(L("dex_low_liquidity_alarm_hint"))
+                .font(.footnote)
+                .foregroundStyle(AppColors.onSurfaceVariant)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .accessibilityElement(children: .combine)
+    }
 }

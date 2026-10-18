@@ -20,4 +20,11 @@ class CompactAmountTest {
         // Ohne android.icu (JVM-Test) greift der Ersatz
         assertEquals("3.45T USD", CompactAmount.format(3.45e12, "usd", java.util.Locale.US))
     }
+
+    @Test
+    fun numberWithoutCurrency() {
+        // Ohne android.icu (JVM-Test) greift der Ersatz: kein angehängter Code, keine Leerstelle
+        assertEquals("1.23M", CompactAmount.number(1_234_567.0, java.util.Locale.US))
+        assertEquals("12.3K", CompactAmount.number(12_300.0, java.util.Locale.US))
+    }
 }

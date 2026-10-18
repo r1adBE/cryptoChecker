@@ -20,7 +20,10 @@ Usage:
   python3 exchange_live_check.py --dry-run    # check only, print the issue text
   python3 exchange_live_check.py --only kraken,okx --dry-run
 
-Exit code: 0 = all passed (or --dry-run), 1 = failures (after the issue was handled).
+Exit code: 0 = checks done (all passed, or failures reported in the issue, or --dry-run);
+1 = the script itself failed (e.g. the gh CLI could not open/update the issue), 2 = usage error.
+Failing exchanges are tracked in the issue, so the run stays green and a red run means the
+check itself is broken.
 Python 3.9+ standard library only.
 """
 import argparse
@@ -316,8 +319,16 @@ def main():
     if os.environ.get("GITHUB_ACTIONS") != "true" and not os.environ.get("GH_TOKEN"):
         print("Not in GitHub Actions and no GH_TOKEN: use --dry-run.", file=sys.stderr)
         return 2
-    manage_issue(bool(failed), body)
-    return 1 if failed else 0
+    try:
+        manage_issue(bool(failed), body)
+    except (subprocess.CalledProcessError, OSError) as e:
+        detail = getattr(e, "stderr", "") or str(e)
+        print(f"::error::could not manage the issue: {detail.strip()[:300]}")
+        return 1
+    if failed:
+        # Reported in the issue: annotation only, the job stays green
+        print(f"::warning::{len(failed)} exchange API check(s) failed - see issue \"{ISSUE_TITLE}\"")
+    return 0
 
 
 if __name__ == "__main__":

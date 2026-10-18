@@ -145,6 +145,9 @@ fun PortfolioTxSheet(
     // Schenkung an Ehe-/Lebenspartner (eigenes Feld, nur bei einer Schenkung)
     val initialSpouse = initial.giftToSpouse && initial.type == PortfolioTxType.GIFT
     var giftToSpouse by rememberSaveable { mutableStateOf(initialSpouse) }
+    // Belohnung als Zins (Lending; AT: Einkunft beim Zufluss) — eigenes Feld, nur bei einer Belohnung
+    val initialInterest = initial.interest && initial.type == PortfolioTxType.REWARD
+    var interest by rememberSaveable { mutableStateOf(initialInterest) }
     // Gebühr in einem dritten Coin
     var feeCoinText by rememberSaveable { mutableStateOf(initial.feeCoin.orEmpty()) }
     var feeCoinAmountText by rememberSaveable { mutableStateOf(PriceFormat.amountForInput(initial.feeCoinAmount, decimalSeparator)) }
@@ -235,7 +238,8 @@ fun PortfolioTxSheet(
         time != initial.time || acquiredTime != initial.acquiredTime || note != initial.note.orEmpty().take(NOTE_MAX) ||
         feeText != PriceFormat.amountForInput(initial.fee, decimalSeparator) || feeUnit != initial.feeUnit ||
         exchange != initial.exchange.orEmpty() || transferFrom != initial.transferFrom.orEmpty() ||
-        transferTo != initial.transferTo.orEmpty() || giftToSpouse != initialSpouse || feeCoinText != initial.feeCoin.orEmpty() ||
+        transferTo != initial.transferTo.orEmpty() || giftToSpouse != initialSpouse || interest != initialInterest ||
+        feeCoinText != initial.feeCoin.orEmpty() ||
         feeCoinAmountText != PriceFormat.amountForInput(initial.feeCoinAmount, decimalSeparator) ||
         (!feeCoinPriceAuto && feeCoinPriceText != PriceFormat.amountForInput(initial.feeCoinPriceUsdt, decimalSeparator)) ||
         toCoinQuery != initial.toCoin.orEmpty() ||
@@ -747,6 +751,16 @@ fun PortfolioTxSheet(
                 )
             }
 
+            // Belohnung als Zins (Lending): AT zählt ihn beim Zufluss (Anschaffungskosten = Wert), Staking nicht
+            if (type == PortfolioTxType.REWARD) {
+                SwitchRow(
+                    title = stringResource(R.string.portfolio_tx_interest),
+                    checked = interest,
+                    onCheckedChange = { interest = it },
+                    subtitle = stringResource(R.string.portfolio_tx_interest_hint),
+                )
+            }
+
             // Umbuchung: von / nach
             if (fields.route) {
                 RouteField(
@@ -879,6 +893,9 @@ fun PortfolioTxSheet(
                                 transferFrom = if (fields.route) transferFrom.trim().takeIf { it.isNotEmpty() } else null,
                                 transferTo = if (fields.route) transferTo.trim().takeIf { it.isNotEmpty() } else null,
                                 giftToSpouse = type == PortfolioTxType.GIFT && giftToSpouse,
+                                interest = type == PortfolioTxType.REWARD && interest,
+                                // Gebühr-Zeile bleibt eine, solange die Art «Verkauf» bleibt
+                                feeRow = type == PortfolioTxType.SELL && initial.feeRow,
                                 feeCoin = if (keepThird) initial.feeCoin else if (third) feeCoinSymbol else null,
                                 feeCoinAmount = if (keepThird) initial.feeCoinAmount else if (third) feeCoinAmount else null,
                                 feeCoinPriceUsdt = if (keepThird) initial.feeCoinPriceUsdt else if (third && !feeInReceived) feeCoinPrice else null,

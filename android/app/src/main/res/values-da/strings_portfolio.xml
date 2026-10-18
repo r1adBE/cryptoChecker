@@ -18,7 +18,7 @@
     <string name="portfolio_empty_title">Ingen transaktioner endnu</string>
     <string name="portfolio_enable_ask_text">Din transaktion er gemt. Fanen Portefølje viser dine beholdninger og deres værdi.</string>
     <string name="portfolio_enable_ask_title">Slå fanen Portefølje til?</string>
-    <string name="portfolio_enable_later_hint">Transaktion gemt. Du kan slå fanen Portefølje til under Indstillinger › Avanceret › Portefølje.</string>
+    <string name="portfolio_enable_later_hint">Transaktion gemt. Du kan slå fanen Portefølje til under Indstillinger › Portefølje.</string>
     <string name="portfolio_enabled_banner">Portefølje slået til – du finder den under fanen Portefølje.</string>
     <string name="portfolio_lock_reason">Lås portefølje op</string>
     <string name="portfolio_locked_text">Lås op for at se dine beholdninger og værdier.</string>

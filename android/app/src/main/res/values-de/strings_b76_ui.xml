@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="explorer_bulk_show_all">Alle anzeigen (%1$d)</string>
+    <string name="log_box_title">Protokoll</string>
+    <string name="watchlist_first_alarm_title">Ersten Alarm setzen</string>
+    <string name="watchlist_first_alarm_text">Lass dich benachrichtigen, sobald ein Kurs deine Marke erreicht.</string>
+</resources>

@@ -45,6 +45,10 @@ data class TxDraft(
     /** Verknüpfte Umbuchung: zweiter Herkunftsschlüssel und Zustand für «Import rückgängig» — bleiben beim Bearbeiten erhalten. */
     val linkedImportKey: String? = null,
     val importRestoreState: CsvRestoreState? = null,
+    /** Gebühr-Zeile (CSV «Fee») — bleibt beim Bearbeiten erhalten, solange die Art «Verkauf» bleibt. */
+    val feeRow: Boolean = false,
+    /** Belohnung ist ein Zins (Lending; nur bei [PortfolioTxType.REWARD], im Blatt umschaltbar). */
+    val interest: Boolean = false,
 )
 
 fun PortfolioTxEntity.toDraft() = TxDraft(
@@ -72,4 +76,6 @@ fun PortfolioTxEntity.toDraft() = TxDraft(
     giftToSpouse = giftToSpouse,
     linkedImportKey = linkedImportKey,
     importRestoreState = importRestoreState,
+    feeRow = feeRow,
+    interest = interest,
 )

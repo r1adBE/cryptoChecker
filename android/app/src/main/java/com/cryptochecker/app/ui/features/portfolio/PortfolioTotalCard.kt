@@ -183,6 +183,23 @@ internal fun TotalCard(
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.padding(top = 2.dp)
                 )
+                // Bestätigter Einbruch: Werte rechnen mit dem Marktkurs — deutlich in Warnfarbe statt «angenommen»
+                DepegAlarm.CardNoteKind.USDT_BREAK -> Text(
+                    stringResource(
+                        R.string.portfolio_usdt_break,
+                        com.cryptochecker.app.util.LocaleNumbers.decimal(usdtNote?.reading?.price ?: 0.0, 4),
+                    ),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.error,
+                    modifier = Modifier.padding(top = 2.dp)
+                )
+                // Kurs nur aus USDC/USDT: Herkunft nennen (USDC = 1 angenommen)
+                DepegAlarm.CardNoteKind.VIA_USDC -> Text(
+                    stringResource(R.string.portfolio_usdt_via_usdc),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.padding(top = 2.dp)
+                )
             }
             // Build 46: eine Veränderung direkt unter dem Gesamtwert — «↗ +412.95 CHF +1.85% · Heute»
             // (Prozent ohne Betrag, z. B. ohne Devisenkurs, bleibt sichtbar); ohne Daten keine Zeile

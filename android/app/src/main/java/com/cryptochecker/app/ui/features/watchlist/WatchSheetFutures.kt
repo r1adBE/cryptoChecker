@@ -39,6 +39,7 @@ import com.cryptochecker.app.ui.components.RegisterTabs
 import com.cryptochecker.app.ui.components.TonePill
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.amountNumbers
+import com.cryptochecker.app.util.CompactAmount
 import com.cryptochecker.app.util.DecimalText
 import com.cryptochecker.app.util.PriceFormat
 import com.cryptochecker.marketdata.model.FuturesContractType
@@ -250,7 +251,7 @@ private fun FuturesSection(info: FuturesInfo, watch: WatchEntity) {
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 Text(
-                    text = info.openInterestUsd?.let { "$" + compactNumber(it) } ?: "—",
+                    text = info.openInterestUsd?.let { "$" + CompactAmount.number(it) } ?: "—",
                     style = MaterialTheme.typography.titleSmall.amountNumbers()
                 )
             }
@@ -283,9 +284,3 @@ private fun futuresSourceText(info: FuturesInfo, watch: WatchEntity): String {
 /** Quote-Währungen, deren Kurs als USDT-Preis übernommen werden kann. */
 internal val USD_LIKE_QUOTES = setOf("USDT", "USD", "USDC", "FDUSD")
 
-private fun compactNumber(value: Double): String = when {
-    value >= 1e9 -> "%.2f B".format(value / 1e9)
-    value >= 1e6 -> "%.1f M".format(value / 1e6)
-    value >= 1e3 -> "%.1f K".format(value / 1e3)
-    else -> "%.0f".format(value)
-}

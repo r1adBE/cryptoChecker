@@ -168,7 +168,7 @@
 
     <!-- Einstellungen › Markt-Meldungen -->
     <string name="settings_depeg_alarm">USDT 脱锚提醒</string>
-    <string name="settings_depeg_alarm_hint">当 USDT 偏离 1 USD 达到阈值时通知一次（Kraken USDT/USD、Binance USDC/USDT）。</string>
+    <string name="settings_depeg_alarm_hint">当 USDT 偏离 1 USD 达到阈值时通知一次（Kraken USDT/USD、Coinbase USDT/USD、Binance USDC/USDT）。</string>
     <string name="settings_depeg_threshold">脱锚阈值</string>
     <string name="settings_fng_above">Fear &amp; Greed：高于时提醒</string>
     <string name="settings_fng_below">Fear &amp; Greed：低于时提醒</string>

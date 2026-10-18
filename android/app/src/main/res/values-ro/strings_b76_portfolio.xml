@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Build 76: Portfolio-Speicher, Sicherung, Steuer-Export, Sperre -->
+    <string name="storage_recovery_restore_action">Restaurează backupul</string>
+    <string name="storage_recovery_acknowledge">Am înțeles</string>
+    <string name="storage_recovery_restored_title">Datele salvate sunt din nou deblocate</string>
+    <string name="storage_recovery_restored_message">O cheie anterioară a acestui dispozitiv a deschis din nou datele puse deoparte, așa că au revenit. Ce s-a salvat între timp a rămas neschimbat alături.</string>
+    <string name="backup_restore_interrupted_title">Restaurarea a fost întreruptă</string>
+    <string name="backup_restore_interrupted_rolled_back">Aplicația a fost închisă în timpul restaurării unui backup. Datele anterioare au fost puse la loc; nimic din backup nu a fost păstrat.</string>
+    <string name="backup_restore_interrupted_incomplete">Aplicația a fost închisă în timpul restaurării unui backup, iar datele anterioare nu au putut fi puse complet la loc. Verifică lista de urmărire și portofoliul sau restaurează din nou backupul la „%1$s” în Setări.</string>
+    <string name="backup_not_verified">Fișierul de backup nu a putut fi verificat după salvare – recitit, este diferit. Salvează backupul într-un fișier nou.</string>
+    <string name="tax_line_at_old_speculation_limit">Dobândit înainte de 1.03.2021 – deținut ≤ 1 an: plafon de scutire pentru operațiuni speculative (§ 31 alin. 3 EStG, versiunea veche)</string>
+    <string name="portfolio_tx_interest">Dobândă (împrumut)</string>
+    <string name="portfolio_tx_interest_hint">Se socotește venit la încasare (Austria). Lasă dezactivat pentru recompense de staking și airdropuri.</string>
+    <string name="app_lock_no_screen_lock">Configurează o blocare a ecranului pentru a deschide portofoliul.</string>
+    <string name="app_lock_turn_off_action">Dezactivează blocarea portofoliului</string>
+    <string name="app_lock_turn_off_confirm_title">Dezactivezi blocarea portofoliului?</string>
+    <string name="app_lock_turn_off_confirm_message">Fără blocarea ecranului, portofoliul nu poate fi deblocat. Dezactivată, aplicația îți arată din nou portofoliul fără să întrebe. După ce configurezi blocarea ecranului, poți reactiva blocarea din Setări.</string>
+</resources>

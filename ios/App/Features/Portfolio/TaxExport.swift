@@ -188,7 +188,7 @@ struct TaxCsvTexts: Sendable {
     /// Vermerk «USDT = 1 USD angenommen» (`TaxGainRow.usdtApproximate`, `TaxIncomeRow.usdtApproximate`); leer = kein Vermerk.
     var usdtAssumed: String = ""
 
-    /// Aus den App-Texten; Währungsspalten mit `currency`, Zeitzone der Daten `zone` (Gerät).
+    /// Aus den App-Texten; Währungsspalten mit `currency`, Zeitzone der Daten `zone` (die der Vorlage, Neutral: Gerät).
     static func localized(currency: String, zone: TimeZone = .current) -> TaxCsvTexts {
         TaxCsvTexts(
             coin: L("portfolio_export_col_coin"),
@@ -220,7 +220,7 @@ struct TaxCsvTexts: Sendable {
             incomplete: L("portfolio_export_incomplete"),
             oversold: L("tax_export_oversold"),
             proceedsWithoutCost: L("tax_export_proceeds_without_cost"),
-            // Jahr und Daten in der Zeitzone des Geräts (wie `PortfolioTaxExporter.build`) — in der CSV genannt
+            // Jahr und Daten in der Zeitzone der Vorlage (wie `PortfolioTaxExporter.build`) — in der CSV genannt
             // («Daten in Ortszeit (Zone)»; Verlauf/Heute rechnen in UTC)
             timeZone: L("tax_export_year_local_zone", zone.identifier),
             // Tausch und FIFO je Wallet (Platzhalter «%s» setzt der Export mit dem Namen der Wallet)
@@ -293,87 +293,6 @@ enum TaxSummaryNote: String, Sendable, Equatable, Hashable {
     case AT_TRANSITION_2021
 }
 
-/// Jahresübersicht Deutschland (`TaxExport.deYearSummary`) — Orientierung, keine Steuerberatung. Wie `TaxYearSummaryDe`
-/// (Android): Gewinne > 0, Verluste ≤ 0; EUR-Werte nil ohne EUR-Kurse.
-struct TaxYearSummaryDe: Sendable, Equatable {
-    let year: Int
-    let method: CostMethod
-    let shortGainsUsdt: Decimal
-    let shortLossesUsdt: Decimal
-    let netShortUsdt: Decimal
-    let longGainsUsdt: Decimal
-    let longLossesUsdt: Decimal
-    /// Bekannter Gewinn/Verlust ohne Haltedauer (Ø, mehr verkauft als erfasst).
-    let unclassifiedUsdt: Decimal
-    let eurAvailable: Bool
-    let shortGainsEur: Decimal?
-    let shortLossesEur: Decimal?
-    let netShortEur: Decimal?
-    let longGainsEur: Decimal?
-    let longLossesEur: Decimal?
-    let unclassifiedEur: Decimal?
-    /// Kurzfristig / ohne Haltedauer mit unbekanntem Gewinn.
-    let unknownGainCount: Int
-    /// Ohne Haltedauer (Ø, ungedeckter Rest).
-    let unclassifiedCount: Int
-    /// Kurzfristig / ohne Haltedauer mit bekanntem Gewinn, aber ohne EUR-Kurs.
-    let eurFxMissingCount: Int
-    let privateSalesLimitEur: Decimal
-    let privateSalesStatus: TaxLimitStatus
-    /// Einkünfte aus Leistungen (§ 22 Nr. 3: Belohnungen) — Summe der bekannten Werte.
-    let incomeUsdt: Decimal
-    let incomeEur: Decimal?
-    let incomeValueMissingCount: Int
-    let incomeFxMissingCount: Int
-    let incomeLimitEur: Decimal
-    let incomeStatus: TaxLimitStatus
-    /// Gebühren von Auszahlungen (`.WITHDRAWAL`, negativ oder 0) — eigener Posten: NICHT in den Summen ≤ 1 Jahr und nicht
-    /// in der Freigrenze § 23 (keine Veräusserung; ggf. Werbungskosten). Wie Android.
-    var withdrawalFeesUsdt: Decimal = 0
-    var withdrawalFeesEur: Decimal? = nil
-    /// Anzahl solcher Gebühr-Zeilen (0 = kein Posten).
-    var withdrawalFeeCount = 0
-}
-
-/// Texte der «Jahresübersicht DE» (übersetzt) — wie `TaxDeTexts` (Android).
-struct TaxDeTexts: Sendable {
-    /// «Jahresübersicht DE %d» mit dem Jahr eingesetzt.
-    var title: String
-    /// «Orientierung, keine Steuerberatung …» — steht immer in der Datei.
-    var disclaimer: String
-    var item: String
-    var usdt: String
-    var eur: String
-    var note: String
-    var shortGains: String
-    var shortLosses: String
-    var netShort: String
-    var longGains: String
-    var longLosses: String
-    var unclassified: String
-    var privateSalesLimit: String
-    var income: String
-    var incomeLimit: String
-    var below: String
-    var reached: String
-    var unknown: String
-    var needsEur: String
-    var incomplete: String
-    var needsHolding: String
-    var noFx: String
-    var limitScope: String
-    /// Kopf des Orientierungs-Blocks «Orientierung – keine Steuerberatung, keine Veranlagung»; leer = `disclaimer`.
-    var orientationHeading: String = ""
-    /// Posten im Orientierungs-Block «Orientierung: %s»; leer = ohne Vorsatz.
-    var orientationItem: String = ""
-    /// Status «Verlust» (`TaxLimitStatus.loss`); leer = `below`.
-    var loss: String = ""
-    /// Posten «Auszahlungsgebühren»; leer = kein Posten.
-    var withdrawalFees: String = ""
-    /// Vermerk «Auszahlungsgebühr – nicht mit § 23 verrechnet, ggf. Werbungskosten prüfen».
-    var withdrawalFeeNote: String = ""
-}
-
 /// Posten der Jahresübersicht einer Vorlage (`TaxExport.yearSummary`) — wie `TaxLine` (Android); `orientation` = Schluss
 /// nach den Regeln der Vorlage, nur als «Orientierung» mit Hinweis.
 enum TaxLine: String, CaseIterable, Sendable {
@@ -395,6 +314,9 @@ enum TaxLine: String, CaseIterable, Sendable {
     case TRANSFER_FEES
     case DE_LONG, DE_PRIVATE_LIMIT, DE_INCOME_LIMIT
     case AT_RATE, AT_OLD_LONG
+    /// AT: Altbestand ≤ 1 Jahr = Spekulationsgeschäft nach alter Rechtslage (§ 30 EStG a. F.) — Freigrenze 440 € im
+    /// Kalenderjahr (§ 31 Abs. 3 EStG a. F.), Status wie `DE_PRIVATE_LIMIT`. Wie Android.
+    case AT_OLD_SPECULATION_LIMIT
     case CH_PRIVATE, CH_INCOME, CH_WEALTH
     case UK_EXEMPT, UK_AFTER_EXEMPT
     case US_TERMS
@@ -409,7 +331,7 @@ enum TaxLine: String, CaseIterable, Sendable {
              .GAINS, .LOSSES, .NET, .NEW_NET, .OLD_SHORT_NET, .OLD_LONG_NET, .DENIED_LOSS, .PROCEEDS, .INCOME, .AT_INTEREST, .FR_OUTFLOW,
              .WITHDRAWAL_FEES, .TRANSFER_FEES:
             return false
-        case .DE_LONG, .DE_PRIVATE_LIMIT, .DE_INCOME_LIMIT, .AT_RATE, .AT_OLD_LONG, .CH_PRIVATE, .CH_INCOME, .CH_WEALTH,
+        case .DE_LONG, .DE_PRIVATE_LIMIT, .DE_INCOME_LIMIT, .AT_RATE, .AT_OLD_LONG, .AT_OLD_SPECULATION_LIMIT, .CH_PRIVATE, .CH_INCOME, .CH_WEALTH,
              .UK_EXEMPT, .UK_AFTER_EXEMPT, .US_TERMS, .CA_TAXABLE, .AU_DISCOUNTED, .FR_THRESHOLD, .FR_RATE, .JP_MISC:
             return true
         }
@@ -553,7 +475,6 @@ enum TaxExport {
 
     static func incomeFileName(_ year: Int) -> String { "cryptochecker-einkuenfte-\(year).csv" }
 
-    static func deSummaryFileName(_ year: Int) -> String { "cryptochecker-jahresuebersicht-de-\(year).csv" }
 
     /// Dateiname der Jahresübersicht einer Vorlage, z. B. «cryptochecker-jahresuebersicht-uk-2025.csv».
     static func summaryFileName(_ template: TaxTemplate, year: Int) -> String {
@@ -579,6 +500,10 @@ enum TaxExport {
     /// Freigrenze § 22 Nr. 3 Satz 2 EStG (Einkünfte aus Leistungen): steuerfrei, wenn weniger als 256 € im Jahr.
     static let incomeLimitEur: Decimal = 256
 
+    /// AT Altbestand ≤ 1 Jahr (Spekulationsgeschäft, § 30 EStG a. F.): Freigrenze § 31 Abs. 3 EStG a. F. — steuerfrei, wenn
+    /// höchstens 440 € im Kalenderjahr. Wie Android `AT_SPECULATION_LIMIT_EUR`.
+    static let atSpeculationLimitEur: Decimal = 440
+
     /// USD → Zielwährung am `date`: USD = 1; sonst der Kurs des Tags oder des letzten Tags davor (höchstens
     /// `fxMaxGapDays` Tage); `rates` = Tag (epochDay) → Kurs, nil = nicht geladen.
     /// Mit `usdtUsd` (USDT/USD-Tagesschluss je Datum, Owner-Entscheid Okt. 2026): USDT → Zielwährung = Kurs × USDT/USD
@@ -589,15 +514,21 @@ enum TaxExport {
         if currency.trimmingCharacters(in: .whitespaces).uppercased() == "USD" {
             fx = 1
         } else {
-            let day = date.epochDay
-            let best = (rates ?? [:])
-                .filter { $0.key <= day && day - $0.key <= fxMaxGapDays && $0.value > 0 }
-                .max { $0.key < $1.key }
-            guard let value = best?.value else { return nil }
+            guard let value = fxOnOrBefore(rates, day: date.epochDay) else { return nil }
             fx = value
         }
         guard usdtUsd != nil, let usdt = usdtUsdOn(usdtUsd, date: date) else { return fx }
         return PortfolioDecimal.multiply(fx, usdt)
+    }
+
+    /// Kurs des Tags `day` oder des letzten Tags davor mit Kurs > 0, höchstens `fxMaxGapDays` Tage zurück: höchstens acht
+    /// direkte Abfragen statt die ganze Kursreihe je Zeile zu durchsuchen — wie Android `fxOnOrBefore`.
+    static func fxOnOrBefore(_ rates: [Int: Decimal]?, day: Int) -> Decimal? {
+        guard let rates, !rates.isEmpty else { return nil }
+        for d in stride(from: day, through: day - fxMaxGapDays, by: -1) {
+            if let value = rates[d], value > 0 { return value }
+        }
+        return nil
     }
 
     /// USDT/USD-Tagesschluss am `date` aus `usdtUsd` (Tag → Schluss), nur plausibel (`PortfolioStables.usdtUsd`); nil =
@@ -855,7 +786,7 @@ enum TaxExport {
             }()
             return TaxIncomeRow(date: date, coin: PortfolioCalculator.normalizeCoin(t.coin), amount: t.amountExact,
                                 valueUsdt: value, valueTarget: target, fxMissing: value != nil && rate == nil,
-                                interest: TaxEngines.interestReward(t.note), estimated: t.valueEstimated,
+                                interest: t.type == .REWARD && t.interest, estimated: t.valueEstimated,
                                 usdtApproximate: value != nil && usdtApproximateOn(usdtUsd, date: date))
         }
     }
@@ -1048,142 +979,6 @@ enum TaxExport {
         let incomplete = rows.contains { $0.valueMissing || $0.fxMissing }
         out += line([t(texts.total), t(""), CsvCell(text: "", numeric: true), money(sum(rows) { $0.valueUsdt }),
                      money(sum(rows) { $0.valueTarget }), t(incomplete ? texts.incomplete : "")], format)
-        return out
-    }
-
-    /// Jahresübersicht Deutschland — ORIENTIERUNG, KEINE STEUERBERATUNG; Regeln wie `deYearSummary` (Android): kurzfristig
-    /// (≤ 1 Jahr) Gewinne/Verluste und netto, langfristig (> 1 Jahr, in DE steuerfrei), ohne Haltedauer (Ø, ungedeckt);
-    /// Freigrenzen § 23 (netto kurzfristig in EUR < Grenze) und § 22 Nr. 3 (Belohnungen < 256 €). `eurRates` = USD → EUR
-    /// je Tag; nil = keine EUR-Werte (Prüfung offen).
-    static func deYearSummary(_ trades: [PortfolioTx], method: CostMethod, year: Int, timeZone: TimeZone,
-                              eurRates: [Int: Decimal]?) -> TaxYearSummaryDe {
-        let eur = eurRates != nil
-        let all = gainRows(trades, method: method, year: year, timeZone: timeZone, currency: "EUR", rates: eurRates ?? [:])
-        // Auszahlungsgebühren: keine Veräusserung — eigener Posten, nicht in § 23 (Summe ≤ 1 Jahr, Freigrenze)
-        let feeRows = all.filter { $0.feeExpense == .WITHDRAWAL }
-        let rows = all.filter { $0.feeExpense != .WITHDRAWAL }
-        let feeUsdt: Decimal = feeRows.reduce(Decimal(0)) { $0 + ($1.gainUsdt ?? 0) }
-        let feeEur: Decimal = feeRows.reduce(Decimal(0)) { $0 + ($1.gainTarget ?? 0) }
-        var sg: Decimal = 0, sl: Decimal = 0, lg: Decimal = 0, ll: Decimal = 0, un: Decimal = 0
-        var sgE: Decimal = 0, slE: Decimal = 0, lgE: Decimal = 0, llE: Decimal = 0, unE: Decimal = 0
-        var unknownGain = 0
-        var unclassified = 0
-        var fxMissing = 0
-        for r in rows {
-            let g = r.gainUsdt
-            let gE = r.gainTarget
-            switch r.longTerm {
-            case .some(true):
-                if let g { if g > 0 { lg += g } else { ll += g } }
-                if let gE { if gE > 0 { lgE += gE } else { llE += gE } }
-            case .some(false):
-                if let g { if g > 0 { sg += g } else { sl += g } } else { unknownGain += 1 }
-                if let gE {
-                    if gE > 0 { sgE += gE } else { slE += gE }
-                } else if g != nil && eur {
-                    fxMissing += 1
-                }
-            case .none:
-                unclassified += 1
-                if let g { un += g } else { unknownGain += 1 }
-                if let gE { unE += gE } else if g != nil && eur { fxMissing += 1 }
-            }
-        }
-        let netE = sgE + slE
-        let limit = privateSalesLimitEur(year)
-        let salesStatus: TaxLimitStatus
-        if !eur || unknownGain > 0 || unclassified > 0 || fxMissing > 0 {
-            salesStatus = .unknown
-        } else if netE < 0 {
-            // Netto-Verlust: nicht «unter der Freigrenze», sondern eigener Status (nur mit § 23-Gewinnen verrechenbar)
-            salesStatus = .loss
-        } else {
-            salesStatus = netE < limit ? .below : .reached
-        }
-        let income = incomeRows(trades, year: year, timeZone: timeZone, currency: "EUR", rates: eurRates ?? [:])
-        let incomeUsdt = income.reduce(Decimal(0)) { $0 + ($1.valueUsdt ?? 0) }
-        let incomeEur = income.reduce(Decimal(0)) { $0 + ($1.valueTarget ?? 0) }
-        let valueMissing = income.filter(\.valueMissing).count
-        let incomeFx = eur ? income.filter(\.fxMissing).count : 0
-        let incomeStatus: TaxLimitStatus
-        if !eur || valueMissing > 0 || incomeFx > 0 {
-            incomeStatus = .unknown
-        } else {
-            incomeStatus = incomeEur < incomeLimitEur ? .below : .reached
-        }
-        return TaxYearSummaryDe(
-            year: year, method: method,
-            shortGainsUsdt: sg, shortLossesUsdt: sl, netShortUsdt: sg + sl,
-            longGainsUsdt: lg, longLossesUsdt: ll, unclassifiedUsdt: un,
-            eurAvailable: eur,
-            shortGainsEur: eur ? sgE : nil, shortLossesEur: eur ? slE : nil, netShortEur: eur ? netE : nil,
-            longGainsEur: eur ? lgE : nil, longLossesEur: eur ? llE : nil, unclassifiedEur: eur ? unE : nil,
-            unknownGainCount: unknownGain, unclassifiedCount: unclassified, eurFxMissingCount: fxMissing,
-            privateSalesLimitEur: limit, privateSalesStatus: salesStatus,
-            incomeUsdt: incomeUsdt, incomeEur: eur ? incomeEur : nil,
-            incomeValueMissingCount: valueMissing, incomeFxMissingCount: incomeFx,
-            incomeLimitEur: incomeLimitEur, incomeStatus: incomeStatus,
-            withdrawalFeesUsdt: feeUsdt, withdrawalFeesEur: eur ? feeEur : nil, withdrawalFeeCount: feeRows.count)
-    }
-
-    /// CSV «Jahresübersicht DE» mit BOM — wie `deSummaryCsv` (Android): Kopfzeilen, Titel, Hinweis «Orientierung, keine
-    /// Steuerberatung», Zeitzone (`zoneLine`, leer = keine), dann Posten | USDT | EUR | Hinweis. Zuerst Tatsachen (Summen,
-    /// Einkünfte), dann der Orientierungs-Block (Kopf `orientationHeading`, Freigrenzen mit Vorsatz).
-    static func deSummaryCsv(_ s: TaxYearSummaryDe, texts: TaxDeTexts, header: [String], zoneLine: String = "",
-                             format: CutoffCsvFormat = .semicolonPoint) -> String {
-        func n(_ text: String) -> String {
-            format.decimal == "," ? text.replacingOccurrences(of: ".", with: ",") : text
-        }
-        func money(_ v: Decimal?) -> String { n(v.map { CutoffExport.money($0) } ?? "") }
-        func status(_ st: TaxLimitStatus) -> String {
-            switch st {
-            case .below: return texts.below
-            case .reached: return texts.reached
-            case .unknown: return texts.unknown
-            case .loss: return texts.loss.isEmpty ? texts.below : texts.loss
-            }
-        }
-        var out = bom
-        for h in header { out += textLine([h], format) }
-        out += textLine([texts.title], format)
-        out += textLine([texts.disclaimer], format)
-        if !zoneLine.isEmpty { out += textLine([zoneLine], format) }
-        out += textLine([texts.item, texts.usdt, texts.eur, texts.note], format)
-        let shortIncomplete = s.unknownGainCount > 0 || s.eurFxMissingCount > 0
-        out += textLine([texts.shortGains, money(s.shortGainsUsdt), money(s.shortGainsEur), ""], format, numeric: [1, 2])
-        out += textLine([texts.shortLosses, money(s.shortLossesUsdt), money(s.shortLossesEur), ""], format, numeric: [1, 2])
-        var netNotes: [String] = []
-        if s.unknownGainCount > 0 { netNotes.append(texts.incomplete) }
-        if s.eurFxMissingCount > 0 { netNotes.append(texts.noFx) }
-        out += textLine([texts.netShort, money(s.netShortUsdt), money(s.netShortEur), netNotes.joined(separator: ", ")], format, numeric: [1, 2])
-        out += textLine([texts.longGains, money(s.longGainsUsdt), money(s.longGainsEur), ""], format, numeric: [1, 2])
-        out += textLine([texts.longLosses, money(s.longLossesUsdt), money(s.longLossesEur), ""], format, numeric: [1, 2])
-        if s.unclassifiedCount > 0 {
-            out += textLine([texts.unclassified, money(s.unclassifiedUsdt), money(s.unclassifiedEur), texts.needsHolding], format, numeric: [1, 2])
-        }
-        // Auszahlungsgebühren: eigener Posten, nicht mit § 23 verrechnet
-        if s.withdrawalFeeCount > 0 && !texts.withdrawalFees.isEmpty {
-            out += textLine([texts.withdrawalFees, money(s.withdrawalFeesUsdt), money(s.withdrawalFeesEur), texts.withdrawalFeeNote],
-                            format, numeric: [1, 2])
-        }
-        var incomeNotes: [String] = []
-        if s.incomeValueMissingCount > 0 { incomeNotes.append(texts.incomplete) }
-        if s.incomeFxMissingCount > 0 { incomeNotes.append(texts.noFx) }
-        out += textLine([texts.income, money(s.incomeUsdt), money(s.incomeEur), incomeNotes.joined(separator: ", ")], format, numeric: [1, 2])
-        // Freigrenzen nur im Orientierungs-Block (Kopf, jeder Posten mit Vorsatz «Orientierung:»), nie bei den Tatsachen
-        func oriented(_ label: String) -> String { taxOrientationLabel(texts.orientationItem, fallback: "", label: label) }
-        out += textLine([texts.orientationHeading.isEmpty ? texts.disclaimer : texts.orientationHeading], format)
-        var salesNotes = [status(s.privateSalesStatus)]
-        if !s.eurAvailable { salesNotes.append(texts.needsEur) }
-        if s.unclassifiedCount > 0 && s.eurAvailable { salesNotes.append(texts.needsHolding) }
-        if shortIncomplete && s.eurAvailable && s.unclassifiedCount == 0 { salesNotes.append(texts.incomplete) }
-        out += textLine([oriented(texts.privateSalesLimit), "", money(s.privateSalesLimitEur), salesNotes.joined(separator: ", ")],
-                        format, numeric: [1, 2])
-        var limitNotes = [status(s.incomeStatus)]
-        if !s.eurAvailable { limitNotes.append(texts.needsEur) }
-        out += textLine([oriented(texts.incomeLimit), "", money(s.incomeLimitEur), limitNotes.joined(separator: ", ")],
-                        format, numeric: [1, 2])
-        if !texts.limitScope.isEmpty { out += textLine([oriented(texts.limitScope)], format) }
         return out
     }
 
@@ -1393,6 +1188,22 @@ enum TaxExport {
             if rows.contains(where: { $0.oldHolding == true }) {
                 let oldLong = rows.filter { $0.oldHolding == true && $0.longTerm == true }
                 lines.append(Acc(oldLong, all, fx: fx).line(.AT_OLD_LONG, fx: fx))
+                // Altbestand ≤ 1 Jahr: Freigrenze 440 € (§ 31 Abs. 3 EStG a. F.) — nicht prüfbar, sobald ein Gewinn, ein
+                // Devisenkurs oder die Haltedauer fehlt (wie Android)
+                let old = rows.filter { $0.oldHolding == true }
+                let spec = Acc(old.filter { $0.longTerm == false }, all, fx: fx)
+                let specStatus: TaxLimitStatus
+                if !fx || spec.unknown > 0 || spec.fxMissing > 0 || old.contains(where: { $0.longTerm == nil }) {
+                    specStatus = .unknown
+                } else if spec.target < 0 {
+                    specStatus = .loss
+                } else if spec.target <= atSpeculationLimitEur {
+                    specStatus = .below
+                } else {
+                    specStatus = .reached
+                }
+                lines.append(TaxSummaryLine(line: .AT_OLD_SPECULATION_LIMIT, usdt: nil, target: atSpeculationLimitEur,
+                                            status: specStatus))
             }
         case .CH:
             // Kapitalgewinne im Privatvermögen: kein Betrag, keine Einordnung — «nicht gerechnet, siehe ESTV»
@@ -1569,6 +1380,7 @@ extension TaxLine {
         case .DE_INCOME_LIMIT: return "tax_de_income_limit"
         case .AT_RATE: return "tax_line_at_rate"
         case .AT_OLD_LONG: return "tax_line_at_old_long"
+        case .AT_OLD_SPECULATION_LIMIT: return "tax_line_at_old_speculation_limit"
         case .CH_PRIVATE: return "tax_line_ch_private"
         case .CH_INCOME: return "tax_line_ch_income"
         case .CH_WEALTH: return "tax_line_ch_wealth"
@@ -1684,25 +1496,26 @@ enum PortfolioTaxExporter {
     /// Tausch ohne Wert zum Tageskurs (`feeDisposalPrices`) — wie `taxPrices` (Android).
     static func taxPrices(_ template: TaxTemplate, _ method: TaxMethod, _ transactions: [PortfolioTx],
                           period: TaxPeriod) async -> ((String, Int64) -> Decimal?)? {
+        let zone = template.zone()
         let base: ((String, Int64) -> Decimal?)?
         if method == .FR_PTA {
-            base = await frPrices(transactions, period: period)
+            base = await frPrices(transactions, period: period, zone: zone)
         } else if template.networkFeeIsDisposal {
-            base = await networkFeePrices(transactions, period: period)
+            base = await networkFeePrices(transactions, period: period, zone: zone)
         } else {
             base = nil
         }
-        guard let fees = await feeDisposalPrices(transactions, period: period) else { return base }
+        guard let fees = await feeDisposalPrices(transactions, period: period, zone: zone) else { return base }
         return { coin, time in fees(coin, time) ?? base?(coin, time) }
     }
 
     /// Gebühr-Zeilen (`PortfolioLedger.isFeeDisposal`, CSV «Fee»), Verschenkt/bezahlt ohne Marktwert und Tausch ohne Wert
     /// (`PortfolioLedger.dayCloseNeeds`) bis Ende `period`: zum Tageskurs — der Coin zum Tagesschluss SEINES UTC-Tags (gleicher
     /// Kurs wie Karte und Wertverlauf); nur für genau diese (Coin, Zeit), sonst nil. Ohne solche nil. Wie Android.
-    static func feeDisposalPrices(_ transactions: [PortfolioTx],
-                                  period: TaxPeriod) async -> ((String, Int64) -> Decimal?)? {
+    static func feeDisposalPrices(_ transactions: [PortfolioTx], period: TaxPeriod,
+                                  zone: TimeZone = .current) async -> ((String, Int64) -> Decimal?)? {
         let end = CutoffDay(year: period.end.year, month: period.end.month, day: period.end.day)
-            .endOfDayMillis(in: TimeZone.current)
+            .endOfDayMillis(in: zone)
         var keys = Set<String>()
         var wanted: [String: Set<Int>] = [:]
         let own = transactions.filter { $0.time <= end && !AddressBalance.isAddressTrade($0.id) }
@@ -1725,9 +1538,10 @@ enum PortfolioTaxExporter {
     /// Marktwert der Netzwerkgebühren in Krypto (eigene Veräusserung, `TaxEngines.applyRules`) bis Ende `period`: Gebühr
     /// im Coin bzw. im dritten Coin ohne erfassten Gebühr-Preis einer Umbuchung, Auszahlung oder Schenkung — der Coin zum
     /// Tagesschluss des Vortags (UTC). Wie `networkFeePrices` (Android).
-    static func networkFeePrices(_ transactions: [PortfolioTx], period: TaxPeriod) async -> (String, Int64) -> Decimal? {
+    static func networkFeePrices(_ transactions: [PortfolioTx], period: TaxPeriod,
+                                 zone: TimeZone = .current) async -> (String, Int64) -> Decimal? {
         let end = CutoffDay(year: period.end.year, month: period.end.month, day: period.end.day)
-            .endOfDayMillis(in: TimeZone.current)
+            .endOfDayMillis(in: zone)
         var wanted: [String: Set<Int>] = [:]
         for t in transactions where (t.type == .TRANSFER || t.type.isWithdrawalLike) && t.time <= end
             && !AddressBalance.isAddressTrade(t.id) {
@@ -1746,8 +1560,8 @@ enum PortfolioTaxExporter {
     /// FR: Kurse für den Gesamtwert des Portfolios vor jeder Abtretung bis Ende `period` — je Verkauf, Auszahlung und
     /// Gebühr in Krypto die gehaltenen Coins (ohne den verkauften, ohne Stablecoins) zum Tagesschluss des Vortags (UTC).
     /// Wie `frPrices` (Android).
-    static func frPrices(_ transactions: [PortfolioTx], period: TaxPeriod) async -> (String, Int64) -> Decimal? {
-        let zone = TimeZone.current
+    static func frPrices(_ transactions: [PortfolioTx], period: TaxPeriod,
+                         zone: TimeZone = .current) async -> (String, Int64) -> Decimal? {
         let end = CutoffDay(year: period.end.year, month: period.end.month, day: period.end.day).endOfDayMillis(in: zone)
         var wanted: [String: Set<Int>] = [:]
         let own = transactions.filter { !AddressBalance.isAddressTrade($0.id) }
@@ -1793,7 +1607,8 @@ enum PortfolioTaxExporter {
     /// Jahresübersicht der Vorlage für das Steuerjahr ab `year` (ohne Devisenkurse: Werte in der Währung leer).
     static func summary(transactions: [PortfolioTx], template: TaxTemplate, method: TaxMethod, year: Int,
                         currency: String, walletFrom: LocalDay? = nil) async -> TaxYearSummary {
-        let zone = TimeZone.current
+        // Daten in der Zeitzone der Vorlage (Neutral: Gerät), wie in der CSV genannt
+        let zone = template.zone()
         let period = template.period(year)
         let transactions = withAddressTrades(transactions, method: method)
         let priceAt: ((String, Int64) -> Decimal?)? = await taxPrices(template, method, transactions, period: period)
@@ -1809,12 +1624,14 @@ enum PortfolioTaxExporter {
     /// CSV «Jahresübersicht» (Orientierung, keine Steuerberatung).
     static func summaryCsv(_ summary: TaxYearSummary, texts: TaxSummaryTexts, header: [String]) -> String {
         TaxExport.summaryCsv(summary, texts: texts, header: header,
-                             zoneLine: L("tax_export_year_local_zone", TimeZone.current.identifier), format: CutoffCsvFormat.current)
+                             zoneLine: L("tax_export_year_local_zone", summary.template.zone().identifier),
+                             format: CutoffCsvFormat.current)
     }
 
     static func build(kind: TaxExportKind, transactions: [PortfolioTx], template: TaxTemplate, method: TaxMethod, year: Int,
                       currency: String, texts: TaxCsvTexts, header: [String], walletFrom: LocalDay? = nil) async -> String {
-        let zone = TimeZone.current
+        // Daten in der Zeitzone der Vorlage (Neutral: Gerät), wie in der CSV genannt
+        let zone = template.zone()
         let period = template.period(year)
         // Trenn-/Dezimalzeichen wie der Stichtag-Export (Excel der Region)
         let format = CutoffCsvFormat.current
@@ -1841,7 +1658,7 @@ enum PortfolioTaxExporter {
             let fx = await rates(currency, from: period.start, to: period.end)
             let usdtUsd = await usdtUsdCloses(currency, from: period.start)
             // Belohnungen ohne Wert (Kraken/Binance) zum Tagesschluss geschätzt, wie in der Jahresübersicht
-            let priceAt = await feeDisposalPrices(transactions, period: period)
+            let priceAt = await feeDisposalPrices(transactions, period: period, zone: zone)
             let rows = TaxExport.incomeRows(transactions, period: period, timeZone: zone, currency: currency, rates: fx,
                                             priceAt: priceAt, usdtUsd: usdtUsd)
             return TaxExport.incomeCsv(rows, texts: texts, header: header, format: format)

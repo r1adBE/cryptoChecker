@@ -233,6 +233,9 @@ extension PortfolioTxSheet {
             tx.transferTo = to.isEmpty ? nil : to
         }
         tx.giftToSpouse = type == .GIFT && giftToSpouse
+        tx.interest = type == .REWARD && interest
+        // Gebühr-Zeile bleibt eine, solange die Art «Verkauf» bleibt
+        tx.feeRow = type == .SELL && initial.feeRow
         // Gebühr im dritten Coin, die diese Art im Blatt nicht zeigt (CSV-Import): bei gleicher Art behalten
         let keepThird = !fields.thirdCoinFee && isEdit && type == initial.type && initial.feeCoin != nil
         if keepThird {

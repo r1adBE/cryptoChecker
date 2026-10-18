@@ -18,7 +18,7 @@
     <string name="portfolio_empty_title">هنوز تراکنشی نیست</string>
     <string name="portfolio_enable_ask_text">تراکنشت ذخیره شد. زبانهٔ پرتفوی دارایی‌ها و ارزششان را نشان می‌دهد.</string>
     <string name="portfolio_enable_ask_title">زبانهٔ پرتفوی روشن شود؟</string>
-    <string name="portfolio_enable_later_hint">تراکنش ذخیره شد. زبانهٔ پرتفوی را می‌توانی در تنظیمات › پیشرفته › پرتفوی روشن کنی.</string>
+    <string name="portfolio_enable_later_hint">تراکنش ذخیره شد. زبانهٔ پرتفوی را می‌توانی در تنظیمات › پرتفوی روشن کنی.</string>
     <string name="portfolio_enabled_banner">سبد روشن شد – آن را در زبانهٔ سبد پیدا می‌کنی.</string>
     <string name="portfolio_lock_reason">باز کردن قفل پرتفوی</string>
     <string name="portfolio_locked_text">برای دیدن دارایی‌ها و ارزش‌ها قفل را باز کنید.</string>

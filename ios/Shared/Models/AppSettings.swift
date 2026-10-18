@@ -60,6 +60,8 @@ struct AppSettings: Codable, Equatable, Sendable {
     /// «Alarm-Signal» (Schlüssel wie Android). iOS: nur `SYSTEM` oder `SILENT`, siehe `AlarmSignal`.
     var alarmSignal: AlarmSignal = .default
     var gestureHintSeen: Bool = false
+    /// Die Karte «Ersten Alarm setzen» über der Merkliste wurde geschlossen (wie Android).
+    var firstAlarmCardDismissed: Bool = false
     var aboutSeen: Bool = false
     /// Gewählte Gruppe der Merkliste; nil = «Alle».
     var watchlistGroup: String? = nil
@@ -269,6 +271,8 @@ struct AppSettings: Codable, Equatable, Sendable {
         fearGreedAbove = (try? c.decodeIfPresent(Int.self, forKey: .fearGreedAbove)) ?? d.fearGreedAbove
         indicatorAlerts = (try? c.decodeIfPresent([String: Int].self, forKey: .indicatorAlerts)) ?? d.indicatorAlerts
         gestureHintSeen = (try? c.decodeIfPresent(Bool.self, forKey: .gestureHintSeen)) ?? d.gestureHintSeen
+        firstAlarmCardDismissed = (try? c.decodeIfPresent(Bool.self, forKey: .firstAlarmCardDismissed))
+            ?? d.firstAlarmCardDismissed
         aboutSeen = (try? c.decodeIfPresent(Bool.self, forKey: .aboutSeen)) ?? d.aboutSeen
         watchlistGroup = try? c.decodeIfPresent(String.self, forKey: .watchlistGroup)
         activityAlerts = (try? c.decodeIfPresent(Bool.self, forKey: .activityAlerts)) ?? d.activityAlerts

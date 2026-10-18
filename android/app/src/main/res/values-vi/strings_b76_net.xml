@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Kursblatt: Abstand Geld/Brief über 2 % der Mitte (BidAskSpread) -->
+    <string name="ticker_wide_spread">Chênh lệch lớn giữa giá mua và giá bán (%1$s%%)</string>
+    <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
+    <string name="refresh_sheet_exchange_detail">Thông báo của sàn: %1$s</string>
+</resources>

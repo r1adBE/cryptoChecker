@@ -9,7 +9,7 @@ Sprachausgabe und Startbildschirm-Widgets über 40 Märkte – 32 Börsen (teils
 mit Spot und Futures) plus DexScreener für DEX-Token. 31 Sprachen, kein Konto,
 keine Werbung, kein Tracking; die Kurse kommen direkt von den Börsen.
 
-Riad Work (r1AD) — riad.work@outlook.com
+r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Datenschutzerklärung `docs/privacy/index.html`)
 
 * Anzeigename: **Crypto Checker**
 * applicationId: `com.cryptochecker.app`
@@ -173,7 +173,7 @@ Riad Work (r1AD) — riad.work@outlook.com
   mit Glocke, Markt-Meldungen mit Blitz; nur «App zurücksetzen» bleibt in der Fehlerfarbe. Die Themenfarbe bleibt
   für Titel-Striche, Schalter und Auswahl.
 * **USDT zum Marktkurs** (Owner-Entscheid Okt. 2026) — USDT bleibt die interne Rechenwährung, in Fiat gilt sein
-  Marktkurs USDT/USD: live die Messung von `DepegAlarmChecker` (Kraken USDT/USD, Binance USDC/USDT; gemessen, sobald ein
+  Marktkurs USDT/USD: live die Messung von `DepegAlarmChecker` (Kraken USDT/USD, Coinbase USDT-USD, Binance USDC/USDT nur als dritte Quelle; Einbruch nur bestätigt, `DepegAlarm.measure`; gemessen, sobald ein
   Portfolio da ist, auch ohne Depeg-Alarm; `DepegReadingStore.liveUsdtUsd`, höchstens 6 Std. alt), für vergangene Tage
   der Kraken-Tagesschluss USDTZUSD (`PortfolioHistorySource.usdtUsdDaily`, 12 h gemerkt). Gesamtkarte, Zeilen,
   Wertverlauf, «7 T»/«1 J», Widget, Portfolio-Alarme, «≈ Umrechnung», Kurse eigener Börsen in USD/Fiat, Steuer- und
@@ -921,7 +921,8 @@ auf einem Emulator (Actions › «Android device tests», `.github/workflows/and
 
 ## Lizenz
 
-MIT, siehe `LICENSE`. Namen, Logos und Marken von Coins, Token, Aktien, Börsen und anderen Dritten sowie
+MIT, siehe `LICENSE`. Portions derived from BitcoinChecker by mobnetic and Aneonex Software (MIT): deren
+ursprüngliche Copyright-Vermerke stehen in `LICENSE` und auf der Lizenzseite beider Apps. Namen, Logos und Marken von Coins, Token, Aktien, Börsen und anderen Dritten sowie
 Marktdaten von Drittanbietern (z. B. CoinGecko, Binance, alternative.me, Coin Metrics) gehören nicht zum Code
 und fallen nicht unter die MIT-Lizenz.
 

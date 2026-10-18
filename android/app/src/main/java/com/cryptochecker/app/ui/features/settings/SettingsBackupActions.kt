@@ -26,7 +26,7 @@ fun SettingsViewModel.exportBackup(uri: android.net.Uri) = update {
         BackupMessage.Failed
     } else {
         runCatching { backupManager.export(uri, request.password) }
-            .fold({ BackupMessage.Exported }, { BackupMessage.Failed })
+            .fold({ BackupMessage.Exported }, { BackupMessage.failure(it) })
     }
 }
 
@@ -161,11 +161,14 @@ sealed interface BackupMessage {
     data object TooLarge : BackupMessage
     /** Sicherung einer neueren App-Version ([com.cryptochecker.app.data.BackupVersion]): nichts übernommen. */
     data object NewerVersion : BackupMessage
+    /** Geschriebene Datei liest sich nicht gleich zurück ([com.cryptochecker.app.data.BackupNotVerifiedException]): neue Datei wählen. */
+    data object NotVerified : BackupMessage
 
     companion object {
         fun failure(e: Throwable): BackupMessage = when (e) {
             is com.cryptochecker.app.data.BackupLimits.TooLargeException -> TooLarge
             is com.cryptochecker.app.data.BackupVersion.NewerVersionException -> NewerVersion
+            is com.cryptochecker.app.data.BackupNotVerifiedException -> NotVerified
             else -> Failed
         }
     }

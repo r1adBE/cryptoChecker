@@ -68,6 +68,26 @@ enum PortfolioStables {
         return UsdtUsd(rate: m, approximate: false)
     }
 
+    /// Einbruch-Bereich des LIVE-Kurses USDT/USD: ausserhalb `usdtUsdMin`…`usdtUsdMax`, aber innerhalb
+    /// `usdtUsdBreakMin`…`usdtUsdBreakMax` zählt ein Kurs nur, wenn die Depeg-Messung ihn von mindestens zwei Quellen
+    /// bestätigt hat (`DepegAlarm.measure`). Ein echter USDT-Einbruch (z. B. 0.30) soll mit dem Marktkurs bewertet
+    /// werden statt still mit 1. Wie Android.
+    static let usdtUsdBreakMin = 0.05
+    static let usdtUsdBreakMax = 3.0
+
+    /// USDT in USD aus dem Live-Kurs `live` (`DepegAlarm.liveUsdtUsd`, schon von der Messung geprüft): gültig und im
+    /// Einbruch-Bereich → dieser Kurs; sonst `usdtUsdFallback`. Tagesschlüsse bleiben bei `usdtUsd` (eine einzelne
+    /// Quelle, kein Abgleich).
+    static func usdtUsdLive(_ live: Double?) -> UsdtUsd {
+        guard let m = live, m.isFinite, m >= usdtUsdBreakMin, m <= usdtUsdBreakMax else { return usdtUsdFallback }
+        return UsdtUsd(rate: m, approximate: false)
+    }
+
+    /// Liegt `rate` ausserhalb des Normalbereichs (bestätigter USDT-Einbruch, Anzeige «USDT-Einbruch»)?
+    static func isUsdtBreak(_ rate: Double) -> Bool {
+        rate.isFinite && (rate < usdtUsdMin || rate > usdtUsdMax)
+    }
+
     /// Faktor USDT → Zielwährung: `usdToTarget` (Einheiten Zielwährung je USD, USD = 1) × USDT/USD `usdt`.
     /// nil ohne gültigen Devisenkurs.
     static func usdtTo(_ usdToTarget: Double?, usdt: UsdtUsd) -> Double? {
@@ -84,14 +104,14 @@ struct UsdtUsd: Equatable, Sendable {
 }
 
 /// Marktkurse USDT/USD für Umrechnungen in Fiat: `live` = aktueller Kurs (Kraken USDT/USD bzw. Binance USDC/USDT wie der
-/// Depeg-Alarm, `DepegAlarm.combine`); `daily` = Tagesschluss je Tag (epochDay). Ab `todayEpochDay` gilt der Live-Kurs,
+/// Depeg-Alarm, `DepegAlarm.measure`); `daily` = Tagesschluss je Tag (epochDay). Ab `todayEpochDay` gilt der Live-Kurs,
 /// davor der Schluss DES Tags — fehlt er, 1 als Näherung (`PortfolioStables.usdtUsd`), kein Schluss eines anderen Tags.
 struct UsdtUsdRates: Equatable, Sendable {
     var live: Double?
     var daily: [Int: Double] = [:]
 
-    /// Aktueller Kurs (oder Ersatz 1, Näherung).
-    func current() -> UsdtUsd { PortfolioStables.usdtUsd(live) }
+    /// Aktueller Kurs (oder Ersatz 1, Näherung); bestätigter Einbruch zählt (`PortfolioStables.usdtUsdLive`).
+    func current() -> UsdtUsd { PortfolioStables.usdtUsdLive(live) }
 
     /// Kurs für den Tag `day`: ab `todayEpochDay` `current`, sonst Tagesschluss oder Ersatz 1 (Näherung).
     func on(_ day: Int, todayEpochDay: Int) -> UsdtUsd {

@@ -5,4 +5,14 @@
         <item name="android:statusBarColor">?android:attr/colorBackground</item>
     </style>
 
+    <!-- Startbildschirm der MainActivity (core-splashscreen, installSplashScreen): Fläche wie die
+         App, App-Icon in der Mitte; danach Theme.CryptoChecker. Vor Android 12 zeichnet ihn die
+         Bibliothek — mit dem Standard-Icon (Orange), weil ein Theme das Icon des aktiven
+         Launcher-Alias nicht kennt. Ab Android 12: values-v31. -->
+    <style name="Theme.CryptoChecker.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/splash_background</item>
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher_orange_dark</item>
+        <item name="postSplashScreenTheme">@style/Theme.CryptoChecker</item>
+    </style>
+
 </resources>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Build 76: Portfolio-Speicher, Sicherung, Steuer-Export, Sperre -->
+    <string name="storage_recovery_restore_action">Ripristina backup</string>
+    <string name="storage_recovery_acknowledge">Ho capito</string>
+    <string name="storage_recovery_restored_title">Dati salvati di nuovo sbloccati</string>
+    <string name="storage_recovery_restored_message">Una chiave precedente di questo dispositivo ha riaperto i dati messi da parte, che sono tornati. Quanto salvato nel frattempo è stato conservato invariato accanto.</string>
+    <string name="backup_restore_interrupted_title">Il ripristino è stato interrotto</string>
+    <string name="backup_restore_interrupted_rolled_back">L\'app è stata chiusa durante il ripristino di un backup. I dati precedenti sono stati ripristinati; dal backup non è stato mantenuto nulla.</string>
+    <string name="backup_restore_interrupted_incomplete">L\'app è stata chiusa durante il ripristino di un backup e non è stato possibile ripristinare completamente i dati precedenti. Controlla watchlist e portafoglio oppure ripristina di nuovo il backup in «%1$s» nelle Impostazioni.</string>
+    <string name="backup_not_verified">Non è stato possibile verificare il file di backup dopo il salvataggio: riletto risulta diverso. Salva il backup in un nuovo file.</string>
+    <string name="tax_line_at_old_speculation_limit">Acquisito prima dell\'1/3/2021 – detenuto ≤ 1 anno: soglia di esenzione per operazioni speculative (§ 31 c. 3 EStG, vecchia versione)</string>
+    <string name="portfolio_tx_interest">Interessi (lending)</string>
+    <string name="portfolio_tx_interest_hint">Conta come reddito al momento dell\'accredito (Austria). Lascialo disattivato per ricompense di staking e airdrop.</string>
+    <string name="app_lock_no_screen_lock">Imposta un blocco schermo per aprire il portafoglio.</string>
+    <string name="app_lock_turn_off_action">Disattiva blocco portafoglio</string>
+    <string name="app_lock_turn_off_confirm_title">Disattivare il blocco del portafoglio?</string>
+    <string name="app_lock_turn_off_confirm_message">Senza blocco schermo il portafoglio non si può sbloccare. Disattivato, l\'app mostra di nuovo il portafoglio senza chiedere. Una volta impostato un blocco schermo, puoi riattivare il blocco nelle Impostazioni.</string>
+</resources>

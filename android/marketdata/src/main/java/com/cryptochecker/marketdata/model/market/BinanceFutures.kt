@@ -104,6 +104,10 @@ class BinanceFutures : Market("Binance Futures", "Binance Futures") {
     override val pairListCallCount: Int
         get() = 2
 
+    /** Ohne COIN-M (dapi) keine halbe Liste speichern: dann bleibt die bisherige. */
+    override val pairListAllCallsRequired: Boolean
+        get() = true
+
     override fun pairListAddress(call: Int): String =
         if (call == 0) "$BINANCE_FAPI/exchangeInfo" else "$BINANCE_DAPI/exchangeInfo"
 

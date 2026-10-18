@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="explorer_bulk_show_all">Zobrazit vše (%1$d)</string>
+    <string name="log_box_title">Protokol</string>
+    <string name="watchlist_first_alarm_title">Nastav první alarm</string>
+    <string name="watchlist_first_alarm_text">Dostaneš upozornění, jakmile cena dosáhne tvé hranice.</string>
+</resources>

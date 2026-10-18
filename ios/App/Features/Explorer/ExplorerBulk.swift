@@ -5,6 +5,9 @@ import UIKit
 extension ExplorerScreen {
     // MARK: Mehrere Paare
 
+    /// So viele Paare zeigt die Vorschau, bevor «Alle anzeigen» den Rest aufklappt.
+    static let bulkPreviewRows = 25
+
     /// «Paar wählen» und «Mehrere Paare auf einmal» als zwei Register (`ExplorerModeTabs`).
     var bulkTabbed: Bool { vm.hasPairs && !vm.bulkQuotes.isEmpty }
 
@@ -150,18 +153,31 @@ extension ExplorerScreen {
                 ExplorerHint(text: L("explorer_bulk_tap_hint"))
                 // Schnellfilter nur, wenn die Liste die Werte hat (sonst ausgeblendet)
                 quickFilterChips
-                // Alle Paare: eigene Liste, scrollt in sich (lazy, auch bei Hunderten flüssig).
-                ScrollView {
-                    LazyVStack(spacing: 2) {
-                        ForEach(sortedBulkPairs, id: \.self) { pair in
-                            bulkPairRow(pair)
-                        }
+                // Keine eigene rollende Liste in der rollenden Seite (Scrollen im Scrollen): erst die
+                // ersten Paare, «Alle anzeigen» klappt den Rest auf (wie ExplorerBulk.kt).
+                let pairs = sortedBulkPairs
+                let visible = showAllBulkPairs ? pairs : Array(pairs.prefix(Self.bulkPreviewRows))
+                VStack(spacing: 2) {
+                    ForEach(visible, id: \.self) { pair in
+                        bulkPairRow(pair)
                     }
-                    .padding(4)
+                    if !showAllBulkPairs && pairs.count > Self.bulkPreviewRows {
+                        Button {
+                            showAllBulkPairs = true
+                        } label: {
+                            Text(L("explorer_bulk_show_all", pairs.count))
+                                .font(.subheadline.weight(.semibold))
+                                .foregroundStyle(accent.primary)
+                                .frame(maxWidth: .infinity, minHeight: 44)
+                        }
+                        .buttonStyle(.plain)
+                    }
                 }
+                .padding(4)
                 // Eine Sammelabfrage der Börse für die Kennzahlen (nie je Paar)
                 .task(id: vm.bulkPairs) { vm.loadBulkStats() }
-                .frame(height: min(CGFloat(vm.bulkPairs.count) * 46 + 8, 420))
+                // Neue Gegenwährung: wieder nur die ersten Paare
+                .onChange(of: vm.bulkPairs) { _, _ in showAllBulkPairs = false }
                 .background(AppColors.containerLow, in: RoundedRectangle(cornerRadius: Radius.field, style: .continuous))
                 .clipShape(RoundedRectangle(cornerRadius: Radius.field, style: .continuous))
                 .padding(.top, 8)

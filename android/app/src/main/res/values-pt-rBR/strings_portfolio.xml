@@ -19,7 +19,7 @@
     <string name="portfolio_empty_title">Ainda sem transações</string>
     <string name="portfolio_enable_ask_text">Sua transação foi salva. A aba Portfólio mostra suas posições e o valor delas.</string>
     <string name="portfolio_enable_ask_title">Ativar a aba Portfólio?</string>
-    <string name="portfolio_enable_later_hint">Transação salva. Você pode ativar a aba Portfólio em Configurações › Avançado › Portfólio.</string>
+    <string name="portfolio_enable_later_hint">Transação salva. Você pode ativar a aba Portfólio em Configurações › Portfólio.</string>
     <string name="portfolio_enabled_banner">Portfólio ativado – você o encontra na aba Portfólio.</string>
     <string name="portfolio_lock_reason">Desbloquear portfólio</string>
     <string name="portfolio_locked_text">Desbloqueie para ver suas posições e valores.</string>

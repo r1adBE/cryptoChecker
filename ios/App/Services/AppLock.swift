@@ -16,8 +16,13 @@ final class AppLock: ObservableObject {
         didSet { updateCoverWindow() }
     }
     @Published private(set) var authenticating = false
+    /// Entsperren verlangt, aber kein Gerätecode (und weder Face ID noch Touch ID) eingerichtet: Das Portfolio bleibt
+    /// gesperrt — nie still entsperrt. Der Sperr-Zustand nennt das und bietet an, die Sperre nach Rückfrage auszuschalten.
+    /// Bei der Rückkehr nach vorne neu geprüft — wie Android `screenLockMissing`.
+    @Published private(set) var screenLockMissing = false
 
-    private var backgroundedAt: Date?
+    /// Beginn des Hintergrunds in Sekunden der monotonen Uhr (`PortfolioLockPolicy.monotonicSeconds`).
+    private var backgroundedAt: TimeInterval?
     /// Szene aktiv (nicht im App-Umschalter, Kontrollzentrum o. ä.).
     private(set) var sceneActive = true
     /// Eigenes Fenster über allem für den Sichtschutz im App-Umschalter: Ein Overlay der
@@ -69,15 +74,18 @@ final class AppLock: ObservableObject {
     }
 
     func didEnterBackground() {
-        backgroundedAt = Date()
+        backgroundedAt = PortfolioLockPolicy.monotonicSeconds()
     }
 
     func didBecomeActive() {
         let since = backgroundedAt
         backgroundedAt = nil
-        if enabled && !locked && PortfolioLockPolicy.relockAfterBackground(backgroundSince: since, now: Date()) {
+        if enabled && !locked
+            && PortfolioLockPolicy.relockAfterBackground(backgroundSince: since, now: PortfolioLockPolicy.monotonicSeconds()) {
             locked = true
         }
+        // Vielleicht inzwischen ein Gerätecode eingerichtet: der nächste Versuch prüft neu
+        screenLockMissing = false
         // Ausgeschaltet (z. B. durch eine Wiederherstellung): nicht mehr sperren
         if !enabled && locked { locked = false }
     }
@@ -85,9 +93,10 @@ final class AppLock: ObservableObject {
     /// Knopf «Entsperren» bzw. automatische Abfrage beim Öffnen des Portfolio-Tabs.
     func unlock() async {
         guard locked, !authenticating else { return }
-        // Keine Displaysperre mehr eingerichtet: Sperre wäre nicht aufzuheben
+        // Kein Gerätecode mehr eingerichtet: nicht still entsperren (sonst wäre die Sperre mit dem Entfernen des Codes
+        // umgangen) — gesperrt lassen und es nennen; Ausweg: Sperre nach Rückfrage ausschalten
         guard Self.canAuthenticate() else {
-            locked = false
+            screenLockMissing = true
             return
         }
         authenticating = true
@@ -113,6 +122,7 @@ final class AppLock: ObservableObject {
     /// Einstellung ausgeschaltet: sofort frei.
     func disabled() {
         locked = false
+        screenLockMissing = false
         updateCoverWindow()
     }
 
@@ -158,11 +168,13 @@ private struct AppLockWindowContent: View {
 // MARK: Ansichten
 
 /// Ruhiger Sperr-Zustand im Portfolio-Tab: Schloss, kurzer Text, «Entsperren» — keine Beträge,
-/// keine Coins. Fragt beim Erscheinen (Szene aktiv) einmal von selbst nach; danach per Knopf.
+/// keine Coins. Fragt beim Erscheinen (Szene aktiv) einmal von selbst nach; danach per Knopf. Ohne Gerätecode
+/// (`screenLockMissing`) statt «Entsperren» der Hinweis und «Portfolio-Sperre ausschalten» mit Rückfrage — wie Android.
 @MainActor
 struct PortfolioLockedView: View {
     @ObservedObject var lock: AppLock
     @Environment(\.appAccent) private var accent
+    @State private var confirmTurnOff = false
 
     var body: some View {
         VStack(spacing: Spacing.md) {
@@ -181,18 +193,36 @@ struct PortfolioLockedView: View {
                 .font(.subheadline)
                 .foregroundStyle(AppColors.onSurfaceVariant)
                 .multilineTextAlignment(.center)
-            Button {
-                Task { await lock.unlock() }
-            } label: {
-                Label(L("app_lock_unlock"), systemImage: "lock.open.fill")
-                    .font(.headline)
-                    .padding(.horizontal, 24)
-                    .padding(.vertical, 12)
+            if lock.screenLockMissing {
+                Text(L("app_lock_no_screen_lock"))
+                    .font(.subheadline)
+                    .foregroundStyle(AppColors.error)
+                    .multilineTextAlignment(.center)
+                Button(L("app_lock_turn_off_action"), role: .destructive) { confirmTurnOff = true }
+                    .padding(.top, Spacing.xs)
+            } else {
+                Button {
+                    Task { await lock.unlock() }
+                } label: {
+                    Label(L("app_lock_unlock"), systemImage: "lock.open.fill")
+                        .font(.headline)
+                        .padding(.horizontal, 24)
+                        .padding(.vertical, 12)
+                }
+                .buttonStyle(AccentButtonStyle())
+                .disabled(lock.authenticating)
+                .padding(.top, Spacing.xs)
             }
-            .buttonStyle(AccentButtonStyle())
-            .disabled(lock.authenticating)
-            .padding(.top, Spacing.xs)
             Spacer()
+        }
+        .alert(L("app_lock_turn_off_confirm_title"), isPresented: $confirmTurnOff) {
+            Button(L("app_lock_turn_off_action"), role: .destructive) {
+                // Ausdrücklich bestätigt: ohne Gerätecode der einzige Weg zurück zum Portfolio
+                AppData.shared.settings.appLock = false
+            }
+            Button(L("action_cancel"), role: .cancel) {}
+        } message: {
+            Text(L("app_lock_turn_off_confirm_message"))
         }
         .padding(32)
         .frame(maxWidth: .infinity, maxHeight: .infinity)

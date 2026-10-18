@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="explorer_bulk_show_all">Tümünü göster (%1$d)</string>
+    <string name="log_box_title">Günlük</string>
+    <string name="watchlist_first_alarm_title">İlk alarmını kur</string>
+    <string name="watchlist_first_alarm_text">Bir fiyat belirlediğin seviyeye ulaşır ulaşmaz bildirim al.</string>
+</resources>

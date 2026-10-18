@@ -83,13 +83,14 @@ internal suspend fun PortfolioExportViewModel.taxPrices(
     method: TaxMethod,
     trades: List<PortfolioTrade>,
     period: TaxPeriod,
+    zone: ZoneId = tpl.zone(),
 ): ((String, Long) -> BigDecimal?)? {
     val base = when {
-        method == TaxMethod.FR_PTA -> frPrices(trades, period)
-        tpl.networkFeeIsDisposal -> networkFeePrices(trades, period)
+        method == TaxMethod.FR_PTA -> frPrices(trades, period, zone)
+        tpl.networkFeeIsDisposal -> networkFeePrices(trades, period, zone)
         else -> null
     }
-    val fees = feeDisposalPrices(trades, period) ?: return base
+    val fees = feeDisposalPrices(trades, period, zone) ?: return base
     return { coin, time -> fees(coin, time) ?: base?.invoke(coin, time) }
 }
 
@@ -99,8 +100,12 @@ internal suspend fun PortfolioExportViewModel.taxPrices(
  * (gleicher Kurs wie Karte und Wertverlauf, [PortfolioPeriodChange.marketPriceAt]); nur für genau diese (Coin, Zeit),
  * sonst null. Ohne solche Transaktionen null.
  */
-internal suspend fun PortfolioExportViewModel.feeDisposalPrices(trades: List<PortfolioTrade>, period: TaxPeriod): ((String, Long) -> BigDecimal?)? {
-    val end = CutoffExport.endOfDayMillis(period.end, ZoneId.systemDefault())
+internal suspend fun PortfolioExportViewModel.feeDisposalPrices(
+    trades: List<PortfolioTrade>,
+    period: TaxPeriod,
+    zone: ZoneId = ZoneId.systemDefault(),
+): ((String, Long) -> BigDecimal?)? {
+    val end = CutoffExport.endOfDayMillis(period.end, zone)
     val keys = PortfolioLedger.dayCloseNeeds(trades.filter { it.time <= end && !AddressBalance.isAddressTrade(it.id) })
     if (keys.isEmpty()) return null
     val wanted = keys.filter { PortfolioStables.needsQuote(it.first) }.map { it.first to utcDay(it.second) }.distinct()
@@ -125,8 +130,12 @@ internal fun PortfolioExportViewModel.closeDay(time: Long): LocalDate = Instant.
  * im Coin bzw. im dritten Coin ohne erfassten Gebühr-Preis einer Umbuchung, Auszahlung oder Schenkung — der Coin zum
  * Tagesschluss des Vortags (UTC). Fehlt ein Kurs, bleibt der Erlös dieser Zeile leer.
  */
-internal suspend fun PortfolioExportViewModel.networkFeePrices(trades: List<PortfolioTrade>, period: TaxPeriod): (String, Long) -> BigDecimal? {
-    val end = CutoffExport.endOfDayMillis(period.end, ZoneId.systemDefault())
+internal suspend fun PortfolioExportViewModel.networkFeePrices(
+    trades: List<PortfolioTrade>,
+    period: TaxPeriod,
+    zone: ZoneId = ZoneId.systemDefault(),
+): (String, Long) -> BigDecimal? {
+    val end = CutoffExport.endOfDayMillis(period.end, zone)
     val wanted = LinkedHashMap<Pair<String, LocalDate>, Unit>()
     for (t in trades) {
         val moves = t.type == PortfolioTxType.TRANSFER || t.type.isWithdrawalLike
@@ -145,8 +154,11 @@ internal suspend fun PortfolioExportViewModel.networkFeePrices(trades: List<Port
  * verkauften und ohne Stablecoins) zum Tagesschluss des Vortags (UTC; letzter bekannter Schluss davor). Fehlt ein
  * Kurs, bleibt der Einstand dieser Abtretung leer («unvollständig»).
  */
-internal suspend fun PortfolioExportViewModel.frPrices(trades: List<PortfolioTrade>, period: TaxPeriod): (String, Long) -> BigDecimal? {
-    val zone = ZoneId.systemDefault()
+internal suspend fun PortfolioExportViewModel.frPrices(
+    trades: List<PortfolioTrade>,
+    period: TaxPeriod,
+    zone: ZoneId = ZoneId.systemDefault(),
+): (String, Long) -> BigDecimal? {
     val end = CutoffExport.endOfDayMillis(period.end, zone)
     // Verkäufe, Auszahlungen (Abgang ohne Verkauf kürzt die PTA anteilig, [TaxEngines.outflows]) und Gebühren in Krypto
     val own = trades.filter { !AddressBalance.isAddressTrade(it.id) }

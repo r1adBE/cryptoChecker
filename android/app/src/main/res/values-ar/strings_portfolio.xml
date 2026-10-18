@@ -22,7 +22,7 @@
     <string name="portfolio_empty_title">لا توجد عمليات بعد</string>
     <string name="portfolio_enable_ask_text">تم حفظ معاملتك. يعرض تبويب المحفظة أرصدتك وقيمتها.</string>
     <string name="portfolio_enable_ask_title">تفعيل تبويب المحفظة؟</string>
-    <string name="portfolio_enable_later_hint">تم حفظ الممتقدملة. يمكنك تفعيل تبويب المحفظة من الإعدادات › عام › المحفظة.</string>
+    <string name="portfolio_enable_later_hint">تم حفظ المعاملة. يمكنك تفعيل تبويب المحفظة من الإعدادات › المحفظة.</string>
     <string name="portfolio_enabled_banner">تم تشغيل المحفظة – تجدها في تبويب المحفظة.</string>
     <string name="portfolio_lock_reason">فتح قفل المحفظة</string>
     <string name="portfolio_locked_text">افتح القفل لرؤية ممتلكاتك وقيمها.</string>

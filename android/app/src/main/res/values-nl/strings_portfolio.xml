@@ -18,7 +18,7 @@
     <string name="portfolio_empty_title">Nog geen transacties</string>
     <string name="portfolio_enable_ask_text">Je transactie is opgeslagen. Het tabblad Portfolio toont je bezit en de waarde ervan.</string>
     <string name="portfolio_enable_ask_title">Tabblad Portfolio inschakelen?</string>
-    <string name="portfolio_enable_later_hint">Transactie opgeslagen. Je kunt het tabblad Portfolio inschakelen via Instellingen › Geavanceerd › Portfolio.</string>
+    <string name="portfolio_enable_later_hint">Transactie opgeslagen. Je kunt het tabblad Portfolio inschakelen via Instellingen › Portfolio.</string>
     <string name="portfolio_enabled_banner">Portfolio ingeschakeld – je vindt het op het tabblad Portfolio.</string>
     <string name="portfolio_lock_reason">Portfolio ontgrendelen</string>
     <string name="portfolio_locked_text">Ontgrendel om je posities en waarden te zien.</string>

@@ -40,6 +40,42 @@ final class AppRouter: ObservableObject {
     @Published var showPortfolioSettings = false
     /// K-10: Einstellungen › Aktualisierung («Wie aktuell?») direkt öffnen (Hinweis im Alarm).
     @Published var showUpdateSettings = false
+    /// Einstellungen › Sicherung direkt öffnen («Sicherung wiederherstellen» im Hinweis `StorageRecoveryNotice`).
+    @Published var showBackupSettings = false
+
+    /// Tab «Einstellungen» mit der Seite «Sicherung» darüber (dort «Wiederherstellen»).
+    func openBackupSettings() {
+        tab = .settings
+        showBackupSettings = true
+    }
+
+    /// Gewählten Tab noch einmal getippt, Startseite schon sichtbar: dieser Tab scrollt nach oben (die
+    /// Bildschirme reagieren auf eine neue Anfrage, `id` macht jede Anfrage neu).
+    struct ScrollToTop: Equatable {
+        let tab: AppTab
+        let id: Int
+    }
+    @Published private(set) var scrollToTop: ScrollToTop?
+
+    func requestScrollToTop(_ tab: AppTab) {
+        scrollToTop = ScrollToTop(tab: tab, id: (scrollToTop?.id ?? 0) + 1)
+    }
+
+    /// Zurück zur Startseite eines Tabs (erneutes Tippen auf den Tab): Merker, die Seiten öffnen, löschen —
+    /// sonst öffnete der neue Navigationsstapel sie gleich wieder.
+    func resetPages(of tab: AppTab) {
+        switch tab {
+        case .watchlist:
+            showAlarmsOverview = false
+            openAlarmsWatchId = nil
+            openWhyWatchId = nil
+        case .settings:
+            showPortfolioSettings = false
+            showUpdateSettings = false
+        case .cycle, .portfolio:
+            break
+        }
+    }
 
     /// K-10: Tab «Einstellungen» mit der Seite «Aktualisierung» darüber.
     func openUpdateSettings() {
@@ -110,6 +146,8 @@ struct CryptoCheckerApp: App {
         // UI-Tests (Startargument «-uiTesting»): leerer Speicher, feste Börsen-Antworten — vor allem anderen
         UITesting.prepareIfRequested()
         #endif
+        // Lief die App einmal ohne App Group: deren Daten jetzt einmal übernehmen — vor dem ersten Lesen (AppData)
+        SharedStorage.migrateFallbackIfNeeded()
         // App-Start bis zum ersten Bild der Merkliste (Bericht «Ablauf»)
         AppStartClock.onAppInit()
     }
@@ -119,8 +157,11 @@ struct CryptoCheckerApp: App {
             RootView()
                 .environmentObject(data)
                 .environmentObject(router)
-                // Verschlüsselte Daten ohne Schlüssel beiseitegelegt: einmal sagen, wie sie zurückkommen
-                .storageRecoveryNotice()
+                // Verschlüsselte Daten ohne Schlüssel beiseitegelegt: sagen, wie sie zurückkommen (bis bestätigt);
+                // «Sicherung wiederherstellen» öffnet Einstellungen › Sicherung
+                .storageRecoveryNotice(onRestoreBackup: { router.openBackupSettings() })
+                // Abgebrochenes Wiederherstellen (Journal liegt noch da): Stand davor zurückschreiben, Hinweis vormerken
+                .task { BackupManager.recoverInterruptedRestore(data) }
                 // Portfolio-Sperre: gesperrt ist nur der Portfolio-Tab (RootView); hier nur der
                 // Sichtschutz im App-Umschalter, solange die Sperre an ist
                 .overlay {

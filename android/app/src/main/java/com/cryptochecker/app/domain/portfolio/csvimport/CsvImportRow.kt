@@ -46,11 +46,14 @@ enum class CsvImportFormat(val exchangeName: String?) {
  * [POSSIBLE_DUPLICATE]: fast gleich wie ein schon importiertes Geschäft (anderer Binance-Export,
  * [CsvImportBinance.possibleDuplicates]) — lieber prüfen lassen als doppelt zählen. [AMBIGUOUS_GROUP]: mehrere Geschäfte
  * in derselben Sekunde, die sich nicht eindeutig trennen lassen (Binance: mehrere Coins je Seite, z. B. Kleinbeträge in
- * BNB) — von Hand erfassen. Nur anhängen (Name steht in Fixtures).
+ * BNB) — von Hand erfassen. [DUPLICATE_TXID_DIFFERENT]: Kraken-Zeile mit schon gesehener txid, aber anderer Menge — nicht
+ * still verwerfen, von Hand prüfen (gleiche Wiederholungen fallen weiterhin still weg). [STAKING_UNPAIRED]: Kraken-Ein-
+ * oder Auszahlung einer Staking-Variante («ETH2.S», «DOT.S») ohne Gegenbuchung — Bestand prüfen. Nur anhängen (Name
+ * steht in Fixtures).
  */
 enum class CsvImportSkipReason {
     UNSUPPORTED_KIND, NOT_CRYPTO, BAD_NUMBER, BAD_DATE, MISSING_FIELD, FEE_EXCEEDS_AMOUNT, TWO_FEES, INTERNAL_MOVE, POSSIBLE_DUPLICATE,
-    AMBIGUOUS_GROUP,
+    AMBIGUOUS_GROUP, DUPLICATE_TXID_DIFFERENT, STAKING_UNPAIRED,
 }
 
 /** Übersprungene Zeile; [line] = Zeilennummer in der Datei (1 = erste Zeile). */

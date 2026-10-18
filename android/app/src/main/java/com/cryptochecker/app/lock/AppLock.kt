@@ -4,6 +4,7 @@ import android.app.KeyguardManager
 import android.content.Context
 import android.content.ContextWrapper
 import android.os.Build
+import android.os.SystemClock
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_WEAK
 import androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL
@@ -84,7 +85,9 @@ tailrec fun Context.findFragmentActivity(): FragmentActivity? = when (this) {
  * Zustand der Portfolio-Sperre für die laufende App (Prozess).
  *
  * Gesperrt wird beim Kaltstart (neuer Prozess) und nach mehr als
- * [PortfolioLockPolicy.BACKGROUND_LIMIT_MILLIS] im Hintergrund — wirksam nur, wenn die
+ * [PortfolioLockPolicy.BACKGROUND_LIMIT_MILLIS] im Hintergrund — gemessen mit der monotonen Uhr
+ * ([SystemClock.elapsedRealtime], läuft auch im Tiefschlaf weiter): Eine zurückgestellte Systemuhr verlängert die
+ * Frist nicht — wirksam nur, wenn die
  * Einstellung «Portfolio-Sperre» an ist (siehe [PortfolioLockPolicy.access]; die Oberfläche
  * prüft das, weil die Einstellungen beim Kaltstart erst geladen werden müssen). Die übrige
  * App ist nie gesperrt.
@@ -105,32 +108,43 @@ class AppLockState @Inject constructor() {
     var authenticating = false
 
     /**
+     * Entsperren verlangt, aber keine Displaysperre (und keine Biometrie) eingerichtet: Das Portfolio bleibt gesperrt —
+     * nie still entsperrt. Der Sperr-Zustand nennt das («Displaysperre einrichten …») und bietet an, die Sperre nach
+     * Rückfrage auszuschalten. Bei der Rückkehr in den Vordergrund neu geprüft (inzwischen eingerichtet?).
+     */
+    private val _screenLockMissing = MutableStateFlow(false)
+    val screenLockMissing: StateFlow<Boolean> = _screenLockMissing.asStateFlow()
+
+    /**
      * Kaltstart der Oberfläche (Activity ohne gespeicherten Zustand). Ein neuer Prozess ist
      * ohnehin gesperrt (Startwert). Baut ein Tipp auf Mitteilung oder Widget die Activity
      * neu auf (FLAG_ACTIVITY_CLEAR_TOP), während die App sichtbar ist oder erst kurz im
      * Hintergrund war, wird nicht erneut gesperrt. Länger weg: sperrt [onForeground].
      */
-    fun onColdStart(now: Long = System.currentTimeMillis()) {
+    fun onColdStart(now: Long = SystemClock.elapsedRealtime()) {
         authenticating = false
         if (PortfolioLockPolicy.relockAfterBackground(backgroundSince, now)) _lockRequested.value = true
     }
 
-    fun onBackground(now: Long = System.currentTimeMillis()) {
+    fun onBackground(now: Long = SystemClock.elapsedRealtime()) {
         if (authenticating) return
         backgroundSince = now
     }
 
-    fun onForeground(now: Long = System.currentTimeMillis()) {
+    fun onForeground(now: Long = SystemClock.elapsedRealtime()) {
         val since = backgroundSince
         backgroundSince = 0L
         if (PortfolioLockPolicy.relockAfterBackground(since, now)) _lockRequested.value = true
+        // Vielleicht inzwischen eine Displaysperre eingerichtet: der nächste Versuch prüft neu
+        _screenLockMissing.value = false
         // Eine Abfrage, die nie zurückgemeldet hat (z. B. nicht angezeigt), blockiert sonst den Knopf
         authenticating = false
     }
 
-    /** Erfolgreich entsperrt (oder Sperre gerade eingeschaltet). */
+    /** Erfolgreich entsperrt (oder Sperre gerade eingeschaltet bzw. ausgeschaltet). */
     fun unlock() {
         _lockRequested.value = false
+        _screenLockMissing.value = false
     }
 
     /**
@@ -143,10 +157,10 @@ class AppLockState @Inject constructor() {
             return
         }
         if (activity == null || authenticating) return
-        // Keine Displaysperre mehr eingerichtet: Die Sperre wäre nicht aufzuheben
+        // Keine Displaysperre mehr eingerichtet: nicht still entsperren (sonst wäre die Sperre mit dem Entfernen der
+        // Displaysperre umgangen) — gesperrt lassen und es nennen; Ausweg: Sperre nach Rückfrage ausschalten
         if (!AppLockAuth.canAuthenticate(activity)) {
-            unlock()
-            onUnlocked()
+            _screenLockMissing.value = true
             return
         }
         authenticating = true

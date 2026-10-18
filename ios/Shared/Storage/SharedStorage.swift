@@ -1,10 +1,12 @@
 import Foundation
+import os
 
 /// Gemeinsamer Speicher von App und Widgets (App Group).
 ///
 /// Die App Group muss in Xcode für beide Ziele eingerichtet sein
 /// (Signing & Capabilities → App Groups). Fehlt sie, arbeitet die App mit
-/// ihrem eigenen Ordner weiter — die Widgets bleiben dann aber leer.
+/// ihrem eigenen Ordner weiter — die Widgets bleiben dann aber leer (Hinweis in «Letzte Prüfungen»);
+/// beim nächsten Start mit App Group übernimmt `migrateFallbackIfNeeded` die Daten einmal.
 enum SharedStorage {
     static let appGroup = "group.com.cryptochecker.app"
 
@@ -14,9 +16,13 @@ enum SharedStorage {
     static let singleWidgetKind = "SingleWidget"
 
     static var defaults: UserDefaults {
-        UserDefaults(suiteName: appGroup) ?? .standard
+        if let suite = UserDefaults(suiteName: appGroup) { return suite }
+        reportMissingAppGroup()
+        return .standard
     }
 
+    /// App Group eingerichtet (Signing & Capabilities)? Ohne sie bleiben die Widgets leer; «Letzte Prüfungen»
+    /// zeigt dann einen Hinweis (`ios_storage_app_group_missing`).
     static var isAppGroupAvailable: Bool {
         FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: appGroup) != nil
     }
@@ -25,9 +31,104 @@ enum SharedStorage {
         if let url = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: appGroup) {
             return url
         }
-        let url = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
+        reportMissingAppGroup()
+        let url = fallbackDirectory
         try? FileManager.default.createDirectory(at: url, withIntermediateDirectories: true)
         return url
+    }
+
+    // MARK: Ohne App Group (Ersatzordner)
+
+    /// Ersatzordner ohne App Group: eigener Ordner der App bzw. der Erweiterung (nicht geteilt).
+    static var fallbackDirectory: URL {
+        FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
+    }
+
+    /// Merker in den eigenen Einstellungen des Prozesses: Es wurde schon einmal ohne App Group geschrieben —
+    /// beim nächsten Start MIT App Group einmal übernehmen (`migrateFallbackIfNeeded`).
+    static let fallbackUsedKey = "storage_app_group_fallback_used"
+
+    /// Einmal je Prozess melden: im Debug-Build laut (eine fehlende App Group ist ein Fehler im Projekt), sonst
+    /// im Systemprotokoll; dazu der Merker für die spätere Übernahme. Nicht in Unit-Tests (dort fehlt die
+    /// Berechtigung je nach Umgebung, die Tests sollen trotzdem laufen).
+    private static let missingAppGroupReport: Void = {
+        UserDefaults.standard.set(true, forKey: fallbackUsedKey)
+        AppLog.storage.error("App Group nicht verfügbar – Ersatzordner, Widgets bleiben leer")
+        #if DEBUG
+        if ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] == nil {
+            assertionFailure("App Group \(appGroup) fehlt: Signing & Capabilities → App Groups für App und Widgets")
+        }
+        #endif
+    }()
+
+    private static func reportMissingAppGroup() {
+        _ = missingAppGroupReport
+    }
+
+    /// Ergebnis von `migrateFallback`: übernommene Dateien und Einstellungen.
+    struct FallbackMigration: Equatable {
+        var files = 0
+        var keys = 0
+    }
+
+    /// Nicht übernehmen: Dateien, die im Ersatzordner anderen gehören bzw. nur für den laufenden Prozess gelten
+    /// (Paarlisten `PairCache` liegen immer dort, die Alarm-Lease ist nach dem Neustart wertlos).
+    static let fallbackSkippedFiles: Set<String> = ["pairs", "alarm.lease"]
+
+    /// Nach einem Start ohne App Group (Merker `fallbackUsedKey`) beim nächsten Start MIT App Group einmal die
+    /// Daten aus dem Ersatzordner und den Ersatz-Einstellungen in den gemeinsamen Speicher übernehmen — nur, was
+    /// dort noch fehlt (nichts überschreiben). Nur aus der App aufrufen, vor dem ersten Lesen der Daten.
+    @discardableResult
+    static func migrateFallbackIfNeeded() -> FallbackMigration? {
+        guard UserDefaults.standard.bool(forKey: fallbackUsedKey),
+              let group = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: appGroup),
+              let groupDefaults = UserDefaults(suiteName: appGroup) else { return nil }
+        // Ersatz-Einstellungen: ohne Berechtigung legt iOS die Suite in den eigenen Library/Preferences ab; mit
+        // App Group zeigt derselbe Name auf den gemeinsamen Speicher — die lokale Kopie also direkt lesen.
+        // (`.standard` nicht: dort liegen auch reine Geräte-Einstellungen der App, und der Rückfall dorthin
+        // greift nur, wenn iOS gar keine Suite liefert.)
+        var sources: [[String: Any]] = []
+        let localSuite = URL(fileURLWithPath: NSHomeDirectory())
+            .appendingPathComponent("Library/Preferences/\(appGroup).plist")
+        if let data = try? Data(contentsOf: localSuite),
+           let plist = try? PropertyListSerialization.propertyList(from: data, format: nil) as? [String: Any] {
+            sources.append(plist)
+        }
+        let result = migrateFallback(from: fallbackDirectory, to: group, defaultsSources: sources,
+                                     into: groupDefaults)
+        UserDefaults.standard.removeObject(forKey: fallbackUsedKey)
+        AppLog.storage.notice("Ersatzspeicher übernommen: \(result.files, privacy: .public) Dateien, \(result.keys, privacy: .public) Einstellungen")
+        return result
+    }
+
+    /// Kern von `migrateFallbackIfNeeded` (testbar): oberste Einträge von `from` nach `to` kopieren, wenn es sie
+    /// dort noch nicht gibt; Einstellungen aus `defaultsSources` übernehmen, die `target` noch nicht hat.
+    static func migrateFallback(from: URL, to: URL, defaultsSources: [[String: Any]],
+                                into target: UserDefaults) -> FallbackMigration {
+        var result = FallbackMigration()
+        let fm = FileManager.default
+        if from.standardizedFileURL != to.standardizedFileURL {
+            let items = (try? fm.contentsOfDirectory(at: from, includingPropertiesForKeys: nil)) ?? []
+            for item in items {
+                let name = item.lastPathComponent
+                guard !fallbackSkippedFiles.contains(name), !name.hasPrefix(".") else { continue }
+                let dest = to.appendingPathComponent(name)
+                guard !fm.fileExists(atPath: dest.path) else { continue }
+                do {
+                    try fm.copyItem(at: item, to: dest)
+                    result.files += 1
+                } catch {
+                    AppLog.storage.error("Übernahme einer Datei fehlgeschlagen")
+                }
+            }
+        }
+        for source in defaultsSources {
+            for (key, value) in source where key != fallbackUsedKey && target.object(forKey: key) == nil {
+                target.set(value, forKey: key)
+                result.keys += 1
+            }
+        }
+        return result
     }
 
     static var watchlistURL: URL { directory.appendingPathComponent("watchlist.json") }
@@ -227,6 +328,7 @@ enum SharedStorage {
                 preserveUnreadable(raw, of: watchlist)
                 return .unreadable
             } catch {
+                AppLog.storage.error("Merkliste nicht lesbar (gesperrt oder Zugriff verweigert)")
                 return .inaccessible
             }
             let counter = DropCounter()
@@ -286,15 +388,28 @@ enum SharedStorage {
         if let alarms = snapshot.portfolioAlarms {
             let next = nextId(stored: snapshot.nextPortfolioAlarmId ?? 1, used: alarms.map(\.id))
             let file = PortfolioAlarmsFile(alarms: alarms, nextId: next)
-            if writePortfolioAlarms(file, to: portfolioAlarms, includeInBackup: includePortfolioInBackup) {
+            switch writePortfolioAlarms(file, to: portfolioAlarms, includeInBackup: includePortfolioInBackup) {
+            case .written:
                 main.portfolioAlarms = nil
                 main.nextPortfolioAlarmId = nil
+            case .needsKey:
+                // Ohne Schlüssel nie im Klartext — auch nicht in `watchlist.json`: Die eigene Datei behält ihren letzten
+                // versiegelten Stand, die Änderung bleibt im Speicher (`AppData`) und geht mit dem nächsten Speichern
+                // hinaus (`portfolioAlarmsPending`)
+                if FileManager.default.fileExists(atPath: portfolioAlarms.path) {
+                    main.portfolioAlarms = nil
+                    main.nextPortfolioAlarmId = nil
+                }
+                portfolioAlarmsPending = true
+            case .failed:
+                break
             }
         }
         guard let data = try? JSONEncoder().encode(main) else { return false }
         do {
             try ProtectedFile.write(data, to: watchlist)
         } catch {
+            AppLog.storage.error("Merkliste nicht geschrieben")
             return false
         }
         // Schlug das Schreiben von `portfolio_alarms.json` fehl, bleiben die Portfolio-Schwellen in
@@ -309,22 +424,38 @@ enum SharedStorage {
         return true
     }
 
+    /// Ergebnis von `writePortfolioAlarms`.
+    enum PortfolioAlarmsWrite { case written, needsKey, failed }
+
+    /// Portfolio-Alarme warten auf den Schlüssel (nicht versiegelt speicherbar, nie im Klartext): `AppData` nennt das und
+    /// schreibt erneut, sobald die App wieder vorne ist. Gesetzt von `writeFiles`, gelöscht nach dem nächsten Schreiben.
+    nonisolated(unsafe) static var portfolioAlarmsPending = false
+
     /// Schreibt nur bei geändertem Inhalt (die Merkliste wird mit Live-Kursen alle paar Sekunden
-    /// gespeichert) und setzt danach das Backup-Merkmal neu (das atomare Schreiben verliert es).
-    private static func writePortfolioAlarms(_ file: PortfolioAlarmsFile, to url: URL, includeInBackup: Bool) -> Bool {
+    /// gespeichert) und setzt danach das Backup-Merkmal neu (das atomare Schreiben verliert es). Versiegelt
+    /// (`requireSealed`): ohne Schlüssel `needsKey` statt Klartext.
+    private static func writePortfolioAlarms(_ file: PortfolioAlarmsFile, to url: URL, includeInBackup: Bool) -> PortfolioAlarmsWrite {
         // Feste Schlüssel-Reihenfolge: sonst kann derselbe Inhalt jedes Mal anders aussehen und der
         // Vergleich unten schreibt unnötig
         let encoder = JSONEncoder()
         encoder.outputFormatting = [.sortedKeys]
-        guard let data = try? encoder.encode(file) else { return false }
-        if ProtectedFile.holds(data, at: url) { return true }
-        do {
-            try ProtectedFile.write(data, to: url)
-        } catch {
-            return false
+        guard let data = try? encoder.encode(file) else { return .failed }
+        if ProtectedFile.holds(data, at: url) {
+            portfolioAlarmsPending = false
+            return .written
         }
+        do {
+            try ProtectedFile.write(data, to: url, requireSealed: true)
+        } catch ProtectedFile.ReadError.locked {
+            AppLog.storage.error("Portfolio-Alarme warten auf den Schlüssel")
+            return .needsKey
+        } catch {
+            AppLog.storage.error("Portfolio-Alarme nicht geschrieben")
+            return .failed
+        }
+        portfolioAlarmsPending = false
         BackupExclusion.set(excluded: !includeInBackup, for: url)
-        return true
+        return .written
     }
 
     /// Kopie einer (ganz oder teilweise) unlesbaren Datei neben dem Original, z. B.

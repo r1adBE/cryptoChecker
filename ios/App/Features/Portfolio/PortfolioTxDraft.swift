@@ -41,6 +41,10 @@ struct PortfolioTxDraft: Identifiable {
     /// Verknüpfte Umbuchung: zweiter Herkunftsschlüssel und Zustand für «Import rückgängig» — bleiben beim Bearbeiten erhalten.
     var linkedImportKey: String?
     var importRestoreState: CsvRestoreState?
+    /// Gebühr-Zeile (CSV «Fee») — bleibt beim Bearbeiten erhalten, solange die Art «Verkauf» bleibt.
+    var feeRow = false
+    /// Belohnung ist ein Zins (Lending; nur bei `.REWARD`, im Blatt umschaltbar).
+    var interest = false
 
     init(coin: String = "", priceUsdt: Double? = nil) {
         self.coin = PortfolioCalculator.normalizeCoin(coin)
@@ -72,6 +76,8 @@ struct PortfolioTxDraft: Identifiable {
         giftToSpouse = tx.giftToSpouse
         linkedImportKey = tx.linkedImportKey
         importRestoreState = tx.importRestoreState
+        feeRow = tx.feeRow
+        interest = tx.interest
     }
 
     var isEdit: Bool { txId != 0 }

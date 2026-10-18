@@ -19,15 +19,21 @@ class DepegAlarmParityTest {
         }
     }
 
+    /** Drei Quellen, Einbruch nur bestätigt, USDC/USDT allein nie alarmfähig. */
     @Test
-    fun combine() {
-        data["combine"].list().map { it.obj() }.forEach { c ->
-            val price = DepegAlarm.combine(DepegAlarm.fromKraken(c["kraken"].num()), DepegAlarm.fromBinanceUsdc(c["binance"].num()))
+    fun measure() {
+        val cases = data["measure"].list().map { it.obj() }
+        assertTrue(cases.size >= 15)
+        cases.forEach { c ->
+            val m = DepegAlarm.measure(c["kraken"].num(), c["coinbase"].num(), c["binance"].num())
             val expected = c["expected"].num()
             if (expected == null) {
-                assertNull("combine: $c", price)
+                assertNull("measure: $c", m)
             } else {
-                assertEquals("combine: $c", expected, price!!, 1e-9)
+                assertEquals("measure: $c", expected, m!!.price, 1e-9)
+                assertEquals("measure viaUsdc: $c", c["viaUsdc"], m.viaUsdc)
+                assertEquals("mayAlarm: $c", !m.viaUsdc, DepegAlarm.mayAlarm(m))
+                assertEquals("broken: $c", expected < 0.5 || expected > 1.5, m.broken)
             }
         }
     }
@@ -81,13 +87,18 @@ class DepegAlarmParityTest {
         val cases = data["cardNote"].list().map { it.obj() }
         assertTrue(cases.size >= 10)
         cases.forEach { c ->
-            val reading = c["price"].num()?.let { DepegAlarm.Reading(it, now - c["ageMillis"].num()!!.toLong()) }
+            val reading = c["price"].num()?.let {
+                DepegAlarm.Reading(it, now - c["ageMillis"].num()!!.toLong(), viaUsdc = c["viaUsdc"] as? Boolean ?: false)
+            }
             val note = DepegAlarm.cardNote(
                 c["holdings"].list().map { it as String }, c["valuesViaUsdt"] as Boolean, reading,
                 c["thresholdTenths"].num()!!.toInt(), now, usdtMarket = c["usdtMarket"] as? Boolean ?: false,
             )
             assertEquals("cardNote: $c", c["kind"], note?.kind?.name)
-            assertEquals("cardNote reading: $c", if (note?.kind == DepegAlarm.CardNoteKind.DEVIATION) reading else null, note?.reading)
+            val withReading = note?.kind in setOf(
+                DepegAlarm.CardNoteKind.DEVIATION, DepegAlarm.CardNoteKind.USDT_BREAK, DepegAlarm.CardNoteKind.VIA_USDC,
+            )
+            assertEquals("cardNote reading: $c", if (withReading) reading else null, note?.reading)
         }
     }
 

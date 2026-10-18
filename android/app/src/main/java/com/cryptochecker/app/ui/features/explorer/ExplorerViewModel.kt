@@ -2,6 +2,7 @@ package com.cryptochecker.app.ui.features.explorer
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.cryptochecker.app.BuildConfig
 import com.cryptochecker.app.data.AddMoments
 import com.cryptochecker.app.data.CoinLogoRepository
 import com.cryptochecker.app.data.FavoriteKind
@@ -56,6 +57,8 @@ class ExplorerViewModel @Inject constructor(
     internal val tokenIdentityStore: TokenIdentityStore,
     /** Start-Börse der Region (wie die Start-Merkliste) für den Paar-Vorschlag der Coin-Suche. */
     internal val starterCoinsRepository: StarterCoinsRepository,
+    /** Liquidität der DEX-Pools aus der Suche: unter der Mindestmenge kein Alarm ([com.cryptochecker.app.domain.watch.DexLiquidity]). */
+    internal val dexLiquidityStore: com.cryptochecker.app.data.DexLiquidityStore,
 ) : ViewModel() {
 
     // =============================================================================================
@@ -191,9 +194,9 @@ class ExplorerViewModel @Inject constructor(
     /** Gruppe für neue Paare; null = «Keine Gruppe». Gilt bis die App beendet wird. */
     val targetGroup: StateFlow<String?> = sessionTargetGroup.asStateFlow()
 
-    /** Entwickleroption: HTTP-Protokoll unten zeigen. */
+    /** Entwickleroption: HTTP-Protokoll unten zeigen (nur Debug-Build; Release schneidet nichts mit). */
     val showHttpLog: StateFlow<Boolean> = settingsRepository.settings
-        .map { it.showHttpLog && it.developerUnlocked }
+        .map { BuildConfig.DEBUG && it.showHttpLog && it.developerUnlocked }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), false)
 
     // Favoriten der Auswahllisten (langes Drücken)

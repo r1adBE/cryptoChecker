@@ -22,10 +22,13 @@ import com.cryptochecker.app.R
  *
  * Display und Headline haben dieselben Grössen wie iOS (34 / 22), damit eine Stufe auf beiden
  * Plattformen gleich wirkt; Label bleibt bei den Plattform-Massen (12 sp / iOS footnote 13 pt).
- * `labelSmall` (11 sp) nur für Quellenangaben, rechtliche Fusszeilen und Chart-Beschriftungen —
- * sonst [label]; `TypographyUsageTest` hält die Zahl der Stellen fest.
+ * `labelSmall` (12 sp statt Material 11 sp: 11 sp ist auf vielen Geräten kaum lesbar) nur für
+ * Quellenangaben, rechtliche Fusszeilen und Chart-Beschriftungen — sonst [label];
+ * `TypographyUsageTest` hält die Zahl der Stellen fest.
  */
-val appTypography = Typography()
+val appTypography = Typography().let { base ->
+    base.copy(labelSmall = base.labelSmall.copy(fontSize = 12.sp, lineHeight = 16.sp))
+}
 
 /** Display: grosse Werte (Portfolio-Summe, Kurs im Blatt, Fear & Greed, Dominanz) — 34 sp wie iOS. */
 val Typography.display: TextStyle get() = displaySmall.copy(fontSize = 34.sp, lineHeight = 42.sp)

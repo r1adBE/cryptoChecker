@@ -43,4 +43,69 @@ object StoredError {
             else -> EXCEPTION_NAME.find(text)?.groupValues?.get(1)?.let { "ERROR:$it" } ?: "ERROR"
         }
     }
+
+    // ---------------- Kurzer Börsentext für den Bericht ----------------
+
+    /** Höchstlänge des Börsentexts im Bericht. */
+    const val MAX_DETAIL = 80
+
+    /** Ausnahme-Klasse am Anfang («java.io.IOException: …»): weg, die Meldung danach bleibt. */
+    private val EXCEPTION_PREFIX = Regex("""^(?:[A-Za-z0-9_$]+\.)*[A-Z][A-Za-z0-9_$]*(?:Exception|Error)(?::\s*|$)""")
+    private val URL = Regex("""[A-Za-z][A-Za-z0-9+.-]*://\S+""")
+    private val IPV4 = Regex("""\b\d{1,3}(?:\.\d{1,3}){3}(?::\d+)?\b""")
+    private val IPV6 = Regex("""\b(?:[0-9A-Fa-f]{1,4}:){2,7}[0-9A-Fa-f]{1,4}\b""")
+    private val HOST = Regex("""\b(?:[A-Za-z0-9-]+\.)+[A-Za-z]{2,}\b""")
+    private val EMPTY_BRACKETS = Regex("""\(\s*\)|\[\s*\]|\{\s*\}|"\s*"|'\s*'|«\s*»""")
+    private val WHITESPACE = Regex("""\s+""")
+    private const val TRIM_CHARS = " :;,-"
+
+    /**
+     * Fehlertext der Börse, gekürzt für «Letzte Aktualisierung» (z. B. «Invalid symbol.»): ohne URLs,
+     * Hosts, IP-Adressen, Ausnahme-Klassen und Zeichenfolgen, die nach Schlüssel oder Kennung aussehen
+     * (mindestens 5 Ziffern, oder ab 12 Zeichen mit Ziffern), höchstens [MAX_DETAIL] Zeichen. null, wenn
+     * der Text nichts über die allgemeine Ursache hinaus sagt (eigene Marker, HTTP-Code, Netz, Zeit,
+     * Rate-Limit) oder danach kaum etwas übrig bleibt. Wie StoredError.swift (Fälle in exchange_detail.json).
+     */
+    fun exchangeDetail(raw: String?): String? {
+        val text = raw?.trim().orEmpty()
+        if (text.isEmpty() || text in KEEP || KEEP_PREFIXES.any { text.startsWith(it) }) return null
+        if (RefreshReportLogic.httpStatus(text) != null) return null
+        when (RefreshReportLogic.classify(text)) {
+            RefreshFailure.TIMEOUT, RefreshFailure.OFFLINE, RefreshFailure.RATE_LIMIT,
+            RefreshFailure.UNAVAILABLE -> return null
+            else -> Unit
+        }
+        var t = EXCEPTION_PREFIX.replace(text, "")
+        t = URL.replace(t, " ")
+        t = IPV4.replace(t, " ")
+        t = IPV6.replace(t, " ")
+        t = HOST.replace(t, " ")
+        t = t.split(WHITESPACE).filterNot(::looksLikeKey).joinToString(" ")
+        // Was vom Entfernten übrig bleibt: leere Klammern und Anführungszeichen
+        t = EMPTY_BRACKETS.replace(t, " ")
+        t = WHITESPACE.replace(t, " ").trim { it in TRIM_CHARS }
+        if (t.count { it.isLetter() } < 3) return null
+        return if (t.length > MAX_DETAIL) t.take(MAX_DETAIL - 1).trimEnd() + "…" else t
+    }
+
+    /** Schlüssel, Kennung, Zeitstempel: mindestens 5 Ziffern, oder ab 12 Zeichen mit Ziffer. */
+    private fun looksLikeKey(token: String): Boolean {
+        val digits = token.count { it in '0'..'9' }
+        return digits >= 5 || (token.length >= 12 && digits > 0)
+    }
+
+    /**
+     * Börsentext für den Bericht einer Börse: der häufigste [exchangeDetail] unter den Fehlern der
+     * Ursache [reason] (bei Gleichstand der alphabetisch erste); null ohne verwertbaren Text.
+     */
+    fun reportDetail(errors: List<String?>, reason: RefreshFailure?): String? {
+        if (reason == null) return null
+        return errors
+            .filter { RefreshReportLogic.classify(it) == reason }
+            .mapNotNull(::exchangeDetail)
+            .groupingBy { it }.eachCount()
+            .entries
+            .sortedWith(compareByDescending<Map.Entry<String, Int>> { it.value }.thenBy { it.key })
+            .firstOrNull()?.key
+    }
 }

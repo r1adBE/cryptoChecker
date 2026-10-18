@@ -20,7 +20,7 @@
     <string name="portfolio_empty_title">Zatím žádné transakce</string>
     <string name="portfolio_enable_ask_text">Transakce je uložená. Karta Portfolio ukazuje tvůj stav a jeho hodnotu.</string>
     <string name="portfolio_enable_ask_title">Zapnout kartu Portfolio?</string>
-    <string name="portfolio_enable_later_hint">Transakce uložena. Kartu Portfolio zapneš v Nastavení › Rozšířené › Portfolio.</string>
+    <string name="portfolio_enable_later_hint">Transakce uložena. Kartu Portfolio zapneš v Nastavení › Portfolio.</string>
     <string name="portfolio_enabled_banner">Portfolio zapnuto – najdeš ho na kartě Portfolio.</string>
     <string name="portfolio_lock_reason">Odemknout portfolio</string>
     <string name="portfolio_locked_text">Odemkněte ho, abyste viděli své pozice a hodnoty.</string>

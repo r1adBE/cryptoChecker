@@ -425,9 +425,11 @@ class PortfolioWidgetChartTest {
     @Test
     fun usdtFactorUsesMarketPrice() {
         assertEquals(0.9 * 0.998, PortfolioWidgetChart.usdtFactor("CHF", 0.9, 0.998), 1e-12)
-        // Ohne Messung bzw. unplausibel: USDT = 1
+        // Ohne Messung bzw. ausserhalb 0.05…3: USDT = 1
         assertEquals(0.9, PortfolioWidgetChart.usdtFactor("CHF", 0.9, null), 1e-12)
-        assertEquals(0.9, PortfolioWidgetChart.usdtFactor("CHF", 0.9, 2.0), 1e-12)
+        assertEquals(0.9, PortfolioWidgetChart.usdtFactor("CHF", 0.9, 5.0), 1e-12)
+        // Bestätigter Einbruch (die Messung speichert ihn nur bestätigt): Marktkurs statt 1
+        assertEquals(0.9 * 0.3, PortfolioWidgetChart.usdtFactor("CHF", 0.9, 0.3), 1e-12)
         // USD: USDT zum Marktkurs (0.97 → 1000 USDT = 970 USD); ohne Messung 1
         assertEquals(0.97, PortfolioWidgetChart.usdtFactor("USD", 1.0, 0.97), 1e-12)
         assertEquals(1.0, PortfolioWidgetChart.usdtFactor("USD", 1.0, null), 1e-12)

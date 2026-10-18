@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Build 76: Portfolio-Speicher, Sicherung, Steuer-Export, Sperre -->
+    <string name="storage_recovery_restore_action">استعادة نسخة احتياطية</string>
+    <string name="storage_recovery_acknowledge">فهمت</string>
+    <string name="storage_recovery_restored_title">تم فتح البيانات المحفوظة مجددًا</string>
+    <string name="storage_recovery_restored_message">فتح مفتاح سابق على هذا الجهاز البيانات المُنحّاة مجددًا، فعادت. أما ما حُفظ في هذه الأثناء فبقي دون تغيير إلى جانبها.</string>
+    <string name="backup_restore_interrupted_title">تمت مقاطعة الاستعادة</string>
+    <string name="backup_restore_interrupted_rolled_back">أُغلق التطبيق أثناء استعادة نسخة احتياطية. أُعيدت بياناتك السابقة، ولم يُحتفظ بأي شيء من النسخة الاحتياطية.</string>
+    <string name="backup_restore_interrupted_incomplete">أُغلق التطبيق أثناء استعادة نسخة احتياطية، وتعذّرت إعادة البيانات السابقة بالكامل. يُرجى التحقق من قائمة المتابعة والمحفظة، أو استعادة النسخة مجددًا من «%1$s» في الإعدادات.</string>
+    <string name="backup_not_verified">تعذّر التحقق من ملف النسخة الاحتياطية بعد حفظه، إذ يُقرأ بشكل مختلف. يُرجى حفظ النسخة في ملف جديد.</string>
+    <string name="tax_line_at_old_speculation_limit">مكتسب قبل 1 مارس 2021 – محتفظ به ≤ سنة: حد الإعفاء لصفقات المضاربة (§ 31 فقرة 3 EStG بالصيغة القديمة)</string>
+    <string name="portfolio_tx_interest">فائدة (إقراض)</string>
+    <string name="portfolio_tx_interest_hint">تُحتسب دخلًا عند الاستلام (النمسا). اتركه متوقفًا لمكافآت التخزين والتوزيعات المجانية.</string>
+    <string name="app_lock_no_screen_lock">اضبط قفل الشاشة لفتح المحفظة.</string>
+    <string name="app_lock_turn_off_action">إيقاف قفل المحفظة</string>
+    <string name="app_lock_turn_off_confirm_title">إيقاف قفل المحفظة؟</string>
+    <string name="app_lock_turn_off_confirm_message">بدون قفل الشاشة لا يمكن فتح المحفظة. عند إيقافه يعرض التطبيق محفظتك مجددًا دون سؤال. بعد ضبط قفل الشاشة يمكنك إعادة تشغيل القفل من الإعدادات.</string>
+</resources>

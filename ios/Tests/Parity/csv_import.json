@@ -1069,6 +1069,56 @@
       ]
     },
     {
+      "name": "kraken_txid_staking_unpaired",
+      "_comment": "Build 76: gleiche txid L1 mit gleicher Menge (anders geschrieben) fällt still weg, mit ANDERER Menge (1.5) → DUPLICATE_TXID_DIFFERENT in der Vorschau statt still verworfen; Einzahlung DOT.S und Auszahlung ETH2.S ohne Gegenbuchung (keine Spot-Buchung gleicher Menge) → STAKING_UNPAIRED («Bestand prüfen») statt UNSUPPORTED_KIND, nicht gebucht.",
+      "format": "KRAKEN",
+      "csv": "\"txid\",\"refid\",\"time\",\"type\",\"subtype\",\"aclass\",\"asset\",\"wallet\",\"amount\",\"fee\",\"balance\"\n\"L1\",\"R1\",\"2024-05-01 10:00:00\",\"deposit\",\"\",\"currency\",\"XETH\",\"spot / main\",\"1.0000000000\",\"0.0000000000\",\"1.0000000000\"\n\"L1\",\"R1\",\"2024-05-01 10:00:00\",\"deposit\",\"\",\"currency\",\"XETH\",\"spot / main\",\"1.0\",\"0.0000000000\",\"1.0000000000\"\n\"L1\",\"R1\",\"2024-05-01 10:00:00\",\"deposit\",\"\",\"currency\",\"XETH\",\"spot / main\",\"1.5000000000\",\"0.0000000000\",\"1.5000000000\"\n\"L2\",\"B1\",\"2024-05-02 09:00:00\",\"deposit\",\"\",\"currency\",\"DOT.S\",\"spot / main\",\"10.0000000000\",\"0.0000000000\",\"10.0000000000\"\n\"L3\",\"B2\",\"2024-05-03 09:00:00\",\"withdrawal\",\"\",\"currency\",\"ETH2.S\",\"spot / main\",\"-0.5000000000\",\"0.0000000000\",\"0.0000000000\"\n\"L4\",\"W1\",\"2024-05-04 09:00:00\",\"withdrawal\",\"\",\"currency\",\"XETH\",\"spot / main\",\"-0.2000000000\",\"0.0010000000\",\"0.7990000000\"\n",
+      "rows": [
+        {
+          "line": 2,
+          "kind": "DEPOSIT",
+          "rawKind": "deposit",
+          "coin": "ETH",
+          "amount": "1",
+          "price": null,
+          "quote": null,
+          "fee": null,
+          "feeUnit": null,
+          "time": "2024-05-01T10:00:00Z",
+          "externalId": "R1",
+          "key": "KRAKEN|R1"
+        },
+        {
+          "line": 7,
+          "kind": "WITHDRAWAL",
+          "rawKind": "withdrawal",
+          "coin": "ETH",
+          "amount": "0.2",
+          "price": null,
+          "quote": null,
+          "fee": "0.001",
+          "feeUnit": "ETH",
+          "time": "2024-05-04T09:00:00Z",
+          "externalId": "W1",
+          "key": "KRAKEN|W1"
+        }
+      ],
+      "skipped": [
+        {
+          "line": 4,
+          "reason": "DUPLICATE_TXID_DIFFERENT"
+        },
+        {
+          "line": 5,
+          "reason": "STAKING_UNPAIRED"
+        },
+        {
+          "line": 6,
+          "reason": "STAKING_UNPAIRED"
+        }
+      ]
+    },
+    {
       "name": "generic_utc_fiat",
       "_comment": "Review 13: Kopf «Date(UTC)» = Datumsspalte in UTC; Zeile nur in Fiat (EUR-Einzahlung) = NOT_CRYPTO.",
       "format": "GENERIC",

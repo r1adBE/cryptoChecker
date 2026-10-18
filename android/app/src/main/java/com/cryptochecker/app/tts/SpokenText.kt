@@ -7,6 +7,7 @@ import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.util.PriceFormat
 import com.cryptochecker.marketdata.config.MarketsConfig
 import dagger.hilt.android.qualifiers.ApplicationContext
+import java.util.Locale
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -21,7 +22,7 @@ class SpokenText @Inject constructor(
             marketName(watch),
             watch.baseAsset,
             watch.quoteAsset,
-            PriceFormat.spokenPrice(price)
+            PriceFormat.spokenPrice(price, ttsLocale(context))
         )
 
     /**
@@ -50,11 +51,17 @@ class SpokenText @Inject constructor(
             watch.baseAsset,
             watch.quoteAsset,
             direction,
-            spokenAlarmPrice(PriceFormat.spokenPrice(price), watch.quoteAsset, currency)
+            spokenAlarmPrice(PriceFormat.spokenPrice(price, ttsLocale(context)), watch.quoteAsset, currency)
         )
     }
 
     companion object {
+        /**
+         * Sprache der Ansagen: die der App (Sätze aus den String-Ressourcen); [TtsSpeaker] wählt dieselbe
+         * Stimme. Zahlen im Satz folgen ihr ([PriceFormat.spokenPrice]).
+         */
+        fun ttsLocale(context: Context): Locale = context.resources.configuration.locales[0]
+
         /** Gesprochener Kurs, mit Währung nur, wenn sie von der Quote abweicht («60000 CHF»). */
         internal fun spokenAlarmPrice(spoken: String, quote: String, currency: String?): String =
             if (currency.isNullOrBlank() || currency.equals(quote, ignoreCase = true)) spoken

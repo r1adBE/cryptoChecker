@@ -15,6 +15,46 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 76)
+
+Two external reviews worked through (all «must» and «can» items), before the device test.
+
+* Prices: a request that hits its time limit ends after 20 s instead of hanging 5 s longer, and partial requests
+  (Binance Alpha, COIN-M list, Kraken fallback) may fail again without losing the rest; a failed COIN-M request
+  keeps the previous pair list; a maintenance answer no longer marks a pair as «not traded» for 6 h; the rate-limit
+  check only reads error fields; pairs with an alarm are fetched first in the short Doze window; an alarm does not
+  fire on a price whose exchange time is more than 2 h old; the pair sheet warns about a wide bid/ask spread.
+* USDT depeg: Kraken, Coinbase (new) and Binance USDC/USDT; a crash below 0.50 counts when two sources agree (2 of
+  3); Binance alone never alarms; the portfolio shows «USDT crash» at the market price instead of «assumed 1».
+* DexScreener: pools under $10,000 liquidity are marked and cannot alarm.
+* Portfolio: the Binance price is only used when the coin is really the same token; Kraken CSV shows repeated txids
+  with a different amount and staking entries without a counter-entry; bridged stablecoins are marked «≈»; xpub
+  finds new addresses up to the full gap of 20 right away; fee rows and lending interest are stored as their own
+  fields; the tax year follows the template's time zone; Austria: 440 € limit for old holdings; totals are summed
+  exactly.
+* Safety of your data: old database keys are never overwritten and are tried again automatically; the recovery
+  notice stays until confirmed and offers «Restore backup»; the Android system-backup copy of the portfolio only
+  exists while the backup runs; iPhone never writes the portfolio unencrypted; an interrupted restore is rolled back
+  on the next start; written backups are read back and checked; the portfolio lock no longer opens silently without
+  a screen lock and is immune to clock changes.
+* Notifications: deleting pairs while price notifications are posted no longer freezes the app; a notification is
+  withdrawn when its alarm was changed in the meantime; «Check on time» re-arms after any error; spoken prices use
+  the decimal separator of the speech language.
+* iPhone: background work sets its expiration handler first; widgets wait at most 8 s for the network and reload
+  only what changed (daily limit respected); alarm sounds also play when a widget fires the alarm; re-tapping a tab
+  goes back to its start; faster reading of large answers; activity logging without personal data.
+* Android: splash screen without empty window or colour jump; tab labels on two lines, at least 12 sp, selected tab
+  with strong contrast; re-tapping a tab goes back to its start; «Set first alarm» card; the exchange's own error
+  text in the refresh report; compact numbers and seconds in the device language; developer log only in debug
+  builds; selection lists fit narrow screens and large fonts; no list inside a scrolling page.
+* Licence: the original BitcoinChecker notices (mobnetic, Aneonex Software) are back in LICENSE and on the licence
+  pages; alarm sounds are self-made (script in the repo, CC0).
+* Privacy page: controller named with full name, legal bases and third-country transfers added, GitHub connection
+  data described correctly, Coinbase as USDT source; age 18+ in both stores.
+* Repository: data mirror uses only documented Binance endpoints; weekly exchange check and macro calendar report
+  problems as issues instead of red runs; Gradle security updates via the dependency graph; Compose BOM 2026.09.00,
+  SQLCipher 4.19.1.
+
 ## 16.2.2 (build 75)
 
 In-depth check of all areas before the device test.
@@ -406,14 +446,14 @@ Fixes and polish (Android and iOS alike unless noted).
 ## 16.2.2 (build 54)
 
 **Own code base (Android and iOS alike)**
-* The whole exchange layer is rewritten: base class `Market` with clear sections (single ticker, bulk, pair list,
+* The whole exchange layer is refactored and extended from BitcoinChecker: base class `Market` with clear sections (single ticker, bulk, pair list,
   names) and new method names (`tickerAddress`, `fillTickerJson`, `readTicker`, `pairListAddress`, `fillPairList`,
   `readPairList`, `errorMessage` …); one shared `SimpleMarket` for «pair list URL + ticker URL» exchanges, shared
   bases per exchange family (`BinanceBase`, `BitgetBase`, `BybitBase`, `HtxBase`, `PhemexBase`, `UpbitStyleMarket`,
   `WooBase`), one helper per pattern (`copyRow`, `bulkRowIfActive`, `noErrorText`), the same file layout on both
   platforms.
 * Pair explorer, pair-list loading, local pair storage, error types, HTTP log, combo box, log box, error and loading
-  screens rewritten. The old currency tables are replaced by a small `CurrencyText`.
+  screens refactored and extended from BitcoinChecker. The old currency tables are replaced by a small `CurrencyText`.
 * Behaviour unchanged: all unit, contract and parity tests pass; a differential run over every fixture and about
   28,000 field variations gave identical results. New tests for the shared building blocks.
 * LICENSE: MIT, one copyright line (r1adBE). The licences page in the app shows the app's own licence.

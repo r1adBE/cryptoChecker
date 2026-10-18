@@ -168,7 +168,7 @@
 
     <!-- Einstellungen › Markt-Meldungen -->
     <string name="settings_depeg_alarm">แจ้งเมื่อ USDT หลุดหมุด</string>
-    <string name="settings_depeg_alarm_hint">แจ้งหนึ่งครั้งเมื่อ USDT เบี่ยงจาก 1 USD ตามเกณฑ์ (Kraken USDT/USD, Binance USDC/USDT)</string>
+    <string name="settings_depeg_alarm_hint">แจ้งหนึ่งครั้งเมื่อ USDT เบี่ยงจาก 1 USD ตามเกณฑ์ (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT)</string>
     <string name="settings_depeg_threshold">เกณฑ์การหลุดหมุด</string>
     <string name="settings_fng_above">Fear &amp; Greed: แจ้งเมื่อสูงกว่า</string>
     <string name="settings_fng_below">Fear &amp; Greed: แจ้งเมื่อต่ำกว่า</string>

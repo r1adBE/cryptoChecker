@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Build 76: Portfolio-Speicher, Sicherung, Steuer-Export, Sperre -->
+    <string name="storage_recovery_restore_action">Khôi phục bản sao lưu</string>
+    <string name="storage_recovery_acknowledge">Đã hiểu</string>
+    <string name="storage_recovery_restored_title">Dữ liệu đã lưu được mở khóa lại</string>
+    <string name="storage_recovery_restored_message">Một khóa trước đây trên thiết bị này đã mở lại dữ liệu được để riêng, nên dữ liệu đã trở lại. Những gì lưu trong lúc đó vẫn được giữ nguyên bên cạnh.</string>
+    <string name="backup_restore_interrupted_title">Quá trình khôi phục bị gián đoạn</string>
+    <string name="backup_restore_interrupted_rolled_back">Ứng dụng đã bị đóng khi đang khôi phục bản sao lưu. Dữ liệu trước đó của bạn đã được đặt lại; không giữ lại gì từ bản sao lưu.</string>
+    <string name="backup_restore_interrupted_incomplete">Ứng dụng đã bị đóng khi đang khôi phục bản sao lưu và không thể đặt lại hoàn toàn dữ liệu trước đó. Hãy kiểm tra danh sách theo dõi và danh mục, hoặc khôi phục lại bản sao lưu trong “%1$s” ở Cài đặt.</string>
+    <string name="backup_not_verified">Không thể xác minh tệp sao lưu sau khi lưu – khi đọc lại thì khác. Hãy lưu bản sao lưu vào một tệp mới.</string>
+    <string name="tax_line_at_old_speculation_limit">Mua trước 1/3/2021 – giữ ≤ 1 năm: ngưỡng miễn thuế giao dịch đầu cơ (§ 31 (3) EStG bản cũ)</string>
+    <string name="portfolio_tx_interest">Lãi (cho vay)</string>
+    <string name="portfolio_tx_interest_hint">Được tính là thu nhập khi nhận (Áo). Để tắt cho phần thưởng staking và airdrop.</string>
+    <string name="app_lock_no_screen_lock">Hãy thiết lập khóa màn hình để mở danh mục.</string>
+    <string name="app_lock_turn_off_action">Tắt khóa danh mục</string>
+    <string name="app_lock_turn_off_confirm_title">Tắt khóa danh mục?</string>
+    <string name="app_lock_turn_off_confirm_message">Không có khóa màn hình thì không thể mở khóa danh mục. Khi tắt, ứng dụng lại hiển thị danh mục mà không hỏi. Sau khi thiết lập khóa màn hình, bạn có thể bật lại khóa trong Cài đặt.</string>
+</resources>

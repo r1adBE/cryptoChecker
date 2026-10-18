@@ -1,7 +1,7 @@
 # Mirrors public market data that is the same for every user (Fear & Greed, Coin Metrics
 # on-chain values and BTC price history, plus the altcoin season computed from Binance daily
-# candles, plus coin_meta.json — coin names, logo URLs and Alpha flags from Binance's public
-# symbol and Alpha token lists only, no images) once an hour as
+# candles, plus coin_meta.json — the symbols traded on Binance Spot from the documented public
+# endpoint /api/v3/exchangeInfo only, no names, logos or images) once an hour as
 # assets of the release «data», so the apps ask one place instead of every phone asking
 # each provider: https://github.com/r1adBE/cryptoChecker/releases/download/data/<file>
 # Nothing is committed. The apps fall back to the providers when a file is too old.
@@ -53,7 +53,7 @@ jobs:
           - fng.txt: Fear & Greed Index by alternative.me (https://alternative.me/crypto/fear-and-greed-index/), used with attribution as required by alternative.me.
           - onchain.txt, btcprice.txt: Coin Metrics Community Data (https://coinmetrics.io/community-network-data/), licensed CC BY-NC 4.0 (https://creativecommons.org/licenses/by-nc/4.0/). Source: Coin Metrics.
           - altseason.txt: computed from public Binance daily candles (data-api.binance.vision).
-          - coin_meta.json: symbols, names, logo URLs, chain/contract and Alpha flags from the public Binance website symbol list and the public Binance Alpha token list (www.binance.com). Only used by the apps as a fallback when those lists are unreachable; no images are mirrored.
+          - coin_meta.json: symbols currently traded on Binance Spot, from the documented public Binance Spot API endpoint GET /api/v3/exchangeInfo (data-api.binance.vision, else api.binance.com). Only used by the apps as a fallback; no names, logos or images are mirrored.
 
           No CoinGecko data is mirrored here. Updated by the Market data workflow.'
           if ! gh release view data >/dev/null 2>&1; then

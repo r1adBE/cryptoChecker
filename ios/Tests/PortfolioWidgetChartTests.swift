@@ -662,9 +662,11 @@ final class PortfolioWidgetChartTests: XCTestCase {
     /// Faktor USDT → Währung des Stands: Devisenkurs × USDT/USD, auch für USD; USD-Stablecoins bleiben. Wie Android.
     func testUsdtFactorUsesMarketPrice() {
         XCTAssertEqual(PortfolioWidgetChart.usdtFactor(currency: "CHF", fx: 0.9, usdtLive: 0.998), 0.9 * 0.998, accuracy: 1e-12)
-        // Ohne Messung bzw. unplausibel: USDT = 1
+        // Ohne Messung bzw. ausserhalb 0.05…3: USDT = 1
         XCTAssertEqual(PortfolioWidgetChart.usdtFactor(currency: "CHF", fx: 0.9, usdtLive: nil), 0.9, accuracy: 1e-12)
-        XCTAssertEqual(PortfolioWidgetChart.usdtFactor(currency: "CHF", fx: 0.9, usdtLive: 2), 0.9, accuracy: 1e-12)
+        XCTAssertEqual(PortfolioWidgetChart.usdtFactor(currency: "CHF", fx: 0.9, usdtLive: 5), 0.9, accuracy: 1e-12)
+        // Bestätigter Einbruch (die Messung speichert ihn nur bestätigt): Marktkurs statt 1
+        XCTAssertEqual(PortfolioWidgetChart.usdtFactor(currency: "CHF", fx: 0.9, usdtLive: 0.3), 0.9 * 0.3, accuracy: 1e-12)
         // USD: USDT zum Marktkurs (0.97 → 1000 USDT = 970 USD); ohne Messung 1
         XCTAssertEqual(PortfolioWidgetChart.usdtFactor(currency: "USD", fx: 1, usdtLive: 0.97), 0.97, accuracy: 1e-12)
         XCTAssertEqual(PortfolioWidgetChart.usdtFactor(currency: "USD", fx: 1, usdtLive: nil), 1, accuracy: 1e-12)

@@ -14,21 +14,29 @@ struct RootView: View {
     @StateObject private var cycleViewModel = CycleViewModel()
     /// Tastatur sichtbar: Tableiste ausblenden (läge sonst über der Tastatur; Android: darunter).
     @State private var keyboardVisible = false
+    /// Erneutes Tippen auf den gewählten Tab mit einer Seite darüber: neue Kennung = neuer Navigationsstapel,
+    /// also zurück zur Startseite des Tabs (die Seiten öffnen sich über Zustände der Bildschirme und
+    /// `NavigationLink`s ohne gemeinsamen Pfad — anders liessen sie sich nicht alle auf einmal schliessen).
+    @State private var stackIds: [AppTab: Int] = [:]
+    /// Tabs, deren Startseite gerade sichtbar ist (keine Seite darüber).
+    @State private var rootVisible: Set<AppTab> = []
 
     var body: some View {
         TabView(selection: $router.tab) {
-            withTabBar(NavigationStack { WatchlistScreen() }, hidden: router.showExplorer)
+            withTabBar(NavigationStack { rootMarked(WatchlistScreen(), .watchlist) }.id(stackId(.watchlist)),
+                       hidden: router.showExplorer)
                 .tag(AppTab.watchlist)
 
-            withTabBar(NavigationStack { CycleScreen(viewModel: cycleViewModel) }, hidden: router.showMarketExplorer)
+            withTabBar(NavigationStack { rootMarked(CycleScreen(viewModel: cycleViewModel), .cycle) }.id(stackId(.cycle)),
+                       hidden: router.showMarketExplorer)
                 .tag(AppTab.cycle)
 
             if data.settings.portfolioEnabled {
-                withTabBar(PortfolioTab())
+                withTabBar(PortfolioTab(rootVisible: $rootVisible).id(stackId(.portfolio)))
                     .tag(AppTab.portfolio)
             }
 
-            withTabBar(NavigationStack { SettingsScreen() })
+            withTabBar(NavigationStack { rootMarked(SettingsScreen(), .settings) }.id(stackId(.settings)))
                 .tag(AppTab.settings)
         }
         .background(AppColors.background)
@@ -60,6 +68,24 @@ struct RootView: View {
         return items
     }
 
+    private func stackId(_ tab: AppTab) -> Int { stackIds[tab, default: 0] }
+
+    /// Merkt, ob die Startseite eines Tabs sichtbar ist (eine Seite darüber lässt sie verschwinden).
+    private func rootMarked<Content: View>(_ content: Content, _ tab: AppTab) -> some View {
+        content.modifier(TabRootMarker(tab: tab, rootVisible: $rootVisible))
+    }
+
+    /// Gewählten Tab noch einmal getippt (wie die System-Tableiste): Seite darüber → zurück zur Startseite;
+    /// schon auf der Startseite → nach oben scrollen (die Bildschirme hören auf `AppRouter.scrollToTop`).
+    private func reselect(_ tab: AppTab) {
+        if rootVisible.contains(tab) {
+            router.requestScrollToTop(tab)
+            return
+        }
+        router.resetPages(of: tab)
+        stackIds[tab, default: 0] += 1
+    }
+
     /// Inhalt eines Tabs mit der eigenen Leiste unten (in jedem Tab, damit der Inhalt über ihr
     /// endet); die Systemleiste ist ausgeblendet. `hidden`: Seite ohne Leiste (z. B. «Paar hinzufügen»).
     private func withTabBar<Content: View>(_ content: Content, hidden: Bool = false) -> some View {
@@ -67,7 +93,7 @@ struct RootView: View {
             .toolbar(.hidden, for: .tabBar)
             .safeAreaInset(edge: .bottom, spacing: 0) {
                 if !hidden && !keyboardVisible {
-                    AppTabBar(tabs: tabs, selection: $router.tab)
+                    AppTabBar(tabs: tabs, selection: $router.tab, onReselect: reselect)
                 }
             }
     }
@@ -97,9 +123,9 @@ enum AppTabBarMetrics {
     /// Höhe ohne den Bereich des Home-Indikators (Standard-Schriftgrösse); wächst mit grosser Schrift
     /// (`scaledHeight(labelLine:)`), aber nur bis `maxTypeSize`.
     static let height: CGFloat = 64
-    /// Grösste Schriftstufe der Leiste (≈ 1,3 ×, wie die Deckelung in Android): darüber wächst die Leiste
-    /// nicht mehr, sondern zeigt beim langen Drücken den Large Content Viewer (HIG für Leisten).
-    static let maxTypeSize = DynamicTypeSize.xxxLarge
+    /// Grösste Schriftstufe der Leiste (≈ 1,5 ×, `.caption` 18 pt, wie die Deckelung in Android): darüber wächst
+    /// die Leiste nicht mehr, sondern zeigt beim langen Drücken den Large Content Viewer (HIG für Leisten).
+    static let maxTypeSize = DynamicTypeSize.accessibility1
     /// Zeilenhöhe der Beschriftung (`.caption`) bei Standardgrösse; wird per `@ScaledMetric` mitskaliert.
     static let labelLineHeight: CGFloat = 16
     /// Luft oben und unten im Tab, wenn die Leiste wächst (Pille 32 + 2 + Zeile 16 + 2 × 7 = 64, wie Android).
@@ -119,17 +145,16 @@ enum AppTabBarMetrics {
     /// Anzeiger (Pille) hinter dem Symbol des gewählten Tabs — wie `TAB_INDICATOR_WIDTH`/`_HEIGHT` (Android).
     static let indicatorWidth: CGFloat = 64
     static let indicatorHeight: CGFloat = 32
-    /// Pille deutlich sichtbar (Review D11; vorher Auswahlfläche: hell 1.11:1, dunkel 1.30:1). Hell: Akzent zu 30 %
-    /// auf #F1EEE9 → Pille/Leiste 1.52–1.59:1, Symbol (Akzent) auf der Pille 3.18–3.33:1. Dunkel: #404040 auf
-    /// #1F1F1F → 1.59:1, Symbol 3.88–4.44:1. Gewählt zudem an Akzentsymbol und fetter Beschriftung erkennbar (wie Android).
-    static let indicatorLightOpacity: Double = 0.30
-    static let indicatorDark = Color(hex: 0x404040)
+    /// Pille in der vollen Akzentfarbe, Symbol darauf onAccent: hebt sich mit ≥ 3:1 von der Leiste ab (vorher
+    /// Akzent 30 % bzw. #404040: nur 1.5–1.6:1). Hell primary auf #F1EEE9 → 5.04–5.09:1, Weiss darauf 5.84–5.89:1;
+    /// dunkel primary auf #1F1F1F → 6.17–7.05:1, onPrimary darauf 6.15–6.70:1 (wie Android, TabIndicatorContrastTest).
+    /// Gewählt zudem an fetter Beschriftung erkennbar.
     /// Dauer der Vergrösserung beim Wechsel des Tabs (s) — wie `TAB_ICON_SCALE_MILLIS` (Android).
     static let scaleDuration: Double = 0.15
 }
 
 /// Eigene Tableiste wie `AppTabBar` (Android): Fläche `container`, bis unter den Home-Indikator;
-/// gewählt ist das Symbol in der Themenfarbe auf einer Pille (64 × 32, wie Android) und kurz animiert 10 % grösser (sonst grau), die Beschriftung bleibt immer gleich
+/// gewählt ist das Symbol (onAccent) auf einer Pille in der Themenfarbe (64 × 32, wie Android) und kurz animiert 10 % grösser (sonst grau), die Beschriftung bleibt immer gleich
 /// (dunkel: weiss, hell: onSurface). Für VoiceOver je eine Taste mit «ausgewählt».
 ///
 /// Ersetzt die System-Leiste (`UITabBar`) und übernimmt deren Verhalten bei grosser Schrift: Die Leiste
@@ -139,10 +164,12 @@ enum AppTabBarMetrics {
 struct AppTabBar: View {
     let tabs: [AppTabItem]
     @Binding var selection: AppTab
+    /// Erneutes Tippen auf den schon gewählten Tab.
+    var onReselect: (AppTab) -> Void = { _ in }
 
     var body: some View {
         // Deckel aussen, damit auch `@ScaledMetric` in der Zeile die gedeckelte Grösse liest
-        AppTabBarRow(tabs: tabs, selection: $selection)
+        AppTabBarRow(tabs: tabs, selection: $selection, onReselect: onReselect)
             .dynamicTypeSize(...AppTabBarMetrics.maxTypeSize)
     }
 }
@@ -152,19 +179,31 @@ struct AppTabBar: View {
 private struct AppTabBarRow: View {
     let tabs: [AppTabItem]
     @Binding var selection: AppTab
+    let onReselect: (AppTab) -> Void
     /// Wächst mit der Schriftgrösse (bis zum Deckel), sonst würde die Beschriftung abgeschnitten.
     @ScaledMetric(relativeTo: .caption) private var labelLine: CGFloat = AppTabBarMetrics.labelLineHeight
 
     var body: some View {
-        HStack(spacing: 0) {
+        // Oben ausgerichtet: bricht eine Beschriftung auf zwei Zeilen um, bleiben alle Symbole auf einer Höhe
+        HStack(alignment: .top, spacing: 0) {
             ForEach(tabs) { item in
                 AppTabBarButton(item: item, selected: item.tab == selection) {
-                    selection = item.tab
+                    if selection == item.tab {
+                        onReselect(item.tab)
+                    } else {
+                        selection = item.tab
+                    }
                 }
             }
         }
-        .frame(height: AppTabBarMetrics.scaledHeight(labelLine: labelLine))
+        .padding(.vertical, AppTabBarMetrics.verticalPadding)
+        // Höhe nach Inhalt (zweizeilige Beschriftung), aber nie unter der Standardhöhe
+        .fixedSize(horizontal: false, vertical: true)
+        .frame(minHeight: AppTabBarMetrics.scaledHeight(labelLine: labelLine))
         .background(AppColors.container.ignoresSafeArea(edges: .bottom))
+        // VoiceOver: als Tableiste ansagen («Tab 2 von 4»), die Tasten bleiben einzeln mit «ausgewählt»
+        .accessibilityElement(children: .contain)
+        .accessibilityAddTraits(.isTabBar)
     }
 }
 
@@ -176,8 +215,8 @@ private struct AppTabBarButton: View {
     let action: () -> Void
 
     @Environment(\.appAccent) private var accent
+    @Environment(\.onAccent) private var onAccent
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
-    @Environment(\.colorScheme) private var colorScheme
 
     /// Beschriftung: im Dunkeln weiss, hell die normale Textfarbe (weiss wäre dort unlesbar).
     private static let labelColor = Color.dynamic(light: ColorTokens.onSurface.light, dark: 0xFFFFFF)
@@ -186,7 +225,7 @@ private struct AppTabBarButton: View {
         Button(action: action) {
             VStack(spacing: 2) {
                 icon
-                    .foregroundStyle(selected ? accent.primary : AppColors.onSurfaceVariant)
+                    .foregroundStyle(selected ? onAccent : AppColors.onSurfaceVariant)
                     .frame(width: AppTabBarMetrics.iconSize, height: AppTabBarMetrics.iconSize)
                     .scaleEffect(selected ? AppTabBarMetrics.selectedScale : 1)
                     .animation(scaleAnimation, value: selected)
@@ -196,8 +235,7 @@ private struct AppTabBarButton: View {
                     .frame(height: AppTabBarMetrics.indicatorHeight)
                     .background {
                         Capsule()
-                            .fill(colorScheme == .dark ? AppTabBarMetrics.indicatorDark
-                                  : accent.primary.opacity(AppTabBarMetrics.indicatorLightOpacity))
+                            .fill(accent.primary)
                             .scaleEffect(x: selected ? 1 : 0.5, y: 1)
                             .opacity(selected ? 1 : 0)
                             .animation(scaleAnimation, value: selected)
@@ -236,12 +274,14 @@ private struct AppTabBarButton: View {
     }
 
     private var label: some View {
-        // Gewählt fett, damit der Tab nicht nur am Farbton erkennbar ist (wie Android); nicht unter ~11 pt
+        // Gewählt fett, damit der Tab nicht nur am Farbton erkennbar ist (wie Android). Lange Namen brechen
+        // auf zwei Zeilen um statt zu schrumpfen (`.caption`, nie unter 12 pt)
         Text(item.title)
             .font(.caption.weight(selected ? .bold : .medium))
             .foregroundStyle(Self.labelColor)
-            .lineLimit(1)
-            .minimumScaleFactor(0.85)
+            .multilineTextAlignment(.center)
+            .lineLimit(2)
+            .fixedSize(horizontal: false, vertical: true)
     }
 
     @ViewBuilder
@@ -264,13 +304,27 @@ private struct AppTabBarButton: View {
 /// Stichtag-Export schliessen sich damit.
 private struct PortfolioTab: View {
     @ObservedObject private var lock = AppLock.shared
+    @Binding var rootVisible: Set<AppTab>
 
     var body: some View {
         switch lock.access {
         case .open:
-            NavigationStack { PortfolioScreen() }
+            NavigationStack { PortfolioScreen().modifier(TabRootMarker(tab: .portfolio, rootVisible: $rootVisible)) }
         case .locked, .pending:
-            NavigationStack { PortfolioLockedView(lock: lock) }
+            NavigationStack { PortfolioLockedView(lock: lock).modifier(TabRootMarker(tab: .portfolio, rootVisible: $rootVisible)) }
         }
+    }
+}
+
+/// Startseite eines Tabs sichtbar oder nicht: verschwindet, sobald eine Seite darüber liegt (oder ein anderer
+/// Tab gewählt ist), und erscheint wieder beim Zurückgehen.
+private struct TabRootMarker: ViewModifier {
+    let tab: AppTab
+    @Binding var rootVisible: Set<AppTab>
+
+    func body(content: Content) -> some View {
+        content
+            .onAppear { rootVisible.insert(tab) }
+            .onDisappear { rootVisible.remove(tab) }
     }
 }

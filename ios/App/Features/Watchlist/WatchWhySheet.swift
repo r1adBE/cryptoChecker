@@ -259,7 +259,8 @@ private struct WatchlistWhySignals: View {
                     HStack(alignment: .firstTextBaseline, spacing: 8) {
                         Image(systemName: "bolt.fill")
                             .scaledFont(size: 12, weight: .bold, relativeTo: .caption)
-                            .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
+                            // Zeile bricht um (keine feste Höhe): Symbol bis AX2 wie der Text daneben
+                            .dynamicTypeSize(...DynamicTypeSize.accessibility2)
                             .foregroundStyle(AppColors.warning)
                         Text(ActivityTexts.signal(signal))
                             .font(.subheadline.monospacedDigit())

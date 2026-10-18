@@ -324,9 +324,12 @@ class PortfolioTxTypesTest {
         same("2000", btc.position.costBasisExact)
     }
 
-    /** Build 47: Verkauf zum Preis 0 nur MIT Import-Herkunft eine Gebühr-Zeile; von Hand ein Verkauf eines wertlosen Coins. */
+    /**
+     * Build 76: Gebühr-Zeile nur mit eigenem Merker (feeRow) — ein Verkauf zum Preis 0 mit Import-Herkunft allein ist keine
+     * mehr; von Hand ein Verkauf eines wertlosen Coins.
+     */
     @Test
-    fun `sale at price zero is a fee row only when imported`() {
+    fun `sale is a fee row only with the explicit flag`() {
         val buy = tx(1, "BTC", PortfolioTxType.BUY, "1", "100", day)
         val manual = tx(2, "BTC", PortfolioTxType.SELL, "0.4", "0", 2 * day)
         assertFalse(PortfolioLedger.isFeeDisposal(manual))
@@ -335,8 +338,12 @@ class PortfolioTxTypesTest {
         same("-40", l.position.realizedExact)
         assertFalse(l.position.realizedIncomplete)
         val imported = manual.copy(imported = true)
-        assertTrue(PortfolioLedger.isFeeDisposal(imported))
+        assertFalse(PortfolioLedger.isFeeDisposal(imported))
+        val feeRow = imported.copy(feeRow = true)
+        assertTrue(PortfolioLedger.isFeeDisposal(feeRow))
+        // Nur bei einem Verkauf
+        assertFalse(PortfolioLedger.isFeeDisposal(feeRow.copy(type = PortfolioTxType.BUY)))
         // Gebühr-Zeile ohne Tageskurs: Erlös unbekannt (nie 0)
-        assertTrue(PortfolioCalculator.ledger("BTC", listOf(buy, imported), null).position.realizedIncomplete)
+        assertTrue(PortfolioCalculator.ledger("BTC", listOf(buy, feeRow), null).position.realizedIncomplete)
     }
 }

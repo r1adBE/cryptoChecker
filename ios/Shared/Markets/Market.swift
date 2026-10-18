@@ -206,6 +206,11 @@ class Market: @unchecked Sendable {
     /// gescheiterte Anfrage lässt dann den ganzen Abgleich scheitern.
     var pairListCombined: Bool { false }
 
+    /// true: Bei einzeln gelesenen Anfragen muss jede gelingen (nicht nur die erste) — für Börsen, deren Anfragen je
+    /// eine eigene Hälfte des Angebots liefern (Binance Futures: USDⓈ-M und COIN-M). Sonst würde eine halbe Liste
+    /// gespeichert; so bleibt die bisherige stehen. Android: `pairListAllCallsRequired`.
+    var pairListAllCallsRequired: Bool { false }
+
     /// Adresse der Paarliste für Anfrage `call`; nil = die Börse hat keine (feste Paare oder Suche).
     func pairListAddress(call: Int) -> String? { nil }
 

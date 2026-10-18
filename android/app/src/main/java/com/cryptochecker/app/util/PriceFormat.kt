@@ -187,13 +187,22 @@ object PriceFormat {
      * kleine Kurse nicht zu «0» werden: 0.00000712 → «0.00000712», 0.123456 → «0.1235».
      * Wie `PriceFormat.spokenPrice` (iOS).
      */
-    fun spokenPrice(value: Double): String {
-        val formatted = when {
-            value >= 1000 -> "%.0f".format(value)
-            value >= 1 -> "%.2f".format(value)
-            else -> DecimalText.plain(value, DecimalText.significantScale(value, 0, SPOKEN_SIGNIFICANT))
-        }
-        return formatted.replace(",", ".")
+    fun spokenPrice(value: Double): String = when {
+        // Locale.ROOT: Punkt und lateinische Ziffern, unabhängig von der Gerätesprache
+        value >= 1000 -> String.format(Locale.ROOT, "%.0f", value)
+        value >= 1 -> String.format(Locale.ROOT, "%.2f", value)
+        else -> DecimalText.plain(value, DecimalText.significantScale(value, 0, SPOKEN_SIGNIFICANT))
+    }
+
+    /**
+     * Wie [spokenPrice], aber mit dem Dezimalzeichen der Sprache, in der vorgelesen wird ([locale] =
+     * Sprache der Stimme bzw. des Satzes): Eine deutsche Stimme liest «1.50» sonst als Datum oder
+     * «eins Punkt fünfzig». Ziffern bleiben lateinisch, ohne Tausendertrennung. Wie iOS.
+     */
+    fun spokenPrice(value: Double, locale: Locale): String {
+        val plain = spokenPrice(value)
+        val separator = DecimalFormatSymbols.getInstance(locale).decimalSeparator
+        return if (separator == '.') plain else plain.replace('.', separator)
     }
 
     /** Signifikante Stellen eines vorgelesenen Kurses unter 1. */

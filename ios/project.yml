@@ -13,7 +13,7 @@ settings:
     SWIFT_VERSION: "5.0"
     IPHONEOS_DEPLOYMENT_TARGET: "17.0"
     MARKETING_VERSION: "16.2.2"
-    CURRENT_PROJECT_VERSION: "75"
+    CURRENT_PROJECT_VERSION: "76"
     TARGETED_DEVICE_FAMILY: "1"
     CODE_SIGN_STYLE: Automatic
     DEVELOPMENT_TEAM: ""
@@ -68,6 +68,9 @@ targets:
           - "*.entitlements"
       # Datenschutz-Manifest: jedes Bundle braucht eines (Widgets nutzen UserDefaults)
       - path: App/PrivacyInfo.xcprivacy
+        buildPhase: resources
+      # Alarmtöne: das Widget meldet Kursalarme selbst (sonst nur der Standardton)
+      - path: App/Resources/Sounds
         buildPhase: resources
     settings:
       base:

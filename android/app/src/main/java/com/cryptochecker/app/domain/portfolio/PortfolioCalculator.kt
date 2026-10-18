@@ -113,19 +113,21 @@ data class PortfolioTrade(
      * ohne Wert — Steuer-Export «Wert geschätzt (Tagesschluss)» (geschätzt, nicht fehlend). Nie gespeichert.
      */
     val valueEstimated: Boolean = false,
-    /**
-     * Aus einem CSV-Import ([com.cryptochecker.app.data.portfolio.PortfolioTxEntity.importKey] gesetzt) — nur so ist ein
-     * Verkauf zum Preis 0 eine Gebühr-Zeile ([PortfolioLedger.isFeeDisposal]); von Hand erfasst = Verkauf zum Preis 0.
-     */
+    /** Aus einem CSV-Import ([com.cryptochecker.app.data.portfolio.PortfolioTxEntity.importKey] gesetzt). */
     val imported: Boolean = false,
+    /**
+     * Gebühr-Zeile (CSV «Fee», [com.cryptochecker.app.data.portfolio.PortfolioTxEntity.feeRow]) — eine Veräusserung zum
+     * Tageskurs ([PortfolioLedger.isFeeDisposal]); nur bei [PortfolioTxType.SELL].
+     */
+    val feeRow: Boolean = false,
     /**
      * Verschenkt, im Steuer-Export als Veräusserung gerechnet ([TaxEngines.applyRules]: Typ [PortfolioTxType.PAYMENT]
      * mit diesem Merker, Vermerk «Schenkung»). Nie gespeichert.
      */
     val fromGift: Boolean = false,
     /**
-     * Belohnung ist ein Zins (Lending; Notiz aus dem CSV-Import, [TaxEngines.interestReward]) — AT: Anschaffungskosten =
-     * Wert beim Zufluss statt 0. Nie gespeichert (aus der Notiz).
+     * Belohnung ist ein Zins (Lending; [com.cryptochecker.app.data.portfolio.PortfolioTxEntity.interest]) — AT:
+     * Anschaffungskosten = Wert beim Zufluss statt 0.
      */
     val interestIncome: Boolean = false,
 ) {
@@ -1046,7 +1048,8 @@ object PortfolioCalculator {
         }
             .sortedBy { it.coin }
 
-        val totalValue = open.sumOf { it.value ?: 0.0 }
+        // Exakt summiert (Wert je Coin als BigDecimal), Double nur für die Anzeige
+        val totalValue = open.fold(BigDecimal.ZERO) { acc, p -> acc + (p.valueExact ?: BigDecimal.ZERO) }.toDouble()
         val missingCurrent = open.filter { it.value == null }.map { it.coin }
         // Nur eigene Bestände ohne Kaufpreis; reine Adress-Guthaben haben keinen Einstand und fehlen nicht.
         // Ganz ohne Kaufpreis: fehlt in «Seit Kauf»; nur ein Teil ohne: zählt mit dem Teil mit Kaufpreis.
@@ -1085,7 +1088,7 @@ object PortfolioCalculator {
             investedExact = investedExact,
             realizedExact = realizedExact,
             feeValueMissingCoins = positions.filter { it.feeValueMissing }.map { it.coin }.sorted(),
-            addressValue = open.sumOf { it.addressValueExact?.toDouble() ?: 0.0 },
+            addressValue = open.fold(BigDecimal.ZERO) { acc, p -> acc + (p.addressValueExact ?: BigDecimal.ZERO) }.toDouble(),
             method = method,
             withdrawnGainExact = withdrawn.amount.takeIf { withdrawn.count > 0 && (it.signum() != 0 || !withdrawn.incomplete) },
             withdrawnGainIncomplete = withdrawn.incomplete,

@@ -1536,7 +1536,8 @@
           "amount": "0.1",
           "time": 1706788800000,
           "price": "2500",
-          "note": "Lending interest"
+          "note": "Lending interest",
+          "interest": true
         },
         {
           "id": 3,
@@ -1716,7 +1717,8 @@
           "amount": "0.1",
           "time": 1741608000000,
           "price": "0",
-          "importKey": "csv:fee:1578"
+          "importKey": "csv:fee:1578",
+          "feeRow": true
         }
       ],
       "feeRows": [
@@ -1754,7 +1756,8 @@
           "amount": "0.1",
           "time": 1741608000000,
           "price": "0",
-          "importKey": "csv:fee:1615"
+          "importKey": "csv:fee:1615",
+          "feeRow": true
         }
       ],
       "feeRows": [
@@ -4630,7 +4633,8 @@
           "amount": "0.1",
           "time": 1741608000000,
           "price": "0",
-          "importKey": "csv:fee:3176"
+          "importKey": "csv:fee:3176",
+          "feeRow": true
         }
       ],
       "lines": [
@@ -5179,7 +5183,8 @@
           "amount": "0.1",
           "time": 1706788800000,
           "price": "2500",
-          "note": "Lending interest"
+          "note": "Lending interest",
+          "interest": true
         },
         {
           "id": 3,
@@ -5828,6 +5833,180 @@
         ]
       ],
       "incompleteLines": []
+    },
+    {
+      "template": "AT",
+      "method": "AT_MOVING_AVERAGE",
+      "year": 2021,
+      "_calc": "[B76] Altbestand (Kauf 2.11.2020, vor dem 1.3.2021) nach 7 Monaten verkauft: Spekulationsgeschäft (§ 30 EStG a. F.), 0,01 × (40000 − 10000) = 300 ≤ 440 → Freigrenze § 31 Abs. 3 EStG a. F. nicht überschritten.",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1604318400000,
+          "price": "10000"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "0.01",
+          "time": 1622548800000,
+          "price": "40000"
+        }
+      ],
+      "lines": [
+        [
+          "GAINS",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "LOSSES",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "NEW_NET",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "OLD_SHORT_NET",
+          "300",
+          "300",
+          null
+        ],
+        [
+          "OLD_LONG_NET",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "PROCEEDS",
+          "400",
+          "400",
+          null
+        ],
+        [
+          "INCOME",
+          "0",
+          "0",
+          null,
+          "AT_REWARD_INFO"
+        ],
+        [
+          "AT_RATE",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "AT_OLD_LONG",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "AT_OLD_SPECULATION_LIMIT",
+          null,
+          "440",
+          "BELOW"
+        ]
+      ]
+    },
+    {
+      "template": "AT",
+      "method": "AT_MOVING_AVERAGE",
+      "year": 2021,
+      "_calc": "[B76] Wie oben, 0,05 × 30000 = 1500 > 440 → Freigrenze überschritten (der ganze Betrag zählt).",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1604318400000,
+          "price": "10000"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "0.05",
+          "time": 1622548800000,
+          "price": "40000"
+        }
+      ],
+      "lines": [
+        [
+          "GAINS",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "LOSSES",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "NEW_NET",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "OLD_SHORT_NET",
+          "1500",
+          "1500",
+          null
+        ],
+        [
+          "OLD_LONG_NET",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "PROCEEDS",
+          "2000",
+          "2000",
+          null
+        ],
+        [
+          "INCOME",
+          "0",
+          "0",
+          null,
+          "AT_REWARD_INFO"
+        ],
+        [
+          "AT_RATE",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "AT_OLD_LONG",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "AT_OLD_SPECULATION_LIMIT",
+          null,
+          "440",
+          "REACHED"
+        ]
+      ]
     }
   ],
   "_lostFeeComment": "Netzwerkgebühr verbraucht den letzten Teil mit Kaufpreis: Einstand (10) wird vermerkt (TaxExport.lostFeeCostsIn), gleich für FIFO, FIFO je Wallet, Ø (ohne Vorlage-Regeln) und AT; UK, CA, JP (Build 56: TaxEventRules.networkFeeIsDisposal, Standard dieser Rechnungen): die Gebühr ist eine eigene Veräusserung zum Marktwert, nichts vermerkt; FR kennt keinen Gebühr-Einstand je Coin.",

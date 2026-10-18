@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Build 76: Portfolio-Speicher, Sicherung, Steuer-Export, Sperre -->
+    <string name="storage_recovery_restore_action">กู้คืนข้อมูลสำรอง</string>
+    <string name="storage_recovery_acknowledge">เข้าใจแล้ว</string>
+    <string name="storage_recovery_restored_title">ปลดล็อกข้อมูลที่บันทึกไว้ได้อีกครั้ง</string>
+    <string name="storage_recovery_restored_message">คีย์เดิมของอุปกรณ์นี้เปิดข้อมูลที่แยกเก็บไว้ได้อีกครั้ง ข้อมูลจึงกลับมาแล้ว ส่วนข้อมูลที่บันทึกระหว่างนั้นยังเก็บไว้ข้าง ๆ โดยไม่เปลี่ยนแปลง</string>
+    <string name="backup_restore_interrupted_title">การกู้คืนถูกขัดจังหวะ</string>
+    <string name="backup_restore_interrupted_rolled_back">แอปถูกปิดระหว่างกู้คืนข้อมูลสำรอง ข้อมูลเดิมของคุณถูกนำกลับมาแล้ว และไม่ได้เก็บสิ่งใดจากข้อมูลสำรองไว้</string>
+    <string name="backup_restore_interrupted_incomplete">แอปถูกปิดระหว่างกู้คืนข้อมูลสำรอง และนำข้อมูลเดิมกลับมาได้ไม่ครบ โปรดตรวจสอบรายการเฝ้าดูและพอร์ตโฟลิโอ หรือกู้คืนข้อมูลสำรองอีกครั้งที่ “%1$s” ในการตั้งค่า</string>
+    <string name="backup_not_verified">ยืนยันไฟล์ข้อมูลสำรองหลังบันทึกไม่ได้ เพราะอ่านกลับมาแล้วไม่ตรงกัน โปรดบันทึกข้อมูลสำรองลงไฟล์ใหม่</string>
+    <string name="tax_line_at_old_speculation_limit">ได้มาก่อน 1 มี.ค. 2021 – ถือ ≤ 1 ปี: วงเงินยกเว้นภาษีธุรกรรมเก็งกำไร (§ 31 (3) EStG ฉบับเดิม)</string>
+    <string name="portfolio_tx_interest">ดอกเบี้ย (การให้ยืม)</string>
+    <string name="portfolio_tx_interest_hint">นับเป็นรายได้เมื่อได้รับ (ออสเตรีย) ปิดไว้สำหรับรางวัลสเตกกิ้งและแอร์ดรอป</string>
+    <string name="app_lock_no_screen_lock">ตั้งค่าล็อกหน้าจอเพื่อเปิดพอร์ตโฟลิโอ</string>
+    <string name="app_lock_turn_off_action">ปิดการล็อกพอร์ตโฟลิโอ</string>
+    <string name="app_lock_turn_off_confirm_title">ปิดการล็อกพอร์ตโฟลิโอใช่ไหม</string>
+    <string name="app_lock_turn_off_confirm_message">หากไม่มีล็อกหน้าจอจะปลดล็อกพอร์ตโฟลิโอไม่ได้ เมื่อปิดไว้ แอปจะแสดงพอร์ตโฟลิโออีกครั้งโดยไม่ถาม เมื่อตั้งค่าล็อกหน้าจอแล้ว คุณเปิดการล็อกอีกครั้งได้ในการตั้งค่า</string>
+</resources>

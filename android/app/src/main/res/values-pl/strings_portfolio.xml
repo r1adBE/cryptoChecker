@@ -20,7 +20,7 @@
     <string name="portfolio_empty_title">Brak transakcji</string>
     <string name="portfolio_enable_ask_text">Transakcja została zapisana. Karta Portfel pokazuje twój stan i jego wartość.</string>
     <string name="portfolio_enable_ask_title">Włączyć kartę Portfel?</string>
-    <string name="portfolio_enable_later_hint">Transakcja zapisana. Kartę Portfel włączysz w Ustawienia › Zaawansowane › Portfel.</string>
+    <string name="portfolio_enable_later_hint">Transakcja zapisana. Kartę Portfel włączysz w Ustawienia › Portfel.</string>
     <string name="portfolio_enabled_banner">Portfel włączony – znajdziesz go na karcie Portfel.</string>
     <string name="portfolio_lock_reason">Odblokuj portfel</string>
     <string name="portfolio_locked_text">Odblokuj, aby zobaczyć pozycje i wartości.</string>

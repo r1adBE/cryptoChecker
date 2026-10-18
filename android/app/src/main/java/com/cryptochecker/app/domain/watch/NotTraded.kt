@@ -27,24 +27,40 @@ object NotTraded {
     fun askSingleWhenMissing(lastError: String?): Boolean = !isMarker(lastError)
 
     /**
-     * Bestätigt die Einzelabfrage «nicht mehr gehandelt»? Ja, wenn die Börse geantwortet hat, aber
-     * ohne Kurs: ihr Fehlertext (z. B. «Instrument ID does not exist»), eine Antwort ohne Kurs oder
-     * HTTP 4xx (400, 404 …). Nein bei Kurs, Netz- und Zeitproblemen, Rate-Limit, Serverfehlern (5xx),
-     * verweigertem Zugriff (401/403/451) oder fehlendem Adapter — das ist ein gewöhnlicher Fehler,
-     * das Paar bleibt mit seinem letzten Kurs stehen.
+     * Bestätigt die Einzelabfrage «nicht mehr gehandelt»? Nur bei einer klaren Aussage der Börse über
+     * das Paar: Antwort ohne Kurs (auch ganz ohne Fehlertext), ausdrücklich unbekanntes Instrument
+     * (z. B. «Instrument ID does not exist», «EQuery:Unknown asset pair», «Invalid symbol») oder
+     * HTTP 400/404. Jeder andere Fehler — unlesbare Antwort, unbekannte Ausnahme, Netz, Zeit,
+     * Rate-Limit, übrige 4xx/5xx, fehlender Adapter — ist ein gewöhnlicher Fehler: Das Paar bleibt mit
+     * seinem letzten Kurs stehen, statt wegen einer kurzen Störung als «nicht gehandelt» zu verstummen.
      */
     fun confirmedBySingle(gotPrice: Boolean, error: String?): Boolean {
         if (gotPrice) return false
+        if (error.isNullOrBlank()) return true
         return when (RefreshReportLogic.classify(error)) {
-            RefreshFailure.NO_DATA, RefreshFailure.OTHER -> true
-            RefreshFailure.SERVER -> RefreshReportLogic.httpStatus(error)
-                ?.let { it in 400..499 && it !in NOT_CONFIRMING_4XX } ?: false
+            RefreshFailure.NO_DATA -> true
+            RefreshFailure.OTHER -> isUnknownInstrument(error)
+            RefreshFailure.SERVER -> RefreshReportLogic.httpStatus(error)?.let { it in CONFIRMING_HTTP } ?: false
             else -> false
         }
     }
 
-    /** 4xx ohne Aussage über das Paar: Anmeldung, Sperre, Proxy, Zeitgrenze, Rate-Limit, Rechtliches. */
-    private val NOT_CONFIRMING_4XX = setOf(401, 403, 407, 408, 418, 429, 451)
+    /** Sagt der Fehlertext der Börse ausdrücklich, dass sie das Paar nicht kennt? */
+    fun isUnknownInstrument(error: String?): Boolean {
+        val lower = error?.lowercase() ?: return false
+        return UNKNOWN_INSTRUMENT_HINTS.any { it in lower }
+    }
+
+    /** HTTP-Status, die über das Paar etwas sagen (Anfrage abgelehnt bzw. nicht gefunden). */
+    private val CONFIRMING_HTTP = setOf(400, 404)
+
+    /** Fehlertexte der Börsen für ein unbekanntes Paar (klein geschrieben); iOS gleich. */
+    private val UNKNOWN_INSTRUMENT_HINTS = listOf(
+        "does not exist", "not exist", "unknown asset pair", "unknown pair", "invalid pair", "pair not found",
+        "invalid symbol", "symbol invalid", "unknown symbol", "symbol not found", "not supported symbol",
+        "invalid instrument", "unknown instrument", "instrument not found", "invalid currency pair",
+        "invalid_currency_pair", "invalid market", "market not found", "delisted",
+    )
 
     /** 24-h-Veränderung zum Anzeigen (Änderung, Puls, Widgets): null («—») bei nicht gehandelten Paaren. */
     fun shownChange24h(lastError: String?, change24h: Double?): Double? =

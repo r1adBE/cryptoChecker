@@ -122,6 +122,9 @@ struct PortfolioCoinRow: View {
     /// Gekapselter Coin ohne eigenen Börsenkurs, bewertet mit dem Kurs dieser Basis (`PortfolioPrices.viaBase`):
     /// Hinweis «≈ BTC-Kurs (gebrückt/verpackt)». Wie Android `viaBase`.
     var viaBase: String? = nil
+    /// Stablecoin, dessen Menge gebrückte Varianten enthält (`AddressBalance.bridgedStables`, z. B. «USDC.e»): Hinweis
+    /// «≈ inkl. USDC.e (gebrückt)» — eine Brücke kann abkoppeln, die Menge gilt nur ungefähr. Wie Android.
+    var bridgedStable: String? = nil
     @Environment(\.hidePortfolioAmounts) var hideAmounts
     /// Grosse Schrift: Symbol umbrechen statt abschneiden, ab accessibility1 Wert und Gewinn/Verlust unter
     /// Coin und Anteil statt daneben (`DenseRowText`, wie Android).
@@ -258,6 +261,13 @@ struct PortfolioCoinRow: View {
             } else if let viaBase {
                 // Kein eigener Kurs: Wert mit dem Kurs der Basis — nie als eigener Kurs ausgeben
                 Text(L("portfolio_price_via_base", viaBase))
+                    .font(.caption)
+                    .foregroundStyle(AppColors.onSurfaceVariant)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.8)
+            } else if let bridgedStable {
+                // Gebrückte Stablecoin-Variante mitgezählt: Menge nur ungefähr, wie WBTC markiert
+                Text(L("portfolio_amount_bridged_stable", bridgedStable))
                     .font(.caption)
                     .foregroundStyle(AppColors.onSurfaceVariant)
                     .lineLimit(1)

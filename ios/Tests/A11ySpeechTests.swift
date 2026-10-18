@@ -166,9 +166,10 @@ final class A11ySpeechTests: XCTestCase {
                                     AppTabBarMetrics.indicatorHeight + 48)
     }
 
-    /// Tableiste wächst nur bis `.xxxLarge` (≈ 1,3 ×, wie Android `TAB_LABEL_MAX_SCALE`); darüber Large Content Viewer.
-    func testTabBarGrowthIsCappedAtXxxLarge() {
-        XCTAssertEqual(AppTabBarMetrics.maxTypeSize, .xxxLarge)
-        XCTAssertFalse(AppTabBarMetrics.maxTypeSize.isAccessibilitySize)
+    /// Tableiste wächst nur bis `.accessibility1` (≈ 1,5 ×, wie Android `TAB_LABEL_MAX_SCALE`); darüber Large
+    /// Content Viewer.
+    func testTabBarGrowthIsCappedAtAccessibility1() {
+        XCTAssertEqual(AppTabBarMetrics.maxTypeSize, .accessibility1)
+        XCTAssertTrue(AppTabBarMetrics.maxTypeSize < .accessibility2)
     }
 }

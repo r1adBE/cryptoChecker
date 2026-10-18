@@ -1190,7 +1190,7 @@ enum TaxEngines {
     /// dazu). Belohnung: 0 (BMF: Staking, Airdrop — § 27b Abs. 2 EStG); Zins (`interestReward`) zum Wert beim Zufluss, denn
     /// er ist dort schon Einkunft (§ 27b Abs. 2 Z 1 EStG).
     private static func atNewCost(_ s: TaxStep) -> Decimal? {
-        if s.trade.type == .REWARD && !interestReward(s.trade.note) { return 0 }
+        if s.trade.type == .REWARD && !s.trade.interest { return 0 }
         return s.trade.validPriceExact.map { s.qty * $0 }
     }
 

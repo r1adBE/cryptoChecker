@@ -1287,7 +1287,7 @@ the tests named here.
   gain stays incomplete (USDT legs are automatic). `CostMethod.FIFO_WALLET`: queues per exchange/wallet (empty =
   «not specified»), transfers move lots with their purchase date, a shortfall never borrows from another
   wallet (`walletShortfalls`). CSV imports carry `importBatch`; «Undo import» deletes exactly one batch. Open
-  lots per coin (`openLots`). DE annual summary (`TaxExport.deYearSummary`): ≤/> 1 year, § 23 EStG Freigrenze
+  lots per coin (`openLots`). DE annual summary (`TaxExport.yearSummary` with the DE template): ≤/> 1 year, § 23 EStG Freigrenze
   (1000 € from 2024, 600 € 2009–2023, 512 € before) and § 22 Nr. 3 (256 €), a Freigrenze (whole amount taxable
   at or above), labelled «orientation, not tax advice». Everything is called a working paper («Arbeitsunterlage»).
 * **One day boundary (build 46).** Period windows, start holdings and the history buckets use UTC days like the

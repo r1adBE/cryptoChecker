@@ -11,7 +11,6 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
-import okhttp3.logging.HttpLoggingInterceptor
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -29,24 +28,16 @@ object RemoteDataModule {
      */
     @Singleton
     @Provides
-    fun provideOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient =
-        OkHttpClient.Builder()
+    fun provideOkHttpClient(httpLogger: HttpLogger): OkHttpClient {
+        val builder = OkHttpClient.Builder()
             .connectTimeout(10, TimeUnit.SECONDS)
             .readTimeout(15, TimeUnit.SECONDS)
             .callTimeout(20, TimeUnit.SECONDS)
             .addInterceptor(UserAgentInterceptor(USER_AGENT))
-            .addInterceptor(httpLoggingInterceptor)
-            .build()
-
-    /**
-     * Debug: voller Antworttext im Mitschnitt (für die Rohanzeige). Release: aus — eine Sammelabfrage
-     * bringt mehrere Megabyte, die sonst bei jedem Durchlauf zusätzlich als Text im Flow lägen.
-     */
-    @Singleton
-    @Provides
-    fun provideHttpLoggingInterceptor(httpLogger: HttpLogger): HttpLoggingInterceptor {
-        val level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
-        return HttpLoggingInterceptor(httpLogger as HttpLoggingInterceptor.Logger).also { it.level = level }
+        // Mitschnitt nur im Debug-Build (src/debug); der Release liefert null und enthält
+        // logging-interceptor gar nicht (debugImplementation).
+        HttpLogInterceptorProvider.create(httpLogger)?.let(builder::addInterceptor)
+        return builder.build()
     }
 
     @Singleton

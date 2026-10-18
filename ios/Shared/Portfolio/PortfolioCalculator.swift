@@ -749,7 +749,10 @@ enum PortfolioCalculator {
         let closed = positions.filter { !$0.isOpen && ($0.realizedExact != 0 || $0.soldAmount > 0 || $0.withdrawnAmount > 0) }
             .sorted { $0.coin < $1.coin }
 
-        let totalValue = open.reduce(0.0) { $0 + ($1.value ?? 0) }
+        // Exakt summiert (Wert je Coin als Decimal), Double nur für die Anzeige — wie Android
+        let totalValue = PortfolioDecimal.double(open.reduce(Decimal(0)) { sum, p in
+            sum + (p.valueExact ?? PortfolioDecimal.of(p.value) ?? 0)
+        })
         let missingCurrent = open.filter { $0.value == nil }.map(\.coin)
         // Nur eigene Bestände ohne Kaufpreis; reine Adress-Guthaben haben keinen Einstand und fehlen nicht.
         // Ganz ohne Kaufpreis: fehlt in «Seit Kauf»; nur ein Teil ohne: zählt mit dem Teil mit Kaufpreis.
@@ -790,7 +793,7 @@ enum PortfolioCalculator {
             investedExact: investedExact,
             realizedExact: realizedExact,
             feeValueMissingCoins: positions.filter(\.feeValueMissing).map(\.coin).sorted(),
-            addressValue: open.reduce(0.0) { $0 + ($1.addressValueExact.map(PortfolioDecimal.double) ?? 0) },
+            addressValue: PortfolioDecimal.double(open.reduce(Decimal(0)) { $0 + ($1.addressValueExact ?? 0) }),
             method: method,
             withdrawnGainExact: withdrawn.count > 0 && (withdrawn.amount != 0 || !withdrawn.incomplete) ? withdrawn.amount : nil,
             withdrawnGainIncomplete: withdrawn.incomplete,

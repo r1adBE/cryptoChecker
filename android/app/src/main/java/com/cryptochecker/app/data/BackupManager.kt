@@ -22,6 +22,7 @@ import com.cryptochecker.app.data.portfolio.PortfolioRepository
 import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.data.portfolio.WatchedAddressDao
 import com.cryptochecker.app.data.portfolio.WatchedAddressEntity
+import com.cryptochecker.app.data.portfolio.toDomain
 import com.cryptochecker.app.domain.portfolio.WatchedAddressRules
 import com.cryptochecker.app.domain.alarm.QuietHours
 import com.cryptochecker.app.domain.refresh.PriceRefresher
@@ -55,6 +56,12 @@ data class RestoreResult(
     val replacedPortfolioAlarmIds: List<Long> = emptyList(),
 )
 
+/**
+ * Die eben geschriebene Sicherungsdatei liest sich nicht so zurück, wie sie geschrieben wurde (Grösse oder Inhalt weichen
+ * ab — z. B. ein Cloud-Anbieter, der die Datei kürzt). Die Datei taugt nicht als Sicherung: in eine neue Datei sichern.
+ */
+class BackupNotVerifiedException(message: String) : java.io.IOException(message)
+
 /** Sicherung enthält mehr ungültige Portfolio-Einträge, als der Nutzer bestätigt hat. */
 class UnconfirmedInvalidEntriesException(val invalid: Int) :
     IllegalStateException("$invalid ungültige Portfolio-Einträge nicht bestätigt")
@@ -82,27 +89,41 @@ class BackupManager @Inject constructor(
     private val priceRefresher: PriceRefresher,
     private val livePriceStream: LivePriceStream,
 ) {
+    /** Stand vor dem Wiederherstellen, versiegelt bis zum Ende des Laufs ([RestoreJournal]). */
+    private val journal = RestoreJournal(
+        java.io.File(context.noBackupFilesDir, RestoreJournal.FILE_NAME),
+        com.cryptochecker.app.widget.PortfolioSnapshotKeyStore(RestoreJournal.KEY_ALIAS),
+    )
+
     /**
      * Schreibt die Sicherung; mit [password] verschlüsselt ([BackupCrypto], gleiches Format
-     * wie unter iOS), sonst wie bisher als lesbares JSON.
+     * wie unter iOS), sonst wie bisher als lesbares JSON. Danach wird die Datei zurückgelesen und Byte für Byte
+     * verglichen; weicht sie ab → [BackupNotVerifiedException] (der Nutzer soll in eine neue Datei sichern).
      */
     suspend fun export(uri: Uri, password: String?) = withContext(Dispatchers.IO) {
+        // Ein Stand je Datenbank: Merkliste und Alarme in einer Lesetransaktion der Hauptdatenbank, Transaktionen,
+        // Portfolio-Alarme und Adressen in einer der Portfolio-Datenbank — eine gleichzeitige Änderung (Aktualisierung,
+        // Widget, Alarm) landet ganz oder gar nicht in der Datei, nie halb. Getrennte Dateien: keine gemeinsame Transaktion
+        val (watches, alarms) = database.withTransaction { watchDao.getWatches() to watchDao.getAllAlarms() }
+        val portfolio = portfolioDatabase.withTransaction {
+            Triple(portfolioDao.getAll(), portfolioAlarmRepository.getAll(), portfolioRepository.getWatchedAddresses())
+        }
         val root = JSONObject()
             .put("format", FORMAT)
             .put("version", VERSION)
             .put("createdAt", System.currentTimeMillis())
-            .put("watches", JSONArray().apply { watchDao.getWatches().forEach { put(watchToJson(it)) } })
-            .put("alarms", JSONArray().apply { watchDao.getAllAlarms().forEach { put(alarmToJson(it)) } })
+            .put("watches", JSONArray().apply { watches.forEach { put(watchToJson(it)) } })
+            .put("alarms", JSONArray().apply { alarms.forEach { put(alarmToJson(it)) } })
             .put("favorites", JSONObject().apply {
                 FavoriteKind.entries.forEach { kind ->
                     put(kind.name, JSONArray(favoritesRepository.favorites(kind).value.toList()))
                 }
             })
             .put("settings", settingsToJson())
-            .put("portfolio", JSONArray().apply { portfolioDao.getAll().forEach { put(PortfolioJson.txToJson(it)) } })
-            .put("portfolioAlarms", JSONArray().apply { portfolioAlarmRepository.getAll().forEach { put(PortfolioJson.alarmToJson(it)) } })
+            .put("portfolio", JSONArray().apply { portfolio.first.forEach { put(PortfolioJson.txToJson(it)) } })
+            .put("portfolioAlarms", JSONArray().apply { portfolio.second.forEach { put(PortfolioJson.alarmToJson(it)) } })
             // Seit Build 46: beobachtete Adressen (nur Netz, Adresse, Bezeichnung, Datum — kein Guthaben)
-            .put(WatchedAddressRules.BACKUP_KEY, WatchedAddressRules.toJson(WatchedAddressRules.backupEntries(portfolioRepository.getWatchedAddresses())))
+            .put(WatchedAddressRules.BACKUP_KEY, WatchedAddressRules.toJson(WatchedAddressRules.backupEntries(portfolio.third)))
 
         val plain = root.toString(2).toByteArray(Charsets.UTF_8)
         val bytes = if (password == null) plain
@@ -110,7 +131,24 @@ class BackupManager @Inject constructor(
 
         val stream = context.contentResolver.openOutputStream(uri, "wt")
             ?: error("Datei kann nicht geschrieben werden")
-        stream.use { it.write(bytes) }
+        stream.use {
+            it.write(bytes)
+            it.flush()
+        }
+        verifyWritten(uri, bytes)
+    }
+
+    /**
+     * Zurücklesen und vergleichen ([BackupVerification]): Manche Speicher-Anbieter (Cloud, USB) bestätigen das Schreiben,
+     * legen aber eine gekürzte oder leere Datei ab — das zeigte sich sonst erst beim Wiederherstellen.
+     */
+    private fun verifyWritten(uri: Uri, expected: ByteArray) {
+        val back = try {
+            context.contentResolver.openInputStream(uri)?.use { BackupLimits.readLimited(it) }
+        } catch (e: BackupLimits.TooLargeException) {
+            throw BackupNotVerifiedException("Sicherung grösser als geschrieben")
+        } ?: throw BackupNotVerifiedException("Sicherung nicht lesbar")
+        BackupVerification.check(expected, back)?.let { throw BackupNotVerifiedException(it) }
     }
 
     /** Verschlüsselte Sicherung? Dann vor dem Wiederherstellen nach dem Passwort fragen. */
@@ -210,7 +248,11 @@ class BackupManager @Inject constructor(
             settings = settingsToJson(),
         )
 
-        // ── 3. Schreiben ──
+        // ── 3. Schreiben ── vorher das Journal: bricht der Prozess mittendrin ab, rollt der nächste Start zurück
+        val journaled = runCatching { journal.write(journalJson(previous).toString()) }
+            .onFailure { Timber.w(it, "Wiederherstellen: Journal nicht geschrieben") }
+            .getOrDefault(false)
+        if (!journaled) Timber.w("Wiederherstellen ohne Journal (Schlüssel nicht verfügbar)")
         val touched = mutableSetOf<Step>()
         var appLockKept = false
         try {
@@ -229,9 +271,16 @@ class BackupManager @Inject constructor(
             touched += Step.SETTINGS
             settings?.let { appLockKept = restoreSettings(it, trusted = encrypted) }
         } catch (e: Throwable) {
-            withContext(NonCancellable) { rollBack(previous, touched, e) }
+            withContext(NonCancellable) {
+                // Ganz zurückgerollt: Journal weg; sonst bleibt es, und der nächste Start versucht es erneut
+                if (rollBack(previous, touched, e)) runCatching { journal.delete() }
+                Unit
+            }
             throw e
         }
+        runCatching { journal.delete() }.onFailure { Timber.w(it, "Wiederherstellen: Journal nicht gelöscht") }
+        // Gespeicherte Daten liessen sich nicht entsperren (StorageRecoveryNotice): mit dieser Sicherung erledigt
+        runCatching { com.cryptochecker.app.data.local.StorageRecoveryNotice.acknowledgeSetAside(context) }
 
         // Alte ⚡-Ergebnisse gehören zu den alten Paaren (Ids können sich decken).
         activityRepository.retain(emptySet())
@@ -242,6 +291,77 @@ class BackupManager @Inject constructor(
             replacedWatchIds = previous.watches.map { it.id },
             replacedAlarmIds = previous.alarms.map { it.id },
             replacedPortfolioAlarmIds = if (portfolioAlarms != null) previous.portfolioAlarms.map { it.id } else emptyList(),
+        )
+    }
+
+    /**
+     * Beim App-Start (vor dem ersten Lesen der Daten durch die Oberfläche): Liegt ein Journal ([RestoreJournal]) da, ist ein
+     * Wiederherstellen abgebrochen — den Stand davor zurückschreiben und den Nutzer informieren
+     * ([com.cryptochecker.app.data.local.StorageRecoveryNotice.recordInterruptedRestore]). Ohne Journal: nichts.
+     */
+    suspend fun recoverInterruptedRestore() = withContext(Dispatchers.IO) {
+        when (val read = journal.read()) {
+            RestoreJournal.Read.Absent, RestoreJournal.Read.Unavailable -> return@withContext
+            RestoreJournal.Read.Unreadable -> {
+                // Nicht mehr zu öffnen: der Stand ist womöglich halb — sagen, nicht still weiter
+                Timber.w("Wiederherstellen abgebrochen, Journal unlesbar")
+                runCatching { journal.delete() }
+                com.cryptochecker.app.data.local.StorageRecoveryNotice.recordInterruptedRestore(context, rolledBack = false)
+            }
+            is RestoreJournal.Read.Found -> {
+                val previous = try {
+                    previousFromJournal(JSONObject(read.text))
+                } catch (e: Exception) {
+                    Timber.w(e, "Wiederherstellen abgebrochen, Journal nicht lesbar")
+                    runCatching { journal.delete() }
+                    com.cryptochecker.app.data.local.StorageRecoveryNotice.recordInterruptedRestore(context, rolledBack = false)
+                    return@withContext
+                }
+                // Welche Schritte schon liefen, ist unbekannt: alle zurückschreiben (gleicher Stand, beliebig oft anwendbar)
+                val complete = withContext(NonCancellable) {
+                    rollBack(previous, Step.entries.toSet(), IllegalStateException("Wiederherstellen abgebrochen"))
+                }
+                if (complete) runCatching { journal.delete() }
+                com.cryptochecker.app.data.local.StorageRecoveryNotice.recordInterruptedRestore(context, rolledBack = complete)
+            }
+        }
+    }
+
+    /**
+     * Journal-Inhalt: der gemerkte Stand im Format der Sicherung (Merkliste, Alarme, Portfolio, Portfolio-Alarme, Adressen,
+     * Favoriten, Einstellungen). Alarm-Zustand und letzte Guthaben gehen dabei nicht mit — wie bei einer Sicherung.
+     */
+    private fun journalJson(previous: PreviousState): JSONObject = JSONObject()
+        .put("format", RestoreJournal.FORMAT)
+        .put("version", RestoreJournal.VERSION)
+        .put("watches", JSONArray().apply { previous.watches.forEach { put(watchToJson(it)) } })
+        .put("alarms", JSONArray().apply { previous.alarms.forEach { put(alarmToJson(it)) } })
+        .put("portfolio", JSONArray().apply { previous.portfolio.forEach { put(PortfolioJson.txToJson(it)) } })
+        .put("portfolioAlarms", JSONArray().apply { previous.portfolioAlarms.forEach { put(PortfolioJson.alarmToJson(it)) } })
+        .put(
+            WatchedAddressRules.BACKUP_KEY,
+            WatchedAddressRules.toJson(WatchedAddressRules.backupEntries(previous.watchedAddresses.mapNotNull { it.toDomain() })),
+        )
+        .put("favorites", JSONObject().apply {
+            previous.favorites.forEach { (kind, items) -> put(kind.name, JSONArray(items.toList())) }
+        })
+        .put("settings", previous.settings)
+
+    /** Gegenstück zu [journalJson]. */
+    private fun previousFromJournal(root: JSONObject): PreviousState {
+        require(root.optString("format") == RestoreJournal.FORMAT) { "Kein Journal" }
+        val favorites = root.optJSONObject("favorites")
+        return PreviousState(
+            watches = root.optJSONArray("watches")?.let { a -> (0 until a.length()).map { jsonToWatch(a.getJSONObject(it)) } }.orEmpty(),
+            alarms = root.optJSONArray("alarms")?.let(AlarmJson::parse)?.items.orEmpty(),
+            portfolio = root.optJSONArray("portfolio")?.let(PortfolioJson::parseTxs)?.items.orEmpty(),
+            portfolioAlarms = root.optJSONArray("portfolioAlarms")?.let(PortfolioJson::parseAlarms)?.items.orEmpty(),
+            watchedAddresses = WatchedAddressRules.merge(emptyList(), WatchedAddressRules.fromJson(root.optJSONArray(WatchedAddressRules.BACKUP_KEY)))
+                .map { WatchedAddressEntity.from(it) },
+            favorites = FavoriteKind.entries.associateWith { kind ->
+                favorites?.optJSONArray(kind.name)?.let { arr -> (0 until arr.length()).mapNotNull { arr.opt(it) as? String }.toSet() }.orEmpty()
+            },
+            settings = root.optJSONObject("settings") ?: JSONObject(),
         )
     }
 
@@ -277,10 +397,13 @@ class BackupManager @Inject constructor(
     /**
      * Schreibt den gemerkten Stand der schon berührten Teile zurück (bestmöglich; Fehler dabei werden
      * an [cause] angehängt). Portfolio-Zeilen und Alarme kommen unverändert zurück (samt Alarm-Zustand).
+     * @return true = alles zurückgeschrieben (das Journal darf weg).
      */
-    private suspend fun rollBack(previous: PreviousState, touched: Set<Step>, cause: Throwable) {
+    private suspend fun rollBack(previous: PreviousState, touched: Set<Step>, cause: Throwable): Boolean {
+        var complete = true
         suspend fun attempt(what: String, block: suspend () -> Unit) {
             runCatching { block() }.onFailure {
+                complete = false
                 Timber.w(it, "Wiederherstellen: %s nicht zurückgesetzt", what)
                 if (it !== cause) cause.addSuppressed(it)
             }
@@ -303,6 +426,7 @@ class BackupManager @Inject constructor(
         // Auch nach dem Portfolio-Schritt: importHoldings leert den Bestand der Merkliste
         if (Step.WATCHLIST in touched) attempt("Merkliste") { writeWatchlist(previous.watches, previous.alarms) }
         Timber.w(cause, "Wiederherstellen fehlgeschlagen, bisheriger Stand zurückgeschrieben")
+        return complete
     }
 
     // ---------------- Datei ----------------

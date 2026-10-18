@@ -168,7 +168,7 @@
 
     <!-- Einstellungen › Markt-Meldungen -->
     <string name="settings_depeg_alarm">USDT डीपेग की सूचना</string>
-    <string name="settings_depeg_alarm_hint">जब USDT सीमा जितना 1 USD से हटता है, तो एक बार सूचना देता है (Kraken USDT/USD, Binance USDC/USDT)।</string>
+    <string name="settings_depeg_alarm_hint">जब USDT सीमा जितना 1 USD से हटता है, तो एक बार सूचना देता है (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT)।</string>
     <string name="settings_depeg_threshold">डीपेग सीमा</string>
     <string name="settings_fng_above">Fear &amp; Greed: इससे ऊपर सूचित करें</string>
     <string name="settings_fng_below">Fear &amp; Greed: इससे नीचे सूचित करें</string>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="explorer_bulk_show_all">Hiện tất cả (%1$d)</string>
+    <string name="log_box_title">Nhật ký</string>
+    <string name="watchlist_first_alarm_title">Đặt cảnh báo đầu tiên</string>
+    <string name="watchlist_first_alarm_text">Nhận thông báo ngay khi giá chạm mức bạn đặt.</string>
+</resources>

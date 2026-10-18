@@ -249,7 +249,7 @@ class TtsSpeaker @Inject constructor(
             return withContext(Dispatchers.Main) {
                 tts.setSpeechRate(speechRate.coerceIn(0.5f, 2.0f))
                 // Stimme in der App-Sprache, sofern installiert — sonst bleibt die Standardstimme.
-                val locale = context.resources.configuration.locales[0]
+                val locale = SpokenText.ttsLocale(context)
                 if (tts.isLanguageAvailable(locale) >= TextToSpeech.LANG_AVAILABLE) tts.language = locale
                 val mode = if (flush) TextToSpeech.QUEUE_FLUSH else TextToSpeech.QUEUE_ADD
                 val id = "cryptochecker-${utteranceCounter.incrementAndGet()}"

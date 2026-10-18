@@ -182,6 +182,7 @@ class SettingsRepository @Inject constructor(
         val showHttpLog = booleanPreferencesKey("show_http_log")
         val developerUnlocked = booleanPreferencesKey("developer_unlocked")
         val gestureHintSeen = booleanPreferencesKey("gesture_hint_seen")
+        val firstAlarmCardDismissed = booleanPreferencesKey("first_alarm_card_dismissed")
         // «zone_alerts» (Meldung «Marktphase gewechselt») gibt es nicht mehr; der Schlüssel bleibt unbenutzt liegen
         val fearGreedBelow = intPreferencesKey("fear_greed_below")
         val fearGreedAbove = intPreferencesKey("fear_greed_above")
@@ -278,6 +279,7 @@ class SettingsRepository @Inject constructor(
             showHttpLog = prefs[Keys.showHttpLog] ?: defaults.showHttpLog,
             developerUnlocked = prefs[Keys.developerUnlocked] ?: defaults.developerUnlocked,
             gestureHintSeen = prefs[Keys.gestureHintSeen] ?: defaults.gestureHintSeen,
+            firstAlarmCardDismissed = prefs[Keys.firstAlarmCardDismissed] ?: defaults.firstAlarmCardDismissed,
             fearGreedBelow = prefs[Keys.fearGreedBelow] ?: defaults.fearGreedBelow,
             fearGreedAbove = prefs[Keys.fearGreedAbove] ?: defaults.fearGreedAbove,
             indicatorAlerts = IndicatorAlertKind.entries
@@ -433,6 +435,8 @@ class SettingsRepository @Inject constructor(
 
     suspend fun setGestureHintSeen(seen: Boolean) = edit { it[Keys.gestureHintSeen] = seen }
 
+    suspend fun setFirstAlarmCardDismissed(dismissed: Boolean) = edit { it[Keys.firstAlarmCardDismissed] = dismissed }
+
     suspend fun setFearGreedBelow(value: Int) = edit { it[Keys.fearGreedBelow] = value.coerceIn(0, 100) }
 
     suspend fun setFearGreedAbove(value: Int) = edit { it[Keys.fearGreedAbove] = value.coerceIn(0, 100) }
@@ -556,7 +560,7 @@ class SettingsRepository @Inject constructor(
     /** «Beträge verbergen» im Portfolio und im Portfolio-Widget. */
     suspend fun setHidePortfolioAmounts(hidden: Boolean) = edit { it[Keys.hidePortfolioAmounts] = hidden }
 
-    /** «Portfolio in Systemsicherung» (PortfolioBackupMirror schreibt bzw. löscht die Kopie). */
+    /** «Portfolio in Systemsicherung» (PortfolioBackupMirror setzt bzw. entfernt den Merker für den Sicherungs-Agenten). */
     suspend fun setPortfolioSystemBackup(allowed: Boolean) = edit { it[Keys.portfolioSystemBackup] = allowed }
 
     /** Bestätigung nach dem ersten Alarm erledigt (nicht in der Sicherung). */

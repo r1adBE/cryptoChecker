@@ -281,7 +281,7 @@
   }
  ],
  "deSummary": {
-  "_comment": "Jahresübersicht DE (TaxExport.deYearSummary / deSummaryCsv): kurzfristig ≤ 1 Jahr (Gewinne, Verluste, netto), langfristig > 1 Jahr; Freigrenze § 23 EStG 600 € bis 2023, 1000 € ab 2024 (steuerfrei bei weniger); § 22 Nr. 3 256 €. EUR über eurRates (USD → EUR je Tag); eur false = ohne EUR-Kurse (Prüfung offen). Tausch (4) ist eine Veräusserung. 'gains' = gainsCsv (EUR, FIFO) mit Vermerk «swap».",
+  "_comment": "Jahresübersicht DE über TaxExport.yearSummary(…, TaxTemplate.DE, …) / summaryCsv: kurzfristig ≤ 1 Jahr (Gewinne, Verluste, netto), langfristig > 1 Jahr; Freigrenze § 23 EStG 600 € bis 2023, 1000 € ab 2024 (steuerfrei bei weniger); § 22 Nr. 3 256 €. EUR über eurRates (USD → EUR je Tag); eur false = ohne EUR-Kurse (Prüfung offen). Tausch (4) ist eine Veräusserung. 'gains' = gainsCsv (EUR, FIFO) mit Vermerk «swap». Zähler (…Count) werden als Merker der Posten geprüft: > 0 ↔ «unvollständig» bzw. «ohne Devisenkurs» bzw. Posten «ohne Haltedauer» vorhanden. 'labels' = Texte je TaxLine für summaryCsv.",
   "zone": "Europe/Berlin",
   "trades": [
    {
@@ -535,11 +535,13 @@
      "Net <= 1 year;800.00;720.00;",
      "Gains > 1 year;2500.00;2250.00;",
      "Losses > 1 year;0.00;0.00;",
+     "Net > 1 year;2500.00;2250.00;",
+     "Proceeds;22900.00;20610.00;",
      "Income from services;300.00;270.00;",
      "Orientation - no tax advice, no assessment",
+     "Orientation: Not taxable > 1 year;2500.00;2250.00;",
      "Orientation: Exemption limit private sales;;1000.00;below limit",
-     "Orientation: Exemption limit services;;256.00;limit reached",
-     "Orientation: Limits apply to all such income"
+     "Orientation: Exemption limit services;;256.00;limit reached"
     ]
    },
    {
@@ -584,11 +586,13 @@
      "Net <= 1 year;800.00;;",
      "Gains > 1 year;2500.00;;",
      "Losses > 1 year;0.00;;",
+     "Net > 1 year;2500.00;;",
+     "Proceeds;22900.00;;",
      "Income from services;300.00;;",
      "Orientation - no tax advice, no assessment",
-     "Orientation: Exemption limit private sales;;1000.00;not checkable, needs EUR values",
-     "Orientation: Exemption limit services;;256.00;not checkable, needs EUR values",
-     "Orientation: Limits apply to all such income"
+     "Orientation: Not taxable > 1 year;2500.00;;",
+     "Orientation: Exemption limit private sales;;1000.00;not checkable",
+     "Orientation: Exemption limit services;;256.00;not checkable"
     ]
    },
    {
@@ -633,12 +637,14 @@
      "Net <= 1 year;0.00;0.00;",
      "Gains > 1 year;0.00;0.00;",
      "Losses > 1 year;0.00;0.00;",
-     "Without holding period;5839.02;5255.12;holding period missing",
+     "Net > 1 year;0.00;0.00;",
+     "Without holding period;5839.02;5255.12;",
+     "Proceeds;22900.00;20610.00;",
      "Income from services;300.00;270.00;",
      "Orientation - no tax advice, no assessment",
-     "Orientation: Exemption limit private sales;;1000.00;not checkable, holding period missing",
-     "Orientation: Exemption limit services;;256.00;limit reached",
-     "Orientation: Limits apply to all such income"
+     "Orientation: Not taxable > 1 year;0.00;0.00;",
+     "Orientation: Exemption limit private sales;;1000.00;not checkable",
+     "Orientation: Exemption limit services;;256.00;limit reached"
     ]
    }
   ],
@@ -663,7 +669,22 @@
     2026,
     "1000"
    ]
-  ]
+  ],
+  "labels": {
+   "SHORT_GAINS": "Gains <= 1 year",
+   "SHORT_LOSSES": "Losses <= 1 year",
+   "SHORT_NET": "Net <= 1 year",
+   "LONG_GAINS": "Gains > 1 year",
+   "LONG_LOSSES": "Losses > 1 year",
+   "LONG_NET": "Net > 1 year",
+   "UNCLASSIFIED": "Without holding period",
+   "WITHDRAWAL_FEES": "Withdrawal fees",
+   "PROCEEDS": "Proceeds",
+   "INCOME": "Income from services",
+   "DE_LONG": "Not taxable > 1 year",
+   "DE_PRIVATE_LIMIT": "Exemption limit private sales",
+   "DE_INCOME_LIMIT": "Exemption limit services"
+  }
  },
  "withdrawalFeeInfo": {
   "_comment": "[B56] Auszahlungsgebühr in USDT/Fiat (Entscheid 17.10.2026): UK, US, CA, AU, JP nur Information (Zeile mit Vermerk, nicht in der Summe; UK HMRC CRYPTO22150), DE und Neutral unverändert in der Summe der Gewinne-CSV. Gewinn BTC 1020, Gebühr 25 USDT. Build 57: dazu Umbuchung ETH mit Gebühr 3 USDT — UK/US eine zweite Zeile nur zur Information (nicht im Einstand), DE/Neutral unverändert (Gebühr im Einstand, ETH nicht verkauft).",

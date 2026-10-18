@@ -35,6 +35,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.cryptochecker.app.BuildConfig
 import com.cryptochecker.app.R
 import com.cryptochecker.app.settings.AccentColor
 import com.cryptochecker.app.settings.AppSettings
@@ -358,8 +359,8 @@ internal fun settingsSearchItems(settings: AppSettings): List<SettingsSearchItem
     add("about.source", stringResource(R.string.about_source_code), about,
         SettingsSearchTarget.Page(SettingsPage.ABOUT, "about.source"))
     add("about.licenses", stringResource(R.string.about_licenses), about, SettingsSearchTarget.Page(SettingsPage.LICENSES))
-    // Entwickler nur, wenn freigeschaltet (wie die Zeile unter «Erweitert»)
-    if (settings.developerUnlocked) {
+    // Entwickler nur, wenn freigeschaltet und im Debug-Build (wie die Zeile unter «Erweitert»)
+    if (settings.developerUnlocked && BuildConfig.DEBUG) {
         val developer = stringResource(R.string.settings_section_developer)
         addPage(SettingsPage.DEVELOPER, developer)
         add("developer.http_log", stringResource(R.string.settings_http_log), developer,

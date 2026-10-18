@@ -9,8 +9,10 @@ on:
     - cron: '41 6 * * 3'   # Wednesdays 06:41 UTC
   workflow_dispatch:
 
-# Least privilege: only issues (the repository is public, reading needs no extra scope).
+# Least privilege: read the code (checkout) and manage the one issue. Failures are reported in the
+# issue and the run stays green; a red run means the check script itself failed.
 permissions:
+  contents: read
   issues: write
 
 concurrency:

@@ -129,11 +129,14 @@ object CsvImportParser {
             compareByDescending<Int> { i -> firstLine.count { it == candidates[i] } }.thenBy { it }
         ).map { candidates[it] }
         for (d in delimiters) {
-            val records = tokenize(clean, d)
-            for (h in 0 until minOf(HEADER_SEARCH, records.size)) {
-                val header = Header(records[h].cells)
+            // Für die Erkennung nur die ersten Zeilen zerlegen — eine grosse Datei mit falschem Trenner kostete sonst je
+            // Kandidat einen ganzen Durchlauf; zerlegt wird sie erst mit dem passenden Trenner ganz
+            val head = tokenize(clean, d, maxRecords = HEADER_SEARCH)
+            for (h in head.indices) {
+                val header = Header(head[h].cells)
                 val format = detect(header)
                 if (format != CsvImportFormat.UNKNOWN) {
+                    val records = tokenize(clean, d)
                     val override = zone ?: "UTC".takeIf { header.utcDate }
                     return build(
                         format, header, records.subList(h + 1, records.size), zoneFor(format, deviceZone, override), deviceZone,
@@ -181,7 +184,7 @@ object CsvImportParser {
     // ---------- Zerlegen ----------
 
     /** RFC-4180-Zerlegung («""» = «"», Umbruch in Anführungszeichen erlaubt); Zellen getrimmt, leere Zeilen weg. */
-    internal fun tokenize(text: String, delimiter: Char): List<Record> {
+    internal fun tokenize(text: String, delimiter: Char, maxRecords: Int = Int.MAX_VALUE): List<Record> {
         val out = ArrayList<Record>()
         var cells = ArrayList<String>()
         val cell = StringBuilder()
@@ -199,7 +202,8 @@ object CsvImportParser {
         }
         var i = 0
         val n = text.length
-        while (i < n) {
+        // Höchstens [maxRecords] Zeilen (Erkennung der Kopfzeile): danach nicht weiterlesen
+        while (i < n && out.size < maxRecords) {
             val c = text[i]
             when {
                 inQuotes && c == '"' && i + 1 < n && text[i + 1] == '"' -> { cell.append('"'); i++ }
@@ -212,7 +216,7 @@ object CsvImportParser {
             }
             i++
         }
-        if (cell.isNotEmpty() || cells.isNotEmpty()) endRecord()
+        if (out.size < maxRecords && (cell.isNotEmpty() || cells.isNotEmpty())) endRecord()
         return out
     }
 

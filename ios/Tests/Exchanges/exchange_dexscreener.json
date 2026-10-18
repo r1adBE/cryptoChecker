@@ -1,6 +1,6 @@
 {
   "exchange": "DexScreener",
-  "description": "Hand-written in the documented response format (no live capture possible in the build environment); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS).",
+  "description": "Hand-written in the documented response format (no live capture possible in the build environment); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set; liquidityUsd = pool liquidity in USD, basis of the alarm gate DEX_MIN_ALARM_LIQUIDITY_USD). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS).",
   "endpoints": {
     "single": "GET https://api.dexscreener.com/latest/dex/pairs/ethereum/0x11950d141EcB863F01007AdD7D1A342041227b58"
   },
@@ -21,6 +21,7 @@
         "last": 9.12e-06,
         "volQuote": 1234567.89,
         "change24hPercent": -3.29,
+        "liquidityUsd": 45678901.23,
         "bid": -1.0,
         "ask": -1.0,
         "exchangeTime": null

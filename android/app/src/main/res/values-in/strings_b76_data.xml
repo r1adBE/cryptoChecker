@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Build 76: USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <string name="portfolio_usdt_break">USDT anjlok – pasar di %1$s USD</string>
+    <string name="portfolio_usdt_via_usdc">USDT/USD melalui USDC/USDT (USDC = 1 diasumsikan)</string>
+    <string name="dex_low_liquidity_no_alarm">Likuiditas rendah – tanpa alarm</string>
+    <string name="dex_low_liquidity_alarm_hint">Pool ini memiliki likuiditas kurang dari 10.000 USD (atau tidak ada data). Jumlah kecil saja bisa menggerakkan harganya, jadi alarm tidak bisa dipasang di sini. Alarm yang ada tetap disimpan, tetapi baru berbunyi setelah likuiditas naik lagi.</string>
+    <string name="portfolio_csv_skip_duplicate_txid_different">ID transaksi sama dengan jumlah berbeda – periksa manual</string>
+    <string name="portfolio_csv_skip_staking_unpaired">entri staking tanpa entri lawan – periksa saldo</string>
+    <string name="portfolio_amount_bridged_stable">≈ termasuk %1$s (dijembatani)</string>
+</resources>

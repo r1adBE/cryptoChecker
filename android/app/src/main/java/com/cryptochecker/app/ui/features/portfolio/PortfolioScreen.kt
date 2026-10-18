@@ -2,6 +2,9 @@
 
 package com.cryptochecker.app.ui.features.portfolio
 
+import androidx.compose.foundation.lazy.rememberLazyListState
+import com.cryptochecker.app.ui.navigation.ScreenRoute
+import com.cryptochecker.app.ui.navigation.OnTabReselect
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -92,6 +95,10 @@ fun PortfolioScreen(
 ) {
     val transactions by viewModel.transactions.collectAsStateWithLifecycle()
     val watchedAddresses by viewModel.watchedAddresses.collectAsStateWithLifecycle()
+    // Stablecoins mit gebrückten Varianten (USDC.e …): Zeile mit «≈» ([AddressBalance.bridgedStables])
+    val bridgedStables = remember(watchedAddresses) {
+        com.cryptochecker.app.domain.portfolio.AddressBalance.bridgedStables(watchedAddresses)
+    }
     val summary by viewModel.summary.collectAsStateWithLifecycle()
     val prices by viewModel.prices.collectAsStateWithLifecycle()
     val refreshing by viewModel.refreshing.collectAsStateWithLifecycle()
@@ -155,6 +162,11 @@ fun PortfolioScreen(
     val scope = rememberCoroutineScope()
     val banner = rememberWatchlistBanner(scope)
     val reduceMotion = rememberReduceMotion()
+    val listState = rememberLazyListState()
+    // Erneutes Tippen auf den Tab «Portfolio»: an den Anfang der Liste (wie iOS)
+    OnTabReselect(ScreenRoute.Portfolio) {
+        if (reduceMotion) listState.scrollToItem(0) else listState.animateScrollToItem(0)
+    }
     // Adresse mit später aufgetauchter Überschneidung: einmal automatisch «Nur anzeigen» — sichtbar, mit «Rückgängig»
     val overlapNotice by viewModel.addressOverlapNotice.collectAsStateWithLifecycle()
     // Bei offenem Adressen-Blatt erst danach (das Banner läge hinter dem Blatt)
@@ -420,6 +432,7 @@ fun PortfolioScreen(
             ReadableInset { inset ->
                 CompositionLocalProvider(LocalHidePortfolioAmounts provides hideAmounts) {
                     LazyColumn(
+                        state = listState,
                         modifier = Modifier.fillMaxSize(),
                         // Unten Platz für den «+»-Knopf
                         contentPadding = PaddingValues(start = 16.dp + inset, top = 4.dp, end = 16.dp + inset, bottom = 96.dp),
@@ -539,6 +552,7 @@ fun PortfolioScreen(
                                     // Build 46: Börse des Kurses klein in der Zeile (nicht nur unter «Hinweise»)
                                     exchange = prices.sources[position.coin],
                                     viaBase = prices.viaBase[position.coin],
+                                    bridgedStable = bridgedStables[position.coin]?.joinToString(", "),
                                 )
                             }
                         }

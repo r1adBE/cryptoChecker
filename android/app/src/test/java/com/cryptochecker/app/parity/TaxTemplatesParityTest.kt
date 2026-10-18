@@ -55,10 +55,14 @@ class TaxTemplatesParityTest {
             transferTo = t["transferTo"] as String?,
             giftToSpouse = t["giftToSpouse"] == true,
             acquiredTime = t["acquiredTime"].num()?.toLong(),
-            // Build 47: Gebühr-Zeile nur mit Import-Herkunft
             imported = t["importKey"] != null,
-            // Zins (Lending): Notiz wie aus dem CSV-Import ([PortfolioTxEntity.toTrade])
-            interestIncome = t["type"] == "REWARD" && TaxEngines.interestReward(t["note"] as String?),
+            // Gebühr-Zeile und Zins: eigene Felder (Build 76); fehlen sie im Fixture, die frühere Regel (wie beim Wiederherstellen)
+            feeRow = (t["feeRow"] as Boolean?) ?: com.cryptochecker.app.domain.portfolio.LegacyStorageMigration.legacyFeeRow(
+                PortfolioTxType.fromName(t["type"] as String), t["importKey"] as String?, dec(t["price"]),
+            ),
+            interestIncome = (t["interest"] as Boolean?) ?: com.cryptochecker.app.domain.portfolio.LegacyStorageMigration.legacyInterest(
+                PortfolioTxType.fromName(t["type"] as String), t["note"] as String?,
+            ),
         )
     }
 

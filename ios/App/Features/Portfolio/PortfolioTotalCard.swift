@@ -127,6 +127,20 @@ struct PortfolioTotalCard: View {
                         .foregroundStyle(AppColors.onSurfaceVariant)
                         .fixedSize(horizontal: false, vertical: true)
                         .padding(.top, 2)
+                case .USDT_BREAK:
+                    // Bestätigter Einbruch: Werte rechnen mit dem Marktkurs — deutlich in Warnfarbe statt «angenommen»
+                    Text(L("portfolio_usdt_break", LocaleNumbers.decimal(note.reading?.price ?? 0, maxDecimals: 4)))
+                        .font(.footnote)
+                        .foregroundStyle(AppColors.error)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .padding(.top, 2)
+                case .VIA_USDC:
+                    // Kurs nur aus USDC/USDT: Herkunft nennen (USDC = 1 angenommen)
+                    Text(L("portfolio_usdt_via_usdc"))
+                        .font(.footnote)
+                        .foregroundStyle(AppColors.onSurfaceVariant)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .padding(.top, 2)
                 }
             }
             // Build 46: eine Veränderung direkt unter dem Gesamtwert — «↗ +412.95 CHF +1.85% · Heute»

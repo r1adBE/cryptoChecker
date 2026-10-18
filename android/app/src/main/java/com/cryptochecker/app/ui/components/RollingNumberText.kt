@@ -1,5 +1,9 @@
 package com.cryptochecker.app.ui.components
 
+import android.content.ContentResolver
+import android.database.ContentObserver
+import android.os.Handler
+import android.os.Looper
 import android.provider.Settings
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.EnterTransition
@@ -16,6 +20,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
@@ -184,14 +189,32 @@ private fun RollingRow(shown: String, up: Boolean, style: TextStyle, color: Colo
 
 /**
  * Animationen im System ausgeschaltet (Entwickleroption bzw. Bedienungshilfe
- * «Animationen entfernen»: Animator-Dauer 0)?
+ * «Animationen entfernen»: Animator-Dauer 0)? Beobachtet die Einstellung, damit ein Wechsel bei
+ * laufender App sofort gilt (vorher erst nach dem Neuaufbau des Bildschirms).
  */
 @Composable
 fun rememberReduceMotion(): Boolean {
     val context = LocalContext.current
-    return remember {
-        runCatching {
-            Settings.Global.getFloat(context.contentResolver, Settings.Global.ANIMATOR_DURATION_SCALE, 1f) == 0f
-        }.getOrDefault(false)
+    val resolver = context.contentResolver
+    var reduce by remember(resolver) { mutableStateOf(readReduceMotion(resolver)) }
+    DisposableEffect(resolver) {
+        val observer = object : ContentObserver(Handler(Looper.getMainLooper())) {
+            override fun onChange(selfChange: Boolean) {
+                reduce = readReduceMotion(resolver)
+            }
+        }
+        val registered = runCatching {
+            resolver.registerContentObserver(
+                Settings.Global.getUriFor(Settings.Global.ANIMATOR_DURATION_SCALE), false, observer
+            )
+        }.isSuccess
+        // Zwischen erstem Lesen und Anmelden geändert? Einmal nachlesen.
+        reduce = readReduceMotion(resolver)
+        onDispose { if (registered) resolver.unregisterContentObserver(observer) }
     }
+    return reduce
 }
+
+private fun readReduceMotion(resolver: ContentResolver): Boolean = runCatching {
+    Settings.Global.getFloat(resolver, Settings.Global.ANIMATOR_DURATION_SCALE, 1f) == 0f
+}.getOrDefault(false)

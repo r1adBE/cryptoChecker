@@ -93,7 +93,8 @@ struct SingleProvider: AppIntentTimelineProvider {
         let initial = Self.watch(for: configuration)
         // Kurse und Chart gleichzeitig holen (nach einem misslungenen Versuch erst nach
         // `WidgetRefresh.retryAfterMillis` wieder; die Merkliste nur nach gespeicherten Kursen neu zeichnen).
-        async let refreshed: Void = WidgetRefresh.refreshIfStale(deadline: 18, otherKinds: [WidgetData.watchlistKind])
+        async let refreshed: Void = WidgetRefresh.refreshIfStale(ownKind: WidgetData.singleKind,
+                                                                 otherKinds: [WidgetData.watchlistKind])
         async let chart: Sourced<[MarketCandle]>? = Self.candles(for: initial, range: configuration.range)
         _ = await refreshed
         let sourced = await chart
@@ -115,7 +116,8 @@ struct SingleProvider: AppIntentTimelineProvider {
             later.date = date
             return later
         }
-        return Timeline(entries: entries, policy: .after(WidgetData.nextReload))
+        // Normaler Takt; zählt im Tageszähler mit (`WidgetCadence.dailyReloadSoftCap`)
+        return Timeline(entries: entries, policy: .after(WidgetData.reload(kind: WidgetData.singleKind, wantsQuickRetry: false)))
     }
 
     private func entry(for configuration: SingleWidgetIntent, watch: Watch?) async -> SingleEntry {

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Build 76: Portfolio-Speicher, Sicherung, Steuer-Export, Sperre -->
+    <string name="storage_recovery_restore_action">Восстановить из копии</string>
+    <string name="storage_recovery_acknowledge">Понятно</string>
+    <string name="storage_recovery_restored_title">Сохранённые данные снова разблокированы</string>
+    <string name="storage_recovery_restored_message">Прежний ключ этого устройства снова открыл отложенные данные, и они вернулись. Сохранённое за это время осталось без изменений рядом.</string>
+    <string name="backup_restore_interrupted_title">Восстановление было прервано</string>
+    <string name="backup_restore_interrupted_rolled_back">Приложение было закрыто во время восстановления из копии. Прежние данные возвращены; из копии ничего не сохранено.</string>
+    <string name="backup_restore_interrupted_incomplete">Приложение было закрыто во время восстановления из копии, и прежние данные не удалось вернуть полностью. Проверьте список отслеживания и портфель или снова восстановите копию в разделе «%1$s» в настройках.</string>
+    <string name="backup_not_verified">Не удалось проверить файл копии после сохранения: при повторном чтении он отличается. Сохраните копию в новый файл.</string>
+    <string name="tax_line_at_old_speculation_limit">Приобретено до 1.03.2021 – удерживалось ≤ 1 года: необлагаемый предел спекулятивных сделок (§ 31 абз. 3 EStG, старая редакция)</string>
+    <string name="portfolio_tx_interest">Проценты (лендинг)</string>
+    <string name="portfolio_tx_interest_hint">Учитывается как доход при поступлении (Австрия). Для наград за стейкинг и аирдропов оставьте выключенным.</string>
+    <string name="app_lock_no_screen_lock">Настройте блокировку экрана, чтобы открыть портфель.</string>
+    <string name="app_lock_turn_off_action">Отключить блокировку портфеля</string>
+    <string name="app_lock_turn_off_confirm_title">Отключить блокировку портфеля?</string>
+    <string name="app_lock_turn_off_confirm_message">Без блокировки экрана портфель нельзя разблокировать. После отключения приложение снова показывает портфель без запроса. Когда блокировка экрана будет настроена, блокировку можно снова включить в настройках.</string>
+</resources>

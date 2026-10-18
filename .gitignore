@@ -35,3 +35,4 @@ GoogleService-Info.plist
 .env
 .env.*
 review_information/
+private_patterns.txt

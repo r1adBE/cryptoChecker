@@ -175,6 +175,8 @@ public prices). Pull requests are welcome, see
 
 MIT, see [`LICENSE`](LICENSE). Anyone may use, copy, modify and distribute the
 code, provided the copyright notice and the license text are kept.
+Portions derived from BitcoinChecker by mobnetic and Aneonex Software (MIT); their
+original copyright notices are kept in [`LICENSE`](LICENSE).
 Third-party licenses used by the apps (e.g. the Rubik font, SIL Open
 Font License 1.1) are listed in the apps under *About › Licenses*.
 Names, logos and trademarks of coins, tokens, stocks, exchanges and other third
@@ -184,4 +186,6 @@ are not covered by the MIT License.
 
 ## Contact
 
-Riad Work (r1AD) · riad.work@outlook.com · security issues: see [`SECURITY.md`](SECURITY.md)
+r1AD · riad.work@outlook.com · security issues: see [`SECURITY.md`](SECURITY.md) ·
+controller under data protection law (name and postal address): see the
+[privacy policy](https://r1adbe.github.io/cryptoChecker/privacy/)

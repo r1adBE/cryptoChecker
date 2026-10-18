@@ -158,6 +158,7 @@ class RefreshStats @Inject constructor(
                             .apply { m.reason?.let { put("reason", it.name) } }
                             .apply { m.pausedUntil?.let { put("pausedUntil", it) } }
                             .apply { m.pauseReason?.let { put("pauseReason", it.name) } }
+                            .apply { m.detail?.let { put("detail", it) } }
                     )
                 }
             })
@@ -194,6 +195,7 @@ class RefreshStats @Inject constructor(
                         reason = m.optString("reason").let { r -> RefreshFailure.entries.firstOrNull { it.name == r } },
                         pausedUntil = m.optLongOrNull("pausedUntil"),
                         pauseReason = m.optString("pauseReason").let { r -> RefreshFailure.entries.firstOrNull { it.name == r } },
+                        detail = m.optString("detail").takeIf { it.isNotEmpty() },
                     )
                 }
                 RefreshReport(

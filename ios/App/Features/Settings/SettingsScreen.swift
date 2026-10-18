@@ -54,8 +54,16 @@ struct SettingsScreen: View {
                     try? await Task.sleep(nanoseconds: SettingsHighlightTiming.mainNanos)
                     if mainHighlight == anchor { mainHighlight = nil }
                 }
+                // Tab «Einstellungen» noch einmal getippt: nach oben (bei aktiver Suche gibt es den Anker nicht)
+                .onChange(of: router.scrollToTop) { _, request in
+                    guard request?.tab == .settings else { return }
+                    withAnimation { proxy.scrollTo(Self.topId, anchor: .top) }
+                }
         }
     }
+
+    /// Ziel für «nach oben» (erste Karte).
+    private static let topId = "settings_top"
 
     private var page: some View {
         content
@@ -71,6 +79,10 @@ struct SettingsScreen: View {
             // K-10: «Aktualisierung ändern» im Alarm-Hinweis: gleich die Seite «Aktualisierung»
             .navigationDestination(isPresented: $router.showUpdateSettings) {
                 UpdatesSettingsPage()
+            }
+            // «Sicherung wiederherstellen» im Hinweis «Gespeicherte Daten liessen sich nicht entsperren»
+            .navigationDestination(isPresented: $router.showBackupSettings) {
+                BackupSettingsPage()
             }
             .animation(.spring(duration: 0.35), value: settings.developerUnlocked)
             // Auch nach der Rückkehr von einer Unterseite (Probe-Alarm) und aus den iOS-Einstellungen
@@ -96,6 +108,7 @@ struct SettingsScreen: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 12) {
                 generalSection
+                    .id(Self.topId)
                 appearanceSection
                 moreSection
                 SettingsCard {

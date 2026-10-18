@@ -1,5 +1,6 @@
 import BackgroundTasks
 import Foundation
+import os
 import WidgetKit
 
 /// Hintergrund-Aktualisierung über `BGTaskScheduler` — Ersatz für WorkManager.
@@ -161,27 +162,46 @@ enum BackgroundRefresh {
         // Massgebend ist die letzte Prüfung MIT allen Alarmen — das Widget prüft nur Kursalarme (`lastAlarmCheckAt`).
         if BackgroundSchedule.shouldSkip(trigger: .bgTask, lastFinishedAt: SharedStorage.lastAlarmCheckAt, now: startedAt) {
             CheckRunStore.log(.bgTask, .skipped, startedAt: startedAt)
+            AppLog.background.info("BG-Aufgabe übersprungen (Alarme eben erst geprüft)")
             guard zoneDue else {
                 completion.complete(success: true)
                 return
             }
-            // Kurse eben erst geprüft, Fear & Greed aber fällig: nur diese Prüfung
-            let zoneWork = Task { @MainActor in
-                await runZoneStep(settings: SharedStorage.loadSettings(), deadline: RefreshBudget(start: startedAt).deadline)
-                completion.complete(success: !Task.isCancelled)
-            }
+            // Kurse eben erst geprüft, Fear & Greed aber fällig: nur diese Prüfung. Den `expirationHandler` ZUERST
+            // setzen: iOS darf ihn sofort nach dem Start rufen; ein Handler, der erst nach dem Task gesetzt wird,
+            // könnte einen frühen Ablauf verpassen (dann meldete niemand das Ende rechtzeitig).
+            let zoneBox = TaskCancelBox()
             task.expirationHandler = {
-                zoneWork.cancel()
+                AppLog.background.notice("BG-Aufgabe abgelaufen (nur Fear & Greed)")
+                zoneBox.cancel()
                 scheduleRefresh(settings: SharedStorage.loadSettings(), fromNow: true)
                 completion.complete(success: false)
             }
+            zoneBox.set(Task { @MainActor in
+                await runZoneStep(settings: SharedStorage.loadSettings(), deadline: RefreshBudget(start: startedAt).deadline)
+                completion.complete(success: !Task.isCancelled)
+            })
             return
         }
         // Genau ein Eintrag je Lauf: vom Ablauf selbst oder aus dem `expirationHandler`
         let logGate = OnceGate()
         // Ergebnis der Kurse, sobald gespeichert — läuft danach die Zeit ab, zählt es trotzdem
         let priceBox = CheckResultBox()
-        let work = Task { @MainActor in
+        // Zeit abgelaufen: Arbeit abbrechen UND sofort das Ende melden — sonst beendet iOS die App.
+        // Der Ablauf meldet danach nicht noch einmal (`BackgroundTaskCompletion`). Nächste Runde zur
+        // Sicherheit noch einmal vormerken: eine schon vorgemerkte bleibt stehen (`scheduleRefresh` ohne replace).
+        // Gesetzt VOR dem Start der Arbeit: läuft die Zeit ab, bevor der Task angelegt ist, bricht die Box ihn
+        // gleich beim Anlegen ab (`TaskCancelBox.set`).
+        let workBox = TaskCancelBox()
+        task.expirationHandler = {
+            AppLog.background.notice("BG-Aufgabe abgelaufen nach \(TimeUtils.nowMillis - startedAt, privacy: .public) ms")
+            workBox.cancel()
+            scheduleRefresh(settings: SharedStorage.loadSettings(), fromNow: true)
+            if logGate.claim() { CheckRunStore.log(.bgTask, priceBox.get(), startedAt: startedAt) }
+            completion.complete(success: false)
+        }
+        AppLog.background.info("BG-Aufgabe gestartet")
+        workBox.set(Task { @MainActor in
             let settings = SharedStorage.loadSettings()
             let snapshot = SharedStorage.loadSnapshot()
             // Zeitbudget: iOS gibt der Aufgabe nur rund 30 s. Eine Endzeit gilt für ALLE Schritte (Kurse,
@@ -336,17 +356,9 @@ enum BackgroundRefresh {
             // Alles Geschriebene auf die Platte, bevor iOS die App wieder anhält
             SharedStorage.flushSnapshotWrites()
             if logGate.claim() { CheckRunStore.log(.bgTask, priceResult, startedAt: startedAt) }
+            AppLog.background.info("BG-Aufgabe beendet nach \(TimeUtils.nowMillis - startedAt, privacy: .public) ms, geprüft \(outcome.checked, privacy: .public), fehlgeschlagen \(outcome.failed, privacy: .public)")
             completion.complete(success: !Task.isCancelled)
-        }
-        // Zeit abgelaufen: Arbeit abbrechen UND sofort das Ende melden — sonst beendet iOS die App.
-        // Der Ablauf meldet danach nicht noch einmal (`BackgroundTaskCompletion`). Nächste Runde zur
-        // Sicherheit noch einmal vormerken: eine schon vorgemerkte bleibt stehen (`scheduleRefresh` ohne replace).
-        task.expirationHandler = {
-            work.cancel()
-            scheduleRefresh(settings: SharedStorage.loadSettings(), fromNow: true)
-            if logGate.claim() { CheckRunStore.log(.bgTask, priceBox.get(), startedAt: startedAt) }
-            completion.complete(success: false)
-        }
+        })
     }
 }
 
@@ -478,6 +490,32 @@ final class BackgroundTaskCompletion: @unchecked Sendable {
 
     func complete(success: Bool) {
         if gate.claim() { task.setTaskCompleted(success: success) }
+    }
+}
+
+/// Hält den Arbeits-Task einer Hintergrund-Aufgabe für den `expirationHandler`, der schon VOR dem Task gesetzt
+/// wird (thread-sicher; iOS ruft den Handler auf einem beliebigen Thread). Kommt der Abbruch, bevor der Task
+/// eingetragen ist, wird er beim Eintragen sofort abgebrochen.
+final class TaskCancelBox: @unchecked Sendable {
+    private let lock = NSLock()
+    private var task: Task<Void, Never>?
+    private var cancelled = false
+
+    func set(_ newTask: Task<Void, Never>) {
+        lock.lock()
+        let cancelNow = cancelled
+        if !cancelNow { task = newTask }
+        lock.unlock()
+        if cancelNow { newTask.cancel() }
+    }
+
+    func cancel() {
+        lock.lock()
+        cancelled = true
+        let current = task
+        task = nil
+        lock.unlock()
+        current?.cancel()
     }
 }
 

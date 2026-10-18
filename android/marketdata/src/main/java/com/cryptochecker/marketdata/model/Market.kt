@@ -245,6 +245,14 @@ abstract class Market(
      */
     open val pairListCombined: Boolean get() = false
 
+    /**
+     * true: Bei einzeln gelesenen Anfragen muss jede gelingen (nicht nur die erste) — für Börsen, deren
+     * Anfragen je eine eigene Hälfte des Angebots liefern (Binance Futures: USDⓈ-M und COIN-M). Sonst
+     * würde eine halbe Liste gespeichert und die andere Hälfte verschwände bis zum nächsten Abgleich;
+     * so bleibt die bisherige Liste stehen. iOS: `pairListAllCallsRequired`.
+     */
+    open val pairListAllCallsRequired: Boolean get() = false
+
     /** Adresse der Paarliste für Anfrage [call]; null = die Börse hat keine (feste Paare oder Suche). */
     open fun pairListAddress(call: Int): String? = null
 

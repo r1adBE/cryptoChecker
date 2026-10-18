@@ -48,8 +48,8 @@ struct AdvancedSettingsPage: View {
                 }
                 .settingsAnchor("advanced.coin_logos")
             }
-            // «Entwickler» erst nach 7 Tipps auf die Version (Seite «Über die App»)
-            if settings.developerUnlocked {
+            // «Entwickler» erst nach 7 Tipps auf die Version (Seite «Über die App»); nur im Debug-Build
+            if settings.developerUnlocked && DeveloperOptions.available {
                 SettingsCard {
                     SettingsNavRow(title: L("settings_section_developer"), icon: .system("hammer"),
                                    value: SettingsSummary.onOff(settings.showHttpLog)) {
@@ -59,4 +59,14 @@ struct AdvancedSettingsPage: View {
             }
         }
     }
+}
+
+/// Entwickleroptionen (HTTP-Protokoll) gibt es nur im Debug-Build, wie auf Android (BuildConfig.DEBUG):
+/// im Release bleiben Schalter, Suchtreffer und Protokollfeld verborgen.
+enum DeveloperOptions {
+    #if DEBUG
+    static let available = true
+    #else
+    static let available = false
+    #endif
 }

@@ -17,7 +17,7 @@
     <string name="portfolio_empty_title">暂无交易</string>
     <string name="portfolio_enable_ask_text">你的交易已保存。“投资组合”标签页会显示你的持仓及其价值。</string>
     <string name="portfolio_enable_ask_title">开启“投资组合”标签页？</string>
-    <string name="portfolio_enable_later_hint">交易已保存。你可以在“设置 › 高级 › 投资组合”中开启“投资组合”标签页。</string>
+    <string name="portfolio_enable_later_hint">交易已保存。你可以在“设置 › 投资组合”中开启“投资组合”标签页。</string>
     <string name="portfolio_enabled_banner">已开启投资组合，可在“投资组合”标签中找到。</string>
     <string name="portfolio_lock_reason">解锁投资组合</string>
     <string name="portfolio_locked_text">解锁后可查看持仓和价值。</string>

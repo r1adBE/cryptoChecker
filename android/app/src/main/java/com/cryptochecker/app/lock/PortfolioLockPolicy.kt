@@ -41,12 +41,16 @@ object PortfolioLockPolicy {
     /** Portfolio gerade gesperrt (Einstellung an und Sitzung nicht entsperrt)? */
     fun isLocked(lockSetting: Boolean, lockRequested: Boolean): Boolean = lockSetting && lockRequested
 
-    /** Nach der Rückkehr aus dem Hintergrund (seit [backgroundSince], 0 = nie) wieder sperren? */
+    /**
+     * Nach der Rückkehr aus dem Hintergrund (seit [backgroundSince], 0 = nie) wieder sperren? Beide Zeiten von der
+     * monotonen Uhr (Android `SystemClock.elapsedRealtime`, iOS Systemlaufzeit); liegt [now] dennoch vor
+     * [backgroundSince] (Uhr gesprungen), lieber sperren.
+     */
     fun relockAfterBackground(
         backgroundSince: Long,
         now: Long,
         limitMillis: Long = BACKGROUND_LIMIT_MILLIS,
-    ): Boolean = backgroundSince > 0L && now - backgroundSince > limitMillis
+    ): Boolean = backgroundSince > 0L && (now - backgroundSince > limitMillis || now < backgroundSince)
 
     /** Sichern verlangt Entsperren, wenn die Datei Portfolio-Daten enthält und gesperrt ist. */
     fun backupExportNeedsUnlock(locked: Boolean, hasPortfolioData: Boolean): Boolean = locked && hasPortfolioData

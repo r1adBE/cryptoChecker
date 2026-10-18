@@ -11,6 +11,9 @@ import java.util.concurrent.ConcurrentHashMap
  * Nachtruhe oder keine zustellbare Meldung → nichts tun, Alarm bleibt scharf. Sonst ZUERST
  * melden ([show]) und erst speichern ([mark]), wenn die Meldung bestätigt ist; unbestätigte
  * Meldungen werden frühestens nach der Abklingzeit wiederholt ([NotificationBudget.retryBlocked]).
+ * Lässt sich der Alarm danach nicht speichern (inzwischen bearbeitet, abgeschaltet oder gelöscht),
+ * wird die schon gezeigte Meldung wieder entfernt ([retract]) — sie gehörte zu einem Alarm, den es so
+ * nicht mehr gibt.
  */
 class AlarmDelivery {
     /** Alarm-Id → Zeitpunkt des unbestätigten Versuchs (nur im Speicher). */
@@ -25,6 +28,7 @@ class AlarmDelivery {
         canShow: () -> Boolean,
         show: suspend () -> Boolean,
         mark: suspend () -> Boolean,
+        retract: suspend () -> Unit = {},
     ): Boolean {
         if (holdAlarms) return false
         if (!QuietHours.mayFire(holdAlarms, canShow())) return false
@@ -36,7 +40,9 @@ class AlarmDelivery {
                 return@withContext false
             }
             unconfirmed.remove(alarmId)
-            mark()
+            val saved = mark()
+            if (!saved) retract()
+            saved
         }
     }
 }

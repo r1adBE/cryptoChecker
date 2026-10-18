@@ -16,8 +16,8 @@ import timber.log.Timber
  * - unverschlüsselt über das Android-SQLite wie bis Build 58 (Rückfall, der nächste Start versucht es erneut);
  * - gar nicht, solange der Keystore den Schlüssel einer verschlüsselten Datei gerade nicht herausgibt (Ausnahme;
  *   der nächste Zugriff versucht es erneut, verändert wird nichts).
- * War die verschlüsselte Datei ohne Schlüssel unlesbar, liegt sie beiseite und die App nennt das einmal
- * ([StorageRecoveryNotice]). Ein unverschlüsselter Rückfall steht unter Einstellungen › Sicherung, bis ein Start die
+ * War die verschlüsselte Datei ohne Schlüssel unlesbar, liegt sie beiseite und die App nennt das, bis der Nutzer es
+ * bestätigt ([StorageRecoveryNotice]); holt ein früherer Schlüssel sie beim nächsten Start zurück, nennt sie das. Ein unverschlüsselter Rückfall steht unter Einstellungen › Sicherung, bis ein Start die
  * Datei verschlüsselt ([DatabaseEncryptionNotice]).
  */
 class EncryptingOpenHelperFactory(
@@ -67,6 +67,8 @@ class EncryptingOpenHelperFactory(
             val helper = when (decision) {
                 is Decision.Encrypted -> {
                     if (decision.setAside) StorageRecoveryNotice.record(context, name)
+                    // Beiseitegelegte Datei mit früherem Schlüssel zurückgeholt: «wieder entsperrt» statt «nicht entsperrt»
+                    if (decision.restored) StorageRecoveryNotice.recordRestored(context, name)
                     SupportOpenHelperFactory(decision.passphrase).create(configuration)
                 }
                 Decision.Plaintext -> FrameworkSQLiteOpenHelperFactory().create(configuration)

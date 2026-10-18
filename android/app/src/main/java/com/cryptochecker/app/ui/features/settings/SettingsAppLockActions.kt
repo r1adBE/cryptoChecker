@@ -9,7 +9,7 @@ import com.cryptochecker.app.lock.PortfolioLockPolicy
 import kotlinx.coroutines.launch
 
 /**
- * «Portfolio in Systemsicherung»; die Kopie folgt sofort (PortfolioBackupMirror). Einschalten verlangt
+ * «Portfolio in Systemsicherung»; der Merker folgt sofort (PortfolioBackupMirror). Einschalten verlangt
  * Entsperren, solange das Portfolio gesperrt ist (PortfolioLockPolicy.systemBackupNeedsUnlock).
  */
 fun SettingsViewModel.setPortfolioSystemBackup(activity: androidx.fragment.app.FragmentActivity?, reason: String, allowed: Boolean) =

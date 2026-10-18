@@ -101,7 +101,9 @@ fun PortfolioExportDialog(
     val period = taxYear?.let { template.period(it) }
     var yearMenu by remember { mutableStateOf(false) }
     var taxKind by rememberSaveable { mutableStateOf<TaxExportKind?>(null) }
-    val taxTexts = taxCsvTexts(workCurrency)
+    // Daten in der Zeitzone der Vorlage (Neutral: Gerät) — in jeder CSV der Arbeitsunterlage genannt
+    val taxZone = template.zone()
+    val taxTexts = taxCsvTexts(workCurrency, taxZone)
     val templateName = stringResource(taxTemplateLabel(template))
     val methodLabel = taxMethodName(method)
     val yearLabel = taxYear?.let { template.label(it) }.orEmpty()
@@ -120,7 +122,7 @@ fun PortfolioExportDialog(
         stringResource(R.string.tax_export_method_overridden, methodLabel, taxMethodName(TaxMethod.of(costMethod)))
     } else null
     // «Daten in Ortszeit (Zone)» — Verlauf/Heute rechnen in UTC (Hinweis dort)
-    val zoneLine = stringResource(R.string.tax_export_year_local_zone, ZoneId.systemDefault().id)
+    val zoneLine = stringResource(R.string.tax_export_year_local_zone, taxZone.id)
     val gainsTitle = stringResource(R.string.tax_export_gains_title, yearLabel)
     val incomeTitle = stringResource(R.string.tax_export_income_title, yearLabel)
     val summaryTexts = taxSummaryTexts(template, yearLabel, workCurrency, taxYear)
@@ -168,6 +170,7 @@ fun PortfolioExportDialog(
             viewModel.export(
                 uri, holdingsEnd, workCurrency, holdingsTexts,
                 TaxExport.withChWealthNote(template, listOfNotNull(holdingsTitle, info, rulesLine, usdtNote, disclaimer, zoneLine), chWealthNote),
+                zone = taxZone,
             )
         }
     }
@@ -320,7 +323,7 @@ fun PortfolioExportDialog(
                     Text(
                         // Steuerjahr in Ortszeit (Verlauf/Heute in UTC) — Zone nennen
                         stringResource(R.string.tax_export_period, period.start.format(dates), period.end.format(dates)) + "\n" +
-                            stringResource(R.string.tax_export_year_local_zone, ZoneId.systemDefault().id),
+                            stringResource(R.string.tax_export_year_local_zone, template.zone().id),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )

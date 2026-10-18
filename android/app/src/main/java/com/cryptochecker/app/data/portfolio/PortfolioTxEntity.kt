@@ -25,7 +25,8 @@ import java.math.BigDecimal
  * [PortfolioDatabase.MIGRATION_1_2] dazu (alle optional); `transferFrom`, `transferTo`, `feeCoin`,
  * `feeCoinAmount`, `feeCoinPriceUsdt`, `importKey` (mit Index), `acquiredTime`, `toCoin`, `toAmount`,
  * `swapValueUsdt` (Tausch) und `importBatch` (CSV-Importlauf) mit [PortfolioDatabase.MIGRATION_2_3] (alle optional);
- * `giftToSpouse`, `linkedImportKey` und `importRestoreState` mit [PortfolioDatabase.MIGRATION_3_4].
+ * `giftToSpouse`, `linkedImportKey` und `importRestoreState` mit [PortfolioDatabase.MIGRATION_3_4]; `feeRow` und `interest`
+ * mit [PortfolioDatabase.MIGRATION_4_5].
  */
 @Entity(tableName = "portfolio_tx", indices = [Index(value = ["importKey"])])
 data class PortfolioTxEntity(
@@ -118,6 +119,21 @@ data class PortfolioTxEntity(
      * ([CsvRestoreState], JSON-Text über [PortfolioRestoreStateConverters]) für «Import rückgängig». Sonst null.
      */
     @ColumnInfo val importRestoreState: CsvRestoreState? = null,
+
+    /**
+     * Gebühr-Zeile (CSV «Fee»): eine Veräusserung zum Tageskurs ([com.cryptochecker.app.domain.portfolio.PortfolioLedger.isFeeDisposal]),
+     * gespeichert als Verkauf. Eigenes Feld seit Portfolio-Datenbank v5 — bis dahin aus «Verkauf zum Preis 0 mit
+     * Import-Herkunft» geschlossen ([com.cryptochecker.app.domain.portfolio.LegacyStorageMigration.legacyFeeRow]). Nur bei
+     * [PortfolioTxType.SELL].
+     */
+    @ColumnInfo(defaultValue = "0") val feeRow: Boolean = false,
+
+    /**
+     * Belohnung ist ein Zins (Lending) — AT: Einkunft beim Zufluss, Anschaffungskosten = Wert. Eigenes Feld seit v5 (CSV-Import
+     * setzt es, wo die Börse Zinsen ausweist; im Erfassen-Blatt umschaltbar) — bis dahin aus der Notiz geschlossen
+     * ([com.cryptochecker.app.domain.portfolio.LegacyStorageMigration.legacyInterest]). Nur bei [PortfolioTxType.REWARD].
+     */
+    @ColumnInfo(defaultValue = "0") val interest: Boolean = false,
 ) {
     fun toTrade(): PortfolioTrade = PortfolioTrade(
         id = id,
@@ -139,10 +155,10 @@ data class PortfolioTxEntity(
         toAmount = toAmount?.takeIf { type == PortfolioTxType.SWAP },
         swapValueUsdt = swapValueUsdt?.takeIf { type == PortfolioTxType.SWAP },
         giftToSpouse = giftToSpouse && type == PortfolioTxType.GIFT,
-        // Herkunft CSV: nur dann ist ein Verkauf zum Preis 0 eine Gebühr-Zeile ([com.cryptochecker.app.domain.portfolio.PortfolioLedger.isFeeDisposal])
         imported = !importKey.isNullOrBlank(),
-        // AT: Zins (Lending) statt Staking-Belohnung — Art aus der Notiz des Imports
-        interestIncome = type == PortfolioTxType.REWARD && com.cryptochecker.app.domain.portfolio.TaxEngines.interestReward(note),
+        // Gebühr-Zeile ([com.cryptochecker.app.domain.portfolio.PortfolioLedger.isFeeDisposal]) und Zins: eigene Felder
+        feeRow = feeRow && type == PortfolioTxType.SELL,
+        interestIncome = interest && type == PortfolioTxType.REWARD,
     )
 
     /** Beteiligte Coins: [coin] und beim Tausch [toCoin] (für Kursabfragen und Zählungen). */

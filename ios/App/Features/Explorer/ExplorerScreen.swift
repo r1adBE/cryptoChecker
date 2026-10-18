@@ -21,6 +21,8 @@ struct ExplorerScreen: View {
     @State var showPrecise: Bool
     @State var showBulk: Bool
     @State var showBulkList = false
+    /// Vorschau «Alle …-Paare» ganz aufgeklappt (sonst nur die ersten `bulkPreviewRows`).
+    @State var showAllBulkPairs = false
     /// Aktiver Schnellfilter von «Alle …-Paare»; nil heisst normale Reihenfolge.
     @State var bulkFilter: ExplorerQuickFilter?
     @State var confirmBulk = false
@@ -91,8 +93,8 @@ struct ExplorerScreen: View {
                         .transition(.opacity)
                 }
 
-                // Entwickleroption (Einstellungen → Entwickler): HTTP-Protokoll
-                if data.settings.showHttpLog && data.settings.developerUnlocked {
+                // Entwickleroption (Einstellungen → Entwickler): HTTP-Protokoll, nur im Debug-Build
+                if DeveloperOptions.available && data.settings.showHttpLog && data.settings.developerUnlocked {
                     ExplorerLogBox()
                         .padding(.top, 8)
                 }

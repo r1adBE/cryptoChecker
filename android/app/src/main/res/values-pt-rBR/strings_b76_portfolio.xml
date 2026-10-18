@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Build 76: Portfolio-Speicher, Sicherung, Steuer-Export, Sperre -->
+    <string name="storage_recovery_restore_action">Restaurar backup</string>
+    <string name="storage_recovery_acknowledge">Entendi</string>
+    <string name="storage_recovery_restored_title">Dados salvos desbloqueados novamente</string>
+    <string name="storage_recovery_restored_message">Uma chave anterior deste aparelho abriu de novo os dados deixados de lado, então eles voltaram. O que foi salvo nesse meio-tempo ficou inalterado ao lado.</string>
+    <string name="backup_restore_interrupted_title">A restauração foi interrompida</string>
+    <string name="backup_restore_interrupted_rolled_back">O app foi fechado durante a restauração de um backup. Seus dados anteriores foram recolocados; nada do backup foi mantido.</string>
+    <string name="backup_restore_interrupted_incomplete">O app foi fechado durante a restauração de um backup e os dados anteriores não puderam ser totalmente recolocados. Confira sua lista de observação e sua carteira, ou restaure o backup de novo em “%1$s” nas Configurações.</string>
+    <string name="backup_not_verified">Não foi possível verificar o arquivo de backup depois de salvo – ao ser lido de novo ele é diferente. Salve o backup em um arquivo novo.</string>
+    <string name="tax_line_at_old_speculation_limit">Adquirido antes de 1/3/2021 – mantido ≤ 1 ano: limite de isenção para operações especulativas (§ 31 (3) EStG, versão antiga)</string>
+    <string name="portfolio_tx_interest">Juros (empréstimo)</string>
+    <string name="portfolio_tx_interest_hint">Conta como renda ao ser recebido (Áustria). Deixe desligado para recompensas de staking e airdrops.</string>
+    <string name="app_lock_no_screen_lock">Configure um bloqueio de tela para abrir a carteira.</string>
+    <string name="app_lock_turn_off_action">Desativar bloqueio da carteira</string>
+    <string name="app_lock_turn_off_confirm_title">Desativar o bloqueio da carteira?</string>
+    <string name="app_lock_turn_off_confirm_message">Sem bloqueio de tela não é possível desbloquear a carteira. Desativado, o app volta a mostrar sua carteira sem perguntar. Depois de configurar um bloqueio de tela, você pode reativar o bloqueio nas Configurações.</string>
+</resources>

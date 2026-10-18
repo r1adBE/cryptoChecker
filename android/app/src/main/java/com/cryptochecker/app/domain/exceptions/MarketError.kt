@@ -4,6 +4,9 @@ import android.os.DeadSystemException
 import java.io.IOException
 import java.io.InterruptedIOException
 import java.util.concurrent.CancellationException
+import kotlinx.coroutines.TimeoutCancellationException
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
 
 /**
  * Oberklasse aller Fehler beim Abruf einer Börse. Die vier Konstruktoren entsprechen denen von
@@ -18,16 +21,21 @@ open class MarketError : Exception {
 }
 
 /**
- * Abbruch der Coroutine (auch von OkHttp gemeldet) und ein herunterfahrendes System dürfen nicht
- * als gewöhnlicher Börsenfehler enden: dann sofort weiterwerfen, sonst nichts tun.
+ * Abbruch der eigenen Coroutine (auch äusseres withTimeout) und ein herunterfahrendes System dürfen
+ * nicht als gewöhnlicher Börsenfehler enden: dann sofort weiterwerfen, sonst nichts tun. Eine
+ * abgelaufene INNERE Frist (TimeoutCancellationException, während die eigene Coroutine noch läuft)
+ * ist dagegen ein gewöhnlicher Fehler — sonst risse eine einzelne Teilanfrage, die scheitern darf,
+ * den ganzen Durchlauf mit (gleich wie [com.cryptochecker.app.data.remote.util.runCatchingCancellable]).
  */
-fun Exception.rethrowIfCritical() {
-    val mustPropagate = when (this) {
-        is CancellationException -> true
-        is DeadSystemException -> true
-        else -> false
+suspend fun Exception.rethrowIfCritical() {
+    when (this) {
+        is DeadSystemException -> throw this
+        is CancellationException -> {
+            // Selbst abgebrochen: wirft hier
+            currentCoroutineContext().ensureActive()
+            if (this !is TimeoutCancellationException) throw this
+        }
     }
-    if (mustPropagate) throw this
 }
 
 /** Ordnet einen beliebigen Fehler einer [MarketError]-Art zu (Zeitüberschreitung, Netz, unbekannt). */

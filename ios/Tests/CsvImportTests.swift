@@ -370,6 +370,8 @@ final class CsvImportTests: XCTestCase {
                     tx.feeCoin = t.feeCoin
                     tx.feeCoinAmountExact = t.feeCoinAmount
                     tx.importKey = t.importKey
+                    tx.feeRow = t.feeRow
+                    tx.interest = t.interest
                     tx.toCoin = t.toCoin
                     tx.toAmountExact = t.toAmount
                     tx.swapValueExact = t.swapValueUsdt

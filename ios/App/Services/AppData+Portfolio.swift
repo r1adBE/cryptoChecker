@@ -294,6 +294,21 @@ extension AppData {
         }, reloadWidgets: false)
     }
 
+    /// Wartende, nicht versiegelt gespeicherte Stände (Portfolio, Portfolio-Alarme) jetzt schreiben.
+    /// - Returns: true = nichts wartet mehr.
+    @discardableResult
+    func retryPendingPortfolioSaves() -> Bool {
+        guard portfolioSavePending else { return true }
+        var portfolioDone = true
+        // Nur ein vollständig gelesener Stand (sonst überschriebe er eine nicht lesbare Datei)
+        if portfolioIntact {
+            portfolioDone = PortfolioStore.save(portfolioFile, includeInBackup: settings.portfolioSystemBackup) == .saved
+        }
+        if SharedStorage.portfolioAlarmsPending { SharedStorage.saveSnapshot(snapshot) }
+        portfolioSavePending = !portfolioDone || SharedStorage.portfolioAlarmsPending
+        return !portfolioSavePending
+    }
+
     /// Stand zum Ändern: war die Datei nicht lesbar, zuerst neu lesen (z. B. jetzt entsperrt).
     func currentPortfolioFile() -> PortfolioFile {
         if !portfolioIntact {
@@ -320,8 +335,13 @@ extension AppData {
             guard PortfolioStore.preserveUnreadable(includeInBackup: settings.portfolioSystemBackup) else { return false }
             portfolioIntact = true
         }
-        // Erst schreiben, dann anzeigen: Scheitert das Schreiben, zeigt die Liste nichts, was nicht gespeichert ist
-        guard PortfolioStore.save(file, includeInBackup: settings.portfolioSystemBackup) else { return false }
+        // Erst schreiben, dann anzeigen: Scheitert das Schreiben, zeigt die Liste nichts, was nicht gespeichert ist.
+        // Ohne Schlüssel (nie Klartext): Stand im Speicher behalten und das nennen — das nächste Speichern schreibt ihn
+        switch PortfolioStore.save(file, includeInBackup: settings.portfolioSystemBackup) {
+        case .saved: portfolioSavePending = SharedStorage.portfolioAlarmsPending
+        case .needsKey: portfolioSavePending = true
+        case .failed: return false
+        }
         portfolioFile = file
         portfolio = PortfolioStore.newestFirst(file.transactions)
         // Portfolio-Widget mit den bekannten Kursen nachführen

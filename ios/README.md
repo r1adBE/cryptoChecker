@@ -159,7 +159,7 @@ Zuletzt dazugekommen:
   Glocke, Markt-Meldungen mit Blitz; nur «App zurücksetzen» bleibt in der Fehlerfarbe. Die Themenfarbe bleibt für
   Titel-Striche, Schalter und Auswahl.
 - **USDT zum Marktkurs** (wie Android, Owner-Entscheid Okt. 2026): USDT bleibt die interne Rechenwährung, in Fiat gilt
-  sein Marktkurs USDT/USD: live die Messung von `DepegAlarmCheck` (Kraken USDT/USD, Binance USDC/USDT; gemessen, sobald
+  sein Marktkurs USDT/USD: live die Messung von `DepegAlarmCheck` (Kraken USDT/USD, Coinbase USDT-USD, Binance USDC/USDT nur als dritte Quelle; Einbruch nur bestätigt, `DepegAlarm.measure`; gemessen, sobald
   ein Portfolio da ist, auch ohne Depeg-Alarm; `DepegAlarmCheck.liveUsdtUsd`, höchstens 6 Std. alt), für vergangene
   Tage der Kraken-Tagesschluss USDTZUSD (`PortfolioHistorySource.usdtUsdDaily`, 12 h gemerkt). Gesamtkarte, Zeilen,
   Wertverlauf, «7 T»/«1 J», Widget, Portfolio-Alarme, «≈ Umrechnung», Kurse eigener Börsen in USD/Fiat, Steuer- und
@@ -618,7 +618,8 @@ iOS erlaubt einiges nicht, was die Android-App kann:
 - **Widgets** werden über den Startbildschirm hinzugefügt (lange drücken, «+», Crypto Checker); iOS
   aktualisiert sie nach eigenem Zeitplan.
 - **Alarmton:** Eigene Audiodateien erlaubt iOS für Mitteilungen nicht. Zur Wahl stehen der
-  Standardton und vier mitgelieferte Töne (`App/Resources/Sounds/*.wav`).
+  Standardton und vier mitgelieferte Töne (`App/Resources/Sounds/*.wav`). Die Töne sind selbst erzeugt
+  (`tools/gen_alarm_sounds.py`, Sinus-Teiltöne, kein Fremdmaterial) und gemeinfrei (CC0 1.0).
 
 ## Sicherungen
 

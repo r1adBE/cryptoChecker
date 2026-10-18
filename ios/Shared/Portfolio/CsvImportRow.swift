@@ -42,6 +42,10 @@ enum CsvImportSkipReason: String {
     case POSSIBLE_DUPLICATE
     /// Mehrere Geschäfte in derselben Sekunde, nicht eindeutig trennbar (Binance: mehrere Coins je Seite) — wie Android.
     case AMBIGUOUS_GROUP
+    /// Kraken-Zeile mit schon gesehener txid, aber anderer Menge — nicht still verwerfen, von Hand prüfen. Wie Android.
+    case DUPLICATE_TXID_DIFFERENT
+    /// Kraken-Ein-/Auszahlung einer Staking-Variante («ETH2.S», «DOT.S») ohne Gegenbuchung — Bestand prüfen. Wie Android.
+    case STAKING_UNPAIRED
 }
 
 /// Übersprungene Zeile; `line` = Zeilennummer in der Datei (1 = erste Zeile).

@@ -380,9 +380,14 @@ class PhemexScales(
         @Volatile
         var store: Store? = null
             set(value) {
-                field = value
-                diskChecked = false
+                synchronized(lock) {
+                    field = value
+                    diskChecked = false
+                }
             }
+
+        /** Sperre für [held] und [diskChecked] ([current]). */
+        private val lock = Any()
 
         @Volatile
         private var held: PhemexScales = PhemexScales()
@@ -396,17 +401,23 @@ class PhemexScales(
          * [store] versuchen. Neue Faktoren aus der Produktliste werden sofort abgelegt.
          */
         var current: PhemexScales
+            // Unter einer Sperre (wie iOS): Sonst überschriebe ein gleichzeitiges erstes Lesen von der Ablage
+            // die eben aus der Produktliste gesetzten, neueren Faktoren
             get() {
-                val now = held
-                if (now.loaded || diskChecked) return now
-                diskChecked = true
-                val fromDisk = store?.load()?.let { decode(it) } ?: return now
-                held = fromDisk
-                return fromDisk
+                synchronized(lock) {
+                    val now = held
+                    if (now.loaded || diskChecked) return now
+                    diskChecked = true
+                    val fromDisk = store?.load()?.let { decode(it) } ?: return now
+                    held = fromDisk
+                    return fromDisk
+                }
             }
             set(next) {
-                held = next
-                if (next.loaded) store?.save(next.encode())
+                synchronized(lock) {
+                    held = next
+                    if (next.loaded) store?.save(next.encode())
+                }
             }
 
         /** Gegenstück zu [encode]; andere Version, unlesbar oder ganz ohne Angaben → null (dann neu laden). */

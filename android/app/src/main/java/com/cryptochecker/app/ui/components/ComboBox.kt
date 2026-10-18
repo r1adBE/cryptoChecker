@@ -8,8 +8,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
@@ -37,6 +39,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.painterResource
@@ -46,13 +50,21 @@ import androidx.compose.ui.semantics.customActions
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
 import com.cryptochecker.app.ui.theme.AppColors
 
-/** Höhe einer Zeile der Aufklappliste (zugleich Tippfläche des Sterns). */
+/** Mindesthöhe einer Zeile der Aufklappliste (zugleich Tippfläche des Sterns). */
 private val RowHeight = 48.dp
+
+/** Breite der Aufklappliste auf breiten Bildschirmen; schmale bekommen den verfügbaren Platz. */
+private val MaxListWidth = 400.dp
+
+/** Abstand der Liste zum Bildschirmrand auf schmalen Geräten (je Seite 16 dp). */
+private val ListScreenMargin = 32.dp
 
 /** Höchstens so viele Zeilen sichtbar, darüber wird gerollt. */
 private const val MAX_VISIBLE_ROWS = 10
@@ -221,22 +233,36 @@ private fun ComboList(
     onToggleFavorite: ((String) -> Unit)?,
 ) {
     val rows = entries.size.coerceIn(1, MAX_VISIBLE_ROWS)
+    // Feste Masse bleiben nötig (LazyColumn kennt keine Intrinsics), sie folgen aber Bildschirm
+    // und Schriftgrösse: bei 200 % wächst die Zeile mit, auf schmalen Geräten passt die Liste.
+    val screenWidth = LocalConfiguration.current.screenWidthDp.dp
+    val listWidth = minOf(MaxListWidth, (screenWidth - ListScreenMargin).coerceAtLeast(RowHeight * 3))
+    val rowHeight = comboRowHeight()
     LazyColumn(
         state = state,
         modifier = Modifier
             .simpleVerticalScrollbar(state = state)
-            .size(400.dp, RowHeight * rows),
+            .width(listWidth)
+            .height(rowHeight * rows),
     ) {
         items(entries) { entry ->
             ComboRow(
                 entry = entry,
                 selected = entry.index == selectedIndex,
                 favorite = entry.text in favorites,
+                rowHeight = rowHeight,
                 onChoose = onChoose,
                 onToggleFavorite = onToggleFavorite,
             )
         }
     }
+}
+
+/** Zeilenhöhe: eine Textzeile bodyLarge plus Innenabstand, nie unter 48 dp (wächst mit der Schrift). */
+@Composable
+private fun comboRowHeight(): Dp {
+    val lineHeight = with(LocalDensity.current) { MaterialTheme.typography.bodyLarge.lineHeight.toDp() }
+    return maxOf(RowHeight, lineHeight + 16.dp)
 }
 
 /**
@@ -248,6 +274,7 @@ private fun ComboRow(
     entry: ComboEntry,
     selected: Boolean,
     favorite: Boolean,
+    rowHeight: Dp,
     onChoose: (Int) -> Unit,
     onToggleFavorite: ((String) -> Unit)?,
 ) {
@@ -256,7 +283,7 @@ private fun ComboRow(
 
     var rowModifier = Modifier
         .fillMaxWidth()
-        .height(RowHeight)
+        .heightIn(min = rowHeight)
     if (selected) rowModifier = rowModifier.background(AppColors.accentTint(0.3f))
     rowModifier = rowModifier
         .semantics {
@@ -284,6 +311,9 @@ private fun ComboRow(
         Text(
             text = entry.text,
             style = MaterialTheme.typography.bodyLarge,
+            // Eine Zeile mit «…»: die Listenhöhe rechnet mit genau einer Textzeile je Eintrag
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
             modifier = Modifier.weight(1f),
         )
         when {

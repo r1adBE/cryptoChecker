@@ -168,7 +168,7 @@
 
     <!-- Einstellungen › Markt-Meldungen -->
     <string name="settings_depeg_alarm">Báo khi USDT mất neo</string>
-    <string name="settings_depeg_alarm_hint">Báo một lần khi USDT lệch khỏi 1 USD theo ngưỡng (Kraken USDT/USD, Binance USDC/USDT).</string>
+    <string name="settings_depeg_alarm_hint">Báo một lần khi USDT lệch khỏi 1 USD theo ngưỡng (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
     <string name="settings_depeg_threshold">Ngưỡng mất neo</string>
     <string name="settings_fng_above">Fear &amp; Greed: báo khi trên</string>
     <string name="settings_fng_below">Fear &amp; Greed: báo khi dưới</string>

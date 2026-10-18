@@ -127,7 +127,18 @@ enum PortfolioPriceSource {
                 Self.isSymbol(coin) && coin != Self.stable && (force || !Self.isFresh(coin, now: now))
             }
             guard !toFetch.isEmpty else { return }
-            let batch = await Self.binanceBatch(toFetch)
+            // Binance-Ticker nur für denselben Token (Namen der Merkliste, K-8); sonst Merklisten-Paar/Kerzen
+            let identity = TokenIdentityStore.shared
+            let watchNames = PortfolioPriceIdentity.watchNames(
+                toFetch,
+                watches: SharedStorage.loadSnapshot().watches.map {
+                    PortfolioPriceIdentity.WatchName(base: $0.baseAsset,
+                                                     name: identity.pairName(marketKey: $0.marketKey, base: $0.baseAsset),
+                                                     disabled: $0.disabled)
+                })
+            let binanceCoins = PortfolioPriceIdentity.binanceTickerCoins(toFetch, watchNames: watchNames,
+                                                                         binanceName: { identity.binanceName($0) })
+            let batch = await Self.binanceBatch(binanceCoins)
             var fetched = batch.prices
             // Nicht bei Binance: zuerst ein Merklisten-Paar an einer anderen Börse, dann die Kerze
             let notListed = toFetch.filter { fetched[$0] == nil }

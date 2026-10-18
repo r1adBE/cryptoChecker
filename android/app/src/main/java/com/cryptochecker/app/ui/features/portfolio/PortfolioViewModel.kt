@@ -183,7 +183,7 @@ class PortfolioViewModel @Inject constructor(
      * ([PortfolioStables.usdtTo], USDT zum Marktkurs; ohne Messung × 1). null = kein Devisenkurs.
      */
     val displayFxRate: StateFlow<Double?> = combine(_fxRate, liveUsdtUsd) { fx, live ->
-        com.cryptochecker.app.domain.portfolio.PortfolioStables.usdtTo(fx, com.cryptochecker.app.domain.portfolio.PortfolioStables.usdtUsd(live))
+        com.cryptochecker.app.domain.portfolio.PortfolioStables.usdtTo(fx, com.cryptochecker.app.domain.portfolio.PortfolioStables.usdtUsdLive(live))
     }.distinctUntilChanged().stateIn(viewModelScope, SharingStarted.Eagerly, null)
 
     /**

@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 import UniformTypeIdentifiers
+import CryptoKit
 
 /// Sichern und Wiederherstellen: Merkliste, Alarme, Favoriten, Portfolio und
 /// Einstellungen als eine JSON-Datei, die der Nutzer selbst ablegt — wie `BackupManager.kt`.
@@ -67,7 +68,9 @@ enum BackupManager {
         BackupCrypto.json(try BackupCrypto.encrypt(plain, password: password))
     }
 
-    /// Lesbares JSON der Sicherung (Merkliste, Alarme, Favoriten, Einstellungen, Portfolio).
+    /// Lesbares JSON der Sicherung (Merkliste, Alarme, Favoriten, Einstellungen, Portfolio). Ein Stand: alles wird in einem
+    /// Durchgang auf dem Main Actor aus `AppData` gelesen — keine Änderung kann dazwischen kommen (wie Android, dort je
+    /// Datenbank eine Lesetransaktion).
     @MainActor
     static func plainExportData(_ data: AppData) throws -> Data {
         let snapshot = data.snapshot
@@ -176,9 +179,11 @@ enum BackupManager {
     /// Anzahl aus `invalidEntries`); sind es mehr, bricht der Import ab, bevor etwas ersetzt wird.
     /// `encrypted` = Sicherung mit Passwort; ohne schaltet sie die Portfolio-Sperre nicht aus
     /// (`BackupRestorePolicy`, Ergebnis `appLockKept`).
+    /// `journal`: vor dem ersten Schreiben den bisherigen Stand versiegelt merken (`RestoreJournal`) — aus beim Zurückrollen
+    /// eines abgebrochenen Laufs selbst.
     @MainActor
     static func restore(_ json: Data, into data: AppData, acceptInvalid: Int = 0,
-                        encrypted: Bool = false) throws -> (watches: Int, alarms: Int, appLockKept: Bool) {
+                        encrypted: Bool = false, journal: Bool = true) throws -> (watches: Int, alarms: Int, appLockKept: Bool) {
         guard let root = try JSONSerialization.jsonObject(with: json) as? [String: Any],
               root["format"] as? String == format
         else { throw Failure.notABackup }
@@ -255,6 +260,8 @@ enum BackupManager {
         let oldWatchedIntact = data.watchedAddressIntact
         let watched = watchedEntries(root)
 
+        // Journal vor dem ersten Schreiben: bricht die App mittendrin ab, rollt der nächste Start zurück (wie Android)
+        if journal, let previous = try? plainExportData(data) { RestoreJournal.write(previous) }
         var steps = RestoreSteps()
         do {
             steps.run({
@@ -282,11 +289,51 @@ enum BackupManager {
             }
         } catch {
             steps.rollBack()
+            if journal { RestoreJournal.delete() }
             throw error
+        }
+        if journal {
+            RestoreJournal.delete()
+            // Gespeicherte Daten liessen sich nicht entsperren (`StorageRecoveryNotice`): mit dieser Sicherung erledigt
+            StorageRecoveryNotice.acknowledge(.setAside)
         }
         // Kurs-Mitteilungen der bisherigen Paare erst nach Erfolg entfernen (beim Rückrollen bleiben sie)
         old.watches.forEach { Notifier.cancelPrice($0.id) }
         return (watches.count, alarms.count, lock.keptOn)
+    }
+
+    /// Beim Start: Liegt ein Journal (`RestoreJournal`) da, ist ein Wiederherstellen abgebrochen — den Stand davor
+    /// zurückschreiben und das nennen (`StorageRecoveryNotice.recordInterruptedRestore`). Wie Android.
+    @MainActor
+    static func recoverInterruptedRestore(_ data: AppData) {
+        switch RestoreJournal.read() {
+        case .absent, .unavailable:
+            return
+        case .unreadable:
+            RestoreJournal.delete()
+            StorageRecoveryNotice.recordInterruptedRestore(rolledBack: false)
+        case .found(let json):
+            // Eigener Stand dieses Geräts: vertrauenswürdig (Sperre wie gemerkt), ungültige Einträge gibt es darin nicht
+            let rolledBack = (try? restore(json, into: data, acceptInvalid: .max, encrypted: true, journal: false)) != nil
+            RestoreJournal.delete()
+            StorageRecoveryNotice.recordInterruptedRestore(rolledBack: rolledBack)
+        }
+    }
+
+    /// Eben geschriebene Sicherungsdatei zurücklesen und mit `expected` vergleichen (Grösse und SHA-256) — wie Android
+    /// `BackupVerification`. nil = stimmt; sonst die Abweichung (fürs Protokoll).
+    static func verifyWritten(_ url: URL, expected: Data) -> String? {
+        let scoped = url.startAccessingSecurityScopedResource()
+        defer { if scoped { url.stopAccessingSecurityScopedResource() } }
+        guard let back = try? Data(contentsOf: url) else { return "nicht lesbar" }
+        return verify(written: expected, readBack: back)
+    }
+
+    /// Reine Prüfung (Tests): gleiche Grösse und gleicher SHA-256.
+    static func verify(written: Data, readBack: Data) -> String? {
+        if readBack.count != written.count { return "Grösse \(readBack.count) statt \(written.count) Bytes" }
+        if SHA256.hash(data: readBack) != SHA256.hash(data: written) { return "Inhalt weicht ab (SHA-256)" }
+        return nil
     }
 
     // MARK: Lesen mit Typ-Toleranz (wie optInt/optBoolean von org.json)

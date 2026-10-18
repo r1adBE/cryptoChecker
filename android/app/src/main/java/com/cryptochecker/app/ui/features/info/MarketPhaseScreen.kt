@@ -1,5 +1,7 @@
 package com.cryptochecker.app.ui.features.info
 
+import com.cryptochecker.app.ui.navigation.ScreenRoute
+import com.cryptochecker.app.ui.navigation.OnTabReselect
 import com.cryptochecker.app.ui.components.TabTitle
 import com.cryptochecker.app.ui.components.DataStatusPill
 import com.cryptochecker.app.ui.components.DataStatusTone
@@ -137,6 +139,10 @@ fun MarketPhaseScreen(
 
     // Unter «Jetzt» zwei Zeilen zu den Unterseiten «Einordnung» und «Daten» (G-10)
     val scrollState = rememberScrollState()
+    // Erneutes Tippen auf den Tab «Markt»: an den Anfang (wie iOS)
+    OnTabReselect(ScreenRoute.MarketPhase) {
+        if (motion) scrollState.animateScrollTo(0) else scrollState.scrollTo(0)
+    }
     // Sprung von aussen (Mitteilung «Wirtschaftstermine»): Hinweis oben («Jetzt», Termin in ±2 h)
     // oder auf der Unterseite «Daten» — entschieden, sobald die Daten stehen
     val jump = MarketRegister.jump

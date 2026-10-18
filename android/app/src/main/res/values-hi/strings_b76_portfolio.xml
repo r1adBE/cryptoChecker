@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Build 76: Portfolio-Speicher, Sicherung, Steuer-Export, Sperre -->
+    <string name="storage_recovery_restore_action">बैकअप पुनर्स्थापित करें</string>
+    <string name="storage_recovery_acknowledge">समझ गया</string>
+    <string name="storage_recovery_restored_title">सहेजा गया डेटा फिर से अनलॉक हुआ</string>
+    <string name="storage_recovery_restored_message">इस डिवाइस की एक पुरानी कुंजी ने अलग रखा गया डेटा फिर से खोल दिया, इसलिए वह वापस आ गया है। इस बीच सहेजा गया डेटा बिना बदलाव के उसके पास रखा है।</string>
+    <string name="backup_restore_interrupted_title">पुनर्स्थापना बीच में रुक गई</string>
+    <string name="backup_restore_interrupted_rolled_back">बैकअप पुनर्स्थापित करते समय ऐप बंद हो गया। आपका पिछला डेटा वापस रख दिया गया है; बैकअप से कुछ भी नहीं रखा गया।</string>
+    <string name="backup_restore_interrupted_incomplete">बैकअप पुनर्स्थापित करते समय ऐप बंद हो गया और पिछला डेटा पूरी तरह वापस नहीं रखा जा सका। कृपया वॉचलिस्ट और पोर्टफ़ोलियो जाँचें, या सेटिंग्स में “%1$s” में बैकअप फिर से पुनर्स्थापित करें।</string>
+    <string name="backup_not_verified">सहेजने के बाद बैकअप फ़ाइल की पुष्टि नहीं हो सकी – वापस पढ़ने पर वह अलग है। कृपया बैकअप किसी नई फ़ाइल में सहेजें।</string>
+    <string name="tax_line_at_old_speculation_limit">1 मार्च 2021 से पहले अर्जित – ≤ 1 वर्ष रखा: सट्टा लेनदेन की छूट सीमा (§ 31 (3) EStG पुराना संस्करण)</string>
+    <string name="portfolio_tx_interest">ब्याज (लेंडिंग)</string>
+    <string name="portfolio_tx_interest_hint">प्राप्ति पर आय के रूप में गिना जाता है (ऑस्ट्रिया)। स्टेकिंग पुरस्कारों और एयरड्रॉप के लिए बंद रखें।</string>
+    <string name="app_lock_no_screen_lock">पोर्टफ़ोलियो खोलने के लिए स्क्रीन लॉक सेट करें।</string>
+    <string name="app_lock_turn_off_action">पोर्टफ़ोलियो लॉक बंद करें</string>
+    <string name="app_lock_turn_off_confirm_title">पोर्टफ़ोलियो लॉक बंद करें?</string>
+    <string name="app_lock_turn_off_confirm_message">स्क्रीन लॉक के बिना पोर्टफ़ोलियो अनलॉक नहीं हो सकता। बंद करने पर ऐप बिना पूछे फिर से पोर्टफ़ोलियो दिखाएगा। स्क्रीन लॉक सेट होने के बाद आप सेटिंग्स में लॉक फिर से चालू कर सकते हैं।</string>
+</resources>

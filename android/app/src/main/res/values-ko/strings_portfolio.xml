@@ -17,7 +17,7 @@
     <string name="portfolio_empty_title">아직 거래가 없습니다</string>
     <string name="portfolio_enable_ask_text">거래가 저장되었습니다. 포트폴리오 탭에서 보유분과 그 가치를 볼 수 있습니다.</string>
     <string name="portfolio_enable_ask_title">포트폴리오 탭을 켤까요?</string>
-    <string name="portfolio_enable_later_hint">거래가 저장되었습니다. 포트폴리오 탭은 설정 › 고급 › 포트폴리오에서 켤 수 있습니다.</string>
+    <string name="portfolio_enable_later_hint">거래가 저장되었습니다. 포트폴리오 탭은 설정 › 포트폴리오에서 켤 수 있습니다.</string>
     <string name="portfolio_enabled_banner">포트폴리오를 켰습니다. 포트폴리오 탭에서 볼 수 있습니다.</string>
     <string name="portfolio_lock_reason">포트폴리오 잠금 해제</string>
     <string name="portfolio_locked_text">보유 자산과 가치를 보려면 잠금을 해제하세요.</string>

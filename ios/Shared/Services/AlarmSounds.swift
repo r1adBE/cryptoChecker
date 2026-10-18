@@ -3,7 +3,8 @@ import UserNotifications
 
 /// Alarmton (#202). iOS spielt Mitteilungstöne nur aus dem App-Bundle ab —
 /// eigene Audiodateien sind nicht möglich. Deshalb eine kleine Auswahl
-/// mitgelieferter Töne (`App/Resources/Sounds/*.wav`, je unter 2 s).
+/// mitgelieferter Töne (`App/Resources/Sounds/*.wav`, je unter 2 s). Sie liegen auch im Bundle der
+/// Widget-Erweiterung (`tools/gen_xcodeproj.py`), die Kursalarme selbst meldet.
 enum AlarmSounds {
     struct Tone: Identifiable, Hashable, Sendable {
         /// Dateiname ohne Endung, zugleich gespeicherter Wert.
