@@ -12,6 +12,10 @@ import org.json.JSONObject
 
 private const val ONE_TRADING_API = "https://api.onetrading.com/fast/v1"
 
+/** Instrumenttyp und Buchzustand, wie in «instruments» und «market-ticker». */
+private const val SPOT = "SPOT"
+private const val ACTIVE = "ACTIVE"
+
 /** One Trading (EU, vormals Bitpanda Pro), nur Spot. Doku: docs.onetrading.com */
 class OneTrading : SimpleMarket(
     name = "One Trading",
@@ -39,6 +43,10 @@ class OneTrading : SimpleMarket(
 
     override fun getBulkTickersUrl(call: Int): String = "$ONE_TRADING_API/market-ticker"
 
+    /**
+     * Die Sammelliste enthält auch Futures («type» DATED_FUTURE, EQUITY_FUTURE …): nur Spot-Zeilen zählen. Zeilen
+     * ohne «type» werden gelesen (Art unbekannt), machen die Antwort aber unvollständig ([bulkResponseComplete]).
+     */
     override fun parseBulkTickers(
         call: Int,
         body: String,
@@ -46,21 +54,42 @@ class OneTrading : SimpleMarket(
         failed: MutableSet<String>,
     ) {
         JSONArray(body).forEachJSONObject { row ->
+            if (isOtherType(row)) return@forEachJSONObject
             bulkRowIfActive(row.optString("instrument_code"), row, "last_price", tickers, failed) { copyRow(row, it) }
         }
+    }
+
+    /**
+     * Vollständig nur, wenn die Antwort lauter offene Spot-Bücher enthält. Fielen Zeilen anderer Art weg, fehlt
+     * die Art oder ist ein Spot-Buch nicht ACTIVE (etwa CLOSED), kann ein fehlendes Paar auch nur vorübergehend
+     * fehlen: dann entscheidet die Einzelabfrage statt «nicht mehr gehandelt».
+     */
+    override fun bulkResponseComplete(call: Int, body: String): Boolean {
+        var complete = true
+        JSONArray(body).forEachJSONObject { row ->
+            val spot = row.optString("type") == SPOT
+            if (!spot || row.optString("state") != ACTIVE) complete = false
+        }
+        return complete
     }
 
     // ── Paarliste ──
 
     override fun fillPairList(call: Int, body: String, out: MutableList<MarketPair>) {
         JSONArray(body).forEachJSONObject { inst ->
-            val activeSpot = inst.optString("type") == "SPOT" && inst.optString("state") == "ACTIVE"
+            val activeSpot = inst.optString("type") == SPOT && inst.optString("state") == ACTIVE
             if (!activeSpot) return@forEachJSONObject
             out += MarketPair(codeOf(inst, "base"), codeOf(inst, "quote"), inst.getString("id"))
         }
     }
 
     // ── Lesen ──
+
+    /** Zeile eines anderen Instrumenttyps (Futures); ohne «type» nicht (Art unbekannt). */
+    private fun isOtherType(row: JSONObject): Boolean {
+        val type = row.optString("type")
+        return type.isNotEmpty() && type != SPOT
+    }
 
     private fun copyRow(row: JSONObject, ticker: Ticker) {
         ticker.last = row.getDouble("last_price")

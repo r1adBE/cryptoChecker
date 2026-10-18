@@ -445,11 +445,14 @@ struct AlarmLastCheckedLine: View {
 
 /// Graue Zeile mit dem einen Satz «Wann Alarme geprüft werden» (`AlarmTimingHint`) — vollständig sichtbar,
 /// darum ohne (i), das ihn nur wiederholen würde (Build 55); wie `ClosedAppHint` (Android). Darunter
-/// (K-10) «Aktualisierung ändern»: schliesst das Blatt und öffnet Einstellungen › Kurs-Aktualisierung.
+/// (K-10) «Aktualisierung ändern»: schliesst das Blatt und öffnet Einstellungen › Kurs-Aktualisierung; und
+/// «Damit Alarme ankommen» als Blatt darüber.
 @MainActor
 struct ClosedAppHintRow: View {
     @Environment(\.appAccent) private var accent
     @Environment(\.dismiss) private var dismiss
+    /// «Damit Alarme ankommen» als Blatt über dem Editor (der Entwurf bleibt dabei offen).
+    @State private var showDelivery = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -466,8 +469,25 @@ struct ClosedAppHintRow: View {
                 .buttonStyle(.plain)
                 .frame(minHeight: 44, alignment: .leading)
                 .contentShape(Rectangle())
+            // Was gerade im Weg stehen könnte (Mitteilungen, Hintergrundaktualisierung …): echter Zustand
+            Button(L("delivery_title")) { showDelivery = true }
+                .font(.caption.weight(.semibold))
+                .foregroundStyle(accent.primary)
+                .buttonStyle(.plain)
+                .frame(minHeight: 44, alignment: .leading)
+                .contentShape(Rectangle())
         }
         .padding(.horizontal, 4)
+        .sheet(isPresented: $showDelivery) {
+            NavigationStack {
+                AlarmDeliveryScreen()
+                    .toolbar {
+                        ToolbarItem(placement: .confirmationAction) {
+                            Button(L("ios_action_ok")) { showDelivery = false }
+                        }
+                    }
+            }
+        }
     }
 
     /// Blatt schliessen, dann den Tab «Einstellungen» mit «Aktualisierung» zeigen.

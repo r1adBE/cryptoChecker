@@ -220,13 +220,21 @@ internal fun AddressRow(
 private fun hostsText(chain: AddressChain?): String =
     (chain?.let { ChainBalance.hosts(it) } ?: AddressBalance.PRIVACY_HOSTS).joinToString(", ")
 
-/** Datenschutz-Hinweis zur Eingabe: Anbieter; bei xpub/ypub/zpub dazu, was der Schlüssel verrät. */
+/**
+ * Datenschutz-Hinweis zur Eingabe: Anbieter; bei xpub/ypub/zpub/Taproot-Konto dazu, was der Schlüssel verrät. Taproot-Konto:
+ * welcher Adresstyp abgeleitet wird; einfacher xpub: Hinweis auf den Deskriptor (ein xpub allein sagt nicht, dass es ein
+ * Taproot-Konto ist, und wird nur als Legacy/SegWit durchsucht).
+ */
 @Composable
 internal fun privacyText(check: AddressValidation.Check): String {
     val base = stringResource(R.string.portfolio_address_privacy, hostsText(check.chain))
-    val xpub = check.kind == AddressValidation.Kind.XPUB || check.kind == AddressValidation.Kind.YPUB ||
-        check.kind == AddressValidation.Kind.ZPUB
-    return if (xpub) base + "\n\n" + stringResource(R.string.portfolio_address_xpub_privacy, hostsText(AddressChain.BTC)) else base
+    val keyNote = "\n\n" + stringResource(R.string.portfolio_address_xpub_privacy, hostsText(AddressChain.BTC))
+    return when (check.kind) {
+        AddressValidation.Kind.XPUB -> base + keyNote + "\n\n" + stringResource(R.string.portfolio_address_taproot_hint)
+        AddressValidation.Kind.YPUB, AddressValidation.Kind.ZPUB -> base + keyNote
+        AddressValidation.Kind.TR_XPUB -> base + keyNote + "\n\n" + stringResource(R.string.portfolio_address_taproot_account)
+        else -> base
+    }
 }
 
 /** Meldung zu einem Prüfergebnis. */

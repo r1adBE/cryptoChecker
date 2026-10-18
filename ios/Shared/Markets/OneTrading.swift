@@ -2,6 +2,10 @@ import Foundation
 
 private let oneTradingAPI = "https://api.onetrading.com/fast/v1"
 
+/// Instrumenttyp und Buchzustand, wie in «instruments» und «market-ticker».
+private let oneTradingSpot = "SPOT"
+private let oneTradingActive = "ACTIVE"
+
 /// One Trading (EU, vormals Bitpanda Pro), nur Spot. Doku: docs.onetrading.com
 final class OneTrading: SimpleMarket {
     init() {
@@ -30,13 +34,23 @@ final class OneTrading: SimpleMarket {
 
     override func bulkTickersURL(call: Int) -> String? { oneTradingAPI + "/market-ticker" }
 
+    /// Die Sammelliste enthält auch Futures («type» DATED_FUTURE, EQUITY_FUTURE …): nur Spot-Zeilen zählen. Zeilen
+    /// ohne «type» werden gelesen (Art unbekannt), machen die Antwort aber unvollständig (`bulkResponseComplete`).
     override func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
         var tickers: [String: Ticker] = [:]
-        for row in try JArray(string: body).allObjects() {
+        for row in try JArray(string: body).allObjects() where !OneTrading.isOtherType(row) {
             bulkRowIfActive(row.optString("instrument_code"), row: row, priceField: "last_price", tickers: &tickers,
                             failed: &failed) { try copyRow(row, into: &$0) }
         }
         return tickers
+    }
+
+    /// Vollständig nur, wenn die Antwort lauter offene Spot-Bücher enthält. Fielen Zeilen anderer Art weg, fehlt
+    /// die Art oder ist ein Spot-Buch nicht ACTIVE (etwa CLOSED), kann ein fehlendes Paar auch nur vorübergehend
+    /// fehlen: dann entscheidet die Einzelabfrage statt «nicht mehr gehandelt».
+    override func bulkResponseComplete(call: Int, body: String) -> Bool {
+        guard let rows = try? JArray(string: body).allObjects() else { return false }
+        return rows.allSatisfy { $0.optString("type") == oneTradingSpot && $0.optString("state") == oneTradingActive }
     }
 
     // MARK: Paarliste
@@ -44,7 +58,7 @@ final class OneTrading: SimpleMarket {
     override func fillPairList(call: Int, body: String) throws -> [MarketPair] {
         var out: [MarketPair] = []
         for inst in try JArray(string: body).allObjects() {
-            let activeSpot = inst.optString("type") == "SPOT" && inst.optString("state") == "ACTIVE"
+            let activeSpot = inst.optString("type") == oneTradingSpot && inst.optString("state") == oneTradingActive
             guard activeSpot else { continue }
             out.append(MarketPair(OneTrading.codeOf(inst, "base"), OneTrading.codeOf(inst, "quote"),
                                         try inst.string("id")))
@@ -53,6 +67,12 @@ final class OneTrading: SimpleMarket {
     }
 
     // MARK: Lesen
+
+    /// Zeile eines anderen Instrumenttyps (Futures); ohne «type» nicht (Art unbekannt).
+    private static func isOtherType(_ row: JObject) -> Bool {
+        let type = row.optString("type")
+        return !type.isEmpty && type != oneTradingSpot
+    }
 
     private func copyRow(_ row: JObject, into ticker: inout Ticker) throws {
         ticker.last = try row.double("last_price")

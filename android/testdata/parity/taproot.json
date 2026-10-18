@@ -1,0 +1,292 @@
+{
+  "_comment": "Taproot (BIP86/BIP341/BIP350/BIP380/BIP389): gemeinsam für TaprootParityTest.kt und TaprootTests.swift.",
+  "bip86": {
+    "mnemonic": "abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about",
+    "fingerprint": "73c5da0a",
+    "path": "m/86'/0'/0'",
+    "xprv": "xprv9xgqHN7yz9MwCkxsBPN5qetuNdQSUttZNKw1dcYTV4mkaAFiBVGQziHs3NRSWMkCzvgjEe3n9xV8oYywvM8at9yRqyaZVz6TYYhX98VjsUk",
+    "xpub": "xpub6BgBgsespWvERF3LHQu6CnqdvfEvtMcQjYrcRzx53QJjSxarj2afYWcLteoGVky7D3UKDP9QyrLprQ3VCECoY49yfdDEHGCtMMj92pReUsQ",
+    "normalized": "tr(xpub6BgBgsespWvERF3LHQu6CnqdvfEvtMcQjYrcRzx53QJjSxarj2afYWcLteoGVky7D3UKDP9QyrLprQ3VCECoY49yfdDEHGCtMMj92pReUsQ/<0;1>/*)",
+    "short": "tr(xpub6B…eUsQ)",
+    "addresses": [
+      {
+        "chain": 0,
+        "index": 0,
+        "pubkey": "03cc8a4bc64d897bddc5fbc2f670f7a8ba0b386779106cf1223c6fc5d7cd6fc115",
+        "internalKey": "cc8a4bc64d897bddc5fbc2f670f7a8ba0b386779106cf1223c6fc5d7cd6fc115",
+        "outputKey": "a60869f0dbcf1dc659c9cecbaf8050135ea9e8cdc487053f1dc6880949dc684c",
+        "address": "bc1p5cyxnuxmeuwuvkwfem96lqzszd02n6xdcjrs20cac6yqjjwudpxqkedrcr"
+      },
+      {
+        "chain": 0,
+        "index": 1,
+        "pubkey": "0283dfe85a3151d2517290da461fe2815591ef69f2b18a2ce63f01697a8b313145",
+        "internalKey": "83dfe85a3151d2517290da461fe2815591ef69f2b18a2ce63f01697a8b313145",
+        "outputKey": "a82f29944d65b86ae6b5e5cc75e294ead6c59391a1edc5e016e3498c67fc7bbb",
+        "address": "bc1p4qhjn9zdvkux4e44uhx8tc55attvtyu358kutcqkudyccelu0was9fqzwh"
+      },
+      {
+        "chain": 1,
+        "index": 0,
+        "pubkey": "02399f1b2f4393f29a18c937859c5dd8a77350103157eb880f02e8c08214277cef",
+        "internalKey": "399f1b2f4393f29a18c937859c5dd8a77350103157eb880f02e8c08214277cef",
+        "outputKey": "882d74e5d0572d5a816cef0041a96b6c1de832f6f9676d9605c44d5e9a97d3dc",
+        "address": "bc1p3qkhfews2uk44qtvauqyr2ttdsw7svhkl9nkm9s9c3x4ax5h60wqwruhk7"
+      }
+    ]
+  },
+  "descriptors": [
+    {
+      "note": "Herkunft, Empfang, Prüfsumme",
+      "input": "tr([73c5da0a/86'/0'/0']xpub6BgBgsespWvERF3LHQu6CnqdvfEvtMcQjYrcRzx53QJjSxarj2afYWcLteoGVky7D3UKDP9QyrLprQ3VCECoY49yfdDEHGCtMMj92pReUsQ/0/*)#rg247h69",
+      "normalized": "tr(xpub6BgBgsespWvERF3LHQu6CnqdvfEvtMcQjYrcRzx53QJjSxarj2afYWcLteoGVky7D3UKDP9QyrLprQ3VCECoY49yfdDEHGCtMMj92pReUsQ/<0;1>/*)"
+    },
+    {
+      "note": "Herkunft mit h, Wechselgeld",
+      "input": "tr([73c5da0a/86h/0h/0h]xpub6BgBgsespWvERF3LHQu6CnqdvfEvtMcQjYrcRzx53QJjSxarj2afYWcLteoGVky7D3UKDP9QyrLprQ3VCECoY49yfdDEHGCtMMj92pReUsQ/1/*)#pdsteca7",
+      "normalized": "tr(xpub6BgBgsespWvERF3LHQu6CnqdvfEvtMcQjYrcRzx53QJjSxarj2afYWcLteoGVky7D3UKDP9QyrLprQ3VCECoY49yfdDEHGCtMMj92pReUsQ/<0;1>/*)"
+    },
+    {
+      "note": "beide Ketten (BIP389)",
+      "input": "tr([73c5da0a/86'/0'/0']xpub6BgBgsespWvERF3LHQu6CnqdvfEvtMcQjYrcRzx53QJjSxarj2afYWcLteoGVky7D3UKDP9QyrLprQ3VCECoY49yfdDEHGCtMMj92pReUsQ/<0;1>/*)#kjk9q86c",
+      "normalized": "tr(xpub6BgBgsespWvERF3LHQu6CnqdvfEvtMcQjYrcRzx53QJjSxarj2afYWcLteoGVky7D3UKDP9QyrLprQ3VCECoY49yfdDEHGCtMMj92pReUsQ/<0;1>/*)"
+    },
+    {
+      "note": "Normalform",
+      "input": "tr(xpub6BgBgsespWvERF3LHQu6CnqdvfEvtMcQjYrcRzx53QJjSxarj2afYWcLteoGVky7D3UKDP9QyrLprQ3VCECoY49yfdDEHGCtMMj92pReUsQ/<0;1>/*)",
+      "normalized": "tr(xpub6BgBgsespWvERF3LHQu6CnqdvfEvtMcQjYrcRzx53QJjSxarj2afYWcLteoGVky7D3UKDP9QyrLprQ3VCECoY49yfdDEHGCtMMj92pReUsQ/<0;1>/*)"
+    },
+    {
+      "note": "ohne Herkunft, ohne Prüfsumme",
+      "input": "tr(xpub6BgBgsespWvERF3LHQu6CnqdvfEvtMcQjYrcRzx53QJjSxarj2afYWcLteoGVky7D3UKDP9QyrLprQ3VCECoY49yfdDEHGCtMMj92pReUsQ/0/*)",
+      "normalized": "tr(xpub6BgBgsespWvERF3LHQu6CnqdvfEvtMcQjYrcRzx53QJjSxarj2afYWcLteoGVky7D3UKDP9QyrLprQ3VCECoY49yfdDEHGCtMMj92pReUsQ/<0;1>/*)"
+    },
+    {
+      "note": "Leerraum aussen",
+      "input": "  tr(xpub6BgBgsespWvERF3LHQu6CnqdvfEvtMcQjYrcRzx53QJjSxarj2afYWcLteoGVky7D3UKDP9QyrLprQ3VCECoY49yfdDEHGCtMMj92pReUsQ/1/*)\n",
+      "normalized": "tr(xpub6BgBgsespWvERF3LHQu6CnqdvfEvtMcQjYrcRzx53QJjSxarj2afYWcLteoGVky7D3UKDP9QyrLprQ3VCECoY49yfdDEHGCtMMj92pReUsQ/<0;1>/*)"
+    },
+    {
+      "note": "falsche Prüfsumme",
+      "input": "tr([73c5da0a/86'/0'/0']xpub6BgBgsespWvERF3LHQu6CnqdvfEvtMcQjYrcRzx53QJjSxarj2afYWcLteoGVky7D3UKDP9QyrLprQ3VCECoY49yfdDEHGCtMMj92pReUsQ/0/*)#rg247h6q",
+      "problem": "BAD_CHECKSUM"
+    },
+    {
+      "note": "Prüfsumme zu kurz",
+      "input": "tr([73c5da0a/86'/0'/0']xpub6BgBgsespWvERF3LHQu6CnqdvfEvtMcQjYrcRzx53QJjSxarj2afYWcLteoGVky7D3UKDP9QyrLprQ3VCECoY49yfdDEHGCtMMj92pReUsQ/0/*)#rg247h6",
+      "problem": "UNKNOWN_FORMAT"
+    },
+    {
+      "note": "Skriptbaum",
+      "input": "tr(xpub6BgBgsespWvERF3LHQu6CnqdvfEvtMcQjYrcRzx53QJjSxarj2afYWcLteoGVky7D3UKDP9QyrLprQ3VCECoY49yfdDEHGCtMMj92pReUsQ/0/*,{pk(cc8a4bc64d897bddc5fbc2f670f7a8ba0b386779106cf1223c6fc5d7cd6fc115)})",
+      "problem": "UNSUPPORTED_VERSION"
+    },
+    {
+      "note": "ohne Pfad (Einzelschlüssel)",
+      "input": "tr(xpub6BgBgsespWvERF3LHQu6CnqdvfEvtMcQjYrcRzx53QJjSxarj2afYWcLteoGVky7D3UKDP9QyrLprQ3VCECoY49yfdDEHGCtMMj92pReUsQ)",
+      "problem": "UNSUPPORTED_VERSION"
+    },
+    {
+      "note": "fester Index",
+      "input": "tr(xpub6BgBgsespWvERF3LHQu6CnqdvfEvtMcQjYrcRzx53QJjSxarj2afYWcLteoGVky7D3UKDP9QyrLprQ3VCECoY49yfdDEHGCtMMj92pReUsQ/0/1)",
+      "problem": "UNSUPPORTED_VERSION"
+    },
+    {
+      "note": "gehärteter Platzhalter",
+      "input": "tr(xpub6BgBgsespWvERF3LHQu6CnqdvfEvtMcQjYrcRzx53QJjSxarj2afYWcLteoGVky7D3UKDP9QyrLprQ3VCECoY49yfdDEHGCtMMj92pReUsQ/0/*')",
+      "problem": "UNSUPPORTED_VERSION"
+    },
+    {
+      "note": "xprv",
+      "input": "tr(xprv9xgqHN7yz9MwCkxsBPN5qetuNdQSUttZNKw1dcYTV4mkaAFiBVGQziHs3NRSWMkCzvgjEe3n9xV8oYywvM8at9yRqyaZVz6TYYhX98VjsUk/0/*)",
+      "problem": "SECRET"
+    },
+    {
+      "note": "xprv mit Herkunft und Prüfsumme",
+      "input": "tr([73c5da0a/86'/0'/0']xprv9xgqHN7yz9MwCkxsBPN5qetuNdQSUttZNKw1dcYTV4mkaAFiBVGQziHs3NRSWMkCzvgjEe3n9xV8oYywvM8at9yRqyaZVz6TYYhX98VjsUk/<0;1>/*)#h6a9ljl6",
+      "problem": "SECRET"
+    },
+    {
+      "note": "WIF",
+      "input": "tr(KwDiBf89QgGbjEhKnhXJuH7LrciVrZi3qYjgd9M7rFU73sVHnoWn)",
+      "problem": "SECRET"
+    },
+    {
+      "note": "x-only Hex",
+      "input": "tr(cc8a4bc64d897bddc5fbc2f670f7a8ba0b386779106cf1223c6fc5d7cd6fc115)",
+      "problem": "UNSUPPORTED_VERSION"
+    },
+    {
+      "note": "zpub in tr()",
+      "input": "tr(zpub6rFR7y4Q2AijBEqTUquhVz398htDFrtymD9xYYfG1m4wAcvPhXNfE3EfH1r1ADqtfSdVCToUG868RvUUkgDKf31mGDtKsAYz2oz2AGutZYs/0/*)",
+      "problem": "UNKNOWN_FORMAT"
+    },
+    {
+      "note": "tpub",
+      "input": "tr(tpubD6NzVbkrYhZ4XgiXtGrdW5XDAPFCL9h7we1vwNCpn8tGbBcgfVYjXyhWo4E1xkh56hjod1RhGjxbaTLV3X4FyWuejifB9jusQ46QzG87VKp/0/*)",
+      "problem": "TESTNET"
+    },
+    {
+      "note": "Herkunft mit 7 Hex",
+      "input": "tr([73c5da0/86'/0'/0']xpub6BgBgsespWvERF3LHQu6CnqdvfEvtMcQjYrcRzx53QJjSxarj2afYWcLteoGVky7D3UKDP9QyrLprQ3VCECoY49yfdDEHGCtMMj92pReUsQ/0/*)",
+      "problem": "UNKNOWN_FORMAT"
+    },
+    {
+      "note": "Herkunft ohne Ende",
+      "input": "tr([73c5da0a/86'/0'/0'xpub6BgBgsespWvERF3LHQu6CnqdvfEvtMcQjYrcRzx53QJjSxarj2afYWcLteoGVky7D3UKDP9QyrLprQ3VCECoY49yfdDEHGCtMMj92pReUsQ/0/*)",
+      "problem": "UNKNOWN_FORMAT"
+    },
+    {
+      "note": "xpub mit falscher Prüfsumme",
+      "input": "tr(xpub6BgBgsespWvERF3LHQu6CnqdvfEvtMcQjYrcRzx53QJjSxarj2afYWcLteoGVky7D3UKDP9QyrLprQ3VCECoY49yfdDEHGCtMMj92pReUsR/0/*)",
+      "problem": "BAD_CHECKSUM"
+    },
+    {
+      "note": "Klammer fehlt",
+      "input": "tr(xpub6BgBgsespWvERF3LHQu6CnqdvfEvtMcQjYrcRzx53QJjSxarj2afYWcLteoGVky7D3UKDP9QyrLprQ3VCECoY49yfdDEHGCtMMj92pReUsQ/0/*",
+      "problem": "UNKNOWN_FORMAT"
+    },
+    {
+      "note": "leer",
+      "input": "tr()",
+      "problem": "UNKNOWN_FORMAT"
+    }
+  ],
+  "checksums": [
+    {
+      "descriptor": "raw(deadbeef)",
+      "checksum": "89f8spxm"
+    },
+    {
+      "descriptor": "tr([73c5da0a/86'/0'/0']xpub6BgBgsespWvERF3LHQu6CnqdvfEvtMcQjYrcRzx53QJjSxarj2afYWcLteoGVky7D3UKDP9QyrLprQ3VCECoY49yfdDEHGCtMMj92pReUsQ/0/*)",
+      "checksum": "rg247h69"
+    },
+    {
+      "descriptor": "tr(xpub6BgBgsespWvERF3LHQu6CnqdvfEvtMcQjYrcRzx53QJjSxarj2afYWcLteoGVky7D3UKDP9QyrLprQ3VCECoY49yfdDEHGCtMMj92pReUsQ/<0;1>/*)",
+      "checksum": "fxqmx45h"
+    },
+    {
+      "descriptor": "tr(é)",
+      "checksum": null
+    }
+  ],
+  "bech32m": {
+    "encode": [
+      {
+        "hrp": "bc",
+        "version": 0,
+        "program": "751e76e8199196d454941c45d1b3a323f1433bd6",
+        "address": "bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4"
+      },
+      {
+        "hrp": "bc",
+        "version": 1,
+        "program": "751e76e8199196d454941c45d1b3a323f1433bd6751e76e8199196d454941c45d1b3a323f1433bd6",
+        "address": "bc1pw508d6qejxtdg4y5r3zarvary0c5xw7kw508d6qejxtdg4y5r3zarvary0c5xw7kt5nd6y"
+      },
+      {
+        "hrp": "bc",
+        "version": 16,
+        "program": "751e",
+        "address": "bc1sw50qgdz25j"
+      },
+      {
+        "hrp": "bc",
+        "version": 2,
+        "program": "751e76e8199196d454941c45d1b3a323",
+        "address": "bc1zw508d6qejxtdg4y5r3zarvaryvaxxpcs"
+      },
+      {
+        "hrp": "bc",
+        "version": 1,
+        "program": "79be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798",
+        "address": "bc1p0xlxvlhemja6c4dqv22uapctqupfhlxm9h8z3k2e72q4k9hcz7vqzk5jj0"
+      }
+    ],
+    "checks": [
+      {
+        "input": "BC1QW508D6QEJXTDG4Y5R3ZARVARY0C5XW7KV8F3T4",
+        "problem": null,
+        "kind": "P2WPKH",
+        "normalized": "bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4"
+      },
+      {
+        "input": "bc1pw508d6qejxtdg4y5r3zarvary0c5xw7kw508d6qejxtdg4y5r3zarvary0c5xw7kt5nd6y",
+        "problem": "UNSUPPORTED_VERSION",
+        "kind": null,
+        "normalized": null
+      },
+      {
+        "input": "BC1SW50QGDZ25J",
+        "problem": "UNSUPPORTED_VERSION",
+        "kind": null,
+        "normalized": null
+      },
+      {
+        "input": "bc1zw508d6qejxtdg4y5r3zarvaryvaxxpcs",
+        "problem": "UNSUPPORTED_VERSION",
+        "kind": null,
+        "normalized": null
+      },
+      {
+        "input": "bc1p0xlxvlhemja6c4dqv22uapctqupfhlxm9h8z3k2e72q4k9hcz7vqzk5jj0",
+        "problem": null,
+        "kind": "P2TR",
+        "normalized": "bc1p0xlxvlhemja6c4dqv22uapctqupfhlxm9h8z3k2e72q4k9hcz7vqzk5jj0"
+      },
+      {
+        "input": "bc1p0xlxvlhemja6c4dqv22uapctqupfhlxm9h8z3k2e72q4k9hcz7vqh2y7hd",
+        "problem": "BAD_CHECKSUM"
+      },
+      {
+        "input": "BC1S0XLXVLHEMJA6C4DQV22UAPCTQUPFHLXM9H8Z3K2E72Q4K9HCZ7VQ54WELL",
+        "problem": "BAD_CHECKSUM"
+      },
+      {
+        "input": "bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kemeawh",
+        "problem": "BAD_CHECKSUM"
+      },
+      {
+        "input": "bc1p38j9r5y49hruaue7wxjce0updqjuyyx0kh56v8s25huc6995vvpql3jow4",
+        "problem": "UNKNOWN_FORMAT"
+      },
+      {
+        "input": "BC130XLXVLHEMJA6C4DQV22UAPCTQUPFHLXM9H8Z3K2E72Q4K9HCZ7VQ7ZWS8R",
+        "problem": "UNKNOWN_FORMAT"
+      },
+      {
+        "input": "bc1pw5dgrnzv",
+        "problem": "UNKNOWN_FORMAT"
+      },
+      {
+        "input": "bc1p0xlxvlhemja6c4dqv22uapctqupfhlxm9h8z3k2e72q4k9hcz7v8n0nx0muaewav253zgeav",
+        "problem": "UNKNOWN_FORMAT"
+      },
+      {
+        "input": "BC1QR508D6QEJXTDG4Y5R3ZARVARYV98GJ9P",
+        "problem": "UNKNOWN_FORMAT"
+      },
+      {
+        "input": "bc1p0xlxvlhemja6c4dqv22uapctqupfhlxm9h8z3k2e72q4k9hcz7vq47Zagq",
+        "problem": "UNKNOWN_FORMAT"
+      },
+      {
+        "input": "bc1p0xlxvlhemja6c4dqv22uapctqupfhlxm9h8z3k2e72q4k9hcz7v07qwwzcrf",
+        "problem": "UNKNOWN_FORMAT"
+      },
+      {
+        "input": "bc1p0xlxvlhemja6c4dqv22uapctqupfhlxm9h8z3k2e72q4k9hcz7vpggkg4j",
+        "problem": "BAD_CHECKSUM"
+      },
+      {
+        "input": "bc1gmk9yu",
+        "problem": "UNKNOWN_FORMAT"
+      }
+    ]
+  },
+  "taggedHash": {
+    "tag": "TapTweak",
+    "data": "cc8a4bc64d897bddc5fbc2f670f7a8ba0b386779106cf1223c6fc5d7cd6fc115",
+    "hash": "2ca01ed85cf6b6526f73d39a1111cd80333bfdc00ce98992859848a90a6f0258"
+  }
+}

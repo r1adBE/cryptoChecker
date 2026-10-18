@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">Акаунт Taproot (BIP86): з цього ключа виводяться адреси bc1p… для отримання й решти.</string>
+    <string name="portfolio_address_taproot_hint">Гаманець Taproot? Натомість вставте дескриптор tr(…) зі свого гаманця – за звичайним xpub шукаються лише адреси Legacy і SegWit.</string>
+</resources>

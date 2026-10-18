@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
+    <string name="portfolio_storage_in_memory">Encryption not active yet – the portfolio is not being saved, changes are lost when the app closes. The app will try again at the next start.</string>
+</resources>

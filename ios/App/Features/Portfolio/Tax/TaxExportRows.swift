@@ -51,6 +51,8 @@ struct TaxGainRow: Equatable, Sendable {
     var portfolioValueTarget: Decimal? = nil
     var grossProceedsUsdt: Decimal? = nil
     var grossProceedsTarget: Decimal? = nil
+    /// FR: Gesamtwert samt Guthaben beobachteter Adressen (`PortfolioDisposal.addressValueIncluded`).
+    var addressValueIncluded = false
     /// Einstand aus Herkunftsteilen (Pool/Durchschnitt) — mit `.AVERAGE` zusammen `pooled`.
     var pooledParts = false
     /// Gebühr als Aufwand (`PortfolioDisposal.feeExpense`): Einstand = Aufwand, Erlös 0; sonst nil.
@@ -203,6 +205,7 @@ extension TaxExport {
             row.portfolioValueTarget = atSale(d.portfolioValueUsdt)
             row.grossProceedsUsdt = d.grossProceedsUsdt
             row.grossProceedsTarget = atSale(d.grossProceedsUsdt)
+            row.addressValueIncluded = d.addressValueIncluded
             // Durchschnitt/Pool (Herkunftsteile ohne Posten-Datum); FIFO-Posten tragen ihre Teile ohne diesen Vermerk
             row.pooledParts = !d.costParts.isEmpty && d.acquiredTime == nil
             row.feeExpense = d.feeExpense

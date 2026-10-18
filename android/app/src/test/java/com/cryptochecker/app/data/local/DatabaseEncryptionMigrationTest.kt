@@ -4,6 +4,7 @@ import com.cryptochecker.app.data.local.DatabaseEncryptionMigration.Decision
 import com.cryptochecker.app.data.local.DatabaseEncryptionMigration.FileKind
 import com.cryptochecker.app.data.local.DatabaseEncryptionMigration.Fingerprint
 import com.cryptochecker.app.data.local.DatabaseEncryptionMigration.KeyLookup
+import com.cryptochecker.app.data.local.DatabaseEncryptionMigration.OpenPlan
 import com.cryptochecker.app.data.local.DatabaseEncryptionMigration.TableFingerprint
 import org.junit.Assert.assertArrayEquals
 import org.junit.Assert.assertEquals
@@ -110,6 +111,88 @@ class DatabaseEncryptionMigrationTest {
     fun noFileAndNoKeyPossibleOpensPlaintext() {
         val keys = FakeKeys(KeyLookup.Absent).apply { failCreate = true }
         assertEquals(Decision.Plaintext, prepare(FakeFiles(FileKind.ABSENT, null), keys))
+    }
+
+    // ── Verschlüsselungspflicht (Portfolio): ohne Schlüssel nie unverschlüsselt anlegen ──
+
+    private fun prepareRequired(files: FakeFiles, keys: FakeKeys) =
+        DatabaseEncryptionMigration(files, keys, encryptionRequired = { it == db }).prepare(db)
+
+    @Test
+    fun requiredNoFileAndNoKeyPossibleIsRefused() {
+        val keys = FakeKeys(KeyLookup.Absent).apply { failCreate = true }
+        val files = FakeFiles(FileKind.ABSENT, null)
+        assertEquals(Decision.Refused, prepareRequired(files, keys))
+        // Nichts angelegt, nichts angefasst
+        assertEquals(FileKind.ABSENT, files.kind)
+        assertTrue(files.calls.isEmpty())
+    }
+
+    @Test
+    fun requiredNoFileWithUnreadableKeyAndNoNewKeyIsRefused() {
+        val keys = FakeKeys(KeyLookup.Unavailable(IllegalStateException("Keystore"))).apply { failCreate = true }
+        assertEquals(Decision.Refused, prepareRequired(FakeFiles(FileKind.ABSENT, null), keys))
+    }
+
+    @Test
+    fun requiredNoFileWithKeyOpensEncrypted() {
+        val keys = FakeKeys(KeyLookup.Absent)
+        val decision = prepareRequired(FakeFiles(FileKind.ABSENT, null), keys)
+        assertArrayEquals("neu1".toByteArray(), (decision as Decision.Encrypted).passphrase)
+    }
+
+    @Test
+    fun requiredExistingPlaintextWithoutKeyKeepsWorkingUntouched() {
+        // Alte unverschlüsselte Datei aus einem früheren Fehlschlag: weiter öffnen, nie Daten verlieren
+        val keys = FakeKeys(KeyLookup.Absent).apply { failCreate = true }
+        val files = FakeFiles(FileKind.PLAINTEXT, content)
+        assertEquals(Decision.Plaintext, prepareRequired(files, keys))
+        assertEquals(FileKind.PLAINTEXT, files.kind)
+        assertEquals(content, files.original)
+        assertTrue(files.calls.isEmpty())
+    }
+
+    @Test
+    fun requiredExistingPlaintextWithKeyIsMigrated() {
+        val files = FakeFiles(FileKind.PLAINTEXT, content)
+        val decision = prepareRequired(files, FakeKeys(found))
+        assertTrue((decision as Decision.Encrypted).migrated)
+        assertEquals(FileKind.ENCRYPTED, files.kind)
+    }
+
+    @Test
+    fun requiredExistingPlaintextWithFailedMigrationStaysPlaintext() {
+        val files = FakeFiles(FileKind.PLAINTEXT, content).apply { failAt = "export" }
+        assertEquals(Decision.Plaintext, prepareRequired(files, FakeKeys(found)))
+        assertEquals(FileKind.PLAINTEXT, files.kind)
+        assertEquals(content, files.original)
+    }
+
+    @Test
+    fun otherDatabaseWithoutRequirementStillOpensPlaintext() {
+        val keys = FakeKeys(KeyLookup.Absent).apply { failCreate = true }
+        val migration = DatabaseEncryptionMigration(
+            FakeFiles(FileKind.ABSENT, null),
+            keys,
+            encryptionRequired = { it == "portfolio.db" },
+        )
+        assertEquals(Decision.Plaintext, migration.prepare(db))
+    }
+
+    @Test
+    fun planOpenCoversKeyAndFileStates() {
+        fun plan(kind: FileKind, keyUsable: Boolean, required: Boolean) = DatabaseEncryptionMigration.planOpen(kind, keyUsable, required)
+        for (required in listOf(false, true)) {
+            for (kind in FileKind.entries) {
+                assertEquals(OpenPlan.ENCRYPTED, plan(kind, true, required))
+            }
+            // Verschlüsselte Datei: eigene Regeln, nie unverschlüsselt
+            assertEquals(OpenPlan.ENCRYPTED, plan(FileKind.ENCRYPTED, false, required))
+            // Schon unverschlüsselt vorhanden: weiter wie bisher
+            assertEquals(OpenPlan.PLAINTEXT, plan(FileKind.PLAINTEXT, false, required))
+        }
+        assertEquals(OpenPlan.PLAINTEXT, plan(FileKind.ABSENT, false, false))
+        assertEquals(OpenPlan.REFUSE, plan(FileKind.ABSENT, false, true))
     }
 
     @Test

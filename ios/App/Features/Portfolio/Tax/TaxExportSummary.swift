@@ -61,6 +61,11 @@ enum TaxSummaryNote: String, Sendable, Equatable, Hashable {
     /// UK Erlöse (`TaxLine.PROCEEDS`): Erlöse vor Gebühren über `TaxTemplate.ukReportProceedsGbp` — Meldung an HMRC, falls
     /// für Self Assessment registriert, auch ohne steuerbaren Gewinn. Wie Android.
     case UK_HMRC_REPORT
+    /// FR netto (`TaxLine.NET`): mindestens eine Abtretung im Jahr ist mit einem Gesamtwert samt Guthaben beobachteter
+    /// Adressen gerechnet (`TaxGainRow.addressValueIncluded`). Sie zählen zu Recht zum Gesamtwert (art. 150 VH bis), haben
+    /// aber keinen Einstand in der Erwerbspreis-Summe — der Gewinn ist dadurch eher zu hoch; Einstand als Kauf erfassen.
+    /// Wie Android.
+    case FR_ADDRESS_NO_COST
 }
 
 /// Posten der Jahresübersicht einer Vorlage (`TaxExport.yearSummary`) — wie `TaxLine` (Android); `orientation` = Schluss
@@ -344,12 +349,15 @@ extension TaxExport {
             let info: TaxSummaryNote? = template == .CH ? .CH_FIFO_INFO : nil
             lines.append(Acc(rows, pos, fx: fx).line(.GAINS, fx: fx, countUnknown: false, note: info))
             lines.append(Acc(rows, neg, fx: fx).line(.LOSSES, fx: fx, countUnknown: false, note: info))
+            // FR: beobachtete Adressen im Gesamtwert ohne Einstand — nicht ausgeschlossen (gehören zum Gesamtwert), nur vermerkt
+            let frAddress: TaxSummaryNote? =
+                template == .FR && rows.contains { $0.addressValueIncluded } ? .FR_ADDRESS_NO_COST : nil
             if let windowEnd {
                 var l = net.line(.NET, fx: fx, note: .WINDOW_OPEN)
                 l.noteDate = windowEnd
                 lines.append(l)
             } else {
-                lines.append(net.line(.NET, fx: fx, note: info))
+                lines.append(net.line(.NET, fx: fx, note: info ?? frAddress))
             }
         }
         if !withdrawalFees.isEmpty {

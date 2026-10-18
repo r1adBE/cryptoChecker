@@ -187,6 +187,9 @@ struct PortfolioDisposal: Sendable, Equatable {
     var portfolioValueUsdt: Decimal? = nil
     /// `.FR_PTA`: Abtretungspreis vor Gebühren; sonst nil.
     var grossProceedsUsdt: Decimal? = nil
+    /// `.FR_PTA`: `portfolioValueUsdt` enthält Guthaben beobachteter Adressen — ohne Einstand in der Erwerbspreis-Summe,
+    /// der Gewinn ist dadurch eher zu hoch (`TaxSummaryNote.FR_ADDRESS_NO_COST`). Wie Android.
+    var addressValueIncluded = false
     /// Gebühr als Aufwand (`PortfolioFeeExpenses`): Einstand = Aufwand, Erlös 0; sonst nil.
     var feeExpense: PortfolioFeeExpense? = nil
     /// UK/CA: Schenkung an Ehe-/Lebenspartner (`PortfolioTx.isGiftToSpouse`) — Erlös = Einstand, kein Gewinn/Verlust (TCGA 1992 s. 58,

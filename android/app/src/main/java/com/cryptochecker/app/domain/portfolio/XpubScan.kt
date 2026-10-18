@@ -198,13 +198,13 @@ class XpubScan(val mode: Mode, cache: XpubCache?) {
          * Vordergrund); Vordergrund vollständig ohne Zwischenspeicher, nach einem Tag oder bei zurückgestellter Uhr.
          */
         /**
-         * Adresstypen der Suche in dieser Reihenfolge: ypub/zpub nur ihr Typ; xpub mit gemerktem Typ ([XpubCache.script])
+         * Adresstypen der Suche in dieser Reihenfolge: ypub/zpub und Taproot-Konto nur ihr Typ; xpub mit gemerktem Typ ([XpubCache.script])
          * oder mit benutzten Adressen im Zwischenspeicher bis Build 46 (gefunden als P2PKH) nur dieser; sonst P2PKH,
          * P2SH-P2WPKH, P2WPKH — Ledger Live zeigt die xpub auch für Segwit-Konten. Mehr als ein Typ = vollständig suchen
          * und den ersten mit benutzter Adresse behalten ([pickScript]). [cache] muss zum Schlüssel gehören.
          */
         fun scripts(key: Bip32.ExtendedKey, cache: XpubCache?): List<Bip32.Script> {
-            if (key.version != Bip32.XPUB) return listOf(key.script)
+            if (!key.detectsScript) return listOf(key.script)
             cache?.script?.let { return listOf(it) }
             if (cache != null && cache.usedCount > 0) return listOf(Bip32.Script.P2PKH)
             return listOf(Bip32.Script.P2PKH, Bip32.Script.P2SH_P2WPKH, Bip32.Script.P2WPKH)
@@ -215,7 +215,7 @@ class XpubScan(val mode: Mode, cache: XpubCache?) {
          * nur einem Typ dieser (xpub; ypub/zpub nichts zu merken: null); keiner mit Verlauf = null (wieder alle prüfen).
          */
         fun pickScript(key: Bip32.ExtendedKey, tried: List<Pair<Bip32.Script, Int>>): Bip32.Script? {
-            if (key.version != Bip32.XPUB) return null
+            if (!key.detectsScript) return null
             tried.firstOrNull { it.second > 0 }?.let { return it.first }
             return tried.singleOrNull()?.first
         }

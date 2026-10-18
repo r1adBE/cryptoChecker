@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Markt-Tab: «Gewinner und Verlierer 24 h» unter dem Pulse (Zeile für den Screenreader: Name, Kürzel, Änderung) -->
+    <string name="movers_title">برندگان و بازندگان ۲۴ ساعت</string>
+    <string name="movers_gainers">برندگان</string>
+    <string name="movers_losers">بازندگان</string>
+    <string name="movers_no_gainers">هیچ کوینی در ۲۴ ساعت بالا نرفت</string>
+    <string name="movers_no_losers">هیچ کوینی در ۲۴ ساعت پایین نیامد</string>
+    <string name="movers_source">CoinGecko، ۲۴ ساعت، ۱۰۰ برتر بدون استیبل‌کوین‌ها</string>
+    <string name="movers_a11y_row">%1$s (%2$s)، %3$s</string>
+</resources>

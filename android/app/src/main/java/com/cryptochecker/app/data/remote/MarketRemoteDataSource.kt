@@ -181,6 +181,8 @@ class MarketRemoteDataSource @Inject constructor(
         val brokenGroups = HashSet<Int>()
         // Bereits geholte ungefilterte Abfragen decken jede Teilanfrage mit derselben Adresse ab
         val fullDone = HashSet<String>()
+        // Eine Antwort, die sich selbst als lückenhaft meldet (Market.bulkResponseComplete), hebt «vollständig» auf
+        var responsesComplete = true
         // «Zu viele Anfragen» bei einer Folgeanfrage: Rest weglassen, Text für die Pause (ExchangeBackoff)
         var throttled: String? = null
         var throttledFailure: MarketFailure? = null
@@ -194,6 +196,7 @@ class MarketRemoteDataSource @Inject constructor(
                 val part = loadBulkCall(client, market, call, pairIds, filtered, full, fullDone) ?: continue
                 tickers.putAll(part.tickers)
                 unreadable.addAll(part.failed)
+                if (!part.complete) responsesComplete = false
                 if (part.failed.isNotEmpty()) {
                     Timber.w("Sammelabfrage: %d unlesbare Zeilen (market=%s)", part.failed.size, market.key)
                 }
@@ -214,7 +217,7 @@ class MarketRemoteDataSource @Inject constructor(
         }
 
         val incomplete = BulkCompleteness.incomplete(pairIds, brokenGroups, market::bulkTickersPairGroup)
-        val complete = market.bulkTickersComplete && tickers.isNotEmpty() &&
+        val complete = market.bulkTickersComplete && responsesComplete && tickers.isNotEmpty() &&
             BulkCompleteness.anyComplete(pairIds, brokenGroups, incomplete)
         return BulkTickers(
             tickers = tickers,

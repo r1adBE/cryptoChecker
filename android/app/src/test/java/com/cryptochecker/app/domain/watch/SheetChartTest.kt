@@ -405,4 +405,14 @@ class SheetChartTest {
         val current = SheetChart.accept(candles, SheetCandleRequest("BTC", "USDT", convert = true), price = 55.0, currentRate = 0.5)!!
         assertEquals(listOf(true, false), current.map { it.volumeApproximated })
     }
+
+    @Test
+    fun `today rate caption - only for one current rate`() {
+        assertEquals("USDT" to "CHF", SheetChart.todayRateCaption(SheetChartFx.CURRENT, "BTC/USDT", "chf"))
+        assertEquals("USDT" to "EUR", SheetChart.todayRateCaption(SheetChartFx.CURRENT, null, "EUR"))
+        // Tageskurse je Kerze oder Kerzen des Paars selbst: keine Zeile «mit heutigem Kurs»
+        assertNull(SheetChart.todayRateCaption(SheetChartFx.DAILY, "BTC/USDT", "CHF"))
+        assertNull(SheetChart.todayRateCaption(SheetChartFx.NONE, "BTC/CHF", "CHF"))
+        assertNull(SheetChart.todayRateCaption(SheetChartFx.CURRENT, "BTC/USDT", " "))
+    }
 }

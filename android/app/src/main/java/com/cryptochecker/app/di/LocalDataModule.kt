@@ -145,6 +145,8 @@ object LocalDataModule {
         override fun onOpen(db: SupportSQLiteDatabase) {
             val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
             if (prefs.getBoolean(KEY_DONE, false)) return
+            // Nur im Arbeitsspeicher (kein Schlüssel): keine Datei zu verdichten — nicht als erledigt merken
+            if (PortfolioDatabase.inMemory()) return
 
             val outcome = runCatching {
                 db.checkpoint()

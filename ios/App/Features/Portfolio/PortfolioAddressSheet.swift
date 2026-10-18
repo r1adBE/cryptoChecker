@@ -317,11 +317,15 @@ struct PortfolioAddressSheet: View {
         (chain.map { ChainBalance.hosts($0) } ?? AddressBalance.privacyHosts).joined(separator: ", ")
     }
 
-    /// Datenschutz-Hinweis zur Eingabe: Anbieter; bei xpub/ypub/zpub dazu, was der Schlüssel verrät — wie Android.
+    /// Datenschutz-Hinweis zur Eingabe: Anbieter; bei xpub/ypub/zpub/Taproot-Konto dazu, was der Schlüssel verrät;
+    /// Taproot-Konto: welcher Adresstyp abgeleitet wird; einfacher xpub: Hinweis auf den Deskriptor — wie Android.
     static func privacy(_ check: AddressValidation.Check) -> String {
         let base = L("portfolio_address_privacy", hosts(check.chain))
+        let keyNote = "\n\n" + L("portfolio_address_xpub_privacy", hosts(.BTC))
         switch check.kind {
-        case .XPUB, .YPUB, .ZPUB: return base + "\n\n" + L("portfolio_address_xpub_privacy", hosts(.BTC))
+        case .XPUB: return base + keyNote + "\n\n" + L("portfolio_address_taproot_hint")
+        case .YPUB, .ZPUB: return base + keyNote
+        case .TR_XPUB: return base + keyNote + "\n\n" + L("portfolio_address_taproot_account")
         default: return base
         }
     }

@@ -148,9 +148,11 @@ object WatchedAddressRules {
         return cut.ifEmpty { null }
     }
 
-    /** «bc1qxy…0wlh» — Adressen sind ASCII. */
-    fun shortAddress(address: String): String =
-        if (address.length <= 14) address else address.take(6) + "…" + address.takeLast(4)
+    /** «bc1qxy…0wlh» — Adressen sind ASCII. Taproot-Konto: «tr(xpub6B…UsQ)» (der Schlüssel, nicht der Pfad am Ende). */
+    fun shortAddress(address: String): String {
+        Bip32.taprootAccount(address)?.let { return "tr(" + shortAddress(it) + ")" }
+        return if (address.length <= 14) address else address.take(6) + "…" + address.takeLast(4)
+    }
 
     /** Gleiche Adresse schon vorhanden? (Vergleich der normalisierten Form, Ethereum ohne Gross/Klein.) */
     fun contains(existing: List<WatchedAddress>, chain: AddressChain, address: String): Boolean =

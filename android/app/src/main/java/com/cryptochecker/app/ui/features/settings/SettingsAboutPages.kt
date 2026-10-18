@@ -42,7 +42,7 @@ private const val DEVELOPER_COUNTDOWN_FROM = 3
 
 /**
  * Über die App: Zweck, Version (7 Tipps schalten «Entwickler» frei), Hinweis zu den Daten; darunter
- * Datenschutz, Börse wünschen, Quellcode und Lizenzen (bis Build 52 auf der Hauptseite).
+ * Datenschutz, Börse wünschen, Quellcode und Lizenzen (bis Build 52 auf der Hauptseite) und «Diagnose teilen».
  */
 @Composable
 internal fun AboutPage(
@@ -129,6 +129,9 @@ internal fun AboutPage(
                 )
             }
         }
+        Spacer(Modifier.height(12.dp))
+        // Diagnose für den Support: erst Vorschau, dann Teilen-Menü — nichts geht automatisch weg
+        DiagnosticsCard()
         Spacer(Modifier.height(12.dp))
         // Was die App kann (früher im Begrüssungsblatt)
         GroupCard {

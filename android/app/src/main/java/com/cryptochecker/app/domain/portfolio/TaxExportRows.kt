@@ -61,6 +61,8 @@ data class TaxGainRow(
     /** FR: Abtretungspreis vor Gebühren (USDT / Anzeigewährung). */
     val grossProceedsUsdt: BigDecimal? = null,
     val grossProceedsTarget: BigDecimal? = null,
+    /** FR: Gesamtwert samt Guthaben beobachteter Adressen ([PortfolioDisposal.addressValueIncluded]). */
+    val addressValueIncluded: Boolean = false,
     /** Einstand aus einem Durchschnitt (Herkunftsteile je Kaufdatum umgerechnet). */
     val pooled: Boolean = method == CostMethod.AVERAGE,
     /** Gebühr als Aufwand ([PortfolioDisposal.feeExpense]): Einstand = Aufwand, Erlös 0; sonst null. */
@@ -219,6 +221,7 @@ fun TaxExport.gainRows(
         portfolioValueTarget = atSale(d.portfolioValueUsdt),
         grossProceedsUsdt = d.grossProceedsUsdt,
         grossProceedsTarget = atSale(d.grossProceedsUsdt),
+        addressValueIncluded = d.addressValueIncluded,
         // Durchschnitt/Pool (Herkunftsteile ohne Posten-Datum); FIFO-Posten tragen ihre Teile ohne diesen Vermerk
         pooled = (d.method == CostMethod.AVERAGE && d.feeExpense == null) || (d.costParts.isNotEmpty() && d.acquiredTime == null),
         feeExpense = d.feeExpense,

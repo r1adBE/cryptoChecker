@@ -175,6 +175,18 @@ object SheetChart {
         else -> SheetChartFx.CURRENT
     }
 
+    /**
+     * Eigene Zeile unter dem Chart, wenn die Ausweich-Reihe mit EINEM heutigen Devisenkurs umgerechnet und am letzten
+     * Punkt auf den Kurs des Paars gezogen ist ([SheetChartFx.CURRENT]): «Verlauf in USDT, mit heutigem Kurs in CHF
+     * umgerechnet». Zurück (Währung der Reihe, Währung des Paars); null = Kerzen des Paars selbst oder Tageskurse.
+     */
+    fun todayRateCaption(fx: SheetChartFx, sourcePair: String?, quote: String): Pair<String, String>? {
+        if (fx != SheetChartFx.CURRENT) return null
+        val target = quote.trim().uppercase().takeIf { it.isNotEmpty() } ?: return null
+        val source = sourcePair?.substringAfterLast('/', "")?.trim()?.uppercase()?.takeIf { it.isNotEmpty() } ?: USDT
+        return source to target
+    }
+
     /** Gültige Tageskurse aufsteigend nach Tag. */
     private fun sortedRates(dailyRates: Map<Long, Double>?): List<Pair<Long, Double>> =
         dailyRates.orEmpty().entries

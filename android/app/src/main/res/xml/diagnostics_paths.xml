@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- «Diagnose teilen»: nur der eine Ordner im Cache ist für FileProvider freigegeben -->
+<paths>
+    <cache-path name="diagnostics" path="diagnostics/" />
+</paths>

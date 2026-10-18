@@ -323,7 +323,7 @@ class XpubTokenParityTest {
         assertEquals("P2SH_P2WPKH", XpubCache.toJson(cache).getString("s"))
         assertEquals(cache, XpubCache.fromJson(XpubCache.toJson(cache)))
         assertTrue(!XpubCache.toJson(cache.copy(script = null)).has("s"))
-        assertNull(XpubCache.fromJson(org.json.JSONObject("{\"r\":[\"a\"],\"s\":\"P2TR\"}"))!!.script)
+        assertNull(XpubCache.fromJson(org.json.JSONObject("{\"r\":[\"a\"],\"s\":\"P2XX\"}"))!!.script)
     }
 
     @Test

@@ -131,6 +131,15 @@ struct AlarmsOverviewScreen: View {
                 .accessibilityElement(children: .combine)
                 .animation(.snappy, value: active)
             }
+            // Damit Alarme ankommen: echter Zustand von Mitteilungen, Hintergrundaktualisierung und letzter Prüfung
+            ToolbarItem(placement: .primaryAction) {
+                NavigationLink {
+                    AlarmDeliveryScreen()
+                } label: {
+                    Image(systemName: "bell.badge")
+                }
+                .accessibilityLabel(L("delivery_title"))
+            }
             // Alarm-Protokoll: wann ausgelöst, wann zurückgehalten
             ToolbarItem(placement: .primaryAction) {
                 NavigationLink {

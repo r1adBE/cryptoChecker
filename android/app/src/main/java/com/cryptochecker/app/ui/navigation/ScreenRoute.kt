@@ -29,6 +29,10 @@ sealed interface ScreenRoute {
     @Serializable
     data object AlarmLog : ScreenRoute
 
+    /** «Damit Alarme ankommen» (Build 81): aus «Alle Alarme», dem Hinweis im Alarm-Editor und Einstellungen › Alarme. */
+    @Serializable
+    data object AlarmDelivery : ScreenRoute
+
     /**
      * G-10: Unterseiten «Einordnung» und «Daten» des Markt-Tabs, [section] = Name aus `MarketSection`
      * (unbekannte Namen fängt `MarketSections.subpage` ab). [macro]: Mitteilung «Wirtschaftstermine» —

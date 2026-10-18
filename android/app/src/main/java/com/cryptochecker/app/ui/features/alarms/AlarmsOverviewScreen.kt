@@ -66,6 +66,8 @@ fun AlarmsOverviewScreen(
     onOpenWatch: (Long) -> Unit,
     /** Alarm-Protokoll öffnen («Warum hat es nicht gepiepst?»). */
     onOpenLog: () -> Unit = {},
+    /** «Damit Alarme ankommen» öffnen (Erlaubnisse, Akku, letzte Prüfung). */
+    onOpenDelivery: () -> Unit = {},
     viewModel: AlarmsOverviewViewModel = hiltViewModel(),
     lockViewModel: PortfolioLockViewModel = hiltViewModel(),
 ) {
@@ -117,6 +119,13 @@ fun AlarmsOverviewScreen(
                     }
                 },
                 actions = {
+                    // Damit Alarme ankommen: echter Zustand von Erlaubnissen, Akku und letzter Prüfung
+                    IconButton(onClick = onOpenDelivery) {
+                        Icon(
+                            painterResource(R.drawable.ic_notifications_active_outline),
+                            contentDescription = stringResource(R.string.delivery_title)
+                        )
+                    }
                     // Alarm-Protokoll: wann ausgelöst, wann zurückgehalten
                     IconButton(onClick = onOpenLog) {
                         Icon(

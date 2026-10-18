@@ -1,0 +1,758 @@
+{
+  "_comment": "Seite «Damit Alarme ankommen» (Build 81): gelesener Zustand → Zeilen (row, state, detail, action). Android: AlarmReadinessParityTest.kt, iOS: AlarmReadinessParityTests.swift. Fehlende Eingaben = Standard der Input-Klasse.",
+  "staleCheckMillis": 21600000,
+  "cases": [
+    {
+      "name": "android_all_good",
+      "input": {
+        "platform": "android",
+        "notifications": "granted",
+        "now": 1800000000000,
+        "minuteOfDay": 600,
+        "quietEnabled": false,
+        "lastBackgroundCheck": 1799999400000,
+        "hasAlarms": true,
+        "channel": "high",
+        "exactEnabled": true,
+        "exactPermitted": true,
+        "batteryUnrestricted": true,
+        "backgroundRestricted": false,
+        "systemDnd": false
+      },
+      "expected": [
+        [
+          "notifications",
+          "ok",
+          "allowed",
+          "none"
+        ],
+        [
+          "channel",
+          "ok",
+          "channel_high",
+          "none"
+        ],
+        [
+          "exact",
+          "ok",
+          "exact_on",
+          "none"
+        ],
+        [
+          "battery",
+          "ok",
+          "battery_unrestricted",
+          "none"
+        ],
+        [
+          "background",
+          "ok",
+          "allowed",
+          "none"
+        ],
+        [
+          "dnd",
+          "ok",
+          "off",
+          "none"
+        ],
+        [
+          "quiet_hours",
+          "ok",
+          "off",
+          "none"
+        ],
+        [
+          "last_check",
+          "ok",
+          "check_recent",
+          "none"
+        ]
+      ]
+    },
+    {
+      "name": "android_problems",
+      "input": {
+        "platform": "android",
+        "notifications": "denied",
+        "now": 1800000000000,
+        "minuteOfDay": 60,
+        "quietEnabled": true,
+        "quietStart": 1380,
+        "quietEnd": 420,
+        "lastBackgroundCheck": null,
+        "hasAlarms": true,
+        "channel": "off",
+        "exactEnabled": true,
+        "exactPermitted": false,
+        "batteryUnrestricted": false,
+        "backgroundRestricted": true,
+        "systemDnd": true
+      },
+      "expected": [
+        [
+          "notifications",
+          "warn",
+          "off",
+          "notification_settings"
+        ],
+        [
+          "channel",
+          "warn",
+          "channel_off",
+          "channel_settings"
+        ],
+        [
+          "exact",
+          "warn",
+          "exact_no_permission",
+          "exact_permission"
+        ],
+        [
+          "battery",
+          "info",
+          "battery_optimized",
+          "battery_settings"
+        ],
+        [
+          "background",
+          "warn",
+          "restricted",
+          "app_settings"
+        ],
+        [
+          "dnd",
+          "warn",
+          "on",
+          "none"
+        ],
+        [
+          "quiet_hours",
+          "warn",
+          "quiet_now",
+          "alarm_settings"
+        ],
+        [
+          "last_check",
+          "warn",
+          "check_never",
+          "check_runs"
+        ]
+      ]
+    },
+    {
+      "name": "android_defaults_no_alarms",
+      "input": {
+        "platform": "android",
+        "notifications": "granted",
+        "now": 1800000000000,
+        "minuteOfDay": 720,
+        "quietEnabled": true,
+        "quietStart": 1380,
+        "quietEnd": 420,
+        "lastBackgroundCheck": 1799974800000,
+        "hasAlarms": false,
+        "channel": null,
+        "exactEnabled": false,
+        "exactPermitted": true,
+        "batteryUnrestricted": false,
+        "backgroundRestricted": false,
+        "systemDnd": null
+      },
+      "expected": [
+        [
+          "notifications",
+          "ok",
+          "allowed",
+          "none"
+        ],
+        [
+          "channel",
+          "ok",
+          "channel_high",
+          "none"
+        ],
+        [
+          "exact",
+          "info",
+          "exact_off",
+          "update_settings"
+        ],
+        [
+          "battery",
+          "info",
+          "battery_optimized",
+          "battery_settings"
+        ],
+        [
+          "background",
+          "ok",
+          "allowed",
+          "none"
+        ],
+        [
+          "quiet_hours",
+          "info",
+          "quiet_set",
+          "alarm_settings"
+        ],
+        [
+          "last_check",
+          "info",
+          "check_old",
+          "check_runs"
+        ]
+      ]
+    },
+    {
+      "name": "android_channel_low_quiet_same_times_future_check",
+      "input": {
+        "platform": "android",
+        "notifications": "granted",
+        "now": 1800000000000,
+        "minuteOfDay": 420,
+        "quietEnabled": true,
+        "quietStart": 600,
+        "quietEnd": 600,
+        "lastBackgroundCheck": 1800000300000,
+        "hasAlarms": true,
+        "channel": "low",
+        "exactEnabled": false,
+        "exactPermitted": false,
+        "batteryUnrestricted": true,
+        "backgroundRestricted": false,
+        "systemDnd": false
+      },
+      "expected": [
+        [
+          "notifications",
+          "ok",
+          "allowed",
+          "none"
+        ],
+        [
+          "channel",
+          "warn",
+          "channel_low",
+          "channel_settings"
+        ],
+        [
+          "exact",
+          "info",
+          "exact_off",
+          "update_settings"
+        ],
+        [
+          "battery",
+          "ok",
+          "battery_unrestricted",
+          "none"
+        ],
+        [
+          "background",
+          "ok",
+          "allowed",
+          "none"
+        ],
+        [
+          "dnd",
+          "ok",
+          "off",
+          "none"
+        ],
+        [
+          "quiet_hours",
+          "ok",
+          "off",
+          "none"
+        ],
+        [
+          "last_check",
+          "ok",
+          "check_recent",
+          "none"
+        ]
+      ]
+    },
+    {
+      "name": "android_quiet_end_exclusive",
+      "input": {
+        "platform": "android",
+        "notifications": "granted",
+        "now": 1800000000000,
+        "minuteOfDay": 420,
+        "quietEnabled": true,
+        "quietStart": 1380,
+        "quietEnd": 420,
+        "lastBackgroundCheck": 1799978400000,
+        "hasAlarms": true,
+        "channel": "high",
+        "exactEnabled": true,
+        "exactPermitted": true,
+        "batteryUnrestricted": true,
+        "backgroundRestricted": false,
+        "systemDnd": null
+      },
+      "expected": [
+        [
+          "notifications",
+          "ok",
+          "allowed",
+          "none"
+        ],
+        [
+          "channel",
+          "ok",
+          "channel_high",
+          "none"
+        ],
+        [
+          "exact",
+          "ok",
+          "exact_on",
+          "none"
+        ],
+        [
+          "battery",
+          "ok",
+          "battery_unrestricted",
+          "none"
+        ],
+        [
+          "background",
+          "ok",
+          "allowed",
+          "none"
+        ],
+        [
+          "quiet_hours",
+          "info",
+          "quiet_set",
+          "alarm_settings"
+        ],
+        [
+          "last_check",
+          "ok",
+          "check_recent",
+          "none"
+        ]
+      ]
+    },
+    {
+      "name": "ios_all_good",
+      "input": {
+        "platform": "ios",
+        "notifications": "granted",
+        "now": 1800000000000,
+        "minuteOfDay": 600,
+        "quietEnabled": false,
+        "lastBackgroundCheck": 1799996400000,
+        "hasAlarms": true,
+        "alertEnabled": true,
+        "soundEnabled": true,
+        "wantsSound": true,
+        "timeSensitive": true,
+        "backgroundRefresh": true,
+        "lowPower": false
+      },
+      "expected": [
+        [
+          "notifications",
+          "ok",
+          "allowed",
+          "none"
+        ],
+        [
+          "alert_sound",
+          "ok",
+          "on",
+          "none"
+        ],
+        [
+          "time_sensitive",
+          "ok",
+          "on",
+          "none"
+        ],
+        [
+          "background_refresh",
+          "ok",
+          "on",
+          "none"
+        ],
+        [
+          "low_power",
+          "ok",
+          "off",
+          "none"
+        ],
+        [
+          "quiet_hours",
+          "ok",
+          "off",
+          "none"
+        ],
+        [
+          "last_check",
+          "ok",
+          "check_recent",
+          "none"
+        ],
+        [
+          "swipe_away",
+          "info",
+          "note",
+          "none"
+        ],
+        [
+          "live_activity",
+          "info",
+          "note",
+          "none"
+        ]
+      ]
+    },
+    {
+      "name": "ios_not_asked_background_off",
+      "input": {
+        "platform": "ios",
+        "notifications": "not_determined",
+        "now": 1800000000000,
+        "minuteOfDay": 1350,
+        "quietEnabled": true,
+        "quietStart": 1320,
+        "quietEnd": 1380,
+        "lastBackgroundCheck": 1799974800000,
+        "hasAlarms": true,
+        "alertEnabled": false,
+        "soundEnabled": false,
+        "wantsSound": true,
+        "timeSensitive": false,
+        "backgroundRefresh": false,
+        "lowPower": true
+      },
+      "expected": [
+        [
+          "notifications",
+          "warn",
+          "not_asked",
+          "request_permission"
+        ],
+        [
+          "background_refresh",
+          "warn",
+          "off",
+          "app_settings"
+        ],
+        [
+          "low_power",
+          "warn",
+          "on",
+          "none"
+        ],
+        [
+          "quiet_hours",
+          "warn",
+          "quiet_now",
+          "alarm_settings"
+        ],
+        [
+          "last_check",
+          "warn",
+          "check_old",
+          "check_runs"
+        ],
+        [
+          "swipe_away",
+          "info",
+          "note",
+          "none"
+        ],
+        [
+          "live_activity",
+          "info",
+          "note",
+          "none"
+        ]
+      ]
+    },
+    {
+      "name": "ios_silent_signal_sound_off_ok",
+      "input": {
+        "platform": "ios",
+        "notifications": "granted",
+        "now": 1800000000000,
+        "minuteOfDay": 600,
+        "quietEnabled": false,
+        "lastBackgroundCheck": null,
+        "hasAlarms": false,
+        "alertEnabled": true,
+        "soundEnabled": false,
+        "wantsSound": false,
+        "timeSensitive": false,
+        "backgroundRefresh": true,
+        "lowPower": false
+      },
+      "expected": [
+        [
+          "notifications",
+          "ok",
+          "allowed",
+          "none"
+        ],
+        [
+          "alert_sound",
+          "ok",
+          "on",
+          "none"
+        ],
+        [
+          "time_sensitive",
+          "info",
+          "off",
+          "notification_settings"
+        ],
+        [
+          "background_refresh",
+          "ok",
+          "on",
+          "none"
+        ],
+        [
+          "low_power",
+          "ok",
+          "off",
+          "none"
+        ],
+        [
+          "quiet_hours",
+          "ok",
+          "off",
+          "none"
+        ],
+        [
+          "last_check",
+          "info",
+          "check_never",
+          "check_runs"
+        ],
+        [
+          "swipe_away",
+          "info",
+          "note",
+          "none"
+        ],
+        [
+          "live_activity",
+          "info",
+          "note",
+          "none"
+        ]
+      ]
+    },
+    {
+      "name": "ios_sound_off",
+      "input": {
+        "platform": "ios",
+        "notifications": "granted",
+        "now": 1800000000000,
+        "minuteOfDay": 600,
+        "quietEnabled": false,
+        "lastBackgroundCheck": 1799996400000,
+        "hasAlarms": true,
+        "alertEnabled": true,
+        "soundEnabled": false,
+        "wantsSound": true,
+        "timeSensitive": null,
+        "backgroundRefresh": true,
+        "lowPower": false
+      },
+      "expected": [
+        [
+          "notifications",
+          "ok",
+          "allowed",
+          "none"
+        ],
+        [
+          "alert_sound",
+          "warn",
+          "sound_off",
+          "notification_settings"
+        ],
+        [
+          "background_refresh",
+          "ok",
+          "on",
+          "none"
+        ],
+        [
+          "low_power",
+          "ok",
+          "off",
+          "none"
+        ],
+        [
+          "quiet_hours",
+          "ok",
+          "off",
+          "none"
+        ],
+        [
+          "last_check",
+          "ok",
+          "check_recent",
+          "none"
+        ],
+        [
+          "swipe_away",
+          "info",
+          "note",
+          "none"
+        ],
+        [
+          "live_activity",
+          "info",
+          "note",
+          "none"
+        ]
+      ]
+    },
+    {
+      "name": "ios_alert_off_denied_shape",
+      "input": {
+        "platform": "ios",
+        "notifications": "granted",
+        "now": 1800000000000,
+        "minuteOfDay": 600,
+        "quietEnabled": false,
+        "lastBackgroundCheck": 1799996400000,
+        "hasAlarms": true,
+        "alertEnabled": false,
+        "soundEnabled": false,
+        "wantsSound": true,
+        "timeSensitive": true,
+        "backgroundRefresh": true,
+        "lowPower": false
+      },
+      "expected": [
+        [
+          "notifications",
+          "ok",
+          "allowed",
+          "none"
+        ],
+        [
+          "alert_sound",
+          "warn",
+          "alert_off",
+          "notification_settings"
+        ],
+        [
+          "time_sensitive",
+          "ok",
+          "on",
+          "none"
+        ],
+        [
+          "background_refresh",
+          "ok",
+          "on",
+          "none"
+        ],
+        [
+          "low_power",
+          "ok",
+          "off",
+          "none"
+        ],
+        [
+          "quiet_hours",
+          "ok",
+          "off",
+          "none"
+        ],
+        [
+          "last_check",
+          "ok",
+          "check_recent",
+          "none"
+        ],
+        [
+          "swipe_away",
+          "info",
+          "note",
+          "none"
+        ],
+        [
+          "live_activity",
+          "info",
+          "note",
+          "none"
+        ]
+      ]
+    },
+    {
+      "name": "ios_denied",
+      "input": {
+        "platform": "ios",
+        "notifications": "denied",
+        "now": 1800000000000,
+        "minuteOfDay": 600,
+        "quietEnabled": false,
+        "lastBackgroundCheck": 1799996400000,
+        "hasAlarms": true,
+        "alertEnabled": true,
+        "soundEnabled": true,
+        "wantsSound": true,
+        "timeSensitive": true,
+        "backgroundRefresh": true,
+        "lowPower": false
+      },
+      "expected": [
+        [
+          "notifications",
+          "warn",
+          "off",
+          "notification_settings"
+        ],
+        [
+          "background_refresh",
+          "ok",
+          "on",
+          "none"
+        ],
+        [
+          "low_power",
+          "ok",
+          "off",
+          "none"
+        ],
+        [
+          "quiet_hours",
+          "ok",
+          "off",
+          "none"
+        ],
+        [
+          "last_check",
+          "ok",
+          "check_recent",
+          "none"
+        ],
+        [
+          "swipe_away",
+          "info",
+          "note",
+          "none"
+        ],
+        [
+          "live_activity",
+          "info",
+          "note",
+          "none"
+        ]
+      ]
+    }
+  ]
+}

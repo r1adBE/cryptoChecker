@@ -13,10 +13,11 @@ object EncryptionPending {
 
     /**
      * Vorgemerkte Datenbanken nach der Entscheidung für [database]: unverschlüsselt geöffnet → dazu, verschlüsselt →
-     * weg. [Decision.KeyUnavailable] öffnet nichts und ändert nichts an der Datei — der Stand bleibt.
+     * weg. [Decision.KeyUnavailable] öffnet nichts und ändert nichts an der Datei — der Stand bleibt. [Decision.Refused]
+     * (Portfolio ohne Schlüssel nur im Arbeitsspeicher) zählt wie unverschlüsselt: Verschlüsselung noch nicht aktiv.
      */
     fun updated(pending: Set<String>, database: String, decision: Decision): Set<String> = when (decision) {
-        Decision.Plaintext -> pending + database
+        Decision.Plaintext, Decision.Refused -> pending + database
         is Decision.Encrypted -> pending - database
         is Decision.KeyUnavailable -> pending
     }

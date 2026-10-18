@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Markt-Tab: «Gewinner und Verlierer 24 h» unter dem Pulse (Zeile für den Screenreader: Name, Kürzel, Änderung) -->
+    <string name="movers_title">เหรียญขึ้นและลงมากสุด 24 ชม.</string>
+    <string name="movers_gainers">ขึ้นมากสุด</string>
+    <string name="movers_losers">ลงมากสุด</string>
+    <string name="movers_no_gainers">ไม่มีเหรียญใดขึ้นใน 24 ชม.</string>
+    <string name="movers_no_losers">ไม่มีเหรียญใดลงใน 24 ชม.</string>
+    <string name="movers_source">CoinGecko, 24 ชม., 100 อันดับแรกไม่รวมสเตเบิลคอยน์</string>
+    <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
+</resources>

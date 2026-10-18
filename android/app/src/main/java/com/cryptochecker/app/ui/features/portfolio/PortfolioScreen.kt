@@ -60,7 +60,9 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.R
+import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.portfolio.FxRateSource
+import com.cryptochecker.app.data.portfolio.PortfolioDatabase
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioImportBatch
 import com.cryptochecker.app.domain.portfolio.PortfolioInsights
@@ -187,6 +189,16 @@ fun PortfolioScreen(
         viewModel.consumeAddressOverlapRestored()
         val text = resources.getString(R.string.portfolio_address_overlap_restored, notice.names.joinToString(", "))
         banner.show(text) { viewModel.undoAddressOverlapRestored(notice) }
+    }
+
+    // Kein Schlüssel: Portfolio nur im Arbeitsspeicher, nie unverschlüsselt gespeichert — sagen, nicht still (wie iOS
+    // «portfolio_save_pending»); der nächste Start versucht es erneut
+    val storageInMemory by DatabaseEncryptionNotice.inMemory.collectAsStateWithLifecycle()
+    val portfolioInMemory = PortfolioDatabase.DB_NAME in storageInMemory
+    val closeLabel = stringResource(R.string.action_close)
+    LaunchedEffect(portfolioInMemory, addressesOpen) {
+        if (!portfolioInMemory || addressesOpen) return@LaunchedEffect
+        banner.showAction(resources.getString(R.string.portfolio_storage_in_memory), closeLabel, IN_MEMORY_NOTICE_MILLIS) {}
     }
 
     // Ungültige Einträge aus der Systemsicherung einmal nennen
@@ -631,3 +643,6 @@ private fun CurrencyDialog(selected: String, onSelect: (String) -> Unit, onDismi
 
 /** So lange steht «Alarm gespeichert … · Mitteilungen aus» mit «Einstellungen». */
 private const val SAVED_ALARM_MILLIS = 8_000L
+
+/** Hinweis «Portfolio nur im Arbeitsspeicher»: lang genug zum Lesen, mit «Schliessen». */
+private const val IN_MEMORY_NOTICE_MILLIS = 12_000L

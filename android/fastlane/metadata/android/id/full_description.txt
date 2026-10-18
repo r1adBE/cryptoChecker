@@ -33,7 +33,7 @@ PASAR
 
 LAINNYA
 • Widget: daftar pantauan, total portofolio, satu koin dengan grafik
-• Portofolio opsional (aktifkan di Pengaturan): beli, jual, swap, transfer, reward, setoran dan penarikan; FIFO (bawaan) atau rata-rata (Ø); alamat hanya-baca tanpa seed untuk BTC (termasuk xpub), ETH & jaringan EVM, SOL, TRX, XRP, LTC, dan TON; impor CSV dari Relai, Swissquote, Bitpanda, Kraken, Binance dan Coinbase; ringkasan tahunan sebagai CSV; kunci tersendiri. Bitpanda dan Swissquote tidak punya feed harga publik, jadi tanpa harga langsung – transaksinya masuk lewat impor CSV.
+• Portofolio opsional (aktifkan di Pengaturan): beli, jual, swap, transfer, reward, setoran dan penarikan; FIFO (bawaan) atau rata-rata (Ø); alamat hanya-baca tanpa seed untuk BTC (termasuk xpub), ETH & jaringan EVM, SOL, TRX, XRP, LTC, dan TON; impor CSV dari Relai, Swissquote, Bitpanda, Kraken, Binance dan Coinbase; ringkasan tahunan sebagai CSV; kunci tersendiri. Bitpanda dan Swissquote tidak punya feed harga publik, jadi tanpa harga sendiri – transaksinya masuk lewat impor CSV.
 • Mudah dibaca semua orang: hijau/merah atau biru/oranye, tanda dan panah, bukan hanya warna; TalkBack membacakan tiap baris sebagai satu kalimat
 • Cadangkan & pulihkan ke file – juga antara Android dan iPhone
 • Mode terang dan gelap, lima warna aksen, 31 bahasa

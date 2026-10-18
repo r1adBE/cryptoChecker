@@ -391,6 +391,7 @@ enum MarketService {
         var brokenGroups: Set<Int> = []
         // Bereits geholte ungefilterte Abfragen decken jede Teilanfrage mit derselben Adresse ab
         var fullDone: Set<String> = []
+        var responsesComplete = true
         // «Zu viele Anfragen» bei einer Folgeanfrage: Rest weglassen, Text für die Pause (`ExchangeBackoff`)
         var throttled: String? = nil
         var throttledFailure: MarketFailure? = nil
@@ -407,6 +408,9 @@ enum MarketService {
                                                         lowMemory: lowMemory, fullDone: &fullDone) else { continue }
                 tickers.merge(part.tickers) { _, newer in newer }
                 unreadable.formUnion(part.failed)
+                // Eine Antwort, die sich selbst als lückenhaft meldet (`Market.bulkResponseComplete`), hebt
+                // «vollständig» auf
+                if !part.complete { responsesComplete = false }
                 if !part.failed.isEmpty {
                     HttpLog.add("Sammelabfrage \(market.key): \(part.failed.count) Zeilen unlesbar")
                 }
@@ -432,7 +436,7 @@ enum MarketService {
         let incomplete = BulkCompleteness.incomplete(pairIds, failedGroups: brokenGroups) {
             market.bulkTickersPairGroup(pairId: $0)
         }
-        let complete = market.bulkTickersComplete && !tickers.isEmpty
+        let complete = market.bulkTickersComplete && responsesComplete && !tickers.isEmpty
             && BulkCompleteness.anyComplete(pairIds, failedGroups: brokenGroups, incomplete: incomplete)
         return BulkTickers(tickers: tickers, complete: complete, error: throttled,
                            failed: unreadable.subtracting(tickers.keys), incomplete: incomplete,

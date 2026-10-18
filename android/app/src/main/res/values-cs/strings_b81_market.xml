@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
+    <string name="tax_summary_fr_address_no_cost">Sledované adresy se započítávají do celkové hodnoty, ale nemají pořizovací cenu – zisk je proto spíše nadhodnocený. Zadejte pořizovací cenu jako nákup.</string>
+</resources>

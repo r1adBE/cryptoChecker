@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Markt-Tab: «Gewinner und Verlierer 24 h» unter dem Pulse (Zeile für den Screenreader: Name, Kürzel, Änderung) -->
+    <string name="movers_title">Κερδισμένοι και χαμένοι 24 ω</string>
+    <string name="movers_gainers">Κερδισμένοι</string>
+    <string name="movers_losers">Χαμένοι</string>
+    <string name="movers_no_gainers">Κανένα νόμισμα δεν ανέβηκε σε 24 ω</string>
+    <string name="movers_no_losers">Κανένα νόμισμα δεν έπεσε σε 24 ω</string>
+    <string name="movers_source">CoinGecko, 24 ω, top 100 χωρίς stablecoins</string>
+    <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
+</resources>

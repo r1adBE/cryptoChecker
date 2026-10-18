@@ -220,6 +220,11 @@ data class PortfolioDisposal(
     val portfolioValueUsdt: BigDecimal? = null,
     /** [TaxMethod.FR_PTA]: Abtretungspreis vor Gebühren (Quotient und 305-€-Grenze); sonst null. */
     val grossProceedsUsdt: BigDecimal? = null,
+    /**
+     * [TaxMethod.FR_PTA]: [portfolioValueUsdt] enthält Guthaben beobachteter Adressen — die haben keinen Einstand in der
+     * Erwerbspreis-Summe, der Gewinn ist dadurch eher zu hoch ([TaxSummaryNote.FR_ADDRESS_NO_COST]).
+     */
+    val addressValueIncluded: Boolean = false,
     /** Gebühr als Aufwand ([PortfolioFeeExpenses]): Einstand = Aufwand, Erlös 0; sonst null. */
     val feeExpense: PortfolioFeeExpense? = null,
     /**

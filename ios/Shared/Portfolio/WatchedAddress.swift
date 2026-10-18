@@ -289,9 +289,10 @@ enum WatchedAddressRules {
         return cut.isEmpty ? nil : cut
     }
 
-    /// «bc1qxy…0wlh» — Adressen sind ASCII.
+    /// «bc1qxy…0wlh» — Adressen sind ASCII. Taproot-Konto: «tr(xpub6B…UsQ)» (der Schlüssel, nicht der Pfad am Ende).
     static func shortAddress(_ address: String) -> String {
-        address.count <= 14 ? address : String(address.prefix(6)) + "…" + String(address.suffix(4))
+        if let inner = Bip32.taprootAccount(address) { return "tr(" + shortAddress(inner) + ")" }
+        return address.count <= 14 ? address : String(address.prefix(6)) + "…" + String(address.suffix(4))
     }
 
     static func sameAddress(_ chain: AddressChain, _ a: String, _ b: String) -> Bool {

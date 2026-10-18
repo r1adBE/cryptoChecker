@@ -917,7 +917,8 @@
           "proceeds": "2970",
           "gain": "1370",
           "portfolioValue": "37500",
-          "gross": "3000"
+          "gross": "3000",
+          "addressValueIncluded": false
         },
         {
           "coin": "BTC",
@@ -2690,7 +2691,7 @@
     },
     {
       "name": "B47 FR Gesamtwert samt beobachteter Adresse (Adress-Eintrag, negative Id)",
-      "_calc": "Eigener Bestand 1 BTC (PTA 10000), dazu 1 BTC auf einer beobachteten Adresse. Verkauf 0,5 BTC zu 20000: Gesamtwert 2 × 20000 = 40000 (vorher ohne Adresse 20000), Einstand 10000 × 10000 / 40000 = 2500, Gewinn 7500.",
+      "_calc": "Eigener Bestand 1 BTC (PTA 10000), dazu 1 BTC auf einer beobachteten Adresse. Verkauf 0,5 BTC zu 20000: Gesamtwert 2 × 20000 = 40000 (vorher ohne Adresse 20000), Einstand 10000 × 10000 / 40000 = 2500, Gewinn 7500. [B81] Gesamtwert enthält die Adresse → addressValueIncluded (Vermerk FR_ADDRESS_NO_COST in der Übersicht).",
       "method": "FR_PTA",
       "prices": {
         "BTC": "20000"
@@ -2731,7 +2732,8 @@
           "gain": "7500",
           "portfolioValue": "40000",
           "gross": "10000",
-          "costIncomplete": false
+          "costIncomplete": false,
+          "addressValueIncluded": true
         }
       ]
     },
@@ -6970,6 +6972,86 @@
           null
         ]
       ]
+    },
+    {
+      "_calc": "[B81] Wie der Engine-Fall «B47 FR Gesamtwert samt beobachteter Adresse»: eigener Bestand 1 BTC (PTA 10000), dazu 1 BTC auf einer beobachteten Adresse (negative Id, kein Einstand). Verkauf 0,5 BTC zu 20000: Gesamtwert 40000, Einstand 2500, Gewinn 7500. Die Adresse zählt zu Recht zum Gesamtwert, hat aber keinen Einstand → Vermerk FR_ADDRESS_NO_COST am Posten netto (nicht ausgeschlossen, Beträge unverändert).",
+      "template": "FR",
+      "method": "FR_PTA",
+      "year": 2025,
+      "trades": [
+        {
+          "id": -1000001,
+          "coin": "BTC",
+          "type": "DEPOSIT",
+          "amount": "1",
+          "time": 1735732800000
+        },
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1736510400000,
+          "price": "10000"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "0.5",
+          "time": 1741608000000,
+          "price": "20000"
+        }
+      ],
+      "prices": {
+        "BTC": "20000"
+      },
+      "lines": [
+        [
+          "GAINS",
+          "7500",
+          "7500",
+          null
+        ],
+        [
+          "LOSSES",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "NET",
+          "7500",
+          "7500",
+          null,
+          "FR_ADDRESS_NO_COST"
+        ],
+        [
+          "PROCEEDS",
+          "10000",
+          "10000",
+          null
+        ],
+        [
+          "INCOME",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "FR_THRESHOLD",
+          null,
+          "305",
+          "REACHED"
+        ],
+        [
+          "FR_RATE",
+          null,
+          null,
+          null
+        ]
+      ],
+      "incompleteLines": []
     },
     {
       "template": "AT",

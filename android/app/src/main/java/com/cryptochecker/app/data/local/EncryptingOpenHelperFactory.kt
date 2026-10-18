@@ -5,6 +5,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.sqlite.db.SupportSQLiteOpenHelper
 import androidx.sqlite.db.framework.FrameworkSQLiteOpenHelperFactory
 import com.cryptochecker.app.data.local.DatabaseEncryptionMigration.Decision
+import com.cryptochecker.app.data.portfolio.PortfolioDatabase
 import net.zetetic.database.sqlcipher.SupportOpenHelperFactory
 import timber.log.Timber
 
@@ -14,6 +15,9 @@ import timber.log.Timber
  * ([DatabaseEncryptionMigration]) läuft darum nie dort. Je nach Entscheidung öffnet der Helfer:
  * - verschlüsselt über SQLCipher (`SupportOpenHelperFactory`, roher Schlüssel aus [DatabaseKeyStore]);
  * - unverschlüsselt über das Android-SQLite wie bis Build 58 (Rückfall, der nächste Start versucht es erneut);
+ * - nur im Arbeitsspeicher, wenn eine Datenbank mit Verschlüsselungspflicht ([encryptionRequired], das Portfolio) ohne
+ *   Schlüssel neu entstehen müsste: nie unverschlüsselt auf dem Speicher, wie iOS (Änderungen bleiben im Speicher, das
+ *   Portfolio nennt es); der nächste Start versucht es erneut ([DatabaseEncryptionNotice.inMemory]);
  * - gar nicht, solange der Keystore den Schlüssel einer verschlüsselten Datei gerade nicht herausgibt (Ausnahme;
  *   der nächste Zugriff versucht es erneut, verändert wird nichts).
  * War die verschlüsselte Datei ohne Schlüssel unlesbar, liegt sie beiseite und die App nennt das, bis der Nutzer es
@@ -24,6 +28,8 @@ class EncryptingOpenHelperFactory(
     private val context: Context,
     private val keys: DatabaseEncryptionMigration.Keys = DatabaseKeyStore(context),
     private val files: DatabaseEncryptionMigration.Files = SqlCipherDatabaseFiles(context),
+    /** Datenbanken, die ohne Schlüssel nie unverschlüsselt angelegt werden (Portfolio: Beträge, Adressen, xpub). */
+    private val encryptionRequired: Set<String> = setOf(PortfolioDatabase.DB_NAME),
 ) : SupportSQLiteOpenHelper.Factory {
 
     override fun create(configuration: SupportSQLiteOpenHelper.Configuration): SupportSQLiteOpenHelper {
@@ -59,9 +65,12 @@ class EncryptingOpenHelperFactory(
         private fun delegate(): SupportSQLiteOpenHelper {
             delegate?.let { return it }
             val name = requireNotNull(configuration.name)
-            val decision = DatabaseEncryptionMigration(files, keys) { message, error ->
-                if (error == null) Timber.i(message) else Timber.w(error, message)
-            }.prepare(name)
+            val decision = DatabaseEncryptionMigration(
+                files,
+                keys,
+                log = { message, error -> if (error == null) Timber.i(message) else Timber.w(error, message) },
+                encryptionRequired = { it in encryptionRequired },
+            ).prepare(name)
             // Unverschlüsselt bleiben nennt Einstellungen › Sicherung (EncryptionPending); verschlüsselt löscht es
             DatabaseEncryptionNotice.note(context, name, decision)
             val helper = when (decision) {
@@ -72,6 +81,13 @@ class EncryptingOpenHelperFactory(
                     SupportOpenHelperFactory(decision.passphrase).create(configuration)
                 }
                 Decision.Plaintext -> FrameworkSQLiteOpenHelperFactory().create(configuration)
+                Decision.Refused -> {
+                    // Vor dem Öffnen gesetzt: Room-Callbacks (Übernahme aus Kopien, die danach gelöscht würden) sehen es schon
+                    DatabaseEncryptionNotice.markInMemory(name)
+                    // Gleiche Callbacks (Schema, Migrationen), aber ohne Namen: SQLite im Arbeitsspeicher, keine Datei
+                    val inMemory = SupportSQLiteOpenHelper.Configuration(configuration.context, null, configuration.callback)
+                    FrameworkSQLiteOpenHelperFactory().create(inMemory)
+                }
                 is Decision.KeyUnavailable -> throw DatabaseKeyUnavailableException(name, decision.error)
             }
             writeAheadLogging?.let(helper::setWriteAheadLoggingEnabled)

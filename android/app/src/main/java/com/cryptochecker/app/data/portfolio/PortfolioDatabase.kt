@@ -7,6 +7,7 @@ import androidx.room.TypeConverters
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.cryptochecker.app.data.local.AppDatabase
+import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.local.StorageRecoveryNotice
 import com.cryptochecker.app.domain.portfolio.LegacyStorageMigration
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
@@ -173,6 +174,12 @@ abstract class PortfolioDatabase : RoomDatabase() {
             }
         }
 
+        /**
+         * Liegt das Portfolio in diesem Prozess nur im Arbeitsspeicher (kein Schlüssel, nie unverschlüsselt angelegt,
+         * [DatabaseEncryptionNotice.inMemory])? Erst nach dem ersten Öffnen verlässlich.
+         */
+        fun inMemory(): Boolean = DatabaseEncryptionNotice.isInMemory(DB_NAME)
+
         /** Index nach Room-Konvention (`index_<Tabelle>_<Spalte>`), passend zu [PortfolioTxEntity]. */
         const val IMPORT_KEY_INDEX_SQL =
             "CREATE INDEX IF NOT EXISTS `index_portfolio_tx_importKey` ON `portfolio_tx` (`importKey`)"
@@ -199,6 +206,9 @@ abstract class PortfolioDatabase : RoomDatabase() {
             @Volatile private var setAsideNow = false
 
             override fun onCreate(db: SupportSQLiteDatabase) {
+                // Nur im Arbeitsspeicher (kein Schlüssel): nichts übernehmen — die Kopie bliebe sonst nur bis zum Ende des
+                // Prozesses erhalten; sie wartet auf den nächsten Start mit Schlüssel
+                if (inMemory()) return
                 // Läuft in der Anlege-Transaktion; erst wird die ganze Datei gelesen und geprüft
                 // Ungültige Einträge nicht still verwerfen: beim nächsten Öffnen des Portfolios einmal nennen
                 runCatching {
@@ -219,6 +229,9 @@ abstract class PortfolioDatabase : RoomDatabase() {
             }
 
             override fun onOpen(db: SupportSQLiteDatabase) {
+                // Nur im Arbeitsspeicher: weder Kopien noch den Altbestand der Hauptdatenbank übernehmen (beide würden danach
+                // gelöscht); der nächste Start mit Schlüssel holt das nach
+                if (inMemory()) return
                 // Übernommene Kopie der Systemsicherung: Klartext, wird nicht mehr gebraucht (erst jetzt — beim Anlegen
                 // hätte ein Abbruch der Transaktion sonst die einzige Kopie gekostet)
                 if (takenOver) {

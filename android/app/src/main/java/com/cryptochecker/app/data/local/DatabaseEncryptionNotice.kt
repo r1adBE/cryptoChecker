@@ -34,6 +34,23 @@ object DatabaseEncryptionNotice {
         changed.update { it + 1 }
     }
 
+    private val inMemoryNames = MutableStateFlow<Set<String>>(emptySet())
+
+    /**
+     * Datenbanken, die in diesem Prozess nur im Arbeitsspeicher liegen ([Decision.Refused]: kein Schlüssel, nie
+     * unverschlüsselt angelegt). Nicht gespeichert: Jeder Start entscheidet neu. Das Portfolio nennt es, und was Daten
+     * aus anderen Dateien übernimmt und dort löscht (Systemsicherungs-Kopie, Altbestand), wartet bis dahin.
+     */
+    val inMemory: StateFlow<Set<String>> = inMemoryNames.asStateFlow()
+
+    /** Liegt [database] in diesem Prozess nur im Arbeitsspeicher? Erst nach dem ersten Öffnen verlässlich. */
+    fun isInMemory(database: String): Boolean = database in inMemoryNames.value
+
+    /** Von [EncryptingOpenHelperFactory] bei [Decision.Refused] gesetzt. */
+    internal fun markInMemory(database: String) {
+        inMemoryNames.update { it + database }
+    }
+
     /** Liegt mindestens eine Datenbank unverschlüsselt? Nicht auf dem Hauptthread. */
     fun isPending(context: Context): Boolean {
         val prefs = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)

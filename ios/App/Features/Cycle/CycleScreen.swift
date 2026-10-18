@@ -165,6 +165,8 @@ struct CycleScreen: View {
                         gas: viewModel.gas.value,
                         onRetry: { viewModel.loadPulse(force: true) }
                     )
+                    // «Gewinner und Verlierer 24 h»: Tippen wie bei «Heute auffällig»
+                    CycleMoversCard(market: viewModel.pulse, onOpen: { openCoin($0.symbol) })
                 }
             }
             .padding(.top, 4)
@@ -175,24 +177,24 @@ struct CycleScreen: View {
         revealSlot(.unusual) {
             CycleUnusualCard(
                 state: viewModel.unusual,
-                onOpen: openUnusual,
+                onOpen: { openCoin($0.symbol) },
                 onRetry: { viewModel.loadUnusual(force: true) }
             )
             .padding(.top, 12)
         }
     }
 
-    /// Tipp auf eine Zeile von «Heute auffällig».
-    private func openUnusual(_ row: UnusualRow) {
-        if let id = watchId(for: row.symbol) {
+    /// Tipp auf einen Coin aus «Heute auffällig» bzw. «Gewinner und Verlierer 24 h».
+    private func openCoin(_ symbol: String) {
+        if let id = watchId(for: symbol) {
             coinTarget = .stored(id)
         } else {
             Task { @MainActor in
-                if let preview = await WatchPreview.watch(symbol: row.symbol) {
+                if let preview = await WatchPreview.watch(symbol: symbol) {
                     coinTarget = .preview(preview)
                 } else {
                     // Über dem Markt-Tab, nicht über der Merkliste: zurück führt hierher (G-13)
-                    router.explorerSearch = row.symbol
+                    router.explorerSearch = symbol
                     router.showMarketExplorer = true
                 }
             }

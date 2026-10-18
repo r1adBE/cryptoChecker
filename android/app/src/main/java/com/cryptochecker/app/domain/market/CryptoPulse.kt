@@ -34,6 +34,8 @@ data class PulseInput(
     val marketCapUsd: Double? = null,
     /** Veränderung der Marktkapitalisierung über 24 h in %. */
     val marketCap24h: Double? = null,
+    /** «Gewinner und Verlierer 24 h» aus derselben Rangliste ([MarketMovers]); null = unbekannt (älterer Stand). */
+    val movers: MarketMoversResult? = null,
 )
 
 /** Marktbreite: wie viele der grössten Coins über 24 h steigen bzw. fallen. */
@@ -110,6 +112,8 @@ data class PulseReport(
     /** null = Zeile «Krypto-Markt» entfällt. */
     val marketCapUsd: Double? = null,
     val marketCap24h: Double? = null,
+    /** null oder leer = Karte «Gewinner und Verlierer 24 h» entfällt. */
+    val movers: MarketMoversResult? = null,
 )
 
 object CryptoPulse {
@@ -184,6 +188,7 @@ object CryptoPulse {
             marketCap24h = input.marketCap24h?.takeIf {
                 it.isFinite() && input.marketCapUsd?.let { cap -> cap.isFinite() && cap > 0.0 } == true
             },
+            movers = input.movers?.takeIf { !it.isEmpty },
         )
     }
 

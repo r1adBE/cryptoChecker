@@ -163,7 +163,10 @@ internal fun SheetPriceChart(
                         stable = stable,
                     )
                 }
-                SheetChartCaption(r, widgetRange.intervalMillis, ChangeBasisMath.chartZone(basis), listOf(watch.marketKey, watch.marketName))
+                SheetChartCaption(
+                    r, widgetRange.intervalMillis, ChangeBasisMath.chartZone(basis), listOf(watch.marketKey, watch.marketName),
+                    quote = watch.quoteAsset,
+                )
             }
             SheetChartResult.NoData -> Text(
                 text = stringResource(R.string.sheet_chart_no_data),
@@ -263,7 +266,13 @@ private fun RangeChangeHeader(change: Double?, periodShort: String, periodLong: 
  * Kerze («Stand 14:00»), getrennt mit « · ».
  */
 @Composable
-private fun SheetChartCaption(result: SheetChartResult.Ready, intervalMillis: Long, zone: ZoneId, markets: List<String>) {
+private fun SheetChartCaption(
+    result: SheetChartResult.Ready,
+    intervalMillis: Long,
+    zone: ZoneId,
+    markets: List<String>,
+    quote: String,
+) {
     val context = LocalContext.current
     val last = result.candles.lastOrNull() ?: return
     val stamp = SheetChart.stampMillis(last.openTime, intervalMillis, result.fetchedAt)
@@ -276,9 +285,13 @@ private fun SheetChartCaption(result: SheetChartResult.Ready, intervalMillis: Lo
             .format(Date(stamp))
     }
     val pair = result.sourcePair.orEmpty()
+    // Eine Reihe mit heutigem Kurs umgerechnet: eigene, deutliche Zeile darunter statt «(aktueller Kurs)» in dieser
+    val todayRate = SheetChart.todayRateCaption(result.fx, result.sourcePair, quote)
     val fx = when (result.fx) {
         SheetChartFx.DAILY -> stringResource(R.string.sheet_chart_converted_daily, BidiText.isolate(pair))
-        SheetChartFx.CURRENT -> stringResource(R.string.sheet_chart_converted_current, BidiText.isolate(pair))
+        SheetChartFx.CURRENT ->
+            if (todayRate != null) null
+            else stringResource(R.string.sheet_chart_converted_current, BidiText.isolate(pair))
         SheetChartFx.NONE -> null
     }
     // Kerzen einer anderen Börse (Ausweich-Kette): als fremd kennzeichnen, «Chart: Binance» statt nur «Binance»
@@ -293,6 +306,18 @@ private fun SheetChartCaption(result: SheetChartResult.Ready, intervalMillis: Lo
         color = MaterialTheme.colorScheme.onSurfaceVariant,
         modifier = Modifier.padding(top = 4.dp)
     )
+    if (todayRate != null) {
+        Text(
+            text = stringResource(
+                R.string.sheet_chart_usdt_today_rate,
+                BidiText.isolate(todayRate.first),
+                BidiText.isolate(todayRate.second),
+            ),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.padding(top = 2.dp)
+        )
+    }
 }
 
 /** Platzhalter im Satz «%1$s in %2$s» an der Stelle der Änderung. */

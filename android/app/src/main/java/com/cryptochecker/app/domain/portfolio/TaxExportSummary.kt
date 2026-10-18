@@ -101,6 +101,12 @@ enum class TaxSummaryNote {
      * Gewinn (gov.uk «Report and pay Capital Gains Tax»).
      */
     UK_HMRC_REPORT,
+    /**
+     * FR netto ([TaxLine.NET]): mindestens eine Abtretung im Jahr ist mit einem Gesamtwert samt Guthaben beobachteter
+     * Adressen gerechnet ([TaxGainRow.addressValueIncluded]). Sie zählen zu Recht zum Gesamtwert (art. 150 VH bis), haben
+     * aber keinen Einstand in der Erwerbspreis-Summe — der Gewinn ist dadurch eher zu hoch; Einstand als Kauf erfassen.
+     */
+    FR_ADDRESS_NO_COST,
 }
 
 /**
@@ -348,7 +354,8 @@ private class Acc(rows: List<TaxGainRow>, pick: (BigDecimal) -> Boolean, fx: Boo
  *    «Netto-Kapitalverlust (Vortrag)»; FR Abtretungen ≤ 305 € befreit (sonst ganz steuerbar); JP sonstige Einkünfte =
  *    netto + Einkünfte. UK/CA: Fenster der 30-Tage-Regel nach dem Steuerjahr noch offen ([today] bis und mit dem
  *    letzten Tag) und eine Veräusserung (CA: mit Verlust) in den letzten 30 Tagen des Steuerjahrs → Vermerk
- *    [TaxSummaryNote.WINDOW_OPEN]; UK Erlöse vor Gebühren über der Meldegrenze → [TaxSummaryNote.UK_HMRC_REPORT].
+ *    [TaxSummaryNote.WINDOW_OPEN]; UK Erlöse vor Gebühren über der Meldegrenze → [TaxSummaryNote.UK_HMRC_REPORT];
+ *    FR Abtretung mit Guthaben beobachteter Adressen im Gesamtwert → [TaxSummaryNote.FR_ADDRESS_NO_COST] am Posten netto.
  *    AT Zinsen mit Zufluss vor dem 1.3.2022: eigener Posten [TaxLine.AT_INTEREST_OLD] (alte Rechtslage), nicht 27,5 %.
  * Gezählt wird nur Bekanntes; was fehlt, steht als «unvollständig» bzw. «ohne Devisenkurs» am Posten (auch ein Gewinn
  * aus unvollständigem Einstand, FR). Gewinn oder Verlust entscheidet die Steuerwährung (ohne Kurs USDT). CH: Gewinne,
@@ -466,10 +473,14 @@ fun TaxExport.yearSummary(
         val info = TaxSummaryNote.CH_FIFO_INFO.takeIf { template == TaxTemplate.CH }
         lines += Acc(rows, pos, fx).line(TaxLine.GAINS, fx, false, info)
         lines += Acc(rows, neg, fx).line(TaxLine.LOSSES, fx, false, info)
+        // FR: beobachtete Adressen im Gesamtwert ohne Einstand — nicht ausgeschlossen (gehören zum Gesamtwert), nur vermerkt
+        val frAddress = TaxSummaryNote.FR_ADDRESS_NO_COST.takeIf {
+            template == TaxTemplate.FR && rows.any { r -> r.addressValueIncluded }
+        }
         lines += if (windowEnd != null) {
             net.line(TaxLine.NET, fx, note = TaxSummaryNote.WINDOW_OPEN).copy(noteDate = windowEnd)
         } else {
-            net.line(TaxLine.NET, fx, note = info)
+            net.line(TaxLine.NET, fx, note = info ?: frAddress)
         }
     }
     if (withdrawalFees.isNotEmpty()) {

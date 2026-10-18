@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Markt-Tab: «Gewinner und Verlierer 24 h» unter dem Pulse (Zeile für den Screenreader: Name, Kürzel, Änderung) -->
+    <string name="movers_title">Nyertesek és vesztesek 24 ó</string>
+    <string name="movers_gainers">Nyertesek</string>
+    <string name="movers_losers">Vesztesek</string>
+    <string name="movers_no_gainers">Egyetlen coin sem emelkedett 24 ó alatt</string>
+    <string name="movers_no_losers">Egyetlen coin sem esett 24 ó alatt</string>
+    <string name="movers_source">CoinGecko, 24 ó, top 100 stablecoinok nélkül</string>
+    <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
+</resources>

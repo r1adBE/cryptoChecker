@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">Conta Taproot (BIP86): desta chave são derivados endereços bc1p…, para recebimento e troco.</string>
+    <string name="portfolio_address_taproot_hint">Carteira Taproot? Cole em vez disso o descritor tr(…) da sua carteira – uma xpub simples só é buscada como endereços Legacy e SegWit.</string>
+</resources>

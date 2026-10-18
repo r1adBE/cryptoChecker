@@ -10,6 +10,10 @@ import Foundation
 ///    (Keccak-256), nur klein oder nur gross wird ohne Prüfsumme angenommen.
 ///  - Erweiterte öffentliche Schlüssel xpub/ypub/zpub (BIP32, nur Mainnet, `Bip32`): Prüfsumme, Version und
 ///    Kurvenpunkt; Ergebnis unverändert (`.XPUB`/`.YPUB`/`.ZPUB`). Multisig (Ypub/Zpub): `.EXTENDED_KEY`.
+///  - Taproot-Konto als Deskriptor (BIP86/BIP380/BIP389): `tr(` + optionale Herkunft `[fingerprint/86'/0'/0']` + xpub +
+///    Kette `/0/`, `/1/` oder `/<0;1>/` mit Platzhalter, optional `#prüfsumme` (wird geprüft). Normalisiert auf beide
+///    Ketten ohne Herkunft (`Bip32.taprootDescriptor`, `.TR_XPUB`). Skriptbaum, Einzelschlüssel oder andere Pfade:
+///    `.UNSUPPORTED_VERSION`; privater Schlüssel im Deskriptor: `.SECRET`.
 ///  - Litecoin «L…»/«M…»/«ltc1…» (Kinds wie Bitcoin, Netz LTC), TRON «T…» (0x41), Solana (Base58, genau 32 Byte, ohne
 ///    Prüfsumme), XRP «r…» (Ripple-Base58; X-Adressen nicht unterstützt), TON «EQ…/UQ…» (CRC16) oder «0:<hex>»,
 ///    BNB Beacon Chain «bnb1…»: `.BEP2_SHUTDOWN` (2024 abgeschaltet), Cardano Shelley «addr1…» (Bech32 ohne Längengrenze),
@@ -21,7 +25,7 @@ import Foundation
 /// Ergebnis normalisiert: Bech32 klein, Ethereum mit EIP-55-Prüfsumme, Base58 unverändert.
 enum AddressValidation {
 
-    enum Kind: String, Sendable { case P2PKH, P2SH, P2WPKH, P2WSH, P2TR, ETH, XPUB, YPUB, ZPUB, SOL, TRX, XRP, TON, ADA }
+    enum Kind: String, Sendable { case P2PKH, P2SH, P2WPKH, P2WSH, P2TR, ETH, XPUB, YPUB, ZPUB, TR_XPUB, SOL, TRX, XRP, TON, ADA }
 
     enum Problem: String, Sendable {
         case EMPTY
@@ -118,6 +122,7 @@ enum AddressValidation {
         }
         if s.count == 64 && s.allSatisfy(isHex) { return invalid(.SECRET) }
 
+        if s.hasPrefix("tr(") { return taprootDescriptor(s) }
         if extendedPrivate.contains(where: { s.hasPrefix($0) }) { return invalid(.SECRET) }
         if extendedPublic.contains(where: { s.hasPrefix($0) }) { return extended(s) }
 
@@ -280,9 +285,104 @@ enum AddressValidation {
         return Check(chain: .BTC, kind: kind, normalized: s, problem: nil)
     }
 
-    /// Erweiterter öffentlicher Schlüssel statt einzelner Adresse (beobachtete Adresse)?
+    /// Erweiterter öffentlicher Schlüssel (auch Taproot-Konto) statt einzelner Adresse (beobachtete Adresse)?
     static func isExtendedKey(_ address: String) -> Bool {
-        address.hasPrefix("xpub") || address.hasPrefix("ypub") || address.hasPrefix("zpub")
+        address.hasPrefix("xpub") || address.hasPrefix("ypub") || address.hasPrefix("zpub") || address.hasPrefix("tr(")
+    }
+
+    // MARK: Taproot-Deskriptor
+
+    /// Erlaubte Ketten hinter dem Schlüssel: Empfang, Wechselgeld oder beide (BIP389).
+    private static let taprootPaths: Set<String> = ["/0/*", "/1/*", "/<0;1>/*"]
+
+    /// `tr(KEY)` mit erweitertem Schlüssel; Prüfsumme (BIP380) wird geprüft, wenn vorhanden. Herkunft und gewählte Kette
+    /// fallen weg: beobachtet werden immer beide Ketten (Wallets exportieren Empfang und Wechselgeld oft getrennt, beide
+    /// ergeben dieselbe Normalform und damit dieselbe beobachtete Adresse). Wie Android.
+    private static func taprootDescriptor(_ input: String) -> Check {
+        var s = input
+        if let hash = s.lastIndex(of: "#") {
+            let sum = String(s[s.index(after: hash)...])
+            s = String(s[..<hash])
+            guard sum.count == 8, sum.allSatisfy({ charset.contains($0) }) else { return invalid(.UNKNOWN_FORMAT) }
+            guard let expected = descriptorChecksum(s) else { return invalid(.UNKNOWN_FORMAT) }
+            if expected != sum { return invalid(.BAD_CHECKSUM) }
+        }
+        guard s.hasSuffix(")"), s.count >= 5 else { return invalid(.UNKNOWN_FORMAT) }
+        var inner = String(s.dropFirst(3).dropLast())
+        // Skriptbaum (tr(KEY,{…})) wird nicht unterstützt — die Adressen hingen vom Baum ab
+        if inner.contains(",") || inner.contains("{") { return invalid(.UNSUPPORTED_VERSION) }
+        if inner.hasPrefix("[") {
+            guard let end = inner.firstIndex(of: "]"),
+                  isKeyOrigin(String(inner[inner.index(after: inner.startIndex)..<end])) else { return invalid(.UNKNOWN_FORMAT) }
+            inner = String(inner[inner.index(after: end)...])
+        }
+        let key: String
+        let path: String
+        if let slash = inner.firstIndex(of: "/") {
+            key = String(inner[..<slash])
+            path = String(inner[slash...])
+        } else {
+            key = inner
+            path = ""
+        }
+        if key.isEmpty { return invalid(.UNKNOWN_FORMAT) }
+        if extendedPrivate.contains(where: { key.hasPrefix($0) }) { return invalid(.SECRET) }
+        if extendedPublic.contains(where: { key.hasPrefix($0) }) {
+            if let problem = Bip32.check(key) { return invalid(problem) }
+            // ypub/zpub in tr() ergäben keine BIP86-Adressen
+            if !key.hasPrefix("xpub") { return invalid(.UNKNOWN_FORMAT) }
+        } else {
+            // WIF (privat) nie annehmen; einzelner öffentlicher Schlüssel (Hex) ist kein Konto
+            if base58(key).problem == .SECRET { return invalid(.SECRET) }
+            if (key.count == 64 || key.count == 66) && key.allSatisfy(isHex) { return invalid(.UNSUPPORTED_VERSION) }
+            return invalid(.UNKNOWN_FORMAT)
+        }
+        guard taprootPaths.contains(path) else { return invalid(.UNSUPPORTED_VERSION) }
+        return Check(chain: .BTC, kind: .TR_XPUB, normalized: Bip32.taprootDescriptor(key), problem: nil)
+    }
+
+    /// «73c5da0a/86'/0'/0'»: 8 Hex-Ziffern, dann Indizes (gehärtet mit ', h oder H).
+    private static func isKeyOrigin(_ origin: String) -> Bool {
+        let parts = origin.split(separator: "/", omittingEmptySubsequences: false).map(String.init)
+        guard parts[0].count == 8, parts[0].allSatisfy(isHex) else { return false }
+        return parts.dropFirst().allSatisfy { p in
+            let digits = p.hasSuffix("'") || p.hasSuffix("h") || p.hasSuffix("H") ? String(p.dropLast()) : p
+            guard !digits.isEmpty, digits.count <= 10, digits.allSatisfy({ $0.isASCII && $0.isNumber }),
+                  let n = Int64(digits) else { return false }
+            return n <= Bip32.maxIndex
+        }
+    }
+
+    private static let descriptorInput =
+        Array("0123456789()[],'/*abcdefgh@:$%{}IJKLMNOPQRSTUVWXYZ&+-.;<=>?!^_|~ijklmnopqrstuvwxyzABCDEFGH`#\"\\ ")
+    private static let descriptorGen: [UInt64] = [0xf5dee51989, 0xa9fdca3312, 0x1bab10e32d, 0x3706b1677a, 0x644d626ffd]
+
+    /// Prüfsumme eines Deskriptors (BIP380, 8 Zeichen); Zeichen ausserhalb des Deskriptor-Alphabets = nil. Wie Android.
+    static func descriptorChecksum(_ descriptor: String) -> String? {
+        var symbols: [Int] = []
+        var groups: [Int] = []
+        for ch in descriptor {
+            guard let v = descriptorInput.firstIndex(of: ch) else { return nil }
+            symbols.append(v & 31)
+            groups.append(v >> 5)
+            if groups.count == 3 {
+                symbols.append(groups[0] * 9 + groups[1] * 3 + groups[2])
+                groups.removeAll()
+            }
+        }
+        if groups.count == 1 { symbols.append(groups[0]) }
+        if groups.count == 2 { symbols.append(groups[0] * 3 + groups[1]) }
+        symbols.append(contentsOf: [Int](repeating: 0, count: 8))
+        var c: UInt64 = 1
+        for v in symbols {
+            let top = c >> 35
+            c = ((c & 0x7ffffffff) << 5) ^ UInt64(v)
+            for i in 0..<5 where (top >> UInt64(i)) & 1 == 1 { c ^= descriptorGen[i] }
+        }
+        c ^= 1
+        var out = ""
+        for i in 0..<8 { out.append(charset[Int((c >> UInt64(5 * (7 - i))) & 31)]) }
+        return out
     }
 
     /// «bitcoin:ADR?amount=…», «ethereum:pay-ADR@1/…» → ADR.

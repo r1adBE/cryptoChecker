@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">บัญชี Taproot (BIP86): ที่อยู่ bc1p… สำหรับรับและเงินทอนจะสร้างจากคีย์นี้</string>
+    <string name="portfolio_address_taproot_hint">ใช้วอลเล็ต Taproot ใช่ไหม? ให้วางดีสคริปเตอร์ tr(…) จากวอลเล็ตของคุณแทน – xpub ธรรมดาจะค้นหาเฉพาะที่อยู่ Legacy และ SegWit</string>
+</resources>

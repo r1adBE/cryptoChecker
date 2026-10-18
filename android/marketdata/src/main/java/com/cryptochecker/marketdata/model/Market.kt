@@ -199,8 +199,15 @@ abstract class Market(
             throw MarketParseException(BulkTickerRows.formatErrorText(good.size, broken.size))
         }
         good.values.forEach(::markFetched)
-        return BulkTickerParse(good, broken)
+        return BulkTickerParse(good, broken, bulkResponseComplete(call, body))
     }
+
+    /**
+     * Hook for exchanges with [bulkTickersComplete]: false when this very response cannot vouch for every tradable
+     * pair (One Trading: rows of other instrument types were dropped or a spot book is closed). A missing pair then
+     * goes to the single request instead of being reported as not traded. Default: true. iOS: same name.
+     */
+    protected open fun bulkResponseComplete(call: Int, body: String): Boolean = true
 
     /**
      * Hook: parses a bulk response — readable rows into [tickers] (keyed by pair id), present but unreadable rows

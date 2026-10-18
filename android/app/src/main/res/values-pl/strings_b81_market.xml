@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
+    <string name="tax_summary_fr_address_no_cost">Obserwowane adresy wliczają się do wartości całkowitej, ale nie mają kosztu nabycia – zysk jest przez to raczej zawyżony. Zapisz koszt jako zakup.</string>
+</resources>

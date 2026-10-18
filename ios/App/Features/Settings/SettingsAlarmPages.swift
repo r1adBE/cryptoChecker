@@ -53,6 +53,11 @@ struct AlarmSettingsPage: View {
                 UpdatesSettingsPage()
             }
             RowDivider()
+            // Damit Alarme ankommen: Mitteilungen, Hintergrundaktualisierung und letzte Prüfung auf einen Blick
+            SettingsNavRow(title: L("delivery_title"), icon: .system("bell.badge"), value: nil) {
+                AlarmDeliveryScreen()
+            }
+            RowDivider()
             SwitchRow(
                 title: L("settings_price_notifications"),
                 subtitle: L("ios_settings_price_notifications_hint"),

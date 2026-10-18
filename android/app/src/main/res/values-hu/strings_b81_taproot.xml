@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">Taproot-fiók (BIP86): ebből a kulcsból bc1p… címek származnak, fogadáshoz és visszajáróhoz.</string>
+    <string name="portfolio_address_taproot_hint">Taproot-tárca? Inkább a tárcád tr(…) leíróját illeszd be – egy sima xpub esetén csak Legacy és SegWit címeket keresünk.</string>
+</resources>

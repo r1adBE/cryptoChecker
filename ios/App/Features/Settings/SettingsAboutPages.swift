@@ -31,6 +31,8 @@ struct AboutSettingsPage: View {
             SettingsCard {
                 aboutLinkRows
             }
+            // Diagnose für den Support: erst Vorschau, dann Teilen-Menü — nichts geht automatisch weg (wie Android)
+            DiagnosticsCard()
             // Was die App kann (früher im Begrüssungsblatt)
             SettingsCard {
                 AboutFeatures()

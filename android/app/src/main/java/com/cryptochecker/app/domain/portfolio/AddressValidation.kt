@@ -12,6 +12,10 @@ import java.security.MessageDigest
  *  - Erweiterte öffentliche Schlüssel xpub/ypub/zpub (BIP32, nur Mainnet, [Bip32]): Prüfsumme, Version und
  *    Kurvenpunkt; Ergebnis unverändert ([Kind.XPUB]/[Kind.YPUB]/[Kind.ZPUB]). Multisig (Ypub/Zpub):
  *    [Problem.EXTENDED_KEY].
+ *  - Taproot-Konto als Deskriptor (BIP86/BIP380/BIP389): `tr(` + optionale Herkunft `[fingerprint/86'/0'/0']` + xpub +
+ *    Kette `/0/`, `/1/` oder `/<0;1>/` mit Platzhalter, optional `#prüfsumme` (wird geprüft). Normalisiert auf beide
+ *    Ketten ohne Herkunft ([Bip32.taprootDescriptor], [Kind.TR_XPUB]). Skriptbaum, Einzelschlüssel oder andere Pfade:
+ *    [Problem.UNSUPPORTED_VERSION]; privater Schlüssel im Deskriptor: [Problem.SECRET].
  *  - Litecoin: Base58Check «L…» (0x30) / «M…» (0x32), Bech32 «ltc1…» (Kinds wie Bitcoin, Netz LTC); alte «3…»-Adressen
  *    gelten als Bitcoin.
  *  - TRON: Base58Check «T…» (Version 0x41, 25 Byte).
@@ -31,7 +35,7 @@ import java.security.MessageDigest
  */
 object AddressValidation {
 
-    enum class Kind { P2PKH, P2SH, P2WPKH, P2WSH, P2TR, ETH, XPUB, YPUB, ZPUB, SOL, TRX, XRP, TON, ADA }
+    enum class Kind { P2PKH, P2SH, P2WPKH, P2WSH, P2TR, ETH, XPUB, YPUB, ZPUB, TR_XPUB, SOL, TRX, XRP, TON, ADA }
 
     enum class Problem {
         EMPTY,
@@ -117,6 +121,7 @@ object AddressValidation {
         }
         if (s.length == 64 && s.all { isHex(it) }) return invalid(Problem.SECRET)
 
+        if (s.startsWith("tr(")) return taprootDescriptor(s)
         if (EXTENDED_PRIVATE.any { s.startsWith(it) }) return invalid(Problem.SECRET)
         if (EXTENDED_PUBLIC.any { s.startsWith(it) }) return extended(s)
 
@@ -286,9 +291,100 @@ object AddressValidation {
         return Check(AddressChain.BTC, kind, s, null)
     }
 
-    /** Erweiterter öffentlicher Schlüssel statt einzelner Adresse (beobachtete Adresse)? */
+    /** Erweiterter öffentlicher Schlüssel (auch Taproot-Konto) statt einzelner Adresse (beobachtete Adresse)? */
     fun isExtendedKey(address: String): Boolean =
-        address.startsWith("xpub") || address.startsWith("ypub") || address.startsWith("zpub")
+        address.startsWith("xpub") || address.startsWith("ypub") || address.startsWith("zpub") || address.startsWith("tr(")
+
+    // ---------------- Taproot-Deskriptor ----------------
+
+    /** Erlaubte Ketten hinter dem Schlüssel: Empfang, Wechselgeld oder beide (BIP389). */
+    private val TAPROOT_PATHS = setOf("/0/*", "/1/*", "/<0;1>/*")
+
+    /**
+     * `tr(KEY)` mit erweitertem Schlüssel; Prüfsumme (BIP380) wird geprüft, wenn vorhanden. Herkunft und gewählte Kette
+     * fallen weg: beobachtet werden immer beide Ketten (Wallets exportieren Empfang und Wechselgeld oft getrennt, beide
+     * ergeben dieselbe Normalform und damit dieselbe beobachtete Adresse).
+     */
+    private fun taprootDescriptor(input: String): Check {
+        var s = input
+        val hash = s.lastIndexOf('#')
+        if (hash >= 0) {
+            val sum = s.substring(hash + 1)
+            s = s.substring(0, hash)
+            if (sum.length != 8 || !sum.all { it in CHARSET }) return invalid(Problem.UNKNOWN_FORMAT)
+            val expected = descriptorChecksum(s) ?: return invalid(Problem.UNKNOWN_FORMAT)
+            if (expected != sum) return invalid(Problem.BAD_CHECKSUM)
+        }
+        if (!s.endsWith(")") || s.length < 5) return invalid(Problem.UNKNOWN_FORMAT)
+        var inner = s.substring(3, s.length - 1)
+        // Skriptbaum (tr(KEY,{…})) wird nicht unterstützt — die Adressen hingen vom Baum ab
+        if (inner.contains(',') || inner.contains('{')) return invalid(Problem.UNSUPPORTED_VERSION)
+        if (inner.startsWith("[")) {
+            val end = inner.indexOf(']')
+            if (end < 0 || !isKeyOrigin(inner.substring(1, end))) return invalid(Problem.UNKNOWN_FORMAT)
+            inner = inner.substring(end + 1)
+        }
+        val slash = inner.indexOf('/')
+        val key = if (slash < 0) inner else inner.substring(0, slash)
+        val path = if (slash < 0) "" else inner.substring(slash)
+        if (key.isEmpty()) return invalid(Problem.UNKNOWN_FORMAT)
+        if (EXTENDED_PRIVATE.any { key.startsWith(it) }) return invalid(Problem.SECRET)
+        if (EXTENDED_PUBLIC.any { key.startsWith(it) }) {
+            Bip32.check(key)?.let { return invalid(it) }
+            // ypub/zpub in tr() ergäben keine BIP86-Adressen
+            if (!key.startsWith("xpub")) return invalid(Problem.UNKNOWN_FORMAT)
+        } else {
+            // WIF (privat) nie annehmen; einzelner öffentlicher Schlüssel (Hex) ist kein Konto
+            if (base58(key).problem == Problem.SECRET) return invalid(Problem.SECRET)
+            if ((key.length == 64 || key.length == 66) && key.all { isHex(it) }) return invalid(Problem.UNSUPPORTED_VERSION)
+            return invalid(Problem.UNKNOWN_FORMAT)
+        }
+        if (path !in TAPROOT_PATHS) return invalid(Problem.UNSUPPORTED_VERSION)
+        return Check(AddressChain.BTC, Kind.TR_XPUB, Bip32.taprootDescriptor(key), null)
+    }
+
+    /** «73c5da0a/86'/0'/0'»: 8 Hex-Ziffern, dann Indizes (gehärtet mit ', h oder H). */
+    private fun isKeyOrigin(origin: String): Boolean {
+        val parts = origin.split('/')
+        if (parts[0].length != 8 || !parts[0].all { isHex(it) }) return false
+        return parts.drop(1).all { p ->
+            val digits = if (p.endsWith("'") || p.endsWith("h") || p.endsWith("H")) p.dropLast(1) else p
+            digits.isNotEmpty() && digits.length <= 10 && digits.all { it in '0'..'9' } && digits.toLong() <= Bip32.MAX_INDEX
+        }
+    }
+
+    private const val DESCRIPTOR_INPUT =
+        "0123456789()[],'/*abcdefgh@:\$%{}IJKLMNOPQRSTUVWXYZ&+-.;<=>?!^_|~ijklmnopqrstuvwxyzABCDEFGH`#\"\\ "
+    private val DESCRIPTOR_GEN = longArrayOf(0xf5dee51989L, 0xa9fdca3312L, 0x1bab10e32dL, 0x3706b1677aL, 0x644d626ffdL)
+
+    /** Prüfsumme eines Deskriptors (BIP380, 8 Zeichen); Zeichen ausserhalb des Deskriptor-Alphabets = null. */
+    fun descriptorChecksum(descriptor: String): String? {
+        val symbols = ArrayList<Int>()
+        val groups = ArrayList<Int>()
+        for (ch in descriptor) {
+            val v = DESCRIPTOR_INPUT.indexOf(ch)
+            if (v < 0) return null
+            symbols.add(v and 31)
+            groups.add(v shr 5)
+            if (groups.size == 3) {
+                symbols.add(groups[0] * 9 + groups[1] * 3 + groups[2])
+                groups.clear()
+            }
+        }
+        if (groups.size == 1) symbols.add(groups[0])
+        if (groups.size == 2) symbols.add(groups[0] * 3 + groups[1])
+        repeat(8) { symbols.add(0) }
+        var c = 1L
+        for (v in symbols) {
+            val top = c ushr 35
+            c = ((c and 0x7ffffffffL) shl 5) xor v.toLong()
+            for (i in 0 until 5) if ((top ushr i) and 1L == 1L) c = c xor DESCRIPTOR_GEN[i]
+        }
+        c = c xor 1L
+        val sb = StringBuilder()
+        for (i in 0 until 8) sb.append(CHARSET[((c ushr (5 * (7 - i))) and 31L).toInt()])
+        return sb.toString()
+    }
 
     /** «bitcoin:ADR?amount=…», «ethereum:pay-ADR@1/…» → ADR. */
     private fun stripUri(s: String): String {

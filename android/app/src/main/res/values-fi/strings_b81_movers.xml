@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Markt-Tab: «Gewinner und Verlierer 24 h» unter dem Pulse (Zeile für den Screenreader: Name, Kürzel, Änderung) -->
+    <string name="movers_title">Nousijat ja laskijat 24 h</string>
+    <string name="movers_gainers">Nousijat</string>
+    <string name="movers_losers">Laskijat</string>
+    <string name="movers_no_gainers">Mikään kolikko ei noussut 24 h:ssa</string>
+    <string name="movers_no_losers">Mikään kolikko ei laskenut 24 h:ssa</string>
+    <string name="movers_source">CoinGecko, 24 h, top 100 ilman vakaakolikoita</string>
+    <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
+</resources>

@@ -1313,8 +1313,12 @@ the tests named here.
   third-coin fees are valued at that day's market price in period flows; a coin is skipped only without any
   market price, and app card, rows, widget and alarms show the same figure with the same «without …».
 * **Exchange time (build 46).** Never stamp server/envelope time as trade time (Binance closeTime, Bybit `time`,
-  HTX `ts`, Bitget, Poloniex, MEXC futures, KuCoin, WOO, Indodax): unknown exchange time lets «unchanged
-  since» work from `priceChangedAt`.
+  HTX `ts`, Bitget, Poloniex, MEXC futures, KuCoin, WOO X futures, Indodax): unknown exchange time lets «unchanged
+  since» work from `priceChangedAt`. Exception (build 81): WOO X spot is an hourly close, so its exchange time is the
+  end of the information in that candle (response time while it runs, start + 1 h once closed) and the 2-hour
+  alarm rule and «outdated» apply. A bulk response can declare itself incomplete (`bulkResponseComplete`; One
+  Trading keeps only ACTIVE spot rows and is incomplete when it dropped futures or closed books), so a missing
+  pair falls back to the single ticker instead of «not traded».
 * **Token identity (build 46).** `TokenIdentity`: same contract → same token; known names compared after
   normalising (table for LUNA/LUNC, CAT, NVDA, TON…); clearly different names reject a fallback even within the
   price band; without names the old symbol + band rule applies (weak).
@@ -1328,8 +1332,10 @@ the tests named here.
   refresh is capped (8 s total, 5 s per request) and never delays prices or alarms. Requests at most every 10 min per address, none without
   addresses; hosts are listed in the privacy policy. Addresses (not balances) are part of the app backup
   and follow «Portfolio in system backup».
-* **Networks for watched addresses (build 46).** BTC (addresses and xpub/ypub/zpub, derived on the device, gap
-  20 on the first scan), Ethereum and the EVM chains BNB Smart Chain, Polygon, Arbitrum, Base, OP Mainnet,
+* **Networks for watched addresses (build 46).** BTC (addresses incl. Taproot `bc1p…`, and xpub/ypub/zpub, derived
+  on the device, gap 20 on the first scan; Taproot accounts (build 81) only as a `tr(…)` descriptor – origin,
+  `/0/*`, `/1/*` or `/<0;1>/*`, BIP380 checksum checked – stored as `tr(xpub…/<0;1>/*)`, BIP86 key tweak, bech32m;
+  a plain xpub keeps the old type detection; vectors in `taproot.json`), Ethereum and the EVM chains BNB Smart Chain, Polygon, Arbitrum, Base, OP Mainnet,
   Avalanche (native coin + curated token lists, one batched request per chain), Solana (SOL + SPL/Token-2022 by
   mint), TRON (TRX + USDT-TRC20), XRP, LTC, TON (+ USDT jetton), ADA (Koios). BEP-2 is rejected (Beacon Chain
   shut down 2024), DOGE/BCH are rejected (no keyless service whose terms allow it). Keyless public nodes only,
@@ -1869,7 +1875,11 @@ next start.
   (`libsqlcipher.so`, 16 KB page aligned since 4.6.1).
 * `LocalDataModule` gives both builders the same `EncryptingOpenHelperFactory`. It decides on the **first access**
   to a file (Room never touches the database on the main thread, so the one-time migration never runs there):
-  encrypted (`SupportOpenHelperFactory` with the raw key), plaintext fallback (framework SQLite as up to build 58),
+  encrypted (`SupportOpenHelperFactory` with the raw key), plaintext fallback (framework SQLite as up to build 58) – never for a new portfolio database (build 81): without a key
+  `cryptochecker_portfolio.db` is not created; `Decision.Refused` opens an in-memory SQLite instead
+  (`DatabaseEncryptionNotice.inMemory`, banner `portfolio_storage_in_memory`; the portfolio callbacks skip the mirror
+  takeover and the legacy import, `importHoldings` waits) and the next start tries again; an existing plaintext
+  portfolio file still opens and migrates as before (`DatabaseEncryptionMigration.planOpen`),
   or – while the Keystore temporarily refuses the key of an encrypted file – `DatabaseKeyUnavailableException`
   and nothing changed. Background entry points skip the run and retry later, logged at debug level
   (`Throwable.isDatabaseKeyUnavailable()` checks the cause chain): `PriceUpdateWorker` returns `Result.retry()`,
@@ -1895,7 +1905,7 @@ next start.
   encrypted file. `MarketDatabase.db` (predecessor project) is still only deleted, never migrated.
 * Plaintext fallback is not silent (build 69): `EncryptingOpenHelperFactory` records every decision in
   `DatabaseEncryptionNotice` (own SharedPreferences, never in a backup; rule `EncryptionPending`, pure Kotlin +
-  `EncryptionPendingTest`): `Plaintext` adds the database, `Encrypted` removes it, `KeyUnavailable` changes
+  `EncryptionPendingTest`): `Plaintext` and `Refused` add the database, `Encrypted` removes it, `KeyUnavailable` changes
   nothing. While the set is not empty, Settings › Backup shows «Encryption not active yet – the app will try again
   at the next start» (`backup_encryption_pending`); persisted, so it also covers a database not opened in this
   process (portfolio).
@@ -2009,4 +2019,31 @@ after the encryption step.
   at once, merged «from–to» updates wait for the minute.
 * UI: «Last checked» line in the alarm editor and alarm list; page «Alarm log» from «All alarms» and next to
   «Recent checks» in the update settings; «Clear log» with confirmation.
+
+## Market movers (build 81)
+
+* Card «Gainers and losers 24 h» in the Market tab under the Pulse card: top 5 up / top 5 down among the top 100
+  by market cap without stablecoins and wrapped/staked coins (same exclusion as the breadth), valid 24 h value,
+  no duplicate tickers; exactly 0 % is neither; ties by rank, then ticker; fewer than 10 valid coins → hidden.
+  `MarketMovers.kt` / `MarketMovers.swift`, fixture `market_movers.json`. The Pulse CoinGecko request now asks for
+  `per_page=100` (one request, same cache); the breadth still uses the first 30 valid coins. Tap behaves like
+  «Unusual today».
+
+## Alarm delivery and diagnostics (build 81)
+
+* «Make sure alerts arrive» (`AlarmReadiness.kt` / `.swift`, fixture `alarm_delivery.json`): pure rows from the real
+  state – Android: notification permission, alarm channel importance (read without creating it), «Check on time»
+  (exact alarms), battery optimisation (informational, opens the app's battery settings; the app never requests the
+  exemption, a test checks it), background restriction, Do not disturb, app quiet hours, last background check
+  (warning after 6 h when alarms are on); iOS: notification authorisation, alert/sound, time-sensitive, Background App
+  Refresh, Low Power Mode, quiet hours, last background check, swipe-away note. Reachable from «All alarms», the alarm
+  editor's background hint and Settings › Alerts. Read-only: the alarm core is untouched.
+* Fiat chart caption: when the sheet chart converts the USDT path with today's rate (`SheetChartFx.CURRENT`) it says so
+  under the chart; daily-rate conversion keeps its own caption.
+* «Share diagnostics» (Settings › About, `DiagnosticReport.kt` / `.swift`, fixture `diagnostic_redact.json`): plain
+  text with English labels and codes – version/build, OS, device, locale, alarm-related settings, readiness rows, last
+  20 check runs, alarm-log events (time, pair, exchange, condition, outcome – no prices or thresholds), exchange
+  pauses. Input types carry no portfolio, amount, address or note fields; anything address-like is replaced by
+  `[redacted]`. Preview first, then the system share sheet (Android FileProvider limited to `cache/diagnostics/`);
+  nothing is sent automatically.
 

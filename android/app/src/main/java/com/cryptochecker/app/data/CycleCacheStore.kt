@@ -18,7 +18,9 @@ import com.cryptochecker.app.domain.market.FearGreed
 import com.cryptochecker.app.domain.market.GasNetwork
 import com.cryptochecker.app.domain.market.GasReport
 import com.cryptochecker.app.domain.market.GlobalMarket
+import com.cryptochecker.app.domain.market.MarketMoversResult
 import com.cryptochecker.app.domain.market.MarketTotals
+import com.cryptochecker.app.domain.market.MoverCoin
 import com.cryptochecker.app.domain.market.OnChainValues
 import com.cryptochecker.app.domain.market.PulseInput
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -131,6 +133,7 @@ object CycleCacheCodecs {
                 .put("top", JSONArray(p.topChanges.filter { it.isFinite() }))
                 .putNumber("marketCap", p.marketCapUsd)
                 .putNumber("marketCap24h", p.marketCap24h)
+                .apply { p.movers?.let { put("movers", moversJson(it)) } }
         },
         decode = { o ->
             PulseInput(
@@ -148,9 +151,36 @@ object CycleCacheCodecs {
                 }.orEmpty(),
                 marketCapUsd = o.doubleOrNull("marketCap"),
                 marketCap24h = o.doubleOrNull("marketCap24h"),
+                // Ältere Einträge ohne «movers»: Karte entfällt bis zum nächsten Abruf
+                movers = o.optJSONObject("movers")?.let { moversFrom(it) },
             )
         },
     )
+
+    /** `{"up":[{"s":"SOL","n":"Solana","r":5,"c":7.1}],"down":[…]}` (Rang nur, wenn bekannt). */
+    internal fun moversJson(m: MarketMoversResult): JSONObject {
+        fun list(coins: List<MoverCoin>) = JSONArray().apply {
+            coins.forEach { c ->
+                val change = c.change24h?.takeIf { it.isFinite() } ?: return@forEach
+                put(JSONObject().put("s", c.symbol).put("n", c.name).putNumber("r", c.rank).put("c", change))
+            }
+        }
+        return JSONObject().put("up", list(m.gainers)).put("down", list(m.losers))
+    }
+
+    /** Lesen; unlesbare Einträge fallen weg. */
+    internal fun moversFrom(o: JSONObject): MarketMoversResult {
+        fun list(key: String): List<MoverCoin> {
+            val a = o.optJSONArray(key) ?: return emptyList()
+            return (0 until a.length()).mapNotNull { i ->
+                val e = a.optJSONObject(i) ?: return@mapNotNull null
+                val symbol = e.optString("s").takeIf { it.isNotBlank() } ?: return@mapNotNull null
+                val change = e.doubleOrNull("c") ?: return@mapNotNull null
+                MoverCoin(symbol, e.optString("n"), e.intOrNull("r"), change)
+            }
+        }
+        return MarketMoversResult(list("up"), list("down"))
+    }
 
     /** Ohne «today»: das Modell rechnet nach dem Laden mit dem aktuellen Datum. */
     val cycleInputs = CacheCodec<CycleInputs>(

@@ -61,7 +61,10 @@ keys or other secrets never belong in this repository.
     keys are device-bound too). File protection stays the system default.
   * If encryption cannot be set up (no key, failed migration), the data stays
     readable in plaintext as before and Settings › Backup says «Encryption not
-    active yet» until a later start succeeds.
+    active yet» until a later start succeeds – except the portfolio: iOS keeps
+    changes in memory, Android never creates the portfolio database unencrypted
+    (kept in memory only, retried at the next start; an existing plaintext one
+    still opens and migrates).
   * Copying the files off the device does not reveal their content without the
     device's key. On an unlocked phone the app itself still reads and shows
     everything – the portfolio lock only hides the display.

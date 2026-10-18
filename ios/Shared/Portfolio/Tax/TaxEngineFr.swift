@@ -33,13 +33,18 @@ extension TaxEngines {
         var out: [PortfolioDisposal] = []
         let events = mergedEvents(real)
 
+        // Der zuletzt gerechnete Gesamtwert enthielt Guthaben beobachteter Adressen (für `addressValueIncluded`)
+        var valueHadAddresses = false
+
         /// Gesamtwert aller Bestände unmittelbar vor `time` — eigene Bestände und Guthaben beobachteter Adressen (zum selben
-        /// Kurs); `coin` zu `price`; nil = ein Kurs fehlt. Wie Android.
+        /// Kurs); `coin` zu `price`; nil = ein Kurs fehlt. Setzt `valueHadAddresses`. Wie Android.
         func portfolioValue(_ coin: String, _ price: Decimal?, _ time: Int64) -> Decimal? {
             var value: Decimal? = 0
+            valueHadAddresses = false
             for c in bookOrder + addrOrder.filter({ books[$0] == nil }) {
                 let q = (books[c]?.total ?? 0) + (addr[c] ?? 0)
                 if q <= 0 || PortfolioDecimal.isDust(q) { continue }
+                if (addr[c] ?? 0) > 0 { valueHadAddresses = true }
                 let p: Decimal?
                 if c == coin {
                     p = price
@@ -88,6 +93,7 @@ extension TaxEngines {
                     let held: Decimal = books[feeCoin]?.total ?? 0
                     let gross: Decimal? = p.map { PortfolioDecimal.multiply(qty, $0) }
                     let value: Decimal? = portfolioValue(feeCoin, p, t.time).map { $0 - spent }
+                    let withAddresses = value != nil && valueHadAddresses
                     let wasIncomplete = incomplete
                     var cost: Decimal? = nil
                     var parts: [PortfolioCostPart] = []
@@ -108,6 +114,7 @@ extension TaxEngines {
                     d.costIncomplete = wasIncomplete || cost == nil
                     d.portfolioValueUsdt = value
                     d.grossProceedsUsdt = gross
+                    d.addressValueIncluded = withAddresses
                     out.append(d)
                 }
 
@@ -148,6 +155,7 @@ extension TaxEngines {
                     if removed > 0 {
                         // Gesamtwert unmittelbar vor der Abtretung (verkaufter Coin zum Verkaufspreis)
                         let value = portfolioValue(coin, price, t.time)
+                        let withAddresses = value != nil && valueHadAddresses
                         let wasIncomplete = incomplete
                         var cost: Decimal? = nil
                         var parts: [PortfolioCostPart] = []
@@ -170,6 +178,7 @@ extension TaxEngines {
                         d.costIncomplete = wasIncomplete || cost == nil
                         d.portfolioValueUsdt = value
                         d.grossProceedsUsdt = grossCovered
+                        d.addressValueIncluded = withAddresses
                         out.append(d)
                     }
                     if removed < qty {

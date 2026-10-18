@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
+    <string name="portfolio_storage_in_memory">El cifrado aún no está activo: la cartera no se guarda y los cambios se pierden al cerrar la app. La app lo intentará de nuevo en el próximo inicio.</string>
+</resources>

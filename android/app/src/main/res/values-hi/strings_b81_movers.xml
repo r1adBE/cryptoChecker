@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Markt-Tab: «Gewinner und Verlierer 24 h» unter dem Pulse (Zeile für den Screenreader: Name, Kürzel, Änderung) -->
+    <string name="movers_title">24 घंटे के विजेता और पिछड़े</string>
+    <string name="movers_gainers">विजेता</string>
+    <string name="movers_losers">पिछड़े</string>
+    <string name="movers_no_gainers">24 घंटे में कोई कॉइन नहीं बढ़ा</string>
+    <string name="movers_no_losers">24 घंटे में कोई कॉइन नहीं गिरा</string>
+    <string name="movers_source">CoinGecko, 24 घंटे, स्टेबलकॉइन के बिना शीर्ष 100</string>
+    <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
+</resources>

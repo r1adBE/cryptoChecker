@@ -1,0 +1,50 @@
+{
+  "_comment": "«Diagnose teilen» (Build 81): adressähnliche Zeichenfolgen werden im Bericht ersetzt. Android: DiagnosticReportTest.kt, iOS: DiagnosticReportTests.swift.",
+  "redacted": "[redacted]",
+  "redact": [
+    {
+      "in": "BTC/CHF",
+      "out": "BTC/CHF"
+    },
+    {
+      "in": "Kraken",
+      "out": "Kraken"
+    },
+    {
+      "in": "PEPE/0x6982508145454ce325ddbe47a25d4ec3d2311933",
+      "out": "PEPE/[redacted]"
+    },
+    {
+      "in": "bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq",
+      "out": "[redacted]"
+    },
+    {
+      "in": "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa",
+      "out": "[redacted]"
+    },
+    {
+      "in": "xpub6CUGRUonZSQ4TWtTMmzXdrXDtypWKiKrhko4egpiMZbpiaQL2jkwSB1icqYh2cfDfVxdx4df189oLKnC5fSwqPfgyP3hooxujYzAu3fDVmz",
+      "out": "[redacted]"
+    },
+    {
+      "in": "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263 on Solana",
+      "out": "[redacted] on Solana"
+    },
+    {
+      "in": "TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t",
+      "out": "[redacted]"
+    },
+    {
+      "in": "Binance USDⓈ-M",
+      "out": "Binance USDⓈ-M"
+    },
+    {
+      "in": "SM-S918B",
+      "out": "SM-S918B"
+    },
+    {
+      "in": "16.2.2",
+      "out": "16.2.2"
+    }
+  ]
+}

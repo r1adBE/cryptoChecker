@@ -33,17 +33,23 @@ internal fun TaxEngines.frPta(
     val out = ArrayList<PortfolioDisposal>()
     val events = mergedEvents(real)
 
+    // Der zuletzt gerechnete Gesamtwert enthielt Guthaben beobachteter Adressen (für [PortfolioDisposal.addressValueIncluded])
+    var valueHadAddresses = false
+
     /**
      * Gesamtwert aller Bestände unmittelbar vor [time] — eigene Bestände und Guthaben beobachteter Adressen (zum selben
      * Kurs: erfasst, Stablecoin, sonst priceAt); [coin] zu [price]; null = ein Kurs fehlt (Einstand leer, unvollständig).
+     * Setzt [valueHadAddresses].
      */
     fun portfolioValue(coin: String, price: BigDecimal?, time: Long): BigDecimal? {
         var value: BigDecimal? = zero
+        valueHadAddresses = false
         val coins = LinkedHashSet<String>(books.keys)
         coins += addr.keys
         for (c in coins) {
             val q = (books[c]?.total ?: zero) + (addr[c] ?: zero)
             if (q.signum() <= 0 || PortfolioDecimal.isDust(q)) continue
+            if ((addr[c] ?: zero).signum() > 0) valueHadAddresses = true
             val p = when {
                 c == coin -> price
                 !PortfolioStables.needsQuote(c) -> BigDecimal.ONE
@@ -90,6 +96,7 @@ internal fun TaxEngines.frPta(
                 val held = books[feeCoin]?.total ?: zero
                 val gross = p?.let { qty.multiply(it, mc) }
                 val value = portfolioValue(feeCoin, p, t.time)?.let { it - spent }
+                val withAddresses = value != null && valueHadAddresses
                 val wasIncomplete = incomplete
                 var cost: BigDecimal? = null
                 var parts: List<PortfolioCostPart> = emptyList()
@@ -109,6 +116,7 @@ internal fun TaxEngines.frPta(
                     holdingDays = null, feeLeg = feeLeg, feeValueMissing = false,
                     method = CostMethod.AVERAGE, costParts = parts, uncovered = qty > held,
                     costIncomplete = wasIncomplete || cost == null, portfolioValueUsdt = value, grossProceedsUsdt = gross,
+                    addressValueIncluded = withAddresses,
                 )
             }
 
@@ -152,6 +160,7 @@ internal fun TaxEngines.frPta(
                     if (removed.signum() > 0) {
                         // Gesamtwert unmittelbar vor der Abtretung (verkaufter Coin zum Verkaufspreis)
                         val value = portfolioValue(coin, price, t.time)
+                        val withAddresses = value != null && valueHadAddresses
                         val wasIncomplete = incomplete
                         var cost: BigDecimal? = null
                         var parts: List<PortfolioCostPart> = emptyList()
@@ -172,6 +181,7 @@ internal fun TaxEngines.frPta(
                             method = CostMethod.AVERAGE, costParts = parts,
                             // Ohne Gesamtwert (Kurs fehlt) ist schon diese Abtretung unvollständig
                             costIncomplete = wasIncomplete || cost == null, portfolioValueUsdt = value, grossProceedsUsdt = grossCovered,
+                            addressValueIncluded = withAddresses,
                         )
                     }
                     if (removed < requested) {

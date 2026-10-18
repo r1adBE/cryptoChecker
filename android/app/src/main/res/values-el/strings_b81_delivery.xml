@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Seite «Damit Alarme ankommen» (Build 81): Titel, auch Name der Knöpfe in «Alle Alarme», im Alarm-Editor und unter Einstellungen › Alarme -->
+    <string name="delivery_title">Για να φτάνουν οι ειδοποιήσεις</string>
+    <!-- Screenreader: Zustand einer Zeile (✓ / ⚠ / Hinweis) -->
+    <string name="delivery_state_ok">Εντάξει</string>
+    <string name="delivery_state_warn">Προσοχή</string>
+    <string name="delivery_state_info">Σημείωση</string>
+    <string name="delivery_allowed">Επιτρέπονται</string>
+    <!-- Zeilen der Seite: Titel und Zustand. Android und iOS -->
+    <string name="delivery_notifications">Ειδοποιήσεις</string>
+    <string name="delivery_notifications_off">Απενεργοποιημένες – οι συναγερμοί δεν φτάνουν</string>
+    <string name="delivery_notifications_not_asked">Δεν επιτρέπονται ακόμη</string>
+    <string name="delivery_channel">Κανάλι συναγερμών</string>
+    <string name="delivery_channel_high">Υψηλή σημασία – εμφανίζεται στο πάνω μέρος της οθόνης</string>
+    <string name="delivery_channel_low">Χαμηλή σημασία – οι συναγερμοί εμφανίζονται μόνο αθόρυβα στη λίστα</string>
+    <string name="delivery_channel_off">Απενεργοποιημένο – οι συναγερμοί δεν φτάνουν</string>
+    <string name="delivery_exact_on">Ενεργό – περίπου κάθε 15 λεπτά</string>
+    <string name="delivery_exact_off">Ανενεργό – το Android ελέγχει ακανόνιστα</string>
+    <string name="delivery_battery">Βελτιστοποίηση μπαταρίας</string>
+    <string name="delivery_battery_unrestricted">Χωρίς περιορισμούς</string>
+    <string name="delivery_battery_optimized">Βελτιστοποιημένη – το Android μπορεί να καθυστερεί τους ελέγχους. Η εφαρμογή δεν ζητά εξαίρεση· μπορείς να το αλλάξεις στις ρυθμίσεις μπαταρίας της εφαρμογής.</string>
+    <string name="delivery_background">Χρήση στο παρασκήνιο</string>
+    <string name="delivery_background_restricted">Περιορισμένη – το Android σταματά τους ελέγχους στο παρασκήνιο</string>
+    <string name="delivery_dnd">Μην ενοχλείτε</string>
+    <string name="delivery_dnd_on">Ενεργό – οι συναγερμοί μπορεί να φτάνουν χωρίς ήχο</string>
+    <!-- %1$s = Ende der Nachtruhe (Uhrzeit) -->
+    <string name="delivery_quiet_now">Ενεργές έως %1$s – οι εκκρεμείς συναγερμοί περιμένουν ως τότε</string>
+    <!-- %1$s = Beginn, %2$s = Ende der Nachtruhe -->
+    <string name="delivery_quiet_set">%1$s–%2$s – οι εκκρεμείς συναγερμοί περιμένουν αυτό το διάστημα</string>
+    <string name="delivery_last_check">Τελευταίος έλεγχος στο παρασκήνιο</string>
+    <!-- %1$s = Zeit der letzten Prüfung im Hintergrund -->
+    <string name="delivery_last_check_old">%1$s – πριν από περισσότερες από 6 ώρες</string>
+    <string name="delivery_last_check_never">Κανένας ακόμη</string>
+    <!-- Knöpfe in den Zeilen -->
+    <string name="delivery_action_allow">Να επιτρέπεται</string>
+    <string name="delivery_action_change">Αλλαγή</string>
+    <string name="delivery_action_show">Εμφάνιση</string>
+    <!-- Zeilen nur auf iOS (Namen wie in den iOS-Einstellungen) -->
+    <string name="delivery_alert_sound">Πανό και ήχος</string>
+    <string name="delivery_alert_off">Πανό ανενεργά – οι συναγερμοί εμφανίζονται μόνο στο Κέντρο γνωστοποιήσεων</string>
+    <string name="delivery_sound_off">Ήχος ανενεργός – οι συναγερμοί φτάνουν αθόρυβα</string>
+    <string name="delivery_time_sensitive">Επείγουσες γνωστοποιήσεις</string>
+    <string name="delivery_time_sensitive_off">Ανενεργές – μια Εστίαση μπορεί να κρατά πίσω τους συναγερμούς</string>
+    <string name="delivery_background_refresh">Ανανέωση στο παρασκήνιο</string>
+    <string name="delivery_low_power">Λειτουργία χαμηλής ισχύος</string>
+    <string name="delivery_swipe_away">Έκλεισες την εφαρμογή με σάρωση;</string>
+    <string name="delivery_swipe_away_note">Αν κλείσεις την εφαρμογή με σάρωση στην εναλλαγή εφαρμογών, το iOS σταματά τους ελέγχους στο παρασκήνιο μέχρι να την ανοίξεις ξανά.</string>
+    <string name="delivery_live_activity">Ζωντανή δραστηριότητα</string>
+    <string name="delivery_live_activity_note">Δείχνει την τιμή στην οθόνη κλειδώματος, αλλά ενημερώνεται μόνο όταν ελέγχει η εφαρμογή – οι συναγερμοί δεν ελέγχονται γι\' αυτό συχνότερα.</string>
+    <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
+    <string name="diagnostics_share">Κοινοποίηση διάγνωσης</string>
+    <string name="diagnostics_share_hint">Αρχείο κειμένου για την υποστήριξη: έκδοση, συσκευή, ρυθμίσεις συναγερμών, τελευταίοι έλεγχοι και αρχείο συναγερμών – χωρίς χαρτοφυλάκιο, ποσά, διευθύνσεις ή σημειώσεις. Το βλέπεις πρώτα εσύ· τίποτα δεν αποστέλλεται αυτόματα.</string>
+    <string name="diagnostics_preview_title">Διάγνωση – προεπισκόπηση</string>
+    <string name="diagnostics_action_share">Κοινοποίηση</string>
+    <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
+    <string name="sheet_chart_usdt_today_rate">Πορεία σε %1$s, μετατροπή σε %2$s με τη σημερινή ισοτιμία</string>
+</resources>

@@ -141,6 +141,8 @@ class PortfolioRepository @Inject constructor(
             runCatchingCancellable {
                 val count = importHoldings(onlyNewCoins = false, onceMarker = HOLDINGS_MARKER)
                 if (count > 0) Timber.i("Portfolio: %d Bestände aus der Merkliste übernommen", count)
+                // Portfolio nur im Arbeitsspeicher (kein Schlüssel): nichts übernommen, der nächste Start versucht es erneut
+                if (PortfolioDatabase.inMemory()) return@runCatchingCancellable
                 prefs.edit { putBoolean(KEY_MIGRATED, true) }
             }.onFailure { Timber.w(it, "Portfolio: Übernahme des Bestands fehlgeschlagen") }
         }
@@ -170,6 +172,9 @@ class PortfolioRepository @Inject constructor(
         if (amounts.isEmpty()) return 0
 
         val created = database.withTransaction {
+            // Portfolio nur im Arbeitsspeicher (kein Schlüssel, nie unverschlüsselt angelegt): nicht übernehmen — der Bestand
+            // bleibt in der Merkliste, statt mit dem Ende des Prozesses verloren zu gehen
+            if (PortfolioDatabase.inMemory()) return@withTransaction null
             if (onceMarker != null && !markOnce(onceMarker)) return@withTransaction 0
             val existing = if (onlyNewCoins) {
                 portfolioDao.getCoins().map { PortfolioCalculator.normalizeCoin(it) }.toSet()
@@ -190,7 +195,7 @@ class PortfolioRepository @Inject constructor(
                 count++
             }
             count
-        }
+        } ?: return 0
         watchDao.clearAllHoldings()
         return created
     }

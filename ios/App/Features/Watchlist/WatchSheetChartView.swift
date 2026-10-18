@@ -89,7 +89,7 @@ struct WatchSheetChartView: View {
                     preparedChart(candles)
                     SheetChartCaption(info: info, candles: loaded, range: range,
                                       timeZone: ChangeBasisMath.chartTimeZone(changeView.basis),
-                                      markets: [watch.marketKey, watch.marketName])
+                                      markets: [watch.marketKey, watch.marketName], quote: watch.quoteAsset)
                 case .some(.noData):
                     Text(L("sheet_chart_no_data"))
                         .font(.footnote)
@@ -347,12 +347,24 @@ private struct SheetChartCaption: View {
     let range: PriceChartRange
     let timeZone: TimeZone
     let markets: [String]
+    let quote: String
+
+    /// Eine Reihe mit heutigem Kurs umgerechnet: eigene, deutliche Zeile darunter statt «(aktueller Kurs)» oben.
+    private var todayRate: (source: String, target: String)? {
+        SheetChart.todayRateCaption(info.fx, sourcePair: info.sourcePair, quote: quote)
+    }
 
     var body: some View {
-        Text(verbatim: text)
-            .font(.caption2)
-            .foregroundStyle(AppColors.onSurfaceVariant)
-            .padding(.top, -4)
+        VStack(alignment: .leading, spacing: 2) {
+            Text(verbatim: text)
+                .font(.caption2)
+            if let rate = todayRate {
+                Text(verbatim: L("sheet_chart_usdt_today_rate", BidiText.isolate(rate.source), BidiText.isolate(rate.target)))
+                    .font(.caption)
+            }
+        }
+        .foregroundStyle(AppColors.onSurfaceVariant)
+        .padding(.top, -4)
     }
 
     private var text: String {
@@ -366,7 +378,8 @@ private struct SheetChartCaption: View {
         let pair = BidiText.isolate(info.sourcePair ?? "")
         switch info.fx {
         case .daily: parts.append(L("sheet_chart_converted_daily", pair))
-        case .current: parts.append(L("sheet_chart_converted_current", pair))
+        case .current:
+            if todayRate == nil { parts.append(L("sheet_chart_converted_current", pair)) }
         case .none: break
         }
         if let last = candles.last {

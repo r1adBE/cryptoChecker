@@ -178,6 +178,21 @@ enum SheetChart {
         return sortedRates(dailyRates).isEmpty ? .current : .daily
     }
 
+    /// Eigene Zeile unter dem Chart, wenn die Ausweich-Reihe mit EINEM heutigen Devisenkurs umgerechnet und am letzten
+    /// Punkt auf den Kurs des Paars gezogen ist (`.current`): «Verlauf in USDT, mit heutigem Kurs in CHF umgerechnet».
+    /// Zurück (Währung der Reihe, Währung des Paars); nil = Kerzen des Paars selbst oder Tageskurse. Wie Android.
+    static func todayRateCaption(_ fx: SheetChartFx, sourcePair: String?, quote: String) -> (source: String, target: String)? {
+        guard fx == .current else { return nil }
+        let target = quote.trimmingCharacters(in: .whitespaces).uppercased()
+        guard !target.isEmpty else { return nil }
+        var source = "USDT"
+        if let pair = sourcePair, let slash = pair.lastIndex(of: "/") {
+            let tail = pair[pair.index(after: slash)...].trimmingCharacters(in: .whitespaces).uppercased()
+            if !tail.isEmpty { source = tail }
+        }
+        return (source, target)
+    }
+
     /// Gültige Tageskurse aufsteigend nach Tag.
     private static func sortedRates(_ dailyRates: [Int: Double]?) -> [(day: Int, rate: Double)] {
         (dailyRates ?? [:])

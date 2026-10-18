@@ -29,7 +29,8 @@ private const val WOO_NO_CANDLES = "Keine Kerzen"
  *  - ohne Antwortzeit gilt die jüngste Kerze als laufende Stunde.
  * Hoch, Tief und Volumen über dieses Fenster; Veränderung gegen die Eröffnung seiner ältesten Kerze, aber nur bei
  * lückenlosem Fenster. Liegt die jüngste Kerze mehr als eine Stunde zurück, endet kein Fenster jetzt: keine
- * Veränderung (dann rechnet die App mit eigenen Kerzen). Gegenstück: `Woo.swift`.
+ * Veränderung (dann rechnet die App mit eigenen Kerzen). Zeit der Börse = Ende der Information der jüngsten Kerze
+ * (laufend: Antwortzeit, sonst höchstens jetzt; abgeschlossen: Stundenende). Gegenstück: `Woo.swift`.
  */
 class Woo : WooBase(
     name = "WOO X",
@@ -54,10 +55,19 @@ class Woo : WooBase(
         val last = newest.getDouble("close")
         ticker.last = last
 
-        // Antwortzeit (kein Handelszeitpunkt, Zeit der Börse bleibt offen) — nur für die Lage des Fensters
+        // Antwortzeit der Hülle — für die Lage des Fensters und die Zeit der Börse
         val answeredAt = json.optLong("timestamp").takeIf { it > 0 }
         val newestAge = answeredAt?.minus(newest.start())
         val newestIsRunning = newestAge == null || newestAge < Change24h.HOUR_MILLIS
+        // Zeit der Börse = Ende der Information im Kurs: laufende Kerze bis zur Antwortzeit (ohne diese bis
+        // höchstens jetzt), abgeschlossene bis zu ihrem Stundenende. So greifen «veraltet» und die 2-h-Regel der
+        // Alarme, wenn die Börse nur noch eine alte Kerze liefert.
+        val candleEnd = newest.start() + Change24h.HOUR_MILLIS
+        ticker.timestamp = when {
+            !newestIsRunning -> candleEnd
+            answeredAt != null -> answeredAt
+            else -> minOf(candleEnd, System.currentTimeMillis())
+        }
         val span = if (newestIsRunning) WOO_HOURS else WOO_HOURS - 1
         val window = hourly.take(span)
 

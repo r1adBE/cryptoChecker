@@ -32,7 +32,7 @@ MERCATO
 
 E INOLTRE
 • Widget per schermata Home e di blocco, Attività Live per una moneta
-• Portafoglio opzionale (da attivare nelle Impostazioni): acquisti, vendite, swap, trasferimenti, reward, depositi e prelievi; FIFO (predefinito) o media (Ø); indirizzi in sola lettura, senza seed, per BTC (anche xpub), ETH e chain EVM, SOL, TRX, XRP, LTC e TON; import CSV da Relai, Swissquote, Bitpanda, Kraken, Binance e Coinbase; riepilogo annuale in CSV; blocco dedicato. Bitpanda e Swissquote non hanno un feed prezzi pubblico, quindi niente prezzo live: le loro operazioni arrivano via import CSV.
+• Portafoglio opzionale (da attivare nelle Impostazioni): acquisti, vendite, swap, trasferimenti, reward, depositi e prelievi; FIFO (predefinito) o media (Ø); indirizzi in sola lettura, senza seed, per BTC (anche xpub), ETH e chain EVM, SOL, TRX, XRP, LTC e TON; import CSV da Relai, Swissquote, Bitpanda, Kraken, Binance e Coinbase; riepilogo annuale in CSV; blocco dedicato. Bitpanda e Swissquote non hanno un feed prezzi pubblico, quindi niente prezzo proprio: le loro operazioni arrivano via import CSV.
 • Leggibile per tutti: verde/rosso o blu/arancione, segno e freccia invece del solo colore, Dynamic Type; VoiceOver legge ogni riga come una frase
 • Backup e ripristino tramite l’app File
 • Modalità chiara e scura, cinque colori di accento, 31 lingue

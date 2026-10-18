@@ -188,11 +188,11 @@ final class XpubScan {
                   fullScan: mode == .FULL ? now : old.fullScan, script: script)
     }
 
-    /// Adresstypen der Suche in dieser Reihenfolge — wie Android `scripts`: ypub/zpub nur ihr Typ; xpub mit gemerktem Typ
+    /// Adresstypen der Suche in dieser Reihenfolge — wie Android `scripts`: ypub/zpub/Taproot-Konto nur ihr Typ; xpub mit gemerktem Typ
     /// oder mit benutzten Adressen im Zwischenspeicher bis Build 46 (P2PKH) nur dieser; sonst P2PKH, P2SH-P2WPKH, P2WPKH
     /// (Ledger Live zeigt die xpub auch für Segwit-Konten). `cache` muss zum Schlüssel gehören.
     static func scripts(_ key: Bip32.ExtendedKey, cache: XpubCache?) -> [Bip32.Script] {
-        guard key.version == Bip32.xpubVersion else { return [key.script] }
+        guard key.detectsScript else { return [key.script] }
         if let s = cache?.script { return [s] }
         if let cache, cache.usedCount > 0 { return [.p2pkh] }
         return [.p2pkh, .p2shP2wpkh, .p2wpkh]
@@ -201,7 +201,7 @@ final class XpubScan {
     /// Zu merkender Typ nach der Suche über `tried` (je Typ: benutzte Adressen) — wie Android `pickScript`: der erste mit
     /// benutzter Adresse; bei nur einem Typ dieser (ypub/zpub: nil); keiner mit Verlauf = nil (wieder alle prüfen).
     static func pickScript(_ key: Bip32.ExtendedKey, tried: [(script: Bip32.Script, used: Int)]) -> Bip32.Script? {
-        guard key.version == Bip32.xpubVersion else { return nil }
+        guard key.detectsScript else { return nil }
         if let hit = tried.first(where: { $0.used > 0 }) { return hit.script }
         return tried.count == 1 ? tried[0].script : nil
     }

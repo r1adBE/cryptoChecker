@@ -33,7 +33,7 @@ MARKED
 
 DESUDEN
 • Widgets: liste, porteføljens samlede værdi, én coin med graf
-• Portefølje valgfrit (slås til under Indstillinger): køb, salg, swaps, overførsler, rewards, ind- og udbetalinger; FIFO (standard) eller gennemsnit (Ø); adresser kun til læsning, uden seed, for BTC (også xpub), ETH & EVM-kæder, SOL, TRX, XRP, LTC og TON; CSV-import fra Relai, Swissquote, Bitpanda, Kraken, Binance og Coinbase; årsoversigt som CSV; egen lås. Bitpanda og Swissquote har intet offentligt kursfeed og derfor ingen livekurs – deres handler kommer ind via CSV-import.
+• Portefølje valgfrit (slås til under Indstillinger): køb, salg, swaps, overførsler, rewards, ind- og udbetalinger; FIFO (standard) eller gennemsnit (Ø); adresser kun til læsning, uden seed, for BTC (også xpub), ETH & EVM-kæder, SOL, TRX, XRP, LTC og TON; CSV-import fra Relai, Swissquote, Bitpanda, Kraken, Binance og Coinbase; årsoversigt som CSV; egen lås. Bitpanda og Swissquote har intet offentligt kursfeed og derfor ingen egen kurs – deres handler kommer ind via CSV-import.
 • Læsbar for alle: grøn/rød eller blå/orange, fortegn og pil frem for kun farve; TalkBack læser hver række som én sætning
 • Sikkerhedskopi og gendannelse til en fil – også mellem Android og iPhone
 • Lyst og mørkt tema, fem accentfarver, 31 sprog

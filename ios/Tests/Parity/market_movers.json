@@ -1,0 +1,1325 @@
+{
+ "_comment": "«Gewinner und Verlierer 24 h» (MarketMovers): gemeinsam für MarketMoversTest.kt und MarketMoversTests.swift. Nur Kürzel, die beide Plattformen gleich ausschliessen bzw. zulassen.",
+ "universe": 100,
+ "count": 5,
+ "minCoins": 10,
+ "cases": [
+  {
+   "note": "Grundfall: Stablecoins und Doppelgänger fallen weg, je fünf",
+   "coins": [
+    {
+     "symbol": "BTC",
+     "name": "Bitcoin",
+     "rank": 1,
+     "change": 1.2
+    },
+    {
+     "symbol": "ETH",
+     "name": "Ethereum",
+     "rank": 2,
+     "change": -0.8
+    },
+    {
+     "symbol": "USDT",
+     "name": "Tether",
+     "rank": 3,
+     "change": 0.01
+    },
+    {
+     "symbol": "XRP",
+     "name": "XRP",
+     "rank": 4,
+     "change": 4.5
+    },
+    {
+     "symbol": "BNB",
+     "name": "BNB",
+     "rank": 5,
+     "change": -2.1
+    },
+    {
+     "symbol": "SOL",
+     "name": "Solana",
+     "rank": 6,
+     "change": 7.1
+    },
+    {
+     "symbol": "USDC",
+     "name": "USDC",
+     "rank": 7,
+     "change": -0.02
+    },
+    {
+     "symbol": "DOGE",
+     "name": "Dogecoin",
+     "rank": 8,
+     "change": 12.4
+    },
+    {
+     "symbol": "ADA",
+     "name": "Cardano",
+     "rank": 9,
+     "change": -5.5
+    },
+    {
+     "symbol": "TRX",
+     "name": "TRON",
+     "rank": 10,
+     "change": 0.4
+    },
+    {
+     "symbol": "WBTC",
+     "name": "Wrapped Bitcoin",
+     "rank": 11,
+     "change": 25.0
+    },
+    {
+     "symbol": "STETH",
+     "name": "Lido Staked Ether",
+     "rank": 12,
+     "change": -30.0
+    },
+    {
+     "symbol": "LINK",
+     "name": "Chainlink",
+     "rank": 13,
+     "change": 3.3
+    },
+    {
+     "symbol": "AVAX",
+     "name": "Avalanche",
+     "rank": 14,
+     "change": -7.7
+    },
+    {
+     "symbol": "XLM",
+     "name": "Stellar",
+     "rank": 15,
+     "change": -1.1
+    },
+    {
+     "symbol": "SUI",
+     "name": "Sui",
+     "rank": 16,
+     "change": 9.0
+    },
+    {
+     "symbol": "HBAR",
+     "name": "Hedera",
+     "rank": 17,
+     "change": -3.0
+    },
+    {
+     "symbol": "USDE",
+     "name": "Ethena USDe",
+     "rank": 18,
+     "change": 0.05
+    },
+    {
+     "symbol": "DOT",
+     "name": "Polkadot",
+     "rank": 19,
+     "change": 2.2
+    }
+   ],
+   "gainers": [
+    {
+     "symbol": "DOGE",
+     "name": "Dogecoin",
+     "change": 12.4
+    },
+    {
+     "symbol": "SUI",
+     "name": "Sui",
+     "change": 9.0
+    },
+    {
+     "symbol": "SOL",
+     "name": "Solana",
+     "change": 7.1
+    },
+    {
+     "symbol": "XRP",
+     "name": "XRP",
+     "change": 4.5
+    },
+    {
+     "symbol": "LINK",
+     "name": "Chainlink",
+     "change": 3.3
+    }
+   ],
+   "losers": [
+    {
+     "symbol": "AVAX",
+     "name": "Avalanche",
+     "change": -7.7
+    },
+    {
+     "symbol": "ADA",
+     "name": "Cardano",
+     "change": -5.5
+    },
+    {
+     "symbol": "HBAR",
+     "name": "Hedera",
+     "change": -3.0
+    },
+    {
+     "symbol": "BNB",
+     "name": "BNB",
+     "change": -2.1
+    },
+    {
+     "symbol": "XLM",
+     "name": "Stellar",
+     "change": -1.1
+    }
+   ]
+  },
+  {
+   "note": "Gleichstand: besserer Rang, ohne Rang hinten nach Kürzel",
+   "coins": [
+    {
+     "symbol": "ALPX",
+     "name": "Alpha",
+     "rank": 20,
+     "change": 3.0
+    },
+    {
+     "symbol": "BRAX",
+     "name": "Bravo",
+     "rank": 21,
+     "change": 3.0
+    },
+    {
+     "symbol": "CHAX",
+     "name": "Charlie",
+     "rank": 22,
+     "change": 3.0
+    },
+    {
+     "symbol": "DELX",
+     "name": "Delta",
+     "rank": 23,
+     "change": -3.0
+    },
+    {
+     "symbol": "ECHX",
+     "name": "Echo",
+     "rank": 24,
+     "change": -3.0
+    },
+    {
+     "symbol": "FOXX",
+     "name": "Foxtrot",
+     "rank": 25,
+     "change": -3.0
+    },
+    {
+     "symbol": "GOLX",
+     "name": "Golf",
+     "rank": 26,
+     "change": -3.0
+    },
+    {
+     "symbol": "HOTX",
+     "name": "Hotel",
+     "rank": 27,
+     "change": 0.7
+    },
+    {
+     "symbol": "INDX",
+     "name": "India",
+     "rank": 28,
+     "change": 0.8
+    },
+    {
+     "symbol": "JULX",
+     "name": "Juliett",
+     "rank": 29,
+     "change": 0.9
+    },
+    {
+     "symbol": "KILX",
+     "name": "Kilo",
+     "rank": 30,
+     "change": 1.0
+    },
+    {
+     "symbol": "LIMX",
+     "name": "Lima",
+     "rank": 31,
+     "change": 1.1
+    },
+    {
+     "symbol": "MIKX",
+     "name": "Mike",
+     "rank": 32,
+     "change": 1.2
+    },
+    {
+     "symbol": "NOVX",
+     "name": "November",
+     "rank": 33,
+     "change": 1.3
+    },
+    {
+     "symbol": "ZZZ",
+     "name": "Zulu",
+     "rank": null,
+     "change": 3.0
+    },
+    {
+     "symbol": "AAA",
+     "name": "Aardvark",
+     "rank": null,
+     "change": 3.0
+    }
+   ],
+   "gainers": [
+    {
+     "symbol": "ALPX",
+     "name": "Alpha",
+     "change": 3.0
+    },
+    {
+     "symbol": "BRAX",
+     "name": "Bravo",
+     "change": 3.0
+    },
+    {
+     "symbol": "CHAX",
+     "name": "Charlie",
+     "change": 3.0
+    },
+    {
+     "symbol": "AAA",
+     "name": "Aardvark",
+     "change": 3.0
+    },
+    {
+     "symbol": "ZZZ",
+     "name": "Zulu",
+     "change": 3.0
+    }
+   ],
+   "losers": [
+    {
+     "symbol": "DELX",
+     "name": "Delta",
+     "change": -3.0
+    },
+    {
+     "symbol": "ECHX",
+     "name": "Echo",
+     "change": -3.0
+    },
+    {
+     "symbol": "FOXX",
+     "name": "Foxtrot",
+     "change": -3.0
+    },
+    {
+     "symbol": "GOLX",
+     "name": "Golf",
+     "change": -3.0
+    }
+   ]
+  },
+  {
+   "note": "Fehlende Werte, Null weder noch, Leerraum und Kleinschreibung",
+   "coins": [
+    {
+     "symbol": "ALPH",
+     "name": "Alpha",
+     "rank": 1,
+     "change": -6.0
+    },
+    {
+     "symbol": "BRAV",
+     "name": "Bravo",
+     "rank": 2,
+     "change": -5.0
+    },
+    {
+     "symbol": "CHAR",
+     "name": "Charlie",
+     "rank": 3,
+     "change": null
+    },
+    {
+     "symbol": "  ",
+     "name": "Delta",
+     "rank": 4,
+     "change": -3.0
+    },
+    {
+     "symbol": "ECHO",
+     "name": "Echo",
+     "rank": 5,
+     "change": 0.0
+    },
+    {
+     "symbol": "FOXT",
+     "name": "Foxtrot",
+     "rank": 6,
+     "change": -1.0
+    },
+    {
+     "symbol": "GOLF",
+     "name": "Golf",
+     "rank": 7,
+     "change": 0.0
+    },
+    {
+     "symbol": "HOTE",
+     "name": "Hotel",
+     "rank": 8,
+     "change": 1.0
+    },
+    {
+     "symbol": "INDI",
+     "name": "India",
+     "rank": 9,
+     "change": 2.0
+    },
+    {
+     "symbol": "JULI",
+     "name": "Juliett",
+     "rank": 10,
+     "change": 3.0
+    },
+    {
+     "symbol": "KILO",
+     "name": "Kilo",
+     "rank": 11,
+     "change": 4.0
+    },
+    {
+     "symbol": "LIMA",
+     "name": "Lima",
+     "rank": 12,
+     "change": 5.0
+    },
+    {
+     "symbol": " ltc ",
+     "name": "  Litecoin ",
+     "rank": 13,
+     "change": 20.0
+    }
+   ],
+   "gainers": [
+    {
+     "symbol": "LTC",
+     "name": "Litecoin",
+     "change": 20.0
+    },
+    {
+     "symbol": "LIMA",
+     "name": "Lima",
+     "change": 5.0
+    },
+    {
+     "symbol": "KILO",
+     "name": "Kilo",
+     "change": 4.0
+    },
+    {
+     "symbol": "JULI",
+     "name": "Juliett",
+     "change": 3.0
+    },
+    {
+     "symbol": "INDI",
+     "name": "India",
+     "change": 2.0
+    }
+   ],
+   "losers": [
+    {
+     "symbol": "ALPH",
+     "name": "Alpha",
+     "change": -6.0
+    },
+    {
+     "symbol": "BRAV",
+     "name": "Bravo",
+     "change": -5.0
+    },
+    {
+     "symbol": "FOXT",
+     "name": "Foxtrot",
+     "change": -1.0
+    }
+   ]
+  },
+  {
+   "note": "Nur Top 100 nach Rang (Eingabe umgekehrt)",
+   "coins": [
+    {
+     "symbol": "CBE",
+     "name": "Coin 105",
+     "rank": 105,
+     "change": 99.0
+    },
+    {
+     "symbol": "CAE",
+     "name": "Coin 104",
+     "rank": 104,
+     "change": -99.0
+    },
+    {
+     "symbol": "CZD",
+     "name": "Coin 103",
+     "rank": 103,
+     "change": 99.0
+    },
+    {
+     "symbol": "CYD",
+     "name": "Coin 102",
+     "rank": 102,
+     "change": -99.0
+    },
+    {
+     "symbol": "CXD",
+     "name": "Coin 101",
+     "rank": 101,
+     "change": 99.0
+    },
+    {
+     "symbol": "CWD",
+     "name": "Coin 100",
+     "rank": 100,
+     "change": 4.5
+    },
+    {
+     "symbol": "CVD",
+     "name": "Coin 99",
+     "rank": 99,
+     "change": -2.5
+    },
+    {
+     "symbol": "CUD",
+     "name": "Coin 98",
+     "rank": 98,
+     "change": 2.0
+    },
+    {
+     "symbol": "CTD",
+     "name": "Coin 97",
+     "rank": 97,
+     "change": -5.0
+    },
+    {
+     "symbol": "CSD",
+     "name": "Coin 96",
+     "rank": 96,
+     "change": -0.5
+    },
+    {
+     "symbol": "CRD",
+     "name": "Coin 95",
+     "rank": 95,
+     "change": 4.0
+    },
+    {
+     "symbol": "CQD",
+     "name": "Coin 94",
+     "rank": 94,
+     "change": -3.0
+    },
+    {
+     "symbol": "CPD",
+     "name": "Coin 93",
+     "rank": 93,
+     "change": 1.5
+    },
+    {
+     "symbol": "COD",
+     "name": "Coin 92",
+     "rank": 92,
+     "change": -5.5
+    },
+    {
+     "symbol": "CND",
+     "name": "Coin 91",
+     "rank": 91,
+     "change": -1.0
+    },
+    {
+     "symbol": "CMD",
+     "name": "Coin 90",
+     "rank": 90,
+     "change": 3.5
+    },
+    {
+     "symbol": "CLD",
+     "name": "Coin 89",
+     "rank": 89,
+     "change": -3.5
+    },
+    {
+     "symbol": "CKD",
+     "name": "Coin 88",
+     "rank": 88,
+     "change": 1.0
+    },
+    {
+     "symbol": "CJD",
+     "name": "Coin 87",
+     "rank": 87,
+     "change": 5.5
+    },
+    {
+     "symbol": "CID",
+     "name": "Coin 86",
+     "rank": 86,
+     "change": -1.5
+    },
+    {
+     "symbol": "CHD",
+     "name": "Coin 85",
+     "rank": 85,
+     "change": 3.0
+    },
+    {
+     "symbol": "CGD",
+     "name": "Coin 84",
+     "rank": 84,
+     "change": -4.0
+    },
+    {
+     "symbol": "CFD",
+     "name": "Coin 83",
+     "rank": 83,
+     "change": 0.5
+    },
+    {
+     "symbol": "CED",
+     "name": "Coin 82",
+     "rank": 82,
+     "change": 5.0
+    },
+    {
+     "symbol": "CDD",
+     "name": "Coin 81",
+     "rank": 81,
+     "change": -2.0
+    },
+    {
+     "symbol": "CCD",
+     "name": "Coin 80",
+     "rank": 80,
+     "change": 2.5
+    },
+    {
+     "symbol": "CBD",
+     "name": "Coin 79",
+     "rank": 79,
+     "change": -4.5
+    },
+    {
+     "symbol": "CAD",
+     "name": "Coin 78",
+     "rank": 78,
+     "change": 0.0
+    },
+    {
+     "symbol": "CZC",
+     "name": "Coin 77",
+     "rank": 77,
+     "change": 4.5
+    },
+    {
+     "symbol": "CYC",
+     "name": "Coin 76",
+     "rank": 76,
+     "change": -2.5
+    },
+    {
+     "symbol": "CXC",
+     "name": "Coin 75",
+     "rank": 75,
+     "change": 2.0
+    },
+    {
+     "symbol": "CWC",
+     "name": "Coin 74",
+     "rank": 74,
+     "change": -5.0
+    },
+    {
+     "symbol": "CVC",
+     "name": "Coin 73",
+     "rank": 73,
+     "change": -0.5
+    },
+    {
+     "symbol": "CUC",
+     "name": "Coin 72",
+     "rank": 72,
+     "change": 4.0
+    },
+    {
+     "symbol": "CTC",
+     "name": "Coin 71",
+     "rank": 71,
+     "change": -3.0
+    },
+    {
+     "symbol": "CSC",
+     "name": "Coin 70",
+     "rank": 70,
+     "change": 1.5
+    },
+    {
+     "symbol": "CRC",
+     "name": "Coin 69",
+     "rank": 69,
+     "change": -5.5
+    },
+    {
+     "symbol": "CQC",
+     "name": "Coin 68",
+     "rank": 68,
+     "change": -1.0
+    },
+    {
+     "symbol": "CPC",
+     "name": "Coin 67",
+     "rank": 67,
+     "change": 3.5
+    },
+    {
+     "symbol": "COC",
+     "name": "Coin 66",
+     "rank": 66,
+     "change": -3.5
+    },
+    {
+     "symbol": "CNC",
+     "name": "Coin 65",
+     "rank": 65,
+     "change": 1.0
+    },
+    {
+     "symbol": "CMC",
+     "name": "Coin 64",
+     "rank": 64,
+     "change": 5.5
+    },
+    {
+     "symbol": "CLC",
+     "name": "Coin 63",
+     "rank": 63,
+     "change": -1.5
+    },
+    {
+     "symbol": "CKC",
+     "name": "Coin 62",
+     "rank": 62,
+     "change": 3.0
+    },
+    {
+     "symbol": "CJC",
+     "name": "Coin 61",
+     "rank": 61,
+     "change": -4.0
+    },
+    {
+     "symbol": "CIC",
+     "name": "Coin 60",
+     "rank": 60,
+     "change": 0.5
+    },
+    {
+     "symbol": "CHC",
+     "name": "Coin 59",
+     "rank": 59,
+     "change": 5.0
+    },
+    {
+     "symbol": "CGC",
+     "name": "Coin 58",
+     "rank": 58,
+     "change": -2.0
+    },
+    {
+     "symbol": "CFC",
+     "name": "Coin 57",
+     "rank": 57,
+     "change": 2.5
+    },
+    {
+     "symbol": "CEC",
+     "name": "Coin 56",
+     "rank": 56,
+     "change": -4.5
+    },
+    {
+     "symbol": "CDC",
+     "name": "Coin 55",
+     "rank": 55,
+     "change": 0.0
+    },
+    {
+     "symbol": "CCC",
+     "name": "Coin 54",
+     "rank": 54,
+     "change": 4.5
+    },
+    {
+     "symbol": "CBC",
+     "name": "Coin 53",
+     "rank": 53,
+     "change": -2.5
+    },
+    {
+     "symbol": "CAC",
+     "name": "Coin 52",
+     "rank": 52,
+     "change": 2.0
+    },
+    {
+     "symbol": "CZB",
+     "name": "Coin 51",
+     "rank": 51,
+     "change": -5.0
+    },
+    {
+     "symbol": "CYB",
+     "name": "Coin 50",
+     "rank": 50,
+     "change": -0.5
+    },
+    {
+     "symbol": "CXB",
+     "name": "Coin 49",
+     "rank": 49,
+     "change": 4.0
+    },
+    {
+     "symbol": "CWB",
+     "name": "Coin 48",
+     "rank": 48,
+     "change": -3.0
+    },
+    {
+     "symbol": "CVB",
+     "name": "Coin 47",
+     "rank": 47,
+     "change": 1.5
+    },
+    {
+     "symbol": "CUB",
+     "name": "Coin 46",
+     "rank": 46,
+     "change": -5.5
+    },
+    {
+     "symbol": "CTB",
+     "name": "Coin 45",
+     "rank": 45,
+     "change": -1.0
+    },
+    {
+     "symbol": "CSB",
+     "name": "Coin 44",
+     "rank": 44,
+     "change": 3.5
+    },
+    {
+     "symbol": "CRB",
+     "name": "Coin 43",
+     "rank": 43,
+     "change": -3.5
+    },
+    {
+     "symbol": "CQB",
+     "name": "Coin 42",
+     "rank": 42,
+     "change": 1.0
+    },
+    {
+     "symbol": "CPB",
+     "name": "Coin 41",
+     "rank": 41,
+     "change": 5.5
+    },
+    {
+     "symbol": "COB",
+     "name": "Coin 40",
+     "rank": 40,
+     "change": -1.5
+    },
+    {
+     "symbol": "CNB",
+     "name": "Coin 39",
+     "rank": 39,
+     "change": 3.0
+    },
+    {
+     "symbol": "CMB",
+     "name": "Coin 38",
+     "rank": 38,
+     "change": -4.0
+    },
+    {
+     "symbol": "CLB",
+     "name": "Coin 37",
+     "rank": 37,
+     "change": 0.5
+    },
+    {
+     "symbol": "CKB",
+     "name": "Coin 36",
+     "rank": 36,
+     "change": 5.0
+    },
+    {
+     "symbol": "CJB",
+     "name": "Coin 35",
+     "rank": 35,
+     "change": -2.0
+    },
+    {
+     "symbol": "CIB",
+     "name": "Coin 34",
+     "rank": 34,
+     "change": 2.5
+    },
+    {
+     "symbol": "CHB",
+     "name": "Coin 33",
+     "rank": 33,
+     "change": -4.5
+    },
+    {
+     "symbol": "CGB",
+     "name": "Coin 32",
+     "rank": 32,
+     "change": 0.0
+    },
+    {
+     "symbol": "CFB",
+     "name": "Coin 31",
+     "rank": 31,
+     "change": 4.5
+    },
+    {
+     "symbol": "CEB",
+     "name": "Coin 30",
+     "rank": 30,
+     "change": -2.5
+    },
+    {
+     "symbol": "CDB",
+     "name": "Coin 29",
+     "rank": 29,
+     "change": 2.0
+    },
+    {
+     "symbol": "CCB",
+     "name": "Coin 28",
+     "rank": 28,
+     "change": -5.0
+    },
+    {
+     "symbol": "CBB",
+     "name": "Coin 27",
+     "rank": 27,
+     "change": -0.5
+    },
+    {
+     "symbol": "CAB",
+     "name": "Coin 26",
+     "rank": 26,
+     "change": 4.0
+    },
+    {
+     "symbol": "C025",
+     "name": "Coin 25",
+     "rank": 25,
+     "change": -3.0
+    },
+    {
+     "symbol": "C024",
+     "name": "Coin 24",
+     "rank": 24,
+     "change": 1.5
+    },
+    {
+     "symbol": "C023",
+     "name": "Coin 23",
+     "rank": 23,
+     "change": -5.5
+    },
+    {
+     "symbol": "C022",
+     "name": "Coin 22",
+     "rank": 22,
+     "change": -1.0
+    },
+    {
+     "symbol": "C021",
+     "name": "Coin 21",
+     "rank": 21,
+     "change": 3.5
+    },
+    {
+     "symbol": "C020",
+     "name": "Coin 20",
+     "rank": 20,
+     "change": -3.5
+    },
+    {
+     "symbol": "C019",
+     "name": "Coin 19",
+     "rank": 19,
+     "change": 1.0
+    },
+    {
+     "symbol": "C018",
+     "name": "Coin 18",
+     "rank": 18,
+     "change": 5.5
+    },
+    {
+     "symbol": "C017",
+     "name": "Coin 17",
+     "rank": 17,
+     "change": -1.5
+    },
+    {
+     "symbol": "C016",
+     "name": "Coin 16",
+     "rank": 16,
+     "change": 3.0
+    },
+    {
+     "symbol": "C015",
+     "name": "Coin 15",
+     "rank": 15,
+     "change": -4.0
+    },
+    {
+     "symbol": "C014",
+     "name": "Coin 14",
+     "rank": 14,
+     "change": 0.5
+    },
+    {
+     "symbol": "C013",
+     "name": "Coin 13",
+     "rank": 13,
+     "change": 5.0
+    },
+    {
+     "symbol": "C012",
+     "name": "Coin 12",
+     "rank": 12,
+     "change": -2.0
+    },
+    {
+     "symbol": "C011",
+     "name": "Coin 11",
+     "rank": 11,
+     "change": 2.5
+    },
+    {
+     "symbol": "C010",
+     "name": "Coin 10",
+     "rank": 10,
+     "change": -4.5
+    },
+    {
+     "symbol": "C009",
+     "name": "Coin 9",
+     "rank": 9,
+     "change": 0.0
+    },
+    {
+     "symbol": "C008",
+     "name": "Coin 8",
+     "rank": 8,
+     "change": 4.5
+    },
+    {
+     "symbol": "C007",
+     "name": "Coin 7",
+     "rank": 7,
+     "change": -2.5
+    },
+    {
+     "symbol": "C006",
+     "name": "Coin 6",
+     "rank": 6,
+     "change": 2.0
+    },
+    {
+     "symbol": "C005",
+     "name": "Coin 5",
+     "rank": 5,
+     "change": -5.0
+    },
+    {
+     "symbol": "C004",
+     "name": "Coin 4",
+     "rank": 4,
+     "change": -0.5
+    },
+    {
+     "symbol": "C003",
+     "name": "Coin 3",
+     "rank": 3,
+     "change": 4.0
+    },
+    {
+     "symbol": "C002",
+     "name": "Coin 2",
+     "rank": 2,
+     "change": -3.0
+    },
+    {
+     "symbol": "C001",
+     "name": "Coin 1",
+     "rank": 1,
+     "change": 1.5
+    }
+   ],
+   "gainers": [
+    {
+     "symbol": "C018",
+     "name": "Coin 18",
+     "change": 5.5
+    },
+    {
+     "symbol": "CPB",
+     "name": "Coin 41",
+     "change": 5.5
+    },
+    {
+     "symbol": "CMC",
+     "name": "Coin 64",
+     "change": 5.5
+    },
+    {
+     "symbol": "CJD",
+     "name": "Coin 87",
+     "change": 5.5
+    },
+    {
+     "symbol": "C013",
+     "name": "Coin 13",
+     "change": 5.0
+    }
+   ],
+   "losers": [
+    {
+     "symbol": "C023",
+     "name": "Coin 23",
+     "change": -5.5
+    },
+    {
+     "symbol": "CUB",
+     "name": "Coin 46",
+     "change": -5.5
+    },
+    {
+     "symbol": "CRC",
+     "name": "Coin 69",
+     "change": -5.5
+    },
+    {
+     "symbol": "COD",
+     "name": "Coin 92",
+     "change": -5.5
+    },
+    {
+     "symbol": "C005",
+     "name": "Coin 5",
+     "change": -5.0
+    }
+   ]
+  },
+  {
+   "note": "Weniger als 10 gültige: nichts",
+   "coins": [
+    {
+     "symbol": "ALP",
+     "name": "Alpha",
+     "rank": 1,
+     "change": 1.0
+    },
+    {
+     "symbol": "BRA",
+     "name": "Bravo",
+     "rank": 2,
+     "change": 2.0
+    },
+    {
+     "symbol": "CHA",
+     "name": "Charlie",
+     "rank": 3,
+     "change": 3.0
+    },
+    {
+     "symbol": "DEL",
+     "name": "Delta",
+     "rank": 4,
+     "change": 4.0
+    },
+    {
+     "symbol": "ECH",
+     "name": "Echo",
+     "rank": 5,
+     "change": 5.0
+    },
+    {
+     "symbol": "FOX",
+     "name": "Foxtrot",
+     "rank": 6,
+     "change": 6.0
+    },
+    {
+     "symbol": "GOL",
+     "name": "Golf",
+     "rank": 7,
+     "change": 7.0
+    },
+    {
+     "symbol": "HOT",
+     "name": "Hotel",
+     "rank": 8,
+     "change": 8.0
+    },
+    {
+     "symbol": "IND",
+     "name": "India",
+     "rank": 9,
+     "change": 9.0
+    },
+    {
+     "symbol": "USDT",
+     "name": "Tether",
+     "rank": 10,
+     "change": 0.1
+    }
+   ],
+   "gainers": [],
+   "losers": []
+  },
+  {
+   "note": "Doppeltes Kürzel: der besser platzierte bleibt; alle steigen, keine Verlierer",
+   "coins": [
+    {
+     "symbol": "ALP",
+     "name": "Alpha",
+     "rank": 1,
+     "change": 1.0
+    },
+    {
+     "symbol": "BRA",
+     "name": "Bravo",
+     "rank": 2,
+     "change": 2.0
+    },
+    {
+     "symbol": "CHA",
+     "name": "Charlie",
+     "rank": 3,
+     "change": 3.0
+    },
+    {
+     "symbol": "DEL",
+     "name": "Delta",
+     "rank": 4,
+     "change": 4.0
+    },
+    {
+     "symbol": "ECH",
+     "name": "Echo",
+     "rank": 5,
+     "change": 5.0
+    },
+    {
+     "symbol": "FOX",
+     "name": "Foxtrot",
+     "rank": 6,
+     "change": 6.0
+    },
+    {
+     "symbol": "GOL",
+     "name": "Golf",
+     "rank": 7,
+     "change": 7.0
+    },
+    {
+     "symbol": "HOT",
+     "name": "Hotel",
+     "rank": 8,
+     "change": 8.0
+    },
+    {
+     "symbol": "IND",
+     "name": "India",
+     "rank": 9,
+     "change": 9.0
+    },
+    {
+     "symbol": "JUL",
+     "name": "Juliett",
+     "rank": 10,
+     "change": 10.0
+    },
+    {
+     "symbol": "KIL",
+     "name": "Kilo",
+     "rank": 11,
+     "change": 11.0
+    },
+    {
+     "symbol": "ALP",
+     "name": "Alpha Copy",
+     "rank": 50,
+     "change": 50.0
+    },
+    {
+     "symbol": "BRA",
+     "name": "Bravo Copy",
+     "rank": 60,
+     "change": -50.0
+    }
+   ],
+   "gainers": [
+    {
+     "symbol": "KIL",
+     "name": "Kilo",
+     "change": 11.0
+    },
+    {
+     "symbol": "JUL",
+     "name": "Juliett",
+     "change": 10.0
+    },
+    {
+     "symbol": "IND",
+     "name": "India",
+     "change": 9.0
+    },
+    {
+     "symbol": "HOT",
+     "name": "Hotel",
+     "change": 8.0
+    },
+    {
+     "symbol": "GOL",
+     "name": "Golf",
+     "change": 7.0
+    }
+   ],
+   "losers": []
+  }
+ ]
+}

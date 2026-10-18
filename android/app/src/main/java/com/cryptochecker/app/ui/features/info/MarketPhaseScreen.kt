@@ -143,6 +143,21 @@ fun MarketPhaseScreen(
     val instant = reveal.instant + revealedOnEntry
     val motion = !rememberReduceMotion()
 
+    // Tipp auf einen Coin aus «Heute auffällig» bzw. «Gewinner und Verlierer 24 h»: dasselbe wie ein Tipp in der
+    // Merkliste — das Aktionsblatt des Paars, sonst seine Vorschau (Binance COIN/USDT, nicht gespeichert); führt
+    // Binance das Paar nicht, die Suche auf der Seite «Paar hinzufügen»
+    fun openCoin(symbol: String) {
+        val watch = watchFor(watches, symbol)
+        if (watch != null) {
+            coinSheets.openStored(watch.id)
+        } else {
+            scope.launch {
+                val preview = viewModel.previewWatch(symbol)
+                if (preview != null) coinSheets.openPreview(preview) else onOpenExplorer(symbol)
+            }
+        }
+    }
+
     // Unter «Jetzt» zwei Zeilen zu den Unterseiten «Einordnung» und «Daten» (G-10)
     val scrollState = rememberScrollState()
     // Erneutes Tippen auf den Tab «Markt»: an den Anfang (wie iOS)
@@ -227,6 +242,8 @@ fun MarketPhaseScreen(
                     // Wirtschaftsdaten nur bei einem Termin in ±2 h hier oben, sonst unter «Daten»
                     MacroHintRow(macroEvents, atTop = true)
                     CryptoPulseCard(pulse, onRetry = { viewModel.loadPulse(force = true) })
+                    // «Gewinner und Verlierer 24 h»: Tippen wie bei «Heute auffällig»
+                    MarketMoversCard(pulse, onOpen = { coin -> openCoin(coin.symbol) })
                 }
                 // «Heute auffällig»: Tippen öffnet dasselbe wie ein Tipp in der Merkliste — das
                 // Aktionsblatt des Paars, sonst seine Vorschau (Binance COIN/USDT, nicht gespeichert);
@@ -234,17 +251,7 @@ fun MarketPhaseScreen(
                 Reveal(MarketRevealSlot.UNUSUAL, reveal, instant, motion, onNow = true) {
                     UnusualCard(
                         state = unusual,
-                        onOpen = { row ->
-                            val watch = watchFor(watches, row.symbol)
-                            if (watch != null) {
-                                coinSheets.openStored(watch.id)
-                            } else {
-                                scope.launch {
-                                    val preview = viewModel.previewWatch(row.symbol)
-                                    if (preview != null) coinSheets.openPreview(preview) else onOpenExplorer(row.symbol)
-                                }
-                            }
-                        },
+                        onOpen = { row -> openCoin(row.symbol) },
                         onRetry = { viewModel.loadUnusual(force = true) }
                     )
                 }

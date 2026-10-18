@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
+    <string name="portfolio_storage_in_memory">Krypteringen är inte aktiv än – portföljen sparas inte, och ändringar försvinner när appen stängs. Appen försöker igen vid nästa start.</string>
+</resources>

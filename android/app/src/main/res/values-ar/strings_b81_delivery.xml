@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Seite «Damit Alarme ankommen» (Build 81): Titel, auch Name der Knöpfe in «Alle Alarme», im Alarm-Editor und unter Einstellungen › Alarme -->
+    <string name="delivery_title">لكي تصل التنبيهات</string>
+    <!-- Screenreader: Zustand einer Zeile (✓ / ⚠ / Hinweis) -->
+    <string name="delivery_state_ok">على ما يرام</string>
+    <string name="delivery_state_warn">انتبه</string>
+    <string name="delivery_state_info">ملاحظة</string>
+    <string name="delivery_allowed">مسموح</string>
+    <!-- Zeilen der Seite: Titel und Zustand. Android und iOS -->
+    <string name="delivery_notifications">الإشعارات</string>
+    <string name="delivery_notifications_off">متوقفة – لن تصل التنبيهات</string>
+    <string name="delivery_notifications_not_asked">غير مسموح بعد</string>
+    <string name="delivery_channel">قناة التنبيهات</string>
+    <string name="delivery_channel_high">أهمية عالية – تظهر أعلى الشاشة</string>
+    <string name="delivery_channel_low">أهمية منخفضة – تظهر التنبيهات بصمت في القائمة فقط</string>
+    <string name="delivery_channel_off">متوقفة – لن تصل التنبيهات</string>
+    <string name="delivery_exact_on">مفعّل – كل 15 دقيقة تقريبًا</string>
+    <string name="delivery_exact_off">متوقف – يفحص Android بشكل غير منتظم</string>
+    <string name="delivery_battery">تحسين البطارية</string>
+    <string name="delivery_battery_unrestricted">غير مقيّد</string>
+    <string name="delivery_battery_optimized">محسَّن – قد يؤخر Android عمليات الفحص. لا يطلب التطبيق استثناءً؛ يمكنك تغيير ذلك من إعدادات البطارية للتطبيق.</string>
+    <string name="delivery_background">الاستخدام في الخلفية</string>
+    <string name="delivery_background_restricted">مقيّد – يوقف Android الفحص في الخلفية</string>
+    <string name="delivery_dnd">عدم الإزعاج</string>
+    <string name="delivery_dnd_on">مفعّل – قد تصل التنبيهات بدون صوت</string>
+    <!-- %1$s = Ende der Nachtruhe (Uhrzeit) -->
+    <string name="delivery_quiet_now">نشطة حتى %1$s – تنتظر التنبيهات المستحقة حتى ذلك الحين</string>
+    <!-- %1$s = Beginn, %2$s = Ende der Nachtruhe -->
+    <string name="delivery_quiet_set">%1$s–%2$s – تنتظر التنبيهات المستحقة خلال هذه الفترة</string>
+    <string name="delivery_last_check">آخر فحص في الخلفية</string>
+    <!-- %1$s = Zeit der letzten Prüfung im Hintergrund -->
+    <string name="delivery_last_check_old">%1$s – قبل أكثر من 6 ساعات</string>
+    <string name="delivery_last_check_never">لا يوجد بعد</string>
+    <!-- Knöpfe in den Zeilen -->
+    <string name="delivery_action_allow">سماح</string>
+    <string name="delivery_action_change">تغيير</string>
+    <string name="delivery_action_show">عرض</string>
+    <!-- Zeilen nur auf iOS (Namen wie in den iOS-Einstellungen) -->
+    <string name="delivery_alert_sound">اللافتات والصوت</string>
+    <string name="delivery_alert_off">اللافتات متوقفة – تظهر التنبيهات في مركز الإشعارات فقط</string>
+    <string name="delivery_sound_off">الصوت متوقف – تصل التنبيهات بصمت</string>
+    <string name="delivery_time_sensitive">الإشعارات الحساسة للوقت</string>
+    <string name="delivery_time_sensitive_off">متوقفة – قد يحجب وضع التركيز التنبيهات</string>
+    <string name="delivery_background_refresh">تحديث التطبيقات في الخلفية</string>
+    <string name="delivery_low_power">وضع الطاقة المنخفضة</string>
+    <string name="delivery_swipe_away">هل أغلقت التطبيق بالسحب؟</string>
+    <string name="delivery_swipe_away_note">إذا أغلقت التطبيق بسحبه في مبدّل التطبيقات، يتوقف iOS عن الفحص في الخلفية حتى تفتحه مجددًا.</string>
+    <string name="delivery_live_activity">النشاط المباشر</string>
+    <string name="delivery_live_activity_note">يعرض السعر على شاشة القفل، لكنه لا يتحدث إلا عندما يفحص التطبيق – ولا يجعل التنبيهات تُفحص أكثر.</string>
+    <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
+    <string name="diagnostics_share">مشاركة التشخيص</string>
+    <string name="diagnostics_share_hint">ملف نصي للدعم: الإصدار والجهاز وإعدادات التنبيهات وآخر عمليات الفحص وسجل التنبيهات – بدون المحفظة أو المبالغ أو العناوين أو الملاحظات. تراه أولًا؛ لا يُرسل شيء تلقائيًا.</string>
+    <string name="diagnostics_preview_title">التشخيص – معاينة</string>
+    <string name="diagnostics_action_share">مشاركة</string>
+    <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
+    <string name="sheet_chart_usdt_today_rate">المسار بعملة %1$s، محوّل إلى %2$s بسعر اليوم</string>
+</resources>

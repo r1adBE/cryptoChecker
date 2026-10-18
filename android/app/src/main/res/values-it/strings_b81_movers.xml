@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Markt-Tab: «Gewinner und Verlierer 24 h» unter dem Pulse (Zeile für den Screenreader: Name, Kürzel, Änderung) -->
+    <string name="movers_title">Vincitori e perdenti 24 h</string>
+    <string name="movers_gainers">Vincitori</string>
+    <string name="movers_losers">Perdenti</string>
+    <string name="movers_no_gainers">Nessuna moneta è salita in 24 h</string>
+    <string name="movers_no_losers">Nessuna moneta è scesa in 24 h</string>
+    <string name="movers_source">CoinGecko, 24 h, top 100 senza stablecoin</string>
+    <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
+</resources>

@@ -38,6 +38,15 @@ class EncryptionPendingTest {
     }
 
     @Test
+    fun refusedPortfolioCountsAsNotEncryptedUntilAStartSucceeds() {
+        // Kein Schlüssel, Portfolio nur im Arbeitsspeicher: Verschlüsselung noch nicht aktiv
+        val refused = EncryptionPending.updated(emptySet(), "portfolio.db", Decision.Refused)
+        assertEquals(setOf("portfolio.db"), refused)
+        assertTrue(EncryptionPending.showNotice(refused))
+        assertFalse(EncryptionPending.showNotice(EncryptionPending.updated(refused, "portfolio.db", encrypted)))
+    }
+
+    @Test
     fun noticeHiddenWhenEverythingIsEncrypted() {
         assertFalse(EncryptionPending.showNotice(emptySet()))
         // Neu angelegt und gleich verschlüsselt (Migration «migrated», beiseitegelegt «setAside»): kein Hinweis

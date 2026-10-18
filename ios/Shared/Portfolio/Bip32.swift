@@ -10,21 +10,26 @@ import Foundation
 ///    merkt sich den Typ mit Verlauf (`XpubCache.script`).
 ///  - ypub (0x049D7CB2) → P2SH-P2WPKH «3…» (BIP49)
 ///  - zpub (0x04B24746) → P2WPKH «bc1q…» (BIP84)
+///  - Taproot-Konto (BIP86) → P2TR «bc1p…»: für BIP86 gibt es kein SLIP-132-Präfix, Wallets geben einen Deskriptor
+///    `tr([fp/86'/0'/0']xpub…)` mit den Ketten 0 und 1 aus (`AddressValidation` liest ihn). Gespeichert wird die
+///    Normalform (`taprootDescriptor`); `parse` liest auch diese (`ExtendedKey.taproot`). Adresse: x-only-Schlüssel
+///    mit BIP341-Tweak (TapTweak, Q = P + t·G), Bech32m Version 1 (`taprootOutputKey`).
 /// Ketten: 0 = Empfang, 1 = Wechselgeld; Adresse i = Schlüssel/Kette/i.
 /// Mathematik: secp256k1 mit eigener 256-Bit-Arithmetik (vier 64-Bit-Glieder, Jacobi-Koordinaten; Android rechnet mit
 /// BigInteger), RIPEMD-160 selbst. Geprüft mit den offiziellen Testvektoren (BIP32 Vektor 1/2, BIP84, BIP49) in
-/// `address_balance.json`.
+/// `address_balance.json`, BIP86 und BIP350 in `taproot.json`.
 enum Bip32 {
 
     /// Adresstyp; `code` ist die gespeicherte Form (`XpubCache.script`), gleich wie die Namen in Kotlin.
     enum Script: CaseIterable, Sendable {
-        case p2pkh, p2shP2wpkh, p2wpkh
+        case p2pkh, p2shP2wpkh, p2wpkh, p2tr
 
         var code: String {
             switch self {
             case .p2pkh: return "P2PKH"
             case .p2shP2wpkh: return "P2SH_P2WPKH"
             case .p2wpkh: return "P2WPKH"
+            case .p2tr: return "P2TR"
             }
         }
 
@@ -60,14 +65,32 @@ enum Bip32 {
         let chainCode: [UInt8]
         /// Komprimiert, 33 Byte (0x02/0x03 + x).
         let publicKey: [UInt8]
+        /// Taproot-Konto (BIP86, aus `tr(…)`): Adressen P2TR; die Versionsbytes sind die eines xpub.
+        var taproot: Bool = false
 
         var script: Script {
+            if taproot { return .p2tr }
             switch version {
             case Bip32.ypubVersion: return .p2shP2wpkh
             case Bip32.zpubVersion: return .p2wpkh
             default: return .p2pkh
             }
         }
+
+        /// Adresstyp unbekannt (xpub ohne Deskriptor): die Suche prüft mehrere Typen (`XpubScan.scripts`).
+        var detectsScript: Bool { version == Bip32.xpubVersion && !taproot }
+    }
+
+    private static let taprootSuffix = "/<0;1>/*"
+
+    /// Normalform eines Taproot-Kontos: beide Ketten (BIP389), ohne Herkunft und Prüfsumme.
+    static func taprootDescriptor(_ xpub: String) -> String { "tr(" + xpub + taprootSuffix + ")" }
+
+    /// xpub aus der Normalform `taprootDescriptor`; anderes = nil.
+    static func taprootAccount(_ s: String) -> String? {
+        guard s.hasPrefix("tr("), s.hasSuffix(taprootSuffix + ")") else { return nil }
+        let inner = s.dropFirst(3).dropLast(taprootSuffix.count + 1)
+        return inner.isEmpty ? nil : String(inner)
     }
 
     /// Prüfen: nil = gültiger xpub/ypub/zpub (Mainnet); sonst das Problem für `AddressValidation`.
@@ -86,8 +109,13 @@ enum Bip32 {
         return nil
     }
 
-    /// Lesen; ungültig (auch Testnet, Multisig, privat) = nil.
+    /// Lesen; ungültig (auch Testnet, Multisig, privat) = nil. Auch die Normalform eines Taproot-Kontos (nur xpub).
     static func parse(_ s: String) -> ExtendedKey? {
+        if let inner = taprootAccount(s) {
+            guard var key = parse(inner), key.version == xpubVersion else { return nil }
+            key.taproot = true
+            return key
+        }
         guard check(s) == nil, let raw = AddressValidation.base58Decode(s), raw.count == 82 else { return nil }
         return ExtendedKey(version: uint32(raw, 0), depth: raw[4], parentFingerprint: Array(raw[5..<9]),
                            childNumber: uint32(raw, 9), chainCode: Array(raw[13..<45]), publicKey: Array(raw[45..<78]))
@@ -115,17 +143,35 @@ enum Bip32 {
         guard let il = U256(bytes: Array(mac[0..<32])), il < Self.order else { return nil }
         guard let point = Curve.multiplyAdd(il, parent) else { return nil }
         return ExtendedKey(version: key.version, depth: key.depth &+ 1, parentFingerprint: Array(hash160(key.publicKey)[0..<4]),
-                           childNumber: UInt32(index), chainCode: Array(mac[32..<64]), publicKey: encodePoint(point))
+                           childNumber: UInt32(index), chainCode: Array(mac[32..<64]), publicKey: encodePoint(point),
+                           taproot: key.taproot)
     }
 
-    /// Adresse eines komprimierten öffentlichen Schlüssels.
-    static func address(_ script: Script, publicKey: [UInt8]) -> String {
+    /// Adresse eines komprimierten öffentlichen Schlüssels; nil nur bei ungültigem Taproot-Tweak (praktisch nie).
+    static func address(_ script: Script, publicKey: [UInt8]) -> String? {
         let h = hash160(publicKey)
         switch script {
         case .p2pkh: return base58Check([0x00] + h)
         case .p2shP2wpkh: return base58Check([0x05] + hash160([0x00, 0x14] + h))
         case .p2wpkh: return bech32V0(hrp: "bc", program: h)
+        case .p2tr: return taprootOutputKey(publicKey).map { segwitAddress(hrp: "bc", version: 1, program: $0) }
         }
+    }
+
+    /// Ausgabeschlüssel (32 Byte, x-only) eines Taproot-Kontos ohne Skriptbaum (BIP86/BIP341): P = Punkt mit geradem y
+    /// zu x(Schlüssel), t = TaggedHash("TapTweak", x(P)), Q = P + t·G. t ≥ n oder Q unendlich (praktisch nie) = nil.
+    static func taprootOutputKey(_ publicKey: [UInt8]) -> [UInt8]? {
+        guard publicKey.count == 33 else { return nil }
+        let x = Array(publicKey[1..<33])
+        guard let p = decodePoint([2] + x), let t = U256(bytes: taggedHash("TapTweak", x)), t < Self.order,
+              let q = Curve.multiplyAdd(t, p) else { return nil }
+        return q.x.bytes
+    }
+
+    /// BIP340: SHA-256(SHA-256(tag) ‖ SHA-256(tag) ‖ data).
+    static func taggedHash(_ tag: String, _ data: [UInt8]) -> [UInt8] {
+        let t = sha256(Array(tag.utf8))
+        return sha256(t + t + data)
     }
 
     // MARK: Punkte
@@ -188,9 +234,15 @@ enum Bip32 {
     private static let charset = Array("qpzry9x8gf2tvdw0s3jn54khce6mua7l")
     private static let gen: [UInt32] = [0x3b6a57b2, 0x26508e6d, 0x1ea119fa, 0x3d4233dd, 0x2a1462b3]
 
+    private static let bech32mConst: UInt32 = 0x2bc830a3
+
     /// Segwit v0 (Bech32, BIP173).
-    static func bech32V0(hrp: String, program: [UInt8]) -> String {
-        var data: [Int] = [0]
+    static func bech32V0(hrp: String, program: [UInt8]) -> String { segwitAddress(hrp: hrp, version: 0, program: program) }
+
+    /// Segwit-Adresse: Version 0 mit Bech32 (BIP173), ab Version 1 mit Bech32m (BIP350).
+    static func segwitAddress(hrp: String, version: Int, program: [UInt8]) -> String {
+        precondition((0...16).contains(version))
+        var data: [Int] = [version]
         var acc = 0
         var bits = 0
         for b in program {
@@ -218,7 +270,7 @@ enum Bip32 {
             chk = ((chk & 0x1ffffff) << 5) ^ UInt32(v)
             for i in 0..<5 where (top >> UInt32(i)) & 1 == 1 { chk ^= gen[i] }
         }
-        let mod = chk ^ 1
+        let mod = chk ^ (version == 0 ? 1 : bech32mConst)
         var out = hrp + "1"
         for d in data { out.append(charset[d]) }
         for i in 0..<6 { out.append(charset[Int((mod >> UInt32(5 * (5 - i))) & 31)]) }
@@ -315,9 +367,9 @@ enum Bip32 {
     }
 }
 
-/// Adressen eines xpub/ypub/zpub der Reihe nach (Kette 0 = Empfang, 1 = Wechselgeld); die Kettenschlüssel werden einmal
-/// abgeleitet. Wie `XpubDeriver` (Kotlin). Ungültiger Schlüssel: `init` liefert nil. `script` = anderer Adresstyp als nach
-/// Präfix (nur für xpub sinnvoll, `XpubScan.scripts`).
+/// Adressen eines xpub/ypub/zpub (oder Taproot-Kontos in Normalform) der Reihe nach (Kette 0 = Empfang, 1 = Wechselgeld);
+/// die Kettenschlüssel werden einmal abgeleitet. Wie `XpubDeriver` (Kotlin). Ungültiger Schlüssel: `init` liefert nil.
+/// `script` = anderer Adresstyp als nach Präfix (nur für xpub sinnvoll, `XpubScan.scripts`).
 final class XpubDeriver {
     private let root: Bip32.ExtendedKey
     private var chains: [Int: Bip32.ExtendedKey] = [:]

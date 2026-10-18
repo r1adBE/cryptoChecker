@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Seite «Damit Alarme ankommen» (Build 81): Titel, auch Name der Knöpfe in «Alle Alarme», im Alarm-Editor und unter Einstellungen › Alarme -->
+    <string name="delivery_title">Agar alarm sampai</string>
+    <!-- Screenreader: Zustand einer Zeile (✓ / ⚠ / Hinweis) -->
+    <string name="delivery_state_ok">Beres</string>
+    <string name="delivery_state_warn">Perhatian</string>
+    <string name="delivery_state_info">Catatan</string>
+    <string name="delivery_allowed">Diizinkan</string>
+    <!-- Zeilen der Seite: Titel und Zustand. Android und iOS -->
+    <string name="delivery_notifications">Notifikasi</string>
+    <string name="delivery_notifications_off">Nonaktif – alarm tidak akan sampai</string>
+    <string name="delivery_notifications_not_asked">Belum diizinkan</string>
+    <string name="delivery_channel">Saluran alarm</string>
+    <string name="delivery_channel_high">Prioritas tinggi – muncul di bagian atas layar</string>
+    <string name="delivery_channel_low">Prioritas rendah – alarm hanya muncul tanpa suara di daftar</string>
+    <string name="delivery_channel_off">Dinonaktifkan – alarm tidak akan sampai</string>
+    <string name="delivery_exact_on">Aktif – kira-kira setiap 15 menit</string>
+    <string name="delivery_exact_off">Nonaktif – Android memeriksa tidak teratur</string>
+    <string name="delivery_battery">Pengoptimalan baterai</string>
+    <string name="delivery_battery_unrestricted">Tidak dibatasi</string>
+    <string name="delivery_battery_optimized">Dioptimalkan – Android bisa menunda pemeriksaan. Aplikasi tidak meminta pengecualian; kamu bisa mengubahnya di pengaturan baterai aplikasi.</string>
+    <string name="delivery_background">Penggunaan latar belakang</string>
+    <string name="delivery_background_restricted">Dibatasi – Android menghentikan pemeriksaan di latar belakang</string>
+    <string name="delivery_dnd">Jangan ganggu</string>
+    <string name="delivery_dnd_on">Aktif – alarm mungkin datang tanpa suara</string>
+    <!-- %1$s = Ende der Nachtruhe (Uhrzeit) -->
+    <string name="delivery_quiet_now">Aktif sampai %1$s – alarm yang jatuh tempo menunggu sampai saat itu</string>
+    <!-- %1$s = Beginn, %2$s = Ende der Nachtruhe -->
+    <string name="delivery_quiet_set">%1$s–%2$s – alarm yang jatuh tempo menunggu selama waktu ini</string>
+    <string name="delivery_last_check">Pemeriksaan latar belakang terakhir</string>
+    <!-- %1$s = Zeit der letzten Prüfung im Hintergrund -->
+    <string name="delivery_last_check_old">%1$s – lebih dari 6 jam lalu</string>
+    <string name="delivery_last_check_never">Belum ada</string>
+    <!-- Knöpfe in den Zeilen -->
+    <string name="delivery_action_allow">Izinkan</string>
+    <string name="delivery_action_change">Ubah</string>
+    <string name="delivery_action_show">Tampilkan</string>
+    <!-- Zeilen nur auf iOS (Namen wie in den iOS-Einstellungen) -->
+    <string name="delivery_alert_sound">Spanduk dan suara</string>
+    <string name="delivery_alert_off">Spanduk nonaktif – alarm hanya muncul di Pusat Notifikasi</string>
+    <string name="delivery_sound_off">Suara nonaktif – alarm datang tanpa suara</string>
+    <string name="delivery_time_sensitive">Notifikasi Peka Waktu</string>
+    <string name="delivery_time_sensitive_off">Nonaktif – mode Fokus bisa menahan alarm</string>
+    <string name="delivery_background_refresh">Refresh App di Latar</string>
+    <string name="delivery_low_power">Mode Daya Rendah</string>
+    <string name="delivery_swipe_away">Aplikasi diusap tutup?</string>
+    <string name="delivery_swipe_away_note">Jika kamu mengusap tutup aplikasi di pengalih aplikasi, iOS berhenti memeriksa di latar belakang sampai kamu membukanya lagi.</string>
+    <string name="delivery_live_activity">Aktivitas Langsung</string>
+    <string name="delivery_live_activity_note">Menampilkan harga di Layar Terkunci, tetapi hanya diperbarui saat aplikasi memeriksa – alarm tidak jadi diperiksa lebih sering.</string>
+    <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
+    <string name="diagnostics_share">Bagikan diagnostik</string>
+    <string name="diagnostics_share_hint">File teks untuk dukungan: versi, perangkat, pengaturan alarm, pemeriksaan terakhir, dan log alarm – tanpa portofolio, jumlah, alamat, atau catatan. Kamu melihatnya dulu; tidak ada yang dikirim otomatis.</string>
+    <string name="diagnostics_preview_title">Diagnostik – pratinjau</string>
+    <string name="diagnostics_action_share">Bagikan</string>
+    <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
+    <string name="sheet_chart_usdt_today_rate">Riwayat dalam %1$s, dikonversi ke %2$s dengan kurs hari ini</string>
+</resources>

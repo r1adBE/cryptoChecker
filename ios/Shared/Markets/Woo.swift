@@ -17,7 +17,8 @@ private let wooNoCandles = "Keine Kerzen"
 ///  - ohne Antwortzeit gilt die jüngste Kerze als laufende Stunde.
 /// Hoch, Tief und Volumen über dieses Fenster; Veränderung gegen die Eröffnung seiner ältesten Kerze, aber nur bei
 /// lückenlosem Fenster. Liegt die jüngste Kerze mehr als eine Stunde zurück, endet kein Fenster jetzt: keine
-/// Veränderung (dann rechnet die App mit eigenen Kerzen). Gegenstück: `Woo.kt`.
+/// Veränderung (dann rechnet die App mit eigenen Kerzen). Zeit der Börse = Ende der Information der jüngsten Kerze
+/// (laufend: Antwortzeit, sonst höchstens jetzt; abgeschlossen: Stundenende). Gegenstück: `Woo.kt`.
 final class Woo: WooBase {
     init() {
         super.init(key: "Woo", name: "WOO X", symbolPrefix: "SPOT", contractType: .none,
@@ -40,10 +41,21 @@ final class Woo: WooBase {
         let last = try newest.double("close")
         ticker.last = last
 
-        // Antwortzeit (kein Handelszeitpunkt, Zeit der Börse bleibt offen) — nur für die Lage des Fensters
+        // Antwortzeit der Hülle — für die Lage des Fensters und die Zeit der Börse
         let answeredAt = json.optLong("timestamp")
         let newestAge: Int64? = answeredAt > 0 ? answeredAt - Woo.start(newest) : nil
         let newestIsRunning = newestAge.map { $0 < Change24h.hourMillis } ?? true
+        // Zeit der Börse = Ende der Information im Kurs: laufende Kerze bis zur Antwortzeit (ohne diese bis
+        // höchstens jetzt), abgeschlossene bis zu ihrem Stundenende. So greifen «veraltet» und die 2-h-Regel der
+        // Alarme, wenn die Börse nur noch eine alte Kerze liefert.
+        let candleEnd = Woo.start(newest) + Change24h.hourMillis
+        if !newestIsRunning {
+            ticker.timestamp = candleEnd
+        } else if answeredAt > 0 {
+            ticker.timestamp = answeredAt
+        } else {
+            ticker.timestamp = min(candleEnd, TimeUtils.nowMillis)
+        }
         let span = newestIsRunning ? wooHours : wooHours - 1
         let window = Array(hourly.prefix(span))
 

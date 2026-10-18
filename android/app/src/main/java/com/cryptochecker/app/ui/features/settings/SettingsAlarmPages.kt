@@ -62,6 +62,14 @@ internal fun AlarmsPage(
                     value = updatesSummary(settings),
                     onClick = { onOpenPage(SettingsPage.UPDATES) }
                 )
+                // Damit Alarme ankommen: Erlaubnisse, Kanal, Akku und letzte Prüfung auf einen Blick
+                com.cryptochecker.app.ui.features.alarms.LocalOpenAlarmDelivery.current?.let { openDelivery ->
+                    SettingsNavRow(
+                        title = stringResource(R.string.delivery_title),
+                        icon = R.drawable.ic_notifications_active_outline,
+                        onClick = openDelivery,
+                    )
+                }
             }
         }
         GroupCard {

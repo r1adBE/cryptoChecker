@@ -308,7 +308,7 @@ class WatchedAddressSource @Inject constructor(
     }
 
     /**
-     * xpub/ypub/zpub: Adressen auf dem Gerät ableiten ([XpubDeriver]) und einzeln wie eine Adresse fragen
+     * xpub/ypub/zpub/Taproot-Konto: Adressen auf dem Gerät ableiten ([XpubDeriver]) und einzeln wie eine Adresse fragen
      * ([XpubScan]: Gap-Regel, vollständig höchstens täglich). Hintergrund ohne Zwischenspeicher: null (bleibt fällig).
      * Zwischen zwei Anfragen eine kurze Pause (schont die Anbieter). xpub ohne bekannten Adresstyp
      * ([XpubScan.scripts]): vollständig als P2PKH, ohne Verlauf als P2SH-P2WPKH, dann P2WPKH (Segwit-Konto mit xpub,
@@ -318,7 +318,7 @@ class WatchedAddressSource @Inject constructor(
         val key = Bip32.parse(a.address) ?: throw IllegalArgumentException("xpub ungültig")
         // Zwischenspeicher nur, wenn er zu diesem Schlüssel gehört (erste Adresse im gemerkten Typ stimmt)
         val stored = a.xpub?.let { c ->
-            val deriver = XpubDeriver(a.address, c.script.takeIf { key.version == Bip32.XPUB })
+            val deriver = XpubDeriver(a.address, c.script.takeIf { key.detectsScript })
             c.takeIf {
                 withContext(Dispatchers.Default) {
                     (c.receive.isEmpty() || c.receive[0] == deriver.address(0, 0)) &&
@@ -326,7 +326,7 @@ class WatchedAddressSource @Inject constructor(
                 }
             }
         }
-        val storedScript = stored?.let { it.script.takeIf { key.version == Bip32.XPUB } ?: key.script }
+        val storedScript = stored?.let { it.script.takeIf { key.detectsScript } ?: key.script }
         val scripts = XpubScan.scripts(key, stored)
         val tried = ArrayList<Pair<Bip32.Script, Int>>()
         val results = ArrayList<Fetched>()

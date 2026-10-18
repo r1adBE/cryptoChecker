@@ -33,7 +33,7 @@ MARKNAD
 
 DESSUTOM
 • Widgetar: bevakningslista, portföljens totalvärde, ett mynt med diagram
-• Portfölj som tillval (slås på under Inställningar): köp, försäljningar, byten, överföringar, rewards, insättningar och uttag; FIFO (standard) eller genomsnitt (Ø); adresser endast för läsning, utan seed, för BTC (även xpub), ETH & EVM-kedjor, SOL, TRX, XRP, LTC och TON; CSV-import från Relai, Swissquote, Bitpanda, Kraken, Binance och Coinbase; årsöversikt som CSV; eget lås. Bitpanda och Swissquote har inget öppet kursflöde och därför ingen livekurs – deras affärer kommer in via CSV-import.
+• Portfölj som tillval (slås på under Inställningar): köp, försäljningar, byten, överföringar, rewards, insättningar och uttag; FIFO (standard) eller genomsnitt (Ø); adresser endast för läsning, utan seed, för BTC (även xpub), ETH & EVM-kedjor, SOL, TRX, XRP, LTC och TON; CSV-import från Relai, Swissquote, Bitpanda, Kraken, Binance och Coinbase; årsöversikt som CSV; eget lås. Bitpanda och Swissquote har inget öppet kursflöde och därför ingen egen kurs – deras affärer kommer in via CSV-import.
 • Läsbar för alla: grönt/rött eller blått/orange, tecken och pil i stället för bara färg; TalkBack läser varje rad som en mening
 • Säkerhetskopiera och återställ till en fil – även mellan Android och iPhone
 • Ljust och mörkt läge, fem accentfärger, 31 språk

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">Taproot 계정(BIP86): 이 키에서 수신용과 잔돈용 bc1p… 주소가 파생됩니다.</string>
+    <string name="portfolio_address_taproot_hint">Taproot 지갑인가요? 대신 지갑의 디스크립터 tr(…)를 붙여 넣으세요. 일반 xpub는 Legacy 및 SegWit 주소로만 검색됩니다.</string>
+</resources>

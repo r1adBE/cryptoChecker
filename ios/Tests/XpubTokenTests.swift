@@ -320,7 +320,7 @@ final class XpubTokenTests: XCTestCase {
         noScript.script = nil
         let plain = try XCTUnwrap(try JSONSerialization.jsonObject(with: JSONEncoder().encode(noScript)) as? [String: Any])
         XCTAssertNil(plain["s"])
-        let unknown = Data(#"{"r":["a"],"s":"P2TR"}"#.utf8)
+        let unknown = Data(#"{"r":["a"],"s":"P2XX"}"#.utf8)
         XCTAssertNil(try JSONDecoder().decode(XpubCache.self, from: unknown).script)
     }
 

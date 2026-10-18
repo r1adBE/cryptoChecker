@@ -127,7 +127,7 @@ trademarks of their projects. The settings page «Coin logos» shows «Powered b
 
 An optional portfolio on the device: transactions you enter yourself (buy, sell, swap,
 transfer, reward, deposit, withdrawal, gift/payment), CSV import (Relai, Swissquote, Kraken),
-read-only watched addresses (public BTC/ETH/… addresses and xpub — never a seed), value history,
+read-only watched addresses (public BTC/ETH/… addresses, xpub and Taproot `tr(…)` descriptors — never a seed), value history,
 portfolio alarms and widgets, and CSV exports: cut-off holdings and realized gains. Country tax
 templates (DE, AT, CH, UK, US, CA, AU, FR, JP) are marked **Beta**: simplified rules for
 orientation, not tax advice — check them before filing. Everything stays on the device unless you

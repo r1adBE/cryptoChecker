@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">حساب Taproot ‏(BIP86): از این کلید آدرس‌های bc1p… برای دریافت و باقی‌مانده مشتق می‌شوند.</string>
+    <string name="portfolio_address_taproot_hint">کیف پول Taproot دارید؟ به‌جای آن توصیفگر tr(…) را از کیف پول خود بچسبانید – xpub ساده فقط به‌صورت آدرس‌های Legacy و SegWit جست‌وجو می‌شود.</string>
+</resources>

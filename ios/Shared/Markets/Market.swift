@@ -167,8 +167,14 @@ class Market: @unchecked Sendable { // @unchecked: nur let-Konstanten, Unterklas
             Market.markFetched(&stamped)
             return stamped
         }
-        return BulkTickerParse(tickers: fetched, failed: broken)
+        return BulkTickerParse(tickers: fetched, failed: broken,
+                               complete: bulkResponseComplete(call: call, body: body))
     }
+
+    /// Hook for exchanges with `bulkTickersComplete`: false when this very response cannot vouch for every tradable
+    /// pair (One Trading: rows of other instrument types were dropped or a spot book is closed). A missing pair then
+    /// goes to the single request instead of being reported as not traded. Default: true. Android: same name.
+    func bulkResponseComplete(call: Int, body: String) -> Bool { true }
 
     /// Hook: parses a bulk response — returns readable rows keyed by pair id, present but unreadable rows go into
     /// `failed`; easiest via `bulkRowIfActive` or `bulkRow`. Default: no bulk query.
@@ -336,10 +342,13 @@ extension String {
 }
 
 /// Ausgewertete Sammelantwort: lesbare Kurse je Paar-Kennung und die Kennungen, deren Zeile zwar da, aber
-/// unlesbar war (`failed`: Feld fehlt oder umbenannt, kein letzter Kurs). Wie `BulkTickerParse` auf Android.
+/// unlesbar war (`failed`: Feld fehlt oder umbenannt, kein letzter Kurs). `complete` = false: die Börse hat diese
+/// Antwort selbst als lückenhaft erkannt (`Market.bulkResponseComplete`), ein fehlendes Paar heisst dann nicht
+/// «nicht mehr gehandelt». Wie `BulkTickerParse` auf Android.
 struct BulkTickerParse: Sendable {
     let tickers: [String: Ticker]
     let failed: Set<String>
+    var complete: Bool = true
 }
 
 /// Sammelantwort überwiegend unlesbar — vermutlich hat die Börse ihr Format geändert. Der Text beginnt mit

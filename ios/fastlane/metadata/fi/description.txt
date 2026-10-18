@@ -32,7 +32,7 @@ MARKKINA
 
 LISÄKSI
 • Widgetit Koti- ja lukitusnäytölle, Live Activity yhdelle kolikolle
-• Salkku valinnaisena (kytketään asetuksista): ostot, myynnit, vaihdot, siirrot, palkkiot, talletukset ja nostot; FIFO (oletus) tai keskiarvo (Ø); osoitteet vain luku -tilassa, ilman seediä: BTC (myös xpub), ETH ja EVM-ketjut, SOL, TRX, XRP, LTC ja TON; CSV-tuonti Relaista, Swissquotesta, Bitpandasta, Krakenista, Binancesta ja Coinbasesta; vuosikooste CSV-tiedostona; oma lukitus. Bitpandalla ja Swissquotella ei ole julkista hintasyötettä, joten niillä ei ole live-hintaa – niiden kaupat tuodaan CSV-tuonnilla.
+• Salkku valinnaisena (kytketään asetuksista): ostot, myynnit, vaihdot, siirrot, palkkiot, talletukset ja nostot; FIFO (oletus) tai keskiarvo (Ø); osoitteet vain luku -tilassa, ilman seediä: BTC (myös xpub), ETH ja EVM-ketjut, SOL, TRX, XRP, LTC ja TON; CSV-tuonti Relaista, Swissquotesta, Bitpandasta, Krakenista, Binancesta ja Coinbasesta; vuosikooste CSV-tiedostona; oma lukitus. Bitpandalla ja Swissquotella ei ole julkista hintasyötettä, joten niillä ei ole omaa hintaa – niiden kaupat tuodaan CSV-tuonnilla.
 • Luettava kaikille: vihreä/punainen tai sininen/oranssi, etumerkki ja nuoli pelkän värin sijaan, Dynamic Type; VoiceOver lukee jokaisen rivin yhtenä lauseena
 • Varmuuskopiointi ja palautus Tiedostot-apin kautta
 • Vaalea ja tumma tila, viisi korostusväriä, 31 kieltä

@@ -33,7 +33,7 @@
 
 更多
 • 主屏幕和锁定屏幕小组件，单个币种的实时活动
-• 投资组合为可选功能（在设置中开启）：买入、卖出、兑换、转账、奖励、充值和提现；FIFO（默认）或平均成本（Ø）；只读地址，无需助记词：BTC（含 xpub）、ETH 和 EVM 链、SOL、TRX、XRP、LTC 和 TON；从 Relai、Swissquote、Bitpanda、Kraken、Binance 和 Coinbase 导入 CSV；年度汇总（CSV）；独立锁定。Bitpanda 和 Swissquote 没有公开价格源，因此没有实时价格——请通过 CSV 导入其交易。
+• 投资组合为可选功能（在设置中开启）：买入、卖出、兑换、转账、奖励、充值和提现；FIFO（默认）或平均成本（Ø）；只读地址，无需助记词：BTC（含 xpub）、ETH 和 EVM 链、SOL、TRX、XRP、LTC 和 TON；从 Relai、Swissquote、Bitpanda、Kraken、Binance 和 Coinbase 导入 CSV；年度汇总（CSV）；独立锁定。Bitpanda 和 Swissquote 没有公开价格源，因此没有自己的价格——请通过 CSV 导入其交易。
 • 人人易读：绿/红或蓝/橙，不只靠颜色，还有正负号和箭头，支持动态字体；VoiceOver 把每行读成一句话
 • 通过“文件”App 备份和恢复
 • 浅色和深色模式，五种强调色，31 种语言

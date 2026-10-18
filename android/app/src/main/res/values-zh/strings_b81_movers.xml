@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Markt-Tab: «Gewinner und Verlierer 24 h» unter dem Pulse (Zeile für den Screenreader: Name, Kürzel, Änderung) -->
+    <string name="movers_title">24 小时涨跌榜</string>
+    <string name="movers_gainers">涨幅榜</string>
+    <string name="movers_losers">跌幅榜</string>
+    <string name="movers_no_gainers">24 小时内没有币上涨</string>
+    <string name="movers_no_losers">24 小时内没有币下跌</string>
+    <string name="movers_source">CoinGecko，24 小时，前 100 名（不含稳定币）</string>
+    <string name="movers_a11y_row">%1$s（%2$s），%3$s</string>
+</resources>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
+    <string name="tax_summary_fr_address_no_cost">Adresat e vëzhguara llogariten në vlerën totale, por nuk kanë kosto blerjeje – prandaj fitimi ka gjasë të jetë më i lartë. Regjistroje koston si blerje.</string>
+</resources>

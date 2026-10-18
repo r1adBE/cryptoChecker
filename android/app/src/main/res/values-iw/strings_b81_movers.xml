@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Markt-Tab: «Gewinner und Verlierer 24 h» unter dem Pulse (Zeile für den Screenreader: Name, Kürzel, Änderung) -->
+    <string name="movers_title">מרוויחים ומפסידים 24 ש׳</string>
+    <string name="movers_gainers">מרוויחים</string>
+    <string name="movers_losers">מפסידים</string>
+    <string name="movers_no_gainers">אף מטבע לא עלה ב-24 ש׳</string>
+    <string name="movers_no_losers">אף מטבע לא ירד ב-24 ש׳</string>
+    <string name="movers_source">CoinGecko, ‏24 ש׳, 100 המובילים ללא מטבעות יציבים</string>
+    <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
+</resources>

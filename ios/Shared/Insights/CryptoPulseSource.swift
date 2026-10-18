@@ -18,6 +18,8 @@ struct PulseMarketData: Equatable, Sendable, Codable {
     /// Krypto-Markt gesamt in USD und seine Veränderung über 24 h (CoinGecko `/global`).
     var marketCapUsd: Double? = nil
     var marketCap24h: Double? = nil
+    /// «Gewinner und Verlierer 24 h» aus derselben Rangliste (`MarketMovers`); fehlt in älteren Ständen.
+    var movers: MarketMoversResult? = nil
 
     var hasMarket: Bool { btc != nil && eth != nil && sol != nil }
 }
@@ -46,7 +48,7 @@ actor CryptoPulseSource {
         async let changesJob = Self.changes()
         async let spikeJob = VolumeDataSource.hourlySpike(base: "BTC", quote: "USDT")
         async let fundingJob = Self.funding()
-        async let topJob = Self.topChanges()
+        async let topJob = Self.topCoins()
         async let globalJob = globalMarket()
         let changes = await changesJob
         let spike = await spikeJob
@@ -56,9 +58,10 @@ actor CryptoPulseSource {
         let data = PulseMarketData(btc: changes["BTC"], eth: changes["ETH"], sol: changes["SOL"],
                                    volumeRatio: spike?.ratio, fundingPercent: funding,
                                    time: TimeUtils.nowMillis,
-                                   topChanges: top.isEmpty ? nil : top,
+                                   topChanges: top.changes.isEmpty ? nil : top.changes,
                                    marketCapUsd: global?.totalMarketCap["usd"],
-                                   marketCap24h: global?.change24hPercent)
+                                   marketCap24h: global?.change24hPercent,
+                                   movers: top.movers)
         guard data.hasMarket else { throw JSONError(message: "Pulse: Marktdaten fehlen") }
         cached = data
         Self.store(data)
@@ -97,25 +100,30 @@ actor CryptoPulseSource {
         return market
     }
 
-    /// 24-h-Veränderung der grössten Coins (CoinGecko-Rangliste), ohne Stablecoins und
-    /// Doppelgänger (`CoinExclusion`), höchstens `CryptoPulse.breadthCoins`; leer bei Fehler.
-    static func topChanges() async -> [Double] {
+    /// Eine Anfrage an die Rangliste (Top `MarketMovers.universe`): 24-h-Veränderung der grössten Coins
+    /// (CoinGecko-Rangliste), ohne Stablecoins und Doppelgänger (`CoinExclusion`), höchstens
+    /// `CryptoPulse.breadthCoins` — und daraus die Gewinner und Verlierer (`MarketMovers.select`). Wie Android.
+    /// Bei Fehler: keine Werte, keine Liste.
+    static func topCoins() async -> (changes: [Double], movers: MarketMoversResult?) {
         let url = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc"
-            + "&per_page=50&page=1&sparkline=false"
+            + "&per_page=\(MarketMovers.universe)&page=1&sparkline=false"
         guard let text = try? await MarketHTTP.call(url),
               let array = try? JSONSerialization.jsonObject(with: Data(text.utf8)) as? [[String: Any]]
-        else { return [] }
-        var out: [Double] = []
+        else { return ([], nil) }
+        var changes: [Double] = []
+        var coins: [MoverCoin] = []
         for item in array {
-            let symbol = item["symbol"] as? String ?? ""
-            let name = item["name"] as? String ?? ""
-            guard !CoinExclusion.isExcluded(symbol: symbol, name: name),
-                  let change = (item["price_change_percentage_24h"] as? NSNumber)?.doubleValue, change.isFinite
-            else { continue }
-            out.append(change)
-            if out.count == CryptoPulse.breadthCoins { break }
+            let symbol = (item["symbol"] as? String ?? "").trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+            let name = (item["name"] as? String ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
+            let rank = (item["market_cap_rank"] as? NSNumber)?.intValue
+            let change = ((item["price_change_percentage_24h"] as? NSNumber)?.doubleValue).flatMap { $0.isFinite ? $0 : nil }
+            coins.append(MoverCoin(symbol: symbol, name: name, rank: rank, change24h: change))
+            if let change, !CoinExclusion.isExcluded(symbol: symbol, name: name),
+               changes.count < CryptoPulse.breadthCoins {
+                changes.append(change)
+            }
         }
-        return out
+        return (changes, MarketMovers.select(coins))
     }
 
     private static func funding() async -> Double? {

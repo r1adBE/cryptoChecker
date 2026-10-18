@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
+    <string name="tax_summary_fr_address_no_cost">監視中のアドレスは総額に含まれますが、取得原価がありません。そのため利益は高めに出ている可能性があります。取得原価を購入として記録してください。</string>
+</resources>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
+    <string name="tax_summary_fr_address_no_cost">Οι παρακολουθούμενες διευθύνσεις μετρούν στη συνολική αξία, αλλά δεν έχουν κόστος κτήσης – το κέρδος είναι επομένως μάλλον υψηλότερο. Καταχωρίστε το κόστος ως αγορά.</string>
+</resources>

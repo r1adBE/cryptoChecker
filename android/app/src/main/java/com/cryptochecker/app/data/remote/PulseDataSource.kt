@@ -3,7 +3,10 @@ package com.cryptochecker.app.data.remote
 import com.cryptochecker.app.domain.activity.ActivityAnalyzer
 import com.cryptochecker.app.domain.market.CryptoPulse
 import com.cryptochecker.app.domain.market.GasNetwork
+import com.cryptochecker.app.domain.market.MarketMovers
+import com.cryptochecker.app.domain.market.MarketMoversResult
 import com.cryptochecker.app.domain.market.MarketTotals
+import com.cryptochecker.app.domain.market.MoverCoin
 import com.cryptochecker.app.domain.market.PulseInput
 import com.cryptochecker.app.domain.starter.StarterCoins
 import kotlinx.coroutines.Dispatchers
@@ -29,7 +32,8 @@ import javax.inject.Singleton
  *  - BTC-Volumen-Verhältnis: wie «Warum bewegt sich das?» ([ActivityAnalyzer.hourStats])
  *  - Fear & Greed (alternative.me), BTC-Funding ([FuturesDataSource]), Ethereum-Gas ([GasDataSource])
  *  - Marktbreite: 24-h-Veränderung der grössten Coins (CoinGecko-Rangliste, ohne Stablecoins und
- *    Doppelgänger wie bei den Start-Coins); Krypto-Markt gesamt: CoinGecko `/global`
+ *    Doppelgänger wie bei den Start-Coins); aus derselben Antwort (Top 100) «Gewinner und Verlierer 24 h»
+ *    ([MarketMovers]); Krypto-Markt gesamt: CoinGecko `/global`
  *    (30 Min. im Speicher — bewegt sich langsam, schont das Abruflimit)
  * Liefert die Eingaben ([PulseInput]); Auswertung mit [CryptoPulse.evaluate].
  * Zwischenspeicher (5 Min., auch auf dem Gerät) siehe Markt-Tab (InfoViewModel).
@@ -57,7 +61,7 @@ class PulseDataSource @Inject constructor(
         val gasJob = async {
             timed { gasDataSource.fetch().evm.firstOrNull { it.network == GasNetwork.ETHEREUM }?.normalGwei }
         }
-        val topJob = async { timed { topChanges() } }
+        val topJob = async { timed { topCoins() } }
         val globalJob = async { timed { globalTotals() } }
 
         val now = System.currentTimeMillis()
@@ -69,6 +73,7 @@ class PulseDataSource @Inject constructor(
             ?: (if (base == "BTC") btcCandles else timed { volumeDataSource.hourlyCandles(base, "USDT") })
                 ?.let { ActivityAnalyzer.changeOver(it, 24, now) }
 
+        val top = topJob.await()
         val btc = change("BTC")
         val eth = change("ETH")
         val sol = change("SOL")
@@ -82,29 +87,39 @@ class PulseDataSource @Inject constructor(
             fundingPercent = fundingJob.await(),
             ethGasGwei = gasJob.await(),
             time = now,
-            topChanges = topJob.await().orEmpty(),
+            topChanges = top?.changes.orEmpty(),
+            movers = top?.movers,
             marketCapUsd = globalJob.await()?.marketCap?.get("usd"),
             marketCap24h = globalJob.await()?.changePercent24h,
         )
     }
 
+    /** Aus einer Antwort der Rangliste: Marktbreite und «Gewinner und Verlierer 24 h». */
+    private class TopCoins(val changes: List<Double>, val movers: MarketMoversResult)
+
     /**
-     * 24-h-Veränderung der grössten Coins (Rang-Reihenfolge), ohne Stablecoins und Doppelgänger,
-     * höchstens [CryptoPulse.BREADTH_COINS].
+     * Eine Anfrage an die Rangliste (Top [MarketMovers.UNIVERSE]): 24-h-Veränderung der grössten Coins
+     * (Rang-Reihenfolge), ohne Stablecoins und Doppelgänger, höchstens [CryptoPulse.BREADTH_COINS] — und daraus die
+     * Gewinner und Verlierer ([MarketMovers.select]).
      */
-    private suspend fun topChanges(): List<Double> {
+    private suspend fun topCoins(): TopCoins {
         val array = JSONArray(httpClient.callMarket(COINGECKO_TOP_URL, null))
-        return (0 until array.length()).mapNotNull { i ->
-            val o = array.optJSONObject(i) ?: return@mapNotNull null
+        val coins = ArrayList<MoverCoin>()
+        val changes = ArrayList<Double>()
+        for (i in 0 until array.length()) {
+            val o = array.optJSONObject(i) ?: continue
             val coin = StarterCoins.MarketCoin(
                 symbol = o.optString("symbol").trim().uppercase(),
                 name = o.optString("name").trim(),
                 rank = if (o.isNull("market_cap_rank")) null else o.optInt("market_cap_rank"),
                 marketCap = null,
             )
-            if (StarterCoins.isExcluded(coin) || o.isNull("price_change_percentage_24h")) return@mapNotNull null
-            o.optDouble("price_change_percentage_24h").takeIf { it.isFinite() }
-        }.take(CryptoPulse.BREADTH_COINS)
+            val change = if (o.isNull("price_change_percentage_24h")) null
+            else o.optDouble("price_change_percentage_24h").takeIf { it.isFinite() }
+            coins += MoverCoin(coin.symbol, coin.name, coin.rank, change)
+            if (change != null && !StarterCoins.isExcluded(coin) && changes.size < CryptoPulse.BREADTH_COINS) changes += change
+        }
+        return TopCoins(changes, MarketMovers.select(coins))
     }
 
     @Volatile private var globalCache: Pair<Long, MarketTotals>? = null
@@ -151,8 +166,9 @@ class PulseDataSource @Inject constructor(
 
     private companion object {
         val COINS = listOf("BTC", "ETH", "SOL")
+        /** per_page = [MarketMovers.UNIVERSE] (Top 100; die ersten 30 gültigen tragen die Marktbreite). */
         const val COINGECKO_TOP_URL = "https://api.coingecko.com/api/v3/coins/markets" +
-            "?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=false"
+            "?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false"
         const val GLOBAL_CACHE_MILLIS = 30 * 60_000L
         const val SOURCE_TIMEOUT_MILLIS = 10_000L
     }

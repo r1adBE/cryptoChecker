@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Markt-Tab: «Gewinner und Verlierer 24 h» unter dem Pulse (Zeile für den Screenreader: Name, Kürzel, Änderung) -->
+    <string name="movers_title">Maiores altas e baixas 24 h</string>
+    <string name="movers_gainers">Altas</string>
+    <string name="movers_losers">Baixas</string>
+    <string name="movers_no_gainers">Nenhuma moeda subiu em 24 h</string>
+    <string name="movers_no_losers">Nenhuma moeda caiu em 24 h</string>
+    <string name="movers_source">CoinGecko, 24 h, top 100 sem stablecoins</string>
+    <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
+</resources>

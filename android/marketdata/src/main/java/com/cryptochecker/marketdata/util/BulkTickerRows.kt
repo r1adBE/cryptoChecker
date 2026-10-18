@@ -6,9 +6,11 @@ import org.json.JSONObject
 
 /**
  * Ausbeute einer Sammelabfrage: [tickers] je Paar-Kennung, dazu [failed] — Paare, deren Zeile zwar in der Antwort
- * stand, sich aber nicht lesen liess (Feld fehlt oder heisst anders, kein letzter Kurs). iOS: `BulkTickerParse`.
+ * stand, sich aber nicht lesen liess (Feld fehlt oder heisst anders, kein letzter Kurs). [complete] = false: die Börse
+ * hat diese Antwort selbst als lückenhaft erkannt ([com.cryptochecker.marketdata.model.Market.bulkResponseComplete]),
+ * ein fehlendes Paar heisst dann nicht «nicht mehr gehandelt». iOS: `BulkTickerParse`.
  */
-class BulkTickerParse(val tickers: Map<String, Ticker>, val failed: Set<String>)
+class BulkTickerParse(val tickers: Map<String, Ticker>, val failed: Set<String>, val complete: Boolean = true)
 
 /**
  * Regeln für einzelne Zeilen einer Sammelabfrage (reines Kotlin, iOS in `Market.swift`). Eine unlesbare Zeile

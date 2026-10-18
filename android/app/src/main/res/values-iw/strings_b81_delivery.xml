@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Seite «Damit Alarme ankommen» (Build 81): Titel, auch Name der Knöpfe in «Alle Alarme», im Alarm-Editor und unter Einstellungen › Alarme -->
+    <string name="delivery_title">כדי שההתראות יגיעו</string>
+    <!-- Screenreader: Zustand einer Zeile (✓ / ⚠ / Hinweis) -->
+    <string name="delivery_state_ok">תקין</string>
+    <string name="delivery_state_warn">שים לב</string>
+    <string name="delivery_state_info">הערה</string>
+    <string name="delivery_allowed">מותר</string>
+    <!-- Zeilen der Seite: Titel und Zustand. Android und iOS -->
+    <string name="delivery_notifications">התראות</string>
+    <string name="delivery_notifications_off">כבוי – ההתראות לא יגיעו</string>
+    <string name="delivery_notifications_not_asked">עדיין לא מותר</string>
+    <string name="delivery_channel">ערוץ התראות</string>
+    <string name="delivery_channel_high">חשיבות גבוהה – מופיעה בראש המסך</string>
+    <string name="delivery_channel_low">חשיבות נמוכה – ההתראות מופיעות רק בשקט ברשימה</string>
+    <string name="delivery_channel_off">כבוי – ההתראות לא יגיעו</string>
+    <string name="delivery_exact_on">פעיל – בערך כל 15 דקות</string>
+    <string name="delivery_exact_off">כבוי – Android בודק באופן לא סדיר</string>
+    <string name="delivery_battery">אופטימיזציית סוללה</string>
+    <string name="delivery_battery_unrestricted">ללא הגבלה</string>
+    <string name="delivery_battery_optimized">באופטימיזציה – Android עלול לעכב בדיקות. האפליקציה לא מבקשת חריגה; אפשר לשנות זאת בהגדרות הסוללה של האפליקציה.</string>
+    <string name="delivery_background">שימוש ברקע</string>
+    <string name="delivery_background_restricted">מוגבל – Android עוצר בדיקות ברקע</string>
+    <string name="delivery_dnd">נא לא להפריע</string>
+    <string name="delivery_dnd_on">פעיל – התראות עשויות להגיע בלי צליל</string>
+    <!-- %1$s = Ende der Nachtruhe (Uhrzeit) -->
+    <string name="delivery_quiet_now">פעילות עד %1$s – התראות שהגיע זמנן ממתינות עד אז</string>
+    <!-- %1$s = Beginn, %2$s = Ende der Nachtruhe -->
+    <string name="delivery_quiet_set">%1$s–%2$s – התראות שהגיע זמנן ממתינות בזמן הזה</string>
+    <string name="delivery_last_check">בדיקה אחרונה ברקע</string>
+    <!-- %1$s = Zeit der letzten Prüfung im Hintergrund -->
+    <string name="delivery_last_check_old">%1$s – לפני יותר מ-6 שעות</string>
+    <string name="delivery_last_check_never">עדיין אין</string>
+    <!-- Knöpfe in den Zeilen -->
+    <string name="delivery_action_allow">לאפשר</string>
+    <string name="delivery_action_change">שינוי</string>
+    <string name="delivery_action_show">הצגה</string>
+    <!-- Zeilen nur auf iOS (Namen wie in den iOS-Einstellungen) -->
+    <string name="delivery_alert_sound">באנרים וצליל</string>
+    <string name="delivery_alert_off">באנרים כבויים – ההתראות מופיעות רק במרכז העדכונים</string>
+    <string name="delivery_sound_off">צליל כבוי – ההתראות מגיעות בשקט</string>
+    <string name="delivery_time_sensitive">עדכונים רגישים לזמן</string>
+    <string name="delivery_time_sensitive_off">כבוי – מצב ריכוז עלול לעכב התראות</string>
+    <string name="delivery_background_refresh">רענון אפליקציות ברקע</string>
+    <string name="delivery_low_power">מצב צריכת חשמל נמוכה</string>
+    <string name="delivery_swipe_away">סגרת את האפליקציה בהחלקה?</string>
+    <string name="delivery_swipe_away_note">אם סוגרים את האפליקציה בהחלקה במחליף האפליקציות, iOS מפסיק לבדוק ברקע עד שפותחים אותה שוב.</string>
+    <string name="delivery_live_activity">פעילות חיה</string>
+    <string name="delivery_live_activity_note">מציגה את השער במסך הנעילה, אבל מתעדכנת רק כשהאפליקציה בודקת – ההתראות לא נבדקות בגלל זה לעיתים קרובות יותר.</string>
+    <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
+    <string name="diagnostics_share">שיתוף אבחון</string>
+    <string name="diagnostics_share_hint">קובץ טקסט לתמיכה: גרסה, מכשיר, הגדרות התראות, בדיקות אחרונות ויומן התראות – בלי תיק, סכומים, כתובות או הערות. קודם רואים אותו; שום דבר לא נשלח אוטומטית.</string>
+    <string name="diagnostics_preview_title">אבחון – תצוגה מקדימה</string>
+    <string name="diagnostics_action_share">שיתוף</string>
+    <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
+    <string name="sheet_chart_usdt_today_rate">מהלך ב-%1$s, מומר ל-%2$s לפי השער של היום</string>
+</resources>

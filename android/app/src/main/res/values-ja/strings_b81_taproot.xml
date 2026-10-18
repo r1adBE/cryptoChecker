@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">Taproot アカウント（BIP86）：この鍵から受取用とお釣り用の bc1p… アドレスが導出されます。</string>
+    <string name="portfolio_address_taproot_hint">Taproot ウォレットですか？代わりにウォレットの記述子 tr(…) を貼り付けてください。通常の xpub は Legacy と SegWit のアドレスとしてのみ検索されます。</string>
+</resources>

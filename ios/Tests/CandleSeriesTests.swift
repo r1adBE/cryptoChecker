@@ -207,6 +207,17 @@ final class SheetChartRulesTests: XCTestCase {
         XCTAssertNil(SheetChart.sparklineFor([100, 0], price: 110, quoteUsd: 1))
     }
 
+    func testTodayRateCaptionOnlyForOneCurrentRate() {
+        let chf = SheetChart.todayRateCaption(.current, sourcePair: "BTC/USDT", quote: "chf")
+        XCTAssertEqual(chf?.source, "USDT")
+        XCTAssertEqual(chf?.target, "CHF")
+        XCTAssertEqual(SheetChart.todayRateCaption(.current, sourcePair: nil, quote: "EUR")?.source, "USDT")
+        // Tageskurse je Kerze oder Kerzen des Paars selbst: keine Zeile «mit heutigem Kurs» (wie Android)
+        XCTAssertNil(SheetChart.todayRateCaption(.daily, sourcePair: "BTC/USDT", quote: "CHF"))
+        XCTAssertNil(SheetChart.todayRateCaption(.none, sourcePair: "BTC/CHF", quote: "CHF"))
+        XCTAssertNil(SheetChart.todayRateCaption(.current, sourcePair: "BTC/USDT", quote: " "))
+    }
+
     func testFxWithoutDailyRatesUsesCurrentFactor() throws {
         let fallback = SheetCandleRequest(base: "BTC", quote: "USDT", convert: true)
         let candles = [candle(1, 0, 100), candle(2, 0, 110)]

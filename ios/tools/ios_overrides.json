@@ -30,6 +30,7 @@
       "other": "%1$d Kursmitteilungen"
     },
     "notification_permission_preprompt_title": "Mitteilungen erlauben?",
-    "notification_permission_preprompt_text": "Damit Alarme und Kursmitteilungen ankommen, braucht die App die Erlaubnis für Mitteilungen. Die App nutzt sie nur für deine Alarme und Kursmitteilungen."
+    "notification_permission_preprompt_text": "Damit Alarme und Kursmitteilungen ankommen, braucht die App die Erlaubnis für Mitteilungen. Die App nutzt sie nur für deine Alarme und Kursmitteilungen.",
+    "delivery_notifications": "Mitteilungen"
   }
 }

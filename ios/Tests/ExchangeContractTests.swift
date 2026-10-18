@@ -174,6 +174,10 @@ final class ExchangeContractTests: XCTestCase {
         // Unlesbare Zeilen werden je Paar gemeldet (`BulkTickerRows`), nicht still ausgelassen — wie Android
         let failed = Set(expect["failed"] as? [String] ?? [])
         if parsed.failed != failed { return "failed rows: expected \(failed.sorted()), got \(parsed.failed.sorted())" }
+        // Antwort meldet sich selbst als lückenhaft (`Market.bulkResponseComplete`) — wie Android
+        if let complete = expect["complete"] as? Bool, parsed.complete != complete {
+            return "complete: expected \(complete), got \(parsed.complete)"
+        }
 
         if let count = S.number(expect["count"]), tickers.count != Int(count) {
             return "count: expected \(Int(count)), got \(tickers.count) \(tickers.keys.sorted())"

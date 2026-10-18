@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Markt-Tab: «Gewinner und Verlierer 24 h» unter dem Pulse (Zeile für den Screenreader: Name, Kürzel, Änderung) -->
+    <string name="movers_title">Tăng và giảm mạnh nhất 24 giờ</string>
+    <string name="movers_gainers">Tăng mạnh nhất</string>
+    <string name="movers_losers">Giảm mạnh nhất</string>
+    <string name="movers_no_gainers">Không có coin nào tăng trong 24 giờ</string>
+    <string name="movers_no_losers">Không có coin nào giảm trong 24 giờ</string>
+    <string name="movers_source">CoinGecko, 24 giờ, top 100 không gồm stablecoin</string>
+    <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
+</resources>

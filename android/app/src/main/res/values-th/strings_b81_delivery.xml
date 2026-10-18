@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Seite «Damit Alarme ankommen» (Build 81): Titel, auch Name der Knöpfe in «Alle Alarme», im Alarm-Editor und unter Einstellungen › Alarme -->
+    <string name="delivery_title">เพื่อให้การแจ้งเตือนส่งถึง</string>
+    <!-- Screenreader: Zustand einer Zeile (✓ / ⚠ / Hinweis) -->
+    <string name="delivery_state_ok">เรียบร้อย</string>
+    <string name="delivery_state_warn">โปรดตรวจสอบ</string>
+    <string name="delivery_state_info">หมายเหตุ</string>
+    <string name="delivery_allowed">อนุญาตแล้ว</string>
+    <!-- Zeilen der Seite: Titel und Zustand. Android und iOS -->
+    <string name="delivery_notifications">การแจ้งเตือน</string>
+    <string name="delivery_notifications_off">ปิด – สัญญาณเตือนจะไม่มาถึง</string>
+    <string name="delivery_notifications_not_asked">ยังไม่อนุญาต</string>
+    <string name="delivery_channel">ช่องสัญญาณเตือน</string>
+    <string name="delivery_channel_high">ความสำคัญสูง – แสดงที่ด้านบนของหน้าจอ</string>
+    <string name="delivery_channel_low">ความสำคัญต่ำ – สัญญาณเตือนแสดงในรายการแบบเงียบเท่านั้น</string>
+    <string name="delivery_channel_off">ปิดอยู่ – สัญญาณเตือนจะไม่มาถึง</string>
+    <string name="delivery_exact_on">เปิด – ประมาณทุก 15 นาที</string>
+    <string name="delivery_exact_off">ปิด – Android ตรวจสอบไม่สม่ำเสมอ</string>
+    <string name="delivery_battery">การเพิ่มประสิทธิภาพแบตเตอรี่</string>
+    <string name="delivery_battery_unrestricted">ไม่จำกัด</string>
+    <string name="delivery_battery_optimized">เพิ่มประสิทธิภาพอยู่ – Android อาจเลื่อนการตรวจสอบ แอปไม่ขอข้อยกเว้น คุณเปลี่ยนได้ในการตั้งค่าแบตเตอรี่ของแอป</string>
+    <string name="delivery_background">การใช้งานเบื้องหลัง</string>
+    <string name="delivery_background_restricted">ถูกจำกัด – Android หยุดการตรวจสอบเบื้องหลัง</string>
+    <string name="delivery_dnd">ห้ามรบกวน</string>
+    <string name="delivery_dnd_on">เปิด – สัญญาณเตือนอาจมาโดยไม่มีเสียง</string>
+    <!-- %1$s = Ende der Nachtruhe (Uhrzeit) -->
+    <string name="delivery_quiet_now">ใช้งานถึง %1$s – สัญญาณเตือนที่ถึงเงื่อนไขจะรอจนถึงตอนนั้น</string>
+    <!-- %1$s = Beginn, %2$s = Ende der Nachtruhe -->
+    <string name="delivery_quiet_set">%1$s–%2$s – สัญญาณเตือนที่ถึงเงื่อนไขจะรอในช่วงเวลานี้</string>
+    <string name="delivery_last_check">การตรวจสอบเบื้องหลังครั้งล่าสุด</string>
+    <!-- %1$s = Zeit der letzten Prüfung im Hintergrund -->
+    <string name="delivery_last_check_old">%1$s – นานกว่า 6 ชั่วโมงแล้ว</string>
+    <string name="delivery_last_check_never">ยังไม่มี</string>
+    <!-- Knöpfe in den Zeilen -->
+    <string name="delivery_action_allow">อนุญาต</string>
+    <string name="delivery_action_change">เปลี่ยน</string>
+    <string name="delivery_action_show">แสดง</string>
+    <!-- Zeilen nur auf iOS (Namen wie in den iOS-Einstellungen) -->
+    <string name="delivery_alert_sound">แบนเนอร์และเสียง</string>
+    <string name="delivery_alert_off">แบนเนอร์ปิด – สัญญาณเตือนแสดงเฉพาะในศูนย์การแจ้งเตือน</string>
+    <string name="delivery_sound_off">เสียงปิด – สัญญาณเตือนมาแบบเงียบ</string>
+    <string name="delivery_time_sensitive">การแจ้งเตือนที่มีผลตามเวลา</string>
+    <string name="delivery_time_sensitive_off">ปิด – โหมดโฟกัสอาจระงับสัญญาณเตือน</string>
+    <string name="delivery_background_refresh">รีเฟรชแอปเบื้องหลัง</string>
+    <string name="delivery_low_power">โหมดพลังงานต่ำ</string>
+    <string name="delivery_swipe_away">ปัดแอปทิ้งไปหรือเปล่า?</string>
+    <string name="delivery_swipe_away_note">หากคุณปัดแอปทิ้งในตัวสลับแอป iOS จะหยุดตรวจสอบเบื้องหลังจนกว่าคุณจะเปิดแอปอีกครั้ง</string>
+    <string name="delivery_live_activity">กิจกรรมสด</string>
+    <string name="delivery_live_activity_note">แสดงราคาบนหน้าจอล็อก แต่จะอัปเดตเฉพาะเมื่อแอปตรวจสอบ – ไม่ได้ทำให้สัญญาณเตือนถูกตรวจสอบบ่อยขึ้น</string>
+    <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
+    <string name="diagnostics_share">แชร์ข้อมูลวินิจฉัย</string>
+    <string name="diagnostics_share_hint">ไฟล์ข้อความสำหรับฝ่ายสนับสนุน: เวอร์ชัน อุปกรณ์ การตั้งค่าสัญญาณเตือน การตรวจสอบล่าสุด และบันทึกสัญญาณเตือน – ไม่มีพอร์ตโฟลิโอ จำนวนเงิน ที่อยู่ หรือโน้ต คุณจะเห็นก่อน ไม่มีการส่งโดยอัตโนมัติ</string>
+    <string name="diagnostics_preview_title">ข้อมูลวินิจฉัย – ตัวอย่าง</string>
+    <string name="diagnostics_action_share">แชร์</string>
+    <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
+    <string name="sheet_chart_usdt_today_rate">แนวโน้มใน %1$s แปลงเป็น %2$s ด้วยอัตราวันนี้</string>
+</resources>

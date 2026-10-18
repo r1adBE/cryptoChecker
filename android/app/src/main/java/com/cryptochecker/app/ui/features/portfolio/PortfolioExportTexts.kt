@@ -307,6 +307,7 @@ internal fun taxSummaryTexts(t: TaxTemplate, yearLabel: String, currency: String
         // Datum setzt die Übersicht ein ([noteText]): hier nur der Platzhalter
         TaxSummaryNote.WINDOW_OPEN to stringResource(R.string.tax_summary_window_open, TAX_NOTE_DATE),
         TaxSummaryNote.UK_HMRC_REPORT to stringResource(R.string.tax_summary_uk_hmrc_report),
+        TaxSummaryNote.FR_ADDRESS_NO_COST to stringResource(R.string.tax_summary_fr_address_no_cost),
     ),
     // Coin und Menge setzt die Übersicht ein ([wealthCoinLabel]): hier nur die Platzhalter
     wealthCoin = stringResource(R.string.tax_ch_wealth_coin, TAX_WEALTH_COIN, TAX_WEALTH_AMOUNT),

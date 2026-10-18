@@ -16,7 +16,10 @@ package com.cryptochecker.app.data.local
  * 4. Ein neuer Schlüssel entsteht nur, solange keine verschlüsselte Datei von ihm abhängt. Ist der Schlüssel einer
  *    verschlüsselten Datei endgültig verloren, wird die Datei beiseitegelegt (nicht gelöscht) und neu begonnen;
  *    die App nennt das, bis der Nutzer es bestätigt ([Decision.Encrypted.setAside]).
- * 5. Frühere Schlüssel bleiben (nummeriert, [Keys.previous]), solange eine beiseitegelegte Datei auf einen warten kann.
+ * 5. Eine Datei mit Verschlüsselungspflicht ([encryptionRequired], das Portfolio) entsteht nie unverschlüsselt: Ohne
+ *    Schlüssel wird sie gar nicht angelegt ([Decision.Refused]); eine schon unverschlüsselt vorhandene (früherer
+ *    Fehlschlag) öffnet weiter wie bisher und wird beim nächsten Start mit Schlüssel überführt ([planOpen]).
+ * 6. Frühere Schlüssel bleiben (nummeriert, [Keys.previous]), solange eine beiseitegelegte Datei auf einen warten kann.
  *    Öffnet beim nächsten Start einer davon eine beiseitegelegte Datei («endgültig» war doch nur vorübergehend), kommt sie
  *    zurück; die inzwischen neu begonnene Datei bleibt samt Schlüssel daneben ([Decision.Encrypted.restored]).
  *
@@ -27,6 +30,8 @@ class DatabaseEncryptionMigration(
     private val files: Files,
     private val keys: Keys,
     private val log: (message: String, error: Throwable?) -> Unit = { _, _ -> },
+    /** Darf [database] ohne Schlüssel nie unverschlüsselt angelegt werden (Portfolio)? Siehe [planOpen]. */
+    private val encryptionRequired: (database: String) -> Boolean = { false },
 ) {
 
     /** Art einer Datenbankdatei nach ihrem Kopf (unverschlüsselt: «SQLite format 3\u0000»). */
@@ -149,6 +154,12 @@ class DatabaseEncryptionMigration(
         /** Unverschlüsselt öffnen wie bis Build 58 (Rückfall; der nächste Start versucht es erneut). */
         data object Plaintext : Decision
 
+        /**
+         * Kein Schlüssel und keine Datei, aber Verschlüsselungspflicht: nichts anlegen. Die App hält die Datenbank nur im
+         * Arbeitsspeicher (nie unverschlüsselt auf dem Speicher); der nächste Start versucht es erneut.
+         */
+        data object Refused : Decision
+
         /** Verschlüsselte Datei, Schlüssel gerade nicht lesbar: nicht öffnen und nichts verändern. */
         class KeyUnavailable(val error: Throwable) : Decision
     }
@@ -161,16 +172,20 @@ class DatabaseEncryptionMigration(
             FileKind.ENCRYPTED -> openEncrypted(database)
         }
 
-    /** Noch keine Datei: Room legt sie verschlüsselt an; ohne Schlüssel unverschlüsselt (später überführt). */
+    /**
+     * Noch keine Datei: Room legt sie verschlüsselt an; ohne Schlüssel unverschlüsselt (später überführt) — mit
+     * Verschlüsselungspflicht gar nicht ([Decision.Refused]).
+     */
     private fun newDatabase(database: String): Decision {
         // Verwaiste Kopie (Quelle fehlt): kann nie die einzige sein — die Quelle wird nur durch sie ersetzt
         if (files.hasExportCopy(database)) runCatching { files.deleteExportCopy(database) }
-        val passphrase = usableOrNewKey(database) ?: return Decision.Plaintext
+        val passphrase = usableOrNewKey(database) ?: return withoutKey(FileKind.ABSENT, database)
         return Decision.Encrypted(passphrase)
     }
 
     private fun migrate(database: String): Decision {
-        val passphrase = usableOrNewKey(database) ?: return Decision.Plaintext
+        // Alte unverschlüsselte Datei ohne Schlüssel: weiter öffnen wie bisher (nie Daten verlieren), auch mit Pflicht
+        val passphrase = usableOrNewKey(database) ?: return withoutKey(FileKind.PLAINTEXT, database)
         return try {
             // Rest eines abgebrochenen Laufs: unvollständig oder ungeprüft, die Quelle ist noch da
             if (files.hasExportCopy(database)) files.deleteExportCopy(database)
@@ -279,6 +294,28 @@ class DatabaseEncryptionMigration(
         return null
     }
 
+    /** Entscheidung ohne brauchbaren Schlüssel nach [planOpen]. */
+    private fun withoutKey(kind: FileKind, database: String): Decision =
+        when (planOpen(kind, keyUsable = false, encryptionRequired = encryptionRequired(database))) {
+            OpenPlan.REFUSE -> {
+                log("$database: kein Schlüssel, nicht unverschlüsselt angelegt (nur im Arbeitsspeicher)", null)
+                Decision.Refused
+            }
+            OpenPlan.ENCRYPTED, OpenPlan.PLAINTEXT -> Decision.Plaintext
+        }
+
+    /** Wie eine Datei zu öffnen ist ([planOpen]). */
+    enum class OpenPlan {
+        /** Verschlüsselt öffnen, anlegen oder überführen (eigene Regeln für eine schon verschlüsselte Datei). */
+        ENCRYPTED,
+
+        /** Unverschlüsselt öffnen: eine schon unverschlüsselte Datei, oder ohne Pflicht neu unverschlüsselt anlegen. */
+        PLAINTEXT,
+
+        /** Nicht auf dem Speicher anlegen (nur im Arbeitsspeicher halten), der nächste Start versucht es erneut. */
+        REFUSE,
+    }
+
     /**
      * Gespeicherter Schlüssel, sonst ein neuer. Nur für Dateien, die (noch) nicht verschlüsselt sind: Kein
      * verschlüsselter Inhalt hängt am alten Schlüssel, ersetzen ist darum gefahrlos. null = kein Schlüssel möglich.
@@ -295,6 +332,21 @@ class DatabaseEncryptionMigration(
     }
 
     companion object {
+        /**
+         * Regel ohne Android (Unit-Test): Art der vorhandenen Datei × brauchbarer Schlüssel (gespeichert oder neu angelegt)
+         * × Verschlüsselungspflicht → wie öffnen. Mit Schlüssel immer verschlüsselt. Ohne Schlüssel: eine schon
+         * unverschlüsselte Datei weiter unverschlüsselt (sie liegt schon so da; Überführung beim nächsten Start), eine
+         * fehlende nur ohne Pflicht neu unverschlüsselt — mit Pflicht (Portfolio: Beträge, Adressen, xpub) gar nicht, wie
+         * iOS `ProtectedFile.write(requireSealed:)`. Eine verschlüsselte Datei folgt eigenen Regeln (Schlüssel gerade nicht
+         * lesbar → nichts tun; verloren → beiseitelegen), nie unverschlüsselt.
+         */
+        fun planOpen(kind: FileKind, keyUsable: Boolean, encryptionRequired: Boolean): OpenPlan = when {
+            keyUsable || kind == FileKind.ENCRYPTED -> OpenPlan.ENCRYPTED
+            kind == FileKind.PLAINTEXT -> OpenPlan.PLAINTEXT
+            encryptionRequired -> OpenPlan.REFUSE
+            else -> OpenPlan.PLAINTEXT
+        }
+
         /** Länge des zufälligen Datenbankschlüssels (AES-256). */
         const val KEY_BYTES = 32
 

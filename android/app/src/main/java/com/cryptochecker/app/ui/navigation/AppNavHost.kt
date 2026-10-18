@@ -42,6 +42,8 @@ import com.cryptochecker.app.ui.features.about.BatteryOptimizationDialog
 import com.cryptochecker.app.ui.features.alarms.AlarmsOverviewScreen
 import com.cryptochecker.app.ui.features.alarms.AlarmsScreen
 import com.cryptochecker.app.ui.features.alarms.AlarmLogScreen
+import com.cryptochecker.app.ui.features.alarms.AlarmDeliveryScreen
+import com.cryptochecker.app.ui.features.alarms.LocalOpenAlarmDelivery
 import com.cryptochecker.app.ui.features.alarms.LocalOpenAlarmLog
 import com.cryptochecker.app.ui.features.alarms.LocalOpenUpdateSettings
 import com.cryptochecker.app.ui.features.explorer.ExplorerScreen
@@ -210,11 +212,16 @@ fun AppNavHost(
     val openAlarmLog: () -> Unit = remember(navigation) {
         { navigation.navigate(ScreenRoute.AlarmLog) { launchSingleTop = true } }
     }
+    // «Damit Alarme ankommen»: aus «Alle Alarme», dem Hinweis im Alarm-Editor und Einstellungen › Alarme
+    val openAlarmDelivery: () -> Unit = remember(navigation) {
+        { navigation.navigate(ScreenRoute.AlarmDelivery) { launchSingleTop = true } }
+    }
     // Erneutes Tippen auf den gewählten Tab: an den Anfang rollen (wie iOS)
     val tabReselect = remember { TabReselectSignal() }
     CompositionLocalProvider(
         LocalOpenUpdateSettings provides openUpdateSettings,
         LocalOpenAlarmLog provides openAlarmLog,
+        LocalOpenAlarmDelivery provides openAlarmDelivery,
         LocalTabReselect provides tabReselect,
     ) {
         Scaffold(
@@ -433,11 +440,22 @@ fun AppNavHost(
                         onBack = { navigation.popBackStack() },
                         onOpenWatch = { watchId -> navigation.navigate(ScreenRoute.Alarms(watchId)) },
                         onOpenLog = openAlarmLog,
+                        onOpenDelivery = openAlarmDelivery,
                     )
                 }
 
                 composable<ScreenRoute.AlarmLog> {
                     AlarmLogScreen(onBack = { navigation.popBackStack() })
+                }
+
+                composable<ScreenRoute.AlarmDelivery> {
+                    AlarmDeliveryScreen(
+                        onBack = { navigation.popBackStack() },
+                        onOpenAlarmSettings = {
+                            navigation.navigate(ScreenRoute.SettingsSubpage(SettingsPage.ALARMS.name)) { launchSingleTop = true }
+                        },
+                        onOpenUpdateSettings = openUpdateSettings,
+                    )
                 }
             }
         }

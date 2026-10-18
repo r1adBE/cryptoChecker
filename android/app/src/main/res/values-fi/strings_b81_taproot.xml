@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">Taproot-tili (BIP86): tästä avaimesta johdetaan bc1p…-osoitteet vastaanottoon ja vaihtorahaan.</string>
+    <string name="portfolio_address_taproot_hint">Taproot-lompakko? Liitä sen sijaan lompakkosi kuvaaja tr(…) – pelkästä xpubista haetaan vain Legacy- ja SegWit-osoitteita.</string>
+</resources>

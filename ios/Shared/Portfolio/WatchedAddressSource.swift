@@ -311,14 +311,14 @@ actor WatchedAddressSource {
         }
     }
 
-    /// xpub/ypub/zpub: Adressen auf dem Gerät ableiten (`XpubDeriver`) und einzeln wie eine Adresse fragen (`XpubScan`:
+    /// xpub/ypub/zpub/Taproot-Konto: Adressen auf dem Gerät ableiten (`XpubDeriver`) und einzeln wie eine Adresse fragen (`XpubScan`:
     /// Gap-Regel, vollständig höchstens täglich). Hintergrund ohne Zwischenspeicher: nil (bleibt fällig). Zwischen zwei
     /// Anfragen eine kurze Pause (schont die Anbieter). xpub ohne bekannten Adresstyp (`XpubScan.scripts`): vollständig
     /// als P2PKH, ohne Verlauf als P2SH-P2WPKH, dann P2WPKH (Segwit-Konto mit xpub, Ledger Live); der erste Typ mit
     /// Verlauf wird gemerkt (`XpubCache.script`), im Hintergrund wird nicht gesucht. Wie Android.
     private func fetchXpub(_ a: WatchedAddress, deadline: Int64?) async throws -> Fetched? {
         guard let key = Bip32.parse(a.address) else { throw AddressBalance.ParseError(message: "xpub ungültig") }
-        let isXpub = key.version == Bip32.xpubVersion
+        let isXpub = key.detectsScript
         // Zwischenspeicher nur, wenn er zu diesem Schlüssel gehört (erste Adresse im gemerkten Typ stimmt)
         var stored = a.xpub
         if let c = stored {

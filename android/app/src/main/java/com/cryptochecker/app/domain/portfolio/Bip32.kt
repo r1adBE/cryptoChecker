@@ -15,15 +15,20 @@ import javax.crypto.spec.SecretKeySpec
  *    merkt sich den Typ mit Verlauf ([XpubCache.script]).
  *  - ypub (0x049D7CB2) → P2SH-P2WPKH «3…» (BIP49)
  *  - zpub (0x04B24746) → P2WPKH «bc1q…» (BIP84)
+ *  - Taproot-Konto (BIP86) → P2TR «bc1p…»: für BIP86 gibt es kein SLIP-132-Präfix, Wallets geben einen Deskriptor
+ *    `tr([fp/86'/0'/0']xpub…)` mit den Ketten 0 und 1 aus ([AddressValidation] liest ihn). Gespeichert wird die
+ *    Normalform ([taprootDescriptor]); [parse] liest auch diese ([ExtendedKey.taproot]). Adresse: x-only-Schlüssel
+ *    mit BIP341-Tweak (TapTweak, Q = P + t·G), Bech32m Version 1 ([taprootOutputKey]).
  * Ketten: 0 = Empfang, 1 = Wechselgeld; Adresse i = Schlüssel/Kette/i.
  * Mathematik: secp256k1 mit BigInteger (affin), RIPEMD-160 selbst (nicht in jedem JDK/Android).
- * Geprüft mit den offiziellen Testvektoren (BIP32 Vektor 1/2, BIP84, BIP49) in `address_balance.json`.
+ * Geprüft mit den offiziellen Testvektoren (BIP32 Vektor 1/2, BIP84, BIP49) in `address_balance.json`, BIP86 und
+ * BIP350 in `taproot.json`.
  * Reines Kotlin, gleich wie `Bip32.swift`.
  */
 object Bip32 {
 
     /** Adresstyp; der Name ist die gespeicherte Form ([XpubCache.script]). */
-    enum class Script { P2PKH, P2SH_P2WPKH, P2WPKH }
+    enum class Script { P2PKH, P2SH_P2WPKH, P2WPKH, P2TR }
 
     const val XPUB = 0x0488B21E
     const val YPUB = 0x049D7CB2
@@ -51,14 +56,29 @@ object Bip32 {
         val chainCode: ByteArray,
         /** Komprimiert, 33 Byte (0x02/0x03 + x). */
         val publicKey: ByteArray,
+        /** Taproot-Konto (BIP86, aus `tr(…)`): Adressen P2TR; die Versionsbytes sind die eines xpub. */
+        val taproot: Boolean = false,
     ) {
         val script: Script
-            get() = when (version) {
-                YPUB -> Script.P2SH_P2WPKH
-                ZPUB -> Script.P2WPKH
+            get() = when {
+                taproot -> Script.P2TR
+                version == YPUB -> Script.P2SH_P2WPKH
+                version == ZPUB -> Script.P2WPKH
                 else -> Script.P2PKH
             }
+
+        /** Adresstyp unbekannt (xpub ohne Deskriptor): die Suche prüft mehrere Typen ([XpubScan.scripts]). */
+        val detectsScript: Boolean get() = version == XPUB && !taproot
     }
+
+    /** Normalform eines Taproot-Kontos: beide Ketten (BIP389), ohne Herkunft und Prüfsumme. */
+    fun taprootDescriptor(xpub: String): String = "tr($xpub$TAPROOT_SUFFIX)"
+
+    /** xpub aus der Normalform [taprootDescriptor]; anderes = null. */
+    fun taprootAccount(s: String): String? =
+        if (s.startsWith("tr(") && s.endsWith("$TAPROOT_SUFFIX)")) s.substring(3, s.length - TAPROOT_SUFFIX.length - 1) else null
+
+    private const val TAPROOT_SUFFIX = "/<0;1>/*"
 
     /** Prüfen: null = gültiger xpub/ypub/zpub (Mainnet); sonst das Problem für [AddressValidation]. */
     fun check(s: String): AddressValidation.Problem? {
@@ -78,8 +98,12 @@ object Bip32 {
         }
     }
 
-    /** Lesen; ungültig (auch Testnet, Multisig, privat) = null. */
+    /** Lesen; ungültig (auch Testnet, Multisig, privat) = null. Auch die Normalform eines Taproot-Kontos (nur xpub). */
     fun parse(s: String): ExtendedKey? {
+        taprootAccount(s)?.let { inner ->
+            val key = parse(inner)?.takeIf { it.version == XPUB } ?: return null
+            return ExtendedKey(key.version, key.depth, key.parentFingerprint, key.childNumber, key.chainCode, key.publicKey, taproot = true)
+        }
         if (check(s) != null) return null
         val raw = AddressValidation.base58Decode(s) ?: return null
         return ExtendedKey(
@@ -127,6 +151,7 @@ object Bip32 {
             childNumber = index,
             chainCode = i.copyOfRange(32, 64),
             publicKey = encodePoint(point),
+            taproot = key.taproot,
         )
     }
 
@@ -137,7 +162,28 @@ object Bip32 {
             Script.P2PKH -> base58Check(byteArrayOf(0x00) + h)
             Script.P2SH_P2WPKH -> base58Check(byteArrayOf(0x05) + hash160(byteArrayOf(0x00, 0x14) + h))
             Script.P2WPKH -> bech32V0("bc", h)
+            Script.P2TR -> segwitAddress("bc", 1, taprootOutputKey(publicKey) ?: throw IllegalStateException("Tweak ungültig"))
         }
+    }
+
+    /**
+     * Ausgabeschlüssel (32 Byte, x-only) eines Taproot-Kontos ohne Skriptbaum (BIP86/BIP341): P = Punkt mit geradem y
+     * zu x(Schlüssel), t = TaggedHash("TapTweak", x(P)), Q = P + t·G. t ≥ n oder Q unendlich (praktisch nie) = null.
+     */
+    fun taprootOutputKey(publicKey: ByteArray): ByteArray? {
+        if (publicKey.size != 33) return null
+        val x = publicKey.copyOfRange(1, 33)
+        val p = decodePoint(byteArrayOf(2) + x) ?: return null
+        val t = BigInteger(1, taggedHash("TapTweak", x))
+        if (t >= N) return null
+        val q = add(multiply(t, G), p) ?: return null
+        return encodePoint(q).copyOfRange(1, 33)
+    }
+
+    /** BIP340: SHA-256(SHA-256(tag) ‖ SHA-256(tag) ‖ data). */
+    fun taggedHash(tag: String, data: ByteArray): ByteArray {
+        val t = sha256(tag.toByteArray(Charsets.US_ASCII))
+        return sha256(t + t + data)
     }
 
     // ---------------- secp256k1 (affin, BigInteger) ----------------
@@ -249,11 +295,16 @@ object Bip32 {
 
     private const val CHARSET = "qpzry9x8gf2tvdw0s3jn54khce6mua7l"
     private val GEN = intArrayOf(0x3b6a57b2, 0x26508e6d, 0x1ea119fa, 0x3d4233dd, 0x2a1462b3)
+    private const val BECH32M_CONST = 0x2bc830a3
 
     /** Segwit v0 (Bech32, BIP173). */
-    fun bech32V0(hrp: String, program: ByteArray): String {
+    fun bech32V0(hrp: String, program: ByteArray): String = segwitAddress(hrp, 0, program)
+
+    /** Segwit-Adresse: Version 0 mit Bech32 (BIP173), ab Version 1 mit Bech32m (BIP350). */
+    fun segwitAddress(hrp: String, version: Int, program: ByteArray): String {
+        require(version in 0..16)
         val data = ArrayList<Int>()
-        data.add(0)
+        data.add(version)
         var acc = 0
         var bits = 0
         for (b in program) {
@@ -278,7 +329,7 @@ object Bip32 {
             chk = ((chk and 0x1ffffff) shl 5) xor v
             for (i in 0 until 5) if ((top ushr i) and 1 == 1) chk = chk xor GEN[i]
         }
-        val mod = chk xor 1
+        val mod = chk xor (if (version == 0) 1 else BECH32M_CONST)
         val sb = StringBuilder(hrp).append('1')
         for (d in data) sb.append(CHARSET[d])
         for (i in 0 until 6) sb.append(CHARSET[(mod ushr (5 * (5 - i))) and 31])
@@ -373,7 +424,7 @@ object Bip32 {
 }
 
 /**
- * Adressen eines xpub/ypub/zpub der Reihe nach (Kette 0 = Empfang, 1 = Wechselgeld); die Kettenschlüssel werden
+ * Adressen eines xpub/ypub/zpub (oder Taproot-Kontos in Normalform) der Reihe nach (Kette 0 = Empfang, 1 = Wechselgeld); die Kettenschlüssel werden
  * einmal abgeleitet. Ungültiger Schlüssel: [Bip32.parse] liefert null → Konstruktor wirft. [script] = anderer
  * Adresstyp als nach Präfix (nur für xpub sinnvoll, [XpubScan.scripts]).
  */

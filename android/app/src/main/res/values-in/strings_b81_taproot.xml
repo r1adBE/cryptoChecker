@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">Akun Taproot (BIP86): alamat bc1p… diturunkan dari kunci ini, untuk penerimaan dan kembalian.</string>
+    <string name="portfolio_address_taproot_hint">Wallet Taproot? Tempelkan deskriptor tr(…) dari wallet Anda sebagai gantinya – xpub biasa hanya dicari sebagai alamat Legacy dan SegWit.</string>
+</resources>

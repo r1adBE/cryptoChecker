@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Seite «Damit Alarme ankommen» (Build 81): Titel, auch Name der Knöpfe in «Alle Alarme», im Alarm-Editor und unter Einstellungen › Alarme -->
+    <string name="delivery_title">Để cảnh báo đến nơi</string>
+    <!-- Screenreader: Zustand einer Zeile (✓ / ⚠ / Hinweis) -->
+    <string name="delivery_state_ok">Ổn</string>
+    <string name="delivery_state_warn">Cần chú ý</string>
+    <string name="delivery_state_info">Lưu ý</string>
+    <string name="delivery_allowed">Đã cho phép</string>
+    <!-- Zeilen der Seite: Titel und Zustand. Android und iOS -->
+    <string name="delivery_notifications">Thông báo</string>
+    <string name="delivery_notifications_off">Tắt – cảnh báo sẽ không đến</string>
+    <string name="delivery_notifications_not_asked">Chưa cho phép</string>
+    <string name="delivery_channel">Kênh cảnh báo</string>
+    <string name="delivery_channel_high">Mức quan trọng cao – hiện ở đầu màn hình</string>
+    <string name="delivery_channel_low">Mức quan trọng thấp – cảnh báo chỉ hiện im lặng trong danh sách</string>
+    <string name="delivery_channel_off">Đã tắt – cảnh báo sẽ không đến</string>
+    <string name="delivery_exact_on">Bật – khoảng 15 phút một lần</string>
+    <string name="delivery_exact_off">Tắt – Android kiểm tra không đều đặn</string>
+    <string name="delivery_battery">Tối ưu hóa pin</string>
+    <string name="delivery_battery_unrestricted">Không hạn chế</string>
+    <string name="delivery_battery_optimized">Đã tối ưu – Android có thể trì hoãn việc kiểm tra. Ứng dụng không xin ngoại lệ; bạn có thể đổi điều này trong cài đặt pin của ứng dụng.</string>
+    <string name="delivery_background">Sử dụng trong nền</string>
+    <string name="delivery_background_restricted">Bị hạn chế – Android dừng việc kiểm tra trong nền</string>
+    <string name="delivery_dnd">Không làm phiền</string>
+    <string name="delivery_dnd_on">Bật – cảnh báo có thể đến không có âm thanh</string>
+    <!-- %1$s = Ende der Nachtruhe (Uhrzeit) -->
+    <string name="delivery_quiet_now">Đang bật đến %1$s – cảnh báo đến hạn sẽ chờ đến lúc đó</string>
+    <!-- %1$s = Beginn, %2$s = Ende der Nachtruhe -->
+    <string name="delivery_quiet_set">%1$s–%2$s – cảnh báo đến hạn sẽ chờ trong khoảng thời gian này</string>
+    <string name="delivery_last_check">Lần kiểm tra nền gần nhất</string>
+    <!-- %1$s = Zeit der letzten Prüfung im Hintergrund -->
+    <string name="delivery_last_check_old">%1$s – hơn 6 giờ trước</string>
+    <string name="delivery_last_check_never">Chưa có</string>
+    <!-- Knöpfe in den Zeilen -->
+    <string name="delivery_action_allow">Cho phép</string>
+    <string name="delivery_action_change">Thay đổi</string>
+    <string name="delivery_action_show">Xem</string>
+    <!-- Zeilen nur auf iOS (Namen wie in den iOS-Einstellungen) -->
+    <string name="delivery_alert_sound">Biểu ngữ và âm thanh</string>
+    <string name="delivery_alert_off">Biểu ngữ tắt – cảnh báo chỉ hiện trong Trung tâm thông báo</string>
+    <string name="delivery_sound_off">Âm thanh tắt – cảnh báo đến im lặng</string>
+    <string name="delivery_time_sensitive">Thông báo nhạy cảm thời gian</string>
+    <string name="delivery_time_sensitive_off">Tắt – chế độ tập trung có thể giữ lại cảnh báo</string>
+    <string name="delivery_background_refresh">Làm mới ứng dụng trong nền</string>
+    <string name="delivery_low_power">Chế độ nguồn điện thấp</string>
+    <string name="delivery_swipe_away">Đã vuốt tắt ứng dụng?</string>
+    <string name="delivery_swipe_away_note">Nếu bạn vuốt tắt ứng dụng trong trình chuyển đổi ứng dụng, iOS sẽ ngừng kiểm tra trong nền cho đến khi bạn mở lại.</string>
+    <string name="delivery_live_activity">Hoạt động trực tiếp</string>
+    <string name="delivery_live_activity_note">Hiển thị giá trên màn hình khóa nhưng chỉ cập nhật khi ứng dụng kiểm tra – không làm cảnh báo được kiểm tra thường xuyên hơn.</string>
+    <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
+    <string name="diagnostics_share">Chia sẻ chẩn đoán</string>
+    <string name="diagnostics_share_hint">Tệp văn bản cho bộ phận hỗ trợ: phiên bản, thiết bị, cài đặt cảnh báo, các lần kiểm tra gần đây và nhật ký cảnh báo – không có danh mục, số tiền, địa chỉ hay ghi chú. Bạn xem trước; không có gì được gửi tự động.</string>
+    <string name="diagnostics_preview_title">Chẩn đoán – xem trước</string>
+    <string name="diagnostics_action_share">Chia sẻ</string>
+    <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
+    <string name="sheet_chart_usdt_today_rate">Diễn biến theo %1$s, quy đổi sang %2$s theo tỷ giá hôm nay</string>
+</resources>

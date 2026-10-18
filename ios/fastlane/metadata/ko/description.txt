@@ -33,7 +33,7 @@
 
 그 밖에
 • 홈 화면·잠금 화면 위젯, 코인 하나의 실시간 현황
-• 포트폴리오는 선택 사항(설정에서 켜기): 매수, 매도, 스왑, 이체, 리워드, 입금과 출금, FIFO(기본) 또는 평균(Ø), 시드 없이 읽기 전용 주소: BTC(xpub 포함), ETH 및 EVM 체인, SOL, TRX, XRP, LTC, TON, Relai·Swissquote·Bitpanda·Kraken·Binance·Coinbase CSV 가져오기, CSV 연간 요약, 별도 잠금. Bitpanda와 Swissquote는 공개 가격 피드가 없어 실시간 가격이 표시되지 않으며, 거래는 CSV 가져오기로 추가합니다.
+• 포트폴리오는 선택 사항(설정에서 켜기): 매수, 매도, 스왑, 이체, 리워드, 입금과 출금, FIFO(기본) 또는 평균(Ø), 시드 없이 읽기 전용 주소: BTC(xpub 포함), ETH 및 EVM 체인, SOL, TRX, XRP, LTC, TON, Relai·Swissquote·Bitpanda·Kraken·Binance·Coinbase CSV 가져오기, CSV 연간 요약, 별도 잠금. Bitpanda와 Swissquote는 공개 가격 피드가 없어 자체 가격이 없으며, 거래는 CSV 가져오기로 추가합니다.
 • 누구나 읽기 쉽게: 초록/빨강 또는 파랑/주황, 색만이 아니라 부호와 화살표, Dynamic Type, VoiceOver는 각 행을 한 문장으로 읽어 줌
 • 파일 앱으로 백업 및 복원
 • 라이트·다크 모드, 강조 색상 5가지, 31개 언어

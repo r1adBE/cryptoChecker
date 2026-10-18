@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
+    <string name="tax_summary_fr_address_no_cost">Overvågede adresser tæller med i den samlede værdi, men har ingen anskaffelsessum – gevinsten er derfor snarere for høj. Registrér anskaffelsessummen som et køb.</string>
+</resources>

@@ -258,8 +258,8 @@ val LocalOpenUpdateSettings = androidx.compose.runtime.staticCompositionLocalOf<
 /**
  * Kleine graue Zeile unter dem Alarm-Satz: der eine Satz «Wann Alarme geprüft werden»
  * ([alarmTimingHintText]) — vollständig sichtbar, darum ohne (i), das ihn nur wiederholen würde (Build 55).
- * Auch im Portfolio-Alarm. Darunter der Akku-Hinweis und (K-10) der Knopf «Aktualisierung ändern»
- * direkt zur Wahl «Wie aktuell?».
+ * Auch im Portfolio-Alarm. Darunter der Akku-Hinweis, (K-10) der Knopf «Aktualisierung ändern»
+ * direkt zur Wahl «Wie aktuell?» und der Weg zu «Damit Alarme ankommen».
  */
 @Composable
 internal fun ClosedAppHint(modifier: Modifier = Modifier) {
@@ -285,6 +285,15 @@ internal fun ClosedAppHint(modifier: Modifier = Modifier) {
                 contentPadding = androidx.compose.foundation.layout.PaddingValues(horizontal = 0.dp, vertical = 0.dp),
             ) {
                 Text(stringResource(R.string.alarm_change_updates), style = MaterialTheme.typography.labelLarge)
+            }
+        }
+        // Was gerade im Weg stehen könnte (Erlaubnis, Kanal, Akku …): eigene Seite mit dem echten Zustand
+        LocalOpenAlarmDelivery.current?.let { openDelivery ->
+            TextButton(
+                onClick = openDelivery,
+                contentPadding = androidx.compose.foundation.layout.PaddingValues(horizontal = 0.dp, vertical = 0.dp),
+            ) {
+                Text(stringResource(R.string.delivery_title), style = MaterialTheme.typography.labelLarge)
             }
         }
     }

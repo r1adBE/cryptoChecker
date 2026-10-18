@@ -33,7 +33,7 @@ android {
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
 
-        versionCode = 80
+        versionCode = 81
         versionName = "16.2.2"
 
         // Instrumentierte Tests mit Hilt (HiltTestApplication); betrifft nur androidTest

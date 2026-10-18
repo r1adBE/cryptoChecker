@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
+    <string name="tax_summary_fr_address_no_cost">निगरानी वाले पते कुल मूल्य में गिने जाते हैं, लेकिन उनकी कोई अधिग्रहण लागत नहीं है – इसलिए लाभ संभवतः अधिक दिखता है। लागत को खरीद के रूप में दर्ज करें।</string>
+</resources>
