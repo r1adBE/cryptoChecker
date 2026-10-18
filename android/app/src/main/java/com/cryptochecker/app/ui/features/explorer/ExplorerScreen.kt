@@ -89,6 +89,7 @@ fun ExplorerScreen(
 
         is ExplorerLoad.Ready -> ExplorerPage(
             selection = state.selection,
+            sections = sections,
             httpLogText = vm.httpLogText,
             showHttpLog = showHttpLog,
             onOpenWatchlist = onOpenWatchlist,
@@ -210,6 +211,7 @@ private fun ExplorerTopBar(onBack: () -> Unit) {
 @Composable
 private fun ExplorerPage(
     selection: ExplorerSelection,
+    sections: ExplorerSectionsState,
     httpLogText: StateFlow<String>,
     showHttpLog: Boolean,
     onOpenWatchlist: () -> Unit,
