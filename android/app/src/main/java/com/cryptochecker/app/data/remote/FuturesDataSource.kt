@@ -302,7 +302,7 @@ class FuturesDataSource @Inject constructor(
         val cached = binanceCoinMSizeCache
         cached?.let { (time, map) -> if (now - time in 0 until INTERVAL_CACHE_MILLIS) return map }
         val map = optionalCall("https://dapi.binance.com/dapi/v1/exchangeInfo")
-            ?.let { runCatching { FuturesParsers.binanceCoinMContractSizes(it) }.getOrNull() }
+            ?.let { runCatchingCancellable { FuturesParsers.binanceCoinMContractSizes(it) }.getOrNull() }
             ?.takeIf { it.isNotEmpty() }
             ?: return cached?.takeIf { now - it.first in 0 until INTERVAL_STALE_MILLIS }?.second
         binanceCoinMSizeCache = now to map
@@ -368,7 +368,7 @@ class FuturesDataSource @Inject constructor(
         val cached = binanceIntervalCache
         cached?.let { (time, map) -> if (now - time in 0 until INTERVAL_CACHE_MILLIS) return map }
         val map = optionalCall("https://fapi.binance.com/fapi/v1/fundingInfo")
-            ?.let { runCatching { FuturesParsers.binanceFundingInfo(it) }.getOrNull() }
+            ?.let { runCatchingCancellable { FuturesParsers.binanceFundingInfo(it) }.getOrNull() }
             ?: return cached?.takeIf { now - it.first in 0 until INTERVAL_STALE_MILLIS }?.second
         binanceIntervalCache = now to map
         return map

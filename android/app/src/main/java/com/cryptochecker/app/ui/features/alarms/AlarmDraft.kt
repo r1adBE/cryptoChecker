@@ -48,7 +48,7 @@ data class AlarmDraft(
      */
     val suggestedText: String? = null,
     /**
-     * Neuer Alarm (Review 13): Feld leer, der aktuelle Kurs nur als Platzhalter ([pricePlaceholder],
+     * Neuer Alarm: Feld leer, der aktuelle Kurs nur als Platzhalter ([pricePlaceholder],
      * [blankFor]) — so fragt «Löst sofort aus» nur, wenn der Nutzer selbst eine überschrittene Marke
      * tippt. Fällt mit der ersten Eingabe weg.
      */

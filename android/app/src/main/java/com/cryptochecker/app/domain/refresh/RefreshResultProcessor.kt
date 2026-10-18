@@ -23,16 +23,31 @@ import javax.inject.Singleton
  * Alarme, Kurs-Meldungen und Ansagen. Läuft nur unter der Refresh-Sperre ([RefreshLockScope] als Beweis).
  */
 @Singleton
-class RefreshResultProcessor @Inject constructor(
-    private val watchRepository: WatchRepository,
-    private val notifier: AppNotifier,
+class RefreshResultProcessor internal constructor(
+    private val watchRepository: RefreshStore,
+    private val notifier: RefreshNotifier,
     /** 24-h- und Tages-Bezüge aus Kerzen. */
-    private val dayReferences: DayReferences,
+    private val dayReferences: RefreshDayReferences,
     /** Alarme, Kurs-Meldungen und Ansagen nach einem neuen Kurs. */
     private val effects: RefreshEffects,
     /** Liquidität der DEX-Pools: unter der Mindestmenge keine Alarme ([com.cryptochecker.app.domain.watch.DexLiquidity]). */
-    private val dexLiquidity: DexLiquidityStore,
+    private val dexLiquidity: RefreshDexLiquidity,
 ) {
+    /** Für Hilt: die App-Klassen hinter den schmalen Schnittstellen aus RefreshPorts.kt (Tests geben Fakes). */
+    @Inject constructor(
+        watchRepository: WatchRepository,
+        notifier: AppNotifier,
+        dayReferences: DayReferences,
+        effects: RefreshEffects,
+        dexLiquidity: DexLiquidityStore,
+    ) : this(
+        watchRepository.asRefreshStore(),
+        notifier.asRefreshNotifier(),
+        dayReferences.asRefreshDayReferences(),
+        effects,
+        dexLiquidity.asRefreshDexLiquidity(),
+    )
+
     /**
      * Wertet die geholten Kurse aus.
      *

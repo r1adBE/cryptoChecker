@@ -1,7 +1,7 @@
 package com.cryptochecker.app.work
 
 /**
- * «Pünktlich prüfen» nach dem allerersten Alarm einmal anbieten (Review 10): ohne exakte Prüfung
+ * «Pünktlich prüfen» nach dem allerersten Alarm einmal anbieten: ohne exakte Prüfung
  * können Alarme im Doze-Modus Stunden zu spät kommen. Nie wiederholt (lokaler Merker, nicht gesichert).
  */
 object ExactCheckOffer {

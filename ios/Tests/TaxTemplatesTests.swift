@@ -97,7 +97,7 @@ final class TaxTemplatesTests: XCTestCase {
             XCTAssertEqual(r8(r.gainUsdt), r8(dec(e["gain"])))
             XCTAssertEqual(r.wallet, e["wallet"] as? String)
         }
-        // Ohne Übergang (FIFO je Wallet über die ganze Geschichte): der Fehler aus Review 13
+        // Ohne Übergang (FIFO je Wallet über die ganze Geschichte): ergäbe einen falschen Einstand für Käufe vor 2025
         let plain = TaxExport.gainRows(txs, method: .FIFO_WALLET, period: tpl.period(year), timeZone: zone,
                                        currency: "USD", rates: nil)
         XCTAssertEqual(plain.count, 1)

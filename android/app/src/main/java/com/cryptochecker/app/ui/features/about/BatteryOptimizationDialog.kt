@@ -49,7 +49,7 @@ class BatteryOptimizationViewModel @Inject constructor(
 
 /**
  * Sitzung (bis zum nächsten Start des Prozesses): Der Akku-Hinweis stand schon im Dialog nach dem
- * allerersten Alarm — der eigene Akku-Dialog entfällt dann (höchstens ein Folgedialog, Review 12).
+ * allerersten Alarm — der eigene Akku-Dialog entfällt dann (höchstens ein Folgedialog).
  */
 object BatteryHintSession {
     var coveredByFirstAlarm by androidx.compose.runtime.mutableStateOf(false)

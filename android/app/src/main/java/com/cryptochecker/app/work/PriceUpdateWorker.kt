@@ -99,7 +99,7 @@ class PriceUpdateWorker @AssistedInject constructor(
         const val PERIODIC_WORK_NAME = "price-update-periodic"
         const val ONE_TIME_WORK_NAME = "price-update-now"
 
-        /** Vom Nutzer angestoßen (Knopf in App oder Widget). */
+        /** Vom Nutzer angestossen (Knopf in App oder Widget). */
         const val KEY_MANUAL = "manual"
 
         /** Zeitpunkt des Knopfdrucks, um die Wartezeit bis zum Start zu messen. */

@@ -15,7 +15,7 @@ import com.cryptochecker.app.R
 import com.cryptochecker.app.ui.theme.Spacing
 
 /**
- * Was die App kann (Runde 32: früher im Begrüßungsblatt, das es nicht mehr gibt — ein neuer
+ * Was die App kann (Runde 32: früher im Begrüssungsblatt, das es nicht mehr gibt — ein neuer
  * Nutzer landet direkt in der Starter-Auswahl): Kurztext und drei Zeilen (Beobachten,
  * Alarmieren, Verstehen — je mit kurzer Frage darüber). Steht in Einstellungen › Über die App,
  * wie `AboutFeatures` in `AboutContent.swift`.

@@ -25,6 +25,7 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.local.model.NOTE_MAX
+import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.util.LocaleNumbers
 
 /**
@@ -61,7 +62,7 @@ fun NoteDialog(
                     modifier = Modifier.align(androidx.compose.ui.Alignment.End).padding(top = 4.dp)
                 )
             }
-            LaunchedEffect(Unit) { runCatching { focusRequester.requestFocus() } }
+            LaunchedEffect(Unit) { runCatchingCancellable { focusRequester.requestFocus() } }
         },
         confirmButton = {
             TextButton(onClick = { onSave(text.trim().takeIf { it.isNotEmpty() }) }) {

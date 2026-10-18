@@ -28,7 +28,7 @@ extension AppData {
         let outcome = await PriceRefresher.refresh(snapshot: snapshot, settings: settings, liveIds: liveIds)
         // Alles kommt live: Kurse sind aktuell — Zeit (Widget-Kopfzeile) wie nach einer Aktualisierung
         // (deaktivierte Paare zählen nicht: sie werden nie abgefragt)
-        // `lastAlarmCheckAt` (Sperre der Hintergrund-Aufgabe) bleibt: kein voller Lauf (Review 12, wie Android)
+        // `lastAlarmCheckAt` (Sperre der Hintergrund-Aufgabe) bleibt: kein voller Lauf (wie Android)
         if outcome.checked == 0 && !liveIds.isEmpty && liveIds.count == snapshot.watches.filter({ !$0.disabled }).count {
             SharedStorage.lastRefreshAt = TimeUtils.nowMillis
         }

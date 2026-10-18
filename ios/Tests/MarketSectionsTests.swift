@@ -63,7 +63,7 @@ final class MarketSectionsTests: XCTestCase {
         XCTAssertEqual(MarketSections.subpage("x"), .context)
     }
 
-    /// Build 55 (Review 14): jede Kennzahl hat eine Zeile «hoch heisst …, tief heisst …», dazu Hebel,
+    /// Jede Kennzahl hat eine Zeile «hoch heisst …, tief heisst …», dazu Hebel,
     /// Funding und Altcoins in den Info-Blättern — übersetzt und kurz. Wie `IndicatorReadingTest.kt`.
     func testIndicatorReadings() {
         for id in IndicatorId.allCases {

@@ -6,7 +6,7 @@ import UserNotifications
 /// Je Gruppe eine Karte wie im Markt-Tab «Jetzt» (Überschrift mit Strich oben in der Karte),
 /// darin Zeilen mit Titel, aktuellem Wert in Grau und Pfeil;
 /// alles Ausführliche steht auf Unterseiten (`Settings…Pages.swift` je Gruppe, Markt-Meldungen, Sprachausgabe).
-/// Gruppen (Build 55, Review 14): Allgemein (Sprache, Währung, Merkliste, Alarme, Kurs-Aktualisierung)
+/// Gruppen (Build 55): Allgemein (Sprache, Währung, Merkliste, Alarme, Kurs-Aktualisierung)
 /// · Darstellung (Hell/Dunkel, Akzent, Kursfarben, Widgets) · Mehr (Sicherung, Portfolio als Schalter,
 /// «Erweitert», Über die App)
 /// · rote Karte «App zurücksetzen». Kurs-Aktualisierung und Widgets stehen wieder auf der Hauptseite, weil

@@ -4,7 +4,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Test
 
-/** Review 10 F7: Budget je Börse im exakten Wecker — eine langsame Börse lässt die anderen nicht leer ausgehen. */
+/** Budget je Börse im exakten Wecker — eine langsame Börse lässt die anderen nicht leer ausgehen. */
 class CheckBudgetTest {
 
     @Test

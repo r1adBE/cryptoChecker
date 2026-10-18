@@ -63,7 +63,7 @@ enum AlarmEvaluator {
     /// (`levelHysteresis` der Marke) auf die andere Seite zurückgekehrt ist. `price` in der
     /// Währung des Schwellwerts (wie bei `shouldTrigger`). `now`: frühestens `minLevelRearmMillis`
     /// nach der Meldung (`referenceAt`) — sonst meldete ein Kurs, der mit Abklingzeit 0 um mehr als
-    /// die Hysterese pendelt, bei fast jeder Prüfung (Review 13). nil = ohne Zeitprüfung.
+    /// die Hysterese pendelt, bei fast jeder Prüfung erneut. nil = ohne Zeitprüfung.
     static func shouldRearmLevel(alarm: Alarm, price: Double, now: Int64? = nil) -> Bool {
         guard alarm.condition.isPriceThreshold, !isLevelArmed(alarm) else { return false }
         guard price.isFinite, price > 0, alarm.threshold > 0 else { return false }
@@ -546,7 +546,7 @@ enum AlarmSavedText {
     }
 }
 
-/// Ehrlicher Hinweis «Wann Alarme geprüft werden» als EIN Satz je Plattform (Build 55, Review 14 —
+/// Ehrlicher Hinweis «Wann Alarme geprüft werden» als EIN Satz je Plattform (Build 55 —
 /// vorher vier verschieden lange Fassungen): Solange die App offen ist, prüft sie zuverlässig; bei
 /// geschlossener App entscheidet iOS, wann (`alarm_timing_hint_ios`). Derselbe Satz steht unter jedem
 /// Alarm, ist der ganze Text der Bestätigung nach dem ersten Alarm und erscheint einmal nach dem

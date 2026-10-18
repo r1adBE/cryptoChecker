@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.RemoteViews
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.remote.CandleDataSource
+import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.app.domain.portfolio.PortfolioStables
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetSeries
@@ -198,7 +199,7 @@ class SingleWidgetRenderer @Inject constructor(
                 // Zeichnen nicht auf dem Main-Thread (Aufrufe auch aus App und ViewModel)
                 val chartBitmap = candles?.takeIf { it.size >= 2 }?.let {
                     withContext(Dispatchers.Default) {
-                        runCatching {
+                        runCatchingCancellable {
                             drawChart(
                                 manager, appWidgetId, it, chartType, range, colors, highContrast, watch.lastPrice,
                                 ChangeBasisMath.chartZone(changeView.basis),
@@ -253,7 +254,7 @@ class SingleWidgetRenderer @Inject constructor(
                 )
             }
 
-            runCatching { manager.updateAppWidget(appWidgetId, views) }
+            runCatchingCancellable { manager.updateAppWidget(appWidgetId, views) }
                 .onFailure { Timber.w(it, "Einzel-Widget %d konnte nicht gezeichnet werden", appWidgetId) }
         }
         return true

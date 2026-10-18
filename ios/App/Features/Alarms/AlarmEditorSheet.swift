@@ -402,7 +402,7 @@ struct AlarmEditorSheet: View {
     }
 }
 
-/// «Zuletzt geprüft 14:32» (Review 13): wann die Alarme zuletzt wirklich geprüft wurden (App, Live-Strom oder
+/// «Zuletzt geprüft 14:32»: wann die Alarme zuletzt wirklich geprüft wurden (App, Live-Strom oder
 /// Hintergrund-Aufgabe, `SharedStorage.lastAlarmCheckAt` — das Widget zählt nicht). Noch nie: keine Zeile.
 /// Liest den Stand jede Minute neu (UserDefaults meldet keine Änderung).
 @MainActor

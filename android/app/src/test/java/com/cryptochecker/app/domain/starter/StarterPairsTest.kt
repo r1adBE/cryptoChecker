@@ -58,7 +58,7 @@ class StarterPairsTest {
         assertEquals(StarterPairs.Pair("Binance", "Binance", "BTC", "USDT", "BTCUSDT"), StarterPairs.pairFor("btc", "CH"))
     }
 
-    /** Review 13: Binance sperrt den Standort (451/403) → Startpaare auf Binance.US, wie iOS `StarterPairsTests`. */
+    /** Binance sperrt den Standort (451/403) → Startpaare auf Binance.US, wie iOS `StarterPairsTests`. */
     @Test
     fun geoBlockSwitchesToBinanceUs() {
         assertEquals(true, StarterPairs.isGeoBlocked(451))

@@ -24,16 +24,35 @@ import javax.inject.Singleton
  * ausserhalb der Sperre.
  */
 @Singleton
-class LivePriceApplier @Inject constructor(
+class LivePriceApplier internal constructor(
     private val refreshLock: RefreshLock,
-    private val watchRepository: WatchRepository,
-    private val settingsRepository: SettingsRepository,
-    private val refreshStats: RefreshStats,
+    private val watchRepository: RefreshStore,
+    private val settingsRepository: RefreshSettings,
+    private val refreshStats: RefreshStatsPort,
     /** Live-Takte zeichnen die Widgets nur über dieses Tor (Bildschirm aus: aufschieben). */
-    private val liveWidgetGate: LiveWidgetGate,
-    private val chartRefresher: ChartRefresher,
+    private val liveWidgetGate: RefreshWidgets,
+    private val chartRefresher: RefreshCharts,
     private val resultProcessor: RefreshResultProcessor,
 ) {
+    /** Für Hilt: die App-Klassen hinter den schmalen Schnittstellen aus RefreshPorts.kt (Tests geben Fakes). */
+    @Inject constructor(
+        refreshLock: RefreshLock,
+        watchRepository: WatchRepository,
+        settingsRepository: SettingsRepository,
+        refreshStats: RefreshStats,
+        liveWidgetGate: LiveWidgetGate,
+        chartRefresher: ChartRefresher,
+        resultProcessor: RefreshResultProcessor,
+    ) : this(
+        refreshLock,
+        watchRepository.asRefreshStore(),
+        settingsRepository.asRefreshSettings(),
+        refreshStats.asRefreshStatsPort(),
+        liveWidgetGate.asRefreshWidgets(),
+        chartRefresher.asRefreshCharts(),
+        resultProcessor,
+    )
+
     /**
      * Live-Kurse (gesammelt, höchstens alle 10 s) speichern und wie eine Aktualisierung auswerten: derselbe Weg
      * für Alarme (Kreuzung zum zuletzt gespeicherten Kurs, Abklingzeit, «erst wieder scharf») und Kurs-Meldungen —

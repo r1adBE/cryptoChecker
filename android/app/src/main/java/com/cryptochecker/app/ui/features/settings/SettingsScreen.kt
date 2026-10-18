@@ -56,7 +56,7 @@ import kotlinx.coroutines.delay
  * Pfeil. Alles Ausführliche steht auf Unterseiten
  * ([SettingsPageScreen], Markt-Meldungen, Sprachausgabe). Schlüssel und Verhalten unverändert.
  *
- * Gruppen (Build 55, Review 14): Allgemein (Sprache, Währung, Merkliste, Alarme, Kurs-Aktualisierung)
+ * Gruppen (Build 55): Allgemein (Sprache, Währung, Merkliste, Alarme, Kurs-Aktualisierung)
  * · Darstellung (Hell/Dunkel, Akzent, Kursfarben, Widgets) · Mehr (Sicherung, «Erweitert», Über die App)
  * · rote Karte «App zurücksetzen». Kurs-Aktualisierung und Widgets stehen wieder auf der Hauptseite, weil
  * Alarm-Hinweis und Widget-Hilfe dorthin verweisen und beide oft gesucht werden. «Erweitert»

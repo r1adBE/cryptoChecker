@@ -295,11 +295,11 @@ missing or changed one. Then add the adapter to both lists:
 
 ```kotlin
 // android/marketdata/…/config/MarketsConfig.kt
-private val registeredMarkets = arrayOf(
+val MARKETS: Map<String, Market> = listOf(
     …
     Bitstamp(),
     …
-)
+).associateBy(Market::key)
 ```
 
 ```swift
@@ -470,7 +470,7 @@ Without `-only-testing` the scheme runs the unit tests and the UI tests (see bel
 
 `gen_xcodeproj.py` (also with `--check`) fails when `ios/project.yml` (the XcodeGen fallback) carries a
 `MARKETING_VERSION` or `CURRENT_PROJECT_VERSION` different from the constants at the top of the script —
-change the version in both places. The build number (`versionCode` in `android/app/build.gradle`,
+change the version in both places. The build number (`versionCode` in `android/app/build.gradle.kts`,
 `CURRENT_PROJECT_VERSION` here) goes up by one with every delivered state, on both platforms together.
 
 In Xcode: scheme *CryptoChecker* → Product › Test (⌘U) runs both test targets; a single one from the
@@ -525,7 +525,7 @@ identifiers and the same test file on Android and iOS:
   VoiceOver. Add a tag on both platforms under the same name.
 * **Test file.** `android/testdata/uitest/uitest_portfolio.csv` (synthetic: two USD buys in the generic
   CSV format). Android packs the folder as assets of the test APK only (`sourceSets.androidTest.assets`
-  in `app/build.gradle`); `ios/tools/gen_xcodeproj.py` copies it to `ios/UITests/Fixtures/` (`--check`
+  in `app/build.gradle.kts`); `ios/tools/gen_xcodeproj.py` copies it to `ios/UITests/Fixtures/` (`--check`
   fails when the copy differs); the iOS test reads it next to its source (`#filePath`).
 * **No network.** Android: `FakeRemoteDataModule` (Binance and Coinbase from `FakeMarket`, everything
   else 404). iOS: `UITestMarket` answers every request of every `URLSession` the same way (the protocol is
@@ -571,7 +571,8 @@ screenshots is uploaded on failure).
 build and an unsigned release build with R8 (catches missing keep rules). Pushes to `main`
 submit the Gradle dependency graph (Dependabot alerts); pull requests run a dependency review
 that fails on new dependencies with known high-severity vulnerabilities.
-`.github/dependabot.yml` opens weekly update PRs for GitHub Actions and Gradle. The *iOS*
+`.github/dependabot.yml` opens weekly update PRs for GitHub Actions and Gradle (version catalog
+`android/gradle/libs.versions.toml`). The *iOS*
 workflow builds and tests in the Simulator (unit tests, then UI tests) when `ios/`, the shared parity
 cases or the UI-test files change.
 
@@ -581,9 +582,9 @@ every adapter for one major pair (BTC) and checks that the fields the adapters p
 price and, where read, bid/ask, volume or 24 h change – are present and numeric. The endpoint
 and field table lives in the script; update it together with an adapter (URLs and field names
 as in `android/testdata/exchanges/exchange_*.json`). On a failure the job opens ONE issue
-«Exchange API check failed» (or updates the open one) and turns red; when all pass again it
+«Exchange API check failed» (or updates the open one) and the run stays green (the issue is the signal); when all pass again it
 closes the issue. HTTP 451 (and 403 for exchanges that block US cloud IPs) counts as skipped,
-since GitHub's runners are in the US. The token only has `issues: write`. Locally, without
+since GitHub's runners are in the US. The token has `contents: read` and `issues: write`. Locally, without
 touching GitHub: `python3 .github/scripts/exchange_live_check.py --dry-run` (optionally
 `--only kraken,okx`).
 
@@ -1856,8 +1857,8 @@ encrypted copy, through an atomic rename, and every failure leaves the plaintext
 next start.
 
 **Android – SQLCipher for both Room databases.**
-* Library: `net.zetetic:sqlcipher-android` (`@aar`, no transitive dependencies), version in the root
-  `build.gradle` (`sqlcipher_version`). `androidx.sqlite` (`SupportSQLiteOpenHelper`, `sqlite-framework`) comes from
+* Library: `net.zetetic:sqlcipher-android` (`@aar`, no transitive dependencies), version in the version catalog
+  `android/gradle/libs.versions.toml` (`sqlcipher`). `androidx.sqlite` (`SupportSQLiteOpenHelper`, `sqlite-framework`) comes from
   `room-runtime` as an api dependency – no own pin. R8 keeps `net.zetetic.**` (JNI). Native library per ABI
   (`libsqlcipher.so`, 16 KB page aligned since 4.6.1).
 * `LocalDataModule` gives both builders the same `EncryptingOpenHelperFactory`. It decides on the **first access**

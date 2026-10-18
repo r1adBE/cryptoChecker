@@ -449,87 +449,87 @@ internal fun WatchActionsSheet(
 
             // Vorschau: kein «Mehr» (alles darin braucht einen gespeicherten Eintrag)
             if (!preview) {
-            // Alles Weitere unter «Mehr» (zu, für die Sitzung gemerkt); weich auf- und zuklappen
-            // K1: «Mehr» gilt nur für dieses Blatt — jedes Paar öffnet zugeklappt
-            var moreExpanded by remember(watch.id) { mutableStateOf(false) }
-            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
-            SheetMoreToggle(
-                expanded = moreExpanded,
-                onToggle = { moreExpanded = !moreExpanded }
-            )
-            Column(modifier = if (sheetMotion) Modifier.animateContentSize() else Modifier) {
-            if (moreExpanded) {
-            SheetAction(
-                icon = R.drawable.ic_list,
-                text = watch.groupName?.let { stringResource(R.string.group_value, it) }
-                    ?: stringResource(R.string.group_title),
-                onClick = { editGroup = true }
-            )
-            SheetAction(
-                icon = R.drawable.ic_note,
-                text = stringResource(if (watch.note.isNullOrBlank()) R.string.note_add else R.string.note_edit),
-                onClick = { editNote = true }
-            )
-            onAddToPortfolio?.let { addToPortfolio ->
-                SheetAction(
-                    icon = R.drawable.ic_portfolio,
-                    text = stringResource(R.string.portfolio_add_from_watch),
-                    onClick = addToPortfolio
+                // Alles Weitere unter «Mehr» (zu, für die Sitzung gemerkt); weich auf- und zuklappen
+                // K1: «Mehr» gilt nur für dieses Blatt — jedes Paar öffnet zugeklappt
+                var moreExpanded by remember(watch.id) { mutableStateOf(false) }
+                HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
+                SheetMoreToggle(
+                    expanded = moreExpanded,
+                    onToggle = { moreExpanded = !moreExpanded }
                 )
-            }
-            if (!off) {
-                SheetAction(
-                    icon = R.drawable.ic_refresh,
-                    text = stringResource(R.string.action_refresh),
-                    onClick = onRefresh
-                )
-            }
-            // Einzel-Widget mit diesem Paar auf den Startbildschirm (Runde 13b); kann der
-            // Startbildschirm das nicht, eine kurze Anleitung
-            SheetAction(
-                icon = R.drawable.ic_widgets,
-                text = stringResource(R.string.watch_action_add_widget),
-                onClick = {
-                    if (!WidgetPinner.request(sheetContext, WidgetKind.SINGLE, watch.id)) showWidgetManual = true
-                }
-            )
-            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
-            SwitchRow(
-                title = stringResource(R.string.watchlist_tts),
-                checked = watch.ttsEnabled,
-                onCheckedChange = { enabled ->
-                    // Sprachausgabe war aus bzw. «Nur Alarme»: jetzt an — kurz sagen, wo man es ändert
-                    // (Toast statt Banner: das Banner der Merkliste läge hinter dem Blatt)
-                    if (onTtsChange(enabled)) {
-                        Toast.makeText(sheetContext, R.string.watchlist_tts_speech_on, Toast.LENGTH_LONG).show()
+                Column(modifier = if (sheetMotion) Modifier.animateContentSize() else Modifier) {
+                    if (moreExpanded) {
+                        SheetAction(
+                            icon = R.drawable.ic_list,
+                            text = watch.groupName?.let { stringResource(R.string.group_value, it) }
+                                ?: stringResource(R.string.group_title),
+                            onClick = { editGroup = true }
+                        )
+                        SheetAction(
+                            icon = R.drawable.ic_note,
+                            text = stringResource(if (watch.note.isNullOrBlank()) R.string.note_add else R.string.note_edit),
+                            onClick = { editNote = true }
+                        )
+                        onAddToPortfolio?.let { addToPortfolio ->
+                            SheetAction(
+                                icon = R.drawable.ic_portfolio,
+                                text = stringResource(R.string.portfolio_add_from_watch),
+                                onClick = addToPortfolio
+                            )
+                        }
+                        if (!off) {
+                            SheetAction(
+                                icon = R.drawable.ic_refresh,
+                                text = stringResource(R.string.action_refresh),
+                                onClick = onRefresh
+                            )
+                        }
+                        // Einzel-Widget mit diesem Paar auf den Startbildschirm (Runde 13b); kann der
+                        // Startbildschirm das nicht, eine kurze Anleitung
+                        SheetAction(
+                            icon = R.drawable.ic_widgets,
+                            text = stringResource(R.string.watch_action_add_widget),
+                            onClick = {
+                                if (!WidgetPinner.request(sheetContext, WidgetKind.SINGLE, watch.id)) showWidgetManual = true
+                            }
+                        )
+                        HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
+                        SwitchRow(
+                            title = stringResource(R.string.watchlist_tts),
+                            checked = watch.ttsEnabled,
+                            onCheckedChange = { enabled ->
+                                // Sprachausgabe war aus bzw. «Nur Alarme»: jetzt an — kurz sagen, wo man es ändert
+                                // (Toast statt Banner: das Banner der Merkliste läge hinter dem Blatt)
+                                if (onTtsChange(enabled)) {
+                                    Toast.makeText(sheetContext, R.string.watchlist_tts_speech_on, Toast.LENGTH_LONG).show()
+                                }
+                            },
+                            icon = R.drawable.ic_volume_up
+                        )
+                        SwitchRow(
+                            title = stringResource(R.string.watchlist_notification),
+                            checked = watch.notificationEnabled,
+                            onCheckedChange = onNotificationChange,
+                            // Dieselbe schlichte Glocke wie in der Zeile der Merkliste (Alarme: Glocke mit Wellen);
+                            // aus = durchgestrichen
+                            icon = if (watch.notificationEnabled) R.drawable.ic_notifications else R.drawable.ic_notifications_off
+                        )
+                        HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
+                        // Paar deaktivieren (keine Abfragen, keine Meldungen, Alarme ruhen) bzw. wieder aktivieren
+                        SheetAction(
+                            icon = if (watch.disabled) R.drawable.ic_play_circle else R.drawable.ic_pause_circle,
+                            text = stringResource(if (watch.disabled) R.string.watch_enable else R.string.watch_disable),
+                            hint = stringResource(if (watch.disabled) R.string.watch_enable_hint else R.string.watch_disable_hint),
+                            onClick = onToggleDisabled
+                        )
+                        SheetAction(
+                            icon = R.drawable.ic_delete,
+                            text = stringResource(R.string.action_delete),
+                            danger = true,
+                            onClick = onDelete
+                        )
                     }
-                },
-                icon = R.drawable.ic_volume_up
-            )
-            SwitchRow(
-                title = stringResource(R.string.watchlist_notification),
-                checked = watch.notificationEnabled,
-                onCheckedChange = onNotificationChange,
-                // Dieselbe schlichte Glocke wie in der Zeile der Merkliste (Alarme: Glocke mit Wellen);
-                // aus = durchgestrichen
-                icon = if (watch.notificationEnabled) R.drawable.ic_notifications else R.drawable.ic_notifications_off
-            )
-            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
-            // Paar deaktivieren (keine Abfragen, keine Meldungen, Alarme ruhen) bzw. wieder aktivieren
-            SheetAction(
-                icon = if (watch.disabled) R.drawable.ic_play_circle else R.drawable.ic_pause_circle,
-                text = stringResource(if (watch.disabled) R.string.watch_enable else R.string.watch_disable),
-                hint = stringResource(if (watch.disabled) R.string.watch_enable_hint else R.string.watch_disable_hint),
-                onClick = onToggleDisabled
-            )
-            SheetAction(
-                icon = R.drawable.ic_delete,
-                text = stringResource(R.string.action_delete),
-                danger = true,
-                onClick = onDelete
-            )
-            }
-            }
+                }
             }
         }
     }

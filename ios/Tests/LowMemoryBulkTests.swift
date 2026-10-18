@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Review 13: Widget-Erweiterung (~30 MB) lädt keine grossen ungefilterten Sammellisten (`LowMemoryBulk`).
+/// Widget-Erweiterung (~30 MB) lädt keine grossen ungefilterten Sammellisten (`LowMemoryBulk`).
 final class LowMemoryBulkTests: XCTestCase {
 
     func testPlan() {

@@ -29,7 +29,7 @@ class WidgetContrastTest {
         }
     }
 
-    /** Review 10: «unverändert» hell #5F5F5F statt #777777 (3.87:1) — AA auf dem Widget-Grund, wie iOS. */
+    /** «unverändert» hell #5F5F5F statt #777777 (3.87:1) — AA auf dem Widget-Grund, wie iOS. */
     @Test
     fun `neutral grey reaches AA on the widget base`() {
         assertTrue(WidgetContrast.ratio(0xFF777777.toInt(), 0xFFF1EEE9.toInt()) < 4.5)

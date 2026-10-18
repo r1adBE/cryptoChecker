@@ -4,6 +4,7 @@ import androidx.core.content.edit
 import android.content.Context
 import androidx.room.withTransaction
 import com.cryptochecker.app.data.local.WatchDao
+import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.portfolio.AddressChain
 import com.cryptochecker.app.domain.portfolio.AddressValidation
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
@@ -137,7 +138,7 @@ class PortfolioRepository @Inject constructor(
         if (prefs.getBoolean(KEY_MIGRATED, false)) return
         migrationMutex.withLock {
             if (prefs.getBoolean(KEY_MIGRATED, false)) return
-            runCatching {
+            runCatchingCancellable {
                 val count = importHoldings(onlyNewCoins = false, onceMarker = HOLDINGS_MARKER)
                 if (count > 0) Timber.i("Portfolio: %d Bestände aus der Merkliste übernommen", count)
                 prefs.edit { putBoolean(KEY_MIGRATED, true) }
@@ -366,7 +367,7 @@ class PortfolioRepository @Inject constructor(
             val keys = listOfNotNull(tx.importKey, tx.linkedImportKey)
             if (keys.any { it in known }) continue
             known += keys
-            runCatching { save(tx.copy(id = 0, importBatch = batch ?: tx.importBatch)) }.onSuccess { count++ }
+            runCatchingCancellable { save(tx.copy(id = 0, importBatch = batch ?: tx.importBatch)) }.onSuccess { count++ }
         }
         count
     }

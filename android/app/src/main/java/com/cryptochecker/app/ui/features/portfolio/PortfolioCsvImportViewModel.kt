@@ -14,6 +14,7 @@ import com.cryptochecker.app.data.portfolio.HistoricPriceSource
 import com.cryptochecker.app.data.portfolio.PortfolioHistorySource
 import com.cryptochecker.app.data.portfolio.PortfolioRepository
 import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
+import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
 import com.cryptochecker.app.domain.portfolio.PortfolioFeeUnit
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryFx
@@ -124,7 +125,7 @@ class PortfolioCsvImportViewModel @Inject constructor(
     fun load(uri: Uri) {
         _state.value = CsvImportState.Loading
         viewModelScope.launch {
-            _state.value = runCatching { buildPreview(uri) }
+            _state.value = runCatchingCancellable { buildPreview(uri) }
                 .onFailure { Timber.w(it, "CSV-Import: Datei nicht lesbar") }
                 .getOrNull()
                 ?.takeIf { it.format != CsvImportFormat.UNKNOWN && (it.transactions.isNotEmpty() || it.duplicates > 0 || it.skipped.isNotEmpty()) }
@@ -139,8 +140,8 @@ class PortfolioCsvImportViewModel @Inject constructor(
      * in der Datei und gegen gespeicherte Importe; schon gezeigte behalten ihre Wahl ([CsvTransferMatch.carryOver]).
      */
     private suspend fun propose(preview: CsvImportPreview) {
-        val addresses = runCatching { repository.watchedAddresses.first() }.getOrDefault(emptyList())
-        val stored = runCatching { repository.getTransactions() }.getOrDefault(emptyList()).mapNotNull { it.toStoredMove() }
+        val addresses = runCatchingCancellable { repository.watchedAddresses.first() }.getOrDefault(emptyList())
+        val stored = runCatchingCancellable { repository.getTransactions() }.getOrDefault(emptyList()).mapNotNull { it.toStoredMove() }
         val list = withContext(Dispatchers.Default) { CsvImportMapping.proposeWithdrawals(preview.transactions, addresses) }
         val links = withContext(Dispatchers.Default) {
             CsvTransferMatch.candidates(preview.transactions, preview.format.exchangeName, stored)
@@ -185,7 +186,7 @@ class PortfolioCsvImportViewModel @Inject constructor(
         val rates = HashMap<String, List<Pair<Long, Double>>>()
         for ((currency, days) in CsvImportMapping.fxNeeds(result.rows, result.fxZone)) {
             val from = LocalDate.ofEpochDay(days.first - PortfolioHistoryFx.LEAD_DAYS)
-            val series = runCatching { historic.usdToSeries(currency, from, LocalDate.ofEpochDay(days.last)) }.getOrNull()
+            val series = runCatchingCancellable { historic.usdToSeries(currency, from, LocalDate.ofEpochDay(days.last)) }.getOrNull()
             if (series != null) rates[currency] = series.entries.map { it.key to it.value }.sortedBy { it.first }
         }
         val keys = repository.importKeys()
@@ -233,7 +234,7 @@ class PortfolioCsvImportViewModel @Inject constructor(
         _zone.value = zone
         val read = input ?: return
         viewModelScope.launch {
-            val preview = runCatching {
+            val preview = runCatchingCancellable {
                 val result = withContext(Dispatchers.Default) {
                     CsvImportParser.parse(read.text, ZoneId.systemDefault().id, zone, _dateOrder.value, _decimalMark.value)
                 }
@@ -256,7 +257,7 @@ class PortfolioCsvImportViewModel @Inject constructor(
         _dateOrder.value = order
         val read = input ?: return
         viewModelScope.launch {
-            val preview = runCatching { prepare(read.text) }.getOrNull() ?: return@launch
+            val preview = runCatchingCancellable { prepare(read.text) }.getOrNull() ?: return@launch
             if (_state.value is CsvImportState.Preview && _dateOrder.value == order) {
                 propose(preview)
                 _state.value = CsvImportState.Preview(preview)
@@ -272,7 +273,7 @@ class PortfolioCsvImportViewModel @Inject constructor(
         _decimalMark.value = mark
         val read = input ?: return
         viewModelScope.launch {
-            val preview = runCatching { prepare(read.text) }.getOrNull() ?: return@launch
+            val preview = runCatchingCancellable { prepare(read.text) }.getOrNull() ?: return@launch
             if (_state.value is CsvImportState.Preview && _decimalMark.value == mark) {
                 propose(preview)
                 _state.value = CsvImportState.Preview(preview)
@@ -300,20 +301,20 @@ class PortfolioCsvImportViewModel @Inject constructor(
         viewModelScope.launch {
             // Kennung dieses Importlaufs («Import rückgängig»): Format, Zeit, Hash der Zeilenschlüssel
             val batch = PortfolioImportBatch.newId(preview.format.name, System.currentTimeMillis(), txs.map { it.importKey })
-            val inserted = runCatching { repository.insertImported(txs.map { it.toEntity() }, batch) }
+            val inserted = runCatchingCancellable { repository.insertImported(txs.map { it.toEntity() }, batch) }
                 .onFailure { Timber.w(it, "CSV-Import: Speichern fehlgeschlagen") }
                 .getOrDefault(0)
-            val linkedStored = runCatching { linkStored(plan.storedUpdates, batch) }
+            val linkedStored = runCatchingCancellable { linkStored(plan.storedUpdates, batch) }
                 .onFailure { Timber.w(it, "CSV-Import: Umbuchung nicht verknüpft") }
                 .getOrDefault(0)
             val count = inserted + linkedStored
             var enabled = false
             // Nur neu angelegte Transaktionen schalten ein (verknüpfte gespeicherte gab es schon)
             if (inserted > 0 && PortfolioOff.enableOnSave(isNew = true, portfolioEnabled = settingsRepository.current().portfolioEnabled)) {
-                enabled = runCatching { settingsRepository.setPortfolioEnabled(true) }.isSuccess
+                enabled = runCatchingCancellable { settingsRepository.setPortfolioEnabled(true) }.isSuccess
                 if (enabled) {
-                    runCatching { coinLogoSync.startIfEnabled() }
-                    runCatching { snapshotUpdater.redrawWidgets() }
+                    runCatchingCancellable { coinLogoSync.startIfEnabled() }
+                    runCatchingCancellable { snapshotUpdater.redrawWidgets() }
                 }
             }
             _state.value = CsvImportState.Idle

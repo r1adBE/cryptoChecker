@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.R
+import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import kotlinx.coroutines.launch
 
 /**
@@ -65,7 +66,7 @@ fun PortfolioCsvImportFlow(
     LaunchedEffect(Unit) {
         if (!picked) {
             picked = true
-            runCatching { launcher.launch(CSV_MIME_TYPES) }
+            runCatchingCancellable { launcher.launch(CSV_MIME_TYPES) }
                 .onFailure { onDismiss() }
         }
     }

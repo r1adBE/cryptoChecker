@@ -16,7 +16,7 @@ object AlarmEdit {
      * Bezugskurs eines neuen Prozentalarms: der letzte Kurs, aber nur, wenn er frisch ist
      * ([lastUpdate] höchstens [staleAfterMillis] alt, Regel «veraltet» der Merkliste). Sonst null —
      * die nächste Abfrage setzt dann den Bezug ([AlarmEvaluator.needsReference]), statt ab einem
-     * alten Kurs zu messen und gleich zu melden (Review 13). Spiegel: AlarmEdit.swift.
+     * alten Kurs zu messen und gleich zu melden. Spiegel: AlarmEdit.swift.
      */
     fun freshReference(lastPrice: Double?, lastUpdate: Long, now: Long, staleAfterMillis: Long): Double? {
         val price = lastPrice?.takeIf { it.isFinite() && it > 0.0 } ?: return null

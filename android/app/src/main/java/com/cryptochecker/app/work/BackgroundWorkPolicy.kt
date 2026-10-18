@@ -118,7 +118,7 @@ object BackgroundWorkPolicy {
 
     /**
      * Datenbank-Schlüssel gerade nicht lesbar (Keystore, vorübergehend): erneut versuchen, geplant wie
-     * angestoßen. Beide Aufträge setzen dafür einen kurzen linearen Backoff (PriceUpdateScheduler, 30 s).
+     * angestossen. Beide Aufträge setzen dafür einen kurzen linearen Backoff (PriceUpdateScheduler, 30 s).
      */
     fun outcomeOnKeyUnavailable(): WorkOutcome = WorkOutcome.RETRY
 

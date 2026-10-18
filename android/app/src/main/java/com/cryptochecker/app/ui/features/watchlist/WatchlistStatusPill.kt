@@ -189,7 +189,7 @@ internal fun DisabledChip(
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
-            // Tippfläche 48 dp hoch (Review 19, wie Gruppe, Suche und ⚡): je 8 dp über und unter der Pille; nach
+            // Tippfläche 48 dp hoch (wie Gruppe, Suche und ⚡): je 8 dp über und unter der Pille; nach
             // aussen meldet sie nur die Pillen-Höhe, die Statuszeile wächst nicht
             .layout { measurable, constraints ->
                 val extra = DISABLED_TOUCH_EXTRA.roundToPx()

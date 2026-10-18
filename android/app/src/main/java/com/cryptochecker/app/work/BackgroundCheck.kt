@@ -2,6 +2,7 @@ package com.cryptochecker.app.work
 
 import com.cryptochecker.app.data.RefreshStats
 import com.cryptochecker.app.data.WatchRepository
+import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.refresh.BackgroundSchedule
 import com.cryptochecker.app.domain.refresh.CheckBudget
 import com.cryptochecker.app.domain.refresh.CheckResult
@@ -38,7 +39,7 @@ class BackgroundCheck @Inject constructor(
 
     /** Gibt es aktive (nicht deaktivierte) Paare? Fehler: lieber ja. */
     suspend fun hasWork(): Boolean =
-        runCatching { watchRepository.getWatches().any { !it.disabled } }.getOrDefault(true)
+        runCatchingCancellable { watchRepository.getWatches().any { !it.disabled } }.getOrDefault(true)
 
     /** Lauf ohne Prüfung vermerken (z. B. offline beim Wecker). */
     fun log(trigger: CheckTrigger, result: CheckResult, startedAt: Long) {
@@ -74,7 +75,7 @@ class BackgroundCheck @Inject constructor(
         startedAt: Long,
         deadlineAt: Long?,
     ): RefreshSummary? {
-        // Nur die letzte VOLLE Prüfung zählt (Live-Takte und Teil-Läufe nicht, Review 12)
+        // Nur die letzte VOLLE Prüfung zählt (Live-Takte und Teil-Läufe nicht: sie prüfen nicht alle Alarme)
         if (BackgroundSchedule.shouldSkip(trigger, refreshStats.lastFullCheck(), System.currentTimeMillis())) {
             Timber.d("Prüfung (%s) übersprungen: eben erst geprüft", trigger.code)
             log(trigger, CheckResult.SKIPPED, startedAt)

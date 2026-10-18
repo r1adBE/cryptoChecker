@@ -15,6 +15,31 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 77)
+
+Structural overhaul of the code base (no new features), plus tests for the wiring.
+
+* Backups with a password use format v3: key from Argon2id (64 MiB, 3 passes), the file header is authenticated
+  together with the content; v2 files (PBKDF2) can still be opened. Cross-platform test vectors on both systems.
+* Android architecture: the watchlist view model composes three controllers that own their state; the screen collects
+  one UI state; type-safe navigation routes; market jumps and explorer sections survive process death; settings in
+  focused slices.
+* Refresh: the refresh lock hands out a token, so a re-entrant call can no longer be written by accident; live
+  prices, chart reloads, result processing and side checks are separate classes; errors are typed (`MarketFailure`)
+  on both systems instead of matched by text; every exchange declares its storage key explicitly.
+* Logos and coin lists: split into image store, list sync, Binance Alpha and names; downloads stop when cancelled; a
+  symbols-only mirror never replaces a list with names.
+* Portfolio: the transaction sheet is split into form state and sections with tested save checks; tax engines one
+  file per country, tax export split into rows, summary and CSV (iPhone: moved into its own folder).
+* Cancellation is no longer swallowed in background code (119 places), guarded by a test.
+* iPhone: strict concurrency checking enabled (warnings), unlocked shared state now behind locks; exchange pauses
+  expire like on Android when the clock jumps.
+* Tests: alarms, result processing and live prices against fakes of the real classes; HTTP layer with a mock server
+  (429/Retry-After, size limits, hanging responses, partial requests); restore and watchlist view model as device
+  tests; iPhone wiring and HTTP stub tests.
+* Build: Gradle version catalog and Kotlin build scripts; CI shows compile errors and failed tests directly.
+* Docs: «Add an exchange» for contributors, English API documentation of the exchange layer.
+
 ## 16.2.2 (build 76)
 
 Two external reviews worked through (all «must» and «can» items), before the device test.

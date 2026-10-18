@@ -114,45 +114,45 @@ internal fun PortfolioPage(onBack: () -> Unit, viewModel: SettingsViewModel = hi
             // Build 46: Methode und Steuer-Vorlage erst mit eingeschaltetem Portfolio (wer nur Alarme will, sieht
             // keine Buchhaltung); die Werte bleiben beim Ausblenden erhalten
             if (settings.portfolioEnabled) {
-            RowDivider()
-            // Einstandsmethode für Einstand, «Seit Kauf», realisiert und Steuer-Export (Standard FIFO)
-            SettingsAnchor("portfolio.cost_method") {
-                // Drei Zeilen untereinander (Titel + Hinweis) statt Segmentknopf: die Namen wurden dort abgeschnitten
-                Column(modifier = Modifier.padding(vertical = 8.dp).selectableGroup()) {
-                    Text(
-                        stringResource(R.string.settings_cost_method),
-                        style = MaterialTheme.typography.bodyMedium,
-                        modifier = Modifier.padding(bottom = 4.dp).semantics { heading() }
-                    )
-                    CostMethod.entries.forEach { method ->
-                        RadioRow(
-                            selected = settings.costMethod == method,
-                            onClick = { viewModel.setCostMethod(method) },
-                            title = stringResource(
-                                when (method) {
-                                    CostMethod.FIFO -> R.string.settings_cost_method_fifo
-                                    CostMethod.FIFO_WALLET -> R.string.settings_cost_method_fifo_wallet
-                                    CostMethod.AVERAGE -> R.string.settings_cost_method_average
-                                }
-                            ),
-                            subtitle = stringResource(
-                                when (method) {
-                                    CostMethod.FIFO -> R.string.settings_cost_method_fifo_hint
-                                    CostMethod.FIFO_WALLET -> R.string.settings_cost_method_fifo_wallet_hint
-                                    CostMethod.AVERAGE -> R.string.settings_cost_method_average_hint
-                                }
-                            ),
+                RowDivider()
+                // Einstandsmethode für Einstand, «Seit Kauf», realisiert und Steuer-Export (Standard FIFO)
+                SettingsAnchor("portfolio.cost_method") {
+                    // Drei Zeilen untereinander (Titel + Hinweis) statt Segmentknopf: die Namen wurden dort abgeschnitten
+                    Column(modifier = Modifier.padding(vertical = 8.dp).selectableGroup()) {
+                        Text(
+                            stringResource(R.string.settings_cost_method),
+                            style = MaterialTheme.typography.bodyMedium,
+                            modifier = Modifier.padding(bottom = 4.dp).semantics { heading() }
                         )
+                        CostMethod.entries.forEach { method ->
+                            RadioRow(
+                                selected = settings.costMethod == method,
+                                onClick = { viewModel.setCostMethod(method) },
+                                title = stringResource(
+                                    when (method) {
+                                        CostMethod.FIFO -> R.string.settings_cost_method_fifo
+                                        CostMethod.FIFO_WALLET -> R.string.settings_cost_method_fifo_wallet
+                                        CostMethod.AVERAGE -> R.string.settings_cost_method_average
+                                    }
+                                ),
+                                subtitle = stringResource(
+                                    when (method) {
+                                        CostMethod.FIFO -> R.string.settings_cost_method_fifo_hint
+                                        CostMethod.FIFO_WALLET -> R.string.settings_cost_method_fifo_wallet_hint
+                                        CostMethod.AVERAGE -> R.string.settings_cost_method_average_hint
+                                    }
+                                ),
+                            )
+                        }
                     }
                 }
-            }
-            RowDivider()
-            // Steuer-Vorlage der Arbeitsunterlage (Standard Neutral); die Region wird nur vorgeschlagen, nie still übernommen
-            SettingsAnchor("portfolio.tax_template") {
-                TaxTemplateRow(settings.taxTemplate, settings.costMethod, viewModel::setTaxTemplate)
-                // Länder-Vorlage zum ersten Mal: Hinweis einmal bestätigen
-                TaxTemplateConfirmDialog(settings.taxTemplate, settings.taxTemplateConfirmed, viewModel::confirmTaxTemplate)
-            }
+                RowDivider()
+                // Steuer-Vorlage der Arbeitsunterlage (Standard Neutral); die Region wird nur vorgeschlagen, nie still übernommen
+                SettingsAnchor("portfolio.tax_template") {
+                    TaxTemplateRow(settings.taxTemplate, settings.costMethod, viewModel::setTaxTemplate)
+                    // Länder-Vorlage zum ersten Mal: Hinweis einmal bestätigen
+                    TaxTemplateConfirmDialog(settings.taxTemplate, settings.taxTemplateConfirmed, viewModel::confirmTaxTemplate)
+                }
             }
             RowDivider()
             // Immer sichtbar: Die Daten bleiben auch bei ausgeblendetem Portfolio gespeichert

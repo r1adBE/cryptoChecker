@@ -25,7 +25,7 @@ final class StarterPairsTests: XCTestCase {
         XCTAssertEqual(us.pair.pairId, "SOLUSDT")
     }
 
-    /// Review 13: Binance sperrt den Standort (451/403) → Startpaare auf Binance.US, wie `StarterPairsTest.kt`.
+    /// Binance sperrt den Standort (451/403) → Startpaare auf Binance.US, wie `StarterPairsTest.kt`.
     func testGeoBlockSwitchesToBinanceUs() {
         XCTAssertTrue(StarterPairs.isGeoBlocked(httpCode: 451))
         XCTAssertTrue(StarterPairs.isGeoBlocked(httpCode: 403))

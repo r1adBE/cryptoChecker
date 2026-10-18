@@ -7,12 +7,20 @@ import com.cryptochecker.marketdata.util.getText
 import org.json.JSONObject
 
 /**
- * Die übliche Börse: eine feste Adresse für die Paarliste (GET) und eine Kursadresse [tickerUrl], in die die
- * Paar-Kennung an der Stelle [PAIR_ID] eingesetzt wird. [errorField]: Feld einer Fehlerantwort mit dem Text der
- * Börse, null = keines bekannt (dann überschreibt die Börse [errorMessageJson] oder hat keinen Fehlertext).
+ * The typical exchange: one fixed pair-list URL (GET) and one ticker URL [tickerUrl] in which the pair id
+ * replaces the placeholder [PAIR_ID]. A subclass still implements [key], [fillPairList]/[fillPairListJson] and
+ * [fillTicker]/[fillTickerJson] (plus the optional bulk hooks of [Market]).
  *
- * Wer mehrere Paarlisten, eine zusammengesetzte Liste oder eine POST-Anfrage braucht, erbt direkt von [Market].
- * Gegenstück auf iOS: `SimpleMarket` in `Market.swift`.
+ * Exchanges needing several pair lists, a combined list or POST requests extend [Market] directly.
+ * iOS counterpart: `SimpleMarket` in `Market.swift`.
+ *
+ * @param name display name of the exchange.
+ * @param pairListUrl URL of the pair list (GET).
+ * @param tickerUrl single-ticker URL containing [PAIR_ID].
+ * @param ttsName name for speech output; defaults to [name].
+ * @param errorField field of an error response holding the exchange's text; null = none known (then override
+ *   [errorMessageJson] or the exchange has no error text).
+ * @param currencyPairs built-in pairs, see [Market.currencyPairs].
  */
 abstract class SimpleMarket(
     name: String,
@@ -23,7 +31,7 @@ abstract class SimpleMarket(
     currencyPairs: CurrencyPairsMap? = null,
 ) : Market(name, ttsName, currencyPairs) {
 
-    /** Kennung für die Kursadresse; Standard: die aus der Paarliste. Überschreiben, wo sie sich bilden lässt. */
+    /** Pair id inserted into [tickerUrl]; default: the one from the pair list. Override where it can be derived. */
     protected open fun pairId(info: PairQuery): String? = info.pairId
 
     /** Ohne Kennung steht wie seit jeher «null» in der Adresse; die Börse antwortet dann mit ihrem Fehler. */
@@ -39,7 +47,7 @@ abstract class SimpleMarket(
     final override fun pairListAddress(call: Int): String = pairListUrl
 
     companion object {
-        /** Platzhalter der Paar-Kennung in [tickerUrl] (wie iOS `%1$s`). */
+        /** Placeholder for the pair id in [tickerUrl] (same as iOS `%1$s`). */
         const val PAIR_ID = "%1\$s"
     }
 }

@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Review 10: «Alle an» nur nach den Einstellungen — gleich wie Android `PriceNotificationRuleTest`.
+/// «Alle an» nur nach den Einstellungen — gleich wie Android `PriceNotificationRuleTest`.
 final class PriceNotificationRuleTests: XCTestCase {
     private func show(master: Bool = true, pair: Bool = true, disabled: Bool = false, notTraded: Bool = false,
                       price: Double? = 100) -> Bool {

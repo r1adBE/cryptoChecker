@@ -152,15 +152,15 @@ internal fun StarterPicker(
                             .segmentLines(shape, divider = ListSegment.dividerColor(), outline = ListSegment.outlineColor())
                             .fillMaxWidth()
                     ) {
-                    StarterRow(
-                        coin = coin,
-                        selected = StarterSelection.isSelected(coin.symbol, deselected),
-                        price = prices.prices[coin.symbol],
-                        loading = prices.loading,
-                        logosReady = logosReady,
-                        quote = quote,
-                        onToggle = { onToggle(coin.symbol) },
-                    )
+                        StarterRow(
+                            coin = coin,
+                            selected = StarterSelection.isSelected(coin.symbol, deselected),
+                            price = prices.prices[coin.symbol],
+                            loading = prices.loading,
+                            logosReady = logosReady,
+                            quote = quote,
+                            onToggle = { onToggle(coin.symbol) },
+                        )
                     }
                 }
             }

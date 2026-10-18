@@ -7,6 +7,7 @@ import com.cryptochecker.app.data.MarketRepository
 import com.cryptochecker.app.data.RefreshStats
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.remote.BlockedSources
+import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.model.MarketInfo
 import com.cryptochecker.app.domain.refresh.ExchangeBackoff
 import com.cryptochecker.app.notification.AppNotifier
@@ -94,7 +95,7 @@ class DepegAlarmChecker @Inject constructor(
     }
 
     private suspend fun notify(price: Double, deviation: Double): Boolean {
-        val keys = runCatching { watchRepository.getWatches().filterNot { it.disabled }.map { it.marketKey } }.getOrDefault(emptyList())
+        val keys = runCatchingCancellable { watchRepository.getWatches().filterNot { it.disabled }.map { it.marketKey } }.getOrDefault(emptyList())
         val sign = if (deviation < 0) "−" else "+"
         val title = context.getString(
             R.string.notification_depeg_title,

@@ -80,7 +80,7 @@ final class CryptoCheckerUITests: XCTestCase {
         enterText(app, UiTestTags.backupPasswordRepeat, Self.testPassphrase)
         tap(app, UiTestTags.backupExportConfirm)
         // Rückmeldung «Gesichert» = Datei geschrieben (verschlüsseln dauert etwa eine Sekunde)
-        XCTAssertTrue(app.tagged(UiTestTags.toast).waitForExistence(timeout: uiTimeout), "no export feedback")
+        XCTAssertTrue(app.tagged(UiTestTags.toast).waitForExistence(timeout: 90), "no export feedback")
 
         // Neustart = leerer Speicher (Merkliste und Portfolio weg), die Sicherung bleibt
         app.terminate()
@@ -93,12 +93,16 @@ final class CryptoCheckerUITests: XCTestCase {
         tap(app, UiTestTags.backupImport)
         enterText(app, UiTestTags.backupRestorePassword, Self.wrongPassphrase)
         tap(app, UiTestTags.backupRestoreSubmit)
-        XCTAssertTrue(app.tagged(UiTestTags.hint(UiTestTags.backupRestorePassword)).waitForExistence(timeout: uiTimeout),
+        XCTAssertTrue(app.tagged(UiTestTags.hint(UiTestTags.backupRestorePassword)).waitForExistence(timeout: 90),
                       "wrong password not rejected")
 
         // Richtiges Passwort → Rückfrage «Ersetzen?» → wiederhergestellt
         enterText(app, UiTestTags.backupRestorePassword, Self.testPassphrase)
         tap(app, UiTestTags.backupRestoreSubmit)
+        // Argon2id (64 MiB) braucht im Debug-Build des Simulators deutlich länger als im Release: auf die Rückfrage warten
+        let confirmShown = app.tagged(UiTestTags.backupRestoreConfirm).waitForExistence(timeout: 90)
+            || app.alerts.firstMatch.waitForExistence(timeout: 5) || app.sheets.firstMatch.exists
+        XCTAssertTrue(confirmShown, "restore confirmation not shown")
         tapConfirmation(app, UiTestTags.backupRestoreConfirm, label: "Import")
         allowNotificationsIfAsked()
 

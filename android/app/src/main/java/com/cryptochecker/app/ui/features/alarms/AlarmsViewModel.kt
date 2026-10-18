@@ -10,6 +10,7 @@ import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.data.portfolio.CurrencyConverter
 import com.cryptochecker.app.data.remote.NearExtremeDataSource
 import com.cryptochecker.app.data.remote.VolumeDataSource
+import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.alarm.AlarmCheckStatus
 import com.cryptochecker.app.domain.alarm.AlarmEdit
 import com.cryptochecker.app.domain.alarm.AlarmTemplates
@@ -67,7 +68,7 @@ class AlarmsViewModel @Inject constructor(
         _exactOffer.value = null
     }
 
-    /** Bestätigung des allerersten Alarms zeigen — mit «Pünktlich prüfen» im selben Dialog (Review 12). */
+    /** Bestätigung des allerersten Alarms zeigen — mit «Pünktlich prüfen» im selben Dialog (höchstens ein Dialog nach dem ersten Alarm). */
     private suspend fun showFirstAlarm() {
         offerExactChecksOnce()
         _firstAlarm.value = true
@@ -145,7 +146,7 @@ class AlarmsViewModel @Inject constructor(
 
     /**
      * Paar hat (nach dem Laden) keinen Alarm: Der Bildschirm öffnet dann gleich den Editor
-     * (Review 13) statt der leeren Liste. null = noch nicht geladen.
+     * statt der leeren Liste. null = noch nicht geladen.
      */
     val noAlarms: StateFlow<Boolean?> = watchRepository.observeAlarms(watchId)
         .map { it.isEmpty() }
@@ -346,7 +347,7 @@ class AlarmsViewModel @Inject constructor(
             // Bezug, Ein/Aus) bleibt; neu scharf nur bei geänderter Bedingung ([AlarmEdit.merged])
             val alarm = AlarmEdit.merged(existing, edited)
             watchRepository.saveAlarm(alarm)
-            onSaved(alarm, runCatching { appNotifier.canShowAlarm(alarm) }.getOrDefault(true), firstEver)
+            onSaved(alarm, runCatchingCancellable { appNotifier.canShowAlarm(alarm) }.getOrDefault(true), firstEver)
 
             if (firstEver) showFirstAlarm()
             if (timingHint) _timingHint.value = true

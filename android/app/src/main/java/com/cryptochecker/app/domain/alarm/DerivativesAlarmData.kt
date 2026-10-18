@@ -49,7 +49,7 @@ class DerivativesAlarmData @Inject constructor(
     private val prefetched = ConcurrentHashMap<String, Pair<Long, FuturesInfo?>>()
 
     /**
-     * Funding/Open Interest schon während der Kursabfrage holen (Review 13): Im Doze-Modus ist das
+     * Funding/Open Interest schon während der Kursabfrage holen: Im Doze-Modus ist das
      * Netz-Fenster nach den Kursen oft vorbei. Nichts, wenn der Zwischenspeicher noch frisch ist.
      */
     suspend fun prefetch(watch: WatchEntity, now: Long) {

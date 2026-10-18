@@ -118,7 +118,7 @@ final class BackgroundScheduleTests: XCTestCase {
         XCTAssertFalse(BackgroundSchedule.shouldSkip(trigger: .foreground, lastFinishedAt: now - 1_000, now: now))
     }
 
-    /// Review 12: Nur eine volle Prüfung zählt für die Sperre — wie Android `BackgroundScheduleTest`.
+    /// Nur eine volle Prüfung zählt für die Sperre — wie Android `BackgroundScheduleTest`.
     func testOnlyFullCheckCountsForDedupe() {
         XCTAssertTrue(BackgroundSchedule.isFullCheck(attempted: 10, failed: 0))
         XCTAssertTrue(BackgroundSchedule.isFullCheck(attempted: 10, failed: 4))

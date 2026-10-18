@@ -694,7 +694,7 @@ class AppNotifier @Inject constructor(
     // ---------------- Aktualisierung ----------------
 
     /**
-     * Kurzzeitige Meldung, solange eine angestoßene Aktualisierung im
+     * Kurzzeitige Meldung, solange eine angestossene Aktualisierung im
      * Hintergrund läuft. Nur bis Android 11 sichtbar — dort braucht
      * WorkManager dafür einen Vordergrunddienst.
      */

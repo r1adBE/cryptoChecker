@@ -64,7 +64,7 @@ struct ExplorerGroupTargetSelector: View {
             .padding(.horizontal, 12)
             .padding(.vertical, Spacing.sm)
             .background(AppColors.containerHigh, in: Capsule())
-            // Tippfläche mindestens 44 pt hoch (Review 18, wie Android 48 dp), sichtbar bleibt die schmale Kapsel
+            // Tippfläche mindestens 44 pt hoch (Mindestgrösse für Touch-Ziele, wie Android 48 dp), sichtbar bleibt die schmale Kapsel
             .frame(minHeight: 44)
             .contentShape(Rectangle())
         }

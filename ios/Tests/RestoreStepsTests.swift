@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Wiederherstellen mit Rückrollen (`RestoreSteps` in `BackupManager.restore`) — Review 10 F9:
+/// Wiederherstellen mit Rückrollen (`RestoreSteps` in `BackupManager.restore`):
 /// scheitert das Portfolio, kommen Merkliste, Alarme und Einstellungen zurück (wie Android).
 final class RestoreStepsTests: XCTestCase {
     private struct Boom: Error {}

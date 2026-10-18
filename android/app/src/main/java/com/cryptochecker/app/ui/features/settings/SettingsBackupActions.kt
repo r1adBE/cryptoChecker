@@ -6,6 +6,7 @@
 package com.cryptochecker.app.ui.features.settings
 
 import androidx.lifecycle.viewModelScope
+import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.lock.PortfolioLockPolicy
 import kotlinx.coroutines.launch
 
@@ -25,7 +26,7 @@ fun SettingsViewModel.exportBackup(uri: android.net.Uri) = update {
     _backupMessage.value = if (request == null) {
         BackupMessage.Failed
     } else {
-        runCatching { backupManager.export(uri, request.password) }
+        runCatchingCancellable { backupManager.export(uri, request.password) }
             .fold({ BackupMessage.Exported }, { BackupMessage.failure(it) })
     }
 }
@@ -82,12 +83,12 @@ fun SettingsViewModel.restoreBackup(uri: android.net.Uri, password: String?, acc
     // Nur wenn die Sperre bisher aus war: sonst höbe ein Wiederherstellen nach über
     // einer Minute in der Dateiauswahl die gerade fällige Sperre ohne Entsperren auf.
     if (!settingsRepository.current().appLock) appLockState.unlock()
-    _backupMessage.value = runCatching { backupManager.restore(uri, password, acceptInvalid) }
+    _backupMessage.value = runCatchingCancellable { backupManager.restore(uri, password, acceptInvalid) }
         .fold(
             onSuccess = { result ->
                 // Meldungen der ersetzten Paare und Alarme entfernen: sie zeigten alte Daten, und
                 // gleiche Ids neuer Paare bzw. Alarme würden sie sonst stillschweigend «übernehmen»
-                runCatching {
+                runCatchingCancellable {
                     notifier.cancelAllPrices(result.replacedWatchIds)
                     result.replacedWatchIds.forEach { notifier.cancelActivity(it) }
                     notifier.cancelAlarms(result.replacedAlarmIds, result.replacedPortfolioAlarmIds)

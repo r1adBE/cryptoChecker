@@ -93,39 +93,39 @@ internal fun DexSearchSection(dex: DexUi, groupTarget: GroupTargetUi) {
 
         // Eigene, begrenzte Liste statt Zeilen im Seiten-Scroll
         LazyColumn(modifier = Modifier.fillMaxWidth().heightIn(max = 420.dp)) {
-        items(dex.results, key = { it.pairId }) { pool ->
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxWidth().padding(top = Spacing.sm)
-            ) {
-                Column(modifier = Modifier.weight(1f)) {
-                    Text(
-                        text = "${pool.baseSymbol}/${pool.quoteSymbol}",
-                        style = MaterialTheme.typography.bodyLarge
-                    )
-                    Text(
-                        text = listOfNotNull(
-                            BidiText.isolate("${pool.dexId} · ${pool.chainId}"),
-                            pool.priceUsd?.let { "$" + formatDexPrice(it) },
-                            pool.liquidityUsd?.let { stringResource(R.string.dex_liquidity, "$" + CompactAmount.number(it)) }
-                        ).joinToString(" · "),
-                        style = MaterialTheme.typography.bodySmall.tabularNumbers(),
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                    // Dünner Pool (unter DEX_MIN_ALARM_LIQUIDITY_USD oder unbekannt): kein Alarm möglich
-                    if (!pool.alarmCapable) {
+            items(dex.results, key = { it.pairId }) { pool ->
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.fillMaxWidth().padding(top = Spacing.sm)
+                ) {
+                    Column(modifier = Modifier.weight(1f)) {
                         Text(
-                            text = stringResource(R.string.dex_low_liquidity_no_alarm),
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.error
+                            text = "${pool.baseSymbol}/${pool.quoteSymbol}",
+                            style = MaterialTheme.typography.bodyLarge
                         )
+                        Text(
+                            text = listOfNotNull(
+                                BidiText.isolate("${pool.dexId} · ${pool.chainId}"),
+                                pool.priceUsd?.let { "$" + formatDexPrice(it) },
+                                pool.liquidityUsd?.let { stringResource(R.string.dex_liquidity, "$" + CompactAmount.number(it)) }
+                            ).joinToString(" · "),
+                            style = MaterialTheme.typography.bodySmall.tabularNumbers(),
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                        // Dünner Pool (unter DEX_MIN_ALARM_LIQUIDITY_USD oder unbekannt): kein Alarm möglich
+                        if (!pool.alarmCapable) {
+                            Text(
+                                text = stringResource(R.string.dex_low_liquidity_no_alarm),
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.error
+                            )
+                        }
+                    }
+                    OutlinedButton(onClick = { dex.onAdd(pool) }) {
+                        Text(stringResource(R.string.dex_add))
                     }
                 }
-                OutlinedButton(onClick = { dex.onAdd(pool) }) {
-                    Text(stringResource(R.string.dex_add))
-                }
             }
-        }
         }
     }
 }

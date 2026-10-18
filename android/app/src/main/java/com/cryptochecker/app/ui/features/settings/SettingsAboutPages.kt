@@ -115,7 +115,7 @@ internal fun AboutPage(
             }
         }
         Spacer(Modifier.height(12.dp))
-        // Was die App kann (früher im Begrüßungsblatt)
+        // Was die App kann (früher im Begrüssungsblatt)
         GroupCard {
             AboutFeatures(modifier = Modifier.padding(16.dp))
         }

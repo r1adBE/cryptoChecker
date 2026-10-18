@@ -1,8 +1,10 @@
 import Foundation
 
-/// Verzeichnis aller Börsen (Gegenstück zu `config/MarketsConfig.kt` samt `util/MarketsConfigUtils.kt`).
-/// Die Reihenfolge ist dieselbe wie auf Android und wird so angezeigt; Platz 1 ist die Standardbörse.
+/// Registry of all exchanges (counterpart of `config/MarketsConfig.kt` and `util/MarketsConfigUtils.kt`).
+/// Same order as on Android, shown in that order; the first entry is the default exchange. A new adapter is
+/// added here and on Android (DEVELOPMENT.md § 8).
 enum MarketsConfig {
+    /// All adapters in display order.
     static let all: [Market] = [
         // Standardbörse
         Coinbase(),

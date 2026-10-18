@@ -33,7 +33,7 @@ object StarterPairs {
 
     fun isUs(regionCountry: String?): Boolean = region(regionCountry) == "US"
 
-    // Standort-Sperre (Review 13): Binance antwortet z. B. mit Geräte-Region Schweiz im US-Netz mit HTTP 451
+    // Standort-Sperre: Binance antwortet z. B. mit Geräte-Region Schweiz im US-Netz mit HTTP 451
 
     /** Kleine Anfrage an denselben Host wie die Binance-Kurse (der Spiegel data-api.binance.vision ist nie gesperrt). */
     const val BINANCE_PROBE_URL = "https://api.binance.com/api/v3/ping"

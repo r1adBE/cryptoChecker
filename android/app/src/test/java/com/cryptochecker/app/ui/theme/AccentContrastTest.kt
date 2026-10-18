@@ -236,7 +236,7 @@ class AccentContrastTest {
     }
 
     /**
-     * Review 18: Eingabefelder (Suche der Merkliste, Gruppenname) haben einen Kontroll-Rand (`outline`,
+     * Eingabefelder (Suche der Merkliste, Gruppenname) haben einen Kontroll-Rand (`outline`,
      * WCAG 1.4.11 ≥ 3:1 auf allen Flächen), keinen Trennlinien-Ton (`outlineVariant`).
      */
     @Test

@@ -1,5 +1,6 @@
 package com.cryptochecker.app.data
 
+import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.watch.ColumnSort
 import com.cryptochecker.app.domain.watch.WatchIdentity
 import android.content.Context
@@ -249,7 +250,7 @@ class BackupManager @Inject constructor(
         )
 
         // ── 3. Schreiben ── vorher das Journal: bricht der Prozess mittendrin ab, rollt der nächste Start zurück
-        val journaled = runCatching { journal.write(journalJson(previous).toString()) }
+        val journaled = runCatchingCancellable { journal.write(journalJson(previous).toString()) }
             .onFailure { Timber.w(it, "Wiederherstellen: Journal nicht geschrieben") }
             .getOrDefault(false)
         if (!journaled) Timber.w("Wiederherstellen ohne Journal (Schlüssel nicht verfügbar)")
@@ -273,14 +274,14 @@ class BackupManager @Inject constructor(
         } catch (e: Throwable) {
             withContext(NonCancellable) {
                 // Ganz zurückgerollt: Journal weg; sonst bleibt es, und der nächste Start versucht es erneut
-                if (rollBack(previous, touched, e)) runCatching { journal.delete() }
+                if (rollBack(previous, touched, e)) runCatchingCancellable { journal.delete() }
                 Unit
             }
             throw e
         }
-        runCatching { journal.delete() }.onFailure { Timber.w(it, "Wiederherstellen: Journal nicht gelöscht") }
+        runCatchingCancellable { journal.delete() }.onFailure { Timber.w(it, "Wiederherstellen: Journal nicht gelöscht") }
         // Gespeicherte Daten liessen sich nicht entsperren (StorageRecoveryNotice): mit dieser Sicherung erledigt
-        runCatching { com.cryptochecker.app.data.local.StorageRecoveryNotice.acknowledgeSetAside(context) }
+        runCatchingCancellable { com.cryptochecker.app.data.local.StorageRecoveryNotice.acknowledgeSetAside(context) }
 
         // Alte ⚡-Ergebnisse gehören zu den alten Paaren (Ids können sich decken).
         activityRepository.retain(emptySet())
@@ -305,7 +306,7 @@ class BackupManager @Inject constructor(
             RestoreJournal.Read.Unreadable -> {
                 // Nicht mehr zu öffnen: der Stand ist womöglich halb — sagen, nicht still weiter
                 Timber.w("Wiederherstellen abgebrochen, Journal unlesbar")
-                runCatching { journal.delete() }
+                runCatchingCancellable { journal.delete() }
                 com.cryptochecker.app.data.local.StorageRecoveryNotice.recordInterruptedRestore(context, rolledBack = false)
             }
             is RestoreJournal.Read.Found -> {
@@ -313,7 +314,7 @@ class BackupManager @Inject constructor(
                     previousFromJournal(JSONObject(read.text))
                 } catch (e: Exception) {
                     Timber.w(e, "Wiederherstellen abgebrochen, Journal nicht lesbar")
-                    runCatching { journal.delete() }
+                    runCatchingCancellable { journal.delete() }
                     com.cryptochecker.app.data.local.StorageRecoveryNotice.recordInterruptedRestore(context, rolledBack = false)
                     return@withContext
                 }
@@ -321,7 +322,7 @@ class BackupManager @Inject constructor(
                 val complete = withContext(NonCancellable) {
                     rollBack(previous, Step.entries.toSet(), IllegalStateException("Wiederherstellen abgebrochen"))
                 }
-                if (complete) runCatching { journal.delete() }
+                if (complete) runCatchingCancellable { journal.delete() }
                 com.cryptochecker.app.data.local.StorageRecoveryNotice.recordInterruptedRestore(context, rolledBack = complete)
             }
         }
@@ -402,7 +403,7 @@ class BackupManager @Inject constructor(
     private suspend fun rollBack(previous: PreviousState, touched: Set<Step>, cause: Throwable): Boolean {
         var complete = true
         suspend fun attempt(what: String, block: suspend () -> Unit) {
-            runCatching { block() }.onFailure {
+            runCatchingCancellable { block() }.onFailure {
                 complete = false
                 Timber.w(it, "Wiederherstellen: %s nicht zurückgesetzt", what)
                 if (it !== cause) cause.addSuppressed(it)

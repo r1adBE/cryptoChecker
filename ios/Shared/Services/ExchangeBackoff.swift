@@ -36,9 +36,11 @@ enum ExchangeBackoff {
         return min(baseMillis << Int64(shift), maxMillis)
     }
 
+    /// Pausiert? Eine Pause, die weiter als die längste mögliche (`groupMaxMillis`) in der Zukunft endet, gilt als
+    /// abgelaufen (Uhr zurückgestellt oder Wert kaputt) — sonst bliebe die Börse lange stumm. Wie Android.
     static func isPaused(_ state: State?, now: Int64) -> Bool {
         guard let state else { return false }
-        return state.pausedUntil > now
+        return state.pausedUntil > now && state.pausedUntil - now <= groupMaxMillis
     }
 
     /// Neuer Zustand nach einem Durchlauf; nil = nichts zu merken (alles gut).

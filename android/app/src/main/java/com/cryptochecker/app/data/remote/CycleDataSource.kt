@@ -63,7 +63,7 @@ class CycleDataSource @Inject constructor(
         val daily = toCandles(dailySourced.value)
         // Wochenkerzen nur für 200-Wochen-Schnitt und Allzeithoch; fehlen sie, entfällt das
         val weekly = weeklyJob.await()?.let { toCandles(it) } ?: emptyList()
-        val onChain = knownOnChain ?: onChainJob.await()?.let { runCatching { parseCoinMetrics(it) }.getOrNull() }
+        val onChain = knownOnChain ?: onChainJob.await()?.let { runCatchingCancellable { parseCoinMetrics(it) }.getOrNull() }
 
         require(daily.size >= 200) { "Zu wenige Tageskerzen: ${daily.size}" }
         val closes = daily.map { it.close }

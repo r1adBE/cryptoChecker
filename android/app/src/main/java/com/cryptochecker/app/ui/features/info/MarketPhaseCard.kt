@@ -219,7 +219,7 @@ private fun indicatorExplain(id: IndicatorId): Int = when (id) {
 }
 
 /**
- * Build 55 (Review 14): «hoch heisst …, tief heisst …» je Kennzahl — was ein hoher und ein tiefer Wert
+ * Build 55: «hoch heisst …, tief heisst …» je Kennzahl — was ein hoher und ein tiefer Wert
  * beschreibt, ohne Kauf- oder Verkaufssignal. Wie `IndicatorText.reading` (iOS).
  */
 private fun indicatorReading(id: IndicatorId): Int = when (id) {

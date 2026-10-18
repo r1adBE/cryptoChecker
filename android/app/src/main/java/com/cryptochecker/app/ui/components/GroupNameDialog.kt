@@ -21,6 +21,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import com.cryptochecker.app.R
+import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 
 /** Höchstlänge eines Gruppennamens (wie in der Gruppen-Auswahl der Aktionen). */
 const val GROUP_NAME_MAX = 24
@@ -59,7 +60,7 @@ fun GroupNameDialog(
                 modifier = Modifier.fillMaxWidth().focusRequester(focusRequester)
             )
             // Gleich tippen können
-            LaunchedEffect(Unit) { runCatching { focusRequester.requestFocus() } }
+            LaunchedEffect(Unit) { runCatchingCancellable { focusRequester.requestFocus() } }
         },
         confirmButton = {
             TextButton(enabled = trimmed.isNotEmpty(), onClick = { onConfirm(trimmed) }) {

@@ -52,29 +52,29 @@ struct PortfolioSettingsPage: View {
                 }
                 // Build 46: Methode und Steuer-Vorlage erst mit eingeschaltetem Portfolio — wie Android
                 if data.settings.portfolioEnabled {
-                RowDivider()
-                // Einstandsmethode für Einstand, «Seit Kauf», realisiert und Steuer-Export (Standard FIFO) — wie Android
-                // Drei Zeilen untereinander (Titel + Hinweis) statt Chips — wie Android `RadioRow`
-                VStack(alignment: .leading, spacing: 0) {
-                    Text(L("settings_cost_method"))
-                        .font(.body)
-                        .padding(.bottom, 4)
-                        .accessibilityAddTraits(.isHeader)
-                    ForEach(CostMethod.allCases, id: \.self) { method in
-                        SettingsChoiceRow(
-                            title: L(Self.costMethodLabelKey(method)),
-                            subtitle: L(Self.costMethodHintKey(method)),
-                            selected: data.settings.costMethod == method
-                        ) { data.settings.costMethod = method }
+                    RowDivider()
+                    // Einstandsmethode für Einstand, «Seit Kauf», realisiert und Steuer-Export (Standard FIFO) — wie Android
+                    // Drei Zeilen untereinander (Titel + Hinweis) statt Chips — wie Android `RadioRow`
+                    VStack(alignment: .leading, spacing: 0) {
+                        Text(L("settings_cost_method"))
+                            .font(.body)
+                            .padding(.bottom, 4)
+                            .accessibilityAddTraits(.isHeader)
+                        ForEach(CostMethod.allCases, id: \.self) { method in
+                            SettingsChoiceRow(
+                                title: L(Self.costMethodLabelKey(method)),
+                                subtitle: L(Self.costMethodHintKey(method)),
+                                selected: data.settings.costMethod == method
+                            ) { data.settings.costMethod = method }
+                        }
                     }
-                }
-                .padding(.vertical, Spacing.sm)
-                .settingsAnchor("portfolio.cost_method")
-                RowDivider()
-                // Steuer-Vorlage der Arbeitsunterlage (Standard Neutral); die Region wird nur vorgeschlagen — wie Android
-                TaxTemplateSettingRow(selected: $data.settings.taxTemplate, costMethod: data.settings.costMethod,
-                                      confirmed: $data.settings.taxTemplateConfirmed)
-                    .settingsAnchor("portfolio.tax_template")
+                    .padding(.vertical, Spacing.sm)
+                    .settingsAnchor("portfolio.cost_method")
+                    RowDivider()
+                    // Steuer-Vorlage der Arbeitsunterlage (Standard Neutral); die Region wird nur vorgeschlagen — wie Android
+                    TaxTemplateSettingRow(selected: $data.settings.taxTemplate, costMethod: data.settings.costMethod,
+                                          confirmed: $data.settings.taxTemplateConfirmed)
+                        .settingsAnchor("portfolio.tax_template")
                 }
                 RowDivider()
                 // Immer sichtbar: Die Daten bleiben auch bei ausgeblendetem Portfolio gespeichert

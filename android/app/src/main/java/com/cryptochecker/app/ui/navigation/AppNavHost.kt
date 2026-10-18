@@ -31,6 +31,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.cryptochecker.app.R
+import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.market.MarketSections
 import com.cryptochecker.app.domain.portfolio.PortfolioOff
 import com.cryptochecker.app.lock.PortfolioAccess
@@ -139,14 +140,14 @@ fun AppNavHost(
     // Gesperrt, während eine Coin-Detailansicht offen ist: zurück zum (gesperrten) Portfolio-Tab
     androidx.compose.runtime.LaunchedEffect(portfolioAccess, currentRoute) {
         if (portfolioAccess == PortfolioAccess.LOCKED && onPortfolioCoin) {
-            runCatching { navigation.popBackStack<ScreenRoute.Portfolio>(inclusive = false) }
+            runCatchingCancellable { navigation.popBackStack<ScreenRoute.Portfolio>(inclusive = false) }
         }
     }
 
     // Portfolio ausgeschaltet, während es offen ist: zurück zur Merkliste
     androidx.compose.runtime.LaunchedEffect(portfolioEnabled, currentRoute) {
         if (!portfolioEnabled && onPortfolio) {
-            runCatching { navigation.navigateToTab(ScreenRoute.Watchlist) }
+            runCatchingCancellable { navigation.navigateToTab(ScreenRoute.Watchlist) }
         }
     }
 
@@ -154,7 +155,7 @@ fun AppNavHost(
     androidx.compose.runtime.LaunchedEffect(openTarget) {
         if (openTarget == null) return@LaunchedEffect
         // Der Graph steht erst nach dem ersten Aufbau — Fehler hier nie zum Absturz werden lassen.
-        runCatching {
+        runCatchingCancellable {
             when (openTarget) {
                 // «Paar hinzufügen» liegt über der Merkliste: zurück führt dorthin
                 "add" -> {

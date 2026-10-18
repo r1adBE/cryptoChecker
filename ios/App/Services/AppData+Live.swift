@@ -74,7 +74,7 @@ extension AppData {
         // Während der Abfrage «App zurücksetzen»: Ergebnis gehört zum gelöschten Stand
         guard resetGeneration == resetBefore else { return true }
         // Zeit zuerst (Widget-Kopfzeile), die Dauer des letzten Durchlaufs bleibt
-        // Live-Takte setzen nur die Uhrzeit — nicht `lastAlarmCheckAt` (keine volle Prüfung, Review 12)
+        // Live-Takte setzen nur die Uhrzeit — nicht `lastAlarmCheckAt` (keine volle Prüfung aller Alarme)
         if reloadWidgets && outcome.checked > outcome.failed {
             SharedStorage.lastRefreshAt = TimeUtils.nowMillis
         }

@@ -188,7 +188,7 @@ enum JSONValue {
     }
 
     /// Ganzzahl wie Javas `(long) d` (org.json `getLong`/`optLong` auf Android): NaN → 0,
-    /// zu groß/klein oder ±∞ → Int64.max/.min. `Int64(d)` würde in diesen Fällen abstürzen.
+    /// zu gross/klein oder ±∞ → Int64.max/.min. `Int64(d)` würde in diesen Fällen abstürzen.
     static func int64(_ d: Double) -> Int64 {
         if d.isNaN { return 0 }
         // 2^63 ist als Double exakt darstellbar; alles ab dort passt nicht mehr in Int64

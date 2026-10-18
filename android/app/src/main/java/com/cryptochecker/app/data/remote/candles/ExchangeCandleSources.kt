@@ -2,6 +2,7 @@ package com.cryptochecker.app.data.remote.candles
 
 import com.cryptochecker.app.data.remote.CandleDataSource
 import com.cryptochecker.app.data.remote.CandleInterval
+import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.activity.CandleSeries
 import com.cryptochecker.app.domain.activity.HourCandle
 import com.cryptochecker.app.domain.refresh.RateLimitSignal
@@ -108,7 +109,7 @@ object BinanceCandles : ExchangeCandleSource {
         val code = CandleParse.binanceInterval(interval) ?: return null
         for (endpoint in endpoints) {
             val body = http.get("$endpoint?symbol=$symbol&interval=$code&limit=${limit.coerceAtMost(1000)}") ?: continue
-            val candles = runCatching { CandleParse.binance(body, coinM = false) }.getOrNull()?.let { CandleParse.finish(it, limit) }
+            val candles = runCatchingCancellable { CandleParse.binance(body, coinM = false) }.getOrNull()?.let { CandleParse.finish(it, limit) }
             if (candles != null && candles.size >= 2) return candles
         }
         return null
@@ -129,7 +130,7 @@ object BinanceAlphaCandles : ExchangeCandleSource {
         val id = pair.pairId?.takeIf { BinanceAlpha.isPairId(it) } ?: return null
         val code = CandleParse.binanceInterval(interval) ?: return null
         val body = http.get(BinanceAlpha.klinesUrl(id, code, limit)) ?: return null
-        return runCatching { CandleParse.binance(BinanceAlpha.klines(body), coinM = false) }.getOrNull()
+        return runCatchingCancellable { CandleParse.binance(BinanceAlpha.klines(body), coinM = false) }.getOrNull()
             ?.let { CandleParse.finish(it, limit) }
     }
 }
@@ -144,7 +145,7 @@ object BinanceUsCandles : ExchangeCandleSource {
         val symbol = BinanceCandles.symbol(pair) ?: return null
         val code = CandleParse.binanceInterval(interval) ?: return null
         val body = http.get("https://api.binance.us/api/v3/klines?symbol=$symbol&interval=$code&limit=${limit.coerceAtMost(1000)}") ?: return null
-        return runCatching { CandleParse.binance(body, coinM = false) }.getOrNull()?.let { CandleParse.finish(it, limit) }
+        return runCatchingCancellable { CandleParse.binance(body, coinM = false) }.getOrNull()?.let { CandleParse.finish(it, limit) }
     }
 }
 
@@ -193,7 +194,7 @@ object BinanceFuturesCandles : ExchangeCandleSource {
         val code = CandleParse.binanceInterval(interval) ?: return null
         val endpoint = if (coinM) "https://dapi.binance.com/dapi/v1/klines" else "https://fapi.binance.com/fapi/v1/klines"
         val body = http.get("$endpoint?symbol=$symbol&interval=$code&limit=${limit.coerceAtMost(1500)}") ?: return null
-        return runCatching { CandleParse.binance(body, coinM) }.getOrNull()?.let { CandleParse.finish(it, limit) }
+        return runCatchingCancellable { CandleParse.binance(body, coinM) }.getOrNull()?.let { CandleParse.finish(it, limit) }
     }
 }
 
@@ -222,14 +223,14 @@ object CoinbaseCandles : ExchangeCandleSource {
         }
         val url = "https://api.exchange.coinbase.com/products/$product/candles?granularity=$granularity"
         val body = http.get(url) ?: return null
-        var raw = runCatching { CandleDataSource.parseCoinbase(body) }.getOrNull() ?: return null
+        var raw = runCatchingCancellable { CandleDataSource.parseCoinbase(body) }.getOrNull() ?: return null
         val rawNeeded = limit * if (interval == CandleInterval.H4) 4 else 1
         val older = raw.firstOrNull()?.let {
             CandleSeries.coinbaseOlderWindow(it.openTime, raw.size, rawNeeded, granularity * 1000L)
         }
         if (older != null) {
             val olderBody = http.get("$url&start=${CandleParse.iso(older.first)}&end=${CandleParse.iso(older.last)}")
-            val olderRaw = olderBody?.let { runCatching { CandleDataSource.parseCoinbase(it) }.getOrNull() }
+            val olderRaw = olderBody?.let { runCatchingCancellable { CandleDataSource.parseCoinbase(it) }.getOrNull() }
             if (olderRaw != null) raw = CandleSeries.mergeAscending(olderRaw, raw)
         }
         val candles = if (interval == CandleInterval.H4) CandleDataSource.aggregate(raw, 4 * HOUR_MILLIS, 0L, 4) else raw
@@ -257,7 +258,7 @@ object KrakenCandles : ExchangeCandleSource {
             CandleInterval.W1 -> return null
         }
         val body = http.get("https://api.kraken.com/0/public/OHLC?pair=$id&interval=$minutes") ?: return null
-        return runCatching { parse(body) }.getOrNull()?.let { CandleParse.finish(it, limit) }
+        return runCatchingCancellable { parse(body) }.getOrNull()?.let { CandleParse.finish(it, limit) }
     }
 
     internal fun parse(json: String): List<HourCandle>? {
@@ -309,7 +310,7 @@ object BitstampCandles : ExchangeCandleSource {
             CandleInterval.W1 -> return null
         }
         val body = http.get("https://www.bitstamp.net/api/v2/ohlc/$symbol/?step=$step&limit=${limit.coerceAtMost(1000)}") ?: return null
-        return runCatching { parse(body) }.getOrNull()?.let { CandleParse.finish(it, limit) }
+        return runCatchingCancellable { parse(body) }.getOrNull()?.let { CandleParse.finish(it, limit) }
     }
 
     internal fun parse(json: String): List<HourCandle>? {
@@ -341,7 +342,7 @@ object BitvavoCandles : ExchangeCandleSource {
         val market = market(pair) ?: return null
         val code = CandleParse.binanceInterval(interval) ?: return null
         val body = http.get("https://api.bitvavo.com/v2/$market/candles?interval=$code&limit=${limit.coerceAtMost(1440)}") ?: return null
-        return runCatching { parse(body) }.getOrNull()?.let { CandleParse.finish(it, limit) }
+        return runCatchingCancellable { parse(body) }.getOrNull()?.let { CandleParse.finish(it, limit) }
     }
 
     internal fun parse(json: String): List<HourCandle> {
@@ -395,7 +396,7 @@ object BybitCandles : ExchangeCandleSource {
         val body = http.get(
             "https://api.bybit.com/v5/market/kline?category=$category&symbol=$symbol&interval=$code&limit=${limit.coerceAtMost(1000)}"
         ) ?: return null
-        return runCatching { parse(body) }.getOrNull()?.let { CandleParse.finish(it, limit) }
+        return runCatchingCancellable { parse(body) }.getOrNull()?.let { CandleParse.finish(it, limit) }
     }
 
     internal fun parse(json: String): List<HourCandle>? {
@@ -452,13 +453,13 @@ object OkxCandles : ExchangeCandleSource {
             CandleInterval.W1 -> return null
         }
         val url = "https://www.okx.com/api/v5/market/candles?instId=$id&bar=$bar"
-        val first = http.get("$url&limit=${limit.coerceAtMost(PAGE)}")?.let { runCatching { parse(it, swap) }.getOrNull() } ?: return null
+        val first = http.get("$url&limit=${limit.coerceAtMost(PAGE)}")?.let { runCatchingCancellable { parse(it, swap) }.getOrNull() } ?: return null
         var all = first
         // Mehr als eine Seite (1 Jahr Tageskerzen): ältere Kerzen vor der ältesten bisherigen
         if (limit > PAGE && first.size >= PAGE) {
             val oldest = first.minOf { it.openTime }
             val older = http.get("$url&after=$oldest&limit=${(limit - first.size).coerceIn(1, PAGE)}")
-                ?.let { runCatching { parse(it, swap) }.getOrNull() }
+                ?.let { runCatchingCancellable { parse(it, swap) }.getOrNull() }
             if (older != null) all = older + first
         }
         return CandleParse.finish(all, limit)

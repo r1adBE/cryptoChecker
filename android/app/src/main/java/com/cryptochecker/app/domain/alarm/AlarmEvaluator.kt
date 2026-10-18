@@ -82,7 +82,7 @@ class AlarmEvaluator @Inject constructor() {
      * [price] in der Währung des Schwellwerts (wie bei [shouldTrigger]).
      * [now]: frühestens [MIN_LEVEL_REARM_MILLIS] nach der Meldung (`referenceAt`) — sonst meldete
      * ein Kurs, der mit Abklingzeit 0 um mehr als die Hysterese pendelt, bei fast jeder Prüfung
-     * (Review 13). null = ohne Zeitprüfung.
+     * erneut. null = ohne Zeitprüfung.
      */
     fun shouldRearmLevel(alarm: AlarmEntity, price: Double, now: Long? = null): Boolean {
         if (!alarm.condition.isPriceThreshold || isLevelArmed(alarm)) return false

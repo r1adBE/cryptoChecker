@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.PowerManager
 import com.cryptochecker.app.data.local.isDatabaseKeyUnavailable
+import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.refresh.BackgroundSchedule
 import com.cryptochecker.app.domain.refresh.CheckBudget
 import com.cryptochecker.app.domain.refresh.CheckResult
@@ -108,7 +109,7 @@ class ExactCheckReceiver : BroadcastReceiver() {
                 // Auch nach Abbruch noch neu stellen (NonCancellable), solange «Pünktlich prüfen» an ist
                 if (!chainHandled) {
                     withContext(NonCancellable) {
-                        runCatching { if (settingsRepository.current().exactChecks) scheduler.rearm() }
+                        runCatchingCancellable { if (settingsRepository.current().exactChecks) scheduler.rearm() }
                             .onFailure { Timber.w(it, "Pünktliche Prüfung: Wecker nicht neu gestellt") }
                     }
                 }

@@ -188,7 +188,7 @@ class InsightsDataSource @Inject constructor(
             .getJSONObject("data")
         val pct = data.getJSONObject("market_cap_percentage")
         val dominance = Dominance(btc = pct.getDouble("btc"), eth = pct.optDouble("eth").takeUnless { it.isNaN() })
-        val totals = runCatching {
+        val totals = runCatchingCancellable {
             MarketTotals(
                 marketCap = amounts(data.getJSONObject("total_market_cap")),
                 volume = amounts(data.getJSONObject("total_volume")),

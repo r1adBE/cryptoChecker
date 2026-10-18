@@ -38,6 +38,19 @@ guide [`DEVELOPMENT.md`](DEVELOPMENT.md) explains the adapters step by step.
   an adapter added in Kotlin should get its Swift counterpart (or say so in
   the PR so it can be ported).
 * One exchange per pull request, with a short note on the API endpoints used.
+* Register the adapter on both platforms as described in
+  [`DEVELOPMENT.md` § 8](DEVELOPMENT.md#8-registering-the-exchange): give it a
+  fixed `key` (stored in every saved pair, alarm and backup – never change it
+  later) and add the key to `MarketKeyTest`
+  (`android/app/src/test/java/com/cryptochecker/app/contract/MarketKeyTest.kt`),
+  which fails for a missing or changed key.
+* Add the adapter's ticker endpoint and parsed fields to the table in
+  `.github/scripts/exchange_live_check.py`. The weekly **Exchange API check**
+  workflow calls every adapter's public endpoint and opens (or updates) one
+  issue «Exchange API check failed» when an exchange changes its API; the issue
+  closes itself once all checks pass again. Try it locally with
+  `python3 .github/scripts/exchange_live_check.py --dry-run --only kraken`
+  (the script's lowercase id of the exchange).
 
 ## Translations
 

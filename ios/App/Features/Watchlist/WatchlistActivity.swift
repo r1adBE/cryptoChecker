@@ -68,7 +68,7 @@ struct WatchlistActivityBolt: View {
 
     /// 28 + 2 × 8 = 44 pt Tippfläche.
     private static let touchExtra: CGFloat = 8
-    /// Seitlich je 8 pt (Review 18): der Chip nur mit ⚡ ist etwa 28 pt breit, antippbar also gut 44 pt.
+    /// Seitlich je 8 pt (Touch-Ziel mindestens 44 pt): der Chip nur mit ⚡ ist etwa 28 pt breit, antippbar also gut 44 pt.
     private static let touchSide: CGFloat = 8
 
     /// Sichtbarer Chip: ⚡ mit oder ohne «Was bewegt sich mit?».

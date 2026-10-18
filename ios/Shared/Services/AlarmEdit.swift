@@ -68,7 +68,7 @@ enum AlarmEdit {
     /// Bezugskurs eines neuen Prozentalarms: der letzte Kurs, aber nur, wenn er frisch ist
     /// (`lastUpdate` höchstens `staleAfterMillis` alt, Regel «veraltet» der Merkliste). Sonst nil —
     /// die nächste Abfrage setzt dann den Bezug (`needsReference`), statt ab einem alten Kurs zu
-    /// messen und gleich zu melden (Review 13). Wie AlarmEdit.kt.
+    /// messen und gleich zu melden. Wie AlarmEdit.kt.
     static func freshReference(lastPrice: Double?, lastUpdate: Int64, now: Int64, staleAfterMillis: Int64) -> Double? {
         guard let price = lastPrice, price.isFinite, price > 0 else { return nil }
         if lastUpdate <= 0 || now - lastUpdate > staleAfterMillis { return nil }

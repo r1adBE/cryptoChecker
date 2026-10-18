@@ -6,7 +6,7 @@ import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
-/** Review 10: «Alle an» / «Rückgängig» nur nach den Einstellungen — gleich wie iOS `PriceNotificationRuleTests`. */
+/** «Alle an» / «Rückgängig» nur nach den Einstellungen — gleich wie iOS `PriceNotificationRuleTests`. */
 class PriceNotificationRuleTest {
 
     private fun show(

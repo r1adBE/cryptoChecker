@@ -67,7 +67,7 @@ internal fun GroupTargetSelector(ui: GroupTargetUi, modifier: Modifier = Modifie
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
-                // Tippfläche mindestens 48 dp hoch (Review 18), sichtbar bleibt die schmale Kapsel
+                // Tippfläche mindestens 48 dp hoch (Mindestgrösse für Touch-Ziele), sichtbar bleibt die schmale Kapsel
                 .minimumInteractiveComponentSize()
                 .clip(RoundedCornerShape(50))
                 .background(MaterialTheme.colorScheme.surfaceContainerHigh)

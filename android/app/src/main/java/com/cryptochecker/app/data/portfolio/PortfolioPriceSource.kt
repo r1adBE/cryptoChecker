@@ -215,7 +215,7 @@ class PortfolioPriceSource @Inject constructor(
         storeMutex.withLock {
             cache.clear()
             uncheckedCoins.clear()
-            runCatching { storeFile.delete() }
+            runCatchingCancellable { storeFile.delete() }
             storedEntries = emptyMap()
         }
     }
@@ -225,7 +225,7 @@ class PortfolioPriceSource @Inject constructor(
         storedEntries?.let { return it }
         return storeMutex.withLock {
             storedEntries ?: run {
-                val text = runCatching { if (storeFile.isFile) storeFile.readText() else null }
+                val text = runCatchingCancellable { if (storeFile.isFile) storeFile.readText() else null }
                     .onFailure { Timber.d(it, "Portfolio: gemerkte Kurse unlesbar") }
                     .getOrNull()
                 PortfolioPriceFallback.prune(PortfolioPriceFallback.decode(text), System.currentTimeMillis())
@@ -248,7 +248,7 @@ class PortfolioPriceSource @Inject constructor(
                 System.currentTimeMillis(),
             )
             storedEntries = entries
-            runCatching {
+            runCatchingCancellable {
                 val tmp = File(storeFile.parentFile, "$STORE_FILE.tmp")
                 tmp.writeText(PortfolioPriceFallback.encode(entries))
                 if (!tmp.renameTo(storeFile)) {
@@ -507,7 +507,7 @@ class PortfolioPriceSource @Inject constructor(
                 batchFailed = true
                 continue
             }
-            runCatching {
+            runCatchingCancellable {
                 val array = JSONArray(body)
                 for (i in 0 until array.length()) {
                     val o = array.getJSONObject(i)
@@ -527,7 +527,7 @@ class PortfolioPriceSource @Inject constructor(
      * Coin steht in [failedOf]. Abfragen gehen nur an die Börse, die der Nutzer selbst eingetragen hat.
      */
     private suspend fun applyExchangeRoutes(coins: List<String>, fetched: MutableMap<String, Double>) {
-        val txs = runCatching { portfolioDao.getAll() }.getOrNull() ?: return
+        val txs = runCatchingCancellable { portfolioDao.getAll() }.getOrNull() ?: return
         val (byCoin, mixed) = PortfolioExchangeRoute.exchangeByLedger(txs.flatMap { it.routeEntries() })
         mixedCoins = mixed
         val wanted = coins.filter { it != STABLE }
@@ -661,7 +661,7 @@ class PortfolioPriceSource @Inject constructor(
     private suspend fun binanceCoins(): List<String>? {
         val url = "https://$BINANCE_HOST/api/v3/exchangeInfo?permissions=SPOT&showPermissionSets=false"
         val body = get(url, BINANCE_HOST, bulkClient) ?: return null
-        return runCatching {
+        return runCatchingCancellable {
             val symbols = JSONObject(body).getJSONArray("symbols")
             (0 until symbols.length()).mapNotNull { i ->
                 val s = symbols.getJSONObject(i)
@@ -673,7 +673,7 @@ class PortfolioPriceSource @Inject constructor(
     }
 
     /** Paarliste der Börse «Binance» aus der App (lokal gespeichert oder mitgeliefert). */
-    private suspend fun pairCacheCoins(): List<String>? = runCatching {
+    private suspend fun pairCacheCoins(): List<String>? = runCatchingCancellable {
         marketRepository.getMarketCurrencyPairsInfo(MarketInfo(key = "Binance", name = "Binance"))
             .pairs
             .filter { it.quote == STABLE && it.contractType == FuturesContractType.NONE }
@@ -683,7 +683,7 @@ class PortfolioPriceSource @Inject constructor(
 
     private suspend fun coinbaseCoins(): List<String>? {
         val body = get("https://api.exchange.coinbase.com/products", COINBASE_HOST, bulkClient) ?: return null
-        return runCatching {
+        return runCatchingCancellable {
             val array = JSONArray(body)
             (0 until array.length()).mapNotNull { i ->
                 val p = array.getJSONObject(i)

@@ -20,7 +20,7 @@ struct AboutSettingsPage: View {
             SettingsCard {
                 aboutLinkRows
             }
-            // Was die App kann (früher im Begrüßungsblatt)
+            // Was die App kann (früher im Begrüssungsblatt)
             SettingsCard {
                 AboutFeatures()
                     .padding(.vertical, Spacing.md)

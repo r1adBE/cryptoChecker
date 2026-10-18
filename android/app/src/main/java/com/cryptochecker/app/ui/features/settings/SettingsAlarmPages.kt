@@ -215,23 +215,23 @@ internal fun PricePairsPage(onBack: () -> Unit, viewModel: SettingsViewModel = h
         if (watches.isEmpty()) {
             Hint(stringResource(R.string.settings_price_pairs_empty))
         } else {
-        androidx.compose.foundation.layout.Row(
-            horizontalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(8.dp),
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            FilledTonalButton(
-                onClick = {
-                    requestNotifications()
-                    viewModel.setAllPairNotifications(true)
-                },
-                enabled = watches.any { !it.notificationEnabled },
-                modifier = Modifier.weight(1f)
-            ) { Text(stringResource(R.string.settings_price_pairs_all_on)) }
-            FilledTonalButton(
-                onClick = { viewModel.setAllPairNotifications(false) },
-                enabled = watches.any { it.notificationEnabled },
-                modifier = Modifier.weight(1f)
-            ) { Text(stringResource(R.string.settings_price_pairs_all_off)) }
+            androidx.compose.foundation.layout.Row(
+                horizontalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(8.dp),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                FilledTonalButton(
+                    onClick = {
+                        requestNotifications()
+                        viewModel.setAllPairNotifications(true)
+                    },
+                    enabled = watches.any { !it.notificationEnabled },
+                    modifier = Modifier.weight(1f)
+                ) { Text(stringResource(R.string.settings_price_pairs_all_on)) }
+                FilledTonalButton(
+                    onClick = { viewModel.setAllPairNotifications(false) },
+                    enabled = watches.any { it.notificationEnabled },
+                    modifier = Modifier.weight(1f)
+                ) { Text(stringResource(R.string.settings_price_pairs_all_off)) }
         }
         GroupCard {
             watches.forEachIndexed { index, watch ->

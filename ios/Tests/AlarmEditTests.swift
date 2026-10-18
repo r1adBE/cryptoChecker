@@ -177,7 +177,7 @@ final class AlarmEditTests: XCTestCase {
         XCTAssertEqual(draft.thresholdText, "66600")
     }
 
-    // MARK: Bezug neuer Prozentalarme nur aus frischem Kurs (Review 13)
+    // MARK: Bezug neuer Prozentalarme nur aus frischem Kurs
 
     func testFreshReferenceOnlyFromFreshPrice() {
         let now: Int64 = 1_700_000_000_000
@@ -190,7 +190,7 @@ final class AlarmEditTests: XCTestCase {
         XCTAssertNil(AlarmEdit.freshReference(lastPrice: 0, lastUpdate: now, now: now, staleAfterMillis: stale))
     }
 
-    // MARK: Neuer Alarm: leeres Feld, Kurs als Platzhalter (Review 13)
+    // MARK: Neuer Alarm: leeres Feld, Kurs als Platzhalter
 
     func testBlankDraftStartsEmptyWithoutError() {
         var draft = AlarmDraft.blankFor()

@@ -1,7 +1,7 @@
 package com.cryptochecker.app.domain.alarm
 
 /**
- * Ehrlicher Hinweis «Wann Alarme geprüft werden» als EIN Satz je Plattform (Build 55, Review 14 —
+ * Ehrlicher Hinweis «Wann Alarme geprüft werden» als EIN Satz je Plattform (Build 55 —
  * vorher vier verschieden lange Fassungen): Android prüft bei geschlossener App unregelmässig, mit
  * «Pünktlich prüfen» etwa alle 15 Minuten (`alarm_timing_hint_android`). Derselbe Satz steht unter
  * jedem Alarm, ist der ganze Text der Bestätigung nach dem ersten Alarm und erscheint einmal nach dem

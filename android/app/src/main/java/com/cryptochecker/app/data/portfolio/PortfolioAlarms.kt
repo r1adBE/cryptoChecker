@@ -115,7 +115,7 @@ class PortfolioAlarmChecker @Inject constructor(
                     // Nachtruhe oder keine zustellbare Meldung (keine Erlaubnis, Kanal stumm): nichts speichern,
                     // nichts melden — der Alarm bleibt scharf, auch ein wiederholender (QuietHours.mayFire)
                     is PortfolioAlarmDecision.Fire -> if (QuietHours.mayFire(holdAlarms, notifier.canShowPortfolioAlarm())) {
-                        // Wie die Paar-Alarme (Review 13): ZUERST melden, erst speichern (einmalige: abschalten),
+                        // Wie die Paar-Alarme: ZUERST melden, erst speichern (einmalige: abschalten),
                         // wenn die Meldung unter den offenen Mitteilungen steht — verwirft Android sie, bleibt
                         // der Alarm scharf und meldet frühestens nach der Abklingzeit erneut. Alles in einem
                         // nicht abbrechbaren Schritt: keine Meldung ohne gespeicherten Alarm. Hat der Nutzer

@@ -9,6 +9,7 @@ import com.cryptochecker.app.data.remote.CandleInterval
 import com.cryptochecker.app.data.remote.callMarket
 import com.cryptochecker.app.data.remote.candles.CandlePair
 import com.cryptochecker.app.data.remote.candles.OwnCandleDataSource
+import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.exceptions.HttpMarketError
 import com.cryptochecker.app.domain.market.CycleCachePolicy
 import com.cryptochecker.app.domain.portfolio.ChainAssets
@@ -420,7 +421,7 @@ class PortfolioHistorySource @Inject constructor(
                 if (!BlockedSources.noteFailure(host, e)) Timber.d(e, "Portfolio-Verlauf: %s", url)
                 null
             } ?: continue
-            val candles = runCatching { CandleDataSource.parseBinance(body) }.getOrNull() ?: continue
+            val candles = runCatchingCancellable { CandleDataSource.parseBinance(body) }.getOrNull() ?: continue
             return candles.associate {
                 PortfolioHistory.epochDayOfUtcMillis(it.openTime) to DayCandle(it.open, it.high, it.low, it.close)
             }

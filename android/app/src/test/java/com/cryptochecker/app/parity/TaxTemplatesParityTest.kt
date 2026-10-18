@@ -245,7 +245,7 @@ class TaxTemplatesParityTest {
             assertEquals(r8(dec(e["gain"])), r8(r.gainUsdt))
             assertEquals(e["wallet"], r.wallet)
         }
-        // Ohne Übergang (FIFO je Wallet über die ganze Geschichte): der Fehler aus Review 13
+        // Ohne Übergang (FIFO je Wallet über die ganze Geschichte): ergäbe einen falschen Einstand für Käufe vor 2025
         val plain = TaxExport.gainRows(trades, TaxMethod.FIFO_WALLET, tpl.period(year), zone, "USD", null)
         assertEquals(r8(dec(u["withoutTransitionGain"])), r8(plain.single().gainUsdt))
         // Jahre davor unverändert universell

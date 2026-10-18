@@ -110,7 +110,7 @@ private val WHY_CHIP_HEIGHT = 28.dp
 /** Tippfläche über und unter dem Chip: 28 + 2 × 10 = 48 dp. */
 private val WHY_TOUCH_EXTRA = 10.dp
 
-/** Tippfläche links und rechts neben dem Chip (Review 18): nur ⚡ ist 30 dp breit, mit 2 × 9 dp also 48 dp. */
+/** Tippfläche links und rechts neben dem Chip (Touch-Ziel mindestens 48 dp): nur ⚡ ist 30 dp breit, mit 2 × 9 dp also 48 dp. */
 private val WHY_TOUCH_SIDE = 9.dp
 private val WHY_ICON_SIZE = 14.dp
 private val WHY_GAP = 2.dp

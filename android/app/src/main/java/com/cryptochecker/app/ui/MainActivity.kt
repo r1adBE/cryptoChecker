@@ -1,5 +1,6 @@
 package com.cryptochecker.app.ui
 
+import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.util.AppVisibility
 import com.cryptochecker.app.util.StartupClock
 import android.content.Intent
@@ -139,7 +140,7 @@ class MainActivity : AppCompatActivity() {
             return
         }
         // Lesen anstossen (die App startet es in onCreate ohnehin; doppelt schadet nicht)
-        lifecycleScope.launch { runCatching { settingsRepository.current() } }
+        lifecycleScope.launch { runCatchingCancellable { settingsRepository.current() } }
         val since = SystemClock.uptimeMillis()
         var extraFrame = true
         splash.setKeepOnScreenCondition {

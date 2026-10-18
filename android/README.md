@@ -844,11 +844,11 @@ SDK-Plattform 37.
 
 | Baustein | Version |
 |---|---|
-| Android Gradle Plugin | 9.2.1 (Kotlin eingebaut, ohne `org.jetbrains.kotlin.android`) |
+| Android Gradle Plugin | 9.4.1 (Kotlin eingebaut, ohne `org.jetbrains.kotlin.android`) |
 | Gradle | 9.8.1 |
-| Kotlin | 2.3.21 (K2, Compose-Compiler-Plugin) |
-| KSP | 2.3.11 (ersetzt kapt) |
-| Compose BOM | 2025.10.01 |
+| Kotlin | 2.4.21 (K2, Compose-Compiler-Plugin, kotlinx-serialization) |
+| KSP | 2.3.12 (ersetzt kapt) |
+| Compose BOM | 2026.09.00 |
 | Hilt | 2.60.1 |
 | androidx.hilt | 1.4.0 |
 | core-ktx / AppCompat / Activity | 1.19.1 / 1.8.0 / 1.13.0 |
@@ -857,7 +857,11 @@ SDK-Plattform 37.
 | WorkManager | 2.12.0 |
 | OkHttp | 5.5.0 |
 
-Hinweise zu AGP 9: Kotlin kommt über den Klassenpfad im Wurzel-`build.gradle`
+Alle Versionen, Bibliotheken und Plugins stehen im Versionskatalog `gradle/libs.versions.toml`;
+die Buildskripte sind in Kotlin DSL (`settings.gradle.kts`, `build.gradle.kts`, `app/build.gradle.kts`,
+`marketdata/build.gradle.kts`, `baselineprofile/build.gradle.kts`).
+
+Hinweise zu AGP 9: Kotlin kommt über den Klassenpfad im Wurzel-`build.gradle.kts`
 (`kotlin-gradle-plugin`), `jvmTarget` folgt `compileOptions` (Java 17). R8
 packt Klassen ab AGP 9.1 standardmässig in andere Pakete um; die Börsenklassen
 sind über `marketdata/consumer-rules.pro` und `proguard-rules.pro` geschützt. Ihr Schlüssel
@@ -867,7 +871,7 @@ sind über `marketdata/consumer-rules.pro` und `proguard-rules.pro` geschützt. 
 die Schemas 1–3, 13, 14 und 15 (`app/schemas/com.cryptochecker.app.data.local.AppDatabase/`). **Ausnahme 15
 (Build 44):** von Hand geschrieben (Spalten `exchangeTime`, `priceChangedAt`); ihr `identityHash` stimmt erst,
 wenn ein echter Build die Datei neu erzeugt hat — danach die erzeugte Fassung committen.
-`exportSchema = true` und `room { schemaDirectory "$projectDir/schemas" }` sind gesetzt;
+`exportSchema = true` und `room { schemaDirectory("$projectDir/schemas") }` sind gesetzt;
 der Build (z. B. `./gradlew :app:assembleDebug`) schreibt das Schema der aktuellen
 Datenbank-Version (`AppDatabase.VERSION`); 4–12 lassen sich nicht mehr erzeugen. Diese JSON-Dateien mitcommitten und nie von Hand
 schreiben – sie sind die Grundlage für Migrationstests und für jede weitere Migration.

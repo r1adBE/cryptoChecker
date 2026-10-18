@@ -8,6 +8,7 @@ import android.os.SystemClock
 import android.speech.tts.TextToSpeech
 import android.speech.tts.TextToSpeech.OnInitListener
 import android.speech.tts.UtteranceProgressListener
+import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CompletableDeferred
@@ -147,7 +148,7 @@ class TtsSpeaker @Inject constructor(
         updatePending()
         if (kind == AnnouncementQueue.Kind.ALARM && speakingKind == AnnouncementQueue.Kind.PRICE) {
             // Laufende Kursansage abbrechen; onStop gibt die Warteschlange frei
-            scope.launch(Dispatchers.Main) { runCatching { engine?.stop() } }
+            scope.launch(Dispatchers.Main) { runCatchingCancellable { engine?.stop() } }
         }
         wakeUp.trySend(Unit)
     }
@@ -349,7 +350,7 @@ class TtsSpeaker @Inject constructor(
         }
 
         val created = withContext(Dispatchers.Main) {
-            runCatching {
+            runCatchingCancellable {
                 TextToSpeech(context, listener).apply {
                     setOnUtteranceProgressListener(progressListener)
                     // Wecker-Kanal statt Medien: Ansagen sind Alarme (Lautstärke «Wecker»)
@@ -391,7 +392,7 @@ class TtsSpeaker @Inject constructor(
         engine = null
         initResult = null
         withContext(Dispatchers.Main) {
-            runCatching {
+            runCatchingCancellable {
                 old?.stop()
                 old?.shutdown()
             }

@@ -6,6 +6,7 @@ package com.cryptochecker.app.ui.features.portfolio
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmEntity
 import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
+import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmKind
 import com.cryptochecker.app.domain.portfolio.CostMethod
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
@@ -64,7 +65,7 @@ suspend fun PortfolioViewModel.entryFx(currency: String, date: LocalDate): Pair<
         PortfolioTxForm.entryRate(fx, usdt)?.let { it to today }
     } else {
         historicSource.usdTo(currency, date)?.let { fx ->
-            val day = fx.date?.let { runCatching { LocalDate.parse(it) }.getOrNull() } ?: date
+            val day = fx.date?.let { runCatchingCancellable { LocalDate.parse(it) }.getOrNull() } ?: date
             val rate = fx.rate.takeIf { it > 0.0 && it.isFinite() }
                 ?.let { com.cryptochecker.app.domain.portfolio.PortfolioDecimal.of(it) }
             val days = (java.time.temporal.ChronoUnit.DAYS.between(date, today) + 1).coerceIn(1L, Int.MAX_VALUE.toLong()).toInt()
@@ -203,7 +204,7 @@ fun PortfolioViewModel.addAlarm(
             val saved = PortfolioAlarmEntity(
                 id = id, kind = kind, threshold = threshold, currency = code.takeIf { kind.isValue }, repeating = repeating,
             )
-            onSaved(saved, runCatching { appNotifier.alarmsAllowed() }.getOrDefault(true))
+            onSaved(saved, runCatchingCancellable { appNotifier.alarmsAllowed() }.getOrDefault(true))
         }
         // Neu und scharf: gleich mit den aktuellen Kursen prüfen (und das Widget nachziehen)
         val txs = calcTransactions.value ?: return@launch

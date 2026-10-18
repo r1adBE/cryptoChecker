@@ -2,6 +2,7 @@ package com.cryptochecker.app.data.portfolio
 
 import android.content.Context
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.portfolio.WatchedAddressExtras
 import com.cryptochecker.app.domain.portfolio.WatchedAddress
 import com.cryptochecker.app.domain.portfolio.WatchedAddressBackupEntry
@@ -48,7 +49,7 @@ object PortfolioBackupMirror {
 
     /** Merker setzen bzw. entfernen; aus → auch eine noch liegende Kopie löschen. Fehler nur protokollieren. */
     suspend fun setEnabled(context: Context, enabled: Boolean) = withContext(Dispatchers.IO) {
-        runCatching {
+        runCatchingCancellable {
             val m = marker(context)
             if (enabled) {
                 if (!m.exists()) {

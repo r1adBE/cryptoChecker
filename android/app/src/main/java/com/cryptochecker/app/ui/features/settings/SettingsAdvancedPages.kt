@@ -19,7 +19,7 @@ import com.cryptochecker.app.R
 // ── Erweitert ────────────────────────────────────────────────────────────────
 
 /**
- * Build 53 (Review 13, Weg 1): Die Hauptseite zeigt nur die häufigen Einstellungen; alles für
+ * Build 53: Die Hauptseite zeigt nur die häufigen Einstellungen; alles für
  * Fortgeschrittene steht hier, in Karten ohne Überschrift — Märkte und Portfolio (Token & TradFi,
  * Portfolio mit Steuer), Meldungen (Markt-Meldungen, Sprachausgabe), Anzeige (%-Änderung, Coin-Logos)
  * und, falls freigeschaltet, «Entwickler». Kurs-Aktualisierung und Widgets stehen seit Build 55 wieder

@@ -125,7 +125,7 @@ class StarterCoinsRepository @Inject constructor(
     suspend fun universe(force: Boolean = false): List<MarketUniverse.Coin>? = universeMutex.withLock {
         withContext(Dispatchers.IO) {
             val now = System.currentTimeMillis()
-            val cached = runCatching { MarketUniverse.decode(prefs.getString(KEY_UNIVERSE, null)) }.getOrNull()
+            val cached = runCatchingCancellable { MarketUniverse.decode(prefs.getString(KEY_UNIVERSE, null)) }.getOrNull()
             if (!force && cached != null && MarketUniverse.isFresh(prefs.getLong(KEY_UNIVERSE_TIME, 0L), now)) {
                 return@withContext cached
             }

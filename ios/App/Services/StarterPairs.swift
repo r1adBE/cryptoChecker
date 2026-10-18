@@ -18,7 +18,7 @@ enum StarterPairs {
         effectiveRegion(locale.region?.identifier, binanceBlocked: StarterGeoBlock.blocked)
     }
 
-    // MARK: Standort-Sperre (Review 13)
+    // MARK: Standort-Sperre
 
     /// Kleine Anfrage an denselben Host wie die Binance-Kurse (der Spiegel `data-api.binance.vision` ist nie gesperrt).
     static let binanceProbeURL = "https://api.binance.com/api/v3/ping"

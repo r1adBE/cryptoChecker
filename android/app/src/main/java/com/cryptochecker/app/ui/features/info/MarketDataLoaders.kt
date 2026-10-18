@@ -7,6 +7,7 @@ package com.cryptochecker.app.ui.features.info
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.data.CycleCacheCodecs
 import com.cryptochecker.app.data.MarketExtraCodecs
+import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.market.BitcoinIndicatorModel
 import com.cryptochecker.app.domain.market.CoinIndicatorModel
 import com.cryptochecker.app.domain.market.CryptoPulse
@@ -168,7 +169,7 @@ internal fun InfoViewModel.loadHistory(force: Boolean): Job = sync(
 
 internal fun InfoViewModel.loadCoinList() {
     viewModelScope.launch {
-        runCatching {
+        runCatchingCancellable {
             withContext(Dispatchers.IO) {
                 val binance = marketRepository.getMarketList().firstOrNull { it.key == "Binance" }
                     ?: return@withContext null

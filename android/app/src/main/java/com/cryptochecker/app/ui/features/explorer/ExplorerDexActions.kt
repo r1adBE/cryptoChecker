@@ -4,6 +4,7 @@
 package com.cryptochecker.app.ui.features.explorer
 
 import androidx.lifecycle.viewModelScope
+import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.marketdata.model.MarketPair
 import com.cryptochecker.marketdata.model.market.DexPool
 import kotlinx.coroutines.*
@@ -21,7 +22,7 @@ fun ExplorerViewModel.searchDex(query: String) {
     dexJob = viewModelScope.launch {
         dexBusy.value = true
         dexNotice.value = null
-        val outcome = runCatching { marketRepository.searchDexPools(query) }
+        val outcome = runCatchingCancellable { marketRepository.searchDexPools(query) }
         dexBusy.value = false
         val pools = outcome.getOrElse { error ->
             Timber.w(error, "DEX-Suche gescheitert")

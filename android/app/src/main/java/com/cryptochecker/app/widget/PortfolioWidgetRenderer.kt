@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.RemoteViews
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.portfolio.FxRateSource
+import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.convert.CurrencyConversion
 import com.cryptochecker.app.domain.portfolio.PortfolioOff
 import com.cryptochecker.app.domain.portfolio.PortfolioSnapshot
@@ -201,7 +202,7 @@ class PortfolioWidgetRenderer @Inject constructor(
                     build(0, w, h)
                 }
             }
-            runCatching { manager.updateAppWidget(appWidgetId, views) }
+            runCatchingCancellable { manager.updateAppWidget(appWidgetId, views) }
                 .onFailure { Timber.w(it, "Portfolio-Widget %d konnte nicht gezeichnet werden", appWidgetId) }
         }
         return true

@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import androidx.core.content.ContextCompat
+import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -78,7 +79,7 @@ class LiveWidgetGate @Inject constructor(
 
     private fun redrawLater() {
         scope.launch {
-            runCatching { redrawIfDeferred() }
+            runCatchingCancellable { redrawIfDeferred() }
                 .onFailure { Timber.w(it, "Widgets nach dem Einschalten nicht gezeichnet") }
         }
     }

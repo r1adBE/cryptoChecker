@@ -5,6 +5,7 @@
 package com.cryptochecker.app.ui.features.explorer
 
 import androidx.lifecycle.viewModelScope
+import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.model.MarketInfo
 import com.cryptochecker.app.domain.model.MarketPairsInfo
 import com.cryptochecker.app.domain.starter.StarterPairs
@@ -166,7 +167,7 @@ internal fun ExplorerViewModel.pairPreference(markets: List<MarketInfo>): CoinPa
 internal suspend fun ExplorerViewModel.refreshBinancePairs() {
     val binance = searchableMarkets.find { it.key == BinanceAlpha.MARKET_KEY } ?: return
     if (!pairsByMarket.containsKey(binance.key)) return
-    val fresh = runCatching { marketRepository.getMarketCurrencyPairsInfo(binance, withAlpha = true) }.getOrNull()
+    val fresh = runCatchingCancellable { marketRepository.getMarketCurrencyPairsInfo(binance, withAlpha = true) }.getOrNull()
     if (fresh != null) pairsByMarket[binance.key] = fresh
 }
 
@@ -179,7 +180,7 @@ internal fun ExplorerViewModel.readStoredLists() {
     storedListsJob = viewModelScope.launch {
         // Gleich «suche…» zeigen statt kurz «keine Treffer»
         lists.value = SearchLists(reading = true)
-        val markets = runCatching { marketRepository.getMarketList() }.getOrDefault(emptyList())
+        val markets = runCatchingCancellable { marketRepository.getMarketList() }.getOrDefault(emptyList())
             .filter { it.key != DEX_KEY }
         if (markets.isEmpty()) {
             // Gescheitert: bei der nächsten Eingabe nochmals
@@ -189,7 +190,7 @@ internal fun ExplorerViewModel.readStoredLists() {
         }
         withContext(Dispatchers.IO) {
             for (m in markets) {
-                runCatching { marketRepository.getMarketCurrencyPairsInfo(m, withAlpha = true) }.getOrNull()
+                runCatchingCancellable { marketRepository.getMarketCurrencyPairsInfo(m, withAlpha = true) }.getOrNull()
                     ?.takeIf { it.pairs.isNotEmpty() }
                     ?.let { pairsByMarket[m.key] = it }
             }
@@ -210,7 +211,7 @@ internal fun ExplorerViewModel.updateUnloaded() {
 
 /** Vollständige öffentliche Liste der Börse holen und gespeichert zurückgeben; null = Fehler oder leer. */
 internal suspend fun ExplorerViewModel.syncForSearch(m: MarketInfo): MarketPairsInfo? = withContext(Dispatchers.IO) {
-    runCatching {
+    runCatchingCancellable {
         marketRepository.updateMarketCurrencyPairs(m)
         marketRepository.getMarketCurrencyPairsInfo(m, withAlpha = true).takeIf { it.pairs.isNotEmpty() }
     }.getOrNull()

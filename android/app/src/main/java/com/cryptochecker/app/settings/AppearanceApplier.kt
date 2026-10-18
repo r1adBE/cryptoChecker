@@ -10,7 +10,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 /**
- * Setzt Erscheinungsbild-Einstellungen um, die außerhalb von Compose wirken:
+ * Setzt Erscheinungsbild-Einstellungen um, die ausserhalb von Compose wirken:
  * das App-Icon auf dem Startbildschirm und Hell/Dunkel für Fenster und Dialoge.
  */
 @Singleton

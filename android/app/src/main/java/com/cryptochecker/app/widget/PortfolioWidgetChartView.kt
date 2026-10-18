@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.RemoteViews
 import androidx.core.os.BundleCompat
 import com.cryptochecker.app.R
+import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.portfolio.PortfolioInsights
 import com.cryptochecker.app.domain.portfolio.PortfolioSnapshot
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetMath
@@ -112,7 +113,7 @@ internal suspend fun PortfolioWidgetRenderer.portfolioViews(
         val (chartW, chartH) = PortfolioWidgetMath.chartSizeDp(layout, widthDp, heightDp, fontScale)
         val bitmap = if (drawable) {
             withContext(Dispatchers.Default) {
-                runCatching { drawPortfolioChart(appWidgetId, slot, plan, chartColor, style, chartW, chartH, fontScale) }
+                runCatchingCancellable { drawPortfolioChart(appWidgetId, slot, plan, chartColor, style, chartW, chartH, fontScale) }
                     .onFailure { Timber.w(it, "Chart für Portfolio-Widget %d nicht gezeichnet", appWidgetId) }
                     .getOrNull()
             }

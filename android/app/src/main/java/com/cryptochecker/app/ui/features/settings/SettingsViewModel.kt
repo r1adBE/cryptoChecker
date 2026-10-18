@@ -120,7 +120,7 @@ class SettingsViewModel @Inject constructor(
     /**
      * Akzentfarbe: Farbschema, Widgets und Benachrichtigungen sofort.
      * Das App-Icon folgt erst beim Verlassen der App (MainActivity.onStop) —
-     * umgeschaltet im laufenden Betrieb schließen manche Android-Versionen
+     * umgeschaltet im laufenden Betrieb schliessen manche Android-Versionen
      * sonst die App.
      */
     fun setAccentColor(accent: AccentColor) = update {

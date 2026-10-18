@@ -72,7 +72,7 @@ fun AlarmsScreen(
     var confirmFiresNow by remember { mutableStateOf<AlarmDraft?>(null) }
 
     var draft by remember { mutableStateOf<AlarmDraft?>(null) }
-    // Neuer Alarm im einfachen Modus: Feld leer, aktueller Kurs nur als Platzhalter (Review 13)
+    // Neuer Alarm im einfachen Modus: Feld leer, aktueller Kurs nur als Platzhalter
     val newDraft: () -> AlarmDraft = { AlarmDraft.blankFor() }
     // Paar ohne Alarm: gleich den Editor öffnen statt der leeren Liste (einmal je Besuch)
     val noAlarms by viewModel.noAlarms.collectAsStateWithLifecycle()
@@ -112,7 +112,7 @@ fun AlarmsScreen(
         AlarmTimingDialog(onDismiss = viewModel::dismissTimingHint)
     }
 
-    // Nach dem allerersten Alarm: EIN Dialog (Review 12) — Bestätigung mit «Alarm testen», dazu
+    // Nach dem allerersten Alarm: EIN Dialog statt mehrerer nacheinander — Bestätigung mit «Alarm testen», dazu
     // optional «Pünktlich prüfen» und, nur wenn die Akku-Optimierung die App einschränkt, die
     // Akku-Einstellungen. Der eigene Akku-Dialog entfällt dann in dieser Sitzung.
     if (firstAlarm) {
@@ -275,7 +275,7 @@ fun AlarmsScreen(
         val isNew = toSave.id == 0L
         viewModel.save(toSave) { alarm, allowed, firstEver ->
             val off = !allowed && !asking
-            // Neuer Alarm: eine Zeile «Alarm aktiv · Testen» (Review 13); beim allerersten Alarm
+            // Neuer Alarm: eine Zeile «Alarm aktiv · Testen»; beim allerersten Alarm
             // bietet der Bestätigungsdialog das Testen schon an
             if (isNew && !off) {
                 if (firstEver) return@save

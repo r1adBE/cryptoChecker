@@ -7,6 +7,7 @@ import android.content.Intent
 import android.util.TypedValue
 import android.view.View
 import android.widget.RemoteViews
+import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.ui.theme.MarketScalePalette
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.CachedValue
@@ -287,7 +288,7 @@ class PulseWidgetRenderer @Inject constructor(
                 )
             }
 
-            runCatching { manager.updateAppWidget(appWidgetId, views) }
+            runCatchingCancellable { manager.updateAppWidget(appWidgetId, views) }
                 .onFailure { Timber.w(it, "Pulse-Widget %d konnte nicht gezeichnet werden", appWidgetId) }
         }
     }

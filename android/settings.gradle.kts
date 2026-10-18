@@ -6,9 +6,11 @@ pluginManagement {
     }
 }
 plugins {
-    id 'org.gradle.toolchains.foojay-resolver-convention' version '1.0.0'
+    // Steht vor dem Versionskatalog fest (libs gibt es hier noch nicht), darum mit Version im Klartext
+    id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
 
+// Versionskatalog: gradle/libs.versions.toml (Gradle liest ihn ohne weitere Angabe als «libs»)
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -17,9 +19,9 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = 'cryptoChecker'
+rootProject.name = "cryptoChecker"
 
-include ':marketdata'
-include ':app'
+include(":marketdata")
+include(":app")
 // Erzeugt das Baseline Profile der App (nur auf Gerät/Emulator, siehe DEVELOPMENT.md)
-include ':baselineprofile'
+include(":baselineprofile")

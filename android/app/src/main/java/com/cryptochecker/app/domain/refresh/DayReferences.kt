@@ -8,6 +8,7 @@ import com.cryptochecker.app.data.remote.candles.CandlePair
 import com.cryptochecker.app.data.remote.candles.CandlePairs
 import com.cryptochecker.app.data.remote.candles.OwnCandlePolicy
 import com.cryptochecker.app.data.remote.candles.OwnHourlyCandles
+import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.domain.watch.ChangeBasisMath
 import com.cryptochecker.app.domain.watch.DayChange
@@ -96,7 +97,7 @@ class DayReferences @Inject constructor(
             .filter { started.add(it) }
             .map { (base, quote) ->
                 loadScope.launch {
-                    runCatching {
+                    runCatchingCancellable {
                         if (dayStart != null) sparklineRepository.dayStartReference(base, quote, dayStart)
                         else sparklineRepository.dayReference(base, quote)
                     }
@@ -112,7 +113,7 @@ class DayReferences @Inject constructor(
             .filter { ownHourly.supports(it) && started.add(OWN_KEY to it.cacheKey) }
             .map { pair ->
                 loadScope.launch {
-                    runCatching {
+                    runCatchingCancellable {
                         if (dayStart != null) ownHourly.dayStartReference(pair, dayStart) else ownHourly.dayReference(pair)
                     }
                 }
@@ -126,7 +127,7 @@ class DayReferences @Inject constructor(
         watches.map { it.quoteAsset.trim().uppercase() }
             .filter { DayChange.candleQuote(it) != DAY_QUOTE && isFiat(it) }
             .filter { started.add(FX_KEY to it) }
-            .map { currency -> loadScope.launch { runCatching { fxRateSource.usdTo(currency) } } }
+            .map { currency -> loadScope.launch { runCatchingCancellable { fxRateSource.usdTo(currency) } } }
 
     /**
      * Wartet höchstens [DAY_REFERENCE_WAIT_MILLIS] (mit Frist höchstens [limitMillis]); was dann

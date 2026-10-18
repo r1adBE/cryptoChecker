@@ -16,7 +16,7 @@ struct AlarmsScreen: View {
     @State private var timingHintPending = false
     @State private var showTimingHint = false
     @State private var alarmTestTrigger = 0
-    /// Paar ohne Alarm: Editor beim ersten Erscheinen gleich geöffnet (Review 13), danach nicht mehr.
+    /// Paar ohne Alarm: Editor beim ersten Erscheinen gleich geöffnet, danach nicht mehr.
     @State private var autoOpenDone = false
     /// «Alarm erstellt · Rückgängig» nach einem Schnell-Alarm.
     @State private var banner: WatchlistBannerMessage?
@@ -235,7 +235,7 @@ struct AlarmsScreen: View {
 
     /// «Alarm gespeichert: BTC Kurs über 70’000 USDT · einmalig»; Mitteilungen aus → « · Mitteilungen
     /// aus» mit «Einstellungen». `id` 0 = neu angelegt (dann der Alarm mit der höchsten Id): eine Zeile
-    /// «Alarm aktiv · Testen» (Review 13, wie Android) — nicht beim allerersten Alarm (`firstAlarm`), dessen
+    /// «Alarm aktiv · Testen» (wie Android) — nicht beim allerersten Alarm (`firstAlarm`), dessen
     /// Bestätigung das Testen schon anbietet.
     private func showSaved(id: Int64, firstAlarm: Bool = false) {
         let list = data.alarms(for: watchId)

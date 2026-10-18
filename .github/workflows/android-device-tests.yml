@@ -1,7 +1,8 @@
 # Instrumented tests of the Android app (android/app/src/androidTest) on an emulator:
-# CoreFlowTest, the database tests and UiFlowsTest (main flows over the UI: add a coin from
-# the search, price alarm, CSV import with undo, backup with password — fake exchange answers,
-# no network; the document picker is answered by DocumentPickerStub).
+# CoreFlowTest, the database tests, BackupRestoreTest, WatchlistViewModelTest and UiFlowsTest
+# (main flows over the UI: add a coin from the search, price alarm, CSV import with undo, backup
+# with password — fake exchange answers, no network; the document picker is answered by
+# DocumentPickerStub).
 # Too slow for every push (android.yml only compiles them), so started by hand:
 # Actions › Android device tests › Run workflow.
 name: Android device tests

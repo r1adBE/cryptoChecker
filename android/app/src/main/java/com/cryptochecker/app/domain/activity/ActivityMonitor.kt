@@ -11,6 +11,7 @@ import com.cryptochecker.app.data.remote.FuturesSources
 import com.cryptochecker.app.data.remote.InsightsDataSource
 import com.cryptochecker.app.data.remote.SpotDataSource
 import com.cryptochecker.app.data.remote.VolumeDataSource
+import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.market.DataFreshness
 import com.cryptochecker.app.domain.market.FearGreed
 import com.cryptochecker.app.domain.watch.NotTraded
@@ -98,7 +99,7 @@ class ActivityMonitor @Inject constructor(
                 due.map { watch ->
                     async {
                         permits.withPermit {
-                            val merge = runCatching { analyzeOne(watch, now, settings.activitySensitivity) }
+                            val merge = runCatchingCancellable { analyzeOne(watch, now, settings.activitySensitivity) }
                                 .onFailure { Timber.d(it, "Aktivität nicht prüfbar: %s", watch.displayName) }
                                 .getOrNull()
                             // Abbruch des ganzen Durchlaufs (Zeitbudget) nicht verschlucken
@@ -322,7 +323,7 @@ class ActivityMonitor @Inject constructor(
     private suspend fun futures(block: suspend () -> FuturesInfo?): FuturesInfo? = timed(block)
 
     private suspend fun <T> timed(block: suspend () -> T?): T? {
-        val result = runCatching { withTimeoutOrNull(SOURCE_TIMEOUT_MILLIS) { block() } }.getOrNull()
+        val result = runCatchingCancellable { withTimeoutOrNull(SOURCE_TIMEOUT_MILLIS) { block() } }.getOrNull()
         // Zeitüberschreitungen einzelner Abfragen schlucken, echten Abbruch nicht
         currentCoroutineContext().ensureActive()
         return result

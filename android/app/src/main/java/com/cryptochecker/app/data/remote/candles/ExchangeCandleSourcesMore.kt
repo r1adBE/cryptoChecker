@@ -2,6 +2,7 @@ package com.cryptochecker.app.data.remote.candles
 
 import com.cryptochecker.app.data.remote.CandleDataSource
 import com.cryptochecker.app.data.remote.CandleInterval
+import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.activity.HourCandle
 import com.cryptochecker.marketdata.model.FuturesContractType
 import org.json.JSONArray
@@ -97,7 +98,7 @@ object BitfinexCandles : ExchangeCandleSource {
         }
         val n = CandleTime.rawCount(interval, limit).coerceAtMost(10_000)
         val body = http.get("https://api-pub.bitfinex.com/v2/candles/trade:$tf:$id/hist?limit=$n&sort=-1") ?: return null
-        val raw = runCatching { parse(body) }.getOrNull() ?: return null
+        val raw = runCatchingCancellable { parse(body) }.getOrNull() ?: return null
         val candles = if (interval == CandleInterval.H4) CandleTime.fourHours(raw) else raw
         return CandleParse.finish(candles ?: return null, limit)
     }
@@ -145,7 +146,7 @@ object BitgetCandles : ExchangeCandleSource {
         for (page in 0 until MAX_PAGES) {
             val want = (limit - all.size).coerceIn(1, PAGE)
             val url = "$base&limit=$want" + (end?.let { "&endTime=$it" } ?: "")
-            val rows = http.get(url)?.let { runCatching { parse(it) }.getOrNull() } ?: break
+            val rows = http.get(url)?.let { runCatchingCancellable { parse(it) }.getOrNull() } ?: break
             all = rows + all
             if (rows.size < want || all.size >= limit) break
             end = rows.minOf { it.openTime } - 1
@@ -178,7 +179,7 @@ object GateIoCandles : ExchangeCandleSource {
         val code = CandleParse.binanceInterval(interval) ?: return null
         val body = http.get("https://api.gateio.ws/api/v4/spot/candlesticks?currency_pair=$id&interval=$code&limit=${limit.coerceAtMost(1000)}")
             ?: return null
-        return runCatching { parse(body) }.getOrNull()?.let { CandleParse.finish(it, limit) }
+        return runCatchingCancellable { parse(body) }.getOrNull()?.let { CandleParse.finish(it, limit) }
     }
 
     internal fun parse(json: String): List<HourCandle> = with(CandleParse) {
@@ -212,7 +213,7 @@ object KucoinCandles : ExchangeCandleSource {
         val start = CandleTime.windowStart(now, interval.millis, limit) / 1000L
         val body = http.get("https://api.kucoin.com/api/v1/market/candles?type=$type&symbol=$id&startAt=$start&endAt=${now / 1000L}")
             ?: return null
-        return runCatching { parse(body) }.getOrNull()?.let { CandleParse.finish(it, limit) }
+        return runCatchingCancellable { parse(body) }.getOrNull()?.let { CandleParse.finish(it, limit) }
     }
 
     internal fun parse(json: String): List<HourCandle>? {
@@ -244,7 +245,7 @@ object MexcCandles : ExchangeCandleSource {
             CandleInterval.W1 -> return null
         }
         val body = http.get("https://api.mexc.com/api/v3/klines?symbol=$id&interval=$code&limit=${limit.coerceAtMost(500)}") ?: return null
-        return runCatching { CandleParse.binance(body, coinM = false) }.getOrNull()?.let { CandleParse.finish(it, limit) }
+        return runCatchingCancellable { CandleParse.binance(body, coinM = false) }.getOrNull()?.let { CandleParse.finish(it, limit) }
     }
 }
 
@@ -270,7 +271,7 @@ object MexcFuturesCandles : ExchangeCandleSource {
         val start = CandleTime.windowStart(now, interval.millis, limit) / 1000L
         val body = http.get("https://contract.mexc.com/api/v1/contract/kline/$id?interval=$code&start=$start&end=${now / 1000L}")
             ?: return null
-        return runCatching { parse(body) }.getOrNull()?.let { CandleParse.finish(it, limit) }
+        return runCatchingCancellable { parse(body) }.getOrNull()?.let { CandleParse.finish(it, limit) }
     }
 
     internal fun parse(json: String): List<HourCandle>? {
@@ -307,7 +308,7 @@ object HtxCandles : ExchangeCandleSource {
         }
         val n = CandleTime.rawCount(interval, limit).coerceAtMost(2000)
         val body = http.get("https://api.huobi.pro/market/history/kline?symbol=$id&period=$period&size=$n") ?: return null
-        val raw = runCatching { parse(body) }.getOrNull() ?: return null
+        val raw = runCatchingCancellable { parse(body) }.getOrNull() ?: return null
         val candles = (if (interval == CandleInterval.H4) CandleTime.fourHours(raw) else raw) ?: return null
         return CandleParse.finish(candles, limit)
     }
@@ -342,7 +343,7 @@ object GeminiCandles : ExchangeCandleSource {
             CandleInterval.W1 -> return null
         }
         for (frame in frames) {
-            val raw = http.get("https://api.gemini.com/v2/candles/$id/$frame")?.let { runCatching { parse(it) }.getOrNull() } ?: continue
+            val raw = http.get("https://api.gemini.com/v2/candles/$id/$frame")?.let { runCatchingCancellable { parse(it) }.getOrNull() } ?: continue
             val candles = (if (interval == CandleInterval.H4) CandleTime.fourHours(raw) else raw) ?: continue
             return CandleParse.finish(candles, limit)
         }
@@ -381,7 +382,7 @@ object CryptoComCandles : ExchangeCandleSource {
         val body = http.get(
             "https://api.crypto.com/exchange/v1/public/get-candlestick?instrument_name=$id&timeframe=$tf&count=$limit&start_ts=$start&end_ts=$now"
         ) ?: return null
-        return runCatching { parse(body) }.getOrNull()?.let { CandleParse.finish(it, limit) }
+        return runCatchingCancellable { parse(body) }.getOrNull()?.let { CandleParse.finish(it, limit) }
     }
 
     internal fun parse(json: String): List<HourCandle>? {
@@ -417,12 +418,12 @@ object UpbitCandles : ExchangeCandleSource {
             CandleInterval.W1 -> return null
         }
         val url = "https://api.upbit.com/v1/candles/$path?market=$id"
-        val first = http.get("$url&count=${limit.coerceAtMost(PAGE)}")?.let { runCatching { parse(it) }.getOrNull() } ?: return null
+        val first = http.get("$url&count=${limit.coerceAtMost(PAGE)}")?.let { runCatchingCancellable { parse(it) }.getOrNull() } ?: return null
         var all = first
         if (limit > PAGE && first.size >= PAGE) {
             val oldest = first.minOf { it.openTime }
             val to = CandleTime.formatIso(oldest).substring(0, 19) + "Z"
-            val older = http.get("$url&count=${(limit - first.size).coerceIn(1, PAGE)}&to=$to")?.let { runCatching { parse(it) }.getOrNull() }
+            val older = http.get("$url&count=${(limit - first.size).coerceIn(1, PAGE)}&to=$to")?.let { runCatchingCancellable { parse(it) }.getOrNull() }
             if (older != null) all = older + first
         }
         return CandleParse.finish(all, limit)
@@ -463,7 +464,7 @@ object WooCandles : ExchangeCandleSource {
         val id = id(pair) ?: return null
         val code = CandleParse.binanceInterval(interval) ?: return null
         val body = http.get("https://api.woox.io/v3/public/kline?symbol=$id&type=$code&limit=${limit.coerceAtMost(1000)}") ?: return null
-        return runCatching { parse(body) }.getOrNull()?.let { CandleParse.finish(it, limit) }
+        return runCatchingCancellable { parse(body) }.getOrNull()?.let { CandleParse.finish(it, limit) }
     }
 
     internal fun parse(json: String): List<HourCandle>? {
@@ -497,7 +498,7 @@ object PoloniexCandles : ExchangeCandleSource {
             CandleInterval.W1 -> return null
         }
         val body = http.get("https://api.poloniex.com/markets/$id/candles?interval=$code&limit=${limit.coerceAtMost(500)}") ?: return null
-        return runCatching { parse(body) }.getOrNull()?.let { CandleParse.finish(it, limit) }
+        return runCatchingCancellable { parse(body) }.getOrNull()?.let { CandleParse.finish(it, limit) }
     }
 
     internal fun parse(json: String): List<HourCandle> = with(CandleParse) {
@@ -531,7 +532,7 @@ object DeribitCandles : ExchangeCandleSource {
         val body = http.get(
             "https://www.deribit.com/api/v2/public/get_tradingview_chart_data?instrument_name=$id&start_timestamp=$start&end_timestamp=$now&resolution=$resolution"
         ) ?: return null
-        val raw = runCatching { parse(body) }.getOrNull() ?: return null
+        val raw = runCatchingCancellable { parse(body) }.getOrNull() ?: return null
         val candles = (if (interval == CandleInterval.H4) CandleTime.fourHours(raw) else raw) ?: return null
         return CandleParse.finish(candles, limit)
     }
@@ -566,7 +567,7 @@ object HyperliquidCandles : ExchangeCandleSource {
         val start = CandleTime.windowStart(now, interval.millis, limit)
         val json = """{"type":"candleSnapshot","req":{"coin":"$coin","interval":"$code","startTime":$start,"endTime":$now}}"""
         val body = http.post("https://api.hyperliquid.xyz/info", json) ?: return null
-        return runCatching { parse(body) }.getOrNull()?.let { CandleParse.finish(it, limit) }
+        return runCatchingCancellable { parse(body) }.getOrNull()?.let { CandleParse.finish(it, limit) }
     }
 
     internal fun parse(json: String): List<HourCandle> {
@@ -604,7 +605,7 @@ object OneTradingCandles : ExchangeCandleSource {
         val body = http.get(
             "https://api.onetrading.com/fast/v1/candlesticks/$id?unit=$unit&period=$period&from=$from&to=$to&countBack=$limit"
         ) ?: return null
-        return runCatching { parse(body) }.getOrNull()?.let { CandleParse.finish(it, limit) }
+        return runCatchingCancellable { parse(body) }.getOrNull()?.let { CandleParse.finish(it, limit) }
     }
 
     internal fun parse(json: String): List<HourCandle>? {

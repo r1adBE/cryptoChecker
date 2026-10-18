@@ -99,7 +99,7 @@ enum IndicatorText {
         }
     }
 
-    /// Build 55 (Review 14): «hoch heisst …, tief heisst …» — was ein hoher und ein tiefer Wert beschreibt,
+    /// Build 55: «hoch heisst …, tief heisst …» — was ein hoher und ein tiefer Wert beschreibt,
     /// ohne Kauf- oder Verkaufssignal. Wie `indicatorReading` (Android).
     static func reading(_ id: IndicatorId) -> String {
         switch id {

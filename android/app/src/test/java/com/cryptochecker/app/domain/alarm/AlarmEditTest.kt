@@ -219,7 +219,7 @@ class AlarmEditTest {
         assertEquals(AlarmCheckStatus.Reason.NO_CANDLES, store.state.value[6]?.reason)
     }
 
-    // MARK: Bezug neuer Prozentalarme nur aus frischem Kurs (Review 13)
+    // MARK: Bezug neuer Prozentalarme nur aus frischem Kurs
 
     @Test
     fun freshReferenceOnlyFromFreshPrice() {
@@ -233,7 +233,7 @@ class AlarmEditTest {
         assertNull(AlarmEdit.freshReference(0.0, now, now, stale))
     }
 
-    // MARK: Neuer Alarm: leeres Feld, Kurs als Platzhalter (Review 13)
+    // MARK: Neuer Alarm: leeres Feld, Kurs als Platzhalter
 
     @Test
     fun blankDraftStartsEmptyWithPricePlaceholder() {

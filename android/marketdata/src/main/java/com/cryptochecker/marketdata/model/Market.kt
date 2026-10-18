@@ -6,20 +6,27 @@ import com.cryptochecker.marketdata.util.BulkTickerRows
 import com.cryptochecker.marketdata.util.TimeUtils
 import org.json.JSONObject
 
-/** Fest eingebaute Paare einer Börse ohne abrufbare Paarliste: Basis → mögliche Gegenwährungen. */
+/** Built-in pairs of an exchange without a fetchable pair list: base → possible quote currencies. */
 typealias CurrencyPairsMap = LinkedHashMap<String, Array<String>>
 
 /**
- * Grundgerüst einer Börse: WIE mit ihr gesprochen wird — Adressen, POST-Inhalte, das Lesen der Antworten und
- * ihrer Fehlertexte. Netz, Speicher, Wiederholungen und Oberfläche gehören nicht hierher (MarketRemoteDataSource).
+ * Base class of an exchange adapter: HOW to talk to one exchange — URLs, POST bodies, parsing responses and
+ * error texts. Networking, storage, retries and UI live elsewhere (`MarketRemoteDataSource` in the app).
  *
- * Aufbau als Schablone: Die festen Einstiege `read…`/`parse…Main` erledigen das Gemeinsame (Zeitstempel, leere
- * Paare, Zeilenfehler) und rufen die überschreibbaren Teile `fill…`/`parseBulkTickers`. Eine Unterklasse
- * überschreibt nur, was bei ihr anders ist. Die Abschnitte folgen dem Ablauf: Einzelkurs · Sammelabfrage ·
- * Paarliste · Namen. Die übliche Börse mit einer Paarliste und einer Kursadresse erbt von
- * [com.cryptochecker.marketdata.model.market.generic.SimpleMarket]. Gegenstück auf iOS: `Market.swift`.
+ * Template methods: the final entry points `read…`/`parse…Main` handle the shared parts (timestamps, empty
+ * pairs, broken rows) and call the overridable hooks `fill…`/`parseBulkTickers`. A subclass overrides only what
+ * differs. Sections follow the flow: single ticker · bulk ticker · pair list · coin names. A typical exchange
+ * with one pair-list URL and one ticker URL extends
+ * [com.cryptochecker.marketdata.model.market.generic.SimpleMarket]. iOS counterpart: `Market.swift`.
+ * Step-by-step guide: DEVELOPMENT.md («Adding an exchange»).
  *
- * Instanzen werden von gleichzeitigen Abfragen geteilt. [key] steht so in der Datenbank — nie ändern.
+ * Instances are shared by concurrent requests: no per-request state in fields (shared caches must be
+ * thread-safe). [key] is stored in the database — never change it.
+ *
+ * @param name display name of the exchange.
+ * @param ttsName name for speech output ([SimpleMarket][com.cryptochecker.marketdata.model.market.generic.SimpleMarket]
+ *   defaults it to [name]).
+ * @param currencyPairs built-in pairs for exchanges without a pair-list endpoint; null otherwise.
  */
 abstract class Market(
     val name: String,
@@ -28,45 +35,45 @@ abstract class Market(
 ) {
 
     /**
-     * Schlüssel der Börse in Datenbank, Einstellungen, Sicherungen und Widgets. Jede Börse setzt ihn ausdrücklich
-     * auf ihren bisherigen Klassennamen: früher kam er aus `javaClass.simpleName`, damit hingen gespeicherte Daten
-     * an Klassennamen und an R8. Ein fester Text bleibt beim Umbenennen oder Verkleinern gleich. Nie ändern.
+     * Storage key of the exchange in the database, settings, backups and widgets. Set it explicitly to a fixed
+     * string (by convention the class name, identical to the iOS `key`); it used to come from
+     * `javaClass.simpleName`, which tied saved data to class names and R8. Never change it after release —
+     * `MarketKeyTest` guards the list.
      */
     abstract val key: String
 
     /**
-     * true: Der gelieferte «Kurs» ist ein Mittelkurs (aus Geld/Brief oder Mark) statt des letzten Handels. Das
-     * Aktionsblatt beschriftet ihn dann als «Mittelkurs»; eine Zeit der Börse gibt es dazu nicht, «Aktualisiert»
-     * ist der Abruf. iOS: `priceIsMid`.
+     * true: the delivered price is a mid price (from bid/ask or mark) rather than the last trade. The action sheet
+     * then labels it «mid price»; there is no exchange time, «updated» is the fetch time. iOS: `priceIsMid`.
      */
     open val priceIsMid: Boolean get() = false
 
     /**
-     * true: Die 24-h-Veränderung bezieht sich auf den Mark-Preis (Hyperliquid `markPx` gegen `prevDayPx`), nicht
-     * auf den angezeigten Kurs. Zeile und Aktionsblatt schreiben dann «Mark» dazu (`ChangeBasisMath.showsMark`).
-     * iOS: `changeIsMark`.
+     * true: the 24 h change refers to the mark price (Hyperliquid `markPx` vs. `prevDayPx`), not to the displayed
+     * price. Row and action sheet then add «Mark» (`ChangeBasisMath.showsMark`). iOS: `changeIsMark`.
      */
     open val changeIsMark: Boolean get() = false
 
     // ── Einzelkurs ───────────────────────────────────────────────────────────────
 
-    /** Wie viele Anfragen ein Kurs braucht; Nummer `call` läuft von 0 bis Anzahl − 1. */
+    /** Number of requests per price; `call` runs from 0 to count − 1. Default: one request. */
     open fun tickerCallCount(info: PairQuery?): Int = 1
 
+    /** URL of single-ticker request [call] for the pair in [info] (usually built from [PairQuery.pairId]). */
     abstract fun tickerAddress(call: Int, info: PairQuery): String
 
-    /** Inhalt für POST; null heisst: einfache GET-Anfrage. */
+    /** POST body for request [call]; null means a plain GET request. */
     open fun tickerPostBody(call: Int, info: PairQuery): PostRequestInfo? = null
 
     /**
-     * Liest eine Kursantwort in [ticker] und gibt ihn zurück. Danach gilt: [Ticker.timestamp] ist der Moment des
-     * Abrufs, [Ticker.exchangeTime] die Zeit laut Börse (oder null).
+     * Parses a single-ticker response into [ticker] (via [fillTicker]) and returns it. Afterwards
+     * [Ticker.timestamp] is the fetch time and [Ticker.exchangeTime] the time reported by the exchange (or null).
      *
-     * Warum der Abruf zählt: «veraltet» (OutdatedRule, lastUpdate) fragt, ob die Börse das Paar noch führt — und
-     * die Antwort kam eben jetzt. Ein ruhiges Paar mit altem letzten Handel (Upbit `trade_timestamp`, LATOKEN
-     * `updateTimestamp`) ist darum nicht veraltet. Scheitert der Abruf, bleibt lastUpdate stehen und das Paar
-     * altert wie gewohnt; ein gestrichenes Paar fehlt in der Liste (NotTraded). Die Börsenzeit dient nur der
-     * Anzeige (PriceFreshness), damit ein stehender Kurs nicht frisch aussieht. Wie `Market.swift`.
+     * Why the fetch time counts: «outdated» (OutdatedRule, lastUpdate) asks whether the exchange still lists the
+     * pair — and the answer just arrived. A quiet pair with an old last trade (Upbit `trade_timestamp`, LATOKEN
+     * `updateTimestamp`) is therefore not outdated. If the fetch fails, lastUpdate stays and the pair ages as
+     * usual; a delisted pair is missing from the list (NotTraded). The exchange time is only shown
+     * (PriceFreshness) so that a standing price does not look fresh. Same as `Market.swift`.
      */
     @Throws(Exception::class)
     fun readTicker(call: Int, body: String, ticker: Ticker, info: PairQuery): Ticker {
@@ -75,29 +82,33 @@ abstract class Market(
         return ticker
     }
 
-    /** Standard: Antwort als JSON-Objekt an [fillTickerJson]. Börsen mit Listen-Antwort überschreiben dies. */
+    /**
+     * Hook: fills [ticker] from a single-ticker response. Default: parses [body] as a JSON object and calls
+     * [fillTickerJson]; override for array or non-JSON responses. Write an exchange timestamp (s, ms, µs or ns)
+     * into [Ticker.timestamp]; [readTicker] moves it to [Ticker.exchangeTime].
+     */
     protected open fun fillTicker(call: Int, body: String, ticker: Ticker, info: PairQuery) {
         fillTickerJson(call, JSONObject(body), ticker, info)
     }
 
-    /** Liest die Felder einer Objekt-Antwort; ohne Überschreibung bleibt der Ticker leer (→ «kein Kurs»). */
+    /** Hook: reads the fields of a JSON-object response. Without an override the ticker stays empty («no price»). */
     protected open fun fillTickerJson(call: Int, json: JSONObject, ticker: Ticker, info: PairQuery) = Unit
 
     /**
-     * Fehlertext der Börse zu einer Kursantwort, die sich nicht lesen liess. Wirft, wenn die Antwort keinen enthält;
-     * der Aufrufer meldet dann den ursprünglichen Lesefehler.
+     * Error text of the exchange for a ticker response that could not be parsed (via [errorMessage]). Throws if the
+     * response contains none; the caller then reports the original parse error.
      */
     @Throws(Exception::class)
     fun readError(call: Int, body: String, info: PairQuery): String? = errorMessage(call, body, info)
 
-    /** Standard: Antwort als JSON-Objekt an [errorMessageJson]. */
+    /** Hook: extracts the exchange's error text. Default: parses [body] as a JSON object and calls [errorMessageJson]. */
     protected open fun errorMessage(call: Int, body: String, info: PairQuery): String? =
         errorMessageJson(call, JSONObject(body), info)
 
-    /** Ohne eigene Regel kennt die Börse keinen Fehlertext. */
+    /** Hook: error text from a JSON-object response. Default: none known ([noErrorText]). */
     protected open fun errorMessageJson(call: Int, json: JSONObject, info: PairQuery): String? = noErrorText()
 
-    /** Für [errorMessage]/[errorMessageJson]: Die Antwort enthält keinen Fehlertext der Börse. */
+    /** For [errorMessage]/[errorMessageJson]: signals that the response contains no error text of the exchange. */
     protected fun noErrorText(): Nothing = throw MarketParseException(NO_ERROR_TEXT)
 
     /**
@@ -112,63 +123,63 @@ abstract class Market(
 
     // ── Sammelabfrage aller Kurse (freiwillig) ───────────────────────────────────
 
-    /** Anfragen einer Sammelabfrage; 0 = gibt es nicht, die Paare werden einzeln abgefragt. */
+    /** Number of requests of a bulk query (all prices at once); 0 = no bulk query, pairs are fetched one by one. */
     open val bulkTickersNumOfRequests: Int get() = 0
 
     /**
-     * true: Die ungefilterte Sammelabfrage führt jedes handelbare Paar. Fehlt ein Paar, ist es nicht mehr im
-     * Handel; eine Einzelabfrage würde ebenso scheitern und nur Zeit kosten.
+     * true: the unfiltered bulk response lists every tradable pair. A missing pair is no longer traded; a single
+     * request would fail as well and only cost time.
      */
     open val bulkTickersComplete: Boolean get() = false
 
-    /** Ungefilterte Adresse der Teilanfrage [call]; null = diese Teilanfrage gibt es ungefiltert nicht. */
+    /** Unfiltered URL of bulk request [call]; null = this request has no unfiltered form. */
     open fun getBulkTickersUrl(call: Int): String? = null
 
     /**
-     * Gefilterte Sammelabfrage nur für [pairIds] — einige Kilobyte statt mehrerer Megabyte, wo die Börse eine
-     * Auswahl erlaubt. Standard: dieselbe Adresse wie ungefiltert.
+     * Filtered bulk URL for [pairIds] only — a few kilobytes instead of several megabytes where the exchange
+     * accepts a selection. Default: the unfiltered URL.
      */
     open fun getBulkTickersUrl(call: Int, pairIds: Collection<String>): String? = getBulkTickersUrl(call)
 
     /**
-     * Anfragen für die gefilterte Abfrage dieser Paare. Mehr als [bulkTickersNumOfRequests], wenn die Kennungen
-     * auf mehrere Adressen verteilt werden ([com.cryptochecker.marketdata.util.BulkPairChunks]); ungefiltert ist
-     * dann jede Teilanfrage gleich.
+     * Number of requests for the filtered query of these pairs. More than [bulkTickersNumOfRequests] when the ids
+     * are split across several URLs ([com.cryptochecker.marketdata.util.BulkPairChunks]); unfiltered, every
+     * request is then the same.
      */
     open fun bulkTickersRequestCount(pairIds: Collection<String>): Int = bulkTickersNumOfRequests
 
-    /** Inhalt für POST; null heisst GET. */
+    /** POST body for bulk request [call]; null means GET. */
     open fun getBulkTickersPostRequestInfo(call: Int): PostRequestInfo? = null
 
     /**
-     * Gruppe einer Teilanfrage (Binance: Spot 0, Alpha 1). Scheitert eine, verliert nur ihre Gruppe
-     * ([bulkTickersPairGroup]) die Aussage «nicht mehr gehandelt»; die übrigen Paare bleiben vollständig.
-     * Standard: alles eine Gruppe.
+     * Group of bulk request [call] (Binance: spot 0, Alpha 1). If one fails, only its group
+     * ([bulkTickersPairGroup]) loses the «no longer traded» verdict; the other pairs stay complete.
+     * Default: a single group.
      */
     open fun bulkTickersRequestGroup(call: Int): Int = 0
 
-    /** Gruppe eines Paars, passend zu [bulkTickersRequestGroup]. */
+    /** Group of a pair, matching [bulkTickersRequestGroup]. */
     open fun bulkTickersPairGroup(pairId: String): Int = 0
 
     /**
-     * Für Börsen ohne ungefilterte Sammelabfrage, die eine Auswahl mit einem unbekannten Paar als Ganzes
-     * ablehnen, ohne es zu nennen (Bithumb «Code not found»): Adresse der Paarliste ([pairListAddress], GET).
-     * Damit werden die unbekannten Paare gefunden, aus der Anfrage genommen und als nicht gehandelt gemeldet
-     * (NotTraded, BulkDelisted). null = trifft nicht zu.
+     * For exchanges without an unfiltered bulk query that reject a whole selection containing one unknown pair
+     * without naming it (Bithumb «Code not found»): URL of the pair list ([pairListAddress], GET). Used to find
+     * the unknown pairs, drop them from the request and report them as not traded (NotTraded, BulkDelisted).
+     * null = not applicable.
      */
     open fun getBulkKnownPairsUrl(call: Int): String? = null
 
     /**
-     * Alle Kurse einer Sammelantwort, geschlüsselt nach [MarketPair.pairId] — derselben Kennung wie
-     * beim Abgleich der Paarliste, sonst liessen sie sich keinem beobachteten Paar zuordnen.
+     * All prices of a bulk response, keyed by [MarketPair.pairId] — the same id as in the pair list, otherwise
+     * they could not be matched to a watched pair.
      */
     @Throws(Exception::class)
     fun parseBulkTickersMain(call: Int, body: String): Map<String, Ticker> =
         parseBulkTickersDetailed(call, body).tickers
 
     /**
-     * Wie [parseBulkTickersMain], zusätzlich die Paare mit unlesbarer Zeile ([BulkTickerParse.failed]). Überwiegen
-     * die unlesbaren Zeilen, wirft es [MarketParseException] mit [BulkTickerRows.FORMAT_ERROR].
+     * Like [parseBulkTickersMain], plus the pairs with an unreadable row ([BulkTickerParse.failed]). If unreadable
+     * rows dominate, throws [MarketParseException] with [BulkTickerRows.FORMAT_ERROR].
      */
     @Throws(Exception::class)
     fun parseBulkTickersDetailed(call: Int, body: String): BulkTickerParse {
@@ -186,8 +197,8 @@ abstract class Market(
     }
 
     /**
-     * Liest eine Sammelantwort: lesbare Zeilen nach [tickers], vorhandene, aber unlesbare nach [failed] — am
-     * einfachsten über [bulkRowIfActive] bzw. [bulkRow]. Standard: keine Sammelabfrage.
+     * Hook: parses a bulk response — readable rows into [tickers] (keyed by pair id), present but unreadable rows
+     * into [failed]; easiest via [bulkRowIfActive] or [bulkRow]. Default: no bulk query.
      */
     protected open fun parseBulkTickers(
         call: Int,
@@ -197,8 +208,8 @@ abstract class Market(
     ) = Unit
 
     /**
-     * Die übliche Zeile einer Sammelantwort: ohne Kennung oder mit leerem Kurs in [priceField] (ruhendes Paar,
-     * [BulkTickerRows.inactivePrice]) still übergangen, sonst über [bulkRow] gelesen.
+     * The usual bulk row: skipped silently without an id or with an empty price in [priceField] (dormant pair,
+     * [BulkTickerRows.inactivePrice]), otherwise read via [bulkRow].
      */
     protected fun bulkRowIfActive(
         pairId: String,
@@ -213,10 +224,10 @@ abstract class Market(
     }
 
     /**
-     * Liest eine Zeile der Sammelantwort mit [read] in einen frischen Ticker. Wirft [read] (Feld fehlt oder heisst
-     * anders) oder fehlt ein brauchbarer letzter Kurs ([BulkTickerRows.usable]), landet [pairId] in [failed] —
-     * das Paar zeigt dann einen Fehler, statt still «unverändert» zu bleiben. Darum wird jede Ausnahme hier
-     * bewusst in diesen Eintrag übersetzt und nicht weitergeworfen.
+     * Reads one bulk row with [read] into a fresh ticker. If [read] throws (field missing or renamed) or there is
+     * no usable last price ([BulkTickerRows.usable]), [pairId] goes into [failed] — the pair then shows an error
+     * instead of silently staying «unchanged». That is why every exception is deliberately turned into this
+     * entry here and not rethrown.
      */
     protected fun bulkRow(
         pairId: String,
@@ -240,60 +251,65 @@ abstract class Market(
 
     // ── Paarliste ────────────────────────────────────────────────────────────────
 
+    /** Number of pair-list requests; `call` runs from 0 to count − 1. */
     open val pairListCallCount: Int get() = 1
 
     /**
-     * true: Erst alle Antworten der Paarliste sammeln, dann gemeinsam in [fillPairListCombined] lesen — für
-     * Börsen, deren Liste nur Kennungen enthält, die eine zweite Liste auflöst (LATOKEN: Währungs-ID → Kürzel).
-     * Eine gescheiterte Anfrage lässt dann den ganzen Abgleich scheitern.
+     * true: collect all pair-list responses first, then parse them together in [fillPairListCombined] — for
+     * exchanges whose list only holds ids resolved by a second list (LATOKEN: currency id → symbol). One failed
+     * request then fails the whole sync.
      */
     open val pairListCombined: Boolean get() = false
 
     /**
-     * true: Bei einzeln gelesenen Anfragen muss jede gelingen (nicht nur die erste) — für Börsen, deren
-     * Anfragen je eine eigene Hälfte des Angebots liefern (Binance Futures: USDⓈ-M und COIN-M). Sonst
-     * würde eine halbe Liste gespeichert und die andere Hälfte verschwände bis zum nächsten Abgleich;
-     * so bleibt die bisherige Liste stehen. iOS: `pairListAllCallsRequired`.
+     * true: with separately parsed requests, every request must succeed (not just the first) — for exchanges whose
+     * requests each deliver their own half of the offer (Binance Futures: USDⓈ-M and COIN-M). Otherwise half a list
+     * would be saved and the other half would vanish until the next sync; this way the previous list stays.
+     * iOS: `pairListAllCallsRequired`.
      */
     open val pairListAllCallsRequired: Boolean get() = false
 
-    /** Adresse der Paarliste für Anfrage [call]; null = die Börse hat keine (feste Paare oder Suche). */
+    /** Pair-list URL for request [call]; null = the exchange has none (built-in pairs or search). */
     open fun pairListAddress(call: Int): String? = null
 
-    /** Inhalt für POST; null heisst GET. */
+    /** POST body for pair-list request [call]; null means GET. */
     open fun pairListPostBody(call: Int): PostRequestInfo? = null
 
     /**
-     * Für Börsen, die ihre Paarliste über einen Cursor blättern (Bybit `nextPageCursor`): Adresse der Folgeseite
-     * nach [body], null auf der letzten Seite. Sie wird per GET geholt und mit derselben Nummer [call] gelesen,
-     * höchstens [MAX_PAIR_LIST_PAGES] Seiten je Anfrage. Eine unlesbare Antwort wirft (nie still aufhören).
+     * For exchanges that page their pair list with a cursor (Bybit `nextPageCursor`): URL of the next page after
+     * [body], null on the last page. It is fetched with GET and parsed with the same [call], at most
+     * [MAX_PAIR_LIST_PAGES] pages per request. An unreadable response throws (never stop silently).
      * iOS: `pairListNextPage(call:body:)`.
      */
     open fun pairListNextPage(call: Int, body: String): String? = null
 
-    /** Liest eine Antwort der Paarliste nach [out] und wirft Paare ohne Basis oder Gegenwährung wieder hinaus. */
+    /** Parses a pair-list response into [out] (via [fillPairList]) and drops pairs without base or quote. */
     @Throws(Exception::class)
     fun readPairList(call: Int, body: String, out: MutableList<MarketPair>) {
         fillPairList(call, body, out)
         dropIncomplete(out)
     }
 
-    /** Wie [readPairList] für Börsen mit [pairListCombined], über alle gesammelten Antworten. */
+    /** Like [readPairList] for exchanges with [pairListCombined], over all collected responses. */
     @Throws(Exception::class)
     fun readPairListCombined(bodies: List<String>, out: MutableList<MarketPair>) {
         fillPairListCombined(bodies, out)
         dropIncomplete(out)
     }
 
-    /** Standard: Antwort als JSON-Objekt an [fillPairListJson]. Börsen mit Listen-Antwort überschreiben dies. */
+    /**
+     * Hook: adds the pairs of a pair-list response to [out] ([MarketPair] with base, quote and the pair id used by
+     * [tickerAddress]). Default: parses [body] as a JSON object and calls [fillPairListJson]; override for array
+     * responses.
+     */
     protected open fun fillPairList(call: Int, body: String, out: MutableList<MarketPair>) {
         fillPairListJson(call, JSONObject(body), out)
     }
 
-    /** Liest die Paare einer Objekt-Antwort; ohne Überschreibung keine. */
+    /** Hook: reads the pairs of a JSON-object response. Default: none. */
     protected open fun fillPairListJson(call: Int, json: JSONObject, out: MutableList<MarketPair>) = Unit
 
-    /** Nur für Börsen mit [pairListCombined]. */
+    /** Hook for exchanges with [pairListCombined]: parses all collected responses at once. */
     protected open fun fillPairListCombined(bodies: List<String>, out: MutableList<MarketPair>) = Unit
 
     // Reines Kotlin (kein TextUtils), damit die Vertragstests der Paarlisten auf der JVM laufen
@@ -304,21 +320,21 @@ abstract class Market(
     // ── Volle Coin-Namen (Identität «gleicher Token», K-8) ───────────────────────
 
     /**
-     * Kürzel → voller Name (z. B. Gate `base_name`), aus derselben Antwort wie die Paarliste, ohne weitere
-     * Anfrage. Standard: keine Namen. iOS: `parseBaseNames`.
+     * Optional: symbol → full coin name (e.g. Gate `base_name`) from the same response as the pair list, without
+     * another request. Default: no names. iOS: `parseBaseNames`.
      */
     @Throws(Exception::class)
     open fun parseBaseNames(call: Int, body: String): Map<String, String> = emptyMap()
 
-    /** Gegenstück zu [parseBaseNames] für Börsen mit [pairListCombined]. */
+    /** Counterpart of [parseBaseNames] for exchanges with [pairListCombined]. */
     @Throws(Exception::class)
     open fun parseBaseNamesCombined(bodies: List<String>): Map<String, String> = emptyMap()
 
     companion object {
-        /** Höchstzahl Seiten je Paarlisten-Anfrage, falls ein Cursor nie endet. */
+        /** Maximum pages per pair-list request, in case a cursor never ends. */
         const val MAX_PAIR_LIST_PAGES = 10
 
-        /** Grund von [noErrorText]; erreicht nie die Oberfläche (dort steht dann der Lesefehler). */
+        /** Message of [noErrorText]; never reaches the UI (the parse error is shown instead). */
         const val NO_ERROR_TEXT = "No error text"
     }
 }

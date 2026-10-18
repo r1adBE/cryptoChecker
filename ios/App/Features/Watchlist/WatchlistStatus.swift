@@ -216,7 +216,7 @@ extension WatchlistScreen {
         .padding(.horizontal, 10)
         .padding(.vertical, Spacing.sm)
         .background(tone.opacity(selected ? 0.22 : 0.12), in: Capsule())
-        // Tippfläche gut 44 pt hoch (Review 19, wie Android 48 dp): je 7 pt über und unter der Pille; nach aussen
+        // Tippfläche gut 44 pt hoch (wie Android 48 dp): je 7 pt über und unter der Pille; nach aussen
         // wieder die Pillen-Höhe, die Statuszeile wächst nicht
         .padding(.vertical, Self.disabledTouchExtra)
         .contentShape(Rectangle())

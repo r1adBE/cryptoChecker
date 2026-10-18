@@ -196,65 +196,65 @@ fun PortfolioTxSheet(
         BackHandler(enabled = d.dirty) { askDiscard = true }
         // Box: Meldung «nicht gespeichert» unten über dem Inhalt des Blatts
         Box {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                // Gleich in voller Höhe: ändert sich der Inhalt (Laden, Auswahl), springt das Blatt nicht
-                .fillMaxHeight()
-                .verticalScroll(rememberScrollState())
-                .navigationBarsPadding()
-                .padding(start = 24.dp, end = 24.dp, bottom = 16.dp)
-        ) {
-            Text(
-                stringResource(if (isEdit) R.string.portfolio_edit_tx else R.string.portfolio_add_tx),
-                style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.SemiBold
-            )
-            TxTypeSection(state)
-            TxCoinSection(state, d, coins, onPicked = { focus.clearFocus() })
-            // Datum (nicht in der Zukunft) — vor Menge und Preis: ein Datumswechsel kann den Preis leeren,
-            // das soll nicht unbemerkt über dem sichtbaren Bereich geschehen
-            TxDateSection(state, onPickDate = { pickDate = true }, onPickAcquired = { pickAcquired = true })
-            TxAmountSection(state, d, viewModel)
-            // Tausch: erhaltener Coin und Menge
-            if (d.isSwap) TxSwapReceivedSection(state, d, coins)
-            // K-2: Preis/Wert in USDT oder in der Anzeigewährung (umgerechnet mit dem Tageskurs, gespeichert in USDT)
-            if (d.fiatPossible) TxEntryCurrencySection(state, d, currency)
-            TxPriceValueSection(state, d, currency)
-            TxSwitchesSection(state)
-            // Umbuchung: von / nach
-            if (d.fields.route) TxRouteSection(state, usedWallets, exchanges)
-            // Kauf (Build 46): nur Coin, Datum, Menge, Preis offen — die Notiz steht im zugeklappten Abschnitt
-            val noteInLedger = state.type == PortfolioTxType.BUY
-            if (!noteInLedger) TxNoteField(state, 12.dp)
-            TxLedgerSection(state, d, exchanges, noteInLedger)
-            TxTotalLine(d)
-            TxActionsRow(
-                isEdit = isEdit,
-                saving = saving,
-                onDelete = { askDelete = true },
-                onCancel = requestClose,
-                onSave = {
-                    state.tried = true
-                    // Unvollständige Gebühr im dritten Coin: Abschnitt öffnen, damit der Fehler sichtbar ist
-                    if (d.thirdFee == PortfolioTxForm.ThirdFee.INVALID || d.feeConsumes) state.showLedger = true
-                    if (d.valid) {
-                        saving = true
-                        viewModel.save(
-                            state.toDraft(d),
-                            onAskEnablePortfolio,
-                            onSaved = onDismiss,
-                            // Schreiben fehlgeschlagen: Blatt bleibt offen mit den Eingaben, Meldung im Blatt
-                            onFailed = {
-                                saving = false
-                                scope.launch { saveErrorHost.showSnackbar(saveFailedText) }
-                            },
-                        )
-                    }
-                },
-            )
-        }
-        SnackbarHost(saveErrorHost, Modifier.align(Alignment.BottomCenter).navigationBarsPadding())
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    // Gleich in voller Höhe: ändert sich der Inhalt (Laden, Auswahl), springt das Blatt nicht
+                    .fillMaxHeight()
+                    .verticalScroll(rememberScrollState())
+                    .navigationBarsPadding()
+                    .padding(start = 24.dp, end = 24.dp, bottom = 16.dp)
+            ) {
+                Text(
+                    stringResource(if (isEdit) R.string.portfolio_edit_tx else R.string.portfolio_add_tx),
+                    style = MaterialTheme.typography.titleLarge,
+                    fontWeight = FontWeight.SemiBold
+                )
+                TxTypeSection(state)
+                TxCoinSection(state, d, coins, onPicked = { focus.clearFocus() })
+                // Datum (nicht in der Zukunft) — vor Menge und Preis: ein Datumswechsel kann den Preis leeren,
+                // das soll nicht unbemerkt über dem sichtbaren Bereich geschehen
+                TxDateSection(state, onPickDate = { pickDate = true }, onPickAcquired = { pickAcquired = true })
+                TxAmountSection(state, d, viewModel)
+                // Tausch: erhaltener Coin und Menge
+                if (d.isSwap) TxSwapReceivedSection(state, d, coins)
+                // K-2: Preis/Wert in USDT oder in der Anzeigewährung (umgerechnet mit dem Tageskurs, gespeichert in USDT)
+                if (d.fiatPossible) TxEntryCurrencySection(state, d, currency)
+                TxPriceValueSection(state, d, currency)
+                TxSwitchesSection(state)
+                // Umbuchung: von / nach
+                if (d.fields.route) TxRouteSection(state, usedWallets, exchanges)
+                // Kauf (Build 46): nur Coin, Datum, Menge, Preis offen — die Notiz steht im zugeklappten Abschnitt
+                val noteInLedger = state.type == PortfolioTxType.BUY
+                if (!noteInLedger) TxNoteField(state, 12.dp)
+                TxLedgerSection(state, d, exchanges, noteInLedger)
+                TxTotalLine(d)
+                TxActionsRow(
+                    isEdit = isEdit,
+                    saving = saving,
+                    onDelete = { askDelete = true },
+                    onCancel = requestClose,
+                    onSave = {
+                        state.tried = true
+                        // Unvollständige Gebühr im dritten Coin: Abschnitt öffnen, damit der Fehler sichtbar ist
+                        if (d.thirdFee == PortfolioTxForm.ThirdFee.INVALID || d.feeConsumes) state.showLedger = true
+                        if (d.valid) {
+                            saving = true
+                            viewModel.save(
+                                state.toDraft(d),
+                                onAskEnablePortfolio,
+                                onSaved = onDismiss,
+                                // Schreiben fehlgeschlagen: Blatt bleibt offen mit den Eingaben, Meldung im Blatt
+                                onFailed = {
+                                    saving = false
+                                    scope.launch { saveErrorHost.showSnackbar(saveFailedText) }
+                                },
+                            )
+                        }
+                    },
+                )
+            }
+            SnackbarHost(saveErrorHost, Modifier.align(Alignment.BottomCenter).navigationBarsPadding())
         }
     }
 }

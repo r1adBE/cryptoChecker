@@ -397,7 +397,7 @@ extension WatchlistScreen {
                             .font(.subheadline.weight(.semibold))
                             .foregroundStyle(accent.primary)
                             .frame(maxWidth: .infinity, minHeight: 44)
-                            // Echter Rahmen wie Android `OutlinedButton` (Farbe `outline`, ≥ 3:1; Review 18 – der
+                            // Echter Rahmen wie Android `OutlinedButton` (Farbe `outline`, ≥ 3:1 – der
                             // halbdurchsichtige Akzentstrich lag dunkel unter 3:1)
                             .background(Capsule().strokeBorder(AppColors.outline, lineWidth: 1))
                             .contentShape(Rectangle())
@@ -457,7 +457,7 @@ extension WatchlistScreen {
         let added = withAnimation(.spring(duration: 0.35)) {
             data.addStarterCoins(symbols)
         }
-        // Neue Paare haben Kurs-Mitteilungen an: Erlaubnis fragen (wie im Explorer, Review 12) — vorher die kurze
+        // Neue Paare haben Kurs-Mitteilungen an: Erlaubnis fragen (wie im Explorer) — vorher die kurze
         // Erklärung (`NotificationPrePrompt`), aber erst nach dem Banner mit «Alarm setzen» (`askNotificationsAfterHint`)
         if added > 0 { notificationAskPending = true }
         // Gleich abholen, damit die neuen Zeilen schon im ersten Bild verborgen sind

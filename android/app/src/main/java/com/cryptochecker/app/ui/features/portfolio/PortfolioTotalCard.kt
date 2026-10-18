@@ -119,200 +119,200 @@ internal fun TotalCard(
         usdtMarket = true,
     )
     Column(modifier = Modifier.fillMaxWidth()) {
-    // Hervorgehoben nur durch den Verlauf, ohne Akzentrand: eine einzige Hervorhebung (wie iOS)
-    AppCard(padding = CardPadding.None) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                // Von oben links nach unten rechts, wie LinearGradient(.topLeading → .bottomTrailing);
-                // L-15: ruhiger (8 % → 2 %, früher 16 % → 4 %), hell und dunkel gleich ([AppColors.accentTint])
-                .background(Brush.linearGradient(listOf(AppColors.accentTint(CARD_TINT_START), AppColors.accentTint(CARD_TINT_END))))
-                .padding(start = Spacing.lg, end = Spacing.lg, top = Spacing.lg, bottom = Spacing.xs)
-        ) {
-            Text(
-                stringResource(R.string.portfolio_total_value),
-                style = SectionTitle.style,
-                color = SectionTitle.color,
-                modifier = Modifier.sectionTitleMarker()
-            )
-            // Gross in der Anzeigewährung (wie das Widget), USDT klein darunter; ohne Devisenkurs gross USDT
-            val unit = cardUnit(currency, fxRate)
-            FittedTotal(
-                text = maskAmount(PriceFormat.valueWithCurrency(unit.of(summary.totalValue), unit.code).removeSuffix(" " + unit.code)),
-                // Verborgen («•••») ohne Währung, wie zuvor
-                quote = if (LocalHidePortfolioAmounts.current) null else unit.code,
-                value = unit.of(summary.totalValue),
-                // Veraltet: onSurfaceVariant statt halber Deckkraft (50 % lag unter 4.5:1, L-13)
-                color = if (stale) MaterialTheme.colorScheme.onSurfaceVariant else MaterialTheme.colorScheme.onSurface,
-                modifier = Modifier.padding(top = 2.dp)
-            )
-            // Teilsumme: Coins ohne Kurs zählen als 0 — direkt an der Zahl «ohne 2 Coins» (antippen: Hinweise)
-            if (summary.missingCurrentPrices.isNotEmpty()) {
-                PartialMarker(
-                    text = pluralStringResource(
-                        R.plurals.widget_portfolio_missing_coins,
-                        summary.missingCurrentPrices.size,
-                        summary.missingCurrentPrices.size,
-                    ),
-                    onClick = { showHints = true },
-                    modifier = Modifier.padding(bottom = 2.dp)
-                )
-            }
-            // «≈ 117’345.12 USDT» — nur wenn gross umgerechnet steht (Faktor da; auch USD, USDT zum Marktkurs)
-            if (unit.converted) {
+        // Hervorgehoben nur durch den Verlauf, ohne Akzentrand: eine einzige Hervorhebung (wie iOS)
+        AppCard(padding = CardPadding.None) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    // Von oben links nach unten rechts, wie LinearGradient(.topLeading → .bottomTrailing);
+                    // L-15: ruhiger (8 % → 2 %, früher 16 % → 4 %), hell und dunkel gleich ([AppColors.accentTint])
+                    .background(Brush.linearGradient(listOf(AppColors.accentTint(CARD_TINT_START), AppColors.accentTint(CARD_TINT_END))))
+                    .padding(start = Spacing.lg, end = Spacing.lg, top = Spacing.lg, bottom = Spacing.xs)
+            ) {
                 Text(
-                    withSmallQuote("≈ " + maskAmount(PortfolioFormat.usdt(summary.totalValue))),
-                    style = MaterialTheme.typography.bodyMedium.amountNumbers(),
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    stringResource(R.string.portfolio_total_value),
+                    style = SectionTitle.style,
+                    color = SectionTitle.color,
+                    modifier = Modifier.sectionTitleMarker()
                 )
-            }
-            // «USDT = 1 angenommen» auf der Karte selbst, sobald der Ersatz 1 die Zahlen trägt ([DepegAlarm.cardNote]
-            // mit USDT zum Marktkurs: nur noch USDT_ASSUMED); die Kursquelle steht unter «Hinweise»
-            when (usdtNote?.kind) {
-                // Mit usdtMarket nicht mehr geliefert (Abweichung = Bewertung zum Marktkurs, keine Warnzeile)
-                DepegAlarm.CardNoteKind.DEVIATION, null -> Unit
-                DepegAlarm.CardNoteKind.PRICE_SOURCE -> Text(
-                    priceSourceText,
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                // Gross in der Anzeigewährung (wie das Widget), USDT klein darunter; ohne Devisenkurs gross USDT
+                val unit = cardUnit(currency, fxRate)
+                FittedTotal(
+                    text = maskAmount(PriceFormat.valueWithCurrency(unit.of(summary.totalValue), unit.code).removeSuffix(" " + unit.code)),
+                    // Verborgen («•••») ohne Währung, wie zuvor
+                    quote = if (LocalHidePortfolioAmounts.current) null else unit.code,
+                    value = unit.of(summary.totalValue),
+                    // Veraltet: onSurfaceVariant statt halber Deckkraft (50 % lag unter 4.5:1, L-13)
+                    color = if (stale) MaterialTheme.colorScheme.onSurfaceVariant else MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier.padding(top = 2.dp)
                 )
-                DepegAlarm.CardNoteKind.USDT_ASSUMED -> Text(
-                    stringResource(R.string.portfolio_usdt_assumed),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.padding(top = 2.dp)
-                )
-                // Bestätigter Einbruch: Werte rechnen mit dem Marktkurs — deutlich in Warnfarbe statt «angenommen»
-                DepegAlarm.CardNoteKind.USDT_BREAK -> Text(
-                    stringResource(
-                        R.string.portfolio_usdt_break,
-                        com.cryptochecker.app.util.LocaleNumbers.decimal(usdtNote?.reading?.price ?: 0.0, 4),
-                    ),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.error,
-                    modifier = Modifier.padding(top = 2.dp)
-                )
-                // Kurs nur aus USDC/USDT: Herkunft nennen (USDC = 1 angenommen)
-                DepegAlarm.CardNoteKind.VIA_USDC -> Text(
-                    stringResource(R.string.portfolio_usdt_via_usdc),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.padding(top = 2.dp)
-                )
-            }
-            // Build 46: eine Veränderung direkt unter dem Gesamtwert — «↗ +412.95 CHF +1.85% · Heute»
-            // (Prozent ohne Betrag, z. B. ohne Devisenkurs, bleibt sichtbar); ohne Daten keine Zeile
-            TotalChangeLine(
-                amountUsd = todayAmount?.takeIf { todayPercent != null },
-                percent = todayPercent,
-                unit = unit,
-                period = stringResource(R.string.portfolio_card_today),
-                spokenLabel = stringResource(R.string.portfolio_card_today),
-            )
-            // M4: Überschrift «Gewinn/Verlust» mit (i) — was die Zahlen bedeuten (und was nicht)
-            // (i) mit 48 dp Trefferfläche: Abstände darum knapper, damit die Karte nicht wächst
-            GainHeader(method = summary.method, modifier = Modifier.padding(top = Spacing.xs))
-            // 7 T · Seit Kauf nebeneinander (gleich breit)
-            Row(modifier = Modifier.fillMaxWidth()) {
-                InsightFigure(
-                    label = stringResource(R.string.portfolio_history_range_7d),
-                    spokenLabel = stringResource(R.string.portfolio_history_period_7d),
-                    amount = weekChange?.amountUsd,
-                    percent = weekChange?.percent,
-                    unit = unit,
-                    modifier = Modifier.weight(1f),
-                    rewardsUsd = weekChange?.rewardsUsd ?: 0.0,
-                )
-                // «Seit Kauf (CHF)»: Gewinn/Verlust seit Kauf der Coins mit Kaufpreis (in der Einheit des Gesamtwerts)
-                Column(modifier = Modifier.weight(1f).padding(start = Spacing.sm)) {
-                    InsightFigure(
-                        label = stringResource(R.string.ledger_since_purchase_currency, unit.code),
-                        spokenLabel = stringResource(R.string.ledger_since_purchase_spoken),
-                        amount = summary.unrealized,
-                        percent = summary.unrealizedPercent?.takeIf { summary.unrealized != null },
-                        unit = unit,
-                        modifier = Modifier.fillMaxWidth()
-                    )
-                    // Teilsumme (Coins/Teile ohne Kaufpreis oder ohne Kurs fehlen): «unvollständig» an der Zahl
-                    if (summary.unrealized != null &&
-                        (summary.missingCostCoins.isNotEmpty() || summary.partialCostParts.isNotEmpty() ||
-                            summary.missingCurrentPrices.isNotEmpty())
-                    ) {
-                        PartialMarker(
-                            text = stringResource(R.string.portfolio_export_incomplete),
-                            onClick = { showHints = true },
-                            modifier = Modifier.padding(top = 2.dp)
-                        )
-                    }
-                }
-            }
-            // «Details»: 1 J, Belohnungen, Einstand, Realisiert, Ausgebucht — zugeklappt
-            ExpandToggleButton(
-                text = stringResource(R.string.portfolio_card_details),
-                expanded = showDetails,
-                onClick = { showDetails = !showDetails },
-                modifier = Modifier.semantics {
-                    stateDescription = if (showDetails) expandedText else collapsedText
-                }
-            )
-            if (showDetails) {
-                // «↘ −38’412.95 CHF −27.85% · 1J» wie im Portfolio-Widget; ohne Daten keine Zeile
-                yearChange?.let {
-                    TotalChangeLine(
-                        amountUsd = it.amountUsd,
-                        percent = it.percent,
-                        unit = unit,
-                        period = stringResource(R.string.portfolio_history_range_1y),
-                        spokenLabel = stringResource(R.string.portfolio_history_period_1y),
-                        requireAmount = true,
+                // Teilsumme: Coins ohne Kurs zählen als 0 — direkt an der Zahl «ohne 2 Coins» (antippen: Hinweise)
+                if (summary.missingCurrentPrices.isNotEmpty()) {
+                    PartialMarker(
+                        text = pluralStringResource(
+                            R.plurals.widget_portfolio_missing_coins,
+                            summary.missingCurrentPrices.size,
+                            summary.missingCurrentPrices.size,
+                        ),
+                        onClick = { showHints = true },
+                        modifier = Modifier.padding(bottom = 2.dp)
                     )
                 }
-                // Belohnungen im Jahr: Zufluss, nicht Gewinn — klein darunter
-                yearChange?.takeIf { it.amountUsd.isFinite() }?.let { change -> rewardsText(change.rewardsUsd, unit)?.let { RewardsNote(it) } }
-                Row(modifier = Modifier.fillMaxWidth().padding(top = Spacing.sm)) {
-                    Metric(
-                        label = stringResource(R.string.portfolio_invested),
-                        value = summary.invested?.let { maskAmount(PortfolioFormat.usdt(it)) } ?: "—",
-                        modifier = Modifier.weight(1f)
-                    )
-                    if (PortfolioFormat.showRealized(summary.realized, summary.realizedIncomplete)) {
-                        Metric(
-                            label = stringResource(R.string.portfolio_realized),
-                            value = maskAmount(PortfolioFormat.realizedText(summary.realized, summary.realizedIncomplete, stringResource(R.string.portfolio_export_incomplete))),
-                            valueTone = plTone(summary.realized),
-                            modifier = Modifier.weight(1f)
-                        )
-                    }
-                }
-                // Steuer-CSV rechnet nach den Regeln des Landes (Fristen, Freigrenzen, Pools): kann abweichen
-                if (PortfolioFormat.showRealized(summary.realized, summary.realizedIncomplete)) {
+                // «≈ 117’345.12 USDT» — nur wenn gross umgerechnet steht (Faktor da; auch USD, USDT zum Marktkurs)
+                if (unit.converted) {
                     Text(
-                        stringResource(R.string.tax_export_realized_differs),
-                        style = MaterialTheme.typography.label,
+                        withSmallQuote("≈ " + maskAmount(PortfolioFormat.usdt(summary.totalValue))),
+                        style = MaterialTheme.typography.bodyMedium.amountNumbers(),
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+                // «USDT = 1 angenommen» auf der Karte selbst, sobald der Ersatz 1 die Zahlen trägt ([DepegAlarm.cardNote]
+                // mit USDT zum Marktkurs: nur noch USDT_ASSUMED); die Kursquelle steht unter «Hinweise»
+                when (usdtNote?.kind) {
+                    // Mit usdtMarket nicht mehr geliefert (Abweichung = Bewertung zum Marktkurs, keine Warnzeile)
+                    DepegAlarm.CardNoteKind.DEVIATION, null -> Unit
+                    DepegAlarm.CardNoteKind.PRICE_SOURCE -> Text(
+                        priceSourceText,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.padding(top = 2.dp)
+                    )
+                    DepegAlarm.CardNoteKind.USDT_ASSUMED -> Text(
+                        stringResource(R.string.portfolio_usdt_assumed),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.padding(top = 2.dp)
+                    )
+                    // Bestätigter Einbruch: Werte rechnen mit dem Marktkurs — deutlich in Warnfarbe statt «angenommen»
+                    DepegAlarm.CardNoteKind.USDT_BREAK -> Text(
+                        stringResource(
+                            R.string.portfolio_usdt_break,
+                            com.cryptochecker.app.util.LocaleNumbers.decimal(usdtNote?.reading?.price ?: 0.0, 4),
+                        ),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.error,
+                        modifier = Modifier.padding(top = 2.dp)
+                    )
+                    // Kurs nur aus USDC/USDT: Herkunft nennen (USDC = 1 angenommen)
+                    DepegAlarm.CardNoteKind.VIA_USDC -> Text(
+                        stringResource(R.string.portfolio_usdt_via_usdc),
+                        style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier.padding(top = 2.dp)
                     )
                 }
-                // «Ausgebucht: +X (Wertänderung bis zur Auszahlung)»: steckt im Gewinn/Verlust des Wertverlaufs,
-                // nicht in «Seit Kauf»/«realisiert» — nur wenn ≠ 0
-                summary.withdrawnGainExact?.toDouble()?.takeIf { it.isFinite() && !PortfolioFormat.isZero(it) }?.let { gain ->
-                    Text(
-                        stringResource(
-                            R.string.portfolio_withdrawn_gain,
-                            maskAmount(PortfolioFormat.realizedText(gain, summary.withdrawnGainIncomplete, stringResource(R.string.portfolio_export_incomplete))),
-                        ),
-                        style = MaterialTheme.typography.bodySmall.amountNumbers(),
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        modifier = Modifier.padding(top = Spacing.xs)
+                // Build 46: eine Veränderung direkt unter dem Gesamtwert — «↗ +412.95 CHF +1.85% · Heute»
+                // (Prozent ohne Betrag, z. B. ohne Devisenkurs, bleibt sichtbar); ohne Daten keine Zeile
+                TotalChangeLine(
+                    amountUsd = todayAmount?.takeIf { todayPercent != null },
+                    percent = todayPercent,
+                    unit = unit,
+                    period = stringResource(R.string.portfolio_card_today),
+                    spokenLabel = stringResource(R.string.portfolio_card_today),
+                )
+                // M4: Überschrift «Gewinn/Verlust» mit (i) — was die Zahlen bedeuten (und was nicht)
+                // (i) mit 48 dp Trefferfläche: Abstände darum knapper, damit die Karte nicht wächst
+                GainHeader(method = summary.method, modifier = Modifier.padding(top = Spacing.xs))
+                // 7 T · Seit Kauf nebeneinander (gleich breit)
+                Row(modifier = Modifier.fillMaxWidth()) {
+                    InsightFigure(
+                        label = stringResource(R.string.portfolio_history_range_7d),
+                        spokenLabel = stringResource(R.string.portfolio_history_period_7d),
+                        amount = weekChange?.amountUsd,
+                        percent = weekChange?.percent,
+                        unit = unit,
+                        modifier = Modifier.weight(1f),
+                        rewardsUsd = weekChange?.rewardsUsd ?: 0.0,
                     )
+                    // «Seit Kauf (CHF)»: Gewinn/Verlust seit Kauf der Coins mit Kaufpreis (in der Einheit des Gesamtwerts)
+                    Column(modifier = Modifier.weight(1f).padding(start = Spacing.sm)) {
+                        InsightFigure(
+                            label = stringResource(R.string.ledger_since_purchase_currency, unit.code),
+                            spokenLabel = stringResource(R.string.ledger_since_purchase_spoken),
+                            amount = summary.unrealized,
+                            percent = summary.unrealizedPercent?.takeIf { summary.unrealized != null },
+                            unit = unit,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                        // Teilsumme (Coins/Teile ohne Kaufpreis oder ohne Kurs fehlen): «unvollständig» an der Zahl
+                        if (summary.unrealized != null &&
+                            (summary.missingCostCoins.isNotEmpty() || summary.partialCostParts.isNotEmpty() ||
+                                summary.missingCurrentPrices.isNotEmpty())
+                        ) {
+                            PartialMarker(
+                                text = stringResource(R.string.portfolio_export_incomplete),
+                                onClick = { showHints = true },
+                                modifier = Modifier.padding(top = 2.dp)
+                            )
+                        }
+                    }
                 }
-                Spacer(Modifier.height(Spacing.sm))
+                // «Details»: 1 J, Belohnungen, Einstand, Realisiert, Ausgebucht — zugeklappt
+                ExpandToggleButton(
+                    text = stringResource(R.string.portfolio_card_details),
+                    expanded = showDetails,
+                    onClick = { showDetails = !showDetails },
+                    modifier = Modifier.semantics {
+                        stateDescription = if (showDetails) expandedText else collapsedText
+                    }
+                )
+                if (showDetails) {
+                    // «↘ −38’412.95 CHF −27.85% · 1J» wie im Portfolio-Widget; ohne Daten keine Zeile
+                    yearChange?.let {
+                        TotalChangeLine(
+                            amountUsd = it.amountUsd,
+                            percent = it.percent,
+                            unit = unit,
+                            period = stringResource(R.string.portfolio_history_range_1y),
+                            spokenLabel = stringResource(R.string.portfolio_history_period_1y),
+                            requireAmount = true,
+                        )
+                    }
+                    // Belohnungen im Jahr: Zufluss, nicht Gewinn — klein darunter
+                    yearChange?.takeIf { it.amountUsd.isFinite() }?.let { change -> rewardsText(change.rewardsUsd, unit)?.let { RewardsNote(it) } }
+                    Row(modifier = Modifier.fillMaxWidth().padding(top = Spacing.sm)) {
+                        Metric(
+                            label = stringResource(R.string.portfolio_invested),
+                            value = summary.invested?.let { maskAmount(PortfolioFormat.usdt(it)) } ?: "—",
+                            modifier = Modifier.weight(1f)
+                        )
+                        if (PortfolioFormat.showRealized(summary.realized, summary.realizedIncomplete)) {
+                            Metric(
+                                label = stringResource(R.string.portfolio_realized),
+                                value = maskAmount(PortfolioFormat.realizedText(summary.realized, summary.realizedIncomplete, stringResource(R.string.portfolio_export_incomplete))),
+                                valueTone = plTone(summary.realized),
+                                modifier = Modifier.weight(1f)
+                            )
+                        }
+                    }
+                    // Steuer-CSV rechnet nach den Regeln des Landes (Fristen, Freigrenzen, Pools): kann abweichen
+                    if (PortfolioFormat.showRealized(summary.realized, summary.realizedIncomplete)) {
+                        Text(
+                            stringResource(R.string.tax_export_realized_differs),
+                            style = MaterialTheme.typography.label,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            modifier = Modifier.padding(top = 2.dp)
+                        )
+                    }
+                    // «Ausgebucht: +X (Wertänderung bis zur Auszahlung)»: steckt im Gewinn/Verlust des Wertverlaufs,
+                    // nicht in «Seit Kauf»/«realisiert» — nur wenn ≠ 0
+                    summary.withdrawnGainExact?.toDouble()?.takeIf { it.isFinite() && !PortfolioFormat.isZero(it) }?.let { gain ->
+                        Text(
+                            stringResource(
+                                R.string.portfolio_withdrawn_gain,
+                                maskAmount(PortfolioFormat.realizedText(gain, summary.withdrawnGainIncomplete, stringResource(R.string.portfolio_export_incomplete))),
+                            ),
+                            style = MaterialTheme.typography.bodySmall.amountNumbers(),
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            modifier = Modifier.padding(top = Spacing.xs)
+                        )
+                    }
+                    Spacer(Modifier.height(Spacing.sm))
+                }
             }
         }
-    }
-    // L-15: Hinweise klein unter der Karte; Build 46: eine Zeile «Hinweise (n)», aufklappbar
-    val hints = buildList {
+        // L-15: Hinweise klein unter der Karte; Build 46: eine Zeile «Hinweise (n)», aufklappbar
+        val hints = buildList {
             // Ohne Devisenkurs: Beträge in USDT statt in der Anzeigewährung
             if (currency != "USD" && !cardUnit(currency, fxRate).converted) {
                 add(TotalHintItem(stringResource(R.string.portfolio_total_no_fx, currency)))
@@ -379,8 +379,8 @@ internal fun TotalCard(
                 val asOf = stringResource(R.string.portfolio_updated, if (stale) portfolioStampTime(updatedAt) else PriceFormat.time(updatedAt))
                 add(TotalHintItem(if (stale) stringResource(R.string.watchlist_row_outdated, asOf) else asOf, error = stale))
             }
-    }
-    TotalCardHints(hints = hints, expanded = showHints, onToggle = { showHints = !showHints }, onShortfall = onShortfall)
+        }
+        TotalCardHints(hints = hints, expanded = showHints, onToggle = { showHints = !showHints }, onShortfall = onShortfall)
     }
 }
 

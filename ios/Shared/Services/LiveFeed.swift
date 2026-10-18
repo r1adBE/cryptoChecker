@@ -259,7 +259,7 @@ enum LiveParser {
     /// Zahl oder Zahl als Text; NaN/∞ → nil.
     static func finite(_ value: Any?) -> Double? {
         let d: Double?
-        // Wahrheitswerte ausschließen – aber per CFBoolean: `value is Bool` trifft auf Apple-Plattformen
+        // Wahrheitswerte ausschliessen – aber per CFBoolean: `value is Bool` trifft auf Apple-Plattformen
         // auch die Zahl 1/0 aus JSONSerialization (Kurs genau 1 ginge sonst verloren)
         if let n = value as? NSNumber, CFGetTypeID(n) != CFBooleanGetTypeID() {
             d = n.doubleValue
@@ -279,7 +279,7 @@ enum LiveParser {
 
     private static func millis(_ value: Any?) -> Int64? {
         guard let d = finite(value), d >= 1 else { return nil }
-        // Wie Kotlins toLong(): zu große Werte auf Int64.max begrenzen statt abzustürzen
+        // Wie Kotlins toLong(): zu grosse Werte auf Int64.max begrenzen statt abzustürzen
         return JSONValue.int64(d)
     }
 

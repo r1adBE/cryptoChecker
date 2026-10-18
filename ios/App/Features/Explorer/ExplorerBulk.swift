@@ -15,27 +15,27 @@ extension ExplorerScreen {
         ExplorerStepCard {
             // Ohne Register: aufklappbar mit eigenem Kopf (unter den Registern immer offen)
             if !bulkTabbed {
-            Button {
-                let expanded = !showBulk
-                ExplorerSectionMemory.bulk = expanded
-                withAnimation(.snappy(duration: 0.3)) { showBulk = expanded }
-            } label: {
-                HStack(spacing: Spacing.sm) {
-                    Image(systemName: "square.stack.3d.up.fill")
-                        .foregroundStyle(accent.primary)
-                    Text(L("explorer_bulk_title"))
-                        .font(.headline)
-                        .foregroundStyle(AppColors.onSurface)
-                    Spacer()
-                    // Auf-/Zuklapp-Pfeil überall in der Themenfarbe (wie `ExpandToggleLabel`)
-                    Image(systemName: "chevron.down")
-                        .font(.footnote.weight(.bold))
-                        .foregroundStyle(accent.primary)
-                        .rotationEffect(.degrees(showBulk ? 180 : 0))
+                Button {
+                    let expanded = !showBulk
+                    ExplorerSectionMemory.bulk = expanded
+                    withAnimation(.snappy(duration: 0.3)) { showBulk = expanded }
+                } label: {
+                    HStack(spacing: Spacing.sm) {
+                        Image(systemName: "square.stack.3d.up.fill")
+                            .foregroundStyle(accent.primary)
+                        Text(L("explorer_bulk_title"))
+                            .font(.headline)
+                            .foregroundStyle(AppColors.onSurface)
+                        Spacer()
+                        // Auf-/Zuklapp-Pfeil überall in der Themenfarbe (wie `ExpandToggleLabel`)
+                        Image(systemName: "chevron.down")
+                            .font(.footnote.weight(.bold))
+                            .foregroundStyle(accent.primary)
+                            .rotationEffect(.degrees(showBulk ? 180 : 0))
+                    }
+                    .contentShape(Rectangle())
                 }
-                .contentShape(Rectangle())
-            }
-            .buttonStyle(.plain)
+                .buttonStyle(.plain)
             }
 
             if showBulk || bulkTabbed {

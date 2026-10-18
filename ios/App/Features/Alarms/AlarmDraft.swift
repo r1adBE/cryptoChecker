@@ -27,7 +27,7 @@ struct AlarmDraft: Identifiable, Equatable {
     /// Zuletzt vorgeschlagener Betrag (einfacher Modus); nil = keiner. Steht er unverändert im
     /// Feld, folgt er beim Wechsel «über» ↔ «unter» der neuen Richtung — wie Android.
     var suggestedText: String? = nil
-    /// Neuer Alarm (Review 13): Feld leer, der aktuelle Kurs nur als Platzhalter (`blankFor`) — so
+    /// Neuer Alarm: Feld leer, der aktuelle Kurs nur als Platzhalter (`blankFor`) — so
     /// fragt «Löst sofort aus» nur, wenn der Nutzer selbst eine überschrittene Marke tippt. Fällt mit
     /// der ersten Eingabe weg. Wie Android.
     var blankStart = false

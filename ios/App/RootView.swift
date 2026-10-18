@@ -50,7 +50,7 @@ struct RootView: View {
         .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
             keyboardVisible = false
         }
-        // Keine Begrüßung mehr (Runde 32): ein neuer Nutzer landet direkt in der Starter-Auswahl
+        // Keine Begrüssung mehr (Runde 32): ein neuer Nutzer landet direkt in der Starter-Auswahl
         // der leeren Merkliste; «Was die App kann» steht unter Einstellungen › Über die App.
     }
 
@@ -158,7 +158,7 @@ enum AppTabBarMetrics {
 /// (dunkel: weiss, hell: onSurface). Für VoiceOver je eine Taste mit «ausgewählt».
 ///
 /// Ersetzt die System-Leiste (`UITabBar`) und übernimmt deren Verhalten bei grosser Schrift: Die Leiste
-/// wächst nur bis `AppTabBarMetrics.maxTypeSize` (sonst fräße sie bei AX5 auf jedem Tab Inhaltshöhe);
+/// wächst nur bis `AppTabBarMetrics.maxTypeSize` (sonst frässe sie bei AX5 auf jedem Tab Inhaltshöhe);
 /// darüber zeigt langes Drücken auf einen Tab Symbol und Namen im Large Content Viewer.
 @MainActor
 struct AppTabBar: View {
@@ -229,7 +229,7 @@ private struct AppTabBarButton: View {
                     .frame(width: AppTabBarMetrics.iconSize, height: AppTabBarMetrics.iconSize)
                     .scaleEffect(selected ? AppTabBarMetrics.selectedScale : 1)
                     .animation(scaleAnimation, value: selected)
-                    // Anzeiger hinter dem Symbol wie Android (Pille 64 × 32, Auswahlfläche des Themas; Review 18):
+                    // Anzeiger hinter dem Symbol wie Android (Pille 64 × 32, Auswahlfläche des Themas):
                     // blendet ein und wächst aus der Mitte; in schmalen Tabs höchstens so breit wie der Tab
                     .frame(minWidth: 0, maxWidth: AppTabBarMetrics.indicatorWidth)
                     .frame(height: AppTabBarMetrics.indicatorHeight)

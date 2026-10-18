@@ -11,7 +11,7 @@ extension WatchlistRow {
     /// gekürzt: «/QUOTE» (bei Futures «/QUOTE PERP») erscheint nur, wenn es ganz Platz hat, sonst entfällt es (die Quote steht
     /// ohnehin beim Kurs). Wie Android `PairName`.
     /// Rest hinter der Basis: «/USDT», bei Futures «/USDT PERP» — klein und grau wie Android
-    /// (`displayName` ohne die Basis; Review 19: keine eigene Akzent-Kapsel mehr für den Kontrakt).
+    /// (`displayName` ohne die Basis; keine eigene Akzent-Kapsel mehr für den Kontrakt).
     private var pairRest: String {
         let name = watch.displayName
         if name.hasPrefix(watch.baseAsset) { return String(name.dropFirst(watch.baseAsset.count)) }

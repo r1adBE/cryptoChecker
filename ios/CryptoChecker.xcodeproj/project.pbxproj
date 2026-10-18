@@ -223,6 +223,7 @@
 		353D4CAD5890B368DD00A5A8 /* change_basis.json in Resources */ = {isa = PBXBuildFile; fileRef = 7345F56CF503EF1F5975882B /* change_basis.json */; };
 		35D46D39FA9334FE6F05E22D /* OwnHourlyCandles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122A137BC95B4B29BC23D458 /* OwnHourlyCandles.swift */; };
 		361DC2A56FA89EF4D4676019 /* TaxEngineUk.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52128CD894803FF9A8FD374 /* TaxEngineUk.swift */; };
+		3632BB919A0765380A34E742 /* RefreshEffectsWiringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E778DA00016517B0197DD1F6 /* RefreshEffectsWiringTests.swift */; };
 		364D8FC6EB43DC949337B4E3 /* PhemexScalesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB76397650A6710B7D19D4E /* PhemexScalesTests.swift */; };
 		3661B38B9D9250ACB32E76A9 /* NotTradedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720B9C6E1169FD5B83B832A4 /* NotTradedTests.swift */; };
 		3678D6E58A44D6E495F9D1EB /* DataStatusPill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4B51CFC914083C3CD8883C /* DataStatusPill.swift */; };
@@ -838,6 +839,7 @@
 		D468AA4ACEA2412FCE4B88F0 /* CsvImportFormatDetect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76118C7478C4597EF144CFD6 /* CsvImportFormatDetect.swift */; };
 		D490642B41C4B8E66478F824 /* coin_logos.json in Resources */ = {isa = PBXBuildFile; fileRef = 7B8A9A2ABF6C7396F094AB11 /* coin_logos.json */; };
 		D4A4FFE9726A2575EA743DAA /* WidgetIntents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 473825457760E4CFCEC55341 /* WidgetIntents.swift */; };
+		D50F123727997E18F42C1BB0 /* MarketHTTPStubTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1982B30DDC450ADE29253958 /* MarketHTTPStubTests.swift */; };
 		D5304B060D0A416ABE5539D8 /* PortfolioHistoryCompareSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A24935BD19D6D6395C6E145 /* PortfolioHistoryCompareSection.swift */; };
 		D5A06A8D3472CF72E4FF68DA /* BidAskSpread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FEB4493401E8191AB0F369E /* BidAskSpread.swift */; };
 		D5B1319878C6C21B32F89D2A /* TaxEngines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D49D8B8289A37427BE2C597 /* TaxEngines.swift */; };
@@ -1105,6 +1107,7 @@
 		1908DB9E28E641137F43A7C0 /* Bitfinex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bitfinex.swift; sourceTree = "<group>"; };
 		19171E2A7550F0ACC3B0C414 /* NonKyc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonKyc.swift; sourceTree = "<group>"; };
 		1973B8976CC6FEDDD2F4D46F /* BackupExclusionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupExclusionTests.swift; sourceTree = "<group>"; };
+		1982B30DDC450ADE29253958 /* MarketHTTPStubTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketHTTPStubTests.swift; sourceTree = "<group>"; };
 		1A09E59D394E107999263A3D /* exchange_onetrading.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = exchange_onetrading.json; sourceTree = "<group>"; };
 		1B39D8BAD7215BDF040A2BC0 /* WatchGroupEditSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchGroupEditSheet.swift; sourceTree = "<group>"; };
 		1BC7EF7A1550ED7FC2CD803D /* WidgetChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetChart.swift; sourceTree = "<group>"; };
@@ -1705,6 +1708,7 @@
 		E55CFCB8875B0B1453D8B53B /* ExchangeBackoff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeBackoff.swift; sourceTree = "<group>"; };
 		E59DD73AC5544459F9824EE2 /* MarketBuildingBlocksTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketBuildingBlocksTests.swift; sourceTree = "<group>"; };
 		E6CCFDD6D7C2350777FF6DB6 /* PriceActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceActivity.swift; sourceTree = "<group>"; };
+		E778DA00016517B0197DD1F6 /* RefreshEffectsWiringTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshEffectsWiringTests.swift; sourceTree = "<group>"; };
 		E7986009CD77EBC8B7DF141B /* A11ySpeechTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = A11ySpeechTests.swift; sourceTree = "<group>"; };
 		E878DEF9ECB004C11504C20E /* WatchlistSparkline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistSparkline.swift; sourceTree = "<group>"; };
 		E88FEF18DEB5A132492F99FD /* AddressBalanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBalanceTests.swift; sourceTree = "<group>"; };
@@ -2655,6 +2659,7 @@
 				E59DD73AC5544459F9824EE2 /* MarketBuildingBlocksTests.swift */,
 				59145A9CED0011D974E8E82C /* MarketFailureParityTests.swift */,
 				89048B96DB3561ADE1630FAA /* MarketHTTPLimitTests.swift */,
+				1982B30DDC450ADE29253958 /* MarketHTTPStubTests.swift */,
 				BAB748C8D014EDB6CA490BD6 /* MarketPlainSummaryTests.swift */,
 				795E5B362B2D20A5223E4291 /* MarketSectionsTests.swift */,
 				754FD0650666311B92E4C960 /* MarketsTests.swift */,
@@ -2695,6 +2700,7 @@
 				B8955182571DBFE4C90F8443 /* PriceNotificationRuleTests.swift */,
 				E11625CD1E830661057D0076 /* ProtectedFileTests.swift */,
 				3E4D233C9DFC6CE195E8C0C2 /* RateLimitSignalTests.swift */,
+				E778DA00016517B0197DD1F6 /* RefreshEffectsWiringTests.swift */,
 				8D7D2090148F8E476E064D23 /* RefreshTests.swift */,
 				15DFB1C6A54393D1E5B47E86 /* RestoreStepsTests.swift */,
 				D397CE4212733C926A685597 /* SatsTests.swift */,
@@ -3502,6 +3508,7 @@
 				9ABC503BCA212DAB64EE5A74 /* MarketBuildingBlocksTests.swift in Sources */,
 				C34DD2A714C0359EA92836D2 /* MarketFailureParityTests.swift in Sources */,
 				844685143F3EE17627F4BAF6 /* MarketHTTPLimitTests.swift in Sources */,
+				D50F123727997E18F42C1BB0 /* MarketHTTPStubTests.swift in Sources */,
 				048EB03BD8D0718E366E3A4C /* MarketPlainSummaryTests.swift in Sources */,
 				3E56A54C1B2715D0AAB43C38 /* MarketSectionsTests.swift in Sources */,
 				2890FFE3C23E0E43D545C67E /* MarketsTests.swift in Sources */,
@@ -3542,6 +3549,7 @@
 				03CB314642D46ED6825C4D41 /* PriceNotificationRuleTests.swift in Sources */,
 				BAB9228B836429AC07EAE1DC /* ProtectedFileTests.swift in Sources */,
 				1B765E6F0246BCBCEF39BB07 /* RateLimitSignalTests.swift in Sources */,
+				3632BB919A0765380A34E742 /* RefreshEffectsWiringTests.swift in Sources */,
 				79B6E8E286DCBEC4B5676BFA /* RefreshTests.swift in Sources */,
 				6EAAAFD0414316F6C04F71AB /* RestoreStepsTests.swift in Sources */,
 				9D2CA8C53DC7BFCAA78B5C35 /* SatsTests.swift in Sources */,

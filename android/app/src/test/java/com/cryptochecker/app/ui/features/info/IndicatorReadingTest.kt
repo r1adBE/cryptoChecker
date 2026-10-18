@@ -8,7 +8,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 /**
- * Build 55 (Review 14): Jede Kennzahl hat eine Zeile «hoch heisst …, tief heisst …» (`ind_read_<id>`),
+ * Jede Kennzahl hat eine Zeile «hoch heisst …, tief heisst …» (`ind_read_<id>`),
  * dazu Hebel, Funding und Altcoins in den Info-Blättern — in allen 31 Sprachen, als ein kurzer Satz
  * ohne Platzhalter. Wie `testIndicatorReadings` (iOS, MarketSectionsTests).
  */

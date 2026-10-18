@@ -6,6 +6,7 @@ package com.cryptochecker.app.ui.features.explorer
 
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.data.TickerImpl
+import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.exceptions.MarketError
 import com.cryptochecker.app.domain.model.MarketInfo
 import com.cryptochecker.app.domain.model.MarketTickerResult
@@ -39,7 +40,7 @@ fun ExplorerViewModel.selectExchange(market: MarketInfo?) {
  */
 internal fun ExplorerViewModel.reloadIfNoPairs(target: MarketInfo) {
     viewModelScope.launch {
-        val noPairs = runCatching { marketRepository.getMarketCurrencyPairsInfo(target).pairs.isEmpty() }
+        val noPairs = runCatchingCancellable { marketRepository.getMarketCurrencyPairsInfo(target).pairs.isEmpty() }
             .getOrDefault(false)
         val stillWanted = exchange.value == target && !pairListSync.value.inProgress
         if (noPairs && marketRepository.isMarketSupportsUpdatePairs(target) && stillWanted) {
@@ -90,7 +91,7 @@ fun ExplorerViewModel.reloadPairList() {
         Timber.d("Paarliste abgleichen: ${target.key}")
         try {
             marketRepository.updateMarketCurrencyPairs(target)
-            runCatching { pairsByMarket[target.key] = marketRepository.getMarketCurrencyPairsInfo(target, withAlpha = true) }
+            runCatchingCancellable { pairsByMarket[target.key] = marketRepository.getMarketCurrencyPairsInfo(target, withAlpha = true) }
             pairListChanged.emit(Unit)
             pairListSync.value = PairListSync()
             // Die Suche kennt die Liste jetzt auch

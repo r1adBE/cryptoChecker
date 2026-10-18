@@ -1,46 +1,59 @@
 package com.cryptochecker.marketdata.model
 
 /**
- * Kursdaten eines Paars. Fehlende Zahlen stehen auf [MISSING].
+ * Price data of one pair, filled by the adapter's ticker parsers. Numbers not delivered stay at [MISSING].
  */
 interface Ticker {
-    /** Letzter Kurs (bei [Market.priceIsMid] der Mittelkurs). */
+    /** Last price (the mid price for [Market.priceIsMid]); required for a usable ticker. */
     var last: Double
+
+    /** Best bid. */
     var bid: Double
+
+    /** Best ask. */
     var ask: Double
+
+    /** 24 h high. */
     var high: Double
+
+    /** 24 h low. */
     var low: Double
 
-    /** Volumen in der Basiswährung bzw. in der Gegenwährung. */
+    /** 24 h volume in the base currency. */
     var vol: Double
+
+    /** 24 h volume in the quote currency. */
     var volQuote: Double
 
-    /** Nach [Market.readTicker]: Moment des Abrufs in ms. */
+    /**
+     * Parsers may write the exchange time here (s, ms, µs or ns); after [Market.readTicker] it holds the fetch
+     * time in ms and the exchange time is in [exchangeTime].
+     */
     var timestamp: Long
 
     /**
-     * Zeit laut Börse in ms; null, wenn sie keine mitschickt (Kraken, Gate.io, Hyperliquid …). Bleibt der Kurs
-     * lange gleich, zeigt die Merkliste damit «Kurs unverändert seit …» (`PriceFreshness`).
+     * Time reported by the exchange in ms; null if it sends none (Kraken, Gate.io, Hyperliquid …). If the price
+     * stays the same for long, the watchlist shows «price unchanged since …» (`PriceFreshness`).
      */
     var exchangeTime: Long?
 
     /**
-     * Gleitende 24-h-Veränderung in Prozent (1.5 = +1,5 %), so wie die Börse sie im Ticker meldet. null ohne
-     * gleitenden Wert — die App rechnet dann mit Stundenkerzen. Werte seit Mitternacht (UTC, KST …) gehören nicht
-     * hierher; Einzelheiten in DEVELOPMENT.md, «24 h change».
+     * Rolling 24 h change in percent (1.5 = +1.5 %) as reported in the exchange's ticker. null without a rolling
+     * value — the app then computes it from hourly candles. Changes since midnight (UTC, KST …) do not belong
+     * here; details in DEVELOPMENT.md, «24 h change».
      */
     var change24hPercent: Double?
 
     /**
-     * Liquidität des Pools in USD — nur DEX-Pools ([com.cryptochecker.marketdata.model.market.DexScreener]); null =
-     * unbekannt bzw. keine DEX-Quelle. Ein dünner Pool lässt sich mit kleinen Beträgen bewegen: dann kein Alarm.
+     * Pool liquidity in USD — DEX pools only ([com.cryptochecker.marketdata.model.market.DexScreener]); null =
+     * unknown or not a DEX source. A thin pool can be moved with small amounts, so no alarm fires then.
      */
     var liquidityUsd: Double?
         get() = null
         set(@Suppress("UNUSED_PARAMETER") value) {}
 
     companion object {
-        /** Platzhalter für «nicht geliefert» in den Zahlenfeldern (alle Kurswerte sind sonst positiv). Wie iOS `Ticker.missing`. */
+        /** Placeholder for «not delivered» in the number fields (all price values are positive otherwise). Same as iOS `Ticker.missing`. */
         const val MISSING = -1.0
     }
 }

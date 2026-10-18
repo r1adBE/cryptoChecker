@@ -1,6 +1,7 @@
 package com.cryptochecker.app.data.remote
 
 import com.cryptochecker.app.data.TokenIdentityStore
+import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.activity.CandleSeries
 import com.cryptochecker.app.domain.activity.HourCandle
 import com.cryptochecker.app.domain.exceptions.HttpMarketError
@@ -232,7 +233,7 @@ class CandleDataSource @Inject constructor(
         for (symbol in symbols) {
             if (BlockedSources.isBlocked(source.key)) return null
             val body = get(source, "$endpoint?symbol=$symbol&interval=${interval.binanceCode}&limit=$limit") ?: continue
-            val candles = runCatching { parseBinance(body) }.getOrNull()
+            val candles = runCatchingCancellable { parseBinance(body) }.getOrNull()
             if (candles != null && candles.size >= 2) return candles
         }
         return null
@@ -249,7 +250,7 @@ class CandleDataSource @Inject constructor(
             if (BlockedSources.isBlocked(Source.COINBASE.key)) return null
             val url = "https://api.exchange.coinbase.com/products/$b-$cq/candles?granularity=$granularity"
             val body = get(Source.COINBASE, url) ?: continue
-            var raw = runCatching { parseCoinbase(body) }.getOrNull() ?: continue
+            var raw = runCatchingCancellable { parseCoinbase(body) }.getOrNull() ?: continue
             // Je Anfrage höchstens 300 Kerzen: für lange Reihen (1 Jahr) eine ältere Seite dazu
             val rawNeeded = limit * when (interval) {
                 CandleInterval.H1, CandleInterval.D1 -> 1
@@ -261,7 +262,7 @@ class CandleDataSource @Inject constructor(
             }
             if (older != null) {
                 val olderUrl = "$url&start=${Instant.ofEpochMilli(older.first)}&end=${Instant.ofEpochMilli(older.last)}"
-                val olderRaw = get(Source.COINBASE, olderUrl)?.let { runCatching { parseCoinbase(it) }.getOrNull() }
+                val olderRaw = get(Source.COINBASE, olderUrl)?.let { runCatchingCancellable { parseCoinbase(it) }.getOrNull() }
                 if (olderRaw != null) raw = CandleSeries.mergeAscending(olderRaw, raw)
             }
             val candles = when (interval) {

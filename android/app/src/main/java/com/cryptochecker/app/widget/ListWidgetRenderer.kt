@@ -12,6 +12,7 @@ import android.widget.RemoteViews
 import androidx.annotation.RequiresApi
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.RefreshStats
+import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.refresh.OutdatedRule
 import com.cryptochecker.app.domain.watch.WatchFilter
 import com.cryptochecker.app.settings.HighContrast
@@ -84,7 +85,7 @@ class ListWidgetRenderer @Inject constructor(
             }.getOrDefault(false)
             // Neuer Stand je Zeichnen: Zeilen aus dem Dienst gehören so zur Uhrzeit im Kopf (ListWidgetDataVersion)
             val version = rows.versions.next(appWidgetId)
-            runCatching {
+            runCatchingCancellable {
                 manager.updateAppWidget(
                     appWidgetId,
                     render(manager, appWidgetId, colors, accent.logoRes(dark), lastRefresh, outdated, inline, title, version, empty),
@@ -96,7 +97,7 @@ class ListWidgetRenderer @Inject constructor(
         // Seit API 31 zugunsten von RemoteCollectionItems abgekündigt — die nutzen wir dort.
         if (viaService.isNotEmpty()) {
             @Suppress("DEPRECATION")
-            runCatching { manager.notifyAppWidgetViewDataChanged(viaService.toIntArray(), R.id.widget_list) }
+            runCatchingCancellable { manager.notifyAppWidgetViewDataChanged(viaService.toIntArray(), R.id.widget_list) }
                 .onFailure { Timber.w(it, "Widget-Liste konnte nicht aktualisiert werden") }
         }
         return true
@@ -203,11 +204,11 @@ class ListWidgetRenderer @Inject constructor(
      */
     @RequiresApi(Build.VERSION_CODES.S)
     private suspend fun inlineRows(appWidgetId: Int): RemoteViews.RemoteCollectionItems? {
-        return runCatching {
+        return runCatchingCancellable {
             val data = rows.load(appWidgetId)
             // Mit Logos reist je Zeile ein kleines Bild mit: früher an den Dienst abgeben
             val limit = if (data.logos != null) MAX_INLINE_ROWS_WITH_LOGOS else MAX_INLINE_ROWS
-            if (data.watches.size > limit) return@runCatching null
+            if (data.watches.size > limit) return@runCatchingCancellable null
             val builder = RemoteViews.RemoteCollectionItems.Builder()
                 .setHasStableIds(true)
                 .setViewTypeCount(1)

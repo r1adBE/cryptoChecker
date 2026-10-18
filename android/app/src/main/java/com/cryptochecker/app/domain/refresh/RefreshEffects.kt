@@ -39,22 +39,49 @@ import kotlin.math.abs
  * Kurs-Benachrichtigung und die Kursansage — jeweils mit Nachtruhe. Teil von [PriceRefresher].
  */
 @Singleton
-class RefreshEffects @Inject constructor(
-    private val watchRepository: WatchRepository,
+class RefreshEffects internal constructor(
+    private val watchRepository: RefreshStore,
     private val alarmEvaluator: AlarmEvaluator,
-    private val notifier: AppNotifier,
-    private val ttsSpeaker: TtsSpeaker,
-    private val spokenText: SpokenText,
-    private val volumeDataSource: VolumeDataSource,
-    private val currencyConverter: CurrencyConverter,
-    private val nearExtremeDataSource: NearExtremeDataSource,
+    private val notifier: RefreshNotifier,
+    private val ttsSpeaker: RefreshSpeaker,
+    private val spokenText: RefreshSpokenText,
+    private val volumeDataSource: AlarmVolumeSource,
+    private val currencyConverter: AlarmRateSource,
+    private val nearExtremeDataSource: AlarmRangeSource,
     /** Funding/Open Interest für die Futures-Alarme (je Paar höchstens alle 5 Min.). */
-    private val derivativesAlarmData: DerivativesAlarmData,
+    private val derivativesAlarmData: AlarmDerivativesSource,
     /** Kursverlauf je Paar für den Bewegungs-Alarm (gleitendes Fenster, [MoveWindow]). */
-    private val moveHistoryStore: MoveHistoryStore,
+    private val moveHistoryStore: AlarmMoveHistory,
     /** «Nicht geprüft seit …» für Alarme ohne Devisenkurs bzw. Kerzen (nur im Speicher). */
     private val alarmCheckStatus: AlarmCheckStatus,
 ) {
+    /** Für Hilt: die App-Klassen hinter den schmalen Schnittstellen aus RefreshPorts.kt (Tests geben Fakes). */
+    @Inject constructor(
+        watchRepository: WatchRepository,
+        alarmEvaluator: AlarmEvaluator,
+        notifier: AppNotifier,
+        ttsSpeaker: TtsSpeaker,
+        spokenText: SpokenText,
+        volumeDataSource: VolumeDataSource,
+        currencyConverter: CurrencyConverter,
+        nearExtremeDataSource: NearExtremeDataSource,
+        derivativesAlarmData: DerivativesAlarmData,
+        moveHistoryStore: MoveHistoryStore,
+        alarmCheckStatus: AlarmCheckStatus,
+    ) : this(
+        watchRepository.asRefreshStore(),
+        alarmEvaluator,
+        notifier.asRefreshNotifier(),
+        ttsSpeaker.asRefreshSpeaker(),
+        spokenText.asRefreshSpokenText(),
+        volumeDataSource.asAlarmVolumeSource(),
+        currencyConverter.asAlarmRateSource(),
+        nearExtremeDataSource.asAlarmRangeSource(),
+        derivativesAlarmData.asAlarmDerivativesSource(),
+        moveHistoryStore.asAlarmMoveHistory(),
+        alarmCheckStatus,
+    )
+
     /** Melden-dann-Speichern samt unbestätigter Versuche (nur im Speicher). */
     private val delivery = com.cryptochecker.app.domain.alarm.AlarmDelivery()
 
@@ -63,7 +90,7 @@ class RefreshEffects @Inject constructor(
 
     /**
      * Zusatzdaten der Alarme (Devisenkurs, Hoch/Tief, Stundenvolumen, Funding/Open Interest) schon
-     * PARALLEL zur Kursabfrage holen (Review 13) — nur für Paare mit solchen Alarmen. Im Doze-Modus
+     * PARALLEL zur Kursabfrage holen — nur für Paare mit solchen Alarmen. Im Doze-Modus
      * ist das Netz-Fenster nach den Kursen sonst oft vorbei. Füllt nur die Zwischenspeicher der
      * Quellen; [checkAlarms] liest sie danach. Der Aufrufer wartet höchstens bis zu seiner Frist.
      */
@@ -174,7 +201,7 @@ class RefreshEffects @Inject constructor(
          * Ausgelösten Alarm melden: Alarme ohne zustellbare Benachrichtigung (keine Erlaubnis,
          * Kanal stumm; einmalige wie wiederholende) bleiben scharf und melden, sobald es wieder geht — statt sich
          * still abzuschalten. Sonst ZUERST melden und erst speichern (einmalige: abschalten), wenn die
-         * Meldung unter den offenen Mitteilungen steht ([show] = true, Review 12): Verwirft Android
+         * Meldung unter den offenen Mitteilungen steht ([show] = true): Verwirft Android
          * sie (z. B. zu viele offene Mitteilungen), bleibt der Alarm scharf und meldet beim nächsten
          * Durchlauf erneut — frühestens nach der Abklingzeit ([NotificationBudget.retryBlocked]).
          * Hat der Nutzer den Alarm inzwischen geändert oder abgeschaltet, speichert [mark] nichts.

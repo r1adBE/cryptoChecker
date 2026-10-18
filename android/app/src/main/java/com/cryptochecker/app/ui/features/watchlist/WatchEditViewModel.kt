@@ -10,6 +10,7 @@ import com.cryptochecker.app.data.PairEditResult
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.live.LivePriceStream
 import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.model.MarketInfo
 import com.cryptochecker.app.domain.model.MarketPairsInfo
 import com.cryptochecker.app.domain.refresh.PriceRefresher
@@ -167,7 +168,7 @@ class WatchEditViewModel @Inject constructor(
         pairsJob?.cancel()
         _state.value = _state.value.copy(market = market, pairs = null, syncError = null, syncing = false)
         pairsJob = viewModelScope.launch {
-            var info = runCatching { marketRepository.getMarketCurrencyPairsInfo(market) }.getOrNull()
+            var info = runCatchingCancellable { marketRepository.getMarketCurrencyPairsInfo(market) }.getOrNull()
             val canSync = marketRepository.isMarketSupportsUpdatePairs(market)
             if ((forceSync || info == null || info.pairs.isEmpty()) && canSync) {
                 _state.value = _state.value.copy(syncing = true)

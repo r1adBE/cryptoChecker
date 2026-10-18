@@ -4,6 +4,7 @@
 package com.cryptochecker.app.ui.features.info
 
 import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.activity.WhyReport
 import com.cryptochecker.marketdata.model.FuturesContractType
 import kotlinx.coroutines.Dispatchers
@@ -56,7 +57,7 @@ suspend fun InfoViewModel.previewWatch(symbol: String): WatchEntity? {
  * [WatchEntity.lastError] (die Oberfläche übersetzt sie wie in der Merkliste).
  */
 suspend fun InfoViewModel.previewQuote(watch: WatchEntity): WatchEntity {
-    val result = runCatching {
+    val result = runCatchingCancellable {
         kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
             marketRepository.getMarketTicker(
                 com.cryptochecker.app.domain.model.MarketInfo(watch.marketKey, watch.marketName),

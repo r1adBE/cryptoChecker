@@ -2,6 +2,7 @@
 
 package com.cryptochecker.app.ui.features.about
 
+import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.ui.components.SectionTitle
 import com.cryptochecker.app.ui.components.sectionTitleMarker
 import android.content.Context
@@ -58,7 +59,7 @@ private const val SQLITE_LINE = "SQLite — Public Domain"
  */
 private const val RATES_BY_EXCHANGERATE_API = "Rates By Exchange Rate API (https://www.exchangerate-api.com)"
 
-/** Fremdbibliotheken aus `app/build.gradle`, die in der App ausgeliefert werden (alle unter der Apache License 2.0). */
+/** Fremdbibliotheken aus `app/build.gradle.kts`, die in der App ausgeliefert werden (alle unter der Apache License 2.0). */
 private val ANDROID_LIBRARIES = listOf(
     "AndroidX Core, Core SplashScreen, AppCompat, Activity, Lifecycle, Navigation",
     "Jetpack Compose (UI, UI Util, Material 3, ConstraintLayout)",
@@ -208,5 +209,5 @@ private fun SectionDivider() {
 
 /** Liest einen Lizenztext aus `assets/` (leer, falls die Datei fehlt). */
 private suspend fun readAsset(context: Context, path: String): String = withContext(Dispatchers.IO) {
-    runCatching { context.assets.open(path).bufferedReader().use { it.readText() } }.getOrDefault("")
+    runCatchingCancellable { context.assets.open(path).bufferedReader().use { it.readText() } }.getOrDefault("")
 }

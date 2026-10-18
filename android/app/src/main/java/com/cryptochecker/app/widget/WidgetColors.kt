@@ -96,97 +96,97 @@ class WidgetColors(
 
         private fun base(accent: AccentColor, dark: Boolean): WidgetColors =
             when (accent to dark) {
-            AccentColor.ORANGE to true -> WidgetColors(
-                baseColor = 0xFF1F1F1F.toInt(),
-                textColor = 0xFFE2E2E2.toInt(),
-                secondaryTextColor = 0xFFC6C6C6.toInt(),
-                accentColor = 0xFFED835E.toInt(),
-                onAccentColor = 0xFF410D00.toInt(),
-                neutralColor = 0xFF919191.toInt(),
-                dark = true,
-            )
-            AccentColor.ORANGE to false -> WidgetColors(
-                baseColor = 0xFFF1EEE9.toInt(),
-                textColor = 0xFF1B1B1B.toInt(),
-                secondaryTextColor = 0xFF474747.toInt(),
-                accentColor = 0xFFA64827.toInt(),
-                onAccentColor = 0xFFFFFFFF.toInt(),
-                neutralColor = 0xFF5F5F5F.toInt(),
-                dark = false,
-            )
-            AccentColor.RED to true -> WidgetColors(
-                baseColor = 0xFF1F1F1F.toInt(),
-                textColor = 0xFFE2E2E2.toInt(),
-                secondaryTextColor = 0xFFC6C6C6.toInt(),
-                accentColor = 0xFFFF7173.toInt(),
-                onAccentColor = 0xFF480008.toInt(),
-                neutralColor = 0xFF919191.toInt(),
-                dark = true,
-            )
-            AccentColor.RED to false -> WidgetColors(
-                baseColor = 0xFFF1EEE9.toInt(),
-                textColor = 0xFF1B1B1B.toInt(),
-                secondaryTextColor = 0xFF474747.toInt(),
-                accentColor = 0xFFBE2B38.toInt(),
-                onAccentColor = 0xFFFFFFFF.toInt(),
-                neutralColor = 0xFF5F5F5F.toInt(),
-                dark = false,
-            )
-            AccentColor.BLUE to true -> WidgetColors(
-                baseColor = 0xFF1F1F1F.toInt(),
-                textColor = 0xFFE2E2E2.toInt(),
-                secondaryTextColor = 0xFFC6C6C6.toInt(),
-                accentColor = 0xFF73A3FC.toInt(),
-                onAccentColor = 0xFF001A57.toInt(),
-                neutralColor = 0xFF919191.toInt(),
-                dark = true,
-            )
-            AccentColor.BLUE to false -> WidgetColors(
-                baseColor = 0xFFF1EEE9.toInt(),
-                textColor = 0xFF1B1B1B.toInt(),
-                secondaryTextColor = 0xFF474747.toInt(),
-                accentColor = 0xFF2B5FC8.toInt(),
-                onAccentColor = 0xFFFFFFFF.toInt(),
-                neutralColor = 0xFF5F5F5F.toInt(),
-                dark = false,
-            )
-            AccentColor.GREEN to true -> WidgetColors(
-                baseColor = 0xFF1F1F1F.toInt(),
-                textColor = 0xFFE2E2E2.toInt(),
-                secondaryTextColor = 0xFFC6C6C6.toInt(),
-                accentColor = 0xFF4ABE83.toInt(),
-                onAccentColor = 0xFF002A16.toInt(),
-                neutralColor = 0xFF919191.toInt(),
-                dark = true,
-            )
-            AccentColor.GREEN to false -> WidgetColors(
-                baseColor = 0xFFF1EEE9.toInt(),
-                textColor = 0xFF1B1B1B.toInt(),
-                secondaryTextColor = 0xFF474747.toInt(),
-                accentColor = 0xFF107348.toInt(),
-                onAccentColor = 0xFFFFFFFF.toInt(),
-                neutralColor = 0xFF5F5F5F.toInt(),
-                dark = false,
-            )
-            AccentColor.MARRS_GREEN to true -> WidgetColors(
-                baseColor = 0xFF1F1F1F.toInt(),
-                textColor = 0xFFE2E2E2.toInt(),
-                secondaryTextColor = 0xFFC6C6C6.toInt(),
-                accentColor = 0xFF5FB8B1.toInt(),
-                onAccentColor = 0xFF072826.toInt(),
-                neutralColor = 0xFF919191.toInt(),
-                dark = true,
-            )
-            AccentColor.MARRS_GREEN to false -> WidgetColors(
-                baseColor = 0xFFF1EEE9.toInt(),
-                textColor = 0xFF1B1B1B.toInt(),
-                secondaryTextColor = 0xFF474747.toInt(),
-                accentColor = 0xFF22706B.toInt(),
-                onAccentColor = 0xFFFFFFFF.toInt(),
-                neutralColor = 0xFF5F5F5F.toInt(),
-                dark = false,
-            )
-                else -> error("unerreichbar")
+                AccentColor.ORANGE to true -> WidgetColors(
+                    baseColor = 0xFF1F1F1F.toInt(),
+                    textColor = 0xFFE2E2E2.toInt(),
+                    secondaryTextColor = 0xFFC6C6C6.toInt(),
+                    accentColor = 0xFFED835E.toInt(),
+                    onAccentColor = 0xFF410D00.toInt(),
+                    neutralColor = 0xFF919191.toInt(),
+                    dark = true,
+                )
+                AccentColor.ORANGE to false -> WidgetColors(
+                    baseColor = 0xFFF1EEE9.toInt(),
+                    textColor = 0xFF1B1B1B.toInt(),
+                    secondaryTextColor = 0xFF474747.toInt(),
+                    accentColor = 0xFFA64827.toInt(),
+                    onAccentColor = 0xFFFFFFFF.toInt(),
+                    neutralColor = 0xFF5F5F5F.toInt(),
+                    dark = false,
+                )
+                AccentColor.RED to true -> WidgetColors(
+                    baseColor = 0xFF1F1F1F.toInt(),
+                    textColor = 0xFFE2E2E2.toInt(),
+                    secondaryTextColor = 0xFFC6C6C6.toInt(),
+                    accentColor = 0xFFFF7173.toInt(),
+                    onAccentColor = 0xFF480008.toInt(),
+                    neutralColor = 0xFF919191.toInt(),
+                    dark = true,
+                )
+                AccentColor.RED to false -> WidgetColors(
+                    baseColor = 0xFFF1EEE9.toInt(),
+                    textColor = 0xFF1B1B1B.toInt(),
+                    secondaryTextColor = 0xFF474747.toInt(),
+                    accentColor = 0xFFBE2B38.toInt(),
+                    onAccentColor = 0xFFFFFFFF.toInt(),
+                    neutralColor = 0xFF5F5F5F.toInt(),
+                    dark = false,
+                )
+                AccentColor.BLUE to true -> WidgetColors(
+                    baseColor = 0xFF1F1F1F.toInt(),
+                    textColor = 0xFFE2E2E2.toInt(),
+                    secondaryTextColor = 0xFFC6C6C6.toInt(),
+                    accentColor = 0xFF73A3FC.toInt(),
+                    onAccentColor = 0xFF001A57.toInt(),
+                    neutralColor = 0xFF919191.toInt(),
+                    dark = true,
+                )
+                AccentColor.BLUE to false -> WidgetColors(
+                    baseColor = 0xFFF1EEE9.toInt(),
+                    textColor = 0xFF1B1B1B.toInt(),
+                    secondaryTextColor = 0xFF474747.toInt(),
+                    accentColor = 0xFF2B5FC8.toInt(),
+                    onAccentColor = 0xFFFFFFFF.toInt(),
+                    neutralColor = 0xFF5F5F5F.toInt(),
+                    dark = false,
+                )
+                AccentColor.GREEN to true -> WidgetColors(
+                    baseColor = 0xFF1F1F1F.toInt(),
+                    textColor = 0xFFE2E2E2.toInt(),
+                    secondaryTextColor = 0xFFC6C6C6.toInt(),
+                    accentColor = 0xFF4ABE83.toInt(),
+                    onAccentColor = 0xFF002A16.toInt(),
+                    neutralColor = 0xFF919191.toInt(),
+                    dark = true,
+                )
+                AccentColor.GREEN to false -> WidgetColors(
+                    baseColor = 0xFFF1EEE9.toInt(),
+                    textColor = 0xFF1B1B1B.toInt(),
+                    secondaryTextColor = 0xFF474747.toInt(),
+                    accentColor = 0xFF107348.toInt(),
+                    onAccentColor = 0xFFFFFFFF.toInt(),
+                    neutralColor = 0xFF5F5F5F.toInt(),
+                    dark = false,
+                )
+                AccentColor.MARRS_GREEN to true -> WidgetColors(
+                    baseColor = 0xFF1F1F1F.toInt(),
+                    textColor = 0xFFE2E2E2.toInt(),
+                    secondaryTextColor = 0xFFC6C6C6.toInt(),
+                    accentColor = 0xFF5FB8B1.toInt(),
+                    onAccentColor = 0xFF072826.toInt(),
+                    neutralColor = 0xFF919191.toInt(),
+                    dark = true,
+                )
+                AccentColor.MARRS_GREEN to false -> WidgetColors(
+                    baseColor = 0xFFF1EEE9.toInt(),
+                    textColor = 0xFF1B1B1B.toInt(),
+                    secondaryTextColor = 0xFF474747.toInt(),
+                    accentColor = 0xFF22706B.toInt(),
+                    onAccentColor = 0xFFFFFFFF.toInt(),
+                    neutralColor = 0xFF5F5F5F.toInt(),
+                    dark = false,
+                )
+                    else -> error("unerreichbar")
             }
     }
 }

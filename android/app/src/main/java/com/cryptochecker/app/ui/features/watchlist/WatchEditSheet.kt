@@ -199,7 +199,7 @@ internal fun WatchEditSheet(
                     Icon(
                         painterResource(R.drawable.ic_notifications_active),
                         contentDescription = null,
-                        // Bernstein für «Achtung» wie überall (Review 19), nicht das Material-Oliv `tertiary`
+                        // Bernstein für «Achtung» wie überall, nicht das Material-Oliv `tertiary`
                         tint = AppColors.warning,
                         modifier = Modifier.padding(end = 8.dp).size(18.dp)
                     )

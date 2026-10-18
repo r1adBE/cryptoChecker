@@ -1,5 +1,6 @@
 package com.cryptochecker.app.data
 
+import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.watch.WatchFilter
 import androidx.room.withTransaction
 import com.cryptochecker.app.data.local.AppDatabase
@@ -95,7 +96,7 @@ class WatchRepository @Inject constructor(
         // Einmal je Prozess vor dem ersten Lesen (Aktualisierung, Widgets, Alarme): Vertragsarten angleichen
         if (!contractTypesNormalized) {
             contractTypesNormalized = true
-            runCatching { normalizeContractTypes() }
+            runCatchingCancellable { normalizeContractTypes() }
         }
         return watchDao.getWatches()
     }

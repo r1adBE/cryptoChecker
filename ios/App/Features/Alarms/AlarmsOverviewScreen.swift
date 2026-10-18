@@ -83,7 +83,7 @@ struct AlarmsOverviewScreen: View {
                         NotificationsOffBanner()
                         // Hintergrundaktualisierung aus / Stromsparmodus: bei geschlossener App kommen dann keine Alarme
                         BackgroundOffBanner()
-                        // Wann die Alarme zuletzt geprüft wurden (Review 13)
+                        // Wann die Alarme zuletzt geprüft wurden
                         AlarmLastCheckedLine()
                             .padding(.horizontal, 4)
                         // Alarme «Portfolio-Wert» zuerst, als eigene Karte

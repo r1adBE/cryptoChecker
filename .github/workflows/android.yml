@@ -65,7 +65,7 @@ jobs:
       - name: Compile instrumented tests
         run: ./gradlew :app:assembleDebugAndroidTest --stacktrace
 
-      # Lint as a gate (abortOnError = true in app/build.gradle): report uploaded on failure.
+      # Lint as a gate (abortOnError = true in app/build.gradle.kts): report uploaded on failure.
       - name: Lint
         run: ./gradlew :app:lintDebug --stacktrace
 
@@ -78,7 +78,7 @@ jobs:
       - name: Build debug APK
         run: ./gradlew :app:assembleDebug --stacktrace
 
-      # Release build without keystore stays unsigned (app/build.gradle); it runs R8/minify and
+      # Release build without keystore stays unsigned (app/build.gradle.kts); it runs R8/minify and
       # resource shrinking, so missing keep rules show up here and not only on a device.
       - name: Build release (unsigned, R8)
         run: ./gradlew :app:assembleRelease --stacktrace

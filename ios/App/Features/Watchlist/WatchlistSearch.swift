@@ -38,7 +38,7 @@ extension WatchlistScreen {
         // Mindesthöhe statt fester Höhe: wächst mit grosser Schrift, sonst 34 pt — wie Android heightIn
         .frame(minHeight: WatchlistSearch.rowHeight)
         .background(AppColors.container, in: Capsule())
-        .overlay(Capsule().strokeBorder(AppColors.outline, lineWidth: 1)) // Kontroll-Rand ≥ 3:1 (Review 18), wie Android
+        .overlay(Capsule().strokeBorder(AppColors.outline, lineWidth: 1)) // Kontroll-Rand ≥ 3:1 (WCAG 1.4.11), wie Android
         .onAppear {
             // Kurz warten, bis das Feld in der Liste steht — dann Tastatur auf
             Task { @MainActor in

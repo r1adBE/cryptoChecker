@@ -4,6 +4,7 @@ import com.cryptochecker.app.data.TokenIdentityStore
 import com.cryptochecker.app.data.remote.BlockedSources
 import com.cryptochecker.app.data.remote.CandleDataSource
 import com.cryptochecker.app.data.remote.callMarket
+import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.activity.HourCandle
 import com.cryptochecker.app.domain.convert.CurrencyConversion
 import com.cryptochecker.app.domain.portfolio.CutoffCloses
@@ -134,11 +135,11 @@ class HistoricPriceSource @Inject constructor(
     ): CloseResult {
         if (BlockedSources.isBlocked(host)) return CloseResult(null)
         val body = get(host, "$endpoint?symbol=$symbol&interval=1d&startTime=$start&limit=1") ?: return CloseResult(null)
-        val candles = runCatching { CandleDataSource.parseBinance(body) }.getOrNull() ?: return CloseResult(null)
+        val candles = runCatchingCancellable { CandleDataSource.parseBinance(body) }.getOrNull() ?: return CloseResult(null)
         val close = closeOf(candles, start) ?: return CloseResult(null)
         // Führt die Quelle den Coin heute als denselben Token? (jüngste Tageskerze)
         val latest = get(host, "$endpoint?symbol=$symbol&interval=1d&limit=1")
-            ?.let { runCatching { CandleDataSource.parseBinance(it) }.getOrNull() }
+            ?.let { runCatchingCancellable { CandleDataSource.parseBinance(it) }.getOrNull() }
             ?.lastOrNull()?.close
         return if (PricePlausibility.acceptSourceClose(close, primary, sourceLatest = latest, current = current)) {
             CloseResult(close)
@@ -157,11 +158,11 @@ class HistoricPriceSource @Inject constructor(
             if (BlockedSources.isBlocked(host)) break
             val url = "https://$host/products/$b-$quote/candles?granularity=86400&start=$from&end=$to"
             val body = get(host, url) ?: continue
-            val candles = runCatching { CandleDataSource.parseCoinbase(body) }.getOrNull() ?: continue
+            val candles = runCatchingCancellable { CandleDataSource.parseCoinbase(body) }.getOrNull() ?: continue
             val close = closeOf(candles, start) ?: continue
             // Jüngste Tageskerzen desselben Produkts (ohne Zeitfenster = die neuesten)
             val latest = get(host, "https://$host/products/$b-$quote/candles?granularity=86400")
-                ?.let { runCatching { CandleDataSource.parseCoinbase(it) }.getOrNull() }
+                ?.let { runCatchingCancellable { CandleDataSource.parseCoinbase(it) }.getOrNull() }
                 ?.maxByOrNull { it.openTime }?.close
             if (PricePlausibility.acceptSourceClose(close, primary = false, sourceLatest = latest, current = current)) {
                 return CloseResult(close)
@@ -190,7 +191,7 @@ class HistoricPriceSource @Inject constructor(
             )
             for (url in urls) {
                 val body = get(FX_HOST, url) ?: continue
-                val fx = runCatching {
+                val fx = runCatchingCancellable {
                     val root = JSONObject(body)
                     val rate = root.getJSONObject("rates").getDouble(target)
                     HistoricFx(rate, root.optString("date").takeIf { it.isNotEmpty() })
@@ -230,7 +231,7 @@ class HistoricPriceSource @Inject constructor(
             )
             for (url in urls) {
                 val body = get(FX_HOST, url) ?: continue
-                val byDate = runCatching {
+                val byDate = runCatchingCancellable {
                     val rates = JSONObject(body).getJSONObject("rates")
                     rates.keys().asSequence().associateWith { date ->
                         val day = rates.getJSONObject(date)

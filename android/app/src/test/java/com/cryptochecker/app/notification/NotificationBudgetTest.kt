@@ -5,7 +5,7 @@ import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
-/** Review 12 (M1): höchstens 20 Kurs-Mitteilungen einzeln, Rest in der Sammelmeldung, Alarme haben Vorrang. */
+/** Höchstens 20 Kurs-Mitteilungen einzeln, Rest in der Sammelmeldung, Alarme haben Vorrang. */
 class NotificationBudgetTest {
 
     @Test
