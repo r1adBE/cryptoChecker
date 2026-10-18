@@ -156,13 +156,13 @@ enum MarketHTTP {
             // «Zu viele Anfragen» auch ohne 429/418 (Kraken 200, Bybit 403/10006, OKX 50011) als 429 weiterreichen
             let rateLimitCode = RateLimitSignal.httpCode(status: http.statusCode, body: text)
             if !(200..<300).contains(http.statusCode) || rateLimitCode != nil {
-                HttpLog.add("\(http.statusCode) \(url)")
+                HttpLog.add("\(http.statusCode) \(HttpLog.redacted(url))")
                 let retryAfter = ExchangeBackoff.parseRetryAfterSeconds(http.value(forHTTPHeaderField: "Retry-After"),
                                                                         now: TimeUtils.nowMillis)
                 throw HttpMarketError(httpCode: rateLimitCode ?? http.statusCode, body: text, retryAfterSeconds: retryAfter)
             }
         }
-        HttpLog.add("200 \(url) · \(data.count / 1024) KB")
+        HttpLog.add("200 \(HttpLog.redacted(url)) · \(data.count / 1024) KB")
         return text
     }
 }
@@ -226,8 +226,10 @@ enum HttpLog {
     // nonisolated(unsafe): jeder Zugriff nur unter `guardLock` (NSLock)
     nonisolated(unsafe) private static var entries: [String] = []
 
-    /// Hängt `line` mit der Uhrzeit («HH:mm:ss») an; die ältesten Zeilen fallen weg.
+    /// Hängt `line` mit der Uhrzeit («HH:mm:ss») an; die ältesten Zeilen fallen weg. Nur in Debug-Builds (das Protokoll
+    /// ist nur dort sichtbar, `DeveloperOptions.available`) — im Release wird nichts mitgeschnitten, auch nicht im Speicher.
     static func add(_ line: String) {
+        #if DEBUG
         let clock = DateFormatter()
         clock.dateFormat = "HH:mm:ss"
         let stamped = clock.string(from: Date()) + " " + line
@@ -236,9 +238,19 @@ enum HttpLog {
             let excess = entries.count - capacity
             if excess > 0 { entries.removeFirst(excess) }
         }
+        #endif
     }
 
     static var all: [String] { guardLock.withLock { entries } }
+
+    /// Adresse für das Protokoll: Host und Pfad ohne Abfrage; lange Pfadteile (Adressen, Schlüssel) gekürzt.
+    static func redacted(_ text: String) -> String {
+        guard let url = URL(string: text) else { return "?" }
+        let path = url.path.split(separator: "/").map { part -> String in
+            part.count > 20 ? String(part.prefix(4)) + "…" + String(part.suffix(4)) : String(part)
+        }.joined(separator: "/")
+        return (url.host ?? "") + (path.isEmpty ? "" : "/" + path) + (url.query == nil ? "" : "?…")
+    }
 
     static func clear() {
         guardLock.withLock { entries.removeAll() }

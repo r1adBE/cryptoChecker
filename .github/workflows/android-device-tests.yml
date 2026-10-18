@@ -9,6 +9,13 @@ name: Android device tests
 
 on:
   workflow_dispatch:
+  # Also on every push to main that touches the Android app or the shared test data (UI, database and migration
+  # tests on an emulator are part of the push gate, not only a manual run).
+  push:
+    branches: [main]
+    paths:
+      - 'android/**'
+      - '.github/workflows/android-device-tests.yml'
   # Optional weekly run (Monday 04:17 UTC); uncomment to enable.
   # schedule:
   #   - cron: '17 4 * * 1'

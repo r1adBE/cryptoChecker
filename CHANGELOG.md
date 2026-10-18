@@ -41,6 +41,8 @@ Review fixes before the store.
 * Market pulse widget: «In short» sentences (market direction, Fear & Greed) – the first one replaces the lead on
   the medium widget, the large widget shows all that fit with sources and «no forecast, no investment advice»;
   stale sentences disappear by themselves. New large size on iPhone.
+* Security audit follow-ups: the iPhone developer HTTP log records nothing in release builds and shortens addresses
+  in debug builds; Android device tests (UI, database, migration) now run on every push that touches the app.
 
 ## 16.2.2 (build 78)
 
