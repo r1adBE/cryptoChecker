@@ -9,7 +9,7 @@
     <string name="backup_restore_interrupted_rolled_back">Aplicația a fost închisă în timpul restaurării unui backup. Datele anterioare au fost puse la loc; nimic din backup nu a fost păstrat.</string>
     <string name="backup_restore_interrupted_incomplete">Aplicația a fost închisă în timpul restaurării unui backup, iar datele anterioare nu au putut fi puse complet la loc. Verifică lista de urmărire și portofoliul sau restaurează din nou backupul la „%1$s” în Setări.</string>
     <string name="backup_not_verified">Fișierul de backup nu a putut fi verificat după salvare – recitit, este diferit. Salvează backupul într-un fișier nou.</string>
-    <string name="tax_line_at_old_speculation_limit">Dobândit înainte de 1.03.2021 – deținut ≤ 1 an: plafon de scutire pentru operațiuni speculative (§ 31 alin. 3 EStG, versiunea veche)</string>
+    <string name="tax_line_at_old_speculation_limit">Operațiuni speculative (vechiul regim, deținut ≤ 1 an): plafon de scutire (§ 31 alin. 3 EStG, versiunea veche)</string>
     <string name="portfolio_tx_interest">Dobândă (împrumut)</string>
     <string name="portfolio_tx_interest_hint">Se socotește venit la încasare (Austria). Lasă dezactivat pentru recompense de staking și airdropuri.</string>
     <string name="app_lock_no_screen_lock">Configurează o blocare a ecranului pentru a deschide portofoliul.</string>

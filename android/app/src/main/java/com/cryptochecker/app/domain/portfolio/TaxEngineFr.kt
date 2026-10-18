@@ -198,13 +198,16 @@ internal fun TaxEngines.frPta(
                     val v = unit?.let { qty.multiply(it, mc) }
                     val value = portfolioValue(coin, unit, t.time)?.let { it - spent }
                     var reduction: BigDecimal? = null
+                    var reductionParts: List<PortfolioCostPart> = emptyList()
                     if (v != null && value != null && value.signum() > 0) {
-                        reduction = reduce(v, value).first
+                        val (c, parts) = reduce(v, value)
+                        reduction = c
+                        reductionParts = parts
                     } else {
                         // Kurs fehlt: Kürzung unbekannt, die PTA danach nicht mehr gesichert
                         incomplete = true
                     }
-                    outflows += TaxOutflow(coin, t.id, t.time, qty, v, reduction)
+                    outflows += TaxOutflow(coin, t.id, t.time, qty, v, reduction, reductionParts)
                 }
                 // Tausch Krypto↔Krypto: aufgeschoben (sursis d'imposition), PTA unverändert — auch in einen Stablecoin
                 // (USDT, USDC …): er bleibt im Gesamtwert, steuerbar erst sein Verkauf gegen Euro. Gebühren in Krypto
@@ -226,8 +229,22 @@ internal fun TaxEngines.frPta(
 }
 
 /**
+ * FR: Coins mit eigenem Bestand unmittelbar vor [t] in der Reihenfolge der Rechnung ([PortfolioLedger.ORDER]: Zeit, bei
+ * gleicher Zeit Zugänge vor Abgängen, dann Id) — genau die Bestände, die [frPta] im Gesamtwert vor [t] zählt. Für die
+ * Kursabfrage des Exports: ein Kauf derselben Millisekunde, den die Rechnung davor bucht, braucht ebenfalls einen Kurs
+ * (eine Abfrage «bis [t] − 1 ms» liesse ihn aus, der Gesamtwert bliebe leer). [own] ohne Adress-Einträge.
+ */
+fun TaxEngines.frHeldBefore(own: List<PortfolioTrade>, t: PortfolioTrade): Set<String> {
+    val key = PortfolioLedgerEvent(t, false)
+    val before = own.filter { it.time <= t.time && PortfolioLedger.ORDER.compare(PortfolioLedgerEvent(it, false), key) < 0 }
+    return PortfolioCalculator.holdingsAt(before, Long.MAX_VALUE, CostMethod.FIFO).keys
+}
+
+/**
  * [TaxMethod.FR_PTA]: Abgang ohne Verkauf (Auszahlung) — abgegebene Menge (ohne Gebühr: die ist eine Abtretung), Wert beim Abgang und
- * Kürzung der Erwerbspreis-Summe (USDT); null = Kurs fehlt (Kürzung unbekannt).
+ * Kürzung der Erwerbspreis-Summe (USDT); null = Kurs fehlt (Kürzung unbekannt). [ptaReductionParts] = Herkunft der Kürzung
+ * (Anteil der Erwerbspreis-Summe je Kaufdatum, Summe = [ptaReductionUsdt]) — in der Steuerwährung zum Kurs der Kaufdaten
+ * wie der Einstand einer Abtretung, nicht zum Kurs des Abgangs.
  */
 data class TaxOutflow(
     val coin: String,
@@ -236,4 +253,5 @@ data class TaxOutflow(
     val amount: BigDecimal,
     val valueUsdt: BigDecimal?,
     val ptaReductionUsdt: BigDecimal?,
+    val ptaReductionParts: List<PortfolioCostPart> = emptyList(),
 )

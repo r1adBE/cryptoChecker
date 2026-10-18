@@ -74,7 +74,7 @@
     <string name="tax_export_proceeds_missing">verkoopprijs ontbreekt</string>
     <string name="tax_export_proceeds_without_cost">Opbrengst zonder aankoopprijs</string>
     <string name="tax_export_realized_differs">De belasting-CSV kan afwijken van ‘gerealiseerd’ (belastingregels van het land).</string>
-    <string name="tax_export_rule">&gt; 1 jaar: verkocht na aankoopdatum + 1 kalenderjaar. Datums in lokale tijd. Koersen: ECB-dagkoers (laatste werkdag ervoor).</string>
+    <string name="tax_export_rule">&gt; 1 jaar: verkocht na aankoopdatum + 1 kalenderjaar. Datums in lokale tijd. Koersen: ECB-dagkoers van de transactiedag; ontbreekt die, de laatste koers tot 7 dagen ervoor.</string>
     <string name="tax_export_rules_date">Regels per: %1$s</string>
     <string name="tax_export_spouse_gift">aan echtgenoot/partner – geen winst, geen verlies</string>
     <string name="tax_export_summary">Jaaroverzicht %1$s (CSV)</string>
@@ -98,7 +98,7 @@
     <!-- Steuer-Export: Zeilen und Spalten -->
     <string name="tax_line_at_interest">Rente uit lending (waarde bij ontvangst)</string>
     <string name="tax_line_at_old_long">Verworven vóór 1-3-2021 – aangehouden &gt; 1 jaar: doorgaans niet belastbaar – controleer</string>
-    <string name="tax_line_at_rate">Bijzonder tarief 27,5 procent: netto verworven vanaf 1-3-2021 + rente (1-3-2021–28-2-2022: zie opmerking)</string>
+    <string name="tax_line_at_rate">Bijzonder tarief 27,5 procent: netto verworven vanaf 1-3-2021 en verkocht vanaf 1-3-2022 + rente</string>
     <string name="tax_line_au_discounted">Netto vermogenswinst na verliezen en 50 procent korting</string>
     <string name="tax_line_ca_taxable">Belastbare vermogenswinst (inclusiepercentage 1/2)</string>
     <string name="tax_line_ch_income">Beloningen vermeld – behandeling zie ESTV-werkdocument</string>
@@ -115,9 +115,9 @@
     <string name="tax_line_long_net">Netto – aangehouden &gt; 1 jaar</string>
     <string name="tax_line_losses">Verliezen</string>
     <string name="tax_line_net">Netto winst/verlies</string>
-    <string name="tax_line_new_net">Netto – verworven vanaf 1-3-2021</string>
+    <string name="tax_line_new_net">Netto – verworven vanaf 1-3-2021, verkocht vanaf 1-3-2022</string>
     <string name="tax_line_old_long_net">Netto – verworven vóór 1-3-2021 – aangehouden &gt; 1 jaar</string>
-    <string name="tax_line_old_short_net">Netto – verworven vóór 1-3-2021 – aangehouden ≤ 1 jaar</string>
+    <string name="tax_line_old_short_net">Netto – speculatieve transacties (oude regeling): verworven vóór 1-3-2021 en ≤ 1 jaar aangehouden, of verkocht vóór 1-3-2022</string>
     <string name="tax_line_proceeds">Opbrengsten</string>
     <string name="tax_line_short_net">Netto – aangehouden ≤ 1 jaar</string>
     <string name="tax_line_transfer_fees">Overboekingskosten (eigen wallets)</string>
@@ -191,7 +191,7 @@
     <string name="tax_note_withdrawal_fee">Opnamekosten in USDT of contant zijn geen verlies: contante kosten zijn niet aftrekbaar, kosten in USDT zijn een vervreemding tegen pari zonder winst – ze staan er alleen ter informatie (%1$s).</string>
     <string name="tax_summary_at_interest_income">telt mee: inkomen bij ontvangst tegen het bijzondere tarief van 27,5 procent (§ 27b lid 2 nr. 1 EStG / BMF) – de munten houden deze waarde als aanschaffingskosten</string>
     <string name="tax_summary_at_reward_info">alleen ter informatie – in geen enkel totaal: beloningen komen met aanschaffingskosten 0 in het nieuwe bezit en worden pas bij verkoop belast (al in de winsten) – § 27b Abs. 2 EStG / BMF</string>
-    <string name="tax_summary_at_transition_2021">Verkopen/ruil van nieuw bezit 1-3-2021–28-2-2022: oude regeling (§ 31 EStG oude versie) met optie voor 27,5 procent – met een belastingadviseur bespreken</string>
+    <string name="tax_summary_at_transition_2021">1-1–28-2-2022: optie voor 27,5 procent mogelijk</string>
     <string name="tax_summary_at_withdrawal_fee">Opnamekosten – niet verrekend met nieuw bezit (kosten niet aftrekbaar bij het bijzondere tarief, § 20 lid 2 EStG)</string>
     <string name="tax_summary_ch_fifo_info">alleen ter informatie – FIFO-berekening van de app – niet ingedeeld – zie ESTV</string>
     <string name="tax_summary_ch_year_end_value">waarde per 31-12 in de bezit-CSV = beurskoers × USD/CHF – niet de fiscale waarden van de ESTV-koerslijst</string>

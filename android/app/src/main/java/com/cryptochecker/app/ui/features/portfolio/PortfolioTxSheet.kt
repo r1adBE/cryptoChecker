@@ -40,7 +40,6 @@ import androidx.compose.ui.window.SecureFlagPolicy
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.portfolio.PortfolioTxForm
-import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.ui.lock.PortfolioLockViewModel
 import kotlinx.coroutines.launch
 
@@ -221,13 +220,12 @@ fun PortfolioTxSheet(
                 // K-2: Preis/Wert in USDT oder in der Anzeigewährung (umgerechnet mit dem Tageskurs, gespeichert in USDT)
                 if (d.fiatPossible) TxEntryCurrencySection(state, d, currency)
                 TxPriceValueSection(state, d, currency)
+                // Notiz direkt unter dem Preis, bei allen Arten (Entscheid 18. Oktober 2026)
+                TxNoteField(state, 12.dp)
                 TxSwitchesSection(state)
                 // Umbuchung: von / nach
                 if (d.fields.route) TxRouteSection(state, usedWallets, exchanges)
-                // Kauf (Build 46): nur Coin, Datum, Menge, Preis offen — die Notiz steht im zugeklappten Abschnitt
-                val noteInLedger = state.type == PortfolioTxType.BUY
-                if (!noteInLedger) TxNoteField(state, 12.dp)
-                TxLedgerSection(state, d, exchanges, noteInLedger)
+                TxLedgerSection(state, d, exchanges, noteInLedger = false)
                 TxTotalLine(d)
                 TxActionsRow(
                     isEdit = isEdit,

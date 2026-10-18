@@ -103,7 +103,7 @@ fun PortfolioExportDialog(
     var taxKind by rememberSaveable { mutableStateOf<TaxExportKind?>(null) }
     // Daten in der Zeitzone der Vorlage (Neutral: Gerät) — in jeder CSV der Arbeitsunterlage genannt
     val taxZone = template.zone()
-    val taxTexts = taxCsvTexts(workCurrency, taxZone)
+    val taxTexts = taxCsvTexts(workCurrency, taxZone, template)
     val templateName = stringResource(taxTemplateLabel(template))
     val methodLabel = taxMethodName(method)
     val yearLabel = taxYear?.let { template.label(it) }.orEmpty()

@@ -1,0 +1,329 @@
+{
+ "_comment": "«Seit Kauf»/Einstand der Gesamtkarte in der Anzeigewährung (PortfolioCostFx.kt / PortfolioCostFx.swift, Build 78): Wert heute × heutiger Faktor (currentRate, USDT → CHF) − Σ Teil des Einstands (CoinPosition.pricedCostParts nach der Einstandsmethode) × Faktor SEINES Tags = TaxExport.rateOn (Devisenkurs des Tags bzw. bis 7 Tage davor × USDT/USD-Tagesschluss DES Tags, ohne Schluss × 1 = usdtApproximate); ab todayEpochDay der heutige Faktor. Tage in UTC (Tage seit 1970). Fehlt ein Devisenkurs, fehlt der Coin («unvollständig», fxMissingCoins); fehlt er bei allen: null. Prozent = unrealized ÷ Einstand in CHF × 100. example: Kauf 1 BTC für 80'000 CHF bei USD/CHF 0.80 (100'000 USDT), heute 100'000 USDT bei 0.90 → 90'000 − 80'000 = +10'000 CHF. twoLots: FIFO-Rest 0.5 BTC von Tag 20000 (0.90) + 1 BTC von Tag 20100 (0.80, ohne USDT/USD-Schluss); Ø: Abgang nimmt beide Teile anteilig. gapFallback: Kurs 5 Tage vor dem Kauftag. todayLot: Kauf heute zum heutigen Faktor.",
+ "currency": "CHF",
+ "todayEpochDay": 20300,
+ "currentRate": "0.9",
+ "cases": [
+  {
+   "name": "example",
+   "method": "FIFO",
+   "rates": {
+    "20000": "0.8"
+   },
+   "usdtUsd": {
+    "20000": "1"
+   },
+   "prices": {
+    "BTC": 100000
+   },
+   "trades": [
+    {
+     "id": 1,
+     "coin": "BTC",
+     "type": "BUY",
+     "amount": "1",
+     "price": "100000",
+     "time": 1728043200000
+    }
+   ],
+   "expected": {
+    "unrealized": "10000",
+    "percent": 12.5,
+    "invested": "80000",
+    "unrealizedFxMissing": false,
+    "investedFxMissing": false,
+    "fxMissingCoins": [],
+    "usdtApproximate": false,
+    "firstDay": 20000
+   }
+  },
+  {
+   "name": "twoLots",
+   "method": "FIFO",
+   "rates": {
+    "20000": "0.9",
+    "20100": "0.8"
+   },
+   "usdtUsd": {
+    "20000": "1"
+   },
+   "prices": {
+    "BTC": 120000
+   },
+   "trades": [
+    {
+     "id": 1,
+     "coin": "BTC",
+     "type": "BUY",
+     "amount": "1",
+     "price": "50000",
+     "time": 1728043200000
+    },
+    {
+     "id": 2,
+     "coin": "BTC",
+     "type": "BUY",
+     "amount": "1",
+     "price": "100000",
+     "time": 1736683200000
+    },
+    {
+     "id": 3,
+     "coin": "BTC",
+     "type": "SELL",
+     "amount": "0.5",
+     "price": "110000",
+     "time": 1745323200000
+    }
+   ],
+   "expected": {
+    "unrealized": "59500",
+    "percent": 58.048780487804876,
+    "invested": "102500",
+    "unrealizedFxMissing": false,
+    "investedFxMissing": false,
+    "fxMissingCoins": [],
+    "usdtApproximate": true,
+    "firstDay": 20000
+   }
+  },
+  {
+   "name": "twoLotsWallet",
+   "method": "FIFO_WALLET",
+   "rates": {
+    "20000": "0.9",
+    "20100": "0.8"
+   },
+   "usdtUsd": {
+    "20000": "1"
+   },
+   "prices": {
+    "BTC": 120000
+   },
+   "trades": [
+    {
+     "id": 1,
+     "coin": "BTC",
+     "type": "BUY",
+     "amount": "1",
+     "price": "50000",
+     "time": 1728043200000
+    },
+    {
+     "id": 2,
+     "coin": "BTC",
+     "type": "BUY",
+     "amount": "1",
+     "price": "100000",
+     "time": 1736683200000
+    },
+    {
+     "id": 3,
+     "coin": "BTC",
+     "type": "SELL",
+     "amount": "0.5",
+     "price": "110000",
+     "time": 1745323200000
+    }
+   ],
+   "expected": {
+    "unrealized": "59500",
+    "percent": 58.048780487804876,
+    "invested": "102500",
+    "unrealizedFxMissing": false,
+    "investedFxMissing": false,
+    "fxMissingCoins": [],
+    "usdtApproximate": true,
+    "firstDay": 20000
+   }
+  },
+  {
+   "name": "twoLotsAverage",
+   "method": "AVERAGE",
+   "rates": {
+    "20000": "0.9",
+    "20100": "0.8"
+   },
+   "usdtUsd": {
+    "20000": "1"
+   },
+   "prices": {
+    "BTC": 120000
+   },
+   "trades": [
+    {
+     "id": 1,
+     "coin": "BTC",
+     "type": "BUY",
+     "amount": "1",
+     "price": "50000",
+     "time": 1728043200000
+    },
+    {
+     "id": 2,
+     "coin": "BTC",
+     "type": "BUY",
+     "amount": "1",
+     "price": "100000",
+     "time": 1736683200000
+    },
+    {
+     "id": 3,
+     "coin": "BTC",
+     "type": "SELL",
+     "amount": "0.5",
+     "price": "110000",
+     "time": 1745323200000
+    }
+   ],
+   "expected": {
+    "unrealized": "68250",
+    "percent": 72.8,
+    "invested": "93750",
+    "unrealizedFxMissing": false,
+    "investedFxMissing": false,
+    "fxMissingCoins": [],
+    "usdtApproximate": true,
+    "firstDay": 20000
+   }
+  },
+  {
+   "name": "missingFx",
+   "method": "FIFO",
+   "rates": {
+    "20000": "0.8"
+   },
+   "usdtUsd": {
+    "20000": "1",
+    "20150": "1"
+   },
+   "prices": {
+    "BTC": 100000,
+    "ETH": 2500
+   },
+   "trades": [
+    {
+     "id": 1,
+     "coin": "BTC",
+     "type": "BUY",
+     "amount": "1",
+     "price": "100000",
+     "time": 1728043200000
+    },
+    {
+     "id": 2,
+     "coin": "ETH",
+     "type": "BUY",
+     "amount": "2",
+     "price": "2000",
+     "time": 1741003200000
+    }
+   ],
+   "expected": {
+    "unrealized": "10000",
+    "percent": 12.5,
+    "invested": "80000",
+    "unrealizedFxMissing": true,
+    "investedFxMissing": true,
+    "fxMissingCoins": [
+     "ETH"
+    ],
+    "usdtApproximate": false,
+    "firstDay": 20000
+   }
+  },
+  {
+   "name": "allMissing",
+   "method": "FIFO",
+   "rates": {},
+   "usdtUsd": {},
+   "prices": {
+    "ETH": 2500
+   },
+   "trades": [
+    {
+     "id": 1,
+     "coin": "ETH",
+     "type": "BUY",
+     "amount": "2",
+     "price": "2000",
+     "time": 1741003200000
+    }
+   ],
+   "expected": {
+    "unrealized": null,
+    "percent": null,
+    "invested": null,
+    "unrealizedFxMissing": true,
+    "investedFxMissing": true,
+    "fxMissingCoins": [
+     "ETH"
+    ],
+    "usdtApproximate": false,
+    "firstDay": 20150
+   }
+  },
+  {
+   "name": "gapFallback",
+   "method": "FIFO",
+   "rates": {
+    "19995": "0.8"
+   },
+   "usdtUsd": {
+    "20000": "1"
+   },
+   "prices": {
+    "BTC": 100000
+   },
+   "trades": [
+    {
+     "id": 1,
+     "coin": "BTC",
+     "type": "BUY",
+     "amount": "1",
+     "price": "100000",
+     "time": 1728043200000
+    }
+   ],
+   "expected": {
+    "unrealized": "10000",
+    "percent": 12.5,
+    "invested": "80000",
+    "unrealizedFxMissing": false,
+    "investedFxMissing": false,
+    "fxMissingCoins": [],
+    "usdtApproximate": false,
+    "firstDay": 20000
+   }
+  },
+  {
+   "name": "todayLot",
+   "method": "FIFO",
+   "rates": {},
+   "usdtUsd": {},
+   "prices": {
+    "BTC": 110000
+   },
+   "trades": [
+    {
+     "id": 1,
+     "coin": "BTC",
+     "type": "BUY",
+     "amount": "1",
+     "price": "100000",
+     "time": 1753963200000
+    }
+   ],
+   "expected": {
+    "unrealized": "9000",
+    "percent": 10.0,
+    "invested": "90000",
+    "unrealizedFxMissing": false,
+    "investedFxMissing": false,
+    "fxMissingCoins": [],
+    "usdtApproximate": false,
+    "firstDay": 20300
+   }
+  }
+ ]
+}

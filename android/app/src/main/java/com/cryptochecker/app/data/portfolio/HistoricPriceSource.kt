@@ -211,10 +211,11 @@ class HistoricPriceSource @Inject constructor(
     private val fxSeriesCache = ConcurrentHashMap<String, Pair<Map<Long, Double>, Long>>()
 
     /**
-     * Tageskurse USD → [currency] von [from] bis [to] (EZB über Frankfurter, eine Abfrage für den
-     * ganzen Zeitraum): Tag (Tage seit 1970-01-01) → Kurs, nur Geschäftstage — Wochenenden und
-     * Feiertage füllt [PortfolioHistoryFx.rateOn] mit dem Vortag. USD: leere Karte (kein Bedarf).
-     * 6 h im Speicher. null, wenn kein Kurs zu haben ist.
+     * Tageskurse USD → [currency] von [from] bis [to] (EZB über Frankfurter, in Stücken von höchstens
+     * [PortfolioHistoryFx.FX_CHUNK_DAYS] Tagen — längere Zeiträume liefert Frankfurter nur wöchentlich): Tag (Tage seit
+     * 1970-01-01) → Kurs, nur Geschäftstage — Wochenenden und Feiertage füllt [PortfolioHistoryFx.rateOn] mit dem
+     * Vortag. USD: leere Karte (kein Bedarf). 6 h im Speicher. null, wenn kein Kurs zu haben ist oder ein Stück bei
+     * beiden Anbietern scheitert (lieber keine Reihe als eine mit einer Lücke von einem Jahr).
      */
     suspend fun usdToSeries(currency: String, from: LocalDate, to: LocalDate): Map<Long, Double>? {
         val target = currency.trim().uppercase()
@@ -225,27 +226,41 @@ class HistoricPriceSource @Inject constructor(
         fxSeriesCache[key]?.let { (rates, at) -> if (now - at in 0 until FX_SERIES_TTL_MILLIS) return rates }
         return withContext(Dispatchers.IO) {
             val symbols = PortfolioHistoryFx.requestCurrencies(target).joinToString(",")
-            val urls = listOf(
-                "https://api.frankfurter.app/$from..$to?from=USD&to=$symbols",
-                "https://api.frankfurter.dev/v1/$from..$to?from=USD&to=$symbols",
-            )
-            for (url in urls) {
-                val body = get(FX_HOST, url) ?: continue
-                val byDate = runCatchingCancellable {
-                    val rates = JSONObject(body).getJSONObject("rates")
-                    rates.keys().asSequence().associateWith { date ->
-                        val day = rates.getJSONObject(date)
-                        day.keys().asSequence().associateWith { day.getDouble(it) }
-                    }
-                }.getOrNull() ?: continue
-                val series = PortfolioHistoryFx.ratesByDay(target, byDate)
-                if (series.isNotEmpty()) {
-                    fxSeriesCache[key] = series to System.currentTimeMillis()
-                    return@withContext series
-                }
+            val merged = HashMap<Long, Double>()
+            for ((start, end) in PortfolioHistoryFx.fxChunks(from, to)) {
+                val part = fxSeriesChunk(target, symbols, start, end) ?: return@withContext null
+                merged += part
             }
-            null
+            if (merged.isEmpty()) return@withContext null
+            fxSeriesCache[key] = merged to System.currentTimeMillis()
+            merged
         }
+    }
+
+    /**
+     * Ein Stück der Zeitreihe ([usdToSeries]) von beiden Frankfurter-Adressen: die erste Antwort mit Kursen, sonst eine
+     * gültige leere (z. B. Zeitraum ohne Kurse dieser Währung); null, wenn keine Adresse eine gültige Antwort gibt.
+     */
+    private suspend fun fxSeriesChunk(target: String, symbols: String, from: LocalDate, to: LocalDate): Map<Long, Double>? {
+        val urls = listOf(
+            "https://api.frankfurter.app/$from..$to?from=USD&to=$symbols",
+            "https://api.frankfurter.dev/v1/$from..$to?from=USD&to=$symbols",
+        )
+        var answered = false
+        for (url in urls) {
+            val body = get(FX_HOST, url) ?: continue
+            val byDate = runCatchingCancellable {
+                val rates = JSONObject(body).getJSONObject("rates")
+                rates.keys().asSequence().associateWith { date ->
+                    val day = rates.getJSONObject(date)
+                    day.keys().asSequence().associateWith { day.getDouble(it) }
+                }
+            }.getOrNull() ?: continue
+            answered = true
+            val series = PortfolioHistoryFx.ratesByDay(target, byDate)
+            if (series.isNotEmpty()) return series
+        }
+        return if (answered) emptyMap() else null
     }
 
     /** GET mit eigener Zeitgrenze; null bei Fehler. 451/403 sperrt die Quelle vorübergehend. */

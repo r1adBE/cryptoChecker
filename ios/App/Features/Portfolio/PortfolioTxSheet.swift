@@ -275,6 +275,8 @@ struct PortfolioTxSheet: View {
                     if fields.price {
                         priceField
                     }
+                    // Notiz direkt unter dem Preis, bei allen Arten (Entscheid 18. Oktober 2026) — wie Android
+                    noteField
                     // Verschenkt an Ehe-/Lebenspartner: UK/CA ohne Gewinn und Verlust (`TaxTemplate.spouseGiftNeutral`)
                     if type == .GIFT {
                         SwitchRow(title: L("portfolio_tx_gift_spouse"), subtitle: L("portfolio_tx_gift_spouse_hint"),
@@ -289,10 +291,6 @@ struct PortfolioTxSheet: View {
                         routeField(L("portfolio_tx_transfer_from"), text: $transferFrom, focus: .transferFrom, hint: nil)
                         routeField(L("portfolio_tx_transfer_to"), text: $transferTo, focus: .transferTo,
                                    hint: L("portfolio_tx_transfer_to_hint"))
-                    }
-                    // Kauf (Build 46): nur Coin, Datum, Menge, Preis offen — die Notiz steht im zugeklappten Abschnitt
-                    if !noteInLedger {
-                        noteField
                     }
                     ledgerSection
                     totalLine

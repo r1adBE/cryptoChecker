@@ -299,7 +299,7 @@ final class TaxTemplatesTests: XCTestCase {
             let method = try XCTUnwrap(TaxMethod(rawValue: c["method"] as? String ?? ""))
             let s = TaxExport.yearSummary(trades(c["trades"]), template: tpl, method: method, startYear: Int(int64(c["year"])),
                                           timeZone: zone, currency: c["currency"] as? String ?? "USD", rates: rates(c["rates"]),
-                                          priceAt: priceAt(c["prices"]))
+                                          priceAt: priceAt(c["prices"]), today: (c["today"] as? String).flatMap { LocalDay(iso: $0) })
             var labels: [TaxLine: String] = [:]
             for l in TaxLine.allCases { labels[l] = l.rawValue }
             let texts = TaxSummaryTexts(
@@ -309,14 +309,19 @@ final class TaxTemplatesTests: XCTestCase {
                 notes: [.AT_REWARD_INFO: "atinfo", .CH_EXCHANGE_VALUE: "chvalue", .CH_FIFO_INFO: "chfifo",
                         .DE_WITHDRAWAL_FEE: "dewfee", .AT_WITHDRAWAL_FEE: "atwfee", .AT_INTEREST_INCOME: "atinterest",
                         .WITHDRAWAL_FEE_INFO: "wfeeinfo", .TRANSFER_FEE_INFO: "tfeeinfo",
-                        .AT_TRANSITION_2021: "attransition"])
+                        .AT_TRANSITION_2021: "attransition", .AT_WITHOUT_OPTION: "atnooption",
+                        .AT_STAKING_ZERO_COST: "atstaking", .WINDOW_OPEN: "window " + TaxExport.noteDateToken,
+                        .UK_HMRC_REPORT: "ukreport"])
             let csv = TaxExport.summaryCsv(s, texts: texts, header: ["H"])
             let lines = String(csv.dropFirst()).components(separatedBy: "\r\n").filter { !$0.isEmpty }
-            // Zusatz-Vermerke und Status «Verlust» stehen in der Hinweis-Spalte ihres Postens
+            // Zusatz-Vermerke (Datum eingesetzt) und Status «Verlust» stehen in der Hinweis-Spalte ihres Postens
             for l in s.lines {
-                let text: String? = l.note.flatMap { texts.notes[$0] } ?? (l.status == .loss ? "loss" : nil)
+                let text: String? = l.noteText(texts) ?? (l.status == .loss ? "loss" : nil)
                 if let text {
-                    XCTAssertTrue(lines.contains { $0.contains(l.line.rawValue) && $0.hasSuffix(";" + text) }, "\(tpl) \(l.line) \(text)")
+                    XCTAssertTrue(lines.contains {
+                        $0.contains(l.line.rawValue) && ($0.hasSuffix(";" + text) || $0.hasSuffix(", " + text))
+                    }, "\(tpl) \(l.line) \(text)")
+                    XCTAssertFalse(text.contains(TaxExport.noteDateToken), "\(tpl) \(l.line) Platzhalter")
                 }
             }
             let oriented = s.lines.filter { $0.line.orientation }
@@ -341,7 +346,7 @@ final class TaxTemplatesTests: XCTestCase {
             let year = Int(int64(c["year"]))
             let s = TaxExport.yearSummary(trades(c["trades"]), template: tpl, method: method, startYear: year,
                                           timeZone: zone, currency: c["currency"] as? String ?? "USD", rates: rates(c["rates"]),
-                                          priceAt: priceAt(c["prices"]))
+                                          priceAt: priceAt(c["prices"]), today: (c["today"] as? String).flatMap { LocalDay(iso: $0) })
             let expected = (c["lines"] as? [Any] ?? []).compactMap { $0 as? [Any] }
             XCTAssertEqual(s.lines.map(\.line.rawValue), expected.map { $0[0] as? String ?? "" }, "\(tpl) lines")
             for (e, l) in zip(expected, s.lines) {
@@ -359,6 +364,9 @@ final class TaxTemplatesTests: XCTestCase {
                 // Zusatz-Vermerk (optional, 5. Feld): AT Einkünfte nur Information, CH Wert per 31.12. = Börsenkurs × USD/CHF
                 let note: TaxSummaryNote? = e.count > 4 ? (e[4] as? String).flatMap { TaxSummaryNote(rawValue: $0) } : nil
                 XCTAssertEqual(l.note, note, "\(tpl) \(l.line) note")
+                // Datum im Vermerk (optional, 6. Feld): UK/CA 30-Tage-Fenster noch offen, Käufe bis …
+                let noteDate: LocalDay? = e.count > 5 ? (e[5] as? String).flatMap { LocalDay(iso: $0) } : nil
+                XCTAssertEqual(l.noteDate, noteDate, "\(tpl) \(l.line) noteDate")
             }
             // Posten «unvollständig» (optional): z. B. FR Gewinn aus unvollständiger Erwerbspreis-Summe
             if let inc = c["incompleteLines"] as? [String] {
@@ -372,6 +380,28 @@ final class TaxTemplatesTests: XCTestCase {
         // AT: Zinsen sind eine Tatsache (Einkunft beim Zufluss), der Sondersteuersatz auf netto + Zinsen ein Schluss
         XCTAssertFalse(TaxLine.AT_INTEREST.orientation)
         XCTAssertTrue(TaxLine.AT_RATE.orientation)
+        // CA/AU: Vortrag eines Netto-Kapitalverlusts ist ein Schluss der Vorlage
+        XCTAssertTrue(TaxLine.NET_CAPITAL_LOSS.orientation)
+    }
+
+    /// FR-Kurse für den Gesamtwert: gehalten ist, was die Rechnung vor dem Abgang bucht — auch ein Kauf derselben
+    /// Millisekunde (Zugänge vor Abgängen). Wie Android `frHeldBeforeUsesEngineOrder`.
+    func testFrHeldBeforeUsesEngineOrder() {
+        let t0: Int64 = 1_740_830_400_000
+        func tx(_ id: Int64, _ coin: String, _ type: PortfolioTxType, _ amount: String, _ price: Decimal, _ time: Int64) -> PortfolioTx {
+            PortfolioTx(id: id, coin: coin, type: type, amountExact: dec(amount) ?? 0, priceExact: price, time: time,
+                        feeExact: nil, feeUnit: nil)
+        }
+        let btc = tx(1, "BTC", .BUY, "1", 20000, t0 - 86_400_000)
+        // Kauf ETH in derselben Millisekunde wie der Verkauf, höhere Id: die Rechnung bucht ihn trotzdem davor
+        let eth = tx(5, "ETH", .BUY, "10", 2000, t0)
+        let sell = tx(3, "BTC", .SELL, "0.5", 30000, t0)
+        XCTAssertEqual(TaxEngines.frHeldBefore([btc, eth, sell], sell), ["BTC", "ETH"])
+        XCTAssertEqual(TaxEngines.frHeldBefore([btc, sell], sell), ["BTC"])
+        // Abgänge derselben Millisekunde mit kleinerer Id kommen davor (gleiche Art, dann Id): danach kein BTC mehr
+        let first = tx(2, "BTC", .SELL, "0.5", 30000, t0)
+        let last = tx(6, "BTC", .SELL, "0.5", 30000, t0)
+        XCTAssertEqual(TaxEngines.frHeldBefore([btc, eth, first, sell, last], last), ["ETH"])
     }
 
     /// Formel-Injektion: Textfelder mit = + - @ Tab CR am Anfang bekommen ein Apostroph, Zahlen nie — wie Android.

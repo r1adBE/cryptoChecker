@@ -75,6 +75,21 @@ object CurrencyConversion {
     const val FX_STALE_MILLIS = 3 * 60 * 60_000L
 
     /**
+     * Höchstalter eines Krypto- bzw. Stablecoin-Kurses (Quote in USDT aus dem Zwischenspeicher der Portfolio-Kurse) für
+     * die Umrechnung (15 min): ein Alarm in CHF auf ein BTC-Paar darf nicht mit einem Kurs von gestern umrechnen.
+     */
+    const val QUOTE_MAX_AGE_MILLIS = 15 * 60_000L
+
+    /**
+     * [price] nur, wenn seine Abrufzeit [time] höchstens [QUOTE_MAX_AGE_MILLIS] vor [now] liegt; älter oder ohne Zeit
+     * null — dann gibt es keinen Faktor (≈ fehlt, Alarm in fremder Währung prüft diesmal nicht).
+     */
+    fun freshQuotePrice(price: Double?, time: Long?, now: Long): Double? {
+        if (price == null || time == null || time <= 0L) return null
+        return price.takeIf { now - time <= QUOTE_MAX_AGE_MILLIS }
+    }
+
+    /**
      * Abrufzeit des ältesten Devisenkurses im Faktor Quote → Ziel ([quoteFxAt]: Kurs der Fiat-Quote,
      * [targetFxAt]: Kurs der Zielwährung; je null = nicht beteiligt), wenn älter als [FX_STALE_MILLIS];
      * sonst null (kein Hinweis).
@@ -133,6 +148,17 @@ object CurrencyConversion {
     /** BGN je USD aus EUR je USD; null ohne gültigen EUR-Kurs. */
     fun bgnFromEur(usdToEur: Double?): Double? =
         usdToEur?.takeIf { it.isValidRate() }?.let { it * BGN_PER_EUR }
+
+    /**
+     * Devisenkurs mit Abrufzeit (Kurs, Epoch-ms): eigener Eintrag [own], sonst — wenn [deriveBgn] (BGN ab der
+     * Euro-Einführung, [deriveBgnFromEur]) — BGN aus dem EUR-Eintrag [eur] mit DESSEN Abrufzeit: ein alter EUR-Kurs ergibt
+     * einen ebenso alten BGN-Kurs (Hinweis mit Uhrzeit, [staleFxTime]), nie einen scheinbar frischen. null = keiner.
+     */
+    fun fxWithTime(own: Pair<Double, Long>?, eur: Pair<Double, Long>?, deriveBgn: Boolean): Pair<Double, Long>? {
+        if (own != null) return own
+        if (!deriveBgn || eur == null) return null
+        return bgnFromEur(eur.first)?.let { it to eur.second }
+    }
 
     /** Wandelt einen Betrag um; null ohne gültigen Faktor. */
     fun convert(value: Double, rate: Double?): Double? =

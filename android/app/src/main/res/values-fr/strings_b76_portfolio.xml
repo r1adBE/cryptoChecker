@@ -9,7 +9,7 @@
     <string name="backup_restore_interrupted_rolled_back">L\'app a été fermée pendant la restauration d\'une sauvegarde. Tes données précédentes ont été rétablies ; rien de la sauvegarde n\'a été conservé.</string>
     <string name="backup_restore_interrupted_incomplete">L\'app a été fermée pendant la restauration d\'une sauvegarde et les données précédentes n\'ont pas pu être entièrement rétablies. Vérifie ta liste de suivi et ton portefeuille, ou restaure à nouveau la sauvegarde sous « %1$s » dans les Réglages.</string>
     <string name="backup_not_verified">Le fichier de sauvegarde n\'a pas pu être vérifié après l\'enregistrement : relu, il diffère. Enregistre la sauvegarde dans un nouveau fichier.</string>
-    <string name="tax_line_at_old_speculation_limit">Acquis avant le 1/3/2021 – détenu ≤ 1 an : seuil d\'exonération des opérations spéculatives (§ 31 al. 3 EStG, ancienne version)</string>
+    <string name="tax_line_at_old_speculation_limit">Opérations spéculatives (ancien régime, détenu ≤ 1 an) : seuil d’exonération (§ 31 al. 3 EStG, ancienne version)</string>
     <string name="portfolio_tx_interest">Intérêts (prêt)</string>
     <string name="portfolio_tx_interest_hint">Compte comme revenu à la réception (Autriche). Laisse désactivé pour les récompenses de staking et les airdrops.</string>
     <string name="app_lock_no_screen_lock">Configure un verrouillage d\'écran pour ouvrir le portefeuille.</string>

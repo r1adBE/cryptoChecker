@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
+    <string name="alarm_status_notifications_off">通知已关闭——此提醒无法送达</string>
+    <!-- Statuszeile der Alarm-Karte: DEX-Pool unter der Alarm-Liquidität (10’000 USD) oder unbekannt -->
+    <string name="alarm_status_low_liquidity">无提醒——流动性低</string>
+    <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
+    <string name="alarm_status_waiting_price">正在等待最新价格</string>
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">你的数据</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">设备上</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">列表、提醒和投资组合加密保存在本设备上；无需账户，没有自有服务器。</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">连接</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">价格直接来自你所选交易对的交易所，另有汇率、币种列表和图标以及 GitHub 上的数据镜像；它们能看到你的 IP 地址，但绝不会看到你的持仓（关注的地址会发送给相应网络的服务商）。</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">备份</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">仅在你创建时才有；设置密码则加密（Argon2id + AES-256-GCM），无密码则可直接读取。</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">更换设备</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">密钥留在旧设备上——请先创建备份文件。</string>
+</resources>

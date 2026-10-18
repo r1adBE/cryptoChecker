@@ -55,6 +55,9 @@ extension PortfolioModel {
             fxCurrency = currency
         }
         recomputeHistory()
+        // «Seit Kauf»/Einstand in der Anzeigewährung: Kurse ab dem frühesten Erwerbstag (fehlten sie, erneut versuchen);
+        // parallel, damit Widget und «Heute» nicht auf die Abfrage warten
+        Task { await loadCostFx() }
         // Portfolio-Widget: Stand mit denselben Kursen (zeichnet nur bei Änderung neu)
         // Gemerkter, veralteter Stand (ohne Netz, nach einem Neustart): nicht als «jetzt» aufnehmen
         // (Widget, Verlauf, Alarme blieben sonst mit alten Kursen stehen); «Heute» stattdessen aus dem
@@ -102,12 +105,13 @@ extension PortfolioModel {
         PortfolioWidgetStore.rememberFx(currency: currency, rate: rate)
         recomputeHistory()
         await loadFxSeries()
+        await loadCostFx()
     }
 
     /// Beginn der Devisenkurs-Abfrage für den gewählten Zeitraum (`PortfolioHistoryFx.requestRange`).
     func fxSeriesFrom() -> LocalDay {
         let days = historyRange == .sinceFirst ? historyRequest().days : historyRange.days
-        return PortfolioHistoryFx.requestRange(days: days, today: LocalDay.today()).from
+        return PortfolioHistoryFx.requestRange(days: days, today: LocalDay(epochDay: PortfolioHistory.utcToday())).from
     }
 
     /// Devisen-Tageskurse für den Verlauf: eine Abfrage je Währung und Zeitraum (6 h zwischengespeichert);
@@ -121,6 +125,26 @@ extension PortfolioModel {
         guard data.settings.portfolioCurrency == currency, from <= fxSeriesFrom() else { return }
         fxSeries = (currency: currency, from: from, rates: rates.flatMap { $0.isEmpty ? nil : $0 })
         recomputeHistory()
+    }
+
+    /// Kurse für «Seit Kauf»/Einstand in der Anzeigewährung ab dem frühesten Erwerbstag der offenen Posten
+    /// (`costFxLoad`): dieselben Quellen wie der Steuer-Export (Devisen-Tageskurse ab `PortfolioHistoryFx.leadDays` Tagen
+    /// davor, USDT/USD-Tagesschlüsse). USDT braucht keine; schon geladen (gleiche Währung, Zeitraum abgedeckt) → nichts
+    /// zu tun. Wie Android `loadCostFx`.
+    func loadCostFx() async {
+        let currency = data.settings.portfolioCurrency
+        guard currency != PortfolioFormat.usdt, let first = PortfolioCostFx.firstDay(summary) else { return }
+        let from = LocalDay(epochDay: first)
+        if let known = costFxLoad, known.currency == currency, known.from <= from, known.rates != nil { return }
+        var rates: [Int: Decimal]? = [:]
+        if currency != "USD" {
+            let series = await PortfolioTaxExporter.rates(currency, from: from, to: LocalDay.today())
+            rates = series.flatMap { $0.isEmpty ? nil : $0 }
+        }
+        let usdt = await PortfolioTaxExporter.usdtUsdCloses(currency, from: from) ?? [:]
+        // Inzwischen andere Währung gewählt: nicht überschreiben
+        guard data.settings.portfolioCurrency == currency else { return }
+        costFxLoad = (currency: currency, from: from, rates: rates, usdtUsd: usdt)
     }
 
     // MARK: Wertverlauf

@@ -70,7 +70,8 @@ import java.time.ZoneId
  *    also auch keine Veräusserungskosten; BMF «Steuerliche Behandlung von Kryptowährungen»): Zugang = Menge × Preis
  *    (Gebühr im Coin = weniger erhalten, Gebühr USDT bzw. im dritten Coin nicht dazu), Verkauf mit Erlös VOR Gebühren,
  *    die Gebühr im Coin eines Verkaufs ist keine Veräusserung (Menge sinkt, Einstand bleibt im Rest wie bei der
- *    Netzwerkgebühr einer Umbuchung). Altbestand (§ 31 EStG a. F.) unverändert mit Gebühren. Ebenso keine Zeile für eine
+ *    Netzwerkgebühr einer Umbuchung). Altbestand (§ 31 EStG a. F.) unverändert mit Gebühren, ebenso ein Verkauf von
+ *    Neubestand vor dem 1.3.2022 (noch alte Rechtslage wie der Tausch in dieser Zeit). Ebenso keine Zeile für eine
  *    Gebühr, die einen Zugang im Neubestand ganz verbraucht ([PortfolioFeeExpense.CONSUMED]: nur Nebenkosten).
  *    Belohnung im Neubestand: Anschaffungskosten 0 im Durchschnitt
  *    (BMF «Steuerliche Behandlung von Kryptowährungen», Stand 01.01.2026: Staking mit vorhandenen Coins, Airdrops,
@@ -82,7 +83,8 @@ import java.time.ZoneId
  * Gebühr-Zeile (CSV «Fee», [PortfolioLedger.isFeeDisposal]): Veräusserung zum Tageskurs `priceAt` (alle Vorlagen;
  * [PortfolioLedger.valueFeeDisposals]); ohne Kurs Erlös unbekannt.
  * Gebühr als Aufwand (alle Vorlagen, [PortfolioFeeExpenses]): Gebühr verbraucht den ganzen Zugang bzw. Gebühr USDT/
- * dritter Coin einer Auszahlung — je eine Veräusserung mit Erlös 0 wie bei den Einstandsmethoden.
+ * dritter Coin einer Auszahlung — je eine Veräusserung mit Erlös 0 wie bei den Einstandsmethoden. FR ohne Zeile für den
+ * verbrauchten Zugang: sein Preis zählt schon in der Erwerbspreis-Summe.
  * Netzwerkgebühr im Coin ohne Regel [TaxEventRules.networkFeeIsDisposal] (AT; CA/JP nur ohne Vorlage-Regeln): Einstand
  * bleibt im Rest; ohne Rest mit Kaufpreis wird er als [PortfolioLostFeeCost] vermerkt ([lostFeeCosts]) wie beim FIFO
  * des Portfolios. Gebühr USDT/dritter Coin einer Umbuchung im Pool (UK/CA nur ohne Vorlage-Regeln, [TaxPool.addFee]):
@@ -341,6 +343,9 @@ object TaxEngines {
                     (byId[d.sellTxId]?.acquisitionTime ?: d.sellTime) >= atNewFrom
                 ) return@mapNotNull null
                 if (method != TaxMethod.FR_PTA) return@mapNotNull d
+                // FR: der ganze Kaufpreis samt Gebühr steckt schon in der Erwerbspreis-Summe (frPta) — eine Verlust-Zeile
+                // für den verbrauchten Zugang zählte ihn ein zweites Mal
+                if (d.feeExpense == PortfolioFeeExpense.CONSUMED) return@mapNotNull null
                 // FR: Gebühr im dritten Coin einer Auszahlung ist schon eine eigene Abtretung (frPta) — als Aufwand bleibt
                 // nur die Gebühr USDT
                 val t = byId[d.sellTxId]

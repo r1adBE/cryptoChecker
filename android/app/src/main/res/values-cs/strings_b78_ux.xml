@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
+    <string name="alarm_status_notifications_off">Oznámení vypnutá – tento alarm vám nedorazí</string>
+    <!-- Statuszeile der Alarm-Karte: DEX-Pool unter der Alarm-Liquidität (10’000 USD) oder unbekannt -->
+    <string name="alarm_status_low_liquidity">Žádný alarm – nízká likvidita</string>
+    <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
+    <string name="alarm_status_waiting_price">Čeká na aktuální kurz</string>
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">Vaše data</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">V zařízení</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">Seznam, alarmy a portfolio jsou uloženy šifrovaně v tomto zařízení; žádný účet, žádný vlastní server.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">Připojení</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">Kurzy přicházejí přímo z burz vašich párů, k tomu směnné kurzy, seznamy a loga mincí a zrcadlo dat na GitHubu; vidí vaši IP adresu, nikdy vaše držby (sledované adresy jdou k poskytovateli příslušné sítě).</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">Záloha</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">Jen pokud ji vytvoříte; šifrovaná heslem (Argon2id + AES-256-GCM), bez hesla čitelná.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">Změna zařízení</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">Klíč zůstává ve starém zařízení – nejprve vytvořte soubor zálohy.</string>
+</resources>

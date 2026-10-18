@@ -9,7 +9,7 @@
     <string name="backup_restore_interrupted_rolled_back">A app foi fechada durante o restauro de uma cópia de segurança. Os teus dados anteriores foram repostos; nada da cópia foi mantido.</string>
     <string name="backup_restore_interrupted_incomplete">A app foi fechada durante o restauro de uma cópia de segurança e os dados anteriores não puderam ser totalmente repostos. Verifica a lista de observação e a carteira, ou restaura novamente a cópia em «%1$s» nas Definições.</string>
     <string name="backup_not_verified">Não foi possível verificar o ficheiro da cópia após guardá-lo – ao ser relido é diferente. Guarda a cópia num ficheiro novo.</string>
-    <string name="tax_line_at_old_speculation_limit">Adquirido antes de 1/3/2021 – detido ≤ 1 ano: limite de isenção para operações especulativas (§ 31 n.º 3 EStG, versão antiga)</string>
+    <string name="tax_line_at_old_speculation_limit">Operações especulativas (regime anterior, detido ≤ 1 ano): limite de isenção (§ 31 n.º 3 EStG, versão antiga)</string>
     <string name="portfolio_tx_interest">Juros (empréstimo)</string>
     <string name="portfolio_tx_interest_hint">Conta como rendimento ao ser recebido (Áustria). Deixa desligado para recompensas de staking e airdrops.</string>
     <string name="app_lock_no_screen_lock">Configura um bloqueio de ecrã para abrir a carteira.</string>

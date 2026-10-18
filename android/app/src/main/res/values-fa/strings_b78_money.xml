@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Hinweis der Gesamtkarte: «Seit Kauf» und Einstand in der Anzeigewährung zum Devisenkurs des Kauftags (PortfolioCostFx); %1$s = Währung -->
+    <string name="ledger_cost_fx_note">«از زمان خرید» و بهای تمام‌شده به %1$s: بهای تمام‌شده با نرخ ارز روز خرید، ارزش با نرخ امروز.</string>
+    <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
+    <string name="ledger_cost_fx_missing">نرخ ارزی برای روز خرید وجود ندارد (در «از زمان خرید» و بهای تمام‌شده لحاظ نشده): %1$s</string>
+    <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
+    <string name="ledger_cost_fx_usdt_assumed">بهای تمام‌شده در روزهای خرید بدون نرخ USDT/USD با USDT = 1 محاسبه شد.</string>
+    <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
+    <string name="tax_export_at_income_interest">سود – مشمول مالیات هنگام دریافت</string>
+    <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->
+    <string name="tax_export_at_income_staking">استیکینگ – فقط برای اطلاع (بهای تحصیل ۰، مالیات هنگام فروش)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der Zinsen -->
+    <string name="tax_export_at_total_interest">جمع سود (مشمول مالیات)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der übrigen Belohnungen -->
+    <string name="tax_export_at_total_staking">جمع استیکینگ (برای اطلاع)</string>
+</resources>

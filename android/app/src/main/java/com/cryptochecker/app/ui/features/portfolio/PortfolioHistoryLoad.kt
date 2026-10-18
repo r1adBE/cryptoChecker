@@ -48,6 +48,19 @@ data class PortfolioHistoryUi(
 /** Tageskurse USD → [currency] ab [from] (bis heute); [rates] null = nicht zu haben. */
 internal data class FxSeriesLoad(val currency: String, val from: LocalDate, val rates: Map<Long, Double>?)
 
+/**
+ * Kurse für «Seit Kauf»/Einstand in der Anzeigewährung ([com.cryptochecker.app.domain.portfolio.PortfolioCostFx]): ab
+ * [from] (frühester Erwerbstag der offenen Posten) Devisen-Tageskurse USD → [currency] ([rates], USD leer; null = nicht
+ * zu haben) und USDT/USD-Tagesschlüsse ([usdtUsd], leer = keine: dann USDT = 1 als Näherung) — exakt wie im
+ * Steuer-Export.
+ */
+internal data class CostFxLoad(
+    val currency: String,
+    val from: LocalDate,
+    val rates: Map<Long, java.math.BigDecimal>?,
+    val usdtUsd: Map<Long, java.math.BigDecimal>,
+)
+
 /** Adressen, Devisenkurse und Live-Kurs USDT/USD für «7 T»/«1 J» ([PortfolioViewModel.weekChange]). */
 internal data class PeriodFx(
     val addresses: List<AddressBalanceHistory>,
@@ -83,7 +96,7 @@ internal fun snapshotUsdtFactor(snapshot: com.cryptochecker.app.domain.portfolio
 
 /** Beginn der Devisenkurs-Abfrage für den Verlauf [range] (siehe [PortfolioHistoryFx.requestRange]). */
 internal fun fxSeriesFrom(txs: List<PortfolioTxEntity>, range: PortfolioHistoryRange): LocalDate {
-    val today = LocalDate.now(ZoneId.systemDefault())
+    val today = LocalDate.ofEpochDay(PortfolioHistory.utcToday())
     val days = if (range == PortfolioHistoryRange.SINCE_FIRST) historyRequest(txs, range).days else range.days
     return PortfolioHistoryFx.requestRange(days, today).first
 }
@@ -118,6 +131,6 @@ internal fun dayEndIn(zone: ZoneId): (Long) -> Long = { day ->
 internal fun historyRequest(txs: List<PortfolioTxEntity>, range: PortfolioHistoryRange): HistoryRequest {
     val zone = ZoneId.systemDefault()
     val first = txs.filter { it.amount.signum() > 0 }.minOfOrNull { it.time }
-    val days = PortfolioHistory.candleDays(range, first, LocalDate.now(zone).toEpochDay(), dayEndIn(zone))
+    val days = PortfolioHistory.candleDays(range, first, PortfolioHistory.utcToday(), dayEndIn(zone))
     return HistoryRequest(txs.flatMap { it.coins() }.map { PortfolioCalculator.normalizeCoin(it) }.toSet(), days)
 }

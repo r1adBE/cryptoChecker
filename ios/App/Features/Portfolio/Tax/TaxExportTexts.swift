@@ -4,8 +4,8 @@ import Foundation
 
 extension TaxCsvTexts {
     /// Zusätze der Steuer-Vorlagen (Zuordnung UK, nicht abziehbarer Verlust CA, Alt-/Neubestand AT, Gesamtwert FR) —
-    /// wie `taxCsvTexts` (Android).
-    func withTemplateTexts(currency: String) -> TaxCsvTexts {
+    /// wie `taxCsvTexts` (Android). `template` AT: Einkünfte getrennt nach Zins und Staking (Vermerke, zwei Summen).
+    func withTemplateTexts(currency: String, template: TaxTemplate = .NEUTRAL) -> TaxCsvTexts {
         var t = self
         t.matchSameDay = L("tax_export_match_same_day")
         t.matchThirtyDay = L("tax_export_match_thirty_day")
@@ -20,6 +20,13 @@ extension TaxCsvTexts {
         t.portfolioValueTarget = L("tax_export_col_portfolio_value", currency)
         t.grossUsdt = L("tax_export_col_gross", "USDT")
         t.grossTarget = L("tax_export_col_gross", currency)
+        // AT: Zinsen beim Zufluss steuerpflichtig, Staking (Neubestand) nur Information — getrennt wie die Jahresübersicht
+        if template == .AT {
+            t.incomeInterest = L("tax_export_at_income_interest")
+            t.incomeStaking = L("tax_export_at_income_staking")
+            t.totalInterest = L("tax_export_at_total_interest")
+            t.totalStaking = L("tax_export_at_total_staking")
+        }
         return t
     }
 }
@@ -62,6 +69,7 @@ extension TaxLine {
         case .US_TERMS: return "tax_line_us_terms"
         case .CA_TAXABLE: return "tax_line_ca_taxable"
         case .AU_DISCOUNTED: return "tax_line_au_discounted"
+        case .NET_CAPITAL_LOSS: return "tax_line_net_capital_loss"
         case .FR_THRESHOLD: return "tax_line_fr_threshold"
         case .FR_RATE: return "tax_line_fr_rate"
         case .JP_MISC: return "tax_line_jp_misc"
@@ -124,6 +132,11 @@ extension TaxSummaryTexts {
                 .TRANSFER_FEE_INFO: L("tax_summary_transfer_fee_info"),
                 .AT_INTEREST_INCOME: L("tax_summary_at_interest_income"),
                 .AT_TRANSITION_2021: L("tax_summary_at_transition_2021"),
+                .AT_WITHOUT_OPTION: L("tax_summary_at_without_option"),
+                .AT_STAKING_ZERO_COST: L("tax_summary_at_staking_zero_cost"),
+                // Datum setzt die Übersicht ein (`TaxSummaryLine.noteText`): hier nur der Platzhalter
+                .WINDOW_OPEN: L("tax_summary_window_open", TaxExport.noteDateToken),
+                .UK_HMRC_REPORT: L("tax_summary_uk_hmrc_report"),
             ]
         )
     }

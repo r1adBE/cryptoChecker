@@ -74,6 +74,24 @@ enum PortfolioHistoryFx {
         convertsUsdtAsUsd(currency) && !approximate
     }
 
+    /// Höchstens so viele Tage je Abfrage der Devisen-Tageskurse: Frankfurter liefert längere Zeiträume nur noch
+    /// wöchentlich — «Seit 1. Kauf» und der Stichtag bekämen sonst Wochenkurse. Wie Android `FX_CHUNK_DAYS`.
+    static let fxChunkDays = 365
+
+    /// `from`…`to` (je einschliesslich) in Stücke von höchstens `maxDays` Tagen, aufsteigend und lückenlos; das letzte
+    /// endet an `to`. Leer, wenn `from` nach `to` liegt. Wie Android `fxChunks`.
+    static func fxChunks(from: LocalDay, to: LocalDay, maxDays: Int = fxChunkDays) -> [(from: LocalDay, to: LocalDay)] {
+        guard from <= to, maxDays > 0 else { return [] }
+        var out: [(from: LocalDay, to: LocalDay)] = []
+        var start = from.epochDay
+        while start <= to.epochDay {
+            let end = min(start + maxDays - 1, to.epochDay)
+            out.append((from: LocalDay(epochDay: start), to: LocalDay(epochDay: end)))
+            start = end + 1
+        }
+        return out
+    }
+
     /// Währungen für die Abfrage: `currency`, bei BGN zusätzlich EUR (eine Abfrage für beide).
     static func requestCurrencies(_ currency: String) -> [String] {
         let code = CurrencyConversion.normalize(currency)

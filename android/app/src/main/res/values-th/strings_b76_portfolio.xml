@@ -9,7 +9,7 @@
     <string name="backup_restore_interrupted_rolled_back">แอปถูกปิดระหว่างกู้คืนข้อมูลสำรอง ข้อมูลเดิมของคุณถูกนำกลับมาแล้ว และไม่ได้เก็บสิ่งใดจากข้อมูลสำรองไว้</string>
     <string name="backup_restore_interrupted_incomplete">แอปถูกปิดระหว่างกู้คืนข้อมูลสำรอง และนำข้อมูลเดิมกลับมาได้ไม่ครบ โปรดตรวจสอบรายการเฝ้าดูและพอร์ตโฟลิโอ หรือกู้คืนข้อมูลสำรองอีกครั้งที่ “%1$s” ในการตั้งค่า</string>
     <string name="backup_not_verified">ยืนยันไฟล์ข้อมูลสำรองหลังบันทึกไม่ได้ เพราะอ่านกลับมาแล้วไม่ตรงกัน โปรดบันทึกข้อมูลสำรองลงไฟล์ใหม่</string>
-    <string name="tax_line_at_old_speculation_limit">ได้มาก่อน 1 มี.ค. 2021 – ถือ ≤ 1 ปี: วงเงินยกเว้นภาษีธุรกรรมเก็งกำไร (§ 31 (3) EStG ฉบับเดิม)</string>
+    <string name="tax_line_at_old_speculation_limit">ธุรกรรมเก็งกำไร (กฎหมายเดิม ถือ ≤ 1 ปี): วงเงินยกเว้นภาษี (§ 31 (3) EStG ฉบับเดิม)</string>
     <string name="portfolio_tx_interest">ดอกเบี้ย (การให้ยืม)</string>
     <string name="portfolio_tx_interest_hint">นับเป็นรายได้เมื่อได้รับ (ออสเตรีย) ปิดไว้สำหรับรางวัลสเตกกิ้งและแอร์ดรอป</string>
     <string name="app_lock_no_screen_lock">ตั้งค่าล็อกหน้าจอเพื่อเปิดพอร์ตโฟลิโอ</string>

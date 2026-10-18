@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Hinweis der Gesamtkarte: «Seit Kauf» und Einstand in der Anzeigewährung zum Devisenkurs des Kauftags (PortfolioCostFx); %1$s = Währung -->
+    <string name="ledger_cost_fx_note">«منذ الشراء» وتكلفة الشراء بـ %1$s: التكلفة بسعر صرف يوم الشراء، والقيمة بسعر اليوم.</string>
+    <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
+    <string name="ledger_cost_fx_missing">لا يوجد سعر صرف ليوم الشراء (غير مُدرج في «منذ الشراء» وتكلفة الشراء): %1$s</string>
+    <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
+    <string name="ledger_cost_fx_usdt_assumed">تكلفة أيام الشراء دون سعر USDT/USD محسوبة على أساس USDT = 1.</string>
+    <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
+    <string name="tax_export_at_income_interest">فائدة – خاضعة للضريبة عند الاستلام</string>
+    <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->
+    <string name="tax_export_at_income_staking">تخزين (Staking) – للعلم فقط (تكلفة الاقتناء 0، تُفرض الضريبة عند البيع)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der Zinsen -->
+    <string name="tax_export_at_total_interest">مجموع الفوائد (خاضعة للضريبة)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der übrigen Belohnungen -->
+    <string name="tax_export_at_total_staking">مجموع التخزين (للعلم)</string>
+</resources>

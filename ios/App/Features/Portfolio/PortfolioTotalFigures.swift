@@ -109,11 +109,13 @@ struct PortfolioInsightFigure: View {
     let unit: PortfolioCardUnit
     /// Belohnungen im Zeitraum (`PortfolioChange.rewards`); > 0: «Belohnungen +X (nicht im Gewinn)» darunter.
     var rewards: Double = 0
+    /// `amount` schon in der Einheit der Karte (`PortfolioModel.costFx`), nicht in USDT.
+    var amountInUnit = false
 
     /// Belohnungen nur zu einer bekannten Zahl.
     private var shownRewards: Double { validAmount == nil ? 0 : rewards }
 
-    private var validAmount: Double? { amount.flatMap { $0.isFinite ? unit.of($0) : nil } }
+    private var validAmount: Double? { amount.flatMap { $0.isFinite ? (amountInUnit ? $0 : unit.of($0)) : nil } }
     private var validPercent: Double? { percent.flatMap { $0.isFinite ? $0 : nil } }
 
     private var amountText: String {

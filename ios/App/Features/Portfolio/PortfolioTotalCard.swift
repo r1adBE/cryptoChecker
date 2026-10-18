@@ -18,6 +18,9 @@ struct PortfolioTotalCard: View {
     let updatedAt: Int64
     let currency: String
     let fxRate: Double?
+    /// «Seit Kauf» und Einstand in der Anzeigewährung zum Kurs der Erwerbstage (`PortfolioModel.costFx`); gilt nur, wenn
+    /// die Karte umrechnet — nil dann = Kurse laden noch («—»). In USDT bleiben die Zahlen aus `summary`.
+    var costFx: PortfolioCostFxFigures? = nil
     /// «Heute»: Betrag (USDT) und Prozent; nil = noch keine Vergleichsbasis.
     var today: (amount: Double?, percent: Double?)? = nil
     /// Coins, die in «Heute» fehlen (kein Vergleichskurs).
@@ -205,10 +208,29 @@ struct PortfolioTotalCard: View {
             PortfolioRewardsNote(rewards: yearChange.rewards, unit: unit)
         }
         HStack(alignment: .top, spacing: 12) {
-            PortfolioMetric(
-                label: L("portfolio_invested"),
-                value: summary.invested.map { PortfolioInsights.mask(PortfolioFormat.usdtValue($0), hidden: hideAmounts) } ?? "—"
-            )
+            if unit.converted {
+                // Einstand in der Anzeigewährung zum Kurs der Erwerbstage, USDT klein darunter (wie der Gesamtwert)
+                let invested: Double? = costFx?.invested.map(PortfolioDecimal.double)
+                VStack(alignment: .leading, spacing: 2) {
+                    PortfolioMetric(
+                        label: L("portfolio_invested"),
+                        value: invested.map { PortfolioInsights.mask(PriceFormat.valueWithCurrency($0, unit.code), hidden: hideAmounts) } ?? "—"
+                    )
+                    if invested != nil, costFx?.investedFxMissing == true {
+                        partialMarker(L("portfolio_export_incomplete"))
+                    } else if invested != nil, let usdt = summary.invested {
+                        PriceWithQuote.text("≈ " + PortfolioInsights.mask(PortfolioFormat.usdtValue(usdt), hidden: hideAmounts))
+                            .font(AppFont.amount(.caption))
+                            .foregroundStyle(AppColors.onSurfaceVariant)
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+            } else {
+                PortfolioMetric(
+                    label: L("portfolio_invested"),
+                    value: summary.invested.map { PortfolioInsights.mask(PortfolioFormat.usdtValue($0), hidden: hideAmounts) } ?? "—"
+                )
+            }
             if PortfolioFormat.showRealized(summary.realized, incomplete: summary.realizedIncomplete) {
                 PortfolioMetric(
                     label: L("portfolio_realized"),
@@ -260,6 +282,14 @@ struct PortfolioTotalCard: View {
         // G-9: Modell nahe an der Zahl, nicht nur im (i); Ø ist eine bewusste Wahl: kein Hinweis «nicht FIFO»
         if summary.unrealized != nil, summary.method.isFifo {
             items.append(HintItem(text: L("ledger_fifo_cost_note")))
+        }
+        // Umgerechnet: Einstand zum Devisenkurs des Kauftags; ohne Kurs eines Kauftags fehlt der Coin, USDT/USD-Lücke = 1
+        if unit.converted, summary.unrealized != nil {
+            items.append(HintItem(text: L("ledger_cost_fx_note", unit.code)))
+            if let coins = costFx?.fxMissingCoins, !coins.isEmpty {
+                items.append(HintItem(text: L("ledger_cost_fx_missing", coins.joined(separator: ", "))))
+            }
+            if costFx?.usdtApproximate == true { items.append(HintItem(text: L("ledger_cost_fx_usdt_assumed"))) }
         }
         // Was im Gewinn seit Kauf fehlt (M3: nur diese Coins, nicht das ganze Portfolio)
         if !summary.missingCostCoins.isEmpty {
@@ -425,14 +455,17 @@ struct PortfolioTotalCard: View {
             PortfolioInsightFigure(label: L("portfolio_history_range_7d"), spokenLabel: L("portfolio_history_period_7d"),
                                    amount: weekChange?.amount, percent: weekChange?.percent, unit: unit,
                                    rewards: weekChange?.rewards ?? 0)
-            // «Seit Kauf (CHF)»: Gewinn/Verlust seit Kauf der Coins mit Kaufpreis (in der Einheit des Gesamtwerts)
+            // «Seit Kauf (CHF)»: Gewinn/Verlust seit Kauf der Coins mit Kaufpreis (in der Einheit des Gesamtwerts);
+            // umgerechnet: Wert zum heutigen Kurs − Einstand zum Kurs der Erwerbstage (`PortfolioModel.costFx`), nie der
+            // Einstand zum heutigen Kurs
             VStack(alignment: .leading, spacing: 2) {
                 PortfolioInsightFigure(label: L("ledger_since_purchase_currency", unit.code),
                                        spokenLabel: L("ledger_since_purchase_spoken"),
-                                       amount: summary.unrealized,
-                                       percent: summary.unrealized == nil ? nil : summary.unrealizedPercent,
-                                       unit: unit)
-                // Teilsumme (Coins ohne Kaufpreis oder ohne Kurs fehlen): «unvollständig» an der Zahl
+                                       amount: sinceAmount,
+                                       percent: sinceAmount == nil ? nil : sincePercent,
+                                       unit: unit,
+                                       amountInUnit: unit.converted)
+                // Teilsumme (Coins ohne Kaufpreis, ohne Kurs oder ohne Devisenkurs am Kauftag fehlen): «unvollständig»
                 if sinceBuyPartial {
                     partialMarker(L("portfolio_export_incomplete"))
                 }
@@ -441,10 +474,19 @@ struct PortfolioTotalCard: View {
         }
     }
 
-    /// «Seit Kauf» ist eine Teilsumme: Coins bzw. Teile ohne Kaufpreis oder ohne aktuellen Kurs fehlen darin.
+    /// «Seit Kauf» in der Einheit der Karte: umgerechnet aus `costFx` (schon in der Währung), sonst USDT aus `summary`.
+    private var sinceAmount: Double? {
+        unit.converted ? costFx?.unrealized.map(PortfolioDecimal.double) : summary.unrealized
+    }
+
+    private var sincePercent: Double? { unit.converted ? costFx?.unrealizedPercent : summary.unrealizedPercent }
+
+    /// «Seit Kauf» ist eine Teilsumme: Coins bzw. Teile ohne Kaufpreis, ohne aktuellen Kurs oder (umgerechnet) ohne
+    /// Devisenkurs am Kauftag fehlen darin.
     private var sinceBuyPartial: Bool {
-        summary.unrealized != nil
-            && (!summary.missingCostCoins.isEmpty || !summary.partialCostParts.isEmpty || !summary.missingCurrentPrices.isEmpty)
+        let fxMissing = unit.converted && costFx?.unrealizedFxMissing == true
+        return summary.unrealized != nil && (fxMissing || (sinceAmount != nil
+            && (!summary.missingCostCoins.isEmpty || !summary.partialCostParts.isEmpty || !summary.missingCurrentPrices.isEmpty)))
     }
 
     /// Kleiner Hinweis direkt an einer Teilsumme («ohne 2 Coins», «unvollständig») — nicht nur in den zugeklappten

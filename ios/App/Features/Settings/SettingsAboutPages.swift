@@ -16,6 +16,17 @@ struct AboutSettingsPage: View {
                 AboutContent(onVersionTap: versionTapped)
                     .padding(.vertical, Spacing.sm)
             }
+            // «Deine Daten»: das Wichtigste der Datenschutzerklärung in vier Sätzen, direkt über dem Link zur vollen
+            // Fassung — wie Android. Die Sätze müssen zur Erklärung (public/docs/privacy) passen.
+            SettingsCard(title: L("about_your_data_title")) {
+                VStack(alignment: .leading, spacing: 0) {
+                    yourDataLine("about_data_device_label", "about_data_device")
+                    yourDataLine("about_data_connections_label", "about_data_connections")
+                    yourDataLine("about_data_backup_label", "about_data_backup")
+                    yourDataLine("about_data_device_change_label", "about_data_device_change")
+                }
+                .padding(.bottom, Spacing.sm)
+            }
             // Build 53: Links und Lizenzen von der Hauptseite hierher — wie Android
             SettingsCard {
                 aboutLinkRows
@@ -27,6 +38,22 @@ struct AboutSettingsPage: View {
             }
         }
         .toast($toast)
+    }
+
+    /// Eine Zeile von «Deine Daten»: Stichwort und ein Satz, vorgelesen als ein Element.
+    private func yourDataLine(_ labelKey: String, _ textKey: String) -> some View {
+        VStack(alignment: .leading, spacing: 2) {
+            Text(L(labelKey))
+                .font(.subheadline.weight(.semibold))
+                .foregroundStyle(AppColors.onSurface)
+            Text(L(textKey))
+                .font(.footnote)
+                .foregroundStyle(AppColors.onSurfaceVariant)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.vertical, 6)
+        .accessibilityElement(children: .combine)
     }
 
     /// Datenschutz, Börse wünschen, Quellcode (nach aussen) und Lizenzhinweise.

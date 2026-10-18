@@ -379,6 +379,46 @@ class PortfolioParityTest {
         }
     }
 
+    /**
+     * Kopf «7 T/1 J», Gewinn/Verlust-Kurven und Karte zeigen dieselbe Zahl: junges Portfolio (Kurve ab 0 samt erstem
+     * Tag), Tausch ohne Wert (EIN Wert zum Tagesschluss für beide Seiten), Umbuchung mit USDT-Gebühr ohne Bestand (0).
+     */
+    @Test
+    fun rangeAgreement() {
+        val cases = data["rangeAgreement"].list()
+        assertTrue(cases.size >= 3)
+        val today = data["today"].num()!!.toLong()
+        for (raw in cases) {
+            val c = raw.obj()
+            val name = c["name"] as String
+            val trades = c["trades"].list().map(::trade)
+            val current = prices(c["current"])
+            val closes = series(c["closes"])
+            val e = c["expected"].obj()
+            for (method in CostMethod.entries) {
+                val label = "$name [$method]"
+                val week = PortfolioPeriodChange.gain(trades, current, closes, today - PortfolioPeriodChange.DAYS, method = method)
+                near("$label 7 T", e["week"].num(), week?.amountUsd)
+                near("$label 7 T percent", e["weekPercent"].num(), week?.percent)
+                val year = PortfolioPeriodChange.gain(trades, current, closes, today - PortfolioPeriodChange.YEAR_DAYS, method = method)
+                near("$label 1 J", e["year"].num(), year?.amountUsd)
+                val weekCurve = PortfolioHistory.build(trades, closes, current, PortfolioHistoryRange.WEEK, today, method = method)
+                near("$label curve 7 T", e["week"].num(), weekCurve.pnlChange)
+                near("$label curve 7 T percent", e["weekPercent"].num(), weekCurve.pnlPercent)
+                val yearCurve = PortfolioHistory.build(trades, closes, current, PortfolioHistoryRange.YEAR, today, method = method)
+                near("$label curve 1 J", e["year"].num(), yearCurve.pnlChange)
+                val sinceFirst = PortfolioHistory.build(trades, closes, current, PortfolioHistoryRange.SINCE_FIRST, today, method = method)
+                near("$label curve since first", e["sinceFirst"].num(), sinceFirst.pnlChange)
+                // Karte mit demselben Tageskurs wie die App (PortfolioViewModel.marketPriceAt)
+                val market = { coin: String, time: Long ->
+                    PortfolioPeriodChange.marketPriceAt(coin, current[PortfolioCalculator.normalizeCoin(coin)], closes, time)
+                }
+                val s = PortfolioCalculator.summarize(trades, current, method, market)
+                near("$label card", e["card"].num(), (s.unrealized ?: 0.0) + s.realized + (s.withdrawnGainExact?.toDouble() ?: 0.0))
+            }
+        }
+    }
+
     @Test
     fun scaleCloses() {
         for (raw in data["scaleCloses"].list()) {

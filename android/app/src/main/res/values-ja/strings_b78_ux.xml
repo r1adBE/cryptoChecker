@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
+    <string name="alarm_status_notifications_off">通知オフ – このアラームは届きません</string>
+    <!-- Statuszeile der Alarm-Karte: DEX-Pool unter der Alarm-Liquidität (10’000 USD) oder unbekannt -->
+    <string name="alarm_status_low_liquidity">アラームなし – 流動性が低い</string>
+    <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
+    <string name="alarm_status_waiting_price">最新の価格を待っています</string>
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">あなたのデータ</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">端末上</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">リスト、アラーム、ポートフォリオはこの端末に暗号化して保存されます。アカウントも独自サーバーもありません。</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">接続</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">価格はペアの取引所から直接取得し、ほかに為替レート、コイン一覧とロゴ、GitHub 上のデータミラーを使います。これらは IP アドレスを見ますが、保有資産は決して見ません（監視中のアドレスは各ネットワークのプロバイダーに送られます）。</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">バックアップ</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">作成した場合のみ。パスワードで暗号化（Argon2id + AES-256-GCM）、パスワードなしでは読める形式です。</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">機種変更</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">鍵は古い端末に残ります – 事前にバックアップファイルを作成してください。</string>
+</resources>

@@ -23,6 +23,12 @@ struct AlarmsScreen: View {
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     /// «Konnte nicht geprüft werden (…)» je Alarm (nur im Speicher).
     @ObservedObject private var checkStatus = AlarmCheckStatus.shared
+    /// Mitteilungen zustellbar (`Notifier.isAuthorized`)? Für die Statuszeile der Karten (`AlarmCardStatus`);
+    /// im Zweifel ja, damit kein falscher Hinweis erscheint. Bei jeder Rückkehr in die App neu geprüft.
+    @State private var notificationsAllowed = true
+    /// Uhr der Statuszeilen, jede Minute nachgeführt — ein Kurs wird auch ohne neue Daten veraltet.
+    @State private var now: Int64 = TimeUtils.nowMillis
+    @Environment(\.scenePhase) private var scenePhase
 
     init(watchId: Int64) {
         self.watchId = watchId
@@ -80,6 +86,16 @@ struct AlarmsScreen: View {
                             base: watch?.baseAsset ?? "",
                             quote: watch?.quoteAsset ?? "",
                             unchecked: checkStatus.unchecked(alarm.id),
+                            status: AlarmCardStatus.of(
+                                alarmEnabled: alarm.enabled,
+                                notificationsAllowed: notificationsAllowed,
+                                dexBlocksAlarms: lowLiquidity,
+                                exchangeTime: watch?.exchangeTime,
+                                lastUpdate: watch?.lastUpdate ?? 0,
+                                now: now,
+                                staleAfterMillis: data.staleAfterMillis,
+                                unchecked: checkStatus.unchecked(alarm.id) != nil
+                            ),
                             onToggle: { enabled in
                                 WatchlistHaptics.selection()
                                 data.setAlarmEnabled(alarm.id, enabled)
@@ -108,6 +124,18 @@ struct AlarmsScreen: View {
             }
         }
         .background(AppColors.background.ignoresSafeArea())
+        .task { notificationsAllowed = await Notifier.isAuthorized() }
+        .task {
+            while !Task.isCancelled {
+                try? await Task.sleep(for: .seconds(60))
+                now = TimeUtils.nowMillis
+            }
+        }
+        .onChange(of: scenePhase) { _, phase in
+            guard phase == .active else { return }
+            now = TimeUtils.nowMillis
+            Task { notificationsAllowed = await Notifier.isAuthorized() }
+        }
         .onAppear {
             // Paar ohne Alarm: gleich den Editor öffnen statt der leeren Liste — wie Android
             guard !autoOpenDone else { return }
@@ -272,8 +300,10 @@ private struct AlarmCard: View {
     /// Basis-Symbol des Paars für den Satz («… wenn BTC über …»); leer = kein Satz.
     var base: String = ""
     let quote: String
-    /// Zuletzt nicht geprüft (kein Devisenkurs/keine Kerzen); nil = geprüft.
+    /// Zuletzt nicht geprüft (kein Devisenkurs/keine Kerzen); nil = geprüft. Liefert den Text zu `.unchecked`.
     var unchecked: AlarmCheckStatus.Unchecked? = nil
+    /// Statuszeile (`AlarmCardStatus`); nil = keine.
+    var status: AlarmCardStatus.Kind? = nil
     let onToggle: (Bool) -> Void
     let onEdit: () -> Void
     let onDelete: () -> Void
@@ -294,6 +324,12 @@ private struct AlarmCard: View {
                 .accessibilityAddTraits(.isButton)
                 .accessibilityIdentifier(UiTestTags.alarmCard)
                 .accessibilityAction(named: Text(L("action_delete")), onDelete)
+                // «Mitteilungen aus»: Einstellungen öffnen wie beim Antippen der Statuszeile
+                .accessibilityActions {
+                    if status == .notificationsOff {
+                        Button(L("alarms_notifications_turn_on")) { NotificationsOffBanner.openSettings() }
+                    }
+                }
 
             // Beschriftung nur für VoiceOver: welcher Alarm geschaltet wird
             SwitchRow(isOn: Binding(get: { alarm.enabled }, set: onToggle), verticalPadding: 0, labelHidden: true) {
@@ -336,12 +372,15 @@ private struct AlarmCard: View {
                         .lineLimit(2)
                         .fixedSize(horizontal: false, vertical: true)
                 }
-                // «Konnte nicht geprüft werden (kein Devisenkurs)» — bis die nächste Prüfung gelingt
-                if let uncheckedText {
-                    Text(uncheckedText)
-                        .font(.footnote)
-                        .foregroundStyle(AppColors.destructive)
-                        .fixedSize(horizontal: false, vertical: true)
+                // Statuszeile, bis der Grund wegfällt (vorgelesen über die Beschreibung der Karte). «Mitteilungen
+                // aus» öffnet beim Antippen die Mitteilungs-Einstellungen (VoiceOver: Aktion auf der Karte).
+                if let statusLine {
+                    if status == .notificationsOff {
+                        Button { NotificationsOffBanner.openSettings() } label: { statusLineView(statusLine) }
+                            .buttonStyle(.plain)
+                    } else {
+                        statusLineView(statusLine)
+                    }
                 }
                 Text(subtitle)
                     .font(.footnote.monospacedDigit())
@@ -360,15 +399,33 @@ private struct AlarmCard: View {
     private var a11yLabel: String {
         let sentence = base.isEmpty ? nil : AlarmTexts.sentence(alarm, base: base, quote: quote)
         let text = AlarmA11y.description(alarm, title: AlarmStyle.title(alarm, quote: quote), sentence: sentence)
-        return uncheckedText.map { text + ". " + $0 } ?? text
+        return statusLine.map { text + ". " + $0.text } ?? text
     }
 
-    /// Nur bei eingeschalteten Alarmen: ausgeschaltete werden ohnehin nicht geprüft.
-    private var uncheckedText: String? {
-        guard alarm.enabled, let unchecked else { return nil }
-        switch unchecked.reason {
-        case .noRate: return L("alarm_unchecked_no_rate")
-        case .noCandles: return L("alarm_unchecked_no_candles")
+    private func statusLineView(_ line: (text: String, symbol: String)) -> some View {
+        HStack(alignment: .firstTextBaseline, spacing: 4) {
+            Image(systemName: line.symbol)
+                .font(.caption)
+            Text(line.text)
+        }
+        .font(.footnote)
+        .foregroundStyle(AppColors.onSurfaceVariant)
+        .fixedSize(horizontal: false, vertical: true)
+    }
+
+    /// Text und Symbol der Statuszeile; nur bei eingeschalteten Alarmen (das stellt `AlarmCardStatus` sicher).
+    private var statusLine: (text: String, symbol: String)? {
+        switch status {
+        case nil: return nil
+        case .notificationsOff: return (L("alarm_status_notifications_off"), "bell.slash")
+        case .lowLiquidity: return (L("alarm_status_low_liquidity"), "exclamationmark.triangle")
+        case .waitingForPrice: return (L("alarm_status_waiting_price"), "arrow.clockwise")
+        case .unchecked:
+            guard let unchecked else { return nil }
+            switch unchecked.reason {
+            case .noRate: return (L("alarm_unchecked_no_rate"), "exclamationmark.circle")
+            case .noCandles: return (L("alarm_unchecked_no_candles"), "exclamationmark.circle")
+            }
         }
     }
 

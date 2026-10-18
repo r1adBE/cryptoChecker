@@ -296,9 +296,16 @@ object PortfolioPeriodChange {
         startPrice: (coin: String, live: Double?) -> Double?,
     ): Parts {
         val out = Parts()
-        // Adress-Einträge der Eingabe nie rückwirkend; nur die beobachtete Reihe ([AddressBalanceHistory])
-        val valid = trades.filter { it.amount.signum() > 0 && !AddressBalance.isAddressTrade(it.id) } +
-            AddressBalanceHistory.trades(addresses)
+        // Adress-Einträge der Eingabe nie rückwirkend; nur die beobachtete Reihe ([AddressBalanceHistory]). Tausch ohne
+        // Wert (und die übrigen Fälle von [PortfolioLedger.valueAtDayClose]) zum Marktkurs [marketPrice] wie die Karte:
+        // EIN Wert für abgegebenen und erhaltenen Coin statt jede Seite zu ihrem eigenen Kurs
+        val valid = PortfolioLedger.valueAtDayClose(
+            trades.filter { it.amount.signum() > 0 && !AddressBalance.isAddressTrade(it.id) } +
+                AddressBalanceHistory.trades(addresses),
+        ) { coin, time ->
+            marketPrice(coin, current[coin]?.takeIf { it > 0.0 && it.isFinite() }, time)
+                ?.takeIf { it > 0.0 && it.isFinite() }?.let { PortfolioDecimal.of(it) }
+        }
         // Alle Arten und Gebühren im dritten Coin über [PortfolioLedger] (Bestand und Zuflüsse wie der Rechner)
         for (coin in PortfolioLedger.coins(valid)) {
             if (only != null && coin != only) continue

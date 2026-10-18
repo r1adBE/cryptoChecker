@@ -9,7 +9,7 @@
     <string name="backup_restore_interrupted_rolled_back">Aplikacja została zamknięta podczas przywracania kopii. Poprzednie dane zostały przywrócone; z kopii nic nie zachowano.</string>
     <string name="backup_restore_interrupted_incomplete">Aplikacja została zamknięta podczas przywracania kopii i nie udało się w pełni przywrócić poprzednich danych. Sprawdź listę obserwowanych i portfel albo przywróć kopię ponownie w Ustawieniach w „%1$s”.</string>
     <string name="backup_not_verified">Nie udało się zweryfikować pliku kopii po zapisaniu – odczytany ponownie różni się. Zapisz kopię w nowym pliku.</string>
-    <string name="tax_line_at_old_speculation_limit">Nabyte przed 1.03.2021 – trzymane ≤ 1 roku: limit zwolnienia transakcji spekulacyjnych (§ 31 ust. 3 EStG, stara wersja)</string>
+    <string name="tax_line_at_old_speculation_limit">Transakcje spekulacyjne (dawne przepisy, trzymane ≤ 1 roku): limit zwolnienia (§ 31 ust. 3 EStG, stara wersja)</string>
     <string name="portfolio_tx_interest">Odsetki (pożyczanie)</string>
     <string name="portfolio_tx_interest_hint">Liczy się jako dochód w chwili otrzymania (Austria). Dla nagród ze stakingu i airdropów pozostaw wyłączone.</string>
     <string name="app_lock_no_screen_lock">Skonfiguruj blokadę ekranu, aby otworzyć portfel.</string>

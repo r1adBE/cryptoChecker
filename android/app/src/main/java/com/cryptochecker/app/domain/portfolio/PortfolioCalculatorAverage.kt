@@ -310,5 +310,6 @@ internal fun PortfolioCalculator.average(symbol: String, events: List<PortfolioL
         lots = emptyList(), disposals = disposals, withdrawals = withdrawals,
         lostFeeCosts = lostFeeCosts,
         unassignedFees = unassignedFees,
+        openParts = parts.toList(),
     )
 }

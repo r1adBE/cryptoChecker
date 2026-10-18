@@ -154,7 +154,8 @@ extension PortfolioTxSheet {
     }
 
     /// Kauf: Notiz im zugeklappten Abschnitt «Gebühr, Börse, Notiz» (wie Android).
-    var noteInLedger: Bool { type == .BUY }
+    /// Die Notiz steht seit Build 78 bei allen Arten direkt unter dem Preis, nie im zugeklappten Abschnitt.
+    var noteInLedger: Bool { false }
 
     var noteField: some View {
         VStack(alignment: .leading, spacing: Spacing.xs) {

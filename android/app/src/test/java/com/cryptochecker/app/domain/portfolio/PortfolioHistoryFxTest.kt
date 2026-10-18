@@ -88,6 +88,26 @@ class PortfolioHistoryFxTest {
         assertEquals(LocalDate.of(2026, 10, 6), to)
     }
 
+    /** Devisen-Zeitreihe in Stücken von höchstens 365 Tagen (Frankfurter liefert längere Zeiträume nur wöchentlich). */
+    @Test
+    fun fxRequestInChunksOfAtMostOneYear() {
+        val from = LocalDate.of(2023, 1, 1)
+        val to = LocalDate.of(2026, 10, 6)
+        val chunks = PortfolioHistoryFx.fxChunks(from, to)
+        assertEquals(365, PortfolioHistoryFx.FX_CHUNK_DAYS)
+        assertEquals(from, chunks.first().first)
+        assertEquals(to, chunks.last().second)
+        for ((a, b) in chunks) assertTrue(java.time.temporal.ChronoUnit.DAYS.between(a, b) + 1 <= 365)
+        // Lückenlos und ohne Überlappung
+        for ((prev, next) in chunks.zipWithNext()) assertEquals(prev.second.plusDays(1), next.first)
+        assertEquals(4, chunks.size)
+        // Genau ein Jahr: ein Stück; ein Tag: ein Stück; umgekehrt: keins
+        assertEquals(listOf(from to from.plusDays(364)), PortfolioHistoryFx.fxChunks(from, from.plusDays(364)))
+        assertEquals(2, PortfolioHistoryFx.fxChunks(from, from.plusDays(365)).size)
+        assertEquals(listOf(to to to), PortfolioHistoryFx.fxChunks(to, to))
+        assertTrue(PortfolioHistoryFx.fxChunks(to, from).isEmpty())
+    }
+
     /** K-1: USDT zum USD-Kurs, Verlauf in der Anzeigewährung samt Devisenbewegung. */
     @Test
     fun fxLabelFlags() {

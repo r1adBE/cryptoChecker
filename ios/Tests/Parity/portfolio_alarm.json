@@ -1,5 +1,5 @@
 {
-  "_comment": "Portfolio-Alarme in einer anderen Währung als der Stand (PortfolioAlarmLogic.totalIn / total(in:)): USDT zum Marktkurs wie der Portfolio-Kopf (Owner-Entscheid Okt. 2026). reading = Stand (total in currency, totalUsdt, usdTo = Devisenkurse USD → Währung, usdtUsdLive = Live-Kurs USDT/USD, null = keiner; gültig 0.05…3 = PortfolioStables.usdtUsdLive, ausserhalb × 1). Erwartet: Wert in der Alarmwährung (null = diesmal nicht prüfen). Gleiche Währung = total; USD = totalUsdt × USDT/USD; USD-Stablecoin = totalUsdt; andere Fiat = totalUsdt × Devisenkurs × USDT/USD; USDT/USD fehlt oder unplausibel (ausserhalb 0.5..1.5) → × 1 (Näherung).",
+  "_comment": "Portfolio-Alarme in einer anderen Währung als der Stand (PortfolioAlarmLogic.totalIn / total(in:)): USDT zum Marktkurs wie der Portfolio-Kopf (Owner-Entscheid Okt. 2026). reading = Stand (total in currency, totalUsdt, usdTo = Devisenkurse USD → Währung, usdtUsdLive = Live-Kurs USDT/USD, null = keiner; gültig 0.05…3 = PortfolioStables.usdtUsdLive, ausserhalb × 1). Erwartet: Wert in der Alarmwährung (null = diesmal nicht prüfen). Gleiche Währung = total; USDT = totalUsdt; USD und die übrigen USD-Stablecoins (USDC, DAI …) = totalUsdt × USDT/USD (1 Dollar, nicht 1 USDT); andere Fiat = totalUsdt × Devisenkurs × USDT/USD; USDT/USD fehlt oder unplausibel (ausserhalb 0.05..3) → × 1 (Näherung).",
   "totalIn": [
     {
       "name": "gleiche Währung",
@@ -44,7 +44,7 @@
       "expected": 50000
     },
     {
-      "name": "USDC = USDT-Wert",
+      "name": "USDC wie USD = USDT-Wert × USDT/USD",
       "reading": {
         "total": 45000,
         "currency": "CHF",
@@ -55,7 +55,19 @@
         "usdtUsdLive": 0.998
       },
       "currency": "USDC",
-      "expected": 50000
+      "expected": 49900
+    },
+    {
+      "name": "DAI im bestätigten USDT-Einbruch (0.3) = USDT-Wert × 0.3",
+      "reading": {
+        "total": 45000,
+        "currency": "CHF",
+        "totalUsdt": 50000,
+        "usdTo": {},
+        "usdtUsdLive": 0.3
+      },
+      "currency": "dai",
+      "expected": 15000
     },
     {
       "name": "EUR mit USDT/USD",

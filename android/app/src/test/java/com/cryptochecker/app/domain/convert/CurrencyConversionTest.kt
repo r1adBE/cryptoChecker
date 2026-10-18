@@ -94,6 +94,23 @@ class CurrencyConversionTest {
         assertEquals(3 * h, CurrencyConversion.FX_STALE_MILLIS)
     }
 
+    /** Krypto-/Stablecoin-Kurs für die Umrechnung höchstens 15 min alt, sonst kein Faktor (Alarm und «≈»). */
+    @Test
+    fun `krypto-kurs fuer die umrechnung hoechstens 15 min alt`() {
+        val min = 60_000L
+        val now = 1_000 * min
+        assertEquals(15 * min, CurrencyConversion.QUOTE_MAX_AGE_MILLIS)
+        assertEquals(60_000.0, CurrencyConversion.freshQuotePrice(60_000.0, now - 15 * min, now)!!, 0.0)
+        assertEquals(60_000.0, CurrencyConversion.freshQuotePrice(60_000.0, now, now)!!, 0.0)
+        assertNull(CurrencyConversion.freshQuotePrice(60_000.0, now - 15 * min - 1, now))
+        assertNull(CurrencyConversion.freshQuotePrice(60_000.0, null, now))
+        assertNull(CurrencyConversion.freshQuotePrice(60_000.0, 0L, now))
+        assertNull(CurrencyConversion.freshQuotePrice(null, now, now))
+        // Ohne Kurs kein Faktor (bestehender Weg «keine Umrechnung»)
+        val old = CurrencyConversion.freshQuotePrice(60_000.0, now - 16 * min, now)
+        assertNull(CurrencyConversion.rate(CurrencyConversion.quoteToUsd(QuoteKind.CRYPTO, null, old), 0.8))
+    }
+
     @Test
     fun `faktor quote nach ziel`() {
         // USDT → CHF bei 1 USD = 0.8 CHF
@@ -129,5 +146,22 @@ class CurrencyConversionTest {
         assertNull(CurrencyConversion.bgnFromEur(null))
         assertNull(CurrencyConversion.bgnFromEur(0.0))
         assertNull(CurrencyConversion.bgnFromEur(Double.NaN))
+    }
+
+    /** BGN aus einem alten EUR-Kurs behält dessen Abrufzeit (Hinweis mit Uhrzeit), wird nie «frisch». */
+    @Test
+    fun `BGN aus EUR mit der Abrufzeit des EUR-Kurses`() {
+        val h = 60 * 60_000L
+        val now = 100 * h
+        val eur = 0.86 to now - 5 * h
+        val derived = CurrencyConversion.fxWithTime(null, eur, deriveBgn = true)!!
+        assertEquals(0.86 * 1.95583, derived.first, 1e-12)
+        assertEquals(now - 5 * h, derived.second)
+        // Alt genug für den Hinweis mit Uhrzeit, wie der EUR-Kurs selbst
+        assertEquals(now - 5 * h, CurrencyConversion.staleFxTime(null, derived.second, now))
+        // Eigener Kurs geht vor; ohne Ableitung oder ohne EUR keiner
+        assertEquals(1.7 to now, CurrencyConversion.fxWithTime(1.7 to now, eur, deriveBgn = true))
+        assertNull(CurrencyConversion.fxWithTime(null, eur, deriveBgn = false))
+        assertNull(CurrencyConversion.fxWithTime(null, null, deriveBgn = true))
     }
 }

@@ -74,7 +74,7 @@
     <string name="tax_export_proceeds_missing">sale price missing</string>
     <string name="tax_export_proceeds_without_cost">Proceeds without purchase price</string>
     <string name="tax_export_realized_differs">The tax CSV can differ from ‘realized’ (the country’s tax rules).</string>
-    <string name="tax_export_rule">&gt; 1 year: sold after purchase date + 1 calendar year. Dates in local time. Rates: ECB daily rate (last business day before).</string>
+    <string name="tax_export_rule">&gt; 1 year: sold after purchase date + 1 calendar year. Dates in local time. Rates: ECB daily rate of the transaction day; if there is none, the last rate up to 7 days before.</string>
     <string name="tax_export_rules_date">Rules as of: %1$s</string>
     <string name="tax_export_spouse_gift">to spouse/partner – no gain, no loss</string>
     <string name="tax_export_summary">Annual summary %1$s (CSV)</string>
@@ -98,7 +98,7 @@
     <!-- Steuer-Export: Zeilen und Spalten -->
     <string name="tax_line_at_interest">Lending interest (value on receipt)</string>
     <string name="tax_line_at_old_long">Acquired before 1 Mar 2021 – held &gt; 1 year: usually not taxable – check</string>
-    <string name="tax_line_at_rate">Special rate 27.5 percent: net acquired from 1 Mar 2021 + interest (1 Mar 2021–28 Feb 2022: see note)</string>
+    <string name="tax_line_at_rate">Special rate 27.5 percent: net acquired from 1 Mar 2021 and sold from 1 Mar 2022 + interest</string>
     <string name="tax_line_au_discounted">Net capital gain after losses and 50 percent discount</string>
     <string name="tax_line_ca_taxable">Taxable capital gain (inclusion rate 1/2)</string>
     <string name="tax_line_ch_income">Rewards listed – see the ESTV working paper for their treatment</string>
@@ -115,9 +115,9 @@
     <string name="tax_line_long_net">Net – held &gt; 1 year</string>
     <string name="tax_line_losses">Losses</string>
     <string name="tax_line_net">Net gains/losses</string>
-    <string name="tax_line_new_net">Net – acquired from 1 Mar 2021</string>
+    <string name="tax_line_new_net">Net – acquired from 1 Mar 2021, sold from 1 Mar 2022</string>
     <string name="tax_line_old_long_net">Net – acquired before 1 Mar 2021 – held &gt; 1 year</string>
-    <string name="tax_line_old_short_net">Net – acquired before 1 Mar 2021 – held ≤ 1 year</string>
+    <string name="tax_line_old_short_net">Net – speculative transactions (former law): acquired before 1 Mar 2021 and held ≤ 1 year, or sold before 1 Mar 2022</string>
     <string name="tax_line_proceeds">Proceeds</string>
     <string name="tax_line_short_net">Net – held ≤ 1 year</string>
     <string name="tax_line_transfer_fees">Transfer fees (own wallets)</string>
@@ -191,7 +191,7 @@
     <string name="tax_note_withdrawal_fee">A withdrawal fee in USDT or cash is not a loss: a cash fee is not a deductible cost, a USDT fee is a disposal at par without gain – it is listed as information only (%1$s).</string>
     <string name="tax_summary_at_interest_income">counts: income on receipt at the special rate of 27.5 percent (§ 27b(2) no. 1 EStG / BMF) – the coins keep this value as acquisition cost</string>
     <string name="tax_summary_at_reward_info">for information only – not part of any total: rewards enter the new holdings at acquisition cost 0 and are taxed only on sale (already in the gains) – § 27b para. 2 EStG / BMF</string>
-    <string name="tax_summary_at_transition_2021">Sales/swaps of new holdings 1 Mar 2021–28 Feb 2022: former law (§ 31 EStG old version) with option for 27.5 percent – check with a tax adviser</string>
+    <string name="tax_summary_at_transition_2021">1 Jan–28 Feb 2022: option for 27.5 percent possible</string>
     <string name="tax_summary_at_withdrawal_fee">Withdrawal fee – not offset against new holdings (expenses not deductible at the special rate, § 20(2) EStG)</string>
     <string name="tax_summary_ch_fifo_info">for information only – the app’s FIFO calculation – not classified – see ESTV</string>
     <string name="tax_summary_ch_year_end_value">value on 31 Dec in the holdings CSV = exchange price × USD/CHF – not the ESTV tax values</string>

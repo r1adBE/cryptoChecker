@@ -12,6 +12,13 @@ private class AtLot(val txId: Long, val acquired: Long, val kind: PortfolioTxTyp
 private class AtCoin(val wallet: String, zone: ZoneId) {
     val old = ArrayList<AtLot>()
     val neu = TaxPool(zone)
+    /**
+     * Anschaffungsnebenkosten (Kaufgebühren) des Neubestands, Topf mit genau denselben Mengen wie [neu]: der gleitende
+     * Durchschnitt bleibt ohne Gebühren (§ 27a Abs. 4 Z 2 EStG), ein Verkauf vor dem 1.3.2022 (alte Rechtslage, § 31 EStG
+     * a. F.) nimmt den anteiligen Gebührenteil zum Einstand dazu. Gleiche Mengen in beiden Töpfen = gleiche Anteile bei
+     * jedem Abgang (die Mengenrechnung von [TaxPool] hängt nicht vom Einstand ab).
+     */
+    val fees = TaxPool(zone)
     val oldHeld: BigDecimal get() = old.fold(BigDecimal.ZERO) { a, l -> a + l.qty }
 
     /** Altbestand-Posten nach Erwerb (dann Id) einsortieren (Umbuchung). */
@@ -19,7 +26,36 @@ private class AtCoin(val wallet: String, zone: ZoneId) {
         val i = old.indexOfFirst { it.acquired > lot.acquired || (it.acquired == lot.acquired && it.txId > lot.txId) }
         if (i < 0) old += lot else old.add(i, lot)
     }
+
+    /** Zugang im Neubestand mit Einstand ohne Gebühren [cost] und Kaufgebühr [fee] (nur mit Kaufpreis). */
+    fun addNew(qty: BigDecimal, cost: BigDecimal?, time: Long, fee: BigDecimal = BigDecimal.ZERO) {
+        neu.add(qty, cost, time)
+        fees.add(qty, cost?.let { fee }, time)
+    }
+
+    /** Zugang mit fortgeführtem Einstand [parts] samt Gebührenteil [feeParts]. */
+    fun addNewCarried(qty: BigDecimal, parts: List<PortfolioCostPart>, feeParts: List<PortfolioCostPart> = emptyList()) {
+        neu.addCarried(qty, parts)
+        fees.addCarried(qty, feeParts)
+    }
+
+    /** Abgang aus dem Neubestand: Einstand ohne Gebühren und der zugehörige Gebührenteil. */
+    fun takeNew(qty: BigDecimal): Pair<TaxTaken, TaxTaken> = neu.take(qty) to fees.take(qty)
+
+    /**
+     * Menge sinkt, Einstand bleibt im Rest (Rückgabe wie [TaxPool.dropQty]). Ein Gebührenteil ohne Rest geht still verloren:
+     * er zählt nur bei einem Verkauf vor dem 1.3.2022 und ist kein Einstand der Übersicht.
+     */
+    fun dropNew(qty: BigDecimal): BigDecimal {
+        fees.dropQty(qty)
+        return neu.dropQty(qty)
+    }
 }
+
+/** Einstand nach alter Rechtslage (§ 31 EStG a. F.): Einstand ohne Gebühren [taken] plus Anschaffungsnebenkosten [fees]. */
+private fun withFees(taken: TaxTaken, fees: TaxTaken): TaxTaken =
+    if (fees.cost.signum() == 0) taken
+    else TaxTaken(taken.removed, taken.removedPriced, taken.cost + fees.cost, taken.parts + fees.parts)
 
 internal fun TaxEngines.atSplit(real: List<PortfolioTrade>, zone: ZoneId, lost: MutableList<PortfolioLostFeeCost>): List<PortfolioDisposal> {
     val zero = BigDecimal.ZERO
@@ -58,11 +94,11 @@ internal fun TaxEngines.atSplit(real: List<PortfolioTrade>, zone: ZoneId, lost: 
         return pieces
     }
 
-    /** Nimmt [qty] zuerst aus dem Altbestand (FIFO), dann aus dem Neubestand. */
-    fun takeBoth(c: AtCoin, qty: BigDecimal): Pair<List<TaxPiece>, TaxTaken> {
+    /** Nimmt [qty] zuerst aus dem Altbestand (FIFO), dann aus dem Neubestand (dritter Teil: Gebührenteil, [AtCoin.fees]). */
+    fun takeBoth(c: AtCoin, qty: BigDecimal): Triple<List<TaxPiece>, TaxTaken, TaxTaken> {
         val pieces = takeOld(c, qty)
-        val taken = c.neu.take(qty - pieces.fold(zero) { a, p -> a + p.amount })
-        return pieces to taken
+        val (taken, fees) = c.takeNew(qty - pieces.fold(zero) { a, p -> a + p.amount })
+        return Triple(pieces, taken, fees)
     }
 
     /**
@@ -75,27 +111,43 @@ internal fun TaxEngines.atSplit(real: List<PortfolioTrade>, zone: ZoneId, lost: 
         if (s.trade.type == PortfolioTxType.REWARD && !s.trade.interestIncome) zero else s.trade.validPrice?.let { s.qty * it }
 
     /**
+     * Anschaffungsnebenkosten eines Zugangs im Neubestand: Einstand mit Gebühren ([TaxStep.cost]: Gebühr USDT, im Coin und
+     * im dritten Coin) minus [newCost]. Nur für einen Verkauf vor dem 1.3.2022 (§ 31 EStG a. F. kennt sie); Belohnung
+     * ohne Anschaffungskosten: keine.
+     */
+    fun newFee(s: TaxStep, cost: BigDecimal?): BigDecimal {
+        val full = s.cost
+        if (cost == null || cost.signum() == 0 || full == null) return zero
+        return (full - cost).max(zero)
+    }
+
+    /**
      * Veräusserung ohne Tausch (Verkauf, Zahlung, Gebühr im dritten Coin). Altbestand (§ 31 EStG a. F.) mit Gebühren:
      * Erlös nach Gebühren, die Gebühr im Coin geht mit ihrem Einstand ab. Neubestand ohne Gebühren (§ 20 Abs. 2 EStG,
      * BMF): Erlös vor Gebühren; die Gebühr im Coin (anteilig nach Menge) ist keine Veräusserung — Menge sinkt, der
-     * Einstand bleibt im Rest wie bei der Netzwerkgebühr einer Umbuchung.
+     * Einstand bleibt im Rest wie bei der Netzwerkgebühr einer Umbuchung. Verkauf von Neubestand vor dem 1.3.2022: noch
+     * alte Rechtslage (§ 31 EStG a. F., Spekulationsgeschäft) wie der Tausch in dieser Zeit — Gebühren mindern den
+     * Erlös, die Gebühr im Coin geht mit ihrem Einstand ab wie beim Altbestand, und der Einstand enthält die
+     * Anschaffungsnebenkosten ([AtCoin.fees]); ab dem 1.3.2022 bleiben sie draussen (§ 27a Abs. 4 Z 2 EStG).
      */
     fun sale(coin: String, c: AtCoin, s: TaxStep): List<PortfolioDisposal> {
         val oldPieces = takeOld(c, s.qty)
         val oldQty = oldPieces.fold(zero) { a, p -> a + p.amount }
         val newQty = s.qty - oldQty
+        val oldLaw = s.time < neutralFrom
         // Gebühr im dritten Coin: der ganze Schritt ist die Gebühr, darin steckt keine Gebühr im Coin
-        val fee = if (s.feeLeg) zero else s.trade.coinFee
+        val fee = if (s.feeLeg || oldLaw) zero else s.trade.coinFee
         val newFee = if (fee.signum() == 0 || newQty.signum() <= 0) zero else newQty.multiply(fee).divide(s.qty, mc)
-        val taken = c.neu.take(newQty - newFee)
-        lost.note(coin, s, c.neu.dropQty(newFee))
+        val (taken, fees) = c.takeNew(newQty - newFee)
+        lost.note(coin, s, c.dropNew(newFee))
         fun oldShare(v: BigDecimal?): BigDecimal? = v?.let { if (oldQty.compareTo(s.qty) == 0) it else it.multiply(oldQty).divide(s.qty, mc) }
-        val newPieces = ArrayList(piecesOf(taken, oldHolding = false))
+        val newPieces = ArrayList(piecesOf(if (oldLaw) withFees(taken, fees) else taken, oldHolding = false))
         val rest = newQty - newFee - taken.removed
         if (rest.signum() > 0) newPieces += TaxPiece(rest, null, uncovered = true)
         val inWallet: (TaxPiece, PortfolioDisposal) -> PortfolioDisposal = { _, d -> d.copy(wallet = c.wallet) }
+        val newBase = if (oldLaw) s.proceeds else s.gross
         return emit(coin, s, oldPieces, oldShare(s.proceeds), inWallet) +
-            emit(coin, s, newPieces, s.gross?.let { it - oldShare(it)!! }, inWallet)
+            emit(coin, s, newPieces, newBase?.let { it - oldShare(it)!! }, inWallet)
     }
 
     /** Netzwerkgebühr: zuerst Altbestand (Einstand auf den nächsten Altbestand-Posten mit Kaufpreis), dann Neubestand. */
@@ -106,7 +158,7 @@ internal fun TaxEngines.atSplit(real: List<PortfolioTrade>, zone: ZoneId, lost: 
             val target = c.old.firstOrNull { it.cost != null }
             if (target != null) target.cost = target.cost!! + carried else lost.note(coin, s, carried)
         }
-        lost.note(coin, s, c.neu.dropQty(s.qty - fromOld))
+        lost.note(coin, s, c.dropNew(s.qty - fromOld))
     }
 
     for ((coin, e) in mergedEvents(real)) {
@@ -121,10 +173,10 @@ internal fun TaxEngines.atSplit(real: List<PortfolioTrade>, zone: ZoneId, lost: 
                 TaxStepKind.ADD_FEE, TaxStepKind.ACQUIRE, TaxStepKind.DISPOSE, TaxStepKind.REMOVE -> Unit
             }
             if (src !== dst && t.amount.signum() > 0) {
-                val (oldPieces, taken) = takeBoth(src, t.amount)
+                val (oldPieces, taken, fees) = takeBoth(src, t.amount)
                 for (p in oldPieces) dst.insertOld(AtLot(p.lotTxId!!, p.acquiredTime!!, p.lotKind!!, p.amount, p.cost))
-                dst.neu.addCarried(taken.removedPriced, taken.parts)
-                dst.neu.add(taken.removedUnpriced, null, t.time)
+                dst.addNewCarried(taken.removedPriced, taken.parts, fees.parts)
+                dst.addNew(taken.removedUnpriced, null, t.time)
             }
             continue
         }
@@ -138,36 +190,38 @@ internal fun TaxEngines.atSplit(real: List<PortfolioTrade>, zone: ZoneId, lost: 
                     if (s.time < newFrom) {
                         c.insertOld(AtLot(s.id, s.time, s.trade.type, s.qty, carry.value))
                     } else {
-                        c.neu.add(s.qty, carry.value, s.time)
+                        c.addNew(s.qty, carry.value, s.time)
                     }
                 } else if (carry == null) {
                     if (s.acquired < newFrom) c.old += AtLot(s.id, s.acquired, s.trade.type, s.qty, s.cost)
-                    else c.neu.add(s.qty, newCost(s), s.acquired)
+                    else newCost(s).let { cost -> c.addNew(s.qty, cost, s.acquired, newFee(s, cost)) }
                 } else if (carry.total.signum() > 0) {
                     // Erhaltene Menge anteilig: aus Altbestand (Veräusserung, Einstand = Wert), aus Neubestand mit
-                    // fortgeführtem Einstand, ohne Kaufpreis bzw. ungedeckt ohne Kaufpreis
+                    // fortgeführtem Einstand, ohne Kaufpreis bzw. ungedeckt ohne Kaufpreis — Tausch ab dem 1.3.2022, also kein
+                    // späterer Verkauf nach alter Rechtslage: ohne Gebührenteil
                     fun part(q: BigDecimal): BigDecimal = if (q.compareTo(carry.total) == 0) s.qty else s.qty.multiply(q).divide(carry.total, mc)
                     val fromOld = part(carry.oldQty)
                     if (fromOld.signum() > 0) {
-                        c.neu.add(fromOld, carry.value?.let { v -> if (carry.oldQty.compareTo(carry.total) == 0) v else v.multiply(carry.oldQty).divide(carry.total, mc) }, s.time)
+                        c.addNew(fromOld, carry.value?.let { v -> if (carry.oldQty.compareTo(carry.total) == 0) v else v.multiply(carry.oldQty).divide(carry.total, mc) }, s.time)
                     }
                     val fromPriced = part(carry.taken.removedPriced)
-                    if (fromPriced.signum() > 0) c.neu.addCarried(fromPriced, carry.taken.parts)
+                    if (fromPriced.signum() > 0) c.addNewCarried(fromPriced, carry.taken.parts)
                     val restQty = s.qty - fromOld - fromPriced
-                    if (restQty.signum() > 0) c.neu.add(restQty, null, s.time)
+                    if (restQty.signum() > 0) c.addNew(restQty, null, s.time)
                 } else {
-                    c.neu.add(s.qty, null, s.time)
+                    c.addNew(s.qty, null, s.time)
                 }
             }
             TaxStepKind.DISPOSE -> if (!s.swap) out += sale(coin, c, s) else {
-                val (oldPieces, taken) = takeBoth(c, s.qty)
+                val (oldPieces, taken, fees) = takeBoth(c, s.qty)
                 val oldQty = oldPieces.fold(zero) { a, p -> a + p.amount }
                 val inWallet: (TaxPiece, PortfolioDisposal) -> PortfolioDisposal = { _, d -> d.copy(wallet = c.wallet) }
                 if (s.time < neutralFrom) {
                     // Tausch vor dem 1.3.2022: alte Rechtslage (§ 31 EStG a. F.) — Tausch = Veräusserung des ganzen
-                    // abgegebenen Coins (Alt- und Neubestand, EStR Rz 6103k), der erhaltene Coin ist neu angeschafft
+                    // abgegebenen Coins (Alt- und Neubestand, EStR Rz 6103k), der erhaltene Coin ist neu angeschafft;
+                    // Einstand des Neubestands mit Anschaffungsnebenkosten wie beim Verkauf in dieser Zeit
                     val list = ArrayList<TaxPiece>(oldPieces)
-                    list += piecesOf(taken, oldHolding = false)
+                    list += piecesOf(withFees(taken, fees), oldHolding = false)
                     val rest = s.qty - oldQty - taken.removed
                     if (rest.signum() > 0) list += TaxPiece(rest, null, uncovered = true)
                     out += emit(coin, s, list, s.proceeds, inWallet)

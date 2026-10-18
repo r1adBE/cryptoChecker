@@ -326,7 +326,8 @@ class PortfolioSnapshotUpdater @Inject constructor(
                 ranges = routed.ranges,
                 holdings = holdings,
                 current = current,
-                todayEpochDay = LocalDate.now(zone).toEpochDay(),
+                // Stichtag «7 T/1 J» und Verlauf in UTC-Tagen wie die Tageskerzen (nicht das lokale Datum)
+                todayEpochDay = PortfolioHistory.epochDayOfUtcMillis(now),
                 todayUtcDay = PortfolioHistory.epochDayOfUtcMillis(now),
                 dayEndMillis = { day -> LocalDate.ofEpochDay(day + 1).atStartOfDay(zone).toInstant().toEpochMilli() - 1 },
                 addresses = addresses,

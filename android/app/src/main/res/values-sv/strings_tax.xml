@@ -74,7 +74,7 @@
     <string name="tax_export_proceeds_missing">försäljningspris saknas</string>
     <string name="tax_export_proceeds_without_cost">Likvid utan köppris</string>
     <string name="tax_export_realized_differs">Skatte-CSV:n kan skilja sig från ”realiserat” (landets skatteregler).</string>
-    <string name="tax_export_rule">&gt; 1 år: sålt efter köpdatum + 1 kalenderår. Datum i lokal tid. Kurser: ECB:s dagskurs (senaste bankdag före).</string>
+    <string name="tax_export_rule">&gt; 1 år: sålt efter köpdatum + 1 kalenderår. Datum i lokal tid. Kurser: ECB:s dagskurs för transaktionsdagen; saknas den, den senaste kursen upp till 7 dagar före.</string>
     <string name="tax_export_rules_date">Regler per: %1$s</string>
     <string name="tax_export_spouse_gift">till make/maka/partner – ingen vinst, ingen förlust</string>
     <string name="tax_export_summary">Årsöversikt %1$s (CSV)</string>
@@ -98,7 +98,7 @@
     <!-- Steuer-Export: Zeilen und Spalten -->
     <string name="tax_line_at_interest">Ränta från lending (värde vid mottagandet)</string>
     <string name="tax_line_at_old_long">Förvärvat före 1.3.2021 – innehaft &gt; 1 år: normalt inte skattepliktigt – kontrollera</string>
-    <string name="tax_line_at_rate">Särskild skattesats 27,5 procent: netto förvärvat från 1.3.2021 + ränta (1.3.2021–28.2.2022: se anmärkning)</string>
+    <string name="tax_line_at_rate">Särskild skattesats 27,5 procent: netto förvärvat från 1.3.2021 och sålt från 1.3.2022 + ränta</string>
     <string name="tax_line_au_discounted">Nettokapitalvinst efter förluster och 50 procent rabatt</string>
     <string name="tax_line_ca_taxable">Skattepliktig kapitalvinst (inkluderingsgrad 1/2)</string>
     <string name="tax_line_ch_income">Belöningar listade – behandling se ESTV:s arbetsdokument</string>
@@ -115,9 +115,9 @@
     <string name="tax_line_long_net">Netto – innehaft &gt; 1 år</string>
     <string name="tax_line_losses">Förluster</string>
     <string name="tax_line_net">Nettovinst/-förlust</string>
-    <string name="tax_line_new_net">Netto – förvärvat från 1.3.2021</string>
+    <string name="tax_line_new_net">Netto – förvärvat från 1.3.2021, sålt från 1.3.2022</string>
     <string name="tax_line_old_long_net">Netto – förvärvat före 1.3.2021 – innehaft &gt; 1 år</string>
-    <string name="tax_line_old_short_net">Netto – förvärvat före 1.3.2021 – innehaft ≤ 1 år</string>
+    <string name="tax_line_old_short_net">Netto – spekulationsaffärer (tidigare regler): förvärvat före 1.3.2021 och innehaft ≤ 1 år, eller sålt före 1.3.2022</string>
     <string name="tax_line_proceeds">Likvider</string>
     <string name="tax_line_short_net">Netto – innehaft ≤ 1 år</string>
     <string name="tax_line_transfer_fees">Överföringsavgifter (egna wallets)</string>
@@ -191,7 +191,7 @@
     <string name="tax_note_withdrawal_fee">En uttagsavgift i USDT eller kontanter är ingen förlust: en kontantavgift är inte avdragsgill, en USDT-avgift är en avyttring till pari utan vinst – den visas endast som information (%1$s).</string>
     <string name="tax_summary_at_interest_income">räknas: inkomst vid mottagandet till den särskilda skattesatsen 27,5 procent (§ 27b st. 2 nr 1 EStG / BMF) – mynten behåller detta värde som anskaffningsvärde</string>
     <string name="tax_summary_at_reward_info">endast för information – ingår inte i någon summa: belöningar går in i det nya innehavet med anskaffningsvärde 0 och beskattas först vid försäljning (redan i vinsterna) – § 27b Abs. 2 EStG / BMF</string>
-    <string name="tax_summary_at_transition_2021">Försäljningar/byten av nytt innehav 1.3.2021–28.2.2022: tidigare regler (§ 31 EStG äldre lydelse) med option på 27,5 procent – stäm av med en skatterådgivare</string>
+    <string name="tax_summary_at_transition_2021">1.1–28.2.2022: option på 27,5 procent möjlig</string>
     <string name="tax_summary_at_withdrawal_fee">Uttagsavgift – inte kvittad mot nytt innehav (kostnader ej avdragsgilla vid specialskattesatsen, § 20 st. 2 EStG)</string>
     <string name="tax_summary_ch_fifo_info">endast för information – appens FIFO-beräkning – inte klassificerad – se ESTV</string>
     <string name="tax_summary_ch_year_end_value">värde per 31.12. i innehavs-CSV = börskurs × USD/CHF – inte skattevärdena i ESTV:s kurslista</string>

@@ -154,12 +154,13 @@ class AlarmEvaluator @Inject constructor() {
 
     /**
      * Veränderung gegenüber dem Bezugskurs. Fehlt dieser, wird der zuletzt
-     * bekannte Kurs verwendet; ohne beides kann kein Prozentalarm greifen.
+     * bekannte Kurs verwendet; ohne beides kann kein Prozentalarm greifen. Auf 1e-6 gerundet ([AlarmPercent]),
+     * damit genau die Marke auslöst (3.00 → 3.09 = +3 %, nicht 2.9999999999999956 %).
      */
     fun changePercent(alarm: AlarmEntity, price: Double, previousPrice: Double?): Double? {
         val reference = alarm.referencePrice ?: previousPrice ?: return null
         if (reference <= 0.0) return null
-        return (price - reference) / reference * 100.0
+        return AlarmPercent.rounded((price - reference) / reference * 100.0)
     }
 
     companion object {

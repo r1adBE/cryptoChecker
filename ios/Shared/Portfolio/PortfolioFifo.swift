@@ -452,6 +452,7 @@ enum PortfolioFifo {
                 if let cost = l.cost {
                     r.priced += l.amount
                     r.cost += cost
+                    r.openParts += l.parts
                 } else {
                     r.unpriced += l.amount
                 }

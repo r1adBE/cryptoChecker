@@ -298,6 +298,31 @@ class PortfolioViewModel @Inject constructor(
     /** Tageskurse USD → Umrechnungswährung für den Verlauf und «7 T»/«1 J»; null = noch nicht geladen. */
     internal val _fxSeries = MutableStateFlow<FxSeriesLoad?>(null)
 
+    /** Kurse ab dem frühesten Erwerbstag der offenen Posten für [costFx]; null = noch nicht geladen. */
+    internal val _costFx = MutableStateFlow<CostFxLoad?>(null)
+
+    /**
+     * «Seit Kauf» und Einstand der Gesamtkarte in der Anzeigewährung zum Kurs der Erwerbstage
+     * ([com.cryptochecker.app.domain.portfolio.PortfolioCostFx]): Wert heute × [displayFxRate] − Einstand je Teil zum
+     * Faktor seines Tags (Regel des Steuer-Exports). null = nicht umgerechnet (USDT, kein Devisenkurs) oder die Kurse
+     * laden noch — die Karte zeigt dann in der Anzeigewährung «—» statt einer Zahl zum heutigen Kurs.
+     */
+    val costFx: StateFlow<com.cryptochecker.app.domain.portfolio.PortfolioCostFxFigures?> = combine(
+        summary, currency, displayFxRate, _costFx,
+    ) { s, code, rate, load ->
+        if (s == null || !cardUnit(code, rate).converted) return@combine null
+        val current = rate?.let { com.cryptochecker.app.domain.portfolio.PortfolioDecimal.of(it) } ?: return@combine null
+        // Heute als UTC-Tag wie die Erwerbstage ([com.cryptochecker.app.domain.portfolio.PortfolioCostFx.dayOf])
+        val today = PortfolioHistory.utcToday()
+        val first = com.cryptochecker.app.domain.portfolio.PortfolioCostFx.firstDay(s)
+        // Ohne Teile mit Datum keine Kurse nötig; sonst nur mit einer Ladung, die den frühesten Tag abdeckt
+        val usable = load?.takeIf { it.currency == code && (first == null || !it.from.isAfter(LocalDate.ofEpochDay(first))) }
+        if (first != null && usable == null) return@combine null
+        com.cryptochecker.app.domain.portfolio.PortfolioCostFx.figures(
+            s, code, current, today, usable?.rates, usable?.usdtUsd ?: emptyMap(),
+        )
+    }.flowOn(Dispatchers.Default).stateIn(viewModelScope, SharingStarted.Eagerly, null)
+
     val weekChange: StateFlow<TodayChange?> = periodChange(PortfolioPeriodChange.DAYS, display = true)
 
     /** «7 T» rein in USDT (ohne Devisenkurs) — eigene Zahl neben der Anzeige in der Währung. */
@@ -330,7 +355,8 @@ class PortfolioViewModel @Inject constructor(
             return@combine null
         }
         val prices = current.open.mapNotNull { p -> p.currentPrice?.let { p.coin to it } }.toMap()
-        val today = LocalDate.now(ZoneId.systemDefault()).toEpochDay()
+        // Stichtag in UTC-Tagen wie die Tageskerzen (lokales Datum lag zwischen Mitternacht lokal und UTC einen Tag daneben)
+        val today = PortfolioHistory.utcToday()
         // Tageskerzen der eingetragenen Börse, sonst Binance skaliert (PortfolioExchangeRoute.historyCloses)
         // Tageskurse, die bis zum Stichtag zurückreichen: umrechnen wie der Wertverlauf
         // Auch USD: USDT zum Marktkurs ([PortfolioHistoryFx.convertsUsdt]); Devisenkurs dort an jedem Tag 1
@@ -360,7 +386,7 @@ class PortfolioViewModel @Inject constructor(
      */
     val periodScaled: StateFlow<List<String>> = combine(summary, _closes, _prices) { current, loaded, p ->
         if (current == null || loaded == null) return@combine emptyList()
-        val today = LocalDate.now(ZoneId.systemDefault()).toEpochDay()
+        val today = PortfolioHistory.utcToday()
         PortfolioExchangeRoute.scaledHint(
             loaded.routed(p).scaled, loaded.daily.binanceBefore, today - PortfolioPeriodChange.YEAR_DAYS,
             current.open.map { it.coin },
@@ -393,7 +419,8 @@ class PortfolioViewModel @Inject constructor(
             return@combine null
         }
         val zone = ZoneId.systemDefault()
-        val today = LocalDate.now(zone).toEpochDay()
+        // Heute als UTC-Tag: der Verlauf zählt in UTC-Tagen ([PortfolioHistory.build]), wie «7 T/1 J»
+        val today = PortfolioHistory.utcToday()
         // Eigene Börse, sonst Binance skaliert — Dochte und Eröffnung mit demselben Faktor wie die Schlüsse
         val routed = loaded.routed(p)
         val series = PortfolioHistory.build(

@@ -714,7 +714,8 @@ enum PortfolioWidgetStore {
                                                    closes: routedHistory.closes,
                                                    ranges: routedHistory.ranges,
                                                    holdings: holdings, current: current,
-                                                   todayEpochDay: LocalDay.today().epochDay,
+                                                   // Stichtag «7 T/1 J» und Verlauf in UTC-Tagen wie die Tageskerzen
+                                                   todayEpochDay: PortfolioHistory.epochDay(utcMillis: now),
                                                    todayUtcDay: PortfolioHistory.epochDay(utcMillis: now),
                                                    dayEndMillis: { PortfolioHistory.dayEndMillis($0) },
                                                    addresses: addresses, method: method)

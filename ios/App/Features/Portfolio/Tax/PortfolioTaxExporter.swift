@@ -119,7 +119,8 @@ enum PortfolioTaxExporter {
             let dayBefore = LocalDay(epochMillisUTC: t.time).plusDays(-1).epochDay
             // Verkauf: Coin zum Verkaufspreis; sonst ohne erfassten Wert: auch der Coin selbst braucht einen Kurs
             let sold: String? = (t.type.isSaleLike || t.validPriceExact != nil) ? PortfolioCalculator.normalizeCoin(t.coin) : nil
-            var held = Set(PortfolioCalculator.holdingsAt(own, time: t.time - 1, method: .FIFO).map(\.coin))
+            // Gehalten = in der Reihenfolge der Rechnung davor gebucht (auch dieselbe Millisekunde) — wie Android
+            var held = TaxEngines.frHeldBefore(own, t)
             for a in addressTrades where a.time <= t.time { held.insert(PortfolioCalculator.normalizeCoin(a.coin)) }
             for coin in held where coin != sold && PortfolioStables.needsQuote(coin) {
                 wanted[coin, default: []].insert(dayBefore)

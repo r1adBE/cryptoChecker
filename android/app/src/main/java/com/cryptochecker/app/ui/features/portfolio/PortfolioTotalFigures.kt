@@ -214,9 +214,11 @@ internal fun InsightFigure(
     modifier: Modifier = Modifier,
     /** Belohnungen im Zeitraum ([TodayChange.rewardsUsd]); > 0: «Belohnungen +X (nicht im Gewinn)» darunter. */
     rewardsUsd: Double = 0.0,
+    /** [amount] schon in der Einheit der Karte ([PortfolioViewModel.costFx]), nicht in USDT. */
+    amountInUnit: Boolean = false,
 ) {
     val context = LocalContext.current
-    val validAmount = amount?.takeIf { it.isFinite() }?.let(unit::of)
+    val validAmount = amount?.takeIf { it.isFinite() }?.let { if (amountInUnit) it else unit.of(it) }
     val validPercent = percent?.takeIf { it.isFinite() }
     val amountText = validAmount?.let { maskAmount(signedPlain(it)) } ?: "—"
     val spokenValue = validAmount?.let { spokenAmount(unit.signed(it)) }

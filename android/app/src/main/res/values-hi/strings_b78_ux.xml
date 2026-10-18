@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
+    <string name="alarm_status_notifications_off">नोटिफ़िकेशन बंद – यह अलार्म आप तक नहीं पहुँचेगा</string>
+    <!-- Statuszeile der Alarm-Karte: DEX-Pool unter der Alarm-Liquidität (10’000 USD) oder unbekannt -->
+    <string name="alarm_status_low_liquidity">कोई अलार्म नहीं – कम लिक्विडिटी</string>
+    <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
+    <string name="alarm_status_waiting_price">मौजूदा भाव का इंतज़ार</string>
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">आपका डेटा</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">डिवाइस पर</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">सूची, अलार्म और पोर्टफ़ोलियो इसी डिवाइस पर एन्क्रिप्ट होकर रहते हैं; कोई खाता नहीं, कोई अपना सर्वर नहीं।</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">कनेक्शन</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">भाव सीधे आपके पेयर के एक्सचेंजों से आते हैं, साथ में विनिमय दरें, कॉइन सूचियाँ व लोगो और GitHub पर डेटा मिरर; ये आपका IP पता देखते हैं, आपकी होल्डिंग कभी नहीं (देखे जा रहे पते संबंधित नेटवर्क के प्रदाता को जाते हैं)।</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">बैकअप</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">सिर्फ़ तब जब आप इसे बनाएँ; पासवर्ड के साथ एन्क्रिप्टेड (Argon2id + AES-256-GCM), बिना पासवर्ड के पढ़ने योग्य।</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">डिवाइस बदलना</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">कुंजी पुराने डिवाइस पर ही रहती है – पहले एक बैकअप फ़ाइल बनाएँ।</string>
+</resources>

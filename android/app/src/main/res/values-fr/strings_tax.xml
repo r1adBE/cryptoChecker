@@ -74,7 +74,7 @@
     <string name="tax_export_proceeds_missing">prix de vente manquant</string>
     <string name="tax_export_proceeds_without_cost">Produit de cession sans prix d’achat</string>
     <string name="tax_export_realized_differs">Le CSV fiscal peut différer de « réalisé » (règles fiscales du pays).</string>
-    <string name="tax_export_rule">&gt; 1 an : vendu après la date d’achat + 1 année civile. Dates en heure locale. Cours : cours journalier BCE (dernier jour ouvré précédent).</string>
+    <string name="tax_export_rule">&gt; 1 an : vendu après la date d’achat + 1 année civile. Dates en heure locale. Cours : cours journalier BCE du jour de l’opération ; à défaut, le dernier cours jusqu’à 7 jours avant.</string>
     <string name="tax_export_rules_date">Règles en vigueur au : %1$s</string>
     <string name="tax_export_spouse_gift">au conjoint/partenaire – ni plus- ni moins-value</string>
     <string name="tax_export_summary">Récapitulatif annuel %1$s (CSV)</string>
@@ -98,7 +98,7 @@
     <!-- Steuer-Export: Zeilen und Spalten -->
     <string name="tax_line_at_interest">Intérêts de prêt (valeur à la réception)</string>
     <string name="tax_line_at_old_long">Acquis avant le 1.3.2021 – détenu &gt; 1 an : en règle générale non imposable – à vérifier</string>
-    <string name="tax_line_at_rate">Taux spécial 27,5 pour cent : net acquis à partir du 1.3.2021 + intérêts (1.3.2021–28.2.2022: voir la remarque)</string>
+    <string name="tax_line_at_rate">Taux spécial 27,5 pour cent : net acquis à partir du 1.3.2021 et vendu à partir du 1.3.2022 + intérêts</string>
     <string name="tax_line_au_discounted">Gain en capital net après pertes et abattement de 50 pour cent</string>
     <string name="tax_line_ca_taxable">Gain en capital imposable (taux d’inclusion 1/2)</string>
     <string name="tax_line_ch_income">Récompenses listées – traitement voir document de travail AFC</string>
@@ -115,9 +115,9 @@
     <string name="tax_line_long_net">Net – détenu &gt; 1 an</string>
     <string name="tax_line_losses">Pertes</string>
     <string name="tax_line_net">Gains/pertes nets</string>
-    <string name="tax_line_new_net">Net – acquis à partir du 1.3.2021</string>
+    <string name="tax_line_new_net">Net – acquis à partir du 1.3.2021, vendu à partir du 1.3.2022</string>
     <string name="tax_line_old_long_net">Net – acquis avant le 1.3.2021 – détenu &gt; 1 an</string>
-    <string name="tax_line_old_short_net">Net – acquis avant le 1.3.2021 – détenu ≤ 1 an</string>
+    <string name="tax_line_old_short_net">Net – opérations spéculatives (ancien régime) : acquis avant le 1.3.2021 et détenu ≤ 1 an, ou vendu avant le 1.3.2022</string>
     <string name="tax_line_proceeds">Produits de cession</string>
     <string name="tax_line_short_net">Net – détenu ≤ 1 an</string>
     <string name="tax_line_transfer_fees">Frais de transfert (propres wallets)</string>
@@ -191,7 +191,7 @@
     <string name="tax_note_withdrawal_fee">Des frais de retrait en USDT ou en espèces ne sont pas une perte : des frais en espèces ne sont pas déductibles, des frais en USDT sont une cession au pair sans plus-value – ils figurent à titre d’information (%1$s).</string>
     <string name="tax_summary_at_interest_income">compte : revenu à la réception au taux spécial de 27,5 pour cent (§ 27b al. 2 n° 1 EStG / BMF) – les coins gardent cette valeur comme coût d’acquisition</string>
     <string name="tax_summary_at_reward_info">pour information uniquement – dans aucun total : les récompenses entrent dans le nouveau stock au coût d’acquisition 0 et ne sont imposées qu’à la vente (déjà dans les gains) – § 27b Abs. 2 EStG / BMF</string>
-    <string name="tax_summary_at_transition_2021">Ventes/échanges de nouveaux avoirs du 1.3.2021 au 28.2.2022 : ancien régime (§ 31 EStG ancienne version) avec option pour 27,5 pour cent – à clarifier avec un conseiller fiscal</string>
+    <string name="tax_summary_at_transition_2021">1.1.–28.2.2022 : option pour 27,5 pour cent possible</string>
     <string name="tax_summary_at_withdrawal_fee">Frais de retrait – non imputés sur les nouveaux avoirs (frais non déductibles au taux spécial, § 20 al. 2 EStG)</string>
     <string name="tax_summary_ch_fifo_info">pour information uniquement – calcul FIFO de l’app – non classé – voir AFC</string>
     <string name="tax_summary_ch_year_end_value">valeur au 31.12 dans le CSV des avoirs = cours de la plateforme × USD/CHF – pas les valeurs fiscales de la liste des cours AFC</string>

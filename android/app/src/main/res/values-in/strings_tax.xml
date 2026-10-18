@@ -74,7 +74,7 @@
     <string name="tax_export_proceeds_missing">harga jual tidak ada</string>
     <string name="tax_export_proceeds_without_cost">Hasil penjualan tanpa harga beli</string>
     <string name="tax_export_realized_differs">CSV pajak bisa berbeda dari “terealisasi” (aturan pajak negara).</string>
-    <string name="tax_export_rule">&gt; 1 tahun: dijual setelah tanggal beli + 1 tahun kalender. Tanggal dalam waktu lokal. Kurs: kurs harian ECB (hari kerja terakhir sebelumnya).</string>
+    <string name="tax_export_rule">&gt; 1 tahun: dijual setelah tanggal beli + 1 tahun kalender. Tanggal dalam waktu lokal. Kurs: kurs harian ECB pada hari transaksi; jika tidak ada, kurs terakhir hingga 7 hari sebelumnya.</string>
     <string name="tax_export_rules_date">Aturan per: %1$s</string>
     <string name="tax_export_spouse_gift">ke pasangan – tanpa untung, tanpa rugi</string>
     <string name="tax_export_summary">Ringkasan tahunan %1$s (CSV)</string>
@@ -98,7 +98,7 @@
     <!-- Steuer-Export: Zeilen und Spalten -->
     <string name="tax_line_at_interest">Bunga lending (nilai saat diterima)</string>
     <string name="tax_line_at_old_long">Diperoleh sebelum 1.3.2021 – disimpan &gt; 1 tahun: biasanya tidak kena pajak – periksa</string>
-    <string name="tax_line_at_rate">Tarif khusus 27,5 persen: neto yang diperoleh sejak 1.3.2021 + bunga (1.3.2021–28.2.2022: lihat catatan)</string>
+    <string name="tax_line_at_rate">Tarif khusus 27,5 persen: neto yang diperoleh sejak 1.3.2021 dan dijual sejak 1.3.2022 + bunga</string>
     <string name="tax_line_au_discounted">Keuntungan modal neto setelah rugi dan diskon 50 persen</string>
     <string name="tax_line_ca_taxable">Keuntungan modal kena pajak (tingkat inklusi 1/2)</string>
     <string name="tax_line_ch_income">Hadiah dicantumkan – perlakuan lihat kertas kerja ESTV</string>
@@ -115,9 +115,9 @@
     <string name="tax_line_long_net">Neto – disimpan &gt; 1 tahun</string>
     <string name="tax_line_losses">Rugi</string>
     <string name="tax_line_net">Untung/rugi neto</string>
-    <string name="tax_line_new_net">Neto – diperoleh sejak 1.3.2021</string>
+    <string name="tax_line_new_net">Neto – diperoleh sejak 1.3.2021, dijual sejak 1.3.2022</string>
     <string name="tax_line_old_long_net">Neto – diperoleh sebelum 1.3.2021 – disimpan &gt; 1 tahun</string>
-    <string name="tax_line_old_short_net">Neto – diperoleh sebelum 1.3.2021 – disimpan ≤ 1 tahun</string>
+    <string name="tax_line_old_short_net">Neto – transaksi spekulatif (ketentuan lama): diperoleh sebelum 1.3.2021 dan disimpan ≤ 1 tahun, atau dijual sebelum 1.3.2022</string>
     <string name="tax_line_proceeds">Hasil penjualan</string>
     <string name="tax_line_short_net">Neto – disimpan ≤ 1 tahun</string>
     <string name="tax_line_transfer_fees">Biaya transfer (dompet sendiri)</string>
@@ -191,7 +191,7 @@
     <string name="tax_note_withdrawal_fee">Biaya penarikan dalam USDT atau tunai bukan rugi: biaya tunai tidak dapat dikurangkan, biaya USDT adalah pelepasan pada nilai nominal tanpa untung – hanya ditampilkan sebagai informasi (%1$s).</string>
     <string name="tax_summary_at_interest_income">dihitung: pendapatan saat diterima dengan tarif khusus 27,5 persen (§ 27b ayat 2 no. 1 EStG / BMF) – koin mempertahankan nilai ini sebagai biaya perolehan</string>
     <string name="tax_summary_at_reward_info">hanya sebagai informasi – tidak masuk total mana pun: hadiah masuk ke kepemilikan baru dengan biaya perolehan 0 dan baru dikenai pajak saat dijual (sudah di keuntungan) – § 27b Abs. 2 EStG / BMF</string>
-    <string name="tax_summary_at_transition_2021">Penjualan/penukaran kepemilikan baru 1.3.2021–28.2.2022: ketentuan lama (§ 31 EStG versi lama) dengan opsi tarif 27,5 persen – konsultasikan dengan konsultan pajak</string>
+    <string name="tax_summary_at_transition_2021">1.1.–28.2.2022: opsi tarif 27,5 persen dimungkinkan</string>
     <string name="tax_summary_at_withdrawal_fee">Biaya penarikan – tidak dikompensasikan dengan kepemilikan baru (biaya tidak dapat dikurangkan pada tarif khusus, § 20(2) EStG)</string>
     <string name="tax_summary_ch_fifo_info">hanya sebagai informasi – perhitungan FIFO aplikasi – tidak diklasifikasikan – lihat ESTV</string>
     <string name="tax_summary_ch_year_end_value">nilai per 31.12 di CSV kepemilikan = harga bursa × USD/CHF – bukan nilai pajak dari daftar kurs ESTV</string>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
+    <string name="alarm_status_notifications_off">התראות המערכת כבויות – ההתראה הזו לא תגיע אליך</string>
+    <!-- Statuszeile der Alarm-Karte: DEX-Pool unter der Alarm-Liquidität (10’000 USD) oder unbekannt -->
+    <string name="alarm_status_low_liquidity">אין התראה – נזילות נמוכה</string>
+    <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
+    <string name="alarm_status_waiting_price">ממתין לשער עדכני</string>
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">הנתונים שלך</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">במכשיר</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">הרשימה, ההתראות והתיק נשמרים מוצפנים במכשיר הזה; בלי חשבון, בלי שרת משלנו.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">חיבורים</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">השערים מגיעים ישירות מהבורסות של הצמדים שלך, וגם שערי מטבע, רשימות וסמלים של מטבעות ומראת הנתונים ב-GitHub; הם רואים את כתובת ה-IP שלך, אף פעם לא את האחזקות שלך (כתובות במעקב נשלחות לספק של הרשת המתאימה).</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">גיבוי</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">רק אם יצרת אותו; מוצפן בסיסמה (Argon2id + AES-256-GCM), קריא בלי סיסמה.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">החלפת מכשיר</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">המפתח נשאר במכשיר הישן – צור קודם קובץ גיבוי.</string>
+</resources>

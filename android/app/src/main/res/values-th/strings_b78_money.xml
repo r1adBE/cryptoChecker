@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Hinweis der Gesamtkarte: «Seit Kauf» und Einstand in der Anzeigewährung zum Devisenkurs des Kauftags (PortfolioCostFx); %1$s = Währung -->
+    <string name="ledger_cost_fx_note">«ตั้งแต่ซื้อ» และต้นทุนเป็น %1$s: ต้นทุนตามอัตราแลกเปลี่ยนของวันที่ซื้อ มูลค่าตามอัตราวันนี้</string>
+    <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
+    <string name="ledger_cost_fx_missing">ไม่มีอัตราแลกเปลี่ยนของวันที่ซื้อ (ไม่รวมใน «ตั้งแต่ซื้อ» และต้นทุน): %1$s</string>
+    <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
+    <string name="ledger_cost_fx_usdt_assumed">ต้นทุนในวันที่ซื้อที่ไม่มีอัตรา USDT/USD คำนวณด้วย USDT = 1</string>
+    <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
+    <string name="tax_export_at_income_interest">ดอกเบี้ย – ต้องเสียภาษีเมื่อได้รับ</string>
+    <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->
+    <string name="tax_export_at_income_staking">สเตกกิ้ง – เพื่อทราบเท่านั้น (ต้นทุนการได้มา 0 เสียภาษีเมื่อขาย)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der Zinsen -->
+    <string name="tax_export_at_total_interest">รวมดอกเบี้ย (ต้องเสียภาษี)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der übrigen Belohnungen -->
+    <string name="tax_export_at_total_staking">รวมสเตกกิ้ง (เพื่อทราบ)</string>
+</resources>

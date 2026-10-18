@@ -74,7 +74,7 @@
     <string name="tax_export_proceeds_missing">매도가 없음</string>
     <string name="tax_export_proceeds_without_cost">매수가 없는 매도 금액</string>
     <string name="tax_export_realized_differs">세금 CSV는 ‘실현’과 다를 수 있습니다(국가별 세법).</string>
-    <string name="tax_export_rule">&gt; 1년: 매수일 + 1역년 이후 매도. 날짜는 현지 시간 기준. 환율: ECB 일별 환율(직전 마지막 영업일).</string>
+    <string name="tax_export_rule">&gt; 1년: 매수일 + 1역년 이후 매도. 날짜는 현지 시간 기준. 환율: 거래일의 ECB 일별 환율(없으면 7일 전까지의 마지막 환율).</string>
     <string name="tax_export_rules_date">규칙 기준: %1$s</string>
     <string name="tax_export_spouse_gift">배우자/파트너에게 – 손익 없음</string>
     <string name="tax_export_summary">연간 요약 %1$s(CSV)</string>
@@ -98,7 +98,7 @@
     <!-- Steuer-Export: Zeilen und Spalten -->
     <string name="tax_line_at_interest">렌딩 이자(받은 시점의 가치)</string>
     <string name="tax_line_at_old_long">2021년 3월 1일 이전 취득 – 보유 1년 초과: 일반적으로 과세 대상 아님 – 확인 필요</string>
-    <string name="tax_line_at_rate">특별세율 27.5퍼센트: 2021년 3월 1일 이후 취득분 순액 + 이자 (2021년 3월 1일~2022년 2월 28일: 비고 참조)</string>
+    <string name="tax_line_at_rate">특별세율 27.5퍼센트: 2021년 3월 1일 이후 취득·2022년 3월 1일 이후 매도분 순액 + 이자</string>
     <string name="tax_line_au_discounted">손실 및 50퍼센트 할인 후 순자본이득</string>
     <string name="tax_line_ca_taxable">과세 대상 자본이득(포함률 1/2)</string>
     <string name="tax_line_ch_income">보상 표시됨 – 처리는 ESTV 작업 문서 참조</string>
@@ -115,9 +115,9 @@
     <string name="tax_line_long_net">순액 – 보유 1년 초과</string>
     <string name="tax_line_losses">손실</string>
     <string name="tax_line_net">순손익</string>
-    <string name="tax_line_new_net">순액 – 2021년 3월 1일 이후 취득</string>
+    <string name="tax_line_new_net">순액 – 2021년 3월 1일 이후 취득, 2022년 3월 1일 이후 매도</string>
     <string name="tax_line_old_long_net">순액 – 2021년 3월 1일 이전 취득 – 보유 1년 초과</string>
-    <string name="tax_line_old_short_net">순액 – 2021년 3월 1일 이전 취득 – 보유 1년 이하</string>
+    <string name="tax_line_old_short_net">순액 – 투기 거래(구법): 2021년 3월 1일 이전 취득 후 보유 1년 이하 또는 2022년 3월 1일 이전 매도</string>
     <string name="tax_line_proceeds">매도 금액</string>
     <string name="tax_line_short_net">순액 – 보유 1년 이하</string>
     <string name="tax_line_transfer_fees">이체 수수료(내 지갑 간)</string>
@@ -191,7 +191,7 @@
     <string name="tax_note_withdrawal_fee">USDT 또는 현금 출금 수수료는 손실이 아닙니다: 현금 수수료는 공제할 수 없고, USDT 수수료는 이익 없는 액면가 처분입니다 – 참고용으로만 표시됩니다(%1$s).</string>
     <string name="tax_summary_at_interest_income">합산: 받은 시점에 특별세율 27.5퍼센트로 과세되는 소득(§ 27b 제2항 제1호 EStG / BMF) – 코인은 이 가치를 취득원가로 유지합니다</string>
     <string name="tax_summary_at_reward_info">참고용 – 어떤 합계에도 포함 안 됨: 보상은 취득원가 0으로 신규 보유분에 들어가며 매도 시에만 과세됩니다(이미 이익에 포함) – § 27b Abs. 2 EStG / BMF</string>
-    <string name="tax_summary_at_transition_2021">2021년 3월 1일–2022년 2월 28일 신규 보유분 매도/교환: 구법(§ 31 EStG 구 규정) 적용, 27.5퍼센트 선택 가능 – 세무사와 확인하세요</string>
+    <string name="tax_summary_at_transition_2021">2022년 1월 1일~2월 28일: 27.5퍼센트 선택 가능</string>
     <string name="tax_summary_at_withdrawal_fee">출금 수수료 – 신규 보유분과 상계되지 않음 (특별세율에서는 경비 공제 불가, § 20(2) EStG)</string>
     <string name="tax_summary_ch_fifo_info">참고용 – 앱의 FIFO 계산 – 분류 안 함 – ESTV 참조</string>
     <string name="tax_summary_ch_year_end_value">보유 CSV의 12.31 기준 가치 = 거래소 시세 × USD/CHF – ESTV 시세표의 과세 가치 아님</string>

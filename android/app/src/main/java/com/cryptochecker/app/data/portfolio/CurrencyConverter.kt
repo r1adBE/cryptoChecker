@@ -15,7 +15,8 @@ import javax.inject.Singleton
  * ihr Marktkurs in USDT von der [PortfolioPriceSource] — ohne Kurs kein Faktor, wie die
  * Portfolio-Regel [com.cryptochecker.app.domain.portfolio.PortfolioStables]), Fiat über [FxRateSource],
  * alles andere als Krypto über den USDT-Kurs der [PortfolioPriceSource]. Danach USD → Ziel über
- * [FxRateSource]. Beide Quellen haben eigene Zwischenspeicher; Alter der Devisenkurse: [staleFxTime].
+ * [FxRateSource]. Beide Quellen haben eigene Zwischenspeicher; Alter der Devisenkurse: [staleFxTime]. Krypto- und
+ * Stablecoin-Kurse älter als [CurrencyConversion.QUOTE_MAX_AGE_MILLIS] ergeben keinen Faktor ([freshMarket]).
  * USDT zum Marktkurs (Owner-Entscheid Okt. 2026): USDT und alles, was über USDT bewertet wird, × Live-Kurs USDT/USD
  * ([DepegReadingStore.liveUsdtUsd], gemessen mit Portfolio oder Depeg-Alarm); ohne frische Messung 1 (bisherige Rechnung).
  */
@@ -70,7 +71,7 @@ class CurrencyConverter @Inject constructor(
         val quoteUsd = when (val kind = classify(from)) {
             QuoteKind.USD -> CurrencyConversion.quoteToUsd(kind, null, stableMarket(from), from, liveUsdtUsd())
             QuoteKind.FIAT -> CurrencyConversion.quoteToUsd(kind, fxRateSource.cached(from), null)
-            QuoteKind.CRYPTO -> CurrencyConversion.quoteToUsd(kind, null, priceSource.cached(listOf(from)).prices[from], usdtUsd = liveUsdtUsd())
+            QuoteKind.CRYPTO -> CurrencyConversion.quoteToUsd(kind, null, freshMarket(priceSource.cached(listOf(from)), from), usdtUsd = liveUsdtUsd())
             QuoteKind.INVALID -> null
         }
         val usdToTarget = when (classify(to)) {
@@ -112,7 +113,15 @@ class CurrencyConverter @Inject constructor(
      * zusätzliche Abfrage); null = keiner bekannt (dann kein Faktor). USD/USDT brauchen keinen.
      */
     private fun stableMarket(code: String): Double? =
-        if (!CurrencyConversion.stableNeedsMarket(code)) null else priceSource.cached(listOf(code)).prices[code]
+        if (!CurrencyConversion.stableNeedsMarket(code)) null else freshMarket(priceSource.cached(listOf(code)), code)
+
+    /**
+     * Kurs von [code] aus [prices], nur wenn höchstens [CurrencyConversion.QUOTE_MAX_AGE_MILLIS] alt: Die Kursquelle
+     * behält bei einem Fehler den letzten bekannten Kurs (für das Portfolio richtig) — für die Umrechnung von Alarmen
+     * und «≈» wäre ein Kurs von gestern still falsch.
+     */
+    private fun freshMarket(prices: PortfolioPrices, code: String, now: Long = System.currentTimeMillis()): Double? =
+        CurrencyConversion.freshQuotePrice(prices.prices[code], prices.times[code], now)
 
     /** Live-Kurs USDT/USD ([DepegReadingStore.liveUsdtUsd]); null = keiner (USDT gilt 1, bisherige Rechnung). */
     private fun liveUsdtUsd(): Double? = depegReadings.liveUsdtUsd()
@@ -129,11 +138,12 @@ class CurrencyConverter @Inject constructor(
         return when (val kind = classify(code)) {
             // Stablecoin ausser USD/USDT: Marktkurs (wie das Portfolio), ohne Kurs kein Faktor; USDT × USDT/USD
             QuoteKind.USD -> CurrencyConversion.quoteToUsd(
-                kind, null, if (CurrencyConversion.stableNeedsMarket(code)) priceSource.price(code) else null, code,
-                liveUsdtUsd(),
+                kind, null, if (CurrencyConversion.stableNeedsMarket(code)) freshMarket(priceSource.prices(listOf(code)), code) else null,
+                code, liveUsdtUsd(),
             )
             QuoteKind.FIAT -> CurrencyConversion.quoteToUsd(kind, fxRateSource.usdTo(code), null)
-            QuoteKind.CRYPTO -> CurrencyConversion.quoteToUsd(kind, null, priceSource.price(code), usdtUsd = liveUsdtUsd())
+            // Höchstens 15 min alt: scheitert die Abfrage, bleibt sonst der letzte Kurs beliebig lange stehen
+            QuoteKind.CRYPTO -> CurrencyConversion.quoteToUsd(kind, null, freshMarket(priceSource.prices(listOf(code)), code), usdtUsd = liveUsdtUsd())
             QuoteKind.INVALID -> null
         }
     }

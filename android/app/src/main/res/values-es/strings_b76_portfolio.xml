@@ -9,7 +9,7 @@
     <string name="backup_restore_interrupted_rolled_back">La app se cerró mientras restauraba una copia. Se han repuesto tus datos anteriores; no se conservó nada de la copia.</string>
     <string name="backup_restore_interrupted_incomplete">La app se cerró mientras restauraba una copia y no se pudieron reponer por completo los datos anteriores. Revisa tu lista de seguimiento y tu cartera, o vuelve a restaurar la copia en «%1$s» en Ajustes.</string>
     <string name="backup_not_verified">No se pudo verificar el archivo de copia tras guardarlo: al leerlo de nuevo es distinto. Guarda la copia en un archivo nuevo.</string>
-    <string name="tax_line_at_old_speculation_limit">Adquirido antes del 1/3/2021 – mantenido ≤ 1 año: límite exento de operaciones especulativas (§ 31.3 EStG, versión antigua)</string>
+    <string name="tax_line_at_old_speculation_limit">Operaciones especulativas (normativa anterior, mantenido ≤ 1 año): límite exento (§ 31.3 EStG, versión antigua)</string>
     <string name="portfolio_tx_interest">Interés (préstamo)</string>
     <string name="portfolio_tx_interest_hint">Cuenta como ingreso al recibirse (Austria). Déjalo desactivado para recompensas de staking y airdrops.</string>
     <string name="app_lock_no_screen_lock">Configura un bloqueo de pantalla para abrir la cartera.</string>

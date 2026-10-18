@@ -74,7 +74,7 @@
     <string name="tax_export_proceeds_missing">חסר מחיר מכירה</string>
     <string name="tax_export_proceeds_without_cost">תמורה ללא מחיר קנייה</string>
     <string name="tax_export_realized_differs">קובץ ה-CSV למס עשוי להיות שונה מ\"ממומש\" (כללי המס של המדינה).</string>
-    <string name="tax_export_rule">&gt; שנה: נמכר אחרי תאריך הקנייה + שנה קלנדרית. תאריכים בשעון מקומי. שערים: שער יומי של ה-ECB (יום העסקים האחרון שלפני).</string>
+    <string name="tax_export_rule">&gt; שנה: נמכר אחרי תאריך הקנייה + שנה קלנדרית. תאריכים בשעון מקומי. שערים: שער יומי של ה-ECB ביום העסקה; אם אין, השער האחרון עד 7 ימים לפני כן.</string>
     <string name="tax_export_rules_date">מצב הכללים: %1$s</string>
     <string name="tax_export_spouse_gift">לבן/בת הזוג – ללא רווח וללא הפסד</string>
     <string name="tax_export_summary">סיכום שנתי %1$s (CSV)</string>
@@ -98,7 +98,7 @@
     <!-- Steuer-Export: Zeilen und Spalten -->
     <string name="tax_line_at_interest">ריבית מהלוואות (שווי בעת הקבלה)</string>
     <string name="tax_line_at_old_long">נרכש לפני 1.3.2021 – החזקה &gt; שנה: בדרך כלל לא חייב במס – יש לבדוק</string>
-    <string name="tax_line_at_rate">שיעור מיוחד 27.5 אחוז: נטו של הנרכש מ-1.3.2021 + ריבית (1.3.2021–28.2.2022: ראה הערה)</string>
+    <string name="tax_line_at_rate">שיעור מיוחד 27.5 אחוז: נטו של הנרכש מ-1.3.2021 והנמכר מ-1.3.2022 + ריבית</string>
     <string name="tax_line_au_discounted">רווח הון נטו אחרי הפסדים והנחה של 50 אחוז</string>
     <string name="tax_line_ca_taxable">רווח הון חייב במס (שיעור הכללה 1/2)</string>
     <string name="tax_line_ch_income">תגמולים רשומים – לטיפול ראה מסמך העבודה של ESTV</string>
@@ -115,9 +115,9 @@
     <string name="tax_line_long_net">נטו – החזקה &gt; שנה</string>
     <string name="tax_line_losses">הפסדים</string>
     <string name="tax_line_net">רווח/הפסד נטו</string>
-    <string name="tax_line_new_net">נטו – נרכש מ-1.3.2021</string>
+    <string name="tax_line_new_net">נטו – נרכש מ-1.3.2021, נמכר מ-1.3.2022</string>
     <string name="tax_line_old_long_net">נטו – נרכש לפני 1.3.2021 – החזקה &gt; שנה</string>
-    <string name="tax_line_old_short_net">נטו – נרכש לפני 1.3.2021 – החזקה ≤ שנה</string>
+    <string name="tax_line_old_short_net">נטו – עסקאות ספקולטיביות (הדין הקודם): נרכש לפני 1.3.2021 והוחזק ≤ שנה, או נמכר לפני 1.3.2022</string>
     <string name="tax_line_proceeds">תמורות</string>
     <string name="tax_line_short_net">נטו – החזקה ≤ שנה</string>
     <string name="tax_line_transfer_fees">עמלות העברה (ארנקים שלך)</string>
@@ -191,7 +191,7 @@
     <string name="tax_note_withdrawal_fee">עמלת משיכה ב-USDT או במזומן אינה הפסד: עמלה במזומן אינה ניתנת לניכוי, עמלה ב-USDT היא מימוש לפי הערך הנקוב ללא רווח – היא מוצגת לידיעה בלבד (%1$s).</string>
     <string name="tax_summary_at_interest_income">נספר: הכנסה בעת הקבלה בשיעור המיוחד של 27.5 אחוז (§ 27b ס׳ 2 מס׳ 1 EStG / BMF) – המטבעות שומרים על שווי זה כעלות רכישה</string>
     <string name="tax_summary_at_reward_info">לידיעה בלבד – לא נכלל באף סכום: תגמולים נכנסים ליתרה החדשה בעלות רכישה 0 וממוסים רק במכירה (כבר ברווחים) – § 27b Abs. 2 EStG / BMF</string>
-    <string name="tax_summary_at_transition_2021">מכירות/החלפות של אחזקה חדשה 1.3.2021–28.2.2022: הדין הקודם (§ 31 EStG בנוסח הישן) עם אפשרות לשיעור של 27.5 אחוז – יש לברר מול יועץ מס</string>
+    <string name="tax_summary_at_transition_2021">1.1.–28.2.2022: אפשרות לשיעור של 27.5 אחוז</string>
     <string name="tax_summary_at_withdrawal_fee">עמלת משיכה – לא מקוזזת מול האחזקה החדשה (הוצאות אינן מותרות בניכוי בשיעור המיוחד, § 20(2) EStG)</string>
     <string name="tax_summary_ch_fifo_info">לידיעה בלבד – חישוב FIFO של האפליקציה – ללא סיווג – ראה ESTV</string>
     <string name="tax_summary_ch_year_end_value">שווי ל-31.12 ב-CSV היתרות = שער הבורסה × USD/CHF – לא ערכי המס מרשימת השערים של ESTV</string>

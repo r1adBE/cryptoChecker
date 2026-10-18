@@ -12,6 +12,7 @@ import com.cryptochecker.app.R
 import com.cryptochecker.app.data.portfolio.FxRateSource
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.convert.CurrencyConversion
+import com.cryptochecker.app.domain.portfolio.PortfolioHistory
 import com.cryptochecker.app.domain.portfolio.PortfolioOff
 import com.cryptochecker.app.domain.portfolio.PortfolioSnapshot
 import com.cryptochecker.app.domain.refresh.OutdatedRule
@@ -25,7 +26,6 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.withTimeoutOrNull
 import timber.log.Timber
-import java.time.LocalDate
 import java.time.ZoneId
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -167,7 +167,8 @@ class PortfolioWidgetRenderer @Inject constructor(
                     snapshot = shown,
                     requested = widgetPrefs.getPortfolioRange(appWidgetId),
                     type = widgetPrefs.getPortfolioChartType(appWidgetId),
-                    todayEpochDay = LocalDate.now(zone).toEpochDay(),
+                    // UTC-Tag wie der Tagesverlauf der Aufnahme ([PortfolioWidgetChart.dailyData])
+                    todayEpochDay = PortfolioHistory.utcToday(),
                     zone = zone,
                     dayAxis = dayAxis(shown),
                 )

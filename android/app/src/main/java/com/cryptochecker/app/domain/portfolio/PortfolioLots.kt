@@ -301,4 +301,10 @@ internal class PortfolioBookResult(
     val shortfalls: List<PortfolioWalletShortfall> = emptyList(),
     val lostFeeCosts: List<PortfolioLostFeeCost> = emptyList(),
     val unassignedFees: List<PortfolioUnassignedFee> = emptyList(),
+    /**
+     * Herkunft des Einstands [cost] des offenen Bestands mit Kaufpreis ([PortfolioCostPart], Summe = [cost]): FIFO die
+     * Teile aller Posten mit Kaufpreis, Ø die Teile des Topfs nach den anteiligen Abgängen — für «Seit Kauf» in der
+     * Anzeigewährung zum Kurs des Erwerbstags ([PortfolioCostFx]).
+     */
+    val openParts: List<PortfolioCostPart> = emptyList(),
 )

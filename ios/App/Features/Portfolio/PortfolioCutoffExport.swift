@@ -639,10 +639,10 @@ enum HistoricPriceSource {
     /// «Währung|von|bis» → (Tageskurse, Abfragezeit); nur im Speicher.
     nonisolated(unsafe) private static var fxSeriesCache: [String: (rates: [Int: Double], at: Int64)] = [:]
 
-    /// Tageskurse USD → `currency` von `from` bis `to` (EZB über Frankfurter, eine Abfrage für den
-    /// ganzen Zeitraum): Tag (epochDay) → Kurs, nur Geschäftstage — Wochenenden und Feiertage
+    /// Tageskurse USD → `currency` von `from` bis `to` (EZB über Frankfurter, in Stücken von höchstens
+    /// `PortfolioHistoryFx.fxChunkDays` Tagen): Tag (epochDay) → Kurs, nur Geschäftstage — Wochenenden und Feiertage
     /// füllt `PortfolioHistoryFx.rateOn` mit dem Vortag. USD: leer (kein Bedarf). 6 h im Speicher.
-    /// nil, wenn kein Kurs zu haben ist.
+    /// nil, wenn kein Kurs zu haben ist oder ein Stück bei beiden Anbietern scheitert.
     static func usdToSeries(_ currency: String, from: LocalDay, to: LocalDay) async -> [Int: Double]? {
         let target = currency.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
         if target == "USD" { return [:] }
@@ -655,10 +655,26 @@ enum HistoricPriceSource {
         }
         if let cached { return cached }
         let symbols = PortfolioHistoryFx.requestCurrencies(target).joined(separator: ",")
+        // In Stücken von höchstens einem Jahr: längere Zeiträume liefert Frankfurter nur wöchentlich. Scheitert ein Stück
+        // bei beiden Anbietern, keine Reihe (lieber keine als eine mit einer Lücke von einem Jahr). Wie Android.
+        var merged: [Int: Double] = [:]
+        for chunk in PortfolioHistoryFx.fxChunks(from: from, to: to) {
+            guard let part = await fxSeriesChunk(target, symbols: symbols, from: chunk.from, to: chunk.to) else { return nil }
+            merged.merge(part) { _, new in new }
+        }
+        guard !merged.isEmpty else { return nil }
+        fxSeriesLock.withLock { fxSeriesCache[key] = (rates: merged, at: TimeUtils.nowMillis) }
+        return merged
+    }
+
+    /// Ein Stück der Zeitreihe (`usdToSeries`) von beiden Frankfurter-Adressen: die erste Antwort mit Kursen, sonst eine
+    /// gültige leere (z. B. Zeitraum ohne Kurse dieser Währung); nil, wenn keine Adresse eine gültige Antwort gibt.
+    private static func fxSeriesChunk(_ target: String, symbols: String, from: LocalDay, to: LocalDay) async -> [Int: Double]? {
         let urls = [
             "https://api.frankfurter.app/\(from)..\(to)?from=USD&to=\(symbols)",
             "https://api.frankfurter.dev/v1/\(from)..\(to)?from=USD&to=\(symbols)",
         ]
+        var answered = false
         for url in urls {
             guard let body = try? await MarketHTTP.call(url, session: session),
                   let data = body.data(using: .utf8),
@@ -674,13 +690,11 @@ enum HistoricPriceSource {
                 }
                 byDate[date] = parsed
             }
+            answered = true
             let series = PortfolioHistoryFx.ratesByDay(target, byDate: byDate)
-            if !series.isEmpty {
-                fxSeriesLock.withLock { fxSeriesCache[key] = (rates: series, at: TimeUtils.nowMillis) }
-                return series
-            }
+            if !series.isEmpty { return series }
         }
-        return nil
+        return answered ? [:] : nil
     }
 
     /// GET; nil bei Fehler. 451/403 sperrt die Quelle vorübergehend (`BlockedSources`).

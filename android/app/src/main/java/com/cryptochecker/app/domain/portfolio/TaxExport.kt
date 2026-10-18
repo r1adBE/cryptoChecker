@@ -16,8 +16,9 @@ import java.time.ZoneId
  *    zugeschlagene Umbuchungsgebühr zum Kurs der Umbuchung (5000 USDT 2018 zu 1.00 + 100 USDT 2024 zu 0.85 = 5085 CHF);
  *    Ø: laufender Ø in der Anzeigewährung, ein Abgang nimmt alle Teile anteilig mit; fehlt ein Kurs, bleibt der
  *    Einstand leer —, Erlös zum Kurs des Verkaufsdatums, Gewinn = Differenz. Mehr verkauft als erfasst: der Rest als
- *    Zeile ohne Kaufpreis. Die Karte rechnet dagegen alle Beträge mit dem heutigen Kurs um (darum Hinweis «Die
- *    Steuer-CSV kann von ‹realisiert› abweichen»).
+ *    Zeile ohne Kaufpreis. Die Karte zeigt «realisiert» nach der Rechnung der App (darum Hinweis «Die Steuer-CSV kann
+ *    von ‹realisiert› abweichen»); «Seit Kauf» und Einstand rechnet sie mit derselben Kursregel wie hier um
+ *    ([PortfolioCostFx], Tage in UTC).
  *  - Info-Zeilen nach der Summe (kein Gewinn/Verlust): Netzwerkgebühr-Einstand ohne bezahlten Posten ([lostFeeCostsIn])
  *    und Umbuchungsgebühren auf Bestand ohne Kaufpreis ([unassignedFeesIn], «Gebühr nicht zugeordnet – Einstand
  *    unbekannt»).

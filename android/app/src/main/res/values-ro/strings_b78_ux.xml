@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
+    <string name="alarm_status_notifications_off">Notificări dezactivate – această alarmă nu va ajunge la tine</string>
+    <!-- Statuszeile der Alarm-Karte: DEX-Pool unter der Alarm-Liquidität (10’000 USD) oder unbekannt -->
+    <string name="alarm_status_low_liquidity">Fără alarmă – lichiditate scăzută</string>
+    <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
+    <string name="alarm_status_waiting_price">Așteaptă un curs actual</string>
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">Datele tale</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">Pe dispozitiv</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">Lista, alarmele și portofoliul rămân criptate pe acest dispozitiv; fără cont, fără server propriu.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">Conexiuni</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">Cursurile vin direct de la bursele perechilor tale, plus cursuri valutare, liste și logo-uri de monede și oglinda de date de pe GitHub; acestea îți văd adresa IP, niciodată deținerile (adresele urmărite ajung la furnizorul rețelei respective).</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">Copie de rezervă</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">Doar dacă o creezi tu; criptată cu parolă (Argon2id + AES-256-GCM), lizibilă fără parolă.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">Schimbarea dispozitivului</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">Cheia rămâne pe dispozitivul vechi – creează mai întâi un fișier de rezervă.</string>
+</resources>

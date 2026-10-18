@@ -9,7 +9,7 @@
     <string name="backup_restore_interrupted_rolled_back">Aplikacioni u mbyll gjatë rikthimit të një kopjeje rezervë. Të dhënat e mëparshme u kthyen; nga kopja nuk u mbajt asgjë.</string>
     <string name="backup_restore_interrupted_incomplete">Aplikacioni u mbyll gjatë rikthimit të një kopjeje rezervë dhe të dhënat e mëparshme nuk u kthyen plotësisht. Kontrollo listën e ndjekjes dhe portofolin, ose rikthe sërish kopjen te «%1$s» në Cilësime.</string>
     <string name="backup_not_verified">Skedari i kopjes rezervë nuk u verifikua pas ruajtjes – i rilexuar ndryshon. Ruaje kopjen në një skedar të ri.</string>
-    <string name="tax_line_at_old_speculation_limit">Fituar para 1.3.2021 – mbajtur ≤ 1 vit: kufiri i përjashtimit për transaksione spekulative (§ 31 (3) EStG, versioni i vjetër)</string>
+    <string name="tax_line_at_old_speculation_limit">Transaksione spekulative (rregullimi i vjetër, mbajtur ≤ 1 vit): kufiri i përjashtimit (§ 31 (3) EStG, versioni i vjetër)</string>
     <string name="portfolio_tx_interest">Interes (huadhënie)</string>
     <string name="portfolio_tx_interest_hint">Llogaritet si të ardhur kur merret (Austri). Lëre të çaktivizuar për shpërblime staking dhe airdrop.</string>
     <string name="app_lock_no_screen_lock">Cakto një kyçje ekrani për të hapur portofolin.</string>

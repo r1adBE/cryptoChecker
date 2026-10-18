@@ -65,6 +65,11 @@ final class PortfolioModel: ObservableObject {
     private var historyTask: Task<Void, Never>?
     /// Devisen-Tageskurse USD → `currency` ab `from` (bis heute); `rates` nil = nicht zu haben.
     var fxSeries: (currency: String, from: LocalDay, rates: [Int: Double]?)?
+    /// Kurse für «Seit Kauf»/Einstand in der Anzeigewährung (`PortfolioCostFx`): ab `from` (frühester Erwerbstag der
+    /// offenen Posten) Devisen-Tageskurse USD → `currency` (`rates`, USD leer; nil = nicht zu haben) und USDT/USD-
+    /// Tagesschlüsse (`usdtUsd`, leer = keine: dann USDT = 1 als Näherung) — exakt wie im Steuer-Export. Wie Android
+    /// `CostFxLoad`.
+    @Published var costFxLoad: (currency: String, from: LocalDay, rates: [Int: Decimal]?, usdtUsd: [Int: Decimal])?
 
     var activeRefreshes = 0
     private var loadingCoins = false
@@ -173,7 +178,8 @@ final class PortfolioModel: ObservableObject {
             holdings[p.coin] = p.holdings
             if let price = p.currentPrice { current[p.coin] = price }
         }
-        let today = LocalDay.today().epochDay
+        // Stichtag in UTC-Tagen wie die Tageskerzen (nicht das lokale Datum)
+        let today = PortfolioHistory.utcToday()
         if let loaded = historyCloses {
             periodScaled = PortfolioExchangeRoute.scaledHint(scaled: routed(loaded.prices).scaled,
                                                              binanceBefore: loaded.prices.binanceBefore,
@@ -260,7 +266,7 @@ final class PortfolioModel: ObservableObject {
         let dailyRates: [Int: Double]?
         if converted && !PortfolioHistoryFx.convertsUsdtAsUsd(currency) {
             dailyRates = PortfolioHistoryFx.usdParity(fromEpochDay: fxSeriesFrom().epochDay,
-                                                      toEpochDay: LocalDay.today().epochDay)
+                                                      toEpochDay: PortfolioHistory.utcToday())
         } else if converted {
             guard let known = fxSeries, known.currency == currency, known.from <= fxSeriesFrom() else {
                 historyTask?.cancel()
@@ -287,7 +293,8 @@ final class PortfolioModel: ObservableObject {
         historyTask?.cancel()
         historyTask = Task { [weak self] in
             let ui = await Task.detached(priority: .userInitiated) { () -> PortfolioHistoryUi in
-                let today = LocalDay.today().epochDay
+                // Heute als UTC-Tag: der Verlauf zählt in UTC-Tagen (`PortfolioHistory.build`), wie «7 T/1 J»
+                let today = PortfolioHistory.utcToday()
                 let series = PortfolioHistory.build(trades: txs, closes: closes, livePrices: live, range: range,
                                                     todayEpochDay: today,
                                                     dayEndMillis: { PortfolioHistory.dayEndMillis($0) },
@@ -330,6 +337,28 @@ final class PortfolioModel: ObservableObject {
     /// Marktkurs; ohne frische Messung × 1). nil = kein Devisenkurs. Wie Android `PortfolioViewModel.displayFxRate`.
     func displayRate(for currency: String) -> Double? {
         PortfolioStables.usdtTo(rate(for: currency), usdt: PortfolioStables.usdtUsdLive(DepegAlarmCheck.liveUsdtUsd()))
+    }
+
+    /// «Seit Kauf» und Einstand der Gesamtkarte in `currency` zum Kurs der Erwerbstage (`PortfolioCostFx`): Wert heute ×
+    /// `displayRate` − Einstand je Teil zum Faktor seines Tags (Regel des Steuer-Exports). nil = nicht umgerechnet (USDT,
+    /// kein Devisenkurs) oder die Kurse laden noch — die Karte zeigt dann in der Anzeigewährung «—» statt einer Zahl zum
+    /// heutigen Kurs. Wie Android `PortfolioViewModel.costFx`.
+    func costFx(for currency: String) -> PortfolioCostFxFigures? {
+        let rate = displayRate(for: currency)
+        guard PortfolioCardUnit(currency: currency, fxRate: rate).converted, let rate,
+              let current = PortfolioDecimal.of(rate) else { return nil }
+        let summary = self.summary
+        let first = PortfolioCostFx.firstDay(summary)
+        // Ohne Teile mit Datum keine Kurse nötig; sonst nur mit einer Ladung, die den frühesten Tag abdeckt
+        let usable = costFxLoad.flatMap { load -> (rates: [Int: Decimal]?, usdtUsd: [Int: Decimal])? in
+            guard load.currency == currency, first.map({ load.from.epochDay <= $0 }) ?? true else { return nil }
+            return (load.rates, load.usdtUsd)
+        }
+        if first != nil && usable == nil { return nil }
+        return PortfolioCostFx.figures(summary, currency: currency, currentRate: current,
+                                       // Heute als UTC-Tag wie die Erwerbstage (`PortfolioCostFx.dayOf`)
+                                       todayEpochDay: PortfolioHistory.utcToday(),
+                                       rates: usable?.rates, usdtUsd: usable?.usdtUsd ?? [:])
     }
 
     func loadCoins() async {

@@ -15,6 +15,34 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 78)
+
+Independent check of every calculation (five auditors, official sources) and the fixes it found.
+
+* Portfolio card: «Since purchase» and «Invested» in your currency use the exchange rate of each purchase day (same
+  rule as the tax export) instead of today's rate; missing rates are marked «incomplete».
+* Portfolio curve and «7 D / 1 Y» agree with the card: the first day of a young portfolio is included, a swap
+  without a value is priced once at the day close, a transfer fee from an empty wallet no longer counts, and the
+  window follows the UTC day.
+* Germany: FIFO per wallet is required (BMF letter of 6 March 2025).
+* Austria: sales of new holdings from 1.3.2021 to 31.12.2021 count as speculation under the old law (440 € limit,
+  purchase and sale fees deductible); the 27.5 % option only for 1.1.–28.2.2022; income file separates lending
+  interest (taxable) from staking (information only); note on staking received before 1.3.2022.
+* Canada and Australia: a net loss shows 0 taxable gain and its own carry-forward line.
+* UK: notes when the 30-day rule can still change the figures and when proceeds above £50,000 must be reported;
+  Canada: same note for the superficial-loss window.
+* France: a purchase whose fee consumes everything is no longer deducted twice; withdrawal fees are information
+  only; the outflow line uses purchase-day rates; coins bought in the same millisecond get a price.
+* Exchange-rate text says what the code does (rate of the day, otherwise up to 7 days before); long rate histories
+  are loaded year by year so they are never thinned out.
+* Alarms: percent alarms fire exactly at the threshold; spoken prices round the same on both systems; currency
+  conversion refuses crypto quote prices older than 15 minutes; Bulgarian lev derived the same way on both systems;
+  portfolio alarms in USDC/DAI use the USDT market price.
+* Alarm cards show whether an alarm is really watched («Notifications off», «Low liquidity», «Waiting for a current
+  price»); Settings › About explains in four lines what stays on the device.
+* Transaction form: the note sits directly below the price for every type.
+* Kotlin 2.4 compiler warnings cleared.
+
 ## 16.2.2 (build 77)
 
 Structural overhaul of the code base (no new features), plus tests for the wiring.

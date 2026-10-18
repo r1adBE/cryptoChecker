@@ -994,5 +994,62 @@
    "2025-03-14;SOL;1;100.00;88.00;USDT = 1 USD assumed",
    "2025-05-05;SOL;1;100.00;80.51;"
   ]
+ },
+ "atIncome": {
+  "_comment": "Einkünfte-CSV AT (Build 78): Vermerk je Zeile Zins (TaxIncomeRow.interest, beim Zufluss steuerpflichtig) bzw. Staking (übrige Belohnungen, Neubestand: nur Information) und statt der einen Summe zwei Summenzeilen mit je eigenem «unvollständig» — gleiche Einteilung wie die Jahresübersicht (AT_INTEREST / AT_REWARD_INFO). Texte nur für AT gesetzt (texts oben + atTexts); ohne sie (alle anderen Vorlagen) unverändert eine Summe (neutral). Kalenderjahr 2025, CHF, Semikolon/Punkt, ohne USDT/USD-Schlüsse (USDT = 1).",
+  "trades": [
+   {
+    "id": 1,
+    "coin": "SOL",
+    "type": "REWARD",
+    "amount": "1",
+    "price": "100",
+    "time": 1741953600000
+   },
+   {
+    "id": 2,
+    "coin": "ETH",
+    "type": "REWARD",
+    "amount": "0.5",
+    "price": "2000",
+    "time": 1746446400000,
+    "interest": true
+   },
+   {
+    "id": 3,
+    "coin": "ADA",
+    "type": "REWARD",
+    "amount": "10",
+    "time": 1751371200000,
+    "interest": true
+   }
+  ],
+  "atTexts": {
+   "incomeInterest": "interest – taxable on receipt",
+   "incomeStaking": "staking – information only (cost 0, taxed on sale)",
+   "totalInterest": "Total interest (taxable)",
+   "totalStaking": "Total staking (information)"
+  },
+  "at": [
+   "Realized gains 2025",
+   "\"Method: FIFO; no tax advice\"",
+   "Time zone: Europe/Zurich",
+   "Date;Coin;Amount;Value USDT;Value CHF;Note",
+   "2025-03-14;SOL;1;100.00;88.00;staking – information only (cost 0, taxed on sale)",
+   "2025-05-05;ETH;0.5;1000.00;830.00;interest – taxable on receipt",
+   "2025-07-01;ADA;10;;;interest – taxable on receipt, value at receipt missing",
+   "Total interest (taxable);;;1000.00;830.00;incomplete",
+   "Total staking (information);;;100.00;88.00;"
+  ],
+  "neutral": [
+   "Realized gains 2025",
+   "\"Method: FIFO; no tax advice\"",
+   "Time zone: Europe/Zurich",
+   "Date;Coin;Amount;Value USDT;Value CHF;Note",
+   "2025-03-14;SOL;1;100.00;88.00;",
+   "2025-05-05;ETH;0.5;1000.00;830.00;",
+   "2025-07-01;ADA;10;;;value at receipt missing",
+   "Total;;;1100.00;918.00;incomplete"
+  ]
  }
 }

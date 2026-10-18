@@ -23,6 +23,7 @@ import com.cryptochecker.app.domain.portfolio.TaxSummaryLine
 import com.cryptochecker.app.domain.portfolio.TaxSummaryTexts
 import com.cryptochecker.app.domain.portfolio.TaxTemplate
 import com.cryptochecker.app.domain.portfolio.TaxYearSummary
+import com.cryptochecker.app.domain.portfolio.noteText
 import com.cryptochecker.app.domain.portfolio.taxOrientationLabel
 import com.cryptochecker.app.ui.theme.tabularNumbers
 import com.cryptochecker.app.util.PriceFormat
@@ -87,7 +88,7 @@ internal fun TaxSummaryCard(summary: TaxYearSummary?, texts: TaxSummaryTexts, me
                     texts.incomplete.takeIf { l.incomplete },
                     texts.noFx.takeIf { l.noFx },
                     texts.notCalculated.takeIf { l.notCalculated && it.isNotEmpty() },
-                    l.note?.let { texts.notes[it] },
+                    l.noteText(texts),
                 ).joinToString(", ")
                 val status = l.status
                 if (status != null) {

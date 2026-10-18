@@ -9,7 +9,7 @@
     <string name="backup_restore_interrupted_rolled_back">برنامه هنگام بازیابی نسخهٔ پشتیبان بسته شد. داده‌های قبلی‌ات برگردانده شد و چیزی از نسخهٔ پشتیبان نگه داشته نشد.</string>
     <string name="backup_restore_interrupted_incomplete">برنامه هنگام بازیابی نسخهٔ پشتیبان بسته شد و داده‌های قبلی کامل برگردانده نشد. لطفاً فهرست پیگیری و سبد را بررسی کن یا نسخهٔ پشتیبان را دوباره در «%1$s» در تنظیمات بازیابی کن.</string>
     <string name="backup_not_verified">فایل پشتیبان پس از ذخیره تأیید نشد؛ هنگام خواندن دوباره متفاوت است. لطفاً نسخهٔ پشتیبان را در فایل جدیدی ذخیره کن.</string>
-    <string name="tax_line_at_old_speculation_limit">خریداری‌شده پیش از ۱ مارس ۲۰۲۱ – نگهداری ≤ ۱ سال: سقف معافیت معاملات سفته‌بازی (§ 31 بند 3 EStG نسخهٔ قدیم)</string>
+    <string name="tax_line_at_old_speculation_limit">معاملات سفته‌بازی (قانون قبلی، نگهداری ≤ 1 سال): سقف معافیت (§ 31 بند 3 EStG نسخهٔ قدیم)</string>
     <string name="portfolio_tx_interest">سود (وام‌دهی)</string>
     <string name="portfolio_tx_interest_hint">هنگام دریافت درآمد حساب می‌شود (اتریش). برای پاداش‌های استیکینگ و ایردراپ خاموش بگذار.</string>
     <string name="app_lock_no_screen_lock">برای باز کردن سبد، قفل صفحه را تنظیم کن.</string>

@@ -74,7 +74,7 @@
     <string name="tax_export_proceeds_missing">λείπει η τιμή πώλησης</string>
     <string name="tax_export_proceeds_without_cost">Έσοδο χωρίς τιμή αγοράς</string>
     <string name="tax_export_realized_differs">Το φορολογικό CSV μπορεί να διαφέρει από το «πραγματοποιημένο» (φορολογικοί κανόνες της χώρας).</string>
-    <string name="tax_export_rule">&gt; 1 έτος: πώληση μετά την ημερομηνία αγοράς + 1 ημερολογιακό έτος. Ημερομηνίες σε τοπική ώρα. Ισοτιμίες: ημερήσια ισοτιμία ΕΚΤ (τελευταία εργάσιμη πριν).</string>
+    <string name="tax_export_rule">&gt; 1 έτος: πώληση μετά την ημερομηνία αγοράς + 1 ημερολογιακό έτος. Ημερομηνίες σε τοπική ώρα. Ισοτιμίες: ημερήσια ισοτιμία ΕΚΤ της ημέρας της συναλλαγής· αν λείπει, η τελευταία ισοτιμία έως 7 ημέρες πριν.</string>
     <string name="tax_export_rules_date">Κανόνες έως: %1$s</string>
     <string name="tax_export_spouse_gift">σε σύζυγο/σύντροφο – χωρίς κέρδος, χωρίς ζημία</string>
     <string name="tax_export_summary">Ετήσια σύνοψη %1$s (CSV)</string>
@@ -98,7 +98,7 @@
     <!-- Steuer-Export: Zeilen und Spalten -->
     <string name="tax_line_at_interest">Τόκοι από lending (αξία κατά την παραλαβή)</string>
     <string name="tax_line_at_old_long">Αποκτήθηκε πριν από 1.3.2021 – διακράτηση &gt; 1 έτος: κατά κανόνα αφορολόγητο – έλεγξε</string>
-    <string name="tax_line_at_rate">Ειδικός συντελεστής 27,5 τοις εκατό: καθαρό από αποκτήσεις από 1.3.2021 + τόκοι (1.3.2021–28.2.2022: δες σημείωση)</string>
+    <string name="tax_line_at_rate">Ειδικός συντελεστής 27,5 τοις εκατό: καθαρό από αποκτήσεις από 1.3.2021 και πωλήσεις από 1.3.2022 + τόκοι</string>
     <string name="tax_line_au_discounted">Καθαρό κεφαλαιακό κέρδος μετά από ζημίες και έκπτωση 50 τοις εκατό</string>
     <string name="tax_line_ca_taxable">Φορολογητέο κεφαλαιακό κέρδος (συντελεστής ένταξης 1/2)</string>
     <string name="tax_line_ch_income">Ανταμοιβές καταγεγραμμένες – αντιμετώπιση βλ. έγγραφο εργασίας ESTV</string>
@@ -115,9 +115,9 @@
     <string name="tax_line_long_net">Καθαρό – διακράτηση &gt; 1 έτος</string>
     <string name="tax_line_losses">Ζημίες</string>
     <string name="tax_line_net">Καθαρό κέρδος/ζημία</string>
-    <string name="tax_line_new_net">Καθαρό – αποκτήθηκε από 1.3.2021</string>
+    <string name="tax_line_new_net">Καθαρό – αποκτήθηκε από 1.3.2021, πωλήθηκε από 1.3.2022</string>
     <string name="tax_line_old_long_net">Καθαρό – αποκτήθηκε πριν από 1.3.2021 – διακράτηση &gt; 1 έτος</string>
-    <string name="tax_line_old_short_net">Καθαρό – αποκτήθηκε πριν από 1.3.2021 – διακράτηση ≤ 1 έτος</string>
+    <string name="tax_line_old_short_net">Καθαρό – κερδοσκοπικές συναλλαγές (παλαιό καθεστώς): αποκτήθηκε πριν από 1.3.2021 με διακράτηση ≤ 1 έτος ή πωλήθηκε πριν από 1.3.2022</string>
     <string name="tax_line_proceeds">Έσοδα</string>
     <string name="tax_line_short_net">Καθαρό – διακράτηση ≤ 1 έτος</string>
     <string name="tax_line_transfer_fees">Χρεώσεις μεταφοράς (δικά σου πορτοφόλια)</string>
@@ -191,7 +191,7 @@
     <string name="tax_note_withdrawal_fee">Μια χρέωση ανάληψης σε USDT ή μετρητά δεν είναι ζημία: σε μετρητά δεν εκπίπτει, σε USDT είναι διάθεση στο άρτιο χωρίς κέρδος – εμφανίζεται μόνο ενημερωτικά (%1$s).</string>
     <string name="tax_summary_at_interest_income">μετράει: εισόδημα κατά την παραλαβή με τον ειδικό συντελεστή 27,5 τοις εκατό (§ 27b παρ. 2 αρ. 1 EStG / BMF) – τα νομίσματα κρατούν αυτή την αξία ως κόστος κτήσης</string>
     <string name="tax_summary_at_reward_info">μόνο για ενημέρωση – σε κανένα σύνολο: οι ανταμοιβές μπαίνουν στο νέο απόθεμα με κόστος κτήσης 0 και φορολογούνται μόνο στην πώληση (ήδη στα κέρδη) – § 27b Abs. 2 EStG / BMF</string>
-    <string name="tax_summary_at_transition_2021">Πωλήσεις/ανταλλαγές νέας κατοχής 1.3.2021–28.2.2022: παλαιό καθεστώς (§ 31 EStG παλαιά διατύπωση) με επιλογή 27,5 τοις εκατό – συζητήστε το με φοροτεχνικό</string>
+    <string name="tax_summary_at_transition_2021">1.1.–28.2.2022: δυνατή η επιλογή 27,5 τοις εκατό</string>
     <string name="tax_summary_at_withdrawal_fee">Χρέωση ανάληψης – δεν συμψηφίζεται με τη νέα κατοχή (οι δαπάνες δεν εκπίπτουν στον ειδικό συντελεστή, § 20 παρ. 2 EStG)</string>
     <string name="tax_summary_ch_fifo_info">μόνο για ενημέρωση – υπολογισμός FIFO της εφαρμογής – χωρίς κατάταξη – βλ. ESTV</string>
     <string name="tax_summary_ch_year_end_value">αξία στις 31.12 στο CSV αποθέματος = τιμή ανταλλακτηρίου × USD/CHF – όχι οι φορολογικές αξίες του καταλόγου τιμών ESTV</string>

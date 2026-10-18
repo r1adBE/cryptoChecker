@@ -146,9 +146,10 @@ enum AlarmEvaluator {
         return a
     }
 
+    /// Auf 1e-6 gerundet (`AlarmPercent`), damit genau die Marke auslöst (3.00 → 3.09 = +3 %). Wie Android.
     static func changePercent(alarm: Alarm, price: Double, previousPrice: Double?) -> Double? {
         guard let reference = alarm.referencePrice ?? previousPrice, reference > 0 else { return nil }
-        return (price - reference) / reference * 100
+        return AlarmPercent.rounded((price - reference) / reference * 100)
     }
 }
 
@@ -199,7 +200,8 @@ enum MoveWindow {
         }
         var best: Double?
         for p in candidates {
-            let change = (price - p.price) / p.price * 100
+            // Gerundet wie alle Prozent-Alarme (`AlarmPercent`): genau die Marke zählt
+            let change = AlarmPercent.rounded((price - p.price) / p.price * 100)
             if best == nil || abs(change) > abs(best ?? 0) { best = change }
         }
         return best
@@ -229,6 +231,23 @@ enum MoveWindow {
             if p.time - previous.time >= spacing { kept.append(p) }
         }
         return kept
+    }
+}
+
+/// Prozent-Werte der Alarme vor dem Vergleich mit der Schwelle — wie `AlarmPercent` (MoveWindow.kt): auf 1e-6
+/// Prozentpunkte gerundet (nächster Wert, genau die Mitte vom Nullpunkt weg). Sonst verfehlt ein Alarm genau seine Marke
+/// um einen Gleitkomma-Rest — 3.00 → 3.09 ergibt 2.9999999999999956 % und meldete bei «+3 %» nicht. Gleiche Regel für
+/// Veränderung (`AlarmEvaluator.changePercent`), Bewegungs-Fenster (`MoveWindow.changePercent`) und Abstand zum Hoch/Tief
+/// (`NearExtreme.decide`).
+enum AlarmPercent {
+    /// Kehrwert der Auflösung: 1e-6 Prozentpunkte.
+    static let scale = 1e6
+
+    /// `percent` auf 1e-6 gerundet; nicht endliche Werte unverändert.
+    static func rounded(_ percent: Double) -> Double {
+        guard percent.isFinite else { return percent }
+        let scaled = (abs(percent) * scale + 0.5).rounded(.down)
+        return Double(signOf: percent, magnitudeOf: scaled / scale)
     }
 }
 

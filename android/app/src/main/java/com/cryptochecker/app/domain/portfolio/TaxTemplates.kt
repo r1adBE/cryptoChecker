@@ -80,7 +80,8 @@ data class TaxPeriod(val startYear: Int, val start: LocalDate, val end: LocalDat
  * USDT; Umrechnung mit USD-Kursen × USDT/USD-Tagesschluss ([TaxExport.rateOn] `usdtUsd`, Owner-Entscheid Okt. 2026);
  * ohne Schluss des Tags USDT = 1 USD als Näherung, je Zeile vermerkt ([TaxCsvTexts.usdtAssumed]):
  *  - DE: § 23 Abs. 1 Nr. 2, Abs. 3 Satz 5 EStG (Freigrenze 1000 € ab 2024, 600 € 2009–2023), § 22 Nr. 3 Satz 2 EStG (256 €);
- *    BMF-Schreiben Kryptowerte vom 06.03.2025 (Rn. 61 f.: FIFO, walletbezogen zulässig). Kalenderjahr.
+ *    BMF-Schreiben Kryptowerte vom 06.03.2025 (Rn. 61 f.: FIFO; Rn. 62: Verwendungsreihenfolge je Wallet bzw. Konto —
+ *    darum nur FIFO je Wallet, FIFO über alle Wallets nicht zulässig). Kalenderjahr.
  *  - AT: BMF «Steuerliche Behandlung von Kryptowährungen» (Stand 01.01.2026): Neuvermögen = angeschafft nach 28.02.2021,
  *    27,5 %, gleitender Durchschnittspreis (in EUR), Tausch Krypto↔Krypto keine Veräusserung (Anschaffungskosten
  *    fortgeführt; Stablecoins wie Tether sind Kryptowährungen — Verkauf gegen USDT = Tausch) ab 01.03.2022; davor und
@@ -91,7 +92,10 @@ data class TaxPeriod(val startYear: Int, val start: LocalDate, val end: LocalDat
  *    [TaxEngines.interestReward]); jede andere Belohnung im Neubestand rechnet mit 0. KryptowährungsVO BGBl. II 2022/455 § 2 Abs. 1
  *    (Durchschnitt für alle Einheiten derselben Kryptowährung auf EINER Adresse bzw. EINEM Wallet — hier je Coin und
  *    Wallet wie FIFO je Wallet, nicht über alle Wallets), § 3 (im Zweifel früher erworbene Einheit zuerst). Altvermögen:
- *    Spekulationsfrist 1 Jahr (§ 31 EStG a. F.). Kalenderjahr.
+ *    Spekulationsfrist 1 Jahr (§ 31 EStG a. F.). Neuvermögen, verkauft vor dem 1.3.2022: ebenso alte Rechtslage
+ *    (Spekulationsgeschäft, Freigrenze 440 €, Gebühren abziehbar); Option auf 27,5 % nur für Realisationen 1.1.–28.2.2022
+ *    (§ 124b Z 384 lit. c EStG), die Übersicht rechnet ohne Option. Belohnungen vor dem 1.3.2022: Anschaffungskosten 0
+ *    wie nach neuer Rechtslage (keine Verwaltungsquelle zum Wert beim Zufluss vor dem Inkrafttreten — Vermerk). Kalenderjahr.
  *  - CH: ESTV «Kryptowährungen» (Stand 22.09.2026) und Arbeitspapier vom 03.08.2022 — die App ordnet NICHT ein:
  *    Kapitalgewinne im Privatvermögen «nicht gerechnet – Einordnung siehe ESTV», Belohnungen aufgeführt «Behandlung siehe
  *    ESTV-Arbeitspapier», Vermögenssteuer «nicht gerechnet» (Verkehrswert Ende Steuerperiode, ESTV-Kursliste). Kalenderjahr.
@@ -179,7 +183,9 @@ enum class TaxTemplate {
     private val baseMethods: List<TaxMethod>
         get() = when (this) {
             NEUTRAL, CH -> listOf(TaxMethod.FIFO, TaxMethod.FIFO_WALLET, TaxMethod.AVERAGE)
-            DE, US -> listOf(TaxMethod.FIFO, TaxMethod.FIFO_WALLET)
+            // DE: BMF 06.03.2025 Rn. 62 verlangt die walletbezogene Betrachtung — FIFO über alle Wallets wäre falsch
+            DE -> listOf(TaxMethod.FIFO_WALLET)
+            US -> listOf(TaxMethod.FIFO, TaxMethod.FIFO_WALLET)
             AU -> listOf(TaxMethod.FIFO)
             UK -> listOf(TaxMethod.UK_POOL)
             CA -> listOf(TaxMethod.CA_ACB)
@@ -344,6 +350,12 @@ enum class TaxTemplate {
          */
         val AT_SWAP_NEUTRAL_FROM: LocalDate = LocalDate.of(2022, 3, 1)
 
+        /**
+         * AT: Realisationen von Neuvermögen ab diesem Tag bis vor [AT_SWAP_NEUTRAL_FROM] können auf Antrag schon nach
+         * neuer Rechtslage (27,5 %) besteuert werden (§ 124b Z 384 lit. c EStG); die vom 1.3. bis 31.12.2021 nicht.
+         */
+        val AT_OPTION_FROM: LocalDate = LocalDate.of(2022, 1, 1)
+
         /** Stand der hinterlegten Regeln (Kopfzeile «Regelstand: 2026-10» der Länder-Vorlagen). */
         const val RULES_DATE = "2026-10"
 
@@ -364,6 +376,13 @@ enum class TaxTemplate {
 
         /** UK: 30-Tage-Regel (Zugänge an den 30 Tagen nach dem Verkauf). */
         const val UK_BB_DAYS = 30L
+
+        /**
+         * UK: Meldepflicht an HMRC, wenn die Veräusserungserlöse des Steuerjahrs ab 6. April [startYear] diesen Betrag
+         * (GBP) übersteigen, auch ohne steuerbaren Gewinn — £50,000 ab 2023/24 (gov.uk «Report and pay your Capital Gains
+         * Tax», Stand 2026); davor galt das Vierfache des Annual Exempt Amount (nicht hinterlegt: null).
+         */
+        fun ukReportProceedsGbp(startYear: Int): BigDecimal? = if (startYear >= 2023) BigDecimal(50000) else null
 
         /** UK: Annual Exempt Amount (Privatperson) in GBP für das Steuerjahr ab 6. April [startYear]; null = nicht hinterlegt. */
         fun ukAnnualExemptGbp(startYear: Int): BigDecimal? = when {

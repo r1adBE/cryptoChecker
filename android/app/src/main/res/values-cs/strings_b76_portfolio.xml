@@ -9,7 +9,7 @@
     <string name="backup_restore_interrupted_rolled_back">Aplikace byla ukončena během obnovy zálohy. Předchozí data byla vrácena; ze zálohy se nic nepřevzalo.</string>
     <string name="backup_restore_interrupted_incomplete">Aplikace byla ukončena během obnovy zálohy a předchozí data se nepodařilo vrátit úplně. Zkontroluj prosím sledované a portfolio, nebo zálohu obnov znovu v Nastavení pod „%1$s“.</string>
     <string name="backup_not_verified">Soubor zálohy se po uložení nepodařilo ověřit – při zpětném čtení se liší. Ulož prosím zálohu do nového souboru.</string>
-    <string name="tax_line_at_old_speculation_limit">Nabyto před 1. 3. 2021 – drženo ≤ 1 rok: hranice osvobození spekulačních obchodů (§ 31 odst. 3 EStG ve starém znění)</string>
+    <string name="tax_line_at_old_speculation_limit">Spekulační obchody (dřívější úprava, drženo ≤ 1 rok): hranice osvobození (§ 31 odst. 3 EStG ve starém znění)</string>
     <string name="portfolio_tx_interest">Úrok (půjčování)</string>
     <string name="portfolio_tx_interest_hint">Počítá se jako příjem při připsání (Rakousko). U odměn ze stakingu a airdropů nech vypnuté.</string>
     <string name="app_lock_no_screen_lock">Pro otevření portfolia nastav zámek obrazovky.</string>

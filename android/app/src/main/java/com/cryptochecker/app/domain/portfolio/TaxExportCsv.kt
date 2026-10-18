@@ -93,6 +93,16 @@ data class TaxCsvTexts(
     val transferFeeInfo: String = "",
     /** Vermerk «USDT = 1 USD angenommen» ([TaxGainRow.usdtApproximate], [TaxIncomeRow.usdtApproximate]); leer = kein Vermerk. */
     val usdtAssumed: String = "",
+    /**
+     * AT (nur diese Vorlage füllt sie): Einkünfte getrennt wie in der Jahresübersicht ([TaxIncomeRow.interest]) — Vermerk je
+     * Zeile «Zins – steuerpflichtig beim Zufluss» bzw. «Staking – nur zur Information (Anschaffungskosten 0, besteuert
+     * beim Verkauf)» und statt der einen Summe zwei Summenzeilen «Summe Zins (steuerpflichtig)» / «Summe Staking
+     * (Information)». Leer (alle anderen Vorlagen) = eine Summe wie bisher.
+     */
+    val incomeInterest: String = "",
+    val incomeStaking: String = "",
+    val totalInterest: String = "",
+    val totalStaking: String = "",
 )
 
 private const val BOM = "\uFEFF"
@@ -272,7 +282,12 @@ fun TaxExport.gainsCsv(
     return sb.toString()
 }
 
-/** CSV «Einkünfte» mit BOM; [header] = Kopfzeilen (je ein Feld). */
+/**
+ * CSV «Einkünfte» mit BOM; [header] = Kopfzeilen (je ein Feld). Mit [TaxCsvTexts.totalInterest] und
+ * [TaxCsvTexts.totalStaking] (AT) Zins und übrige Belohnungen getrennt: Vermerk je Zeile und je eine Summenzeile mit
+ * eigenem «unvollständig» — Zinsen sind beim Zufluss steuerpflichtig, Staking im Neubestand nur Information (sonst
+ * doppelt mit dem Verkaufsgewinn bei Anschaffungskosten 0; gleiche Einteilung wie [yearSummary]).
+ */
 fun TaxExport.incomeCsv(
     rows: List<TaxIncomeRow>,
     texts: TaxCsvTexts,
@@ -286,8 +301,10 @@ fun TaxExport.incomeCsv(
     header.forEach { sb.append(line(listOf(t(it)), format)) }
     if (texts.timeZone.isNotEmpty()) sb.append(line(listOf(t(texts.timeZone)), format))
     sb.append(line(listOf(texts.date, texts.coin, texts.amount, texts.valueUsdt, texts.valueTarget, texts.note).map { t(it) }, format))
+    val split = texts.totalInterest.isNotEmpty() && texts.totalStaking.isNotEmpty()
     for (r in rows) {
         val notes = listOfNotNull(
+            (if (r.interest) texts.incomeInterest else texts.incomeStaking).takeIf { split && it.isNotEmpty() },
             texts.valueMissing.takeIf { r.valueMissing },
             texts.valueEstimated.takeIf { r.estimated && it.isNotEmpty() },
             texts.usdtAssumed.takeIf { r.usdtApproximate && it.isNotEmpty() },
@@ -303,16 +320,25 @@ fun TaxExport.incomeCsv(
             )
         )
     }
-    val incomplete = rows.any { it.valueMissing || it.fxMissing }
-    sb.append(
-        line(
-            listOf(
-                t(texts.total), t(""), CsvCell("", numeric = true), money(sum(rows) { it.valueUsdt }), money(sum(rows) { it.valueTarget }),
-                t(if (incomplete) texts.incomplete else ""),
-            ),
-            format,
+    fun total(label: String, list: List<TaxIncomeRow>) {
+        val incomplete = list.any { it.valueMissing || it.fxMissing }
+        sb.append(
+            line(
+                listOf(
+                    t(label), t(""), CsvCell("", numeric = true), money(sum(list) { it.valueUsdt }), money(sum(list) { it.valueTarget }),
+                    t(if (incomplete) texts.incomplete else ""),
+                ),
+                format,
+            )
         )
-    )
+    }
+    if (split) {
+        val (interest, staking) = rows.partition { it.interest }
+        total(texts.totalInterest, interest)
+        total(texts.totalStaking, staking)
+    } else {
+        total(texts.total, rows)
+    }
     return sb.toString()
 }
 
@@ -344,7 +370,7 @@ fun TaxExport.summaryCsv(
             texts.incomplete.takeIf { l.incomplete },
             texts.noFx.takeIf { l.noFx },
             texts.notCalculated.takeIf { l.notCalculated && it.isNotEmpty() },
-            l.note?.let { texts.notes[it] }?.takeIf { it.isNotEmpty() },
+            l.noteText(texts),
         ).joinToString(", ")
         return textLine(listOf(label, money(l.usdt), money(l.target), notes), format, setOf(1, 2))
     }

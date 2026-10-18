@@ -145,6 +145,24 @@ class AlarmsViewModel @Inject constructor(
     }.distinctUntilChanged().stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
 
     /**
+     * Veraltet-Grenze der abgefragten Paare wie in der Merkliste ([com.cryptochecker.app.domain.watch.LiveStatus]):
+     * älter → Statuszeile «Wartet auf aktuellen Kurs» ([com.cryptochecker.app.domain.alarm.AlarmCardStatus]).
+     */
+    val staleAfterMillis: StateFlow<Long> = settingsRepository.settings
+        .map { com.cryptochecker.app.domain.watch.LiveStatus.pollingStaleAfterMillis(it.backgroundIntervalMinutes) }
+        .distinctUntilChanged()
+        .stateIn(
+            viewModelScope, SharingStarted.WhileSubscribed(5_000),
+            com.cryptochecker.app.domain.watch.LiveStatus.pollingStaleAfterMillis(settingsRepository.cached.backgroundIntervalMinutes),
+        )
+
+    /**
+     * Dürfen Alarme als Mitteilung erscheinen (Erlaubnis, App-Mitteilungen, Alarm-Kanal nicht stumm)? Für die
+     * Statuszeile der Karten; im Zweifel ja, damit kein falscher Hinweis erscheint.
+     */
+    fun alarmsAllowed(): Boolean = runCatching { appNotifier.alarmsAllowed() }.getOrDefault(true)
+
+    /**
      * Paar hat (nach dem Laden) keinen Alarm: Der Bildschirm öffnet dann gleich den Editor
      * statt der leeren Liste. null = noch nicht geladen.
      */

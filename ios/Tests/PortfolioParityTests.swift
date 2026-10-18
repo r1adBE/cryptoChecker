@@ -365,6 +365,49 @@ final class PortfolioParityTests: XCTestCase {
         }
     }
 
+    /// Kopf «7 T/1 J», Gewinn/Verlust-Kurven und Karte zeigen dieselbe Zahl: junges Portfolio (Kurve ab 0 samt erstem
+    /// Tag), Tausch ohne Wert (EIN Wert zum Tagesschluss für beide Seiten), Umbuchung mit USDT-Gebühr ohne Bestand (0).
+    func testRangeAgreement() throws {
+        let data = try TestSupport.fixture("portfolio")
+        let cases = TestSupport.list(data["rangeAgreement"])
+        XCTAssertGreaterThanOrEqual(cases.count, 3)
+        let today = Int(TestSupport.number(data["today"]) ?? 0)
+        for c in cases {
+            let name = c["name"] as? String ?? ""
+            let trades = (c["trades"] as? [Any] ?? []).map(trade)
+            let current = prices(c["current"])
+            let closes = series(c["closes"])
+            let e = c["expected"] as? [String: Any] ?? [:]
+            for method in CostMethod.allCases {
+                let label = "\(name) [\(method.rawValue)]"
+                let week = PortfolioPeriodChange.gain(trades: trades, current: current, closes: closes,
+                                                      baseDay: today - PortfolioPeriodChange.days, method: method)
+                near("\(label) 7 T", TestSupport.number(e["week"]), week?.amount)
+                near("\(label) 7 T percent", TestSupport.number(e["weekPercent"]), week?.percent)
+                let year = PortfolioPeriodChange.gain(trades: trades, current: current, closes: closes,
+                                                      baseDay: today - PortfolioPeriodChange.yearDays, method: method)
+                near("\(label) 1 J", TestSupport.number(e["year"]), year?.amount)
+                let weekCurve = PortfolioHistory.build(trades: trades, closes: closes, livePrices: current, range: .week,
+                                                       todayEpochDay: today, method: method)
+                near("\(label) curve 7 T", TestSupport.number(e["week"]), weekCurve.pnlChange)
+                near("\(label) curve 7 T percent", TestSupport.number(e["weekPercent"]), weekCurve.pnlPercent)
+                let yearCurve = PortfolioHistory.build(trades: trades, closes: closes, livePrices: current, range: .year,
+                                                       todayEpochDay: today, method: method)
+                near("\(label) curve 1 J", TestSupport.number(e["year"]), yearCurve.pnlChange)
+                let sinceFirst = PortfolioHistory.build(trades: trades, closes: closes, livePrices: current,
+                                                        range: .sinceFirst, todayEpochDay: today, method: method)
+                near("\(label) curve since first", TestSupport.number(e["sinceFirst"]), sinceFirst.pnlChange)
+                // Karte mit demselben Tageskurs wie die App (PortfolioModel.marketPriceAt)
+                let s = PortfolioCalculator.summarize(trades, prices: current, method: method) { coin, time in
+                    PortfolioPeriodChange.marketPriceAt(coin, live: current[PortfolioCalculator.normalizeCoin(coin)],
+                                                        closes: closes, time: time)
+                }
+                let card = (s.unrealized ?? 0) + s.realized + (s.withdrawnGainExact.map(PortfolioDecimal.double) ?? 0)
+                near("\(label) card", TestSupport.number(e["card"]), card)
+            }
+        }
+    }
+
     func testScaleCloses() throws {
         for c in TestSupport.list(try TestSupport.fixture("portfolio")["scaleCloses"]) {
             let name = c["name"] as? String ?? ""

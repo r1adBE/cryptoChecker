@@ -109,7 +109,7 @@ struct PortfolioTaxSummaryCard: View {
         if l.incomplete { out.append(texts.incomplete) }
         if l.noFx { out.append(texts.noFx) }
         if l.notCalculated && !texts.notCalculated.isEmpty { out.append(texts.notCalculated) }
-        if let note = l.note, let text = texts.notes[note], !text.isEmpty { out.append(text) }
+        if let text = l.noteText(texts) { out.append(text) }
         return out
     }
 

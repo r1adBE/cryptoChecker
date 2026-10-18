@@ -50,10 +50,33 @@ enum FxRateSource {
         let target = currency.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
         if target == "USD" { return 1 }
         guard isCurrencyCode(target) else { return nil }
-        if let rate = await loadUsdTo(target) { return rate }
+        // Ohne eigenen BGN-Kurs nicht bei jedem Aufruf erneut abfragen (3 h, wie Android)
+        let now = TimeUtils.nowMillis
+        let missed = target == "BGN" ? bgnMissed() : nil
+        if let missed, now - missed >= 0, now - missed < ttlMillis {
+            if let own = entry(target), now - own.at >= 0, now - own.at < staleMillis { return own.rate }
+        } else if let rate = await loadUsdTo(target) {
+            return rate
+        } else if target == "BGN" {
+            setBgnMissed(now)
+        }
         guard target == "BGN" else { return nil }
+        // Aus dem EUR-Kurs (dessen Abrufzeit gilt, `fetchedAt`); nicht als frischer BGN-Kurs gespeichert
         let eur = await loadUsdTo("EUR")
         return derivedBgn(currency: target, usdToEur: eur)
+    }
+
+    /// Letzter Abruf ohne eigenen BGN-Kurs (Epoch-ms).
+    nonisolated(unsafe) private static var bgnMissedAt: Int64?
+
+    private static func bgnMissed() -> Int64? {
+        lock.lock(); defer { lock.unlock() }
+        return bgnMissedAt
+    }
+
+    private static func setBgnMissed(_ time: Int64) {
+        lock.lock(); defer { lock.unlock() }
+        bgnMissedAt = time
     }
 
     private static func loadUsdTo(_ target: String) async -> Double? {
@@ -78,13 +101,12 @@ enum FxRateSource {
         }
     }
 
-    /// Zuletzt bekannter Kurs ohne Netz (für den ersten Aufbau) — höchstens 24 h alt wie bei `usdTo` (wie Android).
+    /// Zuletzt bekannter Kurs ohne Netz (für den ersten Aufbau) — höchstens 24 h alt wie bei `usdTo`; BGN ohne eigenen
+    /// Kurs aus dem EUR-Kurs (`derivedBgn`). Wie Android.
     static func cached(_ currency: String) -> Double? {
         let target = currency.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
         if target == "USD" { return 1 }
-        guard let known = entry(target) else { return nil }
-        let age = TimeUtils.nowMillis - known.at
-        return age >= 0 && age < staleMillis ? known.rate : nil
+        return cachedWithTime(target)?.rate
     }
 
     /// Abrufzeit (Epoch-ms) des Kurses von `currency`, den `usdTo`/`cached` gerade liefern; nil für USD
@@ -93,14 +115,28 @@ enum FxRateSource {
     static func fetchedAt(_ currency: String) -> Int64? {
         let target = currency.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
         if target == "USD" { return nil }
+        return cachedWithTime(target)?.at
+    }
+
+    /// Kurs und Abrufzeit aus dem Zwischenspeicher (höchstens 24 h alt); BGN ohne eigenen aus EUR (`fxWithTime`).
+    private static func cachedWithTime(_ target: String) -> (rate: Double, at: Int64)? {
         let now = TimeUtils.nowMillis
-        func fresh(_ code: String) -> Int64? {
+        func fresh(_ code: String) -> (rate: Double, at: Int64)? {
             guard let known = entry(code) else { return nil }
             let age = now - known.at
-            return age >= 0 && age < staleMillis ? known.at : nil
+            return age >= 0 && age < staleMillis ? known : nil
         }
-        if let at = fresh(target) { return at }
-        return target == "BGN" ? fresh("EUR") : nil
+        return fxWithTime(own: fresh(target), eur: fresh("EUR"), deriveBgn: target == "BGN")
+    }
+
+    /// Devisenkurs mit Abrufzeit: eigener Eintrag `own`, sonst — wenn `deriveBgn` (BGN nach der Euro-Einführung) — BGN aus
+    /// dem EUR-Eintrag `eur` mit DESSEN Abrufzeit: ein alter EUR-Kurs ergibt einen ebenso alten BGN-Kurs (Hinweis mit
+    /// Uhrzeit), nie einen scheinbar frischen. nil = keiner. Wie Android `CurrencyConversion.fxWithTime`.
+    static func fxWithTime(own: (rate: Double, at: Int64)?, eur: (rate: Double, at: Int64)?,
+                           deriveBgn: Bool) -> (rate: Double, at: Int64)? {
+        if let own { return own }
+        guard deriveBgn, let eur, let rate = derivedBgn(currency: "BGN", usdToEur: eur.rate) else { return nil }
+        return (rate: rate, at: eur.at)
     }
 
     private static func entry(_ code: String) -> (rate: Double, at: Int64)? {

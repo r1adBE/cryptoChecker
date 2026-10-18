@@ -32,6 +32,9 @@ class FxRateSource @Inject constructor(
     private val cache = ConcurrentHashMap<String, Pair<Double, Long>>()
     private val mutex = Mutex()
 
+    /** Letzter Abruf ohne eigenen BGN-Kurs (Epoch-ms; nur unter [mutex]). */
+    private var bgnMissedAt = 0L
+
     /** Wie viele Einheiten [currency] ein USD ist; null, wenn unbekannt. USD = 1. */
     suspend fun usdTo(currency: String): Double? {
         val target = currency.trim().uppercase()
@@ -41,46 +44,57 @@ class FxRateSource @Inject constructor(
         return withContext(Dispatchers.IO) {
             mutex.withLock {
                 val now = System.currentTimeMillis()
-                cache[target]?.let { (rate, at) ->
-                    if (now - at in 0 until TTL_MILLIS) return@withLock rate
-                }
-                val fresh = frankfurter(target) ?: openErApi(target) ?: bgnFallback(target)
-                if (fresh != null) {
-                    cache[target] = fresh to now
-                    fresh
-                } else {
-                    // Älterer Kurs ist besser als keiner, aber nicht älter als ein Tag
-                    cache[target]?.takeIf { now - it.second in 0 until STALE_MILLIS }?.first
-                }
+                // Lew nach der Euro-Einführung: fehlt BGN, dann EUR × 1.95583 — aus dem EUR-Kurs samt DESSEN Abrufzeit
+                // (nicht als frischer BGN-Kurs gespeichert; [fetchedAt] nennt die Zeit des EUR-Kurses)
+                val derive = derivesBgn(target)
+                // Ohne eigenen BGN-Kurs nicht bei jedem Aufruf erneut abfragen (vorher hielt der gespeicherte Ersatz 3 h)
+                val skipOwn = derive && now - bgnMissedAt in 0 until TTL_MILLIS
+                val own = if (skipOwn) cache[target]?.takeIf { now - it.second in 0 until STALE_MILLIS } else load(target, now)
+                if (own != null || !derive) return@withLock own?.first
+                if (!skipOwn) bgnMissedAt = now
+                CurrencyConversion.fxWithTime(null, load("EUR", now), deriveBgn = true)?.first
             }
         }
     }
 
-    /** Zuletzt bekannter Kurs ohne Netz (für den ersten Aufbau) — höchstens 24 h alt wie bei [usdTo]. */
+    /**
+     * Kurs von [target] mit Abrufzeit: jünger als [TTL_MILLIS] aus dem Zwischenspeicher, sonst neu geholt; scheitert das,
+     * der letzte Kurs bis [STALE_MILLIS] (älterer Kurs ist besser als keiner, aber nicht älter als ein Tag). Nur unter
+     * [mutex] aufrufen.
+     */
+    private suspend fun load(target: String, now: Long): Pair<Double, Long>? {
+        cache[target]?.let { if (now - it.second in 0 until TTL_MILLIS) return it }
+        val fresh = frankfurter(target) ?: openErApi(target)
+        if (fresh != null) return (fresh to now).also { cache[target] = it }
+        return cache[target]?.takeIf { now - it.second in 0 until STALE_MILLIS }
+    }
+
+    /** Zuletzt bekannter Kurs ohne Netz (für den ersten Aufbau) — höchstens 24 h alt wie bei [usdTo]; BGN ohne eigenen aus EUR. */
     fun cached(currency: String): Double? {
         val target = currency.trim().uppercase()
         if (target == "USD") return 1.0
-        val (rate, at) = cache[target] ?: return null
-        return rate.takeIf { System.currentTimeMillis() - at in 0 until STALE_MILLIS }
+        return cachedWithTime(target)?.first
     }
 
     /**
      * Abrufzeit (Epoch-ms) des Kurses von [currency], den [usdTo]/[cached] gerade liefern; null für USD
-     * (kein Devisenkurs nötig) oder ohne höchstens 24 h alten Kurs.
+     * (kein Devisenkurs nötig) oder ohne höchstens 24 h alten Kurs. BGN ohne eigenen Kurs: die des EUR-Kurses.
      */
     fun fetchedAt(currency: String): Long? {
         val target = currency.trim().uppercase()
         if (target == "USD") return null
-        val (_, at) = cache[target] ?: return null
-        return at.takeIf { System.currentTimeMillis() - it in 0 until STALE_MILLIS }
+        return cachedWithTime(target)?.second
     }
 
-    /** Lew nach der Euro-Einführung: fehlt BGN, dann EUR × 1.95583 (fester Kurs). */
-    private suspend fun bgnFallback(target: String): Double? {
-        if (!CurrencyConversion.deriveBgnFromEur(target, LocalDate.now(ZoneOffset.UTC))) return null
-        val eur = frankfurter("EUR") ?: openErApi("EUR") ?: cache["EUR"]?.first
-        return CurrencyConversion.bgnFromEur(eur)
+    /** Kurs und Abrufzeit aus dem Zwischenspeicher (höchstens 24 h alt); BGN ohne eigenen aus EUR ([CurrencyConversion.fxWithTime]). */
+    private fun cachedWithTime(target: String): Pair<Double, Long>? {
+        val now = System.currentTimeMillis()
+        fun entry(code: String) = cache[code]?.takeIf { now - it.second in 0 until STALE_MILLIS }
+        return CurrencyConversion.fxWithTime(entry(target), entry("EUR"), derivesBgn(target))
     }
+
+    /** BGN ab der Euro-Einführung aus EUR ableiten ([CurrencyConversion.deriveBgnFromEur]). */
+    private fun derivesBgn(target: String): Boolean = CurrencyConversion.deriveBgnFromEur(target, LocalDate.now(ZoneOffset.UTC))
 
     private suspend fun frankfurter(target: String): Double? =
         get("https://api.frankfurter.app/latest?from=USD&to=$target")?.let { body ->

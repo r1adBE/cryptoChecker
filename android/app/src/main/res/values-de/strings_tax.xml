@@ -74,7 +74,7 @@
     <string name="tax_export_proceeds_missing">Verkaufspreis fehlt</string>
     <string name="tax_export_proceeds_without_cost">Erlös ohne Kaufpreis</string>
     <string name="tax_export_realized_differs">Die Steuer-CSV kann von ‹realisiert› abweichen (Steuerregeln des Landes).</string>
-    <string name="tax_export_rule">&gt; 1 Jahr: Verkauf nach Kaufdatum + 1 Kalenderjahr. Daten in Ortszeit. Kurse: EZB-Tageskurs (letzter Geschäftstag davor).</string>
+    <string name="tax_export_rule">&gt; 1 Jahr: Verkauf nach Kaufdatum + 1 Kalenderjahr. Daten in Ortszeit. Kurse: EZB-Tageskurs des Transaktionstags; fehlt er, der letzte Kurs bis 7 Tage davor.</string>
     <string name="tax_export_rules_date">Regelstand: %1$s</string>
     <string name="tax_export_spouse_gift">an Ehe-/Lebenspartner – kein Gewinn/Verlust</string>
     <string name="tax_export_summary">Jahresübersicht %1$s (CSV)</string>
@@ -98,7 +98,7 @@
     <!-- Steuer-Export: Zeilen und Spalten -->
     <string name="tax_line_at_interest">Zinsen aus Lending (Wert beim Zufluss)</string>
     <string name="tax_line_at_old_long">Erworben vor 1.3.2021 – gehalten &gt; 1 Jahr: in der Regel nicht steuerbar – prüfen</string>
-    <string name="tax_line_at_rate">Sondersteuersatz 27,5 Prozent: netto erworben ab 1.3.2021 + Zinsen (1.3.2021–28.2.2022: siehe Hinweis)</string>
+    <string name="tax_line_at_rate">Sondersteuersatz 27,5 Prozent: netto erworben ab 1.3.2021 und verkauft ab 1.3.2022 + Zinsen</string>
     <string name="tax_line_au_discounted">Netto-Kapitalgewinn nach Verlusten und 50 Prozent Rabatt</string>
     <string name="tax_line_ca_taxable">Steuerbarer Kapitalgewinn (Einschlussrate 1/2)</string>
     <string name="tax_line_ch_income">Belohnungen aufgeführt – Behandlung siehe ESTV-Arbeitspapier</string>
@@ -115,9 +115,9 @@
     <string name="tax_line_long_net">Netto – gehalten &gt; 1 Jahr</string>
     <string name="tax_line_losses">Verluste</string>
     <string name="tax_line_net">Netto Gewinne/Verluste</string>
-    <string name="tax_line_new_net">Netto – erworben ab 1.3.2021</string>
+    <string name="tax_line_new_net">Netto – erworben ab 1.3.2021, verkauft ab 1.3.2022</string>
     <string name="tax_line_old_long_net">Netto – erworben vor 1.3.2021 – gehalten &gt; 1 Jahr</string>
-    <string name="tax_line_old_short_net">Netto – erworben vor 1.3.2021 – gehalten ≤ 1 Jahr</string>
+    <string name="tax_line_old_short_net">Netto – Spekulationsgeschäfte (alte Rechtslage): erworben vor 1.3.2021 und gehalten ≤ 1 Jahr oder verkauft vor 1.3.2022</string>
     <string name="tax_line_proceeds">Erlöse</string>
     <string name="tax_line_short_net">Netto – gehalten ≤ 1 Jahr</string>
     <string name="tax_line_transfer_fees">Umbuchungsgebühren (eigene Wallets)</string>
@@ -191,7 +191,7 @@
     <string name="tax_note_withdrawal_fee">Eine Auszahlungsgebühr in USDT oder Fiat ist kein Verlust: eine Fiat-Gebühr ist nicht abziehbar, eine USDT-Gebühr eine Veräusserung zum Nennwert ohne Gewinn – sie steht nur als Information da (%1$s).</string>
     <string name="tax_summary_at_interest_income">zählt: Einkünfte beim Zufluss zum Sondersteuersatz 27,5 Prozent (§ 27b Abs. 2 Z 1 EStG / BMF) – die Coins behalten diesen Wert als Anschaffungskosten</string>
     <string name="tax_summary_at_reward_info">nur zur Information – in keiner Summe: Belohnungen kommen mit Anschaffungskosten 0 in den Neubestand und werden erst beim Verkauf besteuert (dort in den Gewinnen) – § 27b Abs. 2 EStG / BMF</string>
-    <string name="tax_summary_at_transition_2021">Verkäufe/Tausch von Neuvermögen 1.3.2021–28.2.2022: alte Rechtslage (§ 31 EStG a. F.) mit Option auf 27,5 Prozent – mit Steuerberatung klären</string>
+    <string name="tax_summary_at_transition_2021">1.1.–28.2.2022: Option auf 27,5 Prozent möglich</string>
     <string name="tax_summary_at_withdrawal_fee">Auszahlungsgebühr – nicht mit dem Neubestand verrechnet (Aufwendungen beim Sondersteuersatz nicht abzugsfähig, § 20 Abs. 2 EStG)</string>
     <string name="tax_summary_ch_fifo_info">nur zur Information – FIFO-Rechnung der App – nicht eingeordnet – siehe ESTV</string>
     <string name="tax_summary_ch_year_end_value">Wert per 31.12. in der Bestand-CSV = Börsenkurs × USD/CHF – nicht die Steuerwerte der ESTV-Kursliste</string>

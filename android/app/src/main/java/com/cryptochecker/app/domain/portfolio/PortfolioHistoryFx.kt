@@ -74,6 +74,28 @@ object PortfolioHistoryFx {
         today.minusDays(days.toLong().coerceAtLeast(0) + LEAD_DAYS) to today
 
     /**
+     * Höchstens so viele Tage je Abfrage der Devisen-Tageskurse: Frankfurter liefert längere Zeiträume nur noch
+     * wöchentlich (ein Kurs je Woche) — «Seit 1. Kauf» und der Stichtag bekämen sonst Wochenkurse.
+     */
+    const val FX_CHUNK_DAYS = 365
+
+    /**
+     * [from]..[to] (je einschliesslich) in Stücke von höchstens [maxDays] Tagen, aufsteigend und lückenlos; das letzte
+     * endet an [to]. Leer, wenn [from] nach [to] liegt.
+     */
+    fun fxChunks(from: LocalDate, to: LocalDate, maxDays: Int = FX_CHUNK_DAYS): List<Pair<LocalDate, LocalDate>> {
+        if (from.isAfter(to) || maxDays <= 0) return emptyList()
+        val out = ArrayList<Pair<LocalDate, LocalDate>>()
+        var start = from
+        while (!start.isAfter(to)) {
+            val end = start.plusDays(maxDays.toLong() - 1).let { if (it.isAfter(to)) to else it }
+            out += start to end
+            start = end.plusDays(1)
+        }
+        return out
+    }
+
+    /**
      * Währungen für die Abfrage: [currency], bei BGN zusätzlich EUR (Lew nach der Euro-Einführung
      * aus EUR × 1.95583, siehe [ratesByDay]) — eine Abfrage für beide.
      */

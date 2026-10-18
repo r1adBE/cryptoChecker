@@ -9,7 +9,7 @@
     <string name="backup_restore_interrupted_rolled_back">백업을 복원하는 중에 앱이 종료되었습니다. 이전 데이터를 되돌렸으며 백업의 내용은 반영되지 않았습니다.</string>
     <string name="backup_restore_interrupted_incomplete">백업을 복원하는 중에 앱이 종료되어 이전 데이터를 완전히 되돌리지 못했습니다. 관심 목록과 포트폴리오를 확인하거나 설정의 \'%1$s\'에서 백업을 다시 복원하세요.</string>
     <string name="backup_not_verified">저장 후 백업 파일을 확인하지 못했습니다. 다시 읽으면 내용이 다릅니다. 새 파일에 백업을 저장하세요.</string>
-    <string name="tax_line_at_old_speculation_limit">2021년 3월 1일 이전 취득 · 보유 1년 이하: 투기 거래 면세 한도(구 EStG 제31조 제3항)</string>
+    <string name="tax_line_at_old_speculation_limit">투기 거래(구법, 보유 1년 이하): 면세 한도(구 EStG 제31조 제3항)</string>
     <string name="portfolio_tx_interest">이자(대여)</string>
     <string name="portfolio_tx_interest_hint">받을 때 소득으로 계산됩니다(오스트리아). 스테이킹 보상과 에어드롭은 끈 상태로 두세요.</string>
     <string name="app_lock_no_screen_lock">포트폴리오를 열려면 화면 잠금을 설정하세요.</string>

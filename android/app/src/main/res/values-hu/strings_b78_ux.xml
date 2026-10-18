@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
+    <string name="alarm_status_notifications_off">Értesítések kikapcsolva – ez a riasztás nem ér el</string>
+    <!-- Statuszeile der Alarm-Karte: DEX-Pool unter der Alarm-Liquidität (10’000 USD) oder unbekannt -->
+    <string name="alarm_status_low_liquidity">Nincs riasztás – alacsony likviditás</string>
+    <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
+    <string name="alarm_status_waiting_price">Friss árfolyamra vár</string>
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">Az adataid</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">Az eszközön</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">A lista, a riasztások és a portfólió titkosítva maradnak ezen az eszközön; nincs fiók, nincs saját szerver.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">Kapcsolatok</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">Az árfolyamok közvetlenül a párjaid tőzsdéiről érkeznek, emellett devizaárfolyamok, coinlisták és logók, valamint a GitHubon lévő adattükör; ezek látják az IP-címedet, de soha a készleteidet (a figyelt címek az adott hálózat szolgáltatójához kerülnek).</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">Biztonsági mentés</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">Csak ha te készítesz egyet; jelszóval titkosítva (Argon2id + AES-256-GCM), jelszó nélkül olvasható.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">Eszközváltás</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">A kulcs a régi eszközön marad – előbb készíts egy mentési fájlt.</string>
+</resources>

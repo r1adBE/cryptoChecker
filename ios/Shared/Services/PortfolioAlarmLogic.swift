@@ -104,18 +104,19 @@ enum PortfolioAlarmDecision: Equatable, Sendable {
 /// `shouldRearmLevel`, Hysterese `AlarmEvaluator.levelHysteresis`) und mit der Ruhezeit nach dem Auslösen.
 enum PortfolioAlarmLogic {
 
-    /// Gesamtwert in der Alarmwährung: gleiche Währung wie der Stand; bei einem USD-Stablecoin der USDT-Wert; bei USD der
-    /// USDT-Wert mal USDT/USD (`usdtUsdLive`); sonst USDT-Wert mal Devisenkurs (`usdTo`) mal USDT/USD
-    /// (`PortfolioStables.usdtTo`) — wie der Portfolio-Kopf (USDT zum Marktkurs); ohne Kurs nil (diesmal nicht prüfen).
-    /// Wie Android `totalIn`.
+    /// Gesamtwert in der Alarmwährung: gleiche Währung wie der Stand; bei USDT der USDT-Wert; bei USD und den übrigen
+    /// USD-Stablecoins (USDC, DAI …) der USDT-Wert mal USDT/USD (`usdtUsdLive`) — sie gelten wie USD 1 Dollar; sonst
+    /// USDT-Wert mal Devisenkurs (`usdTo`) mal USDT/USD (`PortfolioStables.usdtTo`) — wie der Portfolio-Kopf (USDT zum
+    /// Marktkurs); ohne Kurs nil (diesmal nicht prüfen). Wie Android `totalIn`.
     static func total(in currency: String?, _ reading: PortfolioReading) -> Double? {
         let wanted = CurrencyConversion.normalize(currency)
         guard !wanted.isEmpty else { return nil }
         if wanted == reading.currency.uppercased() { return reading.total.isFinite ? reading.total : nil }
         guard let usdt = reading.totalUsdt, usdt.isFinite else { return nil }
         let usdtUsd = PortfolioStables.usdtUsdLive(reading.usdtUsdLive)
-        if wanted == "USD" { return usdt * usdtUsd.rate }
-        if CurrencyConversion.usdStables.contains(wanted) { return usdt }
+        if wanted == "USDT" { return usdt }
+        // USD-Stablecoins ausser USDT wie USD: USDT-Wert × USDT/USD (bei entkoppeltem USDT sonst falsch)
+        if wanted == "USD" || CurrencyConversion.usdStables.contains(wanted) { return usdt * usdtUsd.rate }
         guard let rate = reading.usdTo[wanted], rate.isFinite, rate > 0,
               let factor = PortfolioStables.usdtTo(rate, usdt: usdtUsd) else { return nil }
         return usdt * factor

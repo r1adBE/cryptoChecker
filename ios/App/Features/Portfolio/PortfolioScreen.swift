@@ -102,9 +102,16 @@ struct PortfolioScreen: View {
     private func observing<V: View>(_ base: V, transactions: [PortfolioTx]) -> some View {
         base
             // Wertverlauf: geänderte Transaktionen (auch ohne neuen Coin) neu rechnen
-            .onChange(of: transactions) { model.recomputeHistory() }
+            // «Seit Kauf» in der Anzeigewährung: ein früherer Erwerbstag braucht ältere Kurse
+            .onChange(of: transactions) {
+                model.recomputeHistory()
+                Task { await model.loadCostFx() }
+            }
             // Einstandsmethode bestimmt die Bestände (FIFO je Wallet): «7 T/1 J» und Verlauf neu rechnen
-            .onChange(of: data.settings.costMethod) { model.recomputeHistory() }
+            .onChange(of: data.settings.costMethod) {
+                model.recomputeHistory()
+                Task { await model.loadCostFx() }
+            }
             // Adresse hinzugefügt/entfernt: Gesamtwert, Widget und Alarme nachziehen. Nur die Liste (Chain + Adresse)
             // zählt — neue Guthaben/Versuche kommen aus `refresh` selbst und lösten sonst gleich den nächsten aus
             .onChange(of: data.watchedAddresses.map { "\($0.chain.rawValue):\($0.address)" }) {
@@ -275,6 +282,8 @@ struct PortfolioScreen: View {
                 currency: currency,
                 // Faktor USDT → Anzeigewährung: Devisenkurs × USDT/USD (USDT zum Marktkurs)
                 fxRate: model.displayRate(for: currency),
+                // «Seit Kauf»/Einstand in der Anzeigewährung zum Kurs der Erwerbstage
+                costFx: model.costFx(for: currency),
                 today: model.today,
                 todaySkipped: model.todaySkipped,
                 weekChange: model.weekChange,

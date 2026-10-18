@@ -25,6 +25,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -42,6 +43,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.local.model.AlarmCondition
 import com.cryptochecker.app.data.local.model.AlarmEntity
+import com.cryptochecker.app.domain.alarm.AlarmCardStatus
 import com.cryptochecker.app.domain.alarm.DerivativesAlarm
 import com.cryptochecker.app.ui.components.AppFab
 import com.cryptochecker.app.ui.components.EmptyState
@@ -50,6 +52,7 @@ import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.util.BidiText
 import com.cryptochecker.app.util.LocaleNumbers
 import com.cryptochecker.app.util.PriceFormat
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeoutOrNull
 
@@ -191,6 +194,21 @@ fun AlarmsScreen(
     }
 
     val notificationsEnabled = com.cryptochecker.app.ui.components.rememberNotificationsEnabled()
+    // Statuszeile der Karten (AlarmCardStatus): Mitteilungen samt Alarm-Kanal bei jeder Rückkehr neu prüfen,
+    // die Uhr jede Minute — ein Kurs wird auch ohne neue Daten veraltet
+    val staleAfter by viewModel.staleAfterMillis.collectAsStateWithLifecycle()
+    var alarmsAllowed by remember { mutableStateOf(viewModel.alarmsAllowed()) }
+    androidx.lifecycle.compose.LifecycleResumeEffect(notificationsEnabled) {
+        alarmsAllowed = viewModel.alarmsAllowed()
+        onPauseOrDispose { }
+    }
+    var now by remember { mutableLongStateOf(System.currentTimeMillis()) }
+    LaunchedEffect(Unit) {
+        while (true) {
+            delay(STATUS_TICK_MILLIS)
+            now = System.currentTimeMillis()
+        }
+    }
     Scaffold(
         topBar = {
             TopAppBar(
@@ -256,6 +274,16 @@ fun AlarmsScreen(
                             baseAsset = watch?.baseAsset.orEmpty(),
                             quoteAsset = watch?.quoteAsset.orEmpty(),
                             unchecked = unchecked[alarm.id],
+                            status = AlarmCardStatus.of(
+                                alarmEnabled = alarm.enabled,
+                                notificationsAllowed = alarmsAllowed,
+                                dexBlocksAlarms = lowLiquidity,
+                                exchangeTime = watch?.exchangeTime,
+                                lastUpdate = watch?.lastUpdate ?: 0L,
+                                now = now,
+                                staleAfterMillis = staleAfter,
+                                unchecked = unchecked[alarm.id] != null,
+                            ),
                             onToggle = { viewModel.setEnabled(alarm.id, it) },
                             onEdit = { if (!lowLiquidity) draft = AlarmDraft.from(alarm) },
                             onDelete = { askDelete = alarm }
@@ -394,6 +422,9 @@ private const val SAVED_MILLIS = 8_000L
 
 /** So lange steht «Alarm aktiv · Testen» nach einem neuen Alarm. */
 private const val ACTIVE_MILLIS = 6_000L
+
+/** Takt, in dem die Statuszeilen der Karten die Uhr nachführen («Wartet auf aktuellen Kurs»). */
+private const val STATUS_TICK_MILLIS = 60_000L
 
 /**
  * Beispiel im leeren Alarm-Zustand (Übersicht und je Paar, L-18) im Stil der Alarm-Sätze:

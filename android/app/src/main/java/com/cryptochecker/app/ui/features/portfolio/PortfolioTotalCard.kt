@@ -31,6 +31,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.alarm.DepegAlarm
+import com.cryptochecker.app.domain.portfolio.PortfolioCostFxFigures
 import com.cryptochecker.app.domain.portfolio.PortfolioSummary
 import com.cryptochecker.app.domain.portfolio.TodayChange
 import com.cryptochecker.app.ui.components.AppCard
@@ -64,6 +65,11 @@ internal fun TotalCard(
     updatedAt: Long,
     currency: String,
     fxRate: Double?,
+    /**
+     * «Seit Kauf» und Einstand in der Anzeigewährung zum Kurs der Erwerbstage ([PortfolioViewModel.costFx]); gilt nur,
+     * wenn die Karte umrechnet — null dann = Kurse laden noch («—»). In USDT bleiben die Zahlen aus [summary].
+     */
+    costFx: PortfolioCostFxFigures? = null,
     todayPercent: Double?,
     todayAmount: Double? = null,
     /** Coins, die in «Heute» fehlen (kein Vergleichskurs). */
@@ -224,20 +230,27 @@ internal fun TotalCard(
                         modifier = Modifier.weight(1f),
                         rewardsUsd = weekChange?.rewardsUsd ?: 0.0,
                     )
-                    // «Seit Kauf (CHF)»: Gewinn/Verlust seit Kauf der Coins mit Kaufpreis (in der Einheit des Gesamtwerts)
+                    // «Seit Kauf (CHF)»: Gewinn/Verlust seit Kauf der Coins mit Kaufpreis (in der Einheit des Gesamtwerts);
+                    // umgerechnet: Wert zum heutigen Kurs − Einstand zum Kurs der Erwerbstage ([PortfolioViewModel.costFx]),
+                    // nie der Einstand zum heutigen Kurs
+                    val sinceAmount = if (unit.converted) costFx?.unrealized?.toDouble() else summary.unrealized
+                    val sincePercent = if (unit.converted) costFx?.unrealizedPercent else summary.unrealizedPercent
                     Column(modifier = Modifier.weight(1f).padding(start = Spacing.sm)) {
                         InsightFigure(
                             label = stringResource(R.string.ledger_since_purchase_currency, unit.code),
                             spokenLabel = stringResource(R.string.ledger_since_purchase_spoken),
-                            amount = summary.unrealized,
-                            percent = summary.unrealizedPercent?.takeIf { summary.unrealized != null },
+                            amount = sinceAmount,
+                            percent = sincePercent?.takeIf { sinceAmount != null },
                             unit = unit,
-                            modifier = Modifier.fillMaxWidth()
+                            modifier = Modifier.fillMaxWidth(),
+                            amountInUnit = unit.converted,
                         )
-                        // Teilsumme (Coins/Teile ohne Kaufpreis oder ohne Kurs fehlen): «unvollständig» an der Zahl
-                        if (summary.unrealized != null &&
-                            (summary.missingCostCoins.isNotEmpty() || summary.partialCostParts.isNotEmpty() ||
-                                summary.missingCurrentPrices.isNotEmpty())
+                        // Teilsumme (Coins/Teile ohne Kaufpreis, ohne Kurs oder ohne Devisenkurs am Kauftag fehlen):
+                        // «unvollständig» an der Zahl
+                        val fxMissing = unit.converted && costFx?.unrealizedFxMissing == true
+                        if (summary.unrealized != null && (fxMissing ||
+                            (sinceAmount != null && (summary.missingCostCoins.isNotEmpty() || summary.partialCostParts.isNotEmpty() ||
+                                summary.missingCurrentPrices.isNotEmpty())))
                         ) {
                             PartialMarker(
                                 text = stringResource(R.string.portfolio_export_incomplete),
@@ -271,11 +284,37 @@ internal fun TotalCard(
                     // Belohnungen im Jahr: Zufluss, nicht Gewinn — klein darunter
                     yearChange?.takeIf { it.amountUsd.isFinite() }?.let { change -> rewardsText(change.rewardsUsd, unit)?.let { RewardsNote(it) } }
                     Row(modifier = Modifier.fillMaxWidth().padding(top = Spacing.sm)) {
-                        Metric(
-                            label = stringResource(R.string.portfolio_invested),
-                            value = summary.invested?.let { maskAmount(PortfolioFormat.usdt(it)) } ?: "—",
-                            modifier = Modifier.weight(1f)
-                        )
+                        if (unit.converted) {
+                            // Einstand in der Anzeigewährung zum Kurs der Erwerbstage, USDT klein darunter (wie der Gesamtwert)
+                            Column(modifier = Modifier.weight(1f)) {
+                                val invested = costFx?.invested?.toDouble()
+                                Metric(
+                                    label = stringResource(R.string.portfolio_invested),
+                                    value = invested?.let { maskAmount(PriceFormat.valueWithCurrency(it, unit.code)) } ?: "—",
+                                )
+                                if (invested != null && costFx?.investedFxMissing == true) {
+                                    PartialMarker(
+                                        text = stringResource(R.string.portfolio_export_incomplete),
+                                        onClick = { showHints = true },
+                                        modifier = Modifier.padding(top = 2.dp)
+                                    )
+                                } else if (invested != null) {
+                                    summary.invested?.let {
+                                        Text(
+                                            withSmallQuote("≈ " + maskAmount(PortfolioFormat.usdt(it))),
+                                            style = MaterialTheme.typography.bodySmall.amountNumbers(),
+                                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                        )
+                                    }
+                                }
+                            }
+                        } else {
+                            Metric(
+                                label = stringResource(R.string.portfolio_invested),
+                                value = summary.invested?.let { maskAmount(PortfolioFormat.usdt(it)) } ?: "—",
+                                modifier = Modifier.weight(1f)
+                            )
+                        }
                         if (PortfolioFormat.showRealized(summary.realized, summary.realizedIncomplete)) {
                             Metric(
                                 label = stringResource(R.string.portfolio_realized),
@@ -323,6 +362,14 @@ internal fun TotalCard(
             // Ø ist eine bewusste Wahl in den Einstellungen: kein Hinweis «nicht FIFO» mehr
             if (summary.unrealized != null && summary.method.isFifo) {
                 add(TotalHintItem(stringResource(R.string.ledger_fifo_cost_note)))
+            }
+            // Umgerechnet: Einstand zum Devisenkurs des Kauftags; ohne Kurs eines Kauftags fehlt der Coin, USDT/USD-Lücke = 1
+            if (cardUnit(currency, fxRate).converted && summary.unrealized != null) {
+                add(TotalHintItem(stringResource(R.string.ledger_cost_fx_note, cardUnit(currency, fxRate).code)))
+                costFx?.fxMissingCoins?.takeIf { it.isNotEmpty() }?.let { coins ->
+                    add(TotalHintItem(stringResource(R.string.ledger_cost_fx_missing, coins.joinToString(", "))))
+                }
+                if (costFx?.usdtApproximate == true) add(TotalHintItem(stringResource(R.string.ledger_cost_fx_usdt_assumed)))
             }
             // Was im Gewinn seit Kauf fehlt (M3: nur diese Coins, nicht das ganze Portfolio)
             if (summary.missingCostCoins.isNotEmpty()) {

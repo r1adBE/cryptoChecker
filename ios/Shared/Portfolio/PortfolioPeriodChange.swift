@@ -218,9 +218,18 @@ enum PortfolioPeriodChange {
                               rates: Rates = .none,
                               startPrice: (String, Double?) -> Double?) -> Parts {
         var out = Parts()
-        // Adress-Einträge der Eingabe nie rückwirkend; nur die beobachtete Reihe (`AddressBalanceHistory`)
-        let valid = trades.filter { $0.amountExact > 0 && !AddressBalance.isAddressTrade($0.id) }
+        // Adress-Einträge der Eingabe nie rückwirkend; nur die beobachtete Reihe (`AddressBalanceHistory`). Tausch ohne
+        // Wert (und die übrigen Fälle von `PortfolioLedger.valueAtDayClose`) zum Marktkurs `marketPrice` wie die Karte:
+        // EIN Wert für abgegebenen und erhaltenen Coin statt jede Seite zu ihrem eigenen Kurs
+        let raw = trades.filter { $0.amountExact > 0 && !AddressBalance.isAddressTrade($0.id) }
             + AddressBalanceHistory.trades(addresses)
+        let valid = withoutActuallyEscaping(marketPrice) { market in
+            PortfolioLedger.valueAtDayClose(raw, price: { coin, time in
+                guard let p = market(coin, current[coin].flatMap { $0 > 0 && $0.isFinite ? $0 : nil }, time),
+                      p > 0, p.isFinite else { return nil }
+                return PortfolioDecimal.of(p)
+            })
+        }
         // Alle Arten und Gebühren im dritten Coin über `PortfolioLedger` (Bestand und Zuflüsse wie der Rechner)
         for coin in PortfolioLedger.coins(valid) {
             if let only, coin != only { continue }

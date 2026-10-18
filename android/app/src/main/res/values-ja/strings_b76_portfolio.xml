@@ -9,7 +9,7 @@
     <string name="backup_restore_interrupted_rolled_back">バックアップの復元中にアプリが終了しました。以前のデータを書き戻しました。バックアップの内容は反映されていません。</string>
     <string name="backup_restore_interrupted_incomplete">バックアップの復元中にアプリが終了し、以前のデータを完全には書き戻せませんでした。ウォッチリストとポートフォリオを確認するか、設定の「%1$s」でバックアップをもう一度復元してください。</string>
     <string name="backup_not_verified">保存後にバックアップファイルを確認できませんでした（読み戻すと内容が異なります）。新しいファイルに保存し直してください。</string>
-    <string name="tax_line_at_old_speculation_limit">2021年3月1日より前に取得・保有1年以内：投機取引の非課税限度額（旧EStG第31条第3項）</string>
+    <string name="tax_line_at_old_speculation_limit">投機取引（旧法、保有1年以内）：非課税限度額（旧EStG第31条第3項）</string>
     <string name="portfolio_tx_interest">利息（レンディング）</string>
     <string name="portfolio_tx_interest_hint">受け取った時点で所得として計上します（オーストリア）。ステーキング報酬やエアドロップではオフのままにしてください。</string>
     <string name="app_lock_no_screen_lock">ポートフォリオを開くには画面ロックを設定してください。</string>

@@ -74,7 +74,7 @@
     <string name="tax_export_proceeds_missing">mungon çmimi i shitjes</string>
     <string name="tax_export_proceeds_without_cost">Të ardhura pa çmim blerjeje</string>
     <string name="tax_export_realized_differs">CSV-ja tatimore mund të ndryshojë nga “realizuar” (rregullat tatimore të vendit).</string>
-    <string name="tax_export_rule">&gt; 1 vit: shitur pas datës së blerjes + 1 vit kalendarik. Datat në orën lokale. Kurset: kursi ditor i BQE (dita e fundit e punës më parë).</string>
+    <string name="tax_export_rule">&gt; 1 vit: shitur pas datës së blerjes + 1 vit kalendarik. Datat në orën lokale. Kurset: kursi ditor i BQE i ditës së transaksionit; nëse mungon, kursi i fundit deri në 7 ditë më parë.</string>
     <string name="tax_export_rules_date">Rregullat në: %1$s</string>
     <string name="tax_export_spouse_gift">për bashkëshortin/partnerin – pa fitim, pa humbje</string>
     <string name="tax_export_summary">Përmbledhje vjetore %1$s (CSV)</string>
@@ -98,7 +98,7 @@
     <!-- Steuer-Export: Zeilen und Spalten -->
     <string name="tax_line_at_interest">Interesa nga lending (vlera në marrje)</string>
     <string name="tax_line_at_old_long">Fituar para 1.3.2021 – mbajtur &gt; 1 vit: zakonisht nuk tatohet – kontrollo</string>
-    <string name="tax_line_at_rate">Normë e veçantë 27,5 përqind: neto e fituar nga 1.3.2021 + interesa (1.3.2021–28.2.2022: shih shënimin)</string>
+    <string name="tax_line_at_rate">Normë e veçantë 27,5 përqind: neto e fituar nga 1.3.2021 dhe e shitur nga 1.3.2022 + interesa</string>
     <string name="tax_line_au_discounted">Fitim kapital neto pas humbjeve dhe zbritjes 50 përqind</string>
     <string name="tax_line_ca_taxable">Fitim kapital i tatueshëm (norma e përfshirjes 1/2)</string>
     <string name="tax_line_ch_income">Shpërblimet të listuara – trajtimi shih dokumentin e punës ESTV</string>
@@ -115,9 +115,9 @@
     <string name="tax_line_long_net">Neto – mbajtur &gt; 1 vit</string>
     <string name="tax_line_losses">Humbje</string>
     <string name="tax_line_net">Fitim/humbje neto</string>
-    <string name="tax_line_new_net">Neto – fituar nga 1.3.2021</string>
+    <string name="tax_line_new_net">Neto – fituar nga 1.3.2021, shitur nga 1.3.2022</string>
     <string name="tax_line_old_long_net">Neto – fituar para 1.3.2021 – mbajtur &gt; 1 vit</string>
-    <string name="tax_line_old_short_net">Neto – fituar para 1.3.2021 – mbajtur ≤ 1 vit</string>
+    <string name="tax_line_old_short_net">Neto – transaksione spekulative (rregullimi i vjetër): fituar para 1.3.2021 dhe mbajtur ≤ 1 vit, ose shitur para 1.3.2022</string>
     <string name="tax_line_proceeds">Të ardhurat</string>
     <string name="tax_line_short_net">Neto – mbajtur ≤ 1 vit</string>
     <string name="tax_line_transfer_fees">Tarifat e transferimit (portofolet e tua)</string>
@@ -191,7 +191,7 @@
     <string name="tax_note_withdrawal_fee">Një tarifë tërheqjeje në USDT ose para në dorë nuk është humbje: në para në dorë nuk zbritet, në USDT është tjetërsim me vlerën nominale pa fitim – shfaqet vetëm si informacion (%1$s).</string>
     <string name="tax_summary_at_interest_income">llogaritet: e ardhur në marrje me normën e veçantë 27,5 përqind (§ 27b par. 2 nr. 1 EStG / BMF) – monedhat e ruajnë këtë vlerë si kosto blerjeje</string>
     <string name="tax_summary_at_reward_info">vetëm për informacion – në asnjë total: shpërblimet hyjnë në zotërimet e reja me kosto blerjeje 0 dhe tatohen vetëm në shitje (tashmë te fitimet) – § 27b Abs. 2 EStG / BMF</string>
-    <string name="tax_summary_at_transition_2021">Shitje/shkëmbime të zotërimit të ri 1.3.2021–28.2.2022: rregullimi i vjetër (§ 31 EStG versioni i mëparshëm) me opsion për 27,5 përqind – sqaroje me një këshilltar tatimor</string>
+    <string name="tax_summary_at_transition_2021">1.1.–28.2.2022: opsioni për 27,5 përqind i mundshëm</string>
     <string name="tax_summary_at_withdrawal_fee">Tarifë tërheqjeje – nuk kompensohet me zotërimin e ri (shpenzimet nuk zbriten me normën e veçantë, § 20 par. 2 EStG)</string>
     <string name="tax_summary_ch_fifo_info">vetëm për informacion – llogaritje FIFO e aplikacionit – e paklasifikuar – shih ESTV</string>
     <string name="tax_summary_ch_year_end_value">vlera më 31.12 në CSV-në e zotërimeve = kursi i bursës × USD/CHF – jo vlerat tatimore të listës së kurseve ESTV</string>

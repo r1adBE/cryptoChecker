@@ -74,7 +74,7 @@
     <string name="tax_export_proceeds_missing">बिक्री भाव नहीं है</string>
     <string name="tax_export_proceeds_without_cost">बिना खरीद भाव की बिक्री आय</string>
     <string name="tax_export_realized_differs">टैक्स CSV “प्राप्त” से अलग हो सकती है (देश के कर नियम)।</string>
-    <string name="tax_export_rule">&gt; 1 वर्ष: खरीद तिथि + 1 कैलेंडर वर्ष के बाद बेचा गया। तिथियाँ स्थानीय समय में। दरें: ECB दैनिक दर (उससे पहले का अंतिम कार्यदिवस)।</string>
+    <string name="tax_export_rule">&gt; 1 वर्ष: खरीद तिथि + 1 कैलेंडर वर्ष के बाद बेचा गया। तिथियाँ स्थानीय समय में। दरें: लेन-देन के दिन की ECB दैनिक दर; न हो तो उससे पहले 7 दिनों के भीतर की अंतिम दर।</string>
     <string name="tax_export_rules_date">नियम इस तिथि तक: %1$s</string>
     <string name="tax_export_spouse_gift">जीवनसाथी/पार्टनर को – न लाभ, न हानि</string>
     <string name="tax_export_summary">वार्षिक सारांश %1$s (CSV)</string>
@@ -98,7 +98,7 @@
     <!-- Steuer-Export: Zeilen und Spalten -->
     <string name="tax_line_at_interest">लेंडिंग ब्याज (मिलने के समय का मूल्य)</string>
     <string name="tax_line_at_old_long">1.3.2021 से पहले प्राप्त – &gt; 1 वर्ष रखा गया: आम तौर पर कर योग्य नहीं – जाँचें</string>
-    <string name="tax_line_at_rate">विशेष दर 27.5 प्रतिशत: 1.3.2021 से प्राप्त का शुद्ध + ब्याज (1.3.2021–28.2.2022: टिप्पणी देखें)</string>
+    <string name="tax_line_at_rate">विशेष दर 27.5 प्रतिशत: 1.3.2021 से प्राप्त और 1.3.2022 से बेचे गए का शुद्ध + ब्याज</string>
     <string name="tax_line_au_discounted">हानि और 50 प्रतिशत छूट के बाद शुद्ध पूँजीगत लाभ</string>
     <string name="tax_line_ca_taxable">कर योग्य पूँजीगत लाभ (समावेशन दर 1/2)</string>
     <string name="tax_line_ch_income">रिवॉर्ड सूचीबद्ध – व्यवहार के लिए ESTV कार्य-पत्र देखें</string>
@@ -115,9 +115,9 @@
     <string name="tax_line_long_net">शुद्ध – &gt; 1 वर्ष रखा गया</string>
     <string name="tax_line_losses">हानि</string>
     <string name="tax_line_net">शुद्ध लाभ/हानि</string>
-    <string name="tax_line_new_net">शुद्ध – 1.3.2021 से प्राप्त</string>
+    <string name="tax_line_new_net">शुद्ध – 1.3.2021 से प्राप्त, 1.3.2022 से बेचा गया</string>
     <string name="tax_line_old_long_net">शुद्ध – 1.3.2021 से पहले प्राप्त – &gt; 1 वर्ष रखा गया</string>
-    <string name="tax_line_old_short_net">शुद्ध – 1.3.2021 से पहले प्राप्त – ≤ 1 वर्ष रखा गया</string>
+    <string name="tax_line_old_short_net">शुद्ध – सट्टा लेनदेन (पुराना कानून): 1.3.2021 से पहले प्राप्त और ≤ 1 वर्ष रखा गया, या 1.3.2022 से पहले बेचा गया</string>
     <string name="tax_line_proceeds">बिक्री आय</string>
     <string name="tax_line_short_net">शुद्ध – ≤ 1 वर्ष रखा गया</string>
     <string name="tax_line_transfer_fees">ट्रांसफ़र शुल्क (अपने वॉलेट)</string>
@@ -191,7 +191,7 @@
     <string name="tax_note_withdrawal_fee">USDT या नकद में निकासी शुल्क हानि नहीं है: नकद शुल्क घटाया नहीं जा सकता, USDT शुल्क बिना लाभ के अंकित मूल्य पर निपटान है – यह केवल जानकारी के लिए दिखाया जाता है (%1$s)।</string>
     <string name="tax_summary_at_interest_income">गिना जाता है: मिलने पर 27.5 प्रतिशत की विशेष दर से आय (§ 27b(2) सं. 1 EStG / BMF) – कॉइन यही मूल्य अधिग्रहण लागत के रूप में रखते हैं</string>
     <string name="tax_summary_at_reward_info">केवल जानकारी के लिए – किसी योग में नहीं: रिवॉर्ड 0 अधिग्रहण लागत पर नई होल्डिंग में जाते हैं और केवल बिक्री पर कर लगता है (पहले से लाभ में) – § 27b Abs. 2 EStG / BMF</string>
-    <string name="tax_summary_at_transition_2021">नई होल्डिंग की बिक्री/अदला-बदली 1.3.2021–28.2.2022: पुराना कानून (§ 31 EStG पुराना संस्करण), 27.5 प्रतिशत के विकल्प के साथ – टैक्स सलाहकार से स्पष्ट करें</string>
+    <string name="tax_summary_at_transition_2021">1.1.–28.2.2022: 27.5 प्रतिशत का विकल्प संभव</string>
     <string name="tax_summary_at_withdrawal_fee">निकासी शुल्क – नई होल्डिंग से समायोजित नहीं (विशेष दर पर खर्च कटौती योग्य नहीं, § 20(2) EStG)</string>
     <string name="tax_summary_ch_fifo_info">केवल जानकारी के लिए – ऐप की FIFO गणना – वर्गीकृत नहीं – ESTV देखें</string>
     <string name="tax_summary_ch_year_end_value">होल्डिंग CSV में 31.12 का मूल्य = एक्सचेंज भाव × USD/CHF – ESTV मूल्य सूची के कर मूल्य नहीं</string>

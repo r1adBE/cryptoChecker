@@ -109,7 +109,12 @@
     [
       "DE",
       "AVERAGE",
-      "FIFO"
+      "FIFO_WALLET"
+    ],
+    [
+      "DE",
+      "FIFO",
+      "FIFO_WALLET"
     ],
     [
       "DE",
@@ -3635,6 +3640,241 @@
           "valueEstimated": false
         }
       ]
+    },
+    {
+      "name": "[B78] AT Verkauf von Neubestand vor dem 1.3.2022 mit Gebühr im Coin: alte Rechtslage (§ 31 EStG a. F.) wie der Tausch in dieser Zeit — Gebühr mindert den Erlös, die Gebühr-Coins gehen mit ihrem Einstand ab",
+      "method": "AT_MOVING_AVERAGE",
+      "_calc": "Kauf 1.1 BTC 1.6.2021 zu 20000 (Neubestand 22000). Verkauf 1 BTC 1.10.2021 zu 40000 mit 0.1 BTC Gebühr: abgegeben 1.1 BTC mit Einstand 22000, Erlös 1 × 40000 = 40000, Gewinn 18000 (nach neuer Rechtslage wären es 1.0 BTC, Einstand 20000, Gewinn 20000).",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1.1",
+          "time": 1622548800000,
+          "price": "20000"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1633089600000,
+          "price": "40000",
+          "fee": "0.1",
+          "feeUnit": "COIN"
+        }
+      ],
+      "disposals": [
+        {
+          "coin": "BTC",
+          "sold": "2021-10-01",
+          "acquired": null,
+          "amount": "1.1",
+          "cost": "22000",
+          "proceeds": "40000",
+          "gain": "18000",
+          "oldHolding": false
+        }
+      ]
+    },
+    {
+      "name": "[B78] FR Kauf, dessen Gebühr im Coin den ganzen Zugang verbraucht: nur in der Erwerbspreis-Summe, keine Verlust-Zeile",
+      "method": "FR_PTA",
+      "_calc": "PTA 20000 + 0.01 × 3000 = 20030 (Gebühr verbraucht die 0.01 ETH). Verkauf 0.5 BTC zu 30000: Gesamtwert 30000, Einstand 20030 × 15000/30000 = 10015, Gewinn 4985. Keine Aufwand-Zeile −30 für den verbrauchten ETH-Kauf.",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1736510400000,
+          "price": "20000"
+        },
+        {
+          "id": 2,
+          "coin": "ETH",
+          "type": "BUY",
+          "amount": "0.01",
+          "time": 1738411200000,
+          "price": "3000",
+          "fee": "0.01",
+          "feeUnit": "COIN"
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "0.5",
+          "time": 1748779200000,
+          "price": "30000"
+        }
+      ],
+      "disposals": [
+        {
+          "coin": "BTC",
+          "sold": "2025-06-01",
+          "acquired": null,
+          "amount": "0.5",
+          "cost": "10015",
+          "proceeds": "15000",
+          "gain": "4985",
+          "portfolioValue": "30000",
+          "gross": "15000"
+        }
+      ]
+    },
+    {
+      "name": "[B78] AT Verkauf von Neubestand vor dem 1.3.2022: alte Rechtslage (§ 31 EStG a. F.) — Einstand mit Anschaffungsnebenkosten (Kaufgebühr)",
+      "method": "AT_MOVING_AVERAGE",
+      "_calc": "Kauf 1 BTC 1.4.2021 zu 1000 + 10 Gebühr (Neubestand: Ø ohne Gebühr 1000, Gebührenteil 10). Verkauf 1.10.2021 zu 1500: vor dem 1.3.2022 Spekulationsgeschäft nach alter Rechtslage — Anschaffungskosten samt Nebenkosten 1010, Erlös 1500, Gewinn 490.",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1617278400000,
+          "price": "1000",
+          "fee": "10",
+          "feeUnit": "QUOTE"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1633089600000,
+          "price": "1500"
+        }
+      ],
+      "disposals": [
+        {
+          "coin": "BTC",
+          "sold": "2021-10-01",
+          "acquired": null,
+          "amount": "1",
+          "cost": "1010",
+          "proceeds": "1500",
+          "gain": "490",
+          "oldHolding": false
+        }
+      ]
+    },
+    {
+      "name": "[B78] AT Verkauf von Neubestand ab dem 1.3.2022: 27,5 % — Kaufgebühr nicht im Einstand (§ 27a Abs. 4 Z 2 EStG)",
+      "method": "AT_MOVING_AVERAGE",
+      "_calc": "Kauf 1 BTC 1.4.2021 zu 1000 + 10 Gebühr. Verkauf 1.4.2022 zu 1500: neue Rechtslage (Sondersteuersatz 27,5 %), Anschaffungskosten ohne Nebenkosten 1000, Erlös 1500, Gewinn 500.",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1617278400000,
+          "price": "1000",
+          "fee": "10",
+          "feeUnit": "QUOTE"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1648814400000,
+          "price": "1500"
+        }
+      ],
+      "disposals": [
+        {
+          "coin": "BTC",
+          "sold": "2022-04-01",
+          "acquired": null,
+          "amount": "1",
+          "cost": "1000",
+          "proceeds": "1500",
+          "gain": "500",
+          "oldHolding": false
+        }
+      ]
+    },
+    {
+      "name": "[B78] AT Neubestand mit Kaufgebühr, Umbuchung A→B, Verkäufe vor und ab dem 1.3.2022: Ø ohne Gebühren, Gebührenteil geht mit und zählt nur vor dem 1.3.2022",
+      "method": "AT_MOVING_AVERAGE",
+      "_calc": "A: Kauf 2 BTC 1.4.2021 zu 1000 + 20 Gebühr, Kauf 2 BTC 1.5.2021 zu 2000 → Ø ohne Gebühren 6000/4 = 1500, Gebührenteil 20. Umbuchung aller 4 BTC nach B: Ø und Gebührenteil gehen mit. Verkauf 1 BTC 1.10.2021 zu 3000 (alte Rechtslage): Einstand 1500 + 20/4 = 1505, Gewinn 1495. Verkauf 1 BTC 1.4.2022 zu 3000 (27,5 %): Einstand 1500 ohne Gebühr, Gewinn 1500.",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "2",
+          "time": 1617278400000,
+          "price": "1000",
+          "fee": "20",
+          "feeUnit": "QUOTE",
+          "exchange": "A"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "2",
+          "time": 1619870400000,
+          "price": "2000",
+          "exchange": "A"
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "TRANSFER",
+          "amount": "4",
+          "time": 1622548800000,
+          "transferFrom": "A",
+          "transferTo": "B"
+        },
+        {
+          "id": 4,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1633089600000,
+          "price": "3000",
+          "exchange": "B"
+        },
+        {
+          "id": 5,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1648814400000,
+          "price": "3000",
+          "exchange": "B"
+        }
+      ],
+      "disposals": [
+        {
+          "coin": "BTC",
+          "sold": "2021-10-01",
+          "acquired": null,
+          "amount": "1",
+          "cost": "1505",
+          "proceeds": "3000",
+          "gain": "1495",
+          "oldHolding": false,
+          "wallet": "B"
+        },
+        {
+          "coin": "BTC",
+          "sold": "2022-04-01",
+          "acquired": null,
+          "amount": "1",
+          "cost": "1500",
+          "proceeds": "3000",
+          "gain": "1500",
+          "oldHolding": false,
+          "wallet": "B"
+        }
+      ]
     }
   ],
   "summaries": [
@@ -3992,11 +4232,12 @@
         ],
         [
           "CA_TAXABLE",
-          "50",
+          null,
           "50",
           null
         ]
-      ]
+      ],
+      "_calc": "[B78] CA_TAXABLE nur in CAD (USDT-Spalte leer); Werte unverändert: steuerbar (netto −300 + nicht abziehbar 400) × 1/2 = 50."
     },
     {
       "template": "FR",
@@ -4808,7 +5049,7 @@
         "2025-03-01": "1.45",
         "2025-03-15": "1.45"
       },
-      "_calc": "[R10] Review 10 F3: Kauf 10 X zu 1000 USDT (×1.20 = 12000 CAD), Verkauf zu 900 (×1.45 = 13050 CAD), Rückkauf 15 Tage später. USDT −1000, CAD +1050: kein nicht abziehbarer Verlust (früher +1450 CAD verweigert). Gewinn/Verlust nach CAD eingeordnet; steuerbar 1050 × 1/2 = 525",
+      "_calc": "[R10] Review 10 F3: Kauf 10 X zu 1000 USDT (×1.20 = 12000 CAD), Verkauf zu 900 (×1.45 = 13050 CAD), Rückkauf 15 Tage später. USDT −1000, CAD +1050: kein nicht abziehbarer Verlust (früher +1450 CAD verweigert). Gewinn/Verlust nach CAD eingeordnet; steuerbar 1050 × 1/2 = 525 [B78] CA_TAXABLE nur in CAD (USDT-Spalte leer).",
       "trades": [
         {
           "id": 1,
@@ -4868,7 +5109,7 @@
         ],
         [
           "CA_TAXABLE",
-          "-500",
+          null,
           "525",
           null
         ]
@@ -5256,7 +5497,7 @@
       "template": "AT",
       "method": "AT_MOVING_AVERAGE",
       "year": 2021,
-      "_calc": "Neuvermögen (Kauf 1.4.2021) verkauft am 1.10.2021: mit 27,5 % im Neubestand gebucht, Vermerk am Neubestand netto — alte Rechtslage (§ 31 EStG a. F.) mit Option auf 27,5 %.",
+      "_calc": "[B78] Neuvermögen (Kauf 1.4.2021 zu 1000) verkauft am 1.10.2021 zu 1500: vor dem 1.3.2022 noch alte Rechtslage (§ 30/§ 31 EStG a. F.) — Spekulationsgeschäft (≤ 1 Jahr), Gewinn 1500 − 1000 = 500 in OLD_SHORT_NET, NICHT im Neubestand (NEW_NET 0) und nicht im Sondersteuersatz (AT_RATE 0). Freigrenze 440: 500 > 440 → REACHED (der ganze Betrag zählt). Keine Option auf 27,5 % (nur für Realisationen 1.1.–28.2.2022, § 124b Z 384 lit. c EStG) → kein Vermerk. Kein Altbestand → kein AT_OLD_LONG.",
       "trades": [
         {
           "id": 1,
@@ -5278,8 +5519,8 @@
       "lines": [
         [
           "GAINS",
-          "500",
-          "500",
+          "0",
+          "0",
           null
         ],
         [
@@ -5290,10 +5531,21 @@
         ],
         [
           "NEW_NET",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "OLD_SHORT_NET",
           "500",
           "500",
-          null,
-          "AT_TRANSITION_2021"
+          null
+        ],
+        [
+          "OLD_LONG_NET",
+          "0",
+          "0",
+          null
         ],
         [
           "PROCEEDS",
@@ -5310,9 +5562,15 @@
         ],
         [
           "AT_RATE",
-          "500",
-          "500",
+          "0",
+          "0",
           null
+        ],
+        [
+          "AT_OLD_SPECULATION_LIMIT",
+          null,
+          "440",
+          "REACHED"
         ]
       ]
     },
@@ -5380,7 +5638,7 @@
       ]
     },
     {
-      "_comment": "[B56] CA Schenkung an Ehe-/Lebenspartner in CAD: Erlös = Einstand zum Kurs seines Datums (520), Gewinn 0 auch in CAD; nicht in den Erlösen. Verkauf 2 × 150: Einstand 200 USDT = 260 CAD, Erlös 420 CAD.",
+      "_comment": "[B56] CA Schenkung an Ehe-/Lebenspartner in CAD: Erlös = Einstand zum Kurs seines Datums (520), Gewinn 0 auch in CAD; nicht in den Erlösen. Verkauf 2 × 150: Einstand 200 USDT = 260 CAD, Erlös 420 CAD. [B78] CA_TAXABLE nur in CAD (USDT-Spalte leer).",
       "template": "CA",
       "method": "CA_ACB",
       "year": 2025,
@@ -5450,7 +5708,7 @@
         ],
         [
           "CA_TAXABLE",
-          "50",
+          null,
           "80",
           null
         ]
@@ -6007,6 +6265,856 @@
           "REACHED"
         ]
       ]
+    },
+    {
+      "template": "DE",
+      "method": "FIFO_WALLET",
+      "year": 2024,
+      "_calc": "[B78] BMF 06.03.2025 Rn. 62: FIFO je Wallet. Wallet A kauft 1 BTC am 10.1.2023 zu 20000, Wallet B 1 BTC am 1.6.2024 zu 60000; Verkauf 1 BTC aus B am 1.12.2024 zu 90000 → Posten aus B: 90000 − 60000 = 30000, gehalten < 1 Jahr → ≤ 1 Jahr (§ 23). Freigrenze 2024 1000: 30000 ≥ 1000 → REACHED. (FIFO über alle Wallets nähme den Posten aus A: > 1 Jahr, 70000 nicht steuerbar.)",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1673352000000,
+          "price": "20000",
+          "exchange": "A"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1717243200000,
+          "price": "60000",
+          "exchange": "B"
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1733054400000,
+          "price": "90000",
+          "exchange": "B"
+        }
+      ],
+      "lines": [
+        [
+          "SHORT_GAINS",
+          "30000",
+          "30000",
+          null
+        ],
+        [
+          "SHORT_LOSSES",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "SHORT_NET",
+          "30000",
+          "30000",
+          null
+        ],
+        [
+          "LONG_GAINS",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "LONG_LOSSES",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "LONG_NET",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "PROCEEDS",
+          "90000",
+          "90000",
+          null
+        ],
+        [
+          "INCOME",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "DE_LONG",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "DE_PRIVATE_LIMIT",
+          null,
+          "1000",
+          "REACHED"
+        ],
+        [
+          "DE_INCOME_LIMIT",
+          null,
+          "256",
+          "BELOW"
+        ]
+      ]
+    },
+    {
+      "template": "AT",
+      "method": "AT_MOVING_AVERAGE",
+      "year": 2022,
+      "_calc": "[B78] Neuvermögen (Kauf 1 BTC 1.6.2021 zu 1000) verkauft am 1.2.2022 zu 1300: im Fenster 1.1.–28.2.2022 — ohne Antrag alte Rechtslage: Spekulationsgeschäft 1300 − 1000 = 300 in OLD_SHORT_NET mit Vermerk «Option auf 27,5 % möglich» (AT_TRANSITION_2021), Freigrenze 440 ohne Option geprüft: 300 ≤ 440 → BELOW, Vermerk AT_WITHOUT_OPTION. Neubestand (verkauft ab 1.3.2022) 0, AT_RATE 0. Staking 1 ETH am 1.9.2021 (Wert 100, nicht verkauft) mit Anschaffungskosten 0 → Vermerk AT_STAKING_ZERO_COST am Sondersteuersatz; Einkünfte 2022: 0 (Zufluss 2021).",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1622548800000,
+          "price": "1000"
+        },
+        {
+          "id": 2,
+          "coin": "ETH",
+          "type": "REWARD",
+          "amount": "1",
+          "time": 1630497600000,
+          "price": "100"
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1643716800000,
+          "price": "1300"
+        }
+      ],
+      "lines": [
+        [
+          "GAINS",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "LOSSES",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "NEW_NET",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "OLD_SHORT_NET",
+          "300",
+          "300",
+          null,
+          "AT_TRANSITION_2021"
+        ],
+        [
+          "OLD_LONG_NET",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "PROCEEDS",
+          "1300",
+          "1300",
+          null
+        ],
+        [
+          "INCOME",
+          "0",
+          "0",
+          null,
+          "AT_REWARD_INFO"
+        ],
+        [
+          "AT_RATE",
+          "0",
+          "0",
+          null,
+          "AT_STAKING_ZERO_COST"
+        ],
+        [
+          "AT_OLD_SPECULATION_LIMIT",
+          null,
+          "440",
+          "BELOW",
+          "AT_WITHOUT_OPTION"
+        ]
+      ]
+    },
+    {
+      "template": "CA",
+      "method": "CA_ACB",
+      "year": 2025,
+      "currency": "CAD",
+      "rates": {
+        "2025-01-10": "1.3",
+        "2025-06-01": "1.4"
+      },
+      "today": "2026-01-15",
+      "_calc": "[B78] Kauf 10 X zu 100 am 10.1.2025 (1000 USDT × 1.3 = 1300 CAD), Verkauf 10 zu 60 am 1.6.2025 (600 × 1.4 = 840 CAD): Verlust −400 USDT / −460 CAD, kein Ersatzkauf → nichts verweigert. Steuerbar (−460) × 1/2 = −230 → 0 (nicht negativ), NET_CAPITAL_LOSS 230 CAD (abziehbarer Teil, Vortrag); beide nur in CAD. Heute 15.1.2026: 30-Tage-Fenster bis 31.12.2025 + 30 = 30.1.2026 noch offen → Vermerk WINDOW_OPEN am Posten netto mit Datum 2026-01-30.",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "X",
+          "type": "BUY",
+          "amount": "10",
+          "time": 1736510400000,
+          "price": "100"
+        },
+        {
+          "id": 2,
+          "coin": "X",
+          "type": "SELL",
+          "amount": "10",
+          "time": 1748779200000,
+          "price": "60"
+        }
+      ],
+      "lines": [
+        [
+          "GAINS",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "LOSSES",
+          "-400",
+          "-460",
+          null
+        ],
+        [
+          "NET",
+          "-400",
+          "-460",
+          null,
+          "WINDOW_OPEN",
+          "2026-01-30"
+        ],
+        [
+          "PROCEEDS",
+          "600",
+          "840",
+          null
+        ],
+        [
+          "INCOME",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "CA_TAXABLE",
+          null,
+          "0",
+          null
+        ],
+        [
+          "NET_CAPITAL_LOSS",
+          null,
+          "230",
+          null
+        ]
+      ]
+    },
+    {
+      "template": "AU",
+      "method": "FIFO",
+      "year": 2024,
+      "_calc": "[B78] Kauf 1 ETH 1.8.2024 zu 3000, Verkauf 1.2.2025 zu 2000: Verlust −1000 (≤ 12 Monate). Kein Gewinn → AU_DISCOUNTED 0 (nicht negativ), NET_CAPITAL_LOSS 1000 (ganzer Verlust, ohne Rabatt, vorzutragen).",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "ETH",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1722513600000,
+          "price": "3000"
+        },
+        {
+          "id": 2,
+          "coin": "ETH",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1738411200000,
+          "price": "2000"
+        }
+      ],
+      "lines": [
+        [
+          "SHORT_GAINS",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "SHORT_LOSSES",
+          "-1000",
+          "-1000",
+          null
+        ],
+        [
+          "SHORT_NET",
+          "-1000",
+          "-1000",
+          null
+        ],
+        [
+          "LONG_GAINS",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "LONG_LOSSES",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "LONG_NET",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "PROCEEDS",
+          "2000",
+          "2000",
+          null
+        ],
+        [
+          "INCOME",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "AU_DISCOUNTED",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "NET_CAPITAL_LOSS",
+          "1000",
+          "1000",
+          null
+        ]
+      ]
+    },
+    {
+      "template": "UK",
+      "method": "UK_POOL",
+      "year": 2025,
+      "currency": "GBP",
+      "rates": {
+        "2025-05-01": "0.75",
+        "2025-12-01": "0.75"
+      },
+      "today": "2026-04-20",
+      "_calc": "[B78] Kauf 1 BTC 1.5.2025 zu 40000 (× 0.75 = 30000 GBP), Verkauf 1.12.2025 zu 80000 (× 0.75 = 60000 GBP): Gewinn 40000 USDT / 30000 GBP; nach £3,000 Freibetrag 27000. Erlöse 60000 GBP > 50000 (ab 2023/24) → Vermerk UK_HMRC_REPORT am Posten Erlöse. Heute 20.4.2026: Steuerjahr endet 5.4.2026, 30-Tage-Fenster bis 5.5.2026 offen → WINDOW_OPEN am Posten netto (2026-05-05).",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1746100800000,
+          "price": "40000"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1764590400000,
+          "price": "80000"
+        }
+      ],
+      "lines": [
+        [
+          "GAINS",
+          "40000",
+          "30000",
+          null
+        ],
+        [
+          "LOSSES",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "NET",
+          "40000",
+          "30000",
+          null,
+          "WINDOW_OPEN",
+          "2026-05-05"
+        ],
+        [
+          "PROCEEDS",
+          "80000",
+          "60000",
+          null,
+          "UK_HMRC_REPORT"
+        ],
+        [
+          "INCOME",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "UK_EXEMPT",
+          null,
+          "3000",
+          null
+        ],
+        [
+          "UK_AFTER_EXEMPT",
+          null,
+          "27000",
+          null
+        ]
+      ]
+    },
+    {
+      "template": "FR",
+      "method": "FR_PTA",
+      "year": 2025,
+      "_calc": "[B78] Kauf 1 BTC zu 20000; Kauf 0.01 ETH zu 3000, Gebühr 0.01 ETH verbraucht den ganzen Zugang: Kaufpreis 30 zählt in der Erwerbspreis-Summe (20030), KEINE Verlust-Zeile mehr (sonst doppelt). Verkauf 0.5 BTC zu 30000: Gesamtwert 1 × 30000 = 30000 (ETH-Bestand 0), Einstand 20030 × 15000 / 30000 = 10015, Gewinn 15000 − 10015 = 4985; Verluste 0 (vorher −30).",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1736510400000,
+          "price": "20000"
+        },
+        {
+          "id": 2,
+          "coin": "ETH",
+          "type": "BUY",
+          "amount": "0.01",
+          "time": 1738411200000,
+          "price": "3000",
+          "fee": "0.01",
+          "feeUnit": "COIN"
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "0.5",
+          "time": 1748779200000,
+          "price": "30000"
+        }
+      ],
+      "lines": [
+        [
+          "GAINS",
+          "4985",
+          "4985",
+          null
+        ],
+        [
+          "LOSSES",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "NET",
+          "4985",
+          "4985",
+          null
+        ],
+        [
+          "PROCEEDS",
+          "15000",
+          "15000",
+          null
+        ],
+        [
+          "INCOME",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "FR_THRESHOLD",
+          null,
+          "305",
+          "REACHED"
+        ],
+        [
+          "FR_RATE",
+          null,
+          null,
+          null
+        ]
+      ]
+    },
+    {
+      "template": "FR",
+      "method": "FR_PTA",
+      "year": 2025,
+      "prices": {
+        "BTC": "20000"
+      },
+      "_calc": "[B78] Kauf 1 BTC zu 20000. Auszahlung 0.5 BTC (Kurs 20000) mit Gebühr 25 USDT: PTA × 10000/20000 = 10000 gekürzt (FR_OUTFLOW 10000); die Gebühr 25 ist nur Information (WITHDRAWAL_FEES −25, Vermerk WITHDRAWAL_FEE_INFO), NICHT in Verluste/netto. Verkauf 0.5 BTC zu 30000: Gesamtwert 15000, Einstand 10000 × 15000/15000 = 10000, Gewinn 5000.",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1736510400000,
+          "price": "20000"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "WITHDRAWAL",
+          "amount": "0.5",
+          "time": 1740830400000,
+          "fee": "25",
+          "feeUnit": "QUOTE"
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "0.5",
+          "time": 1748779200000,
+          "price": "30000"
+        }
+      ],
+      "incompleteLines": [
+        "FR_OUTFLOW"
+      ],
+      "lines": [
+        [
+          "GAINS",
+          "5000",
+          "5000",
+          null
+        ],
+        [
+          "LOSSES",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "NET",
+          "5000",
+          "5000",
+          null
+        ],
+        [
+          "WITHDRAWAL_FEES",
+          "-25",
+          "-25",
+          null,
+          "WITHDRAWAL_FEE_INFO"
+        ],
+        [
+          "PROCEEDS",
+          "15000",
+          "15000",
+          null
+        ],
+        [
+          "INCOME",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "FR_OUTFLOW",
+          "10000",
+          "10000",
+          null
+        ],
+        [
+          "FR_THRESHOLD",
+          null,
+          "305",
+          "REACHED"
+        ],
+        [
+          "FR_RATE",
+          null,
+          null,
+          null
+        ]
+      ]
+    },
+    {
+      "template": "FR",
+      "method": "FR_PTA",
+      "year": 2025,
+      "currency": "EUR",
+      "rates": {
+        "2025-01-10": "0.9",
+        "2025-02-01": "0.95",
+        "2025-03-01": "0.92"
+      },
+      "prices": {
+        "BTC": "20000",
+        "ETH": "2000"
+      },
+      "_calc": "[B78] Kauf 1 BTC zu 20000 am 10.1.2025 (Kurs 0.9) und 10 ETH zu 2000 am 1.2.2025 (Kurs 0.95): PTA 40000 USDT. Auszahlung 5 ETH am 1.3.2025: Gesamtwert 20000 + 20000 = 40000, Anteil 10000/40000 = 1/4 → Kürzung 10000 USDT = je 5000 aus beiden Käufen; in EUR zum Kurs der Kaufdaten 5000 × 0.9 + 5000 × 0.95 = 9250 (nicht 10000 × 0.92 = 9200 zum Kurs des Abgangs). Abtretungen 0 ≤ 305 → BELOW.",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1736510400000,
+          "price": "20000"
+        },
+        {
+          "id": 2,
+          "coin": "ETH",
+          "type": "BUY",
+          "amount": "10",
+          "time": 1738411200000,
+          "price": "2000"
+        },
+        {
+          "id": 3,
+          "coin": "ETH",
+          "type": "WITHDRAWAL",
+          "amount": "5",
+          "time": 1740830400000
+        }
+      ],
+      "incompleteLines": [
+        "FR_OUTFLOW"
+      ],
+      "lines": [
+        [
+          "GAINS",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "LOSSES",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "NET",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "PROCEEDS",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "INCOME",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "FR_OUTFLOW",
+          "10000",
+          "9250",
+          null
+        ],
+        [
+          "FR_THRESHOLD",
+          null,
+          "305",
+          "BELOW"
+        ],
+        [
+          "FR_RATE",
+          null,
+          null,
+          null
+        ]
+      ]
+    },
+    {
+      "template": "AT",
+      "method": "AT_MOVING_AVERAGE",
+      "year": 2021,
+      "_calc": "[B78] Neuvermögen (Kauf 1 BTC 1.4.2021 zu 1000 + 10 Gebühr) verkauft am 1.10.2021 zu 1500: alte Rechtslage (§ 31 EStG a. F.) — Anschaffungskosten samt Kaufgebühr 1010, Spekulationsgewinn 1500 − 1010 = 490 in OLD_SHORT_NET, NEW_NET 0, AT_RATE 0. Freigrenze 440: 490 > 440 → REACHED.",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1617278400000,
+          "price": "1000",
+          "fee": "10",
+          "feeUnit": "QUOTE"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1633089600000,
+          "price": "1500"
+        }
+      ],
+      "lines": [
+        [
+          "GAINS",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "LOSSES",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "NEW_NET",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "OLD_SHORT_NET",
+          "490",
+          "490",
+          null
+        ],
+        [
+          "OLD_LONG_NET",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "PROCEEDS",
+          "1500",
+          "1500",
+          null
+        ],
+        [
+          "INCOME",
+          "0",
+          "0",
+          null,
+          "AT_REWARD_INFO"
+        ],
+        [
+          "AT_RATE",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "AT_OLD_SPECULATION_LIMIT",
+          null,
+          "440",
+          "REACHED"
+        ]
+      ]
+    },
+    {
+      "template": "AT",
+      "method": "AT_MOVING_AVERAGE",
+      "year": 2022,
+      "_calc": "[B78] Gleicher Kauf (1 BTC 1.4.2021 zu 1000 + 10 Gebühr), verkauft am 1.4.2022 zu 1500: neue Rechtslage, Gewinn 1500 − 1000 = 500 zum Sondersteuersatz 27,5 % (Kaufgebühr nicht abziehbar, § 27a Abs. 4 Z 2 EStG). Kein Verkauf vor dem 1.3.2022 → keine Spekulations-Zeilen, keine Freigrenze.",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1617278400000,
+          "price": "1000",
+          "fee": "10",
+          "feeUnit": "QUOTE"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1648814400000,
+          "price": "1500"
+        }
+      ],
+      "lines": [
+        [
+          "GAINS",
+          "500",
+          "500",
+          null
+        ],
+        [
+          "LOSSES",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "NEW_NET",
+          "500",
+          "500",
+          null
+        ],
+        [
+          "PROCEEDS",
+          "1500",
+          "1500",
+          null
+        ],
+        [
+          "INCOME",
+          "0",
+          "0",
+          null,
+          "AT_REWARD_INFO"
+        ],
+        [
+          "AT_RATE",
+          "500",
+          "500",
+          null
+        ]
+      ]
     }
   ],
   "_lostFeeComment": "Netzwerkgebühr verbraucht den letzten Teil mit Kaufpreis: Einstand (10) wird vermerkt (TaxExport.lostFeeCostsIn), gleich für FIFO, FIFO je Wallet, Ø (ohne Vorlage-Regeln) und AT; UK, CA, JP (Build 56: TaxEventRules.networkFeeIsDisposal, Standard dieser Rechnungen): die Gebühr ist eine eigene Veräusserung zum Marktwert, nichts vermerkt; FR kennt keinen Gebühr-Einstand je Coin.",
@@ -6059,6 +7167,11 @@
     [
       "DE",
       "AVERAGE",
+      true
+    ],
+    [
+      "DE",
+      "FIFO",
       true
     ],
     [
@@ -6118,7 +7231,7 @@
     ]
   ],
   "_methodOverriddenComment": "Vorlage erlaubt die Einstandsmethode der App nicht (TaxTemplate.methodOverridden): Export rechnet mit methodFor, Hinweis in Kopfzeile, Dialog und Einstellungen.",
-  "_methodForYearComment": "Methode je Steuerjahr [Vorlage, App-Methode, Beginnjahr, Export-Methode, überschrieben]: US ab 2025 nur FIFO je Wallet (Rev. Proc. 2024-28), davor auch FIFO über alle Wallets.",
+  "_methodForYearComment": "Methode je Steuerjahr [Vorlage, App-Methode, Beginnjahr, Export-Methode, überschrieben]: US ab 2025 nur FIFO je Wallet (Rev. Proc. 2024-28), davor auch FIFO über alle Wallets. [B78] DE nur FIFO je Wallet (BMF 06.03.2025 Rn. 62): App-Einstellung FIFO → Export FIFO je Wallet, überschrieben.",
   "methodForYear": [
     [
       "US",
@@ -6166,8 +7279,8 @@
       "DE",
       "FIFO",
       2025,
-      "FIFO",
-      false
+      "FIFO_WALLET",
+      true
     ],
     [
       "CH",

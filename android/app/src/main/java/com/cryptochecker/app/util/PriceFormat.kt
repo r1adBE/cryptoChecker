@@ -188,9 +188,10 @@ object PriceFormat {
      * Wie `PriceFormat.spokenPrice` (iOS).
      */
     fun spokenPrice(value: Double): String = when {
-        // Locale.ROOT: Punkt und lateinische Ziffern, unabhängig von der Gerätesprache
-        value >= 1000 -> String.format(Locale.ROOT, "%.0f", value)
-        value >= 1 -> String.format(Locale.ROOT, "%.2f", value)
+        // Kaufmännisch aus der kürzesten Darstellung ([DecimalText.fixed]; Punkt, lateinische Ziffern) — gleich wie iOS:
+        // String.format (halb aufwärts) und printf auf iOS (halb gerade) lasen 60000.5 als «60001» bzw. «60000»
+        value >= 1000 -> DecimalText.fixed(value, 0)
+        value >= 1 -> DecimalText.fixed(value, 2)
         else -> DecimalText.plain(value, DecimalText.significantScale(value, 0, SPOKEN_SIGNIFICANT))
     }
 

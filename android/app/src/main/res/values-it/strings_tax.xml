@@ -74,7 +74,7 @@
     <string name="tax_export_proceeds_missing">prezzo di vendita mancante</string>
     <string name="tax_export_proceeds_without_cost">Ricavo senza prezzo d’acquisto</string>
     <string name="tax_export_realized_differs">Il CSV fiscale può differire da «realizzato» (regole fiscali del paese).</string>
-    <string name="tax_export_rule">&gt; 1 anno: venduto dopo la data d’acquisto + 1 anno solare. Date in ora locale. Cambi: cambio giornaliero BCE (ultimo giorno lavorativo precedente).</string>
+    <string name="tax_export_rule">&gt; 1 anno: venduto dopo la data d’acquisto + 1 anno solare. Date in ora locale. Cambi: cambio giornaliero BCE del giorno dell’operazione; in mancanza, l’ultimo cambio fino a 7 giorni prima.</string>
     <string name="tax_export_rules_date">Regole aggiornate al: %1$s</string>
     <string name="tax_export_spouse_gift">al coniuge/partner – né guadagno né perdita</string>
     <string name="tax_export_summary">Riepilogo annuale %1$s (CSV)</string>
@@ -98,7 +98,7 @@
     <!-- Steuer-Export: Zeilen und Spalten -->
     <string name="tax_line_at_interest">Interessi da lending (valore alla ricezione)</string>
     <string name="tax_line_at_old_long">Acquistato prima dell’1.3.2021 – detenuto &gt; 1 anno: di norma non imponibile – verifica</string>
-    <string name="tax_line_at_rate">Aliquota speciale 27,5 per cento: netto acquistato dall’1.3.2021 + interessi (1.3.2021–28.2.2022: vedi nota)</string>
+    <string name="tax_line_at_rate">Aliquota speciale 27,5 per cento: netto acquistato dall’1.3.2021 e venduto dall’1.3.2022 + interessi</string>
     <string name="tax_line_au_discounted">Plusvalenza netta dopo perdite e sconto del 50 per cento</string>
     <string name="tax_line_ca_taxable">Plusvalenza imponibile (tasso di inclusione 1/2)</string>
     <string name="tax_line_ch_income">Ricompense elencate – trattamento vedi documento di lavoro AFC</string>
@@ -115,9 +115,9 @@
     <string name="tax_line_long_net">Netto – detenuto &gt; 1 anno</string>
     <string name="tax_line_losses">Perdite</string>
     <string name="tax_line_net">Guadagni/perdite netti</string>
-    <string name="tax_line_new_net">Netto – acquistato dall’1.3.2021</string>
+    <string name="tax_line_new_net">Netto – acquistato dall’1.3.2021, venduto dall’1.3.2022</string>
     <string name="tax_line_old_long_net">Netto – acquistato prima dell’1.3.2021 – detenuto &gt; 1 anno</string>
-    <string name="tax_line_old_short_net">Netto – acquistato prima dell’1.3.2021 – detenuto ≤ 1 anno</string>
+    <string name="tax_line_old_short_net">Netto – operazioni speculative (vecchia normativa): acquistato prima dell’1.3.2021 e detenuto ≤ 1 anno, o venduto prima dell’1.3.2022</string>
     <string name="tax_line_proceeds">Ricavi</string>
     <string name="tax_line_short_net">Netto – detenuto ≤ 1 anno</string>
     <string name="tax_line_transfer_fees">Commissioni di trasferimento (propri wallet)</string>
@@ -191,7 +191,7 @@
     <string name="tax_note_withdrawal_fee">Una commissione di prelievo in USDT o contanti non è una perdita: in contanti non è deducibile, in USDT è una cessione alla pari senza guadagno – compare solo come informazione (%1$s).</string>
     <string name="tax_summary_at_interest_income">conta: reddito alla ricezione con aliquota speciale del 27,5 per cento (§ 27b c. 2 n. 1 EStG / BMF) – le monete mantengono questo valore come costo d’acquisto</string>
     <string name="tax_summary_at_reward_info">solo a titolo informativo – in nessun totale: le ricompense entrano nel nuovo patrimonio a costo d’acquisto 0 e sono tassate solo alla vendita (già nelle plusvalenze) – § 27b Abs. 2 EStG / BMF</string>
-    <string name="tax_summary_at_transition_2021">Vendite/scambi di nuove consistenze dall’1.3.2021 al 28.2.2022: vecchia normativa (§ 31 EStG versione previgente) con opzione per il 27,5 per cento – da chiarire con un consulente fiscale</string>
+    <string name="tax_summary_at_transition_2021">1.1.–28.2.2022: opzione per il 27,5 per cento possibile</string>
     <string name="tax_summary_at_withdrawal_fee">Commissione di prelievo – non compensata con le nuove consistenze (spese non deducibili all’aliquota speciale, § 20 c. 2 EStG)</string>
     <string name="tax_summary_ch_fifo_info">solo a titolo informativo – calcolo FIFO dell’app – non classificato – vedi AFC</string>
     <string name="tax_summary_ch_year_end_value">valore al 31.12 nel CSV delle posizioni = prezzo dell’exchange × USD/CHF – non i valori fiscali della lista dei corsi AFC</string>

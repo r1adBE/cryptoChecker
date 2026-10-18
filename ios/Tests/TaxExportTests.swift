@@ -31,6 +31,7 @@ final class TaxExportTests: XCTestCase {
             tx.toCoin = t["toCoin"] as? String
             tx.toAmountExact = dec(t["toAmount"])
             tx.swapValueExact = dec(t["swapValue"])
+            tx.interest = t["interest"] as? Bool ?? false
             return tx
         }
     }
@@ -142,6 +143,26 @@ final class TaxExportTests: XCTestCase {
                                                                  rates: rates(d), usdtUsd: usdt),
                                             texts: marked, header: d["header"] as? [String] ?? []))
         for line in m["incomeLines"] as? [String] ?? [] { XCTAssertTrue(csv.contains(line), "income line \(line) in \(csv)") }
+    }
+
+    /// Build 78: Einkünfte-CSV AT — Zins (beim Zufluss steuerpflichtig) und Staking (nur Information) je Zeile vermerkt,
+    /// zwei Summen mit je eigenem «unvollständig»; ohne die AT-Texte (alle anderen Vorlagen) unverändert eine Summe. Wie Android.
+    func testAtIncomeSplitsInterestAndStaking() throws {
+        let d = try data()
+        let zone = try XCTUnwrap(TimeZone(identifier: d["zone"] as? String ?? ""))
+        let currency = d["currency"] as? String ?? ""
+        let header = d["header"] as? [String] ?? []
+        let a = try XCTUnwrap(d["atIncome"] as? [String: Any])
+        let rows = TaxExport.incomeRows(trades(a), period: TaxTemplate.NEUTRAL.period(2025), timeZone: zone,
+                                        currency: currency, rates: rates(d))
+        let x = a["atTexts"] as? [String: Any] ?? [:]
+        var at = texts(d)
+        at.incomeInterest = x["incomeInterest"] as? String ?? ""
+        at.incomeStaking = x["incomeStaking"] as? String ?? ""
+        at.totalInterest = x["totalInterest"] as? String ?? ""
+        at.totalStaking = x["totalStaking"] as? String ?? ""
+        XCTAssertEqual(lines(TaxExport.incomeCsv(rows, texts: at, header: header)), a["at"] as? [String], "AT")
+        XCTAssertEqual(lines(TaxExport.incomeCsv(rows, texts: texts(d), header: header)), a["neutral"] as? [String], "neutral")
     }
 
     func testCsvCases() throws {

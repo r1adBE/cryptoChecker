@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Hinweis der Gesamtkarte: «Seit Kauf» und Einstand in der Anzeigewährung zum Devisenkurs des Kauftags (PortfolioCostFx); %1$s = Währung -->
+    <string name="ledger_cost_fx_note">«Από την αγορά» και κόστος κτήσης σε %1$s: κόστος με την ισοτιμία της ημέρας αγοράς, αξία με τη σημερινή ισοτιμία.</string>
+    <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
+    <string name="ledger_cost_fx_missing">Δεν υπάρχει ισοτιμία για την ημέρα αγοράς (λείπει από «Από την αγορά» και το κόστος κτήσης): %1$s</string>
+    <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
+    <string name="ledger_cost_fx_usdt_assumed">Κόστος σε ημέρες αγοράς χωρίς ισοτιμία USDT/USD υπολογισμένο με USDT = 1.</string>
+    <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
+    <string name="tax_export_at_income_interest">Τόκοι – φορολογούνται κατά την είσπραξη</string>
+    <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->
+    <string name="tax_export_at_income_staking">Staking – μόνο για ενημέρωση (κόστος κτήσης 0, φορολογείται κατά την πώληση)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der Zinsen -->
+    <string name="tax_export_at_total_interest">Σύνολο τόκων (φορολογητέοι)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der übrigen Belohnungen -->
+    <string name="tax_export_at_total_staking">Σύνολο staking (ενημέρωση)</string>
+</resources>

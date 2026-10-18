@@ -9,7 +9,7 @@
     <string name="backup_restore_interrupted_rolled_back">Aplikasi ditutup saat memulihkan cadangan. Data sebelumnya telah dikembalikan; tidak ada yang diambil dari cadangan.</string>
     <string name="backup_restore_interrupted_incomplete">Aplikasi ditutup saat memulihkan cadangan, dan data sebelumnya tidak dapat dikembalikan sepenuhnya. Periksa daftar pantau dan portofolio, atau pulihkan cadangan lagi di “%1$s” di Pengaturan.</string>
     <string name="backup_not_verified">File cadangan tidak dapat diverifikasi setelah disimpan – saat dibaca ulang isinya berbeda. Simpan cadangan ke file baru.</string>
-    <string name="tax_line_at_old_speculation_limit">Diperoleh sebelum 1 Mar 2021 – dimiliki ≤ 1 tahun: batas bebas transaksi spekulatif (§ 31 (3) EStG versi lama)</string>
+    <string name="tax_line_at_old_speculation_limit">Transaksi spekulatif (ketentuan lama, dimiliki ≤ 1 tahun): batas bebas (§ 31 (3) EStG versi lama)</string>
     <string name="portfolio_tx_interest">Bunga (pinjaman)</string>
     <string name="portfolio_tx_interest_hint">Dihitung sebagai penghasilan saat diterima (Austria). Biarkan nonaktif untuk hadiah staking dan airdrop.</string>
     <string name="app_lock_no_screen_lock">Atur kunci layar untuk membuka portofolio.</string>

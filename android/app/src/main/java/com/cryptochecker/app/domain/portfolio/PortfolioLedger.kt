@@ -51,7 +51,7 @@ data class PortfolioLedgerEvent(val trade: PortfolioTrade, val feeLeg: Boolean, 
  *  - Adress-Einträge ([AddressBalance.isAddressTrade], Einzahlung/Auszahlung ohne Preis aus
  *    [AddressBalanceHistory.trades]): zum Marktkurs (kein Gewinn aus Guthaben-Änderungen).
  *  - Umbuchung: + (Gebühr USDT + Wert der Gebühr im dritten Coin) — sie stecken im Einstand; die
- *    Netzwerkgebühr im Coin senkt nur die Menge (Wert am Ende).
+ *    Netzwerkgebühr im Coin senkt nur die Menge (Wert am Ende). Ohne Bestand in der Quelle 0 (wie im Rechner).
  *  - Gebühr-Abgang: − (Gebühr × Gebühr-Preis), ohne Bestand 0; ohne Gebühr-Preis zum MARKTKURS des Gebühr-Coins
  *    ([needsMarketPrice]); ohne Marktkurs unbekannt.
  *  - Tausch (neutral: der Wert wandert von einem Coin zum anderen): abgegebener Coin − (abgegebene Menge × Wert je
@@ -294,6 +294,8 @@ object PortfolioLedger {
             t.swapValue?.let { return it }
             return market?.let { t.toAmount!! * it }
         }
+        // Umbuchung ohne Bestand (in ihrer Quelle): wie im Rechner ([PortfolioFifo], Ø) ohne Wirkung — auch ihre Gebühren
+        if (t.type == PortfolioTxType.TRANSFER && h.signum() <= 0) return BigDecimal.ZERO
         // Gebühr im dritten Coin ohne Preis: zum Marktkurs des Gebühr-Coins
         val feeValue = t.thirdFeeValue
             ?: exactPrice(feeMarketPrice)?.let { t.thirdFeeAmount * it }

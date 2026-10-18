@@ -85,6 +85,14 @@ struct TaxCsvTexts: Sendable {
     var transferFeeInfo: String = ""
     /// Vermerk «USDT = 1 USD angenommen» (`TaxGainRow.usdtApproximate`, `TaxIncomeRow.usdtApproximate`); leer = kein Vermerk.
     var usdtAssumed: String = ""
+    /// AT (nur diese Vorlage füllt sie, `withTemplateTexts`): Einkünfte getrennt wie in der Jahresübersicht
+    /// (`TaxIncomeRow.interest`) — Vermerk je Zeile «Zins – steuerpflichtig beim Zufluss» bzw. «Staking – nur zur
+    /// Information (Anschaffungskosten 0, besteuert beim Verkauf)» und statt der einen Summe zwei Summenzeilen «Summe Zins
+    /// (steuerpflichtig)» / «Summe Staking (Information)». Leer (alle anderen Vorlagen) = eine Summe wie bisher. Wie Android.
+    var incomeInterest: String = ""
+    var incomeStaking: String = ""
+    var totalInterest: String = ""
+    var totalStaking: String = ""
 
     /// Aus den App-Texten; Währungsspalten mit `currency`, Zeitzone der Daten `zone` (die der Vorlage, Neutral: Gerät).
     static func localized(currency: String, zone: TimeZone = .current) -> TaxCsvTexts {
@@ -317,7 +325,10 @@ extension TaxExport {
         return out
     }
 
-    /// CSV «Einkünfte» mit BOM; `header` = Kopfzeilen (je ein Feld).
+    /// CSV «Einkünfte» mit BOM; `header` = Kopfzeilen (je ein Feld). Mit `texts.totalInterest` und `texts.totalStaking`
+    /// (AT) Zins und übrige Belohnungen getrennt: Vermerk je Zeile und je eine Summenzeile mit eigenem «unvollständig» —
+    /// Zinsen sind beim Zufluss steuerpflichtig, Staking im Neubestand nur Information (sonst doppelt mit dem
+    /// Verkaufsgewinn bei Anschaffungskosten 0; gleiche Einteilung wie `yearSummary`). Wie Android.
     static func incomeCsv(_ rows: [TaxIncomeRow], texts: TaxCsvTexts, header: [String],
                           format: CutoffCsvFormat = .semicolonPoint) -> String {
         func n(_ text: String) -> String {
@@ -329,8 +340,13 @@ extension TaxExport {
         for h in header { out += line([t(h)], format) }
         if !texts.timeZone.isEmpty { out += line([t(texts.timeZone)], format) }
         out += line([texts.date, texts.coin, texts.amount, texts.valueUsdt, texts.valueTarget, texts.note].map { t($0) }, format)
+        let split = !texts.totalInterest.isEmpty && !texts.totalStaking.isEmpty
         for r in rows {
             var notes: [String] = []
+            if split {
+                let kind = r.interest ? texts.incomeInterest : texts.incomeStaking
+                if !kind.isEmpty { notes.append(kind) }
+            }
             if r.valueMissing { notes.append(texts.valueMissing) }
             if r.estimated && !texts.valueEstimated.isEmpty { notes.append(texts.valueEstimated) }
             if r.usdtApproximate && !texts.usdtAssumed.isEmpty { notes.append(texts.usdtAssumed) }
@@ -338,9 +354,17 @@ extension TaxExport {
             out += line([t(r.date.description), t(r.coin), CsvCell(text: n(CutoffExport.amount(r.amount)), numeric: true),
                          money(r.valueUsdt), money(r.valueTarget), t(notes.joined(separator: ", "))], format)
         }
-        let incomplete = rows.contains { $0.valueMissing || $0.fxMissing }
-        out += line([t(texts.total), t(""), CsvCell(text: "", numeric: true), money(sum(rows) { $0.valueUsdt }),
-                     money(sum(rows) { $0.valueTarget }), t(incomplete ? texts.incomplete : "")], format)
+        func total(_ label: String, _ list: [TaxIncomeRow]) {
+            let incomplete = list.contains { $0.valueMissing || $0.fxMissing }
+            out += line([t(label), t(""), CsvCell(text: "", numeric: true), money(sum(list) { $0.valueUsdt }),
+                         money(sum(list) { $0.valueTarget }), t(incomplete ? texts.incomplete : "")], format)
+        }
+        if split {
+            total(texts.totalInterest, rows.filter(\.interest))
+            total(texts.totalStaking, rows.filter { !$0.interest })
+        } else {
+            total(texts.total, rows)
+        }
         return out
     }
 
@@ -371,7 +395,7 @@ extension TaxExport {
             if l.incomplete { notes.append(texts.incomplete) }
             if l.noFx { notes.append(texts.noFx) }
             if l.notCalculated && !texts.notCalculated.isEmpty { notes.append(texts.notCalculated) }
-            if let note = l.note, let text = texts.notes[note], !text.isEmpty { notes.append(text) }
+            if let text = l.noteText(texts) { notes.append(text) }
             return textLine([label, money(l.usdt), money(l.target), notes.joined(separator: ", ")], format, numeric: [1, 2])
         }
         // Zuerst nur Tatsachen; Schlüsse der Vorlage nur im eigenen Block, jeder Posten mit Vorsatz «Orientierung:»

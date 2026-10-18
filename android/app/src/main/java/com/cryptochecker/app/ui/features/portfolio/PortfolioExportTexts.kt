@@ -10,6 +10,7 @@ import androidx.compose.ui.res.stringResource
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.portfolio.CutoffCsvTexts
 import com.cryptochecker.app.domain.portfolio.EstvKursliste
+import com.cryptochecker.app.domain.portfolio.TAX_NOTE_DATE
 import com.cryptochecker.app.domain.portfolio.TaxCsvTexts
 import com.cryptochecker.app.domain.portfolio.TaxLine
 import com.cryptochecker.app.domain.portfolio.TaxMethod
@@ -18,9 +19,12 @@ import com.cryptochecker.app.domain.portfolio.TaxSummaryTexts
 import com.cryptochecker.app.domain.portfolio.TaxTemplate
 import java.time.ZoneId
 
-/** Texte der CSV «Realisierte Veräusserungen» und «Einkünfte» ([TaxCsvTexts]); Währungsspalten mit [currency]. */
+/**
+ * Texte der CSV «Realisierte Veräusserungen» und «Einkünfte» ([TaxCsvTexts]); Währungsspalten mit [currency]. [template]
+ * AT: Einkünfte getrennt nach Zins und Staking (Vermerke, zwei Summen); sonst eine Summe.
+ */
 @Composable
-internal fun taxCsvTexts(currency: String, zone: ZoneId = ZoneId.systemDefault()): TaxCsvTexts = TaxCsvTexts(
+internal fun taxCsvTexts(currency: String, zone: ZoneId = ZoneId.systemDefault(), template: TaxTemplate = TaxTemplate.NEUTRAL): TaxCsvTexts = TaxCsvTexts(
     coin = stringResource(R.string.portfolio_export_col_coin),
     acquired = stringResource(R.string.tax_export_col_acquired),
     sold = stringResource(R.string.tax_export_col_sold),
@@ -90,6 +94,11 @@ internal fun taxCsvTexts(currency: String, zone: ZoneId = ZoneId.systemDefault()
     unassignedFee = stringResource(R.string.tax_export_unassigned_fee),
     // USDT zum Marktkurs: Tag ohne USDT/USD-Tagesschluss rechnet mit 1 — je Zeile vermerkt
     usdtAssumed = stringResource(R.string.portfolio_usdt_assumed),
+    // AT: Zinsen beim Zufluss steuerpflichtig, Staking (Neubestand) nur Information — getrennt wie die Jahresübersicht
+    incomeInterest = if (template == TaxTemplate.AT) stringResource(R.string.tax_export_at_income_interest) else "",
+    incomeStaking = if (template == TaxTemplate.AT) stringResource(R.string.tax_export_at_income_staking) else "",
+    totalInterest = if (template == TaxTemplate.AT) stringResource(R.string.tax_export_at_total_interest) else "",
+    totalStaking = if (template == TaxTemplate.AT) stringResource(R.string.tax_export_at_total_staking) else "",
 )
 
 /** Texte des Stichtag-Exports ([CutoffCsvTexts]) in [currency]. */
@@ -236,6 +245,7 @@ private fun taxLineLabel(l: TaxLine): Int = when (l) {
     TaxLine.US_TERMS -> R.string.tax_line_us_terms
     TaxLine.CA_TAXABLE -> R.string.tax_line_ca_taxable
     TaxLine.AU_DISCOUNTED -> R.string.tax_line_au_discounted
+    TaxLine.NET_CAPITAL_LOSS -> R.string.tax_line_net_capital_loss
     TaxLine.FR_THRESHOLD -> R.string.tax_line_fr_threshold
     TaxLine.FR_RATE -> R.string.tax_line_fr_rate
     TaxLine.JP_MISC -> R.string.tax_line_jp_misc
@@ -280,5 +290,10 @@ internal fun taxSummaryTexts(t: TaxTemplate, yearLabel: String, currency: String
         TaxSummaryNote.TRANSFER_FEE_INFO to stringResource(R.string.tax_summary_transfer_fee_info),
         TaxSummaryNote.AT_INTEREST_INCOME to stringResource(R.string.tax_summary_at_interest_income),
         TaxSummaryNote.AT_TRANSITION_2021 to stringResource(R.string.tax_summary_at_transition_2021),
+        TaxSummaryNote.AT_WITHOUT_OPTION to stringResource(R.string.tax_summary_at_without_option),
+        TaxSummaryNote.AT_STAKING_ZERO_COST to stringResource(R.string.tax_summary_at_staking_zero_cost),
+        // Datum setzt die Übersicht ein ([noteText]): hier nur der Platzhalter
+        TaxSummaryNote.WINDOW_OPEN to stringResource(R.string.tax_summary_window_open, TAX_NOTE_DATE),
+        TaxSummaryNote.UK_HMRC_REPORT to stringResource(R.string.tax_summary_uk_hmrc_report),
     ),
 )

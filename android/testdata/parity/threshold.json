@@ -147,7 +147,7 @@
     {"value": "0", "locale": "en_US", "expected": "\u2014"},
     {"value": null, "locale": "en_US", "expected": "\u2014"}
   ],
-  "spokenPriceDescription": "PriceFormat.spokenPrice: price -> text for speech output (point as decimal separator). From 1000 no decimals, from 1 two decimals, below 1 four significant digits rounded HALF_UP, no exponent, no trailing zeros.",
+  "spokenPriceDescription": "PriceFormat.spokenPrice: price -> text for speech output (point as decimal separator). From 1000 no decimals, from 1 two decimals (both HALF_UP from the shortest decimal text, DecimalText.fixed: 60000.5 -> 60001, 2.675 -> 2.68), below 1 four significant digits rounded HALF_UP, no exponent, no trailing zeros.",
   "spokenPrice": [
     {"value": "0.00000712", "expected": "0.00000712"},
     {"value": "0.0000004", "expected": "0.0000004"},
@@ -157,6 +157,9 @@
     {"value": "0.99996", "expected": "1"},
     {"value": "0", "expected": "0"},
     {"value": "1.5", "expected": "1.50"},
-    {"value": "65000.4", "expected": "65000"}
+    {"value": "65000.4", "expected": "65000"},
+    {"value": "60000.5", "expected": "60001"},
+    {"value": "2.675", "expected": "2.68"},
+    {"value": "1.005", "expected": "1.01"}
   ]
 }

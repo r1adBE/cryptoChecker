@@ -194,14 +194,17 @@ extension TaxEngines {
                     let v: Decimal? = unit.map { PortfolioDecimal.multiply(qty, $0) }
                     let value: Decimal? = portfolioValue(coin, unit, t.time).map { $0 - spent }
                     var reduction: Decimal? = nil
+                    var reductionParts: [PortfolioCostPart] = []
                     if let v, let value, value > 0 {
-                        reduction = reduce(v, value).cost
+                        let r = reduce(v, value)
+                        reduction = r.cost
+                        reductionParts = r.parts
                     } else {
                         // Kurs fehlt: Kürzung unbekannt, die PTA danach nicht mehr gesichert
                         incomplete = true
                     }
                     outflows.append(TaxOutflow(coin: coin, txId: t.id, time: t.time, amount: qty, valueUsdt: v,
-                                               ptaReductionUsdt: reduction))
+                                               ptaReductionUsdt: reduction, ptaReductionParts: reductionParts))
                 case .SWAP, .TRANSFER:
                     // Tausch Krypto↔Krypto: aufgeschoben (sursis d'imposition), PTA unverändert — auch in einen Stablecoin
                     // (USDT, USDC …): er bleibt im Gesamtwert, steuerbar erst sein Verkauf gegen Euro; Umbuchung zwischen
@@ -224,8 +227,24 @@ extension TaxEngines {
     }
 }
 
+extension TaxEngines {
+    /// FR: Coins mit eigenem Bestand unmittelbar vor `t` in der Reihenfolge der Rechnung (`PortfolioLedger.precedes`: Zeit,
+    /// bei gleicher Zeit Zugänge vor Abgängen, dann Id) — genau die Bestände, die `frPta` im Gesamtwert vor `t` zählt. Für
+    /// die Kursabfrage des Exports: ein Kauf derselben Millisekunde, den die Rechnung davor bucht, braucht ebenfalls einen
+    /// Kurs. `own` ohne Adress-Einträge. Wie `frHeldBefore` (Android).
+    static func frHeldBefore(_ own: [PortfolioTx], _ t: PortfolioTx) -> Set<String> {
+        let key = PortfolioLedgerEvent(trade: t, feeLeg: false)
+        let before = own.filter {
+            $0.time <= t.time && PortfolioLedger.precedes(PortfolioLedgerEvent(trade: $0, feeLeg: false), key) == true
+        }
+        return Set(PortfolioCalculator.holdingsAt(before, time: .max, method: .FIFO).map(\.coin))
+    }
+}
+
 /// FR: Abgang ohne Verkauf (Auszahlung) — wie `TaxOutflow` (Android): Menge ohne Gebühr (die ist eine Abtretung), Wert beim Abgang,
-/// Kürzung der Erwerbspreis-Summe (USDT); nil = Kurs fehlt.
+/// Kürzung der Erwerbspreis-Summe (USDT); nil = Kurs fehlt. `ptaReductionParts` = Herkunft der Kürzung (Anteil der
+/// Erwerbspreis-Summe je Kaufdatum, Summe = `ptaReductionUsdt`) — in der Steuerwährung zum Kurs der Kaufdaten wie der
+/// Einstand einer Abtretung, nicht zum Kurs des Abgangs.
 struct TaxOutflow: Sendable, Equatable {
     let coin: String
     let txId: Int64
@@ -233,4 +252,5 @@ struct TaxOutflow: Sendable, Equatable {
     let amount: Decimal
     let valueUsdt: Decimal?
     let ptaReductionUsdt: Decimal?
+    var ptaReductionParts: [PortfolioCostPart] = []
 }

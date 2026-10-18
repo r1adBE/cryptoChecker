@@ -293,6 +293,9 @@ enum TaxEngines {
                     continue
                 }
                 if method == .FR_PTA {
+                    // FR: der ganze Kaufpreis samt Gebühr steckt schon in der Erwerbspreis-Summe (frPta) — eine
+                    // Verlust-Zeile für den verbrauchten Zugang zählte ihn ein zweites Mal
+                    if d.feeExpense == .CONSUMED { continue }
                     // FR: Gebühr im dritten Coin einer Auszahlung ist schon eine eigene Abtretung (frPta) — als Aufwand
                     // bleibt nur die Gebühr USDT
                     if d.feeExpense == .WITHDRAWAL, let t = byId[d.sellTxId], t.thirdFeeCoin != nil {

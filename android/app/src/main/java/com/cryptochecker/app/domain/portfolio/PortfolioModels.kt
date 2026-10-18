@@ -341,6 +341,13 @@ data class CoinPosition(
      * [costBasisExact], wenn kein Teil ohne Kaufpreis ist. null ohne eigenen Teil mit Kaufpreis.
      */
     val pricedCostExact: BigDecimal? = costBasisExact,
+    /**
+     * Herkunft von [pricedCostExact] ([PortfolioCostPart]: Zeitpunkt und Betrag je Zugang bzw. zugeschlagener Gebühr,
+     * Summe = [pricedCostExact]) nach der Einstandsmethode — FIFO die offenen Posten, Ø der Topf nach anteiligen
+     * Abgängen. Leer ohne Teil mit Kaufpreis bzw. bei Einstand 0. Basis von «Seit Kauf» in der Anzeigewährung
+     * ([PortfolioCostFx]).
+     */
+    val pricedCostParts: List<PortfolioCostPart> = emptyList(),
 ) {
     val isOpen: Boolean get() = holdingsExact.signum() > 0
 

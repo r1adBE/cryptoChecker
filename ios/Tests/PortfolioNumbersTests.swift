@@ -26,6 +26,17 @@ final class PortfolioNumbersTests: XCTestCase {
                                dayEndMillis: { PortfolioHistory.dayEndMillis($0, timeZone: self.utc) })
     }
 
+    /// «Heute» für «7 T/1 J», Verlauf und Erwerbstage ist der UTC-Tag: 00:30 Zürich-Sommerzeit ist UTC noch der Vortag.
+    /// Wie Android `PortfolioHistoryTest.utcTodayIsTheUtcDayNotTheLocalDate`.
+    func testUtcTodayIsTheUtcDayNotTheLocalDate() {
+        // 2026-07-01 00:30 Zürich (UTC+2) = 2026-06-30 22:30 UTC
+        let millis = Int64(LocalDay(2026, 7, 1).epochDay) * 86_400_000 - 90 * 60_000
+        XCTAssertEqual(PortfolioHistory.utcToday(now: millis), LocalDay(2026, 6, 30).epochDay)
+        XCTAssertEqual(PortfolioHistory.utcToday(now: millis), PortfolioHistory.epochDay(utcMillis: millis))
+        // 02:30 Zürich = 00:30 UTC: gleich wie das lokale Datum
+        XCTAssertEqual(PortfolioHistory.utcToday(now: millis + 2 * 3_600_000), LocalDay(2026, 7, 1).epochDay)
+    }
+
     // MARK: Stablecoins
 
     func testOneListEverywhere() {
@@ -172,6 +183,39 @@ final class PortfolioNumbersTests: XCTestCase {
         XCTAssertEqual(WatchlistConversion.fxTime(watch, fxTimes: ["EUR": now - 4 * h], now: now), now - 4 * h)
         XCTAssertNil(WatchlistConversion.fxTime(watch, fxTimes: ["EUR": now - h], now: now))
         XCTAssertNil(WatchlistConversion.fxTime(watch, fxTimes: ["USDT": now - 4 * h], now: now))
+    }
+
+    /// Krypto-/Stablecoin-Kurs für die Umrechnung höchstens 15 min alt, sonst kein Faktor (Alarm und «≈»). Wie Android.
+    func testQuotePriceForConversionAtMostFifteenMinutesOld() {
+        let min: Int64 = 60_000
+        let now = 1_000 * min
+        XCTAssertEqual(CurrencyConversion.quoteMaxAgeMillis, 15 * min)
+        XCTAssertEqual(CurrencyConversion.freshQuotePrice(60_000, time: now - 15 * min, now: now), 60_000)
+        XCTAssertEqual(CurrencyConversion.freshQuotePrice(60_000, time: now, now: now), 60_000)
+        XCTAssertNil(CurrencyConversion.freshQuotePrice(60_000, time: now - 15 * min - 1, now: now))
+        XCTAssertNil(CurrencyConversion.freshQuotePrice(60_000, time: nil, now: now))
+        XCTAssertNil(CurrencyConversion.freshQuotePrice(60_000, time: 0, now: now))
+        XCTAssertNil(CurrencyConversion.freshQuotePrice(nil, time: now, now: now))
+        // Ohne Kurs kein Faktor (bestehender Weg «keine Umrechnung»)
+        let old = CurrencyConversion.freshQuotePrice(60_000, time: now - 16 * min, now: now)
+        XCTAssertNil(CurrencyConversion.rate(quoteUsd: CurrencyConversion.quoteToUsd(.crypto, usdToQuote: nil, cryptoUsdt: old),
+                                             usdToTarget: 0.8))
+    }
+
+    /// BGN aus einem alten EUR-Kurs behält dessen Abrufzeit (Hinweis mit Uhrzeit), wird nie «frisch». Wie Android.
+    func testBgnFromEurKeepsTheEurFetchTime() {
+        let h: Int64 = 60 * 60_000
+        let now = 100 * h
+        let eur = (rate: 0.86, at: now - 5 * h)
+        let derived = FxRateSource.fxWithTime(own: nil, eur: eur, deriveBgn: true)
+        XCTAssertEqual(derived?.rate ?? 0, 0.86 * 1.95583, accuracy: 1e-12)
+        XCTAssertEqual(derived?.at, now - 5 * h)
+        XCTAssertEqual(CurrencyConversion.staleFxTime(quoteFxAt: nil, targetFxAt: derived?.at, now: now), now - 5 * h)
+        let own = FxRateSource.fxWithTime(own: (rate: 1.7, at: now), eur: eur, deriveBgn: true)
+        XCTAssertEqual(own?.rate, 1.7)
+        XCTAssertEqual(own?.at, now)
+        XCTAssertNil(FxRateSource.fxWithTime(own: nil, eur: eur, deriveBgn: false))
+        XCTAssertNil(FxRateSource.fxWithTime(own: nil, eur: nil, deriveBgn: true))
     }
 
     func testOpenBookUsesMarketPriceOfStable() {
@@ -537,6 +581,26 @@ final class PortfolioNumbersTests: XCTestCase {
         let range = PortfolioHistoryFx.requestRange(days: 30, today: LocalDay(2026, 10, 6))
         XCTAssertEqual(range.from, LocalDay(2026, 8, 30))
         XCTAssertEqual(range.to, LocalDay(2026, 10, 6))
+    }
+
+    /// Devisen-Zeitreihe in Stücken von höchstens 365 Tagen (Frankfurter liefert längere Zeiträume nur wöchentlich).
+    /// Wie Android `fxRequestInChunksOfAtMostOneYear`.
+    func testFxRequestInChunksOfAtMostOneYear() {
+        let from = LocalDay(2023, 1, 1)
+        let to = LocalDay(2026, 10, 6)
+        let chunks = PortfolioHistoryFx.fxChunks(from: from, to: to)
+        XCTAssertEqual(PortfolioHistoryFx.fxChunkDays, 365)
+        XCTAssertEqual(chunks.first?.from, from)
+        XCTAssertEqual(chunks.last?.to, to)
+        for c in chunks { XCTAssertLessThanOrEqual(c.to.epochDay - c.from.epochDay + 1, 365) }
+        for i in 1..<chunks.count { XCTAssertEqual(chunks[i - 1].to.plusDays(1), chunks[i].from) }
+        XCTAssertEqual(chunks.count, 4)
+        let year = PortfolioHistoryFx.fxChunks(from: from, to: from.plusDays(364))
+        XCTAssertEqual(year.count, 1)
+        XCTAssertEqual(year.first?.to, from.plusDays(364))
+        XCTAssertEqual(PortfolioHistoryFx.fxChunks(from: from, to: from.plusDays(365)).count, 2)
+        XCTAssertEqual(PortfolioHistoryFx.fxChunks(from: to, to: to).count, 1)
+        XCTAssertTrue(PortfolioHistoryFx.fxChunks(from: to, to: from).isEmpty)
     }
 
     /// USDT zum Marktkurs (Owner-Entscheid Okt. 2026): jeder Tag × USDT/USD-Schluss DES Tags, heute × Live-Kurs; ein Tag

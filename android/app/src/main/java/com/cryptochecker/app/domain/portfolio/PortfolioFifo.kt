@@ -496,12 +496,13 @@ internal object PortfolioFifo {
         var unpriced = zero
         var cost = zero
         val outLots = ArrayList<PortfolioLot>()
+        val openParts = ArrayList<PortfolioCostPart>()
         // Gebühr-Einstand, für den bis zum Ende kein Posten mit Kaufpreis kam: vermerkt (zeitlich)
         queues.values.flatMapTo(lostFeeCosts) { it.pendingLost }
         lostFeeCosts.sortWith(compareBy<PortfolioLostFeeCost> { it.time }.thenBy { it.txId })
         for (q in queues.values) {
             for (l in q.lots) {
-                if (l.cost != null) { priced += l.amount; cost += l.cost!! } else unpriced += l.amount
+                if (l.cost != null) { priced += l.amount; cost += l.cost!!; openParts += l.parts } else unpriced += l.amount
                 outLots += PortfolioLot(symbol, l.txId, l.acquired, l.kind, l.amount, l.cost, walletOf(q))
             }
         }
@@ -515,6 +516,7 @@ internal object PortfolioFifo {
             shortfalls = shortfalls,
             lostFeeCosts = lostFeeCosts,
             unassignedFees = unassignedFees,
+            openParts = openParts,
         )
     }
 }

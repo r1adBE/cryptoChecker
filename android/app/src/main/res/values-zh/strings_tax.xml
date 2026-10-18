@@ -74,7 +74,7 @@
     <string name="tax_export_proceeds_missing">缺少卖出价</string>
     <string name="tax_export_proceeds_without_cost">无买入价的卖出所得</string>
     <string name="tax_export_realized_differs">税务 CSV 可能与“已实现”不同（各国税务规则）。</string>
-    <string name="tax_export_rule">&gt; 1 年：在买入日期 + 1 个日历年之后卖出。日期为本地时间。汇率：欧洲央行每日汇率（之前最后一个工作日）。</string>
+    <string name="tax_export_rule">&gt; 1 年：在买入日期 + 1 个日历年之后卖出。日期为本地时间。汇率：交易当日的欧洲央行每日汇率；若无，则取此前最多 7 天内的最近汇率。</string>
     <string name="tax_export_rules_date">规则截至：%1$s</string>
     <string name="tax_export_spouse_gift">给配偶/伴侣 – 无盈亏</string>
     <string name="tax_export_summary">年度汇总 %1$s（CSV）</string>
@@ -98,7 +98,7 @@
     <!-- Steuer-Export: Zeilen und Spalten -->
     <string name="tax_line_at_interest">借贷利息（收到时的价值）</string>
     <string name="tax_line_at_old_long">2021年3月1日前取得、持有 &gt; 1 年：通常不征税——请核实</string>
-    <string name="tax_line_at_rate">特别税率 百分之 27.5：2021年3月1日起取得部分的净额 + 利息（2021年3月1日至2022年2月28日：见备注）</string>
+    <string name="tax_line_at_rate">特别税率 百分之 27.5：2021年3月1日起取得且2022年3月1日起出售部分的净额 + 利息</string>
     <string name="tax_line_au_discounted">扣除亏损和百分之 50 的折扣后的净资本利得</string>
     <string name="tax_line_ca_taxable">应税资本利得（计入比例 1/2）</string>
     <string name="tax_line_ch_income">已列出奖励——处理方式见 ESTV 工作文件</string>
@@ -115,9 +115,9 @@
     <string name="tax_line_long_net">净额、持有 &gt; 1 年</string>
     <string name="tax_line_losses">亏损</string>
     <string name="tax_line_net">净盈亏</string>
-    <string name="tax_line_new_net">净额、2021年3月1日起取得</string>
+    <string name="tax_line_new_net">净额、2021年3月1日起取得、2022年3月1日起出售</string>
     <string name="tax_line_old_long_net">净额、2021年3月1日前取得、持有 &gt; 1 年</string>
-    <string name="tax_line_old_short_net">净额、2021年3月1日前取得、持有 ≤ 1 年</string>
+    <string name="tax_line_old_short_net">净额、投机交易（旧法）：2021年3月1日前取得且持有 ≤ 1 年，或2022年3月1日前出售</string>
     <string name="tax_line_proceeds">卖出所得</string>
     <string name="tax_line_short_net">净额、持有 ≤ 1 年</string>
     <string name="tax_line_transfer_fees">转移手续费（自己的钱包之间）</string>
@@ -191,7 +191,7 @@
     <string name="tax_note_withdrawal_fee">USDT 或法币支付的提取手续费不算亏损：法币手续费不可扣除，USDT 手续费是按面值处置、没有收益——仅作参考列出（%1$s）。</string>
     <string name="tax_summary_at_interest_income">计入：收到时按百分之 27.5 特别税率计为收入（§ 27b 第2款第1项 EStG / BMF）——币以该价值作为取得成本</string>
     <string name="tax_summary_at_reward_info">仅供参考——不计入任何合计：奖励以取得成本 0 计入新持仓，仅在出售时征税（已含在收益中）——§ 27b Abs. 2 EStG / BMF</string>
-    <string name="tax_summary_at_transition_2021">2021年3月1日至2022年2月28日出售/兑换新持仓：适用旧法（§ 31 EStG 旧版），可选择百分之 27.5 税率——请咨询税务顾问</string>
+    <string name="tax_summary_at_transition_2021">2022年1月1日至2月28日：可选择百分之 27.5 税率</string>
     <string name="tax_summary_at_withdrawal_fee">提取手续费——不与新持仓抵扣（按特别税率费用不可扣除，§ 20(2) EStG）</string>
     <string name="tax_summary_ch_fifo_info">仅供参考——应用的 FIFO 计算——未分类——见 ESTV</string>
     <string name="tax_summary_ch_year_end_value">持仓 CSV 中 12 月 31 日的价值 = 交易所价格 × USD/CHF——不是 ESTV 价目表的计税价值</string>

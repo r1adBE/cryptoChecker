@@ -69,6 +69,17 @@ enum CurrencyConversion {
     /// Ab diesem Alter (Abrufzeit) zeigt die ≈ Umrechnung die Uhrzeit des Devisenkurses (3 h).
     static let fxStaleMillis: Int64 = 3 * 60 * 60_000
 
+    /// Höchstalter eines Krypto- bzw. Stablecoin-Kurses (Quote in USDT aus dem Zwischenspeicher der Portfolio-Kurse) für
+    /// die Umrechnung (15 min): ein Alarm in CHF auf ein BTC-Paar darf nicht mit einem Kurs von gestern umrechnen.
+    static let quoteMaxAgeMillis: Int64 = 15 * 60_000
+
+    /// `price` nur, wenn seine Abrufzeit `time` höchstens `quoteMaxAgeMillis` vor `now` liegt; älter oder ohne Zeit nil —
+    /// dann gibt es keinen Faktor (≈ fehlt, Alarm in fremder Währung prüft diesmal nicht). Wie Android `freshQuotePrice`.
+    static func freshQuotePrice(_ price: Double?, time: Int64?, now: Int64) -> Double? {
+        guard let price, let time, time > 0 else { return nil }
+        return now - time <= quoteMaxAgeMillis ? price : nil
+    }
+
     /// Abrufzeit des ältesten Devisenkurses im Faktor Quote → Ziel (`quoteFxAt`: Kurs der Fiat-Quote,
     /// `targetFxAt`: Kurs der Zielwährung; je nil = nicht beteiligt), wenn älter als `fxStaleMillis`;
     /// sonst nil (kein Hinweis).
@@ -120,7 +131,8 @@ enum CurrencyConversion {
 /// Quote → USD: Stablecoins mit Marktkurs (`CurrencyConversion.stableToUsd`: USD/USDT 1, andere
 /// ihr Marktkurs in USDT von der `PortfolioPriceSource` — ohne Kurs kein Faktor, wie die Portfolio-Regel
 /// `PortfolioStables`), Fiat über `FxRateSource`, alles andere als Krypto über den USDT-Kurs der
-/// `PortfolioPriceSource`. Danach USD → Ziel über `FxRateSource`; Alter der Devisenkurse: `staleFxTime`. Liegt in Shared/, weil auch die Alarmprüfung (Widget-Erweiterung,
+/// `PortfolioPriceSource`. Danach USD → Ziel über `FxRateSource`; Alter der Devisenkurse: `staleFxTime`. Krypto- und
+/// Stablecoin-Kurse älter als `CurrencyConversion.quoteMaxAgeMillis` ergeben keinen Faktor (`freshMarket`). Liegt in Shared/, weil auch die Alarmprüfung (Widget-Erweiterung,
 /// Hintergrund) sie braucht; beide Quellen haben eigene Zwischenspeicher.
 /// USDT zum Marktkurs (Owner-Entscheid Okt. 2026): USDT und alles, was über USDT bewertet wird, × Live-Kurs USDT/USD
 /// (`DepegAlarmCheck.liveUsdtUsd`, gemessen mit Portfolio oder Depeg-Alarm); ohne frische Messung 1 (bisherige Rechnung).
@@ -175,7 +187,7 @@ enum CurrencyConverter {
         case .fiat: quoteUsd = CurrencyConversion.quoteToUsd(.fiat, usdToQuote: FxRateSource.cached(from), cryptoUsdt: nil)
         case .crypto:
             quoteUsd = CurrencyConversion.quoteToUsd(.crypto, usdToQuote: nil,
-                                                     cryptoUsdt: PortfolioPriceSource.cached([from]).prices[from],
+                                                     cryptoUsdt: freshMarket(PortfolioPriceSource.cached([from]), from),
                                                      usdtUsd: liveUsdtUsd())
         case .invalid: quoteUsd = nil
         }
@@ -236,7 +248,14 @@ enum CurrencyConverter {
     /// zusätzliche Abfrage); nil = keiner bekannt (dann kein Faktor). USD/USDT brauchen keinen.
     private static func stableMarket(_ code: String) -> Double? {
         guard CurrencyConversion.stableNeedsMarket(code) else { return nil }
-        return PortfolioPriceSource.cached([code]).prices[code]
+        return freshMarket(PortfolioPriceSource.cached([code]), code)
+    }
+
+    /// Kurs von `code` aus `prices`, nur wenn höchstens `CurrencyConversion.quoteMaxAgeMillis` alt: Die Kursquelle behält
+    /// bei einem Fehler den letzten bekannten Kurs (für das Portfolio richtig) — für die Umrechnung von Alarmen und «≈»
+    /// wäre ein Kurs von gestern still falsch. Wie Android.
+    private static func freshMarket(_ prices: PortfolioPrices, _ code: String, now: Int64 = TimeUtils.nowMillis) -> Double? {
+        CurrencyConversion.freshQuotePrice(prices.prices[code], time: prices.times[code], now: now)
     }
 
     private static func quoteToUsd(_ quote: String) async -> Double? {
@@ -246,14 +265,15 @@ enum CurrencyConverter {
         case .usd:
             // Stablecoin ausser USD/USDT: Marktkurs (wie das Portfolio), ohne Kurs kein Faktor; USDT × USDT/USD
             var market: Double?
-            if CurrencyConversion.stableNeedsMarket(code) { market = await PortfolioPriceSource.price(code) }
+            if CurrencyConversion.stableNeedsMarket(code) { market = freshMarket(await PortfolioPriceSource.prices([code]), code) }
             return CurrencyConversion.quoteToUsd(kind, usdToQuote: nil, cryptoUsdt: market, code: code,
                                                  usdtUsd: liveUsdtUsd())
         case .fiat:
             let usdToQuote = await FxRateSource.usdTo(code)
             return CurrencyConversion.quoteToUsd(kind, usdToQuote: usdToQuote, cryptoUsdt: nil)
         case .crypto:
-            let price = await PortfolioPriceSource.price(code)
+            // Höchstens 15 min alt: scheitert die Abfrage, bleibt sonst der letzte Kurs beliebig lange stehen
+            let price = freshMarket(await PortfolioPriceSource.prices([code]), code)
             return CurrencyConversion.quoteToUsd(kind, usdToQuote: nil, cryptoUsdt: price, usdtUsd: liveUsdtUsd())
         case .invalid: return nil
         }

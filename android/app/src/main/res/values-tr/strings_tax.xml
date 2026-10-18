@@ -74,7 +74,7 @@
     <string name="tax_export_proceeds_missing">satış fiyatı eksik</string>
     <string name="tax_export_proceeds_without_cost">Alış fiyatı olmadan satış geliri</string>
     <string name="tax_export_realized_differs">Vergi CSV’si “gerçekleşen”den farklı olabilir (ülkenin vergi kuralları).</string>
-    <string name="tax_export_rule">&gt; 1 yıl: alış tarihi + 1 takvim yılından sonra satıldı. Tarihler yerel saatle. Kurlar: ECB günlük kuru (önceki son iş günü).</string>
+    <string name="tax_export_rule">&gt; 1 yıl: alış tarihi + 1 takvim yılından sonra satıldı. Tarihler yerel saatle. Kurlar: işlem gününün ECB günlük kuru; yoksa en fazla 7 gün öncesine kadarki son kur.</string>
     <string name="tax_export_rules_date">Kurallar tarihi: %1$s</string>
     <string name="tax_export_spouse_gift">eşe/partnere – kâr yok, zarar yok</string>
     <string name="tax_export_summary">Yıllık özet %1$s (CSV)</string>
@@ -98,7 +98,7 @@
     <!-- Steuer-Export: Zeilen und Spalten -->
     <string name="tax_line_at_interest">Lending faizi (alındığı andaki değer)</string>
     <string name="tax_line_at_old_long">1.3.2021’den önce edinildi – elde tutma &gt; 1 yıl: genellikle vergiye tabi değil – kontrol edin</string>
-    <string name="tax_line_at_rate">Özel oran yüzde 27,5: 1.3.2021’den itibaren edinilenlerin neti + faiz (1.3.2021–28.2.2022: nota bakın)</string>
+    <string name="tax_line_at_rate">Özel oran yüzde 27,5: 1.3.2021’den itibaren edinilip 1.3.2022’den itibaren satılanların neti + faiz</string>
     <string name="tax_line_au_discounted">Zararlar ve yüzde 50 indirim sonrası net sermaye kazancı</string>
     <string name="tax_line_ca_taxable">Vergiye tabi sermaye kazancı (dahil etme oranı 1/2)</string>
     <string name="tax_line_ch_income">Ödüller listelendi – işlem için bkz. ESTV çalışma belgesi</string>
@@ -115,9 +115,9 @@
     <string name="tax_line_long_net">Net – elde tutma &gt; 1 yıl</string>
     <string name="tax_line_losses">Zararlar</string>
     <string name="tax_line_net">Net kâr/zarar</string>
-    <string name="tax_line_new_net">Net – 1.3.2021’den itibaren edinildi</string>
+    <string name="tax_line_new_net">Net – 1.3.2021’den itibaren edinildi, 1.3.2022’den itibaren satıldı</string>
     <string name="tax_line_old_long_net">Net – 1.3.2021’den önce edinildi – elde tutma &gt; 1 yıl</string>
-    <string name="tax_line_old_short_net">Net – 1.3.2021’den önce edinildi – elde tutma ≤ 1 yıl</string>
+    <string name="tax_line_old_short_net">Net – spekülatif işlemler (eski mevzuat): 1.3.2021’den önce edinilip ≤ 1 yıl tutulan veya 1.3.2022’den önce satılan</string>
     <string name="tax_line_proceeds">Satış gelirleri</string>
     <string name="tax_line_short_net">Net – elde tutma ≤ 1 yıl</string>
     <string name="tax_line_transfer_fees">Transfer ücretleri (kendi cüzdanların)</string>
@@ -191,7 +191,7 @@
     <string name="tax_note_withdrawal_fee">USDT veya nakit çekim ücreti zarar değildir: nakit ücret indirilemez, USDT ücreti kârsız bir nominal değerden elden çıkarmadır – yalnızca bilgi olarak gösterilir (%1$s).</string>
     <string name="tax_summary_at_interest_income">sayılır: alındığı anda yüzde 27,5 özel oranla gelir (§ 27b f. 2 no. 1 EStG / BMF) – coinler bu değeri edinim maliyeti olarak korur</string>
     <string name="tax_summary_at_reward_info">yalnızca bilgi için – hiçbir toplamda yok: ödüller yeni varlığa 0 edinim maliyetiyle girer ve yalnızca satışta vergilendirilir (zaten kazançlarda) – § 27b Abs. 2 EStG / BMF</string>
-    <string name="tax_summary_at_transition_2021">Yeni varlığın 1.3.2021–28.2.2022 arası satışları/takasları: eski mevzuat (§ 31 EStG eski hâli) ve yüzde 27,5 seçeneği – bir vergi danışmanıyla netleştir</string>
+    <string name="tax_summary_at_transition_2021">1.1.–28.2.2022: yüzde 27,5 seçeneği mümkün</string>
     <string name="tax_summary_at_withdrawal_fee">Çekim ücreti – yeni varlıkla mahsup edilmedi (özel oranda giderler indirilemez, § 20 f. 2 EStG)</string>
     <string name="tax_summary_ch_fifo_info">yalnızca bilgi için – uygulamanın FIFO hesabı – sınıflandırılmadı – bkz. ESTV</string>
     <string name="tax_summary_ch_year_end_value">31.12 itibarıyla varlık CSV’sindeki değer = borsa fiyatı × USD/CHF – ESTV kur listesindeki vergi değerleri değil</string>

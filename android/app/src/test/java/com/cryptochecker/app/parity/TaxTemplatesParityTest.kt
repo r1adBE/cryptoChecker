@@ -4,10 +4,13 @@ import com.cryptochecker.app.domain.portfolio.CostMethod
 import com.cryptochecker.app.domain.portfolio.PortfolioFeeUnit
 import com.cryptochecker.app.domain.portfolio.PortfolioTrade
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
+import com.cryptochecker.app.domain.portfolio.TAX_NOTE_DATE
 import com.cryptochecker.app.domain.portfolio.TaxEngines
 import com.cryptochecker.app.domain.portfolio.TaxEventRules
 import com.cryptochecker.app.domain.portfolio.TaxExport
+import com.cryptochecker.app.domain.portfolio.frHeldBefore
 import com.cryptochecker.app.domain.portfolio.gainRows
+import com.cryptochecker.app.domain.portfolio.noteText
 import com.cryptochecker.app.domain.portfolio.summaryCsv
 import com.cryptochecker.app.domain.portfolio.yearSummary
 import com.cryptochecker.app.domain.portfolio.TaxLimitStatus
@@ -277,7 +280,7 @@ class TaxTemplatesParityTest {
             val method = TaxMethod.valueOf(c["method"] as String)
             val s = TaxExport.yearSummary(
                 parseTrades(c["trades"]), tpl, method, c["year"].num()!!.toInt(), zone, (c["currency"] as String?) ?: "USD",
-                rates(c["rates"]), priceAt(c["prices"]),
+                rates(c["rates"]), priceAt(c["prices"]), today = (c["today"] as String?)?.let { LocalDate.parse(it) },
             )
             val texts = TaxSummaryTexts(
                 title = "T", disclaimer = "D", item = "Item", usdt = "USDT", target = "USD", note = "Note", orientation = "O",
@@ -289,14 +292,22 @@ class TaxTemplatesParityTest {
                     TaxSummaryNote.CH_FIFO_INFO to "chfifo", TaxSummaryNote.DE_WITHDRAWAL_FEE to "dewfee",
                     TaxSummaryNote.AT_WITHDRAWAL_FEE to "atwfee", TaxSummaryNote.AT_INTEREST_INCOME to "atinterest",
                     TaxSummaryNote.WITHDRAWAL_FEE_INFO to "wfeeinfo", TaxSummaryNote.TRANSFER_FEE_INFO to "tfeeinfo",
-                    TaxSummaryNote.AT_TRANSITION_2021 to "attransition",
+                    TaxSummaryNote.AT_TRANSITION_2021 to "attransition", TaxSummaryNote.AT_WITHOUT_OPTION to "atnooption",
+                    TaxSummaryNote.AT_STAKING_ZERO_COST to "atstaking", TaxSummaryNote.WINDOW_OPEN to "window $TAX_NOTE_DATE",
+                    TaxSummaryNote.UK_HMRC_REPORT to "ukreport",
                 ),
             )
             val lines = TaxExport.summaryCsv(s, texts, listOf("H")).removePrefix("\uFEFF").split("\r\n").filter { it.isNotEmpty() }
-            // Zusatz-Vermerke und Status «Verlust» stehen in der Hinweis-Spalte ihres Postens
+            // Zusatz-Vermerke (Datum eingesetzt) und Status «Verlust» stehen in der Hinweis-Spalte ihres Postens
             s.lines.forEach { l ->
-                val text = l.note?.let { texts.notes[it] } ?: "loss".takeIf { l.status == TaxLimitStatus.LOSS }
-                if (text != null) assertTrue("$tpl ${l.line} $text", lines.any { it.contains(l.line.name) && it.endsWith(";$text") })
+                val text = l.noteText(texts) ?: "loss".takeIf { l.status == TaxLimitStatus.LOSS }
+                if (text != null) {
+                    assertTrue(
+                        "$tpl ${l.line} $text",
+                        lines.any { it.contains(l.line.name) && (it.endsWith(";$text") || it.endsWith(", $text")) },
+                    )
+                    assertTrue("$tpl ${l.line} Platzhalter", TAX_NOTE_DATE !in text)
+                }
             }
             val head = lines.indexOf("Orientation - no tax advice, no assessment")
             val oriented = s.lines.filter { it.line.orientation }
@@ -320,7 +331,7 @@ class TaxTemplatesParityTest {
             val year = c["year"].num()!!.toInt()
             val s = TaxExport.yearSummary(
                 parseTrades(c["trades"]), tpl, method, year, zone, (c["currency"] as String?) ?: "USD", rates(c["rates"]),
-                priceAt(c["prices"]),
+                priceAt(c["prices"]), today = (c["today"] as String?)?.let { LocalDate.parse(it) },
             )
             val expected = c["lines"].list().map { it.list() }
             assertEquals("$tpl lines", expected.map { it[0] }, s.lines.map { it.line.name })
@@ -330,6 +341,8 @@ class TaxTemplatesParityTest {
                 assertEquals("$tpl ${l.line} status", (e[3] as String?)?.let { TaxLimitStatus.valueOf(it) }, l.status)
                 // Zusatz-Vermerk (optional, 5. Feld): AT Einkünfte nur Information, CH Wert per 31.12. = Börsenkurs × USD/CHF
                 assertEquals("$tpl ${l.line} note", (e.getOrNull(4) as String?)?.let { TaxSummaryNote.valueOf(it) }, l.note)
+                // Datum im Vermerk (optional, 6. Feld): UK/CA 30-Tage-Fenster noch offen, Käufe bis …
+                assertEquals("$tpl ${l.line} noteDate", (e.getOrNull(5) as String?)?.let { LocalDate.parse(it) }, l.noteDate)
             }
             // Posten «unvollständig» (optional): z. B. FR Gewinn aus unvollständiger Erwerbspreis-Summe
             c["incompleteLines"]?.let { raw ->
@@ -344,5 +357,26 @@ class TaxTemplatesParityTest {
         // AT: Zinsen sind eine Tatsache (Einkunft beim Zufluss), der Sondersteuersatz auf netto + Zinsen ein Schluss
         assertTrue(!TaxLine.AT_INTEREST.orientation)
         assertTrue(TaxLine.AT_RATE.orientation)
+        // CA/AU: Vortrag eines Netto-Kapitalverlusts ist ein Schluss der Vorlage
+        assertTrue(TaxLine.NET_CAPITAL_LOSS.orientation)
+    }
+
+    /**
+     * FR-Kurse für den Gesamtwert: gehalten ist, was die Rechnung vor dem Abgang bucht — auch ein Kauf derselben
+     * Millisekunde (Zugänge vor Abgängen), nicht nur was bis eine Millisekunde davor gebucht ist. Wie iOS.
+     */
+    @Test
+    fun frHeldBeforeUsesEngineOrder() {
+        val t0 = 1_740_830_400_000L
+        val btc = PortfolioTrade(1, "BTC", PortfolioTxType.BUY, BigDecimal.ONE, BigDecimal(20000), t0 - 86_400_000L)
+        // Kauf ETH in derselben Millisekunde wie der Verkauf, höhere Id: die Rechnung bucht ihn trotzdem davor
+        val eth = PortfolioTrade(5, "ETH", PortfolioTxType.BUY, BigDecimal.TEN, BigDecimal(2000), t0)
+        val sell = PortfolioTrade(3, "BTC", PortfolioTxType.SELL, BigDecimal("0.5"), BigDecimal(30000), t0)
+        assertEquals(setOf("BTC", "ETH"), TaxEngines.frHeldBefore(listOf(btc, eth, sell), sell))
+        assertEquals(setOf("BTC"), TaxEngines.frHeldBefore(listOf(btc, sell), sell))
+        // Abgänge derselben Millisekunde mit kleinerer Id kommen davor (gleiche Art, dann Id): danach kein BTC mehr
+        val first = PortfolioTrade(2, "BTC", PortfolioTxType.SELL, BigDecimal("0.5"), BigDecimal(30000), t0)
+        val last = PortfolioTrade(6, "BTC", PortfolioTxType.SELL, BigDecimal("0.5"), BigDecimal(30000), t0)
+        assertEquals(setOf("ETH"), TaxEngines.frHeldBefore(listOf(btc, eth, first, sell, last), last))
     }
 }

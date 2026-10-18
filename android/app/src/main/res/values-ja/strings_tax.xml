@@ -74,7 +74,7 @@
     <string name="tax_export_proceeds_missing">売却価格なし</string>
     <string name="tax_export_proceeds_without_cost">購入価格なしの売却額</string>
     <string name="tax_export_realized_differs">税務 CSV は「実現」と異なる場合があります（各国の税制）。</string>
-    <string name="tax_export_rule">&gt; 1年：購入日 + 1暦年より後に売却。日付は現地時間。レート：ECB の日次レート（直前の最終営業日）。</string>
+    <string name="tax_export_rule">&gt; 1年：購入日 + 1暦年より後に売却。日付は現地時間。レート：取引日の ECB 日次レート（ない場合は 7 日前までの直近のレート）。</string>
     <string name="tax_export_rules_date">ルール時点：%1$s</string>
     <string name="tax_export_spouse_gift">配偶者・パートナーへ – 損益なし</string>
     <string name="tax_export_summary">年間サマリー %1$s（CSV）</string>
@@ -98,7 +98,7 @@
     <!-- Steuer-Export: Zeilen und Spalten -->
     <string name="tax_line_at_interest">レンディング利息（受取時の価値）</string>
     <string name="tax_line_at_old_long">2021年3月1日より前に取得・保有1年超：通常は課税対象外 – 要確認</string>
-    <string name="tax_line_at_rate">特別税率 27.5パーセント：2021年3月1日以降取得分の純額 + 利息（2021年3月1日～2022年2月28日：注記参照）</string>
+    <string name="tax_line_at_rate">特別税率 27.5パーセント：2021年3月1日以降取得・2022年3月1日以降売却分の純額 + 利息</string>
     <string name="tax_line_au_discounted">損失と 50パーセント割引後の純キャピタルゲイン</string>
     <string name="tax_line_ca_taxable">課税対象のキャピタルゲイン（算入率 1/2）</string>
     <string name="tax_line_ch_income">報酬を記載 – 取扱いは ESTV の作業資料を参照</string>
@@ -115,9 +115,9 @@
     <string name="tax_line_long_net">純額、保有1年超</string>
     <string name="tax_line_losses">損失</string>
     <string name="tax_line_net">純損益</string>
-    <string name="tax_line_new_net">純額、2021年3月1日以降に取得</string>
+    <string name="tax_line_new_net">純額、2021年3月1日以降に取得、2022年3月1日以降に売却</string>
     <string name="tax_line_old_long_net">純額、2021年3月1日より前に取得、保有1年超</string>
-    <string name="tax_line_old_short_net">純額、2021年3月1日より前に取得、保有1年以内</string>
+    <string name="tax_line_old_short_net">純額、投機取引（旧法）：2021年3月1日より前に取得し保有1年以内、または2022年3月1日より前に売却</string>
     <string name="tax_line_proceeds">売却額</string>
     <string name="tax_line_short_net">純額、保有1年以内</string>
     <string name="tax_line_transfer_fees">振替手数料（自分のウォレット間）</string>
@@ -191,7 +191,7 @@
     <string name="tax_note_withdrawal_fee">USDT または法定通貨の出庫手数料は損失ではありません：法定通貨の手数料は控除できず、USDT の手数料は額面での譲渡で利益はありません – 参考情報としてのみ表示します（%1$s）。</string>
     <string name="tax_summary_at_interest_income">算入：受取時に特別税率 27.5パーセントの所得（§ 27b 第2項第1号 EStG / BMF）– コインはこの価値を取得原価として保持します</string>
     <string name="tax_summary_at_reward_info">参考情報のみ – どの合計にも含まれません：報酬は取得原価 0 で新保有分に入り、売却時にのみ課税されます（利益に含まれ済み）– § 27b Abs. 2 EStG / BMF</string>
-    <string name="tax_summary_at_transition_2021">2021年3月1日～2022年2月28日の新規保有分の売却・交換：旧法（§ 31 EStG 旧規定）、27.5パーセントの選択可 – 税理士にご確認ください</string>
+    <string name="tax_summary_at_transition_2021">2022年1月1日～2月28日：27.5パーセントの選択が可能</string>
     <string name="tax_summary_at_withdrawal_fee">出庫手数料 – 新規保有分とは相殺されません（特別税率では経費控除不可、§ 20 (2) EStG）</string>
     <string name="tax_summary_ch_fifo_info">参考情報のみ – アプリによる FIFO 計算 – 区分なし – ESTV を参照</string>
     <string name="tax_summary_ch_year_end_value">保有 CSV の 12/31 時点の価値 = 取引所価格 × USD/CHF – ESTV 価格リストの課税価値ではありません</string>

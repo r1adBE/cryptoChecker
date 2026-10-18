@@ -33,6 +33,18 @@ class PortfolioHistoryTest {
     private fun linearCloses(days: Int): Map<Long, Double> =
         (0 until days).associate { i -> (today - i) to (100.0 - i) }
 
+    /** «Heute» für «7 T/1 J», Verlauf und Erwerbstage ist der UTC-Tag: 00:30 Zürich-Sommerzeit ist UTC noch der Vortag. */
+    @Test
+    fun utcTodayIsTheUtcDayNotTheLocalDate() {
+        val local = LocalDate.of(2026, 7, 1).atTime(0, 30).atZone(zone)
+        val millis = local.toInstant().toEpochMilli()
+        assertEquals(LocalDate.of(2026, 6, 30).toEpochDay(), PortfolioHistory.utcToday(millis))
+        assertEquals(PortfolioHistory.epochDayOfUtcMillis(millis), PortfolioHistory.utcToday(millis))
+        // Nach Mitternacht UTC gleich wie das lokale Datum
+        val later = LocalDate.of(2026, 7, 1).atTime(2, 30).atZone(zone).toInstant().toEpochMilli()
+        assertEquals(LocalDate.of(2026, 7, 1).toEpochDay(), PortfolioHistory.utcToday(later))
+    }
+
     @Test
     fun timelineCapsOversell() {
         val trades = listOf(buy("BTC", 1.0, 10), sell("BTC", 3.0, 20), buy("btc", 0.5, 30))

@@ -218,11 +218,12 @@ enum PriceFormat {
     /// (kaufmännisch gerundet, ohne Exponent und Nullen am Ende), damit kleine Kurse nicht zu «0»
     /// werden: 0.00000712 → «0.00000712», 0.123456 → «0.1235». Wie `PriceFormat.spokenPrice` (Android).
     static func spokenPrice(_ value: Double) -> String {
-        let posix = Locale(identifier: "en_US_POSIX")
+        // Kaufmännisch aus der kürzesten Darstellung (`DecimalText.fixed`; Punkt, lateinische Ziffern) — gleich wie
+        // Android: printf (halb gerade) und String.format dort (halb aufwärts) lasen 60000.5 als «60000» bzw. «60001»
         if value >= 1000 {
-            return String(format: "%.0f", locale: posix, value)
+            return DecimalText.fixed(value, scale: 0)
         } else if value >= 1 {
-            return String(format: "%.2f", locale: posix, value)
+            return DecimalText.fixed(value, scale: 2)
         }
         return DecimalText.plain(value, scale: DecimalText.significantScale(value, minDecimals: 0,
                                                                             significant: spokenSignificant))

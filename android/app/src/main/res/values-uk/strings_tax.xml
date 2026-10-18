@@ -74,7 +74,7 @@
     <string name="tax_export_proceeds_missing">немає ціни продажу</string>
     <string name="tax_export_proceeds_without_cost">Виручка без ціни купівлі</string>
     <string name="tax_export_realized_differs">Податковий CSV може відрізнятися від «реалізовано» (податкові правила країни).</string>
-    <string name="tax_export_rule">&gt; 1 року: продано пізніше дати купівлі + 1 календарний рік. Дати за місцевим часом. Курси: денний курс ЄЦБ (останній робочий день до того).</string>
+    <string name="tax_export_rule">&gt; 1 року: продано пізніше дати купівлі + 1 календарний рік. Дати за місцевим часом. Курси: денний курс ЄЦБ на день операції; якщо його немає — останній курс не більше ніж за 7 днів до того.</string>
     <string name="tax_export_rules_date">Правила станом на: %1$s</string>
     <string name="tax_export_spouse_gift">чоловіку/дружині/партнеру – без прибутку й збитку</string>
     <string name="tax_export_summary">Річний підсумок %1$s (CSV)</string>
@@ -98,7 +98,7 @@
     <!-- Steuer-Export: Zeilen und Spalten -->
     <string name="tax_line_at_interest">Відсотки від лендингу (вартість під час отримання)</string>
     <string name="tax_line_at_old_long">Придбано до 01.03.2021 – володіння &gt; 1 року: як правило, не оподатковується – перевірте</string>
-    <string name="tax_line_at_rate">Спеціальна ставка 27,5 відсотка: нетто з придбаного з 01.03.2021 + відсотки (01.03.2021–28.02.2022: див. примітку)</string>
+    <string name="tax_line_at_rate">Спеціальна ставка 27,5 відсотка: нетто з придбаного з 01.03.2021 і проданого з 01.03.2022 + відсотки</string>
     <string name="tax_line_au_discounted">Чистий приріст капіталу після збитків і знижки 50 відсотків</string>
     <string name="tax_line_ca_taxable">Оподатковуваний приріст капіталу (частка включення 1/2)</string>
     <string name="tax_line_ch_income">Винагороди наведено – порядок див. робочий документ ESTV</string>
@@ -115,9 +115,9 @@
     <string name="tax_line_long_net">Нетто – володіння &gt; 1 року</string>
     <string name="tax_line_losses">Збитки</string>
     <string name="tax_line_net">Чистий прибуток/збиток</string>
-    <string name="tax_line_new_net">Нетто – придбано з 01.03.2021</string>
+    <string name="tax_line_new_net">Нетто – придбано з 01.03.2021, продано з 01.03.2022</string>
     <string name="tax_line_old_long_net">Нетто – придбано до 01.03.2021 – володіння &gt; 1 року</string>
-    <string name="tax_line_old_short_net">Нетто – придбано до 01.03.2021 – володіння ≤ 1 року</string>
+    <string name="tax_line_old_short_net">Нетто – спекулятивні угоди (попередні правила): придбано до 01.03.2021 і володіння ≤ 1 року або продано до 01.03.2022</string>
     <string name="tax_line_proceeds">Виручка</string>
     <string name="tax_line_short_net">Нетто – володіння ≤ 1 року</string>
     <string name="tax_line_transfer_fees">Комісії за переказ (власні гаманці)</string>
@@ -191,7 +191,7 @@
     <string name="tax_note_withdrawal_fee">Комісія за виведення в USDT або фіаті – не збиток: фіатна комісія не віднімається, комісія в USDT – відчуження за номіналом без прибутку; вона показана лише для довідки (%1$s).</string>
     <string name="tax_summary_at_interest_income">враховується: дохід під час отримання за спеціальною ставкою 27,5 відсотка (§ 27b абз. 2 п. 1 EStG / BMF) – монети зберігають цю вартість як вартість придбання</string>
     <string name="tax_summary_at_reward_info">лише для інформації – у жодній сумі: винагороди надходять до нових активів із вартістю придбання 0 й оподатковуються лише під час продажу (уже в прибутку) – § 27b Abs. 2 EStG / BMF</string>
-    <string name="tax_summary_at_transition_2021">Продаж/обмін нових активів 01.03.2021–28.02.2022: попередні правила (§ 31 EStG у старій редакції) з опцією ставки 27,5 відсотка – уточніть у податкового консультанта</string>
+    <string name="tax_summary_at_transition_2021">01.01–28.02.2022: можлива опція ставки 27,5 відсотка</string>
     <string name="tax_summary_at_withdrawal_fee">Комісія за виведення – не зарахована в нові активи (витрати не вираховуються за спецставкою, § 20 абз. 2 EStG)</string>
     <string name="tax_summary_ch_fifo_info">лише для інформації – розрахунок FIFO застосунку – без класифікації – див. ESTV</string>
     <string name="tax_summary_ch_year_end_value">вартість на 31.12 у CSV залишків = біржовий курс × USD/CHF – не податкові вартості з курсового листа ESTV</string>

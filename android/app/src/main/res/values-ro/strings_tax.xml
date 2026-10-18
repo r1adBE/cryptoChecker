@@ -74,7 +74,7 @@
     <string name="tax_export_proceeds_missing">lipsește prețul de vânzare</string>
     <string name="tax_export_proceeds_without_cost">Încasare fără preț de cumpărare</string>
     <string name="tax_export_realized_differs">CSV-ul fiscal poate diferi de „realizat” (regulile fiscale ale țării).</string>
-    <string name="tax_export_rule">&gt; 1 an: vândut după data cumpărării + 1 an calendaristic. Date în ora locală. Cursuri: cursul zilnic BCE (ultima zi lucrătoare dinainte).</string>
+    <string name="tax_export_rule">&gt; 1 an: vândut după data cumpărării + 1 an calendaristic. Date în ora locală. Cursuri: cursul zilnic BCE din ziua tranzacției; dacă lipsește, ultimul curs de până la 7 zile înainte.</string>
     <string name="tax_export_rules_date">Reguli valabile la: %1$s</string>
     <string name="tax_export_spouse_gift">către soț/partener – fără câștig, fără pierdere</string>
     <string name="tax_export_summary">Rezumat anual %1$s (CSV)</string>
@@ -98,7 +98,7 @@
     <!-- Steuer-Export: Zeilen und Spalten -->
     <string name="tax_line_at_interest">Dobânzi din lending (valoarea la primire)</string>
     <string name="tax_line_at_old_long">Dobândit înainte de 1.03.2021 – deținut &gt; 1 an: de regulă neimpozabil – verifică</string>
-    <string name="tax_line_at_rate">Cotă specială 27,5 la sută: net dobândit de la 1.03.2021 + dobânzi (1.03.2021–28.02.2022: vezi nota)</string>
+    <string name="tax_line_at_rate">Cotă specială 27,5 la sută: net dobândit de la 1.03.2021 și vândut de la 1.03.2022 + dobânzi</string>
     <string name="tax_line_au_discounted">Câștig de capital net după pierderi și reducere de 50 la sută</string>
     <string name="tax_line_ca_taxable">Câștig de capital impozabil (rată de includere 1/2)</string>
     <string name="tax_line_ch_income">Recompense listate – tratament vezi documentul de lucru ESTV</string>
@@ -115,9 +115,9 @@
     <string name="tax_line_long_net">Net – deținut &gt; 1 an</string>
     <string name="tax_line_losses">Pierderi</string>
     <string name="tax_line_net">Câștig/pierdere netă</string>
-    <string name="tax_line_new_net">Net – dobândit de la 1.03.2021</string>
+    <string name="tax_line_new_net">Net – dobândit de la 1.03.2021, vândut de la 1.03.2022</string>
     <string name="tax_line_old_long_net">Net – dobândit înainte de 1.03.2021 – deținut &gt; 1 an</string>
-    <string name="tax_line_old_short_net">Net – dobândit înainte de 1.03.2021 – deținut ≤ 1 an</string>
+    <string name="tax_line_old_short_net">Net – operațiuni speculative (vechiul regim): dobândit înainte de 1.03.2021 și deținut ≤ 1 an sau vândut înainte de 1.03.2022</string>
     <string name="tax_line_proceeds">Încasări</string>
     <string name="tax_line_short_net">Net – deținut ≤ 1 an</string>
     <string name="tax_line_transfer_fees">Comisioane de transfer (portofele proprii)</string>
@@ -191,7 +191,7 @@
     <string name="tax_note_withdrawal_fee">Un comision de retragere în USDT sau numerar nu e pierdere: în numerar nu e deductibil, în USDT e o înstrăinare la paritate fără câștig – apare doar informativ (%1$s).</string>
     <string name="tax_summary_at_interest_income">contează: venit la primire la cota specială de 27,5 la sută (§ 27b alin. 2 pct. 1 EStG / BMF) – monedele păstrează această valoare drept cost de achiziție</string>
     <string name="tax_summary_at_reward_info">doar informativ – în niciun total: recompensele intră în noile dețineri cu cost de achiziție 0 și sunt impozitate abia la vânzare (deja în câștiguri) – § 27b Abs. 2 EStG / BMF</string>
-    <string name="tax_summary_at_transition_2021">Vânzări/schimburi din noua deținere 1.03.2021–28.02.2022: vechiul regim (§ 31 EStG forma anterioară) cu opțiune pentru 27,5 la sută – de clarificat cu un consultant fiscal</string>
+    <string name="tax_summary_at_transition_2021">1.01–28.02.2022: opțiune pentru 27,5 la sută posibilă</string>
     <string name="tax_summary_at_withdrawal_fee">Comision de retragere – necompensat cu noua deținere (cheltuieli nedeductibile la cota specială, § 20 alin. 2 EStG)</string>
     <string name="tax_summary_ch_fifo_info">doar informativ – calcul FIFO al aplicației – neîncadrat – vezi ESTV</string>
     <string name="tax_summary_ch_year_end_value">valoare la 31.12 în CSV-ul deținerilor = curs bursier × USD/CHF – nu valorile fiscale din lista de cursuri ESTV</string>

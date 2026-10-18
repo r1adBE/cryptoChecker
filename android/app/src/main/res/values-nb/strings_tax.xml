@@ -74,7 +74,7 @@
     <string name="tax_export_proceeds_missing">salgspris mangler</string>
     <string name="tax_export_proceeds_without_cost">Salgssum uten kjøpspris</string>
     <string name="tax_export_realized_differs">Skatte-CSV-en kan avvike fra «realisert» (landets skatteregler).</string>
-    <string name="tax_export_rule">&gt; 1 år: solgt etter kjøpsdato + 1 kalenderår. Datoer i lokal tid. Kurser: ESBs dagskurs (siste virkedag før).</string>
+    <string name="tax_export_rule">&gt; 1 år: solgt etter kjøpsdato + 1 kalenderår. Datoer i lokal tid. Kurser: ESBs dagskurs på transaksjonsdagen; mangler den, siste kurs inntil 7 dager før.</string>
     <string name="tax_export_rules_date">Regler per: %1$s</string>
     <string name="tax_export_spouse_gift">til ektefelle/partner – ingen gevinst, intet tap</string>
     <string name="tax_export_summary">Årsoversikt %1$s (CSV)</string>
@@ -98,7 +98,7 @@
     <!-- Steuer-Export: Zeilen und Spalten -->
     <string name="tax_line_at_interest">Renter fra lending (verdi ved mottak)</string>
     <string name="tax_line_at_old_long">Ervervet før 1.3.2021 – eid &gt; 1 år: normalt ikke skattepliktig – kontroller</string>
-    <string name="tax_line_at_rate">Særskilt sats 27,5 prosent: netto ervervet fra 1.3.2021 + renter (1.3.2021–28.2.2022: se merknad)</string>
+    <string name="tax_line_at_rate">Særskilt sats 27,5 prosent: netto ervervet fra 1.3.2021 og solgt fra 1.3.2022 + renter</string>
     <string name="tax_line_au_discounted">Netto kapitalgevinst etter tap og 50 prosent rabatt</string>
     <string name="tax_line_ca_taxable">Skattepliktig kapitalgevinst (inkluderingsrate 1/2)</string>
     <string name="tax_line_ch_income">Belønninger oppført – behandling se ESTVs arbeidsdokument</string>
@@ -115,9 +115,9 @@
     <string name="tax_line_long_net">Netto – eid &gt; 1 år</string>
     <string name="tax_line_losses">Tap</string>
     <string name="tax_line_net">Netto gevinst/tap</string>
-    <string name="tax_line_new_net">Netto – ervervet fra 1.3.2021</string>
+    <string name="tax_line_new_net">Netto – ervervet fra 1.3.2021, solgt fra 1.3.2022</string>
     <string name="tax_line_old_long_net">Netto – ervervet før 1.3.2021 – eid &gt; 1 år</string>
-    <string name="tax_line_old_short_net">Netto – ervervet før 1.3.2021 – eid ≤ 1 år</string>
+    <string name="tax_line_old_short_net">Netto – spekulasjonshandler (tidligere regler): ervervet før 1.3.2021 og eid ≤ 1 år, eller solgt før 1.3.2022</string>
     <string name="tax_line_proceeds">Salgssummer</string>
     <string name="tax_line_short_net">Netto – eid ≤ 1 år</string>
     <string name="tax_line_transfer_fees">Overføringsgebyrer (egne wallets)</string>
@@ -191,7 +191,7 @@
     <string name="tax_note_withdrawal_fee">Et uttaksgebyr i USDT eller kontanter er intet tap: et kontantgebyr er ikke fradragsberettiget, et USDT-gebyr er en avhendelse til pari uten gevinst – det vises kun som informasjon (%1$s).</string>
     <string name="tax_summary_at_interest_income">teller: inntekt ved mottak til særskilt sats på 27,5 prosent (§ 27b ledd 2 nr. 1 EStG / BMF) – myntene beholder denne verdien som inngangsverdi</string>
     <string name="tax_summary_at_reward_info">kun til informasjon – inngår ikke i noen sum: belønninger går inn i den nye beholdningen med inngangsverdi 0 og beskattes først ved salg (allerede i gevinstene) – § 27b Abs. 2 EStG / BMF</string>
-    <string name="tax_summary_at_transition_2021">Salg/bytte av ny beholdning 1.3.2021–28.2.2022: tidligere regler (§ 31 EStG tidligere ordlyd) med valg av 27,5 prosent – avklar med en skatterådgiver</string>
+    <string name="tax_summary_at_transition_2021">1.1.–28.2.2022: valg av 27,5 prosent mulig</string>
     <string name="tax_summary_at_withdrawal_fee">Uttaksgebyr – ikke motregnet mot ny beholdning (kostnader ikke fradragsberettiget ved særsatsen, § 20 ledd 2 EStG)</string>
     <string name="tax_summary_ch_fifo_info">kun til informasjon – appens FIFO-beregning – ikke klassifisert – se ESTV</string>
     <string name="tax_summary_ch_year_end_value">verdi per 31.12. i beholdnings-CSV = børskurs × USD/CHF – ikke skatteverdiene i ESTV-kurslisten</string>

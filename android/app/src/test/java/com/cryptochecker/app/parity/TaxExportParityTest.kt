@@ -57,6 +57,7 @@ class TaxExportParityTest {
             toCoin = t["toCoin"] as String?,
             toAmount = dec(t["toAmount"]),
             swapValueUsdt = dec(t["swapValue"]),
+            interestIncome = (t["interest"] as Boolean?) ?: false,
         )
     }
 
@@ -150,6 +151,26 @@ class TaxExportParityTest {
         val marked = texts.copy(usdtAssumed = m["usdtAssumed"] as String)
         val csv = lines(TaxExport.incomeCsv(TaxExport.incomeRows(txs, period, zone, currency, rates, usdtUsd = usdt), marked, header))
         m["incomeLines"].list().map { it as String }.forEach { assertTrue("income line $it in $csv", it in csv) }
+    }
+
+    /**
+     * Build 78: Einkünfte-CSV AT — Zins (beim Zufluss steuerpflichtig) und Staking (nur Information) je Zeile vermerkt,
+     * zwei Summen mit je eigenem «unvollständig»; ohne die AT-Texte (alle anderen Vorlagen) unverändert eine Summe. Wie iOS.
+     */
+    @Test
+    fun atIncomeSplitsInterestAndStaking() {
+        val a = data["atIncome"].obj()
+        val txs = parseTrades(a["trades"])
+        val period = TaxTemplate.NEUTRAL.period(2025)
+        val rows = TaxExport.incomeRows(txs, period, zone, currency, rates)
+        val at = a["atTexts"].obj().let { x ->
+            texts.copy(
+                incomeInterest = x["incomeInterest"] as String, incomeStaking = x["incomeStaking"] as String,
+                totalInterest = x["totalInterest"] as String, totalStaking = x["totalStaking"] as String,
+            )
+        }
+        assertEquals("AT", a["at"].list(), lines(TaxExport.incomeCsv(rows, at, header)))
+        assertEquals("neutral", a["neutral"].list(), lines(TaxExport.incomeCsv(rows, texts, header)))
     }
 
     @Test

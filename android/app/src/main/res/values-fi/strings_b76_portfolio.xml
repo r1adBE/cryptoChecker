@@ -9,7 +9,7 @@
     <string name="backup_restore_interrupted_rolled_back">Sovellus suljettiin kesken varmuuskopion palautuksen. Aiemmat tietosi palautettiin; varmuuskopiosta ei säilytetty mitään.</string>
     <string name="backup_restore_interrupted_incomplete">Sovellus suljettiin kesken varmuuskopion palautuksen, eikä aiempia tietoja voitu palauttaa kokonaan. Tarkista seurantalista ja salkku tai palauta varmuuskopio uudelleen asetuksissa kohdassa ”%1$s”.</string>
     <string name="backup_not_verified">Varmuuskopiotiedostoa ei voitu vahvistaa tallennuksen jälkeen – se luetaan takaisin erilaisena. Tallenna varmuuskopio uuteen tiedostoon.</string>
-    <string name="tax_line_at_old_speculation_limit">Hankittu ennen 1.3.2021 – pidetty ≤ 1 vuosi: keinottelukauppojen verovapausraja (§ 31 (3) EStG, vanha versio)</string>
+    <string name="tax_line_at_old_speculation_limit">Keinottelukaupat (aiempi sääntely, pidetty ≤ 1 vuosi): verovapausraja (§ 31 (3) EStG, vanha versio)</string>
     <string name="portfolio_tx_interest">Korko (lainaus)</string>
     <string name="portfolio_tx_interest_hint">Lasketaan tuloksi saatessa (Itävalta). Jätä pois päältä staking-palkkioille ja airdropeille.</string>
     <string name="app_lock_no_screen_lock">Ota näytön lukitus käyttöön avataksesi salkun.</string>

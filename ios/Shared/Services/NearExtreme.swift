@@ -125,7 +125,8 @@ enum NearExtreme {
 
         let extreme = side == .high ? range.high : range.low
         let beyond = side == .high ? price > extreme : price < extreme
-        let distance = abs(price - extreme) / extreme * 100
+        // Gerundet wie alle Prozent-Alarme (`AlarmPercent`): 2.94 bei Hoch 3.00 ist genau 2 % entfernt
+        let distance = AlarmPercent.rounded(abs(price - extreme) / extreme * 100)
 
         if beyond {
             // Scharf (und jenseits der gemeldeten Marke: «neu» heisst über max(Hoch des Zeitraums,
@@ -144,7 +145,8 @@ enum NearExtreme {
                 if lastTriggeredAt > 0 && elapsed >= 0 && elapsed < furtherExtremeMinMillis {
                     further = false
                 } else {
-                    let step = side == .high ? (price - lastLevel) / lastLevel * 100 : (lastLevel - price) / lastLevel * 100
+                    let step = AlarmPercent.rounded(side == .high ? (price - lastLevel) / lastLevel * 100
+                                                                  : (lastLevel - price) / lastLevel * 100)
                     further = step >= furtherStepPercent(thresholdPercent)
                 }
             }

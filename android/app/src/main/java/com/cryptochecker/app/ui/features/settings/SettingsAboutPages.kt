@@ -1,10 +1,13 @@
 package com.cryptochecker.app.ui.features.settings
 
 import android.widget.Toast
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -16,6 +19,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -79,6 +83,17 @@ internal fun AboutPage(
                 )
             }
         }
+        // «Deine Daten»: das Wichtigste der Datenschutzerklärung in vier Sätzen, direkt über dem Link zur vollen
+        // Fassung. Die Sätze müssen zur Erklärung (public/docs/privacy) passen — bei Änderungen dort mitziehen.
+        Spacer(Modifier.height(12.dp))
+        GroupCard(title = stringResource(R.string.about_your_data_title)) {
+            Column(modifier = Modifier.padding(bottom = 8.dp)) {
+                YourDataLine(R.string.about_data_device_label, R.string.about_data_device)
+                YourDataLine(R.string.about_data_connections_label, R.string.about_data_connections)
+                YourDataLine(R.string.about_data_backup_label, R.string.about_data_backup)
+                YourDataLine(R.string.about_data_device_change_label, R.string.about_data_device_change)
+            }
+        }
         // Build 53: Links und Lizenzen von der Hauptseite hierher (Google Play verlangt den Link zur
         // Datenschutzerklärung auch in der App). Ohne Browser wirft der Standard-Handler — nie abstürzen.
         NavCard {
@@ -119,6 +134,23 @@ internal fun AboutPage(
         GroupCard {
             AboutFeatures(modifier = Modifier.padding(16.dp))
         }
+    }
+}
+
+/** Eine Zeile von «Deine Daten»: Stichwort und ein Satz, vorgelesen als ein Element. */
+@Composable
+private fun YourDataLine(@StringRes labelRes: Int, @StringRes textRes: Int) {
+    Column(modifier = Modifier.padding(vertical = 6.dp).semantics(mergeDescendants = true) {}) {
+        Text(
+            text = stringResource(labelRes),
+            style = MaterialTheme.typography.labelLarge,
+            color = MaterialTheme.colorScheme.onSurface,
+        )
+        Text(
+            text = stringResource(textRes),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
     }
 }
 

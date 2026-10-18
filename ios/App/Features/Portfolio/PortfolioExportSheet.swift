@@ -361,7 +361,7 @@ struct PortfolioExportSheet: View {
         let m = yearMethod(year)
         let walletFrom = template.walletFrom(costMethod, year)
         let code = workCurrency
-        let texts = TaxCsvTexts.localized(currency: code, zone: template.zone()).withTemplateTexts(currency: code)
+        let texts = TaxCsvTexts.localized(currency: code, zone: template.zone()).withTemplateTexts(currency: code, template: template)
         let infoLine = info(year: year)
         let yearLabel = template.label(year)
         let header: [String]

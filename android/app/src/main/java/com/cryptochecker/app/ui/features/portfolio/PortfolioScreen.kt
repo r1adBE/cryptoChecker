@@ -105,6 +105,8 @@ fun PortfolioScreen(
     val currency by viewModel.currency.collectAsStateWithLifecycle()
     // Faktor USDT → Anzeigewährung: Devisenkurs × USDT/USD (USDT zum Marktkurs)
     val fxRate by viewModel.displayFxRate.collectAsStateWithLifecycle()
+    // «Seit Kauf»/Einstand in der Anzeigewährung zum Kurs der Erwerbstage
+    val costFx by viewModel.costFx.collectAsStateWithLifecycle()
     val todayPercent by viewModel.todayPercent.collectAsStateWithLifecycle()
     val todayAmount by viewModel.todayAmount.collectAsStateWithLifecycle()
     val todaySkipped by viewModel.todaySkipped.collectAsStateWithLifecycle()
@@ -468,6 +470,7 @@ fun PortfolioScreen(
                                 updatedAt = prices.updatedAt,
                                 currency = currency,
                                 fxRate = fxRate,
+                                costFx = costFx,
                                 todayPercent = todayPercent,
                                 todayAmount = todayAmount,
                                 todaySkipped = todaySkipped,

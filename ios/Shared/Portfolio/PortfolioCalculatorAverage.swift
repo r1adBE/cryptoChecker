@@ -310,6 +310,6 @@ extension PortfolioCalculator {
             unknownSold: unknownSold, soldTotal: soldTotal, withdrawn: withdrawn, oversold: oversold,
             feeValueMissing: feeValueMissing, realizedFeeMissing: realizedFeeMissing,
             lots: [], disposals: disposals, withdrawals: withdrawals, lostFeeCosts: lostFeeCosts,
-            unassignedFees: unassignedFees)
+            unassignedFees: unassignedFees, openParts: book.parts)
     }
 }

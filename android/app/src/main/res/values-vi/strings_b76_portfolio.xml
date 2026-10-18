@@ -9,7 +9,7 @@
     <string name="backup_restore_interrupted_rolled_back">Ứng dụng đã bị đóng khi đang khôi phục bản sao lưu. Dữ liệu trước đó của bạn đã được đặt lại; không giữ lại gì từ bản sao lưu.</string>
     <string name="backup_restore_interrupted_incomplete">Ứng dụng đã bị đóng khi đang khôi phục bản sao lưu và không thể đặt lại hoàn toàn dữ liệu trước đó. Hãy kiểm tra danh sách theo dõi và danh mục, hoặc khôi phục lại bản sao lưu trong “%1$s” ở Cài đặt.</string>
     <string name="backup_not_verified">Không thể xác minh tệp sao lưu sau khi lưu – khi đọc lại thì khác. Hãy lưu bản sao lưu vào một tệp mới.</string>
-    <string name="tax_line_at_old_speculation_limit">Mua trước 1/3/2021 – giữ ≤ 1 năm: ngưỡng miễn thuế giao dịch đầu cơ (§ 31 (3) EStG bản cũ)</string>
+    <string name="tax_line_at_old_speculation_limit">Giao dịch đầu cơ (quy định cũ, giữ ≤ 1 năm): ngưỡng miễn thuế (§ 31 (3) EStG bản cũ)</string>
     <string name="portfolio_tx_interest">Lãi (cho vay)</string>
     <string name="portfolio_tx_interest_hint">Được tính là thu nhập khi nhận (Áo). Để tắt cho phần thưởng staking và airdrop.</string>
     <string name="app_lock_no_screen_lock">Hãy thiết lập khóa màn hình để mở danh mục.</string>

@@ -76,7 +76,10 @@ data class PortfolioHistorySeries(
     val pnlFlows: List<PortfolioCashFlow> = emptyList(),
     /** Coins im Wertverlauf, die im Gewinn/Verlust fehlen (Zufluss unbekannt oder Bestand ohne Kurs). */
     val pnlSkipped: List<String> = emptyList(),
-    /** «Seit 1. Kauf»: Gewinn/Verlust ab 0 vor dem ersten Kauf (Wert − investiert), sonst ab dem ersten Tag. */
+    /**
+     * «Seit 1. Kauf» oder erster Kauf erst im Zeitraum (junges Portfolio): Gewinn/Verlust ab 0 vor dem ersten Kauf
+     * (Wert − investiert), sonst ab dem ersten Tag.
+     */
     val pnlSinceFirst: Boolean = false,
     /**
      * Im Zeitraum der Gewinn/Verlust-Kurve liegen eigene Auszahlungen ihrer Coins: Die Kurve enthält die
@@ -224,6 +227,12 @@ object PortfolioHistory {
     fun epochDayOfUtcMillis(millis: Long): Long = Math.floorDiv(millis, DAY_MILLIS)
 
     /**
+     * Heutiger UTC-Tag — EINE Tagesgrenze für «7 T/1 J», Wertverlauf und die Erwerbstage der Karte; das lokale Datum lag
+     * zwischen Mitternacht lokal und UTC einen Tag daneben (Stichtag und Kurve um einen Tag verschoben).
+     */
+    fun utcToday(now: Long = System.currentTimeMillis()): Long = epochDayOfUtcMillis(now)
+
+    /**
      * Letzte Millisekunde des UTC-Tags [day] — die EINE Tagesgrenze von Verlauf und «7 T/1 J» (wie die Tageskerzen).
      * Das Steuerjahr ([TaxExport.localDate]) und der Stichtag ([CutoffExport.endOfDayMillis]) nehmen dagegen das
      * rechtliche Datum in der Zeitzone des Geräts.
@@ -310,9 +319,16 @@ object PortfolioHistory {
     ): PortfolioHistorySeries {
         // EINE Tagesgrenze: UTC-Tag (wie Tageskerzen und «7 T/1 J»), nicht die lokale Zeitzone des Aufrufers
         val dayEndMillis: (Long) -> Long = { utcDayEnd(it) }
-        // Adress-Einträge nie rückwirkend; nur die beobachtete Reihe
-        val valid = trades.filter { it.amount.signum() > 0 && !AddressBalance.isAddressTrade(it.id) } +
-            AddressBalanceHistory.trades(addresses)
+        // Adress-Einträge nie rückwirkend; nur die beobachtete Reihe. Tausch ohne Wert (und die übrigen Fälle von
+        // [PortfolioLedger.valueAtDayClose]) zum selben Tageskurs wie die Karte ([PortfolioPeriodChange.marketPriceAt]):
+        // EIN Wert für beide Seiten, sonst bewerteten Kurve und Karte denselben Tausch verschieden
+        val valid = PortfolioLedger.valueAtDayClose(
+            trades.filter { it.amount.signum() > 0 && !AddressBalance.isAddressTrade(it.id) } +
+                AddressBalanceHistory.trades(addresses),
+        ) { coin, time ->
+            PortfolioPeriodChange.marketPriceAt(coin, livePrices[coin], closes, time)
+                ?.takeIf { it > 0.0 && it.isFinite() }?.let { PortfolioDecimal.of(it) }
+        }
         if (valid.isEmpty()) return PortfolioHistorySeries.EMPTY
         val rate = fxRate.takeIf { it > 0.0 && it.isFinite() } ?: 1.0
 
@@ -410,8 +426,10 @@ object PortfolioHistory {
         }
         val flows = cashFlows(valid, included, start, todayEpochDay, dayEndMillis, rate, market, method)
 
-        // Gewinn/Verlust: nur Coins mit Kurs an jedem gehaltenen Tag und bekannten Zuflüssen
-        val sinceFirst = range == PortfolioHistoryRange.SINCE_FIRST
+        // Gewinn/Verlust: nur Coins mit Kurs an jedem gehaltenen Tag und bekannten Zuflüssen. Ab 0 mit allen Zuflüssen
+        // auch, wenn der erste Kauf erst im Zeitraum liegt (junges Portfolio): sonst fehlte der erste Tag (Kursbewegung
+        // und Gebühren des ersten Kaufs), der Kopf «7 T/1 J» ([PortfolioPeriodChange.gain]) zählt ihn
+        val sinceFirst = range == PortfolioHistoryRange.SINCE_FIRST || start > todayEpochDay - range.days
         val pnlFlows = ArrayList<PortfolioCashFlow>()
         val pnlSkipped = ArrayList<String>()
         val pnlCoins = ArrayList<String>()

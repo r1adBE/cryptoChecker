@@ -69,8 +69,8 @@ struct TaxPeriod: Sendable, Equatable {
 }
 
 /// Steuer-Vorlage (Einstellung «tax_template», Standard Neutral) — ORIENTIERUNG, keine Steuerberatung. Regeln, Quellen
-/// und Stand (14./15.10.2026) wie `TaxTemplate` (Android): DE § 23/§ 22 Nr. 3 EStG, BMF 06.03.2025; AT BMF (Stand
-/// 01.01.2026: Staking/Airdrop Anschaffungskosten null, § 27b Abs. 2 EStG; Zinsen aus Lending seit Build 55 unterschieden,
+/// und Stand (14./15.10.2026) wie `TaxTemplate` (Android): DE § 23/§ 22 Nr. 3 EStG, BMF 06.03.2025 (Rn. 62: nur FIFO
+/// je Wallet); AT BMF (Stand 01.01.2026: Staking/Airdrop Anschaffungskosten null, § 27b Abs. 2 EStG; Zinsen aus Lending seit Build 55 unterschieden,
 /// `TaxEngines.interestReward`: Wert beim Zufluss), KryptowährungsVO § 2 Abs. 1 (je Adresse/Wallet); CH ESTV (Stand
 /// 22.09.2026, ohne Einordnung durch die App); UK HMRC CRYPTO22200 ff., CRYPTO22280 (Gebühr in Tokens = Veräusserung),
 /// gov.uk (Stand 13.04.2026); US IRS FAQ digital assets (Stand 29.06.2026), Rev. Proc. 2024-28 (ab 2025 nur FIFO je
@@ -157,7 +157,9 @@ enum TaxTemplate: String, Codable, CaseIterable, Sendable {
     private var baseMethods: [TaxMethod] {
         switch self {
         case .NEUTRAL, .CH: return [.FIFO, .FIFO_WALLET, .AVERAGE]
-        case .DE, .US: return [.FIFO, .FIFO_WALLET]
+        // DE: BMF 06.03.2025 Rn. 62 verlangt die walletbezogene Betrachtung — FIFO über alle Wallets wäre falsch
+        case .DE: return [.FIFO_WALLET]
+        case .US: return [.FIFO, .FIFO_WALLET]
         case .AU: return [.FIFO]
         case .UK: return [.UK_POOL]
         case .CA: return [.CA_ACB]
@@ -283,6 +285,9 @@ enum TaxTemplate: String, Codable, CaseIterable, Sendable {
     /// AT: Tausch Krypto↔Krypto steuerneutral ab dem 1.3.2022 (§ 27b Abs. 3 Z 2 EStG); davor Veräusserung nach alter
     /// Rechtslage (Ortszeit).
     static let atSwapNeutralFrom = LocalDay(2022, 3, 1)
+    /// AT: Realisationen von Neuvermögen ab diesem Tag bis vor `atSwapNeutralFrom` können auf Antrag schon nach neuer
+    /// Rechtslage (27,5 %) besteuert werden (§ 124b Z 384 lit. c EStG); die vom 1.3. bis 31.12.2021 nicht. Wie Android.
+    static let atOptionFrom = LocalDay(2022, 1, 1)
     /// Stand der hinterlegten Regeln (Kopfzeile «Regelstand: 2026-10» der Länder-Vorlagen) — wie Android `RULES_DATE`.
     static let rulesDate = "2026-10"
     /// US: erstes Steuerjahr mit Einstand Wallet für Wallet (Rev. Proc. 2024-28, ab 01.01.2025).
@@ -297,6 +302,10 @@ enum TaxTemplate: String, Codable, CaseIterable, Sendable {
     static let caWindowDays = 30
     /// UK: 30-Tage-Regel.
     static let ukBbDays = 30
+
+    /// UK: Meldepflicht an HMRC, wenn die Veräusserungserlöse des Steuerjahrs ab 6. April `startYear` diesen Betrag (GBP)
+    /// übersteigen, auch ohne steuerbaren Gewinn — £50,000 ab 2023/24; davor nicht hinterlegt (nil). Wie Android.
+    static func ukReportProceedsGbp(_ startYear: Int) -> Decimal? { startYear >= 2023 ? 50000 : nil }
 
     /// UK: Annual Exempt Amount (Privatperson) in GBP für das Steuerjahr ab 6. April `startYear`; nil = nicht hinterlegt.
     static func ukAnnualExemptGbp(_ startYear: Int) -> Decimal? {

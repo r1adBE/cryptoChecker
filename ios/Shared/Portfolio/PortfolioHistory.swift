@@ -72,7 +72,8 @@ struct PortfolioHistorySeries: Equatable, Sendable {
     var pnlFlows: [PortfolioCashFlow] = []
     /// Coins im Wertverlauf, die im Gewinn/Verlust fehlen (Zufluss unbekannt oder Bestand ohne Kurs).
     var pnlSkipped: [String] = []
-    /// «Seit 1. Kauf»: Gewinn/Verlust ab 0 vor dem ersten Kauf (Wert − investiert), sonst ab dem ersten Tag.
+    /// «Seit 1. Kauf» oder erster Kauf erst im Zeitraum (junges Portfolio): Gewinn/Verlust ab 0 vor dem ersten Kauf
+    /// (Wert − investiert), sonst ab dem ersten Tag.
     var pnlSinceFirst: Bool = false
     /// Im Zeitraum der Gewinn/Verlust-Kurve liegen eigene Auszahlungen ihrer Coins: Die Kurve enthält die Wertänderung
     /// der ausgebuchten Coins, solange sie gehalten wurden (Abfluss zum Marktwert) — die Karte («Seit Kauf»,
@@ -226,6 +227,10 @@ enum PortfolioHistory {
         return Int(days)
     }
 
+    /// Heutiger UTC-Tag — EINE Tagesgrenze für «7 T/1 J», Wertverlauf und die Erwerbstage der Karte; das lokale Datum
+    /// lag zwischen Mitternacht lokal und UTC einen Tag daneben. Wie Android `utcToday`.
+    static func utcToday(now: Int64 = TimeUtils.nowMillis) -> Int { epochDay(utcMillis: now) }
+
     /// Letzte Millisekunde des UTC-Tags `day` — die EINE Tagesgrenze von Verlauf und «7 T/1 J» (wie die Tageskerzen).
     /// Das Steuerjahr (`TaxExport.localDay`) und der Stichtag (`CutoffDay.endOfDayMillis`) nehmen dagegen das rechtliche
     /// Datum in der Zeitzone des Geräts. Wie Android.
@@ -304,9 +309,18 @@ enum PortfolioHistory {
                       method: CostMethod = .defaultMethod) -> PortfolioHistorySeries {
         // EINE Tagesgrenze: UTC-Tag (wie Tageskerzen und «7 T/1 J»), nicht die lokale Zeitzone des Aufrufers
         let dayEndMillis: (Int) -> Int64 = { PortfolioHistory.utcDayEnd($0) }
-        // Adress-Einträge nie rückwirkend; nur die beobachtete Reihe
-        let valid = trades.filter { $0.amount > 0 && !$0.amount.isInfinite && !AddressBalance.isAddressTrade($0.id) }
+        // Adress-Einträge nie rückwirkend; nur die beobachtete Reihe. Tausch ohne Wert (und die übrigen Fälle von
+        // `PortfolioLedger.valueAtDayClose`) zum selben Tageskurs wie die Karte (`PortfolioPeriodChange.marketPriceAt`):
+        // EIN Wert für beide Seiten, sonst bewerteten Kurve und Karte denselben Tausch verschieden
+        let raw = trades.filter { $0.amount > 0 && !$0.amount.isInfinite && !AddressBalance.isAddressTrade($0.id) }
             + AddressBalanceHistory.trades(addresses)
+        let valid = PortfolioLedger.valueAtDayClose(
+            raw,
+            price: { coin, time in
+                guard let p = PortfolioPeriodChange.marketPriceAt(coin, live: livePrices[coin], closes: closes, time: time),
+                      p > 0, p.isFinite else { return nil }
+                return PortfolioDecimal.of(p)
+            })
         guard let firstTime = valid.map(\.time).min() else { return .empty }
         let rate = fxRate > 0 && fxRate.isFinite ? fxRate : 1
 
@@ -419,8 +433,10 @@ enum PortfolioHistory {
         let flows = cashFlows(valid, coins: included, start: start, todayEpochDay: todayEpochDay,
                               dayEndMillis: dayEndMillis, rate: rate, market: market, method: method)
 
-        // Gewinn/Verlust: nur Coins mit Kurs an jedem gehaltenen Tag und bekannten Zuflüssen
-        let sinceFirst = range == .sinceFirst
+        // Gewinn/Verlust: nur Coins mit Kurs an jedem gehaltenen Tag und bekannten Zuflüssen. Ab 0 mit allen Zuflüssen
+        // auch, wenn der erste Kauf erst im Zeitraum liegt (junges Portfolio): sonst fehlte der erste Tag (Kursbewegung
+        // und Gebühren des ersten Kaufs), der Kopf «7 T/1 J» (`PortfolioPeriodChange.gain`) zählt ihn
+        let sinceFirst = range == .sinceFirst || start > todayEpochDay - range.days
         var pnlFlowList: [PortfolioCashFlow] = []
         var pnlSkipped: [String] = []
         var pnlCoins: [String] = []

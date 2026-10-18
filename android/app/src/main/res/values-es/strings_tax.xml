@@ -74,7 +74,7 @@
     <string name="tax_export_proceeds_missing">falta el precio de venta</string>
     <string name="tax_export_proceeds_without_cost">Importe de venta sin precio de compra</string>
     <string name="tax_export_realized_differs">El CSV fiscal puede diferir de «realizado» (normas fiscales del país).</string>
-    <string name="tax_export_rule">&gt; 1 año: vendido después de la fecha de compra + 1 año natural. Fechas en hora local. Cambios: cambio diario del BCE (último día hábil anterior).</string>
+    <string name="tax_export_rule">&gt; 1 año: vendido después de la fecha de compra + 1 año natural. Fechas en hora local. Cambios: cambio diario del BCE del día de la operación; si no lo hay, el último cambio hasta 7 días antes.</string>
     <string name="tax_export_rules_date">Normas vigentes a: %1$s</string>
     <string name="tax_export_spouse_gift">al cónyuge/pareja – sin ganancia ni pérdida</string>
     <string name="tax_export_summary">Resumen anual %1$s (CSV)</string>
@@ -98,7 +98,7 @@
     <!-- Steuer-Export: Zeilen und Spalten -->
     <string name="tax_line_at_interest">Intereses de lending (valor al recibirlos)</string>
     <string name="tax_line_at_old_long">Adquirido antes del 1.3.2021 – mantenido &gt; 1 año: normalmente no tributa – compruébalo</string>
-    <string name="tax_line_at_rate">Tipo especial 27,5 por ciento: neto adquirido desde el 1.3.2021 + intereses (1.3.2021–28.2.2022: ver nota)</string>
+    <string name="tax_line_at_rate">Tipo especial 27,5 por ciento: neto adquirido desde el 1.3.2021 y vendido desde el 1.3.2022 + intereses</string>
     <string name="tax_line_au_discounted">Ganancia de capital neta tras pérdidas y descuento del 50 por ciento</string>
     <string name="tax_line_ca_taxable">Ganancia de capital imponible (tasa de inclusión 1/2)</string>
     <string name="tax_line_ch_income">Recompensas listadas – tratamiento ver documento de trabajo de la ESTV</string>
@@ -115,9 +115,9 @@
     <string name="tax_line_long_net">Neto – mantenido &gt; 1 año</string>
     <string name="tax_line_losses">Pérdidas</string>
     <string name="tax_line_net">Ganancias/pérdidas netas</string>
-    <string name="tax_line_new_net">Neto – adquirido desde el 1.3.2021</string>
+    <string name="tax_line_new_net">Neto – adquirido desde el 1.3.2021, vendido desde el 1.3.2022</string>
     <string name="tax_line_old_long_net">Neto – adquirido antes del 1.3.2021 – mantenido &gt; 1 año</string>
-    <string name="tax_line_old_short_net">Neto – adquirido antes del 1.3.2021 – mantenido ≤ 1 año</string>
+    <string name="tax_line_old_short_net">Neto – operaciones especulativas (normativa anterior): adquirido antes del 1.3.2021 y mantenido ≤ 1 año, o vendido antes del 1.3.2022</string>
     <string name="tax_line_proceeds">Importes de venta</string>
     <string name="tax_line_short_net">Neto – mantenido ≤ 1 año</string>
     <string name="tax_line_transfer_fees">Comisiones de transferencia (wallets propios)</string>
@@ -191,7 +191,7 @@
     <string name="tax_note_withdrawal_fee">Una comisión de retirada en USDT o efectivo no es pérdida: en efectivo no es deducible, en USDT es una enajenación a la par sin ganancia – figura solo como información (%1$s).</string>
     <string name="tax_summary_at_interest_income">cuenta: ingreso al recibirlo al tipo especial del 27,5 por ciento (§ 27b apdo. 2 n.º 1 EStG / BMF) – las monedas conservan este valor como coste de adquisición</string>
     <string name="tax_summary_at_reward_info">solo informativo – en ningún total: las recompensas entran en las nuevas tenencias con coste de adquisición 0 y solo tributan al venderlas (ya en las ganancias) – § 27b Abs. 2 EStG / BMF</string>
-    <string name="tax_summary_at_transition_2021">Ventas/permutas de nuevas tenencias del 1.3.2021 al 28.2.2022: normativa anterior (§ 31 EStG versión anterior) con opción al 27,5 por ciento – consultar con un asesor fiscal</string>
+    <string name="tax_summary_at_transition_2021">1.1.–28.2.2022: opción al 27,5 por ciento posible</string>
     <string name="tax_summary_at_withdrawal_fee">Comisión de retiro: no se compensa con las nuevas tenencias (gastos no deducibles al tipo especial, § 20 ap. 2 EStG)</string>
     <string name="tax_summary_ch_fifo_info">solo informativo – cálculo FIFO de la app – sin clasificar – ver ESTV</string>
     <string name="tax_summary_ch_year_end_value">valor a 31.12 en el CSV de tenencias = precio del exchange × USD/CHF – no los valores fiscales de la lista de cotizaciones de la ESTV</string>

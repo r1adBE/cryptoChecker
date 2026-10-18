@@ -6,7 +6,6 @@ package com.cryptochecker.app.ui.features.portfolio
 
 import com.cryptochecker.app.data.portfolio.HistoricPriceSource
 import com.cryptochecker.app.domain.portfolio.AddressBalance
-import com.cryptochecker.app.domain.portfolio.CostMethod
 import com.cryptochecker.app.domain.portfolio.CutoffExport
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
@@ -15,9 +14,11 @@ import com.cryptochecker.app.domain.portfolio.PortfolioLedger
 import com.cryptochecker.app.domain.portfolio.PortfolioStables
 import com.cryptochecker.app.domain.portfolio.PortfolioTrade
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
+import com.cryptochecker.app.domain.portfolio.TaxEngines
 import com.cryptochecker.app.domain.portfolio.TaxMethod
 import com.cryptochecker.app.domain.portfolio.TaxPeriod
 import com.cryptochecker.app.domain.portfolio.TaxTemplate
+import com.cryptochecker.app.domain.portfolio.frHeldBefore
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.map
 import timber.log.Timber
@@ -151,7 +152,8 @@ internal suspend fun PortfolioExportViewModel.networkFeePrices(
 /**
  * FR: Kurse für den Gesamtwert des Portfolios vor jeder Abtretung bis Ende [period] — je Verkauf, Auszahlung und
  * Gebühr in Krypto (Umbuchung/Tausch mit Gebühr im Coin, Gebühr im dritten Coin) die gehaltenen Coins (ohne den
- * verkauften und ohne Stablecoins) zum Tagesschluss des Vortags (UTC; letzter bekannter Schluss davor). Fehlt ein
+ * verkauften und ohne Stablecoins) zum Tagesschluss des Vortags (UTC; letzter bekannter Schluss davor). Gehalten = in
+ * der Reihenfolge der Rechnung davor gebucht ([TaxEngines.frHeldBefore], auch dieselbe Millisekunde). Fehlt ein
  * Kurs, bleibt der Einstand dieser Abtretung leer («unvollständig»).
  */
 internal suspend fun PortfolioExportViewModel.frPrices(
@@ -176,7 +178,7 @@ internal suspend fun PortfolioExportViewModel.frPrices(
         val day = closeDay(t.time)
         // Verkauf: Coin zum Verkaufspreis; sonst ohne erfassten Wert: auch der Coin selbst braucht einen Kurs
         val sold = PortfolioCalculator.normalizeCoin(t.coin).takeIf { t.type.isSaleLike || t.validPrice != null }
-        val held = PortfolioCalculator.holdingsAt(own, t.time - 1, CostMethod.FIFO).keys +
+        val held = TaxEngines.frHeldBefore(own, t) +
             addressTrades.filter { it.time <= t.time }.map { PortfolioCalculator.normalizeCoin(it.coin) }
         held.filter { it != sold && PortfolioStables.needsQuote(it) }
             .forEach { wanted[it to day] = Unit }

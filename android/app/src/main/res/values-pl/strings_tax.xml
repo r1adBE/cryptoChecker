@@ -74,7 +74,7 @@
     <string name="tax_export_proceeds_missing">brak ceny sprzedaży</string>
     <string name="tax_export_proceeds_without_cost">Przychód bez ceny zakupu</string>
     <string name="tax_export_realized_differs">Podatkowy plik CSV może różnić się od „zrealizowane” (przepisy podatkowe kraju).</string>
-    <string name="tax_export_rule">&gt; 1 rok: sprzedaż po dacie zakupu + 1 rok kalendarzowy. Daty w czasie lokalnym. Kursy: dzienny kurs EBC (ostatni dzień roboczy przed).</string>
+    <string name="tax_export_rule">&gt; 1 rok: sprzedaż po dacie zakupu + 1 rok kalendarzowy. Daty w czasie lokalnym. Kursy: dzienny kurs EBC z dnia transakcji; jeśli go brak, ostatni kurs do 7 dni wcześniej.</string>
     <string name="tax_export_rules_date">Stan przepisów: %1$s</string>
     <string name="tax_export_spouse_gift">dla małżonka/partnera – bez zysku i straty</string>
     <string name="tax_export_summary">Podsumowanie roczne %1$s (CSV)</string>
@@ -98,7 +98,7 @@
     <!-- Steuer-Export: Zeilen und Spalten -->
     <string name="tax_line_at_interest">Odsetki z lendingu (wartość w chwili otrzymania)</string>
     <string name="tax_line_at_old_long">Nabyte przed 1.03.2021 – posiadane &gt; 1 rok: zwykle nieopodatkowane – sprawdź</string>
-    <string name="tax_line_at_rate">Stawka specjalna 27,5 procent: netto z nabytych od 1.03.2021 + odsetki (1.03.2021–28.02.2022: zob. uwagę)</string>
+    <string name="tax_line_at_rate">Stawka specjalna 27,5 procent: netto z nabytych od 1.03.2021 i sprzedanych od 1.03.2022 + odsetki</string>
     <string name="tax_line_au_discounted">Zysk kapitałowy netto po stratach i 50-procentowej zniżce</string>
     <string name="tax_line_ca_taxable">Opodatkowany zysk kapitałowy (stopa włączenia 1/2)</string>
     <string name="tax_line_ch_income">Nagrody wymienione – traktowanie zob. dokument roboczy ESTV</string>
@@ -115,9 +115,9 @@
     <string name="tax_line_long_net">Netto – posiadane &gt; 1 rok</string>
     <string name="tax_line_losses">Straty</string>
     <string name="tax_line_net">Zysk/strata netto</string>
-    <string name="tax_line_new_net">Netto – nabyte od 1.03.2021</string>
+    <string name="tax_line_new_net">Netto – nabyte od 1.03.2021, sprzedane od 1.03.2022</string>
     <string name="tax_line_old_long_net">Netto – nabyte przed 1.03.2021 – posiadane &gt; 1 rok</string>
-    <string name="tax_line_old_short_net">Netto – nabyte przed 1.03.2021 – posiadane ≤ 1 rok</string>
+    <string name="tax_line_old_short_net">Netto – transakcje spekulacyjne (dawne przepisy): nabyte przed 1.03.2021 i posiadane ≤ 1 rok lub sprzedane przed 1.03.2022</string>
     <string name="tax_line_proceeds">Przychody</string>
     <string name="tax_line_short_net">Netto – posiadane ≤ 1 rok</string>
     <string name="tax_line_transfer_fees">Opłaty za przeniesienie (własne portfele)</string>
@@ -191,7 +191,7 @@
     <string name="tax_note_withdrawal_fee">Opłata za wypłatę w USDT lub gotówce nie jest stratą: opłaty w gotówce nie można odliczyć, opłata w USDT to zbycie po wartości nominalnej bez zysku – widnieje tylko jako informacja (%1$s).</string>
     <string name="tax_summary_at_interest_income">liczy się: przychód w chwili otrzymania według stawki specjalnej 27,5 procent (§ 27b ust. 2 pkt 1 EStG / BMF) – monety zachowują tę wartość jako koszt nabycia</string>
     <string name="tax_summary_at_reward_info">tylko informacyjnie – w żadnej sumie: nagrody trafiają do nowego stanu z kosztem nabycia 0 i są opodatkowane dopiero przy sprzedaży (już w zyskach) – § 27b Abs. 2 EStG / BMF</string>
-    <string name="tax_summary_at_transition_2021">Sprzedaż/zamiana nowego stanu 1.03.2021–28.02.2022: dawne przepisy (§ 31 EStG w poprzednim brzmieniu) z opcją 27,5 procent – wyjaśnij z doradcą podatkowym</string>
+    <string name="tax_summary_at_transition_2021">1.01–28.02.2022: możliwa opcja 27,5 procent</string>
     <string name="tax_summary_at_withdrawal_fee">Opłata za wypłatę – nierozliczona z nowym stanem (koszty niepodlegające odliczeniu przy stawce specjalnej, § 20 ust. 2 EStG)</string>
     <string name="tax_summary_ch_fifo_info">tylko informacyjnie – obliczenie FIFO aplikacji – bez klasyfikacji – zob. ESTV</string>
     <string name="tax_summary_ch_year_end_value">wartość na 31.12 w CSV stanu = kurs giełdowy × USD/CHF – nie wartości podatkowe z listy kursów ESTV</string>

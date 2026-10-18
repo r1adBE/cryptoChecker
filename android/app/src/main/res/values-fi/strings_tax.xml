@@ -74,7 +74,7 @@
     <string name="tax_export_proceeds_missing">myyntihinta puuttuu</string>
     <string name="tax_export_proceeds_without_cost">Myyntituotto ilman ostohintaa</string>
     <string name="tax_export_realized_differs">Vero-CSV voi poiketa kohdasta ”toteutunut” (maan verosäännöt).</string>
-    <string name="tax_export_rule">&gt; 1 vuosi: myyty ostopäivän + 1 kalenterivuoden jälkeen. Päivämäärät paikallista aikaa. Kurssit: EKP:n päiväkurssi (edellinen pankkipäivä).</string>
+    <string name="tax_export_rule">&gt; 1 vuosi: myyty ostopäivän + 1 kalenterivuoden jälkeen. Päivämäärät paikallista aikaa. Kurssit: EKP:n päiväkurssi tapahtumapäivältä; jos sitä ei ole, viimeisin kurssi enintään 7 päivää aiemmin.</string>
     <string name="tax_export_rules_date">Säännöt tilanteessa: %1$s</string>
     <string name="tax_export_spouse_gift">puolisolle/kumppanille – ei voittoa, ei tappiota</string>
     <string name="tax_export_summary">Vuosikooste %1$s (CSV)</string>
@@ -98,7 +98,7 @@
     <!-- Steuer-Export: Zeilen und Spalten -->
     <string name="tax_line_at_interest">Lainauksen korot (arvo vastaanotettaessa)</string>
     <string name="tax_line_at_old_long">Hankittu ennen 1.3.2021 – omistettu &gt; 1 vuosi: yleensä ei veronalaista – tarkista</string>
-    <string name="tax_line_at_rate">Erityisverokanta 27,5 prosenttia: netto 1.3.2021 alkaen hankitusta + korot (1.3.2021–28.2.2022: katso huomautus)</string>
+    <string name="tax_line_at_rate">Erityisverokanta 27,5 prosenttia: netto 1.3.2021 alkaen hankitusta ja 1.3.2022 alkaen myydystä + korot</string>
     <string name="tax_line_au_discounted">Nettoluovutusvoitto tappioiden ja 50 prosentin alennuksen jälkeen</string>
     <string name="tax_line_ca_taxable">Veronalainen luovutusvoitto (sisällytysosuus 1/2)</string>
     <string name="tax_line_ch_income">Palkkiot listattu – käsittely ks. ESTV:n työpaperi</string>
@@ -115,9 +115,9 @@
     <string name="tax_line_long_net">Netto – omistettu &gt; 1 vuosi</string>
     <string name="tax_line_losses">Tappiot</string>
     <string name="tax_line_net">Nettovoitto/-tappio</string>
-    <string name="tax_line_new_net">Netto – hankittu 1.3.2021 alkaen</string>
+    <string name="tax_line_new_net">Netto – hankittu 1.3.2021 alkaen, myyty 1.3.2022 alkaen</string>
     <string name="tax_line_old_long_net">Netto – hankittu ennen 1.3.2021 – omistettu &gt; 1 vuosi</string>
-    <string name="tax_line_old_short_net">Netto – hankittu ennen 1.3.2021 – omistettu ≤ 1 vuosi</string>
+    <string name="tax_line_old_short_net">Netto – keinottelukaupat (aiempi sääntely): hankittu ennen 1.3.2021 ja omistettu ≤ 1 vuosi tai myyty ennen 1.3.2022</string>
     <string name="tax_line_proceeds">Myyntituotot</string>
     <string name="tax_line_short_net">Netto – omistettu ≤ 1 vuosi</string>
     <string name="tax_line_transfer_fees">Siirtokulut (omat lompakot)</string>
@@ -191,7 +191,7 @@
     <string name="tax_note_withdrawal_fee">Nostokulu USDT:nä tai käteisenä ei ole tappio: käteiskulu ei ole vähennyskelpoinen, USDT-kulu on luovutus nimellisarvoon ilman voittoa – se näytetään vain tiedoksi (%1$s).</string>
     <string name="tax_summary_at_interest_income">lasketaan: tuloa vastaanotettaessa 27,5 prosentin erityisverokannalla (§ 27b mom. 2 kohta 1 EStG / BMF) – kolikot säilyttävät tämän arvon hankintamenona</string>
     <string name="tax_summary_at_reward_info">vain tiedoksi – ei mukana missään summassa: palkkiot tulevat uuteen omistukseen hankintamenolla 0 ja verotetaan vasta myynnissä (jo voitoissa) – § 27b Abs. 2 EStG / BMF</string>
-    <string name="tax_summary_at_transition_2021">Uuden omistuksen myynnit/vaihdot 1.3.2021–28.2.2022: aiempi sääntely (§ 31 EStG vanha versio) ja mahdollisuus 27,5 prosenttiin – selvitä veroneuvojan kanssa</string>
+    <string name="tax_summary_at_transition_2021">1.1.–28.2.2022: mahdollisuus 27,5 prosenttiin</string>
     <string name="tax_summary_at_withdrawal_fee">Nostokulu – ei vähennetty uudesta omistuksesta (kulut eivät vähennyskelpoisia erityisverokannalla, § 20 mom. 2 EStG)</string>
     <string name="tax_summary_ch_fifo_info">vain tiedoksi – sovelluksen FIFO-laskelma – ei luokiteltu – ks. ESTV</string>
     <string name="tax_summary_ch_year_end_value">arvo 31.12. omistus-CSV:ssä = pörssikurssi × USD/CHF – ei ESTV:n kurssiluettelon veroarvoja</string>

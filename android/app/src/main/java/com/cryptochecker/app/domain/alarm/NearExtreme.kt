@@ -168,8 +168,9 @@ object NearExtreme {
 
         val extreme = if (side == Side.HIGH) range.high else range.low
         val beyond = if (side == Side.HIGH) price > extreme else price < extreme
-        // Abstand in Prozent der Marke, immer ≥ 0
-        val distance = kotlin.math.abs(price - extreme) / extreme * 100.0
+        // Abstand in Prozent der Marke, immer ≥ 0; gerundet wie alle Prozent-Alarme ([AlarmPercent]): 2.94 bei Hoch 3.00
+        // ist genau 2 % entfernt (nicht 2.0000000000000018 %)
+        val distance = AlarmPercent.rounded(kotlin.math.abs(price - extreme) / extreme * 100.0)
 
         if (beyond) {
             // Neues Hoch/Tief: scharf (und jenseits der gemeldeten Marke: «neu» heisst über
@@ -180,8 +181,8 @@ object NearExtreme {
                 lastLevel == null || lastLevel <= 0.0 -> true
                 armed -> if (side == Side.HIGH) price > lastLevel else price < lastLevel
                 lastTriggeredAt > 0 && now - lastTriggeredAt in 0 until FURTHER_EXTREME_MIN_MILLIS -> false
-                side == Side.HIGH -> (price - lastLevel) / lastLevel * 100.0 >= furtherStepPercent(thresholdPercent)
-                else -> (lastLevel - price) / lastLevel * 100.0 >= furtherStepPercent(thresholdPercent)
+                side == Side.HIGH -> AlarmPercent.rounded((price - lastLevel) / lastLevel * 100.0) >= furtherStepPercent(thresholdPercent)
+                else -> AlarmPercent.rounded((lastLevel - price) / lastLevel * 100.0) >= furtherStepPercent(thresholdPercent)
             }
             if (!further || inCooldown) return Decision.None
             return Decision.Fire(newExtreme = true, distancePercent = distance, extreme = extreme, level = price)

@@ -170,6 +170,7 @@ object PortfolioCalculator {
             // Aus denselben Veräusserungen wie der Steuer-Export: ein Teil ohne Einstand/Erlös → unvollständig
             disposalsIncomplete = book.disposals.any { it.costUsdt == null || it.proceedsUsdt == null || it.feeValueMissing },
             pricedCostExact = pricedCostExact,
+            pricedCostParts = if (pricedCostExact != null) book.openParts else emptyList(),
         )
         // Offene Posten für die Anzeige: FIFO je Posten, Ø zusammengefasst (Teil mit / ohne Kaufpreis)
         val openLots = if (method.isFifo) {

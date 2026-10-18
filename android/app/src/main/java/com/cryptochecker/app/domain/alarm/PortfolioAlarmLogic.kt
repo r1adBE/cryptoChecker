@@ -108,19 +108,20 @@ object PortfolioAlarmLogic {
 
     /**
      * Gesamtwert in der Alarmwährung [currency]: der Wert der Momentaufnahme, wenn sie in
-     * derselben Währung ist; bei einem USD-Stablecoin der USDT-Wert; bei USD der USDT-Wert mal USDT/USD
-     * ([PortfolioReading.usdtUsdLive]); sonst der USDT-Wert mal Devisenkurs ([PortfolioReading.usdTo]) mal USDT/USD
-     * ([PortfolioStables.usdtTo]) — wie der Portfolio-Kopf (`PortfolioSnapshotUpdater`, USDT zum Marktkurs). So bleibt
-     * ein Alarm in CHF wirksam, nachdem die Umrechnungswährung auf EUR wechselte. Ohne Kurs null (diesmal nicht prüfen).
+     * derselben Währung ist; bei USDT der USDT-Wert; bei USD und den übrigen USD-Stablecoins (USDC, DAI …) der USDT-Wert
+     * mal USDT/USD ([PortfolioReading.usdtUsdLive]) — sie gelten wie USD 1 Dollar, nicht 1 USDT; sonst der USDT-Wert mal
+     * Devisenkurs ([PortfolioReading.usdTo]) mal USDT/USD ([PortfolioStables.usdtTo]) — wie der Portfolio-Kopf
+     * (`PortfolioSnapshotUpdater`, USDT zum Marktkurs). So bleibt ein Alarm in CHF wirksam, nachdem die
+     * Umrechnungswährung auf EUR wechselte. Ohne Kurs null (diesmal nicht prüfen).
      */
     fun totalIn(currency: String?, reading: PortfolioReading): Double? {
         val wanted = currency?.trim()?.uppercase()?.takeIf { it.isNotEmpty() } ?: return null
         if (wanted == reading.currency.uppercase()) return reading.total.takeIf { it.isFinite() }
         val usdt = reading.totalUsdt?.takeIf { it.isFinite() } ?: return null
         val usdtUsd = PortfolioStables.usdtUsdLive(reading.usdtUsdLive)
-        if (wanted == "USD") return usdt * usdtUsd.rate
-        val stables = CurrencyConversion.USD_STABLES
-        if (CurrencyConversion.normalize(wanted) in stables) return usdt
+        if (wanted == "USDT") return usdt
+        // USD-Stablecoins ausser USDT wie USD: USDT-Wert × USDT/USD (bei entkoppeltem USDT sonst falsch)
+        if (wanted == "USD" || CurrencyConversion.normalize(wanted) in CurrencyConversion.USD_STABLES) return usdt * usdtUsd.rate
         val rate = reading.usdTo[wanted]?.takeIf { it.isFinite() && it > 0.0 } ?: return null
         val factor = PortfolioStables.usdtTo(rate, usdtUsd) ?: return null
         return usdt * factor

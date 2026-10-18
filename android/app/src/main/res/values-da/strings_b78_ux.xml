@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
+    <string name="alarm_status_notifications_off">Notifikationer slået fra – alarmen når ikke frem</string>
+    <!-- Statuszeile der Alarm-Karte: DEX-Pool unter der Alarm-Liquidität (10’000 USD) oder unbekannt -->
+    <string name="alarm_status_low_liquidity">Ingen alarm – lav likviditet</string>
+    <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
+    <string name="alarm_status_waiting_price">Venter på en aktuel kurs</string>
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">Dine data</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">På enheden</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">Liste, alarmer og portefølje ligger krypteret på denne enhed; ingen konto, ingen egen server.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">Forbindelser</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">Kurser kommer direkte fra børserne for dine par, plus valutakurser, coinlister og logoer og dataspejlet på GitHub; de ser din IP-adresse, aldrig dine beholdninger (overvågede adresser går til udbyderen af det pågældende netværk).</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">Sikkerhedskopi</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">Kun hvis du selv opretter en; krypteret med adgangskode (Argon2id + AES-256-GCM), læsbar uden adgangskode.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">Skift af enhed</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">Nøglen bliver på den gamle enhed – opret først en sikkerhedskopifil.</string>
+</resources>

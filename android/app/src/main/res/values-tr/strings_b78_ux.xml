@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
+    <string name="alarm_status_notifications_off">Bildirimler kapalı – bu alarm sana ulaşmaz</string>
+    <!-- Statuszeile der Alarm-Karte: DEX-Pool unter der Alarm-Liquidität (10’000 USD) oder unbekannt -->
+    <string name="alarm_status_low_liquidity">Alarm yok – düşük likidite</string>
+    <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
+    <string name="alarm_status_waiting_price">Güncel fiyat bekleniyor</string>
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">Verilerin</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">Cihazda</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">Liste, alarmlar ve portföy bu cihazda şifreli olarak durur; hesap yok, kendi sunucumuz yok.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">Bağlantılar</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">Fiyatlar doğrudan çiftlerinin borsalarından gelir, ayrıca döviz kurları, coin listeleri ve logolar ile GitHub’daki veri yansısı; bunlar IP adresini görür, varlıklarını asla (izlenen adresler ilgili ağın sağlayıcısına gider).</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">Yedek</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">Yalnızca sen oluşturursan; parolayla şifreli (Argon2id + AES-256-GCM), parolasız okunabilir.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">Cihaz değişikliği</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">Anahtar eski cihazda kalır – önce bir yedek dosyası oluştur.</string>
+</resources>

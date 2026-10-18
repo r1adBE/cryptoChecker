@@ -8,6 +8,9 @@ import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.data.portfolio.PortfolioDailyPrices
 import com.cryptochecker.app.data.portfolio.withAddresses
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
+import com.cryptochecker.app.domain.portfolio.PortfolioCostFx
+import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
+import com.cryptochecker.app.domain.portfolio.PortfolioHistoryFx
 import com.cryptochecker.app.domain.portfolio.PortfolioPriceFallback
 import com.cryptochecker.app.domain.watch.ChangeBasisMath
 import kotlinx.coroutines.CancellationException
@@ -94,6 +97,35 @@ fun PortfolioViewModel.start() {
             .distinctUntilChanged()
             .collectLatest { (code, from) -> loadFxSeries(code, from) }
     }
+    // «Seit Kauf»/Einstand in der Anzeigewährung: Kurse ab dem frühesten Erwerbstag der offenen Posten
+    viewModelScope.launch {
+        combine(currency, summary.filterNotNull()) { code, s -> code to PortfolioCostFx.firstDay(s) }
+            .distinctUntilChanged()
+            .collectLatest { (code, first) -> first?.let { loadCostFx(code, LocalDate.ofEpochDay(it)) } }
+    }
+}
+
+/**
+ * Kurse für «Seit Kauf»/Einstand in der Anzeigewährung ab [from] ([CostFxLoad]): dieselben Quellen wie der Steuer-Export
+ * (Devisen-Tageskurse ab [PortfolioHistoryFx.LEAD_DAYS] Tagen davor, USDT/USD-Tagesschlüsse). USDT braucht keine;
+ * schon geladen (gleiche Währung, Zeitraum abgedeckt) → nichts zu tun.
+ */
+internal suspend fun PortfolioViewModel.loadCostFx(code: String, from: LocalDate) {
+    if (code == PortfolioFormat.USDT) return
+    val known = _costFx.value
+    if (known != null && known.currency == code && !known.from.isAfter(from) && known.rates != null) return
+    val today = LocalDate.now(ZoneId.systemDefault())
+    val rates = if (code == "USD") emptyMap() else {
+        safe { historicSource.usdToSeries(code, from.minusDays(PortfolioHistoryFx.LEAD_DAYS.toLong()), today) }
+            ?.takeIf { it.isNotEmpty() }
+            ?.mapNotNull { (day, rate) -> PortfolioDecimal.of(rate)?.let { day to it } }?.toMap()
+    }
+    val days = (java.time.temporal.ChronoUnit.DAYS.between(from, today) + 1 + PortfolioHistoryFx.LEAD_DAYS)
+        .coerceIn(1L, Int.MAX_VALUE.toLong()).toInt()
+    val usdt = safe { historySource.usdtUsdDaily(days) }.orEmpty()
+        .mapNotNull { (day, close) -> PortfolioDecimal.of(close)?.let { day to it } }.toMap()
+    // Inzwischen andere Währung gewählt: nicht überschreiben
+    if (currency.value == code) _costFx.value = CostFxLoad(code, from, rates, usdt)
 }
 
 internal suspend fun PortfolioViewModel.loadFxSeries(code: String, from: LocalDate) {
@@ -120,6 +152,8 @@ fun PortfolioViewModel.refresh(force: Boolean) {
             _fxRate.value = safe { fxSource.usdTo(currency.value) }
             // Fehlten die Devisen-Tageskurse, erneut versuchen
             if (_fxSeries.value?.rates == null) loadFxSeries(currency.value, fxSeriesFrom(txs, historyRange.value))
+            // Fehlten die Kurse für «Seit Kauf» in der Anzeigewährung, erneut versuchen
+            if (_costFx.value?.rates == null) summary.value?.let(PortfolioCostFx::firstDay)?.let { loadCostFx(currency.value, LocalDate.ofEpochDay(it)) }
         } finally {
             _refreshing.value = false
         }

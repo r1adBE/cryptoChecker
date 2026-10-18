@@ -9,7 +9,7 @@
     <string name="backup_restore_interrupted_rolled_back">Az alkalmazás bezárult egy biztonsági mentés visszaállítása közben. A korábbi adataidat visszaállítottuk; a mentésből semmi sem maradt meg.</string>
     <string name="backup_restore_interrupted_incomplete">Az alkalmazás bezárult egy mentés visszaállítása közben, és a korábbi adatokat nem sikerült teljesen visszaállítani. Ellenőrizd a figyelőlistát és a portfóliót, vagy állítsd vissza újra a mentést a Beállítások „%1$s” pontjában.</string>
     <string name="backup_not_verified">A mentésfájlt mentés után nem sikerült ellenőrizni – visszaolvasva eltér. Mentsd a biztonsági mentést új fájlba.</string>
-    <string name="tax_line_at_old_speculation_limit">2021. 03. 01. előtt szerezve – ≤ 1 évig tartva: spekulációs ügyletek mentességi határa (§ 31 (3) EStG, régi szöveg)</string>
+    <string name="tax_line_at_old_speculation_limit">Spekulációs ügyletek (korábbi szabályozás, ≤ 1 évig tartva): mentességi határ (§ 31 (3) EStG, régi szöveg)</string>
     <string name="portfolio_tx_interest">Kamat (kölcsönzés)</string>
     <string name="portfolio_tx_interest_hint">Jóváíráskor jövedelemnek számít (Ausztria). Staking-jutalmaknál és airdropoknál hagyd kikapcsolva.</string>
     <string name="app_lock_no_screen_lock">A portfólió megnyitásához állíts be képernyőzárat.</string>

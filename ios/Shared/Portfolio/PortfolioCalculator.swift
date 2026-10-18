@@ -70,6 +70,11 @@ struct CoinPosition: Sendable, Equatable, Identifiable {
     /// Einstand des Teils MIT Kaufpreis (`pricedHoldingsExact`) — Basis von `unrealized`/`unrealizedPercent`; gleich
     /// `costBasisExact`, wenn kein Teil ohne Kaufpreis ist. nil ohne eigenen Teil mit Kaufpreis. Wie Android.
     var pricedCostExact: Decimal? = nil
+    /// Herkunft von `pricedCostExact` (`PortfolioCostPart`: Zeitpunkt und Betrag je Zugang bzw. zugeschlagener Gebühr,
+    /// Summe = `pricedCostExact`) nach der Einstandsmethode — FIFO die offenen Posten, Ø der Topf nach anteiligen
+    /// Abgängen. Leer ohne Teil mit Kaufpreis bzw. bei Einstand 0. Basis von «Seit Kauf» in der Anzeigewährung
+    /// (`PortfolioCostFx`). Wie Android.
+    var pricedCostParts: [PortfolioCostPart] = []
 
     var id: String { coin }
     /// Eigener Bestand OHNE Kaufpreis (nicht in «Seit Kauf»); 0 = keiner.
@@ -292,7 +297,8 @@ enum PortfolioCalculator {
             unassignedFeeUsdt: book.unassignedFees.reduce(Decimal(0)) { $0 + $1.usdt },
             // Aus denselben Veräusserungen wie der Steuer-Export: ein Teil ohne Einstand/Erlös → unvollständig
             disposalsIncomplete: book.disposals.contains { $0.costUsdt == nil || $0.proceedsUsdt == nil || $0.feeValueMissing },
-            pricedCostExact: pricedCostExact
+            pricedCostExact: pricedCostExact,
+            pricedCostParts: pricedCostExact != nil ? book.openParts : []
         )
         // Offene Posten für die Anzeige: FIFO je Posten, Ø zusammengefasst (Teil mit / ohne Kaufpreis) — wie Android
         var openLots: [PortfolioOpenLot] = []

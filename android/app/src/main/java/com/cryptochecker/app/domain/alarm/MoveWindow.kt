@@ -59,7 +59,8 @@ object MoveWindow {
         val bridge = points.filter { now - it.time > window && now - it.time <= maxAge }.maxByOrNull { it.time }
         var best: Double? = null
         for (p in if (bridge != null) inside + bridge else inside) {
-            val change = (price - p.price) / p.price * 100.0
+            // Gerundet wie alle Prozent-Alarme ([AlarmPercent]): genau die Marke zählt
+            val change = AlarmPercent.rounded((price - p.price) / p.price * 100.0)
             if (best == null || abs(change) > abs(best)) best = change
         }
         return best
@@ -94,5 +95,24 @@ object MoveWindow {
             if (p.time - previous.time >= spacing) kept += p
         }
         return kept
+    }
+}
+
+/**
+ * Prozent-Werte der Alarme vor dem Vergleich mit der Schwelle (Spiegel: `AlarmPercent` in AlarmLogic.swift): auf 1e-6
+ * Prozentpunkte gerundet (nächster Wert, genau die Mitte vom Nullpunkt weg). Sonst verfehlt ein Alarm genau seine
+ * Marke um einen Gleitkomma-Rest — 3.00 → 3.09 ergibt 2.9999999999999956 % und meldete bei «+3 %» nicht. Gleiche Regel
+ * für Veränderung ([AlarmEvaluator.changePercent]), Bewegungs-Fenster ([MoveWindow.changePercent]) und Abstand zum
+ * Hoch/Tief ([NearExtreme.decide]).
+ */
+object AlarmPercent {
+    /** Kehrwert der Auflösung: 1e-6 Prozentpunkte. */
+    const val SCALE = 1e6
+
+    /** [percent] auf 1e-6 gerundet; nicht endliche Werte unverändert. */
+    fun rounded(percent: Double): Double {
+        if (!percent.isFinite()) return percent
+        val scaled = Math.floor(abs(percent) * SCALE + 0.5)
+        return Math.copySign(scaled / SCALE, percent)
     }
 }

@@ -61,11 +61,47 @@ enum class TaxSummaryNote {
      */
     TRANSFER_FEE_INFO,
     /**
-     * AT Neubestand netto ([TaxLine.NEW_NET]): Verkäufe bzw. Tausch von Neuvermögen vom 1.3.2021 ([TaxTemplate.AT_NEW_FROM])
-     * bis 28.2.2022 (vor [TaxTemplate.AT_SWAP_NEUTRAL_FROM]) sind mit 27,5 % gebucht — rechtlich galt dort noch die alte
-     * Rechtslage (§ 31 EStG a. F.) mit Option auf 27,5 % (§ 124b Z 384 EStG): mit Steuerberatung klären.
+     * AT Spekulationsgeschäfte netto ([TaxLine.OLD_SHORT_NET]): darin Verkäufe bzw. Tausch von Neuvermögen vom 1.1. bis
+     * 28.2.2022 ([TaxTemplate.AT_OPTION_FROM] bis vor [TaxTemplate.AT_SWAP_NEUTRAL_FROM]) — für diese Realisationen ist
+     * auf Antrag schon der Sondersteuersatz 27,5 % möglich (§ 124b Z 384 lit. c EStG); gerechnet ist ohne Option.
+     * Verkäufe vom 1.3. bis 31.12.2021 haben diese Option nicht (nur alte Rechtslage). Name aus Build 76 beibehalten.
      */
     AT_TRANSITION_2021,
+    /**
+     * AT Freigrenze Spekulationsgeschäfte ([TaxLine.AT_OLD_SPECULATION_LIMIT]): geprüft ohne Option — die Verkäufe von
+     * Neuvermögen vom 1.1. bis 28.2.2022 zählen mit (ohne Antrag gilt die alte Rechtslage).
+     */
+    AT_WITHOUT_OPTION,
+    /**
+     * AT Sondersteuersatz ([TaxLine.AT_RATE]): Belohnungen (Staking, Airdrop) erhalten vom 1.3.2021 bis 28.2.2022 sind wie
+     * nach neuer Rechtslage mit Anschaffungskosten 0 angesetzt. Ob vor dem Inkrafttreten (1.3.2022) der Wert beim Zufluss
+     * gilt, sagt keine Quelle der Verwaltung ausdrücklich (BMF «Steuerliche Behandlung von Kryptowährungen», Stand
+     * 01.01.2026: Anschaffungskosten 0 nur für die Neuregelung) — mit Fachperson prüfen.
+     */
+    AT_STAKING_ZERO_COST,
+    /**
+     * UK/CA netto ([TaxLine.NET]): das Fenster der 30-Tage-Regel nach dem Ende des Steuerjahrs ist noch offen (UK
+     * Bed-and-Breakfast, CA Superficial Loss) — Käufe bis [TaxSummaryLine.noteDate] können die Zahlen noch ändern.
+     * Text mit Platzhalter [TAX_NOTE_DATE] ([noteText]).
+     */
+    WINDOW_OPEN,
+    /**
+     * UK Erlöse ([TaxLine.PROCEEDS]): Veräusserungserlöse über [TaxTemplate.ukReportProceedsGbp] (£50,000 ab 2023/24) —
+     * Meldung an HMRC nötig, auch ohne steuerbaren Gewinn (gov.uk «Report and pay Capital Gains Tax»).
+     */
+    UK_HMRC_REPORT,
+}
+
+/**
+ * Platzhalter für das Datum in einem Vermerk ([TaxSummaryNote.WINDOW_OPEN]): die Texte setzen ihn ein (Android
+ * `stringResource(…, TAX_NOTE_DATE)`, iOS `L(…, TaxExport.noteDateToken)`), [noteText] ersetzt ihn durch das Datum.
+ */
+const val TAX_NOTE_DATE = "{date}"
+
+/** Text des Vermerks [TaxSummaryLine.note] aus [texts] samt Datum ([TaxSummaryLine.noteDate], ISO); null = keiner. */
+fun TaxSummaryLine.noteText(texts: TaxSummaryTexts): String? {
+    val text = note?.let { texts.notes[it] }?.takeIf { it.isNotEmpty() } ?: return null
+    return noteDate?.let { text.replace(TAX_NOTE_DATE, it.toString()) } ?: text
 }
 
 /**
@@ -112,6 +148,11 @@ enum class TaxLine(val orientation: Boolean = false) {
     US_TERMS(true),
     CA_TAXABLE(true),
     AU_DISCOUNTED(true),
+    /**
+     * CA, AU: netto ein Kapitalverlust — der steuerbare Posten bleibt 0, der Verlust ist vorzutragen (CA: abziehbarer Teil
+     * = Verlust × Einschlussrate 1/2, «net capital loss»; AU: ganzer Verlust, «net capital loss» ohne Rabatt). Betrag positiv.
+     */
+    NET_CAPITAL_LOSS(true),
     FR_THRESHOLD(true), FR_RATE(true),
     JP_MISC(true),
 }
@@ -130,6 +171,8 @@ data class TaxSummaryLine(
     val notCalculated: Boolean = false,
     /** Zusatz-Vermerk ([TaxSummaryTexts.notes]); null = keiner. */
     val note: TaxSummaryNote? = null,
+    /** Datum im Vermerk ([TaxSummaryNote.WINDOW_OPEN]: Käufe bis …); null = keins. */
+    val noteDate: LocalDate? = null,
 )
 
 /** Jahresübersicht einer Vorlage — ORIENTIERUNG, keine Steuerberatung. */
@@ -225,21 +268,25 @@ private class Acc(rows: List<TaxGainRow>, pick: (BigDecimal) -> Boolean, fx: Boo
  * Jahresübersicht der Vorlage [template] für das Steuerjahr ab [startYear] — ORIENTIERUNG, KEINE STEUERBERATUNG.
  * Aus den Zeilen ([gainRows] nach [method], in [currency] mit [rates]; null = keine Kurse) und den Einkünften:
  *  - Tatsachen: Gewinne (> 0), Verluste (≤ 0) und netto — mit Haltedauer-Gruppen ≤ 1 / > 1 Jahr bei DE, US, AU und
- *    Neutral (ohne Haltedauer: eigener Posten), AT getrennt nach Neubestand und Altbestand ≤ / > 1 Jahr; CA nicht
- *    abziehbare Verluste; Erlöse (FR: Abtretungspreise vor Gebühren); Einkünfte (Belohnungen zum Wert beim Erhalt).
+ *    Neutral (ohne Haltedauer: eigener Posten), AT getrennt nach Neubestand (verkauft ab 1.3.2022), Spekulationsgeschäften
+ *    nach alter Rechtslage (Altbestand ≤ 1 Jahr und Neuvermögen verkauft vor dem 1.3.2022) und Altbestand > 1 Jahr; CA
+ *    nicht abziehbare Verluste; Erlöse (FR: Abtretungspreise vor Gebühren); Einkünfte (Belohnungen zum Wert beim Erhalt).
  *  - AT Einkünfte: Belohnungen nur Information ([TaxSummaryNote.AT_REWARD_INFO]) — sie stecken mit Anschaffungskosten 0
  *    im Neubestand und zählen erst beim Verkauf (kein Doppel aus Zufluss und Verkaufsgewinn); Zinsen aus Lending
  *    ([TaxLine.AT_INTEREST]) sind dagegen beim Zufluss Einkünfte (§ 27b Abs. 2 Z 1 EStG) und zählen.
  *  - Orientierung ([TaxLine.orientation]): DE Freigrenzen § 23 (netto ≤ 1 Jahr < Grenze; netto ein Verlust: eigener
  *    Status [TaxLimitStatus.LOSS]) und § 22 Nr. 3 (< 256 €),
  *    > 1 Jahr nicht steuerbar; AT 27,5 % auf Neubestand netto + Zinsen (Verlustausgleich innerhalb der Einkünfte zum
- *    Sondersteuersatz, § 27 Abs. 8 EStG), Altbestand > 1 Jahr nicht steuerbar; CH ohne Einordnung:
+ *    Sondersteuersatz, § 27 Abs. 8 EStG), Altbestand > 1 Jahr nicht steuerbar, Freigrenze 440 € für die
+ *    Spekulationsgeschäfte (ohne Option auf 27,5 % für 1.1.–28.2.2022); CH ohne Einordnung:
  *    Kapitalgewinne «nicht gerechnet – siehe ESTV» (kein Betrag), Belohnungen aufgeführt (Betrag, Behandlung siehe
  *    ESTV-Arbeitspapier), Vermögenssteuer «nicht gerechnet» (ESTV-Kursliste; Vermerk: Bestand-CSV per 31.12. =
  *    Börsenkurs × USD/CHF, [TaxSummaryNote.CH_EXCHANGE_VALUE]); UK Annual Exempt Amount und netto darüber;
- *    US kurz-/langfristig; CA steuerbarer Anteil (netto + nicht abziehbar) × 1/2; AU Verluste zuerst gegen Gewinne
- *    ≤ 12 Monate, dann 50 % Rabatt auf den Rest > 12 Monate; FR Abtretungen ≤ 305 € befreit (sonst ganz steuerbar);
- *    JP sonstige Einkünfte = netto + Einkünfte.
+ *    US kurz-/langfristig; CA steuerbarer Anteil (netto + nicht abziehbar) × 1/2, nur in CAD; AU Verluste zuerst gegen
+ *    Gewinne ≤ 12 Monate, dann 50 % Rabatt auf den Rest > 12 Monate; CA/AU netto ein Verlust: steuerbar 0 und
+ *    «Netto-Kapitalverlust (Vortrag)»; FR Abtretungen ≤ 305 € befreit (sonst ganz steuerbar); JP sonstige Einkünfte =
+ *    netto + Einkünfte. UK/CA: Fenster der 30-Tage-Regel nach dem Steuerjahr noch offen (bis nach [today]) → Vermerk
+ *    [TaxSummaryNote.WINDOW_OPEN]; UK Erlöse über £50,000 → [TaxSummaryNote.UK_HMRC_REPORT].
  * Gezählt wird nur Bekanntes; was fehlt, steht als «unvollständig» bzw. «ohne Devisenkurs» am Posten (auch ein Gewinn
  * aus unvollständigem Einstand, FR). Gewinn oder Verlust entscheidet die Steuerwährung (ohne Kurs USDT). CH: Gewinne,
  * Verluste, netto nur als Information ([TaxSummaryNote.CH_FIFO_INFO]).
@@ -257,6 +304,8 @@ fun TaxExport.yearSummary(
     walletFrom: LocalDate? = null,
     /** USDT/USD-Tagesschluss je Datum ([rateOn]); null = USDT gilt 1 USD. */
     usdtUsd: Map<Long, BigDecimal>? = null,
+    /** Heute (UK/CA: ist das 30-Tage-Fenster nach dem Steuerjahr noch offen?); null = heute in [zone]. */
+    today: LocalDate? = null,
 ): TaxYearSummary {
     val zero = BigDecimal.ZERO
     val period = template.period(startYear)
@@ -267,8 +316,10 @@ fun TaxExport.yearSummary(
     )
     // DE/AT: Auszahlungsgebühren sind keine Veräusserung — eigener Posten, nicht in den Summen (DE: § 23 und Freigrenze;
     // AT: Aufwendungen beim Sondersteuersatz nicht abzugsfähig, § 20 Abs. 2 EStG); UK, US, CA, AU, JP: kein Verlust, nur
-    // Information ([TaxTemplate.quoteFeeIsInfo])
-    val feeApart = template == TaxTemplate.DE || template == TaxTemplate.AT || template.quoteFeeIsInfo
+    // Information ([TaxTemplate.quoteFeeIsInfo]); FR ebenso nur Information — die Formel des art. 150 VH bis kennt nur
+    // Gebühren der Abtretung selbst, eine Auszahlungsgebühr mindert den Gewinn nicht
+    val feeApart = template == TaxTemplate.DE || template == TaxTemplate.AT || template == TaxTemplate.FR ||
+        template.quoteFeeIsInfo
     val (withdrawalFees, sales) = if (feeApart) allRows.partition { it.feeExpense == PortfolioFeeExpense.WITHDRAWAL }
     else emptyList<TaxGainRow>() to allRows
     // Umbuchungsgebühren nur zur Information ([PortfolioFeeExpense.TRANSFER], Build 57): eigener Posten
@@ -284,6 +335,22 @@ fun TaxExport.yearSummary(
     val short = rows.filter { it.longTerm == false }
     val long = rows.filter { it.longTerm == true }
     val unclassifiedRows = rows.filter { it.longTerm == null }
+    // AT: Neuvermögen, verkauft vor dem 1.3.2022, fällt noch unter die alte Rechtslage (§ 30/§ 31 EStG a. F.:
+    // Spekulationsgeschäft, Tarif, Freigrenze 440 €) — die Frist von einem Jahr kann bis dahin nie abgelaufen sein. Die
+    // Option auf 27,5 % gibt es nur für Realisationen vom 1.1. bis 28.2.2022 (§ 124b Z 384 lit. c EStG); ohne Antrag gilt
+    // auch dort die alte Rechtslage, darum gerechnet ohne Option
+    val atOld = rows.filter { it.oldHolding == true }
+    val atEarlyNew = if (template == TaxTemplate.AT) {
+        rows.filter { it.oldHolding != true && it.soldDate < TaxTemplate.AT_SWAP_NEUTRAL_FROM }
+    } else emptyList()
+    val atOption = atEarlyNew.any { it.soldDate >= TaxTemplate.AT_OPTION_FROM }
+    // UK/CA: Käufe bis 30 Tage nach dem Ende des Steuerjahrs können die Zahlen noch ändern (UK: Bed-and-Breakfast,
+    // CRYPTO22200; CA: Superficial Loss) — solange dieses Fenster offen ist, Vermerk am Posten netto
+    val windowEnd = when (template) {
+        TaxTemplate.UK -> period.end.plusDays(TaxTemplate.UK_BB_DAYS)
+        TaxTemplate.CA -> period.end.plusDays(TaxTemplate.CA_WINDOW_DAYS)
+        else -> null
+    }?.takeIf { it.isAfter(today ?: LocalDate.now(zone)) }
     if (template.holdingBuckets) {
         lines += Acc(short, pos, fx).line(TaxLine.SHORT_GAINS, fx, false)
         lines += Acc(short, neg, fx).line(TaxLine.SHORT_LOSSES, fx, false)
@@ -294,18 +361,18 @@ fun TaxExport.yearSummary(
         if (unclassifiedRows.isNotEmpty()) lines += Acc(unclassifiedRows, all, fx).line(TaxLine.UNCLASSIFIED, fx)
         net = Acc(rows, all, fx)
     } else if (template == TaxTemplate.AT) {
-        val old = rows.filter { it.oldHolding == true }
-        net = Acc(rows.filter { it.oldHolding != true }, all, fx)
-        lines += Acc(rows.filter { it.oldHolding != true }, pos, fx).line(TaxLine.GAINS, fx, false)
-        lines += Acc(rows.filter { it.oldHolding != true }, neg, fx).line(TaxLine.LOSSES, fx, false)
-        // Verkäufe/Tausch von Neuvermögen 1.3.2021–28.2.2022: alte Rechtslage mit Option auf 27,5 % — Vermerk am Posten
-        val transition = rows.any {
-            it.oldHolding != true && it.soldDate >= TaxTemplate.AT_NEW_FROM && it.soldDate < TaxTemplate.AT_SWAP_NEUTRAL_FROM
-        }
-        lines += net.line(TaxLine.NEW_NET, fx, note = TaxSummaryNote.AT_TRANSITION_2021.takeIf { transition })
-        if (old.isNotEmpty()) {
-            lines += Acc(old.filter { it.longTerm != true }, all, fx).line(TaxLine.OLD_SHORT_NET, fx)
-            lines += Acc(old.filter { it.longTerm == true }, all, fx).line(TaxLine.OLD_LONG_NET, fx)
+        // Neubestand zum Sondersteuersatz: nur Verkäufe ab dem 1.3.2022
+        val newRows = rows.filter { it.oldHolding != true && it.soldDate >= TaxTemplate.AT_SWAP_NEUTRAL_FROM }
+        net = Acc(newRows, all, fx)
+        lines += Acc(newRows, pos, fx).line(TaxLine.GAINS, fx, false)
+        lines += Acc(newRows, neg, fx).line(TaxLine.LOSSES, fx, false)
+        lines += net.line(TaxLine.NEW_NET, fx)
+        if (atOld.isNotEmpty() || atEarlyNew.isNotEmpty()) {
+            // Spekulationsgeschäfte nach alter Rechtslage: Altbestand ≤ 1 Jahr (bzw. ohne Haltedauer) und Neuvermögen,
+            // verkauft vor dem 1.3.2022; Vermerk zur Option, wenn Verkäufe vom 1.1. bis 28.2.2022 darin sind
+            lines += Acc(atOld.filter { it.longTerm != true } + atEarlyNew, all, fx)
+                .line(TaxLine.OLD_SHORT_NET, fx, note = TaxSummaryNote.AT_TRANSITION_2021.takeIf { atOption })
+            lines += Acc(atOld.filter { it.longTerm == true }, all, fx).line(TaxLine.OLD_LONG_NET, fx)
         }
     } else {
         net = Acc(rows, all, fx)
@@ -314,7 +381,11 @@ fun TaxExport.yearSummary(
         val info = TaxSummaryNote.CH_FIFO_INFO.takeIf { template == TaxTemplate.CH }
         lines += Acc(rows, pos, fx).line(TaxLine.GAINS, fx, false, info)
         lines += Acc(rows, neg, fx).line(TaxLine.LOSSES, fx, false, info)
-        lines += net.line(TaxLine.NET, fx, note = info)
+        lines += if (windowEnd != null) {
+            net.line(TaxLine.NET, fx, note = TaxSummaryNote.WINDOW_OPEN).copy(noteDate = windowEnd)
+        } else {
+            net.line(TaxLine.NET, fx, note = info)
+        }
     }
     if (withdrawalFees.isNotEmpty()) {
         val note = when (template) {
@@ -343,7 +414,14 @@ fun TaxExport.yearSummary(
     val procFx = fx && sold.any { r ->
         (if (grossFr) r.grossProceedsUsdt else r.proceedsUsdt) != null && (if (grossFr) r.grossProceedsTarget else r.proceedsTarget) == null
     }
-    lines += TaxSummaryLine(TaxLine.PROCEEDS, procUsdt, procTarget.takeIf { fx }, incomplete = procMissing, noFx = procFx)
+    // UK: Erlöse über £50,000 (ab 2023/24) sind HMRC zu melden, auch ohne steuerbaren Gewinn — nur in GBP prüfbar
+    val ukReport = if (template == TaxTemplate.UK && fx && currency.trim().uppercase() == "GBP") {
+        TaxTemplate.ukReportProceedsGbp(startYear)?.let { procTarget > it } ?: false
+    } else false
+    lines += TaxSummaryLine(
+        TaxLine.PROCEEDS, procUsdt, procTarget.takeIf { fx }, incomplete = procMissing, noFx = procFx,
+        note = TaxSummaryNote.UK_HMRC_REPORT.takeIf { ukReport },
+    )
     // Einkünfte
     val incUsdt = income.fold(zero) { a, r -> a + (r.valueUsdt ?: zero) }
     val incTarget = income.fold(zero) { a, r -> a + (r.valueTarget ?: zero) }
@@ -377,8 +455,17 @@ fun TaxExport.yearSummary(
             for (o in outs) {
                 val r = o.ptaReductionUsdt ?: continue
                 outUsdt += r
-                val rate = rateOn(rates, localDate(o.time, zone), currency, usdtUsd)
-                if (rate != null) outTarget += r.multiply(rate, PortfolioDecimal.MC) else if (fx) outFx = true
+                // Kürzung = Anteil der Erwerbspreis-Summe: in der Steuerwährung je Herkunft zum Kurs ihres Kaufdatums (wie
+                // der Einstand einer Abtretung), nicht zum Kurs des Abgangs; ohne Herkunft (Kürzung 0) zum Kurs des Abgangs
+                val t = if (o.ptaReductionParts.isEmpty()) {
+                    rateOn(rates, localDate(o.time, zone), currency, usdtUsd)?.let { r.multiply(it, PortfolioDecimal.MC) }
+                } else {
+                    o.ptaReductionParts.fold<PortfolioCostPart, BigDecimal?>(zero) { acc, p ->
+                        val rate = rateOn(rates, localDate(p.time, zone), currency, usdtUsd)
+                        if (acc == null || rate == null) null else acc + p.usdt.multiply(rate, PortfolioDecimal.MC)
+                    }
+                }
+                if (t != null) outTarget += t else if (fx) outFx = true
             }
             lines += TaxSummaryLine(TaxLine.FR_OUTFLOW, outUsdt, outTarget.takeIf { fx }, incomplete = true, noFx = outFx)
         }
@@ -410,24 +497,31 @@ fun TaxExport.yearSummary(
         }
         TaxTemplate.AT -> {
             // Sondersteuersatz 27,5 % auf Neubestand netto + Zinsen (beide Einkünfte aus Kryptowährungen, § 27b EStG;
-            // Gebühren darin nicht abgezogen, § 20 Abs. 2 EStG)
+            // Gebühren darin nicht abgezogen, § 20 Abs. 2 EStG); Vermerk, wenn Belohnungen vor dem 1.3.2022 mit
+            // Anschaffungskosten 0 im Neubestand stecken (Rechtslage dafür nicht ausdrücklich geklärt)
             lines += TaxSummaryLine(
                 TaxLine.AT_RATE, net.usdt + intUsdt, if (fx) net.target + intTarget else null,
                 incomplete = netIncomplete || intMissing, noFx = netFx || intFx,
+                note = TaxSummaryNote.AT_STAKING_ZERO_COST.takeIf { atEarlyRewards(trades, zone, period) },
             )
-            if (rows.any { it.oldHolding == true }) {
-                lines += Acc(rows.filter { it.oldHolding == true && it.longTerm == true }, all, fx).line(TaxLine.AT_OLD_LONG, fx)
-                // Altbestand ≤ 1 Jahr: Freigrenze 440 € (§ 31 Abs. 3 EStG a. F.) — wie die Freigrenze § 23 in DE nicht
-                // prüfbar, sobald ein Gewinn, ein Devisenkurs oder die Haltedauer fehlt
-                val old = rows.filter { it.oldHolding == true }
-                val spec = Acc(old.filter { it.longTerm == false }, all, fx)
+            if (atOld.isNotEmpty()) {
+                lines += Acc(atOld.filter { it.longTerm == true }, all, fx).line(TaxLine.AT_OLD_LONG, fx)
+            }
+            if (atOld.isNotEmpty() || atEarlyNew.isNotEmpty()) {
+                // Spekulationsgeschäfte (Altbestand ≤ 1 Jahr, Neuvermögen verkauft vor dem 1.3.2022): Freigrenze 440 €
+                // (§ 31 Abs. 3 EStG a. F.) — wie die Freigrenze § 23 in DE nicht prüfbar, sobald ein Gewinn, ein
+                // Devisenkurs oder beim Altbestand die Haltedauer fehlt; Neuvermögen vor dem 1.3.2022 ist immer ≤ 1 Jahr
+                val spec = Acc(atOld.filter { it.longTerm == false } + atEarlyNew, all, fx)
                 val specStatus = when {
-                    !fx || spec.unknown > 0 || spec.fxMissing > 0 || old.any { it.longTerm == null } -> TaxLimitStatus.UNKNOWN
+                    !fx || spec.unknown > 0 || spec.fxMissing > 0 || atOld.any { it.longTerm == null } -> TaxLimitStatus.UNKNOWN
                     spec.target.signum() < 0 -> TaxLimitStatus.LOSS
                     spec.target <= AT_SPECULATION_LIMIT_EUR -> TaxLimitStatus.BELOW
                     else -> TaxLimitStatus.REACHED
                 }
-                lines += TaxSummaryLine(TaxLine.AT_OLD_SPECULATION_LIMIT, null, AT_SPECULATION_LIMIT_EUR, specStatus)
+                lines += TaxSummaryLine(
+                    TaxLine.AT_OLD_SPECULATION_LIMIT, null, AT_SPECULATION_LIMIT_EUR, specStatus,
+                    note = TaxSummaryNote.AT_WITHOUT_OPTION.takeIf { atOption },
+                )
             }
         }
         TaxTemplate.CH -> {
@@ -446,11 +540,18 @@ fun TaxExport.yearSummary(
         }
         TaxTemplate.US -> lines += TaxSummaryLine(TaxLine.US_TERMS)
         TaxTemplate.CA -> {
+            // Nur in CAD (Gewinn/Verlust ist in CAD entschieden, Entscheid des Inhabers): keine USDT-Spalte. Netto ein
+            // Verlust → steuerbar 0, der abziehbare Teil (× 1/2) ist als «net capital loss» vorzutragen (CRA)
             val f = TaxTemplate.CA_INCLUSION
+            val taxable = if (fx) scaled(net.target + deniedTarget, f) else null
             lines += TaxSummaryLine(
-                TaxLine.CA_TAXABLE, scaled(net.usdt + deniedUsdt, f), if (fx) scaled(net.target + deniedTarget, f) else null,
-                incomplete = netIncomplete, noFx = netFx || deniedFx,
+                TaxLine.CA_TAXABLE, null, taxable?.max(zero), incomplete = netIncomplete, noFx = !fx || netFx || deniedFx,
             )
+            if (taxable != null && taxable.signum() < 0) {
+                lines += TaxSummaryLine(
+                    TaxLine.NET_CAPITAL_LOSS, null, taxable.negate(), incomplete = netIncomplete, noFx = netFx || deniedFx,
+                )
+            }
         }
         TaxTemplate.AU -> {
             // Verluste zuerst gegen Gewinne ohne Rabatt (≤ 12 Monate, ohne Haltedauer), dann gegen die übrigen; 50 % Rabatt
@@ -473,10 +574,15 @@ fun TaxExport.yearSummary(
                 }
                 return if (disc.signum() < 0) disc else rest + disc.multiply(BigDecimal.ONE - TaxTemplate.AU_DISCOUNT, PortfolioDecimal.MC)
             }
-            lines += TaxSummaryLine(
-                TaxLine.AU_DISCOUNTED, discounted { it.gainUsdt }, if (fx) discounted { it.gainTarget } else null,
-                incomplete = netIncomplete, noFx = netFx,
-            )
+            // Netto ein Verlust: steuerbar 0, der ganze Verlust ist vorzutragen (ATO «net capital loss», ohne Rabatt)
+            val u = discounted { it.gainUsdt }
+            val t = if (fx) discounted { it.gainTarget } else null
+            lines += TaxSummaryLine(TaxLine.AU_DISCOUNTED, u.max(zero), t?.max(zero), incomplete = netIncomplete, noFx = netFx)
+            if ((if (fx) t else u)?.signum() == -1) {
+                lines += TaxSummaryLine(
+                    TaxLine.NET_CAPITAL_LOSS, u.negate().max(zero), t?.negate()?.max(zero), incomplete = netIncomplete, noFx = netFx,
+                )
+            }
         }
         TaxTemplate.FR -> {
             val status = when {
@@ -495,3 +601,14 @@ fun TaxExport.yearSummary(
     }
     return TaxYearSummary(template, method, period, currency, fx, lines, walletFrom)
 }
+
+/**
+ * AT: Belohnungen (ohne Zinsen) mit Erwerb vom 1.3.2021 bis 28.2.2022 bis zum Ende von [period] — sie stecken mit
+ * Anschaffungskosten 0 im Neubestand ([TaxSummaryNote.AT_STAKING_ZERO_COST]).
+ */
+private fun TaxExport.atEarlyRewards(trades: List<PortfolioTrade>, zone: ZoneId, period: TaxPeriod): Boolean =
+    trades.any { t ->
+        if (t.type != PortfolioTxType.REWARD || t.interestIncome || t.amount.signum() <= 0) return@any false
+        val d = localDate(t.acquisitionTime, zone)
+        d >= TaxTemplate.AT_NEW_FROM && d < TaxTemplate.AT_SWAP_NEUTRAL_FROM && !d.isAfter(period.end)
+    }

@@ -74,7 +74,7 @@
     <string name="tax_export_proceeds_missing">ไม่มีราคาขาย</string>
     <string name="tax_export_proceeds_without_cost">รายรับที่ไม่มีราคาซื้อ</string>
     <string name="tax_export_realized_differs">CSV ภาษีอาจต่างจาก “ที่รับรู้แล้ว” (กฎภาษีของประเทศ)</string>
-    <string name="tax_export_rule">&gt; 1 ปี: ขายหลังวันที่ซื้อ + 1 ปีปฏิทิน วันที่เป็นเวลาท้องถิ่น อัตรา: อัตรารายวันของ ECB (วันทำการสุดท้ายก่อนหน้า)</string>
+    <string name="tax_export_rule">&gt; 1 ปี: ขายหลังวันที่ซื้อ + 1 ปีปฏิทิน วันที่เป็นเวลาท้องถิ่น อัตรา: อัตรารายวันของ ECB ในวันที่ทำรายการ หากไม่มี ใช้อัตราล่าสุดย้อนหลังไม่เกิน 7 วัน</string>
     <string name="tax_export_rules_date">กฎ ณ วันที่: %1$s</string>
     <string name="tax_export_spouse_gift">ให้คู่สมรส/คู่ชีวิต – ไม่มีกำไร ไม่มีขาดทุน</string>
     <string name="tax_export_summary">สรุปรายปี %1$s (CSV)</string>
@@ -98,7 +98,7 @@
     <!-- Steuer-Export: Zeilen und Spalten -->
     <string name="tax_line_at_interest">ดอกเบี้ยจากการให้ยืม (มูลค่าตอนที่ได้รับ)</string>
     <string name="tax_line_at_old_long">ได้มาก่อน 1.3.2021 ถือ &gt; 1 ปี: โดยทั่วไปไม่ต้องเสียภาษี – โปรดตรวจสอบ</string>
-    <string name="tax_line_at_rate">อัตราพิเศษ 27.5 เปอร์เซ็นต์: สุทธิของที่ได้มาตั้งแต่ 1.3.2021 + ดอกเบี้ย (1.3.2021–28.2.2022: ดูหมายเหตุ)</string>
+    <string name="tax_line_at_rate">อัตราพิเศษ 27.5 เปอร์เซ็นต์: สุทธิของที่ได้มาตั้งแต่ 1.3.2021 และขายตั้งแต่ 1.3.2022 + ดอกเบี้ย</string>
     <string name="tax_line_au_discounted">กำไรจากทุนสุทธิหลังหักขาดทุนและส่วนลด 50 เปอร์เซ็นต์</string>
     <string name="tax_line_ca_taxable">กำไรจากทุนที่ต้องเสียภาษี (อัตรารวม 1/2)</string>
     <string name="tax_line_ch_income">แสดงรายการรางวัลแล้ว – การปฏิบัติดูเอกสารประกอบงานของ ESTV</string>
@@ -115,9 +115,9 @@
     <string name="tax_line_long_net">สุทธิ ถือ &gt; 1 ปี</string>
     <string name="tax_line_losses">ขาดทุน</string>
     <string name="tax_line_net">กำไร/ขาดทุนสุทธิ</string>
-    <string name="tax_line_new_net">สุทธิ ได้มาตั้งแต่ 1.3.2021</string>
+    <string name="tax_line_new_net">สุทธิ ได้มาตั้งแต่ 1.3.2021 ขายตั้งแต่ 1.3.2022</string>
     <string name="tax_line_old_long_net">สุทธิ ได้มาก่อน 1.3.2021 ถือ &gt; 1 ปี</string>
-    <string name="tax_line_old_short_net">สุทธิ ได้มาก่อน 1.3.2021 ถือ ≤ 1 ปี</string>
+    <string name="tax_line_old_short_net">สุทธิ ธุรกรรมเก็งกำไร (กฎหมายเดิม): ได้มาก่อน 1.3.2021 และถือ ≤ 1 ปี หรือขายก่อน 1.3.2022</string>
     <string name="tax_line_proceeds">รายรับ</string>
     <string name="tax_line_short_net">สุทธิ ถือ ≤ 1 ปี</string>
     <string name="tax_line_transfer_fees">ค่าธรรมเนียมโอนย้าย (วอลเล็ตของตัวเอง)</string>
@@ -191,7 +191,7 @@
     <string name="tax_note_withdrawal_fee">ค่าธรรมเนียมการถอนเป็น USDT หรือเงินสดไม่ใช่ขาดทุน: ค่าธรรมเนียมเงินสดหักไม่ได้ ค่าธรรมเนียม USDT คือการจำหน่ายที่มูลค่าตราไว้โดยไม่มีกำไร – แสดงเพื่อทราบเท่านั้น (%1$s)</string>
     <string name="tax_summary_at_interest_income">นับรวม: เป็นรายได้ตอนที่ได้รับ ในอัตราพิเศษ 27.5 เปอร์เซ็นต์ (§ 27b วรรค 2 ข้อ 1 EStG / BMF) – เหรียญใช้มูลค่านี้เป็นต้นทุนการได้มา</string>
     <string name="tax_summary_at_reward_info">เพื่อเป็นข้อมูลเท่านั้น – ไม่รวมในยอดใด: รางวัลเข้าสู่ยอดถือครองใหม่ด้วยต้นทุนการได้มา 0 และเสียภาษีเมื่อขายเท่านั้น (รวมอยู่ในกำไรแล้ว) – § 27b Abs. 2 EStG / BMF</string>
-    <string name="tax_summary_at_transition_2021">การขาย/แลกเปลี่ยนยอดถือครองใหม่ 1.3.2021–28.2.2022: ใช้กฎหมายเดิม (§ 31 EStG ฉบับเดิม) โดยเลือกอัตรา 27.5 เปอร์เซ็นต์ได้ – ควรสอบถามที่ปรึกษาภาษี</string>
+    <string name="tax_summary_at_transition_2021">1.1.–28.2.2022: เลือกอัตรา 27.5 เปอร์เซ็นต์ได้</string>
     <string name="tax_summary_at_withdrawal_fee">ค่าธรรมเนียมการถอน – ไม่นำไปหักกลบกับยอดถือครองใหม่ (ค่าใช้จ่ายหักไม่ได้ในอัตราพิเศษ, § 20(2) EStG)</string>
     <string name="tax_summary_ch_fifo_info">เพื่อเป็นข้อมูลเท่านั้น – การคำนวณ FIFO ของแอป – ยังไม่จัดประเภท – ดู ESTV</string>
     <string name="tax_summary_ch_year_end_value">มูลค่า ณ 31.12 ใน CSV ยอดถือครอง = ราคากระดานเทรด × USD/CHF – ไม่ใช่มูลค่าทางภาษีในรายการราคา ESTV</string>

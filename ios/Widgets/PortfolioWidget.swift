@@ -57,7 +57,8 @@ struct PortfolioEntry: TimelineEntry {
     /// Zeitraum, Chart und Veränderung für den gezeigten Stand (`PortfolioWidgetChart.plan`).
     func plan(for s: PortfolioWidgetSnapshot) -> PortfolioChartPlan {
         PortfolioWidgetChart.plan(s, requested: range.range, type: chartType.chartType,
-                                  todayEpochDay: LocalDay(date: date).epochDay,
+                                  // UTC-Tag wie der Tagesverlauf der Aufnahme (`PortfolioWidgetChart.dailyData`)
+                                  todayEpochDay: PortfolioHistory.epochDay(utcMillis: Int64(date.timeIntervalSince1970 * 1000)),
                                   dayAxis: PortfolioWidgetText.dayAxis(s))
     }
 
