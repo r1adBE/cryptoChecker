@@ -29,11 +29,15 @@ import kotlinx.coroutines.launch
  * «Alarm testen»: Android 13+ fragt zuerst nach der Erlaubnis, dann wird
  * [run] ausgeführt. Bei Nachtruhe ein kurzer Hinweis, bei ausgeschalteten
  * Benachrichtigungen ein Dialog mit dem Weg in die App-Einstellungen.
+ * @param showMessage Hinweis über die Snackbar des Bildschirms; null = Bildschirm ohne Snackbar (Einstellungen),
+ *   dann ein System-Toast.
  * @return die Aktion für den Knopf
  */
 @Composable
-fun rememberAlarmTest(run: suspend () -> AlarmTestResult): () -> Unit {
+fun rememberAlarmTest(run: suspend () -> AlarmTestResult, showMessage: ((String) -> Unit)? = null): () -> Unit {
     val context = LocalContext.current
+    val quietText = stringResource(R.string.alarm_test_quiet)
+    val currentShowMessage by rememberUpdatedState(showMessage)
     val scope = rememberCoroutineScope()
     val currentRun by rememberUpdatedState(run)
     var showDenied by remember { mutableStateOf(false) }
@@ -42,8 +46,8 @@ fun rememberAlarmTest(run: suspend () -> AlarmTestResult): () -> Unit {
         scope.launch {
             when (currentRun()) {
                 AlarmTestResult.SENT -> Unit
-                AlarmTestResult.SENT_QUIET ->
-                    Toast.makeText(context, R.string.alarm_test_quiet, Toast.LENGTH_LONG).show()
+                AlarmTestResult.SENT_QUIET -> currentShowMessage?.invoke(quietText)
+                    ?: Toast.makeText(context, quietText, Toast.LENGTH_LONG).show()
                 AlarmTestResult.DENIED -> showDenied = true
             }
         }

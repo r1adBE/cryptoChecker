@@ -69,6 +69,30 @@ final class RefreshDebounceTests: XCTestCase {
         XCTAssertEqual(RefreshDebounce.remainingSeconds(lastFinishedAt: last, now: now + wait),
                        RefreshDebounce.remainingSeconds(lastFinishedAt: last, now: now) - 1)
     }
+
+    /// Ziehen im Fenster: kein Durchlauf, aber «Gerade aktualisiert · vor N s» (abgerundet, mindestens 1).
+    func testPullInsideWindowEchoesSecondsSinceLastRefresh() {
+        let last = now - 8_400
+        XCTAssertEqual(RefreshDebounce.decide(running: false, lastFinishedAt: last, now: now), .recent)
+        XCTAssertEqual(RefreshDebounce.pullEchoSeconds(.recent, lastFinishedAt: last, now: now), 8)
+        XCTAssertEqual(RefreshDebounce.pullEchoSeconds(.recent, lastFinishedAt: now - 200, now: now), 1)
+        XCTAssertEqual(RefreshDebounce.pullEchoSeconds(.recent, lastFinishedAt: now, now: now), 1)
+        XCTAssertEqual(RefreshDebounce.pullEchoMillis, 400)
+    }
+
+    func testPullOutsideWindowHasNoEcho() {
+        XCTAssertNil(RefreshDebounce.pullEchoSeconds(.start, lastFinishedAt: now - 8_000, now: now))
+        XCTAssertNil(RefreshDebounce.pullEchoSeconds(.running, lastFinishedAt: now - 8_000, now: now))
+        XCTAssertNil(RefreshDebounce.pullEchoSeconds(.recent, lastFinishedAt: 0, now: now))
+        // Uhr zurückgestellt
+        XCTAssertNil(RefreshDebounce.pullEchoSeconds(.recent, lastFinishedAt: now + 5_000, now: now))
+        // Gleiche Grenze wie decide: jede Entscheidung `.recent` hat eine Rückmeldung
+        for age in stride(from: Int64(0), to: RefreshDebounce.windowMillis, by: 250) {
+            let decision = RefreshDebounce.decide(running: false, lastFinishedAt: now - age, now: now)
+            XCTAssertEqual(decision == .recent,
+                           RefreshDebounce.pullEchoSeconds(decision, lastFinishedAt: now - age, now: now) != nil)
+        }
+    }
 }
 
 final class RefreshReportLogicTests: XCTestCase {

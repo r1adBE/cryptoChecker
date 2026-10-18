@@ -16,6 +16,7 @@ import com.cryptochecker.app.domain.portfolio.WatchedAddressRules
 import com.cryptochecker.app.domain.portfolio.XpubCache
 import com.cryptochecker.app.domain.portfolio.XpubDeriver
 import com.cryptochecker.app.domain.portfolio.XpubScan
+import com.cryptochecker.app.domain.portfolio.ripemd160
 import org.json.JSONArray
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull

@@ -29,15 +29,15 @@ class PulseWidgetMathTest {
 
     @Test
     fun chipsOnlyWhenTheyFitCompletely() {
-        // Je Coin 64 dp Text (keine Pille, kein Innenrand), Abstand 10; Rand 24 + 2 Sicherheit
+        // Je Coin 64 dp Text (keine Pille, kein Innenrand), Abstand 8; Rand 24 + 2 Sicherheit
         val widths = listOf(64f, 64f, 64f)
-        // 3 Coins: 3 × 64 + 2 × 10 = 212 → ab 238 dp
-        assertEquals(3, PulseWidgetMath.coinCount(238, widths))
+        // 3 Coins: 3 × 64 + 2 × 8 = 208 → ab 234 dp
+        assertEquals(3, PulseWidgetMath.coinCount(234, widths))
         // Knapp darunter würde SOL abgeschnitten → nur BTC und ETH
-        assertEquals(2, PulseWidgetMath.coinCount(237, widths))
-        // 2 Coins: 2 × 64 + 10 = 138 → ab 164 dp
-        assertEquals(2, PulseWidgetMath.coinCount(164, widths))
-        assertEquals(1, PulseWidgetMath.coinCount(163, widths))
+        assertEquals(2, PulseWidgetMath.coinCount(233, widths))
+        // 2 Coins: 2 × 64 + 8 = 136 → ab 162 dp
+        assertEquals(2, PulseWidgetMath.coinCount(162, widths))
+        assertEquals(1, PulseWidgetMath.coinCount(161, widths))
         // 2 × 2 (~152 dp): BTC
         assertEquals(1, PulseWidgetMath.coinCount(152, widths))
         // Sehr schmal oder unbekannt: immer BTC
@@ -52,9 +52,9 @@ class PulseWidgetMathTest {
     fun titleShrinksOrHidesNeverEllipsizes() {
         // «Was gerade auffällt»: 13 sp = 130 dp, 11 sp = 110 dp (Text wächst mit der Grösse)
         val measure: (Float) -> Float = { it * 10f }
-        // Platz = Breite − 24 − 22 − 2
-        assertEquals(13f, PulseWidgetMath.titleSizeSp(178, measure))
-        assertEquals(11f, PulseWidgetMath.titleSizeSp(177, measure))
+        // Platz = Breite − 24 − 20 − 2
+        assertEquals(13f, PulseWidgetMath.titleSizeSp(176, measure))
+        assertEquals(11f, PulseWidgetMath.titleSizeSp(175, measure))
         assertEquals(11f, PulseWidgetMath.titleSizeSp(158, measure))
         assertNull(PulseWidgetMath.titleSizeSp(152, measure))
         assertEquals(13f, PulseWidgetMath.titleSizeSp(0, measure))
@@ -64,12 +64,12 @@ class PulseWidgetMathTest {
     fun headlineShrinksThenWraps() {
         // «Breite Stärke»: 18 sp = 126 dp, 16 sp = 112, 14 sp = 98 (7 dp je sp)
         val measure: (Float) -> Float = { it * 7f }
-        // Mit ↗: Platz = Breite − 24 − 16 − 2
-        assertEquals(PulseWidgetMath.HeadlineStyle(18f, 1), PulseWidgetMath.headlineStyle(168, true, measure))
-        assertEquals(PulseWidgetMath.HeadlineStyle(16f, 1), PulseWidgetMath.headlineStyle(154, true, measure))
-        assertEquals(PulseWidgetMath.HeadlineStyle(14f, 1), PulseWidgetMath.headlineStyle(140, true, measure))
+        // Mit ↗: Platz = Breite − 24 − 14 − 2
+        assertEquals(PulseWidgetMath.HeadlineStyle(18f, 1), PulseWidgetMath.headlineStyle(166, true, measure))
+        assertEquals(PulseWidgetMath.HeadlineStyle(16f, 1), PulseWidgetMath.headlineStyle(152, true, measure))
+        assertEquals(PulseWidgetMath.HeadlineStyle(14f, 1), PulseWidgetMath.headlineStyle(138, true, measure))
         // 2 × 2 eng: zweizeilig in 14 sp statt «Breite Stä…»
-        assertEquals(PulseWidgetMath.HeadlineStyle(14f, 2), PulseWidgetMath.headlineStyle(139, true, measure))
+        assertEquals(PulseWidgetMath.HeadlineStyle(14f, 2), PulseWidgetMath.headlineStyle(137, true, measure))
         // Ohne Zeichen mehr Platz
         assertEquals(PulseWidgetMath.HeadlineStyle(14f, 1), PulseWidgetMath.headlineStyle(124, false, measure))
         assertEquals(PulseWidgetMath.HeadlineStyle(18f, 1), PulseWidgetMath.headlineStyle(0, true, measure))
@@ -220,16 +220,16 @@ class PulseWidgetMathTest {
     @Test
     fun `Zeitraum vor den Chips nimmt ihnen Platz weg`() {
         val widths = listOf(64f, 64f, 64f)
-        // «24h» (≈ 18 dp) + 6 dp Abstand
+        // «24h» (≈ 18 dp) + 4 dp Abstand
         val leading = PulseWidgetMath.periodLeadingDp(18f)
-        assertEquals(24f, leading, 1e-6f)
+        assertEquals(22f, leading, 1e-6f)
         assertEquals(0f, PulseWidgetMath.periodLeadingDp(null), 1e-6f)
         assertEquals(0f, PulseWidgetMath.periodLeadingDp(0f), 1e-6f)
-        // Ohne Zeitraum passen bei 238 dp drei Coins, mit «24h» davor nur noch zwei — keiner abgeschnitten
-        assertEquals(3, PulseWidgetMath.coinCount(238, widths))
-        assertEquals(2, PulseWidgetMath.coinCount(238, widths, leading))
-        assertEquals(3, PulseWidgetMath.coinCount(262, widths, leading))
-        assertEquals(2, PulseWidgetMath.coinCount(261, widths, leading))
+        // Ohne Zeitraum passen bei 234 dp drei Coins, mit «24h» davor nur noch zwei — keiner abgeschnitten
+        assertEquals(3, PulseWidgetMath.coinCount(234, widths))
+        assertEquals(2, PulseWidgetMath.coinCount(234, widths, leading))
+        assertEquals(3, PulseWidgetMath.coinCount(256, widths, leading))
+        assertEquals(2, PulseWidgetMath.coinCount(255, widths, leading))
         // Mindestens BTC bleibt
         assertEquals(1, PulseWidgetMath.coinCount(100, widths, leading))
     }

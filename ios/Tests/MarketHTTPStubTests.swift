@@ -118,6 +118,8 @@ final class MarketHTTPStubReplies: @unchecked Sendable { // @unchecked: `replies
         /// Antwortet nie; nach `hangLimitSeconds` meldet die Attrappe selbst eine Zeitüberschreitung (falls die
         /// Session ihre Frist für eigene Protokolle nicht durchsetzt — der Test hängt so nie).
         case hang
+        /// Antwortet nach `seconds` mit 200 und `body` (überlappende Anfragen, `InFlightRequests`).
+        case delayed(seconds: TimeInterval, body: Data)
     }
 
     static let shared = MarketHTTPStubReplies()
@@ -125,6 +127,7 @@ final class MarketHTTPStubReplies: @unchecked Sendable { // @unchecked: `replies
 
     private let lock = NSLock()
     private var replies: [String: Reply] = [:]
+    private var hits: [String: Int] = [:]
 
     func set(_ url: String, _ reply: Reply) {
         lock.lock(); defer { lock.unlock() }
@@ -133,7 +136,14 @@ final class MarketHTTPStubReplies: @unchecked Sendable { // @unchecked: `replies
 
     func reply(for url: String) -> Reply? {
         lock.lock(); defer { lock.unlock() }
+        hits[url, default: 0] += 1
         return replies[url]
+    }
+
+    /// So viele Anfragen kamen bei der Attrappe an.
+    func hitCount(_ url: String) -> Int {
+        lock.lock(); defer { lock.unlock() }
+        return hits[url, default: 0]
     }
 }
 
@@ -154,6 +164,9 @@ final class MarketHTTPStubProtocol: URLProtocol {
             perform(#selector(failWithTimeout), with: nil, afterDelay: MarketHTTPStubReplies.hangLimitSeconds)
         case let .respond(status, headers, body):
             send(url, status: status, headers: headers, body: body)
+        case let .delayed(seconds, body):
+            delayedBody = body
+            perform(#selector(sendDelayed), with: nil, afterDelay: seconds)
         case nil:
             send(url, status: 404, headers: [:], body: Data(#"{"message":"not found"}"#.utf8))
         }
@@ -172,6 +185,13 @@ final class MarketHTTPStubProtocol: URLProtocol {
         client?.urlProtocol(self, didReceive: response, cacheStoragePolicy: .notAllowed)
         client?.urlProtocol(self, didLoad: body)
         client?.urlProtocolDidFinishLoading(self)
+    }
+
+    private var delayedBody = Data()
+
+    @objc private func sendDelayed() {
+        guard let url = request.url else { return }
+        send(url, status: 200, headers: [:], body: delayedBody)
     }
 
     @objc private func failWithTimeout() {

@@ -39,7 +39,7 @@ extension PortfolioHomeView {
             totalText(s, size: large ? 30 : (family == .systemSmall ? 20 : 24))
             if change { changeLine(s, plan: plan) }
             if usdt != nil { usdtLine(usdt, missing: missing) }
-            Spacer(minLength: 6)
+            Spacer(minLength: 4)
             figuresView(figures, currency: s.currency, amounts: amounts)
             if showsFooter {
                 Spacer(minLength: 4)
@@ -54,7 +54,7 @@ extension PortfolioHomeView {
         if family == .systemSmall {
             VStack(alignment: .leading, spacing: 2) {
                 ForEach(figures, id: \.kind) { f in
-                    HStack(spacing: 6) {
+                    HStack(spacing: 4) {
                         figureLabel(f, currency: currency, size: 12)
                         Spacer(minLength: 4)
                         figureValue(f)

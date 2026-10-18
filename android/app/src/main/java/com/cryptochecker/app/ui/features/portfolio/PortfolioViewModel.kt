@@ -15,8 +15,6 @@ import com.cryptochecker.app.domain.portfolio.AddressBalanceHistory
 import com.cryptochecker.app.domain.portfolio.CostMethod
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioChange
-import com.cryptochecker.app.domain.portfolio.PortfolioCompare
-import com.cryptochecker.app.domain.portfolio.PortfolioDisplayFigures
 import com.cryptochecker.app.domain.portfolio.PortfolioDisplayFx
 import com.cryptochecker.app.domain.portfolio.PortfolioExchangeRoute
 import com.cryptochecker.app.domain.portfolio.PortfolioHistory
@@ -40,15 +38,10 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.time.LocalDate
-import java.time.ZoneId
 import javax.inject.Inject
 
 /**
@@ -205,14 +198,14 @@ class PortfolioViewModel @Inject constructor(
     val todayAmount: StateFlow<Double?> = _todayAmount.asStateFlow()
 
     /** Coins, die in «Heute» fehlen (kein Vergleichskurs, [PortfolioSnapshot.todaySkipped]). */
-    private val _todaySkipped = MutableStateFlow<List<String>>(emptyList())
+    internal val _todaySkipped = MutableStateFlow<List<String>>(emptyList())
     val todaySkipped: StateFlow<List<String>> = _todaySkipped.asStateFlow()
 
     /**
      * Kursveränderung je Coin (gleiche Basis wie [todayPercent], aus der letzten Momentaufnahme)
      * für «Grösste Bewegungen»; leer = noch keine Vergleichsbasis.
      */
-    private val _coinChanges = MutableStateFlow<Map<String, Double>>(emptyMap())
+    internal val _coinChanges = MutableStateFlow<Map<String, Double>>(emptyMap())
     val coinChanges: StateFlow<Map<String, Double>> = _coinChanges.asStateFlow()
 
     /**
@@ -256,11 +249,6 @@ class PortfolioViewModel @Inject constructor(
      */
     val feePrice: StateFlow<(String, Long) -> Double?> = combine(_prices, _closes) { p, loaded -> marketPriceAt(p, loaded) }
         .stateIn(viewModelScope, SharingStarted.Eagerly, marketPriceAt(PortfolioPrices(), null))
-
-    private fun marketPriceAt(p: PortfolioPrices, loaded: HistoryCloses?): (String, Long) -> Double? {
-        val closes = loaded?.routed(p)?.closes.orEmpty()
-        return { coin, time -> PortfolioPeriodChange.marketPriceAt(coin, p.prices[PortfolioCalculator.normalizeCoin(coin)], closes, time) }
-    }
 
     /** Zeitraum des Wertverlaufs (zuletzt gewählt, nur auf diesem Gerät). */
     val historyRange: StateFlow<PortfolioHistoryRange> = settingsRepository.settings
@@ -311,21 +299,7 @@ class PortfolioViewModel @Inject constructor(
      * Faktor seines Tags (Regel des Steuer-Exports). null = nicht umgerechnet (USDT, kein Devisenkurs) oder die Kurse
      * laden noch — die Karte zeigt dann in der Anzeigewährung «—» statt einer Zahl zum heutigen Kurs.
      */
-    val costFx: StateFlow<com.cryptochecker.app.domain.portfolio.PortfolioCostFxFigures?> = combine(
-        summary, currency, displayFxRate, _costFx,
-    ) { s, code, rate, load ->
-        if (s == null || !cardUnit(code, rate).converted) return@combine null
-        val current = rate?.let { com.cryptochecker.app.domain.portfolio.PortfolioDecimal.of(it) } ?: return@combine null
-        // Heute als UTC-Tag wie die Erwerbstage ([com.cryptochecker.app.domain.portfolio.PortfolioCostFx.dayOf])
-        val today = PortfolioHistory.utcToday()
-        val first = com.cryptochecker.app.domain.portfolio.PortfolioCostFx.firstDay(s)
-        // Ohne Teile mit Datum keine Kurse nötig; sonst nur mit einer Ladung, die den frühesten Tag abdeckt
-        val usable = load?.takeIf { it.currency == code && (first == null || !it.from.isAfter(LocalDate.ofEpochDay(first))) }
-        if (first != null && usable == null) return@combine null
-        com.cryptochecker.app.domain.portfolio.PortfolioCostFx.figures(
-            s, code, current, today, usable?.rates, usable?.usdtUsd ?: emptyMap(),
-        )
-    }.flowOn(Dispatchers.Default).stateIn(viewModelScope, SharingStarted.Eagerly, null)
+    val costFx: StateFlow<com.cryptochecker.app.domain.portfolio.PortfolioCostFxFigures?> = costFxFlow()
 
     /**
      * Merkzettel fürs Portfolio-Widget ([PortfolioDisplayFx]): Einstand je Coin zum Kurs der Erwerbstage ([costFx]) und
@@ -333,25 +307,7 @@ class PortfolioViewModel @Inject constructor(
      * Hintergrund, «Seit Kauf» und «7 T» in der Anzeigewährung wie die Karte zeigt statt USDT × heutiger Kurs. null in
      * USDT bzw. solange die Kurse laden. Ohne den Live-Kurs USDT/USD (gilt erst ab heute, kommt aus der Aufnahme).
      */
-    internal val widgetDisplayFx: StateFlow<PortfolioDisplayFx?> = combine(
-        summary, currency, costFx, _fxRate, combine(_fxSeries, _closes) { series, loaded -> series to loaded },
-    ) { s, code, figures, fxRate, (fxSeries, loaded) ->
-        if (s == null || figures == null) return@combine null
-        val today = PortfolioHistory.utcToday()
-        val from = today - PortfolioDisplayFigures.MEMO_DAYS
-        val rate = fxRate?.takeIf { PortfolioHistoryFx.convertsUsdt(code, usdtMarket = true) && it > 0.0 && it.isFinite() }
-        // Wie «7 T» der Karte: Devisen-Tageskurse, die bis zum ersten gemerkten Tag zurückreichen (USD: an jedem Tag 1)
-        val rates = if (PortfolioHistoryFx.convertsUsdtAsUsd(code)) {
-            fxSeries?.takeIf { it.currency == code && !it.from.isAfter(LocalDate.ofEpochDay(from)) }?.rates?.takeIf { it.isNotEmpty() }
-        } else {
-            PortfolioHistoryFx.usdParity(from - PortfolioHistoryFx.LEAD_DAYS, today)
-        }
-        val usdt = loaded?.daily?.usdtUsd
-        val dayFactor = if (rate != null && rates != null && usdt != null) {
-            PortfolioHistoryFx.rateFunction(rates, rate, today, com.cryptochecker.app.domain.portfolio.UsdtUsdRates(null, usdt))
-        } else null
-        PortfolioDisplayFigures.memo(code, figures, s.open, dayFactor, today)
-    }.distinctUntilChanged().flowOn(Dispatchers.Default).stateIn(viewModelScope, SharingStarted.Eagerly, null)
+    internal val widgetDisplayFx: StateFlow<PortfolioDisplayFx?> = widgetDisplayFxFlow()
 
     val weekChange: StateFlow<TodayChange?> = periodChange(PortfolioPeriodChange.DAYS, display = true)
 
@@ -366,64 +322,10 @@ class PortfolioViewModel @Inject constructor(
     val yearChange: StateFlow<TodayChange?> = periodChange(PortfolioPeriodChange.YEAR_DAYS, display = true)
 
     /**
-     * Gewinn/Verlust seit dem Tagesschluss vor [days] Tagen ([PortfolioPeriodChange.gain]). [display]: in der
-     * Anzeigewährung mit denselben Tageskursen wie der Wertverlauf ([PortfolioHistoryFx.rateFunction]) — Kopf und Kurve
-     * zeigen dieselbe Zahl; als Gegenwert zum heutigen Kurs ([PortfolioHistoryFx.forCard]), weil die Karte Beträge mit
-     * dem heutigen Kurs anzeigt. Ohne passende Tageskurse wie bisher USDT (× heutiger Kurs in der Karte).
-     */
-    private fun periodChange(days: Int, display: Boolean): StateFlow<TodayChange?> = combine(
-        summary, _closes, calcTransactions, _prices,
-        combine(addressHistories, currency, _fxRate, _fxSeries, liveUsdtUsd) { a, code, fx, series, live ->
-            PeriodFx(a, code, fx, series, live)
-        },
-    ) { current, loaded, txs, p, (addresses, code, fxRate, fxSeries, live) ->
-        if (current == null || loaded == null || txs == null) return@combine null
-        val holdings = current.open.associate { it.coin to it.holdings }
-        if (holdings.isEmpty()) return@combine null
-        // Ladung für ältere Coins: neue Coins fehlen noch → lieber «—»
-        if (!loaded.request.coins.containsAll(holdings.keys.map { PortfolioCalculator.normalizeCoin(it) })) {
-            return@combine null
-        }
-        val prices = current.open.mapNotNull { p -> p.currentPrice?.let { p.coin to it } }.toMap()
-        // Stichtag in UTC-Tagen wie die Tageskerzen (lokales Datum lag zwischen Mitternacht lokal und UTC einen Tag daneben)
-        val today = PortfolioHistory.utcToday()
-        // Tageskerzen der eingetragenen Börse, sonst Binance skaliert (PortfolioExchangeRoute.historyCloses)
-        // Tageskurse, die bis zum Stichtag zurückreichen: umrechnen wie der Wertverlauf
-        // Auch USD: USDT zum Marktkurs ([PortfolioHistoryFx.convertsUsdt]); Devisenkurs dort an jedem Tag 1
-        val rate = fxRate?.takeIf { display && PortfolioHistoryFx.convertsUsdt(code, usdtMarket = true) && it > 0.0 && it.isFinite() }
-        val rates = if (PortfolioHistoryFx.convertsUsdtAsUsd(code)) {
-            fxSeries?.takeIf { it.currency == code && !it.from.isAfter(LocalDate.ofEpochDay(today - days)) }?.rates
-        } else {
-            PortfolioHistoryFx.usdParity(today - days - PortfolioHistoryFx.LEAD_DAYS, today)
-        }
-        // USDT zum Marktkurs: je Tag × USDT/USD-Tagesschluss, ab heute × Live-Kurs (wie der Wertverlauf)
-        val usdt = com.cryptochecker.app.domain.portfolio.UsdtUsdRates(live, loaded.daily.usdtUsd)
-        val fx = if (rate != null && !rates.isNullOrEmpty()) PortfolioHistoryFx.rateFunction(rates, rate, today, usdt) else null
-        // Bestände nach derselben Einstandsmethode wie die Karte (FIFO je Wallet: je Wallet gekappt)
-        val change = PortfolioPeriodChange.gain(
-            txs.map { it.toTrade() }, prices, loaded.routed(p).closes, today - days, addresses = addresses, method = current.method,
-            fx = fx,
-        )
-        // Gegenwert zum Faktor der Karte (Devisenkurs × USDT/USD jetzt, [displayFxRate])
-        if (change != null && fx != null && rate != null) PortfolioHistoryFx.forCard(change, rate * usdt.current().rate) else change
-    }
-        .flowOn(Dispatchers.Default)
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
-
-    /**
      * Hinweis an «7 T»/«1 J»: offene Coins, deren Verlauf im letzten Jahr Binance auf den Börsenkurs
      * skaliert nutzt ([PortfolioExchangeRoute.scaledHint]); leer = keiner (eigene Tageskerzen).
      */
-    val periodScaled: StateFlow<List<String>> = combine(summary, _closes, _prices) { current, loaded, p ->
-        if (current == null || loaded == null) return@combine emptyList()
-        val today = PortfolioHistory.utcToday()
-        PortfolioExchangeRoute.scaledHint(
-            loaded.routed(p).scaled, loaded.daily.binanceBefore, today - PortfolioPeriodChange.YEAR_DAYS,
-            current.open.map { it.coin },
-        )
-    }
-        .flowOn(Dispatchers.Default)
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
+    val periodScaled: StateFlow<List<String>> = periodScaledFlow()
 
     /**
      * Wertverlauf des gewählten Zeitraums; null, solange dessen Tageskurse (und bei einer
@@ -432,66 +334,7 @@ class PortfolioViewModel @Inject constructor(
      * Umgerechnet wird je Punkt mit dem Kurs seines Tags ([PortfolioHistoryFx]), heute mit dem
      * aktuellen. Gerechnet abseits des Hauptthreads.
      */
-    val history: StateFlow<PortfolioHistoryUi?> = combine(
-        combine(calcTransactions, addressHistories, costMethod) { txs, addresses, method -> Triple(txs, addresses, method) },
-        _closes,
-        _prices,
-        historyRange,
-        combine(currency, _fxRate, _fxSeries, liveUsdtUsd) { code, fx, series, live -> HistoryFx(code, fx, series, live) },
-    ) { (txs, addresses, method), loaded, p, range, (code, fx, fxSeries, live) ->
-        if (txs == null || loaded == null) return@combine null
-        if (!loaded.covers(historyRequest(txs, range))) return@combine null
-        // Auch USD: USDT zum Marktkurs (je Tag × USDT/USD-Tagesschluss), Devisenkurs dort an jedem Tag 1
-        val converted = PortfolioHistoryFx.convertsUsdt(code, usdtMarket = true) && fx != null
-        val viaFx = PortfolioHistoryFx.convertsUsdtAsUsd(code)
-        // Devisen-Tageskurse dieses Zeitraums noch nicht da: Platzhalter statt still falscher Kurve
-        if (converted && viaFx && (fxSeries == null || fxSeries.currency != code || fxSeries.from.isAfter(fxSeriesFrom(txs, range)))) {
-            return@combine null
-        }
-        val zone = ZoneId.systemDefault()
-        // Heute als UTC-Tag: der Verlauf zählt in UTC-Tagen ([PortfolioHistory.build]), wie «7 T/1 J»
-        val today = PortfolioHistory.utcToday()
-        // Eigene Börse, sonst Binance skaliert — Dochte und Eröffnung mit demselben Faktor wie die Schlüsse
-        val routed = loaded.routed(p)
-        val series = PortfolioHistory.build(
-            trades = txs.map { it.toTrade() },
-            closes = routed.closes,
-            livePrices = p.prices,
-            range = range,
-            todayEpochDay = today,
-            dayEndMillis = dayEndIn(zone),
-            ranges = routed.ranges,
-            // Adress-Guthaben ab ihrer ersten Beobachtung (Wert und Gewinn/Verlust)
-            addresses = addresses,
-            method = method,
-        )
-        val scaled = series.points.firstOrNull()?.let { first ->
-            val drawn = txs.flatMap { it.coins() }.map { PortfolioCalculator.normalizeCoin(it) }.distinct().filter { it !in series.skipped }
-            PortfolioExchangeRoute.scaledHint(routed.scaled, loaded.daily.binanceBefore, first.epochDay, drawn)
-        }.orEmpty()
-        if (!converted) return@combine PortfolioHistoryUi(range, series, PortfolioFormat.USDT, false, scaled = scaled)
-        // USDT zum Marktkurs: je Tag × USDT/USD-Tagesschluss (Tag ohne Schluss: 1, als Näherung markiert)
-        val usdt = com.cryptochecker.app.domain.portfolio.UsdtUsdRates(live, loaded.daily.usdtUsd)
-        val dailyRates = if (viaFx) fxSeries?.rates else PortfolioHistoryFx.usdParity(fxSeriesFrom(txs, range).toEpochDay(), today)
-        val result = PortfolioHistoryFx.convert(series, dailyRates, fx, today, usdt)
-        // Vergleich mit USDT nur mit Tageskursen — mit dem heutigen Kurs wäre er bedeutungslos
-        if (result.approximate) {
-            return@combine PortfolioHistoryUi(range, result.series, code, true, true, scaled = scaled, usdtApproximate = result.usdtApproximate)
-        }
-        PortfolioHistoryUi(
-            range = range,
-            series = result.series,
-            unit = code,
-            converted = true,
-            approximateFx = false,
-            usdtSeries = series,
-            compare = PortfolioCompare.build(result.series.points, series.points),
-            scaled = scaled,
-            usdtApproximate = result.usdtApproximate,
-        )
-    }
-        .flowOn(Dispatchers.Default)
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
+    val history: StateFlow<PortfolioHistoryUi?> = historyFlow()
 
     internal val _coins = MutableStateFlow<List<String>>(emptyList())
 
@@ -502,90 +345,10 @@ class PortfolioViewModel @Inject constructor(
 
     init {
         viewModelScope.launch { repository.migrateHoldingsOnce() }
-        // Alte Entscheide (früher genügte derselbe Coin): einmal übernehmen; «Nur anzeigen» ohne passende Menge zählt
-        // wieder (Hinweis mit «Rückgängig»)
-        viewModelScope.launch {
-            combine(transactions.filterNotNull(), watchedAddresses) { txs, list -> txs to list }
-                .filter { (_, list) -> list.any { it.overlapLegacy } }
-                .collect { (txs, list) ->
-                    val trades = withContext(Dispatchers.Default) { txs.map { it.toTrade() } }
-                    val legacy = list.filter { it.overlapLegacy }
-                    val restored = legacy.filter { a ->
-                        val revert = WatchedAddressRules.overlapLegacyRevert(a, trades)
-                        safe { repository.migrateWatchedAddressOverlap(a.id, revert) } != null && revert
-                    }
-                    if (restored.isEmpty()) return@collect
-                    val own = txs.map { PortfolioCalculator.normalizeCoin(it.coin) }.toSet()
-                    val previous = _addressOverlapRestored.value
-                    _addressOverlapRestored.value = AddressOverlapNotice(
-                        ids = previous?.ids.orEmpty() + restored.map { it.id },
-                        names = previous?.names.orEmpty() + restored.map { it.label ?: WatchedAddressRules.shortAddress(it.address) },
-                        coins = (previous?.coins.orEmpty() + restored.flatMap { WatchedAddressRules.overlap(it, own) }).distinct(),
-                    )
-                }
-        }
-        // Später aufgetauchte Überschneidung Adresse ↔ eigene Transaktionen mit passender Menge: einmal automatisch
-        // «Nur anzeigen» (Hinweis); nur gleicher Coin: zählt weiter (Hinweis an der Adresse)
-        viewModelScope.launch {
-            combine(transactions.filterNotNull(), watchedAddresses) { txs, list ->
-                WatchedAddressRules.overlapAutoShowOnly(list.filter { !it.overlapLegacy }, txs.map { it.toTrade() }) to txs
-            }
-                .flowOn(Dispatchers.Default)
-                .filter { (due, _) -> due.isNotEmpty() }
-                .collect { (due, txs) ->
-                    val own = txs.map { PortfolioCalculator.normalizeCoin(it.coin) }.toSet()
-                    val switched = due.filter { a -> safe { repository.setWatchedAddressOverlapShowOnly(a.id) } != null }
-                    if (switched.isEmpty()) return@collect
-                    val previous = _addressOverlapNotice.value
-                    _addressOverlapNotice.value = AddressOverlapNotice(
-                        ids = previous?.ids.orEmpty() + switched.map { it.id },
-                        names = previous?.names.orEmpty() + switched.map { it.label ?: WatchedAddressRules.shortAddress(it.address) },
-                        coins = (previous?.coins.orEmpty() + switched.flatMap { WatchedAddressRules.overlap(it, own) }).distinct(),
-                    )
-                }
-        }
-        // Portfolio-Widget: jede neue Berechnung (Transaktionen, Kurse, Währung) als Momentaufnahme
-        viewModelScope.launch {
-            // Merkzettel der Anzeigewährung mit: kommen die Kurse dafür später, nimmt das Widget gleich neu auf
-            combine(calcTransactions.filterNotNull(), _prices, currency, _fxRate, widgetDisplayFx) { txs, p, code, fx, display ->
-                PortfolioWidgetInput(txs, p, code, fx, display)
-            }
-                .distinctUntilChanged()
-                .collect { input ->
-                    // Ohne geladene Kurse nichts aufnehmen (sonst stünde kurz 0 im Widget)
-                    if (input.transactions.isNotEmpty() && input.prices.updatedAt <= 0L) return@collect
-                    // Zu wenig frische Kurse (ohne Netz, nach einem Neustart): nicht als «jetzt» aufnehmen
-                    // (Widget, Verlauf, Alarme blieben sonst mit alten Kursen stehen); «Heute» dann aus der
-                    // letzten Momentaufnahme. Frische je Coin: ein einzelner alter Coin hält die übrigen
-                    // nicht an, solange mindestens 80 % des Werts frisch sind
-                    if (input.transactions.isNotEmpty() && !withContext(Dispatchers.Default) { mayRecord(input) }) {
-                        if (_todayPercent.value == null) showStoredToday(input.fxRate)
-                        return@collect
-                    }
-                    safe {
-                        snapshotUpdater.record(
-                            input.transactions, input.prices.prices, input.currency, input.fxRate, routing = input.prices,
-                            displayFx = input.displayFx,
-                        )
-                    }
-                        ?.let { snapshot ->
-                            // Betrag in der Anzeigewährung der Aufnahme → USDT (wie der Gesamtwert): Faktor der Aufnahme
-                            // (Devisenkurs × USDT/USD, [snapshotUsdtFactor])
-                            val rate = snapshotUsdtFactor(snapshot, input.fxRate)
-                            val amount = snapshot.changeAmount
-                                ?.takeUnless { snapshot.empty }
-                                ?.let { value -> rate?.let { value / it } }
-                            val percent = snapshot.changePercent?.takeUnless { snapshot.empty }
-                            // «Gewinn heute» kommt schon berichtigt aus der Aufnahme (Käufe/Verkäufe heraus,
-                            // Coins ohne Vergleichskurs fehlen) — dieselbe Zahl wie Widget und Portfolio-Alarm
-                            _todayPercent.value = percent
-                            _todayAmount.value = amount
-                            _todaySkipped.value = snapshot.todaySkipped
-                            _coinChanges.value = snapshot.coinChanges
-                            _coinPnl.value = if (snapshot.empty) emptyMap() else snapshot.coinPnl
-                        }
-                }
-        }
+        // Hintergrund-Aufgaben in PortfolioBackgroundJobs.kt
+        restoreLegacyAddressOverlap()
+        switchOverlappingAddresses()
+        recordWidgetSnapshots()
     }
 
     fun setHistoryRange(range: PortfolioHistoryRange) {

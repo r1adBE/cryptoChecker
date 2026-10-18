@@ -6,7 +6,9 @@ import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.num
 import com.cryptochecker.app.parity.obj
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 /**
@@ -26,6 +28,20 @@ class PriceFreshnessTest {
                 c["name"] as String,
                 c["expected"].num()!!.toLong(),
                 PriceFreshness.freshnessTime(c["lastUpdate"].num()!!.toLong(), c["exchangeTime"].num()?.toLong()),
+            )
+        }
+    }
+
+    @Test
+    fun staleParity() {
+        data["stale"].list().forEach { raw ->
+            val c = raw.obj()
+            val lastUpdate = c["lastUpdateAge"].num()?.let { now - it.toLong() } ?: 0L
+            val exchangeTime = c["exchangeTimeAge"].num()?.let { now - it.toLong() }
+            assertEquals(
+                c["name"] as String,
+                (c["expected"] as String?)?.let { PriceFreshness.StaleReason.valueOf(it) },
+                PriceFreshness.staleReason(lastUpdate, exchangeTime, now, c["staleAfter"].num()!!.toLong()),
             )
         }
     }
@@ -86,6 +102,21 @@ class PriceFreshnessTest {
         assertNull(PriceFreshness.unchangedSince(watch(price = null), now, 120_000L))
         assertNull(PriceFreshness.unchangedSince(watch(exchangeTime = now - 5_000), now, 120_000L))
         assertEquals(now - 5_000, PriceFreshness.freshnessTime(watch(exchangeTime = now - 5_000)))
+    }
+
+    @Test
+    fun staleFollowsTheAlarmBlock() {
+        // Eben abgefragt, letzter Handel laut Börse 3 h her: veraltet wie die Alarmsperre
+        val old = watch(exchangeTime = now - 3 * 3_600_000L)
+        assertEquals(PriceFreshness.StaleReason.TRADE, PriceFreshness.staleReason(old, now, 120_000L))
+        assertTrue(PriceFreshness.isStale(old, now, 120_000L))
+        assertTrue(com.cryptochecker.app.domain.alarm.AlarmFreshness.blocksAlarms(old.exchangeTime, false, now))
+        // Ruhiges Paar (Handel vor 1 h) bzw. ohne Zeit der Börse: frisch
+        assertFalse(PriceFreshness.isStale(watch(exchangeTime = now - 3_600_000L), now, 120_000L))
+        assertFalse(PriceFreshness.isStale(watch(), now, 120_000L))
+        // Deaktiviert nie; noch nie abgefragt immer
+        assertFalse(PriceFreshness.isStale(old.copy(disabled = true), now, 120_000L))
+        assertTrue(PriceFreshness.isStale(watch().copy(lastUpdate = 0), now, 120_000L))
     }
 
     @Test

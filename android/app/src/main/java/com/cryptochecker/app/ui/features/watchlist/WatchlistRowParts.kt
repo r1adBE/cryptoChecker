@@ -37,7 +37,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
@@ -53,6 +52,9 @@ import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.WatchMove
 import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.watch.AssetKind
+import com.cryptochecker.app.domain.watch.DayChange
+import com.cryptochecker.app.domain.watch.RowPause
 import com.cryptochecker.app.domain.watch.shownChange
 import com.cryptochecker.app.ui.components.ListSegment
 import com.cryptochecker.app.ui.components.RollingNumberText
@@ -259,3 +261,35 @@ internal fun RowSortMenu(onMove: (WatchMove) -> Unit) {
         }
     }
 }
+
+/** Hinweis «Änderung & Chart: Binance» für die Zeile ([DayChange.rowSource]). */
+@Composable
+internal fun rowSourceText(source: com.cryptochecker.app.domain.watch.DayChange.RowSource): String = when (source.kind) {
+    com.cryptochecker.app.domain.watch.DayChange.RowSourceKind.CHANGE_AND_CHART ->
+        stringResource(R.string.watch_row_source_both, source.provider)
+    com.cryptochecker.app.domain.watch.DayChange.RowSourceKind.CHANGE -> listOfNotNull(
+        stringResource(R.string.watch_row_source_change, source.provider),
+        source.chartProvider?.let { stringResource(R.string.watch_row_source_chart, it) },
+    ).joinToString(" · ")
+    com.cryptochecker.app.domain.watch.DayChange.RowSourceKind.CHART -> stringResource(R.string.watch_row_source_chart, source.provider)
+}
+
+/** Gesprochener Name der Art im Zeilensatz. */
+internal val AssetKind.spokenRes: Int
+    get() = when (this) {
+        AssetKind.TOKEN -> R.string.asset_kind_token
+        AssetKind.TRADFI -> R.string.asset_kind_tradfi
+        AssetKind.ALPHA -> R.string.asset_kind_alpha
+    }
+
+/**
+ * Deckkraft von Logo und kleinen Symbolen eines deaktivierten Paars. Texte (Paar, Kurs, Anzahl
+ * Alarme) werden nicht mehr abgeblasst (45 % lag unter 4.5:1), sondern stehen in onSurfaceVariant
+ * ([disabledTextColor]); dazu sagt «Binance · deaktiviert» den Zustand in Worten (L-13).
+ */
+internal const val DISABLED_ICON_ALPHA = 0.45f
+
+/** Textfarbe eines deaktivierten Paars: onSurfaceVariant (mind. 4.5:1), sonst [normal]. */
+@Composable
+internal fun disabledTextColor(off: Boolean, normal: Color = Color.Unspecified): Color =
+    if (off) MaterialTheme.colorScheme.onSurfaceVariant else normal

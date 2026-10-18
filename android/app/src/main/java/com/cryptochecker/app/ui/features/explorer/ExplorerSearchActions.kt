@@ -220,3 +220,9 @@ internal suspend fun ExplorerViewModel.syncForSearch(m: MarketInfo): MarketPairs
 private const val SEARCH_DEBOUNCE_MS = 150L
 
 private const val LIST_LOAD_PARALLEL = 4
+
+/**
+ * Paarlisten der Suche: [reading] solange die gespeicherten Listen gelesen werden, [missing] Börsen ohne
+ * Liste auf dem Gerät, [progress] solange fehlende auf Wunsch laden.
+ */
+data class SearchLists(val reading: Boolean = false, val missing: Int = 0, val progress: SearchProgress? = null)

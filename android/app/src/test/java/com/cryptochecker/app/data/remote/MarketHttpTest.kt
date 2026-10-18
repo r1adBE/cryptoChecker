@@ -4,10 +4,13 @@ import com.cryptochecker.app.data.remote.util.HttpBodyLimit
 import com.cryptochecker.app.domain.exceptions.HttpMarketError
 import com.cryptochecker.app.domain.exceptions.ResponseTooLargeError
 import com.cryptochecker.app.domain.exceptions.TimeoutError
+import com.cryptochecker.app.domain.exceptions.UserFriendlyMarketError
 import com.cryptochecker.app.domain.exceptions.toMarketFailure
 import com.cryptochecker.app.domain.refresh.ExchangeBackoff
 import com.cryptochecker.app.domain.refresh.MarketFailure
 import com.cryptochecker.app.domain.refresh.refreshFailure
+import com.cryptochecker.app.domain.watch.NotTraded
+import com.cryptochecker.marketdata.exceptions.MarketParseException
 import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.Market
 import com.cryptochecker.marketdata.model.MarketPair
@@ -262,6 +265,21 @@ class MarketHttpTest {
         }
         assertEquals(500, e.httpCode)
         assertEquals("ohne Kurs keine zweite Anfrage", 1, requested.size)
+    }
+
+    @Test
+    fun zeroOrNonFinitePriceIsNoTickerDataAndConfirmsNotTraded() = runBlocking {
+        // Binance-«BREAK»: Antwort mit lastPrice 0 — kein Kurs, kein Erfolg mit 0
+        for (body in listOf("""{"last":0}""", """{"last":"0.00000000"}""", """{"last":-5}""", """{"last":"NaN"}""")) {
+            respond(body = body)
+            val e = expect<MarketParseException> {
+                runBlocking { MarketRemoteDataSource(client()).fetchMarketTicker(StubMarket(url("").trimEnd('/')), query()) }
+            }
+            assertEquals(body, UserFriendlyMarketError.NO_TICKER_DATA, e.message)
+            assertEquals(body, MarketFailure.Parse, e.toMarketFailure())
+            assertTrue(body, NotTraded.confirmedBySingle(false, e.message, e.toMarketFailure()))
+        }
+        assertEquals("ohne Kurs keine zweite Anfrage", 4, requested.size)
     }
 
     @Test

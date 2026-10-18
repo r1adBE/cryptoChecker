@@ -7,9 +7,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -20,7 +17,6 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -41,7 +37,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.R
-import com.cryptochecker.app.data.local.model.AlarmCondition
 import com.cryptochecker.app.data.local.model.AlarmEntity
 import com.cryptochecker.app.domain.alarm.AlarmCardStatus
 import com.cryptochecker.app.domain.alarm.DerivativesAlarm
@@ -50,8 +45,6 @@ import com.cryptochecker.app.ui.components.EmptyState
 import com.cryptochecker.app.ui.components.ReadableInset
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.util.BidiText
-import com.cryptochecker.app.util.LocaleNumbers
-import com.cryptochecker.app.util.PriceFormat
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeoutOrNull
@@ -88,6 +81,16 @@ fun AlarmsScreen(
         if (!autoOpenDone && empty && !low) draft = newDraft()
         autoOpenDone = true
     }
+    // «Anpassen» aus der Alarm-Mitteilung: Editor dieses Alarms einmal öffnen, sobald er geladen ist (nicht bei zu
+    // wenig DEX-Liquidität — dann bleibt die Liste mit dem Hinweis)
+    var editOpened by rememberSaveable { mutableStateOf(false) }
+    LaunchedEffect(alarms, lowLiquidityState) {
+        val alarm = alarms.firstOrNull { it.id == viewModel.editAlarmId }
+        val low = lowLiquidityState
+        if (editOpened || alarm == null || low == null) return@LaunchedEffect
+        editOpened = true
+        if (!low) draft = AlarmDraft.from(alarm)
+    }
     LaunchedEffect(draft?.id) {
         // Schnell-Alarme: prüfen, ob das Paar Kerzen hat (nur beim Anlegen)
         if (draft?.id == 0L) viewModel.loadTemplateData()
@@ -109,7 +112,13 @@ fun AlarmsScreen(
     val firstAlarm by viewModel.firstAlarm.collectAsStateWithLifecycle()
     val timingHint by viewModel.timingHint.collectAsStateWithLifecycle()
     val exactOffer by viewModel.exactOffer.collectAsStateWithLifecycle()
-    val testAlarm = com.cryptochecker.app.ui.components.rememberAlarmTest(viewModel::testAlarm)
+    // Hinweis «Nachtruhe» über die Snackbar dieses Bildschirms (statt eines System-Toasts)
+    val testAlarm = com.cryptochecker.app.ui.components.rememberAlarmTest(viewModel::testAlarm) { text ->
+        scope.launch {
+            snackbar.currentSnackbarData?.dismiss()
+            snackbar.showSnackbar(text, duration = SnackbarDuration.Long)
+        }
+    }
 
     // Einmal nach dem Speichern: ehrlich, wann bei geschlossener App geprüft wird
     if (timingHint) {
@@ -120,77 +129,16 @@ fun AlarmsScreen(
     // optional «Pünktlich prüfen» und, nur wenn die Akku-Optimierung die App einschränkt, die
     // Akku-Einstellungen. Der eigene Akku-Dialog entfällt dann in dieser Sitzung.
     if (firstAlarm) {
-        val batteryRestricted = remember { !com.cryptochecker.app.util.BatteryOptimization.isIgnoring(context) }
-        var batteryDone by remember { mutableStateOf(false) }
-        LaunchedEffect(Unit) {
-            com.cryptochecker.app.ui.features.about.BatteryHintSession.coveredByFirstAlarm = true
-        }
-        AlertDialog(
-            onDismissRequest = viewModel::dismissFirstAlarm,
-            title = { Text(stringResource(R.string.alarm_first_title)) },
-            text = {
-                Column(
-                    modifier = Modifier.verticalScroll(rememberScrollState()),
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
-                ) {
-                    // Derselbe eine Satz wie unter jedem Alarm (AlarmTimingHint, höchstens 160 Zeichen)
-                    Text(alarmTimingHintText())
-                    exactOffer?.let { kind ->
-                        val grant = kind == com.cryptochecker.app.work.ExactCheckOffer.Kind.GRANT
-                        Text(
-                            stringResource(R.string.settings_exact_checks_hint),
-                            style = MaterialTheme.typography.bodyMedium,
-                            modifier = Modifier.padding(top = 8.dp),
-                        )
-                        TextButton(onClick = {
-                            viewModel.acceptExactOffer()
-                            if (grant) com.cryptochecker.app.work.ExactCheckScheduler.openPermissionSettings(context)
-                        }) {
-                            Text(stringResource(if (grant) R.string.settings_exact_checks_grant else R.string.settings_exact_checks))
-                        }
-                    }
-                    if (batteryRestricted && !batteryDone) {
-                        Text(
-                            stringResource(R.string.alarm_first_battery_hint),
-                            style = MaterialTheme.typography.bodyMedium,
-                            modifier = Modifier.padding(top = 8.dp),
-                        )
-                        TextButton(onClick = {
-                            com.cryptochecker.app.util.BatteryOptimization.openSettings(context)
-                            viewModel.batteryHintUsed()
-                            batteryDone = true
-                        }) {
-                            Text(stringResource(R.string.battery_open_settings))
-                        }
-                    }
-                }
-            },
-            confirmButton = {
-                TextButton(onClick = viewModel::dismissFirstAlarm) { Text(stringResource(android.R.string.ok)) }
-            },
-            dismissButton = {
-                TextButton(onClick = {
-                    viewModel.dismissFirstAlarm()
-                    testAlarm()
-                }) { Text(stringResource(R.string.alarm_test)) }
-            }
-        )
+        FirstAlarmDialog(viewModel = viewModel, exactOffer = exactOffer, testAlarm = testAlarm)
     }
 
     askDelete?.let { alarm ->
-        AlertDialog(
-            onDismissRequest = { askDelete = null },
-            title = { Text(stringResource(R.string.alarm_delete_title)) },
-            text = { Text(stringResource(R.string.alarm_delete_confirm)) },
-            confirmButton = {
-                TextButton(onClick = {
-                    viewModel.delete(alarm.id)
-                    askDelete = null
-                }) { Text(stringResource(R.string.action_delete), color = MaterialTheme.colorScheme.error) }
+        DeleteAlarmDialog(
+            onDelete = {
+                viewModel.delete(alarm.id)
+                askDelete = null
             },
-            dismissButton = {
-                TextButton(onClick = { askDelete = null }) { Text(stringResource(R.string.action_cancel)) }
-            }
+            onDismiss = { askDelete = null },
         )
     }
 
@@ -395,25 +343,14 @@ fun AlarmsScreen(
     }
 
     confirmFiresNow?.let { pending ->
-        val above = pending.condition == AlarmCondition.PRICE_ABOVE
-        val currency = pending.currency ?: watch?.quoteAsset.orEmpty()
-        val amount = PriceFormat.thresholdWithCurrency(pending.threshold, currency)
-        AlertDialog(
-            onDismissRequest = { confirmFiresNow = null },
-            title = { Text(stringResource(R.string.alarm_fires_now_title)) },
-            text = {
-                Text(stringResource(if (above) R.string.alarm_fires_now_above else R.string.alarm_fires_now_below, amount))
+        FiresNowDialog(
+            pending = pending,
+            quoteAsset = watch?.quoteAsset.orEmpty(),
+            onSave = {
+                confirmFiresNow = null
+                saveDraft(pending)
             },
-            confirmButton = {
-                TextButton(onClick = {
-                    confirmFiresNow = null
-                    saveDraft(pending)
-                }) { Text(stringResource(R.string.alarm_fires_now_save)) }
-            },
-            dismissButton = {
-                // Zurück in den Editor, Betrag anpassen
-                TextButton(onClick = { confirmFiresNow = null }) { Text(stringResource(R.string.alarm_fires_now_change)) }
-            }
+            onDismiss = { confirmFiresNow = null },
         )
     }
 }
@@ -429,29 +366,3 @@ private const val ACTIVE_MILLIS = 6_000L
 
 /** Takt, in dem die Statuszeilen der Karten die Uhr nachführen («Wartet auf aktuellen Kurs»). */
 private const val STATUS_TICK_MILLIS = 60_000L
-
-/**
- * Beispiel im leeren Alarm-Zustand (Übersicht und je Paar, L-18) im Stil der Alarm-Sätze:
- * «Zum Beispiel: Sag mir Bescheid, wenn BTC über 90’000 steigt.» — Zahl im Format der Sprache.
- * Wie iOS `AlarmsEmptyExample.text`.
- */
-@Composable
-internal fun alarmsEmptyExample(): String =
-    stringResource(R.string.alarms_empty_example, LocaleNumbers.integer(90_000, grouping = true))
-
-/** Hinweis für DEX-Pools mit zu wenig Liquidität: kein Alarm, bestehende Alarme ruhen ([com.cryptochecker.app.domain.watch.DexLiquidity]). */
-@Composable
-private fun DexLowLiquidityNote() {
-    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-        Text(
-            stringResource(R.string.dex_low_liquidity_no_alarm),
-            style = MaterialTheme.typography.titleSmall,
-            color = MaterialTheme.colorScheme.error,
-        )
-        Text(
-            stringResource(R.string.dex_low_liquidity_alarm_hint),
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-        )
-    }
-}

@@ -5,7 +5,6 @@ import com.cryptochecker.app.data.remote.callMarket
 import com.cryptochecker.app.domain.exceptions.HttpMarketError
 import com.cryptochecker.app.domain.portfolio.AddressBalance
 import com.cryptochecker.app.domain.portfolio.AddressChain
-import com.cryptochecker.app.domain.portfolio.Bip32
 import com.cryptochecker.app.domain.portfolio.ChainAssets
 import com.cryptochecker.app.domain.portfolio.ChainBalance
 import com.cryptochecker.app.domain.portfolio.Erc20Tokens
@@ -13,18 +12,14 @@ import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
 import com.cryptochecker.app.domain.portfolio.WatchedAddress
 import com.cryptochecker.app.domain.portfolio.WatchedAddressRules
 import com.cryptochecker.app.domain.portfolio.XpubCache
-import com.cryptochecker.app.domain.portfolio.XpubDeriver
 import com.cryptochecker.app.domain.portfolio.XpubScan
 import com.cryptochecker.app.domain.refresh.ExchangeBackoff
 import com.cryptochecker.app.domain.refresh.StoredError
 import com.cryptochecker.marketdata.model.PostRequestInfo
 import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
-import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout
 import okhttp3.OkHttpClient
 import timber.log.Timber
@@ -50,7 +45,7 @@ import javax.inject.Singleton
 class WatchedAddressSource @Inject constructor(
     httpClient: OkHttpClient,
 ) {
-    private val client: OkHttpClient = httpClient.newBuilder()
+    internal val client: OkHttpClient = httpClient.newBuilder()
         .apply {
             interceptors().clear()
             networkInterceptors().clear()
@@ -307,74 +302,8 @@ class WatchedAddressSource @Inject constructor(
         }
     }
 
-    /**
-     * xpub/ypub/zpub/Taproot-Konto: Adressen auf dem Gerät ableiten ([XpubDeriver]) und einzeln wie eine Adresse fragen
-     * ([XpubScan]: Gap-Regel, vollständig höchstens täglich). Hintergrund ohne Zwischenspeicher: null (bleibt fällig).
-     * Zwischen zwei Anfragen eine kurze Pause (schont die Anbieter). xpub ohne bekannten Adresstyp
-     * ([XpubScan.scripts]): vollständig als P2PKH, ohne Verlauf als P2SH-P2WPKH, dann P2WPKH (Segwit-Konto mit xpub,
-     * Ledger Live); der erste Typ mit Verlauf wird gemerkt ([XpubCache.script]), im Hintergrund wird nicht gesucht.
-     */
-    private suspend fun fetchXpub(a: WatchedAddress, deadline: Long?): Fetched? {
-        val key = Bip32.parse(a.address) ?: throw IllegalArgumentException("xpub ungültig")
-        // Zwischenspeicher nur, wenn er zu diesem Schlüssel gehört (erste Adresse im gemerkten Typ stimmt)
-        val stored = a.xpub?.let { c ->
-            val deriver = XpubDeriver(a.address, c.script.takeIf { key.detectsScript })
-            c.takeIf {
-                withContext(Dispatchers.Default) {
-                    (c.receive.isEmpty() || c.receive[0] == deriver.address(0, 0)) &&
-                        (c.change.isEmpty() || c.change[0] == deriver.address(1, 0))
-                }
-            }
-        }
-        val storedScript = stored?.let { it.script.takeIf { key.detectsScript } ?: key.script }
-        val scripts = XpubScan.scripts(key, stored)
-        val tried = ArrayList<Pair<Bip32.Script, Int>>()
-        val results = ArrayList<Fetched>()
-        for (script in scripts) {
-            val cache = stored?.takeIf { storedScript == script }
-            val mode = if (scripts.size > 1) {
-                if (deadline != null) return null
-                XpubScan.Mode.FULL
-            } else {
-                XpubScan.modeFor(cache, System.currentTimeMillis(), background = deadline != null) ?: return null
-            }
-            val (scan, fetched) = scanXpub(XpubDeriver(a.address, script), cache, mode, deadline)
-            tried += script to scan.usedCount
-            results += fetched
-            if (scan.usedCount > 0) break
-        }
-        val pick = XpubScan.pickScript(key, tried)
-        val chosen = results[tried.indexOfFirst { it.first == pick }.coerceAtLeast(0)]
-        return chosen.copy(xpub = chosen.xpub?.copy(script = pick))
-    }
-
-    /** Eine Suche über die Adressen eines Adresstyps ([deriver]). */
-    private suspend fun scanXpub(deriver: XpubDeriver, cache: XpubCache?, mode: XpubScan.Mode, deadline: Long?): Pair<XpubScan, Fetched> {
-        val lists = listOf(ArrayList(cache?.receive.orEmpty()), ArrayList(cache?.change.orEmpty()))
-        val scan = XpubScan(mode, cache)
-        var provider = AddressBalance.providerName(AddressBalance.BTC_HOSTS.first())
-        while (true) {
-            val target = scan.next() ?: break
-            val list = lists[target.chain]
-            if (list.size <= target.index) {
-                withContext(Dispatchers.Default) {
-                    while (list.size <= target.index) list += deriver.address(target.chain, list.size)
-                }
-            }
-            val address = list[target.index]
-            if (scan.requests > 1) delay(if (deadline == null) XPUB_PAUSE_MILLIS else XPUB_PAUSE_BACKGROUND_MILLIS)
-            val (stats, host) = firstWorking(AddressBalance.BTC_HOSTS, deadline) { h ->
-                AddressBalance.parseBtc(client.callMarket(AddressBalance.btcUrl(h, address), null), address)
-            }
-            provider = host
-            scan.report(target, stats.txCount, stats.totalSats)
-        }
-        val balance = AddressBalance.unitsText(scan.totalSats.toString(), AddressChain.BTC.decimals)
-        return scan to Fetched(balance, provider, xpub = scan.cache(lists[0], lists[1], System.currentTimeMillis()))
-    }
-
     /** Erster Host, der liefert: Ergebnis und Anbieter-Name; wirft, wenn keiner liefert. */
-    private suspend fun <T> firstWorking(hosts: List<String>, deadline: Long?, load: suspend (String) -> T): Pair<T, String> {
+    internal suspend fun <T> firstWorking(hosts: List<String>, deadline: Long?, load: suspend (String) -> T): Pair<T, String> {
         var lastError: Exception? = null
         for (entry in hosts) {
             val host = entry.removePrefix("https://").substringBefore('/').substringBefore(':')

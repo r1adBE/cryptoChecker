@@ -5,7 +5,6 @@ import com.cryptochecker.app.data.CycleCacheStore
 import com.cryptochecker.app.data.MarketRepository
 import com.cryptochecker.app.data.remote.BlockedSources
 import com.cryptochecker.app.data.remote.CandleDataSource
-import com.cryptochecker.app.data.remote.CandleInterval
 import com.cryptochecker.app.data.remote.callMarket
 import com.cryptochecker.app.data.remote.candles.CandlePair
 import com.cryptochecker.app.data.remote.candles.OwnCandleDataSource
@@ -14,15 +13,10 @@ import com.cryptochecker.app.domain.exceptions.HttpMarketError
 import com.cryptochecker.app.domain.market.CycleCachePolicy
 import com.cryptochecker.app.domain.portfolio.ChainAssets
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
-import com.cryptochecker.app.domain.portfolio.PortfolioCoinDaily
 import com.cryptochecker.app.domain.portfolio.PortfolioDayRange
 import com.cryptochecker.app.domain.portfolio.PortfolioExchangeRoute
 import com.cryptochecker.app.domain.portfolio.PortfolioHistory
-import com.cryptochecker.app.domain.portfolio.PortfolioHistoryFx
 import com.cryptochecker.app.domain.portfolio.PortfolioStables
-import com.cryptochecker.app.domain.model.MarketInfo
-import com.cryptochecker.marketdata.model.FuturesContractType
-import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -39,7 +33,6 @@ import okhttp3.OkHttpClient
 import org.json.JSONArray
 import org.json.JSONObject
 import timber.log.Timber
-import java.time.LocalDate
 import java.util.concurrent.ConcurrentHashMap
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -50,10 +43,15 @@ import com.cryptochecker.app.domain.portfolio.candleDays
  * Tagesschlüsse eines Coins und wie viele Tage bis heute dafür abgefragt wurden ([span]);
  * [ranges] = Eröffnung/Hoch/Tief derselben Kerzen (leer bei Einträgen älterer Versionen).
  */
-private data class CoinCloses(
+internal data class CoinCloses(
     val closes: Map<Long, Double>,
     val span: Int,
     val ranges: Map<Long, PortfolioDayRange> = emptyMap(),
+    /**
+     * Gemerkter Stand statt frischer Abfrage (Börse nicht erreichbar): Zeit dieses Stands; null = frisch.
+     * Nur im Ablauf, nicht gespeichert ([PortfolioHistorySource.CODEC] kennt das Feld nicht).
+     */
+    val staleSince: Long? = null,
 )
 
 /**
@@ -73,16 +71,21 @@ data class PortfolioDailyPrices(
      * ([com.cryptochecker.app.domain.portfolio.UsdtUsdRates.daily]); leer = keiner (dann 1 als Näherung).
      */
     val usdtUsd: Map<Long, Double> = emptyMap(),
+    /**
+     * Coins, deren eigene Reihe ein älterer Stand ist (Börse nicht erreichbar) → Zeit dieses Stands; die Karte zeigt
+     * «Stand …» ([com.cryptochecker.app.domain.portfolio.PortfolioHistoryAsOf]) statt eines scheinbar heutigen Verlaufs.
+     */
+    val ownStale: Map<String, Long> = emptyMap(),
 )
 
 /** Eigene Tageskerzen eines Coins (USDT) und für welchen Weg ([route] = Schlüssel des Paars). */
-private data class OwnCloses(val route: String, val entry: CoinCloses)
+internal data class OwnCloses(val route: String, val entry: CoinCloses)
 
 /**
  * Wege für den Verlauf: [pairs] = Coins mit eigener Börse und Paar; [unresolved] = Coins mit eingetragener Börse, deren
  * Weg sich nicht lesen liess (Börsenliste, Paarliste oder Transaktionen nicht lesbar, kein Paar) — nie still Binance.
  */
-private class HistoryRoutes(val pairs: Map<String, CandlePair>, val unresolved: Set<String>) {
+internal class HistoryRoutes(val pairs: Map<String, CandlePair>, val unresolved: Set<String>) {
     val routed: Set<String> get() = pairs.keys + unresolved
 }
 
@@ -111,17 +114,17 @@ private class HistoryRoutes(val pairs: Map<String, CandlePair>, val unresolved: 
 @Singleton
 class PortfolioHistorySource @Inject constructor(
     private val httpClient: OkHttpClient,
-    private val cacheStore: CycleCacheStore,
-    private val portfolioDao: PortfolioDao,
-    private val marketRepository: MarketRepository,
-    private val ownCandles: OwnCandleDataSource,
-    private val historicSource: HistoricPriceSource,
+    internal val cacheStore: CycleCacheStore,
+    internal val portfolioDao: PortfolioDao,
+    internal val marketRepository: MarketRepository,
+    internal val ownCandles: OwnCandleDataSource,
+    internal val historicSource: HistoricPriceSource,
 ) {
     /** Coin → (Schlüsse samt Spanne, Abfragezeit); leere Karte = kein Binance-Paar. */
     private val memory = ConcurrentHashMap<String, Pair<CoinCloses, Long>>()
 
     /** Coin → (eigene Tageskerzen in USDT, Abfragezeit). */
-    private val ownMemory = ConcurrentHashMap<String, Pair<OwnCloses, Long>>()
+    internal val ownMemory = ConcurrentHashMap<String, Pair<OwnCloses, Long>>()
 
     /** Schützt [usdtUsdDaily] vor parallelen Abfragen desselben Paars. */
     private val usdtUsdMutex = Mutex()
@@ -176,148 +179,6 @@ class PortfolioHistorySource @Inject constructor(
             ?: cacheStore.read(ownCacheName(USDT_USD_KEY), OWN_CODEC)?.takeIf { it.value.route == route }
                 ?.also { ownMemory.putIfAbsent(USDT_USD_KEY, it.value to it.savedAt) }?.value
         return entry?.entry?.closes.orEmpty()
-    }
-
-    /**
-     * Binance-Reihen [binance] mit den eigenen Reihen [own] zusammenführen: eigene Reihe ersetzt Binance,
-     * reicht sie nicht so weit zurück, davor Binance angeglichen ([PortfolioExchangeRoute.stitch]).
-     */
-    private fun mergeOwn(binance: Map<String, CoinCloses>, own: Map<String, CoinCloses>, routed: Set<String>): PortfolioDailyPrices {
-        val closes = LinkedHashMap<String, Map<Long, Double>>()
-        val ranges = LinkedHashMap<String, Map<Long, PortfolioDayRange>>()
-        val before = HashMap<String, Long>()
-        binance.forEach { (coin, entry) ->
-            if (coin in own) return@forEach
-            closes[coin] = entry.closes
-            if (entry.ranges.isNotEmpty()) ranges[coin] = entry.ranges
-        }
-        own.forEach { (coin, entry) ->
-            val stitched = PortfolioExchangeRoute.stitch(
-                PortfolioCoinDaily(entry.closes, entry.ranges),
-                binance[coin]?.let { PortfolioCoinDaily(it.closes, it.ranges) },
-            )
-            closes[coin] = stitched.daily.closes
-            if (stitched.daily.ranges.isNotEmpty()) ranges[coin] = stitched.daily.ranges
-            stitched.binanceBefore?.let { before[coin] = it }
-        }
-        return PortfolioDailyPrices(closes, ranges, own.keys.toSet(), before, routed)
-    }
-
-    /**
-     * Wege der [coins] wie die Kurse ([PortfolioExchangeRoute], `PortfolioPriceSource.applyExchangeRoutes`):
-     * einheitlich eingetragene Spot-Börse (nicht Binance) und ihr Paar aus der gespeicherten Paarliste —
-     * ohne Netz (die Paarliste lädt die Kursabfrage). Binance und freier Text (Börsenliste gelesen, kein Markt):
-     * kein Weg. Lässt sich der Weg nicht lesen, steht der Coin in [HistoryRoutes.unresolved] (Verlauf dann nur
-     * Binance skaliert oder «ohne passende Tageskurse», [PortfolioExchangeRoute.historyCloses]) — nie still Binance.
-     */
-    private suspend fun routes(coins: Collection<String>): HistoryRoutes {
-        val wanted = coins.toSet()
-        val byCoin = try {
-            PortfolioExchangeRoute.exchangeByLedger(portfolioDao.getAll().flatMap { it.routeEntries() }).first.filterKeys { it in wanted }
-        } catch (e: CancellationException) {
-            throw e
-        } catch (e: Exception) {
-            // Transaktionen nicht lesbar: Börsen unbekannt — kein Coin still mit Binance
-            Timber.d(e, "Portfolio-Verlauf: Börsen nicht lesbar")
-            return HistoryRoutes(emptyMap(), wanted)
-        }
-        if (byCoin.isEmpty()) return HistoryRoutes(emptyMap(), emptySet())
-        val markets = try {
-            marketRepository.getMarketList().associate { it.key to it.name }
-        } catch (e: CancellationException) {
-            throw e
-        } catch (e: Exception) {
-            Timber.d(e, "Portfolio-Verlauf: Börsenliste nicht lesbar")
-            emptyMap()
-        }
-        val out = HashMap<String, CandlePair>()
-        val unresolved = HashSet<String>()
-        for ((coin, name) in byCoin) {
-            if (markets.isEmpty()) {
-                // Börsenliste fehlt: nur Binance ist sicher die Standardquelle
-                if (!name.trim().equals(PortfolioExchangeRoute.DEFAULT_MARKET, ignoreCase = true)) unresolved += coin
-                continue
-            }
-            // Binance oder freier Text: Binance (wie die Kurse)
-            val market = PortfolioExchangeRoute.market(name, markets) ?: continue
-            val pick = try {
-                val pairs = marketRepository.getMarketCurrencyPairsInfo(MarketInfo(key = market.first, name = market.second))
-                    .pairs.filter { it.contractType == FuturesContractType.NONE }
-                PortfolioExchangeRoute.pickPair(
-                    coin, pairs.map { PortfolioExchangeRoute.Pair3(it.base, it.quote, it.pairId) },
-                )
-            } catch (e: CancellationException) {
-                throw e
-            } catch (e: Exception) {
-                Timber.d(e, "Portfolio-Verlauf: Paarliste von %s nicht lesbar", market.second)
-                null
-            }
-            if (pick == null) {
-                unresolved += coin
-                continue
-            }
-            out[coin] = CandlePair(market.first, market.second, pick.base, pick.quote, pick.pairId)
-        }
-        return HistoryRoutes(out, unresolved)
-    }
-
-    /** Eigene Tageskerzen (USDT) von [pair]: Speicher, Gerät, sonst Abfrage; null = keine. */
-    private suspend fun ownOf(coin: String, pair: CandlePair, span: Int): CoinCloses? {
-        val now = System.currentTimeMillis()
-        val route = pair.cacheKey
-        ownMemory[coin]?.let { (cached, at) ->
-            if (cached.route == route && cached.entry.span >= span && CycleCachePolicy.isFresh(at, now, TTL_MILLIS)) return cached.entry
-        }
-        val stored = cacheStore.read(ownCacheName(coin), OWN_CODEC)?.takeIf { it.value.route == route }
-        if (stored != null && stored.value.entry.span >= span && CycleCachePolicy.isFresh(stored.savedAt, now, TTL_MILLIS)) {
-            ownMemory[coin] = stored.value to stored.savedAt
-            return stored.value.entry
-        }
-        val fresh = fetchOwn(pair, span, now)
-        if (fresh != null) {
-            val value = OwnCloses(route, fresh)
-            ownMemory[coin] = value to now
-            cacheStore.write(ownCacheName(coin), value, now, OWN_CODEC)
-            return fresh
-        }
-        // Nicht erreichbar: älterer Stand desselben Wegs ist besser als keiner
-        return stored?.value?.entry ?: ownMemory[coin]?.first?.takeIf { it.route == route }?.entry
-    }
-
-    /** Tageskerzen der eigenen Börse holen und in USDT umrechnen; null = keine (dann Ausweich). */
-    private suspend fun fetchOwn(pair: CandlePair, span: Int, now: Long): CoinCloses? {
-        val candles = try {
-            ownCandles.candles(pair, CandleInterval.D1, span.coerceAtMost(MAX_OWN_DAYS))?.value
-        } catch (e: CancellationException) {
-            throw e
-        } catch (e: Exception) {
-            null
-        } ?: return null
-        val closes = HashMap<Long, Double>()
-        val ranges = HashMap<Long, PortfolioDayRange>()
-        for (c in candles) {
-            val day = PortfolioHistory.epochDayOfUtcMillis(c.openTime)
-            closes[day] = c.close
-            PortfolioDayRange(c.open, c.high, c.low).takeIf { it.valid }?.let { ranges[day] = it }
-        }
-        val first = closes.keys.minOrNull() ?: return null
-        val quote = pair.quote.uppercase()
-        // USD- und Fiat-Kerzen: zusätzlich durch USDT/USD des Tags (USDT zum Marktkurs); nicht für USDT/USD selbst
-        val usdtUsd = if (quote == "USDT" || pair.cacheKey == USDT_USD_PAIR.cacheKey) null else usdtUsdDaily(span)
-        val rates = if (quote == "USDT" || quote == "USD") {
-            emptyMap()
-        } else {
-            val today = LocalDate.ofEpochDay(PortfolioHistory.epochDayOfUtcMillis(now))
-            try {
-                historicSource.usdToSeries(quote, LocalDate.ofEpochDay(first - PortfolioHistoryFx.LEAD_DAYS), today)
-            } catch (e: CancellationException) {
-                throw e
-            } catch (e: Exception) {
-                null
-            } ?: return null
-        }
-        val usdt = PortfolioExchangeRoute.ownDailyUsdt(PortfolioCoinDaily(closes, ranges), quote, rates, usdtUsd) ?: return null
-        return CoinCloses(usdt.closes, span, usdt.ranges)
     }
 
     /**
@@ -434,7 +295,7 @@ class PortfolioHistorySource @Inject constructor(
     /** Eine Tageskerze (USDT) aus der Antwort. */
     private data class DayCandle(val open: Double, val high: Double, val low: Double, val close: Double)
 
-    private companion object {
+    internal companion object {
         const val PARALLEL = 4
         const val REQUEST_TIMEOUT_MILLIS = 10_000L
         const val TTL_MILLIS = 12 * 60 * 60_000L

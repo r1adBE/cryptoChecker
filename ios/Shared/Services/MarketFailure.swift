@@ -78,7 +78,7 @@ enum MarketFailure: Equatable, Sendable {
                 return .other
             }
         }
-        if error is JSONError || error is DecodingError { return .parse }
+        if error is JSONError || error is DecodingError || error is NoTickerDataError { return .parse }
         if let friendly = error as? UserFriendlyMarketError { return fromExchangeMessage(friendly.message) }
         return .other
     }

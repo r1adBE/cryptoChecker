@@ -113,8 +113,18 @@ class AlarmReadinessParityTest {
                 fearGreedBelow = k["fearGreedBelow"].num()?.toInt() ?: 0,
                 fearGreedAbove = k["fearGreedAbove"].num()?.toInt() ?: 0,
                 indicatorAlert = bool(k, "indicatorAlert", false),
+                activityAlerts = bool(k, "activityAlerts", false),
+                macroNotices = bool(k, "macroNotices", false),
             )
-            assertEquals(c["name"] as String, c["expected"] as Boolean, AlarmReadiness.hasBackgroundAlarms(kinds))
+            // Ohne «platform» gilt der Fall für beide Plattformen
+            val platforms = when (c["platform"]) {
+                "android" -> listOf(AlarmReadiness.Platform.ANDROID)
+                "ios" -> listOf(AlarmReadiness.Platform.IOS)
+                else -> AlarmReadiness.Platform.entries
+            }
+            for (platform in platforms) {
+                assertEquals("${c["name"]} $platform", c["expected"] as Boolean, AlarmReadiness.hasBackgroundAlarms(kinds, platform))
+            }
         }
     }
 

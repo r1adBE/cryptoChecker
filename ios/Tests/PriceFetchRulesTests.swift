@@ -2,8 +2,9 @@ import XCTest
 @testable import CryptoChecker
 
 /// Regeln der Kursabfrage (Build 47): Einzelabfragen nach 429/418 stoppen (`SingleRateGate`), «vollständig» je
-/// Teilabfrage (`BulkCompleteness`), inverse Perpetuals (`FuturesContractType.normalized`) und «veraltet» am Abruf
-/// statt am letzten Handel (`Market.readTicker`). Wie `PriceFetchRulesTest.kt`.
+/// Teilabfrage (`BulkCompleteness`), inverse Perpetuals (`FuturesContractType.normalized`) und «veraltet» am Abruf,
+/// am letzten Handel erst ab der Grenze der Alarmsperre (`Market.readTicker`, `PriceFreshness.staleReason`).
+/// Wie `PriceFetchRulesTest.kt`.
 final class PriceFetchRulesTests: XCTestCase {
     private typealias Fetched = PriceRefresher.Fetched
 
@@ -130,17 +131,24 @@ final class PriceFetchRulesTests: XCTestCase {
 
     // MARK: «veraltet» am Abruf, Zeit der Börse nur zur Anzeige
 
-    func testExchangeTimeIsDisplayOnlyFetchTimeDrivesStaleness() throws {
+    /// «veraltet»: Abruf wie bisher, Zeit der Börse erst ab der Grenze der Alarmsperre — wie Android.
+    func testFetchTimeDrivesStalenessExchangeTimeOnlyPastAlarmLimit() throws {
         let upbit = try XCTUnwrap(MarketsConfig.market("Upbit"))
         let body = #"[{"market":"KRW-BTC","trade_timestamp":1728540000000,"trade_price":86000000,"acc_trade_price_24h":1.0,"acc_trade_volume_24h":2.0}]"#
         let before = TimeUtils.nowMillis
         var ticker = Ticker()
         try upbit.readTicker(call: 0, body: body, ticker: &ticker, info: PairQuery("BTC", "KRW", "KRW-BTC"))
         let after = TimeUtils.nowMillis
-        // Letzter Handel (ruhiges Paar) nur als exchangeTime; timestamp = Abruf → lastUpdate frisch, nicht veraltet
+        // Letzter Handel nur als exchangeTime; timestamp = Abruf → lastUpdate frisch, am Abruf nicht veraltet
         XCTAssertEqual(ticker.exchangeTime, 1_728_540_000_000)
         XCTAssertTrue((before...after).contains(ticker.timestamp))
         XCTAssertFalse(OutdatedRule.isOutdated(ticker.timestamp, now: after, afterMillis: OutdatedRule.minMillis))
+        // Handel länger als die Alarmsperre (2 h) her: Zeile «veraltet» aus demselben Grund wie die Sperre
+        XCTAssertEqual(PriceFreshness.staleReason(lastUpdate: ticker.timestamp, exchangeTime: ticker.exchangeTime,
+                                                  now: after, staleAfter: OutdatedRule.minMillis), .trade)
+        // Ruhiges Paar (letzter Handel vor 1 h): frischer Abruf zählt, nicht veraltet
+        XCTAssertNil(PriceFreshness.staleReason(lastUpdate: ticker.timestamp, exchangeTime: after - 3_600_000,
+                                                now: after, staleAfter: OutdatedRule.minMillis))
 
         let bulk = try XCTUnwrap(upbit.parseBulkTickersDetailed(call: 0, body: body).tickers["KRW-BTC"])
         XCTAssertEqual(bulk.exchangeTime, 1_728_540_000_000)

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Build 82: Alarm-Mitteilung («1 h später», «Anpassen»), Alarm-Protokoll (Herkunft, Pause), Ziehen im 15-s-Fenster -->
+<resources>
+    <string name="notification_alarm_action_snooze">1 h myöhemmin</string>
+    <string name="notification_alarm_action_edit">Muokkaa</string>
+    <string name="alarm_outcome_snoozed">Pidätetty – «1 h myöhemmin» on yhä voimassa</string>
+    <string name="alarm_log_source_app">sovelluksessa</string>
+    <string name="alarm_log_source_background">taustalla</string>
+    <string name="alarm_log_source_exact">täsmällinen tarkistus</string>
+    <string name="alarm_log_source_widget">widgetin kautta</string>
+    <string name="watchlist_refresh_just_done">Juuri päivitetty · %1$d s sitten</string>
+</resources>

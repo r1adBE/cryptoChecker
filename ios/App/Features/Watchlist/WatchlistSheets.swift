@@ -130,7 +130,7 @@ extension WatchlistScreen {
 
     /// Glocke (Kopf und Start-Auswahl): mit Alarmen die Übersicht, ohne einen einzigen gleich zum Anlegen —
     /// ein Paar: dessen Alarm-Seite (öffnet den Editor), mehrere: erst wählen, leere Merkliste: Coin hinzufügen.
-    /// Gezählt wird, was die Übersicht zeigen würde — wie Android `WatchlistViewModel.alarmTotal`.
+    /// Gezählt wird, was die Übersicht zeigen würde — wie Android `WatchlistContentFlows.alarmTotal`.
     func openBell() {
         let watches = data.watches
         let alarmCount = totalAlarmCount

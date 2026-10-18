@@ -38,6 +38,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 import com.cryptochecker.app.notification.canShowMarketNotice
 import com.cryptochecker.app.notification.showActivity
+import com.cryptochecker.app.data.remote.fundingHistory
 
 /**
  * Holt die Marktdaten für «Ungewöhnliche Aktivität» und «Warum bewegt sich das?»

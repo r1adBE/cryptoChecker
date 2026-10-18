@@ -2,7 +2,8 @@
   "exchange": "DexScreener",
   "description": "Hand-written in the documented response format (no live capture possible in the build environment); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set; liquidityUsd = pool liquidity in USD, basis of the alarm gate DEX_MIN_ALARM_LIQUIDITY_USD). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS).",
   "endpoints": {
-    "single": "GET https://api.dexscreener.com/latest/dex/pairs/ethereum/0x11950d141EcB863F01007AdD7D1A342041227b58"
+    "single": "GET https://api.dexscreener.com/latest/dex/pairs/ethereum/0x11950d141EcB863F01007AdD7D1A342041227b58",
+    "bulk": "GET https://api.dexscreener.com/latest/dex/pairs/{chainId}/{address1,address2,...} (at most 30 addresses of one chain per request)"
   },
   "cases": [
     {
@@ -114,6 +115,103 @@
         "message": null,
         "thrown": "Pool not found"
       }
+    },
+    {
+      "kind": "bulk",
+      "name": "pairs/<chain>/<a,b>: two pools of one chain, each with its own liquidity (alarm gate per pool)",
+      "market": "DexScreener",
+      "requestId": 0,
+      "body": "{\"schemaVersion\":\"1.0.0\",\"pairs\":[{\"chainId\":\"ethereum\",\"dexId\":\"uniswap\",\"url\":\"https://dexscreener.com/ethereum/0x11950d141ecb863f01007add7d1a342041227b58\",\"pairAddress\":\"0x11950d141EcB863F01007AdD7D1A342041227b58\",\"labels\":[\"v2\"],\"baseToken\":{\"address\":\"0x0000000000000000000000000000000000000001\",\"name\":\"PEPE\",\"symbol\":\"PEPE\"},\"quoteToken\":{\"address\":\"0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2\",\"name\":\"Wrapped Ether\",\"symbol\":\"WETH\"},\"priceNative\":\"0.0001\",\"priceUsd\":\"0.000009120\",\"txns\":{\"h24\":{\"buys\":10,\"sells\":9}},\"volume\":{\"h24\":1234567.89},\"priceChange\":{\"h24\":-3.29},\"liquidity\":{\"usd\":45678901.23,\"base\":1,\"quote\":1},\"pairCreatedAt\":1681234567000},{\"chainId\":\"ethereum\",\"dexId\":\"uniswap\",\"url\":\"https://dexscreener.com/ethereum/0xa43fe16908251ee70ef74718545e4fe6c5ccec9f\",\"pairAddress\":\"0xA43fe16908251ee70EF74718545e4FE6C5cCEc9f\",\"labels\":[\"v2\"],\"baseToken\":{\"address\":\"0x0000000000000000000000000000000000000001\",\"name\":\"TINY\",\"symbol\":\"TINY\"},\"quoteToken\":{\"address\":\"0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2\",\"name\":\"Wrapped Ether\",\"symbol\":\"WETH\"},\"priceNative\":\"0.0001\",\"priceUsd\":\"0.0420\",\"txns\":{\"h24\":{\"buys\":10,\"sells\":9}},\"volume\":{\"h24\":321.0},\"priceChange\":{\"h24\":12.5},\"liquidity\":{\"usd\":5000.0,\"base\":1,\"quote\":1},\"pairCreatedAt\":1681234567000}]}",
+      "expect": {
+        "count": 2,
+        "failed": [],
+        "tickers": {
+          "ethereum/0x11950d141EcB863F01007AdD7D1A342041227b58": {
+            "last": 9.12e-06,
+            "volQuote": 1234567.89,
+            "change24hPercent": -3.29,
+            "liquidityUsd": 45678901.23
+          },
+          "ethereum/0xA43fe16908251ee70EF74718545e4FE6C5cCEc9f": {
+            "last": 0.042,
+            "volQuote": 321.0,
+            "change24hPercent": 12.5,
+            "liquidityUsd": 5000.0
+          }
+        }
+      },
+      "note": "Keys are chainId/pairAddress exactly as the search builds DexPool.pairId. TINY has 5'000 USD liquidity: price is taken, alarms stay paused (DEX_MIN_ALARM_LIQUIDITY_USD 10'000)."
+    },
+    {
+      "kind": "bulk",
+      "name": "pool with empty priceUsd is skipped (single request), pool without liquidity keeps its price with unknown liquidity",
+      "market": "DexScreener",
+      "requestId": 0,
+      "body": "{\"schemaVersion\":\"1.0.0\",\"pairs\":[{\"chainId\":\"ethereum\",\"dexId\":\"uniswap\",\"url\":\"https://dexscreener.com/ethereum/0x11950d141ecb863f01007add7d1a342041227b58\",\"pairAddress\":\"0x11950d141EcB863F01007AdD7D1A342041227b58\",\"labels\":[\"v2\"],\"baseToken\":{\"address\":\"0x0000000000000000000000000000000000000001\",\"name\":\"PEPE\",\"symbol\":\"PEPE\"},\"quoteToken\":{\"address\":\"0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2\",\"name\":\"Wrapped Ether\",\"symbol\":\"WETH\"},\"priceNative\":\"0.0001\",\"priceUsd\":\"0.000009120\",\"txns\":{\"h24\":{\"buys\":10,\"sells\":9}},\"volume\":{\"h24\":1000.0},\"priceChange\":{\"h24\":1.5},\"liquidity\":{\"usd\":45678901.23,\"base\":1,\"quote\":1},\"pairCreatedAt\":1681234567000},{\"chainId\":\"ethereum\",\"dexId\":\"uniswap\",\"url\":\"https://dexscreener.com/ethereum/0xa43fe16908251ee70ef74718545e4fe6c5ccec9f\",\"pairAddress\":\"0xA43fe16908251ee70EF74718545e4FE6C5cCEc9f\",\"labels\":[\"v2\"],\"baseToken\":{\"address\":\"0x0000000000000000000000000000000000000001\",\"name\":\"IDLE\",\"symbol\":\"IDLE\"},\"quoteToken\":{\"address\":\"0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2\",\"name\":\"Wrapped Ether\",\"symbol\":\"WETH\"},\"priceNative\":\"0.0001\",\"priceUsd\":\"\",\"txns\":{\"h24\":{\"buys\":10,\"sells\":9}},\"volume\":{\"h24\":1000.0},\"priceChange\":{\"h24\":1.5},\"liquidity\":{\"usd\":250000.0,\"base\":1,\"quote\":1},\"pairCreatedAt\":1681234567000},{\"chainId\":\"ethereum\",\"dexId\":\"uniswap\",\"url\":\"https://dexscreener.com/ethereum/0x0d4a11d5eeaac28ec3f61d100daf4d40471f1852\",\"pairAddress\":\"0x0d4a11d5EEaaC28EC3F61d100daF4d40471f1852\",\"labels\":[\"v2\"],\"baseToken\":{\"address\":\"0x0000000000000000000000000000000000000001\",\"name\":\"NOLIQ\",\"symbol\":\"NOLIQ\"},\"quoteToken\":{\"address\":\"0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2\",\"name\":\"Wrapped Ether\",\"symbol\":\"WETH\"},\"priceNative\":\"0.0001\",\"priceUsd\":\"1.25\",\"txns\":{\"h24\":{\"buys\":10,\"sells\":9}},\"volume\":{\"h24\":10.0},\"priceChange\":{\"h24\":0.0},\"pairCreatedAt\":1681234567000}]}",
+      "expect": {
+        "count": 2,
+        "failed": [],
+        "absent": [
+          "ethereum/0xA43fe16908251ee70EF74718545e4FE6C5cCEc9f"
+        ],
+        "tickers": {
+          "ethereum/0x11950d141EcB863F01007AdD7D1A342041227b58": {
+            "last": 9.12e-06
+          },
+          "ethereum/0x0d4a11d5EEaaC28EC3F61d100daF4d40471f1852": {
+            "last": 1.25,
+            "liquidityUsd": null,
+            "change24hPercent": 0.0
+          }
+        }
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "pool without priceUsd field is reported as unreadable, the rest stays",
+      "market": "DexScreener",
+      "requestId": 0,
+      "body": "{\"schemaVersion\":\"1.0.0\",\"pairs\":[{\"chainId\":\"ethereum\",\"dexId\":\"uniswap\",\"url\":\"https://dexscreener.com/ethereum/0x11950d141ecb863f01007add7d1a342041227b58\",\"pairAddress\":\"0x11950d141EcB863F01007AdD7D1A342041227b58\",\"labels\":[\"v2\"],\"baseToken\":{\"address\":\"0x0000000000000000000000000000000000000001\",\"name\":\"PEPE\",\"symbol\":\"PEPE\"},\"quoteToken\":{\"address\":\"0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2\",\"name\":\"Wrapped Ether\",\"symbol\":\"WETH\"},\"priceNative\":\"0.0001\",\"priceUsd\":\"0.000009120\",\"txns\":{\"h24\":{\"buys\":10,\"sells\":9}},\"volume\":{\"h24\":1000.0},\"priceChange\":{\"h24\":1.5},\"liquidity\":{\"usd\":45678901.23,\"base\":1,\"quote\":1},\"pairCreatedAt\":1681234567000},{\"chainId\":\"ethereum\",\"dexId\":\"uniswap\",\"url\":\"https://dexscreener.com/ethereum/0xa43fe16908251ee70ef74718545e4fe6c5ccec9f\",\"pairAddress\":\"0xA43fe16908251ee70EF74718545e4FE6C5cCEc9f\",\"labels\":[\"v2\"],\"baseToken\":{\"address\":\"0x0000000000000000000000000000000000000001\",\"name\":\"GOOD\",\"symbol\":\"GOOD\"},\"quoteToken\":{\"address\":\"0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2\",\"name\":\"Wrapped Ether\",\"symbol\":\"WETH\"},\"priceNative\":\"0.0001\",\"priceUsd\":\"2.5\",\"txns\":{\"h24\":{\"buys\":10,\"sells\":9}},\"volume\":{\"h24\":1000.0},\"priceChange\":{\"h24\":1.5},\"liquidity\":{\"usd\":80000.0,\"base\":1,\"quote\":1},\"pairCreatedAt\":1681234567000},{\"chainId\":\"ethereum\",\"dexId\":\"uniswap\",\"url\":\"https://dexscreener.com/ethereum/0x0d4a11d5eeaac28ec3f61d100daf4d40471f1852\",\"pairAddress\":\"0x0d4a11d5EEaaC28EC3F61d100daF4d40471f1852\",\"labels\":[\"v2\"],\"baseToken\":{\"address\":\"0x0000000000000000000000000000000000000001\",\"name\":\"BROKEN\",\"symbol\":\"BROKEN\"},\"quoteToken\":{\"address\":\"0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2\",\"name\":\"Wrapped Ether\",\"symbol\":\"WETH\"},\"priceNative\":\"0.0001\",\"txns\":{\"h24\":{\"buys\":10,\"sells\":9}},\"volume\":{\"h24\":1000.0},\"priceChange\":{\"h24\":1.5},\"liquidity\":{\"usd\":20000.0,\"base\":1,\"quote\":1},\"pairCreatedAt\":1681234567000}]}",
+      "expect": {
+        "count": 2,
+        "failed": [
+          "ethereum/0x0d4a11d5EEaaC28EC3F61d100daF4d40471f1852"
+        ],
+        "tickers": {
+          "ethereum/0x11950d141EcB863F01007AdD7D1A342041227b58": {
+            "last": 9.12e-06
+          },
+          "ethereum/0xA43fe16908251ee70EF74718545e4FE6C5cCEc9f": {
+            "last": 2.5,
+            "liquidityUsd": 80000.0
+          }
+        }
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "no pool found: pairs null -> empty batch, no error (missing pools go to the single request)",
+      "market": "DexScreener",
+      "requestId": 0,
+      "body": "{\"schemaVersion\":\"1.0.0\",\"pairs\":null,\"pair\":null}",
+      "expect": {
+        "count": 0,
+        "failed": []
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "recorded response 2026-10-16T23:27:56Z (pairs/<chain>/<address>, same format as the batch) read as a batch",
+      "market": "DexScreener",
+      "requestId": 0,
+      "body": "{\"schemaVersion\":\"1.0.0\",\"pairs\":[{\"chainId\":\"ethereum\",\"dexId\":\"uniswap\",\"url\":\"https://dexscreener.com/ethereum/0x11950d141ecb863f01007add7d1a342041227b58\",\"pairAddress\":\"0x11950d141EcB863F01007AdD7D1A342041227b58\",\"labels\":[\"v3\"],\"baseToken\":{\"address\":\"0x6982508145454Ce325dDbE47a25d4ec3d2311933\",\"name\":\"Pepe\",\"symbol\":\"PEPE\"},\"quoteToken\":{\"address\":\"0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2\",\"name\":\"Wrapped Ether\",\"symbol\":\"WETH\"},\"priceNative\":\"0.000000001666\",\"priceUsd\":\"0.000004039\",\"txns\":{\"m5\":{\"buys\":1,\"sells\":0},\"h1\":{\"buys\":1,\"sells\":1},\"h6\":{\"buys\":45,\"sells\":21},\"h24\":{\"buys\":140,\"sells\":142}},\"volume\":{\"h24\":49635.11,\"h6\":9633.58,\"h1\":2.52,\"m5\":0.45},\"priceChange\":{\"m5\":-0.07,\"h1\":0.01,\"h6\":2.9,\"h24\":-1.14},\"liquidity\":{\"usd\":2347492.19,\"base\":544676295745,\"quote\":60.6696},\"fdv\":1671573734,\"marketCap\":1671573734,\"pairCreatedAt\":1681942955000,\"info\":{\"imageUrl\":\"https://cdn.dexscreener.com/cms/images/ae001139fa1fcd24f8421d82caf72d8e06fabafab33b089c5d2e6d18039354e7?width=800&height=800&quality=95&format=auto\",\"header\":\"https://cdn.dexscreener.com/cms/images/f558e07ff23d76a0a22f23e9e554bb513b79404163d185d5e79d96a5058004eb?width=1500&height=500&quality=95&format=auto\",\"openGraph\":\"https://cdn.dexscreener.com/token-images/og/ethereum/0x6982508145454ce325ddbe47a25d4ec3d2311933?timestamp=1792193100000\",\"websites\":[{\"url\":\"https://www.pepe.vip/\",\"label\":\"Website\"}],\"socials\":[{\"url\":\"https://twitter.com/pepecoineth\",\"type\":\"twitter\"}]}}],\"pair\":{\"chainId\":\"ethereum\",\"dexId\":\"uniswap\",\"url\":\"https://dexscreener.com/ethereum/0x11950d141ecb863f01007add7d1a342041227b58\",\"pairAddress\":\"0x11950d141EcB863F01007AdD7D1A342041227b58\",\"labels\":[\"v3\"],\"baseToken\":{\"address\":\"0x6982508145454Ce325dDbE47a25d4ec3d2311933\",\"name\":\"Pepe\",\"symbol\":\"PEPE\"},\"quoteToken\":{\"address\":\"0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2\",\"name\":\"Wrapped Ether\",\"symbol\":\"WETH\"},\"priceNative\":\"0.000000001666\",\"priceUsd\":\"0.000004039\",\"txns\":{\"m5\":{\"buys\":1,\"sells\":0},\"h1\":{\"buys\":1,\"sells\":1},\"h6\":{\"buys\":45,\"sells\":21},\"h24\":{\"buys\":140,\"sells\":142}},\"volume\":{\"h24\":49635.11,\"h6\":9633.58,\"h1\":2.52,\"m5\":0.45},\"priceChange\":{\"m5\":-0.07,\"h1\":0.01,\"h6\":2.9,\"h24\":-1.14},\"liquidity\":{\"usd\":2347492.19,\"base\":544676295745,\"quote\":60.6696},\"fdv\":1671573734,\"marketCap\":1671573734,\"pairCreatedAt\":1681942955000,\"info\":{\"imageUrl\":\"https://cdn.dexscreener.com/cms/images/ae001139fa1fcd24f8421d82caf72d8e06fabafab33b089c5d2e6d18039354e7?width=800&height=800&quality=95&format=auto\",\"header\":\"https://cdn.dexscreener.com/cms/images/f558e07ff23d76a0a22f23e9e554bb513b79404163d185d5e79d96a5058004eb?width=1500&height=500&quality=95&format=auto\",\"openGraph\":\"https://cdn.dexscreener.com/token-images/og/ethereum/0x6982508145454ce325ddbe47a25d4ec3d2311933?timestamp=1792193100000\",\"websites\":[{\"url\":\"https://www.pepe.vip/\",\"label\":\"Website\"}],\"socials\":[{\"url\":\"https://twitter.com/pepecoineth\",\"type\":\"twitter\"}]}}}",
+      "expect": {
+        "failed": [],
+        "tickers": {
+          "ethereum/0x11950d141EcB863F01007AdD7D1A342041227b58": {}
+        }
+      },
+      "note": "Body copied verbatim from testdata/exchanges/recorded/recorded_dexscreener.json: a live answer of the endpoint the batch uses."
     }
   ]
 }

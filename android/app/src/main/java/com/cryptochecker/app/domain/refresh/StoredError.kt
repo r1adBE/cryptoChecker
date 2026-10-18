@@ -114,3 +114,10 @@ object StoredError {
             .firstOrNull()?.key
     }
 }
+
+/**
+ * Gespeicherter «Fehler» für Paare, die die Börse nicht mehr führt. Das ist
+ * kein Fehler, sondern ein Zustand: Die Merkliste zeigt ihn neutral an und
+ * zählt ihn weder als veraltet noch als «ohne Kurs».
+ */
+const val NOT_TRADED_MARKER = com.cryptochecker.app.domain.watch.NotTraded.MARKER

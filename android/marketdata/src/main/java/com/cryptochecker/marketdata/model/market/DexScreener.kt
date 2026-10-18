@@ -10,6 +10,7 @@ import com.cryptochecker.marketdata.util.forEachOptJSONObject
 import com.cryptochecker.marketdata.util.optDoubleOrMissing
 import org.json.JSONObject
 import java.net.URLEncoder
+import java.util.SortedSet
 
 private const val DEXSCREENER_API = "https://api.dexscreener.com"
 
@@ -38,8 +39,9 @@ data class DexPool(
 
 /**
  * Kurse dezentraler Börsen (Uniswap, PancakeSwap, Raydium …) über DexScreener. Keine Paarliste (Pools findet die
- * Suche, [searchUrl]), darum kein `SimpleMarket`; abgefragt wird jeder Pool einzeln. Frei und ohne Schlüssel; laut
- * Anbieter rund 300 Abfragen pro Minute.
+ * Suche, [searchUrl]), darum kein `SimpleMarket`. Mehrere Pools derselben Chain kommen gesammelt
+ * (`/latest/dex/pairs/{chain}/{a,b,…}`, höchstens [BULK_MAX_POOLS] je Anfrage), einzelne über dieselbe Adresse. Frei
+ * und ohne Schlüssel; laut Anbieter rund 300 Abfragen pro Minute.
  */
 class DexScreener : Market("DexScreener", "Dex Screener") {
     override val key = "DexScreener"
@@ -56,7 +58,44 @@ class DexScreener : Market("DexScreener", "Dex Screener") {
     override fun fillTickerJson(call: Int, json: JSONObject, ticker: Ticker, info: PairQuery) {
         val pool = poolsIn(json).firstOrNull { isPool(it.optString("chainId"), it.optString("pairAddress"), info.pairId) }
             ?: throw MarketParseException("Pool not found")
+        copyPool(pool, ticker)
+    }
 
+    // ── Sammelabfrage: Pools derselben Chain gemeinsam ──
+
+    override val bulkTickersNumOfRequests: Int
+        get() = 1
+
+    // Ohne Auswahl gibt es keine Sammelabfrage (keine ungefilterte Adresse); ein fehlender Pool geht in die
+    // Einzelabfrage, darum nicht «vollständig»
+    override fun getBulkTickersUrl(call: Int, pairIds: Collection<String>): String? =
+        bulkGroups(pairIds).getOrNull(call)?.let { bulkUrl(it) }
+
+    override fun bulkTickersRequestCount(pairIds: Collection<String>): Int = bulkGroups(pairIds).size
+
+    /**
+     * Jeder Pool der Antwort unter «chain/pairAddress», so wie die Suche die Kennung bildet ([DexPool.pairId]); mit
+     * eigener Liquidität, die Alarm-Sperre unter [DEX_MIN_ALARM_LIQUIDITY_USD] gilt je Pool. Pools ohne Preis werden
+     * übersprungen (dann Einzelabfrage).
+     */
+    override fun parseBulkTickers(
+        call: Int,
+        body: String,
+        tickers: MutableMap<String, Ticker>,
+        failed: MutableSet<String>,
+    ) {
+        for (pool in poolsIn(JSONObject(body))) {
+            val chain = pool.optString("chainId")
+            val address = pool.optString("pairAddress")
+            if (chain.isEmpty() || address.isEmpty()) continue
+            bulkRowIfActive("$chain/$address", pool, "priceUsd", tickers, failed) { copyPool(pool, it) }
+        }
+    }
+
+    // ── Lesen ──
+
+    /** Kurs, Volumen, 24-h-Veränderung und Liquidität eines Pools (Einzel- und Sammelabfrage gleich). */
+    private fun copyPool(pool: JSONObject, ticker: Ticker) {
         ticker.last = pool.getString("priceUsd").toDouble()
         pool.optJSONObject("volume")?.let { ticker.volQuote = it.optDoubleOrMissing("h24") }
         // «priceChange.h24»: gleitende 24 h in Prozent
@@ -64,8 +103,6 @@ class DexScreener : Market("DexScreener", "Dex Screener") {
         // Liquidität bei jeder Abfrage: Alarme pausieren, solange der Pool dünn ist (alarmCapable)
         ticker.liquidityUsd = liquidityOf(pool)
     }
-
-    // ── Lesen ──
 
     /** Alle Pools der Antwort: zuerst das Array `pairs` (nur Objekte), dann ein einzelnes `pair`. */
     private fun poolsIn(json: JSONObject): List<JSONObject> {
@@ -103,6 +140,37 @@ class DexScreener : Market("DexScreener", "Dex Screener") {
             if (pairAddress.isEmpty()) return false
             return chainId.equals(wantedChain, ignoreCase = true) && pairAddress.equals(wantedAddress, ignoreCase = true)
         }
+
+        /** Höchstzahl Pool-Adressen je Sammelabfrage (Vorgabe von DexScreener). */
+        const val BULK_MAX_POOLS = 30
+
+        // Zeichen, die unkodiert im Pfad stehen dürfen (Chain-Namen, EVM-/Solana-Adressen)
+        private val SAFE_PART = Regex("[A-Za-z0-9._~-]+")
+
+        /**
+         * Pools für die Sammelabfrage: je Chain (sortiert) die Adressen ohne Doppelte, sortiert, in Gruppen von
+         * höchstens [BULK_MAX_POOLS]. Kennungen ohne «chain/adresse» oder mit Zeichen, die kodiert werden müssten,
+         * fehlen — sie laufen über die Einzelabfrage. Wie `DexScreener.bulkGroups` (iOS).
+         */
+        fun bulkGroups(pairIds: Collection<String>): List<Pair<String, List<String>>> {
+            val byChain = sortedMapOf<String, SortedSet<String>>()
+            for (raw in pairIds) {
+                val id = raw.trim()
+                val cut = id.indexOf('/')
+                if (cut <= 0 || cut == id.lastIndex) continue
+                val chain = id.substring(0, cut)
+                val address = id.substring(cut + 1)
+                if (!SAFE_PART.matches(chain) || !SAFE_PART.matches(address)) continue
+                byChain.getOrPut(chain) { sortedSetOf() }.add(address)
+            }
+            return byChain.flatMap { (chain, addresses) ->
+                addresses.toList().chunked(BULK_MAX_POOLS).map { chain to it }
+            }
+        }
+
+        /** Adresse einer Gruppe: `/latest/dex/pairs/{chain}/{a,b,…}`. */
+        fun bulkUrl(group: Pair<String, List<String>>): String =
+            "$DEXSCREENER_API/latest/dex/pairs/${group.first}/${group.second.joinToString(",")}"
 
         fun searchUrl(query: String): String {
             val encoded = URLEncoder.encode(query.trim(), "UTF-8")

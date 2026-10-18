@@ -122,6 +122,11 @@ internal class FakeRefreshNotifier(
 
     override fun canShowAlarm(alarm: AlarmEntity): Boolean = deliverable
 
+    /** Laufende «1 h später»-Pausen: Alarm-Id → Ende. */
+    val snoozedUntil: MutableMap<Long, Long> = java.util.concurrent.ConcurrentHashMap()
+
+    override fun alarmSnoozeUntil(alarmId: Long): Long? = snoozedUntil[alarmId]
+
     override suspend fun showAlarm(
         watch: WatchEntity,
         alarm: AlarmEntity,
@@ -146,7 +151,7 @@ internal class FakeRefreshNotifier(
         cancelledPrices += watchIds
     }
 
-    override fun showPrices(watches: List<WatchEntity>, ongoing: Boolean): Set<Long> {
+    override suspend fun showPrices(watches: List<WatchEntity>, ongoing: Boolean): Set<Long> {
         pricePosts += watches.map { it.id }
         return watches.mapTo(HashSet()) { it.id }
     }

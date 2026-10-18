@@ -8,6 +8,7 @@ import com.cryptochecker.app.data.local.DatabaseKeyUnavailableException
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.refresh.BackgroundSchedule
 import com.cryptochecker.app.domain.refresh.CheckBudget
+import com.cryptochecker.app.domain.refresh.CheckOrigin
 import com.cryptochecker.app.domain.refresh.CheckResult
 import com.cryptochecker.app.domain.refresh.CheckRun
 import com.cryptochecker.app.domain.refresh.CheckRunLog
@@ -19,6 +20,7 @@ import com.cryptochecker.app.tts.TtsSpeaker
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -95,9 +97,12 @@ class BackgroundCheck @Inject constructor(
         }
         try {
             // Portfolio-Widget und Nebenprüfungen im Job abwarten (nicht losgelöst), siehe PriceRefresher.refreshAll
-            val summary = priceRefresher.refreshAll(
-                awaitPortfolioSnapshot = true, networkGuaranteed = networkGuaranteed, deadlineAt = deadlineAt,
-            )
+            // Herkunft fürs Alarm-Protokoll («im Hintergrund», «pünktlich», «über Widget»), siehe CheckOrigin
+            val summary = withContext(CheckOrigin(trigger)) {
+                priceRefresher.refreshAll(
+                    awaitPortfolioSnapshot = true, networkGuaranteed = networkGuaranteed, deadlineAt = deadlineAt,
+                )
+            }
             // Ansagen dieses Durchlaufs abwarten (begrenzt, mit Frist nur die Restzeit), sonst kann
             // Android den Prozess vorher beenden
             val ttsWait = CheckBudget.waitMillis(deadlineAt, System.currentTimeMillis(), ttsWaitMillis, reserve = TTS_RESERVE_MILLIS)

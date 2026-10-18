@@ -1,6 +1,7 @@
 package com.cryptochecker.app.domain.alarm
 
 import com.cryptochecker.app.data.local.model.AlarmCondition
+import com.cryptochecker.app.domain.refresh.CheckTrigger
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -32,6 +33,9 @@ enum class AlarmLogOutcome(val code: String) {
 
     /** Erfüllt, aber Nachtruhe: wartet bis zum Ende ([QuietHours.holdsAlarms]). */
     QUIET_HOURS("quiet_hours"),
+
+    /** Erfüllt, aber «1 h später» aus der Mitteilung läuft noch ([AlarmSnooze]). */
+    SNOOZED("snoozed"),
 
     /** Erfüllt, aber keine zustellbare Mitteilung (Erlaubnis, Mitteilungen oder Kanal aus). */
     NOTIFICATIONS_OFF("notifications_off"),
@@ -69,6 +73,8 @@ data class AlarmLogTrace(
     /** Kursmarke schon gemeldet, noch nicht wieder scharf. */
     val waitingRearm: Boolean = false,
     val quietHours: Boolean = false,
+    /** «1 h später» läuft ([AlarmSnooze.isSnoozed]). */
+    val snoozed: Boolean = false,
     val notificationsOff: Boolean = false,
     /** Unbestätigte Meldung: Neuversuch erst nach der Abklingzeit. */
     val retryBlocked: Boolean = false,
@@ -99,6 +105,8 @@ data class AlarmLogEntry(
     val notable: Boolean = false,
     /** Gleiches Ergebnis mehrmals hintereinander: zuletzt gesehen um (0 = nur einmal). */
     val until: Long = 0,
+    /** Wer geprüft hat (App, Hintergrund, pünktlicher Wecker, Widget); null = unbekannt (ältere Einträge). */
+    val source: CheckTrigger? = null,
 ) {
     /** Letzte Prüfung dieses Eintrags. */
     val lastAt: Long get() = maxOf(at, until)
@@ -147,6 +155,7 @@ object AlarmLog {
         trace.noRate -> AlarmLogOutcome.NO_RATE
         trace.due -> when {
             trace.quietHours -> AlarmLogOutcome.QUIET_HOURS
+            trace.snoozed -> AlarmLogOutcome.SNOOZED
             trace.notificationsOff -> AlarmLogOutcome.NOTIFICATIONS_OFF
             trace.retryBlocked -> AlarmLogOutcome.COOLDOWN
             trace.notShown -> AlarmLogOutcome.NOT_SHOWN
@@ -161,7 +170,7 @@ object AlarmLog {
     fun notable(outcome: AlarmLogOutcome, trace: AlarmLogTrace): Boolean = when (outcome) {
         AlarmLogOutcome.FIRED -> true
         AlarmLogOutcome.LOW_LIQUIDITY, AlarmLogOutcome.MARK_PRICE, AlarmLogOutcome.STALE -> trace.due
-        AlarmLogOutcome.QUIET_HOURS, AlarmLogOutcome.NOTIFICATIONS_OFF, AlarmLogOutcome.NOT_SHOWN,
+        AlarmLogOutcome.QUIET_HOURS, AlarmLogOutcome.SNOOZED, AlarmLogOutcome.NOTIFICATIONS_OFF, AlarmLogOutcome.NOT_SHOWN,
         AlarmLogOutcome.COOLDOWN -> true
         AlarmLogOutcome.NOT_REACHED, AlarmLogOutcome.ALREADY_TRIGGERED,
         AlarmLogOutcome.NO_RATE, AlarmLogOutcome.NO_PRICE -> false
@@ -170,10 +179,17 @@ object AlarmLog {
     /**
      * Ablauf «fälligen Alarm melden» ([AlarmDelivery.deliver]) von aussen beobachtet: [canShow] bzw. [shown] = was die
      * Schritte geliefert haben (null = nicht erreicht). null zurück = gemeldet, aber nicht gespeichert (Alarm inzwischen
-     * bearbeitet oder gelöscht, Mitteilung zurückgezogen) — dann kein Eintrag.
+     * bearbeitet oder gelöscht, Mitteilung zurückgezogen) — dann kein Eintrag. [snoozed]: «1 h später» lief.
      */
-    fun deliveryTrace(holdAlarms: Boolean, canShow: Boolean?, shown: Boolean?, saved: Boolean): AlarmLogTrace? = when {
+    fun deliveryTrace(
+        holdAlarms: Boolean,
+        canShow: Boolean?,
+        shown: Boolean?,
+        saved: Boolean,
+        snoozed: Boolean = false,
+    ): AlarmLogTrace? = when {
         holdAlarms -> AlarmLogTrace(due = true, quietHours = true)
+        snoozed -> AlarmLogTrace(due = true, snoozed = true)
         canShow == false -> AlarmLogTrace(due = true, notificationsOff = true)
         shown == null -> AlarmLogTrace(due = true, retryBlocked = true)
         !shown -> AlarmLogTrace(due = true, notShown = true)
@@ -233,6 +249,10 @@ object AlarmLog {
         events.filter { now - it.lastAt <= RETENTION_MILLIS }
             .sortedByDescending { it.lastAt }
             .take(MAX_EVENTS)
+
+    /** Einträge eines Durchlaufs mit seiner Herkunft [source] versehen (schon gesetzte bleiben). */
+    fun withSource(entries: List<AlarmLogEntry>, source: CheckTrigger): List<AlarmLogEntry> =
+        entries.map { if (it.source == null) it.copy(source = source) else it }
 
     /** Alarm gelöscht: seine letzte Prüfung fällt weg (Protokoll-Einträge bleiben mit ihrem Text). */
     fun removeAlarm(state: AlarmLogState, alarmId: Long): AlarmLogState =
@@ -296,6 +316,7 @@ object AlarmLog {
         e.exchangeTime?.let { put("exTime", it) }
         if (e.notable) put("n", true)
         if (e.until > 0) put("until", e.until)
+        e.source?.let { put("src", it.code) }
     }
 
     private fun decodeEntry(o: JSONObject?): AlarmLogEntry? {
@@ -321,6 +342,7 @@ object AlarmLog {
             exchangeTime = if (o.has("exTime")) o.optLong("exTime", 0L).takeIf { it > 0 } else null,
             notable = o.optBoolean("n", false),
             until = o.optLong("until", 0L).coerceAtLeast(0L),
+            source = if (o.has("src")) CheckTrigger.fromCode(o.optString("src")) else null,
         )
     }
 }

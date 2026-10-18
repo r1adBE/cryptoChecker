@@ -31,6 +31,11 @@
     },
     "notification_permission_preprompt_title": "Mitteilungen erlauben?",
     "notification_permission_preprompt_text": "Damit Alarme und Kursmitteilungen ankommen, braucht die App die Erlaubnis für Mitteilungen. Die App nutzt sie nur für deine Alarme und Kursmitteilungen.",
-    "delivery_notifications": "Mitteilungen"
+    "delivery_notifications": "Mitteilungen",
+    "alarm_status_notifications_off": "Mitteilungen aus – Alarm meldet sich nicht",
+    "alarm_outcome_notifications_off": "Nicht ausgelöst – Mitteilungen aus",
+    "alarm_outcome_not_shown": "Nicht ausgelöst – Mitteilung kam nicht an, neuer Versuch folgt",
+    "delivery_alert_off": "Banner aus – Alarme erscheinen nur in der Mitteilungszentrale",
+    "delivery_time_sensitive": "Dringliche Mitteilungen"
   }
 }

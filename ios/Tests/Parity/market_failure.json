@@ -1,5 +1,5 @@
 {
-  "description": "Typed failure next to the error text (Android MarketFailure.kt / iOS MarketFailure.swift). classify: RefreshReportLogic.classify(failure, text) - a failure kind that decides (timeout, offline, ssl, httpStatus, rateLimited, unknownInstrument) wins over the text; parse, exchange, other and no failure (null, e.g. stored legacy strings) fall back to the keyword match on the text. httpStatus: code from the kind, else from the text. confirmedBySingle: NotTraded.confirmedBySingle(gotPrice, text, failure) - the kind decides where it can, otherwise the text rules apply as before.",
+  "description": "Typed failure next to the error text (Android MarketFailure.kt / iOS MarketFailure.swift). classify: RefreshReportLogic.classify(failure, text) - a failure kind that decides (timeout, offline, ssl, httpStatus, rateLimited, unknownInstrument) wins over the text; parse, exchange, other and no failure (null, e.g. stored legacy strings) fall back to the keyword match on the text. httpStatus: code from the kind, else from the text. confirmedBySingle: NotTraded.confirmedBySingle(gotPrice, text, failure) - the kind decides where it can; other (internal error without a clear type) never confirms; parse and exchange fall back to the text rules, but a blank text only confirms without a kind (null). The single ticker reports an answer without a valid price (missing, 0, NaN, infinite) as parse with 'Parsed ticker has no data'.",
   "classify": [
     {"failure": null, "text": "java.net.SocketTimeoutException: timeout", "expected": "TIMEOUT"},
     {"failure": null, "text": "javax.net.ssl.SSLHandshakeException: handshake failed", "expected": "OFFLINE"},
@@ -43,7 +43,14 @@
     {"gotPrice": false, "failure": {"kind": "rateLimited", "code": 429}, "text": "HttpCode: 429", "confirmed": false},
     {"gotPrice": false, "failure": {"kind": "parse"}, "text": "Value <html> of type java.lang.String cannot be converted to JSONObject", "confirmed": false},
     {"gotPrice": false, "failure": {"kind": "exchange", "detail": "Instrument ID does not exist"}, "text": "Instrument ID does not exist", "confirmed": true},
-    {"gotPrice": false, "failure": {"kind": "other"}, "text": "Parsed ticker has no data", "confirmed": true},
+    {"gotPrice": false, "failure": {"kind": "parse"}, "text": "Parsed ticker has no data", "confirmed": true},
+    {"gotPrice": false, "failure": {"kind": "other"}, "text": "Parsed ticker has no data", "confirmed": false},
+    {"gotPrice": false, "failure": {"kind": "other"}, "text": null, "confirmed": false},
+    {"gotPrice": false, "failure": {"kind": "other"}, "text": "   ", "confirmed": false},
+    {"gotPrice": false, "failure": {"kind": "other"}, "text": "symbol does not exist", "confirmed": false},
+    {"gotPrice": false, "failure": {"kind": "other"}, "text": "Response data is empty", "confirmed": false},
+    {"gotPrice": false, "failure": {"kind": "parse"}, "text": "", "confirmed": false},
+    {"gotPrice": false, "failure": {"kind": "exchange", "detail": " "}, "text": " ", "confirmed": false},
     {"gotPrice": false, "failure": null, "text": "HttpCode: 400", "confirmed": true},
     {"gotPrice": false, "failure": null, "text": null, "confirmed": true}
   ]

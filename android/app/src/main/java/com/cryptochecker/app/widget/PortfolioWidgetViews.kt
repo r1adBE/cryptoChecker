@@ -97,8 +97,8 @@ object PortfolioWidgetViews {
     private const val PADDING_DP = 24f
 
     /** Abstand unter der Kopfzeile bis zur Liste bzw. über den Kennzahlen (dp). */
-    const val LIST_GAP_DP = 6f
-    const val FIGURES_GAP_DP = 8f
+    const val LIST_GAP_DP = 4f
+    const val FIGURES_GAP_DP = 4f
 
     /** Anteil der Total-Zeile: das ganze Portfolio. */
     const val LIST_TOTAL_SHARE = 100.0

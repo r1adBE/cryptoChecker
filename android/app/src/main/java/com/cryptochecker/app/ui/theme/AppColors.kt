@@ -4,6 +4,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.graphics.Color
+import com.cryptochecker.app.settings.AccentColor
 
 /**
  * Semantische Farben der App (wie `AppColors`/`AppSemantic` in iOS `Theme.swift`).
@@ -87,3 +88,16 @@ object AssetColors {
     val ethereum: Color
         @Composable @ReadOnlyComposable get() = Color(AssetPalette.ethereum(LocalDarkTheme.current))
 }
+
+/**
+ * K3: Farbe, die Knöpfe mit dieser Akzentfarbe tatsächlich haben (primary des Schemas für hell bzw.
+ * dunkel) — für den Farbpunkt in den Einstellungen statt der Grundfarbe (Orange: hell #A64827,
+ * dunkel #ED835E = Grundfarbe und App-Icon). Wie iOS `AppAccent.primary`.
+ *
+ * Ein Orange (Build 46): #ED835E ist Markenfarbe, Icon und Akzent dunkel; #A64827 ist nur die
+ * dunklere Stufe desselben Oranges für Knöpfe im hellen Modus (AA 4.5:1 auf heller Fläche).
+ */
+fun accentButtonColor(accent: AccentColor, dark: Boolean): Color = appColorScheme(accent, dark).primary
+
+/** Neutrale Fläche für «ausgewählt» im Dunkelmodus (Chips, Tab-Markierung, Segmente). */
+internal val DarkSelectedContainer = Color(0xFF333333)

@@ -28,7 +28,8 @@ final class AlarmLogParityTests: XCTestCase {
                 noPrice: flag(t, "noPrice"), lowLiquidity: flag(t, "lowLiquidity"), markPrice: flag(t, "markPrice"),
                 stale: flag(t, "stale"), noRate: flag(t, "noRate"), due: flag(t, "due"),
                 coolingDown: flag(t, "coolingDown"), waitingRearm: flag(t, "waitingRearm"),
-                quietHours: flag(t, "quietHours"), notificationsOff: flag(t, "notificationsOff"),
+                quietHours: flag(t, "quietHours"), snoozed: flag(t, "snoozed"),
+                notificationsOff: flag(t, "notificationsOff"),
                 retryBlocked: flag(t, "retryBlocked"), notShown: flag(t, "notShown"))
             let name = c["name"] as? String ?? ""
             let outcome = AlarmLog.outcome(trace)
@@ -40,7 +41,8 @@ final class AlarmLogParityTests: XCTestCase {
     func testDeliveryTrace() throws {
         for c in S.list(try S.fixture("alarm_log")["delivery"]) {
             let trace = AlarmLog.deliveryTrace(holdAlarms: flag(c, "hold"), canShow: optionalBool(c["canShow"]),
-                                               shown: optionalBool(c["shown"]), saved: flag(c, "saved"))
+                                               shown: optionalBool(c["shown"]), saved: flag(c, "saved"),
+                                               snoozed: flag(c, "snoozed"))
             if let expected = c["outcome"] as? String {
                 XCTAssertEqual(trace.map { String(describing: AlarmLog.outcome($0)) }, expected, "\(c)")
             } else {
@@ -90,6 +92,7 @@ final class AlarmLogParityTests: XCTestCase {
             XCTAssertEqual(actual.condition.rawValue, expected["condition"] as? String)
             XCTAssertEqual(actual.threshold, S.number(expected["threshold"]) ?? .nan, accuracy: 1e-9)
             XCTAssertEqual(String(describing: actual.outcome), expected["outcome"] as? String)
+            XCTAssertEqual(actual.source?.rawValue, expected["source"] as? String)
         }
         let events = S.list(c["events"])
         XCTAssertEqual(state.events.count, events.count, "unbekanntes Ergebnis fällt weg")
@@ -103,6 +106,7 @@ final class AlarmLogParityTests: XCTestCase {
             XCTAssertEqual(actual.notable, expected["notable"] as? Bool)
             XCTAssertEqual(actual.currency, expected["currency"] as? String)
             S.assertNumber(actual.shownPrice, S.number(expected["shownPrice"]), accuracy: 1e-9, "shownPrice")
+            XCTAssertEqual(actual.source?.rawValue, expected["source"] as? String, "Herkunft (unbekannt = nil)")
         }
         XCTAssertTrue(AlarmLog.decode(c["wrongVersion"] as? String).events.isEmpty)
         // Hin und zurück unverändert

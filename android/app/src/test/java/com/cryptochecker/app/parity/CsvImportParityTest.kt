@@ -18,6 +18,7 @@ import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportResult
 import com.cryptochecker.app.domain.portfolio.csvimport.classify
 import com.cryptochecker.app.domain.portfolio.csvimport.parseNumber
 import com.cryptochecker.app.domain.portfolio.csvimport.parseTime
+import com.cryptochecker.app.domain.portfolio.csvimport.tokenize
 import java.math.BigDecimal
 import java.time.Instant
 import java.time.LocalDate

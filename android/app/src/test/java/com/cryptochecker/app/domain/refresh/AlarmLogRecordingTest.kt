@@ -31,7 +31,11 @@ class AlarmLogRecordingTest {
         this.markFallback = markFallback
     }
 
-    private fun RefreshFixture.process(fetched: Map<Long, Fetched>): RefreshResultProcessor.Processed = runBlocking {
+    /** [origin]: Herkunft des Durchlaufs im Kontext (wie BackgroundCheck); null = offene App. */
+    private fun RefreshFixture.process(
+        fetched: Map<Long, Fetched>,
+        origin: CheckTrigger? = null,
+    ): RefreshResultProcessor.Processed = runBlocking(origin?.let { CheckOrigin(it) } ?: kotlin.coroutines.EmptyCoroutineContext) {
         val watches: List<WatchEntity> = store.getWatches()
         lock.withLock { proof -> processor.process(proof, watches, fetched, settings.settings, dayStart = null) }
     }
@@ -49,6 +53,20 @@ class AlarmLogRecordingTest {
         assertEquals(101.0, e.price!!, 0.0)
         assertEquals("BTC/USDT", e.pair)
         assertEquals("Binance", e.exchange)
+    }
+
+    @Test
+    fun entriesRecordWhoChecked() {
+        val f = RefreshFixture(listOf(watch(price = 99.0)), listOf(above(100.0, repeating = true)))
+        // Ohne Herkunft im Kontext: offene App (Ziehen, Menü, Live-Kurse)
+        f.process(mapOf(1L to Fetched(ticker(95.0), null)))
+        assertEquals(CheckTrigger.FOREGROUND, f.last(7).source)
+        // Widget-Knopf bzw. pünktlicher Wecker setzen ihre Herkunft (BackgroundCheck)
+        f.process(mapOf(1L to Fetched(ticker(96.0), null)), origin = CheckTrigger.WIDGET)
+        assertEquals(CheckTrigger.WIDGET, f.last(7).source)
+        f.process(mapOf(1L to Fetched(ticker(101.0), null)), origin = CheckTrigger.EXACT)
+        assertEquals(AlarmLogOutcome.FIRED, f.last(7).outcome)
+        assertEquals(CheckTrigger.EXACT, f.last(7).source)
     }
 
     @Test

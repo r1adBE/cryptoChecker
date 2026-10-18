@@ -15,7 +15,7 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
 * applicationId: `com.cryptochecker.app`
 * Module: `marketdata` (Börsen-Bibliothek), `app` (die App)
 * Pakete: `com.cryptochecker.marketdata`, `com.cryptochecker.app`
-* Version: **16.2.2** (versionCode 75 – wird mit jedem Stand um eins erhöht)
+* Version: **16.2.2** (versionCode 82 – wird mit jedem Stand um eins erhöht)
 * Quellcode: <https://github.com/r1adBE/cryptoChecker> (öffentlich, MIT; dieser Ordner = `android/`)
 
 ## Neu in 16.2.2
@@ -776,7 +776,8 @@ marineblau). Ein Tipp auf eine Zeile öffnet die App, der Knopf aktualisiert.
 **Massenabfrage** — Wer viele Paare derselben Börse beobachtet, bekommt sie in
 einer einzigen Anfrage statt in Dutzenden. `Market` hat dafür einen optionalen
 Haken (`bulkTickersNumOfRequests`, `getBulkTickersUrl`, `parseBulkTickers`);
-umgesetzt ist er für alle Märkte ausser Coinbase und DexScreener. Märkte
+umgesetzt ist er für alle Märkte ausser Coinbase (DexScreener seit Build 82: Pools derselben Chain gemeinsam über
+`/latest/dex/pairs/{chain}/{a,b,…}`, höchstens 30 je Anfrage, Liquiditätsregel je Pool). Märkte
 ohne diesen Haken werden weiter Paar für Paar abgefragt, und scheitert die
 Massenabfrage, fällt der Refresher automatisch darauf zurück. Ab drei Paaren einer Börse greift der Sammelweg.
 Wo die Börse eine Auswahl dokumentiert, werden nur die beobachteten Paare abgefragt

@@ -34,7 +34,7 @@ internal class WatchlistEditController(
     private val widgetUpdater: WidgetUpdater,
     private val widgetPrefs: WidgetPrefs,
     private val addMoments: AddMoments,
-    /** Aktuelle Gruppen-Auswahl ([WatchlistViewModel.groupFilter]); null bis geladen. */
+    /** Aktuelle Gruppen-Auswahl ([WatchlistContentFlows.groupFilter]); null bis geladen. */
     private val groupFilter: () -> GroupFilter?,
     /** Ganzer Durchlauf ohne 15-s-Sperre ([WatchlistRefreshController.refreshAll]). */
     private val refreshAll: () -> Unit,

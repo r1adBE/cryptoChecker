@@ -146,6 +146,10 @@ struct PortfolioHistoryCard: View {
         // Zeitraum und Kerzen/Linie direkt unter dem Chart
         controls
 
+        // Eigene Börse nicht erreichbar: der Verlauf ist ein älterer Stand — zuerst und mit Zeit, nie still als heute
+        if series.hasChart, let since = history.staleSince {
+            caption(L("portfolio_history_as_of", PortfolioStamp.time(since)))
+        }
         // Nur wenn die Devisen-Tageskurse fehlten und alles mit dem heutigen Kurs umgerechnet ist
         if series.hasChart && history.converted && history.approximateFx {
             caption(L("portfolio_history_converted"))

@@ -57,4 +57,21 @@ class WidgetFreshnessTest {
         assertNull(WidgetFreshness.unchangedSince(watch(disabled = true), now, after))
         assertNull(WidgetFreshness.unchangedSince(watch(error = "timeout"), now, after))
     }
+
+    @Test
+    fun outdatedLikeTheRowAndTheAlarmBlock() {
+        // Abruf zu alt: Zeit des Abrufs
+        assertEquals(now - hour, WidgetFreshness.outdatedTime(watch(lastUpdateAgo = hour), now, after))
+        // Abruf frisch, letzter Handel 3 h her: Zeit des Handels; ruhiges Paar (1 h) nicht
+        assertEquals(now - 3 * hour, WidgetFreshness.outdatedTime(watch(exchangeTime = now - 3 * hour), now, after))
+        assertNull(WidgetFreshness.outdatedTime(watch(exchangeTime = now - hour), now, after))
+        assertNull(WidgetFreshness.outdatedTime(watch(), now, after))
+        assertNull(WidgetFreshness.outdatedTime(watch(lastUpdateAgo = hour, disabled = true), now, after))
+        // Wecker: Handel so verschoben, dass er mit derselben Grenze genau nach 2 h wechselt
+        val w = watch(exchangeTime = now - hour)
+        assertEquals(listOf(w.lastUpdate, now - hour + 2 * hour - after), WidgetFreshness.outdatedTimes(w, after))
+        assertEquals(now + hour + 1, com.cryptochecker.app.domain.refresh.OutdatedRule.nextChangeAt(
+            listOf(now - hour + 2 * hour - after), now, after,
+        ))
+    }
 }

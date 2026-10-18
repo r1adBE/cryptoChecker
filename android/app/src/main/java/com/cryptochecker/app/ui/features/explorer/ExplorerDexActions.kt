@@ -50,3 +50,13 @@ fun ExplorerViewModel.clearDexMessage() {
 }
 
 private const val MAX_DEX_RESULTS = 25
+
+/** Rückmeldung der DEX-Suche. */
+sealed interface DexMessage {
+    data object NoResults : DexMessage
+    data object Failed : DexMessage
+    data class Added(val symbol: String) : DexMessage
+    data class AlreadyInList(val symbol: String) : DexMessage
+}
+
+internal const val DEX_KEY = "DexScreener"

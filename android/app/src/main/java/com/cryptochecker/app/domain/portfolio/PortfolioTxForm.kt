@@ -226,10 +226,19 @@ object PortfolioTxForm {
      */
     fun entryRate(usdToFiat: BigDecimal?, usdtUsd: BigDecimal?): BigDecimal? {
         if (usdToFiat == null || usdToFiat.signum() <= 0) return null
-        val usdt = usdtUsd?.takeIf { it.signum() > 0 && !PortfolioStables.usdtUsd(it.toDouble()).approximate }
-            ?: return usdToFiat
+        val usdt = plausibleUsdt(usdtUsd) ?: return usdToFiat
         return usdToFiat.multiply(usdt, PortfolioDecimal.MC)
     }
+
+    /**
+     * Rechnet [entryRate] mit USDT = 1 (Devisenkurs da, USDT/USD fehlt oder ist unplausibel)? Dann nennt das Blatt
+     * «USDT = 1 angenommen» wie Summen und Steuer-Export — die Näherung soll nie still sein. Wie iOS.
+     */
+    fun entryUsdtAssumed(usdToFiat: BigDecimal?, usdtUsd: BigDecimal?): Boolean =
+        usdToFiat != null && usdToFiat.signum() > 0 && plausibleUsdt(usdtUsd) == null
+
+    private fun plausibleUsdt(usdtUsd: BigDecimal?): BigDecimal? =
+        usdtUsd?.takeIf { it.signum() > 0 && !PortfolioStables.usdtUsd(it.toDouble()).approximate }
 
     /**
      * Eingabe in der Anzeigewährung (CHF/EUR/…) → USDT: Betrag ÷ Faktor USDT → Währung ([usdToFiat] > 0, aus

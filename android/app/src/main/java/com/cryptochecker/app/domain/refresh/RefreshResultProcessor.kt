@@ -9,11 +9,13 @@ import com.cryptochecker.app.data.pairIdentity
 import com.cryptochecker.app.data.local.model.AlarmEntity
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.domain.alarm.AlarmFreshness
+import com.cryptochecker.app.domain.alarm.AlarmLog
 import com.cryptochecker.app.domain.watch.PriceFreshness
 import com.cryptochecker.app.notification.AppNotifier
 import com.cryptochecker.app.settings.AppSettings
 import com.cryptochecker.marketdata.model.Ticker
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.currentCoroutineContext
 import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -246,7 +248,9 @@ class RefreshResultProcessor internal constructor(
                     log.noteNoPrice(watch, byWatch[error.id].orEmpty())
                 }
             }
-            alarmLog.record(log.entries, live)
+            // Wer geprüft hat (App, Hintergrund, Wecker, Widget): steht in der Zeile des Protokolls
+            val source = currentCoroutineContext()[CheckOrigin]?.trigger ?: CheckTrigger.FOREGROUND
+            alarmLog.record(AlarmLog.withSource(log.entries, source), live)
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {

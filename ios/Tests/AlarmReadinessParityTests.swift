@@ -87,7 +87,19 @@ final class AlarmReadinessParityTests: XCTestCase {
             kinds.fearGreedBelow = S.number(k["fearGreedBelow"]).map { Int($0) } ?? 0
             kinds.fearGreedAbove = S.number(k["fearGreedAbove"]).map { Int($0) } ?? 0
             kinds.indicatorAlert = bool(k, "indicatorAlert", false)
-            XCTAssertEqual(AlarmReadiness.hasBackgroundAlarms(kinds), c["expected"] as? Bool, c["name"] as? String ?? "")
+            kinds.activityAlerts = bool(k, "activityAlerts", false)
+            kinds.macroNotices = bool(k, "macroNotices", false)
+            // Ohne «platform» gilt der Fall für beide Plattformen
+            let platforms: [AlarmReadiness.Platform]
+            switch c["platform"] as? String {
+            case "android": platforms = [.android]
+            case "ios": platforms = [.ios]
+            default: platforms = [.android, .ios]
+            }
+            for platform in platforms {
+                XCTAssertEqual(AlarmReadiness.hasBackgroundAlarms(kinds, platform: platform), c["expected"] as? Bool,
+                               "\(c["name"] as? String ?? "") \(platform)")
+            }
         }
     }
 }

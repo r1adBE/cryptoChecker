@@ -1,19 +1,13 @@
 package com.cryptochecker.app.ui.features.watchlist
 
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -21,14 +15,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.produceState
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.StrokeCap
@@ -42,32 +33,23 @@ import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalHapticFeedback
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextLayoutResult
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.rememberTextMeasurer
-import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.watch.SheetChart
 import com.cryptochecker.app.domain.watch.SheetChartRange
-import com.cryptochecker.app.ui.components.ChangePill
-import com.cryptochecker.app.ui.theme.ChipShape
 import com.cryptochecker.app.ui.theme.AppColors
 import com.cryptochecker.app.ui.theme.LocalHighContrast
 import com.cryptochecker.app.ui.theme.PriceColors
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.amountNumbers
 import com.cryptochecker.app.util.A11yText
-import com.cryptochecker.app.util.BidiText
-import com.cryptochecker.app.util.CompactAmount
 import com.cryptochecker.app.util.PriceFormat
 import com.cryptochecker.app.widget.LevelKind
 import com.cryptochecker.app.widget.WidgetCandle
@@ -77,12 +59,10 @@ import com.cryptochecker.app.widget.WidgetChartType
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.time.ZoneId
-import java.util.Date
 import java.util.Locale
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
-import kotlin.math.roundToInt
 
 /** Ein gezeichneter Verlauf: Zustand der Überblendung. */
 internal data class ChartFrame(
@@ -364,80 +344,19 @@ internal fun SheetChartCanvas(
         val index = scrub
         val candle = index?.let { candles.getOrNull(it) }
         if (index != null && candle != null) {
-            val change = SheetChart.scrubChange(candles, type, index)
-            // «Vol 12.3M USDT» der berührten Kerze, nur mit Volumen-Balken
-            val volumeText = candle.volume?.takeIf { volumes != null && it.isFinite() && it > 0.0 }
-                ?.let {
-                    // Genähert (Quelle ohne Quote-Umsatz): «≈» davor
-                    val amount = CompactAmount.format(it, quote)
-                    stringResource(
-                        R.string.sheet_chart_volume,
-                        BidiText.isolate(if (candle.volumeApproximated) "≈ $amount" else amount)
-                    )
-                }
-            Column(
-                modifier = Modifier
-                    .layout { measurable, constraints ->
-                        val placeable = measurable.measure(constraints.copy(minWidth = 0, minHeight = 0))
-                        val centerX = holder.geometry?.xCenter(index) ?: 0f
-                        val left = SheetChart.labelLeft(centerX, placeable.width.toFloat(), 0f, constraints.maxWidth.toFloat())
-                        layout(constraints.maxWidth, placeable.height) {
-                            // Absolut (nicht gespiegelt): die Zeitachse läuft immer von links nach rechts
-                            placeable.place(left.roundToInt(), 0)
-                        }
-                    }
-                    .clip(ChipShape)
-                    .background(MaterialTheme.colorScheme.surfaceContainerHighest)
-                    .padding(horizontal = 8.dp, vertical = 4.dp)
-            ) {
-                Text(
-                    text = BidiText.isolate(PriceFormat.priceWithCurrency(candle.close, quote)) + " · " +
-                        timeFormat.format(Date(candle.openTime)),
-                    style = MaterialTheme.typography.labelMedium.amountNumbers(),
-                    color = MaterialTheme.colorScheme.onSurface,
-                    maxLines = 1,
-                )
-                if (type == WidgetChartType.CANDLES) {
-                    OhlcReadout(candle, secondary)
-                }
-                Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(top = 2.dp)) {
-                    ChangePill(change = change, dashWhenMissing = true)
-                    if (volumeText != null) {
-                        Text(
-                            text = volumeText,
-                            style = MaterialTheme.typography.labelSmall.amountNumbers(),
-                            color = secondary,
-                            maxLines = 1,
-                            modifier = Modifier.padding(start = Spacing.xs)
-                        )
-                    }
-                }
-            }
+            SheetChartScrubLabel(
+                candles = candles,
+                type = type,
+                index = index,
+                candle = candle,
+                showVolume = volumes != null,
+                quote = quote,
+                timeFormat = timeFormat,
+                xCenter = { holder.geometry?.xCenter(index) ?: 0f },
+                labelColor = secondary,
+            )
         }
     }
-}
-
-/**
- * Kerzen-Modus beim Ziehen: Eröffnung · Hoch / Tief · Schluss der Kerze in zwei Zeilen,
- * Bezeichnung grau, Wert in Textfarbe.
- */
-@Composable
-private fun OhlcReadout(candle: WidgetCandle, labelColor: Color) {
-    val valueColor = MaterialTheme.colorScheme.onSurface
-    val open = stringResource(R.string.sheet_chart_open)
-    val high = stringResource(R.string.ticker_high)
-    val low = stringResource(R.string.ticker_low)
-    val close = stringResource(R.string.sheet_chart_close)
-    fun line(a: String, av: Double, b: String, bv: Double) = buildAnnotatedString {
-        withStyle(SpanStyle(color = labelColor)) { append(a); append(' ') }
-        withStyle(SpanStyle(color = valueColor)) { append(BidiText.isolate(PriceFormat.price(av))) }
-        append("  ")
-        withStyle(SpanStyle(color = labelColor)) { append(b); append(' ') }
-        withStyle(SpanStyle(color = valueColor)) { append(BidiText.isolate(PriceFormat.price(bv))) }
-    }
-    val style = MaterialTheme.typography.labelSmall.amountNumbers()
-    Text(line(open, candle.open, high, candle.high), style = style, maxLines = 1, modifier = Modifier.padding(top = 2.dp))
-    Text(line(low, candle.low, close, candle.close), style = style, maxLines = 1)
 }
 
 /** ICU-Zeitzone zu [zone]; feste Versätze als «GMT+08:00» (ICU kennt «+08:00» nicht). */

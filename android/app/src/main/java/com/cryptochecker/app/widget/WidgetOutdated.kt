@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.Intent
 import android.text.format.DateUtils
 import com.cryptochecker.app.R
-import com.cryptochecker.app.domain.refresh.NOT_TRADED_MARKER
 import com.cryptochecker.app.domain.refresh.OutdatedRule
 import com.cryptochecker.app.settings.AppSettings
 import timber.log.Timber
@@ -14,7 +13,7 @@ import timber.log.Timber
 /**
  * Veraltete Kurse in den Widgets: Statt nur der Uhrzeit steht «veraltet · 06:42» (das Wort,
  * nicht nur eine Farbe), der Screenreader sagt «veraltet, letzte Aktualisierung 06:42».
- * Regel wie in der Merkliste ([OutdatedRule]). Da Widgets nur nach einer Aktualisierung neu
+ * Regel wie in der Merkliste ([WidgetFreshness.outdatedTime]: Abruf zu alt oder letzter Handel > 2 h). Da Widgets nur nach einer Aktualisierung neu
  * gezeichnet werden, weckt ein (nicht weckender) Wecker sie zum Zeitpunkt, an dem der
  * nächste Kurs veraltet — sonst sähe der Kurs von gestern frisch aus.
  */
@@ -27,10 +26,6 @@ object WidgetOutdated {
      */
     fun afterMillis(settings: AppSettings): Long =
         WidgetFreshness.afterMillis(settings.backgroundIntervalMinutes)
-
-    /** Kurs eines Paares veraltet? «Nicht mehr gehandelt» ist ein Zustand und zählt nicht. */
-    fun isOutdated(lastUpdate: Long, lastError: String?, now: Long, afterMillis: Long): Boolean =
-        lastError != NOT_TRADED_MARKER && OutdatedRule.isOutdated(lastUpdate, now, afterMillis)
 
     /** «06:42» (heute) bzw. «5. Okt., 06:42» — bei altem Stand zählt auch der Tag. */
     fun stamp(context: Context, time: Long): String {

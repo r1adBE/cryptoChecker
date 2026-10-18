@@ -242,6 +242,12 @@ final class PortfolioTxFormTests: XCTestCase {
         XCTAssertEqual(PortfolioTxForm.entryRate(usdToFiat: dec("0.9"), usdtUsd: nil), dec("0.9"))
         XCTAssertEqual(PortfolioTxForm.entryRate(usdToFiat: dec("0.9"), usdtUsd: dec("3")), dec("0.9"))
         XCTAssertNil(PortfolioTxForm.entryRate(usdToFiat: nil, usdtUsd: dec("0.998")))
+        // Vermerk «USDT = 1 angenommen» genau dann, wenn der Faktor mit × 1 rechnet
+        XCTAssertFalse(PortfolioTxForm.entryUsdtAssumed(usdToFiat: dec("0.9"), usdtUsd: dec("0.998")))
+        XCTAssertTrue(PortfolioTxForm.entryUsdtAssumed(usdToFiat: dec("0.9"), usdtUsd: nil))
+        XCTAssertTrue(PortfolioTxForm.entryUsdtAssumed(usdToFiat: dec("0.9"), usdtUsd: dec("3")))
+        XCTAssertTrue(PortfolioTxForm.entryUsdtAssumed(usdToFiat: dec("0.9"), usdtUsd: 0))
+        XCTAssertFalse(PortfolioTxForm.entryUsdtAssumed(usdToFiat: nil, usdtUsd: nil))
     }
 
     func testWalletHoldingsFromOpenLots() {

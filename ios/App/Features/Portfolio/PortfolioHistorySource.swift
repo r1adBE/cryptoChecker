@@ -7,6 +7,11 @@ private struct PortfolioCoinCloses: Codable {
     let closes: [Int: Double]
     let span: Int
     var ranges: [Int: PortfolioDayRange]?
+    /// Gemerkter Stand statt frischer Abfrage (Börse nicht erreichbar): Zeit dieses Stands; nil = frisch.
+    /// Nur im Ablauf, nicht gespeichert (fehlt in `CodingKeys`).
+    var staleSince: Int64?
+
+    private enum CodingKeys: String, CodingKey { case closes, span, ranges }
 }
 
 /// Tageskerzen für den Wertverlauf: Schluss je Coin und UTC-Tag (`closes`) und, soweit vorhanden,
@@ -23,6 +28,9 @@ struct PortfolioDailyPrices: Sendable {
     /// Tagesschluss USDT/USD je UTC-Tag (Kraken USDTZUSD, `PortfolioHistorySource.usdtUsdDaily`) für USDT zum Marktkurs
     /// (`UsdtUsdRates.daily`); leer = keiner (dann 1 als Näherung).
     var usdtUsd: [Int: Double] = [:]
+    /// Coins, deren eigene Reihe ein älterer Stand ist (Börse nicht erreichbar) → Zeit dieses Stands; die Karte zeigt
+    /// «Stand …» (`PortfolioHistoryAsOf`) statt eines scheinbar heutigen Verlaufs. Wie Android.
+    var ownStale: [String: Int64] = [:]
 }
 
 /// Eigene Tageskerzen eines Coins (USDT) und für welchen Weg (`route` = Schlüssel des Paars).
@@ -196,6 +204,7 @@ enum PortfolioHistorySource {
             result.closes[coin] = stitched.daily.closes
             if !stitched.daily.ranges.isEmpty { result.ranges[coin] = stitched.daily.ranges }
             if let first = stitched.binanceBefore { result.binanceBefore[coin] = first }
+            if let since = entry.staleSince { result.ownStale[coin] = since }
         }
         result.own = Set(own.keys)
         result.routed = routed
@@ -221,7 +230,8 @@ enum PortfolioHistorySource {
     }
 
     /// Eigene Tageskerzen (USDT) von `pair`: Speicher, Gerät, sonst Abfrage; nil = keine. `usdtUsd`: USDT/USD-Tagesschlüsse
-    /// für USD- und Fiat-Kerzen (nil = USDT/USD selbst bzw. keine Umrechnung).
+    /// für USD- und Fiat-Kerzen (nil = USDT/USD selbst bzw. keine Umrechnung). Scheitert die Abfrage, gilt ein älterer
+    /// Stand desselben Wegs — markiert mit seiner Zeit (`staleSince`), damit der Verlauf «Stand …» sagt. Wie Android.
     private static func ownCloses(of coin: String, pair: CandlePair, span: Int,
                                   usdtUsd: [Int: Double]?) async -> PortfolioCoinCloses? {
         let key = pair.cacheKey
@@ -241,10 +251,18 @@ enum PortfolioHistorySource {
             CycleCache.write(ownCacheKey(coin), value, savedAt: now)
             return fresh
         }
-        // Nicht erreichbar: älterer Stand desselben Wegs ist besser als keiner
-        if let stored { return stored.value.entry }
-        if let hit = cachedOwn(coin), hit.entry.route == key { return hit.entry.entry }
-        return nil
+        // Nicht erreichbar: älterer Stand desselben Wegs ist besser als keiner — aber als solcher markiert
+        let fallback: (entry: PortfolioCoinCloses, at: Int64)?
+        if let stored {
+            fallback = (stored.value.entry, stored.savedAt)
+        } else if let hit = cachedOwn(coin), hit.entry.route == key {
+            fallback = (hit.entry.entry, hit.at)
+        } else {
+            fallback = nil
+        }
+        guard var entry = fallback?.entry, let at = fallback?.at else { return nil }
+        entry.staleSince = PortfolioHistoryAsOf.staleSince(savedAt: at, now: now, ttl: ttl)
+        return entry
     }
 
     /// Tageskerzen der eigenen Börse holen und in USDT umrechnen; nil = keine (dann Ausweich).

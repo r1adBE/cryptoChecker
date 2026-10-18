@@ -138,9 +138,9 @@ internal fun PortfolioWidgetRenderer.bindListTotal(
         // Platz wie in den Zeilen ([listRow]): schmal neben dem Anteil, breit neben «Gesamt», Anteil und Wert
         val shareDp = toolkit.textWidthDp(share, 12f, bold = false, tabular = true)
         val budget = textWidth?.let {
-            if (wide) it - toolkit.textWidthDp(totalLabel, 13f) - 6f - shareDp - 6f -
-                toolkit.textWidthDp(value, ROW_VALUE_SP, tabular = true) - 10f
-            else it - shareDp - 6f
+            if (wide) it - toolkit.textWidthDp(totalLabel, 13f) - 4f - shareDp - 4f -
+                toolkit.textWidthDp(value, ROW_VALUE_SP, tabular = true) - 4f
+            else it - shareDp - 4f
         }
         row.setViewVisibility(R.id.pl_change, View.VISIBLE)
         row.setTextViewText(R.id.pl_change, periodPrefixed(label, fitPnl(change, currency, style, label, budget), colors))
@@ -202,14 +202,14 @@ internal fun PortfolioWidgetRenderer.listRow(
     if (pnl != null) {
         val label = ChangeBasisText.shortLabel(context, rowBasis)
         // Platz für «24h …»: schmal neben dem Anteil, breit neben Menge, Kürzel, Anteil und Wert
-        val logoDp = if (logo != null) (if (wide) 28f else 32f) else 0f
+        val logoDp = if (logo != null) (if (wide) 24f else 28f) else 0f
         val shareDp = toolkit.textWidthDp(share, 12f, bold = false, tabular = true)
         // Breit: Menge steht in derselben Zeile (12 sp, 3 dp Abstand zum Kürzel)
         val quantityDp = if (wide && quantity != null) toolkit.textWidthDp(quantity, 12f, bold = false, tabular = true) + 3f else 0f
         val budget = textWidth?.let {
-            if (wide) it - logoDp - quantityDp - toolkit.textWidthDp(position.symbol, 13f) - 6f - shareDp - 6f -
-                toolkit.textWidthDp(value, ROW_VALUE_SP, tabular = true) - 10f
-            else it - logoDp - shareDp - 6f
+            if (wide) it - logoDp - quantityDp - toolkit.textWidthDp(position.symbol, 13f) - 4f - shareDp - 4f -
+                toolkit.textWidthDp(value, ROW_VALUE_SP, tabular = true) - 4f
+            else it - logoDp - shareDp - 4f
         }
         // Zeitraum klein und grau davor: «24h +1’250.00 CHF · +1.50%»
         row.setTextViewText(R.id.pl_change, periodPrefixed(label, fitPnl(pnl, currency, style, label, budget), colors))

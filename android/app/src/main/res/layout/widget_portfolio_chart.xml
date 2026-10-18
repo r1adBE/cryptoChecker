@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Fläche des Wertverlaufs (Bitmap aus WidgetChartRenderer.drawPortfolioArea). Zu wenige
      Stundenwerte: statt des Charts ruhig «Verlauf folgt» (portfolio_chart_pending).
-     Füllt den Platz (Gewicht 1); im Layout der mittleren Stufe als rechte Spalte. -->
+     Füllt den Platz (Gewicht 1); im Layout der mittleren Stufe als rechte Spalte.
+     Abstand oben 4 dp: PortfolioWidgetMath.CHART_GAP_DP rechnet die Chart-Höhe damit — nur zusammen ändern. -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/portfolio_chart_box"
     android:layout_width="match_parent"
     android:layout_height="0dp"
     android:layout_weight="1"
-    android:layout_marginTop="6dp"
+    android:layout_marginTop="4dp"
     android:visibility="gone">
 
     <ImageView

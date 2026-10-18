@@ -106,7 +106,7 @@ class AlarmDeliveryViewModel @Inject constructor(
             },
         settingsRepository.settings,
     ) { pairAlarm, portfolioAlarm, settings ->
-        AlarmReadiness.hasBackgroundAlarms(alarmKinds(settings, pairAlarm, portfolioAlarm))
+        AlarmReadiness.hasBackgroundAlarms(alarmKinds(settings, pairAlarm, portfolioAlarm), AlarmReadiness.Platform.ANDROID)
     }
         .catch { emit(false) }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), false)
@@ -126,6 +126,8 @@ internal fun alarmKinds(settings: AppSettings, pairAlarm: Boolean, portfolioAlar
     fearGreedBelow = settings.fearGreedBelow,
     fearGreedAbove = settings.fearGreedAbove,
     indicatorAlert = settings.indicatorAlerts.values.any { it > 0 },
+    activityAlerts = settings.activityAlerts,
+    macroNotices = settings.macroNotifications,
 )
 
 /**

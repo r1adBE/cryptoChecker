@@ -28,6 +28,7 @@ final class Hyperliquid: Market {
 
     override func tickerAddress(call: Int, info: PairQuery) -> String { hyperliquidInfo }
 
+    // Für jedes Paar dieselbe Abfrage (~100 KB): gleichzeitige Einzelkurse teilen sich eine Antwort (`InFlightRequests`)
     override func tickerPostBody(call: Int, info: PairQuery) -> PostRequestInfo? { Hyperliquid.metaRequest }
 
     override func fillTicker(call: Int, body: String, ticker: inout Ticker, info: PairQuery) throws {

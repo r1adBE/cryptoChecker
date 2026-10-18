@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Build 82: Alarm-Mitteilung («1 h später», «Anpassen»), Alarm-Protokoll (Herkunft, Pause), Ziehen im 15-s-Fenster -->
+<resources>
+    <string name="notification_alarm_action_snooze">בעוד שעה</string>
+    <string name="notification_alarm_action_edit">התאמה</string>
+    <string name="alarm_outcome_snoozed">הושהה – «בעוד שעה» עדיין פעיל</string>
+    <string name="alarm_log_source_app">באפליקציה</string>
+    <string name="alarm_log_source_background">ברקע</string>
+    <string name="alarm_log_source_exact">בדיקה בזמן</string>
+    <string name="alarm_log_source_widget">דרך הווידג׳ט</string>
+    <string name="watchlist_refresh_just_done">עודכן הרגע · לפני %1$d שנ׳</string>
+</resources>

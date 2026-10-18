@@ -34,19 +34,6 @@ fun appColorScheme(accent: AccentColor, dark: Boolean): ColorScheme = when (acce
 }.let { if (dark) it.withCleanContainers() else it }
 
 /**
- * K3: Farbe, die Knöpfe mit dieser Akzentfarbe tatsächlich haben (primary des Schemas für hell bzw.
- * dunkel) — für den Farbpunkt in den Einstellungen statt der Grundfarbe (Orange: hell #A64827,
- * dunkel #ED835E = Grundfarbe und App-Icon). Wie iOS `AppAccent.primary`.
- *
- * Ein Orange (Build 46): #ED835E ist Markenfarbe, Icon und Akzent dunkel; #A64827 ist nur die
- * dunklere Stufe desselben Oranges für Knöpfe im hellen Modus (AA 4.5:1 auf heller Fläche).
- */
-fun accentButtonColor(accent: AccentColor, dark: Boolean): Color = appColorScheme(accent, dark).primary
-
-/** Neutrale Fläche für «ausgewählt» im Dunkelmodus (Chips, Tab-Markierung, Segmente). */
-internal val DarkSelectedContainer = Color(0xFF333333)
-
-/**
  * Dunkel sind die Tonstufen-Container der Akzentfarbe sehr dunkle Akzenttöne — bei Orange
  * und Rot bräunlich/matschig (z. B. #772D11, #603F34). Stattdessen: ausgewählt = neutral grau
  * mit Schrift in der Akzentfarbe, Hauptcontainer = die Akzentfarbe selbst, keine Einfärbung

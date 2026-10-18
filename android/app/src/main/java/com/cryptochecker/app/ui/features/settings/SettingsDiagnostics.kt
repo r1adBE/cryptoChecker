@@ -81,7 +81,8 @@ class DiagnosticsViewModel @Inject constructor(
         val now = System.currentTimeMillis()
         // Portfolio liest der Bericht nicht: Portfolio-Alarme zählen hier nicht mit (sonst wie «Damit Alarme ankommen»)
         val hasAlarms = AlarmReadiness.hasBackgroundAlarms(
-            com.cryptochecker.app.ui.features.alarms.alarmKinds(settings, pairAlarm = activeAlarms > 0, portfolioAlarm = false)
+            com.cryptochecker.app.ui.features.alarms.alarmKinds(settings, pairAlarm = activeAlarms > 0, portfolioAlarm = false),
+            AlarmReadiness.Platform.ANDROID,
         )
         val readiness = AlarmReadiness.rows(
             AlarmReadinessProbe.read(

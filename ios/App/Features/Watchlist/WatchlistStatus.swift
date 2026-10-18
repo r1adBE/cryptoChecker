@@ -278,9 +278,9 @@ enum WatchlistTime {
     }
 
     /// Veraltet: noch nie aktualisiert oder älter als die Schwelle — nie bei deaktivierten oder
-    /// nicht mehr gehandelten Paaren (`DisabledView.isStale`).
+    /// nicht mehr gehandelten Paaren. Dazu wie die Alarmsperre: letzter Handel laut Börse älter als 2 h
+    /// (`PriceFreshness.isStale`).
     static func isStale(_ watch: Watch, now: Int64, staleAfter: Int64) -> Bool {
-        DisabledView.isStale(disabled: watch.disabled, notTraded: ConnectionErrors.isNotTraded(watch.lastError),
-                             lastUpdate: watch.lastUpdate, now: now, staleAfter: staleAfter)
+        PriceFreshness.isStale(watch, now: now, staleAfter: staleAfter)
     }
 }

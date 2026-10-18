@@ -6,6 +6,7 @@ import com.cryptochecker.app.R
 import com.cryptochecker.app.data.local.model.AlarmEntity
 import com.cryptochecker.app.domain.alarm.AlarmLogEntry
 import com.cryptochecker.app.domain.alarm.AlarmLogOutcome
+import com.cryptochecker.app.domain.refresh.CheckTrigger
 import com.cryptochecker.app.notification.AlarmTexts
 import com.cryptochecker.app.util.BidiText
 import com.cryptochecker.app.util.PriceFormat
@@ -29,11 +30,25 @@ internal object AlarmLogTexts {
         AlarmLogOutcome.MARK_PRICE -> context.getString(R.string.alarm_outcome_mark_price)
         AlarmLogOutcome.LOW_LIQUIDITY -> context.getString(R.string.alarm_outcome_low_liquidity)
         AlarmLogOutcome.QUIET_HOURS -> context.getString(R.string.alarm_outcome_quiet_hours)
+        AlarmLogOutcome.SNOOZED -> context.getString(R.string.alarm_outcome_snoozed)
         AlarmLogOutcome.NOTIFICATIONS_OFF -> context.getString(R.string.alarm_outcome_notifications_off)
         AlarmLogOutcome.NOT_SHOWN -> context.getString(R.string.alarm_outcome_not_shown)
         AlarmLogOutcome.NO_RATE -> context.getString(R.string.alarm_outcome_no_rate)
         AlarmLogOutcome.NO_PRICE -> context.getString(R.string.alarm_outcome_no_price)
     }
+
+    /** Wer geprüft hat, z. B. «über Widget»; null bei älteren Einträgen ohne Angabe. */
+    fun source(context: Context, entry: AlarmLogEntry): String? = when (entry.source) {
+        null -> null
+        CheckTrigger.FOREGROUND -> context.getString(R.string.alarm_log_source_app)
+        CheckTrigger.WORKER, CheckTrigger.BG_TASK -> context.getString(R.string.alarm_log_source_background)
+        CheckTrigger.EXACT -> context.getString(R.string.alarm_log_source_exact)
+        CheckTrigger.WIDGET -> context.getString(R.string.alarm_log_source_widget)
+    }
+
+    /** Ergebnis mit Herkunft für die Zeile des Protokolls: «Ausgelöst · über Widget». */
+    fun outcomeWithSource(context: Context, entry: AlarmLogEntry): String =
+        listOfNotNull(outcome(context, entry), source(context, entry)).joinToString(" · ")
 
     /** Schwelle wie in der Alarm-Übersicht, z. B. «Über 100’000 CHF». */
     fun threshold(context: Context, entry: AlarmLogEntry): String {
@@ -86,5 +101,6 @@ internal object AlarmLogTexts {
             seen(entry),
             context.getString(R.string.alarm_log_threshold, threshold(context, entry)),
             outcome(context, entry),
-        ).joinToString(", ")
+            source(context, entry),
+        ).filterNotNull().joinToString(", ")
 }

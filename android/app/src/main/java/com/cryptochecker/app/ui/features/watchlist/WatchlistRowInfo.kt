@@ -5,6 +5,7 @@
 
 package com.cryptochecker.app.ui.features.watchlist
 
+import com.cryptochecker.app.domain.watch.PriceFreshness
 import com.cryptochecker.app.ui.components.LocalCoinNameSource
 import com.cryptochecker.app.ui.theme.body
 import com.cryptochecker.app.ui.theme.label
@@ -44,8 +45,6 @@ import com.cryptochecker.app.ui.theme.AppColors
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.domain.watch.AssetKind
-import com.cryptochecker.app.domain.watch.PriceFreshness
-import com.cryptochecker.app.domain.watch.RowPause
 import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.app.ui.components.AssetKindIcon
 import com.cryptochecker.app.ui.components.LocalRowHighlight
@@ -53,7 +52,6 @@ import com.cryptochecker.app.ui.components.coinName
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.util.BidiText
 import com.cryptochecker.app.util.LocaleNumbers
-import com.cryptochecker.app.util.PriceFormat
 
 /** Mitte: Paar (mit Häkchen des Erst-Moments und ⚡), Börse und Zeit bzw. Warnung, Fehler, Notiz. */
 @Composable
@@ -278,75 +276,6 @@ internal fun RowInfo(
             }
         }
     }
-}
-
-/**
- * Zustandstexte einer Zeile, auch für den Screenreader: [warning] ersetzt die Zeitzeile
- * («Binance · pausiert bis 19:45», «vor 41 Min · Binance nicht erreichbar» bzw. «Binance · veraltet · vor 4 Min.»),
- * [error] ist der verständliche Fehler, [stale] der Hinweis «veraltet» ohne Warnung.
- */
-internal class WatchRowStatus(
-    val warning: String?,
-    val error: String?,
-    val stale: String?,
-    /** Technischer Grund nur, wenn er mehr sagt als «nicht erreichbar» (z. B. Paar unbekannt). */
-    val showErrorLine: Boolean,
-    /** «Kurs unverändert seit 14:05» (Börse ohne eigene Zeit, [PriceFreshness.unchangedSince]); sonst null. */
-    val unchanged: String? = null,
-    /** «Binance · pausiert bis 19:45» (Börse pausiert, [RowPause]); sonst null. Steht dann auch in [warning]. */
-    val paused: String? = null,
-)
-
-@Composable
-internal fun watchRowStatus(
-    watch: WatchEntity,
-    now: Long,
-    stale: Boolean,
-    outdatedAfter: Long,
-    /** Ende einer laufenden Pause der Börse ([RowPause.shownUntil]); null = keine. */
-    pausedUntil: Long? = null,
-): WatchRowStatus {
-    // Deaktiviert: weder Warnung noch Fehler noch «veraltet» — es wird bewusst nicht abgefragt
-    if (watch.disabled) return WatchRowStatus(warning = null, error = null, stale = null, showErrorLine = false)
-    // Letzter Abruf gescheitert, aber es gibt einen älteren Kurs: «vor 41 Min · Binance nicht erreichbar»
-    val failed = watch.lastError != null && !isNotTraded(watch.lastError)
-    val unreachableText = if (failed && watch.lastUpdate > 0) {
-        stringResource(R.string.watchlist_row_unreachable, ago(watch.lastUpdate, now), watch.marketName)
-    } else {
-        null
-    }
-    // Kein Fehler, aber älter als die Grenze ([OutdatedRule], live 2 Min.): «Binance · veraltet · vor 4 Min.»
-    val outdatedText = if (!failed && !isNotTraded(watch.lastError) && watch.lastUpdate > 0 &&
-        now - watch.lastUpdate > outdatedAfter
-    ) {
-        "${BidiText.isolate(watch.marketName)} · " +
-            stringResource(R.string.watchlist_row_outdated_age, ago(watch.lastUpdate, now))
-    } else {
-        null
-    }
-    // Börse pausiert (zu viele Anfragen, Zeitüberschreitungen): das sagt mehr als «nicht erreichbar» bzw. «veraltet»
-    // und nennt, wann es weitergeht — gleiche Stelle und Farbe wie die übrigen Warnungen
-    val pausedText = pausedUntil?.let {
-        stringResource(R.string.watchlist_row_exchange_paused, BidiText.isolate(watch.marketName), PriceFormat.shortTime(it))
-    }
-    val warningText = pausedText ?: unreachableText ?: outdatedText
-    val showErrorLine = watch.lastError != null &&
-        (unreachableText == null || !isRetryableMarketError(watch.lastError))
-    val errorText = watch.lastError?.takeIf { showErrorLine }?.let { friendlyError(it) }
-    val staleText = if (warningText == null && stale && watch.lastUpdate > 0) {
-        stringResource(R.string.a11y_stale, ago(watch.lastUpdate, now))
-    } else {
-        null
-    }
-    // Ohne Warnung: Börse ohne eigene Zeit und Kurs lange gleich → «Kurs unverändert seit 14:05»
-    val unchangedText = if (warningText == null) {
-        PriceFreshness.unchangedSince(watch, now, outdatedAfter)?.let {
-            stringResource(R.string.watchlist_row_price_unchanged_since, PriceFormat.shortTime(it))
-        }
-    } else {
-        null
-    }
-    return WatchRowStatus(warningText, errorText, staleText, showErrorLine, unchangedText, pausedText)
 }
 
 /** Kennungen der ersten Zeile von [RowInfo] (Paar, Häkchen, «Was bewegt sich mit?»). */

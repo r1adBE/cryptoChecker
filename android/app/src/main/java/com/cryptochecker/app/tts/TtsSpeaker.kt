@@ -2,8 +2,6 @@ package com.cryptochecker.app.tts
 
 import android.content.Context
 import android.media.AudioAttributes
-import android.media.AudioFocusRequest
-import android.media.AudioManager
 import android.os.SystemClock
 import android.speech.tts.TextToSpeech
 import android.speech.tts.TextToSpeech.OnInitListener
@@ -36,8 +34,9 @@ import javax.inject.Singleton
  * offen gehalten, solange gesprochen wird (das Starten kann mehrere Sekunden dauern);
  * nach [IDLE_RELEASE_MS] ohne Ansage wird sie freigegeben und bei Bedarf neu gestartet.
  *
- * Ton: Wecker-Kanal ([AudioAttributes.USAGE_ALARM], Sprache) — hörbar auch bei leiser
- * Medienlautstärke; während einer Ansage holt sie den Audio-Fokus «kurz, andere leiser»
+ * Ton: automatische Ansagen über den Strom der Mitteilungen ([AudioAttributes.USAGE_NOTIFICATION], Sprache) wie
+ * der Alarm-Kanal, vom Nutzer angestossene über Medien ([TtsAudio.MANUAL_SPEECH_ATTRIBUTES]); während einer
+ * Ansage holt sie den Audio-Fokus «kurz, andere leiser»
  * (Musik wird abgesenkt) und gibt ihn danach wieder ab. Verweigert Android den Fokus (ab
  * Android 15 im Hintergrund), wird trotzdem gesprochen, nur ohne Absenken.
  *
@@ -89,16 +88,8 @@ class TtsSpeaker @Inject constructor(
     @Volatile
     private var idleRelease: Job? = null
 
-    private val focusLock = Any()
-
-    /** Laufende Ansagen mit Audio-Fokus; nur unter [focusLock]. */
-    private var focusUsers = 0
-
-    private val focusRequest: AudioFocusRequest by lazy {
-        AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK)
-            .setAudioAttributes(SPEECH_ATTRIBUTES)
-            .build()
-    }
+    /** Audio-Fokus und Ruhe-Regeln (Klingelmodus, Telefonat, «Bitte nicht stören»). */
+    private val audio = TtsAudio(context)
 
     private val wakeUp = Channel<Unit>(Channel.CONFLATED)
 
@@ -171,7 +162,7 @@ class TtsSpeaker @Inject constructor(
      */
     suspend fun speak(text: String, speechRate: Float = 1.0f, flush: Boolean = false): Boolean {
         if (text.isBlank()) return false
-        val id = submit(text, speechRate, flush) ?: return false
+        val id = submit(text, speechRate, flush, TtsAudio.MANUAL_SPEECH_ATTRIBUTES) ?: return false
         // Nicht abwarten; das Ende räumt der Listener auf (meldet die Engine nichts: nach der geschätzten Dauer)
         val done = finished[id] ?: return true
         done.invokeOnCompletion {
@@ -197,16 +188,16 @@ class TtsSpeaker @Inject constructor(
                 if (item.isStale(SystemClock.elapsedRealtime())) {
                     // Engine kam zu spät (Start nach Wartezeit/eingefrorenem Prozess): nicht Veraltetes sprechen
                     Timber.d("Ansage verworfen: älter als %d s", AnnouncementQueue.MAX_AGE_MILLIS / 1000)
-                } else if (!ringerAllowsSpeech()) {
+                } else if (!audio.ringerAllowsSpeech()) {
                     Timber.d("Ansage übersprungen: Telefon lautlos oder auf Vibration")
-                } else if (!callAndDndAllowSpeech()) {
+                } else if (!audio.callAndDndAllowSpeech()) {
                     Timber.d("Ansage übersprungen: Telefonat oder «Bitte nicht stören»")
                 } else {
                     speakingKind = item.kind
-                    id = submit(item.text, item.speechRate, flush = false) {
+                    id = submit(item.text, item.speechRate, flush = false, TtsAudio.ANNOUNCEMENT_ATTRIBUTES) {
                         // Nach dem (evtl. sekundenlangen) Start der Engine nochmals prüfen: zu alt,
                         // inzwischen Telefonat, lautlos oder «Bitte nicht stören»?
-                        item.isStale(SystemClock.elapsedRealtime()) || !ringerAllowsSpeech() || !callAndDndAllowSpeech()
+                        item.isStale(SystemClock.elapsedRealtime()) || !audio.ringerAllowsSpeech() || !audio.callAndDndAllowSpeech()
                     }
                 }
                 // Erst die nächste übergeben, wenn diese gesprochen ist (höchstens geschätzte Dauer)
@@ -232,11 +223,13 @@ class TtsSpeaker @Inject constructor(
     /**
      * Übergibt den Text an die Engine. @return Utterance-Id oder null.
      * @param skip nach dem Start der Engine geprüft: true = nicht mehr sprechen (zu alt, Telefonat …).
+     * @param attributes Audio-Strom dieser Ansage ([TtsAudio]); gilt für jede Ansage einzeln.
      */
     private suspend fun submit(
         text: String,
         speechRate: Float,
         flush: Boolean,
+        attributes: AudioAttributes,
         skip: () -> Boolean = { false },
     ): String? {
         submitting.incrementAndGet()
@@ -249,16 +242,17 @@ class TtsSpeaker @Inject constructor(
             }
             return withContext(Dispatchers.Main) {
                 tts.setSpeechRate(speechRate.coerceIn(0.5f, 2.0f))
+                tts.setAudioAttributes(attributes)
                 // Stimme in der App-Sprache, sofern installiert — sonst bleibt die Standardstimme.
                 val locale = SpokenText.ttsLocale(context)
                 if (tts.isLanguageAvailable(locale) >= TextToSpeech.LANG_AVAILABLE) tts.language = locale
                 val mode = if (flush) TextToSpeech.QUEUE_FLUSH else TextToSpeech.QUEUE_ADD
                 val id = "cryptochecker-${utteranceCounter.incrementAndGet()}"
                 val done = CompletableDeferred<Unit>()
-                // Ohne Audio-Fokus trotzdem sprechen (Wecker-Kanal, nur ohne Absenken): Ab Android 15
+                // Ohne Audio-Fokus trotzdem sprechen (nur ohne Absenken): Ab Android 15
                 // erhalten Apps ohne Vordergrund den Fokus nicht. Telefonat / «Bitte nicht stören» /
                 // lautlos prüft drain() vorher.
-                if (!holdFocusUntil(done)) Timber.d("Kein Audio-Fokus: Ansage ohne Absenken")
+                if (!audio.holdFocusUntil(done, onReleased = { scheduleIdleRelease() })) Timber.d("Kein Audio-Fokus: Ansage ohne Absenken")
                 finished[id] = done
                 if (tts.speak(text, mode, null, id) == TextToSpeech.SUCCESS) {
                     id
@@ -272,30 +266,6 @@ class TtsSpeaker @Inject constructor(
             submitting.decrementAndGet()
             scheduleIdleRelease()
         }
-    }
-
-    /**
-     * Audio-Fokus «kurz, andere leiser» bis [done]; abgegeben, wenn keine Ansage mehr läuft.
-     * @return false, wenn Android den Fokus verweigert (ab Android 15 im Hintergrund üblich) —
-     *   dann ohne Fokus sprechen; [done] gibt dann nichts frei.
-     */
-    private fun holdFocusUntil(done: CompletableDeferred<Unit>): Boolean {
-        val audio = context.getSystemService(AudioManager::class.java) ?: return true
-        synchronized(focusLock) {
-            if (focusUsers == 0) {
-                val result = runCatching { audio.requestAudioFocus(focusRequest) }
-                    .getOrDefault(AudioManager.AUDIOFOCUS_REQUEST_GRANTED)
-                if (result != AudioManager.AUDIOFOCUS_REQUEST_GRANTED) return false
-            }
-            focusUsers++
-        }
-        done.invokeOnCompletion {
-            synchronized(focusLock) {
-                if (--focusUsers == 0) runCatching { audio.abandonAudioFocusRequest(focusRequest) }
-            }
-            scheduleIdleRelease()
-        }
-        return true
     }
 
     /** Engine nach [IDLE_RELEASE_MS] ohne Ansage freigeben (startet beim nächsten Mal neu). */
@@ -315,22 +285,6 @@ class TtsSpeaker @Inject constructor(
 
     private fun isIdle(): Boolean =
         submitting.get() == 0 && finished.isEmpty() && pendingCount.value <= 0
-
-    private fun ringerAllowsSpeech(): Boolean {
-        val audio = context.getSystemService(AudioManager::class.java) ?: return true
-        return audio.ringerMode == AudioManager.RINGER_MODE_NORMAL
-    }
-
-    /** Kein Telefonat (Audio-Modus normal) und «Bitte nicht stören» aus (alle Unterbrechungen erlaubt). */
-    private fun callAndDndAllowSpeech(): Boolean {
-        val audio = context.getSystemService(AudioManager::class.java)
-        if (audio != null && audio.mode != AudioManager.MODE_NORMAL) return false
-        val filter = runCatching {
-            context.getSystemService(android.app.NotificationManager::class.java)?.currentInterruptionFilter
-        }.getOrNull() ?: return true
-        return filter == android.app.NotificationManager.INTERRUPTION_FILTER_ALL ||
-            filter == android.app.NotificationManager.INTERRUPTION_FILTER_UNKNOWN
-    }
 
     private fun updatePending() {
         pendingCount.value = synchronized(lock) { queue.size + if (handingOver) 1 else 0 }
@@ -353,8 +307,8 @@ class TtsSpeaker @Inject constructor(
             runCatchingCancellable {
                 TextToSpeech(context, listener).apply {
                     setOnUtteranceProgressListener(progressListener)
-                    // Wecker-Kanal statt Medien: Ansagen sind Alarme (Lautstärke «Wecker»)
-                    setAudioAttributes(SPEECH_ATTRIBUTES)
+                    // Grundeinstellung; [submit] setzt die Art je Ansage (automatisch bzw. vom Nutzer angestossen)
+                    setAudioAttributes(TtsAudio.ANNOUNCEMENT_ATTRIBUTES)
                 }
             }
                 .onFailure { Timber.w(it, "Sprachausgabe konnte nicht gestartet werden") }
@@ -406,11 +360,6 @@ class TtsSpeaker @Inject constructor(
 
         /** So lange bleibt die Engine nach der letzten Ansage offen. */
         const val IDLE_RELEASE_MS = 60_000L
-
-        val SPEECH_ATTRIBUTES: AudioAttributes = AudioAttributes.Builder()
-            .setUsage(AudioAttributes.USAGE_ALARM)
-            .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
-            .build()
 
         /** Obergrenze, wie lange auf das Ende einer Ansage gewartet wird. */
         const val MAX_UTTERANCE_MS = 60_000L

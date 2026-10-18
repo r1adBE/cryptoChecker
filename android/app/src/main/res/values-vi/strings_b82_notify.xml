@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Build 82: Alarm-Mitteilung («1 h später», «Anpassen»), Alarm-Protokoll (Herkunft, Pause), Ziehen im 15-s-Fenster -->
+<resources>
+    <string name="notification_alarm_action_snooze">1 giờ nữa</string>
+    <string name="notification_alarm_action_edit">Điều chỉnh</string>
+    <string name="alarm_outcome_snoozed">Đã hoãn – «1 giờ nữa» vẫn đang chạy</string>
+    <string name="alarm_log_source_app">trong ứng dụng</string>
+    <string name="alarm_log_source_background">chạy nền</string>
+    <string name="alarm_log_source_exact">kiểm tra đúng giờ</string>
+    <string name="alarm_log_source_widget">qua widget</string>
+    <string name="watchlist_refresh_just_done">Vừa cập nhật · %1$d giây trước</string>
+</resources>

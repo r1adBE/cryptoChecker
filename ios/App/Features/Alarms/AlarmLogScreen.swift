@@ -16,11 +16,28 @@ enum AlarmLogTexts {
         case .MARK_PRICE: return L("alarm_outcome_mark_price")
         case .LOW_LIQUIDITY: return L("alarm_outcome_low_liquidity")
         case .QUIET_HOURS: return L("alarm_outcome_quiet_hours")
+        case .SNOOZED: return L("alarm_outcome_snoozed")
         case .NOTIFICATIONS_OFF: return L("alarm_outcome_notifications_off")
         case .NOT_SHOWN: return L("alarm_outcome_not_shown")
         case .NO_RATE: return L("alarm_outcome_no_rate")
         case .NO_PRICE: return L("alarm_outcome_no_price")
         }
+    }
+
+    /// Wer geprüft hat, z. B. «über Widget»; nil bei älteren Einträgen ohne Angabe. Wie Android.
+    static func source(_ entry: AlarmLogEntry) -> String? {
+        switch entry.source {
+        case nil: return nil
+        case .foreground: return L("alarm_log_source_app")
+        case .worker, .bgTask: return L("alarm_log_source_background")
+        case .exact: return L("alarm_log_source_exact")
+        case .widget: return L("alarm_log_source_widget")
+        }
+    }
+
+    /// Ergebnis mit Herkunft für die Zeile des Protokolls: «Ausgelöst · über Widget».
+    static func outcomeWithSource(_ entry: AlarmLogEntry) -> String {
+        [outcome(entry), source(entry)].compactMap { $0 }.joined(separator: " · ")
     }
 
     /// Schwelle wie in der Alarm-Übersicht, z. B. «Über 100’000 CHF».
@@ -62,8 +79,8 @@ enum AlarmLogTexts {
 
     /// Ganze Zeile des Protokolls für VoiceOver.
     static func rowDescription(_ entry: AlarmLogEntry) -> String {
-        [time(entry), entry.pair, seen(entry), L("alarm_log_threshold", threshold(entry)), outcome(entry)]
-            .joined(separator: ", ")
+        [time(entry), entry.pair, seen(entry), L("alarm_log_threshold", threshold(entry)), outcome(entry), source(entry)]
+            .compactMap { $0 }.joined(separator: ", ")
     }
 }
 
@@ -166,7 +183,7 @@ private struct AlarmLogRow: View {
                 .font(.caption.monospacedDigit())
                 .foregroundStyle(AppColors.onSurfaceVariant)
                 .fixedSize(horizontal: false, vertical: true)
-            Text(AlarmLogTexts.outcome(entry))
+            Text(AlarmLogTexts.outcomeWithSource(entry))
                 .font(.subheadline)
                 .foregroundStyle(entry.outcome == .FIRED ? AppColors.onSurface : AppColors.warningText)
                 .fixedSize(horizontal: false, vertical: true)

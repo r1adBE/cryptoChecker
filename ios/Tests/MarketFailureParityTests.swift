@@ -63,6 +63,19 @@ final class MarketFailureParityTests: XCTestCase {
         }
     }
 
+    func testAnswerWithoutPriceStillConfirmsNotTraded() {
+        let noPrice = NoTickerDataError()
+        XCTAssertEqual(MarketFailure.of(noPrice), .parse)
+        XCTAssertEqual(ConnectionErrors.describe(noPrice), "Parsed ticker has no data")
+        XCTAssertTrue(NotTraded.confirmedBySingle(gotPrice: false, error: ConnectionErrors.describe(noPrice),
+                                                  failure: MarketFailure.of(noPrice)))
+        // Interner Fehler ohne Text: kein «nicht mehr gehandelt» (früher 6 h stumm)
+        XCTAssertFalse(NotTraded.confirmedBySingle(gotPrice: false, error: nil, failure: .other))
+        XCTAssertFalse(NotTraded.confirmedBySingle(gotPrice: false, error: " ", failure: .parse))
+        // Ohne Art (gespeicherte Ergebnisse) wie bisher
+        XCTAssertTrue(NotTraded.confirmedBySingle(gotPrice: false, error: nil))
+    }
+
     // MARK: Am Ort des Fehlers
 
     func testOfMapsErrorTypes() {
@@ -95,13 +108,17 @@ final class MarketFailureParityTests: XCTestCase {
             UserFriendlyMarketError(message: "Invalid symbol."),
             UserFriendlyMarketError(message: "EGeneral:Too many requests"),
             UserFriendlyMarketError(message: "Parsed ticker has no data"),
+            // So meldet die Einzelabfrage eine Antwort ohne gültigen Kurs (wie Android MarketParseException → Parse)
+            NoTickerDataError(),
         ]
         for error in errors {
             let text = ConnectionErrors.describe(error)
             let kind = MarketFailure.of(error)
             XCTAssertEqual(RefreshReportLogic.classify(kind, text), RefreshReportLogic.classify(text), text)
+            // Ausnahme mit Absicht: .other (interner Fehler) bestätigt nie «nicht mehr gehandelt»
+            let legacy = NotTraded.confirmedBySingle(gotPrice: false, error: text)
             XCTAssertEqual(NotTraded.confirmedBySingle(gotPrice: false, error: text, failure: kind),
-                           NotTraded.confirmedBySingle(gotPrice: false, error: text), text)
+                           legacy && kind != .other, text)
         }
         XCTAssertEqual(RefreshReportLogic.classify(MarketFailure.of(URLError(.timedOut)),
                                                    ConnectionErrors.describe(URLError(.timedOut))), .TIMEOUT)

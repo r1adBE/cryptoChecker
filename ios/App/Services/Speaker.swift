@@ -8,9 +8,10 @@ import CallKit
 /// eines Durchlaufs bleiben so alle hörbar, Kursansagen werden je Paar auf die neueste
 /// zusammengefasst. Sie nutzen die Audio-Kategorie `.ambient` und schweigen damit bei
 /// Stummschaltung (Klingel-/Stumm-Schalter bzw. Aktionstaste) — wie die Alarm-Mitteilung
-/// selbst, deren Ton dann ebenfalls stumm ist (Android: Lautlos/Vibration).
+/// selbst, deren Ton dann ebenfalls stumm ist (Android: Strom der Mitteilungen, USAGE_NOTIFICATION, und
+/// Lautlos/Vibration). Ein stummes Telefon bleibt so auf beiden Plattformen stumm.
 /// Vom Nutzer angestossene Ansagen ([speak]: Stimme testen, Alarm testen) nutzen `.playback`
-/// und sind immer hörbar.
+/// und sind immer hörbar (Android: Medien-Strom).
 @MainActor
 final class Speaker: NSObject, AVSpeechSynthesizerDelegate {
     static let shared = Speaker()

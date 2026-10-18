@@ -216,7 +216,10 @@ MARKETS = [
      "pairs": "https://api.nonkyc.io/api/v2/market/getlist"},
     {"market": "DexScreener",
      "pair": pair("PEPE", "USD (ethereum)", "ethereum/0x11950d141EcB863F01007AdD7D1A342041227b58"),
-     "single": "https://api.dexscreener.com/latest/dex/pairs/ethereum/0x11950d141EcB863F01007AdD7D1A342041227b58"},
+     "single": "https://api.dexscreener.com/latest/dex/pairs/ethereum/0x11950d141EcB863F01007AdD7D1A342041227b58",
+     # Sammelabfrage: mehrere Pools derselben Chain mit Komma (höchstens 30)
+     "bulk": "https://api.dexscreener.com/latest/dex/pairs/ethereum/"
+             "0x11950d141EcB863F01007AdD7D1A342041227b58,0xA43fe16908251ee70EF74718545e4FE6C5cCEc9f"},
 ]
 
 

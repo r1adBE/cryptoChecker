@@ -176,6 +176,7 @@ extension PriceRefresher {
         /// - Parameter reloadStored: liest die Alarme vor jeder Meldung frisch von der Platte; nil = nicht
         ///   lesbar (dann gilt allein `current`, Fail-open). Tests: Fake.
         /// - Parameter notifier, delivery, now: Mitteilungs-Weg, Speicher der unbestätigten Versuche und Uhr (Tests: Fakes).
+        /// - Parameter snoozedUntil: Ende einer «1 h später»-Pause je Alarm (`AlarmSnooze`); Tests: Fake.
         /// - Parameter recordLog: Alarm-Protokoll übernehmen (Einträge, aus Live-Kursen?) — nach dem Melden, mit dem
         ///   Ergebnis jedes gemeldeten Alarms; nil = nicht protokollieren (Tests).
         /// - Returns: gemeldete und gespeicherte Alarme (für die Ansagen).
@@ -184,6 +185,7 @@ extension PriceRefresher {
                            reloadStored: @Sendable () async -> [Alarm]? = { SharedStorage.readSnapshot().snapshot?.alarms },
                            notifier: AlarmNotifier = .system, delivery: AlarmDelivery = .pairs,
                            now: @Sendable () -> Int64 = { TimeUtils.nowMillis },
+                           snoozedUntil: @Sendable (Int64) -> Int64? = { AlarmSnooze.until($0) },
                            recordLog: (@Sendable ([AlarmLogEntry], Bool) -> Void)? = nil) async -> [PendingAlarm] {
             // Protokoll: Ergebnis je gemeldetem Alarm, nur mitgelesen (`AlarmLog.deliveryTrace`)
             var resolvedLog: [AlarmLogEntry] = []
@@ -212,9 +214,12 @@ extension PriceRefresher {
                           fresh.lastTriggeredAt <= item.alarm.lastTriggeredAt else { continue }
                 }
                 let shownBox = LockedBox<Bool?>(nil)
+                let at = now()
+                // «1 h später» aus der Mitteilung: nur das Melden wartet (wie die Nachtruhe), die Prüfung bleibt gleich
+                let snoozed = AlarmSnooze.isSnoozed(until: snoozedUntil(item.alarm.id), now: at)
                 let saved = await delivery.deliver(
-                    alarmId: item.alarm.id, now: now(), cooldownMinutes: settings.alarmCooldownMinutes,
-                    holdAlarms: holdAlarms, canShow: { deliverable },
+                    alarmId: item.alarm.id, now: at, cooldownMinutes: settings.alarmCooldownMinutes,
+                    holdAlarms: holdAlarms, snoozed: snoozed, canShow: { deliverable },
                     show: {
                         let shown = await notifier.show(item)
                         shownBox.current = shown
@@ -225,7 +230,7 @@ extension PriceRefresher {
                 if saved { delivered.append(item) }
                 if let entry = item.logEntry,
                    let trace = AlarmLog.deliveryTrace(holdAlarms: holdAlarms, canShow: deliverable,
-                                                      shown: shownBox.current, saved: saved) {
+                                                      shown: shownBox.current, saved: saved, snoozed: snoozed) {
                     resolvedLog.append(AlarmLog.resolved(entry, trace))
                 }
             }

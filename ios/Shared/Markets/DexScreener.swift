@@ -26,8 +26,9 @@ struct DexPool: Hashable, Sendable, Identifiable {
 }
 
 /// Kurse dezentraler Börsen (Uniswap, PancakeSwap, Raydium …) über DexScreener. Keine Paarliste (Pools findet die
-/// Suche, `searchURL`), darum kein `SimpleMarket`; abgefragt wird jeder Pool einzeln. Frei und ohne Schlüssel; laut
-/// Anbieter rund 300 Abfragen pro Minute.
+/// Suche, `searchURL`), darum kein `SimpleMarket`. Mehrere Pools derselben Chain kommen gesammelt
+/// (`/latest/dex/pairs/{chain}/{a,b,…}`, höchstens `bulkMaxPools` je Anfrage), einzelne über dieselbe Adresse. Frei
+/// und ohne Schlüssel; laut Anbieter rund 300 Abfragen pro Minute.
 final class DexScreener: Market {
     init() {
         super.init(key: "DexScreener", name: "DexScreener", ttsName: "Dex Screener")
@@ -47,7 +48,41 @@ final class DexScreener: Market {
                                pairId: info.pairId)
         }
         guard let pool = found else { throw JSONError(message: "Pool not found") }
+        try DexScreener.copyPool(pool, into: &ticker)
+    }
 
+    // MARK: Sammelabfrage: Pools derselben Chain gemeinsam
+
+    override var bulkTickersNumOfRequests: Int { 1 }
+
+    // Ohne Auswahl gibt es keine Sammelabfrage (keine ungefilterte Adresse); ein fehlender Pool geht in die
+    // Einzelabfrage, darum nicht «vollständig»
+    override func bulkTickersURL(call: Int, pairIds: [String]) -> String? {
+        let groups = DexScreener.bulkGroups(pairIds)
+        return groups.indices.contains(call) ? DexScreener.bulkURL(groups[call]) : nil
+    }
+
+    override func bulkTickersRequestCount(pairIds: [String]) -> Int { DexScreener.bulkGroups(pairIds).count }
+
+    /// Jeder Pool der Antwort unter «chain/pairAddress», so wie die Suche die Kennung bildet (`DexPool.pairId`); mit
+    /// eigener Liquidität, die Alarm-Sperre unter `minAlarmLiquidityUsd` gilt je Pool. Pools ohne Preis werden
+    /// übersprungen (dann Einzelabfrage).
+    override func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
+        var tickers: [String: Ticker] = [:]
+        for pool in DexScreener.poolsIn(try JObject(string: body)) {
+            let chain = pool.optString("chainId")
+            let address = pool.optString("pairAddress")
+            if chain.isEmpty || address.isEmpty { continue }
+            bulkRowIfActive(chain + "/" + address, row: pool, priceField: "priceUsd", tickers: &tickers,
+                            failed: &failed) { try DexScreener.copyPool(pool, into: &$0) }
+        }
+        return tickers
+    }
+
+    // MARK: Lesen
+
+    /// Kurs, Volumen, 24-h-Veränderung und Liquidität eines Pools (Einzel- und Sammelabfrage gleich).
+    private static func copyPool(_ pool: JObject, into ticker: inout Ticker) throws {
         let priceText = try pool.string("priceUsd")
         guard let price = Double(priceText) else { throw JSONError(message: "priceUsd ist keine Zahl: \(priceText)") }
         ticker.last = price
@@ -57,8 +92,6 @@ final class DexScreener: Market {
         // Liquidität bei jeder Abfrage: Alarme pausieren, solange der Pool dünn ist (`alarmCapable`)
         ticker.liquidityUsd = DexScreener.liquidity(of: pool)
     }
-
-    // MARK: Lesen
 
     /// Alle Pools der Antwort: zuerst das Array `pairs` (nur Objekte), dann ein einzelnes `pair`.
     private static func poolsIn(_ json: JObject) -> [JObject] {
@@ -97,6 +130,41 @@ final class DexScreener: Market {
         guard !wantedChain.isEmpty, !wantedAddress.isEmpty, !pairAddress.isEmpty else { return false }
         return chainId.caseInsensitiveCompare(wantedChain) == .orderedSame
             && pairAddress.caseInsensitiveCompare(wantedAddress) == .orderedSame
+    }
+
+    /// Höchstzahl Pool-Adressen je Sammelabfrage (Vorgabe von DexScreener).
+    static let bulkMaxPools = 30
+
+    /// Zeichen, die unkodiert im Pfad stehen dürfen (Chain-Namen, EVM-/Solana-Adressen).
+    private static let safePathCharacters = Set("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789._~-")
+
+    /// Pools für die Sammelabfrage: je Chain (sortiert) die Adressen ohne Doppelte, sortiert, in Gruppen von höchstens
+    /// `bulkMaxPools`. Kennungen ohne «chain/adresse» oder mit Zeichen, die kodiert werden müssten, fehlen — sie
+    /// laufen über die Einzelabfrage. Wie `DexScreener.bulkGroups` (Android).
+    static func bulkGroups(_ pairIds: [String]) -> [(chain: String, addresses: [String])] {
+        var byChain: [String: Set<String>] = [:]
+        for raw in pairIds {
+            let id = raw.trimmingCharacters(in: .whitespacesAndNewlines)
+            guard let cut = id.firstIndex(of: "/") else { continue }
+            let chain = String(id[..<cut])
+            let address = String(id[id.index(after: cut)...])
+            guard !chain.isEmpty, !address.isEmpty,
+                  chain.allSatisfy({ safePathCharacters.contains($0) }),
+                  address.allSatisfy({ safePathCharacters.contains($0) })
+            else { continue }
+            byChain[chain, default: []].insert(address)
+        }
+        return byChain.keys.sorted().flatMap { chain -> [(chain: String, addresses: [String])] in
+            let addresses = byChain[chain, default: []].sorted()
+            return stride(from: 0, to: addresses.count, by: bulkMaxPools).map { start in
+                (chain: chain, addresses: Array(addresses[start..<min(start + bulkMaxPools, addresses.count)]))
+            }
+        }
+    }
+
+    /// Adresse einer Gruppe: `/latest/dex/pairs/{chain}/{a,b,…}`.
+    static func bulkURL(_ group: (chain: String, addresses: [String])) -> String {
+        dexScreenerAPI + "/latest/dex/pairs/" + group.chain + "/" + group.addresses.joined(separator: ",")
     }
 
     static func searchURL(_ query: String) -> String {

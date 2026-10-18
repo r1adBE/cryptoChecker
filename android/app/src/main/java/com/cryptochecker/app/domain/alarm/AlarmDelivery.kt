@@ -8,7 +8,7 @@ import java.util.concurrent.ConcurrentHashMap
 /**
  * Ablauf «ausgelösten Alarm melden» ohne Android-Abhängigkeiten (Spiegel von `report` in
  * RefreshEffects, damit die Kette Kurs → Alarm → Meldung als Unit-Test prüfbar ist):
- * Nachtruhe oder keine zustellbare Meldung → nichts tun, Alarm bleibt scharf. Sonst ZUERST
+ * Nachtruhe, «1 h später» ([AlarmSnooze]) oder keine zustellbare Meldung → nichts tun, Alarm bleibt scharf. Sonst ZUERST
  * melden ([show]) und erst speichern ([mark]), wenn die Meldung bestätigt ist; unbestätigte
  * Meldungen werden frühestens nach der Abklingzeit wiederholt ([NotificationBudget.retryBlocked]).
  * Lässt sich der Alarm danach nicht speichern (inzwischen bearbeitet, abgeschaltet oder gelöscht),
@@ -29,8 +29,10 @@ class AlarmDelivery {
         show: suspend () -> Boolean,
         mark: suspend () -> Boolean,
         retract: suspend () -> Unit = {},
+        /** «1 h später» läuft ([AlarmSnooze.isSnoozed]): wie die Nachtruhe — nicht melden, scharf bleiben. */
+        snoozed: Boolean = false,
     ): Boolean {
-        if (holdAlarms) return false
+        if (holdAlarms || snoozed) return false
         if (!QuietHours.mayFire(holdAlarms, canShow())) return false
         if (NotificationBudget.retryBlocked(unconfirmed[alarmId], now, cooldownMinutes)) return false
         // Melden, Prüfen und Speichern nicht abbrechbar: sonst Meldung ohne gespeicherten Alarm

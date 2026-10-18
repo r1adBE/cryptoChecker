@@ -21,8 +21,6 @@ import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.live.LivePriceStream
 import com.cryptochecker.app.data.local.WatchDao
-import com.cryptochecker.app.data.local.model.AlarmEntity
-import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmDao
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmRepository
 import com.cryptochecker.app.data.portfolio.PortfolioDao
@@ -44,39 +42,6 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 /**
- * Was eine Wiederherstellung übernommen hat. [appLockKept] = eine Sicherung ohne Passwort wollte die
- * Portfolio-Sperre ausschalten, sie blieb an ([BackupRestorePolicy.appLock]).
- */
-data class RestoreResult(
-    val watches: Int,
-    val alarms: Int,
-    val appLockKept: Boolean = false,
-    /** Ids der ersetzten Paare: ihre Kurs- und Aktivitäts-Meldungen gehören zu den alten Paaren. */
-    val replacedWatchIds: List<Long> = emptyList(),
-    /** Ids der ersetzten Alarme: ihre Alarm-Meldungen gehören zu den alten Alarmen. */
-    val replacedAlarmIds: List<Long> = emptyList(),
-    /** Ids der ersetzten Portfolio-Alarme (leer, wenn die Sicherung keine enthielt und sie blieben). */
-    val replacedPortfolioAlarmIds: List<Long> = emptyList(),
-)
-
-/**
- * Die eben geschriebene Sicherungsdatei liest sich nicht so zurück, wie sie geschrieben wurde (Grösse oder Inhalt weichen
- * ab — z. B. ein Cloud-Anbieter, der die Datei kürzt). Die Datei taugt nicht als Sicherung: in eine neue Datei sichern.
- */
-class BackupNotVerifiedException(message: String) : java.io.IOException(message)
-
-/**
- * Merkliste oder Portfolio sind in diesem Lauf nur leer im Arbeitsspeicher geöffnet, weil der Keystore den Schlüssel
- * der vorhandenen Datei gerade nicht herausgibt ([com.cryptochecker.app.data.local.DatabaseEncryptionNotice.isStoredKept]).
- * Sichern ergäbe eine leere Datei, Einspielen ginge beim Neustart verloren — beides erst nach einem Neustart.
- */
-class BackupStorageKeptException : IllegalStateException("Gespeicherter Stand gerade nicht lesbar")
-
-/** Sicherung enthält mehr ungültige Portfolio-Einträge, als der Nutzer bestätigt hat. */
-class UnconfirmedInvalidEntriesException(val invalid: Int) :
-    IllegalStateException("$invalid ungültige Portfolio-Einträge nicht bestätigt")
-
-/**
  * Sichern und Wiederherstellen: Merkliste, Alarme, Favoriten, Portfolio und
  * Einstellungen als eine JSON-Datei, die der Nutzer selbst ablegt
  * (z. B. in Downloads oder Google Drive). Keine Kurse, kein Konto.
@@ -87,20 +52,20 @@ class UnconfirmedInvalidEntriesException(val invalid: Int) :
 @Singleton
 class BackupManager @Inject constructor(
     @param:ApplicationContext private val context: Context,
-    private val database: AppDatabase,
-    private val portfolioDatabase: PortfolioDatabase,
-    private val watchDao: WatchDao,
-    private val favoritesRepository: FavoritesRepository,
+    internal val database: AppDatabase,
+    internal val portfolioDatabase: PortfolioDatabase,
+    internal val watchDao: WatchDao,
+    internal val favoritesRepository: FavoritesRepository,
     private val settingsRepository: SettingsRepository,
     private val activityRepository: ActivityRepository,
-    private val portfolioDao: PortfolioDao,
+    internal val portfolioDao: PortfolioDao,
     private val portfolioRepository: PortfolioRepository,
     private val portfolioAlarmRepository: PortfolioAlarmRepository,
-    private val portfolioAlarmDao: PortfolioAlarmDao,
-    private val watchedAddressDao: WatchedAddressDao,
+    internal val portfolioAlarmDao: PortfolioAlarmDao,
+    internal val watchedAddressDao: WatchedAddressDao,
     /** Sperre der Aktualisierung: Merkliste ersetzen, ohne dass ein Durchlauf dazwischen Kurse schreibt. */
-    private val priceRefresher: PriceRefresher,
-    private val livePriceStream: LivePriceStream,
+    internal val priceRefresher: PriceRefresher,
+    internal val livePriceStream: LivePriceStream,
 ) {
     /** Stand vor dem Wiederherstellen, versiegelt bis zum Ende des Laufs ([RestoreJournal]). */
     private val journal = RestoreJournal(
@@ -109,7 +74,7 @@ class BackupManager @Inject constructor(
     )
 
     /** Einstellungen in der Sicherung und im Journal ([BackupSettingsCodec]). */
-    private val settingsCodec = BackupSettingsCodec(context, settingsRepository)
+    internal val settingsCodec = BackupSettingsCodec(context, settingsRepository)
 
     /**
      * Schreibt die Sicherung; mit [password] verschlüsselt ([BackupCrypto], gleiches Format
@@ -171,13 +136,13 @@ class BackupManager @Inject constructor(
      * verlässlich sind. Dasselbe Öffnen wie gleich danach: Sichern, Einspielen und Zurückrollen lesen bzw. schreiben beide
      * Dateien ohnehin, auch bei ausgeschaltetem Portfolio — also keine zusätzlichen Callbacks. Ein Fehler zeigt sich dort.
      */
-    private fun openBoth() {
+    internal fun openBoth() {
         runCatching { database.openHelper.writableDatabase }
         runCatching { portfolioDatabase.openHelper.writableDatabase }
     }
 
     /** Darf in [name] zurückgeschrieben werden? Nach [openBoth] verlässlich ([BackupRestorePolicy.mayRollBackInto]). */
-    private fun rollBackTarget(name: String): Boolean = BackupRestorePolicy.mayRollBackInto(
+    internal fun rollBackTarget(name: String): Boolean = BackupRestorePolicy.mayRollBackInto(
         storedKept = DatabaseEncryptionNotice.isStoredKept(name),
         inMemory = DatabaseEncryptionNotice.isInMemory(name),
     )
@@ -380,65 +345,5 @@ class BackupManager @Inject constructor(
     }
 
     /** Schritte, die schon (ganz oder teilweise) geschrieben wurden. */
-    private enum class Step { WATCHLIST, PORTFOLIO, FAVORITES, SETTINGS }
-
-    /** Merkliste in einer Transaktion ersetzen; ein übergangenes Paar bricht ab (statt Alarme zu verlieren). */
-    private suspend fun writeWatchlist(watches: List<WatchEntity>, alarms: List<AlarmEntity>) {
-        // Unter der Refresh-Sperre: Ein laufender Durchlauf schrieb sonst Kurse alter Paare unter Ids, die
-        // die Sicherung neu vergibt (zusätzlich verwirft WatchDao.updatePriceForPair Kurse anderer Paare).
-        // Gepufferte Live-Kurse gehören zu den alten Paaren: vorher vergessen.
-        priceRefresher.withRefreshLock {
-            livePriceStream.forgetAll()
-            database.withTransaction {
-                watchDao.deleteAllWatches()          // Alarme fallen per Fremdschlüssel mit weg
-                watches.forEach { w -> check(watchDao.insertWatch(w) != -1L) { "Paar ${w.id} nicht übernommen" } }
-                alarms.forEach { watchDao.insertAlarm(it) }
-            }
-        }
-    }
-
-    /**
-     * Schreibt den gemerkten Stand der schon berührten Teile zurück (bestmöglich; Fehler dabei werden
-     * an [cause] angehängt). Portfolio-Zeilen und Alarme kommen unverändert zurück (samt Alarm-Zustand).
-     * @return true = alles zurückgeschrieben (das Journal darf weg).
-     */
-    private suspend fun rollBack(previous: PreviousState, touched: Set<Step>, cause: Throwable): Boolean {
-        var complete = true
-        suspend fun attempt(what: String, block: suspend () -> Unit) {
-            runCatchingCancellable { block() }.onFailure {
-                complete = false
-                Timber.w(it, "Wiederherstellen: %s nicht zurückgesetzt", what)
-                if (it !== cause) cause.addSuppressed(it)
-            }
-        }
-        // Nie in eine Datenbank, die nur leer im Arbeitsspeicher liegt: unvollständig, das Journal bleibt
-        openBoth()
-        fun target(name: String, what: String): Boolean = rollBackTarget(name).also { ok ->
-            if (!ok) {
-                complete = false
-                Timber.w("Wiederherstellen: %s nur im Arbeitsspeicher, nicht zurückgesetzt", what)
-            }
-        }
-        if (Step.SETTINGS in touched) attempt("Einstellungen") { settingsCodec.restoreSettings(previous.settings, trusted = true) }
-        if (Step.FAVORITES in touched) attempt("Favoriten") {
-            previous.favorites.forEach { (kind, items) -> favoritesRepository.setAll(kind, items) }
-        }
-        if (Step.PORTFOLIO in touched && target(PortfolioDatabase.DB_NAME, "Portfolio")) attempt("Portfolio") {
-            portfolioDatabase.withTransaction {
-                portfolioDao.deleteAll()
-                previous.portfolio.forEach { portfolioDao.insert(it) }
-                portfolioAlarmDao.deleteAll()
-                previous.portfolioAlarms.forEach { portfolioAlarmDao.insert(it) }
-                // Samt letztem Guthaben (unverändert zurück)
-                watchedAddressDao.deleteAll()
-                previous.watchedAddresses.forEach { watchedAddressDao.insert(it) }
-            }
-        }
-        // Auch nach dem Portfolio-Schritt: importHoldings leert den Bestand der Merkliste
-        if (Step.WATCHLIST in touched && target(AppDatabase.DB_NAME, "Merkliste")) {
-            attempt("Merkliste") { writeWatchlist(previous.watches, previous.alarms) }
-        }
-        Timber.w(cause, "Wiederherstellen fehlgeschlagen, bisheriger Stand zurückgeschrieben")
-        return complete
-    }
+    internal enum class Step { WATCHLIST, PORTFOLIO, FAVORITES, SETTINGS }
 }

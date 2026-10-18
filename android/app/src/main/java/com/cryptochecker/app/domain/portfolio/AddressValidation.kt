@@ -1,7 +1,5 @@
 package com.cryptochecker.app.domain.portfolio
 
-import java.security.MessageDigest
-
 /**
  * Prüft öffentliche Adressen für «Adresse beobachten» (nur Mainnet, nur einzelne Adressen):
  *  - Bitcoin Base58Check: P2PKH («1…», Version 0x00), P2SH («3…», 0x05), Prüfsumme = doppeltes SHA-256.
@@ -70,7 +68,7 @@ object AddressValidation {
     }
 
     /** Längste Eingabe, die überhaupt geprüft wird (Bech32 höchstens 90 Zeichen). */
-    private const val MAX_INPUT = 200
+    internal const val MAX_INPUT = 200
 
     private val EXTENDED_PUBLIC = listOf("xpub", "ypub", "zpub", "Ypub", "Zpub", "tpub", "upub", "vpub", "Upub", "Vpub")
     private val EXTENDED_PRIVATE = listOf("xprv", "yprv", "zprv", "Yprv", "Zprv", "tprv", "uprv", "vprv", "Uprv", "Vprv")
@@ -86,7 +84,7 @@ object AddressValidation {
         return result
     }
 
-    private fun invalid(problem: Problem) = Check(null, null, null, problem)
+    internal fun invalid(problem: Problem) = Check(null, null, null, problem)
 
     private fun detect(input: String?): Check {
         var s = input?.trim().orEmpty()
@@ -151,133 +149,6 @@ object AddressValidation {
             return invalid(Problem.BCH_UNSUPPORTED)
         }
         return result
-    }
-
-    // ---------------- Cardano ----------------
-
-    /** Shelley-Adresse (Bech32, Länge bis [MAX_INPUT]): Kopfbyte Typ 0…7 und Netz-ID 1 (Mainnet). */
-    private fun cardano(input: String): Check {
-        val hasLower = input.any { it in 'a'..'z' }
-        val hasUpper = input.any { it in 'A'..'Z' }
-        if (hasLower && hasUpper) return invalid(Problem.UNKNOWN_FORMAT)
-        val s = input.lowercase()
-        val sep = s.lastIndexOf('1')
-        if (sep < 1 || sep + 7 > s.length) return invalid(Problem.UNKNOWN_FORMAT)
-        val hrp = s.substring(0, sep)
-        val data = IntArray(s.length - sep - 1)
-        for (i in data.indices) {
-            val v = CHARSET.indexOf(s[sep + 1 + i])
-            if (v < 0) return invalid(Problem.UNKNOWN_FORMAT)
-            data[i] = v
-        }
-        val expanded = IntArray(hrp.length * 2 + 1 + data.size)
-        for (i in hrp.indices) {
-            expanded[i] = hrp[i].code ushr 5
-            expanded[hrp.length + 1 + i] = hrp[i].code and 31
-        }
-        data.copyInto(expanded, hrp.length * 2 + 1)
-        if (polymod(expanded) != BECH32_CONST) return invalid(Problem.BAD_CHECKSUM)
-        if (hrp == "addr_test" || hrp == "stake_test") return invalid(Problem.TESTNET)
-        if (hrp == "stake") return invalid(Problem.UNSUPPORTED_VERSION)
-        if (hrp != "addr") return invalid(Problem.UNKNOWN_FORMAT)
-        val bytes = convertBits(data.copyOfRange(0, data.size - 6)) ?: return invalid(Problem.UNKNOWN_FORMAT)
-        if (bytes.size < 29) return invalid(Problem.UNKNOWN_FORMAT)
-        val type = bytes[0] ushr 4
-        val network = bytes[0] and 0x0f
-        if (type > 7) return invalid(Problem.UNKNOWN_FORMAT)
-        if (network != 1) return invalid(Problem.TESTNET)
-        return Check(AddressChain.ADA, Kind.ADA, s, null)
-    }
-
-    /** «[1, 2, …]» mit 32 bis 64 Zahlen 0…255 (Schlüsseldatei). */
-    private fun isByteArrayText(s: String): Boolean {
-        if (!s.endsWith("]")) return false
-        val parts = s.substring(1, s.length - 1).split(',').map { it.trim() }
-        return parts.size in 32..64 && parts.all { p -> p.isNotEmpty() && p.length <= 3 && p.all { it in '0'..'9' } && p.toInt() <= 255 }
-    }
-
-    // ---------------- XRP ----------------
-
-    private const val RIPPLE = "rpshnaf39wBUDNEGHJKLM4PQRST7VWXYZ2bcdeCg65jkm8oFqi1tuvAxyz"
-
-    /** Ripple-Base58 mit gültiger Prüfsumme → Nutzdaten ohne Prüfsumme; sonst null. */
-    private fun rippleChecked(s: String): ByteArray? {
-        val raw = base58Decode(s, RIPPLE) ?: return null
-        if (!checksumOk(raw)) return null
-        return raw.copyOfRange(0, raw.size - 4)
-    }
-
-    /** Klassische XRP-Adresse; null = keine (weiter mit Base58). */
-    private fun xrp(s: String): Check? {
-        val raw = base58Decode(s, RIPPLE) ?: return null
-        if (raw.size != 25 || raw[0].toInt() != 0) return null
-        if (!checksumOk(raw)) return invalid(Problem.BAD_CHECKSUM)
-        return Check(AddressChain.XRP, Kind.XRP, s, null)
-    }
-
-    // ---------------- TON ----------------
-
-    /** «0:<64 Hex>» (Basis-Workchain); «-1:…» Masterchain nicht unterstützt; null = keine rohe Adresse. */
-    private fun tonRaw(s: String): Check? {
-        val sep = s.indexOf(':')
-        if (sep < 1 || s.length - sep - 1 != 64) return null
-        val wc = s.substring(0, sep)
-        val hex = s.substring(sep + 1)
-        if (!hex.all { isHex(it) } || !(wc == "0" || wc == "-1")) return null
-        if (wc == "-1") return invalid(Problem.UNSUPPORTED_VERSION)
-        return Check(AddressChain.TON, Kind.TON, "0:" + hex.lowercase(), null)
-    }
-
-    /** Benutzerfreundliche TON-Adresse (36 Byte: Kennung, Workchain, 32 Byte, CRC16); null = keine. */
-    private fun tonFriendly(s: String): Check? {
-        val raw = base64Decode(s) ?: return null
-        if (raw.size != 36) return null
-        val tag = raw[0].toInt() and 0xff
-        if (tag and 0x7f != 0x11 && tag and 0x7f != 0x51) return null
-        val crc = crc16(raw.copyOfRange(0, 34))
-        if (((raw[34].toInt() and 0xff) shl 8 or (raw[35].toInt() and 0xff)) != crc) return invalid(Problem.BAD_CHECKSUM)
-        if (tag and 0x80 != 0) return invalid(Problem.TESTNET)
-        return when (raw[1].toInt() and 0xff) {
-            0x00 -> Check(AddressChain.TON, Kind.TON, s, null)
-            0xff -> invalid(Problem.UNSUPPORTED_VERSION)
-            else -> invalid(Problem.UNKNOWN_FORMAT)
-        }
-    }
-
-    /** Base64 (Standard oder URL-sicher, ohne Auffüllen); ungültig = null. */
-    internal fun base64Decode(s: String): ByteArray? {
-        val out = ArrayList<Byte>()
-        var acc = 0
-        var bits = 0
-        for (c in s) {
-            val v = when (c) {
-                in 'A'..'Z' -> c - 'A'
-                in 'a'..'z' -> c - 'a' + 26
-                in '0'..'9' -> c - '0' + 52
-                '+', '-' -> 62
-                '/', '_' -> 63
-                else -> return null
-            }
-            acc = (acc shl 6) or v
-            bits += 6
-            if (bits >= 8) {
-                bits -= 8
-                out.add(((acc shr bits) and 0xff).toByte())
-            }
-            acc = acc and 0xffff
-        }
-        return out.toByteArray()
-    }
-
-    /** CRC16-XMODEM (Polynom 0x1021, Start 0) — TON-Adressen. */
-    internal fun crc16(data: ByteArray): Int {
-        var crc = 0
-        for (b in data) {
-            crc = crc xor ((b.toInt() and 0xff) shl 8)
-            repeat(8) { crc = if (crc and 0x8000 != 0) (crc shl 1) xor 0x1021 else crc shl 1 }
-            crc = crc and 0xffff
-        }
-        return crc
     }
 
     /** xpub/ypub/zpub ([Bip32.check]); unverändert übernommen. */
@@ -405,7 +276,7 @@ object AddressValidation {
     /** Nur ASCII-Leerraum zählt (gleich wie iOS). */
     private fun isSpace(c: Char) = c == ' ' || c == '\t' || c == '\n' || c == '\r'
 
-    private fun isHex(c: Char) = c in '0'..'9' || c in 'a'..'f' || c in 'A'..'F'
+    internal fun isHex(c: Char) = c in '0'..'9' || c in 'a'..'f' || c in 'A'..'F'
 
     // ---------------- Ethereum ----------------
 
@@ -429,150 +300,7 @@ object AddressValidation {
         return Check(AddressChain.ETH, Kind.ETH, checksummed, null)
     }
 
-    // ---------------- Bitcoin Base58Check ----------------
-
-    private const val BASE58 = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
-
-    /** Base58 → Bytes (führende Null-Ziffer = Null-Bytes); ungültiges Zeichen = null. Ripple: eigenes Alphabet. */
-    internal fun base58Decode(s: String, alphabet: String = BASE58): ByteArray? {
-        val number = ArrayList<Int>() // Basis 256, niedrigstes Byte zuerst
-        for (ch in s) {
-            var carry = alphabet.indexOf(ch)
-            if (carry < 0) return null
-            for (i in number.indices) {
-                carry += number[i] * 58
-                number[i] = carry and 0xff
-                carry = carry shr 8
-            }
-            while (carry > 0) {
-                number.add(carry and 0xff)
-                carry = carry shr 8
-            }
-        }
-        val zeros = s.takeWhile { it == alphabet[0] }.length
-        val out = ByteArray(zeros + number.size)
-        for (i in number.indices) out[zeros + i] = number[number.size - 1 - i].toByte()
-        return out
-    }
-
-    private fun sha256(data: ByteArray): ByteArray = MessageDigest.getInstance("SHA-256").digest(data)
-
-    private fun checksumOk(raw: ByteArray): Boolean {
-        if (raw.size < 5) return false
-        val payload = raw.copyOfRange(0, raw.size - 4)
-        val sum = sha256(sha256(payload))
-        for (i in 0 until 4) if (sum[i] != raw[raw.size - 4 + i]) return false
-        return true
-    }
-
-    private fun base58(s: String): Check {
-        val raw = base58Decode(s) ?: return invalid(Problem.UNKNOWN_FORMAT)
-        val version = if (raw.isNotEmpty()) raw[0].toInt() and 0xff else -1
-        return when (raw.size) {
-            25 -> {
-                if (!checksumOk(raw)) return invalid(Problem.BAD_CHECKSUM)
-                when (version) {
-                    0x00 -> Check(AddressChain.BTC, Kind.P2PKH, s, null)
-                    0x05 -> Check(AddressChain.BTC, Kind.P2SH, s, null)
-                    0x30 -> Check(AddressChain.LTC, Kind.P2PKH, s, null)
-                    0x32 -> Check(AddressChain.LTC, Kind.P2SH, s, null)
-                    0x41 -> Check(AddressChain.TRX, Kind.TRX, s, null)
-                    0x1e, 0x16 -> invalid(Problem.DOGE_UNSUPPORTED)
-                    0x6f, 0xc4, 0x3a -> invalid(Problem.TESTNET)
-                    else -> invalid(Problem.UNKNOWN_FORMAT)
-                }
-            }
-            // WIF: privater Schlüssel (0x80 Bitcoin, 0xb0 Litecoin, 0xef Testnet; 33 bzw. 34 Byte + Prüfsumme)
-            37, 38 -> if ((version == 0x80 || version == 0xb0 || version == 0x9e || version == 0xef) && checksumOk(raw)) invalid(Problem.SECRET) else invalid(Problem.UNKNOWN_FORMAT)
-            // Solana: öffentlicher Schlüssel (32 Byte, ohne Prüfsumme) bzw. privater Schlüssel (64 Byte)
-            32 -> if (s.length in 32..44) Check(AddressChain.SOL, Kind.SOL, s, null) else invalid(Problem.UNKNOWN_FORMAT)
-            64 -> invalid(Problem.SECRET)
-            else -> invalid(Problem.UNKNOWN_FORMAT)
-        }
-    }
-
-    // ---------------- Bitcoin Bech32 / Bech32m ----------------
-
-    private const val CHARSET = "qpzry9x8gf2tvdw0s3jn54khce6mua7l"
-    private const val BECH32_CONST = 1
-    private const val BECH32M_CONST = 0x2bc830a3
-    private val GEN = intArrayOf(0x3b6a57b2, 0x26508e6d, 0x1ea119fa, 0x3d4233dd, 0x2a1462b3)
-
-    private fun polymod(values: IntArray): Int {
-        var chk = 1
-        for (v in values) {
-            val top = chk ushr 25
-            chk = ((chk and 0x1ffffff) shl 5) xor v
-            for (i in 0 until 5) if ((top ushr i) and 1 == 1) chk = chk xor GEN[i]
-        }
-        return chk
-    }
-
-    private fun segwit(input: String): Check {
-        if (input.length < 8 || input.length > 90) return invalid(Problem.UNKNOWN_FORMAT)
-        if (input.any { it.code < 33 || it.code > 126 }) return invalid(Problem.UNKNOWN_FORMAT)
-        val hasLower = input.any { it in 'a'..'z' }
-        val hasUpper = input.any { it in 'A'..'Z' }
-        if (hasLower && hasUpper) return invalid(Problem.UNKNOWN_FORMAT)
-        val s = input.lowercase()
-        val sep = s.lastIndexOf('1')
-        if (sep < 1 || sep + 7 > s.length) return invalid(Problem.UNKNOWN_FORMAT)
-        val hrp = s.substring(0, sep)
-        val data = IntArray(s.length - sep - 1)
-        for (i in data.indices) {
-            val v = CHARSET.indexOf(s[sep + 1 + i])
-            if (v < 0) return invalid(Problem.UNKNOWN_FORMAT)
-            data[i] = v
-        }
-        if (hrp == "tb" || hrp == "bcrt" || hrp == "tltc") return invalid(Problem.TESTNET)
-        val chain = when (hrp) {
-            "bc" -> AddressChain.BTC
-            "ltc" -> AddressChain.LTC
-            else -> return invalid(Problem.UNKNOWN_FORMAT)
-        }
-
-        val expanded = IntArray(hrp.length * 2 + 1 + data.size)
-        for (i in hrp.indices) {
-            expanded[i] = hrp[i].code ushr 5
-            expanded[hrp.length + 1 + i] = hrp[i].code and 31
-        }
-        data.copyInto(expanded, hrp.length * 2 + 1)
-        val bech32m = when (polymod(expanded)) {
-            BECH32_CONST -> false
-            BECH32M_CONST -> true
-            else -> return invalid(Problem.BAD_CHECKSUM)
-        }
-        val values = data.copyOfRange(0, data.size - 6)
-        if (values.isEmpty()) return invalid(Problem.UNKNOWN_FORMAT)
-        val version = values[0]
-        if (version > 16) return invalid(Problem.UNKNOWN_FORMAT)
-        val program = convertBits(values.copyOfRange(1, values.size)) ?: return invalid(Problem.UNKNOWN_FORMAT)
-        if (program.size < 2 || program.size > 40) return invalid(Problem.UNKNOWN_FORMAT)
-        // v0 nur mit Bech32, ab v1 nur mit Bech32m (BIP350)
-        if ((version == 0) == bech32m) return invalid(Problem.BAD_CHECKSUM)
-        return when {
-            version == 0 && program.size == 20 -> Check(chain, Kind.P2WPKH, s, null)
-            version == 0 && program.size == 32 -> Check(chain, Kind.P2WSH, s, null)
-            version == 0 -> invalid(Problem.UNKNOWN_FORMAT)
-            version == 1 && program.size == 32 -> Check(chain, Kind.P2TR, s, null)
-            else -> invalid(Problem.UNSUPPORTED_VERSION)
-        }
-    }
-
-    /** 5-Bit-Gruppen → Bytes ohne Auffüllen; überzählige Bits müssen null sein. */
-    private fun convertBits(data: IntArray): IntArray? {
-        var acc = 0
-        var bits = 0
-        val out = ArrayList<Int>()
-        for (v in data) {
-            acc = ((acc shl 5) or v) and 0xfff
-            bits += 5
-            if (bits >= 8) {
-                bits -= 8
-                out.add((acc ushr bits) and 0xff)
-            }
-        }
-        if (bits >= 5 || ((acc shl (8 - bits)) and 0xff) != 0) return null
-        return out.toIntArray()
-    }
+    // Bech32/Bech32m (AddressValidationBitcoin.kt), auch für Cardano und die Deskriptor-Prüfsumme
+    internal const val CHARSET = "qpzry9x8gf2tvdw0s3jn54khce6mua7l"
+    internal const val BECH32_CONST = 1
 }

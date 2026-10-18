@@ -1,6 +1,6 @@
 // Zustand des Erfassen-Blatts (`PortfolioTxSheet`): alle Eingaben als Compose-Zustand, über `rememberSaveable`
 // gesichert ([TxFormState.saver]), dazu die je Durchgang abgeleiteten Werte ([TxFormState.derive]) und die Abläufe
-// (Vorbelegen, Datumswechsel, Umschalten der Eingabewährung, Entwurf zum Speichern). Die Regeln der Prüfung stehen in
+// (Datumswechsel, Umschalten der Eingabewährung, Entwurf zum Speichern; Vorbelegen in `PortfolioTxFormPrefill`). Die Regeln der Prüfung stehen in
 // `PortfolioTxForm.check` (domain, ohne Oberfläche testbar); hier nur das Lesen der Texte.
 package com.cryptochecker.app.ui.features.portfolio
 
@@ -22,7 +22,6 @@ import com.cryptochecker.app.domain.portfolio.PortfolioTxForm
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.settings.inputDecimalSeparator
 import com.cryptochecker.app.util.PriceFormat
-import kotlinx.coroutines.delay
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.ZoneId
@@ -94,7 +93,7 @@ internal class TxFormState(val initial: TxDraft, val decimalSeparator: Char) {
     var tried by mutableStateOf(false)
 
     // Nicht gesichert: Devisenkurs der Eingabe in der Anzeigewährung (wird neu geladen)
-    var entryFx by mutableStateOf<Pair<BigDecimal, LocalDate>?>(null)
+    var entryFx by mutableStateOf<EntryFx?>(null)
     var entryFxKey by mutableStateOf<String?>(null)
     var entryFxState by mutableStateOf<EntryFxState?>(null)
 
@@ -109,7 +108,7 @@ internal class TxFormState(val initial: TxDraft, val decimalSeparator: Char) {
         // Eingabe in der Anzeigewährung: nur mit Preis-/Wertfeld und nicht für USD (USDT gilt als USD)
         val day = localDate(time)
         val fiatPossible = currency != "USD" && (fields.price || isSwap)
-        val fxRate = entryFx?.first?.takeIf { entryFxState == EntryFxState.READY && entryFxKey == "$currency|$day" }
+        val fxRate = entryFx?.rate?.takeIf { entryFxState == EntryFxState.READY && entryFxKey == "$currency|$day" }
         val fiatActive = entryFiat && fiatPossible && !pendingToFiat
         val priceHintEntry = if (fiatActive) fxRate?.let { r -> priceHint?.times(r.toDouble()) } else priceHint
         val priceEntered: BigDecimal? = if (priceText.isBlank()) null else PriceFormat.parseDecimalAmount(priceText, sep, priceHintEntry)
@@ -259,90 +258,6 @@ internal class TxFormState(val initial: TxDraft, val decimalSeparator: Char) {
         if (!entryFiat) { entryFiat = true; pendingToFiat = true }
     }
 
-    /**
-     * Kurs vorbelegen, sobald ein (anderer) Coin feststeht; ein getippter Preis bleibt, der Kurs dient dann nur als
-     * Hinweis für eine mehrdeutige Eingabe. Nicht für einen anderen Tag. [coin]/[coinValid] beim Start des Effekts.
-     */
-    suspend fun prefillPrice(coin: String, coinValid: Boolean, currentPrice: suspend (String) -> Double?) {
-        if (isEdit || !coinValid || coin == pricedCoin) return
-        // Erst nach kurzer Tipp-Pause, nicht bei jedem Buchstaben
-        delay(400)
-        val current = currentPrice(coin)?.takeIf { it.isFinite() && it > 0.0 }
-        pricedCoin = coin
-        priceHint = current
-        val today = localDate(time) == LocalDate.now()
-        if (!PortfolioTxForm.mayPrefill(isEdit, today)) {
-            // Anderer Tag: kein heutiger Kurs im Feld (ein noch vorbelegter wird geleert)
-            if (priceAuto) { priceText = ""; priceAuto = false }
-        } else if (!entryFiat && (priceText.isBlank() || priceAuto)) {
-            priceText = current?.let { PriceFormat.amountForInput(PortfolioDecimal.of(it), decimalSeparator) }.orEmpty()
-            priceAuto = current != null
-        }
-    }
-
-    /** Belohnung/Einzahlung an einem vergangenen Tag: geprüften Tagesschluss vorbelegen (markiert). */
-    suspend fun prefillHistoricClose(coin: String, coinValid: Boolean, historicClose: suspend (String, LocalDate) -> BigDecimal?) {
-        // Ein vorbelegter Tagesschluss (anderer Coin) wird ersetzt, ein getippter Preis bleibt
-        val replaceable = priceText.isBlank() || priceHistoricDay != null
-        // Eingabe in der Anzeigewährung: kein USDT-Tagesschluss ins Feld
-        if (entryFiat || !coinValid || !PortfolioTxForm.mayPrefillHistoricClose(type, isEdit, localDate(time) == LocalDate.now(), replaceable)) {
-            return
-        }
-        if (priceHistoricDay != null) { priceText = ""; priceHistoricDay = null }
-        delay(400)
-        val day = localDate(time)
-        val close = historicClose(coin, day) ?: return
-        if (priceText.isBlank()) {
-            priceText = PriceFormat.amountForInput(close, decimalSeparator)
-            priceHint = close.toDouble()
-            priceAuto = false
-            priceHistoricDay = PortfolioFormat.date(time)
-        }
-    }
-
-    /** Gebühr-Coin: Preis mit dem aktuellen Kurs vorbelegen — nur bei einer Transaktion von heute. */
-    suspend fun prefillFeeCoinPrice(feeCoinSymbol: String, coin: String, currentPrice: suspend (String) -> Double?) {
-        val validFeeCoin = feeCoinSymbol.length in 1..15 && feeCoinSymbol.all { it.isLetterOrDigit() } && feeCoinSymbol != coin
-        if (!validFeeCoin) return
-        if (feeCoinPriceAuto) { feeCoinPriceText = ""; feeCoinPriceAuto = false }
-        if (!PortfolioTxForm.mayPrefillFeeCoinPrice(isEdit, localDate(time) == LocalDate.now(), feeCoinPriceText.isBlank())) {
-            return
-        }
-        delay(400)
-        val current = currentPrice(feeCoinSymbol)?.takeIf { it.isFinite() && it > 0.0 } ?: return
-        if (feeCoinPriceText.isBlank()) {
-            feeCoinPriceText = PriceFormat.amountForInput(PortfolioDecimal.of(current), decimalSeparator)
-            feeCoinPriceAuto = true
-        }
-    }
-
-    /** K-2: Tageskurs USD → Anzeigewährung für das Datum der Transaktion (heute: aktueller Kurs), nur in der Anzeigewährung. */
-    suspend fun loadEntryFx(currency: String, day: LocalDate, load: suspend (String, LocalDate) -> Pair<BigDecimal, LocalDate>?) {
-        if (!entryFiat || currency == "USD") return
-        val key = "$currency|$day"
-        if (entryFxKey != key || entryFxState == EntryFxState.LOADING || entryFxState == null) {
-            entryFxKey = key
-            entryFxState = EntryFxState.LOADING
-            entryFx = null
-            val loaded = load(currency, day)
-            entryFx = loaded
-            entryFxState = if (loaded != null) EntryFxState.READY else EntryFxState.FAILED
-        }
-        val rate = entryFx?.first
-        if (pendingToFiat) {
-            pendingToFiat = false
-            if (rate == null) {
-                // Kein Kurs: bei USDT bleiben (Felder unverändert)
-                entryFiat = false
-            } else {
-                priceText = convertEntry(priceText, decimalSeparator, priceHint) { PortfolioTxForm.usdtToFiat(it, rate) }
-                swapValueText = convertEntry(swapValueText, decimalSeparator, null) { PortfolioTxForm.usdtToFiat(it, rate) }
-                priceAuto = false
-                priceHistoricDay = null
-            }
-        }
-    }
-
     /** Devisenkurs für diesen Tag nicht ladbar: Anzeigewährung gesperrt (mit Hinweis). */
     fun fxFailed(currency: String, day: LocalDate): Boolean =
         entryFxState == EntryFxState.FAILED && entryFxKey == "$currency|$day"
@@ -429,51 +344,4 @@ internal class TxFormState(val initial: TxDraft, val decimalSeparator: Char) {
             },
         )
     }
-}
-
-/** Abgeleitete Werte eines Durchgangs ([TxFormState.derive]); die Prüfung selbst in [check]. */
-@Stable
-internal class TxFormDerived(
-    val check: PortfolioTxForm.Check,
-    /** Menge > 0; null = leer, unlesbar oder ≤ 0. */
-    val amount: BigDecimal?,
-    /** Tag der Transaktion (Ortszeit). */
-    val day: LocalDate,
-    /** Eingabe in der Anzeigewährung möglich (Preis-/Wertfeld, nicht USD). */
-    val fiatPossible: Boolean,
-    /** Geladener Devisenkurs dieses Tags; null = (noch) keiner. */
-    val fxRate: BigDecimal?,
-    /** Felder stehen in der Anzeigewährung. */
-    val fiatActive: Boolean,
-    /** Preis in USDT. */
-    val price: BigDecimal?,
-    val toAmount: BigDecimal?,
-    /** Tausch: Wert in USDT. */
-    val swapValue: BigDecimal?,
-    val keepStoredFee: Boolean,
-    val feeCoinSymbol: String,
-    val feeCoinAmount: BigDecimal?,
-    val feeCoinPrice: BigDecimal?,
-    val isToday: Boolean,
-    val dirty: Boolean,
-    val type: PortfolioTxType,
-) {
-    val fields: PortfolioTxForm.Fields get() = check.fields
-    val isSwap: Boolean get() = type == PortfolioTxType.SWAP
-    val coin: String get() = check.coin
-    val coinValid: Boolean get() = check.coinValid
-    val priceZero: Boolean get() = check.priceZero
-    val priceValid: Boolean get() = check.priceValid
-    val toCoin: String get() = check.toCoin
-    val toCoinValid: Boolean get() = check.toCoinValid
-    val swapValueValid: Boolean get() = check.swapValueValid
-    val hasFee: Boolean get() = check.hasFee
-    /** Gebühr dieser Art (null = leer, unlesbar oder Art ohne Gebühr). */
-    val fee: BigDecimal? get() = check.fee
-    val feeValid: Boolean get() = check.feeValid
-    val effectiveFeeUnit: PortfolioFeeUnit get() = check.feeUnit
-    val feeInReceived: Boolean get() = check.feeInReceived
-    val thirdFee: PortfolioTxForm.ThirdFee get() = check.thirdFee
-    val feeConsumes: Boolean get() = check.feeConsumes
-    val valid: Boolean get() = check.valid
 }

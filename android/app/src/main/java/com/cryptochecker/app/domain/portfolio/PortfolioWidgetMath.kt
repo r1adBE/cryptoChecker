@@ -95,12 +95,12 @@ object PortfolioWidgetMath {
     /** Rand 2 × 12 dp (widget_portfolio*.xml). */
     private const val PADDING_DP = 24f
 
-    /** Abstand über dem Wertverlauf (Spalte) bzw. links davon (mittel), dp. */
-    private const val CHART_GAP_DP = 6f
+    /** Abstand über dem Wertverlauf (Spalte) bzw. links davon (mittel), dp — wie `widget_portfolio_chart.xml`. */
+    private const val CHART_GAP_DP = 4f
     private const val MEDIUM_GAP_DP = 12f
 
-    /** Abstand über der Positionsliste (dp). */
-    private const val ROWS_GAP_DP = 6f
+    /** Abstand über der Positionsliste (dp) — wie `widget_portfolio_large.xml`. */
+    private const val ROWS_GAP_DP = 4f
 
     /** Abstand unter der Kopfzeile in der mittleren Stufe (dp). */
     private const val MEDIUM_BODY_GAP_DP = 4f

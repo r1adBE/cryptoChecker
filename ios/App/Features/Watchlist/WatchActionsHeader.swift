@@ -59,14 +59,20 @@ extension WatchActionsSheet {
     private func priceSpoken(_ watch: Watch, isPreview: Bool) -> String {
         let now = TimeUtils.nowMillis
         let notTraded = ConnectionErrors.isNotTraded(watch.lastError)
+        let outdatedAfter = isPreview ? 0 : data.staleAfterMillis(for: watch.id)
         let freshness = A11ySpeech.freshness(
             disabled: watch.disabled && !isPreview, notTraded: notTraded,
             failed: !(watch.lastError ?? "").isEmpty && !notTraded,
-            lastUpdate: watch.lastUpdate, now: now, outdatedAfter: isPreview ? 0 : data.staleAfterMillis(for: watch.id))
+            lastUpdate: watch.lastUpdate, now: now, outdatedAfter: outdatedAfter)
         let outdated = freshness == .outdated || freshness == .unreachableOutdated
-        let stale = outdated
-            ? A11ySpeech.freshnessText(.outdated, lastUpdate: watch.lastUpdate, now: now, market: watch.marketName)
-            : nil
+        var stale: String?
+        if outdated {
+            stale = A11ySpeech.freshnessText(.outdated, lastUpdate: watch.lastUpdate, now: now, market: watch.marketName)
+        } else if !notTraded, (watch.lastError ?? "").isEmpty, !(watch.disabled && !isPreview), outdatedAfter > 0,
+                  PriceFreshness.staleReason(watch, now: now, staleAfter: outdatedAfter) == .trade {
+            // Abruf frisch, letzter Handel laut Börse > 2 h (Regel der Alarmsperre): wie die Zeile — wie Android
+            stale = L("watchlist_row_last_trade_age", WatchlistTime.ago(watch.exchangeTime ?? 0, now: now))
+        }
         let price = A11ySpeech.spokenPrice(PriceFormat.priceWithCurrency(watch.lastPrice, watch.quoteAsset),
                                            quote: watch.quoteAsset)
         return A11ySpeech.join([L("a11y_price", price), stale])

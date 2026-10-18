@@ -236,7 +236,7 @@ final class AlarmLogTests: XCTestCase {
     /// Ein Durchlauf wie App, Hintergrund und Widget; liefert die protokollierten Einträge.
     private func run(_ alarm: Alarm, store: FakeStore, price: Double, at: Int64, settings: AppSettings = AppSettings(),
                      inputs: PriceRefresher.AlarmInputs = PriceRefresher.AlarmInputs(), shows: Bool = true,
-                     delivery: AlarmDelivery, log: LogBox) async {
+                     snoozedUntil: Int64? = nil, delivery: AlarmDelivery, log: LogBox) async {
         if store.snapshot.watches.isEmpty {
             store.snapshot.watches = [Watch(id: 1, marketKey: "binance", marketName: "Binance", baseAsset: "BTC",
                                             quoteAsset: "USDT", lastPrice: 99)]
@@ -256,6 +256,7 @@ final class AlarmLogTests: XCTestCase {
         _ = await outcome.deliverAlarms(settings: settings, current: store.snapshot.alarms,
                                         save: { store.save($0, $1) }, reloadStored: { store.snapshot.alarms },
                                         notifier: notifier, delivery: delivery, now: { at },
+                                        snoozedUntil: { _ in snoozedUntil },
                                         recordLog: { entries, _ in log.add(entries) })
     }
 
@@ -314,6 +315,22 @@ final class AlarmLogTests: XCTestCase {
         // Gleich danach: unbestätigter Versuch, Neuversuch erst nach der Abklingzeit
         await run(alarm, store: store, price: 101.5, at: now + 60_000, delivery: delivery, log: log)
         XCTAssertEqual(log.last(7)?.outcome, .COOLDOWN)
+    }
+
+    /// «1 h später» hält wie die Nachtruhe zurück: nicht gemeldet, Alarm bleibt scharf; danach meldet er sich.
+    func testSnoozeHoldsAlarmArmedAndIsLogged() async {
+        let delivery = AlarmDelivery(storeKey: "pairs", store: defaults)
+        let store = FakeStore()
+        let log = LogBox()
+        let alarm = Alarm(id: 7, watchId: 1, condition: .PRICE_ABOVE, threshold: 100, repeating: true)
+        let until = AlarmSnooze.snoozeUntil(now: now)
+        await run(alarm, store: store, price: 101, at: now + 60_000, snoozedUntil: until, delivery: delivery, log: log)
+        XCTAssertEqual(log.last(7)?.outcome, .SNOOZED)
+        XCTAssertEqual(log.last(7)?.notable, true)
+
+        // Pause vorbei, Kurs unverändert über der Marke: meldet sich jetzt — er war also scharf geblieben
+        await run(alarm, store: store, price: 101, at: until + 60_000, snoozedUntil: until, delivery: delivery, log: log)
+        XCTAssertEqual(log.last(7)?.outcome, .FIRED)
     }
 
     func testConversionWithoutRateIsNoRate() async {

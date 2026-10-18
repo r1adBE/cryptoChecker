@@ -22,6 +22,8 @@ final class AppRouter: ObservableObject {
     @Published var focusWatchId: Int64?
     /// Alarme eines Paars in der Merkliste öffnen (z. B. «Alarm setzen» nach dem ersten Paar).
     @Published var openAlarmsWatchId: Int64?
+    /// «Anpassen» aus einer Alarm-Mitteilung: `AlarmsScreen` öffnet den Editor dieses Alarms (dann gelöscht).
+    @Published var pendingEditAlarmId: Int64?
     /// Seite «Paar hinzufügen» über der Merkliste offen («+», Shortcut, Widget, Link "add").
     @Published var showExplorer = false
     /// Seite «Paar hinzufügen» mit dieser Suche öffnen («Heute auffällig» im Markt-Tab).
@@ -68,6 +70,7 @@ final class AppRouter: ObservableObject {
         case .watchlist:
             showAlarmsOverview = false
             openAlarmsWatchId = nil
+            pendingEditAlarmId = nil
             openWhyWatchId = nil
         case .settings:
             showPortfolioSettings = false
@@ -100,7 +103,7 @@ final class AppRouter: ObservableObject {
     }
 
     /// Ziel aus einem Shortcut oder Link: "add", "alarms", "cycle", "cycle/macro", "portfolio",
-    /// "watch/<id>", "why/<id>".
+    /// "watch/<id>", "why/<id>", "alarm/<Paar>/<Alarm>".
     func open(_ target: String) {
         switch target {
         case "add": openExplorer()
@@ -128,6 +131,11 @@ final class AppRouter: ObservableObject {
             } else if target.hasPrefix("why/"), let id = Int64(target.dropFirst(4)) {
                 tab = .watchlist
                 openWhyWatchId = id
+            } else if let edit = AlarmEditTarget.parse(target) {
+                // «Anpassen»: Alarme des Paars, darin der Editor des Alarms
+                tab = .watchlist
+                pendingEditAlarmId = edit.alarmId
+                openAlarmsWatchId = edit.watchId
             }
         }
     }
@@ -222,7 +230,7 @@ final class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCent
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
         BackgroundRefresh.register()
         UNUserNotificationCenter.current().delegate = self
-        // Aktion «Was bewegt sich mit?» an Kursalarmen gehandelter Paare
+        // Aktionen der Kursalarme («Was bewegt sich mit?», «1 h später», «Anpassen») und der Depeg-Mitteilung
         Notifier.registerCategories()
         BackgroundRefresh.schedule(settings: SharedStorage.loadSettings())
         return true
@@ -256,7 +264,14 @@ final class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCent
         let watchId = (response.notification.request.content.userInfo[Notifier.userInfoWatchId] as? NSNumber)?.int64Value
         let exchangeUrl = (response.notification.request.content.userInfo[Notifier.userInfoExchangeUrl] as? String)
             .flatMap { URL(string: $0) }
-        if response.actionIdentifier == Notifier.actionOpenExchange, let url = exchangeUrl, url.scheme == "https" {
+        let alarmId = (response.notification.request.content.userInfo[Notifier.userInfoAlarmId] as? NSNumber)?.int64Value
+        if response.actionIdentifier == Notifier.actionSnooze, let alarmId {
+            // «1 h später»: Pause vermerken (der Alarm bleibt scharf), Mitteilung weg — App bleibt im Hintergrund
+            AlarmSnooze.snooze(alarmId, now: TimeUtils.nowMillis)
+            Notifier.cancelAlarm(alarmId)
+        } else if response.actionIdentifier == Notifier.actionEdit, let alarmId, let id = watchId {
+            Task { @MainActor in AppRouter.shared.open(AlarmEditTarget.of(watchId: id, alarmId: alarmId)) }
+        } else if response.actionIdentifier == Notifier.actionOpenExchange, let url = exchangeUrl, url.scheme == "https" {
             // USDT-Depeg «Börse öffnen»: Seite USDC/USDT der Börse (App der Börse, falls sie den Link übernimmt)
             Task { @MainActor in UIApplication.shared.open(url, options: [:], completionHandler: nil) }
         } else if response.actionIdentifier == Notifier.actionWhy, let id = watchId {

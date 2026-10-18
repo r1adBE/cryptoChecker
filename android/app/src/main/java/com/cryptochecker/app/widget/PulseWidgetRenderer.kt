@@ -9,17 +9,14 @@ import android.util.TypedValue
 import android.view.View
 import android.widget.RemoteViews
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
-import com.cryptochecker.app.ui.theme.MarketScalePalette
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.CachedValue
 import com.cryptochecker.app.data.CycleCacheCodecs
 import com.cryptochecker.app.data.CycleCacheStore
 import com.cryptochecker.app.data.remote.PulseDataSource
 import com.cryptochecker.app.domain.market.CryptoPulse
-import com.cryptochecker.app.domain.market.CycleCachePolicy
 import com.cryptochecker.app.domain.market.CycleSource
 import com.cryptochecker.app.domain.market.MarketPlainSummary
-import com.cryptochecker.app.domain.market.PulseBreadth
 import com.cryptochecker.app.domain.market.PulseInput
 import com.cryptochecker.app.settings.HighContrast
 import com.cryptochecker.app.settings.SettingsRepository
@@ -28,14 +25,10 @@ import com.cryptochecker.app.util.A11yText
 import com.cryptochecker.app.util.LocaleNumbers
 import com.cryptochecker.app.util.PriceFormat
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
-import kotlinx.coroutines.withTimeoutOrNull
 import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -50,13 +43,10 @@ class PulseWidgetRenderer @Inject constructor(
     @param:ApplicationContext private val context: Context,
     private val widgetPrefs: WidgetPrefs,
     private val settingsRepository: SettingsRepository,
-    private val pulseDataSource: PulseDataSource,
+    private val pulseData: PulseWidgetData,
     private val cycleCacheStore: CycleCacheStore,
     private val toolkit: WidgetToolkit,
 ) {
-    /** Höchstens ein Abruf der Pulse-Daten gleichzeitig (mehrere Auslöser kurz nacheinander). */
-    private val pulseMutex = Mutex()
-
     /** Abruf im Hintergrund, damit [WidgetUpdater.updateAll] (Kurs-Aktualisierung) nicht auf das Netz wartet. */
     private val pulseScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
 
@@ -70,11 +60,11 @@ class PulseWidgetRenderer @Inject constructor(
      */
     suspend fun update(appWidgetIds: IntArray, fetch: Boolean = true) {
         if (appWidgetIds.isEmpty()) return
-        val cached = readPulse()
+        val cached = pulseData.readPulse()
         // Ohne gespeicherte Daten erst nach dem Abruf zeichnen (sonst kurz «nicht verfügbar»)
         if (cached != null || !fetch) drawPulse(appWidgetIds, cached)
-        if (!fetch || isPulseFresh(cached)) return
-        val loaded = loadPulse()
+        if (!fetch || pulseData.isPulseFresh(cached)) return
+        val loaded = pulseData.loadPulse()
         if (loaded != null) drawPulse(appWidgetIds, loaded) else if (cached == null) drawPulse(appWidgetIds, null)
     }
 
@@ -85,44 +75,13 @@ class PulseWidgetRenderer @Inject constructor(
     suspend fun updateWithOthers() {
         val ids = pulseWidgetIds()
         if (ids.isEmpty()) return
-        val cached = readPulse()
+        val cached = pulseData.readPulse()
         if (cached != null) drawPulse(ids, cached)
-        if (isPulseFresh(cached)) return
+        if (pulseData.isPulseFresh(cached)) return
         pulseScope.launch {
-            val loaded = loadPulse()
+            val loaded = pulseData.loadPulse()
             if (loaded != null || cached == null) drawPulse(pulseWidgetIds(), loaded)
         }
-    }
-
-    private fun isPulseFresh(value: CachedValue<PulseInput>?): Boolean =
-        value != null && CycleCachePolicy.isFresh(value.savedAt, System.currentTimeMillis(), CycleSource.PULSE.ttlMillis)
-
-    /** Gespeicherte Pulse-Eingaben, nur wenn sie sich auswerten lassen (wie im Markt-Tab). */
-    private suspend fun readPulse(): CachedValue<PulseInput>? =
-        cycleCacheStore.read(CycleSource.PULSE.key, CycleCacheCodecs.pulseInput)
-            ?.takeIf { CryptoPulse.evaluate(it.value) != null }
-
-    /**
-     * Frisch laden (harte Zeitgrenze des Bereichs) und speichern; null bei Fehler. Lief
-     * inzwischen schon ein Abruf (anderer Auslöser), gilt dessen frisches Ergebnis.
-     */
-    private suspend fun loadPulse(): CachedValue<PulseInput>? = pulseMutex.withLock {
-        readPulse()?.takeIf { isPulseFresh(it) }?.let { return@withLock it }
-        val fetched = try {
-            withTimeoutOrNull(CycleSource.PULSE.timeoutMillis) { pulseDataSource.fetchInput() }
-        } catch (e: kotlinx.coroutines.TimeoutCancellationException) {
-            Timber.d(e, "Pulse für Widget: Zeitüberschreitung")
-            null
-        } catch (e: CancellationException) {
-            throw e
-        } catch (e: Exception) {
-            Timber.w(e, "Pulse für Widget nicht verfügbar")
-            null
-        }
-        val fresh = fetched?.takeIf { CryptoPulse.evaluate(it) != null } ?: return@withLock null
-        val at = fresh.time.takeIf { it > 0L } ?: System.currentTimeMillis()
-        cycleCacheStore.write(CycleSource.PULSE.key, fresh, at, CycleCacheCodecs.pulseInput)
-        CachedValue(fresh, at)
     }
 
     /**
@@ -229,7 +188,7 @@ class PulseWidgetRenderer @Inject constructor(
                     context.getString(R.string.pulse_breadth_label, it.total) + " · " + period24h + "  " + PriceFormat.ARROW_UP + " " + LocaleNumbers.integer(it.up) + "  " + PriceFormat.ARROW_DOWN + " " + LocaleNumbers.integer(it.down)
                 }
                 // Stufenpunkt «●» vor Fear & Greed (feste Skala, AA); gehört zur gemessenen Breite
-                val fearGreedShown = fearGreedText?.let { "$FNG_DOT $it" }
+                val fearGreedShown = fearGreedText?.let { "${PulseSideLine.FNG_DOT} $it" }
                 val bothText = if (fearGreedShown != null && breadthText != null) "$fearGreedShown · $breadthText" else null
                 fun sideWidth(text: String?) = text?.let { toolkit.textWidthDp(it, 12f, bold = false, tabular = true) }
                 val sideLayout = PulseWidgetMath.sideLayout(
@@ -238,7 +197,7 @@ class PulseWidgetRenderer @Inject constructor(
                     // Allein in der ersten Zeile ohne Punkt; als zweite Zeile mit Punkt davor (eigene Breite)
                     breadthWidthDp = sideWidth(breadthText),
                     bothWidthDp = sideWidth(bothText),
-                    breadthLineWidthDp = sideWidth(breadthText?.let { "$FNG_DOT $it" }),
+                    breadthLineWidthDp = sideWidth(breadthText?.let { "${PulseSideLine.FNG_DOT} $it" }),
                 )
                 val showFng = sideLayout?.showsFearGreed == true
                 val showBreadth = sideLayout?.showsBreadth == true
@@ -250,12 +209,12 @@ class PulseWidgetRenderer @Inject constructor(
                     null -> null
                 }
                 // Zweite Zeile mit eigenem Punkt vor «Top 30», damit beide Zeilen gleich aussehen (wie iOS)
-                val secondText = breadthText?.takeIf { sideLayout == PulseSideLayout.TWO_LINES }?.let { "$FNG_DOT $it" }
+                val secondText = breadthText?.takeIf { sideLayout == PulseSideLayout.TWO_LINES }?.let { "${PulseSideLine.FNG_DOT} $it" }
                 views.setViewVisibility(R.id.pulse_fng, if (sideText != null) View.VISIBLE else View.GONE)
                 views.setTextViewText(
                     R.id.pulse_fng,
                     sideText?.let {
-                        sideLine(
+                        PulseSideLine.sideLine(
                             it,
                             fearGreedValue.takeIf { showFng },
                             fearGreedShown,
@@ -268,7 +227,7 @@ class PulseWidgetRenderer @Inject constructor(
                 views.setViewVisibility(R.id.pulse_breadth, if (secondText != null) View.VISIBLE else View.GONE)
                 views.setTextViewText(
                     R.id.pulse_breadth,
-                    secondText?.let { sideLine(it, null, null, breadth, colors) } ?: ""
+                    secondText?.let { PulseSideLine.sideLine(it, null, null, breadth, colors) } ?: ""
                 )
                 views.setTextColor(R.id.pulse_breadth, colors.secondaryTextColor)
 
@@ -426,59 +385,8 @@ class PulseWidgetRenderer @Inject constructor(
         )
     }
 
-    /**
-     * Nebenzeile mit Farben wie in der App: die Fear-&-Greed-Zahl in der Textfarbe (wie
-     * die Karte im Markt-Tab), davor der Stufenpunkt «●» in der Skala aus den Kursfarben des Widgets
-     * ([WidgetColors.scaleSteps], gleiche Mischung wie die App, ≥ 3:1 als Grafik) — so passt er zu den Pfeilen;
-     * «↗ 21» in der Kursfarbe für steigend, «↘ 9» für fallend.
-     * Der Rest bleibt grau (Textfarbe der Zeile). Nur Farben — die Breite (Textanpassung) ändert sich nicht.
-     */
-    private fun sideLine(
-        text: String,
-        fearGreedValue: Int?,
-        fearGreedText: String?,
-        breadth: PulseBreadth?,
-        colors: WidgetColors,
-    ): CharSequence {
-        val out = android.text.SpannableString(text)
-        fun color(start: Int, length: Int, value: Int) {
-            if (start >= 0) {
-                out.setSpan(android.text.style.ForegroundColorSpan(value), start, start + length, android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-            }
-        }
-        if (fearGreedValue != null && fearGreedText != null) {
-            val from = text.indexOf(fearGreedText)
-            val number = LocaleNumbers.integer(fearGreedValue)
-            // Zahl in Textfarbe statt Stufenfarbe: die Stufenfarben erreichen als Text kein AA (Build 43, wie die Karte)
-            if (from >= 0) color(text.indexOf(number, from), number.length, colors.textColor)
-            // Stufenpunkt am Anfang des Fear-&-Greed-Teils in der Farbe der Stufe
-            if (from >= 0 && text.startsWith(FNG_DOT, from)) {
-                color(from, FNG_DOT.length, colors.scaleSteps[MarketScalePalette.level(fearGreedValue)])
-            }
-        }
-        if (breadth != null) {
-            // Punkt vor «Top 30» (zweite Zeile): Kursfarbe der Mehrheit, gleich viele → grau (wie iOS)
-            if (text.startsWith(FNG_DOT) && fearGreedValue == null) {
-                val dot = when {
-                    breadth.up > breadth.down -> colors.upColor
-                    breadth.down > breadth.up -> colors.downColor
-                    else -> colors.secondaryTextColor
-                }
-                color(0, FNG_DOT.length, dot)
-            }
-            val up = PriceFormat.ARROW_UP + " " + LocaleNumbers.integer(breadth.up)
-            val down = PriceFormat.ARROW_DOWN + " " + LocaleNumbers.integer(breadth.down)
-            color(text.indexOf(up), up.length, colors.upColor)
-            color(text.indexOf(down), down.length, colors.downColor)
-        }
-        return out
-    }
-
     private companion object {
         const val ACTION_OPEN_MARKET = "com.cryptochecker.app.action.OPEN_MARKET"
-
-        /** Stufenpunkt vor Fear & Greed (wie iOS `PulseSideLine.dot`). */
-        const val FNG_DOT = "\u25CF"
 
         /** Eigener Request-Code (neben [WidgetOutdated] und [WidgetRefreshUnlock]). */
         const val PLAIN_EXPIRY_REQUEST_CODE = -7_015

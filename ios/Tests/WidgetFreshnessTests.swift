@@ -47,4 +47,20 @@ final class WidgetFreshnessTests: XCTestCase {
         XCTAssertNil(WidgetFreshness.unchangedSince(watch(disabled: true), now: now, afterMillis: after))
         XCTAssertNil(WidgetFreshness.unchangedSince(watch(error: "timeout"), now: now, afterMillis: after))
     }
+
+    func testOutdatedLikeTheRowAndTheAlarmBlock() {
+        // Abruf zu alt: Zeit des Abrufs
+        XCTAssertEqual(WidgetFreshness.outdatedTime(watch(lastUpdateAgo: hour), now: now, afterMillis: after), now - hour)
+        // Abruf frisch, letzter Handel 3 h her: Zeit des Handels; ruhiges Paar (1 h) nicht
+        XCTAssertEqual(WidgetFreshness.outdatedTime(watch(exchangeTime: now - 3 * hour), now: now, afterMillis: after),
+                       now - 3 * hour)
+        XCTAssertNil(WidgetFreshness.outdatedTime(watch(exchangeTime: now - hour), now: now, afterMillis: after))
+        XCTAssertNil(WidgetFreshness.outdatedTime(watch(), now: now, afterMillis: after))
+        XCTAssertNil(WidgetFreshness.outdatedTime(watch(lastUpdateAgo: hour, disabled: true), now: now, afterMillis: after))
+        // Wecker: Handel so verschoben, dass er mit derselben Grenze genau nach 2 h wechselt
+        let w = watch(exchangeTime: now - hour)
+        XCTAssertEqual(WidgetFreshness.outdatedTimes(w, afterMillis: after), [w.lastUpdate, now - hour + 2 * hour - after])
+        XCTAssertEqual(OutdatedRule.nextChangeAt([now - hour + 2 * hour - after], now: now, afterMillis: after),
+                       now + hour + 1)
+    }
 }

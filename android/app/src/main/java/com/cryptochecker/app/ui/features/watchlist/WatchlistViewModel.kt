@@ -15,9 +15,7 @@ import com.cryptochecker.app.data.live.LivePriceStream
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.data.portfolio.CurrencyConverter
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmRepository
-import com.cryptochecker.app.domain.activity.ActivityReport
 import com.cryptochecker.app.domain.activity.WhyReport
-import com.cryptochecker.app.domain.convert.CurrencyConversion
 import com.cryptochecker.app.domain.live.LivePair
 import com.cryptochecker.app.domain.live.LiveQuote
 import com.cryptochecker.app.domain.refresh.ManualRefresh
@@ -33,7 +31,6 @@ import com.cryptochecker.app.domain.watch.DayChange
 import com.cryptochecker.app.domain.watch.SheetChartRange
 import com.cryptochecker.app.domain.watch.SheetChartResult
 import com.cryptochecker.app.domain.watch.SortKey
-import com.cryptochecker.app.domain.watch.WatchFilter
 import com.cryptochecker.app.notification.AppNotifier
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.util.ConnectivityMonitor
@@ -41,28 +38,24 @@ import com.cryptochecker.app.widget.WidgetPrefs
 import com.cryptochecker.app.widget.WidgetUpdater
 import com.cryptochecker.app.work.PriceUpdateScheduler
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.flow.transformLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
  * ViewModel der Merkliste. Setzt sich aus Teilen mit je eigener Aufgabe zusammen, die ihren Zustand privat
  * halten und nur lesbare StateFlows und Funktionen anbieten: Start-Auswahl ([WatchlistStarterController]),
- * schreibende Aktionen ([WatchlistEditController]), Aktualisieren ([WatchlistRefreshController]) und die
- * Lese-Abfragen für Zeilen und Aktionsblatt ([WatchlistSheetData]). Hier stehen die Ableitungen aus Datenbank
- * und Einstellungen; der Bildschirm sammelt sie gebündelt als [uiState].
+ * schreibende Aktionen ([WatchlistEditController]), Aktualisieren ([WatchlistRefreshController]), die
+ * Lese-Abfragen für Zeilen und Aktionsblatt ([WatchlistSheetData]), der gespeicherte Inhalt mit Gruppen und
+ * Alarmen ([WatchlistContentFlows]) und der Live-Stand mit Umrechnung ([WatchlistLiveFlows]). Hier stehen die
+ * Ableitungen aus den Einstellungen; der Bildschirm sammelt alles gebündelt als [uiState].
  */
 @HiltViewModel
 class WatchlistViewModel @Inject constructor(
@@ -85,7 +78,7 @@ class WatchlistViewModel @Inject constructor(
     coinLogoRepository: CoinLogoRepository,
     /** Namen der Coins je Börse: klar anderer Name als in der Alpha-Liste → kein «α» ([AssetKind.of]). */
     private val tokenIdentityStore: TokenIdentityStore,
-    /** Nur für [alarmTotal] (Ziel der Glocke): gibt es Portfolio-Alarme? */
+    /** Nur für [WatchlistContentFlows.alarmTotal] (Ziel der Glocke): gibt es Portfolio-Alarme? */
     portfolioAlarmRepository: PortfolioAlarmRepository,
     /** Daten für Aktionsblatt und Zeilen (Mini-Chart, Herkunft, Futures, Spot, Chart). */
     private val sheetData: WatchlistSheetData,
@@ -111,7 +104,7 @@ class WatchlistViewModel @Inject constructor(
         refreshAll = refresh::refreshAll,
     )
 
-    private val edits = WatchlistEditController(
+    private val edits: WatchlistEditController = WatchlistEditController(
         scope = viewModelScope,
         watchRepository = watchRepository,
         settingsRepository = settingsRepository,
@@ -120,7 +113,7 @@ class WatchlistViewModel @Inject constructor(
         widgetUpdater = widgetUpdater,
         widgetPrefs = widgetPrefs,
         addMoments = addMoments,
-        groupFilter = { groupFilter.value },
+        groupFilter = { contentFlows.groupFilter.value },
         refreshAll = refresh::refreshAll,
     )
 
@@ -137,21 +130,11 @@ class WatchlistViewModel @Inject constructor(
         .shareIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), replay = 1)
 
     /**
-     * Gespeicherte Merkliste OHNE Live-Kurse: ein WebSocket-Tick soll nicht die ganze Liste neu
-     * ausgeben (das setzte bei jedem Tick den ganzen Bildschirm neu zusammen). Den Live-Kurs legt
-     * jede Zeile selbst darüber ([livePrices], [LiveOverlay.apply]); gespeichert wird alle 10 s.
-     */
-    private val shownList: SharedFlow<List<WatchEntity>> = watchList
-
-    /**
      * Live-Kurse je Watch-Id, höchstens zweimal je Sekunde neu. Nur Zeilen (und das offene
      * Aktionsblatt) lesen davon — je über `derivedStateOf` nur den Kurs ihres Paars. Bewusst nicht
      * in [uiState]: ein Tick soll nicht den ganzen Bildschirm neu zusammensetzen.
      */
     val livePrices: StateFlow<Map<Long, LiveQuote>> = livePriceStream.prices
-
-    /** Börsen, deren Live-Strom gerade Kurse liefert («LIVE» in der Status-Pille, Bericht). */
-    private val liveExchanges: StateFlow<List<String>> = livePriceStream.liveExchanges
 
     /** Watch-Ids der Paare, deren Börse gerade per WebSocket liefert (Frische 2 Min., «Live» nur mit allen). */
     val liveWatchIds: StateFlow<Set<Long>> = livePriceStream.liveWatchIds
@@ -187,94 +170,6 @@ class WatchlistViewModel @Inject constructor(
     fun clearColumnSort() {
         if (columnSort.value != null) viewModelScope.launch { settingsRepository.setWatchlistColumnSort(null) }
     }
-
-    /** Quote-Währungen der Merkliste (Grossbuchstaben), für die Umrechnungsfaktoren unten. */
-    private val quoteCurrencies = watchList
-        .map { list -> list.map { CurrencyConversion.normalize(it.quoteAsset) }.filter { it.isNotEmpty() }.toSet() }
-        .distinctUntilChanged()
-
-    /**
-     * Faktor je Quote-Währung in CHF, nur fürs Sortieren nach Kurs — im Hintergrund, auch ohne
-     * eingeschaltete «≈ Umrechnung». Geholt nur, solange nach Kurs sortiert wird (sonst keine
-     * Abfrage); danach höchstens alle 60 s neu.
-     */
-    @OptIn(ExperimentalCoroutinesApi::class)
-    private val sortRates: StateFlow<Map<String, Double>> = combine(
-        columnSort.map { it?.key == SortKey.PRICE }.distinctUntilChanged(),
-        quoteCurrencies,
-    ) { byPrice, quotes -> byPrice to quotes }
-        .transformLatest { (byPrice, quotes) ->
-            val wanted = quotes.filterNot { CurrencyConversion.sameCurrency(it, SORT_CURRENCY) }
-            if (!byPrice || wanted.isEmpty()) {
-                emit(emptyMap())
-                return@transformLatest
-            }
-            var known = currencyConverter.cachedRates(wanted, SORT_CURRENCY)
-            emit(known)
-            while (true) {
-                val fresh = runCatching { currencyConverter.rates(wanted, SORT_CURRENCY) }
-                    .onFailure { if (it is kotlinx.coroutines.CancellationException) throw it }
-                    .getOrDefault(emptyMap())
-                known = known + fresh
-                emit(known)
-                delay(CONVERT_REFRESH_MILLIS)
-            }
-        }
-        .distinctUntilChanged()
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyMap())
-
-    /** «≈ Umrechnung» eingeschaltet und Zielwährung — ändert sich nur mit den Einstellungen. */
-    private val conversionSetting = watchlistSettings
-        .map { it.showConverted to it.portfolioCurrency }
-        .distinctUntilChanged()
-
-    private val convertFxTimesState = MutableStateFlow<Map<String, Long>>(emptyMap())
-
-    /**
-     * Je Quote-Währung (Grossbuchstaben) die Abrufzeit des Devisenkurses im Faktor von [convertRates],
-     * nur wenn älter als 3 h ([CurrencyConversion.FX_STALE_MILLIS]) — die Zeile zeigt dann «· Kurs 08:15».
-     * Aufgefrischt mit [convertRates].
-     */
-    private val convertFxTimes: StateFlow<Map<String, Long>> = convertFxTimesState.asStateFlow()
-
-    /**
-     * Faktor je Quote-Währung (Grossbuchstaben) in die Zielwährung, z. B.
-     * «USDT» → 0.8. Zuerst aus den Zwischenspeichern, dann frisch; danach
-     * höchstens alle 60 s neu — ausser die Menge der Quote-Währungen ändert sich.
-     */
-    @OptIn(ExperimentalCoroutinesApi::class)
-    private val convertRates: StateFlow<Map<String, Double>> = combine(
-        conversionSetting,
-        quoteCurrencies,
-    ) { setting, quotes -> setting to quotes }
-        .transformLatest { (setting, quotes) ->
-            val (show, target) = setting
-            val wanted = quotes.filterNot { CurrencyConversion.sameCurrency(it, target) }
-            if (!show || wanted.isEmpty()) {
-                convertFxTimesState.value = emptyMap()
-                emit(emptyMap())
-                return@transformLatest
-            }
-            var known = currencyConverter.cachedRates(wanted, target)
-            convertFxTimesState.value = currencyConverter.staleFxTimes(wanted, target)
-            emit(known)
-            while (true) {
-                val fresh = runCatching { currencyConverter.rates(wanted, target) }
-                    .onFailure { if (it is kotlinx.coroutines.CancellationException) throw it }
-                    .getOrDefault(emptyMap())
-                // Fehlt ein Kurs diesmal, bleibt der letzte bekannte stehen
-                known = known + fresh
-                // Alter der Devisenkurse nach dem Auffrischen (älter als 3 h: Uhrzeit in der Zeile)
-                convertFxTimesState.value = currencyConverter.staleFxTimes(wanted, target)
-                emit(known)
-                delay(CONVERT_REFRESH_MILLIS)
-            }
-        }
-        .distinctUntilChanged()
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyMap())
-
-    /** Ergebnisse «Ungewöhnliche Aktivität» je Paar; abgelaufene Signale filtert die Oberfläche. */
-    private val activity: StateFlow<Map<Long, ActivityReport>> = activityRepository.reports
 
     /** Chart-Art im Aktionsblatt: zuletzt gewählt, für alle Paare gleich (Standard Kerzen). */
     val sheetChartLine: StateFlow<Boolean> = watchlistSettings
@@ -312,55 +207,11 @@ class WatchlistViewModel @Inject constructor(
         .distinctUntilChanged()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), WatchlistDisplay.initial(settingsRepository.cached))
 
-    /**
-     * null bis die Datenbank zum ersten Mal geantwortet hat — so zeigt die
-     * Liste Platzhalter statt kurz «leer». Eine Quelle für beides, damit
-     * «geladen» und Inhalt nie auseinanderlaufen.
-     */
-    private val watchesOrNull: StateFlow<List<WatchEntity>?> = shownList
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
-
-    /**
-     * Vorhandene Gruppen und die gewählte (null = «Alle»). Eine Gruppe gibt
-     * es, solange mindestens ein Paar sie nutzt; verschwindet die gewählte,
-     * gilt wieder «Alle». null, bis Liste und Einstellung geladen sind —
-     * so blitzt beim Öffnen nicht kurz die ungefilterte Liste auf.
-     */
-    private val groupFilter: StateFlow<GroupFilter?> = combine(
-        watchList,
-        watchlistSettings.map { it.group }.distinctUntilChanged(),
-        coinLogoRepository.tradFiPairs,
-        coinLogoRepository.alphaSymbols,
-        coinLogoRepository.alphaNames,
-    ) { list, group, tradFiPairs, alphaSymbols, alphaNames ->
-        val groups = groupsOf(list)
-        val groupNames = list.map { it.groupName }
-        val tokens = WatchFilter.showsTokens(groupNames)
-        // Art je Paar (Symbol vor der Glocke, «Alpha»-Chip); die Listen liegen gespeichert vor
-        val kinds = list.associate {
-            it.id to it.assetKind(tradFiPairs, alphaSymbols, alphaNames, tokenIdentityStore.pairName(it.marketKey, it.baseAsset))
-        }
-        val alphaFlags = list.map { kinds[it.id] == AssetKind.ALPHA }
-        val alpha = WatchFilter.showsAlpha(alphaFlags)
-        // «FAV» gibt es immer (auch ohne Favoriten); «Token» nur, solange es TradFi- und andere Paare
-        // gibt, «Alpha» nur mit Alpha- und anderen Paaren
-        if (!WatchFilter.isAvailable(group, groupNames, alphaFlags)) {
-            val renamed = group?.let { edits.renamedGroup(it) }?.takeIf { it in groups }
-            settingsRepository.setWatchlistGroup(renamed)
-            GroupFilter(groups, renamed, tokens, alpha, kinds)
-        } else {
-            GroupFilter(groups, group, tokens, alpha, kinds)
-        }
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
-
     /** Aufschlüsselung des letzten Durchlaufs, per Tipp auf die Dauer. */
     val lastRefreshReport: StateFlow<RefreshReport?> get() = refresh.lastRefreshReport
 
     /** Ende der Pause je Börse: «Binance · pausiert bis 19:45» in der Zeitzeile ihrer Paare ([LocalExchangePauses]). */
     val exchangePauses: StateFlow<Map<String, Long>> get() = refresh.exchangePauses
-
-    /** Gerät hat Internet? Ohne: ruhige Statuszeile «Offline · Stand …», keine Aktualisierung. */
-    private val online: StateFlow<Boolean> = connectivity.online
 
     /** App-Start bis zum ersten Bild der Merkliste (zuletzt gemessen), für den Bericht. */
     val appStartMillis: StateFlow<Long?> get() = refresh.appStartMillis
@@ -383,111 +234,39 @@ class WatchlistViewModel @Inject constructor(
     /** Basis und Tagesbeginn, mit denen die gespeicherten Veränderungen gerechnet wurden. */
     val changeStamp: StateFlow<ChangeStamp?> get() = refresh.changeStamp
 
-    /** Alle Alarme der Datenbank (Paar-Alarme), für die Zählungen unten. */
-    private val pairAlarms = watchRepository.observeAllAlarms()
-
-    /**
-     * Alle Alarme, die die Übersicht zeigen würde: Paar-Alarme auch ausgeschaltet, Portfolio-Alarme nur mit
-     * eingeschaltetem Portfolio (wie [com.cryptochecker.app.ui.features.alarms.AlarmsOverviewViewModel]); null bis
-     * geladen. Entscheidet das Ziel der Glocke ([com.cryptochecker.app.domain.watch.AlarmBellRoute]).
-     */
-    private val alarmTotal: StateFlow<Int?> = combine(
-        pairAlarms,
-        portfolioAlarmRepository.observeAll(),
-        watchlistSettings.map { it.portfolioEnabled }.distinctUntilChanged(),
-    ) { pairs, portfolioAlarms, portfolioEnabled ->
-        pairs.size + if (portfolioEnabled) portfolioAlarms.size else 0
-    }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
+    /** Gespeicherte Merkliste mit Gruppen, Alarmen und Aktivität ([WatchlistContentFlows]). */
+    private val contentFlows: WatchlistContentFlows = WatchlistContentFlows(
+        scope = viewModelScope,
+        watchList = watchList,
+        watchlistSettings = watchlistSettings,
+        watchRepository = watchRepository,
+        settingsRepository = settingsRepository,
+        coinLogoRepository = coinLogoRepository,
+        tokenIdentityStore = tokenIdentityStore,
+        portfolioAlarmRepository = portfolioAlarmRepository,
+        activity = activityRepository.reports,
+        renamedGroup = edits::renamedGroup,
+    )
 
     /** Anzahl aktiver Alarme je Paar, für die Anzeige in der Liste (auch im Aktionsblatt des Markt-Tabs). */
-    val alarmCounts: StateFlow<Map<Long, Int>> = pairAlarms
-        .map { alarms ->
-            alarms.filter { it.alarm.enabled }
-                .groupingBy { it.alarm.watchId }
-                .eachCount()
-        }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyMap())
+    val alarmCounts: StateFlow<Map<Long, Int>> = contentFlows.alarmCounts
 
-    /**
-     * Letzte Auslösung irgendeines Alarms (Epoch-ms, 0 = nie); null bis zum ersten Stand aus
-     * der Datenbank — für den kurzen Puls der Glocke ([com.cryptochecker.app.domain.watch.AlarmPulse]).
-     */
-    private val latestAlarmTrigger: StateFlow<Long?> = pairAlarms
-        .map { alarms -> alarms.maxOfOrNull { it.alarm.lastTriggeredAt } ?: 0L }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
+    private val content: StateFlow<WatchlistContent> = contentFlows.content
 
-    /**
-     * Letzte Auslösung je Paar (Epoch-ms; auch abgeschaltete Einmal-Alarme, die nach dem Auslösen
-     * aus sind) — für «Alarm ausgelöst» im Screenreader-Satz der Zeile ([com.cryptochecker.app.util.A11ySpeech.firedRecently]).
-     */
-    private val alarmFiredAt: StateFlow<Map<Long, Long>> = pairAlarms
-        .map { alarms ->
-            alarms.filter { it.alarm.lastTriggeredAt > 0 }
-                .groupBy { it.alarm.watchId }
-                .mapValues { (_, list) -> list.maxOf { it.alarm.lastTriggeredAt } }
-        }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyMap())
-
-    /** Gespeicherte Merkliste mit Gruppen, Alarmen und Aktivität in einem Stand. */
-    private val content: StateFlow<WatchlistContent> = combine(
-        combine(watchesOrNull, groupFilter, alarmCounts, alarmTotal, alarmFiredAt) { watches, filter, counts, total, firedAt ->
-            WatchlistContent.Initial.copy(
-                watches = watches,
-                groupFilter = filter,
-                alarmCounts = counts,
-                alarmTotal = total,
-                alarmFiredAt = firedAt,
-            )
-        },
-        latestAlarmTrigger,
-        activity,
-    ) { base, latest, reports -> base.copy(latestAlarmTrigger = latest, activity = reports) }
-        .stateIn(
-            viewModelScope, SharingStarted.WhileSubscribed(5_000),
-            WatchlistContent(
-                watches = watchesOrNull.value,
-                groupFilter = groupFilter.value,
-                alarmCounts = alarmCounts.value,
-                alarmTotal = alarmTotal.value,
-                alarmFiredAt = alarmFiredAt.value,
-                latestAlarmTrigger = latestAlarmTrigger.value,
-                activity = activity.value,
-            ),
-        )
-
-    /** Aktualisierung, Netz, Live-Strom, Umrechnung und Stempel der Änderungen in einem Stand. */
-    private val live: StateFlow<WatchlistLive> = combine(
-        combine(refresh.refreshing, online, liveExchanges, liveWatchIds) { refreshing, online, exchanges, ids ->
-            WatchlistLive(
-                refreshing = refreshing,
-                online = online,
-                liveExchanges = exchanges,
-                liveWatchIds = ids,
-                convertRates = emptyMap(),
-                convertFxTimes = emptyMap(),
-                sortRates = emptyMap(),
-                changeStamp = null,
-            )
-        },
-        convertRates,
-        convertFxTimes,
-        sortRates,
-        refresh.changeStamp,
-    ) { base, rates, fxTimes, sorting, stamp ->
-        base.copy(convertRates = rates, convertFxTimes = fxTimes, sortRates = sorting, changeStamp = stamp)
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), currentLive())
-
-    private fun currentLive() = WatchlistLive(
-        refreshing = refresh.refreshing.value,
-        online = online.value,
-        liveExchanges = liveExchanges.value,
-        liveWatchIds = liveWatchIds.value,
-        convertRates = convertRates.value,
-        convertFxTimes = convertFxTimes.value,
-        sortRates = sortRates.value,
-        changeStamp = refresh.changeStamp.value,
+    /** Aktualisierung, Netz, Live-Strom, Umrechnung und Stempel der Änderungen ([WatchlistLiveFlows]). */
+    private val liveFlows: WatchlistLiveFlows = WatchlistLiveFlows(
+        scope = viewModelScope,
+        watchList = watchList,
+        columnSort = columnSort,
+        watchlistSettings = watchlistSettings,
+        currencyConverter = currencyConverter,
+        refresh = refresh,
+        online = connectivity.online,
+        liveExchanges = livePriceStream.liveExchanges,
+        liveWatchIds = liveWatchIds,
     )
+
+    private val live: StateFlow<WatchlistLive> = liveFlows.live
 
     /**
      * Alles, was der Merkliste-Bildschirm liest, in einem Stand — gesammelt mit EINEM
@@ -611,8 +390,6 @@ class WatchlistViewModel @Inject constructor(
 /** Gemeinsame Währung fürs Sortieren nach Kurs (nur intern, nie angezeigt). */
 internal const val SORT_CURRENCY = "CHF"
 
-/** Umrechnungsfaktoren der Merkliste höchstens so oft neu holen. */
-private const val CONVERT_REFRESH_MILLIS = 60_000L
 
 /** «Rückgängig»-Schlüssel für «Nicht gehandelte Paare entfernen» (Watch-Ids sind immer positiv). */
 internal const val NOT_TRADED_UNDO_KEY = -1L

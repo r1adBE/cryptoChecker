@@ -211,9 +211,11 @@ extension AppData {
     }
 
     /// Alarm-Protokoll abseits des Hauptfadens schreiben (verschlüsselte Datei, abgestimmt mit Widget und Hintergrund).
+    /// Herkunft «in der App» (Ziehen, Knopf, Live-Kurse) — Hintergrund-Aufgabe und Widget setzen ihre eigene.
     nonisolated static func recordAlarmLog(_ entries: [AlarmLogEntry], live: Bool) {
         guard !entries.isEmpty else { return }
-        Task.detached(priority: .utility) { AlarmLogStore.record(entries, live: live) }
+        let stamped = AlarmLog.withSource(entries, .foreground)
+        Task.detached(priority: .utility) { AlarmLogStore.record(stamped, live: live) }
     }
 
     /// `save` für `Outcome.deliverAlarms`: in den Stand im Speicher und abgewartet auf die Platte, bevor der

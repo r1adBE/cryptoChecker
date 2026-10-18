@@ -42,12 +42,15 @@ struct PortfolioHistoryUi: Equatable, Sendable {
     /// Mit USDT zum Marktkurs umgerechnet, aber an mindestens einem Tag ohne USDT/USD-Kurs (dort 1 als Näherung,
     /// `PortfolioHistoryConverted.usdtApproximate`) — Hinweis «USDT = 1 angenommen». Wie Android.
     var usdtApproximate: Bool = false
+    /// Eigene Börse nicht erreichbar, Verlauf aus einem älteren Stand: dessen Zeit (`PortfolioHistoryAsOf`) — die Karte
+    /// sagt «Stand …»; nil = frisch. Wie Android.
+    var staleSince: Int64?
 
     /// In USDT: derselbe Verlauf unumgerechnet (Umschalter, Vergleich und Hinweise bleiben).
     func forView(_ view: PortfolioHistoryView) -> PortfolioHistoryUi {
         guard view == .usdt, let usdtSeries else { return self }
         return PortfolioHistoryUi(range: range, series: usdtSeries, unit: PortfolioFormat.usdt, converted: converted,
                                   approximateFx: approximateFx, usdtSeries: usdtSeries, compare: compare, scaled: scaled,
-                                  usdtApproximate: usdtApproximate)
+                                  usdtApproximate: usdtApproximate, staleSince: staleSince)
     }
 }

@@ -70,7 +70,7 @@ final class Coinbase: SimpleMarket {
 
     override func fillPairList(call: Int, body: String) throws -> [MarketPair] {
         var out: [MarketPair] = []
-        for product in try JArray(string: body).allObjects() where product.optString("status") != "delisted" {
+        for product in try JArray(string: body).allObjects() where Coinbase.isTradable(product) {
             out.append(MarketPair(
                 try product.string("base_currency"),
                 try product.string("quote_currency"),
@@ -78,5 +78,15 @@ final class Coinbase: SimpleMarket {
             ))
         }
         return out
+    }
+
+    /// Nur handelbare Produkte: Status «online» und Handel nicht gesperrt. «delisted», «offline», «internal» oder
+    /// `trading_disabled` liefern keinen frischen Kurs — sie in der Auswahl anzubieten, hiesse einen stillstehenden Preis
+    /// zu beobachten. Fehlt der Status ganz, bleibt das Produkt (Format geändert: lieber anbieten als die ganze Liste
+    /// verlieren). Wie `Coinbase.isTradable` (Android).
+    private static func isTradable(_ product: JObject) -> Bool {
+        let status = product.optString("status")
+        if !status.isEmpty && status.lowercased() != "online" { return false }
+        return !product.optBool("trading_disabled")
     }
 }

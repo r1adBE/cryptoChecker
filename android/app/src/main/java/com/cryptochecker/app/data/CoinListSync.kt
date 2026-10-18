@@ -5,7 +5,6 @@ import androidx.core.content.edit
 import com.cryptochecker.app.data.remote.callMarket
 import com.cryptochecker.app.data.remote.util.HttpBodyLimit
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
-import com.cryptochecker.app.domain.exceptions.HttpMarketError
 import com.cryptochecker.app.domain.exceptions.NetworkError
 import com.cryptochecker.app.domain.exceptions.TimeoutError
 import com.cryptochecker.app.domain.logos.CoinLists
@@ -23,7 +22,6 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -40,6 +38,7 @@ import javax.inject.Singleton
 import com.cryptochecker.app.domain.logos.alphaSymbols
 import com.cryptochecker.app.domain.logos.hasAlphaIds
 import com.cryptochecker.app.domain.logos.keepAlphaIds
+import com.cryptochecker.app.domain.logos.withStockLogos
 
 /**
  * Abgleich der Listen hinter Logos und Namen (Regeln in [CoinLogos], [CoinMeta], [CoinLists]):
@@ -56,15 +55,15 @@ import com.cryptochecker.app.domain.logos.keepAlphaIds
  */
 @Singleton
 class CoinListSync @Inject constructor(
-    @param:ApplicationContext private val context: Context,
+    @param:ApplicationContext internal val context: Context,
     httpClient: OkHttpClient,
-    private val connectivity: ConnectivityMonitor,
+    internal val connectivity: ConnectivityMonitor,
     private val tokenIdentityStore: TokenIdentityStore,
-    private val imageStore: LogoImageStore,
-    private val names: CoinNames,
+    internal val imageStore: LogoImageStore,
+    internal val names: CoinNames,
     private val alpha: AlphaTokens,
 ) {
-    private val apiClient: OkHttpClient = httpClient
+    internal val apiClient: OkHttpClient = httpClient
 
     /**
      * Binance- und Alpha-Liste (je mehrere MB): längere Zeitgrenze wie bei den Paarlisten — mit den
@@ -75,8 +74,8 @@ class CoinListSync @Inject constructor(
         .readTimeout(LIST_TIMEOUT_SECONDS, TimeUnit.SECONDS)
         .build()
 
-    private val prefs by lazy { CoinLogoStorage.prefs(context) }
-    private val mapFile by lazy { File(context.noBackupFilesDir, MAP_FILE) }
+    internal val prefs by lazy { CoinLogoStorage.prefs(context) }
+    internal val mapFile by lazy { File(context.noBackupFilesDir, MAP_FILE) }
     private val listsFile by lazy { File(context.noBackupFilesDir, LISTS_FILE) }
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
@@ -86,12 +85,12 @@ class CoinListSync @Inject constructor(
     private val listsMutex = Mutex()
 
     /** Zuletzt bekannte Binance- und Alpha-Listen (direkt, Ersatzdatei oder gespeichert). */
-    @Volatile private var lists: CoinMeta.Meta? = null
+    @Volatile internal var lists: CoinMeta.Meta? = null
     @Volatile private var listsRead = false
 
     /** Stand der Listen; die Zuordnung übernimmt neue Listen auch ohne neue Rangliste ([withListsMerged]). */
-    @Volatile private var listsVersion = 0
-    @Volatile private var mergedListsVersion = -1
+    @Volatile internal var listsVersion = 0
+    @Volatile internal var mergedListsVersion = -1
 
     /** Letzte fällige Liste scheiterte am Netz (für [retryPending]). */
     @Volatile private var listsNetworkFailed = false
@@ -121,7 +120,7 @@ class CoinListSync @Inject constructor(
         imageStore.removeOldFallback()
     }
 
-    private suspend fun savedLists(): CoinMeta.Meta? {
+    internal suspend fun savedLists(): CoinMeta.Meta? {
         if (!listsRead) {
             lists = withContext(Dispatchers.IO) { CoinMeta.parse(runCatchingCancellable { listsFile.readText() }.getOrNull()) }
             listsRead = true
@@ -344,156 +343,21 @@ class CoinListSync @Inject constructor(
 
     // ---- 2. Zuordnung Kürzel → Bild (Rangliste von CoinGecko)
 
-    private val mapMutex = Mutex()
-    @Volatile private var map: Map<String, String>? = null
+    internal val mapMutex = Mutex()
+    @Volatile internal var map: Map<String, String>? = null
 
     /** Letzter Abruf der Rangliste scheiterte am Netz (für [retryPending]). */
-    @Volatile private var mapNetworkFailed = false
+    @Volatile internal var mapNetworkFailed = false
 
     /** Zuordnung für die Start-Logos ([LogoImageStore.ensureStarterLogos]); bei Fehlern leer. */
     suspend fun symbolMapOrEmpty(): Map<String, String> = runCatchingCancellable { symbolMap() }.getOrDefault(emptyMap())
 
-    /**
-     * Zuordnung aus Datei bzw. frisch von CoinGecko, zusammengeführt mit den Binance-Listen aus
-     * [refreshLists]; bei Fehlern die alte (auch abgelaufen). Einträge der früheren eigenen Logo-Liste
-     * (GitHub Pages) fallen beim Lesen weg ([CoinLogos.isAllowedUrl]) — dann wird die Liste neu geholt.
-     * [onTop]: Zuordnung nach den grössten 1000 (für den frühen Start der Bilder), nur bei neuem Abruf.
-     */
-    private suspend fun symbolMap(onTop: (suspend (Map<String, String>) -> Unit)? = null): Map<String, String> =
-        mapMutex.withLock { lockedSymbolMap(onTop) }
-
-    private suspend fun lockedSymbolMap(onTop: (suspend (Map<String, String>) -> Unit)?): Map<String, String> {
-        val now = System.currentTimeMillis()
-        // Nach dem Update: bis zum ersten Abruf die Liste der Vorgängerfassung
-        val known = map ?: withContext(Dispatchers.IO) {
-            CoinLogos.decode(CoinLogoStorage.readFirst(mapFile, File(context.noBackupFilesDir, OLD_FILES[0])))
-        }.also { map = it }
-        names.loadSavedNames()
-        val saved = savedLists()
-        mapNetworkFailed = false
-        if (CoinLogos.isFresh(prefs.getLong(KEY_MAP_TIME, 0L), now) && known.isNotEmpty()) return withListsMerged(known)
-        // Letzter Versuch scheiterte vor Kurzem: nicht bei jedem Start erneut fragen
-        if (CoinLogos.isFresh(prefs.getLong(KEY_MAP_ATTEMPT, 0L), now, CoinLogoStorage.MAP_RETRY_MILLIS)) return withListsMerged(known)
-
-        val binance = saved?.binance?.takeIf { it.isNotEmpty() }
-        val alphaList = saved?.alpha?.takeIf { it.isNotEmpty() }
-        val net = NetState()
-        val top = ArrayList<CoinMeta.GeckoRow>()
-        var complete = fetchCoinGecko(top, 1..CoinLogos.PAGES, net)
-        if (top.isEmpty()) {
-            // Kein Netz (z. B. direkt nach der Installation): nicht als Versuch zählen, sondern
-            // nachholen, sobald wieder Netz da ist — sonst kämen eine Stunde lang keine Logos
-            val network = net.failed || !connectivity.isOnline()
-            if (CoinLogoRetry.recordsAttempt(network)) prefs.edit { putLong(KEY_MAP_ATTEMPT, now) }
-            mapNetworkFailed = network
-            // Binance-Listen trotzdem für die Lücken
-            return withListsMerged(known)
-        }
-        // Geänderte Bild-Adressen der grössten 1000 gleich löschen, dann ihre Bilder schon laden
-        val handled = HashSet<String>()
-        if (onTop != null) {
-            val partial = CoinMeta.merge(top, binance, alphaList).map
-            handled += imageStore.dropChangedImages(known, partial)
-            onTop(partial)
-        }
-        // Kleinere Coins (Rang 1001–2500) nur noch für die Lücken — und nur ohne getaktetes Netz (mobile
-        // Daten): sonst gilt die Liste als unvollständig und wird nach einigen Stunden erneut versucht
-        val extra = ArrayList<CoinMeta.GeckoRow>()
-        var extraFetched = false
-        if (complete) {
-            if (CoinLogoStorage.isUnmetered(context)) {
-                complete = fetchCoinGecko(extra, (CoinLogos.PAGES + 1)..(CoinLogos.PAGES + CoinLogos.EXTRA_PAGES), net)
-                extraFetched = complete
-            } else {
-                complete = false
-                Timber.i("Coin-Logos: getaktetes Netz, Zusatzseiten der Rangliste erst im WLAN")
-            }
-        }
-        prefs.edit { putLong(KEY_MAP_ATTEMPT, now) }
-        val merged = CoinMeta.merge(top, binance, alphaList, extra)
-        // Kürzel nur aus den Zusatzseiten merken: ihre Logos lädt der Sammel-Abruf nur ohne getaktetes Netz
-        if (extraFetched) imageStore.saveExtraOnly(CoinLogos.extraOnlyKeys(merged.map, CoinMeta.merge(top, binance, alphaList).map))
-        // Unvollständig (eine Quelle fehlte): Bekanntes behalten und in einigen Stunden erneut
-        val full = complete && binance != null && alphaList != null
-        val fresh = if (full) merged.map else CoinLogos.withKnown(merged.map, known)
-        val newNames = names.applyRankingNames(merged.names, full)
-        withContext(Dispatchers.IO) {
-            runCatchingCancellable {
-                mapFile.parentFile?.mkdirs()
-                mapFile.writeText(CoinLogos.encode(fresh))
-                names.writeNamesFile(newNames)
-                // Listen älterer Fassungen
-                for (old in OLD_FILES) File(context.noBackupFilesDir, old).delete()
-            }.onFailure { Timber.w(it, "Logo-Zuordnung nicht gespeichert") }
-        }
-        prefs.edit {
-            putLong(KEY_MAP_TIME, CoinLogos.savedAtFor(now, full))
-            remove(OLD_KEY_INDEX_ETAG)
-        }
-        // Geänderte Bild-Adressen (anderes Logo, andere Quelle): gespeichertes Bild neu laden
-        imageStore.dropChangedImages(known, fresh, skip = handled)
-        Timber.i("Coin-Logos: Liste mit %d Einträgen (%s)", fresh.size, if (full) "vollständig" else "unvollständig")
-        map = fresh
-        mergedListsVersion = listsVersion
-        return fresh
-    }
-
-    /**
-     * Zuordnung ohne neue Rangliste: neue Binance-/Alpha-Einträge ([refreshLists]) füllen nur Lücken
-     * (Vorhandenes bleibt), damit z. B. ein neues Alpha-Token sein Logo nicht erst nach einem Tag bekommt.
-     */
-    private suspend fun withListsMerged(known: Map<String, String>): Map<String, String> {
-        val l = lists ?: return known
-        if (mergedListsVersion == listsVersion) return known
-        mergedListsVersion = listsVersion
-        val listMap = CoinMeta.merge(emptyList(), l.binance, l.alpha, crypto = CoinMeta.listCrypto(l.binance)).map
-        val out = CoinLogos.withKnown(known, listMap)
-        if (out.size == known.size) return known
-        map = out
-        withContext(Dispatchers.IO) {
-            runCatchingCancellable {
-                mapFile.parentFile?.mkdirs()
-                mapFile.writeText(CoinLogos.encode(out))
-            }.onFailure { Timber.w(it, "Logo-Zuordnung nicht gespeichert") }
-        }
-        return out
-    }
-
     /** Merkt sich, ob eine Quelle am Netz scheiterte (keine Verbindung, Zeitüberschreitung). */
-    private inner class NetState {
+    internal inner class NetState {
         @Volatile var failed = false
         fun note(e: Exception) {
             if (isNetworkError(e)) failed = true
         }
-    }
-
-    /** Eine Seite der Rangliste; bei «429» einmal nach der verlangten Pause wiederholen. */
-    private suspend fun marketsPage(page: Int): String = try {
-        apiClient.callMarket(CoinLogos.marketsUrl(page), null)
-    } catch (e: HttpMarketError) {
-        if (e.httpCode != 429) throw e
-        delay(CoinLogos.rateLimitWaitMillis(e.retryAfterSeconds))
-        apiClient.callMarket(CoinLogos.marketsUrl(page), null)
-    }
-
-    /** Seiten der Rangliste mit Pause dazwischen nach [out]; false = eine Seite fehlte (Abbruch). */
-    private suspend fun fetchCoinGecko(out: MutableList<CoinMeta.GeckoRow>, pages: IntRange, net: NetState): Boolean {
-        for (page in pages) {
-            if (page > 1) delay(CoinLogos.PAGE_PAUSE_MILLIS)
-            try {
-                val rows = CoinMeta.parseMarketsPage(withContext(Dispatchers.IO) { marketsPage(page) })
-                    ?: error("Seite $page unlesbar")
-                out += rows
-                if (rows.size < CoinLogos.PER_PAGE) return true
-            } catch (e: CancellationException) {
-                throw e
-            } catch (e: Exception) {
-                net.note(e)
-                Timber.w("Logo-Rangliste Seite %d nicht verfügbar: %s", page, e.message)
-                return false
-            }
-        }
-        return true
     }
 
     // Zuletzt: alle Felder sind gesetzt, bevor der Start im Hintergrund sie liest
@@ -509,7 +373,7 @@ class CoinListSync @Inject constructor(
         }
     }
 
-    private companion object {
+    internal companion object {
         // «v5»: Einträge der früheren GitHub-Liste fallen beim Lesen weg (isAllowedUrl), dann neu direkt
         const val KEY_MAP_TIME = "map_time_v5"
         const val KEY_MAP_ATTEMPT = "map_attempt_v5"

@@ -5,7 +5,6 @@
 
 package com.cryptochecker.app.ui.features.watchlist
 
-import android.widget.Toast
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -19,25 +18,17 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.text.BasicText
-import androidx.compose.foundation.text.TextAutoSize
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -46,37 +37,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.data.remote.FuturesInfo
-import com.cryptochecker.app.domain.convert.Sats
 import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.app.domain.spot.SpotData
 import com.cryptochecker.app.domain.watch.SheetChartRange
 import com.cryptochecker.app.domain.watch.SheetChartResult
 import com.cryptochecker.app.domain.watch.isNotTraded
-import com.cryptochecker.app.domain.watch.shownChange
 import com.cryptochecker.app.ui.UiTestTags
-import com.cryptochecker.app.ui.components.ChangePillSize
-import com.cryptochecker.app.ui.components.CoinBadge
 import com.cryptochecker.app.ui.components.NoteDialog
-import com.cryptochecker.app.ui.components.SwitchRow
 import com.cryptochecker.app.ui.components.WidgetManualDialog
 import com.cryptochecker.app.ui.components.rememberReduceMotion
-import com.cryptochecker.app.ui.theme.amountNumbers
-import com.cryptochecker.app.ui.theme.display
-import com.cryptochecker.app.ui.theme.headline
-import com.cryptochecker.app.util.ChangeBasisText
-import com.cryptochecker.app.util.LocaleNumbers
 import com.cryptochecker.app.util.PriceFormat
 import com.cryptochecker.app.widget.WidgetKind
 import com.cryptochecker.app.widget.WidgetPinner
@@ -186,147 +161,23 @@ internal fun WatchActionsSheet(
                 .navigationBarsPadding()
                 .padding(start = 24.dp, end = 24.dp, bottom = 16.dp)
         ) {
-            // Kopf: Paar, Börse, Kurs gross; rechts der Stift «Paar bearbeiten»
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                CoinBadge(
-                    watch.baseAsset,
-                    size = 32.dp,
-                    logo = CoinLogos.allowedFor(watch.marketKey),
-                pair = CoinLogos.pairKey(watch.marketKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name),
-                    modifier = Modifier.padding(end = 12.dp)
-                )
-                Column(modifier = Modifier.weight(1f)) {
-                    Text(
-                        watch.displayName,
-                        style = MaterialTheme.typography.headline,
-                        fontWeight = FontWeight.SemiBold
-                    )
-                    Text(
-                        // Vorschau: «Binance · Nicht in der Merkliste»
-                        if (preview) "${watch.marketName} · ${stringResource(R.string.watch_preview_not_watched)}"
-                        else watch.marketName,
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                }
-                // IconButton: 48 dp Tippfläche; Vorschau: nichts zu bearbeiten
-                if (!preview) {
-                    IconButton(onClick = { editPair = true }) {
-                        Icon(
-                            painterResource(R.drawable.ic_edit),
-                            contentDescription = stringResource(R.string.watch_edit_title),
-                            tint = MaterialTheme.colorScheme.primary
-                        )
-                    }
-                }
-            }
-            // %-Basis der Änderung unter dem Kurs (Vorschau: rollende 24 h vom Aufrufer)
-            val headerChangeView = LocalChangeView.current
-            val candleNote = candleSource?.takeIf { watch.lastPrice != null }
-                ?.let { stringResource(R.string.change_candle_source, it) }
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.padding(top = 12.dp)
-            ) {
-                // Langer Kurs wird kleiner statt abgeschnitten (schrittweise bis halbe Grösse);
-                // Betragsschrift wie die Kurse in den Zeilen
-                val priceStyle = MaterialTheme.typography.display.amountNumbers()
-                val priceText = PriceFormat.priceWithCurrency(watch.lastPrice, watch.quoteAsset)
-                // Screenreader: Kurs (Fiat als Wort) und, wenn veraltet, «Kurs veraltet, zuletzt
-                // aktualisiert vor 45 Minuten» — sichtbar steht nur die Uhrzeit darunter
-                val priceSpoken = sheetPriceSpoken(watch, priceText, off, now, outdatedAfter)
-                BasicText(
-                    priceText,
-                    style = priceStyle.copy(fontWeight = FontWeight.SemiBold, color = LocalContentColor.current),
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    autoSize = TextAutoSize.StepBased(
-                        minFontSize = priceStyle.fontSize * 0.5f,
-                        maxFontSize = priceStyle.fontSize,
-                        stepSize = 1.sp,
-                    ),
-                    modifier = Modifier.weight(1f, fill = false).semantics { contentDescription = priceSpoken }
-                )
-            }
             // Eine Zeile unter dem Kurs: «↗ +41.71% · 24h · Aktualisiert 01:42:19» — Änderung farbig,
             // Zeitraum und Stand klein und grau. Mit Fehler, Vorschau ohne Kurs oder deaktiviert
             // steht der Stand wie bisher in der eigenen Zeile weiter unten.
             val updatedInline = watch.lastPrice != null && watch.lastError == null && !off &&
                 !(preview && watch.lastUpdate <= 0)
-            if (watch.lastPrice != null) {
-                val periodLabel = ChangeBasisText.shortLabel(headerChangeView.basis)
-                val updatedText = stringResource(R.string.watchlist_updated, PriceFormat.time(watch.lastUpdate))
-                // Börse meldet den Mittelkurs (z. B. Hyperliquid), keinen letzten Handel: so benennen; fehlte der
-                // Mittelkurs (dünnes Orderbuch), steht der Mark-Preis da — dann so. WOO X Spot: Schluss der
-                // jüngsten Stundenkerze
-                val market = com.cryptochecker.marketdata.util.MarketsConfigUtils.getMarketByKey(watch.marketKey)
-                val midText = when (com.cryptochecker.app.domain.watch.PriceKindLabel.of(
-                    priceIsMid = market.priceIsMid,
-                    markFallback = watch.id in LocalMarkFallback.current,
-                    hourlyClose = market.priceIsHourlyClose,
-                )) {
-                    com.cryptochecker.app.domain.watch.PriceKindLabel.MARK -> " · " + stringResource(R.string.watch_price_mark_fallback)
-                    com.cryptochecker.app.domain.watch.PriceKindLabel.MID -> " · " + stringResource(R.string.watch_price_mid)
-                    com.cryptochecker.app.domain.watch.PriceKindLabel.HOURLY -> " · " + stringResource(R.string.watch_price_hourly)
-                    null -> ""
-                }
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    // Zeitraum steht hier in der Zeile dahinter, nicht in der Änderung selbst
-                    CompositionLocalProvider(LocalChangeView provides headerChangeView.copy(showPeriod = false)) {
-                        DayChangePill(
-                            change = watch.shownChange(headerChangeView),
-                            note = candleNote,
-                            neutral = off,
-                            size = ChangePillSize.MEDIUM,
-                            // Hyperliquid: % Mark gegen Mark, Kurs = Mittelkurs — als «Mark» benennen
-                            mark = com.cryptochecker.app.domain.watch.ChangeBasisMath.showsMark(
-                                com.cryptochecker.marketdata.util.MarketsConfigUtils.getMarketByKey(watch.marketKey).changeIsMark,
-                                headerChangeView.basis,
-                            ),
-                        )
-                    }
-                    Text(
-                        text = " · $periodLabel" + midText + if (updatedInline) " · $updatedText" else "",
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                        modifier = Modifier.padding(top = 3.dp)
-                    )
-                }
-            }
-            // Herkunft aus der Zeile (L-14): «Änderung & Chart: Binance»; sonst Änderung aus fremden
-            // Kerzen (z. B. Kraken-Paar → Binance) — klein darunter sagen, woher
-            val sourceNote = rowSource?.takeIf { watch.lastPrice != null && !preview }?.let { rowSourceText(it) }
-                ?: candleNote
-            if (sourceNote != null) {
-                Text(
-                    sourceNote,
-                    style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.padding(top = 2.dp)
-                )
-            }
-            // Bitcoin: «1 CHF = 1’234 Sats» in der Umrechnungswährung (Kurs mit dem bestehenden Faktor)
-            val bitcoin = Sats.isBitcoin(watch.baseAsset) && !watch.isNotTraded
-            val satsFactor by produceState<Pair<String, Double>?>(null, watch.quoteAsset, bitcoin) {
-                value = if (bitcoin) satsRate(watch.quoteAsset) else null
-            }
-            satsFactor?.let { (currency, rate) ->
-                Sats.perUnit(watch.lastPrice, rate)?.let { sats ->
-                    Text(
-                        stringResource(
-                            R.string.sats_per_unit,
-                            LocaleNumbers.integer(1),
-                            currency,
-                            LocaleNumbers.decimal(sats, maxDecimals = Sats.decimals(sats), grouping = true),
-                        ),
-                        style = MaterialTheme.typography.bodySmall.amountNumbers(),
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        modifier = Modifier.padding(top = 2.dp)
-                    )
-                }
-            }
+            WatchActionsHeader(
+                watch = watch,
+                preview = preview,
+                off = off,
+                updatedInline = updatedInline,
+                now = now,
+                outdatedAfter = outdatedAfter,
+                candleSource = candleSource,
+                rowSource = rowSource,
+                satsRate = satsRate,
+                onEditPair = { editPair = true },
+            )
             // Börse nicht erreichbar, aber ein älterer Kurs steht: ruhiger Satz plus «Erneut versuchen»
             val retryable = watch.lastPrice != null && isRetryableMarketError(watch.lastError)
             if (off) {
@@ -469,74 +320,21 @@ internal fun WatchActionsSheet(
                 )
                 Column(modifier = if (sheetMotion) Modifier.animateContentSize() else Modifier) {
                     if (moreExpanded) {
-                        SheetAction(
-                            icon = R.drawable.ic_list,
-                            text = watch.groupName?.let { stringResource(R.string.group_value, it) }
-                                ?: stringResource(R.string.group_title),
-                            onClick = { editGroup = true }
-                        )
-                        SheetAction(
-                            icon = R.drawable.ic_note,
-                            text = stringResource(if (watch.note.isNullOrBlank()) R.string.note_add else R.string.note_edit),
-                            onClick = { editNote = true }
-                        )
-                        onAddToPortfolio?.let { addToPortfolio ->
-                            SheetAction(
-                                icon = R.drawable.ic_portfolio,
-                                text = stringResource(R.string.portfolio_add_from_watch),
-                                onClick = addToPortfolio
-                            )
-                        }
-                        if (!off) {
-                            SheetAction(
-                                icon = R.drawable.ic_refresh,
-                                text = stringResource(R.string.action_refresh),
-                                onClick = onRefresh
-                            )
-                        }
-                        // Einzel-Widget mit diesem Paar auf den Startbildschirm (Runde 13b); kann der
-                        // Startbildschirm das nicht, eine kurze Anleitung
-                        SheetAction(
-                            icon = R.drawable.ic_widgets,
-                            text = stringResource(R.string.watch_action_add_widget),
-                            onClick = {
+                        SheetMoreActions(
+                            watch = watch,
+                            off = off,
+                            sheetContext = sheetContext,
+                            onEditGroup = { editGroup = true },
+                            onEditNote = { editNote = true },
+                            onAddToPortfolio = onAddToPortfolio,
+                            onRefresh = onRefresh,
+                            onAddWidget = {
                                 if (!WidgetPinner.request(sheetContext, WidgetKind.SINGLE, watch.id)) showWidgetManual = true
-                            }
-                        )
-                        HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
-                        SwitchRow(
-                            title = stringResource(R.string.watchlist_tts),
-                            checked = watch.ttsEnabled,
-                            onCheckedChange = { enabled ->
-                                // Sprachausgabe war aus bzw. «Nur Alarme»: jetzt an — kurz sagen, wo man es ändert
-                                // (Toast statt Banner: das Banner der Merkliste läge hinter dem Blatt)
-                                if (onTtsChange(enabled)) {
-                                    Toast.makeText(sheetContext, R.string.watchlist_tts_speech_on, Toast.LENGTH_LONG).show()
-                                }
                             },
-                            icon = R.drawable.ic_volume_up
-                        )
-                        SwitchRow(
-                            title = stringResource(R.string.watchlist_notification),
-                            checked = watch.notificationEnabled,
-                            onCheckedChange = onNotificationChange,
-                            // Dieselbe schlichte Glocke wie in der Zeile der Merkliste (Alarme: Glocke mit Wellen);
-                            // aus = durchgestrichen
-                            icon = if (watch.notificationEnabled) R.drawable.ic_notifications else R.drawable.ic_notifications_off
-                        )
-                        HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
-                        // Paar deaktivieren (keine Abfragen, keine Meldungen, Alarme ruhen) bzw. wieder aktivieren
-                        SheetAction(
-                            icon = if (watch.disabled) R.drawable.ic_play_circle else R.drawable.ic_pause_circle,
-                            text = stringResource(if (watch.disabled) R.string.watch_enable else R.string.watch_disable),
-                            hint = stringResource(if (watch.disabled) R.string.watch_enable_hint else R.string.watch_disable_hint),
-                            onClick = onToggleDisabled
-                        )
-                        SheetAction(
-                            icon = R.drawable.ic_delete,
-                            text = stringResource(R.string.action_delete),
-                            danger = true,
-                            onClick = onDelete
+                            onTtsChange = onTtsChange,
+                            onNotificationChange = onNotificationChange,
+                            onToggleDisabled = onToggleDisabled,
+                            onDelete = onDelete,
                         )
                     }
                 }

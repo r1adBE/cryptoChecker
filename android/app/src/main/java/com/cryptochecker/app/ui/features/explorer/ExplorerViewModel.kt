@@ -233,11 +233,11 @@ class ExplorerViewModel @Inject constructor(
         .stateIn(viewModelScope, SharingStarted.Eagerly, null)
 
     /** Gegenwährungen für «Alle …-Paare», häufigste zuerst. */
-    private val bulkQuotes: StateFlow<List<String>> = pairList
+    internal val bulkQuotes: StateFlow<List<String>> = pairList
         .map { it?.bulkQuoteCurrencies.orEmpty() }
         .stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
 
-    private val canReloadPairs: StateFlow<Boolean> = exchange
+    internal val canReloadPairs: StateFlow<Boolean> = exchange
         .map { selected -> selected != null && marketRepository.isMarketSupportsUpdatePairs(selected) }
         .stateIn(viewModelScope, SharingStarted.Eagerly, false)
 
@@ -245,13 +245,13 @@ class ExplorerViewModel @Inject constructor(
         .map { it?.baseCurrencies?.toList().orEmpty() }
         .stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
 
-    private val quotes: StateFlow<List<String>> = pairList
+    internal val quotes: StateFlow<List<String>> = pairList
         .combine(coin) { info, base ->
             if (info == null || base == null) emptyList() else info.getQuoteCurrencies(base).toList()
         }
         .stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
 
-    private val contracts: StateFlow<List<FuturesContractType>> =
+    internal val contracts: StateFlow<List<FuturesContractType>> =
         combine(pairList, coin, quote) { info, base, counter ->
             if (info == null || base == null || counter == null) emptyList()
             else info.getAvailableFuturesContractsTypes(base, counter)
@@ -305,28 +305,6 @@ class ExplorerViewModel @Inject constructor(
             ExplorerLoad.Ready(buildSelection(exchangeList))
         }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), ExplorerLoad.Loading)
-
-    private fun buildSelection(exchangeList: List<MarketInfo>) = ExplorerSelection(
-        exchanges = exchangeList,
-        exchange = exchange.asStateFlow(),
-        canReloadPairs = canReloadPairs,
-        pairList = pairList,
-        pairListSync = pairListSync.asStateFlow(),
-        coin = coin.asStateFlow(),
-        quote = quote.asStateFlow(),
-        contract = contract.asStateFlow(),
-        coins = coins,
-        quotes = quotes,
-        contracts = contracts,
-        price = price.asStateFlow(),
-        bulkPairs = bulkPairs.asStateFlow(),
-        bulkEmpty = bulkEmpty.asStateFlow(),
-        addResult = addResult.asStateFlow(),
-        bulkAddResult = bulkAdd.asStateFlow(),
-        bulkQuotes = bulkQuotes,
-        bulkQuote = bulkQuote.asStateFlow(),
-        bulkStats = bulkStats.asStateFlow(),
-    )
 
     // =============================================================================================
     // Sammler aus init
@@ -408,34 +386,3 @@ private const val PRICE_DEBOUNCE_MS = 300L
 private const val LOG_MAX_LINES = 10
 
 private const val LOG_MAX_LINE_LENGTH = 400
-
-/**
- * Zuletzt gewählte Ziel-Gruppe — absichtlich nur im Speicher: gilt für die laufende Sitzung,
- * nach dem nächsten Start wieder «Keine Gruppe».
- */
-internal val sessionTargetGroup = MutableStateFlow<String?>(null)
-
-/**
- * Paarlisten der Suche: [reading] solange die gespeicherten Listen gelesen werden, [missing] Börsen ohne
- * Liste auf dem Gerät, [progress] solange fehlende auf Wunsch laden.
- */
-data class SearchLists(val reading: Boolean = false, val missing: Int = 0, val progress: SearchProgress? = null)
-
-/** Rückmeldung der DEX-Suche. */
-sealed interface DexMessage {
-    data object NoResults : DexMessage
-    data object Failed : DexMessage
-    data class Added(val symbol: String) : DexMessage
-    data class AlreadyInList(val symbol: String) : DexMessage
-}
-
-/** Laden der Börsenliste: läuft, bereit (mit der Auswahl) oder gescheitert. */
-sealed interface ExplorerLoad {
-    data object Loading : ExplorerLoad
-
-    data class Ready(val selection: ExplorerSelection) : ExplorerLoad
-
-    data class Failed(val error: Throwable) : ExplorerLoad
-}
-
-internal const val DEX_KEY = "DexScreener"

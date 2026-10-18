@@ -15,6 +15,34 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 82)
+
+Two more reviews before the store.
+
+* «Outdated» in the row now follows the same rule as alarms: the last successful fetch is too old, or the exchange's
+  last trade is older than 2 hours («Binance · last trade 3 h ago»). Quiet pairs no longer look fresh just because
+  the last fetch worked.
+* A price of 0 from an exchange counts as «no price» (e.g. a halted Binance pair ends as «no longer traded» instead
+  of being asked again every run); an internal error without text never marks a pair as no longer traded.
+* Coinbase: offline and trading-disabled products are left out of the pair list.
+* Network: at most 32 requests at once (5 per exchange), timeouts count from the real start of a request, so a
+  long watchlist no longer produces false timeouts and exchange pauses; DexScreener pools on the same chain are
+  fetched together; identical Hyperliquid requests are shared.
+* Transaction sheet: when the USDT/USD rate is missing it says «USDT = 1 assumed», like the totals. The portfolio
+  chart says «As of … – exchange not reachable» when it shows an older stored exchange history.
+* Alarm notifications: «1 h later» (repeating alarms; the alarm stays armed) and «Adjust» (opens the editor), coin logo
+  from the device; the alarm log shows who checked («via widget», «background»).
+* Spoken announcements follow the notification volume and stay silent on a muted phone; «Test voice/alarm» is always
+  audible.
+* Pull to refresh within 15 seconds is accepted and says «Just updated · N s ago» instead of «Again in N s».
+* «Make sure alerts arrive» also counts unusual-activity alerts (and market notices on Android).
+* Group chips grow with large text; Android German says «Benachrichtigungen» throughout (iPhone «Mitteilungen»).
+* Widgets: spacing on the 4/8/12/16/24/32 grid on both platforms (rounded down so nothing wraps).
+* Code: every production file is at most 400 lines (one documented exception, the settings model); a test keeps it
+  that way. Independent reference data for BIP32/secp256k1 (1,000 random keys and 74 edge cases, checked against
+  OpenSSL) and 20 random Argon2id cases on both platforms.
+* LICENSE is plain MIT (GitHub shows «MIT»); origin, trademarks, market data and alarm sounds are in NOTICE.
+
 ## 16.2.2 (build 81)
 
 Second review before the store.

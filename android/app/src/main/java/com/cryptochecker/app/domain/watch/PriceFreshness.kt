@@ -1,6 +1,7 @@
 package com.cryptochecker.app.domain.watch
 
 import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.alarm.AlarmFreshness
 
 /**
  * Wie frisch ist ein Kurs? Börsen ohne eigene Zeit (Kraken, Gate.io, Hyperliquid, bitFlyer, Binance
@@ -8,6 +9,10 @@ import com.cryptochecker.app.data.local.model.WatchEntity
  * Gemini-Sammelabfrage …) bekommen beim Abruf «jetzt» — ein seit Stunden stehender letzter Kurs
  * wirkte sonst frisch. Deshalb:
  *  - [freshnessTime]: Zeit laut Börse, sonst der letzte erfolgreiche Abruf (`lastUpdate`).
+ *  - [staleReason]/[isStale]: «veraltet» nach derselben Regel wie die Alarmsperre — letzter Abruf älter
+ *    als die Grenze ([StaleReason.FETCH]) ODER die Börse meldet einen Handel älter als
+ *    [AlarmFreshness.EXCHANGE_STALE_MILLIS] ([StaleReason.TRADE]). Ruhige Paare und Live-Paare ohne
+ *    Handel seit ein paar Minuten werden so nicht «veraltet»; Zeile und Alarm sperren gleich.
  *  - [unchangedSince]: nur OHNE Zeit der Börse — ist der Kurs länger als [unchangedAfterMillis]
  *    gleich geblieben, zeigt die Zeile «Kurs unverändert seit HH:MM» statt frisch zu wirken.
  *    Grenze: max(1 Stunde, Veraltet-Grenze aus `OutdatedRule`, also 3 × Intervall).
@@ -26,6 +31,33 @@ object PriceFreshness {
         exchangeTime?.takeIf { it > 0 } ?: lastUpdate
 
     fun freshnessTime(watch: WatchEntity): Long = freshnessTime(watch.lastUpdate, watch.exchangeTime)
+
+    /** Warum ein Kurs «veraltet» ist: Abruf zu alt bzw. letzter Handel laut Börse zu alt. */
+    enum class StaleReason { FETCH, TRADE }
+
+    /**
+     * Grund für «veraltet» oder null: [StaleReason.FETCH], wenn der letzte erfolgreiche Abruf
+     * [lastUpdate] (> 0) länger als [staleAfterMillis] zurückliegt (geht vor); sonst [StaleReason.TRADE],
+     * wenn die Börse eine Handelszeit älter als die Alarmsperre meldet ([AlarmFreshness.exchangeTimeTooOld]).
+     * Ohne Abruf (≤ 0) null — «noch kein Kurs» entscheidet der Aufrufer.
+     */
+    fun staleReason(lastUpdate: Long, exchangeTime: Long?, now: Long, staleAfterMillis: Long): StaleReason? = when {
+        lastUpdate <= 0 -> null
+        now - lastUpdate > staleAfterMillis -> StaleReason.FETCH
+        AlarmFreshness.exchangeTimeTooOld(exchangeTime, now) -> StaleReason.TRADE
+        else -> null
+    }
+
+    fun staleReason(watch: WatchEntity, now: Long, staleAfterMillis: Long): StaleReason? =
+        staleReason(watch.lastUpdate, watch.exchangeTime, now, staleAfterMillis)
+
+    /**
+     * Gehandeltes, aktives Paar «veraltet» (Zeile, Filter, Status, Widgets): noch nie abgefragt oder ein
+     * [staleReason]. Nie bei deaktivierten oder nicht mehr gehandelten Paaren.
+     */
+    fun isStale(watch: WatchEntity, now: Long, staleAfterMillis: Long): Boolean =
+        !watch.disabled && !watch.isNotTraded &&
+            (watch.lastUpdate <= 0 || staleReason(watch, now, staleAfterMillis) != null)
 
     /** Ab diesem Alter der letzten Kursänderung gilt «unverändert»: max(1 h, Veraltet-Grenze). */
     fun unchangedAfterMillis(outdatedAfterMillis: Long): Long = maxOf(UNCHANGED_MIN_MILLIS, outdatedAfterMillis)

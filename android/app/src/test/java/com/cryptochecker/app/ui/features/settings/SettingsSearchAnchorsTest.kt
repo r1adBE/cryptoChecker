@@ -8,7 +8,7 @@ import java.io.File
 /**
  * Jedes Ziel der Suche in den Einstellungen ([settingsSearchItems], Composable und darum hier nicht aufrufbar) hat seinen
  * Anker auf der Seite: Sonst öffnete ein Treffer die Seite, ohne zum Punkt zu scrollen. Liest die Quellen von der Platte
- * (wie `SpacingUsageTest`); iOS (`SettingsSearchUi.swift` ↔ `.settingsAnchor`) wird mitgeprüft, wenn vorhanden.
+ * (wie `SpacingUsageTest`); iOS (`SettingsSearchCatalog.swift` ↔ `.settingsAnchor`) wird mitgeprüft, wenn vorhanden.
  * Dazu die Einträge «Damit Alarme ankommen», «Diagnose teilen» und «Alarm-Protokoll» auf beiden Plattformen
  * (iOS: `testDeliveryDiagnosticsAndAlarmLogAreSearchable`).
  */
@@ -18,7 +18,7 @@ class SettingsSearchAnchorsTest {
     fun everyAndroidTargetHasAnAnchor() {
         val root = findUp(listOf("", "app/", "android/app/").map { it + "src/main/java/com/cryptochecker/app" })
         assertNotNull("android/app/src/main/java nicht gefunden (Arbeitsverzeichnis?)", root)
-        val search = File(root, "ui/features/settings/SettingsSearchUi.kt").readText()
+        val search = File(root, "ui/features/settings/SettingsSearchCatalog.kt").readText()
         val targets = Regex("""SettingsSearchTarget\.\w+\((?:SettingsPage\.\w+,\s*)?"([^"]+)"\)""")
             .findAll(search).map { it.groupValues[1] }.toSet()
         assertTrue(targets.size > 30)
@@ -33,7 +33,7 @@ class SettingsSearchAnchorsTest {
     @Test
     fun deliveryDiagnosticsAndAlarmLogAreSearchable() {
         val root = findUp(listOf("", "app/", "android/app/").map { it + "src/main/java/com/cryptochecker/app" })!!
-        val search = File(root, "ui/features/settings/SettingsSearchUi.kt").readText().replace(Regex("\\s+"), " ")
+        val search = File(root, "ui/features/settings/SettingsSearchCatalog.kt").readText().replace(Regex("\\s+"), " ")
         assertTrue(search.contains("""add("alarms.delivery", stringResource(R.string.delivery_title), alarms, SettingsSearchTarget.Page(SettingsPage.ALARMS, "alarms.delivery")"""))
         assertTrue(search.contains("""add("about.diagnostics", stringResource(R.string.diagnostics_share), about, SettingsSearchTarget.Page(SettingsPage.ABOUT, "about.diagnostics")"""))
         // Der Knopf steht in der Karte «Letzte Prüfungen»: dorthin
@@ -43,7 +43,7 @@ class SettingsSearchAnchorsTest {
     @Test
     fun everyIosTargetHasAnAnchor() {
         val app = findUp(listOf("ios/App", "../ios/App", "../../ios/App")) ?: return // reiner Android-Checkout
-        val search = File(app, "Features/Settings/SettingsSearchUi.swift").readText()
+        val search = listOf("SettingsSearchUi.swift", "SettingsSearchCatalog.swift").joinToString("\n") { File(app, "Features/Settings/$it").readText() }
         val targets = (
             Regex("""anchor:\s*"([^"]+)"""").findAll(search) + Regex("""\.main\("([^"]+)"\)""").findAll(search)
             ).map { it.groupValues[1] }.toSet()

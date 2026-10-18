@@ -19,6 +19,8 @@ enum AlarmLogOutcome: String, CaseIterable, Sendable {
     case LOW_LIQUIDITY = "low_liquidity"
     /// Erfüllt, aber Nachtruhe: wartet bis zum Ende (`QuietHours.holdsAlarms`).
     case QUIET_HOURS = "quiet_hours"
+    /// Erfüllt, aber «1 h später» aus der Mitteilung läuft noch (`AlarmSnooze`).
+    case SNOOZED = "snoozed"
     /// Erfüllt, aber keine zustellbare Mitteilung (Erlaubnis bzw. Mitteilungen aus).
     case NOTIFICATIONS_OFF = "notifications_off"
     /// Erfüllt und gemeldet, die Mitteilung kam aber nicht an (Neuversuch nach der Abklingzeit).
@@ -45,6 +47,8 @@ struct AlarmLogTrace: Equatable, Sendable {
     /// Kursmarke schon gemeldet, noch nicht wieder scharf.
     var waitingRearm = false
     var quietHours = false
+    /// «1 h später» läuft (`AlarmSnooze.isSnoozed`).
+    var snoozed = false
     var notificationsOff = false
     /// Unbestätigte Meldung: Neuversuch erst nach der Abklingzeit.
     var retryBlocked = false
@@ -75,6 +79,8 @@ struct AlarmLogEntry: Equatable, Sendable {
     var notable = false
     /// Gleiches Ergebnis mehrmals hintereinander: zuletzt gesehen um (0 = nur einmal).
     var until: Int64 = 0
+    /// Wer geprüft hat (App, Hintergrund-Aufgabe, Widget); nil = unbekannt (ältere Einträge).
+    var source: CheckTrigger? = nil
 
     /// Letzte Prüfung dieses Eintrags.
     var lastAt: Int64 { Swift.max(at, until) }
@@ -116,6 +122,7 @@ enum AlarmLog {
         if t.noRate { return .NO_RATE }
         if t.due {
             if t.quietHours { return .QUIET_HOURS }
+            if t.snoozed { return .SNOOZED }
             if t.notificationsOff { return .NOTIFICATIONS_OFF }
             if t.retryBlocked { return .COOLDOWN }
             if t.notShown { return .NOT_SHOWN }
@@ -131,16 +138,18 @@ enum AlarmLog {
         switch outcome {
         case .FIRED: return true
         case .LOW_LIQUIDITY, .MARK_PRICE, .STALE: return trace.due
-        case .QUIET_HOURS, .NOTIFICATIONS_OFF, .NOT_SHOWN, .COOLDOWN: return true
+        case .QUIET_HOURS, .SNOOZED, .NOTIFICATIONS_OFF, .NOT_SHOWN, .COOLDOWN: return true
         case .NOT_REACHED, .ALREADY_TRIGGERED, .NO_RATE, .NO_PRICE: return false
         }
     }
 
     /// Ablauf «fälligen Alarm melden» (`AlarmDelivery.deliver`) von aussen beobachtet: `canShow` bzw. `shown` = was die
     /// Schritte geliefert haben (nil = nicht erreicht). nil zurück = gemeldet, aber nicht gespeichert (Alarm inzwischen
-    /// bearbeitet oder gelöscht, Mitteilung zurückgezogen) — dann kein Eintrag.
-    static func deliveryTrace(holdAlarms: Bool, canShow: Bool?, shown: Bool?, saved: Bool) -> AlarmLogTrace? {
+    /// bearbeitet oder gelöscht, Mitteilung zurückgezogen) — dann kein Eintrag. `snoozed`: «1 h später» lief.
+    static func deliveryTrace(holdAlarms: Bool, canShow: Bool?, shown: Bool?, saved: Bool,
+                              snoozed: Bool = false) -> AlarmLogTrace? {
         if holdAlarms { return AlarmLogTrace(due: true, quietHours: true) }
+        if snoozed { return AlarmLogTrace(due: true, snoozed: true) }
         if canShow == false { return AlarmLogTrace(due: true, notificationsOff: true) }
         guard let shown else { return AlarmLogTrace(due: true, retryBlocked: true) }
         if !shown { return AlarmLogTrace(due: true, notShown: true) }
@@ -220,6 +229,16 @@ enum AlarmLog {
         }.map(\.element)
     }
 
+    /// Einträge eines Durchlaufs mit seiner Herkunft `source` versehen (schon gesetzte bleiben). Wie Android.
+    static func withSource(_ entries: [AlarmLogEntry], _ source: CheckTrigger) -> [AlarmLogEntry] {
+        entries.map { entry in
+            guard entry.source == nil else { return entry }
+            var e = entry
+            e.source = source
+            return e
+        }
+    }
+
     /// Alarm gelöscht: seine letzte Prüfung fällt weg (Protokoll-Einträge bleiben mit ihrem Text).
     static func removeAlarm(_ state: AlarmLogState, _ alarmId: Int64) -> AlarmLogState {
         var next = state
@@ -280,6 +299,7 @@ enum AlarmLog {
         if let exchangeTime = e.exchangeTime { o["exTime"] = exchangeTime }
         if e.notable { o["n"] = true }
         if e.until > 0 { o["until"] = e.until }
+        if let source = e.source { o["src"] = source.rawValue }
         return o
     }
 
@@ -305,147 +325,7 @@ enum AlarmLog {
             currency: currency, shownPrice: number(o["shown"]), outcome: outcome,
             exchangeTime: int64(o["exTime"]).flatMap { $0 > 0 ? $0 : nil },
             notable: (o["n"] as? Bool) ?? false,
-            until: Swift.max(int64(o["until"]) ?? 0, 0))
-    }
-}
-
-/// Speicher des Alarm-Protokolls: `alarm_log.json` im App-Group-Ordner neben «Letzte Prüfungen» (`CheckRunStore`) —
-/// App, Hintergrund-Aufgabe und Widget schreiben, abgestimmt über `SharedStorage.coordinatedWrite`. Inhalt mit Paaren und
-/// Schwellen wie die Merkliste, darum verschlüsselt wie sie (`ProtectedFile`, in `ProtectedStorage.files`) und aus den
-/// Geräte-Backups ausgenommen. Darf die Prüfung nie stören: Fehler bleiben still, Live-Kurse höchstens alle
-/// `AlarmLog.liveWriteIntervalMillis` (ein neuer Protokoll-Eintrag sofort, `AlarmLog.startsEvent`). Ohne Schlüssel nie
-/// Klartext (`requireSealed`): die Einträge warten dann im Speicher. Wie `AlarmLogStore.kt`.
-enum AlarmLogStore {
-    static let fileName = "alarm_log.json"
-
-    static var url: URL { SharedStorage.directory.appendingPathComponent(fileName) }
-
-    private static let lock = NSLock()
-
-    /// Je Prozess: noch nicht geschriebene Live-Einträge, Zeit des letzten Schreibens und der zuletzt gelesene bzw.
-    /// geschriebene Stand (`known`, zu `knownURL`) — daran misst `record`, ob Einträge einen neuen Protokoll-Eintrag
-    /// beginnen, ohne die Datei jede Sekunde zu lesen. Schrieb inzwischen ein anderer Prozess, irrt das höchstens um
-    /// ein Schreiben zu früh bzw. bis zu `liveWriteIntervalMillis` zu spät.
-    private struct Pending {
-        var entries: [AlarmLogEntry] = []
-        var lastWriteAt: Int64 = 0
-        var known: AlarmLogState?
-        var knownURL: URL?
-    }
-    private static let pending = LockedBox(Pending())
-    /// Höchstens so viele Einträge warten im Speicher.
-    private static let maxPending = 2_000
-
-    private enum Read {
-        case ok(AlarmLogState)
-        /// Verschlüsselt, Schlüssel gerade nicht verfügbar: nichts überschreiben.
-        case locked
-    }
-
-    private static func read(from url: URL, keys: StorageKey) -> Read {
-        guard FileManager.default.fileExists(atPath: url.path) else { return .ok(.empty) }
-        do {
-            return .ok(AlarmLog.decode(try ProtectedFile.read(url, keys: keys)))
-        } catch ProtectedFile.ReadError.damaged(_) {
-            // Nur ein Blick zurück: neu beginnen, das nächste Schreiben ersetzt die Datei
-            return .ok(.empty)
-        } catch ProtectedFile.ReadError.locked {
-            return .locked
-        } catch {
-            return .locked
-        }
-    }
-
-    /// Für die Anzeige: Datei samt der noch nicht geschriebenen Live-Einträge dieses Prozesses.
-    static func load(from url: URL = AlarmLogStore.url, now: Int64 = TimeUtils.nowMillis,
-                     keys: StorageKey = .shared) -> AlarmLogState {
-        var base = AlarmLogState.empty
-        if case .ok(let state) = read(from: url, keys: keys) { base = state }
-        let waiting = pending.current.entries
-        return waiting.isEmpty ? base : AlarmLog.record(base, waiting, now: now)
-    }
-
-    /// Einträge eines Durchlaufs übernehmen und (ausser bei gedrosselten Live-Kursen) schreiben. Wirft nie.
-    static func record(_ entries: [AlarmLogEntry], live: Bool, to url: URL = AlarmLogStore.url,
-                       now: Int64 = TimeUtils.nowMillis, keys: StorageKey = .shared) {
-        guard !entries.isEmpty else { return }
-        var toWrite: [AlarmLogEntry] = []
-        pending.write { p in
-            // Sofort nur, was einen neuen Eintrag beginnt; das Verlängern eines «von … bis …» wartet wie jede Prüfung.
-            // Noch kein bekannter Stand (erstes Schreiben des Prozesses): bemerkenswerte Einträge sofort
-            let startsEvent: Bool
-            if live, p.knownURL == url, let known = p.known {
-                startsEvent = AlarmLog.startsEvent(AlarmLog.record(known, p.entries, now: now), entries)
-            } else {
-                startsEvent = entries.contains { $0.notable }
-            }
-            p.entries.append(contentsOf: entries)
-            if p.entries.count > maxPending { p.entries.removeFirst(p.entries.count - maxPending) }
-            if !live || startsEvent || now - p.lastWriteAt >= AlarmLog.liveWriteIntervalMillis || now < p.lastWriteAt {
-                toWrite = p.entries
-                p.entries = []
-                p.lastWriteAt = now
-            }
-        }
-        guard !toWrite.isEmpty else { return }
-        if !modify(at: url, keys: keys, { AlarmLog.record($0, toWrite, now: now) }) {
-            // Nicht geschrieben (Schlüssel gesperrt, Schreibfehler): beim nächsten Mal nachtragen
-            pending.write { p in
-                p.entries = toWrite + p.entries
-                if p.entries.count > maxPending { p.entries.removeFirst(p.entries.count - maxPending) }
-            }
-        }
-    }
-
-    /// Alarm gelöscht: seine letzte Prüfung entfernen.
-    static func removeAlarm(_ alarmId: Int64, at url: URL = AlarmLogStore.url, keys: StorageKey = .shared) {
-        pending.write { $0.entries.removeAll { $0.alarmId == alarmId } }
-        modify(at: url, keys: keys) { AlarmLog.removeAlarm($0, alarmId) }
-    }
-
-    /// Nur letzte Prüfungen bestehender Alarme behalten.
-    static func retainAlarms(_ alarmIds: Set<Int64>, at url: URL = AlarmLogStore.url, keys: StorageKey = .shared) {
-        modify(at: url, keys: keys) { AlarmLog.retainAlarms($0, alarmIds) }
-    }
-
-    /// «Protokoll löschen».
-    static func clearEvents(at url: URL = AlarmLogStore.url, keys: StorageKey = .shared) {
-        // Noch wartende Einträge kommen nach dem Löschen nicht zurück ins Protokoll — nur noch als letzte Prüfung
-        pending.write { p in p.entries = p.entries.map { var e = $0; e.notable = false; return e } }
-        modify(at: url, keys: keys) { AlarmLog.clearEvents($0) }
-    }
-
-    /// Lesen, ändern und verschlüsselt schreiben als ein abgestimmter Schritt über die Prozesse. false = nicht geschrieben.
-    @discardableResult
-    private static func modify(at url: URL, keys: StorageKey,
-                               _ change: (AlarmLogState) -> AlarmLogState) -> Bool {
-        lock.lock()
-        defer { lock.unlock() }
-        return SharedStorage.coordinatedWrite(at: url) { () -> Bool in
-            guard case .ok(let current) = read(from: url, keys: keys) else { return false }
-            let next = change(current)
-            if next == current && FileManager.default.fileExists(atPath: url.path) {
-                remember(next, url)
-                return true
-            }
-            guard let data = AlarmLog.encode(next) else { return false }
-            do {
-                // Ohne Schlüssel nie Klartext (wie Android): `locked`, der Aufrufer behält die Einträge im Speicher
-                try ProtectedFile.write(data, to: url, keys: keys, requireSealed: true)
-                // Atomares Schreiben ersetzt die Datei: Merkmal jedes Mal neu setzen
-                BackupExclusion.set(excluded: true, for: url)
-                remember(next, url)
-                return true
-            } catch {
-                return false
-            }
-        }
-    }
-
-    private static func remember(_ state: AlarmLogState, _ url: URL) {
-        pending.write { p in
-            p.known = state
-            p.knownURL = url
-        }
+            until: Swift.max(int64(o["until"]) ?? 0, 0),
+            source: (o["src"] as? String).flatMap { CheckTrigger(rawValue: $0) })
     }
 }

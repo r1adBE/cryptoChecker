@@ -409,7 +409,7 @@ class PortfolioParityTest {
                 near("$label curve 1 J", e["year"].num(), yearCurve.pnlChange)
                 val sinceFirst = PortfolioHistory.build(trades, closes, current, PortfolioHistoryRange.SINCE_FIRST, today, method = method)
                 near("$label curve since first", e["sinceFirst"].num(), sinceFirst.pnlChange)
-                // Karte mit demselben Tageskurs wie die App (PortfolioViewModel.marketPriceAt)
+                // Karte mit demselben Tageskurs wie die App (marketPriceAt in PortfolioDerivedFlows.kt)
                 val market = { coin: String, time: Long ->
                     PortfolioPeriodChange.marketPriceAt(coin, current[PortfolioCalculator.normalizeCoin(coin)], closes, time)
                 }

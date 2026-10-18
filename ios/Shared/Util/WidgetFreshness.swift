@@ -21,6 +21,28 @@ enum WidgetFreshness {
         return PriceFreshness.unchangedSince(watch, now: now, outdatedAfter: afterMillis)
     }
 
+    /// Zeit für «veraltet · 06:42» oder nil (nicht veraltet) — Regel der Zeile und der Alarmsperre
+    /// (`PriceFreshness.staleReason`): Abruf zu alt → letzter Abruf; letzter Handel laut Börse älter als 2 h →
+    /// dieser Handel. Deaktivierte und nicht mehr gehandelte Paare nie. Wie Android.
+    static func outdatedTime(_ watch: Watch, now: Int64, afterMillis: Int64) -> Int64? {
+        guard !watch.disabled, !watch.isNotTraded else { return nil }
+        switch PriceFreshness.staleReason(watch, now: now, staleAfter: afterMillis) {
+        case .fetch: return watch.lastUpdate
+        case .trade: return watch.exchangeTime
+        case nil: return nil
+        }
+    }
+
+    /// Zeitpunkte für den nächsten Eintrag «wird veraltet» (`OutdatedRule.nextChangeAt` mit `afterMillis`): letzter
+    /// Abruf und der Handel laut Börse, so verschoben, dass er mit derselben Grenze genau nach 2 h wechselt.
+    static func outdatedTimes(_ watch: Watch, afterMillis: Int64) -> [Int64] {
+        var times = [watch.lastUpdate]
+        if let exchange = watch.exchangeTime, exchange > 0 {
+            times.append(exchange + AlarmFreshness.exchangeStaleMillis - afterMillis)
+        }
+        return times
+    }
+
     /// Zeit neben dem Kurs (kompakte Zeilen ohne Platz für den Hinweis): siehe oben.
     static func priceTime(_ watch: Watch, now: Int64, afterMillis: Int64) -> Int64 {
         unchangedSince(watch, now: now, afterMillis: afterMillis) ?? PriceFreshness.freshnessTime(watch)

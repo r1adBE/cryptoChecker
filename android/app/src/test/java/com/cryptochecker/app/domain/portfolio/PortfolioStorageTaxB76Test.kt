@@ -9,6 +9,7 @@ import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportPriced
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportRow
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportTx
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvWithdrawalChoice
+import com.cryptochecker.app.domain.portfolio.csvimport.tokenize
 import org.json.JSONObject
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse

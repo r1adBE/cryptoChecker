@@ -19,6 +19,19 @@ final class PriceFreshnessTests: XCTestCase {
         }
     }
 
+    func testStaleParity() throws {
+        let data = try S.fixture("price_freshness")
+        let now = S.millis(data["now"])
+        for c in S.list(data["stale"]) {
+            let lastUpdate = optionalMillis(c["lastUpdateAge"]).map { now - $0 } ?? 0
+            let exchangeTime = optionalMillis(c["exchangeTimeAge"]).map { now - $0 }
+            let expected = (c["expected"] as? String).flatMap(PriceFreshness.StaleReason.init(rawValue:))
+            XCTAssertEqual(PriceFreshness.staleReason(lastUpdate: lastUpdate, exchangeTime: exchangeTime, now: now,
+                                                      staleAfter: S.millis(c["staleAfter"])),
+                           expected, c["name"] as? String ?? "")
+        }
+    }
+
     func testUnchangedParity() throws {
         let data = try S.fixture("price_freshness")
         let now = S.millis(data["now"])
@@ -69,6 +82,23 @@ final class PriceFreshnessTests: XCTestCase {
         XCTAssertNil(PriceFreshness.unchangedSince(watch(price: nil), now: now, outdatedAfter: 120_000))
         XCTAssertNil(PriceFreshness.unchangedSince(watch(exchangeTime: now - 5_000), now: now, outdatedAfter: 120_000))
         XCTAssertEqual(PriceFreshness.freshnessTime(watch(exchangeTime: now - 5_000)), now - 5_000)
+    }
+
+    func testStaleFollowsTheAlarmBlock() {
+        // Eben abgefragt, letzter Handel laut Börse 3 h her: veraltet wie die Alarmsperre
+        let old = watch(exchangeTime: now - 3 * 3_600_000)
+        XCTAssertEqual(PriceFreshness.staleReason(old, now: now, staleAfter: 120_000), .trade)
+        XCTAssertTrue(PriceFreshness.isStale(old, now: now, staleAfter: 120_000))
+        XCTAssertTrue(AlarmFreshness.blocksAlarms(old.exchangeTime, markFallback: false, now: now))
+        // Ruhiges Paar (Handel vor 1 h) bzw. ohne Zeit der Börse: frisch
+        XCTAssertFalse(PriceFreshness.isStale(watch(exchangeTime: now - 3_600_000), now: now, staleAfter: 120_000))
+        XCTAssertFalse(PriceFreshness.isStale(watch(), now: now, staleAfter: 120_000))
+        // Deaktiviert nie; noch nie abgefragt immer
+        XCTAssertFalse(PriceFreshness.isStale(watch(exchangeTime: now - 3 * 3_600_000, disabled: true),
+                                              now: now, staleAfter: 120_000))
+        var never = watch()
+        never.lastUpdate = 0
+        XCTAssertTrue(PriceFreshness.isStale(never, now: now, staleAfter: 120_000))
     }
 
     func testLimitIsAtLeastOneHourOrTheOutdatedLimit() {

@@ -138,10 +138,12 @@ extension PortfolioTxSheet {
             entryFxState = .loading
             entryFxRate = nil
             entryFxDay = nil
+            entryFxUsdtAssumed = false
             let loaded = await Self.fetchEntryFx(currency: currency, date: date)
             guard !Task.isCancelled else { return }
             entryFxRate = loaded?.rate
             entryFxDay = loaded?.day
+            entryFxUsdtAssumed = loaded?.usdtAssumed ?? false
             entryFxState = loaded == nil ? .failed : .ready
         }
         guard pendingToFiat else { return }
@@ -160,24 +162,27 @@ extension PortfolioTxSheet {
     /// Faktor USDT → `currency`: Devisenkurs USD → Währung × USDT/USD (`PortfolioTxForm.entryRate`, wie CSV-Import und
     /// Steuer-Export). Heute der aktuelle Kurs und der Live-Kurs USDT/USD, sonst der Tageskurs (EZB, letzter Geschäftstag
     /// ≤ Tag) mit seinem tatsächlichen Datum und der USDT/USD-Tagesschluss DES Tags (fehlt er: × 1) — wie
-    /// `PortfolioViewModel.entryFx` (Android). nil = kein Kurs.
-    private static func fetchEntryFx(currency: String, date: Date) async -> (rate: Decimal, day: CutoffDay)? {
+    /// `PortfolioViewModel.entryFx` (Android). `usdtAssumed`: mit USDT = 1 gerechnet. nil = kein Kurs.
+    private static func fetchEntryFx(currency: String, date: Date) async
+        -> (rate: Decimal, day: CutoffDay, usdtAssumed: Bool)? {
         let day = CutoffDay(date)
         let today = CutoffDay(Date())
         if day.iso >= today.iso {
-            guard let r = await FxRateSource.usdTo(currency), r.isFinite, r > 0,
-                  let exact = PortfolioTxForm.entryRate(usdToFiat: PortfolioDecimal.of(r),
-                                                        usdtUsd: PortfolioDecimal.of(DepegAlarmCheck.liveUsdtUsd()))
-            else { return nil }
-            return (exact, today)
+            guard let r = await FxRateSource.usdTo(currency), r.isFinite, r > 0 else { return nil }
+            let fx = PortfolioDecimal.of(r)
+            let usdt = PortfolioDecimal.of(DepegAlarmCheck.liveUsdtUsd())
+            guard let exact = PortfolioTxForm.entryRate(usdToFiat: fx, usdtUsd: usdt) else { return nil }
+            return (exact, today, PortfolioTxForm.entryUsdtAssumed(usdToFiat: fx, usdtUsd: usdt))
         }
         guard let fx = await HistoricPriceSource.usdTo(currency, day: day), fx.rate.isFinite, fx.rate > 0 else { return nil }
         let epochDay = LocalDay(date: date).epochDay
         let days = max(1, LocalDay.today().epochDay - epochDay + 1)
         let close = await PortfolioHistorySource.usdtUsdDaily(days: days)[epochDay]
-        guard let exact = PortfolioTxForm.entryRate(usdToFiat: PortfolioDecimal.of(fx.rate),
-                                                    usdtUsd: PortfolioDecimal.of(close)) else { return nil }
-        return (exact, fx.date.flatMap(cutoffDay(iso:)) ?? day)
+        let rate = PortfolioDecimal.of(fx.rate)
+        let usdt = PortfolioDecimal.of(close)
+        guard let exact = PortfolioTxForm.entryRate(usdToFiat: rate, usdtUsd: usdt) else { return nil }
+        return (exact, fx.date.flatMap(cutoffDay(iso:)) ?? day,
+                PortfolioTxForm.entryUsdtAssumed(usdToFiat: rate, usdtUsd: usdt))
     }
 
     /// «2025-03-03» → Kalendertag; unlesbar = nil.

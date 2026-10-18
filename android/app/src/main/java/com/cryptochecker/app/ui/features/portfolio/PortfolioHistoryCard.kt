@@ -203,6 +203,10 @@ private fun HistoryContent(
     controls()
 
     // Hinweise unter dem Chart
+    // Eigene Börse nicht erreichbar: der Verlauf ist ein älterer Stand — zuerst und mit Zeit, nie still als heute
+    history.staleSince?.takeIf { series.hasChart }?.let {
+        HistoryCaption(stringResource(R.string.portfolio_history_as_of, portfolioStampTime(it)))
+    }
     // Nur wenn die Devisen-Tageskurse fehlten und alles mit dem heutigen Kurs umgerechnet ist
     if (series.hasChart && history.converted && history.approximateFx) {
         HistoryCaption(stringResource(R.string.portfolio_history_converted))

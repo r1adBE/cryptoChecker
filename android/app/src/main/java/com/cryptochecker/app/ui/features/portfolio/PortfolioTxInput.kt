@@ -111,9 +111,6 @@ internal fun timeFor(date: LocalDate, original: Long): Long = when (date) {
     else -> date.atTime(12, 0).atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
 }
 
-/** Laden des Devisenkurses für die Eingabe in der Anzeigewährung (K-2). */
-internal enum class EntryFxState { LOADING, READY, FAILED }
-
 /**
  * Feldtext in die andere Währung umrechnen ([convert]: USDT → Anzeigewährung); leer bzw. unlesbar bleibt, wie es ist.
  */

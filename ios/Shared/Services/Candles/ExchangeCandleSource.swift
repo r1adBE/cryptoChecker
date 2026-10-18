@@ -103,7 +103,7 @@ enum ExchangeCandleRegistry {
         BitvavoCandles(),
         BybitCandles(),
         OkxCandles(),
-        // Zweite Runde (ExchangeCandleSourcesMore.swift)
+        // Zweite Runde (ExchangeCandleSourcesMore.swift, ab Upbit ExchangeCandleSourcesMore2.swift)
         BitfinexCandles(),
         BitgetCandles(),
         GateIoCandles(),

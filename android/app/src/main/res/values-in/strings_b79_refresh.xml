@@ -2,6 +2,4 @@
 <resources>
     <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
     <string name="watchlist_refresh_countdown">Muat ulang (%1$d)</string>
-    <!-- Merkliste: nach unten gezogen während der 15-s-Sperre (Banner) -->
-    <string name="watchlist_refresh_again_in">Bisa lagi dalam %1$d dtk</string>
 </resources>

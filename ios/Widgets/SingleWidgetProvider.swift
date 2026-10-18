@@ -110,7 +110,10 @@ struct SingleProvider: AppIntentTimelineProvider {
         entry.logos = await WidgetLogos.load(for: watch.map { [$0] } ?? [])
         // Zweiter Eintrag, sobald der Kurs veraltet («veraltet · 06:42»)
         var times: [Int64] = []
-        if let watch, !watch.disabled, !ConnectionErrors.isNotTraded(watch.lastError) { times = [watch.lastUpdate] }
+        // Abruf und (verschoben) letzter Handel laut Börse — Regel der App (`WidgetFreshness.outdatedTimes`)
+        if let watch, !watch.disabled, !ConnectionErrors.isNotTraded(watch.lastError) {
+            times = WidgetFreshness.outdatedTimes(watch, afterMillis: entry.outdatedAfter)
+        }
         let entries = WidgetOutdated.entries(entry, date: entry.date, times: times, afterMillis: entry.outdatedAfter) { date in
             var later = entry
             later.date = date

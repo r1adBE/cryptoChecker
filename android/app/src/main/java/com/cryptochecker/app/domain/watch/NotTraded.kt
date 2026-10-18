@@ -29,24 +29,29 @@ object NotTraded {
 
     /**
      * Bestätigt die Einzelabfrage «nicht mehr gehandelt»? Nur bei einer klaren Aussage der Börse über
-     * das Paar: Antwort ohne Kurs (auch ganz ohne Fehlertext), ausdrücklich unbekanntes Instrument
+     * das Paar: Antwort ohne Kurs (auch Kurs 0), ausdrücklich unbekanntes Instrument
      * (z. B. «Instrument ID does not exist», «EQuery:Unknown asset pair», «Invalid symbol») oder
      * HTTP 400/404. Jeder andere Fehler — unlesbare Antwort, unbekannte Ausnahme, Netz, Zeit,
-     * Rate-Limit, übrige 4xx/5xx, fehlender Adapter — ist ein gewöhnlicher Fehler: Das Paar bleibt mit
-     * seinem letzten Kurs stehen, statt wegen einer kurzen Störung als «nicht gehandelt» zu verstummen.
+     * Rate-Limit, übrige 4xx/5xx, fehlender Adapter, interner Fehler ohne Text — ist ein gewöhnlicher
+     * Fehler: Das Paar bleibt mit seinem letzten Kurs stehen, statt wegen einer kurzen Störung als
+     * «nicht gehandelt» zu verstummen.
      *
-     * [failure]: beim Abruf festgestellte Art. Sagt sie etwas aus, entscheidet sie; sonst (keine Art, Lesefehler,
-     * Meldung der Börse) der Text wie bisher.
+     * [failure]: beim Abruf festgestellte Art. Sagt sie etwas aus, entscheidet sie; bei Lesefehler und Meldung der
+     * Börse der Text wie bisher. [MarketFailure.Other] (interner Fehler ohne klaren Typ, z. B. eine Ausnahme ohne
+     * Text) bestätigt nie — sonst verstummte ein Paar wegen eines eigenen Fehlers für Stunden (BulkDelisted). Ein
+     * leerer Text bestätigt nur ohne Art (gespeicherte ältere Ergebnisse «ohne Kurs»); die Einzelabfrage selbst meldet
+     * «ohne Kurs» als Lesefehler («Parsed ticker has no data»).
      */
     fun confirmedBySingle(gotPrice: Boolean, error: String?, failure: MarketFailure? = null): Boolean {
         if (gotPrice) return false
         when (failure) {
             MarketFailure.UnknownInstrument -> return true
             is MarketFailure.HttpStatus -> return failure.code in CONFIRMING_HTTP
-            MarketFailure.Timeout, MarketFailure.Offline, MarketFailure.Ssl, is MarketFailure.RateLimited -> return false
-            MarketFailure.Parse, is MarketFailure.Exchange, MarketFailure.Other, null -> Unit
+            MarketFailure.Timeout, MarketFailure.Offline, MarketFailure.Ssl, is MarketFailure.RateLimited,
+            MarketFailure.Other -> return false
+            MarketFailure.Parse, is MarketFailure.Exchange, null -> Unit
         }
-        if (error.isNullOrBlank()) return true
+        if (error.isNullOrBlank()) return failure == null
         return when (RefreshReportLogic.classify(error)) {
             RefreshFailure.NO_DATA -> true
             RefreshFailure.OTHER -> isUnknownInstrument(error)

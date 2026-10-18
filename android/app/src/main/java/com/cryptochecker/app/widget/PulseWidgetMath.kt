@@ -31,13 +31,13 @@ object PulseWidgetMath {
     const val PADDING_DP = 2 * 12f
 
     /** Abstand zwischen den Coins (dp, widget_pulse.xml) — reiner Text ohne Pille, ohne Innenrand. */
-    const val CHIP_GAP_DP = 10f
+    const val CHIP_GAP_DP = 8f
 
     /** Logo und Abstand vor dem Titel (dp). */
-    const val LOGO_DP = 16f + 6f
+    const val LOGO_DP = 16f + 4f
 
-    /** Zeichen ↗/↘ vor der Schlagzeile samt Abstand (dp, ungefähr; 13 sp). */
-    const val GLYPH_DP = 16f
+    /** Zeichen ↗/↘ vor der Schlagzeile samt Abstand (dp, ungefähr; 13 sp ≈ 10 dp + 4 dp Abstand). */
+    const val GLYPH_DP = 14f
 
     /** Schriftgrössen des Titels: normal, eng; passt keine, nur das Logo. */
     val TITLE_SIZES_SP = listOf(13f, 11f)
@@ -251,7 +251,7 @@ object PulseWidgetMath {
     }
 
     /** Abstand zwischen «24h» (grau) und dem ersten Coin (dp, widget_pulse.xml). */
-    const val PERIOD_GAP_DP = 6f
+    const val PERIOD_GAP_DP = 4f
 
     /** Zeile mit «24h» vor den Coins: Breite des Zeitraums samt Abstand; ohne Text 0. */
     fun periodLeadingDp(periodTextWidthDp: Float?): Float =

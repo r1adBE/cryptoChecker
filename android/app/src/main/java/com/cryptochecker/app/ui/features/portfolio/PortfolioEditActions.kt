@@ -56,15 +56,15 @@ fun PortfolioViewModel.walletHoldingsOf(coin: String, wallet: String?, excluding
  * Faktor USDT → [currency] für die Eingabe in der Anzeigewährung (K-2): Devisenkurs USD → Währung × USDT/USD
  * ([PortfolioTxForm.entryRate], wie CSV-Import und Steuer-Export). Heute der aktuelle Kurs und der Live-Kurs USDT/USD,
  * sonst der Tageskurs (EZB, letzter Geschäftstag ≤ [date]) mit seinem tatsächlichen Datum und der USDT/USD-Tagesschluss
- * DES Tags [date] (fehlt er: × 1). null = kein Kurs.
+ * DES Tags [date] (fehlt er: × 1, [EntryFx.usdtAssumed]). null = kein Kurs.
  */
-suspend fun PortfolioViewModel.entryFx(currency: String, date: LocalDate): Pair<BigDecimal, LocalDate>? = safe {
+suspend fun PortfolioViewModel.entryFx(currency: String, date: LocalDate): EntryFx? = safe {
     val today = LocalDate.now(ZoneId.systemDefault())
     if (!date.isBefore(today)) {
         val fx = fxSource.usdTo(currency)?.takeIf { it > 0.0 && it.isFinite() }
             ?.let { com.cryptochecker.app.domain.portfolio.PortfolioDecimal.of(it) }
         val usdt = com.cryptochecker.app.domain.portfolio.PortfolioDecimal.of(liveUsdtUsd.value)
-        PortfolioTxForm.entryRate(fx, usdt)?.let { it to today }
+        PortfolioTxForm.entryRate(fx, usdt)?.let { EntryFx(it, today, PortfolioTxForm.entryUsdtAssumed(fx, usdt)) }
     } else {
         historicSource.usdTo(currency, date)?.let { fx ->
             val day = fx.date?.let { runCatchingCancellable { LocalDate.parse(it) }.getOrNull() } ?: date
@@ -78,7 +78,8 @@ suspend fun PortfolioViewModel.entryFx(currency: String, date: LocalDate): Pair<
             } catch (e: Exception) {
                 null // ohne Schluss: × 1 (Näherung, wie der Steuer-Export)
             }
-            PortfolioTxForm.entryRate(rate, com.cryptochecker.app.domain.portfolio.PortfolioDecimal.of(close))?.let { it to day }
+            val usdt = com.cryptochecker.app.domain.portfolio.PortfolioDecimal.of(close)
+            PortfolioTxForm.entryRate(rate, usdt)?.let { EntryFx(it, day, PortfolioTxForm.entryUsdtAssumed(rate, usdt)) }
         }
     }
 }

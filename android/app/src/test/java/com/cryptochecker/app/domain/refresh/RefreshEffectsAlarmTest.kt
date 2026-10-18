@@ -160,6 +160,24 @@ class RefreshEffectsAlarmTest {
     }
 
     @Test
+    fun snoozeHoldsAlarmArmedLikeQuietHours() {
+        val original = above(100.0).copy(speak = true)
+        val f = RefreshFixture(listOf(watch()), listOf(original))
+        val settings = f.settings.settings.copy(ttsEnabled = true)
+        f.notifier.snoozedUntil[7L] = com.cryptochecker.app.domain.alarm.AlarmSnooze.snoozeUntil(NOW)
+
+        // «1 h später» läuft: nicht gemeldet, nicht angesagt, nichts gespeichert — der Alarm bleibt scharf
+        assertEquals(0, f.check(101.0, 99.0, NOW + minute, settings = settings))
+        assertTrue(f.notifier.alarmPosts.isEmpty())
+        assertTrue(f.speaker.spoken.isEmpty())
+        assertEquals(original, f.store.alarm(7))
+
+        // Pause vorbei, Bedingung noch erfüllt: meldet sich beim nächsten Durchlauf
+        assertEquals(1, f.check(101.0, 101.0, NOW + 61 * minute, settings = settings))
+        assertEquals(1, f.notifier.alarmPosts.size)
+    }
+
+    @Test
     fun alarmInOtherCurrencyComparesConvertedPrice() {
         // Schwelle 90 CHF, Paar in USDT, 1 USDT = 0.9 CHF: 101 USDT = 90.9 CHF
         val chf = above(90.0).copy(currency = "CHF")

@@ -9,6 +9,7 @@ import com.cryptochecker.app.data.RefreshStats
 import com.cryptochecker.app.data.local.isDatabaseKeyUnavailable
 import com.cryptochecker.app.domain.refresh.CheckTrigger
 import com.cryptochecker.app.notification.AppNotifier
+import com.cryptochecker.app.notification.refreshNotification
 import com.cryptochecker.app.settings.SettingsRepository
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject

@@ -209,9 +209,21 @@ enum PortfolioTxForm {
     /// (Näherung). `fiatToUsdt`/`usdtToFiat` rechnen mit diesem Faktor. nil ohne Devisenkurs — wie `entryRate` (Kotlin).
     static func entryRate(usdToFiat: Decimal?, usdtUsd: Decimal?) -> Decimal? {
         guard let usdToFiat, usdToFiat > 0 else { return nil }
-        guard let usdt = usdtUsd, usdt > 0,
-              !PortfolioStables.usdtUsd(PortfolioDecimal.double(usdt)).approximate else { return usdToFiat }
+        guard let usdt = plausibleUsdt(usdtUsd) else { return usdToFiat }
         return PortfolioDecimal.multiply(usdToFiat, usdt)
+    }
+
+    /// Rechnet `entryRate` mit USDT = 1 (Devisenkurs da, USDT/USD fehlt oder ist unplausibel)? Dann nennt das Blatt
+    /// «USDT = 1 angenommen» wie Summen und Steuer-Export — die Näherung soll nie still sein. Wie Android.
+    static func entryUsdtAssumed(usdToFiat: Decimal?, usdtUsd: Decimal?) -> Bool {
+        guard let usdToFiat, usdToFiat > 0 else { return false }
+        return plausibleUsdt(usdtUsd) == nil
+    }
+
+    private static func plausibleUsdt(_ usdtUsd: Decimal?) -> Decimal? {
+        guard let usdt = usdtUsd, usdt > 0,
+              !PortfolioStables.usdtUsd(PortfolioDecimal.double(usdt)).approximate else { return nil }
+        return usdt
     }
 
     /// Eingabe in der Anzeigewährung → USDT: Betrag ÷ Faktor USDT → Währung (> 0, aus `entryRate`: Devisenkurs ×

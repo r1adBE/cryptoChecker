@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Build 82: Alarm-Mitteilung («1 h später», «Anpassen»), Alarm-Protokoll (Herkunft, Pause), Ziehen im 15-s-Fenster -->
+<resources>
+    <string name="notification_alarm_action_snooze">Om 1 t</string>
+    <string name="notification_alarm_action_edit">Juster</string>
+    <string name="alarm_outcome_snoozed">Holdt tilbake – «Om 1 t» pågår fortsatt</string>
+    <string name="alarm_log_source_app">i appen</string>
+    <string name="alarm_log_source_background">i bakgrunnen</string>
+    <string name="alarm_log_source_exact">presis sjekk</string>
+    <string name="alarm_log_source_widget">via widget</string>
+    <string name="watchlist_refresh_just_done">Nettopp oppdatert · for %1$d s siden</string>
+</resources>

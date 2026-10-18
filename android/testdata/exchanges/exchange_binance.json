@@ -170,6 +170,24 @@
       }
     },
     {
+      "kind": "single",
+      "name": "halted symbol (status BREAK): lastPrice 0 is no price, not a valid ticker",
+      "market": "Binance",
+      "pair": {
+        "base": "LUNA",
+        "quote": "USDT",
+        "id": "LUNAUSDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"symbol\":\"LUNAUSDT\",\"priceChange\":\"0.00000000\",\"priceChangePercent\":\"0.000\",\"weightedAvgPrice\":\"0.00000000\", \"prevClosePrice\":\"0.00000000\",\"lastPrice\":\"0.00000000\",\"lastQty\":\"0.00000000\",\"bidPrice\":\"0.00000000\",\"bidQty\":\"0.00000000\", \"askPrice\":\"0.00000000\",\"askQty\":\"0.00000000\",\"openPrice\":\"0.00000000\",\"highPrice\":\"0.00000000\",\"lowPrice\":\"0.00000000\", \"volume\":\"0.00000000\",\"quoteVolume\":\"0.00000000\",\"openTime\":1728453600000,\"closeTime\":1728540000000,\"firstId\":-1,\"lastId\":-1,\"count\":0}",
+      "expect": {
+        "error": true,
+        "message": null
+      },
+      "note": "Binance answers a symbol in BREAK with all numbers 0. The single ticker must report 'no ticker data' (parse) so that NotTraded.confirmedBySingle marks the pair as no longer traded instead of storing price 0."
+    },
+    {
       "kind": "bulk",
       "name": "bulk 24hr (symbols=[...]) incl. entry without symbol",
       "market": "Binance",

@@ -1,0 +1,22 @@
+{
+  "_comment": "«1 h später» aus der Alarm-Mitteilung (Build 82): Ende der Pause (AlarmSnooze.snoozeUntil), hält sie die Meldung jetzt zurück (isSnoozed; Uhr zurückgestellt = vorbei) und Aufräumen (prune). Gemeinsam für AlarmSnoozeTest.kt und AlarmSnoozeTests.swift.",
+  "snoozeMillis": 3600000,
+  "until": [
+    {"now": 1000, "until": 3601000},
+    {"now": 1760000000000, "until": 1760003600000}
+  ],
+  "isSnoozed": [
+    {"name": "keine Pause", "until": null, "now": 1000, "snoozed": false},
+    {"name": "0 = keine Pause", "until": 0, "now": 1000, "snoozed": false},
+    {"name": "eben getippt", "until": 3601000, "now": 1000, "snoozed": true},
+    {"name": "kurz vor dem Ende", "until": 3601000, "now": 3600999, "snoozed": true},
+    {"name": "Ende erreicht", "until": 3601000, "now": 3601000, "snoozed": false},
+    {"name": "längst vorbei", "until": 3601000, "now": 9000000, "snoozed": false},
+    {"name": "Uhr zurückgestellt: mehr als eine Stunde übrig gilt als vorbei", "until": 3601000, "now": -1000, "snoozed": false}
+  ],
+  "prune": {
+    "now": 2000,
+    "all": {"1": 3601000, "2": 1500, "3": 999999999},
+    "kept": [1]
+  }
+}

@@ -8,12 +8,9 @@ package com.cryptochecker.app.ui.features.watchlist
 import com.cryptochecker.app.domain.watch.FirstAlarmCard
 import com.cryptochecker.app.ui.navigation.ScreenRoute
 import com.cryptochecker.app.ui.navigation.OnTabReselect
-import com.cryptochecker.app.domain.watch.AlarmBellRoute
-import com.cryptochecker.app.ui.features.alarms.AlarmPairPicker
 import androidx.activity.compose.ReportDrawnWhen
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Scaffold
@@ -42,24 +39,20 @@ import androidx.lifecycle.compose.LifecycleStartEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.local.model.WatchEntity
-import com.cryptochecker.app.domain.activity.ActivityAnalyzer
 import com.cryptochecker.app.domain.refresh.RefreshDebounce
-import com.cryptochecker.app.domain.watch.ActivityView
 import com.cryptochecker.app.domain.watch.AutoGroup
 import com.cryptochecker.app.domain.watch.ChangeView
 import com.cryptochecker.app.domain.watch.DisabledView
-import com.cryptochecker.app.domain.watch.NotTraded
 import com.cryptochecker.app.domain.watch.QuickView
 import com.cryptochecker.app.domain.watch.WatchFilter
-import com.cryptochecker.app.domain.watch.WatchPulse
-import com.cryptochecker.app.domain.watch.isNotTraded
-import com.cryptochecker.app.domain.watch.shownChange
 import com.cryptochecker.app.ui.components.LocalRowHighlight
 import com.cryptochecker.app.ui.components.RowHighlight
 import com.cryptochecker.app.ui.components.SkeletonList
 import com.cryptochecker.app.ui.components.rememberReduceMotion
 import com.cryptochecker.app.ui.lock.PortfolioLockViewModel
 import com.cryptochecker.app.util.StartupClock
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /**
  * Die Merkliste: fester Kopf (Gruppen, Glocke, Menü, Status mit Lupe und «+» bzw. Suche), darunter Puls,
@@ -105,22 +98,7 @@ fun WatchlistScreen(
     val alarmTotal = state.content.alarmTotal
     // Glocke (Kopf und Start-Auswahl): mit Alarmen die Übersicht, ohne einen einzigen gleich zum Anlegen —
     // ein Paar: dessen Alarm-Seite (öffnet den Editor), mehrere: erst wählen, leere Merkliste: Coin hinzufügen
-    var pickAlarmPair by remember { mutableStateOf(false) }
-    val onBellClick: () -> Unit = {
-        when (AlarmBellRoute.of(alarmTotal, watches.size)) {
-            AlarmBellRoute.OVERVIEW -> onOpenAllAlarms()
-            AlarmBellRoute.EDITOR -> onOpenAlarms(watches.first().id)
-            AlarmBellRoute.PICK_PAIR -> pickAlarmPair = true
-            AlarmBellRoute.ADD_COIN -> onAddClick()
-        }
-    }
-    if (pickAlarmPair) {
-        AlarmPairPicker(
-            watches = watches,
-            onPick = { id -> pickAlarmPair = false; onOpenAlarms(id) },
-            onDismiss = { pickAlarmPair = false },
-        )
-    }
+    val onBellClick = rememberBellClick(alarmTotal, watches, onOpenAllAlarms, onOpenAlarms, onAddClick)
     val latestAlarmTrigger = state.content.latestAlarmTrigger
     val alarmFiredAt = state.content.alarmFiredAt
     val refreshing = live.refreshing
@@ -163,26 +141,10 @@ fun WatchlistScreen(
     val sensitivity = display.activitySensitivity
     // Nach der gewählten Empfindlichkeit neu beurteilt (gleiche Schwellen wie die Meldungen)
     // Nicht mehr gehandelte Paare: kein ⚡, nicht in der Karte (auch bevor die Auswertung aufräumt)
-    val notTradedIds = remember(watches) { NotTraded.ids(watches, { it.id }, { it.lastError }) }
-    // Deaktivierte Paare ebenso: kein ⚡, nicht in der Karte (auch bevor die Auswertung aufräumt)
-    val quietIds = remember(watches, notTradedIds) {
-        notTradedIds + DisabledView.only(watches) { it.disabled }.map { it.id }
-    }
-    val activeSignals = remember(activity, now, sensitivity, quietIds) {
-        NotTraded.withoutIds(activity, quietIds)
-            .mapValues { ActivityAnalyzer.applySensitivity(it.value.active(now), sensitivity) }
-            .filterValues { it.isNotEmpty() }
-    }
-    // ⚡-Chip: Paare mit Signalen (alle Gruppen), starke zuerst, sonst Listenreihenfolge; mit
-    // Empfindlichkeit «Weniger» nur die Paare der stärksten Coins
-    val hot = remember(watches, activeSignals, sensitivity) {
-        ActivityView.pick(
-            watches.filter { it.id in activeSignals }
-                .sortedByDescending { activeSignals[it.id]?.firstOrNull()?.severity?.ordinal ?: 0 },
-            { it.baseAsset },
-            sensitivity.maxCardCoins,
-        )
-    }
+    val signals = rememberActivitySignals(watches, activity, now, sensitivity)
+    val notTradedIds = signals.notTradedIds
+    val activeSignals = signals.activeSignals
+    val hot = signals.hot
 
     // Leere Merkliste: Start-Auswahl der grössten Coins ([StarterUiState])
     // Start-Auswahl: neue Paare haben Kurs-Mitteilungen an — Erlaubnis jetzt fragen (wie im Explorer)
@@ -201,22 +163,7 @@ fun WatchlistScreen(
     // Deaktivierte Paare der Gruppen-Ansicht: Hinweis «3 deaktiviert» neben dem Status (0 = keiner)
     val disabledCount = remember(groupVisible) { DisabledView.count(groupVisible) { it.disabled } }
     // Gezeigt: die Gruppen-Ansicht oder vorübergehend ⚡, «nur veraltete» bzw. «nur deaktivierte» ([QuickView])
-    val visible = remember(groupVisible, hot, ui.quickView, now, staleAfter, liveIds) {
-        when (ui.quickView) {
-            QuickView.ACTIVITY -> hot
-            QuickView.STALE -> groupVisible.filter { WatchlistStatus.isStale(it, now, staleAfter, liveIds) }
-            QuickView.DISABLED -> DisabledView.only(groupVisible) { it.disabled }
-            null -> groupVisible
-        }
-    }
-    // Vorübergehende Ansicht endet von selbst, wenn nichts mehr hineinpasst
-    LaunchedEffect(ui.quickView, activityChip, visible.isEmpty()) {
-        when (ui.quickView) {
-            QuickView.ACTIVITY -> if (!activityChip) ui.quickView = null
-            QuickView.STALE, QuickView.DISABLED -> if (visible.isEmpty()) ui.quickView = null
-            null -> Unit
-        }
-    }
+    val visible = rememberVisibleWatches(ui, groupVisible, hot, now, staleAfter, liveIds, activityChip)
     // Mehrfachauswahl: nur Paare, die es noch gibt und die zu sehen sind
     val selectedIds = remember(ui.selectedIds, visible) {
         val ids = visible.mapTo(HashSet()) { it.id }
@@ -259,13 +206,18 @@ fun WatchlistScreen(
         }
     }
 
-    // Alles aktualisieren (nach unten ziehen, Menü). Eben erst aktualisiert (unter 15 s): kein
-    // neuer Durchlauf — der Menüpunkt ist dann grau mit Countdown ([WatchlistMenu]); wer zieht, sieht
-    // kurz «Wieder möglich in N s» statt nichts (der Kreisel springt gleich zurück, isRefreshing bleibt aus).
+    // Alles aktualisieren (nach unten ziehen, Menü). Eben erst aktualisiert (unter 15 s): kein neuer
+    // Durchlauf — der Menüpunkt ist dann grau mit Countdown ([WatchlistMenu]); wer zieht, sieht den Kreisel
+    // kurz drehen und dann «Gerade aktualisiert · vor N s» (die Sperre bleibt intern, RefreshDebounce.pullEchoSeconds).
+    var pullEcho by remember { mutableStateOf(false) }
     val requestRefresh: () -> Unit = {
-        if (viewModel.refreshAllByUser() == RefreshDebounce.Decision.RECENT) {
-            val seconds = RefreshDebounce.remainingSeconds(viewModel.lastFullRefreshAt(), System.currentTimeMillis())
-            if (seconds > 0) banner.show(resources.getString(R.string.watchlist_refresh_again_in, seconds))
+        val decision = viewModel.refreshAllByUser()
+        val ago = RefreshDebounce.pullEchoSeconds(decision, viewModel.lastFullRefreshAt(), System.currentTimeMillis())
+        if (ago != null && !pullEcho) scope.launch {
+            pullEcho = true
+            delay(RefreshDebounce.PULL_ECHO_MILLIS)
+            pullEcho = false
+            banner.show(resources.getString(R.string.watchlist_refresh_just_done, ago))
         }
     }
     // Nach links wischen, Screenreader-Aktion «Löschen» und «Löschen» im Aktionen-Blatt:
@@ -379,7 +331,7 @@ fun WatchlistScreen(
 
             // Liste nach unten ziehen = alles aktualisieren (wie der Knopf oben).
             PullToRefreshBox(
-                isRefreshing = refreshing,
+                isRefreshing = refreshing || pullEcho,
                 onRefresh = requestRefresh,
                 modifier = Modifier.fillMaxSize().padding(padding)
             ) {
@@ -389,18 +341,7 @@ fun WatchlistScreen(
                 // nicht jede Neuzusammensetzung (z. B. die 30-s-Uhr) hunderte Paare neu durchgeht.
                 // Erster Gebrauch: kein Puls, bis es einen Alarm gibt bzw. nach einigen Tagen (WatchlistOnboarding)
                 val onboarding = state.onboarding
-                val pulse = remember(visible, ui.searching, ui.sortMode, changeView, onboarding.pulse) {
-                    if (ui.searching || ui.sortMode || !onboarding.pulse) null
-                    else {
-                        // Nicht gehandelte Paare zählen weder als steigend/fallend noch als «ohne 24h-Wert»,
-                        // deaktivierte gar nicht
-                        val counted = DisabledView.active(visible) { it.disabled }
-                        WatchPulse.of(
-                            changes = counted.map { it.shownChange(changeView) },
-                            hasPrice = counted.map { it.lastPrice != null && !isNotTraded(it.lastError) },
-                        )
-                    }
-                }
+                val pulse = rememberWatchPulse(visible, ui.searching, ui.sortMode, changeView, onboarding.pulse)
                 KeepTopWhenPulseAppears(pulseShown = pulse != null, listState = listState)
                 // Kopf und Liste: [WatchlistBody]
                 WatchlistBody(

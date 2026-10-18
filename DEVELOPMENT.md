@@ -2069,3 +2069,29 @@ after the encryption step.
 * Settings search: `alarms.delivery`, `about.diagnostics`, `updates.alarm_log`; `SettingsSearchAnchorsTest` checks
   that every search target has an anchor on both platforms.
 
+## Build 82
+
+* File length: every production file ≤ 400 lines (SwiftLint's default warning, applied to Kotlin too);
+  `FileLengthTest` scans Android and iOS sources; the only allowlisted file is `settings/AppSettings.kt` (one
+  data-class constructor with ~95 documented settings), ceiling only goes down.
+* Staleness: `PriceFreshness.staleReason` – FETCH when the last successful fetch is older than the user's limit,
+  TRADE when the exchange reports a last trade older than the alarm limit (2 h, `AlarmFreshness`); row, quick
+  filter, sheet header and widgets use it, so row and alarm block on the same condition. «x ago» stays fetch time.
+* Single ticker: a missing, 0, negative or non-finite price is «Parsed ticker has no data» (parse failure) on both
+  platforms; `NotTraded` never confirms on `MarketFailure.Other`, blank text only without any failure type.
+* Network: OkHttp dispatcher 32 / 5 per host, `CallStartInterceptor` + `CallGuard` start the guard timeout when the
+  call actually runs; iOS `RequestGate` (32 / 5 per host before a task is created, 6 connections per host).
+  Identical concurrent POSTs share one request (Hyperliquid). DexScreener: pools per chain in one
+  `/latest/dex/pairs/{chain}/{a,b,…}` call (≤ 30), never «complete», liquidity rule per pool.
+* Notifications: «1 h later» (repeating alarms only) stores `snoozeUntil` per alarm outside the database (Android
+  prefs `alarm_snooze`, iOS App Group `alarm_snooze_until`), honoured at delivery like quiet hours (outcome
+  SNOOZED); «Adjust» opens `alarm/<watchId>/<alarmId>`; coin logo only from the local cache (300 ms limit).
+  Automatic announcements use the notification stream (Android USAGE_NOTIFICATION, iOS `.ambient`) and stay silent
+  on a muted phone, in a call and in Do not disturb – like the alarm sound; user-started tests (voice/alarm) always
+  play (Android media stream, iOS `.playback`). Alarm log entries carry the check origin (app, background/exact,
+  widget).
+* Pull to refresh inside the 15 s window: accepted, 400 ms spinner, «Just updated · N s ago»; no network run.
+* Reference data: `bip32_fuzz.json` (1,000 random xpub/ypub/zpub leaves with all four address types, 74
+  point-arithmetic edge cases, 12 invalid keys; generator `android/tools/gen_bip32_vectors.py`, cross-checked with
+  OpenSSL via Python `cryptography`) and `argon2_random.json` (20 random cases) on both platforms.
+

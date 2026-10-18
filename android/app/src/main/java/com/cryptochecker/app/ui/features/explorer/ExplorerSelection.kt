@@ -6,6 +6,8 @@ import com.cryptochecker.app.domain.model.MarketTickerResult
 import com.cryptochecker.marketdata.model.MarketPair
 import com.cryptochecker.marketdata.model.FuturesContractType
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 
 /**
  * Auswahl «Erweitert / nach Börse» nach dem Laden der Börsen: die feste Börsenliste und die laufend
@@ -69,3 +71,41 @@ enum class AddResult {
     ALREADY_IN_LIST,
     NO_PAIR_SELECTED,
 }
+
+/** Laden der Börsenliste: läuft, bereit (mit der Auswahl) oder gescheitert. */
+sealed interface ExplorerLoad {
+    data object Loading : ExplorerLoad
+
+    data class Ready(val selection: ExplorerSelection) : ExplorerLoad
+
+    data class Failed(val error: Throwable) : ExplorerLoad
+}
+
+/** Auswahl «Erweitert / nach Börse» zur geladenen Börsenliste ([ExplorerViewModel.pageState]). */
+internal fun ExplorerViewModel.buildSelection(exchangeList: List<MarketInfo>) = ExplorerSelection(
+    exchanges = exchangeList,
+    exchange = exchange.asStateFlow(),
+    canReloadPairs = canReloadPairs,
+    pairList = pairList,
+    pairListSync = pairListSync.asStateFlow(),
+    coin = coin.asStateFlow(),
+    quote = quote.asStateFlow(),
+    contract = contract.asStateFlow(),
+    coins = coins,
+    quotes = quotes,
+    contracts = contracts,
+    price = price.asStateFlow(),
+    bulkPairs = bulkPairs.asStateFlow(),
+    bulkEmpty = bulkEmpty.asStateFlow(),
+    addResult = addResult.asStateFlow(),
+    bulkAddResult = bulkAdd.asStateFlow(),
+    bulkQuotes = bulkQuotes,
+    bulkQuote = bulkQuote.asStateFlow(),
+    bulkStats = bulkStats.asStateFlow(),
+)
+
+/**
+ * Zuletzt gewählte Ziel-Gruppe — absichtlich nur im Speicher: gilt für die laufende Sitzung,
+ * nach dem nächsten Start wieder «Keine Gruppe».
+ */
+internal val sessionTargetGroup = MutableStateFlow<String?>(null)

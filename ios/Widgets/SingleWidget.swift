@@ -109,7 +109,7 @@ private struct SingleSummaryA11y: ViewModifier {
     /// «Deaktiviert» bzw. «veraltet, letzte Aktualisierung …» bzw. «Kurs unverändert seit …».
     private var spokenState: String? {
         if watch.disabled { return L("watch_disabled") }
-        if outdated { return WidgetOutdated.spoken(watch.lastUpdate, at: date) }
+        if outdated { return WidgetOutdated.spoken(watch, at: date, afterMillis: outdatedAfter) }
         return outdatedAfter > 0 ? WidgetOutdated.unchanged(watch, at: date, afterMillis: outdatedAfter) : nil
     }
 }
@@ -130,7 +130,7 @@ private struct SingleHeader: View {
     /// Volles Paar («BTC/USDT»), wenn es neben der Veränderung Platz hat, sonst nur die
     /// Basis («BTC» statt «BT…»). Die Veränderung wird nie gekürzt (feste Breite, Vorrang).
     var body: some View {
-        HStack(spacing: 6) {
+        HStack(spacing: 4) {
             WidgetCoinBadge(symbol: CoinLogoStore.logoKey(for: watch), size: badge, dark: palette.dark, accent: palette.accent,
                             logo: CoinLogos.allowed(forMarket: watch.marketKey))
                 // Deaktiviert: grau (wie die Zeile in der App)
@@ -209,7 +209,7 @@ private struct SingleSmallView: View {
                 .lineLimit(1)
                 .invalidatableContent()
         }
-        .padding(14)
+        .padding(12)
     }
 }
 
@@ -229,9 +229,9 @@ private struct SingleMediumView: View {
     var foreignChart: String? = nil
 
     var body: some View {
-        HStack(spacing: 14) {
+        HStack(spacing: 12) {
             VStack(alignment: .leading, spacing: 0) {
-                HStack(spacing: 6) {
+                HStack(spacing: 4) {
                     WidgetCoinBadge(symbol: CoinLogoStore.logoKey(for: watch), size: 24, dark: palette.dark, accent: palette.accent,
                                     logo: CoinLogos.allowed(forMarket: watch.marketKey))
                         .opacity(watch.disabled ? 0.45 : 1)
@@ -279,7 +279,7 @@ private struct SingleMediumView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
         }
-        .padding(16)
+        .padding(12)
     }
 }
 
@@ -289,8 +289,8 @@ private struct SingleChooseView: View {
     let palette: WidgetPalette
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            HStack(spacing: 6) {
+        VStack(alignment: .leading, spacing: 4) {
+            HStack(spacing: 4) {
                 WidgetLogo(accent: accent, dark: palette.dark, size: 16)
                 Text(WidgetData.appName)
                     .font(.system(size: 12, weight: .bold))
@@ -311,7 +311,7 @@ private struct SingleChooseView: View {
                 .accessibilityHidden(true)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
-        .padding(14)
+        .padding(12)
     }
 }
 

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Build 82: Alarm-Mitteilung («1 h später», «Anpassen»), Alarm-Protokoll (Herkunft, Pause), Ziehen im 15-s-Fenster -->
+<resources>
+    <string name="notification_alarm_action_snooze">Peste 1 h</string>
+    <string name="notification_alarm_action_edit">Ajustează</string>
+    <string name="alarm_outcome_snoozed">Reținut – «Peste 1 h» încă activ</string>
+    <string name="alarm_log_source_app">în aplicație</string>
+    <string name="alarm_log_source_background">în fundal</string>
+    <string name="alarm_log_source_exact">verificare punctuală</string>
+    <string name="alarm_log_source_widget">prin widget</string>
+    <string name="watchlist_refresh_just_done">Abia actualizat · acum %1$d s</string>
+</resources>

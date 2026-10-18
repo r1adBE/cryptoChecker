@@ -135,7 +135,9 @@ class ListWidgetRows @Inject constructor(
 
         // Eigener Stand dieses Paares veraltet (z. B. Börse antwortet nicht): «Binance · veraltet»
         val now = System.currentTimeMillis()
-        val outdated = !off && WidgetOutdated.isOutdated(watch.lastUpdate, watch.lastError, now, data.outdatedAfter)
+        // Regel der App (Abruf zu alt oder letzter Handel > 2 h, [WidgetFreshness.outdatedTime])
+        val outdatedAt = if (off) null else WidgetFreshness.outdatedTime(watch, now, data.outdatedAfter)
+        val outdated = outdatedAt != null
         // Börse ohne eigene Zeit, Kurs steht lange: «Kraken · Kurs unverändert seit 14:05» (wie die Zeile der App)
         val unchanged = if (off || outdated) null
         else WidgetFreshness.unchangedSince(watch, now, data.outdatedAfter)?.let { WidgetOutdated.unchanged(context, it) }
@@ -200,7 +202,7 @@ class ListWidgetRows @Inject constructor(
                 state = listOf(
                     when {
                         off -> context.getString(R.string.watch_disabled)
-                        outdated -> WidgetOutdated.spoken(context, watch.lastUpdate)
+                        outdatedAt != null -> WidgetOutdated.spoken(context, outdatedAt)
                         else -> unchanged
                     }
                 ),

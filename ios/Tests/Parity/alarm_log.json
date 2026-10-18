@@ -1,5 +1,5 @@
 {
-  "_comment": "Alarm-Protokoll (Build 80): Ergebnis aus der beobachteten Prüfung (AlarmLog.outcome/notable), Melde-Ablauf (AlarmLog.deliveryTrace), Zusammenfassen im Ringpuffer (AlarmLog.record) und Dateiformat (AlarmLog.decode). Gemeinsam für AlarmLogParityTest.kt und AlarmLogParityTests.swift.",
+  "_comment": "Alarm-Protokoll (Build 80): Ergebnis aus der beobachteten Prüfung (AlarmLog.outcome/notable; Build 82: «1 h später» = snoozed), Melde-Ablauf (AlarmLog.deliveryTrace), Zusammenfassen im Ringpuffer (AlarmLog.record) und Dateiformat (AlarmLog.decode; Build 82: Herkunft «src» = CheckTrigger-Code, unbekannt = null). Gemeinsam für AlarmLogParityTest.kt und AlarmLogParityTests.swift.",
   "codes": {
     "FIRED": "fired",
     "NOT_REACHED": "not_reached",
@@ -9,6 +9,7 @@
     "MARK_PRICE": "mark_price",
     "LOW_LIQUIDITY": "low_liquidity",
     "QUIET_HOURS": "quiet_hours",
+    "SNOOZED": "snoozed",
     "NOTIFICATIONS_OFF": "notifications_off",
     "NOT_SHOWN": "not_shown",
     "NO_RATE": "no_rate",
@@ -25,6 +26,9 @@
     {"name": "Kurs veraltet, nicht fällig", "trace": {"stale": true}, "outcome": "STALE", "notable": false},
     {"name": "kein Devisenkurs", "trace": {"noRate": true}, "outcome": "NO_RATE", "notable": false},
     {"name": "Nachtruhe vor Mitteilungen aus", "trace": {"due": true, "quietHours": true, "notificationsOff": true}, "outcome": "QUIET_HOURS", "notable": true},
+    {"name": "Nachtruhe vor «1 h später»", "trace": {"due": true, "quietHours": true, "snoozed": true}, "outcome": "QUIET_HOURS", "notable": true},
+    {"name": "«1 h später» vor Mitteilungen aus", "trace": {"due": true, "snoozed": true, "notificationsOff": true}, "outcome": "SNOOZED", "notable": true},
+    {"name": "«1 h später» ohne Fälligkeit zählt nicht", "trace": {"snoozed": true}, "outcome": "NOT_REACHED", "notable": false},
     {"name": "Mitteilungen aus", "trace": {"due": true, "notificationsOff": true, "retryBlocked": true}, "outcome": "NOTIFICATIONS_OFF", "notable": true},
     {"name": "unbestätigter Versuch: Abklingzeit", "trace": {"due": true, "retryBlocked": true}, "outcome": "COOLDOWN", "notable": true},
     {"name": "Mitteilung kam nicht an", "trace": {"due": true, "notShown": true}, "outcome": "NOT_SHOWN", "notable": true},
@@ -35,6 +39,8 @@
   ],
   "delivery": [
     {"hold": true, "canShow": null, "shown": null, "saved": false, "outcome": "QUIET_HOURS"},
+    {"hold": true, "snoozed": true, "canShow": null, "shown": null, "saved": false, "outcome": "QUIET_HOURS"},
+    {"hold": false, "snoozed": true, "canShow": null, "shown": null, "saved": false, "outcome": "SNOOZED"},
     {"hold": false, "canShow": false, "shown": null, "saved": false, "outcome": "NOTIFICATIONS_OFF"},
     {"hold": false, "canShow": true, "shown": null, "saved": false, "outcome": "COOLDOWN"},
     {"hold": false, "canShow": true, "shown": false, "saved": false, "outcome": "NOT_SHOWN"},
@@ -61,13 +67,13 @@
     ]
   },
   "decode": {
-    "text": "{\"v\":1,\"last\":[{\"id\":7,\"at\":1760000000000,\"pair\":\"BTC/CHF\",\"ex\":\"Kraken\",\"quote\":\"CHF\",\"price\":99800,\"cond\":\"PRICE_ABOVE\",\"thr\":100000,\"win\":1,\"out\":\"not_reached\"}],\"events\":[{\"id\":7,\"at\":1759990000000,\"pair\":\"BTC/CHF\",\"ex\":\"Kraken\",\"quote\":\"CHF\",\"price\":101000.5,\"cond\":\"PRICE_ABOVE\",\"thr\":100000,\"win\":1,\"out\":\"stale\",\"exTime\":1759980000000,\"n\":true,\"until\":1759995000000},{\"id\":8,\"at\":1759990000000,\"pair\":\"ETH/USDT\",\"ex\":\"Binance\",\"quote\":\"USDT\",\"cond\":\"CHANGE_PERCENT_UP\",\"thr\":5,\"out\":\"bogus\"},{\"id\":9,\"at\":1759990000000,\"pair\":\"SOL/USDT\",\"ex\":\"Binance\",\"quote\":\"USDT\",\"cond\":\"PRICE_BELOW\",\"thr\":120,\"cur\":\"EUR\",\"shown\":110.25,\"out\":\"cooldown\",\"n\":true}]}",
+    "text": "{\"v\":1,\"last\":[{\"id\":7,\"at\":1760000000000,\"pair\":\"BTC/CHF\",\"ex\":\"Kraken\",\"quote\":\"CHF\",\"price\":99800,\"cond\":\"PRICE_ABOVE\",\"thr\":100000,\"win\":1,\"out\":\"not_reached\"}],\"events\":[{\"id\":7,\"at\":1759990000000,\"pair\":\"BTC/CHF\",\"ex\":\"Kraken\",\"quote\":\"CHF\",\"price\":101000.5,\"cond\":\"PRICE_ABOVE\",\"thr\":100000,\"win\":1,\"out\":\"stale\",\"exTime\":1759980000000,\"n\":true,\"until\":1759995000000,\"src\":\"widget\"},{\"id\":8,\"at\":1759990000000,\"pair\":\"ETH/USDT\",\"ex\":\"Binance\",\"quote\":\"USDT\",\"cond\":\"CHANGE_PERCENT_UP\",\"thr\":5,\"out\":\"bogus\"},{\"id\":9,\"at\":1759990000000,\"pair\":\"SOL/USDT\",\"ex\":\"Binance\",\"quote\":\"USDT\",\"cond\":\"PRICE_BELOW\",\"thr\":120,\"cur\":\"EUR\",\"shown\":110.25,\"out\":\"cooldown\",\"n\":true,\"src\":\"bogus\"}]}",
     "lastChecks": [
-      {"id": 7, "at": 1760000000000, "pair": "BTC/CHF", "exchange": "Kraken", "price": 99800, "condition": "PRICE_ABOVE", "threshold": 100000, "outcome": "NOT_REACHED"}
+      {"id": 7, "at": 1760000000000, "pair": "BTC/CHF", "exchange": "Kraken", "price": 99800, "condition": "PRICE_ABOVE", "threshold": 100000, "outcome": "NOT_REACHED", "source": null}
     ],
     "events": [
-      {"id": 7, "at": 1759990000000, "price": 101000.5, "outcome": "STALE", "exchangeTime": 1759980000000, "until": 1759995000000, "notable": true, "currency": null, "shownPrice": null},
-      {"id": 9, "at": 1759990000000, "price": null, "outcome": "COOLDOWN", "exchangeTime": null, "until": 0, "notable": true, "currency": "EUR", "shownPrice": 110.25}
+      {"id": 7, "at": 1759990000000, "price": 101000.5, "outcome": "STALE", "exchangeTime": 1759980000000, "until": 1759995000000, "notable": true, "currency": null, "shownPrice": null, "source": "widget"},
+      {"id": 9, "at": 1759990000000, "price": null, "outcome": "COOLDOWN", "exchangeTime": null, "until": 0, "notable": true, "currency": "EUR", "shownPrice": 110.25, "source": null}
     ],
     "wrongVersion": "{\"v\":2,\"last\":[],\"events\":[]}"
   },

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Build 82: Alarm-Mitteilung («1 h später», «Anpassen»), Alarm-Protokoll (Herkunft, Pause), Ziehen im 15-s-Fenster -->
+<resources>
+    <string name="notification_alarm_action_snooze">1 h später</string>
+    <string name="notification_alarm_action_edit">Anpassen</string>
+    <string name="alarm_outcome_snoozed">Zurückgehalten – «1 h später» läuft noch</string>
+    <string name="alarm_log_source_app">in der App</string>
+    <string name="alarm_log_source_background">im Hintergrund</string>
+    <string name="alarm_log_source_exact">pünktliche Prüfung</string>
+    <string name="alarm_log_source_widget">über Widget</string>
+    <string name="watchlist_refresh_just_done">Gerade aktualisiert · vor %1$d s</string>
+</resources>

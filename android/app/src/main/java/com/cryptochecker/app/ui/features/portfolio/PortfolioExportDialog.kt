@@ -3,7 +3,6 @@ package com.cryptochecker.app.ui.features.portfolio
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CircularProgressIndicator
@@ -67,6 +65,8 @@ import java.time.format.FormatStyle
 fun PortfolioExportDialog(
     currency: String,
     onDismiss: () -> Unit,
+    /** Export fertig: Bestätigung über die Snackbar des Aufrufers (der Dialog ist dann schon zu). */
+    onDone: (String) -> Unit = {},
     viewModel: PortfolioExportViewModel = hiltViewModel(),
 ) {
     val context = LocalContext.current
@@ -186,9 +186,15 @@ fun PortfolioExportDialog(
             CutoffExportState.Failed -> failedText
             else -> return@LaunchedEffect
         }
-        Toast.makeText(context, text, Toast.LENGTH_LONG).show()
         viewModel.consume()
-        if (current == CutoffExportState.Done) onDismiss()
+        if (current == CutoffExportState.Done) {
+            // Dialog zu, Bestätigung in der Snackbar des Portfolio-Tabs
+            onDone(text)
+            onDismiss()
+        } else {
+            // Fehlgeschlagen: Dialog bleibt offen (nochmals versuchen) — die Snackbar läge dahinter, darum ein Toast
+            Toast.makeText(context, text, Toast.LENGTH_LONG).show()
+        }
     }
 
     if (pickDate) {
@@ -384,37 +390,5 @@ fun PortfolioExportDialog(
         dismissButton = {
             TextButton(enabled = !running, onClick = onDismiss) { Text(stringResource(R.string.action_cancel)) }
         }
-    )
-}
-
-/** Kleine Kapsel «Beta» neben dem Namen einer Länder-Vorlage (Regeln vereinfacht). */
-@Composable
-private fun TaxBetaBadge() {
-    Text(
-        stringResource(R.string.tax_template_beta),
-        style = MaterialTheme.typography.labelSmall,
-        fontWeight = FontWeight.SemiBold,
-        color = MaterialTheme.colorScheme.onSurface,
-        maxLines = 1,
-        modifier = Modifier
-            .padding(start = 4.dp)
-            .background(MaterialTheme.colorScheme.surfaceContainerHighest, RoundedCornerShape(50))
-            .padding(horizontal = 4.dp, vertical = 1.dp)
-    )
-}
-
-/**
- * Länder-Vorlage gewählt und der Hinweis «Beta, vereinfachte Regeln, Transaktionen anderer Plattformen fehlen – vor der
- * Steuererklärung prüfen» noch nie bestätigt: Dialog mit OK (einmal; Zurück schliesst ihn nur bis zum nächsten Mal).
- */
-@Composable
-internal fun TaxTemplateConfirmDialog(template: TaxTemplate, confirmed: Boolean, onConfirm: () -> Unit) {
-    var dismissed by remember(template) { mutableStateOf(false) }
-    if (template == TaxTemplate.NEUTRAL || confirmed || dismissed) return
-    AlertDialog(
-        onDismissRequest = { dismissed = true },
-        title = { Text(stringResource(R.string.tax_template_confirm_title)) },
-        text = { Text(stringResource(R.string.tax_template_confirm_text)) },
-        confirmButton = { TextButton(onClick = onConfirm) { Text(stringResource(android.R.string.ok)) } },
     )
 }

@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -25,7 +24,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.graphics.graphicsLayer
@@ -49,7 +47,7 @@ import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.app.domain.watch.DayChange
 import com.cryptochecker.app.domain.watch.AssetKind
-import com.cryptochecker.app.domain.watch.DisabledView
+import com.cryptochecker.app.domain.watch.PriceFreshness
 import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.app.domain.watch.shownChange
 import com.cryptochecker.app.ui.components.CoinBadge
@@ -145,7 +143,8 @@ internal fun WatchRow(
     )
     // Deaktiviert: ganz grau mit dem letzten Kurs, nie «veraltet» (es wird bewusst nicht abgefragt)
     val off = watch.disabled
-    val stale = DisabledView.isStale(off, isNotTraded(watch.lastError), watch.lastUpdate, now, staleAfter)
+    // Veraltet nach der Regel der Alarmsperre: Abruf zu alt oder letzter Handel laut Börse > 2 h ([PriceFreshness.isStale])
+    val stale = PriceFreshness.isStale(watch, now, staleAfter)
     // Veraltet: nicht mehr abgeblasst (Kontrast AA), sondern Kurs in onSurfaceVariant ([RowPrice])
     // samt «Börse · vor 13 Min.» in Fehlerfarbe; das Mini-Chart im selben Grau ohne Fläche ([Sparkline]).
     // Deaktiviert (L-13): Texte in onSurfaceVariant statt abgeblasst (Kontrast AA), nur Logo und
@@ -193,7 +192,7 @@ internal fun WatchRow(
         quote = watch.quoteAsset,
         change24h = watch.shownChange(changeView),
         basis = changeView.basis,
-        state = listOf(status.paused, A11yText.freshness(context, freshness, watch.lastUpdate, now, watch.marketName), status.unchanged),
+        state = listOf(status.paused, A11yText.freshness(context, freshness, watch.lastUpdate, now, watch.marketName), status.trade, status.unchanged),
         extras = listOf(
             changeMarker?.let { stringResource(R.string.change_candle_source, it) },
             if (markPrice) stringResource(R.string.watch_price_mark_fallback) else null,
@@ -375,35 +374,3 @@ internal fun WatchRow(
         }
     }
 }
-
-/** Hinweis «Änderung & Chart: Binance» für die Zeile ([DayChange.rowSource]). */
-@Composable
-internal fun rowSourceText(source: com.cryptochecker.app.domain.watch.DayChange.RowSource): String = when (source.kind) {
-    com.cryptochecker.app.domain.watch.DayChange.RowSourceKind.CHANGE_AND_CHART ->
-        stringResource(R.string.watch_row_source_both, source.provider)
-    com.cryptochecker.app.domain.watch.DayChange.RowSourceKind.CHANGE -> listOfNotNull(
-        stringResource(R.string.watch_row_source_change, source.provider),
-        source.chartProvider?.let { stringResource(R.string.watch_row_source_chart, it) },
-    ).joinToString(" · ")
-    com.cryptochecker.app.domain.watch.DayChange.RowSourceKind.CHART -> stringResource(R.string.watch_row_source_chart, source.provider)
-}
-
-/** Gesprochener Name der Art im Zeilensatz. */
-internal val AssetKind.spokenRes: Int
-    get() = when (this) {
-        AssetKind.TOKEN -> R.string.asset_kind_token
-        AssetKind.TRADFI -> R.string.asset_kind_tradfi
-        AssetKind.ALPHA -> R.string.asset_kind_alpha
-    }
-
-/**
- * Deckkraft von Logo und kleinen Symbolen eines deaktivierten Paars. Texte (Paar, Kurs, Anzahl
- * Alarme) werden nicht mehr abgeblasst (45 % lag unter 4.5:1), sondern stehen in onSurfaceVariant
- * ([disabledTextColor]); dazu sagt «Binance · deaktiviert» den Zustand in Worten (L-13).
- */
-internal const val DISABLED_ICON_ALPHA = 0.45f
-
-/** Textfarbe eines deaktivierten Paars: onSurfaceVariant (mind. 4.5:1), sonst [normal]. */
-@Composable
-internal fun disabledTextColor(off: Boolean, normal: Color = Color.Unspecified): Color =
-    if (off) MaterialTheme.colorScheme.onSurfaceVariant else normal

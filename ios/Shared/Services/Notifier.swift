@@ -7,7 +7,8 @@ import UserNotifications
 /// deshalb als normale, stille Mitteilung, die die vorige desselben Paars ersetzt.
 enum Notifier {
     static let categoryAlarm = "alarm"
-    /// Kursalarm eines gehandelten Paars: mit der Aktion «Was bewegt sich mit?».
+    /// Kursalarm eines gehandelten Paars: mit «Was bewegt sich mit?» und «Anpassen»; die übrigen Kategorien der
+    /// Paar-Alarme (mit «1 h später») in `Notifier+AlarmActions.swift`.
     static let categoryAlarmWhy = "alarm_why"
     /// Portfolio-Alarm mit Portfolio-Sperre: neutraler Text auch bei verborgener Vorschau.
     static let categoryPortfolioLocked = "portfolio_locked"
@@ -19,23 +20,21 @@ enum Notifier {
     static let actionOpenExchange = "open_exchange"
     static let userInfoExchangeUrl = "exchangeUrl"
 
-    /// Kategorien der Mitteilungen registrieren (beim Start der App). «Was bewegt sich mit?» öffnet die App
-    /// im Vordergrund; die Mitteilung selbst bleibt wie bisher (Tipp = zum Paar).
+    /// Kategorien der Mitteilungen registrieren (beim Start der App). «Was bewegt sich mit?» und «Anpassen» öffnen
+    /// die App im Vordergrund, «1 h später» nicht; die Mitteilung selbst bleibt wie bisher (Tipp = zum Paar).
     static func registerCategories() {
-        let why = UNNotificationAction(identifier: actionWhy, title: L("watch_action_why_short"), options: [.foreground])
         let exchange = UNNotificationAction(identifier: actionOpenExchange,
                                             title: L("notification_depeg_action_exchange"), options: [.foreground])
-        center.setNotificationCategories([
+        center.setNotificationCategories(Set(pairAlarmCategories()).union([
             UNNotificationCategory(identifier: categoryAlarm, actions: [], intentIdentifiers: [], options: []),
-            UNNotificationCategory(identifier: categoryAlarmWhy, actions: [why], intentIdentifiers: [], options: []),
             UNNotificationCategory(identifier: categoryDepeg, actions: [exchange], intentIdentifiers: [], options: []),
             UNNotificationCategory(identifier: categoryPortfolioLocked, actions: [], intentIdentifiers: [],
                                    hiddenPreviewsBodyPlaceholder: L("notification_portfolio_alarm_locked"),
                                    options: [.hiddenPreviewsShowTitle]),
-        ])
+        ]))
     }
 
-    private static var center: UNUserNotificationCenter { .current() }
+    static var center: UNUserNotificationCenter { .current() }
 
     static func requestPermission() async -> Bool {
         (try? await center.requestAuthorization(options: [.alert, .sound, .badge])) ?? false
@@ -122,7 +121,7 @@ enum Notifier {
     }
 
     /// Wie `post`, wartet aber auf das System: true, wenn die Mitteilung angenommen wurde.
-    private static func postChecked(id: String, content: UNMutableNotificationContent) async -> Bool {
+    static func postChecked(id: String, content: UNMutableNotificationContent) async -> Bool {
         let request = UNNotificationRequest(identifier: id, content: content, trigger: nil)
         do {
             try await center.add(request)
@@ -239,10 +238,13 @@ enum Notifier {
         let settings = SharedStorage.loadSettings()
         // «Alarm-Signal»: «Lautlos» = nur Mitteilung (zeitkritisch, ohne Ton); Vibration nach Töne & Haptik
         content.sound = settings.alarmSignal.notificationSound(alarmSound: alarm.sound, tone: settings.alarmSound)
-        // «Was bewegt sich mit?» nur für gehandelte Paare (sonst gibt es nichts zu erklären)
-        content.categoryIdentifier = watch.isNotTraded ? categoryAlarm : categoryAlarmWhy
+        // «Was bewegt sich mit?» nur für gehandelte Paare (sonst gibt es nichts zu erklären), «1 h später» nur für
+        // wiederholende Alarme (ein einmaliger ist nach dem Melden aus), «Anpassen» immer
+        content.categoryIdentifier = pairAlarmCategory(traded: !watch.isNotTraded, repeating: alarm.repeating)
         content.threadIdentifier = "alarms"
-        content.userInfo = [userInfoWatchId: NSNumber(value: watch.id)]
+        content.userInfo = [userInfoWatchId: NSNumber(value: watch.id), userInfoAlarmId: NSNumber(value: alarm.id)]
+        // Coin-Logo als Vorschaubild, nur wenn es schon auf dem Gerät liegt (nie aus dem Netz)
+        if settings.coinLogos, let logo = coinLogoAttachment(watch) { content.attachments = [logo] }
         content.interruptionLevel = .timeSensitive
         applyQuietHours(content, settings)
         badge(content, settings)
@@ -288,107 +290,6 @@ enum Notifier {
         content.threadIdentifier = "alarms"
         content.interruptionLevel = .timeSensitive
         post(id: testAlarmId, content: content)
-    }
-
-    // MARK: Ungewöhnliche Aktivität
-
-    static func activityId(_ watchId: Int64) -> String { "activity-\(watchId)" }
-
-    /// «SOL/USDT · Binance» mit dem wichtigsten Signal als Text; eine Meldung je Paar.
-    /// Selbst eingeschaltet (Standard aus) — deshalb hörbar, aber nicht zeitkritisch.
-    /// - Returns: true, wenn die Mitteilung angenommen wurde (`ActivityMonitor` merkt sie sonst nicht als gemeldet).
-    @discardableResult
-    static func showActivity(_ watch: Watch, _ signal: ActivitySignal) async -> Bool {
-        let content = UNMutableNotificationContent()
-        content.title = L("notification_activity_title", watch.displayName, watch.marketName)
-        content.body = ActivityTexts.signal(signal)
-        content.sound = .default
-        content.threadIdentifier = "activity"
-        content.userInfo = [userInfoWatchId: NSNumber(value: watch.id)]
-        content.interruptionLevel = .active
-        let settings = SharedStorage.loadSettings()
-        applyQuietHours(content, settings)
-        badge(content, settings)
-        return await postChecked(id: activityId(watch.id), content: content)
-    }
-
-    static func cancelActivity(_ watchId: Int64) {
-        center.removeDeliveredNotifications(withIdentifiers: [activityId(watchId)])
-        center.removePendingNotificationRequests(withIdentifiers: [activityId(watchId)])
-    }
-
-    // MARK: Fear & Greed
-
-    /// Fear & Greed hat die Grenze unter- bzw. überschritten. In der Nachtruhe lautlos — wie Aktivität und Gas.
-    /// - Returns: true, wenn die Mitteilung angenommen wurde.
-    @discardableResult
-    static func showFearGreed(value: Int, below: Int? = nil, above: Int? = nil) async -> Bool {
-        let content = UNMutableNotificationContent()
-        content.title = L("notification_fng_title", value)
-        if let below {
-            content.body = L("notification_fng_below", below)
-        } else {
-            content.body = L("notification_fng_above", above ?? 0)
-        }
-        content.sound = .default
-        content.threadIdentifier = "market"
-        let settings = SharedStorage.loadSettings()
-        applyQuietHours(content, settings)
-        badge(content, settings)
-        return await postChecked(id: "fng", content: content)
-    }
-
-    /// Eigene Grenze einer Bitcoin-Kennzahl erreicht: Titel «Mayer Multiple: 2.43×», Text «Über deiner Grenze 2.40× –
-    /// Messwert, keine Empfehlung.» Eine Mitteilung je Art — wie Android.
-    static func showIndicatorAlert(_ kind: IndicatorAlertKind, name: String, value: String, threshold: String) async -> Bool {
-        let content = UNMutableNotificationContent()
-        content.title = L("notification_indicator_title", name, value)
-        content.body = L(kind.above ? "notification_indicator_above" : "notification_indicator_below", threshold)
-        content.sound = .default
-        content.threadIdentifier = "market"
-        let settings = SharedStorage.loadSettings()
-        applyQuietHours(content, settings)
-        badge(content, settings)
-        return await postChecked(id: "indicator_" + kind.rawValue.lowercased(), content: content)
-    }
-
-    // MARK: Gas
-
-    /// Netzwerkgebühr ist unter die eingestellte Grenze gefallen (#167).
-    /// - Returns: true, wenn die Mitteilung angenommen wurde (`GasAlertCheck` hält den Alarm sonst scharf).
-    @discardableResult
-    static func showGas(id: String, title: String, body: String) async -> Bool {
-        let content = UNMutableNotificationContent()
-        content.title = title
-        content.body = body
-        content.sound = .default
-        content.threadIdentifier = "market"
-        let settings = SharedStorage.loadSettings()
-        applyQuietHours(content, settings)
-        badge(content, settings)
-        return await postChecked(id: id, content: content)
-    }
-
-    // MARK: USDT-Depeg
-
-    static let depegId = "depeg"
-
-    /// USDT weicht um die Schwelle von 1 USD ab — wie `AppNotifier.showDepeg`: Ton der Kursalarme
-    /// («Alarm-Signal», zeitkritisch; in der Nachtruhe löst der Alarm gar nicht aus, lautlos nur als Rückfall
-    /// an der Grenze). Aktion «Börse öffnen» öffnet die Seite USDC/USDT der Hauptbörse — kein Handel in der App.
-    /// - Returns: true, wenn die Mitteilung angenommen wurde (`DepegAlarmCheck` hält den Alarm sonst scharf).
-    static func showDepeg(title: String, body: String, exchangeUrl: String, settings: AppSettings) async -> Bool {
-        let content = UNMutableNotificationContent()
-        content.title = title
-        content.body = body
-        content.sound = settings.alarmSignal.notificationSound(tone: settings.alarmSound)
-        content.categoryIdentifier = categoryDepeg
-        content.threadIdentifier = "alarms"
-        content.userInfo = [userInfoExchangeUrl: exchangeUrl]
-        content.interruptionLevel = .timeSensitive
-        applyQuietHours(content, settings)
-        badge(content, settings)
-        return await postChecked(id: depegId, content: content)
     }
 
     // MARK: Nachtruhe

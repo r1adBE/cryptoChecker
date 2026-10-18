@@ -17,6 +17,11 @@ import java.io.File
  * [IOS_CEILINGS], die bewusst bleiben (Begründung je Eintrag). Die Obergrenzen dürfen nur sinken —
  * wer eine Stelle bereinigt, senkt die Zahl hier mit. Liest die Quellen von der Platte (wie
  * [TypographyUsageTest]); das iOS-Verzeichnis ist optional (reiner Android-Checkout).
+ *
+ * Seit Build 82 auch die Widget-Layouts (`res/layout/widget_*.xml`, RemoteViews): `android:padding*`,
+ * `android:layout_margin*` und Breite/Höhe von `<Space>` als Lücke. Widgets haben wenig Platz, darum
+ * wurde abgerundet (6 → 4, 10 → 8); was bleibt, steht in [WIDGET_XML_CEILINGS]. Die iOS-Widgets
+ * sind seit Build 82 ganz auf dem Raster (keine Obergrenze mehr).
  */
 class SpacingUsageTest {
 
@@ -42,6 +47,34 @@ class SpacingUsageTest {
         }
         assertTrue(
             "Abstände ausserhalb des Rasters 4/8/12/16/24/32 pt (Spacing.xs … Spacing.xxl nehmen):\n" +
+                problems.joinToString("\n"),
+            problems.isEmpty()
+        )
+    }
+
+    @Test
+    fun androidWidgetLayoutsStayOnGrid() {
+        val dir = androidLayouts()
+        assertNotNull("android/app/src/main/res/layout nicht gefunden (Arbeitsverzeichnis?)", dir)
+        val problems = dir!!.listFiles { f -> f.isFile && f.name.startsWith("widget_") && f.extension == "xml" }
+            .orEmpty()
+            .sortedBy { it.name }
+            .mapNotNull { file ->
+                val text = file.readText(Charsets.UTF_8)
+                fun lineOf(offset: Int) = text.substring(0, offset).count { it == '\n' } + 1
+                val margins = XML_OFF_GRID.findAll(text).map { lineOf(it.range.first) to it.value }.toList()
+                val spaces = XML_SPACE.findAll(text).flatMap { space ->
+                    XML_SPACE_OFF_GRID.findAll(space.value).map { lineOf(space.range.first + it.range.first) to it.value }
+                }.toList()
+                val hits = (margins + spaces).sortedBy { it.first }
+                val allowed = WIDGET_XML_CEILINGS[file.name] ?: 0
+                if (hits.size > allowed) {
+                    "${file.name}: ${hits.size} Stellen, erlaubt $allowed\n" +
+                        hits.joinToString("\n") { (line, value) -> "  $line: $value" }
+                } else null
+            }
+        assertTrue(
+            "Widget-Abstände ausserhalb des Rasters 4/8/12/16/24/32 dp (abrunden, Widgets haben wenig Platz):\n" +
                 problems.joinToString("\n"),
             problems.isEmpty()
         )
@@ -90,6 +123,8 @@ class SpacingUsageTest {
 
     private fun androidSources(): File? = findUp(listOf("", "app/", "android/app/").map { it + "src/main/java/com/cryptochecker/app" })
 
+    private fun androidLayouts(): File? = findUp(listOf("", "app/", "android/app/").map { it + "src/main/res/layout" })
+
     /** `ios/` (mit `App`, `Widgets`, `Shared`). */
     private fun iosRoot(): File? = findUp(listOf("ios/App", "../ios/App", "../../ios/App"))?.parentFile
 
@@ -130,19 +165,26 @@ class SpacingUsageTest {
             "ui/features/watchlist/WatchGroupEditSheet.kt" to 1,
         )
 
+        /** `android:paddingStart="6dp"`, `android:layout_marginTop="10dp"`; nicht 1–3 dp (Feinabstimmung) oder 0dp. */
+        val XML_OFF_GRID = Regex("""android:(?:padding|layout_margin)\w*="(?:$OFF_GRID)dp"""")
+
+        /** Ein `<Space …>`-Element (über mehrere Zeilen) und seine Breite/Höhe als Lücke. */
+        val XML_SPACE = Regex("""<Space\b[^>]*>""")
+        val XML_SPACE_OFF_GRID = Regex("""android:layout_(?:width|height)="(?:$OFF_GRID)dp"""")
+
+        /** Widget-Layout (Dateiname in `res/layout`) → höchstens so viele Stellen, die bewusst bleiben. */
+        val WIDGET_XML_CEILINGS = mapOf(
+            // Vorschau: 6 dp stehen für die zwei Leerzeichen vor dem Prozent (WidgetTextFit.PERCENT_GAP)
+            "widget_preview_portfolio.xml" to 1,
+        )
+
         val IOS_AREAS = listOf("App", "Widgets")
 
         /** Datei (relativ zu `ios/`) → höchstens so viele Stellen, die bewusst bleiben. */
         val IOS_CEILINGS = mapOf(
             // Zeilen der Marktdaten: wie Android 2 × 3 dp Zeilen-Innenabstand (Feinabstimmung) = 6
             "App/Features/Cycle/CryptoPulseCard.swift" to 1,
-            // Widgets: dichtes Pixel-Layout wie die Android-Widgets (RemoteViews-XML, eigener Durchgang)
-            "Widgets/PortfolioWidgetHome.swift" to 5,
-            "Widgets/PortfolioWidgetList.swift" to 4,
-            "Widgets/PortfolioWidgetOverview.swift" to 2,
-            "Widgets/PulseWidget.swift" to 4,
-            "Widgets/SingleWidget.swift" to 7,
-            "Widgets/WatchlistWidget.swift" to 8,
+            // Widgets/: seit Build 82 alle auf dem Raster (abgerundet wie die Android-Widgets) — keine Ausnahme
         )
     }
 }

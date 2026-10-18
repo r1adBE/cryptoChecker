@@ -84,7 +84,8 @@ class WidgetUpdater @Inject constructor(
                 watchRepository.getWatches()
                     // Deaktivierte Paare werden nie «veraltet» (kein Wecker für sie)
                     .filterNot { it.isNotTraded || it.disabled }
-                    .forEach { add(it.lastUpdate) }
+                    // Abruf und (verschoben) letzter Handel laut Börse — Regel der App ([WidgetFreshness.outdatedTimes])
+                    .forEach { addAll(WidgetFreshness.outdatedTimes(it, WidgetOutdated.afterMillis(settings))) }
             }
             // Portfolio aus bzw. gesperrt: zeigt keinen Stand, also kein Wecker dafür
             if (hasPortfolio && settings.portfolioEnabled && !PortfolioLockPolicy.widgetLocked(settings.appLock)) portfolioSnapshotStore.snapshot()?.let { add(it.time) }

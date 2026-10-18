@@ -201,12 +201,14 @@ extension PortfolioTxSheet {
                  ? "portfolio_tx_price_past_hint" : "portfolio_tx_price_hint")
     }
 
-    /// «≈ 12’345.67 USDT zum Kurs vom 03.03.2025» unter einem Feld in der Anzeigewährung; nil sonst.
+    /// «≈ 12’345.67 USDT zum Kurs vom 03.03.2025» unter einem Feld in der Anzeigewährung; nil sonst. Ohne plausiblen
+    /// USDT/USD-Kurs (USDT = 1) mit dem Vermerk der Summen und des Steuer-Exports «· USDT = 1 angenommen» — wie Android.
     private func convertedText(_ usdt: Decimal?, perCoin: Bool) -> String? {
         guard fiatActive, let usdt, let day = entryFxDay else { return nil }
         let value = PortfolioDecimal.double(usdt)
         let amount = perCoin ? PortfolioFormat.price(value) : PortfolioFormat.usdtValue(value)
-        return L("portfolio_tx_fiat_converted", amount, PortfolioFormat.date(day.noonLocal.millis))
+        let text = L("portfolio_tx_fiat_converted", amount, PortfolioFormat.date(day.noonLocal.millis))
+        return entryFxUsdtAssumed ? text + " · " + L("portfolio_usdt_assumed") : text
     }
 
     /// Tausch: erhaltener Coin (mit Suche) und erhaltene Menge.

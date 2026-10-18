@@ -26,8 +26,8 @@ import kotlin.math.max
  * dieselben Dateien (vom Projekt-Generator nach `Tests/Exchanges` kopiert) — benennt eine Börse
  * ein Feld um, schlagen beide Plattformen gleich an.
  *
- * Ablauf wie in der App (`MarketRemoteDataSource.updateMarketTicker`): `readTicker`; wirft
- * das oder bleibt `last` bei MISSING, gilt die Antwort als Fehler und `readError` liefert
+ * Ablauf wie in der App (`MarketRemoteDataSource.fetchMarketTicker`): `readTicker`; wirft
+ * das oder ergibt es keinen gültigen `last` (fehlt, 0, NaN/∞), gilt die Antwort als Fehler und `readError` liefert
  * den Fehlertext der Börse (oder wirft: dann gibt es keinen).
  *
  * `knownIssue`: bekannte Abweichung (siehe Notiz im Fall). Der Fall läuft, ein Fehlschlag wird
@@ -131,7 +131,7 @@ class ExchangeContractTest {
         var failure: Exception? = null
         try {
             market.readTicker(requestId, body, ticker, info)
-            if (ticker.last <= Ticker.MISSING) failure = IllegalStateException("no ticker data")
+            if (!ticker.last.isFinite() || ticker.last <= 0.0) failure = IllegalStateException("no ticker data")
         } catch (e: Exception) {
             failure = e
         }

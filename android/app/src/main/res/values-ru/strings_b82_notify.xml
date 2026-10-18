@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Build 82: Alarm-Mitteilung («1 h später», «Anpassen»), Alarm-Protokoll (Herkunft, Pause), Ziehen im 15-s-Fenster -->
+<resources>
+    <string name="notification_alarm_action_snooze">Через 1 ч</string>
+    <string name="notification_alarm_action_edit">Изменить</string>
+    <string name="alarm_outcome_snoozed">Отложено – «Через 1 ч» ещё действует</string>
+    <string name="alarm_log_source_app">в приложении</string>
+    <string name="alarm_log_source_background">в фоне</string>
+    <string name="alarm_log_source_exact">точная проверка</string>
+    <string name="alarm_log_source_widget">через виджет</string>
+    <string name="watchlist_refresh_just_done">Только что обновлено · %1$d с назад</string>
+</resources>

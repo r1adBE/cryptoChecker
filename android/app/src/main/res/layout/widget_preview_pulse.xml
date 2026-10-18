@@ -20,7 +20,7 @@
         <ImageView
             android:layout_width="16dp"
             android:layout_height="16dp"
-            android:layout_marginEnd="6dp"
+            android:layout_marginEnd="4dp"
             android:src="@drawable/ic_app_logo_orange_dark"
             android:contentDescription="@null" />
 
@@ -39,7 +39,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="4dp"
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:baselineAligned="false">
@@ -47,7 +47,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="6dp"
+            android:layout_marginEnd="4dp"
             android:text="@string/widget_preview_pulse_glyph"
             android:textColor="@color/widget_preview_up"
             android:textSize="13sp" />
@@ -133,7 +133,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="6dp"
+            android:layout_marginEnd="4dp"
             android:maxLines="1"
             android:text="@string/widget_range_short_24h"
             android:textColor="@color/widget_preview_text_secondary"
@@ -142,7 +142,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="8dp"
             android:orientation="horizontal"
             android:baselineAligned="true">
 

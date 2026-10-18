@@ -43,7 +43,7 @@ struct PortfolioHomeView: View {
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-        .padding(family == .systemSmall ? 14 : 16)
+        .padding(12)
     }
 
     /// Ansicht «Chart» je Familie.
@@ -59,7 +59,7 @@ struct PortfolioHomeView: View {
     /// Logo und «Portfolio» — keine Pille; das Prozent steht als Text in der Betragszeile (`changeLine`),
     /// wie Android.
     func header(_ title: String = L("widget_portfolio_name")) -> some View {
-        HStack(spacing: 6) {
+        HStack(spacing: 4) {
             WidgetLogo(accent: entry.accent, dark: palette.dark, size: 16)
             Text(title)
                 .font(.system(size: 12.5, weight: .bold))
@@ -80,7 +80,7 @@ struct PortfolioHomeView: View {
                 .foregroundStyle(palette.secondary)
                 .accessibilityHidden(true)
             message(L("widget_portfolio_locked_hint"))
-                .padding(.top, 6)
+                .padding(.top, 4)
             Spacer(minLength: 0)
         }
         .accessibilityElement(children: .ignore)
@@ -148,7 +148,7 @@ struct PortfolioHomeView: View {
                 chart(plan)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
-            .padding(.top, 6)
+            .padding(.top, 4)
         }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(PortfolioWidgetText.accessibility(s, plan: plan, outdated: entry.outdated, at: entry.date,
@@ -172,14 +172,14 @@ struct PortfolioHomeView: View {
             usdtLine(usdt, missing: PortfolioWidgetText.missing(s, plan: plan))
             chart(plan)
                 .frame(maxWidth: .infinity, minHeight: 44, maxHeight: .infinity)
-                .padding(.vertical, 10)
+                .padding(.vertical, 8)
             if !shown.isEmpty {
-                VStack(alignment: .leading, spacing: 6) {
+                VStack(alignment: .leading, spacing: 4) {
                     ForEach(shown, id: \.symbol) { position in
                         positionRow(position, currency: s.currency, basis: basis)
                     }
                 }
-                .padding(.bottom, 8)
+                .padding(.bottom, 4)
             }
             footer(s, period: plan.hasChart ? PortfolioWidgetText.period(plan, basis: basis, short: true) : nil,
                    hint: PortfolioWidgetText.fallbackHint(plan))

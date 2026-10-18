@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Build 82: Alarm-Mitteilung («1 h später», «Anpassen»), Alarm-Protokoll (Herkunft, Pause), Ziehen im 15-s-Fenster -->
+<resources>
+    <string name="notification_alarm_action_snooze">۱ ساعت بعد</string>
+    <string name="notification_alarm_action_edit">تنظیم</string>
+    <string name="alarm_outcome_snoozed">نگه داشته شد – «۱ ساعت بعد» هنوز فعال است</string>
+    <string name="alarm_log_source_app">در برنامه</string>
+    <string name="alarm_log_source_background">در پس‌زمینه</string>
+    <string name="alarm_log_source_exact">بررسی سر وقت</string>
+    <string name="alarm_log_source_widget">از طریق ویجت</string>
+    <string name="watchlist_refresh_just_done">همین الان به‌روز شد · %1$d ثانیه پیش</string>
+</resources>

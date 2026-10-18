@@ -190,7 +190,7 @@ private fun AlarmLogRow(entry: AlarmLogEntry) {
                 modifier = Modifier.padding(top = 2.dp)
             )
             Text(
-                AlarmLogTexts.outcome(context, entry),
+                AlarmLogTexts.outcomeWithSource(context, entry),
                 style = MaterialTheme.typography.bodyMedium,
                 color = if (fired) MaterialTheme.colorScheme.onSurface else AppColors.warningText,
                 modifier = Modifier.padding(top = Spacing.xs)

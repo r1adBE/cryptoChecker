@@ -48,11 +48,12 @@
                 android:layout_weight="1"
                 android:visibility="gone" />
 
+            <!-- Abstand 4 dp: PortfolioWidgetMath.ROWS_GAP_DP rechnet die Stufe damit — nur zusammen ändern -->
             <LinearLayout
                 android:id="@+id/portfolio_positions"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="4dp"
                 android:orientation="vertical"
                 android:visibility="gone">
 
@@ -359,7 +360,7 @@
                 android:id="@+id/portfolio_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="4dp"
                 android:maxLines="1"
                 android:ellipsize="end"
                 android:textSize="12sp"

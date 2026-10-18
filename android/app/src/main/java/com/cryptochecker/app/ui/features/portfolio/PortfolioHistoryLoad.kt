@@ -44,6 +44,11 @@ data class PortfolioHistoryUi(
      * [com.cryptochecker.app.domain.portfolio.PortfolioHistoryConverted.usdtApproximate]) — Hinweis «USDT = 1 angenommen».
      */
     val usdtApproximate: Boolean = false,
+    /**
+     * Eigene Börse nicht erreichbar, Verlauf aus einem älteren Stand: dessen Zeit
+     * ([com.cryptochecker.app.domain.portfolio.PortfolioHistoryAsOf]) — die Karte sagt «Stand …»; null = frisch.
+     */
+    val staleSince: Long? = null,
 )
 
 /** Tageskurse USD → [currency] ab [from] bis [to] (letzter abgefragter Tag); [rates] null = nicht zu haben. */

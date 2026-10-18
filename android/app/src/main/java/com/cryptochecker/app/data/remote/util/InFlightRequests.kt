@@ -8,10 +8,12 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.async
 
 /**
- * Gleiche GET-Anfragen, die gleichzeitig laufen, nur einmal ins Netz schicken: Wer dieselbe
- * URL (mit derselben Zeitgrenze) anfragt, während sie schon unterwegs ist, wartet auf dieselbe
- * Antwort — etwa Mini-Chart, Aktionsblatt und Aktualisierung für dasselbe Paar. Nichts wird
- * zwischengespeichert: Ist die Anfrage fertig, fällt der Eintrag weg.
+ * Gleiche Anfragen, die gleichzeitig laufen, nur einmal ins Netz schicken: Wer dieselbe
+ * URL (mit derselben Zeitgrenze; bei POST auch mit denselben Kopfzeilen und demselben Körper)
+ * anfragt, während sie schon unterwegs ist, wartet auf dieselbe Antwort — etwa Mini-Chart,
+ * Aktionsblatt und Aktualisierung für dasselbe Paar, oder die Einzelkurse mehrerer Hyperliquid-Paare
+ * (dieselbe «metaAndAssetCtxs»-Abfrage). Nichts wird zwischengespeichert: Ist die Anfrage fertig,
+ * fällt der Eintrag weg. Den Schlüssel bildet `callMarket` (MarketHttp.kt).
  *
  * Bricht der letzte Wartende ab (Blatt geschlossen, Bildschirm verlassen), wird auch die
  * Anfrage abgebrochen — Laden, das an einen Bildschirm gebunden ist, endet mit ihm.

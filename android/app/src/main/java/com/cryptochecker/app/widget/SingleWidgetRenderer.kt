@@ -170,12 +170,14 @@ class SingleWidgetRenderer @Inject constructor(
                 // ausgeschrieben: «veraltet · 06:42 · 7T»
                 val range = widgetPrefs.getChartRange(appWidgetId)
                 // Deaktiviert ist nie «veraltet» (es wird bewusst nicht abgefragt)
-                val outdated = !off && WidgetOutdated.isOutdated(watch.lastUpdate, watch.lastError, now, outdatedAfter)
+                // Regel der App (Abruf zu alt oder letzter Handel > 2 h, [WidgetFreshness.outdatedTime])
+                val outdatedAt = if (off) null else WidgetFreshness.outdatedTime(watch, now, outdatedAfter)
+                val outdated = outdatedAt != null
                 // Börse ohne eigene Zeit, Kurs steht lange: «Kurs unverändert seit 14:05» statt frischer Uhrzeit
                 // (wie die Zeile der App); sonst Zeit laut Börse bzw. letzter Abruf (WidgetFreshness)
                 val unchangedSince = if (off) null else WidgetFreshness.unchangedSince(watch, now, outdatedAfter)
                 val timeText = when {
-                    outdated -> WidgetOutdated.label(context, watch.lastUpdate)
+                    outdatedAt != null -> WidgetOutdated.label(context, outdatedAt)
                     unchangedSince != null -> WidgetOutdated.unchanged(context, unchangedSince)
                     else -> PriceFormat.time(WidgetFreshness.priceTime(watch, now, outdatedAfter))
                 }
@@ -241,7 +243,7 @@ class SingleWidgetRenderer @Inject constructor(
                         // Frische direkt nach der Veränderung (wie die Merkliste)
                         state = listOf(
                             if (off) context.getString(R.string.watch_disabled) else null,
-                            if (outdated) WidgetOutdated.spoken(context, watch.lastUpdate) else null,
+                            outdatedAt?.let { WidgetOutdated.spoken(context, it) },
                             unchangedSince?.let { WidgetOutdated.unchanged(context, it) },
                         ),
                         extras = listOf(

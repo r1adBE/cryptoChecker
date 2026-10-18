@@ -48,6 +48,7 @@ import com.cryptochecker.app.R
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.domain.watch.DisabledView
 import com.cryptochecker.app.domain.watch.LiveStatus
+import com.cryptochecker.app.domain.watch.PriceFreshness
 import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.ui.theme.AppColors
@@ -122,10 +123,7 @@ internal data class WatchlistStatus(
          * nach 2 Min. ohne Kurs als veraltet ([LiveStatus.staleAfterMillis]).
          */
         fun isStale(watch: WatchEntity, now: Long, staleAfter: Long, liveIds: Set<Long> = emptySet()): Boolean =
-            DisabledView.isStale(
-                watch.disabled, isNotTraded(watch.lastError), watch.lastUpdate, now,
-                LiveStatus.staleAfterMillis(watch.id in liveIds, staleAfter),
-            )
+            PriceFreshness.isStale(watch, now, LiveStatus.staleAfterMillis(watch.id in liveIds, staleAfter))
 
         fun of(
             visible: List<WatchEntity>,

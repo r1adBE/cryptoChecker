@@ -3,7 +3,10 @@ package com.cryptochecker.app.domain.exceptions
 import com.cryptochecker.app.domain.refresh.MarketFailure
 import com.cryptochecker.app.domain.refresh.RefreshReportLogic
 import com.cryptochecker.app.domain.watch.NotTraded
+import com.cryptochecker.marketdata.exceptions.MarketParseException
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import java.io.EOFException
 import java.io.IOException
@@ -40,6 +43,8 @@ class MarketFailureMappingTest {
         UserFriendlyMarketError("EGeneral:Too many requests") to MarketFailure.Exchange("EGeneral:Too many requests"),
         UserFriendlyMarketError("Invalid API key") to MarketFailure.Exchange("Invalid API key"),
         UserFriendlyMarketError(UserFriendlyMarketError.NO_TICKER_DATA) to MarketFailure.Other,
+        // So meldet die Einzelabfrage eine Antwort ohne gültigen Kurs (wie iOS JSONError → .parse)
+        MarketParseException(UserFriendlyMarketError.NO_TICKER_DATA) to MarketFailure.Parse,
         UserFriendlyMarketError(UserFriendlyMarketError.EMPTY_RESPONSE) to MarketFailure.Other,
         UserFriendlyMarketError(UserFriendlyMarketError.UNKNOWN_EMPTY) to MarketFailure.Other,
         ResponseTooLargeError() to MarketFailure.Other,
@@ -57,11 +62,22 @@ class MarketFailureMappingTest {
             val failure = error.toMarketFailure()
             assertEquals(text, RefreshReportLogic.classify(text), RefreshReportLogic.classify(failure, text))
             assertEquals(text, RefreshReportLogic.httpStatus(text), RefreshReportLogic.httpStatus(failure, text))
-            assertEquals(
-                text,
-                NotTraded.confirmedBySingle(false, text),
-                NotTraded.confirmedBySingle(false, text, failure),
-            )
+            // Ausnahme mit Absicht: Other (interner Fehler) bestätigt nie «nicht mehr gehandelt», auch wenn der Text
+            // allein es täte (z. B. «Response data is empty»)
+            val legacy = NotTraded.confirmedBySingle(false, text)
+            assertEquals(text, legacy && failure != MarketFailure.Other, NotTraded.confirmedBySingle(false, text, failure))
         }
+    }
+
+    @Test
+    fun answerWithoutPriceStillConfirmsNotTraded() {
+        val noPrice = MarketParseException(UserFriendlyMarketError.NO_TICKER_DATA)
+        assertTrue(NotTraded.confirmedBySingle(false, noPrice.message, noPrice.toMarketFailure()))
+        // Interner Fehler ohne Text: kein «nicht mehr gehandelt» (früher 6 h stumm)
+        assertFalse(NotTraded.confirmedBySingle(false, null, MarketFailure.Other))
+        assertFalse(NotTraded.confirmedBySingle(false, "", parseMarketError(IllegalStateException())))
+        assertFalse(NotTraded.confirmedBySingle(false, " ", MarketFailure.Parse))
+        // Ohne Art (gespeicherte Ergebnisse) wie bisher
+        assertTrue(NotTraded.confirmedBySingle(false, null))
     }
 }

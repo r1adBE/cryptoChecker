@@ -1,6 +1,5 @@
 package com.cryptochecker.app.widget
 
-import com.cryptochecker.app.data.SparklineRepository
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.portfolio.FxRateSource
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmChecker
@@ -14,7 +13,6 @@ import com.cryptochecker.app.data.portfolio.WatchedAddressRefresher
 import com.cryptochecker.app.data.portfolio.withAddresses
 import com.cryptochecker.app.domain.portfolio.AddressBalanceHistory
 import com.cryptochecker.app.domain.portfolio.CostMethod
-import com.cryptochecker.app.domain.portfolio.CoinPosition
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioChange
 import com.cryptochecker.app.domain.portfolio.PortfolioDisplayFigures
@@ -28,22 +26,16 @@ import com.cryptochecker.app.domain.portfolio.PortfolioSnapshotMath
 import com.cryptochecker.app.domain.portfolio.PortfolioStables
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetSeries
 import com.cryptochecker.app.domain.portfolio.PriceSample
-import com.cryptochecker.app.domain.portfolio.TimedPrice
 import com.cryptochecker.app.domain.watch.ChangeBasisMath
 import com.cryptochecker.app.settings.SettingsRepository
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
-import kotlinx.coroutines.withTimeoutOrNull
 import timber.log.Timber
 import java.time.LocalDate
 import java.time.ZoneId
-import java.util.concurrent.ConcurrentHashMap
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -65,7 +57,8 @@ class PortfolioSnapshotUpdater @Inject constructor(
     private val settingsRepository: SettingsRepository,
     private val store: PortfolioSnapshotStore,
     private val widgetUpdater: WidgetUpdater,
-    private val sparklineRepository: SparklineRepository,
+    /** Stundenkurse für den 24-h-Wertverlauf (fehlende Kerzen laden, vorhandene einsammeln). */
+    private val hourlyCandles: PortfolioHourlyCandles,
     private val alarmChecker: PortfolioAlarmChecker,
     private val historySource: PortfolioHistorySource,
     /** Guthaben beobachteter Adressen (10 min Zwischenspeicher; ohne Adressen keine Anfrage). */
@@ -95,12 +88,9 @@ class PortfolioSnapshotUpdater @Inject constructor(
         false
     }
 
-    /** Letzter Kerzen-Abruf je Coin (Grossschreibung) — höchstens einer je Stunde. */
-    private val candleAttempts = ConcurrentHashMap<String, Long>()
-
     /**
      * Kurse (60 s zwischengespeichert) und Devisenkurs holen, fehlende Stundenkerzen laden
-     * ([loadMissingCandles]), dann aufnehmen. Fehler bleiben still.
+     * ([PortfolioHourlyCandles.loadMissingCandles]), dann aufnehmen. Fehler bleiben still.
      */
     suspend fun refresh(): Unit = withContext(Dispatchers.IO) {
         try {
@@ -122,7 +112,7 @@ class PortfolioSnapshotUpdater @Inject constructor(
                 Timber.d("Portfolio: zu wenig frische Kurse, keine neue Aufnahme")
                 return@withContext
             }
-            loadMissingCandles(transactions, prices)
+            hourlyCandles.loadMissingCandles(transactions, prices)
             record(transactions, prices, currency, fx, fetched)
         } catch (e: CancellationException) {
             throw e
@@ -227,7 +217,7 @@ class PortfolioSnapshotUpdater @Inject constructor(
             // ist (Mini-Charts, Einzel-Widgets, eigene Kursaufnahmen) — keine eigene Abfrage
             val hourlyPrices = PortfolioWidgetSeries.merge(
                 stored = store.hourlyPrices(),
-                fresh = cachedHourlyPrices(holdings.keys, history, freshCurrent, now),
+                fresh = hourlyCandles.cachedHourlyPrices(holdings.keys, history, freshCurrent, now),
                 now = now,
             ).filterKeys { coin -> holdings.keys.any { it.equals(coin, ignoreCase = true) } }
 
@@ -275,45 +265,6 @@ class PortfolioSnapshotUpdater @Inject constructor(
             }
         }
         recorded
-    }
-
-    /**
-     * «Heute» für Karte, Widget und Portfolio-Alarm aus EINER Rechnung: Kursänderung je Coin mit
-     * Vergleichskurs ([PortfolioPeriodChange.todayFromCoinChanges]; Coins ohne fehlen statt flach
-     * mitzuzählen), um Käufe/Verkäufe seit Beginn der %-Basis berichtigt ([PortfolioPeriodChange.todayAdjusted]).
-     * Betrag in der Anzeigewährung ([rate]); unbekannt = null. Dazu dieselbe Rechnung je Coin
-     * ([PortfolioPeriodChange.todayByCoin]) für die Zeilen: [PortfolioSnapshot.coinPnl] (USDT) und
-     * [PortfolioPosition.pnlAmount]/[PortfolioPosition.pnlPercent] (Anzeigewährung).
-     */
-    private fun PortfolioSnapshot.withHonestToday(
-        transactions: List<PortfolioTxEntity>,
-        holdings: Map<String, Double>,
-        current: Map<String, Double>,
-        basis: com.cryptochecker.app.domain.watch.ChangeBasis,
-        now: Long,
-        rate: Double,
-        addresses: List<AddressBalanceHistory>,
-        method: CostMethod,
-    ): PortfolioSnapshot {
-        if (empty) return this
-        val start = ChangeBasisMath.dayStart(basis, now) ?: (now - DAY_MILLIS)
-        val raw = PortfolioPeriodChange.todayFromCoinChanges(holdings, current, coinChanges)
-        val trades = transactions.map { t -> t.toTrade() }
-        val adjusted = raw?.let {
-            PortfolioPeriodChange.todayAdjusted(it, trades, current, coinChanges, start, addresses = addresses, method = method)
-        }
-        val byCoin = PortfolioPeriodChange.todayByCoin(holdings, trades, current, coinChanges, start, addresses, method)
-            .mapValues { (_, c) -> PortfolioChange(c.amountUsd, c.percent?.takeIf { it.isFinite() }) }
-        return copy(
-            changeAmount = adjusted?.amountUsd?.takeIf { it.isFinite() }?.times(rate),
-            changePercent = adjusted?.percent?.takeIf { it.isFinite() },
-            todaySkipped = adjusted?.skipped.orEmpty(),
-            coinPnl = byCoin,
-            positions = positions.map { p ->
-                val pnl = byCoin[PortfolioCalculator.normalizeCoin(p.symbol)]
-                p.copy(pnlAmount = pnl?.amount?.times(rate), pnlPercent = pnl?.percent)
-            },
-        )
     }
 
     /**
@@ -375,88 +326,5 @@ class PortfolioSnapshotUpdater @Inject constructor(
             Timber.d(e, "Portfolio-Widget: Tagesverlauf nicht berechnet")
             this
         }
-    }
-
-    /**
-     * Bestand für «Heute» ([PortfolioPeriodChange]): eigener Bestand ([CoinPosition.ledgerHoldingsExact]) plus zuletzt
-     * beobachtetes Adress-Guthaben ([AddressBalanceHistory.latestByCoin]) — passend zur Reihe [addresses].
-     */
-    private fun todayHoldings(open: List<CoinPosition>, addresses: List<AddressBalanceHistory>): Map<String, Double> {
-        val observed = AddressBalanceHistory.latestByCoin(addresses)
-        return open.associate { p ->
-            p.coin to (p.ledgerHoldingsExact + (observed[PortfolioCalculator.normalizeCoin(p.coin)] ?: java.math.BigDecimal.ZERO)).toDouble()
-        }
-    }
-
-    /**
-     * Stundenkerzen für offene Coins, denen Stundenkurse fehlen — z. B. Coins, die nur im
-     * Portfolio und nicht in der Merkliste sind (dort liefern sonst die Mini-Charts die Kurse).
-     * Die grössten Positionen zuerst, je Coin höchstens ein Abruf pro Stunde
-     * ([PortfolioWidgetSeries.candleCoins]), gemeinsam höchstens [CANDLE_LOAD_TIMEOUT_MILLIS]
-     * (das Widget wartet insgesamt nur 8 s). Die Kerzen landen im Zwischenspeicher von
-     * [SingleWidgetRenderer]; [record] führt sie mit den gemerkten Kursen zusammen. Fehler bleiben still.
-     */
-    private suspend fun loadMissingCandles(transactions: List<PortfolioTxEntity>, prices: Map<String, Double>) {
-        val open = PortfolioCalculator.summarize(transactions.map { it.toTrade() }, prices).open.map { it.coin }
-        if (open.isEmpty()) return
-        val now = System.currentTimeMillis()
-        val known = PortfolioWidgetSeries.merge(
-            stored = store.hourlyPrices(),
-            fresh = cachedHourlyPrices(open.toSet(), emptyList(), emptyMap(), now),
-            now = now,
-        )
-        val due = PortfolioWidgetSeries.candleCoins(open, known, candleAttempts, now, PortfolioStables.COINS)
-        if (due.isEmpty()) return
-        due.forEach { candleAttempts[it] = now }
-        withTimeoutOrNull(CANDLE_LOAD_TIMEOUT_MILLIS) {
-            coroutineScope {
-                due.map { coin ->
-                    async {
-                        try {
-                            widgetUpdater.loadHourlyPrices(coin)
-                        } catch (e: CancellationException) {
-                            throw e
-                        } catch (e: Exception) {
-                            Timber.d(e, "Portfolio-Widget: Stundenkerzen für %s nicht geladen", coin)
-                        }
-                    }
-                }.awaitAll()
-            }
-        }
-    }
-
-    /**
-     * Bereits geladene Stundenkurse der [coins] — ohne Netz: Mini-Charts der Merkliste
-     * ([SparklineRepository]), Kerzen der Einzel-Widgets, die Kursaufnahmen ([history]) und
-     * der aktuelle Kurs. Zusammengeführt wird später ([PortfolioWidgetSeries.merge]).
-     */
-    private fun cachedHourlyPrices(
-        coins: Set<String>,
-        history: List<PriceSample>,
-        current: Map<String, Double>,
-        now: Long,
-    ): Map<String, List<TimedPrice>> {
-        val out = HashMap<String, List<TimedPrice>>()
-        for (coin in coins) {
-            // Nur USDT gilt immer 1; USDC, DAI … brauchen Stundenkurse (Abkopplung sichtbar)
-            if (!PortfolioStables.needsQuote(coin)) continue
-            val fromSparkline = sparklineRepository.cachedWithTime(coin)
-                ?.let { (time, closes) -> PortfolioWidgetSeries.fromHourlyCloses(closes, time) }
-                .orEmpty()
-            val fromWidget = widgetUpdater.cachedHourlyPrices(coin).orEmpty()
-            val fromSamples = history.mapNotNull { sample ->
-                sample.prices[coin]?.takeIf { now - sample.time in 0..PortfolioWidgetSeries.KEEP_MILLIS }
-                    ?.let { TimedPrice(sample.time, it) }
-            }
-            val all = fromSamples + fromSparkline + fromWidget + listOfNotNull(current[coin]?.let { TimedPrice(now, it) })
-            if (all.isNotEmpty()) out[coin] = all
-        }
-        return out
-    }
-
-    private companion object {
-        /** Kerzen für alle fehlenden Coins zusammen höchstens so lange laden. */
-        const val CANDLE_LOAD_TIMEOUT_MILLIS = 4_000L
-        const val DAY_MILLIS = 86_400_000L
     }
 }

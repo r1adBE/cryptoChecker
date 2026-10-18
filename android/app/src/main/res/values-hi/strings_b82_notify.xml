@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Build 82: Alarm-Mitteilung («1 h später», «Anpassen»), Alarm-Protokoll (Herkunft, Pause), Ziehen im 15-s-Fenster -->
+<resources>
+    <string name="notification_alarm_action_snooze">1 घंटे बाद</string>
+    <string name="notification_alarm_action_edit">बदलें</string>
+    <string name="alarm_outcome_snoozed">रोका गया – «1 घंटे बाद» अभी चालू है</string>
+    <string name="alarm_log_source_app">ऐप में</string>
+    <string name="alarm_log_source_background">बैकग्राउंड में</string>
+    <string name="alarm_log_source_exact">समय पर जाँच</string>
+    <string name="alarm_log_source_widget">विजेट से</string>
+    <string name="watchlist_refresh_just_done">अभी अपडेट हुआ · %1$d से. पहले</string>
+</resources>

@@ -8,6 +8,7 @@ import android.app.Notification
 import android.app.PendingIntent
 import android.content.Intent
 import androidx.core.app.NotificationCompat
+import com.cryptochecker.app.R
 import com.cryptochecker.app.ui.MainActivity
 import kotlinx.coroutines.delay
 import timber.log.Timber
@@ -197,3 +198,19 @@ internal fun AppNotifier.openTargetIntent(target: String, requestCode: Int): Pen
 /** «Was bewegt sich mit?» aus einem Alarm: App öffnen, Merkliste, «Was bewegt sich mit?» des Paars. */
 internal fun AppNotifier.openWhyIntent(watchId: Long): PendingIntent =
     openTargetIntent(MainActivity.openWhyTarget(watchId), (WHY_REQUEST_BASE + watchId).toInt())
+
+/**
+ * Kurzzeitige Meldung, solange eine angestossene Aktualisierung im
+ * Hintergrund läuft. Nur bis Android 11 sichtbar — dort braucht
+ * WorkManager dafür einen Vordergrunddienst.
+ */
+fun AppNotifier.refreshNotification(): Notification =
+    NotificationCompat.Builder(context, NotificationChannels.SERVICE)
+        .setSmallIcon(R.drawable.ic_stat_logo)
+        .setColor(settingsRepository.cached.accentColor.seed)
+        .setContentTitle(context.getString(R.string.notification_refreshing))
+        .setOngoing(true)
+        .setSilent(true)
+        .setShowWhen(false)
+        .setCategory(NotificationCompat.CATEGORY_PROGRESS)
+        .build()

@@ -125,7 +125,8 @@ struct AlarmDeliveryScreen: View {
         // Alles, was nur eine Prüfung im Hintergrund meldet (`AlarmReadiness.hasBackgroundAlarms`), nicht nur Paar-Alarme
         let hasAlarms = AlarmReadiness.hasBackgroundAlarms(
             Self.alarmKinds(data.settings, pairAlarm: data.alarmsWithWatch.contains { $0.alarm.enabled },
-                            portfolioAlarm: data.portfolioAlarms.contains(where: \.enabled)))
+                            portfolioAlarm: data.portfolioAlarms.contains(where: \.enabled)),
+            platform: .ios)
         let input = await AlarmReadinessProbe.read(settings: data.settings, hasAlarms: hasAlarms)
         lastCheck = input.lastBackgroundCheck
         items = AlarmReadiness.rows(input)
@@ -143,6 +144,8 @@ struct AlarmDeliveryScreen: View {
         k.fearGreedBelow = settings.fearGreedBelow
         k.fearGreedAbove = settings.fearGreedAbove
         k.indicatorAlert = settings.indicatorAlerts.values.contains { $0 > 0 }
+        k.activityAlerts = settings.activityAlerts
+        k.macroNotices = settings.macroNotifications
         return k
     }
 

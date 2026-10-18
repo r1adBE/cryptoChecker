@@ -44,6 +44,10 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
 import com.cryptochecker.app.ui.theme.Spacing
+import android.widget.Toast
+import androidx.compose.material3.HorizontalDivider
+import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.ui.components.SwitchRow
 
 /**
  * Kopfzeile von «Mehr»: ganze Zeile tippbar (48 dp), Pfeil dreht sich. Screenreader: Knopf
@@ -216,4 +220,92 @@ internal fun SheetAction(
             }
         }
     }
+}
+
+/**
+ * Einträge unter «Mehr» im Aktionsblatt: Gruppe, Notiz, Portfolio, Aktualisieren (nicht bei [off]), Widget, Vorlesen,
+ * Kurs-Meldung, Deaktivieren/Aktivieren und zuletzt Löschen. [sheetContext] für den kurzen Hinweis zur Sprachausgabe.
+ */
+@Composable
+internal fun SheetMoreActions(
+    watch: WatchEntity,
+    off: Boolean,
+    sheetContext: android.content.Context,
+    onEditGroup: () -> Unit,
+    onEditNote: () -> Unit,
+    onAddToPortfolio: (() -> Unit)?,
+    onRefresh: () -> Unit,
+    onAddWidget: () -> Unit,
+    onTtsChange: (Boolean) -> Boolean,
+    onNotificationChange: (Boolean) -> Unit,
+    onToggleDisabled: () -> Unit,
+    onDelete: () -> Unit,
+) {
+    SheetAction(
+        icon = R.drawable.ic_list,
+        text = watch.groupName?.let { stringResource(R.string.group_value, it) }
+            ?: stringResource(R.string.group_title),
+        onClick = onEditGroup
+    )
+    SheetAction(
+        icon = R.drawable.ic_note,
+        text = stringResource(if (watch.note.isNullOrBlank()) R.string.note_add else R.string.note_edit),
+        onClick = onEditNote
+    )
+    onAddToPortfolio?.let { addToPortfolio ->
+        SheetAction(
+            icon = R.drawable.ic_portfolio,
+            text = stringResource(R.string.portfolio_add_from_watch),
+            onClick = addToPortfolio
+        )
+    }
+    if (!off) {
+        SheetAction(
+            icon = R.drawable.ic_refresh,
+            text = stringResource(R.string.action_refresh),
+            onClick = onRefresh
+        )
+    }
+    // Einzel-Widget mit diesem Paar auf den Startbildschirm (Runde 13b); kann der
+    // Startbildschirm das nicht, eine kurze Anleitung
+    SheetAction(
+        icon = R.drawable.ic_widgets,
+        text = stringResource(R.string.watch_action_add_widget),
+        onClick = onAddWidget
+    )
+    HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
+    SwitchRow(
+        title = stringResource(R.string.watchlist_tts),
+        checked = watch.ttsEnabled,
+        onCheckedChange = { enabled ->
+            // Sprachausgabe war aus bzw. «Nur Alarme»: jetzt an — kurz sagen, wo man es ändert
+            // (Toast statt Banner: das Banner der Merkliste läge hinter dem Blatt)
+            if (onTtsChange(enabled)) {
+                Toast.makeText(sheetContext, R.string.watchlist_tts_speech_on, Toast.LENGTH_LONG).show()
+            }
+        },
+        icon = R.drawable.ic_volume_up
+    )
+    SwitchRow(
+        title = stringResource(R.string.watchlist_notification),
+        checked = watch.notificationEnabled,
+        onCheckedChange = onNotificationChange,
+        // Dieselbe schlichte Glocke wie in der Zeile der Merkliste (Alarme: Glocke mit Wellen);
+        // aus = durchgestrichen
+        icon = if (watch.notificationEnabled) R.drawable.ic_notifications else R.drawable.ic_notifications_off
+    )
+    HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
+    // Paar deaktivieren (keine Abfragen, keine Meldungen, Alarme ruhen) bzw. wieder aktivieren
+    SheetAction(
+        icon = if (watch.disabled) R.drawable.ic_play_circle else R.drawable.ic_pause_circle,
+        text = stringResource(if (watch.disabled) R.string.watch_enable else R.string.watch_disable),
+        hint = stringResource(if (watch.disabled) R.string.watch_enable_hint else R.string.watch_disable_hint),
+        onClick = onToggleDisabled
+    )
+    SheetAction(
+        icon = R.drawable.ic_delete,
+        text = stringResource(R.string.action_delete),
+        danger = true,
+        onClick = onDelete
+    )
 }

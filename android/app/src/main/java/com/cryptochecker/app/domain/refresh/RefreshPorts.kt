@@ -33,8 +33,14 @@ import com.cryptochecker.app.tts.TtsSpeaker
 import com.cryptochecker.app.widget.LiveWidgetGate
 import com.cryptochecker.marketdata.model.Ticker
 import kotlinx.coroutines.flow.StateFlow
+import com.cryptochecker.app.notification.alarmSnoozeUntil
 import com.cryptochecker.app.notification.canShowAlarm
 import com.cryptochecker.app.notification.showAlarm
+import com.cryptochecker.app.data.applyRefresh
+import com.cryptochecker.app.data.markAlarmTriggered
+import com.cryptochecker.app.data.rearmAlarmIfUnchanged
+import com.cryptochecker.app.data.setAlarmReferenceIfUnchanged
+import com.cryptochecker.app.data.setNotifiedPrices
 
 /** Kurse, Fehler und Alarm-Zustände speichern ([WatchRepository]). */
 internal interface RefreshStore {
@@ -69,7 +75,9 @@ internal interface RefreshNotifier {
     fun cancelAlarms(alarmIds: Collection<Long>)
     fun activeNotificationIds(): Set<Int>?
     fun cancelPrices(watchIds: Collection<Long>, shown: Set<Int>?)
-    fun showPrices(watches: List<WatchEntity>, ongoing: Boolean): Set<Long>
+    suspend fun showPrices(watches: List<WatchEntity>, ongoing: Boolean): Set<Long>
+    /** Ende einer laufenden «1 h später»-Pause des Alarms ([com.cryptochecker.app.domain.alarm.AlarmSnooze]); null = keine. */
+    fun alarmSnoozeUntil(alarmId: Long): Long? = null
 }
 
 /** Warteschlange der Sprachausgabe ([TtsSpeaker]). */
@@ -214,7 +222,8 @@ private class AppNotifierPort(private val notifier: AppNotifier) : RefreshNotifi
     override fun cancelAlarms(alarmIds: Collection<Long>) = notifier.cancelAlarms(alarmIds)
     override fun activeNotificationIds() = notifier.activeNotificationIds()
     override fun cancelPrices(watchIds: Collection<Long>, shown: Set<Int>?) = notifier.cancelPrices(watchIds, shown)
-    override fun showPrices(watches: List<WatchEntity>, ongoing: Boolean) = notifier.showPrices(watches, ongoing)
+    override suspend fun showPrices(watches: List<WatchEntity>, ongoing: Boolean) = notifier.showPrices(watches, ongoing)
+    override fun alarmSnoozeUntil(alarmId: Long) = notifier.alarmSnoozeUntil(alarmId)
 }
 
 private class TtsSpeakerPort(private val speaker: TtsSpeaker) : RefreshSpeaker {

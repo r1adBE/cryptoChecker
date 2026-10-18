@@ -83,12 +83,24 @@ class Coinbase : SimpleMarket(
 
     override fun fillPairList(call: Int, body: String, out: MutableList<MarketPair>) {
         JSONArray(body).forEachJSONObject { product ->
-            if (product.optString("status") == "delisted") return@forEachJSONObject
+            if (!isTradable(product)) return@forEachJSONObject
             out += MarketPair(
                 product.getString("base_currency"),
                 product.getString("quote_currency"),
                 product.getString("id"),
             )
         }
+    }
+
+    /**
+     * Nur handelbare Produkte: Status «online» und Handel nicht gesperrt. «delisted», «offline», «internal» oder
+     * `trading_disabled` liefern keinen frischen Kurs — sie in der Auswahl anzubieten, hiesse einen stillstehenden
+     * Preis zu beobachten. Fehlt der Status ganz, bleibt das Produkt (Format geändert: lieber anbieten als die ganze
+     * Liste verlieren). Wie `Coinbase.isTradable` (iOS).
+     */
+    private fun isTradable(product: JSONObject): Boolean {
+        val status = product.optString("status")
+        if (status.isNotEmpty() && !status.equals("online", ignoreCase = true)) return false
+        return !product.optBoolean("trading_disabled", false)
     }
 }

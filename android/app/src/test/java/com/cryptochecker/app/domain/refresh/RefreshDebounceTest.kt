@@ -78,4 +78,30 @@ class RefreshDebounceTest {
         val wait = RefreshDebounce.millisUntilNextChange(last, now)
         assertEquals(RefreshDebounce.remainingSeconds(last, now) - 1, RefreshDebounce.remainingSeconds(last, now + wait))
     }
+
+    @Test
+    fun pullInsideWindowEchoesSecondsSinceLastRefresh() {
+        // Ziehen im Fenster: kein Durchlauf, aber «Gerade aktualisiert · vor N s» (abgerundet, mindestens 1)
+        val last = now - 8_400
+        assertEquals(Decision.RECENT, RefreshDebounce.decide(false, last, now))
+        assertEquals(8, RefreshDebounce.pullEchoSeconds(Decision.RECENT, last, now))
+        assertEquals(1, RefreshDebounce.pullEchoSeconds(Decision.RECENT, now - 200, now))
+        assertEquals(1, RefreshDebounce.pullEchoSeconds(Decision.RECENT, now, now))
+        assertEquals(400L, RefreshDebounce.PULL_ECHO_MILLIS)
+    }
+
+    @Test
+    fun pullOutsideWindowHasNoEcho() {
+        // Neuer Durchlauf bzw. läuft schon: der Kreisel zeigt genug
+        assertEquals(null, RefreshDebounce.pullEchoSeconds(Decision.START, now - 8_000, now))
+        assertEquals(null, RefreshDebounce.pullEchoSeconds(Decision.RUNNING, now - 8_000, now))
+        assertEquals(null, RefreshDebounce.pullEchoSeconds(Decision.RECENT, 0, now))
+        // Uhr zurückgestellt
+        assertEquals(null, RefreshDebounce.pullEchoSeconds(Decision.RECENT, now + 5_000, now))
+        // Gleiche Grenze wie decide: jede Entscheidung RECENT hat eine Rückmeldung
+        for (age in 0L until RefreshDebounce.WINDOW_MILLIS step 250) {
+            val decision = RefreshDebounce.decide(false, now - age, now)
+            assertEquals(decision == Decision.RECENT, RefreshDebounce.pullEchoSeconds(decision, now - age, now) != null)
+        }
+    }
 }

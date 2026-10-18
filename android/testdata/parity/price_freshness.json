@@ -1,11 +1,22 @@
 {
-  "description": "Price freshness (Android PriceFreshness.kt / iOS PriceFreshness.swift). Exchanges without their own time (exchangeTime null: Kraken, Gate.io, Hyperliquid, bitFlyer, Gemini bulk ...) are stamped with the fetch time, so a long-unchanged last price would look fresh. freshness: time used for age = exchangeTime if > 0, else lastUpdate. unchanged: 'price unchanged since' = priceChangedAt, only without exchangeTime, with known priceChangedAt and lastUpdate (> 0) and when now - priceChangedAt > max(1 h, outdatedAfter); else null. next: new priceChangedAt after a successful fetch at time: kept when the price is equal and the old value is known (> 0), else time.",
+  "description": "Price freshness (Android PriceFreshness.kt / iOS PriceFreshness.swift). Exchanges without their own time (exchangeTime null: Kraken, Gate.io, Hyperliquid, bitFlyer, Gemini bulk ...) are stamped with the fetch time, so a long-unchanged last price would look fresh. freshness: time used for age = exchangeTime if > 0, else lastUpdate. unchanged: 'price unchanged since' = priceChangedAt, only without exchangeTime, with known priceChangedAt and lastUpdate (> 0) and when now - priceChangedAt > max(1 h, outdatedAfter); else null. stale: reason the row/filter/status/widgets say 'outdated' - same rule as the alarm block: FETCH when the last successful fetch is older than staleAfter (wins), else TRADE when the exchange reports a trade time older than AlarmFreshness 2 h (strictly more), else null; never fetched (lastUpdateAge null) = null (callers treat it as 'no price yet'). Quiet pairs and live pairs without a trade for minutes are not outdated. next: new priceChangedAt after a successful fetch at time: kept when the price is equal and the old value is known (> 0), else time.",
   "now": 1700000000000,
   "freshness": [
     {"name": "exchange time wins", "lastUpdate": 1699999990000, "exchangeTime": 1699999000000, "expected": 1699999000000},
     {"name": "no exchange time: last fetch", "lastUpdate": 1699999990000, "exchangeTime": null, "expected": 1699999990000},
     {"name": "exchange time 0 counts as missing", "lastUpdate": 1699999990000, "exchangeTime": 0, "expected": 1699999990000},
     {"name": "never updated", "lastUpdate": 0, "exchangeTime": null, "expected": 0}
+  ],
+  "stale": [
+    {"name": "fresh fetch, no exchange time", "lastUpdateAge": 10000, "exchangeTimeAge": null, "staleAfter": 2700000, "expected": null},
+    {"name": "fetch older than the limit", "lastUpdateAge": 2700001, "exchangeTimeAge": null, "staleAfter": 2700000, "expected": "FETCH"},
+    {"name": "fresh fetch, last trade 3 h ago", "lastUpdateAge": 10000, "exchangeTimeAge": 10800000, "staleAfter": 2700000, "expected": "TRADE"},
+    {"name": "quiet pair: fresh fetch, last trade 1 h ago", "lastUpdateAge": 10000, "exchangeTimeAge": 3600000, "staleAfter": 2700000, "expected": null},
+    {"name": "live pair: no trade for 5 min is fine", "lastUpdateAge": 1000, "exchangeTimeAge": 300000, "staleAfter": 120000, "expected": null},
+    {"name": "last trade exactly 2 h ago is not yet outdated", "lastUpdateAge": 10000, "exchangeTimeAge": 7200000, "staleAfter": 2700000, "expected": null},
+    {"name": "last trade 2 h + 1 ms ago", "lastUpdateAge": 10000, "exchangeTimeAge": 7200001, "staleAfter": 2700000, "expected": "TRADE"},
+    {"name": "fetch and trade too old: fetch wins", "lastUpdateAge": 3600000, "exchangeTimeAge": 10800000, "staleAfter": 2700000, "expected": "FETCH"},
+    {"name": "never fetched", "lastUpdateAge": null, "exchangeTimeAge": 10800000, "staleAfter": 2700000, "expected": null}
   ],
   "unchanged": [
     {"name": "no exchange time, unchanged 2 h, live (limit 2 min -> 1 h)", "exchangeTime": null, "priceChangedAtAge": 7200000, "lastUpdateAge": 10000, "outdatedAfter": 120000, "expected": 7200000},

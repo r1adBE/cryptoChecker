@@ -3,8 +3,6 @@ package com.cryptochecker.app.data.remote
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.domain.activity.FundingHistory
-import com.cryptochecker.app.domain.activity.FundingPoint
-import com.cryptochecker.app.domain.activity.FundingTrendRules
 import com.cryptochecker.marketdata.model.PostRequestInfo
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
@@ -51,7 +49,7 @@ data class FuturesInfo(
  * wie bei den Kerzen 6 h übersprungen (siehe [BlockedSources]).
  */
 class FuturesDataSource @Inject constructor(
-    private val httpClient: OkHttpClient,
+    internal val httpClient: OkHttpClient,
 ) {
     suspend fun fetch(watch: WatchEntity): FuturesInfo? {
         if (!watch.contractType.isPerpetual) return null
@@ -187,7 +185,7 @@ class FuturesDataSource @Inject constructor(
      * Fragt die Quellen der Reihe nach (gesperrte Hosts übersprungen); die erste
      * Antwort gewinnt. Wirft den letzten Fehler, wenn alle scheitern.
      */
-    private suspend fun <T : Any> firstOf(vararg sources: Pair<String, suspend () -> T>): T {
+    internal suspend fun <T : Any> firstOf(vararg sources: Pair<String, suspend () -> T>): T {
         var lastError: Throwable? = null
         for ((host, block) in sources) {
             if (BlockedSources.isBlocked(host)) continue
@@ -206,80 +204,10 @@ class FuturesDataSource @Inject constructor(
         throw lastError ?: IllegalStateException("Alle Futures-Quellen gesperrt")
     }
 
-    private fun <T : Any> source(host: String, block: suspend () -> T): Pair<String, suspend () -> T> =
+    internal fun <T : Any> source(host: String, block: suspend () -> T): Pair<String, suspend () -> T> =
         host to block
 
-    // ---------------- Funding-Verlauf («Warum?») ----------------
-
-    /**
-     * Die letzten [FundingTrendRules.LIMIT] abgerechneten Funding Rates — gleiche Ausweich-Kette
-     * und Symbole wie [fetch] (Perpetual) bzw. [fetchForBase] (sonst), gesperrte Hosts übersprungen.
-     * Einmal beim Öffnen von «Warum?»; Ergebnisse ~10 Min. im Speicher. null = keine Quelle.
-     *  - Binance: `GET https://fapi.binance.com/fapi/v1/fundingRate?symbol=…&limit=4`
-     *  - Bybit: `GET https://api.bybit.com/v5/market/funding/history?category=linear&symbol=…&limit=4`
-     *  - OKX: `GET https://www.okx.com/api/v5/public/funding-rate-history?instId=…&limit=4`
-     */
-    suspend fun fundingHistory(watch: WatchEntity): FundingHistory? {
-        val base = watch.baseAsset.trim().uppercase()
-        val perpetual = watch.contractType.isPerpetual
-        val key = if (perpetual) "${watch.marketKey}|${watch.pairId}|$base" else "SPOT|$base"
-        val now = System.currentTimeMillis()
-        historyCache[key]?.let { (time, value) -> if (now - time in 0 until HISTORY_CACHE_MILLIS) return value }
-        val usdt = "${base}USDT"
-        val chain: Array<Pair<String, suspend () -> FundingHistory>> = when (if (perpetual) watch.marketKey else null) {
-            "BybitFutures" -> arrayOf(
-                source(BYBIT) { bybitHistory(watch.pairId ?: usdt) },
-                source(BINANCE) { binanceHistory(usdt) },
-                source(OKX) { okxHistory("$base-USDT-SWAP") },
-            )
-            "BinanceFutures" -> if (FuturesSources.isCoinM(watch.pairId)) arrayOf(
-                source(BINANCE_COIN_M) { binanceCoinMHistory(watch.pairId.orEmpty().removePrefix(FuturesSources.COIN_M_PREFIX)) },
-                source(BINANCE) { binanceHistory(usdt) },
-                source(BYBIT) { bybitHistory(usdt) },
-                source(OKX) { okxHistory("$base-USDT-SWAP") },
-            ) else arrayOf(
-                source(BINANCE) {
-                    binanceHistory(watch.pairId?.takeIf { it.endsWith("USDT") || it.endsWith("USDC") } ?: usdt)
-                },
-                source(BYBIT) { bybitHistory(usdt) },
-                source(OKX) { okxHistory("$base-USDT-SWAP") },
-            )
-            "OkexFutures" -> arrayOf(
-                source(OKX) { okxHistory(watch.pairId?.takeIf { it.endsWith("-SWAP") } ?: "$base-USDT-SWAP") },
-                source(BINANCE) { binanceHistory(usdt) },
-                source(BYBIT) { bybitHistory(usdt) },
-            )
-            else -> arrayOf(
-                source(BINANCE) { binanceHistory(usdt) },
-                source(BYBIT) { bybitHistory(usdt) },
-                source(OKX) { okxHistory("$base-USDT-SWAP") },
-            )
-        }
-        val result = try {
-            firstOf(*chain)
-        } catch (e: Exception) {
-            currentCoroutineContext().ensureActive()
-            Timber.d(e, "Funding-Verlauf nicht verfügbar: %s", base)
-            // Fehler nicht merken: beim nächsten Öffnen neu versuchen
-            return null
-        }
-        historyCache[key] = now to result
-        return result
-    }
-
-    private suspend fun binanceHistory(symbol: String): FundingHistory = history(
-        FundingTrendRules.parseBinance(
-            httpClient.callMarket("https://fapi.binance.com/fapi/v1/fundingRate?symbol=$symbol&limit=${FundingTrendRules.LIMIT}", null)
-        ),
-        "Binance Futures",
-    )
-
-    private suspend fun binanceCoinMHistory(symbol: String): FundingHistory = history(
-        FundingTrendRules.parseBinance(
-            httpClient.callMarket("https://dapi.binance.com/dapi/v1/fundingRate?symbol=$symbol&limit=${FundingTrendRules.LIMIT}", null)
-        ),
-        FuturesSources.BINANCE_COIN_M,
-    )
+    // Funding-Verlauf («Warum?»): FuturesDataSourceFundingHistory.kt
 
     /**
      * Binance COIN-M: `GET https://dapi.binance.com/dapi/v1/premiumIndex?symbol=BTCUSD_PERP` und
@@ -307,32 +235,6 @@ class FuturesDataSource @Inject constructor(
             ?: return cached?.takeIf { now - it.first in 0 until INTERVAL_STALE_MILLIS }?.second
         binanceCoinMSizeCache = now to map
         return map
-    }
-
-    private suspend fun bybitHistory(symbol: String): FundingHistory = history(
-        FundingTrendRules.parseBybit(
-            httpClient.callMarket(
-                "https://api.bybit.com/v5/market/funding/history?category=linear&symbol=$symbol&limit=${FundingTrendRules.LIMIT}",
-                null,
-            )
-        ),
-        "Bybit",
-    )
-
-    private suspend fun okxHistory(instId: String): FundingHistory = history(
-        FundingTrendRules.parseOkx(
-            httpClient.callMarket(
-                "https://www.okx.com/api/v5/public/funding-rate-history?instId=$instId&limit=${FundingTrendRules.LIMIT}",
-                null,
-            )
-        ),
-        "OKX",
-    )
-
-    /** Leere Antwort zählt als Fehler, damit die Kette mit der nächsten Quelle weitermacht. */
-    private fun history(points: List<FundingPoint>, source: String): FundingHistory {
-        require(points.isNotEmpty()) { "Kein Funding-Verlauf von $source" }
-        return FundingHistory(points, source)
     }
 
     private suspend fun binance(symbol: String): FuturesInfo = coroutineScope {
@@ -440,7 +342,7 @@ class FuturesDataSource @Inject constructor(
         return root.getJSONArray("data").getJSONObject(0)
     }
 
-    private companion object {
+    internal companion object {
         /** Hostnamen = Schlüssel in [BlockedSources]. */
         const val BINANCE = "fapi.binance.com"
         const val BINANCE_COIN_M = "dapi.binance.com"

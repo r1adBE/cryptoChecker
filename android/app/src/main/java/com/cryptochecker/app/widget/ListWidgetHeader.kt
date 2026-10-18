@@ -11,10 +11,10 @@ package com.cryptochecker.app.widget
 object ListWidgetHeader {
 
     /**
-     * Feste Breiten (dp, widget_list.xml): Rand 2 × 8, Kopfzeile innen 6 + 0, Logo 18 + 6,
-     * Abstand Titel → Uhrzeit 6, Uhrzeit-Rand rechts 4, Aktualisieren-Knopf 48 (Tippfläche; Summe wie früher 2 + 44).
+     * Feste Breiten (dp, widget_list.xml): Rand 2 × 8, Kopfzeile innen 4 + 0, Logo 18 + 4,
+     * Abstand Titel → Uhrzeit 4, Uhrzeit-Rand rechts 4, Aktualisieren-Knopf 48 (Tippfläche; Summe wie früher 2 + 44).
      */
-    const val FIXED_DP = 2 * 8f + 6f + 0f + 18f + 6f + 6f + 4f + 48f
+    const val FIXED_DP = 2 * 8f + 4f + 0f + 18f + 4f + 4f + 4f + 48f
 
     /** Schriftgrössen des Titels: normal, eng. */
     val TITLE_SIZES_SP = listOf(13f, 11f)

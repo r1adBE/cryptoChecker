@@ -4,9 +4,7 @@ import com.cryptochecker.app.data.RefreshStats
 import com.cryptochecker.app.data.SparklineRepository
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.local.model.AlarmCondition
-import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.data.remote.BlockedSources
-import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.live.LiveCoverage
 import com.cryptochecker.app.domain.live.LiveExchange
 import com.cryptochecker.app.domain.live.LiveRules
@@ -28,10 +26,8 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import kotlinx.coroutines.withTimeoutOrNull
 import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -47,30 +43,30 @@ import javax.inject.Singleton
  */
 @Singleton
 class PriceRefresher @Inject constructor(
-    private val watchRepository: WatchRepository,
-    private val settingsRepository: SettingsRepository,
-    private val widgetUpdater: WidgetUpdater,
-    private val refreshStats: RefreshStats,
+    internal val watchRepository: WatchRepository,
+    internal val settingsRepository: SettingsRepository,
+    internal val widgetUpdater: WidgetUpdater,
+    internal val refreshStats: RefreshStats,
     /** 24-h-Bezug aus Kerzen — nur Ausweich-Weg, wenn der Ticker keinen 24-h-Wert liefert. */
-    private val sparklineRepository: SparklineRepository,
+    internal val sparklineRepository: SparklineRepository,
     /** Ohne Netz keine Aktualisierung (keine Fehlerzustände, siehe [OfflineGate]). */
-    private val connectivity: ConnectivityMonitor,
+    internal val connectivity: ConnectivityMonitor,
     /** Paare mit frischem Live-Kurs (WebSocket, Merkliste offen) lässt die REST-Abfrage aus. */
     private val liveCoverage: LiveCoverage,
     /** Widgets zeichnen (unter der Sperre ohne Kerzen-Abruf). */
-    private val liveWidgetGate: LiveWidgetGate,
+    internal val liveWidgetGate: LiveWidgetGate,
     /** Kurse holen (gesammelt oder einzeln, je Börse). */
-    private val priceFetcher: PriceFetcher,
+    internal val priceFetcher: PriceFetcher,
     /** 24-h- und Tages-Bezüge aus Kerzen. */
-    private val dayReferences: DayReferences,
+    internal val dayReferences: DayReferences,
     /** Alarm-Zusatzdaten parallel zu den Kursen vorladen. */
     private val effects: RefreshEffects,
     /** Die Sperre aller Kurs-Schreiber (auch [LivePriceApplier]). */
-    private val refreshLock: RefreshLock,
+    internal val refreshLock: RefreshLock,
     /** Kurse speichern und auswerten (unter der Sperre). */
-    private val resultProcessor: RefreshResultProcessor,
+    internal val resultProcessor: RefreshResultProcessor,
     /** Widget-Charts ausserhalb der Sperre nachladen. */
-    private val chartRefresher: ChartRefresher,
+    internal val chartRefresher: ChartRefresher,
     /** Aktivität, Gas, Depeg und Portfolio-Momentaufnahme nach dem Durchlauf. */
     private val sideChecks: RefreshSideChecks,
 ) {
@@ -97,7 +93,7 @@ class PriceRefresher @Inject constructor(
         private set
 
     /** Späte Tages-Bezüge: läuft unabhängig vom Aufrufer weiter (App-weit, ein Singleton). */
-    private val lateFillScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+    internal val lateFillScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
     /**
      * Läuft komplett auf [Dispatchers.IO]: Aus dem ViewModel aufgerufen lief
@@ -391,86 +387,7 @@ class PriceRefresher @Inject constructor(
         return summary
     }
 
-    private suspend fun refreshOneLocked(watchId: Long): RefreshSummary = refreshLock.withLock { lock ->
-        withContext(Dispatchers.IO) {
-            val startedAt = System.currentTimeMillis()
-
-            val watch = watchRepository.getWatch(watchId) ?: return@withContext RefreshSummary()
-            // Deaktiviert, kein Netz oder Börse pausiert: nichts anfragen, Kurs und Zustand bleiben
-            if (watch.disabled || !connectivity.isOnline() ||
-                ExchangeBackoff.isPaused(refreshStats.backoffStates()[watch.marketKey], startedAt) ||
-                BlockedSources.groupPausedUntil(watch.marketKey) != null
-            ) {
-                return@withContext RefreshSummary()
-            }
-            val settings = settingsRepository.current()
-            sparklineRepository.awaitRestored()
-            val single = priceFetcher.fetchSingle(watch)
-            // Kerzen nur, wenn der Ticker keinen 24-h-Wert liefert (Tages-Basen: immer)
-            val dayStart = ChangeBasisMath.dayStart(settings.changeBasis, startedAt)
-            dayReferences.awaitDayReferenceLoads(
-                dayReferences.startDayReferenceLoads(
-                    dayReferences.watchesNeedingCandles(listOf(watch), mapOf(watch.id to single), settings.changeBasis, remember = false),
-                    HashSet(),
-                    dayStart,
-                )
-            )
-            val processed = resultProcessor.process(lock, listOf(watch), mapOf(watch.id to single), settings, dayStart)
-
-            // Ein einzelnes Paar sagt nichts über die Dauer eines vollen Durchlaufs,
-            // deshalb bleibt die angezeigte Zeit im Widget hier unverändert.
-            // Nur die Widgets, die dieses Paar zeigen (Liste mit dem Paar, Einzel-Widget).
-            // Unter der Sperre ohne Kerzen-Abruf, siehe refreshOne
-            widgetUpdater.updateForWatch(watch.id, fetch = false)
-            chartRefresher.markIfStale()
-
-            RefreshSummary(
-                checked = processed.checked,
-                failed = processed.failed,
-                alarmsTriggered = processed.alarms,
-                durationMillis = System.currentTimeMillis() - startedAt
-            )
-        }
-    }
-
-    /**
-     * Tages-Basen: Bezüge, die nach dem Warten ([DayReferences.awaitDayReferenceLoads]) noch kommen,
-     * im Hintergrund nachtragen — nur die Veränderung, nur solange Kurs und Basis gleich
-     * geblieben sind; danach die Widgets neu zeichnen. Bricht nichts ab und meldet nichts.
-     */
-    private fun fillLateDayChanges(missing: List<WatchEntity>, loads: List<Job>, stamp: ChangeStamp) {
-        if (missing.isEmpty() || loads.all { it.isCompleted }) return
-        lateFillScope.launch {
-            runCatchingCancellable {
-                withTimeoutOrNull(LATE_FILL_MILLIS) { loads.joinAll() }
-                // Unter der Refresh-Sperre: kein Durchlauf schreibt dazwischen (neuere Kurse,
-                // andere Basis); der Stempel muss noch derjenige dieses Durchlaufs sein
-                val filled = refreshLock.withLock { lock -> fillLateDayChangesLocked(lock, missing, stamp) }
-                if (filled > 0) liveWidgetGate.drawAll(deferWhenOff = false)
-            }
-        }
-    }
-
-    /** Späte Tages-Bezüge nachtragen (unter der Sperre, [lock] als Beweis); Anzahl nachgetragener Paare. */
-    private suspend fun fillLateDayChangesLocked(
-        @Suppress("UNUSED_PARAMETER") lock: RefreshLockScope,
-        missing: List<WatchEntity>,
-        stamp: ChangeStamp,
-    ): Int {
-        val settings = settingsRepository.current()
-        if (ChangeBasisMath.stamp(settings.changeBasis, System.currentTimeMillis()) != stamp ||
-            refreshStats.changeStamp.value != stamp
-        ) return 0
-        var count = 0
-        for (watch in missing) {
-            val price = watch.lastPrice ?: continue
-            val change = dayReferences.candleChange(watch, price, stamp.dayStart)?.takeIf { it.isFinite() } ?: continue
-            if (watchRepository.fillChange(watch.id, watch.lastUpdate, change)) count++
-        }
-        return count
-    }
-
-    private companion object {
+    internal companion object {
         /** So lange werden späte Tages-Bezüge im Hintergrund noch nachgetragen. */
         const val LATE_FILL_MILLIS = 90_000L
 
@@ -481,10 +398,3 @@ class PriceRefresher @Inject constructor(
         const val SIDE_CHECK_RESERVE_MILLIS = 2_000L
     }
 }
-
-/**
- * Gespeicherter «Fehler» für Paare, die die Börse nicht mehr führt. Das ist
- * kein Fehler, sondern ein Zustand: Die Merkliste zeigt ihn neutral an und
- * zählt ihn weder als veraltet noch als «ohne Kurs».
- */
-const val NOT_TRADED_MARKER = com.cryptochecker.app.domain.watch.NotTraded.MARKER

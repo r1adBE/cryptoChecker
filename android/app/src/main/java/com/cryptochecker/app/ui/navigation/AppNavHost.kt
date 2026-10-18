@@ -19,11 +19,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import androidx.navigation.NavDestination.Companion.hasRoute
-import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -33,16 +31,11 @@ import androidx.navigation.toRoute
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.market.MarketSections
-import com.cryptochecker.app.domain.portfolio.PortfolioOff
 import com.cryptochecker.app.lock.PortfolioAccess
 import com.cryptochecker.app.lock.PortfolioLockPolicy
 import com.cryptochecker.app.lock.findFragmentActivity
 import com.cryptochecker.app.ui.components.rememberReduceMotion
 import com.cryptochecker.app.ui.features.about.BatteryOptimizationDialog
-import com.cryptochecker.app.ui.features.alarms.AlarmsOverviewScreen
-import com.cryptochecker.app.ui.features.alarms.AlarmsScreen
-import com.cryptochecker.app.ui.features.alarms.AlarmLogScreen
-import com.cryptochecker.app.ui.features.alarms.AlarmDeliveryScreen
 import com.cryptochecker.app.ui.features.alarms.LocalOpenAlarmDelivery
 import com.cryptochecker.app.ui.features.alarms.LocalOpenAlarmLog
 import com.cryptochecker.app.ui.features.alarms.LocalOpenUpdateSettings
@@ -55,17 +48,9 @@ import com.cryptochecker.app.ui.features.info.MarketPhaseScreen
 import com.cryptochecker.app.ui.features.info.MarketSectionScreen
 import com.cryptochecker.app.ui.features.portfolio.PortfolioDetailScreen
 import com.cryptochecker.app.ui.features.portfolio.PortfolioScreen
-import com.cryptochecker.app.ui.features.settings.MarketAlertsSettingsScreen
-import com.cryptochecker.app.ui.features.settings.ProvideSettingsHighlight
 import com.cryptochecker.app.ui.features.settings.SettingsPage
-import com.cryptochecker.app.ui.features.settings.SettingsPageScreen
-import com.cryptochecker.app.ui.features.settings.SettingsScreen
-import com.cryptochecker.app.ui.features.settings.SettingsSearchTarget
-import com.cryptochecker.app.ui.features.settings.SpeechSettingsScreen
 import com.cryptochecker.app.ui.features.watchlist.WatchlistScreen
 import com.cryptochecker.app.ui.lock.PortfolioLockViewModel
-import com.cryptochecker.app.ui.lock.PortfolioLockedState
-import com.cryptochecker.app.ui.lock.PortfolioPendingState
 import com.cryptochecker.app.ui.lock.SecureWindowEffect
 
 /** Überblendung beim Wechsel von Tab oder Seite (ms). */
@@ -160,41 +145,14 @@ fun AppNavHost(
         if (openTarget == null) return@LaunchedEffect
         // Der Graph steht erst nach dem ersten Aufbau — Fehler hier nie zum Absturz werden lassen.
         runCatchingCancellable {
-            when (openTarget) {
-                // «Paar hinzufügen» liegt über der Merkliste: zurück führt dorthin
-                "add" -> {
-                    navigation.navigateToTab(ScreenRoute.Watchlist)
-                    navigation.openExplorer()
-                }
-                "cycle" -> navigation.navigateToTab(ScreenRoute.MarketPhase)
-                // Mitteilung «Wirtschaftstermine»: Markt-Tab, Register mit dem Hinweis (dort gescrollt)
-                com.cryptochecker.app.ui.MainActivity.OPEN_MARKET_MACRO -> {
-                    marketJump = MarketJump.MACRO.name
-                    navigation.navigateToTab(ScreenRoute.MarketPhase)
-                    // Eine gemerkte Unterseite schliessen: der Tab entscheidet, wohin es geht
-                    navigation.popBackStack<ScreenRoute.MarketPhase>(inclusive = false)
-                }
-                "alarms" -> navigation.navigate(ScreenRoute.AlarmsOverview) { launchSingleTop = true }
-                // Portfolio-Widget: Portfolio-Tab; ist es aus, Einstellungen › Erweitert › Portfolio (dort der Schalter)
-                "portfolio" -> when (PortfolioOff.widgetTarget(portfolioEnabled)) {
-                    PortfolioOff.WidgetTarget.PORTFOLIO_TAB -> navigation.navigateToTab(ScreenRoute.Portfolio)
-                    PortfolioOff.WidgetTarget.PORTFOLIO_SETTINGS -> {
-                        navigation.navigateToTab(ScreenRoute.Settings)
-                        // Eine gemerkte Unterseite schliessen, dann die Seite «Portfolio» darüber
-                        navigation.popBackStack<ScreenRoute.Settings>(inclusive = false)
-                        navigation.navigate(ScreenRoute.SettingsSubpage(SettingsPage.PORTFOLIO.name)) { launchSingleTop = true }
-                    }
-                }
-                else -> com.cryptochecker.app.ui.MainActivity.whyWatchId(openTarget)?.let { id ->
-                    whyWatchId = id
-                    navigation.navigateToTab(ScreenRoute.Watchlist)
-                } ?: com.cryptochecker.app.ui.MainActivity.watchTargetId(openTarget)?.let { id ->
-                    focusWatchId = id
-                    navigation.navigateToTab(ScreenRoute.Watchlist)
-                    // Eine offene Unterseite über der Merkliste (z. B. «Alarme») schliessen
-                    navigation.popBackStack<ScreenRoute.Watchlist>(inclusive = false)
-                }
-            }
+            openAppTarget(
+                navigation = navigation,
+                openTarget = openTarget,
+                portfolioEnabled = portfolioEnabled,
+                onMarketJump = { marketJump = it },
+                onWhyWatch = { whyWatchId = it },
+                onFocusWatch = { focusWatchId = it },
+            )
         }
         onOpenTargetHandled()
     }
@@ -300,64 +258,11 @@ fun AppNavHost(
                     )
                 }
 
-                composable<ScreenRoute.Settings> {
-                    SettingsScreen(
-                        onOpenPage = { page ->
-                            navigation.navigate(ScreenRoute.SettingsSubpage(page.name)) { launchSingleTop = true }
-                        },
-                        onOpenSearchTarget = { target ->
-                            settingsAnchor = target.anchor
-                            val route: ScreenRoute? = when (target) {
-                                is SettingsSearchTarget.Page -> ScreenRoute.SettingsSubpage(target.page.name)
-                                is SettingsSearchTarget.MarketAlerts -> ScreenRoute.SettingsMarketAlerts
-                                is SettingsSearchTarget.Speech -> ScreenRoute.SettingsSpeech
-                                // Zeilen der Hauptseite hebt SettingsScreen selbst hervor
-                                is SettingsSearchTarget.Main -> null
-                            }
-                            if (route != null) navigation.navigate(route) { launchSingleTop = true }
-                        }
-                    )
-                }
-
-                composable<ScreenRoute.SettingsSubpage> { entry ->
-                    SettingsHighlightEntry(settingsAnchor, onTaken = { settingsAnchor = null }) {
-                        SettingsPageScreen(
-                            page = SettingsPage.fromName(entry.toRoute<ScreenRoute.SettingsSubpage>().page),
-                            onBack = { navigation.popBackStack() },
-                            // «Alarme», «Erweitert» und «Über» öffnen weitere Unterseiten; Zurück führt wieder dorthin.
-                            // Ohne launchSingleTop: gleiches Ziel (SettingsSubpage) würde sonst den
-                            // Eintrag «Alarme» ersetzen statt darüber zu legen
-                            onOpenPage = { page ->
-                                if (entry.lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
-                                    navigation.navigate(ScreenRoute.SettingsSubpage(page.name))
-                                }
-                            },
-                            // «Erweitert»: Markt-Meldungen und Sprachausgabe haben eigene Routen
-                            onOpenMarketAlerts = {
-                                if (entry.lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
-                                    navigation.navigate(ScreenRoute.SettingsMarketAlerts) { launchSingleTop = true }
-                                }
-                            },
-                            onOpenSpeech = {
-                                if (entry.lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
-                                    navigation.navigate(ScreenRoute.SettingsSpeech) { launchSingleTop = true }
-                                }
-                            }
-                        )
-                    }
-                }
-
-                composable<ScreenRoute.SettingsMarketAlerts> {
-                    SettingsHighlightEntry(settingsAnchor, onTaken = { settingsAnchor = null }) {
-                        MarketAlertsSettingsScreen(onBack = { navigation.popBackStack() })
-                    }
-                }
-
-                composable<ScreenRoute.SettingsSpeech> {
-                    SettingsHighlightEntry(settingsAnchor, onTaken = { settingsAnchor = null }) {
-                        SpeechSettingsScreen(onBack = { navigation.popBackStack() })
-                    }
-                }
+                settingsDestinations(
+                    navigation = navigation,
+                    anchor = { settingsAnchor },
+                    onAnchorChange = { settingsAnchor = it },
+                )
 
                 composable<ScreenRoute.MarketPhase> { entry ->
                     // Aktionsblatt aus «Heute auffällig»: dieselbe Instanz wie die Merkliste (ihr Eintrag
@@ -430,83 +335,13 @@ fun AppNavHost(
                     }
                 }
 
-                // AlarmsViewModel liest die Watch-Id selbst aus dem SavedStateHandle (ScreenRoute.AlarmsArgWatchId)
-                composable<ScreenRoute.Alarms> {
-                    AlarmsScreen(onBack = { navigation.popBackStack() })
-                }
-
-                composable<ScreenRoute.AlarmsOverview> {
-                    AlarmsOverviewScreen(
-                        onBack = { navigation.popBackStack() },
-                        onOpenWatch = { watchId -> navigation.navigate(ScreenRoute.Alarms(watchId)) },
-                        onOpenLog = openAlarmLog,
-                        onOpenDelivery = openAlarmDelivery,
-                    )
-                }
-
-                composable<ScreenRoute.AlarmLog> {
-                    AlarmLogScreen(onBack = { navigation.popBackStack() })
-                }
-
-                composable<ScreenRoute.AlarmDelivery> {
-                    AlarmDeliveryScreen(
-                        onBack = { navigation.popBackStack() },
-                        onOpenAlarmSettings = {
-                            navigation.navigate(ScreenRoute.SettingsSubpage(SettingsPage.ALARMS.name)) { launchSingleTop = true }
-                        },
-                        onOpenUpdateSettings = openUpdateSettings,
-                    )
-                }
+                alarmDestinations(
+                    navigation = navigation,
+                    openAlarmLog = openAlarmLog,
+                    openAlarmDelivery = openAlarmDelivery,
+                    openUpdateSettings = openUpdateSettings,
+                )
             }
         }
-    }
-}
-
-/**
- * Unterseite der Einstellungen, geöffnet aus der Suche: übernimmt den Anker beim ersten Aufbau
- * (danach geleert, damit spätere Besuche nichts hervorheben) und gibt ihn an die Punkte weiter.
- */
-@Composable
-private fun SettingsHighlightEntry(anchor: String?, onTaken: () -> Unit, content: @Composable () -> Unit) {
-    val taken = remember { anchor }
-    androidx.compose.runtime.LaunchedEffect(Unit) { if (taken != null) onTaken() }
-    ProvideSettingsHighlight(taken, content)
-}
-
-/**
- * Inhalt des Portfolios nur frei; gesperrt der ruhige Sperr-Zustand (ohne Displaysperre mit Hinweis und «Sperre
- * ausschalten»), beim Kaltstart leer.
- */
-@Composable
-private fun PortfolioGate(
-    access: PortfolioAccess,
-    onUnlock: () -> Unit,
-    lockViewModel: PortfolioLockViewModel,
-    content: @Composable () -> Unit,
-) {
-    when (access) {
-        PortfolioAccess.OPEN -> content()
-        PortfolioAccess.LOCKED -> {
-            val screenLockMissing by lockViewModel.screenLockMissing.collectAsStateWithLifecycle()
-            PortfolioLockedState(
-                onUnlock = onUnlock,
-                screenLockMissing = screenLockMissing,
-                onTurnOffLock = lockViewModel::turnOffLockWithoutScreenLock,
-            )
-        }
-        PortfolioAccess.PENDING -> PortfolioPendingState()
-    }
-}
-
-/** Seite «Paar hinzufügen» über dem aktuellen Tab (eigene Seite mit Zurück, ohne Tableiste). */
-private fun NavHostController.openExplorer() {
-    navigate(ScreenRoute.Explorer) { launchSingleTop = true }
-}
-
-private fun NavHostController.navigateToTab(route: ScreenRoute) {
-    navigate(route) {
-        popUpTo(graph.findStartDestination().id) { saveState = true }
-        launchSingleTop = true
-        restoreState = true
     }
 }

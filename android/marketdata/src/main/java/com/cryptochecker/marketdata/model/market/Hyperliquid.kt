@@ -44,6 +44,7 @@ class Hyperliquid : Market("Hyperliquid", "Hyperliquid") {
 
     override fun tickerAddress(call: Int, info: PairQuery): String = HYPERLIQUID_INFO
 
+    // Für jedes Paar dieselbe Abfrage (~100 KB): gleichzeitige Einzelkurse teilen sich eine Antwort (InFlightRequests)
     override fun tickerPostBody(call: Int, info: PairQuery): PostRequestInfo = metaRequest()
 
     override fun fillTicker(call: Int, body: String, ticker: Ticker, info: PairQuery) {

@@ -30,7 +30,7 @@ class PortfolioWidgetMathTest {
         assertEquals(PortfolioWidgetSize.MEDIUM, PortfolioWidgetMath.size(300, 250, 1.3f))
         // Schwellen genau
         val tall = PortfolioWidgetMath.baseHeightDp(1f) + PortfolioWidgetMath.changeLineHeightDp(1f) +
-            PortfolioWidgetMath.footerHeightDp(1f) + PortfolioWidgetMath.CHART_MIN_HEIGHT_DP + 6f
+            PortfolioWidgetMath.footerHeightDp(1f) + PortfolioWidgetMath.CHART_MIN_HEIGHT_DP + 4f
         assertEquals(PortfolioWidgetSize.TALL, PortfolioWidgetMath.size(150, kotlin.math.ceil(tall).toInt()))
         assertEquals(PortfolioWidgetSize.SMALL, PortfolioWidgetMath.size(150, kotlin.math.floor(tall).toInt() - 1))
     }
@@ -143,7 +143,7 @@ class PortfolioWidgetMathTest {
                         (if (l.usdt) PortfolioWidgetMath.usdtHeightDp(fs) else 0f) +
                         (if (l.footer) PortfolioWidgetMath.footerHeightDp(fs) else 0f) +
                         PortfolioWidgetMath.rowsHeightDp(fs, l.rows) +
-                        (if (column) PortfolioWidgetMath.CHART_MIN_HEIGHT_DP + 6f else 0f)
+                        (if (column) PortfolioWidgetMath.CHART_MIN_HEIGHT_DP + 4f else 0f)
                     if (l.changeLine) assertTrue("h=$h w=$w fs=$fs", used <= h + 0.01f)
                 }
             }

@@ -243,6 +243,6 @@ private fun TabLabel(text: String, color: Color, selected: Boolean) {
  * Über Pixel verglichen, weil Android grosse Schriftstufen nicht linear umrechnet.
  */
 @Composable
-private fun cappedTabSize(size: TextUnit): TextUnit = with(LocalDensity.current) {
+internal fun cappedTabSize(size: TextUnit): TextUnit = with(LocalDensity.current) {
     minOf(size.toPx(), (size.value * TAB_LABEL_MAX_SCALE).dp.toPx()).toSp()
 }

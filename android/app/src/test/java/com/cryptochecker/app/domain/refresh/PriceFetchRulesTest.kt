@@ -1,5 +1,6 @@
 package com.cryptochecker.app.domain.refresh
 
+import com.cryptochecker.app.domain.watch.PriceFreshness
 import com.cryptochecker.marketdata.config.MarketsConfig
 import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.FuturesContractType
@@ -17,8 +18,9 @@ import org.junit.Test
 
 /**
  * Regeln der Kursabfrage (Build 47): Einzelabfragen nach 429/418 stoppen ([SingleRateGate]), «vollständig» je
- * Teilabfrage ([BulkCompleteness]), inverse Perpetuals ([FuturesContractType.normalized]) und «veraltet» am Abruf
- * statt am letzten Handel (Market.readTicker). iOS: `PriceFetchRulesTests.swift`.
+ * Teilabfrage ([BulkCompleteness]), inverse Perpetuals ([FuturesContractType.normalized]) und «veraltet» am Abruf,
+ * am letzten Handel erst ab der Grenze der Alarmsperre (Market.readTicker, PriceFreshness.staleReason).
+ * iOS: `PriceFetchRulesTests.swift`.
  */
 class PriceFetchRulesTest {
 
@@ -156,10 +158,10 @@ class PriceFetchRulesTest {
         assertFalse(FuturesContractType.NONE.isPerpetual)
     }
 
-    // --- «veraltet» am Abruf, Zeit der Börse nur zur Anzeige ---
+    // --- «veraltet»: Abruf wie bisher, Zeit der Börse erst ab der Grenze der Alarmsperre ---
 
     @Test
-    fun exchangeTimeIsDisplayOnlyFetchTimeDrivesStaleness() {
+    fun fetchTimeDrivesStalenessExchangeTimeOnlyPastAlarmLimit() {
         val upbit = MarketsConfig.MARKETS["Upbit"]!!
         val body = """[{"market":"KRW-BTC","trade_timestamp":1728540000000,"trade_price":86000000,""" +
             """"acc_trade_price_24h":1.0,"acc_trade_volume_24h":2.0}]"""
@@ -167,10 +169,17 @@ class PriceFetchRulesTest {
         val ticker = SimpleTicker()
         upbit.readTicker(0, body, ticker, PairQuery("BTC", "KRW", "KRW-BTC", FuturesContractType.NONE))
         val after = System.currentTimeMillis()
-        // Letzter Handel (ruhiges Paar) nur als exchangeTime; timestamp = Abruf → lastUpdate frisch, nicht veraltet
+        // Letzter Handel nur als exchangeTime; timestamp = Abruf → lastUpdate frisch, am Abruf nicht veraltet
         assertEquals(1_728_540_000_000L, ticker.exchangeTime)
         assertTrue(ticker.timestamp in before..after)
         assertFalse(OutdatedRule.isOutdated(ticker.timestamp, after, OutdatedRule.MIN_MILLIS))
+        // Handel länger als die Alarmsperre (2 h) her: Zeile «veraltet» aus demselben Grund wie die Sperre
+        assertEquals(
+            PriceFreshness.StaleReason.TRADE,
+            PriceFreshness.staleReason(ticker.timestamp, ticker.exchangeTime, after, OutdatedRule.MIN_MILLIS),
+        )
+        // Ruhiges Paar (letzter Handel vor 1 h): frischer Abruf zählt, nicht veraltet
+        assertNull(PriceFreshness.staleReason(ticker.timestamp, after - 3_600_000L, after, OutdatedRule.MIN_MILLIS))
 
         val bulk = upbit.parseBulkTickersDetailed(0, body).tickers["KRW-BTC"]
         assertNotNull(bulk)

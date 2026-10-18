@@ -61,6 +61,8 @@ struct PortfolioTxSheet: View {
     @State var entryFxKey: String?
     @State var entryFxRate: Decimal?
     @State var entryFxDay: CutoffDay?
+    /// Faktor mit USDT = 1 (kein plausibler USDT/USD-Kurs): das Blatt nennt es (`PortfolioTxForm.entryUsdtAssumed`)
+    @State var entryFxUsdtAssumed = false
     @State var entryFxState: EntryFxState?
     @State var tried = false
     @State var askDelete = false

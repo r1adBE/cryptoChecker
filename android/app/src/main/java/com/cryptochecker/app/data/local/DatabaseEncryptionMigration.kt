@@ -30,11 +30,11 @@ package com.cryptochecker.app.data.local
  * übernimmt Schema und `user_version` unverändert.
  */
 class DatabaseEncryptionMigration(
-    private val files: Files,
-    private val keys: Keys,
-    private val log: (message: String, error: Throwable?) -> Unit = { _, _ -> },
+    internal val files: Files,
+    internal val keys: Keys,
+    internal val log: (message: String, error: Throwable?) -> Unit = { _, _ -> },
     /** Darf [database] ohne Schlüssel nie unverschlüsselt angelegt werden (Portfolio)? Siehe [planOpen]. */
-    private val encryptionRequired: (database: String) -> Boolean = { false },
+    internal val encryptionRequired: (database: String) -> Boolean = { false },
 ) {
 
     /** Art einer Datenbankdatei nach ihrem Kopf (unverschlüsselt: «SQLite format 3\u0000»). */
@@ -251,62 +251,6 @@ class DatabaseEncryptionMigration(
         }
     }
 
-    /** Früherer Schlüssel, der die (aktuelle) Datei öffnet → wieder der gespeicherte; null = keiner. */
-    private fun previousOpening(database: String): Decision? {
-        val previous = runCatching { keys.previous(database) }.getOrDefault(emptyList())
-        for (key in previous) {
-            val opens = runCatching { files.opens(database, key.passphrase) }.getOrDefault(false)
-            if (!opens) continue
-            // Mit diesem Schlüssel öffnen, auch wenn das Speichern als «gespeichert» scheitert (nächster Start erneut)
-            runCatching { keys.promote(database, key.id) }
-                .onSuccess { log("$database: früherer Schlüssel passt wieder", null) }
-                .onFailure { log("$database: früherer Schlüssel nicht übernommen", it) }
-            return Decision.Encrypted(key.passphrase)
-        }
-        return null
-    }
-
-    /**
-     * Beiseitegelegte Datei, die ein früherer Schlüssel öffnet → wieder die Datenbank (die inzwischen neu begonnene
-     * Datei bleibt unter neuem Namen, ihr Schlüssel als «ersetzt»). Erst die Dateien, dann der Schlüssel: bricht es
-     * dazwischen ab, findet der nächste Start den früheren Schlüssel über [previousOpening]. null = nichts zurückgeholt.
-     */
-    private fun restoreFromAside(database: String): Decision? {
-        val copies = runCatching { files.asideCopies(database) }.getOrDefault(emptyList())
-        if (copies.isEmpty()) return null
-        val previous = runCatching { keys.previous(database) }.getOrDefault(emptyList())
-        if (previous.isEmpty()) return null
-        for (copy in copies) {
-            for (key in previous) {
-                val opens = runCatching { files.asideOpens(database, copy, key.passphrase) }.getOrDefault(false)
-                if (!opens) continue
-                try {
-                    files.restoreAside(database, copy)
-                } catch (e: Exception) {
-                    log("$database: beiseitegelegte Datei nicht zurückgeholt", e)
-                    return null
-                }
-                // Die Datei ist jetzt die zurückgeholte: nur noch mit diesem Schlüssel öffnen — nie mit dem gespeicherten,
-                // sonst hielte Room sie für beschädigt. Scheitert das Speichern des Schlüssels, holt ihn der nächste Start
-                runCatching { keys.promote(database, key.id) }
-                    .onFailure { log("$database: früherer Schlüssel nicht übernommen", it) }
-                log("$database: beiseitegelegte Datei mit früherem Schlüssel zurückgeholt", null)
-                return Decision.Encrypted(key.passphrase, restored = true)
-            }
-        }
-        return null
-    }
-
-    /** Entscheidung ohne brauchbaren Schlüssel nach [planOpen]. */
-    private fun withoutKey(kind: FileKind, database: String): Decision =
-        when (planOpen(kind, keyUsable = false, encryptionRequired = encryptionRequired(database))) {
-            OpenPlan.REFUSE -> {
-                log("$database: kein Schlüssel, nicht unverschlüsselt angelegt (nur im Arbeitsspeicher)", null)
-                Decision.Refused
-            }
-            OpenPlan.ENCRYPTED, OpenPlan.PLAINTEXT, OpenPlan.KEEP_FILE_IN_MEMORY, OpenPlan.WAIT -> Decision.Plaintext
-        }
-
     /** Wie eine Datei zu öffnen ist ([planOpen]). */
     enum class OpenPlan {
         /** Verschlüsselt öffnen, anlegen oder überführen (eigene Regeln für eine schon verschlüsselte Datei). */
@@ -326,21 +270,6 @@ class DatabaseEncryptionMigration(
 
         /** Verschlüsselte Datei, Schlüssel gerade nicht lesbar: nicht öffnen (Ausnahme), der nächste Zugriff versucht es erneut. */
         WAIT,
-    }
-
-    /**
-     * Gespeicherter Schlüssel, sonst ein neuer. Nur für Dateien, die (noch) nicht verschlüsselt sind: Kein
-     * verschlüsselter Inhalt hängt am alten Schlüssel, ersetzen ist darum gefahrlos. null = kein Schlüssel möglich.
-     */
-    private fun usableOrNewKey(database: String): ByteArray? {
-        val lookup = keys.load(database)
-        if (lookup is KeyLookup.Found) return lookup.passphrase
-        return try {
-            keys.create(database)
-        } catch (e: Exception) {
-            log("$database: kein Schlüssel, unverschlüsselt weiter", e)
-            null
-        }
     }
 
     companion object {

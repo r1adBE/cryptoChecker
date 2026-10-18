@@ -5,6 +5,10 @@ import Foundation
 /// Gemini-Sammelabfrage …) bekommen beim Abruf «jetzt» — ein seit Stunden stehender letzter Kurs
 /// wirkte sonst frisch. Deshalb:
 ///  - `freshnessTime`: Zeit laut Börse, sonst der letzte erfolgreiche Abruf (`lastUpdate`).
+///  - `staleReason`/`isStale`: «veraltet» nach derselben Regel wie die Alarmsperre — letzter Abruf älter
+///    als die Grenze (`.fetch`) ODER die Börse meldet einen Handel älter als
+///    `AlarmFreshness.exchangeStaleMillis` (`.trade`). Ruhige Paare und Live-Paare ohne Handel seit ein
+///    paar Minuten werden so nicht «veraltet»; Zeile und Alarm sperren gleich.
 ///  - `unchangedSince`: nur OHNE Zeit der Börse — ist der Kurs länger als `unchangedAfterMillis`
 ///    gleich geblieben, zeigt die Zeile «Kurs unverändert seit HH:MM» statt frisch zu wirken.
 ///    Grenze: max(1 Stunde, Veraltet-Grenze aus `OutdatedRule`, also 3 × Intervall).
@@ -23,6 +27,30 @@ enum PriceFreshness {
 
     static func freshnessTime(_ watch: Watch) -> Int64 {
         freshnessTime(lastUpdate: watch.lastUpdate, exchangeTime: watch.exchangeTime)
+    }
+
+    /// Warum ein Kurs «veraltet» ist: Abruf zu alt bzw. letzter Handel laut Börse zu alt.
+    enum StaleReason: String { case fetch = "FETCH", trade = "TRADE" }
+
+    /// Grund für «veraltet» oder nil: `.fetch`, wenn der letzte erfolgreiche Abruf `lastUpdate` (> 0) länger als
+    /// `staleAfter` zurückliegt (geht vor); sonst `.trade`, wenn die Börse eine Handelszeit älter als die Alarmsperre
+    /// meldet (`AlarmFreshness.exchangeTimeTooOld`). Ohne Abruf (≤ 0) nil — «noch kein Kurs» entscheidet der Aufrufer.
+    static func staleReason(lastUpdate: Int64, exchangeTime: Int64?, now: Int64, staleAfter: Int64) -> StaleReason? {
+        guard lastUpdate > 0 else { return nil }
+        if now - lastUpdate > staleAfter { return .fetch }
+        if AlarmFreshness.exchangeTimeTooOld(exchangeTime, now: now) { return .trade }
+        return nil
+    }
+
+    static func staleReason(_ watch: Watch, now: Int64, staleAfter: Int64) -> StaleReason? {
+        staleReason(lastUpdate: watch.lastUpdate, exchangeTime: watch.exchangeTime, now: now, staleAfter: staleAfter)
+    }
+
+    /// Gehandeltes, aktives Paar «veraltet» (Zeile, Filter, Status, Widgets): noch nie abgefragt oder ein
+    /// `staleReason`. Nie bei deaktivierten oder nicht mehr gehandelten Paaren.
+    static func isStale(_ watch: Watch, now: Int64, staleAfter: Int64) -> Bool {
+        !watch.disabled && !watch.isNotTraded
+            && (watch.lastUpdate <= 0 || staleReason(watch, now: now, staleAfter: staleAfter) != nil)
     }
 
     /// Ab diesem Alter der letzten Kursänderung gilt «unverändert»: max(1 h, Veraltet-Grenze).

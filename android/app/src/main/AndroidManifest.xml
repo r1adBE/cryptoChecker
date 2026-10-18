@@ -260,6 +260,11 @@
             android:name=".work.ExactCheckReceiver"
             android:exported="false" />
 
+        <!-- Knopf «1 h später» der Alarm-Meldung: nur über den eigenen PendingIntent erreichbar -->
+        <receiver
+            android:name=".notification.AlarmActionReceiver"
+            android:exported="false" />
+
         <!-- Liefert die Zeilen der Widget-Liste -->
         <service
             android:name=".widget.PriceWidgetService"

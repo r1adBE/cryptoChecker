@@ -102,6 +102,9 @@ suspend fun AppNotifier.showAlarm(
     if (!watch.isNotTraded) {
         builder.addAction(0, context.getString(R.string.watch_action_why_short), openWhyIntent(watch.id))
     }
+    // «1 h später» und «Anpassen» (AlarmNotificationActions.kt); Coin-Logo nur, wenn es schon auf dem Gerät liegt
+    addAlarmActions(builder, watch, alarm)
+    alarmLargeIcon(watch)?.let { builder.setLargeIcon(it) }
     // Mit Portfolio-Sperre auf dem Sperrbildschirm nur «Alarm» (wie Kurs-Mitteilungen und Portfolio-Alarme)
     builder.lockScreenPrivacy(channelId, R.drawable.ic_stat_logo, context.getString(R.string.watch_action_alarm))
 

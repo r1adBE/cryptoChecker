@@ -1,5 +1,5 @@
 {
-  "_comment": "Seite «Damit Alarme ankommen» (Build 81): gelesener Zustand → Zeilen (row, state, detail, action). Android: AlarmReadinessParityTest.kt, iOS: AlarmReadinessParityTests.swift. Fehlende Eingaben = Standard der Input-Klasse. «backgroundAlarms»: welche Alarm-Arten als «hasAlarms» zählen (AlarmReadiness.hasBackgroundAlarms); fehlende Felder = Standard von AlarmKinds.",
+  "_comment": "Seite «Damit Alarme ankommen» (Build 81): gelesener Zustand → Zeilen (row, state, detail, action). Android: AlarmReadinessParityTest.kt, iOS: AlarmReadinessParityTests.swift. Fehlende Eingaben = Standard der Input-Klasse. «backgroundAlarms»: welche Alarm-Arten als «hasAlarms» zählen (AlarmReadiness.hasBackgroundAlarms); fehlende Felder = Standard von AlarmKinds; ohne «platform» gilt der Fall für beide Plattformen.",
   "staleCheckMillis": 21600000,
   "cases": [
     {
@@ -884,6 +884,38 @@
       "name": "indicator_limit",
       "kinds": {
         "indicatorAlert": true
+      },
+      "expected": true
+    },
+    {
+      "name": "activity_alerts",
+      "kinds": {
+        "activityAlerts": true
+      },
+      "expected": true
+    },
+    {
+      "name": "macro_notices_android",
+      "platform": "android",
+      "kinds": {
+        "macroNotices": true
+      },
+      "expected": true
+    },
+    {
+      "name": "macro_notices_ios_planned_locally",
+      "platform": "ios",
+      "kinds": {
+        "macroNotices": true
+      },
+      "expected": false
+    },
+    {
+      "name": "macro_notices_ios_with_activity",
+      "platform": "ios",
+      "kinds": {
+        "macroNotices": true,
+        "activityAlerts": true
       },
       "expected": true
     }

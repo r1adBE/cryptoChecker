@@ -22,10 +22,20 @@ enum WidgetOutdated {
     }
 
     /// Kurs eines Paares veraltet? «Nicht mehr gehandelt» ist ein Zustand und zählt nicht, ein
-    /// deaktiviertes Paar ebenso wenig (es wird bewusst nicht abgefragt).
+    /// deaktiviertes Paar ebenso wenig (es wird bewusst nicht abgefragt). Regel der App: Abruf zu alt oder
+    /// letzter Handel laut Börse älter als 2 h (`WidgetFreshness.outdatedTime`).
     static func isOutdated(_ watch: Watch, at date: Date, afterMillis: Int64) -> Bool {
-        !watch.disabled && !ConnectionErrors.isNotTraded(watch.lastError)
-            && isOutdated(watch.lastUpdate, at: date, afterMillis: afterMillis)
+        outdatedTime(watch, at: date, afterMillis: afterMillis) != nil
+    }
+
+    /// Zeit hinter «veraltet» (letzter Abruf bzw. letzter Handel) oder nil, wenn nicht veraltet.
+    static func outdatedTime(_ watch: Watch, at date: Date, afterMillis: Int64) -> Int64? {
+        WidgetFreshness.outdatedTime(watch, now: millis(date), afterMillis: afterMillis)
+    }
+
+    /// «veraltet, letzte Aktualisierung 06:42» mit der Zeit aus `outdatedTime`.
+    static func spoken(_ watch: Watch, at date: Date, afterMillis: Int64) -> String {
+        spoken(outdatedTime(watch, at: date, afterMillis: afterMillis) ?? watch.lastUpdate, at: date)
     }
 
     /// «06:42» (am selben Tag) bzw. «5. Okt., 06:42» — bei altem Stand zählt auch der Tag.
@@ -68,7 +78,7 @@ enum WidgetOutdated {
     /// `allowsHint`, sonst die Zeit der letzten Änderung), sonst die Zeit laut Börse bzw. des Abrufs.
     static func timeText(_ watch: Watch, outdated: Bool, at date: Date, afterMillis: Int64,
                          allowsHint: Bool = true) -> String {
-        if outdated { return label(watch.lastUpdate, at: date) }
+        if outdated { return label(outdatedTime(watch, at: date, afterMillis: afterMillis) ?? watch.lastUpdate, at: date) }
         if allowsHint, let hint = unchanged(watch, at: date, afterMillis: afterMillis) { return hint }
         return PriceFormat.time(WidgetFreshness.priceTime(watch, now: millis(date), afterMillis: afterMillis))
     }

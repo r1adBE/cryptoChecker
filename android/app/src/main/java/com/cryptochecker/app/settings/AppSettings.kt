@@ -397,13 +397,6 @@ data class AppSettings(
         const val MAX_LIVE_INTERVAL_SECONDS = 3_600
         const val MAX_ALARM_COOLDOWN_MINUTES = 1_440
 
-        fun clampBackgroundInterval(minutes: Int): Int =
-            minutes.coerceIn(MIN_BACKGROUND_INTERVAL_MINUTES, MAX_BACKGROUND_INTERVAL_MINUTES)
-
-        fun clampLiveInterval(seconds: Int): Int = seconds.coerceIn(MIN_LIVE_INTERVAL_SECONDS, MAX_LIVE_INTERVAL_SECONDS)
-
-        fun clampAlarmCooldown(minutes: Int): Int = minutes.coerceIn(0, MAX_ALARM_COOLDOWN_MINUTES)
-
         val BACKGROUND_INTERVAL_CHOICES = listOf(15, 30, 60)
         val ALARM_COOLDOWN_CHOICES = listOf(0, 5, 15, 60)
         val FEAR_GREED_BELOW_CHOICES = listOf(0, 10, 20, 25)
@@ -418,14 +411,6 @@ data class AppSettings(
         /** Bisheriger Standard von «Nicht wegwischbar» (bis Build 41). */
         const val LEGACY_ONGOING_NOTIFICATIONS = true
 
-        /**
-         * Einmalige Festschreibung von «Nicht wegwischbar», wenn der Schlüssel fehlt (Android
-         * speichert ihn nur beim Umschalten): bestehende Installation → bisheriger Standard (an),
-         * neue Installation → neuer Standard (aus).
-         */
-        fun ongoingForMigration(existingInstall: Boolean): Boolean =
-            if (existingInstall) LEGACY_ONGOING_NOTIFICATIONS else AppSettings().ongoingNotifications
-
         /** Bisherige Standards (bis Build 42) der in Build 43 geänderten Schalter. */
         const val LEGACY_WATCHLIST_NAMES = false
         const val LEGACY_SHOW_CONVERTED = false
@@ -433,54 +418,5 @@ data class AppSettings(
 
         /** Bisheriger Standard (bis Build 43) des Portfolio-Tabs; auch für Sicherungen ohne das Feld. */
         const val LEGACY_PORTFOLIO_ENABLED = true
-
-        /**
-         * Einmalige Festschreibung eines geänderten Standards, wenn der Schlüssel fehlt: bestehende
-         * Installation → bisheriger Standard [legacy], neue → neuer Standard [current].
-         */
-        fun defaultForMigration(existingInstall: Boolean, legacy: Boolean, current: Boolean): Boolean =
-            if (existingInstall) legacy else current
-
-        /**
-         * Bestehende Installation? Ja, sobald ein gespeicherter Schlüssel nicht zu [ignored] gehört
-         * (Schlüssel, die eine vorher gelaufene Migration auch bei neuen Installationen schreibt).
-         */
-        fun isExistingInstall(storedKeys: Collection<String>, ignored: Set<String>): Boolean =
-            storedKeys.any { it !in ignored }
     }
-}
-
-/** Regionen, in denen Rot für steigende Kurse steht. */
-private val INVERTED_PRICE_COLOR_REGIONS = setOf("CN", "TW", "HK", "MO", "JP", "KR")
-
-/**
- * Standard für «Farben tauschen»: an in CN, TW, HK, MO, JP und KR (Region des Geräts).
- * Region aus der System-Konfiguration: Ist in der App eine Sprache gewählt, setzt
- * [AppLanguages] `Locale.setDefault` auf ein Tag ohne Region (z. B. «ja»), dann wäre
- * `Locale.getDefault().country` leer.
- */
-fun defaultPriceColorsInverted(locale: java.util.Locale = deviceRegionLocale()): Boolean =
-    locale.country.uppercase() in INVERTED_PRICE_COLOR_REGIONS
-
-/** Region des Geräts (System-Konfiguration), auch wenn in der App eine Sprache gewählt ist. */
-internal fun deviceRegionLocale(): java.util.Locale =
-    runCatching { android.content.res.Resources.getSystem().configuration.locales[0] }.getOrNull()
-        ?.takeIf { it.country.isNotEmpty() }
-        ?: java.util.Locale.getDefault()
-
-/**
- * Dezimalzeichen für Zahleneingaben (Schwellwerte, Menge/Kurs im Bestand): Sprache der App,
- * Region des Geräts — gleich wie `ThresholdParser.localeDecimalSeparator` (iOS, `Locale.current`).
- */
-internal fun inputDecimalSeparator(): Char =
-    com.cryptochecker.app.util.LocaleNumbers.inputDecimalSeparator(java.util.Locale.getDefault(), deviceRegionLocale().country)
-
-/**
- * Standard-Umrechnungswährung: die Währung des Geräte-Landes (Schweiz → CHF,
- * Deutschland → EUR, USA → USD …), sofern dafür ein Devisenkurs verfügbar ist,
- * sonst USD. Gilt nur, bis jemand selbst eine Währung wählt.
- */
-fun defaultCurrency(locale: java.util.Locale = java.util.Locale.getDefault()): String {
-    val code = runCatching { java.util.Currency.getInstance(locale)?.currencyCode }.getOrNull()
-    return code?.takeIf { it in com.cryptochecker.app.data.portfolio.FxRateSource.CURRENCIES } ?: "USD"
 }

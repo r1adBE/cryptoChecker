@@ -8,7 +8,7 @@ package com.cryptochecker.app.widget
 object WidgetTextFit {
 
     /** Rand links + rechts des Einzel-Widgets, Logo und Abstand dahinter (dp, widget_single.xml). */
-    const val SINGLE_HEADER_FIXED_DP = 2 * 12f + 16f + 6f
+    const val SINGLE_HEADER_FIXED_DP = 2 * 12f + 16f + 4f
 
     /** Sicherheitsabstand für Rundungen beim Messen (dp). */
     const val SAFETY_DP = 2f

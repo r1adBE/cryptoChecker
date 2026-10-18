@@ -61,7 +61,7 @@ struct DiagnosticsPreviewPage: View {
         let activeAlarms = data.alarmsWithWatch.filter { $0.alarm.enabled }.count
         // Portfolio liest der Bericht nicht: Portfolio-Alarme zählen hier nicht mit (sonst wie «Damit Alarme ankommen»)
         let hasAlarms = AlarmReadiness.hasBackgroundAlarms(
-            AlarmDeliveryScreen.alarmKinds(settings, pairAlarm: activeAlarms > 0, portfolioAlarm: false))
+            AlarmDeliveryScreen.alarmKinds(settings, pairAlarm: activeAlarms > 0, portfolioAlarm: false), platform: .ios)
         let readiness = AlarmReadiness.rows(await AlarmReadinessProbe.read(settings: settings, hasAlarms: hasAlarms))
         let info = Bundle.main.infoDictionary
         let input = DiagnosticInput(

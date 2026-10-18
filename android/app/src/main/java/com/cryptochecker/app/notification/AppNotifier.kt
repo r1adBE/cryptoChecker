@@ -1,7 +1,6 @@
 package com.cryptochecker.app.notification
 
 import android.Manifest
-import android.app.Notification
 import android.content.Context
 import android.content.pm.PackageManager
 import androidx.core.app.NotificationCompat
@@ -14,6 +13,10 @@ import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.app.settings.SettingsRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.NonCancellable
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -28,6 +31,8 @@ class AppNotifier @Inject constructor(
     @param:ApplicationContext internal val context: Context,
     /** Für die Akzentfarbe der Benachrichtigungen. */
     internal val settingsRepository: SettingsRepository,
+    /** Coin-Logo als grosses Bild der Alarm-Meldung (nur vom Gerät, nie aus dem Netz); erst bei Bedarf erzeugt. */
+    internal val coinLogos: dagger.Lazy<com.cryptochecker.app.data.CoinLogoRepository>,
 ) {
     internal val manager get() = NotificationManagerCompat.from(context)
 
@@ -56,7 +61,7 @@ class AppNotifier @Inject constructor(
         )
         if (!show) return false
         // Über die Grenze von 20 Einzelmeldungen: in der Sammelmeldung (zählt als gezeigt)
-        // Auf Dispatchers.IO: Ein laufender Kurs-Durchlauf hält [showPrices] bis zu einigen Sekunden
+        // Auf Dispatchers.IO: Systemdienst; ein laufender Kurs-Durchlauf lässt [showPrices] bis zu einigen Sekunden warten
         return withContext(Dispatchers.IO) {
             watch.id in showPrices(listOf(watch), ongoing = settings.ongoingNotifications)
         }
@@ -69,12 +74,11 @@ class AppNotifier @Inject constructor(
      * («+N weitere Kurse»). Reihenfolge von [watches] = Vorrang für freie Plätze.
      * @return Paare, deren Kurs jetzt gezeigt wird (einzeln oder in der Sammelmeldung).
      */
-    fun showPrices(watches: List<WatchEntity>, ongoing: Boolean): Set<Long> {
-        synchronized(priceRunLock) { return showPricesLocked(watches, ongoing) }
-    }
+    suspend fun showPrices(watches: List<WatchEntity>, ongoing: Boolean): Set<Long> =
+        priceRunLock.withLock { showPricesLocked(watches, ongoing) }
 
     /** [showPrices] unter [priceRunLock]. */
-    private fun showPricesLocked(watches: List<WatchEntity>, ongoing: Boolean): Set<Long> {
+    private suspend fun showPricesLocked(watches: List<WatchEntity>, ongoing: Boolean): Set<Long> {
         val posts = watches.filter { it.lastPrice != null }.distinctBy { it.id }
         if (posts.isEmpty() || !hasPermission()) return emptySet()
         // Die Objektsperre nur für kurze Schritte, nie während der Pausen: Sonst warteten Entfernen
@@ -98,11 +102,12 @@ class AppNotifier @Inject constructor(
             val byId = posts.associateBy { it.id }
             val shown = HashSet<Long>()
             // Mehr als 5 Meldungen: gedrosselt (Android verwirft sonst die überzähligen still, sie zählten
-            // aber als gezeigt). Blockiert kurz — Aufrufer laufen auf Dispatchers.IO; ein einzelnes Paar nie
+            // aber als gezeigt). Die Pausen halten keinen Thread fest (delay statt sleep), brechen aber wie bisher
+            // nicht mitten im Durchlauf ab (sonst Meldungen ohne gespeicherten Meldekurs); ein einzelnes Paar nie
             val gap = NotificationBudget.postGapMillis(plan.individual.size + if (plan.overflow.isEmpty()) 0 else 1)
             var posted = 0
-            fun spaceOut() {
-                if (gap > 0 && posted > 0) Thread.sleep(gap)
+            suspend fun spaceOut() {
+                if (gap > 0 && posted > 0) withContext(NonCancellable) { delay(gap) }
                 posted++
             }
             for (id in plan.individual) {
@@ -147,8 +152,8 @@ class AppNotifier @Inject constructor(
         }
     }
 
-    /** Hält Kurs-Durchläufe ([showPrices]) nacheinander, ohne die Objektsperre zu belegen. */
-    private val priceRunLock = Any()
+    /** Hält Kurs-Durchläufe ([showPrices]) nacheinander, ohne die Objektsperre zu belegen; wartet, ohne zu blockieren. */
+    private val priceRunLock = Mutex()
 
     /** Läuft gerade [showPrices]? Dann merkt sich [cancelPrices] die entfernten Paare. */
     private var priceRunActive = false
@@ -306,23 +311,7 @@ class AppNotifier @Inject constructor(
         return QuietHours.isQuiet(s.quietHoursEnabled, s.quietHoursStart, s.quietHoursEnd, QuietHours.minuteOfDay())
     }
 
-    // ---------------- Aktualisierung ----------------
-
-    /**
-     * Kurzzeitige Meldung, solange eine angestossene Aktualisierung im
-     * Hintergrund läuft. Nur bis Android 11 sichtbar — dort braucht
-     * WorkManager dafür einen Vordergrunddienst.
-     */
-    fun refreshNotification(): Notification =
-        NotificationCompat.Builder(context, NotificationChannels.SERVICE)
-            .setSmallIcon(R.drawable.ic_stat_logo)
-            .setColor(settingsRepository.cached.accentColor.seed)
-            .setContentTitle(context.getString(R.string.notification_refreshing))
-            .setOngoing(true)
-            .setSilent(true)
-            .setShowWhen(false)
-            .setCategory(NotificationCompat.CATEGORY_PROGRESS)
-            .build()
+    // Aktualisierung: [refreshNotification] in AppNotifierDelivery.kt
 
     /**
      * «Zahl am App-Symbol»: Jede Alarm- bzw. Marktmeldung zählt 1 (der Startbildschirm zählt die
@@ -346,9 +335,8 @@ class AppNotifier @Inject constructor(
     internal class GroupState(val children: Int, val summaryOngoing: Boolean?)
 
     companion object {
-        // 1 war die Meldung des früheren Live-Dienstes «Immer kurz» (vor 1.0 entfernt; nicht wiederverwenden)
+        // 1 war die Meldung des früheren Live-Dienstes «Immer kurz», 3 die frühere «Marktphase gewechselt» (nie wiederverwenden)
         const val REFRESH_NOTIFICATION_ID = 2
-        // 3 war die frühere Meldung «Marktphase gewechselt» (nicht wiederverwenden)
         const val FNG_NOTIFICATION_ID = 4
         /** Eigene Grenzen der Bitcoin-Kennzahlen: je Art eine Meldung (Basis + Ordnungszahl). */
         const val INDICATOR_NOTIFICATION_BASE_ID = 7_400
@@ -386,6 +374,9 @@ class AppNotifier @Inject constructor(
         /** Knopf «Börse öffnen» der Depeg-Meldung. */
         internal const val DEPEG_EXCHANGE_REQUEST_CODE = 420_000
         internal const val WHY_REQUEST_BASE = 500_000L
+        /** Knöpfe «1 h später» bzw. «Anpassen» der Alarm-Meldung: Basis plus Alarm-Id (eigene Bereiche). */
+        internal const val SNOOZE_REQUEST_BASE = 600_000_000L
+        internal const val EDIT_REQUEST_BASE = 700_000_000L
 
         fun portfolioAlarmNotificationId(alarmId: Long): Int = NotificationIds.id(NotificationIds.Kind.PORTFOLIO_ALARM, alarmId)
 

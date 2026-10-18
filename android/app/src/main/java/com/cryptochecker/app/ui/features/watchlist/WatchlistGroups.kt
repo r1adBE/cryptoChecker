@@ -5,6 +5,8 @@
 
 package com.cryptochecker.app.ui.features.watchlist
 
+import androidx.compose.foundation.layout.heightIn
+import com.cryptochecker.app.ui.navigation.cappedTabSize
 import com.cryptochecker.app.ui.theme.ChipShape
 import com.cryptochecker.app.ui.theme.label
 import androidx.compose.animation.core.animateFloatAsState
@@ -16,30 +18,19 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.minimumInteractiveComponentSize
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -267,9 +258,10 @@ private fun GroupChip(
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
-            // Tippfläche 48 dp hoch, sichtbar bleibt der 32-dp-Chip
+            // Tippfläche 48 dp hoch, sichtbar bleibt der Chip mit mindestens 32 dp — bei grosser Schrift
+            // wächst er mit, statt den Text abzuschneiden
             .minimumInteractiveComponentSize()
-            .height(32.dp)
+            .heightIn(min = 32.dp)
             .clip(shape)
             .border(
                 if (selected) 1.5.dp else 1.dp,
@@ -301,9 +293,11 @@ private fun GroupChip(
             AssetKindIcon(kind = kind, tint = contentColor, size = 18.dp, modifier = a11y)
             if (description != null) ChipHintPopup(visible = showHint, text = description)
         } else {
+            // Schrift wächst bis 1,5-fach mit (wie die Tab-Leiste, [cappedTabSize]) — die Chip-Zeile bleibt eine Zeile
+            val label = MaterialTheme.typography.labelLarge
             Text(
                 text = text.orEmpty(),
-                style = MaterialTheme.typography.labelLarge,
+                style = label.copy(fontSize = cappedTabSize(label.fontSize), lineHeight = cappedTabSize(label.lineHeight)),
                 color = contentColor,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
@@ -366,70 +360,5 @@ private class BelowAnchorPosition(private val gap: Int) : PopupPositionProvider 
         val maxX = (windowSize.width - popupContentSize.width).coerceAtLeast(0)
         val x = (anchorBounds.center.x - popupContentSize.width / 2).coerceIn(0, maxX)
         return IntOffset(x, anchorBounds.bottom + gap)
-    }
-}
-
-/**
- * Gruppe wählen: bestehende Gruppen, «Keine Gruppe» oder eine neue anlegen.
- * Eine Auswahl gilt sofort; nur die neue Gruppe braucht «Speichern».
- */
-@Composable
-internal fun GroupDialog(
-    current: String?,
-    groups: List<String>,
-    onSelect: (String?) -> Unit,
-    onDismiss: () -> Unit,
-) {
-    var creating by rememberSaveable { mutableStateOf(false) }
-    var name by rememberSaveable { mutableStateOf("") }
-    val trimmed = name.trim()
-    AlertDialog(
-        onDismissRequest = onDismiss,
-        title = { Text(stringResource(R.string.group_title)) },
-        text = {
-            Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-                GroupOption(stringResource(R.string.group_none), current == null && !creating) { onSelect(null) }
-                groups.forEach { group ->
-                    GroupOption(group, current == group && !creating) { onSelect(group) }
-                }
-                GroupOption(stringResource(R.string.group_new), creating) { creating = true }
-                if (creating) {
-                    OutlinedTextField(
-                        value = name,
-                        onValueChange = { name = it.take(MAX_GROUP_NAME) },
-                        label = { Text(stringResource(R.string.group_name)) },
-                        singleLine = true,
-                        modifier = Modifier.fillMaxWidth().padding(top = 4.dp)
-                    )
-                }
-            }
-        },
-        confirmButton = {
-            if (creating) {
-                TextButton(enabled = trimmed.isNotEmpty(), onClick = { onSelect(trimmed) }) {
-                    Text(stringResource(R.string.action_save))
-                }
-            }
-        },
-        dismissButton = {
-            TextButton(onClick = onDismiss) { Text(stringResource(R.string.action_cancel)) }
-        }
-    )
-}
-
-private const val MAX_GROUP_NAME = 24
-
-@Composable
-private fun GroupOption(text: String, selected: Boolean, onClick: () -> Unit) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(MaterialTheme.shapes.small)
-            .clickable(onClick = onClick)
-            .padding(vertical = 2.dp)
-    ) {
-        RadioButton(selected = selected, onClick = onClick)
-        Text(text, style = MaterialTheme.typography.bodyLarge, maxLines = 1, overflow = TextOverflow.Ellipsis)
     }
 }

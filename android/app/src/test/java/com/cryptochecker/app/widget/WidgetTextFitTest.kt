@@ -23,15 +23,15 @@ class WidgetTextFitTest {
 
     @Test
     fun singlePairFallsBackToBaseWhenTight() {
-        // 2 × 2 (152 dp): 152 − 46 − 60 − 2 = 44 dp für das Paar → «BTC» (24 dp), nicht «BTC/USDT» (64 dp)
+        // 2 × 2 (152 dp): 152 − 44 − 60 − 2 = 46 dp für das Paar → «BTC» (24 dp), nicht «BTC/USDT» (64 dp)
         assertEquals("BTC", WidgetTextFit.singlePairLabel("BTC/USDT", "BTC", 152, 60f, measure))
         // 4 × 2 (312 dp): volles Paar
         assertEquals("BTC/USDT", WidgetTextFit.singlePairLabel("BTC/USDT", "BTC", 312, 60f, measure))
         // Unbekannte Breite: volles Paar
         assertEquals("BTC/USDT", WidgetTextFit.singlePairLabel("BTC/USDT", "BTC", 0, 60f, measure))
-        // Grenze: genau passend (46 + 60 + 2 + 64 = 172)
-        assertEquals("BTC/USDT", WidgetTextFit.singlePairLabel("BTC/USDT", "BTC", 172, 60f, measure))
-        assertEquals("BTC", WidgetTextFit.singlePairLabel("BTC/USDT", "BTC", 171, 60f, measure))
+        // Grenze: genau passend (44 + 60 + 2 + 64 = 170)
+        assertEquals("BTC/USDT", WidgetTextFit.singlePairLabel("BTC/USDT", "BTC", 170, 60f, measure))
+        assertEquals("BTC", WidgetTextFit.singlePairLabel("BTC/USDT", "BTC", 169, 60f, measure))
     }
 
     @Test

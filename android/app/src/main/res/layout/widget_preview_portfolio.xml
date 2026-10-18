@@ -24,7 +24,7 @@
         <ImageView
             android:layout_width="16dp"
             android:layout_height="16dp"
-            android:layout_marginEnd="6dp"
+            android:layout_marginEnd="4dp"
             android:src="@drawable/ic_app_logo_orange_dark"
             android:contentDescription="@null" />
 
@@ -97,6 +97,8 @@
             android:textSize="12sp"
             android:textStyle="bold" />
 
+        <!-- 6 dp stehen für die zwei Leerzeichen vor dem Prozent im echten Widget (WidgetTextFit.PERCENT_GAP),
+             kein Raster-Abstand -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -113,7 +115,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:orientation="vertical">
 
         <LinearLayout
@@ -137,7 +139,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
+                android:layout_marginStart="4dp"
                 android:gravity="end"
                 android:maxLines="1"
                 android:text="@string/widget_preview_portfolio_today"
@@ -168,7 +170,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
+                android:layout_marginStart="4dp"
                 android:gravity="end"
                 android:maxLines="1"
                 android:text="@string/widget_preview_portfolio_week"
@@ -214,7 +216,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
+                android:layout_marginStart="4dp"
                 android:gravity="end"
                 android:maxLines="1"
                 android:text="@string/widget_preview_portfolio_total"

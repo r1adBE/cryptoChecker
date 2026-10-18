@@ -2,6 +2,4 @@
 <resources>
     <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
     <string name="watchlist_refresh_countdown">更新（%1$d）</string>
-    <!-- Merkliste: nach unten gezogen während der 15-s-Sperre (Banner) -->
-    <string name="watchlist_refresh_again_in">%1$d 秒後に再度可能</string>
 </resources>

@@ -7,7 +7,7 @@ import WidgetKit
 extension PortfolioHomeView {
     /// Höhen der Liste (pt): Kopfzeile, Abstand darunter, Fusszeile — für `PortfolioWidgetViews.listRows`.
     static var listHeaderHeight: Double { 16 }
-    static var listGap: Double { 6 }
+    static var listGap: Double { 4 }
     static var listFooterHeight: Double { 16 }
 
     // MARK: Liste
@@ -86,7 +86,7 @@ extension PortfolioHomeView {
     /// Total einzeilig wie `listRow` (breit): «Gesamt», Anteil, Wert, Gewinn/Verlust nebeneinander.
     private func listTotalWide(_ s: PortfolioWidgetSnapshot, change: PortfolioListTotalChange?,
                                basis: ChangeBasis) -> some View {
-        HStack(spacing: 6) {
+        HStack(spacing: 4) {
             listTotalLabel()
                 .frame(minWidth: 38, alignment: .leading)
             listTotalShare()
@@ -104,7 +104,7 @@ extension PortfolioHomeView {
     /// Total zweizeilig wie `listRow` (schmal).
     private func listTotalNarrow(_ s: PortfolioWidgetSnapshot, change: PortfolioListTotalChange?,
                                  basis: ChangeBasis) -> some View {
-        HStack(spacing: 6) {
+        HStack(spacing: 4) {
             VStack(alignment: .leading, spacing: 1) {
                 listTotalLabel()
                 listTotalShare()
@@ -182,7 +182,7 @@ extension PortfolioHomeView {
     @ViewBuilder
     private func listRow(_ p: PortfolioWidgetPosition, currency: String, basis: ChangeBasis, wide: Bool) -> some View {
         if wide {
-            HStack(spacing: 6) {
+            HStack(spacing: 4) {
                 listBadge(p, size: 20)
                 quantityPrefixed(p, size: 12) {
                     listSymbol(p)
@@ -196,7 +196,7 @@ extension PortfolioHomeView {
                     .frame(minWidth: 58, alignment: .trailing)
             }
         } else {
-            HStack(spacing: 6) {
+            HStack(spacing: 4) {
                 listBadge(p, size: 22)
                 VStack(alignment: .leading, spacing: 1) {
                     quantityPrefixed(p, size: 12) { listSymbol(p) }

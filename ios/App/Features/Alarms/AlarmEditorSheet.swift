@@ -18,7 +18,7 @@ struct AlarmEditorSheet: View {
     var onTemplate: (AlarmTemplates.Template) -> Void = { _ in }
 
     @Environment(\.appAccent) var accent
-    @Environment(\.dismiss) private var dismiss
+    @Environment(\.dismiss) var dismiss
     @State var draft: AlarmDraft
     /// Faktor Quote → Währung, soweit bekannt (zum Umrechnen des getippten Schwellwerts).
     @State var rates: [String: Double] = [:]
@@ -28,8 +28,8 @@ struct AlarmEditorSheet: View {
     /// «Erweitert» aufgeklappt.
     @State var advanced: Bool
     /// Hat das Paar Tageskerzen (30-Tage-Hoch/-Tief) bzw. Stundenvolumen? Für die Schnell-Alarme.
-    @State private var hasDailyRange = false
-    @State private var hasHourlyVolume = false
+    @State var hasDailyRange = false
+    @State var hasHourlyVolume = false
     /// Rückfrage «Alarm löst sofort aus» vor dem Speichern.
     @State private var confirmFiresNow = false
     /// Bestehender Alarm: letzte Prüfung aus dem Alarm-Protokoll («Zuletzt geprüft»).
@@ -53,7 +53,7 @@ struct AlarmEditorSheet: View {
     }
 
     /// Sichtbare Schnell-Alarme (nur beim Anlegen); ohne Kurs bzw. Kerzen (z. B. DEX) ausgeblendet.
-    private var templates: [AlarmTemplates.Template] {
+    var templates: [AlarmTemplates.Template] {
         guard draft.id == 0 else { return [] }
         return AlarmTemplates.available(hasPrice: (watch?.lastPrice ?? 0) > 0,
                                         hasDailyRange: hasDailyRange, hasHourlyVolume: hasHourlyVolume)
@@ -240,101 +240,6 @@ struct AlarmEditorSheet: View {
         .tint(accent.primary)
     }
 
-    // MARK: Einfacher Modus und Schnell-Alarme
-
-    /// Tages-/Stundenkerzen prüfen (zwischengespeichert, gleiche Quellen wie die Alarmprüfung).
-    /// DEX-Paare ohne Kerzenquelle fragen gar nicht.
-    private func loadTemplateData() async {
-        guard initial.id == 0, let watch,
-              SheetChart.isSupported(marketKey: watch.marketKey, base: watch.baseAsset, quote: watch.quoteAsset) else { return }
-        let ranges = await NearExtremeDataSource.ranges(base: watch.baseAsset, quote: watch.quoteAsset)
-        hasDailyRange = ranges?.ranges[AlarmTemplates.newExtremeWindowDays] != nil
-        let spike = await VolumeDataSource.hourlySpike(watch: watch, price: watch.lastPrice)
-        hasHourlyVolume = spike != nil
-    }
-
-    /// «Schnell-Alarme»: «+1 %», «−5 %», «Neues 30-Tage-Hoch», «Volumen ×3» …
-    private var templateChips: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text(L("alarm_templates_title"))
-                .font(.subheadline.weight(.medium))
-                .foregroundStyle(AppColors.onSurfaceVariant)
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 8) {
-                    ForEach(templates, id: \.self) { template in
-                        templateChip(template)
-                    }
-                }
-            }
-            .scrollClipDisabled()
-        }
-    }
-
-    private func templateChip(_ template: AlarmTemplates.Template) -> some View {
-        let label = Self.templateLabel(template)
-        return Button {
-            onTemplate(template)
-            dismiss()
-        } label: {
-            Text(label)
-                .font(.subheadline.weight(.medium).monospacedDigit())
-                .lineLimit(1)
-                .foregroundStyle(accent.onContainer)
-                .padding(.horizontal, Spacing.lg)
-                .padding(.vertical, Spacing.md)
-                .background(accent.container, in: Capsule())
-                .overlay(Capsule().strokeBorder(accent.primary.opacity(0.4), lineWidth: 1))
-        }
-        .buttonStyle(.plain)
-        .accessibilityLabel(Self.templateA11y(template, label: label))
-    }
-
-    /// Sichtbare Beschriftung: «+1 %», «−5 %», «Neues 30-Tage-Hoch», «Volumen ×3».
-    private static func templateLabel(_ template: AlarmTemplates.Template) -> String {
-        if let percent = template.percent {
-            return BidiText.ltr((percent > 0 ? "+" : "\u{2212}") + AlarmTexts.percent(abs(percent)))
-        }
-        switch template {
-        case .NEW_HIGH_30: return AlarmTexts.newExtremeLabel(high: true, days: AlarmTemplates.newExtremeWindowDays)
-        case .NEW_LOW_30: return AlarmTexts.newExtremeLabel(high: false, days: AlarmTemplates.newExtremeWindowDays)
-        default: return L("alarm_template_volume", AlarmTexts.factor(AlarmTemplates.volumeFactor))
-        }
-    }
-
-    /// Vorgelesen: «Alarm bei plus 1 Prozent erstellen», «Alarm erstellen: Neues 30-Tage-Hoch».
-    private static func templateA11y(_ template: AlarmTemplates.Template, label: String) -> String {
-        guard let percent = template.percent else { return L("alarm_template_a11y", label) }
-        let amount = LocaleNumbers.decimal(abs(percent), maxDecimals: 2, minDecimals: 0)
-        return L(percent > 0 ? "alarm_template_a11y_up" : "alarm_template_a11y_down", amount)
-    }
-
-    /// «Wenn BTC über» / «[Betrag] geht» — Kursmarke als Satz; der Betrag läuft über den ThresholdParser.
-    private var simpleSentence: some View {
-        let above = draft.condition == .PRICE_ABOVE
-        let direction = L(above ? "alarm_simple_above" : "alarm_simple_below")
-        // Satzende («geht»); in vielen Sprachen leer — ein leerer Katalogwert darf nicht als Schlüssel erscheinen
-        let endText = L("alarm_simple_end")
-        let end = endText == "alarm_simple_end" ? "" : endText
-        return VStack(alignment: .leading, spacing: Spacing.sm) {
-            HStack(spacing: 8) {
-                Text(L("alarm_simple_when", BidiText.isolate(watch?.baseAsset ?? "")))
-                    .font(.title3.weight(.semibold))
-                // Richtung nur als Wort im Satz: gewählt wird sie oben mit «Kurs über/unter» (ein Bedienelement, wie Android)
-                Text(direction)
-                    .font(.title3.weight(.semibold))
-                Spacer(minLength: 0)
-            }
-            // Build 46: Satzende auf der Grundlinie der Eingabe (nicht mittig über Feld samt Fehlertext) — wie Android
-            HStack(alignment: .firstTextBaseline, spacing: 8) {
-                amountInput
-                if !end.isEmpty {
-                    Text(end)
-                        .font(.title3.weight(.semibold))
-                }
-            }
-        }
-    }
-
     /// Aktueller Kurs in der Währung des Schwellwerts — entscheidet bei mehrdeutiger Eingabe
     /// wie «60,000» (Tausender oder Dezimalkomma?), siehe `ThresholdParser`.
     private var priceHint: Double? {
@@ -415,96 +320,5 @@ struct AlarmEditorSheet: View {
     private var firesNowMessage: String {
         let amount = PriceFormat.thresholdWithCurrency(draft.threshold, sentenceCurrency)
         return L(draft.condition == .PRICE_BELOW ? "alarm_fires_now_below" : "alarm_fires_now_above", amount)
-    }
-}
-
-/// «Zuletzt geprüft 14:32»: wann die Alarme zuletzt wirklich geprüft wurden (App, Live-Strom oder
-/// Hintergrund-Aufgabe, `SharedStorage.lastAlarmCheckAt` — das Widget zählt nicht). Noch nie: keine Zeile.
-/// Liest den Stand jede Minute neu (UserDefaults meldet keine Änderung).
-@MainActor
-struct AlarmLastCheckedLine: View {
-    var body: some View {
-        TimelineView(.everyMinute) { context in
-            let at = SharedStorage.lastAlarmCheckAt
-            if at > 0 {
-                Text(L("alarm_last_checked", Self.when(at, now: context.date)))
-                    .font(.caption.monospacedDigit())
-                    .foregroundStyle(AppColors.onSurfaceVariant)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-            }
-        }
-    }
-
-    /// Heute nur die Uhrzeit, sonst mit Datum (z. B. «15. Okt., 22:10»).
-    static func when(_ millis: Int64, now: Date) -> String {
-        let date = Date(millis: millis)
-        if Calendar.current.isDate(date, inSameDayAs: now) { return PriceFormat.shortTime(millis) }
-        return date.formatted(.dateTime.day().month(.abbreviated).hour().minute())
-    }
-}
-
-/// Graue Zeile mit dem einen Satz «Wann Alarme geprüft werden» (`AlarmTimingHint`) — vollständig sichtbar,
-/// darum ohne (i), das ihn nur wiederholen würde (Build 55); wie `ClosedAppHint` (Android). Darunter
-/// (K-10) «Aktualisierung ändern»: schliesst das Blatt und öffnet Einstellungen › Kurs-Aktualisierung; und
-/// «Damit Alarme ankommen» als Blatt darüber.
-@MainActor
-struct ClosedAppHintRow: View {
-    @Environment(\.appAccent) private var accent
-    @Environment(\.dismiss) private var dismiss
-    /// «Damit Alarme ankommen» als Blatt über dem Editor (der Entwurf bleibt dabei offen).
-    @State private var showDelivery = false
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            Text(AlarmTimingHint.text)
-                .font(.caption)
-                .foregroundStyle(AppColors.onSurfaceVariant)
-                .fixedSize(horizontal: false, vertical: true)
-                .frame(maxWidth: .infinity, alignment: .leading)
-            AlarmLastCheckedLine()
-                .padding(.top, 2)
-            Button(L("alarm_change_updates"), action: openUpdates)
-                .font(.caption.weight(.semibold))
-                .foregroundStyle(accent.primary)
-                .buttonStyle(.plain)
-                .frame(minHeight: 44, alignment: .leading)
-                .contentShape(Rectangle())
-            // Was gerade im Weg stehen könnte (Mitteilungen, Hintergrundaktualisierung …): echter Zustand
-            Button(L("delivery_title")) { showDelivery = true }
-                .font(.caption.weight(.semibold))
-                .foregroundStyle(accent.primary)
-                .buttonStyle(.plain)
-                .frame(minHeight: 44, alignment: .leading)
-                .contentShape(Rectangle())
-        }
-        .padding(.horizontal, 4)
-        .sheet(isPresented: $showDelivery) {
-            NavigationStack {
-                AlarmDeliveryScreen()
-                    .toolbar {
-                        ToolbarItem(placement: .confirmationAction) {
-                            Button(L("ios_action_ok")) { showDelivery = false }
-                        }
-                    }
-            }
-        }
-    }
-
-    /// Blatt schliessen, dann den Tab «Einstellungen» mit «Aktualisierung» zeigen.
-    private func openUpdates() {
-        dismiss()
-        AppRouter.shared.openUpdateSettings()
-    }
-}
-
-extension View {
-    /// Hinweis «Wann Alarme geprüft werden» als Meldung, einmal nach dem Speichern: der eine Satz und
-    /// darunter der Weg zur Wahl «Wie aktuell?» — wie `AlarmTimingDialog` (Android).
-    func alarmTimingAlert(isPresented: Binding<Bool>) -> some View {
-        alert(L("alarm_timing_title"), isPresented: isPresented) {
-            Button(L("ios_action_ok"), role: .cancel) {}
-        } message: {
-            Text(AlarmTimingHint.text + "\n\n" + AlarmTimingHint.whereText)
-        }
     }
 }

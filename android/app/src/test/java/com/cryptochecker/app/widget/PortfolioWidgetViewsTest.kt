@@ -348,8 +348,8 @@ class PortfolioWidgetViewsTest {
 
     @Test
     fun figuresWithoutPillNeedLessHeight() {
-        // Zeilen: 8 Abstand + 3 × (12 sp × 1.35 + 2); Spalten: 8 + 12 sp × 1.35 + 2 + 12 sp × 1.35
-        assertEquals(8f + 3 * (12f * 1.35f + 2f), PortfolioWidgetViews.figuresHeightDp(false, 1f), 0.01f)
-        assertEquals(8f + 12f * 1.35f + 2f + 12f * 1.35f, PortfolioWidgetViews.figuresHeightDp(true, 1f), 0.01f)
+        // Zeilen: 4 Abstand + 3 × (12 sp × 1.35 + 2); Spalten: 4 + 12 sp × 1.35 + 2 + 12 sp × 1.35
+        assertEquals(4f + 3 * (12f * 1.35f + 2f), PortfolioWidgetViews.figuresHeightDp(false, 1f), 0.01f)
+        assertEquals(4f + 12f * 1.35f + 2f + 12f * 1.35f, PortfolioWidgetViews.figuresHeightDp(true, 1f), 0.01f)
     }
 }

@@ -21,23 +21,26 @@ enum NotTraded {
     static func askSingleWhenMissing(lastError: String?) -> Bool { !isMarker(lastError) }
 
     /// Bestätigt die Einzelabfrage «nicht mehr gehandelt»? Nur bei einer klaren Aussage der Börse über
-    /// das Paar: Antwort ohne Kurs (auch ganz ohne Fehlertext), ausdrücklich unbekanntes Instrument
+    /// das Paar: Antwort ohne Kurs (auch Kurs 0), ausdrücklich unbekanntes Instrument
     /// (z. B. «Instrument ID does not exist», «EQuery:Unknown asset pair», «Invalid symbol») oder
     /// HTTP 400/404. Jeder andere Fehler — unlesbare Antwort, unbekannte Ausnahme, Netz, Zeit,
-    /// Rate-Limit, übrige 4xx/5xx, fehlender Adapter — ist ein gewöhnlicher Fehler: Das Paar bleibt mit
-    /// seinem letzten Kurs stehen. Wie `NotTraded.kt`.
+    /// Rate-Limit, übrige 4xx/5xx, fehlender Adapter, interner Fehler ohne Text — ist ein gewöhnlicher
+    /// Fehler: Das Paar bleibt mit seinem letzten Kurs stehen. Wie `NotTraded.kt`.
     ///
-    /// `failure`: beim Abruf festgestellte Art. Sagt sie etwas aus, entscheidet sie; sonst (keine Art, Lesefehler,
-    /// Meldung der Börse) der Text wie bisher.
+    /// `failure`: beim Abruf festgestellte Art. Sagt sie etwas aus, entscheidet sie; bei Lesefehler und Meldung der
+    /// Börse der Text wie bisher. `.other` (interner Fehler ohne klaren Typ, z. B. ein Fehler ohne Text) bestätigt
+    /// nie — sonst verstummte ein Paar wegen eines eigenen Fehlers für Stunden (BulkDelisted). Ein leerer Text
+    /// bestätigt nur ohne Art (gespeicherte ältere Ergebnisse «ohne Kurs»); die Einzelabfrage selbst meldet «ohne
+    /// Kurs» als Lesefehler («Parsed ticker has no data»).
     static func confirmedBySingle(gotPrice: Bool, error: String?, failure: MarketFailure? = nil) -> Bool {
         if gotPrice { return false }
         switch failure {
         case .unknownInstrument?: return true
         case .httpStatus(let code)?: return confirmingHTTP.contains(code)
-        case .timeout?, .offline?, .ssl?, .rateLimited?: return false
-        case .parse?, .exchange?, .other?, nil: break
+        case .timeout?, .offline?, .ssl?, .rateLimited?, .other?: return false
+        case .parse?, .exchange?, nil: break
         }
-        guard let error, !error.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return true }
+        guard let error, !error.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return failure == nil }
         switch RefreshReportLogic.classify(error) {
         case .NO_DATA:
             return true

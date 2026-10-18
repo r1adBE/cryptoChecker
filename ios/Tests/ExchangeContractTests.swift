@@ -6,8 +6,8 @@ import XCTest
 /// kopiert) mit Antworten im Format der Börsen (Einzel- und Sammelabfrage, WebSocket) und den
 /// erwarteten Werten. Benennt eine Börse ein Feld um, schlagen Android und iOS gleich an.
 ///
-/// Ablauf wie in der App (`MarketService.fetchTicker`): `readTicker`; wirft das oder bleibt
-/// `last` bei `missing`, gilt die Antwort als Fehler und `readError` liefert den Fehlertext
+/// Ablauf wie in der App (`MarketService.fetchTicker`): `readTicker`; wirft das oder ergibt es
+/// keinen gültigen `last` (fehlt, 0, NaN/∞), gilt die Antwort als Fehler und `readError` liefert den Fehlertext
 /// der Börse (oder wirft: dann gibt es keinen).
 ///
 /// Dazu echte, datierte Antworten (`recorded_*.json`, Quelle `android/testdata/exchanges/recorded`,
@@ -127,7 +127,7 @@ final class ExchangeContractTests: XCTestCase {
         var failure: Error?
         do {
             try market.readTicker(call: requestId, body: body, ticker: &ticker, info: info)
-            if ticker.last <= Ticker.missing { failure = JSONError(message: "no ticker data") }
+            if !(ticker.last.isFinite && ticker.last > 0) { failure = JSONError(message: "no ticker data") }
         } catch {
             failure = error
         }

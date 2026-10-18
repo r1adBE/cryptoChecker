@@ -38,9 +38,9 @@
     <string name="delivery_action_show">Anzeigen</string>
     <!-- Zeilen nur auf iOS (Namen wie in den iOS-Einstellungen) -->
     <string name="delivery_alert_sound">Banner und Ton</string>
-    <string name="delivery_alert_off">Banner aus – Alarme erscheinen nur in der Mitteilungszentrale</string>
+    <string name="delivery_alert_off">Banner aus – Alarme erscheinen nur in der Benachrichtigungszentrale</string>
     <string name="delivery_sound_off">Ton aus – Alarme kommen lautlos</string>
-    <string name="delivery_time_sensitive">Dringliche Mitteilungen</string>
+    <string name="delivery_time_sensitive">Dringliche Benachrichtigungen</string>
     <string name="delivery_time_sensitive_off">Aus – ein Fokus kann Alarme zurückhalten</string>
     <string name="delivery_background_refresh">Hintergrundaktualisierung</string>
     <string name="delivery_low_power">Stromsparmodus</string>

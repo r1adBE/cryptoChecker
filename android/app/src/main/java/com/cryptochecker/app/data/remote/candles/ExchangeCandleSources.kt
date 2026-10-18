@@ -10,84 +10,10 @@ import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.market.BinanceAlpha
 import org.json.JSONArray
 import org.json.JSONObject
-import java.time.Instant
 
 // Eigene Kerzen je Börse: öffentliche Endpunkte ohne Schlüssel (Stand Oktober 2026).
 // Kennung des Paars wie beim Kursabruf ([CandlePair.pairId]); fehlt sie, gebildet wie der Adapter.
 // Wie ExchangeCandleSources.swift.
-
-/** Gemeinsames für die Quellen: Zahlen lesen, Kennungen prüfen, Reihe abschliessen. */
-internal object CandleParse {
-
-    /** Zahl aus String oder Number; NaN, wenn keine. */
-    fun num(v: Any?): Double = when (v) {
-        null, JSONObject.NULL -> Double.NaN
-        is Number -> v.toDouble()
-        else -> v.toString().trim().toDoubleOrNull() ?: Double.NaN
-    }
-
-    fun JSONArray.numAt(i: Int): Double = if (i < length()) num(opt(i)) else Double.NaN
-
-    /** Kennung nur aus Buchstaben, Ziffern, «-» und «_» (wird unverändert in die Adresse gesetzt). */
-    fun safeId(s: String?): String? {
-        val t = s?.trim().orEmpty()
-        return t.takeIf { it.isNotEmpty() && it.all { c -> c.isLetterOrDigit() && c.code < 128 || c == '-' || c == '_' } }
-    }
-
-    /**
-     * Kennung des Paars ([pairId]); fehlt sie, gebildet mit [derive] (wie der Adapter). Eine vorhandene,
-     * aber unsichere Kennung gilt nicht (nie aus den Kürzeln geraten).
-     */
-    inline fun id(pairId: String?, derive: () -> String?): String? =
-        if (pairId.isNullOrBlank()) derive() else safeId(pairId)
-
-    /** Kürzel nur aus Buchstaben und Ziffern, gross. */
-    fun asset(s: String): String? = s.trim().uppercase().takeIf { it.isNotEmpty() && it.all { c -> c.isLetterOrDigit() && c.code < 128 } }
-
-    /** Gültige Kerzen (Kurse > 0), je Startzeit eine, aufsteigend, die jüngsten [limit]. */
-    fun finish(candles: List<HourCandle>, limit: Int): List<HourCandle> =
-        candles.filter {
-            it.open.isFinite() && it.high.isFinite() && it.low.isFinite() && it.close.isFinite() &&
-                it.open > 0.0 && it.high > 0.0 && it.low > 0.0 && it.close > 0.0 && it.openTime > 0L
-        }
-            .map { if (it.volume.isFinite() && it.volume >= 0.0) it else it.copy(volume = 0.0) }
-            .distinctBy { it.openTime }
-            .sortedBy { it.openTime }
-            .takeLast(limit)
-
-    /** Quote-Umsatz nur, wenn gültig (sonst nähert das Blatt Menge × Schluss). */
-    fun quoteVolume(v: Double): Double? = v.takeIf { it.isFinite() && it >= 0.0 }
-
-    /**
-     * Binance-Kline: [openTime, open, high, low, close, volume, closeTime, quoteVolume, …].
-     * COIN-M ([coinM]): Feld 5 zählt Kontrakte, Feld 7 ist die Menge in der Basis — dann
-     * Menge = Feld 7, Quote-Umsatz unbekannt.
-     */
-    fun binance(json: String, coinM: Boolean): List<HourCandle> = binance(JSONArray(json), coinM)
-
-    /** Wie oben, aus dem schon gelesenen Array (Binance Alpha: `data` der Antwort). */
-    fun binance(array: JSONArray, coinM: Boolean): List<HourCandle> {
-        return (0 until array.length()).mapNotNull { i ->
-            val k = array.optJSONArray(i) ?: return@mapNotNull null
-            HourCandle(
-                openTime = k.numAt(0).toLong(),
-                open = k.numAt(1), high = k.numAt(2), low = k.numAt(3), close = k.numAt(4),
-                volume = if (coinM) k.numAt(7) else k.numAt(5),
-                quoteVolume = if (coinM) null else quoteVolume(k.numAt(7)),
-            )
-        }
-    }
-
-    fun binanceInterval(interval: CandleInterval): String? = when (interval) {
-        CandleInterval.H1 -> "1h"
-        CandleInterval.H4 -> "4h"
-        CandleInterval.D1 -> "1d"
-        CandleInterval.W1 -> null
-    }
-
-    /** Coinbase-Zeit für `start`/`end`: ISO 8601 in UTC, z. B. «2025-10-07T00:00:00Z». */
-    fun iso(millis: Long): String = Instant.ofEpochMilli(millis).toString()
-}
 
 /** Binance Spot: `/api/v3/klines` — zuerst der öffentliche Spiegel, dann api.binance.com. */
 object BinanceCandles : ExchangeCandleSource {
@@ -417,71 +343,5 @@ object BybitCandles : ExchangeCandleSource {
     }
 
     /** retCode 10006 = zu viele Anfragen. */
-    override fun isRateLimited(body: String): Boolean = RateLimitSignal.inOkBody(body)
-}
-
-/**
- * OKX: `/api/v5/market/candles?instId={id}&bar={1H|4H|1Dutc}&limit={n}` (höchstens 300 je Seite,
- * ältere Seite mit `after`), NEUESTE zuerst; je Kerze [ts, o, h, l, c, vol, volCcy, volCcyQuote,
- * confirm]. Menge: Spot `vol`, Swap `volCcy` (vol zählt dort Kontrakte); Umsatz `volCcyQuote`.
- */
-object OkxCandles : ExchangeCandleSource {
-    override val marketKeys = setOf("Okex", "OkexFutures")
-    private const val PAGE = 300
-
-    private fun instId(pair: CandlePair): String? {
-        val swap = pair.marketKey == "OkexFutures"
-        if (swap && !pair.contractType.isPerpetual) return null
-        if (!swap && pair.contractType != FuturesContractType.NONE) return null
-        val id = CandleParse.id(pair.pairId) {
-            val b = CandleParse.asset(pair.base)
-            val q = CandleParse.asset(pair.quote)
-            if (b == null || q == null) null else if (swap) "$b-$q-SWAP" else "$b-$q"
-        }
-        return id?.takeIf { it.endsWith("-SWAP") == swap }
-    }
-
-    override fun supports(pair: CandlePair) = instId(pair) != null
-
-    override suspend fun fetch(pair: CandlePair, interval: CandleInterval, limit: Int, http: CandleHttp): List<HourCandle>? {
-        val id = instId(pair) ?: return null
-        val swap = pair.marketKey == "OkexFutures"
-        val bar = when (interval) {
-            CandleInterval.H1 -> "1H"
-            CandleInterval.H4 -> "4H"
-            CandleInterval.D1 -> "1Dutc"
-            CandleInterval.W1 -> return null
-        }
-        val url = "https://www.okx.com/api/v5/market/candles?instId=$id&bar=$bar"
-        val first = http.get("$url&limit=${limit.coerceAtMost(PAGE)}")?.let { runCatchingCancellable { parse(it, swap) }.getOrNull() } ?: return null
-        var all = first
-        // Mehr als eine Seite (1 Jahr Tageskerzen): ältere Kerzen vor der ältesten bisherigen
-        if (limit > PAGE && first.size >= PAGE) {
-            val oldest = first.minOf { it.openTime }
-            val older = http.get("$url&after=$oldest&limit=${(limit - first.size).coerceIn(1, PAGE)}")
-                ?.let { runCatchingCancellable { parse(it, swap) }.getOrNull() }
-            if (older != null) all = older + first
-        }
-        return CandleParse.finish(all, limit)
-    }
-
-    internal fun parse(json: String, swap: Boolean): List<HourCandle>? {
-        val root = JSONObject(json)
-        if (root.optString("code") != "0") return null
-        val data = root.optJSONArray("data") ?: return null
-        return with(CandleParse) {
-            (0 until data.length()).mapNotNull { i ->
-                val k = data.optJSONArray(i) ?: return@mapNotNull null
-                HourCandle(
-                    openTime = k.numAt(0).toLong(),
-                    open = k.numAt(1), high = k.numAt(2), low = k.numAt(3), close = k.numAt(4),
-                    volume = if (swap) k.numAt(6) else k.numAt(5),
-                    quoteVolume = quoteVolume(k.numAt(7)),
-                )
-            }
-        }
-    }
-
-    /** code 50011 = zu viele Anfragen. */
     override fun isRateLimited(body: String): Boolean = RateLimitSignal.inOkBody(body)
 }

@@ -52,9 +52,12 @@ sealed interface ScreenRoute {
     @Serializable
     data class SettingsSubpage(val page: String) : ScreenRoute
 
-    /** Alarme eines Paars; `AlarmsViewModel` liest [watchId] unter [AlarmsArgWatchId] aus dem SavedStateHandle. */
+    /**
+     * Alarme eines Paars; `AlarmsViewModel` liest [watchId] unter [AlarmsArgWatchId] aus dem SavedStateHandle.
+     * [editAlarmId] > 0: «Anpassen» aus der Alarm-Mitteilung — der Editor dieses Alarms öffnet sich einmal.
+     */
     @Serializable
-    data class Alarms(val watchId: Long) : ScreenRoute
+    data class Alarms(val watchId: Long, val editAlarmId: Long = 0) : ScreenRoute
 
     /** Optionaler Tab «Portfolio» und die Detailansicht eines Coins. */
     @Serializable
@@ -66,6 +69,9 @@ sealed interface ScreenRoute {
     companion object {
         /** Schlüssel von [Alarms.watchId] im SavedStateHandle (= Feldname). */
         const val AlarmsArgWatchId = "watchId"
+
+        /** Schlüssel von [Alarms.editAlarmId] im SavedStateHandle (= Feldname). */
+        const val AlarmsArgEditAlarmId = "editAlarmId"
 
         /** Schlüssel von [MarketSubpage.macro] im SavedStateHandle (= Feldname); nach dem Scrollen false. */
         const val MarketSubpageArgMacro = "macro"

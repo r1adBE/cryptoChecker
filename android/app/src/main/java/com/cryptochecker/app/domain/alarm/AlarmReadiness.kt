@@ -155,16 +155,23 @@ object AlarmReadiness {
         val fearGreedAbove: Int = 0,
         /** Mindestens eine eigene Grenze einer Bitcoin-Kennzahl. */
         val indicatorAlert: Boolean = false,
+        /** Meldung «Ungewöhnliche Aktivität» (läuft auf beiden Plattformen in der Prüfung im Hintergrund). */
+        val activityAlerts: Boolean = false,
+        /** Morgen-Meldung «Wirtschaftstermine» (Markt-Hinweise); braucht nur unter Android Hintergrundarbeit. */
+        val macroNotices: Boolean = false,
     )
 
     /**
      * [Input.hasAlarms]: Gibt es etwas, das nur eine Prüfung im Hintergrund meldet? Paar- und Portfolio-Alarme, Gas,
-     * USDT-Depeg, Angst-&-Gier- und Kennzahlen-Meldungen — nicht nur Paar-Alarme, sonst wäre eine ausbleibende Prüfung
-     * bei den anderen bloss ein Hinweis.
+     * USDT-Depeg, Angst-&-Gier- und Kennzahlen-Meldungen, «Ungewöhnliche Aktivität» — nicht nur Paar-Alarme, sonst wäre
+     * eine ausbleibende Prüfung bei den anderen bloss ein Hinweis. Die Wirtschaftstermine zählen nur unter Android
+     * (täglicher Worker um 08:00); iOS plant sie beim Öffnen der App als lokale Mitteilungen voraus, dort hängt nichts
+     * an einer Prüfung im Hintergrund.
      */
-    fun hasBackgroundAlarms(k: AlarmKinds): Boolean =
+    fun hasBackgroundAlarms(k: AlarmKinds, platform: Platform): Boolean =
         k.pairAlarm || (k.portfolioEnabled && k.portfolioAlarm) || k.gasEthTenths > 0 || k.gasBtc > 0 || k.depeg ||
-            k.fearGreedBelow > 0 || k.fearGreedAbove > 0 || k.indicatorAlert
+            k.fearGreedBelow > 0 || k.fearGreedAbove > 0 || k.indicatorAlert || k.activityAlerts ||
+            (k.macroNotices && platform == Platform.ANDROID)
 
     /**
      * Zustand der Mitteilungen unter Android: [allowed] (Erlaubnis und App-Benachrichtigungen an) vor allem anderen;

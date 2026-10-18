@@ -5,7 +5,8 @@ package com.cryptochecker.app.domain.refresh
  * Menü): Läuft schon eine, oder ist die letzte vollständige erst [WINDOW_MILLIS]
  * her, startet keine neue — die Anzeige zeigt dann einfach den bestehenden Stand
  * («Alles aktuell · vor 8 s»), «Aktualisieren» im Menü ist so lange grau und zählt die
- * Sekunden herunter ([remainingSeconds]); nach unten ziehen zeigt kurz «Wieder möglich in N s».
+ * Sekunden herunter ([remainingSeconds]); nach unten ziehen wird trotzdem angenommen: Der Kreisel dreht kurz
+ * ([PULL_ECHO_MILLIS]), danach «Gerade aktualisiert · vor N s» ([pullEchoSeconds]) — ohne neuen Durchlauf.
  * Ein einzelnes Paar (Aktionsblatt) ist davon ausgenommen.
  *
  * Reine Logik ohne Android (getestet in RefreshDebounceTest, Swift-Spiegel RefreshDebounce.swift).
@@ -14,6 +15,9 @@ object RefreshDebounce {
 
     /** So lange nach dem Ende einer vollständigen Aktualisierung startet keine erzwungene neue. */
     const val WINDOW_MILLIS = 15_000L
+
+    /** Ziehen im Fenster: so lange dreht der Kreisel trotzdem (Rückmeldung «angenommen»), ohne Abfrage. */
+    const val PULL_ECHO_MILLIS = 400L
 
     enum class Decision {
         /** Jetzt aktualisieren. */
@@ -36,6 +40,18 @@ object RefreshDebounce {
         if (lastFinishedAt <= 0) return Decision.START
         val age = now - lastFinishedAt
         return if (age in 0 until windowMillis) Decision.RECENT else Decision.START
+    }
+
+    /**
+     * Ziehen nach unten mit Ergebnis [decision]: Sekunden seit der letzten vollständigen Aktualisierung für «Gerade
+     * aktualisiert · vor N s» (abgerundet, mindestens 1) — nur bei [Decision.RECENT]; sonst null (es läuft schon bzw.
+     * ein neuer Durchlauf startet, dann zeigt der Kreisel genug).
+     */
+    fun pullEchoSeconds(decision: Decision, lastFinishedAt: Long, now: Long): Int? {
+        if (decision != Decision.RECENT || lastFinishedAt <= 0) return null
+        val age = now - lastFinishedAt
+        if (age < 0) return null
+        return (age / 1000).toInt().coerceAtLeast(1)
     }
 
     /**

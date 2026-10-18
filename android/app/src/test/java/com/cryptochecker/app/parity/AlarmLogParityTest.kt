@@ -48,6 +48,7 @@ class AlarmLogParityTest {
                 coolingDown = t.flag("coolingDown"),
                 waitingRearm = t.flag("waitingRearm"),
                 quietHours = t.flag("quietHours"),
+                snoozed = t.flag("snoozed"),
                 notificationsOff = t.flag("notificationsOff"),
                 retryBlocked = t.flag("retryBlocked"),
                 notShown = t.flag("notShown"),
@@ -67,6 +68,7 @@ class AlarmLogParityTest {
                 canShow = case["canShow"] as Boolean?,
                 shown = case["shown"] as Boolean?,
                 saved = case.flag("saved"),
+                snoozed = case.flag("snoozed"),
             )
             val expected = case["outcome"] as String?
             if (expected == null) {
@@ -126,6 +128,7 @@ class AlarmLogParityTest {
             assertEquals(expected["condition"], actual.condition.name)
             assertEquals(expected["threshold"].num()!!, actual.threshold, 1e-9)
             assertEquals(expected["outcome"], actual.outcome.name)
+            assertEquals(expected["source"], actual.source?.code)
         }
         val events = case["events"].objects()
         assertEquals("unbekanntes Ergebnis fällt weg", events.size, state.events.size)
@@ -139,6 +142,7 @@ class AlarmLogParityTest {
             assertEquals(expected["notable"], actual.notable)
             assertEquals(expected["currency"], actual.currency)
             assertEquals(expected["shownPrice"].num(), actual.shownPrice)
+            assertEquals("Herkunft (unbekannt = null)", expected["source"], actual.source?.code)
         }
         assertTrue(AlarmLog.decode(case["wrongVersion"] as String).events.isEmpty())
         // Hin und zurück unverändert
