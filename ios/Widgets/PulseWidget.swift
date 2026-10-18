@@ -295,14 +295,34 @@ private struct PulseHomeView: View {
     private func content(_ report: PulseReport, data: PulseMarketData) -> some View {
         let coins = Array(report.coins.prefix(medium ? 3 : 1))
         let time: String? = data.time > 0 ? L("pulse_updated", PriceFormat.time(data.time)) : nil
-        let glyph = PulseWidgetText.glyph(report.summary)
-        let direction = PulseWidgetText.direction(report.summary)
-        let headlineSize: CGFloat = medium ? 19 : 17
         // Fear & Greed nur mittel (klein unverändert), in der Zeile des Stands
         let fearGreed: String? = medium ? entry.fearGreed.map(FearGreedShared.line) : nil
         let fearGreedText: Text? = medium ? entry.fearGreed.map { PulseSideLine.fearGreed($0, palette: palette) } : nil
         // Marktbreite «Top 30 · 24h  ↗ 22  ↘ 8» (mittel), neben Fear & Greed, wenn Platz ist
         let breadth: Text? = medium ? report.breadth.map { PulseSideLine.breadth($0, palette: palette) } : nil
+        return Group {
+            if fearGreedText != nil && breadth != nil {
+                // Zwei Nebenzeilen nur, wenn die Höhe reicht (erste Fassung passt senkrecht);
+                // sonst die bisherige Anordnung mit höchstens einer Nebenzeile
+                ViewThatFits(in: .vertical) {
+                    stack(report, coins: coins, time: time, fearGreed: fearGreedText, breadth: breadth, twoLines: true)
+                    stack(report, coins: coins, time: time, fearGreed: fearGreedText, breadth: breadth, twoLines: false)
+                }
+            } else {
+                stack(report, coins: coins, time: time, fearGreed: fearGreedText, breadth: breadth, twoLines: false)
+            }
+        }
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(PulseWidgetText.spoken(report, coins: coins, fearGreed: fearGreed, time: time,
+                                                   breadth: medium ? report.breadth : nil))
+    }
+
+    /// Schlagzeile, Leitsatz, Coins und Fusszeile; `twoLines` erlaubt die Marktbreite in einer zweiten Zeile.
+    private func stack(_ report: PulseReport, coins: [PulseCoinLine], time: String?, fearGreed fearGreedText: Text?,
+                       breadth: Text?, twoLines: Bool) -> some View {
+        let glyph = PulseWidgetText.glyph(report.summary)
+        let direction = PulseWidgetText.direction(report.summary)
+        let headlineSize: CGFloat = medium ? 19 : 17
         return VStack(alignment: .leading, spacing: 0) {
             HStack(alignment: .firstTextBaseline, spacing: 6) {
                 if let glyph {
@@ -327,21 +347,40 @@ private struct PulseHomeView: View {
                 .padding(.top, 3)
             Spacer(minLength: 4)
             chips(coins)
-            if time != nil || fearGreed != nil || breadth != nil {
+            if time != nil || fearGreedText != nil || breadth != nil {
                 // «Stand 14:05» links, rechts «Fear & Greed 72 · Gier · Top 30 ↗ 22 ↘ 8»; passt nicht
-                // alles, zuerst Fear & Greed, dann die Marktbreite, sonst nur der Stand
+                // alles, die Marktbreite in einer zweiten Zeile darunter (`twoLines`), sonst zuerst
+                // Fear & Greed, dann die Marktbreite, sonst nur der Stand (wie Android `PulseWidgetMath.sideLayout`)
                 ViewThatFits(in: .horizontal) {
-                    if let fearGreedText, let breadth { footRow(time, fearGreedText + Text(verbatim: " · ") + breadth) }
-                    if let fearGreedText { footRow(time, fearGreedText) }
-                    if let breadth { footRow(time, breadth) }
+                    ForEach(PulseSideLayout.candidates(hasFearGreed: fearGreedText != nil, hasBreadth: breadth != nil,
+                                                       twoLines: twoLines), id: \.self) { layout in
+                        foot(layout, time: time, fearGreed: fearGreedText, breadth: breadth)
+                    }
                     footRow(time, nil)
                 }
                 .padding(.top, 4)
             }
         }
-        .accessibilityElement(children: .ignore)
-        .accessibilityLabel(PulseWidgetText.spoken(report, coins: coins, fearGreed: fearGreed, time: time,
-                                                   breadth: medium ? report.breadth : nil))
+    }
+
+    /// Fusszeile in der Anordnung `layout`; bei `.twoLines` die Marktbreite rechts in einer zweiten Zeile.
+    @ViewBuilder
+    private func foot(_ layout: PulseSideLayout, time: String?, fearGreed: Text?, breadth: Text?) -> some View {
+        switch layout {
+        case .oneLine:
+            if let fearGreed, let breadth { footRow(time, fearGreed + Text(verbatim: " · ") + breadth) }
+        case .twoLines:
+            if let fearGreed, let breadth {
+                VStack(spacing: 2) {
+                    footRow(time, fearGreed)
+                    footRow(nil, breadth)
+                }
+            }
+        case .fearGreed:
+            if let fearGreed { footRow(time, fearGreed) }
+        case .breadth:
+            if let breadth { footRow(time, breadth) }
+        }
     }
 
     /// «Stand 14:05» links, rechts die Nebenangabe (oder nichts).

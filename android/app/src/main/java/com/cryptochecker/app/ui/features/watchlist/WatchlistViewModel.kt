@@ -518,8 +518,8 @@ class WatchlistViewModel @Inject constructor(
     /** Nach unten ziehen bzw. Knopf oben, mit 15-s-Sperre ([RefreshDebounce]). */
     fun refreshAllByUser(): RefreshDebounce.Decision = refresh.refreshAllByUser()
 
-    /** Würde «Aktualisieren» jetzt etwas tun? Sonst ist der Menüpunkt grau. */
-    fun canRefreshNow(): Boolean = refresh.canRefreshNow()
+    /** Ende der letzten vollständigen Aktualisierung, für den Countdown der 15-s-Sperre im Menü. */
+    fun lastFullRefreshAt(): Long = refresh.lastFullRefreshAt()
 
     fun refreshOne(watchId: Long) = refresh.refreshOne(watchId)
 

@@ -37,4 +37,45 @@ class RefreshDebounceTest {
         // Uhr zurückgestellt: nicht für immer sperren
         assertEquals(Decision.START, RefreshDebounce.decide(false, now + 5_000, now))
     }
+
+    @Test
+    fun remainingSecondsRoundsUp() {
+        val w = RefreshDebounce.WINDOW_MILLIS
+        assertEquals(15, RefreshDebounce.remainingSeconds(now, now))
+        assertEquals(15, RefreshDebounce.remainingSeconds(now - 1, now))
+        assertEquals(14, RefreshDebounce.remainingSeconds(now - 1_000, now))
+        assertEquals(6, RefreshDebounce.remainingSeconds(now - 9_800, now))
+        assertEquals(1, RefreshDebounce.remainingSeconds(now - w + 1, now))
+    }
+
+    @Test
+    fun remainingSecondsZeroWhenFree() {
+        assertEquals(0, RefreshDebounce.remainingSeconds(0, now))
+        assertEquals(0, RefreshDebounce.remainingSeconds(now - RefreshDebounce.WINDOW_MILLIS, now))
+        assertEquals(0, RefreshDebounce.remainingSeconds(now - 60_000, now))
+        // Uhr zurückgestellt: frei wie bei decide
+        assertEquals(0, RefreshDebounce.remainingSeconds(now + 5_000, now))
+    }
+
+    @Test
+    fun remainingSecondsMatchesDecide() {
+        for (age in -2_000L..20_000L step 250) {
+            val recent = RefreshDebounce.decide(false, now - age, now) == Decision.RECENT
+            assertEquals(recent, RefreshDebounce.remainingSeconds(now - age, now) > 0)
+        }
+    }
+
+    @Test
+    fun nextChangeLandsOnSecondBoundary() {
+        assertEquals(1_000L, RefreshDebounce.millisUntilNextChange(now, now))
+        assertEquals(800L, RefreshDebounce.millisUntilNextChange(now - 200, now))
+        assertEquals(200L, RefreshDebounce.millisUntilNextChange(now - 9_800, now))
+        assertEquals(1L, RefreshDebounce.millisUntilNextChange(now - RefreshDebounce.WINDOW_MILLIS + 1, now))
+        assertEquals(0L, RefreshDebounce.millisUntilNextChange(now - RefreshDebounce.WINDOW_MILLIS, now))
+        assertEquals(0L, RefreshDebounce.millisUntilNextChange(0, now))
+        // Nach dem Warten zeigt der Countdown genau eine Zahl weniger
+        val last = now - 9_800
+        val wait = RefreshDebounce.millisUntilNextChange(last, now)
+        assertEquals(RefreshDebounce.remainingSeconds(last, now) - 1, RefreshDebounce.remainingSeconds(last, now + wait))
+    }
 }

@@ -31,6 +31,8 @@ fun AppMenuHead(
     onRefresh: () -> Unit,
     /** Zusätzlich gesperrt (z. B. eben erst aktualisiert); grau statt einer Meldung. */
     refreshEnabled: Boolean = true,
+    /** Eigene Beschriftung statt «Aktualisieren», z. B. mit Countdown «Aktualisieren (5)». */
+    refreshLabel: String? = null,
 ) {
     DropdownMenuItem(
         text = {
@@ -51,7 +53,7 @@ fun AppMenuHead(
     )
     HorizontalDivider()
     DropdownMenuItem(
-        text = { Text(stringResource(R.string.action_refresh)) },
+        text = { Text(refreshLabel ?: stringResource(R.string.action_refresh)) },
         leadingIcon = {
             if (refreshing) {
                 CircularProgressIndicator(modifier = Modifier.size(20.dp), strokeWidth = 2.dp)

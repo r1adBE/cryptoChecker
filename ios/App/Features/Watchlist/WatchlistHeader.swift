@@ -191,15 +191,15 @@ extension WatchlistScreen {
                 // Bericht, nicht gehandelte Paare entfernen, Merkliste leeren
                 Menu {
                     // Gleicher Anfang wie Markt und Portfolio: App (→ «Über»), Aktualisieren
-                    AppMenuHead(
+                    // Eben erst aktualisiert: grau mit Countdown «Aktualisieren (5)» statt einer Meldung
+                    WatchlistMenuHead(
                         refreshing: data.refreshing,
+                        countdown: refreshCountdown,
                         onOpenAbout: { showAbout = true },
                         onRefresh: {
                             WatchlistHaptics.impact(.light)
                             Task { await refreshByUser() }
-                        },
-                        // Eben erst aktualisiert: grau statt Meldung «Gerade aktualisiert»
-                        refreshEnabled: data.canRefreshNow
+                        }
                     )
                     Button {
                         showOverview = true

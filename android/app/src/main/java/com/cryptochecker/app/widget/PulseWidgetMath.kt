@@ -10,6 +10,17 @@ import kotlin.math.abs
 data class PulseWidgetCoin(val symbol: String, val name: String, val change: Double)
 
 /**
+ * Anordnung von Fear & Greed und Marktbreite (Top 30) im Widget «Was gerade auffällt»
+ * (wie iOS `PulseSideLayout`): beides in einer Zeile, untereinander in zwei Zeilen oder nur ein Teil.
+ */
+enum class PulseSideLayout(val showsFearGreed: Boolean, val showsBreadth: Boolean) {
+    ONE_LINE(true, true),
+    TWO_LINES(true, true),
+    FEAR_GREED(true, false),
+    BREADTH(false, true),
+}
+
+/**
  * Reine Regeln des Widgets «Was gerade auffällt» (ohne Android, getestet in
  * PulseWidgetMathTest). Auswertung und Leitsatz kommen unverändert aus
  * [com.cryptochecker.app.domain.market.CryptoPulse] — wie die Karte im Markt-Tab.
@@ -164,15 +175,76 @@ object PulseWidgetMath {
 
     /**
      * Zeile «Fear & Greed 72 · Gier» zeigen? Nur mit Platz: unter Leitsatz (2 Zeilen) und Stand
-     * noch eine Zeile Höhe ([FULL_MIN_HEIGHT_DP] + [FEAR_GREED_LINE_DP], zweizeilige Schlagzeile
-     * mehr), und der Text passt ganz in die Breite. Unbekannte Grösse (0): ja. Kleine Widgets
-     * bleiben unverändert.
+     * noch [sideLines] Zeilen Höhe ([FULL_MIN_HEIGHT_DP] + [sideLines] × [FEAR_GREED_LINE_DP],
+     * zweizeilige Schlagzeile mehr), und der Text passt ganz in die Breite. Unbekannte Grösse (0):
+     * ja. Kleine Widgets bleiben unverändert. Der Leitsatz ([leadLines]) behält dabei seine
+     * 2 Zeilen, weil jede Nebenzeile erst oberhalb von [FULL_MIN_HEIGHT_DP] Platz bekommt.
      */
-    fun showsFearGreed(widthDp: Int, heightDp: Int, headlineLines: Int, textWidthDp: Float): Boolean {
-        val needed = FULL_MIN_HEIGHT_DP + FEAR_GREED_LINE_DP + if (headlineLines > 1) HEADLINE_SECOND_LINE_DP else 0
-        val tallEnough = heightDp <= 0 || heightDp >= needed
+    fun showsFearGreed(widthDp: Int, heightDp: Int, headlineLines: Int, textWidthDp: Float, sideLines: Int = 1): Boolean {
+        val tallEnough = sideLinesFit(heightDp, headlineLines, sideLines)
         val wideEnough = widthDp <= 0 || textWidthDp <= widthDp - PADDING_DP - WidgetTextFit.SAFETY_DP
         return tallEnough && wideEnough
+    }
+
+    /** Reicht die Höhe für [sideLines] Nebenzeilen unter Leitsatz und Stand? Unbekannte Höhe (0): ja. */
+    fun sideLinesFit(heightDp: Int, headlineLines: Int, sideLines: Int): Boolean {
+        val needed = FULL_MIN_HEIGHT_DP + sideLines.coerceAtLeast(1) * FEAR_GREED_LINE_DP +
+            if (headlineLines > 1) HEADLINE_SECOND_LINE_DP else 0
+        return heightDp <= 0 || heightDp >= needed
+    }
+
+    /**
+     * Nebenzeile(n) in dieser Reihenfolge versuchen (wie iOS `PulseSideLayout.candidates`): beides
+     * in einer Zeile, sonst Fear & Greed und Marktbreite untereinander (nur mit Höhe für zwei
+     * Zeilen, [twoLines]), sonst nur Fear & Greed, sonst nur die Marktbreite. So verschwindet die
+     * Marktbreite nicht mehr, wenn das Widget hoch genug ist.
+     */
+    fun sideCandidates(hasFearGreed: Boolean, hasBreadth: Boolean, twoLines: Boolean): List<PulseSideLayout> = when {
+        hasFearGreed && hasBreadth -> listOfNotNull(
+            PulseSideLayout.ONE_LINE,
+            PulseSideLayout.TWO_LINES.takeIf { twoLines },
+            PulseSideLayout.FEAR_GREED,
+            PulseSideLayout.BREADTH,
+        )
+        hasFearGreed -> listOf(PulseSideLayout.FEAR_GREED)
+        hasBreadth -> listOf(PulseSideLayout.BREADTH)
+        else -> emptyList()
+    }
+
+    /** Erste Anordnung aus [sideCandidates], die ganz passt ([fits]); null = keine Nebenzeile. */
+    fun chooseSide(
+        hasFearGreed: Boolean,
+        hasBreadth: Boolean,
+        twoLines: Boolean,
+        fits: (PulseSideLayout) -> Boolean,
+    ): PulseSideLayout? = sideCandidates(hasFearGreed, hasBreadth, twoLines).firstOrNull(fits)
+
+    /**
+     * Anordnung der Nebenzeile(n) aus gemessenen Textbreiten (dp, 12 sp; null = Teil fehlt):
+     * [bothWidthDp] «● Fear & Greed 72 · Gier · Top 30 · 24h ↗ 22 ↘ 8», [fearGreedWidthDp] und
+     * [breadthWidthDp] je allein. Zwei Zeilen nur, wenn die Höhe sie trägt ([sideLinesFit]) und
+     * jeder Teil ganz in seine Zeile passt — sonst wie bisher nur ein Teil. Nie abgeschnitten.
+     */
+    fun sideLayout(
+        widthDp: Int,
+        heightDp: Int,
+        headlineLines: Int,
+        fearGreedWidthDp: Float?,
+        breadthWidthDp: Float?,
+        bothWidthDp: Float?,
+    ): PulseSideLayout? = chooseSide(
+        hasFearGreed = fearGreedWidthDp != null,
+        hasBreadth = breadthWidthDp != null,
+        twoLines = sideLinesFit(heightDp, headlineLines, 2),
+    ) { layout ->
+        fun fits(width: Float?, lines: Int) =
+            width != null && showsFearGreed(widthDp, heightDp, headlineLines, width, lines)
+        when (layout) {
+            PulseSideLayout.ONE_LINE -> fits(bothWidthDp, 1)
+            PulseSideLayout.TWO_LINES -> fits(fearGreedWidthDp, 2) && fits(breadthWidthDp, 2)
+            PulseSideLayout.FEAR_GREED -> fits(fearGreedWidthDp, 1)
+            PulseSideLayout.BREADTH -> fits(breadthWidthDp, 1)
+        }
     }
 
     /** Abstand zwischen «24h» (grau) und dem ersten Coin (dp, widget_pulse.xml). */

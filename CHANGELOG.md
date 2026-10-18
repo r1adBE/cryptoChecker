@@ -33,6 +33,11 @@ Review fixes before the store.
 * CI: a parity check fails if the shared test data of Android and iPhone ever differ.
 * First start shows one task: prices and «Set your first alert»; the groups hint, the market pulse row and the gesture
   hint appear after the first alert or after three days of use.
+* Refresh: after a refresh the watchlist menu counts down «Refresh (15)» … «(1)» and becomes active again by itself;
+  pulling during the lock says «Again in N s». The watchlist widget gets the same 15-second lock with a countdown
+  in place of its refresh button (system timer, no extra battery).
+* Market pulse widget: when Fear & Greed and «Top 30» don't fit on one line, the Top 30 moves to a second line
+  instead of disappearing.
 
 ## 16.2.2 (build 78)
 

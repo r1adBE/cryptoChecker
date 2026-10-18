@@ -4,7 +4,8 @@ package com.cryptochecker.app.domain.refresh
  * Sperre für die vom Nutzer erzwungene Gesamt-Aktualisierung (nach unten ziehen,
  * Menü): Läuft schon eine, oder ist die letzte vollständige erst [WINDOW_MILLIS]
  * her, startet keine neue — die Anzeige zeigt dann einfach den bestehenden Stand
- * («Alles aktuell · vor 8 s»), «Aktualisieren» im Menü ist so lange grau; keine Meldung.
+ * («Alles aktuell · vor 8 s»), «Aktualisieren» im Menü ist so lange grau und zählt die
+ * Sekunden herunter ([remainingSeconds]); nach unten ziehen zeigt kurz «Wieder möglich in N s».
  * Ein einzelnes Paar (Aktionsblatt) ist davon ausgenommen.
  *
  * Reine Logik ohne Android (getestet in RefreshDebounceTest, Swift-Spiegel RefreshDebounce.swift).
@@ -21,7 +22,7 @@ object RefreshDebounce {
         /** Läuft schon — nichts tun, der Kreisel dreht bereits. */
         RUNNING,
 
-        /** Eben erst fertig — kein neuer Durchlauf (Menüpunkt grau, keine Meldung). */
+        /** Eben erst fertig — kein neuer Durchlauf (Menüpunkt grau mit Countdown). */
         RECENT,
     }
 
@@ -35,5 +36,30 @@ object RefreshDebounce {
         if (lastFinishedAt <= 0) return Decision.START
         val age = now - lastFinishedAt
         return if (age in 0 until windowMillis) Decision.RECENT else Decision.START
+    }
+
+    /**
+     * Ganze Sekunden, bis «Aktualisieren» wieder geht (aufgerundet: 14,2 s → 15), für den Countdown
+     * im Menü und die Meldung beim Ziehen. 0 = frei — gleiche Grenzen wie [decide] (noch keine,
+     * Fenster vorbei oder Zeitpunkt in der Zukunft). Ob gerade eine läuft, prüft der Aufrufer.
+     */
+    fun remainingSeconds(lastFinishedAt: Long, now: Long, windowMillis: Long = WINDOW_MILLIS): Int {
+        val rest = remainingMillis(lastFinishedAt, now, windowMillis)
+        return ((rest + 999) / 1000).toInt()
+    }
+
+    /**
+     * Wie lange warten, bis [remainingSeconds] die nächste Zahl zeigt (1..1000 ms); 0 = frei.
+     * So springt der Countdown genau auf der Sekundengrenze, statt bis zu 1 s nachzuhinken.
+     */
+    fun millisUntilNextChange(lastFinishedAt: Long, now: Long, windowMillis: Long = WINDOW_MILLIS): Long {
+        val rest = remainingMillis(lastFinishedAt, now, windowMillis)
+        return if (rest <= 0) 0 else (rest - 1) % 1000 + 1
+    }
+
+    private fun remainingMillis(lastFinishedAt: Long, now: Long, windowMillis: Long): Long {
+        if (lastFinishedAt <= 0) return 0
+        val age = now - lastFinishedAt
+        return if (age in 0 until windowMillis) windowMillis - age else 0
     }
 }

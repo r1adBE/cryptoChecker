@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
+import android.os.SystemClock
 import android.util.TypedValue
 import android.view.View
 import android.widget.RemoteViews
@@ -14,6 +15,8 @@ import com.cryptochecker.app.R
 import com.cryptochecker.app.data.RefreshStats
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.refresh.OutdatedRule
+import com.cryptochecker.app.domain.refresh.PriceRefresher
+import com.cryptochecker.app.domain.refresh.WidgetRefreshState
 import com.cryptochecker.app.domain.watch.WatchFilter
 import com.cryptochecker.app.settings.HighContrast
 import com.cryptochecker.app.settings.SettingsRepository
@@ -21,6 +24,11 @@ import com.cryptochecker.app.ui.MainActivity
 import com.cryptochecker.app.util.PriceFormat
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import timber.log.Timber
@@ -41,7 +49,15 @@ class ListWidgetRenderer @Inject constructor(
     private val settingsRepository: SettingsRepository,
     private val toolkit: WidgetToolkit,
     private val rows: ListWidgetRows,
+    /** Lazy: PriceRefresher zeichnet selbst über WidgetUpdater (sonst ein Abhängigkeitskreis). */
+    private val priceRefresher: dagger.Lazy<PriceRefresher>,
 ) {
+    /** Neuzeichnen am Ende der Sperre ([scheduleUnlock]); läuft unabhängig vom Aufrufer weiter. */
+    private val unlockScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+
+    /** Ende der Sperre, für das das Neuzeichnen schon geplant ist (nur einmal je Sperre). */
+    @Volatile private var unlockScheduledFor = 0L
+
     /**
      * Nacheinander zeichnen: Läuft beim Speichern der Einrichtung (neue Gruppe) noch ein Zeichnen der
      * Aktualisierung mit der alten Gruppe, käme dieses sonst zuletzt an und überschriebe die neue
@@ -67,7 +83,18 @@ class ListWidgetRenderer @Inject constructor(
 
         // Liegt die letzte erfolgreiche Aktualisierung zu weit zurück: «veraltet · 06:42» statt der Uhrzeit
         val lastRefresh = refreshStats.lastRefresh()
-        val outdated = OutdatedRule.isOutdated(lastRefresh, System.currentTimeMillis(), WidgetOutdated.afterMillis(settings))
+        val now = System.currentTimeMillis()
+        val outdated = OutdatedRule.isOutdated(lastRefresh, now, WidgetOutdated.afterMillis(settings))
+        // In der 15-s-Sperre nach einer vollständigen Aktualisierung (oder einem Tipp): Countdown statt Knopf
+        val blockedUntil = WidgetRefreshState.blockedUntil(
+            storedUntil = widgetPrefs.refreshBlockedUntil,
+            lastFinishedAt = lastRefresh,
+            runningSince = priceRefresher.get().fullRefreshStartedAt,
+            now = now,
+        )
+        val lockMillis = WidgetRefreshState.remainingMillis(blockedUntil, now)
+        val lockSeconds = WidgetRefreshState.remainingSeconds(blockedUntil, now)
+        if (lockMillis > 0) scheduleUnlock(blockedUntil, now)
 
         // Widgets, deren Zeilen der Dienst liefert: danach neu laden lassen
         val viaService = ArrayList<Int>()
@@ -88,7 +115,10 @@ class ListWidgetRenderer @Inject constructor(
             runCatchingCancellable {
                 manager.updateAppWidget(
                     appWidgetId,
-                    render(manager, appWidgetId, colors, accent.logoRes(dark), lastRefresh, outdated, inline, title, version, empty),
+                    render(
+                        manager, appWidgetId, colors, accent.logoRes(dark), lastRefresh, outdated, inline, title, version, empty,
+                        lockMillis, lockSeconds,
+                    ),
                 )
             }.onFailure { Timber.w(it, "Widget %d konnte nicht gezeichnet werden", appWidgetId) }
         }
@@ -118,6 +148,10 @@ class ListWidgetRenderer @Inject constructor(
         version: Long,
         /** Keine Zeilen: Hinweis «Noch keine Paare» statt der Liste. */
         empty: Boolean,
+        /** Restzeit der Sperre des Knopfs in ms ([WidgetRefreshState.remainingMillis]); 0 = Knopf zeigen. */
+        lockMillis: Long,
+        /** Dieselbe Restzeit in ganzen Sekunden (für den Screenreader). */
+        lockSeconds: Int,
     ): RemoteViews {
         val opacity = widgetPrefs.getOpacity(appWidgetId)
         val views = RemoteViews(context.packageName, R.layout.widget_list)
@@ -173,8 +207,55 @@ class ListWidgetRenderer @Inject constructor(
         // Der Kopf (Logo, Titel, Uhrzeit) öffnet die App
         views.setOnClickPendingIntent(R.id.widget_header, toolkit.openApp())
         views.setOnClickPendingIntent(R.id.widget_refresh, refreshIntent(appWidgetId))
+        refreshButton(views, appWidgetId, background, lockMillis, lockSeconds)
 
         return views
+    }
+
+    /**
+     * Genau ein Neuzeichnen zum Ende der Sperre, damit das Symbol zurückkommt: pünktlich im Prozess, als
+     * Absicherung (Prozess beendet oder eingefroren) der Wecker [WidgetRefreshUnlock].
+     */
+    private fun scheduleUnlock(blockedUntil: Long, now: Long) {
+        if (unlockScheduledFor == blockedUntil) return
+        unlockScheduledFor = blockedUntil
+        WidgetRefreshUnlock.schedule(context, blockedUntil, now)
+        unlockScope.launch {
+            delay((blockedUntil - System.currentTimeMillis()).coerceAtLeast(0))
+            runCatchingCancellable { update(toolkit.ids(PriceWidgetProvider::class.java)) }
+                .onFailure { Timber.w(it, "Listen-Widgets nach der Sperre nicht neu gezeichnet") }
+        }
+    }
+
+    /**
+     * Knopf oder Countdown: In der Sperre zählt ein Chronometer bis zu ihrem Ende herunter — das macht der
+     * Launcher selbst, ohne Neuzeichnen je Sekunde. Am Ende wird einmal neu gezeichnet ([scheduleUnlock]),
+     * dann ist wieder das Symbol da. Der Countdown nimmt Tipps an, startet
+     * aber nichts (gleiche Sperre im Empfänger).
+     */
+    private fun refreshButton(views: RemoteViews, appWidgetId: Int, background: WidgetColors, lockMillis: Long, lockSeconds: Int) {
+        val locked = lockMillis > 0
+        views.setViewVisibility(R.id.widget_refresh, if (locked) View.GONE else View.VISIBLE)
+        views.setViewVisibility(R.id.widget_refresh_countdown, if (locked) View.VISIBLE else View.GONE)
+        if (!locked) {
+            // Angehalten: zählt verborgen nicht weiter
+            views.setChronometer(R.id.widget_refresh_countdown, SystemClock.elapsedRealtime(), null, false)
+            return
+        }
+        views.setChronometer(
+            R.id.widget_refresh_countdown,
+            WidgetRefreshState.chronometerBase(SystemClock.elapsedRealtime(), lockMillis),
+            null,
+            true,
+        )
+        views.setChronometerCountDown(R.id.widget_refresh_countdown, true)
+        views.setTextColor(R.id.widget_refresh_countdown, background.secondaryTextColor)
+        // Screenreader: «Aktualisieren – wieder möglich in 12 s» statt der laufenden Ziffern
+        views.setContentDescription(
+            R.id.widget_refresh_countdown,
+            context.getString(R.string.widget_refresh_blocked_a11y, lockSeconds),
+        )
+        views.setOnClickPendingIntent(R.id.widget_refresh_countdown, refreshIntent(appWidgetId))
     }
 
     /**

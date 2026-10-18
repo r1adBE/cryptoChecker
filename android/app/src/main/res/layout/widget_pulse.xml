@@ -102,12 +102,25 @@
                 android:textSize="12sp" />
 
             <!-- «Fear & Greed 72 · Gier» aus dem Zwischenspeicher (≤ 24 h), nur mit Platz
-                 (PulseWidgetMath.showsFearGreed) -->
+                 (PulseWidgetMath.sideLayout); passt es, mit der Marktbreite in derselben Zeile -->
             <TextView
                 android:id="@+id/pulse_fng"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textSize="12sp"
+                android:fontFeatureSettings="tnum"
+                android:visibility="gone" />
+
+            <!-- «Top 30 · 24h  ↗ 22  ↘ 8» als zweite Nebenzeile, wenn nicht beides in eine Zeile passt
+                 und die Höhe reicht (PulseWidgetMath.sideLayout, TWO_LINES); sonst weg -->
+            <TextView
+                android:id="@+id/pulse_breadth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
                 android:maxLines="1"
                 android:ellipsize="end"
                 android:textSize="12sp"

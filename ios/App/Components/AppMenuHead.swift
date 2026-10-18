@@ -10,6 +10,8 @@ struct AppMenuHead: View {
     let onRefresh: () -> Void
     /// Zusätzlich gesperrt (z. B. eben erst aktualisiert): grau statt einer Meldung.
     var refreshEnabled = true
+    /// Eigene Beschriftung statt «Aktualisieren», z. B. mit Countdown «Aktualisieren (5)».
+    var refreshLabel: String? = nil
     @Environment(\.appAccent) var accent
     @Environment(\.colorScheme) var colorScheme
 
@@ -25,7 +27,7 @@ struct AppMenuHead: View {
         }
         Divider()
         Button(action: onRefresh) {
-            Label(L("action_refresh"), systemImage: "arrow.clockwise")
+            Label(refreshLabel ?? L("action_refresh"), systemImage: "arrow.clockwise")
         }
         .disabled(refreshing || !refreshEnabled)
     }

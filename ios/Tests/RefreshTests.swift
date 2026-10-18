@@ -31,6 +31,44 @@ final class RefreshDebounceTests: XCTestCase {
         // Uhr zurückgestellt: nicht für immer sperren
         XCTAssertEqual(RefreshDebounce.decide(running: false, lastFinishedAt: now + 5_000, now: now), .start)
     }
+
+    func testRemainingSecondsRoundsUp() {
+        let w = RefreshDebounce.windowMillis
+        XCTAssertEqual(RefreshDebounce.remainingSeconds(lastFinishedAt: now, now: now), 15)
+        XCTAssertEqual(RefreshDebounce.remainingSeconds(lastFinishedAt: now - 1, now: now), 15)
+        XCTAssertEqual(RefreshDebounce.remainingSeconds(lastFinishedAt: now - 1_000, now: now), 14)
+        XCTAssertEqual(RefreshDebounce.remainingSeconds(lastFinishedAt: now - 9_800, now: now), 6)
+        XCTAssertEqual(RefreshDebounce.remainingSeconds(lastFinishedAt: now - w + 1, now: now), 1)
+    }
+
+    func testRemainingSecondsZeroWhenFree() {
+        XCTAssertEqual(RefreshDebounce.remainingSeconds(lastFinishedAt: 0, now: now), 0)
+        XCTAssertEqual(RefreshDebounce.remainingSeconds(lastFinishedAt: now - RefreshDebounce.windowMillis, now: now), 0)
+        XCTAssertEqual(RefreshDebounce.remainingSeconds(lastFinishedAt: now - 60_000, now: now), 0)
+        // Uhr zurückgestellt: frei wie bei decide
+        XCTAssertEqual(RefreshDebounce.remainingSeconds(lastFinishedAt: now + 5_000, now: now), 0)
+    }
+
+    func testRemainingSecondsMatchesDecide() {
+        for age in stride(from: Int64(-2_000), through: 20_000, by: 250) {
+            let recent = RefreshDebounce.decide(running: false, lastFinishedAt: now - age, now: now) == .recent
+            XCTAssertEqual(recent, RefreshDebounce.remainingSeconds(lastFinishedAt: now - age, now: now) > 0)
+        }
+    }
+
+    func testNextChangeLandsOnSecondBoundary() {
+        XCTAssertEqual(RefreshDebounce.millisUntilNextChange(lastFinishedAt: now, now: now), 1_000)
+        XCTAssertEqual(RefreshDebounce.millisUntilNextChange(lastFinishedAt: now - 200, now: now), 800)
+        XCTAssertEqual(RefreshDebounce.millisUntilNextChange(lastFinishedAt: now - 9_800, now: now), 200)
+        XCTAssertEqual(RefreshDebounce.millisUntilNextChange(lastFinishedAt: now - RefreshDebounce.windowMillis + 1, now: now), 1)
+        XCTAssertEqual(RefreshDebounce.millisUntilNextChange(lastFinishedAt: now - RefreshDebounce.windowMillis, now: now), 0)
+        XCTAssertEqual(RefreshDebounce.millisUntilNextChange(lastFinishedAt: 0, now: now), 0)
+        // Nach dem Warten zeigt der Countdown genau eine Zahl weniger
+        let last = now - 9_800
+        let wait = RefreshDebounce.millisUntilNextChange(lastFinishedAt: last, now: now)
+        XCTAssertEqual(RefreshDebounce.remainingSeconds(lastFinishedAt: last, now: now + wait),
+                       RefreshDebounce.remainingSeconds(lastFinishedAt: last, now: now) - 1)
+    }
 }
 
 final class RefreshReportLogicTests: XCTestCase {

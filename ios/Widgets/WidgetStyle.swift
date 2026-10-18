@@ -368,22 +368,44 @@ private struct WidgetChangePrefix: View {
     }
 }
 
-/// Knopf «Aktualisieren» (interaktiv, iOS 17).
+/// Knopf «Aktualisieren» (interaktiv, iOS 17). In der 15-s-Sperre (`WidgetRefreshState.blockedUntil`)
+/// steht statt des Symbols ein Countdown, den WidgetKit selbst herunterzählt; zum Ende der Sperre hat die
+/// Timeline einen eigenen Eintrag, dann ist das Symbol wieder da. Der Countdown nimmt Tipps an, startet aber
+/// nichts (gleiche Sperre in `RefreshPricesIntent`).
 struct WidgetRefreshButton: View {
     let palette: WidgetPalette
     var size: CGFloat = 26
+    /// Gesperrt bis (Wanduhr, ms; 0 = nie) und Zeitpunkt des Eintrags.
+    var blockedUntil: Int64 = 0
+    var date = Date()
 
     var body: some View {
+        let seconds = WidgetRefreshState.remainingSeconds(blockedUntil: blockedUntil,
+                                                          now: Int64(date.timeIntervalSince1970 * 1000))
         Button(intent: RefreshPricesIntent()) {
-            Image(systemName: "arrow.clockwise")
-                .font(.system(size: size * 0.46, weight: .bold))
-                .foregroundStyle(palette.text) // neutral wie der Titel, nicht in der Akzentfarbe
-                .frame(width: size, height: size)
-                .background(Circle().fill(palette.text.opacity(palette.dark ? 0.12 : 0.08)))
-                .contentShape(Circle())
+            Group {
+                if seconds > 0 {
+                    Text(timerInterval: date...Date(timeIntervalSince1970: TimeInterval(blockedUntil) / 1000),
+                         countsDown: true)
+                        .font(.system(size: size * 0.36, weight: .semibold))
+                        .monospacedDigit()
+                        .foregroundStyle(palette.secondary)
+                        .multilineTextAlignment(.center)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.6)
+                } else {
+                    Image(systemName: "arrow.clockwise")
+                        .font(.system(size: size * 0.46, weight: .bold))
+                        .foregroundStyle(palette.text) // neutral wie der Titel, nicht in der Akzentfarbe
+                }
+            }
+            .frame(width: size, height: size)
+            .background(Circle().fill(palette.text.opacity(palette.dark ? 0.12 : 0.08)))
+            .contentShape(Circle())
         }
         .buttonStyle(.plain)
-        .accessibilityLabel(L("action_refresh"))
+        // VoiceOver: «Aktualisieren – wieder möglich in 12 s» statt der laufenden Ziffern
+        .accessibilityLabel(seconds > 0 ? L("widget_refresh_blocked_a11y", seconds) : L("action_refresh"))
     }
 }
 

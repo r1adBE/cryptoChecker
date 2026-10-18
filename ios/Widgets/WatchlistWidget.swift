@@ -29,6 +29,8 @@ struct WatchlistEntry: TimelineEntry {
     var logos: [String: UIImage] = [:]
     /// Schalter «Coin-Logos in Widgets»; aus = keine Plakette.
     var showLogos: Bool = SharedStorage.loadSettings().widgetCoinLogos
+    /// Aktualisieren-Knopf gesperrt bis (ms; 0 = nie): bis dahin Countdown statt Symbol (`WidgetRefreshState`).
+    var refreshBlockedUntil: Int64 = 0
 
     /// %-Basis zum Zeitpunkt des Eintrags: nach Mitternacht bzw. mit anderer Basis «—».
     var changeView: ChangeView {
@@ -44,11 +46,18 @@ struct WatchlistEntry: TimelineEntry {
                                    theme: theme,
                                    accent: SharedStorage.loadSettings().accentColor)
         entry.title = WidgetData.headerTitle(group: selection.group)
+        // In der 15-s-Sperre nach einer vollständigen Aktualisierung (oder einem Tipp): Countdown statt Knopf;
+        // gleiche Zeit wie der Countdown der App (`SharedStorage.lastRefreshAt`)
+        entry.refreshBlockedUntil = WidgetRefreshState.blockedUntil(stored: WidgetRefresh.blockedUntil,
+                                                                    lastFinishedAt: entry.lastRefreshAt,
+                                                                    runningSince: WidgetRefresh.runningSince,
+                                                                    now: Int64(entry.date.timeIntervalSince1970 * 1000))
         return entry
     }
 
     /// Galerie und Platzhalter: Kopfzeile «Merkliste · Uhrzeit · 840 ms» wie die Android-Vorschau.
     static func sample(theme: WidgetThemeOption = .system) -> WatchlistEntry {
+        // Galerie: immer mit Knopf (`refreshBlockedUntil` 0)
         WatchlistEntry(date: Date(), watches: WidgetData.sampleWatches, lastRefreshAt: TimeUtils.nowMillis,
                        lastDuration: 840, theme: theme, accent: SharedStorage.loadSettings().accentColor)
     }
@@ -90,10 +99,19 @@ struct WatchlistProvider: AppIntentTimelineProvider {
         // Zweiter Eintrag, sobald die Uhrzeit oder ein Kurs veraltet («veraltet · 06:42»)
         // (deaktivierte Paare werden nie «veraltet»)
         let times = [entry.lastRefreshAt] + entry.watches.filter { !$0.disabled && !ConnectionErrors.isNotTraded($0.lastError) }.map(\.lastUpdate)
-        let entries = WidgetOutdated.entries(entry, date: entry.date, times: times, afterMillis: entry.outdatedAfter) { date in
+        var entries = WidgetOutdated.entries(entry, date: entry.date, times: times, afterMillis: entry.outdatedAfter) { date in
             var later = entry
             later.date = date
             return later
+        }
+        // Nach einem Tipp in der Sperre: ein Eintrag zu ihrem Ende bringt das Symbol zurück (der Countdown davor
+        // zählt von selbst, kein Neuladen je Sekunde)
+        if let unlock = WidgetRefreshState.unlockAt(blockedUntil: entry.refreshBlockedUntil,
+                                                    now: Int64(entry.date.timeIntervalSince1970 * 1000)) {
+            let unlockDate = Date(timeIntervalSince1970: TimeInterval(unlock) / 1000)
+            var later = entries.last { $0.date <= unlockDate } ?? entry
+            later.date = unlockDate
+            entries = (entries + [later]).sorted { $0.date < $1.date }
         }
         // Kurse folgen erst noch: ein früher Neuversuch, höchstens einer je Takt (`WidgetCadence`)
         let reload = WidgetData.reload(kind: WidgetData.watchlistKind, wantsQuickRetry: refreshSoon || !pricesWritten)
@@ -172,7 +190,7 @@ private struct WatchlistListView: View {
             WidgetLogo(accent: entry.accent, dark: palette.dark, size: 18)
             WatchlistHeaderTitle(entry: entry, palette: palette,
                                  titleSizes: (normal: 13, small: 11), metaSize: 12)
-            WidgetRefreshButton(palette: palette, size: 26)
+            WidgetRefreshButton(palette: palette, size: 26, blockedUntil: entry.refreshBlockedUntil, date: entry.date)
         }
         .frame(height: 26)
     }
@@ -389,7 +407,7 @@ private struct WatchlistSmallView: View {
                 // «Merkliste» · «Uhrzeit · Dauer»; eng: kleinerer Titel, ohne Dauer, ohne Uhrzeit
                 WatchlistHeaderTitle(entry: entry, palette: palette,
                                      titleSizes: (normal: 12, small: 11), metaSize: 12)
-                WidgetRefreshButton(palette: palette, size: 24)
+                WidgetRefreshButton(palette: palette, size: 24, blockedUntil: entry.refreshBlockedUntil, date: entry.date)
             }
             Spacer(minLength: 4)
             if let watch {

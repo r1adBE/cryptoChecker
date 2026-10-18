@@ -212,6 +212,32 @@ enum WidgetRefresh {
         TimeUtils.nowMillis - SharedStorage.lastRefreshAt >= staleAfterMillis
     }
 
+    /// Knopf gesperrt bis (Wanduhr, ms; 0 = nie) — nach einem Tipp in der 15-s-Sperre (`WidgetRefreshState`).
+    /// Gilt für alle Merkliste-Widgets, wie die Sperre selbst.
+    static var blockedUntil: Int64 {
+        get { Int64(SharedStorage.defaults.double(forKey: blockedUntilKey)) }
+        set { SharedStorage.defaults.set(Double(newValue), forKey: blockedUntilKey) }
+    }
+    private static let blockedUntilKey = "widget_refresh_blocked_until"
+
+    /// Läuft gerade eine Aktualisierung aus den Widgets (in diesem Prozess oder, innerhalb der Frist, anderswo)?
+    static var isRunning: Bool {
+        runLock.lock()
+        let inProcess = runningInProcess
+        runLock.unlock()
+        return inProcess || runningSince > 0
+    }
+
+    /// Beginn der laufenden Aktualisierung aus den Widgets (ms, innerhalb der Frist); 0 = keine. Das
+    /// Merkliste-Widget unterscheidet so eine neu begonnene von der eben fertigen (`WidgetRefreshState.blockedUntil`).
+    static var runningSince: Int64 {
+        runLock.lock()
+        defer { runLock.unlock() }
+        let running = Int64(SharedStorage.defaults.double(forKey: runningKey))
+        let age = TimeUtils.nowMillis - running
+        return running > 0 && age >= 0 && age < runningTimeoutMillis ? running : 0
+    }
+
     /// Schützt Prüfen und Setzen von `runningKey` im selben Prozess: zwei gleichzeitige Timeline-Anfragen sahen sonst
     /// beide «frei» und aktualisierten doppelt. Prozessübergreifend bleibt der Zeitstempel in den App-Group-Defaults.
     private static let runLock = NSLock()

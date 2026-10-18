@@ -198,8 +198,9 @@ class PulseWidgetRenderer @Inject constructor(
                 views.setTextColor(R.id.pulse_lead, colors.textColor)
                 views.setInt(R.id.pulse_lead, "setMaxLines", PulseWidgetMath.leadLines(heightDp, headlineStyle.lines))
 
-                // Nebenzeile «Fear & Greed 72 · Gier · Top 30 ↗ 22 ↘ 8»: nur mittel/gross; passt
-                // nicht alles, zuerst Fear & Greed, sonst die Marktbreite — nie abgeschnitten
+                // Nebenzeile «Fear & Greed 72 · Gier · Top 30 ↗ 22 ↘ 8»: nur mittel/gross; passt nicht
+                // alles in eine Zeile, die Marktbreite in einer zweiten Zeile darunter (wenn die Höhe
+                // reicht), sonst zuerst Fear & Greed, dann die Marktbreite — nie abgeschnitten
                 val breadth = report.breadth
                 val period24h = context.getString(R.string.widget_range_short_24h)
                 // «Top 30 · 24h  ↗ 21  ↘ 9» — Marktbreite über 24 Stunden
@@ -208,23 +209,45 @@ class PulseWidgetRenderer @Inject constructor(
                 }
                 // Stufenpunkt «●» vor Fear & Greed (feste Skala, AA); gehört zur gemessenen Breite
                 val fearGreedShown = fearGreedText?.let { "$FNG_DOT $it" }
-                val sideText = listOfNotNull(
-                    listOfNotNull(fearGreedShown, breadthText).takeIf { it.size == 2 }?.joinToString(" · "),
-                    fearGreedShown,
-                    breadthText,
-                ).firstOrNull { text ->
-                    PulseWidgetMath.showsFearGreed(
-                        widgetWidthDp, heightDp, headlineStyle.lines, toolkit.textWidthDp(text, 12f, bold = false, tabular = true)
-                    )
+                val bothText = if (fearGreedShown != null && breadthText != null) "$fearGreedShown · $breadthText" else null
+                fun sideWidth(text: String?) = text?.let { toolkit.textWidthDp(it, 12f, bold = false, tabular = true) }
+                val sideLayout = PulseWidgetMath.sideLayout(
+                    widgetWidthDp, heightDp, headlineStyle.lines,
+                    fearGreedWidthDp = sideWidth(fearGreedShown),
+                    breadthWidthDp = sideWidth(breadthText),
+                    bothWidthDp = sideWidth(bothText),
+                )
+                val showFng = sideLayout?.showsFearGreed == true
+                val showBreadth = sideLayout?.showsBreadth == true
+                // Erste Nebenzeile: beides, Fear & Greed allein oder die Marktbreite allein; zweite nur bei TWO_LINES
+                val sideText = when (sideLayout) {
+                    PulseSideLayout.ONE_LINE -> bothText
+                    PulseSideLayout.TWO_LINES, PulseSideLayout.FEAR_GREED -> fearGreedShown
+                    PulseSideLayout.BREADTH -> breadthText
+                    null -> null
                 }
-                val showFng = sideText != null && fearGreedShown != null && sideText.contains(fearGreedShown)
-                val showBreadth = sideText != null && breadthText != null && sideText.contains(breadthText)
+                val secondText = breadthText.takeIf { sideLayout == PulseSideLayout.TWO_LINES }
                 views.setViewVisibility(R.id.pulse_fng, if (sideText != null) View.VISIBLE else View.GONE)
                 views.setTextViewText(
                     R.id.pulse_fng,
-                    sideText?.let { sideLine(it, fearGreedValue.takeIf { showFng }, fearGreedShown, breadth.takeIf { showBreadth }, colors, dark) } ?: ""
+                    sideText?.let {
+                        sideLine(
+                            it,
+                            fearGreedValue.takeIf { showFng },
+                            fearGreedShown,
+                            breadth.takeIf { showBreadth && secondText == null },
+                            colors,
+                            dark,
+                        )
+                    } ?: ""
                 )
                 views.setTextColor(R.id.pulse_fng, colors.secondaryTextColor)
+                views.setViewVisibility(R.id.pulse_breadth, if (secondText != null) View.VISIBLE else View.GONE)
+                views.setTextViewText(
+                    R.id.pulse_breadth,
+                    secondText?.let { sideLine(it, null, null, breadth, colors, dark) } ?: ""
+                )
+                views.setTextColor(R.id.pulse_breadth, colors.secondaryTextColor)
 
                 // Nur so viele Coins, wie ganz in die Breite passen (nie ein abgeschnittener)
                 val allCoins = PulseWidgetMath.coins(report, 3)

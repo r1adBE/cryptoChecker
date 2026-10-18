@@ -74,6 +74,8 @@ struct WatchlistScreen: View {
     @State var celebrating: [Int64: Int] = [:]
     /// Banner unten: «… wird jetzt überwacht», «… entfernt» (mit «Rückgängig»), Favorit.
     @State var banner: WatchlistBannerMessage?
+    /// 15-s-Sperre nach dem Aktualisieren: Countdown für «Aktualisieren (5)» im ⋯-Menü.
+    @State var refreshCountdown = WatchlistRefreshCountdown()
     /// Start-Auswahl übernommen: nach der Mitteilungs-Erlaubnis erst fragen, wenn das Banner mit «Alarm setzen» weg
     /// ist — sonst verdeckt die Erklärung genau diesen ersten Schritt (wie Android).
     @State var notificationAskPending = false
@@ -198,6 +200,10 @@ struct WatchlistScreen: View {
                 try? await Task.sleep(nanoseconds: 30_000_000_000)
                 now = TimeUtils.nowMillis
             }
+        }
+        // Countdown der 15-s-Sperre: nur solange die Merkliste sichtbar ist, neu nach jeder Aktualisierung
+        .task(id: "\(data.refreshing)-\(data.lastRefreshReport?.at ?? 0)") {
+            await refreshCountdown.run(refreshing: data.refreshing)
         }
         // Umrechnungsfaktoren: neu bei geänderter Einstellung oder anderen Quote-Währungen,
         // sonst höchstens alle 60 s.

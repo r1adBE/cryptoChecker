@@ -23,6 +23,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -38,6 +39,7 @@ import androidx.compose.ui.layout.layout
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
+import com.cryptochecker.app.domain.refresh.RefreshDebounce
 import com.cryptochecker.app.domain.watch.AlarmPulse
 import com.cryptochecker.app.domain.watch.QuickView
 import androidx.compose.ui.res.pluralStringResource
@@ -45,6 +47,7 @@ import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
 import com.cryptochecker.app.ui.components.AppMenuHead
+import kotlinx.coroutines.delay
 
 /**
  * Kopfzeile der Merkliste: links die Gruppen-Chips («Alle» und Gruppen, scrollbar, mit «+» für
@@ -158,7 +161,7 @@ internal fun WatchlistHeader(
                     onOpenAbout = actions.onOpenAbout,
                     onOpenAllAlarms = actions.onOpenAllAlarms,
                     refreshing = state.refreshing,
-                    canRefresh = actions.canRefresh,
+                    lastFullRefreshAt = actions.lastFullRefreshAt,
                     onRefresh = actions.onRefresh,
                     canSort = state.canSort,
                     onSort = actions.onSort,
@@ -250,7 +253,7 @@ private fun WatchlistMenu(
     onOpenAbout: () -> Unit,
     onOpenAllAlarms: () -> Unit,
     refreshing: Boolean,
-    canRefresh: () -> Boolean,
+    lastFullRefreshAt: () -> Long,
     onRefresh: () -> Unit,
     canSort: Boolean,
     onSort: () -> Unit,
@@ -263,6 +266,26 @@ private fun WatchlistMenu(
     onClearAll: () -> Unit,
 ) {
     var menuOpen by remember { mutableStateOf(false) }
+    // Eben erst aktualisiert: «Aktualisieren (5)», «(4)» … und dann von selbst wieder aktiv, auch bei
+    // offenem Menü. Nur solange es offen ist, einmal je Sekunde (genau auf der Sekundengrenze).
+    // Läuft eine, zeigt der Eintrag den Kreisel statt einer Zahl. Keine Ansage je Sekunde: Der
+    // Screenreader liest die neue Beschriftung, wenn er den Eintrag erreicht.
+    var cooldown by remember(menuOpen, refreshing) {
+        mutableIntStateOf(
+            if (!menuOpen || refreshing) 0
+            else RefreshDebounce.remainingSeconds(lastFullRefreshAt(), System.currentTimeMillis())
+        )
+    }
+    LaunchedEffect(menuOpen, refreshing) {
+        if (!menuOpen || refreshing) return@LaunchedEffect
+        while (true) {
+            val last = lastFullRefreshAt()
+            val now = System.currentTimeMillis()
+            cooldown = RefreshDebounce.remainingSeconds(last, now)
+            if (cooldown == 0) break
+            delay(RefreshDebounce.millisUntilNextChange(last, now))
+        }
+    }
     Box {
         IconButton(onClick = { menuOpen = true }) {
             Icon(
@@ -277,8 +300,9 @@ private fun WatchlistMenu(
                 onClose = { menuOpen = false },
                 onOpenAbout = onOpenAbout,
                 onRefresh = onRefresh,
-                // Eben erst aktualisiert: grau statt Meldung «Gerade aktualisiert»
-                refreshEnabled = remember(menuOpen, refreshing) { canRefresh() }
+                // Eben erst aktualisiert: grau mit Countdown statt Meldung «Gerade aktualisiert»
+                refreshEnabled = cooldown == 0,
+                refreshLabel = if (cooldown > 0) stringResource(R.string.watchlist_refresh_countdown, cooldown) else null,
             )
             DropdownMenuItem(
                 text = { Text(stringResource(R.string.alarms_overview_title)) },

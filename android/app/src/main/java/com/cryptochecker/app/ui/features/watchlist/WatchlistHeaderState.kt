@@ -56,8 +56,11 @@ internal data class WatchlistHeaderActions(
     val onOpenAllAlarms: () -> Unit,
     val onOpenAbout: () -> Unit,
     val onRefresh: () -> Unit,
-    /** «Aktualisieren» im Menü möglich? Beim Öffnen gefragt (läuft schon / eben erst fertig = grau). */
-    val canRefresh: () -> Boolean,
+    /**
+     * Ende der letzten vollständigen Aktualisierung (0 = noch keine). Bei offenem Menü gefragt: Eben erst
+     * fertig, ist «Aktualisieren» grau und zählt die Sekunden herunter ([com.cryptochecker.app.domain.refresh.RefreshDebounce]).
+     */
+    val lastFullRefreshAt: () -> Long,
     val onSort: () -> Unit,
     val onShowReport: () -> Unit,
     val onRemoveNotTraded: () -> Unit,

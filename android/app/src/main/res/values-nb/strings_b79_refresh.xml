@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
+    <string name="watchlist_refresh_countdown">Oppdater (%1$d)</string>
+    <!-- Merkliste: nach unten gezogen während der 15-s-Sperre (Banner) -->
+    <string name="watchlist_refresh_again_in">Mulig igjen om %1$d s</string>
+</resources>

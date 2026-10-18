@@ -88,6 +88,14 @@ class PriceRefresher @Inject constructor(
     /** true, solange eine vollständige Aktualisierung arbeitet (gleich welcher Herkunft). */
     val fullRefreshRunning: StateFlow<Boolean> = _fullRefreshRunning.asStateFlow()
 
+    /**
+     * Beginn der laufenden vollständigen Aktualisierung (ms); 0 = keine. Das Merkliste-Widget unterscheidet
+     * so eine neu begonnene von der eben fertigen, die noch unter der Sperre zeichnet ([WidgetRefreshState.blockedUntil]).
+     */
+    @Volatile
+    var fullRefreshStartedAt: Long = 0L
+        private set
+
     /** Späte Tages-Bezüge: läuft unabhängig vom Aufrufer weiter (App-weit, ein Singleton). */
     private val lateFillScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
@@ -146,11 +154,13 @@ class PriceRefresher @Inject constructor(
     }
 
     private suspend fun refreshAllGuarded(deadlineAt: Long?): RefreshSummary = refreshLock.withLock { lock ->
+        fullRefreshStartedAt = System.currentTimeMillis()
         _fullRefreshRunning.value = true
         try {
             refreshOnIo(lock, deadlineAt)
         } finally {
             _fullRefreshRunning.value = false
+            fullRefreshStartedAt = 0L
         }
     }
 

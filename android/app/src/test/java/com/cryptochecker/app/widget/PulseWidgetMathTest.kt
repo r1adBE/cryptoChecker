@@ -140,6 +140,62 @@ class PulseWidgetMathTest {
     }
 
     @Test
+    fun `Fear and Greed und Marktbreite - breit eine Zeile, mittel zwei Zeilen, wenig Hoehe wie bisher`() {
+        // Gemessene Breiten (dp): Fear & Greed 120, Marktbreite 130, beides mit « · » 260
+        fun layout(width: Int, height: Int, headlineLines: Int = 1, fng: Float? = 120f, breadth: Float? = 130f) =
+            PulseWidgetMath.sideLayout(
+                width, height, headlineLines,
+                fearGreedWidthDp = fng,
+                breadthWidthDp = breadth,
+                bothWidthDp = if (fng != null && breadth != null) 260f else null,
+            )
+        // Breit: beides in einer Zeile
+        assertEquals(PulseSideLayout.ONE_LINE, layout(400, 200))
+        // Mittel (250 dp, 224 dp nutzbar): untereinander in zwei Zeilen
+        assertEquals(PulseSideLayout.TWO_LINES, layout(250, 200))
+        assertEquals(PulseSideLayout.TWO_LINES, layout(250, 186))
+        // Höhe nur für eine Nebenzeile: wie bisher zuerst Fear & Greed
+        assertEquals(PulseSideLayout.FEAR_GREED, layout(250, 185))
+        assertEquals(PulseSideLayout.FEAR_GREED, layout(250, 168))
+        // Zweizeilige Schlagzeile braucht für zwei Nebenzeilen mehr Höhe
+        assertEquals(PulseSideLayout.FEAR_GREED, layout(250, 204, headlineLines = 2))
+        assertEquals(PulseSideLayout.TWO_LINES, layout(250, 205, headlineLines = 2))
+        // Marktbreite passt allein nicht in ihre Zeile: nie abgeschnitten, nur Fear & Greed
+        assertEquals(PulseSideLayout.FEAR_GREED, layout(250, 200, breadth = 230f))
+        // Fear & Greed passt nicht, die Marktbreite schon
+        assertEquals(PulseSideLayout.BREADTH, layout(250, 200, fng = 230f, breadth = 130f))
+        // Nur ein Teil vorhanden
+        assertEquals(PulseSideLayout.BREADTH, layout(250, 200, fng = null))
+        assertEquals(PulseSideLayout.FEAR_GREED, layout(250, 200, breadth = null))
+        assertNull(layout(250, 200, fng = null, breadth = null))
+        // Zu niedrig für jede Nebenzeile (klein, 2×2) oder zu schmal für jeden Teil
+        assertNull(layout(250, 167))
+        assertNull(layout(140, 220))
+        // Unbekannte Grösse: beides in einer Zeile
+        assertEquals(PulseSideLayout.ONE_LINE, layout(0, 0))
+    }
+
+    @Test
+    fun `Reihenfolge der Nebenzeilen wie iOS`() {
+        assertEquals(
+            listOf(PulseSideLayout.ONE_LINE, PulseSideLayout.TWO_LINES, PulseSideLayout.FEAR_GREED, PulseSideLayout.BREADTH),
+            PulseWidgetMath.sideCandidates(hasFearGreed = true, hasBreadth = true, twoLines = true),
+        )
+        assertEquals(
+            listOf(PulseSideLayout.ONE_LINE, PulseSideLayout.FEAR_GREED, PulseSideLayout.BREADTH),
+            PulseWidgetMath.sideCandidates(hasFearGreed = true, hasBreadth = true, twoLines = false),
+        )
+        assertEquals(listOf(PulseSideLayout.FEAR_GREED), PulseWidgetMath.sideCandidates(true, false, true))
+        assertEquals(listOf(PulseSideLayout.BREADTH), PulseWidgetMath.sideCandidates(false, true, true))
+        assertTrue(PulseWidgetMath.sideCandidates(false, false, true).isEmpty())
+        // Höhe für zwei Nebenzeilen: 150 + 2 × 18 dp (zweizeilige Schlagzeile + 19)
+        assertFalse(PulseWidgetMath.sideLinesFit(185, headlineLines = 1, sideLines = 2))
+        assertTrue(PulseWidgetMath.sideLinesFit(186, headlineLines = 1, sideLines = 2))
+        assertTrue(PulseWidgetMath.sideLinesFit(0, headlineLines = 2, sideLines = 2))
+        assertFalse(PulseWidgetMath.showsFearGreed(250, 185, headlineLines = 1, textWidthDp = 130f, sideLines = 2))
+    }
+
+    @Test
     fun `Zeitraum vor den Chips nimmt ihnen Platz weg`() {
         val widths = listOf(64f, 64f, 64f)
         // «24h» (≈ 18 dp) + 6 dp Abstand

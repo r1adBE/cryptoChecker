@@ -37,16 +37,9 @@ extension AppData {
         return outcome
     }
 
-    /// Würde «Aktualisieren» jetzt etwas tun? Nein, solange eine läuft oder die letzte erst 15 s
-    /// her ist — dann ist der Menüpunkt grau statt einer Meldung (wie Android `canRefreshNow`).
-    var canRefreshNow: Bool {
-        RefreshDebounce.decide(running: refreshing, lastFinishedAt: SharedStorage.lastRefreshAt,
-                               now: TimeUtils.nowMillis) == .start
-    }
-
     /// Nach unten ziehen bzw. Knopf oben: gesperrt, solange eine Aktualisierung läuft oder die
     /// letzte vollständige keine 15 s her ist (`RefreshDebounce`). Dann kein neuer Durchlauf —
-    /// der Menüpunkt ist grau (`canRefreshNow`). Live-Takt und neue Paare laufen ohne Sperre.
+    /// der Menüpunkt ist grau mit Countdown (`WatchlistMenuHead`). Live-Takt und neue Paare laufen ohne Sperre.
     @discardableResult
     func refreshAllByUser() async -> RefreshDebounce.Decision {
         let decision = RefreshDebounce.decide(running: refreshing, lastFinishedAt: SharedStorage.lastRefreshAt,

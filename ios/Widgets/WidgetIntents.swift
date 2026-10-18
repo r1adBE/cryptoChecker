@@ -363,6 +363,8 @@ struct PortfolioWidgetIntent: WidgetConfigurationIntent {
 
 /// Holt alle Kurse (mit Kurs-Mitteilungen und Kursalarmen) und zeichnet die Widgets neu. Alarme mit
 /// Zusatzdaten prüfen App und Hintergrund-Aufgabe — warum, siehe `WidgetRefresh`.
+/// Gleiche 15-s-Sperre wie die App (`WidgetRefreshState`, wie `PriceWidgetProvider` in Android): Läuft schon
+/// eine, nichts tun; eben erst fertig, nichts holen, sondern die Merkliste-Widgets mit Countdown zeichnen.
 struct RefreshPricesIntent: AppIntent {
     static let title: LocalizedStringResource = "action_refresh"
     static let isDiscoverable: Bool = false
@@ -370,8 +372,21 @@ struct RefreshPricesIntent: AppIntent {
     init() {}
 
     func perform() async throws -> some IntentResult {
-        await WidgetRefresh.run()
-        WidgetCenter.shared.reloadAllTimelines()
+        let tap = WidgetRefreshState.onTap(running: WidgetRefresh.isRunning,
+                                           lastFinishedAt: SharedStorage.lastRefreshAt,
+                                           now: TimeUtils.nowMillis)
+        switch tap {
+        case .start:
+            await WidgetRefresh.run()
+            WidgetCenter.shared.reloadAllTimelines()
+        case .running:
+            break
+        case .blocked(let until):
+            // Tipp auf den laufenden Countdown: der steht schon (samt Eintrag zum Ende)
+            guard WidgetRefresh.blockedUntil != until else { break }
+            WidgetRefresh.blockedUntil = until
+            WidgetData.reloadKinds([WidgetData.watchlistKind], reason: "Countdown")
+        }
         return .result()
     }
 }

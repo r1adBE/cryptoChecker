@@ -154,6 +154,15 @@ class WidgetPrefs @Inject constructor(
             ?: WidgetChartType.CANDLES
 
     /**
+     * Aktualisieren-Knopf der Listen-Widgets gesperrt bis (Wanduhr, ms; 0 = nie) — nach einem Tipp in der
+     * 15-s-Sperre ([com.cryptochecker.app.domain.refresh.WidgetRefreshState]). Gilt für alle Listen-Widgets,
+     * wie die Sperre selbst.
+     */
+    var refreshBlockedUntil: Long
+        get() = prefs.getLong(KEY_REFRESH_BLOCKED_UNTIL, 0L)
+        set(value) = prefs.edit { putLong(KEY_REFRESH_BLOCKED_UNTIL, value) }
+
+    /**
      * Wirksamer hoher Kontrast beim letzten Zeichnen der Widgets; null = noch nie
      * gezeichnet (oder vor diesem Update). Ändert sich der System-Kontrast, merkt
      * es die App beim nächsten Start und zeichnet neu.
@@ -201,6 +210,7 @@ class WidgetPrefs @Inject constructor(
     private companion object {
         const val FILE_NAME = "widgets"
         const val KEY_LAST_HIGH_CONTRAST = "last_high_contrast"
+        const val KEY_REFRESH_BLOCKED_UNTIL = "refresh_blocked_until"
         const val GROUP_PREFIX = "widget_group_"
     }
 }

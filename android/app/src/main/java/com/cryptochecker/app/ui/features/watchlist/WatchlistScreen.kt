@@ -59,6 +59,7 @@ import com.cryptochecker.app.R
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.domain.activity.ActivityAnalyzer
 import com.cryptochecker.app.domain.convert.CurrencyConversion
+import com.cryptochecker.app.domain.refresh.RefreshDebounce
 import com.cryptochecker.app.domain.watch.ActivityView
 import com.cryptochecker.app.domain.watch.AssetKind
 import com.cryptochecker.app.domain.watch.AutoGroup
@@ -300,8 +301,14 @@ fun WatchlistScreen(
     }
 
     // Alles aktualisieren (nach unten ziehen, Menü). Eben erst aktualisiert (unter 15 s): kein
-    // neuer Durchlauf und keine Meldung — der Menüpunkt ist dann grau ([WatchlistViewModel.canRefreshNow]).
-    val requestRefresh: () -> Unit = { viewModel.refreshAllByUser() }
+    // neuer Durchlauf — der Menüpunkt ist dann grau mit Countdown ([WatchlistMenu]); wer zieht, sieht
+    // kurz «Wieder möglich in N s» statt nichts (der Kreisel springt gleich zurück, isRefreshing bleibt aus).
+    val requestRefresh: () -> Unit = {
+        if (viewModel.refreshAllByUser() == RefreshDebounce.Decision.RECENT) {
+            val seconds = RefreshDebounce.remainingSeconds(viewModel.lastFullRefreshAt(), System.currentTimeMillis())
+            if (seconds > 0) banner.show(resources.getString(R.string.watchlist_refresh_again_in, seconds))
+        }
+    }
     // Nach links wischen, Screenreader-Aktion «Löschen» und «Löschen» im Aktionen-Blatt:
     // ohne Rückfrage, mit «Rückgängig» (derselbe Weg überall)
     val deleteWithUndo: (WatchEntity) -> Unit = { watch ->
@@ -502,7 +509,7 @@ fun WatchlistScreen(
                                     onOpenAllAlarms = onOpenAllAlarms,
                                     onOpenAbout = onOpenAbout,
                                     onRefresh = requestRefresh,
-                                    canRefresh = viewModel::canRefreshNow,
+                                    lastFullRefreshAt = viewModel::lastFullRefreshAt,
                                     // Manuelles Sortieren zeigt die eigene Reihenfolge: Spalten-Sortierung aus
                                     onSort = {
                                         viewModel.clearColumnSort()

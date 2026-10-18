@@ -1,3 +1,4 @@
+import Accessibility
 import SwiftUI
 
 /// Die Liste unter dem festen Kopf: Puls, Hinweise, Paare — wie `WatchlistList.kt`. «Hier passiert
@@ -55,8 +56,8 @@ extension WatchlistScreen {
         // Anker für «Zum Anfang» (Kopfzeile und Status stehen fest über der Liste): die erste
         // Zeile über den Paaren — Puls, sonst Hinweis. Keine eigene leere Zeile (eine Listenzeile
         // ist mindestens 44 pt hoch); ohne solche Zeile das erste Paar.
-        let gestureHint = !data.settings.gestureHintSeen && onboarding.gestureHint
-        let showHint = sorting || gestureHint
+        let showGestureHint = !data.settings.gestureHintSeen && onboarding.gestureHint
+        let showHint = sorting || showGestureHint
         let topAnchor: WatchlistTopAnchor = pulse != nil ? .pulse : showHint ? .hint : .none
         return List {
             // «↗ 7 steigen · ↘ 3 fallen · Ø +1.80%» — erste Zeile unter dem festen Kopf, scrollt mit
@@ -121,7 +122,7 @@ extension WatchlistScreen {
                     .padding(.horizontal, 4)
                     .plainRow(top: 2, bottom: ListSegment.spacing)
                     .id(topAnchor == .hint ? WatchlistJump.topId : "watchlist-sort-hint")
-            } else if gestureHint {
+            } else if showGestureHint {
                 // Einmaliger Gesten-Hinweis, bleibt bis er weggeklickt wird.
                 gestureHint
                     .plainRow(top: 2, bottom: ListSegment.spacing)
@@ -252,9 +253,17 @@ extension WatchlistScreen {
     }
 
     /// Alles aktualisieren (nach unten ziehen, Menü). Eben erst aktualisiert (unter 15 s): kein
-    /// neuer Durchlauf und keine Meldung — der Menüpunkt ist dann grau (`AppData.canRefreshNow`).
+    /// neuer Durchlauf — der Menüpunkt ist dann grau mit Countdown (`WatchlistMenuHead`); wer zieht,
+    /// sieht kurz «Wieder möglich in N s» statt nichts (der Kreisel springt gleich zurück).
     func refreshByUser() async {
-        _ = await data.refreshAllByUser()
+        guard await data.refreshAllByUser() == .recent else { return }
+        let seconds = RefreshDebounce.remainingSeconds(lastFinishedAt: SharedStorage.lastRefreshAt,
+                                                       now: TimeUtils.nowMillis)
+        guard seconds > 0 else { return }
+        let text = L("watchlist_refresh_again_in", seconds)
+        banner = WatchlistBannerMessage(text: text, icon: "clock")
+        // Einmal ansagen wie das Banner unter Android (TalkBack liest Snackbars selbst)
+        AccessibilityNotification.Announcement(text).post()
     }
 
     /// `section`: sichtbare Abteilung (Favoriten bzw. übrige) für «Nach oben/unten» in VoiceOver.

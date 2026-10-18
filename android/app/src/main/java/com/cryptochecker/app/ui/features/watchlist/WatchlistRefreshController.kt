@@ -64,7 +64,7 @@ internal class WatchlistRefreshController(
      * Nach unten ziehen bzw. Knopf oben: direkt in einer App-weiten Coroutine
      * ([ManualRefresh]), nicht über WorkManager — läuft auch nach dem Schliessen der
      * App zu Ende. Gesperrt, solange eine läuft oder die letzte keine 15 s her ist
-     * ([RefreshDebounce]); dann zeigt die Merkliste kurz «Gerade aktualisiert».
+     * ([RefreshDebounce]); dann zeigt die Merkliste kurz «Wieder möglich in N s».
      */
     fun refreshAllByUser(): RefreshDebounce.Decision =
         manualRefresh.request(otherRunning = refreshing.value).also {
@@ -73,14 +73,10 @@ internal class WatchlistRefreshController(
         }
 
     /**
-     * Würde «Aktualisieren» jetzt etwas tun? Nein, solange eine läuft oder die letzte erst
-     * [RefreshDebounce.WINDOW_MILLIS] her ist — dann ist der Menüpunkt grau (statt einer Meldung).
+     * Ende der letzten vollständigen Aktualisierung (0 = noch keine): Daraus zählt «Aktualisieren»
+     * im Menü die Sekunden der Sperre herunter ([RefreshDebounce.remainingSeconds]).
      */
-    fun canRefreshNow(): Boolean = RefreshDebounce.decide(
-        running = refreshing.value,
-        lastFinishedAt = refreshStats.lastRefresh(),
-        now = System.currentTimeMillis(),
-    ) == RefreshDebounce.Decision.START
+    fun lastFullRefreshAt(): Long = refreshStats.lastRefresh()
 
     /** Ohne 15-s-Sperre, z. B. gleich nach dem Hinzufügen neuer Paare. */
     fun refreshAll() {
