@@ -51,7 +51,8 @@ import com.cryptochecker.app.ui.components.AppMenuHead
  * eine neue Gruppe), rechts die Glocke (nur mit aktiven Alarmen) und fest das Überlaufmenü. Die LazyRow der Chips schneidet
  * in Laufrichtung ab, sie läuft also nicht unter die Knöpfe. Im Sortiermodus statt der Knöpfe
  * «Fertig». «Paar hinzufügen» steht rechts neben der Lupe ([WatchlistStatusRow]).
- * Gibt es noch keine Chips, steht dort ab einigen Paaren ein grauer Hinweis ([showsGroupsHint]).
+ * Gibt es noch keine Chips, steht dort ab einigen Paaren ein grauer Hinweis ([showsGroupsHint]) — erst nach dem
+ * ersten Gebrauch ([com.cryptochecker.app.domain.watch.WatchlistOnboarding]).
  */
 @Composable
 internal fun WatchlistHeader(
@@ -76,7 +77,7 @@ internal fun WatchlistHeader(
             } else if (
                 showsGroupsHint(
                     state.groups, state.selectedGroup, state.hasFavorites, state.hasActivity, state.quickView,
-                    state.searching, state.sortMode, state.hasAlpha, state.pairCount,
+                    state.searching, state.sortMode, state.hasAlpha, state.pairCount, state.groupsHintAllowed,
                 )
             ) {
                 // Noch keine Chips: grauer Hinweis statt leerer Zeile, daneben «Neue Gruppe» (wie iOS) — sonst
@@ -189,7 +190,9 @@ internal fun showsGroupsHint(
     hasAlpha: Boolean = false,
     /** Paare in der Merkliste: der Hinweis erst ab [GROUPS_HINT_MIN_PAIRS] (G-14, erster Gebrauch ruhig). */
     pairCount: Int = GROUPS_HINT_MIN_PAIRS,
-): Boolean = quickView == null && !searching && !sortMode && pairCount >= GROUPS_HINT_MIN_PAIRS &&
+    /** Erster Gebrauch vorbei ([com.cryptochecker.app.domain.watch.WatchlistOnboarding.Visible.groupsHint]). */
+    onboarded: Boolean = true,
+): Boolean = onboarded && quickView == null && !searching && !sortMode && pairCount >= GROUPS_HINT_MIN_PAIRS &&
     !showsGroupChips(groups, selected, hasFavorites, hasActivity, hasAlpha)
 
 

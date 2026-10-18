@@ -142,6 +142,16 @@ data class AppSettings(
     /** Die Karte «Ersten Alarm setzen» über der Merkliste wurde geschlossen. */
     val firstAlarmCardDismissed: Boolean = false,
 
+    /**
+     * Verschiedene Tage, an denen die App offen war ([com.cryptochecker.app.domain.watch.UsageDays]): ab 3 zeigt die
+     * Merkliste auch ohne Alarm Puls und Hinweise ([com.cryptochecker.app.domain.watch.WatchlistOnboarding]).
+     * Nur auf diesem Gerät, nicht in der Sicherung.
+     */
+    val usageDays: Int = 0,
+
+    /** Lokaler Epoch-Tag des letzten gezählten Öffnens ([usageDays]); null = noch nie. */
+    val usageLastDay: Long? = null,
+
     /** Der Willkommensdialog wurde bereits bestätigt. */
     val aboutSeen: Boolean = false,
 

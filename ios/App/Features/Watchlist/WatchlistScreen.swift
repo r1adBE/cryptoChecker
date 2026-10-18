@@ -23,6 +23,8 @@ struct WatchlistScreen: View {
     @Environment(\.colorScheme) var colorScheme
     /// Mit VoiceOver keine Wisch-Aktionen — dort gibt es dieselben Aktionen im Rotor.
     @Environment(\.accessibilityVoiceOverEnabled) var voiceOver
+    /// Vordergrund: Tage mit offener App zählen (`WatchlistOnboarding`).
+    @Environment(\.scenePhase) var scenePhase
 
     // Uhr für «vor 2 Min.» — alle 30 Sekunden neu
     @State var now: Int64 = TimeUtils.nowMillis
@@ -308,6 +310,10 @@ struct WatchlistScreen: View {
             }
             .onAppear { Task { await LivePriceStream.shared.setScreenVisible(true) } }
             .onDisappear { Task { await LivePriceStream.shared.setScreenVisible(false) } }
+            // Tage mit offener App zählen (erster Gebrauch): beim Erscheinen und bei jeder Rückkehr in den Vordergrund
+            .onChange(of: scenePhase, initial: true) { _, phase in
+                if phase == .active { recordUsageDay() }
+            }
             // App-Start messen: erstes Bild der Merkliste (nächster Durchlauf nach dem Erscheinen)
             .onAppear {
                 Task { @MainActor in

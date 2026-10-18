@@ -14,7 +14,8 @@ class WatchlistGroupsHintTest {
         favorites: Boolean = false,
         searching: Boolean = false,
         quickView: QuickView? = null,
-    ) = showsGroupsHint(groups, null, favorites, false, quickView, searching, false, pairCount = pairs)
+        onboarded: Boolean = true,
+    ) = showsGroupsHint(groups, null, favorites, false, quickView, searching, false, pairCount = pairs, onboarded = onboarded)
 
     @Test
     fun hintOnlyFromFivePairs() {
@@ -36,5 +37,12 @@ class WatchlistGroupsHintTest {
     fun noHintWhileSearchingOrInQuickView() {
         assertFalse(hint(pairs = 10, searching = true))
         assertFalse(hint(pairs = 10, quickView = QuickView.STALE))
+    }
+
+    @Test
+    fun noHintBeforeFirstUseIsOver() {
+        // Erster Bildschirm nur für Kurse und den ersten Alarm (WatchlistOnboarding)
+        assertFalse(hint(pairs = 10, onboarded = false))
+        assertTrue(hint(pairs = 10, onboarded = true))
     }
 }

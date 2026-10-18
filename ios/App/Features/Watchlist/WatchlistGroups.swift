@@ -172,11 +172,11 @@ struct WatchlistGroupChips: View {
 
     /// Hinweis «Hier erscheinen deine Gruppen» statt der Chips? Nur ohne Chips (`showsChips`),
     /// ab `hintMinPairs` Paaren und ohne vorübergehende Ansicht, Suche oder Sortieren — wie
-    /// Android `showsGroupsHint`.
+    /// Android `showsGroupsHint`. `onboarded`: erster Gebrauch vorbei (`WatchlistOnboarding.Visible.groupsHint`).
     nonisolated static func showsHint(groups: [String], selected: String?, hasFavorites: Bool, hasActivity: Bool,
                                       quickView: QuickView?, searching: Bool, sorting: Bool, hasAlpha: Bool = false,
-                                      pairCount: Int = hintMinPairs) -> Bool {
-        guard quickView == nil, !searching, !sorting, pairCount >= hintMinPairs else { return false }
+                                      pairCount: Int = hintMinPairs, onboarded: Bool = true) -> Bool {
+        guard onboarded, quickView == nil, !searching, !sorting, pairCount >= hintMinPairs else { return false }
         return !showsChips(groups: groups, selected: selected, hasFavorites: hasFavorites, hasActivity: hasActivity,
                            hasAlpha: hasAlpha)
     }

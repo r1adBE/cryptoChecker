@@ -29,7 +29,10 @@ extension WatchlistScreen {
         // Puls ganz oben in der Liste: nur die sichtbare Gruppe; nicht beim Suchen und Sortieren;
         // deaktivierte Paare zählen nicht mit
         let counted = DisabledView.active(watches) { $0.disabled }
-        let pulse = sorting || searching ? nil : WatchlistPulseStats.make(counted, view: data.changeView(now: now))
+        // Erster Gebrauch: kein Puls und kein Gesten-Hinweis, bis es einen Alarm gibt bzw. nach einigen Tagen
+        let onboarding = onboardingVisible
+        let pulse = sorting || searching || !onboarding.pulse
+            ? nil : WatchlistPulseStats.make(counted, view: data.changeView(now: now))
         // Während der Suche kein Sortieren — die Reihenfolge wäre mehrdeutig.
         let moveFavorites: ((IndexSet, Int) -> Void)? = searching ? nil : { from, to in
             var moved = favorites
@@ -52,7 +55,8 @@ extension WatchlistScreen {
         // Anker für «Zum Anfang» (Kopfzeile und Status stehen fest über der Liste): die erste
         // Zeile über den Paaren — Puls, sonst Hinweis. Keine eigene leere Zeile (eine Listenzeile
         // ist mindestens 44 pt hoch); ohne solche Zeile das erste Paar.
-        let showHint = sorting || !data.settings.gestureHintSeen
+        let gestureHint = !data.settings.gestureHintSeen && onboarding.gestureHint
+        let showHint = sorting || gestureHint
         let topAnchor: WatchlistTopAnchor = pulse != nil ? .pulse : showHint ? .hint : .none
         return List {
             // «↗ 7 steigen · ↘ 3 fallen · Ø +1.80%» — erste Zeile unter dem festen Kopf, scrollt mit
@@ -117,7 +121,7 @@ extension WatchlistScreen {
                     .padding(.horizontal, 4)
                     .plainRow(top: 2, bottom: ListSegment.spacing)
                     .id(topAnchor == .hint ? WatchlistJump.topId : "watchlist-sort-hint")
-            } else if !data.settings.gestureHintSeen {
+            } else if gestureHint {
                 // Einmaliger Gesten-Hinweis, bleibt bis er weggeklickt wird.
                 gestureHint
                     .plainRow(top: 2, bottom: ListSegment.spacing)
@@ -223,6 +227,28 @@ extension WatchlistScreen {
         .animation(.easeInOut(duration: 0.25), value: searching)
         .animation(.easeInOut(duration: 0.2), value: found.map(\.id))
         .animation(reduceMotion ? nil : .easeInOut(duration: 0.25), value: pulse == nil)
+    }
+
+    /// Erster Gebrauch (`WatchlistOnboarding`): Gruppen-Hinweis, Puls und Gesten-Hinweis erst nach dem ersten Alarm
+    /// (gleiche Zählung wie die Karte «Ersten Alarm setzen») oder an einigen verschiedenen Tagen — wie Android
+    /// `WatchlistUiState.onboarding`.
+    var onboardingVisible: WatchlistOnboarding.Visible {
+        WatchlistOnboarding.visible(alarmCount: totalAlarmCount, usageDays: data.settings.usageDays,
+                                    hasGroupsOrFavorites: !data.watchGroups.isEmpty || data.watches.contains { $0.favorite })
+    }
+
+    /// Öffnen heute zählen (lokaler Kalendertag), für `WatchlistOnboarding`. Nicht zugängliche Einstellungen (vor
+    /// dem ersten Entsperren) nicht anfassen — sie würden ohnehin nicht gespeichert.
+    func recordUsageDay() {
+        guard data.settingsAccessible else { return }
+        let current = UsageDays(count: data.settings.usageDays, lastDay: data.settings.usageLastDay)
+        let next = current.next(today: LocalDay.today().epochDay)
+        guard next != current else { return }
+        // Beide Felder in einem Schritt: ein Speichern statt zwei
+        var settings = data.settings
+        settings.usageDays = next.count
+        settings.usageLastDay = next.lastDay
+        data.settings = settings
     }
 
     /// Alles aktualisieren (nach unten ziehen, Menü). Eben erst aktualisiert (unter 15 s): kein

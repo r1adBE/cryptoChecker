@@ -22,11 +22,12 @@ class WatchlistHeaderStateTest {
         alarmCounts: Map<Long, Int> = emptyMap(),
         alarmTotal: Int? = null,
         refreshing: Boolean = false,
+        usageDays: Int = 0,
     ) = WatchlistUiState(
         content = WatchlistContent.Initial.copy(
             watches = watches, groupFilter = filter, alarmCounts = alarmCounts, alarmTotal = alarmTotal,
         ),
-        display = WatchlistDisplay.initial(AppSettings()),
+        display = WatchlistDisplay.initial(AppSettings(usageDays = usageDays)),
         live = WatchlistLive(
             refreshing = refreshing, online = true, liveExchanges = emptyList(), liveWatchIds = emptySet(),
             convertRates = emptyMap(), convertFxTimes = emptyMap(), sortRates = emptyMap(), changeStamp = null,
@@ -126,5 +127,15 @@ class WatchlistHeaderStateTest {
         assertTrue(h.selecting)
         assertTrue(h.searching)
         assertEquals(1, h.selectedCount)
+    }
+
+    @Test
+    fun groupsHintOnlyAfterFirstUse() {
+        val pairs = (1L..6L).map { watch(it) }
+        // Kein Alarm, erster Tag: kein Gruppen-Hinweis
+        assertFalse(header(uiState(pairs, alarmTotal = 0, usageDays = 1)).groupsHintAllowed)
+        // Erster Alarm (auch ausgeschaltet zählt in alarmTotal) bzw. drei Tage: Hinweis wie bisher
+        assertTrue(header(uiState(pairs, alarmTotal = 1)).groupsHintAllowed)
+        assertTrue(header(uiState(pairs, alarmTotal = 0, usageDays = 3)).groupsHintAllowed)
     }
 }

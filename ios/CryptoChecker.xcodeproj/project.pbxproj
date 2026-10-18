@@ -339,6 +339,7 @@
 		516F735DA076F0B571EFA720 /* OkexFutures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6710228B42DBF603F45A78F2 /* OkexFutures.swift */; };
 		51AC71A455605357A46E0FC0 /* BackgroundSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D87A8A26C1936589F0B97F7 /* BackgroundSchedule.swift */; };
 		51BDB453D3D4BA096BC8323A /* WatchGroupEditSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B39D8BAD7215BDF040A2BC0 /* WatchGroupEditSheet.swift */; };
+		51E8C462021D2B6570FBBF07 /* WatchlistOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA52F005D9E6E7E93CE46E16 /* WatchlistOnboarding.swift */; };
 		51EFD02FA9FF904C94F993A3 /* RefreshReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A137C7250B91DC297548F7A /* RefreshReport.swift */; };
 		520E86B0CECF6972D4D76165 /* DerivativesAlarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810650FA130DEE10F93D90C2 /* DerivativesAlarm.swift */; };
 		523ACE963608ED48DDF57DCC /* SettingsComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4927AE25342E9AB0D0AD57D /* SettingsComponents.swift */; };
@@ -923,6 +924,7 @@
 		E742A2327EA5D1C4E21BDE2C /* JsonUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C9EF95634445D25B21AD3C /* JsonUtils.swift */; };
 		E784715C795AFE356AF03668 /* LicensesSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062EBF3F3BC7E1C50D2D68C3 /* LicensesSheet.swift */; };
 		E79B363324E04F0C6D45C5CC /* WatchlistActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232E83116FFEEE100C124589 /* WatchlistActivity.swift */; };
+		E7EB5E43F0061D6CEF45F718 /* WatchlistOnboardingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B830C5714E23B5E6F0B81CDB /* WatchlistOnboardingTests.swift */; };
 		E839F7A288CC31FDE3F7C365 /* recorded_bithumb.json in Resources */ = {isa = PBXBuildFile; fileRef = F941209BDCC2E30EB13F1DAF /* recorded_bithumb.json */; };
 		E8709AA6778BBBF900B6341B /* SpotDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC27B799A8F6439E703EEC30 /* SpotDataSource.swift */; };
 		E89E9908927F2AD76E82EE1B /* cc_pulse.wav in Resources */ = {isa = PBXBuildFile; fileRef = 449FDB49E57CE06953EBC857 /* cc_pulse.wav */; };
@@ -1553,6 +1555,7 @@
 		A96AAB8BDEE11212C7676607 /* recorded_bybit.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = recorded_bybit.json; sourceTree = "<group>"; };
 		A9AA1168F8B6869B63CE6A31 /* recorded_cryptocom.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = recorded_cryptocom.json; sourceTree = "<group>"; };
 		A9B27474755B4648CF89E2CC /* PortfolioCostFx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioCostFx.swift; sourceTree = "<group>"; };
+		AA52F005D9E6E7E93CE46E16 /* WatchlistOnboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistOnboarding.swift; sourceTree = "<group>"; };
 		AA9523986BD02B3D4F16C162 /* ExplorerDex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorerDex.swift; sourceTree = "<group>"; };
 		AAC6D271D16532B9009B4435 /* CsvImportMappingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CsvImportMappingTests.swift; sourceTree = "<group>"; };
 		AB1C4C57702EAAA6BF339CEB /* SettingsGeneralPages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsGeneralPages.swift; sourceTree = "<group>"; };
@@ -1595,6 +1598,7 @@
 		B744AE9B72E52DE0A78D20AA /* near_extreme.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = near_extreme.json; sourceTree = "<group>"; };
 		B7AB34B61FE0CE13483FFFF4 /* market_failure.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = market_failure.json; sourceTree = "<group>"; };
 		B7E03D73B710B5A9EFD4EC4F /* ActivityAnalysisGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityAnalysisGate.swift; sourceTree = "<group>"; };
+		B830C5714E23B5E6F0B81CDB /* WatchlistOnboardingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistOnboardingTests.swift; sourceTree = "<group>"; };
 		B87B7A32DE58A86D50B41B37 /* WidgetFreshness.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetFreshness.swift; sourceTree = "<group>"; };
 		B8955182571DBFE4C90F8443 /* PriceNotificationRuleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceNotificationRuleTests.swift; sourceTree = "<group>"; };
 		B975B8A82E730C551CCB2E50 /* TokenIdentityStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenIdentityStore.swift; sourceTree = "<group>"; };
@@ -2398,6 +2402,7 @@
 				99D6EEBACDEBE145674A102C /* WatchlistJump.swift */,
 				B68861A2F6D5B0CF43A3AA70 /* WatchlistList.swift */,
 				A6F01E64933D8F0D0F14BB79 /* WatchlistLiveBadge.swift */,
+				AA52F005D9E6E7E93CE46E16 /* WatchlistOnboarding.swift */,
 				B3DEA78F2E1CDF753A49D182 /* WatchlistPulse.swift */,
 				231886E96F0CFED88C007C3C /* WatchlistRow.swift */,
 				B621A66BA5FDB40A15E58929 /* WatchlistRowParts.swift */,
@@ -2753,6 +2758,7 @@
 				A5D90F038079B1AF31576693 /* WatchIdentityTests.swift */,
 				6572CAFECD700DE8577CB113 /* WatchlistGroupsHintTests.swift */,
 				D114115DF19B1DF0D47F6BA1 /* WatchlistJumpTests.swift */,
+				B830C5714E23B5E6F0B81CDB /* WatchlistOnboardingTests.swift */,
 				4A9786FFC138900292F052B7 /* WatchlistRestoreCleanupTests.swift */,
 				56425AB08401162F524C5198 /* WhyAnalysisParityTests.swift */,
 				F23783A7054EE683E295D81C /* WhyFactorsTests.swift */,
@@ -3612,6 +3618,7 @@
 				552D1DB42FDAFAB35C55817E /* WatchIdentityTests.swift in Sources */,
 				16C6087B6D8E19847DF812CD /* WatchlistGroupsHintTests.swift in Sources */,
 				7817ECB567C6C2E4CC9D08F3 /* WatchlistJumpTests.swift in Sources */,
+				E7EB5E43F0061D6CEF45F718 /* WatchlistOnboardingTests.swift in Sources */,
 				FD80B6FB514F130F81BB058E /* WatchlistRestoreCleanupTests.swift in Sources */,
 				78B26BC2521139FF445BB6F3 /* WhyAnalysisParityTests.swift in Sources */,
 				1986BD6887FFED1C57EBC805 /* WhyFactorsTests.swift in Sources */,
@@ -4017,6 +4024,7 @@
 				0EEB89EE1B69BEEC2F772FD4 /* WatchlistJump.swift in Sources */,
 				58080B444A7A4EA4119625A5 /* WatchlistList.swift in Sources */,
 				A288A873D3C751F0D80E2002 /* WatchlistLiveBadge.swift in Sources */,
+				51E8C462021D2B6570FBBF07 /* WatchlistOnboarding.swift in Sources */,
 				3395AC4FAD0F47C20DE67ABF /* WatchlistPulse.swift in Sources */,
 				47CDBB81CDEACF59B9A76A49 /* WatchlistRow.swift in Sources */,
 				1BDD288C8CC50A81B70B8CC9 /* WatchlistRowParts.swift in Sources */,

@@ -22,6 +22,7 @@ class SettingsSlicesTest {
             sheetChartLine = true,
             gestureHintSeen = true,
             firstAlarmCardDismissed = true,
+            usageDays = 2,
             backgroundIntervalMinutes = 30,
             showChangePeriod = true,
             priceNotifications = false,
@@ -38,6 +39,7 @@ class SettingsSlicesTest {
         assertEquals(true, w.sheetChartLine)
         assertEquals(true, w.gestureHintSeen)
         assertEquals(true, w.firstAlarmCardDismissed)
+        assertEquals(2, w.usageDays)
         assertEquals(30, w.backgroundIntervalMinutes)
         assertEquals(s.changeBasis, w.changeBasis)
         assertEquals(true, w.showChangePeriod)

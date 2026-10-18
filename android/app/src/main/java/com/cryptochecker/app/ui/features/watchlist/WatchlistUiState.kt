@@ -14,6 +14,7 @@ import com.cryptochecker.app.domain.watch.ChangeStamp
 import com.cryptochecker.app.domain.watch.ColumnSort
 import com.cryptochecker.app.domain.watch.LiveStatus
 import com.cryptochecker.app.domain.watch.WatchFilter
+import com.cryptochecker.app.domain.watch.WatchlistOnboarding
 import com.cryptochecker.app.settings.AppSettings
 import com.cryptochecker.app.settings.WatchlistSettings
 
@@ -37,6 +38,17 @@ data class WatchlistUiState(
 
     /** Art je Paar (Symbol vor der Glocke, «Alpha»-Chip). */
     val kinds: Map<Long, AssetKind> get() = content.groupFilter?.kinds.orEmpty()
+
+    /**
+     * Erster Gebrauch ([WatchlistOnboarding]): Gruppen-Hinweis, Puls und Gesten-Hinweis erst nach dem ersten Alarm
+     * (gleiche Zählung wie die Karte «Ersten Alarm setzen») oder an einigen verschiedenen Tagen.
+     */
+    val onboarding: WatchlistOnboarding.Visible
+        get() = WatchlistOnboarding.visible(
+            alarmCount = content.alarmTotal,
+            usageDays = display.usageDays,
+            hasGroupsOrFavorites = groups.isNotEmpty() || watches.any { it.favorite },
+        )
 }
 
 /** Gespeicherte Merkliste und was aus der Datenbank daran hängt (Gruppen, Alarme, Aktivität). */
@@ -93,6 +105,8 @@ data class WatchlistDisplay(
     val showGestureHint: Boolean,
     /** Karte «Ersten Alarm setzen» geschlossen. */
     val firstAlarmCardDismissed: Boolean,
+    /** Verschiedene Tage mit offener App ([WatchlistOnboarding]). */
+    val usageDays: Int,
     val activitySensitivity: ActivitySensitivity,
     /** Chart-Art im Aktionsblatt (Linie statt Kerzen). */
     val sheetChartLine: Boolean,
@@ -109,6 +123,7 @@ data class WatchlistDisplay(
             priceNotificationsOn = s.priceNotifications,
             showGestureHint = !s.gestureHintSeen,
             firstAlarmCardDismissed = s.firstAlarmCardDismissed,
+            usageDays = s.usageDays,
             activitySensitivity = s.activitySensitivity,
             sheetChartLine = s.sheetChartLine,
         )

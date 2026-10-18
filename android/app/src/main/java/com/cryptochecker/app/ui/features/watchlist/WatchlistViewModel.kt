@@ -293,6 +293,11 @@ class WatchlistViewModel @Inject constructor(
         viewModelScope.launch { settingsRepository.setFirstAlarmCardDismissed(true) }
     }
 
+    /** Öffnen heute zählen (lokaler Kalendertag), für [com.cryptochecker.app.domain.watch.WatchlistOnboarding]. */
+    fun recordUsageDay() {
+        viewModelScope.launch { settingsRepository.recordUsageDay(java.time.LocalDate.now().toEpochDay()) }
+    }
+
     /**
      * Darstellung aus den Einstellungen ([WatchlistDisplay]), darunter EINE Frische-Schwelle für alles, was
      * «veraltet» zeigt: Status-Pille (Zählung), abgeblasste Zeile, rote Zeit, das Wort «veraltet» und der

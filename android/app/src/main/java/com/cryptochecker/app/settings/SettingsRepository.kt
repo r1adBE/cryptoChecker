@@ -12,6 +12,7 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.floatPreferencesKey
 import androidx.datastore.preferences.core.intPreferencesKey
+import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.cryptochecker.app.domain.activity.ActivitySensitivity
@@ -22,6 +23,7 @@ import com.cryptochecker.app.domain.portfolio.CostMethod
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryRange
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryView
 import com.cryptochecker.app.domain.watch.ChangeBasis
+import com.cryptochecker.app.domain.watch.UsageDays
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -184,6 +186,8 @@ class SettingsRepository @Inject constructor(
         val developerUnlocked = booleanPreferencesKey("developer_unlocked")
         val gestureHintSeen = booleanPreferencesKey("gesture_hint_seen")
         val firstAlarmCardDismissed = booleanPreferencesKey("first_alarm_card_dismissed")
+        val usageDays = intPreferencesKey("usage_days")
+        val usageLastDay = longPreferencesKey("usage_last_day")
         // «zone_alerts» (Meldung «Marktphase gewechselt») gibt es nicht mehr; der Schlüssel bleibt unbenutzt liegen
         val fearGreedBelow = intPreferencesKey("fear_greed_below")
         val fearGreedAbove = intPreferencesKey("fear_greed_above")
@@ -281,6 +285,8 @@ class SettingsRepository @Inject constructor(
             developerUnlocked = prefs[Keys.developerUnlocked] ?: defaults.developerUnlocked,
             gestureHintSeen = prefs[Keys.gestureHintSeen] ?: defaults.gestureHintSeen,
             firstAlarmCardDismissed = prefs[Keys.firstAlarmCardDismissed] ?: defaults.firstAlarmCardDismissed,
+            usageDays = prefs[Keys.usageDays] ?: defaults.usageDays,
+            usageLastDay = prefs[Keys.usageLastDay],
             fearGreedBelow = prefs[Keys.fearGreedBelow] ?: defaults.fearGreedBelow,
             fearGreedAbove = prefs[Keys.fearGreedAbove] ?: defaults.fearGreedAbove,
             indicatorAlerts = IndicatorAlertKind.entries
@@ -457,6 +463,13 @@ class SettingsRepository @Inject constructor(
     suspend fun setGestureHintSeen(seen: Boolean) = edit { it[Keys.gestureHintSeen] = seen }
 
     suspend fun setFirstAlarmCardDismissed(dismissed: Boolean) = edit { it[Keys.firstAlarmCardDismissed] = dismissed }
+
+    /** Öffnen am lokalen Epoch-Tag [today] zählen ([UsageDays.next]); derselbe Tag schreibt nichts Neues. */
+    suspend fun recordUsageDay(today: Long) = edit {
+        val next = UsageDays(it[Keys.usageDays] ?: 0, it[Keys.usageLastDay]).next(today)
+        it[Keys.usageDays] = next.count
+        next.lastDay?.let { day -> it[Keys.usageLastDay] = day }
+    }
 
     suspend fun setFearGreedBelow(value: Int) = edit { it[Keys.fearGreedBelow] = value.coerceIn(0, 100) }
 

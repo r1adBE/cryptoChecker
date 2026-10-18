@@ -62,6 +62,11 @@ struct AppSettings: Codable, Equatable, Sendable {
     var gestureHintSeen: Bool = false
     /// Die Karte «Ersten Alarm setzen» über der Merkliste wurde geschlossen (wie Android).
     var firstAlarmCardDismissed: Bool = false
+    /// Verschiedene Tage, an denen die App offen war (`UsageDays`): ab 3 zeigt die Merkliste auch ohne Alarm Puls und
+    /// Hinweise (`WatchlistOnboarding`). Gleicher Schlüssel wie Android; nur auf diesem Gerät, nicht in der Sicherung.
+    var usageDays: Int = 0
+    /// Lokaler Epoch-Tag des letzten gezählten Öffnens (`usageDays`); nil = noch nie.
+    var usageLastDay: Int? = nil
     var aboutSeen: Bool = false
     /// Gewählte Gruppe der Merkliste; nil = «Alle».
     var watchlistGroup: String? = nil
@@ -273,6 +278,8 @@ struct AppSettings: Codable, Equatable, Sendable {
         gestureHintSeen = (try? c.decodeIfPresent(Bool.self, forKey: .gestureHintSeen)) ?? d.gestureHintSeen
         firstAlarmCardDismissed = (try? c.decodeIfPresent(Bool.self, forKey: .firstAlarmCardDismissed))
             ?? d.firstAlarmCardDismissed
+        usageDays = (try? c.decodeIfPresent(Int.self, forKey: .usageDays)) ?? d.usageDays
+        usageLastDay = (try? c.decodeIfPresent(Int.self, forKey: .usageLastDay)) ?? nil
         aboutSeen = (try? c.decodeIfPresent(Bool.self, forKey: .aboutSeen)) ?? d.aboutSeen
         watchlistGroup = try? c.decodeIfPresent(String.self, forKey: .watchlistGroup)
         activityAlerts = (try? c.decodeIfPresent(Bool.self, forKey: .activityAlerts)) ?? d.activityAlerts

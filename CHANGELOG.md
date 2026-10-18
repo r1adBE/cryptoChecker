@@ -31,6 +31,8 @@ Review fixes before the store.
   longer reaches into the neighbouring row.
 * Store release notes: «current prices» instead of «live».
 * CI: a parity check fails if the shared test data of Android and iPhone ever differ.
+* First start shows one task: prices and «Set your first alert»; the groups hint, the market pulse row and the gesture
+  hint appear after the first alert or after three days of use.
 
 ## 16.2.2 (build 78)
 

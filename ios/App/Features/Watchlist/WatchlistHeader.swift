@@ -36,7 +36,8 @@ extension WatchlistScreen {
     /// eine neue Gruppe), rechts die Glocke (nur mit aktiven Alarmen) und fest das Menü (darin oben Logo und
     /// App-Name). «Paar hinzufügen» steht neben der Lupe (`statusRow`). Tippflächen 44 pt; Knöpfe
     /// mit `.borderless`, sonst löste ein Tipp in der Listenzeile alle Knöpfe zugleich aus.
-    /// Gibt es noch keine Chips, steht dort ab einigen Paaren ein grauer Hinweis (`WatchlistGroupChips.showsHint`).
+    /// Gibt es noch keine Chips, steht dort ab einigen Paaren ein grauer Hinweis (`WatchlistGroupChips.showsHint`) —
+    /// erst nach dem ersten Gebrauch (`WatchlistOnboarding`).
     private func headerRow(_ watches: [Watch], groups: [String], selectedGroup: String?,
                            hasActivity: Bool) -> some View {
         let hasFavorites = data.watches.contains { $0.favorite }
@@ -46,7 +47,9 @@ extension WatchlistScreen {
             hasActivity: hasActivity && !sorting, quickView: quickView,
             searching: searching, sorting: sorting, hasAlpha: hasAlpha,
             // Erster Gebrauch: Hinweis erst ab einigen Paaren (G-14)
-            pairCount: data.watches.count
+            pairCount: data.watches.count,
+            // Erster Bildschirm nur für Kurse und den ersten Alarm: Gruppen-Hinweis erst danach (WatchlistOnboarding)
+            onboarded: onboardingVisible.groupsHint
         )
         return HStack(spacing: 0) {
             if selecting {

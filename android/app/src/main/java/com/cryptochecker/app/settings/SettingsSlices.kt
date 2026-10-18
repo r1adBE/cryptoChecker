@@ -25,6 +25,8 @@ data class WatchlistSettings(
     val sheetChartLine: Boolean,
     val gestureHintSeen: Boolean,
     val firstAlarmCardDismissed: Boolean,
+    /** Verschiedene Tage mit offener App ([com.cryptochecker.app.domain.watch.WatchlistOnboarding]). */
+    val usageDays: Int,
     val backgroundIntervalMinutes: Int,
     val changeBasis: ChangeBasis,
     val showChangePeriod: Boolean,
@@ -43,6 +45,7 @@ data class WatchlistSettings(
             sheetChartLine = s.sheetChartLine,
             gestureHintSeen = s.gestureHintSeen,
             firstAlarmCardDismissed = s.firstAlarmCardDismissed,
+            usageDays = s.usageDays,
             backgroundIntervalMinutes = s.backgroundIntervalMinutes,
             changeBasis = s.changeBasis,
             showChangePeriod = s.showChangePeriod,

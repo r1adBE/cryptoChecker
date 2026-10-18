@@ -167,6 +167,8 @@ fun WatchlistScreen(
     val markFallbackIds by viewModel.markFallbackIds.collectAsStateWithLifecycle()
     LifecycleStartEffect(Unit) {
         viewModel.setLiveVisible(true)
+        // Tage mit offener App zählen (erster Gebrauch, [com.cryptochecker.app.domain.watch.WatchlistOnboarding])
+        viewModel.recordUsageDay()
         onStopOrDispose { viewModel.setLiveVisible(false) }
     }
 
@@ -446,8 +448,10 @@ fun WatchlistScreen(
                 // Gruppe, nicht beim Suchen oder Sortieren
                 // Nur Paare mit Kurs (und noch gehandelt) zählen als «ohne 24h-Wert». Gemerkt, damit
                 // nicht jede Neuzusammensetzung (z. B. die 30-s-Uhr) hunderte Paare neu durchgeht.
-                val pulse = remember(visible, ui.searching, ui.sortMode, changeView) {
-                    if (ui.searching || ui.sortMode) null
+                // Erster Gebrauch: kein Puls, bis es einen Alarm gibt bzw. nach einigen Tagen (WatchlistOnboarding)
+                val onboarding = state.onboarding
+                val pulse = remember(visible, ui.searching, ui.sortMode, changeView, onboarding.pulse) {
+                    if (ui.searching || ui.sortMode || !onboarding.pulse) null
                     else {
                         // Nicht gehandelte Paare zählen weder als steigend/fallend noch als «ohne 24h-Wert»,
                         // deaktivierte gar nicht
@@ -561,7 +565,7 @@ fun WatchlistScreen(
                                     { WatchlistSortBar(sort = columnSort, onTap = viewModel::tapColumn) }
                                 } else null,
                                 sortMode = ui.sortMode,
-                                showGestureHint = display.showGestureHint,
+                                showGestureHint = display.showGestureHint && onboarding.gestureHint,
                                 onDismissGestureHint = viewModel::dismissGestureHint,
                                 // Kein Alarm, aber Paare: bleibende Karte zusätzlich zum 6-s-Banner nach dem Hinzufügen
                                 onSetFirstAlarm = firstAlarmTarget?.takeIf {

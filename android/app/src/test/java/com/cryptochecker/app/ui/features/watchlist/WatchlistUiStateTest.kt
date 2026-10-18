@@ -55,6 +55,7 @@ class WatchlistUiStateTest {
         assertFalse(d.firstAlarmCardDismissed)
         assertEquals(ActivitySensitivity.LESS, d.activitySensitivity)
         assertTrue(d.sheetChartLine)
+        assertEquals(4, WatchlistDisplay.of(s.copy(usageDays = 4)).usageDays)
     }
 
     @Test
