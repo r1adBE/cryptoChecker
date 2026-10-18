@@ -49,6 +49,12 @@ abstract class Market(
     open val priceIsMid: Boolean get() = false
 
     /**
+     * true: the price is the close of the newest hourly candle (WOO X spot has no ticker). The action sheet labels it
+     * «hourly price». iOS: `priceIsHourlyClose`.
+     */
+    open val priceIsHourlyClose: Boolean get() = false
+
+    /**
      * true: the 24 h change refers to the mark price (Hyperliquid `markPx` vs. `prevDayPx`), not to the displayed
      * price. Row and action sheet then add «Mark» (`ChangeBasisMath.showsMark`). iOS: `changeIsMark`.
      */

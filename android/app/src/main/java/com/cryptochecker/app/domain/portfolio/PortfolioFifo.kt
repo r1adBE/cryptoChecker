@@ -92,7 +92,9 @@ internal object PortfolioFifo {
 
         /** Gebühr bzw. übernommener Einstand [usdt] zum Zeitpunkt [at] (nur mit Kaufpreis). */
         fun addCost(at: Long, usdt: BigDecimal) {
-            cost = cost!! + usdt
+            // Ohne Kaufpreis bleibt der Posten unbewertet (nie abbrechen)
+            val current = cost ?: return
+            cost = current + usdt
             PortfolioCostParts.add(parts, at, usdt)
         }
 
@@ -212,7 +214,7 @@ internal object PortfolioFifo {
             if (requested <= q.held) return
             oversold = true
             if (perWallet) {
-                shortfalls += PortfolioWalletShortfall(symbol, walletOf(q)!!, t.id, t.time, t.type, feeLeg, requested - q.held.max(zero))
+                shortfalls += PortfolioWalletShortfall(symbol, walletOf(q) ?: PortfolioWallets.UNSPECIFIED, t.id, t.time, t.type, feeLeg, requested - q.held.max(zero))
             }
         }
 
@@ -311,11 +313,11 @@ internal object PortfolioFifo {
                 val share = proceeds?.let {
                     when {
                         w.signum() <= 0 -> zero
-                        i == lastWeighted -> proceedsLeft!!
+                        i == lastWeighted -> proceedsLeft ?: it.multiply(w).divide(weightTotal, mc)
                         else -> it.multiply(w).divide(weightTotal, mc)
                     }
                 }
-                if (share != null) proceedsLeft = proceedsLeft!! - share
+                if (share != null) proceedsLeft = proceedsLeft?.minus(share)
                 val gain = if (share != null && s.cost != null) share - s.cost else null
                 if (gain != null) {
                     realized += gain
@@ -502,7 +504,8 @@ internal object PortfolioFifo {
         lostFeeCosts.sortWith(compareBy<PortfolioLostFeeCost> { it.time }.thenBy { it.txId })
         for (q in queues.values) {
             for (l in q.lots) {
-                if (l.cost != null) { priced += l.amount; cost += l.cost!!; openParts += l.parts } else unpriced += l.amount
+                val lotCost = l.cost
+                if (lotCost != null) { priced += l.amount; cost += lotCost; openParts += l.parts } else unpriced += l.amount
                 outLots += PortfolioLot(symbol, l.txId, l.acquired, l.kind, l.amount, l.cost, walletOf(q))
             }
         }

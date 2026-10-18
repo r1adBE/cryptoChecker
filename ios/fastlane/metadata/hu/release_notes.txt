@@ -8,9 +8,9 @@
 • Akadálymentesség: a kék/narancs minden színlátási zavar (vörös-zöld és kék-sárga) esetén jól megkülönböztethető; „Emelkedés/esés színeinek felcserélése”: piros emelkedés, zöld esés, ahogy Kínában, Japánban, Koreában és Tajvanon szokás (ott automatikus); „Nagy kontraszt”: erősebb árszínek, sötétebb másodlagos szöveg és kiemelőszín, a rendszerbeállítást is követi; VoiceOver: sorok, grafikonok és widgetek egy mondatként
 • Minidiagram minden sorban: 24 órás alakulás az ár mellett
 • „Kezdés egy koppintással”: az üres lista az 5 legnagyobb érmét kínálja piaci kapitalizáció szerint (stablecoinok nélkül)
-• A kezdőlista élő árat és 24 órás változást mutat – mind az öt előre kijelölve, egy gombbal hozzáadható
+• A kezdőlista aktuális árat és 24 órás változást mutat – mind az öt előre kijelölve, egy gombbal hozzáadható
 • Balra húzva törlés (Visszavonással), jobbra húzva kedvenc
-• A Piac lap azonnal megnyílik a legutóbbi adatokkal, és a háttérben frissül
+• A Piac lap a legutóbb mentett adatokkal nyílik meg, és a háttérben frissül
 • Csendes órák (pl. 23–7): a riasztások megvárják a végét, és ha a feltétel még teljesül, hanggal szólalnak meg; a többi értesítés némán érkezik
 • Portfóliózár Face ID-val, Touch ID-val vagy eszközkóddal
 • Portfólió widget a kezdő- és zárolási képernyőre: teljes érték a saját pénznemedben és a mai változás

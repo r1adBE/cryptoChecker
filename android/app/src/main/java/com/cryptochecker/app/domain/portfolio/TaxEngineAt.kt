@@ -86,7 +86,8 @@ internal fun TaxEngines.atSplit(real: List<PortfolioTrade>, zone: ZoneId, lost: 
             val q = left.min(lot.qty)
             val cost = lot.cost?.let { if (q.compareTo(lot.qty) == 0) it else it.multiply(q).divide(lot.qty, mc) }
             lot.qty -= q
-            if (cost != null) lot.cost = lot.cost!! - cost
+            val lotCost = lot.cost
+            if (cost != null && lotCost != null) lot.cost = lotCost - cost
             if (lot.qty.signum() <= 0) c.old.removeAt(0)
             left -= q
             pieces += TaxPiece(q, cost, acquiredTime = lot.acquired, lotTxId = lot.txId, lotKind = lot.kind, oldHolding = true)
@@ -147,7 +148,7 @@ internal fun TaxEngines.atSplit(real: List<PortfolioTrade>, zone: ZoneId, lost: 
         val inWallet: (TaxPiece, PortfolioDisposal) -> PortfolioDisposal = { _, d -> d.copy(wallet = c.wallet) }
         val newBase = if (oldLaw) s.proceeds else s.gross
         return emit(coin, s, oldPieces, oldShare(s.proceeds), extra = inWallet) +
-            emit(coin, s, newPieces, newBase?.let { it - oldShare(it)!! }, extra = inWallet)
+            emit(coin, s, newPieces, newBase?.let { it - (oldShare(it) ?: zero) }, extra = inWallet)
     }
 
     /** Netzwerkgebühr: zuerst Altbestand (Einstand auf den nächsten Altbestand-Posten mit Kaufpreis), dann Neubestand. */
@@ -156,7 +157,8 @@ internal fun TaxEngines.atSplit(real: List<PortfolioTrade>, zone: ZoneId, lost: 
         if (fromOld.signum() > 0) {
             val carried = takeBoth(c, fromOld).first.fold(zero) { a, p -> a + (p.cost ?: zero) }
             val target = c.old.firstOrNull { it.cost != null }
-            if (target != null) target.cost = target.cost!! + carried else lost.note(coin, s, carried)
+            val targetCost = target?.cost
+            if (target != null && targetCost != null) target.cost = targetCost + carried else lost.note(coin, s, carried)
         }
         lost.note(coin, s, c.dropNew(s.qty - fromOld))
     }
@@ -174,7 +176,17 @@ internal fun TaxEngines.atSplit(real: List<PortfolioTrade>, zone: ZoneId, lost: 
             }
             if (src !== dst && t.amount.signum() > 0) {
                 val (oldPieces, taken, fees) = takeBoth(src, t.amount)
-                for (p in oldPieces) dst.insertOld(AtLot(p.lotTxId!!, p.acquiredTime!!, p.lotKind!!, p.amount, p.cost))
+                for (p in oldPieces) {
+                    val lotTxId = p.lotTxId
+                    val acquired = p.acquiredTime
+                    val lotKind = p.lotKind
+                    // Altbestand-Teile tragen immer ihren Posten; fehlt er doch, wandert die Menge ohne Kaufpreis
+                    // (im Export unbewertet) statt den ganzen Bericht abzubrechen
+                    dst.insertOld(
+                        if (lotTxId != null && acquired != null && lotKind != null) AtLot(lotTxId, acquired, lotKind, p.amount, p.cost)
+                        else AtLot(t.id, t.time, t.type, p.amount, null)
+                    )
+                }
                 dst.addNewCarried(taken.removedPriced, taken.parts, fees.parts)
                 dst.addNew(taken.removedUnpriced, null, t.time)
             }

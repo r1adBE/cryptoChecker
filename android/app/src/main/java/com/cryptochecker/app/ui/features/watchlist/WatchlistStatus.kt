@@ -190,11 +190,18 @@ internal fun WatchlistStatusRow(
     // Alle Paare der Ansicht deaktiviert: eigener ruhiger Satz statt «Keine gehandelten Paare»
     val allDisabled = visible.isNotEmpty() && visible.all { it.disabled }
     // Kein gehandeltes Paar: neutral statt grün — es gibt nichts, das «aktuell» sein könnte
-    val tone = when {
-        status.none || status.deviceOffline -> MaterialTheme.colorScheme.onSurfaceVariant
-        status.warn -> MaterialTheme.colorScheme.error
+    // «veraltet» in Bernstein wie die Zeile, Fehler (keine Verbindung, gescheitert) in Fehlerfarbe
+    val tone = when (
+        com.cryptochecker.app.domain.watch.StatusPillTone.of(
+            none = status.none, deviceOffline = status.deviceOffline, offline = status.offline,
+            stale = status.stale, failed = status.failed,
+        )
+    ) {
+        com.cryptochecker.app.domain.watch.StatusPillTone.NEUTRAL -> MaterialTheme.colorScheme.onSurfaceVariant
+        com.cryptochecker.app.domain.watch.StatusPillTone.ERROR -> MaterialTheme.colorScheme.error
+        com.cryptochecker.app.domain.watch.StatusPillTone.WARNING -> AppColors.warningText
         // Aktuell: ruhig in der Textfarbe, nicht in der Steigen-Farbe (frisch ≠ gestiegen)
-        else -> MaterialTheme.colorScheme.onSurface
+        com.cryptochecker.app.domain.watch.StatusPillTone.NORMAL -> MaterialTheme.colorScheme.onSurface
     }
     val shownTone by animateColorAsState(
         targetValue = tone,

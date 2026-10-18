@@ -18,6 +18,9 @@ import kotlinx.coroutines.flow.update
  *  - [Kind.RESTORE_ROLLED_BACK] / [Kind.RESTORE_INCOMPLETE]: Ein Wiederherstellen brach ab (Prozess beendet); der Stand
  *    davor wurde aus dem Journal zurückgeschrieben bzw. liess sich nicht zurückschreiben
  *    ([com.cryptochecker.app.data.RestoreJournal]). Einmal.
+ *  - [Kind.SYSTEM_BACKUP_NOT_IMPORTED] (nur Android): Die Portfolio-Kopie aus der Android-Systemsicherung liess sich auch
+ *    beim zweiten Versuch nicht übernehmen und wurde gelöscht ([com.cryptochecker.app.data.portfolio.PortfolioBackupMirror.retryFailed]).
+ *    Einmal; Weg zurück ist die eigene Sicherungsdatei.
  *
  * Eigene SharedPreferences-Datei [PREFS], nicht in den Sicherungsregeln: Die Hinweise gehören zu diesem Gerät.
  */
@@ -26,10 +29,11 @@ object StorageRecoveryNotice {
     private const val KEY_DATABASES = "databases"
     private const val KEY_RESTORED = "restored_databases"
     private const val KEY_RESTORE_INTERRUPTED = "restore_interrupted"
+    private const val KEY_SYSTEM_BACKUP_NOT_IMPORTED = "system_backup_not_imported"
     private const val ROLLED_BACK = "rolled_back"
     private const val INCOMPLETE = "incomplete"
 
-    enum class Kind { SET_ASIDE, KEY_RESTORED, RESTORE_ROLLED_BACK, RESTORE_INCOMPLETE }
+    enum class Kind { SET_ASIDE, KEY_RESTORED, RESTORE_ROLLED_BACK, RESTORE_INCOMPLETE, SYSTEM_BACKUP_NOT_IMPORTED }
 
     /**
      * Zähler der Vormerkungen in diesem Prozess: Die Datenbank öffnet oft erst nach dem ersten Bild — der Hinweis
@@ -70,6 +74,12 @@ object StorageRecoveryNotice {
         recorded.update { it + 1 }
     }
 
+    /** Portfolio-Kopie der Systemsicherung endgültig nicht übernommen (und gelöscht) vormerken. */
+    fun recordSystemBackupNotImported(context: Context) {
+        prefs(context).edit(commit = true) { putBoolean(KEY_SYSTEM_BACKUP_NOT_IMPORTED, true) }
+        recorded.update { it + 1 }
+    }
+
     /**
      * Nächster zu zeigender Hinweis; null = keiner. [Kind.SET_ASIDE] bleibt, bis [acknowledge]; die anderen zeigt die App
      * einmal und bestätigt sie gleich. Nicht auf dem Hauptthread.
@@ -78,6 +88,7 @@ object StorageRecoveryNotice {
         val p = prefs(context)
         p.getString(KEY_RESTORE_INTERRUPTED, null)?.let { return if (it == ROLLED_BACK) Kind.RESTORE_ROLLED_BACK else Kind.RESTORE_INCOMPLETE }
         if (!p.getStringSet(KEY_RESTORED, emptySet()).isNullOrEmpty()) return Kind.KEY_RESTORED
+        if (p.getBoolean(KEY_SYSTEM_BACKUP_NOT_IMPORTED, false)) return Kind.SYSTEM_BACKUP_NOT_IMPORTED
         if (!setAsideHidden && !p.getStringSet(KEY_DATABASES, emptySet()).isNullOrEmpty()) return Kind.SET_ASIDE
         return null
     }
@@ -89,6 +100,7 @@ object StorageRecoveryNotice {
                 Kind.SET_ASIDE -> remove(KEY_DATABASES)
                 Kind.KEY_RESTORED -> remove(KEY_RESTORED)
                 Kind.RESTORE_ROLLED_BACK, Kind.RESTORE_INCOMPLETE -> remove(KEY_RESTORE_INTERRUPTED)
+                Kind.SYSTEM_BACKUP_NOT_IMPORTED -> remove(KEY_SYSTEM_BACKUP_NOT_IMPORTED)
             }
         }
         recorded.update { it + 1 }

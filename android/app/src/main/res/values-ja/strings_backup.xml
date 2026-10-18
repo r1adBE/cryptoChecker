@@ -32,7 +32,7 @@
     <string name="backup_plain_confirm">パスワードなしで保存</string>
     <string name="backup_plain_confirm_text">このファイルは暗号化されていません。入手した人は次の内容を読めます：</string>
     <string name="backup_plain_confirm_title">パスワードなしで保存しますか？</string>
-    <string name="backup_plain_contents_addresses">保存したウォレットアドレス</string>
+    <string name="backup_plain_contents_addresses">保存したウォレットアドレスと xpub キー</string>
     <string name="backup_plain_contents_base">メモとグループ付きのウォッチリスト、アラーム、お気に入り、設定</string>
     <string name="backup_plain_contents_portfolio">ポートフォリオ：数量と価格付きの取引</string>
     <string name="backup_restore_app_lock_kept">ポートフォリオのロックはオンのままです。暗号化されていないバックアップではオフにできません。</string>

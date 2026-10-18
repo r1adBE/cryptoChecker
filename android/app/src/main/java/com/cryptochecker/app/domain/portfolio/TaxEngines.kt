@@ -462,13 +462,15 @@ object TaxEngines {
         var grossLeft = gross
         return pieces.mapIndexed { i, p ->
             val share = if (s.spouseGift) p.cost else proceeds?.let {
-                if (i == pieces.size - 1) left!! else it.multiply(p.amount).divide(total, PortfolioDecimal.MC)
+                val even = it.multiply(p.amount).divide(total, PortfolioDecimal.MC)
+                if (i == pieces.size - 1) left ?: even else even
             }
-            if (share != null && !s.spouseGift) left = left!! - share
+            if (share != null && !s.spouseGift) left = left?.minus(share)
             val grossShare = if (s.spouseGift) null else gross?.let {
-                if (i == pieces.size - 1) grossLeft!! else it.multiply(p.amount).divide(total, PortfolioDecimal.MC)
+                val even = it.multiply(p.amount).divide(total, PortfolioDecimal.MC)
+                if (i == pieces.size - 1) grossLeft ?: even else even
             }
-            if (grossShare != null) grossLeft = grossLeft!! - grossShare
+            if (grossShare != null) grossLeft = grossLeft?.minus(grossShare)
             val d = PortfolioDisposal(
                 coin = coin, sellTxId = s.id, sellTime = s.time,
                 lotTxId = p.lotTxId, acquiredTime = p.acquiredTime, lotKind = p.lotKind,

@@ -52,6 +52,15 @@ interface Ticker {
         get() = null
         set(@Suppress("UNUSED_PARAMETER") value) {}
 
+    /**
+     * [last] is the mark price because the exchange sent no mid price (thin or empty order book, Hyperliquid). The
+     * app labels such a price «Mark» and does not fire price alarms on it (the mark price is an index-based value,
+     * not a tradable quote). Same as iOS `Ticker.markFallback`.
+     */
+    var markFallback: Boolean
+        get() = false
+        set(@Suppress("UNUSED_PARAMETER") value) {}
+
     companion object {
         /** Placeholder for «not delivered» in the number fields (all price values are positive otherwise). Same as iOS `Ticker.missing`. */
         const val MISSING = -1.0

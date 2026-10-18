@@ -1,7 +1,7 @@
 Noutăți 16.2.2
 • Crypto Pulse: ce se întâmplă
 • Activitate neobișnuită, „Ce se mișcă odată cu el?” cu rezumat
-• Începe cu o atingere: top 5 live
+• O atingere: top 5, prețul actual
 • Glisare: ștergere (Anulează) sau favorit
 • Prețuri și alarme în moneda ta; CSV la data de referință
 • Accesibil: albastru/portocaliu, contrast mare, culori inversate, TalkBack

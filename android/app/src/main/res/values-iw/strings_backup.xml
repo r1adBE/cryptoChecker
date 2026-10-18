@@ -32,7 +32,7 @@
     <string name="backup_plain_confirm">שמירה בלי סיסמה</string>
     <string name="backup_plain_confirm_text">הקובץ לא מוצפן. כל מי שמקבל אותו יכול לקרוא:</string>
     <string name="backup_plain_confirm_title">לשמור בלי סיסמה?</string>
-    <string name="backup_plain_contents_addresses">כתובות ארנק שמורות</string>
+    <string name="backup_plain_contents_addresses">כתובות ארנק ומפתחות xpub שמורים</string>
     <string name="backup_plain_contents_base">רשימת מעקב עם הערות וקבוצות, התראות, מועדפים והגדרות</string>
     <string name="backup_plain_contents_portfolio">תיק: עסקאות עם כמויות ומחירים</string>
     <string name="backup_restore_app_lock_kept">נעילת התיק נשארת פעילה – גיבוי לא מוצפן לא יכול לכבות אותה.</string>

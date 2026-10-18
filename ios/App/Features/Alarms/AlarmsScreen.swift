@@ -94,7 +94,8 @@ struct AlarmsScreen: View {
                                 lastUpdate: watch?.lastUpdate ?? 0,
                                 now: now,
                                 staleAfterMillis: data.staleAfterMillis,
-                                unchecked: checkStatus.unchecked(alarm.id) != nil
+                                unchecked: checkStatus.unchecked(alarm.id) != nil,
+                                markFallback: watch.map { MarkFallbackStore.contains($0.id) } ?? false
                             ),
                             onToggle: { enabled in
                                 WatchlistHaptics.selection()

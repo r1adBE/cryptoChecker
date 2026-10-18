@@ -158,4 +158,13 @@ class PortfolioLockPolicyTest {
         assertFalse(PortfolioLockPolicy.secureWindow(lockSetting = false, portfolioVisible = false, sdkInt = 26))
         assertFalse(PortfolioLockPolicy.secureWindow(lockSetting = false, portfolioVisible = true, sdkInt = 26))
     }
+
+    @Test
+    fun backupCountsWatchedAddressesAsPortfolioData() {
+        // Nur Adressen (auch xpub) ohne Trades: Bestände stehen trotzdem in der Datei
+        assertTrue(PortfolioLockPolicy.backupHasPortfolioData(transactions = 0, watchedAddresses = 1))
+        assertTrue(PortfolioLockPolicy.backupHasPortfolioData(transactions = 3, watchedAddresses = 0))
+        assertTrue(PortfolioLockPolicy.backupHasPortfolioData(transactions = 3, watchedAddresses = 2))
+        assertFalse(PortfolioLockPolicy.backupHasPortfolioData(transactions = 0, watchedAddresses = 0))
+    }
 }

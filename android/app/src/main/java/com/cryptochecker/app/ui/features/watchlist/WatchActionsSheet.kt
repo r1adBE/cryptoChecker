@@ -256,10 +256,20 @@ internal fun WatchActionsSheet(
             if (watch.lastPrice != null) {
                 val periodLabel = ChangeBasisText.shortLabel(headerChangeView.basis)
                 val updatedText = stringResource(R.string.watchlist_updated, PriceFormat.time(watch.lastUpdate))
-                // Börse meldet den Mittelkurs (z. B. Hyperliquid), keinen letzten Handel: so benennen
-                val midText = if (com.cryptochecker.marketdata.util.MarketsConfigUtils.getMarketByKey(watch.marketKey).priceIsMid) {
-                    " · " + stringResource(R.string.watch_price_mid)
-                } else ""
+                // Börse meldet den Mittelkurs (z. B. Hyperliquid), keinen letzten Handel: so benennen; fehlte der
+                // Mittelkurs (dünnes Orderbuch), steht der Mark-Preis da — dann so. WOO X Spot: Schluss der
+                // jüngsten Stundenkerze
+                val market = com.cryptochecker.marketdata.util.MarketsConfigUtils.getMarketByKey(watch.marketKey)
+                val midText = when (com.cryptochecker.app.domain.watch.PriceKindLabel.of(
+                    priceIsMid = market.priceIsMid,
+                    markFallback = watch.id in LocalMarkFallback.current,
+                    hourlyClose = market.priceIsHourlyClose,
+                )) {
+                    com.cryptochecker.app.domain.watch.PriceKindLabel.MARK -> " · " + stringResource(R.string.watch_price_mark_fallback)
+                    com.cryptochecker.app.domain.watch.PriceKindLabel.MID -> " · " + stringResource(R.string.watch_price_mid)
+                    com.cryptochecker.app.domain.watch.PriceKindLabel.HOURLY -> " · " + stringResource(R.string.watch_price_hourly)
+                    null -> ""
+                }
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     // Zeitraum steht hier in der Zeile dahinter, nicht in der Änderung selbst
                     CompositionLocalProvider(LocalChangeView provides headerChangeView.copy(showPeriod = false)) {

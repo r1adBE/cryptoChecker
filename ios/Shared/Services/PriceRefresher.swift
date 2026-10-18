@@ -513,6 +513,9 @@ enum PriceRefresher {
             if liveQuotes == nil && DexLiquidity.isDex(watch.marketKey) {
                 DexLiquidityStore.put(watch.pairId, ticker.liquidityUsd)
             }
+            // Kurs = Mark-Preis mangels Mittelkurs (Hyperliquid): «Mark» in Zeile und Blatt; Live-Kurse kommen nie als
+            // Mark-Ersatz, der Merker gilt bis zur nächsten Abfrage
+            if liveQuotes == nil { MarkFallbackStore.put(watch.id, ticker.markFallback) }
             let dayChange: Double?
             if liveQuotes != nil {
                 // Live-Wert aus dem Ticker: kein Kerzen-Hinweis — aber nur, wenn er die Veränderung ersetzt hat.
@@ -541,8 +544,10 @@ enum PriceRefresher {
             updated.priceChangedAt = changedAt
             updated.exchangeTime = ticker.exchangeTime
 
-            // Kurs laut Börse zu alt (`AlarmFreshness`, Handel ruht): Alarme bleiben scharf, lösen aber nicht aus
-            let alarmsAllowed = !AlarmFreshness.exchangeTimeTooOld(updated.exchangeTime, now: now)
+            // Kurs laut Börse zu alt (`AlarmFreshness`, Handel ruht) bzw. nur Mark-Preis: Alarme bleiben scharf, lösen
+            // aber nicht aus
+            let alarmsAllowed = !AlarmFreshness.blocksAlarms(updated.exchangeTime, markFallback: ticker.markFallback,
+                                                             now: now)
 
             // Alarme mit Zusatzdaten: nach dem Speichern prüfen
             if alarmsAllowed, deferExtra, outcome.deferredAlarms.prefetchByWatch[watch.id] != nil, let result {

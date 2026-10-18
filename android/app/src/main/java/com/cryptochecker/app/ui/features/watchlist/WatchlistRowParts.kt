@@ -30,6 +30,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -65,6 +66,12 @@ import com.cryptochecker.app.util.PriceFormat
 
 /** Coin-Plakette in der Zeile: in allen Coin-Listen gleich gross ([ListSegment.Logo]). */
 internal val ROW_BADGE_SIZE = ListSegment.Logo
+
+/**
+ * Watch-Ids, deren letzter Kurs der Mark-Preis statt des Mittelkurses war ([com.cryptochecker.app.data.MarkFallbackStore]):
+ * Zeile und Aktionsblatt nennen ihn «Mark». Gesetzt von der Merkliste.
+ */
+internal val LocalMarkFallback = compositionLocalOf<Set<Long>> { emptySet() }
 
 /**
  * Links: Griff im Sortiermodus, sonst etwas Abstand. Favoriten zeigt mit eingeschalteten
@@ -135,6 +142,8 @@ internal fun RowPrice(
     flash: PriceFlash,
     /** %-Änderung aus den Kerzen einer anderen Börse: kleiner Marker «*» daneben ([DayChangePill] marker). */
     changeMarker: Boolean = false,
+    /** Kurs ist der Mark-Preis (kein Mittelkurs, [LocalMarkFallback]): klein «Mark» hinter der Gegenwährung. */
+    markPrice: Boolean = false,
     /** Neben dem Paar Abstand links; unter dem Paar (grösste Schrift) rechtsbündig. */
     modifier: Modifier = Modifier.padding(start = 8.dp),
 ) {
@@ -174,6 +183,15 @@ internal fun RowPrice(
                         maxLines = 1,
                         modifier = Modifier.alignByBaseline().padding(start = 4.dp)
                     )
+                    if (markPrice) {
+                        Text(
+                            text = stringResource(R.string.watch_change_mark),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            maxLines = 1,
+                            modifier = Modifier.alignByBaseline().padding(start = 4.dp)
+                        )
+                    }
                 }
             }
         }

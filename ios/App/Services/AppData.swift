@@ -89,6 +89,10 @@ final class AppData: ObservableObject {
     /// `DepegAlarmCheck` USDT/USD auch ohne Alarm — wie `PortfolioRepository.hasData` (Android).
     var hasPortfolioData: Bool { !portfolio.isEmpty || !watchedAddresses.isEmpty }
     var watchedAddressIntact = true
+    /// `watched_addresses.json` konnte nicht versiegelt gespeichert werden (Schlüsselbund gerade nicht lesbar): der Stand
+    /// wartet im Speicher, nie im Klartext — zählt wie das Portfolio zu `portfolioSavePending` (gleicher Hinweis, gleiches
+    /// erneutes Speichern in `retryPendingPortfolioSaves`).
+    var watchedAddressSavePending = false
     /// Ausstehender «Erst-Hinzufügen»-Moment; die Merkliste holt ihn ab (`takeAddCelebration`).
     @Published var addCelebration: AddCelebration?
     /// Gerät hat Internet? Ohne: ruhige Statuszeile «Offline · Stand …», keine Aktualisierung.

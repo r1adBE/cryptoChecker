@@ -32,7 +32,7 @@
     <string name="backup_plain_confirm">บันทึกโดยไม่ใช้รหัสผ่าน</string>
     <string name="backup_plain_confirm_text">ไฟล์ไม่ได้เข้ารหัส ใครที่ได้ไฟล์ไปสามารถอ่านได้:</string>
     <string name="backup_plain_confirm_title">บันทึกโดยไม่ใช้รหัสผ่านหรือไม่</string>
-    <string name="backup_plain_contents_addresses">ที่อยู่วอลเล็ตที่บันทึกไว้</string>
+    <string name="backup_plain_contents_addresses">ที่อยู่วอลเล็ตและคีย์ xpub ที่บันทึกไว้</string>
     <string name="backup_plain_contents_base">รายการเฝ้าดูพร้อมโน้ตและกลุ่ม สัญญาณเตือน รายการโปรด และการตั้งค่า</string>
     <string name="backup_plain_contents_portfolio">พอร์ต: รายการพร้อมจำนวนและราคา</string>
     <string name="backup_restore_app_lock_kept">ล็อกพอร์ตยังเปิดอยู่ – ข้อมูลสำรองที่ไม่เข้ารหัสปิดไม่ได้</string>

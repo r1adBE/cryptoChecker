@@ -8,9 +8,9 @@ Versio 16.2.2
 • Saavutettavuus: sininen/oranssi erottuu hyvin kaikissa värinäön poikkeamissa (puna-viher ja sini-kelta); ”Vaihda nousun ja laskun värit”: punainen nousee, vihreä laskee, kuten Kiinassa, Japanissa, Koreassa ja Taiwanissa (siellä automaattisesti); ”Suuri kontrasti”: voimakkaammat hintavärit, tummempi toissijainen teksti ja korostusväri, seuraa myös järjestelmän asetusta; VoiceOver: rivit, kaaviot ja widgetit lauseena
 • Minikaavio jokaisella rivillä: 24 tunnin kehitys hinnan vieressä
 • ”Aloita yhdellä napautuksella”: tyhjä lista tarjoaa 5 suurinta kolikkoa markkina-arvon mukaan (ilman vakaakolikoita)
-• Aloituslista näyttää live-hinnan ja 24 h muutoksen – kaikki viisi valmiiksi valittuina, lisäys yhdellä painikkeella
+• Aloituslista näyttää ajantasaisen hinnan ja 24 h muutoksen – kaikki viisi valmiiksi valittuina, lisäys yhdellä painikkeella
 • Pyyhkäise vasemmalle poistaaksesi (Kumoa-toiminnolla), oikealle merkitäksesi suosikiksi
-• Markkinat-välilehti avautuu heti viimeisimmillä tiedoilla ja päivittyy taustalla
+• Markkinat-välilehti avautuu viimeksi tallennetuilla tiedoilla ja päivittyy taustalla
 • Hiljaiset tunnit (esim. 23–7): hälytykset odottavat loppuun ja hälyttävät sitten, jos ehto on yhä voimassa; muut ilmoitukset tulevat äänettömästi
 • Salkun lukitus Face ID:llä, Touch ID:llä tai pääsykoodilla
 • Salkku-widget koti- ja lukitusnäytölle: kokonaisarvo omassa valuutassasi ja tämän päivän muutos

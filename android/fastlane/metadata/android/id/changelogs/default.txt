@@ -1,7 +1,7 @@
 Baru di 16.2.2
 • Crypto Pulse: yang terjadi kini
 • Aktivitas tidak biasa, “Apa yang ikut bergerak?” dengan ringkasan
-• Mulai sekali ketuk: top 5 koin, harga live
+• Mulai sekali ketuk: top 5 koin, harga terkini
 • Geser: hapus (dengan Urungkan) atau favorit
 • Harga & alarm di mata uang Anda, ekspor CSV tanggal acuan
 • Aksesibel: biru/oranye, kontras tinggi, tukar warna, TalkBack

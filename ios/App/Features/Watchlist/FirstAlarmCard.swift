@@ -13,4 +13,11 @@ enum FirstAlarmCard {
     static func shouldShow(alarmCount: Int?, watchCount: Int, dismissed: Bool, busy: Bool) -> Bool {
         !dismissed && !busy && alarmCount == 0 && watchCount > 0
     }
+
+    /// Paar, dessen Alarme die Karte öffnet (und das sie nennt): das erste in der gespeicherten Reihenfolge der Merkliste
+    /// (`stored`, Favoriten zuerst, dann eigene Reihenfolge) — nicht das erste der gerade sortierten Ansicht, die je nach
+    /// Spalte (Kurs, Änderung) springt. Deaktivierte Paare (`disabled`) nur, wenn es keine anderen gibt. Wie Android.
+    static func target<T>(stored: [T], disabled: (T) -> Bool) -> T? {
+        stored.first { !disabled($0) } ?? stored.first
+    }
 }

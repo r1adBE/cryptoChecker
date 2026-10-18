@@ -8,9 +8,9 @@ Version 16.2.2
 • Accessibilité : bleu/orange, lisible avec tout trouble de la vision des couleurs (rouge-vert, bleu-jaune) ; « Inverser les couleurs hausse/baisse » : rouge = hausse, vert = baisse, comme en Chine, au Japon, en Corée et à Taïwan (activé d’office) ; « Contraste élevé » : couleurs, textes secondaires et accent renforcés, suit le réglage système ; VoiceOver : lignes, graphiques et widgets lus en une phrase
 • Mini-graphique 24 h sur chaque ligne
 • « Démarrer en un geste » : une liste vide propose les 5 plus grandes cryptos par capitalisation (hors stablecoins)
-• La liste de départ affiche le prix en direct et la variation sur 24 h – les cinq sont présélectionnées et s’ajoutent d’un seul bouton
+• La liste de départ affiche le prix actuel et la variation sur 24 h – les cinq sont présélectionnées et s’ajoutent d’un seul bouton
 • Balayez vers la gauche pour supprimer (avec Annuler), vers la droite pour un favori
-• L’onglet Marché s’ouvre instantanément avec les dernières données et se met à jour en arrière-plan
+• L’onglet Marché s’ouvre avec les dernières données enregistrées et se met à jour en arrière-plan
 • Heures calmes (p. ex. 23 h–7 h) : les alertes attendent la fin, puis sonnent si la condition est toujours remplie ; les autres notifications arrivent en silence
 • Verrouillage du portefeuille par Face ID, Touch ID ou code
 • Widget Portefeuille (écran d’accueil et verrouillé) : valeur totale dans votre devise et variation du jour

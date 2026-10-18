@@ -53,6 +53,7 @@ class Hyperliquid : Market("Hyperliquid", "Hyperliquid") {
         ticker.vol = snapshot.vol
         ticker.volQuote = snapshot.volQuote
         ticker.change24hPercent = snapshot.change24hPercent
+        ticker.markFallback = snapshot.markFallback
     }
 
     /** Hyperliquid antwortet bei Fehlern mit blossem Text: dessen Anfang ist der Fehlertext. */
@@ -95,9 +96,10 @@ class Hyperliquid : Market("Hyperliquid", "Hyperliquid") {
 
     // ── Lesen ──
 
-    /** Ein Kontext; bei dünnem Orderbuch fehlt `midPx` → Mark-Preis. */
+    /** Ein Kontext; bei dünnem Orderbuch fehlt `midPx` → Mark-Preis, als solcher markiert ([Ticker.markFallback]). */
     private fun copyRow(context: JSONObject, ticker: Ticker) {
         val mid = context.optDouble("midPx", Double.NaN)
+        ticker.markFallback = mid.isNaN()
         ticker.last = if (mid.isNaN()) context.optDouble("markPx", Double.NaN) else mid
         ticker.vol = context.optDoubleOrMissing("dayBaseVlm")
         ticker.volQuote = context.optDoubleOrMissing("dayNtlVlm")

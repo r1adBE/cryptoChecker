@@ -294,7 +294,7 @@ extension AppData {
         }, reloadWidgets: false)
     }
 
-    /// Wartende, nicht versiegelt gespeicherte Stände (Portfolio, Portfolio-Alarme) jetzt schreiben.
+    /// Wartende, nicht versiegelt gespeicherte Stände (Portfolio, Portfolio-Alarme, beobachtete Adressen) jetzt schreiben.
     /// - Returns: true = nichts wartet mehr.
     @discardableResult
     func retryPendingPortfolioSaves() -> Bool {
@@ -305,7 +305,11 @@ extension AppData {
             portfolioDone = PortfolioStore.save(portfolioFile, includeInBackup: settings.portfolioSystemBackup) == .saved
         }
         if SharedStorage.portfolioAlarmsPending { SharedStorage.saveSnapshot(snapshot) }
-        portfolioSavePending = !portfolioDone || SharedStorage.portfolioAlarmsPending
+        if watchedAddressSavePending && watchedAddressIntact {
+            let result = WatchedAddressStore.save(watchedAddressFile, includeInBackup: settings.portfolioSystemBackup)
+            watchedAddressSavePending = result != .saved
+        }
+        portfolioSavePending = !portfolioDone || SharedStorage.portfolioAlarmsPending || watchedAddressSavePending
         return !portfolioSavePending
     }
 
@@ -338,7 +342,7 @@ extension AppData {
         // Erst schreiben, dann anzeigen: Scheitert das Schreiben, zeigt die Liste nichts, was nicht gespeichert ist.
         // Ohne Schlüssel (nie Klartext): Stand im Speicher behalten und das nennen — das nächste Speichern schreibt ihn
         switch PortfolioStore.save(file, includeInBackup: settings.portfolioSystemBackup) {
-        case .saved: portfolioSavePending = SharedStorage.portfolioAlarmsPending
+        case .saved: portfolioSavePending = SharedStorage.portfolioAlarmsPending || watchedAddressSavePending
         case .needsKey: portfolioSavePending = true
         case .failed: return false
         }

@@ -391,8 +391,11 @@ enum SharedStorage {
             case .needsKey:
                 // Ohne Schlüssel nie im Klartext — auch nicht in `watchlist.json`: Die eigene Datei behält ihren letzten
                 // versiegelten Stand, die Änderung bleibt im Speicher (`AppData`) und geht mit dem nächsten Speichern
-                // hinaus (`portfolioAlarmsPending`)
-                if FileManager.default.fileExists(atPath: portfolioAlarms.path) {
+                // hinaus (`portfolioAlarmsPending`). Ausnahme: `watchlist.json` liegt noch im alten Format unverschlüsselt
+                // da und trägt die Portfolio-Alarme schon selbst — dann bleiben sie dort (nichts Neues im Klartext,
+                // aber nichts verloren, falls die App vor dem nächsten Speichern endet)
+                if FileManager.default.fileExists(atPath: portfolioAlarms.path)
+                    || !plainWatchlistHoldsPortfolioAlarms(watchlist) {
                     main.portfolioAlarms = nil
                     main.nextPortfolioAlarmId = nil
                 }
@@ -418,6 +421,14 @@ enum SharedStorage {
             BackupExclusion.set(excluded: true, for: watchlist)
         }
         return true
+    }
+
+    /// `watchlist.json` ist unverschlüsselt und enthält bereits Portfolio-Alarme (Format vor `portfolio_alarms.json`)?
+    static func plainWatchlistHoldsPortfolioAlarms(_ url: URL) -> Bool {
+        guard let raw = try? Data(contentsOf: url), !ProtectedContainer.isSealed(raw),
+              let object = try? JSONSerialization.jsonObject(with: raw) as? [String: Any],
+              let list = object["portfolioAlarms"] as? [Any] else { return false }
+        return !list.isEmpty
     }
 
     /// Ergebnis von `writePortfolioAlarms`.

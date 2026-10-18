@@ -89,6 +89,25 @@ class RefreshResultProcessorTest {
     }
 
     @Test
+    fun markPriceFallbackWritesPriceButHoldsAlarms() {
+        val f = RefreshFixture(listOf(watch(price = 99.0, marketKey = "Hyperliquid")), listOf(above(100.0)))
+
+        // Kein Mittelkurs (dünnes Orderbuch): Kurs = Mark-Preis, gespeichert und gemerkt, aber kein Alarm
+        val mark = f.process(mapOf(1L to Fetched(ticker(101.0).apply { markFallback = true }, null)))
+
+        assertEquals(0, mark.alarms)
+        assertTrue(f.notifier.alarmPosts.isEmpty())
+        assertEquals(101.0, f.store.watches.getValue(1).lastPrice!!, 0.0)
+        assertEquals(true, f.markFallback[1L])
+        assertTrue(f.store.alarm(7).enabled)
+
+        // Wieder ein Mittelkurs: der noch scharfe Alarm meldet, der Merker fällt weg
+        val mid = f.process(mapOf(1L to Fetched(ticker(101.5), null)))
+        assertEquals(1, mid.alarms)
+        assertEquals(false, f.markFallback[1L])
+    }
+
+    @Test
     fun failedOrImpossiblePricesAreStoredAsErrorsWithoutAlarms() {
         val f = RefreshFixture(
             listOf(watch(id = 1, price = 99.0), watch(id = 2, price = 99.0), watch(id = 3, price = 99.0)),

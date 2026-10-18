@@ -7,6 +7,7 @@ package com.cryptochecker.app.domain.refresh
 
 import com.cryptochecker.app.data.ErrorWrite
 import com.cryptochecker.app.data.DexLiquidityStore
+import com.cryptochecker.app.data.MarkFallbackStore
 import com.cryptochecker.app.data.MoveHistoryStore
 import com.cryptochecker.app.data.PriceWrite
 import com.cryptochecker.app.data.RefreshStats
@@ -121,6 +122,16 @@ internal interface RefreshDexLiquidity {
     fun blocksAlarms(marketKey: String, pairId: String?): Boolean
 }
 
+/** Paare mit Mark-Preis statt Mittelkurs ([MarkFallbackStore]) — für «Mark» in Zeile und Blatt. */
+internal fun interface RefreshMarkFallback {
+    fun put(watchId: Long, markFallback: Boolean)
+
+    companion object {
+        /** Merkt nichts (Tests ohne Anzeige). */
+        val NONE = RefreshMarkFallback { _, _ -> }
+    }
+}
+
 /** Einstellungen im Moment des Speicherns ([SettingsRepository]). */
 internal interface RefreshSettings {
     suspend fun current(): AppSettings
@@ -157,6 +168,7 @@ internal fun DerivativesAlarmData.asAlarmDerivativesSource(): AlarmDerivativesSo
 internal fun MoveHistoryStore.asAlarmMoveHistory(): AlarmMoveHistory = MoveHistoryPort(this)
 internal fun DayReferences.asRefreshDayReferences(): RefreshDayReferences = DayReferencesPort(this)
 internal fun DexLiquidityStore.asRefreshDexLiquidity(): RefreshDexLiquidity = DexLiquidityPort(this)
+internal fun MarkFallbackStore.asRefreshMarkFallback(): RefreshMarkFallback = RefreshMarkFallback { id, on -> put(id, on) }
 internal fun SettingsRepository.asRefreshSettings(): RefreshSettings = SettingsPort(this)
 internal fun RefreshStats.asRefreshStatsPort(): RefreshStatsPort = StatsPort(this)
 internal fun LiveWidgetGate.asRefreshWidgets(): RefreshWidgets = WidgetsPort(this)

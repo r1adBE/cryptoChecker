@@ -6,8 +6,9 @@ import Foundation
 ///     Alarm käme nicht an, darum vor allem anderen.
 ///  2. `lowLiquidity` — DEX-Pool unter der Alarm-Liquidität oder unbekannt (`DexLiquidity.blocksAlarms`):
 ///     der Alarm wird gar nicht ausgewertet.
-///  3. `waitingForPrice` — Zeit laut Börse älter als 2 Stunden (`AlarmFreshness`) oder letzter Abruf älter
-///     als die Veraltet-Grenze der Merkliste (`OutdatedRule`): es fehlt ein frischer Kurs.
+///  3. `waitingForPrice` — Zeit laut Börse älter als 2 Stunden (`AlarmFreshness`), Kurs nur der Mark-Preis mangels
+///     Mittelkurs oder letzter Abruf älter als die Veraltet-Grenze der Merkliste (`OutdatedRule`): es fehlt ein
+///     frischer, handelbarer Kurs.
 ///  4. `unchecked` — zuletzt nicht geprüft (`AlarmCheckStatus`); den Text liefert dessen Grund.
 /// Sonst nil (keine Zeile). Ausgeschaltete Alarme werden nicht geprüft und bekommen nie eine Zeile.
 /// Wie `AlarmCardStatus.kt`.
@@ -18,6 +19,7 @@ enum AlarmCardStatus {
     ///   - exchangeTime: Zeit des Kurses laut Börse (nil/≤ 0 = unbekannt)
     ///   - lastUpdate: letzter erfolgreicher Abruf (≤ 0 = noch nie, dann kein «Wartet»)
     ///   - staleAfterMillis: Veraltet-Grenze der abgefragten Paare (wie die Merkliste)
+    ///   - markFallback: letzter Kurs war der Mark-Preis statt des Mittelkurses (Alarme lösen darauf nicht aus)
     static func of(
         alarmEnabled: Bool,
         notificationsAllowed: Bool,
@@ -26,12 +28,13 @@ enum AlarmCardStatus {
         lastUpdate: Int64,
         now: Int64,
         staleAfterMillis: Int64,
-        unchecked: Bool
+        unchecked: Bool,
+        markFallback: Bool = false
     ) -> Kind? {
         guard alarmEnabled else { return nil }
         if !notificationsAllowed { return .notificationsOff }
         if dexBlocksAlarms { return .lowLiquidity }
-        if AlarmFreshness.exchangeTimeTooOld(exchangeTime, now: now)
+        if AlarmFreshness.blocksAlarms(exchangeTime, markFallback: markFallback, now: now)
             || OutdatedRule.isOutdated(lastUpdate, now: now, afterMillis: staleAfterMillis) {
             return .waitingForPrice
         }

@@ -8,9 +8,9 @@ Version 16.2.2
 • Tillgänglighet: kursfärger blå/orange i stället för grön/röd, lätta att skilja åt vid alla former av färgseendeavvikelse (röd-grön och blå-gul); ”Byt färger för uppgång/nedgång”: rött för uppgång, grönt för nedgång, som är vanligt i Kina, Japan, Korea och Taiwan (automatiskt på där); ”Hög kontrast”: kraftigare kursfärger, mörkare sekundär text och accentfärg, följer även systemets kontrastinställning; VoiceOver: rader, diagram och widgetar som en mening
 • Minidiagram på varje rad: 24-timmarsförloppet bredvid kursen
 • ”Kom igång med ett tryck”: en tom lista erbjuder de 5 största mynten efter börsvärde (utan stablecoins)
-• Startlistan visar livekurs och förändring under 24 h – alla fem är förvalda och läggs till med en knapp
+• Startlistan visar aktuell kurs och förändring under 24 h – alla fem är förvalda och läggs till med en knapp
 • Svep åt vänster för att ta bort (med Ångra), åt höger för favorit
-• Fliken Marknad öppnas direkt med senaste data och uppdateras i bakgrunden
+• Fliken Marknad öppnas med senast sparade data och uppdateras i bakgrunden
 • Tysta timmar (t.ex. 23–7): larm väntar tills de är slut och hörs sedan om villkoret fortfarande gäller; andra aviseringar kommer ljudlöst
 • Portföljlås med Face ID, Touch ID eller lösenkod
 • Portföljwidget för hem- och låsskärm: totalt värde i din valuta och förändring i dag

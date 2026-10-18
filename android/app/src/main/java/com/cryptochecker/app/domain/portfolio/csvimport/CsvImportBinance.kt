@@ -235,13 +235,15 @@ internal object CsvImportBinance {
             return skipAll(CsvImportSkipReason.NOT_CRYPTO)
         }
         val one = given == null || received == null
-        if (one && CsvImport.isFiat((received ?: given)!!.first)) return skipAll(CsvImportSkipReason.NOT_CRYPTO)
+        // Nur eine Seite (beide fehlend ist oben schon erledigt)
+        val only = received ?: given ?: return skipAll(CsvImportSkipReason.BAD_NUMBER)
+        if (one && CsvImport.isFiat(only.first)) return skipAll(CsvImportSkipReason.NOT_CRYPTO)
         val feeAmount = split.first?.second
         val feeUnit = split.first?.first
         when {
             one -> {
                 // Nur eine Seite (Kartenkauf, P2P): Kauf bzw. Verkauf ohne Preis
-                val (coin, amount) = (received ?: given)!!
+                val (coin, amount) = only
                 val kind = if (received != null) CsvImportKind.BUY else CsvImportKind.SELL
                 rows += row(line, kind, rawKind(coin), coin, amount, null, null, feeAmount, feeUnit, first)
             }

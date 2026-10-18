@@ -215,8 +215,18 @@ private struct SheetChangeLine: View {
         var view = changeView
         view.showPeriod = false
         let updated = L("watchlist_updated", PriceFormat.time(watch.lastUpdate))
-        // Börse meldet den Mittelkurs (z. B. Hyperliquid), keinen letzten Handel: so benennen — wie Android
-        let mid: String = MarketsConfig.market(watch.marketKey)?.priceIsMid == true ? " · " + L("watch_price_mid") : ""
+        // Börse meldet den Mittelkurs (z. B. Hyperliquid), keinen letzten Handel: so benennen; fehlte der Mittelkurs
+        // (dünnes Orderbuch), steht der Mark-Preis da — dann so. WOO X Spot: Schluss der jüngsten Stundenkerze. Wie Android
+        let market = MarketsConfig.market(watch.marketKey)
+        let mid: String
+        switch PriceKindLabel.of(priceIsMid: market?.priceIsMid == true,
+                                 markFallback: MarkFallbackStore.contains(watch.id),
+                                 hourlyClose: market?.priceIsHourlyClose == true) {
+        case .mark: mid = " · " + L("watch_price_mark_fallback")
+        case .mid: mid = " · " + L("watch_price_mid")
+        case .hourly: mid = " · " + L("watch_price_hourly")
+        case nil: mid = ""
+        }
         let updatedPart: String = showUpdated ? " · " + updated : ""
         let tail: String = " · " + A11y.changeShortLabel(changeView.basis) + mid + updatedPart
         return HStack(alignment: .firstTextBaseline, spacing: 0) {

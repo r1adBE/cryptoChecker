@@ -32,7 +32,7 @@
     <string name="backup_plain_confirm">Enregistrer sans mot de passe</string>
     <string name="backup_plain_confirm_text">Le fichier n’est pas chiffré. Toute personne qui l’obtient peut lire :</string>
     <string name="backup_plain_confirm_title">Enregistrer sans mot de passe ?</string>
-    <string name="backup_plain_contents_addresses">Adresses de wallet enregistrées</string>
+    <string name="backup_plain_contents_addresses">Adresses de wallet et clés xpub enregistrées</string>
     <string name="backup_plain_contents_base">Liste de suivi avec notes et groupes, alertes, favoris et réglages</string>
     <string name="backup_plain_contents_portfolio">Portefeuille : transactions avec quantités et prix</string>
     <string name="backup_restore_app_lock_kept">Le verrouillage du portefeuille reste activé – une sauvegarde non chiffrée ne peut pas le désactiver.</string>

@@ -122,10 +122,12 @@ object PortfolioCostFx {
         var unrealizedFxMissing = false
         val coinCosts = LinkedHashMap<String, BigDecimal>()
         for (p in included) {
+            val unrealizedExact = p.unrealizedExact ?: continue
+            val pricedCostExact = p.pricedCostExact ?: continue
             val cost = target(p)
             if (cost == null) { unrealizedFxMissing = true; continue }
             coinCosts[p.coin] = cost
-            val pricedValue = p.unrealizedExact!! + p.pricedCostExact!!
+            val pricedValue = unrealizedExact + pricedCostExact
             unrealized = (unrealized ?: BigDecimal.ZERO) + pricedValue.multiply(currentRate, mc) - cost
             includedCost += cost
         }

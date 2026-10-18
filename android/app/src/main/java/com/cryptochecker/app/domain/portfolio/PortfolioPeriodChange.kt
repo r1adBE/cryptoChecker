@@ -324,8 +324,8 @@ object PortfolioPeriodChange {
             for (e in inWindow) {
                 val market = if (PortfolioLedger.needsMarketPrice(e)) marketPrice(coin, live, e.trade.time) else null
                 // Gebühr im dritten Coin ohne Preis: Marktkurs des Gebühr-Coins (sein aktueller Kurs für «nach dem letzten Schluss»)
-                val feeMarket = if (PortfolioLedger.needsFeeMarketPrice(e)) {
-                    val feeCoin = e.trade.thirdFeeCoin!!
+                val feeCoin = e.trade.thirdFeeCoin
+                val feeMarket = if (feeCoin != null && PortfolioLedger.needsFeeMarketPrice(e)) {
                     marketPrice(feeCoin, current[feeCoin]?.takeIf { it > 0.0 && it.isFinite() }, e.trade.time)
                 } else null
                 // Abgänge gekappt auf den Topf des Schritts (FIFO je Wallet: seine Wallet)

@@ -197,6 +197,7 @@ fun AlarmsScreen(
     // Statuszeile der Karten (AlarmCardStatus): Mitteilungen samt Alarm-Kanal bei jeder Rückkehr neu prüfen,
     // die Uhr jede Minute — ein Kurs wird auch ohne neue Daten veraltet
     val staleAfter by viewModel.staleAfterMillis.collectAsStateWithLifecycle()
+    val markFallback by viewModel.markFallback.collectAsStateWithLifecycle()
     var alarmsAllowed by remember { mutableStateOf(viewModel.alarmsAllowed()) }
     androidx.lifecycle.compose.LifecycleResumeEffect(notificationsEnabled) {
         alarmsAllowed = viewModel.alarmsAllowed()
@@ -283,6 +284,7 @@ fun AlarmsScreen(
                                 now = now,
                                 staleAfterMillis = staleAfter,
                                 unchecked = unchecked[alarm.id] != null,
+                                markFallback = markFallback,
                             ),
                             onToggle = { viewModel.setEnabled(alarm.id, it) },
                             onEdit = { if (!lowLiquidity) draft = AlarmDraft.from(alarm) },

@@ -9,8 +9,9 @@ import com.cryptochecker.app.domain.refresh.OutdatedRule
  *     ausgelöster Alarm käme nicht an, darum vor allem anderen.
  *  2. [Kind.LOW_LIQUIDITY] — DEX-Pool unter der Alarm-Liquidität oder unbekannt
  *     ([com.cryptochecker.app.domain.watch.DexLiquidity.blocksAlarms]): der Alarm wird gar nicht ausgewertet.
- *  3. [Kind.WAITING_FOR_PRICE] — Zeit laut Börse älter als 2 Stunden ([AlarmFreshness]) oder letzter
- *     Abruf älter als die Veraltet-Grenze der Merkliste ([OutdatedRule]): es fehlt ein frischer Kurs.
+ *  3. [Kind.WAITING_FOR_PRICE] — Zeit laut Börse älter als 2 Stunden ([AlarmFreshness]), Kurs nur der Mark-Preis
+ *     mangels Mittelkurs oder letzter Abruf älter als die Veraltet-Grenze der Merkliste ([OutdatedRule]): es fehlt ein
+ *     frischer, handelbarer Kurs.
  *  4. [Kind.UNCHECKED] — zuletzt nicht geprüft ([AlarmCheckStatus]); den Text liefert dessen Grund.
  * Sonst null (keine Zeile). Ausgeschaltete Alarme werden nicht geprüft und bekommen nie eine Zeile.
  * Reine Logik ohne Android (AlarmCardStatusTest), Swift-Spiegel AlarmCardStatus.swift.
@@ -26,6 +27,7 @@ object AlarmCardStatus {
      * @param lastUpdate letzter erfolgreicher Abruf (≤ 0 = noch nie, dann kein «Wartet»)
      * @param staleAfterMillis Veraltet-Grenze der abgefragten Paare (wie die Merkliste)
      * @param unchecked zuletzt nicht geprüft
+     * @param markFallback letzter Kurs war der Mark-Preis statt des Mittelkurses (Alarme lösen darauf nicht aus)
      */
     fun of(
         alarmEnabled: Boolean,
@@ -36,11 +38,12 @@ object AlarmCardStatus {
         now: Long,
         staleAfterMillis: Long,
         unchecked: Boolean,
+        markFallback: Boolean = false,
     ): Kind? = when {
         !alarmEnabled -> null
         !notificationsAllowed -> Kind.NOTIFICATIONS_OFF
         dexBlocksAlarms -> Kind.LOW_LIQUIDITY
-        AlarmFreshness.exchangeTimeTooOld(exchangeTime, now) ||
+        AlarmFreshness.blocksAlarms(exchangeTime, markFallback, now) ||
             OutdatedRule.isOutdated(lastUpdate, now, staleAfterMillis) -> Kind.WAITING_FOR_PRICE
         unchecked -> Kind.UNCHECKED
         else -> null

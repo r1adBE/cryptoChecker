@@ -32,7 +32,7 @@
     <string name="backup_plain_confirm">Uložit bez hesla</string>
     <string name="backup_plain_confirm_text">Soubor není šifrovaný. Kdo ho získá, může číst:</string>
     <string name="backup_plain_confirm_title">Uložit bez hesla?</string>
-    <string name="backup_plain_contents_addresses">Uložené adresy peněženek</string>
+    <string name="backup_plain_contents_addresses">Uložené adresy peněženek a klíče xpub</string>
     <string name="backup_plain_contents_base">Sledovaný seznam s poznámkami a skupinami, alarmy, oblíbené a nastavení</string>
     <string name="backup_plain_contents_portfolio">Portfolio: transakce s množstvím a cenami</string>
     <string name="backup_restore_app_lock_kept">Zámek portfolia zůstává zapnutý – nešifrovaná záloha ho nemůže vypnout.</string>

@@ -10,7 +10,7 @@ Verze 16.2.2
 • „Začněte jedním klepnutím“: prázdný seznam nabídne 5 největších mincí podle tržní kapitalizace (bez stablecoinů)
 • Úvodní výběr ukazuje aktuální cenu a změnu za 24 h – všech pět je předvybraných a přidáte je jedním tlačítkem
 • Přejetím doleva smažete (s možností Zpět), doprava označíte oblíbené
-• Karta Trh se otevře okamžitě s posledními daty a aktualizuje se na pozadí
+• Karta Trh se otevře s naposledy uloženými daty a aktualizuje se na pozadí
 • Noční klid (např. 23–7 h): alarmy počkají do konce a pak se ozvou, pokud podmínka stále platí; ostatní upozornění přicházejí potichu
 • Zámek portfolia přes Face ID, Touch ID nebo kód zařízení
 • Widget Portfolio pro plochu i zamčenou obrazovku: celková hodnota ve vaší měně a dnešní změna

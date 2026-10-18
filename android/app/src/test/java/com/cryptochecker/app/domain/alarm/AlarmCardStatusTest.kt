@@ -20,7 +20,8 @@ class AlarmCardStatusTest {
         exchangeTime: Long? = null,
         lastUpdate: Long = now - minute,
         unchecked: Boolean = false,
-    ) = AlarmCardStatus.of(enabled, allowed, dex, exchangeTime, lastUpdate, now, stale, unchecked)
+        markFallback: Boolean = false,
+    ) = AlarmCardStatus.of(enabled, allowed, dex, exchangeTime, lastUpdate, now, stale, unchecked, markFallback)
 
     @Test
     fun healthyAlarmHasNoLine() {
@@ -60,5 +61,15 @@ class AlarmCardStatusTest {
     @Test
     fun uncheckedOnlyWhenNothingElseApplies() {
         assertEquals(Kind.UNCHECKED, status(unchecked = true))
+    }
+
+    @Test
+    fun markPriceFallbackWaitsForPrice() {
+        // Nur Mark-Preis (kein Mittelkurs): Alarme lösen nicht aus — die Karte sagt «Wartet auf aktuellen Kurs»
+        assertEquals(Kind.WAITING_FOR_PRICE, status(markFallback = true, unchecked = true))
+        assertEquals(Kind.LOW_LIQUIDITY, status(dex = true, markFallback = true))
+        assertEquals(true, AlarmFreshness.blocksAlarms(null, markFallback = true, now = now))
+        assertEquals(false, AlarmFreshness.blocksAlarms(now - minute, markFallback = false, now = now))
+        assertEquals(true, AlarmFreshness.blocksAlarms(now - 3 * hour, markFallback = false, now = now))
     }
 }

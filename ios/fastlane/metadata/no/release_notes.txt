@@ -8,9 +8,9 @@ Versjon 16.2.2
 • Tilgjengelighet: kursfarger blå/oransje i stedet for grønn/rød, lette å skille ved alle former for fargesynsvansker (rød-grønn og blå-gul); «Bytt farger for stigning/fall»: rødt for stigning, grønt for fall, slik det er vanlig i Kina, Japan, Korea og Taiwan (automatisk på der); «Høy kontrast»: sterkere kursfarger, mørkere sekundærtekst og aksentfarge, følger også systemets kontrastinnstilling; VoiceOver: rader, grafer og widgeter som én setning
 • Minigraf på hver rad: 24-timers utvikling ved siden av kursen
 • «Kom i gang med ett trykk»: en tom liste tilbyr de 5 største coinene etter markedsverdi (uten stablecoins)
-• Startlisten viser livekurs og endring siste 24 t – alle fem er forhåndsvalgt og legges til med én knapp
+• Startlisten viser aktuell kurs og endring siste 24 t – alle fem er forhåndsvalgt og legges til med én knapp
 • Sveip til venstre for å slette (med Angre), til høyre for favoritt
-• Fanen Marked åpnes umiddelbart med siste data og oppdateres i bakgrunnen
+• Fanen Marked åpnes med sist lagrede data og oppdateres i bakgrunnen
 • Nattro (f.eks. 23–7): alarmer venter til nattroen er over, og varsler så hvis betingelsen fortsatt gjelder; andre varsler kommer lydløst
 • Porteføljelås med Face ID, Touch ID eller kode
 • Portefølje-widget for Hjem- og låseskjerm: samlet verdi i din valuta og endring i dag

@@ -59324,187 +59324,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "عناوين wallet المحفوظة"
+            "value" : "عناوين wallet ومفاتيح xpub المحفوظة"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Uložené adresy peněženek"
+            "value" : "Uložené adresy peněženek a klíče xpub"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gemte wallet-adresser"
+            "value" : "Gemte wallet-adresser og xpub-nøgler"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gespeicherte Wallet-Adressen"
+            "value" : "Gespeicherte Wallet-Adressen und xpub-Schlüssel"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Αποθηκευμένες διευθύνσεις πορτοφολιών"
+            "value" : "Αποθηκευμένες διευθύνσεις πορτοφολιών και κλειδιά xpub"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Saved wallet addresses"
+            "value" : "Saved wallet addresses and xpub keys"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Direcciones de wallet guardadas"
+            "value" : "Direcciones de wallet y claves xpub guardadas"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "آدرس‌های ذخیره‌شدهٔ کیف پول"
+            "value" : "آدرس‌ها و کلیدهای xpub ذخیره‌شدهٔ کیف پول"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tallennetut lompakko-osoitteet"
+            "value" : "Tallennetut lompakko-osoitteet ja xpub-avaimet"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Adresses de wallet enregistrées"
+            "value" : "Adresses de wallet et clés xpub enregistrées"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "כתובות ארנק שמורות"
+            "value" : "כתובות ארנק ומפתחות xpub שמורים"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "सहेजे गए वॉलेट पते"
+            "value" : "सहेजे गए वॉलेट पते और xpub कुंजियाँ"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mentett tárcacímek"
+            "value" : "Mentett tárcacímek és xpub-kulcsok"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alamat dompet tersimpan"
+            "value" : "Alamat dompet dan kunci xpub tersimpan"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Indirizzi wallet salvati"
+            "value" : "Indirizzi wallet e chiavi xpub salvati"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "保存したウォレットアドレス"
+            "value" : "保存したウォレットアドレスと xpub キー"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "저장된 지갑 주소"
+            "value" : "저장된 지갑 주소와 xpub 키"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Lagrede wallet-adresser"
+            "value" : "Lagrede wallet-adresser og xpub-nøkler"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Opgeslagen walletadressen"
+            "value" : "Opgeslagen walletadressen en xpub-sleutels"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Zapisane adresy walletów"
+            "value" : "Zapisane adresy walletów i klucze xpub"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Endereços de carteira guardados"
+            "value" : "Endereços de carteira e chaves xpub guardados"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Endereços de carteira salvos"
+            "value" : "Endereços de carteira e chaves xpub salvos"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Adrese de wallet salvate"
+            "value" : "Adrese de wallet și chei xpub salvate"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Сохранённые адреса кошельков"
+            "value" : "Сохранённые адреса кошельков и ключи xpub"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Adresat e ruajtura të wallet-it"
+            "value" : "Adresat e ruajtura të wallet-it dhe çelësat xpub"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sparade wallet-adresser"
+            "value" : "Sparade wallet-adresser och xpub-nycklar"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ที่อยู่วอลเล็ตที่บันทึกไว้"
+            "value" : "ที่อยู่วอลเล็ตและคีย์ xpub ที่บันทึกไว้"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kayıtlı cüzdan adresleri"
+            "value" : "Kayıtlı cüzdan adresleri ve xpub anahtarları"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Збережені адреси гаманців"
+            "value" : "Збережені адреси гаманців і ключі xpub"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Địa chỉ ví đã lưu"
+            "value" : "Địa chỉ ví và khóa xpub đã lưu"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "已保存的钱包地址"
+            "value" : "已保存的钱包地址和 xpub 密钥"
           }
         }
       }
@@ -286071,6 +286071,388 @@
         }
       }
     },
+    "system_backup_not_imported_message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تعذّرت قراءة نسخة المحفظة من نسخة Android الاحتياطية للنظام حتى في المحاولة الثانية، وقد حُذفت. إذا كان لديك ملف نسخ احتياطي، فاستعده من «%1$@» في الإعدادات."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kopii portfolia ze systémové zálohy Androidu se nepodařilo přečíst ani na druhý pokus a byla smazána. Pokud máš soubor zálohy, obnov ho v Nastavení pod „%1$@“."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Porteføljekopien fra Androids systembackup kunne ikke læses, heller ikke ved andet forsøg, og er slettet. Har du en backupfil, så gendan den under “%1$@” i Indstillinger."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Portfolio-Kopie aus der Android-Systemsicherung liess sich auch beim zweiten Versuch nicht lesen und wurde gelöscht. Hast du eine Sicherungsdatei, spiele sie in den Einstellungen unter «%1$@» ein."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Το αντίγραφο του χαρτοφυλακίου από το αντίγραφο ασφαλείας συστήματος του Android δεν διαβάστηκε ούτε στη δεύτερη προσπάθεια και διαγράφηκε. Αν έχεις αρχείο αντιγράφου ασφαλείας, επανάφερέ το στις Ρυθμίσεις, στο «%1$@»."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The portfolio copy from the Android system backup could not be read, even on a second attempt, and has been deleted. If you have a backup file, restore it under “%1$@” in Settings."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La copia del portafolio de la copia de seguridad del sistema Android no se pudo leer, ni siquiera en un segundo intento, y se ha eliminado. Si tienes un archivo de copia, restáuralo en Ajustes, en «%1$@»."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نسخهٔ سبد از پشتیبان سیستم Android حتی در تلاش دوم خوانده نشد و حذف شد. اگر فایل پشتیبان داری، آن را در تنظیمات از «%1$@» بازیابی کن."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salkun kopiota Androidin järjestelmävarmuuskopiosta ei voitu lukea toisellakaan yrityksellä, ja se poistettiin. Jos sinulla on varmuuskopiotiedosto, palauta se Asetuksissa kohdassa ”%1$@”."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La copie du portefeuille issue de la sauvegarde système Android n'a pas pu être lue, même au second essai, et a été supprimée. Si tu as un fichier de sauvegarde, restaure-le dans les Réglages, sous « %1$@ »."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "לא ניתן היה לקרוא את עותק התיק מגיבוי המערכת של Android, גם בניסיון השני, והוא נמחק. אם יש לך קובץ גיבוי, שחזר אותו בהגדרות תחת „%1$@”."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Android सिस्टम बैकअप से पोर्टफ़ोलियो की कॉपी दूसरी कोशिश में भी पढ़ी नहीं जा सकी और हटा दी गई। अगर आपके पास बैकअप फ़ाइल है, तो उसे सेटिंग्स में “%1$@” के तहत बहाल करें।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A portfólió másolata az Android rendszermentéséből második próbálkozásra sem volt olvasható, ezért törlődött. Ha van mentési fájlod, állítsd vissza a Beállításokban, a „%1$@” alatt."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salinan portofolio dari cadangan sistem Android tidak dapat dibaca, bahkan pada percobaan kedua, dan telah dihapus. Jika kamu punya file cadangan, pulihkan di Pengaturan pada “%1$@”."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La copia del portafoglio dal backup di sistema Android non è stata letta nemmeno al secondo tentativo ed è stata eliminata. Se hai un file di backup, ripristinalo in Impostazioni, in «%1$@»."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Android のシステムバックアップにあるポートフォリオのコピーは 2 回目の試行でも読み込めなかったため削除されました。バックアップファイルがある場合は、設定の「%1$@」から復元してください。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Android 시스템 백업의 포트폴리오 사본을 두 번째 시도에서도 읽지 못해 삭제했습니다. 백업 파일이 있으면 설정의 “%1$@”에서 복원하세요."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Porteføljekopien fra Androids systemsikkerhetskopi kunne ikke leses, heller ikke ved andre forsøk, og er slettet. Har du en sikkerhetskopifil, gjenoppretter du den under «%1$@» i Innstillinger."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "De portfoliokopie uit de Android-systeemback-up kon ook bij een tweede poging niet worden gelezen en is verwijderd. Heb je een back-upbestand, zet het dan terug via “%1$@” in Instellingen."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kopii portfela z kopii systemowej Androida nie udało się odczytać nawet za drugim razem i została usunięta. Jeśli masz plik kopii, przywróć go w Ustawieniach w sekcji „%1$@”."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A cópia do portefólio da cópia de segurança do sistema Android não pôde ser lida, nem numa segunda tentativa, e foi eliminada. Se tiver um ficheiro de cópia, restaure-o nas Definições, em «%1$@»."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A cópia do portfólio do backup do sistema Android não pôde ser lida, nem em uma segunda tentativa, e foi excluída. Se você tiver um arquivo de backup, restaure-o em “%1$@” nas Configurações."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copia portofoliului din backupul de sistem Android nu a putut fi citită nici la a doua încercare și a fost ștearsă. Dacă ai un fișier de backup, restaurează-l în Setări, la „%1$@”."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Копию портфеля из системной резервной копии Android не удалось прочитать даже со второй попытки, и она удалена. Если у вас есть файл резервной копии, восстановите его в настройках в разделе «%1$@»."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kopja e portofolit nga kopja rezervë e sistemit Android nuk u lexua as në provën e dytë dhe u fshi. Nëse ke një skedar kopjeje rezervë, rikthe atë te Cilësimet, nën “%1$@”."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portföljkopian från Androids systemsäkerhetskopia kunde inte läsas, inte ens vid andra försöket, och har raderats. Har du en säkerhetskopiefil återställer du den under ”%1$@” i Inställningar."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "อ่านสำเนาพอร์ตโฟลิโอจากข้อมูลสำรองของระบบ Android ไม่ได้แม้ในครั้งที่สอง จึงลบทิ้งแล้ว หากคุณมีไฟล์สำรอง ให้กู้คืนได้ที่ “%1$@” ในการตั้งค่า"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Android sistem yedeğindeki portföy kopyası ikinci denemede de okunamadı ve silindi. Yedek dosyan varsa Ayarlar'da “%1$@” altında geri yükle."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Копію портфеля із системної резервної копії Android не вдалося прочитати навіть з другої спроби, тому її видалено. Якщо маєте файл резервної копії, відновіть його в налаштуваннях у розділі «%1$@»."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không đọc được bản sao danh mục từ bản sao lưu hệ thống Android, kể cả ở lần thử thứ hai, nên đã xóa. Nếu có tệp sao lưu, hãy khôi phục trong Cài đặt, mục “%1$@”."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "来自 Android 系统备份的投资组合副本在第二次尝试时仍无法读取，已被删除。如果你有备份文件，请在设置的“%1$@”中恢复。"
+          }
+        }
+      }
+    },
+    "system_backup_not_imported_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لم تتم استعادة المحفظة من نسخة النظام الاحتياطية"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfolio nebylo obnoveno ze systémové zálohy"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Porteføljen blev ikke gendannet fra systembackup"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfolio nicht aus der Systemsicherung übernommen"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Το χαρτοφυλάκιο δεν επανήλθε από το αντίγραφο ασφαλείας συστήματος"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfolio not restored from system backup"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El portafolio no se restauró desde la copia del sistema"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "سبد از پشتیبان سیستم بازیابی نشد"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salkkua ei palautettu järjestelmän varmuuskopiosta"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portefeuille non restauré depuis la sauvegarde système"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "התיק לא שוחזר מגיבוי המערכת"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "पोर्टफ़ोलियो सिस्टम बैकअप से बहाल नहीं हुआ"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A portfólió nem állt vissza a rendszermentésből"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portofolio tidak dipulihkan dari cadangan sistem"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portafoglio non ripristinato dal backup di sistema"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "システムバックアップからポートフォリオを復元できませんでした"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "시스템 백업에서 포트폴리오를 복원하지 못했습니다"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Porteføljen ble ikke gjenopprettet fra systemsikkerhetskopien"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfolio niet hersteld uit systeemback-up"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfel nie został przywrócony z kopii systemowej"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portefólio não restaurado da cópia de segurança do sistema"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfólio não restaurado do backup do sistema"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portofoliul nu a fost restaurat din backupul de sistem"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Портфель не восстановлен из системной резервной копии"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portofoli nuk u rikthye nga kopja rezervë e sistemit"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portföljen återställdes inte från systemsäkerhetskopian"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ไม่ได้กู้คืนพอร์ตโฟลิโอจากข้อมูลสำรองของระบบ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portföy sistem yedeğinden geri yüklenemedi"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Портфель не відновлено із системної резервної копії"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không khôi phục được danh mục từ bản sao lưu hệ thống"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未能从系统备份恢复投资组合"
+          }
+        }
+      }
+    },
     "tab_market_phase" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -333439,6 +333821,388 @@
         }
       }
     },
+    "watch_price_hourly" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "سعر الساعة"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "hodinový kurz"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "timekurs"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stundenkurs"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ωριαία τιμή"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "hourly price"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "precio por hora"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "قیمت ساعتی"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tuntihinta"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "cours horaire"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "מחיר שעתי"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "घंटे का भाव"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "órás árfolyam"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "harga per jam"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "prezzo orario"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1時間足の価格"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "시간봉 가격"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "timekurs"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "uurkoers"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "kurs godzinowy"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "preço horário"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "preço por hora"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "preț orar"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "часовой курс"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "çmim për orë"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "timkurs"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ราคารายชั่วโมง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "saatlik fiyat"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "погодинний курс"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "giá theo giờ"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "小时价格"
+          }
+        }
+      }
+    },
+    "watch_price_mark_fallback" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "سعر mark (لا يوجد سعر متوسط)"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "cena mark (bez středního kurzu)"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "mark-kurs (ingen midterkurs)"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mark-Preis (kein Mittelkurs)"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "τιμή mark (χωρίς μέση τιμή)"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "mark price (no mid price)"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "precio mark (sin precio medio)"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "قیمت mark (بدون قیمت میانه)"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "mark-hinta (ei keskikurssia)"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "prix mark (pas de cours moyen)"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "מחיר mark (אין מחיר אמצע)"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "मार्क भाव (मध्य भाव नहीं)"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "mark ár (nincs középárfolyam)"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "harga mark (tanpa harga tengah)"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "prezzo mark (nessun prezzo medio)"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "マーク価格（仲値なし）"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "마크 가격(중간 가격 없음)"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "mark-kurs (ingen midtkurs)"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "markkoers (geen middenkoers)"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "cena mark (brak kursu średniego)"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "preço mark (sem preço médio)"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "preço mark (sem preço médio)"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "preț mark (fără preț mediu)"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "цена mark (нет среднего курса)"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "çmim mark (pa çmim mesatar)"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "markkurs (ingen mittkurs)"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ราคา mark (ไม่มีราคากลาง)"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "mark fiyatı (orta fiyat yok)"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ціна mark (немає середнього курсу)"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "giá mark (không có giá giữa)"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "标记价格（无中间价）"
+          }
+        }
+      }
+    },
     "watch_price_mid" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -337769,6 +338533,197 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "设置第一个提醒"
+          }
+        }
+      }
+    },
+    "watchlist_first_alarm_title_pair" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اضبط أول تنبيه – %1$@"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nastav první alarm – %1$@"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sæt din første alarm – %1$@"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ersten Alarm setzen – %1$@"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Όρισε τον πρώτο συναγερμό – %1$@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Set your first alert – %1$@"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crea tu primera alarma – %1$@"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اولین هشدار را تنظیم کن – %1$@"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aseta ensimmäinen hälytys – %1$@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Créez votre première alerte – %1$@"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "הגדר את ההתראה הראשונה – %1$@"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "अपना पहला अलार्म सेट करें – %1$@"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Állítsd be az első riasztást – %1$@"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pasang alarm pertamamu – %1$@"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Imposta il primo allarme – %1$@"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "最初のアラームを設定 – %1$@"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "첫 경보 설정 – %1$@"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sett din første alarm – %1$@"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stel je eerste alarm in – %1$@"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ustaw pierwszy alarm – %1$@"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Defina o seu primeiro alarme – %1$@"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crie seu primeiro alarme – %1$@"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Setează prima alarmă – %1$@"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Создайте первое оповещение – %1$@"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vendos alarmin e parë – %1$@"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ställ in ditt första larm – %1$@"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ตั้งสัญญาณเตือนแรก – %1$@"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İlk alarmını kur – %1$@"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Створіть перший сигнал – %1$@"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đặt cảnh báo đầu tiên – %1$@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "设置第一个提醒 – %1$@"
           }
         }
       }

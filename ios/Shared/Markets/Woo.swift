@@ -24,6 +24,9 @@ final class Woo: WooBase {
                    tickerURL: wooAPI + "/v3/public/kline?symbol=%1$s&type=1h&limit=\(wooHours)")
     }
 
+    /// Kurs = Schluss der jüngsten Stundenkerze: im Aktionsblatt «Stundenkurs».
+    override var priceIsHourlyClose: Bool { true }
+
     // MARK: Einzelkurs
 
     override func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {

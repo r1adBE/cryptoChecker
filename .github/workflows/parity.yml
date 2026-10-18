@@ -1,0 +1,65 @@
+# Checks that the shared Android/iOS test cases are identical on both sides: every *.json in
+# android/testdata/parity (the source, read by ParityFixturesTest) must exist byte-identical in
+# ios/Tests/Parity (the copy, read by the iOS unit tests), and the copy must not hold extra files.
+# The copy is written by ios/tools/gen_xcodeproj.py (sync_parity, *.json only); this check uses the
+# same rule, so a failure means: run «python3 ios/tools/gen_xcodeproj.py» and commit ios/Tests/Parity.
+name: Parity fixtures
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'android/testdata/parity/**'
+      - 'ios/Tests/Parity/**'
+      - 'ios/tools/gen_xcodeproj.py'
+      - '.github/workflows/parity.yml'
+  pull_request:
+    paths:
+      - 'android/testdata/parity/**'
+      - 'ios/Tests/Parity/**'
+      - 'ios/tools/gen_xcodeproj.py'
+      - '.github/workflows/parity.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: parity-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Compare android/testdata/parity with ios/Tests/Parity
+        env:
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: |
+          python3 - <<'EOF'
+          import os, sys
+          src, copy = "android/testdata/parity", "ios/Tests/Parity"
+          def files(d):
+              return sorted(f for f in os.listdir(d) if f.endswith(".json")) if os.path.isdir(d) else []
+          a, b = files(src), files(copy)
+          if not a:
+              print(f"::error::{src} is missing or empty")
+              sys.exit(1)
+          errors = [f"{copy}/{f} has no source in {src}" for f in b if f not in a]
+          errors += [f"{copy}/{f} is missing" for f in a if f not in b]
+          for f in a:
+              if f in b:
+                  with open(os.path.join(src, f), "rb") as x, open(os.path.join(copy, f), "rb") as y:
+                      if x.read() != y.read():
+                          errors.append(f"{copy}/{f} differs from {src}/{f}")
+          for e in errors:
+              print(f"::error::{e} (run python3 ios/tools/gen_xcodeproj.py and commit ios/Tests/Parity)")
+          if errors:
+              sys.exit(1)
+          print(f"{len(a)} parity file(s) identical")
+          EOF

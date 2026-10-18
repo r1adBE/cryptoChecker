@@ -1,7 +1,7 @@
 Novidades 16.2.2
 • Crypto Pulse: o que se passa
 • Atividade invulgar, «O que se mexe com ele?» com resumo
-• Comece com um toque: top 5 em direto
+• Comece com um toque: top 5, preço atual
 • Deslize: eliminar (Anular) ou favorito
 • Preços e alarmes na sua moeda; CSV à data de referência
 • Acessível: azul/laranja, alto contraste, trocar cores, TalkBack

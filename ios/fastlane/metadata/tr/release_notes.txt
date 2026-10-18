@@ -8,9 +8,9 @@ Sürüm 16.2.2
 • Erişilebilirlik: yeşil/kırmızı yerine mavi/turuncu fiyat renkleri, her renk görme bozukluğunda (kırmızı-yeşil ve mavi-sarı) kolayca ayırt edilir; “Yükseliş/düşüş renklerini değiştir”: Çin, Japonya, Kore ve Tayvan’da alışıldığı gibi yükseliş için kırmızı, düşüş için yeşil (bu bölgelerde otomatik açık); “Yüksek kontrast”: daha güçlü fiyat renkleri, daha koyu ikincil metin ve vurgu rengi, sistemin kontrast ayarını da izler; VoiceOver: satırlar, grafikler ve widget’lar tek cümle olarak
 • Her satırda mini grafik: fiyatın yanında 24 saatlik eğilim
 • “Tek dokunuşla başla”: boş liste, piyasa değerine göre en büyük 5 coini önerir (stablecoin’ler hariç)
-• Başlangıç listesi her coinin canlı fiyatını ve 24 saatlik değişimini gösterir – beşi de önceden seçili, tek düğmeyle eklenir
+• Başlangıç listesi her coinin güncel fiyatını ve 24 saatlik değişimini gösterir – beşi de önceden seçili, tek düğmeyle eklenir
 • Silmek için sola kaydır (Geri al ile), favori olarak işaretlemek için sağa
-• Piyasa sekmesi son verilerle anında açılır ve arka planda yenilenir
+• Piyasa sekmesi son kaydedilen verilerle açılır ve arka planda yenilenir
 • Sessiz saatler (örn. 23–7): alarmlar bitişi bekler, koşul hâlâ geçerliyse sonra çalar; diğer bildirimler sessiz gelir
 • Face ID, Touch ID veya cihaz parolasıyla portföy kilidi
 • Ana Ekran ve Kilitli Ekran için portföy widget’ı: kendi para biriminde toplam değer ve bugünkü değişim

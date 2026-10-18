@@ -188,7 +188,7 @@ object PortfolioLedger {
                 t.type == PortfolioTxType.PAYMENT -> close(t.coin, t.time)?.let { t.copy(priceUsdt = it, valueEstimated = true) } ?: t
                 else -> {
                     val value = close(t.coin, t.time)?.let { t.amount * it }
-                        ?: t.swapToCoin?.let { to -> close(to, t.time)?.let { t.toAmount!! * it } }
+                        ?: t.swapToCoin?.let { to -> close(to, t.time)?.let { c -> t.toAmount?.multiply(c) } }
                     value?.let { t.copy(swapValueUsdt = it, valueEstimated = true) } ?: t
                 }
             }
@@ -292,7 +292,7 @@ object PortfolioLedger {
             // Zugang aus Tausch: zum Wert des Tauschs, sonst erhaltene Menge (vor Gebühr) × Marktkurs; ohne gültigen Zugang unbekannt
             if (t.swapToCoin == null) return null
             t.swapValue?.let { return it }
-            return market?.let { t.toAmount!! * it }
+            return market?.let { m -> t.toAmount?.multiply(m) }
         }
         // Umbuchung ohne Bestand (in ihrer Quelle): wie im Rechner ([PortfolioFifo], Ø) ohne Wirkung — auch ihre Gebühren
         if (t.type == PortfolioTxType.TRANSFER && h.signum() <= 0) return BigDecimal.ZERO

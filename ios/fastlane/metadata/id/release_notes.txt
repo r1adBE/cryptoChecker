@@ -8,9 +8,9 @@ Versi 16.2.2
 • Aksesibilitas: warna harga biru/oranye sebagai pengganti hijau/merah, mudah dibedakan untuk setiap jenis buta warna (merah-hijau dan biru-kuning); “Tukar warna naik/turun”: merah naik, hijau turun, seperti lazim di Tiongkok, Jepang, Korea, dan Taiwan (otomatis aktif di sana); “Kontras tinggi”: warna harga lebih kuat, teks sekunder dan aksen lebih gelap, mengikuti pengaturan sistem; VoiceOver: baris, grafik, dan widget sebagai satu kalimat
 • Grafik mini di setiap baris: tren 24 jam di samping harga
 • “Mulai dengan satu ketukan”: daftar kosong menawarkan 5 koin terbesar menurut kapitalisasi pasar (tanpa stablecoin)
-• Daftar awal menampilkan harga langsung dan perubahan 24 jam – kelimanya sudah terpilih, ditambahkan dengan satu tombol
+• Daftar awal menampilkan harga terkini dan perubahan 24 jam – kelimanya sudah terpilih, ditambahkan dengan satu tombol
 • Geser ke kiri untuk menghapus (dengan Urungkan), ke kanan untuk menandai favorit
-• Tab Pasar langsung terbuka dengan data terakhir dan diperbarui di latar belakang
+• Tab Pasar terbuka dengan data terakhir yang tersimpan dan diperbarui di latar belakang
 • Jam tenang (mis. 23–7): alarm menunggu sampai selesai, lalu berbunyi jika kondisinya masih berlaku; pemberitahuan lain datang tanpa suara
 • Kunci portofolio dengan Face ID, Touch ID, atau kode sandi perangkat
 • Widget portofolio untuk Layar Utama dan Layar Terkunci: nilai total dalam mata uang Anda dan perubahan hari ini

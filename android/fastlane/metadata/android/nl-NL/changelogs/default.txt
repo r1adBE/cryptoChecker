@@ -1,7 +1,7 @@
 Nieuw in 16.2.2
 • Crypto Pulse: wat er nu gebeurt
 • Ongewone activiteit, ‘Wat beweegt mee?’ met samenvatting
-• Begin met één tik: top 5 coins, live koersen
+• Begin met één tik: top 5 coins, actuele koersen
 • Vegen: verwijderen (met ongedaan maken) of favoriet
 • Koersen en alarmen in je valuta, peildatum-export (CSV)
 • Toegankelijk: blauw/oranje, contrast, TalkBack

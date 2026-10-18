@@ -214,7 +214,7 @@ data class PortfolioTrade(
 
     /** Tausch: erhaltene Menge − Gebühr im erhaltenen Coin (nie negativ); ohne gültigen Zugang 0. */
     val swapReceived: BigDecimal
-        get() = if (swapToCoin == null) BigDecimal.ZERO else (toAmount!! - toCoinFee).max(BigDecimal.ZERO)
+        get() = if (swapToCoin == null) BigDecimal.ZERO else ((toAmount ?: BigDecimal.ZERO) - toCoinFee).max(BigDecimal.ZERO)
 
     /**
      * Tausch: Wert in USDT (gesamt, für [amount] abgegeben bzw. [toAmount] erhalten, ohne Gebühren) — [swapValueUsdt]
@@ -233,7 +233,7 @@ data class PortfolioTrade(
         }
 
     /** Menge der Gebühr im dritten Coin, sonst 0. */
-    val thirdFeeAmount: BigDecimal get() = if (thirdFeeCoin != null) feeCoinAmount!! else BigDecimal.ZERO
+    val thirdFeeAmount: BigDecimal get() = if (thirdFeeCoin != null) feeCoinAmount ?: BigDecimal.ZERO else BigDecimal.ZERO
 
     /** USDT je Gebühr-Coin: erfasster Preis (≥ 0), für USDT immer 1; null = unbekannt oder keine Gebühr. */
     val thirdFeePrice: BigDecimal?

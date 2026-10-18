@@ -15,6 +15,7 @@ internal class TickerImpl : Ticker {
     override var exchangeTime: Long? = null
     override var change24hPercent: Double? = null
     override var liquidityUsd: Double? = null
+    override var markFallback: Boolean = false
 
     private companion object {
         val EMPTY: Double = Ticker.MISSING

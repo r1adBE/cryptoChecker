@@ -63,8 +63,9 @@ extension WatchlistScreen {
                     .id(WatchlistJump.topId)
             }
 
-            // Kein Alarm, aber Paare: bleibende Karte zusätzlich zum 6-s-Banner nach dem Hinzufügen (wie Android)
-            if let first = rows.first ?? data.watches.first,
+            // Kein Alarm, aber Paare: bleibende Karte zusätzlich zum 6-s-Banner nach dem Hinzufügen (wie Android); sie
+            // öffnet das erste Paar der gespeicherten Reihenfolge, nicht der gerade sortierten Ansicht
+            if let first = FirstAlarmCard.target(stored: data.watches, disabled: { $0.disabled }),
                FirstAlarmCard.shouldShow(alarmCount: totalAlarmCount, watchCount: data.watches.count,
                                          dismissed: data.settings.firstAlarmCardDismissed,
                                          busy: searching || sorting || selecting) {
@@ -330,7 +331,7 @@ extension WatchlistScreen {
     }
 
     /// Karte «Ersten Alarm setzen» (`FirstAlarmCard`): ganze Karte antippbar (Alarme des ersten Paars, ohne
-    /// Alarm gleich der Editor), ✕ schliesst sie für immer — wie Android `FirstAlarmCardView`.
+    /// Alarm gleich der Editor), ✕ schliesst sie für immer; der Titel nennt das Paar — wie Android `FirstAlarmCardView`.
     private func firstAlarmCard(first: Watch) -> some View {
         HStack(alignment: .center, spacing: Spacing.sm) {
             Button {
@@ -342,7 +343,7 @@ extension WatchlistScreen {
                         .foregroundStyle(accent.primary)
                         .padding(.top, 1)
                     VStack(alignment: .leading, spacing: 2) {
-                        Text(L("watchlist_first_alarm_title"))
+                        Text(L("watchlist_first_alarm_title_pair", first.displayName))
                             .font(.subheadline.weight(.semibold))
                             .foregroundStyle(accent.primary)
                         Text(L("watchlist_first_alarm_text"))

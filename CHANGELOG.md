@@ -15,6 +15,23 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 79)
+
+Review fixes before the store.
+
+* iPhone: a backup that contains watched addresses or an xpub (even without transactions) now requires unlocking,
+  preselects a password and names the addresses in the warning; watched addresses are never written unencrypted
+  (like the portfolio); new portfolio-alarm thresholds no longer end up unencrypted in the watchlist file.
+* Android: a system-backup copy that could not be imported is retried once and then always deleted.
+* Privacy page: precise list of what can stay unencrypted when encryption cannot be set up.
+* Calculations no longer crash on unexpected missing values – the row is marked unpriced instead.
+* Hyperliquid: a mark price used because the order book is empty is labelled «Mark» and does not fire alarms; WOO X
+  spot is labelled as hourly price.
+* «Set your first alert» names the pair it opens; «outdated» uses the same amber colour everywhere; the live chip no
+  longer reaches into the neighbouring row.
+* Store release notes: «current prices» instead of «live».
+* CI: a parity check fails if the shared test data of Android and iPhone ever differ.
+
 ## 16.2.2 (build 78)
 
 Independent check of every calculation (five auditors, official sources) and the fixes it found.

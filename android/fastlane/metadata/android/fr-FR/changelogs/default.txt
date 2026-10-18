@@ -1,7 +1,7 @@
 Nouveautés 16.2.2
 • Crypto Pulse : ce qui se passe
 • Activité inhabituelle, « Qu’est-ce qui bouge avec ? », résumé
-• En un geste : top 5, cours en direct
+• En un geste : top 5, cours actuels
 • Balayer : supprimer (avec Annuler) ou favori
 • Prix, alertes dans votre devise, export CSV à date
 • Accessible : bleu/orange, contraste, couleurs inversées, TalkBack

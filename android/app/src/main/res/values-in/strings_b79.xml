@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
+    <string name="watch_price_mark_fallback">harga mark (tanpa harga tengah)</string>
+    <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
+    <string name="watch_price_hourly">harga per jam</string>
+    <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
+    <string name="watchlist_first_alarm_title_pair">Pasang alarm pertamamu – %1$s</string>
+    <!-- Hinweis (nur Android): Portfolio-Kopie aus der Systemsicherung auch beim zweiten Versuch unlesbar und gelöscht -->
+    <string name="system_backup_not_imported_title">Portofolio tidak dipulihkan dari cadangan sistem</string>
+    <!-- %1$s = Name des Bereichs «Sichern &amp; Wiederherstellen» in den Einstellungen -->
+    <string name="system_backup_not_imported_message">Salinan portofolio dari cadangan sistem Android tidak dapat dibaca, bahkan pada percobaan kedua, dan telah dihapus. Jika kamu punya file cadangan, pulihkan di Pengaturan pada “%1$s”.</string>
+</resources>

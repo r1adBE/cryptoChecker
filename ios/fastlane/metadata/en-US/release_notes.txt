@@ -8,9 +8,9 @@ Version 16.2.2
 • Accessibility: price colors blue/orange instead of green/red, easy to tell apart with every color vision deficiency (red-green and blue-yellow); “Swap rise/fall colors”: red for rising, green for falling, as usual in China, Japan, Korea and Taiwan (on automatically there); “High contrast”: stronger price colors, darker secondary text and accent, also follows the system contrast setting; VoiceOver: rows, charts and widgets as one sentence
 • Mini chart in every row: the 24-hour trend next to the price
 • “Start with one tap”: an empty watchlist offers the 5 largest coins by market cap (no stablecoins)
-• The starter list shows each coin’s live price and 24 h change – all five preselected, added with one button
+• The starter list shows each coin’s current price and 24 h change – all five preselected, added with one button
 • Swipe left to delete (with Undo), swipe right to mark a favorite
-• The Market tab opens instantly with the latest data and refreshes in the background
+• The Market tab opens with the last saved data and refreshes in the background
 • Quiet hours (e.g. 11 pm–7 am): alerts wait until they end, then go off if the condition still holds; other notices arrive silently
 • Portfolio lock with Face ID, Touch ID or device passcode
 • Portfolio widget for Home and Lock Screen: total value in your currency and today’s change

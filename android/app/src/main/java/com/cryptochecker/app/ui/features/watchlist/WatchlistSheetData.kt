@@ -37,7 +37,12 @@ class WatchlistSheetData @Inject constructor(
     private val candlePairs: CandlePairs,
     /** Namen der Coins je Börse: klar anderer Name als die Ausweich-Reihe → kein Mini-Chart von dort. */
     private val tokenIdentityStore: TokenIdentityStore,
+    /** Paare mit Mark-Preis statt Mittelkurs: «Mark» in Zeile und Blatt. */
+    private val markFallbackStore: com.cryptochecker.app.data.MarkFallbackStore,
 ) {
+
+    /** Watch-Ids, deren letzter Kurs der Mark-Preis war ([com.cryptochecker.app.data.MarkFallbackStore]). */
+    val markFallbackIds: kotlinx.coroutines.flow.StateFlow<Set<Long>> get() = markFallbackStore.ids
 
     /**
      * Was in der Zeile von [watch] nicht von seiner Börse kommt (%-Änderung aus fremden Kerzen, Mini-Chart einer

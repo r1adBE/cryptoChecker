@@ -165,6 +165,8 @@ internal fun WatchRow(
     val name = coinName(watch.marketKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name)
     // Gezeigte Änderung aus fremden Kerzen: Anbieter für Marker und Zeilensatz (gleiche Regel wie iOS)
     val changeMarker = DayChange.rowChangeMarker(changeSource, watch.shownChange(changeView), changeView.basis.isSinceLast)
+    // Kurs ist der Mark-Preis (dünnes Orderbuch ohne Mittelkurs): so benennen, auch im Zeilensatz
+    val markPrice = watch.id in LocalMarkFallback.current && watch.lastPrice != null
     // Frische ausgeschrieben statt der Zeitzeile mit «·» und «Min.»: «Kurs veraltet, zuletzt
     // aktualisiert vor 45 Minuten» bzw. «Deaktiviert» / «Wird … nicht mehr gehandelt»
     val notTraded = isNotTraded(watch.lastError)
@@ -191,6 +193,7 @@ internal fun WatchRow(
         state = listOf(A11yText.freshness(context, freshness, watch.lastUpdate, now, watch.marketName), status.unchanged),
         extras = listOf(
             changeMarker?.let { stringResource(R.string.change_candle_source, it) },
+            if (markPrice) stringResource(R.string.watch_price_mark_fallback) else null,
             converted?.let { stringResource(R.string.a11y_converted, it.removePrefix("≈ ")) },
             sparkline?.takeIf { it.size >= 2 }?.let { A11yText.chart(context, chartPeriod, it) },
             chartSource?.takeIf { sparkline != null && sparkline.size >= 2 }?.let { stringResource(R.string.watch_row_source_chart, it) },
@@ -345,6 +348,7 @@ internal fun WatchRow(
                             reveal = motion.priceReveal,
                             flash = flash,
                             changeMarker = changeMarker != null,
+                            markPrice = markPrice,
                         )
                     }
 
@@ -360,6 +364,7 @@ internal fun WatchRow(
                         reveal = motion.priceReveal,
                         flash = flash,
                         changeMarker = changeMarker != null,
+                        markPrice = markPrice,
                         modifier = Modifier.align(Alignment.End).padding(top = 4.dp),
                     )
                 }

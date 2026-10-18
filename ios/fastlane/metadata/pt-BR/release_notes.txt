@@ -8,9 +8,9 @@ Versão 16.2.2
 • Acessibilidade: azul/laranja fáceis de distinguir com qualquer tipo de daltonismo (vermelho-verde e azul-amarelo); “Trocar cores de alta/queda”: vermelho para alta, verde para queda, como na China, no Japão, na Coreia e em Taiwan (lá ativado automaticamente); “Alto contraste”: cores mais fortes, textos secundários e destaque mais escuros, também segue o sistema; VoiceOver: linhas, gráficos e widgets como uma frase
 • Minigráfico de 24 h em cada linha
 • “Comece com um toque”: a lista vazia sugere as 5 maiores moedas por capitalização (sem stablecoins)
-• A lista inicial mostra o preço ao vivo e a variação em 24 h – as cinco já vêm selecionadas e são adicionadas com um botão
+• A lista inicial mostra o preço atual e a variação em 24 h – as cinco já vêm selecionadas e são adicionadas com um botão
 • Deslize para a esquerda para excluir (com Desfazer) e para a direita para favoritar
-• A aba Mercado abre na hora com os últimos dados e atualiza em segundo plano
+• A aba Mercado abre com os últimos dados salvos e atualiza em segundo plano
 • Horário de silêncio (por ex. 23h–7h): os alarmes esperam até o fim e depois tocam se a condição ainda valer; os outros avisos chegam em silêncio
 • Bloqueio do portfólio com Face ID, Touch ID ou código
 • Widget Portfólio para a Tela de Início e a Tela Bloqueada: valor total na sua moeda e variação de hoje

@@ -431,7 +431,7 @@ fun TaxExport.yearSummary(
     }
     // CA: nicht abziehbare Verluste
     val adjRows = rows.filter { it.adjustmentUsdt != null }
-    val deniedUsdt = adjRows.fold(zero) { a, r -> a + r.adjustmentUsdt!! }
+    val deniedUsdt = adjRows.fold(zero) { a, r -> a + (r.adjustmentUsdt ?: zero) }
     val deniedTarget = adjRows.fold(zero) { a, r -> a + (r.adjustmentTarget ?: zero) }
     val deniedFx = fx && adjRows.any { it.adjustmentTarget == null }
     if (adjRows.isNotEmpty()) lines += TaxSummaryLine(TaxLine.DENIED_LOSS, deniedUsdt, deniedTarget.takeIf { fx }, noFx = deniedFx)

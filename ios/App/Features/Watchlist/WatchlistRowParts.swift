@@ -214,6 +214,12 @@ extension WatchlistRow {
                 Text(watch.quoteAsset)
                     .font(.footnote)
                     .foregroundStyle(AppColors.onSurfaceVariant)
+                // Kurs ist der Mark-Preis (kein Mittelkurs, `MarkFallbackStore`): klein «Mark» dahinter — wie Android
+                if MarkFallbackStore.contains(watch.id) {
+                    Text(L("watch_change_mark"))
+                        .font(.caption2)
+                        .foregroundStyle(AppColors.onSurfaceVariant)
+                }
             }
         }
         .lineLimit(1)

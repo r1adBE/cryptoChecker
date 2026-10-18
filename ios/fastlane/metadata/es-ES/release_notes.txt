@@ -8,9 +8,9 @@ Versión 16.2.2
 • Accesibilidad: azul/naranja se distinguen bien con cualquier deficiencia de visión del color (rojo-verde y azul-amarillo); «Intercambiar colores de subida/bajada»: rojo para subidas y verde para bajadas, como en China, Japón, Corea y Taiwán (allí, activado automáticamente); «Alto contraste»: colores más intensos, texto secundario y acento más oscuros, sigue también el sistema; VoiceOver: filas, gráficos y widgets como una frase
 • Minigráfico de 24 h en cada fila
 • «Empieza con un toque»: la lista vacía propone las 5 monedas con mayor capitalización (sin stablecoins)
-• La lista inicial muestra el precio en directo y el cambio en 24 h – las cinco vienen preseleccionadas y se añaden con un solo botón
+• La lista inicial muestra el precio actual y el cambio en 24 h – las cinco vienen preseleccionadas y se añaden con un solo botón
 • Desliza a la izquierda para eliminar (con Deshacer) y a la derecha para marcar como favorito
-• La pestaña Mercado se abre al instante con los últimos datos y se actualiza en segundo plano
+• La pestaña Mercado se abre con los últimos datos guardados y se actualiza en segundo plano
 • Horas de silencio (p. ej. 23–7 h): las alarmas esperan hasta el final y luego suenan si la condición se sigue cumpliendo; los demás avisos llegan en silencio
 • Bloqueo de la cartera con Face ID, Touch ID o código
 • Widget de cartera para inicio y pantalla bloqueada: valor total en tu moneda y cambio de hoy

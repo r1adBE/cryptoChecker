@@ -189,11 +189,23 @@ extension AppData {
         return watchedAddressFile
     }
 
-    /// Erst schreiben, dann anzeigen. Nicht lesbare Datei wird nie überschrieben (false).
+    /// Erst schreiben, dann anzeigen. Nicht lesbare Datei wird nie überschrieben (false). Ohne Schlüssel (nie Klartext,
+    /// wie `setPortfolioFile`): Stand im Speicher behalten und das nennen — das nächste Speichern bzw. die Rückkehr der
+    /// App nach vorne schreibt ihn (`retryPendingPortfolioSaves`).
     @discardableResult
     func setWatchedAddressFile(_ file: WatchedAddressFile) -> Bool {
         guard watchedAddressIntact else { return false }
-        guard WatchedAddressStore.save(file, includeInBackup: settings.portfolioSystemBackup) else { return false }
+        switch WatchedAddressStore.save(file, includeInBackup: settings.portfolioSystemBackup) {
+        case .saved:
+            watchedAddressSavePending = false
+            // Wartete sonst nichts mehr, verschwindet der Hinweis (prüft Portfolio und Portfolio-Alarme erneut)
+            if portfolioSavePending { retryPendingPortfolioSaves() }
+        case .needsKey:
+            watchedAddressSavePending = true
+            portfolioSavePending = true
+        case .failed:
+            return false
+        }
         watchedAddressFile = file
         watchedAddresses = Self.sortedWatched(file.addresses)
         return true

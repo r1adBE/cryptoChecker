@@ -52,6 +52,14 @@ object PortfolioLockPolicy {
         limitMillis: Long = BACKGROUND_LIMIT_MILLIS,
     ): Boolean = backgroundSince > 0L && (now - backgroundSince > limitMillis || now < backgroundSince)
 
+    /**
+     * Enthält eine Sicherung Portfolio-Daten? Eigene Trades und beobachtete Adressen (auch xpub) zählen
+     * gleich: beide verraten Bestände. Dann verlangt Sichern im gesperrten Zustand Entsperren, und der
+     * Passwortschutz ist vorgewählt.
+     */
+    fun backupHasPortfolioData(transactions: Int, watchedAddresses: Int): Boolean =
+        transactions > 0 || watchedAddresses > 0
+
     /** Sichern verlangt Entsperren, wenn die Datei Portfolio-Daten enthält und gesperrt ist. */
     fun backupExportNeedsUnlock(locked: Boolean, hasPortfolioData: Boolean): Boolean = locked && hasPortfolioData
 

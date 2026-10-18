@@ -7,6 +7,7 @@ import androidx.room.TypeConverters
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.cryptochecker.app.data.local.AppDatabase
+import com.cryptochecker.app.data.local.StorageRecoveryNotice
 import com.cryptochecker.app.domain.portfolio.LegacyStorageMigration
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import timber.log.Timber
@@ -194,6 +195,9 @@ abstract class PortfolioDatabase : RoomDatabase() {
             /** In [onCreate] übernommen: die Klartext-Kopie wird nach dem Anlegen (Transaktion abgeschlossen) gelöscht. */
             @Volatile private var takenOver = false
 
+            /** In [onCreate] beiseitegelegt: der zweite Versuch ([PortfolioBackupMirror.retryFailed]) erst beim nächsten Start. */
+            @Volatile private var setAsideNow = false
+
             override fun onCreate(db: SupportSQLiteDatabase) {
                 // Läuft in der Anlege-Transaktion; erst wird die ganze Datei gelesen und geprüft
                 // Ungültige Einträge nicht still verwerfen: beim nächsten Öffnen des Portfolios einmal nennen
@@ -209,6 +213,7 @@ abstract class PortfolioDatabase : RoomDatabase() {
                         // Die Datenbank startet leer; ohne Beiseitelegen überschriebe die nächste Sicherung
                         // (PortfolioBackupMirror.writeForBackup) die einzige Kopie mit einem leeren Portfolio
                         runCatching { PortfolioBackupMirror.setAside(mirrorFile) }
+                            .onSuccess { setAsideNow = it != null }
                             .onFailure { e -> Timber.w(e, "Portfolio: unlesbare Kopie nicht beiseitegelegt") }
                     }
             }
@@ -219,6 +224,24 @@ abstract class PortfolioDatabase : RoomDatabase() {
                 if (takenOver) {
                     takenOver = false
                     runCatching { mirrorFile.delete() }.onFailure { Timber.w(it, "Portfolio: übernommene Kopie nicht gelöscht") }
+                }
+                // Beim letzten Start beiseitegelegte Kopie: ein zweiter Versuch, dann weg (nie dauerhaft Klartext); geht es
+                // auch jetzt nicht, nennt die App das einmal
+                if (!setAsideNow) {
+                    runCatching {
+                        val lost = PortfolioBackupMirror.retryFailed(mirrorFile.absoluteFile.parentFile) { file ->
+                            db.beginTransaction()
+                            try {
+                                PortfolioBackupMirror.importInto(db, file, keepIds = false) { invalid ->
+                                    PortfolioRestoreNotice.add(context, invalid)
+                                }
+                                db.setTransactionSuccessful()
+                            } finally {
+                                db.endTransaction()
+                            }
+                        }
+                        if (lost > 0) StorageRecoveryNotice.recordSystemBackupNotImported(context)
+                    }.onFailure { Timber.w(it, "Portfolio: beiseitegelegte Kopie nicht verarbeitet") }
                 }
                 runCatching { PortfolioLegacyImport.run(portfolioDb = db, mainDb = { appDatabase.openHelper.writableDatabase }) }
                     .onFailure { Timber.w(it, "Portfolio: Übernahme aus der Hauptdatenbank fehlgeschlagen (nächster Start)") }

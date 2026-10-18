@@ -1,7 +1,7 @@
 Novità 16.2.2
 • Crypto Pulse: cosa succede ora
 • Attività insolita, «Cosa si muove insieme?» con riepilogo
-• Un tocco: top 5 monete, prezzi live
+• Un tocco: top 5 monete, prezzi attuali
 • Scorri: elimina (con Annulla) o preferito
 • Prezzi e allarmi nella tua valuta, export CSV alla data
 • Accessibile: blu/arancione, contrasto, colori invertiti, TalkBack

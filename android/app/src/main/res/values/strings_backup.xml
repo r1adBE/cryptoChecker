@@ -32,7 +32,7 @@
     <string name="backup_plain_confirm">Save without password</string>
     <string name="backup_plain_confirm_text">The file is not encrypted. Anyone who gets it can read:</string>
     <string name="backup_plain_confirm_title">Save without password?</string>
-    <string name="backup_plain_contents_addresses">Saved wallet addresses</string>
+    <string name="backup_plain_contents_addresses">Saved wallet addresses and xpub keys</string>
     <string name="backup_plain_contents_base">Watchlist with notes and groups, alerts, favorites and settings</string>
     <string name="backup_plain_contents_portfolio">Portfolio: transactions with amounts and prices</string>
     <string name="backup_restore_app_lock_kept">The portfolio lock stays on – an unencrypted backup can’t turn it off.</string>

@@ -115,7 +115,10 @@ fun SettingsViewModel.startBackupExport(activity: androidx.fragment.app.Fragment
     viewModelScope.launch {
         val hasPortfolio = try {
             // Beobachtete Adressen sind auch Portfolio-Daten
-            portfolioRepository.getTransactions().isNotEmpty() || portfolioRepository.getWatchedAddresses().isNotEmpty()
+            PortfolioLockPolicy.backupHasPortfolioData(
+                transactions = portfolioRepository.getTransactions().size,
+                watchedAddresses = portfolioRepository.getWatchedAddresses().size,
+            )
         } catch (e: kotlinx.coroutines.CancellationException) {
             throw e
         } catch (e: Exception) {

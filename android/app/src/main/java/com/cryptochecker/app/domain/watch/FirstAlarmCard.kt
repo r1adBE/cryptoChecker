@@ -15,4 +15,12 @@ object FirstAlarmCard {
      */
     fun shouldShow(alarmCount: Int?, watchCount: Int, dismissed: Boolean, busy: Boolean): Boolean =
         !dismissed && !busy && alarmCount == 0 && watchCount > 0
+
+    /**
+     * Paar, dessen Alarme die Karte öffnet (und das sie nennt): das erste in der gespeicherten Reihenfolge der Merkliste
+     * ([stored], Favoriten zuerst, dann eigene Reihenfolge) — nicht das erste der gerade sortierten Ansicht, die je nach
+     * Spalte (Kurs, Änderung) springt. Deaktivierte Paare ([disabled]) nur, wenn es keine anderen gibt.
+     */
+    fun <T> target(stored: List<T>, disabled: (T) -> Boolean): T? =
+        stored.firstOrNull { !disabled(it) } ?: stored.firstOrNull()
 }

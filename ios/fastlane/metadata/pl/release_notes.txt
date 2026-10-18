@@ -10,7 +10,7 @@ Wersja 16.2.2
 • „Zacznij jednym dotknięciem”: pusta lista proponuje 5 największych monet wg kapitalizacji (bez stablecoinów)
 • Lista startowa pokazuje bieżącą cenę i zmianę 24 h – wszystkie pięć jest zaznaczonych, dodajesz je jednym przyciskiem
 • Przesuń w lewo, aby usunąć (z opcją Cofnij), w prawo, aby dodać do ulubionych
-• Karta Rynek otwiera się od razu z ostatnimi danymi i odświeża w tle
+• Karta Rynek otwiera się z ostatnio zapisanymi danymi i odświeża w tle
 • Godziny ciszy (np. 23–7): alarmy czekają do końca i odzywają się, jeśli warunek nadal jest spełniony; inne powiadomienia przychodzą bez dźwięku
 • Blokada portfela przez Face ID, Touch ID lub kod urządzenia
 • Widżet Portfel na ekran początkowy i ekran blokady: łączna wartość w twojej walucie i dzisiejsza zmiana

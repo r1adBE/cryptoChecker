@@ -8,9 +8,9 @@ Version 16.2.2
 • Barrierefreiheit: Kursfarben Blau/Orange, gut unterscheidbar bei jeder Farbsehschwäche (Rot-Grün und Blau-Gelb); «Farben tauschen»: Rot steigend, Grün fallend, wie in China, Japan, Korea und Taiwan üblich (dort automatisch aktiv); «Hoher Kontrast»: kräftigere Kursfarben, dunklere Nebentexte und Akzentfarbe, folgt auch der Systemeinstellung; VoiceOver: Zeilen, Charts und Widgets als Satz
 • Mini-Chart in jeder Zeile: 24-Stunden-Verlauf neben dem Kurs
 • «Mit einem Tipp starten»: Die leere Merkliste bietet die fünf grössten Coins nach Marktkapitalisierung an (ohne Stablecoins)
-• Die Startliste zeigt Live-Kurs und 24-Std.-Veränderung – alle fünf vorausgewählt, mit einem Knopf hinzugefügt
+• Die Startliste zeigt aktuellen Kurs und 24-Std.-Veränderung – alle fünf vorausgewählt, mit einem Knopf hinzugefügt
 • Wischen in der Merkliste: nach links löschen (mit «Rückgängig»), nach rechts Favorit
-• Der Markt-Tab öffnet sofort mit den letzten Daten und aktualisiert im Hintergrund
+• Der Markt-Tab öffnet mit den zuletzt gespeicherten Daten und aktualisiert im Hintergrund
 • Nachtruhe (z. B. 23–7 Uhr): Alarme warten bis zum Ende und melden sich dann, wenn die Bedingung noch gilt; andere Hinweise kommen lautlos
 • Portfolio-Sperre mit Face ID, Touch ID oder Gerätecode
 • Portfolio-Widget für Home- und Sperrbildschirm: Gesamtwert in deiner Währung und Veränderung heute

@@ -47,6 +47,13 @@ enum PortfolioLockPolicy {
         Double(clock_gettime_nsec_np(CLOCK_MONOTONIC)) / 1_000_000_000
     }
 
+    /// Enthält eine Sicherung Portfolio-Daten? Eigene Trades und beobachtete Adressen (auch xpub) zählen
+    /// gleich: beide verraten Bestände. Dann verlangt Sichern im gesperrten Zustand Entsperren, und der
+    /// Passwortschutz ist vorgewählt — wie Android.
+    static func backupHasPortfolioData(transactions: Int, watchedAddresses: Int) -> Bool {
+        transactions > 0 || watchedAddresses > 0
+    }
+
     /// Sichern verlangt Entsperren, wenn die Datei Portfolio-Daten enthält und gesperrt ist.
     static func backupExportNeedsUnlock(locked: Bool, hasPortfolioData: Bool) -> Bool {
         locked && hasPortfolioData

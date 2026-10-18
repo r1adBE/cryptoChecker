@@ -8,9 +8,9 @@ Versie 16.2.2
 • Toegankelijkheid: blauw/oranje, goed te onderscheiden bij elke kleurenzienstoornis (rood-groen en blauw-geel); ‘Kleuren stijging/daling omwisselen’: rood stijgt, groen daalt, zoals gebruikelijk in China, Japan, Korea en Taiwan (daar automatisch aan); ‘Hoog contrast’: krachtigere koerskleuren, donkerdere secundaire tekst en accentkleur, volgt ook de systeeminstelling; VoiceOver: regels, grafieken en widgets als één zin
 • Minigrafiek in elke regel: het 24-uursverloop naast de koers
 • ‘Begin met één tik’: een lege volglijst biedt de 5 grootste coins naar marktwaarde aan (zonder stablecoins)
-• De startlijst toont live koers en 24-uursverandering – alle vijf vooraf geselecteerd, toevoegen met één knop
+• De startlijst toont actuele koers en 24-uursverandering – alle vijf vooraf geselecteerd, toevoegen met één knop
 • Veeg naar links om te verwijderen (met Ongedaan maken), naar rechts voor een favoriet
-• Het tabblad Markt opent direct met de laatste gegevens en ververst op de achtergrond
+• Het tabblad Markt opent met de laatst opgeslagen gegevens en ververst op de achtergrond
 • Stille uren (bijv. 23–7 u): alarmen wachten tot het einde en gaan dan af als de voorwaarde nog geldt; andere meldingen komen geluidloos
 • Portfolio-vergrendeling met Face ID, Touch ID of toegangscode
 • Portfolio-widget voor beginscherm en toegangsscherm: totale waarde in je valuta en verandering vandaag

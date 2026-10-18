@@ -1,6 +1,7 @@
 package com.cryptochecker.app.domain.refresh
 
 import com.cryptochecker.app.data.DexLiquidityStore
+import com.cryptochecker.app.data.MarkFallbackStore
 import com.cryptochecker.app.data.ErrorWrite
 import com.cryptochecker.app.data.PriceWrite
 import com.cryptochecker.app.data.WatchRepository
@@ -32,6 +33,8 @@ class RefreshResultProcessor internal constructor(
     private val effects: RefreshEffects,
     /** Liquidität der DEX-Pools: unter der Mindestmenge keine Alarme ([com.cryptochecker.app.domain.watch.DexLiquidity]). */
     private val dexLiquidity: RefreshDexLiquidity,
+    /** Paare mit Mark-Preis statt Mittelkurs ([Ticker.markFallback]): für «Mark» in Zeile, Blatt und Alarm-Karte. */
+    private val markFallback: RefreshMarkFallback = RefreshMarkFallback.NONE,
 ) {
     /** Für Hilt: die App-Klassen hinter den schmalen Schnittstellen aus RefreshPorts.kt (Tests geben Fakes). */
     @Inject constructor(
@@ -40,12 +43,14 @@ class RefreshResultProcessor internal constructor(
         dayReferences: DayReferences,
         effects: RefreshEffects,
         dexLiquidity: DexLiquidityStore,
+        markFallback: MarkFallbackStore,
     ) : this(
         watchRepository.asRefreshStore(),
         notifier.asRefreshNotifier(),
         dayReferences.asRefreshDayReferences(),
         effects,
         dexLiquidity.asRefreshDexLiquidity(),
+        markFallback.asRefreshMarkFallback(),
     )
 
     /**
@@ -74,6 +79,8 @@ class RefreshResultProcessor internal constructor(
         val priceWrites = ArrayList<PriceWrite>()
         val errorWrites = ArrayList<ErrorWrite>()
         val updatedWatches = ArrayList<WatchEntity>()
+        // Kurs = Mark-Preis mangels Mittelkurs (Hyperliquid, dünnes Orderbuch): keine Alarme in diesem Durchlauf
+        val markFallbackIds = HashSet<Long>()
 
         for (watch in watches) {
             val result = fetched[watch.id]
@@ -93,6 +100,9 @@ class RefreshResultProcessor internal constructor(
             if (!live && com.cryptochecker.app.domain.watch.DexLiquidity.isDex(watch.marketKey)) {
                 dexLiquidity.put(watch.pairId, ticker.liquidityUsd)
             }
+            if (ticker.markFallback) markFallbackIds += watch.id
+            // Live-Kurse kommen nie als Mark-Ersatz: der Merker gilt bis zur nächsten Abfrage
+            if (!live) markFallback.put(watch.id, ticker.markFallback)
             val dayChange = if (live) {
                 // Live-Wert aus dem Ticker: kein Kerzen-Hinweis — aber nur, wenn er die Veränderung ersetzt hat.
                 // Bleibt die bisherige ([LiveRules.chooseChange], z. B. Tages-Basis), bleibt auch ihr Anbieter:
@@ -148,9 +158,9 @@ class RefreshResultProcessor internal constructor(
             val triggered = if (dexLiquidity.blocksAlarms(watch.marketKey, watch.pairId)) {
                 // DEX-Pool mit zu wenig oder unbekannter Liquidität: Alarme bleiben, lösen aber nicht aus
                 0
-            } else if (AlarmFreshness.exchangeTimeTooOld(watch.exchangeTime, now)) {
-                // Kurs laut Börse zu alt (Handel ruht): Alarme bleiben scharf, lösen aber nicht aus
-                Timber.d("Alarme für %s ausgelassen: Kurs laut Börse zu alt", watch.displayName)
+            } else if (AlarmFreshness.blocksAlarms(watch.exchangeTime, watch.id in markFallbackIds, now)) {
+                // Kurs laut Börse zu alt (Handel ruht) bzw. nur Mark-Preis: Alarme bleiben scharf, lösen aber nicht aus
+                Timber.d("Alarme für %s ausgelassen: kein aktueller handelbarer Kurs", watch.displayName)
                 0
             } else try {
                 effects.checkAlarms(

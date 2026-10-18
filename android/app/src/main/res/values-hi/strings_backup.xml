@@ -32,7 +32,7 @@
     <string name="backup_plain_confirm">बिना पासवर्ड सहेजें</string>
     <string name="backup_plain_confirm_text">फ़ाइल एन्क्रिप्टेड नहीं है। जिसे भी यह मिले वह पढ़ सकता है:</string>
     <string name="backup_plain_confirm_title">बिना पासवर्ड सहेजें?</string>
-    <string name="backup_plain_contents_addresses">सहेजे गए वॉलेट पते</string>
+    <string name="backup_plain_contents_addresses">सहेजे गए वॉलेट पते और xpub कुंजियाँ</string>
     <string name="backup_plain_contents_base">नोट्स और समूहों के साथ वॉचलिस्ट, अलार्म, पसंदीदा और सेटिंग्स</string>
     <string name="backup_plain_contents_portfolio">पोर्टफ़ोलियो: मात्रा और भाव के साथ लेन-देन</string>
     <string name="backup_restore_app_lock_kept">पोर्टफ़ोलियो लॉक चालू रहेगा – बिना एन्क्रिप्शन वाला बैकअप इसे बंद नहीं कर सकता।</string>

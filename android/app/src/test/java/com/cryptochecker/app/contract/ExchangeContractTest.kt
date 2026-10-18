@@ -97,6 +97,10 @@ class ExchangeContractTest {
                 "volQuote" -> check("$prefix volQuote", value, t.volQuote)
                 "change24hPercent" -> check("$prefix change24hPercent", value, t.change24hPercent)
                 "liquidityUsd" -> check("$prefix liquidityUsd", value, t.liquidityUsd)
+                // Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid)
+                "markFallback" -> if (value != t.markFallback) {
+                    throw CaseFailure("$prefix markFallback: expected $value, got ${t.markFallback}")
+                }
                 "timestamp" -> if (value.num()!!.toLong() != t.timestamp) {
                     throw CaseFailure("$prefix timestamp: expected ${value.num()!!.toLong()}, got ${t.timestamp}")
                 }

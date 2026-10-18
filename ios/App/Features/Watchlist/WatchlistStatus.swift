@@ -29,8 +29,16 @@ extension WatchlistScreen {
         let none = traded.isEmpty
         // Gerät offline: ruhig (neutral), kein Rot — es wird dann nicht aktualisiert
         let deviceOffline = !data.online && !none
-        // Aktuell: ruhig in der Textfarbe, nicht in der Steigen-Farbe (frisch ≠ gestiegen) — wie Android
-        let tone = none || deviceOffline ? AppColors.onSurfaceVariant : (warn ? AppColors.error : AppColors.onSurface)
+        // Aktuell: ruhig in der Textfarbe, nicht in der Steigen-Farbe (frisch ≠ gestiegen); «veraltet» in Bernstein wie
+        // die Zeile, Fehler (keine Verbindung, gescheitert) in Fehlerfarbe — wie Android
+        let tone: Color
+        switch StatusPillTone.of(none: none, deviceOffline: deviceOffline, offline: offline, stale: staleCount,
+                                 failed: failed) {
+        case .neutral: tone = AppColors.onSurfaceVariant
+        case .error: tone = AppColors.error
+        case .warning: tone = AppColors.warningText
+        case .normal: tone = AppColors.onSurface
+        }
         let text: String
         // Kurzform bei Platzmangel (nur «Kurse der gewählten Börsen · …»), siehe `statusTextFit`
         var shortText: String?

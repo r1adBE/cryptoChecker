@@ -30,6 +30,8 @@ import java.io.File
  * Nach einer Wiederherstellung (neue Installation, die Portfolio-Datenbank gibt es noch nicht) übernimmt
  * [PortfolioDatabase] die Datei beim Anlegen ([importInto]) und löscht sie danach. Bis Build 75 lag die Kopie dauernd
  * da; [cleanUpLeftover] löscht eine solche (und eine nach abgebrochener Sicherung liegengebliebene) beim Start.
+ * Scheitert die Übernahme, liegt die Kopie bis zum nächsten Start beiseite ([setAside]); dann folgt genau ein weiterer
+ * Versuch ([retryFailed]) und sie wird gelöscht — Klartext bleibt nie dauerhaft liegen.
  */
 object PortfolioBackupMirror {
     /** Muss zu backup_rules.xml und data_extraction_rules.xml passen (domain="file"). */
@@ -105,6 +107,35 @@ object PortfolioBackupMirror {
 
     /** Name der beiseitegelegten Kopie, wenn sie nicht übernommen werden konnte. */
     const val FAILED_FILE_NAME = "portfolio_system_backup.failed.json"
+
+    /** Gemeinsamer Anfang aller beiseitegelegten Kopien ([FAILED_FILE_NAME] und die mit Zeitstempel). */
+    private const val FAILED_PREFIX = "portfolio_system_backup.failed"
+
+    /** Beiseitegelegte Kopien in [dir] (älteste zuerst); leer ohne Ordner. */
+    fun failedCopies(dir: File?): List<File> =
+        dir?.listFiles { f -> f.isFile && f.name.startsWith(FAILED_PREFIX) && f.name.endsWith(".json") }
+            ?.sortedBy { it.name }
+            .orEmpty()
+
+    /**
+     * Nächster Start nach einer gescheiterten Übernahme: jede beiseitegelegte Kopie in [dir] genau einmal noch übernehmen
+     * ([importOne], z. B. [importInto] in einer Transaktion) und danach löschen — gleich ob es geklappt hat. Eine Kopie,
+     * die auch jetzt nicht lesbar ist, bliebe sonst als Klartext mit Beträgen und Adressen für immer im App-Ordner.
+     * @return Anzahl Kopien, die sich auch beim zweiten Versuch nicht übernehmen liessen (dann nennt die App das).
+     */
+    fun retryFailed(dir: File?, importOne: (File) -> Unit): Int {
+        var lost = 0
+        failedCopies(dir).forEach { file ->
+            runCatching { importOne(file) }
+                .onSuccess { Timber.i("Portfolio: beiseitegelegte Kopie der Systemsicherung doch übernommen") }
+                .onFailure {
+                    lost++
+                    Timber.w(it, "Portfolio: beiseitegelegte Kopie der Systemsicherung auch beim zweiten Versuch nicht lesbar")
+                }
+            if (!file.delete() && file.exists()) Timber.w("Portfolio: beiseitegelegte Kopie nicht gelöscht")
+        }
+        return lost
+    }
 
     /**
      * Legt eine wiederhergestellte, aber nicht übernehmbare Kopie unter [FAILED_FILE_NAME] beiseite
@@ -198,10 +229,11 @@ object PortfolioBackupMirror {
      * Übernimmt eine wiederhergestellte Kopie in die gerade angelegte (leere) Portfolio-Datenbank.
      * Erst alles lesen und prüfen, dann schreiben; ungültige Einträge werden übersprungen, aber gezählt
      * ([onInvalid], für den einmaligen Hinweis [PortfolioRestoreNotice]); Alarme kommen scharf und ohne
-     * letzte Meldung zurück.
+     * letzte Meldung zurück. [keepIds] false (zweiter Versuch in eine schon benutzte Datenbank, [retryFailed]): neue Ids,
+     * damit kein inzwischen erfasster Eintrag mit gleicher Id ersetzt wird.
      * @return Anzahl übernommener Einträge (0 ohne Datei).
      */
-    fun importInto(db: SupportSQLiteDatabase, file: File, onInvalid: (Int) -> Unit = {}): Int {
+    fun importInto(db: SupportSQLiteDatabase, file: File, keepIds: Boolean = true, onInvalid: (Int) -> Unit = {}): Int {
         if (!file.isFile) return 0
         // Nie ungebremst lesen (wie die eigene Sicherung, [com.cryptochecker.app.data.BackupLimits])
         val text = file.inputStream().use { com.cryptochecker.app.data.BackupLimits.readLimited(it) }.toString(Charsets.UTF_8)
@@ -220,7 +252,7 @@ object PortfolioBackupMirror {
                     "`giftToSpouse`, `linkedImportKey`, `importRestoreState`, `feeRow`, `interest`) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                 arrayOf<Any?>(
-                    t.id.takeIf { it > 0 }, t.coin, t.type.name, decimals.toText(t.amount), decimals.toText(t.priceUsdt),
+                    t.id.takeIf { keepIds && it > 0 }, t.coin, t.type.name, decimals.toText(t.amount), decimals.toText(t.priceUsdt),
                     t.time, t.note, decimals.toText(t.fee), t.feeUnit, t.exchange,
                     t.transferFrom, t.transferTo, t.feeCoin, decimals.toText(t.feeCoinAmount), decimals.toText(t.feeCoinPriceUsdt),
                     t.importKey, t.acquiredTime,
@@ -238,7 +270,7 @@ object PortfolioBackupMirror {
                 "INSERT OR REPLACE INTO `portfolio_alarms` (`id`, `kind`, `threshold`, `currency`, `enabled`, " +
                     "`repeating`, `referenceAt`, `lastTriggeredAt`, `lastTriggeredValue`) VALUES (?, ?, ?, ?, ?, ?, 0, 0, NULL)",
                 arrayOf<Any?>(
-                    a.id.takeIf { it > 0 }, a.kind.name, a.threshold, a.currency,
+                    a.id.takeIf { keepIds && it > 0 }, a.kind.name, a.threshold, a.currency,
                     if (a.enabled) 1L else 0L, if (a.repeating) 1L else 0L,
                 ),
             )

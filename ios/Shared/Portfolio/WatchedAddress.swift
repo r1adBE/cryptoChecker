@@ -673,17 +673,22 @@ enum WatchedAddressStore {
 
     static func load() -> WatchedAddressFile { loadChecked().file }
 
-    /// Schreibt atomar und setzt danach das Backup-Merkmal neu (`includeInBackup` = «Portfolio in Systemsicherung»).
+    /// Schreibt atomar und versiegelt (`requireSealed`, wie `PortfolioStore.save`): Adressen und xpub verraten Bestände,
+    /// darum ohne Schlüssel `needsKey` statt Klartext — der Aufrufer behält den Stand im Speicher und versucht es erneut.
+    /// Setzt danach das Backup-Merkmal neu (`includeInBackup` = «Portfolio in Systemsicherung»).
     @discardableResult
-    static func save(_ file: WatchedAddressFile, includeInBackup: Bool) -> Bool {
-        guard let data = try? JSONEncoder().encode(file) else { return false }
+    static func save(_ file: WatchedAddressFile, includeInBackup: Bool, to target: URL = url,
+                     keys: StorageKey = .shared) -> PortfolioStore.SaveResult {
+        guard let data = try? JSONEncoder().encode(file) else { return .failed }
         do {
-            try ProtectedFile.write(data, to: url)
+            try ProtectedFile.write(data, to: target, keys: keys, requireSealed: true)
+        } catch ProtectedFile.ReadError.locked {
+            return .needsKey
         } catch {
-            return false
+            return .failed
         }
-        BackupExclusion.set(excluded: !includeInBackup, for: url)
-        return true
+        BackupExclusion.set(excluded: !includeInBackup, for: target)
+        return .saved
     }
 
     /// Unlesbare Datei vor dem Ersetzen (Wiederherstellen) unverändert daneben legen

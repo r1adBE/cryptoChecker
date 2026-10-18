@@ -86,6 +86,11 @@ final class ExchangeContractTests: XCTestCase {
             case "volQuote": problem = check("\(prefix) volQuote", value, t.volQuote)
             case "change24hPercent": problem = check("\(prefix) change24hPercent", value, t.change24hPercent)
             case "liquidityUsd": problem = check("\(prefix) liquidityUsd", value, t.liquidityUsd)
+            case "markFallback":
+                // Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid)
+                let want = value as? Bool
+                problem = want == t.markFallback ? nil
+                    : "\(prefix) markFallback: expected \(String(describing: want)), got \(t.markFallback)"
             case "timestamp":
                 // Begrenzt wie die App (JSONValue.int64): Int64(Double) stürzte bei Werten ab 2^63 ab
                 let want = JSONValue.int64(S.number(value) ?? 0)

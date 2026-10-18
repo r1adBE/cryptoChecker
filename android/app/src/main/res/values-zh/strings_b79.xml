@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
+    <string name="watch_price_mark_fallback">标记价格（无中间价）</string>
+    <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
+    <string name="watch_price_hourly">小时价格</string>
+    <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
+    <string name="watchlist_first_alarm_title_pair">设置第一个提醒 – %1$s</string>
+    <!-- Hinweis (nur Android): Portfolio-Kopie aus der Systemsicherung auch beim zweiten Versuch unlesbar und gelöscht -->
+    <string name="system_backup_not_imported_title">未能从系统备份恢复投资组合</string>
+    <!-- %1$s = Name des Bereichs «Sichern &amp; Wiederherstellen» in den Einstellungen -->
+    <string name="system_backup_not_imported_message">来自 Android 系统备份的投资组合副本在第二次尝试时仍无法读取，已被删除。如果你有备份文件，请在设置的“%1$s”中恢复。</string>
+</resources>

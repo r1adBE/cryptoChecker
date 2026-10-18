@@ -35,6 +35,10 @@ class Market: @unchecked Sendable { // @unchecked: nur let-Konstanten, Unterklas
     /// then labels it «mid price»; there is no exchange time, «updated» is the fetch time. Android: `priceIsMid`.
     var priceIsMid: Bool { false }
 
+    /// true: the price is the close of the newest hourly candle (WOO X spot has no ticker). The action sheet labels it
+    /// «hourly price». Android: `priceIsHourlyClose`.
+    var priceIsHourlyClose: Bool { false }
+
     /// true: the 24 h change refers to the mark price (Hyperliquid `markPx` vs. `prevDayPx`), not to the displayed
     /// price. Row and action sheet then add «Mark» (`ChangeBasisMath.showsMark`). Android: `changeIsMark`.
     var changeIsMark: Bool { false }

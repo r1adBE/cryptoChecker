@@ -521,7 +521,7 @@ object PortfolioHistory {
             if (sinceFirst || e.trade.time > rangeEnd) {
                 val day = localDay(e.trade.time, start, todayEpochDay, dayEndMillis)
                 val price = if (PortfolioLedger.needsMarketPrice(e)) market(coin, day) else null
-                val feePrice = if (PortfolioLedger.needsFeeMarketPrice(e)) market(e.trade.thirdFeeCoin!!, day) else null
+                val feePrice = if (PortfolioLedger.needsFeeMarketPrice(e)) e.trade.thirdFeeCoin?.let { market(it, day) } else null
                 val amount = PortfolioLedger.flow(e, book.capFor(e), price, feePrice, book.method) ?: return null
                 if (amount != 0.0 && amount.isFinite()) out += PortfolioCashFlow(day, amount * rate)
             }
@@ -554,7 +554,7 @@ object PortfolioHistory {
                     // Gleiche Zuflüsse wie «7 T» ([PortfolioLedger.flow]); unbekannt → keine Zuflüsse
                     val day = localDay(e.trade.time, start, todayEpochDay, dayEndMillis)
                     val price = if (PortfolioLedger.needsMarketPrice(e)) market(coin, day) else null
-                    val feePrice = if (PortfolioLedger.needsFeeMarketPrice(e)) market(e.trade.thirdFeeCoin!!, day) else null
+                    val feePrice = if (PortfolioLedger.needsFeeMarketPrice(e)) e.trade.thirdFeeCoin?.let { market(it, day) } else null
                     val amount = PortfolioLedger.flow(e, book.capFor(e), price, feePrice, book.method) ?: return null
                     if (amount != 0.0 && amount.isFinite()) {
                         out += PortfolioCashFlow(day, amount * rate)

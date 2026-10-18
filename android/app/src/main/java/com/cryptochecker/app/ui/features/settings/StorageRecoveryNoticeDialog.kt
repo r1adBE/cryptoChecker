@@ -26,7 +26,8 @@ import kotlinx.coroutines.withContext
  *  - «Gespeicherte Daten liessen sich nicht entsperren»: bleibt, bis «Verstanden» (oder eine Sicherung eingespielt ist);
  *    direkte Aktion «Sicherung wiederherstellen» öffnet Einstellungen › Sicherung ([onRestoreBackup]). Weggetippt erscheint
  *    er beim nächsten Start wieder.
- *  - «Wieder entsperrt» bzw. «Wiederherstellen abgebrochen»: einmal, mit «Schliessen».
+ *  - «Wieder entsperrt», «Wiederherstellen abgebrochen» bzw. «Portfolio nicht aus der Systemsicherung übernommen» (nur
+ *    Android): einmal, mit «Schliessen».
  */
 @Composable
 internal fun StorageRecoveryNoticeDialog(onRestoreBackup: () -> Unit = {}) {
@@ -72,12 +73,16 @@ internal fun StorageRecoveryNoticeDialog(onRestoreBackup: () -> Unit = {}) {
                 TextButton(onClick = { acknowledge(Kind.SET_ASIDE) }) { Text(stringResource(R.string.storage_recovery_acknowledge)) }
             },
         )
-        Kind.KEY_RESTORED, Kind.RESTORE_ROLLED_BACK, Kind.RESTORE_INCOMPLETE -> AlertDialog(
+        Kind.KEY_RESTORED, Kind.RESTORE_ROLLED_BACK, Kind.RESTORE_INCOMPLETE, Kind.SYSTEM_BACKUP_NOT_IMPORTED -> AlertDialog(
             onDismissRequest = { shown = null },
             title = {
                 Text(
                     stringResource(
-                        if (kind == Kind.KEY_RESTORED) R.string.storage_recovery_restored_title else R.string.backup_restore_interrupted_title
+                        when (kind) {
+                            Kind.KEY_RESTORED -> R.string.storage_recovery_restored_title
+                            Kind.SYSTEM_BACKUP_NOT_IMPORTED -> R.string.system_backup_not_imported_title
+                            else -> R.string.backup_restore_interrupted_title
+                        }
                     )
                 )
             },
@@ -86,6 +91,8 @@ internal fun StorageRecoveryNoticeDialog(onRestoreBackup: () -> Unit = {}) {
                     when (kind) {
                         Kind.KEY_RESTORED -> stringResource(R.string.storage_recovery_restored_message)
                         Kind.RESTORE_ROLLED_BACK -> stringResource(R.string.backup_restore_interrupted_rolled_back)
+                        Kind.SYSTEM_BACKUP_NOT_IMPORTED ->
+                            stringResource(R.string.system_backup_not_imported_message, stringResource(R.string.backup_title))
                         else -> stringResource(R.string.backup_restore_interrupted_incomplete, stringResource(R.string.backup_title))
                     }
                 )

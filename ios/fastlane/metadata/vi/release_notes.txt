@@ -8,9 +8,9 @@ Phiên bản 16.2.2
 • Trợ năng: màu giá xanh dương/cam thay cho xanh lá/đỏ, dễ phân biệt với mọi dạng rối loạn sắc giác (đỏ-xanh lá và xanh dương-vàng); “Đổi màu tăng/giảm”: đỏ cho tăng, xanh lá cho giảm, như thông lệ ở Trung Quốc, Nhật Bản, Hàn Quốc và Đài Loan (tự động bật ở đó); “Độ tương phản cao”: màu giá đậm hơn, chữ phụ và màu nhấn tối hơn, cũng theo cài đặt tương phản của hệ thống; VoiceOver: dòng, biểu đồ và tiện ích đọc thành một câu
 • Biểu đồ mini trên mỗi dòng: xu hướng 24 giờ cạnh giá
 • “Bắt đầu chỉ với một chạm”: danh sách trống gợi ý 5 coin vốn hóa lớn nhất (không gồm stablecoin)
-• Danh sách khởi đầu hiển thị giá trực tiếp và biến động 24 giờ của từng coin – cả năm đã được chọn sẵn, thêm bằng một nút
+• Danh sách khởi đầu hiển thị giá hiện tại và biến động 24 giờ của từng coin – cả năm đã được chọn sẵn, thêm bằng một nút
 • Vuốt trái để xóa (có Hoàn tác), vuốt phải để yêu thích
-• Tab Thị trường mở ngay với dữ liệu gần nhất và làm mới trong nền
+• Tab Thị trường mở với dữ liệu đã lưu gần nhất và làm mới trong nền
 • Giờ yên lặng (ví dụ 23–7 giờ): cảnh báo chờ đến khi hết giờ rồi mới kêu nếu điều kiện vẫn đúng; các thông báo khác đến trong im lặng
 • Khóa danh mục bằng Face ID, Touch ID hoặc mật mã thiết bị
 • Tiện ích danh mục cho Màn hình chính và Màn hình khóa: tổng giá trị bằng đồng tiền của bạn và thay đổi hôm nay

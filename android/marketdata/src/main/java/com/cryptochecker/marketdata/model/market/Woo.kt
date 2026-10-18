@@ -39,6 +39,10 @@ class Woo : WooBase(
 ) {
     override val key = "Woo"
 
+    /** Kurs = Schluss der jüngsten Stundenkerze: im Aktionsblatt «Stundenkurs». */
+    override val priceIsHourlyClose: Boolean
+        get() = true
+
     // ── Einzelkurs ──
 
     override fun fillTickerJson(call: Int, json: JSONObject, ticker: Ticker, info: PairQuery) {

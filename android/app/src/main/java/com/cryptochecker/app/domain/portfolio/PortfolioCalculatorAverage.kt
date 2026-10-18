@@ -133,7 +133,7 @@ internal fun PortfolioCalculator.average(symbol: String, events: List<PortfolioL
                     taken.removedPriced, taken.costRemoved, pricedProceeds, pricedProceeds?.let { it - taken.costRemoved },
                     taken.partsRemoved,
                 )
-                if (!taken.allPriced) add(taken.removed - taken.removedPriced, null, coveredProceeds?.let { it - pricedProceeds!! }, null)
+                if (!taken.allPriced) add(taken.removed - taken.removedPriced, null, coveredProceeds?.let { c -> pricedProceeds?.let { c - it } }, null)
             }
         }
         // Ungedeckter Rest: Erlös bekannt, Kaufpreis fehlt

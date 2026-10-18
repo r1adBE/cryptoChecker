@@ -32,7 +32,7 @@
     <string name="backup_plain_confirm">Зберегти без пароля</string>
     <string name="backup_plain_confirm_text">Файл не зашифровано. Будь-хто, хто його отримає, зможе прочитати:</string>
     <string name="backup_plain_confirm_title">Зберегти без пароля?</string>
-    <string name="backup_plain_contents_addresses">Збережені адреси гаманців</string>
+    <string name="backup_plain_contents_addresses">Збережені адреси гаманців і ключі xpub</string>
     <string name="backup_plain_contents_base">Список спостереження з нотатками й групами, сигнали, обране та налаштування</string>
     <string name="backup_plain_contents_portfolio">Портфель: транзакції з кількістю та цінами</string>
     <string name="backup_restore_app_lock_kept">Блокування портфеля лишається увімкненим – незашифрована копія не може його вимкнути.</string>

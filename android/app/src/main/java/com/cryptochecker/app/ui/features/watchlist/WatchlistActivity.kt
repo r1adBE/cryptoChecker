@@ -37,9 +37,10 @@ import com.cryptochecker.app.R
 /**
  * ⚡-Chip in der Zeile eines Paars mit aktiven Signalen, beschriftet mit der Kurzform von «Was bewegt sich mit?»
  * ([R.string.watch_action_why_short]); Tipp öffnet das Blatt «Was bewegt sich mit?».
- * Build 46: Tippfläche 48 dp hoch — sichtbar bleibt der 28-dp-Chip; nach aussen meldet der Knopf nur die
- * Chip-Grösse (Zeile wächst nicht), die Tippfläche ragt je 10 dp darüber und darunter und (Build 70) je 9 dp
- * seitlich hinaus — so ist auch der Chip nur mit ⚡ 48 dp breit antippbar. Reicht die Breite nicht für «Was bewegt sich mit?», bleibt nur der ⚡ (das Paar geht vor, [RowInfo]).
+ * Sichtbar bleibt der 28-dp-Chip; nach aussen meldet der Knopf nur die Chip-Grösse (Zeile wächst nicht). Die
+ * Tippfläche ragt je 9 dp seitlich (Build 70: der Chip nur mit ⚡ ist so 48 dp breit antippbar), aber nur je 4 dp
+ * darüber und darunter hinaus: Sie bleibt im Innenabstand der eigenen Zeile (12 dp) und reicht nie in die
+ * Nachbarzeile — dort tippte man sonst ungewollt «Was bewegt sich mit?» statt das andere Paar. Reicht die Breite nicht für «Was bewegt sich mit?», bleibt nur der ⚡ (das Paar geht vor, [RowInfo]).
  */
 @Composable
 internal fun ActivityBolt(onClick: () -> Unit, modifier: Modifier = Modifier) {
@@ -107,8 +108,8 @@ internal fun ActivityBolt(onClick: () -> Unit, modifier: Modifier = Modifier) {
 /** Höhe des sichtbaren «Was bewegt sich mit?»-Chips. */
 private val WHY_CHIP_HEIGHT = 28.dp
 
-/** Tippfläche über und unter dem Chip: 28 + 2 × 10 = 48 dp. */
-private val WHY_TOUCH_EXTRA = 10.dp
+/** Tippfläche über und unter dem Chip: 28 + 2 × 4 = 36 dp, innerhalb des Zeilen-Innenabstands (12 dp). */
+private val WHY_TOUCH_EXTRA = 4.dp
 
 /** Tippfläche links und rechts neben dem Chip (Touch-Ziel mindestens 48 dp): nur ⚡ ist 30 dp breit, mit 2 × 9 dp also 48 dp. */
 private val WHY_TOUCH_SIDE = 9.dp

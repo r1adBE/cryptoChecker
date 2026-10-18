@@ -41,7 +41,8 @@
         "bid": -1.0,
         "ask": -1.0,
         "change24hPercent": 2.487603305785124,
-        "exchangeTime": null
+        "exchangeTime": null,
+        "markFallback": false
       }
     },
     {
@@ -59,7 +60,8 @@
       "expect": {
         "last": 2450.2,
         "vol": 403000.5,
-        "change24hPercent": -0.49545159194283106
+        "change24hPercent": -0.49545159194283106,
+        "markFallback": true
       }
     },
     {
@@ -114,11 +116,13 @@
         "tickers": {
           "BTC": {
             "last": 62000.5,
-            "exchangeTime": null
+            "exchangeTime": null,
+            "markFallback": false
           },
           "ETH": {
             "last": 2450.2,
-            "exchangeTime": null
+            "exchangeTime": null,
+            "markFallback": true
           },
           "kPEPE": {
             "last": 0.0091205,

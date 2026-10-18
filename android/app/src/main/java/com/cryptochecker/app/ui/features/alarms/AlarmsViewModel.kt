@@ -51,6 +51,8 @@ class AlarmsViewModel @Inject constructor(
     private val exactScheduler: com.cryptochecker.app.work.ExactCheckScheduler,
     /** Liquidität der DEX-Pools: zu wenig → kein Alarm ([com.cryptochecker.app.domain.watch.DexLiquidity]). */
     dexLiquidityStore: com.cryptochecker.app.data.DexLiquidityStore,
+    /** Letzter Kurs nur der Mark-Preis ([com.cryptochecker.app.data.MarkFallbackStore]): Alarme warten auf einen Mittelkurs. */
+    markFallbackStore: com.cryptochecker.app.data.MarkFallbackStore,
 ) : ViewModel() {
 
     /** Alarme, die zuletzt nicht geprüft werden konnten (kein Devisenkurs/keine Kerzen), für den Hinweis. */
@@ -143,6 +145,10 @@ class AlarmsViewModel @Inject constructor(
             w.marketKey, com.cryptochecker.app.domain.watch.DexLiquidity.key(w.pairId)?.let { levels[it] },
         )
     }.distinctUntilChanged().stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
+
+    /** Letzter Kurs war der Mark-Preis statt des Mittelkurses: Statuszeile «Wartet auf aktuellen Kurs». */
+    val markFallback: StateFlow<Boolean> = markFallbackStore.ids.map { watchId in it }
+        .distinctUntilChanged().stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), false)
 
     /**
      * Veraltet-Grenze der abgefragten Paare wie in der Merkliste ([com.cryptochecker.app.domain.watch.LiveStatus]):

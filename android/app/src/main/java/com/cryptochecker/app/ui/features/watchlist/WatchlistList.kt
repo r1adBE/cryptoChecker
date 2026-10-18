@@ -117,11 +117,13 @@ private fun GestureHint(onDismiss: () -> Unit) {
 
 /**
  * Karte «Ersten Alarm setzen» ([com.cryptochecker.app.domain.watch.FirstAlarmCard]): ganze Karte
- * antippbar (öffnet die Alarme des ersten Paars, ohne Alarm gleich den Editor), ✕ schliesst sie für immer.
+ * antippbar (öffnet die Alarme des ersten Paars der gespeicherten Reihenfolge, ohne Alarm gleich den Editor), ✕
+ * schliesst sie für immer. Der Titel nennt das Paar ([pair]), damit klar ist, wofür der Alarm gilt.
  */
 @Composable
-private fun FirstAlarmCardView(onSetAlarm: () -> Unit, onDismiss: () -> Unit) {
-    val title = stringResource(R.string.watchlist_first_alarm_title)
+private fun FirstAlarmCardView(pair: String?, onSetAlarm: () -> Unit, onDismiss: () -> Unit) {
+    val title = if (pair != null) stringResource(R.string.watchlist_first_alarm_title_pair, pair)
+    else stringResource(R.string.watchlist_first_alarm_title)
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
@@ -183,6 +185,8 @@ internal fun WatchlistList(
     /** Karte «Ersten Alarm setzen»: Tipp öffnet den Alarm-Editor; null = keine Karte. */
     onSetFirstAlarm: (() -> Unit)? = null,
     onDismissFirstAlarm: () -> Unit = {},
+    /** Paar, das die Karte «Ersten Alarm setzen» öffnet (im Titel genannt). */
+    firstAlarmPair: String? = null,
     /** Suche ohne Treffer. */
     noSearchMatch: Boolean,
     query: String,
@@ -217,7 +221,7 @@ internal fun WatchlistList(
         if (onSetFirstAlarm != null) {
             item(key = "first_alarm") {
                 Box(Modifier.animateItem().padding(bottom = ListSegment.Spacing)) {
-                    FirstAlarmCardView(onSetAlarm = onSetFirstAlarm, onDismiss = onDismissFirstAlarm)
+                    FirstAlarmCardView(pair = firstAlarmPair, onSetAlarm = onSetFirstAlarm, onDismiss = onDismissFirstAlarm)
                 }
             }
         }

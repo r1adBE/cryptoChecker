@@ -260,6 +260,8 @@ internal class RefreshFixture(
     val moveHistory = FakeMoveHistory()
     val checkStatus = AlarmCheckStatus()
     val dex = FakeDexLiquidity()
+    /** Letzter gemerkter Mark-Ersatz je Watch-Id. */
+    val markFallback = HashMap<Long, Boolean>()
     val settings = FakeRefreshSettings(AppSettings(alarmCooldownMinutes = 15))
     val stats = FakeRefreshStats()
     val widgets = FakeRefreshWidgets()
@@ -286,6 +288,7 @@ internal class RefreshFixture(
         dayReferences = FakeDayReferences(),
         effects = effects,
         dexLiquidity = dex,
+        markFallback = { id, on -> markFallback[id] = on },
     )
 
     val live = LivePriceApplier(

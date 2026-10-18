@@ -164,6 +164,7 @@ fun WatchlistScreen(
     // Als State (nicht «by»): gelesen wird nur in den Zeilen bzw. im Aktionsblatt ([WithLiveQuote]),
     // ein Tick setzt also nicht den ganzen Bildschirm neu zusammen
     val livePrices = viewModel.livePrices.collectAsStateWithLifecycle()
+    val markFallbackIds by viewModel.markFallbackIds.collectAsStateWithLifecycle()
     LifecycleStartEffect(Unit) {
         viewModel.setLiveVisible(true)
         onStopOrDispose { viewModel.setLiveVisible(false) }
@@ -344,6 +345,8 @@ fun WatchlistScreen(
     // über CHF verglichen (im Hintergrund umgerechnet, auch ohne «≈ Umrechnung»)
     val columnSort = display.columnSort
     val sortRates = live.sortRates
+    // Karte «Ersten Alarm setzen»: erstes Paar der gespeicherten Reihenfolge, nicht der sortierten Ansicht
+    val firstAlarmTarget = remember(watches) { FirstAlarmCard.target(watches) { it.disabled } }
     val listed = remember(shown, columnSort, sortRates, changeView, ui.sortMode) {
         if (ui.sortMode) shown
         else ColumnSort.apply(
@@ -375,6 +378,7 @@ fun WatchlistScreen(
         LocalChangeView provides changeView,
         LocalRowHighlight provides rowHighlight,
         com.cryptochecker.app.ui.components.LocalPriceNotificationsOn provides display.priceNotificationsOn,
+        LocalMarkFallback provides markFallbackIds,
     ) {
         Scaffold(
             modifier = Modifier.semantics {
@@ -560,7 +564,7 @@ fun WatchlistScreen(
                                 showGestureHint = display.showGestureHint,
                                 onDismissGestureHint = viewModel::dismissGestureHint,
                                 // Kein Alarm, aber Paare: bleibende Karte zusätzlich zum 6-s-Banner nach dem Hinzufügen
-                                onSetFirstAlarm = (listed.firstOrNull() ?: watches.firstOrNull())?.takeIf {
+                                onSetFirstAlarm = firstAlarmTarget?.takeIf {
                                     FirstAlarmCard.shouldShow(
                                         alarmCount = alarmTotal,
                                         watchCount = watches.size,
@@ -569,6 +573,7 @@ fun WatchlistScreen(
                                     )
                                 }?.let { first -> { onOpenAlarms(first.id) } },
                                 onDismissFirstAlarm = viewModel::dismissFirstAlarmCard,
+                                firstAlarmPair = firstAlarmTarget?.displayName,
                                 noSearchMatch = filtering && shown.isEmpty(),
                                 query = trimmedQuery,
                                 groupEmpty = visible.isEmpty() && !filtering,

@@ -420,7 +420,13 @@ struct WatchlistRow: View {
             watch,
             name: coinName,
             // Änderung aus fremden Kerzen: «Veränderung aus Binance-Kerzen» vor der Umrechnung (wie Android)
-            changeSource: changeMarker.map { L("change_candle_source", $0) },
+            // Kurs nur der Mark-Preis (kein Mittelkurs): gleich danach gesagt, wie Android
+            changeSource: {
+                let parts = [changeMarker.map { L("change_candle_source", $0) },
+                             MarkFallbackStore.contains(watch.id) && watch.lastPrice != nil
+                                 ? L("watch_price_mark_fallback") : nil].compactMap { $0 }
+                return parts.isEmpty ? nil : parts.joined(separator: ", ")
+            }(),
             converted: converted,
             chart: chart,
             alarmCount: alarmCount,

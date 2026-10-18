@@ -40,6 +40,7 @@ final class Hyperliquid: Market {
         ticker.vol = snapshot.vol
         ticker.volQuote = snapshot.volQuote
         ticker.change24hPercent = snapshot.change24hPercent
+        ticker.markFallback = snapshot.markFallback
     }
 
     /// Hyperliquid antwortet bei Fehlern mit blossem Text: dessen Anfang ist der Fehlertext.
@@ -78,9 +79,10 @@ final class Hyperliquid: Market {
 
     // MARK: Lesen
 
-    /// Ein Kontext; bei dünnem Orderbuch fehlt `midPx` → Mark-Preis.
+    /// Ein Kontext; bei dünnem Orderbuch fehlt `midPx` → Mark-Preis, als solcher markiert (`Ticker.markFallback`).
     private static func copyRow(_ context: JObject, into ticker: inout Ticker) {
         let mid = context.optDouble("midPx", .nan)
+        ticker.markFallback = mid.isNaN
         ticker.last = mid.isNaN ? context.optDouble("markPx", .nan) : mid
         ticker.vol = context.optDoubleOrMissing("dayBaseVlm")
         ticker.volQuote = context.optDoubleOrMissing("dayNtlVlm")

@@ -32,7 +32,7 @@
     <string name="backup_plain_confirm">Guardar sem palavra-passe</string>
     <string name="backup_plain_confirm_text">O ficheiro não está encriptado. Quem o obtiver pode ler:</string>
     <string name="backup_plain_confirm_title">Guardar sem palavra-passe?</string>
-    <string name="backup_plain_contents_addresses">Endereços de carteira guardados</string>
+    <string name="backup_plain_contents_addresses">Endereços de carteira e chaves xpub guardados</string>
     <string name="backup_plain_contents_base">Lista de observação com notas e grupos, alarmes, favoritos e definições</string>
     <string name="backup_plain_contents_portfolio">Portefólio: transações com quantidades e preços</string>
     <string name="backup_restore_app_lock_kept">O bloqueio do portefólio mantém-se – uma cópia não encriptada não o pode desativar.</string>

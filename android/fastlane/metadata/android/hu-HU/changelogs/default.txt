@@ -1,7 +1,7 @@
 Újdonságok a 16.2.2-es verzióban
 • Crypto Pulse: mi történik most
 • Szokatlan aktivitás, „Mi mozog vele együtt?” összefoglalóval
-• Kezdés egy koppintással: top 5 érme, élő árak
+• Egy koppintással: top 5 érme, aktuális árak
 • Húzással törlés (visszavonható) vagy kedvenc
 • Árak és riasztások a saját pénznemedben, fordulónapi CSV
 • Akadálymentesség: kék/narancs, kontraszt, TalkBack
