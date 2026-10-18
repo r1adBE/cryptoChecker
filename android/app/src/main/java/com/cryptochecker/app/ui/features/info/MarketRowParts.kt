@@ -153,7 +153,7 @@ internal fun MarketRowLine(
 }
 
 /** Herkunft und Alter einer Zeile: sichtbarer Text, gesprochene Form, veraltet? */
-private class StampText(val provider: String?, val age: String, val stale: Boolean, val spoken: String)
+internal class StampText(val provider: String?, val age: String, val stale: Boolean, val spoken: String)
 
 /**
  * Anbieter und Alter zu [stamp] — das Alter läuft mit (alle 30 s neu gerechnet):

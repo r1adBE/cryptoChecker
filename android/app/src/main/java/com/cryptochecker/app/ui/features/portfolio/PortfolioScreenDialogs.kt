@@ -30,7 +30,6 @@ import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.domain.portfolio.PortfolioImportBatch
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.notification.PortfolioAlarmTexts
-import com.cryptochecker.app.ui.components.WatchlistBanner
 import com.cryptochecker.app.ui.features.watchlist.WatchlistBanner
 import kotlinx.coroutines.flow.map
 
