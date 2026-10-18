@@ -282,6 +282,9 @@ internal class RefreshFixture(
         alarmCheckStatus = checkStatus,
     )
 
+    /** Alarm-Protokoll: alle übergebenen Einträge, in Reihenfolge. */
+    val alarmLog: MutableList<com.cryptochecker.app.domain.alarm.AlarmLogEntry> = Collections.synchronizedList(ArrayList())
+
     val processor = RefreshResultProcessor(
         watchRepository = store,
         notifier = notifier,
@@ -289,6 +292,7 @@ internal class RefreshFixture(
         effects = effects,
         dexLiquidity = dex,
         markFallback = { id, on -> markFallback[id] = on },
+        alarmLog = { entries, _ -> alarmLog += entries },
     )
 
     val live = LivePriceApplier(

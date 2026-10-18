@@ -98,7 +98,9 @@ data class TaxPeriod(val startYear: Int, val start: LocalDate, val end: LocalDat
  *    wie nach neuer Rechtslage (keine Verwaltungsquelle zum Wert beim Zufluss vor dem Inkrafttreten — Vermerk). Kalenderjahr.
  *  - CH: ESTV «Kryptowährungen» (Stand 22.09.2026) und Arbeitspapier vom 03.08.2022 — die App ordnet NICHT ein:
  *    Kapitalgewinne im Privatvermögen «nicht gerechnet – Einordnung siehe ESTV», Belohnungen aufgeführt «Behandlung siehe
- *    ESTV-Arbeitspapier», Vermögenssteuer «nicht gerechnet» (Verkehrswert Ende Steuerperiode, ESTV-Kursliste). Kalenderjahr.
+ *    ESTV-Arbeitspapier», Vermögenssteuer «nicht gerechnet» (Verkehrswert Ende Steuerperiode, ESTV-Kursliste); seit Build 80
+ *    der Vermögenswert per 31.12. als Orientierung (Bestand × Börsen-Tagesschluss × Devisenkurs, [TaxExport.chWealth]) —
+ *    massgebend bleibt die ESTV-Kursliste, die Steuer selbst rechnet die App nicht (kantonale Tarife). Kalenderjahr.
  *  - UK: HMRC Cryptoassets Manual CRYPTO22200 (Same Day → 30 Tage → Section-104-Pool), Beispiele CRYPTO22251–22253;
  *    CRYPTO22280 (Stand 28.11.2025): Gebühr in Tokens = eigene Veräusserung zum Marktwert, am selben Tag mit den übrigen
  *    Abgängen eine Veräusserung (Netzwerkgebühr einer Umbuchung hier ebenso);

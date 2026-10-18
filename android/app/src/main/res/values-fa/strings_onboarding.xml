@@ -15,7 +15,6 @@
     <string name="starter_search_coin">جستجوی کوینی دیگر</string>
     <string name="starter_select_all">انتخاب همه</string>
     <string name="starter_select_none">لغو انتخاب همه</string>
-    <string name="starter_text">آنچه را نمی‌خواهید از انتخاب خارج کنید و بقیه را یک‌جا اضافه کنید. صرافی و جفت را بعداً می‌توانید تغییر دهید.</string>
     <string name="starter_title">با این کوین‌ها شروع کنید</string>
     <string name="starter_watch_alarm_hint">قیمت را دنبال کن، هشدار بگذار</string>
 </resources>

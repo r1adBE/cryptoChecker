@@ -15,7 +15,6 @@
     <string name="starter_search_coin">Başka bir coin ara</string>
     <string name="starter_select_all">Tümünü seç</string>
     <string name="starter_select_none">Seçimi kaldır</string>
-    <string name="starter_text">İstemediklerinizin seçimini kaldırın, kalanları tek seferde ekleyin. Borsayı ve çifti daha sonra değiştirebilirsiniz.</string>
     <string name="starter_title">Bu coinlerle başlayın</string>
     <string name="starter_watch_alarm_hint">Fiyatı izle, alarm kur</string>
 </resources>

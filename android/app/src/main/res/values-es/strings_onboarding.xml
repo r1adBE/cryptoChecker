@@ -15,7 +15,6 @@
     <string name="starter_search_coin">Buscar otra moneda</string>
     <string name="starter_select_all">Seleccionar todo</string>
     <string name="starter_select_none">Desmarcar todo</string>
-    <string name="starter_text">Desmarca lo que no quieras y añade el resto de una vez. Puedes cambiar el exchange y el par más tarde.</string>
     <string name="starter_title">Empieza con estas monedas</string>
     <string name="starter_watch_alarm_hint">Sigue el precio, crea una alarma</string>
 </resources>

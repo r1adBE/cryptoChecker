@@ -31037,6 +31037,197 @@
         }
       }
     },
+    "alarm_last_check" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "آخر فحص: %1$@"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Naposledy zkontrolováno: %1$@"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sidst tjekket: %1$@"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zuletzt geprüft: %1$@"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Τελευταίος έλεγχος: %1$@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last checked: %1$@"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Última comprobación: %1$@"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "آخرین بررسی: %1$@"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Viimeksi tarkistettu: %1$@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dernière vérification : %1$@"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "נבדק לאחרונה: %1$@"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "पिछली जाँच: %1$@"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utoljára ellenőrizve: %1$@"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Terakhir diperiksa: %1$@"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ultimo controllo: %1$@"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "最終確認：%1$@"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "마지막 확인: %1$@"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sist sjekket: %1$@"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Laatst gecontroleerd: %1$@"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ostatnio sprawdzono: %1$@"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Última verificação: %1$@"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Última verificação: %1$@"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verificat ultima dată: %1$@"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Последняя проверка: %1$@"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kontrolluar së fundi: %1$@"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Senast kontrollerad: %1$@"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ตรวจสอบล่าสุด: %1$@"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Son kontrol: %1$@"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Остання перевірка: %1$@"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kiểm tra lần cuối: %1$@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "上次检查：%1$@"
+          }
+        }
+      }
+    },
     "alarm_last_checked" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -31415,6 +31606,1725 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "上次触发：%1$@"
+          }
+        }
+      }
+    },
+    "alarm_log_clear" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مسح السجل"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Smazat protokol"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ryd log"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Protokoll löschen"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Διαγραφή αρχείου"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clear log"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Borrar registro"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "پاک کردن گزارش"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tyhjennä loki"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Effacer le journal"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ניקוי היומן"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "लॉग साफ़ करें"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Napló törlése"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hapus log"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancella registro"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "履歴を消去"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "기록 지우기"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tøm logg"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Logboek wissen"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wyczyść dziennik"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limpar registo"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limpar registro"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Șterge jurnalul"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Очистить журнал"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pastro regjistrin"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rensa logg"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ล้างบันทึก"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Günlüğü temizle"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Очистити журнал"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xóa nhật ký"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "清除记录"
+          }
+        }
+      }
+    },
+    "alarm_log_clear_message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ستُحذف كل الإدخالات. تبقى تنبيهاتك كما هي."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Všechny záznamy budou odstraněny. Tvoje alarmy zůstanou, jak jsou."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alle poster fjernes. Dine alarmer forbliver uændrede."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alle Einträge werden entfernt. Deine Alarme bleiben, wie sie sind."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Όλες οι εγγραφές θα αφαιρεθούν. Οι συναγερμοί σου μένουν ως έχουν."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All entries are removed. Your alarms stay as they are."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se eliminan todas las entradas. Tus alarmas siguen igual."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "همه موارد حذف می‌شوند. هشدارهایتان همان‌طور می‌مانند."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kaikki merkinnät poistetaan. Hälytyksesi pysyvät ennallaan."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toutes les entrées seront supprimées. Vos alarmes restent inchangées."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "כל הרשומות יוסרו. ההתראות שלך נשארות כמו שהן."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "सभी प्रविष्टियाँ हटा दी जाएँगी। आपके अलार्म जैसे हैं वैसे ही रहेंगे।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Minden bejegyzés törlődik. A riasztásaid változatlanok maradnak."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Semua entri dihapus. Alarm kamu tetap seperti semula."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tutte le voci verranno rimosse. I tuoi allarmi restano invariati."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "すべての記録が削除されます。アラーム自体はそのままです。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "모든 기록이 삭제됩니다. 경보는 그대로 유지됩니다."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alle oppføringer fjernes. Alarmene dine forblir som de er."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alle items worden verwijderd. Je alarmen blijven zoals ze zijn."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wszystkie wpisy zostaną usunięte. Twoje alarmy pozostaną bez zmian."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Todas as entradas serão removidas. Os seus alarmes mantêm-se."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Todas as entradas serão removidas. Seus alarmes continuam como estão."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toate intrările vor fi eliminate. Alarmele tale rămân neschimbate."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Все записи будут удалены. Ваши оповещения останутся без изменений."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Të gjitha regjistrimet hiqen. Alarmet e tua mbeten siç janë."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alla poster tas bort. Dina larm förblir som de är."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "รายการทั้งหมดจะถูกลบ สัญญาณเตือนของคุณยังคงเหมือนเดิม"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tüm kayıtlar silinir. Alarmların olduğu gibi kalır."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Усі записи буде видалено. Ваші сигнали залишаться без змін."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tất cả các mục sẽ bị xóa. Các cảnh báo của bạn vẫn giữ nguyên."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "所有记录将被删除。你的提醒保持不变。"
+          }
+        }
+      }
+    },
+    "alarm_log_clear_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مسح سجل التنبيهات؟"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Smazat protokol alarmů?"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ryd alarmloggen?"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarm-Protokoll löschen?"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Διαγραφή αρχείου συναγερμών;"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clear alarm log?"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Borrar el registro de alarmas?"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "گزارش هشدارها پاک شود؟"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tyhjennetäänkö hälytysloki?"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Effacer le journal des alarmes ?"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "לנקות את יומן ההתראות?"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "अलार्म लॉग साफ़ करें?"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Törlöd a riasztásnaplót?"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hapus log alarm?"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancellare il registro allarmi?"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アラーム履歴を消去しますか？"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "경보 기록을 지울까요?"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tømme alarmloggen?"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmlogboek wissen?"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wyczyścić dziennik alarmów?"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limpar o registo de alarmes?"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limpar o registro de alarmes?"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ștergi jurnalul alarmelor?"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Очистить журнал оповещений?"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Të pastrohet regjistri i alarmeve?"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rensa larmloggen?"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ล้างบันทึกสัญญาณเตือนไหม"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarm günlüğü temizlensin mi?"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Очистити журнал сигналів?"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xóa nhật ký cảnh báo?"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "清除提醒记录？"
+          }
+        }
+      }
+    },
+    "alarm_log_empty_message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تظهر الإدخالات هنا عندما ينطلق تنبيه أو يُوقف – مثلًا بسبب سعر قديم أو خلال ساعات الصمت."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Záznamy se tu objeví, jakmile se alarm spustí nebo bude pozdržen – třeba kvůli zastaralému kurzu nebo nočnímu klidu."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Her vises poster, så snart en alarm udløses eller holdes tilbage – fx på grund af en forældet kurs eller nattero."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Einträge erscheinen hier, sobald ein Alarm auslöst oder zurückgehalten wird – etwa wegen eines veralteten Kurses oder der Nachtruhe."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Οι εγγραφές εμφανίζονται εδώ μόλις ένας συναγερμός ενεργοποιηθεί ή κρατηθεί – π.χ. λόγω παλιάς τιμής ή κατά τις ώρες ησυχίας."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entries appear here when an alarm fires or is held back – for example because the price is stale or during quiet hours."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Las entradas aparecen aquí cuando una alarma salta o se retiene, por ejemplo por un precio desactualizado o durante las horas de silencio."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "وقتی هشداری فعال شود یا نگه داشته شود، موارد اینجا نمایش داده می‌شوند – مثلاً به‌خاطر قیمت قدیمی یا در ساعات بی‌صدا."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Merkinnät näkyvät tässä, kun hälytys laukeaa tai pidätetään – esimerkiksi vanhentuneen hinnan tai hiljaisten tuntien vuoksi."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les entrées apparaissent ici dès qu'une alarme se déclenche ou est retenue – par exemple à cause d'un cours obsolète ou pendant les heures calmes."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "רשומות יופיעו כאן כשהתראה מופעלת או מעוכבת – למשל בגלל מחיר לא עדכני או בשעות דממה."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "जब कोई अलार्म बजता है या रोका जाता है, तब प्रविष्टियाँ यहाँ दिखती हैं – जैसे पुरानी कीमत के कारण या मौन घंटों में।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A bejegyzések itt jelennek meg, amint egy riasztás jelez vagy vissza lesz tartva – például elavult árfolyam miatt vagy csendes órákban."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entri muncul di sini saat alarm berbunyi atau ditahan – misalnya karena harga usang atau saat jam tenang."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le voci compaiono qui quando un allarme scatta o viene trattenuto – per esempio per un prezzo non aggiornato o durante le ore di silenzio."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アラームが鳴ったり保留されたりすると、ここに記録されます（例：価格が古い、おやすみ時間中など）。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "경보가 울리거나 보류되면 여기에 기록됩니다. 예: 가격이 오래되었거나 조용한 시간인 경우."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oppføringer vises her så snart en alarm utløses eller holdes tilbake – for eksempel på grunn av en utdatert kurs eller i nattro."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Items verschijnen hier zodra een alarm afgaat of wordt tegengehouden – bijvoorbeeld door een verouderde koers of tijdens stille uren."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wpisy pojawiają się tutaj, gdy alarm zadziała lub zostanie wstrzymany – np. z powodu nieaktualnego kursu albo w godzinach ciszy."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "As entradas aparecem aqui quando um alarme dispara ou é retido – por exemplo, por causa de um preço desatualizado ou durante as horas de silêncio."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "As entradas aparecem aqui quando um alarme dispara ou é segurado – por exemplo, por um preço desatualizado ou no horário de silêncio."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Intrările apar aici când o alarmă se declanșează sau este reținută – de exemplu din cauza unui preț învechit sau în orele de liniște."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Записи появятся здесь, когда оповещение сработает или будет задержано – например, из-за устаревшей цены или в тихие часы."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Regjistrimet shfaqen këtu sapo një alarm aktivizohet ose mbahet – për shembull për shkak të një çmimi të vjetruar ose gjatë orëve të heshtjes."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Poster visas här så snart ett larm utlöses eller hålls tillbaka – till exempel på grund av en inaktuell kurs eller under tysta timmar."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "รายการจะแสดงที่นี่เมื่อสัญญาณเตือนทำงานหรือถูกระงับ เช่น เพราะราคาไม่เป็นปัจจุบันหรือในช่วงเวลาเงียบ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bir alarm çaldığında veya bekletildiğinde kayıtlar burada görünür – örneğin eski bir fiyat yüzünden ya da sessiz saatlerde."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Записи з’являться тут, коли сигнал спрацює або буде затриманий – наприклад, через застарілу ціну чи в тихі години."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Các mục sẽ hiện ở đây khi cảnh báo kích hoạt hoặc bị giữ lại – ví dụ do giá đã cũ hoặc trong giờ yên lặng."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "当提醒触发或被暂缓时（例如价格过时或处于静音时段），记录会显示在这里。"
+          }
+        }
+      }
+    },
+    "alarm_log_empty_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لا توجد إدخالات بعد"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zatím žádné záznamy"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ingen poster endnu"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Noch keine Einträge"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Δεν υπάρχουν ακόμη εγγραφές"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No entries yet"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aún no hay entradas"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "هنوز موردی نیست"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ei vielä merkintöjä"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucune entrée pour l'instant"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "עדיין אין רשומות"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "अभी कोई प्रविष्टि नहीं"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Még nincs bejegyzés"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Belum ada entri"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ancora nessuna voce"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "まだ記録はありません"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "아직 기록이 없습니다"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ingen oppføringer ennå"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nog geen items"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brak wpisów"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ainda sem entradas"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ainda não há entradas"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Încă nicio intrare"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Записей пока нет"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ende pa regjistrime"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inga poster än"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ยังไม่มีรายการ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Henüz kayıt yok"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Записів поки немає"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chưa có mục nào"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "暂无记录"
+          }
+        }
+      }
+    },
+    "alarm_log_intro" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "متى انطلق تنبيه – ومتى كان سينطلق لكنه أُوقف. يُحفظ على هذا الجهاز فقط لمدة 14 يومًا."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kdy se alarm spustil – a kdy by se spustil, ale byl pozdržen. Uloženo jen v tomto zařízení, po dobu 14 dnů."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hvornår en alarm blev udløst – og hvornår den ville være udløst, men blev holdt tilbage. Gemmes kun på denne enhed i 14 dage."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wann ein Alarm ausgelöst hat – und wann er ausgelöst hätte, aber zurückgehalten wurde. Nur auf diesem Gerät gespeichert, 14 Tage lang."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Πότε ενεργοποιήθηκε ένας συναγερμός – και πότε θα ενεργοποιούνταν, αλλά κρατήθηκε. Αποθηκεύεται μόνο σε αυτή τη συσκευή για 14 ημέρες."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "When an alarm fired – and when it would have fired but was held back. Stored only on this device, for 14 days."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cuándo saltó una alarma – y cuándo habría saltado, pero se retuvo. Se guarda solo en este dispositivo durante 14 días."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "چه زمانی یک هشدار فعال شد – و چه زمانی فعال می‌شد اما نگه داشته شد. فقط روی همین دستگاه و به مدت ۱۴ روز ذخیره می‌شود."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Milloin hälytys laukesi – ja milloin se olisi lauennut, mutta pidätettiin. Tallennetaan vain tälle laitteelle 14 päiväksi."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quand une alarme s'est déclenchée – et quand elle se serait déclenchée mais a été retenue. Enregistré uniquement sur cet appareil, pendant 14 jours."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "מתי התראה הופעלה – ומתי היא הייתה מופעלת אבל עוכבה. נשמר רק במכשיר הזה למשך 14 יום."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "कोई अलार्म कब बजा – और कब बजता, लेकिन रोका गया। केवल इसी डिवाइस पर 14 दिनों तक सहेजा जाता है।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mikor jelzett egy riasztás – és mikor jelzett volna, de vissza lett tartva. Csak ezen az eszközön tárolódik, 14 napig."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kapan alarm berbunyi – dan kapan seharusnya berbunyi tetapi ditahan. Hanya disimpan di perangkat ini selama 14 hari."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quando un allarme è scattato – e quando sarebbe scattato ma è stato trattenuto. Salvato solo su questo dispositivo per 14 giorni."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アラームが鳴ったとき――そして鳴るはずだったのに保留されたときを記録します。この端末にのみ 14 日間保存されます。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "경보가 울린 시점과, 울렸어야 했지만 보류된 시점을 기록합니다. 이 기기에만 14일 동안 저장됩니다."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Når en alarm ble utløst – og når den ville blitt utløst, men ble holdt tilbake. Lagres bare på denne enheten i 14 dager."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wanneer een alarm afging – en wanneer het zou zijn afgegaan, maar werd tegengehouden. Alleen op dit apparaat opgeslagen, 14 dagen lang."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kiedy alarm zadziałał – i kiedy by zadziałał, ale został wstrzymany. Zapisywane tylko na tym urządzeniu przez 14 dni."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quando um alarme disparou – e quando teria disparado, mas foi retido. Guardado apenas neste dispositivo durante 14 dias."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quando um alarme disparou – e quando teria disparado, mas foi segurado. Salvo só neste dispositivo por 14 dias."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Când s-a declanșat o alarmă – și când s-ar fi declanșat, dar a fost reținută. Salvat doar pe acest dispozitiv, timp de 14 zile."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Когда оповещение сработало – и когда оно сработало бы, но было задержано. Хранится только на этом устройстве 14 дней."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kur u aktivizua një alarm – dhe kur do të ishte aktivizuar, por u mbajt. Ruhet vetëm në këtë pajisje për 14 ditë."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "När ett larm utlöstes – och när det skulle ha utlösts men hölls tillbaka. Sparas bara på den här enheten i 14 dagar."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "เมื่อใดที่สัญญาณเตือนทำงาน – และเมื่อใดที่ควรทำงานแต่ถูกระงับไว้ จัดเก็บเฉพาะในอุปกรณ์นี้เป็นเวลา 14 วัน"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bir alarmın ne zaman çaldığı – ve ne zaman çalacakken bekletildiği. Yalnızca bu cihazda 14 gün saklanır."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Коли сигнал спрацював – і коли він спрацював би, але був затриманий. Зберігається лише на цьому пристрої 14 днів."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Khi nào cảnh báo đã kích hoạt – và khi nào lẽ ra đã kích hoạt nhưng bị giữ lại. Chỉ lưu trên thiết bị này trong 14 ngày."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "记录提醒何时触发——以及何时本应触发却被暂缓。仅保存在此设备上，保留 14 天。"
+          }
+        }
+      }
+    },
+    "alarm_log_open" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "عرض سجل التنبيهات"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zobrazit protokol alarmů"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vis alarmlog"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarm-Protokoll anzeigen"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Προβολή αρχείου συναγερμών"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show alarm log"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ver registro de alarmas"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نمایش گزارش هشدارها"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Näytä hälytysloki"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Afficher le journal des alarmes"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "הצגת יומן ההתראות"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "अलार्म लॉग देखें"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Riasztásnapló megnyitása"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lihat log alarm"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostra registro allarmi"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アラーム履歴を表示"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "경보 기록 보기"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vis alarmlogg"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmlogboek tonen"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pokaż dziennik alarmów"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ver registo de alarmes"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ver registro de alarmes"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arată jurnalul alarmelor"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Открыть журнал оповещений"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shfaq regjistrin e alarmeve"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Visa larmlogg"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ดูบันทึกสัญญาณเตือน"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarm günlüğünü göster"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Відкрити журнал сигналів"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xem nhật ký cảnh báo"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "查看提醒记录"
+          }
+        }
+      }
+    },
+    "alarm_log_threshold" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الحد %1$@"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hranice %1$@"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grænse %1$@"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Marke %1$@"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Όριο %1$@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Threshold %1$@"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Umbral %1$@"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "آستانه %1$@"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Raja %1$@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seuil %1$@"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "סף %1$@"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "सीमा %1$@"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Határ: %1$@"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Batas %1$@"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Soglia %1$@"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "しきい値 %1$@"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "기준 %1$@"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grense %1$@"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grens %1$@"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Próg %1$@"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limite %1$@"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limite %1$@"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prag %1$@"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Порог %1$@"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kufiri %1$@"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gräns %1$@"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "เกณฑ์ %1$@"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eşik %1$@"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Поріг %1$@"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ngưỡng %1$@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "阈值 %1$@"
+          }
+        }
+      }
+    },
+    "alarm_log_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "سجل التنبيهات"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Protokol alarmů"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmlog"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarm-Protokoll"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Αρχείο συναγερμών"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarm log"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Registro de alarmas"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "گزارش هشدارها"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hälytysloki"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Journal des alarmes"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "יומן התראות"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "अलार्म लॉग"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Riasztásnapló"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Log alarm"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Registro allarmi"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アラーム履歴"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "경보 기록"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmlogg"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmlogboek"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dziennik alarmów"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Registo de alarmes"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Registro de alarmes"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jurnal alarme"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Журнал оповещений"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Regjistri i alarmeve"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Larmlogg"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "บันทึกสัญญาณเตือน"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarm günlüğü"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Журнал сигналів"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nhật ký cảnh báo"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "提醒记录"
           }
         }
       }
@@ -36258,6 +38168,2298 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "振动"
+          }
+        }
+      }
+    },
+    "alarm_outcome_already_triggered" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "أُبلغ عنه سابقًا – ينتظر عودة السعر إلى الجانب الآخر"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Už ohlášeno – čeká, až se kurz vrátí na druhou stranu"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Allerede meldt – venter, til kursen er tilbage på den anden side"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Schon gemeldet – wartet, bis der Kurs zurück auf der anderen Seite ist"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Έχει ήδη αναφερθεί – περιμένει να επιστρέψει η τιμή στην άλλη πλευρά"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Already reported – waits until the price is back on the other side"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ya avisada – espera a que el precio vuelva al otro lado"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "قبلاً اعلام شده – منتظر بازگشت قیمت به سمت دیگر"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jo ilmoitettu – odottaa, että hinta palaa toiselle puolelle"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Déjà signalée – attend que le cours repasse de l'autre côté"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "כבר דווח – ממתין שהמחיר יחזור לצד השני"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "पहले ही सूचित – कीमत के दूसरी ओर लौटने की प्रतीक्षा"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Már jelezve – vár, amíg az árfolyam visszatér a másik oldalra"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sudah dilaporkan – menunggu harga kembali ke sisi lain"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Già segnalato – attende che il prezzo torni dall'altra parte"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "通知済み――価格が反対側に戻るまで待機中"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이미 알림 – 가격이 반대쪽으로 돌아올 때까지 대기"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Allerede meldt – venter til kursen er tilbake på den andre siden"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Al gemeld – wacht tot de koers terug aan de andere kant is"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Już zgłoszony – czeka, aż kurs wróci na drugą stronę"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Já avisado – aguarda que o preço volte ao outro lado"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Já avisado – aguarda o preço voltar para o outro lado"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deja raportată – așteaptă ca prețul să revină de cealaltă parte"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Уже сообщено – ждёт, пока цена вернётся на другую сторону"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Njoftuar tashmë – pret derisa çmimi të kthehet në anën tjetër"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Redan meddelat – väntar tills kursen är tillbaka på andra sidan"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "แจ้งไปแล้ว – รอให้ราคากลับไปอีกฝั่ง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zaten bildirildi – fiyatın diğer tarafa dönmesi bekleniyor"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Уже повідомлено – чекає, поки ціна повернеться на інший бік"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đã báo – chờ giá quay lại phía bên kia"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已提醒过——等待价格回到另一侧"
+          }
+        }
+      }
+    },
+    "alarm_outcome_cooldown" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لم ينطلق – فترة الهدوء بعد آخر تنبيه"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nespuštěno – klidová doba po posledním upozornění"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ikke udløst – pause efter sidste melding"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nicht ausgelöst – Ruhezeit nach der letzten Meldung"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Δεν ενεργοποιήθηκε – χρόνος αναμονής μετά την τελευταία ειδοποίηση"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not fired – quiet time after the last alert"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No saltó – pausa tras el último aviso"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "فعال نشد – زمان سکوت پس از آخرین اعلان"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ei lauennut – tauko edellisen ilmoituksen jälkeen"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non déclenchée – délai après la dernière alerte"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "לא הופעלה – זמן שקט אחרי ההתראה האחרונה"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "नहीं बजा – पिछली सूचना के बाद का शांत समय"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nem jelzett – várakozási idő az utolsó értesítés után"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tidak berbunyi – jeda setelah pemberitahuan terakhir"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non scattato – pausa dopo l'ultimo avviso"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未作動――前回の通知後の待機時間中"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "울리지 않음 – 마지막 알림 후 대기 시간"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ikke utløst – pause etter siste varsel"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Niet afgegaan – rusttijd na de laatste melding"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nie zadziałał – przerwa po ostatnim powiadomieniu"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não disparou – pausa após o último aviso"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não disparou – pausa após o último aviso"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nedeclanșată – pauză după ultima notificare"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не сработало – пауза после последнего уведомления"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nuk u aktivizua – kohë e qetë pas njoftimit të fundit"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inte utlöst – vilotid efter senaste meddelandet"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ไม่ทำงาน – ช่วงพักหลังการแจ้งครั้งล่าสุด"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Çalmadı – son bildirimden sonraki bekleme süresi"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не спрацював – пауза після останнього сповіщення"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không kích hoạt – thời gian chờ sau lần báo trước"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未触发——上次提醒后的冷却时间"
+          }
+        }
+      }
+    },
+    "alarm_outcome_fired" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "انطلق"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spuštěno"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Udløst"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ausgelöst"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ενεργοποιήθηκε"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fired"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saltó"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "فعال شد"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Laukesi"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Déclenchée"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "הופעלה"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "बजा"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jelzett"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Berbunyi"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scattato"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "作動しました"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "울림"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utløst"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Afgegaan"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zadziałał"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Disparou"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Disparou"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Declanșată"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сработало"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "U aktivizua"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utlöst"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ทำงานแล้ว"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Çaldı"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Спрацював"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đã kích hoạt"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已触发"
+          }
+        }
+      }
+    },
+    "alarm_outcome_low_liquidity" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لم ينطلق – السيولة أقل من 10,000 USD أو غير معروفة"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nespuštěno – likvidita pod 10 000 USD nebo neznámá"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ikke udløst – likviditet under 10.000 USD eller ukendt"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nicht ausgelöst – Liquidität unter 10’000 USD oder unbekannt"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Δεν ενεργοποιήθηκε – ρευστότητα κάτω από 10.000 USD ή άγνωστη"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not fired – liquidity below 10,000 USD or unknown"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No saltó – liquidez por debajo de 10.000 USD o desconocida"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "فعال نشد – نقدینگی کمتر از ۱۰٬۰۰۰ USD یا نامشخص"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ei lauennut – likviditeetti alle 10 000 USD tai tuntematon"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non déclenchée – liquidité inférieure à 10 000 USD ou inconnue"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "לא הופעלה – נזילות מתחת ל-10,000 USD או לא ידועה"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "नहीं बजा – तरलता 10,000 USD से कम या अज्ञात"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nem jelzett – a likviditás 10 000 USD alatt van vagy ismeretlen"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tidak berbunyi – likuiditas di bawah 10.000 USD atau tidak diketahui"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non scattato – liquidità sotto 10.000 USD o sconosciuta"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未作動――流動性が 10,000 USD 未満または不明"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "울리지 않음 – 유동성이 10,000 USD 미만이거나 알 수 없음"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ikke utløst – likviditet under 10 000 USD eller ukjent"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Niet afgegaan – liquiditeit onder 10.000 USD of onbekend"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nie zadziałał – płynność poniżej 10 000 USD lub nieznana"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não disparou – liquidez abaixo de 10 000 USD ou desconhecida"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não disparou – liquidez abaixo de 10.000 USD ou desconhecida"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nedeclanșată – lichiditate sub 10.000 USD sau necunoscută"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не сработало – ликвидность ниже 10 000 USD или неизвестна"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nuk u aktivizua – likuiditet nën 10 000 USD ose i panjohur"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inte utlöst – likviditet under 10 000 USD eller okänd"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ไม่ทำงาน – สภาพคล่องต่ำกว่า 10,000 USD หรือไม่ทราบ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Çalmadı – likidite 10.000 USD'nin altında veya bilinmiyor"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не спрацював – ліквідність нижче 10 000 USD або невідома"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không kích hoạt – thanh khoản dưới 10.000 USD hoặc không rõ"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未触发——流动性低于 10,000 USD 或未知"
+          }
+        }
+      }
+    },
+    "alarm_outcome_mark_price" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لم ينطلق – سعر Mark، وليس سعر تداول"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nespuštěno – mark cena, ne obchodní kurz"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ikke udløst – markpris, ikke en handelskurs"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nicht ausgelöst – Mark-Preis, kein Handelskurs"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Δεν ενεργοποιήθηκε – τιμή mark, όχι τιμή συναλλαγής"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not fired – mark price, not a traded price"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No saltó – precio mark, no un precio negociado"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "فعال نشد – قیمت مارک، نه قیمت معامله"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ei lauennut – mark-hinta, ei kaupankäyntihinta"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non déclenchée – prix mark, pas un cours négocié"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "לא הופעלה – מחיר Mark, לא מחיר מסחר"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "नहीं बजा – मार्क मूल्य, ट्रेड की गई कीमत नहीं"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nem jelzett – mark ár, nem kereskedési árfolyam"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tidak berbunyi – harga mark, bukan harga perdagangan"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non scattato – prezzo mark, non un prezzo negoziato"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未作動――マーク価格で、取引価格ではありません"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "울리지 않음 – 마크 가격이며 거래 가격이 아님"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ikke utløst – markpris, ikke en handelskurs"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Niet afgegaan – markprijs, geen handelskoers"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nie zadziałał – cena mark, nie kurs transakcyjny"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não disparou – preço mark, não um preço negociado"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não disparou – preço mark, não um preço negociado"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nedeclanșată – preț mark, nu un preț de tranzacționare"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не сработало – mark-цена, а не цена сделки"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nuk u aktivizua – çmim mark, jo çmim tregtimi"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inte utlöst – markpris, inte en handelskurs"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ไม่ทำงาน – เป็นราคามาร์ก ไม่ใช่ราคาซื้อขาย"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Çalmadı – mark fiyatı, işlem fiyatı değil"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не спрацював – mark-ціна, а не ціна угоди"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không kích hoạt – giá mark, không phải giá giao dịch"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未触发——标记价格，非成交价"
+          }
+        }
+      }
+    },
+    "alarm_outcome_no_price" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لا يوجد سعر – فشل الاستعلام لدى المنصة"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Žádný kurz – dotaz na burzu selhal"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ingen kurs – forespørgsel til børsen mislykkedes"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kein Kurs – Abfrage bei der Börse fehlgeschlagen"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Χωρίς τιμή – το αίτημα στο ανταλλακτήριο απέτυχε"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No price – exchange query failed"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sin precio – falló la consulta al exchange"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بدون قیمت – درخواست به صرافی ناموفق بود"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ei hintaa – pörssin kysely epäonnistui"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pas de cours – échec de la requête à la plateforme"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "אין מחיר – השאילתה לבורסה נכשלה"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "कोई कीमत नहीं – एक्सचेंज से पूछताछ विफल रही"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nincs árfolyam – a tőzsdei lekérdezés sikertelen"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tidak ada harga – permintaan ke bursa gagal"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nessun prezzo – richiesta all'exchange non riuscita"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "価格なし――取引所への問い合わせに失敗"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "가격 없음 – 거래소 조회 실패"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ingen kurs – forespørselen til børsen mislyktes"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geen koers – opvraag bij de beurs mislukt"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brak kursu – zapytanie do giełdy nie powiodło się"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sem preço – falha na consulta à corretora"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sem preço – falha na consulta à corretora"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fără preț – interogarea bursei a eșuat"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Нет цены – запрос к бирже не удался"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pa çmim – kërkesa te bursa dështoi"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ingen kurs – frågan till börsen misslyckades"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ไม่มีราคา – การสอบถามกระดานเทรดล้มเหลว"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fiyat yok – borsa sorgusu başarısız"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Немає ціни – запит до біржі не вдався"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không có giá – truy vấn sàn thất bại"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无价格——交易所查询失败"
+          }
+        }
+      }
+    },
+    "alarm_outcome_no_rate" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لم يُفحص – لا يوجد سعر صرف"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nezkontrolováno – chybí směnný kurz"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ikke tjekket – ingen valutakurs"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nicht geprüft – kein Devisenkurs"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Δεν ελέγχθηκε – δεν υπάρχει συναλλαγματική ισοτιμία"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not checked – no exchange rate"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sin comprobar – no hay tipo de cambio"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بررسی نشد – نرخ ارز موجود نیست"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ei tarkistettu – ei valuuttakurssia"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non vérifiée – pas de taux de change"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "לא נבדקה – אין שער חליפין"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "जाँच नहीं हुई – विनिमय दर नहीं मिली"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nincs ellenőrizve – nincs devizaárfolyam"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tidak diperiksa – tidak ada kurs"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non controllato – nessun tasso di cambio"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未確認――為替レートがありません"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "확인 안 됨 – 환율 없음"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ikke sjekket – ingen valutakurs"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Niet gecontroleerd – geen wisselkoers"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nie sprawdzono – brak kursu wymiany"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não verificado – sem taxa de câmbio"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não verificado – sem taxa de câmbio"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neverificată – lipsește cursul de schimb"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не проверено – нет курса валют"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nuk u kontrollua – mungon kursi i këmbimit"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inte kontrollerad – ingen växelkurs"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ไม่ได้ตรวจสอบ – ไม่มีอัตราแลกเปลี่ยน"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kontrol edilmedi – döviz kuru yok"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не перевірено – немає курсу валют"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chưa kiểm tra – không có tỷ giá"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未检查——没有汇率"
+          }
+        }
+      }
+    },
+    "alarm_outcome_not_reached" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لم يُبلغ الحد"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hranice nedosažena"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grænsen ikke nået"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Marke nicht erreicht"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Το όριο δεν επιτεύχθηκε"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Threshold not reached"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Umbral no alcanzado"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "به آستانه نرسید"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rajaa ei saavutettu"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seuil non atteint"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "הסף לא הושג"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "सीमा तक नहीं पहुँचा"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A határt nem érte el"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Batas tidak tercapai"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Soglia non raggiunta"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "しきい値に未到達"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "기준에 도달하지 않음"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grensen ikke nådd"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grens niet bereikt"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Próg nieosiągnięty"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limite não atingido"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limite não atingido"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prag neatins"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Порог не достигнут"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kufiri nuk u arrit"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gränsen inte nådd"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ยังไม่ถึงเกณฑ์"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eşiğe ulaşılmadı"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Поріг не досягнуто"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chưa đạt ngưỡng"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未达到阈值"
+          }
+        }
+      }
+    },
+    "alarm_outcome_not_shown" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لم ينطلق – لم يصل الإشعار، ستتم المحاولة لاحقًا"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nespuštěno – oznámení nedorazilo, zkusí se znovu"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ikke udløst – notifikationen kom ikke frem, prøver igen senere"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nicht ausgelöst – Mitteilung kam nicht an, neuer Versuch folgt"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Δεν ενεργοποιήθηκε – η ειδοποίηση δεν έφτασε, νέα προσπάθεια αργότερα"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not fired – notification didn't arrive, retrying later"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No saltó – la notificación no llegó, se reintentará"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "فعال نشد – اعلان نرسید، بعداً دوباره تلاش می‌شود"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ei lauennut – ilmoitus ei tullut perille, yritetään myöhemmin uudelleen"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non déclenchée – la notification n'est pas arrivée, nouvel essai plus tard"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "לא הופעלה – ההודעה לא הגיעה, ניסיון נוסף בהמשך"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "नहीं बजा – सूचना नहीं पहुँची, बाद में फिर कोशिश होगी"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nem jelzett – az értesítés nem érkezett meg, később újra próbálja"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tidak berbunyi – notifikasi tidak sampai, akan dicoba lagi"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non scattato – la notifica non è arrivata, nuovo tentativo più tardi"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未作動――通知が届かなかったため、後で再試行します"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "울리지 않음 – 알림이 전달되지 않아 나중에 다시 시도"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ikke utløst – varselet kom ikke fram, prøver igjen senere"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Niet afgegaan – melding kwam niet aan, nieuwe poging volgt"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nie zadziałał – powiadomienie nie dotarło, ponowna próba później"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não disparou – a notificação não chegou, nova tentativa mais tarde"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não disparou – a notificação não chegou, nova tentativa depois"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nedeclanșată – notificarea nu a ajuns, se reîncearcă mai târziu"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не сработало – уведомление не дошло, повторим позже"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nuk u aktivizua – njoftimi nuk arriti, provohet sërish më vonë"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inte utlöst – aviseringen kom inte fram, nytt försök senare"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ไม่ทำงาน – การแจ้งเตือนไม่ถึง จะลองใหม่ภายหลัง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Çalmadı – bildirim ulaşmadı, daha sonra yeniden denenecek"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не спрацював – сповіщення не надійшло, повторимо пізніше"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không kích hoạt – thông báo không đến, sẽ thử lại sau"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未触发——通知未送达，稍后重试"
+          }
+        }
+      }
+    },
+    "alarm_outcome_notifications_off" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لم ينطلق – الإشعارات متوقفة"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nespuštěno – oznámení vypnuta"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ikke udløst – notifikationer slået fra"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nicht ausgelöst – Mitteilungen aus"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Δεν ενεργοποιήθηκε – ειδοποιήσεις απενεργοποιημένες"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not fired – notifications off"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No saltó – notificaciones desactivadas"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "فعال نشد – اعلان‌ها خاموش است"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ei lauennut – ilmoitukset pois päältä"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non déclenchée – notifications désactivées"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "לא הופעלה – ההודעות כבויות"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "नहीं बजा – सूचनाएँ बंद हैं"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nem jelzett – az értesítések ki vannak kapcsolva"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tidak berbunyi – notifikasi mati"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non scattato – notifiche disattivate"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未作動――通知がオフ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "울리지 않음 – 알림 꺼짐"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ikke utløst – varsler er av"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Niet afgegaan – meldingen uit"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nie zadziałał – powiadomienia wyłączone"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não disparou – notificações desativadas"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não disparou – notificações desativadas"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nedeclanșată – notificări dezactivate"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не сработало – уведомления выключены"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nuk u aktivizua – njoftimet janë fikur"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inte utlöst – aviseringar avstängda"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ไม่ทำงาน – ปิดการแจ้งเตือนอยู่"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Çalmadı – bildirimler kapalı"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не спрацював – сповіщення вимкнені"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không kích hoạt – thông báo đang tắt"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未触发——通知已关闭"
+          }
+        }
+      }
+    },
+    "alarm_outcome_quiet_hours" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لم ينطلق – ساعات الصمت (ينبّه بعدها إن بقي الشرط محققًا)"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nespuštěno – noční klid (ozve se potom, pokud podmínka stále platí)"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ikke udløst – nattero (melder sig bagefter, hvis betingelsen stadig er opfyldt)"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nicht ausgelöst – Nachtruhe (meldet sich danach, falls noch erfüllt)"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Δεν ενεργοποιήθηκε – ώρες ησυχίας (ειδοποιεί μετά, αν ισχύει ακόμη)"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not fired – quiet hours (alerts afterwards if still met)"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No saltó – horas de silencio (avisa después si aún se cumple)"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "فعال نشد – ساعات بی‌صدا (پس از آن اعلام می‌کند اگر هنوز برقرار باشد)"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ei lauennut – hiljaiset tunnit (ilmoittaa sen jälkeen, jos ehto täyttyy yhä)"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non déclenchée – heures calmes (alerte ensuite si la condition est toujours remplie)"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "לא הופעלה – שעות דממה (תתריע אחר כך אם התנאי עדיין מתקיים)"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "नहीं बजा – मौन घंटे (बाद में सूचित करेगा, यदि शर्त अब भी पूरी हो)"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nem jelzett – csendes órák (utána jelez, ha a feltétel még teljesül)"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tidak berbunyi – jam tenang (memberi tahu setelahnya jika masih terpenuhi)"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non scattato – ore di silenzio (avvisa dopo, se ancora valido)"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未作動――おやすみ時間（終了後も条件を満たしていれば通知）"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "울리지 않음 – 조용한 시간(끝난 뒤에도 조건이 맞으면 알림)"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ikke utløst – nattro (varsler etterpå hvis betingelsen fortsatt er oppfylt)"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Niet afgegaan – stille uren (meldt zich daarna als het nog geldt)"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nie zadziałał – godziny ciszy (powiadomi potem, jeśli warunek nadal jest spełniony)"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não disparou – horas de silêncio (avisa depois, se ainda se verificar)"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não disparou – horário de silêncio (avisa depois, se ainda valer)"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nedeclanșată – ore de liniște (anunță după aceea, dacă e încă îndeplinită)"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не сработало – тихие часы (сообщит позже, если условие всё ещё выполнено)"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nuk u aktivizua – orët e heshtjes (njofton më pas, nëse vlen ende)"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inte utlöst – tysta timmar (meddelar efteråt om villkoret fortfarande gäller)"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ไม่ทำงาน – ช่วงเวลาเงียบ (จะแจ้งภายหลังหากยังเป็นไปตามเงื่อนไข)"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Çalmadı – sessiz saatler (koşul hâlâ geçerliyse sonra bildirir)"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не спрацював – тихі години (повідомить потім, якщо умова ще виконується)"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không kích hoạt – giờ yên lặng (sẽ báo sau đó nếu vẫn thỏa điều kiện)"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未触发——静音时段（结束后若仍满足条件会提醒）"
+          }
+        }
+      }
+    },
+    "alarm_outcome_stale" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لم ينطلق – السعر قديم (حتى %1$@)"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nespuštěno – zastaralý kurz (stav %1$@)"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ikke udløst – forældet kurs (status %1$@)"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nicht ausgelöst – Kurs veraltet (Stand %1$@)"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Δεν ενεργοποιήθηκε – παλιά τιμή (κατάσταση %1$@)"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not fired – price stale (as of %1$@)"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No saltó – precio desactualizado (último dato %1$@)"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "فعال نشد – قیمت قدیمی (وضعیت %1$@)"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ei lauennut – vanhentunut hinta (tilanne %1$@)"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non déclenchée – cours obsolète (état %1$@)"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "לא הופעלה – מחיר לא עדכני (נכון ל-%1$@)"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "नहीं बजा – पुरानी कीमत (स्थिति %1$@)"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nem jelzett – elavult árfolyam (állapot: %1$@)"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tidak berbunyi – harga usang (per %1$@)"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non scattato – prezzo non aggiornato (stato %1$@)"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未作動――価格が古い（%1$@ 時点）"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "울리지 않음 – 오래된 가격(%1$@ 기준)"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ikke utløst – utdatert kurs (status %1$@)"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Niet afgegaan – verouderde koers (stand %1$@)"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nie zadziałał – nieaktualny kurs (stan %1$@)"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não disparou – preço desatualizado (dados de %1$@)"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não disparou – preço desatualizado (dados de %1$@)"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nedeclanșată – preț învechit (stare %1$@)"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не сработало – цена устарела (на %1$@)"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nuk u aktivizua – çmim i vjetruar (gjendja %1$@)"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inte utlöst – inaktuell kurs (läge %1$@)"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ไม่ทำงาน – ราคาไม่เป็นปัจจุบัน (ณ %1$@)"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Çalmadı – fiyat eski (durum %1$@)"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не спрацював – застаріла ціна (станом на %1$@)"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không kích hoạt – giá đã cũ (lúc %1$@)"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未触发——价格过时（截至 %1$@）"
           }
         }
       }
@@ -74699,7 +78901,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ vom Top"
+            "value" : "%1$@ vom Hoch"
           }
         },
         "el" : {
@@ -74890,7 +79092,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bottom %1$@"
+            "value" : "Tief %1$@"
           }
         },
         "el" : {
@@ -75081,7 +79283,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Doppel-Bottom %1$@"
+            "value" : "Doppeltief %1$@"
           }
         },
         "el" : {
@@ -75272,7 +79474,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Doppel-Top %1$@"
+            "value" : "Doppelhoch %1$@"
           }
         },
         "el" : {
@@ -75654,7 +79856,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Top %1$@"
+            "value" : "Hoch %1$@"
           }
         },
         "el" : {
@@ -226158,7 +230360,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding neutral"
+            "value" : "Funding ausgeglichen"
           }
         },
         "el" : {
@@ -284161,193 +288363,193 @@
         }
       }
     },
-    "starter_text" : {
+    "starter_source_text" : {
       "extractionState" : "manual",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ألغِ تحديد ما لا تريده وأضف الباقي دفعة واحدة. يمكنك تغيير المنصة والزوج لاحقًا."
+            "value" : "الأسعار من %1$@ بعملة %2$@. ألغِ تحديد ما لا تريده وأضف الباقي دفعة واحدة. يمكنك تغيير المنصة والزوج لكل عملة."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Odznačte, co nechcete, a zbytek přidejte najednou. Burzu a pár můžete později změnit."
+            "value" : "Ceny z burzy %1$@ v %2$@. Odznačte, co nechcete, a zbytek přidejte najednou. Burzu a pár můžete změnit u každé mince."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fravælg det, du ikke vil have, og tilføj resten på én gang. Du kan ændre børs og par senere."
+            "value" : "Kurser fra %1$@ i %2$@. Fravælg det, du ikke vil have, og tilføj resten på én gang. Du kan ændre børs og par for hver coin."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Abwählen, was du nicht willst, und den Rest in einem Schritt hinzufügen. Börse und Paar kannst du später ändern."
+            "value" : "Kurse von %1$@ in %2$@. Abwählen, was du nicht willst, und den Rest in einem Schritt hinzufügen. Börse und Paar kannst du je Coin ändern."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Αποεπιλέξτε ό,τι δεν θέλετε και προσθέστε τα υπόλοιπα με μία κίνηση. Μπορείτε να αλλάξετε ανταλλακτήριο και ζεύγος αργότερα."
+            "value" : "Τιμές από %1$@ σε %2$@. Αποεπιλέξτε ό,τι δεν θέλετε και προσθέστε τα υπόλοιπα με μία κίνηση. Μπορείτε να αλλάξετε ανταλλακτήριο και ζεύγος για κάθε νόμισμα."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Deselect what you don't want and add the rest in one go. You can change exchange and pair later."
+            "value" : "Prices from %1$@ in %2$@. Deselect what you don't want and add the rest in one go. You can change the exchange and pair for each coin."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Desmarca lo que no quieras y añade el resto de una vez. Puedes cambiar el exchange y el par más tarde."
+            "value" : "Precios de %1$@ en %2$@. Desmarca lo que no quieras y añade el resto de una vez. Puedes cambiar el exchange y el par de cada moneda."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "آنچه را نمی‌خواهید از انتخاب خارج کنید و بقیه را یک‌جا اضافه کنید. صرافی و جفت را بعداً می‌توانید تغییر دهید."
+            "value" : "قیمت‌ها از %1$@ به %2$@. آنچه را نمی‌خواهید از انتخاب خارج کنید و بقیه را یک‌جا اضافه کنید. صرافی و جفت را برای هر کوین می‌توانید تغییر دهید."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Poista valinta niistä, joita et halua, ja lisää loput kerralla. Voit vaihtaa pörssin ja parin myöhemmin."
+            "value" : "Kurssit pörssistä %1$@ valuutassa %2$@. Poista valinta niistä, joita et halua, ja lisää loput kerralla. Voit vaihtaa pörssin ja parin kolikkokohtaisesti."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Désélectionnez ce que vous ne voulez pas et ajoutez le reste en une fois. Vous pourrez changer la plateforme et la paire plus tard."
+            "value" : "Cours de %1$@ en %2$@. Désélectionnez ce que vous ne voulez pas et ajoutez le reste en une fois. Vous pouvez changer la plateforme et la paire pour chaque crypto."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "בטלו את הבחירה במה שלא תרצו והוסיפו את השאר בבת אחת. אפשר לשנות בורסה וצמד מאוחר יותר."
+            "value" : "מחירים מ-%1$@ ב-%2$@. בטלו את הבחירה במה שלא תרצו והוסיפו את השאר בבת אחת. אפשר לשנות בורסה וצמד לכל מטבע."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "जो नहीं चाहिए उसका चयन हटाएँ और बाकी को एक साथ जोड़ें। एक्सचेंज और पेयर आप बाद में बदल सकते हैं।"
+            "value" : "भाव %1$@ से, %2$@ में। जो नहीं चाहिए उसका चयन हटाएँ और बाकी को एक साथ जोड़ें। एक्सचेंज और पेयर आप हर कॉइन के लिए बदल सकते हैं।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vegye ki a jelölést abból, amit nem szeretne, a többit adja hozzá egyszerre. A tőzsdét és a párt később módosíthatja."
+            "value" : "Árfolyamok forrása: %1$@, pénznem: %2$@. Vegye ki a jelölést abból, amit nem szeretne, a többit adja hozzá egyszerre. A tőzsdét és a párt érménként módosíthatja."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Batalkan pilihan yang tidak Anda inginkan, lalu tambahkan sisanya sekaligus. Bursa dan pasangan bisa Anda ubah nanti."
+            "value" : "Harga dari %1$@ dalam %2$@. Batalkan pilihan yang tidak Anda inginkan, lalu tambahkan sisanya sekaligus. Bursa dan pasangan bisa Anda ubah untuk tiap koin."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Deseleziona ciò che non vuoi e aggiungi il resto in un colpo solo. Puoi cambiare exchange e coppia in seguito."
+            "value" : "Prezzi da %1$@ in %2$@. Deseleziona ciò che non vuoi e aggiungi il resto in un colpo solo. Puoi cambiare exchange e coppia per ogni coin."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "不要なものは選択を外し、残りをまとめて追加できます。取引所とペアは後で変更できます。"
+            "value" : "%1$@ の価格（%2$@ 建て）。不要なものは選択を外し、残りをまとめて追加できます。取引所とペアはコインごとに変更できます。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "원하지 않는 코인은 선택 해제하고 나머지를 한 번에 추가하세요. 거래소와 거래쌍은 나중에 바꿀 수 있습니다."
+            "value" : "%1$@ 시세, %2$@ 기준. 원하지 않는 코인은 선택 해제하고 나머지를 한 번에 추가하세요. 거래소와 거래쌍은 코인마다 바꿀 수 있습니다."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Velg bort det du ikke vil ha, og legg til resten på én gang. Du kan endre børs og par senere."
+            "value" : "Kurser fra %1$@ i %2$@. Velg bort det du ikke vil ha, og legg til resten på én gang. Du kan endre børs og par for hver coin."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vink uit wat je niet wilt en voeg de rest in één keer toe. Beurs en paar kun je later wijzigen."
+            "value" : "Koersen van %1$@ in %2$@. Vink uit wat je niet wilt en voeg de rest in één keer toe. Beurs en paar kun je per coin wijzigen."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Odznacz to, czego nie chcesz, a resztę dodaj za jednym razem. Giełdę i parę możesz zmienić później."
+            "value" : "Kursy z giełdy %1$@ w %2$@. Odznacz to, czego nie chcesz, a resztę dodaj za jednym razem. Giełdę i parę możesz zmienić dla każdej monety."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Desmarque o que não quiser e adicione o resto de uma só vez. Pode alterar a exchange e o par mais tarde."
+            "value" : "Preços da %1$@ em %2$@. Desmarque o que não quiser e adicione o resto de uma só vez. Pode alterar a exchange e o par de cada moeda."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Desmarque o que não quiser e adicione o resto de uma vez. Você pode alterar a exchange e o par depois."
+            "value" : "Preços da %1$@ em %2$@. Desmarque o que não quiser e adicione o resto de uma vez. Você pode alterar a exchange e o par de cada moeda."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Debifează ce nu vrei și adaugă restul dintr-odată. Poți schimba bursa și perechea mai târziu."
+            "value" : "Prețuri de la %1$@ în %2$@. Debifează ce nu vrei și adaugă restul dintr-odată. Poți schimba bursa și perechea pentru fiecare monedă."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Снимите отметку с ненужных и добавьте остальные за один раз. Биржу и пару можно изменить позже."
+            "value" : "Цены с биржи %1$@ в %2$@. Снимите отметку с ненужных и добавьте остальные за один раз. Биржу и пару можно изменить для каждой монеты."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hiq zgjedhjen nga ato që nuk i do dhe shto të tjerat njëherësh. Bursën dhe çiftin mund t'i ndryshosh më vonë."
+            "value" : "Çmimet nga %1$@ në %2$@. Hiq zgjedhjen nga ato që nuk i do dhe shto të tjerat njëherësh. Bursën dhe çiftin mund t'i ndryshosh për çdo monedhë."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Avmarkera det du inte vill ha och lägg till resten på en gång. Du kan ändra börs och par senare."
+            "value" : "Kurser från %1$@ i %2$@. Avmarkera det du inte vill ha och lägg till resten på en gång. Du kan ändra börs och par för varje coin."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ยกเลิกเลือกเหรียญที่ไม่ต้องการ แล้วเพิ่มที่เหลือได้ในครั้งเดียว คุณเปลี่ยนกระดานเทรดและคู่เหรียญได้ภายหลัง"
+            "value" : "ราคาจาก %1$@ เป็น %2$@ ยกเลิกเลือกเหรียญที่ไม่ต้องการ แล้วเพิ่มที่เหลือได้ในครั้งเดียว คุณเปลี่ยนกระดานเทรดและคู่เหรียญของแต่ละเหรียญได้"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "İstemediklerinizin seçimini kaldırın, kalanları tek seferde ekleyin. Borsayı ve çifti daha sonra değiştirebilirsiniz."
+            "value" : "Fiyatlar: %1$@, %2$@ cinsinden. İstemediklerinizin seçimini kaldırın, kalanları tek seferde ekleyin. Borsayı ve çifti her coin için değiştirebilirsiniz."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Зніміть позначку з непотрібних і додайте решту за один раз. Біржу й пару можна змінити пізніше."
+            "value" : "Ціни з біржі %1$@ у %2$@. Зніміть позначку з непотрібних і додайте решту за один раз. Біржу й пару можна змінити для кожної монети."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bỏ chọn những coin bạn không muốn và thêm phần còn lại cùng lúc. Bạn có thể đổi sàn và cặp sau."
+            "value" : "Giá từ %1$@ bằng %2$@. Bỏ chọn những coin bạn không muốn và thêm phần còn lại cùng lúc. Bạn có thể đổi sàn và cặp cho từng coin."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "取消不需要的，其余一次性全部添加。交易所和交易对稍后可以更改。"
+            "value" : "价格来自 %1$@，以 %2$@ 计价。取消不需要的，其余一次性全部添加。交易所和交易对可以按币种更改。"
           }
         }
       }
@@ -287404,6 +291606,388 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "列表"
+          }
+        }
+      }
+    },
+    "tax_ch_wealth_coin" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ – الرصيد %2$@"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ – stav %2$@"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ – beholdning %2$@"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ – Bestand %2$@"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ – υπόλοιπο %2$@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ – holding %2$@"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ – tenencia %2$@"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ – دارایی %2$@"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ – omistus %2$@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ – avoir %2$@"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ – יתרה %2$@"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ – होल्डिंग %2$@"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ – állomány %2$@"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ – kepemilikan %2$@"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ – saldo %2$@"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ – 保有量 %2$@"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ – 보유량 %2$@"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ – beholdning %2$@"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ – bezit %2$@"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ – stan %2$@"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ – posição %2$@"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ – posição %2$@"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ – deținere %2$@"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ – остаток %2$@"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ – zotërim %2$@"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ – innehav %2$@"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ – ยอดถือครอง %2$@"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ – varlık %2$@"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ – залишок %2$@"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ – số nắm giữ %2$@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ – 持仓 %2$@"
+          }
+        }
+      }
+    },
+    "tax_ch_wealth_not_calculated" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "غير محسوب"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nepočítáno"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ikke beregnet"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nicht gerechnet"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "δεν υπολογίστηκε"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "not calculated"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "no calculado"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "محاسبه نشده"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ei laskettu"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "non calculé"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "לא חושב"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "गणना नहीं की गई"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nincs kiszámítva"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tidak dihitung"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "non calcolato"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未計算"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "계산 안 함"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ikke beregnet"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "niet berekend"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nie obliczono"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "não calculado"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "não calculado"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "necalculat"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "не рассчитано"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "e pallogaritur"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "inte beräknat"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ไม่ได้คำนวณ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "hesaplanmadı"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "не розраховано"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "chưa tính"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未计算"
           }
         }
       }
@@ -306699,6 +311283,197 @@
         }
       }
     },
+    "tax_line_ch_wealth_value" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "قيمة الثروة في 31/12/%1$@ (للاسترشاد)"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hodnota majetku k 31. 12. %1$@ (orientační)"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Formueværdi 31.12.%1$@ (vejledende)"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vermögenswert 31.12.%1$@ (Orientierung)"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Αξία περιουσίας 31/12/%1$@ (ενδεικτικά)"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wealth value 31 Dec %1$@ (guidance)"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Valor patrimonial a 31/12/%1$@ (orientativo)"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ارزش دارایی در 31 دسامبر %1$@ (برای راهنمایی)"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Varallisuusarvo 31.12.%1$@ (suuntaa antava)"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Valeur de la fortune au 31.12.%1$@ (à titre indicatif)"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "שווי הון ב-31.12.%1$@ (להתמצאות)"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "31 दिसंबर %1$@ का संपत्ति मूल्य (मार्गदर्शन हेतु)"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vagyonérték %1$@.12.31. (tájékoztató)"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nilai kekayaan per 31 Des %1$@ (orientasi)"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Valore patrimoniale al 31.12.%1$@ (orientativo)"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@年12月31日の財産評価額（目安）"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@년 12월 31일 재산 가치(참고용)"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Formuesverdi 31.12.%1$@ (veiledende)"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vermogenswaarde 31-12-%1$@ (indicatief)"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wartość majątku na 31.12.%1$@ (orientacyjnie)"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Valor patrimonial a 31/12/%1$@ (orientativo)"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Valor patrimonial em 31/12/%1$@ (orientativo)"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Valoarea averii la 31.12.%1$@ (orientativ)"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Стоимость имущества на 31.12.%1$@ (ориентир)"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vlera e pasurisë më 31.12.%1$@ (orientuese)"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Förmögenhetsvärde 31/12 %1$@ (vägledande)"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "มูลค่าทรัพย์สิน ณ 31 ธ.ค. %1$@ (เพื่อเป็นแนวทาง)"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Servet değeri 31.12.%1$@ (yol gösterici)"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Вартість майна на 31.12.%1$@ (орієнтир)"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Giá trị tài sản ngày 31/12/%1$@ (tham khảo)"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@年12月31日财富价值（仅供参考）"
+          }
+        }
+      }
+    },
     "tax_line_de_long" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -315672,6 +320447,197 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "仅供参考——应用的 FIFO 计算——未分类——见 ESTV"
+          }
+        }
+      }
+    },
+    "tax_summary_ch_wealth_orientation" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "المرجع هو قائمة أسعار ESTV (ictax.admin.ch). للعملات غير المدرجة فيها يُطبَّق عادةً سعر إغلاق المنصة. ضريبة الثروة غير محسوبة."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rozhodující je kurzovní lístek ESTV (ictax.admin.ch). Pro coiny bez záznamu v lístku platí zpravidla závěrečný kurz burzy. Daň z majetku se nepočítá."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ESTV-kurslisten (ictax.admin.ch) er afgørende. For coins uden notering på listen gælder som regel børsens lukkekurs. Formueskat beregnes ikke."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Massgebend ist die Kursliste der ESTV (ictax.admin.ch). Für Coins ohne Kurslisten-Eintrag gilt in der Regel der Schlusskurs der Börse. Vermögenssteuer nicht gerechnet."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Καθοριστικός είναι ο κατάλογος τιμών της ESTV (ictax.admin.ch). Για κρυπτονομίσματα χωρίς καταχώριση ισχύει κατά κανόνα η τιμή κλεισίματος του ανταλλακτηρίου. Ο φόρος περιουσίας δεν υπολογίζεται."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The ESTV price list (ictax.admin.ch) is authoritative. For coins not on the list, the exchange closing price generally applies. Wealth tax not calculated."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prevalece la lista de cotizaciones de la ESTV (ictax.admin.ch). Para las monedas sin cotización en la lista se aplica por lo general el precio de cierre del exchange. Impuesto sobre el patrimonio no calculado."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ملاک، فهرست نرخ ESTV است (ictax.admin.ch). برای کوین‌هایی که در فهرست نیستند، معمولاً قیمت پایانی صرافی ملاک است. مالیات بر ثروت محاسبه نمی‌شود."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ratkaiseva on ESTV:n kurssiluettelo (ictax.admin.ch). Coineille, joita luettelossa ei ole, käytetään yleensä pörssin päätöskurssia. Varallisuusveroa ei laskettu."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La liste des cours de l’AFC (ictax.admin.ch) fait foi. Pour les coins sans cours dans la liste, le cours de clôture de la plateforme s’applique en règle générale. Impôt sur la fortune non calculé."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "הקובע הוא רשימת השערים של ESTV (ictax.admin.ch). למטבעות שאינם ברשימה חל בדרך כלל שער הסגירה של הבורסה. מס עושר לא מחושב."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ESTV मूल्य सूची (ictax.admin.ch) निर्णायक है। सूची में न होने वाले कॉइन के लिए सामान्यतः एक्सचेंज का समापन मूल्य लागू होता है। संपत्ति कर की गणना नहीं की गई।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Az ESTV árfolyamlistája (ictax.admin.ch) az irányadó. A listán nem szereplő coinoknál általában a tőzsdei záróár érvényes. Vagyonadó nincs kiszámítva."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yang menentukan adalah daftar kurs ESTV (ictax.admin.ch). Untuk koin tanpa entri di daftar, biasanya berlaku harga penutupan bursa. Pajak kekayaan tidak dihitung."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fa stato la lista dei corsi dell’AFC (ictax.admin.ch). Per i coin senza corso nella lista vale di regola il prezzo di chiusura della piattaforma. Imposta sulla sostanza non calcolata."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "基準は ESTV 価格リスト（ictax.admin.ch）です。リストにないコインには通常、取引所の終値が適用されます。財産税は計算していません。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "기준은 ESTV 시세표(ictax.admin.ch)입니다. 시세표에 없는 코인은 일반적으로 거래소 종가가 적용됩니다. 재산세는 계산하지 않습니다."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ESTV-kurslisten (ictax.admin.ch) er avgjørende. For coins uten notering på listen gjelder som regel børsens sluttkurs. Formuesskatt beregnes ikke."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bepalend is de koerslijst van de ESTV (ictax.admin.ch). Voor coins zonder vermelding op de lijst geldt doorgaans de slotkoers van de beurs. Vermogensbelasting niet berekend."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wiążąca jest lista kursów ESTV (ictax.admin.ch). Dla coinów bez wpisu na liście obowiązuje z reguły kurs zamknięcia giełdy. Podatek od majątku nie jest liczony."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prevalece a lista de cotações da ESTV (ictax.admin.ch). Para moedas sem cotação na lista aplica-se, em regra, o preço de fecho da plataforma. Imposto sobre o património não calculado."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vale a lista de cotações da ESTV (ictax.admin.ch). Para moedas sem cotação na lista vale, em regra, o preço de fechamento da corretora. Imposto sobre patrimônio não calculado."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Determinantă este lista de cursuri ESTV (ictax.admin.ch). Pentru monedele fără curs în listă se aplică de regulă prețul de închidere al bursei. Impozitul pe avere nu se calculează."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Определяющим является курсовой лист ESTV (ictax.admin.ch). Для монет без записи в листе, как правило, применяется цена закрытия биржи. Налог на имущество не рассчитывается."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vendimtare është lista e kurseve e ESTV (ictax.admin.ch). Për monedhat pa regjistrim në listë vlen zakonisht çmimi i mbylljes së bursës. Tatimi mbi pasurinë nuk llogaritet."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ESTV:s kurslista (ictax.admin.ch) är avgörande. För coins utan notering i listan gäller i regel börsens stängningskurs. Förmögenhetsskatt beräknas inte."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ยึดตามรายการราคา ESTV (ictax.admin.ch) สำหรับเหรียญที่ไม่มีในรายการ โดยทั่วไปใช้ราคาปิดของกระดานเทรด ไม่ได้คำนวณภาษีทรัพย์สิน"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Esas olan ESTV kur listesidir (ictax.admin.ch). Listede yer almayan coinler için genellikle borsanın kapanış fiyatı geçerlidir. Servet vergisi hesaplanmadı."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Визначальним є курсовий лист ESTV (ictax.admin.ch). Для монет без запису в листі, як правило, застосовується ціна закриття біржі. Податок на майно не розраховується."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Căn cứ là bảng giá ESTV (ictax.admin.ch). Với coin không có trong bảng, thường áp dụng giá đóng cửa của sàn. Không tính thuế tài sản."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "以 ESTV 价目表（ictax.admin.ch）为准。价目表未列出的币种通常适用交易所收盘价。不计算财富税。"
           }
         }
       }
@@ -338352,187 +343318,378 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "احصل على إشعار فور وصول السعر إلى الحد الذي تختاره."
+            "value" : "احصل على إشعار عند وصول السعر إلى الحد الذي تختاره – عند إغلاق التطبيق يتحقق Android على فترات غير منتظمة."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dostaneš upozornění, jakmile cena dosáhne tvé hranice."
+            "value" : "Dostaneš upozornění, když cena dosáhne tvé hranice – při zavřené aplikaci Android kontroluje nepravidelně."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Få besked, så snart en kurs når dit niveau."
+            "value" : "Få besked, når en kurs når dit niveau – når appen er lukket, tjekker Android uregelmæssigt."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Lass dich benachrichtigen, sobald ein Kurs deine Marke erreicht."
+            "value" : "Lass dich benachrichtigen, wenn ein Kurs deine Marke erreicht – bei geschlossener App prüft Android unregelmässig."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Λάβε ειδοποίηση μόλις μια τιμή φτάσει το όριό σου."
+            "value" : "Λάβε ειδοποίηση όταν μια τιμή φτάσει το όριό σου – με την εφαρμογή κλειστή, το Android ελέγχει ακανόνιστα."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Get notified as soon as a price reaches your mark."
+            "value" : "Get notified when a price reaches your mark – with the app closed, Android checks irregularly."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Recibe un aviso en cuanto un precio alcance tu nivel."
+            "value" : "Recibe un aviso cuando un precio alcance tu nivel: con la app cerrada, Android comprueba de forma irregular."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "به محض رسیدن قیمت به حد تو، باخبر شو."
+            "value" : "وقتی قیمت به حد تو رسید، باخبر شو – وقتی برنامه بسته است، Android به‌طور نامنظم بررسی می‌کند."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Saat ilmoituksen heti, kun kurssi saavuttaa rajasi."
+            "value" : "Saat ilmoituksen, kun kurssi saavuttaa rajasi – kun sovellus on suljettu, Android tarkistaa epäsäännöllisesti."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Soyez averti dès qu'un cours atteint votre seuil."
+            "value" : "Soyez averti quand un cours atteint votre seuil – app fermée, Android vérifie de façon irrégulière."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "קבל הודעה ברגע שמחיר מגיע לרף שלך."
+            "value" : "קבל הודעה כשמחיר מגיע לרף שלך – כשהאפליקציה סגורה, Android בודק באופן לא סדיר."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "जैसे ही कोई भाव आपकी तय सीमा तक पहुँचे, सूचना पाएँ।"
+            "value" : "जब कोई भाव आपकी तय सीमा तक पहुँचे, सूचना पाएँ – ऐप बंद होने पर Android अनियमित रूप से जाँचता है।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Értesítést kapsz, amint egy árfolyam eléri a megadott szintet."
+            "value" : "Értesítést kapsz, ha egy árfolyam eléri a megadott szintet – bezárt alkalmazásnál az Android rendszertelenül ellenőriz."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dapatkan notifikasi begitu harga mencapai batasmu."
+            "value" : "Dapatkan notifikasi saat harga mencapai batasmu – saat aplikasi ditutup, Android memeriksa secara tidak teratur."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ricevi una notifica non appena un prezzo raggiunge la tua soglia."
+            "value" : "Ricevi una notifica quando un prezzo raggiunge la tua soglia – ad app chiusa, Android controlla in modo irregolare."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "価格が設定した水準に達したらすぐに通知します。"
+            "value" : "価格が設定した水準に達したら通知します。アプリを閉じている間、Android の確認は不定期です。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "가격이 정한 기준에 도달하면 바로 알려 드립니다."
+            "value" : "가격이 정한 기준에 도달하면 알려 드립니다. 앱을 닫으면 Android가 불규칙하게 확인합니다."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Få varsel så snart en kurs når grensen din."
+            "value" : "Få varsel når en kurs når grensen din – når appen er lukket, sjekker Android uregelmessig."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Krijg een melding zodra een koers je grens bereikt."
+            "value" : "Krijg een melding wanneer een koers je grens bereikt – met de app gesloten controleert Android onregelmatig."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Otrzymaj powiadomienie, gdy tylko kurs osiągnie twój próg."
+            "value" : "Otrzymaj powiadomienie, gdy kurs osiągnie twój próg – przy zamkniętej aplikacji Android sprawdza nieregularnie."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Receba um aviso assim que um preço atingir o seu limite."
+            "value" : "Receba um aviso quando um preço atingir o seu limite – com a app fechada, o Android verifica de forma irregular."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Receba um aviso assim que um preço atingir o seu limite."
+            "value" : "Receba um aviso quando um preço atingir o seu limite – com o app fechado, o Android verifica de forma irregular."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Primești o notificare imediat ce un preț atinge pragul tău."
+            "value" : "Primești o notificare când un preț atinge pragul tău – cu aplicația închisă, Android verifică neregulat."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Получайте уведомление, как только цена достигнет вашего уровня."
+            "value" : "Получайте уведомление, когда цена достигнет вашего уровня – при закрытом приложении Android проверяет нерегулярно."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Merr njoftim sapo një çmim të arrijë kufirin tënd."
+            "value" : "Merr njoftim kur një çmim të arrijë kufirin tënd – kur aplikacioni është i mbyllur, Android kontrollon në mënyrë të parregullt."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Få en avisering så snart en kurs når din nivå."
+            "value" : "Få en avisering när en kurs når din nivå – när appen är stängd kontrollerar Android oregelbundet."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "รับการแจ้งเตือนทันทีเมื่อราคาถึงระดับที่คุณกำหนด"
+            "value" : "รับการแจ้งเตือนเมื่อราคาถึงระดับที่คุณกำหนด – เมื่อปิดแอป Android จะตรวจสอบไม่สม่ำเสมอ"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bir fiyat belirlediğin seviyeye ulaşır ulaşmaz bildirim al."
+            "value" : "Bir fiyat belirlediğin seviyeye ulaştığında bildirim al – uygulama kapalıyken Android düzensiz aralıklarla kontrol eder."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Отримуйте сповіщення, щойно ціна досягне вашого рівня."
+            "value" : "Отримуйте сповіщення, коли ціна досягне вашого рівня – коли застосунок закрито, Android перевіряє нерегулярно."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nhận thông báo ngay khi giá chạm mức bạn đặt."
+            "value" : "Nhận thông báo khi giá chạm mức bạn đặt – khi ứng dụng đóng, Android kiểm tra không đều đặn."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "价格一到达你设定的位置就通知你。"
+            "value" : "价格到达你设定的位置时通知你——应用关闭时，Android 的检查时间不固定。"
+          }
+        }
+      }
+    },
+    "watchlist_first_alarm_text_ios" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "احصل على إشعار عند وصول السعر إلى الحد الذي تختاره – عند إغلاق التطبيق يقرر iOS متى يتم التحقق."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dostaneš upozornění, když cena dosáhne tvé hranice – při zavřené aplikaci rozhoduje iOS, kdy se kontroluje."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Få besked, når en kurs når dit niveau – når appen er lukket, bestemmer iOS, hvornår der tjekkes."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erhalte eine Mitteilung, wenn ein Kurs deine Marke erreicht – bei geschlossener App entscheidet iOS, wann geprüft wird."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Λάβε ειδοποίηση όταν μια τιμή φτάσει το όριό σου – με την εφαρμογή κλειστή, το iOS αποφασίζει πότε θα γίνει έλεγχος."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Get notified when a price reaches your mark – with the app closed, iOS decides when to check."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recibe un aviso cuando un precio alcance tu nivel: con la app cerrada, iOS decide cuándo comprobar."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "وقتی قیمت به حد تو رسید، باخبر شو – وقتی برنامه بسته است، iOS تصمیم می‌گیرد کی بررسی شود."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saat ilmoituksen, kun kurssi saavuttaa rajasi – kun sovellus on suljettu, iOS päättää, milloin tarkistetaan."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Soyez averti quand un cours atteint votre seuil – app fermée, iOS décide quand vérifier."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "קבל הודעה כשמחיר מגיע לרף שלך – כשהאפליקציה סגורה, iOS מחליט מתי לבדוק."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "जब कोई भाव आपकी तय सीमा तक पहुँचे, सूचना पाएँ – ऐप बंद होने पर iOS तय करता है कि कब जाँचना है।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Értesítést kapsz, ha egy árfolyam eléri a megadott szintet – bezárt alkalmazásnál az iOS dönti el, mikor ellenőriz."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dapatkan notifikasi saat harga mencapai batasmu – saat aplikasi ditutup, iOS yang menentukan kapan diperiksa."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ricevi una notifica quando un prezzo raggiunge la tua soglia – ad app chiusa, è iOS a decidere quando controllare."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "価格が設定した水準に達したら通知します。アプリを閉じている間、確認のタイミングは iOS が決めます。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "가격이 정한 기준에 도달하면 알려 드립니다. 앱을 닫으면 확인 시점은 iOS가 정합니다."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Få varsel når en kurs når grensen din – når appen er lukket, bestemmer iOS når det sjekkes."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Krijg een melding wanneer een koers je grens bereikt – met de app gesloten bepaalt iOS wanneer er wordt gecontroleerd."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Otrzymaj powiadomienie, gdy kurs osiągnie twój próg – przy zamkniętej aplikacji iOS decyduje, kiedy sprawdzać."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Receba um aviso quando um preço atingir o seu limite – com a app fechada, é o iOS que decide quando verificar."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Receba um aviso quando um preço atingir o seu limite – com o app fechado, o iOS decide quando verificar."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Primești o notificare când un preț atinge pragul tău – cu aplicația închisă, iOS decide când se verifică."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Получайте уведомление, когда цена достигнет вашего уровня – при закрытом приложении iOS сама решает, когда проверять."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Merr njoftim kur një çmim të arrijë kufirin tënd – kur aplikacioni është i mbyllur, iOS vendos kur të kontrollohet."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Få en avisering när en kurs når din nivå – när appen är stängd avgör iOS när det kontrolleras."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "รับการแจ้งเตือนเมื่อราคาถึงระดับที่คุณกำหนด – เมื่อปิดแอป iOS จะเป็นผู้ตัดสินว่าจะตรวจสอบเมื่อใด"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bir fiyat belirlediğin seviyeye ulaştığında bildirim al – uygulama kapalıyken ne zaman kontrol edileceğine iOS karar verir."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Отримуйте сповіщення, коли ціна досягне вашого рівня – коли застосунок закрито, iOS сама вирішує, коли перевіряти."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nhận thông báo khi giá chạm mức bạn đặt – khi ứng dụng đóng, iOS quyết định khi nào kiểm tra."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "价格到达你设定的位置时通知你——应用关闭时，由 iOS 决定何时检查。"
           }
         }
       }
@@ -347222,6 +352379,197 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%1$@ · 已停用"
+          }
+        }
+      }
+    },
+    "watchlist_row_exchange_paused" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ · متوقفة مؤقتًا حتى %2$@"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ · pozastaveno do %2$@"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ · sat på pause til %2$@"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ · pausiert bis %2$@"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ · σε παύση έως %2$@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ · paused until %2$@"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ · en pausa hasta las %2$@"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ · متوقف تا %2$@"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ · tauolla klo %2$@ asti"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ · en pause jusqu’à %2$@"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ · מושהה עד %2$@"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ · %2$@ तक रोका गया"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ · szüneteltetve eddig: %2$@"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ · dijeda hingga %2$@"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ · in pausa fino alle %2$@"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ · %2$@ まで一時停止"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ · %2$@까지 일시 중지"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ · satt på pause til %2$@"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ · gepauzeerd tot %2$@"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ · wstrzymano do %2$@"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ · em pausa até às %2$@"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ · pausada até %2$@"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ · în pauză până la %2$@"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ · пауза до %2$@"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ · në pauzë deri në %2$@"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ · pausad till %2$@"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ · หยุดชั่วคราวถึง %2$@"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ · %2$@ saatine kadar duraklatıldı"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ · пауза до %2$@"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ · tạm dừng đến %2$@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ · 暂停至 %2$@"
           }
         }
       }

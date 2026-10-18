@@ -356,6 +356,9 @@ class WatchlistViewModel @Inject constructor(
     /** Aufschlüsselung des letzten Durchlaufs, per Tipp auf die Dauer. */
     val lastRefreshReport: StateFlow<RefreshReport?> get() = refresh.lastRefreshReport
 
+    /** Ende der Pause je Börse: «Binance · pausiert bis 19:45» in der Zeitzeile ihrer Paare ([LocalExchangePauses]). */
+    val exchangePauses: StateFlow<Map<String, Long>> get() = refresh.exchangePauses
+
     /** Gerät hat Internet? Ohne: ruhige Statuszeile «Offline · Stand …», keine Aktualisierung. */
     private val online: StateFlow<Boolean> = connectivity.online
 

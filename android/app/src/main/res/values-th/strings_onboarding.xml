@@ -15,7 +15,6 @@
     <string name="starter_search_coin">ค้นหาเหรียญอื่น</string>
     <string name="starter_select_all">เลือกทั้งหมด</string>
     <string name="starter_select_none">ไม่เลือกเลย</string>
-    <string name="starter_text">ยกเลิกเลือกเหรียญที่ไม่ต้องการ แล้วเพิ่มที่เหลือได้ในครั้งเดียว คุณเปลี่ยนกระดานเทรดและคู่เหรียญได้ภายหลัง</string>
     <string name="starter_title">เริ่มต้นด้วยเหรียญเหล่านี้</string>
     <string name="starter_watch_alarm_hint">ติดตามราคา ตั้งสัญญาณเตือน</string>
 </resources>

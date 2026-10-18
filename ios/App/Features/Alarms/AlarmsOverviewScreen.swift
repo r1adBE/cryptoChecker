@@ -131,6 +131,15 @@ struct AlarmsOverviewScreen: View {
                 .accessibilityElement(children: .combine)
                 .animation(.snappy, value: active)
             }
+            // Alarm-Protokoll: wann ausgelöst, wann zurückgehalten
+            ToolbarItem(placement: .primaryAction) {
+                NavigationLink {
+                    AlarmLogScreen()
+                } label: {
+                    Image(systemName: "list.bullet.rectangle")
+                }
+                .accessibilityLabel(L("alarm_log_title"))
+            }
         }
     }
 

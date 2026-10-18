@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="starter_source_text">ราคาจาก %1$s เป็น %2$s ยกเลิกเลือกเหรียญที่ไม่ต้องการ แล้วเพิ่มที่เหลือได้ในครั้งเดียว คุณเปลี่ยนกระดานเทรดและคู่เหรียญของแต่ละเหรียญได้</string>
+    <string name="watchlist_row_exchange_paused">%1$s · หยุดชั่วคราวถึง %2$s</string>
+</resources>

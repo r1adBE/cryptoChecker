@@ -1,0 +1,611 @@
+{
+  "_comment": "[B80] CH-Vermögenswert per 31.12. (TaxExport.chWealth, Android + iOS) — Orientierung, keine Steuerwerte der ESTV-Kursliste, Vermögenssteuer nicht gerechnet. Bestand am Ende des 31.12. in der Zeitzone der Vorlage (Europe/Zurich: 23:59 zählt, 1.1. 00:00 nicht, auch wenn es in UTC noch der 31.12. ist), nach der Einstandsmethode (methods: jede muss dasselbe ergeben); Kurs = Tagesschluss 31.12. in USDT (closes; unchecked = nicht als derselbe Token bestätigt); rate = USD→CHF des 31.12. (null = kein Devisenkurs); addresses = Guthaben beobachteter Adressen (balances, unobserved). Wert je Coin = Menge × Schluss × Kurs, exakt; fehlt ein Schluss: Wert leer (missing), Summe unvollständig — nie ein anderer Kurs. Summen aus den unrunden Werten, gerundet erst im Text (moneyTotal = CutoffExport.money(totalTarget)). rows: [Coin, Menge, Wert USDT, Wert CHF, nicht gerechnet]. summaries: TaxExport.yearSummary CH mit yearEndCloses — Posten CH_WEALTH_VALUE [usdt, target, unvollständig, kein Devisenkurs, nicht gerechnet] und die CSV-Zeilen ab dem Posten (Texte: Bezeichnung = Name des Postens, wealthCoin «{coin} – {amount}», incomplete, nofx, chwealth, nc, noprice, unchecked, unobserved).",
+  "zone": "Europe/Zurich",
+  "date": "2025-12-31",
+  "cases": [
+    {
+      "name": "Grenze: 31.12. 23:59 Zürich zählt, 1.1. 00:00 nicht",
+      "methods": [
+        "FIFO",
+        "FIFO_WALLET",
+        "AVERAGE"
+      ],
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1740826800000,
+          "price": "50000"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "0.5",
+          "time": 1767221940000,
+          "price": "60000"
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "2",
+          "time": 1767222000000,
+          "price": "70000"
+        }
+      ],
+      "closes": {
+        "BTC": "90000"
+      },
+      "rate": "0.8",
+      "expected": {
+        "rows": [
+          [
+            "BTC",
+            "1.5",
+            "135000",
+            "108000",
+            false
+          ]
+        ],
+        "totalUsdt": "135000",
+        "totalTarget": "108000",
+        "incomplete": false,
+        "noFx": false,
+        "moneyTotal": "108000.00"
+      }
+    },
+    {
+      "name": "Schluss fehlt bzw. ungeprüft: Coin nicht gerechnet, Summe unvollständig",
+      "methods": [
+        "FIFO"
+      ],
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1740826800000,
+          "price": "50000"
+        },
+        {
+          "id": 2,
+          "coin": "ETH",
+          "type": "BUY",
+          "amount": "2",
+          "time": 1740826800000,
+          "price": "2000"
+        },
+        {
+          "id": 3,
+          "coin": "SOL",
+          "type": "BUY",
+          "amount": "10",
+          "time": 1740826800000,
+          "price": "100"
+        }
+      ],
+      "closes": {
+        "BTC": "90000"
+      },
+      "unchecked": [
+        "SOL"
+      ],
+      "rate": "0.8",
+      "expected": {
+        "rows": [
+          [
+            "BTC",
+            "1",
+            "90000",
+            "72000",
+            false
+          ],
+          [
+            "ETH",
+            "2",
+            null,
+            null,
+            true
+          ],
+          [
+            "SOL",
+            "10",
+            null,
+            null,
+            true
+          ]
+        ],
+        "totalUsdt": "90000",
+        "totalTarget": "72000",
+        "incomplete": true,
+        "noFx": false,
+        "moneyTotal": "72000.00"
+      }
+    },
+    {
+      "name": "Mehrere Coins und Stablecoins: Summe vor dem Runden (3 × 0.005 = 0.015 → 0.02, nicht 3 × 0.01)",
+      "methods": [
+        "FIFO",
+        "AVERAGE"
+      ],
+      "trades": [
+        {
+          "id": 1,
+          "coin": "AAA",
+          "type": "BUY",
+          "amount": "0.00625",
+          "time": 1740826800000,
+          "price": "1"
+        },
+        {
+          "id": 2,
+          "coin": "BBB",
+          "type": "BUY",
+          "amount": "0.00625",
+          "time": 1740826800000,
+          "price": "1"
+        },
+        {
+          "id": 3,
+          "coin": "CCC",
+          "type": "BUY",
+          "amount": "0.00625",
+          "time": 1740826800000,
+          "price": "1"
+        },
+        {
+          "id": 4,
+          "coin": "USDT",
+          "type": "BUY",
+          "amount": "1000",
+          "time": 1740826800000,
+          "price": "1"
+        },
+        {
+          "id": 5,
+          "coin": "USDC",
+          "type": "BUY",
+          "amount": "500",
+          "time": 1740826800000,
+          "price": "1"
+        }
+      ],
+      "closes": {
+        "AAA": "1",
+        "BBB": "1",
+        "CCC": "1",
+        "USDC": "0.9998"
+      },
+      "rate": "0.8",
+      "expected": {
+        "rows": [
+          [
+            "AAA",
+            "0.00625",
+            "0.00625",
+            "0.005",
+            false
+          ],
+          [
+            "BBB",
+            "0.00625",
+            "0.00625",
+            "0.005",
+            false
+          ],
+          [
+            "CCC",
+            "0.00625",
+            "0.00625",
+            "0.005",
+            false
+          ],
+          [
+            "USDC",
+            "500",
+            "499.9",
+            "399.92",
+            false
+          ],
+          [
+            "USDT",
+            "1000",
+            "1000",
+            "800",
+            false
+          ]
+        ],
+        "totalUsdt": "1499.91875",
+        "totalTarget": "1199.935",
+        "incomplete": false,
+        "noFx": false,
+        "moneyTotal": "1199.94"
+      }
+    },
+    {
+      "name": "Gebühr im Coin mindert den Bestand, Umbuchung zwischen eigenen Wallets ändert die Summe nicht",
+      "methods": [
+        "FIFO",
+        "FIFO_WALLET",
+        "AVERAGE"
+      ],
+      "trades": [
+        {
+          "id": 1,
+          "coin": "ETH",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1740826800000,
+          "price": "2000",
+          "exchange": "A"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1740826800000,
+          "price": "50000",
+          "exchange": "A"
+        },
+        {
+          "id": 3,
+          "coin": "ETH",
+          "type": "TRANSFER",
+          "amount": "0.5",
+          "time": 1748772000000,
+          "fee": "0.01",
+          "feeUnit": "COIN",
+          "transferFrom": "A",
+          "transferTo": "B"
+        },
+        {
+          "id": 4,
+          "coin": "BTC",
+          "type": "TRANSFER",
+          "amount": "1",
+          "time": 1748772000000,
+          "transferFrom": "A",
+          "transferTo": "B"
+        }
+      ],
+      "closes": {
+        "BTC": "90000",
+        "ETH": "3000"
+      },
+      "rate": "0.8",
+      "expected": {
+        "rows": [
+          [
+            "BTC",
+            "1",
+            "90000",
+            "72000",
+            false
+          ],
+          [
+            "ETH",
+            "0.99",
+            "2970",
+            "2376",
+            false
+          ]
+        ],
+        "totalUsdt": "92970",
+        "totalTarget": "74376",
+        "incomplete": false,
+        "noFx": false,
+        "moneyTotal": "74376.00"
+      }
+    },
+    {
+      "name": "Kein Devisenkurs des 31.12.: Wert in USDT, CHF leer",
+      "methods": [
+        "FIFO"
+      ],
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1740826800000,
+          "price": "50000"
+        }
+      ],
+      "closes": {
+        "BTC": "90000"
+      },
+      "rate": null,
+      "expected": {
+        "rows": [
+          [
+            "BTC",
+            "1",
+            "90000",
+            null,
+            false
+          ]
+        ],
+        "totalUsdt": "90000",
+        "totalTarget": null,
+        "incomplete": false,
+        "noFx": true,
+        "moneyTotal": null
+      }
+    },
+    {
+      "name": "Beobachtete Adresse je Coin zusammengezählt; Adresse am 31.12. nicht beobachtet → nicht gerechnet",
+      "methods": [
+        "FIFO"
+      ],
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1740826800000,
+          "price": "50000"
+        }
+      ],
+      "closes": {
+        "BTC": "90000",
+        "ETH": "3000"
+      },
+      "rate": "0.8",
+      "addresses": {
+        "balances": {
+          "BTC": "0.5"
+        },
+        "unobserved": [
+          "ETH"
+        ]
+      },
+      "expected": {
+        "rows": [
+          [
+            "BTC",
+            "1.5",
+            "135000",
+            "108000",
+            false
+          ],
+          [
+            "ETH",
+            "0",
+            null,
+            null,
+            true
+          ]
+        ],
+        "totalUsdt": "135000",
+        "totalTarget": "108000",
+        "incomplete": true,
+        "noFx": false,
+        "moneyTotal": "108000.00"
+      }
+    },
+    {
+      "name": "Kein Bestand: Vermögenswert 0",
+      "methods": [
+        "FIFO"
+      ],
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1767222000000,
+          "price": "50000"
+        }
+      ],
+      "closes": {},
+      "rate": null,
+      "expected": {
+        "rows": [],
+        "totalUsdt": "0",
+        "totalTarget": "0",
+        "incomplete": false,
+        "noFx": false,
+        "moneyTotal": "0.00"
+      }
+    }
+  ],
+  "summaries": [
+    {
+      "name": "Jahr abgelaufen, ETH ohne Schluss",
+      "method": "FIFO",
+      "year": 2025,
+      "today": "2026-06-01",
+      "currency": "CHF",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1740826800000,
+          "price": "50000"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "0.5",
+          "time": 1767221940000,
+          "price": "60000"
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "2",
+          "time": 1767222000000,
+          "price": "70000"
+        },
+        {
+          "id": 4,
+          "coin": "ETH",
+          "type": "BUY",
+          "amount": "2",
+          "time": 1740826800000,
+          "price": "2000"
+        }
+      ],
+      "closes": {
+        "BTC": "90000"
+      },
+      "rates": {
+        "2025-12-31": "0.8"
+      },
+      "line": [
+        "135000",
+        "108000",
+        true,
+        false,
+        false
+      ],
+      "csv": [
+        "CH_WEALTH_VALUE;135000.00;108000.00;incomplete, chwealth",
+        "BTC – 1.5;135000.00;108000.00;",
+        "ETH – 2;;;nc – noprice"
+      ]
+    },
+    {
+      "name": "Devisenkurs vom letzten Geschäftstag davor (29.12., höchstens 7 Tage)",
+      "method": "FIFO",
+      "year": 2025,
+      "today": "2026-06-01",
+      "currency": "CHF",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "0.1",
+          "time": 1740826800000,
+          "price": "50000"
+        }
+      ],
+      "closes": {
+        "BTC": "90000"
+      },
+      "rates": {
+        "2025-12-29": "0.75"
+      },
+      "line": [
+        "9000",
+        "6750",
+        false,
+        false,
+        false
+      ],
+      "csv": [
+        "CH_WEALTH_VALUE;9000.00;6750.00;chwealth",
+        "BTC – 0.1;9000.00;6750.00;"
+      ]
+    },
+    {
+      "name": "Steuerjahr noch nicht zu Ende: nicht gerechnet (kein laufender Kurs)",
+      "method": "FIFO",
+      "year": 2025,
+      "today": "2025-12-31",
+      "currency": "CHF",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1740826800000,
+          "price": "50000"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "0.5",
+          "time": 1767221940000,
+          "price": "60000"
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "2",
+          "time": 1767222000000,
+          "price": "70000"
+        }
+      ],
+      "closes": {
+        "BTC": "90000"
+      },
+      "rates": {
+        "2025-12-31": "0.8"
+      },
+      "line": [
+        null,
+        null,
+        false,
+        false,
+        true
+      ],
+      "csv": [
+        "CH_WEALTH_VALUE;;;chwealth"
+      ]
+    },
+    {
+      "name": "Tagesschlüsse nicht übergeben: nicht gerechnet",
+      "method": "FIFO",
+      "year": 2025,
+      "today": "2026-06-01",
+      "currency": "CHF",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1740826800000,
+          "price": "50000"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "0.5",
+          "time": 1767221940000,
+          "price": "60000"
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "2",
+          "time": 1767222000000,
+          "price": "70000"
+        }
+      ],
+      "closes": null,
+      "rates": {
+        "2025-12-31": "0.8"
+      },
+      "line": [
+        null,
+        null,
+        false,
+        false,
+        true
+      ],
+      "csv": [
+        "CH_WEALTH_VALUE;;;chwealth"
+      ]
+    }
+  ]
+}

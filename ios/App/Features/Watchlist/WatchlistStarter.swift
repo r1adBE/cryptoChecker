@@ -53,7 +53,7 @@ struct WatchlistStarterPicker: View {
 
             if pricesFailed && !loadingPrices {
                 // Hinzufügen geht trotzdem; nur sagen, was los ist, und erneut laden lassen
-                HStack(spacing: 6) {
+                HStack(spacing: Spacing.xs) {
                     Image(systemName: "icloud.slash")
                         .accessibilityHidden(true)
                     Text(L("offline_status"))
@@ -342,6 +342,21 @@ extension WatchlistScreen {
         starterCoins ?? StarterCoins.initial(marketKey: StarterCoins.marketKey())
     }
 
+    /// «Kurse von Binance in USDT. Abwählen, …»: Börse (bei Standort-Sperre Binance.US) und Quote halbfett in
+    /// der Textfarbe, der Rest wie bisher.
+    private func starterSourceText(region: String?) -> AttributedString {
+        let market = StarterPairs.marketName(region)
+        let quote = StarterPairs.startQuote(region)
+        var text = AttributedString(L("starter_source_text", BidiText.isolate(market), BidiText.isolate(quote)))
+        for part in [market, quote] where !part.isEmpty {
+            if let range = text.range(of: part) {
+                text[range].font = Font.subheadline.weight(.semibold)
+                text[range].foregroundColor = AppColors.onSurface
+            }
+        }
+        return text
+    }
+
     /// Top 5 nach Marktkapitalisierung höchstens alle 24 h neu holen; kommt die Liste,
     /// bevor jemand tippt, wird still getauscht.
     private func refreshStarterCoins() async {
@@ -378,7 +393,8 @@ extension WatchlistScreen {
                         .foregroundStyle(accent.primary)
                         .multilineTextAlignment(.center)
                         .fixedSize(horizontal: false, vertical: true)
-                    Text(L("starter_text"))
+                    // Börse und Quote der Startpaare hervorgehoben: man soll sehen, woher die Kurse kommen (wie Android)
+                    Text(starterSourceText(region: StarterPairs.region()))
                         .font(.subheadline)
                         .foregroundStyle(AppColors.onSurfaceVariant)
                         .multilineTextAlignment(.center)

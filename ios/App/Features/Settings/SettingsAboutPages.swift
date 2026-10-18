@@ -52,7 +52,7 @@ struct AboutSettingsPage: View {
                 .fixedSize(horizontal: false, vertical: true)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.vertical, 6)
+        .padding(.vertical, Spacing.xs)
         .accessibilityElement(children: .combine)
     }
 

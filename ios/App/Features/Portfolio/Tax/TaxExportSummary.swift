@@ -26,6 +26,9 @@ enum TaxSummaryNote: String, Sendable, Equatable, Hashable {
     /// CH Gewinne/Verluste/netto: nur Information — FIFO-Rechnung der App, keine Einordnung (Kapitalgewinne im
     /// Privatvermögen «nicht gerechnet – siehe ESTV»).
     case CH_FIFO_INFO
+    /// CH Vermögenswert per 31.12. (`TaxLine.CH_WEALTH_VALUE`): nur Orientierung — massgebend ist die Kursliste der ESTV
+    /// (ictax.admin.ch), für Coins ohne Eintrag in der Regel der Schlusskurs der Börse; Vermögenssteuer nicht gerechnet.
+    case CH_WEALTH_ORIENTATION
     /// DE Auszahlungsgebühren (`TaxLine.WITHDRAWAL_FEES`): nicht mit § 23 verrechnet — ggf. Werbungskosten prüfen.
     case DE_WITHDRAWAL_FEE
     /// AT Auszahlungsgebühren: nicht mit dem Neubestand verrechnet (§ 20 Abs. 2 EStG: beim Sondersteuersatz nicht abzugsfähig).
@@ -82,6 +85,9 @@ enum TaxLine: String, CaseIterable, Sendable {
     /// UK, US, CA, AU, JP (Build 57): Gebühren USDT/Fiat von Umbuchungen zwischen eigenen Wallets (`.TRANSFER`) — nur
     /// Information, weder Verlust noch Einstand.
     case TRANSFER_FEES
+    /// CH: Vermögenswert per 31.12. (`TaxExport.chWealth`) — der Text nennt selbst «(Orientierung)», darum ohne Vorsatz im
+    /// Orientierungs-Block; Vermerk `.CH_WEALTH_ORIENTATION`, Werte je Coin in `TaxYearSummary.wealth`. Wie Android.
+    case CH_WEALTH_VALUE
     case DE_LONG, DE_PRIVATE_LIMIT, DE_INCOME_LIMIT
     case AT_RATE, AT_OLD_LONG
     /// AT: Altbestand ≤ 1 Jahr = Spekulationsgeschäft nach alter Rechtslage (§ 30 EStG a. F.) — Freigrenze 440 € im
@@ -101,7 +107,7 @@ enum TaxLine: String, CaseIterable, Sendable {
         switch self {
         case .SHORT_GAINS, .SHORT_LOSSES, .SHORT_NET, .LONG_GAINS, .LONG_LOSSES, .LONG_NET, .UNCLASSIFIED,
              .GAINS, .LOSSES, .NET, .NEW_NET, .OLD_SHORT_NET, .OLD_LONG_NET, .DENIED_LOSS, .PROCEEDS, .INCOME, .AT_INTEREST, .AT_INTEREST_OLD, .FR_OUTFLOW,
-             .WITHDRAWAL_FEES, .TRANSFER_FEES:
+             .WITHDRAWAL_FEES, .TRANSFER_FEES, .CH_WEALTH_VALUE:
             return false
         case .DE_LONG, .DE_PRIVATE_LIMIT, .DE_INCOME_LIMIT, .AT_RATE, .AT_OLD_LONG, .AT_OLD_SPECULATION_LIMIT, .CH_PRIVATE, .CH_INCOME, .CH_WEALTH,
              .UK_EXEMPT, .UK_AFTER_EXEMPT, .US_TERMS, .CA_TAXABLE, .AU_DISCOUNTED, .NET_CAPITAL_LOSS, .FR_THRESHOLD, .FR_RATE,
@@ -148,6 +154,8 @@ struct TaxYearSummary: Sendable, Equatable {
     let lines: [TaxSummaryLine]
     /// US-Übergang, mit dem gerechnet wurde (`TaxTemplate.walletFrom`); nil = keiner.
     var walletFrom: LocalDay? = nil
+    /// CH: Vermögenswert per 31.12. je Coin (`TaxExport.chWealth`); nil = nicht gerechnet bzw. andere Vorlage.
+    var wealth: TaxWealth? = nil
 }
 
 /// Texte der Jahresübersicht (`TaxExport.summaryCsv`) — wie `TaxSummaryTexts` (Android).
@@ -175,6 +183,17 @@ struct TaxSummaryTexts: Sendable {
     var loss: String = ""
     /// Texte der Zusatz-Vermerke (`TaxSummaryLine.note`); fehlt einer = kein Vermerk.
     var notes: [TaxSummaryNote: String] = [:]
+    /// CH Vermögenswert, Zeile je Coin: Text mit `TaxExport.wealthCoinToken`/`wealthAmountToken` (`wealthCoinLabel`);
+    /// leer = «Coin Menge».
+    var wealthCoin: String = ""
+    /// «nicht gerechnet» bei einem Coin ohne Wert (`TaxWealthRow.missing`).
+    var wealthMissing: String = ""
+    /// Grund «kein Kurs» (`TaxWealthRow.noPrice`).
+    var wealthNoPrice: String = ""
+    /// Grund «ungeprüft» (`TaxWealthRow.unchecked`).
+    var wealthUnchecked: String = ""
+    /// Grund «Adresse nicht beobachtet» (`TaxWealthRow.addressUnobserved`).
+    var wealthAddressUnobserved: String = ""
 }
 
 /// Posten im Orientierungs-Block — wie `taxOrientationLabel` (Android): `item` mit «%s» für `label`; ohne `item`
@@ -229,7 +248,8 @@ extension TaxExport {
                             timeZone: TimeZone, currency: String, rates: [Int: Decimal]?,
                             priceAt: ((String, Int64) -> Decimal?)? = nil,
                             walletFrom: LocalDay? = nil, usdtUsd: [Int: Decimal]? = nil,
-                            today: LocalDay? = nil) -> TaxYearSummary {
+                            today: LocalDay? = nil, yearEndCloses: CutoffCloses? = nil,
+                            yearEndAddresses: AddressBalancesAt? = nil) -> TaxYearSummary {
         let period = template.period(startYear)
         let fx = rates != nil || currency.trimmingCharacters(in: .whitespaces).uppercased() == "USD"
         let allRows = gainRows(trades, method: method, period: period, timeZone: timeZone, currency: currency,
@@ -433,6 +453,19 @@ extension TaxExport {
         }
         let netIncomplete = net.incomplete
         let netFx = net.fxMissing > 0
+        // CH: Vermögenswert per 31.12. — Posten mit eigenem «(Orientierung)» vor dem Orientierungs-Block; nur für ein
+        // abgelaufenes Steuerjahr (nie ein laufender oder heutiger Kurs); Devisenkurs des 31.12. wie jede Zeile (`rateOn`)
+        var wealth: TaxWealth? = nil
+        if template == .CH {
+            let todayDay = today ?? localDay(Int64(Date().timeIntervalSince1970 * 1000), timeZone: timeZone)
+            if let yearEndCloses, period.end < todayDay {
+                wealth = chWealth(trades, method: method.costMethod ?? .defaultMethod, date: period.end, timeZone: timeZone,
+                                  closes: yearEndCloses,
+                                  rate: rateOn(rates, date: period.end, currency: currency, usdtUsd: usdtUsd),
+                                  addresses: yearEndAddresses)
+            }
+            lines.append(chWealthLine(wealth, fx: fx))
+        }
         // Orientierung je Vorlage
         switch template {
         case .DE:
@@ -563,7 +596,7 @@ extension TaxExport {
             break
         }
         return TaxYearSummary(template: template, method: method, period: period, currency: currency, fxAvailable: fx,
-                              lines: lines, walletFrom: walletFrom)
+                              lines: lines, walletFrom: walletFrom, wealth: wealth)
     }
 
     /// AT: Belohnungen (ohne Zinsen) mit Erwerb vom 1.3.2021 bis 28.2.2022 bis zum Ende von `period` — mit

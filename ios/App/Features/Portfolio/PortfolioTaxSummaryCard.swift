@@ -36,7 +36,7 @@ struct PortfolioTaxSummaryCard: View {
                         Text(texts.orientationHeading.isEmpty ? texts.orientation : texts.orientationHeading)
                             .font(.caption.weight(.semibold))
                             .foregroundStyle(AppColors.onSurface)
-                            .padding(.top, 6)
+                            .padding(.top, Spacing.xs)
                     }
                     row(s, l)
                 }
@@ -101,6 +101,32 @@ struct PortfolioTaxSummaryCard: View {
                 .font(.caption)
                 .foregroundStyle(AppColors.onSurfaceVariant)
         }
+        // CH Vermögenswert: je Coin Bestand und Wert, ohne Wert «nicht gerechnet – Grund» (wie die CSV) — wie Android
+        if l.line == .CH_WEALTH_VALUE, let wealth = s.wealth {
+            ForEach(Array(wealth.rows.enumerated()), id: \.offset) { _, r in
+                wealthRow(s, r)
+            }
+        }
+    }
+
+    /// Zeile eines Coins im CH-Vermögenswert (eingerückt): Bestand, Wert in der Währung der Vorlage bzw. USDT oder Hinweis.
+    private func wealthRow(_ s: TaxYearSummary, _ r: TaxWealthRow) -> some View {
+        let v: Decimal? = s.fxAvailable ? r.valueTarget : r.valueUsdt
+        let value: String = v.map {
+            PriceFormat.valueWithCurrency(PortfolioDecimal.double($0), s.fxAvailable ? s.currency : "USDT")
+        } ?? texts.wealthCoinNote(r)
+        return HStack(alignment: .firstTextBaseline, spacing: Spacing.sm) {
+            Text(verbatim: texts.wealthCoinLabel(r.coin, amount: PriceFormat.amount(PortfolioDecimal.double(r.amount))))
+                .font(.caption)
+                .foregroundStyle(AppColors.onSurface)
+                .fixedSize(horizontal: false, vertical: true)
+            Spacer(minLength: 8)
+            Text(verbatim: value)
+                .font(.caption.monospacedDigit())
+                .foregroundStyle(v == nil ? AppColors.onSurfaceVariant : AppColors.onSurface)
+                .multilineTextAlignment(.trailing)
+        }
+        .padding(.leading, 12)
     }
 
     /// Vermerke eines Postens (unvollständig, ohne Devisenkurs, Zusatz-Vermerk).

@@ -406,7 +406,18 @@ extension TaxExport {
         // Zuerst nur Tatsachen; Schlüsse der Vorlage nur im eigenen Block, jeder Posten mit Vorsatz «Orientierung:»
         let facts = s.lines.filter { !$0.line.orientation }
         let oriented = s.lines.filter { $0.line.orientation }
-        for l in facts { out += row(l, texts.labels[l.line] ?? "") }
+        for l in facts {
+            out += row(l, texts.labels[l.line] ?? "")
+            // CH Vermögenswert: darunter je Coin eine Zeile in denselben Spalten (Coin – Bestand | USDT | Währung |
+            // Hinweis); Werte unrund summiert, gerundet nur hier im Text — wie Android
+            if l.line == .CH_WEALTH_VALUE, let wealth = s.wealth {
+                for r in wealth.rows {
+                    let label = texts.wealthCoinLabel(r.coin, amount: n(CutoffExport.amount(r.amount)))
+                    out += textLine([label, money(r.valueUsdt), money(s.fxAvailable ? r.valueTarget : nil),
+                                     texts.wealthCoinNote(r)], format, numeric: [1, 2])
+                }
+            }
+        }
         if !oriented.isEmpty {
             out += textLine([texts.orientationHeading.isEmpty ? texts.orientation : texts.orientationHeading], format)
             for l in oriented {

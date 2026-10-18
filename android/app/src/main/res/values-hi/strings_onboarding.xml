@@ -15,7 +15,6 @@
     <string name="starter_search_coin">दूसरा कॉइन खोजें</string>
     <string name="starter_select_all">सभी चुनें</string>
     <string name="starter_select_none">कोई नहीं चुनें</string>
-    <string name="starter_text">जो नहीं चाहिए उसका चयन हटाएँ और बाकी को एक साथ जोड़ें। एक्सचेंज और पेयर आप बाद में बदल सकते हैं।</string>
     <string name="starter_title">इन कॉइन से शुरू करें</string>
     <string name="starter_watch_alarm_hint">कीमत देखें, अलार्म सेट करें</string>
 </resources>

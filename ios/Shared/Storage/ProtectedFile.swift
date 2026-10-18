@@ -335,6 +335,8 @@ enum ProtectedStorage {
             (SharedStorage.unreadableCopyURL(of: PortfolioStore.url), PortfolioStore.url),
             (WatchedAddressStore.url, WatchedAddressStore.url),
             (PortfolioWidgetStore.snapshotURL, PortfolioWidgetStore.snapshotURL),
+            // Alarm-Protokoll (Build 80): Paare und Schwellen wie die Merkliste
+            (AlarmLogStore.url, AlarmLogStore.url),
         ]
     }
 

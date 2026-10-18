@@ -70,7 +70,7 @@ struct SectionTitleStyle: ViewModifier {
             .font(AppFont.title)
             .foregroundStyle(AppColors.onSurface)
             .textCase(nil)
-            .padding(.leading, 10)
+            .padding(.leading, Spacing.sm)
             .overlay(alignment: .leading) {
                 Capsule()
                     .fill(accent.primary)

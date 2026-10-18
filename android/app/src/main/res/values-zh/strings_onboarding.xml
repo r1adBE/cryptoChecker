@@ -15,7 +15,6 @@
     <string name="starter_search_coin">搜索其他币种</string>
     <string name="starter_select_all">全选</string>
     <string name="starter_select_none">全不选</string>
-    <string name="starter_text">取消不需要的，其余一次性全部添加。交易所和交易对稍后可以更改。</string>
     <string name="starter_title">从这些币种开始</string>
     <string name="starter_watch_alarm_hint">关注价格，设置提醒</string>
 </resources>

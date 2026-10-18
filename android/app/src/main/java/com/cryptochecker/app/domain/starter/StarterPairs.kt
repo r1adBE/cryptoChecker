@@ -62,6 +62,16 @@ object StarterPairs {
     /** Start-Börse der Region (Schlüssel wie Market.key). */
     fun marketKey(regionCountry: String?): String = if (isUs(regionCountry)) BINANCE_US_KEY else BINANCE_KEY
 
+    /**
+     * Anzeigename der Start-Börse der Region («Binance», bei Standort-Sperre bzw. in den USA «Binance.US»): die
+     * Start-Auswahl sagt laut, woher die Kurse kommen («Kurse von Binance in USDT»).
+     * @param marketName Anzeigename aus der Registry; null = Schlüssel
+     */
+    fun marketName(regionCountry: String?, marketName: (String) -> String? = { null }): String {
+        val key = marketKey(regionCountry)
+        return marketName(key) ?: key
+    }
+
     /** Anzeige-Quote für Kurse ohne eigene Quote. */
     @Suppress("UNUSED_PARAMETER")
     fun startQuote(regionCountry: String?): String = START_QUOTE

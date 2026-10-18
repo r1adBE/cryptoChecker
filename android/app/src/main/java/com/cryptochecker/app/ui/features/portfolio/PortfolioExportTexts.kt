@@ -11,6 +11,8 @@ import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.portfolio.CutoffCsvTexts
 import com.cryptochecker.app.domain.portfolio.EstvKursliste
 import com.cryptochecker.app.domain.portfolio.TAX_NOTE_DATE
+import com.cryptochecker.app.domain.portfolio.TAX_WEALTH_AMOUNT
+import com.cryptochecker.app.domain.portfolio.TAX_WEALTH_COIN
 import com.cryptochecker.app.domain.portfolio.TaxCsvTexts
 import com.cryptochecker.app.domain.portfolio.TaxLine
 import com.cryptochecker.app.domain.portfolio.TaxMethod
@@ -234,6 +236,7 @@ private fun taxLineLabel(l: TaxLine): Int = when (l) {
     TaxLine.FR_OUTFLOW -> R.string.tax_line_fr_outflow
     TaxLine.WITHDRAWAL_FEES -> R.string.tax_line_withdrawal_fees
     TaxLine.TRANSFER_FEES -> R.string.tax_line_transfer_fees
+    TaxLine.CH_WEALTH_VALUE -> R.string.tax_line_ch_wealth_value
     TaxLine.DE_LONG -> R.string.tax_line_de_long
     TaxLine.DE_PRIVATE_LIMIT -> R.string.tax_de_private_limit
     TaxLine.DE_INCOME_LIMIT -> R.string.tax_de_income_limit
@@ -267,7 +270,10 @@ internal fun taxSummaryTexts(t: TaxTemplate, yearLabel: String, currency: String
     target = currency,
     note = stringResource(R.string.portfolio_export_col_note),
     orientation = stringResource(R.string.tax_summary_orientation),
-    labels = TaxLine.entries.associateWith { stringResource(taxLineLabel(it)) },
+    // CH Vermögenswert: «Vermögenswert 31.12.<Jahr> (Orientierung)» mit dem Steuerjahr
+    labels = TaxLine.entries.associateWith {
+        if (it == TaxLine.CH_WEALTH_VALUE) stringResource(taxLineLabel(it), yearLabel) else stringResource(taxLineLabel(it))
+    },
     below = stringResource(R.string.tax_de_below),
     reached = stringResource(R.string.tax_de_reached),
     unknown = stringResource(R.string.tax_de_unknown),
@@ -287,6 +293,7 @@ internal fun taxSummaryTexts(t: TaxTemplate, yearLabel: String, currency: String
         TaxSummaryNote.AT_REWARD_INFO to stringResource(R.string.tax_summary_at_reward_info),
         TaxSummaryNote.CH_EXCHANGE_VALUE to stringResource(R.string.tax_summary_ch_year_end_value),
         TaxSummaryNote.CH_FIFO_INFO to stringResource(R.string.tax_summary_ch_fifo_info),
+        TaxSummaryNote.CH_WEALTH_ORIENTATION to stringResource(R.string.tax_summary_ch_wealth_orientation),
         TaxSummaryNote.DE_WITHDRAWAL_FEE to stringResource(R.string.tax_summary_de_withdrawal_fee),
         TaxSummaryNote.AT_WITHDRAWAL_FEE to stringResource(R.string.tax_summary_at_withdrawal_fee),
         TaxSummaryNote.WITHDRAWAL_FEE_INFO to stringResource(R.string.tax_summary_withdrawal_fee_info),
@@ -300,4 +307,10 @@ internal fun taxSummaryTexts(t: TaxTemplate, yearLabel: String, currency: String
         TaxSummaryNote.WINDOW_OPEN to stringResource(R.string.tax_summary_window_open, TAX_NOTE_DATE),
         TaxSummaryNote.UK_HMRC_REPORT to stringResource(R.string.tax_summary_uk_hmrc_report),
     ),
+    // Coin und Menge setzt die Übersicht ein ([wealthCoinLabel]): hier nur die Platzhalter
+    wealthCoin = stringResource(R.string.tax_ch_wealth_coin, TAX_WEALTH_COIN, TAX_WEALTH_AMOUNT),
+    wealthMissing = stringResource(R.string.tax_ch_wealth_not_calculated),
+    wealthNoPrice = stringResource(R.string.portfolio_export_no_price),
+    wealthUnchecked = stringResource(R.string.portfolio_export_unchecked),
+    wealthAddressUnobserved = stringResource(R.string.portfolio_export_address_unobserved),
 )

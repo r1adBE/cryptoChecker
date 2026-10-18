@@ -97,6 +97,15 @@ internal fun CheckRunsCard(runs: List<CheckRun>) {
             Hint(stringResource(R.string.settings_check_runs_empty))
         }
         runs.forEach { run -> CheckRunRow(run) }
+        // Daneben das Alarm-Protokoll: nicht nur wann, sondern was die Prüfung bei jedem Alarm sah
+        com.cryptochecker.app.ui.features.alarms.LocalOpenAlarmLog.current?.let { openLog ->
+            TextButton(
+                onClick = openLog,
+                contentPadding = androidx.compose.foundation.layout.PaddingValues(horizontal = 0.dp, vertical = 0.dp),
+            ) {
+                Text(stringResource(R.string.alarm_log_open), style = MaterialTheme.typography.labelLarge)
+            }
+        }
     }
 }
 
@@ -117,7 +126,7 @@ private fun CheckRunRow(run: CheckRun) {
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 6.dp)
+            .padding(vertical = Spacing.xs)
             .clearAndSetSemantics { contentDescription = description }
     ) {
         Text(time, style = MaterialTheme.typography.bodyMedium, modifier = Modifier.weight(1f))

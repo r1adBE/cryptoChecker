@@ -15,7 +15,6 @@
     <string name="starter_search_coin">Søg efter en anden mønt</string>
     <string name="starter_select_all">Vælg alle</string>
     <string name="starter_select_none">Fravælg alle</string>
-    <string name="starter_text">Fravælg det, du ikke vil have, og tilføj resten på én gang. Du kan ændre børs og par senere.</string>
     <string name="starter_title">Start med disse mønter</string>
     <string name="starter_watch_alarm_hint">Følg kursen, sæt en alarm</string>
 </resources>

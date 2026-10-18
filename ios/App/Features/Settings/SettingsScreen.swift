@@ -211,7 +211,7 @@ struct SettingsScreen: View {
         let accentName = L(settings.accentColor.labelKey)
         return SettingsNavRow(title: L("settings_accent"), icon: .system("paintpalette"), valueDescription: accentName) {
             // Farbpunkt passend zum kleinen Wert unter dem Titel
-            HStack(spacing: 6) {
+            HStack(spacing: 4) {
                 // K3: Farbe der Knöpfe (hell/dunkel), nicht die Grundfarbe
                 Circle().fill(settings.accentColor.primary).frame(width: 10, height: 10)
                 Text(accentName)
@@ -264,7 +264,7 @@ struct SettingsScreen: View {
         Button(role: .destructive) {
             askReset = true
         } label: {
-            HStack(spacing: 14) {
+            HStack(spacing: 12) {
                 // Symbol links rot wie der Text (Farbe vom HStack)
                 SettingsLeadingIcon(icon: .system("arrow.counterclockwise"))
                 Text(L("settings_reset_app"))

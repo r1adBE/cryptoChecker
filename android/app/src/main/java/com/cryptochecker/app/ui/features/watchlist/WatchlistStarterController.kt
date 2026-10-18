@@ -68,8 +68,14 @@ internal class WatchlistStarterController(
     private val _deselected = MutableStateFlow<Set<String>>(emptySet())
     val deselected: StateFlow<Set<String>> = _deselected.asStateFlow()
 
-    /** Quote der Start-Paare: USDT (Binance), in den USA USD (Coinbase). */
+    /** Quote der Start-Paare: USDT (Binance und Binance.US). */
     val quote: String = StarterPairs.startQuote(starterRegion())
+
+    /**
+     * Anzeigename der Start-Börse («Binance», bei Standort-Sperre «Binance.US»); wechselt nach der Prüfung der
+     * Sperre ([loadStarterCoins]). Die Start-Auswahl nennt ihn samt [quote].
+     */
+    private val _marketName = MutableStateFlow(starterMarketName())
 
     /** Kurse der Start-Coins; [StarterPricesState.loading] solange der Abruf läuft. */
     private val _prices = MutableStateFlow(StarterPricesState(loading = true, prices = emptyMap()))
@@ -80,9 +86,13 @@ internal class WatchlistStarterController(
     val adding: StateFlow<Boolean> = _adding.asStateFlow()
 
     /** Alles für die Start-Auswahl in einem Stand ([StarterUiState]). */
-    val state: StateFlow<StarterUiState> = combine(coins, deselected, prices, adding, logosReady) { c, d, p, a, l ->
-        StarterUiState(coins = c, deselected = d, prices = p, adding = a, logosReady = l, quote = quote)
-    }.stateIn(scope, SharingStarted.WhileSubscribed(5_000), currentState())
+    val state: StateFlow<StarterUiState> = combine(
+        combine(coins, deselected, prices, adding, logosReady) { c, d, p, a, l ->
+            StarterUiState(coins = c, deselected = d, prices = p, adding = a, logosReady = l, quote = quote, marketName = "")
+        },
+        _marketName,
+    ) { s, m -> s.copy(marketName = m) }
+        .stateIn(scope, SharingStarted.WhileSubscribed(5_000), currentState())
 
     private fun currentState() = StarterUiState(
         coins = _coins.value,
@@ -91,10 +101,14 @@ internal class WatchlistStarterController(
         adding = _adding.value,
         logosReady = _logosReady.value,
         quote = quote,
+        marketName = _marketName.value,
     )
 
     /** Region der Startpaare: Geräte-Region, bei Binance-Standort-Sperre «US» (Binance.US). */
     private fun starterRegion(): String? = starterCoinsRepository.starterRegion(deviceRegionLocale().country)
+
+    private fun starterMarketName(): String =
+        StarterPairs.marketName(starterRegion()) { key -> MarketsConfig.MARKETS[key]?.name }
 
     private suspend fun ensureStarterLogos(coins: List<StarterPairs.Coin>) {
         if (!settingsRepository.cached.coinLogos) {
@@ -115,7 +129,10 @@ internal class WatchlistStarterController(
             val probe = async { starterCoinsRepository.probeBinance(deviceRegionLocale().country) }
             starterProbeJob = probe
             loadStarterList()
-            if (probe.await()) {
+            val changed = probe.await()
+            // Börse für den Satz «Kurse von … in USDT» nach der Prüfung (gesperrt → Binance.US)
+            _marketName.value = starterMarketName()
+            if (changed) {
                 // Andere Startbörse: deren Liste, Kurse und Logos
                 _coins.value = starterCoinsRepository.cached(starterRegion())
                 loadStarterList()

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="starter_source_text">Kurser fra %1$s i %2$s. Fravælg det, du ikke vil have, og tilføj resten på én gang. Du kan ændre børs og par for hver coin.</string>
+    <string name="watchlist_row_exchange_paused">%1$s · sat på pause til %2$s</string>
+</resources>

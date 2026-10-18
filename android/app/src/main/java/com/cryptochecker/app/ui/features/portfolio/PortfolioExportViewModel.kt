@@ -11,6 +11,7 @@ import com.cryptochecker.app.data.portfolio.PortfolioRepository
 import com.cryptochecker.app.domain.portfolio.AddressBalanceHistory
 import com.cryptochecker.app.domain.portfolio.AddressBalancesAt
 import com.cryptochecker.app.domain.portfolio.CostMethod
+import com.cryptochecker.app.domain.portfolio.CutoffCloses
 import com.cryptochecker.app.domain.portfolio.CutoffCsvFormat
 import com.cryptochecker.app.domain.portfolio.CutoffCsvTexts
 import com.cryptochecker.app.domain.portfolio.CutoffExport
@@ -192,9 +193,60 @@ class PortfolioExportViewModel @Inject constructor(
         val from = withContext(Dispatchers.Default) { TaxExport.fxFrom(trades, method, period, zone, priceAt, tpl.eventRules, walletFrom) }
         val rates = rates(currency, from, period.end)
         val usdtUsd = usdtUsdCloses(currency, from)
+        // CH: Vermögenswert per 31.12. (Orientierung) — Tagesschlüsse und Adress-Guthaben wie der Stichtag-Export
+        val wealth = if (tpl == TaxTemplate.CH) chYearEnd(trades, method, period.end, zone) else null
         return withContext(Dispatchers.Default) {
-            TaxExport.yearSummary(trades, tpl, method, year, zone, currency, rates, priceAt, walletFrom, usdtUsd)
+            TaxExport.yearSummary(
+                trades, tpl, method, year, zone, currency, rates, priceAt, walletFrom, usdtUsd,
+                yearEndCloses = wealth?.first, yearEndAddresses = wealth?.second,
+            )
         }
+    }
+
+    /**
+     * CH: Tagesschlüsse des 31.12. ([end]) für den Bestand an dessen Ende (Zeitzone der Vorlage) samt beobachteter
+     * Adressen — dieselben Quellen wie der Stichtag-Export ([build]: [HistoricPriceSource.dailyClosesUsdt] mit
+     * Identitätsprüfung gegen die aktuellen Kurse). Erst wenn die UTC-Tageskerze des 31.12. geschlossen ist (UTC-Datum
+     * danach), sonst null: kein laufender oder heutiger Kurs, der Posten bleibt «nicht gerechnet».
+     */
+    private suspend fun chYearEnd(
+        trades: List<PortfolioTrade>,
+        method: TaxMethod,
+        end: LocalDate,
+        zone: ZoneId,
+    ): Pair<CutoffCloses, AddressBalancesAt>? {
+        if (!end.isBefore(LocalDate.now(java.time.ZoneOffset.UTC))) return null
+        val cutoff = CutoffExport.endOfDayMillis(end, zone)
+        val holdings = CutoffExport.holdingsAt(trades, cutoff, method.costMethod ?: CostMethod.DEFAULT)
+        val addressAt = try {
+            AddressBalanceHistory.balancesAt(AddressBalanceHistory.of(repository.getWatchedAddresses()), cutoff)
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            Timber.w(e, "CH-Vermögenswert: Adressen nicht geladen")
+            AddressBalancesAt(emptyMap(), emptySet())
+        }
+        val coins = (holdings.map { it.coin } + addressAt.balances.keys).distinct().filter { PortfolioStables.needsQuote(it) }
+        val current = try {
+            if (coins.isEmpty()) emptyMap() else priceSource.prices(coins).let { p ->
+                CutoffExport.referencePrices(p.prices, p.unchecked)
+            }
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            Timber.w(e, "CH-Vermögenswert: aktuelle Kurse fehlen, alle Kurse ungeprüft")
+            emptyMap()
+        }
+        // Fehler beim Laden: keine Kurse → jeder Coin «nicht gerechnet», die Summe unvollständig
+        val closes = try {
+            historic.dailyClosesUsdt(coins, end, current)
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            Timber.w(e, "CH-Vermögenswert: Tagesschlüsse fehlen")
+            CutoffCloses()
+        }
+        return closes to addressAt
     }
 
     /** CSV «Jahresübersicht» (Vorlage, Orientierung) für [year] in die Datei [uri]. */

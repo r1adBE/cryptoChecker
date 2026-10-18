@@ -15,7 +15,6 @@
     <string name="starter_search_coin">Andere munt zoeken</string>
     <string name="starter_select_all">Alles selecteren</string>
     <string name="starter_select_none">Niets selecteren</string>
-    <string name="starter_text">Vink uit wat je niet wilt en voeg de rest in één keer toe. Beurs en paar kun je later wijzigen.</string>
     <string name="starter_title">Begin met deze munten</string>
     <string name="starter_watch_alarm_hint">Koers volgen, alarm instellen</string>
 </resources>

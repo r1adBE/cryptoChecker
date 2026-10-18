@@ -79,7 +79,7 @@ internal fun BackupPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltV
 
     SettingsSubPage(title = stringResource(R.string.backup_title), onBack = onBack) {
         GroupCard {
-            Hint(stringResource(R.string.backup_hint), top = 10.dp)
+            Hint(stringResource(R.string.backup_hint), top = Spacing.sm)
             // Datenbank-Schlüssel liegt im Android Keystore dieses Geräts: ohne Sicherungsdatei kein Umzug
             Hint(stringResource(R.string.backup_device_bound))
             if (encryptionPending) Hint(stringResource(R.string.backup_encryption_pending))

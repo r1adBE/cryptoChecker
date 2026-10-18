@@ -235,7 +235,8 @@ class PulseWidgetRenderer @Inject constructor(
                 val sideLayout = PulseWidgetMath.sideLayout(
                     widgetWidthDp, heightDp, headlineStyle.lines,
                     fearGreedWidthDp = sideWidth(fearGreedShown),
-                    breadthWidthDp = sideWidth(breadthText),
+                    // mit Punkt gemessen: in der zweiten Zeile steht er davor (vorsichtig auch für die erste)
+                    breadthWidthDp = sideWidth(breadthText?.let { "$FNG_DOT $it" }),
                     bothWidthDp = sideWidth(bothText),
                 )
                 val showFng = sideLayout?.showsFearGreed == true
@@ -247,7 +248,8 @@ class PulseWidgetRenderer @Inject constructor(
                     PulseSideLayout.BREADTH -> breadthText
                     null -> null
                 }
-                val secondText = breadthText.takeIf { sideLayout == PulseSideLayout.TWO_LINES }
+                // Zweite Zeile mit eigenem Punkt vor «Top 30», damit beide Zeilen gleich aussehen (wie iOS)
+                val secondText = breadthText?.takeIf { sideLayout == PulseSideLayout.TWO_LINES }?.let { "$FNG_DOT $it" }
                 views.setViewVisibility(R.id.pulse_fng, if (sideText != null) View.VISIBLE else View.GONE)
                 views.setTextViewText(
                     R.id.pulse_fng,
@@ -455,6 +457,15 @@ class PulseWidgetRenderer @Inject constructor(
             }
         }
         if (breadth != null) {
+            // Punkt vor «Top 30» (zweite Zeile): Kursfarbe der Mehrheit, gleich viele → grau (wie iOS)
+            if (text.startsWith(FNG_DOT) && fearGreedValue == null) {
+                val dot = when {
+                    breadth.up > breadth.down -> colors.upColor
+                    breadth.down > breadth.up -> colors.downColor
+                    else -> colors.secondaryTextColor
+                }
+                color(0, FNG_DOT.length, dot)
+            }
             val up = PriceFormat.ARROW_UP + " " + LocaleNumbers.integer(breadth.up)
             val down = PriceFormat.ARROW_DOWN + " " + LocaleNumbers.integer(breadth.down)
             color(text.indexOf(up), up.length, colors.upColor)

@@ -55,6 +55,16 @@ final class StarterPairsTests: XCTestCase {
         XCTAssertFalse(StarterPairs.blockedAfterProbe(previous: false, httpCode: 429))
     }
 
+    func testMarketNameForStarterText() {
+        XCTAssertEqual(StarterPairs.marketName("CH"), "Binance")
+        XCTAssertEqual(StarterPairs.marketName("US"), "Binance.US")
+        // Standort-Sperre: die Start-Auswahl nennt Binance.US
+        XCTAssertEqual(StarterPairs.marketName(StarterPairs.effectiveRegion("DE", binanceBlocked: true)), "Binance.US")
+        // Ohne Registry-Namen: Schlüssel (wie Android)
+        XCTAssertEqual(StarterPairs.marketName("US", name: { _ in nil }), "BinanceUs")
+        XCTAssertEqual(StarterPairs.startQuote("US"), "USDT")
+    }
+
     func testFallbackCoins() {
         XCTAssertEqual(StarterCoins.fallback(marketKey: "Binance").map(\.symbol), ["BTC", "ETH", "XRP", "BNB", "SOL"])
         // Binance.US: ohne XRP

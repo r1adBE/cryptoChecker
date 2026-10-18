@@ -397,9 +397,9 @@ private fun TaxBetaBadge() {
         color = MaterialTheme.colorScheme.onSurface,
         maxLines = 1,
         modifier = Modifier
-            .padding(start = 6.dp)
+            .padding(start = 4.dp)
             .background(MaterialTheme.colorScheme.surfaceContainerHighest, RoundedCornerShape(50))
-            .padding(horizontal = 6.dp, vertical = 1.dp)
+            .padding(horizontal = 4.dp, vertical = 1.dp)
     )
 }
 

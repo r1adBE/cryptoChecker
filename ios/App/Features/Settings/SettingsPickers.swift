@@ -89,8 +89,8 @@ struct SettingsChoiceSearchField: View {
                 .accessibilityLabel(L("action_clear"))
             }
         }
-        .padding(.horizontal, 14)
-        .padding(.vertical, 11)
+        .padding(.horizontal, Spacing.md)
+        .padding(.vertical, Spacing.md)
         .background(AppColors.container, in: RoundedRectangle(cornerRadius: Radius.field, style: .continuous))
     }
 }

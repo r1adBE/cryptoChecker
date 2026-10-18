@@ -474,7 +474,8 @@ private struct PulseHomeView: View {
                 ViewThatFits(in: .horizontal) {
                     ForEach(PulseSideLayout.candidates(hasFearGreed: fearGreedText != nil, hasBreadth: breadth != nil,
                                                        twoLines: twoLines), id: \.self) { layout in
-                        foot(layout, time: time, fearGreed: fearGreedText, breadth: breadth)
+                        foot(layout, time: time, fearGreed: fearGreedText, breadth: breadth,
+                             breadthDot: report.breadth.map { PulseSideLine.breadthDot($0, palette: palette) })
                     }
                     footRow(time, nil)
                 }
@@ -514,7 +515,8 @@ private struct PulseHomeView: View {
 
     /// Fusszeile in der Anordnung `layout`; bei `.twoLines` die Marktbreite rechts in einer zweiten Zeile.
     @ViewBuilder
-    private func foot(_ layout: PulseSideLayout, time: String?, fearGreed: Text?, breadth: Text?) -> some View {
+    private func foot(_ layout: PulseSideLayout, time: String?, fearGreed: Text?, breadth: Text?,
+                      breadthDot: Text? = nil) -> some View {
         switch layout {
         case .oneLine:
             if let fearGreed, let breadth { footRow(time, fearGreed + Text(verbatim: " · ") + breadth) }
@@ -522,7 +524,8 @@ private struct PulseHomeView: View {
             if let fearGreed, let breadth {
                 VStack(spacing: 2) {
                     footRow(time, fearGreed)
-                    footRow(nil, breadth)
+                    // Eigener Punkt vor «Top 30», damit beide Zeilen gleich aussehen (wie Android)
+                    footRow(nil, breadthDot.map { $0 + breadth } ?? breadth)
                 }
             }
         case .fearGreed:
@@ -587,6 +590,12 @@ enum PulseSideLine {
         let tail = Text(verbatim: String(line[range.upperBound...]))
         // Zahl in Textfarbe statt Stufenfarbe (AA, Build 43, wie die Karte); die Stufe zeigt der Punkt
         return dotText + head + Text(verbatim: number).foregroundStyle(palette.text) + tail
+    }
+
+    /// Punkt vor «Top 30» in der zweiten Zeile: Kursfarbe der Mehrheit (steigend/fallend), gleich viele → grau.
+    static func breadthDot(_ b: PulseBreadth, palette: WidgetPalette) -> Text {
+        let color = b.up > b.down ? palette.up : (b.down > b.up ? palette.down : palette.secondary)
+        return Text(verbatim: dot + " ").foregroundStyle(color)
     }
 
     /// «Top 30 · 24h  ↗ 21  ↘ 9»: Marktbreite über 24 Stunden.

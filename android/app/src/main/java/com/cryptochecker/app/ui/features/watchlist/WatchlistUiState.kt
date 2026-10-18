@@ -169,8 +169,10 @@ data class StarterUiState(
     val adding: Boolean,
     /** Logos geladen bzw. aufgegeben (bis dahin Platzhalter). */
     val logosReady: Boolean,
-    /** Quote der Start-Paare (USDT, in den USA USD). */
+    /** Quote der Start-Paare (USDT). */
     val quote: String,
+    /** Anzeigename der Start-Börse («Binance», bei Standort-Sperre «Binance.US»). */
+    val marketName: String,
 )
 
 /**

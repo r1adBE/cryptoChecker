@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="starter_source_text">Fiyatlar: %1$s, %2$s cinsinden. İstemediklerinizin seçimini kaldırın, kalanları tek seferde ekleyin. Borsayı ve çifti her coin için değiştirebilirsiniz.</string>
+    <string name="watchlist_row_exchange_paused">%1$s · %2$s saatine kadar duraklatıldı</string>
+</resources>

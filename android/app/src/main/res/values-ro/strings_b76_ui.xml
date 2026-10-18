@@ -3,5 +3,5 @@
     <string name="explorer_bulk_show_all">Arată tot (%1$d)</string>
     <string name="log_box_title">Jurnal</string>
     <string name="watchlist_first_alarm_title">Setează prima alarmă</string>
-    <string name="watchlist_first_alarm_text">Primești o notificare imediat ce un preț atinge pragul tău.</string>
+    <string name="watchlist_first_alarm_text">Primești o notificare când un preț atinge pragul tău – cu aplicația închisă, Android verifică neregulat.</string>
 </resources>

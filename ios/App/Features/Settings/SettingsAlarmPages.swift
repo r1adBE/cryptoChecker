@@ -161,7 +161,7 @@ struct AlarmSettingsPage: View {
             .buttonStyle(TonalButtonStyle())
             .settingsAnchor("alarms.test")
             .padding(.top, 12)
-            SettingsHint(text: L("alarm_test_hint"), top: 6)
+            SettingsHint(text: L("alarm_test_hint"), top: Spacing.xs)
         }
         .alarmTestRunner(trigger: alarmTestTrigger)
         .alert(L("settings_notification_change"), isPresented: $editingPercent) {

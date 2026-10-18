@@ -58,6 +58,7 @@ extension TaxLine {
         case .FR_OUTFLOW: return "tax_line_fr_outflow"
         case .WITHDRAWAL_FEES: return "tax_line_withdrawal_fees"
         case .TRANSFER_FEES: return "tax_line_transfer_fees"
+        case .CH_WEALTH_VALUE: return "tax_line_ch_wealth_value"
         case .DE_LONG: return "tax_line_de_long"
         case .DE_PRIVATE_LIMIT: return "tax_de_private_limit"
         case .DE_INCOME_LIMIT: return "tax_de_income_limit"
@@ -102,7 +103,8 @@ extension TaxSummaryTexts {
     static func localized(template: TaxTemplate, yearLabel: String, currency: String,
                           year: Int? = nil) -> TaxSummaryTexts {
         var labels: [TaxLine: String] = [:]
-        for l in TaxLine.allCases { labels[l] = L(l.labelKey) }
+        // CH Vermögenswert: «Vermögenswert 31.12.<Jahr> (Orientierung)» mit dem Steuerjahr
+        for l in TaxLine.allCases { labels[l] = l == .CH_WEALTH_VALUE ? L(l.labelKey, yearLabel) : L(l.labelKey) }
         return TaxSummaryTexts(
             title: L("tax_summary_title", L(template.labelKey), yearLabel),
             disclaimer: L("tax_de_disclaimer"),
@@ -129,6 +131,7 @@ extension TaxSummaryTexts {
                 .AT_REWARD_INFO: L("tax_summary_at_reward_info"),
                 .CH_EXCHANGE_VALUE: L("tax_summary_ch_year_end_value"),
                 .CH_FIFO_INFO: L("tax_summary_ch_fifo_info"),
+                .CH_WEALTH_ORIENTATION: L("tax_summary_ch_wealth_orientation"),
                 .DE_WITHDRAWAL_FEE: L("tax_summary_de_withdrawal_fee"),
                 .AT_WITHDRAWAL_FEE: L("tax_summary_at_withdrawal_fee"),
                 .WITHDRAWAL_FEE_INFO: L("tax_summary_withdrawal_fee_info"),
@@ -141,7 +144,13 @@ extension TaxSummaryTexts {
                 // Datum setzt die Übersicht ein (`TaxSummaryLine.noteText`): hier nur der Platzhalter
                 .WINDOW_OPEN: L("tax_summary_window_open", TaxExport.noteDateToken),
                 .UK_HMRC_REPORT: L("tax_summary_uk_hmrc_report"),
-            ]
+            ],
+            // Coin und Menge setzt die Übersicht ein (`wealthCoinLabel`): hier nur die Platzhalter
+            wealthCoin: L("tax_ch_wealth_coin", TaxExport.wealthCoinToken, TaxExport.wealthAmountToken),
+            wealthMissing: L("tax_ch_wealth_not_calculated"),
+            wealthNoPrice: L("portfolio_export_no_price"),
+            wealthUnchecked: L("portfolio_export_unchecked"),
+            wealthAddressUnobserved: L("portfolio_export_address_unobserved")
         )
     }
 }

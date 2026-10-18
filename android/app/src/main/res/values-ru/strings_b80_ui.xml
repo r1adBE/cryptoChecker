@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="starter_source_text">Цены с биржи %1$s в %2$s. Снимите отметку с ненужных и добавьте остальные за один раз. Биржу и пару можно изменить для каждой монеты.</string>
+    <string name="watchlist_row_exchange_paused">%1$s · пауза до %2$s</string>
+</resources>

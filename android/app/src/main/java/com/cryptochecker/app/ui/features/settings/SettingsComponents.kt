@@ -83,7 +83,7 @@ private fun SettingsCardTitle(title: String, modifier: Modifier = Modifier) {
 }
 
 /**
- * Symbol links in einer Zeile der Hauptseite: schlichte Linie, 22 dp, 14 dp Abstand zum Titel.
+ * Symbol links in einer Zeile der Hauptseite: schlichte Linie, 22 dp, 12 dp Abstand zum Titel (wie iOS).
  * Rein schmückend (der Titel sagt alles), daher ohne Beschreibung für den Screenreader.
  */
 @Composable
@@ -92,7 +92,7 @@ private fun SettingsLeadingIcon(@DrawableRes icon: Int, tint: Color) {
         painterResource(icon),
         contentDescription = null,
         tint = tint,
-        modifier = Modifier.padding(end = 14.dp).size(22.dp)
+        modifier = Modifier.padding(end = Spacing.md).size(22.dp)
     )
 }
 

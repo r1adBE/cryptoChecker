@@ -78,7 +78,7 @@ private struct WatchlistSpotValues: View {
     private var circulatingShare: some View {
         if let ratio = SpotMarket.supplyRatio(circulating: data.circulatingSupply, max: data.maxSupply) {
             SupplyBar(ratio: ratio)
-                .padding(.top, 6)
+                .padding(.top, Spacing.xs)
             Text(L("spot_supply_of_max", SpotMarket.percent(ratio * 100)))
                 .font(.caption2)
                 .foregroundStyle(AppColors.onSurfaceVariant)

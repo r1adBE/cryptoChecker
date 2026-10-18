@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="alarm_log_title">अलार्म लॉग</string>
+    <string name="alarm_log_open">अलार्म लॉग देखें</string>
+    <string name="alarm_log_intro">कोई अलार्म कब बजा – और कब बजता, लेकिन रोका गया। केवल इसी डिवाइस पर 14 दिनों तक सहेजा जाता है।</string>
+    <string name="alarm_log_empty_title">अभी कोई प्रविष्टि नहीं</string>
+    <string name="alarm_log_empty_message">जब कोई अलार्म बजता है या रोका जाता है, तब प्रविष्टियाँ यहाँ दिखती हैं – जैसे पुरानी कीमत के कारण या मौन घंटों में।</string>
+    <string name="alarm_log_clear">लॉग साफ़ करें</string>
+    <string name="alarm_log_clear_title">अलार्म लॉग साफ़ करें?</string>
+    <string name="alarm_log_clear_message">सभी प्रविष्टियाँ हटा दी जाएँगी। आपके अलार्म जैसे हैं वैसे ही रहेंगे।</string>
+    <string name="alarm_log_threshold">सीमा %1$s</string>
+    <string name="alarm_last_check">पिछली जाँच: %1$s</string>
+    <string name="alarm_outcome_fired">बजा</string>
+    <string name="alarm_outcome_not_reached">सीमा तक नहीं पहुँचा</string>
+    <string name="alarm_outcome_already_triggered">पहले ही सूचित – कीमत के दूसरी ओर लौटने की प्रतीक्षा</string>
+    <string name="alarm_outcome_cooldown">नहीं बजा – पिछली सूचना के बाद का शांत समय</string>
+    <string name="alarm_outcome_stale">नहीं बजा – पुरानी कीमत (स्थिति %1$s)</string>
+    <string name="alarm_outcome_mark_price">नहीं बजा – मार्क मूल्य, ट्रेड की गई कीमत नहीं</string>
+    <string name="alarm_outcome_low_liquidity">नहीं बजा – तरलता 10,000 USD से कम या अज्ञात</string>
+    <string name="alarm_outcome_quiet_hours">नहीं बजा – मौन घंटे (बाद में सूचित करेगा, यदि शर्त अब भी पूरी हो)</string>
+    <string name="alarm_outcome_notifications_off">नहीं बजा – सूचनाएँ बंद हैं</string>
+    <string name="alarm_outcome_not_shown">नहीं बजा – सूचना नहीं पहुँची, बाद में फिर कोशिश होगी</string>
+    <string name="alarm_outcome_no_rate">जाँच नहीं हुई – विनिमय दर नहीं मिली</string>
+    <string name="alarm_outcome_no_price">कोई कीमत नहीं – एक्सचेंज से पूछताछ विफल रही</string>
+</resources>

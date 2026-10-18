@@ -15,7 +15,6 @@
     <string name="starter_search_coin">ابحث عن عملة أخرى</string>
     <string name="starter_select_all">تحديد الكل</string>
     <string name="starter_select_none">إلغاء تحديد الكل</string>
-    <string name="starter_text">ألغِ تحديد ما لا تريده وأضف الباقي دفعة واحدة. يمكنك تغيير المنصة والزوج لاحقًا.</string>
     <string name="starter_title">ابدأ بهذه العملات</string>
     <string name="starter_watch_alarm_hint">تابع السعر واضبط تنبيهًا</string>
 </resources>

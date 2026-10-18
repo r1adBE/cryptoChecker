@@ -24,7 +24,7 @@ ALARMY
 • Cena powyżej lub poniżej poziomu albo wzrost lub spadek o procent – także w Twojej walucie, np. 60 000 EUR na parze USDT
 • Ruch o x % w oknie czasowym, skok wolumenu
 • Dźwięk (także własny plik audio), wibracja i opcjonalny komunikat głosowy
-• Godziny ciszy i „Testuj alarm”
+• Godziny ciszy, „Testuj alarm” i dziennik alarmów: kiedy sprawdzono, jaka cena, dlaczego alarm się nie włączył
 
 RYNEK
 • Nietypowa aktywność: nietypowe ruchy ceny i wolumenu na Twojej liście, opcjonalnie z powiadomieniem

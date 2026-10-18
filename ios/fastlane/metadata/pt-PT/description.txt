@@ -23,7 +23,7 @@ ALARMES
 • Preço acima ou abaixo de um nível, ou subida ou descida numa percentagem – também na sua moeda, p. ex. 60 000 EUR num par USDT
 • Movimento de x % num período, pico de volume
 • Notificação urgente, som do alarme à escolha, leitura em voz alta opcional
-• Horas de silêncio e «Testar alarme»
+• Horas de silêncio, «Testar alarme» e registo de alarmes
 
 MERCADO
 • Atividade invulgar: movimentos de preço e volume invulgares na sua lista, com notificação opcional

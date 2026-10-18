@@ -82,7 +82,8 @@ extension WatchlistRow {
                 if caution {
                     Image(systemName: "exclamationmark.triangle.fill")
                         .scaledFont(size: 11, weight: .semibold, relativeTo: .caption2)
-                        .foregroundStyle(AppColors.warning)
+                        // Gleiche Bernstein-Stufe wie der Text daneben: `warning` erreicht auf hellen Karten keine 3:1
+                        .foregroundStyle(AppColors.warningText)
                         .accessibilityHidden(true)
                 }
                 // Build 57: Lesegrösse (`.subheadline`) statt `.footnote` — wie Android `body`
@@ -138,7 +139,8 @@ extension WatchlistRow {
                 HStack(alignment: .firstTextBaseline, spacing: 4) {
                     Image(systemName: "note.text")
                         .scaledFont(size: 11, weight: .semibold, relativeTo: .caption2)
-                        .foregroundStyle(accent.primary.opacity(0.8))
+                        // Volle Akzentfarbe (Kontrast); abgeblasst nur bei deaktiviertem Paar (`iconOpacity`)
+                        .foregroundStyle(accent.primary)
                         .opacity(iconOpacity)
                     Text(note)
                         .font(.caption.italic())

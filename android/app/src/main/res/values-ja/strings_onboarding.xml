@@ -15,7 +15,6 @@
     <string name="starter_search_coin">ほかのコインを探す</string>
     <string name="starter_select_all">すべて選択</string>
     <string name="starter_select_none">選択を解除</string>
-    <string name="starter_text">不要なものは選択を外し、残りをまとめて追加できます。取引所とペアは後で変更できます。</string>
     <string name="starter_title">まずはこれらのコインから</string>
     <string name="starter_watch_alarm_hint">価格をウォッチしてアラームを設定</string>
 </resources>

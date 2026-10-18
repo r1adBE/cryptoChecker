@@ -3,5 +3,5 @@
     <string name="explorer_bulk_show_all">Εμφάνιση όλων (%1$d)</string>
     <string name="log_box_title">Αρχείο καταγραφής</string>
     <string name="watchlist_first_alarm_title">Όρισε τον πρώτο συναγερμό</string>
-    <string name="watchlist_first_alarm_text">Λάβε ειδοποίηση μόλις μια τιμή φτάσει το όριό σου.</string>
+    <string name="watchlist_first_alarm_text">Λάβε ειδοποίηση όταν μια τιμή φτάσει το όριό σου – με την εφαρμογή κλειστή, το Android ελέγχει ακανόνιστα.</string>
 </resources>

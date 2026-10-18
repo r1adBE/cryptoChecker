@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="starter_source_text">Árfolyamok forrása: %1$s, pénznem: %2$s. Vegye ki a jelölést abból, amit nem szeretne, a többit adja hozzá egyszerre. A tőzsdét és a párt érménként módosíthatja.</string>
+    <string name="watchlist_row_exchange_paused">%1$s · szüneteltetve eddig: %2$s</string>
+</resources>

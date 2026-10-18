@@ -15,7 +15,6 @@
     <string name="starter_search_coin">Αναζήτηση άλλου νομίσματος</string>
     <string name="starter_select_all">Επιλογή όλων</string>
     <string name="starter_select_none">Καμία επιλογή</string>
-    <string name="starter_text">Αποεπιλέξτε ό,τι δεν θέλετε και προσθέστε τα υπόλοιπα με μία κίνηση. Μπορείτε να αλλάξετε ανταλλακτήριο και ζεύγος αργότερα.</string>
     <string name="starter_title">Ξεκινήστε με αυτά τα νομίσματα</string>
     <string name="starter_watch_alarm_hint">Παρακολούθησε την τιμή, όρισε συναγερμό</string>
 </resources>

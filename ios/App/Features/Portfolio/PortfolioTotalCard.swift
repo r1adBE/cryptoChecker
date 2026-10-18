@@ -422,7 +422,7 @@ struct PortfolioTotalCard: View {
         let number = PriceFormat.valueWithCurrency(shown, unit.code)
         let suffix = " " + unit.code
         let plain = number.hasSuffix(suffix) ? String(number.dropLast(suffix.count)) : number
-        return HStack(alignment: .firstTextBaseline, spacing: 6) {
+        return HStack(alignment: .firstTextBaseline, spacing: Spacing.xs) {
             Text(PortfolioInsights.mask(plain, hidden: hideAmounts))
                 .displayFont()
                 // Veraltet: onSurfaceVariant statt halber Deckkraft (50 % lag unter 4.5:1, L-13)

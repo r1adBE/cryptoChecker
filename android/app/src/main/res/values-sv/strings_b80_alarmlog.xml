@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="alarm_log_title">Larmlogg</string>
+    <string name="alarm_log_open">Visa larmlogg</string>
+    <string name="alarm_log_intro">När ett larm utlöstes – och när det skulle ha utlösts men hölls tillbaka. Sparas bara på den här enheten i 14 dagar.</string>
+    <string name="alarm_log_empty_title">Inga poster än</string>
+    <string name="alarm_log_empty_message">Poster visas här så snart ett larm utlöses eller hålls tillbaka – till exempel på grund av en inaktuell kurs eller under tysta timmar.</string>
+    <string name="alarm_log_clear">Rensa logg</string>
+    <string name="alarm_log_clear_title">Rensa larmloggen?</string>
+    <string name="alarm_log_clear_message">Alla poster tas bort. Dina larm förblir som de är.</string>
+    <string name="alarm_log_threshold">Gräns %1$s</string>
+    <string name="alarm_last_check">Senast kontrollerad: %1$s</string>
+    <string name="alarm_outcome_fired">Utlöst</string>
+    <string name="alarm_outcome_not_reached">Gränsen inte nådd</string>
+    <string name="alarm_outcome_already_triggered">Redan meddelat – väntar tills kursen är tillbaka på andra sidan</string>
+    <string name="alarm_outcome_cooldown">Inte utlöst – vilotid efter senaste meddelandet</string>
+    <string name="alarm_outcome_stale">Inte utlöst – inaktuell kurs (läge %1$s)</string>
+    <string name="alarm_outcome_mark_price">Inte utlöst – markpris, inte en handelskurs</string>
+    <string name="alarm_outcome_low_liquidity">Inte utlöst – likviditet under 10 000 USD eller okänd</string>
+    <string name="alarm_outcome_quiet_hours">Inte utlöst – tysta timmar (meddelar efteråt om villkoret fortfarande gäller)</string>
+    <string name="alarm_outcome_notifications_off">Inte utlöst – aviseringar avstängda</string>
+    <string name="alarm_outcome_not_shown">Inte utlöst – aviseringen kom inte fram, nytt försök senare</string>
+    <string name="alarm_outcome_no_rate">Inte kontrollerad – ingen växelkurs</string>
+    <string name="alarm_outcome_no_price">Ingen kurs – frågan till börsen misslyckades</string>
+</resources>

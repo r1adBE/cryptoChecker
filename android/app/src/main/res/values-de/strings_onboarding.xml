@@ -15,7 +15,6 @@
     <string name="starter_search_coin">Anderen Coin suchen</string>
     <string name="starter_select_all">Alle auswählen</string>
     <string name="starter_select_none">Keine auswählen</string>
-    <string name="starter_text">Abwählen, was du nicht willst, und den Rest in einem Schritt hinzufügen. Börse und Paar kannst du später ändern.</string>
     <string name="starter_title">Starte mit diesen Coins</string>
     <string name="starter_watch_alarm_hint">Kurs beobachten, Alarm setzen</string>
 </resources>

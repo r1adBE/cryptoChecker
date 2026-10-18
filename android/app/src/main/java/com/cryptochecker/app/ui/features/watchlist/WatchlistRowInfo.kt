@@ -45,6 +45,7 @@ import com.cryptochecker.app.R
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.domain.watch.AssetKind
 import com.cryptochecker.app.domain.watch.PriceFreshness
+import com.cryptochecker.app.domain.watch.RowPause
 import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.app.ui.components.AssetKindIcon
 import com.cryptochecker.app.ui.components.LocalRowHighlight
@@ -165,7 +166,8 @@ internal fun RowInfo(
                 Icon(
                     painterResource(R.drawable.ic_warning),
                     contentDescription = null,
-                    tint = AppColors.warning,
+                    // Gleiche Bernstein-Stufe wie der Text daneben: AppColors.warning erreicht auf hellen Karten keine 3:1
+                    tint = AppColors.warningText,
                     modifier = Modifier.padding(end = 4.dp).size(rowIcon)
                 )
             }
@@ -260,7 +262,8 @@ internal fun RowInfo(
                 Icon(
                     painterResource(R.drawable.ic_note),
                     contentDescription = stringResource(R.string.note_title),
-                    tint = accent.copy(alpha = 0.8f),
+                    // Volle Akzentfarbe (Kontrast); abgeblasst nur bei deaktiviertem Paar ([iconAlpha])
+                    tint = accent,
                     modifier = Modifier.size(noteIcon).alpha(iconAlpha)
                 )
                 Text(
@@ -279,8 +282,8 @@ internal fun RowInfo(
 
 /**
  * Zustandstexte einer Zeile, auch für den Screenreader: [warning] ersetzt die Zeitzeile
- * («vor 41 Min · Binance nicht erreichbar» bzw. «Binance · veraltet · vor 4 Min.»), [error] ist
- * der verständliche Fehler, [stale] der Hinweis «veraltet» ohne Warnung.
+ * («Binance · pausiert bis 19:45», «vor 41 Min · Binance nicht erreichbar» bzw. «Binance · veraltet · vor 4 Min.»),
+ * [error] ist der verständliche Fehler, [stale] der Hinweis «veraltet» ohne Warnung.
  */
 internal class WatchRowStatus(
     val warning: String?,
@@ -290,10 +293,19 @@ internal class WatchRowStatus(
     val showErrorLine: Boolean,
     /** «Kurs unverändert seit 14:05» (Börse ohne eigene Zeit, [PriceFreshness.unchangedSince]); sonst null. */
     val unchanged: String? = null,
+    /** «Binance · pausiert bis 19:45» (Börse pausiert, [RowPause]); sonst null. Steht dann auch in [warning]. */
+    val paused: String? = null,
 )
 
 @Composable
-internal fun watchRowStatus(watch: WatchEntity, now: Long, stale: Boolean, outdatedAfter: Long): WatchRowStatus {
+internal fun watchRowStatus(
+    watch: WatchEntity,
+    now: Long,
+    stale: Boolean,
+    outdatedAfter: Long,
+    /** Ende einer laufenden Pause der Börse ([RowPause.shownUntil]); null = keine. */
+    pausedUntil: Long? = null,
+): WatchRowStatus {
     // Deaktiviert: weder Warnung noch Fehler noch «veraltet» — es wird bewusst nicht abgefragt
     if (watch.disabled) return WatchRowStatus(warning = null, error = null, stale = null, showErrorLine = false)
     // Letzter Abruf gescheitert, aber es gibt einen älteren Kurs: «vor 41 Min · Binance nicht erreichbar»
@@ -312,7 +324,12 @@ internal fun watchRowStatus(watch: WatchEntity, now: Long, stale: Boolean, outda
     } else {
         null
     }
-    val warningText = unreachableText ?: outdatedText
+    // Börse pausiert (zu viele Anfragen, Zeitüberschreitungen): das sagt mehr als «nicht erreichbar» bzw. «veraltet»
+    // und nennt, wann es weitergeht — gleiche Stelle und Farbe wie die übrigen Warnungen
+    val pausedText = pausedUntil?.let {
+        stringResource(R.string.watchlist_row_exchange_paused, BidiText.isolate(watch.marketName), PriceFormat.shortTime(it))
+    }
+    val warningText = pausedText ?: unreachableText ?: outdatedText
     val showErrorLine = watch.lastError != null &&
         (unreachableText == null || !isRetryableMarketError(watch.lastError))
     val errorText = watch.lastError?.takeIf { showErrorLine }?.let { friendlyError(it) }
@@ -329,7 +346,7 @@ internal fun watchRowStatus(watch: WatchEntity, now: Long, stale: Boolean, outda
     } else {
         null
     }
-    return WatchRowStatus(warningText, errorText, staleText, showErrorLine, unchangedText)
+    return WatchRowStatus(warningText, errorText, staleText, showErrorLine, unchangedText, pausedText)
 }
 
 /** Kennungen der ersten Zeile von [RowInfo] (Paar, Häkchen, «Was bewegt sich mit?»). */

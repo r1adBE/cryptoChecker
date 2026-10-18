@@ -92,6 +92,8 @@ enum PriceRefresher {
         /// (`Alarm.convertCurrency`); nil = `price` in der Quote-Währung des Paars.
         var shownPrice: Double? = nil
         var shownCurrency: String? = nil
+        /// Alarm-Protokoll: Eintrag dieser Prüfung, Ergebnis erst nach dem Melden (`deliverAlarms`); nil = nicht erfasst.
+        var logEntry: AlarmLogEntry? = nil
     }
 
     /// Mitteilungs-Weg der Paar-Alarme für `Outcome.deliverAlarms`; Tests setzen einen Fake ein.
@@ -162,6 +164,10 @@ enum PriceRefresher {
         /// Nur mit Endzeit (Hintergrund): Alarme, die Zusatzdaten brauchen — erst nach dem Speichern
         /// der Kurse prüfen (`checkDeferredAlarms`), damit Kurse und Kursalarme nie auf sie warten.
         var deferredAlarms = DeferredAlarms()
+        /// Alarm-Protokoll (`AlarmLog`): Prüfungen ohne Meldung; die der ausgelösten stehen in `PendingAlarm.logEntry`.
+        var alarmLog: [AlarmLogEntry] = []
+        /// Aus Live-Kursen: Protokoll gedrosselt schreiben (`AlarmLogStore.record`).
+        var alarmLogLive = false
 
         /// NACH `apply(to:)` und dem Speichern der Kurse aufrufen (die Lease ist noch gehalten): je
         /// ausgelöstem Alarm zuerst melden, prüfen, dass die Mitteilung angekommen ist, und erst dann den
@@ -174,14 +180,23 @@ enum PriceRefresher {
         /// - Parameter reloadStored: liest die Alarme vor jeder Meldung frisch von der Platte; nil = nicht
         ///   lesbar (dann gilt allein `current`, Fail-open). Tests: Fake.
         /// - Parameter notifier, delivery, now: Mitteilungs-Weg, Speicher der unbestätigten Versuche und Uhr (Tests: Fakes).
+        /// - Parameter recordLog: Alarm-Protokoll übernehmen (Einträge, aus Live-Kursen?) — nach dem Melden, mit dem
+        ///   Ergebnis jedes gemeldeten Alarms; nil = nicht protokollieren (Tests).
         /// - Returns: gemeldete und gespeicherte Alarme (für die Ansagen).
         func deliverAlarms(settings: AppSettings, current: [Alarm],
                            save: @escaping @Sendable (Int64, AlarmUpdate) async -> Bool,
                            reloadStored: @Sendable () async -> [Alarm]? = { SharedStorage.readSnapshot().snapshot?.alarms },
                            notifier: AlarmNotifier = .system, delivery: AlarmDelivery = .pairs,
-                           now: @Sendable () -> Int64 = { TimeUtils.nowMillis }) async -> [PendingAlarm] {
+                           now: @Sendable () -> Int64 = { TimeUtils.nowMillis },
+                           recordLog: (@Sendable ([AlarmLogEntry], Bool) -> Void)? = nil) async -> [PendingAlarm] {
             defer { alarmLease?.release() }
-            guard !pendingAlarms.isEmpty else { return [] }
+            guard !pendingAlarms.isEmpty else {
+                recordLog?(alarmLog, alarmLogLive)
+                return []
+            }
+            // Protokoll: Ergebnis je gemeldetem Alarm, nur mitgelesen (`AlarmLog.deliveryTrace`)
+            var resolvedLog: [AlarmLogEntry] = []
+            defer { recordLog?(alarmLog + resolvedLog, alarmLogLive) }
             let byId = Dictionary(current.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
             // Erlaubnis und Nachtruhe einmal für alle; die Auswertung hat beides schon geprüft
             // (`QuietHours.mayFire`), seither kann sich aber etwas geändert haben
@@ -200,13 +215,23 @@ enum PriceRefresher {
                     guard let fresh = onDisk.first(where: { $0.id == item.alarm.id }), item.update.matches(fresh),
                           fresh.lastTriggeredAt <= item.alarm.lastTriggeredAt else { continue }
                 }
+                let shownBox = LockedBox<Bool?>(nil)
                 let saved = await delivery.deliver(
                     alarmId: item.alarm.id, now: now(), cooldownMinutes: settings.alarmCooldownMinutes,
                     holdAlarms: holdAlarms, canShow: { deliverable },
-                    show: { await notifier.show(item) },
+                    show: {
+                        let shown = await notifier.show(item)
+                        shownBox.current = shown
+                        return shown
+                    },
                     mark: { await save(item.alarm.id, item.update) },
                     retract: { await notifier.retract(item) })
                 if saved { delivered.append(item) }
+                if let entry = item.logEntry,
+                   let trace = AlarmLog.deliveryTrace(holdAlarms: holdAlarms, canShow: deliverable,
+                                                      shown: shownBox.current, saved: saved) {
+                    resolvedLog.append(AlarmLog.resolved(entry, trace))
+                }
             }
             return delivered
         }
@@ -295,6 +320,7 @@ enum PriceRefresher {
                         deadline: RefreshDeadline? = nil, lowMemory: Bool = false) async -> Outcome {
         let started = TimeUtils.nowMillis
         var outcome = Outcome()
+        outcome.alarmLogLive = liveQuotes != nil
         // Kein Netz: gar nicht erst versuchen — Kurse und Zustände bleiben, die Merkliste zeigt
         // «Offline · Stand …». Kommt das Netz zurück, aktualisiert `AppData` einmal. Mit Endzeit (Hintergrund,
         // Widget) nie nach dem gemerkten Stand aussetzen: der kann nach einer Pause des Prozesses veraltet sein —
@@ -505,6 +531,12 @@ enum PriceRefresher {
                 outcome.failed += 1
                 outcome.prices[watch.id] = PriceUpdate(price: nil, time: now, error: result?.error, pair: watch.identity)
                 cancelIds.append(watch.id)
+                // Alarm-Protokoll: «Kein Kurs» als letzte Prüfung der Alarme dieses Paars
+                if liveQuotes == nil {
+                    outcome.alarmLog += (alarmsByWatch[watch.id] ?? []).compactMap {
+                        alarmLogEntry($0, watch: watch, trace: AlarmLogTrace(noPrice: true), now: now)
+                    }
+                }
                 continue
             }
             let price = ticker.last
@@ -548,6 +580,13 @@ enum PriceRefresher {
             // aber nicht aus
             let alarmsAllowed = !AlarmFreshness.blocksAlarms(updated.exchangeTime, markFallback: ticker.markFallback,
                                                              now: now)
+            if !alarmsAllowed, let blocked = alarmsByWatch[watch.id] {
+                // Alarm-Protokoll: nur festhalten, warum nicht (dieselbe Reihenfolge der Gründe wie Android)
+                outcome.alarmLog += blockedAlarmLog(
+                    blocked, watch: watch, updated: updated,
+                    lowLiquidity: DexLiquidityStore.blocksAlarms(marketKey: watch.marketKey, pairId: watch.pairId),
+                    markFallback: ticker.markFallback, now: now, cooldownMinutes: settings.alarmCooldownMinutes)
+            }
 
             // Alarme mit Zusatzdaten: nach dem Speichern prüfen
             if alarmsAllowed, deferExtra, outcome.deferredAlarms.prefetchByWatch[watch.id] != nil, let result {

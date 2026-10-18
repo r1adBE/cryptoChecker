@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="starter_source_text">Çmimet nga %1$s në %2$s. Hiq zgjedhjen nga ato që nuk i do dhe shto të tjerat njëherësh. Bursën dhe çiftin mund t\'i ndryshosh për çdo monedhë.</string>
+    <string name="watchlist_row_exchange_paused">%1$s · në pauzë deri në %2$s</string>
+</resources>

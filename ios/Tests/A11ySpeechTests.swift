@@ -158,7 +158,7 @@ final class A11ySpeechTests: XCTestCase {
         XCTAssertFalse(widget.contains(L("a11y_price_notification_off")))
     }
 
-    /// Tableiste: bei Standardschrift 64 pt, mit grosser Schrift höher (Beschriftung nicht abgeschnitten).
+    /// Tableiste: bei Standardschrift 66 pt, mit grosser Schrift höher (Beschriftung nicht abgeschnitten).
     func testTabBarGrowsWithDynamicType() {
         XCTAssertEqual(AppTabBarMetrics.scaledHeight(labelLine: AppTabBarMetrics.labelLineHeight), AppTabBarMetrics.height)
         XCTAssertGreaterThan(AppTabBarMetrics.scaledHeight(labelLine: 48), AppTabBarMetrics.height)

@@ -35,6 +35,8 @@ class RefreshResultProcessor internal constructor(
     private val dexLiquidity: RefreshDexLiquidity,
     /** Paare mit Mark-Preis statt Mittelkurs ([Ticker.markFallback]): für «Mark» in Zeile, Blatt und Alarm-Karte. */
     private val markFallback: RefreshMarkFallback = RefreshMarkFallback.NONE,
+    /** Alarm-Protokoll ([com.cryptochecker.app.domain.alarm.AlarmLog]): letzte Prüfung je Alarm und bemerkenswerte Prüfungen. */
+    private val alarmLog: RefreshAlarmLog = RefreshAlarmLog.NONE,
 ) {
     /** Für Hilt: die App-Klassen hinter den schmalen Schnittstellen aus RefreshPorts.kt (Tests geben Fakes). */
     @Inject constructor(
@@ -44,6 +46,7 @@ class RefreshResultProcessor internal constructor(
         effects: RefreshEffects,
         dexLiquidity: DexLiquidityStore,
         markFallback: MarkFallbackStore,
+        alarmLog: AlarmLogStore,
     ) : this(
         watchRepository.asRefreshStore(),
         notifier.asRefreshNotifier(),
@@ -51,6 +54,7 @@ class RefreshResultProcessor internal constructor(
         effects,
         dexLiquidity.asRefreshDexLiquidity(),
         markFallback.asRefreshMarkFallback(),
+        alarmLog.asRefreshAlarmLog(),
     )
 
     /**
@@ -151,21 +155,32 @@ class RefreshResultProcessor internal constructor(
 
         var alarms = 0
         val notifiedPrices = ArrayList<Pair<Long, Double>>()
+        // Alarm-Protokoll: nur mitschreiben, am Ende einmal speichern
+        val log = AlarmLogCollector(now)
 
         for (watch in updatedWatches) {
             val price = watch.lastPrice ?: continue
             // Ein Paar, dessen Alarme scheitern (Datenbank, Daten einer Quelle), hält die übrigen nicht auf
             val triggered = if (dexLiquidity.blocksAlarms(watch.marketKey, watch.pairId)) {
                 // DEX-Pool mit zu wenig oder unbekannter Liquidität: Alarme bleiben, lösen aber nicht aus
+                log.noteBlocked(
+                    watch, alarmsByWatch[watch.id].orEmpty(), lowLiquidity = true,
+                    markFallback = watch.id in markFallbackIds, cooldownMinutes = settings.alarmCooldownMinutes,
+                )
                 0
             } else if (AlarmFreshness.blocksAlarms(watch.exchangeTime, watch.id in markFallbackIds, now)) {
                 // Kurs laut Börse zu alt (Handel ruht) bzw. nur Mark-Preis: Alarme bleiben scharf, lösen aber nicht aus
                 Timber.d("Alarme für %s ausgelassen: kein aktueller handelbarer Kurs", watch.displayName)
+                log.noteBlocked(
+                    watch, alarmsByWatch[watch.id].orEmpty(), lowLiquidity = false,
+                    markFallback = watch.id in markFallbackIds, cooldownMinutes = settings.alarmCooldownMinutes,
+                )
                 0
             } else try {
                 effects.checkAlarms(
                     watch, price, watch.previousPrice,
                     alarmsByWatch[watch.id].orEmpty(), settings, now, live,
+                    trace = log.sinkFor(watch),
                 )
             } catch (e: CancellationException) {
                 throw e
@@ -197,6 +212,8 @@ class RefreshResultProcessor internal constructor(
 
         watchRepository.setNotifiedPrices(notifiedPrices, now)
 
+        recordAlarmLog(log, watches, errorWrites, alarmsByWatch, live)
+
         return Processed(
             checked = watches.size,
             failed = errorWrites.size,
@@ -207,6 +224,34 @@ class RefreshResultProcessor internal constructor(
             missingDayChange = updatedWatches.filter { it.change24h == null },
             failedIds = errorWrites.map { it.id },
         )
+    }
+
+    /**
+     * Alarm-Protokoll speichern (nach allen Meldungen, ein Schreibvorgang). Paare ohne Kurs: «Kein Kurs» für ihre Alarme —
+     * die Alarme werden dafür nur gelesen, wenn der Durchlauf sie nicht ohnehin geladen hat. Jeder Fehler bleibt hier.
+     */
+    private suspend fun recordAlarmLog(
+        log: AlarmLogCollector,
+        watches: List<WatchEntity>,
+        errorWrites: List<ErrorWrite>,
+        alarmsByWatch: Map<Long, List<AlarmEntity>>,
+        live: Boolean,
+    ) {
+        try {
+            if (errorWrites.isNotEmpty() && !live) {
+                val byWatch = alarmsByWatch.ifEmpty { watchRepository.getAllEnabledAlarms().groupBy { it.watchId } }
+                val watchById = watches.associateBy { it.id }
+                for (error in errorWrites) {
+                    val watch = watchById[error.id] ?: continue
+                    log.noteNoPrice(watch, byWatch[error.id].orEmpty())
+                }
+            }
+            alarmLog.record(log.entries, live)
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            Timber.d(e, "Alarm-Protokoll nicht gespeichert")
+        }
     }
 
     internal class Processed(

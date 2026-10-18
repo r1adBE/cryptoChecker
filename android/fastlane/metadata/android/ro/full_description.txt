@@ -23,7 +23,7 @@ ALARME
 • Preț peste sau sub un nivel, creștere sau scădere cu un procent – și în moneda ta, ex. 60.000 EUR pe o pereche USDT
 • Mișcare de x % într-un interval de timp, vârf de volum
 • Sunet (și propriul fișier audio), vibrație și anunț vocal opțional
-• Ore de liniște și „Testează alarma”
+• Ore de liniște, „Testează alarma” și jurnal alarme: când s-a verificat, ce preț, de ce nu s-a declanșat o alarmă
 
 PIAȚĂ
 • Activitate neobișnuită: mișcări neobișnuite de preț și volum în lista ta, opțional cu notificare

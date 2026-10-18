@@ -150,11 +150,10 @@ struct SettingsNavRow<Value: View, Destination: View>: View {
             destination()
         } label: {
             HStack(spacing: 12) {
-                // 12 pt Abstand der Zeile + 2 pt = 14 pt bis zum Titel
+                // 12 pt vom Symbol bis zum Titel (wie Android `SettingsLeadingIcon`)
                 if let icon {
                     SettingsLeadingIcon(icon: icon)
                         .foregroundStyle(AppColors.onSurface)
-                        .padding(.trailing, 2)
                 }
                 SettingsRowTitle(title: title, showsValue: showsValue, value: value)
                 // Spiegelt sich in Rechts-nach-links-Sprachen automatisch
@@ -163,7 +162,7 @@ struct SettingsNavRow<Value: View, Destination: View>: View {
                     .foregroundStyle(AppColors.outline)
                     .accessibilityHidden(true)
             }
-            .padding(.vertical, 6)
+            .padding(.vertical, Spacing.xs)
             .frame(maxWidth: .infinity, minHeight: SettingsRowMetrics.minHeight, alignment: .leading)
             .contentShape(Rectangle())
         }
@@ -196,11 +195,10 @@ struct SettingsMainSwitchRow: View {
     var body: some View {
         Toggle(isOn: $isOn) {
             HStack(spacing: 12) {
-                // 12 pt Abstand der Zeile + 2 pt = 14 pt bis zum Titel (wie `SettingsNavRow`)
+                // 12 pt vom Symbol bis zum Titel (wie Android `SettingsLeadingIcon`)
                 if let icon {
                     SettingsLeadingIcon(icon: icon)
                         .foregroundStyle(AppColors.onSurface)
-                        .padding(.trailing, 2)
                 }
                 SettingsRowTitle(title: title, showsValue: !(subtitle ?? "").isEmpty) {
                     Text(subtitle ?? "")
@@ -208,7 +206,7 @@ struct SettingsMainSwitchRow: View {
             }
         }
         .tint(accent.primary)
-        .padding(.vertical, 6)
+        .padding(.vertical, Spacing.xs)
         .frame(maxWidth: .infinity, minHeight: SettingsRowMetrics.minHeight, alignment: .leading)
     }
 }
@@ -234,11 +232,10 @@ struct SettingsButtonRow: View {
     var body: some View {
         Button(action: action) {
             HStack(spacing: 12) {
-                // 12 pt Abstand der Zeile + 2 pt = 14 pt bis zum Titel
+                // 12 pt vom Symbol bis zum Titel (wie Android `SettingsLeadingIcon`)
                 if let icon {
                     SettingsLeadingIcon(icon: icon)
                         .foregroundStyle(AppColors.onSurface)
-                        .padding(.trailing, 2)
                 }
                 // Titel oben, Wert klein und grau darunter (wie `SettingsNavRow`)
                 SettingsRowTitle(title: title, showsValue: !(value ?? "").isEmpty) {
@@ -250,7 +247,7 @@ struct SettingsButtonRow: View {
                     .foregroundStyle(AppColors.outline)
                     .accessibilityHidden(true)
             }
-            .padding(.vertical, 6)
+            .padding(.vertical, Spacing.xs)
             .frame(maxWidth: .infinity, minHeight: SettingsRowMetrics.minHeight, alignment: .leading)
             .contentShape(Rectangle())
         }

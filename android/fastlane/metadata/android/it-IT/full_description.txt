@@ -23,7 +23,7 @@ ALLARMI
 • Prezzo sopra o sotto un livello, oppure rialzo o ribasso di una percentuale – anche nella tua valuta, es. 60.000 EUR su una coppia USDT
 • Movimento di x % in una finestra di tempo, picco di volume
 • Suono (anche un tuo file audio), vibrazione e annuncio vocale opzionale
-• Ore di silenzio e «Prova allarme»
+• Ore di silenzio, «Prova allarme» e registro allarmi
 
 MERCATO
 • Attività insolita: movimenti di prezzo e volume insoliti nella tua watchlist, con notifica opzionale

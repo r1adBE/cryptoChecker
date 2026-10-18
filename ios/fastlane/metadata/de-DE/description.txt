@@ -23,7 +23,7 @@ ALARME
 • Kurs über oder unter einer Marke, Anstieg oder Fall um einen Prozentwert – auch in deiner Währung, z. B. 60 000 EUR auf einem USDT-Paar
 • Bewegung um x % in einem Zeitfenster, Volumensprung
 • Dringende Mitteilung, Alarmton wählbar, optional mit Ansage
-• Nachtruhe und «Alarm testen»
+• Nachtruhe, «Alarm testen», Alarm-Protokoll
 
 MARKT
 • Ungewöhnliche Aktivität: auffällige Kurs- und Volumenbewegungen in deiner Merkliste, optional als Markt-Meldung

@@ -193,7 +193,7 @@ fun SettingsScreen(
                                 // Farbpunkt passend zum kleinen Wert unter dem Titel
                                 Box(
                                     Modifier
-                                        .padding(end = 6.dp)
+                                        .padding(end = 4.dp)
                                         .size(10.dp)
                                         .clip(CircleShape)
                                         // K3: Farbe der Knöpfe (hell/dunkel), nicht die Grundfarbe

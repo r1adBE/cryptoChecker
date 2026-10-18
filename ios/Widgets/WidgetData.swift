@@ -315,7 +315,8 @@ enum WidgetRefresh {
         // Erst jetzt Kursalarme melden, je bestätigter Mitteilung speichern und die Lease freigeben — nach der
         // Uhrzeit, damit sie zur eben geschriebenen Datei passt (`WidgetDataFreshness`), auch wenn das Melden dauert
         _ = await outcome.deliverAlarms(settings: settings, current: saved.alarms,
-                                        save: { PriceRefresher.saveAlarmOnDisk($0, $1) })
+                                        save: { PriceRefresher.saveAlarmOnDisk($0, $1) },
+                                        recordLog: { AlarmLogStore.record($0, live: $1) })
         // Ohne einen einzigen Kurs (offline, alle Börsen mit Fehler oder pausiert) bleiben die Daten
         // alt: vermerken, damit das Zeichnen nicht gleich wieder einen Versuch startet
         if gotPrices {

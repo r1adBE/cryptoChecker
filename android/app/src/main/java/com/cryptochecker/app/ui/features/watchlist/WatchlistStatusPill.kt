@@ -149,7 +149,7 @@ internal fun WatchlistStatusPill(
                 painterResource(R.drawable.ic_close),
                 contentDescription = null,
                 tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.padding(start = 6.dp).size(14.dp)
+                modifier = Modifier.padding(start = Spacing.sm).size(14.dp)
             )
         }
     }
@@ -209,7 +209,7 @@ internal fun DisabledChip(
             .clip(RoundedCornerShape(50))
             .background(tone.copy(alpha = if (selected) 0.22f else 0.12f))
             .indication(interaction, LocalIndication.current)
-            .padding(horizontal = 10.dp, vertical = Spacing.sm)
+            .padding(horizontal = Spacing.sm, vertical = Spacing.sm)
     ) {
         Icon(
             painterResource(R.drawable.ic_pause_circle),
@@ -222,14 +222,14 @@ internal fun DisabledChip(
             style = MaterialTheme.typography.labelMedium.tabularNumbers(),
             color = MaterialTheme.colorScheme.onSurface,
             maxLines = 1,
-            modifier = Modifier.padding(start = 6.dp)
+            modifier = Modifier.padding(start = Spacing.xs)
         )
         if (selected) {
             Icon(
                 painterResource(R.drawable.ic_close),
                 contentDescription = null,
                 tint = tone,
-                modifier = Modifier.padding(start = 6.dp).size(14.dp)
+                modifier = Modifier.padding(start = Spacing.xs).size(14.dp)
             )
         }
     }

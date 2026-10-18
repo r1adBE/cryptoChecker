@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="alarm_log_title">יומן התראות</string>
+    <string name="alarm_log_open">הצגת יומן ההתראות</string>
+    <string name="alarm_log_intro">מתי התראה הופעלה – ומתי היא הייתה מופעלת אבל עוכבה. נשמר רק במכשיר הזה למשך 14 יום.</string>
+    <string name="alarm_log_empty_title">עדיין אין רשומות</string>
+    <string name="alarm_log_empty_message">רשומות יופיעו כאן כשהתראה מופעלת או מעוכבת – למשל בגלל מחיר לא עדכני או בשעות דממה.</string>
+    <string name="alarm_log_clear">ניקוי היומן</string>
+    <string name="alarm_log_clear_title">לנקות את יומן ההתראות?</string>
+    <string name="alarm_log_clear_message">כל הרשומות יוסרו. ההתראות שלך נשארות כמו שהן.</string>
+    <string name="alarm_log_threshold">סף %1$s</string>
+    <string name="alarm_last_check">נבדק לאחרונה: %1$s</string>
+    <string name="alarm_outcome_fired">הופעלה</string>
+    <string name="alarm_outcome_not_reached">הסף לא הושג</string>
+    <string name="alarm_outcome_already_triggered">כבר דווח – ממתין שהמחיר יחזור לצד השני</string>
+    <string name="alarm_outcome_cooldown">לא הופעלה – זמן שקט אחרי ההתראה האחרונה</string>
+    <string name="alarm_outcome_stale">לא הופעלה – מחיר לא עדכני (נכון ל-%1$s)</string>
+    <string name="alarm_outcome_mark_price">לא הופעלה – מחיר Mark, לא מחיר מסחר</string>
+    <string name="alarm_outcome_low_liquidity">לא הופעלה – נזילות מתחת ל-10,000 USD או לא ידועה</string>
+    <string name="alarm_outcome_quiet_hours">לא הופעלה – שעות דממה (תתריע אחר כך אם התנאי עדיין מתקיים)</string>
+    <string name="alarm_outcome_notifications_off">לא הופעלה – ההודעות כבויות</string>
+    <string name="alarm_outcome_not_shown">לא הופעלה – ההודעה לא הגיעה, ניסיון נוסף בהמשך</string>
+    <string name="alarm_outcome_no_rate">לא נבדקה – אין שער חליפין</string>
+    <string name="alarm_outcome_no_price">אין מחיר – השאילתה לבורסה נכשלה</string>
+</resources>

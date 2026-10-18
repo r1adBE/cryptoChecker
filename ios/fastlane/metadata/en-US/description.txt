@@ -24,7 +24,7 @@ ALERTS
 • Price above or below a level, or a rise or fall by a percentage – also in your currency, e.g. 60,000 EUR on a USDT pair
 • Move by x % within a time window, volume spike
 • Time Sensitive notification, choice of alarm sound, optionally read aloud
-• Quiet hours and “Test alert”: hear in advance how an alert arrives
+• Quiet hours and “Test alert”: hear in advance how an alert arrives; alarm log: when it was checked, which price, why an alert didn’t fire
 
 MARKET
 • Unusual Activity: unusual price and volume moves in your watchlist, optionally as a market notice

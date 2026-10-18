@@ -132,6 +132,16 @@ internal fun interface RefreshMarkFallback {
     }
 }
 
+/** Alarm-Protokoll ([AlarmLogStore]): Einträge eines Durchlaufs übernehmen; wirft nie. */
+internal fun interface RefreshAlarmLog {
+    fun record(entries: List<com.cryptochecker.app.domain.alarm.AlarmLogEntry>, live: Boolean)
+
+    companion object {
+        /** Merkt nichts (Tests ohne Protokoll). */
+        val NONE = RefreshAlarmLog { _, _ -> }
+    }
+}
+
 /** Einstellungen im Moment des Speicherns ([SettingsRepository]). */
 internal interface RefreshSettings {
     suspend fun current(): AppSettings
@@ -169,6 +179,7 @@ internal fun MoveHistoryStore.asAlarmMoveHistory(): AlarmMoveHistory = MoveHisto
 internal fun DayReferences.asRefreshDayReferences(): RefreshDayReferences = DayReferencesPort(this)
 internal fun DexLiquidityStore.asRefreshDexLiquidity(): RefreshDexLiquidity = DexLiquidityPort(this)
 internal fun MarkFallbackStore.asRefreshMarkFallback(): RefreshMarkFallback = RefreshMarkFallback { id, on -> put(id, on) }
+internal fun AlarmLogStore.asRefreshAlarmLog(): RefreshAlarmLog = RefreshAlarmLog { entries, live -> record(entries, live) }
 internal fun SettingsRepository.asRefreshSettings(): RefreshSettings = SettingsPort(this)
 internal fun RefreshStats.asRefreshStatsPort(): RefreshStatsPort = StatsPort(this)
 internal fun LiveWidgetGate.asRefreshWidgets(): RefreshWidgets = WidgetsPort(this)

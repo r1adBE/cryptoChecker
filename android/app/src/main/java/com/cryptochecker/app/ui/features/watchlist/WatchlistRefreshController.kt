@@ -41,6 +41,9 @@ internal class WatchlistRefreshController(
     /** Aufschlüsselung des letzten Durchlaufs, per Tipp auf die Dauer. */
     val lastRefreshReport: StateFlow<RefreshReport?> = refreshStats.lastReport
 
+    /** Ende der Pause je Börsen-Schlüssel (zu viele Anfragen, Zeitüberschreitungen) für die Zeitzeile der Paare. */
+    val exchangePauses: StateFlow<Map<String, Long>> = refreshStats.exchangePauses
+
     /** App-Start bis zum ersten Bild der Merkliste (zuletzt gemessen), für den Bericht. */
     val appStartMillis: StateFlow<Long?> = refreshStats.appStartMillis
 

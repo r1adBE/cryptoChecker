@@ -111,14 +111,14 @@ internal fun CompareChart(history: PortfolioHistoryUi, compare: PortfolioCompare
 private fun CompareLegend(currency: String, color: Color, grey: Color) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(6.dp),
+        horizontalArrangement = Arrangement.spacedBy(Spacing.xs),
         modifier = Modifier
             .padding(top = Spacing.sm)
             .clearAndSetSemantics { }
     ) {
         Box(Modifier.size(width = 14.dp, height = 3.dp).background(color, CircleShape))
         Text(currency, style = MaterialTheme.typography.labelSmall, fontWeight = FontWeight.SemiBold, color = grey)
-        Spacer(Modifier.width(6.dp))
+        Spacer(Modifier.width(Spacing.sm))
         Box(Modifier.size(width = 14.dp, height = 1.5.dp).background(grey, CircleShape))
         Text(PortfolioFormat.USDT, style = MaterialTheme.typography.labelSmall, color = grey)
     }

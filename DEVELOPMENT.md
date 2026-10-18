@@ -1277,6 +1277,10 @@ the tests named here.
   treatment and thresholds, sources and «Stand» in code comments. Engines: UK same-day / 30-day / Section 104
   pool, CA superficial loss, FR prix total d'acquisition, JP total average, AT Alt-/Neubestand. Data rows state
   facts only («held > 1 year»); legal conclusions appear only as labelled orientation lines in the summary.
+  CH (build 80, `TaxWealthCh`): «wealth value 31.12. (orientation)» = holdings at the end of 31 December (Zurich)
+  × the 31.12. close in CHF, per coin, reusing the year-end holdings export; a missing or unverified close or FX
+  rate marks that coin «not calculated» and the total incomplete (never today's price); capital gains and the
+  wealth tax amount stay uncalculated; parity fixture `tax_ch_wealth.json`.
   The template is never applied silently from the device region. Every CSV text cell starting with = + - @,
   tab or CR gets an apostrophe (formula injection); numbers are written separately.
 * **Binance Alpha (build 46).** With «Incl. Alpha tokens» on, Alpha tokens missing on Binance spot are added as
@@ -1958,7 +1962,7 @@ next start.
   become unreadable). If it fails (e.g. before the first unlock) nothing changes and the next start retries.
   Only the app creates the key; widgets only read it.
 * Protected files (`ProtectedStorage.files`): watchlist, portfolio alarms, portfolio, watched addresses, portfolio
-  widget snapshot and their `.unreadable` copies. The widget snapshot is written only sealed
+  widget snapshot, `alarm_log.json` (build 80) and their `.unreadable` copies. The widget snapshot is written only sealed
   (`PortfolioWidgetStore.writeSnapshotFile` checks the key first, since build 60): without a key or when the
   write fails nothing is stored – the former fallback into the App Group defaults (plaintext amounts) is gone, and
   `migrateSnapshotToFile` moves a leftover defaults entry into the sealed file or removes it. Plain on purpose (no amounts, addresses or notes; Android keeps
@@ -1984,3 +1988,21 @@ a key while an encrypted file depends on the stored one; new files with user dat
 cache with amounts is rather not written than written in plaintext; a file with the watchlist, holdings, amounts or
 addresses never goes into `xml/backup_rules.xml` (Android 8/8.1 back it up without end-to-end encryption); a schema change keeps working because migrations run
 after the encryption step.
+
+## Alarm log (build 80)
+
+* `AlarmLog` (Kotlin `domain/alarm/AlarmLog.kt`, Swift `Shared/Services/AlarmLog.swift`): outcome enum (fired,
+  not reached, outdated, mark price, low liquidity, quiet hours, notifications off, cooldown, already triggered,
+  not shown, no rate, no price), last check per alarm (overwritten) and an event ring buffer (200 entries,
+  14 days; equal consecutive outcomes merge into one «from–to» entry, fired entries never merge). Parity fixture
+  `alarm_log.json`.
+* It only observes: the refresh path records via wrapped `canShow`/`show` and a second call of the same pure
+  rule; no firing decision changes, recording errors are swallowed. Covered: price-level and percent alarms.
+  Not covered: volume, high/low, funding, open interest, depeg and portfolio alarms (own paths; portfolio
+  amounts would bypass the portfolio lock).
+* Storage: Android sealed file `alarm_log.sealed` in `noBackupFilesDir` (own Keystore alias, never plaintext;
+  without a key it stays in memory), iOS `alarm_log.json` in the App Group via `ProtectedFile`, excluded from
+  backups. Live ticks write at most once a minute, notable outcomes at once.
+* UI: «Last checked» line in the alarm editor and alarm list; page «Alarm log» from «All alarms» and next to
+  «Recent checks» in the update settings; «Clear log» with confirmation.
+

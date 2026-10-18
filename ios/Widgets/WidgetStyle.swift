@@ -50,9 +50,14 @@ struct WidgetPalette {
         divider = Color(hex: ColorTokens.onSurface.hex(dark: dark)).opacity(highContrast ? 0.45 : 0.25)
     }
 
-    /// Live-Aktivität (Sperrbildschirm, Dynamic Island): dunkle Fläche, helle Systemknöpfe.
-    static let liveActivityBackground = Color.black.opacity(0.72)
-    static let liveActivityForeground = Color.white
+    /// Palette nach den App-Einstellungen (Akzent, Kursfarben, Tausch, hoher Kontrast) — für die
+    /// Live-Aktivität, die keine Widget-Konfiguration hat.
+    static func fromSettings(dark: Bool, systemHighContrast: Bool = false) -> WidgetPalette {
+        let settings = SharedStorage.loadSettings()
+        return WidgetPalette(accent: settings.accentColor, dark: dark, priceColors: settings.priceColorScheme,
+                             highContrast: settings.highContrast || systemHighContrast,
+                             inverted: settings.priceColorsInverted)
+    }
 
     func change(_ value: Double?) -> Color {
         guard let value else { return neutral }
@@ -95,6 +100,23 @@ struct WidgetThemed<Content: View>: View {
             .containerBackground(for: .widget) {
                 WidgetBackground(palette: palette)
             }
+    }
+}
+
+/// Live-Aktivität im Widget-Design: dieselbe Palette wie die Home-Widgets mit Thema «System»
+/// (Sperrbildschirm hell → helle Fläche, dunkel → surfaceContainer #1F1F1F). `dark: true` erzwingt
+/// die Dunkel-Fassung (Dynamic Island: immer schwarzer Grund des Systems).
+struct LiveActivityThemed<Content: View>: View {
+    var dark: Bool? = nil
+    @ViewBuilder let content: (WidgetPalette) -> Content
+    @Environment(\.colorScheme) private var systemScheme
+    @Environment(\.colorSchemeContrast) private var contrast
+
+    var body: some View {
+        let isDark = dark ?? (systemScheme == .dark)
+        let palette = WidgetPalette.fromSettings(dark: isDark, systemHighContrast: contrast == .increased)
+        content(palette)
+            .environment(\.colorScheme, isDark ? .dark : .light)
     }
 }
 

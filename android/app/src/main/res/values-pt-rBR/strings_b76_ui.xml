@@ -3,5 +3,5 @@
     <string name="explorer_bulk_show_all">Mostrar todos (%1$d)</string>
     <string name="log_box_title">Registro</string>
     <string name="watchlist_first_alarm_title">Crie seu primeiro alarme</string>
-    <string name="watchlist_first_alarm_text">Receba um aviso assim que um preço atingir o seu limite.</string>
+    <string name="watchlist_first_alarm_text">Receba um aviso quando um preço atingir o seu limite – com o app fechado, o Android verifica de forma irregular.</string>
 </resources>

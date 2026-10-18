@@ -31,6 +31,9 @@ struct WatchlistRow: View {
     let staleAfter: Int64
     /// Ab diesem Alter «veraltet» in der Zeitzeile (3 × Intervall, mind. 15 Min.); 0 = nie.
     var outdatedAfter: Int64 = 0
+    /// Gespeichertes Ende einer Pause der Börse (`AppData.exchangePauses`); nil = keine. Läuft sie noch
+    /// (`RowPause.shownUntil`), steht «Binance · pausiert bis 19:45» statt der Zeitzeile.
+    var exchangePausedUntil: Int64? = nil
     /// Wird gerade (einzeln oder komplett) aktualisiert.
     let loading: Bool
     var highlighted = false
@@ -131,6 +134,9 @@ struct WatchlistRow: View {
     var timeLine: (text: String, warning: Bool, spoken: String?) {
         // Deaktiviert: «Binance · deaktiviert» statt Zeit bzw. Warnung (VoiceOver: «Deaktiviert»)
         if off { return (L("watchlist_row_disabled", BidiText.isolate(watch.marketName)), false, L("watch_disabled")) }
+        // Börse pausiert (zu viele Anfragen, Zeitüberschreitungen): sagt mehr als «nicht erreichbar» bzw. «veraltet»
+        // und nennt, wann es weitergeht — gleiche Stelle und Farbe wie die übrigen Warnungen (wie Android)
+        if let paused = pausedText { return (paused, true, paused) }
         guard watch.lastUpdate > 0 else { return (watch.marketName, false, nil) }
         let ago = WatchlistTime.ago(watch.lastUpdate, now: now)
         if let error = watch.lastError, !error.isEmpty, !ConnectionErrors.isNotTraded(error) {
@@ -150,9 +156,16 @@ struct WatchlistRow: View {
         return ("\(BidiText.isolate(watch.marketName)) · \(ago)", false, nil)
     }
 
+    /// «Binance · pausiert bis 19:45» (`RowPause`); nil = Börse nicht pausiert.
+    private var pausedText: String? {
+        guard let until = RowPause.shownUntil(disabled: off, pausedUntil: exchangePausedUntil, now: now) else { return nil }
+        return L("watchlist_row_exchange_paused", BidiText.isolate(watch.marketName), PriceFormat.shortTime(until))
+    }
+
     /// «Kurs unverändert seit 14:05» (Börse ohne eigene Zeit, `PriceFreshness.unchangedSince`) — nur
-    /// ohne Warnung (nicht erreichbar / veraltet), wie `watchRowStatus` in Android.
+    /// ohne Warnung (nicht erreichbar / veraltet / pausiert), wie `watchRowStatus` in Android.
     private var unchangedText: String? {
+        if pausedText != nil { return nil }
         guard let since = PriceFreshness.unchangedSince(watch, now: now, outdatedAfter: outdatedAfter) else { return nil }
         if outdatedAfter > 0, now - watch.lastUpdate > outdatedAfter { return nil }
         return L("watchlist_row_price_unchanged_since", PriceFormat.shortTime(since))
@@ -438,7 +451,12 @@ struct WatchlistRow: View {
             details: [watch.favorite ? L("a11y_favorite") : nil],
             extra: [],
             // Frische, danach «Kurs unverändert seit …» (wie der Zeilensatz in Android)
-            stale: staleText.map { text in unchangedText.map { "\(text), \($0)" } ?? text } ?? unchangedText,
+            // Börse pausiert: zuerst «Binance · pausiert bis 19:45» (wie der Zeilensatz in Android)
+            stale: {
+                let parts = [pausedText, staleText.map { text in unchangedText.map { "\(text), \($0)" } ?? text } ?? unchangedText]
+                    .compactMap { $0 }
+                return parts.isEmpty ? nil : parts.joined(separator: ", ")
+            }(),
             stateCoversError: freshness != .fresh,
             changeView: changeView,
             // Art vor der Glocke nur bei «TradFi» bzw. «Alpha-Token» — «Token» ist der Normalfall und

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="starter_source_text">Kursy z giełdy %1$s w %2$s. Odznacz to, czego nie chcesz, a resztę dodaj za jednym razem. Giełdę i parę możesz zmienić dla każdej monety.</string>
+    <string name="watchlist_row_exchange_paused">%1$s · wstrzymano do %2$s</string>
+</resources>

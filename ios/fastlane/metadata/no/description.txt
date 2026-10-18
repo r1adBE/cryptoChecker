@@ -24,7 +24,7 @@ ALARMER
 • Kurs over eller under et nivå, eller stigning eller fall med en prosentsats – også i din valuta, f.eks. 60 000 EUR på et USDT-par
 • Bevegelse på x % innenfor et tidsvindu, volumtopp
 • Tidssensitiv varsling, valgfri alarmlyd, valgfri opplesning
-• Nattro og «Test alarm»: hør på forhånd hvordan en alarm kommer fram
+• Nattro og «Test alarm»: hør på forhånd hvordan en alarm kommer fram; alarmlogg: hvorfor en alarm ikke gikk av
 
 MARKED
 • Uvanlig aktivitet: uvanlige kurs- og volumbevegelser i listen din, valgfritt som varsel

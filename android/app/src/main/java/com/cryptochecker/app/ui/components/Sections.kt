@@ -72,7 +72,7 @@ fun Modifier.sectionTitleMarker(): Modifier {
                 cornerRadius = CornerRadius(w / 2f)
             )
         }
-        .padding(start = 10.dp)
+        .padding(start = Spacing.sm)
 }
 
 /**

@@ -278,6 +278,7 @@ extension WatchlistScreen {
         let staleAfter = data.staleAfterMillis(for: watch.id)
         let outdatedAfter = data.staleAfterMillis(for: watch.id)
         let firedAt = data.alarmFiredAt[watch.id] ?? 0
+        let pausedUntil = data.exchangePauses[watch.marketKey]
         let rowRefreshing = data.refreshingWatchIds.contains(watch.id)
         let allRefreshing = data.refreshing
         let sparklines = data.settings.watchlistSparkline && !watch.isNotTraded
@@ -293,6 +294,7 @@ extension WatchlistScreen {
                 now: now,
                 staleAfter: staleAfter,
                 outdatedAfter: outdatedAfter,
+                exchangePausedUntil: pausedUntil,
                 loading: rowRefreshing || (allRefreshing && shown.lastPrice == nil),
                 highlighted: highlightedId == watch.id || (selecting && selectedIds.contains(watch.id)),
                 sorting: sorting,
@@ -381,7 +383,8 @@ extension WatchlistScreen {
                         Text(L("watchlist_first_alarm_title_pair", first.displayName))
                             .font(.subheadline.weight(.semibold))
                             .foregroundStyle(accent.primary)
-                        Text(L("watchlist_first_alarm_text"))
+                        // iOS-eigene Fassung: bei geschlossener App entscheidet iOS, wann geprüft wird (wie `alarm_timing_hint_ios`)
+                        Text(L("watchlist_first_alarm_text_ios"))
                             .font(.footnote)
                             .foregroundStyle(AppColors.onSurface)
                     }

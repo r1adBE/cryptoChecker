@@ -32,6 +32,8 @@ struct AlarmEditorSheet: View {
     @State private var hasHourlyVolume = false
     /// Rückfrage «Alarm löst sofort aus» vor dem Speichern.
     @State private var confirmFiresNow = false
+    /// Bestehender Alarm: letzte Prüfung aus dem Alarm-Protokoll («Zuletzt geprüft»).
+    @State private var lastCheck: AlarmLogEntry?
 
     init(initial: AlarmDraft, watch: Watch?, targetCurrency: String = AppSettings.defaultCurrency(),
          existing: Alarm? = nil,
@@ -106,6 +108,14 @@ struct AlarmEditorSheet: View {
                         }
                     }
 
+                    // «Zuletzt geprüft: 14:02 · Kraken 99’800 CHF · Marke nicht erreicht» — nur beim Bearbeiten
+                    if draft.id != 0, let lastCheck {
+                        Text(AlarmLogTexts.lastCheckLine(lastCheck))
+                            .font(.footnote)
+                            .foregroundStyle(AppColors.onSurfaceVariant)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+
                     // Schnell-Alarme: ein Antippen legt den Alarm sofort an
                     if !templates.isEmpty {
                         templateChips
@@ -151,7 +161,7 @@ struct AlarmEditorSheet: View {
 
                     // Vorschau: der Alarm als Satz (zeigt auch, wie der Betrag gelesen wurde),
                     // direkt darunter ehrlich, wann bei geschlossener App gemeldet wird
-                    VStack(alignment: .leading, spacing: 6) {
+                    VStack(alignment: .leading, spacing: Spacing.sm) {
                         sentencePreview
                         Self.closedAppHint
                     }
@@ -202,6 +212,12 @@ struct AlarmEditorSheet: View {
             }
             .task {
                 await loadTemplateData()
+            }
+            .task(id: initial.id) {
+                guard initial.id != 0 else { return }
+                let id = initial.id
+                // Verschlüsselte Datei: abseits des Hauptfadens lesen
+                lastCheck = await Task.detached(priority: .utility) { AlarmLogStore.load().lastChecks[id] }.value
             }
             .onAppear {
                 draft.priceHint = priceHint
@@ -299,7 +315,7 @@ struct AlarmEditorSheet: View {
         // Satzende («geht»); in vielen Sprachen leer — ein leerer Katalogwert darf nicht als Schlüssel erscheinen
         let endText = L("alarm_simple_end")
         let end = endText == "alarm_simple_end" ? "" : endText
-        return VStack(alignment: .leading, spacing: 10) {
+        return VStack(alignment: .leading, spacing: Spacing.sm) {
             HStack(spacing: 8) {
                 Text(L("alarm_simple_when", BidiText.isolate(watch?.baseAsset ?? "")))
                     .font(.title3.weight(.semibold))

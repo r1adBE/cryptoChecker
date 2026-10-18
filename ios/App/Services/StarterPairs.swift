@@ -55,6 +55,14 @@ enum StarterPairs {
         isUS(region) ? binanceUsKey : binanceKey
     }
 
+    /// Anzeigename der Start-Börse der Region («Binance», bei Standort-Sperre bzw. in den USA «Binance.US»): die
+    /// Start-Auswahl sagt laut, woher die Kurse kommen («Kurse von Binance in USDT»). Wie Android.
+    /// - Parameter name: Anzeigename aus der Registry; nil = Schlüssel.
+    static func marketName(_ region: String?, name: (String) -> String? = { MarketsConfig.market($0)?.name }) -> String {
+        let key = marketKey(region)
+        return name(key) ?? key
+    }
+
     /// Anzeige-Quote für Kurse ohne eigene Quote.
     static func startQuote(_ region: String?) -> String { startQuoteValue }
 

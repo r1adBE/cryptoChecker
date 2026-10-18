@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Jahresübersicht CH: Vermögenswert per 31.12. als Orientierung (TaxLine.CH_WEALTH_VALUE), %1$s = Steuerjahr -->
+    <string name="tax_line_ch_wealth_value">Αξία περιουσίας 31/12/%1$s (ενδεικτικά)</string>
+    <!-- Jahresübersicht CH: Vermerk zum Vermögenswert (TaxSummaryNote.CH_WEALTH_ORIENTATION) -->
+    <string name="tax_summary_ch_wealth_orientation">Καθοριστικός είναι ο κατάλογος τιμών της ESTV (ictax.admin.ch). Για κρυπτονομίσματα χωρίς καταχώριση ισχύει κατά κανόνα η τιμή κλεισίματος του ανταλλακτηρίου. Ο φόρος περιουσίας δεν υπολογίζεται.</string>
+    <!-- Jahresübersicht CH: Zeile je Coin im Vermögenswert, %1$s = Coin, %2$s = Bestand -->
+    <string name="tax_ch_wealth_coin">%1$s – υπόλοιπο %2$s</string>
+    <!-- Jahresübersicht CH: Coin ohne Wert (kein Schlusskurs 31.12., ungeprüft, Guthaben unbekannt) -->
+    <string name="tax_ch_wealth_not_calculated">δεν υπολογίστηκε</string>
+</resources>

@@ -64,6 +64,8 @@ import com.cryptochecker.app.ui.theme.Spacing
 fun AlarmsOverviewScreen(
     onBack: () -> Unit,
     onOpenWatch: (Long) -> Unit,
+    /** Alarm-Protokoll öffnen («Warum hat es nicht gepiepst?»). */
+    onOpenLog: () -> Unit = {},
     viewModel: AlarmsOverviewViewModel = hiltViewModel(),
     lockViewModel: PortfolioLockViewModel = hiltViewModel(),
 ) {
@@ -111,6 +113,15 @@ fun AlarmsOverviewScreen(
                         Icon(
                             painterResource(R.drawable.ic_arrow_back),
                             contentDescription = stringResource(R.string.action_back)
+                        )
+                    }
+                },
+                actions = {
+                    // Alarm-Protokoll: wann ausgelöst, wann zurückgehalten
+                    IconButton(onClick = onOpenLog) {
+                        Icon(
+                            painterResource(R.drawable.ic_list),
+                            contentDescription = stringResource(R.string.alarm_log_title)
                         )
                     }
                 }

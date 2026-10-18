@@ -23,7 +23,7 @@ RIASZTÁSOK
 • Ár egy szint fölött vagy alatt, illetve emelkedés vagy esés egy százalékkal – a saját pénznemedben is, pl. 60 000 EUR egy USDT-páron
 • x %-os mozgás egy időablakon belül, forgalmi kiugrás
 • Időérzékeny értesítés, választható riasztási hang, igény szerint felolvasás
-• Csendes órák és „Riasztás tesztelése”
+• Csendes órák, „Riasztás tesztelése” és riasztásnapló
 
 PIAC
 • Szokatlan aktivitás: szokatlan ár- és forgalmi mozgások a listádon, igény szerint értesítéssel

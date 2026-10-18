@@ -251,7 +251,7 @@ internal fun WatchlistStatusRow(
                             count = disabledCount,
                             selected = disabledOnly,
                             onClick = onToggleDisabled,
-                            modifier = Modifier.padding(start = 6.dp)
+                            modifier = Modifier.padding(start = 8.dp)
                         )
                     }
                 }
@@ -313,7 +313,7 @@ internal fun AddPairButton(
                 color = AppColors.onAccent,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
-                modifier = Modifier.padding(start = 6.dp)
+                modifier = Modifier.padding(start = 4.dp)
             )
         }
     }

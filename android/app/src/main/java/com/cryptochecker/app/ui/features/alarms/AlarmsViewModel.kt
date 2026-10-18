@@ -53,7 +53,18 @@ class AlarmsViewModel @Inject constructor(
     dexLiquidityStore: com.cryptochecker.app.data.DexLiquidityStore,
     /** Letzter Kurs nur der Mark-Preis ([com.cryptochecker.app.data.MarkFallbackStore]): Alarme warten auf einen Mittelkurs. */
     markFallbackStore: com.cryptochecker.app.data.MarkFallbackStore,
+    /** Alarm-Protokoll: «Zuletzt geprüft» im Editor; Löschen eines Alarms entfernt seine letzte Prüfung. */
+    private val alarmLogStore: com.cryptochecker.app.domain.refresh.AlarmLogStore,
 ) : ViewModel() {
+
+    /** Letzte Prüfung je Alarm-Id ([com.cryptochecker.app.domain.alarm.AlarmLog]). */
+    val lastChecks: StateFlow<Map<Long, com.cryptochecker.app.domain.alarm.AlarmLogEntry>> = alarmLogStore.state
+        .map { it.lastChecks }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyMap())
+
+    init {
+        viewModelScope.launch { alarmLogStore.load() }
+    }
 
     /** Alarme, die zuletzt nicht geprüft werden konnten (kein Devisenkurs/keine Kerzen), für den Hinweis. */
     val unchecked: StateFlow<Map<Long, AlarmCheckStatus.Unchecked>> = alarmCheckStatus.state
@@ -379,7 +390,11 @@ class AlarmsViewModel @Inject constructor(
     }
 
     fun delete(alarmId: Long) {
-        viewModelScope.launch { watchRepository.deleteAlarm(alarmId) }
+        viewModelScope.launch {
+            watchRepository.deleteAlarm(alarmId)
+            // Datei versiegelt schreiben: nicht auf dem Hauptfaden
+            kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) { alarmLogStore.removeAlarm(alarmId) }
+        }
     }
 
     fun setEnabled(alarmId: Long, enabled: Boolean) {

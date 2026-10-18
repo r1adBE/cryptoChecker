@@ -270,7 +270,7 @@ extension WatchlistScreen {
     /// «+» (oben rechts in der Start-Auswahl, die darunter einen eigenen Textknopf hat).
     func addPairButton(labelled: Bool = true) -> some View {
         Button { router.openExplorer() } label: {
-            HStack(spacing: 6) {
+            HStack(spacing: Spacing.xs) {
                 Image(systemName: "plus")
                     .scaledFont(size: WatchlistSearch.buttonSymbolSize, weight: .bold, relativeTo: .caption)
                 if labelled {

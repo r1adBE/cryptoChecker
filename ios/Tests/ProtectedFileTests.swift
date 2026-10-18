@@ -358,7 +358,7 @@ final class ProtectedFileTests: XCTestCase {
         let names = Set(ProtectedStorage.files.map(\.url.lastPathComponent))
         XCTAssertEqual(names, ["watchlist.json", "watchlist.unreadable.json", "portfolio_alarms.json",
                                "portfolio_alarms.unreadable.json", "portfolio.json", "portfolio.unreadable.json",
-                               "watched_addresses.json", "portfolio_widget.json"])
+                               "watched_addresses.json", "portfolio_widget.json", "alarm_log.json"])
         // Merkliste und Portfolio-Alarme stimmen sich wie `SharedStorage` über watchlist.json ab
         let alarms = ProtectedStorage.files.first { $0.url.lastPathComponent == "portfolio_alarms.json" }
         XCTAssertEqual(alarms?.coordination.lastPathComponent, "watchlist.json")

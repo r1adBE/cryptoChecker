@@ -113,7 +113,7 @@ private fun SupplyBar(ratio: Double) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 6.dp)
+            .padding(top = Spacing.xs)
             .height(6.dp)
             .clip(CircleShape)
             .background(MaterialTheme.colorScheme.outlineVariant)

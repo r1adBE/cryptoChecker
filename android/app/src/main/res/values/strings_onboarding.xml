@@ -15,7 +15,6 @@
     <string name="starter_search_coin">Search for another coin</string>
     <string name="starter_select_all">Select all</string>
     <string name="starter_select_none">Select none</string>
-    <string name="starter_text">Deselect what you don\'t want and add the rest in one go. You can change exchange and pair later.</string>
     <string name="starter_title">Start with these coins</string>
     <string name="starter_watch_alarm_hint">Watch the price, set an alert</string>
 </resources>

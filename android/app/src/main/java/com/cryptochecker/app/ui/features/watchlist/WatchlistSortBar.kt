@@ -30,7 +30,7 @@ import com.cryptochecker.app.util.ChangeBasisText
  * Schmale Zeile über den Paaren: «Name ⇅ · Kurs ⇅ · 24h ⇅» wie an der Börse. Erster Tipp: Name
  * A–Z bzw. Kurs und 24h gross zuerst; zweiter Tipp: umgekehrt; dritter: eigene Reihenfolge
  * ([ColumnSort.next]). Die aktive Spalte steht in der Themenfarbe, ihr Pfeil ebenso; die übrigen
- * Pfeile in onSurfaceVariant (ohne Deckkraft, 11 sp, Kontrast AA). Tippfläche mind. 48 dp.
+ * Pfeile in onSurfaceVariant (ohne Deckkraft, 12 sp, Kontrast AA). Tippfläche mind. 48 dp.
  * Die 24h-Spalte heisst wie die Änderungen («24h», «heute» …). Wie `WatchlistSortBar` (iOS).
  */
 @Composable
@@ -70,7 +70,7 @@ private fun SortColumn(label: String, key: SortKey, sort: ColumnSort?, onTap: (S
             .clip(ChipShape)
             .clickable(role = Role.Button, onClick = { onTap(key) })
             .semantics { stateDescription = state }
-            .padding(horizontal = 6.dp)
+            .padding(horizontal = 8.dp)
     ) {
         Text(
             text = label,
@@ -97,8 +97,8 @@ private fun Arrow(symbol: String, on: Boolean) {
     )
 }
 
-/** Pfeile der Sortierzeile: mind. 11 sp (früher 7 sp bei 35 % Deckkraft). */
-private val SORT_ARROW_SIZE = 11.sp
+/** Pfeile der Sortierzeile: 12 sp (früher 7 sp bei 35 % Deckkraft, dann 11 sp). */
+private val SORT_ARROW_SIZE = 12.sp
 
 /** Tippfläche einer Spalte: mind. 48 dp (früher 40). */
 private val SORT_TOUCH_MIN = 48.dp

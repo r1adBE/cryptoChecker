@@ -68,6 +68,7 @@ fun AlarmsScreen(
     val rates by viewModel.rates.collectAsStateWithLifecycle()
     val templates by viewModel.templates.collectAsStateWithLifecycle()
     val unchecked by viewModel.unchecked.collectAsStateWithLifecycle()
+    val lastChecks by viewModel.lastChecks.collectAsStateWithLifecycle()
     // DEX-Pool mit zu wenig Liquidität: kein neuer Alarm, kein Bearbeiten (Hinweis statt Editor)
     val lowLiquidityState by viewModel.lowLiquidity.collectAsStateWithLifecycle()
     val lowLiquidity = lowLiquidityState == true
@@ -381,6 +382,7 @@ fun AlarmsScreen(
             onDismiss = { draft = null },
             // Kopf mit Paar und aktuellem Kurs (wie iOS)
             watch = watch,
+            lastCheck = lastChecks[current.id],
             onConfirm = {
                 // Kursmarke schon erreicht: erst nachfragen (sonst meldet der Alarm sofort)
                 if (viewModel.firesOnSave(current)) {

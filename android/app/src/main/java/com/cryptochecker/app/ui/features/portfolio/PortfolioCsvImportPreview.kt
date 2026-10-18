@@ -86,7 +86,7 @@ internal fun CsvImportPreviewSheet(
     val total = txs.size + plan.storedUpdates.size
     ModalBottomSheet(onDismissRequest = onDismiss, sheetState = sheetState) {
         Column(
-            verticalArrangement = Arrangement.spacedBy(6.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier
                 .fillMaxWidth()
                 .verticalScroll(rememberScrollState())
@@ -149,7 +149,7 @@ internal fun CsvImportPreviewSheet(
                 WithdrawalChoices(withdrawals, proposals, choices, onChoice, onAllChoices)
             }
             if (txs.isNotEmpty()) {
-                HorizontalDivider(modifier = Modifier.padding(vertical = 6.dp))
+                HorizontalDivider(modifier = Modifier.padding(vertical = 4.dp))
                 txs.take(PREVIEW_ROWS).forEach { tx -> PreviewRow(tx) }
                 if (txs.size > PREVIEW_ROWS) {
                     Text(
@@ -192,7 +192,7 @@ private fun WithdrawalChoices(
     onAllChoices: (CsvWithdrawalChoice) -> Unit,
 ) {
     val destinations = proposals.associate { it.importKey to it.transferTo }
-    HorizontalDivider(modifier = Modifier.padding(vertical = 6.dp))
+    HorizontalDivider(modifier = Modifier.padding(vertical = 4.dp))
     Text(
         stringResource(R.string.portfolio_csv_import_withdrawals_title),
         style = MaterialTheme.typography.titleSmall,
@@ -239,7 +239,7 @@ private fun WithdrawalChoices(
  */
 @Composable
 private fun TransferLinks(links: List<CsvTransferLink>, linked: Set<String>, onLink: (String, Boolean) -> Unit) {
-    HorizontalDivider(modifier = Modifier.padding(vertical = 6.dp))
+    HorizontalDivider(modifier = Modifier.padding(vertical = 4.dp))
     Text(
         stringResource(R.string.portfolio_csv_import_transfers_title),
         style = MaterialTheme.typography.titleSmall,

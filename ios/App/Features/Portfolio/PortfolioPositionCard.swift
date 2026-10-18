@@ -163,7 +163,7 @@ struct PortfolioOpenLotsSection: View {
             }
             .buttonStyle(.plain)
             if expanded {
-                VStack(alignment: .leading, spacing: 10) {
+                VStack(alignment: .leading, spacing: Spacing.sm) {
                     ForEach(Array(lots.enumerated()), id: \.offset) { _, lot in
                         row(lot)
                     }

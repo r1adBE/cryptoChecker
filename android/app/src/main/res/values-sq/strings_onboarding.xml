@@ -15,7 +15,6 @@
     <string name="starter_search_coin">Kërko një monedhë tjetër</string>
     <string name="starter_select_all">Zgjidh të gjitha</string>
     <string name="starter_select_none">Hiq zgjedhjen</string>
-    <string name="starter_text">Hiq zgjedhjen nga ato që nuk i do dhe shto të tjerat njëherësh. Bursën dhe çiftin mund t\'i ndryshosh më vonë.</string>
     <string name="starter_title">Fillo me këto monedha</string>
     <string name="starter_watch_alarm_hint">Ndiq çmimin, vendos një alarm</string>
 </resources>

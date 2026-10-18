@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="alarm_log_title">บันทึกสัญญาณเตือน</string>
+    <string name="alarm_log_open">ดูบันทึกสัญญาณเตือน</string>
+    <string name="alarm_log_intro">เมื่อใดที่สัญญาณเตือนทำงาน – และเมื่อใดที่ควรทำงานแต่ถูกระงับไว้ จัดเก็บเฉพาะในอุปกรณ์นี้เป็นเวลา 14 วัน</string>
+    <string name="alarm_log_empty_title">ยังไม่มีรายการ</string>
+    <string name="alarm_log_empty_message">รายการจะแสดงที่นี่เมื่อสัญญาณเตือนทำงานหรือถูกระงับ เช่น เพราะราคาไม่เป็นปัจจุบันหรือในช่วงเวลาเงียบ</string>
+    <string name="alarm_log_clear">ล้างบันทึก</string>
+    <string name="alarm_log_clear_title">ล้างบันทึกสัญญาณเตือนไหม</string>
+    <string name="alarm_log_clear_message">รายการทั้งหมดจะถูกลบ สัญญาณเตือนของคุณยังคงเหมือนเดิม</string>
+    <string name="alarm_log_threshold">เกณฑ์ %1$s</string>
+    <string name="alarm_last_check">ตรวจสอบล่าสุด: %1$s</string>
+    <string name="alarm_outcome_fired">ทำงานแล้ว</string>
+    <string name="alarm_outcome_not_reached">ยังไม่ถึงเกณฑ์</string>
+    <string name="alarm_outcome_already_triggered">แจ้งไปแล้ว – รอให้ราคากลับไปอีกฝั่ง</string>
+    <string name="alarm_outcome_cooldown">ไม่ทำงาน – ช่วงพักหลังการแจ้งครั้งล่าสุด</string>
+    <string name="alarm_outcome_stale">ไม่ทำงาน – ราคาไม่เป็นปัจจุบัน (ณ %1$s)</string>
+    <string name="alarm_outcome_mark_price">ไม่ทำงาน – เป็นราคามาร์ก ไม่ใช่ราคาซื้อขาย</string>
+    <string name="alarm_outcome_low_liquidity">ไม่ทำงาน – สภาพคล่องต่ำกว่า 10,000 USD หรือไม่ทราบ</string>
+    <string name="alarm_outcome_quiet_hours">ไม่ทำงาน – ช่วงเวลาเงียบ (จะแจ้งภายหลังหากยังเป็นไปตามเงื่อนไข)</string>
+    <string name="alarm_outcome_notifications_off">ไม่ทำงาน – ปิดการแจ้งเตือนอยู่</string>
+    <string name="alarm_outcome_not_shown">ไม่ทำงาน – การแจ้งเตือนไม่ถึง จะลองใหม่ภายหลัง</string>
+    <string name="alarm_outcome_no_rate">ไม่ได้ตรวจสอบ – ไม่มีอัตราแลกเปลี่ยน</string>
+    <string name="alarm_outcome_no_price">ไม่มีราคา – การสอบถามกระดานเทรดล้มเหลว</string>
+</resources>

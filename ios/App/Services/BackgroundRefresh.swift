@@ -249,7 +249,8 @@ enum BackgroundRefresh {
                 // Erst jetzt Alarme melden, je bestätigter Mitteilung den Alarm speichern und die Lease freigeben —
                 // nach der Uhrzeit, damit sie zur eben geschriebenen Datei passt (`WidgetDataFreshness`)
                 _ = await outcome.deliverAlarms(settings: settings, current: saved.alarms,
-                                                save: { PriceRefresher.saveAlarmOnDisk($0, $1) })
+                                                save: { PriceRefresher.saveAlarmOnDisk($0, $1) },
+                                                recordLog: { AlarmLogStore.record($0, live: $1) })
             } else {
                 // Nicht gespeichert (keine Merkliste, unlesbar, nicht zugreifbar) → nichts melden; die
                 // Alarme bleiben scharf. Portfolio-Widget, Portfolio- und Gas-Alarm laufen trotzdem.
@@ -310,9 +311,12 @@ enum BackgroundRefresh {
                     extra.releaseAlarmLease()
                 } else if extra.alarms.isEmpty && extra.pendingAlarms.isEmpty {
                     extra.releaseAlarmLease()
+                    // Nichts zu speichern, aber geprüft: fürs Alarm-Protokoll festhalten
+                    AlarmLogStore.record(extra.alarmLog, live: false)
                 } else if let stored = SharedStorage.updateSnapshot({ extra.apply(to: &$0) }) {
                     _ = await extra.deliverAlarms(settings: settings, current: stored.alarms,
-                                                  save: { PriceRefresher.saveAlarmOnDisk($0, $1) })
+                                                  save: { PriceRefresher.saveAlarmOnDisk($0, $1) },
+                                                  recordLog: { AlarmLogStore.record($0, live: $1) })
                     AppData.shared.reloadFromDisk()
                 } else {
                     extra.releaseAlarmLease()

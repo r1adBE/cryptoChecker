@@ -82,7 +82,7 @@ class WatchlistUiStateTest {
         val starter = StarterUiState(
             coins = emptyList(), deselected = emptySet(),
             prices = StarterPricesState(loading = true, prices = emptyMap()),
-            adding = false, logosReady = false, quote = "USDT",
+            adding = false, logosReady = false, quote = "USDT", marketName = "Binance",
         )
         val display = WatchlistDisplay.initial(AppSettings())
         val live = WatchlistLive(

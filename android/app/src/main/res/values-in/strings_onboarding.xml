@@ -15,7 +15,6 @@
     <string name="starter_search_coin">Cari koin lain</string>
     <string name="starter_select_all">Pilih semua</string>
     <string name="starter_select_none">Batal pilih semua</string>
-    <string name="starter_text">Batalkan pilihan yang tidak Anda inginkan, lalu tambahkan sisanya sekaligus. Bursa dan pasangan bisa Anda ubah nanti.</string>
     <string name="starter_title">Mulai dengan koin-koin ini</string>
     <string name="starter_watch_alarm_hint">Pantau harga, pasang alarm</string>
 </resources>

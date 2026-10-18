@@ -1,57 +1,52 @@
 package com.cryptochecker.app.ui.features.error
 
-import android.content.Context
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.widthIn
-import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
+import com.cryptochecker.app.ui.components.EmptyState
 import com.cryptochecker.app.ui.theme.CryptoCheckerTheme
 import java.io.IOException
 import java.net.SocketTimeoutException
 
-/** Bild und Satz zu einem Ladefehler: Netzfehler, Zeitüberschreitung oder sonst etwas. */
+/**
+ * Symbol, Titel und Satz zu einem Ladefehler: kein Netz, Zeitüberschreitung (Börse antwortet nicht) oder sonst
+ * etwas. Einfarbige Symbole wie jeder leere Zustand ([EmptyState]) statt farbiger Illustrationen.
+ */
 class ErrorScreenViewState(private val throwable: Throwable) {
 
     private val isNetwork: Boolean get() = throwable is IOException
 
-    @DrawableRes
-    fun getErrorImage(): Int = if (isNetwork) R.drawable.ic_no_connection else R.drawable.ic_error
-
-    /** Was schiefging und was jetzt hilft — kein Ausnahme- oder Stack-Text. */
-    fun getErrorMessage(context: Context): String = context.getString(messageRes())
-
     // Zeitüberschreitung ist auch eine IOException, darum zuerst
+    private val isTimeout: Boolean get() = throwable is SocketTimeoutException
+
+    /** Netz bzw. Börse nicht erreichbar: Wolke durchgestrichen; sonst Fehler-Symbol. */
+    @DrawableRes
+    fun iconRes(): Int = if (isNetwork) R.drawable.ic_cloud_off else R.drawable.ic_error
+
     @StringRes
-    private fun messageRes(): Int = when {
-        throwable is SocketTimeoutException -> R.string.timeout_error_message
-        isNetwork -> R.string.no_internet_connection
+    fun titleRes(): Int = when {
+        isTimeout -> R.string.error_market_unreachable_short
+        isNetwork -> R.string.offline_status
         else -> R.string.something_went_wrong
+    }
+
+    /** Was jetzt hilft — kein Ausnahme- oder Stack-Text; null = der Titel sagt genug. */
+    @StringRes
+    fun messageRes(): Int? = when {
+        isTimeout -> R.string.timeout_error_message
+        isNetwork -> R.string.no_internet_connection
+        else -> null
     }
 }
 
-/** Ganze Fläche: Symbol, Satz und «Erneut versuchen». */
+/** Ganze Fläche im Aufbau aller leeren Zustände ([EmptyState]): Symbol, Titel, Satz und «Erneut versuchen». */
 @Composable
 fun ErrorScreen(
     modifier: Modifier = Modifier,
@@ -60,35 +55,14 @@ fun ErrorScreen(
 ) {
     val state = errorScreenViewState
     Surface(modifier = modifier) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center,
+        EmptyState(
+            iconRes = state.iconRes(),
+            title = stringResource(state.titleRes()),
+            message = state.messageRes()?.let { stringResource(it) },
+            actionLabel = stringResource(R.string.try_again),
+            onAction = onTryAgainButtonClick,
             modifier = Modifier.fillMaxSize(),
-        ) {
-            Image(
-                painter = painterResource(id = state.getErrorImage()),
-                contentDescription = null,
-                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurfaceVariant),
-                modifier = Modifier.size(56.dp),
-            )
-            Text(
-                text = state.getErrorMessage(LocalContext.current),
-                style = MaterialTheme.typography.bodyLarge,
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .padding(top = 16.dp, start = 32.dp, end = 32.dp)
-                    .alpha(0.8f),
-            )
-            Button(
-                onClick = onTryAgainButtonClick,
-                // Mindestens 250 dp, mit langer Übersetzung bzw. grosser Schrift breiter (Rand 32 dp wie der Satz)
-                modifier = Modifier
-                    .padding(top = 16.dp, start = 32.dp, end = 32.dp)
-                    .widthIn(min = 250.dp),
-            ) {
-                Text(text = stringResource(id = R.string.try_again))
-            }
-        }
+        )
     }
 }
 

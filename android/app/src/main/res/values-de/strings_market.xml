@@ -144,7 +144,7 @@
     <string name="pulse_chip_funding_negative">Funding negativ</string>
     <string name="pulse_funding_high">Funding deutlich positiv: viele setzen mit Hebel auf steigende Kurse</string>
     <string name="pulse_funding_negative">Funding negativ: viele setzen auf fallende Kurse</string>
-    <string name="pulse_funding_neutral">Funding neutral</string>
+    <string name="pulse_funding_neutral">Funding ausgeglichen</string>
     <string name="pulse_funding_slight">Funding leicht positiv</string>
     <string name="pulse_gas_high">Ethereum-Gas hoch (%1$s gwei)</string>
     <string name="pulse_gas_low">Ethereum-Gas niedrig (%1$s gwei)</string>
@@ -206,13 +206,13 @@
 
     <!-- Halving-Zyklus (Chart, Marken, Schätzung) -->
     <string name="cycle_data_as_of">Stand %1$s · wird aktualisiert…</string>
-    <string name="cycle_from_top">%1$s vom Top</string>
-    <string name="cycle_marker_bottom">Bottom %1$s</string>
-    <string name="cycle_marker_double_bottom">Doppel-Bottom %1$s</string>
-    <string name="cycle_marker_double_top">Doppel-Top %1$s</string>
+    <string name="cycle_from_top">%1$s vom Hoch</string>
+    <string name="cycle_marker_bottom">Tief %1$s</string>
+    <string name="cycle_marker_double_bottom">Doppeltief %1$s</string>
+    <string name="cycle_marker_double_top">Doppelhoch %1$s</string>
     <string name="cycle_marker_high_so_far">Hoch bisher</string>
     <!-- Hoch/Tief-Marken mit Sprechblase im Zyklus-Chart -->
-    <string name="cycle_marker_top">Top %1$s</string>
+    <string name="cycle_marker_top">Hoch %1$s</string>
     <string name="cycle_since_halving">%1$s seit Halving</string>
     <string name="halving_estimate_text">Nächstes Halving rechnerisch um %1$s: noch %2$s Blöcke bei durchschnittlich %3$s Min. je Block (laufende Schwierigkeitsperiode). Eine Fortschreibung, keine Zusage – die Blockzeit schwankt.</string>
 

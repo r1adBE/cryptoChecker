@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="alarm_log_title">Alarmlogg</string>
+    <string name="alarm_log_open">Vis alarmlogg</string>
+    <string name="alarm_log_intro">Når en alarm ble utløst – og når den ville blitt utløst, men ble holdt tilbake. Lagres bare på denne enheten i 14 dager.</string>
+    <string name="alarm_log_empty_title">Ingen oppføringer ennå</string>
+    <string name="alarm_log_empty_message">Oppføringer vises her så snart en alarm utløses eller holdes tilbake – for eksempel på grunn av en utdatert kurs eller i nattro.</string>
+    <string name="alarm_log_clear">Tøm logg</string>
+    <string name="alarm_log_clear_title">Tømme alarmloggen?</string>
+    <string name="alarm_log_clear_message">Alle oppføringer fjernes. Alarmene dine forblir som de er.</string>
+    <string name="alarm_log_threshold">Grense %1$s</string>
+    <string name="alarm_last_check">Sist sjekket: %1$s</string>
+    <string name="alarm_outcome_fired">Utløst</string>
+    <string name="alarm_outcome_not_reached">Grensen ikke nådd</string>
+    <string name="alarm_outcome_already_triggered">Allerede meldt – venter til kursen er tilbake på den andre siden</string>
+    <string name="alarm_outcome_cooldown">Ikke utløst – pause etter siste varsel</string>
+    <string name="alarm_outcome_stale">Ikke utløst – utdatert kurs (status %1$s)</string>
+    <string name="alarm_outcome_mark_price">Ikke utløst – markpris, ikke en handelskurs</string>
+    <string name="alarm_outcome_low_liquidity">Ikke utløst – likviditet under 10 000 USD eller ukjent</string>
+    <string name="alarm_outcome_quiet_hours">Ikke utløst – nattro (varsler etterpå hvis betingelsen fortsatt er oppfylt)</string>
+    <string name="alarm_outcome_notifications_off">Ikke utløst – varsler er av</string>
+    <string name="alarm_outcome_not_shown">Ikke utløst – varselet kom ikke fram, prøver igjen senere</string>
+    <string name="alarm_outcome_no_rate">Ikke sjekket – ingen valutakurs</string>
+    <string name="alarm_outcome_no_price">Ingen kurs – forespørselen til børsen mislyktes</string>
+</resources>

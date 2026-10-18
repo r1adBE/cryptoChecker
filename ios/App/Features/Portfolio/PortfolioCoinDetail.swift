@@ -178,7 +178,7 @@ private struct PortfolioWalletShortfallBanner: View {
                     }
                     .foregroundStyle(AppColors.error)
                     .padding(.horizontal, 16)
-                    .padding(.vertical, 10)
+                    .padding(.vertical, Spacing.md)
                     .contentShape(Rectangle())
                 }
                 .buttonStyle(.plain)

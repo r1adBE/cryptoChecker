@@ -23,7 +23,7 @@ HÄLYTYKSET
 • Hinta rajan ylä- tai alapuolella, tai nousu tai lasku prosentilla – myös omassa valuutassasi, esim. 60 000 EUR USDT-parilla
 • Liike x % aikaikkunassa, volyymipiikki
 • Ääni (myös oma äänitiedosto), värinä ja valinnainen puheilmoitus
-• Hiljaiset tunnit ja ”Testaa hälytys”
+• Hiljaiset tunnit, ”Testaa hälytys” ja hälytysloki: milloin tarkistettiin, mikä hinta, miksi hälytys ei lauennut
 
 MARKKINA
 • Poikkeava aktiivisuus: epätavalliset hinta- ja volyymiliikkeet listallasi, halutessasi ilmoituksena

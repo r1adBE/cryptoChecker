@@ -15,7 +15,6 @@
     <string name="starter_search_coin">Szukaj innej monety</string>
     <string name="starter_select_all">Zaznacz wszystko</string>
     <string name="starter_select_none">Odznacz wszystko</string>
-    <string name="starter_text">Odznacz to, czego nie chcesz, a resztę dodaj za jednym razem. Giełdę i parę możesz zmienić później.</string>
     <string name="starter_title">Zacznij od tych monet</string>
     <string name="starter_watch_alarm_hint">Obserwuj cenę, ustaw alarm</string>
 </resources>

@@ -32,18 +32,18 @@ struct WatchlistSortBar: View {
                     .font(.caption.weight(active ? .semibold : .regular))
                     .lineLimit(1)
                 // ▲ über ▼: der aktive Pfeil in der Themenfarbe, der andere in onSurfaceVariant
-                // (nicht blass, mind. 11 pt — Kontrast AA; wie Android)
+                // (nicht blass, 12 pt — Kontrast AA; wie Android)
                 VStack(spacing: 0) {
                     Image(systemName: "arrowtriangle.up.fill")
                         .foregroundStyle(active && sort?.descending == false ? accent.primary : AppColors.onSurfaceVariant)
                     Image(systemName: "arrowtriangle.down.fill")
                         .foregroundStyle(active && sort?.descending == true ? accent.primary : AppColors.onSurfaceVariant)
                 }
-                .font(.system(size: 11))
+                .font(.system(size: 12))
                 .accessibilityHidden(true)
             }
             .foregroundStyle(color)
-            .padding(.horizontal, 6)
+            .padding(.horizontal, 8)
             // Tippfläche mind. 44 pt (früher 36)
             .frame(minHeight: 44)
             .contentShape(Rectangle())

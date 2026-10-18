@@ -15,7 +15,6 @@
     <string name="starter_search_coin">Rechercher une autre crypto</string>
     <string name="starter_select_all">Tout sélectionner</string>
     <string name="starter_select_none">Tout désélectionner</string>
-    <string name="starter_text">Désélectionnez ce que vous ne voulez pas et ajoutez le reste en une fois. Vous pourrez changer la plateforme et la paire plus tard.</string>
     <string name="starter_title">Commencez avec ces cryptos</string>
     <string name="starter_watch_alarm_hint">Suivre le cours, définir une alerte</string>
 </resources>

@@ -2,7 +2,8 @@ import CoreGraphics
 
 /// Abstände im 4-pt-Raster (wie `Spacing` in Android): Innenabstände, Lücken zwischen
 /// Elementen und Ränder nehmen eine dieser Stufen. Kleinere Feinabstimmungen (1–3 pt)
-/// und Masse von Charts und Widgets bleiben eigene Werte.
+/// und Masse von Charts und Widgets bleiben eigene Werte. In Shared/, damit auch die
+/// Widget-Erweiterung (Live-Aktivität) dieselbe Skala nutzt.
 enum Spacing {
     static let xs: CGFloat = 4
     static let sm: CGFloat = 8

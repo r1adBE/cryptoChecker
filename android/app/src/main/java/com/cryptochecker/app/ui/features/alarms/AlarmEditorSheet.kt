@@ -90,6 +90,8 @@ internal fun AlarmEditorSheet(
     onConfirm: () -> Unit,
     /** Paar des Alarms: Kopf mit Logo, Name, Börse und aktuellem Kurs (wie iOS); null = ohne Kopf. */
     watch: WatchEntity? = null,
+    /** Bestehender Alarm: letzte Prüfung aus dem Alarm-Protokoll («Zuletzt geprüft»); null = noch keine. */
+    lastCheck: com.cryptochecker.app.domain.alarm.AlarmLogEntry? = null,
 ) {
     val context = LocalContext.current
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
@@ -126,6 +128,15 @@ internal fun AlarmEditorSheet(
             // Kopf wie iOS: Logo, Paar und Börse, rechts der aktuelle Kurs
             if (watch != null) {
                 AlarmEditorPairHeader(watch)
+            }
+            // «Zuletzt geprüft: 14:02 · Kraken 99’800 CHF · Marke nicht erreicht» — nur beim Bearbeiten
+            if (draft.id != 0L && lastCheck != null) {
+                Text(
+                    AlarmLogTexts.lastCheckLine(context, lastCheck),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.padding(top = Spacing.sm)
+                )
             }
 
             // Schnell-Alarme: ein Antippen legt den Alarm sofort an (nur beim Anlegen)

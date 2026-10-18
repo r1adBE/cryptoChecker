@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Start-Auswahl: Börse und Quote der Startpaare (Binance, bei Standort-Sperre Binance.US), z. B. «Kurse von Binance in USDT. …» -->
+    <string name="starter_source_text">Kurse von %1$s in %2$s. Abwählen, was du nicht willst, und den Rest in einem Schritt hinzufügen. Börse und Paar kannst du je Coin ändern.</string>
+    <!-- Zeile der Merkliste: Börse pausiert (zu viele Anfragen / Zeitüberschreitungen) bis zu einer Uhrzeit, ersetzt die Zeitzeile, z. B. «Binance · pausiert bis 19:45» -->
+    <string name="watchlist_row_exchange_paused">%1$s · pausiert bis %2$s</string>
+</resources>

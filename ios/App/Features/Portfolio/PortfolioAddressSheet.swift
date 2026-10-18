@@ -167,7 +167,7 @@ struct PortfolioAddressSheet: View {
             PortfolioFormat.exactAmount(t.amountExact, PortfolioCalculator.normalizeCoin(t.coin))
         }.joined(separator: ", ")
         let tokenText: String = data.settings.hidePortfolioAmounts ? "•••" : tokenParts.joined(separator: " · ")
-        return VStack(alignment: .leading, spacing: 6) {
+        return VStack(alignment: .leading, spacing: 4) {
             VStack(alignment: .leading, spacing: 2) {
                 Text(a.label ?? WatchedAddressRules.shortAddress(a.address))
                     .font(.body)
@@ -240,7 +240,7 @@ struct PortfolioAddressSheet: View {
             if a.chain == .ETH {
                 // Weitere EVM-Netze derselben 0x-Adresse (Ethereum immer)
                 ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 6) {
+                    HStack(spacing: 4) {
                         ForEach(ChainAssets.evm, id: \.id) { net in
                             let selected = a.networkSelected(net.id)
                             Button {

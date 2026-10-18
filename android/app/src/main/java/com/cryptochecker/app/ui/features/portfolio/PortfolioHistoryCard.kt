@@ -319,7 +319,7 @@ private fun HistorySkeleton() {
             modifier = Modifier.padding(top = Spacing.xs).width(150.dp)
         )
         SkeletonBlock(
-            modifier = Modifier.fillMaxWidth().padding(top = 10.dp).height(HISTORY_CHART_HEIGHT),
+            modifier = Modifier.fillMaxWidth().padding(top = Spacing.sm).height(HISTORY_CHART_HEIGHT),
             corner = 12.dp
         )
         SkeletonLine(

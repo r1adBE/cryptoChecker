@@ -23,7 +23,7 @@ ALARME
 • Preț peste sau sub un nivel, creștere sau scădere cu un procent – și în moneda ta, ex. 60.000 EUR pe o pereche USDT
 • Mișcare de x % într-un interval, vârf de volum
 • Notificare urgentă, sunet de alarmă la alegere, citire cu voce opțională
-• Ore de liniște și „Testează alarma”
+• Ore de liniște, „Testează alarma” și jurnal alarme
 
 PIAȚĂ
 • Activitate neobișnuită: mișcări atipice de preț și volum în lista ta, opțional cu notificare

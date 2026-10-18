@@ -281,7 +281,7 @@ internal fun CoinRow(
                 }
                 if (!stacked) trailing(Modifier.padding(start = 8.dp))
             }
-            if (stacked) trailing(Modifier.align(Alignment.End).padding(top = 6.dp))
+            if (stacked) trailing(Modifier.align(Alignment.End).padding(top = Spacing.xs))
         }
     }
 }
@@ -356,7 +356,7 @@ private fun TxCountBadge(count: Int) {
         modifier = Modifier
             .padding(start = Spacing.xs)
             .background(MaterialTheme.colorScheme.surfaceContainerHighest, CircleShape)
-            .padding(horizontal = 6.dp, vertical = 1.dp)
+            .padding(horizontal = Spacing.xs, vertical = 1.dp)
             .clearAndSetSemantics { contentDescription = spoken }
     )
 }

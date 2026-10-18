@@ -247,6 +247,8 @@ extension AppData {
 
     func deleteAlarm(_ id: Int64) {
         mutate({ s in s.alarms.removeAll { $0.id == id } }, reloadWidgets: false)
+        // Alarm-Protokoll: seine letzte Prüfung gehört zum Alarm (Protokoll-Einträge bleiben); Datei abseits des Hauptfadens
+        Task.detached(priority: .utility) { AlarmLogStore.removeAlarm(id) }
     }
 
     func setAlarmEnabled(_ id: Int64, _ enabled: Bool) {

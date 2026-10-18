@@ -24,7 +24,7 @@ ALARMY
 • Cena nad nebo pod hranicí, nebo růst či pokles o procento – i ve vaší měně, např. 60 000 EUR na páru USDT
 • Pohyb o x % v časovém okně, skok objemu
 • Zvuk (i vlastní zvukový soubor), vibrace a volitelné hlasové hlášení
-• Noční klid a „Otestovat alarm“: předem uslyšíte, jak alarm přijde
+• Noční klid a „Otestovat alarm“: předem uslyšíte, jak alarm přijde; protokol alarmů: kdy proběhla kontrola, jaká byla cena, proč se alarm nespustil
 
 TRH
 • Neobvyklá aktivita: neobvyklé pohyby ceny a objemu ve vašem seznamu, volitelně s oznámením

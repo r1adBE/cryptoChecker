@@ -115,7 +115,7 @@ internal fun FittedTotal(
     BoxWithConstraints(modifier = modifier.fillMaxWidth()) {
         val base = MaterialTheme.typography.display.amountNumbers().copy(fontWeight = FontWeight.SemiBold)
         val quoteStyle = MaterialTheme.typography.bodyMedium
-        val gapPx = with(LocalDensity.current) { 6.dp.roundToPx() }
+        val gapPx = with(LocalDensity.current) { 4.dp.roundToPx() }
         val measurer = rememberTextMeasurer()
         val maxPx = constraints.maxWidth
         val style = remember(text, quote, maxPx, base, quoteStyle) {
@@ -136,7 +136,7 @@ internal fun FittedTotal(
                         style = quoteStyle,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         maxLines = 1,
-                        modifier = Modifier.alignByBaseline().padding(start = 6.dp)
+                        modifier = Modifier.alignByBaseline().padding(start = 4.dp)
                     )
                 }
             }

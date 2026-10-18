@@ -41,6 +41,8 @@ import com.cryptochecker.app.ui.components.rememberReduceMotion
 import com.cryptochecker.app.ui.features.about.BatteryOptimizationDialog
 import com.cryptochecker.app.ui.features.alarms.AlarmsOverviewScreen
 import com.cryptochecker.app.ui.features.alarms.AlarmsScreen
+import com.cryptochecker.app.ui.features.alarms.AlarmLogScreen
+import com.cryptochecker.app.ui.features.alarms.LocalOpenAlarmLog
 import com.cryptochecker.app.ui.features.alarms.LocalOpenUpdateSettings
 import com.cryptochecker.app.ui.features.explorer.ExplorerScreen
 import com.cryptochecker.app.ui.features.explorer.ExplorerViewModel
@@ -204,9 +206,17 @@ fun AppNavHost(
     val openUpdateSettings: () -> Unit = remember(navigation) {
         { navigation.navigate(ScreenRoute.SettingsSubpage(SettingsPage.UPDATES.name)) { launchSingleTop = true } }
     }
+    // Alarm-Protokoll: auch aus den Einstellungen («Aktualisierung», neben «Letzte Prüfungen»)
+    val openAlarmLog: () -> Unit = remember(navigation) {
+        { navigation.navigate(ScreenRoute.AlarmLog) { launchSingleTop = true } }
+    }
     // Erneutes Tippen auf den gewählten Tab: an den Anfang rollen (wie iOS)
     val tabReselect = remember { TabReselectSignal() }
-    CompositionLocalProvider(LocalOpenUpdateSettings provides openUpdateSettings, LocalTabReselect provides tabReselect) {
+    CompositionLocalProvider(
+        LocalOpenUpdateSettings provides openUpdateSettings,
+        LocalOpenAlarmLog provides openAlarmLog,
+        LocalTabReselect provides tabReselect,
+    ) {
         Scaffold(
             bottomBar = {
                 if (currentTab != null) {
@@ -421,8 +431,13 @@ fun AppNavHost(
                 composable<ScreenRoute.AlarmsOverview> {
                     AlarmsOverviewScreen(
                         onBack = { navigation.popBackStack() },
-                        onOpenWatch = { watchId -> navigation.navigate(ScreenRoute.Alarms(watchId)) }
+                        onOpenWatch = { watchId -> navigation.navigate(ScreenRoute.Alarms(watchId)) },
+                        onOpenLog = openAlarmLog,
                     )
+                }
+
+                composable<ScreenRoute.AlarmLog> {
+                    AlarmLogScreen(onBack = { navigation.popBackStack() })
                 }
             }
         }

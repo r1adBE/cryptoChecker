@@ -15,7 +15,6 @@
     <string name="starter_search_coin">Caută altă monedă</string>
     <string name="starter_select_all">Selectează tot</string>
     <string name="starter_select_none">Deselectează tot</string>
-    <string name="starter_text">Debifează ce nu vrei și adaugă restul dintr-odată. Poți schimba bursa și perechea mai târziu.</string>
     <string name="starter_title">Începe cu aceste monede</string>
     <string name="starter_watch_alarm_hint">Urmărește prețul, setează o alarmă</string>
 </resources>

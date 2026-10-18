@@ -221,13 +221,13 @@ struct WatchSheetChartView: View {
     /// Zeile; reicht der Platz nicht (grosse Schrift), rutscht der Schalter rechtsbündig darunter.
     private var chips: some View {
         ViewThatFits(in: .horizontal) {
-            HStack(spacing: 6) {
+            HStack(spacing: Spacing.xs) {
                 rangeChips
-                Spacer(minLength: 6)
+                Spacer(minLength: Spacing.xs)
                 typeToggle
             }
             VStack(alignment: .trailing, spacing: 8) {
-                FlowLayout(spacing: 6) { rangeChips }
+                FlowLayout(spacing: Spacing.xs) { rangeChips }
                     .frame(maxWidth: .infinity, alignment: .leading)
                 typeToggle
             }
@@ -305,8 +305,8 @@ struct WatchSheetChartView: View {
             Text(title)
                 .font(.subheadline.weight(selected ? .semibold : .regular))
                 .lineLimit(1)
-                .padding(.horizontal, 10)
-                .padding(.vertical, 6)
+                .padding(.horizontal, Spacing.md)
+                .padding(.vertical, Spacing.sm)
                 .foregroundStyle(selected ? accent.onContainer : AppColors.onSurface)
                 .background(selected ? accent.container : AppColors.containerHigh, in: Capsule())
                 .overlay(Capsule().strokeBorder(selected ? accent.primary.opacity(0.6) : .clear, lineWidth: 1))

@@ -206,7 +206,13 @@ extension PriceRefresher {
                             settings: AppSettings, speechAllowed: Bool, inputs: AlarmInputs,
                             outcome: inout Outcome) -> Bool {
         // DEX-Pool mit zu wenig oder unbekannter Liquidität: Alarme bleiben, lösen aber nicht aus (`DexLiquidity`)
-        if DexLiquidityStore.blocksAlarms(marketKey: watch.marketKey, pairId: watch.pairId) { return false }
+        if DexLiquidityStore.blocksAlarms(marketKey: watch.marketKey, pairId: watch.pairId) {
+            // Alarm-Protokoll: nur festhalten, warum nicht
+            outcome.alarmLog += blockedAlarmLog(alarms, watch: watch, updated: updated, lowLiquidity: true,
+                                                markFallback: false, now: now,
+                                                cooldownMinutes: settings.alarmCooldownMinutes)
+            return false
+        }
         var spokeAlarm = false
         // Nachtruhe: Alarme warten bis zum Ende und melden sich dann mit Ton (`QuietHours.holdsAlarms`)
         let holdAlarms = QuietHours.holdsAlarmsNow(settings)
@@ -220,11 +226,21 @@ extension PriceRefresher {
         /// bleiben unverändert scharf.
         /// `shownPrice`/`shownCurrency`: Kurs in der Alarmwährung (Schwelle in anderer Währung), damit «jetzt» in
         /// derselben Währung steht wie die Schwelle; nil = Kurs in der Quote-Währung des Paars.
+        /// `logPrice`: Alarm-Protokoll — Kurs in der Währung der Schwelle; nil = dieser Alarm wird nicht protokolliert.
         func report(_ alarm: Alarm, text: String? = nil, volumeRatio: Double? = nil, candleOpenTime: Int64? = nil,
-                    nearLevel: Double? = nil, shownPrice: Double? = nil, shownCurrency: String? = nil) {
+                    nearLevel: Double? = nil, shownPrice: Double? = nil, shownCurrency: String? = nil,
+                    logPrice: Double? = nil) {
             // Nachtruhe oder keine Mitteilungs-Erlaubnis (auch bei wiederholenden): nicht auslösen,
             // Alarm bleibt unverändert scharf (`QuietHours.mayFire`)
-            if !QuietHours.mayFire(holdAlarms: holdAlarms, deliverable: inputs.alarmsDeliverable) { return }
+            if !QuietHours.mayFire(holdAlarms: holdAlarms, deliverable: inputs.alarmsDeliverable) {
+                if let logPrice,
+                   let trace = AlarmLog.deliveryTrace(holdAlarms: holdAlarms, canShow: inputs.alarmsDeliverable,
+                                                      shown: nil, saved: false),
+                   let entry = alarmLogEntry(alarm, watch: updated, trace: trace, now: now, comparePrice: logPrice) {
+                    outcome.alarmLog.append(entry)
+                }
+                return
+            }
             let after = AlarmEvaluator.triggered(alarm, price: price, time: now, candleOpenTime: candleOpenTime,
                                                  nearLevel: nearLevel)
             let speak = speechAllowed && alarm.speak
@@ -232,7 +248,11 @@ extension PriceRefresher {
                 watch: updated, alarm: alarm, price: price, volumeRatio: volumeRatio, text: text,
                 update: AlarmUpdate(evaluated: alarm, result: after, setsEnabled: true),
                 speech: speak ? SpokenText.alarm(updated, alarm.condition, price) : nil,
-                shownPrice: shownPrice, shownCurrency: shownCurrency))
+                shownPrice: shownPrice, shownCurrency: shownCurrency,
+                // Ergebnis steht erst nach dem Melden fest (`deliverAlarms`): vorläufig «fällig»
+                logEntry: logPrice.flatMap {
+                    alarmLogEntry(alarm, watch: updated, trace: AlarmLogTrace(due: true), now: now, comparePrice: $0)
+                }))
             if speak { spokeAlarm = true }
         }
 
@@ -333,6 +353,10 @@ extension PriceRefresher {
                 after.referencePrice = price
                 after.referenceAt = now
                 outcome.alarms[alarm.id] = AlarmUpdate(evaluated: alarm, result: after, setsEnabled: false)
+                if let entry = alarmLogEntry(alarm, watch: updated, trace: AlarmLogTrace(), now: now,
+                                             comparePrice: price) {
+                    outcome.alarmLog.append(entry)
+                }
                 continue
             }
             // Schwellwert in anderer Währung: Kurs umrechnen; ohne Faktor diesmal auslassen
@@ -341,6 +365,9 @@ extension PriceRefresher {
                 guard let rate = inputs.convertRates["\(watch.id)|\(currency)"] else {
                     if inputs.skippedStages.contains(.convert) { continue }
                     checkStatus.markUnchecked(alarm.id, reason: .noRate, now: now)
+                    if let entry = alarmLogEntry(alarm, watch: updated, trace: AlarmLogTrace(noRate: true), now: now) {
+                        outcome.alarmLog.append(entry)
+                    }
                     continue
                 }
                 comparePrice = price * rate
@@ -349,16 +376,35 @@ extension PriceRefresher {
             // Gemeldeter Kursalarm: erst wieder scharf, wenn der Kurs auf die andere Seite zurück ist
             if AlarmEvaluator.shouldRearmLevel(alarm: alarm, price: comparePrice, now: now) {
                 rearm(alarm)
+                if let entry = alarmLogEntry(alarm, watch: updated, trace: AlarmLogTrace(), now: now,
+                                             comparePrice: comparePrice) {
+                    outcome.alarmLog.append(entry)
+                }
                 continue
             }
             guard AlarmEvaluator.shouldTrigger(alarm: alarm, price: comparePrice, previousPrice: watch.lastPrice,
                                                now: now, cooldownMinutes: settings.alarmCooldownMinutes,
-                                               moveHistory: moveHistory) else { continue }
+                                               moveHistory: moveHistory) else {
+                // Protokoll: erfüllt, aber in der Ruhezeit? (dieselbe reine Regel ohne Ruhezeit nachgefragt)
+                if AlarmLog.covers(alarm.condition) {
+                    let metWithoutCooldown = settings.alarmCooldownMinutes > 0
+                        && AlarmEvaluator.shouldTrigger(alarm: alarm, price: comparePrice, previousPrice: watch.lastPrice,
+                                                        now: now, cooldownMinutes: 0, moveHistory: moveHistory)
+                    let waiting = alarm.condition.isPriceThreshold && !AlarmEvaluator.isLevelArmed(alarm)
+                    if let entry = alarmLogEntry(alarm, watch: updated,
+                                                 trace: AlarmLogTrace(coolingDown: metWithoutCooldown,
+                                                                      waitingRearm: waiting),
+                                                 now: now, comparePrice: comparePrice) {
+                        outcome.alarmLog.append(entry)
+                    }
+                }
+                continue
+            }
             // Umgerechnet: «jetzt» in der Währung der Schwelle (sonst stünde ein USDT-Kurs neben einer EUR-Marke)
             if let currency = alarm.convertCurrency {
-                report(alarm, shownPrice: comparePrice, shownCurrency: currency)
+                report(alarm, shownPrice: comparePrice, shownCurrency: currency, logPrice: comparePrice)
             } else {
-                report(alarm)
+                report(alarm, logPrice: comparePrice)
             }
         }
         // Erst nach der Prüfung: der aktuelle Kurs ist ohnehin der Vergleichswert

@@ -41,6 +41,9 @@ import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -61,6 +64,7 @@ import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.amountNumbers
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.util.A11yText
+import com.cryptochecker.app.util.BidiText
 import com.cryptochecker.app.util.ChangeBasisText
 import com.cryptochecker.app.util.PriceFormat
 import com.cryptochecker.app.ui.UiTestTags
@@ -69,7 +73,8 @@ import com.cryptochecker.app.ui.UiTestTags
  * Leere Merkliste: die fünf grössten Coins (ohne Stablecoins) als Auswahlliste im Stil
  * der Karte «Ungewöhnliche Aktivität» — je Zeile Coin, aktueller Kurs, 24-Stunden-Änderung
  * und Häkchen; anfangs alle gewählt. Ein Knopf legt alle gewählten auf einmal an
- * (gleicher Weg und Erst-Moment wie bisher). Darunter der bisherige Hinweis und der
+ * (gleicher Weg und Erst-Moment wie bisher). Oben steht laut, woher die Kurse kommen
+ * («Kurse von Binance in USDT», [marketName] und [quote]). Darunter der bisherige Hinweis und der
  * Weg zu jedem anderen Coin (Seite «Paar hinzufügen» mit der Coin-Suche, auch über «+» oben rechts). [coins]
  * sofort aus Zwischenspeicher bzw. Ausweich-Liste; frischere Daten ersetzen sie still.
  */
@@ -80,6 +85,8 @@ internal fun StarterPicker(
     deselected: Set<String>,
     prices: StarterPricesState,
     quote: String,
+    /** Anzeigename der Start-Börse («Binance», bei Standort-Sperre «Binance.US»). */
+    marketName: String,
     adding: Boolean,
     /** Logos der Start-Coins geladen (bzw. aufgegeben): bis dahin Platzhalter statt Initialen. */
     logosReady: Boolean = true,
@@ -130,8 +137,14 @@ internal fun StarterPicker(
                 textAlign = TextAlign.Center,
                 modifier = Modifier.padding(top = 4.dp, start = 16.dp, end = 16.dp)
             )
+            // Börse und Quote der Startpaare hervorgehoben: man soll sehen, woher die Kurse kommen
+            val emphasis = SpanStyle(fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.onSurface)
             Text(
-                text = stringResource(R.string.starter_text),
+                text = emphasized(
+                    stringResource(R.string.starter_source_text, BidiText.isolate(marketName), BidiText.isolate(quote)),
+                    listOf(marketName, quote),
+                    emphasis,
+                ),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 textAlign = TextAlign.Center,
@@ -181,7 +194,7 @@ internal fun StarterPicker(
                         text = stringResource(R.string.offline_status),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        modifier = Modifier.weight(1f).padding(start = 6.dp)
+                        modifier = Modifier.weight(1f).padding(start = Spacing.xs)
                     )
                     TextButton(onClick = onLoad) { Text(stringResource(R.string.try_again)) }
                 }
@@ -203,7 +216,7 @@ internal fun StarterPicker(
                     text = stringResource(R.string.starter_watch_alarm_hint),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.padding(start = 6.dp)
+                    modifier = Modifier.padding(start = Spacing.xs)
                 )
             }
             // Und was man danach bekommt: Tipp auf einen Coin zeigt «Was bewegt sich mit?» (Symbol wie der ⚡ der Zeile)
@@ -221,7 +234,7 @@ internal fun StarterPicker(
                     text = stringResource(R.string.watch_hint_tap_why),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.padding(start = 6.dp)
+                    modifier = Modifier.padding(start = Spacing.xs)
                 )
             }
 
@@ -262,6 +275,15 @@ internal fun StarterPicker(
             }
             AddPairButton(onClick = onAddClick, modifier = Modifier, labelled = false)
         }
+    }
+}
+
+/** [parts] (je das erste Vorkommen) in [text] mit [style] hervorheben. */
+private fun emphasized(text: String, parts: List<String>, style: SpanStyle): AnnotatedString = buildAnnotatedString {
+    append(text)
+    for (part in parts) {
+        val start = if (part.isEmpty()) -1 else text.indexOf(part)
+        if (start >= 0) addStyle(style, start, start + part.length)
     }
 }
 

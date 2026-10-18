@@ -4,67 +4,80 @@ import WidgetKit
 
 /// Live-Aktivität eines Paars: Sperrbildschirm und Dynamic Island.
 /// Starten/Beenden in der App (Aktionen eines Paars), Typ in `Shared/Services/PriceActivity.swift`.
+/// Im Design der Home-Widgets: Fläche, Text- und Kursfarben aus `WidgetPalette`, Kurse in SF Rounded,
+/// Abstände aus der 4-pt-Skala (`Spacing`).
 struct PriceLiveActivityWidget: Widget {
     var body: some WidgetConfiguration {
         ActivityConfiguration(for: PriceActivityAttributes.self) { context in
-            // Fester dunkler Grund: Kursfarben (Dunkel-Fassung) und Text bleiben lesbar
-            PriceActivityLockScreenView(attributes: context.attributes, state: context.state, isStale: context.isStale)
-                .environment(\.colorScheme, .dark)
-                .activityBackgroundTint(WidgetPalette.liveActivityBackground)
-                .activitySystemActionForegroundColor(WidgetPalette.liveActivityForeground)
-                .widgetURL(WidgetData.watchURL(context.attributes.watchId))
+            // Wie ein Widget mit Thema «System»: Fläche surfaceContainer in Hell bzw. Dunkel
+            LiveActivityThemed { palette in
+                PriceActivityLockScreenView(attributes: context.attributes, state: context.state,
+                                            isStale: context.isStale, palette: palette)
+                    .activityBackgroundTint(palette.base)
+                    .activitySystemActionForegroundColor(palette.accent)
+            }
+            .widgetURL(WidgetData.watchURL(context.attributes.watchId))
         } dynamicIsland: { context in
             DynamicIsland {
                 DynamicIslandExpandedRegion(.leading) {
-                    VStack(alignment: .leading, spacing: 1) {
-                        Text(context.attributes.pairLabel)
-                            .font(.system(size: 14, weight: .semibold))
-                            .lineLimit(1)
-                            .minimumScaleFactor(0.7)
-                        Text(context.attributes.exchangeName)
-                            .font(.system(size: 12))
-                            .foregroundStyle(.secondary)
-                            .lineLimit(1)
+                    // Dynamic Island: immer schwarzer Grund → Dunkel-Fassung der Palette
+                    LiveActivityThemed(dark: true) { palette in
+                        VStack(alignment: .leading, spacing: Spacing.xs) {
+                            Text(context.attributes.pairLabel)
+                                .font(.system(size: 14, weight: .semibold))
+                                .foregroundStyle(palette.text)
+                                .lineLimit(1)
+                                .minimumScaleFactor(0.7)
+                            Text(context.attributes.exchangeName)
+                                .widgetSecondaryFont()
+                                .foregroundStyle(palette.secondary)
+                                .lineLimit(1)
+                        }
+                        .padding(.leading, Spacing.xs)
                     }
-                    .padding(.leading, 4)
                 }
                 DynamicIslandExpandedRegion(.trailing) {
-                    PriceActivityChange(change: context.state.change24h, basis: context.state.basis ?? .default, size: 14)
-                        .padding(.trailing, 4)
+                    LiveActivityThemed(dark: true) { palette in
+                        PriceActivityChange(state: context.state, palette: palette, size: 14)
+                            .padding(.trailing, Spacing.xs)
+                    }
                 }
                 DynamicIslandExpandedRegion(.bottom) {
-                    HStack(alignment: .firstTextBaseline) {
-                        Text(context.state.priceText)
-                            .font(.system(size: 22, weight: .bold, design: .rounded))
-                            .monospacedDigit()
-                            .lineLimit(1)
-                            .minimumScaleFactor(0.6)
-                        Spacer(minLength: 6)
-                        Text(PriceActivityText.updated(context.state.updatedAt))
-                            .font(.system(size: 12, weight: .medium))
-                            .monospacedDigit()
-                            .foregroundStyle(.secondary)
-                            .lineLimit(1)
+                    LiveActivityThemed(dark: true) { palette in
+                        HStack(alignment: .firstTextBaseline, spacing: 0) {
+                            PriceActivityPrice(attributes: context.attributes, state: context.state,
+                                               palette: palette, size: 22, stale: false)
+                            Spacer(minLength: Spacing.sm)
+                            PriceActivityUpdated(date: context.state.updatedAt, palette: palette)
+                        }
+                        .padding(.horizontal, Spacing.xs)
                     }
-                    .padding(.horizontal, 4)
                 }
             } compactLeading: {
-                Text(context.attributes.symbol)
-                    .font(.system(size: 13, weight: .bold))
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.6)
+                LiveActivityThemed(dark: true) { palette in
+                    Text(context.attributes.symbol)
+                        .font(.system(size: 13, weight: .bold))
+                        .foregroundStyle(palette.text)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.6)
+                }
             } compactTrailing: {
-                Text(context.state.priceText)
-                    .font(.system(size: 13, weight: .semibold))
-                    .monospacedDigit()
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.5)
-                    .foregroundStyle(PriceActivityText.color(context.state.change24h))
+                LiveActivityThemed(dark: true) { palette in
+                    Text(context.state.priceText)
+                        .font(.system(size: 13, weight: .semibold, design: .rounded))
+                        .monospacedDigit()
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.5)
+                        .foregroundStyle(palette.change(context.state.change24h))
+                }
             } minimal: {
-                Text(String(context.attributes.symbol.prefix(4)))
-                    .font(.system(size: 11, weight: .bold))
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.5)
+                LiveActivityThemed(dark: true) { palette in
+                    Text(String(context.attributes.symbol.prefix(4)))
+                        .font(.system(size: 11, weight: .bold))
+                        .foregroundStyle(palette.text)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.5)
+                }
             }
             .widgetURL(WidgetData.watchURL(context.attributes.watchId))
         }
@@ -77,38 +90,32 @@ private struct PriceActivityLockScreenView: View {
     let attributes: PriceActivityAttributes
     let state: PriceActivityAttributes.ContentState
     let isStale: Bool
+    let palette: WidgetPalette
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            HStack(spacing: 6) {
-                WidgetCoinBadge(symbol: attributes.symbol, size: 22, dark: true, always: true)
+        VStack(alignment: .leading, spacing: Spacing.xs) {
+            HStack(spacing: Spacing.sm) {
+                // Plakette wie in den Widgets: Initialen in der Akzentfarbe
+                WidgetCoinBadge(symbol: attributes.symbol, size: 22, dark: palette.dark,
+                                accent: palette.accent, always: true)
                 Text(attributes.pairLabel)
                     .font(.system(size: 15, weight: .semibold))
+                    .foregroundStyle(palette.text)
                     .lineLimit(1)
                 Text(attributes.exchangeName)
-                    .font(.system(size: 13))
-                    .foregroundStyle(.secondary)
+                    .widgetSecondaryFont(13)
+                    .foregroundStyle(palette.secondary)
                     .lineLimit(1)
-                Spacer(minLength: 4)
-                PriceActivityChange(change: state.change24h, basis: state.basis ?? .default, size: 14)
+                Spacer(minLength: Spacing.xs)
+                PriceActivityChange(state: state, palette: palette, size: 14)
             }
-            HStack(alignment: .firstTextBaseline) {
-                Text(state.priceText)
-                    .font(.system(size: 28, weight: .bold, design: .rounded))
-                    .monospacedDigit()
-                    // Veraltet: gedämpft statt abgeblasst (Kontrast)
-                    .foregroundStyle(isStale ? HierarchicalShapeStyle.secondary : HierarchicalShapeStyle.primary)
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.5)
-                Spacer(minLength: 6)
-                Text(PriceActivityText.updated(state.updatedAt))
-                    .font(.system(size: 12, weight: .medium))
-                    .monospacedDigit()
-                    .foregroundStyle(.secondary)
-                    .lineLimit(1)
+            HStack(alignment: .firstTextBaseline, spacing: 0) {
+                PriceActivityPrice(attributes: attributes, state: state, palette: palette, size: 28, stale: isStale)
+                Spacer(minLength: Spacing.sm)
+                PriceActivityUpdated(date: state.updatedAt, palette: palette)
             }
         }
-        .padding(16)
+        .padding(Spacing.lg)
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(A11y.join([
             L("a11y_row_pair", attributes.pairLabel, attributes.exchangeName),
@@ -119,32 +126,53 @@ private struct PriceActivityLockScreenView: View {
     }
 }
 
-/// «↗ +1.24% 24h» bzw. «… heute» (Veränderung gemäss %-Basis) in der Kursfarbe; ohne Bewegung
-/// grau «0.00%», ohne Bezug grau «—».
+/// Kurs in SF Rounded wie `WidgetPriceText`, die Währung klein und grau (`Text.quoted`).
+/// Veraltet: gedämpft (Nebentext-Farbe) statt abgeblasst — bleibt AA.
+private struct PriceActivityPrice: View {
+    let attributes: PriceActivityAttributes
+    let state: PriceActivityAttributes.ContentState
+    let palette: WidgetPalette
+    let size: CGFloat
+    let stale: Bool
+
+    var body: some View {
+        Text.quoted(state.priceText, quote: PriceActivityText.quote(attributes.pairLabel), size: size,
+                    weight: .bold, design: .rounded, quoteColor: palette.secondary)
+            .monospacedDigit()
+            .foregroundStyle(stale ? palette.secondary : palette.text)
+            .lineLimit(1)
+            .minimumScaleFactor(0.5)
+    }
+}
+
+/// «Stand 14:05» als Nebentext der Widgets.
+private struct PriceActivityUpdated: View {
+    let date: Date
+    let palette: WidgetPalette
+
+    var body: some View {
+        Text(PriceActivityText.updated(date))
+            .widgetSecondaryFont(weight: .medium, monospacedDigit: true)
+            .foregroundStyle(palette.secondary)
+            .lineLimit(1)
+    }
+}
+
+/// «↗ +1.24% 24h» bzw. «… heute» (Veränderung gemäss %-Basis) in der Kursfarbe — dieselbe Marke wie
+/// in den Widgets (`WidgetChangeLabel`); ohne Bewegung grau «0.00%», ohne Bezug grau «—».
 private struct PriceActivityChange: View {
-    let change: Double?
-    let basis: ChangeBasis
+    let state: PriceActivityAttributes.ContentState
+    let palette: WidgetPalette
     let size: CGFloat
 
     var body: some View {
-        HStack(spacing: 2) {
-            ChangeArrowIcon(change: change)
-                .font(.system(size: size * 0.75, weight: .bold))
-            Text(change == nil ? "—" : (PriceFormat.changePercent(change) ?? WidgetChangeLabel.zeroText))
-                .font(.system(size: size, weight: .semibold))
-                .monospacedDigit()
-                .lineLimit(1)
-            // Zeitraum nur, wenn eingeschaltet (Einstellungen › %-Änderung)
-            if SharedStorage.loadSettings().showChangePeriod {
-                Text(A11y.changeShortLabel(basis))
-                    .font(.system(size: size * 0.75, weight: .medium))
-                    .foregroundStyle(.secondary)
-                    .lineLimit(1)
-            }
-        }
-        .foregroundStyle(PriceActivityText.color(change))
-        .accessibilityElement(children: .ignore)
-        .accessibilityLabel(A11y.change(change, basis: basis))
+        let basis = state.basis ?? .default
+        // Zeitraum nur, wenn eingeschaltet (Einstellungen › %-Änderung)
+        WidgetChangeLabel(change: state.change24h, palette: palette, size: size, showsArrow: true, day: true,
+                          suffix: SharedStorage.loadSettings().showChangePeriod ? A11y.changeShortLabel(basis) : nil,
+                          basis: basis)
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel(A11y.change(state.change24h, basis: basis))
     }
 }
 
@@ -161,16 +189,10 @@ enum PriceActivityText {
         L("pulse_updated", timeFormatter.string(from: date))
     }
 
-    /// Kursfarbe nach den App-Einstellungen (Schema, Tausch, hoher Kontrast).
-    /// Live-Aktivitäten liegen auf dunklem Grund (Sperrbildschirm, Dynamic Island).
-    static func color(_ change: Double?) -> Color {
-        guard let change, PriceFormat.changePercent(change) != nil else { return .secondary }
-        let settings = SharedStorage.loadSettings()
-        let hex = change >= 0
-            ? settings.priceColorScheme.upHex(dark: true, highContrast: settings.highContrast,
-                                              inverted: settings.priceColorsInverted, accent: settings.accentColor)
-            : settings.priceColorScheme.downHex(dark: true, highContrast: settings.highContrast,
-                                                inverted: settings.priceColorsInverted, accent: settings.accentColor)
-        return Color(hex: hex)
+    /// Quote-Währung aus «BTC/USDT» → «USDT» (für die kleine graue Währung im Kurs); ohne «/» leer,
+    /// dann bleibt der Kurs ein Text (`WidgetQuoteText.split` findet nichts).
+    static func quote(_ pairLabel: String) -> String {
+        guard pairLabel.contains("/"), let last = pairLabel.split(separator: "/").last else { return "" }
+        return last.trimmingCharacters(in: .whitespaces)
     }
 }

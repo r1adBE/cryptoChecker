@@ -12,6 +12,8 @@ import com.cryptochecker.app.data.remote.VolumeSpike
 import com.cryptochecker.app.data.remote.WindowRanges
 import com.cryptochecker.app.domain.alarm.AlarmCheckStatus
 import com.cryptochecker.app.domain.alarm.AlarmEvaluator
+import com.cryptochecker.app.domain.alarm.AlarmLog
+import com.cryptochecker.app.domain.alarm.AlarmLogTrace
 import com.cryptochecker.app.domain.alarm.DerivativesAlarm
 import com.cryptochecker.app.domain.alarm.DerivativesAlarmData
 import com.cryptochecker.app.domain.alarm.MoveWindow
@@ -146,6 +148,11 @@ class RefreshEffects internal constructor(
          * sie mit Stundenkerzen bzw. Futures-Daten).
          */
         live: Boolean = false,
+        /**
+         * Alarm-Protokoll ([AlarmLogCollector]): beobachtet Kursmarken und Prozent-Alarme an den bestehenden
+         * Entscheidungsstellen — ändert nichts daran; Fehler darin bleiben dort ([observe]).
+         */
+        trace: AlarmTraceSink? = null,
     ): Int {
         var count = 0
         // Nachtruhe: Alarme warten bis zum Ende und melden sich dann mit Ton (einmal je Durchlauf bestimmt)
@@ -212,16 +219,26 @@ class RefreshEffects internal constructor(
             show: suspend () -> Boolean,
             spokenPrice: Double = price,
             currency: String? = null,
+            /** Alarm-Protokoll: Kurs in der Währung der Schwelle; null = dieser Alarm wird nicht protokolliert. */
+            logPrice: Double? = null,
         ) {
+            // Fürs Protokoll nur mitlesen, was die Schritte liefern (null = Schritt nicht erreicht)
+            var canShowSeen: Boolean? = null
+            var shownSeen: Boolean? = null
             // Nachtruhe oder keine zustellbare Meldung (auch bei wiederholenden): nicht auslösen,
             // Alarm bleibt unverändert scharf (QuietHours.mayFire)
             // Nachtruhe / keine zustellbare Meldung / unbestätigter Versuch: Alarm bleibt scharf. Sonst zuerst melden,
             // erst nach bestätigter Meldung speichern ([AlarmDelivery], auch im Ketten-Test geprüft)
             val saved = delivery.deliver(
                 alarm.id, now, settings.alarmCooldownMinutes, holdAlarms,
-                canShow = { notifier.canShowAlarm(alarm) }, show = show, mark = mark,
+                canShow = { notifier.canShowAlarm(alarm).also { canShowSeen = it } },
+                show = { show().also { shownSeen = it } },
+                mark = mark,
                 retract = { notifier.cancelAlarms(listOf(alarm.id)) },
             )
+            if (trace != null && logPrice != null) observe {
+                AlarmLog.deliveryTrace(holdAlarms, canShowSeen, shownSeen, saved)?.let { trace.note(alarm, it, logPrice) }
+            }
             if (!saved) return
             count++
             speakIfWanted(alarm, spokenPrice, currency)
@@ -369,6 +386,7 @@ class RefreshEffects internal constructor(
                 // Bewegungs- bzw. Prozentalarm ohne Bezug: aktuellen Kurs als Bezug setzen, ohne auszulösen
                 if (alarmEvaluator.needsReference(alarm, now)) {
                     watchRepository.setAlarmReferenceIfUnchanged(alarm, price, now)
+                    if (trace != null) observe { trace.note(alarm, AlarmLogTrace(), price) }
                     continue
                 }
                 // Schwellwert in anderer Währung: Kurs umrechnen; ohne Faktor diesmal auslassen.
@@ -377,6 +395,7 @@ class RefreshEffects internal constructor(
                 val rate = if (convertTo == null) 1.0 else rateFor(convertTo)?.takeIf { it.isFinite() && it > 0.0 }
                 if (rate == null) {
                     unchecked(alarm, AlarmCheckStatus.Reason.NO_RATE)
+                    if (trace != null) observe { trace.note(alarm, AlarmLogTrace(noRate = true), null) }
                     continue
                 }
                 val comparePrice = if (convertTo == null) price else price * rate
@@ -385,6 +404,7 @@ class RefreshEffects internal constructor(
                 // Gemeldeter Kursalarm: erst wieder scharf, wenn der Kurs auf die andere Seite zurück ist
                 if (alarmEvaluator.shouldRearmLevel(alarm, comparePrice, now)) {
                     watchRepository.rearmAlarmIfUnchanged(alarm)
+                    if (trace != null) observe { trace.note(alarm, AlarmLogTrace(), comparePrice) }
                     continue
                 }
                 val fires = alarmEvaluator.shouldTrigger(
@@ -395,7 +415,22 @@ class RefreshEffects internal constructor(
                     cooldownMinutes = settings.alarmCooldownMinutes,
                     moveHistory = moveHistory,
                 )
-                if (!fires) continue
+                if (!fires) {
+                    // Protokoll: erfüllt, aber in der Ruhezeit? (dieselbe reine Regel ohne Ruhezeit nachgefragt)
+                    if (trace != null) observe {
+                        val metWithoutCooldown = settings.alarmCooldownMinutes > 0 && alarmEvaluator.shouldTrigger(
+                            alarm = alarm,
+                            price = comparePrice,
+                            previousPrice = comparePrevious,
+                            now = now,
+                            cooldownMinutes = 0,
+                            moveHistory = moveHistory,
+                        )
+                        val waiting = alarm.condition.isPriceThreshold && !alarmEvaluator.isLevelArmed(alarm)
+                        trace.note(alarm, AlarmLogTrace(coolingDown = metWithoutCooldown, waitingRearm = waiting), comparePrice)
+                    }
+                    continue
+                }
 
                 // Gespeichert wird der Kurs in der Quote (wie bisher); gemeldet und angesagt in der Währung
                 // der Schwelle — sonst stünde «Über 60’000 CHF — jetzt 66’000 USDT» in der Meldung
@@ -405,6 +440,7 @@ class RefreshEffects internal constructor(
                     show = { notifier.showAlarm(watch, alarm, comparePrice, priceCurrency = convertTo) },
                     spokenPrice = comparePrice,
                     currency = convertTo,
+                    logPrice = comparePrice,
                 )
             } catch (e: CancellationException) {
                 throw e
@@ -415,6 +451,15 @@ class RefreshEffects internal constructor(
         // Erst nach der Prüfung: der aktuelle Kurs ist ohnehin der Vergleichswert
         if (hasMove) moveHistoryStore.append(watch.id, MoveWindow.PricePoint(price, now), now)
         return count
+    }
+
+    /** Alarm-Protokoll: nur beobachten — ein Fehler darin darf die Prüfung nie stören. */
+    private inline fun observe(block: () -> Unit) {
+        try {
+            block()
+        } catch (e: Exception) {
+            Timber.d(e, "Alarm-Protokoll: Prüfung nicht erfasst")
+        }
     }
 
     /** Was mit der Kurs-Benachrichtigung eines Paars geschieht ([priceUpdate]). */

@@ -24,7 +24,7 @@ LARM
 • Kurs över eller under en nivå, eller uppgång eller nedgång med en procentsats – även i din valuta, t.ex. 60 000 EUR på ett USDT-par
 • Rörelse med x % inom ett tidsfönster, volymspik
 • Tidskänslig notis, valfritt larmljud, valfri uppläsning
-• Tysta timmar och ”Testa larm”: hör i förväg hur ett larm kommer fram
+• Tysta timmar och ”Testa larm”: hör i förväg hur ett larm kommer fram; larmlogg
 
 MARKNAD
 • Ovanlig aktivitet: ovanliga kurs- och volymrörelser i din lista, valfritt som notis

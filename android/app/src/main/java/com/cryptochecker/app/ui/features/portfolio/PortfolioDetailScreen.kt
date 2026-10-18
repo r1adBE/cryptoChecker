@@ -228,7 +228,7 @@ private fun WalletShortfallBanner(shortfalls: List<PortfolioWalletShortfall>, on
                     modifier = Modifier
                         .fillMaxWidth()
                         .clickable { onOpen(s.txId) }
-                        .padding(horizontal = 16.dp, vertical = 10.dp)
+                        .padding(horizontal = 16.dp, vertical = 12.dp)
                 )
             }
         }

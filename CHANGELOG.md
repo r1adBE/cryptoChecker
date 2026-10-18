@@ -15,6 +15,29 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 80)
+
+Review fixes before the store.
+
+* Alarm log: each price alarm shows «Last checked» (time, exchange, price seen, threshold, result); a new page
+  «Alarm log» lists fired alarms and alarms that would have fired but were held back (outdated price, mark price,
+  liquidity below 10,000 $, quiet hours, notifications off, no price). Stored encrypted on the device only, not in
+  backups, at most 200 entries and 14 days. Price-level and percent alarms; the alarm decision itself is unchanged.
+* Watchlist row: when an exchange pauses requests, the row says «Binance · paused until 19:45» instead of only the
+  refresh sheet.
+* «Set your first alert» no longer promises «as soon as»: it says that the system checks irregularly while the app
+  is closed.
+* First start names the source: «Prices from Binance in USDT» (Binance.US in the US).
+* Switzerland: the tax worksheet shows the wealth value at 31 December (holdings × closing price in CHF) as
+  orientation, per coin; missing closes are marked «not calculated». The ESTV price list is authoritative; capital
+  gains and the wealth tax itself are still not calculated.
+* iPhone Live Activity uses the widget design: same surface colour, text colours, price colours, rounded amounts and
+  spacing; light or dark like the system.
+* Design: tax-template selection uses the theme accent (iPhone), warning icon in the readable amber, note icon in full
+  accent, sort arrows 12 pt, error screen uses the standard empty state, tab bar 8 pt padding and identical on both
+  platforms; German «Funding ausgeglichen», «Tief», «Hoch» instead of English terms.
+* Spacing on the 4/8/12/16/24/32 grid on both platforms (about 90 values, shrinking so nothing wraps; touch areas rounded up); a guard test keeps new off-grid spacing out.
+
 ## 16.2.2 (build 79)
 
 Review fixes before the store.

@@ -25,6 +25,8 @@ import com.cryptochecker.app.domain.portfolio.TaxTemplate
 import com.cryptochecker.app.domain.portfolio.TaxYearSummary
 import com.cryptochecker.app.domain.portfolio.noteText
 import com.cryptochecker.app.domain.portfolio.taxOrientationLabel
+import com.cryptochecker.app.domain.portfolio.wealthCoinLabel
+import com.cryptochecker.app.domain.portfolio.wealthCoinNote
 import com.cryptochecker.app.ui.theme.tabularNumbers
 import com.cryptochecker.app.util.PriceFormat
 import java.math.BigDecimal
@@ -48,7 +50,7 @@ internal fun TaxSummaryCard(summary: TaxYearSummary?, texts: TaxSummaryTexts, me
                 texts.disclaimer,
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.padding(bottom = if (methodNote == null) 6.dp else 0.dp)
+                modifier = Modifier.padding(bottom = if (methodNote == null) 4.dp else 0.dp)
             )
             // Vorlage rechnet mit einer anderen Methode als die App («Vorlage rechnet FIFO, nicht Ø»)
             if (methodNote != null) {
@@ -56,7 +58,7 @@ internal fun TaxSummaryCard(summary: TaxYearSummary?, texts: TaxSummaryTexts, me
                     methodNote,
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.padding(bottom = 6.dp)
+                    modifier = Modifier.padding(bottom = 4.dp)
                 )
             }
             if (summary == null) {
@@ -99,13 +101,24 @@ internal fun TaxSummaryCard(summary: TaxYearSummary?, texts: TaxSummaryTexts, me
                 if (notes.isNotEmpty()) {
                     Text(notes, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
+                // CH Vermögenswert: je Coin Bestand und Wert, ohne Wert «nicht gerechnet – Grund» (wie die CSV)
+                if (l.line == TaxLine.CH_WEALTH_VALUE) {
+                    summary.wealth?.rows?.forEach { r ->
+                        val v = if (fx) r.valueTarget else r.valueUsdt
+                        SummaryLine(
+                            texts.wealthCoinLabel(r.coin, PriceFormat.amount(r.amount)),
+                            v?.let { PriceFormat.valueWithCurrency(it.toDouble(), unit) } ?: texts.wealthCoinNote(r),
+                            indent = true,
+                        )
+                    }
+                }
             }
             if (summary.template == TaxTemplate.DE) {
                 Text(
                     stringResource(R.string.tax_de_limit_scope),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.padding(top = 6.dp)
+                    modifier = Modifier.padding(top = 4.dp)
                 )
             }
         }
@@ -113,8 +126,8 @@ internal fun TaxSummaryCard(summary: TaxYearSummary?, texts: TaxSummaryTexts, me
 }
 
 @Composable
-private fun SummaryLine(label: String, value: String?, bold: Boolean = false) {
-    Row(modifier = Modifier.fillMaxWidth().padding(vertical = 1.dp)) {
+private fun SummaryLine(label: String, value: String?, bold: Boolean = false, indent: Boolean = false) {
+    Row(modifier = Modifier.fillMaxWidth().padding(start = if (indent) 12.dp else 0.dp, top = 1.dp, bottom = 1.dp)) {
         Text(label, style = MaterialTheme.typography.bodySmall, modifier = Modifier.weight(1f).padding(end = 8.dp))
         if (value != null) {
             Text(
@@ -141,7 +154,7 @@ private fun TaxStatusLine(label: String, status: TaxLimitStatus, limit: BigDecim
         style = MaterialTheme.typography.bodySmall,
         fontWeight = FontWeight.Medium,
         color = if (status == TaxLimitStatus.REACHED) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurface,
-        modifier = Modifier.padding(top = 6.dp)
+        modifier = Modifier.padding(top = 4.dp)
     )
     Text(explain, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
 }

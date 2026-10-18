@@ -21,6 +21,9 @@ struct CheckRunsCard: View {
             ForEach(Array(runs.enumerated()), id: \.offset) { _, run in
                 CheckRunRow(run: run)
             }
+            // Daneben das Alarm-Protokoll: nicht nur wann, sondern was die Prüfung bei jedem Alarm sah
+            SettingsNavRow(title: L("alarm_log_open"), valueDescription: nil, value: { EmptyView() },
+                           destination: { AlarmLogScreen() })
         }
         .onAppear { runs = CheckRunStore.load() }
         // Zurück in der App (Hintergrund-Aufgabe oder Widget lief inzwischen): neu lesen
@@ -70,7 +73,7 @@ private struct CheckRunRow: View {
                 .font(.footnote)
                 .foregroundStyle(ok ? AppColors.onSurfaceVariant : AppColors.warningText)
         }
-        .padding(.vertical, 6)
+        .padding(.vertical, 4)
         .accessibilityElement(children: .ignore)
         .accessibilityLabel([time, trigger, detail].filter { !$0.isEmpty }.joined(separator: ", "))
     }

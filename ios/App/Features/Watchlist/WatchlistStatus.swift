@@ -201,11 +201,11 @@ extension WatchlistScreen {
     }
 
     /// Tippfläche über und unter der Pille «N deaktiviert».
-    private static let disabledTouchExtra: CGFloat = 7
+    private static let disabledTouchExtra: CGFloat = Spacing.sm
 
     private func disabledChipLabel(count: Int, selected: Bool) -> some View {
         let tone = AppColors.onSurfaceVariant
-        return HStack(spacing: 6) {
+        return HStack(spacing: Spacing.xs) {
             Image(systemName: "pause.circle")
                 .scaledFont(size: 12, weight: .semibold, relativeTo: .caption)
                 .foregroundStyle(tone)
@@ -221,10 +221,10 @@ extension WatchlistScreen {
                     .accessibilityHidden(true)
             }
         }
-        .padding(.horizontal, 10)
+        .padding(.horizontal, Spacing.sm)
         .padding(.vertical, Spacing.sm)
         .background(tone.opacity(selected ? 0.22 : 0.12), in: Capsule())
-        // Tippfläche gut 44 pt hoch (wie Android 48 dp): je 7 pt über und unter der Pille; nach aussen
+        // Tippfläche 48 pt hoch (wie Android): je 8 pt über und unter der Pille; nach aussen
         // wieder die Pillen-Höhe, die Statuszeile wächst nicht
         .padding(.vertical, Self.disabledTouchExtra)
         .contentShape(Rectangle())

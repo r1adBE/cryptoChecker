@@ -164,6 +164,7 @@ struct TaxTemplateSettingRow: View {
     /// Hinweis zu den Länder-Vorlagen (Beta) bestätigt; sonst Dialog mit OK beim ersten Wählen (wie Android).
     @Binding var confirmed: Bool
     @State private var confirmDismissed = false
+    @Environment(\.appAccent) private var accent
 
     var body: some View {
         let suggestion = TaxTemplate.suggest(Locale.current.region?.identifier ?? "")
@@ -178,7 +179,8 @@ struct TaxTemplateSettingRow: View {
             } label: {
                 Text(L(selected.labelKey))
                     .font(.body)
-                    .foregroundStyle(Color.accentColor)
+                    // Gewählte Akzentfarbe (hell die dunklere AA-Stufe), nicht die feste Asset-Farbe — wie Android `primary`
+                    .foregroundStyle(accent.primary)
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
             SettingsHint(text: L("tax_template_hint"), top: 0)

@@ -15,7 +15,6 @@
     <string name="starter_search_coin">Знайти іншу монету</string>
     <string name="starter_select_all">Вибрати всі</string>
     <string name="starter_select_none">Зняти вибір</string>
-    <string name="starter_text">Зніміть позначку з непотрібних і додайте решту за один раз. Біржу й пару можна змінити пізніше.</string>
     <string name="starter_title">Почніть із цих монет</string>
     <string name="starter_watch_alarm_hint">Стежте за курсом, задайте сигнал</string>
 </resources>

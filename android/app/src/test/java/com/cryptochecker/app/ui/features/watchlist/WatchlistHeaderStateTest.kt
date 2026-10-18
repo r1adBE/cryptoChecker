@@ -35,7 +35,7 @@ class WatchlistHeaderStateTest {
         starter = StarterUiState(
             coins = emptyList(), deselected = emptySet(),
             prices = StarterPricesState(loading = false, prices = emptyMap()),
-            adding = false, logosReady = true, quote = "USDT",
+            adding = false, logosReady = true, quote = "USDT", marketName = "Binance",
         ),
     )
 

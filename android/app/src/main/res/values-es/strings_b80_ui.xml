@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="starter_source_text">Precios de %1$s en %2$s. Desmarca lo que no quieras y añade el resto de una vez. Puedes cambiar el exchange y el par de cada moneda.</string>
+    <string name="watchlist_row_exchange_paused">%1$s · en pausa hasta las %2$s</string>
+</resources>

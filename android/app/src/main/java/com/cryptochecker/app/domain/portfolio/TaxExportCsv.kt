@@ -360,7 +360,8 @@ fun TaxExport.incomeCsv(
  * Hinweis «Orientierung – keine Steuerberatung», Zeitzone ([zoneLine]), dann Posten | USDT | Währung | Hinweis — zuerst
  * nur Tatsachen (Summen). Schlüsse nach den Regeln der Vorlage ([TaxLine.orientation]; Sätze, Grenzen, Freibeträge)
  * stehen NUR im eigenen Block danach: Kopf [TaxSummaryTexts.orientationHeading], jeder Posten mit Vorsatz
- * «Orientierung:» ([taxOrientationLabel]).
+ * «Orientierung:» ([taxOrientationLabel]). CH: unter dem Posten Vermögenswert per 31.12. ([TaxLine.CH_WEALTH_VALUE]) je
+ * Coin eine Zeile ([TaxYearSummary.wealth], Bezeichnung [wealthCoinLabel], Hinweis [wealthCoinNote]).
  */
 fun TaxExport.summaryCsv(
     s: TaxYearSummary,
@@ -394,7 +395,22 @@ fun TaxExport.summaryCsv(
     if (zoneLine.isNotEmpty()) sb.append(textLine(listOf(zoneLine), format))
     sb.append(textLine(listOf(texts.item, texts.usdt, texts.target, texts.note), format))
     val (orientation, facts) = s.lines.partition { it.line.orientation }
-    for (l in facts) sb.append(row(l, texts.labels[l.line].orEmpty()))
+    for (l in facts) {
+        sb.append(row(l, texts.labels[l.line].orEmpty()))
+        // CH Vermögenswert: darunter je Coin eine Zeile in denselben Spalten (Coin – Bestand | USDT | Währung | Hinweis);
+        // Werte unrund summiert, gerundet nur hier im Text
+        if (l.line == TaxLine.CH_WEALTH_VALUE) {
+            s.wealth?.rows?.forEach { r ->
+                val label = texts.wealthCoinLabel(r.coin, n(CutoffExport.amount(r.amount)))
+                sb.append(
+                    textLine(
+                        listOf(label, money(r.valueUsdt), money(r.valueTarget.takeIf { s.fxAvailable }), texts.wealthCoinNote(r)),
+                        format, setOf(1, 2),
+                    )
+                )
+            }
+        }
+    }
     if (orientation.isNotEmpty()) {
         sb.append(textLine(listOf(texts.orientationHeading.ifEmpty { texts.orientation }), format))
         for (l in orientation) {

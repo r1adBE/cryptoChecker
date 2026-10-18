@@ -15,7 +15,6 @@
     <string name="starter_search_coin">Hae toista kolikkoa</string>
     <string name="starter_select_all">Valitse kaikki</string>
     <string name="starter_select_none">Poista valinnat</string>
-    <string name="starter_text">Poista valinta niistä, joita et halua, ja lisää loput kerralla. Voit vaihtaa pörssin ja parin myöhemmin.</string>
     <string name="starter_title">Aloita näillä kolikoilla</string>
     <string name="starter_watch_alarm_hint">Seuraa hintaa, aseta hälytys</string>
 </resources>

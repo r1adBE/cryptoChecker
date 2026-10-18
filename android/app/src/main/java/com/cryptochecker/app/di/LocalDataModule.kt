@@ -12,6 +12,7 @@ import com.cryptochecker.app.data.portfolio.PortfolioAlarmDao
 import com.cryptochecker.app.data.portfolio.PortfolioDao
 import com.cryptochecker.app.data.portfolio.PortfolioDatabase
 import com.cryptochecker.app.data.portfolio.WatchedAddressDao
+import com.cryptochecker.app.domain.refresh.AlarmLogStore
 import com.cryptochecker.app.domain.refresh.CheckRunStore
 import com.cryptochecker.app.widget.PortfolioSnapshotKeyStore
 import com.cryptochecker.app.widget.PortfolioSnapshotSeal
@@ -24,7 +25,7 @@ import timber.log.Timber
 import java.io.File
 import javax.inject.Singleton
 
-/** Lokale Speicher: Hauptdatenbank, Portfolio-Datenbank, «Letzte Prüfungen» und die DAOs. */
+/** Lokale Speicher: Hauptdatenbank, Portfolio-Datenbank, «Letzte Prüfungen», Alarm-Protokoll und die DAOs. */
 @Module
 @InstallIn(SingletonComponent::class)
 object LocalDataModule {
@@ -82,6 +83,18 @@ object LocalDataModule {
     @Singleton
     fun provideCheckRunStore(@ApplicationContext context: Context): CheckRunStore =
         CheckRunStore(File(context.noBackupFilesDir, CheckRunStore.FILE_NAME))
+
+    /**
+     * Alarm-Protokoll (Build 80): neben «Letzte Prüfungen» in `noBackupFilesDir`, versiegelt mit eigenem Keystore-Schlüssel
+     * (Paare und Schwellen wie die verschlüsselte Merkliste).
+     */
+    @Provides
+    @Singleton
+    fun provideAlarmLogStore(@ApplicationContext context: Context): AlarmLogStore =
+        AlarmLogStore(
+            File(context.noBackupFilesDir, AlarmLogStore.FILE_NAME),
+            PortfolioSnapshotKeyStore(AlarmLogStore.KEY_ALIAS),
+        )
 
     // ---- Widget
 

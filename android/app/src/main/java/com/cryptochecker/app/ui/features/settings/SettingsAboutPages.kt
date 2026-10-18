@@ -140,7 +140,7 @@ internal fun AboutPage(
 /** Eine Zeile von «Deine Daten»: Stichwort und ein Satz, vorgelesen als ein Element. */
 @Composable
 private fun YourDataLine(@StringRes labelRes: Int, @StringRes textRes: Int) {
-    Column(modifier = Modifier.padding(vertical = 6.dp).semantics(mergeDescendants = true) {}) {
+    Column(modifier = Modifier.padding(vertical = 4.dp).semantics(mergeDescendants = true) {}) {
         Text(
             text = stringResource(labelRes),
             style = MaterialTheme.typography.labelLarge,

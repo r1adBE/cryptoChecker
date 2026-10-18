@@ -76,7 +76,7 @@ internal fun buildBottomTabs(portfolioEnabled: Boolean) = buildList {
 }
 
 /** Mindesthöhe der Tableiste ohne Systemleiste (wie `AppTabBarMetrics.height` in iOS). */
-private val TAB_BAR_HEIGHT = 64.dp
+private val TAB_BAR_HEIGHT = 66.dp
 
 /** Grösse der Tab-Symbole: die üblichen 24 dp (wie iOS). */
 private val TAB_ICON_SIZE = 24.dp
@@ -94,8 +94,11 @@ private const val TAB_LABEL_MAX_LINES = 2
  */
 private const val TAB_LABEL_MAX_SCALE = 1.5f
 
-/** Luft über dem Symbol und unter der Beschriftung (Pille 32 + 2 + Zeile 16 + 2 × 7 = 64 dp, wie iOS). */
-private val TAB_VERTICAL_PADDING = 7.dp
+/** Luft über dem Symbol und unter der Beschriftung (Pille 32 + 2 + Zeile 16 + 2 × 8 = 66 dp, wie iOS). */
+private val TAB_VERTICAL_PADDING = 8.dp
+
+/** Seitlicher Rand je Tab (wie iOS). */
+private val TAB_HORIZONTAL_PADDING = 4.dp
 
 /** Das Symbol des gewählten Tabs ist 10 % grösser (wie iOS). */
 private const val TAB_ICON_SELECTED_SCALE = 1.1f
@@ -160,8 +163,7 @@ internal fun AppTabBar(tabs: List<BottomTab>, currentRoute: ScreenRoute?, onSele
                                 .heightIn(min = TAB_BAR_HEIGHT)
                                 .testTag(tab.testTag)
                                 .selectable(selected = selected, role = Role.Tab, onClick = { onSelect(tab.route) })
-                                // 2 dp statt 4 dp: lange Beschriftungen (z. B. «Einstellungen») passen öfter auf eine Zeile
-                                .padding(horizontal = 2.dp, vertical = TAB_VERTICAL_PADDING)
+                                .padding(horizontal = TAB_HORIZONTAL_PADDING, vertical = TAB_VERTICAL_PADDING)
                         ) {
                             // Anzeiger: blendet beim Wechsel ein und wächst aus der Mitte (wie NavigationBarItem)
                             val indicator by animateFloatAsState(

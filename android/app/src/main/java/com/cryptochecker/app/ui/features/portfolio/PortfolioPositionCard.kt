@@ -223,7 +223,7 @@ private fun OpenLotRow(lot: PortfolioOpenLot, coin: String) {
         val perCoin = if (lot.amount.signum() > 0) cost.divide(lot.amount, java.math.MathContext.DECIMAL128) else null
         maskAmount(PortfolioFormat.usdt(cost.toDouble())) + (perCoin?.let { " · Ø " + PortfolioFormat.price(it.toDouble()) } ?: "")
     } else stringResource(R.string.portfolio_open_lots_without_price)
-    Row(verticalAlignment = Alignment.Top, modifier = Modifier.fillMaxWidth().padding(vertical = 6.dp)) {
+    Row(verticalAlignment = Alignment.Top, modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp)) {
         Column(modifier = Modifier.weight(1f)) {
             Text(title, style = MaterialTheme.typography.bodyMedium.tabularNumbers(), fontWeight = FontWeight.Medium)
             Text(

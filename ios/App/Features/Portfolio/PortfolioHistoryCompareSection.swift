@@ -46,7 +46,7 @@ struct PortfolioHistoryCompareSection: View {
 
     /// Legende «▬ CHF  ▬ USDT» (Strichstärke wie im Chart); für VoiceOver im Chart-Satz enthalten.
     private func legend(_ color: Color) -> some View {
-        HStack(spacing: 6) {
+        HStack(spacing: Spacing.xs) {
             Capsule()
                 .fill(color)
                 .frame(width: 14, height: 3)
@@ -55,7 +55,7 @@ struct PortfolioHistoryCompareSection: View {
             Capsule()
                 .fill(AppColors.onSurfaceVariant)
                 .frame(width: 14, height: 1.5)
-                .padding(.leading, 6)
+                .padding(.leading, Spacing.sm)
             Text(verbatim: PortfolioFormat.usdt)
         }
         .font(.caption2)

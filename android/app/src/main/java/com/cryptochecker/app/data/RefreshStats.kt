@@ -7,6 +7,7 @@ import com.cryptochecker.app.domain.refresh.MarketRefresh
 import com.cryptochecker.app.domain.refresh.RefreshFailure
 import com.cryptochecker.app.domain.refresh.RefreshReport
 import com.cryptochecker.app.domain.watch.ChangeStamp
+import com.cryptochecker.app.domain.watch.RowPause
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -113,11 +114,20 @@ class RefreshStats @Inject constructor(
     fun backoffStates(): Map<String, ExchangeBackoff.State> =
         ExchangeBackoff.decode(prefs.getString(KEY_BACKOFF, null))
 
+    private val _exchangePauses = MutableStateFlow(RowPause.pauses(backoffStates()))
+
+    /**
+     * Ende der Pause je Börsen-Schlüssel ([RowPause.pauses]) für die Zeilen der Merkliste («Binance · pausiert bis
+     * 19:45»); ob eine Pause noch läuft, entscheidet die Zeile mit der aktuellen Zeit ([RowPause.shownUntil]).
+     */
+    val exchangePauses: StateFlow<Map<String, Long>> = _exchangePauses.asStateFlow()
+
     @Synchronized
     fun setBackoffStates(states: Map<String, ExchangeBackoff.State>) {
         prefs.edit {
             if (states.isEmpty()) remove(KEY_BACKOFF) else putString(KEY_BACKOFF, ExchangeBackoff.encode(states))
         }
+        _exchangePauses.value = RowPause.pauses(states)
     }
 
     /** Für Aufrufer ohne Coroutine, etwa das Zeichnen des Widgets. */

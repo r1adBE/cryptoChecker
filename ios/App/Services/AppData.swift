@@ -70,6 +70,9 @@ final class AppData: ObservableObject {
     @Published var refreshing = false
     @Published var lastRefreshMillis: Int64 = SharedStorage.lastRefreshDuration
     @Published var lastRefreshReport: RefreshReport? = SharedStorage.lastRefreshReport
+    /// Ende der Pause je Börsen-Schlüssel (`RowPause.pauses`): «Binance · pausiert bis 19:45» in der Zeitzeile ihrer
+    /// Paare; ob eine Pause noch läuft, entscheidet die Zeile mit der aktuellen Zeit (`RowPause.shownUntil`).
+    @Published var exchangePauses: [String: Int64] = RowPause.pauses(SharedStorage.exchangeBackoff)
     /// %-Basis und Tagesbeginn, mit denen die gespeicherten Veränderungen gerechnet wurden.
     @Published var changeStamp: ChangeStamp? = SharedStorage.changeStamp
     /// Paare, die gerade einzeln aktualisiert werden.
@@ -292,6 +295,7 @@ final class AppData: ObservableObject {
         reloadSettingsIfInaccessible()
         lastRefreshMillis = SharedStorage.lastRefreshDuration
         lastRefreshReport = SharedStorage.lastRefreshReport
+        reloadExchangePauses()
         changeStamp = SharedStorage.changeStamp
         activityReports = ActivityRepository.reports()
         dropMissingWatchlistGroup()

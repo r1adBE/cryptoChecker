@@ -3,5 +3,5 @@
     <string name="explorer_bulk_show_all">すべて表示（%1$d）</string>
     <string name="log_box_title">ログ</string>
     <string name="watchlist_first_alarm_title">最初のアラームを設定</string>
-    <string name="watchlist_first_alarm_text">価格が設定した水準に達したらすぐに通知します。</string>
+    <string name="watchlist_first_alarm_text">価格が設定した水準に達したら通知します。アプリを閉じている間、Android の確認は不定期です。</string>
 </resources>

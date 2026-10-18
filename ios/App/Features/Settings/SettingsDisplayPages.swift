@@ -172,7 +172,7 @@ struct PriceStyleCard: View {
 
     /// Zwei kleine abgerundete Farbfelder: steigend, fallend.
     private var swatches: some View {
-        HStack(spacing: 6) {
+        HStack(spacing: Spacing.xs) {
             RoundedRectangle(cornerRadius: 4, style: .continuous).fill(up).frame(width: 16, height: 16)
             RoundedRectangle(cornerRadius: 4, style: .continuous).fill(down).frame(width: 16, height: 16)
         }
@@ -180,7 +180,7 @@ struct PriceStyleCard: View {
     }
 
     private var title: some View {
-        HStack(spacing: 6) {
+        HStack(spacing: Spacing.xs) {
             Text(L(scheme.labelKey))
                 .font(.body.weight(selected ? .semibold : .regular))
                 .foregroundStyle(AppColors.onSurface)
@@ -310,9 +310,9 @@ struct ChangeBasisSettingsPage: View {
 
     /// Ein Punkt des Hinweises, Folgezeilen eingerückt («1. …»).
     private func numbered(_ number: Int, _ text: String) -> some View {
-        HStack(alignment: .firstTextBaseline, spacing: 6) {
+        HStack(alignment: .firstTextBaseline, spacing: Spacing.xs) {
             Text(LocaleNumbers.integer(number) + ".")
-                .frame(minWidth: 14, alignment: .leading)
+                .frame(minWidth: 16, alignment: .leading)
             Text(text)
                 .fixedSize(horizontal: false, vertical: true)
                 .frame(maxWidth: .infinity, alignment: .leading)

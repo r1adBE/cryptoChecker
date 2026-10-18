@@ -15,7 +15,6 @@
     <string name="starter_search_coin">Hledat jinou minci</string>
     <string name="starter_select_all">Vybrat vše</string>
     <string name="starter_select_none">Zrušit výběr</string>
-    <string name="starter_text">Odznačte, co nechcete, a zbytek přidejte najednou. Burzu a pár můžete později změnit.</string>
     <string name="starter_title">Začněte s těmito mincemi</string>
     <string name="starter_watch_alarm_hint">Sleduj cenu, nastav alarm</string>
 </resources>

@@ -73,7 +73,7 @@ internal fun PriceStyleCard(
             .padding(horizontal = 16.dp, vertical = 12.dp)
     ) {
         Column(modifier = Modifier.weight(1f)) {
-            Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+            Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                 ColorSwatch(up)
                 ColorSwatch(down)
             }
@@ -90,7 +90,7 @@ internal fun PriceStyleCard(
                         painterResource(R.drawable.ic_check),
                         contentDescription = null,
                         tint = accent,
-                        modifier = Modifier.padding(start = 6.dp).size(18.dp)
+                        modifier = Modifier.padding(start = 4.dp).size(18.dp)
                     )
                 }
             }

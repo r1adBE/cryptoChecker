@@ -74,6 +74,13 @@ internal val ROW_BADGE_SIZE = ListSegment.Logo
 internal val LocalMarkFallback = compositionLocalOf<Set<Long>> { emptySet() }
 
 /**
+ * Ende der Pause je Börsen-Schlüssel ([com.cryptochecker.app.data.RefreshStats.exchangePauses]): die Zeitzeile
+ * pausierter Börsen sagt «Binance · pausiert bis 19:45» ([com.cryptochecker.app.domain.watch.RowPause]). Gesetzt von
+ * der Merkliste.
+ */
+internal val LocalExchangePauses = compositionLocalOf<Map<String, Long>> { emptyMap() }
+
+/**
  * Links: Griff im Sortiermodus, sonst etwas Abstand. Favoriten zeigt mit eingeschalteten
  * Coin-Logos ein kleiner Stern am Logo (sonst ein eigener kleiner Stern vor dem Paar) — kein eigener Stern-Knopf mehr,
  * der dem Paar Breite nimmt (Favorit wechseln: nach rechts wischen, Aktionsblatt, Screenreader-Aktion).

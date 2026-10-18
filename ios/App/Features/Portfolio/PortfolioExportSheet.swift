@@ -190,7 +190,7 @@ struct PortfolioExportSheet: View {
             // Gewählte Vorlage immer sichtbar (Einstellungen → Portfolio → Steuer-Vorlage); Länder-Vorlagen als «Beta»
             // markiert (Neutral und Stichtag-Export nicht) — wie Android
             if taxTemplate != .NEUTRAL {
-                HStack(alignment: .firstTextBaseline, spacing: 6) {
+                HStack(alignment: .firstTextBaseline, spacing: Spacing.xs) {
                     Text(L("tax_template_current", L(taxTemplate.labelKey), method.label, workCurrency))
                         .font(.footnote)
                         .foregroundStyle(AppColors.onSurfaceVariant)
@@ -198,7 +198,7 @@ struct PortfolioExportSheet: View {
                     Text(L("tax_template_beta"))
                         .font(.caption2.weight(.semibold))
                         .foregroundStyle(AppColors.onSurface)
-                        .padding(.horizontal, 6)
+                        .padding(.horizontal, Spacing.xs)
                         .padding(.vertical, 1)
                         .background(AppColors.containerHighest, in: Capsule())
                     Spacer(minLength: 0)

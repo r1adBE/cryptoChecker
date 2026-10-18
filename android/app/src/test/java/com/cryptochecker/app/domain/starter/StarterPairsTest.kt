@@ -91,4 +91,16 @@ class StarterPairsTest {
         assertEquals(true, StarterPairs.blockedAfterProbe(true, 500))
         assertEquals(false, StarterPairs.blockedAfterProbe(false, 429))
     }
+
+    @Test
+    fun marketNameForStarterText() {
+        val names = mapOf("Binance" to "Binance", "BinanceUs" to "Binance.US")
+        assertEquals("Binance", StarterPairs.marketName("CH") { names[it] })
+        assertEquals("Binance.US", StarterPairs.marketName("US") { names[it] })
+        // Standort-Sperre: die Start-Auswahl nennt Binance.US
+        assertEquals("Binance.US", StarterPairs.marketName(StarterPairs.effectiveRegion("DE", binanceBlocked = true)) { names[it] })
+        // Ohne Registry-Namen: Schlüssel
+        assertEquals("BinanceUs", StarterPairs.marketName("US"))
+        assertEquals("USDT", StarterPairs.startQuote("US"))
+    }
 }

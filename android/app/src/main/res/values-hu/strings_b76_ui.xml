@@ -3,5 +3,5 @@
     <string name="explorer_bulk_show_all">Összes mutatása (%1$d)</string>
     <string name="log_box_title">Napló</string>
     <string name="watchlist_first_alarm_title">Állítsd be az első riasztást</string>
-    <string name="watchlist_first_alarm_text">Értesítést kapsz, amint egy árfolyam eléri a megadott szintet.</string>
+    <string name="watchlist_first_alarm_text">Értesítést kapsz, ha egy árfolyam eléri a megadott szintet – bezárt alkalmazásnál az Android rendszertelenül ellenőriz.</string>
 </resources>

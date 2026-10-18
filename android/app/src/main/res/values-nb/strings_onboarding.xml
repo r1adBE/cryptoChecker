@@ -15,7 +15,6 @@
     <string name="starter_search_coin">Søk etter en annen mynt</string>
     <string name="starter_select_all">Velg alle</string>
     <string name="starter_select_none">Velg ingen</string>
-    <string name="starter_text">Velg bort det du ikke vil ha, og legg til resten på én gang. Du kan endre børs og par senere.</string>
     <string name="starter_title">Start med disse myntene</string>
     <string name="starter_watch_alarm_hint">Følg kursen, sett en alarm</string>
 </resources>

@@ -23,7 +23,7 @@ ALARM
 • Harga di atas atau di bawah level, atau naik/turun sekian persen – juga dalam mata uang Anda, mis. 60.000 EUR pada pasangan USDT
 • Pergerakan x % dalam rentang waktu, lonjakan volume
 • Notifikasi Sensitif Waktu, pilihan suara alarm, dibacakan opsional
-• Jam tenang dan “Uji alarm”
+• Jam tenang, “Uji alarm” dan log alarm
 
 PASAR
 • Aktivitas tidak biasa: pergerakan harga dan volume tak lazim di daftar Anda, opsional dengan notifikasi

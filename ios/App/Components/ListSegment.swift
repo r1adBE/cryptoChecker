@@ -7,7 +7,8 @@ import SwiftUI
 enum ListSegment {
     /// Fuge zwischen zwei Zeilen: keine, die Trennlinie zeichnet die Zeile selbst.
     static let gap: CGFloat = 0
-    /// Abstand zu anderen Elementen über bzw. unter der Liste.
+    /// Abstand zu anderen Elementen über bzw. unter der Liste. Bewusst 6: in der Merkliste kommen 2 pt
+    /// oben an der nächsten Zeile dazu (`plainRow(top: 2, …)`), zusammen 8 pt wie Android `ListSegment.Spacing`.
     static let spacing: CGFloat = 6
     /// Logo in allen Coin-Listen gleich gross (wie «+» und Lupe: 34).
     static let logo: CGFloat = 34

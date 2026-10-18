@@ -24,7 +24,7 @@ CẢNH BÁO
 • Giá trên hoặc dưới một mốc, hoặc tăng/giảm theo phần trăm – cả bằng tiền của bạn, vd. 60.000 EUR trên cặp USDT
 • Biến động x % trong một khung thời gian, khối lượng tăng vọt
 • Âm thanh (cả tệp âm thanh của bạn), rung và đọc thông báo tùy chọn
-• Giờ yên lặng và “Thử cảnh báo”: nghe trước cảnh báo sẽ đến thế nào
+• Giờ yên lặng và “Thử cảnh báo”: nghe trước cảnh báo sẽ đến thế nào; nhật ký cảnh báo: kiểm tra lúc nào, giá bao nhiêu, vì sao cảnh báo không kêu
 
 THỊ TRƯỜNG
 • Hoạt động bất thường: biến động giá và khối lượng bất thường trong danh sách, tùy chọn thông báo

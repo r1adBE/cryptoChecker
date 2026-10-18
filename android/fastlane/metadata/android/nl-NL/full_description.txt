@@ -23,7 +23,7 @@ ALARMEN
 • Koers boven of onder een grens, of een stijging of daling met een percentage – ook in je eigen valuta, bijv. 60.000 EUR op een USDT-paar
 • Beweging van x % binnen een tijdvenster, volumepiek
 • Geluid (ook je eigen audiobestand), trillen en optionele gesproken melding
-• Stille uren en ‘Alarm testen’
+• Stille uren, ‘Alarm testen’ en alarmlogboek: waarom een alarm niet afging
 
 MARKT
 • Ongewone activiteit: opvallende koers- en volumebewegingen in je volglijst, optioneel met melding

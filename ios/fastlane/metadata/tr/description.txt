@@ -24,7 +24,7 @@ ALARMLAR
 • Fiyat bir seviyenin üstünde veya altında, ya da yüzde kadar yükseliş veya düşüş – kendi para biriminde de, ör. bir USDT çiftinde 60.000 EUR
 • Bir zaman aralığında x % hareket, hacim sıçraması
 • Zamana duyarlı bildirim, seçilebilir alarm sesi, isteğe bağlı sesli okuma
-• Sessiz saatler ve “Alarmı test et”
+• Sessiz saatler, “Alarmı test et” ve alarm günlüğü: bir alarm neden çalmadı
 
 PİYASA
 • Olağandışı hareket: listendeki olağandışı fiyat ve hacim hareketleri, isteğe bağlı bildirimle

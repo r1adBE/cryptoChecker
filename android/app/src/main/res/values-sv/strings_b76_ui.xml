@@ -3,5 +3,5 @@
     <string name="explorer_bulk_show_all">Visa alla (%1$d)</string>
     <string name="log_box_title">Logg</string>
     <string name="watchlist_first_alarm_title">Ställ in ditt första larm</string>
-    <string name="watchlist_first_alarm_text">Få en avisering så snart en kurs når din nivå.</string>
+    <string name="watchlist_first_alarm_text">Få en avisering när en kurs når din nivå – när appen är stängd kontrollerar Android oregelbundet.</string>
 </resources>

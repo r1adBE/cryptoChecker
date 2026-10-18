@@ -23,7 +23,7 @@ ALARMET
 • Çmim mbi ose nën një nivel, ose rritje apo rënie me një përqindje – edhe në monedhën tënde, p.sh. 60 000 EUR në një çift USDT
 • Lëvizje prej x % brenda një dritareje kohe, kërcim vëllimi
 • Tingull (edhe skedar audio i yti), dridhje dhe njoftim me zë sipas dëshirës
-• Orët e heshtjes dhe «Testo alarmin»
+• Orët e heshtjes, «Testo alarmin» dhe regjistri i alarmeve
 
 TREGU
 • Aktivitet i pazakontë: lëvizje të pazakonta çmimi dhe vëllimi në listën tënde, sipas dëshirës me njoftim

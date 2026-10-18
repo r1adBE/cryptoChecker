@@ -97,6 +97,12 @@ extension AppData {
         await ActivityMonitor.explain(watch)
     }
 
+    /// Pausen je Börse neu lesen (gemeinsam mit Hintergrund und Widget gespeichert); nur bei Änderung veröffentlichen.
+    func reloadExchangePauses() {
+        let pauses = RowPause.pauses(SharedStorage.exchangeBackoff)
+        if pauses != exchangePauses { exchangePauses = pauses }
+    }
+
     func refreshOne(_ watchId: Int64) async {
         guard !refreshingWatchIds.contains(watchId) else { return }
         refreshingWatchIds.insert(watchId)
@@ -128,6 +134,8 @@ extension AppData {
             SharedStorage.lastRefreshReport = report
             lastRefreshReport = report
         }
+        // Pausen je Börse hat der Durchlauf eben gespeichert (Live-Kurse ändern sie nicht)
+        if !live { reloadExchangePauses() }
         // Mit dieser %-Basis gerechnet (Anzeige prüft das, siehe `changeView`)
         if full, let stamp = outcome.changeStamp {
             SharedStorage.changeStamp = stamp
@@ -183,6 +191,7 @@ extension AppData {
         outcome.pendingAlarms.removeAll { identities[$0.watch.id] != $0.watch.identity }
         guard !outcome.pendingAlarms.isEmpty else {
             outcome.releaseAlarmLease()
+            AppData.recordAlarmLog(outcome.alarmLog, live: outcome.alarmLogLive)
             return
         }
         let settings = self.settings
@@ -193,11 +202,18 @@ extension AppData {
             let backgroundTask = BackgroundTaskGuard.begin("deliverAlarms")
             defer { backgroundTask.end() }
             let delivered = await pending.deliverAlarms(settings: settings, current: current,
-                                                        save: { id, update in await self.saveDeliveredAlarm(id, update) })
+                                                        save: { id, update in await self.saveDeliveredAlarm(id, update) },
+                                                        recordLog: { AppData.recordAlarmLog($0, live: $1) })
             for item in delivered {
                 if let text = item.speech { Speaker.shared.enqueue(text, rate: settings.ttsSpeechRate, alarm: true) }
             }
         }
+    }
+
+    /// Alarm-Protokoll abseits des Hauptfadens schreiben (verschlüsselte Datei, abgestimmt mit Widget und Hintergrund).
+    nonisolated static func recordAlarmLog(_ entries: [AlarmLogEntry], live: Bool) {
+        guard !entries.isEmpty else { return }
+        Task.detached(priority: .utility) { AlarmLogStore.record(entries, live: live) }
     }
 
     /// `save` für `Outcome.deliverAlarms`: in den Stand im Speicher und abgewartet auf die Platte, bevor der

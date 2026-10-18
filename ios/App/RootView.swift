@@ -122,14 +122,16 @@ struct AppTabItem: Identifiable {
 enum AppTabBarMetrics {
     /// Höhe ohne den Bereich des Home-Indikators (Standard-Schriftgrösse); wächst mit grosser Schrift
     /// (`scaledHeight(labelLine:)`), aber nur bis `maxTypeSize`.
-    static let height: CGFloat = 64
+    static let height: CGFloat = 66
     /// Grösste Schriftstufe der Leiste (≈ 1,5 ×, `.caption` 18 pt, wie die Deckelung in Android): darüber wächst
     /// die Leiste nicht mehr, sondern zeigt beim langen Drücken den Large Content Viewer (HIG für Leisten).
     static let maxTypeSize = DynamicTypeSize.accessibility1
     /// Zeilenhöhe der Beschriftung (`.caption`) bei Standardgrösse; wird per `@ScaledMetric` mitskaliert.
     static let labelLineHeight: CGFloat = 16
-    /// Luft oben und unten im Tab, wenn die Leiste wächst (Pille 32 + 2 + Zeile 16 + 2 × 7 = 64, wie Android).
-    static let verticalPadding: CGFloat = 7
+    /// Luft oben und unten im Tab, wenn die Leiste wächst (Pille 32 + 2 + Zeile 16 + 2 × 8 = 66, wie Android).
+    static let verticalPadding: CGFloat = 8
+    /// Seitlicher Rand je Tab — wie `TAB_HORIZONTAL_PADDING` (Android).
+    static let horizontalPadding: CGFloat = 4
 
     /// Höhe der Leiste für die skalierte Zeilenhöhe der Beschriftung: nie unter `height` (Aussehen bei
     /// Standardgrösse bleibt), mit grosser Schrift so hoch, dass Symbol und Beschriftung Platz haben.
@@ -242,7 +244,7 @@ private struct AppTabBarButton: View {
                     }
                 label
             }
-            .padding(.horizontal, 4)
+            .padding(.horizontal, AppTabBarMetrics.horizontalPadding)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .contentShape(Rectangle())
         }

@@ -36,6 +36,11 @@ enum class TaxSummaryNote {
      */
     CH_FIFO_INFO,
     /**
+     * CH Vermögenswert per 31.12. ([TaxLine.CH_WEALTH_VALUE]): nur Orientierung — massgebend ist die Kursliste der ESTV
+     * (ictax.admin.ch), für Coins ohne Eintrag in der Regel der Schlusskurs der Börse; Vermögenssteuer nicht gerechnet.
+     */
+    CH_WEALTH_ORIENTATION,
+    /**
      * DE Auszahlungsgebühren ([TaxLine.WITHDRAWAL_FEES]): nicht mit § 23 verrechnet (keine Veräusserung, mindern weder
      * die Summe ≤ 1 Jahr noch die Freigrenze) — ggf. als Werbungskosten prüfen.
      */
@@ -147,6 +152,12 @@ enum class TaxLine(val orientation: Boolean = false) {
      * — nur Information (Vermerk [TaxSummaryNote.TRANSFER_FEE_INFO]), weder Verlust noch Einstand.
      */
     TRANSFER_FEES,
+    /**
+     * CH: Vermögenswert per 31.12. ([TaxExport.chWealth], Bestand × Börsen-Tagesschluss × Devisenkurs) — der Text des
+     * Postens nennt selbst «(Orientierung)», darum ohne Vorsatz im Orientierungs-Block; Vermerk
+     * [TaxSummaryNote.CH_WEALTH_ORIENTATION], Werte je Coin in [TaxYearSummary.wealth].
+     */
+    CH_WEALTH_VALUE,
     DE_LONG(true), DE_PRIVATE_LIMIT(true), DE_INCOME_LIMIT(true),
     AT_RATE(true), AT_OLD_LONG(true),
     /**
@@ -198,6 +209,8 @@ data class TaxYearSummary(
     val lines: List<TaxSummaryLine>,
     /** US-Übergang, mit dem gerechnet wurde ([TaxTemplate.walletFrom]); null = keiner. */
     val walletFrom: LocalDate? = null,
+    /** CH: Vermögenswert per 31.12. je Coin ([TaxExport.chWealth]); null = nicht gerechnet bzw. andere Vorlage. */
+    val wealth: TaxWealth? = null,
 )
 
 /** Texte der Jahresübersicht ([TaxExport.summaryCsv]); [labels] je Posten. */
@@ -227,7 +240,43 @@ data class TaxSummaryTexts(
     val loss: String = "",
     /** Texte der Zusatz-Vermerke ([TaxSummaryLine.note]); fehlt einer = kein Vermerk. */
     val notes: Map<TaxSummaryNote, String> = emptyMap(),
+    /**
+     * CH Vermögenswert, Zeile je Coin: Text mit den Platzhaltern [TAX_WEALTH_COIN] und [TAX_WEALTH_AMOUNT] (z. B. «{coin} –
+     * Bestand {amount}», [wealthCoinLabel]); leer = «Coin Menge».
+     */
+    val wealthCoin: String = "",
+    /** «nicht gerechnet» bei einem Coin ohne Wert ([TaxWealthRow.missing]). */
+    val wealthMissing: String = "",
+    /** Grund «kein Kurs» ([TaxWealthRow.noPrice]). */
+    val wealthNoPrice: String = "",
+    /** Grund «ungeprüft» ([TaxWealthRow.unchecked]). */
+    val wealthUnchecked: String = "",
+    /** Grund «Adresse nicht beobachtet» ([TaxWealthRow.addressUnobserved]). */
+    val wealthAddressUnobserved: String = "",
 )
+
+/** Platzhalter für Coin und Menge in [TaxSummaryTexts.wealthCoin] (wie [TAX_NOTE_DATE]). */
+const val TAX_WEALTH_COIN = "{coin}"
+const val TAX_WEALTH_AMOUNT = "{amount}"
+
+/** Bezeichnung der Zeile eines Coins im Vermögenswert; [amount] schon als Text (Dezimalzeichen der Ausgabe). */
+fun TaxSummaryTexts.wealthCoinLabel(coin: String, amount: String): String =
+    if (wealthCoin.isEmpty()) "$coin $amount"
+    else wealthCoin.replace(TAX_WEALTH_COIN, coin).replace(TAX_WEALTH_AMOUNT, amount)
+
+/**
+ * Hinweis eines Coins im Vermögenswert: «nicht gerechnet – kein Kurs» usw.; ohne Devisenkurs [TaxSummaryTexts.noFx]; leer =
+ * gerechnet.
+ */
+fun TaxSummaryTexts.wealthCoinNote(r: TaxWealthRow): String {
+    val reasons = listOfNotNull(
+        wealthNoPrice.takeIf { r.noPrice && it.isNotEmpty() },
+        wealthUnchecked.takeIf { r.unchecked && it.isNotEmpty() },
+        wealthAddressUnobserved.takeIf { r.addressUnobserved && it.isNotEmpty() },
+    )
+    val missing = if (r.missing) (listOfNotNull(wealthMissing.takeIf { it.isNotEmpty() }) + reasons).joinToString(" – ") else ""
+    return listOf(missing, noFx.takeIf { r.noFx && !r.missing }.orEmpty()).filter { it.isNotEmpty() }.joinToString(", ")
+}
 
 /**
  * Posten im Orientierungs-Block: [item] mit «%s» für [label]; ohne [item] «[fallback]: [label]» (leer = nur [label]).
@@ -292,7 +341,8 @@ private class Acc(rows: List<TaxGainRow>, pick: (BigDecimal) -> Boolean, fx: Boo
  *    Spekulationsgeschäfte (ohne Option auf 27,5 % für 1.1.–28.2.2022); CH ohne Einordnung:
  *    Kapitalgewinne «nicht gerechnet – siehe ESTV» (kein Betrag), Belohnungen aufgeführt (Betrag, Behandlung siehe
  *    ESTV-Arbeitspapier), Vermögenssteuer «nicht gerechnet» (ESTV-Kursliste; Vermerk: Bestand-CSV per 31.12. =
- *    Börsenkurs × USD/CHF, [TaxSummaryNote.CH_EXCHANGE_VALUE]); UK Annual Exempt Amount und netto darüber;
+ *    Börsenkurs × USD/CHF, [TaxSummaryNote.CH_EXCHANGE_VALUE]); davor als Posten der Vermögenswert per 31.12. zur
+ *    Orientierung ([TaxLine.CH_WEALTH_VALUE], [chWealth], je Coin in [TaxYearSummary.wealth]); UK Annual Exempt Amount und netto darüber;
  *    US kurz-/langfristig; CA steuerbarer Anteil (netto + nicht abziehbar) × 1/2, nur in CAD; AU Verluste zuerst gegen
  *    Gewinne ≤ 12 Monate, dann 50 % Rabatt auf den Rest > 12 Monate; CA/AU netto ein Verlust: steuerbar 0 und
  *    «Netto-Kapitalverlust (Vortrag)»; FR Abtretungen ≤ 305 € befreit (sonst ganz steuerbar); JP sonstige Einkünfte =
@@ -319,6 +369,10 @@ fun TaxExport.yearSummary(
     usdtUsd: Map<Long, BigDecimal>? = null,
     /** Heute (UK/CA: ist das 30-Tage-Fenster nach dem Steuerjahr noch offen?); null = heute in [zone]. */
     today: LocalDate? = null,
+    /** CH: Tagesschlüsse des 31.12. ([chWealth]); null = nicht geladen → Vermögenswert «nicht gerechnet». */
+    yearEndCloses: CutoffCloses? = null,
+    /** CH: Guthaben beobachteter Adressen am 31.12. ([AddressBalanceHistory.balancesAt]); null = keine. */
+    yearEndAddresses: AddressBalancesAt? = null,
 ): TaxYearSummary {
     val zero = BigDecimal.ZERO
     val period = template.period(startYear)
@@ -515,6 +569,19 @@ fun TaxExport.yearSummary(
     val netIncomplete = net.incomplete
     val netFx = net.fxMissing > 0
     fun scaled(v: BigDecimal, f: BigDecimal): BigDecimal = v.multiply(f, PortfolioDecimal.MC)
+    // CH: Vermögenswert per 31.12. — Posten mit eigenem «(Orientierung)» vor dem Orientierungs-Block; nur für ein
+    // abgelaufenes Steuerjahr (der Tagesschluss des 31.12. steht erst danach fest — nie ein laufender oder heutiger Kurs).
+    // Devisenkurs des 31.12. nach derselben Regel wie jede Zeile ([rateOn], höchstens 7 Tage davor, × USDT/USD)
+    var wealth: TaxWealth? = null
+    if (template == TaxTemplate.CH) {
+        if (yearEndCloses != null && period.end.isBefore(today ?: LocalDate.now(zone))) {
+            wealth = chWealth(
+                trades, method.costMethod ?: CostMethod.DEFAULT, period.end, zone, yearEndCloses,
+                rateOn(rates, period.end, currency, usdtUsd), yearEndAddresses,
+            )
+        }
+        lines += chWealthLine(wealth, fx)
+    }
     // Orientierung je Vorlage
     when (template) {
         TaxTemplate.DE -> {
@@ -641,7 +708,7 @@ fun TaxExport.yearSummary(
         )
         TaxTemplate.NEUTRAL -> Unit
     }
-    return TaxYearSummary(template, method, period, currency, fx, lines, walletFrom)
+    return TaxYearSummary(template, method, period, currency, fx, lines, walletFrom, wealth)
 }
 
 /**

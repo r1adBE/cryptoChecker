@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="starter_source_text">Giá từ %1$s bằng %2$s. Bỏ chọn những coin bạn không muốn và thêm phần còn lại cùng lúc. Bạn có thể đổi sàn và cặp cho từng coin.</string>
+    <string name="watchlist_row_exchange_paused">%1$s · tạm dừng đến %2$s</string>
+</resources>

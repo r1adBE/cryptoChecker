@@ -61,6 +61,7 @@ import com.cryptochecker.app.ui.components.coinName
 import com.cryptochecker.app.ui.components.segmentLines
 import com.cryptochecker.app.ui.theme.AppColors
 import com.cryptochecker.app.ui.theme.Spacing
+import com.cryptochecker.app.domain.watch.RowPause
 import com.cryptochecker.app.util.A11ySpeech
 import com.cryptochecker.app.util.A11yText
 import com.cryptochecker.app.util.DenseRowText
@@ -150,7 +151,9 @@ internal fun WatchRow(
     // Deaktiviert (L-13): Texte in onSurfaceVariant statt abgeblasst (Kontrast AA), nur Logo und
     // kleine Symbole behalten die reduzierte Deckkraft ([DISABLED_ICON_ALPHA])
     val flash = rememberPriceFlash(watch.id, watch.lastPrice)
-    val status = watchRowStatus(watch, now, stale, outdatedAfter)
+    // Börse pausiert: «Binance · pausiert bis 19:45» statt der Zeitzeile ([RowPause])
+    val pausedUntil = RowPause.shownUntil(off, LocalExchangePauses.current[watch.marketKey], now)
+    val status = watchRowStatus(watch, now, stale, outdatedAfter, pausedUntil)
 
     // Screenreader: die ganze Zeile als ein Satz (Paar, Kurs, Änderung, ≈, Verlauf, Notiz,
     // Alarme, Zustand). ⚡ und Menü bleiben eigene Knöpfe, Favorit als Screenreader-Aktion; Tippen bleibt.
@@ -190,7 +193,7 @@ internal fun WatchRow(
         quote = watch.quoteAsset,
         change24h = watch.shownChange(changeView),
         basis = changeView.basis,
-        state = listOf(A11yText.freshness(context, freshness, watch.lastUpdate, now, watch.marketName), status.unchanged),
+        state = listOf(status.paused, A11yText.freshness(context, freshness, watch.lastUpdate, now, watch.marketName), status.unchanged),
         extras = listOf(
             changeMarker?.let { stringResource(R.string.change_candle_source, it) },
             if (markPrice) stringResource(R.string.watch_price_mark_fallback) else null,
@@ -293,7 +296,7 @@ internal fun WatchRow(
                             else MaterialTheme.colorScheme.onSurface,
                             modifier = Modifier
                                 .align(Alignment.CenterVertically)
-                                .padding(start = 4.dp, end = 6.dp)
+                                .padding(start = 4.dp, end = Spacing.sm)
                                 .size(16.dp)
                         )
                     }

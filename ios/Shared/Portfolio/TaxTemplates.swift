@@ -72,7 +72,7 @@ struct TaxPeriod: Sendable, Equatable {
 /// und Stand (14./15.10.2026) wie `TaxTemplate` (Android): DE § 23/§ 22 Nr. 3 EStG, BMF 06.03.2025 (Rn. 62: nur FIFO
 /// je Wallet); AT BMF (Stand 01.01.2026: Staking/Airdrop Anschaffungskosten null, § 27b Abs. 2 EStG; Zinsen aus Lending seit Build 55 unterschieden,
 /// `TaxEngines.interestReward`: Wert beim Zufluss), KryptowährungsVO § 2 Abs. 1 (je Adresse/Wallet); CH ESTV (Stand
-/// 22.09.2026, ohne Einordnung durch die App); UK HMRC CRYPTO22200 ff., CRYPTO22280 (Gebühr in Tokens = Veräusserung),
+/// 22.09.2026, ohne Einordnung durch die App; Vermögenswert per 31.12. nur als Orientierung, `TaxExport.chWealth`); UK HMRC CRYPTO22200 ff., CRYPTO22280 (Gebühr in Tokens = Veräusserung),
 /// gov.uk (Stand 13.04.2026); US IRS FAQ digital assets (Stand 29.06.2026), Rev. Proc. 2024-28 (ab 2025 nur FIFO je
 /// Wallet); AT Tausch steuerneutral ab 01.03.2022, davor bzw. Altvermögen Realisation nach § 31 EStG a. F. (EStR Rz
 /// 6103k); FR/AT: Verkauf gegen Stablecoin = Tausch Krypto↔Krypto; CA CRA (Stand 05.02.2026),

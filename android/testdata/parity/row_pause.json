@@ -1,0 +1,26 @@
+{
+  "description": "Exchange pause in the watchlist row (Android RowPause.kt / iOS RowPause.swift). shownUntil: pause end shown instead of the normal time line («Binance · paused until 19:45»), given the stored pause end pausedInMillis relative to now (null = no pause) and whether the pair is disabled; expected relative to now, null = normal time line. Same plausibility limit as ExchangeBackoff.isPaused (at most 6 h ahead). pauses: stored backoff states per exchange -> pause end per exchange (states without a pause end are left out).",
+  "now": 1700000000000,
+  "shownUntil": [
+    {"name": "paused 10 min ahead", "disabled": false, "pausedInMillis": 600000, "expected": 600000},
+    {"name": "1 ms ahead", "disabled": false, "pausedInMillis": 1, "expected": 1},
+    {"name": "ends exactly now: over", "disabled": false, "pausedInMillis": 0, "expected": null},
+    {"name": "ended 1 min ago", "disabled": false, "pausedInMillis": -60000, "expected": null},
+    {"name": "no pause", "disabled": false, "pausedInMillis": null, "expected": null},
+    {"name": "disabled pair: never (not queried anyway)", "disabled": true, "pausedInMillis": 600000, "expected": null},
+    {"name": "shared Binance pause 6 h ahead (limit)", "disabled": false, "pausedInMillis": 21600000, "expected": 21600000},
+    {"name": "more than 6 h ahead: implausible (clock set back)", "disabled": false, "pausedInMillis": 21600001, "expected": null}
+  ],
+  "pauses": [
+    {
+      "name": "only exchanges with a pause end",
+      "states": [
+        {"key": "Binance", "strikes": 2, "pausedUntil": 1700000600000, "reason": "RATE_LIMIT", "timeoutRuns": 0},
+        {"key": "Kraken", "strikes": 0, "pausedUntil": 0, "reason": null, "timeoutRuns": 1},
+        {"key": "Bybit", "strikes": 1, "pausedUntil": 1699999000000, "reason": "TIMEOUT", "timeoutRuns": 0}
+      ],
+      "expected": {"Binance": 1700000600000, "Bybit": 1699999000000}
+    },
+    {"name": "no states", "states": [], "expected": {}}
+  ]
+}

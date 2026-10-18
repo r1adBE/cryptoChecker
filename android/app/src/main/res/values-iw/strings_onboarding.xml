@@ -15,7 +15,6 @@
     <string name="starter_search_coin">חיפוש מטבע אחר</string>
     <string name="starter_select_all">בחר הכול</string>
     <string name="starter_select_none">בטל בחירה</string>
-    <string name="starter_text">בטלו את הבחירה במה שלא תרצו והוסיפו את השאר בבת אחת. אפשר לשנות בורסה וצמד מאוחר יותר.</string>
     <string name="starter_title">התחילו עם המטבעות האלה</string>
     <string name="starter_watch_alarm_hint">עקוב אחרי המחיר והגדר התראה</string>
 </resources>

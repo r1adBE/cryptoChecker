@@ -24,7 +24,7 @@ ALARMER
 • Kurs over eller under et niveau, eller stigning eller fald med en procentsats – også i din valuta, f.eks. 60.000 EUR på et USDT-par
 • Bevægelse på x % inden for et tidsvindue, volumenspike
 • Lyd (også din egen lydfil), vibration og valgfri oplæsning
-• Nattero og »Test alarm«
+• Nattero, »Test alarm« og alarmlog: hvornår der blev tjekket, hvilken kurs, hvorfor en alarm ikke gik af
 
 MARKED
 • Usædvanlig aktivitet: usædvanlige kurs- og volumenbevægelser i din liste, valgfrit som notifikation

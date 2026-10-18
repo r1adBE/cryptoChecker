@@ -222,8 +222,8 @@ extension View {
 struct CycleSkeletonPill: View {
     let font: Font
     var width: CGFloat? = nil
-    var horizontal: CGFloat = 10
-    var vertical: CGFloat = 5
+    var horizontal: CGFloat = Spacing.sm
+    var vertical: CGFloat = Spacing.sm
 
     var body: some View {
         Text(verbatim: " ")

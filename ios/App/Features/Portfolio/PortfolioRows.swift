@@ -133,7 +133,7 @@ struct PortfolioCoinRow: View {
     var body: some View {
         let scale: Double = DenseRowText.scale(typeSize)
         let stacked: Bool = DenseRowText.stacksTrailing(scale)
-        let layout: AnyLayout = stacked ? AnyLayout(VStackLayout(alignment: .trailing, spacing: 6))
+        let layout: AnyLayout = stacked ? AnyLayout(VStackLayout(alignment: .trailing, spacing: Spacing.xs))
             : AnyLayout(HStackLayout(spacing: 12))
         let leadingMaxWidth: CGFloat? = stacked ? CGFloat.infinity : nil
         layout {
@@ -190,7 +190,7 @@ struct PortfolioCoinRow: View {
                     Text(verbatim: LocaleNumbers.integer(txCount))
                         .font(.caption.weight(.semibold).monospacedDigit())
                         .foregroundStyle(AppColors.onSurfaceVariant)
-                        .padding(.horizontal, 6)
+                        .padding(.horizontal, Spacing.xs)
                         .padding(.vertical, 1)
                         .background(AppColors.containerHighest, in: Capsule())
                         .fixedSize()

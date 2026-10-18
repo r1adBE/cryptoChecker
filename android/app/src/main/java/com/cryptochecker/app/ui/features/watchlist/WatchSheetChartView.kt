@@ -181,7 +181,7 @@ internal fun SheetPriceChart(
                 }
                 SkeletonBlock(
                     modifier = Modifier.fillMaxWidth()
-                        .padding(top = if (range != SheetChartRange.DAY) 6.dp else 0.dp)
+                        .padding(top = if (range != SheetChartRange.DAY) Spacing.sm else 0.dp)
                         .height(CHART_HEIGHT),
                     corner = 12.dp
                 )
@@ -192,7 +192,7 @@ internal fun SheetPriceChart(
         // Zeile; reicht der Platz nicht (grosse Schrift), rutscht der Schalter rechtsbündig darunter
         FlowRow(
             horizontalArrangement = Arrangement.spacedBy(4.dp),
-            modifier = Modifier.fillMaxWidth().padding(top = 6.dp)
+            modifier = Modifier.fillMaxWidth().padding(top = Spacing.sm)
         ) {
             SheetChartRange.entries.forEach { option ->
                 val optionRange = WidgetChartRange.valueOf(option.name)

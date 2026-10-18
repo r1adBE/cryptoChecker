@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="starter_source_text">भाव %1$s से, %2$s में। जो नहीं चाहिए उसका चयन हटाएँ और बाकी को एक साथ जोड़ें। एक्सचेंज और पेयर आप हर कॉइन के लिए बदल सकते हैं।</string>
+    <string name="watchlist_row_exchange_paused">%1$s · %2$s तक रोका गया</string>
+</resources>

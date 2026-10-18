@@ -23,7 +23,7 @@ ALERTES
 • Cours au-dessus ou en dessous d’un seuil, hausse ou baisse d’un pourcentage – aussi dans votre devise, p. ex. 60 000 EUR sur une paire USDT
 • Mouvement de x % sur une période, pic de volume
 • Notification urgente, son d’alerte au choix, lecture vocale en option
-• Heures calmes et « Tester l’alerte »
+• Heures calmes, « Tester l’alerte », journal des alarmes
 
 MARCHÉ
 • Activité inhabituelle : mouvements de cours et de volume inhabituels dans votre liste, en option par notification
