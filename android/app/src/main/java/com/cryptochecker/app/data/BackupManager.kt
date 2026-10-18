@@ -746,6 +746,7 @@ class BackupManager @Inject constructor(
     // der Schlüssel wird dann übergangen statt das Wiederherstellen mittendrin abzubrechen.
 
     private fun JSONObject.bool(key: String): Boolean? = when (val v = opt(key)) {
+        null -> null
         is Boolean -> v
         is Number -> v.toDouble() != 0.0
         is String -> when (v.lowercase()) { "true" -> true; "false" -> false; else -> null }
@@ -754,6 +755,7 @@ class BackupManager @Inject constructor(
 
     // Ausserhalb von Int gesättigt statt still umgebrochen (sonst würde z. B. 4294967311 zu 15); die Setter kürzen danach
     private fun JSONObject.int(key: String): Int? = when (val v = opt(key)) {
+        null -> null
         is Number -> v.toDouble().takeIf { it.isFinite() }?.toLong()?.let(::saturatedInt)
         is String -> (v.toLongOrNull() ?: v.toDoubleOrNull()?.takeIf { it.isFinite() }?.toLong())?.let(::saturatedInt)
         else -> null
@@ -762,12 +764,14 @@ class BackupManager @Inject constructor(
     private fun saturatedInt(value: Long): Int = value.coerceIn(Int.MIN_VALUE.toLong(), Int.MAX_VALUE.toLong()).toInt()
 
     private fun JSONObject.double(key: String): Double? = when (val v = opt(key)) {
+        null -> null
         is Number -> v.toDouble().takeIf { it.isFinite() }
         is String -> v.toDoubleOrNull()?.takeIf { it.isFinite() }
         else -> null
     }
 
     private fun JSONObject.string(key: String): String? = when (val v = opt(key)) {
+        null -> null
         is String -> v
         is Number -> v.toString()
         else -> null

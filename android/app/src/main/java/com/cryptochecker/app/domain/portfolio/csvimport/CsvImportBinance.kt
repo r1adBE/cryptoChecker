@@ -246,8 +246,8 @@ internal object CsvImportBinance {
                 rows += row(line, kind, rawKind(coin), coin, amount, null, null, feeAmount, feeUnit, first)
             }
             else -> {
-                val (out, outAmount) = given!!
-                val (inn, inAmount) = received!!
+                val (out, outAmount) = given
+                val (inn, inAmount) = received
                 when {
                     CsvImport.isFiat(out) -> {
                         val price = CsvImport.derive(outAmount, inAmount)

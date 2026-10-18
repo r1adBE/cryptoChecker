@@ -137,7 +137,6 @@ internal class WatchlistStarterController(
                 loadStarterPrices(fresh)
             }
         }
-        Unit
     }
 
     fun toggleStarter(symbol: String) {

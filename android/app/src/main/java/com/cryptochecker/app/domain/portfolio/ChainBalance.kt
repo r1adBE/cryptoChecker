@@ -219,6 +219,7 @@ object ChainBalance {
         val json = JSONObject(body)
         if (json.opt("ok") != true) throw IllegalStateException("TON: " + json.optString("error"))
         val result = when (val r = json.opt("result")) {
+            null -> throw IllegalStateException("result fehlt")
             is String -> r
             is Number -> r.toLong().toString()
             else -> throw IllegalStateException("result fehlt")

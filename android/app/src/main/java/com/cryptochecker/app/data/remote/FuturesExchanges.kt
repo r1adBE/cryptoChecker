@@ -293,6 +293,7 @@ object FuturesParsers {
     private fun num(json: JSONObject, key: String): Double? {
         val value = json.opt(key)
         val d = when (value) {
+            null -> null
             is Number -> value.toDouble()
             is String -> value.trim().toDoubleOrNull()
             else -> null
