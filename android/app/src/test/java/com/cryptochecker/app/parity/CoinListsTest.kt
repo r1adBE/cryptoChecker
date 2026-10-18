@@ -16,6 +16,8 @@ import org.junit.Test
 import java.io.File
 import java.io.IOException
 import java.util.Collections
+import com.cryptochecker.app.domain.logos.alphaSymbols
+import com.cryptochecker.app.domain.logos.parseAlpha
 
 /**
  * Ende-zu-Ende mit Antworten wie vom Server (`coin_meta.json`; iOS: `CoinListsTests.swift`): Namen und

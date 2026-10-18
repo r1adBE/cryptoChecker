@@ -37,6 +37,9 @@ import java.io.File
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Singleton
+import com.cryptochecker.app.domain.logos.alphaSymbols
+import com.cryptochecker.app.domain.logos.hasAlphaIds
+import com.cryptochecker.app.domain.logos.keepAlphaIds
 
 /**
  * Abgleich der Listen hinter Logos und Namen (Regeln in [CoinLogos], [CoinMeta], [CoinLists]):

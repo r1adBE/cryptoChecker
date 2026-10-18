@@ -5,6 +5,11 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
+import com.cryptochecker.app.domain.logos.applyAlpha
+import com.cryptochecker.app.domain.logos.cleanStockName
+import com.cryptochecker.app.domain.logos.parseSymbolDirectory
+import com.cryptochecker.app.domain.logos.rankAlpha
+import com.cryptochecker.app.domain.logos.withStockNames
 
 /** Gemeinsame Testfälle `coin_logos.json` (iOS: `CoinLogosTests.swift`) plus Zwischenspeicher. */
 class CoinLogosParityTest {

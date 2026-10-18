@@ -128,7 +128,7 @@ data class PortfolioDailyData(
 
 /**
  * Reine Regeln für Anzeige, Zeitraum und Chart des Portfolio-Widgets (ohne Android, getestet in
- * PortfolioWidgetChartTest; gespiegelt in `Shared/Portfolio/PortfolioWidgetPlan.swift`).
+ * PortfolioWidgetChartTest; gespiegelt in `Shared/Portfolio/PortfolioWidgetChartRules.swift`).
  *
  *  - 24 h: Stundenverlauf der Momentaufnahme. Kerze i: Eröffnung = Wert i, Schluss = Wert i + 1,
  *    Hoch/Tief = grösserer/kleinerer der beiden (Stundenwerte kennen kein Hoch/Tief dazwischen).

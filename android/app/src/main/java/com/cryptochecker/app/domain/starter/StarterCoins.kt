@@ -39,34 +39,14 @@ object StarterCoins {
     fun fallback(regionCountry: String?): List<StarterPairs.Coin> =
         if (StarterPairs.marketKey(regionCountry) == StarterPairs.BINANCE_KEY) FALLBACK else FALLBACK_US
 
-    /** Stablecoins (an Dollar, Euro oder Gold gebunden). */
-    val STABLECOINS = setOf(
-        "USDT", "USDC", "DAI", "USDE", "USDS", "FDUSD", "TUSD", "PYUSD", "USD1", "BUSD", "USDD",
-        "FRAX", "GUSD", "USDP", "EURC", "EURT", "RLUSD", "USDG", "USD0", "USDTB", "BFUSD",
-        "SUSDS", "SUSDE", "USDX", "USDB", "LUSD", "CRVUSD", "GHO", "USDY", "USDF", "USDAI",
-        "USDT0", "BUIDL", "USYC", "OUSG", "EURS", "EURE", "XSGD", "XAUT", "PAXG",
-    )
+    /** Stablecoins — die Liste steht in [CoinExclusion]. */
+    val STABLECOINS: Set<String> get() = CoinExclusion.STABLECOINS
 
-    /** Verpackte, gestakte oder überbrückte Doppelgänger und Börsen-Quittungen. */
-    val WRAPPED = setOf(
-        "WBTC", "WETH", "STETH", "WSTETH", "WEETH", "EETH", "CBBTC", "CBETH", "RETH", "METH",
-        "WBETH", "BETH", "BNSOL", "JITOSOL", "MSOL", "JUPSOL", "BBSOL", "LBTC", "SOLVBTC",
-        "TBTC", "BTCB", "EZETH", "RSETH", "OSETH", "SWETH", "LSETH", "WBNB", "WSOL", "WTRX",
-        "WHYPE", "KHYPE", "STHYPE", "CLBTC", "SAVAX", "WAVAX", "BSC-USD",
-    )
+    /** Doppelgänger und Börsen-Belege — die Liste steht in [CoinExclusion]. */
+    val WRAPPED: Set<String> get() = CoinExclusion.WRAPPED
 
-    private val WORD_DOLLAR = Regex("\\bdollar\\b", RegexOption.IGNORE_CASE)
-    private val WORD_EURO = Regex("\\beuro\\b", RegexOption.IGNORE_CASE)
-
-    /** Stablecoin, Doppelgänger oder offensichtlich an eine Währung gebunden? */
-    fun isExcluded(coin: MarketCoin): Boolean {
-        val symbol = coin.symbol.trim().uppercase()
-        if (symbol.isEmpty()) return true
-        if (symbol in STABLECOINS || symbol in WRAPPED) return true
-        if (symbol.startsWith("USD") || symbol.endsWith("USD")) return true
-        val name = coin.name
-        return name.contains("USD") || WORD_DOLLAR.containsMatchIn(name) || WORD_EURO.containsMatchIn(name)
-    }
+    /** Stablecoin, Doppelgänger oder offensichtlich an eine Währung gebunden? Regel: [CoinExclusion.isExcluded]. */
+    fun isExcluded(coin: MarketCoin): Boolean = CoinExclusion.isExcluded(coin.symbol, coin.name)
 
     /**
      * Die ersten [COUNT] Coins nach Rang, ohne ausgeschlossene, nur solche mit

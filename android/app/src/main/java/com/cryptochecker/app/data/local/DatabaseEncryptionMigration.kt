@@ -19,6 +19,9 @@ package com.cryptochecker.app.data.local
  * 5. Eine Datei mit Verschlüsselungspflicht ([encryptionRequired], das Portfolio) entsteht nie unverschlüsselt: Ohne
  *    Schlüssel wird sie gar nicht angelegt ([Decision.Refused]); eine schon unverschlüsselt vorhandene (früherer
  *    Fehlschlag) öffnet weiter wie bisher und wird beim nächsten Start mit Schlüssel überführt ([planOpen]).
+ *    Gibt der Keystore den Schlüssel einer schon verschlüsselten Datei gerade nicht heraus ([Decision.KeyUnavailable]),
+ *    bleibt die Datei unberührt; die App hält die Datenbank dann für diesen Lauf im Arbeitsspeicher oder wartet
+ *    ([OpenPlan.KEEP_FILE_IN_MEMORY], [OpenPlan.WAIT]).
  * 6. Frühere Schlüssel bleiben (nummeriert, [Keys.previous]), solange eine beiseitegelegte Datei auf einen warten kann.
  *    Öffnet beim nächsten Start einer davon eine beiseitegelegte Datei («endgültig» war doch nur vorübergehend), kommt sie
  *    zurück; die inzwischen neu begonnene Datei bleibt samt Schlüssel daneben ([Decision.Encrypted.restored]).
@@ -301,7 +304,7 @@ class DatabaseEncryptionMigration(
                 log("$database: kein Schlüssel, nicht unverschlüsselt angelegt (nur im Arbeitsspeicher)", null)
                 Decision.Refused
             }
-            OpenPlan.ENCRYPTED, OpenPlan.PLAINTEXT -> Decision.Plaintext
+            OpenPlan.ENCRYPTED, OpenPlan.PLAINTEXT, OpenPlan.KEEP_FILE_IN_MEMORY, OpenPlan.WAIT -> Decision.Plaintext
         }
 
     /** Wie eine Datei zu öffnen ist ([planOpen]). */
@@ -314,6 +317,15 @@ class DatabaseEncryptionMigration(
 
         /** Nicht auf dem Speicher anlegen (nur im Arbeitsspeicher halten), der nächste Start versucht es erneut. */
         REFUSE,
+
+        /**
+         * Verschlüsselte Datei, Schlüssel gerade nicht lesbar: für diesen Lauf eine leere Datenbank im Arbeitsspeicher;
+         * die Datei bleibt unberührt (nie überschrieben, gelöscht oder beiseitegelegt), der nächste Start versucht es erneut.
+         */
+        KEEP_FILE_IN_MEMORY,
+
+        /** Verschlüsselte Datei, Schlüssel gerade nicht lesbar: nicht öffnen (Ausnahme), der nächste Zugriff versucht es erneut. */
+        WAIT,
     }
 
     /**
@@ -339,8 +351,23 @@ class DatabaseEncryptionMigration(
          * fehlende nur ohne Pflicht neu unverschlüsselt — mit Pflicht (Portfolio: Beträge, Adressen, xpub) gar nicht, wie
          * iOS `ProtectedFile.write(requireSealed:)`. Eine verschlüsselte Datei folgt eigenen Regeln (Schlüssel gerade nicht
          * lesbar → nichts tun; verloren → beiseitelegen), nie unverschlüsselt.
+         *
+         * Schlüssel einer verschlüsselten Datei gerade nicht lesbar ([keyUnavailable], [Decision.KeyUnavailable]): Nur wenn
+         * die Datenbank das erlaubt ([inMemoryAllowed]: Portfolio, Merkliste) und die App gerade sichtbar ist ([foreground]),
+         * für diesen Lauf im Arbeitsspeicher — sonst stürzte die Oberfläche beim ersten Zugriff ab. Im Hintergrund (Worker,
+         * Widget, Systemsicherung) lieber warten: Dort überspringen die Einstiege den Lauf, und ein späterer Zugriff mit
+         * lesbarem Schlüssel sieht die echte Datei statt einer leeren für den ganzen Prozess.
          */
-        fun planOpen(kind: FileKind, keyUsable: Boolean, encryptionRequired: Boolean): OpenPlan = when {
+        fun planOpen(
+            kind: FileKind,
+            keyUsable: Boolean,
+            encryptionRequired: Boolean,
+            keyUnavailable: Boolean = false,
+            inMemoryAllowed: Boolean = false,
+            foreground: Boolean = false,
+        ): OpenPlan = when {
+            kind == FileKind.ENCRYPTED && keyUnavailable ->
+                if (inMemoryAllowed && foreground) OpenPlan.KEEP_FILE_IN_MEMORY else OpenPlan.WAIT
             keyUsable || kind == FileKind.ENCRYPTED -> OpenPlan.ENCRYPTED
             kind == FileKind.PLAINTEXT -> OpenPlan.PLAINTEXT
             encryptionRequired -> OpenPlan.REFUSE

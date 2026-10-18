@@ -19,6 +19,8 @@ import kotlinx.coroutines.withTimeoutOrNull
 import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
+import com.cryptochecker.app.notification.canShowPortfolioAlarm
+import com.cryptochecker.app.notification.showPortfolioAlarm
 
 /** Portfolio-Alarme lesen und ändern (Portfolio-Tab, Alarm-Übersicht, Sicherung). */
 @Singleton
@@ -54,7 +56,7 @@ class PortfolioAlarmRepository @Inject constructor(
 /**
  * Prüft die Portfolio-Alarme nach jeder neuen Momentaufnahme (PortfolioSnapshotUpdater: in der
  * App und bei jeder Hintergrund-Aktualisierung, sobald ein Portfolio-Alarm scharf ist). Nur mit
- * eingeschaltetem Portfolio. Meldet über den Kanal des «Alarm-Signals» ([AppNotifier.showPortfolioAlarm]);
+ * eingeschaltetem Portfolio. Meldet über den Kanal des «Alarm-Signals» ([com.cryptochecker.app.notification.showPortfolioAlarm]);
  * in der Nachtruhe und ohne zustellbare Meldung wird nicht ausgelöst ([QuietHours.mayFire]). Regeln: [PortfolioAlarmLogic].
  */
 @Singleton

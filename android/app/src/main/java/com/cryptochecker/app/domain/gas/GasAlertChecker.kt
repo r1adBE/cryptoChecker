@@ -15,6 +15,8 @@ import kotlinx.coroutines.sync.withLock
 import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
+import com.cryptochecker.app.notification.canShowMarketNotice
+import com.cryptochecker.app.notification.showGas
 
 /**
  * Wann ein Gas-Alarm auslöst: sobald die Gebühr auf oder unter die Grenze

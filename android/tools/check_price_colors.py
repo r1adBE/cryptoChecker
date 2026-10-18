@@ -21,7 +21,7 @@ dunklen Flächen, heller als steigend mit Leuchtdichte-Verhältnis ≥ 1.5 (auch
 ΔE2000 ≥ 20 zu Orange und C* ≥ 30.
 
 Aufruf: python3 android/tools/check_price_colors.py  (Exit-Code 1 bei Verstoss)
-Werte wie PriceColorScheme.kt / ios/Shared/Util/Theme.swift (vom Skript nicht gelesen).
+Werte wie PriceColorScheme.kt / ios/Shared/Util/PriceColorScheme.swift (vom Skript nicht gelesen).
 """
 import math
 import sys

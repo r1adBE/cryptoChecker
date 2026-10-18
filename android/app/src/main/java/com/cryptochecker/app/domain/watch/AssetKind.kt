@@ -2,6 +2,7 @@ package com.cryptochecker.app.domain.watch
 
 import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.marketdata.model.market.BinanceAlpha
+import com.cryptochecker.app.domain.logos.alphaSymbols
 
 /**
  * Art eines Paars — kleines Symbol vor der Glocke in der Merkliste, Chip «Alpha» und «inkl.

@@ -19,6 +19,7 @@ import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.map
 import java.time.LocalDate
 import java.time.ZoneId
+import com.cryptochecker.app.domain.portfolio.candleDays
 
 /**
  * Wertverlauf für die Karte über den Positionen: [series] in [unit]

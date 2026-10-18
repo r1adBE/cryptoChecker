@@ -168,7 +168,7 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
   `ChangePill` / `TonePill` (`ui/components/ChangePill.kt`) zeichnen nur noch Text, Farbe aus `pillContent(PillTone)`.
 * **Einstellung «Schrift auf Pillen und Buttons» entfernt** — Buttons mit Themenfarbe als Hintergrund nutzen wieder
   die normale Kontrastfarbe des Themas (`AppColors.onAccent`); alte Sicherungen mit `pillTextColor` lassen sich
-  weiter einspielen (Feld wird ignoriert, `data/BackupManager.kt`), der Export schreibt es nicht mehr.
+  weiter einspielen (Feld wird ignoriert, `data/BackupSettingsCodec.kt`), der Export schreibt es nicht mehr.
 * **Einstellungs-Symbole einfarbig** — Symbole der Hauptseite in der Textfarbe (dunkel weiss, hell schwarz), Alarme
   mit Glocke, Markt-Meldungen mit Blitz; nur «App zurücksetzen» bleibt in der Fehlerfarbe. Die Themenfarbe bleibt
   für Titel-Striche, Schalter und Auswahl.

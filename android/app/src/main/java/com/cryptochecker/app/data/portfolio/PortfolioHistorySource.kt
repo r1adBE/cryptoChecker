@@ -43,6 +43,8 @@ import java.time.LocalDate
 import java.util.concurrent.ConcurrentHashMap
 import javax.inject.Inject
 import javax.inject.Singleton
+import com.cryptochecker.app.domain.portfolio.candleChunks
+import com.cryptochecker.app.domain.portfolio.candleDays
 
 /**
  * Tagesschlüsse eines Coins und wie viele Tage bis heute dafür abgefragt wurden ([span]);

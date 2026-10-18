@@ -2,6 +2,9 @@ package com.cryptochecker.app.work
 
 import com.cryptochecker.app.data.RefreshStats
 import com.cryptochecker.app.data.WatchRepository
+import com.cryptochecker.app.data.local.AppDatabase
+import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
+import com.cryptochecker.app.data.local.DatabaseKeyUnavailableException
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.refresh.BackgroundSchedule
 import com.cryptochecker.app.domain.refresh.CheckBudget
@@ -38,8 +41,12 @@ class BackgroundCheck @Inject constructor(
     private val running = Mutex()
 
     /** Gibt es aktive (nicht deaktivierte) Paare? Fehler: lieber ja. */
-    suspend fun hasWork(): Boolean =
-        runCatchingCancellable { watchRepository.getWatches().any { !it.disabled } }.getOrDefault(true)
+    suspend fun hasWork(): Boolean {
+        // Merkliste nur leer im Arbeitsspeicher (Schlüssel gerade nicht lesbar): unbekannt, also lieber ja — sonst
+        // nähme der Abgleich den Wecker «Pünktlich prüfen» weg, obwohl die Datei Paare hat
+        if (DatabaseEncryptionNotice.isStoredKept(AppDatabase.DB_NAME)) return true
+        return runCatchingCancellable { watchRepository.getWatches().any { !it.disabled } }.getOrDefault(true)
+    }
 
     /** Lauf ohne Prüfung vermerken (z. B. offline beim Wecker). */
     fun log(trigger: CheckTrigger, result: CheckResult, startedAt: Long) {
@@ -64,6 +71,11 @@ class BackgroundCheck @Inject constructor(
             Timber.d("Prüfung (%s) übersprungen: läuft bereits", trigger.code)
             log(trigger, CheckResult.SKIPPED, startedAt)
             return null
+        }
+        // Merkliste in diesem Prozess nur leer im Arbeitsspeicher (Schlüssel war gerade nicht lesbar): eine Prüfung sähe
+        // keine Paare und keine Alarme — wie «Schlüssel nicht verfügbar» behandeln, die Einstiege versuchen es später
+        if (DatabaseEncryptionNotice.isStoredKept(AppDatabase.DB_NAME)) {
+            throw DatabaseKeyUnavailableException(AppDatabase.DB_NAME, IllegalStateException("nur im Arbeitsspeicher"))
         }
         return running.withLock { runLocked(trigger, networkGuaranteed, ttsWaitMillis, startedAt, deadlineAt) }
     }

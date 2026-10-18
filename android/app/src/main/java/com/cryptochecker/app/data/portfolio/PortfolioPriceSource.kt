@@ -1,7 +1,6 @@
 package com.cryptochecker.app.data.portfolio
 
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
-import androidx.core.content.edit
 import android.content.Context
 import com.cryptochecker.app.data.MarketRepository
 import com.cryptochecker.app.data.TokenIdentityStore
@@ -35,7 +34,6 @@ import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
 import okhttp3.OkHttpClient
 import org.json.JSONArray
-import org.json.JSONObject
 import timber.log.Timber
 import java.io.File
 import java.net.URLEncoder
@@ -43,55 +41,6 @@ import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Singleton
-
-/** Aktuelle USDT-Kurse je Coin und der Zeitpunkt der ältesten verwendeten Abfrage. */
-data class PortfolioPrices(
-    val prices: Map<String, Double> = emptyMap(),
-    /** 0 = noch keine Kurse. */
-    val updatedAt: Long = 0,
-    /**
-     * Coins OHNE Kurs, weil nur die letzte Stundenkerze einen hatte und er mangels unabhängigem Bezug
-     * nicht geprüft werden konnte ([PricePlausibility.candleUnchecked]): Sie stehen nicht in [prices],
-     * zählen also nirgends als Geld; die Zeile nennt sie «ungeprüft».
-     */
-    val unchecked: Set<String> = emptySet(),
-    /** Abfragezeit je Coin (Epoch-ms) — für die Frische je Coin ([PortfolioPriceFallback.freshShare]). */
-    val times: Map<String, Long> = emptyMap(),
-    /** Coin → Börse, deren Kurs gilt (eingetragene Börse, [PortfolioExchangeRoute]); fehlt = Binance. */
-    val sources: Map<String, String> = emptyMap(),
-    /** Coin → eingetragene Börse, deren Kurs diesmal nicht ging (dann Binance). */
-    val exchangeFailed: Map<String, String> = emptyMap(),
-    /** Coins mit mehreren eingetragenen Börsen — bewertet mit Binance. */
-    val mixedExchange: Set<String> = emptySet(),
-    /** Binance-Kurs der Coins mit eigener Börse — zum Skalieren der Tageskurse ([PortfolioExchangeRoute.scaleCloses]). */
-    val binance: Map<String, Double> = emptyMap(),
-    /**
-     * Coins OHNE Kurs, weil die Abfrage gerade scheiterte (Netz, Sperre/Backoff der Quellen) — nicht, weil es keinen Kurs
-     * gibt ([PortfolioPriceIssue]). Zeile: «Kurs gerade nicht abrufbar» statt «kein Kurs». Mit gemerktem Kurs fehlt der
-     * Coin hier (er zeigt den letzten Stand, veraltet).
-     */
-    val unavailable: Set<String> = emptySet(),
-    /**
-     * Gekapselte/gebrückte Coins ohne eigenen Börsenkurs, bewertet mit dem Kurs ihrer Basis ([ChainAssets.priceViaBase]):
-     * Coin → Basis. Die Zeile zeigt dann «≈ BTC-Kurs (gebrückt/verpackt)» — nie als eigener Kurs ausgegeben.
-     */
-    val viaBase: Map<String, String> = emptyMap(),
-)
-
-/** Warum ein Coin keinen Kurs hat: [NO_PRICE] = keine Quelle führt ihn; [UNAVAILABLE] = Abfrage gerade gescheitert. */
-enum class PortfolioPriceIssue {
-    NO_PRICE, UNAVAILABLE;
-
-    companion object {
-        /**
-         * Kerzen-Kette ohne Kurs für einen Coin: [UNAVAILABLE], wenn die Abfrage scheiterte ([failed]: Ausnahme), alle
-         * Kerzen-Quellen gesperrt/pausiert sind ([allSourcesBlocked]) oder schon die Sammelabfrage am Netz scheiterte
-         * ([networkFailed]) — dann ist «kein Kurs» nicht belegt. Sonst [NO_PRICE].
-         */
-        fun of(failed: Boolean, allSourcesBlocked: Boolean, networkFailed: Boolean): PortfolioPriceIssue =
-            if (failed || allSourcesBlocked || networkFailed) UNAVAILABLE else NO_PRICE
-    }
-}
 
 /**
  * Kurse und Coin-Liste für das Portfolio, immer in USDT.
@@ -114,153 +63,80 @@ enum class PortfolioPriceIssue {
  * Coin-Liste für die Suche: Binance-Spot-Paare gegen USDT (exchangeInfo), sonst
  * der Paar-Zwischenspeicher der Börse «Binance», sonst Coinbase-USD-Produkte.
  * Zwischenspeicher 1 Tag (auch über einen Neustart).
+ *
+ * Hier Zustand und Abruf der Kurse; als Erweiterungsfunktionen in eigenen Dateien: gemerkter Stand
+ * (`PortfolioPriceSourceStore.kt`), eingetragene Börsen (`PortfolioPriceSourceExchanges.kt`) und Coin-Liste
+ * (`PortfolioPriceSourceCoins.kt`); Ergebnis-Typen in `PortfolioPrices.kt`.
  */
 @Singleton
 class PortfolioPriceSource @Inject constructor(
     @param:ApplicationContext private val context: Context,
     private val httpClient: OkHttpClient,
     private val candleDataSource: CandleDataSource,
-    private val marketRepository: MarketRepository,
+    internal val marketRepository: MarketRepository,
     private val watchDao: WatchDao,
-    private val portfolioDao: PortfolioDao,
-    private val fxSource: FxRateSource,
+    internal val portfolioDao: PortfolioDao,
+    internal val fxSource: FxRateSource,
     private val tokenIdentityStore: TokenIdentityStore,
     /** Live-Kurs USDT/USD: USD- und Fiat-Paare eigener Börsen in USDT ([PortfolioExchangeRoute.toUsdt]). */
-    private val depegReadings: com.cryptochecker.app.domain.alarm.DepegReadingStore,
+    internal val depegReadings: com.cryptochecker.app.domain.alarm.DepegReadingStore,
 ) {
     /** Coin → Börse, deren Kurs gerade im Zwischenspeicher steht (sonst Binance). */
-    private val sourceOf = ConcurrentHashMap<String, String>()
+    internal val sourceOf = ConcurrentHashMap<String, String>()
 
     /** Coin → eingetragene Börse, deren Abfrage zuletzt scheiterte. */
-    private val failedOf = ConcurrentHashMap<String, String>()
+    internal val failedOf = ConcurrentHashMap<String, String>()
 
     /** Coin → Binance-Kurs zum Zeitpunkt des Börsenkurses. */
-    private val binanceOf = ConcurrentHashMap<String, Double>()
+    internal val binanceOf = ConcurrentHashMap<String, Double>()
 
     @Volatile
-    private var mixedCoins: Set<String> = emptySet()
+    internal var mixedCoins: Set<String> = emptySet()
 
     /** Paarliste einer Börse höchstens alle 6 Std. nachladen (Schlüssel → Zeitpunkt). */
-    private val pairListAttempts = ConcurrentHashMap<String, Long>()
+    internal val pairListAttempts = ConcurrentHashMap<String, Long>()
 
     /** Coin → (Kurs, Abfragezeit). */
-    private val cache = ConcurrentHashMap<String, Pair<Double, Long>>()
+    internal val cache = ConcurrentHashMap<String, Pair<Double, Long>>()
 
     /** Coins ohne Kurs, weil nur ein ungeprüfter Kerzenkurs da war (kein Bezug vorhanden). */
-    private val uncheckedCoins: MutableSet<String> = ConcurrentHashMap.newKeySet()
+    internal val uncheckedCoins: MutableSet<String> = ConcurrentHashMap.newKeySet()
 
     /** Coins ohne Kurs, weil die letzte Abfrage scheiterte ([PortfolioPriceIssue.UNAVAILABLE]). */
-    private val unavailableCoins: MutableSet<String> = ConcurrentHashMap.newKeySet()
+    internal val unavailableCoins: MutableSet<String> = ConcurrentHashMap.newKeySet()
 
     /** Die letzte Sammelabfrage scheiterte am Netz bzw. war gesperrt (für [PortfolioPriceIssue.of]). */
     @Volatile
     private var batchFailed = false
     private val priceMutex = Mutex()
-    private val coinMutex = Mutex()
+    internal val coinMutex = Mutex()
 
     /**
      * Letzter Stand der Kurse auf dem Gerät ([stored], [persist]) — getrennt vom Zwischenspeicher:
      * [cached] und [prices] (auch Widget und Hintergrund) sehen nur Kurse dieses Prozesses, wie bisher.
      */
-    private val storeMutex = Mutex()
-    private val storeFile: File get() = File(context.noBackupFilesDir, STORE_FILE)
+    internal val storeMutex = Mutex()
+    internal val storeFile: File get() = File(context.noBackupFilesDir, STORE_FILE)
 
     /** Gemerkte Kurse; null = Datei noch nicht gelesen. */
     @Volatile
-    private var storedEntries: Map<String, StoredPrice>? = null
+    internal var storedEntries: Map<String, StoredPrice>? = null
 
     @Volatile
-    private var coinList: List<String>? = null
+    internal var coinList: List<String>? = null
 
     /** Grosse Antworten (exchangeInfo) brauchen etwas mehr Zeit. */
-    private val bulkClient: OkHttpClient by lazy {
+    internal val bulkClient: OkHttpClient by lazy {
         httpClient.newBuilder()
             .callTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
             .build()
     }
 
-    private val prefs by lazy { context.getSharedPreferences(PREFS, Context.MODE_PRIVATE) }
+    internal val prefs by lazy { context.getSharedPreferences(PREFS, Context.MODE_PRIVATE) }
 
     /** Kurse aus dem Zwischenspeicher, ohne Netz (für den ersten Aufbau). */
     fun cached(coins: Collection<String>): PortfolioPrices = collect(normalized(coins))
-
-    /**
-     * Wie [cached], ergänzt um den letzten gemerkten Stand auf dem Gerät (einmal je Prozess
-     * gelesen; je Coin gewinnt der neuere Kurs) — nur für die Anzeige im Portfolio-Tab nach einem
-     * Neustart oder ohne Netz: lieber der letzte Wert mit «Stand …» als «0.00». `updatedAt` ist
-     * dann alt; ob der Stand veraltet ist, entscheidet [PortfolioPriceFallback.state].
-     */
-    suspend fun stored(coins: Collection<String>): PortfolioPrices = withContext(Dispatchers.IO) {
-        val merged = PortfolioPriceFallback.merge(currentEntries(), loadStored())
-        // Gekapselte Coins ohne eigenen Kurs: Kurs der Basis, markiert ([PortfolioPrices.viaBase])
-        val via = ChainAssets.priceViaBase(normalized(coins), merged.keys)
-        val hits = normalized(coins).mapNotNull { coin -> (merged[coin] ?: via[coin]?.let { merged[it] })?.let { coin to it } }
-        PortfolioPrices(
-            prices = hits.associate { (coin, entry) -> coin to entry.price } + (STABLE to 1.0),
-            updatedAt = hits.minOfOrNull { it.second.at } ?: 0L,
-            unchecked = normalized(coins).filterTo(HashSet()) { it in uncheckedCoins && it !in merged && it !in via },
-            unavailable = normalized(coins).filterTo(HashSet()) { it in unavailableCoins && it !in merged && it !in uncheckedCoins && it !in via },
-            viaBase = via,
-            times = hits.associate { (coin, entry) -> coin to entry.at },
-            sources = hits.mapNotNull { (coin, _) -> sourceOf[coin]?.let { coin to it } }.toMap(),
-            exchangeFailed = hits.mapNotNull { (coin, _) -> failedOf[coin]?.let { coin to it } }.toMap(),
-            mixedExchange = mixedCoins.filterTo(HashSet()) { coin -> hits.any { it.first == coin } },
-            binance = hits.mapNotNull { (coin, _) -> binanceOf[coin]?.let { coin to it } }.toMap(),
-        )
-    }
-
-    /** «Portfolio leeren»: gemerkte Kurse (nennen die gehaltenen Coins) und Zwischenspeicher weg. */
-    suspend fun clearStored() = withContext(Dispatchers.IO) {
-        storeMutex.withLock {
-            cache.clear()
-            uncheckedCoins.clear()
-            runCatchingCancellable { storeFile.delete() }
-            storedEntries = emptyMap()
-        }
-    }
-
-    /** Gemerkter Stand (einmal je Prozess aus der Datei gelesen). */
-    private suspend fun loadStored(): Map<String, StoredPrice> {
-        storedEntries?.let { return it }
-        return storeMutex.withLock {
-            storedEntries ?: run {
-                val text = runCatchingCancellable { if (storeFile.isFile) storeFile.readText() else null }
-                    .onFailure { Timber.d(it, "Portfolio: gemerkte Kurse unlesbar") }
-                    .getOrNull()
-                PortfolioPriceFallback.prune(PortfolioPriceFallback.decode(text), System.currentTimeMillis())
-                    .also { storedEntries = it }
-            }
-        }
-    }
-
-    /**
-     * Nach jedem erfolgreichen Abruf: gemerkter Stand und Zwischenspeicher (je Coin der neuere) als
-     * letzten Stand schreiben. Datei in `noBackupFilesDir` — nie in einer Sicherung (wie die
-     * Momentaufnahme des Portfolio-Widgets), denn sie nennt die gehaltenen Coins. Über eine
-     * Hilfsdatei und Umbenennen geschrieben.
-     */
-    private suspend fun persist() {
-        val stored = loadStored()
-        storeMutex.withLock {
-            val entries = PortfolioPriceFallback.prune(
-                PortfolioPriceFallback.merge(currentEntries(), storedEntries ?: stored),
-                System.currentTimeMillis(),
-            )
-            storedEntries = entries
-            runCatchingCancellable {
-                val tmp = File(storeFile.parentFile, "$STORE_FILE.tmp")
-                tmp.writeText(PortfolioPriceFallback.encode(entries))
-                if (!tmp.renameTo(storeFile)) {
-                    storeFile.delete()
-                    tmp.renameTo(storeFile)
-                }
-            }.onFailure { Timber.d(it, "Portfolio: Kurse nicht gemerkt") }
-        }
-    }
-
-    private fun currentEntries(): Map<String, StoredPrice> =
-        cache.entries.associate { (coin, entry) -> coin to StoredPrice(entry.first, entry.second) }
 
     /**
      * Kurse für [coins]; Einträge jünger als 60 s werden nicht neu geholt
@@ -353,7 +229,7 @@ class PortfolioPriceSource @Inject constructor(
     }
 
     /** Abfragbare Kürzel; gekapselte Coins ([ChainAssets.WRAPPED], z. B. «BTC.B») auch ohne — Kurs dann über die Basis. */
-    private fun normalized(coins: Collection<String>): List<String> =
+    internal fun normalized(coins: Collection<String>): List<String> =
         coins.map { PortfolioCalculator.normalizeCoin(it) }
             .filter { (isSymbol(it) || ChainAssets.wrappedBase(it) != null) && it != STABLE }
             .distinct()
@@ -521,93 +397,6 @@ class PortfolioPriceSource @Inject constructor(
     }
 
     /**
-     * Kurs der eingetragenen Börse für [coins] ([PortfolioExchangeRoute]): Börse aus den Transaktionen, Paar
-     * aus der Paarliste der Börse (fehlt sie, höchstens alle 6 Std. einmal laden), Kurs über den Adapter der
-     * Börse, umgerechnet in USDT. Ersetzt in [fetched] den Binance-Kurs; scheitert es, bleibt Binance und der
-     * Coin steht in [failedOf]. Abfragen gehen nur an die Börse, die der Nutzer selbst eingetragen hat.
-     */
-    private suspend fun applyExchangeRoutes(coins: List<String>, fetched: MutableMap<String, Double>) {
-        val txs = runCatchingCancellable { portfolioDao.getAll() }.getOrNull() ?: return
-        val (byCoin, mixed) = PortfolioExchangeRoute.exchangeByLedger(txs.flatMap { it.routeEntries() })
-        mixedCoins = mixed
-        val wanted = coins.filter { it != STABLE }
-        // Coins ohne (einheitliche) Börse: Binance
-        wanted.filter { it !in byCoin }.forEach { coin ->
-            sourceOf.remove(coin)
-            failedOf.remove(coin)
-            binanceOf.remove(coin)
-        }
-        val routed = wanted.mapNotNull { coin -> byCoin[coin]?.let { coin to it } }
-        if (routed.isEmpty()) return
-        val markets = runCatchingCancellable { marketRepository.getMarketList() }.getOrNull()
-            ?.associate { it.key to it.name }.orEmpty()
-        coroutineScope {
-            routed.map { (coin, name) ->
-                async {
-                    val market = PortfolioExchangeRoute.market(name, markets)
-                    if (market == null) {
-                        // Binance oder freier Text: Binance, ohne Hinweis
-                        sourceOf.remove(coin); failedOf.remove(coin); binanceOf.remove(coin)
-                        return@async
-                    }
-                    val price = try {
-                        exchangePrice(coin, MarketInfo(key = market.first, name = market.second))
-                    } catch (e: CancellationException) {
-                        throw e
-                    } catch (e: Exception) {
-                        Timber.d(e, "Portfolio: Kurs von %s für %s nicht verfügbar", market.second, coin)
-                        null
-                    }
-                    if (price != null) {
-                        fetched[coin]?.let { binanceOf[coin] = it } ?: binanceOf.remove(coin)
-                        fetched[coin] = price
-                        sourceOf[coin] = market.second
-                        failedOf.remove(coin)
-                    } else {
-                        sourceOf.remove(coin)
-                        binanceOf.remove(coin)
-                        failedOf[coin] = market.second
-                    }
-                }
-            }.awaitAll()
-        }
-    }
-
-    /** Namen der Spot-Börsen der App (alphabetisch) für das Feld «Börse» einer Transaktion. */
-    suspend fun spotMarketNames(): List<String> =
-        marketRepository.getMarketList()
-            .filter { PortfolioExchangeRoute.isSpot(it.key) }
-            .map { it.name }
-            .distinct()
-            .sortedWith(String.CASE_INSENSITIVE_ORDER)
-
-    /** Letzter Kurs von [coin] an [market] in USDT; null = kein Paar, keine Antwort oder kein Devisenkurs. */
-    private suspend fun exchangePrice(coin: String, market: MarketInfo): Double? {
-        var pairs = spotPairs(market)
-        if (pairs.isEmpty() && marketRepository.isMarketSupportsUpdatePairs(market)) {
-            val now = System.currentTimeMillis()
-            val last = pairListAttempts[market.key] ?: 0L
-            if (now - last !in 0 until PAIR_LIST_RETRY_MILLIS) {
-                pairListAttempts[market.key] = now
-                runCatchingCancellable { marketRepository.updateMarketCurrencyPairs(market) }
-                pairs = spotPairs(market)
-            }
-        }
-        val pick = PortfolioExchangeRoute.pickPair(coin, pairs.map { PortfolioExchangeRoute.Pair3(it.base, it.quote, it.pairId) })
-            ?: return null
-        val info = pairs.first { it.base == pick.base && it.quote == pick.quote && it.pairId == pick.pairId }
-        val result = withTimeoutOrNull(REQUEST_TIMEOUT_MILLIS) { marketRepository.getMarketTicker(market, info) } ?: return null
-        if (result.error != null) return null
-        val last = result.ticker.last
-        val quote = pick.quote.uppercase()
-        val rate = if (quote == "USDT" || quote == "USD") null else fxSource.usdTo(quote)
-        return PortfolioExchangeRoute.toUsdt(last, quote, depegReadings.liveUsdtUsd() ?: 1.0) { rate }
-    }
-
-    private suspend fun spotPairs(market: MarketInfo) =
-        marketRepository.getMarketCurrencyPairsInfo(market).pairs.filter { it.contractType == FuturesContractType.NONE }
-
-    /**
      * Letzter Kerzenkurs und ob die Abfrage scheiterte (Ausnahme) — statt Fehler still als «kein Kurs» zu schlucken
      * ([PortfolioPriceIssue]).
      */
@@ -625,77 +414,8 @@ class PortfolioPriceSource @Inject constructor(
     /** Alle Quellen der Kerzen-Kette gesperrt oder pausiert (451/403, Backoff): ein fehlender Kurs ist dann kein Beleg. */
     private fun candleSourcesBlocked(): Boolean = CANDLE_HOSTS.all { BlockedSources.isBlocked(it) }
 
-    // ---------------- Coin-Liste ----------------
-
-    /** Alle wählbaren Coins (alphabetisch); leer, wenn keine Quelle antwortet. */
-    suspend fun coins(): List<String> = withContext(Dispatchers.IO) {
-        coinMutex.withLock {
-            coinList?.let { list ->
-                if (System.currentTimeMillis() - prefs.getLong(KEY_COINS_AT, 0L) in 0 until COINS_TTL_MILLIS) {
-                    return@withLock list
-                }
-            }
-            val stored = prefs.getString(KEY_COINS, null)?.split(',')?.filter { it.isNotEmpty() }.orEmpty()
-            val storedAt = prefs.getLong(KEY_COINS_AT, 0L)
-            if (stored.isNotEmpty() && System.currentTimeMillis() - storedAt in 0 until COINS_TTL_MILLIS) {
-                coinList = stored
-                return@withLock stored
-            }
-
-            val fresh = binanceCoins() ?: pairCacheCoins() ?: coinbaseCoins()
-            if (!fresh.isNullOrEmpty()) {
-                val list = (fresh + STABLE).distinct().sorted()
-                prefs.edit {
-                    putString(KEY_COINS, list.joinToString(","))
-                    putLong(KEY_COINS_AT, System.currentTimeMillis())
-                }
-                coinList = list
-                list
-            } else {
-                // Lieber eine ältere Liste als gar keine
-                stored.also { if (it.isNotEmpty()) coinList = it }
-            }
-        }
-    }
-
-    private suspend fun binanceCoins(): List<String>? {
-        val url = "https://$BINANCE_HOST/api/v3/exchangeInfo?permissions=SPOT&showPermissionSets=false"
-        val body = get(url, BINANCE_HOST, bulkClient) ?: return null
-        return runCatchingCancellable {
-            val symbols = JSONObject(body).getJSONArray("symbols")
-            (0 until symbols.length()).mapNotNull { i ->
-                val s = symbols.getJSONObject(i)
-                s.optString("baseAsset").takeIf {
-                    s.optString("quoteAsset") == STABLE && s.optString("status") == "TRADING"
-                }
-            }.map { it.uppercase() }.filter { isSymbol(it) }
-        }.getOrNull()?.takeIf { it.isNotEmpty() }
-    }
-
-    /** Paarliste der Börse «Binance» aus der App (lokal gespeichert oder mitgeliefert). */
-    private suspend fun pairCacheCoins(): List<String>? = runCatchingCancellable {
-        marketRepository.getMarketCurrencyPairsInfo(MarketInfo(key = "Binance", name = "Binance"))
-            .pairs
-            .filter { it.quote == STABLE && it.contractType == FuturesContractType.NONE }
-            .map { it.base.uppercase() }
-            .filter { isSymbol(it) }
-    }.getOrNull()?.takeIf { it.isNotEmpty() }
-
-    private suspend fun coinbaseCoins(): List<String>? {
-        val body = get("https://api.exchange.coinbase.com/products", COINBASE_HOST, bulkClient) ?: return null
-        return runCatchingCancellable {
-            val array = JSONArray(body)
-            (0 until array.length()).mapNotNull { i ->
-                val p = array.getJSONObject(i)
-                p.optString("base_currency").takeIf {
-                    p.optString("quote_currency") == "USD" && !p.optBoolean("trading_disabled", false)
-                }
-            }.map { it.uppercase() }.filter { isSymbol(it) }
-        }.getOrNull()?.takeIf { it.isNotEmpty() }
-    }
-
     /** GET mit eigener Zeitgrenze; null bei Fehler. 451/403 sperrt die Quelle vorübergehend. */
-    private suspend fun get(url: String, host: String, client: OkHttpClient = httpClient): String? = try {
+    internal suspend fun get(url: String, host: String, client: OkHttpClient = httpClient): String? = try {
         withTimeoutOrNull(REQUEST_TIMEOUT_MILLIS) { client.callMarket(url, null) }
     } catch (e: CancellationException) {
         throw e
@@ -704,7 +424,7 @@ class PortfolioPriceSource @Inject constructor(
         null
     }
 
-    private companion object {
+    internal companion object {
         const val STABLE = "USDT"
         const val BINANCE_HOST = "data-api.binance.vision"
         /** Quellen der Kerzen-Kette ([CandleDataSource]) — Binance, Binance.US, Coinbase. */

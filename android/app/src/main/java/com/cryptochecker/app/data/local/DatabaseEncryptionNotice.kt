@@ -46,8 +46,24 @@ object DatabaseEncryptionNotice {
     /** Liegt [database] in diesem Prozess nur im Arbeitsspeicher? Erst nach dem ersten Öffnen verlässlich. */
     fun isInMemory(database: String): Boolean = database in inMemoryNames.value
 
-    /** Von [EncryptingOpenHelperFactory] bei [Decision.Refused] gesetzt. */
-    internal fun markInMemory(database: String) {
+    private val keptNames = MutableStateFlow<Set<String>>(emptySet())
+
+    /**
+     * Teilmenge von [inMemory]: Die verschlüsselte Datei ist da, nur gab der Keystore ihren Schlüssel gerade nicht heraus
+     * ([DatabaseEncryptionMigration.OpenPlan.KEEP_FILE_IN_MEMORY]). Der gespeicherte Stand ist jetzt nicht zu sehen und
+     * kommt nach einem Neustart zurück; was in diesem Lauf geändert wird, geht verloren. Die Datei bleibt unberührt.
+     */
+    val storedKept: StateFlow<Set<String>> = keptNames.asStateFlow()
+
+    /** Liegt [database] nur im Arbeitsspeicher, obwohl die Datei mit gespeichertem Stand da ist ([storedKept])? */
+    fun isStoredKept(database: String): Boolean = database in keptNames.value
+
+    /**
+     * Von [EncryptingOpenHelperFactory] bei [Decision.Refused] gesetzt, mit [storedKept] bei [Decision.KeyUnavailable]
+     * im Vordergrund. Erst [storedKept], dann [inMemory]: Wer [inMemory] beobachtet, sieht die Variante schon.
+     */
+    internal fun markInMemory(database: String, storedKept: Boolean = false) {
+        if (storedKept) keptNames.update { it + database }
         inMemoryNames.update { it + database }
     }
 

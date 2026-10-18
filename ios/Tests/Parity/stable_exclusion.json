@@ -1,0 +1,487 @@
+{
+ "_comment": "Stablecoins und Doppelgänger (CoinExclusion): gemeinsam für StableExclusionParityTest.kt und StableExclusionParityTests.swift. Gilt für Marktbreite («Top 30»), «Gewinner und Verlierer 24 h», Start-Coins und «Heute auffällig». Listen und Regeln = Vereinigung beider Plattformen, ohne Rücksicht auf Gross-/Kleinschreibung. «stablecoins» und «wrapped» = die Listen beider Plattformen (genau gleich).",
+ "stablecoins": [
+  "USDT",
+  "USDC",
+  "DAI",
+  "USDE",
+  "USDS",
+  "FDUSD",
+  "TUSD",
+  "PYUSD",
+  "USD1",
+  "BUSD",
+  "USDD",
+  "FRAX",
+  "GUSD",
+  "USDP",
+  "EURC",
+  "EURT",
+  "RLUSD",
+  "USDG",
+  "USD0",
+  "USDTB",
+  "BFUSD",
+  "SUSDS",
+  "SUSDE",
+  "USDT0",
+  "USDX",
+  "USDB",
+  "USDY",
+  "USDF",
+  "LUSD",
+  "CRVUSD",
+  "GHO",
+  "DOLA",
+  "FXUSD",
+  "EURS",
+  "EURE",
+  "XAUT",
+  "PAXG",
+  "USTC",
+  "USR",
+  "DEUSD",
+  "SRUSD",
+  "USDO",
+  "AUSD",
+  "USYC",
+  "BUIDL",
+  "USDM",
+  "USDL",
+  "MIM",
+  "ALUSD",
+  "SUSD",
+  "CUSD",
+  "ZUSD",
+  "HUSD",
+  "USDK",
+  "USDJ",
+  "USDAI",
+  "OUSG",
+  "XSGD"
+ ],
+ "wrapped": [
+  "WBTC",
+  "WETH",
+  "STETH",
+  "WSTETH",
+  "WEETH",
+  "EETH",
+  "CBBTC",
+  "CBETH",
+  "RETH",
+  "METH",
+  "EZETH",
+  "RSETH",
+  "LSETH",
+  "WBETH",
+  "BETH",
+  "BNSOL",
+  "JITOSOL",
+  "MSOL",
+  "JUPSOL",
+  "STSOL",
+  "BBSOL",
+  "WBNB",
+  "BTCB",
+  "TBTC",
+  "LBTC",
+  "SOLVBTC",
+  "CLBTC",
+  "FBTC",
+  "UNIBTC",
+  "WTRX",
+  "WAVAX",
+  "SAVAX",
+  "WMATIC",
+  "WPOL",
+  "WSOL",
+  "WHYPE",
+  "KHYPE",
+  "STHYPE",
+  "OSETH",
+  "SFRXETH",
+  "FRXETH",
+  "PUFETH",
+  "SWETH",
+  "ANKRETH",
+  "TETH",
+  "WEETHS",
+  "RSWETH",
+  "EBTC",
+  "PUMPBTC",
+  "BSC-USD",
+  "BGBTC",
+  "OKBTC",
+  "BBTC",
+  "BTC.B",
+  "SOLVBTC.BBN",
+  "WEETH.BASE"
+ ],
+ "coins": [
+  {
+   "id": "bitcoin",
+   "symbol": "BTC",
+   "name": "Bitcoin",
+   "excluded": false,
+   "note": "gewöhnlicher Coin"
+  },
+  {
+   "id": "ethereum",
+   "symbol": "ETH",
+   "name": "Ethereum",
+   "excluded": false
+  },
+  {
+   "id": "solana",
+   "symbol": "SOL",
+   "name": "Solana",
+   "excluded": false
+  },
+  {
+   "id": "ripple",
+   "symbol": "XRP",
+   "name": "XRP",
+   "excluded": false
+  },
+  {
+   "id": "sui",
+   "symbol": "SUI",
+   "name": "Sui",
+   "excluded": false
+  },
+  {
+   "id": "hyperliquid",
+   "symbol": "HYPE",
+   "name": "Hyperliquid",
+   "excluded": false
+  },
+  {
+   "id": "neurochain",
+   "symbol": "NCN",
+   "name": "Neurochain",
+   "excluded": false,
+   "note": "«eur» nur als ganzes Wort"
+  },
+  {
+   "id": "neuron",
+   "symbol": "NRN",
+   "name": "Neuron",
+   "excluded": false,
+   "note": "«euro» steckt im Wort, ist aber keines"
+  },
+  {
+   "id": "europa",
+   "symbol": "EUP",
+   "name": "Europa Coin",
+   "excluded": false
+  },
+  {
+   "id": "tether",
+   "symbol": "USDT",
+   "name": "Tether",
+   "excluded": true,
+   "note": "Liste Stablecoins"
+  },
+  {
+   "id": "usd-coin",
+   "symbol": "usdc",
+   "name": "USDC",
+   "excluded": true,
+   "note": "Kürzel klein geschrieben"
+  },
+  {
+   "id": "dola-usd",
+   "symbol": "DOLA",
+   "name": "DOLA",
+   "excluded": true,
+   "note": "früher nur iOS"
+  },
+  {
+   "id": "resolv-usr",
+   "symbol": "USR",
+   "name": "Resolv USR",
+   "excluded": true,
+   "note": "früher nur iOS"
+  },
+  {
+   "id": "magic-internet-money",
+   "symbol": "MIM",
+   "name": "Magic Internet Money",
+   "excluded": true,
+   "note": "früher nur iOS"
+  },
+  {
+   "id": "liquity-usd",
+   "symbol": "LUSD",
+   "name": "Liquity",
+   "excluded": true
+  },
+  {
+   "id": "tether-gold",
+   "symbol": "XAUT",
+   "name": "Tether Gold",
+   "excluded": true
+  },
+  {
+   "id": "pax-gold",
+   "symbol": "PAXG",
+   "name": "PAX Gold",
+   "excluded": true
+  },
+  {
+   "id": "terrausd",
+   "symbol": "USTC",
+   "name": "TerraClassicUSD",
+   "excluded": true,
+   "note": "früher nur iOS"
+  },
+  {
+   "id": "usdai",
+   "symbol": "USDAI",
+   "name": "USDai",
+   "excluded": true,
+   "note": "früher nur Android"
+  },
+  {
+   "id": "ousg",
+   "symbol": "OUSG",
+   "name": "OUSG",
+   "excluded": true,
+   "note": "früher nur Android"
+  },
+  {
+   "id": "xsgd",
+   "symbol": "XSGD",
+   "name": "XSGD",
+   "excluded": true,
+   "note": "früher nur Android"
+  },
+  {
+   "id": "ethena-usde",
+   "symbol": "USDE",
+   "name": "Ethena USDe",
+   "excluded": true
+  },
+  {
+   "id": "paypal-usd",
+   "symbol": "PYUSD",
+   "name": "PayPal USD",
+   "excluded": true
+  },
+  {
+   "id": "new-stable-prefix",
+   "symbol": "USDQ",
+   "name": "Some new stable",
+   "excluded": true,
+   "note": "Kürzel beginnt mit USD"
+  },
+  {
+   "id": "new-stable-suffix",
+   "symbol": "XUSD",
+   "name": "Another",
+   "excluded": true,
+   "note": "Kürzel endet mit USD"
+  },
+  {
+   "id": "falcon-lower",
+   "symbol": "FLCN",
+   "name": "falcon usd",
+   "excluded": true,
+   "note": "Name «usd» klein — früher auf Android nicht erkannt"
+  },
+  {
+   "id": "mixed-case",
+   "symbol": "ABCX",
+   "name": "Abc Usd Vault",
+   "excluded": true,
+   "note": "Name «Usd» gemischt — früher auf Android nicht erkannt"
+  },
+  {
+   "id": "usd-inside",
+   "symbol": "AVUSDX",
+   "name": "avUSDx Yield",
+   "excluded": true,
+   "note": "«usd» mitten im Wort"
+  },
+  {
+   "id": "glo-dollar",
+   "symbol": "GLO",
+   "name": "Glo Dollar",
+   "excluded": true,
+   "note": "Name mit Dollar"
+  },
+  {
+   "id": "petrodollar",
+   "symbol": "PDOL",
+   "name": "Petrodollars",
+   "excluded": true,
+   "note": "«dollar» im Wort — früher auf Android nicht erkannt"
+  },
+  {
+   "id": "quantoz-euro",
+   "symbol": "EURQ",
+   "name": "Quantoz Euro",
+   "excluded": true,
+   "note": "Euro als Wort"
+  },
+  {
+   "id": "stasis-eur",
+   "symbol": "EURSX",
+   "name": "STASIS EUR",
+   "excluded": true,
+   "note": "EUR als Wort — früher auf Android nicht erkannt"
+  },
+  {
+   "id": "wrapped-bitcoin",
+   "symbol": "WBTC",
+   "name": "Wrapped Bitcoin",
+   "excluded": true,
+   "note": "Liste Doppelgänger"
+  },
+  {
+   "id": "lido-steth",
+   "symbol": "STETH",
+   "name": "Lido Staked Ether",
+   "excluded": true
+  },
+  {
+   "id": "ignition-fbtc",
+   "symbol": "FBTC",
+   "name": "Ignition FBTC",
+   "excluded": true,
+   "note": "früher nur iOS"
+  },
+  {
+   "id": "unibtc",
+   "symbol": "UNIBTC",
+   "name": "Universal BTC",
+   "excluded": true,
+   "note": "früher nur iOS"
+  },
+  {
+   "id": "wpol",
+   "symbol": "WPOL",
+   "name": "Wrapped POL",
+   "excluded": true,
+   "note": "früher nur iOS"
+  },
+  {
+   "id": "wrapped-new",
+   "symbol": "WNEW",
+   "name": "Wrapped Newcoin",
+   "excluded": true,
+   "note": "Name beginnt mit «Wrapped» — früher auf Android nicht erkannt"
+  },
+  {
+   "id": "staked-new",
+   "symbol": "SNEW",
+   "name": "Staked Newcoin",
+   "excluded": true,
+   "note": "Name beginnt mit «Staked»"
+  },
+  {
+   "id": "bridged-new",
+   "symbol": "BNEW",
+   "name": "Bridged Newcoin",
+   "excluded": true,
+   "note": "Name beginnt mit «Bridged»"
+  },
+  {
+   "id": "liquid-staked-new",
+   "symbol": "LSNEW",
+   "name": "Liquid Staked Newcoin",
+   "excluded": true,
+   "note": "Name beginnt mit «Liquid Staked»"
+  },
+  {
+   "id": "binance-peg-doge",
+   "symbol": "DOGEP",
+   "name": "Binance-Peg Dogecoin",
+   "excluded": true,
+   "note": "Binance-Peg"
+  },
+  {
+   "id": "restaked-new",
+   "symbol": "RNEW",
+   "name": "Kelp Restaked Thing",
+   "excluded": true,
+   "note": "restaked"
+  },
+  {
+   "id": "lowercase-wrapped",
+   "symbol": "WXYZ",
+   "name": "WRAPPED XYZ",
+   "excluded": true,
+   "note": "Gross geschrieben"
+  },
+  {
+   "id": "bsc-usd",
+   "symbol": "BSC-USD",
+   "name": "Binance Bridged USDT (BNB Smart Chain)",
+   "excluded": true
+  },
+  {
+   "id": "btc-b",
+   "symbol": "btc.b",
+   "name": "Bitcoin Avalanche Bridged",
+   "excluded": true,
+   "note": "Liste mit Punkt, klein geschrieben"
+  },
+  {
+   "id": "dotted",
+   "symbol": "ABC.X",
+   "name": "Abc",
+   "excluded": true,
+   "note": "Kürzel mit Punkt — früher auf Android nicht erkannt"
+  },
+  {
+   "id": "dashed",
+   "symbol": "AB-C",
+   "name": "Abc",
+   "excluded": true,
+   "note": "Kürzel mit Bindestrich"
+  },
+  {
+   "id": "spaces",
+   "symbol": "  LINK ",
+   "name": "  Chainlink  ",
+   "excluded": false,
+   "note": "Leerzeichen werden abgeschnitten"
+  },
+  {
+   "id": "empty",
+   "symbol": "",
+   "name": "Leer",
+   "excluded": true,
+   "note": "leeres Kürzel"
+  },
+  {
+   "id": "blank",
+   "symbol": "   ",
+   "name": "Leer",
+   "excluded": true,
+   "note": "nur Leerzeichen"
+  },
+  {
+   "id": "coinbase-wrapped",
+   "symbol": "CBBTC",
+   "name": "Coinbase Wrapped BTC",
+   "excluded": true
+  },
+  {
+   "id": "wrapped-mid",
+   "symbol": "XWR",
+   "name": "Coin Wrapped Inside",
+   "excluded": false,
+   "note": "«Wrapped» nur am Anfang zählt"
+  },
+  {
+   "id": "staking-word",
+   "symbol": "STK",
+   "name": "Staking Rewards",
+   "excluded": false,
+   "note": "«Staking» ist nicht «Staked »"
+  }
+ ]
+}

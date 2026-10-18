@@ -1511,7 +1511,7 @@ Change a rule → change the JSON first, then both implementations.
   and position factors are dropped. Volume without quote volume is compared in coin units and marked
   «estimated»; with more than 6 of the 24 hours without trades the volume factor is left out.
 * **Futures data per exchange.** `FuturesSources` (`data/remote/FuturesExchanges.kt`, Swift in
-  `FuturesDataSource.swift`): Binance, Bybit, OKX, WOO X, Bitget, MEXC, HTX, Hyperliquid and Deribit
+  `FuturesExchanges.swift`): Binance, Bybit, OKX, WOO X, Bitget, MEXC, HTX, Hyperliquid and Deribit
   perpetuals use their **own** funding rate and open interest – requests go only to the exchange of
   the watched pair. Every other futures exchange (e.g. Phemex), a spot pair or a failing own source
   gets **reference** data from Binance → Bybit → OKX, and the UI must say so
@@ -1855,11 +1855,19 @@ Layout decisions that keep the app calm. Same structure on Android and iOS, same
   `TaxExport` (Rows/Summary/Csv; iOS in `App/Features/Portfolio/Tax/`), `PriceRefresher` (`RefreshLock` with a
   `RefreshLockScope` token, `LivePriceApplier`, `ChartRefresher`, `RefreshResultProcessor`, `RefreshSideChecks`),
   `CoinLogoRepository` (facade over `LogoImageStore`, `CoinListSync`, `AlphaTokens`, `CoinNames`).
-  Still long, on purpose: the one-composable screens `WatchlistScreen.kt`, `PortfolioScreen.kt`, `WatchActionsSheet.kt` (splitting them means extracting state
-  blocks, a rewrite), `AppNotifier.kt` (its posting API is called from `domain`/`data`/`work`),
-  `PortfolioViewModel.kt` (~530: its derived flows must stay in the class for initialisation order), and logic
-  files whose twins live in `domain`/`data` (`PortfolioCutoffExport.swift`,
-  `WatchSheetChart.swift`).
+  Build 81 split every production file over 650 lines by responsibility (largest now ≈ 455 lines), with parallel
+  names on both platforms: `BackupManager` → `BackupFormat`, `BackupWatchlistCodec`, `BackupSettingsCodec`,
+  `BackupJournalCodec`; `AppNotifier` → `AppNotifierAlarms`, `AppNotifierMarket` (posting functions are extensions,
+  call sites import them); `TaxExportSummary` → `TaxSummaryModel`, `TaxSummaryTexts` (both platforms);
+  `WatchlistScreen` → `WatchlistScreenBody`; `PortfolioPriceSource` → `PortfolioPrices`, `…Store`, `…Exchanges`,
+  `…Coins`; `PortfolioHistory` → `…Models`, `…Days`; `ActivityAnalyzer` → `ActivityWhy`; `CoinLogos` → `…Alpha`,
+  `…StockNames`, `…IconPack`; `SettingsRepository` → `SettingsDataStore`, `SettingsKeys`; iOS `CoinLogoStore+Display/
+  +Download/+Names`, `PortfolioWidgetPlan` → `PortfolioWidgetChartRules`, `…ChartGeometry`, `PortfolioWidgetViews`,
+  `WidgetQuoteText`; `SharedStorage+Snapshot/+Files`, `WidgetGroupSelection`; `PortfolioWidgetStore(+Compute)`;
+  `CutoffExport`, `HistoricPriceSource`; `WatchedAddressRules`, `WatchedAddressStore`; `FuturesExchanges(+FundingHistory)`;
+  `Components` → `TickerView`, `CoinBadge`, `EmptyStateView`, `FactorRow`, `TabTitle`; `PriceRefresher+Outcome`;
+  `PortfolioTx+Derived`, `PortfolioStore`; `PriceColorScheme`. Files between 450 and 650 lines remain (e.g.
+  `PortfolioViewModel.kt`, `PortfolioScreen.kt`, `Bip32`, `PulseWidget`).
 
 ## 19. Storage encryption
 
@@ -2046,4 +2054,18 @@ after the encryption step.
   pauses. Input types carry no portfolio, amount, address or note fields; anything address-like is replaced by
   `[redacted]`. Preview first, then the system share sheet (Android FileProvider limited to `cache/diagnostics/`);
   nothing is sent automatically.
+
+## Robustness and parity fixes (build 81)
+
+* Keystore temporarily refusing the key of an EXISTING encrypted portfolio or main (watchlist/alarms) database
+  (Android): `DatabaseEncryptionMigration.planOpen` → `KEEP_FILE_IN_MEMORY` only while the app is in the foreground
+  (otherwise `WAIT`, as before): an empty in-memory database for this run, banner (`portfolio_storage_kept_in_memory`,
+  `watchlist_storage_kept_in_memory`), the file is never overwritten, deleted or set aside; background checks,
+  widget snapshot/history, system backup and the holdings migration wait for the next start. iOS has its own
+  handling for unreadable protected files.
+* Stablecoin / wrapped / staked exclusion: one rule per platform (`CoinExclusion.kt` / `CoinExclusion.swift`), the
+  union of both former lists, case-insensitive name and symbol rules, fixture `stable_exclusion.json` – used by the
+  «Top 30» breadth, market movers, start coins and «Unusual today».
+* Settings search: `alarms.delivery`, `about.diagnostics`, `updates.alarm_log`; `SettingsSearchAnchorsTest` checks
+  that every search target has an anchor on both platforms.
 

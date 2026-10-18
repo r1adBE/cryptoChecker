@@ -8,6 +8,13 @@ import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import java.io.File
+import com.cryptochecker.app.domain.logos.alphaIconUrl
+import com.cryptochecker.app.domain.logos.alphaSymbols
+import com.cryptochecker.app.domain.logos.applyAlpha
+import com.cryptochecker.app.domain.logos.bundledIconName
+import com.cryptochecker.app.domain.logos.cleanSymbol
+import com.cryptochecker.app.domain.logos.parseAlpha
+import com.cryptochecker.app.domain.logos.parseIconPack
 
 /**
  * Gemeinsame Testfälle `alpha_list.json` (Antwort der Binance-Alpha-Liste mit FROGGIE) und

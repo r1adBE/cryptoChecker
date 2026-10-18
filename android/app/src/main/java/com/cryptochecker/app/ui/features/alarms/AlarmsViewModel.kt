@@ -34,6 +34,8 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
+import com.cryptochecker.app.notification.alarmsAllowed
+import com.cryptochecker.app.notification.canShowAlarm
 
 @HiltViewModel
 class AlarmsViewModel @Inject constructor(
@@ -322,7 +324,7 @@ class AlarmsViewModel @Inject constructor(
 
     /**
      * Alarm speichern. [onSaved] bekommt den gespeicherten Alarm, ob er als Mitteilung erscheinen
-     * darf ([com.cryptochecker.app.notification.AppNotifier.canShowAlarm]) und ob gleich die
+     * darf ([com.cryptochecker.app.notification.canShowAlarm]) und ob gleich die
      * Bestätigung des allerersten Alarms kommt (dann keine eigene Zeile) — für die Bestätigung.
      */
     fun save(draft: AlarmDraft, onSaved: (AlarmEntity, Boolean, Boolean) -> Unit = { _, _, _ -> }) {

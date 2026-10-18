@@ -33,6 +33,8 @@ import com.cryptochecker.app.tts.TtsSpeaker
 import com.cryptochecker.app.widget.LiveWidgetGate
 import com.cryptochecker.marketdata.model.Ticker
 import kotlinx.coroutines.flow.StateFlow
+import com.cryptochecker.app.notification.canShowAlarm
+import com.cryptochecker.app.notification.showAlarm
 
 /** Kurse, Fehler und Alarm-Zustände speichern ([WatchRepository]). */
 internal interface RefreshStore {

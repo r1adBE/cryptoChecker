@@ -4,7 +4,7 @@ import com.cryptochecker.app.domain.watch.WatchFilter
 
 /**
  * Gruppe eines Listen-Widgets «Merkliste» auflösen (reines Kotlin, testbar). Gegenstück:
- * `WidgetGroupSelection` in Shared/Storage/SharedStorage.swift — dort zusätzlich die Liste der
+ * `WidgetGroupSelection` in Shared/Storage/WidgetGroupSelection.swift — dort zusätzlich die Liste der
  * Umbenennungen, weil die App die Einrichtung eines iOS-Widgets nicht umschreiben kann. Android
  * schreibt eine Umbenennung direkt in die Widget-Einstellung ([WidgetPrefs.replaceGroup]) und
  * übergibt deshalb keine [renames].

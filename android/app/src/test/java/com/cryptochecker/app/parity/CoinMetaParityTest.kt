@@ -8,6 +8,7 @@ import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Test
 import java.io.File
+import com.cryptochecker.app.domain.logos.parseAlpha
 
 /**
  * Gemeinsame Testfälle `coin_meta.json` (iOS: `CoinMetaTests.swift`): ein ganzer Abgleich mit

@@ -1,5 +1,5 @@
 {
- "_comment": "«Gewinner und Verlierer 24 h» (MarketMovers): gemeinsam für MarketMoversTest.kt und MarketMoversTests.swift. Nur Kürzel, die beide Plattformen gleich ausschliessen bzw. zulassen.",
+ "_comment": "«Gewinner und Verlierer 24 h» (MarketMovers): gemeinsam für MarketMoversParityTest.kt und MarketMoversTests.swift. Ausschluss von Stablecoins und Doppelgängern: dieselbe Regel auf beiden Plattformen (CoinExclusion, Testfälle in stable_exclusion.json).",
  "universe": 100,
  "count": 5,
  "minCoins": 10,
@@ -1320,6 +1320,173 @@
     }
    ],
    "losers": []
+  },
+  {
+   "note": "Früher nur auf einer Plattform ausgeschlossen (DOLA, MIM, FBTC, «usd» klein, «Wrapped …», Kürzel mit Punkt, USDai, «EUR»): fallen überall weg",
+   "coins": [
+    {
+     "symbol": "BTC",
+     "name": "Bitcoin",
+     "rank": 1,
+     "change": 2.0
+    },
+    {
+     "symbol": "DOLA",
+     "name": "DOLA",
+     "rank": 2,
+     "change": 9.0
+    },
+    {
+     "symbol": "ETH",
+     "name": "Ethereum",
+     "rank": 3,
+     "change": -1.0
+    },
+    {
+     "symbol": "MIM",
+     "name": "Magic Internet Money",
+     "rank": 4,
+     "change": -9.0
+    },
+    {
+     "symbol": "FBTC",
+     "name": "Ignition FBTC",
+     "rank": 5,
+     "change": 8.0
+    },
+    {
+     "symbol": "SOL",
+     "name": "Solana",
+     "rank": 6,
+     "change": 3.0
+    },
+    {
+     "symbol": "FLCN",
+     "name": "falcon usd",
+     "rank": 7,
+     "change": -8.5
+    },
+    {
+     "symbol": "XRP",
+     "name": "XRP",
+     "rank": 8,
+     "change": -2.0
+    },
+    {
+     "symbol": "WNEW",
+     "name": "Wrapped Newcoin",
+     "rank": 9,
+     "change": 7.5
+    },
+    {
+     "symbol": "ADA",
+     "name": "Cardano",
+     "rank": 10,
+     "change": 4.0
+    },
+    {
+     "symbol": "ABC.X",
+     "name": "Abc",
+     "rank": 11,
+     "change": -7.0
+    },
+    {
+     "symbol": "DOGE",
+     "name": "Dogecoin",
+     "rank": 12,
+     "change": -3.0
+    },
+    {
+     "symbol": "USDAI",
+     "name": "USDai",
+     "rank": 13,
+     "change": 6.0
+    },
+    {
+     "symbol": "LINK",
+     "name": "Chainlink",
+     "rank": 14,
+     "change": 5.0
+    },
+    {
+     "symbol": "EURSX",
+     "name": "STASIS EUR",
+     "rank": 15,
+     "change": -6.0
+    },
+    {
+     "symbol": "AVAX",
+     "name": "Avalanche",
+     "rank": 16,
+     "change": -4.0
+    },
+    {
+     "symbol": "SUI",
+     "name": "Sui",
+     "rank": 17,
+     "change": 1.5
+    },
+    {
+     "symbol": "XLM",
+     "name": "Stellar",
+     "rank": 18,
+     "change": -0.5
+    }
+   ],
+   "gainers": [
+    {
+     "symbol": "LINK",
+     "name": "Chainlink",
+     "change": 5.0
+    },
+    {
+     "symbol": "ADA",
+     "name": "Cardano",
+     "change": 4.0
+    },
+    {
+     "symbol": "SOL",
+     "name": "Solana",
+     "change": 3.0
+    },
+    {
+     "symbol": "BTC",
+     "name": "Bitcoin",
+     "change": 2.0
+    },
+    {
+     "symbol": "SUI",
+     "name": "Sui",
+     "change": 1.5
+    }
+   ],
+   "losers": [
+    {
+     "symbol": "AVAX",
+     "name": "Avalanche",
+     "change": -4.0
+    },
+    {
+     "symbol": "DOGE",
+     "name": "Dogecoin",
+     "change": -3.0
+    },
+    {
+     "symbol": "XRP",
+     "name": "XRP",
+     "change": -2.0
+    },
+    {
+     "symbol": "ETH",
+     "name": "Ethereum",
+     "change": -1.0
+    },
+    {
+     "symbol": "XLM",
+     "name": "Stellar",
+     "change": -0.5
+    }
+   ]
   }
  ]
 }

@@ -16,6 +16,9 @@ import com.cryptochecker.app.settings.SettingsRepository
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import timber.log.Timber
+import com.cryptochecker.app.notification.canShowMarketNotice
+import com.cryptochecker.app.notification.showIndicatorAlert
+import com.cryptochecker.app.notification.showFearGreed
 
 /**
  * Prüft zweimal täglich den Fear & Greed Index und die eigenen Grenzen der Bitcoin-Kennzahlen und meldet,

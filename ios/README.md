@@ -234,7 +234,7 @@ Davor:
   Zeile unter dem Chart (Börse, «umgerechnet mit Tageskursen» bzw. «(aktueller Kurs)», «Stand 14:00»);
   Eröffnung/Hoch/Tief/Schluss beim Ziehen; Achse bei Stablecoins mind. ±0,5 % (sonst ±0,1 %); Geometrie nicht auf
   dem Hauptthread; angenäherte Volumen-Balken halb so kräftig mit «≈».
-- **Futures-Daten je Börse** (`FuturesSources` in `Shared/Insights/FuturesDataSource.swift`, `FuturesParsersTests`):
+- **Futures-Daten je Börse** (`FuturesSources` in `Shared/Insights/FuturesExchanges.swift`, `FuturesParsersTests`):
   eigene Funding-/OI-Daten für WOO X, Bitget, MEXC, HTX, Hyperliquid und Deribit (dazu Binance, Bybit, OKX); andere
   Börsen wie Phemex bzw. ausgefallene eigene Quelle → Richtwert von Binance → Bybit → OKX mit Hinweis «Richtwert von
   Binance Futures – Funding und Open Interest gelten je Börse, bei … können sie abweichen.»; Spot-Paare «Richtwert …
@@ -248,11 +248,11 @@ Davor:
   «TradFi»/«Alpha-Token»); Tests `CoinLogosTests`, `WatchFilterTests`, `SettingsLogicTests`.
 - **Portfolio und Widgets**: Gesamtwert «Gesamt [USDT]» (Widget «Gesamt [CHF]» usw.); Merklisten-Widget zeichnet
   nach dem Einrichten sofort aus den gespeicherten Kursen neu (geänderte Gruppe sofort sichtbar), «α» im Einrichten
-  (`WidgetIntents.swift`), gemeinsame Auswahl `WidgetGroupSelection.pick` / `options` (`Shared/Storage/SharedStorage.swift`,
+  (`WidgetIntents.swift`), gemeinsame Auswahl `WidgetGroupSelection.pick` / `options` (`Shared/Storage/WidgetGroupSelection.swift`,
   `WidgetGroupSelectionTests`).
 - **Widgets: Zeitraum und passende Zeilen** (wie Android): Merklisten-Widget wartet bis zu 3 s, bis die Kurs-Datei
   mindestens so neu ist wie die Uhrzeit der Aktualisierung, sonst zeichnet es nach 60 s neu (`WidgetDataFreshness`
-  in `Shared/Storage/SharedStorage.swift`, `Widgets/WidgetData.swift`, `WidgetDataFreshnessTests`) – nie neue Zeit
+  in `Shared/Storage/WidgetGroupSelection.swift`, `Widgets/WidgetData.swift`, `WidgetDataFreshnessTests`) – nie neue Zeit
   über alten Zeilen. Portfolio-Widget «Liste» mit Zeitraum vor der Änderung («24h ↘ −0.25 %», «heute» bei Basis seit
   00:00); Puls-Widget: Fear-&-Greed-Zahl in den fünf Stufenfarben, «↗ 21» grün / «↘ 9» rot, «Top 30 · 24h», «24h» vor
   den Coins.
@@ -317,7 +317,7 @@ Davor:
   der Tagesveränderung «Binance USDT» mit Devisen-Prüfung für Nicht-USDT-Quotes (gemeinsame Testfälle
   `Tests/Parity/day_change.json`).
 - **Portfolio-Widget mit Optionen** (`PortfolioWidgetIntent`): Ansicht «Übersicht / Chart / Liste» (`PortfolioWidgetMode`, `PortfolioWidgetViews`
-  in `Shared/Portfolio/PortfolioWidgetPlan.swift`), Anzeige «Nur USDT / Nur Umrechnung / Umrechnung + USDT»,
+  in `Shared/Portfolio/PortfolioWidgetViews.swift`), Anzeige «Nur USDT / Nur Umrechnung / Umrechnung + USDT»,
   Zeitraum 24 h / 7 T / 30 T / 1 J, Kerzen oder Linie; Chart wie in der App (Hilfslinien, «Hoch»-Marke, Kursfarben);
   7 T / 30 T / 1 J aus dem Tagesverlauf des Portfolio-Tabs, sonst 24 h mit Hinweis; Coins ohne Kurs werden gezählt
   («ohne 2 Coins»). Gesamtwert-Karte «Heute · 7 T · Gesamt» (`PortfolioPeriodChange` in
@@ -604,7 +604,7 @@ Was vor dem Umstellen auf `SWIFT_VERSION = 6.0` noch fehlt:
    ohne Xcode wurden nur die offensichtlichen Stellen behoben. Erst wenn das Log keine Concurrency-Warnungen
    mehr zeigt, kann Swift 6 kommen.
 2. **Portfolio.** `Shared/Portfolio/PortfolioPriceSource.swift`, `Shared/Portfolio/FxRateSource.swift`,
-   `App/Features/Portfolio/PortfolioHistorySource.swift` und `PortfolioCutoffExport.swift` haben zusammen 13
+   `App/Features/Portfolio/PortfolioHistorySource.swift` und `HistoricPriceSource.swift` haben zusammen 13
    `nonisolated(unsafe) static var`-Zwischenspeicher, die noch nicht geprüft und kommentiert sind.
 3. **Nicht prüfbares `@unchecked Sendable`.** Rund 30 Klassen sind mit `NSLock` geschützt und kommentiert,
    der Compiler kann das aber nicht nachprüfen. Ersatz: `OSAllocatedUnfairLock` mit `Sendable`-Zustand (ab

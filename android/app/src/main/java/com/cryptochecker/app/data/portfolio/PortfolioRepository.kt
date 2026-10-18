@@ -3,6 +3,8 @@ package com.cryptochecker.app.data.portfolio
 import androidx.core.content.edit
 import android.content.Context
 import androidx.room.withTransaction
+import com.cryptochecker.app.data.local.AppDatabase
+import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.local.WatchDao
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.portfolio.AddressChain
@@ -143,6 +145,8 @@ class PortfolioRepository @Inject constructor(
                 if (count > 0) Timber.i("Portfolio: %d Bestände aus der Merkliste übernommen", count)
                 // Portfolio nur im Arbeitsspeicher (kein Schlüssel): nichts übernommen, der nächste Start versucht es erneut
                 if (PortfolioDatabase.inMemory()) return@runCatchingCancellable
+                // Merkliste nur leer im Arbeitsspeicher (Schlüssel gerade nicht lesbar): ihre Bestände waren nicht zu sehen
+                if (DatabaseEncryptionNotice.isInMemory(AppDatabase.DB_NAME)) return@runCatchingCancellable
                 prefs.edit { putBoolean(KEY_MIGRATED, true) }
             }.onFailure { Timber.w(it, "Portfolio: Übernahme des Bestands fehlgeschlagen") }
         }

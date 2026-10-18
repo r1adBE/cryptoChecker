@@ -27,6 +27,9 @@ import kotlinx.coroutines.withContext
 import java.time.LocalDate
 import java.time.ZoneId
 import java.time.ZoneOffset
+import com.cryptochecker.app.data.portfolio.coins
+import com.cryptochecker.app.data.portfolio.spotMarketNames
+import com.cryptochecker.app.data.portfolio.stored
 
 /**
  * «Heute» (und «Grösste Bewegungen» bleibt leer) aus der zuletzt gespeicherten Momentaufnahme,

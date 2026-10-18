@@ -152,128 +152,7 @@ object CoinLogos {
         val alphaId: String? = null,
     )
 
-    /**
-     * Antwort der Alpha-Liste ([ALPHA_LIST_URL], `{"code":"000000","data":[…]}`) → Einträge in
-     * [rankAlpha]-Reihenfolge; null = unbrauchbar (kein `data`-Array). Kürzel über [cleanSymbol]
-     * (Leer- und unsichtbare Zeichen der Token-Verträge fallen weg), `marketCap` als Text oder Zahl,
-     * `iconUrl` auch relativ ([alphaIconUrl]). Einträge ohne Kürzel fallen weg; ein kaputter Eintrag
-     * kostet nie die ganze Liste.
-     */
-    fun parseAlpha(text: String?): List<AlphaEntry>? {
-        if (text.isNullOrBlank()) return null
-        val array = try {
-            org.json.JSONObject(text).optJSONArray("data")
-        } catch (e: org.json.JSONException) {
-            null
-        } ?: return null
-        return alphaEntries(array)
-    }
-
-    /** Einträge eines Alpha-`data`-Arrays (auch aus `coin_meta.json`, [CoinMeta]) wie [parseAlpha]. */
-    fun alphaEntries(array: org.json.JSONArray): List<AlphaEntry> {
-        val out = ArrayList<AlphaEntry>(array.length())
-        for (i in 0 until array.length()) {
-            val o = array.optJSONObject(i) ?: continue
-            val symbol = cleanSymbol(o.optString("symbol"))
-            if (symbol.isEmpty()) continue
-            out += AlphaEntry(
-                symbol = symbol,
-                name = if (o.isNull("name")) null else o.optString("name"),
-                icon = if (o.isNull("iconUrl")) null else alphaIconUrl(o.optString("iconUrl")),
-                marketCap = if (o.isNull("marketCap")) null else o.optString("marketCap").trim().toDoubleOrNull(),
-                offline = o.optBoolean("offline", false),
-                listingCex = o.optBoolean("listingCex", false),
-                alphaId = if (o.isNull("alphaId")) null else BinanceAlpha.alphaId(o.optString("alphaId")),
-            )
-        }
-        return rankAlpha(out)
-    }
-
-    /**
-     * Kürzel aus einem Token-Vertrag: ohne Leerraum (auch geschütztes Leerzeichen) und ohne
-     * unsichtbare Formatzeichen (z. B. Zero-Width-Space) — sonst fiel «FROGGIE​» bei [fileName] weg.
-     */
-    fun cleanSymbol(raw: String?): String =
-        raw.orEmpty().filterNot { it.isWhitespace() || Character.getType(it) == Character.FORMAT.toInt() }
-
-    /** Bild-Adresse der Alpha-Liste: relativ («/images/…») → Bild-Server von Binance; sonst unverändert. */
-    fun alphaIconUrl(raw: String?): String? {
-        val s = raw?.trim().orEmpty()
-        if (s.isEmpty()) return null
-        return if (s.startsWith("/") && !s.startsWith("//")) "https://bin.bnbstatic.com$s" else s
-    }
-
-    /**
-     * Kürzel der Alpha-Token ([com.cryptochecker.app.domain.watch.AssetKind.ALPHA]): handelbare
-     * Einträge der Alpha-Liste (nicht `offline`), die Binance nicht regulär listet (`listingCex`),
-     * wie [normalize].
-     */
-    fun alphaSymbols(entries: List<AlphaEntry>): Set<String> =
-        entries.filter { !it.offline && !it.listingCex }
-            .mapNotNullTo(LinkedHashSet()) { e -> normalize(e.symbol).takeIf { it.isNotEmpty() && fileName(it) != null } }
-
-    /**
-     * Token für die Alpha-Paare von Binance ([BinanceAlpha.pairs]) und «gleicher Token» ([alphaNames]):
-     * handelbare, nicht regulär gelistete Einträge (wie [alphaSymbols]) in der Reihenfolge von [entries]
-     * ([rankAlpha]: bei gleichem Kürzel der bekanntere zuerst).
-     */
-    fun alphaTokens(entries: List<AlphaEntry>): List<BinanceAlpha.Token> =
-        entries.filter { !it.offline && !it.listingCex }.map { BinanceAlpha.Token(it.symbol, it.name, it.alphaId) }
-
-    /**
-     * Neue Alpha-Liste ohne Kennungen (Ersatzdatei `coin_meta.json` führt kein `alphaId`): Kennungen der
-     * bisherigen Liste [saved] je Kürzel übernehmen, damit die Alpha-Paare nicht bis zum nächsten
-     * direkten Abruf verschwinden. Einträge mit eigener Kennung bleiben unverändert.
-     */
-    fun keepAlphaIds(fresh: List<AlphaEntry>, saved: List<AlphaEntry>): List<AlphaEntry> {
-        val ids = HashMap<String, String>()
-        for (e in saved) e.alphaId?.let { ids.putIfAbsent(e.symbol, it) }
-        if (ids.isEmpty()) return fresh
-        return fresh.map { e -> if (e.alphaId != null) e else ids[e.symbol]?.let { e.copy(alphaId = it) } ?: e }
-    }
-
-    /** Hat die Liste Kennungen für die Alpha-Paare (sonst einmal direkt neu holen, z. B. nach dem Update)? */
-    fun hasAlphaIds(entries: List<AlphaEntry>?): Boolean = entries?.any { it.alphaId != null } == true
-
-    /** Namen der Alpha-Token je Kürzel (wie [normalize]); bei gleichem Kürzel gilt der erste. */
-    fun alphaNames(tokens: List<BinanceAlpha.Token>): Map<String, String> {
-        val out = LinkedHashMap<String, String>()
-        for (t in tokens) {
-            val name = t.name?.trim()?.takeIf { it.isNotEmpty() } ?: continue
-            val key = normalize(t.symbol)
-            if (key.isNotEmpty() && key !in out) out[key] = name
-        }
-        return out
-    }
-
-    /**
-     * Logos und Namen der Alpha-Liste ([entries] in [rankAlpha]-Reihenfolge) füllen nur Lücken in
-     * [into] bzw. [names] (Vorhandenes von CoinGecko und Binance bleibt, wie [pick]); Ergebnis: die
-     * Alpha-Kürzel ([alphaSymbols]). Der Abgleich holt die Alpha-Liste zuerst und speichert die Kürzel
-     * sofort (sonst kamen sie erst nach allen Seiten der Rangliste, oft Minuten später oder nie),
-     * wendet die Logos aber erst nach CoinGecko und Binance an — gleiche Vorrangregel wie bisher.
-     */
-    fun applyAlpha(
-        entries: List<AlphaEntry>,
-        into: MutableMap<String, String>,
-        names: MutableMap<String, String>,
-    ): Set<String> {
-        pick(entries.map { it.symbol to it.icon }, into)
-        pickNames(entries.map { it.symbol to it.name }, names)
-        return alphaSymbols(entries)
-    }
-
-    /**
-     * Reihenfolge für [pick]/[pickNames]: handelbare vor abgemeldeten, dann grösste
-     * Marktkapitalisierung (unbekannt zuletzt); sonst Reihenfolge der Liste. Bei gleichem Kürzel
-     * gewinnt so der bekanntere Token.
-     */
-    fun rankAlpha(entries: List<AlphaEntry>): List<AlphaEntry> =
-        entries.withIndex().sortedWith(
-            compareBy<IndexedValue<AlphaEntry>> { if (it.value.offline) 1 else 0 }
-                .thenByDescending { it.value.marketCap?.takeIf { c -> c.isFinite() && c >= 0 } ?: -1.0 }
-                .thenBy { it.index },
-        ).map { it.value }
+    // Alpha-Liste lesen und auswerten (parseAlpha, alphaSymbols, applyAlpha …): CoinLogosAlpha.kt
 
     fun marketsUrl(page: Int): String =
         "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc" +
@@ -470,7 +349,7 @@ object CoinLogos {
     const val NAME_MAX = 40
 
     private val STOCK_SUFFIX = Regex("""[\s,(]*(bStocks?|xStocks?|Tokeni[sz]ed Stock)\)?\s*$""", RegexOption.IGNORE_CASE)
-    private val SPACES = Regex("""\s+""")
+    internal val SPACES = Regex("""\s+""")
 
     /**
      * Name zum Anzeigen: ohne Zusatz der tokenisierten Aktien («NVIDIA bStocks» → «NVIDIA»), ohne
@@ -502,63 +381,7 @@ object CoinLogos {
     const val NASDAQ_LISTED_URL = "https://www.nasdaqtrader.com/dynamic/SymDir/nasdaqlisted.txt"
     const val OTHER_LISTED_URL = "https://www.nasdaqtrader.com/dynamic/SymDir/otherlisted.txt"
 
-    private val STOCK_NAME_TAIL = Regex(
-        "[\\s,]*(?:New\\s+)?(?:(?:Class|Series)\\s+[A-Z0-9]+\\s+)?(?:Common Stock|Common Shares|Ordinary Shares|" +
-            "American Deposit[ao]ry Shares|Depositary Shares|Shares of Beneficial Interest)\\b.*$",
-        RegexOption.IGNORE_CASE
-    )
-
-    /**
-     * Firmenname aus der Symbolliste ohne Wertpapier-Zusatz: «Caterpillar, Inc. Common Stock» →
-     * «Caterpillar, Inc.», «Apple Inc. - Common Stock» → «Apple Inc.», «Alphabet Inc. - Class A
-     * Common Stock» → «Alphabet Inc.». Danach wie [cleanName]; null, wenn nichts bleibt.
-     */
-    fun cleanStockName(raw: String?): String? {
-        var s = raw?.replace(SPACES, " ")?.trim() ?: return null
-        val dash = s.indexOf(" - ")
-        if (dash > 0) s = s.substring(0, dash)
-        s = s.replace(STOCK_NAME_TAIL, "").trim().trimEnd(',', ' ')
-        return cleanName(s)
-    }
-
-    /**
-     * Eine Datei der Nasdaq-Symbolliste («Symbol|Security Name|…» bzw. «ACT Symbol|…») → Kürzel →
-     * Name ([cleanStockName]). Test-Einträge («Test Issue» = Y) und die Schlusszeile fallen weg;
-     * erstes Vorkommen gewinnt.
-     */
-    fun parseSymbolDirectory(text: String?, into: MutableMap<String, String> = LinkedHashMap()): Map<String, String> {
-        val lines = text?.lineSequence()?.iterator() ?: return into
-        if (!lines.hasNext()) return into
-        val header = lines.next().split('|').map { it.trim() }
-        val sym = header.indexOfFirst { it == "Symbol" || it == "ACT Symbol" }
-        val name = header.indexOf("Security Name")
-        val test = header.indexOf("Test Issue")
-        if (sym < 0 || name < 0) return into
-        for (line in lines) {
-            val parts = line.split('|')
-            if (parts.size <= maxOf(sym, name)) continue
-            if (test >= 0 && parts.getOrNull(test)?.trim() == "Y") continue
-            val symbol = parts[sym].trim().uppercase()
-            if (symbol.isEmpty() || symbol in into) continue
-            into[symbol] = cleanStockName(parts[name]) ?: continue
-        }
-        return into
-    }
-
-    /**
-     * Namen der TradFi-Kürzel [tradFiBases] aus der Symbolliste [stockNames] ([tradFiKey] als
-     * Schlüssel), nur wo [names] noch keinen hat (bStocks-Namen der Binance-Liste gehen vor).
-     */
-    fun withStockNames(names: Map<String, String>, stockNames: Map<String, String>, tradFiBases: Collection<String>): Map<String, String> {
-        if (tradFiBases.isEmpty() || stockNames.isEmpty()) return names
-        val out = LinkedHashMap(names)
-        for (base in tradFiBases.sorted()) {
-            val key = tradFiKey(base)
-            if (key in out) continue
-            out[key] = stockNames[base.trim().uppercase()] ?: continue
-        }
-        return out
-    }
+    // Namen aus der Symbolliste (cleanStockName, parseSymbolDirectory, withStockNames): CoinLogosStockNames.kt
 
     /** Namen-Zwischenspeicher: eine Zeile je Coin, «BTC\tBitcoin». */
     fun encodeNames(map: Map<String, String>): String =
@@ -605,53 +428,11 @@ object CoinLogos {
      * `android/tools/gen_coin_assets.py`). Vorrang haben immer die geladenen Logos der Listen.
      */
     const val ICON_PACK_FILE = "coin_icons.bin"
-    private const val ICON_PACK_MAGIC = "CCIP1"
 
-    /** Höchstgrösse des Inhaltsverzeichnisses (Schutz gegen kaputte Dateien). */
-    private const val ICON_PACK_HEADER_MAX = 64 * 1024
+    // Icon-Paket lesen (bundledIconName, parseIconPack): CoinLogosIconPack.kt
 
     /** Stelle eines Icons im Paket: Anfang und Länge in Bytes. */
     data class IconSlice(val offset: Int, val length: Int)
-
-    /** Name eines Icons im Paket («btc»); null bei TradFi oder ungültigem Kürzel. */
-    fun bundledIconName(symbol: String): String? {
-        if (symbol.startsWith(TRADFI_PREFIX)) return null
-        val key = normalize(symbol)
-        if (fileName(key) == null) return null
-        return key.lowercase()
-    }
-
-    /**
-     * Inhaltsverzeichnis des Icon-Pakets: Zeile «CCIP1», je Icon eine Zeile «name länge», eine
-     * Leerzeile, dann die PNG-Bytes in derselben Reihenfolge. Ergebnis: Name → [IconSlice] in [bytes];
-     * null = kein Paket oder kaputt (falsche Kennung, ungültige Zeile, Daten zu kurz).
-     */
-    fun parseIconPack(bytes: ByteArray): Map<String, IconSlice>? {
-        val limit = minOf(bytes.size, ICON_PACK_HEADER_MAX)
-        var end = -1
-        for (i in 0 until limit - 1) {
-            if (bytes[i] == '\n'.code.toByte() && bytes[i + 1] == '\n'.code.toByte()) {
-                end = i
-                break
-            }
-        }
-        if (end < 0) return null
-        val lines = String(bytes, 0, end, Charsets.US_ASCII).split('\n')
-        if (lines.firstOrNull() != ICON_PACK_MAGIC) return null
-        val out = LinkedHashMap<String, IconSlice>()
-        var offset = end + 2
-        for (line in lines.drop(1)) {
-            val parts = line.split(' ')
-            if (parts.size != 2) return null
-            val name = parts[0]
-            val length = parts[1].toIntOrNull() ?: return null
-            if (name.isEmpty() || name.any { it !in 'a'..'z' && it !in '0'..'9' } || length <= 0) return null
-            if (length > bytes.size - offset) return null
-            if (name !in out) out[name] = IconSlice(offset, length)
-            offset += length
-        }
-        return out
-    }
 
     fun isFresh(savedAt: Long, now: Long, ttl: Long = MAP_TTL_MILLIS): Boolean =
         savedAt in 1..now && now - savedAt < ttl

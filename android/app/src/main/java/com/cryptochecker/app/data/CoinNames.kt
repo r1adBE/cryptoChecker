@@ -21,6 +21,8 @@ import timber.log.Timber
 import java.io.File
 import javax.inject.Inject
 import javax.inject.Singleton
+import com.cryptochecker.app.domain.logos.parseSymbolDirectory
+import com.cryptochecker.app.domain.logos.withStockNames
 
 /**
  * Namen der Coins und TradFi-Paare ([names]) und welche Paare TradFi sind ([tradFiPairs]). Die Namen der Listen

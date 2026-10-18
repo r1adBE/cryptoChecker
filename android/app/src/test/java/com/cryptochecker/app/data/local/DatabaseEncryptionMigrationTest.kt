@@ -195,6 +195,53 @@ class DatabaseEncryptionMigrationTest {
         assertEquals(OpenPlan.REFUSE, plan(FileKind.ABSENT, false, true))
     }
 
+    /** Verschlüsselte Datei, Schlüssel gerade nicht lesbar: Arbeitsspeicher nur erlaubt und sichtbar, sonst warten. */
+    @Test
+    fun planOpenWithUnavailableKeyOfEncryptedFile() {
+        fun plan(required: Boolean, allowed: Boolean, foreground: Boolean) = DatabaseEncryptionMigration.planOpen(
+            FileKind.ENCRYPTED, keyUsable = false, encryptionRequired = required,
+            keyUnavailable = true, inMemoryAllowed = allowed, foreground = foreground,
+        )
+        for (required in listOf(false, true)) {
+            assertEquals(OpenPlan.KEEP_FILE_IN_MEMORY, plan(required, allowed = true, foreground = true))
+            // Hintergrund (Worker, Widget, Systemsicherung): warten, nie eine leere Datenbank für den ganzen Prozess
+            assertEquals(OpenPlan.WAIT, plan(required, allowed = true, foreground = false))
+            // Nicht erlaubt (z. B. die eigene Instanz der Systemsicherung): warten wie bisher
+            assertEquals(OpenPlan.WAIT, plan(required, allowed = false, foreground = true))
+            assertEquals(OpenPlan.WAIT, plan(required, allowed = false, foreground = false))
+        }
+        // Nur für eine schon verschlüsselte Datei: sonst gelten die Regeln ohne Schlüssel
+        for (allowed in listOf(false, true)) {
+            assertEquals(
+                OpenPlan.REFUSE,
+                DatabaseEncryptionMigration.planOpen(FileKind.ABSENT, false, true, keyUnavailable = true, inMemoryAllowed = allowed, foreground = true),
+            )
+            assertEquals(
+                OpenPlan.PLAINTEXT,
+                DatabaseEncryptionMigration.planOpen(FileKind.PLAINTEXT, false, true, keyUnavailable = true, inMemoryAllowed = allowed, foreground = true),
+            )
+        }
+        // Ohne «gerade nicht lesbar» bleibt die verschlüsselte Datei bei ihren eigenen Regeln
+        assertEquals(OpenPlan.ENCRYPTED, DatabaseEncryptionMigration.planOpen(FileKind.ENCRYPTED, false, true, inMemoryAllowed = true, foreground = true))
+    }
+
+    /** Der Weg in den Arbeitsspeicher verändert die Datei nie: kein Beiseitelegen, kein neuer Schlüssel, kein Löschen. */
+    @Test
+    fun unavailableKeyLeavesEncryptedFileUntouched() {
+        val files = FakeFiles(FileKind.ENCRYPTED, content)
+        val keys = FakeKeys(KeyLookup.Unavailable(IllegalStateException("Keystore beschäftigt")))
+        val decision = prepare(files, keys)
+        assertTrue(decision is Decision.KeyUnavailable)
+        assertEquals(FileKind.ENCRYPTED, files.kind)
+        assertEquals(content, files.original)
+        assertEquals(0, files.setAsideCount)
+        assertEquals(0, keys.created)
+        assertTrue(files.calls.isEmpty())
+        // Einstellungen › Sicherung: der Stand bleibt (nicht «unverschlüsselt»)
+        assertEquals(setOf("x.db"), EncryptionPending.updated(setOf("x.db"), db, decision))
+        assertEquals(emptySet<String>(), EncryptionPending.updated(emptySet(), db, decision))
+    }
+
     @Test
     fun orphanedCopyWithoutSourceIsRemoved() {
         val files = FakeFiles(FileKind.ABSENT, null).apply { copy = content }

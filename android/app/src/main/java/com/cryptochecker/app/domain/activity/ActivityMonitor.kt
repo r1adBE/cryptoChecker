@@ -34,6 +34,8 @@ import timber.log.Timber
 import java.util.concurrent.ConcurrentHashMap
 import javax.inject.Inject
 import javax.inject.Singleton
+import com.cryptochecker.app.notification.canShowMarketNotice
+import com.cryptochecker.app.notification.showActivity
 
 /**
  * Holt die Marktdaten für «Ungewöhnliche Aktivität» und «Warum bewegt sich das?»

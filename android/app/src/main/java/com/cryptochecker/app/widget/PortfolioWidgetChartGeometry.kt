@@ -13,7 +13,7 @@ data class ChartXY(val x: Float, val y: Float)
 
 /**
  * Reine Geometrie des Portfolio-Widget-Charts (ohne Android, getestet in PortfolioWidgetChartTest;
- * gespiegelt in `PortfolioWidgetChartGeometry`, Shared/Portfolio/PortfolioWidgetPlan.swift) — Aussehen
+ * gespiegelt in `PortfolioWidgetChartGeometry`, Shared/Portfolio/PortfolioWidgetChartGeometry.swift) — Aussehen
  * wie die Charts der App (Aktionsblatt, Wertverlauf): drei zarte waagrechte Hilfslinien (Hoch, Mitte,
  * Tief), feine senkrechte Linien an Kalendergrenzen, Kerzen (Körper 65 % ihrer Zeit) oder Linie, der
  * höchste Wert als Punkt mit «Hoch …» daneben. Keine Beschriftungsspalte (zu wenig Platz im Widget).

@@ -1,5 +1,6 @@
 package com.cryptochecker.app.data.local
 
+import android.app.ActivityManager
 import android.content.Context
 import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.sqlite.db.SupportSQLiteOpenHelper
@@ -18,7 +19,10 @@ import timber.log.Timber
  * - nur im Arbeitsspeicher, wenn eine Datenbank mit Verschlüsselungspflicht ([encryptionRequired], das Portfolio) ohne
  *   Schlüssel neu entstehen müsste: nie unverschlüsselt auf dem Speicher, wie iOS (Änderungen bleiben im Speicher, das
  *   Portfolio nennt es); der nächste Start versucht es erneut ([DatabaseEncryptionNotice.inMemory]);
- * - gar nicht, solange der Keystore den Schlüssel einer verschlüsselten Datei gerade nicht herausgibt (Ausnahme;
+ * - gibt der Keystore den Schlüssel einer verschlüsselten Datei gerade nicht heraus: im Vordergrund und für Datenbanken
+ *   aus [inMemoryWhenKeyUnavailable] (App: Portfolio und Merkliste) leer im Arbeitsspeicher für diesen Lauf — die
+ *   Oberfläche stürzte sonst beim ersten Zugriff ab; die Datei bleibt unberührt, der gespeicherte Stand kommt nach einem
+ *   Neustart zurück ([DatabaseEncryptionNotice.storedKept]). Sonst (Hintergrund, Systemsicherung) gar nicht (Ausnahme;
  *   der nächste Zugriff versucht es erneut, verändert wird nichts).
  * War die verschlüsselte Datei ohne Schlüssel unlesbar, liegt sie beiseite und die App nennt das, bis der Nutzer es
  * bestätigt ([StorageRecoveryNotice]); holt ein früherer Schlüssel sie beim nächsten Start zurück, nennt sie das. Ein unverschlüsselter Rückfall steht unter Einstellungen › Sicherung, bis ein Start die
@@ -30,6 +34,16 @@ class EncryptingOpenHelperFactory(
     private val files: DatabaseEncryptionMigration.Files = SqlCipherDatabaseFiles(context),
     /** Datenbanken, die ohne Schlüssel nie unverschlüsselt angelegt werden (Portfolio: Beträge, Adressen, xpub). */
     private val encryptionRequired: Set<String> = setOf(PortfolioDatabase.DB_NAME),
+    /**
+     * Darf [database] bei gerade nicht lesbarem Schlüssel für diesen Lauf im Arbeitsspeicher öffnen? Standard nein:
+     * Die eigene Instanz der Systemsicherung
+     * ([com.cryptochecker.app.data.portfolio.PortfolioBackupMirror.writeForBackup]) soll dann abbrechen, statt ein
+     * leeres Portfolio zu sichern. Die App ([com.cryptochecker.app.di.LocalDataModule]) erlaubt es für Portfolio und
+     * Merkliste.
+     */
+    private val inMemoryWhenKeyUnavailable: (database: String) -> Boolean = { false },
+    /** Ist die App gerade sichtbar? Nur dann der Arbeitsspeicher statt der Ausnahme ([DatabaseEncryptionMigration.planOpen]). */
+    private val foreground: () -> Boolean = ::processInForeground,
 ) : SupportSQLiteOpenHelper.Factory {
 
     override fun create(configuration: SupportSQLiteOpenHelper.Configuration): SupportSQLiteOpenHelper {
@@ -84,15 +98,36 @@ class EncryptingOpenHelperFactory(
                 Decision.Refused -> {
                     // Vor dem Öffnen gesetzt: Room-Callbacks (Übernahme aus Kopien, die danach gelöscht würden) sehen es schon
                     DatabaseEncryptionNotice.markInMemory(name)
-                    // Gleiche Callbacks (Schema, Migrationen), aber ohne Namen: SQLite im Arbeitsspeicher, keine Datei
-                    val inMemory = SupportSQLiteOpenHelper.Configuration(configuration.context, null, configuration.callback)
-                    FrameworkSQLiteOpenHelperFactory().create(inMemory)
+                    inMemoryHelper()
                 }
-                is Decision.KeyUnavailable -> throw DatabaseKeyUnavailableException(name, decision.error)
+                is Decision.KeyUnavailable -> {
+                    val plan = DatabaseEncryptionMigration.planOpen(
+                        DatabaseEncryptionMigration.FileKind.ENCRYPTED,
+                        keyUsable = false,
+                        encryptionRequired = name in encryptionRequired,
+                        keyUnavailable = true,
+                        inMemoryAllowed = inMemoryWhenKeyUnavailable(name),
+                        foreground = runCatching { foreground() }.getOrDefault(false),
+                    )
+                    if (plan != DatabaseEncryptionMigration.OpenPlan.KEEP_FILE_IN_MEMORY) {
+                        throw DatabaseKeyUnavailableException(name, decision.error)
+                    }
+                    Timber.w(decision.error, "%s: Schlüssel gerade nicht verfügbar, für diesen Lauf nur im Arbeitsspeicher", name)
+                    // Wie bei Refused vor dem Öffnen gesetzt: keine Übernahme aus Kopien oder Altbestand, kein VACUUM, kein
+                    // Merker «erledigt» — die Datei bleibt, wie sie ist (nie überschrieben, gelöscht oder beiseitegelegt)
+                    DatabaseEncryptionNotice.markInMemory(name, storedKept = true)
+                    inMemoryHelper()
+                }
             }
             writeAheadLogging?.let(helper::setWriteAheadLoggingEnabled)
             delegate = helper
             return helper
+        }
+
+        /** Gleiche Callbacks (Schema, Migrationen), aber ohne Namen: SQLite im Arbeitsspeicher, keine Datei. */
+        private fun inMemoryHelper(): SupportSQLiteOpenHelper {
+            val inMemory = SupportSQLiteOpenHelper.Configuration(configuration.context, null, configuration.callback)
+            return FrameworkSQLiteOpenHelperFactory().create(inMemory)
         }
     }
 }
@@ -110,3 +145,13 @@ fun Throwable.isDatabaseKeyUnavailable(): Boolean =
     generateSequence(this) { it.cause.takeIf { c -> c !== it } }.take(MAX_CAUSE_DEPTH).any { it is DatabaseKeyUnavailableException }
 
 private const val MAX_CAUSE_DEPTH = 16
+
+/**
+ * Ist dieser Prozess gerade sichtbar (eine Activity im Vordergrund)? Worker, Empfänger, Widgets und die Systemsicherung
+ * laufen mit geringerer Wichtigkeit.
+ */
+internal fun processInForeground(): Boolean {
+    val info = ActivityManager.RunningAppProcessInfo()
+    ActivityManager.getMyMemoryState(info)
+    return info.importance <= ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND
+}

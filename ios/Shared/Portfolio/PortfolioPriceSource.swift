@@ -1,61 +1,5 @@
 import Foundation
 
-/// Führt Abläufe nacheinander aus (wie ein `Mutex.withLock` in Kotlin):
-/// Ein zweiter Aufruf wartet, bis der vorherige fertig ist.
-actor PortfolioSerialGate {
-    private var tail: Task<Void, Never>?
-
-    func run<T: Sendable>(_ operation: @escaping @Sendable () async -> T) async -> T {
-        let previous = tail
-        let task = Task<T, Never> {
-            _ = await previous?.value
-            return await operation()
-        }
-        tail = Task { _ = await task.value }
-        return await task.value
-    }
-}
-
-/// Aktuelle USDT-Kurse je Coin und der Zeitpunkt der ältesten verwendeten Abfrage.
-struct PortfolioPrices: Sendable, Equatable {
-    var prices: [String: Double] = [:]
-    /// 0 = noch keine Kurse.
-    var updatedAt: Int64 = 0
-    /// Coins OHNE Kurs, weil nur die letzte Stundenkerze einen hatte und er mangels unabhängigem Bezug
-    /// nicht geprüft werden konnte (`PricePlausibility.candleUnchecked`): Sie stehen nicht in `prices`,
-    /// zählen also nirgends als Geld; die Zeile nennt sie «ungeprüft».
-    var unchecked: Set<String> = []
-    /// Abfragezeit je Coin (ms) — für die Frische je Coin (`PortfolioPriceFallback.freshShare`).
-    var times: [String: Int64] = [:]
-    /// Coin → Börse, deren Kurs gilt (eingetragene Börse, `PortfolioExchangeRoute`); fehlt = Binance.
-    var sources: [String: String] = [:]
-    /// Coin → eingetragene Börse, deren Kurs diesmal nicht ging (dann Binance).
-    var exchangeFailed: [String: String] = [:]
-    /// Coins mit mehreren eingetragenen Börsen — bewertet mit Binance.
-    var mixedExchange: Set<String> = []
-    /// Binance-Kurs der Coins mit eigener Börse — zum Skalieren der Tageskurse.
-    var binance: [String: Double] = [:]
-    /// Coins OHNE Kurs, weil die Abfrage gerade scheiterte (Netz, Sperre/Backoff) — nicht, weil es keinen Kurs gibt
-    /// (`PortfolioPriceIssue`). Zeile: «Kurs gerade nicht abrufbar» statt «kein Kurs». Wie Android.
-    var unavailable: Set<String> = []
-    /// Gekapselte/gebrückte Coins ohne eigenen Börsenkurs, bewertet mit dem Kurs ihrer Basis (`ChainAssets.priceViaBase`):
-    /// Coin → Basis. Die Zeile zeigt dann «≈ BTC-Kurs (gebrückt/verpackt)» — nie als eigener Kurs. Wie Android.
-    var viaBase: [String: String] = [:]
-}
-
-/// Warum ein Coin keinen Kurs hat: `noPrice` = keine Quelle führt ihn; `unavailable` = Abfrage gerade gescheitert.
-/// Wie `PortfolioPriceIssue` (Android).
-enum PortfolioPriceIssue: Sendable, Equatable {
-    case noPrice, unavailable
-
-    /// Kerzen-Kette ohne Kurs: `unavailable`, wenn die Abfrage scheiterte (`failed`), alle Kerzen-Quellen gesperrt/
-    /// pausiert sind (`allSourcesBlocked`) oder schon die Sammelabfrage am Netz scheiterte (`networkFailed`) — dann
-    /// ist «kein Kurs» nicht belegt. Sonst `noPrice`.
-    static func of(failed: Bool, allSourcesBlocked: Bool, networkFailed: Bool) -> PortfolioPriceIssue {
-        failed || allSourcesBlocked || networkFailed ? .unavailable : .noPrice
-    }
-}
-
 /// Kurse und Coin-Liste für das Portfolio, immer in USDT — wie `PortfolioPriceSource.kt`.
 ///
 /// Kurse: Sammelabfrage beim Binance-Spiegel (`ticker/price?symbols=[…]`), für
@@ -76,34 +20,37 @@ enum PortfolioPriceIssue: Sendable, Equatable {
 /// der Paar-Zwischenspeicher der Börse «Binance» (vom Aufrufer geliefert, da er
 /// in der App liegt), sonst Coinbase-USD-Produkte. Zwischenspeicher 1 Tag
 /// (auch über einen Neustart, in `SharedStorage.defaults`).
+///
+/// Hier Zustand und Abruf der Kurse; gemerkter Stand in `PortfolioPriceSource+Store.swift`, Coin-Liste in
+/// `PortfolioPriceSource+Coins.swift`, Ergebnis-Typen in `PortfolioPrices.swift` (wie Android).
 enum PortfolioPriceSource {
     static let stable = "USDT"
-    private static let binanceHost = "data-api.binance.vision"
-    private static let coinbaseHost = "api.exchange.coinbase.com"
+    static let binanceHost = "data-api.binance.vision"
+    static let coinbaseHost = "api.exchange.coinbase.com"
     private static let maxSymbols = 100
     private static let priceTtlMillis: Int64 = 60_000
-    private static let coinsTtlMillis: Int64 = 24 * 60 * 60_000
-    private static let keyCoins = "portfolio_coin_list"
-    private static let keyCoinsAt = "portfolio_coin_list_at"
+    static let coinsTtlMillis: Int64 = 24 * 60 * 60_000
+    static let keyCoins = "portfolio_coin_list"
+    static let keyCoinsAt = "portfolio_coin_list_at"
 
-    private static let lock = NSLock()
+    static let lock = NSLock()
     /// Coin → (Kurs, Abfragezeit).
-    nonisolated(unsafe) private static var cache: [String: (price: Double, at: Int64)] = [:]
+    nonisolated(unsafe) static var cache: [String: (price: Double, at: Int64)] = [:]
     /// Coins ohne Kurs, weil nur ein ungeprüfter Kerzenkurs da war (kein Bezug vorhanden).
-    nonisolated(unsafe) private static var uncheckedCoins: Set<String> = []
+    nonisolated(unsafe) static var uncheckedCoins: Set<String> = []
     /// Coins ohne Kurs, weil die letzte Abfrage scheiterte (`PortfolioPriceIssue.unavailable`).
-    nonisolated(unsafe) private static var unavailableCoins: Set<String> = []
+    nonisolated(unsafe) static var unavailableCoins: Set<String> = []
     /// Quellen der Kerzen-Kette (`CandleDataSource`) — Binance, Binance.US, Coinbase.
     private static let candleHosts = ["data-api.binance.vision", "api.binance.com", "api.binance.us", "api.exchange.coinbase.com"]
-    nonisolated(unsafe) private static var coinList: [String]?
+    nonisolated(unsafe) static var coinList: [String]?
     /// Coin → Börse, deren Kurs im Zwischenspeicher steht; Coin → eingetragene Börse ohne Kurs; Binance-Bezug.
-    nonisolated(unsafe) private static var sourceOf: [String: String] = [:]
-    nonisolated(unsafe) private static var failedOf: [String: String] = [:]
-    nonisolated(unsafe) private static var binanceOf: [String: Double] = [:]
-    nonisolated(unsafe) private static var mixedCoins: Set<String> = []
+    nonisolated(unsafe) static var sourceOf: [String: String] = [:]
+    nonisolated(unsafe) static var failedOf: [String: String] = [:]
+    nonisolated(unsafe) static var binanceOf: [String: Double] = [:]
+    nonisolated(unsafe) static var mixedCoins: Set<String> = []
 
     private static let priceGate = PortfolioSerialGate()
-    private static let coinGate = PortfolioSerialGate()
+    static let coinGate = PortfolioSerialGate()
 
     /// Gültiges Symbol: 1–15 Buchstaben oder Ziffern.
     static func isSymbol(_ s: String) -> Bool {
@@ -242,7 +189,7 @@ enum PortfolioPriceSource {
     }
 
     /// Zusatzfelder (Börse, Hinweise) für die gefundenen Coins; nur mit gehaltenem `lock` aufrufen.
-    private static func decorateLocked(_ p: inout PortfolioPrices, coins: [String]) {
+    static func decorateLocked(_ p: inout PortfolioPrices, coins: [String]) {
         for coin in coins where p.prices[coin] != nil {
             if let s = sourceOf[coin] { p.sources[coin] = s }
             if let f = failedOf[coin] { p.exchangeFailed[coin] = f }
@@ -252,111 +199,6 @@ enum PortfolioPriceSource {
     }
 
     // MARK: Letzter Stand auf dem Gerät
-
-    /// Gemerkte Kurse: Datei in der App Group, nie im Geräte-Backup — sie nennt die gehaltenen Coins
-    /// (wie die Zwischenspeicher des Portfolio-Widgets, `PortfolioStore.applyBackupPolicy`; Android:
-    /// `noBackupFilesDir`). Getrennt vom Zwischenspeicher: `cached` und `prices` (auch Widget und
-    /// Hintergrund) sehen nur Kurse dieses Prozesses, wie bisher.
-    static var storeURL: URL { SharedStorage.directory.appendingPathComponent("portfolio_last_prices.txt") }
-    /// Gemerkte Kurse; nil = Datei noch nicht gelesen.
-    nonisolated(unsafe) private static var storedEntries: [String: StoredPrice]?
-
-    /// Wie `cached`, ergänzt um den letzten gemerkten Stand (einmal je Prozess gelesen; je Coin gewinnt
-    /// der neuere Kurs) — nur für die Anzeige im Portfolio-Tab nach einem Neustart oder ohne Netz:
-    /// lieber der letzte Wert mit «Stand …» als «0.00». `updatedAt` ist dann alt; ob der Stand veraltet
-    /// ist, entscheidet `PortfolioPriceFallback.state`. Wie Android `PortfolioPriceSource.stored`.
-    static func stored(_ coins: [String]) async -> PortfolioPrices {
-        let wanted = normalized(coins)
-        return await Task.detached(priority: .userInitiated) { Self.collectStored(wanted) }.value
-    }
-
-    /// Zwischenspeicher und gemerkter Stand für `wanted` (synchron, abseits des Hauptthreads aufgerufen).
-    private static func collectStored(_ wanted: [String]) -> PortfolioPrices {
-        let stored = loadStored()
-        lock.lock()
-        let merged = PortfolioPriceFallback.merge(current: currentEntriesLocked(), stored: stored)
-        lock.unlock()
-        // Gekapselte Coins ohne eigenen Kurs: Kurs der Basis, markiert (`PortfolioPrices.viaBase`) — wie Android
-        let via = ChainAssets.priceViaBase(wanted, available: Set(merged.keys))
-        var result: [String: Double] = [:]
-        var times: [String: Int64] = [:]
-        var oldest: Int64?
-        for coin in wanted {
-            guard let entry = merged[coin] ?? via[coin].flatMap({ merged[$0] }) else { continue }
-            result[coin] = entry.price
-            times[coin] = entry.at
-            oldest = min(oldest ?? entry.at, entry.at)
-        }
-        result[stable] = 1
-        var out = PortfolioPrices(prices: result, updatedAt: oldest ?? 0, times: times)
-        out.viaBase = via
-        lock.lock()
-        decorateLocked(&out, coins: wanted)
-        // Ungeprüft = ohne Kurs (zählt nicht als Geld)
-        out.unchecked = Set(wanted.filter { uncheckedCoins.contains($0) && merged[$0] == nil && via[$0] == nil })
-        out.unavailable = Set(wanted.filter {
-            unavailableCoins.contains($0) && merged[$0] == nil && !uncheckedCoins.contains($0) && via[$0] == nil
-        })
-        lock.unlock()
-        return out
-    }
-
-    /// «Portfolio leeren»: gemerkte Kurse (nennen die gehaltenen Coins) und Zwischenspeicher weg.
-    static func clearStored() {
-        lock.lock()
-        cache = [:]
-        uncheckedCoins = []
-        storedEntries = [:]
-        sourceOf = [:]
-        failedOf = [:]
-        binanceOf = [:]
-        mixedCoins = []
-        lock.unlock()
-        PortfolioExchangeRouteStore.clear()
-        try? FileManager.default.removeItem(at: storeURL)
-    }
-
-    /// Gemerkter Stand (einmal je Prozess aus der Datei gelesen).
-    private static func loadStored() -> [String: StoredPrice] {
-        lock.lock()
-        let known = storedEntries
-        lock.unlock()
-        if let known { return known }
-        let text = try? String(contentsOf: storeURL, encoding: .utf8)
-        let usable = PortfolioPriceFallback.prune(PortfolioPriceFallback.decode(text), now: TimeUtils.nowMillis)
-        lock.lock(); defer { lock.unlock() }
-        if let raced = storedEntries { return raced }
-        storedEntries = usable
-        return usable
-    }
-
-    /// Nach jedem erfolgreichen Abruf (innerhalb von `priceGate`, also nacheinander): gemerkter Stand und
-    /// Zwischenspeicher (je Coin der neuere) schreiben, danach aus dem Backup nehmen (das atomare
-    /// Schreiben verliert das Merkmal).
-    private static func persist() {
-        let stored = loadStored()
-        lock.lock()
-        let entries = PortfolioPriceFallback.prune(
-            PortfolioPriceFallback.merge(current: currentEntriesLocked(), stored: storedEntries ?? stored),
-            now: TimeUtils.nowMillis
-        )
-        storedEntries = entries
-        lock.unlock()
-        guard let data = PortfolioPriceFallback.encode(entries).data(using: .utf8) else { return }
-        do {
-            try data.write(to: storeURL, options: [.atomic])
-        } catch {
-            return
-        }
-        BackupExclusion.set(excluded: true, for: storeURL)
-    }
-
-    /// Zwischenspeicher als gemerkte Kurse; nur mit gehaltenem `lock` aufrufen.
-    private static func currentEntriesLocked() -> [String: StoredPrice] {
-        var out: [String: StoredPrice] = [:]
-        for (coin, entry) in cache { out[coin] = StoredPrice(price: entry.price, at: entry.at) }
-        return out
-    }
 
     /// Ein einzelner Kurs, z. B. zum Vorbelegen im Erfassen-Blatt.
     static func price(_ coin: String) async -> Double? {
@@ -368,7 +210,7 @@ enum PortfolioPriceSource {
     }
 
     /// Abfragbare Kürzel; gekapselte Coins (`ChainAssets.wrapped`, z. B. «BTC.B») auch ohne — Kurs dann über die Basis.
-    private static func normalized(_ coins: [String]) -> [String] {
+    static func normalized(_ coins: [String]) -> [String] {
         var seen = Set<String>()
         return coins.map { PortfolioCalculator.normalizeCoin($0) }
             .filter { (isSymbol($0) || ChainAssets.wrappedBase($0) != nil) && $0 != stable && seen.insert($0).inserted }
@@ -510,16 +352,6 @@ enum PortfolioPriceSource {
         return out
     }
 
-    private static func knownCoins() -> [String]? {
-        lock.lock(); defer { lock.unlock() }
-        return coinList
-    }
-
-    private static func setKnownCoins(_ list: [String]) {
-        lock.lock(); defer { lock.unlock() }
-        coinList = list
-    }
-
     /// Sammelabfrage; Binance lehnt die ganze Anfrage ab, wenn ein Symbol unbekannt ist. `failed`: eine Abfrage scheiterte
     /// am Netz bzw. die Quelle ist gesperrt (für `PortfolioPriceIssue`).
     private static func binanceBatch(_ coins: [String]) async -> (prices: [String: Double], failed: Bool) {
@@ -574,85 +406,8 @@ enum PortfolioPriceSource {
         return close
     }
 
-    // MARK: Coin-Liste
-
-    /// Alle wählbaren Coins (alphabetisch); leer, wenn keine Quelle antwortet.
-    /// `fallback`: Paarliste der Börse «Binance» aus der App (nil = keine).
-    static func coins(fallback: (@Sendable () async -> [String]?)? = nil) async -> [String] {
-        await coinGate.run { await Self.loadCoins(fallback: fallback) }
-    }
-
-    private static func loadCoins(fallback: (@Sendable () async -> [String]?)?) async -> [String] {
-        let defaults = SharedStorage.defaults
-        let storedAt = Int64(defaults.double(forKey: keyCoinsAt))
-        let age = TimeUtils.nowMillis - storedAt
-        let fresh = age >= 0 && age < coinsTtlMillis
-        if let list = knownCoins(), fresh { return list }
-
-        let stored = (defaults.string(forKey: keyCoins) ?? "")
-            .split(separator: ",").map(String.init).filter { !$0.isEmpty }
-        if !stored.isEmpty && fresh {
-            setKnownCoins(stored)
-            return stored
-        }
-
-        var loaded = await binanceCoins()
-        if loaded == nil, let fallback {
-            let list = await fallback()
-            if let list, !list.isEmpty { loaded = list }
-        }
-        if loaded == nil { loaded = await coinbaseCoins() }
-
-        if let loaded, !loaded.isEmpty {
-            let list = Array(Set(loaded + [stable])).sorted()
-            defaults.set(list.joined(separator: ","), forKey: keyCoins)
-            defaults.set(Double(TimeUtils.nowMillis), forKey: keyCoinsAt)
-            setKnownCoins(list)
-            return list
-        }
-        // Lieber eine ältere Liste als gar keine
-        if !stored.isEmpty { setKnownCoins(stored) }
-        return stored
-    }
-
-    private static func binanceCoins() async -> [String]? {
-        let url = "https://\(binanceHost)/api/v3/exchangeInfo?permissions=SPOT&showPermissionSets=false"
-        guard let body = await get(url, host: binanceHost, session: MarketHTTP.bulkSession),
-              let data = body.data(using: .utf8),
-              let root = (try? JSONSerialization.jsonObject(with: data)) as? [String: Any],
-              let symbols = root["symbols"] as? [Any]
-        else { return nil }
-        let list: [String] = symbols.compactMap { item in
-            guard let s = item as? [String: Any],
-                  s["quoteAsset"] as? String == stable,
-                  s["status"] as? String == "TRADING",
-                  let base = s["baseAsset"] as? String
-            else { return nil }
-            let symbol = base.uppercased()
-            return isSymbol(symbol) ? symbol : nil
-        }
-        return list.isEmpty ? nil : list
-    }
-
-    private static func coinbaseCoins() async -> [String]? {
-        guard let body = await get("https://\(coinbaseHost)/products", host: coinbaseHost, session: MarketHTTP.bulkSession),
-              let data = body.data(using: .utf8),
-              let array = (try? JSONSerialization.jsonObject(with: data)) as? [Any]
-        else { return nil }
-        let list: [String] = array.compactMap { item in
-            guard let p = item as? [String: Any],
-                  p["quote_currency"] as? String == "USD",
-                  (p["trading_disabled"] as? Bool) != true,
-                  let base = p["base_currency"] as? String
-            else { return nil }
-            let symbol = base.uppercased()
-            return isSymbol(symbol) ? symbol : nil
-        }
-        return list.isEmpty ? nil : list
-    }
-
     /// GET; nil bei Fehler. 451/403 sperrt die Quelle vorübergehend (`BlockedSources`).
-    private static func get(_ url: String, host: String, session: URLSession) async -> String? {
+    static func get(_ url: String, host: String, session: URLSession) async -> String? {
         do {
             return try await MarketHTTP.call(url, session: session)
         } catch {

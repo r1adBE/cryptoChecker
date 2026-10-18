@@ -195,10 +195,15 @@ fun PortfolioScreen(
     // «portfolio_save_pending»); der nächste Start versucht es erneut
     val storageInMemory by DatabaseEncryptionNotice.inMemory.collectAsStateWithLifecycle()
     val portfolioInMemory = PortfolioDatabase.DB_NAME in storageInMemory
+    // Variante: Datei mit gespeichertem Stand ist da, nur der Schlüssel war gerade nicht lesbar — der Stand kommt nach
+    // einem Neustart zurück, Änderungen dieses Laufs nicht
+    val storageKept by DatabaseEncryptionNotice.storedKept.collectAsStateWithLifecycle()
+    val portfolioKept = PortfolioDatabase.DB_NAME in storageKept
     val closeLabel = stringResource(R.string.action_close)
-    LaunchedEffect(portfolioInMemory, addressesOpen) {
+    LaunchedEffect(portfolioInMemory, portfolioKept, addressesOpen) {
         if (!portfolioInMemory || addressesOpen) return@LaunchedEffect
-        banner.showAction(resources.getString(R.string.portfolio_storage_in_memory), closeLabel, IN_MEMORY_NOTICE_MILLIS) {}
+        val text = if (portfolioKept) R.string.portfolio_storage_kept_in_memory else R.string.portfolio_storage_in_memory
+        banner.showAction(resources.getString(text), closeLabel, IN_MEMORY_NOTICE_MILLIS) {}
     }
 
     // Ungültige Einträge aus der Systemsicherung einmal nennen

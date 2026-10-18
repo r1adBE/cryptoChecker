@@ -1,8 +1,12 @@
 import Foundation
 
-/// Stablecoins, Doppelgänger (verpackt, gestakt, gebrückt) und Börsen-Belege — für die
-/// Start-Coins (`StarterCoins`, nur App) und die Marktbreite in «Was gerade auffällt»
-/// (`CryptoPulseSource`, auch im Widget). Wie Android `StarterCoins.isExcluded`.
+/// Stablecoins, Doppelgänger (verpackt, gestakt, gebrückt) und Börsen-Belege — die eine Regel für die
+/// Start-Coins (`StarterCoins`, nur App), die Marktbreite («Top 30») in «Was gerade auffällt»
+/// (`CryptoPulseSource`, auch im Widget) und «Gewinner und Verlierer 24 h» (`MarketMovers`).
+/// Gleich wie Android `CoinExclusion.kt`; gemeinsame Testfälle in `Tests/Parity/stable_exclusion.json`.
+///
+/// Listen und Namensregeln sind die Vereinigung beider Plattformen (lieber einmal zu viel ausschliessen als
+/// einen Stablecoin in der Marktbreite mitzählen). Alle Vergleiche ohne Rücksicht auf Gross-/Kleinschreibung.
 enum CoinExclusion {
 
     /// Stablecoins (Symbol in Grossbuchstaben).
@@ -12,6 +16,7 @@ enum CoinExclusion {
         "SUSDE", "USDT0", "USDX", "USDB", "USDY", "USDF", "LUSD", "CRVUSD", "GHO", "DOLA", "FXUSD",
         "EURS", "EURE", "XAUT", "PAXG", "USTC", "USR", "DEUSD", "SRUSD", "USDO", "AUSD", "USYC",
         "BUIDL", "USDM", "USDL", "MIM", "ALUSD", "SUSD", "CUSD", "ZUSD", "HUSD", "USDK", "USDJ",
+        "USDAI", "OUSG", "XSGD",
     ]
 
     /// Verpackte, gestakte und gebrückte Doppelgänger sowie Börsen-Belege.
@@ -24,22 +29,25 @@ enum CoinExclusion {
         "BSC-USD", "BGBTC", "OKBTC", "BBTC", "BTC.B", "SOLVBTC.BBN", "WEETH.BASE",
     ]
 
-    /// Kein Startpaar: Stablecoin, Doppelgänger oder vom Namen her ein Dollar/Euro-Abbild.
+    /// Namen, die so beginnen, sind Doppelgänger (kleingeschrieben verglichen).
+    private static let wrappedNamePrefixes = ["wrapped ", "staked ", "bridged ", "liquid staked "]
+
+    /// Stablecoin, Doppelgänger, Börsen-Beleg oder vom Namen her ein Dollar/Euro-Abbild?
     static func isExcluded(symbol: String, name: String) -> Bool {
-        let s = symbol.trimmingCharacters(in: .whitespaces).uppercased()
-        let n = name.trimmingCharacters(in: .whitespaces).lowercased()
+        let s = symbol.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+        let n = name.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
         if s.isEmpty { return true }
         if stablecoins.contains(s) || wrapped.contains(s) { return true }
-        // Heuristik Stablecoins: «USD…», «…USD», Name mit USD/Dollar/Euro
+        // Heuristik Stablecoins: Kürzel «USD…» / «…USD», Name mit «usd» oder «dollar» irgendwo
+        // (auch «USDe», «sUSD», «PayPal USD»), Euro nur als ganzes Wort («Neuron» ist kein Euro)
         if s.hasPrefix("USD") || s.hasSuffix("USD") { return true }
-        // (je Wort, damit z. B. «Neuron» nicht als «Euro» gilt; «USDe», «sUSD» schon)
+        if n.contains("usd") || n.contains("dollar") { return true }
         let words = n.split { !($0.isLetter || $0.isNumber) }
-        if words.contains(where: { $0.hasPrefix("usd") || $0.hasSuffix("usd") || $0.contains("dollar")
-            || $0 == "euro" || $0 == "eur" }) { return true }
+        if words.contains(where: { $0 == "euro" || $0 == "eur" }) { return true }
         // Heuristik Doppelgänger
-        for prefix in ["wrapped ", "staked ", "bridged ", "liquid staked "] where n.hasPrefix(prefix) { return true }
+        if wrappedNamePrefixes.contains(where: { n.hasPrefix($0) }) { return true }
         if n.contains("binance-peg") || n.contains("restaked") { return true }
-        // Nur einfache Börsen-Symbole (keine Punkte, Bindestriche …)
+        // Nur einfache Börsen-Kürzel (keine Punkte, Bindestriche, Sonderzeichen …)
         return !s.allSatisfy { $0.isASCII && ($0.isLetter || $0.isNumber) }
     }
 }

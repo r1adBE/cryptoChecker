@@ -34,12 +34,17 @@ object LocalDataModule {
 
     /**
      * Beide Datenbanken verschlüsselt (SQLCipher, Build 59): Schlüssel im Android Keystore, einmalige Überführung
-     * alter unverschlüsselter Dateien beim ersten Öffnen ([EncryptingOpenHelperFactory]).
+     * alter unverschlüsselter Dateien beim ersten Öffnen ([EncryptingOpenHelperFactory]). Gibt der Keystore den
+     * Schlüssel einer vorhandenen Datei gerade nicht heraus, öffnen Portfolio und Merkliste im Vordergrund für diesen
+     * Lauf leer im Arbeitsspeicher, statt die Oberfläche abstürzen zu lassen; die Dateien bleiben unberührt.
      */
     @Provides
     @Singleton
     fun provideOpenHelperFactory(@ApplicationContext context: Context): EncryptingOpenHelperFactory =
-        EncryptingOpenHelperFactory(context)
+        EncryptingOpenHelperFactory(
+            context,
+            inMemoryWhenKeyUnavailable = { it == PortfolioDatabase.DB_NAME || it == AppDatabase.DB_NAME },
+        )
 
     @Provides
     @Singleton

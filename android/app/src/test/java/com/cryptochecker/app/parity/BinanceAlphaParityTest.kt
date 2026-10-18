@@ -28,6 +28,10 @@ import org.junit.Assert.fail
 import org.junit.Test
 import kotlin.math.abs
 import kotlin.math.max
+import com.cryptochecker.app.domain.logos.alphaNames
+import com.cryptochecker.app.domain.logos.alphaSymbols
+import com.cryptochecker.app.domain.logos.alphaTokens
+import com.cryptochecker.app.domain.logos.parseAlpha
 
 /**
  * Binance Alpha (`testdata/parity/binance_alpha.json`): Paarliste Spot + Alpha, Kurse aus der Token-Liste

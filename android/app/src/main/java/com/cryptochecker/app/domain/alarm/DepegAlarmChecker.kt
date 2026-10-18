@@ -26,6 +26,8 @@ import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.math.abs
+import com.cryptochecker.app.notification.canShowDepegAlarm
+import com.cryptochecker.app.notification.showDepeg
 
 /**
  * Misst nach einer Kursaktualisierung (Vordergrund und Hintergrund) USDT in USD und prüft den USDT-Depeg-Alarm

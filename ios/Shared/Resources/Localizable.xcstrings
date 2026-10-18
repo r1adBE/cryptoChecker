@@ -67926,6 +67926,197 @@
         }
       }
     },
+    "backup_storage_kept" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "النسخ الاحتياطي غير ممكن الآن: لا يمكن فتح البيانات المحفوظة في الوقت الحالي. أعد تشغيل التطبيق وحاول مرة أخرى."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zálohování teď není možné: uložená data nyní nelze odemknout. Restartujte aplikaci a zkuste to znovu."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sikkerhedskopi er ikke mulig lige nu: de gemte data kan ikke låses op i øjeblikket. Genstart appen, og prøv igen."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sichern und Einspielen gehen gerade nicht: Der gespeicherte Stand lässt sich im Moment nicht entsperren. App neu starten und erneut versuchen."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Η αντιγραφή ασφαλείας δεν είναι δυνατή τώρα: τα αποθηκευμένα δεδομένα δεν μπορούν να ξεκλειδωθούν αυτή τη στιγμή. Επανεκκινήστε την εφαρμογή και δοκιμάστε ξανά."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Backup isn't possible right now: the saved data can't be unlocked at the moment. Restart the app and try again."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La copia de seguridad no es posible ahora: los datos guardados no se pueden desbloquear en este momento. Reinicia la app e inténtalo de nuevo."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "پشتیبان‌گیری اکنون ممکن نیست: داده‌های ذخیره‌شده فعلاً باز نمی‌شوند. برنامه را دوباره راه‌اندازی کنید و دوباره امتحان کنید."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Varmuuskopiointi ei ole nyt mahdollista: tallennettuja tietoja ei voi juuri nyt avata. Käynnistä sovellus uudelleen ja yritä uudestaan."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sauvegarde impossible pour le moment : les données enregistrées ne peuvent pas être déverrouillées. Redémarrez l'app et réessayez."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "גיבוי אינו אפשרי כרגע: לא ניתן לפתוח את הנתונים השמורים כעת. הפעל מחדש את האפליקציה ונסה שוב."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "बैकअप अभी संभव नहीं है: सहेजा गया डेटा इस समय अनलॉक नहीं हो सकता। ऐप को फिर से शुरू करें और दोबारा कोशिश करें।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A biztonsági mentés most nem lehetséges: a mentett adatokat jelenleg nem lehet feloldani. Indítsd újra az alkalmazást, és próbáld újra."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pencadangan tidak bisa dilakukan sekarang: data tersimpan belum bisa dibuka saat ini. Mulai ulang aplikasi lalu coba lagi."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Backup non possibile al momento: i dati salvati non possono essere sbloccati ora. Riavvia l'app e riprova."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "現在バックアップできません：保存済みのデータを今はロック解除できません。アプリを再起動して、もう一度お試しください。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "지금은 백업할 수 없습니다: 저장된 데이터를 현재 잠금 해제할 수 없습니다. 앱을 다시 시작한 후 다시 시도하세요."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sikkerhetskopi er ikke mulig akkurat nå: de lagrede dataene kan ikke låses opp for øyeblikket. Start appen på nytt og prøv igjen."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Back-up is nu niet mogelijk: de opgeslagen gegevens kunnen op dit moment niet worden ontgrendeld. Start de app opnieuw en probeer het nog eens."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kopia zapasowa nie jest teraz możliwa: zapisanych danych nie można w tej chwili odblokować. Uruchom aplikację ponownie i spróbuj jeszcze raz."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A cópia de segurança não é possível agora: os dados guardados não podem ser desbloqueados neste momento. Reinicie a app e tente novamente."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O backup não é possível agora: os dados salvos não podem ser desbloqueados no momento. Reinicie o app e tente novamente."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copia de rezervă nu este posibilă acum: datele salvate nu pot fi deblocate în acest moment. Repornește aplicația și încearcă din nou."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Резервное копирование сейчас невозможно: сохранённые данные пока не удаётся разблокировать. Перезапустите приложение и попробуйте снова."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kopja rezervë nuk është e mundur tani: të dhënat e ruajtura nuk mund të zhbllokohen për momentin. Rinis aplikacionin dhe provo përsëri."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Säkerhetskopiering går inte just nu: sparade data kan inte låsas upp för tillfället. Starta om appen och försök igen."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "สำรองข้อมูลไม่ได้ในขณะนี้: ยังปลดล็อกข้อมูลที่บันทึกไว้ไม่ได้ รีสตาร์ทแอปแล้วลองอีกครั้ง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yedekleme şu anda mümkün değil: kayıtlı veriler şu an açılamıyor. Uygulamayı yeniden başlatıp tekrar deneyin."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Резервне копіювання зараз неможливе: збережені дані наразі не вдається розблокувати. Перезапустіть застосунок і спробуйте знову."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hiện không thể sao lưu: dữ liệu đã lưu tạm thời không mở khóa được. Hãy khởi động lại ứng dụng và thử lại."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "目前无法备份：已保存的数据暂时无法解锁。请重新启动应用后再试。"
+          }
+        }
+      }
+    },
     "backup_title" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -216894,6 +217085,197 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "加密尚未启用——投资组合不会被保存，关闭应用后更改将丢失。应用会在下次启动时重试。"
+          }
+        }
+      }
+    },
+    "portfolio_storage_kept_in_memory" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تعذّر فتح قفل المحفظة المحفوظة الآن ولذلك لا تُعرض – ستعود بعد إعادة تشغيل التطبيق. لن تُحفظ التغييرات التي تجريها الآن."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uložené portfolio teď nelze odemknout a nezobrazuje se – po restartu aplikace bude zpět. Změny provedené teď se neuloží."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Den gemte portefølje kan ikke låses op lige nu og vises ikke – den er tilbage, når appen genstartes. Ændringer foretaget nu bliver ikke gemt."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Das gespeicherte Portfolio lässt sich gerade nicht entsperren und wird nicht angezeigt – nach einem Neustart der App ist es wieder da. Änderungen von jetzt werden nicht gespeichert."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Το αποθηκευμένο χαρτοφυλάκιο δεν μπορεί να ξεκλειδωθεί αυτή τη στιγμή και δεν εμφανίζεται – θα επιστρέψει μετά την επανεκκίνηση της εφαρμογής. Οι αλλαγές που κάνετε τώρα δεν θα αποθηκευτούν."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The saved portfolio can't be unlocked right now and isn't shown – it will be back after restarting the app. Changes made now won't be saved."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La cartera guardada no se puede desbloquear ahora y no se muestra; volverá tras reiniciar la app. Los cambios hechos ahora no se guardarán."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "قفل سبد ذخیره‌شده الان باز نمی‌شود و نمایش داده نمی‌شود – پس از راه‌اندازی دوبارهٔ برنامه برمی‌گردد. تغییراتی که الان می‌دهید ذخیره نمی‌شوند."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tallennetun salkun lukitusta ei voi juuri nyt avata, eikä sitä näytetä – se palaa, kun sovellus käynnistetään uudelleen. Nyt tehtyjä muutoksia ei tallenneta."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le portefeuille enregistré ne peut pas être déverrouillé pour l'instant et n'est pas affiché – il reviendra après le redémarrage de l'app. Les modifications faites maintenant ne seront pas enregistrées."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "לא ניתן לבטל כרגע את נעילת התיק השמור ולכן הוא לא מוצג – הוא יחזור אחרי הפעלה מחדש של האפליקציה. שינויים שתבצע עכשיו לא יישמרו."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "सहेजा गया पोर्टफ़ोलियो अभी अनलॉक नहीं हो पा रहा, इसलिए नहीं दिख रहा – ऐप दोबारा शुरू करने पर यह वापस आ जाएगा। अभी किए गए बदलाव सहेजे नहीं जाएँगे।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A mentett portfóliót most nem lehet feloldani, ezért nem látható – az alkalmazás újraindítása után visszatér. A most végzett módosítások nem lesznek mentve."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portofolio tersimpan belum bisa dibuka saat ini dan tidak ditampilkan – akan kembali setelah aplikasi dimulai ulang. Perubahan yang dibuat sekarang tidak akan disimpan."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Il portafoglio salvato non può essere sbloccato al momento e non viene mostrato – tornerà dopo il riavvio dell'app. Le modifiche fatte ora non verranno salvate."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "保存済みのポートフォリオを今はロック解除できないため表示していません。アプリを再起動すると戻ります。今行った変更は保存されません。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "저장된 포트폴리오를 지금 잠금 해제할 수 없어 표시하지 않습니다. 앱을 다시 시작하면 돌아옵니다. 지금 변경한 내용은 저장되지 않습니다."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Den lagrede porteføljen kan ikke låses opp akkurat nå og vises ikke – den er tilbake når appen startes på nytt. Endringer du gjør nå, blir ikke lagret."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "De opgeslagen portefeuille kan nu niet worden ontgrendeld en wordt niet getoond – na een herstart van de app is hij terug. Wijzigingen van nu worden niet opgeslagen."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zapisanego portfela nie można teraz odblokować i nie jest wyświetlany – wróci po ponownym uruchomieniu aplikacji. Zmiany wprowadzone teraz nie zostaną zapisane."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O portefólio guardado não pode ser desbloqueado agora e não é mostrado – voltará depois de reiniciar a app. As alterações feitas agora não serão guardadas."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O portfólio salvo não pode ser desbloqueado agora e não é exibido – ele volta depois que você reiniciar o app. As alterações feitas agora não serão salvas."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portofoliul salvat nu poate fi deblocat acum și nu este afișat – va reveni după repornirea aplicației. Modificările făcute acum nu vor fi salvate."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сохранённый портфель сейчас не удаётся разблокировать, поэтому он не показан – он вернётся после перезапуска приложения. Изменения, сделанные сейчас, не сохранятся."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portofoli i ruajtur nuk mund të shkyçet tani dhe nuk shfaqet – do të rikthehet pas rinisjes së aplikacionit. Ndryshimet e bëra tani nuk do të ruhen."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Den sparade portföljen kan inte låsas upp just nu och visas inte – den är tillbaka när appen startas om. Ändringar du gör nu sparas inte."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ไม่สามารถปลดล็อกพอร์ตโฟลิโอที่บันทึกไว้ได้ในขณะนี้ จึงไม่แสดง – จะกลับมาหลังจากเริ่มแอปใหม่ การเปลี่ยนแปลงที่ทำตอนนี้จะไม่ถูกบันทึก"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kayıtlı portföyün kilidi şu anda açılamıyor ve gösterilmiyor – uygulama yeniden başlatıldığında geri gelir. Şimdi yapılan değişiklikler kaydedilmez."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Збережений портфель зараз не вдається розблокувати, тому він не показаний – він повернеться після перезапуску застосунку. Зміни, зроблені зараз, не збережуться."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Danh mục đã lưu hiện không thể mở khóa nên không được hiển thị – danh mục sẽ trở lại sau khi khởi động lại ứng dụng. Các thay đổi thực hiện bây giờ sẽ không được lưu."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已保存的投资组合暂时无法解锁，因此未显示——重启应用后会恢复。现在所做的更改不会被保存。"
           }
         }
       }
@@ -369633,6 +370015,197 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "这里没有交易中的交易对"
+          }
+        }
+      }
+    },
+    "watchlist_storage_kept_in_memory" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تعذّر فتح قفل قائمة المتابعة المحفوظة الآن ولذلك لا تُعرض – ستعود بعد إعادة تشغيل التطبيق. لن تُحفظ التغييرات التي تجريها الآن."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uložený seznam teď nelze odemknout a nezobrazuje se – po restartu aplikace bude zpět. Změny provedené teď se neuloží."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Den gemte overvågningsliste kan ikke låses op lige nu og vises ikke – den er tilbage, når appen genstartes. Ændringer foretaget nu bliver ikke gemt."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die gespeicherte Merkliste lässt sich gerade nicht entsperren und wird nicht angezeigt – nach einem Neustart der App ist sie wieder da. Änderungen von jetzt werden nicht gespeichert."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Η αποθηκευμένη λίστα δεν μπορεί να ξεκλειδωθεί αυτή τη στιγμή και δεν εμφανίζεται – θα επιστρέψει μετά την επανεκκίνηση της εφαρμογής. Οι αλλαγές που κάνετε τώρα δεν θα αποθηκευτούν."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The saved watchlist can't be unlocked right now and isn't shown – it will be back after restarting the app. Changes made now won't be saved."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La lista guardada no se puede desbloquear ahora y no se muestra; volverá tras reiniciar la app. Los cambios hechos ahora no se guardarán."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "قفل واچ‌لیست ذخیره‌شده الان باز نمی‌شود و نمایش داده نمی‌شود – پس از راه‌اندازی دوبارهٔ برنامه برمی‌گردد. تغییراتی که الان می‌دهید ذخیره نمی‌شوند."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tallennetun seurantalistan lukitusta ei voi juuri nyt avata, eikä sitä näytetä – se palaa, kun sovellus käynnistetään uudelleen. Nyt tehtyjä muutoksia ei tallenneta."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La liste enregistrée ne peut pas être déverrouillée pour l'instant et n'est pas affichée – elle reviendra après le redémarrage de l'app. Les modifications faites maintenant ne seront pas enregistrées."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "לא ניתן לבטל כרגע את נעילת רשימת המעקב השמורה ולכן היא לא מוצגת – היא תחזור אחרי הפעלה מחדש של האפליקציה. שינויים שתבצע עכשיו לא יישמרו."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "सहेजी गई वॉचलिस्ट अभी अनलॉक नहीं हो पा रही, इसलिए नहीं दिख रही – ऐप दोबारा शुरू करने पर यह वापस आ जाएगी। अभी किए गए बदलाव सहेजे नहीं जाएँगे।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A mentett figyelőlistát most nem lehet feloldani, ezért nem látható – az alkalmazás újraindítása után visszatér. A most végzett módosítások nem lesznek mentve."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Daftar pantau tersimpan belum bisa dibuka saat ini dan tidak ditampilkan – akan kembali setelah aplikasi dimulai ulang. Perubahan yang dibuat sekarang tidak akan disimpan."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La lista salvata non può essere sbloccata al momento e non viene mostrata – tornerà dopo il riavvio dell'app. Le modifiche fatte ora non verranno salvate."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "保存済みのウォッチリストを今はロック解除できないため表示していません。アプリを再起動すると戻ります。今行った変更は保存されません。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "저장된 관심 목록을 지금 잠금 해제할 수 없어 표시하지 않습니다. 앱을 다시 시작하면 돌아옵니다. 지금 변경한 내용은 저장되지 않습니다."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Den lagrede overvåkingslisten kan ikke låses opp akkurat nå og vises ikke – den er tilbake når appen startes på nytt. Endringer du gjør nå, blir ikke lagret."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "De opgeslagen volglijst kan nu niet worden ontgrendeld en wordt niet getoond – na een herstart van de app is hij terug. Wijzigingen van nu worden niet opgeslagen."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zapisanej listy nie można teraz odblokować i nie jest wyświetlana – wróci po ponownym uruchomieniu aplikacji. Zmiany wprowadzone teraz nie zostaną zapisane."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A lista guardada não pode ser desbloqueada agora e não é mostrada – voltará depois de reiniciar a app. As alterações feitas agora não serão guardadas."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A lista salva não pode ser desbloqueada agora e não é exibida – ela volta depois que você reiniciar o app. As alterações feitas agora não serão salvas."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lista salvată nu poate fi deblocată acum și nu este afișată – va reveni după repornirea aplicației. Modificările făcute acum nu vor fi salvate."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сохранённый список сейчас не удаётся разблокировать, поэтому он не показан – он вернётся после перезапуска приложения. Изменения, сделанные сейчас, не сохранятся."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lista e ruajtur nuk mund të shkyçet tani dhe nuk shfaqet – do të rikthehet pas rinisjes së aplikacionit. Ndryshimet e bëra tani nuk do të ruhen."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Den sparade bevakningslistan kan inte låsas upp just nu och visas inte – den är tillbaka när appen startas om. Ändringar du gör nu sparas inte."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ไม่สามารถปลดล็อกรายการติดตามที่บันทึกไว้ได้ในขณะนี้ จึงไม่แสดง – จะกลับมาหลังจากเริ่มแอปใหม่ การเปลี่ยนแปลงที่ทำตอนนี้จะไม่ถูกบันทึก"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kayıtlı listenin kilidi şu anda açılamıyor ve gösterilmiyor – uygulama yeniden başlatıldığında geri gelir. Şimdi yapılan değişiklikler kaydedilmez."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Збережений список зараз не вдається розблокувати, тому він не показаний – він повернеться після перезапуску застосунку. Зміни, зроблені зараз, не збережуться."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Danh sách đã lưu hiện không thể mở khóa nên không được hiển thị – danh sách sẽ trở lại sau khi khởi động lại ứng dụng. Các thay đổi thực hiện bây giờ sẽ không được lưu."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已保存的自选列表暂时无法解锁，因此未显示——重启应用后会恢复。现在所做的更改不会被保存。"
           }
         }
       }

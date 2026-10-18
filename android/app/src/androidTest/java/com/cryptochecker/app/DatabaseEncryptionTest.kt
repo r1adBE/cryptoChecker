@@ -9,12 +9,15 @@ import androidx.sqlite.db.framework.FrameworkSQLiteOpenHelperFactory
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.cryptochecker.app.data.local.AppDatabase
+import com.cryptochecker.app.data.local.DatabaseEncryptionMigration
 import com.cryptochecker.app.data.local.DatabaseEncryptionMigration.FileKind
+import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.local.DatabaseKeyStore
 import com.cryptochecker.app.data.local.DatabaseSystemBackup
 import com.cryptochecker.app.data.local.EncryptingOpenHelperFactory
 import com.cryptochecker.app.data.local.SqlCipherDatabaseFiles
 import com.cryptochecker.app.data.local.StorageRecoveryNotice
+import com.cryptochecker.app.data.local.isDatabaseKeyUnavailable
 import com.cryptochecker.app.data.portfolio.PortfolioDatabase
 import com.cryptochecker.app.data.portfolio.PortfolioLegacyImport
 import java.io.File
@@ -185,6 +188,40 @@ class DatabaseEncryptionTest {
         assertEquals(StorageRecoveryNotice.Kind.SET_ASIDE, StorageRecoveryNotice.pending(context))
         StorageRecoveryNotice.acknowledge(context, StorageRecoveryNotice.Kind.SET_ASIDE)
         assertEquals(null, StorageRecoveryNotice.pending(context))
+    }
+
+    /**
+     * Keystore gibt den Schlüssel einer vorhandenen verschlüsselten Datei gerade nicht heraus: im Hintergrund wie bisher
+     * eine Ausnahme, im Vordergrund (Portfolio/Merkliste der App) leer im Arbeitsspeicher — die Datei bleibt Byte für Byte
+     * gleich, und der nächste Start mit Schlüssel sieht wieder alles.
+     */
+    @Test
+    fun unavailableKeyKeepsFileAndOpensEmptyInMemoryInForeground() {
+        withMain { main -> insertWatchAndAlarm(main) }
+        val file = context.getDatabasePath(MAIN)
+        val before = file.readBytes()
+        val locked = object : DatabaseEncryptionMigration.Keys by keys {
+            override fun load(database: String) =
+                DatabaseEncryptionMigration.KeyLookup.Unavailable(IllegalStateException("Test: Keystore beschäftigt"))
+        }
+        val background = EncryptingOpenHelperFactory(context, locked, inMemoryWhenKeyUnavailable = { true }, foreground = { false })
+        val failure = runCatching { withMain(background) { } }.exceptionOrNull()
+        assertTrue(failure?.isDatabaseKeyUnavailable() == true)
+        assertFalse(DatabaseEncryptionNotice.isInMemory(MAIN))
+
+        val visible = EncryptingOpenHelperFactory(context, locked, inMemoryWhenKeyUnavailable = { true }, foreground = { true })
+        withMain(visible) { main ->
+            assertEquals(0, count(main, "watches"))
+            // Änderungen dieses Laufs bleiben im Arbeitsspeicher
+            insertWatchAndAlarm(main)
+        }
+        assertTrue(DatabaseEncryptionNotice.isStoredKept(MAIN))
+        assertTrue(DatabaseEncryptionNotice.isInMemory(MAIN))
+        assertTrue(before.contentEquals(file.readBytes()))
+        assertFalse(File(file.path + "-wal").let { it.exists() && it.length() > 0 })
+        assertFalse(File(file.path + SqlCipherDatabaseFiles.ASIDE_SUFFIX).exists())
+
+        withMain { main -> assertEquals(1, count(main, "watches")) }
     }
 
     /**

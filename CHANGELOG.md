@@ -15,6 +15,32 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 81)
+
+Second review before the store.
+
+* WOO X spot: the price is the hourly close and now carries the time of that candle – after 2 hours without a new
+  candle the row says «outdated» and alarms wait.
+* One Trading: the bulk request keeps only active spot pairs; a pair missing from it is asked for singly instead of
+  being reported as «not traded».
+* France: when watched addresses (without acquisition cost) are part of the total value, the summary says the gain
+  is therefore likely too high and suggests booking a purchase.
+* Android: the portfolio database is never created unencrypted. Without a key the portfolio stays in memory for
+  that run, with a notice, like on iPhone. If the key of an existing database is briefly unavailable, portfolio or
+  watchlist open empty for that run with a notice; the saved file is never touched, and backup is refused until a
+  restart.
+* New page «Make sure alerts arrive»: the real status of notifications, on-time checks, battery saving, background
+  refresh and quiet hours, with buttons to the right system settings.
+* «Share diagnostics» (Settings › About): a text file to send to support yourself – no portfolio data, amounts,
+  addresses or notes, preview first, nothing sent automatically.
+* Chart in a fiat currency says when the USDT history was converted with today's rate.
+* Watched addresses: Taproot accounts via `tr(…)` descriptor (BIP86), single `bc1p…` addresses as before.
+* Market tab: «Gainers and losers 24 h» under the market pulse (top 100 without stablecoins, CoinGecko).
+* Stablecoins and wrapped coins are excluded the same way on Android and iPhone.
+* Settings search finds «Make sure alerts arrive», «Share diagnostics» and «Alarm log».
+* Store texts: «no own price» instead of «no live price» for Bitpanda and Swissquote.
+* Code: every file over 650 lines split by responsibility on both platforms (behaviour unchanged).
+
 ## 16.2.2 (build 80)
 
 Review fixes before the store.

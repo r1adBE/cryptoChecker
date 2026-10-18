@@ -37,6 +37,8 @@ import java.util.concurrent.atomic.AtomicLong
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.math.max
+import com.cryptochecker.app.domain.logos.bundledIconName
+import com.cryptochecker.app.domain.logos.parseIconPack
 
 /**
  * Coin-Logos auf dem Gerät: Bilder im Speicher ([memory]) und in Dateien, das mitgelieferte Icon-Paket

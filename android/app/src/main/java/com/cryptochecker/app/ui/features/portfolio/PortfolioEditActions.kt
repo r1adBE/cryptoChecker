@@ -19,6 +19,8 @@ import kotlinx.coroutines.launch
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.ZoneId
+import com.cryptochecker.app.notification.alarmsAllowed
+import com.cryptochecker.app.data.portfolio.clearStored
 
 /** Aktueller USDT-Kurs zum Vorbelegen; null, wenn keiner zu haben ist. */
 suspend fun PortfolioViewModel.currentPrice(coin: String): Double? = safe { priceSource.price(coin) }
@@ -189,7 +191,7 @@ fun PortfolioViewModel.clearAll() {
 
 /**
  * Neuer Portfolio-Alarm; Beträge in der Umrechnungswährung. [onSaved] bekommt den gespeicherten
- * Alarm und ob Alarme als Mitteilung erscheinen dürfen ([com.cryptochecker.app.notification.AppNotifier.alarmsAllowed]).
+ * Alarm und ob Alarme als Mitteilung erscheinen dürfen ([com.cryptochecker.app.notification.alarmsAllowed]).
  */
 fun PortfolioViewModel.addAlarm(
     kind: PortfolioAlarmKind,

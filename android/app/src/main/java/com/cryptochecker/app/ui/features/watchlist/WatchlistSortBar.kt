@@ -25,6 +25,11 @@ import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.watch.ColumnSort
 import com.cryptochecker.app.domain.watch.SortKey
 import com.cryptochecker.app.util.ChangeBasisText
+import androidx.compose.runtime.remember
+import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.convert.CurrencyConversion
+import com.cryptochecker.app.domain.watch.ChangeView
+import com.cryptochecker.app.domain.watch.shownChange
 
 /**
  * Schmale Zeile über den Paaren: «Name ⇅ · Kurs ⇅ · 24h ⇅» wie an der Börse. Erster Tipp: Name
@@ -102,3 +107,35 @@ private val SORT_ARROW_SIZE = 12.sp
 
 /** Tippfläche einer Spalte: mind. 48 dp (früher 40). */
 private val SORT_TOUCH_MIN = 48.dp
+
+/**
+ * Sortieren nach Spalte (nicht im Sortiermodus [sortMode]): Favoriten oben, unter sich sortiert; Kurse über CHF
+ * verglichen ([sortRates], im Hintergrund umgerechnet, auch ohne «≈ Umrechnung»).
+ */
+@Composable
+internal fun rememberColumnSorted(
+    shown: List<WatchEntity>,
+    columnSort: ColumnSort?,
+    sortRates: Map<String, Double>,
+    changeView: ChangeView,
+    sortMode: Boolean,
+): List<WatchEntity> {
+    return remember(shown, columnSort, sortRates, changeView, sortMode) {
+        if (sortMode) shown
+        else ColumnSort.apply(
+            shown,
+            columnSort,
+            favorite = { it.favorite },
+            name = { it.displayName },
+            value = { w ->
+                val price = w.lastPrice?.takeIf { it > 0.0 }
+                when {
+                    price == null -> null
+                    CurrencyConversion.sameCurrency(w.quoteAsset, SORT_CURRENCY) -> price
+                    else -> CurrencyConversion.convert(price, sortRates[CurrencyConversion.normalize(w.quoteAsset)])
+                }
+            },
+            change = { it.shownChange(changeView) },
+        )
+    }
+}

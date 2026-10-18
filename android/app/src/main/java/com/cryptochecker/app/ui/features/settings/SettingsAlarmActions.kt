@@ -9,6 +9,7 @@ import com.cryptochecker.app.notification.AlarmSoundStore
 import com.cryptochecker.app.notification.NotificationChannels
 import com.cryptochecker.app.notification.PriceNotificationRule
 import kotlinx.coroutines.launch
+import com.cryptochecker.app.notification.alarmChannel
 
 /** Kursmitteilung eines Paars an/aus — wie der Schalter im Aktionsblatt (`WatchlistViewModel.setNotificationEnabled`). */
 fun SettingsViewModel.setPairNotification(watchId: Long, enabled: Boolean) {

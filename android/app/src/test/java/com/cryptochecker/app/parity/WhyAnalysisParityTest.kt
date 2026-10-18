@@ -21,6 +21,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 import kotlin.math.abs
 import kotlin.math.floor
+import com.cryptochecker.app.domain.activity.explain
 
 /**
  * Gemeinsame Testfälle der «Warum?»-Auswertung (`testdata/parity/why_analysis.json`, Kopie in

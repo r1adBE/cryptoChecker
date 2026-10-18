@@ -1,7 +1,7 @@
 // Kurs-Mitteilungen (Teil von `AppNotifier`): Mitteilung je Paar bzw. Sammelmeldung über der Grenze, Titel
 // und Vergleichstext, Entfernen einer einzelnen Mitteilung und der Abgleich mit den offenen Mitteilungen.
 // Eigene Datei, weil diese Regeln (Grenze, Sammelmeldung, «eben gemeldet») zusammen lesbar sein sollen;
-// Erweiterungsfunktionen, die öffentlichen Aufrufe und der Zustand bleiben in der Klasse.
+// Erweiterungsfunktionen, die öffentlichen Aufrufe der Kurs-Mitteilungen und der Zustand bleiben in der Klasse.
 package com.cryptochecker.app.notification
 
 import android.app.Notification

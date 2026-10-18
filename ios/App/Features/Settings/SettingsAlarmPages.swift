@@ -57,6 +57,7 @@ struct AlarmSettingsPage: View {
             SettingsNavRow(title: L("delivery_title"), icon: .system("bell.badge"), value: nil) {
                 AlarmDeliveryScreen()
             }
+            .settingsAnchor("alarms.delivery")
             RowDivider()
             SwitchRow(
                 title: L("settings_price_notifications"),

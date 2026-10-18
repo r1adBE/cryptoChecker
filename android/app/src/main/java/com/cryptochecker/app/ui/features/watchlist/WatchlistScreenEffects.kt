@@ -1,5 +1,6 @@
 // Effekte der Merkliste: der Erst-Moment nach dem ersten Paar bzw. der Start-Auswahl (Haptik, Banner «… wird jetzt
-// überwacht», ggf. «Alarm setzen») und «oben bleiben», wenn der Puls oben erscheint.
+// überwacht», ggf. «Alarm setzen»), «oben bleiben», wenn der Puls oben erscheint, die 30-s-Uhr und die Wege in die
+// Merkliste (Meldung, Widget, Zurück-Taste).
 // Eigene Datei, weil es eigenständige Abläufe sind; `WatchlistScreen` bleibt die eine Bildschirm-Funktion.
 @file:OptIn(
     androidx.compose.foundation.ExperimentalFoundationApi::class,
@@ -24,9 +25,13 @@ import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.R
+import com.cryptochecker.app.data.local.AppDatabase
+import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.domain.starter.AddMoment
 import kotlinx.coroutines.delay
+import androidx.activity.compose.BackHandler
+import androidx.compose.runtime.mutableLongStateOf
 
 /**
  * Erst-Moment (Start-Merkliste, allererstes Paar): einmal abspielen, sobald die neuen Zeilen da
@@ -47,6 +52,8 @@ internal fun rememberAddMoment(
     onOpenAlarms: (Long) -> Unit,
     onHintClosed: (alarmTapped: Boolean) -> Unit = {},
 ): AddMoment? {
+    // Hier statt in `WatchlistScreen`: Dieser Effekt hat das Banner schon und läuft auf jedem Stand der Merkliste
+    WatchlistStorageNotice(banner)
     val pendingMoment by viewModel.addMoment.collectAsStateWithLifecycle()
     val view = LocalView.current
     // Texte über LocalResources (Lint: kein getString über LocalContext in Compose)
@@ -93,6 +100,26 @@ internal fun rememberAddMoment(
 private const val ALARM_HINT_MILLIS = 6_000L
 
 /**
+ * Merkliste in diesem Lauf nur leer im Arbeitsspeicher: Der Keystore gab den Schlüssel der verschlüsselten Datei gerade
+ * nicht heraus ([DatabaseEncryptionNotice.storedKept]). Sagen statt still eine leere Merkliste zeigen — der gespeicherte
+ * Stand kommt nach einem Neustart zurück, Änderungen dieses Laufs nicht (wie das Banner im Portfolio).
+ */
+@Composable
+private fun WatchlistStorageNotice(banner: WatchlistBanner) {
+    val kept by DatabaseEncryptionNotice.storedKept.collectAsStateWithLifecycle()
+    val watchlistKept = AppDatabase.DB_NAME in kept
+    val resources = LocalResources.current
+    val closeLabel = stringResource(R.string.action_close)
+    LaunchedEffect(watchlistKept) {
+        if (!watchlistKept) return@LaunchedEffect
+        banner.showAction(resources.getString(R.string.watchlist_storage_kept_in_memory), closeLabel, STORAGE_NOTICE_MILLIS) {}
+    }
+}
+
+/** So lange bleibt der Hinweis «nur im Arbeitsspeicher» stehen (wie im Portfolio). */
+private const val STORAGE_NOTICE_MILLIS = 12_000L
+
+/**
  * Taucht der Puls neu auf (Gruppe gewechselt, Suche zu, zweiter Kurs da), hielte LazyColumn
  * die bisherige erste Zeile per Schlüssel oben fest und der Puls läge unsichtbar darüber.
  * Stand die Liste ganz oben, bleibt sie oben. Gelesen wird nur beim Wechsel und ohne
@@ -111,4 +138,65 @@ internal fun KeepTopWhenPulseAppears(pulseShown: Boolean, listState: LazyListSta
             }
         }
     }
+}
+
+/** Uhr für «vor 2 Min.» der Merkliste: alle 30 Sekunden neu. */
+@Composable
+internal fun rememberWatchlistClock(): Long {
+    var now by remember { mutableLongStateOf(System.currentTimeMillis()) }
+    LaunchedEffect(Unit) {
+        while (true) {
+            delay(30_000)
+            now = System.currentTimeMillis()
+        }
+    }
+    return now
+}
+
+/**
+ * Wege in die Merkliste und hinaus: zurück aus «Alarme» (Aktionsblatt wieder öffnen), Blatt bzw. Aktionsblatt aus
+ * einer Meldung oder Widget-Zeile, Zurück-Taste für Suche, Sortiermodus und Mehrfachauswahl.
+ */
+@Composable
+internal fun WatchlistNavigationEffects(
+    ui: WatchlistScreenState,
+    viewModel: WatchlistViewModel,
+    watches: List<WatchEntity>,
+    groupVisible: List<WatchEntity>,
+    selectedGroup: String?,
+    loaded: Boolean,
+    openWhyWatchId: Long?,
+    onOpenWhyHandled: () -> Unit,
+    focusWatchId: Long?,
+    onFocusHandled: () -> Unit,
+) {
+    // Zurück aus «Alarme» (eigene Seite): Die Merkliste kommt wieder ins Bild — war das
+    // Aktionsblatt der Ausgangspunkt, öffnet es sich wieder
+    LaunchedEffect(Unit) { if (ui.whyFor == null) ui.reopenActions() }
+    // Aus der Alarm-Meldung («Was bewegt sich mit?»): Blatt öffnen, sobald die Merkliste da ist (nicht gehandelte Paare zeigen keins)
+    LaunchedEffect(openWhyWatchId) {
+        val id = openWhyWatchId ?: return@LaunchedEffect
+        ui.whyFor = id
+        onOpenWhyHandled()
+    }
+    // Aus Mitteilung oder Widget-Zeile: Aktionsblatt des Paars, sobald die Merkliste geladen ist (wie iOS focus(on:))
+    LaunchedEffect(focusWatchId, loaded) {
+        val id = focusWatchId ?: return@LaunchedEffect
+        if (!loaded) return@LaunchedEffect
+        val watch = watches.firstOrNull { it.id == id }
+        if (watch != null) {
+            // Paar ausserhalb der gewählten Gruppe: wieder alle zeigen
+            if (selectedGroup != null && groupVisible.none { it.id == id }) viewModel.selectGroup(null)
+            ui.whyFor = null
+            ui.returnToActions = null
+            ui.actionsFor = id
+        }
+        onFocusHandled()
+    }
+    // Zurück-Taste schliesst zuerst die Suche
+    BackHandler(enabled = ui.searching) { ui.closeSearch() }
+    // … bzw. beendet den Sortiermodus (wie «Fertig»)
+    BackHandler(enabled = ui.sortMode && !ui.searching) { ui.sortMode = false }
+    // … bzw. die Mehrfachauswahl
+    BackHandler(enabled = ui.selecting) { ui.endSelection() }
 }

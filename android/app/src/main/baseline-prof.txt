@@ -22,6 +22,7 @@ HSPLcom/cryptochecker/app/domain/watch/**;->**(**)**
 HSPLcom/cryptochecker/app/domain/refresh/**;->**(**)**
 HSPLcom/cryptochecker/app/domain/activity/**;->**(**)**
 Lcom/cryptochecker/app/ui/features/watchlist/WatchlistScreenKt;
+Lcom/cryptochecker/app/ui/features/watchlist/WatchlistScreenBodyKt;
 Lcom/cryptochecker/app/ui/features/watchlist/WatchlistViewModel;
 
 # Daten aus Room (Zwischenspeicher für das erste Bild)

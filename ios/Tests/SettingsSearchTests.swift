@@ -127,4 +127,25 @@ final class SettingsSearchTests: XCTestCase {
         XCTAssertEqual(hits.first, "main.portfolio")
         XCTAssertTrue(hits.contains("page.portfolio"))
     }
+
+    /// «Damit Alarme ankommen», «Diagnose teilen» und «Alarm-Protokoll» sind auffindbar und führen zu ihrer Zeile —
+    /// wie `SettingsSearchAnchorsTest.kt` (Android).
+    @MainActor
+    func testDeliveryDiagnosticsAndAlarmLogAreSearchable() {
+        let items = SettingsSearchCatalog.items(settings: AppSettings())
+        func item(_ id: String) -> SettingsSearchItem? { items.first { $0.entry.id == id } }
+        XCTAssertEqual(item("alarms.delivery")?.target, .page(.alarms, anchor: "alarms.delivery"))
+        XCTAssertEqual(item("alarms.delivery")?.entry.path, L("settings_row_alarms"))
+        XCTAssertEqual(item("about.diagnostics")?.target, .page(.about, anchor: "about.diagnostics"))
+        XCTAssertEqual(item("about.diagnostics")?.entry.path, L("settings_row_about"))
+        // Der Knopf steht in der Karte «Letzte Prüfungen»: dorthin
+        XCTAssertEqual(item("updates.alarm_log")?.target, .page(.updates, anchor: "updates.check_runs"))
+        XCTAssertEqual(item("updates.alarm_log")?.entry.path, L("settings_row_updates"))
+
+        let entries = items.map(\.entry)
+        func first(_ query: String) -> String? { SettingsSearch.search(entries, query: query, locale: Locale.current).first?.id }
+        XCTAssertEqual(first(L("delivery_title")), "alarms.delivery")
+        XCTAssertEqual(first(L("diagnostics_share")), "about.diagnostics")
+        XCTAssertEqual(first(L("alarm_log_title")), "updates.alarm_log")
+    }
 }

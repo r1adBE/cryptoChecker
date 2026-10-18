@@ -403,3 +403,36 @@ private fun StarterRow(
         }
     }
 }
+
+/** Leere Merkliste: Start-Auswahl der grössten Coins ([StarterUiState]); [onStartersAdded] = mindestens ein Paar übernommen. */
+@Composable
+internal fun WatchlistStarterPicker(
+    modifier: Modifier,
+    starter: StarterUiState,
+    viewModel: WatchlistViewModel,
+    onAddClick: () -> Unit,
+    onOpenAlarms: (() -> Unit)?,
+    onStartersAdded: () -> Unit,
+) {
+    StarterPicker(
+        modifier = modifier,
+        coins = starter.coins,
+        deselected = starter.deselected,
+        prices = starter.prices,
+        quote = starter.quote,
+        marketName = starter.marketName,
+        adding = starter.adding,
+        logosReady = starter.logosReady,
+        onLoad = viewModel::loadStarterCoins,
+        onToggle = viewModel::toggleStarter,
+        onToggleAll = viewModel::toggleAllStarters,
+        onAdd = {
+            val count = com.cryptochecker.app.domain.starter.StarterSelection.selected(starter.coins, starter.deselected).size
+            viewModel.addSelectedStarters()
+            // Mitteilungs-Erlaubnis erst nach dem Banner (siehe askNotificationsAfterHint in WatchlistScreen)
+            if (count > 0) onStartersAdded()
+        },
+        onAddClick = onAddClick,
+        onOpenAlarms = onOpenAlarms,
+    )
+}

@@ -188,6 +188,11 @@ internal fun settingsSearchItems(settings: AppSettings): List<SettingsSearchItem
     add("updates.ongoing", stringResource(R.string.settings_ongoing_notifications), updatesPath,
         SettingsSearchTarget.Page(SettingsPage.UPDATES, "updates.ongoing"),
         stringResource(R.string.settings_ongoing_notifications_hint))
+    // Alarm-Protokoll: Knopf in der Karte «Letzte Prüfungen» (ganz unten auf der Seite) — dorthin springen
+    add("updates.alarm_log", stringResource(R.string.alarm_log_title), updatesPath,
+        SettingsSearchTarget.Page(SettingsPage.UPDATES, "updates.check_runs"),
+        stringResource(R.string.alarm_log_open), stringResource(R.string.alarm_log_intro),
+        stringResource(R.string.settings_check_runs_title))
     val watchlist = stringResource(R.string.settings_row_watchlist)
     addPage(SettingsPage.WATCHLIST, watchlist)
     add("watchlist.names", stringResource(R.string.settings_watchlist_names), watchlist,
@@ -248,6 +253,12 @@ internal fun settingsSearchItems(settings: AppSettings): List<SettingsSearchItem
     // 3 Alarme (unter «Allgemein»); Markt-Meldungen und Sprachausgabe unter «Erweitert»
     val alarms = stringResource(R.string.settings_row_alarms)
     addPage(SettingsPage.ALARMS, alarms)
+    // «Damit Alarme ankommen»: Zeile oben auf der Seite, öffnet die Übersicht (Erlaubnis, Kanal, Akku, letzte Prüfung)
+    add("alarms.delivery", stringResource(R.string.delivery_title), alarms,
+        SettingsSearchTarget.Page(SettingsPage.ALARMS, "alarms.delivery"),
+        stringResource(R.string.delivery_notifications), stringResource(R.string.delivery_channel),
+        stringResource(R.string.delivery_battery), stringResource(R.string.delivery_dnd),
+        stringResource(R.string.delivery_last_check))
     add("alarms.price", stringResource(R.string.settings_price_notifications), alarms,
         SettingsSearchTarget.Page(SettingsPage.ALARMS, "alarms.price"),
         stringResource(R.string.settings_price_notifications_hint))
@@ -359,6 +370,9 @@ internal fun settingsSearchItems(settings: AppSettings): List<SettingsSearchItem
     add("about.source", stringResource(R.string.about_source_code), about,
         SettingsSearchTarget.Page(SettingsPage.ABOUT, "about.source"))
     add("about.licenses", stringResource(R.string.about_licenses), about, SettingsSearchTarget.Page(SettingsPage.LICENSES))
+    add("about.diagnostics", stringResource(R.string.diagnostics_share), about,
+        SettingsSearchTarget.Page(SettingsPage.ABOUT, "about.diagnostics"),
+        stringResource(R.string.diagnostics_share_hint))
     // Entwickler nur, wenn freigeschaltet und im Debug-Build (wie die Zeile unter «Erweitert»)
     if (settings.developerUnlocked && BuildConfig.DEBUG) {
         val developer = stringResource(R.string.settings_section_developer)

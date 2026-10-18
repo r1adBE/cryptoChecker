@@ -11,6 +11,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 import javax.inject.Singleton
+import com.cryptochecker.app.domain.logos.alphaNames
+import com.cryptochecker.app.domain.logos.alphaSymbols
+import com.cryptochecker.app.domain.logos.alphaTokens
 
 /**
  * Binance-Alpha-Liste als Ergebnis: Kürzel für «α» ([symbols], gespeichert), Token für die Alpha-Paare von

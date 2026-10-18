@@ -7,7 +7,7 @@ import org.json.JSONObject
 /**
  * Welche Börse ihre Perpetuals mit eigenen Funding-/Open-Interest-Daten versorgt und wie die
  * Herkunft der Kennzahlen zum beobachteten Paar steht. Reines Kotlin (Spiegel: `FuturesSources`
- * in Shared/Insights/FuturesDataSource.swift).
+ * in Shared/Insights/FuturesExchanges.swift).
  */
 object FuturesSources {
     const val BINANCE = "Binance Futures"

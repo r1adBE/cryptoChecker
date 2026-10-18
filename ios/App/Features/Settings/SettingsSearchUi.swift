@@ -168,6 +168,9 @@ enum SettingsSearchCatalog {
              L("settings_live_service"), L("settings_live_websocket")])
         add("updates.background_interval", L("settings_background_interval"), updatesPath,
             .page(.updates, anchor: "updates.background_interval"), [L("settings_ios_background_hint")])
+        // Alarm-Protokoll: Zeile in der Karte «Letzte Prüfungen» (ganz unten auf der Seite) — dorthin springen, wie Android
+        add("updates.alarm_log", L("alarm_log_title"), updatesPath, .page(.updates, anchor: "updates.check_runs"),
+            [L("alarm_log_open"), L("alarm_log_intro"), L("settings_check_runs_title")])
         let watchlist = L("settings_row_watchlist")
         addPage("page.watchlist", .watchlist, watchlist)
         add("watchlist.names", L("settings_watchlist_names"), watchlist, .page(.watchlist, anchor: "watchlist.names"),
@@ -213,6 +216,10 @@ enum SettingsSearchCatalog {
         // 3 Alarme (unter «Allgemein»); Markt-Meldungen und Sprachausgabe unter «Erweitert»
         let alarms = L("settings_row_alarms")
         addPage("page.alarms", .alarms, alarms)
+        // «Damit Alarme ankommen»: Zeile oben auf der Seite, öffnet die Übersicht (Mitteilungen, Hintergrund, letzte Prüfung)
+        add("alarms.delivery", L("delivery_title"), alarms, .page(.alarms, anchor: "alarms.delivery"),
+            [L("delivery_notifications"), L("delivery_background_refresh"), L("delivery_time_sensitive"),
+             L("delivery_last_check")])
         add("alarms.price", L("settings_price_notifications"), alarms, .page(.alarms, anchor: "alarms.price"),
             [L("ios_settings_price_notifications_hint")])
         add("alarms.change", L("settings_notification_change"), alarms, .page(.alarms, anchor: "alarms.change"),
@@ -297,6 +304,8 @@ enum SettingsSearchCatalog {
         add("about.exchange", L("about_request_exchange"), about, .page(.about, anchor: "about.exchange"))
         add("about.source", L("about_source_code"), about, .page(.about, anchor: "about.source"))
         add("about.licenses", L("about_licenses"), about, .page(.licenses, anchor: nil))
+        add("about.diagnostics", L("diagnostics_share"), about, .page(.about, anchor: "about.diagnostics"),
+            [L("diagnostics_share_hint")])
         // Entwickler nur, wenn freigeschaltet und im Debug-Build (wie die Zeile unter «Erweitert»)
         if settings.developerUnlocked && DeveloperOptions.available {
             let developer = L("settings_section_developer")

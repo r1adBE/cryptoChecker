@@ -1,8 +1,10 @@
 package com.cryptochecker.app.widget
 
 import com.cryptochecker.app.data.SparklineRepository
+import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.portfolio.FxRateSource
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmChecker
+import com.cryptochecker.app.data.portfolio.PortfolioDatabase
 import com.cryptochecker.app.data.portfolio.PortfolioHistorySource
 import com.cryptochecker.app.data.portfolio.PortfolioPriceSource
 import com.cryptochecker.app.data.portfolio.PortfolioPrices
@@ -175,6 +177,9 @@ class PortfolioSnapshotUpdater @Inject constructor(
          */
         displayFx: PortfolioDisplayFx? = null,
     ): PortfolioSnapshot? = withContext(Dispatchers.IO) {
+        // Portfolio nur leer im Arbeitsspeicher, obwohl die Datei mit dem gespeicherten Stand da ist (Schlüssel gerade
+        // nicht lesbar): nichts aufnehmen — sonst zeigte das Widget ein leeres Portfolio und der Verlauf bekäme eine Null
+        if (DatabaseEncryptionNotice.isStoredKept(PortfolioDatabase.DB_NAME)) return@withContext null
         val settings = settingsRepository.current()
         val basis = settings.changeBasis.storage
         // Beobachtete Adress-Guthaben: zählen in Heute, 7 T / 30 T / 1 J und im 24-h-Verlauf erst ab ihrer
