@@ -50,7 +50,14 @@ jobs:
       - name: Unit tests
         run: |
           chmod +x gradlew
-          ./gradlew test --stacktrace
+          set -o pipefail
+          ./gradlew test --stacktrace 2>&1 | tee "$RUNNER_TEMP/gradle-test.log"
+
+      # Compile errors and failed tests as annotations (the raw log is not always reachable)
+      - name: Unit test errors
+        if: failure()
+        run: |
+          grep -E '^e: |FAILED|Exception|expected:' "$RUNNER_TEMP/gradle-test.log" | head -60 | sed 's/^/::error::/' || true
 
       # Instrumented tests (app/src/androidTest: CoreFlowTest, UiFlowsTest, database tests) are only
       # compiled here: running them needs an emulator (locally: ./gradlew :app:connectedDebugAndroidTest;

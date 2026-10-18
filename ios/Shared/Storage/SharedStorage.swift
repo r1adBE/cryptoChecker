@@ -54,11 +54,7 @@ enum SharedStorage {
     private static let missingAppGroupReport: Void = {
         UserDefaults.standard.set(true, forKey: fallbackUsedKey)
         AppLog.storage.error("App Group nicht verfügbar – Ersatzordner, Widgets bleiben leer")
-        #if DEBUG
-        if ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] == nil {
-            assertionFailure("App Group \(appGroup) fehlt: Signing & Capabilities → App Groups für App und Widgets")
-        }
-        #endif
+        // Kein assertionFailure: unsignierte Builds (CI, UI-Tests im Simulator) haben keine App Group
     }()
 
     private static func reportMissingAppGroup() {
