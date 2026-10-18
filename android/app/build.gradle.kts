@@ -85,7 +85,7 @@ android {
     // (die App selbst enthält sie nicht); iOS bekommt dieselben über tools/gen_xcodeproj.py.
     sourceSets {
         getByName("androidTest") {
-            assets.srcDir("$rootDir/testdata/uitest")
+            assets.directories.add("$rootDir/testdata/uitest")
         }
     }
 
