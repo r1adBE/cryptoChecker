@@ -36,7 +36,7 @@ class StoredErrorTest {
     @Test
     fun exchangeDetailCases() {
         @Suppress("UNCHECKED_CAST")
-        val data = ParityJson.load("exchange_detail.json")
+        val data = ParityJson.load("stored_error_detail.json")
         @Suppress("UNCHECKED_CAST")
         for (c in data["cases"] as List<Map<String, Any?>>) {
             val out = StoredError.exchangeDetail(c["input"] as String?)

@@ -34,7 +34,7 @@ final class StoredErrorTests: XCTestCase {
 
     /// Kurzer Börsentext für den Bericht; Fälle `exchange_detail.json` (Android: `StoredErrorTest.kt`).
     func testExchangeDetailCases() throws {
-        let data = try S.fixture("exchange_detail")
+        let data = try S.fixture("stored_error_detail")
         for c in S.list(data["cases"]) {
             let out = StoredError.exchangeDetail(c["input"] as? String)
             XCTAssertEqual(out, c["expected"] as? String, "\(c["name"] ?? "")")
