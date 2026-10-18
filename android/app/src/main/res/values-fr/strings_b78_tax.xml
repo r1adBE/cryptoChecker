@@ -8,6 +8,6 @@
     <string name="tax_summary_at_staking_zero_cost">Staking avant le 1.3.2022 : coût d’acquisition fixé à 0 – à vérifier avec un professionnel</string>
     <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
     <string name="tax_summary_window_open">La règle des 30 jours peut encore modifier ces chiffres (achats jusqu’au %1$s)</string>
-    <!-- UK Erlöse: über 50 000 GBP Meldung an HMRC nötig, auch ohne steuerbaren Gewinn -->
-    <string name="tax_summary_uk_hmrc_report">Produits de cession supérieurs à 50 000 £ : déclaration à HMRC obligatoire, même sans plus-value imposable</string>
+    <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
+    <string name="tax_summary_uk_hmrc_report">Produits de cession avant frais supérieurs au seuil de déclaration (50 000 £ ; 2020/21–2022/23 : 49 200 £) : déclaration à HMRC si tu es inscrit au Self Assessment, même sans plus-value imposable</string>
 </resources>

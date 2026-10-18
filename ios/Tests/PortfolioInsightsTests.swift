@@ -125,6 +125,18 @@ final class PortfolioAlarmLogicTests: XCTestCase {
         XCTAssertEqual(run(alarm(.CHANGE_UP, 5, currency: nil), [reading(1000)]), 0)
     }
 
+    /// «Heute %» gerundet wie die Kursalarme: 3.00 → 3.09 ergibt 2.9999999999999956 % und meldet bei «+3 %». Wie Android
+    /// `changeAlarm_comparesRoundedPercent`.
+    func testChangeAlarmComparesRoundedPercent() {
+        let change = (3.09 - 3.0) / 3.0 * 100
+        XCTAssertLessThan(change, 3)
+        XCTAssertEqual(PortfolioAlarmLogic.decide(alarm(.CHANGE_UP, 3, currency: nil), reading(1000, change: change),
+                                                  now: start, cooldownMinutes: 0), .fire(3))
+        XCTAssertEqual(PortfolioAlarmLogic.decide(alarm(.CHANGE_DOWN, 3, currency: nil), reading(1000, change: -change),
+                                                  now: start, cooldownMinutes: 0), .fire(3))
+        XCTAssertEqual(PortfolioAlarmLogic.measure(alarm(.CHANGE_UP, 3, currency: nil), reading(1000, change: change)), 3)
+    }
+
     func testCooldown() {
         let values: [Double] = [101, 90, 101]
         XCTAssertEqual(run(alarm(.VALUE_ABOVE, 100), values.map { reading($0) }), 2)

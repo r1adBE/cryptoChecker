@@ -45,10 +45,10 @@ enum PortfolioWidgetText {
         case .week: label = L("portfolio_history_period_7d")
         case .total: label = L("ledger_since_purchase_spoken")
         }
-        let value = f.amount.map { hidden ? L("a11y_amount_hidden") : signedAmount($0, currency: currency) }
+        let value = f.amount.map { hidden ? L("a11y_amount_hidden") : signedAmount($0, currency: f.unit ?? currency) }
         let change = f.percent.flatMap { A11y.change($0) }
         if value == nil && change == nil { return L("portfolio_card_figure_none_a11y", label) }
-        return label + ": " + A11y.join([change, value])
+        return label + ": " + A11y.join([change, value, f.incomplete ? L("portfolio_export_incomplete") : nil])
     }
 
     /// VoiceOver einer Zeile der Liste: «BTC 7’420.10 CHF, 60.1% des Portfolios, gestiegen um 125.00 CHF,

@@ -8,6 +8,6 @@
     <string name="tax_summary_at_staking_zero_cost">Staking 2022.03.01. előtt: beszerzési érték 0-nak véve – egyeztesd szakemberrel</string>
     <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
     <string name="tax_summary_window_open">A 30 napos szabály még módosíthatja ezeket a számokat (vételek eddig: %1$s)</string>
-    <!-- UK Erlöse: über 50 000 GBP Meldung an HMRC nötig, auch ohne steuerbaren Gewinn -->
-    <string name="tax_summary_uk_hmrc_report">50 000 £ feletti eladási bevétel: bejelentés a HMRC-nek kötelező, adóköteles nyereség nélkül is</string>
+    <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
+    <string name="tax_summary_uk_hmrc_report">Díjak előtti eladási bevétel a bejelentési határ felett (50 000 £; 2020/21–2022/23: 49 200 £): bejelentés a HMRC-nek, ha regisztráltál a Self Assessmentre, adóköteles nyereség nélkül is</string>
 </resources>

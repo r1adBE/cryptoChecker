@@ -26,6 +26,8 @@ extension TaxCsvTexts {
             t.incomeStaking = L("tax_export_at_income_staking")
             t.totalInterest = L("tax_export_at_total_interest")
             t.totalStaking = L("tax_export_at_total_staking")
+            // Zufluss vor dem 1.3.2022 (vor § 27b EStG) — eigener Vermerk statt Zins/Staking
+            t.incomeBeforeNewLaw = L("tax_export_at_income_before_new_law")
         }
         return t
     }
@@ -52,6 +54,7 @@ extension TaxLine {
         case .PROCEEDS: return "tax_line_proceeds"
         case .INCOME: return "tax_line_income"
         case .AT_INTEREST: return "tax_line_at_interest"
+        case .AT_INTEREST_OLD: return "tax_line_at_interest_old"
         case .FR_OUTFLOW: return "tax_line_fr_outflow"
         case .WITHDRAWAL_FEES: return "tax_line_withdrawal_fees"
         case .TRANSFER_FEES: return "tax_line_transfer_fees"
@@ -131,6 +134,7 @@ extension TaxSummaryTexts {
                 .WITHDRAWAL_FEE_INFO: L("tax_summary_withdrawal_fee_info"),
                 .TRANSFER_FEE_INFO: L("tax_summary_transfer_fee_info"),
                 .AT_INTEREST_INCOME: L("tax_summary_at_interest_income"),
+                .AT_INTEREST_OLD_LAW: L("tax_summary_at_interest_old_law"),
                 .AT_TRANSITION_2021: L("tax_summary_at_transition_2021"),
                 .AT_WITHOUT_OPTION: L("tax_summary_at_without_option"),
                 .AT_STAKING_ZERO_COST: L("tax_summary_at_staking_zero_cost"),

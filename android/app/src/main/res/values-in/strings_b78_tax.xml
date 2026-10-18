@@ -8,6 +8,6 @@
     <string name="tax_summary_at_staking_zero_cost">Staking sebelum 1.3.2022: biaya perolehan ditetapkan 0 – periksa dengan profesional</string>
     <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
     <string name="tax_summary_window_open">Aturan 30 hari masih dapat mengubah angka ini (pembelian hingga %1$s)</string>
-    <!-- UK Erlöse: über 50 000 GBP Meldung an HMRC nötig, auch ohne steuerbaren Gewinn -->
-    <string name="tax_summary_uk_hmrc_report">Hasil penjualan di atas £50.000: wajib lapor ke HMRC, meskipun tanpa keuntungan kena pajak</string>
+    <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
+    <string name="tax_summary_uk_hmrc_report">Hasil penjualan sebelum biaya di atas batas pelaporan (£50.000; 2020/21–2022/23: £49.200): lapor ke HMRC jika kamu terdaftar untuk Self Assessment, meskipun tanpa keuntungan kena pajak</string>
 </resources>

@@ -409,6 +409,9 @@ final class PortfolioWidgetChartTests: XCTestCase {
         let json = #"{"total":900,"changeAmount":9,"changePercent":1,"currency":"CHF","updatedAt":1,"empty":false}"#
         let s = try JSONDecoder().decode(PortfolioWidgetSnapshot.self, from: Data(json.utf8))
         XCTAssertNil(s.unrealized)
+        XCTAssertNil(s.unrealizedDisplay)
+        XCTAssertNil(s.weekDisplay)
+        XCTAssertNil(s.displayFx)
         XCTAssertTrue(s.topPositions.isEmpty)
         // Gesamt unbekannt, Heute bleibt
         let figures = PortfolioWidgetViews.figures(s)
@@ -416,21 +419,53 @@ final class PortfolioWidgetChartTests: XCTestCase {
         XCTAssertEqual(figures[0].amount ?? .nan, 9, accuracy: d)
     }
 
-    func testFiguresConvertUsdtValuesWithSnapshotRate() {
+    /// In der Anzeigewährung wie die Gesamtkarte: «Seit Kauf» und «7 T» aus den gespeicherten Werten der Anzeigewährung,
+    /// nie USDT × Kurs des Stands (der Einstand gilt zum Kurs der Erwerbstage). Wie Android
+    /// `figuresInDisplayCurrencyUseStoredDisplayValues`.
+    func testFiguresInDisplayCurrencyUseStoredDisplayValues() {
         var s = snapshot(periodChanges: ["7": PortfolioWidgetChange(amount: 100, percent: 2)])
         s.unrealized = PortfolioWidgetChange(amount: -50, percent: -5)
+        s.unrealizedDisplay = PortfolioWidgetChange(amount: -80, percent: -8.5, skipped: ["SOL"])
+        s.weekDisplay = PortfolioWidgetChange(amount: 95, percent: 2.1)
         let figures = PortfolioWidgetViews.figures(s)
         XCTAssertEqual(figures.map(\.kind), [.today, .week, .total])
         XCTAssertEqual(figures[0].amount ?? .nan, 9, accuracy: d)
         XCTAssertEqual(figures[0].percent ?? .nan, 1, accuracy: d)
-        XCTAssertEqual(figures[1].amount ?? .nan, 90, accuracy: d)
-        XCTAssertEqual(figures[1].percent ?? .nan, 2, accuracy: d)
-        XCTAssertEqual(figures[2].amount ?? .nan, -45, accuracy: d)
-        XCTAssertEqual(figures[2].percent ?? .nan, -5, accuracy: d)
+        // 7 T und Gesamt wie gespeichert (nicht 100 × 0.9 bzw. −50 × 0.9)
+        XCTAssertEqual(figures[1].amount ?? .nan, 95, accuracy: d)
+        XCTAssertEqual(figures[1].percent ?? .nan, 2.1, accuracy: d)
+        XCTAssertNil(figures[1].unit)
+        XCTAssertEqual(figures[2].amount ?? .nan, -80, accuracy: d)
+        XCTAssertEqual(figures[2].percent ?? .nan, -8.5, accuracy: d)
+        // SOL fehlt (kein Devisenkurs am Kauftag): «unvollständig»
+        XCTAssertTrue(figures[2].incomplete)
         // «Nur USDT»: Werte in USDT
         let usdt = PortfolioWidgetViews.figures(PortfolioWidgetChart.inUsdt(s))
         XCTAssertEqual(usdt[0].amount ?? .nan, 10, accuracy: d)
         XCTAssertEqual(usdt[1].amount ?? .nan, 100, accuracy: d)
+        XCTAssertNil(usdt[1].unit)
+        XCTAssertEqual(usdt[2].amount ?? .nan, -50, accuracy: d)
+    }
+
+    /// Ohne Werte der Anzeigewährung: «Seit Kauf» «—», «7 T» in USDT mit Einheit «USDT». Wie Android
+    /// `figuresWithoutDisplayValuesNeverScaleUsdt`.
+    func testFiguresWithoutDisplayValuesNeverScaleUsdt() {
+        var s = snapshot(periodChanges: ["7": PortfolioWidgetChange(amount: 100, percent: 2)])
+        s.unrealized = PortfolioWidgetChange(amount: -50, percent: -5)
+        let figures = PortfolioWidgetViews.figures(s)
+        XCTAssertEqual(figures[1].amount ?? .nan, 100, accuracy: d)
+        XCTAssertEqual(figures[1].percent ?? .nan, 2, accuracy: d)
+        XCTAssertEqual(figures[1].unit, "USDT")
+        XCTAssertNil(figures[2].amount)
+        XCTAssertNil(figures[2].percent)
+        XCTAssertFalse(figures[2].incomplete)
+        // Andere Währung eingestellt (umgerechnet beim Zeichnen): Werte der alten Währung gelten nicht
+        var shown = snapshot()
+        shown.unrealizedDisplay = PortfolioWidgetChange(amount: -80, percent: -8.5)
+        shown.weekDisplay = PortfolioWidgetChange(amount: 95, percent: 2.1)
+        let rebased = PortfolioWidgetChart.rebased(shown, currency: "EUR", rate: 0.95)
+        XCTAssertNil(rebased.unrealizedDisplay)
+        XCTAssertNil(rebased.weekDisplay)
     }
 
     func testMissingFiguresAreUnknown() {

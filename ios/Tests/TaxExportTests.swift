@@ -165,6 +165,26 @@ final class TaxExportTests: XCTestCase {
         XCTAssertEqual(lines(TaxExport.incomeCsv(rows, texts: texts(d), header: header)), a["neutral"] as? [String], "neutral")
     }
 
+    /// Einkünfte-CSV AT: Zufluss vor dem 1.3.2022 (vor § 27b EStG) — Vermerk «vor 1.3.2022 – mit Fachperson prüfen» statt
+    /// Zins/Staking, Summen getrennt wie bisher. Wie Android.
+    func testAtIncomeBeforeNewLawIsMarked() throws {
+        let d = try data()
+        let zone = try XCTUnwrap(TimeZone(identifier: d["zone"] as? String ?? ""))
+        let header = d["header"] as? [String] ?? []
+        let a = try XCTUnwrap(d["atIncome"] as? [String: Any])
+        let b = try XCTUnwrap(d["atIncomeBefore2022"] as? [String: Any])
+        let rows = TaxExport.incomeRows(trades(b), period: TaxTemplate.NEUTRAL.period(2022), timeZone: zone,
+                                        currency: b["currency"] as? String ?? "", rates: nil)
+        let x = a["atTexts"] as? [String: Any] ?? [:]
+        var at = texts(d)
+        at.incomeInterest = x["incomeInterest"] as? String ?? ""
+        at.incomeStaking = x["incomeStaking"] as? String ?? ""
+        at.totalInterest = x["totalInterest"] as? String ?? ""
+        at.totalStaking = x["totalStaking"] as? String ?? ""
+        at.incomeBeforeNewLaw = b["incomeBeforeNewLaw"] as? String ?? ""
+        XCTAssertEqual(lines(TaxExport.incomeCsv(rows, texts: at, header: header)), b["at"] as? [String], "AT")
+    }
+
     func testCsvCases() throws {
         let d = try data()
         let zone = try XCTUnwrap(TimeZone(identifier: d["zone"] as? String ?? ""))
@@ -309,7 +329,8 @@ final class TaxExportTests: XCTestCase {
     /// Build 47 (B4): Gewinn 1020 ≤ 1 Jahr und Auszahlungsgebühr 25 USDT — die Gebühr ist keine Veräusserung: eigener Posten,
     /// NICHT in der Summe § 23 → 1020 ≥ 1000 «erreicht» (vorher 995 «unter der Freigrenze»). Wie Android.
     /// Build 56/57: Gebühr in USDT/Fiat einer Auszahlung bzw. Umbuchung bei UK, US, CA, AU, JP nur Information (Vermerk,
-    /// nicht in der Summe; UK HMRC CRYPTO22150), DE und Neutral unverändert. Wie Android.
+    /// nicht in der Summe; UK HMRC CRYPTO22150), DE und Neutral unverändert. FR: Auszahlungsgebühr ebenso nur Information
+    /// (wie in der Jahresübersicht). Wie Android.
     func testWithdrawalFeeInfoIsNotInTotals() throws {
         let d = try data()
         let w = try XCTUnwrap(d["withdrawalFeeInfo"] as? [String: Any])
@@ -323,8 +344,10 @@ final class TaxExportTests: XCTestCase {
         for c in S.list(w["cases"]) {
             let tpl = try XCTUnwrap(TaxTemplate(rawValue: c["template"] as? String ?? ""))
             let method = try XCTUnwrap(TaxMethod(rawValue: c["method"] as? String ?? ""))
-            // Kalenderjahr für alle (UK-Steuerjahr ab 6. April enthielte die Fälle nicht)
-            let rows = TaxExport.gainRows(txs, method: method, period: TaxTemplate.NEUTRAL.period(year), timeZone: zone,
+            // Kalenderjahr für alle (UK-Steuerjahr ab 6. April enthielte die Fälle nicht); ein Fall mit eigenen
+            // Transaktionen (FR: Auszahlung mit Wert für die Kürzung der Erwerbspreis-Summe) nimmt diese
+            let caseTxs = c["trades"] != nil ? trades(c) : txs
+            let rows = TaxExport.gainRows(caseTxs, method: method, period: TaxTemplate.NEUTRAL.period(year), timeZone: zone,
                                           currency: "USD", rates: nil, rules: tpl.eventRules)
             let info = Int(int64(c["infoRows"]))
             XCTAssertEqual(rows.filter(\.feeInfoOnly).count, info, "\(tpl) infoRows")

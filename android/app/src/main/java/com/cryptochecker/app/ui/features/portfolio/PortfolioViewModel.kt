@@ -16,6 +16,8 @@ import com.cryptochecker.app.domain.portfolio.CostMethod
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioChange
 import com.cryptochecker.app.domain.portfolio.PortfolioCompare
+import com.cryptochecker.app.domain.portfolio.PortfolioDisplayFigures
+import com.cryptochecker.app.domain.portfolio.PortfolioDisplayFx
 import com.cryptochecker.app.domain.portfolio.PortfolioExchangeRoute
 import com.cryptochecker.app.domain.portfolio.PortfolioHistory
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryFx
@@ -61,6 +63,8 @@ internal data class PortfolioWidgetInput(
     val prices: PortfolioPrices,
     val currency: String,
     val fxRate: Double?,
+    /** Merkzettel für «Seit Kauf»/«7 T» des Widgets in der Anzeigewährung ([PortfolioViewModel.widgetDisplayFx]). */
+    val displayFx: PortfolioDisplayFx? = null,
 )
 
 /**
@@ -323,6 +327,32 @@ class PortfolioViewModel @Inject constructor(
         )
     }.flowOn(Dispatchers.Default).stateIn(viewModelScope, SharingStarted.Eagerly, null)
 
+    /**
+     * Merkzettel fürs Portfolio-Widget ([PortfolioDisplayFx]): Einstand je Coin zum Kurs der Erwerbstage ([costFx]) und
+     * die Tagesfaktoren der letzten Tage wie «7 T» der Karte ([periodChange]) — damit jede Aufnahme, auch im
+     * Hintergrund, «Seit Kauf» und «7 T» in der Anzeigewährung wie die Karte zeigt statt USDT × heutiger Kurs. null in
+     * USDT bzw. solange die Kurse laden. Ohne den Live-Kurs USDT/USD (gilt erst ab heute, kommt aus der Aufnahme).
+     */
+    internal val widgetDisplayFx: StateFlow<PortfolioDisplayFx?> = combine(
+        summary, currency, costFx, _fxRate, combine(_fxSeries, _closes) { series, loaded -> series to loaded },
+    ) { s, code, figures, fxRate, (fxSeries, loaded) ->
+        if (s == null || figures == null) return@combine null
+        val today = PortfolioHistory.utcToday()
+        val from = today - PortfolioDisplayFigures.MEMO_DAYS
+        val rate = fxRate?.takeIf { PortfolioHistoryFx.convertsUsdt(code, usdtMarket = true) && it > 0.0 && it.isFinite() }
+        // Wie «7 T» der Karte: Devisen-Tageskurse, die bis zum ersten gemerkten Tag zurückreichen (USD: an jedem Tag 1)
+        val rates = if (PortfolioHistoryFx.convertsUsdtAsUsd(code)) {
+            fxSeries?.takeIf { it.currency == code && !it.from.isAfter(LocalDate.ofEpochDay(from)) }?.rates?.takeIf { it.isNotEmpty() }
+        } else {
+            PortfolioHistoryFx.usdParity(from - PortfolioHistoryFx.LEAD_DAYS, today)
+        }
+        val usdt = loaded?.daily?.usdtUsd
+        val dayFactor = if (rate != null && rates != null && usdt != null) {
+            PortfolioHistoryFx.rateFunction(rates, rate, today, com.cryptochecker.app.domain.portfolio.UsdtUsdRates(null, usdt))
+        } else null
+        PortfolioDisplayFigures.memo(code, figures, s.open, dayFactor, today)
+    }.distinctUntilChanged().flowOn(Dispatchers.Default).stateIn(viewModelScope, SharingStarted.Eagerly, null)
+
     val weekChange: StateFlow<TodayChange?> = periodChange(PortfolioPeriodChange.DAYS, display = true)
 
     /** «7 T» rein in USDT (ohne Devisenkurs) — eigene Zahl neben der Anzeige in der Währung. */
@@ -516,8 +546,9 @@ class PortfolioViewModel @Inject constructor(
         }
         // Portfolio-Widget: jede neue Berechnung (Transaktionen, Kurse, Währung) als Momentaufnahme
         viewModelScope.launch {
-            combine(calcTransactions.filterNotNull(), _prices, currency, _fxRate) { txs, p, code, fx ->
-                PortfolioWidgetInput(txs, p, code, fx)
+            // Merkzettel der Anzeigewährung mit: kommen die Kurse dafür später, nimmt das Widget gleich neu auf
+            combine(calcTransactions.filterNotNull(), _prices, currency, _fxRate, widgetDisplayFx) { txs, p, code, fx, display ->
+                PortfolioWidgetInput(txs, p, code, fx, display)
             }
                 .distinctUntilChanged()
                 .collect { input ->
@@ -531,7 +562,12 @@ class PortfolioViewModel @Inject constructor(
                         if (_todayPercent.value == null) showStoredToday(input.fxRate)
                         return@collect
                     }
-                    safe { snapshotUpdater.record(input.transactions, input.prices.prices, input.currency, input.fxRate, routing = input.prices) }
+                    safe {
+                        snapshotUpdater.record(
+                            input.transactions, input.prices.prices, input.currency, input.fxRate, routing = input.prices,
+                            displayFx = input.displayFx,
+                        )
+                    }
                         ?.let { snapshot ->
                             // Betrag in der Anzeigewährung der Aufnahme → USDT (wie der Gesamtwert): Faktor der Aufnahme
                             // (Devisenkurs × USDT/USD, [snapshotUsdtFactor])

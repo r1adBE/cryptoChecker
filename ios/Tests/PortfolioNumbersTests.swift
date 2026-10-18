@@ -603,6 +603,48 @@ final class PortfolioNumbersTests: XCTestCase {
         XCTAssertTrue(PortfolioHistoryFx.fxChunks(from: to, to: from).isEmpty)
     }
 
+    /// Gleich lange Stücke: kein Rest von ein, zwei Tagen (Wochenende/heute ohne EZB-Kurs liesse die ganze Reihe
+    /// scheitern). Wie Android `fxChunksAreEqualParts`.
+    func testFxChunksAreEqualParts() {
+        func lengths(_ from: LocalDay, _ to: LocalDay) -> [Int] {
+            PortfolioHistoryFx.fxChunks(from: from, to: to).map { $0.to.epochDay - $0.from.epochDay + 1 }
+        }
+        let from = LocalDay(2023, 1, 1)
+        // 1375 Tage → 4 Stücke 344/344/344/343 (vorher 365/365/365/280)
+        XCTAssertEqual(lengths(from, LocalDay(2026, 10, 6)), [344, 344, 344, 343])
+        // 367 Tage → 184/183 statt 365 + 2
+        XCTAssertEqual(lengths(LocalDay(2025, 10, 5), LocalDay(2026, 10, 6)), [184, 183])
+        XCTAssertEqual(lengths(from, from.plusDays(365)), [183, 183])
+        XCTAssertEqual(lengths(from, from.plusDays(729)), [365, 365])
+        XCTAssertEqual(lengths(from, from.plusDays(730)), [244, 244, 243])
+    }
+
+    /// Geladene Devisenkurse gelten bis zum nächsten UTC-Tag; die Abfrage endet am späteren von Geräte- und UTC-Tag. Wie
+    /// Android `fxLoadOutdatedOnNewUtcDay`.
+    func testFxLoadOutdatedOnNewUtcDay() {
+        let day = LocalDay(2026, 10, 18)
+        XCTAssertFalse(PortfolioHistoryFx.fxLoadOutdated(loadedTo: day, utcToday: day))
+        XCTAssertTrue(PortfolioHistoryFx.fxLoadOutdated(loadedTo: day, utcToday: day.plusDays(1)))
+        XCTAssertFalse(PortfolioHistoryFx.fxLoadOutdated(loadedTo: day.plusDays(1), utcToday: day))
+        // Westlich von UTC am Abend: Gerätetag noch gestern, UTC schon heute → bis heute abfragen
+        XCTAssertEqual(PortfolioHistoryFx.fxRequestEnd(localToday: day.plusDays(-1), utcToday: day), day)
+        XCTAssertEqual(PortfolioHistoryFx.fxRequestEnd(localToday: day.plusDays(1), utcToday: day), day.plusDays(1))
+    }
+
+    /// Stück ohne Werktag (nur Sa/So bzw. nur heute): Fehlantwort zählt als leer. Wie Android `chunkWithoutBusinessDayMayFail`.
+    func testChunkWithoutBusinessDayMayFail() {
+        let fri = LocalDay(2026, 10, 16)
+        let sat = fri.plusDays(1)
+        let sun = fri.plusDays(2)
+        let mon = fri.plusDays(3)
+        XCTAssertFalse(PortfolioHistoryFx.chunkMayHaveRates(from: sat, to: sun, today: sun))
+        XCTAssertFalse(PortfolioHistoryFx.chunkMayHaveRates(from: sat, to: mon, today: mon))
+        XCTAssertFalse(PortfolioHistoryFx.chunkMayHaveRates(from: fri, to: fri, today: fri))
+        XCTAssertTrue(PortfolioHistoryFx.chunkMayHaveRates(from: mon, to: mon, today: sun))
+        XCTAssertTrue(PortfolioHistoryFx.chunkMayHaveRates(from: fri, to: sat, today: sat))
+        XCTAssertFalse(PortfolioHistoryFx.chunkMayHaveRates(from: sun, to: sat, today: sun))
+    }
+
     /// USDT zum Marktkurs (Owner-Entscheid Okt. 2026): jeder Tag × USDT/USD-Schluss DES Tags, heute × Live-Kurs; ein Tag
     /// ohne Schluss rechnet mit 1 und markiert die Näherung (`usdtApproximate`). Wie Android.
     func testUsdtAtMarketScalesEachDayAndFlagsMissingClose() {

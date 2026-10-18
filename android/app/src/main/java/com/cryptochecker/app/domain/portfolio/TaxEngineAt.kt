@@ -146,8 +146,8 @@ internal fun TaxEngines.atSplit(real: List<PortfolioTrade>, zone: ZoneId, lost: 
         if (rest.signum() > 0) newPieces += TaxPiece(rest, null, uncovered = true)
         val inWallet: (TaxPiece, PortfolioDisposal) -> PortfolioDisposal = { _, d -> d.copy(wallet = c.wallet) }
         val newBase = if (oldLaw) s.proceeds else s.gross
-        return emit(coin, s, oldPieces, oldShare(s.proceeds), inWallet) +
-            emit(coin, s, newPieces, newBase?.let { it - oldShare(it)!! }, inWallet)
+        return emit(coin, s, oldPieces, oldShare(s.proceeds), extra = inWallet) +
+            emit(coin, s, newPieces, newBase?.let { it - oldShare(it)!! }, extra = inWallet)
     }
 
     /** Netzwerkgebühr: zuerst Altbestand (Einstand auf den nächsten Altbestand-Posten mit Kaufpreis), dann Neubestand. */
@@ -224,14 +224,14 @@ internal fun TaxEngines.atSplit(real: List<PortfolioTrade>, zone: ZoneId, lost: 
                     list += piecesOf(withFees(taken, fees), oldHolding = false)
                     val rest = s.qty - oldQty - taken.removed
                     if (rest.signum() > 0) list += TaxPiece(rest, null, uncovered = true)
-                    out += emit(coin, s, list, s.proceeds, inWallet)
+                    out += emit(coin, s, list, s.proceeds, extra = inWallet)
                     carries[s.id] = Carry(s.qty, oldQty, taken, s.gross, true)
                 } else {
                     // Tausch ab 1.3.2022: nur der Altbestand-Teil ist eine Veräusserung (§ 31 EStG a. F., Rz 6103k); Neubestand
                     // geht steuerneutral über (§ 27b Abs. 3 Z 2 EStG) — auch in einen Stablecoin (USDT, USDC …): der
                     // Einstand geht mit, steuerbar erst der Verkauf gegen Euro
                     val proceedsOld = s.proceeds?.let { p -> if (oldQty.compareTo(s.qty) == 0) p else p.multiply(oldQty).divide(s.qty, mc) }
-                    if (oldQty.signum() > 0) out += emit(coin, s, oldPieces, proceedsOld, inWallet)
+                    if (oldQty.signum() > 0) out += emit(coin, s, oldPieces, proceedsOld, extra = inWallet)
                     carries[s.id] = Carry(s.qty, oldQty, taken, s.gross, false)
                 }
             }

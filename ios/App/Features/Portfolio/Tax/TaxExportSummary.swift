@@ -33,6 +33,9 @@ enum TaxSummaryNote: String, Sendable, Equatable, Hashable {
     /// AT Zinsen (`TaxLine.AT_INTEREST`): beim Zufluss laufende Einkünfte aus Kryptowährungen (Entgelt für die Überlassung,
     /// § 27b Abs. 2 Z 1 EStG) zum Sondersteuersatz 27,5 %; die Coins behalten diesen Wert als Anschaffungskosten (BMF).
     case AT_INTEREST_INCOME
+    /// AT Zinsen vor dem 1.3.2022 (`TaxLine.AT_INTEREST_OLD`): § 27b EStG gilt erst für Zuflüsse ab dem 1.3.2022 — davor
+    /// alte Rechtslage (Tarif), nicht im Sondersteuersatz 27,5 %. Wie Android.
+    case AT_INTEREST_OLD_LAW
     /// UK, US, CA, AU, JP Auszahlungsgebühren in USDT/Fiat (`TaxTemplate.quoteFeeIsInfo`): kein Verlust, nur Information
     /// (UK: HMRC CRYPTO22150; sonst keine Regel, die sie abziehbar macht).
     case WITHDRAWAL_FEE_INFO
@@ -52,8 +55,8 @@ enum TaxSummaryNote: String, Sendable, Equatable, Hashable {
     /// UK/CA netto (`TaxLine.NET`): 30-Tage-Fenster nach dem Steuerjahr noch offen — Käufe bis `TaxSummaryLine.noteDate`
     /// können die Zahlen noch ändern; Text mit Platzhalter `TaxExport.noteDateToken`. Wie Android.
     case WINDOW_OPEN
-    /// UK Erlöse (`TaxLine.PROCEEDS`): über `TaxTemplate.ukReportProceedsGbp` — Meldung an HMRC nötig, auch ohne
-    /// steuerbaren Gewinn. Wie Android.
+    /// UK Erlöse (`TaxLine.PROCEEDS`): Erlöse vor Gebühren über `TaxTemplate.ukReportProceedsGbp` — Meldung an HMRC, falls
+    /// für Self Assessment registriert, auch ohne steuerbaren Gewinn. Wie Android.
     case UK_HMRC_REPORT
 }
 
@@ -69,6 +72,9 @@ enum TaxLine: String, CaseIterable, Sendable {
     /// AT: Zinsen aus Lending (`TaxIncomeRow.interest`) zum Wert beim Zufluss — zählen (Vermerk `.AT_INTEREST_INCOME`); nicht
     /// in `INCOME` (dort nur Belohnungen mit Anschaffungskosten 0, Information).
     case AT_INTEREST
+    /// AT: Zinsen aus Lending mit Zufluss vor dem 1.3.2022 — alte Rechtslage (Tarif), nicht im Sondersteuersatz (`AT_RATE`);
+    /// Vermerk `.AT_INTEREST_OLD_LAW`. Wie Android.
+    case AT_INTEREST_OLD
     /// FR: Abgänge ohne Verkauf im Jahr — Kürzung der Erwerbspreis-Summe (`TaxOutflow`); das Jahr gilt als unvollständig.
     case FR_OUTFLOW
     /// DE, AT: Gebühren von Auszahlungen — eigener Posten, nicht mit den Veräusserungen verrechnet.
@@ -94,7 +100,7 @@ enum TaxLine: String, CaseIterable, Sendable {
     var orientation: Bool {
         switch self {
         case .SHORT_GAINS, .SHORT_LOSSES, .SHORT_NET, .LONG_GAINS, .LONG_LOSSES, .LONG_NET, .UNCLASSIFIED,
-             .GAINS, .LOSSES, .NET, .NEW_NET, .OLD_SHORT_NET, .OLD_LONG_NET, .DENIED_LOSS, .PROCEEDS, .INCOME, .AT_INTEREST, .FR_OUTFLOW,
+             .GAINS, .LOSSES, .NET, .NEW_NET, .OLD_SHORT_NET, .OLD_LONG_NET, .DENIED_LOSS, .PROCEEDS, .INCOME, .AT_INTEREST, .AT_INTEREST_OLD, .FR_OUTFLOW,
              .WITHDRAWAL_FEES, .TRANSFER_FEES:
             return false
         case .DE_LONG, .DE_PRIVATE_LIMIT, .DE_INCOME_LIMIT, .AT_RATE, .AT_OLD_LONG, .AT_OLD_SPECULATION_LIMIT, .CH_PRIVATE, .CH_INCOME, .CH_WEALTH,
@@ -242,8 +248,12 @@ extension TaxExport {
         // AT: Zinsen eigener Posten (beim Zufluss Einkunft), übrige Belohnungen bleiben «Einkünfte»
         let allIncome = incomeRows(trades, period: period, timeZone: timeZone, currency: currency, rates: rates ?? [:],
                                    priceAt: priceAt, usdtUsd: usdtUsd)
-        let interest = template == .AT ? allIncome.filter(\.interest) : []
+        let allInterest = template == .AT ? allIncome.filter(\.interest) : []
         let income = template == .AT ? allIncome.filter { !$0.interest } : allIncome
+        // § 27b EStG (Sondersteuersatz) gilt für Zinsen erst mit Zufluss ab dem 1.3.2022; davor alte Rechtslage (Tarif) —
+        // eigener Posten, nicht in der Zeile 27,5 % (wie Android)
+        let interestOld = allInterest.filter { $0.date < TaxTemplate.atSwapNeutralFrom }
+        let interest = allInterest.filter { !($0.date < TaxTemplate.atSwapNeutralFrom) }
         let pos: (Decimal) -> Bool = { $0 > 0 }
         let neg: (Decimal) -> Bool = { $0 <= 0 }
         let all: (Decimal) -> Bool = { _ in true }
@@ -256,15 +266,31 @@ extension TaxExport {
         // Spekulationsgeschäft, Freigrenze 440 €); Option auf 27,5 % nur für Realisationen 1.1.–28.2.2022 (§ 124b Z 384
         // lit. c EStG), gerechnet ohne Option — wie Android
         let atOld = rows.filter { $0.oldHolding == true }
-        let atEarlyNew = template == .AT ? rows.filter { $0.oldHolding != true && $0.soldDate < TaxTemplate.atSwapNeutralFrom } : []
+        // Gebühr-Aufwände (feeExpense, z. B. Gebühr verbraucht den ganzen Zugang) sind kein Spekulationsgeschäft: sie bleiben
+        // wie bisher im Posten Neubestand, auch vor dem 1.3.2022 (wie Android)
+        let atEarlyNew = template == .AT
+            ? rows.filter { $0.oldHolding != true && $0.feeExpense == nil && $0.soldDate < TaxTemplate.atSwapNeutralFrom } : []
         let atOption = atEarlyNew.contains { !($0.soldDate < TaxTemplate.atOptionFrom) }
         // UK/CA: Käufe bis 30 Tage nach dem Ende des Steuerjahrs können die Zahlen noch ändern (UK Bed-and-Breakfast, CA
-        // Superficial Loss) — solange dieses Fenster offen ist, Vermerk am Posten netto (wie Android)
+        // Superficial Loss) — solange dieses Fenster offen ist (Käufe am letzten Tag zählen noch), Vermerk am Posten netto.
+        // Ein solcher Kauf trifft nur Veräusserungen der letzten 30 Tage des Steuerjahrs (CA: mit Verlust, in der
+        // Steuerwährung entschieden); ohne sie bleibt der Vermerk weg (wie Android)
+        var windowDays: Int? = nil
+        if template == .UK { windowDays = TaxTemplate.ukBbDays }
+        if template == .CA { windowDays = TaxTemplate.caWindowDays }
         var windowEnd: LocalDay? = nil
-        if template == .UK { windowEnd = period.end.plusDays(TaxTemplate.ukBbDays) }
-        if template == .CA { windowEnd = period.end.plusDays(TaxTemplate.caWindowDays) }
-        let todayDay = today ?? localDay(Int64(Date().timeIntervalSince1970 * 1000), timeZone: timeZone)
-        if let w = windowEnd, !(todayDay < w) { windowEnd = nil }
+        if let days = windowDays {
+            let lateFrom = period.end.plusDays(-(days - 1))
+            let affected = rows.contains { r in
+                guard !(r.soldDate < lateFrom) else { return false }
+                guard template == .CA else { return true }
+                guard let g = (fx ? r.gainTarget : nil) ?? r.gainUsdt else { return false }
+                return g < 0
+            }
+            let end = period.end.plusDays(days)
+            let todayDay = today ?? localDay(Int64(Date().timeIntervalSince1970 * 1000), timeZone: timeZone)
+            if affected && !(end < todayDay) { windowEnd = end }
+        }
         if template.holdingBuckets {
             lines.append(Acc(short, pos, fx: fx).line(.SHORT_GAINS, fx: fx, countUnknown: false))
             lines.append(Acc(short, neg, fx: fx).line(.SHORT_LOSSES, fx: fx, countUnknown: false))
@@ -275,8 +301,11 @@ extension TaxExport {
             if !unclassifiedRows.isEmpty { lines.append(Acc(unclassifiedRows, all, fx: fx).line(.UNCLASSIFIED, fx: fx)) }
             net = Acc(rows, all, fx: fx)
         } else if template == .AT {
-            // Neubestand zum Sondersteuersatz: nur Verkäufe ab dem 1.3.2022
-            let newRows = rows.filter { $0.oldHolding != true && !($0.soldDate < TaxTemplate.atSwapNeutralFrom) }
+            // Neubestand zum Sondersteuersatz: Verkäufe ab dem 1.3.2022; Gebühr-Aufwände wie bisher hier (nicht in den
+            // Spekulationsgeschäften, siehe `atEarlyNew`)
+            let newRows = rows.filter {
+                $0.oldHolding != true && (!($0.soldDate < TaxTemplate.atSwapNeutralFrom) || $0.feeExpense != nil)
+            }
             net = Acc(newRows, all, fx: fx)
             lines.append(Acc(newRows, pos, fx: fx).line(.GAINS, fx: fx, countUnknown: false))
             lines.append(Acc(newRows, neg, fx: fx).line(.LOSSES, fx: fx, countUnknown: false))
@@ -333,11 +362,13 @@ extension TaxExport {
         let procTarget: Decimal = sold.reduce(Decimal(0)) { $0 + (procT($1) ?? 0) }
         let procMissing = sold.contains { procU($0) == nil }
         let procFx = fx && sold.contains { procU($0) != nil && procT($0) == nil }
-        // UK: Erlöse über £50,000 (ab 2023/24) sind HMRC zu melden, auch ohne steuerbaren Gewinn — nur in GBP prüfbar
+        // UK: Erlöse über der Meldegrenze sind HMRC zu melden (wer für Self Assessment registriert ist), auch ohne
+        // steuerbaren Gewinn — geprüft mit den Erlösen vor Gebühren (ohne Wert vor Gebühren: der Erlös), nur in GBP prüfbar
         var ukReport = false
         if template == .UK, fx, currency.trimmingCharacters(in: .whitespaces).uppercased() == "GBP",
            let limit = TaxTemplate.ukReportProceedsGbp(startYear) {
-            ukReport = procTarget > limit
+            let beforeFees: Decimal = sold.reduce(Decimal(0)) { $0 + ($1.proceedsBeforeFeesTarget ?? $1.proceedsTarget ?? 0) }
+            ukReport = beforeFees > limit
         }
         lines.append(TaxSummaryLine(line: .PROCEEDS, usdt: procUsdt, target: fx ? procTarget : nil,
                                     incomplete: procMissing, noFx: procFx, note: ukReport ? .UK_HMRC_REPORT : nil))
@@ -359,6 +390,14 @@ extension TaxExport {
         if !interest.isEmpty {
             lines.append(TaxSummaryLine(line: .AT_INTEREST, usdt: intUsdt, target: fx ? intTarget : nil,
                                         incomplete: intMissing, noFx: intFx, note: .AT_INTEREST_INCOME))
+        }
+        // AT: Zinsen vor dem 1.3.2022 — alte Rechtslage (Tarif), zählen nicht zum Sondersteuersatz
+        if !interestOld.isEmpty {
+            let oldUsdt: Decimal = interestOld.reduce(Decimal(0)) { $0 + ($1.valueUsdt ?? 0) }
+            let oldTarget: Decimal = interestOld.reduce(Decimal(0)) { $0 + ($1.valueTarget ?? 0) }
+            lines.append(TaxSummaryLine(line: .AT_INTEREST_OLD, usdt: oldUsdt, target: fx ? oldTarget : nil,
+                                        incomplete: interestOld.contains { $0.valueMissing },
+                                        noFx: fx && interestOld.contains { $0.fxMissing }, note: .AT_INTEREST_OLD_LAW))
         }
         // FR: Abgänge ohne Verkauf im Jahr — Erwerbspreis-Summe gekürzt (BOFiP § 100); das Jahr ist «unvollständig»
         if template == .FR {

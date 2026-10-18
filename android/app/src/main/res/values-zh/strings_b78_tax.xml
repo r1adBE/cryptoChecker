@@ -8,6 +8,6 @@
     <string name="tax_summary_at_staking_zero_cost">2022年3月1日前的质押：取得成本按 0 计 – 请咨询专业人士</string>
     <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
     <string name="tax_summary_window_open">30 天规则仍可能改变这些数字（截至 %1$s 的买入）</string>
-    <!-- UK Erlöse: über 50 000 GBP Meldung an HMRC nötig, auch ohne steuerbaren Gewinn -->
-    <string name="tax_summary_uk_hmrc_report">出售所得超过 £50,000：即使没有应税收益也须向 HMRC 申报</string>
+    <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
+    <string name="tax_summary_uk_hmrc_report">扣除费用前的出售所得超过申报门槛（£50,000；2020/21–2022/23：£49,200）：如已登记 Self Assessment，即使没有应税收益也须向 HMRC 申报</string>
 </resources>

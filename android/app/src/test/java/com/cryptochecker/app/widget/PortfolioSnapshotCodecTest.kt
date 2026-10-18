@@ -1,6 +1,8 @@
 package com.cryptochecker.app.widget
 
 import com.cryptochecker.app.domain.portfolio.PortfolioChange
+import com.cryptochecker.app.domain.portfolio.PortfolioDisplayCost
+import com.cryptochecker.app.domain.portfolio.PortfolioDisplayFx
 import com.cryptochecker.app.domain.portfolio.PortfolioPosition
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
@@ -40,5 +42,22 @@ class PortfolioSnapshotCodecTest {
         assertTrue(PortfolioSnapshotCodec.readCoinPnl("kaputt").isEmpty())
         // Nicht endliche Beträge werden nicht gespeichert
         assertTrue(PortfolioSnapshotCodec.readCoinPnl(PortfolioSnapshotCodec.coinPnlJson(mapOf("X" to PortfolioChange(Double.NaN, 1.0)))).isEmpty())
+    }
+
+    /** «Seit Kauf»/«7 T» in der Anzeigewährung samt Merkzettel überstehen einen Neustart; ältere Aufnahmen laden ohne. */
+    @Test
+    fun displayValuesRoundTripAndOldSnapshotWithoutKeys() {
+        val change = PortfolioChange(-80.5, null, listOf("SOL"))
+        assertEquals(change, PortfolioSnapshotCodec.readDisplayChange(PortfolioSnapshotCodec.displayChangeJson(change)))
+        val plain = PortfolioChange(95.0, 2.1)
+        assertEquals(plain, PortfolioSnapshotCodec.readDisplayChange(PortfolioSnapshotCodec.displayChangeJson(plain)))
+        assertNull(PortfolioSnapshotCodec.displayChangeJson(null))
+        assertNull(PortfolioSnapshotCodec.displayChangeJson(PortfolioChange(Double.NaN, 1.0)))
+        assertNull(PortfolioSnapshotCodec.readDisplayChange(null))
+        assertNull(PortfolioSnapshotCodec.readDisplayChange("kaputt"))
+        val fx = PortfolioDisplayFx("CHF", mapOf("BTC" to PortfolioDisplayCost(20_000.0, 18_000.0)), mapOf(20_193L to 0.8, 20_199L to 0.81), 20_200L)
+        assertEquals(fx, PortfolioSnapshotCodec.readDisplayFx(PortfolioSnapshotCodec.displayFxJson(fx)))
+        assertNull(PortfolioSnapshotCodec.readDisplayFx(null))
+        assertNull(PortfolioSnapshotCodec.readDisplayFx("kaputt"))
     }
 }

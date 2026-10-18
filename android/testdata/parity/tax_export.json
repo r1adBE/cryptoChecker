@@ -760,6 +760,41 @@
     "method": "FIFO",
     "infoRows": 0,
     "totalGain": "995.00"
+   },
+   {
+    "template": "FR",
+    "method": "FR_PTA",
+    "_calc": "[B78] FR: eigene Transaktionen (trades). Kauf 1 BTC zu 20000 (Erwerbspreis-Summe 20000). Auszahlung 0.5 BTC (Wert 20000 je BTC) mit Gebühr 25 USDT: Erwerbspreis-Summe × 10000/20000 → 10000; die Gebühr 25 ist nur Information (Zeile mit Vermerk, nicht in der Summe) wie in der Jahresübersicht. Verkauf 0.5 BTC zu 30000: Gesamtwert 15000, Einstand 10000 × 15000/15000 = 10000, Gewinn 15000 − 10000 = 5000 → Summe 5000.00 (vorher 5000 − 25 = 4975.00).",
+    "trades": [
+     {
+      "id": 1,
+      "coin": "BTC",
+      "type": "BUY",
+      "amount": "1",
+      "time": 1736510400000,
+      "price": "20000"
+     },
+     {
+      "id": 2,
+      "coin": "BTC",
+      "type": "WITHDRAWAL",
+      "amount": "0.5",
+      "time": 1743508800000,
+      "price": "20000",
+      "fee": "25",
+      "feeUnit": "QUOTE"
+     },
+     {
+      "id": 3,
+      "coin": "BTC",
+      "type": "SELL",
+      "amount": "0.5",
+      "time": 1748779200000,
+      "price": "30000"
+     }
+    ],
+    "infoRows": 1,
+    "totalGain": "5000.00"
    }
   ]
  },
@@ -1050,6 +1085,49 @@
    "2025-05-05;ETH;0.5;1000.00;830.00;",
    "2025-07-01;ADA;10;;;value at receipt missing",
    "Total;;;1100.00;918.00;incomplete"
+  ]
+ },
+ "atIncomeBefore2022": {
+  "_comment": "[B78 Fix] Einkünfte-CSV AT: Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 — § 27b EStG gilt erst ab dann — tragen den Vermerk «vor 1.3.2022 – mit Fachperson prüfen» statt «Zins – steuerpflichtig» bzw. «Staking – nur Information»; Summen getrennt wie bisher. Währung USD (Kurs 1), Kalenderjahr 2022, Texte wie atIncome.atTexts plus incomeBeforeNewLaw.",
+  "currency": "USD",
+  "incomeBeforeNewLaw": "before 1 Mar 2022 – check with a professional",
+  "trades": [
+   {
+    "id": 1,
+    "coin": "SOL",
+    "type": "REWARD",
+    "amount": "1",
+    "price": "100",
+    "time": 1643716800000
+   },
+   {
+    "id": 2,
+    "coin": "ETH",
+    "type": "REWARD",
+    "amount": "0.1",
+    "price": "2500",
+    "time": 1643716800000,
+    "interest": true
+   },
+   {
+    "id": 3,
+    "coin": "SOL",
+    "type": "REWARD",
+    "amount": "1",
+    "price": "120",
+    "time": 1654084800000
+   }
+  ],
+  "at": [
+   "Realized gains 2025",
+   "\"Method: FIFO; no tax advice\"",
+   "Time zone: Europe/Zurich",
+   "Date;Coin;Amount;Value USDT;Value CHF;Note",
+   "2022-02-01;SOL;1;100.00;100.00;before 1 Mar 2022 – check with a professional",
+   "2022-02-01;ETH;0.1;250.00;250.00;before 1 Mar 2022 – check with a professional",
+   "2022-06-01;SOL;1;120.00;120.00;staking – information only (cost 0, taxed on sale)",
+   "Total interest (taxable);;;250.00;250.00;",
+   "Total staking (information);;;220.00;220.00;"
   ]
  }
 }

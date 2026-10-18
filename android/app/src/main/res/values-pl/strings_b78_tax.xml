@@ -8,6 +8,6 @@
     <string name="tax_summary_at_staking_zero_cost">Staking przed 1.03.2022: koszt nabycia przyjęty jako 0 – sprawdź ze specjalistą</string>
     <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
     <string name="tax_summary_window_open">Reguła 30 dni może jeszcze zmienić te kwoty (zakupy do %1$s)</string>
-    <!-- UK Erlöse: über 50 000 GBP Meldung an HMRC nötig, auch ohne steuerbaren Gewinn -->
-    <string name="tax_summary_uk_hmrc_report">Przychody ze zbycia powyżej 50 000 £: wymagane zgłoszenie do HMRC, nawet bez zysku do opodatkowania</string>
+    <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
+    <string name="tax_summary_uk_hmrc_report">Przychody ze zbycia przed opłatami powyżej progu zgłoszenia (50 000 £; 2020/21–2022/23: 49 200 £): zgłoszenie do HMRC, jeśli jesteś zarejestrowany w Self Assessment, nawet bez zysku do opodatkowania</string>
 </resources>

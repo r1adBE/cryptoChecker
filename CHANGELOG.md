@@ -41,6 +41,11 @@ Independent check of every calculation (five auditors, official sources) and the
 * Alarm cards show whether an alarm is really watched («Notifications off», «Low liquidity», «Waiting for a current
   price»); Settings › About explains in four lines what stays on the device.
 * Transaction form: the note sits directly below the price for every type.
+* Second audit round: the portfolio widget shows «Since purchase» and «7 D» in your currency like the app (never USDT
+  × today's rate); France: withdrawal fees also left out of the gains CSV total; Austria: lending interest before
+  1.3.2022 under the old law; UK/CA 30-day note until the last day of the window and only when relevant; UK £50,000
+  test on proceeds before fees (£49,200 for 2020/21–2022/23); exchange-rate history split into equal yearly parts;
+  rates reload after midnight; «Today %» portfolio alarm rounded like the others.
 * Kotlin 2.4 compiler warnings cleared.
 
 ## 16.2.2 (build 77)

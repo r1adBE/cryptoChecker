@@ -99,6 +99,8 @@ internal fun taxCsvTexts(currency: String, zone: ZoneId = ZoneId.systemDefault()
     incomeStaking = if (template == TaxTemplate.AT) stringResource(R.string.tax_export_at_income_staking) else "",
     totalInterest = if (template == TaxTemplate.AT) stringResource(R.string.tax_export_at_total_interest) else "",
     totalStaking = if (template == TaxTemplate.AT) stringResource(R.string.tax_export_at_total_staking) else "",
+    // AT: Zufluss vor dem 1.3.2022 (vor § 27b EStG) — eigener Vermerk statt Zins/Staking
+    incomeBeforeNewLaw = if (template == TaxTemplate.AT) stringResource(R.string.tax_export_at_income_before_new_law) else "",
 )
 
 /** Texte des Stichtag-Exports ([CutoffCsvTexts]) in [currency]. */
@@ -228,6 +230,7 @@ private fun taxLineLabel(l: TaxLine): Int = when (l) {
     TaxLine.PROCEEDS -> R.string.tax_line_proceeds
     TaxLine.INCOME -> R.string.tax_line_income
     TaxLine.AT_INTEREST -> R.string.tax_line_at_interest
+    TaxLine.AT_INTEREST_OLD -> R.string.tax_line_at_interest_old
     TaxLine.FR_OUTFLOW -> R.string.tax_line_fr_outflow
     TaxLine.WITHDRAWAL_FEES -> R.string.tax_line_withdrawal_fees
     TaxLine.TRANSFER_FEES -> R.string.tax_line_transfer_fees
@@ -289,6 +292,7 @@ internal fun taxSummaryTexts(t: TaxTemplate, yearLabel: String, currency: String
         TaxSummaryNote.WITHDRAWAL_FEE_INFO to stringResource(R.string.tax_summary_withdrawal_fee_info),
         TaxSummaryNote.TRANSFER_FEE_INFO to stringResource(R.string.tax_summary_transfer_fee_info),
         TaxSummaryNote.AT_INTEREST_INCOME to stringResource(R.string.tax_summary_at_interest_income),
+        TaxSummaryNote.AT_INTEREST_OLD_LAW to stringResource(R.string.tax_summary_at_interest_old_law),
         TaxSummaryNote.AT_TRANSITION_2021 to stringResource(R.string.tax_summary_at_transition_2021),
         TaxSummaryNote.AT_WITHOUT_OPTION to stringResource(R.string.tax_summary_at_without_option),
         TaxSummaryNote.AT_STAKING_ZERO_COST to stringResource(R.string.tax_summary_at_staking_zero_cost),

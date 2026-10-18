@@ -8,6 +8,6 @@
     <string name="tax_summary_at_staking_zero_cost">Стейкінг до 01.03.2022: вартість придбання прийнято за 0 – уточніть у фахівця</string>
     <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
     <string name="tax_summary_window_open">Правило 30 днів ще може змінити ці суми (купівлі до %1$s)</string>
-    <!-- UK Erlöse: über 50 000 GBP Meldung an HMRC nötig, auch ohne steuerbaren Gewinn -->
-    <string name="tax_summary_uk_hmrc_report">Виручка понад 50 000 £: потрібно повідомити HMRC, навіть без оподатковуваного прибутку</string>
+    <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
+    <string name="tax_summary_uk_hmrc_report">Виручка до вирахування комісій понад поріг звітності (50 000 £; 2020/21–2022/23: 49 200 £): повідомте HMRC, якщо ви зареєстровані в Self Assessment, навіть без оподатковуваного прибутку</string>
 </resources>

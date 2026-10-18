@@ -192,6 +192,9 @@ struct PortfolioDisposal: Sendable, Equatable {
     /// UK/CA: Schenkung an Ehe-/Lebenspartner (`PortfolioTx.isGiftToSpouse`) — Erlös = Einstand, kein Gewinn/Verlust (TCGA 1992 s. 58,
     /// ITA 73(1)); der Einstand geht auf den Partner über. Vermerk im Export. Wie Android.
     var spouseGift = false
+    /// `.UK_POOL`: Erlös vor Gebühren (Menge × Preis bzw. Wert des Tauschs, wie `proceedsUsdt` nach Menge verteilt) — die
+    /// Meldegrenze an HMRC gilt für die Erlöse vor Abzug der Kosten (`TaxTemplate.ukReportProceedsGbp`); sonst nil. Wie Android.
+    var proceedsBeforeFeesUsdt: Decimal? = nil
 }
 
 /// Zuordnung einer Veräusserung nach HMRC (`.UK_POOL`, CRYPTO22200) — wie `TaxMatch` (Android).

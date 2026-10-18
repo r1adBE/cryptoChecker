@@ -6471,7 +6471,7 @@
         "2025-06-01": "1.4"
       },
       "today": "2026-01-15",
-      "_calc": "[B78] Kauf 10 X zu 100 am 10.1.2025 (1000 USDT × 1.3 = 1300 CAD), Verkauf 10 zu 60 am 1.6.2025 (600 × 1.4 = 840 CAD): Verlust −400 USDT / −460 CAD, kein Ersatzkauf → nichts verweigert. Steuerbar (−460) × 1/2 = −230 → 0 (nicht negativ), NET_CAPITAL_LOSS 230 CAD (abziehbarer Teil, Vortrag); beide nur in CAD. Heute 15.1.2026: 30-Tage-Fenster bis 31.12.2025 + 30 = 30.1.2026 noch offen → Vermerk WINDOW_OPEN am Posten netto mit Datum 2026-01-30.",
+      "_calc": "[B78] Kauf 10 X zu 100 am 10.1.2025 (1000 USDT × 1.3 = 1300 CAD), Verkauf 10 zu 60 am 1.6.2025 (600 × 1.4 = 840 CAD): Verlust −400 USDT / −460 CAD, kein Ersatzkauf → nichts verweigert. Steuerbar (−460) × 1/2 = −230 → 0 (nicht negativ), NET_CAPITAL_LOSS 230 CAD (abziehbarer Teil, Vortrag); beide nur in CAD. Heute 15.1.2026: 30-Tage-Fenster bis 31.12.2025 + 30 = 30.1.2026 noch offen → Vermerk WINDOW_OPEN am Posten netto mit Datum 2026-01-30. [B78 Fix] Der Vermerk braucht eine Veräusserung mit Verlust in den letzten 30 Tagen des Jahres (ab 2.12.2025): nur sie kann ein Kauf nach dem 31.12. noch treffen. Verkauf am 1.6.2025 → kein Vermerk (Fall mit Vermerk: CA, Verkauf 15.12.2025, weiter unten).",
       "trades": [
         {
           "id": 1,
@@ -6507,9 +6507,7 @@
           "NET",
           "-400",
           "-460",
-          null,
-          "WINDOW_OPEN",
-          "2026-01-30"
+          null
         ],
         [
           "PROCEEDS",
@@ -6633,7 +6631,7 @@
         "2025-12-01": "0.75"
       },
       "today": "2026-04-20",
-      "_calc": "[B78] Kauf 1 BTC 1.5.2025 zu 40000 (× 0.75 = 30000 GBP), Verkauf 1.12.2025 zu 80000 (× 0.75 = 60000 GBP): Gewinn 40000 USDT / 30000 GBP; nach £3,000 Freibetrag 27000. Erlöse 60000 GBP > 50000 (ab 2023/24) → Vermerk UK_HMRC_REPORT am Posten Erlöse. Heute 20.4.2026: Steuerjahr endet 5.4.2026, 30-Tage-Fenster bis 5.5.2026 offen → WINDOW_OPEN am Posten netto (2026-05-05).",
+      "_calc": "[B78] Kauf 1 BTC 1.5.2025 zu 40000 (× 0.75 = 30000 GBP), Verkauf 1.12.2025 zu 80000 (× 0.75 = 60000 GBP): Gewinn 40000 USDT / 30000 GBP; nach £3,000 Freibetrag 27000. Erlöse 60000 GBP > 50000 (ab 2023/24) → Vermerk UK_HMRC_REPORT am Posten Erlöse. Heute 20.4.2026: Steuerjahr endet 5.4.2026, 30-Tage-Fenster bis 5.5.2026 offen → WINDOW_OPEN am Posten netto (2026-05-05). [B78 Fix] WINDOW_OPEN nur mit einer Veräusserung in den letzten 30 Tagen des Steuerjahrs (ab 7.3.2026) — Verkauf am 1.12.2025 → kein Vermerk (Fall mit Vermerk: UK, Verkauf 20.3.2026, weiter unten). Meldegrenze mit Erlösen vor Gebühren: 80000 × 0.75 = 60000 GBP > 50000 (keine Gebühr).",
       "trades": [
         {
           "id": 1,
@@ -6669,9 +6667,7 @@
           "NET",
           "40000",
           "30000",
-          null,
-          "WINDOW_OPEN",
-          "2026-05-05"
+          null
         ],
         [
           "PROCEEDS",
@@ -7113,6 +7109,488 @@
           "500",
           "500",
           null
+        ]
+      ]
+    },
+    {
+      "template": "UK",
+      "method": "UK_POOL",
+      "year": 2025,
+      "currency": "GBP",
+      "rates": {
+        "2025-05-01": "0.75",
+        "2026-03-20": "0.75"
+      },
+      "today": "2026-05-05",
+      "_calc": "[B78 Fix] Kauf 1 BTC 1.5.2025 zu 40000 (× 0.75), Verkauf 0.5 BTC 20.3.2026 zu 60000 (× 0.75): Einstand 20000 USDT / 15000 GBP, Erlös 30000 / 22500, Gewinn 10000 / 7500; nach £3,000 Freibetrag 4500. Verkauf in den letzten 30 Tagen des Steuerjahrs (ab 7.3.2026), heute 5.5.2026 = letzter Tag des Fensters (5.4.2026 + 30): Käufe an diesem Tag zählen noch → WINDOW_OPEN mit 2026-05-05 (vorher ab diesem Tag schon weg). Erlöse 22500 < 50000 → keine Meldung.",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1746100800000,
+          "price": "40000"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "0.5",
+          "time": 1774008000000,
+          "price": "60000"
+        }
+      ],
+      "lines": [
+        [
+          "GAINS",
+          "10000",
+          "7500",
+          null
+        ],
+        [
+          "LOSSES",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "NET",
+          "10000",
+          "7500",
+          null,
+          "WINDOW_OPEN",
+          "2026-05-05"
+        ],
+        [
+          "PROCEEDS",
+          "30000",
+          "22500",
+          null
+        ],
+        [
+          "INCOME",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "UK_EXEMPT",
+          null,
+          "3000",
+          null
+        ],
+        [
+          "UK_AFTER_EXEMPT",
+          null,
+          "4500",
+          null
+        ]
+      ]
+    },
+    {
+      "template": "CA",
+      "method": "CA_ACB",
+      "year": 2025,
+      "currency": "CAD",
+      "rates": {
+        "2025-01-10": "1.3",
+        "2025-12-15": "1.4"
+      },
+      "today": "2026-01-30",
+      "_calc": "[B78 Fix] Kauf 10 X zu 100 am 10.1.2025 (1000 × 1.3 = 1300 CAD), Verkauf 10 zu 60 am 15.12.2025 (600 × 1.4 = 840 CAD): Verlust −400 USDT / −460 CAD, kein Ersatzkauf. Steuerbar (−460) × 1/2 → 0, NET_CAPITAL_LOSS 230. Verlust-Verkauf in den letzten 30 Tagen (ab 2.12.2025), heute 30.1.2026 = letzter Tag des Fensters (31.12.2025 + 30) → WINDOW_OPEN mit 2026-01-30.",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "X",
+          "type": "BUY",
+          "amount": "10",
+          "time": 1736510400000,
+          "price": "100"
+        },
+        {
+          "id": 2,
+          "coin": "X",
+          "type": "SELL",
+          "amount": "10",
+          "time": 1765800000000,
+          "price": "60"
+        }
+      ],
+      "lines": [
+        [
+          "GAINS",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "LOSSES",
+          "-400",
+          "-460",
+          null
+        ],
+        [
+          "NET",
+          "-400",
+          "-460",
+          null,
+          "WINDOW_OPEN",
+          "2026-01-30"
+        ],
+        [
+          "PROCEEDS",
+          "600",
+          "840",
+          null
+        ],
+        [
+          "INCOME",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "CA_TAXABLE",
+          null,
+          "0",
+          null
+        ],
+        [
+          "NET_CAPITAL_LOSS",
+          null,
+          "230",
+          null
+        ]
+      ]
+    },
+    {
+      "template": "UK",
+      "method": "UK_POOL",
+      "year": 2023,
+      "currency": "GBP",
+      "rates": {
+        "2023-05-01": "0.75",
+        "2023-12-01": "0.75"
+      },
+      "today": "2026-10-18",
+      "_calc": "[B78 Fix] Meldegrenze mit Erlösen VOR Gebühren: Kauf 1 BTC 1.5.2023 zu 40000 (30000 GBP), Verkauf 1.12.2023 zu 67000 mit Gebühr 1000 USDT: Erlös netto 66000 USDT / 49500 GBP (Posten Erlöse), vor Gebühren 67000 × 0.75 = 50250 GBP > 50000 → UK_HMRC_REPORT (netto allein wäre darunter). Gewinn 26000 / 19500; Freibetrag 2023/24 £6,000 → 13500.",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1682942400000,
+          "price": "40000"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1701432000000,
+          "price": "67000",
+          "fee": "1000",
+          "feeUnit": "QUOTE"
+        }
+      ],
+      "lines": [
+        [
+          "GAINS",
+          "26000",
+          "19500",
+          null
+        ],
+        [
+          "LOSSES",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "NET",
+          "26000",
+          "19500",
+          null
+        ],
+        [
+          "PROCEEDS",
+          "66000",
+          "49500",
+          null,
+          "UK_HMRC_REPORT"
+        ],
+        [
+          "INCOME",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "UK_EXEMPT",
+          null,
+          "6000",
+          null
+        ],
+        [
+          "UK_AFTER_EXEMPT",
+          null,
+          "13500",
+          null
+        ]
+      ]
+    },
+    {
+      "template": "UK",
+      "method": "UK_POOL",
+      "year": 2022,
+      "currency": "GBP",
+      "rates": {
+        "2022-05-01": "0.75",
+        "2022-12-01": "0.75"
+      },
+      "today": "2026-10-18",
+      "_calc": "[B78 Fix] Steuerjahr 2022/23: Meldegrenze 4 × Annual Exempt Amount = 4 × 12300 = 49200 GBP. Kauf 1 BTC 1.5.2022 zu 40000 (30000 GBP), Verkauf 1.12.2022 zu 66000 mit Gebühr 500: Erlös netto 65500 / 49125 GBP, vor Gebühren 66000 × 0.75 = 49500 > 49200 → UK_HMRC_REPORT. Gewinn 25500 / 19125; Freibetrag 12300 → 6825.",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1651406400000,
+          "price": "40000"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1669896000000,
+          "price": "66000",
+          "fee": "500",
+          "feeUnit": "QUOTE"
+        }
+      ],
+      "lines": [
+        [
+          "GAINS",
+          "25500",
+          "19125",
+          null
+        ],
+        [
+          "LOSSES",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "NET",
+          "25500",
+          "19125",
+          null
+        ],
+        [
+          "PROCEEDS",
+          "65500",
+          "49125",
+          null,
+          "UK_HMRC_REPORT"
+        ],
+        [
+          "INCOME",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "UK_EXEMPT",
+          null,
+          "12300",
+          null
+        ],
+        [
+          "UK_AFTER_EXEMPT",
+          null,
+          "6825",
+          null
+        ]
+      ]
+    },
+    {
+      "template": "AT",
+      "method": "AT_MOVING_AVERAGE",
+      "year": 2022,
+      "_calc": "[B78 Fix] Zinsen (Lending) nach Zufluss getrennt: 0.1 ETH am 1.2.2022 zu 2500 = 250 (vor dem 1.3.2022: alte Rechtslage, Tarif → AT_INTEREST_OLD mit Vermerk AT_INTEREST_OLD_LAW, nicht im Sondersteuersatz); 0.1 ETH am 1.6.2022 zu 2000 = 200 (§ 27b EStG → AT_INTEREST). AT_RATE = Neubestand 0 + 200 = 200 (vorher 450).",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "ETH",
+          "type": "REWARD",
+          "amount": "0.1",
+          "time": 1643716800000,
+          "price": "2500",
+          "interest": true
+        },
+        {
+          "id": 2,
+          "coin": "ETH",
+          "type": "REWARD",
+          "amount": "0.1",
+          "time": 1654084800000,
+          "price": "2000",
+          "interest": true
+        }
+      ],
+      "lines": [
+        [
+          "GAINS",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "LOSSES",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "NEW_NET",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "PROCEEDS",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "INCOME",
+          "0",
+          "0",
+          null,
+          "AT_REWARD_INFO"
+        ],
+        [
+          "AT_INTEREST",
+          "200",
+          "200",
+          null,
+          "AT_INTEREST_INCOME"
+        ],
+        [
+          "AT_INTEREST_OLD",
+          "250",
+          "250",
+          null,
+          "AT_INTEREST_OLD_LAW"
+        ],
+        [
+          "AT_RATE",
+          "200",
+          "200",
+          null
+        ]
+      ]
+    },
+    {
+      "template": "AT",
+      "method": "AT_MOVING_AVERAGE",
+      "year": 2021,
+      "_calc": "[B78 Fix] Altbestand: Kauf 1 BTC 2.11.2020 zu 10000, Verkauf 0.01 am 1.6.2021 zu 40000 → Spekulationsgeschäft 300. Kauf 0.01 ETH am 1.2.2021 zu 1000 mit Gebühr 0.01 ETH (verbraucht den ganzen Zugang, Altbestand → Aufwand 10, Zeile mit feeExpense): KEIN Spekulationsgeschäft — bleibt wie bisher im Neubestand (LOSSES/NEW_NET −10, AT_RATE −10), OLD_SHORT_NET 300 (vorher 300 − 10 = 290), Freigrenze 300 ≤ 440 → BELOW. Erlöse 400 + 0.",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1604318400000,
+          "price": "10000"
+        },
+        {
+          "id": 2,
+          "coin": "ETH",
+          "type": "BUY",
+          "amount": "0.01",
+          "time": 1612180800000,
+          "price": "1000",
+          "fee": "0.01",
+          "feeUnit": "COIN"
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "0.01",
+          "time": 1622548800000,
+          "price": "40000"
+        }
+      ],
+      "lines": [
+        [
+          "GAINS",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "LOSSES",
+          "-10",
+          "-10",
+          null
+        ],
+        [
+          "NEW_NET",
+          "-10",
+          "-10",
+          null
+        ],
+        [
+          "OLD_SHORT_NET",
+          "300",
+          "300",
+          null
+        ],
+        [
+          "OLD_LONG_NET",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "PROCEEDS",
+          "400",
+          "400",
+          null
+        ],
+        [
+          "INCOME",
+          "0",
+          "0",
+          null,
+          "AT_REWARD_INFO"
+        ],
+        [
+          "AT_RATE",
+          "-10",
+          "-10",
+          null
+        ],
+        [
+          "AT_OLD_LONG",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "AT_OLD_SPECULATION_LIMIT",
+          null,
+          "440",
+          "BELOW"
         ]
       ]
     }

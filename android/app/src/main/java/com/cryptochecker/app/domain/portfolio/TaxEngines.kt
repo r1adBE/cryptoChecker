@@ -446,22 +446,29 @@ object TaxEngines {
      * Veräusserungen aus [pieces]: Erlös [proceeds] nach Menge verteilt (letzter Teil bekommt den Rest, Summe exakt);
      * [method] wie in [PortfolioDisposal.method] (Pool/Durchschnitt = [CostMethod.AVERAGE], Posten = [CostMethod.FIFO]).
      * Schenkung an Ehe-/Lebenspartner ([TaxStep.spouseGift]): Erlös je Teil = sein Einstand (ohne Kaufpreis unbekannt).
+     * [gross] (UK): Erlös vor Gebühren, gleich verteilt ([PortfolioDisposal.proceedsBeforeFeesUsdt]); null = keiner.
      */
     internal fun emit(
         coin: String,
         s: TaxStep,
         pieces: List<TaxPiece>,
         proceeds: BigDecimal?,
+        gross: BigDecimal? = null,
         extra: (TaxPiece, PortfolioDisposal) -> PortfolioDisposal = { _, d -> d },
     ): List<PortfolioDisposal> {
         val total = pieces.fold(BigDecimal.ZERO) { a, p -> a + p.amount }
         if (total.signum() <= 0) return emptyList()
         var left = proceeds
+        var grossLeft = gross
         return pieces.mapIndexed { i, p ->
             val share = if (s.spouseGift) p.cost else proceeds?.let {
                 if (i == pieces.size - 1) left!! else it.multiply(p.amount).divide(total, PortfolioDecimal.MC)
             }
             if (share != null && !s.spouseGift) left = left!! - share
+            val grossShare = if (s.spouseGift) null else gross?.let {
+                if (i == pieces.size - 1) grossLeft!! else it.multiply(p.amount).divide(total, PortfolioDecimal.MC)
+            }
+            if (grossShare != null) grossLeft = grossLeft!! - grossShare
             val d = PortfolioDisposal(
                 coin = coin, sellTxId = s.id, sellTime = s.time,
                 lotTxId = p.lotTxId, acquiredTime = p.acquiredTime, lotKind = p.lotKind,
@@ -472,6 +479,7 @@ object TaxEngines {
                 method = if (p.acquiredTime != null) CostMethod.FIFO else CostMethod.AVERAGE,
                 costParts = p.parts, uncovered = p.uncovered, swap = s.swap, gift = s.gift, payment = s.payment, valueEstimated = s.estimated,
                 match = p.match, matchedTime = p.matchedTime, oldHolding = p.oldHolding, spouseGift = s.spouseGift,
+                proceedsBeforeFeesUsdt = grossShare,
             )
             extra(p, d)
         }

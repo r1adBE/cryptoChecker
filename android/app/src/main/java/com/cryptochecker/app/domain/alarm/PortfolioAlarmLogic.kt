@@ -145,11 +145,14 @@ object PortfolioAlarmLogic {
     const val CHANGE_REARM_FRACTION = 0.2
     const val CHANGE_REARM_MIN_POINTS = 0.5
 
-    /** Gemessener Wert für [alarm]: Betrag, +Veränderung (steigt) oder −Veränderung (fällt). */
+    /**
+     * Gemessener Wert für [alarm]: Betrag, +Veränderung (steigt) oder −Veränderung (fällt). Prozente auf 1e-6 gerundet
+     * ([AlarmPercent.rounded]) wie bei den Kursalarmen — sonst verfehlt «+3 %» genau 3 % um einen Gleitkomma-Rest.
+     */
     fun measure(alarm: PortfolioAlarmInput, reading: PortfolioReading): Double? = when (alarm.kind) {
         PortfolioAlarmKind.VALUE_ABOVE, PortfolioAlarmKind.VALUE_BELOW -> totalIn(alarm.currency, reading)
-        PortfolioAlarmKind.CHANGE_UP -> reading.changePercent?.takeIf { it.isFinite() }
-        PortfolioAlarmKind.CHANGE_DOWN -> reading.changePercent?.takeIf { it.isFinite() }?.let { -it }
+        PortfolioAlarmKind.CHANGE_UP -> reading.changePercent?.takeIf { it.isFinite() }?.let { AlarmPercent.rounded(it) }
+        PortfolioAlarmKind.CHANGE_DOWN -> reading.changePercent?.takeIf { it.isFinite() }?.let { AlarmPercent.rounded(-it) }
     }
 
     /** Schwelle «darunter» (VALUE_BELOW) — sonst «darüber» (die Prozent-Alarme sind gespiegelt). */

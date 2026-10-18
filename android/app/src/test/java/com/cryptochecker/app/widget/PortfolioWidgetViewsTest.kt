@@ -26,6 +26,8 @@ class PortfolioWidgetViewsTest {
         periodChanges: Map<Int, PortfolioChange> = emptyMap(),
         unrealized: PortfolioChange? = null,
         todaySkipped: List<String> = emptyList(),
+        unrealizedDisplay: PortfolioChange? = null,
+        weekDisplay: PortfolioChange? = null,
     ) = PortfolioSnapshot(
         total = total,
         changeAmount = change,
@@ -37,6 +39,8 @@ class PortfolioWidgetViewsTest {
         periodChanges = periodChanges,
         unrealized = unrealized,
         todaySkipped = todaySkipped,
+        unrealizedDisplay = unrealizedDisplay,
+        weekDisplay = weekDisplay,
     )
 
     private fun plan(range: PortfolioChartRange, change: Double? = 9.0) = PortfolioChartPlan(
@@ -107,30 +111,65 @@ class PortfolioWidgetViewsTest {
 
     // Übersicht
 
+    /**
+     * In der Anzeigewährung wie die Gesamtkarte: «Seit Kauf» und «7 T» aus den gespeicherten Werten der Anzeigewährung,
+     * nie USDT × Kurs der Aufnahme (der Einstand gilt zum Kurs der Erwerbstage). Wie iOS.
+     */
     @Test
-    fun figuresConvertUsdtValuesWithSnapshotRate() {
+    fun figuresInDisplayCurrencyUseStoredDisplayValues() {
         val s = snapshot(
             periodChanges = mapOf(7 to PortfolioChange(100.0, 2.0)),
             unrealized = PortfolioChange(-50.0, -5.0),
+            unrealizedDisplay = PortfolioChange(-80.0, -8.5, listOf("SOL")),
+            weekDisplay = PortfolioChange(95.0, 2.1),
         )
         val figures = PortfolioWidgetViews.figures(s)
         assertEquals(listOf(PortfolioFigureKind.TODAY, PortfolioFigureKind.WEEK, PortfolioFigureKind.TOTAL), figures.map { it.kind })
         // Heute schon in der Anzeigewährung
         assertEquals(9.0, figures[0].amount!!, d)
         assertEquals(1.0, figures[0].percent!!, d)
-        // 7 T und Gesamt in USDT × 0.9
-        assertEquals(90.0, figures[1].amount!!, d)
+        // 7 T und Gesamt wie gespeichert (nicht 100 × 0.9 bzw. −50 × 0.9)
+        assertEquals(95.0, figures[1].amount!!, d)
+        assertEquals(2.1, figures[1].percent!!, d)
+        assertNull(figures[1].unit)
+        assertEquals(-80.0, figures[2].amount!!, d)
+        assertEquals(-8.5, figures[2].percent!!, d)
+        // SOL fehlt (kein Devisenkurs am Kauftag): «unvollständig»
+        assertTrue(figures[2].incomplete)
+    }
+
+    /** Ohne Werte der Anzeigewährung: «Seit Kauf» «—», «7 T» in USDT mit Einheit «USDT». Wie iOS. */
+    @Test
+    fun figuresWithoutDisplayValuesNeverScaleUsdt() {
+        val s = snapshot(periodChanges = mapOf(7 to PortfolioChange(100.0, 2.0)), unrealized = PortfolioChange(-50.0, -5.0))
+        val figures = PortfolioWidgetViews.figures(s)
+        assertEquals(100.0, figures[1].amount!!, d)
         assertEquals(2.0, figures[1].percent!!, d)
-        assertEquals(-45.0, figures[2].amount!!, d)
-        assertEquals(-5.0, figures[2].percent!!, d)
+        assertEquals("USDT", figures[1].unit)
+        assertNull(figures[2].amount)
+        assertNull(figures[2].percent)
+        assertFalse(figures[2].incomplete)
+        // Andere Währung eingestellt (umgerechnet beim Zeichnen): Werte der alten Währung gelten nicht
+        val rebased = PortfolioWidgetChart.rebased(
+            snapshot(unrealizedDisplay = PortfolioChange(-80.0, -8.5), weekDisplay = PortfolioChange(95.0, 2.1)), "EUR", 0.95,
+        )
+        assertNull(rebased.unrealizedDisplay)
+        assertNull(rebased.weekDisplay)
     }
 
     @Test
     fun figuresInUsdtDisplayKeepUsdtValues() {
-        val s = PortfolioWidgetChart.inUsdt(snapshot(periodChanges = mapOf(7 to PortfolioChange(100.0, 2.0))))
+        val s = PortfolioWidgetChart.inUsdt(
+            snapshot(
+                periodChanges = mapOf(7 to PortfolioChange(100.0, 2.0)), unrealized = PortfolioChange(-50.0, -5.0),
+                unrealizedDisplay = PortfolioChange(-80.0, -8.5), weekDisplay = PortfolioChange(95.0, 2.1),
+            ),
+        )
         val figures = PortfolioWidgetViews.figures(s)
         assertEquals(10.0, figures[0].amount!!, d)
         assertEquals(100.0, figures[1].amount!!, d)
+        assertNull(figures[1].unit)
+        assertEquals(-50.0, figures[2].amount!!, d)
     }
 
     @Test

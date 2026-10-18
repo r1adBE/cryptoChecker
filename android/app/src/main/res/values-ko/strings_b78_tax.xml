@@ -8,6 +8,6 @@
     <string name="tax_summary_at_staking_zero_cost">2022년 3월 1일 이전 스테이킹: 취득가액 0으로 계상 – 전문가와 확인하세요</string>
     <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
     <string name="tax_summary_window_open">30일 규칙에 따라 이 수치가 아직 바뀔 수 있습니다(%1$s까지의 매수)</string>
-    <!-- UK Erlöse: über 50 000 GBP Meldung an HMRC nötig, auch ohne steuerbaren Gewinn -->
-    <string name="tax_summary_uk_hmrc_report">양도 대금 £50,000 초과: 과세 이익이 없어도 HMRC 신고 필요</string>
+    <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
+    <string name="tax_summary_uk_hmrc_report">수수료 차감 전 양도 대금이 신고 기준 초과(£50,000, 2020/21–2022/23: £49,200): Self Assessment에 등록된 경우 과세 이익이 없어도 HMRC 신고 필요</string>
 </resources>

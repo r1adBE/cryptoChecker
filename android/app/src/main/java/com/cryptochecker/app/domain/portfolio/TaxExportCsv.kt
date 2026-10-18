@@ -103,6 +103,12 @@ data class TaxCsvTexts(
     val incomeStaking: String = "",
     val totalInterest: String = "",
     val totalStaking: String = "",
+    /**
+     * AT: Vermerk für Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 «vor 1.3.2022 – mit Fachperson prüfen»
+     * statt [incomeInterest]/[incomeStaking] — § 27b EStG gilt erst ab dann, die Behandlung davor ist nicht
+     * ausdrücklich geklärt. Leer = kein eigener Vermerk.
+     */
+    val incomeBeforeNewLaw: String = "",
 )
 
 private const val BOM = "\uFEFF"
@@ -303,8 +309,15 @@ fun TaxExport.incomeCsv(
     sb.append(line(listOf(texts.date, texts.coin, texts.amount, texts.valueUsdt, texts.valueTarget, texts.note).map { t(it) }, format))
     val split = texts.totalInterest.isNotEmpty() && texts.totalStaking.isNotEmpty()
     for (r in rows) {
+        // Zufluss vor dem 1.3.2022: alte Rechtslage — eigener Vermerk statt «steuerpflichtig»/«nur Information»
+        val early = texts.incomeBeforeNewLaw.isNotEmpty() && r.date < TaxTemplate.AT_SWAP_NEUTRAL_FROM
+        val kind = when {
+            early -> texts.incomeBeforeNewLaw
+            r.interest -> texts.incomeInterest
+            else -> texts.incomeStaking
+        }
         val notes = listOfNotNull(
-            (if (r.interest) texts.incomeInterest else texts.incomeStaking).takeIf { split && it.isNotEmpty() },
+            kind.takeIf { split && it.isNotEmpty() },
             texts.valueMissing.takeIf { r.valueMissing },
             texts.valueEstimated.takeIf { r.estimated && it.isNotEmpty() },
             texts.usdtAssumed.takeIf { r.usdtApproximate && it.isNotEmpty() },

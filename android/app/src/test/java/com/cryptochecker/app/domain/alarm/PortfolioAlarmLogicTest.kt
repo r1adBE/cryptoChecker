@@ -106,6 +106,18 @@ class PortfolioAlarmLogicTest {
         assertEquals(0, run(up, listOf(reading(1000.0, null))))
     }
 
+    /** «Heute %» gerundet wie die Kursalarme: 3.00 → 3.09 ergibt 2.9999999999999956 % und meldet bei «+3 %». Wie iOS. */
+    @Test
+    fun changeAlarm_comparesRoundedPercent() {
+        val change = (3.09 - 3.0) / 3.0 * 100.0
+        assertTrue(change < 3.0)
+        val up = alarm(PortfolioAlarmKind.CHANGE_UP, 3.0, currency = null)
+        assertEquals(PortfolioAlarmDecision.Fire(3.0), PortfolioAlarmLogic.decide(up, reading(1000.0, change), start, 0))
+        val down = alarm(PortfolioAlarmKind.CHANGE_DOWN, 3.0, currency = null)
+        assertEquals(PortfolioAlarmDecision.Fire(3.0), PortfolioAlarmLogic.decide(down, reading(1000.0, -change), start, 0))
+        assertEquals(3.0, PortfolioAlarmLogic.measure(up, reading(1000.0, change))!!, 0.0)
+    }
+
     @Test
     fun cooldown_blocksFiring() {
         val a = alarm(PortfolioAlarmKind.VALUE_ABOVE, 100.0)

@@ -51,6 +51,11 @@ enum class TaxSummaryNote {
      */
     AT_INTEREST_INCOME,
     /**
+     * AT Zinsen vor dem 1.3.2022 ([TaxLine.AT_INTEREST_OLD]): § 27b EStG gilt erst für Zuflüsse ab dem 1.3.2022 (§ 124b
+     * Z 384 EStG) — davor alte Rechtslage (Tarif), nicht im Sondersteuersatz 27,5 %.
+     */
+    AT_INTEREST_OLD_LAW,
+    /**
      * UK, US, CA, AU, JP Auszahlungsgebühren in USDT/Fiat ([TaxTemplate.quoteFeeIsInfo]): kein Verlust, nur Information
      * (UK: HMRC CRYPTO22150, keine «allowable cost»; sonst keine Regel, die sie abziehbar macht).
      */
@@ -86,8 +91,9 @@ enum class TaxSummaryNote {
      */
     WINDOW_OPEN,
     /**
-     * UK Erlöse ([TaxLine.PROCEEDS]): Veräusserungserlöse über [TaxTemplate.ukReportProceedsGbp] (£50,000 ab 2023/24) —
-     * Meldung an HMRC nötig, auch ohne steuerbaren Gewinn (gov.uk «Report and pay Capital Gains Tax»).
+     * UK Erlöse ([TaxLine.PROCEEDS]): Veräusserungserlöse vor Gebühren über [TaxTemplate.ukReportProceedsGbp] (£50,000 ab
+     * 2023/24, 2020/21–2022/23 £49,200) — Meldung an HMRC, falls für Self Assessment registriert, auch ohne steuerbaren
+     * Gewinn (gov.uk «Report and pay Capital Gains Tax»).
      */
     UK_HMRC_REPORT,
 }
@@ -123,6 +129,11 @@ enum class TaxLine(val orientation: Boolean = false) {
      * nicht in [INCOME] (dort nur Belohnungen mit Anschaffungskosten 0, Information).
      */
     AT_INTEREST,
+    /**
+     * AT: Zinsen aus Lending mit Zufluss vor dem 1.3.2022 — alte Rechtslage (Tarif), nicht im Sondersteuersatz
+     * ([AT_RATE]); Vermerk [TaxSummaryNote.AT_INTEREST_OLD_LAW].
+     */
+    AT_INTEREST_OLD,
     /** FR: Abgänge ohne Verkauf im Jahr — Kürzung der Erwerbspreis-Summe ([TaxOutflow]); das Jahr gilt als unvollständig. */
     FR_OUTFLOW,
     /**
@@ -285,8 +296,10 @@ private class Acc(rows: List<TaxGainRow>, pick: (BigDecimal) -> Boolean, fx: Boo
  *    US kurz-/langfristig; CA steuerbarer Anteil (netto + nicht abziehbar) × 1/2, nur in CAD; AU Verluste zuerst gegen
  *    Gewinne ≤ 12 Monate, dann 50 % Rabatt auf den Rest > 12 Monate; CA/AU netto ein Verlust: steuerbar 0 und
  *    «Netto-Kapitalverlust (Vortrag)»; FR Abtretungen ≤ 305 € befreit (sonst ganz steuerbar); JP sonstige Einkünfte =
- *    netto + Einkünfte. UK/CA: Fenster der 30-Tage-Regel nach dem Steuerjahr noch offen (bis nach [today]) → Vermerk
- *    [TaxSummaryNote.WINDOW_OPEN]; UK Erlöse über £50,000 → [TaxSummaryNote.UK_HMRC_REPORT].
+ *    netto + Einkünfte. UK/CA: Fenster der 30-Tage-Regel nach dem Steuerjahr noch offen ([today] bis und mit dem
+ *    letzten Tag) und eine Veräusserung (CA: mit Verlust) in den letzten 30 Tagen des Steuerjahrs → Vermerk
+ *    [TaxSummaryNote.WINDOW_OPEN]; UK Erlöse vor Gebühren über der Meldegrenze → [TaxSummaryNote.UK_HMRC_REPORT].
+ *    AT Zinsen mit Zufluss vor dem 1.3.2022: eigener Posten [TaxLine.AT_INTEREST_OLD] (alte Rechtslage), nicht 27,5 %.
  * Gezählt wird nur Bekanntes; was fehlt, steht als «unvollständig» bzw. «ohne Devisenkurs» am Posten (auch ein Gewinn
  * aus unvollständigem Einstand, FR). Gewinn oder Verlust entscheidet die Steuerwährung (ohne Kurs USDT). CH: Gewinne,
  * Verluste, netto nur als Information ([TaxSummaryNote.CH_FIFO_INFO]).
@@ -325,8 +338,11 @@ fun TaxExport.yearSummary(
     // Umbuchungsgebühren nur zur Information ([PortfolioFeeExpense.TRANSFER], Build 57): eigener Posten
     val (transferFees, rows) = sales.partition { it.feeExpense == PortfolioFeeExpense.TRANSFER }
     // AT: Zinsen eigener Posten (beim Zufluss Einkunft), übrige Belohnungen bleiben «Einkünfte»
-    val (interest, income) = incomeRows(trades, period, zone, currency, rates ?: emptyMap(), priceAt, usdtUsd)
+    val (allInterest, income) = incomeRows(trades, period, zone, currency, rates ?: emptyMap(), priceAt, usdtUsd)
         .partition { template == TaxTemplate.AT && it.interest }
+    // § 27b EStG (Sondersteuersatz) gilt für Zinsen erst mit Zufluss ab dem 1.3.2022 (§ 124b Z 384 EStG); davor alte
+    // Rechtslage (Tarif) — eigener Posten, nicht in der Zeile 27,5 %
+    val (interestOld, interest) = allInterest.partition { it.date < TaxTemplate.AT_SWAP_NEUTRAL_FROM }
     val pos: (BigDecimal) -> Boolean = { it.signum() > 0 }
     val neg: (BigDecimal) -> Boolean = { it.signum() <= 0 }
     val all: (BigDecimal) -> Boolean = { true }
@@ -340,17 +356,29 @@ fun TaxExport.yearSummary(
     // Option auf 27,5 % gibt es nur für Realisationen vom 1.1. bis 28.2.2022 (§ 124b Z 384 lit. c EStG); ohne Antrag gilt
     // auch dort die alte Rechtslage, darum gerechnet ohne Option
     val atOld = rows.filter { it.oldHolding == true }
+    // Gebühr-Aufwände (feeExpense, z. B. Gebühr verbraucht den ganzen Zugang) sind kein Spekulationsgeschäft: sie bleiben
+    // wie bisher im Posten Neubestand, auch vor dem 1.3.2022
     val atEarlyNew = if (template == TaxTemplate.AT) {
-        rows.filter { it.oldHolding != true && it.soldDate < TaxTemplate.AT_SWAP_NEUTRAL_FROM }
+        rows.filter { it.oldHolding != true && it.feeExpense == null && it.soldDate < TaxTemplate.AT_SWAP_NEUTRAL_FROM }
     } else emptyList()
     val atOption = atEarlyNew.any { it.soldDate >= TaxTemplate.AT_OPTION_FROM }
     // UK/CA: Käufe bis 30 Tage nach dem Ende des Steuerjahrs können die Zahlen noch ändern (UK: Bed-and-Breakfast,
-    // CRYPTO22200; CA: Superficial Loss) — solange dieses Fenster offen ist, Vermerk am Posten netto
-    val windowEnd = when (template) {
-        TaxTemplate.UK -> period.end.plusDays(TaxTemplate.UK_BB_DAYS)
-        TaxTemplate.CA -> period.end.plusDays(TaxTemplate.CA_WINDOW_DAYS)
+    // CRYPTO22200; CA: Superficial Loss) — solange dieses Fenster offen ist (Käufe am letzten Tag zählen noch), Vermerk
+    // am Posten netto. Ein solcher Kauf trifft nur Veräusserungen der letzten 30 Tage des Steuerjahrs (CA: mit Verlust,
+    // in der Steuerwährung entschieden); ohne sie bleibt der Vermerk weg
+    val windowDays = when (template) {
+        TaxTemplate.UK -> TaxTemplate.UK_BB_DAYS
+        TaxTemplate.CA -> TaxTemplate.CA_WINDOW_DAYS
         else -> null
-    }?.takeIf { it.isAfter(today ?: LocalDate.now(zone)) }
+    }
+    val windowEnd = windowDays?.let { days ->
+        val lateFrom = period.end.minusDays(days - 1)
+        val affected = rows.any { r ->
+            !r.soldDate.isBefore(lateFrom) &&
+                (template != TaxTemplate.CA || ((if (fx) r.gainTarget else null) ?: r.gainUsdt)?.let { it.signum() < 0 } == true)
+        }
+        period.end.plusDays(days).takeIf { affected && !it.isBefore(today ?: LocalDate.now(zone)) }
+    }
     if (template.holdingBuckets) {
         lines += Acc(short, pos, fx).line(TaxLine.SHORT_GAINS, fx, false)
         lines += Acc(short, neg, fx).line(TaxLine.SHORT_LOSSES, fx, false)
@@ -361,8 +389,11 @@ fun TaxExport.yearSummary(
         if (unclassifiedRows.isNotEmpty()) lines += Acc(unclassifiedRows, all, fx).line(TaxLine.UNCLASSIFIED, fx)
         net = Acc(rows, all, fx)
     } else if (template == TaxTemplate.AT) {
-        // Neubestand zum Sondersteuersatz: nur Verkäufe ab dem 1.3.2022
-        val newRows = rows.filter { it.oldHolding != true && it.soldDate >= TaxTemplate.AT_SWAP_NEUTRAL_FROM }
+        // Neubestand zum Sondersteuersatz: Verkäufe ab dem 1.3.2022; Gebühr-Aufwände wie bisher hier (nicht in den
+        // Spekulationsgeschäften, siehe [atEarlyNew])
+        val newRows = rows.filter {
+            it.oldHolding != true && (it.soldDate >= TaxTemplate.AT_SWAP_NEUTRAL_FROM || it.feeExpense != null)
+        }
         net = Acc(newRows, all, fx)
         lines += Acc(newRows, pos, fx).line(TaxLine.GAINS, fx, false)
         lines += Acc(newRows, neg, fx).line(TaxLine.LOSSES, fx, false)
@@ -414,9 +445,11 @@ fun TaxExport.yearSummary(
     val procFx = fx && sold.any { r ->
         (if (grossFr) r.grossProceedsUsdt else r.proceedsUsdt) != null && (if (grossFr) r.grossProceedsTarget else r.proceedsTarget) == null
     }
-    // UK: Erlöse über £50,000 (ab 2023/24) sind HMRC zu melden, auch ohne steuerbaren Gewinn — nur in GBP prüfbar
+    // UK: Erlöse über der Meldegrenze sind HMRC zu melden (wer für Self Assessment registriert ist), auch ohne steuerbaren
+    // Gewinn — geprüft mit den Erlösen vor Gebühren (ohne Wert vor Gebühren: der Erlös), nur in GBP prüfbar
     val ukReport = if (template == TaxTemplate.UK && fx && currency.trim().uppercase() == "GBP") {
-        TaxTemplate.ukReportProceedsGbp(startYear)?.let { procTarget > it } ?: false
+        val beforeFees = sold.fold(zero) { a, r -> a + (r.proceedsBeforeFeesTarget ?: r.proceedsTarget ?: zero) }
+        TaxTemplate.ukReportProceedsGbp(startYear)?.let { beforeFees > it } ?: false
     } else false
     lines += TaxSummaryLine(
         TaxLine.PROCEEDS, procUsdt, procTarget.takeIf { fx }, incomplete = procMissing, noFx = procFx,
@@ -442,6 +475,15 @@ fun TaxExport.yearSummary(
         lines += TaxSummaryLine(
             TaxLine.AT_INTEREST, intUsdt, intTarget.takeIf { fx }, incomplete = intMissing, noFx = intFx,
             note = TaxSummaryNote.AT_INTEREST_INCOME,
+        )
+    }
+    // AT: Zinsen vor dem 1.3.2022 — alte Rechtslage (Tarif), zählen nicht zum Sondersteuersatz
+    if (interestOld.isNotEmpty()) {
+        lines += TaxSummaryLine(
+            TaxLine.AT_INTEREST_OLD, interestOld.fold(zero) { a, r -> a + (r.valueUsdt ?: zero) },
+            interestOld.fold(zero) { a, r -> a + (r.valueTarget ?: zero) }.takeIf { fx },
+            incomplete = interestOld.any { it.valueMissing }, noFx = fx && interestOld.any { it.fxMissing },
+            note = TaxSummaryNote.AT_INTEREST_OLD_LAW,
         )
     }
     // FR: Abgänge ohne Verkauf im Jahr — Erwerbspreis-Summe gekürzt (BOFiP § 100); das Jahr ist «unvollständig»

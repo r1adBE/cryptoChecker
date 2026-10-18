@@ -4,6 +4,8 @@ import com.cryptochecker.app.domain.watch.ChangeStamp
 import androidx.core.content.edit
 import android.content.Context
 import com.cryptochecker.app.domain.portfolio.PortfolioChange
+import com.cryptochecker.app.domain.portfolio.PortfolioDisplayCost
+import com.cryptochecker.app.domain.portfolio.PortfolioDisplayFx
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryPoint
 import com.cryptochecker.app.domain.portfolio.PortfolioPosition
 import com.cryptochecker.app.domain.portfolio.PortfolioSnapshot
@@ -75,6 +77,10 @@ class PortfolioSnapshotStore @Inject constructor(
             todaySkipped = readCoins(p.text(KEY_TODAY_SKIPPED_V6)),
             // fehlt bei älteren Aufnahmen → leer (Zeilen im Portfolio-Tab «—» bis zur nächsten Aufnahme)
             coinPnl = PortfolioSnapshotCodec.readCoinPnl(p.text(KEY_COIN_PNL_V7)),
+            // fehlen bei älteren Aufnahmen → null («Seit Kauf» «—», «7 T» in USDT bis zur nächsten Aufnahme)
+            displayFx = PortfolioSnapshotCodec.readDisplayFx(p.text(KEY_DISPLAY_FX_V8)),
+            unrealizedDisplay = PortfolioSnapshotCodec.readDisplayChange(p.text(KEY_UNREALIZED_DISPLAY_V8)),
+            weekDisplay = PortfolioSnapshotCodec.readDisplayChange(p.text(KEY_WEEK_DISPLAY_V8)),
         )
     }
 
@@ -305,6 +311,9 @@ class PortfolioSnapshotStore @Inject constructor(
         }
         val skipped = snapshot.todaySkipped.filter { it.isNotBlank() }
         if (skipped.isNotEmpty()) payload.put(KEY_TODAY_SKIPPED_V6, JSONArray().apply { skipped.forEach { put(it) } }.toString())
+        snapshot.displayFx?.let { payload.put(KEY_DISPLAY_FX_V8, PortfolioSnapshotCodec.displayFxJson(it)) }
+        PortfolioSnapshotCodec.displayChangeJson(snapshot.unrealizedDisplay)?.let { payload.put(KEY_UNREALIZED_DISPLAY_V8, it) }
+        PortfolioSnapshotCodec.displayChangeJson(snapshot.weekDisplay)?.let { payload.put(KEY_WEEK_DISPLAY_V8, it) }
         writeSealed(payload)
     }
 
@@ -375,6 +384,10 @@ class PortfolioSnapshotStore @Inject constructor(
         // Version 7: MEIN Gewinn/Verlust je Coin (USDT) für die Zeilen des Portfolio-Tabs (wie iOS `coinPnl`);
         // je Position steht er in den Positionen («pa»/«pr»), das Total in «change»
         const val KEY_COIN_PNL_V7 = "coin_pnl_v7"
+        // Version 8: «Seit Kauf» und «7 T» in der Anzeigewährung samt Merkzettel der App (Einstand je Coin, Tagesfaktoren)
+        const val KEY_DISPLAY_FX_V8 = "display_fx_v8"
+        const val KEY_UNREALIZED_DISPLAY_V8 = "unrealized_display_v8"
+        const val KEY_WEEK_DISPLAY_V8 = "week_display_v8"
         // Zuletzt bekannter Devisenkurs USD → Umrechnungswährung (Hintergrund und Widget ohne Netz)
         const val KEY_FX_CURRENCY = "fx_currency"
         const val KEY_FX_RATE = "fx_rate"
@@ -445,6 +458,60 @@ internal object PortfolioSnapshotCodec {
         }
         return root.toString()
     }
+
+    /** Betrag in der Anzeigewährung: [Betrag, Prozent|null, [fehlende Coins]?]; null = nichts zu speichern. */
+    fun displayChangeJson(change: PortfolioChange?): String? {
+        val c = change?.takeIf { it.amount.isFinite() } ?: return null
+        val row = JSONArray().put(c.amount).put(c.percent?.takeIf { it.isFinite() } ?: JSONObject.NULL)
+        val skipped = c.skipped.filter { it.isNotBlank() }
+        if (skipped.isNotEmpty()) row.put(JSONArray(skipped))
+        return row.toString()
+    }
+
+    /** Gegenstück zu [displayChangeJson]; fehlt oder unlesbar = null. */
+    fun readDisplayChange(json: String?): PortfolioChange? = runCatching {
+        if (json == null) return null
+        val row = JSONArray(json)
+        val amount = row.optDouble(0).takeIf { it.isFinite() } ?: return null
+        val percent = if (row.length() > 1 && !row.isNull(1)) row.optDouble(1).takeIf { it.isFinite() } else null
+        val skipped = row.optJSONArray(2)?.let { a -> (0 until a.length()).mapNotNull { a.optString(it).takeIf { s -> s.isNotBlank() } } }
+        PortfolioChange(amount, percent, skipped.orEmpty())
+    }.onFailure { Timber.d(it, "Portfolio-Widget: Betrag in der Anzeigewährung nicht lesbar") }.getOrNull()
+
+    /** Merkzettel: {"c": Währung, "d": Tag, "k": {"BTC": [USDT, Anzeigewährung]}, "f": {"Tag": Faktor}}. */
+    fun displayFxJson(fx: PortfolioDisplayFx): String {
+        val costs = JSONObject()
+        fx.costs.forEach { (coin, c) ->
+            if (coin.isNotBlank() && c.usdt.isFinite() && c.target.isFinite()) costs.put(coin, JSONArray().put(c.usdt).put(c.target))
+        }
+        val factors = JSONObject()
+        fx.dayFactors.forEach { (day, f) -> if (f.isFinite() && f > 0.0) factors.put(day.toString(), f) }
+        return JSONObject().put("c", fx.currency).put("d", fx.day).put("k", costs).put("f", factors).toString()
+    }
+
+    /** Gegenstück zu [displayFxJson]; fehlt oder unlesbar = null. */
+    fun readDisplayFx(json: String?): PortfolioDisplayFx? = runCatching {
+        if (json == null) return null
+        val root = JSONObject(json)
+        val currency = root.optString("c").takeIf { it.isNotBlank() } ?: return null
+        val costs = HashMap<String, PortfolioDisplayCost>()
+        root.optJSONObject("k")?.let { k ->
+            k.keys().forEach { coin ->
+                val row = k.optJSONArray(coin) ?: return@forEach
+                val usdt = row.optDouble(0).takeIf { it.isFinite() } ?: return@forEach
+                val target = row.optDouble(1).takeIf { it.isFinite() } ?: return@forEach
+                costs[coin] = PortfolioDisplayCost(usdt, target)
+            }
+        }
+        val factors = HashMap<Long, Double>()
+        root.optJSONObject("f")?.let { f ->
+            f.keys().forEach { key ->
+                val day = key.toLongOrNull() ?: return@forEach
+                f.optDouble(key).takeIf { it.isFinite() && it > 0.0 }?.let { factors[day] = it }
+            }
+        }
+        PortfolioDisplayFx(currency, costs, factors, root.optLong("d", 0L))
+    }.onFailure { Timber.d(it, "Portfolio-Widget: Merkzettel Anzeigewährung nicht lesbar") }.getOrNull()
 
     /** Gegenstück zu [coinPnlJson]; fehlt oder unlesbar = leer. */
     fun readCoinPnl(json: String?): Map<String, PortfolioChange> = runCatching {

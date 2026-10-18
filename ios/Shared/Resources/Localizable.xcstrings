@@ -291228,6 +291228,197 @@
         }
       }
     },
+    "tax_export_at_income_before_new_law" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "قبل 1.3.2022 – يُرجى التحقق مع مختص"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "před 1. 3. 2022 – ověřte s odborníkem"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "før 1.3.2022 – afklar med en fagperson"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "vor 1.3.2022 – mit Fachperson prüfen"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "πριν από 1.3.2022 – ελέγξτε το με ειδικό"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "before 1 Mar 2022 – check with a professional"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "antes del 1.3.2022 – consultar con un profesional"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "پیش از 1.3.2022 – با متخصص بررسی کنید"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ennen 1.3.2022 – tarkista asiantuntijan kanssa"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "avant le 1.3.2022 – à vérifier avec un professionnel"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "לפני 1.3.2022 – יש לבדוק מול איש מקצוע"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1.3.2022 से पहले – किसी विशेषज्ञ से जाँचें"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2022.03.01. előtt – egyeztesd szakemberrel"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sebelum 1.3.2022 – periksa dengan profesional"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "prima dell’1.3.2022 – da verificare con un professionista"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2022年3月1日より前 – 専門家にご確認ください"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2022년 3월 1일 이전 – 전문가와 확인하세요"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "før 1.3.2022 – avklar med en fagperson"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "vóór 1-3-2022 – met een deskundige nagaan"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "przed 1.03.2022 – sprawdź ze specjalistą"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "antes de 1.3.2022 – verificar com um profissional"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "antes de 1/3/2022 – verificar com um profissional"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "înainte de 1.03.2022 – de verificat cu un specialist"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "до 01.03.2022 – уточните у специалиста"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "para 1.3.2022 – kontrolloje me një specialist"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "före 1.3.2022 – stäm av med en fackperson"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ก่อน 1.3.2022 – ควรตรวจสอบกับผู้เชี่ยวชาญ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1.3.2022’den önce – bir uzmanla kontrol et"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "до 01.03.2022 – уточніть у фахівця"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "trước 1.3.2022 – hãy kiểm tra với chuyên gia"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2022年3月1日前 – 请咨询专业人士"
+          }
+        }
+      }
+    },
     "tax_export_at_income_interest" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -304216,6 +304407,197 @@
         }
       }
     },
+    "tax_line_at_interest_old" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "فوائد الإقراض قبل 1.3.2022 (القيمة عند الاستلام)"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Úroky z lendingu před 1. 3. 2022 (hodnota při přijetí)"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Renter fra lending før 1.3.2022 (værdi ved modtagelse)"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zinsen aus Lending vor 1.3.2022 (Wert beim Zufluss)"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Τόκοι από lending πριν από 1.3.2022 (αξία κατά την παραλαβή)"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lending interest before 1 Mar 2022 (value on receipt)"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Intereses de lending antes del 1.3.2022 (valor al recibirlos)"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "سود وام‌دهی پیش از 1.3.2022 (ارزش هنگام دریافت)"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lainauksen korot ennen 1.3.2022 (arvo vastaanotettaessa)"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Intérêts de prêt avant le 1.3.2022 (valeur à la réception)"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ריבית מהלוואות לפני 1.3.2022 (שווי בעת הקבלה)"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1.3.2022 से पहले लेंडिंग ब्याज (मिलने के समय का मूल्य)"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lending-kamatok 2022.03.01. előtt (beérkezéskori érték)"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bunga lending sebelum 1.3.2022 (nilai saat diterima)"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Interessi da lending prima dell’1.3.2022 (valore alla ricezione)"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2022年3月1日より前のレンディング利息（受取時の価値）"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2022년 3월 1일 이전 렌딩 이자(받은 시점의 가치)"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Renter fra lending før 1.3.2022 (verdi ved mottak)"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rente uit lending vóór 1-3-2022 (waarde bij ontvangst)"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Odsetki z lendingu przed 1.03.2022 (wartość w chwili otrzymania)"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Juros de lending antes de 1.3.2022 (valor na receção)"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Juros de lending antes de 1/3/2022 (valor no recebimento)"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dobânzi din lending înainte de 1.03.2022 (valoarea la primire)"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Проценты от лендинга до 01.03.2022 (стоимость при получении)"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Interesa nga lending para 1.3.2022 (vlera në marrje)"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ränta från lending före 1.3.2022 (värde vid mottagandet)"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ดอกเบี้ยจากการให้ยืมก่อน 1.3.2022 (มูลค่าตอนที่ได้รับ)"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1.3.2022’den önce lending faizi (alındığı andaki değer)"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Відсотки від лендингу до 01.03.2022 (вартість під час отримання)"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lãi cho vay trước 1.3.2022 (giá trị lúc nhận)"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2022年3月1日前的借贷利息（收到时的价值）"
+          }
+        }
+      }
+    },
     "tax_line_at_old_long" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -313384,6 +313766,197 @@
         }
       }
     },
+    "tax_summary_at_interest_old_law" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "فوائد قبل 1.3.2022: النظام القانوني القديم (الشريحة الضريبية)، وليس 27.5 بالمئة"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Úroky před 1. 3. 2022: původní právní úprava (sazba daně z příjmů), ne 27,5 procenta"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Renter før 1.3.2022: gammel retstilstand (skattesats), ikke 27,5 procent"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zins vor 1.3.2022: alte Rechtslage (Tarif), nicht 27,5 Prozent"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Τόκοι πριν από 1.3.2022: παλαιό νομικό καθεστώς (κλίμακα), όχι 27,5 τοις εκατό"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Interest before 1 Mar 2022: old law (income tax rate), not 27.5 percent"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Intereses antes del 1.3.2022: régimen anterior (tarifa progresiva), no 27,5 por ciento"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "سود پیش از 1.3.2022: قانون قدیم (نرخ پلکانی)، نه 27.5 درصد"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Korot ennen 1.3.2022: vanha sääntely (veroasteikko), ei 27,5 prosenttia"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Intérêts avant le 1.3.2022 : ancien régime (barème), pas 27,5 pour cent"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ריבית לפני 1.3.2022: הדין הקודם (מדרגות מס), לא 27.5 אחוז"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1.3.2022 से पहले ब्याज: पुराना कानून (स्लैब दर), 27.5 प्रतिशत नहीं"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kamat 2022.03.01. előtt: régi szabályozás (adótábla), nem 27,5 százalék"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bunga sebelum 1.3.2022: aturan lama (tarif progresif), bukan 27,5 persen"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Interessi prima dell’1.3.2022: vecchia normativa (aliquota progressiva), non 27,5 per cento"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2022年3月1日より前の利息：旧制度（累進税率）、27.5 パーセントではありません"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2022년 3월 1일 이전 이자: 구법(누진세율) 적용, 27.5퍼센트 아님"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Renter før 1.3.2022: gammelt regelverk (skattesats), ikke 27,5 prosent"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rente vóór 1-3-2022: oude regeling (tarief), niet 27,5 procent"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Odsetki przed 1.03.2022: dawne przepisy (skala podatkowa), nie 27,5 procent"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Juros antes de 1.3.2022: regime anterior (taxas progressivas), não 27,5 por cento"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Juros antes de 1/3/2022: regime antigo (alíquota progressiva), não 27,5 por cento"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dobânzi înainte de 1.03.2022: regim vechi (cotă progresivă), nu 27,5 la sută"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Проценты до 01.03.2022: прежнее законодательство (шкала), не 27,5 процента"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Interesa para 1.3.2022: rregullimi i vjetër (shkalla tatimore), jo 27,5 përqind"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ränta före 1.3.2022: gamla regler (skatteskala), inte 27,5 procent"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ดอกเบี้ยก่อน 1.3.2022: กฎหมายเดิม (อัตราก้าวหน้า) ไม่ใช่ 27.5 เปอร์เซ็นต์"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1.3.2022’den önce faiz: eski mevzuat (gelir vergisi tarifesi), yüzde 27,5 değil"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Відсотки до 01.03.2022: попереднє законодавство (шкала), не 27,5 відсотка"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lãi trước 1.3.2022: luật cũ (biểu thuế lũy tiến), không phải 27,5 phần trăm"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2022年3月1日前的利息：旧法（累进税率），而非百分之 27.5"
+          }
+        }
+      }
+    },
     "tax_summary_at_reward_info" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -316064,187 +316637,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "عائدات تتجاوز 50,000 جنيه إسترليني: يلزم الإبلاغ إلى HMRC حتى دون ربح خاضع للضريبة"
+            "value" : "عائدات قبل الرسوم تتجاوز حد الإبلاغ (50,000 جنيه إسترليني؛ 2020/21–2022/23: 49,200 جنيه إسترليني): يلزم الإبلاغ إلى HMRC إذا كنت مسجلاً في Self Assessment، حتى دون ربح خاضع للضريبة"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Příjmy z prodeje nad 50 000 £: nutné hlášení HMRC, i bez zdanitelného zisku"
+            "value" : "Příjmy z prodeje před poplatky nad hranicí pro hlášení (50 000 £; 2020/21–2022/23: 49 200 £): hlášení HMRC, pokud jste registrováni pro Self Assessment, i bez zdanitelného zisku"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Salgssummer over £50.000: indberetning til HMRC påkrævet, også uden skattepligtig gevinst"
+            "value" : "Salgssummer før gebyrer over indberetningsgrænsen (£50.000; 2020/21–2022/23: £49.200): indberetning til HMRC, hvis du er registreret til Self Assessment, også uden skattepligtig gevinst"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Erlöse über £50,000: Meldung an HMRC nötig, auch ohne steuerbaren Gewinn"
+            "value" : "Erlöse vor Gebühren über der Meldegrenze (£50,000; 2020/21–2022/23: £49,200): Meldung an HMRC, falls du für Self Assessment registriert bist – auch ohne steuerbaren Gewinn"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Έσοδα πώλησης άνω των 50.000 £: απαιτείται δήλωση στην HMRC, ακόμη και χωρίς φορολογητέο κέρδος"
+            "value" : "Έσοδα πώλησης πριν από τέλη άνω του ορίου δήλωσης (50.000 £· 2020/21–2022/23: 49.200 £): δήλωση στην HMRC αν είστε εγγεγραμμένοι στο Self Assessment, ακόμη και χωρίς φορολογητέο κέρδος"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Proceeds over £50,000: report to HMRC required, even without a taxable gain"
+            "value" : "Proceeds before fees over the reporting limit (£50,000; 2020/21–2022/23: £49,200): report to HMRC if you are registered for Self Assessment, even without a taxable gain"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Importes de venta superiores a 50.000 £: declaración a HMRC obligatoria, incluso sin ganancia imponible"
+            "value" : "Importes de venta antes de comisiones por encima del límite de declaración (50.000 £; 2020/21–2022/23: 49.200 £): declaración a HMRC si estás registrado en Self Assessment, incluso sin ganancia imponible"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "عواید فروش بیش از 50,000 پوند: گزارش به HMRC لازم است، حتی بدون سود مشمول مالیات"
+            "value" : "عواید فروش پیش از کارمزد بیش از سقف گزارش (50,000 پوند؛ 2020/21–2022/23: 49,200 پوند): اگر در Self Assessment ثبت‌نام کرده‌اید، گزارش به HMRC لازم است، حتی بدون سود مشمول مالیات"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Luovutushinnat yli 50 000 £: ilmoitus HMRC:lle pakollinen, myös ilman veronalaista voittoa"
+            "value" : "Luovutushinnat ennen kuluja yli ilmoitusrajan (50 000 £; 2020/21–2022/23: 49 200 £): ilmoitus HMRC:lle, jos olet rekisteröitynyt Self Assessmentiin, myös ilman veronalaista voittoa"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Produits de cession supérieurs à 50 000 £ : déclaration à HMRC obligatoire, même sans plus-value imposable"
+            "value" : "Produits de cession avant frais supérieurs au seuil de déclaration (50 000 £ ; 2020/21–2022/23 : 49 200 £) : déclaration à HMRC si tu es inscrit au Self Assessment, même sans plus-value imposable"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "תמורה מעל 50,000 ליש״ט: נדרש דיווח ל-HMRC, גם ללא רווח חייב במס"
+            "value" : "תמורה לפני עמלות מעל סף הדיווח (50,000 ליש״ט; 2020/21–2022/23: 49,200 ליש״ט): דיווח ל-HMRC אם נרשמת ל-Self Assessment, גם ללא רווח חייב במס"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "£50,000 से अधिक बिक्री आय: कर योग्य लाभ न होने पर भी HMRC को सूचना देना आवश्यक"
+            "value" : "शुल्क से पहले की बिक्री आय रिपोर्टिंग सीमा से अधिक (£50,000; 2020/21–2022/23: £49,200): यदि आप Self Assessment के लिए पंजीकृत हैं तो HMRC को सूचना दें, कर योग्य लाभ न होने पर भी"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "50 000 £ feletti eladási bevétel: bejelentés a HMRC-nek kötelező, adóköteles nyereség nélkül is"
+            "value" : "Díjak előtti eladási bevétel a bejelentési határ felett (50 000 £; 2020/21–2022/23: 49 200 £): bejelentés a HMRC-nek, ha regisztráltál a Self Assessmentre, adóköteles nyereség nélkül is"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hasil penjualan di atas £50.000: wajib lapor ke HMRC, meskipun tanpa keuntungan kena pajak"
+            "value" : "Hasil penjualan sebelum biaya di atas batas pelaporan (£50.000; 2020/21–2022/23: £49.200): lapor ke HMRC jika kamu terdaftar untuk Self Assessment, meskipun tanpa keuntungan kena pajak"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Corrispettivi oltre 50.000 £: dichiarazione a HMRC obbligatoria, anche senza plusvalenza imponibile"
+            "value" : "Corrispettivi al lordo delle commissioni oltre la soglia di dichiarazione (50.000 £; 2020/21–2022/23: 49.200 £): dichiarazione a HMRC se sei registrato al Self Assessment, anche senza plusvalenza imponibile"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "譲渡収入が £50,000 超：課税対象の利益がなくても HMRC への申告が必要"
+            "value" : "手数料控除前の譲渡収入が報告基準額を超過（£50,000、2020/21–2022/23 は £49,200）：Self Assessment に登録している場合、課税対象の利益がなくても HMRC への申告が必要"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "양도 대금 £50,000 초과: 과세 이익이 없어도 HMRC 신고 필요"
+            "value" : "수수료 차감 전 양도 대금이 신고 기준 초과(£50,000, 2020/21–2022/23: £49,200): Self Assessment에 등록된 경우 과세 이익이 없어도 HMRC 신고 필요"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Salgsinntekter over £50 000: rapportering til HMRC påkrevd, også uten skattepliktig gevinst"
+            "value" : "Salgsinntekter før gebyrer over rapporteringsgrensen (£50 000; 2020/21–2022/23: £49 200): rapportering til HMRC hvis du er registrert for Self Assessment, også uten skattepliktig gevinst"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Opbrengsten boven £50.000: melding aan HMRC verplicht, ook zonder belastbare winst"
+            "value" : "Opbrengsten vóór kosten boven de meldgrens (£50.000; 2020/21–2022/23: £49.200): melding aan HMRC als je voor Self Assessment geregistreerd bent, ook zonder belastbare winst"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Przychody ze zbycia powyżej 50 000 £: wymagane zgłoszenie do HMRC, nawet bez zysku do opodatkowania"
+            "value" : "Przychody ze zbycia przed opłatami powyżej progu zgłoszenia (50 000 £; 2020/21–2022/23: 49 200 £): zgłoszenie do HMRC, jeśli jesteś zarejestrowany w Self Assessment, nawet bez zysku do opodatkowania"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Valores de alienação acima de 50 000 £: comunicação à HMRC obrigatória, mesmo sem mais-valia tributável"
+            "value" : "Valores de alienação antes de comissões acima do limite de comunicação (50 000 £; 2020/21–2022/23: 49 200 £): comunicação à HMRC se estiveres registado no Self Assessment, mesmo sem mais-valia tributável"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Valores de venda acima de £50.000: declaração ao HMRC obrigatória, mesmo sem ganho tributável"
+            "value" : "Valores de venda antes de taxas acima do limite de declaração (£50.000; 2020/21–2022/23: £49.200): declaração ao HMRC se você estiver registrado no Self Assessment, mesmo sem ganho tributável"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Încasări peste 50.000 £: raportare la HMRC obligatorie, chiar fără câștig impozabil"
+            "value" : "Încasări înainte de comisioane peste pragul de raportare (50.000 £; 2020/21–2022/23: 49.200 £): raportare la HMRC dacă ești înregistrat pentru Self Assessment, chiar fără câștig impozabil"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Выручка свыше 50 000 £: требуется сообщить в HMRC, даже без налогооблагаемой прибыли"
+            "value" : "Выручка до вычета комиссий выше порога отчётности (50 000 £; 2020/21–2022/23: 49 200 £): сообщите в HMRC, если вы зарегистрированы в Self Assessment, даже без налогооблагаемой прибыли"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Të ardhura nga shitja mbi £50,000: duhet raportuar te HMRC, edhe pa fitim të tatueshëm"
+            "value" : "Të ardhura nga shitja para tarifave mbi kufirin e raportimit (£50,000; 2020/21–2022/23: £49,200): raporto te HMRC nëse je regjistruar për Self Assessment, edhe pa fitim të tatueshëm"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Försäljningsintäkter över £50 000: rapportering till HMRC krävs, även utan skattepliktig vinst"
+            "value" : "Försäljningsintäkter före avgifter över rapporteringsgränsen (£50 000; 2020/21–2022/23: £49 200): rapportering till HMRC om du är registrerad för Self Assessment, även utan skattepliktig vinst"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "รายรับจากการขายเกิน £50,000: ต้องแจ้ง HMRC แม้ไม่มีกำไรที่ต้องเสียภาษี"
+            "value" : "รายรับจากการขายก่อนหักค่าธรรมเนียมเกินเกณฑ์การแจ้ง (£50,000; 2020/21–2022/23: £49,200): ต้องแจ้ง HMRC หากคุณลงทะเบียน Self Assessment แม้ไม่มีกำไรที่ต้องเสียภาษี"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "50.000 £ üzeri satış hasılatı: vergiye tabi kazanç olmasa da HMRC’ye bildirim gerekli"
+            "value" : "Ücretlerden önceki satış hasılatı bildirim sınırının üzerinde (50.000 £; 2020/21–2022/23: 49.200 £): Self Assessment’e kayıtlıysan vergiye tabi kazanç olmasa da HMRC’ye bildirim gerekli"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Виручка понад 50 000 £: потрібно повідомити HMRC, навіть без оподатковуваного прибутку"
+            "value" : "Виручка до вирахування комісій понад поріг звітності (50 000 £; 2020/21–2022/23: 49 200 £): повідомте HMRC, якщо ви зареєстровані в Self Assessment, навіть без оподатковуваного прибутку"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tiền bán trên £50.000: phải báo cáo HMRC, kể cả khi không có lãi chịu thuế"
+            "value" : "Tiền bán trước phí vượt ngưỡng báo cáo (£50.000; 2020/21–2022/23: £49.200): báo cáo HMRC nếu bạn đã đăng ký Self Assessment, kể cả khi không có lãi chịu thuế"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "出售所得超过 £50,000：即使没有应税收益也须向 HMRC 申报"
+            "value" : "扣除费用前的出售所得超过申报门槛（£50,000；2020/21–2022/23：£49,200）：如已登记 Self Assessment，即使没有应税收益也须向 HMRC 申报"
           }
         }
       }

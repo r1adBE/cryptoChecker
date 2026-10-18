@@ -8,6 +8,6 @@
     <string name="tax_summary_at_staking_zero_cost">Staking vóór 1-3-2022: aanschafkosten op 0 gezet – met een deskundige nagaan</string>
     <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
     <string name="tax_summary_window_open">De 30-dagenregel kan deze cijfers nog wijzigen (aankopen tot en met %1$s)</string>
-    <!-- UK Erlöse: über 50 000 GBP Meldung an HMRC nötig, auch ohne steuerbaren Gewinn -->
-    <string name="tax_summary_uk_hmrc_report">Opbrengsten boven £50.000: melding aan HMRC verplicht, ook zonder belastbare winst</string>
+    <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
+    <string name="tax_summary_uk_hmrc_report">Opbrengsten vóór kosten boven de meldgrens (£50.000; 2020/21–2022/23: £49.200): melding aan HMRC als je voor Self Assessment geregistreerd bent, ook zonder belastbare winst</string>
 </resources>

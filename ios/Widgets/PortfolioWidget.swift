@@ -137,13 +137,16 @@ struct PortfolioEntry: TimelineEntry {
             PortfolioWidgetPosition(symbol: "ADA", value: 800.00, sharePercent: 6.5, change24hPercent: 0, quantity: "1520",
                                     pnlAmount: 0, pnlPercent: 0),
         ]
-        // Beispiel für die Übersicht: 7 T und ± seit Kauf in USDT
-        let snapshot = PortfolioWidgetSnapshot(total: 12_345.67, changeAmount: 182.4, changePercent: 1.5,
+        // Beispiel für die Übersicht: 7 T und ± seit Kauf in USDT, dazu in der Anzeigewährung (wie ein Stand mit dem
+        // Merkzettel der App)
+        var snapshot = PortfolioWidgetSnapshot(total: 12_345.67, changeAmount: 182.4, changePercent: 1.5,
                                                currency: settings.portfolioCurrency,
                                                updatedAt: now, empty: false, totalUsdt: 13_890.12,
                                                positions: positions, otherPositions: 0, history: history,
                                                periodChanges: ["7": PortfolioWidgetChange(amount: 412.3, percent: 3.1)],
                                                unrealized: PortfolioWidgetChange(amount: 2_140.5, percent: 18.2))
+        snapshot.weekDisplay = PortfolioWidgetChange(amount: 366.4, percent: 3.1)
+        snapshot.unrealizedDisplay = PortfolioWidgetChange(amount: 1_902.3, percent: 18.2)
         var entry = PortfolioEntry(date: Date(), snapshot: snapshot, locked: false, accent: settings.accentColor,
                                    priceColors: settings.priceColorScheme, highContrast: settings.highContrast,
                                    priceColorsInverted: settings.priceColorsInverted)

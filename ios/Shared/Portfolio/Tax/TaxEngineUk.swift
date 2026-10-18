@@ -120,7 +120,8 @@ extension TaxEngines {
                     let rest = r - taken.removed
                     if rest > 0 { list.append(Piece(amount: rest, cost: nil, uncovered: true)) }
                 }
-                out += emit(coin, s, list, proceeds: s.proceeds)
+                // Erlös vor Gebühren mitführen: die Meldegrenze an HMRC prüft die Erlöse vor Abzug der Kosten
+                out += emit(coin, s, list, proceeds: s.proceeds, gross: s.gross)
             case .remove:
                 _ = pool.take(s.qty)
             case .networkFee:

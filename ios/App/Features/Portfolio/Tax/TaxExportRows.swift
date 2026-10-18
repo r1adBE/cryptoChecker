@@ -65,12 +65,15 @@ struct TaxGainRow: Equatable, Sendable {
     var valueEstimated = false
     /// UK/CA: Schenkung an Ehe-/Lebenspartner (`PortfolioDisposal.spouseGift`): Erlös = Einstand, Vermerk.
     var spouseGift = false
-    /// Auszahlungsgebühr in USDT/Fiat mit `quoteFeeIsInfo` (UK, US, CA, AU, JP): kein Verlust, nur Information — nicht
-    /// in den Summen, Vermerk `TaxCsvTexts.withdrawalFeeInfo`. Wie Android.
+    /// Auszahlungsgebühr in USDT/Fiat mit `quoteFeeIsInfo` (UK, US, CA, AU, JP) bzw. bei `.FR_PTA`: kein Verlust, nur
+    /// Information — nicht in den Summen, Vermerk `TaxCsvTexts.withdrawalFeeInfo`. Wie Android.
     var feeInfoOnly = false
     /// Mit USDT/USD-Tagesschluss umgerechnet (`TaxExport.rateOn` `usdtUsd`), aber an einem nötigen Tag ohne Schluss: dort
     /// USDT = 1 USD als Näherung — Vermerk `TaxCsvTexts.usdtAssumed`, nie still. Wie Android.
     var usdtApproximate = false
+    /// UK: Erlös vor Gebühren (`PortfolioDisposal.proceedsBeforeFeesUsdt`) / × Devisenkurs am Verkaufsdatum; sonst nil.
+    var proceedsBeforeFeesUsdt: Decimal? = nil
+    var proceedsBeforeFeesTarget: Decimal? = nil
 
     /// Einstand aus einem Durchschnitt (Herkunftsteile je Kaufdatum umgerechnet) — wie `pooled` (Android); ein
     /// Gebühr-Aufwand ist kein Durchschnitt.
@@ -128,8 +131,9 @@ extension TaxExport {
         let fx: (Int64) -> Decimal? = { t in
             rateOn(rates, date: localDay(t, timeZone: timeZone), currency: currency, usdtUsd: usdtUsd)
         }
-        // Auszahlungsgebühr USDT/Fiat nur Information (`TaxEventRules.quoteFeeIsInfo`)
-        let feeInfo = (rules ?? .of(method)).quoteFeeIsInfo
+        // Auszahlungsgebühr USDT/Fiat nur Information (`TaxEventRules.quoteFeeIsInfo`); FR ebenso — die Gebühr mindert den
+        // Gewinn nicht (art. 150 VH bis), wie in der Jahresübersicht, sonst stünde sie in der Summe der Gewinne-CSV
+        let feeInfo = (rules ?? .of(method)).quoteFeeIsInfo || method == .FR_PTA
         return disposals(in: trades, method: method, period: period, timeZone: timeZone, priceAt: priceAt,
                          fx: fx, rules: rules, walletFrom: walletFrom).map { d -> TaxGainRow in
             let sold = localDay(d.sellTime, timeZone: timeZone)
@@ -214,6 +218,8 @@ extension TaxExport {
             // USDT = 1 als Näherung an einem der Tage, deren Kurs die Zeile braucht (Verkauf, Kauf, Herkunftsteile)
             let usdtDays = [sold] + (acquired.map { [$0] } ?? []) + d.costParts.map { localDay($0.time, timeZone: timeZone) }
             row.usdtApproximate = usdtDays.contains { usdtApproximateOn(usdtUsd, date: $0) }
+            row.proceedsBeforeFeesUsdt = d.proceedsBeforeFeesUsdt
+            row.proceedsBeforeFeesTarget = atSale(d.proceedsBeforeFeesUsdt)
             return row
         }
     }

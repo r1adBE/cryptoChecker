@@ -438,11 +438,14 @@ enum TaxEngines {
     }
 
     /// Veräusserungen aus `pieces`: Erlös nach Menge verteilt (letzter Teil bekommt den Rest, Summe exakt). Schenkung an
-    /// Ehe-/Lebenspartner (`TaxStep.spouseGift`): Erlös je Teil = sein Einstand (ohne Kaufpreis unbekannt).
-    static func emit(_ coin: String, _ s: TaxStep, _ pieces: [Piece], proceeds: Decimal?) -> [PortfolioDisposal] {
+    /// Ehe-/Lebenspartner (`TaxStep.spouseGift`): Erlös je Teil = sein Einstand (ohne Kaufpreis unbekannt). `gross` (UK):
+    /// Erlös vor Gebühren, gleich verteilt (`PortfolioDisposal.proceedsBeforeFeesUsdt`); nil = keiner. Wie Android.
+    static func emit(_ coin: String, _ s: TaxStep, _ pieces: [Piece], proceeds: Decimal?,
+                     gross: Decimal? = nil) -> [PortfolioDisposal] {
         let total = pieces.reduce(Decimal(0)) { $0 + $1.amount }
         guard total > 0 else { return [] }
         var left = proceeds
+        var grossLeft = gross
         var out: [PortfolioDisposal] = []
         for (i, p) in pieces.enumerated() {
             var share: Decimal? = nil
@@ -451,6 +454,11 @@ enum TaxEngines {
             } else if let proceeds, let l = left {
                 share = i == pieces.count - 1 ? l : PortfolioDecimal.divide(proceeds * p.amount, total)
                 left = l - (share ?? 0)
+            }
+            var grossShare: Decimal? = nil
+            if !s.spouseGift, let gross, let g = grossLeft {
+                grossShare = i == pieces.count - 1 ? g : PortfolioDecimal.divide(gross * p.amount, total)
+                grossLeft = g - (grossShare ?? 0)
             }
             var gain: Decimal? = nil
             if let share, let c = p.cost { gain = share - c }
@@ -465,6 +473,7 @@ enum TaxEngines {
             d.matchedTime = p.matchedTime
             d.oldHolding = p.oldHolding
             d.spouseGift = s.spouseGift
+            d.proceedsBeforeFeesUsdt = grossShare
             out.append(d)
         }
         return out

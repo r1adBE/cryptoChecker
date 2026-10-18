@@ -42,8 +42,18 @@ enum class PortfolioWidgetView {
 /** Kennzahl der Übersicht — wie die drei Zahlen der Gesamtkarte im Portfolio-Tab. */
 enum class PortfolioFigureKind { TODAY, WEEK, TOTAL }
 
-/** Eine Kennzahl: Betrag in der Anzeige-Einheit und Prozent; null = unbekannt («—»). */
-data class PortfolioFigure(val kind: PortfolioFigureKind, val amount: Double?, val percent: Double?)
+/**
+ * Eine Kennzahl: Betrag in der Anzeige-Einheit und Prozent; null = unbekannt («—»). [unit] = abweichende Einheit des
+ * Betrags («USDT» für «7 T» ohne Tageskurse der Anzeigewährung); null = die des Widgets. [incomplete] = ein Coin fehlt
+ * (Wert mit «*», Screenreader «unvollständig»).
+ */
+data class PortfolioFigure(
+    val kind: PortfolioFigureKind,
+    val amount: Double?,
+    val percent: Double?,
+    val unit: String? = null,
+    val incomplete: Boolean = false,
+)
 
 /**
  * Was die Übersicht in ihrer Höhe zeigt (Gesamtwert immer). Vorrang bei knapper Höhe:
@@ -98,18 +108,42 @@ object PortfolioWidgetViews {
 
     /**
      * Heute · 7 T · Gesamt aus dem gezeigten Stand ([PortfolioWidgetChart.displayed]): «Heute» ist die
-     * Veränderung der Momentaufnahme (schon in der Anzeige-Einheit), «7 T» und «Gesamt» (± seit Kauf)
-     * sind in USDT gespeichert und werden mit dem Kurs der Aufnahme umgerechnet ([PortfolioWidgetChart.fxFactor]).
+     * Veränderung der Momentaufnahme (schon in der Anzeige-Einheit). In USDT («Nur USDT», ohne Devisenkurs) «7 T» und
+     * «Gesamt» (± seit Kauf) aus den USDT-Werten. In einer Anzeigewährung wie die Gesamtkarte, nie USDT × heutiger
+     * Kurs (der Einstand gilt zum Kurs der Erwerbstage): «Gesamt» = [PortfolioSnapshot.unrealizedDisplay], ohne ihn
+     * «—»; «7 T» = [PortfolioSnapshot.weekDisplay], ohne ihn die USDT-Zahl mit Einheit «USDT».
      */
     fun figures(shown: PortfolioSnapshot): List<PortfolioFigure> {
-        val factor = PortfolioWidgetChart.fxFactor(shown) ?: 1.0
         fun valid(value: Double?): Double? = value?.takeIf { it.isFinite() }
-        val week = shown.periodChanges[PortfolioChartRange.WEEK.days]
-        val total = shown.unrealized
+        val today = PortfolioFigure(
+            PortfolioFigureKind.TODAY, valid(shown.changeAmount), valid(shown.changePercent).takeIf { shown.changeAmount != null },
+        )
+        val weekUsdt = shown.periodChanges[PortfolioChartRange.WEEK.days]
+        if (shown.currency == PortfolioWidgetChart.USDT_CODE) {
+            val total = shown.unrealized
+            return listOf(
+                today,
+                PortfolioFigure(PortfolioFigureKind.WEEK, valid(weekUsdt?.amount), valid(weekUsdt?.percent).takeIf { weekUsdt != null }),
+                PortfolioFigure(PortfolioFigureKind.TOTAL, valid(total?.amount), valid(total?.percent).takeIf { total != null }),
+            )
+        }
+        val weekShown = shown.weekDisplay
+        val week = if (weekShown != null) {
+            PortfolioFigure(PortfolioFigureKind.WEEK, valid(weekShown.amount), valid(weekShown.percent))
+        } else {
+            PortfolioFigure(
+                PortfolioFigureKind.WEEK, valid(weekUsdt?.amount), valid(weekUsdt?.percent).takeIf { weekUsdt != null },
+                unit = PortfolioWidgetChart.USDT_CODE.takeIf { weekUsdt != null },
+            )
+        }
+        val total = shown.unrealizedDisplay
         return listOf(
-            PortfolioFigure(PortfolioFigureKind.TODAY, valid(shown.changeAmount), valid(shown.changePercent).takeIf { shown.changeAmount != null }),
-            PortfolioFigure(PortfolioFigureKind.WEEK, valid(week?.amount)?.times(factor), valid(week?.percent).takeIf { week != null }),
-            PortfolioFigure(PortfolioFigureKind.TOTAL, valid(total?.amount)?.times(factor), valid(total?.percent).takeIf { total != null }),
+            today,
+            week,
+            PortfolioFigure(
+                PortfolioFigureKind.TOTAL, valid(total?.amount), valid(total?.percent).takeIf { total != null },
+                incomplete = total?.skipped?.isNotEmpty() == true,
+            ),
         )
     }
 

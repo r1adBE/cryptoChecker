@@ -378,11 +378,16 @@ enum class TaxTemplate {
         const val UK_BB_DAYS = 30L
 
         /**
-         * UK: Meldepflicht an HMRC, wenn die Veräusserungserlöse des Steuerjahrs ab 6. April [startYear] diesen Betrag
-         * (GBP) übersteigen, auch ohne steuerbaren Gewinn — £50,000 ab 2023/24 (gov.uk «Report and pay your Capital Gains
-         * Tax», Stand 2026); davor galt das Vierfache des Annual Exempt Amount (nicht hinterlegt: null).
+         * UK: Meldepflicht an HMRC (wer für Self Assessment registriert ist), wenn die Veräusserungserlöse vor Gebühren des
+         * Steuerjahrs ab 6. April [startYear] diesen Betrag (GBP) übersteigen, auch ohne steuerbaren Gewinn — £50,000 ab
+         * 2023/24 (gov.uk «Report and pay your Capital Gains Tax», Stand 2026); 2020/21 bis 2022/23 das Vierfache des
+         * Annual Exempt Amount (4 × £12,300 = £49,200); früher nicht hinterlegt (null).
          */
-        fun ukReportProceedsGbp(startYear: Int): BigDecimal? = if (startYear >= 2023) BigDecimal(50000) else null
+        fun ukReportProceedsGbp(startYear: Int): BigDecimal? = when {
+            startYear >= 2023 -> BigDecimal(50000)
+            startYear in 2020..2022 -> ukAnnualExemptGbp(startYear)?.multiply(BigDecimal(4))
+            else -> null
+        }
 
         /** UK: Annual Exempt Amount (Privatperson) in GBP für das Steuerjahr ab 6. April [startYear]; null = nicht hinterlegt. */
         fun ukAnnualExemptGbp(startYear: Int): BigDecimal? = when {

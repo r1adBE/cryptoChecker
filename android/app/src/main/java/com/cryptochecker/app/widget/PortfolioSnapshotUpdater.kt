@@ -15,6 +15,8 @@ import com.cryptochecker.app.domain.portfolio.CostMethod
 import com.cryptochecker.app.domain.portfolio.CoinPosition
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioChange
+import com.cryptochecker.app.domain.portfolio.PortfolioDisplayFigures
+import com.cryptochecker.app.domain.portfolio.PortfolioDisplayFx
 import com.cryptochecker.app.domain.portfolio.PortfolioHistory
 import com.cryptochecker.app.domain.portfolio.PortfolioExchangeRoute
 import com.cryptochecker.app.domain.portfolio.PortfolioPeriodChange
@@ -167,6 +169,11 @@ class PortfolioSnapshotUpdater @Inject constructor(
          * [PortfolioPrices.binance]) — wählen die Tagesreihe wie im Portfolio-Tab ([PortfolioExchangeRoute.historyCloses]).
          */
         routing: PortfolioPrices? = null,
+        /**
+         * Merkzettel der App für «Seit Kauf»/«7 T» in der Anzeigewährung ([PortfolioDisplayFx]); null = der zuletzt
+         * gespeicherte (Hintergrund, Widget).
+         */
+        displayFx: PortfolioDisplayFx? = null,
     ): PortfolioSnapshot? = withContext(Dispatchers.IO) {
         val settings = settingsRepository.current()
         val basis = settings.changeBasis.storage
@@ -194,6 +201,10 @@ class PortfolioSnapshotUpdater @Inject constructor(
             val rate = resolvedFx?.let { PortfolioWidgetChart.usdtFactor(currency, it, depegReadings.liveUsdtUsd(now)) } ?: 1.0
             // Ohne Devisenkurs in USDT (1:1 gerechnet) — nicht «USD», das in USD nun USDT zum Marktkurs meint
             val code = if (resolvedFx != null) currency else PortfolioStables.VALUATION
+            // «Seit Kauf»/«7 T» in der Anzeigewährung: mit dem Merkzettel der App (frisch übergeben oder gespeichert),
+            // nur für dieselbe Währung — in USDT gelten die USDT-Werte
+            val memo = (displayFx ?: store.snapshot()?.displayFx)
+                ?.takeIf { code != PortfolioStables.VALUATION && it.currency.equals(code.trim(), ignoreCase = true) }
             val history = store.history()
             val holdings = summary.open.associate { it.coin to it.holdings }
             // Aktuelle Kurse der offenen Coins (Stablecoin-Regel setzt der Rechner: USDT 1, andere Marktkurs, sonst 1)
@@ -229,9 +240,14 @@ class PortfolioSnapshotUpdater @Inject constructor(
                 stamp = ChangeBasisMath.stamp(basis, now),
                 // Adress-Anteil im 24-h-Verlauf nur mit dem damals beobachteten Guthaben
                 addressSteps = AddressBalanceHistory.stepsByCoin(addresses),
-            ).withDaily(transactions, holdings, current, now, routing, addresses, settings.costMethod)
-                // «Gesamt» der Übersicht: ± seit Kauf in USDT wie in der Gesamtkarte des Portfolio-Tabs
-                .copy(unrealized = summary.unrealized?.takeIf { it.isFinite() }?.let { PortfolioChange(it, summary.unrealizedPercent) })
+            ).withDaily(transactions, holdings, current, now, routing, addresses, settings.costMethod, memo, code, rate)
+                // «Gesamt» der Übersicht: ± seit Kauf in USDT wie in der Gesamtkarte des Portfolio-Tabs; in der
+                // Anzeigewährung: Wert × Faktor jetzt − gemerkter Einstand zum Kurs der Erwerbstage
+                .copy(
+                    unrealized = summary.unrealized?.takeIf { it.isFinite() }?.let { PortfolioChange(it, summary.unrealizedPercent) },
+                    unrealizedDisplay = PortfolioDisplayFigures.unrealized(summary.open, code, rate, memo),
+                    displayFx = memo,
+                )
                 // «Heute»: eigener Bestand + zuletzt beobachtetes Adress-Guthaben; die Reihe rechnet Änderungen
                 // seit Beginn der %-Basis als Zu-/Abfluss heraus (nie rückwirkend)
                 .withHonestToday(
@@ -308,6 +324,9 @@ class PortfolioSnapshotUpdater @Inject constructor(
         routing: PortfolioPrices?,
         addresses: List<AddressBalanceHistory>,
         method: CostMethod,
+        memo: PortfolioDisplayFx?,
+        code: String,
+        rate: Double,
     ): PortfolioSnapshot {
         if (empty || holdings.isEmpty()) return this
         return try {
@@ -333,7 +352,18 @@ class PortfolioSnapshotUpdater @Inject constructor(
                 addresses = addresses,
                 method = method,
             )
-            copy(daily = data.points, periodChanges = data.changes)
+            // «7 T» in der Anzeigewährung wie die Gesamtkarte (Tagesfaktoren der App, [PortfolioDisplayFigures.periodFx]);
+            // ohne passende Faktoren null — das Widget zeigt dann die USDT-Zahl mit Einheit «USDT»
+            val today = PortfolioHistory.epochDayOfUtcMillis(now)
+            val weekDisplay = PortfolioDisplayFigures.periodFx(memo, code, rate, today)?.let { fx ->
+                PortfolioDisplayFigures.periodChange(
+                    PortfolioPeriodChange.gain(
+                        transactions.map { it.toTrade() }, current, PortfolioWidgetChart.usableCloses(routed.closes, today),
+                        today - PortfolioDisplayFigures.WEEK_DAYS, addresses = addresses, method = method, fx = fx,
+                    )
+                )
+            }
+            copy(daily = data.points, periodChanges = data.changes, weekDisplay = weekDisplay)
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {

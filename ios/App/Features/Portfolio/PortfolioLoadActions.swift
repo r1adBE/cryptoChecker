@@ -70,8 +70,10 @@ extension PortfolioModel {
         if data.settings.portfolioCurrency == currency && !recordable {
             if today == nil { today = storedToday(rate: self.rate(for: currency)) }
         } else if data.settings.portfolioCurrency == currency {
+            // Mit dem Merkzettel der App: «Seit Kauf»/«7 T» des Widgets in der Anzeigewährung wie die Karte
             let widget = PortfolioWidgetStore.update(transactions: calcPortfolio, prices: prices, currency: currency,
-                                                     rate: self.rate(for: currency))
+                                                     rate: self.rate(for: currency),
+                                                     displayFx: widgetDisplayFx(for: currency))
             if let widget {
                 coinChanges = widget.coinChanges ?? [:]
                 coinPnl = widget.empty ? [:] : (widget.coinPnl ?? [:])
@@ -115,36 +117,46 @@ extension PortfolioModel {
     }
 
     /// Devisen-Tageskurse für den Verlauf: eine Abfrage je Währung und Zeitraum (6 h zwischengespeichert);
-    /// schon geladen (gleiche Währung, Zeitraum abgedeckt) → nichts zu tun.
+    /// schon geladen (gleiche Währung, Zeitraum abgedeckt, bis zum heutigen UTC-Tag) → nichts zu tun. Ohne den letzten
+    /// Tag blieben Kurse eines neuen Tags aus, bis die App neu startet.
     func loadFxSeries() async {
         let currency = data.settings.portfolioCurrency
         guard currency != "USD" else { return }
         let from = fxSeriesFrom()
-        if let known = fxSeries, known.currency == currency, known.from <= from, known.rates != nil { return }
-        let rates = await HistoricPriceSource.usdToSeries(currency, from: from, to: LocalDay.today())
+        let utcToday = LocalDay.todayUTC()
+        if let known = fxSeries, known.currency == currency, known.from <= from, known.rates != nil,
+           !PortfolioHistoryFx.fxLoadOutdated(loadedTo: known.to, utcToday: utcToday) { return }
+        let to = PortfolioHistoryFx.fxRequestEnd(localToday: LocalDay.today(), utcToday: utcToday)
+        let rates = await HistoricPriceSource.usdToSeries(currency, from: from, to: to)
         guard data.settings.portfolioCurrency == currency, from <= fxSeriesFrom() else { return }
-        fxSeries = (currency: currency, from: from, rates: rates.flatMap { $0.isEmpty ? nil : $0 })
+        fxSeries = (currency: currency, from: from, rates: rates.flatMap { $0.isEmpty ? nil : $0 }, to: to)
         recomputeHistory()
+        refreshWidgetDisplayFx()
     }
 
     /// Kurse für «Seit Kauf»/Einstand in der Anzeigewährung ab dem frühesten Erwerbstag der offenen Posten
     /// (`costFxLoad`): dieselben Quellen wie der Steuer-Export (Devisen-Tageskurse ab `PortfolioHistoryFx.leadDays` Tagen
-    /// davor, USDT/USD-Tagesschlüsse). USDT braucht keine; schon geladen (gleiche Währung, Zeitraum abgedeckt) → nichts
-    /// zu tun. Wie Android `loadCostFx`.
+    /// davor, USDT/USD-Tagesschlüsse). USDT braucht keine; schon geladen (gleiche Währung, Zeitraum abgedeckt, bis zum
+    /// heutigen UTC-Tag) → nichts zu tun. Wie Android `loadCostFx`.
     func loadCostFx() async {
         let currency = data.settings.portfolioCurrency
         guard currency != PortfolioFormat.usdt, let first = PortfolioCostFx.firstDay(summary) else { return }
         let from = LocalDay(epochDay: first)
-        if let known = costFxLoad, known.currency == currency, known.from <= from, known.rates != nil { return }
+        let utcToday = LocalDay.todayUTC()
+        if let known = costFxLoad, known.currency == currency, known.from <= from, known.rates != nil,
+           !PortfolioHistoryFx.fxLoadOutdated(loadedTo: known.to, utcToday: utcToday) { return }
+        let to = PortfolioHistoryFx.fxRequestEnd(localToday: LocalDay.today(), utcToday: utcToday)
         var rates: [Int: Decimal]? = [:]
         if currency != "USD" {
-            let series = await PortfolioTaxExporter.rates(currency, from: from, to: LocalDay.today())
+            let series = await PortfolioTaxExporter.rates(currency, from: from, to: to)
             rates = series.flatMap { $0.isEmpty ? nil : $0 }
         }
         let usdt = await PortfolioTaxExporter.usdtUsdCloses(currency, from: from) ?? [:]
         // Inzwischen andere Währung gewählt: nicht überschreiben
         guard data.settings.portfolioCurrency == currency else { return }
-        costFxLoad = (currency: currency, from: from, rates: rates, usdtUsd: usdt)
+        costFxLoad = (currency: currency, from: from, rates: rates, usdtUsd: usdt, to: to)
+        // Widget: «Seit Kauf» in der Anzeigewährung mit den neuen Kursen
+        refreshWidgetDisplayFx()
     }
 
     // MARK: Wertverlauf
@@ -165,5 +177,7 @@ extension PortfolioModel {
         guard request.covers(historyRequest()) else { return }
         historyCloses = (request: request, prices: prices)
         recomputeHistory()
+        // Widget: «7 T» in der Anzeigewährung braucht die USDT/USD-Tagesschlüsse dieser Ladung
+        refreshWidgetDisplayFx()
     }
 }

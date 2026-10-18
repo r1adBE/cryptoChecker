@@ -95,7 +95,8 @@ extension PortfolioHomeView {
             HStack(spacing: 2) {
                 ChangeArrowIcon(change: direction)
                     .font(.system(size: 8.5, weight: .bold))
-                Text(PriceFormat.signedPercent(percent, decimals: 2))
+                // Ein Coin fehlt (kein Devisenkurs am Kauftag, seither gekauft/verkauft): «*» wie «unvollständig» der Karte
+                Text(PriceFormat.signedPercent(percent, decimals: 2) + (f.incomplete ? "*" : ""))
                     .font(.system(size: 12, weight: .bold))
                     .monospacedDigit()
                     .lineLimit(1)
@@ -111,10 +112,12 @@ extension PortfolioHomeView {
 
     /// Betrag unter dem Wert «+182.40 CHF» (Währung klein und grau); verborgen «•••», ohne Wert «—».
     private func figureAmount(_ f: PortfolioFigure, currency: String) -> some View {
+        // Einheit des Betrags: «7 T» ohne Tageskurse der Anzeigewährung in USDT (nie USDT × heutiger Kurs)
+        let unit = f.unit ?? currency
         let text = f.amount.map {
-            entry.hideAmounts ? PortfolioInsights.hidden : PortfolioWidgetText.signedAmount($0, currency: currency)
+            entry.hideAmounts ? PortfolioInsights.hidden : PortfolioWidgetText.signedAmount($0, currency: unit)
         } ?? "—"
-        return Text.quoted(text, quote: currency, size: 12, quoteColor: palette.secondary)
+        return Text.quoted(text, quote: unit, size: 12, quoteColor: palette.secondary)
             .monospacedDigit()
             .foregroundStyle(palette.text)
             .lineLimit(1)

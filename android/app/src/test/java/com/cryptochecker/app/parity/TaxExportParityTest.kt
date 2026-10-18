@@ -173,6 +173,25 @@ class TaxExportParityTest {
         assertEquals("neutral", a["neutral"].list(), lines(TaxExport.incomeCsv(rows, texts, header)))
     }
 
+    /**
+     * Einkünfte-CSV AT: Zufluss vor dem 1.3.2022 (vor § 27b EStG) — Vermerk «vor 1.3.2022 – mit Fachperson prüfen» statt
+     * Zins/Staking, Summen getrennt wie bisher. Wie iOS.
+     */
+    @Test
+    fun atIncomeBeforeNewLawIsMarked() {
+        val a = data["atIncome"].obj()
+        val b = data["atIncomeBefore2022"].obj()
+        val rows = TaxExport.incomeRows(parseTrades(b["trades"]), TaxTemplate.NEUTRAL.period(2022), zone, b["currency"] as String, null)
+        val at = a["atTexts"].obj().let { x ->
+            texts.copy(
+                incomeInterest = x["incomeInterest"] as String, incomeStaking = x["incomeStaking"] as String,
+                totalInterest = x["totalInterest"] as String, totalStaking = x["totalStaking"] as String,
+                incomeBeforeNewLaw = b["incomeBeforeNewLaw"] as String,
+            )
+        }
+        assertEquals("AT", b["at"].list(), lines(TaxExport.incomeCsv(rows, at, header)))
+    }
+
     @Test
     fun csvCases() {
         val cases = data["cases"].list().map { it.obj() }
@@ -189,7 +208,8 @@ class TaxExportParityTest {
 
     /**
      * Build 56/57: Gebühr in USDT/Fiat einer Auszahlung bzw. Umbuchung bei UK, US, CA, AU, JP nur Information (Vermerk,
-     * nicht in der Summe; UK HMRC CRYPTO22150), DE und Neutral unverändert. Wie iOS.
+     * nicht in der Summe; UK HMRC CRYPTO22150), DE und Neutral unverändert. FR: Auszahlungsgebühr ebenso nur Information
+     * (wie in der Jahresübersicht). Wie iOS.
      */
     @Test
     fun withdrawalFeeInfoIsNotInTotals() {
@@ -201,8 +221,10 @@ class TaxExportParityTest {
         w["cases"].list().map { it.obj() }.forEach { c ->
             val tpl = TaxTemplate.valueOf(c["template"] as String)
             val method = TaxMethod.valueOf(c["method"] as String)
-            // Kalenderjahr für alle (UK-Steuerjahr ab 6. April enthielte die Fälle nicht)
-            val rows = TaxExport.gainRows(wTrades, method, TaxTemplate.NEUTRAL.period(y), z, "USD", null, rules = tpl.eventRules)
+            // Kalenderjahr für alle (UK-Steuerjahr ab 6. April enthielte die Fälle nicht); ein Fall mit eigenen
+            // Transaktionen (FR: Auszahlung mit Wert für die Kürzung der Erwerbspreis-Summe) nimmt diese
+            val caseTrades = c["trades"]?.let { parseTrades(it) } ?: wTrades
+            val rows = TaxExport.gainRows(caseTrades, method, TaxTemplate.NEUTRAL.period(y), z, "USD", null, rules = tpl.eventRules)
             val info = c["infoRows"].num()!!.toInt()
             assertEquals("$tpl infoRows", info, rows.count { it.feeInfoOnly })
             val csv = lines(TaxExport.gainsCsv(rows, wTexts, emptyList()))

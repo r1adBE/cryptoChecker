@@ -8,6 +8,6 @@
     <string name="tax_summary_at_staking_zero_cost">Staking ennen 1.3.2022: hankintameno asetettu 0:ksi – tarkista asiantuntijan kanssa</string>
     <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
     <string name="tax_summary_window_open">30 päivän sääntö voi vielä muuttaa näitä lukuja (ostot %1$s asti)</string>
-    <!-- UK Erlöse: über 50 000 GBP Meldung an HMRC nötig, auch ohne steuerbaren Gewinn -->
-    <string name="tax_summary_uk_hmrc_report">Luovutushinnat yli 50 000 £: ilmoitus HMRC:lle pakollinen, myös ilman veronalaista voittoa</string>
+    <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
+    <string name="tax_summary_uk_hmrc_report">Luovutushinnat ennen kuluja yli ilmoitusrajan (50 000 £; 2020/21–2022/23: 49 200 £): ilmoitus HMRC:lle, jos olet rekisteröitynyt Self Assessmentiin, myös ilman veronalaista voittoa</string>
 </resources>

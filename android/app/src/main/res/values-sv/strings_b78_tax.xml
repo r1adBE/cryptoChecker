@@ -8,6 +8,6 @@
     <string name="tax_summary_at_staking_zero_cost">Staking före 1.3.2022: anskaffningsutgift satt till 0 – stäm av med en fackperson</string>
     <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
     <string name="tax_summary_window_open">30-dagarsregeln kan fortfarande ändra dessa siffror (köp till och med %1$s)</string>
-    <!-- UK Erlöse: über 50 000 GBP Meldung an HMRC nötig, auch ohne steuerbaren Gewinn -->
-    <string name="tax_summary_uk_hmrc_report">Försäljningsintäkter över £50 000: rapportering till HMRC krävs, även utan skattepliktig vinst</string>
+    <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
+    <string name="tax_summary_uk_hmrc_report">Försäljningsintäkter före avgifter över rapporteringsgränsen (£50 000; 2020/21–2022/23: £49 200): rapportering till HMRC om du är registrerad för Self Assessment, även utan skattepliktig vinst</string>
 </resources>

@@ -294,7 +294,7 @@ class TaxTemplatesParityTest {
                     TaxSummaryNote.WITHDRAWAL_FEE_INFO to "wfeeinfo", TaxSummaryNote.TRANSFER_FEE_INFO to "tfeeinfo",
                     TaxSummaryNote.AT_TRANSITION_2021 to "attransition", TaxSummaryNote.AT_WITHOUT_OPTION to "atnooption",
                     TaxSummaryNote.AT_STAKING_ZERO_COST to "atstaking", TaxSummaryNote.WINDOW_OPEN to "window $TAX_NOTE_DATE",
-                    TaxSummaryNote.UK_HMRC_REPORT to "ukreport",
+                    TaxSummaryNote.UK_HMRC_REPORT to "ukreport", TaxSummaryNote.AT_INTEREST_OLD_LAW to "atinterestold",
                 ),
             )
             val lines = TaxExport.summaryCsv(s, texts, listOf("H")).removePrefix("\uFEFF").split("\r\n").filter { it.isNotEmpty() }
@@ -356,9 +356,20 @@ class TaxTemplatesParityTest {
         assertTrue(!TaxLine.LONG_GAINS.orientation)
         // AT: Zinsen sind eine Tatsache (Einkunft beim Zufluss), der Sondersteuersatz auf netto + Zinsen ein Schluss
         assertTrue(!TaxLine.AT_INTEREST.orientation)
+        assertTrue(!TaxLine.AT_INTEREST_OLD.orientation)
         assertTrue(TaxLine.AT_RATE.orientation)
         // CA/AU: Vortrag eines Netto-Kapitalverlusts ist ein Schluss der Vorlage
         assertTrue(TaxLine.NET_CAPITAL_LOSS.orientation)
+    }
+
+    /** UK-Meldegrenze an HMRC: £50,000 ab 2023/24, 2020/21–2022/23 4 × Annual Exempt Amount (£49,200), früher keine. Wie iOS. */
+    @Test
+    fun ukReportProceedsThreshold() {
+        assertEquals(0, BigDecimal(50000).compareTo(TaxTemplate.ukReportProceedsGbp(2025)))
+        assertEquals(0, BigDecimal(50000).compareTo(TaxTemplate.ukReportProceedsGbp(2023)))
+        assertEquals(0, BigDecimal(49200).compareTo(TaxTemplate.ukReportProceedsGbp(2022)))
+        assertEquals(0, BigDecimal(49200).compareTo(TaxTemplate.ukReportProceedsGbp(2020)))
+        assertEquals(null, TaxTemplate.ukReportProceedsGbp(2019))
     }
 
     /**

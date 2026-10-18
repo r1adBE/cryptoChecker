@@ -8,6 +8,6 @@
     <string name="tax_summary_at_staking_zero_cost">1.3.2022 से पहले स्टेकिंग: अधिग्रहण लागत 0 मानी गई – किसी विशेषज्ञ से जाँचें</string>
     <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
     <string name="tax_summary_window_open">30-दिन का नियम इन आँकड़ों को अभी भी बदल सकता है (%1$s तक की खरीद)</string>
-    <!-- UK Erlöse: über 50 000 GBP Meldung an HMRC nötig, auch ohne steuerbaren Gewinn -->
-    <string name="tax_summary_uk_hmrc_report">£50,000 से अधिक बिक्री आय: कर योग्य लाभ न होने पर भी HMRC को सूचना देना आवश्यक</string>
+    <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
+    <string name="tax_summary_uk_hmrc_report">शुल्क से पहले की बिक्री आय रिपोर्टिंग सीमा से अधिक (£50,000; 2020/21–2022/23: £49,200): यदि आप Self Assessment के लिए पंजीकृत हैं तो HMRC को सूचना दें, कर योग्य लाभ न होने पर भी</string>
 </resources>

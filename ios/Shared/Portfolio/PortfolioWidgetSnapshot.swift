@@ -82,6 +82,16 @@ struct PortfolioWidgetSnapshot: Codable, Equatable, Sendable {
     /// mit ihrem letzten Kurs; das Widget zeigt «teilweise alter Kurs», Portfolio-Alarme prüfen nicht. nil = 0.
     /// Wie Android `PortfolioSnapshot.stalePrices`.
     var stalePrices: Int?
+    /// Merkzettel der App für «Seit Kauf» und «7 T» in der Anzeigewährung (`PortfolioDisplayFx`) — gespeichert, damit
+    /// auch Stände aus dem Hintergrund und dem Widget damit rechnen; nil = keiner (älterer Stand, USDT). Wie Android.
+    var displayFx: PortfolioDisplayFx?
+    /// «Seit Kauf» in `currency` zum Kurs der Erwerbstage wie die Gesamtkarte (`PortfolioDisplayFigures.unrealized`);
+    /// `skipped` = fehlende Coins («unvollständig»). nil = unbekannt bzw. älterer Stand — das Widget zeigt in der
+    /// Anzeigewährung dann «—» statt USDT × heutiger Kurs. Wie Android `unrealizedDisplay`.
+    var unrealizedDisplay: PortfolioWidgetChange?
+    /// «7 T» in `currency` mit den Tageskursen der App wie die Gesamtkarte (`PortfolioDisplayFigures.periodFx`); nil =
+    /// nicht rechenbar: das Widget zeigt dann `periodChanges` in USDT mit Einheit «USDT». Wie Android `weekDisplay`.
+    var weekDisplay: PortfolioWidgetChange?
 
     init(total: Double, changeAmount: Double?, changePercent: Double?, currency: String, updatedAt: Int64, empty: Bool,
          totalUsdt: Double? = nil, positions: [PortfolioWidgetPosition]? = nil, otherPositions: Int? = nil,
@@ -528,6 +538,7 @@ enum PortfolioWidgetStore {
     /// stammen Wertverlauf und Veränderung über 24 h daraus, sonst aus den Kursaufnahmen.
     /// `extraHourly`: weitere schon geladene Stundenkurse (z. B. Mini-Charts der Merkliste).
     /// `basis`: %-Basis — bei «seit 00:00» Verlauf und Veränderung ab Tagesbeginn (wie Android).
+    /// `displayFx`: Merkzettel der App für «Seit Kauf»/«7 T» in der Anzeigewährung; nil = der zuletzt gespeicherte.
     static func compute(transactions: [PortfolioTx], prices: PortfolioPrices, currency: String,
                         rate: Double?, now: Int64 = TimeUtils.nowMillis,
                         extraHourly: [String: [PortfolioTimedPrice]] = [:],
@@ -536,7 +547,8 @@ enum PortfolioWidgetStore {
                         routed: Set<String>? = nil,
                         method: CostMethod = .defaultMethod,
                         addresses: [AddressBalanceHistory] = [],
-                        staleAfterMillis: Int64? = nil) -> PortfolioWidgetSnapshot {
+                        staleAfterMillis: Int64? = nil,
+                        displayFx: PortfolioDisplayFx? = nil) -> PortfolioWidgetSnapshot {
         guard !transactions.isEmpty else { return .emptyPortfolio }
         let summary = PortfolioCalculator.summarize(transactions, prices: prices.prices, method: method)
         var holdings: [String: Double] = [:]
@@ -662,6 +674,16 @@ enum PortfolioWidgetStore {
             unrealized: summary.unrealized.flatMap { $0.isFinite
                 ? PortfolioWidgetChange(amount: $0, percent: summary.unrealizedPercent) : nil }
         )
+        // «Seit Kauf»/«7 T» in der Anzeigewährung: mit dem Merkzettel der App (frisch übergeben oder gespeichert), nur
+        // für dieselbe Währung — in USDT gelten die USDT-Werte. «Seit Kauf» = Wert × Faktor jetzt − gemerkter Einstand
+        // zum Kurs der Erwerbstage (wie Android `record`)
+        let memo = (displayFx ?? load()?.displayFx).flatMap { m -> PortfolioDisplayFx? in
+            label != PortfolioStables.valuation && m.currency == label.trimmingCharacters(in: .whitespaces).uppercased()
+                ? m : nil
+        }
+        snapshot.displayFx = memo
+        snapshot.unrealizedDisplay = PortfolioDisplayFigures.unrealized(open: summary.open, currency: label,
+                                                                       currentRate: factor, memo: memo)
         // «Heute» für Karte, Widget und Portfolio-Alarm aus EINER Rechnung: Kursänderung je Coin mit
         // Vergleichskurs (Coins ohne fehlen statt flach mitzuzählen), um Käufe/Verkäufe seit Beginn der
         // %-Basis berichtigt — wie Android `withHonestToday`
@@ -719,7 +741,18 @@ enum PortfolioWidgetStore {
                                                    todayUtcDay: PortfolioHistory.epochDay(utcMillis: now),
                                                    dayEndMillis: { PortfolioHistory.dayEndMillis($0) },
                                                    addresses: addresses, method: method)
-        return snapshot.with(daily)
+        var result = snapshot.with(daily)
+        // «7 T» in der Anzeigewährung wie die Gesamtkarte (Tagesfaktoren der App); ohne passende Faktoren nil — das
+        // Widget zeigt dann die USDT-Zahl mit Einheit «USDT» (wie Android `withDaily`)
+        let today = PortfolioHistory.epochDay(utcMillis: now)
+        if let fx = PortfolioDisplayFigures.periodFx(memo: memo, currency: label, currentRate: factor, todayEpochDay: today) {
+            result.weekDisplay = PortfolioDisplayFigures.periodChange(
+                PortfolioPeriodChange.gain(trades: transactions, current: current,
+                                           closes: PortfolioWidgetChart.usableCloses(routedHistory.closes, todayUtcDay: today),
+                                           baseDay: today - PortfolioDisplayFigures.weekDays,
+                                           addresses: addresses, method: method, fx: fx))
+        }
+        return result
     }
 
     // MARK: Aktualisieren
@@ -730,7 +763,8 @@ enum PortfolioWidgetStore {
     @discardableResult
     static func update(transactions: [PortfolioTx], prices: PortfolioPrices, currency: String,
                        rate: Double?, reload: Bool = true,
-                       extraHourly: [String: [PortfolioTimedPrice]] = [:]) -> PortfolioWidgetSnapshot? {
+                       extraHourly: [String: [PortfolioTimedPrice]] = [:],
+                       displayFx: PortfolioDisplayFx? = nil) -> PortfolioWidgetSnapshot? {
         if !transactions.isEmpty && prices.updatedAt <= 0 { return nil }
         let settings = SharedStorage.loadSettings()
         // Frischen Kurs merken; ohne (kein Netz, frischer Prozess) der gemerkte — sonst fiele der Stand auf USD
@@ -751,7 +785,8 @@ enum PortfolioWidgetStore {
                                method: settings.costMethod,
                                addresses: AddressBalanceHistory.of(WatchedAddressStore.load().addresses),
                                staleAfterMillis: PortfolioPriceFallback.staleAfterMillis(
-                                   backgroundIntervalMinutes: settings.backgroundIntervalMinutes))
+                                   backgroundIntervalMinutes: settings.backgroundIntervalMinutes),
+                               displayFx: displayFx)
         if save(snapshot) && reload {
             WidgetCenter.shared.reloadTimelines(ofKind: kind)
         }

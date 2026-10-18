@@ -73,6 +73,22 @@ data class PortfolioSnapshot(
      * 0 = alle frisch (bzw. ältere Aufnahme).
      */
     val stalePrices: Int = 0,
+    /**
+     * Merkzettel der App für «Seit Kauf» und «7 T» in der Anzeigewährung ([PortfolioDisplayFx]) — gespeichert, damit
+     * auch Aufnahmen im Hintergrund damit rechnen. null = keiner (ältere Aufnahme, USDT).
+     */
+    val displayFx: PortfolioDisplayFx? = null,
+    /**
+     * «Seit Kauf» in [currency] zum Kurs der Erwerbstage wie die Gesamtkarte ([PortfolioDisplayFigures.unrealized]);
+     * [PortfolioChange.skipped] = fehlende Coins («unvollständig»). null = unbekannt bzw. ältere Aufnahme — das Widget
+     * zeigt in der Anzeigewährung dann «—» statt USDT × heutiger Kurs.
+     */
+    val unrealizedDisplay: PortfolioChange? = null,
+    /**
+     * «7 T» in [currency] mit den Tageskursen der App wie die Gesamtkarte ([PortfolioDisplayFigures.periodFx]). null =
+     * nicht rechenbar: das Widget zeigt dann [periodChanges] in USDT mit Einheit «USDT».
+     */
+    val weekDisplay: PortfolioChange? = null,
 )
 
 /** USDT-Kurse aller Coins zu einem Zeitpunkt. */

@@ -311,7 +311,7 @@ final class TaxTemplatesTests: XCTestCase {
                         .WITHDRAWAL_FEE_INFO: "wfeeinfo", .TRANSFER_FEE_INFO: "tfeeinfo",
                         .AT_TRANSITION_2021: "attransition", .AT_WITHOUT_OPTION: "atnooption",
                         .AT_STAKING_ZERO_COST: "atstaking", .WINDOW_OPEN: "window " + TaxExport.noteDateToken,
-                        .UK_HMRC_REPORT: "ukreport"])
+                        .UK_HMRC_REPORT: "ukreport", .AT_INTEREST_OLD_LAW: "atinterestold"])
             let csv = TaxExport.summaryCsv(s, texts: texts, header: ["H"])
             let lines = String(csv.dropFirst()).components(separatedBy: "\r\n").filter { !$0.isEmpty }
             // Zusatz-Vermerke (Datum eingesetzt) und Status «Verlust» stehen in der Hinweis-Spalte ihres Postens
@@ -379,9 +379,20 @@ final class TaxTemplatesTests: XCTestCase {
         XCTAssertFalse(TaxLine.LONG_GAINS.orientation)
         // AT: Zinsen sind eine Tatsache (Einkunft beim Zufluss), der Sondersteuersatz auf netto + Zinsen ein Schluss
         XCTAssertFalse(TaxLine.AT_INTEREST.orientation)
+        XCTAssertFalse(TaxLine.AT_INTEREST_OLD.orientation)
         XCTAssertTrue(TaxLine.AT_RATE.orientation)
         // CA/AU: Vortrag eines Netto-Kapitalverlusts ist ein Schluss der Vorlage
         XCTAssertTrue(TaxLine.NET_CAPITAL_LOSS.orientation)
+    }
+
+    /// UK-Meldegrenze an HMRC: £50,000 ab 2023/24, 2020/21–2022/23 4 × Annual Exempt Amount (£49,200), früher keine.
+    /// Wie Android.
+    func testUkReportProceedsThreshold() {
+        XCTAssertEqual(TaxTemplate.ukReportProceedsGbp(2025), 50000)
+        XCTAssertEqual(TaxTemplate.ukReportProceedsGbp(2023), 50000)
+        XCTAssertEqual(TaxTemplate.ukReportProceedsGbp(2022), 49200)
+        XCTAssertEqual(TaxTemplate.ukReportProceedsGbp(2020), 49200)
+        XCTAssertNil(TaxTemplate.ukReportProceedsGbp(2019))
     }
 
     /// FR-Kurse für den Gesamtwert: gehalten ist, was die Rechnung vor dem Abgang bucht — auch ein Kauf derselben

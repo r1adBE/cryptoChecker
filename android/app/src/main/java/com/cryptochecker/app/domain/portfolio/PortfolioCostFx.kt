@@ -26,6 +26,11 @@ data class PortfolioCostFxFigures(
     val fxMissingCoins: List<String>,
     /** An mindestens einem Erwerbstag ohne USDT/USD-Tagesschluss mit USDT = 1 gerechnet ([TaxExport.usdtApproximateOn]). */
     val usdtApproximate: Boolean,
+    /**
+     * Einstand je Coin in [unrealized] (Teil mit Kaufpreis) in der Anzeigewährung — für das Widget gemerkt
+     * ([PortfolioDisplayFx]), das «Seit Kauf» damit zum aktuellen Kurs nachrechnet. Ohne die Coins in [fxMissingCoins].
+     */
+    val coinCosts: Map<String, BigDecimal> = emptyMap(),
 )
 
 /**
@@ -115,9 +120,11 @@ object PortfolioCostFx {
         var unrealized: BigDecimal? = null
         var includedCost = BigDecimal.ZERO
         var unrealizedFxMissing = false
+        val coinCosts = LinkedHashMap<String, BigDecimal>()
         for (p in included) {
             val cost = target(p)
             if (cost == null) { unrealizedFxMissing = true; continue }
+            coinCosts[p.coin] = cost
             val pricedValue = p.unrealizedExact!! + p.pricedCostExact!!
             unrealized = (unrealized ?: BigDecimal.ZERO) + pricedValue.multiply(currentRate, mc) - cost
             includedCost += cost
@@ -140,6 +147,7 @@ object PortfolioCostFx {
             investedFxMissing = investedFxMissing,
             fxMissingCoins = missing.toList(),
             usdtApproximate = usdtApproximate,
+            coinCosts = coinCosts,
         )
     }
 }

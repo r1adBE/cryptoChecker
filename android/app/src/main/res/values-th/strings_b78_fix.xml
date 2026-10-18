@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Jahresübersicht AT: Zinsen aus Lending mit Zufluss vor dem 1.3.2022 (alte Rechtslage, nicht im Sondersteuersatz) -->
+    <string name="tax_line_at_interest_old">ดอกเบี้ยจากการให้ยืมก่อน 1.3.2022 (มูลค่าตอนที่ได้รับ)</string>
+    <!-- Vermerk am Posten Zinsen vor dem 1.3.2022: alte Rechtslage (Tarif), nicht 27,5 Prozent -->
+    <string name="tax_summary_at_interest_old_law">ดอกเบี้ยก่อน 1.3.2022: กฎหมายเดิม (อัตราก้าวหน้า) ไม่ใช่ 27.5 เปอร์เซ็นต์</string>
+    <!-- Einkünfte-CSV AT: Vermerk für Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 -->
+    <string name="tax_export_at_income_before_new_law">ก่อน 1.3.2022 – ควรตรวจสอบกับผู้เชี่ยวชาญ</string>
+</resources>

@@ -63,13 +63,13 @@ final class PortfolioModel: ObservableObject {
     /// Zählt jede neue Ladung von `historyCloses` (Schlüssel des `summary`-Zwischenspeichers).
     private var historyClosesStamp = 0
     private var historyTask: Task<Void, Never>?
-    /// Devisen-Tageskurse USD → `currency` ab `from` (bis heute); `rates` nil = nicht zu haben.
-    var fxSeries: (currency: String, from: LocalDay, rates: [Int: Double]?)?
+    /// Devisen-Tageskurse USD → `currency` ab `from` bis `to` (letzter abgefragter Tag); `rates` nil = nicht zu haben.
+    var fxSeries: (currency: String, from: LocalDay, rates: [Int: Double]?, to: LocalDay)?
     /// Kurse für «Seit Kauf»/Einstand in der Anzeigewährung (`PortfolioCostFx`): ab `from` (frühester Erwerbstag der
     /// offenen Posten) Devisen-Tageskurse USD → `currency` (`rates`, USD leer; nil = nicht zu haben) und USDT/USD-
     /// Tagesschlüsse (`usdtUsd`, leer = keine: dann USDT = 1 als Näherung) — exakt wie im Steuer-Export. Wie Android
-    /// `CostFxLoad`.
-    @Published var costFxLoad: (currency: String, from: LocalDay, rates: [Int: Decimal]?, usdtUsd: [Int: Decimal])?
+    /// `CostFxLoad`. `to` = letzter abgefragter Tag (`PortfolioHistoryFx.fxRequestEnd`): davor ein neuer UTC-Tag → neu laden.
+    @Published var costFxLoad: (currency: String, from: LocalDay, rates: [Int: Decimal]?, usdtUsd: [Int: Decimal], to: LocalDay)?
 
     var activeRefreshes = 0
     private var loadingCoins = false
@@ -359,6 +359,47 @@ final class PortfolioModel: ObservableObject {
                                        // Heute als UTC-Tag wie die Erwerbstage (`PortfolioCostFx.dayOf`)
                                        todayEpochDay: PortfolioHistory.utcToday(),
                                        rates: usable?.rates, usdtUsd: usable?.usdtUsd ?? [:])
+    }
+
+    /// Merkzettel fürs Portfolio-Widget (`PortfolioDisplayFx`): Einstand je Coin zum Kurs der Erwerbstage (`costFx`) und
+    /// die Tagesfaktoren der letzten Tage wie «7 T» der Karte — damit jeder Stand, auch aus dem Hintergrund und dem Widget,
+    /// «Seit Kauf» und «7 T» in der Anzeigewährung wie die Karte zeigt statt USDT × heutiger Kurs. nil in USDT bzw.
+    /// solange die Kurse laden. Ohne den Live-Kurs USDT/USD (gilt erst ab heute, kommt aus dem Stand). Wie Android
+    /// `PortfolioViewModel.widgetDisplayFx`.
+    func widgetDisplayFx(for currency: String) -> PortfolioDisplayFx? {
+        guard let figures = costFx(for: currency) else { return nil }
+        let today = PortfolioHistory.utcToday()
+        let from = today - PortfolioDisplayFigures.memoDays
+        let fxNow = PortfolioHistoryFx.convertsUsdt(currency, usdtMarket: true)
+            ? rate(for: currency).flatMap { $0 > 0 && $0.isFinite ? $0 : nil } : nil
+        // Wie «7 T» der Karte: Devisen-Tageskurse, die bis zum ersten gemerkten Tag zurückreichen (USD: an jedem Tag 1)
+        var rates: [Int: Double]?
+        if !PortfolioHistoryFx.convertsUsdtAsUsd(currency) {
+            rates = PortfolioHistoryFx.usdParity(fromEpochDay: from - PortfolioHistoryFx.leadDays, toEpochDay: today)
+        } else if let known = fxSeries, known.currency == currency, known.from <= LocalDay(epochDay: from),
+                  let r = known.rates, !r.isEmpty {
+            rates = r
+        }
+        var dayFactor: ((Int) -> Double)?
+        if let fxNow, let rates, let usdtDaily = historyCloses?.prices.usdtUsd {
+            dayFactor = PortfolioHistoryFx.rateFunction(dailyRates: rates, currentRate: fxNow, todayEpochDay: today,
+                                                        usdt: UsdtUsdRates(live: nil, daily: usdtDaily))
+        }
+        return PortfolioDisplayFigures.memo(currency: currency, coinCosts: figures.coinCosts, open: summary.open,
+                                            dayFactor: dayFactor, todayEpochDay: today)
+    }
+
+    /// Merkzettel fürs Widget, sobald seine Kurse da sind: hat er sich gegenüber dem gespeicherten Stand geändert, den
+    /// Stand mit denselben Kursen neu rechnen (wie Android: der Merkzettel gehört zur Eingabe der Aufnahme).
+    func refreshWidgetDisplayFx() {
+        let currency = data.settings.portfolioCurrency
+        guard let memo = widgetDisplayFx(for: currency), PortfolioWidgetStore.load()?.displayFx != memo,
+              !calcPortfolio.isEmpty, prices.updatedAt > 0,
+              PortfolioPriceFallback.mayRecord(transactions: calcPortfolio, prices: prices, now: TimeUtils.nowMillis,
+                                               staleAfterMillis: staleAfterMillis)
+        else { return }
+        PortfolioWidgetStore.update(transactions: calcPortfolio, prices: prices, currency: currency,
+                                    rate: rate(for: currency), displayFx: memo)
     }
 
     func loadCoins() async {

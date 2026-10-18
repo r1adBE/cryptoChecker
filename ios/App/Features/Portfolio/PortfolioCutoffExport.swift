@@ -657,9 +657,15 @@ enum HistoricPriceSource {
         let symbols = PortfolioHistoryFx.requestCurrencies(target).joined(separator: ",")
         // In Stücken von höchstens einem Jahr: längere Zeiträume liefert Frankfurter nur wöchentlich. Scheitert ein Stück
         // bei beiden Anbietern, keine Reihe (lieber keine als eine mit einer Lücke von einem Jahr). Wie Android.
+        // Ein Stück ohne Werktag (nur Wochenende bzw. nur heute) darf scheitern: dort zählt es als leer
         var merged: [Int: Double] = [:]
+        let today = LocalDay.todayUTC()
         for chunk in PortfolioHistoryFx.fxChunks(from: from, to: to) {
-            guard let part = await fxSeriesChunk(target, symbols: symbols, from: chunk.from, to: chunk.to) else { return nil }
+            var fetched = await fxSeriesChunk(target, symbols: symbols, from: chunk.from, to: chunk.to)
+            if fetched == nil && !PortfolioHistoryFx.chunkMayHaveRates(from: chunk.from, to: chunk.to, today: today) {
+                fetched = [:]
+            }
+            guard let part = fetched else { return nil }
             merged.merge(part) { _, new in new }
         }
         guard !merged.isEmpty else { return nil }

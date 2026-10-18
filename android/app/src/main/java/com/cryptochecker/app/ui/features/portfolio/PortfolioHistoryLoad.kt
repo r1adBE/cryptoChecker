@@ -45,8 +45,8 @@ data class PortfolioHistoryUi(
     val usdtApproximate: Boolean = false,
 )
 
-/** Tageskurse USD → [currency] ab [from] (bis heute); [rates] null = nicht zu haben. */
-internal data class FxSeriesLoad(val currency: String, val from: LocalDate, val rates: Map<Long, Double>?)
+/** Tageskurse USD → [currency] ab [from] bis [to] (letzter abgefragter Tag); [rates] null = nicht zu haben. */
+internal data class FxSeriesLoad(val currency: String, val from: LocalDate, val rates: Map<Long, Double>?, val to: LocalDate)
 
 /**
  * Kurse für «Seit Kauf»/Einstand in der Anzeigewährung ([com.cryptochecker.app.domain.portfolio.PortfolioCostFx]): ab
@@ -59,6 +59,8 @@ internal data class CostFxLoad(
     val from: LocalDate,
     val rates: Map<Long, java.math.BigDecimal>?,
     val usdtUsd: Map<Long, java.math.BigDecimal>,
+    /** Letzter abgefragter Tag ([PortfolioHistoryFx.fxRequestEnd]): davor ein neuer UTC-Tag → neu laden. */
+    val to: LocalDate,
 )
 
 /** Adressen, Devisenkurse und Live-Kurs USDT/USD für «7 T»/«1 J» ([PortfolioViewModel.weekChange]). */

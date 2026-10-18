@@ -209,7 +209,11 @@ fun PortfolioViewModel.addAlarm(
         // Neu und scharf: gleich mit den aktuellen Kursen prüfen (und das Widget nachziehen)
         val txs = calcTransactions.value ?: return@launch
         if (txs.isNotEmpty() && _prices.value.updatedAt > 0L) {
-            safe { snapshotUpdater.record(txs, _prices.value.prices, currency.value, _fxRate.value, routing = _prices.value) }
+            safe {
+                snapshotUpdater.record(
+                    txs, _prices.value.prices, currency.value, _fxRate.value, routing = _prices.value, displayFx = widgetDisplayFx.value,
+                )
+            }
         }
     }
 }

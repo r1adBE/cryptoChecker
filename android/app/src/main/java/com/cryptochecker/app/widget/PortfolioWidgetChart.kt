@@ -156,7 +156,7 @@ object PortfolioWidgetChart {
     /** Zeiträume mit Tagesverlauf (Tage). */
     val PERIOD_DAYS: List<Int> = PortfolioChartRange.entries.filter { it.daily }.map { it.days }
 
-    private const val USDT_CODE = "USDT"
+    const val USDT_CODE = "USDT"
 
     /**
      * Anzeigewährung ein USD-Stablecoin (USDT, USDC …)? Dann fallen die drei Anzeigen auf «Nur USDT» zusammen. USD
@@ -196,6 +196,9 @@ object PortfolioWidgetChart {
             currency = USDT_CODE,
             positions = snapshot.positions.map { it.copy(value = it.value / f, pnlAmount = it.pnlAmount?.div(f)) },
             history = snapshot.history.map { it.copy(value = it.value / f) },
+            // In USDT gelten die USDT-Werte ([PortfolioSnapshot.unrealized], [PortfolioSnapshot.periodChanges])
+            unrealizedDisplay = null,
+            weekDisplay = null,
         )
     }
 
@@ -265,6 +268,10 @@ object PortfolioWidgetChart {
             currency = CurrencyConversion.normalize(currency),
             positions = snapshot.positions.map { it.copy(value = it.value * k, pnlAmount = it.pnlAmount?.times(k)) },
             history = snapshot.history.map { it.copy(value = it.value * k) },
+            // «Seit Kauf»/«7 T» der alten Währung gelten nicht (Einstand zum Kurs der Erwerbstage): bis zur nächsten
+            // Aufnahme «—» bzw. «7 T» in USDT
+            unrealizedDisplay = null,
+            weekDisplay = null,
         )
     }
 

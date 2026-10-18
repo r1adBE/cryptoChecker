@@ -19,6 +19,9 @@ struct PortfolioCostFxFigures: Equatable, Sendable {
     let fxMissingCoins: [String]
     /// An mindestens einem Erwerbstag ohne USDT/USD-Tagesschluss mit USDT = 1 gerechnet (`TaxExport.usdtApproximateOn`).
     let usdtApproximate: Bool
+    /// Einstand je Coin in `unrealized` (Teil mit Kaufpreis) in der Anzeigewährung — für das Widget gemerkt
+    /// (`PortfolioDisplayFx`), das «Seit Kauf» damit zum aktuellen Kurs nachrechnet. Ohne die Coins in `fxMissingCoins`.
+    var coinCosts: [String: Decimal] = [:]
 }
 
 /// Einstand der offenen Bestände in der Anzeigewährung zum Kurs des Erwerbstags (Owner-Entscheid Okt. 2026) — wie
@@ -97,9 +100,11 @@ enum PortfolioCostFx {
         var unrealized: Decimal?
         var includedCost: Decimal = 0
         var unrealizedFxMissing = false
+        var coinCosts: [String: Decimal] = [:]
         for p in summary.open {
             guard let u = p.unrealizedExact, let pricedCost = p.pricedCostExact else { continue }
             guard let cost = target(p) else { unrealizedFxMissing = true; continue }
+            coinCosts[p.coin] = cost
             unrealized = (unrealized ?? 0) + PortfolioDecimal.multiply(u + pricedCost, currentRate) - cost
             includedCost += cost
         }
@@ -117,6 +122,7 @@ enum PortfolioCostFx {
         }
         return PortfolioCostFxFigures(unrealized: unrealized, unrealizedPercent: percent, invested: invested,
                                       unrealizedFxMissing: unrealizedFxMissing, investedFxMissing: investedFxMissing,
-                                      fxMissingCoins: missing.sorted(), usdtApproximate: usdtApproximate)
+                                      fxMissingCoins: missing.sorted(), usdtApproximate: usdtApproximate,
+                                      coinCosts: coinCosts)
     }
 }

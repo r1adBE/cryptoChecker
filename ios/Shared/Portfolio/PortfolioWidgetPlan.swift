@@ -175,6 +175,9 @@ enum PortfolioWidgetChart {
     static func inUsdt(_ s: PortfolioWidgetSnapshot) -> PortfolioWidgetSnapshot {
         var copy = s
         copy.currency = "USDT"
+        // In USDT gelten die USDT-Werte (`unrealized`, `periodChanges`)
+        copy.unrealizedDisplay = nil
+        copy.weekDisplay = nil
         guard let f = fxFactor(s) else { return copy }
         copy.total = s.totalUsdt ?? s.total / f
         copy.changeAmount = s.changeAmount.map { $0 / f }
@@ -245,6 +248,10 @@ enum PortfolioWidgetChart {
         let k = target / f
         var copy = s
         copy.currency = CurrencyConversion.normalize(currency)
+        // «Seit Kauf»/«7 T» der alten Währung gelten nicht (Einstand zum Kurs der Erwerbstage): bis zum nächsten Stand
+        // «—» bzw. «7 T» in USDT
+        copy.unrealizedDisplay = nil
+        copy.weekDisplay = nil
         copy.total = s.total * k
         copy.changeAmount = s.changeAmount.map { $0 * k }
         copy.positions = s.positions?.map {
@@ -662,11 +669,15 @@ enum PortfolioFigureKind: Sendable, CaseIterable {
     case today, week, total
 }
 
-/// Eine Kennzahl: Betrag in der Anzeige-Einheit und Prozent; nil = unbekannt («—»).
+/// Eine Kennzahl: Betrag in der Anzeige-Einheit und Prozent; nil = unbekannt («—»). `unit` = abweichende Einheit des
+/// Betrags («USDT» für «7 T» ohne Tageskurse der Anzeigewährung); nil = die des Widgets. `incomplete` = ein Coin fehlt
+/// (Wert mit «*», VoiceOver «unvollständig»). Wie Android.
 struct PortfolioFigure: Equatable, Sendable {
     let kind: PortfolioFigureKind
     let amount: Double?
     let percent: Double?
+    var unit: String? = nil
+    var incomplete = false
 }
 
 /// Reine Regeln der Ansichten «Übersicht» und «Liste» — wie `PortfolioWidgetViews` (Android, dort
@@ -676,20 +687,40 @@ enum PortfolioWidgetViews {
     static let unknownRows = 3
 
     /// Heute · 7 T · Gesamt aus dem gezeigten Stand (`PortfolioWidgetChart.displayed`): «Heute» ist die
-    /// Veränderung des Stands (schon in der Anzeige-Einheit), «7 T» und «Gesamt» (± seit Kauf) sind in
-    /// USDT gespeichert und werden mit dem Kurs des Stands umgerechnet (`PortfolioWidgetChart.fxFactor`).
+    /// Veränderung des Stands (schon in der Anzeige-Einheit). In USDT («Nur USDT», ohne Devisenkurs) «7 T» und «Gesamt»
+    /// (± seit Kauf) aus den USDT-Werten. In einer Anzeigewährung wie die Gesamtkarte, nie USDT × heutiger Kurs (der
+    /// Einstand gilt zum Kurs der Erwerbstage): «Gesamt» = `unrealizedDisplay`, ohne ihn «—»; «7 T» = `weekDisplay`,
+    /// ohne ihn die USDT-Zahl mit Einheit «USDT». Wie Android.
     static func figures(_ s: PortfolioWidgetSnapshot) -> [PortfolioFigure] {
-        let factor = PortfolioWidgetChart.fxFactor(s) ?? 1
         func valid(_ value: Double?) -> Double? { value.flatMap { $0.isFinite ? $0 : nil } }
-        let week = s.periodChanges?[String(PortfolioWidgetRange.week.days)]
-        let total = s.unrealized
+        let today = PortfolioFigure(kind: .today, amount: valid(s.changeAmount),
+                                    percent: s.changeAmount == nil ? nil : valid(s.changePercent))
+        let weekUsdt = s.periodChanges?[String(PortfolioWidgetRange.week.days)]
+        if s.currency == "USDT" {
+            let total = s.unrealized
+            return [
+                today,
+                PortfolioFigure(kind: .week, amount: valid(weekUsdt?.amount),
+                                percent: weekUsdt == nil ? nil : valid(weekUsdt?.percent)),
+                PortfolioFigure(kind: .total, amount: valid(total?.amount),
+                                percent: total == nil ? nil : valid(total?.percent)),
+            ]
+        }
+        let week: PortfolioFigure
+        if let shown = s.weekDisplay {
+            week = PortfolioFigure(kind: .week, amount: valid(shown.amount), percent: valid(shown.percent))
+        } else {
+            week = PortfolioFigure(kind: .week, amount: valid(weekUsdt?.amount),
+                                   percent: weekUsdt == nil ? nil : valid(weekUsdt?.percent),
+                                   unit: weekUsdt == nil ? nil : "USDT")
+        }
+        let total = s.unrealizedDisplay
         return [
-            PortfolioFigure(kind: .today, amount: valid(s.changeAmount),
-                            percent: s.changeAmount == nil ? nil : valid(s.changePercent)),
-            PortfolioFigure(kind: .week, amount: valid(week?.amount).map { $0 * factor },
-                            percent: week == nil ? nil : valid(week?.percent)),
-            PortfolioFigure(kind: .total, amount: valid(total?.amount).map { $0 * factor },
-                            percent: total == nil ? nil : valid(total?.percent)),
+            today,
+            week,
+            PortfolioFigure(kind: .total, amount: valid(total?.amount),
+                            percent: total == nil ? nil : valid(total?.percent),
+                            incomplete: !(total?.skipped ?? []).isEmpty),
         ]
     }
 

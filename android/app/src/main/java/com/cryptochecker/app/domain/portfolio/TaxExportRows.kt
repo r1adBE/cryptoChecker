@@ -76,8 +76,9 @@ data class TaxGainRow(
     /** UK/CA: Schenkung an Ehe-/Lebenspartner ([PortfolioDisposal.spouseGift]): Erlös = Einstand, Vermerk. */
     val spouseGift: Boolean = false,
     /**
-     * Gebühr in USDT/Fiat einer Auszahlung bzw. Umbuchung mit [TaxEventRules.quoteFeeIsInfo] (UK, US, CA, AU, JP): kein
-     * Verlust, nur Information — nicht in den Summen, Vermerk [TaxCsvTexts.withdrawalFeeInfo] bzw. [TaxCsvTexts.transferFeeInfo].
+     * Gebühr in USDT/Fiat einer Auszahlung bzw. Umbuchung mit [TaxEventRules.quoteFeeIsInfo] (UK, US, CA, AU, JP), dazu die
+     * Auszahlungsgebühr bei [TaxMethod.FR_PTA]: kein Verlust, nur Information — nicht in den Summen, Vermerk
+     * [TaxCsvTexts.withdrawalFeeInfo] bzw. [TaxCsvTexts.transferFeeInfo].
      */
     val feeInfoOnly: Boolean = false,
     /**
@@ -85,6 +86,9 @@ data class TaxGainRow(
      * USDT = 1 USD als Näherung — Vermerk [TaxCsvTexts.usdtAssumed], nie still.
      */
     val usdtApproximate: Boolean = false,
+    /** UK: Erlös vor Gebühren ([PortfolioDisposal.proceedsBeforeFeesUsdt]) / × Devisenkurs am Verkaufsdatum; sonst null. */
+    val proceedsBeforeFeesUsdt: BigDecimal? = null,
+    val proceedsBeforeFeesTarget: BigDecimal? = null,
 ) {
     val costMissing: Boolean get() = costUsdt == null
     val proceedsMissing: Boolean get() = proceedsUsdt == null
@@ -225,12 +229,16 @@ fun TaxExport.gainRows(
         payment = d.payment,
         valueEstimated = d.valueEstimated,
         spouseGift = d.spouseGift,
-        // TRANSFER-Zeilen gibt es nur mit dieser Regel ([TaxEngines.disposals])
+        // TRANSFER-Zeilen gibt es nur mit dieser Regel ([TaxEngines.disposals]). FR: die Auszahlungsgebühr mindert den
+        // Gewinn nicht (art. 150 VH bis kennt nur Gebühren der Abtretung) — wie in der Jahresübersicht nur Information,
+        // sonst stünde sie in der Summe der Gewinne-CSV
         feeInfoOnly = d.feeExpense == PortfolioFeeExpense.TRANSFER ||
-            (rules.quoteFeeIsInfo && d.feeExpense == PortfolioFeeExpense.WITHDRAWAL),
+            ((rules.quoteFeeIsInfo || method == TaxMethod.FR_PTA) && d.feeExpense == PortfolioFeeExpense.WITHDRAWAL),
         // USDT = 1 als Näherung an einem der Tage, deren Kurs die Zeile braucht (Verkauf, Kauf, Herkunftsteile)
         usdtApproximate = (listOf(sold) + listOfNotNull(acquired) + d.costParts.map { localDate(it.time, zone) })
             .any { usdtApproximateOn(usdtUsd, it) },
+        proceedsBeforeFeesUsdt = d.proceedsBeforeFeesUsdt,
+        proceedsBeforeFeesTarget = atSale(d.proceedsBeforeFeesUsdt),
     )
 }
 

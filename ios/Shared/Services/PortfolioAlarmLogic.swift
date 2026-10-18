@@ -140,12 +140,14 @@ enum PortfolioAlarmLogic {
         switch alarm.kind {
         case .VALUE_ABOVE, .VALUE_BELOW:
             return total(in: alarm.currency, reading)
+        // Prozente auf 1e-6 gerundet (`AlarmPercent.rounded`) wie bei den Kursalarmen — sonst verfehlt «+3 %» genau 3 % um
+        // einen Gleitkomma-Rest (wie Android)
         case .CHANGE_UP:
             guard let p = reading.changePercent, p.isFinite else { return nil }
-            return p
+            return AlarmPercent.rounded(p)
         case .CHANGE_DOWN:
             guard let p = reading.changePercent, p.isFinite else { return nil }
-            return -p
+            return AlarmPercent.rounded(-p)
         }
     }
 

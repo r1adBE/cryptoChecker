@@ -214,8 +214,9 @@ class HistoricPriceSource @Inject constructor(
      * Tageskurse USD → [currency] von [from] bis [to] (EZB über Frankfurter, in Stücken von höchstens
      * [PortfolioHistoryFx.FX_CHUNK_DAYS] Tagen — längere Zeiträume liefert Frankfurter nur wöchentlich): Tag (Tage seit
      * 1970-01-01) → Kurs, nur Geschäftstage — Wochenenden und Feiertage füllt [PortfolioHistoryFx.rateOn] mit dem
-     * Vortag. USD: leere Karte (kein Bedarf). 6 h im Speicher. null, wenn kein Kurs zu haben ist oder ein Stück bei
-     * beiden Anbietern scheitert (lieber keine Reihe als eine mit einer Lücke von einem Jahr).
+     * Vortag. USD: leere Karte (kein Bedarf). 6 h im Speicher. null, wenn kein Kurs zu haben ist oder ein Stück mit
+     * Werktag bei beiden Anbietern scheitert (lieber keine Reihe als eine mit einer Lücke von einem Jahr); ein Stück ohne
+     * Werktag ([PortfolioHistoryFx.chunkMayHaveRates]) zählt dann als leer.
      */
     suspend fun usdToSeries(currency: String, from: LocalDate, to: LocalDate): Map<Long, Double>? {
         val target = currency.trim().uppercase()
@@ -227,8 +228,11 @@ class HistoricPriceSource @Inject constructor(
         return withContext(Dispatchers.IO) {
             val symbols = PortfolioHistoryFx.requestCurrencies(target).joinToString(",")
             val merged = HashMap<Long, Double>()
+            val today = LocalDate.now(ZoneOffset.UTC)
             for ((start, end) in PortfolioHistoryFx.fxChunks(from, to)) {
-                val part = fxSeriesChunk(target, symbols, start, end) ?: return@withContext null
+                // Stück ohne Werktag (nur Wochenende bzw. nur heute): eine Fehlantwort ist dort normal — leer statt alles verwerfen
+                val part = fxSeriesChunk(target, symbols, start, end)
+                    ?: if (PortfolioHistoryFx.chunkMayHaveRates(start, end, today)) return@withContext null else emptyMap()
                 merged += part
             }
             if (merged.isEmpty()) return@withContext null

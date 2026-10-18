@@ -8,6 +8,6 @@
     <string name="tax_summary_at_staking_zero_cost">Staking înainte de 1.03.2022: cost de achiziție stabilit la 0 – de verificat cu un specialist</string>
     <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
     <string name="tax_summary_window_open">Regula de 30 de zile poate încă modifica aceste cifre (cumpărări până la %1$s)</string>
-    <!-- UK Erlöse: über 50 000 GBP Meldung an HMRC nötig, auch ohne steuerbaren Gewinn -->
-    <string name="tax_summary_uk_hmrc_report">Încasări peste 50.000 £: raportare la HMRC obligatorie, chiar fără câștig impozabil</string>
+    <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
+    <string name="tax_summary_uk_hmrc_report">Încasări înainte de comisioane peste pragul de raportare (50.000 £; 2020/21–2022/23: 49.200 £): raportare la HMRC dacă ești înregistrat pentru Self Assessment, chiar fără câștig impozabil</string>
 </resources>

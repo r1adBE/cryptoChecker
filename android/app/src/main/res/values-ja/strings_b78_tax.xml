@@ -8,6 +8,6 @@
     <string name="tax_summary_at_staking_zero_cost">2022年3月1日より前のステーキング：取得価額を 0 として計上 – 専門家にご確認ください</string>
     <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
     <string name="tax_summary_window_open">30日ルールによりこれらの数値はまだ変わる可能性があります（%1$s までの購入）</string>
-    <!-- UK Erlöse: über 50 000 GBP Meldung an HMRC nötig, auch ohne steuerbaren Gewinn -->
-    <string name="tax_summary_uk_hmrc_report">譲渡収入が £50,000 超：課税対象の利益がなくても HMRC への申告が必要</string>
+    <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
+    <string name="tax_summary_uk_hmrc_report">手数料控除前の譲渡収入が報告基準額を超過（£50,000、2020/21–2022/23 は £49,200）：Self Assessment に登録している場合、課税対象の利益がなくても HMRC への申告が必要</string>
 </resources>

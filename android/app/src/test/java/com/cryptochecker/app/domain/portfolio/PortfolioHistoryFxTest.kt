@@ -108,6 +108,51 @@ class PortfolioHistoryFxTest {
         assertTrue(PortfolioHistoryFx.fxChunks(to, from).isEmpty())
     }
 
+    /**
+     * Gleich lange Stücke: kein Rest von ein, zwei Tagen (Wochenende/heute ohne EZB-Kurs liesse die ganze Reihe scheitern).
+     * Wie iOS.
+     */
+    @Test
+    fun fxChunksAreEqualParts() {
+        fun lengths(from: LocalDate, to: LocalDate) =
+            PortfolioHistoryFx.fxChunks(from, to).map { java.time.temporal.ChronoUnit.DAYS.between(it.first, it.second) + 1 }
+        val from = LocalDate.of(2023, 1, 1)
+        // 1375 Tage → 4 Stücke 344/344/344/343 (vorher 365/365/365/280)
+        assertEquals(listOf(344L, 344L, 344L, 343L), lengths(from, LocalDate.of(2026, 10, 6)))
+        // 367 Tage → 184/183 statt 365 + 2
+        assertEquals(listOf(184L, 183L), lengths(LocalDate.of(2025, 10, 5), LocalDate.of(2026, 10, 6)))
+        assertEquals(listOf(183L, 183L), lengths(from, from.plusDays(365)))
+        assertEquals(listOf(365L, 365L), lengths(from, from.plusDays(729)))
+        assertEquals(listOf(244L, 244L, 243L), lengths(from, from.plusDays(730)))
+    }
+
+    /** Geladene Devisenkurse gelten bis zum nächsten UTC-Tag; die Abfrage endet am späteren von Geräte- und UTC-Tag. Wie iOS. */
+    @Test
+    fun fxLoadOutdatedOnNewUtcDay() {
+        val day = LocalDate.of(2026, 10, 18)
+        assertFalse(PortfolioHistoryFx.fxLoadOutdated(day, day))
+        assertTrue(PortfolioHistoryFx.fxLoadOutdated(day, day.plusDays(1)))
+        assertFalse(PortfolioHistoryFx.fxLoadOutdated(day.plusDays(1), day))
+        // Westlich von UTC am Abend: Gerätetag noch gestern, UTC schon heute → bis heute abfragen
+        assertEquals(day, PortfolioHistoryFx.fxRequestEnd(day.minusDays(1), day))
+        assertEquals(day.plusDays(1), PortfolioHistoryFx.fxRequestEnd(day.plusDays(1), day))
+    }
+
+    /** Stück ohne Werktag (nur Sa/So bzw. nur heute): Fehlantwort zählt als leer. Wie iOS. */
+    @Test
+    fun chunkWithoutBusinessDayMayFail() {
+        val fri = LocalDate.of(2026, 10, 16)
+        val sat = fri.plusDays(1)
+        val sun = fri.plusDays(2)
+        val mon = fri.plusDays(3)
+        assertFalse(PortfolioHistoryFx.chunkMayHaveRates(sat, sun, sun))
+        assertFalse(PortfolioHistoryFx.chunkMayHaveRates(sat, mon, mon))
+        assertFalse(PortfolioHistoryFx.chunkMayHaveRates(fri, fri, fri))
+        assertTrue(PortfolioHistoryFx.chunkMayHaveRates(mon, mon, sun))
+        assertTrue(PortfolioHistoryFx.chunkMayHaveRates(fri, sat, sat))
+        assertFalse(PortfolioHistoryFx.chunkMayHaveRates(sun, sat, sun))
+    }
+
     /** K-1: USDT zum USD-Kurs, Verlauf in der Anzeigewährung samt Devisenbewegung. */
     @Test
     fun fxLabelFlags() {

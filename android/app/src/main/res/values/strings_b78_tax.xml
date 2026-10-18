@@ -8,6 +8,6 @@
     <string name="tax_summary_at_staking_zero_cost">Staking before 1 Mar 2022: acquisition cost set at 0 – check with a professional</string>
     <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
     <string name="tax_summary_window_open">The 30-day rule may still change these figures (purchases up to %1$s)</string>
-    <!-- UK Erlöse: über 50 000 GBP Meldung an HMRC nötig, auch ohne steuerbaren Gewinn -->
-    <string name="tax_summary_uk_hmrc_report">Proceeds over £50,000: report to HMRC required, even without a taxable gain</string>
+    <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
+    <string name="tax_summary_uk_hmrc_report">Proceeds before fees over the reporting limit (£50,000; 2020/21–2022/23: £49,200): report to HMRC if you are registered for Self Assessment, even without a taxable gain</string>
 </resources>

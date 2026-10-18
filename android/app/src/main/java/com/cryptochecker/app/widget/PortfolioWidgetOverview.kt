@@ -108,9 +108,14 @@ internal fun PortfolioWidgetRenderer.bindFigures(
         item.setTextViewText(R.id.fig_label, label)
         item.setTextColor(R.id.fig_label, colors.secondaryTextColor)
         val percent = figure.percent
+        // Einheit des Betrags: «7 T» ohne Tageskurse der Anzeigewährung in USDT (nie USDT × heutiger Kurs)
+        val unit = figure.unit ?: currency
         if (percent != null) {
             val direction = PortfolioWidgetSeries.direction(figure.amount ?: percent)
-            item.setTextViewText(R.id.fig_value, PortfolioWidgetViews.figureText(direction, PortfolioSnapshotMath.signedPercent(percent)))
+            // Ein Coin fehlt (kein Devisenkurs am Kauftag, seither gekauft/verkauft): «*» wie «unvollständig» der Karte
+            val text = PortfolioWidgetViews.figureText(direction, PortfolioSnapshotMath.signedPercent(percent)) +
+                if (figure.incomplete) "*" else ""
+            item.setTextViewText(R.id.fig_value, text)
             item.setTextColor(R.id.fig_value, directionColor(direction, colors))
         } else {
             item.setTextViewText(R.id.fig_value, NO_VALUE)
@@ -118,9 +123,9 @@ internal fun PortfolioWidgetRenderer.bindFigures(
         }
         val amount = figure.amount
         if (layout.wide && layout.figureAmounts) {
-            val text = amount?.let { PortfolioInsights.mask(PortfolioSnapshotMath.signedAmount(it, currency), style.hideAmounts) } ?: NO_VALUE
+            val text = amount?.let { PortfolioInsights.mask(PortfolioSnapshotMath.signedAmount(it, unit), style.hideAmounts) } ?: NO_VALUE
             item.setViewVisibility(R.id.fig_amount, View.VISIBLE)
-            item.setTextViewText(R.id.fig_amount, toolkit.quoteText(text, currency, FIGURE_AMOUNT_SP, colors.secondaryTextColor))
+            item.setTextViewText(R.id.fig_amount, toolkit.quoteText(text, unit, FIGURE_AMOUNT_SP, colors.secondaryTextColor))
             item.setTextColor(R.id.fig_amount, colors.textColor)
         } else {
             item.setViewVisibility(R.id.fig_amount, View.GONE)
@@ -128,13 +133,14 @@ internal fun PortfolioWidgetRenderer.bindFigures(
         views.addView(container, item)
         // «7 Tage: gestiegen um 2.10%, +123.45 CHF»; ohne Wert «7 Tage: noch nicht verfügbar»
         val spokenAmount = amount?.let {
-            if (style.hideAmounts) context.getString(R.string.a11y_amount_hidden) else PortfolioSnapshotMath.signedAmount(it, currency)
+            if (style.hideAmounts) context.getString(R.string.a11y_amount_hidden) else PortfolioSnapshotMath.signedAmount(it, unit)
         }
         val change = percent?.let { A11yText.change(context, it) }
         if (change == null && spokenAmount == null) {
             context.getString(R.string.portfolio_card_figure_none_a11y, spokenLabel)
         } else {
-            spokenLabel + ": " + listOfNotNull(change, spokenAmount).joinToString(", ")
+            val incomplete = context.getString(R.string.portfolio_export_incomplete).takeIf { figure.incomplete }
+            spokenLabel + ": " + listOfNotNull(change, spokenAmount, incomplete).joinToString(", ")
         }
     }
     return spoken.joinToString("; ")

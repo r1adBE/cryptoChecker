@@ -93,6 +93,9 @@ struct TaxCsvTexts: Sendable {
     var incomeStaking: String = ""
     var totalInterest: String = ""
     var totalStaking: String = ""
+    /// AT: Vermerk für Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 «vor 1.3.2022 – mit Fachperson prüfen»
+    /// statt `incomeInterest`/`incomeStaking` — § 27b EStG gilt erst ab dann. Leer = kein eigener Vermerk. Wie Android.
+    var incomeBeforeNewLaw: String = ""
 
     /// Aus den App-Texten; Währungsspalten mit `currency`, Zeitzone der Daten `zone` (die der Vorlage, Neutral: Gerät).
     static func localized(currency: String, zone: TimeZone = .current) -> TaxCsvTexts {
@@ -344,7 +347,9 @@ extension TaxExport {
         for r in rows {
             var notes: [String] = []
             if split {
-                let kind = r.interest ? texts.incomeInterest : texts.incomeStaking
+                // Zufluss vor dem 1.3.2022: alte Rechtslage — eigener Vermerk statt «steuerpflichtig»/«nur Information»
+                let early = !texts.incomeBeforeNewLaw.isEmpty && r.date < TaxTemplate.atSwapNeutralFrom
+                let kind = early ? texts.incomeBeforeNewLaw : (r.interest ? texts.incomeInterest : texts.incomeStaking)
                 if !kind.isEmpty { notes.append(kind) }
             }
             if r.valueMissing { notes.append(texts.valueMissing) }

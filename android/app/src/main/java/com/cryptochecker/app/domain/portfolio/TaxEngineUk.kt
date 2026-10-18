@@ -103,7 +103,8 @@ internal fun TaxEngines.ukPool(
                     val rest = r - taken.removed
                     if (rest.signum() > 0) list += TaxPiece(rest, null, uncovered = true)
                 }
-                out += emit(coin, s, list, s.proceeds)
+                // Erlös vor Gebühren mitführen: die Meldegrenze an HMRC prüft die Erlöse vor Abzug der Kosten
+                out += emit(coin, s, list, s.proceeds, gross = s.gross)
             }
             TaxStepKind.REMOVE -> pool.take(s.qty)
             TaxStepKind.NETWORK_FEE -> lost.note(coin, s, pool.dropQty(s.qty))

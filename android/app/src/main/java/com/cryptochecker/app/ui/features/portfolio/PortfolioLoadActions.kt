@@ -26,6 +26,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.time.LocalDate
 import java.time.ZoneId
+import java.time.ZoneOffset
 
 /**
  * «Heute» (und «Grösste Bewegungen» bleibt leer) aus der zuletzt gespeicherten Momentaufnahme,
@@ -108,13 +109,17 @@ fun PortfolioViewModel.start() {
 /**
  * Kurse für «Seit Kauf»/Einstand in der Anzeigewährung ab [from] ([CostFxLoad]): dieselben Quellen wie der Steuer-Export
  * (Devisen-Tageskurse ab [PortfolioHistoryFx.LEAD_DAYS] Tagen davor, USDT/USD-Tagesschlüsse). USDT braucht keine;
- * schon geladen (gleiche Währung, Zeitraum abgedeckt) → nichts zu tun.
+ * schon geladen (gleiche Währung, Zeitraum abgedeckt, bis zum heutigen UTC-Tag) → nichts zu tun. Ohne den letzten Tag
+ * blieben Kurse eines neuen Tags aus, bis die App neu startet.
  */
 internal suspend fun PortfolioViewModel.loadCostFx(code: String, from: LocalDate) {
     if (code == PortfolioFormat.USDT) return
     val known = _costFx.value
-    if (known != null && known.currency == code && !known.from.isAfter(from) && known.rates != null) return
-    val today = LocalDate.now(ZoneId.systemDefault())
+    val utcToday = LocalDate.now(ZoneOffset.UTC)
+    if (known != null && known.currency == code && !known.from.isAfter(from) && known.rates != null &&
+        !PortfolioHistoryFx.fxLoadOutdated(known.to, utcToday)
+    ) return
+    val today = PortfolioHistoryFx.fxRequestEnd(LocalDate.now(ZoneId.systemDefault()), utcToday)
     val rates = if (code == "USD") emptyMap() else {
         safe { historicSource.usdToSeries(code, from.minusDays(PortfolioHistoryFx.LEAD_DAYS.toLong()), today) }
             ?.takeIf { it.isNotEmpty() }
@@ -125,14 +130,15 @@ internal suspend fun PortfolioViewModel.loadCostFx(code: String, from: LocalDate
     val usdt = safe { historySource.usdtUsdDaily(days) }.orEmpty()
         .mapNotNull { (day, close) -> PortfolioDecimal.of(close)?.let { day to it } }.toMap()
     // Inzwischen andere Währung gewählt: nicht überschreiben
-    if (currency.value == code) _costFx.value = CostFxLoad(code, from, rates, usdt)
+    if (currency.value == code) _costFx.value = CostFxLoad(code, from, rates, usdt, today)
 }
 
 internal suspend fun PortfolioViewModel.loadFxSeries(code: String, from: LocalDate) {
     if (code == "USD") return
-    val rates = safe { historicSource.usdToSeries(code, from, LocalDate.now(ZoneId.systemDefault())) }
+    val to = PortfolioHistoryFx.fxRequestEnd(LocalDate.now(ZoneId.systemDefault()), LocalDate.now(ZoneOffset.UTC))
+    val rates = safe { historicSource.usdToSeries(code, from, to) }
         ?.takeIf { it.isNotEmpty() }
-    _fxSeries.value = FxSeriesLoad(code, from, rates)
+    _fxSeries.value = FxSeriesLoad(code, from, rates, to)
 }
 
 /** Beim Öffnen (60 s Zwischenspeicher) bzw. per Ziehen ([force]). */
@@ -150,10 +156,14 @@ fun PortfolioViewModel.refresh(force: Boolean) {
             loadCloses(historyRequest(txs, historyRange.value))
             // Kein Kurs (auch kein höchstens 24 h alter): keine Umrechnung statt eines toten Kurses
             _fxRate.value = safe { fxSource.usdTo(currency.value) }
-            // Fehlten die Devisen-Tageskurse, erneut versuchen
-            if (_fxSeries.value?.rates == null) loadFxSeries(currency.value, fxSeriesFrom(txs, historyRange.value))
-            // Fehlten die Kurse für «Seit Kauf» in der Anzeigewährung, erneut versuchen
-            if (_costFx.value?.rates == null) summary.value?.let(PortfolioCostFx::firstDay)?.let { loadCostFx(currency.value, LocalDate.ofEpochDay(it)) }
+            // Fehlten die Devisen-Tageskurse oder enden sie vor dem heutigen UTC-Tag, erneut laden
+            val utcToday = LocalDate.now(ZoneOffset.UTC)
+            if (_fxSeries.value?.let { it.rates == null || PortfolioHistoryFx.fxLoadOutdated(it.to, utcToday) } != false) {
+                loadFxSeries(currency.value, fxSeriesFrom(txs, historyRange.value))
+            }
+            // Kurse für «Seit Kauf» in der Anzeigewährung: fehlten sie oder ist ein neuer Tag dazugekommen, neu laden
+            // (loadCostFx prüft selbst, ob die geladenen noch reichen)
+            summary.value?.let(PortfolioCostFx::firstDay)?.let { loadCostFx(currency.value, LocalDate.ofEpochDay(it)) }
         } finally {
             _refreshing.value = false
         }
