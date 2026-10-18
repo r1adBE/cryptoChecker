@@ -54,7 +54,7 @@ struct PortfolioScreen: View {
         let transactions = model.calcPortfolio
         let currency = data.settings.portfolioCurrency
         let hasData = !data.portfolio.isEmpty || !data.watchedAddresses.isEmpty
-        Group {
+        let base = Group {
             if !hasData {
                 emptyState
             } else {
@@ -103,6 +103,12 @@ struct PortfolioScreen: View {
         .onChange(of: transactions) { checkAddressOverlap() }
         // Bei offenem Adressen-Blatt erst danach (der Banner läge hinter dem Blatt)
         .onChange(of: addressesOpen) { showAddressOverlapNotice() }
+        return presentations(base)
+    }
+
+    /// Blätter, Ziele, Dialoge und Hinweise — eigene Funktion, damit der Compiler `body` in vertretbarer Zeit prüft.
+    private func presentations<V: View>(_ base: V) -> some View {
+        base
         .sheet(isPresented: $addressesOpen) {
             PortfolioAddressSheet(onPortfolioEnabled: { toast = L("portfolio_enabled_banner") })
                 .environmentObject(data)
