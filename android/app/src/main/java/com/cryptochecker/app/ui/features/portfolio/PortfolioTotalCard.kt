@@ -292,7 +292,7 @@ internal fun TotalCard(
                                     label = stringResource(R.string.portfolio_invested),
                                     value = invested?.let { maskAmount(PriceFormat.valueWithCurrency(it, unit.code)) } ?: "—",
                                 )
-                                if (invested != null && costFx?.investedFxMissing == true) {
+                                if (invested != null && costFx.investedFxMissing) {
                                     PartialMarker(
                                         text = stringResource(R.string.portfolio_export_incomplete),
                                         onClick = { showHints = true },

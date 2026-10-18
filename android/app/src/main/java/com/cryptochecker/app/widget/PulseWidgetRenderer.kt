@@ -296,7 +296,7 @@ class PulseWidgetRenderer @Inject constructor(
                         toolkit.textBlock(firstSentence, PulseWidgetPlain.LEAD_SP, textWidthDp).lines.takeIf { it > 0 },
                         leadLines,
                     )
-                val lead = if (sentenceLead && firstSentence != null) firstSentence else PulseWidgetTexts.lead(context, report)
+                val lead = firstSentence?.takeIf { sentenceLead } ?: PulseWidgetTexts.lead(context, report)
                 views.setTextViewText(R.id.pulse_lead, lead)
                 views.setTextColor(R.id.pulse_lead, colors.textColor)
                 views.setInt(R.id.pulse_lead, "setMaxLines", leadLines)
