@@ -1,3 +1,4 @@
+import CryptoKit
 import XCTest
 @testable import CryptoChecker
 
@@ -86,44 +87,121 @@ final class AlarmLogTests: XCTestCase {
         XCTAssertTrue(AlarmLog.decode("" as String?).lastChecks.isEmpty)
     }
 
+    func testOnlyFiredOrANewOutcomeStartsAnEvent() {
+        let held = AlarmLog.record(.empty, [entry(1, at: now, .QUIET_HOURS, notable: true)], now: now)
+        // Gleiches Ergebnis gleich danach: verlängert nur «von … bis …»
+        XCTAssertFalse(AlarmLog.startsEvent(held, [entry(1, at: now + 1_000, .QUIET_HOURS, notable: true)]))
+        // Nicht bemerkenswert: nie
+        XCTAssertFalse(AlarmLog.startsEvent(held, [entry(1, at: now + 1_000, .NOT_REACHED)]))
+        // Auslösung, anderes Ergebnis, anderer Alarm: neuer Eintrag
+        XCTAssertTrue(AlarmLog.startsEvent(held, [entry(1, at: now + 1_000)]))
+        XCTAssertTrue(AlarmLog.startsEvent(held, [entry(1, at: now + 1_000, .COOLDOWN, notable: true)]))
+        XCTAssertTrue(AlarmLog.startsEvent(held, [entry(2, at: now + 1_000, .QUIET_HOURS, notable: true)]))
+        XCTAssertTrue(AlarmLog.startsEvent(.empty, [entry(1, at: now, .QUIET_HOURS, notable: true)]))
+        // Mehrere im selben Durchlauf: der zweite verlängert den ersten
+        XCTAssertFalse(AlarmLog.startsEvent(held, [entry(1, at: now + 2_000, .QUIET_HOURS, notable: true),
+                                                   entry(1, at: now + 1_000, .QUIET_HOURS, notable: true)]))
+    }
+
     // MARK: Speicher
 
     private func tempURL() -> URL {
         FileManager.default.temporaryDirectory.appendingPathComponent("alarm_log-\(UUID().uuidString).json")
     }
 
+    private let key = SymmetricKey(size: .bits256)
+
+    private func keychain(_ key: SymmetricKey?) -> StorageKey {
+        let fake = ProtectedFileTests.FakeKeychain()
+        fake.stored = key?.withUnsafeBytes { Data($0) }
+        return StorageKey(keychain: fake)
+    }
+
     func testStoreWritesExcludedFromBackupAndReadsBack() throws {
         let url = tempURL()
+        let keys = keychain(key)
         defer { try? FileManager.default.removeItem(at: url) }
-        AlarmLogStore.record([entry(7, at: now)], live: false, to: url, now: now)
+        AlarmLogStore.record([entry(7, at: now)], live: false, to: url, now: now, keys: keys)
         XCTAssertTrue(FileManager.default.fileExists(atPath: url.path))
         let values = try url.resourceValues(forKeys: [.isExcludedFromBackupKey])
         XCTAssertEqual(values.isExcludedFromBackup, true)
-        let loaded = AlarmLogStore.load(from: url, now: now)
+        let loaded = AlarmLogStore.load(from: url, now: now, keys: keys)
         XCTAssertEqual(loaded.lastChecks[7]?.outcome, .FIRED)
         XCTAssertEqual(loaded.events.count, 1)
 
-        AlarmLogStore.removeAlarm(7, at: url)
-        XCTAssertNil(AlarmLogStore.load(from: url, now: now).lastChecks[7])
-        AlarmLogStore.clearEvents(at: url)
-        XCTAssertTrue(AlarmLogStore.load(from: url, now: now).events.isEmpty)
+        AlarmLogStore.removeAlarm(7, at: url, keys: keys)
+        XCTAssertNil(AlarmLogStore.load(from: url, now: now, keys: keys).lastChecks[7])
+        AlarmLogStore.clearEvents(at: url, keys: keys)
+        XCTAssertTrue(AlarmLogStore.load(from: url, now: now, keys: keys).events.isEmpty)
+    }
+
+    func testWithoutKeyNothingIsWrittenInPlaintextAndEntriesWait() throws {
+        let url = tempURL()
+        defer { try? FileManager.default.removeItem(at: url) }
+        // Eigener Zeitstrahl (wartende Einträge je Prozess)
+        let t0 = now + 2_000 * day
+        AlarmLogStore.record([entry(31, at: t0)], live: false, to: url, now: t0, keys: keychain(nil))
+        XCTAssertFalse(FileManager.default.fileExists(atPath: url.path), "nie Klartext")
+        // Für die Anzeige trotzdem da
+        XCTAssertEqual(AlarmLogStore.load(from: url, now: t0, keys: keychain(nil)).lastChecks[31]?.outcome, .FIRED)
+
+        // Schlüssel wieder da: die wartenden Einträge werden mitgeschrieben
+        let keys = keychain(key)
+        AlarmLogStore.record([entry(32, at: t0 + 1_000)], live: false, to: url, now: t0 + 1_000, keys: keys)
+        let raw = try Data(contentsOf: url)
+        XCTAssertNil(String(data: raw, encoding: .utf8)?.range(of: "Kraken"), "versiegelt")
+        let state = AlarmLogStore.load(from: url, now: t0 + 1_000, keys: keys)
+        XCTAssertNotNil(state.lastChecks[31])
+        XCTAssertNotNil(state.lastChecks[32])
     }
 
     func testLiveChecksAreThrottledButNotableOnesWriteAtOnce() throws {
         let url = tempURL()
+        let keys = keychain(key)
         defer { try? FileManager.default.removeItem(at: url) }
         // Eigener Zeitstrahl weit nach allen anderen Tests (Drosselung je Prozess)
         let t0 = now + 1_000 * day
-        AlarmLogStore.record([entry(1, at: t0, .NOT_REACHED, notable: false)], live: true, to: url, now: t0)
+        AlarmLogStore.record([entry(1, at: t0, .NOT_REACHED, notable: false)], live: true, to: url, now: t0, keys: keys)
         let first = try Data(contentsOf: url)
 
-        AlarmLogStore.record([entry(1, at: t0 + 5_000, .NOT_REACHED, notable: false)], live: true, to: url, now: t0 + 5_000)
+        AlarmLogStore.record([entry(1, at: t0 + 5_000, .NOT_REACHED, notable: false)], live: true, to: url,
+                             now: t0 + 5_000, keys: keys)
         XCTAssertEqual(try Data(contentsOf: url), first, "gedrosselt")
         // Für die Anzeige trotzdem aktuell
-        XCTAssertEqual(AlarmLogStore.load(from: url, now: t0 + 5_000).lastChecks[1]?.at, t0 + 5_000)
+        XCTAssertEqual(AlarmLogStore.load(from: url, now: t0 + 5_000, keys: keys).lastChecks[1]?.at, t0 + 5_000)
 
-        AlarmLogStore.record([entry(1, at: t0 + 6_000, .FIRED)], live: true, to: url, now: t0 + 6_000)
+        AlarmLogStore.record([entry(1, at: t0 + 6_000, .FIRED)], live: true, to: url, now: t0 + 6_000, keys: keys)
         XCTAssertNotEqual(try Data(contentsOf: url), first, "bemerkenswert: sofort")
+    }
+
+    func testLiveMergedHoldsAreThrottledButNewEventsWriteAtOnce() throws {
+        let url = tempURL()
+        let keys = keychain(key)
+        defer { try? FileManager.default.removeItem(at: url) }
+        // Eigener Zeitstrahl weit nach allen anderen Tests (Drosselung je Prozess)
+        let t0 = now + 3_000 * day
+        AlarmLogStore.record([entry(1, at: t0, .QUIET_HOURS, notable: true)], live: true, to: url, now: t0, keys: keys)
+        let first = try Data(contentsOf: url)
+
+        // Dieselbe Sperre jede Sekunde: nur «bis» verlängert — gedrosselt
+        AlarmLogStore.record([entry(1, at: t0 + 1_000, .QUIET_HOURS, notable: true)], live: true, to: url,
+                             now: t0 + 1_000, keys: keys)
+        XCTAssertEqual(try Data(contentsOf: url), first, "verlängert: gedrosselt")
+        XCTAssertEqual(AlarmLogStore.load(from: url, now: t0 + 1_000, keys: keys).events.first?.until, t0 + 1_000)
+
+        // Anderes Ergebnis: neuer Eintrag, sofort
+        AlarmLogStore.record([entry(1, at: t0 + 2_000, .COOLDOWN, notable: true)], live: true, to: url,
+                             now: t0 + 2_000, keys: keys)
+        let second = try Data(contentsOf: url)
+        XCTAssertNotEqual(second, first, "neuer Eintrag: sofort")
+
+        AlarmLogStore.record([entry(1, at: t0 + 3_000, .COOLDOWN, notable: true)], live: true, to: url,
+                             now: t0 + 3_000, keys: keys)
+        XCTAssertEqual(try Data(contentsOf: url), second, "verlängert: gedrosselt")
+
+        // Ausgelöst: immer sofort
+        AlarmLogStore.record([entry(1, at: t0 + 4_000, .FIRED)], live: true, to: url, now: t0 + 4_000, keys: keys)
+        XCTAssertNotEqual(try Data(contentsOf: url), second, "ausgelöst: sofort")
     }
 
     // MARK: An den Entscheidungsstellen
@@ -262,5 +340,16 @@ final class AlarmLogTests: XCTestCase {
         XCTAssertEqual(entries.map(\.outcome), [.STALE, .STALE])
         XCTAssertEqual(entries.map(\.notable), [true, false])
         XCTAssertEqual(entries.first?.exchangeTime, updated.exchangeTime)
+    }
+
+    func testDeferredAlarmsAreLoggedToo() {
+        // Hintergrund: Alarme mit Zusatzdaten (z. B. Schwelle in anderer Währung) werden erst später geprüft, bekommen
+        // «Kein Kurs» bzw. Sperrgründe aber wie auf Android im selben Durchlauf
+        let checked = Alarm(id: 1, watchId: 10, condition: .PRICE_ABOVE, threshold: 100, repeating: true)
+        let deferred = Alarm(id: 2, watchId: 10, condition: .PRICE_BELOW, threshold: 90, repeating: true)
+        let other = Alarm(id: 3, watchId: 20, condition: .PRICE_ABOVE, threshold: 5, repeating: true)
+        let all = PriceRefresher.alarmsForLog(checked: [10: [checked]], deferred: [10: [deferred, checked], 20: [other]])
+        XCTAssertEqual(all[10]?.map(\.id), [1, 2])
+        XCTAssertEqual(all[20]?.map(\.id), [3])
     }
 }

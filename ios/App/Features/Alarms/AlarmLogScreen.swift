@@ -139,10 +139,14 @@ struct AlarmLogScreen: View {
     }
 
     /// Verschlüsselte Datei abseits des Hauptfadens lesen; `retaining`: letzte Prüfungen von Alarmen, die mit ihrem
-    /// Paar gelöscht wurden, dabei aufräumen.
+    /// Paar gelöscht wurden, dabei aufräumen — nur mit gelesener Merkliste: ist sie gerade unlesbar oder nicht
+    /// zugreifbar, steht im Speicher eine leere Liste, und die letzten Prüfungen aller Alarme fielen weg (Android: die
+    /// Abfrage der Datenbank scheitert dann, und es wird nicht aufgeräumt).
     private func reload(retaining alarmIds: Set<Int64>? = nil) async {
         events = await Task.detached(priority: .utility) { () -> [AlarmLogEntry] in
-            if let alarmIds { AlarmLogStore.retainAlarms(alarmIds) }
+            if let alarmIds, let stored = SharedStorage.readSnapshot().snapshot {
+                AlarmLogStore.retainAlarms(alarmIds.union(stored.alarms.map(\.id)))
+            }
             return AlarmLogStore.load().events
         }.value
     }

@@ -426,11 +426,15 @@ struct PortfolioExportSheet: View {
         let code = exportCurrency ?? currency
         let texts = CutoffCsvTexts.localized(currency: code)
         let method = costMethod
-        // Beobachtete Adressen (zählen im Portfolio) als eigene Zeilen — wie Android
-        let addresses = AddressBalanceHistory.of(WatchedAddressStore.load().addresses)
+        // Beobachtete Adressen (zählen im Portfolio) als eigene Zeilen — wie Android. Nicht lesbar: ohne Adressen, aber
+        // in der Datei vermerkt und das Total «unvollständig» — nie still eine zu tiefe Summe
+        let watched = WatchedAddressStore.loadChecked()
+        let addresses = AddressBalanceHistory.of(watched.file.addresses)
+        let addressesUnreadable: Bool = !watched.intact
         Task {
             let csv = await PortfolioCutoffExporter.build(transactions: txs, day: day, currency: code, texts: texts,
-                                                          method: method, addresses: addresses, header: header, zone: zone)
+                                                          method: method, addresses: addresses,
+                                                          addressesUnreadable: addressesUnreadable, header: header, zone: zone)
             running = false
             guard let data = csv.data(using: .utf8) else {
                 UINotificationFeedbackGenerator().notificationOccurred(.error)

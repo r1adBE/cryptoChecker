@@ -176,6 +176,28 @@ class PulseWidgetMathTest {
     }
 
     @Test
+    fun `Marktbreite mit Punkt nur als zweite Zeile gemessen`() {
+        // 250 dp: nutzbar 250 − Innenabstand − Sicherheit; die Marktbreite passt ohne Punkt knapp, mit Punkt nicht
+        val usable = 250f - PulseWidgetMath.PADDING_DP - WidgetTextFit.SAFETY_DP
+        fun layout(height: Int, fng: Float?) = PulseWidgetMath.sideLayout(
+            250, height, 1,
+            fearGreedWidthDp = fng,
+            breadthWidthDp = usable,
+            bothWidthDp = fng?.let { it + usable },
+            breadthLineWidthDp = usable + 8f,
+        )
+        // Allein in der ersten Zeile (ohne Punkt): passt
+        assertEquals(PulseSideLayout.BREADTH, layout(200, fng = null))
+        // Als zweite Zeile (mit Punkt) zu breit: nicht untereinander, nur Fear & Greed
+        assertEquals(PulseSideLayout.FEAR_GREED, layout(200, fng = 120f))
+        // Ohne eigene Breite der zweiten Zeile gilt die der ersten
+        assertEquals(
+            PulseSideLayout.TWO_LINES,
+            PulseWidgetMath.sideLayout(250, 200, 1, fearGreedWidthDp = 120f, breadthWidthDp = usable, bothWidthDp = 400f),
+        )
+    }
+
+    @Test
     fun `Reihenfolge der Nebenzeilen wie iOS`() {
         assertEquals(
             listOf(PulseSideLayout.ONE_LINE, PulseSideLayout.TWO_LINES, PulseSideLayout.FEAR_GREED, PulseSideLayout.BREADTH),

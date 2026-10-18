@@ -1,12 +1,6 @@
 import SwiftUI
 import UIKit
 
-/// Stufen der gemeinsamen Farbskala `MarketScaleColors` (Fear & Greed).
-enum CycleZonePalette {
-    /// Verlauf der Skala von links nach rechts.
-    static let gradient: [Color] = MarketScaleColors.steps
-}
-
 /// Datums- und Zahlenformate des Markt-Tabs.
 enum CycleFormat {
     /// Wie `DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)`.

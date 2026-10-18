@@ -472,8 +472,6 @@ final class WarmSurfaceAndScaleContrastTests: XCTestCase {
         XCTAssertEqual(ColorTokens.background.light, 0xFBF9F6)
         XCTAssertEqual(ColorTokens.surfaceContainer.light, 0xF1EEE9)
         XCTAssertEqual(ColorTokens.surfaceContainerHighest.light, 0xE5E2DB)
-        XCTAssertEqual(ColorTokens.scaleSteps.map(\.light), [0xB42318, 0x90403A, 0x636363, 0x326B50, 0x0A7240])
-        XCTAssertEqual(ColorTokens.scaleSteps.map(\.dark), [0xFF7A70, 0xD48B86, 0xA0A0A0, 0x6ABE95, 0x3DD68C])
     }
 
     func testTextReachesAAOnWarmSurfaces() {
@@ -509,23 +507,6 @@ final class WarmSurfaceAndScaleContrastTests: XCTestCase {
             let bg: UInt32 = ColorTokens.surfaceContainer.hex(dark: dark)
             XCTAssertGreaterThanOrEqual(ContrastMath.ratio(fg, bg), 4.5, "dark=\(dark)")
         }
-    }
-
-    func testFixedScaleReachesAAAsTextInLightAndDark() {
-        for dark in [false, true] {
-            let steps = ColorTokens.scaleSteps.map { $0.hex(dark: dark) }
-            XCTAssertEqual(Set(steps).count, 5)
-            for (i, step) in steps.enumerated() {
-                let surfaces = dark ? ContrastMath.darkSurfaces + [0x151515] : ContrastMath.lightSurfaces
-                for bg in surfaces {
-                    XCTAssertGreaterThanOrEqual(ContrastMath.ratio(step, bg), 4.5,
-                                                "dark=\(dark) step \(i) on \(String(bg, radix: 16))")
-                }
-                XCTAssertGreaterThanOrEqual(ContrastMath.ratio(ColorTokens.onScaleStep.hex(dark: dark), step), 4.5,
-                                            "dark=\(dark) onStep \(i)")
-            }
-        }
-        XCTAssertFalse(ColorTokens.scaleSteps.contains { $0.dark == 0xB42318 })
     }
 
     /// Build 46, wie Android: Bitcoin-Orange als Grafik ≥ 3:1 (hell dunkler, dunkel das Original);
@@ -635,6 +616,33 @@ final class MarketScalePaletteTests: XCTestCase {
         XCTAssertEqual(MarketScalePalette.color(90, .GREEN_RED, dark: true), PriceColorScheme.GREEN_RED.upHex(dark: true))
         XCTAssertEqual(MarketScalePalette.color(90, .GREEN_RED, dark: true, inverted: true),
                        PriceColorScheme.GREEN_RED.downHex(dark: true))
+        // Akzentfarbe: Ersatzfassung wie bei den Kurspfeilen
+        for accent in AccentColor.allCases {
+            XCTAssertEqual(MarketScalePalette.color(90, .GREEN_RED, dark: false, accent: accent),
+                           PriceColorScheme.GREEN_RED.upHex(dark: false, accent: accent))
+        }
+    }
+
+    /// Stufen aus aufgelösten Kursfarben: gleiche Mischung wie aus dem Schema. Wie Android.
+    func testStepsFromPriceColorsMatchScheme() {
+        XCTAssertEqual(MarketScalePalette.steps(up: 0x1460AB, down: 0x9F4300, dark: false),
+                       [0x9F4300, 0x8A5732, 0x707070, 0x3D6790, 0x1460AB])
+        let accents: [AccentColor?] = AccentColor.allCases.map { Optional($0) } + [nil]
+        for scheme in PriceColorScheme.allCases {
+            for dark in [false, true] {
+                for hc in [false, true] {
+                    for inv in [false, true] {
+                        for accent in accents {
+                            let up = scheme.upHex(dark: dark, highContrast: hc, inverted: inv, accent: accent)
+                            let down = scheme.downHex(dark: dark, highContrast: hc, inverted: inv, accent: accent)
+                            XCTAssertEqual(MarketScalePalette.steps(up: up, down: down, dark: dark),
+                                           MarketScalePalette.steps(scheme, dark: dark, highContrast: hc,
+                                                                    inverted: inv, accent: accent))
+                        }
+                    }
+                }
+            }
+        }
     }
 
     func testEveryStepReachesThreeToOne() {

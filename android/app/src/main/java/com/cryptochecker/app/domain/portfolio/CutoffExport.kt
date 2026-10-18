@@ -80,6 +80,8 @@ data class CutoffCsvTexts(
     val addressUnobserved: String = "",
     /** Zeile «USDT = 1 angenommen» (kein USDT/USD-Kurs am Stichtag, [CutoffExport.csv] `usdtApproximate`); leer = keine. */
     val usdtAssumed: String = "",
+    /** Zeile «Adressen nicht lesbar – Guthaben fehlen» ([CutoffExport.csv] `addressesUnreadable`); leer = keine. */
+    val addressesUnreadable: String = "",
 )
 
 /**
@@ -252,6 +254,12 @@ object CutoffExport {
         header: List<String> = emptyList(),
         /** Kurs ohne USDT/USD am Stichtag (USDT = 1 als Näherung): Zeile [CutoffCsvTexts.usdtAssumed] nach dem Kommentar. */
         usdtApproximate: Boolean = false,
+        /**
+         * Beobachtete Adressen nicht lesbar: ihre Guthaben fehlen, ohne dass bekannt ist welche Coins — Zeile
+         * [CutoffCsvTexts.addressesUnreadable] nach dem Kommentar und Total «unvollständig» (wie bei nicht beobachteten
+         * Adressen), statt still eine zu tiefe Summe.
+         */
+        addressesUnreadable: Boolean = false,
     ): String {
         // Zahlen ohne Tausendertrennung: Dezimalpunkt ggf. durch Komma ersetzen
         fun n(text: String): CsvCell = CsvCell(if (format.decimal == ',') text.replace('.', ',') else text, numeric = true)
@@ -263,6 +271,8 @@ object CutoffExport {
         sb.append(line(listOf(texts.commentFormat.format(date.toString(), currency, fxDate ?: "—"))))
         // USDT zum Marktkurs, aber am Stichtag ohne USDT/USD-Kurs: Näherung 1 nie still
         if (usdtApproximate && texts.usdtAssumed.isNotEmpty()) sb.append(line(listOf(texts.usdtAssumed)))
+        // Adressen nicht lesbar: fehlende Guthaben nie still
+        if (addressesUnreadable && texts.addressesUnreadable.isNotEmpty()) sb.append(line(listOf(texts.addressesUnreadable)))
         // In CHF per 31.12.: Hinweis auf die massgebende ESTV-Kursliste des Jahrs
         EstvKursliste.noteLine(texts.estvNoteFormat, date, currency, texts.estvLanguage)?.let { sb.append(line(listOf(it))) }
         sb.append(
@@ -306,7 +316,7 @@ object CutoffExport {
             rows.fold(BigDecimal.ZERO) { sum, r -> r.valueTarget?.let { sum + it } ?: sum }
         } else null
         val totalNotes = listOfNotNull(
-            texts.incomplete.takeIf { rows.any { it.noPrice || it.unchecked || it.addressUnobserved } },
+            texts.incomplete.takeIf { addressesUnreadable || rows.any { it.noPrice || it.unchecked || it.addressUnobserved } },
             texts.noFx.takeIf { rows.isNotEmpty() && rows.all { it.noFx } },
         ).joinToString(", ")
         sb.append(

@@ -26,6 +26,9 @@ struct WidgetPalette {
     let onAccent: Color
     /// Hoher Kontrast (Einstellung oder System): Chart-Linien und -Beschriftung kräftiger.
     let highContrast: Bool
+    /// Fear-&-Greed-Stufen (RGB) aus genau den Kursfarben `up`/`down` (Angst = fallend, Gier = steigend), nur für
+    /// Grafik — wie Android `WidgetColors.scaleSteps`.
+    let scaleSteps: [UInt32]
 
     init(accent: AccentColor, dark: Bool, priceColors: PriceColorScheme = .default, highContrast: Bool = false,
          inverted: Bool = false) {
@@ -45,8 +48,11 @@ struct WidgetPalette {
         // Kursfarben wie in der App (Einstellung «Kursfarben», bei hohem Kontrast die
         // AAA-Werte, «Farben tauschen» vertauscht steigend/fallend).
         // Akzentfarbe: zu ähnliche Kursfarben nehmen ihre Ersatzfassung (wie Android)
-        up = Color(hex: priceColors.upHex(dark: dark, highContrast: highContrast, inverted: inverted, accent: accent))
-        down = Color(hex: priceColors.downHex(dark: dark, highContrast: highContrast, inverted: inverted, accent: accent))
+        let upHex: UInt32 = priceColors.upHex(dark: dark, highContrast: highContrast, inverted: inverted, accent: accent)
+        let downHex: UInt32 = priceColors.downHex(dark: dark, highContrast: highContrast, inverted: inverted, accent: accent)
+        up = Color(hex: upHex)
+        down = Color(hex: downHex)
+        scaleSteps = MarketScalePalette.steps(up: upHex, down: downHex, dark: dark)
         divider = Color(hex: ColorTokens.onSurface.hex(dark: dark)).opacity(highContrast ? 0.45 : 0.25)
     }
 

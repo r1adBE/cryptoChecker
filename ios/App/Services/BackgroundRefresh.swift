@@ -311,8 +311,10 @@ enum BackgroundRefresh {
                     extra.releaseAlarmLease()
                 } else if extra.alarms.isEmpty && extra.pendingAlarms.isEmpty {
                     extra.releaseAlarmLease()
-                    // Nichts zu speichern, aber geprüft: fürs Alarm-Protokoll festhalten
-                    AlarmLogStore.record(extra.alarmLog, live: false)
+                    // Nichts zu speichern, aber geprüft: fürs Alarm-Protokoll festhalten — abseits des Hauptfadens
+                    // (verschlüsselte, abgestimmte Datei), abgewartet, damit es vor dem Ende der Aufgabe geschrieben ist
+                    let log = extra.alarmLog
+                    await Task.detached(priority: .utility) { AlarmLogStore.record(log, live: false) }.value
                 } else if let stored = SharedStorage.updateSnapshot({ extra.apply(to: &$0) }) {
                     _ = await extra.deliverAlarms(settings: settings, current: stored.alarms,
                                                   save: { PriceRefresher.saveAlarmOnDisk($0, $1) },

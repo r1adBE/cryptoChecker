@@ -2,6 +2,7 @@ package com.cryptochecker.app.ui.theme
 
 import com.cryptochecker.app.settings.AccentColor
 import com.cryptochecker.app.settings.PriceColorScheme
+import com.cryptochecker.app.widget.WidgetColors
 import com.cryptochecker.app.widget.WidgetContrast
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -50,6 +51,46 @@ class MarketScalePaletteTest {
         assertEquals(scheme.down(false), MarketScalePalette.color(10, scheme, dark = false))
         // Getauscht: Gier in der Fallend-Farbe des Schemas (Rot = steigend)
         assertEquals(scheme.down(true), MarketScalePalette.color(90, scheme, dark = true, inverted = true))
+        // Akzentfarbe: Ersatzfassung wie bei den Kurspfeilen
+        for (accent in AccentColor.entries) {
+            assertEquals(scheme.up(false, accent = accent), MarketScalePalette.color(90, scheme, dark = false, accent = accent))
+        }
+    }
+
+    /** Stufen aus aufgelösten Kursfarben: gleiche Mischung wie aus dem Schema. Wie iOS. */
+    @Test
+    fun `Stufen aus Kursfarben wie aus dem Schema`() {
+        assertEquals(
+            listOf(0xFF9F4300.toInt(), 0xFF8A5732.toInt(), 0xFF707070.toInt(), 0xFF3D6790.toInt(), 0xFF1460AB.toInt()),
+            MarketScalePalette.steps(up = 0xFF1460AB.toInt(), down = 0xFF9F4300.toInt(), dark = false),
+        )
+        for (scheme in PriceColorScheme.entries) for (dark in listOf(false, true)) for (hc in listOf(false, true)) {
+            for (inv in listOf(false, true)) for (accent in AccentColor.entries + listOf<AccentColor?>(null)) {
+                val up = scheme.up(dark, hc, inv, accent)
+                val down = scheme.down(dark, hc, inv, accent)
+                assertEquals(MarketScalePalette.steps(scheme, dark, hc, inv, accent), MarketScalePalette.steps(up, down, dark))
+            }
+        }
+    }
+
+    /** Puls-Widget: Stufenpunkt aus den Kursfarben des Widgets = Skala der App-Karte, Ränder = Pfeilfarben. */
+    @Test
+    fun `Widget-Skala folgt den Kursfarben des Widgets`() {
+        for (scheme in PriceColorScheme.entries) for (dark in listOf(false, true)) for (hc in listOf(false, true)) {
+            for (inv in listOf(false, true)) for (accent in AccentColor.entries) {
+                val colors = WidgetColors.of(accent, dark, scheme, hc, inv)
+                val steps = colors.scaleSteps
+                assertEquals(MarketScalePalette.steps(scheme, dark, hc, inv, accent), steps)
+                assertEquals(colors.downColor, steps[0])
+                assertEquals(colors.upColor, steps[4])
+                // Widget-Grund (baseColor, surfaceContainer) — colorWithOpacity braucht android.graphics
+                val bg = if (dark) 0xFF1F1F1F.toInt() else 0xFFF1EEE9.toInt()
+                for ((i, c) in steps.withIndex()) {
+                    val r = WidgetContrast.ratio(c, bg)
+                    assertTrue("${scheme.name}/${accent.name}/dark=$dark/hc=$hc/inv=$inv step $i: %.2f".format(r), r >= 3.0)
+                }
+            }
+        }
     }
 
     /** Nicht-Text-Kontrast ≥ 3:1 auf allen Flächen, für jedes Schema, normal und hoher Kontrast. */
@@ -80,6 +121,8 @@ class MarketScalePaletteTest {
         val DARK = listOf(
             0xFF0E0E0E.toInt(), 0xFF131313.toInt(), 0xFF1B1B1B.toInt(), 0xFF1F1F1F.toInt(),
             0xFF2A2A2A.toInt(), 0xFF353535.toInt(),
+            // tiefere Widget-Fläche
+            0xFF151515.toInt(),
         )
     }
 }

@@ -5,6 +5,18 @@ import Foundation
 /// Wie `AlarmLogCollector.kt`.
 extension PriceRefresher {
 
+    /// Alarme, für die «Kein Kurs» bzw. Sperrgründe festgehalten werden: die jetzt geprüften und die erst später
+    /// geprüften mit Zusatzdaten (z. B. Schwelle in anderer Währung) — wie Android, das dafür alle eingeschalteten
+    /// Alarme liest. Ein Alarm steht nie doppelt.
+    static func alarmsForLog(checked: [Int64: [Alarm]], deferred: [Int64: [Alarm]]) -> [Int64: [Alarm]] {
+        var all = checked
+        for (watchId, extra) in deferred {
+            let known = Set(all[watchId, default: []].map(\.id))
+            all[watchId, default: []] += extra.filter { !known.contains($0.id) }
+        }
+        return all
+    }
+
     /// Eintrag für `alarm` auf `watch` (Paar mit neuem Kurs bzw. ohne Kurs); nil für nicht erfasste Alarme
     /// (`AlarmLog.covers`). `comparePrice`: Kurs in der Währung der Schwelle (nur mit Umrechnung gespeichert).
     static func alarmLogEntry(_ alarm: Alarm, watch: Watch, trace: AlarmLogTrace, now: Int64,

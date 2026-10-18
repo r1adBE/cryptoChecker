@@ -29,7 +29,8 @@ struct SettingsCard<Content: View>: View {
     }
 }
 
-/// Masse der Zeilen der Hauptseite (Karten statt Liste): so hoch wie bisher die Listenzeilen.
+/// Masse der Zeilen der Hauptseite (Karten statt Liste): so hoch wie bisher die Listenzeilen. Innenabstand oben und
+/// unten `Spacing.sm` wie Android (`SettingsNavRow`: vertical 8 dp) — eine Zeile mit Wert ist so auf beiden gleich hoch.
 enum SettingsRowMetrics {
     static let minHeight: CGFloat = 52
 }
@@ -162,7 +163,7 @@ struct SettingsNavRow<Value: View, Destination: View>: View {
                     .foregroundStyle(AppColors.outline)
                     .accessibilityHidden(true)
             }
-            .padding(.vertical, Spacing.xs)
+            .padding(.vertical, Spacing.sm)
             .frame(maxWidth: .infinity, minHeight: SettingsRowMetrics.minHeight, alignment: .leading)
             .contentShape(Rectangle())
         }
@@ -206,7 +207,7 @@ struct SettingsMainSwitchRow: View {
             }
         }
         .tint(accent.primary)
-        .padding(.vertical, Spacing.xs)
+        .padding(.vertical, Spacing.sm)
         .frame(maxWidth: .infinity, minHeight: SettingsRowMetrics.minHeight, alignment: .leading)
     }
 }
@@ -247,7 +248,7 @@ struct SettingsButtonRow: View {
                     .foregroundStyle(AppColors.outline)
                     .accessibilityHidden(true)
             }
-            .padding(.vertical, Spacing.xs)
+            .padding(.vertical, Spacing.sm)
             .frame(maxWidth: .infinity, minHeight: SettingsRowMetrics.minHeight, alignment: .leading)
             .contentShape(Rectangle())
         }

@@ -131,6 +131,8 @@ struct CutoffCsvTexts: Sendable {
     var addressUnobserved: String = ""
     /// Zeile «USDT = 1 angenommen» (kein USDT/USD-Kurs am Stichtag, `CutoffExport.csv` `usdtApproximate`); leer = keine.
     var usdtAssumed: String = ""
+    /// Zeile «Adressen nicht lesbar – Guthaben fehlen» (`CutoffExport.csv` `addressesUnreadable`); leer = keine.
+    var addressesUnreadable: String = ""
 
     /// Aus den App-Texten, Spaltentitel mit der Zielwährung.
     static func localized(currency: String) -> CutoffCsvTexts {
@@ -154,7 +156,8 @@ struct CutoffCsvTexts: Sendable {
             // Beobachtete Adressen (zählen im Portfolio) als eigene Zeilen
             fromAddress: L("portfolio_export_from_address"),
             addressUnobserved: L("portfolio_export_address_unobserved"),
-            usdtAssumed: L("portfolio_usdt_assumed")
+            usdtAssumed: L("portfolio_usdt_assumed"),
+            addressesUnreadable: L("portfolio_export_addresses_unreadable")
         )
     }
 }
@@ -284,9 +287,12 @@ enum CutoffExport {
     /// Ganze CSV-Datei (mit BOM). `fxDate` = tatsächliches Kursdatum (nil → «—»).
     /// `header` = Kopfzeilen davor (Arbeitsunterlage: Vorlage, Methode, Steuerjahr, Hinweis), je ein Feld; leer = keine.
     /// `usdtApproximate`: Kurs ohne USDT/USD am Stichtag (USDT = 1 als Näherung) — Zeile `texts.usdtAssumed` nach dem Kommentar.
+    /// `addressesUnreadable`: beobachtete Adressen nicht lesbar, ihre Guthaben fehlen, ohne dass bekannt ist welche Coins —
+    /// Zeile `texts.addressesUnreadable` nach dem Kommentar und Total «unvollständig» (wie bei nicht beobachteten
+    /// Adressen), statt still eine zu tiefe Summe. Wie Android.
     static func csv(day: CutoffDay, currency: String, fxDate: String?, rows: [CutoffRow], texts: CutoffCsvTexts,
                     format: CutoffCsvFormat = .semicolonPoint, header: [String] = [],
-                    usdtApproximate: Bool = false) -> String {
+                    usdtApproximate: Bool = false, addressesUnreadable: Bool = false) -> String {
         // Zahlen ohne Tausendertrennung: Dezimalpunkt ggf. durch Komma ersetzen
         func n(_ text: String) -> CsvCell {
             CsvCell(text: format.decimal == "," ? text.replacingOccurrences(of: ".", with: ",") : text, numeric: true)
@@ -300,6 +306,8 @@ enum CutoffExport {
         out += line([comment])
         // USDT zum Marktkurs, aber am Stichtag ohne USDT/USD-Kurs: Näherung 1 nie still
         if usdtApproximate && !texts.usdtAssumed.isEmpty { out += line([texts.usdtAssumed]) }
+        // Adressen nicht lesbar: fehlende Guthaben nie still
+        if addressesUnreadable && !texts.addressesUnreadable.isEmpty { out += line([texts.addressesUnreadable]) }
         // In CHF per 31.12.: Hinweis auf die massgebende ESTV-Kursliste des Jahrs
         if let estv = EstvKursliste.noteLine(format: texts.estvNoteFormat, day: day, currency: currency,
                                              language: texts.estvLanguage) {
@@ -334,7 +342,9 @@ enum CutoffExport {
         let anyTarget = rows.contains { $0.valueTarget != nil }
         let totalTarget = rows.reduce(Decimal(0)) { $0 + ($1.valueTarget ?? 0) }
         var totalNotes: [String] = []
-        if rows.contains(where: { $0.noPrice || $0.unchecked || $0.addressUnobserved }) { totalNotes.append(texts.incomplete) }
+        if addressesUnreadable || rows.contains(where: { $0.noPrice || $0.unchecked || $0.addressUnobserved }) {
+            totalNotes.append(texts.incomplete)
+        }
         if !rows.isEmpty && rows.allSatisfy({ $0.noFx }) { totalNotes.append(texts.noFx) }
         out += cells([
             t(texts.total),
@@ -724,10 +734,13 @@ enum PortfolioCutoffExporter {
     /// Bestand am Ende des Tags (Zeitzone des Geräts), Kurse und Devisenkurs holen, CSV bauen.
     /// Bestand nach derselben Einstandsmethode `method` wie Karte, Verlauf und Steuer-Export.
     /// `addresses`: Reihen der beobachteten Adressen, die im Portfolio zählen (`AddressBalanceHistory.of`).
+    /// `addressesUnreadable`: Speicher der Adressen nicht lesbar (`WatchedAddressStore.loadChecked`, `intact` false) —
+    /// in der Datei vermerkt, Total «unvollständig» (wie Android).
     /// `header`: Kopfzeilen davor (Bestand der Arbeitsunterlage), leer = keine. `zone`: Ende des Tags in dieser Zeitzone —
     /// für den Bestand der Arbeitsunterlage die der Vorlage, sonst die des Geräts (wie Android).
     static func build(transactions: [PortfolioTx], day: CutoffDay, currency: String, texts: CutoffCsvTexts,
                       method: CostMethod = .defaultMethod, addresses: [AddressBalanceHistory] = [],
+                      addressesUnreadable: Bool = false,
                       header: [String] = [], zone: TimeZone = .current) async -> String {
         let cutoff = day.endOfDayMillis(in: zone)
         let holdings = CutoffExport.holdingsAt(transactions, cutoffMillis: cutoff, method: method)
@@ -759,7 +772,8 @@ enum PortfolioCutoffExporter {
         // Trenn-/Dezimalzeichen wie Excel der Region (de-CH «;» + «.», de-DE «;» + «,», en «,» + «.»)
         let usdtApproximate = rate != nil && usdt == nil && CutoffExport.convertsUsdt(currency)
         return CutoffExport.csv(day: day, currency: currency, fxDate: fx?.date, rows: rows, texts: texts,
-                                format: .current, header: header, usdtApproximate: usdtApproximate)
+                                format: .current, header: header, usdtApproximate: usdtApproximate,
+                                addressesUnreadable: addressesUnreadable)
     }
 
     /// USDT/USD am Stichtag `day`: heute der Live-Kurs, sonst der Tagesschluss DES Tags (plausibel, `TaxExport.usdtUsdOn`);

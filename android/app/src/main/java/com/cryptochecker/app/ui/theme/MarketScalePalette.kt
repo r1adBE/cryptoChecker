@@ -10,6 +10,8 @@ import kotlin.math.roundToInt
  * Tausch. Angst = Fallend-Farbe, Gier = Steigend-Farbe, die mittleren Stufen je zu 45 % mit dem
  * neutralen Grau gemischt. Nur für Flächen (Skala, Markierung), nie für Schrift; jede Stufe hält
  * ≥ 3:1 (Nicht-Text-Kontrast) auf allen Flächen bis #E2E2E2 bzw. #353535 (MarketScalePaletteTest).
+ * Gilt für den Stufenpunkt der Fear-&-Greed-Karte ([MarketScaleColors]) und des Puls-Widgets
+ * (Entscheid Build 80: Skala folgt den Kursfarben, passend zu den Pfeilen; früher eine feste Skala).
  * Reines Kotlin, wie iOS `MarketScalePalette.swift`.
  */
 object MarketScalePalette {
@@ -29,11 +31,19 @@ object MarketScalePalette {
         inverted: Boolean = false,
         // Akzentfarbe: Ersatzfassungen der Kursfarben wie überall
         accent: AccentColor? = null,
-    ): List<Int> {
-        val fear = scheme.down(dark, highContrast, inverted, accent)
-        val greed = scheme.up(dark, highContrast, inverted, accent)
+    ): List<Int> = steps(
+        up = scheme.up(dark, highContrast, inverted, accent),
+        down = scheme.down(dark, highContrast, inverted, accent),
+        dark = dark,
+    )
+
+    /**
+     * Stufen aus bereits aufgelösten Kursfarben (ARGB) — für Stellen, die [up]/[down] schon haben
+     * (Widget: `WidgetColors.upColor`/`downColor`), damit der Stufenpunkt genau zu den Pfeilen passt.
+     */
+    fun steps(up: Int, down: Int, dark: Boolean): List<Int> {
         val neutral = if (dark) NEUTRAL_DARK else NEUTRAL_LIGHT
-        return listOf(fear, mix(fear, neutral, MILD_MIX), neutral, mix(greed, neutral, MILD_MIX), greed)
+        return listOf(down, mix(down, neutral, MILD_MIX), neutral, mix(up, neutral, MILD_MIX), up)
     }
 
     /** Stufe 0…4 eines Fear-&-Greed-Werts (0–100). */
@@ -52,29 +62,8 @@ object MarketScalePalette {
         dark: Boolean,
         highContrast: Boolean = false,
         inverted: Boolean = false,
-    ): Int = steps(scheme, dark, highContrast, inverted)[level(value)]
-
-    /**
-     * M-8: feste Skala «Extrem Bear» … «Extrem Bull» (Puls-Widget, [MarketScaleColors]) je für Hell
-     * und Dunkel. Jede Stufe hält auch als Schrift ≥ 4.5:1 auf allen Flächen (hell bis #E2E2E2,
-     * warm bis #E5E2DB; dunkel bis #353535) und damit ≥ 3:1 als Grafik. Mittlere Stufen = Rand
-     * zu 45 % mit dem Grau gemischt, damit sie sich vom Rand abheben. Früher eine Skala für beide
-     * Modi: #B42318 auf #1F1F1F nur 2.51:1. Wie iOS `ColorTokens.scale*`.
-     */
-    val FIXED_LIGHT: List<Int> = listOf(
-        0xFFB42318.toInt(), 0xFF90403A.toInt(), 0xFF636363.toInt(), 0xFF326B50.toInt(), 0xFF0A7240.toInt(),
-    )
-    val FIXED_DARK: List<Int> = listOf(
-        0xFFFF7A70.toInt(), 0xFFD48B86.toInt(), 0xFFA0A0A0.toInt(), 0xFF6ABE95.toInt(), 0xFF3DD68C.toInt(),
-    )
-
-    /** Schrift auf einer gefüllten festen Stufe: hell weiss, dunkel fast schwarz (≥ 4.5:1). */
-    const val FIXED_ON_LIGHT_STEP = 0xFFFFFFFF.toInt()
-    const val FIXED_ON_DARK_STEP = 0xFF111111.toInt()
-
-    fun fixedSteps(dark: Boolean): List<Int> = if (dark) FIXED_DARK else FIXED_LIGHT
-
-    fun fixedOnStep(dark: Boolean): Int = if (dark) FIXED_ON_DARK_STEP else FIXED_ON_LIGHT_STEP
+        accent: AccentColor? = null,
+    ): Int = steps(scheme, dark, highContrast, inverted, accent)[level(value)]
 
     /** Mischung im sRGB-Raum, [t] = Anteil von [b]; deckend. */
     internal fun mix(a: Int, b: Int, t: Double): Int {

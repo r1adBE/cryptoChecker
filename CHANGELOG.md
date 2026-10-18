@@ -36,6 +36,14 @@ Review fixes before the store.
 * Design: tax-template selection uses the theme accent (iPhone), warning icon in the readable amber, note icon in full
   accent, sort arrows 12 pt, error screen uses the standard empty state, tab bar 8 pt padding and identical on both
   platforms; German «Funding ausgeglichen», «Tief», «Hoch» instead of English terms.
+* Market pulse widget: when «Top 30» moves to the second line it gets its own dot (colour of the majority: rising,
+  falling, or grey when even), so both lines look alike.
+* Fear & Greed colours follow your price colours (card dot and pulse widget dot): fear in the falling colour, greed in
+  the rising colour, so the colour-blind scheme, high contrast and swapped colours apply; the fixed scale is gone.
+* Year-end holdings export: if watched addresses cannot be read, the file says so and the total is marked
+  incomplete instead of silently leaving those balances out (same for the Swiss wealth value).
+* Alarm log: live prices write the encrypted file at most once a minute unless an alarm fires or a new outcome
+  starts; nothing is written unencrypted on iPhone either.
 * Spacing on the 4/8/12/16/24/32 grid on both platforms (about 90 values, shrinking so nothing wraps; touch areas rounded up); a guard test keeps new off-grid spacing out.
 
 ## 16.2.2 (build 79)

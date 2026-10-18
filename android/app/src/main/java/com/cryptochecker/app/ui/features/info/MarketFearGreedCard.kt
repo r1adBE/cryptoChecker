@@ -31,7 +31,6 @@ import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.market.DataStamp
 import com.cryptochecker.app.domain.market.FearGreed
 import com.cryptochecker.app.ui.components.SkeletonBlock
-import com.cryptochecker.app.ui.theme.LocalDarkTheme
 import com.cryptochecker.app.ui.theme.MarketScaleColors
 import com.cryptochecker.app.ui.theme.MarketScalePalette
 import com.cryptochecker.app.ui.theme.Spacing
@@ -99,8 +98,8 @@ internal fun FearGreedRow(
 
 /**
  * Zahl gross und Wort der Stufe, darunter die neutrale Spur mit dem Stufenpunkt. Punktfarbe wie im Puls-Widget
- * (feste Skala [MarketScaleColors], je Stufe ≥ 3:1 als Grafik); die Zahl und das Wort stehen in der
- * Textfarbe — die Farbe trägt nie allein. [value] null = grauer Platzhalter in derselben Höhe.
+ * aus den Kursfarben ([MarketScaleColors]: Angst = fallend, Gier = steigend, je Stufe ≥ 3:1 als Grafik), passend
+ * zu den Kurspfeilen; die Zahl und das Wort stehen in der Textfarbe — die Farbe trägt nie allein. [value] null = grauer Platzhalter in derselben Höhe.
  */
 @Composable
 private fun FearGreedGauge(value: Int?) {
@@ -111,7 +110,7 @@ private fun FearGreedGauge(value: Int?) {
         return
     }
     val label = fearGreedLabel(value)
-    val dot = MarketScaleColors.steps(LocalDarkTheme.current)[fearGreedLevel(value)]
+    val dot = MarketScaleColors.steps[fearGreedLevel(value)]
     val gaugeDescription = stringResource(
         R.string.a11y_gauge,
         stringResource(R.string.fng_extreme_fear),

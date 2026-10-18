@@ -127,6 +127,7 @@ internal fun cutoffTexts(currency: String): CutoffCsvTexts = CutoffCsvTexts(
     fromAddress = stringResource(R.string.portfolio_export_from_address),
     addressUnobserved = stringResource(R.string.portfolio_export_address_unobserved),
     usdtAssumed = stringResource(R.string.portfolio_usdt_assumed),
+    addressesUnreadable = stringResource(R.string.portfolio_export_addresses_unreadable),
 )
 
 /** Name einer Vorlage. */

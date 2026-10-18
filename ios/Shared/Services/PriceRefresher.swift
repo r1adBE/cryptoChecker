@@ -189,14 +189,14 @@ enum PriceRefresher {
                            notifier: AlarmNotifier = .system, delivery: AlarmDelivery = .pairs,
                            now: @Sendable () -> Int64 = { TimeUtils.nowMillis },
                            recordLog: (@Sendable ([AlarmLogEntry], Bool) -> Void)? = nil) async -> [PendingAlarm] {
-            defer { alarmLease?.release() }
-            guard !pendingAlarms.isEmpty else {
-                recordLog?(alarmLog, alarmLogLive)
-                return []
-            }
             // Protokoll: Ergebnis je gemeldetem Alarm, nur mitgelesen (`AlarmLog.deliveryTrace`)
             var resolvedLog: [AlarmLogEntry] = []
-            defer { recordLog?(alarmLog + resolvedLog, alarmLogLive) }
+            defer {
+                // Erst die Lease freigeben, dann protokollieren: das Schreiben der Datei hält keinen anderen Prozess auf
+                alarmLease?.release()
+                recordLog?(alarmLog + resolvedLog, alarmLogLive)
+            }
+            guard !pendingAlarms.isEmpty else { return [] }
             let byId = Dictionary(current.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
             // Erlaubnis und Nachtruhe einmal für alle; die Auswertung hat beides schon geprüft
             // (`QuietHours.mayFire`), seither kann sich aber etwas geändert haben
@@ -514,6 +514,11 @@ enum PriceRefresher {
                 alarmsByWatch = Dictionary(grouping: fresh, by: \.watchId)
             }
         }
+        // Alarm-Protokoll («Kein Kurs», Sperrgründe): auch die erst später geprüften Alarme mit Zusatzdaten — nur
+        // festgehalten, entschieden wird damit nichts
+        let logAlarmsByWatch = deferExtra
+            ? alarmsForLog(checked: alarmsByWatch, deferred: outcome.deferredAlarms.prefetchByWatch)
+            : alarmsByWatch
 
         // Kurs-Mitteilungen entfernen: gesammelt in EINEM Aufruf statt einmal je Paar
         var cancelIds: [Int64] = []
@@ -533,7 +538,7 @@ enum PriceRefresher {
                 cancelIds.append(watch.id)
                 // Alarm-Protokoll: «Kein Kurs» als letzte Prüfung der Alarme dieses Paars
                 if liveQuotes == nil {
-                    outcome.alarmLog += (alarmsByWatch[watch.id] ?? []).compactMap {
+                    outcome.alarmLog += (logAlarmsByWatch[watch.id] ?? []).compactMap {
                         alarmLogEntry($0, watch: watch, trace: AlarmLogTrace(noPrice: true), now: now)
                     }
                 }
@@ -580,7 +585,7 @@ enum PriceRefresher {
             // aber nicht aus
             let alarmsAllowed = !AlarmFreshness.blocksAlarms(updated.exchangeTime, markFallback: ticker.markFallback,
                                                              now: now)
-            if !alarmsAllowed, let blocked = alarmsByWatch[watch.id] {
+            if !alarmsAllowed, let blocked = logAlarmsByWatch[watch.id] {
                 // Alarm-Protokoll: nur festhalten, warum nicht (dieselbe Reihenfolge der Gründe wie Android)
                 outcome.alarmLog += blockedAlarmLog(
                     blocked, watch: watch, updated: updated,

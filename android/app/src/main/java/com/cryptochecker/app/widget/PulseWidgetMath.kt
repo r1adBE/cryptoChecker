@@ -224,6 +224,8 @@ object PulseWidgetMath {
      * [bothWidthDp] «● Fear & Greed 72 · Gier · Top 30 · 24h ↗ 22 ↘ 8», [fearGreedWidthDp] und
      * [breadthWidthDp] je allein. Zwei Zeilen nur, wenn die Höhe sie trägt ([sideLinesFit]) und
      * jeder Teil ganz in seine Zeile passt — sonst wie bisher nur ein Teil. Nie abgeschnitten.
+     * [breadthLineWidthDp]: die Marktbreite als eigene zweite Zeile (dort mit Punkt «● Top 30 …», also
+     * breiter); allein in der ersten Zeile steht sie ohne Punkt und wird mit [breadthWidthDp] gemessen.
      */
     fun sideLayout(
         widthDp: Int,
@@ -232,6 +234,7 @@ object PulseWidgetMath {
         fearGreedWidthDp: Float?,
         breadthWidthDp: Float?,
         bothWidthDp: Float?,
+        breadthLineWidthDp: Float? = breadthWidthDp,
     ): PulseSideLayout? = chooseSide(
         hasFearGreed = fearGreedWidthDp != null,
         hasBreadth = breadthWidthDp != null,
@@ -241,7 +244,7 @@ object PulseWidgetMath {
             width != null && showsFearGreed(widthDp, heightDp, headlineLines, width, lines)
         when (layout) {
             PulseSideLayout.ONE_LINE -> fits(bothWidthDp, 1)
-            PulseSideLayout.TWO_LINES -> fits(fearGreedWidthDp, 2) && fits(breadthWidthDp, 2)
+            PulseSideLayout.TWO_LINES -> fits(fearGreedWidthDp, 2) && fits(breadthLineWidthDp, 2)
             PulseSideLayout.FEAR_GREED -> fits(fearGreedWidthDp, 1)
             PulseSideLayout.BREADTH -> fits(breadthWidthDp, 1)
         }

@@ -235,9 +235,10 @@ class PulseWidgetRenderer @Inject constructor(
                 val sideLayout = PulseWidgetMath.sideLayout(
                     widgetWidthDp, heightDp, headlineStyle.lines,
                     fearGreedWidthDp = sideWidth(fearGreedShown),
-                    // mit Punkt gemessen: in der zweiten Zeile steht er davor (vorsichtig auch für die erste)
-                    breadthWidthDp = sideWidth(breadthText?.let { "$FNG_DOT $it" }),
+                    // Allein in der ersten Zeile ohne Punkt; als zweite Zeile mit Punkt davor (eigene Breite)
+                    breadthWidthDp = sideWidth(breadthText),
                     bothWidthDp = sideWidth(bothText),
+                    breadthLineWidthDp = sideWidth(breadthText?.let { "$FNG_DOT $it" }),
                 )
                 val showFng = sideLayout?.showsFearGreed == true
                 val showBreadth = sideLayout?.showsBreadth == true
@@ -260,7 +261,6 @@ class PulseWidgetRenderer @Inject constructor(
                             fearGreedShown,
                             breadth.takeIf { showBreadth && secondText == null },
                             colors,
-                            dark,
                         )
                     } ?: ""
                 )
@@ -268,7 +268,7 @@ class PulseWidgetRenderer @Inject constructor(
                 views.setViewVisibility(R.id.pulse_breadth, if (secondText != null) View.VISIBLE else View.GONE)
                 views.setTextViewText(
                     R.id.pulse_breadth,
-                    secondText?.let { sideLine(it, null, null, breadth, colors, dark) } ?: ""
+                    secondText?.let { sideLine(it, null, null, breadth, colors) } ?: ""
                 )
                 views.setTextColor(R.id.pulse_breadth, colors.secondaryTextColor)
 
@@ -428,8 +428,9 @@ class PulseWidgetRenderer @Inject constructor(
 
     /**
      * Nebenzeile mit Farben wie in der App: die Fear-&-Greed-Zahl in der Textfarbe (wie
-     * die Karte im Markt-Tab), davor der Stufenpunkt «●» in der festen Skala
-     * ([MarketScalePalette.fixedSteps], je Hell/Dunkel ≥ 3:1 als Grafik), «↗ 21» in der Kursfarbe für steigend, «↘ 9» für fallend.
+     * die Karte im Markt-Tab), davor der Stufenpunkt «●» in der Skala aus den Kursfarben des Widgets
+     * ([WidgetColors.scaleSteps], gleiche Mischung wie die App, ≥ 3:1 als Grafik) — so passt er zu den Pfeilen;
+     * «↗ 21» in der Kursfarbe für steigend, «↘ 9» für fallend.
      * Der Rest bleibt grau (Textfarbe der Zeile). Nur Farben — die Breite (Textanpassung) ändert sich nicht.
      */
     private fun sideLine(
@@ -438,7 +439,6 @@ class PulseWidgetRenderer @Inject constructor(
         fearGreedText: String?,
         breadth: PulseBreadth?,
         colors: WidgetColors,
-        dark: Boolean,
     ): CharSequence {
         val out = android.text.SpannableString(text)
         fun color(start: Int, length: Int, value: Int) {
@@ -453,7 +453,7 @@ class PulseWidgetRenderer @Inject constructor(
             if (from >= 0) color(text.indexOf(number, from), number.length, colors.textColor)
             // Stufenpunkt am Anfang des Fear-&-Greed-Teils in der Farbe der Stufe
             if (from >= 0 && text.startsWith(FNG_DOT, from)) {
-                color(from, FNG_DOT.length, MarketScalePalette.fixedSteps(dark)[MarketScalePalette.level(fearGreedValue)])
+                color(from, FNG_DOT.length, colors.scaleSteps[MarketScalePalette.level(fearGreedValue)])
             }
         }
         if (breadth != null) {

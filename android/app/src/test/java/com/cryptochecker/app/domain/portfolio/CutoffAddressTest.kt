@@ -70,6 +70,24 @@ class CutoffAddressTest {
         assertTrue(!CutoffExport.convertsUsdt("usdt"))
     }
 
+    /**
+     * Adressen nicht lesbar: Zeile nach dem Kommentar und Total «unvollständig», auch wenn alle übrigen Zeilen
+     * vollständig sind — nie still eine zu tiefe Summe (wie iOS).
+     */
+    @Test
+    fun unreadableAddressesMarkExportIncomplete() {
+        val withText = texts.copy(addressesUnreadable = "Adressen nicht lesbar")
+        val rows = CutoffExport.rows(listOf(CutoffHolding("BTC", BigDecimal("1"))), mapOf("BTC" to BigDecimal("100")), BigDecimal("0.9"))
+        val marked = CutoffExport.csv(LocalDate.ofEpochDay(day), "CHF", "2024-10-04", rows, withText, addressesUnreadable = true)
+            .removePrefix("\uFEFF").split("\r\n").filter { it.isNotEmpty() }
+        assertEquals("Adressen nicht lesbar", marked[1])
+        assertEquals("Total;;;100.00;0.9;90.00;unvollständig", marked.last())
+        val plain = CutoffExport.csv(LocalDate.ofEpochDay(day), "CHF", "2024-10-04", rows, withText)
+            .removePrefix("\uFEFF").split("\r\n").filter { it.isNotEmpty() }
+        assertTrue(plain.none { it == "Adressen nicht lesbar" })
+        assertEquals("Total;;;100.00;0.9;90.00;", plain.last())
+    }
+
     @Test
     fun todayUsesCurrentBalance() {
         // Stichtag heute: alle Beobachtungen bis jetzt — das aktuelle Guthaben, nichts fehlt

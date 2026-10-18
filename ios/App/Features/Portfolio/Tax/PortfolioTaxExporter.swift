@@ -173,7 +173,8 @@ enum PortfolioTaxExporter {
     /// Adressen — dieselben Quellen wie der Stichtag-Export (`PortfolioCutoffExporter.build`:
     /// `HistoricPriceSource.dailyClosesUsdt` mit Identitätsprüfung gegen die aktuellen Kurse). Erst wenn die UTC-Tageskerze
     /// des 31.12. geschlossen ist (UTC-Datum danach), sonst nil: kein laufender oder heutiger Kurs, der Posten bleibt
-    /// «nicht gerechnet». Wie Android `chYearEnd`.
+    /// «nicht gerechnet». Ebenso nil, wenn die beobachteten Adressen nicht lesbar sind (`intact` false) — sonst stünde
+    /// still eine zu tiefe Summe da. Wie Android `chYearEnd`.
     private static func chYearEnd(_ transactions: [PortfolioTx], method: TaxMethod, end: LocalDay,
                                   zone: TimeZone) async -> (closes: CutoffCloses, addresses: AddressBalancesAt)? {
         let utc = TimeZone(identifier: "UTC") ?? .gmt
@@ -181,8 +182,9 @@ enum PortfolioTaxExporter {
         let day = CutoffDay(year: end.year, month: end.month, day: end.day)
         let cutoff = day.endOfDayMillis(in: zone)
         let holdings = CutoffExport.holdingsAt(transactions, cutoffMillis: cutoff, method: method.costMethod ?? .defaultMethod)
-        let addressAt = AddressBalanceHistory.balancesAt(AddressBalanceHistory.of(WatchedAddressStore.load().addresses),
-                                                         time: cutoff)
+        let watched = WatchedAddressStore.loadChecked()
+        guard watched.intact else { return nil }
+        let addressAt = AddressBalanceHistory.balancesAt(AddressBalanceHistory.of(watched.file.addresses), time: cutoff)
         var seen: Set<String> = []
         let coins = (holdings.map(\.coin) + addressAt.balances.keys.sorted())
             .filter { seen.insert($0).inserted && PortfolioStables.needsQuote($0) }

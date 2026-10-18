@@ -255,18 +255,6 @@ enum ColorTokens {
     /// (3.87:1 auf surfaceContainer, unter AA) — wie Android `WidgetColors.neutralColor`.
     static let widgetNeutral = Pair(light: 0x5F5F5F, dark: 0x919191)
 
-    /// Marktskala «Extrem Bear» … «Extrem Bull» je Hell/Dunkel (M-8) — wie Android
-    /// `MarketScalePalette.FIXED_LIGHT` / `FIXED_DARK`. Jede Stufe auch als Schrift ≥ 4.5:1 auf den
-    /// Flächen ihres Modus (früher eine Skala: #B42318 auf #1F1F1F nur 2.51:1).
-    static let scaleExtremeBear = Pair(light: 0xB42318, dark: 0xFF7A70)
-    static let scaleBear = Pair(light: 0x90403A, dark: 0xD48B86)
-    static let scaleNeutral = Pair(light: 0x636363, dark: 0xA0A0A0)
-    static let scaleBull = Pair(light: 0x326B50, dark: 0x6ABE95)
-    static let scaleExtremeBull = Pair(light: 0x0A7240, dark: 0x3DD68C)
-    /// Schrift auf einer gefüllten Stufe: hell weiss, dunkel fast schwarz (Android `fixedOnStep`).
-    static let onScaleStep = Pair(light: 0xFFFFFF, dark: 0x111111)
-    /// Alle Stufen von links nach rechts (für Tests und Skala).
-    static let scaleSteps: [Pair] = [scaleExtremeBear, scaleBear, scaleNeutral, scaleBull, scaleExtremeBull]
     /// Bitcoin-Orange: hell dunkler (#F7931A hielt auf heller Fläche nur ≈ 2.2:1), ≥ 3:1 als Grafik bis
     /// #E2E2E2/#E5E2DB; dunkel das Original (≥ 5:1 bis #353535). Wie Android `AssetPalette`.
     static let bitcoin = Pair(light: 0xB86200, dark: 0xF7931A)
@@ -322,15 +310,19 @@ enum AppColors {
     static let shadow = Color.black
 }
 
-/// Fünfstufige Skala von «Extrem Bear» bis «Extrem Bull» — wie `MarketScaleColors` in Android.
-/// Feste Farben je Hell/Dunkel (`ColorTokens.scale*`), auch als Schrift ≥ 4.5:1; auch der Stufenpunkt der
-/// Fear-&-Greed-Karte (wie im Puls-Widget, seit Build 69 statt des Verlaufs aus `MarketScalePalette.steps`).
+/// Fünfstufige Fear-&-Greed-Skala in den aktiven Kursfarben (Werte: `MarketScalePalette.steps`) — Schema inkl.
+/// Farbsehschwäche, hoher Kontrast, Tausch und Ersatzfassungen neben der Akzentfarbe, also dieselben Farben wie
+/// die Kurspfeile. Nur für Grafik (Stufenpunkt, je ≥ 3:1), nie für Schrift. Wie `MarketScaleColors` in Android.
 enum MarketScaleColors {
-    static let steps: [Color] = ColorTokens.scaleSteps.map { Color.dynamic($0) }
-
-    /// Text auf einer gefüllten Stufe (hell weiss, dunkel fast schwarz) — für jede Stufe gleich.
-    static func onStep(_ index: Int) -> Color {
-        Color.dynamic(ColorTokens.onScaleStep)
+    /// Farbe der Stufe `index` (0…4); Hell/Dunkel nach der Ansicht, hoher Kontrast auch über `HighContrast.isOn`,
+    /// Akzentfarbe aus `PriceColors.accent` — wie `PriceColorScheme.up(highContrast:inverted:)`.
+    static func step(_ index: Int, scheme: PriceColorScheme, highContrast: Bool, inverted: Bool) -> Color {
+        let accent: AccentColor = PriceColors.accent
+        return Color(uiColor: UIColor { t in
+            UIColor(hex: MarketScalePalette.steps(scheme, dark: t.userInterfaceStyle == .dark,
+                                                  highContrast: highContrast || HighContrast.isOn(t),
+                                                  inverted: inverted, accent: accent)[index])
+        })
     }
 }
 

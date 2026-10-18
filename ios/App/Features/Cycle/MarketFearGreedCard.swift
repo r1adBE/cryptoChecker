@@ -63,12 +63,16 @@ struct CycleFearGreedRow: View {
 }
 
 /// Zahl gross und Wort der Stufe, darunter die neutrale Spur mit dem Stufenpunkt. Punktfarbe wie im Puls-Widget
-/// (feste Skala `MarketScaleColors`, je Stufe ≥ 3:1 als Grafik); Zahl und Wort in der Textfarbe — die Farbe trägt nie
+/// aus den Kursfarben (`MarketScaleColors`: Angst = fallend, Gier = steigend, je Stufe ≥ 3:1 als Grafik), passend zu
+/// den Kurspfeilen; Zahl und Wort in der Textfarbe — die Farbe trägt nie
 /// allein. nil = grauer Platzhalter in derselben Höhe. Wie `FearGreedGauge` in Android.
 struct CycleFearGreedGauge: View {
     let value: Int?
     private let marker: CGFloat = 14
     @Environment(\.layoutDirection) private var layoutDirection
+    @Environment(\.priceColorScheme) private var priceColors
+    @Environment(\.priceHighContrast) private var highContrast
+    @Environment(\.priceColorsInverted) private var inverted
 
     var body: some View {
         if let value {
@@ -86,7 +90,8 @@ struct CycleFearGreedGauge: View {
         let label: String = L(CycleFearGreedStyle.labelKey(value))
         let number: String = LocaleNumbers.integer(value)
         let gauge: String = L("a11y_gauge", L("fng_extreme_fear"), L("fng_extreme_greed"), value)
-        let dot: Color = MarketScaleColors.steps[CycleFearGreedStyle.level(value)]
+        let dot: Color = MarketScaleColors.step(CycleFearGreedStyle.level(value), scheme: priceColors,
+                                               highContrast: highContrast, inverted: inverted)
         return VStack(alignment: .leading, spacing: 0) {
             HStack(alignment: .lastTextBaseline, spacing: Spacing.sm) {
                 Text(verbatim: number)

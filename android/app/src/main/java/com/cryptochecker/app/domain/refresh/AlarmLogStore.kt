@@ -22,7 +22,7 @@ import javax.crypto.SecretKey
  * ([RefreshResultProcessor]).
  *
  * Darf die Prüfung nie stören: jeder Fehler bleibt still, ein Schreibvorgang je Durchlauf, Live-Kurse höchstens alle
- * [AlarmLog.LIVE_WRITE_INTERVAL_MILLIS] (bemerkenswerte Einträge sofort).
+ * [AlarmLog.LIVE_WRITE_INTERVAL_MILLIS] (ein neuer Protokoll-Eintrag sofort, [AlarmLog.startsEvent]).
  */
 class AlarmLogStore(
     private val file: File,
@@ -40,8 +40,14 @@ class AlarmLogStore(
     private var lastWriteAt = 0L
     private var dirty = false
 
-    /** Seit dem Start notiert, aber die Datei war noch nicht lesbar (Keystore gerade nicht erreichbar). */
-    private val unloadedEntries = ArrayList<AlarmLogEntry>()
+    /**
+     * Seit dem Start notiert bzw. geändert (Alarm gelöscht, «Protokoll löschen»), aber die Datei war noch nicht lesbar
+     * (Keystore gerade nicht erreichbar): beim ersten Lesen der Reihe nach auf den Stand der Datei angewendet — sonst
+     * kämen gelöschte letzte Prüfungen bzw. geleerte Einträge mit der Datei zurück.
+     */
+    private val unloadedSteps = ArrayList<(AlarmLogState, Long) -> AlarmLogState>()
+    private var unloadedEntryCount = 0
+    private var unloadedChanges = false
 
     /** Datei lesen (abseits des Hauptfadens). */
     suspend fun load() = withContext(Dispatchers.IO) { synchronized(lock) { ensureLoaded() } }
@@ -54,14 +60,19 @@ class AlarmLogStore(
                 val now = clock()
                 if (!ensureLoaded()) {
                     // Nicht lesbar: nichts überschreiben, im Speicher behalten und beim nächsten Lesen nachtragen
-                    if (unloadedEntries.size < MAX_UNLOADED) unloadedEntries += entries
+                    if (unloadedEntryCount < MAX_UNLOADED) {
+                        val batch = entries.toList()
+                        unloadedSteps += { state, at -> AlarmLog.record(state, batch, at) }
+                        unloadedEntryCount += entries.size
+                    }
                     _state.value = AlarmLog.record(_state.value, entries, now)
                     return@synchronized
                 }
-                val notable = entries.any { it.notable }
+                // Sofort nur, was einen neuen Eintrag beginnt; das Verlängern eines «von … bis …» wartet wie jede Prüfung
+                val startsEvent = AlarmLog.startsEvent(_state.value, entries)
                 _state.value = AlarmLog.record(_state.value, entries, now)
                 dirty = true
-                if (!live || notable || now - lastWriteAt >= AlarmLog.LIVE_WRITE_INTERVAL_MILLIS || now < lastWriteAt) {
+                if (!live || startsEvent || now - lastWriteAt >= AlarmLog.LIVE_WRITE_INTERVAL_MILLIS || now < lastWriteAt) {
                     persist(now)
                 }
             }
@@ -81,6 +92,11 @@ class AlarmLogStore(
         runCatching {
             synchronized(lock) {
                 val readable = ensureLoaded()
+                if (!readable) {
+                    // Nach dem Lesen der Datei erneut anwenden (auch wenn der Stand im Speicher schon passt)
+                    unloadedSteps += { state, _ -> change(state) }
+                    unloadedChanges = true
+                }
                 val next = change(_state.value)
                 if (next == _state.value) return@synchronized
                 _state.value = next
@@ -95,29 +111,40 @@ class AlarmLogStore(
         if (loaded) return true
         val now = clock()
         if (!file.exists()) {
-            loaded = true
-            _state.value = AlarmLog.record(AlarmLogState.EMPTY, unloadedEntries, now)
-            unloadedEntries.clear()
+            finishLoad(AlarmLogState.EMPTY, now)
             return true
         }
         val key = key() ?: return false
-        val stored = runCatching { file.readText(Charsets.US_ASCII) }.getOrNull()
-        val text = stored?.let {
-            try {
-                PortfolioSnapshotSeal.open(key, it)
-            } catch (e: Exception) {
-                // Keystore-Fehler beim Öffnen: später erneut, nichts überschreiben
-                keys.discardIfBroken(e)
-                cachedKey = null
-                return false
-            }
+        // Lesefehler (E/A): wie ein gesperrter Schlüssel — später erneut, die Datei nie durch einen leeren Stand ersetzen
+        val stored = runCatching { file.readText(Charsets.US_ASCII) }.getOrNull() ?: return false
+        val text = try {
+            PortfolioSnapshotSeal.open(key, stored)
+        } catch (e: Exception) {
+            // Keystore-Fehler beim Öffnen: später erneut, nichts überschreiben
+            keys.discardIfBroken(e)
+            cachedKey = null
+            return false
         }
         // Beschädigt oder anderer Schlüssel: nur ein Blick zurück — neu beginnen, die nächste Speicherung ersetzt die Datei
-        val fromDisk = AlarmLog.decode(text)
-        _state.value = AlarmLog.record(fromDisk, unloadedEntries, now)
-        unloadedEntries.clear()
-        loaded = true
+        finishLoad(AlarmLog.decode(text), now)
         return true
+    }
+
+    /** Gelesenen Stand übernehmen und die Schritte aus der Zeit davor nachtragen. Nur unter [lock]. */
+    private fun finishLoad(fromDisk: AlarmLogState, now: Long) {
+        var state = AlarmLog.record(fromDisk, emptyList(), now)
+        for (step in unloadedSteps) state = step(state, now)
+        _state.value = state
+        val replayedChanges = unloadedChanges
+        unloadedSteps.clear()
+        unloadedEntryCount = 0
+        unloadedChanges = false
+        loaded = true
+        // Löschungen gleich festhalten (die neuen Prüfungen schreibt das nächste Speichern ohnehin mit)
+        if (replayedChanges) {
+            dirty = true
+            persist(now)
+        }
     }
 
     private fun key(): SecretKey? {

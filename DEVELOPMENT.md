@@ -1736,7 +1736,9 @@ Layout decisions that keep the app calm. Same structure on Android and iOS, same
   `#E2E2E2`, price colours on every surface up to `#353535`/`#E2E2E2` (`AccentContrastTest`, price colour
   tests). Zone colours are only for non-text marks (≥ 3:1); numbers stay in text colour. The Fear & Greed card
   (since build 69, like the pulse widget) shows the number large with the level word next to it and one level dot
-  (`MarketScaleColors`, fixed scale) on a neutral `outlineVariant` track — no five-colour gradient. Widget text at least 11 sp/pt. Light dividers
+  (`MarketScaleColors`; since build 80 in the user's price colours via `MarketScalePalette.steps` — fear = down,
+  greed = up, incl. colour-blind scheme, high contrast, swap and accent substitutes, so it matches the price arrows;
+  the pulse widget derives the same steps from its own up/down colours) on a neutral `outlineVariant` track — no five-colour gradient. Widget text at least 11 sp/pt. Light dividers
   (`outlineVariant`, all light schemes and iOS `ColorTokens.outlineVariant`) are `#ADA9A0` since build 58:
   2.23:1 on `#FBF9F6` (before `#C9C6BF`, 1.62:1), deliberately below 3:1 – the only outline of a control is
   `outline`. Dark mode unchanged (`#474747`).
@@ -2002,7 +2004,9 @@ after the encryption step.
   amounts would bypass the portfolio lock).
 * Storage: Android sealed file `alarm_log.sealed` in `noBackupFilesDir` (own Keystore alias, never plaintext;
   without a key it stays in memory), iOS `alarm_log.json` in the App Group via `ProtectedFile`, excluded from
-  backups. Live ticks write at most once a minute, notable outcomes at once.
+  backups; both platforms write only sealed (without a key entries wait in memory; Android replays changes made
+  while locked after loading). Live ticks write at most once a minute; only a fired alarm or a new outcome writes
+  at once, merged «from–to» updates wait for the minute.
 * UI: «Last checked» line in the alarm editor and alarm list; page «Alarm log» from «All alarms» and next to
   «Recent checks» in the update settings; «Clear log» with confirmation.
 

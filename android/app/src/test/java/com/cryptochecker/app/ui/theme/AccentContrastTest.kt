@@ -124,30 +124,6 @@ class AccentContrastTest {
     }
 
     /**
-     * M-8: feste Fear-&-Greed-Skala (Puls-Widget) — jede Stufe als Schrift ≥ 4.5:1 (und damit als
-     * Grafik ≥ 3:1) auf allen Flächen ihres Modus, Schrift auf der gefüllten Stufe ≥ 4.5:1.
-     */
-    @Test
-    fun `feste Marktskala erreicht AA als Schrift in Hell und Dunkel`() {
-        for (dark in listOf(false, true)) {
-            val steps = MarketScalePalette.fixedSteps(dark)
-            assertEquals(5, steps.size)
-            for ((i, step) in steps.withIndex()) {
-                for (bg in if (dark) DARK_SURFACES + 0xFF151515.toInt() else LIGHT_SURFACES + WARM_SURFACES) {
-                    val r = ratio(step, bg)
-                    assertTrue("dark=$dark step $i on %06X: %.2f".format(bg and 0xFFFFFF, r), r >= 4.5)
-                }
-                val on = ratio(MarketScalePalette.fixedOnStep(dark), step)
-                assertTrue("dark=$dark onStep $i: %.2f".format(on), on >= 4.5)
-            }
-            // Rand und Mitte unterscheidbar (nicht dieselbe Farbe)
-            assertEquals(5, steps.toSet().size)
-        }
-        // Der frühere Befund: #B42318 auf #1F1F1F 2.51:1 – dunkel nicht mehr verwendet
-        assertTrue(MarketScalePalette.fixedSteps(dark = true).none { it == 0xFFB42318.toInt() })
-    }
-
-    /**
      * Build 46: Bitcoin-Orange als Grafik (Dominanz-Balken) ≥ 3:1 auf allen Flächen seines Modus —
      * hell #F7931A hielt nur ≈ 2.2:1, deshalb dunkler; dunkel bleibt das Original.
      */

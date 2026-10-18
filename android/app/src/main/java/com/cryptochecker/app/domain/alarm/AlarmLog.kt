@@ -125,7 +125,7 @@ object AlarmLog {
     const val MAX_EVENTS = 200
     const val RETENTION_MILLIS = 14L * 24 * 60 * 60_000
 
-    /** Live-Kurse kommen sekündlich: dann höchstens so oft schreiben (bemerkenswerte Einträge sofort). */
+    /** Live-Kurse kommen sekündlich: dann höchstens so oft schreiben (ein neuer Protokoll-Eintrag sofort, [startsEvent]). */
     const val LIVE_WRITE_INTERVAL_MILLIS = 60_000L
 
     const val FORMAT_VERSION = 1
@@ -204,6 +204,23 @@ object AlarmLog {
             }
         }
         return AlarmLogState(last, prune(events, now))
+    }
+
+    /**
+     * Beginnen [entries] auf [state] einen neuen Protokoll-Eintrag (Auslösung oder ein anderes Ergebnis als zuletzt)?
+     * Verlängern sie nur ein bestehendes «von … bis …», nicht — dann schreiben Live-Kurse gedrosselt wie jede andere
+     * Prüfung (sonst schriebe eine anhaltende Sperre die Datei jede Sekunde neu). Gleiche Zusammenfassung wie [record].
+     */
+    fun startsEvent(state: AlarmLogState, entries: List<AlarmLogEntry>): Boolean {
+        val latest = HashMap<Long, AlarmLogEntry>()
+        for (event in state.events) latest.putIfAbsent(event.alarmId, event)
+        for (entry in entries.sortedBy { it.at }) {
+            if (!entry.notable) continue
+            val old = latest[entry.alarmId]
+            if (old == null || !collapses(old, entry)) return true
+            latest[entry.alarmId] = entry.copy(at = old.at, until = entry.at)
+        }
+        return false
     }
 
     private fun collapses(old: AlarmLogEntry, new: AlarmLogEntry): Boolean =

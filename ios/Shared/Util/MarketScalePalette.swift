@@ -4,7 +4,9 @@ import Foundation
 /// aus den aktiven Kursfarben — so gilt auch das Schema für Farbsehschwäche, hoher Kontrast und der
 /// Tausch. Angst = Fallend-Farbe, Gier = Steigend-Farbe, die mittleren Stufen je zu 45 % mit dem
 /// neutralen Grau gemischt. Nur für Flächen (Skala, Markierung), nie für Schrift; jede Stufe hält
-/// ≥ 3:1 auf allen Flächen bis #E2E2E2 bzw. #353535. Wie Android `MarketScalePalette.kt`.
+/// ≥ 3:1 auf allen Flächen bis #E2E2E2 bzw. #353535. Gilt für den Stufenpunkt der Fear-&-Greed-Karte
+/// (`MarketScaleColors`) und des Puls-Widgets (Entscheid Build 80: Skala folgt den Kursfarben, passend zu den
+/// Pfeilen; früher eine feste Skala). Wie Android `MarketScalePalette.kt`.
 enum MarketScalePalette {
     /// Neutrale Mitte: hell dunkler (3.82:1 auf #E2E2E2), dunkel heller (3.65:1 auf #353535).
     static let neutralLight: UInt32 = 0x707070
@@ -17,10 +19,16 @@ enum MarketScalePalette {
     /// `accent`: Ersatzfassungen der Kursfarben neben der Akzentfarbe (wie überall).
     static func steps(_ scheme: PriceColorScheme, dark: Bool, highContrast: Bool = false,
                       inverted: Bool = false, accent: AccentColor? = nil) -> [UInt32] {
-        let fear: UInt32 = scheme.downHex(dark: dark, highContrast: highContrast, inverted: inverted, accent: accent)
-        let greed: UInt32 = scheme.upHex(dark: dark, highContrast: highContrast, inverted: inverted, accent: accent)
-        let neutral = dark ? neutralDark : neutralLight
-        return [fear, mix(fear, neutral, mildMix), neutral, mix(greed, neutral, mildMix), greed]
+        steps(up: scheme.upHex(dark: dark, highContrast: highContrast, inverted: inverted, accent: accent),
+              down: scheme.downHex(dark: dark, highContrast: highContrast, inverted: inverted, accent: accent),
+              dark: dark)
+    }
+
+    /// Stufen aus bereits aufgelösten Kursfarben (RGB) — für Stellen, die steigend/fallend schon haben
+    /// (Widget: `WidgetPalette`), damit der Stufenpunkt genau zu den Pfeilen passt. Wie Android `steps(up, down, dark)`.
+    static func steps(up: UInt32, down: UInt32, dark: Bool) -> [UInt32] {
+        let neutral: UInt32 = dark ? neutralDark : neutralLight
+        return [down, mix(down, neutral, mildMix), neutral, mix(up, neutral, mildMix), up]
     }
 
     /// Stufe 0…4 eines Fear-&-Greed-Werts (0–100).
@@ -34,8 +42,8 @@ enum MarketScalePalette {
 
     /// Stufenfarbe eines Werts (für Markierung/Punkt, nicht für die Zahl).
     static func color(_ value: Int, _ scheme: PriceColorScheme, dark: Bool, highContrast: Bool = false,
-                      inverted: Bool = false) -> UInt32 {
-        steps(scheme, dark: dark, highContrast: highContrast, inverted: inverted)[level(value)]
+                      inverted: Bool = false, accent: AccentColor? = nil) -> UInt32 {
+        steps(scheme, dark: dark, highContrast: highContrast, inverted: inverted, accent: accent)[level(value)]
     }
 
     /// Mischung im sRGB-Raum, `t` = Anteil von `b`.

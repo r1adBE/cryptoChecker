@@ -569,22 +569,23 @@ enum PulseWidgetMeasure {
 }
 
 /// Nebenzeile mit Farben wie in der App (wie Android `PulseWidgetRenderer.sideLine`): die Fear-&-Greed-Zahl
-/// in der Textfarbe (wie die Karte im Markt-Tab), davor ein Stufenpunkt in der festen Skala, «↗ 21» steigend
+/// in der Textfarbe (wie die Karte im Markt-Tab), davor ein Stufenpunkt in der Skala aus den Kursfarben, «↗ 21» steigend
 /// und «↘ 9» fallend in der Kursfarbe; der Rest grau. Nur Farben — die Breite bleibt gleich.
 enum PulseSideLine {
     /// Stufenpunkt vor Fear & Greed (wie Android `PulseWidgetRenderer.FNG_DOT`).
     static let dot = "\u{25CF}"
 
-    /// Farbe der Stufe aus der festen Skala (`ColorTokens.scaleSteps`, je Hell/Dunkel des Widgets, ≥ 3:1 als Grafik).
-    static func stepColor(_ value: Int, dark: Bool) -> Color {
-        Color(hex: ColorTokens.scaleSteps[MarketScalePalette.level(value)].hex(dark: dark))
+    /// Farbe der Stufe aus den Kursfarben des Widgets (`WidgetPalette.scaleSteps`, ≥ 3:1 als Grafik) — passt so
+    /// genau zu den Pfeilen.
+    static func stepColor(_ value: Int, palette: WidgetPalette) -> Color {
+        Color(hex: palette.scaleSteps[MarketScalePalette.level(value)])
     }
 
     /// «● Fear & Greed 72 · Gier»: Punkt in der Stufenfarbe, Zahl in der Textfarbe.
     static func fearGreed(_ value: Int, palette: WidgetPalette) -> Text {
         let line = FearGreedShared.line(value)
         let number = LocaleNumbers.integer(value)
-        let dotText = Text(verbatim: dot + " ").foregroundStyle(stepColor(value, dark: palette.dark))
+        let dotText = Text(verbatim: dot + " ").foregroundStyle(stepColor(value, palette: palette))
         guard let range = line.range(of: number) else { return dotText + Text(line) }
         let head = Text(verbatim: String(line[..<range.lowerBound]))
         let tail = Text(verbatim: String(line[range.upperBound...]))

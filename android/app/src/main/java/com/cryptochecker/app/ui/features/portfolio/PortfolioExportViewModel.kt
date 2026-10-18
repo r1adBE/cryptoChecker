@@ -207,7 +207,8 @@ class PortfolioExportViewModel @Inject constructor(
      * CH: Tagesschlüsse des 31.12. ([end]) für den Bestand an dessen Ende (Zeitzone der Vorlage) samt beobachteter
      * Adressen — dieselben Quellen wie der Stichtag-Export ([build]: [HistoricPriceSource.dailyClosesUsdt] mit
      * Identitätsprüfung gegen die aktuellen Kurse). Erst wenn die UTC-Tageskerze des 31.12. geschlossen ist (UTC-Datum
-     * danach), sonst null: kein laufender oder heutiger Kurs, der Posten bleibt «nicht gerechnet».
+     * danach), sonst null: kein laufender oder heutiger Kurs, der Posten bleibt «nicht gerechnet». Ebenso null, wenn die
+     * beobachteten Adressen nicht gelesen werden können — sonst stünde still eine zu tiefe Summe da.
      */
     private suspend fun chYearEnd(
         trades: List<PortfolioTrade>,
@@ -223,8 +224,8 @@ class PortfolioExportViewModel @Inject constructor(
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {
-            Timber.w(e, "CH-Vermögenswert: Adressen nicht geladen")
-            AddressBalancesAt(emptyMap(), emptySet())
+            Timber.w(e, "CH-Vermögenswert: Adressen nicht geladen, nicht gerechnet")
+            return null
         }
         val coins = (holdings.map { it.coin } + addressAt.balances.keys).distinct().filter { PortfolioStables.needsQuote(it) }
         val current = try {
@@ -382,13 +383,16 @@ class PortfolioExportViewModel @Inject constructor(
         // Bestand nach derselben Einstandsmethode wie Karte, Verlauf und Steuer-Export (FIFO je Wallet je Wallet gekappt)
         val holdings = CutoffExport.holdingsAt(trades, cutoff, settingsRepository.current().costMethod)
         // Beobachtete Adressen, die im Portfolio zählen: heute das aktuelle, früher das an dem Tag beobachtete Guthaben
-        // (eigene Zeilen «aus Adresse – ohne Kaufpreis»); Fehler → ohne Adressen
+        // (eigene Zeilen «aus Adresse – ohne Kaufpreis»). Nicht lesbar: ohne Adressen, aber in der Datei vermerkt und
+        // das Total «unvollständig» — nie still eine zu tiefe Summe (wie iOS `intact`)
+        var addressesUnreadable = false
         val addressAt = try {
             AddressBalanceHistory.balancesAt(AddressBalanceHistory.of(repository.getWatchedAddresses()), cutoff)
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {
-            Timber.w(e, "Stichtag: Adressen nicht geladen")
+            Timber.w(e, "Stichtag: Adressen nicht geladen, Export als unvollständig vermerkt")
+            addressesUnreadable = true
             AddressBalancesAt(emptyMap(), emptySet())
         }
         // USDT = 1 ohne Abfrage; andere Stablecoins wie jeder Coin (fehlt der Kurs: «ohne Kurs»)
@@ -417,6 +421,6 @@ class PortfolioExportViewModel @Inject constructor(
         // Trenn-/Dezimalzeichen wie Excel der Region (de-CH «;» + «.», de-DE «;» + «,», en «,» + «.»)
         val format = CutoffCsvFormat.forLocale(deviceRegionLocale().country, inputDecimalSeparator())
         val usdtApproximate = rate != null && usdt == null && CutoffExport.convertsUsdt(currency)
-        return CutoffExport.csv(date, currency, fx?.date, rows, texts, format, header, usdtApproximate)
+        return CutoffExport.csv(date, currency, fx?.date, rows, texts, format, header, usdtApproximate, addressesUnreadable)
     }
 }

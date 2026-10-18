@@ -48,6 +48,25 @@ final class CutoffAddressTests: XCTestCase {
         ])
     }
 
+    /// Adressen nicht lesbar: Zeile nach dem Kommentar und Total «unvollständig», auch wenn alle übrigen Zeilen
+    /// vollständig sind — nie still eine zu tiefe Summe (wie Android).
+    func testUnreadableAddressesMarkExportIncomplete() {
+        var withText = texts
+        withText.addressesUnreadable = "Adressen nicht lesbar"
+        let rows = CutoffExport.rows([CutoffHolding(coin: "BTC", amount: 1)], prices: ["BTC": 100],
+                                     fxRate: Decimal(string: "0.9"))
+        let day = CutoffDay(year: 2024, month: 10, day: 4)
+        let marked = CutoffExport.csv(day: day, currency: "CHF", fxDate: "2024-10-04", rows: rows, texts: withText,
+                                      addressesUnreadable: true)
+            .replacingOccurrences(of: "\u{FEFF}", with: "").components(separatedBy: "\r\n").filter { !$0.isEmpty }
+        XCTAssertEqual(marked[1], "Adressen nicht lesbar")
+        XCTAssertEqual(marked.last, "Total;;;100.00;0.9;90.00;unvollständig")
+        let plain = CutoffExport.csv(day: day, currency: "CHF", fxDate: "2024-10-04", rows: rows, texts: withText)
+            .replacingOccurrences(of: "\u{FEFF}", with: "").components(separatedBy: "\r\n").filter { !$0.isEmpty }
+        XCTAssertFalse(plain.contains("Adressen nicht lesbar"))
+        XCTAssertEqual(plain.last, "Total;;;100.00;0.9;90.00;")
+    }
+
     func testTodayUsesCurrentBalance() {
         // Stichtag heute: alle Beobachtungen bis jetzt — das aktuelle Guthaben, nichts fehlt
         let at = AddressBalanceHistory.balancesAt(histories, time: (day + 3) * 86_400_000 - 1)

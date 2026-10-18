@@ -3,6 +3,7 @@ package com.cryptochecker.app.widget
 import android.graphics.Color
 import com.cryptochecker.app.settings.AccentColor
 import com.cryptochecker.app.settings.PriceColorScheme
+import com.cryptochecker.app.ui.theme.MarketScalePalette
 
 /**
  * Farben eines Widgets. Kommen aus der App-Einstellung (Hell/Dunkel,
@@ -43,6 +44,10 @@ class WidgetColors(
 
     val downColor: Int
         get() = priceColors.down(dark, highContrast, inverted, accent)
+
+    /** Fear-&-Greed-Stufen aus genau diesen Kursfarben (Angst = [downColor], Gier = [upColor]), nur für Grafik. */
+    val scaleSteps: List<Int>
+        get() = MarketScalePalette.steps(upColor, downColor, dark)
 
     /**
      * Trennlinie zwischen den Paaren im Listen-Widget: neutrales Grau (Haupttext-Farbe mit

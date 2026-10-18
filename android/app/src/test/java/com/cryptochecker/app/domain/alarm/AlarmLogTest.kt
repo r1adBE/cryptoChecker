@@ -88,6 +88,30 @@ class AlarmLogTest {
     }
 
     @Test
+    fun onlyFiredOrANewOutcomeStartsAnEvent() {
+        val held = AlarmLog.record(AlarmLogState.EMPTY, listOf(entry(1, now, AlarmLogOutcome.QUIET_HOURS, true)), now)
+        // Gleiches Ergebnis gleich danach: verlängert nur «von … bis …»
+        assertFalse(AlarmLog.startsEvent(held, listOf(entry(1, now + 1_000, AlarmLogOutcome.QUIET_HOURS, true))))
+        // Nicht bemerkenswert: nie
+        assertFalse(AlarmLog.startsEvent(held, listOf(entry(1, now + 1_000, AlarmLogOutcome.NOT_REACHED))))
+        // Auslösung, anderes Ergebnis, anderer Alarm: neuer Eintrag
+        assertTrue(AlarmLog.startsEvent(held, listOf(entry(1, now + 1_000))))
+        assertTrue(AlarmLog.startsEvent(held, listOf(entry(1, now + 1_000, AlarmLogOutcome.COOLDOWN, true))))
+        assertTrue(AlarmLog.startsEvent(held, listOf(entry(2, now + 1_000, AlarmLogOutcome.QUIET_HOURS, true))))
+        assertTrue(AlarmLog.startsEvent(AlarmLogState.EMPTY, listOf(entry(1, now, AlarmLogOutcome.QUIET_HOURS, true))))
+        // Mehrere im selben Durchlauf: der zweite verlängert den ersten
+        assertFalse(
+            AlarmLog.startsEvent(
+                held,
+                listOf(
+                    entry(1, now + 2_000, AlarmLogOutcome.QUIET_HOURS, true),
+                    entry(1, now + 1_000, AlarmLogOutcome.QUIET_HOURS, true),
+                ),
+            ),
+        )
+    }
+
+    @Test
     fun deletingAnAlarmRemovesItsLastCheckButKeepsLogEntries() {
         val state = AlarmLog.record(AlarmLogState.EMPTY, listOf(entry(7, now), entry(8, now)), now)
         val after = AlarmLog.removeAlarm(state, 7)

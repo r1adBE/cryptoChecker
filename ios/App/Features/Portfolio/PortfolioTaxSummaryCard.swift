@@ -116,7 +116,7 @@ struct PortfolioTaxSummaryCard: View {
             PriceFormat.valueWithCurrency(PortfolioDecimal.double($0), s.fxAvailable ? s.currency : "USDT")
         } ?? texts.wealthCoinNote(r)
         return HStack(alignment: .firstTextBaseline, spacing: Spacing.sm) {
-            Text(verbatim: texts.wealthCoinLabel(r.coin, amount: PriceFormat.amount(PortfolioDecimal.double(r.amount))))
+            Text(verbatim: texts.wealthCoinLabel(r.coin, amount: PriceFormat.exactAmount(r.amount)))
                 .font(.caption)
                 .foregroundStyle(AppColors.onSurface)
                 .fixedSize(horizontal: false, vertical: true)

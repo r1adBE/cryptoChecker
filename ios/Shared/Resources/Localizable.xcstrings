@@ -187280,6 +187280,197 @@
         }
       }
     },
+    "portfolio_export_addresses_unreadable" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تعذّرت قراءة العناوين المراقَبة – أرصدتها غير موجودة في هذا الملف"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sledované adresy nelze načíst – jejich zůstatky v tomto souboru chybí"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Overvågede adresser kunne ikke læses – deres saldi mangler i denne fil"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beobachtete Adressen konnten nicht gelesen werden – ihre Guthaben fehlen in dieser Datei"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Οι παρακολουθούμενες διευθύνσεις δεν ήταν δυνατό να διαβαστούν – τα υπόλοιπά τους λείπουν από αυτό το αρχείο"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Watched addresses could not be read – their balances are missing from this file"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No se pudieron leer las direcciones vigiladas: sus saldos faltan en este archivo"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "آدرس‌های زیر نظر خوانده نشدند – موجودی آن‌ها در این فایل نیست"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seurattuja osoitteita ei voitu lukea – niiden saldot puuttuvat tästä tiedostosta"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impossible de lire les adresses suivies – leurs soldes manquent dans ce fichier"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "לא ניתן היה לקרוא את הכתובות שבמעקב – היתרות שלהן חסרות בקובץ זה"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "निगरानी वाले पते पढ़े नहीं जा सके – उनकी शेष राशि इस फ़ाइल में नहीं है"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A figyelt címek nem olvashatók – egyenlegük hiányzik ebből a fájlból"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alamat yang dipantau tidak dapat dibaca – saldonya tidak ada di file ini"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impossibile leggere gli indirizzi osservati – i loro saldi mancano in questo file"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "監視中のアドレスを読み込めませんでした – その残高はこのファイルに含まれていません"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "관찰 중인 주소를 읽을 수 없습니다 – 해당 잔액이 이 파일에 없습니다"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Overvåkede adresser kunne ikke leses – saldoene deres mangler i denne filen"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gevolgde adressen konden niet worden gelezen – hun saldi ontbreken in dit bestand"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nie udało się odczytać obserwowanych adresów – ich salda nie ma w tym pliku"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível ler os endereços observados – os respetivos saldos faltam neste ficheiro"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível ler os endereços observados – os saldos deles estão faltando neste arquivo"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adresele urmărite nu au putut fi citite – soldurile lor lipsesc din acest fișier"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не удалось прочитать отслеживаемые адреса – их балансы отсутствуют в этом файле"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adresat e ndjekura nuk mund të lexoheshin – gjendjet e tyre mungojnë në këtë skedar"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bevakade adresser kunde inte läsas – deras saldon saknas i den här filen"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ไม่สามารถอ่านที่อยู่ที่ติดตามได้ – ยอดคงเหลือของที่อยู่เหล่านั้นไม่มีในไฟล์นี้"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İzlenen adresler okunamadı – bakiyeleri bu dosyada eksik"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не вдалося прочитати відстежувані адреси – їхні баланси відсутні в цьому файлі"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không thể đọc các địa chỉ đang theo dõi – số dư của chúng bị thiếu trong tệp này"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法读取关注的地址 – 此文件中缺少其余额"
+          }
+        }
+      }
+    },
     "portfolio_export_button" : {
       "extractionState" : "manual",
       "localizations" : {

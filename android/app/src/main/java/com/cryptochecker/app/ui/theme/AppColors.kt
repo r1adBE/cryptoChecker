@@ -65,16 +65,17 @@ object AppColors {
 }
 
 /**
- * Fünfstufige Skala von «Extrem Bear» bis «Extrem Bull» — feste Farben je Hell/Dunkel (Werte:
- * [MarketScalePalette.FIXED_LIGHT] / [MarketScalePalette.FIXED_DARK], M-8). Jede Stufe erreicht
- * auch als Schrift ≥ 4.5:1 auf den Flächen ihres Modus. Auch der Stufenpunkt der Fear-&-Greed-Karte (wie im
- * Puls-Widget, seit Build 69 statt des Verlaufs aus [MarketScalePalette.steps]).
+ * Fünfstufige Fear-&-Greed-Skala in den aktiven Kursfarben (Werte: [MarketScalePalette.steps]) —
+ * Schema inkl. Farbsehschwäche, hoher Kontrast, Tausch und Ersatzfassungen neben der Akzentfarbe,
+ * also dieselben Farben wie die Kurspfeile. Nur für Grafik (Stufenpunkt, je ≥ 3:1), nie für Schrift.
  */
 object MarketScaleColors {
-    fun steps(dark: Boolean): List<Color> = MarketScalePalette.fixedSteps(dark).map { Color(it) }
-
-    /** Text auf einer gefüllten Stufe (hell weiss, dunkel fast schwarz). */
-    fun onStep(dark: Boolean): Color = Color(MarketScalePalette.fixedOnStep(dark))
+    val steps: List<Color>
+        @Composable @ReadOnlyComposable get() =
+            MarketScalePalette.steps(
+                LocalPriceColorScheme.current, LocalDarkTheme.current, LocalHighContrast.current,
+                LocalPriceColorsInverted.current, LocalAccentColor.current,
+            ).map { Color(it) }
 }
 
 /** Feste Erkennungsfarben einzelner Coins (Anteilsbalken der Dominanz) — wie iOS `AssetColors`. */
