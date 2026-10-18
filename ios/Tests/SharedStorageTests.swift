@@ -14,6 +14,11 @@ final class SharedStorageTests: XCTestCase {
     override func setUpWithError() throws {
         dir = FileManager.default.temporaryDirectory.appendingPathComponent("shared-storage-\(UUID().uuidString)")
         try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
+        // Portfolio-Alarme werden nur noch versiegelt geschrieben: Schlüssel anlegen wie die App beim Start
+        // (`ProtectedStorage.prepareAtLaunch`); ohne Schlüsselbund im Testlauf ist der Fall hier nicht prüfbar
+        guard StorageKey.shared.createIfAbsent() != nil else {
+            throw XCTSkip("Schlüsselbund im Testlauf nicht verfügbar")
+        }
     }
 
     override func tearDownWithError() throws {
