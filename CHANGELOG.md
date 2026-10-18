@@ -38,6 +38,9 @@ Review fixes before the store.
   in place of its refresh button (system timer, no extra battery).
 * Market pulse widget: when Fear & Greed and «Top 30» don't fit on one line, the Top 30 moves to a second line
   instead of disappearing.
+* Market pulse widget: «In short» sentences (market direction, Fear & Greed) – the first one replaces the lead on
+  the medium widget, the large widget shows all that fit with sources and «no forecast, no investment advice»;
+  stale sentences disappear by themselves. New large size on iPhone.
 
 ## 16.2.2 (build 78)
 

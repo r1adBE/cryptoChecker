@@ -5,11 +5,19 @@ import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.activity.ActivityAnalyzer
 import com.cryptochecker.app.domain.activity.FearGreedLevel
 import com.cryptochecker.app.domain.market.CryptoPulse
+import com.cryptochecker.app.domain.market.PlainDirection
+import com.cryptochecker.app.domain.market.PlainDirectionKind
+import com.cryptochecker.app.domain.market.PlainMood
+import com.cryptochecker.app.domain.market.PlainMoodKind
+import com.cryptochecker.app.domain.market.PlainStandout
+import com.cryptochecker.app.domain.market.PlainStandoutKind
+import com.cryptochecker.app.domain.market.PlainSummary
 import com.cryptochecker.app.domain.market.PulseDetail
 import com.cryptochecker.app.domain.market.PulseLeadKind
 import com.cryptochecker.app.domain.market.PulseReport
 import com.cryptochecker.app.domain.market.PulseSummary
 import com.cryptochecker.app.util.LocaleNumbers
+import com.cryptochecker.app.util.PriceFormat
 
 /**
  * Texte des Widgets «Was gerade auffällt» — dieselben Schlüssel wie die Karte im Markt-Tab
@@ -76,5 +84,55 @@ internal object PulseWidgetTexts {
             }
         )
         return context.getString(R.string.factor_fear_greed) + " " + LocaleNumbers.integer(value) + " · " + label
+    }
+
+    /**
+     * «Kurz gesagt»: die vorhandenen Sätze in der Reihenfolge der Karte (Richtung, Stimmung, was
+     * heraussticht) — dieselben Schlüssel und Formate wie `MarketPlainSummaryCard`, ohne Compose.
+     */
+    fun plainSentences(context: Context, summary: PlainSummary): List<String> = listOfNotNull(
+        summary.direction?.let { plainDirection(context, it) },
+        summary.mood?.let { plainMood(context, it) },
+        summary.standout?.let { plainStandout(context, it) },
+    )
+
+    private fun plainDirection(context: Context, direction: PlainDirection): String = context.getString(
+        when (direction.kind) {
+            PlainDirectionKind.FLAT -> R.string.market_plain_direction_flat
+            PlainDirectionKind.UP_SLIGHT -> R.string.market_plain_direction_up_slight
+            PlainDirectionKind.UP_CLEAR -> R.string.market_plain_direction_up_clear
+            PlainDirectionKind.DOWN_SLIGHT -> R.string.market_plain_direction_down_slight
+            PlainDirectionKind.DOWN_CLEAR -> R.string.market_plain_direction_down_clear
+        },
+        PriceFormat.signedPercent(direction.changePercent, 1)
+    )
+
+    private fun plainMood(context: Context, mood: PlainMood): String = context.getString(
+        when (mood.kind) {
+            PlainMoodKind.EXTREME_FEAR -> R.string.market_plain_mood_extreme_fear
+            PlainMoodKind.FEAR -> R.string.market_plain_mood_fear
+            PlainMoodKind.NEUTRAL -> R.string.market_plain_mood_neutral
+            PlainMoodKind.GREED -> R.string.market_plain_mood_greed
+            PlainMoodKind.EXTREME_GREED -> R.string.market_plain_mood_extreme_greed
+        },
+        mood.value
+    )
+
+    private fun plainStandout(context: Context, standout: PlainStandout): String {
+        val coin = standout.coin.orEmpty()
+        fun percent(value: Double?) = PriceFormat.signedPercent(value ?: 0.0, 1)
+        return when (standout.kind) {
+            PlainStandoutKind.ABOVE_BTC ->
+                context.getString(R.string.market_plain_standout_above_btc, coin, percent(standout.change24h), percent(standout.btc24h))
+            PlainStandoutKind.BELOW_BTC ->
+                context.getString(R.string.market_plain_standout_below_btc, coin, percent(standout.change24h), percent(standout.btc24h))
+            PlainStandoutKind.AGAINST_BTC ->
+                context.getString(R.string.market_plain_standout_against_btc, coin, percent(standout.change24h), percent(standout.btc24h))
+            PlainStandoutKind.VOLUME ->
+                context.getString(R.string.market_plain_standout_volume, coin, LocaleNumbers.decimal(standout.volumeRatio ?: 0.0, 1))
+            PlainStandoutKind.FUTURES_UP -> context.getString(R.string.market_plain_standout_futures_up, coin)
+            PlainStandoutKind.FUTURES_DOWN -> context.getString(R.string.market_plain_standout_futures_down, coin)
+            PlainStandoutKind.QUIET -> context.getString(R.string.market_plain_standout_quiet)
+        }
     }
 }

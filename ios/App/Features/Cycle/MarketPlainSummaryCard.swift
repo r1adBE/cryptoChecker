@@ -67,13 +67,13 @@ struct MarketPlainSummaryCard: View {
                 .sectionTitleStyle()
                 .accessibilityAddTraits(.isHeader)
             if let direction = summary.direction {
-                PlainLine(symbol: Self.directionSymbol(direction.kind), text: Self.directionText(direction))
+                PlainLine(symbol: Self.directionSymbol(direction.kind), text: MarketPlainSummaryText.direction(direction))
             }
             if let mood = summary.mood {
-                PlainLine(symbol: "gauge.with.dots.needle.50percent", text: Self.moodText(mood))
+                PlainLine(symbol: "gauge.with.dots.needle.50percent", text: MarketPlainSummaryText.mood(mood))
             }
             if let standout = summary.standout {
-                PlainLine(symbol: "flag", text: Self.standoutText(standout))
+                PlainLine(symbol: "flag", text: MarketPlainSummaryText.standout(standout))
             }
             Text(L("market_plain_footnote"))
                 .font(.caption2)
@@ -97,49 +97,6 @@ struct MarketPlainSummaryCard: View {
         case .flat: "chart.line.flattrend.xyaxis"
         case .upSlight, .upClear: "chart.line.uptrend.xyaxis"
         case .downSlight, .downClear: "chart.line.downtrend.xyaxis"
-        }
-    }
-
-    private static func directionText(_ direction: PlainDirection) -> String {
-        let key = switch direction.kind {
-        case .flat: "market_plain_direction_flat"
-        case .upSlight: "market_plain_direction_up_slight"
-        case .upClear: "market_plain_direction_up_clear"
-        case .downSlight: "market_plain_direction_down_slight"
-        case .downClear: "market_plain_direction_down_clear"
-        }
-        return L(key, PriceFormat.signedPercent(direction.changePercent, decimals: 1))
-    }
-
-    private static func moodText(_ mood: PlainMood) -> String {
-        let key = switch mood.kind {
-        case .extremeFear: "market_plain_mood_extreme_fear"
-        case .fear: "market_plain_mood_fear"
-        case .neutral: "market_plain_mood_neutral"
-        case .greed: "market_plain_mood_greed"
-        case .extremeGreed: "market_plain_mood_extreme_greed"
-        }
-        return L(key, mood.value)
-    }
-
-    private static func standoutText(_ standout: PlainStandout) -> String {
-        let coin = standout.coin ?? ""
-        func percent(_ value: Double?) -> String { PriceFormat.signedPercent(value ?? 0, decimals: 1) }
-        switch standout.kind {
-        case .aboveBtc:
-            return L("market_plain_standout_above_btc", coin, percent(standout.change24h), percent(standout.btc24h))
-        case .belowBtc:
-            return L("market_plain_standout_below_btc", coin, percent(standout.change24h), percent(standout.btc24h))
-        case .againstBtc:
-            return L("market_plain_standout_against_btc", coin, percent(standout.change24h), percent(standout.btc24h))
-        case .volume:
-            return L("market_plain_standout_volume", coin, LocaleNumbers.decimal(standout.volumeRatio ?? 0, maxDecimals: 1))
-        case .futuresUp:
-            return L("market_plain_standout_futures_up", coin)
-        case .futuresDown:
-            return L("market_plain_standout_futures_down", coin)
-        case .quiet:
-            return L("market_plain_standout_quiet")
         }
     }
 }

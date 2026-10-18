@@ -1,5 +1,6 @@
 package com.cryptochecker.app.widget
 
+import android.app.AlarmManager
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.content.Context
@@ -17,6 +18,7 @@ import com.cryptochecker.app.data.remote.PulseDataSource
 import com.cryptochecker.app.domain.market.CryptoPulse
 import com.cryptochecker.app.domain.market.CycleCachePolicy
 import com.cryptochecker.app.domain.market.CycleSource
+import com.cryptochecker.app.domain.market.MarketPlainSummary
 import com.cryptochecker.app.domain.market.PulseBreadth
 import com.cryptochecker.app.domain.market.PulseInput
 import com.cryptochecker.app.settings.HighContrast
@@ -40,7 +42,8 @@ import javax.inject.Singleton
 
 /**
  * Widget «Was gerade auffällt» (Crypto Pulse): Schlagzeile, Leitsatz, Coin-Chips und Stand —
- * aus dem Zwischenspeicher des Markt-Tabs, bei Bedarf frisch geladen.
+ * aus dem Zwischenspeicher des Markt-Tabs, bei Bedarf frisch geladen. Dazu «Kurz gesagt»
+ * ([PulseWidgetPlain]): mittel der erste Satz statt des Leitsatzes, gross ein eigener Block.
  */
 @Singleton
 class PulseWidgetRenderer @Inject constructor(
@@ -140,8 +143,10 @@ class PulseWidgetRenderer @Inject constructor(
         val report = fresh?.let { CryptoPulse.evaluate(it.value) }
         val title = context.getString(R.string.pulse_now_title)
         // Fear & Greed nur aus dem Zwischenspeicher (Markt-Tab oder Pulse, ≤ 24 h) — kein eigener Abruf
+        val cachedFng = if (fresh == null || report == null) null else {
+            cycleCacheStore.read(CycleSource.FEAR_GREED.key, CycleCacheCodecs.fearGreed)
+        }
         val fearGreedValue = if (fresh == null || report == null) null else {
-            val cachedFng = cycleCacheStore.read(CycleSource.FEAR_GREED.key, CycleCacheCodecs.fearGreed)
             PulseWidgetMath.fearGreed(
                 cached = cachedFng?.value?.value,
                 cachedAt = cachedFng?.savedAt,
@@ -151,6 +156,25 @@ class PulseWidgetRenderer @Inject constructor(
             )
         }
         val fearGreedText = fearGreedValue?.let { PulseWidgetTexts.fearGreed(context, it) }
+        // «Kurz gesagt» aus denselben Eingaben und mit derselben Frische-Regel wie im Markt-Tab
+        val plainInput = if (fresh == null || report == null) null else {
+            PulseWidgetPlain.input(
+                now = now,
+                pulseMarketChange24h = report.marketCap24h,
+                pulseSavedAt = fresh.savedAt,
+                fearGreed = cachedFng?.value?.value,
+                fearGreedSavedAt = cachedFng?.savedAt,
+            )
+        }
+        val plainSummary = plainInput?.let { MarketPlainSummary.evaluate(it) }
+        val plainSentences = plainSummary?.let { PulseWidgetTexts.plainSentences(context, it) }.orEmpty()
+        val plainTitle = context.getString(R.string.market_plain_title)
+        val plainFootnote = context.getString(R.string.market_plain_footnote)
+        // «Daten: CoinGecko, alternative.me · keine Prognose, keine Anlageberatung» — Quellen der gezeigten Sätze
+        fun plainNote(shownCount: Int): String =
+            plainSummary?.let { PulseWidgetPlain.sources(it, shownCount) }
+                ?.let { context.getString(R.string.pulse_plain_sources, it) + " · " + plainFootnote }
+                ?: plainFootnote
 
         for (appWidgetId in appWidgetIds) {
             val dark = widgetPrefs.isDark(appWidgetId)
@@ -193,10 +217,7 @@ class PulseWidgetRenderer @Inject constructor(
                 views.setTextViewTextSize(R.id.pulse_headline, TypedValue.COMPLEX_UNIT_SP, headlineStyle.sizeSp)
                 views.setInt(R.id.pulse_headline, "setMaxLines", headlineStyle.lines)
 
-                val lead = PulseWidgetTexts.lead(context, report)
-                views.setTextViewText(R.id.pulse_lead, lead)
-                views.setTextColor(R.id.pulse_lead, colors.textColor)
-                views.setInt(R.id.pulse_lead, "setMaxLines", PulseWidgetMath.leadLines(heightDp, headlineStyle.lines))
+                val leadLines = PulseWidgetMath.leadLines(heightDp, headlineStyle.lines)
 
                 // Nebenzeile «Fear & Greed 72 · Gier · Top 30 ↗ 22 ↘ 8»: nur mittel/gross; passt nicht
                 // alles in eine Zeile, die Marktbreite in einer zweiten Zeile darunter (wenn die Höhe
@@ -248,6 +269,51 @@ class PulseWidgetRenderer @Inject constructor(
                     secondText?.let { sideLine(it, null, null, breadth, colors, dark) } ?: ""
                 )
                 views.setTextColor(R.id.pulse_breadth, colors.secondaryTextColor)
+
+                // «Kurz gesagt»: gross so viele ganze Sätze, wie unter Nebenzeilen, Coins und Stand passen
+                // (die behalten ihren Platz); mittel der erste Satz statt des Leitsatzes; klein unverändert
+                val sideLines = when (sideLayout) {
+                    PulseSideLayout.TWO_LINES -> 2
+                    null -> 0
+                    else -> 1
+                }
+                val textWidthDp = widgetWidthDp - PulseWidgetMath.PADDING_DP - WidgetTextFit.SAFETY_DP
+                val plainCount = if (widgetWidthDp < PulseWidgetPlain.WIDE_MIN_WIDTH_DP || plainSentences.isEmpty()) 0 else {
+                    PulseWidgetPlain.sentenceCount(
+                        availableDp = PulseWidgetPlain.blockAvailableDp(heightDp, headlineStyle.lines, sideLines),
+                        titleDp = toolkit.textBlock(plainTitle, PulseWidgetPlain.TITLE_SP, textWidthDp, bold = true).heightDp,
+                        // Mit den Quellen aller Sätze gemessen: mit weniger Sätzen wird der Hinweis höchstens kürzer
+                        footnoteDp = toolkit.textBlock(plainNote(plainSentences.size), PulseWidgetPlain.FOOTNOTE_SP, textWidthDp).heightDp,
+                        sentenceHeightsDp = plainSentences.map {
+                            toolkit.textBlock(it, PulseWidgetPlain.SENTENCE_SP, textWidthDp).heightDp
+                        },
+                    )
+                }
+                val size = PulseWidgetPlain.size(widgetWidthDp, plainCount > 0)
+                val firstSentence = plainSentences.firstOrNull()
+                val sentenceLead = size == PulseWidgetSize.MEDIUM && firstSentence != null &&
+                    PulseWidgetPlain.sentenceAsLead(
+                        toolkit.textBlock(firstSentence, PulseWidgetPlain.LEAD_SP, textWidthDp).lines.takeIf { it > 0 },
+                        leadLines,
+                    )
+                val lead = if (sentenceLead && firstSentence != null) firstSentence else PulseWidgetTexts.lead(context, report)
+                views.setTextViewText(R.id.pulse_lead, lead)
+                views.setTextColor(R.id.pulse_lead, colors.textColor)
+                views.setInt(R.id.pulse_lead, "setMaxLines", leadLines)
+
+                val shownPlain = if (size == PulseWidgetSize.LARGE) plainSentences.take(plainCount) else emptyList()
+                views.setViewVisibility(R.id.pulse_plain, if (shownPlain.isNotEmpty()) View.VISIBLE else View.GONE)
+                views.setTextViewText(R.id.pulse_plain_title, plainTitle)
+                views.setTextColor(R.id.pulse_plain_title, colors.textColor)
+                PULSE_PLAIN_LINES.forEachIndexed { index, id ->
+                    val sentence = shownPlain.getOrNull(index)
+                    views.setViewVisibility(id, if (sentence != null) View.VISIBLE else View.GONE)
+                    views.setTextViewText(id, sentence.orEmpty())
+                    views.setTextColor(id, colors.textColor)
+                }
+                val shownNote = plainNote(shownPlain.size)
+                views.setTextViewText(R.id.pulse_plain_note, shownNote)
+                views.setTextColor(R.id.pulse_plain_note, colors.secondaryTextColor)
 
                 // Nur so viele Coins, wie ganz in die Breite passen (nie ein abgeschnittener)
                 val allCoins = PulseWidgetMath.coins(report, 3)
@@ -307,6 +373,8 @@ class PulseWidgetRenderer @Inject constructor(
                             context.getString(R.string.pulse_breadth_spoken, it.total, it.up, it.down) + "."
                         },
                         stand,
+                        // «Kurz gesagt. Satz. Satz. Hinweis» — nur die gezeigten Sätze
+                        shownPlain.takeIf { it.isNotEmpty() }?.let { (listOf("$plainTitle.") + it + shownNote).joinToString(" ") },
                     ).joinToString(" ")
                 )
             }
@@ -314,6 +382,30 @@ class PulseWidgetRenderer @Inject constructor(
             runCatchingCancellable { manager.updateAppWidget(appWidgetId, views) }
                 .onFailure { Timber.w(it, "Pulse-Widget %d konnte nicht gezeichnet werden", appWidgetId) }
         }
+        schedulePlainExpiry(
+            if (plainInput != null && plainSummary != null && plainSentences.isNotEmpty()) {
+                PulseWidgetPlain.expiresAt(plainInput, plainSummary)
+            } else null
+        )
+    }
+
+    /**
+     * Widgets zeichnen nur nach einer Aktualisierung neu: Wecker auf den Moment, an dem ein Satz von
+     * «Kurz gesagt» auf veralteten Daten stünde (null = löschen). RTC ohne Wecken wie [WidgetOutdated] —
+     * fällig, sobald das Gerät ohnehin wach ist; dann ohne Netz neu zeichnen (der Satz entfällt).
+     */
+    private fun schedulePlainExpiry(at: Long?) {
+        val alarmManager = context.getSystemService(AlarmManager::class.java) ?: return
+        val intent = Intent(context, PulseWidgetProvider::class.java).setAction(PulseWidgetProvider.ACTION_PLAIN_EXPIRED)
+        val pending = PendingIntent.getBroadcast(
+            context,
+            PLAIN_EXPIRY_REQUEST_CODE,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+        runCatching {
+            if (at == null) alarmManager.cancel(pending) else alarmManager.set(AlarmManager.RTC, at, pending)
+        }.onFailure { Timber.w(it, "Wecker für «Kurz gesagt» im Pulse-Widget nicht gestellt") }
     }
 
     /** Öffnet die App im Markt-Tab (Ziel «cycle» wie die App-Verknüpfung). */
@@ -376,8 +468,14 @@ class PulseWidgetRenderer @Inject constructor(
 
         /** Stufenpunkt vor Fear & Greed (wie iOS `PulseSideLine.dot`). */
         const val FNG_DOT = "\u25CF"
+
+        /** Eigener Request-Code (neben [WidgetOutdated] und [WidgetRefreshUnlock]). */
+        const val PLAIN_EXPIRY_REQUEST_CODE = -7_015
     }
 }
 
 /** Die drei Coins des Widgets «Was gerade auffällt» als Text (widget_pulse.xml). */
 private val PULSE_CHIPS = listOf(R.id.pulse_chip_1, R.id.pulse_chip_2, R.id.pulse_chip_3)
+
+/** Die bis zu drei Sätze von «Kurz gesagt» im grossen Widget (widget_pulse.xml). */
+private val PULSE_PLAIN_LINES = listOf(R.id.pulse_plain_1, R.id.pulse_plain_2, R.id.pulse_plain_3)

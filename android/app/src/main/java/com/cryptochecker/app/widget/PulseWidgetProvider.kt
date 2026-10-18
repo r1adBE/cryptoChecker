@@ -3,6 +3,7 @@ package com.cryptochecker.app.widget
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import com.cryptochecker.app.util.ReceiverAsync
 import com.cryptochecker.app.util.launchAsync
@@ -21,6 +22,17 @@ class PulseWidgetProvider : AppWidgetProvider() {
     @Inject lateinit var widgetUpdater: WidgetUpdater
 
     @Inject lateinit var widgetPrefs: WidgetPrefs
+
+    override fun onReceive(context: Context, intent: Intent) {
+        // Ruft die Injektion auf und verteilt an onUpdate/onDeleted.
+        super.onReceive(context, intent)
+        // Ein Satz von «Kurz gesagt» stünde jetzt auf veralteten Daten: ohne Netz neu zeichnen
+        if (intent.action == ACTION_PLAIN_EXPIRED) {
+            launchAsync("Pulse-Widget «Kurz gesagt» neu zeichnen") {
+                widgetUpdater.updatePulse(widgetUpdater.pulseWidgetIds(), fetch = false)
+            }
+        }
+    }
 
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
         launchAsync("Pulse-Widget aktualisieren") {
@@ -48,7 +60,10 @@ class PulseWidgetProvider : AppWidgetProvider() {
         appWidgetIds.forEach { widgetPrefs.remove(it) }
     }
 
-    private companion object {
-        const val REFRESH_TIMEOUT_MILLIS = ReceiverAsync.FETCH_MILLIS
+    companion object {
+        private const val REFRESH_TIMEOUT_MILLIS = ReceiverAsync.FETCH_MILLIS
+
+        /** Wecker aus [PulseWidgetRenderer] (veraltender Satz von «Kurz gesagt»). */
+        const val ACTION_PLAIN_EXPIRED = "com.cryptochecker.app.action.PULSE_PLAIN_EXPIRED"
     }
 }

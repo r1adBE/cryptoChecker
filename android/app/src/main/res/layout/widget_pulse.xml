@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Widget «Was gerade auffällt» (Crypto Pulse, Stil wie die anderen Widgets): Schlagzeile mit
      ↗/↘ in der Kursfarbe, Leitsatz (höchstens 2 Zeilen), Fear & Greed (mittel/gross), Coin-Chips
-     BTC/ETH/SOL (nur so viele, wie ganz passen), Stand. Inhalt setzt WidgetUpdater.updatePulse. Nur RemoteViews-taugliche Views.
+     BTC/ETH/SOL (nur so viele, wie ganz passen), Stand; gross darunter «Kurz gesagt». Inhalt setzt WidgetUpdater.updatePulse. Nur RemoteViews-taugliche Views.
      Runde Ecken: Wurzel mit @android:id/background und Umriss (ab 12 clipToOutline), darunter
      die eingefärbte Fläche. -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -191,6 +191,58 @@
                 android:maxLines="1"
                 android:textSize="12sp"
                 android:fontFeatureSettings="tnum" />
+
+            <!-- «Kurz gesagt» (nur gross, PulseWidgetPlain): so viele ganze Sätze, wie unter den bisherigen
+                 Inhalt passen, je auf einer eigenen Zeile, darunter der Hinweis; Abstände = PulseWidgetPlain -->
+            <LinearLayout
+                android:id="@+id/pulse_plain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/pulse_plain_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="@string/market_plain_title"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/pulse_plain_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textSize="13sp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/pulse_plain_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textSize="13sp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/pulse_plain_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textSize="13sp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/pulse_plain_note"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/market_plain_footnote"
+                    android:textSize="11sp" />
+            </LinearLayout>
         </LinearLayout>
 
         <!-- Ohne Marktdaten: ein ruhiger Satz statt leerer Felder -->

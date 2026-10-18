@@ -69,6 +69,27 @@ class WidgetToolkit @Inject constructor(
         return paint.measureText(text) / metrics.density
     }
 
+    /** Umbrochener Text: Zeilen und Höhe (dp). */
+    data class TextBlock(val lines: Int, val heightDp: Float)
+
+    /**
+     * [text] umbrochen auf [widthDp], gemessen wie ein TextView im Widget ([sp] mit der Schriftgrösse
+     * des Systems, Schriftabstand oben/unten wie includeFontPadding). Leer oder ohne Breite: 0 Zeilen.
+     */
+    fun textBlock(text: String, sp: Float, widthDp: Float, bold: Boolean = false): TextBlock {
+        if (text.isEmpty() || widthDp <= 0f) return TextBlock(0, 0f)
+        val metrics = context.resources.displayMetrics
+        val paint = android.text.TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
+            textSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, metrics)
+            typeface = if (bold) Typeface.DEFAULT_BOLD else Typeface.DEFAULT
+        }
+        val widthPx = (widthDp * metrics.density).toInt().coerceAtLeast(1)
+        val layout = android.text.StaticLayout.Builder.obtain(text, 0, text.length, paint, widthPx)
+            .setIncludePad(true)
+            .build()
+        return TextBlock(layout.lineCount, layout.height / metrics.density)
+    }
+
     /**
      * [text] mit kleiner, grauer Währung [quote] ([WidgetQuoteText]): RelativeSizeSpan und
      * ForegroundColorSpan gehen in RemoteViews (parcelbar) und wirken auch mit autoSizeTextType.
