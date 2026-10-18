@@ -54,56 +54,76 @@ struct PortfolioScreen: View {
         let transactions = model.calcPortfolio
         let currency = data.settings.portfolioCurrency
         let hasData = !data.portfolio.isEmpty || !data.watchedAddresses.isEmpty
-        let base = Group {
-            if !hasData {
-                emptyState
-            } else {
-                // Zwischengespeichert im Modell (neu nur bei geänderten Eingaben)
-                content(model.summary, currency: currency)
+        // In Stufen zusammengesetzt, damit der Compiler `body` in vertretbarer Zeit prüft
+        let framed = chrome(core(hasData: hasData, currency: currency), hasData: hasData, currency: currency)
+        let loading = refreshing(framed, transactions: transactions, currency: currency)
+        return presentations(observing(loading, transactions: transactions))
+    }
+
+    @ViewBuilder
+    private func core(hasData: Bool, currency: String) -> some View {
+        if !hasData {
+            emptyState
+        } else {
+            // Zwischengespeichert im Modell (neu nur bei geänderten Eingaben)
+            content(model.summary, currency: currency)
+        }
+    }
+
+    /// Umgebung, Hintergrund, Titel und Werkzeugleiste.
+    private func chrome<V: View>(_ base: V, hasData: Bool, currency: String) -> some View {
+        base
+            // «Beträge verbergen» (Auge oben bzw. Einstellung): Beträge als «•••», Prozente bleiben
+            .environment(\.hidePortfolioAmounts, data.settings.hidePortfolioAmounts)
+            .background(AppColors.background.ignoresSafeArea())
+            .tabTitle(L("portfolio_title"), icon: .portfolio)
+            .toolbar { toolbarContent(hasTransactions: !data.portfolio.isEmpty, hasData: hasData, currency: currency) }
+    }
+
+    /// Kurse, Devisen und Uhr laden bzw. auffrischen.
+    private func refreshing<V: View>(_ base: V, transactions: [PortfolioTx], currency: String) -> some View {
+        base
+            // Beim Öffnen und bei neuen Coins Kurse auffrischen (60 s Zwischenspeicher)
+            .task(id: Set(transactions.flatMap(\.coins))) { await model.refresh(force: false) }
+            .task(id: currency) { await model.loadFx(currency) }
+            .task {
+                while !Task.isCancelled {
+                    try? await Task.sleep(nanoseconds: 30_000_000_000)
+                    now = TimeUtils.nowMillis
+                }
             }
-        }
-        // «Beträge verbergen» (Auge oben bzw. Einstellung): Beträge als «•••», Prozente bleiben
-        .environment(\.hidePortfolioAmounts, data.settings.hidePortfolioAmounts)
-        .background(AppColors.background.ignoresSafeArea())
-        .tabTitle(L("portfolio_title"), icon: .portfolio)
-        .toolbar { toolbarContent(hasTransactions: !data.portfolio.isEmpty, hasData: hasData, currency: currency) }
-        // Beim Öffnen und bei neuen Coins Kurse auffrischen (60 s Zwischenspeicher)
-        .task(id: Set(transactions.flatMap(\.coins))) { await model.refresh(force: false) }
-        .task(id: currency) { await model.loadFx(currency) }
-        .task {
-            while !Task.isCancelled {
-                try? await Task.sleep(nanoseconds: 30_000_000_000)
-                now = TimeUtils.nowMillis
+            // Netz wieder da: Kurse auffrischen (60 s Zwischenspeicher), wie die Merkliste
+            .onChange(of: data.online) { _, online in
+                if online { Task { await model.refresh(force: false) } }
             }
-        }
-        // Netz wieder da: Kurse auffrischen (60 s Zwischenspeicher), wie die Merkliste
-        .onChange(of: data.online) { _, online in
-            if online { Task { await model.refresh(force: false) } }
-        }
-        // Wertverlauf: geänderte Transaktionen (auch ohne neuen Coin) neu rechnen
-        .onChange(of: transactions) { model.recomputeHistory() }
-        // Einstandsmethode bestimmt die Bestände (FIFO je Wallet): «7 T/1 J» und Verlauf neu rechnen
-        .onChange(of: data.settings.costMethod) { model.recomputeHistory() }
-        // Adresse hinzugefügt/entfernt: Gesamtwert, Widget und Alarme nachziehen. Nur die Liste (Chain + Adresse)
-        // zählt — neue Guthaben/Versuche kommen aus `refresh` selbst und lösten sonst gleich den nächsten aus
-        .onChange(of: data.watchedAddresses.map { "\($0.chain.rawValue):\($0.address)" }) {
-            Task { await model.refresh(force: false) }
-        }
-        // Nicht versiegelt speicherbar (Schlüsselbund gerade nicht lesbar): Änderungen warten im Speicher — sagen, nicht
-        // still (nie im Klartext geschrieben); das nächste Speichern bzw. die Rückkehr der App versucht es erneut
-        .onChange(of: data.portfolioSavePending) { _, pending in
-            if pending {
-                banner = WatchlistBannerMessage(text: L("portfolio_save_pending"), icon: "lock.trianglebadge.exclamationmark",
-                                                long: true)
+    }
+
+    /// Reaktionen auf geänderte Transaktionen, Adressen und Speicherzustand.
+    private func observing<V: View>(_ base: V, transactions: [PortfolioTx]) -> some View {
+        base
+            // Wertverlauf: geänderte Transaktionen (auch ohne neuen Coin) neu rechnen
+            .onChange(of: transactions) { model.recomputeHistory() }
+            // Einstandsmethode bestimmt die Bestände (FIFO je Wallet): «7 T/1 J» und Verlauf neu rechnen
+            .onChange(of: data.settings.costMethod) { model.recomputeHistory() }
+            // Adresse hinzugefügt/entfernt: Gesamtwert, Widget und Alarme nachziehen. Nur die Liste (Chain + Adresse)
+            // zählt — neue Guthaben/Versuche kommen aus `refresh` selbst und lösten sonst gleich den nächsten aus
+            .onChange(of: data.watchedAddresses.map { "\($0.chain.rawValue):\($0.address)" }) {
+                Task { await model.refresh(force: false) }
             }
-        }
-        // Später aufgetauchte Überschneidung Adresse ↔ eigene Transaktionen: einmal automatisch «Nur anzeigen» — wie Android
-        .onAppear { checkAddressOverlap() }
-        .onChange(of: data.watchedAddresses) { checkAddressOverlap() }
-        .onChange(of: transactions) { checkAddressOverlap() }
-        // Bei offenem Adressen-Blatt erst danach (der Banner läge hinter dem Blatt)
-        .onChange(of: addressesOpen) { showAddressOverlapNotice() }
-        return presentations(base)
+            // Nicht versiegelt speicherbar (Schlüsselbund gerade nicht lesbar): Änderungen warten im Speicher — sagen,
+            // nicht still (nie im Klartext geschrieben); das nächste Speichern bzw. die Rückkehr der App versucht es erneut
+            .onChange(of: data.portfolioSavePending) { _, pending in
+                if pending {
+                    banner = WatchlistBannerMessage(text: L("portfolio_save_pending"),
+                                                    icon: "lock.trianglebadge.exclamationmark", long: true)
+                }
+            }
+            // Später aufgetauchte Überschneidung Adresse ↔ eigene Transaktionen: einmal automatisch «Nur anzeigen» — wie Android
+            .onAppear { checkAddressOverlap() }
+            .onChange(of: data.watchedAddresses) { checkAddressOverlap() }
+            .onChange(of: transactions) { checkAddressOverlap() }
+            // Bei offenem Adressen-Blatt erst danach (der Banner läge hinter dem Blatt)
+            .onChange(of: addressesOpen) { showAddressOverlapNotice() }
     }
 
     /// Blätter, Ziele, Dialoge und Hinweise — eigene Funktion, damit der Compiler `body` in vertretbarer Zeit prüft.
