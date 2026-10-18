@@ -73,6 +73,23 @@ jobs:
           emulator-boot-timeout: 900
           script: ./gradlew :app:connectedDebugAndroidTest --stacktrace
 
+      # Failed tests as annotations (artifacts are not always reachable for reviewers)
+      - name: Failed tests
+        if: failure()
+        run: |
+          python3 - <<'PY' || true
+          import glob, xml.etree.ElementTree as ET
+          n = 0
+          for f in glob.glob('app/build/outputs/androidTest-results/connected/**/*.xml', recursive=True):
+              for tc in ET.parse(f).getroot().iter('testcase'):
+                  for fail in list(tc.findall('failure')) + list(tc.findall('error')):
+                      msg = (fail.get('message') or fail.text or '').strip().splitlines()
+                      body = ' | '.join(l.strip() for l in (fail.text or '').strip().splitlines()[:6])
+                      print(f"::error::{tc.get('classname')}.{tc.get('name')}: {body[:900]}")
+                      n += 1
+          print(f"failed tests: {n}")
+          PY
+
       - name: Upload test reports
         if: failure()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
