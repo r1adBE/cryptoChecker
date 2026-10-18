@@ -88,7 +88,7 @@
     },
     {
       "kind": "bulk",
-      "name": "bulk: futures rows (DATED_FUTURE, EQUITY_FUTURE) are dropped, the response is then not complete (a missing spot pair goes to the single request)",
+      "name": "bulk: futures rows (DATED_FUTURE, EQUITY_FUTURE) are dropped; completeness is judged from the spot rows only -> complete",
       "market": "OneTrading",
       "requestId": 0,
       "body": "[{\"instrument_code\":\"BTC_USD_P\",\"sequence\":1234567,\"time\":\"2024-10-10T06:00:00.123Z\",\"type\":\"DATED_FUTURE\",\"state\":\"ACTIVE\",\"quote_volume\":\"12345678.9\",\"base_volume\":\"210.5\",\"last_price\":\"58010.5\",\"highest_bid\":\"58010.5\",\"lowest_ask\":\"58010.5\",\"price_change\":\"1200.1\",\"price_change_percentage\":\"2.11\",\"high\":\"58500\",\"low\":\"56500\"},{\"instrument_code\":\"BTC_EUR\",\"sequence\":1234567,\"time\":\"2024-10-10T06:00:00.123Z\",\"type\":\"SPOT\",\"state\":\"ACTIVE\",\"quote_volume\":\"12345678.9\",\"base_volume\":\"210.5\",\"last_price\":\"58000.1\",\"highest_bid\":\"58000.1\",\"lowest_ask\":\"58000.1\",\"price_change\":\"1200.1\",\"price_change_percentage\":\"2.11\",\"high\":\"58500\",\"low\":\"56500\"},{\"instrument_code\":\"ONEX100_USD_P\",\"sequence\":1234567,\"time\":\"2024-10-10T06:00:00.123Z\",\"type\":\"EQUITY_FUTURE\",\"state\":\"ACTIVE\",\"quote_volume\":\"12345678.9\",\"base_volume\":\"210.5\",\"last_price\":\"101.2\",\"highest_bid\":\"101.2\",\"lowest_ask\":\"101.2\",\"price_change\":\"1200.1\",\"price_change_percentage\":\"2.11\",\"high\":\"58500\",\"low\":\"56500\"}]",
@@ -99,7 +99,7 @@
           "ONEX100_USD_P"
         ],
         "failed": [],
-        "complete": false,
+        "complete": true,
         "tickers": {
           "BTC_EUR": {
             "last": 58000.1
@@ -129,7 +129,7 @@
     },
     {
       "kind": "bulk",
-      "name": "bulk: rows without «type» are read (kind unknown) but the response is not complete",
+      "name": "bulk: rows without «type» (field missing) are read (kind unknown) but the response is not complete",
       "market": "OneTrading",
       "requestId": 0,
       "body": "[{\"instrument_code\":\"BTC_EUR\",\"sequence\":1234567,\"time\":\"2024-10-10T06:00:00.123Z\",\"state\":\"ACTIVE\",\"quote_volume\":\"12345678.9\",\"base_volume\":\"210.5\",\"last_price\":\"58000.1\",\"highest_bid\":\"58000.1\",\"lowest_ask\":\"58000.1\",\"price_change\":\"1200.1\",\"price_change_percentage\":\"2.11\",\"high\":\"58500\",\"low\":\"56500\"}]",
@@ -146,7 +146,61 @@
     },
     {
       "kind": "bulk",
-      "name": "bulk: live response recorded 2026-10-16 (3 spot, 12 futures) -> only the spot pairs, not complete",
+      "name": "bulk: «type» JSON null is treated like a missing type -> row read, response not complete",
+      "market": "OneTrading",
+      "requestId": 0,
+      "body": "[{\"instrument_code\":\"BTC_EUR\",\"sequence\":1234567,\"time\":\"2024-10-10T06:00:00.123Z\",\"type\":null,\"state\":\"ACTIVE\",\"quote_volume\":\"12345678.9\",\"base_volume\":\"210.5\",\"last_price\":\"58000.1\",\"highest_bid\":\"58000.1\",\"lowest_ask\":\"58000.1\",\"price_change\":\"1200.1\",\"price_change_percentage\":\"2.11\",\"high\":\"58500\",\"low\":\"56500\"}]",
+      "expect": {
+        "count": 1,
+        "failed": [],
+        "complete": false,
+        "tickers": {
+          "BTC_EUR": {
+            "last": 58000.1
+          }
+        }
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk: «type» text \"null\" is treated like a missing type -> row read, response not complete",
+      "market": "OneTrading",
+      "requestId": 0,
+      "body": "[{\"instrument_code\":\"BTC_EUR\",\"sequence\":1234567,\"time\":\"2024-10-10T06:00:00.123Z\",\"type\":\"null\",\"state\":\"ACTIVE\",\"quote_volume\":\"12345678.9\",\"base_volume\":\"210.5\",\"last_price\":\"58000.1\",\"highest_bid\":\"58000.1\",\"lowest_ask\":\"58000.1\",\"price_change\":\"1200.1\",\"price_change_percentage\":\"2.11\",\"high\":\"58500\",\"low\":\"56500\"}]",
+      "expect": {
+        "count": 1,
+        "failed": [],
+        "complete": false,
+        "tickers": {
+          "BTC_EUR": {
+            "last": 58000.1
+          }
+        }
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk: a non-spot book that is not ACTIVE does not matter -> complete",
+      "market": "OneTrading",
+      "requestId": 0,
+      "body": "[{\"instrument_code\":\"BTC_EUR\",\"type\":\"SPOT\",\"state\":\"ACTIVE\",\"last_price\":\"58000.1\",\"highest_bid\":\"58000.1\",\"lowest_ask\":\"58000.1\",\"high\":\"58500\",\"low\":\"56500\",\"base_volume\":\"210.5\",\"quote_volume\":\"12345678.9\",\"price_change_percentage\":\"2.11\"},{\"instrument_code\":\"BTC_USD_P\",\"type\":\"DATED_FUTURE\",\"state\":\"CLOSED\",\"last_price\":\"58010.5\",\"highest_bid\":\"58010.5\",\"lowest_ask\":\"58010.5\",\"high\":\"58500\",\"low\":\"56500\",\"base_volume\":\"210.5\",\"quote_volume\":\"12345678.9\",\"price_change_percentage\":\"2.11\"}]",
+      "expect": {
+        "count": 1,
+        "absent": [
+          "BTC_USD_P"
+        ],
+        "failed": [],
+        "complete": true,
+        "tickers": {
+          "BTC_EUR": {
+            "last": 58000.1
+          }
+        }
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk: live response recorded 2026-10-16 (3 spot, 12 futures) -> only the spot pairs, complete (all spot books ACTIVE)",
       "market": "OneTrading",
       "requestId": 0,
       "body": "[{\"base_volume\":\"487773.682\",\"high\":\"1.3442\",\"highest_bid\":\"1.3083\",\"instrument_code\":\"XRP_USD_P\",\"last_price\":\"1.3073\",\"low\":\"1.2890\",\"lowest_ask\":\"1.3088\",\"price_change_percentage\":\"-1.7363\",\"price_change\":\"-0.0231\",\"quote_volume\":\"646440.6317\",\"sequence\":1792193754207000000,\"state\":\"ACTIVE\",\"type\":\"DATED_FUTURE\",\"global_volume\":\"1304800835\",\"open_interest\":\"42419.153\",\"open_interest_usd\":\"55512.95\",\"mark_price\":\"1.3078\",\"funding_rate\":\"-0.000045878574705612476\",\"next_funding_payment\":\"2026-10-17T00:00:00.000Z\"},{\"base_volume\":\"1.0501\",\"high\":\"2487.01\",\"highest_bid\":\"2420.64\",\"instrument_code\":\"ETH_USDC\",\"last_price\":\"2420.83\",\"low\":\"2393.26\",\"lowest_ask\":\"2421.62\",\"price_change_percentage\":\"-0.65\",\"price_change\":\"-15.90\",\"quote_volume\":\"2549.17\",\"sequence\":1792193736050000000,\"state\":\"ACTIVE\",\"type\":\"SPOT\",\"global_volume\":\"11079243959\"},{\"base_volume\":\"146.842\",\"high\":\"730.33\",\"highest_bid\":\"708.71\",\"instrument_code\":\"ONEX100_USD_P\",\"last_price\":\"729.39\",\"low\":\"729.39\",\"lowest_ask\":\"708.96\",\"price_change_percentage\":\"-0.02\",\"price_change\":\"-0.18\",\"quote_volume\":\"107119.46\",\"sequence\":1792193738375000000,\"state\":\"ACTIVE\",\"type\":\"EQUITY_FUTURE\",\"global_volume\":\"0\",\"open_interest\":\"88.465\",\"open_interest_usd\":\"62708.01\",\"mark_price\":\"709.28\",\"funding_rate\":null,\"next_funding_payment\":\"2026-10-19T16:45:00.000Z\"},{\"base_volume\":\"32.01219\",\"high\":\"82706.36\",\"highest_bid\":\"81481.63\",\"instrument_code\":\"BTC_USD_P\",\"last_price\":\"81495.03\",\"low\":\"80714.24\",\"lowest_ask\":\"81498.33\",\"price_change_percentage\":\"-0.68\",\"price_change\":\"-561.71\",\"quote_volume\":\"2621026.18\",\"sequence\":1792193755003000000,\"state\":\"ACTIVE\",\"type\":\"DATED_FUTURE\",\"global_volume\":\"25260032801\",\"open_interest\":\"3.55039\",\"open_interest_usd\":\"289529.34\",\"mark_price\":\"81495.03\",\"funding_rate\":\"0.000017902932240162374\",\"next_funding_payment\":\"2026-10-17T00:00:00.000Z\"},{\"base_volume\":\"848.1151\",\"high\":\"2489.09\",\"highest_bid\":\"2420.20\",\"instrument_code\":\"ETH_USD_P\",\"last_price\":\"2419.61\",\"low\":\"2391.50\",\"lowest_ask\":\"2420.86\",\"price_change_percentage\":\"-0.74\",\"price_change\":\"-18.14\",\"quote_volume\":\"2073262.83\",\"sequence\":1792193756555000000,\"state\":\"ACTIVE\",\"type\":\"DATED_FUTURE\",\"global_volume\":\"11079243959\",\"open_interest\":\"76.0146\",\"open_interest_usd\":\"184019.28\",\"mark_price\":\"2419.61\",\"funding_rate\":\"0.000017895445960299387\",\"next_funding_payment\":\"2026-10-17T00:00:00.000Z\"},{\"base_volume\":\"3071.459\",\"high\":\"61.25\",\"highest_bid\":\"59.62\",\"instrument_code\":\"LTC_USD_P\",\"last_price\":\"59.35\",\"low\":\"59.15\",\"lowest_ask\":\"59.66\",\"price_change_percentage\":\"-3.10\",\"price_change\":\"-1.90\",\"quote_volume\":\"185181.92\",\"sequence\":1792193754965000000,\"state\":\"ACTIVE\",\"type\":\"DATED_FUTURE\",\"global_volume\":\"203499828\",\"open_interest\":\"793.528\",\"open_interest_usd\":\"47325.04\",\"mark_price\":\"59.58\",\"funding_rate\":\"-0.0002039274924471299\",\"next_funding_payment\":\"2026-10-17T00:00:00.000Z\"},{\"base_volume\":\"2903.4591\",\"high\":\"290.48\",\"highest_bid\":\"274.89\",\"instrument_code\":\"TAO_USD_P\",\"last_price\":\"274.63\",\"low\":\"271.61\",\"lowest_ask\":\"275.02\",\"price_change_percentage\":\"-2.95\",\"price_change\":\"-8.35\",\"quote_volume\":\"822790.83\",\"sequence\":1792193754467000000,\"state\":\"ACTIVE\",\"type\":\"DATED_FUTURE\",\"global_volume\":\"182640253\",\"open_interest\":\"267.7922\",\"open_interest_usd\":\"73606.43\",\"mark_price\":\"274.63\",\"funding_rate\":\"0.000017842187670684192\",\"next_funding_payment\":\"2026-10-17T00:00:00.000Z\"},{\"base_volume\":\"0.37191\",\"high\":\"82730.38\",\"highest_bid\":\"81513.58\",\"instrument_code\":\"BTC_USDC\",\"last_price\":\"81684.23\",\"low\":\"80788.52\",\"lowest_ask\":\"81546.20\",\"price_change_percentage\":\"-0.30\",\"price_change\":\"-247.14\",\"quote_volume\":\"30151.78\",\"sequence\":1792193602702000000,\"state\":\"ACTIVE\",\"type\":\"SPOT\",\"global_volume\":\"25260032801\"},{\"base_volume\":\"1255.32\",\"high\":\"0.89113\",\"highest_bid\":\"0.88967\",\"instrument_code\":\"USDC_EUR\",\"last_price\":\"0.88855\",\"low\":\"0.88824\",\"lowest_ask\":\"0.89021\",\"price_change_percentage\":\"-0.28952\",\"price_change\":\"-0.00258\",\"quote_volume\":\"1115.82251\",\"sequence\":1792191207001000000,\"state\":\"ACTIVE\",\"type\":\"SPOT\",\"global_volume\":\"15212501495\"},{\"base_volume\":\"28331.103\",\"high\":\"153.35\",\"highest_bid\":\"145.42\",\"instrument_code\":\"SPCX_USD_P\",\"last_price\":\"145.44\",\"low\":\"144.63\",\"lowest_ask\":\"145.48\",\"price_change_percentage\":\"-1.96\",\"price_change\":\"-2.91\",\"quote_volume\":\"4185995.99\",\"sequence\":1792193756827000000,\"state\":\"ACTIVE\",\"type\":\"EQUITY_FUTURE\",\"global_volume\":\"0\",\"open_interest\":\"462.169\",\"open_interest_usd\":\"67060.72\",\"mark_price\":\"145.44\",\"funding_rate\":null,\"next_funding_payment\":\"2026-10-19T16:45:00.000Z\"},{\"base_volume\":\"8531.4460\",\"high\":\"106.956\",\"highest_bid\":\"104.128\",\"instrument_code\":\"SOL_USD_P\",\"last_price\":\"104.123\",\"low\":\"102.376\",\"lowest_ask\":\"104.160\",\"price_change_percentage\":\"-1.106\",\"price_change\":\"-1.165\",\"quote_volume\":\"897993.530\",\"sequence\":1792193756309000000,\"state\":\"ACTIVE\",\"type\":\"DATED_FUTURE\",\"global_volume\":\"2631044620\",\"open_interest\":\"2534.0674\",\"open_interest_usd\":\"263938.45\",\"mark_price\":\"104.123\",\"funding_rate\":\"0.000017287246813864372\",\"next_funding_payment\":\"2026-10-17T00:00:00.000Z\"},{\"base_volume\":\"865751.6\",\"high\":\"1.0553\",\"highest_bid\":\"1.0183\",\"instrument_code\":\"SUI_USD_P\",\"last_price\":\"1.0224\",\"low\":\"1.0007\",\"lowest_ask\":\"1.0187\",\"price_change_percentage\":\"-1.5598\",\"price_change\":\"-0.0162\",\"quote_volume\":\"892503.7370\",\"sequence\":1792193756313000000,\"state\":\"ACTIVE\",\"type\":\"DATED_FUTURE\",\"global_volume\":\"469010065\",\"open_interest\":\"121131.5\",\"open_interest_usd\":\"123364.60\",\"mark_price\":\"1.0204\",\"funding_rate\":\"0.00001783614268914151\",\"next_funding_payment\":\"2026-10-17T00:00:00.000Z\"},{\"base_volume\":\"1436078.2\",\"high\":\"0.08230\",\"highest_bid\":\"0.08068\",\"instrument_code\":\"DOGE_USD_P\",\"last_price\":\"0.08058\",\"low\":\"0.07940\",\"lowest_ask\":\"0.08071\",\"price_change_percentage\":\"-0.48166\",\"price_change\":\"-0.00039\",\"quote_volume\":\"116966.24059\",\"sequence\":1792193750969000000,\"state\":\"ACTIVE\",\"type\":\"DATED_FUTURE\",\"global_volume\":\"530957807\",\"open_interest\":\"745234.6\",\"open_interest_usd\":\"60150.52\",\"mark_price\":\"0.08061\",\"funding_rate\":\"-0.00003349460364719018\",\"next_funding_payment\":\"2026-10-17T00:00:00.000Z\"},{\"base_volume\":\"52968.19\",\"high\":\"12.715\",\"highest_bid\":\"12.315\",\"instrument_code\":\"LINK_USD_P\",\"last_price\":\"12.345\",\"low\":\"12.183\",\"lowest_ask\":\"12.319\",\"price_change_percentage\":\"-0.812\",\"price_change\":\"-0.101\",\"quote_volume\":\"660006.090\",\"sequence\":1792193756361000000,\"state\":\"ACTIVE\",\"type\":\"DATED_FUTURE\",\"global_volume\":\"241989284\",\"open_interest\":\"6580.03\",\"open_interest_usd\":\"81086.11\",\"mark_price\":\"12.322\",\"funding_rate\":\"0.000017854244440837528\",\"next_funding_payment\":\"2026-10-17T00:00:00.000Z\"},{\"base_volume\":\"552193.4\",\"high\":\"0.23133\",\"highest_bid\":\"0.22530\",\"instrument_code\":\"ADA_USD_P\",\"last_price\":\"0.22605\",\"low\":\"0.22125\",\"lowest_ask\":\"0.22542\",\"price_change_percentage\":\"-1.30545\",\"price_change\":\"-0.00299\",\"quote_volume\":\"126021.34307\",\"sequence\":1792193755971000000,\"state\":\"ACTIVE\",\"type\":\"DATED_FUTURE\",\"global_volume\":\"258362638\",\"open_interest\":\"223373.8\",\"open_interest_usd\":\"50340.12\",\"mark_price\":\"0.22566\",\"funding_rate\":\"0.000017725782150137376\",\"next_funding_payment\":\"2026-10-17T00:00:00.000Z\"}]",
@@ -158,7 +212,7 @@
           "ONEX100_USD_P"
         ],
         "failed": [],
-        "complete": false,
+        "complete": true,
         "tickers": {
           "BTC_USDC": {},
           "ETH_USDC": {},

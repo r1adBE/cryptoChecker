@@ -60,15 +60,16 @@ class OneTrading : SimpleMarket(
     }
 
     /**
-     * Vollständig nur, wenn die Antwort lauter offene Spot-Bücher enthält. Fielen Zeilen anderer Art weg, fehlt
-     * die Art oder ist ein Spot-Buch nicht ACTIVE (etwa CLOSED), kann ein fehlendes Paar auch nur vorübergehend
-     * fehlen: dann entscheidet die Einzelabfrage statt «nicht mehr gehandelt».
+     * Vollständig nur nach den Spot-Zeilen: Jede Zeile hat eine Art, und jedes Spot-Buch ist ACTIVE. Zeilen anderer Art
+     * (Futures) fallen weg, ohne dass ein Spot-Paar fehlen könnte. Fehlt die Art einer Zeile oder ist ein Spot-Buch nicht
+     * ACTIVE (etwa CLOSED), kann ein fehlendes Paar auch nur vorübergehend fehlen: dann entscheidet die Einzelabfrage
+     * statt «nicht mehr gehandelt».
      */
     override fun bulkResponseComplete(call: Int, body: String): Boolean {
         var complete = true
         JSONArray(body).forEachJSONObject { row ->
-            val spot = row.optString("type") == SPOT
-            if (!spot || row.optString("state") != ACTIVE) complete = false
+            val type = typeOf(row)
+            if (type.isEmpty() || (type == SPOT && row.optString("state") != ACTIVE)) complete = false
         }
         return complete
     }
@@ -87,8 +88,18 @@ class OneTrading : SimpleMarket(
 
     /** Zeile eines anderen Instrumenttyps (Futures); ohne «type» nicht (Art unbekannt). */
     private fun isOtherType(row: JSONObject): Boolean {
-        val type = row.optString("type")
+        val type = typeOf(row)
         return type.isNotEmpty() && type != SPOT
+    }
+
+    /**
+     * «type» der Zeile; fehlend, JSON-null und der Text «null» gelten gleich als keine Art (leer). optString gäbe für
+     * JSON-null den Text «null» zurück — so wie unter iOS.
+     */
+    private fun typeOf(row: JSONObject): String {
+        if (row.isNull("type")) return ""
+        val type = row.optString("type")
+        return if (type == "null") "" else type
     }
 
     private fun copyRow(row: JSONObject, ticker: Ticker) {

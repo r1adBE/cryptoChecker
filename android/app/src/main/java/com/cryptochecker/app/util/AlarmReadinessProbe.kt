@@ -32,11 +32,13 @@ object AlarmReadinessProbe {
         lastBackgroundCheck: Long?,
         hasAlarms: Boolean,
         now: Long = System.currentTimeMillis(),
+        /** Android 13+ würde die Erlaubnis noch abfragen (`NotificationPrePrompt.notDetermined`, mit Activity-Kontext). */
+        notificationsNotDetermined: Boolean = false,
     ): AlarmReadiness.Input {
         val manager = context.getSystemService<NotificationManager>()
         return AlarmReadiness.Input(
             platform = AlarmReadiness.Platform.ANDROID,
-            notifications = if (notificationsAllowed(context)) AlarmReadiness.Access.GRANTED else AlarmReadiness.Access.DENIED,
+            notifications = AlarmReadiness.androidAccess(notificationsAllowed(context), notificationsNotDetermined),
             now = now,
             minuteOfDay = QuietHours.minuteOfDay(now),
             quietEnabled = settings.quietHoursEnabled,

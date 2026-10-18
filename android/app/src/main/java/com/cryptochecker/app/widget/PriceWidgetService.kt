@@ -6,6 +6,8 @@ import android.content.Intent
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import com.cryptochecker.app.R
+import com.cryptochecker.app.data.local.AppDatabase
+import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.local.isDatabaseKeyUnavailable
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.runBlocking
@@ -84,7 +86,13 @@ private class WatchlistViewsFactory(
         }
         // Zeitgrenze (Speicher hängt): bisherige Zeilen behalten. Stand trotzdem als geladen merken,
         // sonst wartet getCount() gleich noch einmal; das nächste Zeichnen lädt ohnehin neu.
-        if (loaded != null) data = loaded else Timber.w("Widget-Zeilen nicht rechtzeitig geladen (%d)", appWidgetId)
+        // Merkliste nur leer im Arbeitsspeicher (gespeicherter Stand gerade nicht lesbar): bisherige Zeilen behalten
+        when {
+            loaded == null -> Timber.w("Widget-Zeilen nicht rechtzeitig geladen (%d)", appWidgetId)
+            DatabaseEncryptionNotice.isStoredKept(AppDatabase.DB_NAME) ->
+                Timber.d("Widget-Zeilen: Merkliste nur im Arbeitsspeicher, bisherige Zeilen bleiben (%d)", appWidgetId)
+            else -> data = loaded
+        }
         loadedVersion = version
     }
 

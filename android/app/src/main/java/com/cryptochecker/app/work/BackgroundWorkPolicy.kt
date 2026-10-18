@@ -150,7 +150,19 @@ object BackgroundWorkPolicy {
         val portfolioWork: Boolean,
         /** Gas- oder USDT-Depeg-Alarm (prüft der Lauf auch ohne Paare). */
         val marketAlarms: Boolean,
+        /**
+         * Watchlist-Datenbank nur leer im Arbeitsspeicher, die Datei mit dem gespeicherten Stand bleibt
+         * (DatabaseEncryptionNotice.isStoredKept): Die leere Liste sagt nichts über den Bedarf, darum geplant lassen.
+         */
+        val watchlistKept: Boolean = false,
     )
+
+    /**
+     * Portfolio-Teil von [WorkDemand.portfolioWork]. [portfolioKept]: Portfolio-Datenbank nur leer im Arbeitsspeicher
+     * (gespeicherter Stand bleibt) — wie ein scharfer Alarm behandeln, damit die leere Kopie nichts absagt.
+     */
+    fun portfolioWork(portfolioEnabled: Boolean, alarmOn: Boolean, portfolioKept: Boolean, widget: Boolean): Boolean =
+        widget || (portfolioEnabled && (alarmOn || portfolioKept))
 
     /**
      * Braucht es die periodische Hintergrund-Aktualisierung? Nur wenn sie etwas bewirkt: Alarme,
@@ -158,6 +170,7 @@ object BackgroundWorkPolicy {
      * Portfolio-Widget/-Alarm, Gas/Depeg. Sonst wird sie abgesagt (kein Akku für nichts).
      */
     fun periodicNeeded(d: WorkDemand): Boolean {
+        if (d.watchlistKept) return true
         if (d.portfolioWork || d.marketAlarms) return true
         val active = d.pairs.filterNot { it.disabled }
         if (active.isEmpty()) return false

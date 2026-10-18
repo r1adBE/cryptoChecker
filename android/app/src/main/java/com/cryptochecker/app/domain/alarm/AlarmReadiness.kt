@@ -141,6 +141,42 @@ object AlarmReadiness {
     /** Mindestens eine Zeile mit ⚠? */
     fun hasWarning(items: List<Item>): Boolean = items.any { it.state == State.WARN }
 
+    /** Alarm-Arten, die eine Prüfung im Hintergrund brauchen ([hasBackgroundAlarms]); Werte wie in den Einstellungen. */
+    data class AlarmKinds(
+        /** Mindestens ein eingeschalteter Paar-Alarm. */
+        val pairAlarm: Boolean = false,
+        val portfolioEnabled: Boolean = false,
+        /** Mindestens ein scharfer Portfolio-Alarm (zählt nur mit eingeschaltetem Portfolio). */
+        val portfolioAlarm: Boolean = false,
+        val gasEthTenths: Int = 0,
+        val gasBtc: Int = 0,
+        val depeg: Boolean = false,
+        val fearGreedBelow: Int = 0,
+        val fearGreedAbove: Int = 0,
+        /** Mindestens eine eigene Grenze einer Bitcoin-Kennzahl. */
+        val indicatorAlert: Boolean = false,
+    )
+
+    /**
+     * [Input.hasAlarms]: Gibt es etwas, das nur eine Prüfung im Hintergrund meldet? Paar- und Portfolio-Alarme, Gas,
+     * USDT-Depeg, Angst-&-Gier- und Kennzahlen-Meldungen — nicht nur Paar-Alarme, sonst wäre eine ausbleibende Prüfung
+     * bei den anderen bloss ein Hinweis.
+     */
+    fun hasBackgroundAlarms(k: AlarmKinds): Boolean =
+        k.pairAlarm || (k.portfolioEnabled && k.portfolioAlarm) || k.gasEthTenths > 0 || k.gasBtc > 0 || k.depeg ||
+            k.fearGreedBelow > 0 || k.fearGreedAbove > 0 || k.indicatorAlert
+
+    /**
+     * Zustand der Mitteilungen unter Android: [allowed] (Erlaubnis und App-Benachrichtigungen an) vor allem anderen;
+     * sonst «noch nicht gefragt», solange Android 13+ die Abfrage noch zeigen würde ([notDetermined]) — wie iOS
+     * `notDetermined`, mit Knopf, der fragt.
+     */
+    fun androidAccess(allowed: Boolean, notDetermined: Boolean): Access = when {
+        allowed -> Access.GRANTED
+        notDetermined -> Access.NOT_DETERMINED
+        else -> Access.DENIED
+    }
+
     private fun notifications(input: Input): Item = when (input.notifications) {
         Access.GRANTED -> Item(Row.NOTIFICATIONS, State.OK, Detail.ALLOWED)
         Access.DENIED -> Item(Row.NOTIFICATIONS, State.WARN, Detail.OFF, Action.NOTIFICATION_SETTINGS)

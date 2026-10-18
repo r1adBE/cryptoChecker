@@ -2,6 +2,8 @@ package com.cryptochecker.app.domain.activity
 
 import com.cryptochecker.app.data.ActivityRepository
 import com.cryptochecker.app.data.WatchRepository
+import com.cryptochecker.app.data.local.AppDatabase
+import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.data.remote.CandleInterval
 import com.cryptochecker.app.data.remote.candles.OwnCandlePolicy
@@ -80,6 +82,9 @@ class ActivityMonitor @Inject constructor(
 
     private suspend fun analyzeLocked() {
         val all = watchRepository.getWatches()
+        // Merkliste nur leer im Arbeitsspeicher (gespeicherter Stand gerade nicht lesbar): Ids und Liste gelten nur für
+        // diesen Lauf — nichts auswerten und vor allem die gespeicherten Signale nicht auf diese Liste kürzen
+        if (DatabaseEncryptionNotice.isStoredKept(AppDatabase.DB_NAME)) return
         // Nicht mehr gehandelte Paare: keine Auswertung, gespeicherte Signale (und ihre
         // Meldung) weg — sonst stünde ⚡ samt «Ungewöhnliche Bewegung» auf alten Kerzen da.
         // Deaktivierte Paare ebenso: keine Kerzen-Abfragen, keine ⚡-Signale, kein «Warum?»

@@ -14,8 +14,11 @@ import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.workDataOf
 import com.cryptochecker.app.data.WatchRepository
+import com.cryptochecker.app.data.local.AppDatabase
+import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmDao
+import com.cryptochecker.app.data.portfolio.PortfolioDatabase
 import com.cryptochecker.app.settings.AppSettings
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.widget.PortfolioWidgetProvider
@@ -224,8 +227,15 @@ class PriceUpdateScheduler @Inject constructor(
         ttsPrices = settings.ttsEnabled && !settings.ttsAlarmsOnly,
         activityAlerts = settings.activityAlerts,
         pairWidgets = widgets.pairs,
-        portfolioWork = portfolioAlarmOn || widgets.portfolio,
+        portfolioWork = BackgroundWorkPolicy.portfolioWork(
+            portfolioEnabled = settings.portfolioEnabled,
+            alarmOn = portfolioAlarmOn,
+            // Erst nach dem Öffnen verlässlich: Die Eingaben kommen aus den schon geöffneten Datenbanken
+            portfolioKept = DatabaseEncryptionNotice.isStoredKept(PortfolioDatabase.DB_NAME),
+            widget = widgets.portfolio,
+        ),
         marketAlarms = settings.gasAlertEthTenths > 0 || settings.gasAlertBtc > 0 || settings.depegAlarm,
+        watchlistKept = DatabaseEncryptionNotice.isStoredKept(AppDatabase.DB_NAME),
     )
 
     /** Listen-/Einzel-Widgets bzw. Portfolio-Widgets auf dem Startbildschirm. */

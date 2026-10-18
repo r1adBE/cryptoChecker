@@ -1,5 +1,5 @@
 {
-  "_comment": "Seite «Damit Alarme ankommen» (Build 81): gelesener Zustand → Zeilen (row, state, detail, action). Android: AlarmReadinessParityTest.kt, iOS: AlarmReadinessParityTests.swift. Fehlende Eingaben = Standard der Input-Klasse.",
+  "_comment": "Seite «Damit Alarme ankommen» (Build 81): gelesener Zustand → Zeilen (row, state, detail, action). Android: AlarmReadinessParityTest.kt, iOS: AlarmReadinessParityTests.swift. Fehlende Eingaben = Standard der Input-Klasse. «backgroundAlarms»: welche Alarm-Arten als «hasAlarms» zählen (AlarmReadiness.hasBackgroundAlarms); fehlende Felder = Standard von AlarmKinds.",
   "staleCheckMillis": 21600000,
   "cases": [
     {
@@ -753,6 +753,139 @@
           "none"
         ]
       ]
+    },
+    {
+      "name": "android_not_asked_yet",
+      "input": {
+        "platform": "android",
+        "notifications": "not_determined",
+        "now": 1800000000000,
+        "minuteOfDay": 600,
+        "hasAlarms": true
+      },
+      "expected": [
+        [
+          "notifications",
+          "warn",
+          "not_asked",
+          "request_permission"
+        ],
+        [
+          "channel",
+          "ok",
+          "channel_high",
+          "none"
+        ],
+        [
+          "exact",
+          "info",
+          "exact_off",
+          "update_settings"
+        ],
+        [
+          "battery",
+          "info",
+          "battery_optimized",
+          "battery_settings"
+        ],
+        [
+          "background",
+          "ok",
+          "allowed",
+          "none"
+        ],
+        [
+          "quiet_hours",
+          "ok",
+          "off",
+          "none"
+        ],
+        [
+          "last_check",
+          "warn",
+          "check_never",
+          "check_runs"
+        ]
+      ]
+    }
+  ],
+  "backgroundAlarms": [
+    {
+      "name": "nothing",
+      "kinds": {},
+      "expected": false
+    },
+    {
+      "name": "pair_alarm",
+      "kinds": {
+        "pairAlarm": true
+      },
+      "expected": true
+    },
+    {
+      "name": "portfolio_alarm_portfolio_on",
+      "kinds": {
+        "portfolioEnabled": true,
+        "portfolioAlarm": true
+      },
+      "expected": true
+    },
+    {
+      "name": "portfolio_alarm_portfolio_off",
+      "kinds": {
+        "portfolioEnabled": false,
+        "portfolioAlarm": true
+      },
+      "expected": false
+    },
+    {
+      "name": "portfolio_on_no_alarm",
+      "kinds": {
+        "portfolioEnabled": true
+      },
+      "expected": false
+    },
+    {
+      "name": "gas_eth",
+      "kinds": {
+        "gasEthTenths": 15
+      },
+      "expected": true
+    },
+    {
+      "name": "gas_btc",
+      "kinds": {
+        "gasBtc": 20
+      },
+      "expected": true
+    },
+    {
+      "name": "depeg",
+      "kinds": {
+        "depeg": true
+      },
+      "expected": true
+    },
+    {
+      "name": "fear_greed_below",
+      "kinds": {
+        "fearGreedBelow": 20
+      },
+      "expected": true
+    },
+    {
+      "name": "fear_greed_above",
+      "kinds": {
+        "fearGreedAbove": 80
+      },
+      "expected": true
+    },
+    {
+      "name": "indicator_limit",
+      "kinds": {
+        "indicatorAlert": true
+      },
+      "expected": true
     }
   ]
 }

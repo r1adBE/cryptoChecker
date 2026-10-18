@@ -36,6 +36,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.WatchRepository
+import com.cryptochecker.app.data.local.AppDatabase
+import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.alarm.AlarmLogEntry
 import com.cryptochecker.app.domain.alarm.AlarmLogOutcome
@@ -74,9 +76,10 @@ class AlarmLogViewModel @Inject constructor(
     init {
         viewModelScope.launch(Dispatchers.IO) {
             store.load()
-            // Letzte Prüfungen von Alarmen, die mit ihrem Paar gelöscht wurden, aufräumen
+            // Letzte Prüfungen von Alarmen, die mit ihrem Paar gelöscht wurden, aufräumen — nicht gegen eine Merkliste, die
+            // nur leer im Arbeitsspeicher liegt (nach dem Lesen oben verlässlich): Das leerte das gespeicherte Protokoll
             runCatchingCancellable { watchRepository.observeAllAlarms().first().map { it.alarm.id }.toSet() }
-                .onSuccess { store.retainAlarms(it) }
+                .onSuccess { if (!DatabaseEncryptionNotice.isStoredKept(AppDatabase.DB_NAME)) store.retainAlarms(it) }
         }
     }
 

@@ -183,4 +183,21 @@ class BackgroundWorkPolicyTest {
         assertTrue(BackgroundWorkPolicy.periodicNeeded(demand(portfolioWork = true)))
         assertTrue(BackgroundWorkPolicy.periodicNeeded(demand(marketAlarms = true)))
     }
+
+    @Test
+    fun `empty in-memory watchlist keeps the periodic work`() {
+        // Gespeicherter Stand nur gerade nicht lesbar: leere Liste sagt nichts, nicht absagen
+        assertTrue(BackgroundWorkPolicy.periodicNeeded(demand().copy(watchlistKept = true)))
+        assertFalse(BackgroundWorkPolicy.periodicNeeded(demand().copy(watchlistKept = false)))
+    }
+
+    @Test
+    fun `empty in-memory portfolio counts as armed portfolio alarm`() {
+        assertTrue(BackgroundWorkPolicy.portfolioWork(portfolioEnabled = true, alarmOn = false, portfolioKept = true, widget = false))
+        assertTrue(BackgroundWorkPolicy.portfolioWork(portfolioEnabled = true, alarmOn = true, portfolioKept = false, widget = false))
+        assertFalse(BackgroundWorkPolicy.portfolioWork(portfolioEnabled = true, alarmOn = false, portfolioKept = false, widget = false))
+        // Portfolio aus: keine Alarme, nur das Widget zählt
+        assertFalse(BackgroundWorkPolicy.portfolioWork(portfolioEnabled = false, alarmOn = false, portfolioKept = true, widget = false))
+        assertTrue(BackgroundWorkPolicy.portfolioWork(portfolioEnabled = false, alarmOn = false, portfolioKept = false, widget = true))
+    }
 }

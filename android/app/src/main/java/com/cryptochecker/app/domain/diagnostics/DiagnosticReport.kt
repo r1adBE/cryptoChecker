@@ -69,6 +69,9 @@ object DiagnosticReport {
     private val ADDRESS_PATTERNS = listOf(
         Regex("""0x[0-9a-fA-F]{16,}"""),
         Regex("""\b(?:bc1|tb1|ltc1|bcrt1)[0-9a-zA-Z]{11,}\b"""),
+        // Bech32 allgemein (Präfix, «1», Datenteil im Bech32-Alphabet): Cardano addr1/stake1, Cosmos-Ketten, bc1 in
+        // Grossbuchstaben (QR-Codes) — Gross und klein nie gemischt
+        Regex("""\b[a-z]{1,20}1[qpzry9x8gf2tvdw0s3jn54khce6mua7l]{20,}\b|\b[A-Z]{1,20}1[QPZRY9X8GF2TVDW0S3JN54KHCE6MUA7L]{20,}\b"""),
         Regex("""\b[xyzuvtXYZUVT]pub[1-9A-HJ-NP-Za-km-z]{20,}\b"""),
         Regex("""\b[1-9A-HJ-NP-Za-km-z]{25,}\b"""),
     )

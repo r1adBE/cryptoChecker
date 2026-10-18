@@ -59,7 +59,10 @@ struct DiagnosticsPreviewPage: View {
     private func build() async {
         let settings = data.settings
         let activeAlarms = data.alarmsWithWatch.filter { $0.alarm.enabled }.count
-        let readiness = AlarmReadiness.rows(await AlarmReadinessProbe.read(settings: settings, hasAlarms: activeAlarms > 0))
+        // Portfolio liest der Bericht nicht: Portfolio-Alarme zählen hier nicht mit (sonst wie «Damit Alarme ankommen»)
+        let hasAlarms = AlarmReadiness.hasBackgroundAlarms(
+            AlarmDeliveryScreen.alarmKinds(settings, pairAlarm: activeAlarms > 0, portfolioAlarm: false))
+        let readiness = AlarmReadiness.rows(await AlarmReadinessProbe.read(settings: settings, hasAlarms: hasAlarms))
         let info = Bundle.main.infoDictionary
         let input = DiagnosticInput(
             createdAt: TimeUtils.nowMillis,

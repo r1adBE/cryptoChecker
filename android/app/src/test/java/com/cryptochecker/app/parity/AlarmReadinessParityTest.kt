@@ -95,4 +95,34 @@ class AlarmReadinessParityTest {
         )
         assertTrue(AlarmReadiness.hasWarning(bad))
     }
+
+    @Test
+    fun backgroundAlarmKinds() {
+        val cases = data["backgroundAlarms"].list()
+        assertTrue(cases.size >= 10)
+        for (raw in cases) {
+            val c = raw.obj()
+            val k = c["kinds"].obj()
+            val kinds = AlarmReadiness.AlarmKinds(
+                pairAlarm = bool(k, "pairAlarm", false),
+                portfolioEnabled = bool(k, "portfolioEnabled", false),
+                portfolioAlarm = bool(k, "portfolioAlarm", false),
+                gasEthTenths = k["gasEthTenths"].num()?.toInt() ?: 0,
+                gasBtc = k["gasBtc"].num()?.toInt() ?: 0,
+                depeg = bool(k, "depeg", false),
+                fearGreedBelow = k["fearGreedBelow"].num()?.toInt() ?: 0,
+                fearGreedAbove = k["fearGreedAbove"].num()?.toInt() ?: 0,
+                indicatorAlert = bool(k, "indicatorAlert", false),
+            )
+            assertEquals(c["name"] as String, c["expected"] as Boolean, AlarmReadiness.hasBackgroundAlarms(kinds))
+        }
+    }
+
+    /** Nur Android: Erlaubnis vor «noch nicht gefragt», sonst «aus». */
+    @Test
+    fun androidAccess() {
+        assertEquals(AlarmReadiness.Access.GRANTED, AlarmReadiness.androidAccess(allowed = true, notDetermined = true))
+        assertEquals(AlarmReadiness.Access.NOT_DETERMINED, AlarmReadiness.androidAccess(allowed = false, notDetermined = true))
+        assertEquals(AlarmReadiness.Access.DENIED, AlarmReadiness.androidAccess(allowed = false, notDetermined = false))
+    }
 }

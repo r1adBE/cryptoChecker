@@ -3,6 +3,8 @@ package com.cryptochecker.app.data
 import com.cryptochecker.app.data.BackupRestorePolicy.AppLockDecision
 import com.cryptochecker.app.data.portfolio.PortfolioBackupMirror
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 /** Wie `BackupRestorePolicyTests.swift`: gleiche Fälle auf beiden Seiten. */
@@ -58,5 +60,14 @@ class BackupRestorePolicyTest {
     @Test(expected = IllegalArgumentException::class)
     fun systemBackupCopyRejectsForeignFormat() {
         PortfolioBackupMirror.parse("""{"format":"anderes","portfolio":[]}""")
+    }
+
+    /** Nur Android: Eine Datenbank leer im Arbeitsspeicher gibt es unter iOS nicht. */
+    @Test
+    fun noRollBackIntoInMemoryDatabase() {
+        assertTrue(BackupRestorePolicy.mayRollBackInto(storedKept = false, inMemory = false))
+        // Gespeicherter Stand gerade nicht lesbar bzw. nur im Arbeitsspeicher: Journal behalten
+        assertFalse(BackupRestorePolicy.mayRollBackInto(storedKept = true, inMemory = true))
+        assertFalse(BackupRestorePolicy.mayRollBackInto(storedKept = false, inMemory = true))
     }
 }

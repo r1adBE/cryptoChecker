@@ -7054,6 +7054,87 @@
       "incompleteLines": []
     },
     {
+      "_calc": "[B81] Wie der Fall davor, aber im laufenden Jahr 2026 (today 2026-12-20, Jahr noch offen): Der Vermerk FR_ADDRESS_NO_COST bleibt am Posten netto. Ein Fenster-Vermerk (WINDOW_OPEN) gibt es nur für UK/CA, FR verdrängt ihn also nie; Beträge unverändert.",
+      "template": "FR",
+      "method": "FR_PTA",
+      "year": 2026,
+      "today": "2026-12-20",
+      "trades": [
+        {
+          "id": -1000001,
+          "coin": "BTC",
+          "type": "DEPOSIT",
+          "amount": "1",
+          "time": 1767268800000
+        },
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1768046400000,
+          "price": "10000"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "0.5",
+          "time": 1773144000000,
+          "price": "20000"
+        }
+      ],
+      "prices": {
+        "BTC": "20000"
+      },
+      "lines": [
+        [
+          "GAINS",
+          "7500",
+          "7500",
+          null
+        ],
+        [
+          "LOSSES",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "NET",
+          "7500",
+          "7500",
+          null,
+          "FR_ADDRESS_NO_COST"
+        ],
+        [
+          "PROCEEDS",
+          "10000",
+          "10000",
+          null
+        ],
+        [
+          "INCOME",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "FR_THRESHOLD",
+          null,
+          "305",
+          "REACHED"
+        ],
+        [
+          "FR_RATE",
+          null,
+          null,
+          null
+        ]
+      ],
+      "incompleteLines": []
+    },
+    {
       "template": "AT",
       "method": "AT_MOVING_AVERAGE",
       "year": 2021,

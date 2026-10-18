@@ -27,6 +27,13 @@ object BackupRestorePolicy {
                 else AppLockDecision(apply = false, keptOn = false)
         }
 
+    /**
+     * Nur Android: Gemerkten Stand (Journal) in eine Datenbank zurückschreiben? Nicht, solange sie nur leer im
+     * Arbeitsspeicher liegt ([storedKept]: Schlüssel der vorhandenen Datei gerade nicht lesbar; [inMemory]: überhaupt nur
+     * im Arbeitsspeicher) — das Geschriebene ginge mit dem Lauf verloren, das Journal muss bleiben.
+     */
+    fun mayRollBackInto(storedKept: Boolean, inMemory: Boolean): Boolean = !storedKept && !inMemory
+
     /** Ungültige Einträge aus der Systemsicherung, die noch zu melden sind (aufsummiert, ohne Überlauf). */
     fun noticeTotal(pending: Int, added: Int): Int =
         (pending.coerceAtLeast(0).toLong() + added.coerceAtLeast(0)).coerceAtMost(Int.MAX_VALUE.toLong()).toInt()

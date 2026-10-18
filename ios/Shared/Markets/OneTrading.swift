@@ -45,12 +45,16 @@ final class OneTrading: SimpleMarket {
         return tickers
     }
 
-    /// Vollständig nur, wenn die Antwort lauter offene Spot-Bücher enthält. Fielen Zeilen anderer Art weg, fehlt
-    /// die Art oder ist ein Spot-Buch nicht ACTIVE (etwa CLOSED), kann ein fehlendes Paar auch nur vorübergehend
-    /// fehlen: dann entscheidet die Einzelabfrage statt «nicht mehr gehandelt».
+    /// Vollständig nur nach den Spot-Zeilen: Jede Zeile hat eine Art, und jedes Spot-Buch ist ACTIVE. Zeilen anderer Art
+    /// (Futures) fallen weg, ohne dass ein Spot-Paar fehlen könnte. Fehlt die Art einer Zeile oder ist ein Spot-Buch nicht
+    /// ACTIVE (etwa CLOSED), kann ein fehlendes Paar auch nur vorübergehend fehlen: dann entscheidet die Einzelabfrage
+    /// statt «nicht mehr gehandelt».
     override func bulkResponseComplete(call: Int, body: String) -> Bool {
         guard let rows = try? JArray(string: body).allObjects() else { return false }
-        return rows.allSatisfy { $0.optString("type") == oneTradingSpot && $0.optString("state") == oneTradingActive }
+        return rows.allSatisfy { row in
+            let type = OneTrading.typeOf(row)
+            return !type.isEmpty && (type != oneTradingSpot || row.optString("state") == oneTradingActive)
+        }
     }
 
     // MARK: Paarliste
@@ -70,8 +74,15 @@ final class OneTrading: SimpleMarket {
 
     /// Zeile eines anderen Instrumenttyps (Futures); ohne «type» nicht (Art unbekannt).
     private static func isOtherType(_ row: JObject) -> Bool {
-        let type = row.optString("type")
+        let type = typeOf(row)
         return !type.isEmpty && type != oneTradingSpot
+    }
+
+    /// «type» der Zeile; fehlend, JSON-null und der Text «null» gelten gleich als keine Art (leer) — wie unter Android,
+    /// wo optString für JSON-null den Text «null» liefert.
+    private static func typeOf(_ row: JObject) -> String {
+        let type = row.optString("type")
+        return type == "null" ? "" : type
     }
 
     private func copyRow(_ row: JObject, into ticker: inout Ticker) throws {

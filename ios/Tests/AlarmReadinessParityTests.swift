@@ -71,4 +71,23 @@ final class AlarmReadinessParityTests: XCTestCase {
         let bad = AlarmReadiness.Input(platform: .ios, notifications: .denied, now: 10, minuteOfDay: 600)
         XCTAssertTrue(AlarmReadiness.hasWarning(AlarmReadiness.rows(bad)))
     }
+
+    func testBackgroundAlarmKinds() throws {
+        let cases = S.list(try S.fixture("alarm_delivery")["backgroundAlarms"])
+        XCTAssertGreaterThanOrEqual(cases.count, 10)
+        for c in cases {
+            let k = c["kinds"] as? [String: Any] ?? [:]
+            var kinds = AlarmReadiness.AlarmKinds()
+            kinds.pairAlarm = bool(k, "pairAlarm", false)
+            kinds.portfolioEnabled = bool(k, "portfolioEnabled", false)
+            kinds.portfolioAlarm = bool(k, "portfolioAlarm", false)
+            kinds.gasEthTenths = S.number(k["gasEthTenths"]).map { Int($0) } ?? 0
+            kinds.gasBtc = S.number(k["gasBtc"]).map { Int($0) } ?? 0
+            kinds.depeg = bool(k, "depeg", false)
+            kinds.fearGreedBelow = S.number(k["fearGreedBelow"]).map { Int($0) } ?? 0
+            kinds.fearGreedAbove = S.number(k["fearGreedAbove"]).map { Int($0) } ?? 0
+            kinds.indicatorAlert = bool(k, "indicatorAlert", false)
+            XCTAssertEqual(AlarmReadiness.hasBackgroundAlarms(kinds), c["expected"] as? Bool, c["name"] as? String ?? "")
+        }
+    }
 }

@@ -79,9 +79,14 @@ class DiagnosticsViewModel @Inject constructor(
         val runs = checkRunStore.runs.value
         alarmLogStore.load()
         val now = System.currentTimeMillis()
+        // Portfolio liest der Bericht nicht: Portfolio-Alarme zählen hier nicht mit (sonst wie «Damit Alarme ankommen»)
+        val hasAlarms = AlarmReadiness.hasBackgroundAlarms(
+            com.cryptochecker.app.ui.features.alarms.alarmKinds(settings, pairAlarm = activeAlarms > 0, portfolioAlarm = false)
+        )
         val readiness = AlarmReadiness.rows(
             AlarmReadinessProbe.read(
-                context, settings, runs.firstOrNull { it.trigger.scheduled }?.at, activeAlarms > 0, now,
+                context, settings, runs.firstOrNull { it.trigger.scheduled }?.at, hasAlarms, now,
+                notificationsNotDetermined = com.cryptochecker.app.ui.components.NotificationPrePrompt.notDetermined(context),
             )
         )
         DiagnosticReport.build(

@@ -13,6 +13,8 @@ import android.widget.RemoteViews
 import androidx.annotation.RequiresApi
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.RefreshStats
+import com.cryptochecker.app.data.local.AppDatabase
+import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.refresh.OutdatedRule
 import com.cryptochecker.app.domain.refresh.PriceRefresher
@@ -101,15 +103,18 @@ class ListWidgetRenderer @Inject constructor(
         for (appWidgetId in appWidgetIds) {
             val dark = widgetPrefs.isDark(appWidgetId)
             val colors = WidgetColors.of(accent, dark, settings.priceColorScheme, highContrast, settings.priceColorsInverted)
-            val inline = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) inlineRows(appWidgetId) else null
-            if (inline == null) viaService += appWidgetId
-            val title = headerTitle(appWidgetId)
             // Leer oder nicht: selbst entscheiden statt über setEmptyView — manche Launcher lassen den
             // Hinweis «Noch keine Paare» sonst stehen, obwohl inzwischen Paare da sind (z. B. nach dem
             // Einspielen einer Sicherung in ein leeres Widget)
             val empty = runCatching { rows.count(appWidgetId) == 0 }.onFailure {
                 if (it is CancellationException) throw it
             }.getOrDefault(false)
+            // Merkliste nur leer im Arbeitsspeicher (gespeicherter Stand gerade nicht lesbar; nach dem Zählen oben
+            // verlässlich): nicht neu zeichnen — der Launcher behält den bisherigen Inhalt statt «Noch keine Paare»
+            if (DatabaseEncryptionNotice.isStoredKept(AppDatabase.DB_NAME)) continue
+            val inline = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) inlineRows(appWidgetId) else null
+            if (inline == null) viaService += appWidgetId
+            val title = headerTitle(appWidgetId)
             // Neuer Stand je Zeichnen: Zeilen aus dem Dienst gehören so zur Uhrzeit im Kopf (ListWidgetDataVersion)
             val version = rows.versions.next(appWidgetId)
             runCatchingCancellable {

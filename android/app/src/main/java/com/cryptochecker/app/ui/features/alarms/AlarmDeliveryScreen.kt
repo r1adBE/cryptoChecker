@@ -40,13 +40,17 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.WatchRepository
+import com.cryptochecker.app.data.portfolio.PortfolioAlarmDao
 import com.cryptochecker.app.domain.alarm.AlarmReadiness
 import com.cryptochecker.app.domain.refresh.CheckRunStore
 import com.cryptochecker.app.settings.AppSettings
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.ui.components.AppCard
 import com.cryptochecker.app.ui.components.CardPadding
+import com.cryptochecker.app.ui.components.NotificationAsk
+import com.cryptochecker.app.ui.components.NotificationPrePrompt
 import com.cryptochecker.app.ui.components.ReadableInset
+import com.cryptochecker.app.ui.components.rememberNotificationPermissionRequest
 import com.cryptochecker.app.ui.features.settings.formatMinuteOfDay
 import com.cryptochecker.app.ui.theme.AppColors
 import com.cryptochecker.app.ui.theme.Spacing
@@ -55,9 +59,14 @@ import com.cryptochecker.app.util.BatteryOptimization
 import com.cryptochecker.app.work.ExactCheckScheduler
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 
@@ -65,11 +74,13 @@ import kotlinx.coroutines.flow.stateIn
 val LocalOpenAlarmDelivery = androidx.compose.runtime.staticCompositionLocalOf<(() -> Unit)?> { null }
 
 /** Stand für «Damit Alarme ankommen»: Einstellungen, letzte Prüfung im Hintergrund, gibt es scharfe Alarme? Nur lesen. */
+@OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
 class AlarmDeliveryViewModel @Inject constructor(
     settingsRepository: SettingsRepository,
     checkRunStore: CheckRunStore,
     watchRepository: WatchRepository,
+    portfolioAlarmDao: PortfolioAlarmDao,
 ) : ViewModel() {
 
     val settings: StateFlow<AppSettings> = settingsRepository.settings
@@ -80,14 +91,42 @@ class AlarmDeliveryViewModel @Inject constructor(
         .map { runs -> lastScheduled(runs) }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), lastScheduled(checkRunStore.runs.value))
 
-    val hasAlarms: StateFlow<Boolean> = watchRepository.observeAllAlarms()
-        .map { alarms -> alarms.any { it.alarm.enabled } }
+    /** Alles, was nur eine Prüfung im Hintergrund meldet ([AlarmReadiness.hasBackgroundAlarms]), nicht nur Paar-Alarme. */
+    val hasAlarms: StateFlow<Boolean> = combine(
+        watchRepository.observeAllAlarms()
+            .map { alarms -> alarms.any { it.alarm.enabled } }
+            .catch { emit(false) },
+        settingsRepository.settings
+            .map { it.portfolioEnabled }
+            .distinctUntilChanged()
+            // Portfolio aus: Datenbank gar nicht erst öffnen (wie PriceUpdateScheduler)
+            .flatMapLatest { on ->
+                if (on) portfolioAlarmDao.observeAll().map { list -> list.any { it.enabled } }.catch { emit(false) }
+                else flowOf(false)
+            },
+        settingsRepository.settings,
+    ) { pairAlarm, portfolioAlarm, settings ->
+        AlarmReadiness.hasBackgroundAlarms(alarmKinds(settings, pairAlarm, portfolioAlarm))
+    }
         .catch { emit(false) }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), false)
 
     private fun lastScheduled(runs: List<com.cryptochecker.app.domain.refresh.CheckRun>): Long? =
         runs.firstOrNull { it.trigger.scheduled }?.at
 }
+
+/** Alarm-Arten aus Einstellungen und Alarmen ([AlarmReadiness.hasBackgroundAlarms]); auch für «Diagnose teilen». */
+internal fun alarmKinds(settings: AppSettings, pairAlarm: Boolean, portfolioAlarm: Boolean) = AlarmReadiness.AlarmKinds(
+    pairAlarm = pairAlarm,
+    portfolioEnabled = settings.portfolioEnabled,
+    portfolioAlarm = portfolioAlarm,
+    gasEthTenths = settings.gasAlertEthTenths,
+    gasBtc = settings.gasAlertBtc,
+    depeg = settings.depegAlarm,
+    fearGreedBelow = settings.fearGreedBelow,
+    fearGreedAbove = settings.fearGreedAbove,
+    indicatorAlert = settings.indicatorAlerts.values.any { it > 0 },
+)
 
 /**
  * «Damit Alarme ankommen» (Build 81): der echte Zustand je Punkt (✓ / ⚠ / Hinweis) mit Knopf zur passenden
@@ -113,12 +152,19 @@ fun AlarmDeliveryScreen(
         onPauseOrDispose { }
     }
     val items = remember(settings, lastCheck, hasAlarms, readAt) {
-        AlarmReadiness.rows(AlarmReadinessProbe.read(context, settings, lastCheck, hasAlarms, readAt))
+        AlarmReadiness.rows(
+            AlarmReadinessProbe.read(
+                context, settings, lastCheck, hasAlarms, readAt,
+                notificationsNotDetermined = NotificationPrePrompt.notDetermined(context),
+            )
+        )
     }
+    // Noch nie gefragt (Android 13+): gleich die System-Abfrage, wie iOS; danach liest die Rückkehr (Resume) neu
+    val requestPermission = rememberNotificationPermissionRequest(NotificationAsk.DIRECT)
     val act: (AlarmReadiness.Action) -> Unit = { action ->
         when (action) {
-            AlarmReadiness.Action.NOTIFICATION_SETTINGS, AlarmReadiness.Action.REQUEST_PERMISSION ->
-                AlarmReadinessProbe.openAppNotificationSettings(context)
+            AlarmReadiness.Action.REQUEST_PERMISSION -> requestPermission()
+            AlarmReadiness.Action.NOTIFICATION_SETTINGS -> AlarmReadinessProbe.openAppNotificationSettings(context)
             AlarmReadiness.Action.CHANNEL_SETTINGS ->
                 AlarmReadinessProbe.openChannelSettings(context, AlarmReadinessProbe.alarmChannelId(settings))
             AlarmReadiness.Action.EXACT_PERMISSION -> ExactCheckScheduler.openPermissionSettings(context)

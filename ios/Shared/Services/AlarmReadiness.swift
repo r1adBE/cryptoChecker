@@ -135,6 +135,30 @@ enum AlarmReadiness {
     /// Mindestens eine Zeile mit ⚠?
     static func hasWarning(_ items: [Item]) -> Bool { items.contains { $0.state == .warn } }
 
+    /// Alarm-Arten, die eine Prüfung im Hintergrund brauchen (`hasBackgroundAlarms`); Werte wie in den Einstellungen.
+    struct AlarmKinds: Equatable {
+        /// Mindestens ein eingeschalteter Paar-Alarm.
+        var pairAlarm = false
+        var portfolioEnabled = false
+        /// Mindestens ein scharfer Portfolio-Alarm (zählt nur mit eingeschaltetem Portfolio).
+        var portfolioAlarm = false
+        var gasEthTenths = 0
+        var gasBtc = 0
+        var depeg = false
+        var fearGreedBelow = 0
+        var fearGreedAbove = 0
+        /// Mindestens eine eigene Grenze einer Bitcoin-Kennzahl.
+        var indicatorAlert = false
+    }
+
+    /// `Input.hasAlarms`: Gibt es etwas, das nur eine Prüfung im Hintergrund meldet? Paar- und Portfolio-Alarme, Gas,
+    /// USDT-Depeg, Angst-&-Gier- und Kennzahlen-Meldungen — nicht nur Paar-Alarme, sonst wäre eine ausbleibende Prüfung
+    /// bei den anderen bloss ein Hinweis. Wie Android.
+    static func hasBackgroundAlarms(_ k: AlarmKinds) -> Bool {
+        k.pairAlarm || (k.portfolioEnabled && k.portfolioAlarm) || k.gasEthTenths > 0 || k.gasBtc > 0 || k.depeg
+            || k.fearGreedBelow > 0 || k.fearGreedAbove > 0 || k.indicatorAlert
+    }
+
     private static func notifications(_ input: Input) -> Item? {
         switch input.notifications {
         case .granted: return Item(row: .notifications, state: .ok, detail: .allowed)

@@ -4,6 +4,8 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.data.WatchRepository
+import com.cryptochecker.app.data.local.AppDatabase
+import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.local.model.AlarmCondition
 import com.cryptochecker.app.data.local.model.AlarmEntity
 import com.cryptochecker.app.data.local.model.WatchEntity
@@ -394,6 +396,9 @@ class AlarmsViewModel @Inject constructor(
     fun delete(alarmId: Long) {
         viewModelScope.launch {
             watchRepository.deleteAlarm(alarmId)
+            // Merkliste nur leer im Arbeitsspeicher: Die Id gilt nur für diesen Lauf und kann die eines gespeicherten
+            // Alarms sein — dessen Protokoll bleibt
+            if (DatabaseEncryptionNotice.isStoredKept(AppDatabase.DB_NAME)) return@launch
             // Datei versiegelt schreiben: nicht auf dem Hauptfaden
             kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) { alarmLogStore.removeAlarm(alarmId) }
         }

@@ -122,10 +122,28 @@ struct AlarmDeliveryScreen: View {
     }
 
     private func refresh() async {
-        let input = await AlarmReadinessProbe.read(settings: data.settings,
-                                                   hasAlarms: data.alarmsWithWatch.contains { $0.alarm.enabled })
+        // Alles, was nur eine Prüfung im Hintergrund meldet (`AlarmReadiness.hasBackgroundAlarms`), nicht nur Paar-Alarme
+        let hasAlarms = AlarmReadiness.hasBackgroundAlarms(
+            Self.alarmKinds(data.settings, pairAlarm: data.alarmsWithWatch.contains { $0.alarm.enabled },
+                            portfolioAlarm: data.portfolioAlarms.contains(where: \.enabled)))
+        let input = await AlarmReadinessProbe.read(settings: data.settings, hasAlarms: hasAlarms)
         lastCheck = input.lastBackgroundCheck
         items = AlarmReadiness.rows(input)
+    }
+
+    /// Alarm-Arten aus Einstellungen und Alarmen (`AlarmReadiness.hasBackgroundAlarms`); auch für «Diagnose teilen».
+    static func alarmKinds(_ settings: AppSettings, pairAlarm: Bool, portfolioAlarm: Bool) -> AlarmReadiness.AlarmKinds {
+        var k = AlarmReadiness.AlarmKinds()
+        k.pairAlarm = pairAlarm
+        k.portfolioEnabled = settings.portfolioEnabled
+        k.portfolioAlarm = portfolioAlarm
+        k.gasEthTenths = settings.gasAlertEthTenths
+        k.gasBtc = settings.gasAlertBtc
+        k.depeg = settings.depegAlarm
+        k.fearGreedBelow = settings.fearGreedBelow
+        k.fearGreedAbove = settings.fearGreedAbove
+        k.indicatorAlert = settings.indicatorAlerts.values.contains { $0 > 0 }
+        return k
     }
 
     private func detailText(_ item: AlarmReadiness.Item) -> String {

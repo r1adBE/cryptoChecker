@@ -18,6 +18,7 @@ import android.content.Context
 import android.net.Uri
 import androidx.room.withTransaction
 import com.cryptochecker.app.data.local.AppDatabase
+import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.live.LivePriceStream
 import com.cryptochecker.app.data.local.WatchDao
 import com.cryptochecker.app.data.local.model.AlarmEntity
@@ -155,18 +156,36 @@ class BackupManager @Inject constructor(
     }
 
     /**
-     * Zurücklesen und vergleichen ([BackupVerification]): Manche Speicher-Anbieter (Cloud, USB) bestätigen das Schreiben,
-     * legen aber eine gekürzte oder leere Datei ab — das zeigte sich sonst erst beim Wiederherstellen.
+     * Kein Sichern/Einspielen, solange ein gespeicherter Stand nur leer im Arbeitsspeicher steht ([BackupStorageKeptException]).
+     * Vorher beide Datenbanken öffnen ([openBoth]): Die Merker gelten erst nach dem ersten Öffnen, und das Portfolio ist bei
+     * ausgeschaltetem Portfolio sonst womöglich noch zu.
      */
-    /** Kein Sichern/Einspielen, solange ein gespeicherter Stand nur leer im Arbeitsspeicher steht ([BackupStorageKeptException]). */
     private fun ensureStoredReadable() {
-        val kept = listOf(
-            com.cryptochecker.app.data.local.AppDatabase.DB_NAME,
-            com.cryptochecker.app.data.portfolio.PortfolioDatabase.DB_NAME,
-        ).any { com.cryptochecker.app.data.local.DatabaseEncryptionNotice.isStoredKept(it) }
+        openBoth()
+        val kept = listOf(AppDatabase.DB_NAME, PortfolioDatabase.DB_NAME).any { DatabaseEncryptionNotice.isStoredKept(it) }
         if (kept) throw BackupStorageKeptException()
     }
 
+    /**
+     * Beide Datenbanken öffnen, damit [DatabaseEncryptionNotice.isStoredKept] und [DatabaseEncryptionNotice.isInMemory]
+     * verlässlich sind. Dasselbe Öffnen wie gleich danach: Sichern, Einspielen und Zurückrollen lesen bzw. schreiben beide
+     * Dateien ohnehin, auch bei ausgeschaltetem Portfolio — also keine zusätzlichen Callbacks. Ein Fehler zeigt sich dort.
+     */
+    private fun openBoth() {
+        runCatching { database.openHelper.writableDatabase }
+        runCatching { portfolioDatabase.openHelper.writableDatabase }
+    }
+
+    /** Darf in [name] zurückgeschrieben werden? Nach [openBoth] verlässlich ([BackupRestorePolicy.mayRollBackInto]). */
+    private fun rollBackTarget(name: String): Boolean = BackupRestorePolicy.mayRollBackInto(
+        storedKept = DatabaseEncryptionNotice.isStoredKept(name),
+        inMemory = DatabaseEncryptionNotice.isInMemory(name),
+    )
+
+    /**
+     * Zurücklesen und vergleichen ([BackupVerification]): Manche Speicher-Anbieter (Cloud, USB) bestätigen das Schreiben,
+     * legen aber eine gekürzte oder leere Datei ab — das zeigte sich sonst erst beim Wiederherstellen.
+     */
     private fun verifyWritten(uri: Uri, expected: ByteArray) {
         val back = try {
             context.contentResolver.openInputStream(uri)?.use { BackupLimits.readLimited(it) }
@@ -335,6 +354,13 @@ class BackupManager @Inject constructor(
                 com.cryptochecker.app.data.local.StorageRecoveryNotice.recordInterruptedRestore(context, rolledBack = false)
             }
             is RestoreJournal.Read.Found -> {
+                // Eine Datenbank nur leer im Arbeitsspeicher: Zurückgeschriebenes ginge mit dem Lauf verloren, das Journal
+                // wäre dann aber schon weg. Journal behalten, der nächste Start versucht es erneut
+                openBoth()
+                if (!rollBackTarget(AppDatabase.DB_NAME) || !rollBackTarget(PortfolioDatabase.DB_NAME)) {
+                    Timber.w("Wiederherstellen abgebrochen: Datenbank nur im Arbeitsspeicher, Zurückrollen beim nächsten Start")
+                    return@withContext
+                }
                 val previous = try {
                     previousFromJournal(JSONObject(read.text))
                 } catch (e: Exception) {
@@ -385,11 +411,19 @@ class BackupManager @Inject constructor(
                 if (it !== cause) cause.addSuppressed(it)
             }
         }
+        // Nie in eine Datenbank, die nur leer im Arbeitsspeicher liegt: unvollständig, das Journal bleibt
+        openBoth()
+        fun target(name: String, what: String): Boolean = rollBackTarget(name).also { ok ->
+            if (!ok) {
+                complete = false
+                Timber.w("Wiederherstellen: %s nur im Arbeitsspeicher, nicht zurückgesetzt", what)
+            }
+        }
         if (Step.SETTINGS in touched) attempt("Einstellungen") { settingsCodec.restoreSettings(previous.settings, trusted = true) }
         if (Step.FAVORITES in touched) attempt("Favoriten") {
             previous.favorites.forEach { (kind, items) -> favoritesRepository.setAll(kind, items) }
         }
-        if (Step.PORTFOLIO in touched) attempt("Portfolio") {
+        if (Step.PORTFOLIO in touched && target(PortfolioDatabase.DB_NAME, "Portfolio")) attempt("Portfolio") {
             portfolioDatabase.withTransaction {
                 portfolioDao.deleteAll()
                 previous.portfolio.forEach { portfolioDao.insert(it) }
@@ -401,7 +435,9 @@ class BackupManager @Inject constructor(
             }
         }
         // Auch nach dem Portfolio-Schritt: importHoldings leert den Bestand der Merkliste
-        if (Step.WATCHLIST in touched) attempt("Merkliste") { writeWatchlist(previous.watches, previous.alarms) }
+        if (Step.WATCHLIST in touched && target(AppDatabase.DB_NAME, "Merkliste")) {
+            attempt("Merkliste") { writeWatchlist(previous.watches, previous.alarms) }
+        }
         Timber.w(cause, "Wiederherstellen fehlgeschlagen, bisheriger Stand zurückgeschrieben")
         return complete
     }
