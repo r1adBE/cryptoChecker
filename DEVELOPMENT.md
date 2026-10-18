@@ -495,7 +495,7 @@ afterwards) and is skipped where that is not possible. The *Android* workflow on
 instrumented tests (`assembleDebugAndroidTest`); running them takes an emulator and is too slow
 for every push, so it has its own workflow:
 
-**Android device tests** (`.github/workflows/android-device-tests.yml`, started by hand under
+**Android device tests** (`.github/workflows/android-device-tests.yml`, on every push that touches `android/` and by hand under
 *Actions › Android device tests › Run workflow*; `workflow_dispatch` only, a weekly schedule is
 prepared but commented out). It uses the same toolchain as `android.yml` (JDK 17, Gradle with
 cache), builds `:app:assembleDebug` and `:app:assembleDebugAndroidTest` before the emulator
@@ -562,7 +562,7 @@ xcodebuild test -project CryptoChecker.xcodeproj -scheme CryptoChecker \
   -destination 'platform=iOS Simulator,name=iPhone 16' -only-testing:CryptoCheckerUITests
 ```
 
-CI: Android in *Android device tests* (by hand, see above); iOS in the *iOS* workflow, step «UI tests
+CI: Android in *Android device tests* (on push and by hand, see above); iOS in the *iOS* workflow, step «UI tests
 (iOS Simulator)» after the unit tests (30-minute limit, one retry per failed test, the `.xcresult` with
 screenshots is uploaded on failure).
 
