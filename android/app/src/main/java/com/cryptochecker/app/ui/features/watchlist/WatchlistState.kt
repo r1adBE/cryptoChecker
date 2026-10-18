@@ -12,12 +12,13 @@ import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.domain.watch.QuickView
 
 /**
- * Was der Merkliste-Bildschirm sich merkt: Sortiermodus, Suche, offene Blätter und Rückfragen.
- * Die mit [rememberWatchlistUiState] gespeicherten Felder überstehen Drehen und Prozess-Neustart;
+ * Was der Merkliste-Bildschirm sich merkt: Sortiermodus, Suche, offene Blätter und Rückfragen
+ * (der Stand aus dem ViewModel steht in [WatchlistUiState]).
+ * Die mit [rememberWatchlistScreenState] gespeicherten Felder überstehen Drehen und Prozess-Neustart;
  * Suche, Rückfragen und das Portfolio-Blatt nicht (bewusst — sie zeigen Momentanes).
  */
 @Stable
-internal class WatchlistUiState(
+internal class WatchlistScreenState(
     sortModeState: MutableState<Boolean>,
     actionsForState: MutableState<Long?>,
     whyForState: MutableState<Long?>,
@@ -133,12 +134,12 @@ internal class WatchlistUiState(
 }
 
 @Composable
-internal fun rememberWatchlistUiState(): WatchlistUiState {
+internal fun rememberWatchlistScreenState(): WatchlistScreenState {
     val sortMode = rememberSaveable { mutableStateOf(false) }
     val actionsFor = rememberSaveable { mutableStateOf<Long?>(null) }
     val whyFor = rememberSaveable { mutableStateOf<Long?>(null) }
     val editGroup = rememberSaveable { mutableStateOf<String?>(null) }
     val editGroupIsNew = rememberSaveable { mutableStateOf(false) }
     val returnToActions = rememberSaveable { mutableStateOf<Long?>(null) }
-    return remember { WatchlistUiState(sortMode, actionsFor, whyFor, editGroup, editGroupIsNew, returnToActions) }
+    return remember { WatchlistScreenState(sortMode, actionsFor, whyFor, editGroup, editGroupIsNew, returnToActions) }
 }

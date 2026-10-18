@@ -429,7 +429,13 @@ enum SharedStorage {
 
     /// Portfolio-Alarme warten auf den Schlüssel (nicht versiegelt speicherbar, nie im Klartext): `AppData` nennt das und
     /// schreibt erneut, sobald die App wieder vorne ist. Gesetzt von `writeFiles`, gelöscht nach dem nächsten Schreiben.
-    nonisolated(unsafe) static var portfolioAlarmsPending = false
+    /// Geschrieben auf der Schreib-Warteschlange (`snapshotWriter`), gelesen von AppData auf dem Main-Thread:
+    /// darum hinter einer Sperre statt `nonisolated(unsafe)`.
+    static var portfolioAlarmsPending: Bool {
+        get { portfolioAlarmsPendingBox.current }
+        set { portfolioAlarmsPendingBox.current = newValue }
+    }
+    private static let portfolioAlarmsPendingBox = LockedBox(false)
 
     /// Schreibt nur bei geändertem Inhalt (die Merkliste wird mit Live-Kursen alle paar Sekunden
     /// gespeichert) und setzt danach das Backup-Merkmal neu (das atomare Schreiben verliert es). Versiegelt
@@ -521,9 +527,14 @@ enum SharedStorage {
     // MARK: Tolerantes Lesen
 
     /// Zählt beim Lesen übersprungene Einträge (über `JSONDecoder.userInfo`).
-    final class DropCounter: @unchecked Sendable {
+    final class DropCounter: Sendable {
         static let key = CodingUserInfoKey(rawValue: "com.cryptochecker.dropCounter")!
-        var count = 0
+        // `userInfo` verlangt Sendable: Zähler hinter einer Sperre statt `@unchecked`
+        private let box = LockedBox(0)
+        var count: Int {
+            get { box.current }
+            set { box.current = newValue }
+        }
     }
 
     /// Ein Eintrag, der sich nicht lesen lässt, wird zu nil (statt die ganze Liste zu verwerfen).

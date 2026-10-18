@@ -36,6 +36,7 @@ private val BINANCE_EXPIRY_CODE: DateTimeFormatter = DateTimeFormatter.ofPattern
  * die ohne `symbol` je alle Kontrakte liefern — darum kein `SimpleMarket`.
  */
 class BinanceFutures : Market("Binance Futures", "Binance Futures") {
+    override val key = "BinanceFutures"
 
     /**
      * Darf der Kontrakt gewählt werden? Nur «TRADING» — abgelaufene, abrechnende oder geschlossene

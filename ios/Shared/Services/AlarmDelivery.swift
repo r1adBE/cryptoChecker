@@ -11,7 +11,7 @@ import Foundation
 /// Prozesses: App, Hintergrund-Aufgabe und Widget melden Alarme, und ein Neuversuch im anderen Prozess
 /// gleich danach wäre eine zweite Meldung. Gelesen und geschrieben wird nur unter der `AlarmLease`
 /// (Paar-Alarme) bzw. auf dem MainActor der App (Portfolio-Alarme) — darum genügt hier ein Lock.
-final class AlarmDelivery: @unchecked Sendable {
+final class AlarmDelivery: @unchecked Sendable { // @unchecked: Lesen-Ändern-Schreiben nur unter `lock` (NSLock); UserDefaults selbst ist thread-sicher
     /// Paar-Alarme (App, Hintergrund, Widget).
     static let pairs = AlarmDelivery(storeKey: "alarm_unconfirmed_at")
     /// Portfolio-Alarme: eigene Ids, darum eigener Eintrag.

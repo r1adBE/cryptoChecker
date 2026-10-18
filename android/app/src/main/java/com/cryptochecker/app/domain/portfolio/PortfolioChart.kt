@@ -25,7 +25,7 @@ data class PortfolioCandle(
 
 /**
  * Kerzen aus dem täglichen Wertverlauf (reines Kotlin, testbar; gespiegelt in
- * `Shared/Portfolio/PortfolioHistory.swift`, `PortfolioCandles`):
+ * `Shared/Portfolio/PortfolioChart.swift`, `PortfolioCandles`):
  *  - Tageskerze: Eröffnung = Wert am Ende des Vortags (erster Tag: seine eigene Eröffnung aus den
  *    Coin-Kerzen, sonst sein Schluss), Schluss = Wert am Tagesende — dieselbe Reihe wie die Linie
  *    (samt Umrechnung mit dem Tageskurs und Stablecoin-Regel).
@@ -112,7 +112,7 @@ enum class PortfolioGridUnit { DAY, WEEK, MONTH, QUARTER, YEAR }
 
 /**
  * Achsen und Lage im Wertverlauf-Chart (reines Kotlin, testbar; gespiegelt in
- * `Shared/Portfolio/PortfolioHistory.swift`, `PortfolioChartAxis`). Wie im Aktionsblatt eines Paars:
+ * `Shared/Portfolio/PortfolioChart.swift`, `PortfolioChartAxis`). Wie im Aktionsblatt eines Paars:
  * drei waagrechte Stufen (Tief, Mitte, Hoch) mit Beschriftung rechts, feine senkrechte Linien an
  * Kalendergrenzen. Jeder Punkt bzw. jede Kerze belegt einen gleich breiten Platz («Slot»).
  */

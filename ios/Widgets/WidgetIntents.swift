@@ -6,9 +6,9 @@ import WidgetKit
 enum WidgetThemeOption: String, AppEnum {
     case system, dark, light
 
-    static var typeDisplayRepresentation: TypeDisplayRepresentation = "widget_background"
+    static let typeDisplayRepresentation: TypeDisplayRepresentation = "widget_background"
 
-    static var caseDisplayRepresentations: [WidgetThemeOption: DisplayRepresentation] = [
+    static let caseDisplayRepresentations: [WidgetThemeOption: DisplayRepresentation] = [
         .system: "theme_system",
         .dark: "theme_dark",
         .light: "theme_light",
@@ -31,9 +31,9 @@ enum WidgetThemeOption: String, AppEnum {
 enum WidgetChartRangeOption: String, AppEnum {
     case day, week, month
 
-    static var typeDisplayRepresentation: TypeDisplayRepresentation = "widget_chart_range"
+    static let typeDisplayRepresentation: TypeDisplayRepresentation = "widget_chart_range"
 
-    static var caseDisplayRepresentations: [WidgetChartRangeOption: DisplayRepresentation] = [
+    static let caseDisplayRepresentations: [WidgetChartRangeOption: DisplayRepresentation] = [
         .day: "widget_range_24h",
         .week: "widget_range_7d",
         .month: "widget_range_30d",
@@ -57,9 +57,9 @@ enum WidgetChartRangeOption: String, AppEnum {
 enum WidgetChartTypeOption: String, AppEnum {
     case candles, line
 
-    static var typeDisplayRepresentation: TypeDisplayRepresentation = "widget_chart_type"
+    static let typeDisplayRepresentation: TypeDisplayRepresentation = "widget_chart_type"
 
-    static var caseDisplayRepresentations: [WidgetChartTypeOption: DisplayRepresentation] = [
+    static let caseDisplayRepresentations: [WidgetChartTypeOption: DisplayRepresentation] = [
         .candles: "widget_chart_candles",
         .line: "widget_chart_line",
     ]
@@ -71,9 +71,9 @@ enum WidgetChartTypeOption: String, AppEnum {
 enum PortfolioDisplayOption: String, AppEnum {
     case usdt, conversion, conversionUsdt
 
-    static var typeDisplayRepresentation: TypeDisplayRepresentation = "widget_portfolio_display"
+    static let typeDisplayRepresentation: TypeDisplayRepresentation = "widget_portfolio_display"
 
-    static var caseDisplayRepresentations: [PortfolioDisplayOption: DisplayRepresentation] = [
+    static let caseDisplayRepresentations: [PortfolioDisplayOption: DisplayRepresentation] = [
         .usdt: "widget_portfolio_display_usdt",
         .conversion: "widget_portfolio_display_conversion",
         .conversionUsdt: "widget_portfolio_display_conversion_usdt",
@@ -95,9 +95,9 @@ enum PortfolioDisplayOption: String, AppEnum {
 enum PortfolioViewOption: String, AppEnum {
     case overview, chart, list
 
-    static var typeDisplayRepresentation: TypeDisplayRepresentation = "widget_portfolio_view"
+    static let typeDisplayRepresentation: TypeDisplayRepresentation = "widget_portfolio_view"
 
-    static var caseDisplayRepresentations: [PortfolioViewOption: DisplayRepresentation] = [
+    static let caseDisplayRepresentations: [PortfolioViewOption: DisplayRepresentation] = [
         .overview: "widget_portfolio_view_overview",
         .chart: "widget_portfolio_view_chart",
         .list: "widget_portfolio_view_list",
@@ -119,9 +119,9 @@ enum PortfolioViewOption: String, AppEnum {
 enum PortfolioChartRangeOption: String, AppEnum {
     case day, week, month, year
 
-    static var typeDisplayRepresentation: TypeDisplayRepresentation = "widget_portfolio_period"
+    static let typeDisplayRepresentation: TypeDisplayRepresentation = "widget_portfolio_period"
 
-    static var caseDisplayRepresentations: [PortfolioChartRangeOption: DisplayRepresentation] = [
+    static let caseDisplayRepresentations: [PortfolioChartRangeOption: DisplayRepresentation] = [
         .day: "widget_range_24h",
         .week: "widget_range_7d",
         .month: "widget_range_30d",
@@ -148,8 +148,8 @@ struct WidgetWatchEntity: AppEntity {
     let title: String
     let subtitle: String
 
-    static var typeDisplayRepresentation: TypeDisplayRepresentation = "single_widget_choose"
-    static var defaultQuery = WidgetWatchQuery()
+    static let typeDisplayRepresentation: TypeDisplayRepresentation = "single_widget_choose"
+    static let defaultQuery = WidgetWatchQuery()
 
     var displayRepresentation: DisplayRepresentation {
         DisplayRepresentation(title: "\(title)", subtitle: "\(subtitle)")
@@ -203,8 +203,8 @@ struct WidgetGroupEntity: AppEntity {
     /// «Alpha»: nur Alpha-Tokens (`WatchFilter.alpha`).
     static let alphaId = WatchFilter.alpha
 
-    static var typeDisplayRepresentation: TypeDisplayRepresentation = "group_title"
-    static var defaultQuery = WidgetGroupQuery()
+    static let typeDisplayRepresentation: TypeDisplayRepresentation = "group_title"
+    static let defaultQuery = WidgetGroupQuery()
 
     var displayRepresentation: DisplayRepresentation {
         DisplayRepresentation(title: "\(title)")
@@ -269,8 +269,8 @@ struct WidgetGroupQuery: EntityQuery {
 
 /// Merkliste-Widget: Hintergrund und optional eine Gruppe; die Farbe folgt der App.
 struct WatchlistWidgetIntent: WidgetConfigurationIntent {
-    static var title: LocalizedStringResource = "widget_configure_title"
-    static var description = IntentDescription("widget_description")
+    static let title: LocalizedStringResource = "widget_configure_title"
+    static let description = IntentDescription("widget_description")
 
     @Parameter(title: "widget_background", default: .system)
     var theme: WidgetThemeOption
@@ -284,8 +284,8 @@ struct WatchlistWidgetIntent: WidgetConfigurationIntent {
 
 /// Einzel-Widget: Paar, Chart-Zeitraum, Chart-Art und Hintergrund.
 struct SingleWidgetIntent: WidgetConfigurationIntent {
-    static var title: LocalizedStringResource = "single_widget_title"
-    static var description = IntentDescription("single_widget_description")
+    static let title: LocalizedStringResource = "single_widget_title"
+    static let description = IntentDescription("single_widget_description")
 
     @Parameter(title: "single_widget_choose")
     var watch: WidgetWatchEntity?
@@ -310,8 +310,8 @@ struct SingleWidgetIntent: WidgetConfigurationIntent {
 /// den Chart wie bisher; mit früherer Wahl «Umrechnung + USDT» behalten sie diese. Die Chart-Art
 /// erscheint nur bei der Ansicht «Chart», der Zeitraum nicht bei «Liste» (`parameterSummary`).
 struct PortfolioWidgetIntent: WidgetConfigurationIntent {
-    static var title: LocalizedStringResource = "widget_portfolio_name"
-    static var description = IntentDescription("widget_portfolio_description")
+    static let title: LocalizedStringResource = "widget_portfolio_name"
+    static let description = IntentDescription("widget_portfolio_description")
 
     @Parameter(title: "widget_portfolio_view", default: .chart)
     var view: PortfolioViewOption
@@ -364,8 +364,8 @@ struct PortfolioWidgetIntent: WidgetConfigurationIntent {
 /// Holt alle Kurse (mit Kurs-Mitteilungen und Kursalarmen) und zeichnet die Widgets neu. Alarme mit
 /// Zusatzdaten prüfen App und Hintergrund-Aufgabe — warum, siehe `WidgetRefresh`.
 struct RefreshPricesIntent: AppIntent {
-    static var title: LocalizedStringResource = "action_refresh"
-    static var isDiscoverable: Bool = false
+    static let title: LocalizedStringResource = "action_refresh"
+    static let isDiscoverable: Bool = false
 
     init() {}
 

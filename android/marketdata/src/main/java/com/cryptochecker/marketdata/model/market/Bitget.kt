@@ -24,6 +24,8 @@ class Bitget : BitgetBase(
     tickerUrl = "$BITGET_API/spot/market/tickers?symbol=%1\$s",
     allTickersUrl = "$BITGET_API/spot/market/tickers",
 ) {
+    override val key = "Bitget"
+
     override fun pairOf(entry: JSONObject): MarketPair? {
         if (entry.optString("status") != "online") return null
         return MarketPair(entry.getString("baseCoin"), entry.getString("quoteCoin"), entry.getString("symbol"))
@@ -37,6 +39,8 @@ class BitgetFutures : BitgetBase(
     tickerUrl = "$BITGET_API/mix/market/ticker?symbol=%1\$s&$BITGET_USDT_FUTURES",
     allTickersUrl = "$BITGET_API/mix/market/tickers?$BITGET_USDT_FUTURES",
 ) {
+    override val key = "BitgetFutures"
+
     override fun pairOf(entry: JSONObject): MarketPair? {
         val perpetual = entry.optString("symbolType") == "perpetual"
         val normal = entry.optString("symbolStatus") == "normal"

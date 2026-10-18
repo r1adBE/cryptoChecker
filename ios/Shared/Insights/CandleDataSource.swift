@@ -52,6 +52,7 @@ enum CandleInterval: String, Sendable, CaseIterable {
 enum BlockedSources {
     private static let blockMillis: Int64 = 6 * 60 * 60_000
     private static let lock = NSLock()
+    // nonisolated(unsafe): jeder Zugriff nur unter `lock` (NSLock)
     nonisolated(unsafe) private static var blockedUntil: [String: Int64] = [:]
     /// Gemeinsame Pausen je Gruppe (`ExchangeBackoff.sharedGroup`); nur unter `lock`.
     nonisolated(unsafe) private static var groupPauses: [String: ExchangeBackoff.State] = [:]
@@ -150,6 +151,7 @@ enum CandleDataSource {
 
     // Zuletzt erfolgreiche Quelle je «BASE|QUOTE|INTERVALL»
     private static let lock = NSLock()
+    // nonisolated(unsafe): jeder Zugriff nur unter `lock` (NSLock)
     nonisolated(unsafe) private static var working: [String: (source: Source, time: Int64)] = [:]
 
     private static func preferredSource(_ key: String) -> Source? {

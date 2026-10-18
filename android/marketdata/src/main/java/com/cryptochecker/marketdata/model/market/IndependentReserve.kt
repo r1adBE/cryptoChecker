@@ -17,6 +17,7 @@ private const val INDEPENDENT_RESERVE_API = "https://api.independentreserve.com/
  * darum kein `SimpleMarket`). Bitcoin heisst dort «Xbt». https://www.independentreserve.com/features/api
  */
 class IndependentReserve : Market("Independent Reserve", "Independent Reserve") {
+    override val key = "IndependentReserve"
 
     // ── Einzelkurs ──
 

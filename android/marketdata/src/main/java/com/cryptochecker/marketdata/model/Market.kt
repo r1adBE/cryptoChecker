@@ -19,8 +19,7 @@ typealias CurrencyPairsMap = LinkedHashMap<String, Array<String>>
  * Paarliste · Namen. Die übliche Börse mit einer Paarliste und einer Kursadresse erbt von
  * [com.cryptochecker.marketdata.model.market.generic.SimpleMarket]. Gegenstück auf iOS: `Market.swift`.
  *
- * Instanzen werden von gleichzeitigen Abfragen geteilt. [key] ist der Klassenname und steht so in der Datenbank —
- * nie umbenennen.
+ * Instanzen werden von gleichzeitigen Abfragen geteilt. [key] steht so in der Datenbank — nie ändern.
  */
 abstract class Market(
     val name: String,
@@ -28,7 +27,12 @@ abstract class Market(
     val currencyPairs: CurrencyPairsMap? = null,
 ) {
 
-    val key: String = javaClass.simpleName
+    /**
+     * Schlüssel der Börse in Datenbank, Einstellungen, Sicherungen und Widgets. Jede Börse setzt ihn ausdrücklich
+     * auf ihren bisherigen Klassennamen: früher kam er aus `javaClass.simpleName`, damit hingen gespeicherte Daten
+     * an Klassennamen und an R8. Ein fester Text bleibt beim Umbenennen oder Verkleinern gleich. Nie ändern.
+     */
+    abstract val key: String
 
     /**
      * true: Der gelieferte «Kurs» ist ein Mittelkurs (aus Geld/Brief oder Mark) statt des letzten Handels. Das

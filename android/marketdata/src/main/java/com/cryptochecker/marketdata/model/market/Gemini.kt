@@ -37,6 +37,7 @@ class Gemini : SimpleMarket(
     tickerUrl = "$GEMINI_API/pubticker/%1\$s",
     errorField = "message",
 ), PagedPairList {
+    override val key = "Gemini"
 
     /**
      * Geklärte mehrdeutige Symbole (Symbol → Paar; null = kein Spot-Paar) — Wissen über die Börse, kein

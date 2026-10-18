@@ -1,0 +1,414 @@
+{
+  "_comment": "Verschluesselte Sicherungen (BackupCrypto): v3 Argon2id (RFC 9106) + AES-256-GCM mit kanonischem Kopf als AAD (header), v2 PBKDF2 ohne AAD (weiterhin lesbar). Mit Python cryptography nachgerechnet. Gegenstuecke: BackupCryptoParityTest.kt / BackupCryptoParityTests.swift.",
+  "password": "Krypt\u00f6-Test 2026!",
+  "plain": "{\"format\":\"cryptochecker-backup\",\"version\":1,\"portfolio\":[]}",
+  "v3": [
+    {
+      "format": "cryptochecker-backup-enc",
+      "v": 3,
+      "enc": "AES-256-GCM",
+      "kdf": "Argon2id",
+      "m": 65536,
+      "t": 3,
+      "p": 1,
+      "salt": "AAECAwQFBgcICQoLDA0ODw==",
+      "iv": "oKGio6Slpqeoqaqr",
+      "header": "{\"format\":\"cryptochecker-backup-enc\",\"v\":3,\"enc\":\"AES-256-GCM\",\"kdf\":\"Argon2id\",\"m\":65536,\"t\":3,\"p\":1,\"salt\":\"AAECAwQFBgcICQoLDA0ODw==\",\"iv\":\"oKGio6Slpqeoqaqr\"}",
+      "data": "+SPClkaGX/1HR97Xx2B2RkuJ5sOCke/BDIWZy+pBS/5Q9ahYvVYgL1NvS5CbKq1YF51Ekq4lXZYjbOMggfmkUn3RmvloYKVoB1ajeA=="
+    },
+    {
+      "format": "cryptochecker-backup-enc",
+      "v": 3,
+      "enc": "AES-256-GCM",
+      "kdf": "Argon2id",
+      "m": 64,
+      "t": 2,
+      "p": 2,
+      "salt": "AAECAwQFBgcICQoLDA0ODw==",
+      "iv": "oKGio6Slpqeoqaqr",
+      "header": "{\"format\":\"cryptochecker-backup-enc\",\"v\":3,\"enc\":\"AES-256-GCM\",\"kdf\":\"Argon2id\",\"m\":64,\"t\":2,\"p\":2,\"salt\":\"AAECAwQFBgcICQoLDA0ODw==\",\"iv\":\"oKGio6Slpqeoqaqr\"}",
+      "data": "D41TWXCaoW8JsAP4rFwOgrAbvFpP6nRa4fMNxboVbJXqsLJ5J7BsLsshL6Rz62pnPQz2zwcf0Qyw6IKcZ0WXnF3ik41Zihyqliu9ng=="
+    },
+    {
+      "format": "cryptochecker-backup-enc",
+      "v": 3,
+      "enc": "AES-256-GCM",
+      "kdf": "Argon2id",
+      "m": 256,
+      "t": 1,
+      "p": 1,
+      "salt": "AAECAwQFBgcICQoLDA0ODw==",
+      "iv": "oKGio6Slpqeoqaqr",
+      "header": "{\"format\":\"cryptochecker-backup-enc\",\"v\":3,\"enc\":\"AES-256-GCM\",\"kdf\":\"Argon2id\",\"m\":256,\"t\":1,\"p\":1,\"salt\":\"AAECAwQFBgcICQoLDA0ODw==\",\"iv\":\"oKGio6Slpqeoqaqr\"}",
+      "data": "n8rtz3KAnSu82GXee54Gsm4+j2Hm8+Y8El7HRLL0MNegT84pW4IG23nTjMPgQk5cdoQGe8TDu9adv1lqQhsSl0pv2z5hbFFBB1pPJQ=="
+    }
+  ],
+  "v2": [
+    {
+      "format": "cryptochecker-backup-enc",
+      "v": 2,
+      "enc": "AES-256-GCM",
+      "kdf": "PBKDF2-HMAC-SHA256",
+      "iter": 210000,
+      "salt": "AAECAwQFBgcICQoLDA0ODw==",
+      "iv": "oKGio6Slpqeoqaqr",
+      "data": "F8ZO22w17BWWRjDa0IBQavtrw3kOeap/pSDHBNMr2yCCLsZy82l3RqH6OxEDzba6sota8lpn/SClooHDYy0tm81k5gCByAiia3plAA=="
+    },
+    {
+      "format": "cryptochecker-backup-enc",
+      "v": 2,
+      "enc": "AES-256-GCM",
+      "kdf": "PBKDF2-HMAC-SHA256",
+      "iter": 600000,
+      "salt": "AAECAwQFBgcICQoLDA0ODw==",
+      "iv": "oKGio6Slpqeoqaqr",
+      "data": "0Ku8OwoZGZNMLB4nSmFxc+ftNLme+bH0q7YUsGipFoc6Edly6EQAyI3y2P5g9FVosu0L/CWRglvDAWzcW6/sO5/liBMAHn0IC/qYSg=="
+    }
+  ],
+  "reject": [
+    {
+      "name": "v3 ohne AAD verschluesselt",
+      "file": {
+        "format": "cryptochecker-backup-enc",
+        "v": 3,
+        "enc": "AES-256-GCM",
+        "kdf": "Argon2id",
+        "m": 64,
+        "t": 2,
+        "p": 2,
+        "salt": "AAECAwQFBgcICQoLDA0ODw==",
+        "iv": "oKGio6Slpqeoqaqr",
+        "data": "D41TWXCaoW8JsAP4rFwOgrAbvFpP6nRa4fMNxboVbJXqsLJ5J7BsLsshL6Rz62pnPQz2zwcf0Qyw6IKc4mtqQMT4VEYsnO4ZImCZtQ=="
+      },
+      "result": "wrongPassword"
+    },
+    {
+      "name": "t geaendert",
+      "file": {
+        "format": "cryptochecker-backup-enc",
+        "v": 3,
+        "enc": "AES-256-GCM",
+        "kdf": "Argon2id",
+        "m": 64,
+        "t": 3,
+        "p": 2,
+        "salt": "AAECAwQFBgcICQoLDA0ODw==",
+        "iv": "oKGio6Slpqeoqaqr",
+        "data": "D41TWXCaoW8JsAP4rFwOgrAbvFpP6nRa4fMNxboVbJXqsLJ5J7BsLsshL6Rz62pnPQz2zwcf0Qyw6IKcZ0WXnF3ik41Zihyqliu9ng=="
+      },
+      "result": "wrongPassword"
+    },
+    {
+      "name": "p geaendert",
+      "file": {
+        "format": "cryptochecker-backup-enc",
+        "v": 3,
+        "enc": "AES-256-GCM",
+        "kdf": "Argon2id",
+        "m": 64,
+        "t": 2,
+        "p": 1,
+        "salt": "AAECAwQFBgcICQoLDA0ODw==",
+        "iv": "oKGio6Slpqeoqaqr",
+        "data": "D41TWXCaoW8JsAP4rFwOgrAbvFpP6nRa4fMNxboVbJXqsLJ5J7BsLsshL6Rz62pnPQz2zwcf0Qyw6IKcZ0WXnF3ik41Zihyqliu9ng=="
+      },
+      "result": "wrongPassword"
+    },
+    {
+      "name": "m geaendert",
+      "file": {
+        "format": "cryptochecker-backup-enc",
+        "v": 3,
+        "enc": "AES-256-GCM",
+        "kdf": "Argon2id",
+        "m": 72,
+        "t": 2,
+        "p": 2,
+        "salt": "AAECAwQFBgcICQoLDA0ODw==",
+        "iv": "oKGio6Slpqeoqaqr",
+        "data": "D41TWXCaoW8JsAP4rFwOgrAbvFpP6nRa4fMNxboVbJXqsLJ5J7BsLsshL6Rz62pnPQz2zwcf0Qyw6IKcZ0WXnF3ik41Zihyqliu9ng=="
+      },
+      "result": "wrongPassword"
+    },
+    {
+      "name": "salt geaendert",
+      "file": {
+        "format": "cryptochecker-backup-enc",
+        "v": 3,
+        "enc": "AES-256-GCM",
+        "kdf": "Argon2id",
+        "m": 64,
+        "t": 2,
+        "p": 2,
+        "salt": "AQIDBAUGBwgJCgsMDQ4PEA==",
+        "iv": "oKGio6Slpqeoqaqr",
+        "data": "D41TWXCaoW8JsAP4rFwOgrAbvFpP6nRa4fMNxboVbJXqsLJ5J7BsLsshL6Rz62pnPQz2zwcf0Qyw6IKcZ0WXnF3ik41Zihyqliu9ng=="
+      },
+      "result": "wrongPassword"
+    },
+    {
+      "name": "iv geaendert",
+      "file": {
+        "format": "cryptochecker-backup-enc",
+        "v": 3,
+        "enc": "AES-256-GCM",
+        "kdf": "Argon2id",
+        "m": 64,
+        "t": 2,
+        "p": 2,
+        "salt": "AAECAwQFBgcICQoLDA0ODw==",
+        "iv": "oaKjpKWmp6ipqqus",
+        "data": "D41TWXCaoW8JsAP4rFwOgrAbvFpP6nRa4fMNxboVbJXqsLJ5J7BsLsshL6Rz62pnPQz2zwcf0Qyw6IKcZ0WXnF3ik41Zihyqliu9ng=="
+      },
+      "result": "wrongPassword"
+    },
+    {
+      "name": "v2-Daten als v3",
+      "file": {
+        "format": "cryptochecker-backup-enc",
+        "v": 3,
+        "enc": "AES-256-GCM",
+        "kdf": "Argon2id",
+        "m": 64,
+        "t": 2,
+        "p": 2,
+        "salt": "AAECAwQFBgcICQoLDA0ODw==",
+        "iv": "oKGio6Slpqeoqaqr",
+        "data": "F8ZO22w17BWWRjDa0IBQavtrw3kOeap/pSDHBNMr2yCCLsZy82l3RqH6OxEDzba6sota8lpn/SClooHDYy0tm81k5gCByAiia3plAA=="
+      },
+      "result": "wrongPassword"
+    },
+    {
+      "name": "m ueber 256 MiB",
+      "file": {
+        "format": "cryptochecker-backup-enc",
+        "v": 3,
+        "enc": "AES-256-GCM",
+        "kdf": "Argon2id",
+        "m": 262145,
+        "t": 2,
+        "p": 2,
+        "salt": "AAECAwQFBgcICQoLDA0ODw==",
+        "iv": "oKGio6Slpqeoqaqr",
+        "data": "D41TWXCaoW8JsAP4rFwOgrAbvFpP6nRa4fMNxboVbJXqsLJ5J7BsLsshL6Rz62pnPQz2zwcf0Qyw6IKcZ0WXnF3ik41Zihyqliu9ng=="
+      },
+      "result": "unsupported"
+    },
+    {
+      "name": "t ueber 10",
+      "file": {
+        "format": "cryptochecker-backup-enc",
+        "v": 3,
+        "enc": "AES-256-GCM",
+        "kdf": "Argon2id",
+        "m": 64,
+        "t": 11,
+        "p": 2,
+        "salt": "AAECAwQFBgcICQoLDA0ODw==",
+        "iv": "oKGio6Slpqeoqaqr",
+        "data": "D41TWXCaoW8JsAP4rFwOgrAbvFpP6nRa4fMNxboVbJXqsLJ5J7BsLsshL6Rz62pnPQz2zwcf0Qyw6IKcZ0WXnF3ik41Zihyqliu9ng=="
+      },
+      "result": "unsupported"
+    },
+    {
+      "name": "t 0",
+      "file": {
+        "format": "cryptochecker-backup-enc",
+        "v": 3,
+        "enc": "AES-256-GCM",
+        "kdf": "Argon2id",
+        "m": 64,
+        "t": 0,
+        "p": 2,
+        "salt": "AAECAwQFBgcICQoLDA0ODw==",
+        "iv": "oKGio6Slpqeoqaqr",
+        "data": "D41TWXCaoW8JsAP4rFwOgrAbvFpP6nRa4fMNxboVbJXqsLJ5J7BsLsshL6Rz62pnPQz2zwcf0Qyw6IKcZ0WXnF3ik41Zihyqliu9ng=="
+      },
+      "result": "unsupported"
+    },
+    {
+      "name": "p ueber 4",
+      "file": {
+        "format": "cryptochecker-backup-enc",
+        "v": 3,
+        "enc": "AES-256-GCM",
+        "kdf": "Argon2id",
+        "m": 64,
+        "t": 2,
+        "p": 5,
+        "salt": "AAECAwQFBgcICQoLDA0ODw==",
+        "iv": "oKGio6Slpqeoqaqr",
+        "data": "D41TWXCaoW8JsAP4rFwOgrAbvFpP6nRa4fMNxboVbJXqsLJ5J7BsLsshL6Rz62pnPQz2zwcf0Qyw6IKcZ0WXnF3ik41Zihyqliu9ng=="
+      },
+      "result": "unsupported"
+    },
+    {
+      "name": "p 0",
+      "file": {
+        "format": "cryptochecker-backup-enc",
+        "v": 3,
+        "enc": "AES-256-GCM",
+        "kdf": "Argon2id",
+        "m": 64,
+        "t": 2,
+        "p": 0,
+        "salt": "AAECAwQFBgcICQoLDA0ODw==",
+        "iv": "oKGio6Slpqeoqaqr",
+        "data": "D41TWXCaoW8JsAP4rFwOgrAbvFpP6nRa4fMNxboVbJXqsLJ5J7BsLsshL6Rz62pnPQz2zwcf0Qyw6IKcZ0WXnF3ik41Zihyqliu9ng=="
+      },
+      "result": "unsupported"
+    },
+    {
+      "name": "m unter 8 je Bahn",
+      "file": {
+        "format": "cryptochecker-backup-enc",
+        "v": 3,
+        "enc": "AES-256-GCM",
+        "kdf": "Argon2id",
+        "m": 15,
+        "t": 2,
+        "p": 2,
+        "salt": "AAECAwQFBgcICQoLDA0ODw==",
+        "iv": "oKGio6Slpqeoqaqr",
+        "data": "D41TWXCaoW8JsAP4rFwOgrAbvFpP6nRa4fMNxboVbJXqsLJ5J7BsLsshL6Rz62pnPQz2zwcf0Qyw6IKcZ0WXnF3ik41Zihyqliu9ng=="
+      },
+      "result": "unsupported"
+    },
+    {
+      "name": "kdf PBKDF2 in v3",
+      "file": {
+        "format": "cryptochecker-backup-enc",
+        "v": 3,
+        "enc": "AES-256-GCM",
+        "kdf": "PBKDF2-HMAC-SHA256",
+        "m": 64,
+        "t": 2,
+        "p": 2,
+        "salt": "AAECAwQFBgcICQoLDA0ODw==",
+        "iv": "oKGio6Slpqeoqaqr",
+        "data": "D41TWXCaoW8JsAP4rFwOgrAbvFpP6nRa4fMNxboVbJXqsLJ5J7BsLsshL6Rz62pnPQz2zwcf0Qyw6IKcZ0WXnF3ik41Zihyqliu9ng=="
+      },
+      "result": "unsupported"
+    },
+    {
+      "name": "kdf Argon2id in v2",
+      "file": {
+        "format": "cryptochecker-backup-enc",
+        "v": 2,
+        "enc": "AES-256-GCM",
+        "kdf": "Argon2id",
+        "iter": 210000,
+        "salt": "AAECAwQFBgcICQoLDA0ODw==",
+        "iv": "oKGio6Slpqeoqaqr",
+        "data": "F8ZO22w17BWWRjDa0IBQavtrw3kOeap/pSDHBNMr2yCCLsZy82l3RqH6OxEDzba6sota8lpn/SClooHDYy0tm81k5gCByAiia3plAA=="
+      },
+      "result": "unsupported"
+    },
+    {
+      "name": "enc anders",
+      "file": {
+        "format": "cryptochecker-backup-enc",
+        "v": 3,
+        "enc": "ChaCha20-Poly1305",
+        "kdf": "Argon2id",
+        "m": 64,
+        "t": 2,
+        "p": 2,
+        "salt": "AAECAwQFBgcICQoLDA0ODw==",
+        "iv": "oKGio6Slpqeoqaqr",
+        "data": "D41TWXCaoW8JsAP4rFwOgrAbvFpP6nRa4fMNxboVbJXqsLJ5J7BsLsshL6Rz62pnPQz2zwcf0Qyw6IKcZ0WXnF3ik41Zihyqliu9ng=="
+      },
+      "result": "unsupported"
+    },
+    {
+      "name": "v 1",
+      "file": {
+        "format": "cryptochecker-backup-enc",
+        "v": 1,
+        "enc": "AES-256-GCM",
+        "kdf": "Argon2id",
+        "m": 64,
+        "t": 2,
+        "p": 2,
+        "salt": "AAECAwQFBgcICQoLDA0ODw==",
+        "iv": "oKGio6Slpqeoqaqr",
+        "data": "D41TWXCaoW8JsAP4rFwOgrAbvFpP6nRa4fMNxboVbJXqsLJ5J7BsLsshL6Rz62pnPQz2zwcf0Qyw6IKcZ0WXnF3ik41Zihyqliu9ng=="
+      },
+      "result": "unsupported"
+    },
+    {
+      "name": "iv zu kurz",
+      "file": {
+        "format": "cryptochecker-backup-enc",
+        "v": 3,
+        "enc": "AES-256-GCM",
+        "kdf": "Argon2id",
+        "m": 64,
+        "t": 2,
+        "p": 2,
+        "salt": "AAECAwQFBgcICQoLDA0ODw==",
+        "iv": "AAEC",
+        "data": "D41TWXCaoW8JsAP4rFwOgrAbvFpP6nRa4fMNxboVbJXqsLJ5J7BsLsshL6Rz62pnPQz2zwcf0Qyw6IKcZ0WXnF3ik41Zihyqliu9ng=="
+      },
+      "result": "unsupported"
+    },
+    {
+      "name": "salt fehlt",
+      "file": {
+        "format": "cryptochecker-backup-enc",
+        "v": 3,
+        "enc": "AES-256-GCM",
+        "kdf": "Argon2id",
+        "m": 64,
+        "t": 2,
+        "p": 2,
+        "iv": "oKGio6Slpqeoqaqr",
+        "data": "D41TWXCaoW8JsAP4rFwOgrAbvFpP6nRa4fMNxboVbJXqsLJ5J7BsLsshL6Rz62pnPQz2zwcf0Qyw6IKcZ0WXnF3ik41Zihyqliu9ng=="
+      },
+      "result": "unsupported"
+    },
+    {
+      "name": "data zu kurz",
+      "file": {
+        "format": "cryptochecker-backup-enc",
+        "v": 3,
+        "enc": "AES-256-GCM",
+        "kdf": "Argon2id",
+        "m": 64,
+        "t": 2,
+        "p": 2,
+        "salt": "AAECAwQFBgcICQoLDA0ODw==",
+        "iv": "oKGio6Slpqeoqaqr",
+        "data": "AAEC"
+      },
+      "result": "unsupported"
+    },
+    {
+      "name": "v 4 (neuere App)",
+      "file": {
+        "format": "cryptochecker-backup-enc",
+        "v": 4,
+        "enc": "AES-256-GCM",
+        "kdf": "Argon2id",
+        "m": 64,
+        "t": 2,
+        "p": 2,
+        "salt": "AAECAwQFBgcICQoLDA0ODw==",
+        "iv": "oKGio6Slpqeoqaqr",
+        "data": "D41TWXCaoW8JsAP4rFwOgrAbvFpP6nRa4fMNxboVbJXqsLJ5J7BsLsshL6Rz62pnPQz2zwcf0Qyw6IKcZ0WXnF3ik41Zihyqliu9ng=="
+      },
+      "result": "newer"
+    }
+  ],
+  "rfc9106": {
+    "_comment": "RFC 9106 Abschnitt 5.3 (Argon2id)",
+    "password": "0101010101010101010101010101010101010101010101010101010101010101",
+    "salt": "02020202020202020202020202020202",
+    "secret": "0303030303030303",
+    "ad": "040404040404040404040404",
+    "t": 3,
+    "m": 32,
+    "p": 4,
+    "tag": "0d640df58d78766c08c037a34a8b53c9d01ef0452d75b65eb52520e96b01e659"
+  }
+}

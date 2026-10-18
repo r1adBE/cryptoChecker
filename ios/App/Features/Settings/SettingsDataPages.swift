@@ -131,7 +131,7 @@ struct BackupSettingsPage: View {
             if pendingRestore != nil && !lock.locked { confirmRestore = true }
         }) { file in
             BackupImportPasswordSheet { password in
-                // Schlüsselableitung (PBKDF2, bis ~1 s) im Hintergrund — die Oberfläche bleibt bedienbar
+                // Schlüsselableitung (Argon2id 64 MiB bzw. PBKDF2 bei v2, bis wenige s) im Hintergrund — die Oberfläche bleibt bedienbar
                 let encrypted = file.data
                 let backgroundTask = BackgroundTaskGuard.begin("backupDecrypt")
                 let result = await Task.detached(priority: .userInitiated) {
@@ -152,6 +152,11 @@ struct BackupSettingsPage: View {
                     pendingRestore = plain
                     return true
                 } catch BackupCrypto.Failure.wrongPassword {
+                    return false
+                } catch BackupCrypto.Failure.notEnoughMemory {
+                    // Kein erneuter Versuch mit demselben Passwort: erst Speicher freigeben
+                    encryptedFile = nil
+                    toast = L("backup_not_enough_memory")
                     return false
                 } catch BackupLimits.Failure.tooLarge {
                     encryptedFile = nil
@@ -191,7 +196,7 @@ struct BackupSettingsPage: View {
             if locked { dropOpenDialogs() }
         }
         #if DEBUG
-        // Ohne Test-Ziel: Prüfwert aus BackupCryptoTest.kt einmal nachrechnen (gleiche Bytes wie Android)
+        // Ohne Test-Ziel: Prüfwerte v2 und v3 (backup_crypto.json) einmal nachrechnen (gleiche Bytes wie Android)
         .task {
             let ok = await Task.detached(priority: .utility) { BackupCrypto.verifyTestVector() }.value
             assert(ok, "BackupCrypto: Prüfwert weicht von Android ab")
@@ -223,7 +228,7 @@ struct BackupSettingsPage: View {
     }
 
     /// Nach dem Blatt «Sichern»: Datei bauen (mit Passwort verschlüsselt) und ablegen lassen.
-    /// Verschlüsselt wird im Hintergrund (600 000 Runden PBKDF2, auf älteren Geräten etwa 1 s).
+    /// Verschlüsselt wird im Hintergrund (Argon2id mit 64 MiB, einige 100 ms bis wenige Sekunden).
     private func export(password: String?) {
         let plain: Data
         do {
@@ -240,12 +245,15 @@ struct BackupSettingsPage: View {
             // Verschlüsseln zu Ende führen, auch wenn die App währenddessen in den Hintergrund geht
             let backgroundTask = BackgroundTaskGuard.begin("backupExport")
             defer { backgroundTask.end() }
-            let file = await Task.detached(priority: .userInitiated) {
-                try? BackupManager.encryptedFile(plain, password: password)
+            let result = await Task.detached(priority: .userInitiated) {
+                Result { try BackupManager.encryptedFile(plain, password: password) }
             }.value
-            if let file {
+            switch result {
+            case .success(let file):
                 presentExport(file)
-            } else {
+            case .failure(BackupCrypto.Failure.notEnoughMemory):
+                toast = L("backup_not_enough_memory")
+            case .failure:
                 toast = L("backup_failed")
             }
         }

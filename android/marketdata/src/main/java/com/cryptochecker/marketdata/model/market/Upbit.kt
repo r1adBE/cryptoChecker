@@ -19,7 +19,9 @@ class Upbit : UpbitStyleMarket(
     apiRoot = "https://api.upbit.com/v1",
     detailsFlag = "is_details=false",
     unfilteredUrl = "https://api.upbit.com/v1/ticker/all?quote_currencies=KRW,BTC,USDT",
-)
+) {
+    override val key = "Upbit"
+}
 
 /** Bithumb (Südkorea), API v1 mit Upbits Aufbau. Doku: apidocs.bithumb.com */
 class Bithumb : UpbitStyleMarket(
@@ -28,7 +30,9 @@ class Bithumb : UpbitStyleMarket(
     apiRoot = "https://api.bithumb.com/v1",
     detailsFlag = "isDetails=false",
     unfilteredUrl = null,
-)
+) {
+    override val key = "Bithumb"
+}
 
 /**
  * Gemeinsamer Aufbau von Upbit und Bithumb: Paarliste `market/all`, Ticker `ticker?markets=…`, Kennung «QUOTE-BASE».

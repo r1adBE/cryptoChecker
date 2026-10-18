@@ -243,6 +243,7 @@ enum DerivativesAlarmData {
     }
 
     private static let lock = NSLock()
+    // nonisolated(unsafe): jeder Zugriff nur unter `lock` (NSLock)
     nonisolated(unsafe) private static var cache: [String: Values] = [:]
 
     /// Schlüssel mit Börse und Paar: Wird ein Paar bearbeitet (gleiche Id), gilt der alte Wert nicht.

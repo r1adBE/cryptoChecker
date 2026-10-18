@@ -31,6 +31,7 @@ private const val HYPERLIQUID_ERROR_CHARS = 200
  * Letzte Handel gäbe es nur je Coin (`recentTrades`) — für alle Perps zu teuer.
  */
 class Hyperliquid : Market("Hyperliquid", "Hyperliquid") {
+    override val key = "Hyperliquid"
 
     override val priceIsMid: Boolean
         get() = true

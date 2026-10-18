@@ -55,73 +55,30 @@ import com.cryptochecker.app.ui.components.AppMenuHead
  */
 @Composable
 internal fun WatchlistHeader(
-    groups: List<String>,
-    selectedGroup: String?,
-    hasFavorites: Boolean,
-    /** «Token»-Chip zeigen (TradFi- und andere Paare vorhanden). */
-    hasTokens: Boolean = false,
-    /** «Alpha»-Chip zeigen (Alpha- und andere Paare vorhanden). */
-    hasAlpha: Boolean = false,
-    onSelectGroup: (String?) -> Unit,
-    onEditGroup: (String) -> Unit,
-    onAddGroup: () -> Unit,
-    sortMode: Boolean,
-    onSortDone: () -> Unit,
-    activeAlarms: Int,
-    /**
-     * Alle Alarme, zu denen die Glocke führt (wie [com.cryptochecker.app.domain.watch.AlarmBellRoute]); null = noch nicht
-     * geladen. Nur für die Beschriftung: 0 → «Neuer Alarm», sonst «Alarme (n)».
-     */
-    alarmTotal: Int? = null,
+    state: WatchlistHeaderState,
+    actions: WatchlistHeaderActions,
     /** Grösse der Glocke (Puls bei einem neuen Alarm); nur beim Zeichnen gelesen. */
     bellScale: () -> Float,
-    /** Glocke: Übersicht bzw. ohne Alarm gleich zum Anlegen ([com.cryptochecker.app.domain.watch.AlarmBellRoute]). */
-    onBellClick: () -> Unit,
-    /** Menü «Alle Alarme»: immer die Übersicht. */
-    onOpenAllAlarms: () -> Unit,
-    onOpenAbout: () -> Unit,
-    refreshing: Boolean,
-    onRefresh: () -> Unit,
-    canSort: Boolean,
-    onSort: () -> Unit,
-    onShowReport: () -> Unit,
-    canClear: Boolean,
-    notTradedCount: Int,
-    onRemoveNotTraded: () -> Unit,
-    onClearAll: () -> Unit,
-    /** ⚡-Chip zeigen (Paare, bei denen gerade etwas passiert). */
-    hasActivity: Boolean = false,
-    quickView: QuickView? = null,
-    onToggleActivity: () -> Unit = {},
-    /** «Aktualisieren» im Menü möglich? Beim Öffnen gefragt (läuft schon / eben erst fertig = grau). */
-    canRefresh: () -> Boolean = { !refreshing },
-    /** Mehrfachauswahl: statt der Chips «n ausgewählt», rechts «Alle auswählen» und «Fertig». */
-    selecting: Boolean = false,
-    selectedCount: Int = 0,
-    allSelected: Boolean = false,
-    onSelectAll: () -> Unit = {},
-    onSelectionDone: () -> Unit = {},
-    canSelect: Boolean = false,
-    onStartSelection: () -> Unit = {},
-    /** Suche offen: dann kein Hinweis in der leeren Chip-Zeile. */
-    searching: Boolean = false,
-    /** Paare in der Merkliste (alle Gruppen): der Hinweis erst ab [GROUPS_HINT_MIN_PAIRS]. */
-    pairCount: Int = GROUPS_HINT_MIN_PAIRS,
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier.fillMaxWidth()
     ) {
         Box(Modifier.weight(1f)) {
-            if (selecting) {
+            if (state.selecting) {
                 Text(
-                    pluralStringResource(R.plurals.watchlist_selected_count, selectedCount, selectedCount),
+                    pluralStringResource(R.plurals.watchlist_selected_count, state.selectedCount, state.selectedCount),
                     style = MaterialTheme.typography.titleSmall,
                     fontWeight = FontWeight.SemiBold,
                     maxLines = 1,
                     modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite }
                 )
-            } else if (showsGroupsHint(groups, selectedGroup, hasFavorites, hasActivity, quickView, searching, sortMode, hasAlpha, pairCount)) {
+            } else if (
+                showsGroupsHint(
+                    state.groups, state.selectedGroup, state.hasFavorites, state.hasActivity, state.quickView,
+                    state.searching, state.sortMode, state.hasAlpha, state.pairCount,
+                )
+            ) {
                 // Noch keine Chips: grauer Hinweis statt leerer Zeile, daneben «Neue Gruppe» (wie iOS) — sonst
                 // fände man Gruppen nur über langes Drücken bzw. das Aktionsblatt
                 Row(verticalAlignment = Alignment.CenterVertically) {
@@ -133,23 +90,23 @@ internal fun WatchlistHeader(
                         overflow = TextOverflow.Ellipsis,
                         modifier = Modifier.weight(1f, fill = false)
                     )
-                    TextButton(onClick = onAddGroup, contentPadding = PaddingValues(horizontal = Spacing.sm)) {
+                    TextButton(onClick = actions.onAddGroup, contentPadding = PaddingValues(horizontal = Spacing.sm)) {
                         Text(stringResource(R.string.group_add), maxLines = 1)
                     }
                 }
             } else {
                 GroupChips(
-                    groups = groups,
-                    selected = selectedGroup,
-                    hasFavorites = hasFavorites,
-                    hasTokens = hasTokens,
-                    hasAlpha = hasAlpha,
-                    onSelect = onSelectGroup,
-                    onEdit = onEditGroup,
-                    onAdd = onAddGroup,
-                    hasActivity = hasActivity,
-                    quickView = quickView,
-                    onToggleActivity = onToggleActivity,
+                    groups = state.groups,
+                    selected = state.selectedGroup,
+                    hasFavorites = state.hasFavorites,
+                    hasTokens = state.hasTokens,
+                    hasAlpha = state.hasAlpha,
+                    onSelect = actions.onSelectGroup,
+                    onEdit = actions.onEditGroup,
+                    onAdd = actions.onAddGroup,
+                    hasActivity = state.hasActivity,
+                    quickView = state.quickView,
+                    onToggleActivity = actions.onToggleActivity,
                 )
             }
         }
@@ -160,13 +117,13 @@ internal fun WatchlistHeader(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.overhangEnd(HEADER_ACTIONS_OVERHANG)
         ) {
-            if (selecting) {
-                if (!allSelected) {
-                    TextButton(onClick = onSelectAll) {
+            if (state.selecting) {
+                if (!state.allSelected) {
+                    TextButton(onClick = actions.onSelectAll) {
                         Text(stringResource(R.string.watchlist_select_all), style = MaterialTheme.typography.labelLarge, maxLines = 1)
                     }
                 }
-                TextButton(onClick = onSelectionDone) {
+                TextButton(onClick = actions.onSelectionDone) {
                     Text(
                         stringResource(R.string.action_sort_done),
                         style = MaterialTheme.typography.labelLarge,
@@ -174,9 +131,9 @@ internal fun WatchlistHeader(
                         maxLines = 1
                     )
                 }
-            } else if (sortMode) {
+            } else if (state.sortMode) {
                 // «Fertig» als Wort: der einzige Ausweg aus dem Sortiermodus, gut sichtbar
-                TextButton(onClick = onSortDone) {
+                TextButton(onClick = actions.onSortDone) {
                     Text(
                         stringResource(R.string.action_sort_done),
                         style = MaterialTheme.typography.labelLarge,
@@ -186,31 +143,31 @@ internal fun WatchlistHeader(
                 }
             } else {
                 // Glocke immer (ohne einen einzigen Alarm: gleich zum Anlegen statt in die leere Übersicht,
-                // [onBellClick]), ohne Zahl (eine Zahl läse sich leicht als «so oft ausgelöst»); immer die
+                // [WatchlistHeaderActions.onBellClick]), ohne Zahl (eine Zahl läse sich leicht als «so oft ausgelöst»); immer die
                 // Alarm-Glocke mit Wellen, mit aktiven Alarmen gefüllt
                 // Build 46: Glocke mit vollem 48-dp-Platz — die Tippflächen von Glocke und Menü
                 // überlappen nicht mehr (früher 34 dp Platz, 14 dp der Glocke lagen unter dem Menü)
                 AlarmBell(
                     scale = bellScale,
-                    active = activeAlarms > 0,
-                    alarmTotal = alarmTotal,
-                    onClick = onBellClick,
+                    active = state.activeAlarms > 0,
+                    alarmTotal = state.alarmTotal,
+                    onClick = actions.onBellClick,
                 )
                 WatchlistMenu(
-                    onOpenAbout = onOpenAbout,
-                    onOpenAllAlarms = onOpenAllAlarms,
-                    refreshing = refreshing,
-                    canRefresh = canRefresh,
-                    onRefresh = onRefresh,
-                    canSort = canSort,
-                    onSort = onSort,
-                    canSelect = canSelect,
-                    onStartSelection = onStartSelection,
-                    onShowReport = onShowReport,
-                    canClear = canClear,
-                    notTradedCount = notTradedCount,
-                    onRemoveNotTraded = onRemoveNotTraded,
-                    onClearAll = onClearAll,
+                    onOpenAbout = actions.onOpenAbout,
+                    onOpenAllAlarms = actions.onOpenAllAlarms,
+                    refreshing = state.refreshing,
+                    canRefresh = actions.canRefresh,
+                    onRefresh = actions.onRefresh,
+                    canSort = state.canSort,
+                    onSort = actions.onSort,
+                    canSelect = state.canSelect,
+                    onStartSelection = actions.onStartSelection,
+                    onShowReport = actions.onShowReport,
+                    canClear = state.canClear,
+                    notTradedCount = state.notTradedCount,
+                    onRemoveNotTraded = actions.onRemoveNotTraded,
+                    onClearAll = actions.onClearAll,
                 )
             }
         }
@@ -235,11 +192,6 @@ internal fun showsGroupsHint(
 ): Boolean = quickView == null && !searching && !sortMode && pairCount >= GROUPS_HINT_MIN_PAIRS &&
     !showsGroupChips(groups, selected, hasFavorites, hasActivity, hasAlpha)
 
-/**
- * Ab so vielen Paaren lohnt sich Gruppieren: vorher bleibt die leere Chip-Zeile ohne Hinweis
- * (Gruppen oder Favoriten zeigen die Chips trotzdem). Wie `WatchlistGroupChips.hintMinPairs` (iOS).
- */
-internal const val GROUPS_HINT_MIN_PAIRS = 5
 
 /** So weit ragen die Knöpfe der Kopfzeile über den Rand hinaus (Symbole bündig mit dem Kartenrand). */
 private val HEADER_ACTIONS_OVERHANG = 12.dp

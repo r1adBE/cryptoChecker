@@ -21,6 +21,7 @@ class Indodax : SimpleMarket(
     tickerUrl = "$INDODAX_API/ticker/%1\$s",
     errorField = "error_description",
 ) {
+    override val key = "Indodax"
 
     // ── Einzelkurs ──
 

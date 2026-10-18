@@ -21,7 +21,9 @@ object CoinLists {
 
     /**
      * Was zu holen ist: [binanceDue] / [alphaDue] (fällig, z. B. [CoinLogos.alphaListDue]), letzter
-     * direkter Erfolg je Liste (ms, 0 = nie), [mirrorAllowed] = Ersatzdatei darf gefragt werden.
+     * direkter Erfolg je Liste (ms, 0 = nie), [mirrorAllowed] = Ersatzdatei darf gefragt werden,
+     * [savedBinance] = gespeicherte Binance-Liste (eine Ersatzdatei ohne Namen ergänzt sie nur,
+     * [CoinMeta.mirrorBinance]).
      */
     data class Request(
         val binanceDue: Boolean,
@@ -30,6 +32,7 @@ object CoinLists {
         val lastAlphaAt: Long,
         val now: Long,
         val mirrorAllowed: Boolean = true,
+        val savedBinance: List<CoinLogos.BinanceEntry> = emptyList(),
     )
 
     /**
@@ -101,7 +104,8 @@ object CoinLists {
             } else {
                 // Nur, wenn die Ersatzdatei neuer ist als der letzte direkte Stand
                 if (wantBinance && meta.binance.isNotEmpty() && meta.generatedAt > request.lastBinanceAt) {
-                    binance = meta.binance
+                    // Ohne Namen nur fehlende Kürzel ergänzen, gespeicherte Namen und Logos bleiben
+                    binance = CoinMeta.mirrorBinance(meta.binance, request.savedBinance)
                     binanceSource = Source.MIRROR
                 }
                 if (wantAlpha && meta.alpha.isNotEmpty() && meta.generatedAt > request.lastAlphaAt) {

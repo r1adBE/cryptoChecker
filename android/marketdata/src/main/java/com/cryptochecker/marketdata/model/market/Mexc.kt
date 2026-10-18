@@ -26,6 +26,7 @@ class Mexc : SimpleMarket(
     tickerUrl = "$MEXC_SPOT/ticker/24hr?symbol=%1\$s",
     errorField = "msg",
 ) {
+    override val key = "Mexc"
 
     // ── Einzelkurs ──
 
@@ -89,6 +90,7 @@ class MexcFutures : SimpleMarket(
     tickerUrl = "$MEXC_CONTRACT/ticker?symbol=%1\$s",
     errorField = "message",
 ) {
+    override val key = "MexcFutures"
 
     // ── Einzelkurs ──
 

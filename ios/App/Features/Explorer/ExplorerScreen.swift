@@ -324,6 +324,14 @@ enum ExplorerPickerKind: String, Identifiable {
 /// erhalten. Anfangs beide zu, weil die Suche der Hauptweg ist. Gegenstück zu `ExplorerSections`
 /// in `ExplorerScreen.kt`.
 enum ExplorerSectionMemory {
-    nonisolated(unsafe) static var precise = false
-    nonisolated(unsafe) static var bulk = false
+    // Hinter einer Sperre statt `nonisolated(unsafe)`: thread-sicher, ohne Aufrufer an den MainActor zu binden
+    private static let state = LockedBox((precise: false, bulk: false))
+    static var precise: Bool {
+        get { state.read { $0.precise } }
+        set { state.write { $0.precise = newValue } }
+    }
+    static var bulk: Bool {
+        get { state.read { $0.bulk } }
+        set { state.write { $0.bulk = newValue } }
+    }
 }

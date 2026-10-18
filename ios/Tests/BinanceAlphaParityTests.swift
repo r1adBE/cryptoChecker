@@ -164,7 +164,7 @@ final class BinanceAlphaParityTests: XCTestCase {
     }
 
     /// Aufgezeichnete Anfragen (die Antwort-Funktion ist `@Sendable`).
-    private final class Recorder: @unchecked Sendable {
+    private final class Recorder: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
         private let lock = NSLock()
         private var urls: [String] = []
         func add(_ url: String) { lock.lock(); urls.append(url); lock.unlock() }

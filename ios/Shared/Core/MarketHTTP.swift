@@ -223,6 +223,7 @@ actor InFlightRequests {
 enum HttpLog {
     private static let capacity = 200
     private static let guardLock = NSLock()
+    // nonisolated(unsafe): jeder Zugriff nur unter `guardLock` (NSLock)
     nonisolated(unsafe) private static var entries: [String] = []
 
     /// Hängt `line` mit der Uhrzeit («HH:mm:ss») an; die ältesten Zeilen fallen weg.
@@ -256,6 +257,8 @@ struct BulkTickers: Sendable {
     /// Angefragte Paare, deren Teilabfrage scheiterte (z. B. Binance Alpha, während Spot klappte): Über sie sagt die
     /// Liste nichts — kein «nicht mehr gehandelt», auch wenn `complete` gilt. Wie Android `BulkTickers.incomplete`.
     var incomplete: Set<String> = []
+    /// Art des Fehlers zu `error`, beim Abruf bestimmt (`MarketFailure`); nil = nur der Text ist bekannt.
+    var marketFailure: MarketFailure? = nil
 }
 
 /// Netzzugriff auf die Börsen: Paarlisten, Sammelabfragen und Einzelkurse. Android: `MarketRemoteDataSource` samt
@@ -378,6 +381,7 @@ enum MarketService {
         var fullDone: Set<String> = []
         // «Zu viele Anfragen» bei einer Folgeanfrage: Rest weglassen, Text für die Pause (`ExchangeBackoff`)
         var throttled: String? = nil
+        var throttledFailure: MarketFailure? = nil
 
         for call in 0..<callCount {
             guard let filtered = market.bulkTickersURL(call: call, pairIds: pairIds), !filtered.isEmpty,
@@ -398,9 +402,12 @@ enum MarketService {
                 brokenGroups.insert(market.bulkTickersRequestGroup(call: call))
                 if error is BulkFormatError { HttpLog.add("Sammelabfrage \(market.key): \(error.localizedDescription)") }
                 // Ohne die erste (tragende) Anfrage lohnt der Rest nicht; der Text pausiert bei Bremsung die Börse
-                if call == 0 { return BulkTickers(error: ConnectionErrors.describe(error)) }
+                if call == 0 {
+                    return BulkTickers(error: ConnectionErrors.describe(error), marketFailure: MarketFailure.of(error))
+                }
                 if isRateLimit(error) {
                     throttled = ConnectionErrors.describe(error)
+                    throttledFailure = MarketFailure.of(error)
                     // Weggelassene Teile sagen ebenfalls nichts über ihre Paare
                     for skipped in (call + 1)..<callCount {
                         brokenGroups.insert(market.bulkTickersRequestGroup(call: skipped))
@@ -416,7 +423,8 @@ enum MarketService {
         let complete = market.bulkTickersComplete && !tickers.isEmpty
             && BulkCompleteness.anyComplete(pairIds, failedGroups: brokenGroups, incomplete: incomplete)
         return BulkTickers(tickers: tickers, complete: complete, error: throttled,
-                           failed: unreadable.subtracting(tickers.keys), incomplete: incomplete)
+                           failed: unreadable.subtracting(tickers.keys), incomplete: incomplete,
+                           marketFailure: throttledFailure)
     }
 
     /// Eine Teilanfrage, gefiltert. Wird sie abgelehnt oder ist sie unlesbar: einmal ungefiltert — ohne ungefilterte

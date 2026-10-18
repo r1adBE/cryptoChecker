@@ -163,10 +163,13 @@ sealed interface BackupMessage {
     data object NewerVersion : BackupMessage
     /** Geschriebene Datei liest sich nicht gleich zurück ([com.cryptochecker.app.data.BackupNotVerifiedException]): neue Datei wählen. */
     data object NotVerified : BackupMessage
+    /** Zu wenig Arbeitsspeicher für Argon2id ([com.cryptochecker.app.data.BackupCrypto.NotEnoughMemoryException]). */
+    data object NotEnoughMemory : BackupMessage
 
     companion object {
         fun failure(e: Throwable): BackupMessage = when (e) {
             is com.cryptochecker.app.data.BackupLimits.TooLargeException -> TooLarge
+            is com.cryptochecker.app.data.BackupCrypto.NotEnoughMemoryException -> NotEnoughMemory
             is com.cryptochecker.app.data.BackupVersion.NewerVersionException -> NewerVersion
             is com.cryptochecker.app.data.BackupNotVerifiedException -> NotVerified
             else -> Failed

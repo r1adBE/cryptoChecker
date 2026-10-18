@@ -4,7 +4,7 @@ import Foundation
 /// Paarliste (beim Abgleich der Paare, `saveMarket`) und von Binance aus der Symbolliste der Logos
 /// (`saveBinance`). Keine eigene Anfrage — nur, was ohnehin geladen wird. Eine Datei im App-Group-Ordner,
 /// aus Geräte-Backups ausgenommen (neu ladbar). Wie `TokenIdentityStore.kt`.
-final class TokenIdentityStore: @unchecked Sendable {
+final class TokenIdentityStore: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
     static let shared = TokenIdentityStore()
 
     private let url: URL

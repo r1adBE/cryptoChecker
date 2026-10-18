@@ -56,6 +56,7 @@ class Coinbase : SimpleMarket(
     errorField = "message",
     currencyPairs = COINBASE_STARTER_PAIRS,
 ) {
+    override val key = "Coinbase"
 
     // ── Einzelkurs ──
 

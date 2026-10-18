@@ -20,6 +20,7 @@ private const val LATOKEN_API = "https://api.latoken.com/v2"
  * Paar-Kennung: «Basis-ID/Quote-ID». Vorsicht: «amount24h» = Menge im Coin, «volume24h» = Gegenwert.
  */
 class Latoken : Market("LATOKEN", "La token") {
+    override val key = "Latoken"
 
     // ── Einzelkurs ──
 

@@ -1,14 +1,18 @@
-# Börsenklassen werden über ihren einfachen Klassennamen als Schlüssel geführt
-# (Market.key = javaClass.simpleName). Umbenennen würde gespeicherte Watchlist-
-# Einträge und Widgets unbrauchbar machen.
+# Börsenklassen: Market.key ist ein fester Text je Börse (früher der Klassenname). Die Regel
+# bleibt als zweite Sicherung neben marketdata/consumer-rules.pro, damit Stacktraces und ältere
+# Annahmen auf Klassennamen weiter stimmen.
 -keep class com.cryptochecker.marketdata.model.market.** { *; }
 
 # Fehlerklassen: Ohne Meldungstext zeigt die App den einfachen Klassennamen (Bericht der
 # Aktualisierung, Explorer, «Paar bearbeiten», Drosselung). Umbenannt stünde dort «a» oder «b».
 # keepnames: nur die Namen bleiben, ungenutzte Klassen darf R8 weiterhin entfernen.
-# (Das Modul marketdata wird nicht selbst verkleinert und hat keine consumer-Regeln: die Regel gilt hier.)
+# (Das Modul marketdata bringt dieselben Regeln in consumer-rules.pro mit; hier doppelt zur Sicherheit.)
 -keepnames class com.cryptochecker.marketdata.exceptions.** { *; }
 -keepnames class com.cryptochecker.app.domain.exceptions.** { *; }
+
+# Typsichere Navigationsziele (@Serializable, ScreenRoute): Navigation erzeugt Routen und Argumente über die
+# Serializer dieser Klassen. kotlinx.serialization bringt eigene Regeln mit; diese hier ist die zweite Sicherung.
+-keep class com.cryptochecker.app.ui.navigation.ScreenRoute$* { *; }
 
 # Room-Entitäten
 -keep class com.cryptochecker.app.data.local.model.** { *; }

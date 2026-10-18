@@ -22,6 +22,7 @@ class Bitvavo : SimpleMarket(
     tickerUrl = "$BITVAVO_DAY_TICKER?market=%1\$s",
     errorField = "error",
 ) {
+    override val key = "Bitvavo"
 
     // ── Einzelkurs ──
 

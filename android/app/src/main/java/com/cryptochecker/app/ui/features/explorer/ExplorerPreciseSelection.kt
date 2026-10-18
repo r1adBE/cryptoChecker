@@ -34,6 +34,7 @@ import com.cryptochecker.app.ui.features.about.EXCHANGE_REQUEST_URL
  */
 @Composable
 internal fun PreciseSelection(
+    sections: ExplorerSectionsState,
     selection: ExplorerSelection,
     actions: PairActions,
     bulk: BulkActions,
@@ -90,9 +91,9 @@ internal fun PreciseSelection(
 
     val withTabs = hasPairs && bulkQuotes.isNotEmpty()
     if (withTabs) {
-        ExplorerModeTabs(bulk = ExplorerSections.bulk, onSelect = { ExplorerSections.bulk = it })
+        ExplorerModeTabs(bulk = sections.bulk, onSelect = { sections.bulk = it })
     }
-    val showBulk = withTabs && ExplorerSections.bulk
+    val showBulk = withTabs && sections.bulk
 
     if (!showBulk) {
         PairStepCard(
@@ -138,6 +139,8 @@ internal fun PreciseSelection(
             showBulkList = bulkListOpen,
             onToggleList = onToggleBulkList,
             asTab = true,
+            bulkOpen = sections.bulk,
+            onBulkOpenChange = { sections.bulk = it },
             stats = bulkStats,
             onNeedStats = bulk.onNeedStats,
         )

@@ -1,0 +1,223 @@
+import Foundation
+
+// Bausteine der Steuer-Rechnung (`TaxEngines`) — wie `TaxEngineCore.kt` (Android).
+
+/// Art eines Schritts der Steuer-Rechnung — wie `TaxStepKind` (Android).
+enum TaxStepKind: Sendable {
+    /// Zugang (Kauf, Belohnung, Einzahlung, Zugang aus Tausch).
+    case acquire
+    /// Veräusserung (Verkauf, Tausch, Gebühr im dritten Coin).
+    case dispose
+    /// Auszahlung: Menge und Einstand verlassen den Topf, keine Veräusserung.
+    case remove
+    /// Netzwerkgebühr im Coin (Umbuchung): Menge sinkt, Einstand bleibt.
+    case networkFee
+    /// Gebühr USDT + Wert der Gebühr im dritten Coin einer Umbuchung: erhöht den Einstand.
+    case addFee
+}
+
+/// Ein Schritt eines Coins — wie `TaxStep` (Android).
+struct TaxStep: Sendable {
+    let kind: TaxStepKind
+    let trade: PortfolioTx
+    let qty: Decimal
+    /// Zugang: Einstand (nil = ohne Kaufpreis); `.addFee`: Betrag.
+    var cost: Decimal? = nil
+    /// Zugang: Erwerb (`acquisitionTime`); sonst Zeit der Transaktion.
+    var acquired: Int64
+    /// Abgang: Erlös netto; nil = unbekannt.
+    var proceeds: Decimal? = nil
+    /// Abgang: Erlös vor Gebühren.
+    var gross: Decimal? = nil
+    var feeLeg = false
+    var swap = false
+    var feeMissing = false
+    /// Schenkung als Veräusserung (`PortfolioTx.fromGift`) bzw. an Ehe-/Lebenspartner (`spouseGift`).
+    var gift = false
+    /// UK/CA: Schenkung an Ehe-/Lebenspartner — Erlös je Teil = sein Einstand, kein Gewinn/Verlust (`emit`).
+    var spouseGift = false
+    /// Zahlung mit Krypto (`.PAYMENT`).
+    var payment = false
+    /// Erlös aus geschätztem Wert (`PortfolioTx.valueEstimated`).
+    var estimated = false
+
+    init(_ kind: TaxStepKind, _ trade: PortfolioTx, qty: Decimal, cost: Decimal? = nil, acquired: Int64? = nil,
+         proceeds: Decimal? = nil, gross: Decimal? = nil, feeLeg: Bool = false, swap: Bool = false, feeMissing: Bool = false,
+         gift: Bool = false, spouseGift: Bool = false, payment: Bool = false, estimated: Bool = false) {
+        self.kind = kind
+        self.trade = trade
+        self.qty = qty
+        self.cost = cost
+        self.acquired = acquired ?? trade.time
+        self.proceeds = proceeds
+        self.gross = gross
+        self.feeLeg = feeLeg
+        self.swap = swap
+        self.feeMissing = feeMissing
+        self.gift = gift
+        self.spouseGift = spouseGift
+        self.payment = payment
+        self.estimated = estimated
+    }
+
+    var time: Int64 { trade.time }
+    var id: Int64 { trade.id }
+}
+
+/// Ergebnis von `TaxPool.take` — wie `TaxTaken` (Android).
+struct TaxTaken: Sendable {
+    let removed: Decimal
+    let removedPriced: Decimal
+    let cost: Decimal
+    let parts: [PortfolioCostPart]
+
+    var removedUnpriced: Decimal { removed - removedPriced }
+}
+
+/// Durchschnitts-Topf (Menge mit/ohne Kaufpreis, Einstand mit Herkunft) — wie `TaxPool` (Android). Mit `zone`: Herkunftsteile
+/// desselben Kalendertags zusammengefasst (gleicher Devisenkurs; kein O(Zugänge × Abgänge)).
+struct TaxPool: Sendable {
+    private(set) var priced: Decimal = 0
+    private(set) var unpriced: Decimal = 0
+    private(set) var cost: Decimal = 0
+    private(set) var parts: [PortfolioCostPart] = []
+    private let zone: TimeZone?
+    /// Mit `zone`: Tag → Index in `parts` (erster Zeitpunkt des Tags bleibt).
+    private var dayIndex: [LocalDay: Int] = [:]
+
+    init(zone: TimeZone? = nil) {
+        self.zone = zone
+    }
+
+    var held: Decimal { priced + unpriced }
+
+    /// Zugang `qty` mit Einstand `cost` (nil = ohne Kaufpreis), Herkunft `time`.
+    mutating func add(_ qty: Decimal, cost c: Decimal?, time: Int64) {
+        guard qty > 0 else { return }
+        guard let c else {
+            unpriced += qty
+            return
+        }
+        priced += qty
+        addCost(time, c)
+    }
+
+    /// Zugang mit fortgeführtem Einstand (Herkunftsteile `from`).
+    mutating func addCarried(_ qty: Decimal, from: [PortfolioCostPart]) {
+        guard qty > 0 else { return }
+        priced += qty
+        for p in from { addCost(p.time, p.usdt) }
+    }
+
+    /// Einstand direkt zum Teil mit Kaufpreis.
+    mutating func addCost(_ time: Int64, _ usdt: Decimal) {
+        cost += usdt
+        guard usdt != 0 else { return }
+        guard let zone else {
+            parts.append(PortfolioCostPart(time: time, usdt: usdt))
+            return
+        }
+        let day = LocalDay(date: Date(timeIntervalSince1970: Double(time) / 1000), timeZone: zone)
+        if let i = dayIndex[day] {
+            parts[i] = PortfolioCostPart(time: parts[i].time, usdt: parts[i].usdt + usdt)
+        } else {
+            dayIndex[day] = parts.count
+            parts.append(PortfolioCostPart(time: time, usdt: usdt))
+        }
+    }
+
+    /// Alle Herkunftsteile entfernen (samt Tag-Index).
+    private mutating func clearParts() {
+        parts = []
+        dayIndex = [:]
+    }
+
+    /// Gebühr einer Umbuchung: anteilig (Menge mit Kaufpreis / Bestand) zum Einstand, wie der Ø. Rückgabe = Anteil des
+    /// Teils ohne Kaufpreis (ohne Teil mit Kaufpreis: die ganze Gebühr) — der Aufrufer vermerkt ihn als
+    /// `PortfolioUnassignedFee`; 0 = alles zugeordnet bzw. kein Bestand. Wie Android.
+    mutating func addFee(_ time: Int64, _ extra: Decimal) -> Decimal {
+        let h = held
+        guard extra > 0, h > 0 else { return 0 }
+        guard priced > 0 else { return extra }
+        let assigned = unpriced == 0 ? extra : PortfolioDecimal.divide(extra * priced, h)
+        addCost(time, assigned)
+        return extra - assigned
+    }
+
+    /// Übernimmt den ganzen Inhalt von `other` (danach leer).
+    mutating func absorb(_ other: inout TaxPool) {
+        priced += other.priced
+        unpriced += other.unpriced
+        // Einstand unverändert, Herkunft je Teil (mit `zone` nach Tag zusammengefasst)
+        let c = cost
+        for p in other.parts { addCost(p.time, p.usdt) }
+        cost = c + other.cost
+        other = TaxPool(zone: other.zone)
+    }
+
+    /// Gibt `requested` ab (gekappt auf den Bestand), beide Teile anteilig samt Einstand.
+    mutating func take(_ requested: Decimal) -> TaxTaken {
+        let h = held
+        let removed = max(0, min(requested, h))
+        guard removed > 0 else { return TaxTaken(removed: 0, removedPriced: 0, cost: 0, parts: []) }
+        let allPriced = unpriced == 0
+        let removedPriced: Decimal = allPriced ? removed
+            : min(PortfolioDecimal.amount(PortfolioDecimal.divide(removed * priced, h)), priced)
+        let costRemoved: Decimal
+        if priced == 0 {
+            costRemoved = 0
+        } else if removedPriced >= priced {
+            costRemoved = cost
+        } else {
+            costRemoved = PortfolioDecimal.divide(cost * removedPriced, priced)
+        }
+        let partsRemoved = takeParts(costRemoved)
+        let rest = h - removed
+        priced -= removedPriced
+        cost -= costRemoved
+        if PortfolioDecimal.isDust(priced) || priced < 0 { priced = 0; cost = 0; clearParts() }
+        unpriced = max(0, rest - priced)
+        if PortfolioDecimal.isDust(unpriced) { unpriced = 0 }
+        return TaxTaken(removed: removed, removedPriced: removedPriced, cost: costRemoved, parts: partsRemoved)
+    }
+
+    /// Netzwerkgebühr: Menge sinkt anteilig, der Einstand bleibt im Rest. Bleibt kein Teil mit Kaufpreis, geht der
+    /// Einstand nicht still verloren: Rückgabe = dieser Einstand (Aufrufer vermerkt `PortfolioLostFeeCost`), sonst 0.
+    @discardableResult
+    mutating func dropQty(_ qty: Decimal) -> Decimal {
+        let h = held
+        guard qty > 0, h > 0 else { return 0 }
+        let removed = min(qty, h)
+        let removedPriced: Decimal = unpriced == 0 ? removed
+            : min(PortfolioDecimal.amount(PortfolioDecimal.divide(removed * priced, h)), priced)
+        priced -= removedPriced
+        var lost: Decimal = 0
+        if PortfolioDecimal.isDust(priced) || priced < 0 {
+            lost = cost
+            priced = 0; cost = 0; clearParts()
+        }
+        unpriced = max(0, h - removed - priced)
+        if PortfolioDecimal.isDust(unpriced) { unpriced = 0 }
+        return lost
+    }
+
+    /// Nimmt `removed` Einstand anteilig aus allen Herkunftsteilen; Summe exakt `removed`.
+    private mutating func takeParts(_ removed: Decimal) -> [PortfolioCostPart] {
+        guard removed != 0, !parts.isEmpty else { return [] }
+        if removed >= cost {
+            let all = parts
+            clearParts()
+            return all
+        }
+        var out: [PortfolioCostPart] = []
+        var left = removed
+        for i in parts.indices {
+            let p = parts[i]
+            let r: Decimal = i == parts.count - 1 ? left : PortfolioDecimal.divide(p.usdt * removed, cost)
+            left -= r
+            out.append(PortfolioCostPart(time: p.time, usdt: r))
+            parts[i] = PortfolioCostPart(time: p.time, usdt: p.usdt - r)
+        }
+        return out
+    }
+}

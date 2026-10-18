@@ -289,7 +289,9 @@ For other formats override `errorMessageJson(call, json, info)` or
 
 ## 8. Registering the exchange
 
-Add the adapter to both lists:
+Every Android adapter declares its storage key explicitly – `override val key = "Example"` (the class name; it is
+the database key of every saved pair, so it must never change). `MarketKeyTest` lists all keys and fails for a
+missing or changed one. Then add the adapter to both lists:
 
 ```kotlin
 // android/marketdata/…/config/MarketsConfig.kt
@@ -1116,15 +1118,26 @@ the tests named here.
   writing) finishes; results that arrive after the lock engaged (a picked file, a finished
   password check) are discarded, never applied – the user taps again and unlocks. A new
   portfolio-related dialog must follow the same rule.
-* **Backup key derivation.** New encrypted backups use PBKDF2-HMAC-SHA256 with
-  **600 000** iterations (`BackupCrypto.ITERATIONS`); older files wrote 210 000
-  (`LEGACY_ITERATIONS`). Always read `iter` from the file (accepted range 10 000 … 10 000 000)
-  so old backups stay readable, and keep the test vectors for both counts in
-  `BackupCrypto.kt` / `BackupCrypto.swift` in sync. Raising the count again: change the constant
-  on both platforms and add a vector; never change how existing files are read. 600 000
-  iterations take about a second on older devices – call encryption and decryption only off the
-  main thread (Android `Dispatchers.IO`, iOS a detached task; the iOS «Continue» button stays
-  disabled while checking). New backup passwords need at least **12** characters (since build 69;
+* **Backup key derivation.** New encrypted backups are format **v3**: Argon2id (RFC 9106,
+  version 0x13) with **m = 65 536 KiB (64 MiB), t = 3, p = 1**, 16-byte salt, 32-byte key
+  (`BackupCrypto.DEFAULT_KDF` / `defaultKdf`), implemented without a third-party library in
+  `Argon2id.kt` / `Argon2id.swift` (line-by-line mirrors, verified against the RFC 9106 §5.3 vector).
+  AES-256-GCM binds the canonical header as AAD: UTF-8 of the compact JSON
+  `{"format":"cryptochecker-backup-enc","v":3,"enc":"AES-256-GCM","kdf":"Argon2id","m":…,"t":…,"p":…,"salt":"…","iv":"…"}`
+  (fixed field order, no spaces, decimal numbers, salt/iv re-encoded as padded Base64 from the decoded
+  bytes – `BackupCrypto.header`). A changed header fails the GCM tag and is reported like a wrong
+  password. Reading caps `m ≤ 262 144` (256 MiB), `t ≤ 10`, `p ≤ 4` (minimum m = 8·p) so a crafted
+  file cannot stall the device; out of memory is a clear error (`NotEnoughMemoryException` /
+  `Failure.notEnoughMemory`, message `backup_not_enough_memory`), never a fallback to weaker parameters.
+  **v2** files (PBKDF2-HMAC-SHA256, `iter` 600 000 or 210 000 read from the file, accepted range
+  10 000 … 10 000 000, no AAD) stay readable unchanged; only tests still write v2. Shared vectors
+  (v3 exact ciphertexts incl. the production parameters, v2, manipulated headers, RFC 9106) live in
+  `testdata/parity/backup_crypto.json` – keep both platforms in sync with it. Changing parameters: new
+  constant on both platforms plus a vector; never change how existing files are read. Passwords go to
+  `BackupCrypto` as `CharArray` (Android) / NFC UTF-8 bytes (iOS) and are wiped after the derivation.
+  Argon2id with 64 MiB takes a few hundred ms up to a few seconds – call encryption and decryption
+  only off the main thread (Android `Dispatchers.IO`, iOS a detached task; the «Continue» button
+  stays disabled while checking). New backup passwords need at least **12** characters (since build 69;
   10 from build 45, 8 before) (`MIN_PASSWORD_LENGTH` / `minPasswordLength`, Unicode characters); `isWeak`
   (shorter than 12, only digits, one repeated character, a common sequence such as «12345678» or «password»,
   a keyboard walk, a decorated common word, a repeated chunk) **blocks** the export (`isPasswordAllowed`,
@@ -1795,8 +1808,9 @@ Layout decisions that keep the app calm. Same structure on Android and iOS, same
   class; actions move into Kotlin extension functions (members they use become `internal`) or Swift
   `extension` files (`private` → internal, `private(set)` dropped only where an extension writes). Public
   API called from `data/`, `domain/` or `work/` stays a member. File map:
-  watchlist VM → `WatchlistStarterActions`, `WatchlistSheetData` (iOS: data helpers of `WatchlistRow`),
-  `WatchlistEditActions`, `WatchlistRefreshActions`, `WatchlistGroupFilter`; explorer VM →
+  watchlist VM → controllers that own their state privately (build 77): `WatchlistStarterController`,
+  `WatchlistEditController`, `WatchlistRefreshController`, plus the injected `WatchlistSheetData` (iOS: data helpers of
+  `WatchlistRow`) and `WatchlistGroupFilter`; the screen collects one `WatchlistUiState` and the live-price map; explorer VM →
   `ExplorerSearchActions`, `ExplorerSelectionActions`, `ExplorerBulkActions`, `ExplorerDexActions`; iOS
   `ExplorerRecentSearches`/`ExplorerQuickFilter` (as Android), `ExplorerPicker`, `ExplorerFeedback`; Android
   `ExplorerPreciseSelection`; market VM (`InfoViewModel` / `CycleViewModel`) → `MarketDataLoaders`,
@@ -1823,11 +1837,15 @@ Layout decisions that keep the app calm. Same structure on Android and iOS, same
   → `AppData+Watchlist`, `+Portfolio`, `+Refresh`, `+Live`, `+Settings`, `+CoinLogos` (next to `+Alarms`,
   `+Reading`, `+WatchEdits`, `+WatchedAddresses`); `BackupManager.swift` → `BackupLimits.swift` (as Android),
   `BackupManager+Portfolio`, `+Watchlist`, `+Settings`; `WatchlistScreen.kt` → `WatchlistScreenEffects.kt`.
-  Still long, on purpose: the one-composable screens `PortfolioTxSheet.kt` (825-line function),
-  `WatchlistScreen.kt`, `PortfolioScreen.kt`, `WatchActionsSheet.kt` (splitting them means extracting state
+  Split in build 77: `PortfolioTxSheet.kt` (frame only; `TxFormState` in `PortfolioTxFormState.kt`, sections in
+  `PortfolioTxSections.kt`, save checks in `PortfolioTxForm.check`), `TaxEngines` (one file per country engine),
+  `TaxExport` (Rows/Summary/Csv; iOS in `App/Features/Portfolio/Tax/`), `PriceRefresher` (`RefreshLock` with a
+  `RefreshLockScope` token, `LivePriceApplier`, `ChartRefresher`, `RefreshResultProcessor`, `RefreshSideChecks`),
+  `CoinLogoRepository` (facade over `LogoImageStore`, `CoinListSync`, `AlphaTokens`, `CoinNames`).
+  Still long, on purpose: the one-composable screens `WatchlistScreen.kt`, `PortfolioScreen.kt`, `WatchActionsSheet.kt` (splitting them means extracting state
   blocks, a rewrite), `AppNotifier.kt` (its posting API is called from `domain`/`data`/`work`),
   `PortfolioViewModel.kt` (~530: its derived flows must stay in the class for initialisation order), and logic
-  files whose twins live in `domain`/`data` (`TaxExport.swift`, `PortfolioCutoffExport.swift`,
+  files whose twins live in `domain`/`data` (`PortfolioCutoffExport.swift`,
   `WatchSheetChart.swift`).
 
 ## 19. Storage encryption

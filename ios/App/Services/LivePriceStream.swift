@@ -331,7 +331,7 @@ actor LivePriceStream {
 }
 
 /// Zeitpunkt der letzten Nachricht einer Verbindung (threadsicher; Empfang und Wächter).
-private final class LiveClock: @unchecked Sendable {
+private final class LiveClock: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
     private let lock = NSLock()
     private var value = TimeUtils.nowMillis
 

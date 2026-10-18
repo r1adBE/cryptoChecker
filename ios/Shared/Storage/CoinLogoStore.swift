@@ -213,7 +213,8 @@ actor CoinLogoStore {
         let metaAttempt = Int64(defaults.double(forKey: Self.metaAttemptKey))
         let request = CoinLists.Request(binanceDue: binanceDue, alphaDue: alphaDue,
                                         lastBinanceAt: binanceAt, lastAlphaAt: alphaAt, now: now,
-                                        mirrorAllowed: !CoinLogos.isFresh(savedAt: metaAttempt, now: now, ttl: Self.mapRetryMillis))
+                                        mirrorAllowed: !CoinLogos.isFresh(savedAt: metaAttempt, now: now, ttl: Self.mapRetryMillis),
+                                        savedBinance: saved?.binance ?? [])
         let result = await CoinLists.fetch({ url in try await MarketHTTP.call(url, session: MarketHTTP.bulkSession) },
                                            request: request,
                                            isNetworkError: { $0 is URLError })
@@ -767,7 +768,7 @@ extension CoinLogoStore {
 }
 
 /// Namen im Speicher (einmal aus der Datei gelesen, nach dem Laden der Liste ersetzt).
-final class NamesBox: @unchecked Sendable {
+final class NamesBox: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
     private let lock = NSLock()
     private var value: [String: String]?
     private var fromSnapshot = false
@@ -895,7 +896,7 @@ extension CoinLogoStore {
 
 /// Alpha-Token aus der Datei, einmal gelesen und nach jeder neuen Alpha-Liste ersetzt — ohne Actor-Sprung
 /// lesbar (Merkliste, Paar-Auswahl).
-final class AlphaTokensBox: @unchecked Sendable {
+final class AlphaTokensBox: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
     private let url: URL
     private let lock = NSLock()
     private var loaded = false
@@ -978,7 +979,7 @@ final class CoinLogoRevision: ObservableObject {
 
 /// Laufende Pausen je Bild-Server (Host → bis, ms) im gemeinsamen Speicher, threadsicher (Bilder laden
 /// parallel) — wie Android `imagePauses`.
-final class ImagePauseBox: @unchecked Sendable {
+final class ImagePauseBox: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
     private let lock = NSLock()
     private var pauses: [String: Int64]?
     private let key = "coin_logos_image_pauses_v1"
@@ -1027,7 +1028,7 @@ final class ImagePauseBox: @unchecked Sendable {
 /// Nicht teures Netz (WLAN, Ethernet: `isExpensive` und `isConstrained` false)? Nur für die Zusatzseiten der
 /// Rangliste und deren Logos (`CoinLogos.downloadable`) — wie Android `isActiveNetworkMetered`. Eigener
 /// Beobachter, damit `NetworkStatus` (online/offline für die Aktualisierung) unverändert bleibt.
-final class UnmeteredNetwork: @unchecked Sendable {
+final class UnmeteredNetwork: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
     static let shared = UnmeteredNetwork()
 
     private let monitor = NWPathMonitor()

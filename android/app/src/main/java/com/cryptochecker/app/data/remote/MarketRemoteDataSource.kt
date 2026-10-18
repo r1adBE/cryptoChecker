@@ -4,6 +4,7 @@ import com.cryptochecker.app.data.TickerImpl
 import com.cryptochecker.app.data.remote.util.HttpBodyLimit
 import com.cryptochecker.app.data.remote.util.InFlightRequests
 import com.cryptochecker.app.data.remote.util.await
+import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.exceptions.HttpMarketError
 import com.cryptochecker.app.domain.exceptions.MarketError
 import com.cryptochecker.app.domain.exceptions.ParseError
@@ -12,10 +13,12 @@ import com.cryptochecker.app.domain.exceptions.TimeoutError
 import com.cryptochecker.app.domain.exceptions.UserFriendlyMarketError
 import com.cryptochecker.app.domain.exceptions.parseMarketError
 import com.cryptochecker.app.domain.exceptions.rethrowIfCritical
+import com.cryptochecker.app.domain.exceptions.toMarketFailure
 import com.cryptochecker.app.domain.mirror.DataMirror
 import com.cryptochecker.app.domain.model.BulkTickers
 import com.cryptochecker.app.domain.model.MarketPairsInfo
 import com.cryptochecker.app.domain.refresh.ExchangeBackoff
+import com.cryptochecker.app.domain.refresh.MarketFailure
 import com.cryptochecker.app.domain.refresh.RateLimitSignal
 import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.MarketPair
@@ -82,7 +85,7 @@ class MarketRemoteDataSource @Inject constructor(
         }
         collected.sort()
         // Volle Coin-Namen (K-8) aus denselben Antworten; ein Fehler dabei lässt die Liste unberührt
-        val names = runCatching { market.parseBaseNamesCombined(bodies) }.getOrDefault(emptyMap())
+        val names = runCatchingCancellable { market.parseBaseNamesCombined(bodies) }.getOrDefault(emptyMap())
         return MarketPairsInfo(lastSyncDate = System.currentTimeMillis(), pairs = collected, baseNames = names)
     }
 
@@ -124,7 +127,7 @@ class MarketRemoteDataSource @Inject constructor(
 
         val firstBody = client.callMarket(address, postBody, HttpBodyLimit.BULK_MAX_BYTES)
         into += readPairPage(market, call, firstBody, strict = call == 0)
-        runCatching { market.parseBaseNames(call, firstBody) }.getOrNull()
+        runCatchingCancellable { market.parseBaseNames(call, firstBody) }.getOrNull()
             ?.forEach { (symbol, name) -> names.putIfAbsent(symbol, name) }
 
         val paging = market.pairListPaging()
@@ -180,6 +183,7 @@ class MarketRemoteDataSource @Inject constructor(
         val fullDone = HashSet<String>()
         // «Zu viele Anfragen» bei einer Folgeanfrage: Rest weglassen, Text für die Pause (ExchangeBackoff)
         var throttled: String? = null
+        var throttledFailure: MarketFailure? = null
 
         for (call in 0 until callCount) {
             val filtered = market.getBulkTickersUrl(call, pairIds)
@@ -201,6 +205,7 @@ class MarketRemoteDataSource @Inject constructor(
                 if (call == 0) throw ex
                 if (ex.isRateLimit()) {
                     throttled = ex.message ?: ex.javaClass.simpleName
+                    throttledFailure = ex.toMarketFailure()
                     // Weggelassene Teile sagen ebenfalls nichts über ihre Paare
                     for (skipped in call + 1 until callCount) brokenGroups += market.bulkTickersRequestGroup(skipped)
                     break
@@ -215,6 +220,7 @@ class MarketRemoteDataSource @Inject constructor(
             tickers = tickers,
             complete = complete,
             error = throttled,
+            failure = throttledFailure,
             failed = unreadable - tickers.keys,
             incomplete = incomplete,
         )

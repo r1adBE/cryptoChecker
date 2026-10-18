@@ -13,7 +13,7 @@ import com.cryptochecker.app.domain.live.LivePlanner
 import com.cryptochecker.app.domain.live.LiveQuote
 import com.cryptochecker.app.domain.live.LiveRules
 import com.cryptochecker.app.domain.refresh.ExchangeBackoff
-import com.cryptochecker.app.domain.refresh.PriceRefresher
+import com.cryptochecker.app.domain.refresh.LivePriceApplier
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.util.AppVisibility
 import com.cryptochecker.app.util.ConnectivityMonitor
@@ -56,7 +56,7 @@ import javax.inject.Singleton
  * [LivePlanner]); Börsen ohne WebSocket bleiben bei der REST-Abfrage im gewohnten Takt.
  *
  * - Anzeige: [prices] höchstens zweimal je Sekunde ([LiveRules.UI_INTERVAL_MILLIS]).
- * - Datenbank: gesammelt alle 10 s über [PriceRefresher.applyLive] — derselbe Weg für Alarme
+ * - Datenbank: gesammelt alle 10 s über [LivePriceApplier.applyLive] — derselbe Weg für Alarme
  *   und Kurs-Meldungen wie bei einer Aktualisierung; Widgets höchstens jede Minute und beim
  *   Verlassen der Merkliste.
  * - Neu verbinden mit wachsender Pause ([LiveBackoff]); pausierte Börsen ([ExchangeBackoff])
@@ -70,7 +70,7 @@ class LivePriceStream @Inject constructor(
     settingsRepository: SettingsRepository,
     connectivity: ConnectivityMonitor,
     private val refreshStats: RefreshStats,
-    private val priceRefresher: PriceRefresher,
+    private val livePriceApplier: LivePriceApplier,
     private val coverage: LiveCoverage,
 ) {
     /** Ohne Gesamt-Zeitgrenze und Protokoll-Interceptor; Ping-Frames halten die Verbindung offen. */
@@ -116,7 +116,7 @@ class LivePriceStream @Inject constructor(
     private var watchIds: Map<LiveExchange, Map<String, List<Long>>> = emptyMap()
 
     /**
-     * Für welches Paar jede Watch-Id abonniert ist. Geht mit jedem Kurs an [PriceRefresher.applyLive]:
+     * Für welches Paar jede Watch-Id abonniert ist. Geht mit jedem Kurs an [LivePriceApplier.applyLive]:
      * ein Kurs des alten Paars nach «Paar bearbeiten» wird dort verworfen. Ändert sich das Paar einer
      * Id, vergisst [reconcile] ihren Stand im Puffer (unter derselben Sperre).
      */
@@ -232,7 +232,7 @@ class LivePriceStream @Inject constructor(
     /**
      * Gepufferte Kurse dieser Paare vergessen («Paar bearbeiten», unter der Refresh-Sperre aufrufen).
      * Die Paar-Zuordnung bleibt bis zum nächsten [reconcile] die alte: Takte des alten Symbols, die
-     * bis dahin noch kommen, tragen das alte Paar und werden in [PriceRefresher.applyLive] verworfen.
+     * bis dahin noch kommen, tragen das alte Paar und werden in [LivePriceApplier.applyLive] verworfen.
      */
     fun forget(watchIds: Collection<Long>) {
         if (watchIds.isEmpty()) return
@@ -290,8 +290,8 @@ class LivePriceStream @Inject constructor(
         val saved = try {
             // Mit dem abonnierten Paar je Id: ohne Zuordnung (sollte nicht vorkommen) wird verworfen
             val pairs = keys.filterKeys { it in batch }
-            if (final) priceRefresher.applyLiveFinal(batch, redrawWidgets = redraw, pairs = pairs)
-            else priceRefresher.applyLive(batch, redrawWidgets = redraw, pairs = pairs)
+            if (final) livePriceApplier.applyLiveFinal(batch, redrawWidgets = redraw, pairs = pairs)
+            else livePriceApplier.applyLive(batch, redrawWidgets = redraw, pairs = pairs)
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {

@@ -19,6 +19,7 @@ private val BITFLYER_REGION_LISTS = listOf("markets", "markets/usa", "markets/eu
  * kennt weder 24-h-Hoch/-Tief noch ein Volumen in der Gegenwährung. https://lightning.bitflyer.com/docs
  */
 class BitFlyer : Market("bitFlyer", "bit flyer") {
+    override val key = "BitFlyer"
 
     // ── Einzelkurs ──
 

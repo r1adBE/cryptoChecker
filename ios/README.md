@@ -395,7 +395,7 @@ Davor:
   **Funding- und Open-Interest-Alarme** für Perpetuals (Binance, Bybit, OKX, WOO X, Bitget, MEXC, HTX, Hyperliquid, Deribit);
   **Portfolio-Alarme** (Gesamtwert über/unter, Veränderung heute; `Shared/Services/PortfolioAlarmLogic.swift`).
 - **Beträge verbergen** (Portfolio, Portfolio-Widget, Portfolio-Alarme), **Sicherung mit Passwort**
-  (AES-256-GCM, PBKDF2-HMAC-SHA256 mit 600 000 Durchläufen, ältere Sicherungen lesbar; `App/Services/BackupCrypto.swift`), **Basis der %-Änderung** (24 Std.,
+  (Format v3: AES-256-GCM mit Argon2id und dem Kopf als AAD, ältere v2-Sicherungen mit PBKDF2 lesbar; `App/Services/BackupCrypto.swift`), **Basis der %-Änderung** (24 Std.,
   seit letzter Aktualisierung, seit 00:00 in der Zone des Geräts oder fest UTC+14 … UTC-12), **Suche in den Einstellungen**
   (`App/Features/Settings/SettingsSearch.swift`).
 - **Portfolio wie Merkliste**: Coin oder Transaktion nach links wischen löscht (mit «Rückgängig»), ⋯ › «Aktualisieren» / «Portfolio leeren», 24-h-Änderung und Anzahl Transaktionen je Coin-Zeile.
@@ -584,6 +584,43 @@ Neue Swift-Dateien einfach in `Shared/`, `App/`, `Widgets/` oder `Tests/` ablege
 `tools/gen_xcodeproj.py` erneut ausführen. iOS-eigene Texte gehören in
 `tools/ios_extra_strings.json` (alle 31 Sprachen, inkl. `pt-BR`), danach `convert_strings.py` laufen lassen.
 
+## Swift 6 Migration
+
+Alle Ziele bauen im Swift-5-Modus (`SWIFT_VERSION = 5.0`) mit voller Concurrency-Prüfung
+(`SWIFT_STRICT_CONCURRENCY = complete`, in `tools/gen_xcodeproj.py` und `project.yml`). Im Swift-5-Modus sind
+die Befunde Warnungen, keine Fehler — der CI-Build bleibt grün, die Warnungen stehen im Build-Log.
+
+Regeln für neuen Code:
+
+- Kein neues `nonisolated(unsafe)` ohne Sperre. Globale Einstellungen und Merker gehören in
+  `LockedBox` (`Shared/Util/Theme.swift`), nicht in ein nacktes `static var`.
+- Jedes `@unchecked Sendable` trägt auf derselben Zeile einen Kommentar, welche Sperre den Zustand schützt.
+- Kein `@MainActor` nachträglich auf Typen, die aus Hintergrund-Aufgaben, Widgets oder UIKit-Farb-Closures
+  gelesen werden — dort lieber `LockedBox`.
+
+Was vor dem Umstellen auf `SWIFT_VERSION = 6.0` noch fehlt:
+
+1. **Warnungen auswerten.** Der erste CI-Lauf mit `complete` liefert die Liste (`grep -E "warning: .*(Sendable|isolat|concurrency)" xcode-build.log`);
+   ohne Xcode wurden nur die offensichtlichen Stellen behoben. Erst wenn das Log keine Concurrency-Warnungen
+   mehr zeigt, kann Swift 6 kommen.
+2. **Portfolio.** `Shared/Portfolio/PortfolioPriceSource.swift`, `Shared/Portfolio/FxRateSource.swift`,
+   `App/Features/Portfolio/PortfolioHistorySource.swift` und `PortfolioCutoffExport.swift` haben zusammen 13
+   `nonisolated(unsafe) static var`-Zwischenspeicher, die noch nicht geprüft und kommentiert sind.
+3. **Nicht prüfbares `@unchecked Sendable`.** Rund 30 Klassen sind mit `NSLock` geschützt und kommentiert,
+   der Compiler kann das aber nicht nachprüfen. Ersatz: `OSAllocatedUnfairLock` mit `Sendable`-Zustand (ab
+   iOS 16, also schon möglich) oder `Mutex` (Synchronization, erst ab iOS 18). Besonders:
+   `Market` (nicht `final`, gilt nur, solange keine Unterklasse veränderlichen Zustand bekommt),
+   `LockedBox<Value>` und `FirstResult<T>` (Typparameter ohne `Sendable`-Einschränkung) und
+   `BackgroundTaskCompletion` (hält ein `BGTask`, das nicht `Sendable` ist).
+4. **Laufzeitprüfungen.** Swift 6 prüft die Isolation auch zur Laufzeit: Closures, die als `@MainActor`
+   gelten, aber vom System auf einem anderen Thread gerufen werden (Mitteilungs-Delegate, `BGTaskScheduler`,
+   `NWPathMonitor`, UIKit-Farb-Closures), brechen dann ab. Diese Einstiegspunkte vorher einzeln prüfen und
+   wo nötig mit `nonisolated` bzw. `@Sendable` kennzeichnen.
+5. **Widgets und App Intents.** Die statischen Eigenschaften der Intents sind jetzt `let`; `perform()`,
+   Timeline-Provider und `EntityQuery` müssen im Swift-6-Modus noch auf ihre Isolation geprüft werden.
+6. **Test-Fakes.** `FakeKeychain` (`Tests/ProtectedFileTests.swift`) und `FakeStore`
+   (`Tests/AlarmChainIntegrationTests.swift`) sind ohne Sperre und nur nacheinander benutzbar.
+
 ## Falls sich das Projekt nicht öffnen lässt
 
 Das Projekt kann auch mit [XcodeGen](https://github.com/yonaskolb/XcodeGen) aus `project.yml`
@@ -632,8 +669,13 @@ wieder, während Export-Optionen, Passwort-Blatt oder die Rückfrage «Ersetzen?
 bestätigter Export bzw. ein schon schreibendes Wiederherstellen läuft fertig, eine danach gewählte Datei oder fertige
 Passwort-Prüfung wird verworfen.
 
-Mit Passwort wird die Datei mit AES-256-GCM verschlüsselt, der Schlüssel per PBKDF2-HMAC-SHA256 abgeleitet: neue
-Sicherungen mit 600 000 Durchläufen, ältere Dateien (210 000) bleiben lesbar, weil die Zahl in der Datei steht. Ein
+Mit Passwort wird die Datei mit AES-256-GCM verschlüsselt (Format v3), der Schlüssel per Argon2id (RFC 9106) abgeleitet:
+64 MiB, 3 Durchgänge, 1 Bahn, 16 Bytes Salt — reines Swift ohne Fremdbibliothek (`App/Services/Argon2id.swift`, gleich wie
+`Argon2id.kt`). Der Kopf der Datei (format, v, enc, kdf, m, t, p, salt, iv) ist als kanonisches kompaktes JSON (UTF-8)
+die AAD von AES-GCM: ein veränderter Kopf scheitert wie ein falsches Passwort. Beim Lesen gelten Obergrenzen
+(m ≤ 256 MiB, t ≤ 10, p ≤ 4), damit eine manipulierte Datei das Gerät nicht lähmt; reicht der Arbeitsspeicher nicht,
+erscheint eine klare Meldung (kein Rückfall auf schwächere Parameter). Ältere v2-Dateien (PBKDF2-HMAC-SHA256 mit
+600 000 bzw. 210 000 Durchläufen, ohne AAD) bleiben lesbar. Gemeinsame Prüfwerte: `Tests/Parity/backup_crypto.json`. Ein
 neues Passwort braucht mindestens 12 Zeichen; ein leicht zu erratendes (nur Ziffern, ein wiederholtes Zeichen, häufige
 Folge wie «12345678» oder «passwort») ist für neue Sicherungen gesperrt. Ältere Dateien (damals mindestens 8 Zeichen)
 lassen sich weiter öffnen. Eine Sicherung ohne Passwort zeigt beim Einspielen eine Warnung und kann die

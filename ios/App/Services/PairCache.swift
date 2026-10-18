@@ -128,7 +128,7 @@ private struct PairLookup: Sendable {
 }
 
 /// Baut die Tabellen einer Liste beim ersten Lesen und hält sie fest; gesperrt für parallele Zugriffe.
-private final class PairLookupHolder: @unchecked Sendable {
+private final class PairLookupHolder: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `guardLock` (NSLock)
     private let source: [MarketPair]
     private let guardLock = NSLock()
     private var ready: PairLookup?

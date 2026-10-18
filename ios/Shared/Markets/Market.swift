@@ -14,7 +14,7 @@ typealias CurrencyPairsMap = [String: [String]]
 ///
 /// Instanzen sind zustandslos und werden von gleichzeitigen Abfragen geteilt. `key` ist der Kotlin-Klassenname und
 /// steht so in Sicherungen beider Plattformen — nie umbenennen.
-class Market: @unchecked Sendable {
+class Market: @unchecked Sendable { // @unchecked: nur let-Konstanten, Unterklassen ohne veränderlichen Zustand (geteilte Instanzen)
     let key: String
     let name: String
     /// Name für die Sprachausgabe.

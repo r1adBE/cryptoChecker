@@ -37,6 +37,7 @@ class Woo : WooBase(
     contractType = FuturesContractType.NONE,
     tickerUrl = "$WOO_API/v3/public/kline?symbol=%1\$s&type=1h&limit=$WOO_HOURS",
 ) {
+    override val key = "Woo"
 
     // ── Einzelkurs ──
 
@@ -80,6 +81,7 @@ class WooFutures : WooBase(
     contractType = FuturesContractType.PERPETUAL,
     tickerUrl = "$WOO_API/v3/public/futures?symbol=%1\$s",
 ) {
+    override val key = "WooFutures"
 
     // ── Einzelkurs ──
 

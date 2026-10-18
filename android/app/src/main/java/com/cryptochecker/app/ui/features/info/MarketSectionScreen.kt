@@ -188,6 +188,10 @@ fun MarketSectionScreen(
     section: MarketSection,
     viewModel: InfoViewModel,
     onBack: () -> Unit,
+    /** Aus der Mitteilung «Wirtschaftstermine» geöffnet (Routen-Argument): einmal zum Hinweis scrollen. */
+    macroJump: Boolean = false,
+    /** Zum Hinweis gescrollt: die Navigation löscht [macroJump] (auch nach Prozess-Neustart kein zweites Mal). */
+    onMacroJumpHandled: () -> Unit = {},
 ) {
     val reveal by viewModel.reveal.collectAsStateWithLifecycle()
     val pullRefreshing by viewModel.pullRefreshing.collectAsStateWithLifecycle()
@@ -206,12 +210,12 @@ fun MarketSectionScreen(
     }
 
     // Sprung aus der Mitteilung «Wirtschaftstermine»: zum Hinweis scrollen, sobald er steht
-    val macroJump = section == MarketSection.DATA && MarketRegister.macroOnData
-    LaunchedEffect(macroJump, reveal.shown, macroEvents) {
-        if (!macroJump || !reveal.isShown(MarketRevealSlot.COIN)) return@LaunchedEffect
+    val scrollToMacro = section == MarketSection.DATA && macroJump
+    LaunchedEffect(scrollToMacro, reveal.shown, macroEvents) {
+        if (!scrollToMacro || !reveal.isShown(MarketRevealSlot.COIN)) return@LaunchedEffect
         withFrameNanos { }
         macroRequester.bringIntoView()
-        MarketRegister.macroOnData = false
+        onMacroJumpHandled()
     }
 
     Scaffold(

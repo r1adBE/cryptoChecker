@@ -62,10 +62,13 @@ enum BackupManager {
         return try encryptedFile(plain, password: password)
     }
 
-    /// Klartext verschlüsseln (`BackupCrypto`, 600 000 Runden PBKDF2 — auf älteren Geräten etwa 1 s):
-    /// nicht auf dem Main-Thread aufrufen.
+    /// Klartext verschlüsseln (`BackupCrypto` v3, Argon2id mit 64 MiB — einige 100 ms bis wenige Sekunden):
+    /// nicht auf dem Main-Thread aufrufen. Die Passwort-Bytes werden danach überschrieben.
+    /// - Throws: `BackupCrypto.Failure.notEnoughMemory`, wenn der Speicher für Argon2id nicht reicht.
     static func encryptedFile(_ plain: Data, password: String) throws -> Data {
-        BackupCrypto.json(try BackupCrypto.encrypt(plain, password: password))
+        var bytes = BackupCrypto.passwordBytes(password)
+        defer { Argon2id.wipe(&bytes) }
+        return BackupCrypto.json(try BackupCrypto.encrypt(plain, password: bytes))
     }
 
     /// Lesbares JSON der Sicherung (Merkliste, Alarme, Favoriten, Einstellungen, Portfolio). Ein Stand: alles wird in einem
@@ -116,8 +119,10 @@ enum BackupManager {
     }
 
     /// Klartext-JSON der Sicherung; verschlüsselt ohne Passwort gilt als falsches Passwort.
-    /// Mit Passwort spürbar langsam (PBKDF2 mit dem «iter» der Datei) — nicht auf dem Main-Thread aufrufen.
-    /// - Throws: `BackupCrypto.Failure.wrongPassword` bei falschem Passwort oder veränderter Datei.
+    /// Mit Passwort spürbar langsam (Argon2id bzw. bei v2 PBKDF2 mit den Parametern der Datei) — nicht auf dem
+    /// Main-Thread aufrufen.
+    /// - Throws: `BackupCrypto.Failure.wrongPassword` bei falschem Passwort oder veränderter Datei,
+    ///   `BackupCrypto.Failure.notEnoughMemory`, wenn der Speicher für Argon2id nicht reicht.
     static func plainJSON(_ file: Data, password: String?) throws -> Data {
         try BackupLimits.checkDepth(file)
         guard let root = try JSONSerialization.jsonObject(with: file) as? [String: Any] else { throw Failure.notABackup }
@@ -127,7 +132,9 @@ enum BackupManager {
         }
         guard let password else { throw BackupCrypto.Failure.wrongPassword }
         let envelope = try BackupCrypto.envelope(from: root)
-        let plain = try BackupCrypto.decrypt(envelope, password: password)
+        var bytes = BackupCrypto.passwordBytes(password)
+        defer { Argon2id.wipe(&bytes) }
+        let plain = try BackupCrypto.decrypt(envelope, password: bytes)
         try BackupLimits.checkDepth(plain)
         return plain
     }

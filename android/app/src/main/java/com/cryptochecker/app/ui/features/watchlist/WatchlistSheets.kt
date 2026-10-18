@@ -33,7 +33,9 @@ import com.cryptochecker.app.ui.lock.PortfolioLockViewModel
  */
 @Composable
 internal fun WatchlistSheets(
-    ui: WatchlistUiState,
+    ui: WatchlistScreenState,
+    /** Stand aus dem ViewModel (Frische-Schwelle, Live-Strom, Chart-Art). */
+    state: WatchlistUiState,
     viewModel: WatchlistViewModel,
     lockViewModel: PortfolioLockViewModel,
     watches: List<WatchEntity>,
@@ -41,7 +43,6 @@ internal fun WatchlistSheets(
     notTradedCount: Int,
     alarmCounts: Map<Long, Int>,
     livePrices: State<Map<Long, LiveQuote>>,
-    liveExchanges: List<String>,
     rollingBasis: Boolean,
     activeSignals: Map<Long, List<ActivitySignal>>,
     now: Long,
@@ -55,9 +56,9 @@ internal fun WatchlistSheets(
     val resources = LocalResources.current
     val lastReport by viewModel.lastRefreshReport.collectAsStateWithLifecycle()
     val appStartMillis by viewModel.appStartMillis.collectAsStateWithLifecycle()
-    val sheetChartLine by viewModel.sheetChartLine.collectAsStateWithLifecycle()
-    val outdatedAfter by viewModel.outdatedAfterMillis.collectAsStateWithLifecycle()
-    val liveIds by viewModel.liveWatchIds.collectAsStateWithLifecycle()
+    // Eine Frische-Schwelle wie Zeile und Status-Pille
+    val outdatedAfter = state.display.staleAfterMillis
+    val liveIds = state.live.liveWatchIds
     val requestNotifications = rememberNotificationPermissionRequest()
 
     // Portfolio-Sperre: Das Erfassen-Blatt zeigt Bestände — erst nach dem Entsperren,
@@ -73,7 +74,7 @@ internal fun WatchlistSheets(
             report = lastReport,
             now = now,
             appStartMillis = appStartMillis,
-            liveExchanges = liveExchanges,
+            liveExchanges = state.live.liveExchanges,
             onDismiss = { ui.showReport = false },
         )
     }
@@ -156,7 +157,7 @@ internal fun WatchlistSheets(
                 loadFutures = viewModel::fetchFutures,
                 loadSpot = viewModel::fetchSpot,
                 onWhy = { ui.returnToActions = watch.id; ui.actionsFor = null; ui.whyFor = watch.id },
-                chartLine = sheetChartLine,
+                chartLine = state.display.sheetChartLine,
                 onChartLineChange = viewModel::setSheetChartLine,
                 cachedChart = viewModel::cachedSheetChart,
                 loadChart = viewModel::loadSheetChart,

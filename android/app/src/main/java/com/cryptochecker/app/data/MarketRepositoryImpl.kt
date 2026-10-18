@@ -5,6 +5,7 @@ import com.cryptochecker.app.data.local.MarketLocalDataSource
 import com.cryptochecker.app.data.remote.MarketRemoteDataSource
 import com.cryptochecker.app.domain.exceptions.UserFriendlyMarketError
 import com.cryptochecker.app.domain.exceptions.rethrowIfCritical
+import com.cryptochecker.app.domain.exceptions.toMarketFailure
 import com.cryptochecker.app.domain.model.BulkTickers
 import com.cryptochecker.app.domain.model.MarketInfo
 import com.cryptochecker.app.domain.model.MarketPairsInfo
@@ -83,7 +84,7 @@ class MarketRepositoryImpl @Inject constructor(
             MarketTickerResult(remote.fetchMarketTicker(source, info), info)
         } catch (ex: Exception) {
             ex.rethrowIfCritical()
-            MarketTickerResult(TickerImpl(), info, ex.textForUser())
+            MarketTickerResult(TickerImpl(), info, ex.textForUser(), ex.toMarketFailure())
         }
     }
 
@@ -99,7 +100,7 @@ class MarketRepositoryImpl @Inject constructor(
         } catch (ex: Exception) {
             ex.rethrowIfCritical()
             // Text weiterreichen: «zu viele Anfragen» pausiert die Börse (ExchangeBackoff)
-            BulkTickers(error = ex.textForUser())
+            BulkTickers(error = ex.textForUser(), failure = ex.toMarketFailure())
         }
     }
 

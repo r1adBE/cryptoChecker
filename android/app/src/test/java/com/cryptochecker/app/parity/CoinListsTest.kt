@@ -126,6 +126,52 @@ class CoinListsTest {
         assertFalse(server.calls.any { "coingecko" in it })
     }
 
+    /**
+     * Ersatzdatei nur mit Kürzeln (ohne Namen, leere Alpha-Liste) nach 48 h ohne direkte Liste: Die
+     * gespeicherte direkte Liste behält Namen und Logos, nur fehlende Kürzel kommen hinzu.
+     */
+    @Test
+    fun mirrorWithoutNames_keepsSavedNames() {
+        val saved = CoinMeta.parseBinanceList(raw("binanceList")).orEmpty()
+        val mirrorText = org.json.JSONObject(raw("mirrorSymbolsOnly")).getJSONObject("coinMeta").toString()
+        val server = FakeServer(mapOf(
+            CoinLogos.BINANCE_LIST_URL to { throw IOException("offline") },
+            CoinLogos.ALPHA_LIST_URL to { throw IllegalStateException("HTTP 500") },
+            CoinMeta.URL to { mirrorText },
+        ))
+        val request = request(lastBinance = generated - CoinMeta.DIRECT_STALE_MILLIS - 1).copy(savedBinance = saved)
+        val result = run(server, request)
+        assertEquals(CoinLists.Source.MIRROR, result.binanceSource)
+        // Leere Alpha-Liste der Ersatzdatei: bisherige bleibt
+        assertNull(result.alpha)
+        assertEquals(CoinLists.Source.NONE, result.alphaSource)
+        val binance = result.binance.orEmpty()
+        val expected = data["mirrorSymbolsOnly"].obj()["afterDirect"].obj()
+        assertEquals(expected["names"].list(), binance.map { it.name })
+        val fullNames = CoinMeta.binanceFullNames(binance)
+        expected["fullNames"].obj().forEach { (symbol, name) -> assertEquals("Name $symbol", name, fullNames[symbol]) }
+        expected["logos"].obj().forEach { (symbol, logo) ->
+            assertEquals("Logo $symbol", logo, binance.first { it.name == symbol }.logo)
+        }
+        expected["withoutNames"].list().forEach { symbol -> assertNull("$symbol", fullNames[symbol as String]) }
+        // Ohne gespeicherte Liste füllt die Ersatzdatei wie bisher
+        val fresh = run(server, request(lastBinance = 0))
+        assertEquals(listOf("BTC", "ETH", "WLD", "SOL"), fresh.binance.orEmpty().map { it.name })
+    }
+
+    /** Regel [CoinMeta.mirrorBinance] (gemeinsame Fälle `mirrorSymbolsOnly.merge`). */
+    @Test
+    fun mirrorBinance_cases() {
+        val cases = org.json.JSONObject(raw("mirrorSymbolsOnly")).getJSONArray("merge")
+        for (i in 0 until cases.length()) {
+            val c = cases.getJSONObject(i)
+            val mirror = CoinMeta.binanceEntries(c.getJSONArray("mirror"))
+            val saved = CoinMeta.binanceEntries(c.getJSONArray("saved"))
+            val expected = CoinMeta.binanceEntries(c.getJSONArray("expected"))
+            assertEquals(c.getString("case"), expected, CoinMeta.mirrorBinance(mirror, saved))
+        }
+    }
+
     @Test
     fun mirrorOlderThanDirect_isIgnored() {
         val server = FakeServer(mapOf(

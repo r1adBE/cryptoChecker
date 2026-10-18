@@ -13,7 +13,8 @@ enum CoinLists {
     /// Woher eine Liste in diesem Abgleich kam.
     enum Source: String { case absent = "NONE", direct = "DIRECT", mirror = "MIRROR" }
 
-    /// Was zu holen ist (fällig je Liste, letzter direkter Erfolg in ms, Ersatzdatei erlaubt).
+    /// Was zu holen ist (fällig je Liste, letzter direkter Erfolg in ms, Ersatzdatei erlaubt, gespeicherte
+    /// Binance-Liste — eine Ersatzdatei ohne Namen ergänzt sie nur, `CoinMeta.mirrorBinance`).
     struct Request {
         var binanceDue: Bool
         var alphaDue: Bool
@@ -21,6 +22,7 @@ enum CoinLists {
         var lastAlphaAt: Int64
         var now: Int64
         var mirrorAllowed = true
+        var savedBinance: [CoinLogos.BinanceEntry] = []
     }
 
     /// Ergebnis: neue Listen (nil = nicht neu) mit Herkunft; `networkError` = eine fällige Quelle
@@ -102,7 +104,8 @@ enum CoinLists {
         }
         // Nur, wenn die Ersatzdatei neuer ist als der letzte direkte Stand
         if wantBinance, !usable.binance.isEmpty, usable.generatedAt > request.lastBinanceAt {
-            result.binance = usable.binance
+            // Ohne Namen nur fehlende Kürzel ergänzen, gespeicherte Namen und Logos bleiben
+            result.binance = CoinMeta.mirrorBinance(usable.binance, saved: request.savedBinance)
             result.binanceSource = .mirror
         }
         if wantAlpha, !usable.alpha.isEmpty, usable.generatedAt > request.lastAlphaAt {

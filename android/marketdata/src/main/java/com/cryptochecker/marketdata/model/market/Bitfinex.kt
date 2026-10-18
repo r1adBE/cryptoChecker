@@ -56,6 +56,7 @@ class Bitfinex : SimpleMarket(
     pairListUrl = "$BITFINEX_API/conf/pub:list:pair:exchange",
     tickerUrl = "$BITFINEX_API/ticker/%1\$s",
 ) {
+    override val key = "Bitfinex"
 
     // ── Einzelkurs ──
 

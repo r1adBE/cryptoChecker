@@ -17,10 +17,14 @@ import java.net.URLEncoder
 private const val BYBIT_API = "https://api.bybit.com/v5/market"
 
 /** Bybit Spot. API v5: https://bybit-exchange.github.io/docs/v5/market/tickers */
-class Bybit : BybitBase("Bybit", "spot", FuturesContractType.NONE)
+class Bybit : BybitBase("Bybit", "spot", FuturesContractType.NONE) {
+    override val key = "Bybit"
+}
 
 /** Bybit USDT-/USDC-Perpetuals (Kategorie «linear»). */
-class BybitFutures : BybitBase("Bybit Futures", "linear", FuturesContractType.PERPETUAL)
+class BybitFutures : BybitBase("Bybit Futures", "linear", FuturesContractType.PERPETUAL) {
+    override val key = "BybitFutures"
+}
 
 /**
  * Gemeinsamer Teil von Spot und Perpetuals; die Kategorie steht in jeder Adresse. Antworten haben die Form

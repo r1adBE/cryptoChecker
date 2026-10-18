@@ -145,7 +145,7 @@ struct SystemStorageKeychain: StorageKeychain {
 
 /// Der Schlüssel der verschlüsselten Dateien (256 Bit), je Prozess einmal gelesen. Anlegen nur durch die App beim Start
 /// (`ProtectedStorage.prepareAtLaunch`) — Widgets lesen nur.
-final class StorageKey: @unchecked Sendable {
+final class StorageKey: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
     static let shared = StorageKey(keychain: SystemStorageKeychain())
 
     enum Lookup {

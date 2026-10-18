@@ -3,27 +3,41 @@ package com.cryptochecker.app.ui.features.watchlist
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.data.ActivityRepository
+import com.cryptochecker.app.data.AddMoments
+import com.cryptochecker.app.data.CoinLogoRepository
 import com.cryptochecker.app.data.RefreshStats
+import com.cryptochecker.app.data.SheetChartRepository
+import com.cryptochecker.app.data.StarterCoinsRepository
+import com.cryptochecker.app.data.TokenIdentityStore
+import com.cryptochecker.app.data.WatchMove
 import com.cryptochecker.app.data.WatchRepository
-import com.cryptochecker.app.data.WatchSnapshot
+import com.cryptochecker.app.data.live.LivePriceStream
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.data.portfolio.CurrencyConverter
-import com.cryptochecker.app.domain.activity.ActivityMonitor
+import com.cryptochecker.app.data.portfolio.PortfolioAlarmRepository
 import com.cryptochecker.app.domain.activity.ActivityReport
-import com.cryptochecker.app.domain.activity.ActivitySensitivity
+import com.cryptochecker.app.domain.activity.WhyReport
 import com.cryptochecker.app.domain.convert.CurrencyConversion
+import com.cryptochecker.app.domain.live.LivePair
+import com.cryptochecker.app.domain.live.LiveQuote
 import com.cryptochecker.app.domain.refresh.ManualRefresh
 import com.cryptochecker.app.domain.refresh.PriceRefresher
+import com.cryptochecker.app.domain.refresh.RefreshDebounce
 import com.cryptochecker.app.domain.refresh.RefreshReport
 import com.cryptochecker.app.domain.starter.AddMoment
-import com.cryptochecker.app.domain.starter.StarterPairs
 import com.cryptochecker.app.domain.watch.AssetKind
+import com.cryptochecker.app.domain.watch.ChangeBasis
+import com.cryptochecker.app.domain.watch.ChangeStamp
 import com.cryptochecker.app.domain.watch.ColumnSort
+import com.cryptochecker.app.domain.watch.DayChange
+import com.cryptochecker.app.domain.watch.SheetChartRange
+import com.cryptochecker.app.domain.watch.SheetChartResult
 import com.cryptochecker.app.domain.watch.SortKey
-import com.cryptochecker.app.domain.watch.UndoSlot
 import com.cryptochecker.app.domain.watch.WatchFilter
 import com.cryptochecker.app.notification.AppNotifier
-import com.cryptochecker.app.settings.deviceRegionLocale
+import com.cryptochecker.app.settings.SettingsRepository
+import com.cryptochecker.app.util.ConnectivityMonitor
+import com.cryptochecker.app.widget.WidgetPrefs
 import com.cryptochecker.app.widget.WidgetUpdater
 import com.cryptochecker.app.work.PriceUpdateScheduler
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -41,40 +55,77 @@ import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.transformLatest
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.sync.Mutex
 import javax.inject.Inject
 
+/**
+ * ViewModel der Merkliste. Setzt sich aus Teilen mit je eigener Aufgabe zusammen, die ihren Zustand privat
+ * halten und nur lesbare StateFlows und Funktionen anbieten: Start-Auswahl ([WatchlistStarterController]),
+ * schreibende Aktionen ([WatchlistEditController]), Aktualisieren ([WatchlistRefreshController]) und die
+ * Lese-Abfragen für Zeilen und Aktionsblatt ([WatchlistSheetData]). Hier stehen die Ableitungen aus Datenbank
+ * und Einstellungen; der Bildschirm sammelt sie gebündelt als [uiState].
+ */
 @HiltViewModel
 class WatchlistViewModel @Inject constructor(
-    internal val watchRepository: WatchRepository,
-    internal val priceRefresher: PriceRefresher,
-    internal val notifier: AppNotifier,
-    internal val widgetUpdater: WidgetUpdater,
-    private val scheduler: PriceUpdateScheduler,
-    internal val manualRefresh: ManualRefresh,
-    internal val refreshStats: RefreshStats,
-    connectivity: com.cryptochecker.app.util.ConnectivityMonitor,
-    internal val settingsRepository: com.cryptochecker.app.settings.SettingsRepository,
-    internal val futuresDataSource: com.cryptochecker.app.data.remote.FuturesDataSource,
-    internal val spotDataSource: com.cryptochecker.app.data.remote.SpotDataSource,
+    watchRepository: WatchRepository,
+    priceRefresher: PriceRefresher,
+    notifier: AppNotifier,
+    widgetUpdater: WidgetUpdater,
+    scheduler: PriceUpdateScheduler,
+    manualRefresh: ManualRefresh,
+    refreshStats: RefreshStats,
+    connectivity: ConnectivityMonitor,
+    private val settingsRepository: SettingsRepository,
     activityRepository: ActivityRepository,
-    internal val activityMonitor: ActivityMonitor,
-    internal val widgetPrefs: com.cryptochecker.app.widget.WidgetPrefs,
-    internal val currencyConverter: CurrencyConverter,
-    internal val sparklineRepository: com.cryptochecker.app.data.SparklineRepository,
-    internal val starterCoinsRepository: com.cryptochecker.app.data.StarterCoinsRepository,
-    internal val addMoments: com.cryptochecker.app.data.AddMoments,
-    internal val sheetChartRepository: com.cryptochecker.app.data.SheetChartRepository,
-    private val livePriceStream: com.cryptochecker.app.data.live.LivePriceStream,
-    internal val coinLogoRepository: com.cryptochecker.app.data.CoinLogoRepository,
-    internal val dayReferences: com.cryptochecker.app.domain.refresh.DayReferences,
-    internal val ownHourly: com.cryptochecker.app.data.remote.candles.OwnHourlyCandles,
-    internal val candlePairs: com.cryptochecker.app.data.remote.candles.CandlePairs,
+    widgetPrefs: WidgetPrefs,
+    private val currencyConverter: CurrencyConverter,
+    starterCoinsRepository: StarterCoinsRepository,
+    private val addMoments: AddMoments,
+    sheetChartRepository: SheetChartRepository,
+    private val livePriceStream: LivePriceStream,
+    coinLogoRepository: CoinLogoRepository,
     /** Namen der Coins je Börse: klar anderer Name als in der Alpha-Liste → kein «α» ([AssetKind.of]). */
-    internal val tokenIdentityStore: com.cryptochecker.app.data.TokenIdentityStore,
+    private val tokenIdentityStore: TokenIdentityStore,
     /** Nur für [alarmTotal] (Ziel der Glocke): gibt es Portfolio-Alarme? */
-    portfolioAlarmRepository: com.cryptochecker.app.data.portfolio.PortfolioAlarmRepository,
+    portfolioAlarmRepository: PortfolioAlarmRepository,
+    /** Daten für Aktionsblatt und Zeilen (Mini-Chart, Herkunft, Futures, Spot, Chart). */
+    private val sheetData: WatchlistSheetData,
 ) : ViewModel() {
+
+    private val refresh = WatchlistRefreshController(
+        scope = viewModelScope,
+        priceRefresher = priceRefresher,
+        manualRefresh = manualRefresh,
+        refreshStats = refreshStats,
+        sheetChartRepository = sheetChartRepository,
+        scheduler = scheduler,
+    )
+
+    private val starter = WatchlistStarterController(
+        scope = viewModelScope,
+        starterCoinsRepository = starterCoinsRepository,
+        settingsRepository = settingsRepository,
+        coinLogoRepository = coinLogoRepository,
+        watchRepository = watchRepository,
+        addMoments = addMoments,
+        widgetUpdater = widgetUpdater,
+        refreshAll = refresh::refreshAll,
+    )
+
+    private val edits = WatchlistEditController(
+        scope = viewModelScope,
+        watchRepository = watchRepository,
+        settingsRepository = settingsRepository,
+        priceRefresher = priceRefresher,
+        notifier = notifier,
+        widgetUpdater = widgetUpdater,
+        widgetPrefs = widgetPrefs,
+        addMoments = addMoments,
+        groupFilter = { groupFilter.value },
+        refreshAll = refresh::refreshAll,
+    )
+
+    /** Was die Merkliste aus den Einstellungen liest; gibt nur bei Änderungen dieses Teils neu aus. */
+    private val watchlistSettings = settingsRepository.watchlistSettings
 
     /**
      * EINE Datenbank-Beobachtung der Merkliste für alle Ableitungen unten (bisher vier):
@@ -94,18 +145,19 @@ class WatchlistViewModel @Inject constructor(
 
     /**
      * Live-Kurse je Watch-Id, höchstens zweimal je Sekunde neu. Nur Zeilen (und das offene
-     * Aktionsblatt) lesen davon — je über `derivedStateOf` nur den Kurs ihres Paars.
+     * Aktionsblatt) lesen davon — je über `derivedStateOf` nur den Kurs ihres Paars. Bewusst nicht
+     * in [uiState]: ein Tick soll nicht den ganzen Bildschirm neu zusammensetzen.
      */
-    val livePrices: StateFlow<Map<Long, com.cryptochecker.app.domain.live.LiveQuote>> = livePriceStream.prices
+    val livePrices: StateFlow<Map<Long, LiveQuote>> = livePriceStream.prices
 
     /** Börsen, deren Live-Strom gerade Kurse liefert («LIVE» in der Status-Pille, Bericht). */
-    val liveExchanges: StateFlow<List<String>> = livePriceStream.liveExchanges
+    private val liveExchanges: StateFlow<List<String>> = livePriceStream.liveExchanges
 
     /** Watch-Ids der Paare, deren Börse gerade per WebSocket liefert (Frische 2 Min., «Live» nur mit allen). */
     val liveWatchIds: StateFlow<Set<Long>> = livePriceStream.liveWatchIds
 
     /** Paare der angezeigten Merkliste (gewählte Gruppe) für die Live-Kurse. */
-    fun setLivePairs(pairs: List<com.cryptochecker.app.domain.live.LivePair>) = livePriceStream.setPairs(pairs)
+    fun setLivePairs(pairs: List<LivePair>) = livePriceStream.setPairs(pairs)
 
     /** Merkliste zu sehen bzw. verlassen (anderer Tab, App im Hintergrund): Live-Kurse an/aus. */
     fun setLiveVisible(visible: Boolean) = livePriceStream.setVisible(visible)
@@ -114,67 +166,14 @@ class WatchlistViewModel @Inject constructor(
         livePriceStream.setVisible(false)
     }
 
-    /**
-     * Coins der Start-Merkliste: sofort aus dem Zwischenspeicher bzw. die
-     * Ausweich-Liste, frischere Daten ersetzen sie still ([loadStarterCoins]).
-     */
-    internal val _starterCoins = MutableStateFlow(starterCoinsRepository.cached(starterRegion()))
-    val starterCoins: StateFlow<List<StarterPairs.Coin>> = _starterCoins.asStateFlow()
-
-    internal var starterJob: kotlinx.coroutines.Job? = null
-    internal var starterAddJob: kotlinx.coroutines.Job? = null
-    /** Prüfung der Binance-Standort-Sperre ([StarterCoinsRepository.probeBinance]); das Hinzufügen wartet darauf. */
-    internal var starterProbeJob: kotlinx.coroutines.Job? = null
-
-    /** Region der Startpaare: Geräte-Region, bei Binance-Standort-Sperre «US» (Binance.US). */
-    internal fun starterRegion(): String? = starterCoinsRepository.starterRegion(deviceRegionLocale().country)
-
-    /**
-     * Logos der Start-Coins geladen (oder Logos aus bzw. nach [STARTER_LOGO_WAIT_MILLIS] aufgegeben)?
-     * Bis dahin zeigt die Start-Auswahl statt der Logos einen ruhigen Platzhalter — kein Umspringen
-     * von Initialen auf Logos ein paar Sekunden nach dem Installieren.
-     */
-    internal val _starterLogosReady = MutableStateFlow(!settingsRepository.cached.coinLogos)
-    val starterLogosReady: StateFlow<Boolean> = _starterLogosReady.asStateFlow()
-
-    /**
-     * Abgewählte Start-Coins (Symbole). Leer = alle ausgewählt (Standard); so sind auch
-     * Coins einer frischeren Liste gleich ausgewählt. Siehe [StarterSelection].
-     */
-    internal val _starterDeselected = MutableStateFlow<Set<String>>(emptySet())
-    val starterDeselected: StateFlow<Set<String>> = _starterDeselected.asStateFlow()
-
-    /** Quote der Start-Paare: USDT (Binance), in den USA USD (Coinbase). */
-    val starterQuote: String = StarterPairs.startQuote(starterRegion())
-
-    /** Kurse der Start-Coins; [StarterPricesState.loading] solange der Abruf läuft. */
-    internal val _starterPrices = MutableStateFlow(StarterPricesState(loading = true, prices = emptyMap()))
-    val starterPrices: StateFlow<StarterPricesState> = _starterPrices.asStateFlow()
-
-    /** Läuft das Hinzufügen der Start-Coins gerade? (Knopf gesperrt, kein Doppeltipp) */
-    internal val _starterAdding = MutableStateFlow(false)
-    val starterAdding: StateFlow<Boolean> = _starterAdding.asStateFlow()
-
     /** Noch nicht abgespielter Erst-Moment (Start-Merkliste, allererstes Paar). */
     val addMoment: StateFlow<AddMoment?> = addMoments.pending
 
     fun consumeAddMoment(moment: AddMoment) = addMoments.consume(moment)
 
-    /** Mini-Chart in den Zeilen zeigen (Einstellung, Standard an). */
-    val sparklineEnabled: StateFlow<Boolean> = settingsRepository.settings
-        .map { it.watchlistSparkline }
-        .distinctUntilChanged()
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), settingsRepository.cached.watchlistSparkline)
-
-    /** Karte «Hier passiert gerade etwas» zeigen (Einstellung, Standard an). */
-    val activityCardEnabled: StateFlow<Boolean> = settingsRepository.settings
-        .map { it.watchlistActivityCard }
-        .distinctUntilChanged()
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), settingsRepository.cached.watchlistActivityCard)
-
     /** Sortieren nach Spalte («Name ⇅ · Kurs ⇅ · 24h ⇅»); null = eigene Reihenfolge. */
-    val columnSort: StateFlow<ColumnSort?> = settingsRepository.settings
-        .map { ColumnSort.decode(it.watchlistColumnSort) }
+    private val columnSort: StateFlow<ColumnSort?> = watchlistSettings
+        .map { ColumnSort.decode(it.columnSort) }
         .distinctUntilChanged()
         .stateIn(viewModelScope, SharingStarted.Eagerly, ColumnSort.decode(settingsRepository.cached.watchlistColumnSort))
 
@@ -189,17 +188,20 @@ class WatchlistViewModel @Inject constructor(
         if (columnSort.value != null) viewModelScope.launch { settingsRepository.setWatchlistColumnSort(null) }
     }
 
+    /** Quote-Währungen der Merkliste (Grossbuchstaben), für die Umrechnungsfaktoren unten. */
+    private val quoteCurrencies = watchList
+        .map { list -> list.map { CurrencyConversion.normalize(it.quoteAsset) }.filter { it.isNotEmpty() }.toSet() }
+        .distinctUntilChanged()
+
     /**
      * Faktor je Quote-Währung in CHF, nur fürs Sortieren nach Kurs — im Hintergrund, auch ohne
      * eingeschaltete «≈ Umrechnung». Geholt nur, solange nach Kurs sortiert wird (sonst keine
      * Abfrage); danach höchstens alle 60 s neu.
      */
     @OptIn(ExperimentalCoroutinesApi::class)
-    val sortRates: StateFlow<Map<String, Double>> = combine(
+    private val sortRates: StateFlow<Map<String, Double>> = combine(
         columnSort.map { it?.key == SortKey.PRICE }.distinctUntilChanged(),
-        watchList
-            .map { list -> list.map { CurrencyConversion.normalize(it.quoteAsset) }.filter { it.isNotEmpty() }.toSet() }
-            .distinctUntilChanged(),
+        quoteCurrencies,
     ) { byPrice, quotes -> byPrice to quotes }
         .transformLatest { (byPrice, quotes) ->
             val wanted = quotes.filterNot { CurrencyConversion.sameCurrency(it, SORT_CURRENCY) }
@@ -222,17 +224,9 @@ class WatchlistViewModel @Inject constructor(
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyMap())
 
     /** «≈ Umrechnung» eingeschaltet und Zielwährung — ändert sich nur mit den Einstellungen. */
-    private val conversionSetting = settingsRepository.settings
+    private val conversionSetting = watchlistSettings
         .map { it.showConverted to it.portfolioCurrency }
         .distinctUntilChanged()
-
-    /** Zielwährung der umgerechneten Kurse; null = ausgeschaltet. */
-    val convertTarget: StateFlow<String?> = conversionSetting
-        .map { (show, currency) -> currency.takeIf { show } }
-        .stateIn(
-            viewModelScope, SharingStarted.WhileSubscribed(5_000),
-            settingsRepository.cached.let { s -> s.portfolioCurrency.takeIf { s.showConverted } },
-        )
 
     private val convertFxTimesState = MutableStateFlow<Map<String, Long>>(emptyMap())
 
@@ -241,7 +235,7 @@ class WatchlistViewModel @Inject constructor(
      * nur wenn älter als 3 h ([CurrencyConversion.FX_STALE_MILLIS]) — die Zeile zeigt dann «· Kurs 08:15».
      * Aufgefrischt mit [convertRates].
      */
-    val convertFxTimes: StateFlow<Map<String, Long>> = convertFxTimesState.asStateFlow()
+    private val convertFxTimes: StateFlow<Map<String, Long>> = convertFxTimesState.asStateFlow()
 
     /**
      * Faktor je Quote-Währung (Grossbuchstaben) in die Zielwährung, z. B.
@@ -249,11 +243,9 @@ class WatchlistViewModel @Inject constructor(
      * höchstens alle 60 s neu — ausser die Menge der Quote-Währungen ändert sich.
      */
     @OptIn(ExperimentalCoroutinesApi::class)
-    val convertRates: StateFlow<Map<String, Double>> = combine(
+    private val convertRates: StateFlow<Map<String, Double>> = combine(
         conversionSetting,
-        watchList
-            .map { list -> list.map { CurrencyConversion.normalize(it.quoteAsset) }.filter { it.isNotEmpty() }.toSet() }
-            .distinctUntilChanged(),
+        quoteCurrencies,
     ) { setting, quotes -> setting to quotes }
         .transformLatest { (setting, quotes) ->
             val (show, target) = setting
@@ -281,23 +273,11 @@ class WatchlistViewModel @Inject constructor(
         .distinctUntilChanged()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyMap())
 
-    /**
-     * Umbenannte Gruppen (alt → neu): Verschwindet die gewählte Gruppe durch
-     * Umbenennen, folgt die Auswahl dem neuen Namen statt auf «Alle» zu springen.
-     */
-    internal val renamedGroups = java.util.concurrent.ConcurrentHashMap<String, String>()
-
     /** Ergebnisse «Ungewöhnliche Aktivität» je Paar; abgelaufene Signale filtert die Oberfläche. */
-    val activity: StateFlow<Map<Long, ActivityReport>> = activityRepository.reports
-
-    /** Empfindlichkeit «Ungewöhnliche Aktivität»: filtert auch gespeicherte Signale sofort neu. */
-    val activitySensitivity: StateFlow<ActivitySensitivity> = settingsRepository.settings
-        .map { it.activitySensitivity }
-        .distinctUntilChanged()
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), settingsRepository.cached.activitySensitivity)
+    private val activity: StateFlow<Map<Long, ActivityReport>> = activityRepository.reports
 
     /** Chart-Art im Aktionsblatt: zuletzt gewählt, für alle Paare gleich (Standard Kerzen). */
-    val sheetChartLine: StateFlow<Boolean> = settingsRepository.settings
+    val sheetChartLine: StateFlow<Boolean> = watchlistSettings
         .map { it.sheetChartLine }
         .stateIn(viewModelScope, SharingStarted.Eagerly, settingsRepository.cached.sheetChartLine)
 
@@ -305,46 +285,34 @@ class WatchlistViewModel @Inject constructor(
         viewModelScope.launch { settingsRepository.setSheetChartLine(line) }
     }
 
-    /** Gesten-Hinweis noch zeigen? (bis er weggeklickt wird) */
-    val showGestureHint: StateFlow<Boolean> = settingsRepository.settings
-        .map { !it.gestureHintSeen }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), false)
-
     fun dismissGestureHint() {
         viewModelScope.launch { settingsRepository.setGestureHintSeen(true) }
     }
-
-    /** Karte «Ersten Alarm setzen» geschlossen? (Bis geladen: ja, damit sie nicht kurz aufblitzt.) */
-    val firstAlarmCardDismissed: StateFlow<Boolean> = settingsRepository.settings
-        .map { it.firstAlarmCardDismissed }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), true)
 
     fun dismissFirstAlarmCard() {
         viewModelScope.launch { settingsRepository.setFirstAlarmCardDismissed(true) }
     }
 
     /**
-     * Eine Frische-Schwelle für alles, was «veraltet» zeigt: Status-Pille (Zählung), abgeblasste
-     * Zeile, rote Zeit, das Wort «veraltet» und der vorgelesene Satz ([OutdatedRule], wie die
-     * Widgets): Schwelle der abgefragten Paare, dreimal das Hintergrund-Intervall, mindestens
-     * 15 Minuten ([LiveStatus.pollingStaleAfterMillis], beide Modi). Paare am Live-Strom
-     * ([liveWatchIds]) gelten je Paar schon nach 2 Minuten als veraltet ([LiveStatus.staleAfterMillis]).
-     * Früher zählte die Änderung nach einer eigenen Regel — Sehende bekamen dann in der Lücke nur Farbe.
+     * Darstellung aus den Einstellungen ([WatchlistDisplay]), darunter EINE Frische-Schwelle für alles, was
+     * «veraltet» zeigt: Status-Pille (Zählung), abgeblasste Zeile, rote Zeit, das Wort «veraltet» und der
+     * vorgelesene Satz ([OutdatedRule], wie die Widgets): Schwelle der abgefragten Paare, dreimal das
+     * Hintergrund-Intervall, mindestens 15 Minuten ([com.cryptochecker.app.domain.watch.LiveStatus.pollingStaleAfterMillis],
+     * beide Modi). Paare am Live-Strom ([liveWatchIds]) gelten je Paar schon nach 2 Minuten als veraltet
+     * ([com.cryptochecker.app.domain.watch.LiveStatus.staleAfterMillis]). Früher zählte die Änderung nach einer
+     * eigenen Regel — Sehende bekamen dann in der Lücke nur Farbe.
      */
-    val staleAfterMillis: StateFlow<Long> = settingsRepository.settings
-        .map { s -> com.cryptochecker.app.domain.watch.LiveStatus.pollingStaleAfterMillis(s.backgroundIntervalMinutes) }
+    private val display: StateFlow<WatchlistDisplay> = watchlistSettings
+        .map { WatchlistDisplay.of(it) }
         .distinctUntilChanged()
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), 45 * 60_000L)
-
-    /** Gleiche Schwelle wie [staleAfterMillis] (eine Regel für Änderung, Zeile und Screenreader). */
-    val outdatedAfterMillis: StateFlow<Long> get() = staleAfterMillis
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), WatchlistDisplay.initial(settingsRepository.cached))
 
     /**
      * null bis die Datenbank zum ersten Mal geantwortet hat — so zeigt die
      * Liste Platzhalter statt kurz «leer». Eine Quelle für beides, damit
      * «geladen» und Inhalt nie auseinanderlaufen.
      */
-    val watchesOrNull: StateFlow<List<WatchEntity>?> = shownList
+    private val watchesOrNull: StateFlow<List<WatchEntity>?> = shownList
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
 
     /**
@@ -353,9 +321,9 @@ class WatchlistViewModel @Inject constructor(
      * gilt wieder «Alle». null, bis Liste und Einstellung geladen sind —
      * so blitzt beim Öffnen nicht kurz die ungefilterte Liste auf.
      */
-    val groupFilter: StateFlow<GroupFilter?> = combine(
+    private val groupFilter: StateFlow<GroupFilter?> = combine(
         watchList,
-        settingsRepository.settings.map { it.watchlistGroup }.distinctUntilChanged(),
+        watchlistSettings.map { it.group }.distinctUntilChanged(),
         coinLogoRepository.tradFiPairs,
         coinLogoRepository.alphaSymbols,
         coinLogoRepository.alphaNames,
@@ -372,7 +340,7 @@ class WatchlistViewModel @Inject constructor(
         // «FAV» gibt es immer (auch ohne Favoriten); «Token» nur, solange es TradFi- und andere Paare
         // gibt, «Alpha» nur mit Alpha- und anderen Paaren
         if (!WatchFilter.isAvailable(group, groupNames, alphaFlags)) {
-            val renamed = group?.let { renamedGroups[it] }?.takeIf { it in groups }
+            val renamed = group?.let { edits.renamedGroup(it) }?.takeIf { it in groups }
             settingsRepository.setWatchlistGroup(renamed)
             GroupFilter(groups, renamed, tokens, alpha, kinds)
         } else {
@@ -380,61 +348,52 @@ class WatchlistViewModel @Inject constructor(
         }
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
 
-    /** Dauer des letzten vollständigen Durchlaufs, für die Kopfzeile. */
-    val lastRefreshMillis: StateFlow<Long> = refreshStats.lastDurationMillis
-
     /** Aufschlüsselung des letzten Durchlaufs, per Tipp auf die Dauer. */
-    val lastRefreshReport: StateFlow<RefreshReport?> = refreshStats.lastReport
+    val lastRefreshReport: StateFlow<RefreshReport?> get() = refresh.lastRefreshReport
 
     /** Gerät hat Internet? Ohne: ruhige Statuszeile «Offline · Stand …», keine Aktualisierung. */
-    val online: StateFlow<Boolean> = connectivity.online
+    private val online: StateFlow<Boolean> = connectivity.online
 
     /** App-Start bis zum ersten Bild der Merkliste (zuletzt gemessen), für den Bericht. */
-    val appStartMillis: StateFlow<Long?> = refreshStats.appStartMillis
+    val appStartMillis: StateFlow<Long?> get() = refresh.appStartMillis
 
     /** Erstes Bild der Merkliste nach dem Start gemessen (nur lokal gespeichert). */
-    fun recordAppStart(millis: Long) = refreshStats.setAppStartMillis(millis)
+    fun recordAppStart(millis: Long) = refresh.recordAppStart(millis)
 
     /** «Basis der %-Änderung» (Änderung, Puls, Aktionsblatt). */
-    val changeBasis: StateFlow<com.cryptochecker.app.domain.watch.ChangeBasis> = settingsRepository.settings
+    val changeBasis: StateFlow<ChangeBasis> = watchlistSettings
         .map { it.changeBasis }
         .distinctUntilChanged()
         .stateIn(viewModelScope, SharingStarted.Eagerly, settingsRepository.cached.changeBasis)
 
     /** Zeitraum («24h», «heute») neben der Änderung und Puls zeigen (Einstellungen › %-Änderung). */
-    val showChangePeriod: StateFlow<Boolean> = settingsRepository.settings
+    val showChangePeriod: StateFlow<Boolean> = watchlistSettings
         .map { it.showChangePeriod }
         .distinctUntilChanged()
         .stateIn(viewModelScope, SharingStarted.Eagerly, settingsRepository.cached.showChangePeriod)
 
-    /** Hauptschalter «Kursmitteilungen»: aus = jede Zeile zeigt die durchgestrichene Glocke. */
-    val priceNotificationsOn: StateFlow<Boolean> = settingsRepository.settings
-        .map { it.priceNotifications }
-        .distinctUntilChanged()
-        .stateIn(viewModelScope, SharingStarted.Eagerly, settingsRepository.cached.priceNotifications)
-
     /** Basis und Tagesbeginn, mit denen die gespeicherten Veränderungen gerechnet wurden. */
-    val changeStamp: StateFlow<com.cryptochecker.app.domain.watch.ChangeStamp?> = refreshStats.changeStamp
+    val changeStamp: StateFlow<ChangeStamp?> get() = refresh.changeStamp
 
-    val watches: StateFlow<List<WatchEntity>> = shownList
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
+    /** Alle Alarme der Datenbank (Paar-Alarme), für die Zählungen unten. */
+    private val pairAlarms = watchRepository.observeAllAlarms()
 
     /**
      * Alle Alarme, die die Übersicht zeigen würde: Paar-Alarme auch ausgeschaltet, Portfolio-Alarme nur mit
      * eingeschaltetem Portfolio (wie [com.cryptochecker.app.ui.features.alarms.AlarmsOverviewViewModel]); null bis
      * geladen. Entscheidet das Ziel der Glocke ([com.cryptochecker.app.domain.watch.AlarmBellRoute]).
      */
-    val alarmTotal: StateFlow<Int?> = combine(
-        watchRepository.observeAllAlarms(),
+    private val alarmTotal: StateFlow<Int?> = combine(
+        pairAlarms,
         portfolioAlarmRepository.observeAll(),
-        settingsRepository.settings,
-    ) { pairAlarms, portfolioAlarms, settings ->
-        pairAlarms.size + if (settings.portfolioEnabled) portfolioAlarms.size else 0
+        watchlistSettings.map { it.portfolioEnabled }.distinctUntilChanged(),
+    ) { pairs, portfolioAlarms, portfolioEnabled ->
+        pairs.size + if (portfolioEnabled) portfolioAlarms.size else 0
     }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
 
-    /** Anzahl aktiver Alarme je Paar, für die Anzeige in der Liste. */
-    val alarmCounts: StateFlow<Map<Long, Int>> = watchRepository.observeAllAlarms()
+    /** Anzahl aktiver Alarme je Paar, für die Anzeige in der Liste (auch im Aktionsblatt des Markt-Tabs). */
+    val alarmCounts: StateFlow<Map<Long, Int>> = pairAlarms
         .map { alarms ->
             alarms.filter { it.alarm.enabled }
                 .groupingBy { it.alarm.watchId }
@@ -446,7 +405,7 @@ class WatchlistViewModel @Inject constructor(
      * Letzte Auslösung irgendeines Alarms (Epoch-ms, 0 = nie); null bis zum ersten Stand aus
      * der Datenbank — für den kurzen Puls der Glocke ([com.cryptochecker.app.domain.watch.AlarmPulse]).
      */
-    val latestAlarmTrigger: StateFlow<Long?> = watchRepository.observeAllAlarms()
+    private val latestAlarmTrigger: StateFlow<Long?> = pairAlarms
         .map { alarms -> alarms.maxOfOrNull { it.alarm.lastTriggeredAt } ?: 0L }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
 
@@ -454,7 +413,7 @@ class WatchlistViewModel @Inject constructor(
      * Letzte Auslösung je Paar (Epoch-ms; auch abgeschaltete Einmal-Alarme, die nach dem Auslösen
      * aus sind) — für «Alarm ausgelöst» im Screenreader-Satz der Zeile ([com.cryptochecker.app.util.A11ySpeech.firedRecently]).
      */
-    val alarmFiredAt: StateFlow<Map<Long, Long>> = watchRepository.observeAllAlarms()
+    private val alarmFiredAt: StateFlow<Map<Long, Long>> = pairAlarms
         .map { alarms ->
             alarms.filter { it.alarm.lastTriggeredAt > 0 }
                 .groupBy { it.alarm.watchId }
@@ -462,23 +421,180 @@ class WatchlistViewModel @Inject constructor(
         }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyMap())
 
-    /**
-     * Läuft, solange die per Knopf (App) angestossene Aktualisierung arbeitet oder die
-     * aus dem Widget-Knopf bei WorkManager wartet oder arbeitet.
-     */
-    val refreshing: StateFlow<Boolean> = combine(
-        manualRefresh.running,
-        scheduler.observeManualRefreshRunning(),
-    ) { app, widget -> app || widget }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), manualRefresh.running.value)
+    /** Gespeicherte Merkliste mit Gruppen, Alarmen und Aktivität in einem Stand. */
+    private val content: StateFlow<WatchlistContent> = combine(
+        combine(watchesOrNull, groupFilter, alarmCounts, alarmTotal, alarmFiredAt) { watches, filter, counts, total, firedAt ->
+            WatchlistContent.Initial.copy(
+                watches = watches,
+                groupFilter = filter,
+                alarmCounts = counts,
+                alarmTotal = total,
+                alarmFiredAt = firedAt,
+            )
+        },
+        latestAlarmTrigger,
+        activity,
+    ) { base, latest, reports -> base.copy(latestAlarmTrigger = latest, activity = reports) }
+        .stateIn(
+            viewModelScope, SharingStarted.WhileSubscribed(5_000),
+            WatchlistContent(
+                watches = watchesOrNull.value,
+                groupFilter = groupFilter.value,
+                alarmCounts = alarmCounts.value,
+                alarmTotal = alarmTotal.value,
+                alarmFiredAt = alarmFiredAt.value,
+                latestAlarmTrigger = latestAlarmTrigger.value,
+                activity = activity.value,
+            ),
+        )
 
-    internal val undoMutex = Mutex()
+    /** Aktualisierung, Netz, Live-Strom, Umrechnung und Stempel der Änderungen in einem Stand. */
+    private val live: StateFlow<WatchlistLive> = combine(
+        combine(refresh.refreshing, online, liveExchanges, liveWatchIds) { refreshing, online, exchanges, ids ->
+            WatchlistLive(
+                refreshing = refreshing,
+                online = online,
+                liveExchanges = exchanges,
+                liveWatchIds = ids,
+                convertRates = emptyMap(),
+                convertFxTimes = emptyMap(),
+                sortRates = emptyMap(),
+                changeStamp = null,
+            )
+        },
+        convertRates,
+        convertFxTimes,
+        sortRates,
+        refresh.changeStamp,
+    ) { base, rates, fxTimes, sorting, stamp ->
+        base.copy(convertRates = rates, convertFxTimes = fxTimes, sortRates = sorting, changeStamp = stamp)
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), currentLive())
+
+    private fun currentLive() = WatchlistLive(
+        refreshing = refresh.refreshing.value,
+        online = online.value,
+        liveExchanges = liveExchanges.value,
+        liveWatchIds = liveWatchIds.value,
+        convertRates = convertRates.value,
+        convertFxTimes = convertFxTimes.value,
+        sortRates = sortRates.value,
+        changeStamp = refresh.changeStamp.value,
+    )
 
     /**
-     * Zuletzt Gelöschtes: ein Paar (Schlüssel = seine Id), alle nicht gehandelten
-     * ([NOT_TRADED_UNDO_KEY]) oder die Mehrfachauswahl ([SELECTION_UNDO_KEY]).
+     * Alles, was der Merkliste-Bildschirm liest, in einem Stand — gesammelt mit EINEM
+     * collectAsStateWithLifecycle. Die Live-Kurse ([livePrices]) bleiben getrennt.
      */
-    internal val undo = UndoSlot<Long, List<WatchSnapshot>>()
+    val uiState: StateFlow<WatchlistUiState> = combine(content, display, live, starter.state) { c, d, l, s ->
+        WatchlistUiState(content = c, display = d, live = l, starter = s)
+    }.stateIn(
+        viewModelScope, SharingStarted.WhileSubscribed(5_000),
+        WatchlistUiState(content.value, display.value, live.value, starter.state.value),
+    )
+
+    // ---- Start-Auswahl der leeren Merkliste ([WatchlistStarterController])
+
+    /** Nur wenn die leere Merkliste gezeigt wird; höchstens ein Abruf gleichzeitig. */
+    fun loadStarterCoins() = starter.loadStarterCoins()
+
+    fun toggleStarter(symbol: String) = starter.toggleStarter(symbol)
+
+    /** «Alle auswählen» bzw. «Keine auswählen». */
+    fun toggleAllStarters() = starter.toggleAllStarters()
+
+    /** Die gewählten Start-Coins in der angezeigten Reihenfolge anlegen. */
+    fun addSelectedStarters() = starter.addSelectedStarters()
+
+    // ---- Aktualisieren ([WatchlistRefreshController])
+
+    /** «Aktualisieren» im Aktionsblatt: Kurs neu abfragen und den Chart des Paars neu laden. */
+    fun refreshOneByUser(watch: WatchEntity) = refresh.refreshOneByUser(watch)
+
+    /** Nach unten ziehen bzw. Knopf oben, mit 15-s-Sperre ([RefreshDebounce]). */
+    fun refreshAllByUser(): RefreshDebounce.Decision = refresh.refreshAllByUser()
+
+    /** Würde «Aktualisieren» jetzt etwas tun? Sonst ist der Menüpunkt grau. */
+    fun canRefreshNow(): Boolean = refresh.canRefreshNow()
+
+    fun refreshOne(watchId: Long) = refresh.refreshOne(watchId)
+
+    // ---- Änderungen an der Merkliste ([WatchlistEditController])
+
+    fun selectGroup(group: String?) = edits.selectGroup(group)
+
+    fun setNote(watch: WatchEntity, note: String?) = edits.setNote(watch, note)
+
+    fun setGroup(watch: WatchEntity, group: String?) = edits.setGroup(watch, group)
+
+    /** Mehrfachauswahl › «Gruppe»: alle [ids] in [group] (null = keine Gruppe). */
+    fun setGroup(ids: Collection<Long>, group: String?) = edits.setGroup(ids, group)
+
+    /** «Gruppe bearbeiten» übernehmen; [oldName] null für eine neue Gruppe. */
+    fun saveGroup(oldName: String?, newName: String, memberIds: Set<Long>) = edits.saveGroup(oldName, newName, memberIds)
+
+    /** Gruppe löschen: Paare bleiben in der Merkliste; die Ansicht springt auf «Alle». */
+    fun deleteGroup(name: String) = edits.deleteGroup(name)
+
+    /** Vorschau-Paar aus «Heute auffällig» in die Merkliste ([WatchlistEditController.addPreview]). */
+    fun addPreview(watch: WatchEntity, onDone: (id: Long?, added: Boolean) -> Unit) = edits.addPreview(watch, onDone)
+
+    /** Löschen mit «Rückgängig» ([undoDelete] mit der Watch-Id). */
+    fun deleteWithUndo(watch: WatchEntity) = edits.deleteWithUndo(watch)
+
+    /** «Rückgängig» für [watchId] bzw. [NOT_TRADED_UNDO_KEY] / [SELECTION_UNDO_KEY]. */
+    fun undoDelete(watchId: Long) = edits.undoDelete(watchId)
+
+    /** «Nicht gehandelte Paare entfernen»; [onDone] bekommt die Zahl der gelöschten Paare. */
+    fun deleteNotTradedWithUndo(onDone: (Int) -> Unit) = edits.deleteNotTradedWithUndo(onDone)
+
+    /** Mehrfachauswahl › «Löschen»; [onDone] bekommt die Zahl der gelöschten Paare. */
+    fun deleteSelectedWithUndo(ids: Collection<Long>, onDone: (Int) -> Unit) = edits.deleteSelectedWithUndo(ids, onDone)
+
+    /** Mehrfachauswahl › «Favorit». */
+    fun setFavorite(ids: Collection<Long>, favorite: Boolean) = edits.setFavorite(ids, favorite)
+
+    /** «Deaktivieren» bzw. «Aktivieren» (dann gleich den Kurs holen). */
+    fun setDisabled(ids: Collection<Long>, disabled: Boolean) = edits.setDisabled(ids, disabled)
+
+    fun deleteAll() = edits.deleteAll()
+
+    fun setNotificationEnabled(watch: WatchEntity, enabled: Boolean) = edits.setNotificationEnabled(watch, enabled)
+
+    /** Paar im Sortiermodus verschieben. */
+    fun move(watch: WatchEntity, move: WatchMove) = edits.move(watch, move)
+
+    /** Neue Reihenfolge nach dem Ziehen einer Karte. */
+    fun reorder(orderedIds: List<Long>) = edits.reorder(orderedIds)
+
+    /** Stern, Aktionen-Menü bzw. nach rechts wischen: Favorit an/aus. */
+    fun toggleFavorite(watch: WatchEntity) = edits.toggleFavorite(watch)
+
+    /** «Kurs vorlesen»; true, wenn die Sprachausgabe dafür eingeschaltet wurde (kurzer Hinweis im Blatt). */
+    fun setTtsEnabled(watch: WatchEntity, enabled: Boolean): Boolean = edits.setTtsEnabled(watch, enabled)
+
+    // ---- Daten für Zeilen und Aktionsblatt ([WatchlistSheetData])
+
+    fun rowSource(watch: WatchEntity): DayChange.RowSource? = sheetData.rowSource(watch)
+
+    fun foreignSparklineSource(watch: WatchEntity): String? = sheetData.foreignSparklineSource(watch)
+
+    fun foreignCandleSource(watch: WatchEntity): String? = sheetData.foreignCandleSource(watch)
+
+    fun cachedSparkline(watch: WatchEntity): List<Double>? = sheetData.cachedSparkline(watch)
+
+    suspend fun sparkline(watch: WatchEntity): List<Double>? = sheetData.sparkline(watch)
+
+    suspend fun satsRate(quote: String): Pair<String, Double>? = sheetData.satsRate(quote)
+
+    suspend fun explain(watch: WatchEntity): WhyReport? = sheetData.explain(watch)
+
+    suspend fun fetchFutures(watch: WatchEntity): com.cryptochecker.app.data.remote.FuturesInfo? = sheetData.fetchFutures(watch)
+
+    suspend fun fetchSpot(watch: WatchEntity): com.cryptochecker.app.domain.spot.SpotData? = sheetData.fetchSpot(watch)
+
+    fun cachedSheetChart(watch: WatchEntity, range: SheetChartRange): SheetChartResult? = sheetData.cachedSheetChart(watch, range)
+
+    suspend fun loadSheetChart(watch: WatchEntity, range: SheetChartRange): SheetChartResult = sheetData.loadSheetChart(watch, range)
 }
 
 /** Gemeinsame Währung fürs Sortieren nach Kurs (nur intern, nie angezeigt). */

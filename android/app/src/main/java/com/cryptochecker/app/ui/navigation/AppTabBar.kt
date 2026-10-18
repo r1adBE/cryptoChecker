@@ -56,7 +56,7 @@ import com.cryptochecker.app.ui.components.rememberReduceMotion
 import com.cryptochecker.app.ui.theme.LocalDarkTheme
 
 internal data class BottomTab(
-    val route: String,
+    val route: ScreenRoute,
     val labelRes: Int,
     val iconRes: Int,
     /** Kennung für UI-Tests ([UiTestTags]), wie iOS `AppTabBarButton`. */
@@ -89,7 +89,7 @@ private const val TAB_LABEL_MAX_LINES = 2
 
 /**
  * Die Beschriftung wächst höchstens bis zur 1,5-fachen Schrift (wie iOS bis `.accessibility1`):
- * Sonst fräße die Leiste bei Schriftgrösse 200 % auf jedem Tab Inhaltshöhe. Den vollen Namen zeigt
+ * Sonst frässe die Leiste bei Schriftgrösse 200 % auf jedem Tab Inhaltshöhe. Den vollen Namen zeigt
  * der Tooltip beim langen Drücken.
  */
 private const val TAB_LABEL_MAX_SCALE = 1.5f
@@ -118,7 +118,7 @@ private val TAB_INDICATOR_HEIGHT = 32.dp
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun AppTabBar(tabs: List<BottomTab>, currentRoute: String?, onSelect: (String) -> Unit) {
+internal fun AppTabBar(tabs: List<BottomTab>, currentRoute: ScreenRoute?, onSelect: (ScreenRoute) -> Unit) {
     val labelColor = if (LocalDarkTheme.current) Color.White else MaterialTheme.colorScheme.onSurface
     val reduceMotion = rememberReduceMotion()
     Surface(color = MaterialTheme.colorScheme.surfaceContainer) {

@@ -30,7 +30,7 @@ final class AlarmChainIntegrationTests: XCTestCase {
 
     /// Hält Meldungen fest; `shown` = false wie «nicht unter den zugestellten», `deliverable` = false wie
     /// «Mitteilungen aus».
-    private final class FakeNotifier: @unchecked Sendable {
+    private final class FakeNotifier: @unchecked Sendable { // @unchecked: `_posts` unter `lock` (NSLock); Schalter nur vor dem Lauf gesetzt
         private let lock = NSLock()
         private var _posts: [(alarmId: Int64, price: Double)] = []
         var shown = true
@@ -51,7 +51,7 @@ final class AlarmChainIntegrationTests: XCTestCase {
     }
 
     /// Gespeicherter Stand (statt Datei bzw. Stand der App).
-    private final class FakeStore: @unchecked Sendable {
+    private final class FakeStore: @unchecked Sendable { // @unchecked: Test-Fake, nur nacheinander aus dem Testablauf benutzt (keine Sperre nötig)
         var snapshot = SharedStorage.Snapshot()
         func save(_ id: Int64, _ update: PriceRefresher.AlarmUpdate) -> Bool {
             update.apply(toAlarm: id, in: &snapshot)
@@ -284,7 +284,7 @@ final class AlarmChainIntegrationTests: XCTestCase {
 }
 
 /// Wert über Threads hinweg (für die @Sendable-Closures der Tests).
-private final class LockedValue<T>: @unchecked Sendable {
+private final class LockedValue<T>: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
     private let lock = NSLock()
     private var value: T
     init(_ value: T) { self.value = value }

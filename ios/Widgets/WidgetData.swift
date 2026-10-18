@@ -216,7 +216,8 @@ enum WidgetRefresh {
     /// beide «frei» und aktualisierten doppelt. Prozessübergreifend bleibt der Zeitstempel in den App-Group-Defaults.
     private static let runLock = NSLock()
     /// Läuft in diesem Prozess gerade eine Aktualisierung? Nur unter `runLock` lesen oder schreiben.
-    private static var runningInProcess = false
+    // nonisolated(unsafe): jeder Zugriff nur unter `runLock` (NSLock)
+    nonisolated(unsafe) private static var runningInProcess = false
 
     /// Aktualisierung übernehmen (atomar im Prozess); false = läuft schon (hier oder, innerhalb der Frist, anderswo).
     private static func claimRun(started: Int64) -> Bool {
@@ -335,7 +336,7 @@ enum WidgetRefresh {
 }
 
 /// Lässt eine Fortsetzung genau einmal weiterlaufen (Ergebnis oder Zeitgrenze).
-private final class WidgetDeadlineGate: @unchecked Sendable {
+private final class WidgetDeadlineGate: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
     private let lock = NSLock()
     private var continuation: CheckedContinuation<Bool, Never>?
     private var done = false

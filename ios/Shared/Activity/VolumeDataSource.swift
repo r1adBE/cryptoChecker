@@ -24,6 +24,7 @@ enum VolumeDataSource {
 
     // Kerzen je Symbol (und Anzahl), kurz zwischengespeichert (auch «nicht gefunden»), mit Anbieter
     private static let lock = NSLock()
+    // nonisolated(unsafe): jeder Zugriff nur unter `lock` (NSLock)
     nonisolated(unsafe) private static var cache: [String: (time: Int64, candles: Sourced<[MarketCandle]>?)] = [:]
 
     /// Markt-Referenz (z. B. BTC/USDT für den Puls) direkt aus der Ausweich-Kette.

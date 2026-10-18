@@ -10,6 +10,8 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.Saver
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -47,14 +49,30 @@ internal fun StepHint(text: String, modifier: Modifier = Modifier) {
 }
 
 /**
- * Auf-/Zuklappen bleibt für die ganze Sitzung (bis die App beendet wird), auch wenn
- * man den Tab wechselt. Standard: beides eingeklappt — die Suche ist der Hauptweg.
+ * Auf-/Zuklappen der Seite «Paar hinzufügen». Die Navigation hält es für die ganze Sitzung (jedes Öffnen
+ * der Seite, auch nach einem Tab-Wechsel) und speichert es mit [rememberExplorerSections] — es übersteht
+ * Drehen und Prozess-Neustart; jede Komposition (z. B. ein UI-Test) hat ihren eigenen Stand.
+ * Standard: beides eingeklappt — die Suche ist der Hauptweg.
  */
-internal object ExplorerSections {
-    var precise by mutableStateOf(false)
+@Stable
+class ExplorerSectionsState(precise: Boolean = false, bulk: Boolean = false) {
+    /** «Erweitert / nach Börse» aufgeklappt. */
+    var precise by mutableStateOf(precise)
+
     /** Register «Mehrere Paare auf einmal» gewählt (sonst «Paar wählen»). */
-    var bulk by mutableStateOf(false)
+    var bulk by mutableStateOf(bulk)
 }
+
+/** Speichert [ExplorerSectionsState] als zwei Wahrheitswerte (precise, bulk). */
+private val explorerSectionsSaver: Saver<ExplorerSectionsState, List<Boolean>> = Saver(
+    save = { arrayListOf(it.precise, it.bulk) },
+    restore = { ExplorerSectionsState(precise = it[0], bulk = it[1]) },
+)
+
+/** Gespeicherter Stand der aufklappbaren Bereiche ([ExplorerSectionsState]). */
+@Composable
+fun rememberExplorerSections(): ExplorerSectionsState =
+    rememberSaveable(saver = explorerSectionsSaver) { ExplorerSectionsState() }
 
 /**
  * Zwei Register über der Paar-Auswahl: «Paar wählen» | «Mehrere Paare auf einmal». Beide gleich

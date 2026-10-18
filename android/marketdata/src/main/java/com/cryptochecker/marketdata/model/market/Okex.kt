@@ -19,6 +19,7 @@ class Okex : SimpleMarket(
     tickerUrl = "https://www.okx.com/api/v5/market/ticker?instId=%1\$s",
     errorField = "msg",
 ) {
+    override val key = "Okex"
 
     // ── Einzelkurs ──
 

@@ -85,8 +85,8 @@ import kotlinx.coroutines.delay
  * Die Merkliste: fester Kopf (Gruppen, Glocke, Menü, Status mit Lupe und «+» bzw. Suche), darunter Puls,
  * Aktivitätskarte und die Paare. Aufgeteilt nach Aufgaben — Kopf [WatchlistHeader], Status
  * [WatchlistStatusRow], Liste [WatchlistList] und Zeile [WatchlistItem], Blätter und Rückfragen
- * [WatchlistSheets], Zustand [WatchlistUiState], Banner [WatchlistBanner], Sprungknopf
- * [WatchlistJump]. Hier wird nur zusammengesetzt.
+ * [WatchlistSheets], Zustand aus dem ViewModel [WatchlistUiState] (einmal gesammelt) und des Bildschirms
+ * [WatchlistScreenState], Banner [WatchlistBanner], Sprungknopf [WatchlistJump]. Hier wird nur zusammengesetzt.
  */
 @Composable
 fun WatchlistScreen(
@@ -106,23 +106,21 @@ fun WatchlistScreen(
     viewModel: WatchlistViewModel = hiltViewModel(),
     lockViewModel: PortfolioLockViewModel = hiltViewModel(),
 ) {
-    val watchesOrNull by viewModel.watchesOrNull.collectAsStateWithLifecycle()
-    val watches = watchesOrNull.orEmpty()
-    val groupFilter by viewModel.groupFilter.collectAsStateWithLifecycle()
-    val loaded = watchesOrNull != null && groupFilter != null
-    val groups = groupFilter?.groups.orEmpty()
-    val selectedGroup = groupFilter?.selected
+    // Alles aus dem ViewModel in einem Stand (ein Sammeln statt rund 30); die Live-Kurse unten getrennt
+    val state by viewModel.uiState.collectAsStateWithLifecycle()
+    val display = state.display
+    val live = state.live
+    val starter = state.starter
+    val watches = state.watches
+    val loaded = state.loaded
+    val groups = state.groups
+    val selectedGroup = state.selectedGroup
     // Ansicht der Gruppen-Chips: alle Paare, die Favoriten (★) oder nur die der gewählten Gruppe
     // Art je Paar (Symbol vor der Glocke, «Alpha»)
-    val kinds = groupFilter?.kinds.orEmpty()
-    val groupVisible = remember(watches, selectedGroup, kinds) {
-        if (selectedGroup == null) watches
-        else watches.filter {
-            WatchFilter.matches(selectedGroup, it.groupName, it.favorite, alpha = kinds[it.id] == AssetKind.ALPHA)
-        }
-    }
-    val alarmCounts by viewModel.alarmCounts.collectAsStateWithLifecycle()
-    val alarmTotal by viewModel.alarmTotal.collectAsStateWithLifecycle()
+    val kinds = state.kinds
+    val groupVisible = remember(watches, selectedGroup, kinds) { filterByGroup(watches, selectedGroup, kinds) }
+    val alarmCounts = state.content.alarmCounts
+    val alarmTotal = state.content.alarmTotal
     // Glocke (Kopf und Start-Auswahl): mit Alarmen die Übersicht, ohne einen einzigen gleich zum Anlegen —
     // ein Paar: dessen Alarm-Seite (öffnet den Editor), mehrere: erst wählen, leere Merkliste: Coin hinzufügen
     var pickAlarmPair by remember { mutableStateOf(false) }
@@ -141,23 +139,16 @@ fun WatchlistScreen(
             onDismiss = { pickAlarmPair = false },
         )
     }
-    val latestAlarmTrigger by viewModel.latestAlarmTrigger.collectAsStateWithLifecycle()
-    val alarmFiredAt by viewModel.alarmFiredAt.collectAsStateWithLifecycle()
-    val refreshing by viewModel.refreshing.collectAsStateWithLifecycle()
-    val showGestureHint by viewModel.showGestureHint.collectAsStateWithLifecycle()
-    val firstAlarmCardDismissed by viewModel.firstAlarmCardDismissed.collectAsStateWithLifecycle()
-    val staleAfter by viewModel.staleAfterMillis.collectAsStateWithLifecycle()
-    val outdatedAfter by viewModel.outdatedAfterMillis.collectAsStateWithLifecycle()
-    val convertTarget by viewModel.convertTarget.collectAsStateWithLifecycle()
-    val convertRates by viewModel.convertRates.collectAsStateWithLifecycle()
-    val convertFxTimes by viewModel.convertFxTimes.collectAsStateWithLifecycle()
-    val sparklineEnabled by viewModel.sparklineEnabled.collectAsStateWithLifecycle()
-    val activityCardEnabled by viewModel.activityCardEnabled.collectAsStateWithLifecycle()
-    // Mini-Chart nur mit genug Breite, damit der Paarname nicht gequetscht wird;
-    // grössere Schrift braucht entsprechend mehr Platz.
+    val latestAlarmTrigger = state.content.latestAlarmTrigger
+    val alarmFiredAt = state.content.alarmFiredAt
+    val refreshing = live.refreshing
+    // Eine Frische-Schwelle für Änderung, Zeile und Screenreader
+    val staleAfter = display.staleAfterMillis
+    val outdatedAfter = display.staleAfterMillis
+    // Mini-Chart nur mit genug Breite, damit der Paarname nicht gequetscht wird ([sparklinesFit])
     val screenWidthDp = LocalConfiguration.current.screenWidthDp
     val fontScale = LocalDensity.current.fontScale
-    val fetchSparklines = sparklineEnabled && screenWidthDp >= SPARKLINE_MIN_SCREEN_DP * fontScale.coerceAtLeast(1f)
+    val fetchSparklines = sparklinesFit(display.sparklineEnabled, screenWidthDp, fontScale)
 
     // Uhr für «vor 2 Min.» — alle 30 Sekunden neu
     var now by remember { mutableLongStateOf(System.currentTimeMillis()) }
@@ -167,12 +158,9 @@ fun WatchlistScreen(
             now = System.currentTimeMillis()
         }
     }
-    // Kein Netz: ruhige Statuszeile statt Fehlerzuständen (es wird dann nicht aktualisiert)
-    val online by viewModel.online.collectAsStateWithLifecycle()
-    // Live-Kurse (WebSocket) für die Paare der Ansicht, solange die Merkliste zu sehen ist
-    val liveExchanges by viewModel.liveExchanges.collectAsStateWithLifecycle()
     // Paare am Live-Strom: eigene Frische-Schwelle (2 Min.) und «Live» nur, wenn alle dabei sind (K-1)
-    val liveIds by viewModel.liveWatchIds.collectAsStateWithLifecycle()
+    val liveIds = live.liveWatchIds
+    // Live-Kurse (WebSocket) für die Paare der Ansicht, solange die Merkliste zu sehen ist
     // Als State (nicht «by»): gelesen wird nur in den Zeilen bzw. im Aktionsblatt ([WithLiveQuote]),
     // ein Tick setzt also nicht den ganzen Bildschirm neu zusammen
     val livePrices = viewModel.livePrices.collectAsStateWithLifecycle()
@@ -191,8 +179,8 @@ fun WatchlistScreen(
     }
 
     // Ungewöhnliche Aktivität: nur noch gültige Signale, je Paar stärkstes zuerst
-    val activity by viewModel.activity.collectAsStateWithLifecycle()
-    val sensitivity by viewModel.activitySensitivity.collectAsStateWithLifecycle()
+    val activity = state.content.activity
+    val sensitivity = display.activitySensitivity
     // Nach der gewählten Empfindlichkeit neu beurteilt (gleiche Schwellen wie die Meldungen)
     // Nicht mehr gehandelte Paare: kein ⚡, nicht in der Karte (auch bevor die Auswertung aufräumt)
     val notTradedIds = remember(watches) { NotTraded.ids(watches, { it.id }, { it.lastError }) }
@@ -216,9 +204,7 @@ fun WatchlistScreen(
         )
     }
 
-    // Leere Merkliste: Start-Auswahl der grössten Coins
-    val starterCoins by viewModel.starterCoins.collectAsStateWithLifecycle()
-    val starterDeselected by viewModel.starterDeselected.collectAsStateWithLifecycle()
+    // Leere Merkliste: Start-Auswahl der grössten Coins ([StarterUiState])
     // Start-Auswahl: neue Paare haben Kurs-Mitteilungen an — Erlaubnis jetzt fragen (wie im Explorer)
     // Start-Auswahl übernommen: erst kurz erklären, dann die System-Abfrage
     val requestNotifications = com.cryptochecker.app.ui.components.rememberNotificationPermissionRequest(
@@ -228,13 +214,10 @@ fun WatchlistScreen(
     // weggewischt) — sonst verdeckt die Erklärung genau diesen ersten Schritt. Mit «Alarm setzen» getippt fragt
     // das Speichern des Alarms selbst (gleich wie iOS).
     var askNotificationsAfterHint by rememberSaveable { mutableStateOf(false) }
-    val starterPrices by viewModel.starterPrices.collectAsStateWithLifecycle()
-    val starterAdding by viewModel.starterAdding.collectAsStateWithLifecycle()
-    val starterLogosReady by viewModel.starterLogosReady.collectAsStateWithLifecycle()
 
-    val ui = rememberWatchlistUiState()
+    val ui = rememberWatchlistScreenState()
     // ⚡ nur mit Paaren, bei denen gerade etwas passiert (abschaltbar unter Einstellungen › Merkliste)
-    val activityChip = activityCardEnabled && hot.isNotEmpty()
+    val activityChip = display.activityCardEnabled && hot.isNotEmpty()
     // Deaktivierte Paare der Gruppen-Ansicht: Hinweis «3 deaktiviert» neben dem Status (0 = keiner)
     val disabledCount = remember(groupVisible) { DisabledView.count(groupVisible) { it.disabled } }
     // Gezeigt: die Gruppen-Ansicht oder vorübergehend ⚡, «nur veraltete» bzw. «nur deaktivierte» ([QuickView])
@@ -351,16 +334,16 @@ fun WatchlistScreen(
     val screenTitle = stringResource(R.string.tab_watchlist)
     // %-Basis für Änderungen, Puls und Aktionsblatt; passt der Stempel der gespeicherten Werte nicht
     // (Basis gewechselt, neuer Tag — die 30-s-Uhr prüft das), «—» bis neu gerechnet ist
-    val changeBasis by viewModel.changeBasis.collectAsStateWithLifecycle()
-    val changeStamp by viewModel.changeStamp.collectAsStateWithLifecycle()
-    val showChangePeriod by viewModel.showChangePeriod.collectAsStateWithLifecycle()
+    val changeBasis = display.changeBasis
+    val changeStamp = live.changeStamp
+    val showChangePeriod = display.showChangePeriod
     val changeView = remember(changeBasis, changeStamp, now, showChangePeriod) {
         ChangeView.of(changeStamp, changeBasis, now, showPeriod = showChangePeriod)
     }
     // Sortieren nach Spalte (nicht im Sortiermodus): Favoriten oben, unter sich sortiert; Kurse
     // über CHF verglichen (im Hintergrund umgerechnet, auch ohne «≈ Umrechnung»)
-    val columnSort by viewModel.columnSort.collectAsStateWithLifecycle()
-    val sortRates by viewModel.sortRates.collectAsStateWithLifecycle()
+    val columnSort = display.columnSort
+    val sortRates = live.sortRates
     val listed = remember(shown, columnSort, sortRates, changeView, ui.sortMode) {
         if (ui.sortMode) shown
         else ColumnSort.apply(
@@ -388,317 +371,309 @@ fun WatchlistScreen(
         tradFi = ui.quickView == null && selectedGroup == AutoGroup.TRADFI,
         alpha = ui.quickView == null && WatchFilter.isAlpha(selectedGroup),
     )
-    val priceNotificationsOn by viewModel.priceNotificationsOn.collectAsStateWithLifecycle()
     CompositionLocalProvider(
         LocalChangeView provides changeView,
         LocalRowHighlight provides rowHighlight,
-        com.cryptochecker.app.ui.components.LocalPriceNotificationsOn provides priceNotificationsOn,
+        com.cryptochecker.app.ui.components.LocalPriceNotificationsOn provides display.priceNotificationsOn,
     ) {
-    Scaffold(
-        modifier = Modifier.semantics {
-            paneTitle = screenTitle
-            // testTags als Ressourcen-Id: für den Baseline-Profile-Generator (UiAutomator)
-            testTagsAsResourceId = true
-        },
-        snackbarHost = { SnackbarHost(banner.host) },
-    ) { padding ->
-        WatchlistSheets(
-            ui = ui,
-            viewModel = viewModel,
-            lockViewModel = lockViewModel,
-            watches = watches,
-            groups = groups,
-            notTradedCount = notTradedIds.size,
-            alarmCounts = alarmCounts,
-            livePrices = livePrices,
-            liveExchanges = liveExchanges,
-            rollingBasis = !changeBasis.isDay,
-            activeSignals = activeSignals,
-            now = now,
-            banner = banner,
-            onOpenAlarms = onOpenAlarms,
-            onDelete = deleteWithUndo,
-        )
-
-        if (!loaded) {
-            SkeletonList(modifier = Modifier.padding(padding))
-            return@Scaffold
-        }
-
-        if (watches.isEmpty()) {
-            StarterPicker(
-                modifier = Modifier.fillMaxSize().padding(padding),
-                coins = starterCoins,
-                deselected = starterDeselected,
-                prices = starterPrices,
-                quote = viewModel.starterQuote,
-                adding = starterAdding,
-                logosReady = starterLogosReady,
-                onLoad = viewModel::loadStarterCoins,
-                onToggle = viewModel::toggleStarter,
-                onToggleAll = viewModel::toggleAllStarters,
-                onAdd = {
-                    val count = com.cryptochecker.app.domain.starter.StarterSelection.selected(starterCoins, starterDeselected).size
-                    viewModel.addSelectedStarters()
-                    // Mitteilungs-Erlaubnis erst nach dem Banner (siehe askNotificationsAfterHint)
-                    if (count > 0) askNotificationsAfterHint = true
-                },
-                onAddClick = onAddClick,
-                // Glocke nur, wenn sie mehr kann als «+» (Alarme vorhanden, z. B. im Portfolio)
-                onOpenAlarms = onBellClick.takeIf { (alarmTotal ?: 0) > 0 },
+        Scaffold(
+            modifier = Modifier.semantics {
+                paneTitle = screenTitle
+                // testTags als Ressourcen-Id: für den Baseline-Profile-Generator (UiAutomator)
+                testTagsAsResourceId = true
+            },
+            snackbarHost = { SnackbarHost(banner.host) },
+        ) { padding ->
+            WatchlistSheets(
+                ui = ui,
+                state = state,
+                viewModel = viewModel,
+                lockViewModel = lockViewModel,
+                watches = watches,
+                groups = groups,
+                notTradedCount = notTradedIds.size,
+                alarmCounts = alarmCounts,
+                livePrices = livePrices,
+                rollingBasis = !changeBasis.isDay,
+                activeSignals = activeSignals,
+                now = now,
+                banner = banner,
+                onOpenAlarms = onOpenAlarms,
+                onDelete = deleteWithUndo,
             )
-            return@Scaffold
-        }
 
-        // Liste nach unten ziehen = alles aktualisieren (wie der Knopf oben).
-        PullToRefreshBox(
-            isRefreshing = refreshing,
-            onRefresh = requestRefresh,
-            modifier = Modifier.fillMaxSize().padding(padding)
-        ) {
-        // Puls ganz oben: wie viele steigen/fallen, Ø-Veränderung — nur für die gezeigte
-        // Gruppe, nicht beim Suchen oder Sortieren
-        // Nur Paare mit Kurs (und noch gehandelt) zählen als «ohne 24h-Wert». Gemerkt, damit
-        // nicht jede Neuzusammensetzung (z. B. die 30-s-Uhr) hunderte Paare neu durchgeht.
-        val pulse = remember(visible, ui.searching, ui.sortMode, changeView) {
-            if (ui.searching || ui.sortMode) null
-            else {
-                // Nicht gehandelte Paare zählen weder als steigend/fallend noch als «ohne 24h-Wert»,
-                // deaktivierte gar nicht
-                val counted = DisabledView.active(visible) { it.disabled }
-                WatchPulse.of(
-                    changes = counted.map { it.shownChange(changeView) },
-                    hasPrice = counted.map { it.lastPrice != null && !isNotTraded(it.lastError) },
-                )
+            if (!loaded) {
+                SkeletonList(modifier = Modifier.padding(padding))
+                return@Scaffold
             }
-        }
-        KeepTopWhenPulseAppears(pulseShown = pulse != null, listState = listState)
-        // Tablet/Querformat: Inhalt höchstens 640 dp breit, Liste bleibt voll breit scrollbar
-        ReadableInset { inset ->
-            Column(modifier = Modifier.fillMaxSize()) {
-                // Fest oben (scrollt nicht mit): Kopfzeile mit Gruppen-Chips und Knöpfen,
-                // darunter Status und Lupe. Puls, Aktivitätskarte und Paare scrollen darunter.
-                Column(
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(start = 16.dp + inset, top = 4.dp, end = 16.dp + inset, bottom = 8.dp)
-                ) {
-                    WatchlistHeader(
-                        groups = groups,
-                        selectedGroup = selectedGroup,
-                        hasFavorites = watches.any { it.favorite },
-                        hasTokens = groupFilter?.tokens == true,
-                        hasAlpha = groupFilter?.alpha == true,
-                        onSelectGroup = { group ->
-                            ui.quickView = null
-                            viewModel.selectGroup(group)
-                        },
-                        hasActivity = activityChip && !ui.sortMode,
-                        quickView = ui.quickView,
-                        onToggleActivity = { ui.toggleQuickView(QuickView.ACTIVITY) },
-                        canRefresh = viewModel::canRefreshNow,
-                        selecting = ui.selecting,
-                        selectedCount = selectedIds.size,
-                        allSelected = shown.isNotEmpty() && selectedIds.size == shown.size,
-                        onSelectAll = { ui.selectedIds = shown.mapTo(HashSet()) { it.id } },
-                        onSelectionDone = ui::endSelection,
-                        canSelect = visible.isNotEmpty(),
-                        onStartSelection = ui::startSelection,
-                        onEditGroup = { group ->
-                            haptics.performHapticFeedback(HapticFeedbackType.LongPress)
-                            ui.startEditingGroup(group)
-                        },
-                        onAddGroup = { ui.askNewGroup = true },
-                        sortMode = ui.sortMode,
-                        onSortDone = { ui.sortMode = false },
-                        activeAlarms = alarmCounts.values.sum(),
-                        alarmTotal = alarmTotal,
-                        bellScale = { bellScale.value },
-                        onBellClick = onBellClick,
-                        onOpenAllAlarms = onOpenAllAlarms,
-                        onOpenAbout = onOpenAbout,
-                        refreshing = refreshing,
-                        onRefresh = requestRefresh,
-                        canSort = visible.size > 1,
-                        // Manuelles Sortieren zeigt die eigene Reihenfolge: Spalten-Sortierung aus
-                        onSort = {
-                            viewModel.clearColumnSort()
-                            ui.startSort()
-                        },
-                        onShowReport = { ui.showReport = true },
-                        canClear = watches.isNotEmpty(),
-                        notTradedCount = notTradedIds.size,
-                        onRemoveNotTraded = { ui.askRemoveNotTraded = true },
-                        onClearAll = { ui.askClearAll = true },
-                        searching = ui.searching,
-                        // Erster Gebrauch: Gruppen-Hinweis erst ab einigen Paaren (G-14)
-                        pairCount = watches.size,
-                    )
-                    WatchlistStatusRow(
-                        // «Nur veraltete» bzw. «nur deaktivierte»: der Status zählt weiter über die ganze Gruppe («10 von 30»)
-                        visible = if (ui.quickView == QuickView.STALE || ui.quickView == QuickView.DISABLED) groupVisible else visible,
-                        now = now,
-                        staleAfter = staleAfter,
-                        online = online,
-                        liveIds = liveIds,
-                        reduceMotion = reduceMotion,
-                        searching = ui.searching,
-                        query = ui.query,
-                        onQueryChange = { ui.query = it },
-                        onOpenSearch = { ui.searching = true },
-                        onCloseSearch = ui::closeSearch,
-                        onAddPair = onAddClick,
-                        // Lupe und «+»: beim Sortieren und Auswählen ausgeblendet
-                        searchAvailable = !ui.sortMode && !ui.selecting,
-                        staleOnly = ui.quickView == QuickView.STALE,
-                        onToggleStale = { ui.toggleQuickView(QuickView.STALE) },
-                        // «3 deaktiviert» neben dem Status: Tipp zeigt nur die deaktivierten bzw. wieder alle
-                        disabledCount = disabledCount,
-                        disabledOnly = ui.quickView == QuickView.DISABLED,
-                        onToggleDisabled = { ui.toggleQuickView(QuickView.DISABLED) },
-                        addLabelled = watches.size <= ADD_PAIR_LABEL_MAX_PAIRS,
-                    )
-                }
-                // Feine Linie unter dem festen Kopf, sobald die Liste darunter gescrollt ist
-                val listScrolled by remember { derivedStateOf { listState.canScrollBackward } }
-                Box(
-                    Modifier
-                        .fillMaxWidth()
-                        .height(1.dp)
-                        .background(
-                            // Volle Token-Farbe (keine halbtransparenten Linien), unsichtbar ungescrollt
-                            if (listScrolled) MaterialTheme.colorScheme.outlineVariant else Color.Transparent
-                        )
+
+            if (watches.isEmpty()) {
+                StarterPicker(
+                    modifier = Modifier.fillMaxSize().padding(padding),
+                    coins = starter.coins,
+                    deselected = starter.deselected,
+                    prices = starter.prices,
+                    quote = starter.quote,
+                    adding = starter.adding,
+                    logosReady = starter.logosReady,
+                    onLoad = viewModel::loadStarterCoins,
+                    onToggle = viewModel::toggleStarter,
+                    onToggleAll = viewModel::toggleAllStarters,
+                    onAdd = {
+                        val count = com.cryptochecker.app.domain.starter.StarterSelection.selected(starter.coins, starter.deselected).size
+                        viewModel.addSelectedStarters()
+                        // Mitteilungs-Erlaubnis erst nach dem Banner (siehe askNotificationsAfterHint)
+                        if (count > 0) askNotificationsAfterHint = true
+                    },
+                    onAddClick = onAddClick,
+                    // Glocke nur, wenn sie mehr kann als «+» (Alarme vorhanden, z. B. im Portfolio)
+                    onOpenAlarms = onBellClick.takeIf { (alarmTotal ?: 0) > 0 },
                 )
-                Box(modifier = Modifier.fillMaxWidth().weight(1f)) {
-                    WatchlistList(
-                        listState = listState,
-                        inset = inset,
-                        // Platz unten für den Sprungknopf bzw. die Leiste der Mehrfachauswahl
-                        roomForJump = jump.eligible || ui.selecting,
-                        pulse = pulse,
-                        sortBar = if (!ui.sortMode && listed.size > 1) {
-                            { WatchlistSortBar(sort = columnSort, onTap = viewModel::tapColumn) }
-                        } else null,
-                        sortMode = ui.sortMode,
-                        showGestureHint = showGestureHint,
-                        onDismissGestureHint = viewModel::dismissGestureHint,
-                        // Kein Alarm, aber Paare: bleibende Karte zusätzlich zum 6-s-Banner nach dem Hinzufügen
-                        onSetFirstAlarm = (listed.firstOrNull() ?: watches.firstOrNull())?.takeIf {
-                            FirstAlarmCard.shouldShow(
-                                alarmCount = alarmTotal,
-                                watchCount = watches.size,
-                                dismissed = firstAlarmCardDismissed,
-                                busy = ui.searching || ui.sortMode || ui.selecting,
-                            )
-                        }?.let { first -> { onOpenAlarms(first.id) } },
-                        onDismissFirstAlarm = viewModel::dismissFirstAlarmCard,
-                        noSearchMatch = filtering && shown.isEmpty(),
-                        query = trimmedQuery,
-                        groupEmpty = visible.isEmpty() && !filtering,
-                        favoritesEmpty = visible.isEmpty() && !filtering && WatchFilter.isFavorites(selectedGroup),
-                        // Eigene Gruppe (wie die Chips mit langem Drücken; TradFi ist automatisch)
-                        onEditGroup = selectedGroup?.takeIf { ui.quickView == null && it in groups && it != AutoGroup.TRADFI }
-                            ?.let { group -> { ui.startEditingGroup(group) } },
-                        shown = listed,
-                    ) { watch, shape ->
-                        WatchlistItem(
-                            watch = watch,
-                            shape = shape,
-                            reorder = reorder,
-                            searching = ui.searching,
-                            sortMode = ui.sortMode,
-                            selecting = ui.selecting,
-                            selected = watch.id in selectedIds,
-                            onToggleSelected = { ui.toggleSelected(watch.id) },
-                            sparklines = fetchSparklines,
-                            cachedSparkline = viewModel::cachedSparkline,
-                            loadSparkline = viewModel::sparkline,
-                            sparklineSource = viewModel::foreignSparklineSource,
-                            changeSource = viewModel::foreignCandleSource,
-                            moment = moment,
-                            reduceMotion = reduceMotion,
-                            livePrices = livePrices,
-                            rollingBasis = !changeBasis.isDay,
-                            alarmCount = alarmCounts[watch.id] ?: 0,
-                            alarmFiredAt = alarmFiredAt[watch.id] ?: 0L,
-                            kind = kinds[watch.id] ?: AssetKind.TOKEN,
-                            now = now,
-                            // Am Live-Strom: veraltet schon nach 2 Min. ohne Kurs (wie die Status-Pille)
-                            staleAfter = LiveStatus.staleAfterMillis(watch.id in liveIds, staleAfter),
-                            outdatedAfter = LiveStatus.staleAfterMillis(watch.id in liveIds, outdatedAfter),
-                            convertTarget = convertTarget,
-                            convertRates = convertRates,
-                            convertFxTimes = convertFxTimes,
-                            hasActivity = watch.id in activeSignals,
-                            onOpenWhy = { ui.whyFor = watch.id },
-                            onOpenActions = { ui.actionsFor = watch.id },
-                            onMove = { viewModel.move(watch, it) },
-                            onDelete = { deleteWithUndo(watch) },
-                            onFavoriteWithBanner = { favoriteWithBanner(watch) },
-                            onStartSelection = { ui.startSelectionWith(watch.id) },
+                return@Scaffold
+            }
+
+            // Liste nach unten ziehen = alles aktualisieren (wie der Knopf oben).
+            PullToRefreshBox(
+                isRefreshing = refreshing,
+                onRefresh = requestRefresh,
+                modifier = Modifier.fillMaxSize().padding(padding)
+            ) {
+                // Puls ganz oben: wie viele steigen/fallen, Ø-Veränderung — nur für die gezeigte
+                // Gruppe, nicht beim Suchen oder Sortieren
+                // Nur Paare mit Kurs (und noch gehandelt) zählen als «ohne 24h-Wert». Gemerkt, damit
+                // nicht jede Neuzusammensetzung (z. B. die 30-s-Uhr) hunderte Paare neu durchgeht.
+                val pulse = remember(visible, ui.searching, ui.sortMode, changeView) {
+                    if (ui.searching || ui.sortMode) null
+                    else {
+                        // Nicht gehandelte Paare zählen weder als steigend/fallend noch als «ohne 24h-Wert»,
+                        // deaktivierte gar nicht
+                        val counted = DisabledView.active(visible) { it.disabled }
+                        WatchPulse.of(
+                            changes = counted.map { it.shownChange(changeView) },
+                            hasPrice = counted.map { it.lastPrice != null && !isNotTraded(it.lastError) },
                         )
                     }
-                    // Rund, unten am Ende über der Tableiste; die Liste hat unten Platz dafür.
-                    // Steht ein Banner («… entfernt», «Rückgängig»), rückt der Knopf darüber.
-                    WatchlistJumpButton(
-                        jump = jump,
-                        bannerShown = banner.host.currentSnackbarData != null,
-                        reduceMotion = reduceMotion,
-                        endInset = inset,
-                    )
-                    // Mehrfachauswahl: Favorit · Gruppe · Löschen für die angehakten Paare
-                    if (ui.selecting) {
-                        val chosen = watches.filter { it.id in selectedIds }
-                        val allDisabled = chosen.isNotEmpty() && chosen.all { it.disabled }
-                        SelectionBar(
-                            count = selectedIds.size,
-                            allFavorites = chosen.isNotEmpty() && chosen.all { it.favorite },
-                            onFavorite = {
-                                viewModel.setFavorite(selectedIds, !chosen.all { it.favorite })
-                                ui.endSelection()
-                            },
-                            onGroup = { ui.askGroupForSelection = true },
-                            // Alle deaktiviert: wieder aktivieren, sonst alle deaktivieren
-                            allDisabled = allDisabled,
-                            onToggleDisabled = {
-                                viewModel.setDisabled(selectedIds.toList(), !allDisabled)
-                                ui.endSelection()
-                            },
-                            onDelete = {
-                                val ids = selectedIds.toList()
-                                ui.endSelection()
-                                viewModel.deleteSelectedWithUndo(ids) { count ->
-                                    if (count > 0) {
-                                        banner.show(
-                                            resources.getQuantityString(R.plurals.watchlist_removed_count, count, count)
-                                        ) { viewModel.undoDelete(SELECTION_UNDO_KEY) }
-                                    }
-                                }
-                            },
+                }
+                KeepTopWhenPulseAppears(pulseShown = pulse != null, listState = listState)
+                // Tablet/Querformat: Inhalt höchstens 640 dp breit, Liste bleibt voll breit scrollbar
+                ReadableInset { inset ->
+                    Column(modifier = Modifier.fillMaxSize()) {
+                        // Fest oben (scrollt nicht mit): Kopfzeile mit Gruppen-Chips und Knöpfen,
+                        // darunter Status und Lupe. Puls, Aktivitätskarte und Paare scrollen darunter.
+                        Column(
+                            verticalArrangement = Arrangement.spacedBy(8.dp),
                             modifier = Modifier
-                                .align(Alignment.BottomCenter)
-                                .padding(start = 16.dp + inset, end = 16.dp + inset, bottom = 12.dp)
+                                .fillMaxWidth()
+                                .padding(start = 16.dp + inset, top = 4.dp, end = 16.dp + inset, bottom = 8.dp)
+                        ) {
+                            WatchlistHeader(
+                                state = headerStateOf(
+                                    state = state,
+                                    activityChip = activityChip,
+                                    quickView = ui.quickView,
+                                    sortMode = ui.sortMode,
+                                    selecting = ui.selecting,
+                                    searching = ui.searching,
+                                    selectedCount = selectedIds.size,
+                                    shownCount = shown.size,
+                                    visibleCount = visible.size,
+                                    notTradedCount = notTradedIds.size,
+                                ),
+                                actions = WatchlistHeaderActions(
+                                    onSelectGroup = { group ->
+                                        ui.quickView = null
+                                        viewModel.selectGroup(group)
+                                    },
+                                    onEditGroup = { group ->
+                                        haptics.performHapticFeedback(HapticFeedbackType.LongPress)
+                                        ui.startEditingGroup(group)
+                                    },
+                                    onAddGroup = { ui.askNewGroup = true },
+                                    onSortDone = { ui.sortMode = false },
+                                    onBellClick = onBellClick,
+                                    onOpenAllAlarms = onOpenAllAlarms,
+                                    onOpenAbout = onOpenAbout,
+                                    onRefresh = requestRefresh,
+                                    canRefresh = viewModel::canRefreshNow,
+                                    // Manuelles Sortieren zeigt die eigene Reihenfolge: Spalten-Sortierung aus
+                                    onSort = {
+                                        viewModel.clearColumnSort()
+                                        ui.startSort()
+                                    },
+                                    onShowReport = { ui.showReport = true },
+                                    onRemoveNotTraded = { ui.askRemoveNotTraded = true },
+                                    onClearAll = { ui.askClearAll = true },
+                                    onToggleActivity = { ui.toggleQuickView(QuickView.ACTIVITY) },
+                                    onSelectAll = { ui.selectedIds = shown.mapTo(HashSet()) { it.id } },
+                                    onSelectionDone = ui::endSelection,
+                                    onStartSelection = ui::startSelection,
+                                ),
+                                bellScale = { bellScale.value },
+                            )
+                            WatchlistStatusRow(
+                                // «Nur veraltete» bzw. «nur deaktivierte»: der Status zählt weiter über die ganze Gruppe («10 von 30»)
+                                visible = if (ui.quickView == QuickView.STALE || ui.quickView == QuickView.DISABLED) groupVisible else visible,
+                                now = now,
+                                staleAfter = staleAfter,
+                                online = live.online,
+                                liveIds = liveIds,
+                                reduceMotion = reduceMotion,
+                                searching = ui.searching,
+                                query = ui.query,
+                                onQueryChange = { ui.query = it },
+                                onOpenSearch = { ui.searching = true },
+                                onCloseSearch = ui::closeSearch,
+                                onAddPair = onAddClick,
+                                // Lupe und «+»: beim Sortieren und Auswählen ausgeblendet
+                                searchAvailable = !ui.sortMode && !ui.selecting,
+                                staleOnly = ui.quickView == QuickView.STALE,
+                                onToggleStale = { ui.toggleQuickView(QuickView.STALE) },
+                                // «3 deaktiviert» neben dem Status: Tipp zeigt nur die deaktivierten bzw. wieder alle
+                                disabledCount = disabledCount,
+                                disabledOnly = ui.quickView == QuickView.DISABLED,
+                                onToggleDisabled = { ui.toggleQuickView(QuickView.DISABLED) },
+                                addLabelled = watches.size <= ADD_PAIR_LABEL_MAX_PAIRS,
+                            )
+                        }
+                        // Feine Linie unter dem festen Kopf, sobald die Liste darunter gescrollt ist
+                        val listScrolled by remember { derivedStateOf { listState.canScrollBackward } }
+                        Box(
+                            Modifier
+                                .fillMaxWidth()
+                                .height(1.dp)
+                                .background(
+                                    // Volle Token-Farbe (keine halbtransparenten Linien), unsichtbar ungescrollt
+                                    if (listScrolled) MaterialTheme.colorScheme.outlineVariant else Color.Transparent
+                                )
                         )
-                    }
-                    if (ui.askGroupForSelection) {
-                        val chosen = watches.filter { it.id in selectedIds }
-                        GroupDialog(
-                            // Gleiche Gruppe bei allen: vorgewählt, sonst nichts
-                            current = chosen.map { it.groupName }.distinct().singleOrNull(),
-                            groups = groups,
-                            onSelect = { group ->
-                                viewModel.setGroup(selectedIds, group)
-                                ui.endSelection()
-                            },
-                            onDismiss = { ui.askGroupForSelection = false },
-                        )
+                        Box(modifier = Modifier.fillMaxWidth().weight(1f)) {
+                            WatchlistList(
+                                listState = listState,
+                                inset = inset,
+                                // Platz unten für den Sprungknopf bzw. die Leiste der Mehrfachauswahl
+                                roomForJump = jump.eligible || ui.selecting,
+                                pulse = pulse,
+                                sortBar = if (!ui.sortMode && listed.size > 1) {
+                                    { WatchlistSortBar(sort = columnSort, onTap = viewModel::tapColumn) }
+                                } else null,
+                                sortMode = ui.sortMode,
+                                showGestureHint = display.showGestureHint,
+                                onDismissGestureHint = viewModel::dismissGestureHint,
+                                // Kein Alarm, aber Paare: bleibende Karte zusätzlich zum 6-s-Banner nach dem Hinzufügen
+                                onSetFirstAlarm = (listed.firstOrNull() ?: watches.firstOrNull())?.takeIf {
+                                    FirstAlarmCard.shouldShow(
+                                        alarmCount = alarmTotal,
+                                        watchCount = watches.size,
+                                        dismissed = display.firstAlarmCardDismissed,
+                                        busy = ui.searching || ui.sortMode || ui.selecting,
+                                    )
+                                }?.let { first -> { onOpenAlarms(first.id) } },
+                                onDismissFirstAlarm = viewModel::dismissFirstAlarmCard,
+                                noSearchMatch = filtering && shown.isEmpty(),
+                                query = trimmedQuery,
+                                groupEmpty = visible.isEmpty() && !filtering,
+                                favoritesEmpty = visible.isEmpty() && !filtering && WatchFilter.isFavorites(selectedGroup),
+                                // Eigene Gruppe (wie die Chips mit langem Drücken; TradFi ist automatisch)
+                                onEditGroup = selectedGroup?.takeIf { ui.quickView == null && it in groups && it != AutoGroup.TRADFI }
+                                    ?.let { group -> { ui.startEditingGroup(group) } },
+                                shown = listed,
+                            ) { watch, shape ->
+                                WatchlistItem(
+                                    watch = watch,
+                                    shape = shape,
+                                    reorder = reorder,
+                                    searching = ui.searching,
+                                    sortMode = ui.sortMode,
+                                    selecting = ui.selecting,
+                                    selected = watch.id in selectedIds,
+                                    onToggleSelected = { ui.toggleSelected(watch.id) },
+                                    sparklines = fetchSparklines,
+                                    cachedSparkline = viewModel::cachedSparkline,
+                                    loadSparkline = viewModel::sparkline,
+                                    sparklineSource = viewModel::foreignSparklineSource,
+                                    changeSource = viewModel::foreignCandleSource,
+                                    moment = moment,
+                                    reduceMotion = reduceMotion,
+                                    livePrices = livePrices,
+                                    rollingBasis = !changeBasis.isDay,
+                                    alarmCount = alarmCounts[watch.id] ?: 0,
+                                    alarmFiredAt = alarmFiredAt[watch.id] ?: 0L,
+                                    kind = kinds[watch.id] ?: AssetKind.TOKEN,
+                                    now = now,
+                                    // Am Live-Strom: veraltet schon nach 2 Min. ohne Kurs (wie die Status-Pille)
+                                    staleAfter = LiveStatus.staleAfterMillis(watch.id in liveIds, staleAfter),
+                                    outdatedAfter = LiveStatus.staleAfterMillis(watch.id in liveIds, outdatedAfter),
+                                    convertTarget = display.convertTarget,
+                                    convertRates = live.convertRates,
+                                    convertFxTimes = live.convertFxTimes,
+                                    hasActivity = watch.id in activeSignals,
+                                    onOpenWhy = { ui.whyFor = watch.id },
+                                    onOpenActions = { ui.actionsFor = watch.id },
+                                    onMove = { viewModel.move(watch, it) },
+                                    onDelete = { deleteWithUndo(watch) },
+                                    onFavoriteWithBanner = { favoriteWithBanner(watch) },
+                                    onStartSelection = { ui.startSelectionWith(watch.id) },
+                                )
+                            }
+                            // Rund, unten am Ende über der Tableiste; die Liste hat unten Platz dafür.
+                            // Steht ein Banner («… entfernt», «Rückgängig»), rückt der Knopf darüber.
+                            WatchlistJumpButton(
+                                jump = jump,
+                                bannerShown = banner.host.currentSnackbarData != null,
+                                reduceMotion = reduceMotion,
+                                endInset = inset,
+                            )
+                            // Mehrfachauswahl: Favorit · Gruppe · Löschen für die angehakten Paare
+                            if (ui.selecting) {
+                                val chosen = watches.filter { it.id in selectedIds }
+                                val allDisabled = chosen.isNotEmpty() && chosen.all { it.disabled }
+                                SelectionBar(
+                                    count = selectedIds.size,
+                                    allFavorites = chosen.isNotEmpty() && chosen.all { it.favorite },
+                                    onFavorite = {
+                                        viewModel.setFavorite(selectedIds, !chosen.all { it.favorite })
+                                        ui.endSelection()
+                                    },
+                                    onGroup = { ui.askGroupForSelection = true },
+                                    // Alle deaktiviert: wieder aktivieren, sonst alle deaktivieren
+                                    allDisabled = allDisabled,
+                                    onToggleDisabled = {
+                                        viewModel.setDisabled(selectedIds.toList(), !allDisabled)
+                                        ui.endSelection()
+                                    },
+                                    onDelete = {
+                                        val ids = selectedIds.toList()
+                                        ui.endSelection()
+                                        viewModel.deleteSelectedWithUndo(ids) { count ->
+                                            if (count > 0) {
+                                                banner.show(
+                                                    resources.getQuantityString(R.plurals.watchlist_removed_count, count, count)
+                                                ) { viewModel.undoDelete(SELECTION_UNDO_KEY) }
+                                            }
+                                        }
+                                    },
+                                    modifier = Modifier
+                                        .align(Alignment.BottomCenter)
+                                        .padding(start = 16.dp + inset, end = 16.dp + inset, bottom = 12.dp)
+                                )
+                            }
+                            if (ui.askGroupForSelection) {
+                                val chosen = watches.filter { it.id in selectedIds }
+                                GroupDialog(
+                                    // Gleiche Gruppe bei allen: vorgewählt, sonst nichts
+                                    current = chosen.map { it.groupName }.distinct().singleOrNull(),
+                                    groups = groups,
+                                    onSelect = { group ->
+                                        viewModel.setGroup(selectedIds, group)
+                                        ui.endSelection()
+                                    },
+                                    onDismiss = { ui.askGroupForSelection = false },
+                                )
+                            }
+                        }
                     }
                 }
             }
         }
-        }
-    }
     }
 }

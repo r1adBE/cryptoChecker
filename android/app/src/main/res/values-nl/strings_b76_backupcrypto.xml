@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Sicherung mit Passwort (Argon2id, 64 MiB): zu wenig Arbeitsspeicher -->
+    <string name="backup_not_enough_memory">Onvoldoende vrij geheugen om de back-up met een wachtwoord te beveiligen of te openen. Sluit andere apps en probeer het opnieuw.</string>
+</resources>

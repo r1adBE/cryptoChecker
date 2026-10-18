@@ -105,14 +105,31 @@ object RefreshReportLogic {
     }
 
     /** Häufigste Ursache der gespeicherten Fehlertexte; bei Gleichstand die frühere Art. */
-    fun reason(errors: List<String?>): RefreshFailure? =
-        errors.map(::classify)
+    fun reason(errors: List<String?>): RefreshFailure? = mostFrequent(errors.map(::classify))
+
+    /** Häufigste Ursache; bei Gleichstand die frühere Art (Reihenfolge von [RefreshFailure]). Wie iOS. */
+    fun mostFrequent(failures: List<RefreshFailure>): RefreshFailure? =
+        failures
             .groupingBy { it }.eachCount()
             .entries
             .sortedWith(compareByDescending<Map.Entry<RefreshFailure, Int>> { it.value }.thenBy { it.key.ordinal })
             .firstOrNull()?.key
 
-    /** Fehlertext (Android: Ausnahme bzw. Kennung; iOS: `ConnectionErrors`) → Ursache. */
+    /**
+     * Ursache eines frischen Fehlers: zuerst die beim Abruf festgestellte Art ([MarketFailure.refreshFailure]),
+     * nur ohne Aussage der Art der Text ([classify]). Gespeicherte Fehler haben keine Art und gehen direkt über
+     * den Text.
+     */
+    fun classify(failure: MarketFailure?, error: String?): RefreshFailure =
+        failure?.refreshFailure() ?: classify(error)
+
+    /** HTTP-Status: aus der Art, sonst aus dem Text ([httpStatus]). */
+    fun httpStatus(failure: MarketFailure?, error: String?): Int? = failure?.httpStatus ?: httpStatus(error)
+
+    /**
+     * Fehlertext (Android: Ausnahme bzw. Kennung; iOS: `ConnectionErrors`) → Ursache, über Stichwörter. Für
+     * gespeicherte Texte ohne [MarketFailure] (ältere Fassungen, Datenbank, Einstellungen) und als Rückfall.
+     */
     fun classify(error: String?): RefreshFailure {
         val e = error?.trim().orEmpty()
         val lower = e.lowercase()

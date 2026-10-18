@@ -19,6 +19,7 @@ class Btcturk : SimpleMarket(
     ttsName = "B T C Turk",
     errorField = "message",
 ) {
+    override val key = "Btcturk"
 
     // ── Einzelkurs ──
 

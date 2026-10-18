@@ -1,8 +1,20 @@
 package com.cryptochecker.app.domain.exceptions
 
 import android.os.DeadSystemException
+import com.cryptochecker.app.domain.refresh.ExchangeBackoff
+import com.cryptochecker.app.domain.refresh.MarketFailure
+import com.cryptochecker.app.domain.refresh.RefreshFailure
+import com.cryptochecker.app.domain.refresh.RefreshReportLogic
+import com.cryptochecker.app.domain.watch.NotTraded
+import com.cryptochecker.marketdata.exceptions.MarketParseException
+import org.json.JSONException
+import java.io.EOFException
 import java.io.IOException
 import java.io.InterruptedIOException
+import java.net.ConnectException
+import java.net.NoRouteToHostException
+import java.net.UnknownHostException
+import javax.net.ssl.SSLException
 import java.util.concurrent.CancellationException
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.currentCoroutineContext
@@ -47,3 +59,46 @@ fun parseMarketError(ex: Throwable): MarketError = when (ex) {
     is IOException -> NetworkError(ex)
     else -> UnknownMarketError(ex)
 }
+
+/**
+ * Art des Fehlers für die Einordnung ([MarketFailure]), am Ort des Fehlers bestimmt statt später aus dem Text.
+ * Nur Typen mit eindeutiger Aussage bekommen eine feste Art; der Rest wird [MarketFailure.Other] (oder
+ * [MarketFailure.Exchange] mit der Meldung der Börse) und bleibt bei der Einordnung über den Text — so ändert
+ * sich für Fehler ohne klaren Typ nichts.
+ */
+fun Throwable.toMarketFailure(): MarketFailure = when (this) {
+    is HttpMarketError ->
+        if (ExchangeBackoff.isRateLimitCode(httpCode)) MarketFailure.RateLimited(retryAfterSeconds, httpCode)
+        else MarketFailure.HttpStatus(httpCode)
+    // Hülle: die Ursache sagt, was geschah (Host unbekannt, TLS, Zeit …)
+    is TimeoutError -> MarketFailure.Timeout
+    is NetworkError -> cause?.toMarketFailure()?.takeUnless { it == MarketFailure.Other } ?: MarketFailure.Other
+    is UnknownMarketError -> cause?.toMarketFailure() ?: MarketFailure.Other
+    is ParseError -> MarketFailure.Parse
+    is UserFriendlyMarketError -> exchangeFailure(message)
+    // Zeitüberschreitung (SocketTimeoutException, Wache von callMarket) vor den übrigen Ein-/Ausgabefehlern
+    is InterruptedIOException -> MarketFailure.Timeout
+    is SSLException -> MarketFailure.Ssl
+    is UnknownHostException, is ConnectException, is NoRouteToHostException, is EOFException -> MarketFailure.Offline
+    is JSONException, is MarketParseException -> MarketFailure.Parse
+    else -> MarketFailure.Other
+}
+
+/**
+ * Meldung der Börse ([UserFriendlyMarketError]): eigene Kennungen («Response data is empty» …) bleiben
+ * [MarketFailure.Other] (der Text ordnet sie ein); sagt die Börse, dass sie das Paar nicht kennt,
+ * [MarketFailure.UnknownInstrument], sonst [MarketFailure.Exchange].
+ */
+private fun exchangeFailure(message: String?): MarketFailure = when {
+    message.isNullOrBlank() || message.trim() in OWN_MARKERS -> MarketFailure.Other
+    RefreshReportLogic.classify(message) == RefreshFailure.OTHER && NotTraded.isUnknownInstrument(message) ->
+        MarketFailure.UnknownInstrument
+    else -> MarketFailure.Exchange(message)
+}
+
+private val OWN_MARKERS = setOf(
+    UserFriendlyMarketError.EMPTY_RESPONSE,
+    UserFriendlyMarketError.NO_TICKER_DATA,
+    UserFriendlyMarketError.UNKNOWN_EMPTY,
+    UserFriendlyMarketError.MARKET_UNAVAILABLE,
+)

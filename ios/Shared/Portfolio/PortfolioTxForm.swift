@@ -233,4 +233,112 @@ enum PortfolioTxForm {
         let key = PortfolioWallets.key(wallet)
         return lots.filter { PortfolioWallets.key($0.wallet) == key }.reduce(Decimal(0)) { $0 + $1.amount }
     }
+
+    // MARK: Prüfung der Eingaben (wie `PortfolioTxForm.check`, Kotlin)
+
+    /// Gelesene Eingaben des Erfassen-Blatts: Texte schon in Zahlen umgewandelt (Dezimalzeichen der Region, Eingabe in
+    /// der Anzeigewährung schon in USDT umgerechnet); `…Blank` = Feld leer. Das Lesen bleibt im Blatt, die Regeln stehen
+    /// hier (`check`) — wie `PortfolioTxForm.Entry` (Kotlin).
+    struct Entry: Equatable {
+        var type: PortfolioTxType
+        /// Coin wie getippt (normalisiert wird in `check`).
+        var coinQuery: String
+        /// Menge > 0; nil = leer, unlesbar oder ≤ 0.
+        var amount: Decimal?
+        var priceBlank = true
+        /// Preis wie eingegeben (USDT bzw. Anzeigewährung); nil = leer oder unlesbar.
+        var priceEntered: Decimal?
+        /// Preis in USDT; nil = leer, unlesbar oder ohne Devisenkurs.
+        var price: Decimal?
+        /// Herkunft aus dem CSV-Import: ein Preis 0 ist nicht speicherbar (`priceZero`).
+        var imported = false
+        var feeBlank = true
+        /// Gebühr gelesen (jede Art); nil = leer oder unlesbar.
+        var fee: Decimal?
+        /// Gewählte Einheit der Gebühr (vor `feeUnit(for:chosen:)`).
+        var feeUnit: PortfolioFeeUnit = .QUOTE
+        /// Gebühr im dritten Coin: Coin wie getippt, Menge und Preis gelesen.
+        var feeCoin = ""
+        var feeCoinAmountBlank = true
+        var feeCoinAmount: Decimal?
+        var feeCoinPriceBlank = true
+        var feeCoinPrice: Decimal?
+        /// Tausch: erhaltener Coin wie getippt, erhaltene Menge > 0 (nil = leer, unlesbar oder ≤ 0).
+        var toCoinQuery = ""
+        var toAmount: Decimal?
+        var swapValueBlank = true
+        /// Tausch: Wert in USDT; nil = leer, unlesbar oder ohne Devisenkurs.
+        var swapValue: Decimal?
+    }
+
+    /// Ergebnis von `check` — wie `PortfolioTxForm.Check` (Kotlin).
+    struct Check: Equatable {
+        let fields: Fields
+        /// Coin normalisiert.
+        let coin: String
+        /// 1–15 Buchstaben/Ziffern (`PortfolioPriceSource.isSymbol`).
+        let coinValid: Bool
+        /// Ausdrücklich 0 eingegeben bei einer importierten Transaktion (`priceZero`).
+        let priceZero: Bool
+        /// Art ohne Preis, Feld leer (Preis unbekannt) oder lesbar und nicht `priceZero`.
+        let priceValid: Bool
+        let toCoin: String
+        /// Tausch: erhaltener Coin gültig und ≠ dem abgegebenen; sonst true.
+        let toCoinValid: Bool
+        /// Tausch: erhaltene Menge > 0; sonst true.
+        let toAmountValid: Bool
+        /// Tausch: Wert leer oder ≥ 0; sonst true.
+        let swapValueValid: Bool
+        /// Die Art kennt eine Gebühr (mit Einheit oder nur im Coin).
+        let hasFee: Bool
+        /// Gebühr dieser Art; nil = leer, unlesbar oder Art ohne Gebühr.
+        let fee: Decimal?
+        let feeValid: Bool
+        /// Einheit der Gebühr beim Speichern (`feeUnit(for:chosen:)`).
+        let feeUnit: PortfolioFeeUnit
+        /// Tausch: Gebühr im erhaltenen Coin — braucht keinen Preis.
+        let feeInReceived: Bool
+        /// Gebühr im dritten Coin; Art ohne dieses Feld: `.none`.
+        let thirdFee: ThirdFee
+        /// Gebühr verbraucht die ganze erhaltene Menge (`feeConsumesReceived`).
+        let feeConsumes: Bool
+        /// Alles speicherbar.
+        let valid: Bool
+    }
+
+    /// Prüfung des Erfassen-Blatts: Coin, Menge (> 0), Preis (leer = unbekannt; Preis 0 nur bei importierten
+    /// Transaktionen abgelehnt), Gebühr (leer = keine), Gebühr im dritten Coin (im erhaltenen Coin eines Tauschs ohne
+    /// Preis vollständig), Tausch (erhaltener Coin und Menge, Wert leer oder ≥ 0) und Gebühr ≥ erhaltener Menge — wie
+    /// `PortfolioTxForm.check` (Kotlin).
+    static func check(_ e: Entry) -> Check {
+        let fields = Self.fields(e.type)
+        let isSwap = e.type == .SWAP
+        let coin = PortfolioCalculator.normalizeCoin(e.coinQuery)
+        let coinValid = PortfolioPriceSource.isSymbol(coin)
+        let zero = fields.price && priceZero(e.priceEntered, imported: e.imported)
+        let priceValid = !fields.price || e.priceBlank || (e.price != nil && !zero)
+        let toCoin = PortfolioCalculator.normalizeCoin(e.toCoinQuery)
+        let toCoinValid = !isSwap || swapToCoinValid(e.toCoinQuery, coin: coin)
+        let toAmountValid = !isSwap || e.toAmount != nil
+        let swapValueValid = !isSwap || e.swapValueBlank || (e.swapValue.map { $0 >= 0 } ?? false)
+        let hasFee = fields.feeWithUnit || fields.coinFeeOnly
+        let fee: Decimal? = !hasFee || e.feeBlank ? nil : e.fee
+        let feeValid = !hasFee || e.feeBlank || fee != nil
+        let unit = feeUnit(for: e.type, chosen: e.feeUnit)
+        let feeInReceived = feeInReceivedCoin(type: e.type, feeCoin: e.feeCoin, toCoin: e.toCoinQuery)
+        var third: ThirdFee = .none
+        if fields.thirdCoinFee {
+            let state = thirdFee(feeCoin: e.feeCoin, coin: coin, amount: e.feeCoinAmount, amountBlank: e.feeCoinAmountBlank,
+                                 price: e.feeCoinPrice, priceBlank: e.feeCoinPriceBlank)
+            third = feeInReceived && state == .incomplete ? .complete : state
+        }
+        let consumes = feeConsumesReceived(type: e.type, amount: e.amount, fee: fee, unit: unit, toAmount: e.toAmount,
+                                           receivedCoinFee: feeInReceived ? e.feeCoinAmount : nil)
+        let valid = coinValid && e.amount != nil && priceValid && feeValid && third != .invalid
+            && toCoinValid && toAmountValid && swapValueValid && !consumes
+        return Check(fields: fields, coin: coin, coinValid: coinValid, priceZero: zero, priceValid: priceValid,
+                     toCoin: toCoin, toCoinValid: toCoinValid, toAmountValid: toAmountValid,
+                     swapValueValid: swapValueValid, hasFee: hasFee, fee: fee, feeValid: feeValid, feeUnit: unit,
+                     feeInReceived: feeInReceived, thirdFee: third, feeConsumes: consumes, valid: valid)
+    }
 }

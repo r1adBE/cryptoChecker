@@ -18,6 +18,7 @@ class Bitso : SimpleMarket(
     pairListUrl = "$BITSO_API/available_books",
     tickerUrl = "$BITSO_API/ticker?book=%1\$s",
 ) {
+    override val key = "Bitso"
 
     // ── Einzelkurs ──
 

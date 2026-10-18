@@ -13,17 +13,17 @@ import androidx.compose.runtime.staticCompositionLocalOf
 
 /**
  * Erneutes Tippen auf den schon gewählten Tab (wie iOS `AppRouter.requestScrollToTop`): ein Zähler
- * je Tab-Route; die Bildschirme hören mit [OnTabReselect] darauf und rollen an den Anfang.
+ * je Tab-Ziel ([ScreenRoute]); die Bildschirme hören mit [OnTabReselect] darauf und rollen an den Anfang.
  */
 @Stable
 class TabReselectSignal {
-    private val counts = mutableStateMapOf<String, Int>()
+    private val counts = mutableStateMapOf<ScreenRoute, Int>()
 
-    fun request(route: String) {
+    fun request(route: ScreenRoute) {
         counts[route] = (counts[route] ?: 0) + 1
     }
 
-    fun count(route: String): Int = counts[route] ?: 0
+    fun count(route: ScreenRoute): Int = counts[route] ?: 0
 }
 
 val LocalTabReselect = staticCompositionLocalOf { TabReselectSignal() }
@@ -33,7 +33,7 @@ val LocalTabReselect = staticCompositionLocalOf { TabReselectSignal() }
  * erscheint, reagiert nicht auf frühere Tipps: der Stand beim Erscheinen gilt als erledigt.
  */
 @Composable
-fun OnTabReselect(route: String, action: suspend () -> Unit) {
+fun OnTabReselect(route: ScreenRoute, action: suspend () -> Unit) {
     val signal = LocalTabReselect.current
     val count = signal.count(route)
     var handled by remember { mutableIntStateOf(count) }

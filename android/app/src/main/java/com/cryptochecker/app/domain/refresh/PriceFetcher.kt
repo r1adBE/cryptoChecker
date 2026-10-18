@@ -3,6 +3,7 @@ package com.cryptochecker.app.domain.refresh
 import com.cryptochecker.app.data.MarketRepository
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.exceptions.toMarketFailure
 import com.cryptochecker.app.domain.model.BulkTickers
 import com.cryptochecker.app.domain.model.MarketInfo
 import com.cryptochecker.app.domain.watch.NotTraded
@@ -55,7 +56,7 @@ class PriceFetcher @Inject constructor(
         // Sammelabfrage mit «zu vielen Anfragen» abgelehnt: keine Einzelabfragen hinterher,
         // das verschlimmerte es nur — die Börse wird pausiert (ExchangeBackoff).
         val bulkRateLimited = bulk.error != null &&
-            RefreshReportLogic.classify(bulk.error) == RefreshFailure.RATE_LIMIT
+            RefreshReportLogic.classify(bulk.failure, bulk.error) == RefreshFailure.RATE_LIMIT
         // Antwort mehrheitlich unlesbar (Format der Börse geändert): Einzelabfragen mit demselben Leser brächten
         // nichts — alle Paare dieses Durchlaufs als Fehler, kein Nachhaken (BulkTickerRows)
         val bulkFormatError = BulkTickerRows.isFormatError(bulk.error)
@@ -89,7 +90,7 @@ class PriceFetcher @Inject constructor(
                                 Fetched(null, NOT_TRADED_ERROR, notTraded = true)
                             }
 
-                        bulkRateLimited || bulkFormatError -> Fetched(null, bulk.error)
+                        bulkRateLimited || bulkFormatError -> Fetched(null, bulk.error, failure = bulk.failure)
 
                         else -> withinBudget(groupDeadline) { limit.withPermit { gate.send { fetchSingle(watch) } } }
                     }
@@ -102,7 +103,9 @@ class PriceFetcher @Inject constructor(
         // Am eigenen Budget gescheitert: zählt als Fehler im Bericht, aber nicht für die Pause je Börse
         val cut = errors.count { it.budgetCut }
 
-        val reason = RefreshReportLogic.reason(errors.map { it.error })
+        // Ursache je Fehler: die beim Abruf bestimmte Art, sonst aus dem Text (wie iOS)
+        val failures = errors.map { RefreshReportLogic.classify(it.failure, it.error) }
+        val reason = RefreshReportLogic.mostFrequent(failures)
         val entry = MarketRefresh(
             name = group.first().marketName,
             millis = System.currentTimeMillis() - groupStartedAt,
@@ -115,14 +118,16 @@ class PriceFetcher @Inject constructor(
             bulkPrices = bulkTickers.size,
             singles = results.count { it.second.fromSingle },
             reason = reason,
-            detail = StoredError.reportDetail(errors.map { it.error }, reason),
+            detail = StoredError.reportDetail(errors.map { it.error }, reason, failures),
         )
-        val errorTexts = errors.filterNot { it.budgetCut }.map { it.error } +
-            listOfNotNull(bulk.error.takeUnless { bulk.budgetCut })
+        val counted = errors.filterNot { it.budgetCut }
+        val bulkCounted = bulk.error != null && !bulk.budgetCut
+        val errorTexts = counted.map { it.error } + listOfNotNull(bulk.error.takeIf { bulkCounted })
         val signals = FetchedGroup(
             marketKey = group.first().marketKey,
             report = entry,
-            failures = errorTexts.map(RefreshReportLogic::classify),
+            failures = counted.map { RefreshReportLogic.classify(it.failure, it.error) } +
+                listOfNotNull(RefreshReportLogic.classify(bulk.failure, bulk.error).takeIf { bulkCounted }),
             retryAfterMillis = ExchangeBackoff.retryAfterMillis(errorTexts),
             banned = ExchangeBackoff.banned(errorTexts),
             cutByBudget = cut + (if (bulk.budgetCut) 1 else 0),
@@ -194,7 +199,7 @@ class PriceFetcher @Inject constructor(
     private suspend fun confirmMissing(watch: WatchEntity): Fetched {
         val single = fetchSingle(watch)
         val gotPrice = single.ticker != null && single.error == null
-        return if (NotTraded.confirmedBySingle(gotPrice, single.error)) {
+        return if (NotTraded.confirmedBySingle(gotPrice, single.error, single.failure)) {
             Fetched(null, NOT_TRADED_ERROR, fromSingle = true, notTraded = true)
         } else {
             single
@@ -202,20 +207,20 @@ class PriceFetcher @Inject constructor(
     }
 
     internal suspend fun fetchSingle(watch: WatchEntity): Fetched {
-        return runCatching {
+        return runCatchingCancellable {
             marketRepository.getMarketTicker(
                 MarketInfo(watch.marketKey, watch.marketName),
                 watch.toPairInfo()
             )
         }.fold(
-            onSuccess = { Fetched(it.ticker, it.error, fromSingle = true) },
+            onSuccess = { Fetched(it.ticker, it.error, fromSingle = true, failure = it.failure) },
             onFailure = { failure ->
                 // Zeitüberschreitungen kommen als CancellationException an und
                 // gelten nur als Fehler dieses Paares. Abbrechen nur, wenn der
                 // Durchlauf selbst abgebrochen wurde.
                 currentCoroutineContext().ensureActive()
                 Timber.w(failure, "Kursabfrage fehlgeschlagen: %s", watch.displayName)
-                Fetched(null, failure.message, fromSingle = true)
+                Fetched(null, failure.message, fromSingle = true, failure = failure.toMarketFailure())
             }
         )
     }
@@ -300,30 +305,33 @@ object BulkDelisted {
  * Abfragen laufen zu Ende. Je Börse und Durchlauf eine Instanz. Wie `SingleRateGate` in `PriceFetcher.swift`.
  */
 internal class SingleRateGate {
+    /** Text und Art zusammen, damit beide immer vom selben Fehler stammen. */
+    private class Block(val error: String, val failure: MarketFailure?)
+
     @Volatile
-    private var error: String? = null
+    private var block: Block? = null
 
     /** Fehlertext, mit dem noch nicht gesendete Einzelabfragen enden; null = senden. */
-    val blocked: String? get() = error
+    val blocked: String? get() = block?.error
 
     /** Ergebnis einer gesendeten Abfrage melden: das erste 429/418 sperrt den Rest. */
-    fun note(error: String?) {
-        if (this.error == null && isRateLimit(error)) this.error = error
+    fun note(error: String?, failure: MarketFailure? = null) {
+        if (block == null && error != null && isRateLimit(error, failure)) block = Block(error, failure)
     }
 
     /** [single] senden, ausser die Börse hat schon abgelehnt; dann derselbe Fehler ohne Anfrage. */
     internal suspend fun send(single: suspend () -> Fetched): Fetched {
-        blocked?.let { return Fetched(null, it) }
-        return single().also { if (it.ticker == null || it.error != null) note(it.error) }
+        block?.let { return Fetched(null, it.error, failure = it.failure) }
+        return single().also { if (it.ticker == null || it.error != null) note(it.error, it.failure) }
     }
 
     companion object {
-        fun isRateLimit(error: String?): Boolean =
-            error != null && RefreshReportLogic.classify(error) == RefreshFailure.RATE_LIMIT
+        fun isRateLimit(error: String?, failure: MarketFailure? = null): Boolean =
+            error != null && RefreshReportLogic.classify(failure, error) == RefreshFailure.RATE_LIMIT
     }
 }
 
-/** Ergebnis der Netzabfrage für ein Paar; ticker == null heißt gescheitert. */
+/** Ergebnis der Netzabfrage für ein Paar; ticker == null heisst gescheitert. */
 internal class Fetched(
     val ticker: Ticker?,
     val error: String?,
@@ -331,6 +339,8 @@ internal class Fetched(
     val notTraded: Boolean = false,
     /** Am Zeitbudget der Prüfung gescheitert ([CheckBudget]), nicht an der Börse. */
     val budgetCut: Boolean = false,
+    /** Art des Fehlers zu [error], beim Abruf bestimmt; null = nur der Text ist bekannt. */
+    val failure: MarketFailure? = null,
 )
 
 /** Sammelabfrage einer Börse; [budgetCut] = am Budget gescheitert ([CheckBudget]). */
@@ -340,6 +350,7 @@ private class BulkResult(val data: BulkTickers, val budgetCut: Boolean = false) 
     val error get() = data.error
     val failed get() = data.failed
     val incomplete get() = data.incomplete
+    val failure get() = data.failure
 }
 
 /** Bericht einer Börse plus was die Pause je Börse ([ExchangeBackoff]) braucht. */

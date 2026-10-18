@@ -6,7 +6,7 @@ import XCTest
 /// Gegenstück: `PairCandlesTest.kt`.
 final class PairCandlesTests: XCTestCase {
 
-    private final class Counter: @unchecked Sendable {
+    private final class Counter: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
         private let lock = NSLock()
         private var values: [String] = []
         func add(_ v: String) { lock.lock(); values.append(v); lock.unlock() }

@@ -8,6 +8,8 @@ android {
 
     defaultConfig {
         minSdk min_sdk_version
+        // Regeln für jede App, die das Modul einbindet und verkleinert (Börsenklassen, Fehlerklassen)
+        consumerProguardFiles 'consumer-rules.pro'
     }
 
     buildTypes {

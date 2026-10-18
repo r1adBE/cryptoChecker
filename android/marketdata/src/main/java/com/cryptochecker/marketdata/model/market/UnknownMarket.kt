@@ -13,6 +13,7 @@ private const val UNKNOWN_LABEL = "UNKNOWN"
  * (leere Tabelle), damit nichts Neues darauf angelegt wird. Gegenstück auf iOS: `UnknownMarket.swift`.
  */
 class UnknownMarket : Market(UNKNOWN_LABEL, UNKNOWN_LABEL, CurrencyPairsMap()) {
+    override val key = "UnknownMarket"
 
     // ── Einzelkurs ──
 

@@ -99,7 +99,7 @@ enum AlarmDataStage: CaseIterable, Hashable, Sendable {
 }
 
 /// Erstes Ergebnis gewinnt (Ende der Arbeit, Zeitgrenze oder Abbruch); setzt die Fortsetzung genau einmal fort.
-final class FirstResult<T>: @unchecked Sendable {
+final class FirstResult<T>: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
     private let lock = NSLock()
     private var continuation: CheckedContinuation<Void, Never>?
     private var done = false

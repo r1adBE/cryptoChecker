@@ -127,7 +127,7 @@ class BackupManager @Inject constructor(
 
         val plain = root.toString(2).toByteArray(Charsets.UTF_8)
         val bytes = if (password == null) plain
-        else BackupCrypto.toJson(BackupCrypto.encrypt(plain, password)).toByteArray(Charsets.UTF_8)
+        else withPasswordChars(password) { BackupCrypto.toJson(BackupCrypto.encrypt(plain, it)).toByteArray(Charsets.UTF_8) }
 
         val stream = context.contentResolver.openOutputStream(uri, "wt")
             ?: error("Datei kann nicht geschrieben werden")
@@ -458,6 +458,10 @@ class BackupManager @Inject constructor(
                 salt = root.optString("salt"),
                 iv = root.optString("iv"),
                 data = root.optString("data"),
+                // v3 (Argon2id): Speicher in KiB, Durchgänge, Bahnen
+                memoryKiB = root.optInt("m"),
+                time = root.optInt("t"),
+                parallelism = root.optInt("p"),
             )
         )
     }
@@ -470,10 +474,22 @@ class BackupManager @Inject constructor(
     /** Klartext der Sicherung; verschlüsselt ohne Passwort gilt als falsches Passwort. */
     private fun plainText(file: BackupFile, password: String?): String = when (file) {
         is BackupFile.Plain -> file.json
-        is BackupFile.Encrypted -> BackupCrypto.decrypt(
-            file.envelope,
-            password ?: throw BackupCrypto.WrongPasswordException()
-        ).toString(Charsets.UTF_8).also { BackupLimits.checkDepth(it) }
+        is BackupFile.Encrypted -> withPasswordChars(password ?: throw BackupCrypto.WrongPasswordException()) {
+            BackupCrypto.decrypt(file.envelope, it)
+        }.toString(Charsets.UTF_8).also { BackupLimits.checkDepth(it) }
+    }
+
+    /**
+     * [BackupCrypto] nimmt das Passwort als CharArray, damit es nach der Schlüsselableitung überschrieben werden kann
+     * (ein String bleibt bis zur Speicherbereinigung lesbar). Der String aus dem Dialog selbst lässt sich nicht löschen.
+     */
+    private inline fun <T> withPasswordChars(password: String, block: (CharArray) -> T): T {
+        val chars = password.toCharArray()
+        try {
+            return block(chars)
+        } finally {
+            chars.fill('\u0000')
+        }
     }
 
     // ---------------- Merkliste & Alarme ----------------

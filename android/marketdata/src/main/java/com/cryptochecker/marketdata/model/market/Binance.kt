@@ -25,10 +25,14 @@ private const val BINANCE_FIRST_ALPHA_CALL = 1
 private const val BINANCE_COM_PAIR_LIST_QUERY = "?symbolStatus=TRADING&showPermissionSets=false"
 
 /** Binance Spot (binance.com). */
-class Binance : BinanceBase("Binance", "com", pairListQuery = BINANCE_COM_PAIR_LIST_QUERY)
+class Binance : BinanceBase("Binance", "com", pairListQuery = BINANCE_COM_PAIR_LIST_QUERY) {
+    override val key = "Binance"
+}
 
 /** Binance.US — gleiche API unter eigener Domain. */
-class BinanceUs : BinanceBase("Binance.US", "us")
+class BinanceUs : BinanceBase("Binance.US", "us") {
+    override val key = "BinanceUs"
+}
 
 /**
  * Gemeinsamer Teil von Binance und Binance.US (API v3). Unter «Binance» stehen zusätzlich die

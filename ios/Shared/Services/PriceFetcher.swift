@@ -16,6 +16,8 @@ extension PriceRefresher {
         var notTraded = false
         /// Ursache für den Bericht (nur bei Fehlern).
         var failure: RefreshFailure? = nil
+        /// Art des Fehlers zu `error`, beim Abruf bestimmt (`MarketFailure`); nil = nur der Text ist bekannt.
+        var marketFailure: MarketFailure? = nil
         /// Widget (`lowMemory`): bewusst nicht abgefragt — gespeicherter Kurs bleibt, kein Fehler.
         var skipped = false
     }
@@ -88,7 +90,7 @@ extension PriceRefresher {
 
         // Sammelabfrage mit «zu vielen Anfragen» abgelehnt: keine Einzelabfragen hinterher —
         // das verschlimmerte es nur; die Börse wird pausiert (`ExchangeBackoff`).
-        let bulkRateLimited = bulk.error.map { RefreshReportLogic.classify($0) == .RATE_LIMIT } ?? false
+        let bulkRateLimited = bulk.error.map { RefreshReportLogic.classify(bulk.marketFailure, $0) == .RATE_LIMIT } ?? false
         // Antwort mehrheitlich unlesbar (Format der Börse geändert): Einzelabfragen mit demselben Leser brächten
         // nichts — alle Paare dieses Durchlaufs als Fehler, kein Nachhaken (`BulkTickerRows`) — wie Android
         let bulkFormatError = BulkTickerRows.isFormatError(bulk.error)
@@ -116,9 +118,10 @@ extension PriceRefresher {
                     results[watch.id] = Fetched(ticker: nil, error: notTradedError, notTraded: true)
                 }
             } else if bulkRateLimited {
-                results[watch.id] = Fetched(ticker: nil, error: bulk.error, failure: .RATE_LIMIT)
+                results[watch.id] = Fetched(ticker: nil, error: bulk.error, failure: .RATE_LIMIT,
+                                            marketFailure: bulk.marketFailure)
             } else if bulkFormatError {
-                results[watch.id] = Fetched(ticker: nil, error: bulk.error)
+                results[watch.id] = Fetched(ticker: nil, error: bulk.error, marketFailure: bulk.marketFailure)
             } else {
                 singles.append(watch)
             }
@@ -142,7 +145,8 @@ extension PriceRefresher {
                         let w = singles[next]
                         next += 1
                         if let blocked = gate.blocked {
-                            results[w.id] = Fetched(ticker: nil, error: blocked, failure: .RATE_LIMIT)
+                            results[w.id] = Fetched(ticker: nil, error: blocked, failure: .RATE_LIMIT,
+                                                    marketFailure: gate.blockedFailure)
                             continue
                         }
                         let confirm = confirmIds.contains(w.id)
@@ -181,7 +185,7 @@ extension PriceRefresher {
         let signals = GroupSignals(
             marketKey: sample.marketKey,
             report: entry,
-            failures: failures + (bulk.error.map { [RefreshReportLogic.classify($0)] } ?? []),
+            failures: failures + (bulk.error.map { [RefreshReportLogic.classify(bulk.marketFailure, $0)] } ?? []),
             retryAfterMillis: ExchangeBackoff.retryAfterMillis(errorTexts),
             banned: ExchangeBackoff.banned(errorTexts)
         )
@@ -196,7 +200,8 @@ extension PriceRefresher {
         // Börse fehlt in dieser Version: Text ist übersetzt, also an der Ursache erkennen
         guard confirmMissing, single.failure != .UNAVAILABLE else { return single }
         let gotPrice = single.ticker != nil && single.error == nil
-        guard NotTraded.confirmedBySingle(gotPrice: gotPrice, error: single.error) else { return single }
+        guard NotTraded.confirmedBySingle(gotPrice: gotPrice, error: single.error, failure: single.marketFailure)
+        else { return single }
         return Fetched(ticker: nil, error: notTradedError, fromSingle: true, millis: single.millis, notTraded: true)
     }
 
@@ -209,11 +214,11 @@ extension PriceRefresher {
             let t = try await MarketService.fetchTicker(market: market, info: watch.pairInfo)
             return Fetched(ticker: t, error: nil, fromSingle: true, millis: TimeUtils.nowMillis - started)
         } catch {
-            // Zeitüberschreitung eigens erkennen: `describe` macht daraus «kein Netz»
-            let timedOut = (error as? URLError)?.code == .timedOut
+            // Art am Ort des Fehlers: Zeitüberschreitung bleibt TIMEOUT, obwohl `describe` daraus «kein Netz» macht
+            let kind = MarketFailure.of(error)
             let described = ConnectionErrors.describe(error)
             return Fetched(ticker: nil, error: described, fromSingle: true, millis: TimeUtils.nowMillis - started,
-                           failure: timedOut ? .TIMEOUT : RefreshReportLogic.classify(described))
+                           failure: RefreshReportLogic.classify(kind, described), marketFailure: kind)
         }
     }
 }
@@ -260,17 +265,20 @@ enum LowMemoryBulk {
 struct SingleRateGate: Sendable {
     /// Fehlertext, mit dem noch nicht gesendete Einzelabfragen enden; nil = senden.
     private(set) var blocked: String? = nil
+    /// Art des sperrenden Fehlers (gehört zu `blocked`).
+    private(set) var blockedFailure: MarketFailure? = nil
 
     /// Ergebnis einer gesendeten Abfrage melden: das erste 429/418 sperrt den Rest.
     mutating func note(_ fetched: PriceRefresher.Fetched) {
         guard blocked == nil, fetched.ticker == nil || fetched.error != nil,
-              let error = fetched.error, Self.isRateLimit(error) else { return }
+              let error = fetched.error, Self.isRateLimit(error, failure: fetched.marketFailure) else { return }
         blocked = error
+        blockedFailure = fetched.marketFailure
     }
 
-    static func isRateLimit(_ error: String?) -> Bool {
+    static func isRateLimit(_ error: String?, failure: MarketFailure? = nil) -> Bool {
         guard let error else { return false }
-        return RefreshReportLogic.classify(error) == .RATE_LIMIT
+        return RefreshReportLogic.classify(failure, error) == .RATE_LIMIT
     }
 }
 
@@ -323,7 +331,7 @@ enum BulkDelisted {
 }
 
 /// Stand von `BulkDelisted` je Börse, prozessweit. Wie das Feld `delisted` in `PriceFetcher.kt`.
-final class BulkDelistedMemory: @unchecked Sendable {
+final class BulkDelistedMemory: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
     static let shared = BulkDelistedMemory()
 
     private let lock = NSLock()

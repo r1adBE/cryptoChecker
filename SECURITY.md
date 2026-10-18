@@ -95,10 +95,13 @@ keys or other secrets never belong in this repository.
   backup dialogs close; a file picked or a password check finishing after that is
   discarded until the user unlocks again.
 * **Backups.** Exported via the system file picker only (no temporary copies),
-  optionally encrypted with a password (AES-256-GCM, key from PBKDF2-HMAC-SHA256
-  with a random 16-byte salt). New backups use 600 000 iterations (earlier
-  versions wrote 210 000); the iteration count is read from the file, so older
-  backups can still be opened. A new backup password needs at least 12
+  optionally encrypted with a password (format v3: AES-256-GCM, key from Argon2id
+  per RFC 9106 with 64 MiB memory, 3 passes, 1 lane and a random 16-byte salt; the
+  file header with all parameters is authenticated as AAD, so a modified header
+  fails like a wrong password). Files from earlier versions (v2: PBKDF2-HMAC-SHA256
+  with 600 000 or 210 000 iterations) can still be opened. Parameters read from a
+  file are capped (at most 256 MiB, 10 passes, 4 lanes) so a crafted file cannot
+  stall the device. A new backup password needs at least 12
   characters (since build 69; 10 before); a password that is only digits, one repeated character (also with digits or
   symbols only at the start or end, e.g. «aaaaaaaaaaa1»), mostly one character
   (75 % or more), at most 3 different characters or contains
@@ -177,8 +180,9 @@ Die Portfolio-Sperre verbirgt Werte im App-Umschalter, in Widgets und auf dem
 Sperrbildschirm; «Beträge verbergen» gilt auch für Widgets und Mitteilungen.
 Sperrt sie sich wieder, schliessen sich offene Portfolio- und Sicherungs-Dialoge.
 Sicherungen gehen nur über die Dateiauswahl des Systems und lassen sich mit
-einem Passwort verschlüsseln (AES-256-GCM, PBKDF2 mit 600 000 Durchläufen für
-neue Sicherungen; ältere Dateien bleiben lesbar), das nirgends gespeichert wird.
+einem Passwort verschlüsseln (AES-256-GCM, Schlüssel per Argon2id mit 64 MiB, der
+Kopf der Datei ist mitgeschützt; ältere Dateien mit PBKDF2 bleiben lesbar), das
+nirgends gespeichert wird.
 Neue Sicherungs-Passwörter brauchen mindestens 12 Zeichen (seit Build 69); leicht zu erratende
 (nur Ziffern, ein wiederholtes Zeichen – auch mit Ziffern oder Zeichen nur am
 Anfang oder Ende –, zu 75 % dasselbe Zeichen, höchstens 3 verschiedene Zeichen,

@@ -5,7 +5,7 @@ import Network
 /// Fehlerzustände, die Merkliste zeigt «Offline · Stand 19:41»); kommt es zurück, folgt eine
 /// Aktualisierung (`AppData`). Solange noch kein Pfad gemeldet wurde, gilt «online» —
 /// lieber versuchen als grundlos aussetzen (frischer Prozess im Hintergrund oder im Widget).
-final class NetworkStatus: @unchecked Sendable {
+final class NetworkStatus: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
     static let shared = NetworkStatus()
 
     private let monitor = NWPathMonitor()

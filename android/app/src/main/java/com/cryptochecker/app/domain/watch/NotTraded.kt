@@ -1,5 +1,6 @@
 package com.cryptochecker.app.domain.watch
 
+import com.cryptochecker.app.domain.refresh.MarketFailure
 import com.cryptochecker.app.domain.refresh.RefreshFailure
 import com.cryptochecker.app.domain.refresh.RefreshReportLogic
 
@@ -33,9 +34,18 @@ object NotTraded {
      * HTTP 400/404. Jeder andere Fehler — unlesbare Antwort, unbekannte Ausnahme, Netz, Zeit,
      * Rate-Limit, übrige 4xx/5xx, fehlender Adapter — ist ein gewöhnlicher Fehler: Das Paar bleibt mit
      * seinem letzten Kurs stehen, statt wegen einer kurzen Störung als «nicht gehandelt» zu verstummen.
+     *
+     * [failure]: beim Abruf festgestellte Art. Sagt sie etwas aus, entscheidet sie; sonst (keine Art, Lesefehler,
+     * Meldung der Börse) der Text wie bisher.
      */
-    fun confirmedBySingle(gotPrice: Boolean, error: String?): Boolean {
+    fun confirmedBySingle(gotPrice: Boolean, error: String?, failure: MarketFailure? = null): Boolean {
         if (gotPrice) return false
+        when (failure) {
+            MarketFailure.UnknownInstrument -> return true
+            is MarketFailure.HttpStatus -> return failure.code in CONFIRMING_HTTP
+            MarketFailure.Timeout, MarketFailure.Offline, MarketFailure.Ssl, is MarketFailure.RateLimited -> return false
+            MarketFailure.Parse, is MarketFailure.Exchange, MarketFailure.Other, null -> Unit
+        }
         if (error.isNullOrBlank()) return true
         return when (RefreshReportLogic.classify(error)) {
             RefreshFailure.NO_DATA -> true

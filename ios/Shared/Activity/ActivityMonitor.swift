@@ -12,6 +12,7 @@ enum ActivityMonitor {
     private static let fngCacheMillis: Int64 = 10 * 60_000
 
     private static let lock = NSLock()
+    // nonisolated(unsafe): jeder Zugriff nur unter `lock` (NSLock)
     /// Nur eine Auswertung zur Zeit; läuft schon eine, wird die neue übersprungen.
     nonisolated(unsafe) private static var running = false
     nonisolated(unsafe) private static var fearGreedCache: (time: Int64, value: FearGreed)? = nil
@@ -44,7 +45,7 @@ enum ActivityMonitor {
     }
 
     /// Ergebnisse der parallelen Prüfungen, threadsicher gesammelt.
-    private final class Collector: @unchecked Sendable {
+    private final class Collector: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
         private let lock = NSLock()
         private var items: [Int64: (watch: Watch, merge: ActivityAnalyzer.Merge)] = [:]
 

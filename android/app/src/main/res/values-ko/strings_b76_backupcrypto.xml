@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Sicherung mit Passwort (Argon2id, 64 MiB): zu wenig Arbeitsspeicher -->
+    <string name="backup_not_enough_memory">비밀번호로 백업을 보호하거나 열기에 사용 가능한 메모리가 부족합니다. 다른 앱을 닫고 다시 시도하세요.</string>
+</resources>

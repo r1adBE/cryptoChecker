@@ -591,6 +591,7 @@ enum FuturesDataSource {
     private typealias HistoryAttempt = (host: String, run: () async throws -> FundingHistory)
 
     private static let historyLock = NSLock()
+    // nonisolated(unsafe): jeder Zugriff nur unter `historyLock` (NSLock)
     nonisolated(unsafe) private static var historyCache: [String: (time: Int64, value: FundingHistory)] = [:]
     private static let historyCacheMillis: Int64 = 10 * 60_000
 
@@ -714,6 +715,7 @@ enum FuturesDataSource {
 /// (mehrere Abfragen können gleichzeitig lesen und schreiben).
 private enum BinanceIntervalCache {
     private static let lock = NSLock()
+    // nonisolated(unsafe): jeder Zugriff nur unter `lock` (NSLock)
     nonisolated(unsafe) private static var stored: (time: Int64, map: [String: Int])?
 
     static var value: (time: Int64, map: [String: Int])? {
@@ -726,6 +728,7 @@ private enum BinanceIntervalCache {
 /// `BinanceIntervalCache`.
 private enum BinanceCoinMSizeCache {
     private static let lock = NSLock()
+    // nonisolated(unsafe): jeder Zugriff nur unter `lock` (NSLock)
     nonisolated(unsafe) private static var stored: (time: Int64, map: [String: Double])?
 
     static var value: (time: Int64, map: [String: Double])? {

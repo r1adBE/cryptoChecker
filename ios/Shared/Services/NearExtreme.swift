@@ -191,6 +191,7 @@ enum NearExtremeDataSource {
     private static let formatVersion = 2
     private static let missingMillis: Int64 = 60 * 60_000
     private static let lock = NSLock()
+    // nonisolated(unsafe): jeder Zugriff nur unter `lock` (NSLock)
     nonisolated(unsafe) private static var memory: [String: NearExtremeRanges] = [:]
     nonisolated(unsafe) private static var missing: [String: Int64] = [:]
 

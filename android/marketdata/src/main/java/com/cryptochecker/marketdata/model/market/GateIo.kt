@@ -25,6 +25,7 @@ class GateIo : SimpleMarket(
     ttsName = "Gate io",
     errorField = "message",
 ) {
+    override val key = "GateIo"
 
     // ── Einzelkurs ──
 

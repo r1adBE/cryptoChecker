@@ -15,7 +15,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 /**
- * Einziger Weg, auf dem Live-Takte die Widgets neu zeichnen: WebSocket-Sammelpunkt (PriceRefresher.applyLive).
+ * Einziger Weg, auf dem Live-Takte die Widgets neu zeichnen: WebSocket-Sammelpunkt (LivePriceApplier.applyLive).
  * Bei ausgeschaltetem Bildschirm wird nur
  * gemerkt, dass etwas fehlt ([WidgetScreenGate]); beim Einschalten (ACTION_SCREEN_ON) werden
  * alle Widgets einmal nachgezeichnet. Die Daten (Kurse, Portfolio-Verlauf) werden trotzdem

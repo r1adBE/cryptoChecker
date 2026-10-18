@@ -437,9 +437,12 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
 * **Portfolio-Alarme** — Gesamtwert über/unter einem Betrag, Veränderung heute
   ±x % (`domain/alarm/PortfolioAlarmLogic.kt`); **Beträge verbergen** zeigt Werte im
   Portfolio, im Portfolio-Widget und in Portfolio-Alarmen als «•••».
-* **Sicherung mit Passwort** — AES-256-GCM, Schlüssel per PBKDF2-HMAC-SHA256 mit 600 000 Durchläufen
-  (ältere Sicherungen mit 210 000 bleiben lesbar; `data/BackupCrypto.kt`), Hinweis bei schwachem
-  Passwort, austauschbar mit iOS.
+* **Sicherung mit Passwort** — Format v3: AES-256-GCM, Schlüssel per Argon2id (RFC 9106; 64 MiB, t = 3,
+  p = 1, eigene Umsetzung ohne Fremdbibliothek in `data/Argon2id.kt`), der Kopf der Datei (format, v, enc, kdf,
+  m, t, p, salt, iv) als AAD gebunden — ein veränderter Kopf scheitert wie ein falsches Passwort. Ältere
+  v2-Sicherungen (PBKDF2-HMAC-SHA256, 600 000 bzw. 210 000 Durchläufe, ohne AAD) bleiben lesbar
+  (`data/BackupCrypto.kt`). Hinweis bei schwachem Passwort, austauschbar mit iOS (Prüfwerte in
+  `testdata/parity/backup_crypto.json`).
 * **Basis der %-Änderung** (wie Binance «Change(%) & Chart Timezone») — letzte 24 Std., seit
   letzter Aktualisierung, seit 00:00 in der Zone des Geräts oder in einer festen Zone UTC+14 … UTC-12
   (Einstellungen › Darstellung › %-Änderung; `domain/watch/ChangeBasis.kt`).
@@ -857,7 +860,8 @@ SDK-Plattform 37.
 Hinweise zu AGP 9: Kotlin kommt über den Klassenpfad im Wurzel-`build.gradle`
 (`kotlin-gradle-plugin`), `jvmTarget` folgt `compileOptions` (Java 17). R8
 packt Klassen ab AGP 9.1 standardmässig in andere Pakete um; die Börsenklassen
-sind über `proguard-rules.pro` geschützt, weil ihr Klassenname als Schlüssel dient.
+sind über `marketdata/consumer-rules.pro` und `proguard-rules.pro` geschützt. Ihr Schlüssel
+(`Market.key`) ist ein fester Text je Börse (gleich dem früheren Klassennamen).
 
 **Room-Schemas – nach dem nächsten Build `app/schemas/…` committen:** Im Repository liegen
 die Schemas 1–3, 13, 14 und 15 (`app/schemas/com.cryptochecker.app.data.local.AppDatabase/`). **Ausnahme 15

@@ -10,7 +10,7 @@ import XCTest
 final class ProtectedFileTests: XCTestCase {
 
     /// Schlüsselbund im Speicher; Fehler je Aufruf einstellbar.
-    final class FakeKeychain: StorageKeychain, @unchecked Sendable {
+    final class FakeKeychain: StorageKeychain, @unchecked Sendable { // @unchecked: Test-Fake, nur nacheinander aus dem Testablauf benutzt (keine Sperre nötig)
         var stored: Data?
         var readStatus: OSStatus?
         var addStatus: OSStatus?

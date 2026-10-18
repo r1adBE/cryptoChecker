@@ -53779,6 +53779,197 @@
         }
       }
     },
+    "backup_not_enough_memory" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لا توجد ذاكرة متاحة كافية لحماية النسخة الاحتياطية أو فتحها بكلمة مرور. أغلق التطبيقات الأخرى وحاول مرة أخرى."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nedostatek volné paměti k ochraně nebo otevření zálohy heslem. Zavřete jiné aplikace a zkuste to znovu."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ikke nok ledig hukommelse til at beskytte eller åbne sikkerhedskopien med en adgangskode. Luk andre apps, og prøv igen."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zu wenig freier Arbeitsspeicher, um die Sicherung mit Passwort zu schützen oder zu öffnen. Andere Apps schliessen und erneut versuchen."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Δεν υπάρχει αρκετή ελεύθερη μνήμη για την προστασία ή το άνοιγμα του αντιγράφου ασφαλείας με κωδικό. Κλείστε άλλες εφαρμογές και δοκιμάστε ξανά."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not enough free memory to protect or open the backup with a password. Close other apps and try again."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No hay suficiente memoria libre para proteger o abrir la copia de seguridad con contraseña. Cierra otras apps e inténtalo de nuevo."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حافظهٔ آزاد کافی برای محافظت یا باز کردن نسخهٔ پشتیبان با گذرواژه وجود ندارد. برنامه‌های دیگر را ببندید و دوباره تلاش کنید."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vapaata muistia ei ole tarpeeksi varmuuskopion suojaamiseen tai avaamiseen salasanalla. Sulje muita sovelluksia ja yritä uudelleen."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mémoire libre insuffisante pour protéger ou ouvrir la sauvegarde avec un mot de passe. Fermez d’autres apps et réessayez."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "אין מספיק זיכרון פנוי כדי להגן על הגיבוי או לפתוח אותו עם סיסמה. סגרו אפליקציות אחרות ונסו שוב."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "पासवर्ड से बैकअप को सुरक्षित करने या खोलने के लिए पर्याप्त खाली मेमोरी नहीं है। दूसरे ऐप बंद करें और फिर से कोशिश करें।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nincs elég szabad memória a biztonsági mentés jelszavas védelméhez vagy megnyitásához. Zárjon be más alkalmazásokat, és próbálja újra."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Memori kosong tidak cukup untuk melindungi atau membuka cadangan dengan kata sandi. Tutup aplikasi lain dan coba lagi."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Memoria libera insufficiente per proteggere o aprire il backup con una password. Chiudi altre app e riprova."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "パスワードでバックアップを保護または開くための空きメモリが不足しています。ほかのアプリを閉じてもう一度お試しください。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "비밀번호로 백업을 보호하거나 열기에 사용 가능한 메모리가 부족합니다. 다른 앱을 닫고 다시 시도하세요."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ikke nok ledig minne til å beskytte eller åpne sikkerhetskopien med passord. Lukk andre apper og prøv igjen."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Onvoldoende vrij geheugen om de back-up met een wachtwoord te beveiligen of te openen. Sluit andere apps en probeer het opnieuw."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Za mało wolnej pamięci, aby zabezpieczyć lub otworzyć kopię zapasową hasłem. Zamknij inne aplikacje i spróbuj ponownie."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Memória livre insuficiente para proteger ou abrir a cópia de segurança com palavra-passe. Feche outras apps e tente novamente."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Memória livre insuficiente para proteger ou abrir o backup com senha. Feche outros apps e tente novamente."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Memorie liberă insuficientă pentru a proteja sau deschide copia de rezervă cu parolă. Închide alte aplicații și încearcă din nou."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Недостаточно свободной памяти, чтобы защитить или открыть резервную копию паролем. Закройте другие приложения и повторите попытку."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nuk ka mjaftueshëm memorie të lirë për të mbrojtur ose hapur kopjen rezervë me fjalëkalim. Mbyllni aplikacionet e tjera dhe provoni përsëri."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inte tillräckligt med ledigt minne för att skydda eller öppna säkerhetskopian med lösenord. Stäng andra appar och försök igen."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "หน่วยความจำว่างไม่พอสำหรับป้องกันหรือเปิดข้อมูลสำรองด้วยรหัสผ่าน ปิดแอปอื่นแล้วลองอีกครั้ง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yedeği parolayla korumak veya açmak için yeterli boş bellek yok. Diğer uygulamaları kapatıp tekrar deneyin."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Недостатньо вільної пам’яті, щоб захистити або відкрити резервну копію паролем. Закрийте інші застосунки й спробуйте ще раз."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không đủ bộ nhớ trống để bảo vệ hoặc mở bản sao lưu bằng mật khẩu. Hãy đóng các ứng dụng khác và thử lại."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "可用内存不足，无法用密码保护或打开备份。请关闭其他应用后重试。"
+          }
+        }
+      }
+    },
     "backup_not_verified" : {
       "extractionState" : "manual",
       "localizations" : {

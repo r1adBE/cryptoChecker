@@ -202,7 +202,13 @@ enum AccentColor: String, CaseIterable, Codable, Identifiable, Sendable {
 /// Kontrast («Kontrast erhöhen» → `accessibilityContrast == .high`, in SwiftUI
 /// `colorSchemeContrast == .increased`). `setting` setzt die App (AppData).
 enum HighContrast {
-    nonisolated(unsafe) static var setting = false
+    /// Gelesen in den Farb-Closures von UIKit (jeder Thread, auch Widgets), geschrieben von AppData:
+    /// darum hinter einer Sperre statt `nonisolated(unsafe)`.
+    private static let state = LockedBox(false)
+    static var setting: Bool {
+        get { state.current }
+        set { state.current = newValue }
+    }
 
     static func isOn(_ traits: UITraitCollection) -> Bool {
         setting || traits.accessibilityContrast == .high
@@ -632,7 +638,7 @@ enum PriceColors {
 
 /// Kleiner Wert hinter einer `NSLock` (thread-sicher) für globale Einstellungen, die aus mehreren Threads
 /// gelesen werden.
-final class LockedBox<Value>: @unchecked Sendable {
+final class LockedBox<Value>: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
     private let lock = NSLock()
     private var value: Value
 
@@ -650,5 +656,11 @@ final class LockedBox<Value>: @unchecked Sendable {
         lock.lock()
         defer { lock.unlock() }
         body(&value)
+    }
+
+    /// Ganzer Wert: Lesen und Ersetzen je unter der Sperre (für Lesen-und-Ändern `write` nehmen).
+    var current: Value {
+        get { read { $0 } }
+        set { write { $0 = newValue } }
     }
 }

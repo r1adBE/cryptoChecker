@@ -25,6 +25,7 @@ import com.cryptochecker.app.domain.watch.ChangeBasis
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import timber.log.Timber
@@ -345,6 +346,26 @@ class SettingsRepository @Inject constructor(
             loaded = true
         }
     }
+
+    /*
+     * Ausschnitte von settings (SettingsSlices.kt): geben nur neu aus, wenn sich ihr Teil ändert — wer nur
+     * die Merkliste bzw. das Aussehen braucht, wird nicht bei jeder anderen Einstellung neu benachrichtigt.
+     */
+
+    /** Was die Merkliste liest ([WatchlistSettings]). */
+    val watchlistSettings: Flow<WatchlistSettings> = settings.map { WatchlistSettings.of(it) }.distinctUntilChanged()
+
+    /** Aussehen ([AppearanceSettings]). */
+    val appearanceSettings: Flow<AppearanceSettings> = settings.map { AppearanceSettings.of(it) }.distinctUntilChanged()
+
+    /** Alarme, Mitteilungen und Sprachausgabe ([AlarmSettings]). */
+    val alarmSettings: Flow<AlarmSettings> = settings.map { AlarmSettings.of(it) }.distinctUntilChanged()
+
+    /** Portfolio ([PortfolioSettings]). */
+    val portfolioSettings: Flow<PortfolioSettings> = settings.map { PortfolioSettings.of(it) }.distinctUntilChanged()
+
+    /** «Wie aktuell?» ([UpdateSettings]). */
+    val updateSettings: Flow<UpdateSettings> = settings.map { UpdateSettings.of(it) }.distinctUntilChanged()
 
     /**
      * Zuletzt gelesene Einstellungen, ohne zu warten. Für Stellen, die nicht

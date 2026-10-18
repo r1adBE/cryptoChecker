@@ -25,6 +25,7 @@ class CryptoCom : SimpleMarket(
     tickerUrl = "$CRYPTOCOM_API/get-tickers?instrument_name=%1\$s",
     errorField = "message",
 ) {
+    override val key = "CryptoCom"
 
     // ── Einzelkurs ──
 

@@ -69,12 +69,15 @@ internal fun BulkPairsCard(
     onToggleList: () -> Unit,
     /** Unter den Registern: ohne eigenen aufklappbaren Kopf, immer offen. */
     asTab: Boolean = false,
+    /** Ohne Register: Liste aufgeklappt ([ExplorerSectionsState.bulk]) und deren Umschalter. */
+    bulkOpen: Boolean = false,
+    onBulkOpenChange: (Boolean) -> Unit = {},
     /** Kennzahlen aus der Sammelabfrage der Börse (Schlüssel = Paar-Kennung) für die Schnellfilter. */
     stats: Map<String, PairStats> = emptyMap(),
     /** Liste offen: Kennzahlen laden lassen (eine Sammelabfrage, nur wo die Börse eine hat). */
     onNeedStats: () -> Unit = {},
 ) {
-    val showBulk = asTab || ExplorerSections.bulk
+    val showBulk = asTab || bulkOpen
     val gap = 12.dp
     StepCard {
         if (!asTab) Row(
@@ -82,7 +85,7 @@ internal fun BulkPairsCard(
             modifier = Modifier
                 .fillMaxWidth()
                 .clip(MaterialTheme.shapes.small)
-                .clickable { ExplorerSections.bulk = !showBulk }
+                .clickable { onBulkOpenChange(!showBulk) }
                 .padding(vertical = 4.dp)
         ) {
             Text(

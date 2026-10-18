@@ -19,6 +19,7 @@ class Poloniex : SimpleMarket(
     tickerUrl = "$POLONIEX_MARKETS/%1\$s/ticker24h",
     errorField = "message",
 ) {
+    override val key = "Poloniex"
 
     // ── Einzelkurs ──
 

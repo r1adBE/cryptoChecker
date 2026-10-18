@@ -112,7 +112,7 @@ final class NetRulesB76Tests: XCTestCase {
     }
 }
 
-private final class RetractCounter: @unchecked Sendable {
+private final class RetractCounter: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
     private let lock = NSLock()
     private var count = 0
     var value: Int { lock.withLock { count } }

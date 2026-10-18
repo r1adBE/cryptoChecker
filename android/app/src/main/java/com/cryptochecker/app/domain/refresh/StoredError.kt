@@ -97,11 +97,16 @@ object StoredError {
     /**
      * Börsentext für den Bericht einer Börse: der häufigste [exchangeDetail] unter den Fehlern der
      * Ursache [reason] (bei Gleichstand der alphabetisch erste); null ohne verwertbaren Text.
+     * [failures]: Ursache je Fehler (gleiche Reihenfolge, z. B. aus [MarketFailure]); ohne Angabe aus dem Text.
      */
-    fun reportDetail(errors: List<String?>, reason: RefreshFailure?): String? {
+    fun reportDetail(
+        errors: List<String?>,
+        reason: RefreshFailure?,
+        failures: List<RefreshFailure> = errors.map(RefreshReportLogic::classify),
+    ): String? {
         if (reason == null) return null
         return errors
-            .filter { RefreshReportLogic.classify(it) == reason }
+            .filterIndexed { i, text -> (failures.getOrNull(i) ?: RefreshReportLogic.classify(text)) == reason }
             .mapNotNull(::exchangeDetail)
             .groupingBy { it }.eachCount()
             .entries

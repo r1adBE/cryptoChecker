@@ -5,6 +5,7 @@ import Foundation
 /// `BlockedSources`). Dauer wie dort (`ExchangeBackoff.groupPause`). Wie `CandleHostPauses` (Android).
 enum CandleHostPauses {
     private static let lock = NSLock()
+    // nonisolated(unsafe): jeder Zugriff nur unter `lock` (NSLock)
     nonisolated(unsafe) private static var pauses: [String: ExchangeBackoff.State] = [:]
 
     static func isPaused(_ host: String, now: Int64 = TimeUtils.nowMillis) -> Bool {

@@ -109,6 +109,12 @@ fun MarketPhaseScreen(
     onOpenAbout: () -> Unit = {},
     /** Zeile «Einordnung» bzw. «Daten»: eigene Unterseite mit den Karten (zurück führt hierher). */
     onOpenSection: (MarketSection) -> Unit = {},
+    /** Offener Sprung von aussen (Mitteilung «Wirtschaftstermine»); null = keiner. */
+    jump: MarketJump? = null,
+    /** [jump] ist entschieden: die Navigation löscht ihn (kein zweiter Sprung). */
+    onJumpHandled: () -> Unit = {},
+    /** Sprung zum Wirtschaftsdaten-Hinweis auf der Unterseite «Daten» (die Seite scrollt einmal dorthin). */
+    onOpenMacroData: () -> Unit = { onOpenSection(MarketSection.DATA) },
 ) {
     val fearGreed by viewModel.fearGreed.collectAsStateWithLifecycle()
     val settings by viewModel.settings.collectAsStateWithLifecycle()
@@ -145,15 +151,13 @@ fun MarketPhaseScreen(
     }
     // Sprung von aussen (Mitteilung «Wirtschaftstermine»): Hinweis oben («Jetzt», Termin in ±2 h)
     // oder auf der Unterseite «Daten» — entschieden, sobald die Daten stehen
-    val jump = MarketRegister.jump
     LaunchedEffect(jump, macroEvents, reveal.shown) {
         if (jump != MarketJump.MACRO || !reveal.isShown(MarketRevealSlot.COIN)) return@LaunchedEffect
-        MarketRegister.jump = null
+        onJumpHandled()
         if (macroRegister(macroEvents) == MarketSection.NOW) {
             scrollState.scrollTo(0)
         } else {
-            MarketRegister.macroOnData = true
-            onOpenSection(MarketSection.DATA)
+            onOpenMacroData()
         }
     }
 

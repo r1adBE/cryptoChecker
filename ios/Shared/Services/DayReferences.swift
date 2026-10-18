@@ -232,7 +232,7 @@ extension PriceRefresher {
 }
 
 /// Paare der Merkliste je `CandlePair.cacheKey` für die Abrufe eigener Kerzen (threadsicher).
-final class OwnPairRegistry: @unchecked Sendable {
+final class OwnPairRegistry: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
     private let lock = NSLock()
     private var pairs: [String: CandlePair] = [:]
 
@@ -251,7 +251,7 @@ final class OwnPairRegistry: @unchecked Sendable {
 
 /// Gemerkte Watch-Ids, deren Ticker beim letzten vollen Durchlauf keinen 24-h-Wert hatte
 /// (threadsicher; App und Hintergrund können gleichzeitig aktualisieren).
-final class CandleNeeds: @unchecked Sendable {
+final class CandleNeeds: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
     private let lock = NSLock()
     private var stored = Set<Int64>()
 
@@ -262,7 +262,7 @@ final class CandleNeeds: @unchecked Sendable {
 }
 
 /// Watch-Ids mit einer Änderung aus Kerzen und der genommenen Reihe (threadsicher).
-final class CandlePills: @unchecked Sendable {
+final class CandlePills: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
     private let lock = NSLock()
     private var entries: [Int64: DayChange.CandleSeries] = [:]
 
@@ -283,7 +283,7 @@ final class CandlePills: @unchecked Sendable {
 }
 
 /// Anbieter der gemerkten Ausweich-Bezüge je «BASE|QUOTE» (threadsicher) — wie der Anbieter in `SparklineRepository.kt`.
-final class ReferenceProviders: @unchecked Sendable {
+final class ReferenceProviders: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
     private let lock = NSLock()
     private var entries: [String: String] = [:]
 
@@ -302,7 +302,7 @@ final class ReferenceProviders: @unchecked Sendable {
 }
 
 /// Setzt eine Fortsetzung genau einmal fort (wer zuerst kommt: Ende der Aufgabe oder Zeitgrenze).
-final class ResumeOnce: @unchecked Sendable {
+final class ResumeOnce: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
     private let lock = NSLock()
     private var continuation: CheckedContinuation<Void, Never>?
     private var done = false

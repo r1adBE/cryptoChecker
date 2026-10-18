@@ -131,7 +131,7 @@ enum BinanceAlpha {
 
     /// Zuletzt geladene Token-Liste (Antworttext) für höchstens `listCacheMillis`: eine
     /// Aktualisierung lädt sie nie doppelt. Nur im Speicher.
-    final class ListCache: @unchecked Sendable {
+    final class ListCache: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
         private let maxAgeMillis: Int64
         private let lock = NSLock()
         private var body: String?

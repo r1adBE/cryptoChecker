@@ -22,14 +22,14 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
+import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
+import androidx.navigation.toRoute
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.market.MarketSections
 import com.cryptochecker.app.domain.portfolio.PortfolioOff
@@ -43,7 +43,9 @@ import com.cryptochecker.app.ui.features.alarms.AlarmsScreen
 import com.cryptochecker.app.ui.features.alarms.LocalOpenUpdateSettings
 import com.cryptochecker.app.ui.features.explorer.ExplorerScreen
 import com.cryptochecker.app.ui.features.explorer.ExplorerViewModel
+import com.cryptochecker.app.ui.features.explorer.rememberExplorerSections
 import com.cryptochecker.app.ui.features.explorer.setSearchQuery
+import com.cryptochecker.app.ui.features.info.MarketJump
 import com.cryptochecker.app.ui.features.info.MarketPhaseScreen
 import com.cryptochecker.app.ui.features.info.MarketSectionScreen
 import com.cryptochecker.app.ui.features.portfolio.PortfolioDetailScreen
@@ -73,9 +75,15 @@ fun AppNavHost(
     lockViewModel: PortfolioLockViewModel = hiltViewModel(),
 ) {
     val backStackEntry by navigation.currentBackStackEntryAsState()
-    val currentRoute = backStackEntry?.destination?.route
+    val currentDestination = backStackEntry?.destination
+    // Muster der aktuellen Route (nur als Schlüssel der Effekte unten, verglichen wird typsicher)
+    val currentRoute = currentDestination?.route
+    val onPortfolioCoin = currentDestination?.hasRoute<ScreenRoute.PortfolioCoin>() == true
+    val onPortfolio = onPortfolioCoin || currentDestination?.hasRoute<ScreenRoute.Portfolio>() == true
     val portfolioEnabled by navViewModel.portfolioEnabled.collectAsStateWithLifecycle()
     val bottomTabs = remember(portfolioEnabled) { buildBottomTabs(portfolioEnabled) }
+    // Gewählter Tab; null auf Seiten ohne Tableiste (Alarme, Unterseiten, «Paar hinzufügen»)
+    val currentTab = bottomTabs.firstOrNull { tab -> currentDestination?.hasRoute(tab.route::class) == true }?.route
     // Portfolio-Sperre: gilt nur für den Portfolio-Tab und seine Unterseiten
     val portfolioAccess by lockViewModel.access.collectAsStateWithLifecycle()
     val context = androidx.compose.ui.platform.LocalContext.current
@@ -87,7 +95,7 @@ fun AppNavHost(
     SecureWindowEffect(
         PortfolioLockPolicy.secureWindow(
             lockSetting = lockEnabled,
-            portfolioVisible = currentRoute == ScreenRoute.Portfolio || currentRoute == ScreenRoute.PortfolioCoin,
+            portfolioVisible = onPortfolio,
             sdkInt = android.os.Build.VERSION.SDK_INT,
         )
     )
@@ -106,6 +114,12 @@ fun AppNavHost(
     var explorerSearch by androidx.compose.runtime.saveable.rememberSaveable {
         androidx.compose.runtime.mutableStateOf<String?>(null)
     }
+    // Offener Sprung von aussen in den Markt-Tab ([MarketJump.name]); der Tab löscht ihn, sobald er entschieden hat
+    var marketJump by androidx.compose.runtime.saveable.rememberSaveable {
+        androidx.compose.runtime.mutableStateOf<String?>(null)
+    }
+    // Auf-/zugeklappte Bereiche von «Paar hinzufügen»: gelten für die ganze Sitzung (jedes Öffnen der Seite)
+    val explorerSections = rememberExplorerSections()
 
     // Suche in den Einstellungen: Punkt, den die nächste Unterseite kurz hervorhebt
     var settingsAnchor by androidx.compose.runtime.saveable.rememberSaveable {
@@ -118,22 +132,20 @@ fun AppNavHost(
         onRestoreBackup = {
             settingsAnchor = "backup.actions"
             navigation.navigateToTab(ScreenRoute.Settings)
-            navigation.navigate(ScreenRoute.settingsPage(SettingsPage.BACKUP.name)) { launchSingleTop = true }
+            navigation.navigate(ScreenRoute.SettingsSubpage(SettingsPage.BACKUP.name)) { launchSingleTop = true }
         }
     )
 
     // Gesperrt, während eine Coin-Detailansicht offen ist: zurück zum (gesperrten) Portfolio-Tab
     androidx.compose.runtime.LaunchedEffect(portfolioAccess, currentRoute) {
-        if (portfolioAccess == PortfolioAccess.LOCKED && currentRoute == ScreenRoute.PortfolioCoin) {
-            runCatching { navigation.popBackStack(ScreenRoute.Portfolio, inclusive = false) }
+        if (portfolioAccess == PortfolioAccess.LOCKED && onPortfolioCoin) {
+            runCatching { navigation.popBackStack<ScreenRoute.Portfolio>(inclusive = false) }
         }
     }
 
     // Portfolio ausgeschaltet, während es offen ist: zurück zur Merkliste
     androidx.compose.runtime.LaunchedEffect(portfolioEnabled, currentRoute) {
-        if (!portfolioEnabled &&
-            (currentRoute == ScreenRoute.Portfolio || currentRoute == ScreenRoute.PortfolioCoin)
-        ) {
+        if (!portfolioEnabled && onPortfolio) {
             runCatching { navigation.navigateToTab(ScreenRoute.Watchlist) }
         }
     }
@@ -152,11 +164,10 @@ fun AppNavHost(
                 "cycle" -> navigation.navigateToTab(ScreenRoute.MarketPhase)
                 // Mitteilung «Wirtschaftstermine»: Markt-Tab, Register mit dem Hinweis (dort gescrollt)
                 com.cryptochecker.app.ui.MainActivity.OPEN_MARKET_MACRO -> {
-                    com.cryptochecker.app.ui.features.info.MarketRegister.jump =
-                        com.cryptochecker.app.ui.features.info.MarketJump.MACRO
+                    marketJump = MarketJump.MACRO.name
                     navigation.navigateToTab(ScreenRoute.MarketPhase)
                     // Eine gemerkte Unterseite schliessen: der Tab entscheidet, wohin es geht
-                    navigation.popBackStack(ScreenRoute.MarketPhase, inclusive = false)
+                    navigation.popBackStack<ScreenRoute.MarketPhase>(inclusive = false)
                 }
                 "alarms" -> navigation.navigate(ScreenRoute.AlarmsOverview) { launchSingleTop = true }
                 // Portfolio-Widget: Portfolio-Tab; ist es aus, Einstellungen › Erweitert › Portfolio (dort der Schalter)
@@ -165,8 +176,8 @@ fun AppNavHost(
                     PortfolioOff.WidgetTarget.PORTFOLIO_SETTINGS -> {
                         navigation.navigateToTab(ScreenRoute.Settings)
                         // Eine gemerkte Unterseite schliessen, dann die Seite «Portfolio» darüber
-                        navigation.popBackStack(ScreenRoute.Settings, inclusive = false)
-                        navigation.navigate(ScreenRoute.settingsPage(SettingsPage.PORTFOLIO.name)) { launchSingleTop = true }
+                        navigation.popBackStack<ScreenRoute.Settings>(inclusive = false)
+                        navigation.navigate(ScreenRoute.SettingsSubpage(SettingsPage.PORTFOLIO.name)) { launchSingleTop = true }
                     }
                 }
                 else -> com.cryptochecker.app.ui.MainActivity.whyWatchId(openTarget)?.let { id ->
@@ -176,33 +187,33 @@ fun AppNavHost(
                     focusWatchId = id
                     navigation.navigateToTab(ScreenRoute.Watchlist)
                     // Eine offene Unterseite über der Merkliste (z. B. «Alarme») schliessen
-                    navigation.popBackStack(ScreenRoute.Watchlist, inclusive = false)
+                    navigation.popBackStack<ScreenRoute.Watchlist>(inclusive = false)
                 }
             }
         }
         onOpenTargetHandled()
     }
 
-    // Keine Begrüßung mehr (Runde 32): ein neuer Nutzer landet direkt in der Starter-Auswahl der
+    // Keine Begrüssung mehr (Runde 32): ein neuer Nutzer landet direkt in der Starter-Auswahl der
     // leeren Merkliste; «Was die App kann» steht unter Einstellungen › Über die App. Der Akku-Hinweis
     // kommt erst nach dem ersten Alarm, zurück auf einem Haupt-Tab (nicht über der Alarm-Bestätigung).
-    BatteryOptimizationDialog(calm = currentRoute in bottomTabs.map { it.route })
+    BatteryOptimizationDialog(calm = currentTab != null)
 
     // K-10: «Aktualisierung ändern» im Alarm-Hinweis öffnet die Seite «Aktualisierung» direkt
     val openUpdateSettings: () -> Unit = remember(navigation) {
-        { navigation.navigate(ScreenRoute.settingsPage(SettingsPage.UPDATES.name)) { launchSingleTop = true } }
+        { navigation.navigate(ScreenRoute.SettingsSubpage(SettingsPage.UPDATES.name)) { launchSingleTop = true } }
     }
     // Erneutes Tippen auf den gewählten Tab: an den Anfang rollen (wie iOS)
     val tabReselect = remember { TabReselectSignal() }
     CompositionLocalProvider(LocalOpenUpdateSettings provides openUpdateSettings, LocalTabReselect provides tabReselect) {
         Scaffold(
             bottomBar = {
-                if (currentRoute in bottomTabs.map { it.route }) {
+                if (currentTab != null) {
                     AppTabBar(
                         tabs = bottomTabs,
-                        currentRoute = currentRoute,
+                        currentRoute = currentTab,
                         onSelect = { route ->
-                            if (route == currentRoute) {
+                            if (route == currentTab) {
                                 // Schon gewählt: allfällige Unterseite schliessen, an den Anfang rollen
                                 navigation.popBackStack(route, inclusive = false)
                                 tabReselect.request(route)
@@ -232,25 +243,25 @@ fun AppNavHost(
                 enterTransition = { if (reduceMotion) EnterTransition.None else fadeIn(tween(NAV_FADE_MILLIS)) },
                 exitTransition = { if (reduceMotion) ExitTransition.None else fadeOut(tween(NAV_FADE_MILLIS)) },
             ) {
-                composable(ScreenRoute.Watchlist) {
+                composable<ScreenRoute.Watchlist> {
                     WatchlistScreen(
                         openWhyWatchId = whyWatchId,
                         onOpenWhyHandled = { whyWatchId = null },
                         focusWatchId = focusWatchId,
                         onFocusHandled = { focusWatchId = null },
                         onAddClick = { navigation.openExplorer() },
-                        onOpenAlarms = { watchId -> navigation.navigate(ScreenRoute.alarms(watchId)) },
+                        onOpenAlarms = { watchId -> navigation.navigate(ScreenRoute.Alarms(watchId)) },
                         onOpenAllAlarms = { navigation.navigate(ScreenRoute.AlarmsOverview) },
                         onOpenActivitySettings = {
                             navigation.navigate(ScreenRoute.SettingsMarketAlerts) { launchSingleTop = true }
                         },
                         onOpenAbout = {
-                            navigation.navigate(ScreenRoute.settingsPage(SettingsPage.ABOUT.name)) { launchSingleTop = true }
+                            navigation.navigate(ScreenRoute.SettingsSubpage(SettingsPage.ABOUT.name)) { launchSingleTop = true }
                         }
                     )
                 }
 
-                composable(ScreenRoute.Explorer) {
+                composable<ScreenRoute.Explorer> {
                     val explorerViewModel: ExplorerViewModel = hiltViewModel()
                     androidx.compose.runtime.LaunchedEffect(explorerSearch) {
                         explorerSearch?.let { query ->
@@ -266,19 +277,20 @@ fun AppNavHost(
                             navigation.navigateToTab(ScreenRoute.Watchlist)
                         },
                         onBack = { navigation.popBackStack() },
-                        explorerViewModel = explorerViewModel
+                        explorerViewModel = explorerViewModel,
+                        sections = explorerSections,
                     )
                 }
 
-                composable(ScreenRoute.Settings) {
+                composable<ScreenRoute.Settings> {
                     SettingsScreen(
                         onOpenPage = { page ->
-                            navigation.navigate(ScreenRoute.settingsPage(page.name)) { launchSingleTop = true }
+                            navigation.navigate(ScreenRoute.SettingsSubpage(page.name)) { launchSingleTop = true }
                         },
                         onOpenSearchTarget = { target ->
                             settingsAnchor = target.anchor
-                            val route = when (target) {
-                                is SettingsSearchTarget.Page -> ScreenRoute.settingsPage(target.page.name)
+                            val route: ScreenRoute? = when (target) {
+                                is SettingsSearchTarget.Page -> ScreenRoute.SettingsSubpage(target.page.name)
                                 is SettingsSearchTarget.MarketAlerts -> ScreenRoute.SettingsMarketAlerts
                                 is SettingsSearchTarget.Speech -> ScreenRoute.SettingsSpeech
                                 // Zeilen der Hauptseite hebt SettingsScreen selbst hervor
@@ -289,22 +301,17 @@ fun AppNavHost(
                     )
                 }
 
-                composable(
-                    route = ScreenRoute.SettingsPageRoute,
-                    arguments = listOf(
-                        navArgument(ScreenRoute.SettingsPageArg) { type = NavType.StringType }
-                    )
-                ) { entry ->
+                composable<ScreenRoute.SettingsSubpage> { entry ->
                     SettingsHighlightEntry(settingsAnchor, onTaken = { settingsAnchor = null }) {
                         SettingsPageScreen(
-                            page = SettingsPage.fromName(entry.arguments?.getString(ScreenRoute.SettingsPageArg)),
+                            page = SettingsPage.fromName(entry.toRoute<ScreenRoute.SettingsSubpage>().page),
                             onBack = { navigation.popBackStack() },
                             // «Alarme», «Erweitert» und «Über» öffnen weitere Unterseiten; Zurück führt wieder dorthin.
-                            // Ohne launchSingleTop: gleiche Route (settings/page/{page}) würde sonst den
+                            // Ohne launchSingleTop: gleiches Ziel (SettingsSubpage) würde sonst den
                             // Eintrag «Alarme» ersetzen statt darüber zu legen
                             onOpenPage = { page ->
                                 if (entry.lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
-                                    navigation.navigate(ScreenRoute.settingsPage(page.name))
+                                    navigation.navigate(ScreenRoute.SettingsSubpage(page.name))
                                 }
                             },
                             // «Erweitert»: Markt-Meldungen und Sprachausgabe haben eigene Routen
@@ -322,30 +329,32 @@ fun AppNavHost(
                     }
                 }
 
-                composable(ScreenRoute.SettingsMarketAlerts) {
+                composable<ScreenRoute.SettingsMarketAlerts> {
                     SettingsHighlightEntry(settingsAnchor, onTaken = { settingsAnchor = null }) {
                         MarketAlertsSettingsScreen(onBack = { navigation.popBackStack() })
                     }
                 }
 
-                composable(ScreenRoute.SettingsSpeech) {
+                composable<ScreenRoute.SettingsSpeech> {
                     SettingsHighlightEntry(settingsAnchor, onTaken = { settingsAnchor = null }) {
                         SpeechSettingsScreen(onBack = { navigation.popBackStack() })
                     }
                 }
 
-                composable(ScreenRoute.MarketPhase) { entry ->
+                composable<ScreenRoute.MarketPhase> { entry ->
                     // Aktionsblatt aus «Heute auffällig»: dieselbe Instanz wie die Merkliste (ihr Eintrag
                     // ist als Startziel immer im Stapel); zur Not eine eigene für diesen Tab
                     val watchlistOwner = androidx.compose.runtime.remember(entry) {
-                        runCatching { navigation.getBackStackEntry(ScreenRoute.Watchlist) }.getOrNull() ?: entry
+                        runCatching { navigation.getBackStackEntry<ScreenRoute.Watchlist>() }.getOrNull() ?: entry
                     }
                     // Erst beim ersten Öffnen erzeugt, danach bis zum Ende der Activity behalten
                     MarketPhaseScreen(
                         viewModel = hiltViewModel(viewModelStoreOwner = activityOwner),
                         watchlistViewModel = hiltViewModel(viewModelStoreOwner = watchlistOwner),
                         lockViewModel = lockViewModel,
-                        onOpenAlarms = { watchId -> navigation.navigate(ScreenRoute.alarms(watchId)) },
+                        jump = MarketJump.fromName(marketJump),
+                        onJumpHandled = { marketJump = null },
+                        onOpenAlarms = { watchId -> navigation.navigate(ScreenRoute.Alarms(watchId)) },
                         // Seite «Paar hinzufügen» über dem Markt-Tab (G-13): zurück führt wieder
                         // hierher, nicht in die Merkliste (gleich wie iOS)
                         onOpenExplorer = { query ->
@@ -353,67 +362,65 @@ fun AppNavHost(
                             navigation.openExplorer()
                         },
                         onOpenAbout = {
-                            navigation.navigate(ScreenRoute.settingsPage(SettingsPage.ABOUT.name)) { launchSingleTop = true }
+                            navigation.navigate(ScreenRoute.SettingsSubpage(SettingsPage.ABOUT.name)) { launchSingleTop = true }
                         },
                         onOpenSection = { section ->
-                            navigation.navigate(ScreenRoute.marketSection(section.name)) { launchSingleTop = true }
+                            navigation.navigate(ScreenRoute.MarketSubpage(section.name)) { launchSingleTop = true }
+                        },
+                        // Mitteilung «Wirtschaftstermine»: Seite «Daten», die einmal zum Hinweis scrollt
+                        onOpenMacroData = {
+                            navigation.navigate(
+                                ScreenRoute.MarketSubpage(com.cryptochecker.app.domain.market.MarketSection.DATA.name, macro = true)
+                            ) { launchSingleTop = true }
                         }
                     )
                 }
 
                 // G-10: «Einordnung» bzw. «Daten» als eigene Seite über dem Markt-Tab (ohne Tableiste);
                 // dasselbe ViewModel wie der Tab, die Daten stehen also schon
-                composable(
-                    route = ScreenRoute.MarketSectionRoute,
-                    arguments = listOf(
-                        navArgument(ScreenRoute.MarketSectionArg) { type = NavType.StringType }
-                    )
-                ) { entry ->
+                composable<ScreenRoute.MarketSubpage> { entry ->
+                    val route = entry.toRoute<ScreenRoute.MarketSubpage>()
+                    // Gelöscht wird im SavedStateHandle (übersteht Prozess-Neustart): kein zweites Scrollen
+                    val macroJump by entry.savedStateHandle.getStateFlow(ScreenRoute.MarketSubpageArgMacro, route.macro)
+                        .collectAsStateWithLifecycle()
                     MarketSectionScreen(
-                        section = MarketSections.subpage(entry.arguments?.getString(ScreenRoute.MarketSectionArg)),
+                        section = MarketSections.subpage(route.section),
                         viewModel = hiltViewModel(viewModelStoreOwner = activityOwner),
-                        onBack = { navigation.popBackStack() }
+                        onBack = { navigation.popBackStack() },
+                        macroJump = macroJump,
+                        onMacroJumpHandled = { entry.savedStateHandle[ScreenRoute.MarketSubpageArgMacro] = false },
                     )
                 }
 
-                composable(ScreenRoute.Portfolio) {
+                composable<ScreenRoute.Portfolio> {
                     PortfolioGate(portfolioAccess, requestUnlock, lockViewModel) {
                         PortfolioScreen(
-                            onOpenCoin = { coin -> navigation.navigate(ScreenRoute.portfolioCoin(coin)) },
+                            onOpenCoin = { coin -> navigation.navigate(ScreenRoute.PortfolioCoin(coin)) },
                             onOpenAbout = {
-                                navigation.navigate(ScreenRoute.settingsPage(SettingsPage.ABOUT.name)) { launchSingleTop = true }
+                                navigation.navigate(ScreenRoute.SettingsSubpage(SettingsPage.ABOUT.name)) { launchSingleTop = true }
                             }
                         )
                     }
                 }
 
-                composable(
-                    route = ScreenRoute.PortfolioCoin,
-                    arguments = listOf(
-                        navArgument(ScreenRoute.PortfolioArgCoin) { type = NavType.StringType }
-                    )
-                ) { entry ->
+                composable<ScreenRoute.PortfolioCoin> { entry ->
                     PortfolioGate(portfolioAccess, requestUnlock, lockViewModel) {
                         PortfolioDetailScreen(
-                            coin = entry.arguments?.getString(ScreenRoute.PortfolioArgCoin).orEmpty(),
+                            coin = entry.toRoute<ScreenRoute.PortfolioCoin>().coin,
                             onBack = { navigation.popBackStack() }
                         )
                     }
                 }
 
-                composable(
-                    route = ScreenRoute.Alarms,
-                    arguments = listOf(
-                        navArgument(ScreenRoute.AlarmsArgWatchId) { type = NavType.LongType }
-                    )
-                ) {
+                // AlarmsViewModel liest die Watch-Id selbst aus dem SavedStateHandle (ScreenRoute.AlarmsArgWatchId)
+                composable<ScreenRoute.Alarms> {
                     AlarmsScreen(onBack = { navigation.popBackStack() })
                 }
 
-                composable(ScreenRoute.AlarmsOverview) {
+                composable<ScreenRoute.AlarmsOverview> {
                     AlarmsOverviewScreen(
                         onBack = { navigation.popBackStack() },
-                        onOpenWatch = { watchId -> navigation.navigate(ScreenRoute.alarms(watchId)) }
+                        onOpenWatch = { watchId -> navigation.navigate(ScreenRoute.Alarms(watchId)) }
                     )
                 }
             }
@@ -462,7 +469,7 @@ private fun NavHostController.openExplorer() {
     navigate(ScreenRoute.Explorer) { launchSingleTop = true }
 }
 
-private fun NavHostController.navigateToTab(route: String) {
+private fun NavHostController.navigateToTab(route: ScreenRoute) {
     navigate(route) {
         popUpTo(graph.findStartDestination().id) { saveState = true }
         launchSingleTop = true

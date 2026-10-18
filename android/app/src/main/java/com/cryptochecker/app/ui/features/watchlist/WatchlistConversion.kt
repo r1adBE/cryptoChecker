@@ -20,7 +20,7 @@ internal fun convertedPrice(watch: WatchEntity, target: String?, rates: Map<Stri
 
 /**
  * Abrufzeit des Devisenkurses hinter der ≈ Umrechnung von [watch], wenn älter als 3 h
- * ([CurrencyConversion.FX_STALE_MILLIS]; [fxTimes] aus [WatchlistViewModel.convertFxTimes]); sonst null.
+ * ([CurrencyConversion.FX_STALE_MILLIS]; [fxTimes] aus [WatchlistLive.convertFxTimes]); sonst null.
  */
 internal fun convertedFxTime(watch: WatchEntity, fxTimes: Map<String, Long>, now: Long): Long? =
     fxTimes[CurrencyConversion.normalize(watch.quoteAsset)]?.takeIf { now - it > CurrencyConversion.FX_STALE_MILLIS }

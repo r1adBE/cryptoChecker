@@ -33,6 +33,7 @@ class Phemex : PhemexBase(
     tickerUrl = "$PHEMEX_MD/spot/ticker/24hr?symbol=%1\$s",
     contractType = FuturesContractType.NONE,
 ) {
+    override val key = "Phemex"
 
     // ── Einzelkurs ──
 
@@ -142,6 +143,7 @@ class PhemexFutures : PhemexBase(
     tickerUrl = "$PHEMEX_MD/v2/ticker/24hr?symbol=%1\$s",
     contractType = FuturesContractType.PERPETUAL,
 ) {
+    override val key = "PhemexFutures"
 
     // ── Einzelkurs ──
 

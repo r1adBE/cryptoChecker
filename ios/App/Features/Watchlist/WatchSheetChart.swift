@@ -336,7 +336,7 @@ enum SheetChart {
 /// Im Speicher je Paar (mit Börse) und Zeitraum 5, 30 bzw. 60 Minuten (nur Erfolge); verworfen beim
 /// Aktualisieren von Hand (`invalidate`, `invalidateAll`) oder bei einem Kurssprung über 3 %.
 /// Netz und Umrechnung laufen abseits des Main-Threads. Wie `SheetChartRepository.kt`.
-final class SheetChartStore: @unchecked Sendable {
+final class SheetChartStore: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
     static let shared = SheetChartStore()
 
     private struct Entry {

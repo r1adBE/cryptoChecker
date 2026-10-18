@@ -26,6 +26,7 @@ class OkexFutures : SimpleMarket(
     pairListUrl = "https://www.okx.com/api/v5/public/instruments?instType=SWAP",
     tickerUrl = "https://www.okx.com/api/v5/market/ticker?instId=%1\$s",
 ) {
+    override val key = "OkexFutures"
 
     // ── Einzelkurs ──
 

@@ -19,6 +19,12 @@ import com.cryptochecker.app.domain.portfolio.PortfolioStables
 import com.cryptochecker.app.domain.portfolio.PortfolioTrade
 import com.cryptochecker.app.domain.portfolio.TaxCsvTexts
 import com.cryptochecker.app.domain.portfolio.TaxExport
+import com.cryptochecker.app.domain.portfolio.gainRows
+import com.cryptochecker.app.domain.portfolio.gainsCsv
+import com.cryptochecker.app.domain.portfolio.incomeCsv
+import com.cryptochecker.app.domain.portfolio.incomeRows
+import com.cryptochecker.app.domain.portfolio.summaryCsv
+import com.cryptochecker.app.domain.portfolio.yearSummary
 import com.cryptochecker.app.domain.portfolio.TaxMethod
 import com.cryptochecker.app.domain.portfolio.TaxSummaryTexts
 import com.cryptochecker.app.domain.portfolio.TaxTemplate

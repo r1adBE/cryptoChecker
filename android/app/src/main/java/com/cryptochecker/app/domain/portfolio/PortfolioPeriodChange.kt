@@ -3,7 +3,7 @@ package com.cryptochecker.app.domain.portfolio
 /**
  * Gewinn/Verlust über einen Zeitraum für den Gesamtwert-Kopf des Portfolio-Tabs («Gewinn 7 T»,
  * Zeile «Gewinn 1 J», «Gewinn heute») und das Portfolio-Widget (reines Kotlin, testbar; gespiegelt in
- * `Shared/Portfolio/PortfolioHistory.swift`, `PortfolioPeriodChange`).
+ * `Shared/Portfolio/PortfolioPeriodChange.swift`).
  *
  * [gain] kennt die Transaktionen im Zeitraum:
  *   Gewinn = Wert am Ende − Wert am Anfang − Zuflüsse im Zeitraum,

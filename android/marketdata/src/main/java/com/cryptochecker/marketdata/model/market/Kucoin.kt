@@ -17,6 +17,7 @@ class Kucoin : SimpleMarket(
     pairListUrl = "$KUCOIN_API/v2/symbols",
     tickerUrl = "$KUCOIN_API/v1/market/stats?symbol=%1\$s",
 ) {
+    override val key = "Kucoin"
 
     // ── Einzelkurs ──
 

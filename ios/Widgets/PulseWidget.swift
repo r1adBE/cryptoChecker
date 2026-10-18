@@ -10,8 +10,8 @@ import WidgetKit
 // MARK: Einrichten
 
 struct PulseWidgetIntent: WidgetConfigurationIntent {
-    static var title: LocalizedStringResource = "pulse_now_title"
-    static var description = IntentDescription("widget_pulse_description")
+    static let title: LocalizedStringResource = "pulse_now_title"
+    static let description = IntentDescription("widget_pulse_description")
 
     @Parameter(title: "widget_background", default: .system)
     var theme: WidgetThemeOption

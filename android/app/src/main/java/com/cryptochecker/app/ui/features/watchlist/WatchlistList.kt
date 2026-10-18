@@ -314,7 +314,7 @@ internal fun LazyItemScope.WatchlistItem(
     /** Art des Paars (Symbol vor der Glocke). */
     kind: com.cryptochecker.app.domain.watch.AssetKind = com.cryptochecker.app.domain.watch.AssetKind.TOKEN,
     convertRates: Map<String, Double>,
-    /** Abrufzeit alter Devisenkurse (älter als 3 h) je Quote-Währung, siehe [WatchlistViewModel.convertFxTimes]. */
+    /** Abrufzeit alter Devisenkurse (älter als 3 h) je Quote-Währung, siehe [WatchlistLive.convertFxTimes]. */
     convertFxTimes: Map<String, Long> = emptyMap(),
     hasActivity: Boolean,
     onOpenWhy: () -> Unit,

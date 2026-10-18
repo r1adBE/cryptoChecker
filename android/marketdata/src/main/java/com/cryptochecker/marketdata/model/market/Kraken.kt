@@ -32,6 +32,7 @@ class Kraken : SimpleMarket(
     pairListUrl = "$KRAKEN_PUBLIC/AssetPairs",
     tickerUrl = "$KRAKEN_TICKER_FOR%1\$s",
 ) {
+    override val key = "Kraken"
 
     // ── Einzelkurs ──
 

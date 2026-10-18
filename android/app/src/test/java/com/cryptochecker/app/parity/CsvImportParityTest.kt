@@ -5,6 +5,7 @@ import com.cryptochecker.app.domain.portfolio.CostMethod
 import com.cryptochecker.app.domain.portfolio.CutoffExport
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.TaxExport
+import com.cryptochecker.app.domain.portfolio.gainRows
 import com.cryptochecker.app.domain.portfolio.TaxMethod
 import com.cryptochecker.app.domain.portfolio.TaxTemplate
 import com.cryptochecker.app.domain.portfolio.PortfolioTrade
@@ -14,6 +15,9 @@ import com.cryptochecker.app.domain.portfolio.csvimport.CsvImport
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportMapping
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportParser
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportResult
+import com.cryptochecker.app.domain.portfolio.csvimport.classify
+import com.cryptochecker.app.domain.portfolio.csvimport.parseNumber
+import com.cryptochecker.app.domain.portfolio.csvimport.parseTime
 import java.math.BigDecimal
 import java.time.Instant
 import java.time.LocalDate

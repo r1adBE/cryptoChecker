@@ -22,6 +22,7 @@ private val DERIBIT_SETTLE_CURRENCIES = listOf("BTC", "ETH", "USDC")
  * API v2: https://docs.deribit.com
  */
 class Deribit : Market("Deribit", "Deribit") {
+    override val key = "Deribit"
 
     // ── Einzelkurs ──
 

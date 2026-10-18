@@ -17,7 +17,7 @@ import os
 /// Ablauf (siehe `PriceRefresher.refresh`): Kurse holen → Lease nehmen → Alarme frisch von
 /// der Platte lesen und auswerten → Aufrufer speichert die Kurse → `Outcome.deliverAlarms` meldet,
 /// speichert je bestätigter Mitteilung den Alarm und gibt die Lease frei.
-final class AlarmLease: @unchecked Sendable {
+final class AlarmLease: @unchecked Sendable { // @unchecked: `held` nur unter `lock` (NSLock); `takenOver` nur vor der Herausgabe in `tryAcquire` gesetzt
     /// Älter als das → verwaist (Auswertung in Millisekunden, Melden je Alarm höchstens rund 1 s).
     static let staleAfterSeconds: TimeInterval = 30
 

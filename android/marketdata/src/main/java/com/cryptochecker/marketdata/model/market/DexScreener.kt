@@ -42,6 +42,7 @@ data class DexPool(
  * Anbieter rund 300 Abfragen pro Minute.
  */
 class DexScreener : Market("DexScreener", "Dex Screener") {
+    override val key = "DexScreener"
 
     // ── Einzelkurs ──
 

@@ -1,6 +1,6 @@
 // Eingabefelder des Transaktions-Blatts: Buchungsangaben (Börse, Wallets von/nach), Gebühr in einem dritten Coin,
 // ursprüngliches Kaufdatum, «Eingabe in: USDT | CHF» und die erhaltene Seite eines Tauschs.
-// Eigene Datei, weil `PortfolioTxSheet` Zustand, Prüfung und Speichern regelt und die Felder für sich lesbar sein
+// Eigene Datei, weil Zustand, Prüfung und Speichern in `TxFormState`/`PortfolioTxForm.check` liegen und die Felder für sich lesbar sein
 // sollen (wie `PortfolioTxFields.swift` / `PortfolioTxLedgerFields.swift`).
 @file:OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class, androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
 

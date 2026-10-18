@@ -26,8 +26,6 @@ import com.cryptochecker.app.ui.theme.LocalHighContrast
 import com.cryptochecker.app.ui.theme.PriceColors
 import kotlinx.coroutines.flow.first
 
-/** Mindestbreite des Bildschirms (dp, bei Schriftgrösse 100 %) für das Mini-Chart. */
-internal const val SPARKLINE_MIN_SCREEN_DP = 360
 
 /**
  * Mini-Chart: Linie mit sanfter Fläche darunter (Verlauf von der Kursfarbe zu

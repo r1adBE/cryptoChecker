@@ -50,6 +50,8 @@ fun ExplorerScreen(
     onOpenWatchlist: () -> Unit = {},
     onBack: () -> Unit = {},
     explorerViewModel: ExplorerViewModel = hiltViewModel(),
+    /** Auf-/zugeklappte Bereiche; die Navigation gibt den Stand der Sitzung mit. */
+    sections: ExplorerSectionsState = rememberExplorerSections(),
 ) {
     val vm = explorerViewModel
     val pageState by vm.pageState.collectAsStateWithLifecycle()
@@ -281,9 +283,10 @@ private fun ExplorerPage(
                 // Während der Suche nur die Treffer
                 search.query.isNotBlank() -> SearchResults(search, groupTarget, onChooseManually = {
                     search.onQueryChange("")
-                    ExplorerSections.precise = true
+                    sections.precise = true
                 })
                 else -> BrowseContent(
+                    sections = sections,
                     search = search,
                     selection = selection,
                     actions = actions,
@@ -308,6 +311,7 @@ private fun ExplorerPage(
  */
 @Composable
 private fun BrowseContent(
+    sections: ExplorerSectionsState,
     search: SearchUi,
     selection: ExplorerSelection,
     actions: PairActions,
@@ -326,16 +330,17 @@ private fun BrowseContent(
     // Hauptweg ist die Coin-Suche; die Auswahl nach Börse liegt eingeklappt darunter
     StepHint(stringResource(R.string.explorer_search_intro), Modifier.padding(start = 4.dp, end = 4.dp))
 
-    // Auf-/zugeklappt merkt sich die Sitzung, nicht nur dieser Bildschirm (ExplorerSections)
-    val precise = ExplorerSections.precise
+    // Auf-/zugeklappt merkt sich die Sitzung, nicht nur dieser Bildschirm ([ExplorerSectionsState])
+    val precise = sections.precise
     SectionToggle(
         title = stringResource(R.string.explorer_precise_title),
         expanded = precise,
-        onToggle = { ExplorerSections.precise = !precise },
+        onToggle = { sections.precise = !precise },
         modifier = Modifier.padding(top = 16.dp, bottom = 8.dp),
     )
     if (precise) {
         PreciseSelection(
+            sections = sections,
             selection = selection,
             actions = actions,
             bulk = bulk,

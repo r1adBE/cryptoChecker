@@ -1,5 +1,5 @@
 {
- "description": "Coin-Namen, Logos und Alpha-Kennzeichen aus einem vollständigen Abgleich (CoinGecko-Seite, Binance-Symbolliste, Alpha-Liste; Werte zum Teil erfunden) und aus der Ersatzdatei coin_meta.json (Release «data», nur Binance-Listen). Android CoinMetaParityTest, iOS CoinMetaTests. sync = was die Oberfläche danach liest: names[nameKey], map[normalize] (Logo-Adresse), AssetKind. listsOnly = nur Binance-Listen (Namen sofort, vor CoinGecko; ohne TradFi-Namen für Spot-Kürzel); publishNames = gespeicherte Namen vs. frische Listen; CoinListsTest/CoinListsTests: Abruf beider Listen ohne CoinGecko und Bilder, Ersatzdatei.",
+ "description": "Coin-Namen, Logos und Alpha-Kennzeichen aus einem vollständigen Abgleich (CoinGecko-Seite, Binance-Symbolliste, Alpha-Liste; Werte zum Teil erfunden) und aus der Ersatzdatei coin_meta.json (Release «data», nur Binance-Listen). Android CoinMetaParityTest, iOS CoinMetaTests. sync = was die Oberfläche danach liest: names[nameKey], map[normalize] (Logo-Adresse), AssetKind. listsOnly = nur Binance-Listen (Namen sofort, vor CoinGecko; ohne TradFi-Namen für Spot-Kürzel); publishNames = gespeicherte Namen vs. frische Listen; CoinListsTest/CoinListsTests: Abruf beider Listen ohne CoinGecko und Bilder, Ersatzdatei. mirrorSymbolsOnly = Ersatzdatei nur mit Kürzeln (ohne fullName/logo/tags, leere alpha): ersetzt nie eine Liste mit Namen, ergänzt nur fehlende Kürzel hinten (CoinMeta.mirrorBinance; afterDirect = Abruf mit gespeicherter direkter Liste binanceList).",
  "geckoPage": [
   {
    "id": "bitcoin",
@@ -409,5 +409,195 @@
     "WLD": "Worldcoin"
    }
   }
- ]
+ ],
+ "mirrorSymbolsOnly": {
+  "coinMeta": {
+   "v": 1,
+   "generated": 1760400000000,
+   "binance": [
+    {
+     "name": "BTC"
+    },
+    {
+     "name": "ETH"
+    },
+    {
+     "name": "WLD"
+    },
+    {
+     "name": "SOL"
+    }
+   ],
+   "alpha": []
+  },
+  "afterDirect": {
+   "names": [
+    "BTC",
+    "WLD",
+    "NVDAB",
+    "XAU",
+    "PEPE",
+    "ETH",
+    "SOL"
+   ],
+   "fullNames": {
+    "BTC": "Bitcoin (Binance)",
+    "WLD": "Worldcoin",
+    "PEPE": "Pepe"
+   },
+   "logos": {
+    "WLD": "https://bin.bnbstatic.com/image/admin_mgs_image_upload/wld.png"
+   },
+   "withoutNames": [
+    "ETH",
+    "SOL"
+   ]
+  },
+  "merge": [
+   {
+    "case": "Kürzel-Liste ergänzt nur fehlende Kürzel",
+    "mirror": [
+     {
+      "name": "btc"
+     },
+     {
+      "name": "ETH"
+     }
+    ],
+    "saved": [
+     {
+      "name": "BTC",
+      "fullName": "Bitcoin",
+      "logo": "https://bin.bnbstatic.com/b.png",
+      "tags": [
+       "Layer1_Layer2"
+      ]
+     },
+     {
+      "name": "CAT",
+      "fullName": "Simon's Cat",
+      "onlyFutures": true
+     }
+    ],
+    "expected": [
+     {
+      "name": "BTC",
+      "fullName": "Bitcoin",
+      "logo": "https://bin.bnbstatic.com/b.png",
+      "tags": [
+       "Layer1_Layer2"
+      ]
+     },
+     {
+      "name": "CAT",
+      "fullName": "Simon's Cat",
+      "onlyFutures": true
+     },
+     {
+      "name": "ETH"
+     }
+    ]
+   },
+   {
+    "case": "gespeicherte Liste ohne Namen: Ersatzdatei gilt ganz",
+    "mirror": [
+     {
+      "name": "BTC"
+     },
+     {
+      "name": "ETH"
+     }
+    ],
+    "saved": [
+     {
+      "name": "BTC",
+      "logo": "https://bin.bnbstatic.com/b.png"
+     }
+    ],
+    "expected": [
+     {
+      "name": "BTC"
+     },
+     {
+      "name": "ETH"
+     }
+    ]
+   },
+   {
+    "case": "Ersatzdatei mit Namen: gilt ganz",
+    "mirror": [
+     {
+      "name": "ETH",
+      "fullName": "Ethereum"
+     }
+    ],
+    "saved": [
+     {
+      "name": "BTC",
+      "fullName": "Bitcoin",
+      "logo": "https://bin.bnbstatic.com/b.png",
+      "tags": [
+       "Layer1_Layer2"
+      ]
+     }
+    ],
+    "expected": [
+     {
+      "name": "ETH",
+      "fullName": "Ethereum"
+     }
+    ]
+   },
+   {
+    "case": "nichts gespeichert",
+    "mirror": [
+     {
+      "name": "ETH"
+     }
+    ],
+    "saved": [],
+    "expected": [
+     {
+      "name": "ETH"
+     }
+    ]
+   },
+   {
+    "case": "leerer Name zählt nicht",
+    "mirror": [
+     {
+      "name": "ETH",
+      "fullName": "  "
+     },
+     {
+      "name": "BTC"
+     }
+    ],
+    "saved": [
+     {
+      "name": "BTC",
+      "fullName": "Bitcoin",
+      "logo": "https://bin.bnbstatic.com/b.png",
+      "tags": [
+       "Layer1_Layer2"
+      ]
+     }
+    ],
+    "expected": [
+     {
+      "name": "BTC",
+      "fullName": "Bitcoin",
+      "logo": "https://bin.bnbstatic.com/b.png",
+      "tags": [
+       "Layer1_Layer2"
+      ]
+     },
+     {
+      "name": "ETH",
+      "fullName": "  "
+     }
+    ]
+   }
+  ]
+ }
 }

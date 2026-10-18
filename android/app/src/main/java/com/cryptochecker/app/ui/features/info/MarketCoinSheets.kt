@@ -37,29 +37,12 @@ import com.cryptochecker.app.ui.features.watchlist.WatchlistBanner
 import com.cryptochecker.app.ui.features.watchlist.WatchlistViewModel
 import com.cryptochecker.app.ui.features.watchlist.WhySheet
 import com.cryptochecker.app.ui.features.watchlist.groupsOf
-import com.cryptochecker.app.ui.features.watchlist.addPreview
-import com.cryptochecker.app.ui.features.watchlist.cachedSheetChart
-import com.cryptochecker.app.ui.features.watchlist.deleteWithUndo
-import com.cryptochecker.app.ui.features.watchlist.fetchFutures
-import com.cryptochecker.app.ui.features.watchlist.fetchSpot
-import com.cryptochecker.app.ui.features.watchlist.foreignCandleSource
-import com.cryptochecker.app.ui.features.watchlist.loadSheetChart
-import com.cryptochecker.app.ui.features.watchlist.refreshOne
-import com.cryptochecker.app.ui.features.watchlist.rowSource
-import com.cryptochecker.app.ui.features.watchlist.satsRate
-import com.cryptochecker.app.ui.features.watchlist.setDisabled
-import com.cryptochecker.app.ui.features.watchlist.setGroup
-import com.cryptochecker.app.ui.features.watchlist.setNote
-import com.cryptochecker.app.ui.features.watchlist.setNotificationEnabled
-import com.cryptochecker.app.ui.features.watchlist.setTtsEnabled
-import com.cryptochecker.app.ui.features.watchlist.toggleFavorite
-import com.cryptochecker.app.ui.features.watchlist.undoDelete
 import com.cryptochecker.app.ui.lock.PortfolioLockViewModel
 import kotlinx.coroutines.delay
 
 /**
  * Was der Markt-Tab zu einem Coin aus «Heute auffällig» offen hat — wie in der Merkliste
- * ([com.cryptochecker.app.ui.features.watchlist.WatchlistUiState]): das Aktionsblatt eines
+ * ([com.cryptochecker.app.ui.features.watchlist.WatchlistScreenState]): das Aktionsblatt eines
  * gespeicherten Paars ([actionsFor]) bzw. die Vorschau eines Paars, das nicht in der Merkliste
  * steht ([previewSymbol], Binance «COIN/USDT», nur im Speicher), und «Was bewegt sich mit?» dazu.
  * Ids und Symbol überstehen Drehen und Prozess-Neustart; die Vorschau wird dann neu aufgebaut.

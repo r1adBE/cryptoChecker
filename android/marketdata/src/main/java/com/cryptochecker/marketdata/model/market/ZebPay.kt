@@ -21,6 +21,7 @@ class ZebPay : SimpleMarket(
     ttsName = "Zeb Pay",
     errorField = "message",
 ) {
+    override val key = "ZebPay"
 
     // ── Einzelkurs ──
 

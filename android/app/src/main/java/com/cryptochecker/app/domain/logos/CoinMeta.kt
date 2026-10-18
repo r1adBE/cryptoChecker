@@ -216,6 +216,21 @@ object CoinMeta {
     }
 
     /**
+     * Binance-Liste aus der Ersatzdatei gegen die gespeicherte [saved] abwägen: Die Ersatzdatei kann nur
+     * Kürzel tragen (ohne `fullName`, Bild-Adressen, Schlagworte). Eine Liste ohne Namen ersetzt nie eine
+     * mit Namen — sonst wären nach 48 h ohne direkte Liste Namen und Logos weg —, sie ergänzt nur Kürzel,
+     * die dort fehlen (hinten angehängt). Trägt die Ersatzdatei Namen oder [saved] keine, gilt sie ganz.
+     */
+    fun mirrorBinance(mirror: List<CoinLogos.BinanceEntry>, saved: List<CoinLogos.BinanceEntry>): List<CoinLogos.BinanceEntry> {
+        if (hasNames(mirror) || !hasNames(saved)) return mirror
+        val known = saved.mapTo(HashSet()) { it.name.trim().uppercase() }
+        return saved + mirror.filter { known.add(it.name.trim().uppercase()) }
+    }
+
+    /** Trägt mindestens ein Eintrag einen Namen (`fullName`)? */
+    fun hasNames(entries: List<CoinLogos.BinanceEntry>): Boolean = entries.any { !it.fullName.isNullOrBlank() }
+
+    /**
      * Binance-Namen für «gleicher Token» (K-8, [com.cryptochecker.app.domain.watch.TokenIdentity]):
      * Kürzel gross → `fullName`, Spot vor Futures.
      */

@@ -6,13 +6,17 @@ private let pwRight = "richtig-123"
 private let pwWrong = "falsch-1234"
 private let pwEight = "12345678"
 
-/// Wie `BackupCryptoTest.kt` — vor allem der feste Prüfwert (mit Python `cryptography`
-/// nachgerechnet): Android und iOS müssen Sicherungen gegenseitig lesen können.
+/// Wie `BackupCryptoTest.kt` — vor allem die festen Prüfwerte (mit Python `cryptography`
+/// nachgerechnet; v3 auch in `backup_crypto.json`): Android und iOS müssen Sicherungen gegenseitig lesen können.
 final class BackupCryptoTests: XCTestCase {
 
     private typealias V = BackupCrypto.TestVector
     private let salt = "AAECAwQFBgcICQoLDA0ODw=="
     private let iv = "oKGio6Slpqeoqaqr"
+
+    /// Rasche Argon2id-Parameter für Tests, die nicht den Prüfwert betreffen.
+    private let fastKdf = BackupCrypto.Kdf.argon2(memoryKiB: 256, time: 1, parallelism: 1)
+    private let legacyKdf = BackupCrypto.Kdf.pbkdf2(iterations: BackupCrypto.legacyIterations)
 
     private func data(_ base64: String) throws -> Data { try XCTUnwrap(Data(base64Encoded: base64)) }
 
@@ -37,21 +41,75 @@ final class BackupCryptoTests: XCTestCase {
         XCTAssertEqual(try data(salt), Data((0..<16).map { UInt8($0) }))
         XCTAssertEqual(try data(iv), Data((0..<12).map { (i: Int) -> UInt8 in UInt8(0xA0 + i) }))
 
+        // v2 (PBKDF2, ohne AAD): schreiben nur noch Tests, der Prüfwert bleibt
         let env = try BackupCrypto.encrypt(Data(V.plain.utf8), password: V.password, salt: data(salt), iv: data(iv),
-                                           iterations: BackupCrypto.legacyIterations)
+                                           kdf: legacyKdf)
         XCTAssertEqual(env.data.base64EncodedString(), V.data)
-        XCTAssertEqual(env.iterations, 210_000)
+        XCTAssertEqual(env.kdf, .pbkdf2(iterations: 210_000))
+        XCTAssertEqual(env.version, 2)
         XCTAssertTrue(BackupCrypto.verifyTestVector())
     }
 
-    func testNewBackupsUse600kIterations() throws {
+    func testV2With600kIterationsMatchesPython() throws {
         XCTAssertEqual(BackupCrypto.defaultIterations, 600_000)
         XCTAssertEqual(V.data600k,
                        "0Ku8OwoZGZNMLB4nSmFxc+ftNLme+bH0q7YUsGipFoc6Edly6EQAyI3y2P5g9FVosu0L/CWRglvDAWzcW6/sO5/liBMAHn0IC/qYSg==")
-        let env = try BackupCrypto.encrypt(Data(V.plain.utf8), password: V.password, salt: data(salt), iv: data(iv))
-        XCTAssertEqual(env.iterations, 600_000)
+        let env = try BackupCrypto.encrypt(Data(V.plain.utf8), password: V.password, salt: data(salt), iv: data(iv),
+                                           kdf: .pbkdf2(iterations: BackupCrypto.defaultIterations))
         XCTAssertEqual(env.data.base64EncodedString(), V.data600k)
         XCTAssertTrue(String(decoding: BackupCrypto.json(env), as: UTF8.self).contains(#""iter": 600000"#))
+    }
+
+    func testNewBackupsUseArgon2idV3() throws {
+        XCTAssertEqual(BackupCrypto.version, 3)
+        XCTAssertEqual(BackupCrypto.defaultKdf, .argon2(memoryKiB: 65_536, time: 3, parallelism: 1))
+        // Prüfwert mit den Parametern neuer Sicherungen (wie backup_crypto.json, erster v3-Fall)
+        let env = try BackupCrypto.encrypt(Data(V.plain.utf8), password: V.password, salt: data(salt), iv: data(iv))
+        XCTAssertEqual(env.version, 3)
+        XCTAssertEqual(env.kdf, BackupCrypto.defaultKdf)
+        XCTAssertEqual(env.data.base64EncodedString(), V.data3)
+        let json = String(decoding: BackupCrypto.json(env), as: UTF8.self)
+        for field in [#""v": 3"#, #""kdf": "Argon2id""#, #""m": 65536"#, #""t": 3"#, #""p": 1"#] {
+            XCTAssertTrue(json.contains(field), field)
+        }
+        XCTAssertFalse(json.contains(#""iter""#))
+        // Entschlüsseln mit 64 MiB prüft BackupCryptoParityTests (im Debug-Build dauert jede Ableitung einige Sekunden)
+        // Zufälliges Salt neuer Sicherungen: 16 Bytes
+        let random = try BackupCrypto.encrypt(Data("{}".utf8), password: pwSecret, kdf: fastKdf)
+        XCTAssertEqual(random.salt.count, 16)
+    }
+
+    func testV3HeaderIsBoundAsAad() throws {
+        let env = try BackupCrypto.encrypt(Data(V.plain.utf8), password: V.password, salt: data(salt), iv: data(iv),
+                                           kdf: fastKdf)
+        XCTAssertEqual(String(decoding: try BackupCrypto.header(env), as: UTF8.self),
+                       #"{"format":"cryptochecker-backup-enc","v":3,"enc":"AES-256-GCM","kdf":"Argon2id","m":256,"t":1,"p":1,"salt":"AAECAwQFBgcICQoLDA0ODw==","iv":"oKGio6Slpqeoqaqr"}"#)
+        // Veränderter Kopf (t, p, m) → «falsches Passwort oder beschädigte Datei», nicht «nicht unterstützt»
+        let changed: [BackupCrypto.Kdf] = [.argon2(memoryKiB: 256, time: 2, parallelism: 1),
+                                           .argon2(memoryKiB: 256, time: 1, parallelism: 2),
+                                           .argon2(memoryKiB: 264, time: 1, parallelism: 1)]
+        for kdf in changed {
+            XCTAssertThrowsError(try BackupCrypto.decrypt(
+                BackupCrypto.Envelope(kdf: kdf, salt: env.salt, iv: env.iv, data: env.data), password: V.password
+            )) { error in XCTAssertTrue(self.isWrongPassword(error), "\(kdf): \(error)") }
+        }
+    }
+
+    func testArgon2LimitsProtectAgainstManipulatedFiles() throws {
+        let rejected: [BackupCrypto.Kdf] = [
+            .argon2(memoryKiB: 262_145, time: 3, parallelism: 1),   // über 256 MiB
+            .argon2(memoryKiB: 65_536, time: 11, parallelism: 1),   // t über 10
+            .argon2(memoryKiB: 65_536, time: 3, parallelism: 5),    // p über 4
+            .argon2(memoryKiB: 65_536, time: 0, parallelism: 1),
+            .argon2(memoryKiB: 65_536, time: 3, parallelism: 0),
+            .argon2(memoryKiB: 31, time: 1, parallelism: 4),        // unter 8 KiB je Bahn
+            .argon2(memoryKiB: Int.max, time: 3, parallelism: 1),
+        ]
+        for kdf in rejected {
+            XCTAssertThrowsError(try BackupCrypto.decrypt(
+                BackupCrypto.Envelope(kdf: kdf, salt: data(salt), iv: data(iv), data: Data(count: 32)), password: V.password
+            )) { error in XCTAssertTrue(self.isUnsupported(error), "\(kdf): \(error)") }
+        }
     }
 
     func testVectorDecrypts() throws {
@@ -75,14 +133,19 @@ final class BackupCryptoTests: XCTestCase {
     func testDecomposedPasswordEqualsComposed() throws {
         // «ö» als o + U+0308 (NFD) ergibt denselben Schlüssel wie das vorkomponierte «ö»
         let env = try BackupCrypto.encrypt(Data(V.plain.utf8), password: "Krypto\u{0308}-Test 2026!",
-                                           salt: data(salt), iv: data(iv), iterations: BackupCrypto.legacyIterations)
+                                           salt: data(salt), iv: data(iv), kdf: legacyKdf)
         XCTAssertEqual(env.data.base64EncodedString(), V.data)
+        // Auch für Argon2id (v3): gleiche Bytes wie mit dem vorkomponierten «ö»
+        XCTAssertEqual(BackupCrypto.passwordBytes("Krypto\u{0308}-Test 2026!"), BackupCrypto.passwordBytes(V.password))
+        let decomposed = try BackupCrypto.encrypt(Data(V.plain.utf8), password: "Krypto\u{0308}-Test 2026!",
+                                                  salt: data(salt), iv: data(iv), kdf: V.kdf3Fast)
+        XCTAssertEqual(decomposed.data.base64EncodedString(), V.data3Fast)
     }
 
     func testRoundTripWithRandomSaltAndIv() throws {
         let plain = Data(#"{"format":"cryptochecker-backup","version":1,"note":"Ünïcödé ✓"}"#.utf8)
-        let a = try BackupCrypto.encrypt(plain, password: pwSecret)
-        let b = try BackupCrypto.encrypt(plain, password: pwSecret)
+        let a = try BackupCrypto.encrypt(plain, password: pwSecret, kdf: fastKdf)
+        let b = try BackupCrypto.encrypt(plain, password: pwSecret, kdf: fastKdf)
         XCTAssertNotEqual(a.salt, b.salt)
         XCTAssertNotEqual(a.iv, b.iv)
         XCTAssertEqual(a.data.count, plain.count + BackupCrypto.tagBytes)
@@ -91,29 +154,29 @@ final class BackupCryptoTests: XCTestCase {
     }
 
     func testWrongPasswordIsReported() throws {
-        let env = try BackupCrypto.encrypt(Data("{}".utf8), password: pwRight)
+        let env = try BackupCrypto.encrypt(Data("{}".utf8), password: pwRight, kdf: fastKdf)
         XCTAssertThrowsError(try BackupCrypto.decrypt(env, password: pwWrong)) { error in
             XCTAssertTrue(self.isWrongPassword(error), "\(error)")
         }
     }
 
     func testTamperedDataIsRejected() throws {
-        let env = try BackupCrypto.encrypt(Data(#"{"a":1}"#.utf8), password: pwRight)
+        let env = try BackupCrypto.encrypt(Data(#"{"a":1}"#.utf8), password: pwRight, kdf: fastKdf)
         var bad = env.data
         bad[bad.startIndex] ^= 1
         XCTAssertThrowsError(try BackupCrypto.decrypt(
-            BackupCrypto.Envelope(iterations: env.iterations, salt: env.salt, iv: env.iv, data: bad), password: pwRight
+            BackupCrypto.Envelope(kdf: env.kdf, salt: env.salt, iv: env.iv, data: bad), password: pwRight
         )) { error in XCTAssertTrue(self.isWrongPassword(error), "\(error)") }
         var badTag = env.data
         badTag[badTag.index(before: badTag.endIndex)] ^= 0x80
         XCTAssertThrowsError(try BackupCrypto.decrypt(
-            BackupCrypto.Envelope(iterations: env.iterations, salt: env.salt, iv: env.iv, data: badTag), password: pwRight
+            BackupCrypto.Envelope(kdf: env.kdf, salt: env.salt, iv: env.iv, data: badTag), password: pwRight
         )) { error in XCTAssertTrue(self.isWrongPassword(error), "\(error)") }
     }
 
     func testEnvelopeJsonHasTheAndroidFields() throws {
         let env = try BackupCrypto.encrypt(Data(V.plain.utf8), password: V.password, salt: data(salt), iv: data(iv),
-                                           iterations: BackupCrypto.legacyIterations)
+                                           kdf: legacyKdf)
         let json = String(decoding: BackupCrypto.json(env), as: UTF8.self)
         for field in [#""format": "cryptochecker-backup-enc""#, #""v": 2"#, #""enc": "AES-256-GCM""#,
                       #""kdf": "PBKDF2-HMAC-SHA256""#, #""iter": 210000"#, "\"salt\": \"\(salt)\"",
@@ -137,12 +200,18 @@ final class BackupCryptoTests: XCTestCase {
             return r
         }
         // Neuere Hülle: eigene Meldung «neuere App-Version» (wie Android)
-        XCTAssertThrowsError(try BackupCrypto.envelope(from: root(v: 3))) { error in
-            XCTAssertEqual(error as? BackupVersion.Failure, .newer(3), "\(error)")
+        XCTAssertThrowsError(try BackupCrypto.envelope(from: root(v: 4))) { error in
+            XCTAssertEqual(error as? BackupVersion.Failure, .newer(4), "\(error)")
         }
+        // v3 nur mit Argon2id und m, t, p; v2 nur mit PBKDF2
+        var argonInV2 = root(kdf: "Argon2id")
+        argonInV2["m"] = 65_536; argonInV2["t"] = 3; argonInV2["p"] = 1
+        var argonTooBig = root(v: 3, kdf: "Argon2id")
+        argonTooBig["m"] = 262_145; argonTooBig["t"] = 3; argonTooBig["p"] = 1
         let rejected: [[String: Any]] = [
             root(v: 1), root(enc: "ChaCha20"), root(kdf: "scrypt"), root(iter: 1), root(iter: 2_147_483_647),
             root(iv: "AAEC"), root(data: "%%%"), root(salt: nil), root(data: "AAEC"),
+            root(v: 3), root(v: 3, kdf: "Argon2id"), argonInV2, argonTooBig,
         ]
         for r in rejected {
             XCTAssertThrowsError(try BackupCrypto.envelope(from: r)) { error in
@@ -185,8 +254,10 @@ final class BackupCryptoTests: XCTestCase {
     func testOldFilesDecryptWithShortPassword() throws {
         // Entschlüsseln prüft das Passwort nicht: alte Sicherungen mit 8 Zeichen bleiben lesbar
         let plain = Data("{}".utf8)
-        let env = try BackupCrypto.encrypt(plain, password: pwEight, iterations: 10_000)
+        let env = try BackupCrypto.encrypt(plain, password: pwEight, kdf: .pbkdf2(iterations: 10_000))
         XCTAssertEqual(try BackupCrypto.decrypt(env, password: pwEight), plain)
+        let v3 = try BackupCrypto.encrypt(plain, password: pwEight, kdf: fastKdf)
+        XCTAssertEqual(try BackupCrypto.decrypt(v3, password: pwEight), plain)
     }
 
     // MARK: Schwaches Passwort — gleiche Fälle wie BackupPasswordStrengthTest.kt

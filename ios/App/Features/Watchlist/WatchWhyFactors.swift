@@ -117,7 +117,12 @@ struct WatchlistWhyBriefCard: View {
 
 /// «Alle Werte und Quellen» auf-/zugeklappt; für die Dauer der Sitzung gemerkt, Standard zu.
 enum WatchlistWhyAllValuesState {
-    nonisolated(unsafe) static var expanded = false
+    // Hinter einer Sperre statt `nonisolated(unsafe)`: thread-sicher, ohne Aufrufer an den MainActor zu binden
+    private static let state = LockedBox(false)
+    static var expanded: Bool {
+        get { state.current }
+        set { state.current = newValue }
+    }
 }
 
 /// Zugeklappte Karte «Alle Werte und Quellen» (darunter grau «Beobachtung · Mögliche Einordnung ·

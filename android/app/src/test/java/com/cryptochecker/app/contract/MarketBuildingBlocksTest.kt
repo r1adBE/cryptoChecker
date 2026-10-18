@@ -38,6 +38,8 @@ class MarketBuildingBlocksTest {
         tickerUrl = "https://example.test/ticker/%1\$s?depth=1",
         errorField = errorField,
     ) {
+        override val key = "Probe"
+
         override fun fillTickerJson(call: Int, json: JSONObject, ticker: Ticker, info: PairQuery) {
             ticker.last = json.getDouble("price")
         }
@@ -49,11 +51,15 @@ class MarketBuildingBlocksTest {
         pairListUrl = "https://example.test/pairs",
         tickerUrl = "https://example.test/ticker?symbol=%1\$s",
     ) {
+        override val key = "DashProbe"
+
         override fun pairId(info: PairQuery): String = info.pairId ?: "${info.base}-${info.quote}"
     }
 
     /** Sammelabfrage aus Zeilen {"id", "last"} über [bulkRowIfActive]. */
     private class BulkProbe : Market("BulkProbe", "BulkProbe") {
+        override val key = "BulkProbe"
+
         override fun tickerAddress(call: Int, info: PairQuery): String = ""
 
         override fun parseBulkTickers(

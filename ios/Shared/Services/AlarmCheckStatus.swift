@@ -5,7 +5,7 @@ import Foundation
 /// keine Kerzen für «Nahe am Hoch/Tief» bzw. den Volumen-Spike): «nicht geprüft seit …» je Alarm-Id —
 /// wie `AlarmCheckStatus.kt`. Bewusst nur im Speicher dieses Prozesses (nur dieses Gerät, nicht in der
 /// Sicherung, nicht im Snapshot); prüft das Widget, sieht die App das nicht. Nach einem Neustart leer.
-final class AlarmCheckStatus: ObservableObject, @unchecked Sendable {
+final class AlarmCheckStatus: ObservableObject, @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
     static let shared = AlarmCheckStatus()
 
     enum Reason: Equatable, Sendable {

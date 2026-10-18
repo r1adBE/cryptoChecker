@@ -254,4 +254,113 @@ object PortfolioTxForm {
         val key = PortfolioWallets.key(wallet)
         return lots.filter { PortfolioWallets.key(it.wallet) == key }.fold(BigDecimal.ZERO) { a, l -> a + l.amount }
     }
+
+    // ---- Prüfung der Eingaben (Spiegel: `PortfolioTxForm.check` in Swift) ----
+
+    /**
+     * Gelesene Eingaben des Erfassen-Blatts: Texte schon in Zahlen umgewandelt (Dezimalzeichen der Region, Eingabe in
+     * der Anzeigewährung schon in USDT umgerechnet); `…Blank` = Feld leer. Das Lesen bleibt im Blatt (Dezimalzeichen,
+     * Kurs-Hinweis, Devisenkurs), die Regeln stehen hier ([check]) — so sind sie ohne Oberfläche testbar.
+     */
+    data class Entry(
+        val type: PortfolioTxType,
+        /** Coin wie getippt (normalisiert wird in [check]). */
+        val coinQuery: String,
+        /** Menge > 0; null = leer, unlesbar oder ≤ 0. */
+        val amount: BigDecimal?,
+        val priceBlank: Boolean = true,
+        /** Preis wie eingegeben (USDT bzw. Anzeigewährung); null = leer oder unlesbar. */
+        val priceEntered: BigDecimal? = null,
+        /** Preis in USDT; null = leer, unlesbar oder ohne Devisenkurs. */
+        val price: BigDecimal? = null,
+        /** Herkunft aus dem CSV-Import: ein Preis 0 ist nicht speicherbar ([priceZero]). */
+        val imported: Boolean = false,
+        val feeBlank: Boolean = true,
+        /** Gebühr gelesen (jede Art); null = leer oder unlesbar. */
+        val fee: BigDecimal? = null,
+        /** Gewählte Einheit der Gebühr (vor [feeUnitFor]). */
+        val feeUnit: PortfolioFeeUnit = PortfolioFeeUnit.QUOTE,
+        /** Gebühr im dritten Coin: Coin wie getippt, Menge und Preis gelesen. */
+        val feeCoin: String = "",
+        val feeCoinAmountBlank: Boolean = true,
+        val feeCoinAmount: BigDecimal? = null,
+        val feeCoinPriceBlank: Boolean = true,
+        val feeCoinPrice: BigDecimal? = null,
+        /** Tausch: erhaltener Coin wie getippt, erhaltene Menge > 0 (null = leer, unlesbar oder ≤ 0). */
+        val toCoinQuery: String = "",
+        val toAmount: BigDecimal? = null,
+        val swapValueBlank: Boolean = true,
+        /** Tausch: Wert in USDT; null = leer, unlesbar oder ohne Devisenkurs. */
+        val swapValue: BigDecimal? = null,
+    )
+
+    /** Ergebnis von [check]: je Feld gültig oder nicht, dazu was das Blatt zum Anzeigen und Speichern braucht. */
+    data class Check(
+        val fields: Fields,
+        /** Coin normalisiert ([PortfolioCalculator.normalizeCoin]). */
+        val coin: String,
+        /** 1–15 Buchstaben/Ziffern. */
+        val coinValid: Boolean,
+        /** Ausdrücklich 0 eingegeben bei einer importierten Transaktion ([priceZero]). */
+        val priceZero: Boolean,
+        /** Art ohne Preis, Feld leer (Preis unbekannt) oder lesbar und nicht [priceZero]. */
+        val priceValid: Boolean,
+        val toCoin: String,
+        /** Tausch: erhaltener Coin gültig und ≠ dem abgegebenen ([swapToCoinValid]); sonst true. */
+        val toCoinValid: Boolean,
+        /** Tausch: erhaltene Menge > 0; sonst true. */
+        val toAmountValid: Boolean,
+        /** Tausch: Wert leer oder ≥ 0; sonst true. */
+        val swapValueValid: Boolean,
+        /** Die Art kennt eine Gebühr (mit Einheit oder nur im Coin). */
+        val hasFee: Boolean,
+        /** Gebühr dieser Art; null = leer, unlesbar oder Art ohne Gebühr (0 gilt beim Speichern als keine). */
+        val fee: BigDecimal?,
+        val feeValid: Boolean,
+        /** Einheit der Gebühr beim Speichern ([feeUnitFor]). */
+        val feeUnit: PortfolioFeeUnit,
+        /** Tausch: Gebühr im erhaltenen Coin ([feeInReceivedCoin]) — braucht keinen Preis. */
+        val feeInReceived: Boolean,
+        /** Gebühr im dritten Coin; Art ohne dieses Feld: [ThirdFee.NONE]. */
+        val thirdFee: ThirdFee,
+        /** Gebühr verbraucht die ganze erhaltene Menge ([feeConsumesReceived]). */
+        val feeConsumes: Boolean,
+        /** Alles speicherbar. */
+        val valid: Boolean,
+    )
+
+    /**
+     * Prüfung des Erfassen-Blatts: Coin, Menge (> 0), Preis (leer = unbekannt; Preis 0 nur bei importierten Transaktionen
+     * abgelehnt), Gebühr (leer = keine), Gebühr im dritten Coin ([thirdFee]; im erhaltenen Coin eines Tauschs ohne Preis
+     * vollständig), Tausch (erhaltener Coin und Menge, Wert leer oder ≥ 0) und Gebühr ≥ erhaltener Menge (gesperrt).
+     */
+    fun check(e: Entry): Check {
+        val fields = PortfolioTxForm.fields(e.type)
+        val isSwap = e.type == PortfolioTxType.SWAP
+        val coin = PortfolioCalculator.normalizeCoin(e.coinQuery)
+        val coinValid = coin.length in 1..15 && coin.all { it.isLetterOrDigit() }
+        val priceZero = fields.price && PortfolioTxForm.priceZero(e.priceEntered, e.imported)
+        val priceValid = !fields.price || e.priceBlank || (e.price != null && !priceZero)
+        val toCoin = PortfolioCalculator.normalizeCoin(e.toCoinQuery)
+        val toCoinValid = !isSwap || swapToCoinValid(e.toCoinQuery, coin)
+        val toAmountValid = !isSwap || e.toAmount != null
+        val swapValueValid = !isSwap || e.swapValueBlank || (e.swapValue != null && e.swapValue.signum() >= 0)
+        val hasFee = fields.feeWithUnit || fields.coinFeeOnly
+        val fee = if (!hasFee || e.feeBlank) null else e.fee
+        val feeValid = !hasFee || e.feeBlank || fee != null
+        val feeUnit = PortfolioTxForm.feeUnitFor(e.type, e.feeUnit)
+        val feeInReceived = PortfolioTxForm.feeInReceivedCoin(e.type, e.feeCoin, e.toCoinQuery)
+        val thirdFee = if (!fields.thirdCoinFee) ThirdFee.NONE else PortfolioTxForm.thirdFee(
+            e.feeCoin, coin, e.feeCoinAmount, e.feeCoinAmountBlank, e.feeCoinPrice, e.feeCoinPriceBlank,
+        ).let { if (feeInReceived && it == ThirdFee.INCOMPLETE) ThirdFee.COMPLETE else it }
+        val feeConsumes = PortfolioTxForm.feeConsumesReceived(e.type, e.amount, fee, feeUnit, e.toAmount, if (feeInReceived) e.feeCoinAmount else null)
+        val valid = coinValid && e.amount != null && priceValid && feeValid && thirdFee != ThirdFee.INVALID &&
+            toCoinValid && toAmountValid && swapValueValid && !feeConsumes
+        return Check(
+            fields = fields, coin = coin, coinValid = coinValid, priceZero = priceZero, priceValid = priceValid,
+            toCoin = toCoin, toCoinValid = toCoinValid, toAmountValid = toAmountValid, swapValueValid = swapValueValid,
+            hasFee = hasFee, fee = fee, feeValid = feeValid, feeUnit = feeUnit, feeInReceived = feeInReceived,
+            thirdFee = thirdFee, feeConsumes = feeConsumes, valid = valid,
+        )
+    }
 }

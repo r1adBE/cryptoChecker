@@ -11,7 +11,7 @@ final class CoinListsTests: XCTestCase {
     private let generated: Int64 = 1_760_400_000_000
 
     /// Notierte Abrufe (threadsicher, Abrufe laufen gleichzeitig).
-    private final class Calls: @unchecked Sendable {
+    private final class Calls: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
         private let lock = NSLock()
         private var urls: [String] = []
         func add(_ url: String) { lock.lock(); urls.append(url); lock.unlock() }
@@ -108,6 +108,54 @@ final class CoinListsTests: XCTestCase {
         }
         XCTAssertEqual(CoinLogos.alphaSymbols(result.alpha ?? []), Set(try XCTUnwrap(expected["alpha"] as? [String])))
         XCTAssertFalse(calls.all.contains { $0.contains("coingecko") })
+    }
+
+    /// Ersatzdatei nur mit Kürzeln (ohne Namen, leere Alpha-Liste) nach 48 h ohne direkte Liste: Die
+    /// gespeicherte direkte Liste behält Namen und Logos, nur fehlende Kürzel kommen hinzu.
+    func testMirrorWithoutNamesKeepsSavedNames() async throws {
+        let data = try S.fixture("coin_meta")
+        let section = try XCTUnwrap(data["mirrorSymbolsOnly"] as? [String: Any])
+        let saved = try XCTUnwrap(CoinMeta.parseBinanceList(try CoinMetaTests.raw(data, "binanceList")))
+        let metaText = try CoinMetaTests.raw(section, "coinMeta")
+        let fetcher = server([CoinLogos.alphaListURL: nil, CoinMeta.url: metaText],
+                             offline: [CoinLogos.binanceListURL], calls: Calls())
+        var stale = request(lastBinance: generated - CoinMeta.directStaleMillis - 1)
+        stale.savedBinance = saved
+        let result = await fetch(fetcher, stale)
+        XCTAssertEqual(result.binanceSource, .mirror)
+        // Leere Alpha-Liste der Ersatzdatei: bisherige bleibt
+        XCTAssertNil(result.alpha)
+        XCTAssertEqual(result.alphaSource, .absent)
+        let binance = result.binance ?? []
+        let expected = try XCTUnwrap(section["afterDirect"] as? [String: Any])
+        XCTAssertEqual(binance.map(\.name), try XCTUnwrap(expected["names"] as? [String]))
+        let fullNames = CoinMeta.binanceFullNames(binance)
+        for (symbol, name) in try XCTUnwrap(expected["fullNames"] as? [String: String]) {
+            XCTAssertEqual(fullNames[symbol], name, "Name \(symbol)")
+        }
+        for (symbol, logo) in try XCTUnwrap(expected["logos"] as? [String: String]) {
+            XCTAssertEqual(binance.first { $0.name == symbol }?.logo, logo, "Logo \(symbol)")
+        }
+        for symbol in try XCTUnwrap(expected["withoutNames"] as? [String]) {
+            XCTAssertNil(fullNames[symbol], symbol)
+        }
+        // Ohne gespeicherte Liste füllt die Ersatzdatei wie bisher
+        let fresh = await fetch(fetcher, request())
+        XCTAssertEqual((fresh.binance ?? []).map(\.name), ["BTC", "ETH", "WLD", "SOL"])
+    }
+
+    /// Regel `CoinMeta.mirrorBinance` (gemeinsame Fälle `mirrorSymbolsOnly.merge`).
+    func testMirrorBinanceCases() throws {
+        let data = try S.fixture("coin_meta")
+        let section = try XCTUnwrap(data["mirrorSymbolsOnly"] as? [String: Any])
+        func describe(_ list: [CoinLogos.BinanceEntry]) -> [String] {
+            list.map { "\($0.name)|\($0.fullName ?? "-")|\($0.logo ?? "-")|\($0.tags.joined(separator: ","))|\($0.onlyFutures)" }
+        }
+        func entries(_ raw: Any?) -> [CoinLogos.BinanceEntry] { CoinMeta.binanceEntries(raw as? [Any] ?? []) }
+        for c in S.list(section["merge"]) {
+            let out = CoinMeta.mirrorBinance(entries(c["mirror"]), saved: entries(c["saved"]))
+            XCTAssertEqual(describe(out), describe(entries(c["expected"])), c["case"] as? String ?? "")
+        }
     }
 
     func testMirrorOlderThanDirectIsIgnored() async throws {

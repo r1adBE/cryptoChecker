@@ -20,6 +20,7 @@ class NonKyc : SimpleMarket(
     tickerUrl = "$NONKYC_API/ticker/%1\$s",
     ttsName = "Non K Y C",
 ) {
+    override val key = "NonKyc"
 
     // ── Einzelkurs ──
 

@@ -290,6 +290,7 @@ struct PhemexScales: Sendable {
     // MARK: Geteilter Stand
 
     private static let guardLock = NSLock()
+    // nonisolated(unsafe): jeder Zugriff nur unter `guardLock` (NSLock)
     nonisolated(unsafe) private static var shared = PhemexScales()
     nonisolated(unsafe) private static var diskChecked = false
     nonisolated(unsafe) private static var diskFile: URL? = SharedStorage.directory.appendingPathComponent("phemex_scales.json")

@@ -5,19 +5,24 @@ import Foundation
 /// sonst ab dem Start der App-Oberfläche (`AppStartTiming`). Nur lokal (Bericht «Ablauf»),
 /// keine Telemetrie. Wie `StartupClock.kt`.
 enum AppStartClock {
-    nonisolated(unsafe) private static var uiCreatedAt: Int64 = 0
-    nonisolated(unsafe) private static var pending = false
+    // Hinter einer Sperre statt `nonisolated(unsafe)`: Setzen und einmaliges Abholen sind je ein Schritt
+    private static let state = LockedBox((uiCreatedAt: Int64(0), pending: false))
 
     /// `CryptoCheckerApp.init`.
     static func onAppInit() {
-        uiCreatedAt = nowMillis()
-        pending = true
+        let now = nowMillis()
+        state.write { $0 = (uiCreatedAt: now, pending: true) }
     }
 
     /// Einmal je Start: Dauer bis jetzt; nil = schon gemeldet oder unplausibel.
     @MainActor static func onFirstWatchlistFrame() -> Int64? {
-        guard pending else { return nil }
-        pending = false
+        var taken: Int64?
+        state.write {
+            guard $0.pending else { return }
+            $0.pending = false
+            taken = $0.uiCreatedAt
+        }
+        guard let uiCreatedAt = taken else { return nil }
         return AppStartTiming.elapsed(processStart: processStartMillis(), uiCreated: uiCreatedAt, firstFrame: nowMillis())
     }
 

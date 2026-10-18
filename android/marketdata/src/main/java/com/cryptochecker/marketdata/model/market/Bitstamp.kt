@@ -19,6 +19,7 @@ class Bitstamp : SimpleMarket(
     tickerUrl = "$BITSTAMP_API/ticker/%1\$s/",
     errorField = "reason",
 ) {
+    override val key = "Bitstamp"
 
     // ── Einzelkurs ──
 

@@ -7,6 +7,9 @@ import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.portfolio.TaxEngines
 import com.cryptochecker.app.domain.portfolio.TaxEventRules
 import com.cryptochecker.app.domain.portfolio.TaxExport
+import com.cryptochecker.app.domain.portfolio.gainRows
+import com.cryptochecker.app.domain.portfolio.summaryCsv
+import com.cryptochecker.app.domain.portfolio.yearSummary
 import com.cryptochecker.app.domain.portfolio.TaxLimitStatus
 import com.cryptochecker.app.domain.portfolio.TaxLine
 import com.cryptochecker.app.domain.portfolio.TaxMatch

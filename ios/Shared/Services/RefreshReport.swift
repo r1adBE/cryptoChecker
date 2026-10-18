@@ -120,7 +120,19 @@ enum RefreshReportLogic {
         }.first?.key
     }
 
-    /// Fehlertext (iOS: `ConnectionErrors`/`MarketHTTP`; Android: Ausnahme bzw. Kennung) → Ursache.
+    /// Ursache eines frischen Fehlers: zuerst die beim Abruf festgestellte Art (`MarketFailure.refreshFailure`), nur
+    /// ohne Aussage der Art der Text. Gespeicherte Fehler haben keine Art und gehen direkt über den Text. Wie Android.
+    static func classify(_ failure: MarketFailure?, _ error: String?) -> RefreshFailure {
+        failure?.refreshFailure ?? classify(error)
+    }
+
+    /// HTTP-Status: aus der Art, sonst aus dem Text.
+    static func httpStatus(_ failure: MarketFailure?, _ error: String?) -> Int? {
+        failure?.httpStatus ?? httpStatus(error)
+    }
+
+    /// Fehlertext (iOS: `ConnectionErrors`/`MarketHTTP`; Android: Ausnahme bzw. Kennung) → Ursache, über
+    /// Stichwörter. Für gespeicherte Texte ohne `MarketFailure` (ältere Fassungen) und als Rückfall.
     static func classify(_ error: String?) -> RefreshFailure {
         let e = (error ?? "").trimmingCharacters(in: .whitespaces)
         let lower = e.lowercased()

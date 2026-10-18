@@ -146,36 +146,31 @@ struct PortfolioTxSheet: View {
     var entryUnit: String { fiatActive ? currency : PortfolioFormat.usdt }
     // Tausch: erhaltener Coin ≠ abgegebener, Menge > 0; Wert optional (≥ 0)
     var toCoin: String { PortfolioCalculator.normalizeCoin(toCoinQuery) }
-    var toCoinValid: Bool { !isSwap || PortfolioTxForm.swapToCoinValid(toCoinQuery, coin: coin) }
+    var toCoinValid: Bool { check.toCoinValid }
     var toAmount: Decimal? {
         PriceFormat.parseDecimalAmount(toAmountText, decimalSeparator: ThresholdParser.localeDecimalSeparator)
             .flatMap { $0 > 0 ? $0 : nil }
     }
-    private var toAmountValid: Bool { !isSwap || toAmount != nil }
+    private var toAmountValid: Bool { check.toAmountValid }
     private var swapValueBlank: Bool { swapValueText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
     var swapValue: Decimal? {
         let entered = swapValueBlank ? nil
             : PriceFormat.parseDecimalAmount(swapValueText, decimalSeparator: ThresholdParser.localeDecimalSeparator)
         return fiatActive ? PortfolioTxForm.fiatToUsdt(entered, usdToFiat: fxRate) : entered
     }
-    var swapValueValid: Bool { !isSwap || swapValueBlank || (swapValue.map { $0 >= 0 } ?? false) }
+    var swapValueValid: Bool { check.swapValueValid }
     /// Tausch: Gebühr im erhaltenen Coin braucht keinen Preis (mindert nur die erhaltene Menge).
-    var feeInReceived: Bool { PortfolioTxForm.feeInReceivedCoin(type: type, feeCoin: feeCoinText, toCoin: toCoinQuery) }
+    var feeInReceived: Bool { check.feeInReceived }
     /// Preis 0 ausdrücklich eingegeben: abgelehnt (0 = intern «ohne Preis», würde zum Marktkurs bewertet) — wie Android.
     /// Preis 0: nur bei einer importierten Transaktion abgelehnt (Kennzeichen der Gebühr-Zeile); von Hand ein echter Preis.
-    var priceZero: Bool {
-        let imported = !(initial.importKey?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true)
-        return fields.price && PortfolioTxForm.priceZero(priceEntered, imported: imported)
-    }
-    var priceValid: Bool { !fields.price || priceBlank || (price != nil && !priceZero) }
-    var hasFee: Bool { fields.feeWithUnit || fields.coinFeeOnly }
+    var priceZero: Bool { check.priceZero }
+    var priceValid: Bool { check.priceValid }
+    var hasFee: Bool { check.hasFee }
     private var feeBlank: Bool { feeText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
     /// Gebühr: leer = keine; 0 gilt als keine (Belohnung/Einzahlung haben keine).
-    var fee: Decimal? {
-        !hasFee || feeBlank ? nil : PriceFormat.parseDecimalAmount(feeText, decimalSeparator: ThresholdParser.localeDecimalSeparator)
-    }
-    var feeValid: Bool { !hasFee || feeBlank || fee != nil }
-    var effectiveFeeUnit: PortfolioFeeUnit { PortfolioTxForm.feeUnit(for: type, chosen: feeUnit) }
+    var fee: Decimal? { check.fee }
+    var feeValid: Bool { check.feeValid }
+    var effectiveFeeUnit: PortfolioFeeUnit { check.feeUnit }
     /// Gespeicherte Gebühr, die das Blatt für diese Art nicht zeigen kann (z. B. CSV-Import: Auszahlung mit
     /// USDT-Gebühr, Einzahlung mit Gebühr): beim Bearbeiten ohne Änderung von Art und Gebühr unverändert
     /// behalten — sonst würde sie still gelöscht oder als Gebühr im Coin umgedeutet. Wie `keepStoredFee` (Android).
@@ -194,21 +189,24 @@ struct PortfolioTxSheet: View {
         feeCoinPriceBlank ? nil
             : PriceFormat.parseDecimalAmount(feeCoinPriceText, decimalSeparator: ThresholdParser.localeDecimalSeparator)
     }
-    var thirdFee: PortfolioTxForm.ThirdFee {
-        guard fields.thirdCoinFee else { return .none }
-        let state = PortfolioTxForm.thirdFee(feeCoin: feeCoinText, coin: coin, amount: feeCoinAmount, amountBlank: feeCoinAmountBlank,
-                                             price: feeCoinPrice, priceBlank: feeCoinPriceBlank)
-        return feeInReceived && state == .incomplete ? .complete : state
-    }
+    var thirdFee: PortfolioTxForm.ThirdFee { check.thirdFee }
     /// Gebühr verbraucht die ganze erhaltene Menge: nicht speicherbar (Kauf: Gebühr im Coin, Tausch: im erhaltenen Coin).
-    var feeConsumes: Bool {
-        PortfolioTxForm.feeConsumesReceived(type: type, amount: amount, fee: fee, unit: effectiveFeeUnit,
-                                            toAmount: toAmount, receivedCoinFee: feeInReceived ? feeCoinAmount : nil)
+    var feeConsumes: Bool { check.feeConsumes }
+    var valid: Bool { check.valid }
+
+    /// Gelesene Eingaben (Dezimalzeichen der Region, Anzeigewährung schon in USDT) für `PortfolioTxForm.check`.
+    private var entry: PortfolioTxForm.Entry {
+        PortfolioTxForm.Entry(
+            type: type, coinQuery: coinQuery, amount: amount, priceBlank: priceBlank, priceEntered: priceEntered,
+            price: price, imported: !(initial.importKey?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true),
+            feeBlank: feeBlank,
+            fee: feeBlank ? nil : PriceFormat.parseDecimalAmount(feeText, decimalSeparator: ThresholdParser.localeDecimalSeparator),
+            feeUnit: feeUnit, feeCoin: feeCoinText, feeCoinAmountBlank: feeCoinAmountBlank, feeCoinAmount: feeCoinAmount,
+            feeCoinPriceBlank: feeCoinPriceBlank, feeCoinPrice: feeCoinPrice, toCoinQuery: toCoinQuery, toAmount: toAmount,
+            swapValueBlank: swapValueBlank, swapValue: swapValue)
     }
-    var valid: Bool {
-        coinValid && amount != nil && priceValid && feeValid && thirdFee != .invalid
-            && toCoinValid && toAmountValid && swapValueValid && !feeConsumes
-    }
+    /// Prüfung der Eingaben — Regeln in `PortfolioTxForm.check` (gleich wie Android).
+    var check: PortfolioTxForm.Check { PortfolioTxForm.check(entry) }
 
     /// Vom Nutzer geändert? Vorbelegte Preise (heutiger Kurs, Tagesschluss) zählen nicht — wie `dirty` (Android).
     private var dirty: Bool {

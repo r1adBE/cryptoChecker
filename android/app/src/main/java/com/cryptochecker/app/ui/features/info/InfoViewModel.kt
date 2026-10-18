@@ -246,8 +246,6 @@ class InfoViewModel @Inject constructor(
     /** Bereiche, deren Zwischenspeicher schon gelesen ist (gezeigt oder Ladezustand). */
     internal val cacheChecked = MutableStateFlow<Set<CycleSource>>(emptySet())
 
-    // Gewähltes Register des Tabs: [MarketRegister] (gilt für die App-Sitzung)
-
     private val _reveal = MutableStateFlow(MarketReveal.State())
 
     /**

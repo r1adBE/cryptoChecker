@@ -9,13 +9,15 @@ enum MarketDataTab: Int, Hashable, Sendable {
 /// Zuletzt gewähltes Register für die Dauer der Sitzung, getrennt für Futures- und Spot-Paare;
 /// Standard: Futures bei Futures-Paaren, Spot bei Spot-Paaren. Wie `MarketDataTabMemory` (Android).
 enum MarketDataTabMemory {
-    nonisolated(unsafe) static var forFutures: MarketDataTab = .futures
-    nonisolated(unsafe) static var forSpot: MarketDataTab = .spot
+    // Hinter einer Sperre statt `nonisolated(unsafe)`: thread-sicher, ohne Aufrufer an den MainActor zu binden
+    private static let state = LockedBox((forFutures: MarketDataTab.futures, forSpot: MarketDataTab.spot))
 
-    static func get(futuresPair: Bool) -> MarketDataTab { futuresPair ? forFutures : forSpot }
+    static func get(futuresPair: Bool) -> MarketDataTab {
+        state.read { futuresPair ? $0.forFutures : $0.forSpot }
+    }
 
     static func set(futuresPair: Bool, _ tab: MarketDataTab) {
-        if futuresPair { forFutures = tab } else { forSpot = tab }
+        state.write { if futuresPair { $0.forFutures = tab } else { $0.forSpot = tab } }
     }
 }
 

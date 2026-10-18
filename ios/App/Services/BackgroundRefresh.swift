@@ -480,7 +480,7 @@ enum RefreshSchedule {
 
 /// Meldet das Ende einer Hintergrund-Aufgabe genau einmal — vom Ablauf selbst oder aus dem
 /// `expirationHandler` (iOS ruft ihn auf einem beliebigen Thread). Thread-sicher.
-final class BackgroundTaskCompletion: @unchecked Sendable {
+final class BackgroundTaskCompletion: @unchecked Sendable { // @unchecked: BGTask nur einmal über `gate` (OnceGate, NSLock) abgeschlossen
     private let gate = OnceGate()
     private let task: BGTask
 
@@ -496,7 +496,7 @@ final class BackgroundTaskCompletion: @unchecked Sendable {
 /// Hält den Arbeits-Task einer Hintergrund-Aufgabe für den `expirationHandler`, der schon VOR dem Task gesetzt
 /// wird (thread-sicher; iOS ruft den Handler auf einem beliebigen Thread). Kommt der Abbruch, bevor der Task
 /// eingetragen ist, wird er beim Eintragen sofort abgebrochen.
-final class TaskCancelBox: @unchecked Sendable {
+final class TaskCancelBox: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
     private let lock = NSLock()
     private var task: Task<Void, Never>?
     private var cancelled = false
@@ -520,7 +520,7 @@ final class TaskCancelBox: @unchecked Sendable {
 }
 
 /// Zwischenstand für «Letzte Prüfungen» (thread-sicher): `.failed`, bis die Kurse gespeichert sind.
-final class CheckResultBox: @unchecked Sendable {
+final class CheckResultBox: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
     private let lock = NSLock()
     private var value: CheckResult = .failed
 
@@ -538,7 +538,7 @@ final class CheckResultBox: @unchecked Sendable {
 }
 
 /// Lässt genau einen Aufruf durch (thread-sicher).
-final class OnceGate: @unchecked Sendable {
+final class OnceGate: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
     private let lock = NSLock()
     private var claimed = false
 

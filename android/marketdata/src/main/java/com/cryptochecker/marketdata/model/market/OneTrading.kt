@@ -19,6 +19,7 @@ class OneTrading : SimpleMarket(
     tickerUrl = "$ONE_TRADING_API/market-ticker/%1\$s",
     errorField = "error",
 ) {
+    override val key = "OneTrading"
 
     // ── Einzelkurs ──
 

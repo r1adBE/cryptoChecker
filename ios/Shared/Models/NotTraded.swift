@@ -26,8 +26,17 @@ enum NotTraded {
     /// HTTP 400/404. Jeder andere Fehler — unlesbare Antwort, unbekannte Ausnahme, Netz, Zeit,
     /// Rate-Limit, übrige 4xx/5xx, fehlender Adapter — ist ein gewöhnlicher Fehler: Das Paar bleibt mit
     /// seinem letzten Kurs stehen. Wie `NotTraded.kt`.
-    static func confirmedBySingle(gotPrice: Bool, error: String?) -> Bool {
+    ///
+    /// `failure`: beim Abruf festgestellte Art. Sagt sie etwas aus, entscheidet sie; sonst (keine Art, Lesefehler,
+    /// Meldung der Börse) der Text wie bisher.
+    static func confirmedBySingle(gotPrice: Bool, error: String?, failure: MarketFailure? = nil) -> Bool {
         if gotPrice { return false }
+        switch failure {
+        case .unknownInstrument?: return true
+        case .httpStatus(let code)?: return confirmingHTTP.contains(code)
+        case .timeout?, .offline?, .ssl?, .rateLimited?: return false
+        case .parse?, .exchange?, .other?, nil: break
+        }
         guard let error, !error.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return true }
         switch RefreshReportLogic.classify(error) {
         case .NO_DATA:

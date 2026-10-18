@@ -26,6 +26,7 @@ class Htx : HtxBase(
     idField = "symbol",
     turnoverField = "vol",
 ) {
+    override val key = "Htx"
 
     // ── Paarliste ──
 
@@ -48,6 +49,7 @@ class HtxFutures : HtxBase(
     idField = "contract_code",
     turnoverField = "trade_turnover",
 ) {
+    override val key = "HtxFutures"
 
     // ── Paarliste ──
 

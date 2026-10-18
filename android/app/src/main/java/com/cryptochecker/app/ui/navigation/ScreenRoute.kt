@@ -1,37 +1,65 @@
 package com.cryptochecker.app.ui.navigation
 
-object ScreenRoute {
-    const val Watchlist = "watchlist"
-    const val Explorer = "explorer"
-    const val Settings = "settings"
-    const val MarketPhase = "market_phase"
-    const val AlarmsOverview = "alarms_overview"
+import kotlinx.serialization.Serializable
 
-    /** G-10: Unterseiten «Einordnung» und «Daten» des Markt-Tabs, Name aus `MarketSection`. */
-    const val MarketSectionArg = "section"
-    const val MarketSectionRoute = "market/section/{$MarketSectionArg}"
+/**
+ * Ziele der Navigation, typsicher (Navigation Compose mit @Serializable): Argumente stehen als
+ * Felder in der Klasse statt in einem Text wie «alarms/{watchId}». Navigation legt sie unter dem
+ * Feldnamen in den SavedStateHandle des Eintrags; sie überstehen so auch einen Prozess-Neustart.
+ * Sprünge von aussen (Mitteilung, Widget, App-Verknüpfung) kommen weiter als Text über
+ * `MainActivity` (openTarget) und werden in `AppNavHost` auf diese Ziele abgebildet.
+ */
+sealed interface ScreenRoute {
+    @Serializable
+    data object Watchlist : ScreenRoute
 
-    fun marketSection(name: String) = "market/section/$name"
+    @Serializable
+    data object Explorer : ScreenRoute
 
-    /** Unterseiten der Einstellungen (Runde 13b). */
-    const val SettingsMarketAlerts = "settings/market_alerts"
-    const val SettingsSpeech = "settings/speech"
+    @Serializable
+    data object Settings : ScreenRoute
 
-    /** Runde 23f: übrige Unterseiten der Einstellungen, Name aus `SettingsPage`. */
-    const val SettingsPageArg = "page"
-    const val SettingsPageRoute = "settings/page/{$SettingsPageArg}"
+    @Serializable
+    data object MarketPhase : ScreenRoute
 
-    fun settingsPage(name: String) = "settings/page/$name"
+    @Serializable
+    data object AlarmsOverview : ScreenRoute
 
-    const val AlarmsArgWatchId = "watchId"
-    const val Alarms = "alarms/{$AlarmsArgWatchId}"
+    /**
+     * G-10: Unterseiten «Einordnung» und «Daten» des Markt-Tabs, [section] = Name aus `MarketSection`
+     * (unbekannte Namen fängt `MarketSections.subpage` ab). [macro]: Mitteilung «Wirtschaftstermine» —
+     * die Seite «Daten» scrollt einmal zum Wirtschaftsdaten-Hinweis.
+     */
+    @Serializable
+    data class MarketSubpage(val section: String, val macro: Boolean = false) : ScreenRoute
 
-    fun alarms(watchId: Long) = "alarms/$watchId"
+    /** Unterseiten der Einstellungen mit eigener Route. */
+    @Serializable
+    data object SettingsMarketAlerts : ScreenRoute
+
+    @Serializable
+    data object SettingsSpeech : ScreenRoute
+
+    /** Übrige Unterseiten der Einstellungen, [page] = Name aus `SettingsPage` (unbekannt: `SettingsPage.fromName`). */
+    @Serializable
+    data class SettingsSubpage(val page: String) : ScreenRoute
+
+    /** Alarme eines Paars; `AlarmsViewModel` liest [watchId] unter [AlarmsArgWatchId] aus dem SavedStateHandle. */
+    @Serializable
+    data class Alarms(val watchId: Long) : ScreenRoute
 
     /** Optionaler Tab «Portfolio» und die Detailansicht eines Coins. */
-    const val Portfolio = "portfolio"
-    const val PortfolioArgCoin = "coin"
-    const val PortfolioCoin = "portfolio/coin/{$PortfolioArgCoin}"
+    @Serializable
+    data object Portfolio : ScreenRoute
 
-    fun portfolioCoin(coin: String) = "portfolio/coin/${android.net.Uri.encode(coin)}"
+    @Serializable
+    data class PortfolioCoin(val coin: String) : ScreenRoute
+
+    companion object {
+        /** Schlüssel von [Alarms.watchId] im SavedStateHandle (= Feldname). */
+        const val AlarmsArgWatchId = "watchId"
+
+        /** Schlüssel von [MarketSubpage.macro] im SavedStateHandle (= Feldname); nach dem Scrollen false. */
+        const val MarketSubpageArgMacro = "macro"
+    }
 }

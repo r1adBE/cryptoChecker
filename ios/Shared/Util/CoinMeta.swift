@@ -187,6 +187,26 @@ enum CoinMeta {
     }
 
     /// Binance-Namen für «gleicher Token» (K-8): Kürzel gross → `fullName`, Spot vor Futures.
+    /// Binance-Liste aus der Ersatzdatei gegen die gespeicherte `saved` abwägen: Die Ersatzdatei kann nur
+    /// Kürzel tragen (ohne `fullName`, Bild-Adressen, Schlagworte). Eine Liste ohne Namen ersetzt nie eine
+    /// mit Namen — sonst wären nach 48 h ohne direkte Liste Namen und Logos weg —, sie ergänzt nur Kürzel,
+    /// die dort fehlen (hinten angehängt). Trägt die Ersatzdatei Namen oder `saved` keine, gilt sie ganz.
+    /// Wie Android `mirrorBinance`.
+    static func mirrorBinance(_ mirror: [CoinLogos.BinanceEntry], saved: [CoinLogos.BinanceEntry]) -> [CoinLogos.BinanceEntry] {
+        if hasNames(mirror) || !hasNames(saved) { return mirror }
+        var known = Set(saved.map { symbolKey($0.name) })
+        return saved + mirror.filter { known.insert(symbolKey($0.name)).inserted }
+    }
+
+    /// Trägt mindestens ein Eintrag einen Namen (`fullName`)?
+    static func hasNames(_ entries: [CoinLogos.BinanceEntry]) -> Bool {
+        entries.contains { !($0.fullName?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true) }
+    }
+
+    private static func symbolKey(_ name: String) -> String {
+        name.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+    }
+
     static func binanceFullNames(_ entries: [CoinLogos.BinanceEntry]) -> [String: String] {
         var out: [String: String] = [:]
         for e in entries.filter({ !$0.onlyFutures }) + entries.filter({ $0.onlyFutures }) {
