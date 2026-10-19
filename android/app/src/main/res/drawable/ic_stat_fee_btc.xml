@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Statusleisten-Symbol für Bitcoin-Gebühr: Bitcoin-Zeichen: die Glocke des App-Logos (wie ic_stat_logo), das Zeichen darin
+     ausgespart statt des steigenden Kurses. Einfarbig; Android färbt es ein. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="740"
+    android:viewportHeight="740"
+    android:tint="#FFFFFFFF">
+    <group android:translateX="-142" android:translateY="-151">
+        <path android:fillType="evenOdd" android:fillColor="#FFFFFFFF"
+            android:pathData="M512,190c-150,0 -215,120 -215,270v130l-75,95h580l-75,-95V460c0,-150 -65,-270 -215,-270zM529.0,459.8Q544.2,459.8 552.1,453.1Q559.9,446.4 559.9,433.3Q559.9,420.4 552.1,413.7Q544.2,406.9 529.0,406.9L493.3,406.9L493.3,459.8L529.0,459.8ZM531.2,569.1Q550.6,569.1 560.4,560.9Q570.2,552.7 570.2,536.2Q570.2,519.9 560.5,511.8Q550.8,503.6 531.2,503.6L493.3,503.6L493.3,569.1L531.2,569.1ZM591.1,479.2Q611.9,485.3 623.2,501.5Q634.6,517.7 634.6,541.3Q634.6,577.5 610.2,595.3Q585.8,613.0 535.8,613.0L428.9,613.0L428.9,363.0L525.6,363.0Q577.7,363.0 601.1,378.8Q624.4,394.5 624.4,429.2Q624.4,447.4 615.9,460.2Q607.4,473.0 591.1,479.2ZM468,322h26v40h-26zM518,322h26v40h-26zM468,614h26v40h-26zM518,614h26v40h-26zM450,790a62,62 0 1,0 124,0a62,62 0 1,0 -124,0z"/>
+    </group>
+</vector>

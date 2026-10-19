@@ -22,6 +22,10 @@ Detailed build history below.
   Asia), CoinDCX (India), Paribu and ICRYPEX (Türkiye), BingX (spot and futures) and the perp DEXs Aster and Lighter.
   Each adapter was checked against recorded live responses; Android and iPhone read them identically.
 * The daily exchange check covers the new exchanges.
+* Android notifications show the bell of the app logo with a sign per alert type: $ for the USDT depeg, a bolt for
+  unusual activity, a calendar for economic dates, the Ethereum diamond for gas, ₿ for the Bitcoin fee and a gauge for
+  Fear & Greed; price alerts keep the logo. iPhone always shows the app icon there.
+* Dark mode: errors are orange-red (#FF5833) instead of pink, so a failed price no longer looks like a falling one.
 * First alarm dialog is titled «Alert saved» instead of «All set»: whether alerts actually arrive is what the
   checklist below it answers.
 * Stocks, ETFs and commodities on Aster, BingX Futures and Lighter (incl. Robinhood stock tokens) are marked as TradFi
@@ -36,6 +40,11 @@ Detailed build history below.
   right away, so you see whether alerts will actually reach you.
 * Watchlist: tapping the small «*» next to a change explains it – «Calculated from Binance candles – the exchange
   itself doesn’t provide this value»; screen readers get it as an action of the row.
+* Portfolio: swiping a coin (or «Delete» for screen readers) no longer removes all its transactions at once – a dialog
+  first asks «Delete all transactions of BTC?» with their number; «Cancel» keeps the row. Afterwards the banner says
+  «BTC removed from portfolio (N transactions)» with «Undo» instead of the watchlist text.
+* Portfolio total card: the weekly change is labelled «7 days» instead of the abbreviation «7 d» (all 31 languages;
+  the history range chips and widgets keep the short form).
 
 ## 16.2.2 (build 84)
 

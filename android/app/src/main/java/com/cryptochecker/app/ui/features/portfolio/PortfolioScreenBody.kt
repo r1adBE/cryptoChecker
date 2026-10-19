@@ -209,7 +209,7 @@ internal fun PortfolioList(
                     if (slices.size >= 2) {
                         item(key = "allocation") { Box(Modifier.padding(bottom = ListSegment.Spacing)) { AllocationCard(slices) } }
                     }
-                    // Nach links wischen = Coin löschen (Rückgängig im Banner); kein Favorit
+                    // Nach links wischen = Coin löschen nach Rückfrage (Rückgängig im Banner); kein Favorit
                     itemsIndexed(current.open, key = { _, it -> "open:${it.coin}" }) { index, position ->
                         val shape = ListSegment.shape(index, current.open.size)
                         // Coin nur aus einer Adresse: nichts zu löschen (Adresse über ⋯ › «Adressen» entfernen)
@@ -221,6 +221,7 @@ internal fun PortfolioList(
                             onToggleFavorite = null,
                             reduceMotion = reduceMotion,
                             shape = shape,
+                            confirmsDelete = true,
                             modifier = Modifier.animateItem()
                         ) {
                             CoinRow(

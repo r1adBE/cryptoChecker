@@ -489,7 +489,7 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
   USDT plus Umrechnung in eine wählbare Währung (31 Währungen; Standard
   richtet sich nach der Region des Geräts, z. B. CHF in der Schweiz, EUR in
   Deutschland, sonst USD).
-  Bedienung wie die Merkliste: Coin oder Transaktion nach links wischen löscht
+  Bedienung wie die Merkliste: Coin (nach Rückfrage) oder Transaktion nach links wischen löscht
   (mit «Rückgängig»), ⋯ › «Aktualisieren» / «Portfolio leeren», nach unten
   ziehen aktualisiert; jede Coin-Zeile zeigt die 24-h-Änderung und
   die Anzahl Transaktionen.
@@ -612,6 +612,7 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
   einem kleinen Stern am Logo (kein Akzent-Rand mehr; ausgewählte Zeilen sind getönt); die Zeile
   verliert keine Breite mehr an einen eigenen Stern.
 * **«*» an der Änderung erklärt sich** — Tippen auf das «*» (Änderung aus fremden Kerzen, Tippfläche ≥ 48 dp ohne höhere Zeile) zeigt «Aus Binance-Kerzen berechnet – die Börse liefert diesen Wert nicht selbst», TalkBack/VoiceOver als Aktion der Zeile (Build 85, `WatchlistDayChangePill.kt`).
+* **Coin löschen mit Rückfrage** — Wischen bzw. «Löschen» auf einem Portfolio-Coin fragt erst «Alle Transaktionen von BTC löschen?» mit der Zahl der Transaktionen; «Abbrechen» lässt die Zeile stehen, danach Banner «BTC aus dem Portfolio entfernt (N Transaktionen)» mit «Rückgängig» (Build 85, `DeleteCoinDialog`, `SwipeActionsRow(confirmsDelete)`; iOS `askDeleteCoin`).
 * **Alarm testen** — Einstellungen › Alarme; gleicher Weg wie ein echter
   Alarm, aber ohne Nachtruhe. Nach dem ersten Alarm: «Alarm gespeichert» mit Hauptknopf «Prüfen, ob Alarme ankommen», der gleich die Prüfliste «Damit Alarme ankommen» öffnet (Build 85, `FirstAlarmDialog`; iOS als Blatt).
 * **Willkommen ohne Dialog** — eine Neuinstallation öffnet direkt die leere

@@ -3,8 +3,8 @@ import SwiftUI
 
 /// Portfolio-Tab: Gesamtwert, Coins nach Wert, Erfassen per «+» — wie `PortfolioScreen.kt`.
 /// Bedienung wie in der Merkliste: nach unten ziehen oder ⋯ › «Aktualisieren» lädt die Kurse
-/// neu; einen Coin nach links wischen löscht alle seine Transaktionen (Banner mit
-/// «Rückgängig»); ⋯ › «Portfolio leeren» löscht nach Rückfrage alles.
+/// neu; einen Coin nach links wischen löscht nach Rückfrage alle seine Transaktionen (Banner
+/// mit «Rückgängig»); ⋯ › «Portfolio leeren» löscht nach Rückfrage alles.
 /// Enthält keinen `NavigationStack` — der Aufrufer bettet den Tab ein.
 @MainActor
 struct PortfolioScreen: View {
@@ -27,6 +27,8 @@ struct PortfolioScreen: View {
     @State var banner: WatchlistBannerMessage?
     /// «Portfolio leeren» — Rückfrage.
     @State var askClear = false
+    /// Coin, dessen Transaktionen nach Rückfrage gelöscht werden (Wischen bzw. VoiceOver «Löschen»).
+    @State var askDeleteCoin: String?
     @State var deleteTick = 0
     /// ⋯ › App-Logo und Name: «Über».
     @State var showAbout = false
@@ -261,6 +263,19 @@ struct PortfolioScreen: View {
         } message: {
             // Anzahl nennen; beobachtete Adressen bleiben (nur Transaktionen werden gelöscht) — wie Android
             Text(L("portfolio_clear_confirm_count", count: data.portfolio.count))
+        }
+        // Ganzen Coin löschen: erst nachfragen, mit der Zahl der Transaktionen — wie Android `DeleteCoinDialog`
+        .alert(askDeleteCoin.map { L("portfolio_coin_delete_title", $0) } ?? "", isPresented: Binding(
+            get: { askDeleteCoin != nil },
+            set: { if !$0 { askDeleteCoin = nil } }
+        ), presenting: askDeleteCoin) { coin in
+            Button(L("action_delete"), role: .destructive) {
+                askDeleteCoin = nil
+                deleteCoin(coin)
+            }
+            Button(L("action_cancel"), role: .cancel) { askDeleteCoin = nil }
+        } message: { coin in
+            Text(L("portfolio_coin_delete_confirm", count: coinTxCount(coin)))
         }
     }
 }

@@ -56,7 +56,8 @@ class MacroNotifyWorker @AssistedInject constructor(
                     applicationContext.getString(R.string.notification_macro_title),
                     MacroTexts.todayText(applicationContext, events),
                     // Tippen: Markt-Tab beim Wirtschaftsdaten-Hinweis (wie iOS)
-                    openTarget = MainActivity.OPEN_MARKET_MACRO
+                    openTarget = MainActivity.OPEN_MARKET_MACRO,
+                    iconRes = R.drawable.ic_stat_calendar,
                 )
             }
             prefs.edit { putLong(KEY_LAST_DAY, today) }

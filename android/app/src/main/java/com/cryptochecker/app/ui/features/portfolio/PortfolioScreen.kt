@@ -39,7 +39,7 @@ import com.cryptochecker.app.ui.features.watchlist.rememberWatchlistBanner
 /**
  * Portfolio-Tab: Gesamtwert, Coins nach Wert, Erfassen per «+». Bedienung wie in der
  * Merkliste: nach unten ziehen oder ⋯ › «Aktualisieren» lädt die Kurse neu; einen Coin nach
- * links wischen löscht alle seine Transaktionen (Banner mit «Rückgängig»); ⋯ › «Portfolio
+ * links wischen löscht nach Rückfrage alle seine Transaktionen (Banner mit «Rückgängig»); ⋯ › «Portfolio
  * leeren» löscht nach Rückfrage alles.
  */
 @Composable
@@ -212,11 +212,21 @@ fun PortfolioScreen(
         PortfolioCalculator.walletShortfalls(calcTransactions.orEmpty().map { it.toTrade() }, costMethod)
     }
 
-    // Wischen auf einem Coin: alle Transaktionen weg, «Rückgängig» im Banner
+    // Wischen auf einem Coin: erst Rückfrage mit der Zahl der Transaktionen, dann alle weg, «Rückgängig» im Banner
+    var askDeleteCoin by rememberSaveable { mutableStateOf<String?>(null) }
     fun deleteCoin(coin: String) {
         viewModel.deleteCoin(coin) { removed ->
-            banner.show(resources.getString(R.string.watchlist_removed, coin)) { viewModel.restore(removed) }
+            val text = resources.getQuantityString(R.plurals.portfolio_coin_removed, removed.size, coin, removed.size)
+            banner.show(text) { viewModel.restore(removed) }
         }
+    }
+    askDeleteCoin?.let { coin ->
+        DeleteCoinDialog(
+            coin = coin,
+            count = txCounts[PortfolioCalculator.normalizeCoin(coin)] ?: 0,
+            onConfirm = { askDeleteCoin = null; deleteCoin(coin) },
+            onDismiss = { askDeleteCoin = null },
+        )
     }
 
     Scaffold(
@@ -309,7 +319,7 @@ fun PortfolioScreen(
             bridgedStables = bridgedStables,
             showClosed = showClosed,
             onShowClosedChange = { showClosed = it },
-            onDeleteCoin = { deleteCoin(it) },
+            onDeleteCoin = { askDeleteCoin = it },
             onOpenCoin = onOpenCoin,
             costGapsPending = costGaps.pending.size,
             onOpenCostGaps = { costGapsOpen = true },

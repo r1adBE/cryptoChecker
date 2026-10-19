@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: ganzen Coin löschen (Wischen bzw. Screenreader «Löschen»). Titel der Rückfrage, %1$s = Coin-Kürzel -->
+    <string name="portfolio_coin_delete_title">Eliminare tutte le transazioni di %1$s?</string>
+    <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
+    <plurals name="portfolio_coin_delete_confirm">
+        <item quantity="one">Verrà rimossa %d transazione. Puoi annullare subito dopo.</item>
+        <item quantity="many">Verranno rimosse %d transazioni. Puoi annullare subito dopo.</item>
+        <item quantity="other">Verranno rimosse %d transazioni. Puoi annullare subito dopo.</item>
+    </plurals>
+    <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
+    <plurals name="portfolio_coin_removed">
+        <item quantity="one">%1$s rimosso dal portafoglio (%2$d transazione)</item>
+        <item quantity="many">%1$s rimosso dal portafoglio (%2$d transazioni)</item>
+        <item quantity="other">%1$s rimosso dal portafoglio (%2$d transazioni)</item>
+    </plurals>
+</resources>

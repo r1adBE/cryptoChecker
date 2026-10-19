@@ -11,7 +11,7 @@ OTEVŘENĚ O DATECH
 • Změna v % a grafy pocházejí nejprve z burzy daného páru; když nemá svíčky, aplikace použije Binance nebo Coinbase a řekne vám to.
 • Fear & Greed, dominance a on-chain hodnoty z alternative.me, CoinGecko a Coin Metrics.
 • Když je aplikace zavřená, rozhoduje Android, kdy se alarmy kontrolují – zhruba každých 15 minut, často i řidčeji. Krátké výkyvy mezi tím mohou uniknout; aplikace vám to řekne.
-• Částky zůstávají v zařízení, pokud je sami nevyexportujete (CSV, záloha). Kvůli kurzům jdou jen zkratky páru na burzu daného páru; k tomu směnné kurzy (Frankfurter), tržní data a loga (CoinGecko, Binance), zrcadla dat (GitHub). Sledujete-li adresy nebo xpub, veřejné uzly blockchainu vidí adresy (u xpub odvozené) a vaši IP.
+• Částky opouštějí zařízení jen exportem nebo systémovou zálohou Androidu. Kvůli kurzům jdou jen zkratky páru na burzu daného páru; k tomu směnné kurzy (Frankfurter), tržní data a loga (CoinGecko, Binance), zrcadla dat (GitHub). Sledujete-li adresy nebo xpub, veřejné uzly blockchainu vidí adresy (u xpub odvozené) a vaši IP.
 
 SEZNAM SLEDOVANÝCH
 • 54 trhů na 44 burzách: spot a futures, DEX tokeny přes DexScreener, volitelně akcie, zlato a měny (TradFi)

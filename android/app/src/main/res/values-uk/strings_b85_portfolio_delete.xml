@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: ganzen Coin löschen (Wischen bzw. Screenreader «Löschen»). Titel der Rückfrage, %1$s = Coin-Kürzel -->
+    <string name="portfolio_coin_delete_title">Видалити всі операції з %1$s?</string>
+    <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
+    <plurals name="portfolio_coin_delete_confirm">
+        <item quantity="one">Буде видалено %d операцію. Одразу після цього видалення можна скасувати.</item>
+        <item quantity="few">Буде видалено %d операції. Одразу після цього видалення можна скасувати.</item>
+        <item quantity="many">Буде видалено %d операцій. Одразу після цього видалення можна скасувати.</item>
+        <item quantity="other">Буде видалено %d операції. Одразу після цього видалення можна скасувати.</item>
+    </plurals>
+    <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
+    <plurals name="portfolio_coin_removed">
+        <item quantity="one">%1$s видалено з портфеля (%2$d операція)</item>
+        <item quantity="few">%1$s видалено з портфеля (%2$d операції)</item>
+        <item quantity="many">%1$s видалено з портфеля (%2$d операцій)</item>
+        <item quantity="other">%1$s видалено з портфеля (%2$d операції)</item>
+    </plurals>
+</resources>

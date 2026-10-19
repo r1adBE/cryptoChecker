@@ -179,10 +179,11 @@ internal fun TotalCard(
                 // M4: Überschrift «Gewinn/Verlust» mit (i) — was die Zahlen bedeuten (und was nicht)
                 // (i) mit 48 dp Trefferfläche: Abstände darum knapper, damit die Karte nicht wächst
                 GainHeader(method = summary.method, modifier = Modifier.padding(top = Spacing.xs))
-                // 7 T · Seit Kauf nebeneinander (gleich breit)
+                // 7 Tage · Seit Kauf nebeneinander (gleich breit); ausgeschrieben statt «7 T», weil das Kürzel
+                // allein neben dem Gesamtwert unverständlich war — die Spalte ist so breit wie «Seit Kauf (CHF)»
                 Row(modifier = Modifier.fillMaxWidth()) {
                     InsightFigure(
-                        label = stringResource(R.string.portfolio_history_range_7d),
+                        label = stringResource(R.string.portfolio_history_period_7d),
                         spokenLabel = stringResource(R.string.portfolio_history_period_7d),
                         amount = weekChange?.amountUsd,
                         percent = weekChange?.percent,

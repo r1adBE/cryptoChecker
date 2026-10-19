@@ -11,7 +11,7 @@ DET SOM GÖR DEN ANNORLUNDA
 • %-ändring och diagram kommer först från parets egen börs; saknar den candles använder appen Binance eller Coinbase och säger det.
 • Fear & Greed, dominans och on-chain-värden från alternative.me, CoinGecko och Coin Metrics.
 • När appen är stängd bestämmer Android när larmen kontrolleras – ungefär var 15:e minut, ofta mer sällan. Korta toppar däremellan kan missas; appen säger det till dig.
-• Belopp stannar på enheten, om du inte själv exporterar dem (CSV, säkerhetskopia). För kurser skickas bara parets symbol till börsen för just det paret; dessutom valutakurser (Frankfurter), marknadsdata och logotyper (CoinGecko, Binance) och dataspeglar (GitHub). Bevakar du adresser eller en xpub ser publika blockkedjenoder adresserna (för en xpub de härledda) och din IP.
+• Belopp lämnar enheten bara via din export eller Androids systemsäkerhetskopia. För kurser skickas bara parets symbol till börsen för just det paret; dessutom valutakurser (Frankfurter), marknadsdata och logotyper (CoinGecko, Binance) och dataspeglar (GitHub). Bevakar du adresser eller en xpub ser publika blockkedjenoder adresserna (för en xpub de härledda) och din IP.
 
 BEVAKNINGSLISTA
 • 54 marknader på 44 börser: spot och terminer, DEX-tokens via DexScreener, valfritt aktier, guld och valutor (TradFi)

@@ -11,7 +11,7 @@
 • 涨跌幅和图表优先来自该交易对所在的交易所；若其没有 K 线，应用会改用 Binance 或 Coinbase，并加以说明。
 • Fear & Greed、市值占比和链上数据来自 alternative.me、CoinGecko 和 Coin Metrics。
 • 应用关闭时，何时检查提醒由 Android 决定——大约每 15 分钟一次，常常间隔更长。期间的短暂波动可能被错过；应用会告诉你这一点。
-• 金额保存在设备上，除非你自己导出（CSV、备份）。获取价格时，只把交易对代码发送给该交易对所在的交易所；另外还有汇率（Frankfurter）、市场数据和图标（CoinGecko、Binance）以及数据镜像（GitHub）。如果你关注地址或 xpub，公共区块链节点会看到这些地址（xpub 为派生地址）和你的 IP。
+• 金额仅通过导出或 Android 备份离开设备。获取价格时，只把交易对代码发送给该交易对所在的交易所；另外还有汇率（Frankfurter）、市场数据和图标（CoinGecko、Binance）以及数据镜像（GitHub）。如果你关注地址或 xpub，公共区块链节点会看到这些地址（xpub 为派生地址）和你的 IP。
 
 自选列表
 • 44 家交易所的 54 个市场：现货和合约，通过 DexScreener 查看 DEX 代币，还可选股票、黄金和外汇（TradFi）

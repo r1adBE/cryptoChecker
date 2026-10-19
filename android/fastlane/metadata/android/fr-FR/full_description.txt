@@ -11,7 +11,7 @@ TRANSPARENT SUR LES DONNÉES
 • Variation en % et graphiques viennent d’abord de la plateforme de la paire ; sinon, l’app utilise Binance ou Coinbase et vous l’indique.
 • Fear & Greed, dominance et valeurs on-chain d’alternative.me, CoinGecko et Coin Metrics.
 • App fermée, c’est Android qui décide quand les alertes sont vérifiées – environ toutes les 15 minutes, souvent à intervalles plus longs. De brefs pics entre deux peuvent passer inaperçus ; l’app vous le dit.
-• Les montants restent sur l’appareil, sauf si vous les exportez (CSV, sauvegarde). Pour les cours, seuls les symboles de la paire vont à sa plateforme ; plus les taux de change (Frankfurter), données de marché et logos (CoinGecko, Binance), miroirs de données (GitHub). Si vous suivez des adresses ou une xpub, des nœuds blockchain publics voient les adresses (pour une xpub, les dérivées) et votre IP.
+• Les montants ne quittent l’appareil que par export ou sauvegarde système Android. Pour les cours, seuls les symboles de la paire vont à sa plateforme ; plus les taux de change (Frankfurter), données de marché et logos (CoinGecko, Binance), miroirs de données (GitHub). Si vous suivez des adresses ou une xpub, des nœuds blockchain publics voient les adresses (pour une xpub, les dérivées) et votre IP.
 
 LISTE DE SUIVI
 • 54 marchés sur 44 plateformes : spot et futures, tokens DEX via DexScreener, en option actions, or et devises (TradFi)

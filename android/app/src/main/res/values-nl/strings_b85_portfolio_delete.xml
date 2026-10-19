@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: ganzen Coin löschen (Wischen bzw. Screenreader «Löschen»). Titel der Rückfrage, %1$s = Coin-Kürzel -->
+    <string name="portfolio_coin_delete_title">Alle transacties van %1$s verwijderen?</string>
+    <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
+    <plurals name="portfolio_coin_delete_confirm">
+        <item quantity="one">%d transactie wordt verwijderd. Je kunt dit direct daarna ongedaan maken.</item>
+        <item quantity="other">%d transacties worden verwijderd. Je kunt dit direct daarna ongedaan maken.</item>
+    </plurals>
+    <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
+    <plurals name="portfolio_coin_removed">
+        <item quantity="one">%1$s uit het portfolio verwijderd (%2$d transactie)</item>
+        <item quantity="other">%1$s uit het portfolio verwijderd (%2$d transacties)</item>
+    </plurals>
+</resources>

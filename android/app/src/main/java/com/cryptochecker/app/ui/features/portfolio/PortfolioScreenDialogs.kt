@@ -161,6 +161,27 @@ internal fun PortfolioScreenDialogs(
     }
 }
 
+/**
+ * Rückfrage vor dem Löschen eines ganzen Coins (Wischen oder Screenreader-Aktion «Löschen»): nennt die Zahl
+ * [count] der Transaktionen, die mitgehen — ein Wisch soll nicht unbemerkt viele Einträge löschen.
+ */
+@Composable
+internal fun DeleteCoinDialog(coin: String, count: Int, onConfirm: () -> Unit, onDismiss: () -> Unit) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(stringResource(R.string.portfolio_coin_delete_title, coin)) },
+        text = { Text(pluralStringResource(R.plurals.portfolio_coin_delete_confirm, count, count)) },
+        confirmButton = {
+            TextButton(onClick = onConfirm) {
+                Text(stringResource(R.string.action_delete), color = MaterialTheme.colorScheme.error)
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) { Text(stringResource(R.string.action_cancel)) }
+        }
+    )
+}
+
 /** Zielwährung der Umrechnungszeile wählen. */
 @Composable
 private fun CurrencyDialog(selected: String, onSelect: (String) -> Unit, onDismiss: () -> Unit) {

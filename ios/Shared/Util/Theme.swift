@@ -249,7 +249,7 @@ enum ColorTokens {
     static let outline = Pair(light: 0x777777, dark: 0x919191)
     /// Trennlinien: hell #ADA9A0 ≈ 2.2:1 auf #FBF9F6 (Build 58, vorher #C9C6BF 1.6:1) — wie Android.
     static let outlineVariant = Pair(light: 0xADA9A0, dark: 0x474747)
-    static let error = Pair(light: 0xBA1A1A, dark: 0xFFB4AB)
+    static let error = Pair(light: 0xBA1A1A, dark: 0xFF5833) // dunkel Orange-Rot statt Rosa (fast wie «fallend»), 5.9:1 auf #131313
     /// Tiefere Fläche im Widget (unter der Grundfläche `surfaceContainer`).
     static let widgetSurfaceDeep = Pair(light: 0xE7E4DD, dark: 0x151515)
     /// «Unverändert» im Widget (`WidgetPalette.neutral`): hell #5F5F5F statt `outline` #777777

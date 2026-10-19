@@ -21,15 +21,22 @@ extension PortfolioScreen {
         }
     }
 
-    /// Nach links gewischt oder VoiceOver «Löschen»: alle Transaktionen des Coins weg, Banner
-    /// mit «Rückgängig» und Ansage — wie `swipeDelete` in der Merkliste.
+    /// Zahl der Transaktionen, die mit dem Coin gelöscht würden (Tausch zählt bei beiden Coins) — aus den geladenen
+    /// Daten, gleiche Regel wie `AppData.deletePortfolioCoin` und die Zahl in der Zeile.
+    func coinTxCount(_ coin: String) -> Int {
+        let key = PortfolioCalculator.normalizeCoin(coin)
+        return data.portfolio.filter { tx in tx.coins.contains { PortfolioCalculator.normalizeCoin($0) == key } }.count
+    }
+
+    /// Nach Rückfrage (gewischt oder VoiceOver «Löschen»): alle Transaktionen des Coins weg, Banner
+    /// mit Coin und Zahl, «Rückgängig» und Ansage — wie Android `PortfolioScreen`.
     func deleteCoin(_ coin: String) {
         var removed: [PortfolioTx] = []
         withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { removed = data.deletePortfolioCoin(coin) }
         guard !removed.isEmpty else { return }
         deleteTick += 1
         let restore = removed
-        let text = L("watchlist_removed", coin)
+        let text = L("portfolio_coin_removed", count: removed.count, coin, removed.count)
         banner = WatchlistBannerMessage(
             text: text,
             icon: "trash",
