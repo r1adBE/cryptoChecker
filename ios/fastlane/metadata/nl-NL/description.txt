@@ -14,7 +14,7 @@ EERLIJK OVER DE DATA
 • Bedragen blijven op het apparaat, tenzij je ze zelf exporteert (CSV, back-up). Voor koersen gaan alleen paarsymbolen naar de beurs van het betreffende paar; daarnaast wisselkoersen (Frankfurter), marktdata en logo’s (CoinGecko, Binance) en dataspiegels (GitHub). Volg je adressen of een xpub, dan zien openbare blockchain-nodes de adressen (bij een xpub de afgeleide) en je IP.
 
 VOLGLIJST
-• 52 markten op 42 beurzen: spot en futures, DEX-tokens via DexScreener, desgewenst aandelen, goud en valuta (TradFi)
+• 54 markten op 44 beurzen: spot en futures, DEX-tokens via DexScreener, desgewenst aandelen, goud en valuta (TradFi)
 • Tweede regel ‘≈ waarde’ in een van 31 valuta (EUR, CHF, USD …), omgerekend tegen de wisselkoers
 • Minigrafiek en %-wijziging over 24 uur of sinds 00:00 in je tijdzone
 • Groepen, favorieten, sorteren door slepen en een notitie per munt

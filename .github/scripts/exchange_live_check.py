@@ -118,6 +118,10 @@ EXCHANGES = [
     {"key": "aster", "name": "Aster",
      "url": "https://fapi.asterdex.com/fapi/v1/ticker/24hr?symbol=BTCUSDT",
      "fields": [["lastPrice"], ["priceChangePercent"], ["quoteVolume"]]},
+    {"key": "lighter", "name": "Lighter",
+     # Gesamtliste aller Märkte (wie der Adapter); geprüft wird die erste Zeile
+     "url": "https://mainnet.zklighter.elliot.ai/api/v1/exchangeStats",
+     "fields": [["order_book_stats", 0, "last_trade_price"], ["order_book_stats", 0, "daily_price_change"]]},
     {"key": "hyperliquid", "name": "Hyperliquid",
      "url": "https://api.hyperliquid.xyz/info", "post": {"type": "metaAndAssetCtxs"},
      "fields": [[1, 0, "midPx"], [1, 0, "prevDayPx"], [1, 0, "funding"]],
@@ -165,6 +169,10 @@ EXCHANGES = [
      # Eine Gesamtliste aller Paare (wie der Adapter)
      "url": "https://www.paribu.com/ticker",
      "fields": [["BTC_TL", "last"], ["BTC_TL", "highestBid"], ["BTC_TL", "lowestAsk"]]},
+    {"key": "icrypex", "name": "Icrypex",
+     # Eine Gesamtliste aller Paare (wie der Adapter); geprüft wird die erste Zeile
+     "url": "https://api.icrypex.com/v1/tickers",
+     "fields": [[0, "last"], [0, "bid"], [0, "ask"]]},
     {"key": "bitso", "name": "Bitso",
      "url": "https://bitso.com/api/v3/ticker?book=btc_mxn",
      "fields": [["payload", "last"], ["payload", "volume"]]},

@@ -14,7 +14,7 @@ DET, DER GØR DEN ANDERLEDES
 • Beløb bliver på enheden, medmindre du selv eksporterer dem (CSV, sikkerhedskopi). Til kurser sendes kun parrets symbol til børsen for det pågældende par; dertil valutakurser (Frankfurter), markedsdata og logoer (CoinGecko, Binance), dataspejle (GitHub). Overvåger du adresser eller en xpub, ser offentlige blockchain-noder adresserne (ved xpub de afledte) og din IP.
 
 OVERVÅGNINGSLISTE
-• 52 markeder på 42 børser: spot og futures, DEX-tokens via DexScreener, valgfrit aktier, guld og valuta (TradFi)
+• 54 markeder på 44 børser: spot og futures, DEX-tokens via DexScreener, valgfrit aktier, guld og valuta (TradFi)
 • Anden linje »≈ værdi« i én af 31 valutaer (EUR, CHF, USD …), omregnet til valutakurs
 • Minigraf og %-ændring over 24 t eller siden kl. 00:00 i din tidszone
 • Grupper, favoritter, sortering med træk og slip og en note pr. coin

@@ -14,7 +14,7 @@ TRANSPARÊNCIA NOS DADOS
 • Os montantes ficam no dispositivo, a não ser que os exporte (CSV, cópia de segurança). Para os preços, só os símbolos do par vão para a sua exchange; além disso, câmbios (Frankfurter), dados de mercado e logótipos (CoinGecko, Binance) e espelhos de dados (GitHub). Se observar endereços ou uma xpub, nós públicos de blockchain veem os endereços (na xpub, os derivados) e o seu IP.
 
 LISTA
-• 52 mercados em 42 exchanges: spot e futuros, tokens DEX via DexScreener e, se quiser, ações, ouro e divisas (TradFi)
+• 54 mercados em 44 exchanges: spot e futuros, tokens DEX via DexScreener e, se quiser, ações, ouro e divisas (TradFi)
 • Segunda linha «≈ valor» numa de 31 moedas (EUR, CHF, USD …), convertida à taxa de câmbio
 • Minigráfico e variação em % em 24 h ou desde as 00:00 no seu fuso horário
 • Grupos, favoritos, ordenação por arrastar e uma nota por moeda

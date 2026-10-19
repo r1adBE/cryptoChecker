@@ -14,7 +14,7 @@ JUJUR SOAL DATA
 • Jumlah tetap di perangkat, kecuali Anda ekspor sendiri (CSV, cadangan). Untuk harga, hanya simbol pasangan yang dikirim ke bursa pasangan itu; plus kurs (Frankfurter), data pasar dan logo (CoinGecko, Binance), cermin data (GitHub). Jika Anda memantau alamat atau xpub, node blockchain publik melihat alamatnya (untuk xpub, turunannya) dan IP Anda.
 
 DAFTAR PANTAUAN
-• 52 pasar di 42 bursa: spot dan futures, token DEX via DexScreener, opsional saham, emas, dan valas (TradFi)
+• 54 pasar di 44 bursa: spot dan futures, token DEX via DexScreener, opsional saham, emas, dan valas (TradFi)
 • Baris kedua “≈ nilai” dalam satu dari 31 mata uang (EUR, CHF, USD …), dikonversi dengan kurs valuta
 • Grafik mini dan perubahan % selama 24 jam atau sejak 00:00 di zona waktu Anda
 • Grup, favorit, urutkan dengan seret, dan catatan untuk tiap koin

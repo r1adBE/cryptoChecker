@@ -407,11 +407,13 @@ Rules:
 | HashKey | `o` (`/quote/v1/ticker/24hr`) | price 24 h ago |
 | HTX, HTX Futures | – fallback candles | `open` of the bulk ticker is documented as the open of the calendar day (Singapore time) |
 | Hyperliquid | `prevDayPx` against the shown price (`midPx`, else `markPx`) | mark price 24 h ago |
+| Icrypex | – fallback candles | `change` is percent (`qty` = absolute change), but its window is not documented; rows without an open report `change` 0 with `qty` = `last` |
 | Independent Reserve | – fallback candles | no change/open in `GetMarketSummary` |
 | Indodax | – fallback candles | no change/open in `ticker` / `ticker_all` |
 | Kraken | – fallback candles | `o` is today's open (UTC day), not rolling |
 | KuCoin | `changeRate` | fraction × 100 |
 | LATOKEN | `change24h` | percent |
+| Lighter | `daily_price_change` (`/exchangeStats`) | percent (rolling 24 h; checked against BTC high/low/last) |
 | Luno | – fallback candles | ticker has no 24 h change |
 | Mercado Bitcoin | `open` | price 24 h ago |
 | MEXC | `openPrice`, else `priceChangePercent` | price 24 h ago / **fraction** × 100 |

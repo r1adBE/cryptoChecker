@@ -2,7 +2,7 @@
 
 ## 16.2.2 – first public release
 
-* Last price straight from the exchange that lists the pair – 42 exchanges, including futures and DEX pools.
+* Last price straight from the exchange that lists the pair – 44 exchanges, including futures and DEX pools.
 * Price alarms run locally on the device: no account, no server.
 * Home-screen widgets for the watchlist, single pairs, the portfolio and the market pulse.
 * «What is moving with it?»: a checklist that puts a price move in context (market, Bitcoin and other factors).
@@ -17,10 +17,10 @@ Detailed build history below.
 
 ## 16.2.2 (build 85)
 
-* Ten more exchanges (now 51 markets on 42 exchanges plus DexScreener): bitbank and Coincheck (Japan), BTC Markets
+* Twelve more exchanges (now 53 markets on 44 exchanges plus DexScreener): bitbank and Coincheck (Japan), BTC Markets
   (Australia), HashKey Exchange (Hong Kong), Mercado Bitcoin (Brazil, cryptocurrencies only), Luno (Africa, Southeast
-  Asia), CoinDCX (India), Paribu (Türkiye), BingX (spot and futures) and the perp DEX Aster. Each adapter was checked
-  against recorded live responses; Android and iPhone read them identically.
+  Asia), CoinDCX (India), Paribu and ICRYPEX (Türkiye), BingX (spot and futures) and the perp DEXs Aster and Lighter.
+  Each adapter was checked against recorded live responses; Android and iPhone read them identically.
 * The daily exchange check covers the new exchanges.
 
 ## 16.2.2 (build 84)

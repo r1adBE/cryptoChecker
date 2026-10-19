@@ -5,7 +5,7 @@ Börse, Marktüberblick und «Was bewegt sich mit?» – ohne Prognosen, keine
 Anlageberatung.
 
 Kursüberwachung für Kryptowährungen: Merkliste, Benachrichtigungen, Alarme,
-Sprachausgabe und Startbildschirm-Widgets über 51 Märkte – 42 Börsen (teils
+Sprachausgabe und Startbildschirm-Widgets über 53 Märkte – 44 Börsen (teils
 mit Spot und Futures) plus DexScreener für DEX-Token. 31 Sprachen, kein Konto,
 keine Werbung, kein Tracking; die Kurse kommen direkt von den Börsen.
 
