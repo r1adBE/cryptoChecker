@@ -38,6 +38,8 @@ struct TaxSummaryTexts: Sendable {
     var wealthUnchecked: String = ""
     /// Grund «Adresse nicht beobachtet» (`TaxWealthRow.addressUnobserved`).
     var wealthAddressUnobserved: String = ""
+    /// Zeile «Dollarkurs von USDT fehlt – gerechnet als 1 US-Dollar» (`TaxYearSummary.usdtApproximate`); leer = keine.
+    var usdtAssumed: String = ""
 }
 
 /// Posten im Orientierungs-Block — wie `taxOrientationLabel` (Android): `item` mit «%s» für `label`; ohne `item`

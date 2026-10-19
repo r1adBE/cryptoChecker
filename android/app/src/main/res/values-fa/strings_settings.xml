@@ -42,7 +42,7 @@
     <string name="settings_exact_checks_grant">اجازهٔ «زنگ‌های هشدار و یادآوری‌ها»</string>
     <string name="settings_exact_checks_hint">Android تقریباً هر 15 دقیقه بررسی می‌کند، حتی وقتی دستگاه بیکار است. کمی باتری بیشتری مصرف می‌کند.</string>
     <string name="settings_exact_checks_nothing">جفت فعالی نیست – چیزی برای بررسی نیست.</string>
-    <string name="settings_exact_checks_permission_missing">مجوز نیست – Android هر وقت مناسب بداند بررسی می‌کند (حدود هر 15 دقیقه یا دیرتر).</string>
+    <string name="settings_exact_checks_permission_missing">مجوز نیست – وقتی دستگاه در حالت استراحت است Android نامنظم بررسی می‌کند، گاهی پس از چند ساعت.</string>
     <string name="settings_notification_change">اعلان فقط هنگام تغییر قیمت</string>
     <string name="settings_notification_change_always">همیشه</string>
     <string name="settings_notification_change_hint">اعلان فقط زمانی نمایش داده می‌شود که قیمت از اعلان قبلی دست‌کم به این اندازه تغییر کرده باشد. وقتی داده‌ای در دسترس نیست چیزی نمایش داده نمی‌شود. هشدارها تحت تأثیر قرار نمی‌گیرند.</string>
@@ -77,11 +77,11 @@
     <string name="settings_live_websocket">قیمت‌های زنده</string>
 
     <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
-    <string name="settings_activity_alerts">گزارش فعالیت غیرعادی</string>
+    <string name="settings_activity_alerts">قابل‌توجه: اعلان</string>
     <string name="settings_activity_alerts_hint">حداکثر یک بار در ساعت برای هر جفت: حرکات غیرعادی قیمت، جهش‌های حجم و مقادیر حدی در فیوچرز (داده‌ها از Binance).</string>
     <string name="settings_activity_sensitivity">حساسیت</string>
     <string name="settings_activity_sensitivity_hint">چقدر آسان یک کوین غیرعادی به شمار می‌آید – برای کارت واچ‌لیست و اعلان‌ها یکسان. با «کمتر» کارت فقط ۳ مورد قوی‌تر را نشان می‌دهد.</string>
-    <string name="settings_watchlist_activity_card">فعالیت غیرعادی در فهرست</string>
+    <string name="settings_watchlist_activity_card">قابل‌توجه: نمایش در فهرست</string>
     <string name="settings_watchlist_activity_card_hint">تراشه ⚡ را کنار گروه‌ها نشان می‌دهد: با لمس آن فقط جفت‌هایی را می‌بینید که همین حالا در آن‌ها اتفاقی در جریان است. اعلان‌ها در اعلان‌های بازار تنظیم می‌شوند.</string>
     <string name="settings_watchlist_names">نمایش نام‌ها</string>
     <string name="settings_watchlist_names_hint">نام زیر جفت، مثلاً Bitcoin یا NVIDIA. همراه فهرست‌های لوگو می‌آید و یک بار برای همه کوین‌ها بارگیری می‌شود.</string>
@@ -112,7 +112,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">رنگ تأکیدی</string>
-    <string name="settings_accent_hint">رنگ برنامه، ویجت‌ها و نماد برنامه.</string>
+    <string name="settings_accent_hint">رنگ برنامه، ویجت‌ها و نماد برنامه. برخی صفحه‌های اصلی هنگام تغییر، نماد را حذف می‌کنند – در این صورت دوباره اضافه کنید.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">لوگوی ارزها</string>
     <string name="settings_coin_logos_app">در برنامه</string>

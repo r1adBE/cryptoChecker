@@ -42,7 +42,7 @@
     <string name="settings_exact_checks_grant">Izinkan “Alarm &amp; pengingat”</string>
     <string name="settings_exact_checks_hint">Android memeriksa kira-kira setiap 15 menit, bahkan saat perangkat diam. Memakai sedikit lebih banyak baterai.</string>
     <string name="settings_exact_checks_nothing">Tidak ada pasangan aktif – tidak ada yang diperiksa.</string>
-    <string name="settings_exact_checks_permission_missing">Izin tidak ada – Android memeriksa kapan saja sesuai jadwalnya (kira-kira setiap 15 menit atau lebih lama).</string>
+    <string name="settings_exact_checks_permission_missing">Izin tidak ada – saat perangkat diam, Android memeriksa tidak teratur, terkadang baru setelah berjam-jam.</string>
     <string name="settings_notification_change">Beri tahu hanya saat harga berubah</string>
     <string name="settings_notification_change_always">Selalu</string>
     <string name="settings_notification_change_hint">Notifikasi hanya muncul jika harga sudah bergerak setidaknya sebesar ini sejak notifikasi terakhir. Tidak ada yang ditampilkan selama data belum tersedia. Alarm tidak terpengaruh.</string>
@@ -77,11 +77,11 @@
     <string name="settings_live_websocket">Harga live</string>
 
     <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
-    <string name="settings_activity_alerts">Laporkan aktivitas tidak biasa</string>
+    <string name="settings_activity_alerts">Menonjol: beri tahu</string>
     <string name="settings_activity_alerts_hint">Paling banyak sekali per jam per pasangan: pergerakan harga tidak biasa, lonjakan volume, dan kondisi ekstrem futures (data dari Binance).</string>
     <string name="settings_activity_sensitivity">Sensitivitas</string>
     <string name="settings_activity_sensitivity_hint">Seberapa mudah koin dianggap tidak biasa – sama untuk kartu daftar pantau dan notifikasi. Dengan “Lebih sedikit”, kartu hanya menampilkan 3 terkuat.</string>
-    <string name="settings_watchlist_activity_card">Aktivitas tidak biasa di daftar</string>
+    <string name="settings_watchlist_activity_card">Menonjol: tampilkan di daftar</string>
     <string name="settings_watchlist_activity_card_hint">Menampilkan chip ⚡ di samping grup: ketuk untuk melihat hanya pasangan yang sedang mengalami sesuatu. Notifikasi diatur di Peringatan pasar.</string>
     <string name="settings_watchlist_names">Tampilkan nama</string>
     <string name="settings_watchlist_names_hint">Nama di bawah pasangan, mis. Bitcoin atau NVIDIA. Datang bersama daftar logo, dimuat sekali untuk semua koin.</string>
@@ -112,7 +112,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Warna aksen</string>
-    <string name="settings_accent_hint">Warna untuk aplikasi, widget, dan ikon aplikasi.</string>
+    <string name="settings_accent_hint">Warna untuk aplikasi, widget, dan ikon aplikasi. Beberapa layar utama menghapus ikon saat diganti – tambahkan lagi.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Logo koin</string>
     <string name="settings_coin_logos_app">Di aplikasi</string>

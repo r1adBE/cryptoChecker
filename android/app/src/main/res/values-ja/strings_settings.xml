@@ -42,7 +42,7 @@
     <string name="settings_exact_checks_grant">「アラームとリマインダー」を許可</string>
     <string name="settings_exact_checks_hint">Android は端末が待機中でも約15分ごとに確認します。バッテリーを少し多く使います。</string>
     <string name="settings_exact_checks_nothing">有効なペアがありません – 確認するものはありません。</string>
-    <string name="settings_exact_checks_permission_missing">権限がありません – Android は都合のよいときに確認します（約15分ごと、またはそれ以上）。</string>
+    <string name="settings_exact_checks_permission_missing">権限がありません – 端末の休止中は Android の確認が不定期になり、数時間後になることもあります。</string>
     <string name="settings_notification_change">価格変動時のみ通知</string>
     <string name="settings_notification_change_always">常に</string>
     <string name="settings_notification_change_hint">前回の通知から価格がこの幅以上動いたときだけ通知します。データがない間は何も表示しません。アラームには影響しません。</string>
@@ -77,11 +77,11 @@
     <string name="settings_live_websocket">リアルタイム価格</string>
 
     <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
-    <string name="settings_activity_alerts">異常な動きを通知</string>
+    <string name="settings_activity_alerts">注目: 通知</string>
     <string name="settings_activity_alerts_hint">ペアごとに1時間に最大1回：異常な値動き、出来高急増、先物の極端な値（データは Binance）。</string>
     <string name="settings_activity_sensitivity">感度</string>
     <string name="settings_activity_sensitivity_hint">コインを異常とみなす基準 – ウォッチリストのカードと通知に共通です。「少なめ」ではカードに上位3件のみ表示します。</string>
-    <string name="settings_watchlist_activity_card">リストに異常な動きを表示</string>
+    <string name="settings_watchlist_activity_card">注目: リストに表示</string>
     <string name="settings_watchlist_activity_card_hint">グループの横に ⚡ チップを表示します。タップすると、今まさに動きがあるペアだけを表示します。通知は「相場のお知らせ」で設定します。</string>
     <string name="settings_watchlist_names">名前を表示</string>
     <string name="settings_watchlist_names_hint">ペアの下に名前を表示（例: Bitcoin、NVIDIA）。ロゴの一覧と一緒に、全コイン分を一度だけ読み込みます。</string>
@@ -112,7 +112,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">アクセントカラー</string>
-    <string name="settings_accent_hint">アプリ、ウィジェット、アプリアイコンの色。</string>
+    <string name="settings_accent_hint">アプリ、ウィジェット、アプリアイコンの色。 ホーム画面によっては変更時にアイコンが消えます。その場合は追加し直してください。</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">コインのロゴ</string>
     <string name="settings_coin_logos_app">アプリ内</string>

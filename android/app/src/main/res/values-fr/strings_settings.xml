@@ -42,7 +42,7 @@
     <string name="settings_exact_checks_grant">Autoriser « Alarmes et rappels »</string>
     <string name="settings_exact_checks_hint">Android vérifie environ toutes les 15 minutes, même quand l’appareil est en veille. Consomme un peu plus de batterie.</string>
     <string name="settings_exact_checks_nothing">Aucune paire active – rien à vérifier.</string>
-    <string name="settings_exact_checks_permission_missing">Autorisation manquante – Android vérifie quand cela lui convient (environ toutes les 15 min ou plus tard).</string>
+    <string name="settings_exact_checks_permission_missing">Autorisation manquante – appareil en veille, Android vérifie irrégulièrement, parfois après des heures.</string>
     <string name="settings_notification_change">Notifier seulement si le prix varie</string>
     <string name="settings_notification_change_always">Toujours</string>
     <string name="settings_notification_change_hint">Une notification n\'apparaît que si le prix a varié d\'au moins cette valeur depuis la dernière. Rien n\'est affiché tant que des données manquent. Les alertes ne sont pas concernées.</string>
@@ -77,11 +77,11 @@
     <string name="settings_live_websocket">Cours en direct</string>
 
     <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
-    <string name="settings_activity_alerts">Signaler une activité inhabituelle</string>
+    <string name="settings_activity_alerts">À noter : prévenir</string>
     <string name="settings_activity_alerts_hint">Au plus une fois par heure et par paire : mouvements de prix inhabituels, pics de volume et extrêmes sur les futures (données Binance).</string>
     <string name="settings_activity_sensitivity">Sensibilité</string>
     <string name="settings_activity_sensitivity_hint">Facilité avec laquelle une crypto est jugée inhabituelle – identique pour la carte de la liste et les notifications. Avec « Moins », la carte n’affiche que les 3 plus forts.</string>
-    <string name="settings_watchlist_activity_card">Activité inhabituelle dans la liste</string>
+    <string name="settings_watchlist_activity_card">À noter : afficher dans la liste</string>
     <string name="settings_watchlist_activity_card_hint">Affiche la puce ⚡ à côté des groupes : touchez-la pour ne voir que les paires où il se passe quelque chose en ce moment. Les alertes se règlent sous Notifications de marché.</string>
     <string name="settings_watchlist_names">Afficher les noms</string>
     <string name="settings_watchlist_names_hint">Nom sous la paire, p. ex. Bitcoin ou NVIDIA. Fourni avec les listes de logos, chargé une fois pour toutes les cryptos.</string>
@@ -112,7 +112,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Couleur d\'accent</string>
-    <string name="settings_accent_hint">Couleur de l’app, des widgets et de l’icône de l’app.</string>
+    <string name="settings_accent_hint">Couleur de l’app, des widgets et de l’icône de l’app. Certains écrans d’accueil retirent l’icône lors du changement : ajoutez-la à nouveau.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Logos des cryptos</string>
     <string name="settings_coin_logos_app">Dans l\'app</string>

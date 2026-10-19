@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="oem_battery_title">Tillverkarens batterisparläge</string>
+    <string name="oem_battery_xiaomi">Xiaomi kan stoppa appen helt – då kommer inga larm. Slå på ”Autostart” och ställ batterisparläget på ”Inga begränsningar”.</string>
+    <string name="oem_battery_samsung">Samsung kan försätta appen i djup viloläge – då kommer inga larm. Under Batteri › Gränser för bakgrundsanvändning: lägg till den i ”Appar som aldrig sover”.</string>
+    <string name="oem_battery_huawei">Huawei/Honor kan stoppa appen – då kommer inga larm. Under Batteri › Appstart: välj ”Hantera manuellt” och tillåt allt.</string>
+    <string name="oem_battery_oneplus">OnePlus kan stoppa appen – då kommer inga larm. Tillåt ”Automatisk start” och bakgrundsaktivitet under Batterianvändning.</string>
+    <string name="oem_battery_oppo">Oppo/Realme kan stoppa appen – då kommer inga larm. Tillåt ”Automatisk start” och bakgrundsaktivitet under Batterianvändning.</string>
+    <string name="oem_battery_vivo">Vivo kan stoppa appen – då kommer inga larm. Tillåt ”Autostart” och hög strömförbrukning i bakgrunden under Batteri.</string>
+</resources>

@@ -78,6 +78,9 @@ enum MarketFailure: Equatable, Sendable {
                 return .other
             }
         }
+        // «Kein Eintrag für das Paar» in gültiger Antwort: Aussage über das Paar (`NotTraded.isMissingEntry`); der
+        // angezeigte Text ist übersetzt, darum hier am Typ erkannt. Wie Android.
+        if let json = error as? JSONError, NotTraded.isMissingEntry(json.message) { return .unknownInstrument }
         if error is JSONError || error is DecodingError || error is NoTickerDataError { return .parse }
         if let friendly = error as? UserFriendlyMarketError { return fromExchangeMessage(friendly.message) }
         return .other

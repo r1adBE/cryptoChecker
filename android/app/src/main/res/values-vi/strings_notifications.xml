@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Texte der Mitteilungen -->
-    <string name="notification_activity_title">%1$s · %2$s</string>
+    <string name="notification_activity_title">Đáng chú ý: %1$s · %2$s</string>
     <string name="notification_alarm_text">%1$s — hiện tại %2$s</string>
     <string name="notification_alarm_title">Cảnh báo: %1$s · %2$s</string>
     <string name="notification_depeg_action_exchange">Mở sàn</string>
@@ -50,7 +50,7 @@
     <string name="channel_service">Cập nhật giá</string>
     <string name="channel_service_description">Thông báo khi giá đang được cập nhật.</string>
     <string name="neutral_channel_market">Thông báo thị trường</string>
-    <string name="neutral_channel_market_description">Fear &amp; Greed, phí gas, hoạt động bất thường và lịch kinh tế</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed, phí gas, “Đáng chú ý” và lịch kinh tế</string>
 
     <!-- Sprachausgabe -->
     <string name="tts_alarm">Cảnh báo. %1$s, %2$s %3$s %4$s, hiện tại %5$s</string>

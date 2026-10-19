@@ -124,6 +124,10 @@ final class AppData: ObservableObject {
     /// warten im Speicher — nie im Klartext geschrieben. Das Portfolio nennt es; das nächste Speichern bzw. die Rückkehr
     /// der App nach vorne versucht es erneut (`retryPendingPortfolioSaves`).
     @Published var portfolioSavePending = false
+    /// `watchlist.json` konnte nicht versiegelt gespeichert werden (Schlüsselbund gerade nicht lesbar, nie im Klartext):
+    /// Merkliste und Alarme warten im Speicher — `reloadFromDisk` ersetzt sie dann nicht durch den älteren Stand der Datei,
+    /// versucht das Speichern erneut, und jedes weitere Speichern (`mutate`) schreibt den ganzen Stand.
+    @Published private(set) var watchlistSavePending = false
     var appActive = false
     /// Dateien mit Nutzerdaten blieben beim Start unverschlüsselt (`LaunchOutcome.encryptionPending`): Einstellungen ›
     /// Sicherung nennt «Verschlüsselung noch nicht aktiv» — wie Android `DatabaseEncryptionNotice`.
@@ -275,6 +279,9 @@ final class AppData: ObservableObject {
         // auf den Schlüssel (nie Klartext), nennt das Portfolio es
         SharedStorage.saveSnapshotInBackground(s, done: { [weak self] in
             if SharedStorage.portfolioAlarmsPending { self?.portfolioSavePending = true }
+            // Nur bei Änderung veröffentlichen (gespeichert wird bei Live-Kursen alle paar Sekunden)
+            let waiting = SharedStorage.watchlistPending
+            if self?.watchlistSavePending != waiting { self?.watchlistSavePending = waiting }
             guard reloadWidgets else { return }
             if let widgetKinds {
                 widgetKinds.forEach { WidgetCenter.shared.reloadTimelines(ofKind: $0) }
@@ -289,9 +296,16 @@ final class AppData: ObservableObject {
         // Wartet noch ein nicht versiegelt gespeicherter Stand: erst schreiben — sonst ersetzte der ältere Stand der Datei
         // die Änderungen im Speicher. Geht es noch nicht, bleibt der Speicher massgebend
         guard retryPendingPortfolioSaves() else { return }
+        // Wartet die Merkliste auf den Schlüssel: erneut speichern, auf demselben Weg wie `mutate` (neuere Kurse und
+        // Auslösungen des Widgets bleiben); `readSnapshot` wartet dieses Schreiben ab
+        if watchlistSavePending { SharedStorage.saveSnapshotInBackground(snapshot) }
+        let read = SharedStorage.readSnapshot()
+        let waiting = SharedStorage.watchlistPending
+        if watchlistSavePending != waiting { watchlistSavePending = waiting }
         // Nur einen gelesenen Stand übernehmen: Ist die Datei gerade unlesbar oder nicht zugreifbar,
-        // bleibt der Stand im Speicher (sonst stünde eine leere Merkliste da)
-        if let fresh = SharedStorage.readSnapshot().snapshot { snapshot = fresh }
+        // bleibt der Stand im Speicher (sonst stünde eine leere Merkliste da) — ebenso, solange die Merkliste
+        // noch nicht versiegelt gespeichert ist (die Datei hat dann einen älteren Stand)
+        if !waiting, let fresh = read.snapshot { snapshot = fresh }
         reloadSettingsIfInaccessible()
         lastRefreshMillis = SharedStorage.lastRefreshDuration
         lastRefreshReport = SharedStorage.lastRefreshReport

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
+    <string name="tax_export_day_close_rule">Valores de mercado sem preço registrado (taxas, doado/pago, troca, recompensas, taxas de rede, valor da carteira) pelo fechamento diário (UTC) do dia da transação</string>
+</resources>

@@ -42,6 +42,7 @@ import com.cryptochecker.app.R
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmDao
 import com.cryptochecker.app.domain.alarm.AlarmReadiness
+import com.cryptochecker.app.domain.alarm.OemBattery
 import com.cryptochecker.app.domain.refresh.CheckRunStore
 import com.cryptochecker.app.settings.AppSettings
 import com.cryptochecker.app.settings.SettingsRepository
@@ -56,6 +57,7 @@ import com.cryptochecker.app.ui.theme.AppColors
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.util.AlarmReadinessProbe
 import com.cryptochecker.app.util.BatteryOptimization
+import com.cryptochecker.app.util.OemBatterySettings
 import com.cryptochecker.app.work.ExactCheckScheduler
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -173,6 +175,7 @@ fun AlarmDeliveryScreen(
             // Nur die Akku-Seite der App öffnen — nie um die Ausnahme bitten (Projektentscheid)
             AlarmReadiness.Action.BATTERY_SETTINGS -> BatteryOptimization.openSettings(context)
             AlarmReadiness.Action.APP_SETTINGS -> AlarmReadinessProbe.openAppDetails(context)
+            AlarmReadiness.Action.OEM_SETTINGS -> OemBatterySettings.open(context)
             AlarmReadiness.Action.UPDATE_SETTINGS, AlarmReadiness.Action.CHECK_RUNS -> onOpenUpdateSettings()
             AlarmReadiness.Action.ALARM_SETTINGS -> onOpenAlarmSettings()
             AlarmReadiness.Action.NONE -> Unit
@@ -286,6 +289,7 @@ private fun deliveryTitle(row: AlarmReadiness.Row): String = stringResource(
         AlarmReadiness.Row.EXACT -> R.string.settings_exact_checks
         AlarmReadiness.Row.BATTERY -> R.string.delivery_battery
         AlarmReadiness.Row.BACKGROUND -> R.string.delivery_background
+        AlarmReadiness.Row.OEM_BATTERY -> R.string.oem_battery_title
         AlarmReadiness.Row.DND -> R.string.delivery_dnd
         AlarmReadiness.Row.QUIET_HOURS -> R.string.settings_quiet_hours
         AlarmReadiness.Row.LAST_CHECK -> R.string.delivery_last_check
@@ -338,11 +342,22 @@ private fun deliveryDetail(item: AlarmReadiness.Item, settings: AppSettings, las
         AlarmReadiness.Detail.CHECK_OLD ->
             stringResource(R.string.delivery_last_check_old, lastCheck?.let { checkTime(it) } ?: "")
         AlarmReadiness.Detail.CHECK_NEVER -> stringResource(R.string.delivery_last_check_never)
+        AlarmReadiness.Detail.OEM_NOTE -> stringResource(oemBatteryNote(OemBatterySettings.vendor()))
         AlarmReadiness.Detail.NOTE -> when (item.row) {
             AlarmReadiness.Row.SWIPE_AWAY -> stringResource(R.string.delivery_swipe_away_note)
             else -> stringResource(R.string.delivery_live_activity_note)
         }
     }
+}
+
+/** Weg zur Einstellung je Hersteller ([OemBattery]); ohne bekannten Hersteller erscheint die Zeile nicht. */
+private fun oemBatteryNote(vendor: OemBattery.Vendor?): Int = when (vendor) {
+    OemBattery.Vendor.XIAOMI -> R.string.oem_battery_xiaomi
+    OemBattery.Vendor.SAMSUNG -> R.string.oem_battery_samsung
+    OemBattery.Vendor.HUAWEI, null -> R.string.oem_battery_huawei
+    OemBattery.Vendor.ONEPLUS -> R.string.oem_battery_oneplus
+    OemBattery.Vendor.OPPO -> R.string.oem_battery_oppo
+    OemBattery.Vendor.VIVO -> R.string.oem_battery_vivo
 }
 
 /** Heute nur die Uhrzeit, sonst mit Datum — wie «Letzte Prüfungen». */
@@ -358,7 +373,8 @@ private fun checkTime(at: Long): String {
 private fun actionLabel(action: AlarmReadiness.Action): String? = when (action) {
     AlarmReadiness.Action.NONE -> null
     AlarmReadiness.Action.NOTIFICATION_SETTINGS, AlarmReadiness.Action.CHANNEL_SETTINGS,
-    AlarmReadiness.Action.APP_SETTINGS -> stringResource(R.string.alarm_test_open_settings)
+    AlarmReadiness.Action.APP_SETTINGS, AlarmReadiness.Action.OEM_SETTINGS ->
+        stringResource(R.string.alarm_test_open_settings)
     AlarmReadiness.Action.REQUEST_PERMISSION -> stringResource(R.string.delivery_action_allow)
     AlarmReadiness.Action.EXACT_PERMISSION -> stringResource(R.string.settings_exact_checks_grant)
     AlarmReadiness.Action.UPDATE_SETTINGS -> stringResource(R.string.alarm_change_updates)

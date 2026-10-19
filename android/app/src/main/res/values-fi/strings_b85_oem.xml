@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="oem_battery_title">Valmistajan virransäästö</string>
+    <string name="oem_battery_xiaomi">Xiaomi voi pysäyttää sovelluksen kokonaan – silloin hälytyksiä ei tule. Ota ”Automaattinen käynnistys” käyttöön ja aseta virransäästöksi ”Ei rajoituksia”.</string>
+    <string name="oem_battery_samsung">Samsung voi laittaa sovelluksen syvään lepoon – silloin hälytyksiä ei tule. Lisää se kohdassa Akku › Taustakäytön rajoitukset ”Ei koskaan lepotilaan” -sovelluksiin.</string>
+    <string name="oem_battery_huawei">Huawei/Honor voi pysäyttää sovelluksen – silloin hälytyksiä ei tule. Valitse kohdassa Akku › Sovellusten käynnistys ”Hallitse manuaalisesti” ja salli kaikki.</string>
+    <string name="oem_battery_oneplus">OnePlus voi pysäyttää sovelluksen – silloin hälytyksiä ei tule. Salli ”Automaattinen käynnistys” ja Akun käytössä taustatoiminta.</string>
+    <string name="oem_battery_oppo">Oppo/Realme voi pysäyttää sovelluksen – silloin hälytyksiä ei tule. Salli ”Automaattinen käynnistys” ja Akun käytössä taustatoiminta.</string>
+    <string name="oem_battery_vivo">Vivo voi pysäyttää sovelluksen – silloin hälytyksiä ei tule. Salli ”Automaattinen käynnistys” ja Akku-kohdassa suuri taustavirrankulutus.</string>
+</resources>

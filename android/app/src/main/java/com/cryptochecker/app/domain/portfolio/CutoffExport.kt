@@ -192,13 +192,14 @@ object CutoffExport {
             )
         }
 
-        // Total: Summe der bekannten Werte; fehlt irgendwo ein Kurs, steht «unvollständig» dabei
-        // Summen exakt; gerundet wird erst im Text
-        val totalUsdt = rows.fold(BigDecimal.ZERO) { sum, r -> r.valueUsdt?.let { sum + it } ?: sum }
+        // Total: Summe der bekannten Werte; fehlt irgendwo ein Kurs, steht «unvollständig» dabei. Summiert werden die
+        // GERUNDETEN Zeilenwerte ([roundedMoney]), wie sie in der Datei stehen — wer die Spalte nachrechnet, kommt auf
+        // dasselbe Total (exakt summiert gäbe 0.34 + 0.34 + 0.34 sonst 1.01 statt 1.02)
+        val totalUsdt = rows.fold(BigDecimal.ZERO) { sum, r -> r.valueUsdt?.let { sum + roundedMoney(it) } ?: sum }
         val rate = rows.firstOrNull()?.rate
         val anyValue = rows.any { it.valueUsdt != null }
         val totalTarget = if (rows.any { it.valueTarget != null }) {
-            rows.fold(BigDecimal.ZERO) { sum, r -> r.valueTarget?.let { sum + it } ?: sum }
+            rows.fold(BigDecimal.ZERO) { sum, r -> r.valueTarget?.let { sum + roundedMoney(it) } ?: sum }
         } else null
         val totalNotes = listOfNotNull(
             texts.incomplete.takeIf { addressesUnreadable || rows.any { it.noPrice || it.unchecked || it.addressUnobserved } },
@@ -274,9 +275,12 @@ object CutoffExport {
     internal fun money(v: Double): String = PortfolioDecimal.of(v)?.let { money(it) }.orEmpty()
 
     internal fun money(v: BigDecimal): String {
-        val d = v.setScale(2, RoundingMode.HALF_UP)
+        val d = roundedMoney(v)
         return (if (d.signum() == 0) d.abs() else d).toPlainString()
     }
+
+    /** Geldbetrag so gerundet, wie [money] ihn schreibt (2 Stellen, HALF_UP) — für Summen über gerundete Zeilen. */
+    internal fun roundedMoney(v: BigDecimal): BigDecimal = v.setScale(2, RoundingMode.HALF_UP)
 
     /** Auf [scale] Nachkommastellen (HALF_UP), ohne Nullen am Ende; «-0» → «0». */
     private fun plain(v: BigDecimal, scale: Int): String {

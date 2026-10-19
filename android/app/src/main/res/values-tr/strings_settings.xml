@@ -42,7 +42,7 @@
     <string name="settings_exact_checks_grant">“Alarmlar ve hatırlatıcılar” izni ver</string>
     <string name="settings_exact_checks_hint">Android cihaz boştayken bile yaklaşık 15 dakikada bir kontrol eder. Biraz daha fazla pil kullanır.</string>
     <string name="settings_exact_checks_nothing">Etkin çift yok – kontrol edilecek bir şey yok.</string>
-    <string name="settings_exact_checks_permission_missing">İzin eksik – Android uygun gördüğünde kontrol eder (yaklaşık 15 dakikada bir veya daha geç).</string>
+    <string name="settings_exact_checks_permission_missing">İzin eksik – cihaz dinlenirken Android düzensiz kontrol eder, bazen ancak saatler sonra.</string>
     <string name="settings_notification_change">Yalnızca fiyat değişince bildir</string>
     <string name="settings_notification_change_always">Her zaman</string>
     <string name="settings_notification_change_hint">Bildirim, fiyat bir öncekinden bu yana en az bu kadar değiştiğinde gösterilir. Veri eksikken hiçbir şey gösterilmez. Alarmlar etkilenmez.</string>
@@ -77,11 +77,11 @@
     <string name="settings_live_websocket">Canlı fiyatlar</string>
 
     <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
-    <string name="settings_activity_alerts">Olağandışı etkinliği bildir</string>
+    <string name="settings_activity_alerts">Dikkat çekici: bildir</string>
     <string name="settings_activity_alerts_hint">Çift başına saatte en fazla bir kez: olağandışı fiyat hareketleri, hacim sıçramaları ve vadeli işlemlerdeki uç değerler (veriler Binance\'ten).</string>
     <string name="settings_activity_sensitivity">Hassasiyet</string>
     <string name="settings_activity_sensitivity_hint">Bir coinin ne kadar kolay olağandışı sayılacağı – izleme listesi kartı ve bildirimler için aynı. “Daha az” seçiliyken kart yalnızca en güçlü 3 taneyi gösterir.</string>
-    <string name="settings_watchlist_activity_card">Listede olağandışı etkinlik</string>
+    <string name="settings_watchlist_activity_card">Dikkat çekici: listede göster</string>
     <string name="settings_watchlist_activity_card_hint">Grupların yanında ⚡ çipini gösterir: dokunarak yalnızca şu anda bir şeyler olan çiftleri görün. Bildirimler Piyasa bildirimleri bölümünden ayarlanır.</string>
     <string name="settings_watchlist_names">Adları göster</string>
     <string name="settings_watchlist_names_hint">Çiftin altında ad, ör. Bitcoin veya NVIDIA. Logo listeleriyle gelir, tüm coinler için bir kez yüklenir.</string>
@@ -112,7 +112,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Vurgu rengi</string>
-    <string name="settings_accent_hint">Uygulama, widget\'lar ve uygulama simgesi için renk.</string>
+    <string name="settings_accent_hint">Uygulama, widget\'lar ve uygulama simgesi için renk. Bazı ana ekranlar değişiklikte simgeyi kaldırır – o zaman yeniden ekleyin.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Coin logoları</string>
     <string name="settings_coin_logos_app">Uygulamada</string>

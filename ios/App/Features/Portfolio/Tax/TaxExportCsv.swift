@@ -8,11 +8,13 @@ extension TaxExport {
     private static let bom = "\u{FEFF}"
     private static let eol = "\r\n"
 
-    /// Summe der bekannten Werte; nil, wenn keiner bekannt ist (und es Zeilen gibt).
+    /// Summe der bekannten Werte; nil, wenn keiner bekannt ist (und es Zeilen gibt). Summiert werden die auf 2 Stellen
+    /// GERUNDETEN Werte, wie sie in den Zeilen stehen (`CutoffExport.roundedMoney`) — Nachsummieren der Spalte geht auf
+    /// (0.34 + 0.34 + 0.34 = 1.02, nicht die exakte Summe 1.01). Wie Android.
     private static func sum<T>(_ rows: [T], _ pick: (T) -> Decimal?) -> Decimal? {
         let known = rows.compactMap(pick)
         if known.isEmpty { return rows.isEmpty ? 0 : nil }
-        return known.reduce(Decimal(0), +)
+        return known.reduce(Decimal(0)) { $0 + CutoffExport.roundedMoney($1) }
     }
 
     /// CSV «Realisierte Gewinne» mit BOM; `header` = Kopfzeilen (je ein Feld), danach die Zeitzone (`texts.timeZone`).
@@ -231,6 +233,8 @@ extension TaxExport {
         out += textLine([texts.title], format)
         out += textLine([texts.disclaimer], format)
         if !zoneLine.isEmpty { out += textLine([zoneLine], format) }
+        // USDT = 1 an einem nötigen Tag: eigene Zeile (die Posten der Übersicht tragen keinen Vermerk je Transaktion)
+        if s.usdtApproximate && !texts.usdtAssumed.isEmpty { out += textLine([texts.usdtAssumed], format) }
         out += textLine([texts.item, texts.usdt, texts.target, texts.note], format)
         func row(_ l: TaxSummaryLine, _ label: String) -> String {
             var notes: [String] = []

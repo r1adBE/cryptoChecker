@@ -182,15 +182,11 @@ extension AppData {
     /// Ausgelöste Alarme des Durchlaufs: zuerst melden, je bestätigter Mitteilung den Alarm speichern,
     /// dann ansagen (`Outcome.deliverAlarms`, wie Android `AlarmDelivery`); danach ist die Alarm-Lease frei.
     private func deliverAlarms(_ outcome: PriceRefresher.Outcome) {
-        // `mutate` schreibt im Hintergrund: Kurse und Alarm-Änderungen erst auf die Platte, bevor die Lease
-        // frei wird — sonst wertet der nächste Prozess den alten Stand aus
-        if outcome.alarmLease != nil { SharedStorage.flushSnapshotWrites() }
         // Paar seit der Abfrage geändert (Bearbeiten, Wiederherstellung mit gleicher Id): nicht melden
         var outcome = outcome
         let identities = Dictionary(snapshot.watches.map { ($0.id, $0.identity) }, uniquingKeysWith: { first, _ in first })
         outcome.pendingAlarms.removeAll { identities[$0.watch.id] != $0.watch.identity }
-        guard !outcome.pendingAlarms.isEmpty else {
-            outcome.releaseAlarmLease()
+        guard !outcome.pendingAlarms.isEmpty || outcome.alarmLease != nil else {
             AppData.recordAlarmLog(outcome.alarmLog, live: outcome.alarmLogLive)
             return
         }
@@ -201,6 +197,15 @@ extension AppData {
             // Melden und Speichern zu Ende führen, auch wenn die App gerade in den Hintergrund geht
             let backgroundTask = BackgroundTaskGuard.begin("deliverAlarms")
             defer { backgroundTask.end() }
+            // `mutate` schreibt im Hintergrund: Kurse und Alarm-Änderungen erst auf die Platte, bevor die Lease
+            // frei wird — sonst wertet der nächste Prozess den alten Stand aus. Abgewartet ohne den Haupt-Thread zu
+            // blockieren (das Schreiben kann über `NSFileCoordinator` auf das Widget warten)
+            if pending.alarmLease != nil { await SharedStorage.snapshotWritesSettled() }
+            guard !pending.pendingAlarms.isEmpty else {
+                pending.releaseAlarmLease()
+                AppData.recordAlarmLog(pending.alarmLog, live: pending.alarmLogLive)
+                return
+            }
             let delivered = await pending.deliverAlarms(settings: settings, current: current,
                                                         save: { id, update in await self.saveDeliveredAlarm(id, update) },
                                                         recordLog: { AppData.recordAlarmLog($0, live: $1) })
@@ -219,12 +224,13 @@ extension AppData {
     }
 
     /// `save` für `Outcome.deliverAlarms`: in den Stand im Speicher und abgewartet auf die Platte, bevor der
-    /// nächste Alarm gemeldet bzw. die Lease frei wird. false = Alarm inzwischen bearbeitet oder gelöscht.
-    private func saveDeliveredAlarm(_ id: Int64, _ update: PriceRefresher.AlarmUpdate) -> Bool {
+    /// nächste Alarm gemeldet bzw. die Lease frei wird (ohne den Haupt-Thread zu blockieren).
+    /// false = Alarm inzwischen bearbeitet oder gelöscht.
+    private func saveDeliveredAlarm(_ id: Int64, _ update: PriceRefresher.AlarmUpdate) async -> Bool {
         var applied = false
         mutate({ s in applied = update.apply(toAlarm: id, in: &s) }, reloadWidgets: false)
         guard applied else { return false }
-        SharedStorage.flushSnapshotWrites()
+        await SharedStorage.snapshotWritesSettled()
         return true
     }
 

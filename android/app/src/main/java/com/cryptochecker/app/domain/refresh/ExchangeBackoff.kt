@@ -212,6 +212,44 @@ object ExchangeBackoff {
         return State(strikes, until, RefreshFailure.RATE_LIMIT, 0)
     }
 
+    // ---------------- Gemeinsame Pause von Spot und Futures auf demselben Host ----------------
+
+    /**
+     * Börsen-Schlüssel der Kursabfrage, deren Spot- und Futures-Teil denselben Host und damit dasselbe Limit nutzen
+     * (Wert = Host). Die Pause gilt je Schlüssel; ohne diese Zuordnung pausierte ein 429 nur den einen Teil, und der
+     * andere fragte weiter beim schon bremsenden Host. Binance läuft breiter über [sharedGroup] (BlockedSources).
+     */
+    val HOST_GROUPS: Map<String, String> = mapOf(
+        "BingX" to "open-api.bingx.com", "BingXFutures" to "open-api.bingx.com",
+        "Bybit" to "api.bybit.com", "BybitFutures" to "api.bybit.com",
+        "Okex" to "www.okx.com", "OkexFutures" to "www.okx.com",
+        "Phemex" to "api.phemex.com", "PhemexFutures" to "api.phemex.com",
+        "Bitget" to "api.bitget.com", "BitgetFutures" to "api.bitget.com",
+        "Woo" to "api.woox.io", "WooFutures" to "api.woox.io",
+    )
+
+    /**
+     * Laufende «zu viele Anfragen»-Pausen ([RefreshFailure.RATE_LIMIT]) auf die übrigen Schlüssel derselben
+     * Host-Gruppe ([HOST_GROUPS]) übertragen — wie die gemeinsame Binance-Pause im PriceRefresher. Eine längere
+     * eigene Pause bleibt; Pausen wegen Zeitüberschreitung bleiben je Schlüssel (sie sagen nichts über das Limit).
+     * Gespeichert wird das Ergebnis, damit auch Einzelabruf und Alarm-Vorabruf den Teil überspringen.
+     */
+    fun withHostGroupPauses(states: Map<String, State>, now: Long): Map<String, State> {
+        val result = LinkedHashMap(states)
+        for ((key, state) in states) {
+            val group = HOST_GROUPS[key] ?: continue
+            if (state.reason != RefreshFailure.RATE_LIMIT || !isPaused(state, now)) continue
+            for ((other, otherGroup) in HOST_GROUPS) {
+                if (other == key || otherGroup != group) continue
+                val current = result[other]
+                if (current != null && isPaused(current, now) && current.pausedUntil >= state.pausedUntil) continue
+                result[other] = (current ?: State(strikes = 1))
+                    .copy(pausedUntil = state.pausedUntil, reason = RefreshFailure.RATE_LIMIT, timeoutRuns = 0)
+            }
+        }
+        return result
+    }
+
     /** Ende einer bestehenden Pause, sofern möglich ([isPaused]); sonst 0 (keine). */
     private fun plausibleUntil(until: Long, now: Long): Long = if (until - now > GROUP_MAX_MILLIS) 0L else until
 

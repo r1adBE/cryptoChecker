@@ -8,11 +8,15 @@ import java.time.ZoneId
 private const val BOM = "\uFEFF"
 private const val EOL = "\r\n"
 
-/** Summe der bekannten Werte; null, wenn keiner bekannt ist (und es Zeilen gibt). */
+/**
+ * Summe der bekannten Werte; null, wenn keiner bekannt ist (und es Zeilen gibt). Summiert werden die auf 2 Stellen
+ * GERUNDETEN Werte, wie sie in den Zeilen stehen ([CutoffExport.roundedMoney]) — so geht das Nachsummieren der Spalte
+ * auf (0.34 + 0.34 + 0.34 = 1.02, nicht die exakte Summe 1.01). Die Jahresübersicht rechnet ihre Posten weiter exakt.
+ */
 private fun <T> sum(rows: List<T>, pick: (T) -> BigDecimal?): BigDecimal? {
     val known = rows.mapNotNull(pick)
     if (known.isEmpty()) return if (rows.isEmpty()) BigDecimal.ZERO else null
-    return known.fold(BigDecimal.ZERO) { a, b -> a + b }
+    return known.fold(BigDecimal.ZERO) { a, b -> a + CutoffExport.roundedMoney(b) }
 }
 
 /**
@@ -287,6 +291,8 @@ fun TaxExport.summaryCsv(
     sb.append(textLine(listOf(texts.title), format))
     sb.append(textLine(listOf(texts.disclaimer), format))
     if (zoneLine.isNotEmpty()) sb.append(textLine(listOf(zoneLine), format))
+    // USDT = 1 an einem nötigen Tag: eigene Zeile (die Posten der Übersicht tragen keinen Vermerk je Transaktion)
+    if (s.usdtApproximate && texts.usdtAssumed.isNotEmpty()) sb.append(textLine(listOf(texts.usdtAssumed), format))
     sb.append(textLine(listOf(texts.item, texts.usdt, texts.target, texts.note), format))
     val (orientation, facts) = s.lines.partition { it.line.orientation }
     for (l in facts) {

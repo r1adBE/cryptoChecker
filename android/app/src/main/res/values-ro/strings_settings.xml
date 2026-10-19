@@ -42,7 +42,7 @@
     <string name="settings_exact_checks_grant">Permite „Alarme și mementouri”</string>
     <string name="settings_exact_checks_hint">Android verifică aproximativ la fiecare 15 minute, chiar și când dispozitivul e inactiv. Consumă puțin mai multă baterie.</string>
     <string name="settings_exact_checks_nothing">Nicio pereche activă – nimic de verificat.</string>
-    <string name="settings_exact_checks_permission_missing">Lipsește permisiunea – Android verifică atunci când îi convine (cam la 15 min sau mai târziu).</string>
+    <string name="settings_exact_checks_permission_missing">Lipsește permisiunea – în repaus, Android verifică neregulat, uneori abia după ore.</string>
     <string name="settings_notification_change">Notifică doar la schimbarea prețului</string>
     <string name="settings_notification_change_always">Întotdeauna</string>
     <string name="settings_notification_change_hint">O notificare apare doar după ce prețul s-a modificat cu cel puțin această valoare față de ultima. Cât timp lipsesc date, nu se afișează nimic. Alarmele nu sunt afectate.</string>
@@ -77,11 +77,11 @@
     <string name="settings_live_websocket">Prețuri live</string>
 
     <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
-    <string name="settings_activity_alerts">Raportează activitatea neobișnuită</string>
+    <string name="settings_activity_alerts">Notabil: anunță</string>
     <string name="settings_activity_alerts_hint">Cel mult o dată pe oră pentru fiecare pereche: mișcări de preț neobișnuite, salturi de volum și extreme pe futures (date de la Binance).</string>
     <string name="settings_activity_sensitivity">Sensibilitate</string>
     <string name="settings_activity_sensitivity_hint">Cât de ușor o monedă e considerată neobișnuită – la fel pentru cardul din listă și pentru notificări. Cu „Mai puțin”, cardul arată doar cele mai puternice 3.</string>
-    <string name="settings_watchlist_activity_card">Activitate neobișnuită în listă</string>
+    <string name="settings_watchlist_activity_card">Notabil: afișează în listă</string>
     <string name="settings_watchlist_activity_card_hint">Afișează cipul ⚡ lângă grupuri: atinge-l ca să vezi doar perechile la care se întâmplă ceva chiar acum. Notificările se setează la Alerte de piață.</string>
     <string name="settings_watchlist_names">Afișează numele</string>
     <string name="settings_watchlist_names_hint">Numele sub pereche, de ex. Bitcoin sau NVIDIA. Vine cu listele de logouri, încărcat o dată pentru toate monedele.</string>
@@ -112,7 +112,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Culoare de accent</string>
-    <string name="settings_accent_hint">Culoarea aplicației, a widgeturilor și a pictogramei aplicației.</string>
+    <string name="settings_accent_hint">Culoarea aplicației, a widgeturilor și a pictogramei aplicației. Unele ecrane de pornire elimină pictograma la schimbare – adaug-o din nou.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Logo-urile monedelor</string>
     <string name="settings_coin_logos_app">În aplicație</string>

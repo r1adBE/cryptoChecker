@@ -180,7 +180,7 @@
     <string name="tax_note_at">按币和钱包计算移动平均——不跨所有钱包（KryptowährungsVO § 2）。奖励以取得成本 0 计入新持仓（BMF：质押 / 空投）——收入文件按收到时的价值列示。2021年3月1日起取得的持仓手续费不可扣除（§ 27a 第4款第2项、§ 20 第2款 EStG）：成本和收入均不计手续费。借贷利息（来自 CSV 导入类型或备注）在收到时按百分之 27.5 计为收入，并以该价值作为取得成本。</string>
     <string name="tax_note_at_staking">用已有币质押及空投：收到时的价值在税务上无关紧要——依法取得成本为 0（§ 27b Abs. 2 EStG；BMF“Kryptowährungen”）。仅在卖出时才产生税款。</string>
     <string name="tax_note_fr">卖出和以加密货币支付的手续费都属于转让——兑换予以递延。卖出时的加密货币手续费计入扣除手续费前的价格——否则按其价值单独视为转让。投资组合价值取自每日收盘价——缺少收盘价时成本留空。</string>
-    <string name="tax_note_network_fee">以加密货币支付的网络手续费（转入你自己的钱包、提币）是按市价处置手续费所用的币——盈亏只计这些币，而不是整笔手续费的亏损（%1$s）。没有记录价格时用前一日收盘价；没有收盘价时卖出所得留空。</string>
+    <string name="tax_note_network_fee">以加密货币支付的网络手续费（转入你自己的钱包、提币）是按市价处置手续费所用的币——盈亏只计这些币，而不是整笔手续费的亏损（%1$s）。没有记录价格时用当日（UTC）收盘价；没有收盘价时卖出所得留空。</string>
     <string name="tax_note_specific_id">不支持个别认定法（Specific Identification）——采用 FIFO（先进先出）。</string>
     <string name="tax_note_spouse_gift">标记为“给配偶 / 伴侣”的赠与无盈亏：所得 = 你的成本，由你的伴侣承接（%1$s）。</string>
     <string name="tax_note_stable_swap">卖出换成你继续持有的稳定币（USDT/USDC/DAI …）在此属于加密货币换加密货币，不征税——请记为兑换为该稳定币。只有卖出换成欧元才征税——「卖出」 视为卖出换成欧元。</string>

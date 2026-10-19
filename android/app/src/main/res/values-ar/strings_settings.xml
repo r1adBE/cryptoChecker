@@ -42,7 +42,7 @@
     <string name="settings_exact_checks_grant">السماح بـ «المنبّهات والتذكيرات»</string>
     <string name="settings_exact_checks_hint">يفحص Android تقريبًا كل 15 دقيقة حتى عندما يكون الجهاز خاملًا. يستهلك بطارية أكثر قليلًا.</string>
     <string name="settings_exact_checks_nothing">لا توجد أزواج مفعّلة – لا شيء للفحص.</string>
-    <string name="settings_exact_checks_permission_missing">الإذن مفقود – يفحص Android متى ناسبه (كل 15 دقيقة تقريبًا أو لاحقًا).</string>
+    <string name="settings_exact_checks_permission_missing">الإذن مفقود – عندما يكون الجهاز في وضع السكون يفحص Android بشكل غير منتظم، أحيانًا بعد ساعات.</string>
     <string name="settings_notification_change">الإشعار عند تغيّر السعر فقط</string>
     <string name="settings_notification_change_always">دائمًا</string>
     <string name="settings_notification_change_hint">لا يظهر الإشعار إلا بعد أن يتحرك السعر بهذا القدر على الأقل منذ الإشعار السابق. لا يُعرض شيء أثناء غياب البيانات. لا تتأثر التنبيهات.</string>
@@ -77,11 +77,11 @@
     <string name="settings_live_websocket">أسعار مباشرة</string>
 
     <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
-    <string name="settings_activity_alerts">الإبلاغ عن النشاط غير العادي</string>
+    <string name="settings_activity_alerts">لافت: تنبيه</string>
     <string name="settings_activity_alerts_hint">مرة واحدة كحد أقصى في الساعة لكل زوج: حركات سعرية غير عادية وقفزات في الحجم وقيم متطرفة في العقود الآجلة (البيانات من Binance).</string>
     <string name="settings_activity_sensitivity">الحساسية</string>
     <string name="settings_activity_sensitivity_hint">مدى سهولة اعتبار العملة غير عادية – بالتساوي لبطاقة قائمة المتابعة والإشعارات. مع «أقل» تعرض البطاقة أقوى 3 فقط.</string>
-    <string name="settings_watchlist_activity_card">نشاط غير عادي في القائمة</string>
+    <string name="settings_watchlist_activity_card">لافت: إظهار في القائمة</string>
     <string name="settings_watchlist_activity_card_hint">يعرض الشريحة ⚡ بجانب المجموعات: انقر عليها لعرض الأزواج التي يحدث فيها شيء الآن فقط. تُضبط التنبيهات في إشعارات السوق.</string>
     <string name="settings_watchlist_names">إظهار الأسماء</string>
     <string name="settings_watchlist_names_hint">الاسم تحت الزوج، مثل Bitcoin أو NVIDIA. يأتي مع قوائم الشعارات، ويُحمَّل مرة واحدة لكل العملات.</string>
@@ -112,7 +112,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">لون التمييز</string>
-    <string name="settings_accent_hint">لون التطبيق والأدوات وأيقونة التطبيق.</string>
+    <string name="settings_accent_hint">لون التطبيق والأدوات وأيقونة التطبيق. قد تُزيل بعض الشاشات الرئيسية الأيقونة عند التغيير – أضفها من جديد عندئذٍ.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">شعارات العملات</string>
     <string name="settings_coin_logos_app">في التطبيق</string>

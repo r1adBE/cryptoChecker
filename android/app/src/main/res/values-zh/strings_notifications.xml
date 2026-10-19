@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Texte der Mitteilungen -->
-    <string name="notification_activity_title">%1$s · %2$s</string>
+    <string name="notification_activity_title">值得关注：%1$s · %2$s</string>
     <string name="notification_alarm_text">%1$s——当前 %2$s</string>
     <string name="notification_alarm_title">提醒：%1$s · %2$s</string>
     <string name="notification_depeg_action_exchange">打开交易所</string>
@@ -50,7 +50,7 @@
     <string name="channel_service">价格更新</string>
     <string name="channel_service_description">更新价格期间显示的提示。</string>
     <string name="neutral_channel_market">市场通知</string>
-    <string name="neutral_channel_market_description">恐惧与贪婪指数、Gas 费、异常活动和经济日程</string>
+    <string name="neutral_channel_market_description">恐惧与贪婪指数、Gas 费、“值得关注”和经济日程</string>
 
     <!-- Sprachausgabe -->
     <string name="tts_alarm">提醒。%1$s，%2$s %3$s %4$s，当前 %5$s</string>

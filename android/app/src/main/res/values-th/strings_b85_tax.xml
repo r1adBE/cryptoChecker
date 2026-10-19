@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
+    <string name="tax_export_day_close_rule">มูลค่าตลาดที่ไม่มีราคาบันทึก (ค่าธรรมเนียม, ให้/ชำระ, แลกเปลี่ยน, รางวัล, ค่าธรรมเนียมเครือข่าย, มูลค่าพอร์ต) ใช้ราคาปิดรายวัน (UTC) ของวันที่ทำรายการ</string>
+</resources>

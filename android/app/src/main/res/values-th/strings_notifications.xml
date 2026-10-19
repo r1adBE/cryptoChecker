@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Texte der Mitteilungen -->
-    <string name="notification_activity_title">%1$s · %2$s</string>
+    <string name="notification_activity_title">น่าสังเกต: %1$s · %2$s</string>
     <string name="notification_alarm_text">%1$s — ตอนนี้ %2$s</string>
     <string name="notification_alarm_title">สัญญาณเตือน: %1$s · %2$s</string>
     <string name="notification_depeg_action_exchange">เปิดกระดานเทรด</string>
@@ -50,7 +50,7 @@
     <string name="channel_service">การอัปเดตราคา</string>
     <string name="channel_service_description">แสดงขณะอัปเดตราคา</string>
     <string name="neutral_channel_market">การแจ้งเตือนตลาด</string>
-    <string name="neutral_channel_market_description">Fear &amp; Greed ค่าแก๊ส ความเคลื่อนไหวผิดปกติ และวันสำคัญทางเศรษฐกิจ</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed ค่าแก๊ส “น่าสังเกต” และวันสำคัญทางเศรษฐกิจ</string>
 
     <!-- Sprachausgabe -->
     <string name="tts_alarm">สัญญาณเตือน %1$s, %2$s %3$s %4$s, ตอนนี้ %5$s</string>

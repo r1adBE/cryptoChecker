@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="oem_battery_title">Economia de bateria do fabricante</string>
+    <string name="oem_battery_xiaomi">A Xiaomi pode parar o app por completo – e aí nenhum alerta chega. Ative “Início automático” e defina a economia de bateria como “Sem restrições”.</string>
+    <string name="oem_battery_samsung">A Samsung pode colocar o app em suspensão profunda – e aí nenhum alerta chega. Em Bateria › Limites de uso em segundo plano, adicione-o a “Apps que nunca suspendem”.</string>
+    <string name="oem_battery_huawei">A Huawei/Honor pode parar o app – e aí nenhum alerta chega. Em Bateria › Inicialização de apps, escolha “Gerenciar manualmente” e permita tudo.</string>
+    <string name="oem_battery_oneplus">A OnePlus pode parar o app – e aí nenhum alerta chega. Permita “Início automático” e, em Uso da bateria, a atividade em segundo plano.</string>
+    <string name="oem_battery_oppo">A Oppo/Realme pode parar o app – e aí nenhum alerta chega. Permita “Início automático” e, em Uso da bateria, a atividade em segundo plano.</string>
+    <string name="oem_battery_vivo">A Vivo pode parar o app – e aí nenhum alerta chega. Permita “Início automático” e, em Bateria, o alto consumo em segundo plano.</string>
+</resources>

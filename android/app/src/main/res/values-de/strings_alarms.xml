@@ -141,7 +141,7 @@
     <string name="alarm_saved_notifications_off">Benachrichtigungen aus</string>
 
     <!-- Wann Alarme geprüft werden -->
-    <string name="alarm_timing_hint_android">Bei geschlossener App prüft Android unregelmässig – oft später als 15 Minuten, auch mit «%1$s». Kurze Spitzen können fehlen.</string>
+    <string name="alarm_timing_hint_android">Ohne «%1$s» prüft Android bei ruhendem Gerät unregelmässig, manchmal erst nach Stunden. Damit etwa alle 15 Minuten.</string>
     <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">Bei geschlossener App prüft iOS oft später als 15 Minuten, manchmal erst beim nächsten Öffnen. Kurze Spitzen können fehlen.</string>
     <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
     <string name="alarm_timing_title">Wann Alarme geprüft werden</string>

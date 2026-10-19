@@ -269,14 +269,19 @@ override fun parseBulkTickers(call: Int, body: String, tickers: MutableMap<Strin
   again on every run; it recovers as soon as the bulk list contains it again.
   Cases live in `testdata/parity/not_traded.json`. A single-ticker parser must
   therefore throw (or return the exchange's error) for an unknown pair, never
-  return a price of 0.
+  return a price of 0. The own reader text `MarketParseException.NO_DATA` / `JSONError.noData` («No data») and
+  Hyperliquid «Unknown coin: …» count as «unknown pair» (`NotTraded.isMissingEntry`, failure `UnknownInstrument`);
+  `errorMessage` must call `noErrorText()` for a valid answer so the reader error is kept.
 * If the exchange can filter the bulk request by pair ids, override
   `getBulkTickersUrl(call, pairIds)` to download only what is needed.
   For a comma list in the URL (Kraken `?pair=`, Bitfinex `?symbols=`) use
   `BulkPairChunks` and override `bulkTickersRequestCount(pairIds)` as well, so
   long lists are split into several requests with URLs under 2000 characters.
   If a filtered request fails (rejected or unreadable), the app loads the
-  unfiltered one once instead.
+  unfiltered one once instead. URLs are compared without a `timestamp=<digits>` parameter (`RequestKey`, BingX
+  stamps every URL), also for sharing identical concurrent requests.
+* Pause after 429/418 (`ExchangeBackoff`) is per market key; spot and futures keys on the same host (BingX, Bybit,
+  OKX, Phemex, Bitget, WOO: `HOST_GROUPS` / `hostGroups`) share it (`withHostGroupPauses`).
 
 ## 7. Errors
 

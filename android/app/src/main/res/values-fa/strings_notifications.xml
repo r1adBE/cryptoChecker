@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Texte der Mitteilungen -->
-    <string name="notification_activity_title">%1$s · %2$s</string>
+    <string name="notification_activity_title">قابل‌توجه: %1$s · %2$s</string>
     <string name="notification_alarm_text">%1$s — اکنون %2$s</string>
     <string name="notification_alarm_title">هشدار: %1$s · %2$s</string>
     <string name="notification_depeg_action_exchange">باز کردن صرافی</string>
@@ -51,7 +51,7 @@
     <string name="channel_service">به‌روزرسانی قیمت‌ها</string>
     <string name="channel_service_description">اعلان در زمانی که قیمت‌ها به‌روز می‌شوند.</string>
     <string name="neutral_channel_market">اعلان‌های بازار</string>
-    <string name="neutral_channel_market_description">Fear &amp; Greed، کارمزد گس، فعالیت غیرعادی و تاریخ‌های اقتصادی</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed، کارمزد گس، «قابل‌توجه» و تاریخ‌های اقتصادی</string>
 
     <!-- Sprachausgabe -->
     <string name="tts_alarm">هشدار. %1$s، %2$s %3$s %4$s، اکنون %5$s</string>

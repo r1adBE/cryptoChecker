@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Texte der Mitteilungen -->
-    <string name="notification_activity_title">%1$s · %2$s</string>
+    <string name="notification_activity_title">Bie në sy: %1$s · %2$s</string>
     <string name="notification_alarm_text">%1$s — tani %2$s</string>
     <string name="notification_alarm_title">Alarm: %1$s · %2$s</string>
     <string name="notification_depeg_action_exchange">Hap bursën</string>
@@ -51,7 +51,7 @@
     <string name="channel_service">Përditësimi i çmimeve</string>
     <string name="channel_service_description">Njoftim ndërkohë që çmimet përditësohen.</string>
     <string name="neutral_channel_market">Njoftime tregu</string>
-    <string name="neutral_channel_market_description">Fear &amp; Greed, tarifat e gas-it, aktivitet i pazakontë dhe data ekonomike</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed, tarifat e gas-it, «Bie në sy» dhe data ekonomike</string>
 
     <!-- Sprachausgabe -->
     <string name="tts_alarm">Alarm. %1$s, %2$s %3$s %4$s, tani %5$s</string>

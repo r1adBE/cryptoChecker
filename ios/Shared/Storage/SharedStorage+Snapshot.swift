@@ -226,10 +226,21 @@ extension SharedStorage {
         return max(stored, after, 1)
     }
 
-    /// Wartet, bis alle Hintergrund-Schreibvorgänge auf der Platte sind (vor dem Lesen, beim Wechsel
-    /// in den Hintergrund). Nie vom Schreib-Thread selbst aufrufen.
+    /// Wartet, bis alle Hintergrund-Schreibvorgänge auf der Platte sind (vor dem Lesen, vor «App zurücksetzen»).
+    /// Blockiert den aufrufenden Thread: Ein Schreibvorgang (JSON, AES, `NSFileCoordinator`) kann auf das Widget
+    /// warten — auf dem Haupt-Thread darum `snapshotWritesSettled()`. Nie vom Schreib-Thread selbst aufrufen.
     static func flushSnapshotWrites() {
         snapshotWriter.sync {}
+    }
+
+    /// Wie `flushSnapshotWrites`, aber ohne zu blockieren: kehrt zurück, sobald alles bis jetzt Eingereihte
+    /// geschrieben ist (die Warteschlange arbeitet der Reihe nach). Für den Haupt-Thread, z. B. bevor die Alarm-Lease
+    /// frei wird oder der nächste Alarm gemeldet wird — sonst hängt die Oberfläche (Ziehen zum Aktualisieren), solange
+    /// das Widget die Datei hält.
+    static func snapshotWritesSettled() async {
+        await withCheckedContinuation { (continuation: CheckedContinuation<Void, Never>) in
+            snapshotWriter.async { continuation.resume() }
+        }
     }
 }
 

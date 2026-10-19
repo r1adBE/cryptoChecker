@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Texte der Mitteilungen -->
-    <string name="notification_activity_title">%1$s · %2$s</string>
+    <string name="notification_activity_title">주목: %1$s · %2$s</string>
     <string name="notification_alarm_text">%1$s — 현재 %2$s</string>
     <string name="notification_alarm_title">경보: %1$s · %2$s</string>
     <string name="notification_depeg_action_exchange">거래소 열기</string>
@@ -50,7 +50,7 @@
     <string name="channel_service">가격 업데이트</string>
     <string name="channel_service_description">가격을 업데이트하는 동안 표시됩니다.</string>
     <string name="neutral_channel_market">시장 알림</string>
-    <string name="neutral_channel_market_description">Fear &amp; Greed, 가스비, 이례적 움직임, 경제 일정</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed, 가스비, ‘주목’, 경제 일정</string>
 
     <!-- Sprachausgabe -->
     <string name="tts_alarm">경보. %1$s, %2$s %3$s %4$s, 현재 %5$s</string>

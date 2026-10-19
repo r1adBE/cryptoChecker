@@ -42,7 +42,7 @@
     <string name="settings_exact_checks_grant">«Wecker und Erinnerungen» erlauben</string>
     <string name="settings_exact_checks_hint">Android prüft etwa alle 15 Minuten, auch wenn das Gerät ruht. Braucht etwas mehr Akku.</string>
     <string name="settings_exact_checks_nothing">Keine aktiven Paare – nichts zu prüfen.</string>
-    <string name="settings_exact_checks_permission_missing">Berechtigung fehlt – Android prüft, wann es passt (etwa alle 15 Min. oder später).</string>
+    <string name="settings_exact_checks_permission_missing">Berechtigung fehlt – bei ruhendem Gerät prüft Android unregelmässig, manchmal erst nach Stunden.</string>
     <string name="settings_notification_change">Nur bei Kursänderung melden</string>
     <string name="settings_notification_change_always">Immer</string>
     <string name="settings_notification_change_hint">Eine Kursbenachrichtigung erscheint erst, wenn sich der Kurs seit der letzten um mindestens so viel bewegt hat. Fehlen Daten, wird nichts gezeigt. Alarme bleiben davon unberührt.</string>
@@ -77,11 +77,11 @@
     <string name="settings_live_websocket">Live-Kurse</string>
 
     <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
-    <string name="settings_activity_alerts">Ungewöhnliche Aktivität melden</string>
+    <string name="settings_activity_alerts">Auffällig: melden</string>
     <string name="settings_activity_alerts_hint">Höchstens einmal pro Stunde je Paar: ungewöhnliche Kursbewegungen, Volumensprünge und Futures-Extreme (Daten von Binance).</string>
     <string name="settings_activity_sensitivity">Empfindlichkeit</string>
     <string name="settings_activity_sensitivity_hint">Wie leicht ein Coin als auffällig gilt – für die Karte in der Merkliste und die Markt-Benachrichtigungen gleich. Bei «Weniger» zeigt die Karte nur die 3 stärksten.</string>
-    <string name="settings_watchlist_activity_card">Ungewöhnliche Aktivität in der Liste</string>
+    <string name="settings_watchlist_activity_card">Auffällig: in der Liste zeigen</string>
     <string name="settings_watchlist_activity_card_hint">Zeigt ⚡ neben den Gruppen: Antippen zeigt nur die Paare, bei denen gerade etwas passiert. Benachrichtigungen dazu stellst du unter «Markt-Benachrichtigungen» ein.</string>
     <string name="settings_watchlist_names">Namen anzeigen</string>
     <string name="settings_watchlist_names_hint">Name unter dem Paar, z. B. Bitcoin oder NVIDIA. Kommt mit den Logo-Listen, einmal für alle Coins geladen.</string>
@@ -112,7 +112,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Akzentfarbe</string>
-    <string name="settings_accent_hint">Farbe für App, Widgets und App-Symbol.</string>
+    <string name="settings_accent_hint">Farbe für App, Widgets und App-Symbol. Manche Startbildschirme entfernen das Symbol beim Wechsel – dann neu hinzufügen.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Coin-Logos</string>
     <string name="settings_coin_logos_app">In der App</string>

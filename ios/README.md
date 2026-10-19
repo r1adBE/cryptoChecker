@@ -135,7 +135,7 @@ Zuletzt dazugekommen:
   Coin-Karte: RSI, Trend und Stärke gegenüber Bitcoin (`CoinCycleModel.swift`); Halving nur als Monat «~Apr 2028»
   (`BitcoinCycle.swift`, Intervall 1458 Tage); «Altcoins gegenüber Bitcoin» als Anzahl statt «Altcoin-Saison».
   Zonen-Meldungen entfernt (alter Sicherungs-Schlüssel wird ignoriert), Markt-Meldungen: Fear & Greed, Gas,
-  ungewöhnliche Aktivität, Wirtschaftstermine.
+  «Auffällig», Wirtschaftstermine.
 - **«Wie aktuell?»** — ersetzt die Schalter «Häufig aktualisieren»/«Live-Kurse»: Sparsam (empfohlen, Standard seit Build 43) · Live, solange offen
   (für Profis); «Immer kurz» gibt es seit Build 40 auch auf Android nicht mehr. Merkliste zeigt «Live» nur, wenn alle
   sichtbaren gehandelten Paare am Live-Strom und frisch sind (seit Build 44, `LiveStatus.allLive`).
@@ -147,7 +147,7 @@ Zuletzt dazugekommen:
   Warn-Schriftfarbe, Zeitfenster klein und grau. Merklisten-Zeilen, Puls-Zeile («↗ 233 steigen ↘ 295 fallen
   Ø +0.32%»), Aktionsblatt («↗ +41.71% · 24h · Aktualisiert …»), Marktdaten (Funding als farbige Schrift ohne Pfeil),
   «Warum?» (Faktoren unter «Kurz gesagt» als eine graue Textzeile), Markt-Karten (Fear-&-Greed-Zahl in der
-  Stufenfarbe, «Krypto-Markt 2.82 Bio. USD ↘ −2.77% · 24h», «Heute auffällig» mit grauem «24h») und Portfolio
+  Stufenfarbe, «Krypto-Markt 2.82 Bio. USD ↘ −2.77% · 24h», «Auffällig» mit grauem «24h») und Portfolio
   (Heute · 7 T · Gesamt als farbige Schrift, Beträge mit Pfeil «↗ +12.40 USDT»; neue Zeile unter dem Gesamtwert mit
   der Veränderung über ein Jahr «↘ −38'412.95 USDT −27.85% · 1J», bei weniger als einem Jahr Verlauf ausgeblendet,
   `App/Features/Portfolio/PortfolioTotalCard.swift`). `ChangePill` / `TonePill` (`App/Components/ChangePill.swift`)
@@ -340,14 +340,14 @@ Davor:
 - **Befunde der technischen Prüfung behoben**: Alarme wie Android (gleitendes Fenster, Hoch/Tief-Marke), Marktphase/
   Fear & Greed laufen wieder (`BackgroundRefresh.swift`), `watchlist.json` mit `NSFileCoordinator` und tolerantem Lesen
   (nie leer überschrieben), Portfolio-Alarme in `portfolio_alarms.json`, keine Abstürze bei NaN/∞ (`JSON.swift`),
-  Live-Kurs 1 nicht mehr verworfen. «Heute auffällig» öffnet das Aktionsblatt (Vorschau), langes Drücken = Auswählen,
+  Live-Kurs 1 nicht mehr verworfen. «Auffällig» öffnet das Aktionsblatt (Vorschau), langes Drücken = Auswählen,
   Gruppen-Chips mit Rand in der Themenfarbe.
 - **Portfolio-Zahlen und Sicherung**: eine Stablecoin-Regel (`Shared/Portfolio/PortfolioStables.swift`), Wertverlauf
   mit EZB-Tageskursen (`PortfolioHistoryFx.swift`), 25-%-Sperre für den Stichtag, im Verlauf nur die Identitätsprüfung 1/3…3 (`PricePlausibility.swift`), Hinweis «Veränderung aus
   …-Kerzen»; `portfolio.json` standardmässig vom Geräte-Backup ausgenommen (`Shared/Storage/BackupExclusion.swift`,
   Schalter «Portfolio in Systemsicherung»); Börsen-Vertragstests (`Tests/ExchangeContractTests.swift`, Daten aus
   `android/testdata/exchanges`, von `gen_xcodeproj.py` nach `Tests/Exchanges` kopiert).
-- **Listen einheitlich**: Merkliste, Start-Auswahl, «Heute auffällig» und Portfolio mit gleichem Logo (36 pt) und
+- **Listen einheitlich**: Merkliste, Start-Auswahl, «Auffällig» und Portfolio mit gleichem Logo (36 pt) und
   gleicher Schrift; die Liste wirkt wie eine Karte: keine Fuge, Trennlinien über die ganze Breite, nur erste und
   letzte Zeile aussen 16 pt gerundet, ein Rand um die ganze Liste (`App/Components/ListSegment.swift`). Markt: Status-Pille «Alles aktuell · vor …» statt Titel «Jetzt».
 - **Feinschliff vor dem Store-Test**: eine Frische-Schwelle für Pille, Zeile und VoiceOver; Merkliste speichert im
@@ -430,7 +430,7 @@ Frühere Runden:
   `,` und `.`).
 - **Mini-Chart** (24 Std.) in jeder Zeile der Merkliste (Einstellungen › Merkliste, bei Neuinstallation aus); seit
   Build 44 Stundenkerzen der eigenen Börse (`OwnHourlyCandles.swift`), sonst gekennzeichnet aus der Binance-Kette.
-- **Sprungknopf** in langen Merklisten (> 30 Paare): «Zum Anfang» / «Zum Ende» beim Scrollen (`WatchlistJump.swift`); **Empfindlichkeit** der ungewöhnlichen Aktivität Weniger/Normal/Mehr (`Shared/Activity/ActivitySensitivity.swift`, Karte und Mitteilungen gleich).
+- **Sprungknopf** in langen Merklisten (> 30 Paare): «Zum Anfang» / «Zum Ende» beim Scrollen (`WatchlistJump.swift`); **Empfindlichkeit** von «Auffällig» Weniger/Normal/Mehr (`Shared/Activity/ActivitySensitivity.swift`, Karte und Mitteilungen gleich).
 - **Barrierefreiheit** (Einstellungen › Darstellung › Kursfarben, auch in Widgets): Kursfarben Grün/Rot oder
   Blau/Orange (bei jeder Farbsehschwäche unterscheidbar, Richtung immer zusätzlich als +/−);
   **Farben tauschen** (Rot steigend wie in China, Japan, Korea, Taiwan; dort standardmässig an);
@@ -455,18 +455,18 @@ Frühere Runden:
   klein Gesamtwert und wählbar «≈ … USDT», mittel dazu «heute» und Wertverlauf bis 48 h, gross
   dazu die bis 5 grössten Positionen mit Anteil und Veränderung; Einrichtung `PortfolioWidgetIntent` mit Anzeige,
   Zeitraum und Kerzen/Linie, siehe oben),
-  **Widget «Was gerade auffällt»** (klein/mittel, `Widgets/PulseWidget.swift`: Schlagzeile, Leitsatz,
+  **Widget «Auffällig»** (klein/mittel, `Widgets/PulseWidget.swift`: Schlagzeile, Leitsatz,
   Coins als farbiger Text, BTC bzw. BTC/ETH/SOL; Daten über `CryptoPulseSource` mit gemeinsamem 5-Min.-Stand in der
   App Group; Tippen öffnet den Markt-Tab), **Alarm als
   Satz**, **veralteter Kurs sichtbar**, Erklärungen (i) zu jeder Zeile der Markt-Karten (u. a. Funding, Open Interest, RSI, Pi-Cycle),
   Einstellungen «Erweitert» (eigene Seite). Hinweis unter dem Intervall: iOS plant den Hintergrund selbst.
-- **Crypto Pulse «Was gerade auffällt»** (erste Karte im Markt-Tab): Schlagzeile mit Leitsatz und
+- **Crypto Pulse «Auffällig»** (bis Build 84 «Was gerade auffällt») (erste Karte im Markt-Tab): Schlagzeile mit Leitsatz und
   einem Satz zu Volumen/Funding, BTC/ETH/SOL, Funding-Chip (nur wenn erhöht/negativ), Marktbreite
   «Top 30 ↗ · ↘» als farbige Schrift und Krypto-Markt gesamt (Satz zur Marktbreite nur in deutlichen Fällen); «Warum? ⌄»
   klappt «Markt heute» (nur Altcoins vs. Bitcoin) und die Faktor-Checkliste auf — nur Funding (! / –); Volumen, Fear & Greed
   und Gas stehen nicht doppelt, sie haben eigene Karten im Tab
   (`App/Features/Cycle/CryptoPulseCard.swift`, `Shared/Insights/CryptoPulse.swift`).
-- **«Heute auffällig»** (seit Build 83 im zugeklappten Teil «Mehr Marktdaten», Teil des schrittweisen Erscheinens): bis zu fünf der rund
+- **«Auffällig» (Karte im Markt-Tab)** (bis Build 84 «Heute auffällig») (seit Build 83 im zugeklappten Teil «Mehr Marktdaten», Teil des schrittweisen Erscheinens): bis zu fünf der rund
   30 grössten Coins (ohne Stablecoins, mit …USDT auf Binance), die heute deutlich stärker/schwächer als BTC
   laufen, gegen den Markt, mit ungewöhnlichem Volumen (≥ 2× üblich) oder extremem Funding; sonst «Heute
   nichts Auffälliges». Je ein Abruf: 24-h-Ticker (Binance-Spiegel), Funding aller Perpetuals (Binance Futures),
@@ -500,7 +500,7 @@ Frühere Runden:
   «Löschen» im Aktionsblatt wirkt wie Wischen (sofort, mit «Rückgängig», ohne Rückfrage).
   Nicht im Sortiermodus und nicht mit VoiceOver (dort Aktionen)
   (`App/Features/Watchlist/WatchlistEditing.swift`).
-- **Markt-Tab in drei Abschnitten**: oben ohne Titel mit Status-Pille (seit Build 83: Hauptkarte Crypto Pulse mit «Kurz gesagt», darunter Fear & Greed kompakt und Gewinner/Verlierer 3+3, zugeklappt «Mehr Marktdaten» mit «Heute auffällig» und Makro), «Einordnung»
+- **Markt-Tab in drei Abschnitten**: oben ohne Titel mit Status-Pille (seit Build 83: Hauptkarte Crypto Pulse mit «Kurz gesagt», darunter Fear & Greed kompakt und Gewinner/Verlierer 3+3, zugeklappt «Mehr Marktdaten» mit «Auffällig» und Makro), «Einordnung»
   (Marktphase, Dominanz mit Altcoin-Saison, Halving), «Daten» (Krypto-Markt, Gas, Wirtschaftsdaten, Coin); Überschriften für VoiceOver.
 - **Markt-Tab sofort da**: zeigt die zuletzt gespeicherten Daten («Stand … · wird
   aktualisiert …») und lädt im Hintergrund neu (`App/Features/Cycle/CycleScreen.swift`).

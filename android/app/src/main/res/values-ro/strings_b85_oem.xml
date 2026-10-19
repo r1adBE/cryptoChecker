@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="oem_battery_title">Economisirea bateriei a producătorului</string>
+    <string name="oem_battery_xiaomi">Xiaomi poate opri complet aplicația – atunci nu mai sosesc alerte. Activați „Pornire automată” și setați economisirea bateriei la „Fără restricții”.</string>
+    <string name="oem_battery_samsung">Samsung poate pune aplicația în somn profund – atunci nu mai sosesc alerte. În Baterie › Limite de utilizare în fundal, adăugați-o la „Aplicații care nu intră niciodată în repaus”.</string>
+    <string name="oem_battery_huawei">Huawei/Honor poate opri aplicația – atunci nu mai sosesc alerte. În Baterie › Lansare aplicații, alegeți „Gestionare manuală” și permiteți tot.</string>
+    <string name="oem_battery_oneplus">OnePlus poate opri aplicația – atunci nu mai sosesc alerte. Permiteți „Lansare automată” și, la Utilizarea bateriei, activitatea în fundal.</string>
+    <string name="oem_battery_oppo">Oppo/Realme poate opri aplicația – atunci nu mai sosesc alerte. Permiteți „Lansare automată” și, la Utilizarea bateriei, activitatea în fundal.</string>
+    <string name="oem_battery_vivo">Vivo poate opri aplicația – atunci nu mai sosesc alerte. Permiteți „Pornire automată” și, la Baterie, consumul ridicat în fundal.</string>
+</resources>

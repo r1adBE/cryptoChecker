@@ -218,8 +218,9 @@ enum Notifier {
 
     /// `volumeRatio` nur beim Volumen-Spike: Volumen der letzten Stunde im Vergleich zum Schnitt.
     /// `text` = fertiger Meldungstext (z. B. «Nahe am Hoch»); nil = Standardtext.
-    /// Auch aus der Widget-Erweiterung: Dort liegen die Alarmtöne nicht im Bundle, iOS spielt dann den
-    /// Standardton (`UNNotificationSound(named:)` ohne Datei).
+    /// Auch aus der Widget-Erweiterung: Den gewählten Alarmton findet iOS dort in `Library/Sounds` der App Group (die
+    /// App kopiert ihn beim Start dorthin, `AlarmSounds.installSharedSounds`); fehlt er (App seit dem Update nie
+    /// gestartet), spielt iOS den Standardton.
     /// - Returns: true erst, wenn die Mitteilung zugestellt ist (`postConfirmed`) — sonst bleibt der Alarm scharf.
     /// `currency`: Währung von `price`, wenn nicht die Quote-Währung des Paars (Schwelle umgerechnet).
     static func showAlarm(_ watch: Watch, _ alarm: Alarm, price: Double, volumeRatio: Double? = nil,

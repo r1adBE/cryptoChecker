@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Texte der Mitteilungen -->
-    <string name="notification_activity_title">%1$s · %2$s</string>
+    <string name="notification_activity_title">Dikkat çekici: %1$s · %2$s</string>
     <string name="notification_alarm_text">%1$s — şimdi %2$s</string>
     <string name="notification_alarm_title">Alarm: %1$s · %2$s</string>
     <string name="notification_depeg_action_exchange">Borsayı aç</string>
@@ -51,7 +51,7 @@
     <string name="channel_service">Fiyat güncelleme</string>
     <string name="channel_service_description">Fiyatlar güncellenirken gösterilen bildirim.</string>
     <string name="neutral_channel_market">Piyasa bildirimleri</string>
-    <string name="neutral_channel_market_description">Fear &amp; Greed, gas ücretleri, olağan dışı hareketler ve ekonomik takvim</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed, gas ücretleri, “Dikkat çekici” ve ekonomik takvim</string>
 
     <!-- Sprachausgabe -->
     <string name="tts_alarm">Alarm. %1$s, %2$s %3$s %4$s, şimdi %5$s</string>

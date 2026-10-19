@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
+    <string name="tax_export_day_close_rule">Valori de piață fără preț înregistrat (comisioane, dăruit/plătit, schimb, recompense, comisioane de rețea, valoarea portofoliului) la închiderea zilnică (UTC) a zilei tranzacției</string>
+</resources>

@@ -42,7 +42,7 @@
     <string name="settings_exact_checks_grant">Lejo «Alarmet dhe rikujtuesit»</string>
     <string name="settings_exact_checks_hint">Android kontrollon afërsisht çdo 15 minuta, edhe kur pajisja pushon. Harxhon pak më shumë bateri.</string>
     <string name="settings_exact_checks_nothing">Asnjë çift aktiv – asgjë për të kontrolluar.</string>
-    <string name="settings_exact_checks_permission_missing">Mungon leja – Android kontrollon kur i përshtatet (afërsisht çdo 15 min ose më vonë).</string>
+    <string name="settings_exact_checks_permission_missing">Mungon leja – kur pajisja pushon, Android kontrollon parregullisht, ndonjëherë vetëm pas orësh.</string>
     <string name="settings_notification_change">Njofto vetëm kur ndryshon çmimi</string>
     <string name="settings_notification_change_always">Gjithmonë</string>
     <string name="settings_notification_change_hint">Njoftimi shfaqet vetëm kur çmimi ka lëvizur të paktën kaq që nga njoftimi i fundit. Kur mungojnë të dhënat nuk shfaqet asgjë. Alarmet nuk ndikohen.</string>
@@ -77,11 +77,11 @@
     <string name="settings_live_websocket">Çmime live</string>
 
     <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
-    <string name="settings_activity_alerts">Njofto aktivitetin e pazakontë</string>
+    <string name="settings_activity_alerts">Bie në sy: njofto</string>
     <string name="settings_activity_alerts_hint">Më së shumti një herë në orë për çift: lëvizje të pazakonta çmimi, kërcime vëllimi dhe ekstreme në futures (të dhëna nga Binance).</string>
     <string name="settings_activity_sensitivity">Ndjeshmëria</string>
     <string name="settings_activity_sensitivity_hint">Sa lehtë një monedhë quhet e pazakontë – njësoj për kartën e listës dhe njoftimet. Me «Më pak», karta tregon vetëm 3 më të fortat.</string>
-    <string name="settings_watchlist_activity_card">Aktivitet i pazakontë në listë</string>
+    <string name="settings_watchlist_activity_card">Bie në sy: shfaq në listë</string>
     <string name="settings_watchlist_activity_card_hint">Shfaq çipin ⚡ pranë grupeve: prekeni për të parë vetëm çiftet ku po ndodh diçka tani. Njoftimet caktohen te Njoftime tregu.</string>
     <string name="settings_watchlist_names">Shfaq emrat</string>
     <string name="settings_watchlist_names_hint">Emri nën çiftin, p.sh. Bitcoin ose NVIDIA. Vjen me listat e logove, ngarkohet një herë për të gjitha monedhat.</string>
@@ -112,7 +112,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Ngjyra e theksit</string>
-    <string name="settings_accent_hint">Ngjyra për aplikacionin, widget-et dhe ikonën e aplikacionit.</string>
+    <string name="settings_accent_hint">Ngjyra për aplikacionin, widget-et dhe ikonën e aplikacionit. Disa ekrane bazë e heqin ikonën gjatë ndryshimit – atëherë shtoje përsëri.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Logot e monedhave</string>
     <string name="settings_coin_logos_app">Në aplikacion</string>

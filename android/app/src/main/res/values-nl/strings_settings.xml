@@ -42,7 +42,7 @@
     <string name="settings_exact_checks_grant">«Wekkers en herinneringen» toestaan</string>
     <string name="settings_exact_checks_hint">Android controleert ongeveer elke 15 minuten, ook als het apparaat in rust is. Kost iets meer batterij.</string>
     <string name="settings_exact_checks_nothing">Geen actieve paren – niets te controleren.</string>
-    <string name="settings_exact_checks_permission_missing">Toestemming ontbreekt – Android controleert wanneer het uitkomt (ongeveer elke 15 min of later).</string>
+    <string name="settings_exact_checks_permission_missing">Toestemming ontbreekt – als het toestel rust, controleert Android onregelmatig, soms pas na uren.</string>
     <string name="settings_notification_change">Alleen melden bij koerswijziging</string>
     <string name="settings_notification_change_always">Altijd</string>
     <string name="settings_notification_change_hint">Een melding verschijnt pas als de koers sinds de vorige minstens zoveel is bewogen. Zolang gegevens ontbreken, wordt niets getoond. Alarmen worden niet beïnvloed.</string>
@@ -77,11 +77,11 @@
     <string name="settings_live_websocket">Livekoersen</string>
 
     <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
-    <string name="settings_activity_alerts">Ongewone activiteit melden</string>
+    <string name="settings_activity_alerts">Opvallend: melden</string>
     <string name="settings_activity_alerts_hint">Hooguit eens per uur per paar: ongewone koersbewegingen, volumepieken en futures-extremen (gegevens van Binance).</string>
     <string name="settings_activity_sensitivity">Gevoeligheid</string>
     <string name="settings_activity_sensitivity_hint">Hoe snel een munt als ongewoon geldt – gelijk voor de kaart in de volglijst en de meldingen. Bij ‘Minder’ toont de kaart alleen de 3 sterkste.</string>
-    <string name="settings_watchlist_activity_card">Ongewone activiteit in de lijst</string>
+    <string name="settings_watchlist_activity_card">Opvallend: tonen in de lijst</string>
     <string name="settings_watchlist_activity_card_hint">Toont de chip ⚡ bij de groepen: tik erop om alleen de paren te zien waar nu iets gebeurt. Meldingen stel je in bij Marktmeldingen.</string>
     <string name="settings_watchlist_names">Namen tonen</string>
     <string name="settings_watchlist_names_hint">Naam onder het paar, bijv. Bitcoin of NVIDIA. Komt mee met de logolijsten, één keer geladen voor alle munten.</string>
@@ -112,7 +112,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Accentkleur</string>
-    <string name="settings_accent_hint">Kleur voor de app, widgets en het app-pictogram.</string>
+    <string name="settings_accent_hint">Kleur voor de app, widgets en het app-pictogram. Sommige startschermen verwijderen het pictogram bij het wisselen – voeg het dan opnieuw toe.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Muntlogo\'s</string>
     <string name="settings_coin_logos_app">In de app</string>

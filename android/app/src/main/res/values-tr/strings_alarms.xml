@@ -141,7 +141,7 @@
     <string name="alarm_saved_notifications_off">Bildirimler kapalı</string>
 
     <!-- Wann Alarme geprüft werden -->
-    <string name="alarm_timing_hint_android">Uygulama kapalıyken Android düzensiz kontrol eder – “%1$s” açıkken bile çoğu zaman 15 dakikadan geç. Kısa sıçramalar kaçabilir.</string>
+    <string name="alarm_timing_hint_android">“%1$s” kapalıyken Android, cihaz dinlenirken düzensiz kontrol eder – bazen ancak saatler sonra. Açıkken yaklaşık 15 dakikada bir.</string>
     <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">Uygulama kapalıyken iOS çoğu zaman 15 dakikadan geç kontrol eder, bazen ancak uygulamayı yeniden açtığınızda. Kısa sıçramalar kaçabilir.</string>
     <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
     <string name="alarm_timing_title">Alarmlar ne zaman kontrol edilir</string>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
+    <string name="tax_export_day_close_rule">Markedsverdier uten registrert pris (gebyrer, gitt bort/betalt, bytte, belønninger, nettverksgebyrer, porteføljeverdi) til dagens sluttkurs (UTC) på transaksjonsdagen</string>
+</resources>

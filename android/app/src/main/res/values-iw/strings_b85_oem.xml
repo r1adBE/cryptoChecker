@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="oem_battery_title">חיסכון בסוללה של היצרן</string>
+    <string name="oem_battery_xiaomi">Xiaomi עלולה לעצור את האפליקציה לגמרי – ואז לא מגיעות התראות. הפעילו «הפעלה אוטומטית» והגדירו את חיסכון הסוללה ל«ללא הגבלות».</string>
+    <string name="oem_battery_samsung">Samsung עלולה להכניס את האפליקציה לשינה עמוקה – ואז לא מגיעות התראות. בסוללה › מגבלות שימוש ברקע הוסיפו אותה ל«אפליקציות שאף פעם לא נרדמות».</string>
+    <string name="oem_battery_huawei">Huawei/Honor עלולה לעצור את האפליקציה – ואז לא מגיעות התראות. בסוללה › הפעלת אפליקציות בחרו «ניהול ידני» ואפשרו הכול.</string>
+    <string name="oem_battery_oneplus">OnePlus עלולה לעצור את האפליקציה – ואז לא מגיעות התראות. אפשרו «הפעלה אוטומטית» ופעילות ברקע בשימוש בסוללה.</string>
+    <string name="oem_battery_oppo">Oppo/Realme עלולה לעצור את האפליקציה – ואז לא מגיעות התראות. אפשרו «הפעלה אוטומטית» ופעילות ברקע בשימוש בסוללה.</string>
+    <string name="oem_battery_vivo">Vivo עלולה לעצור את האפליקציה – ואז לא מגיעות התראות. אפשרו «הפעלה אוטומטית» וצריכת חשמל גבוהה ברקע בסוללה.</string>
+</resources>

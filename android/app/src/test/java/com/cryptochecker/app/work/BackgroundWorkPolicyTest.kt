@@ -1,6 +1,7 @@
 package com.cryptochecker.app.work
 
 import com.cryptochecker.app.domain.refresh.BackgroundSchedule
+import com.cryptochecker.app.domain.refresh.CheckBudget
 import com.cryptochecker.app.domain.refresh.CheckTrigger
 import com.cryptochecker.app.work.BackgroundWorkPolicy.ExactAction
 import com.cryptochecker.app.work.BackgroundWorkPolicy.FiredAction
@@ -9,6 +10,8 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
+import java.time.ZoneId
+import java.time.ZonedDateTime
 
 class BackgroundWorkPolicyTest {
 
@@ -101,6 +104,55 @@ class BackgroundWorkPolicyTest {
         assertFalse(BackgroundWorkPolicy.reschedulesOn("android.intent.action.QUICKBOOT_POWERON"))
         assertFalse(BackgroundWorkPolicy.reschedulesOn("android.intent.action.PACKAGE_REPLACED"))
         assertEquals(3, BackgroundWorkPolicy.RESCHEDULE_ACTIONS.size)
+    }
+
+    @Test
+    fun clockChangesReplanOnlyTheMacroNotice() {
+        assertTrue(BackgroundWorkPolicy.replansMacroOn("android.intent.action.TIMEZONE_CHANGED"))
+        assertTrue(BackgroundWorkPolicy.replansMacroOn("android.intent.action.TIME_SET"))
+        // Kein volles Neuplanen (Wecker erzwingen) bei Zeitzonenwechsel
+        assertFalse(BackgroundWorkPolicy.reschedulesOn("android.intent.action.TIMEZONE_CHANGED"))
+        assertFalse(BackgroundWorkPolicy.replansMacroOn("android.intent.action.BOOT_COMPLETED"))
+        assertFalse(BackgroundWorkPolicy.replansMacroOn(null))
+    }
+
+    @Test
+    fun macroAfterClockChangeRunsNowInWindowIfNotYetShown() {
+        val zone = ZoneId.of("America/New_York")
+        // 09:30 New York (nach Flug aus Zürich, wo 08:00 noch nicht dran war)
+        val at = ZonedDateTime.of(2026, 10, 19, 9, 30, 0, 0, zone)
+        val millis = at.toInstant().toEpochMilli()
+        val yesterday = at.toLocalDate().minusDays(1).toEpochDay()
+        assertEquals(0L, BackgroundWorkPolicy.macroDelayAfterClockChange(millis, zone, yesterday))
+        // Heute schon gemeldet: erst morgen 08:00
+        val today = at.toLocalDate().toEpochDay()
+        val tomorrow8 = ZonedDateTime.of(2026, 10, 20, 8, 0, 0, 0, zone).toInstant().toEpochMilli()
+        assertEquals(tomorrow8 - millis, BackgroundWorkPolicy.macroDelayAfterClockChange(millis, zone, today))
+    }
+
+    @Test
+    fun macroAfterClockChangeOutsideWindowWaitsForNextMorning() {
+        val zone = ZoneId.of("Asia/Tokyo")
+        // 06:00 Tokio: bis 08:00 desselben Tages der neuen Zone
+        val early = ZonedDateTime.of(2026, 10, 19, 6, 0, 0, 0, zone)
+        val earlyMillis = early.toInstant().toEpochMilli()
+        assertEquals(2 * 60 * 60_000L, BackgroundWorkPolicy.macroDelayAfterClockChange(earlyMillis, zone, Long.MIN_VALUE))
+        // 13:00 Tokio: Fenster vorbei → morgen 08:00
+        val late = ZonedDateTime.of(2026, 10, 19, 13, 0, 0, 0, zone)
+        val lateMillis = late.toInstant().toEpochMilli()
+        assertEquals(19 * 60 * 60_000L, BackgroundWorkPolicy.macroDelayAfterClockChange(lateMillis, zone, Long.MIN_VALUE))
+    }
+
+    // ── ExactCheckReceiver: Ruhemodus ───────────────────────────────────────
+
+    @Test
+    fun lightDozeCountsAsIdle() {
+        assertFalse(BackgroundWorkPolicy.deviceIdle(deepIdle = false, lightIdle = false))
+        assertTrue(BackgroundWorkPolicy.deviceIdle(deepIdle = true, lightIdle = false))
+        // Light-Doze: kurzes Netz-Fenster wie im tiefen Ruhemodus → kleines Budget
+        assertTrue(BackgroundWorkPolicy.deviceIdle(deepIdle = false, lightIdle = true))
+        val idle = BackgroundWorkPolicy.deviceIdle(deepIdle = false, lightIdle = true)
+        assertTrue(CheckBudget.exactTimeoutMillis(idle, 20_000L, 1_000L) < 20_000L)
     }
 
     // ── PriceUpdateWorker ───────────────────────────────────────────────────

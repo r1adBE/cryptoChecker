@@ -42,7 +42,7 @@
     <string name="settings_exact_checks_grant">„Ébresztők és emlékeztetők” engedélyezése</string>
     <string name="settings_exact_checks_hint">Az Android körülbelül 15 percenként ellenőriz, akkor is, ha az eszköz pihen. Kicsit több akkut fogyaszt.</string>
     <string name="settings_exact_checks_nothing">Nincs aktív pár – nincs mit ellenőrizni.</string>
-    <string name="settings_exact_checks_permission_missing">Hiányzó engedély – az Android akkor ellenőriz, amikor neki megfelel (kb. 15 percenként vagy később).</string>
+    <string name="settings_exact_checks_permission_missing">Hiányzó engedély – nyugvó eszközön az Android rendszertelenül ellenőriz, néha csak órák múlva.</string>
     <string name="settings_notification_change">Értesítés csak árváltozáskor</string>
     <string name="settings_notification_change_always">Mindig</string>
     <string name="settings_notification_change_hint">Értesítés csak akkor jelenik meg, ha az ár az előző óta legalább ennyivel elmozdult. Hiányzó adatok esetén semmi sem jelenik meg. A riasztásokat ez nem érinti.</string>
@@ -77,11 +77,11 @@
     <string name="settings_live_websocket">Élő árfolyamok</string>
 
     <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
-    <string name="settings_activity_alerts">Szokatlan aktivitás jelzése</string>
+    <string name="settings_activity_alerts">Feltűnő: értesítés</string>
     <string name="settings_activity_alerts_hint">Páronként legfeljebb óránként egyszer: szokatlan ármozgások, forgalmi kiugrások és határidős szélsőértékek (adatok: Binance).</string>
     <string name="settings_activity_sensitivity">Érzékenység</string>
     <string name="settings_activity_sensitivity_hint">Milyen könnyen számít egy érme szokatlannak – ugyanúgy a figyelőlista kártyájára és az értesítésekre. „Kevesebb” esetén a kártya csak a 3 legerősebbet mutatja.</string>
-    <string name="settings_watchlist_activity_card">Szokatlan aktivitás a listában</string>
+    <string name="settings_watchlist_activity_card">Feltűnő: megjelenítés a listában</string>
     <string name="settings_watchlist_activity_card_hint">Megjeleníti a ⚡ chipet a csoportok mellett: koppintva csak azokat a párokat látja, amelyeknél éppen történik valami. Az értesítéseket a Piaci értesítések alatt állíthatja be.</string>
     <string name="settings_watchlist_names">Nevek megjelenítése</string>
     <string name="settings_watchlist_names_hint">Név a pár alatt, pl. Bitcoin vagy NVIDIA. A logólistákkal érkezik, egyszer töltődik be minden érméhez.</string>
@@ -112,7 +112,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Kiemelőszín</string>
-    <string name="settings_accent_hint">Az alkalmazás, a widgetek és az alkalmazásikon színe.</string>
+    <string name="settings_accent_hint">Az alkalmazás, a widgetek és az alkalmazásikon színe. Egyes kezdőképernyők váltáskor eltávolítják az ikont – ilyenkor add hozzá újra.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Érmelogók</string>
     <string name="settings_coin_logos_app">Az alkalmazásban</string>

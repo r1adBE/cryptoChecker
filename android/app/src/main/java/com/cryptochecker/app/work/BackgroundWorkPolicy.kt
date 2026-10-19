@@ -1,6 +1,9 @@
 package com.cryptochecker.app.work
 
+import com.cryptochecker.app.domain.macro.MacroCalendar
 import com.cryptochecker.app.domain.refresh.BackgroundSchedule
+import java.time.Instant
+import java.time.ZoneId
 
 /**
  * Entscheide der Hintergrund-Arbeit ohne Android (JVM-testbar): [ExactCheckScheduler] (stellen,
@@ -61,6 +64,13 @@ object BackgroundWorkPolicy {
         else -> FiredAction.REARM_AND_CHECK
     }
 
+    /**
+     * Ruhemodus für das Zeitbudget des Weckers (CheckBudget.exactTimeoutMillis): tiefer Doze [deepIdle] oder leichter
+     * [lightIdle] (PowerManager.isDeviceLightIdleMode, ab Android 13 lesbar). Auch im leichten Ruhemodus darf die App
+     * nach dem Wecker nur kurz ins Netz; mit dem vollen Budget liefen die Abfragen über das Fenster hinaus.
+     */
+    fun deviceIdle(deepIdle: Boolean, lightIdle: Boolean): Boolean = deepIdle || lightIdle
+
     // ── BootReceiver ────────────────────────────────────────────────────────
 
     /** = Intent.ACTION_BOOT_COMPLETED */
@@ -89,6 +99,32 @@ object BackgroundWorkPolicy {
      * Neustart und Update; nach neuer Berechtigung neu stellen.
      */
     fun reschedulesOn(action: String?): Boolean = action != null && action in RESCHEDULE_ACTIONS
+
+    /** = Intent.ACTION_TIMEZONE_CHANGED (geschützt, nur vom System) */
+    const val ACTION_TIMEZONE_CHANGED = "android.intent.action.TIMEZONE_CHANGED"
+
+    /** = Intent.ACTION_TIME_CHANGED (Uhr von Hand gestellt; geschützt, nur vom System) */
+    const val ACTION_TIME_CHANGED = "android.intent.action.TIME_SET"
+
+    /**
+     * Zeitzone oder Uhr geändert: Die Morgen-Meldung «Wirtschaftstermine» (MacroNotifyWorker) ist mit einer festen
+     * Verzögerung bis 08:00 der alten Ortszeit geplant und muss neu gerechnet werden — sonst käme sie nach 12:00
+     * (entfällt) oder vor 08:00 (plant nur den nächsten Tag). Nur diese Aufgabe; WorkManager-Takt und Wecker
+     * hängen nicht an der Ortszeit.
+     */
+    fun replansMacroOn(action: String?): Boolean = action == ACTION_TIMEZONE_CHANGED || action == ACTION_TIME_CHANGED
+
+    /**
+     * Verzögerung der Morgen-Meldung nach einer Änderung von Zeitzone/Uhr. Liegt die neue Ortszeit im Meldefenster
+     * (08:00–12:00) und kam heute ([lastNotifiedDay], Epochentag) noch keine Meldung: sofort, damit der Tag nicht
+     * ausfällt. Sonst bis zum nächsten 08:00 der neuen Zone.
+     */
+    fun macroDelayAfterClockChange(now: Long, zone: ZoneId, lastNotifiedDay: Long): Long {
+        val local = Instant.ofEpochMilli(now).atZone(zone)
+        val minute = local.hour * 60 + local.minute
+        if (MacroCalendar.isNotifyWindow(minute) && local.toLocalDate().toEpochDay() != lastNotifiedDay) return 0L
+        return (MacroCalendar.nextNotifyAt(now, zone) - now).coerceAtLeast(0L)
+    }
 
     // ── PriceUpdateWorker ───────────────────────────────────────────────────
 

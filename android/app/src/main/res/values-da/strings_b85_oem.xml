@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="oem_battery_title">Producentens batterisparer</string>
+    <string name="oem_battery_xiaomi">Xiaomi kan stoppe appen helt – så kommer der ingen alarmer. Slå «Autostart» til, og sæt batterisparer til «Ingen begrænsninger».</string>
+    <string name="oem_battery_samsung">Samsung kan sætte appen i dyb dvale – så kommer der ingen alarmer. Under Batteri › Grænser for baggrundsforbrug: tilføj den til «Apps, der aldrig er i dvale».</string>
+    <string name="oem_battery_huawei">Huawei/Honor kan stoppe appen – så kommer der ingen alarmer. Under Batteri › Appstart: vælg «Administrer manuelt» og tillad alt.</string>
+    <string name="oem_battery_oneplus">OnePlus kan stoppe appen – så kommer der ingen alarmer. Tillad «Automatisk start» og baggrundsaktivitet under Batteriforbrug.</string>
+    <string name="oem_battery_oppo">Oppo/Realme kan stoppe appen – så kommer der ingen alarmer. Tillad «Automatisk start» og baggrundsaktivitet under Batteriforbrug.</string>
+    <string name="oem_battery_vivo">Vivo kan stoppe appen – så kommer der ingen alarmer. Tillad «Autostart» og højt strømforbrug i baggrunden under Batteri.</string>
+</resources>

@@ -14,6 +14,7 @@ import com.cryptochecker.app.domain.portfolio.PortfolioLedger
 import com.cryptochecker.app.domain.portfolio.PortfolioStables
 import com.cryptochecker.app.domain.portfolio.PortfolioTrade
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
+import com.cryptochecker.app.domain.portfolio.TaxDayClose
 import com.cryptochecker.app.domain.portfolio.TaxEngines
 import com.cryptochecker.app.domain.portfolio.TaxMethod
 import com.cryptochecker.app.domain.portfolio.TaxPeriod
@@ -23,10 +24,8 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.map
 import timber.log.Timber
 import java.math.BigDecimal
-import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
-import java.time.ZoneOffset
 
 /** Devisen-Tageskurse USD → [currency] von [from] bis [to] (höchstens heute); USD = leer; Fehler = null. */
 internal suspend fun PortfolioExportViewModel.rates(currency: String, from: LocalDate, to: LocalDate): Map<Long, BigDecimal>? {
@@ -44,8 +43,11 @@ internal suspend fun PortfolioExportViewModel.rates(currency: String, from: Loca
 
 /**
  * USDT/USD-Tagesschlüsse ab [from] für den Steuer-Export ([TaxExport.rateOn] `usdtUsd`, USDT zum Marktkurs): Tag →
- * Schluss (Kraken, höchstens 720 Tage; Tage ohne Schluss rechnen mit 1 und sind je Zeile vermerkt). null für eine
- * Währung ohne USDT-Umrechnung (USDT selbst).
+ * Schluss (Kraken, höchstens 720 Tage; Lücken füllt Coinbase, etwa 600 Tage). Ältere Steuerjahre werden NICHT seitenweise
+ * nachgeladen: Krakens OHLC liefert nur die jüngsten 720 Kerzen, der Coinbase-Adapter höchstens zwei Seiten — mehr hiesse
+ * den Börsen-Adapter umbauen und je Export viele Abfragen. Tage ohne Schluss rechnen darum mit 1 und sind nie still:
+ * Vermerk je Zeile ([TaxGainRow.usdtApproximate], [TaxIncomeRow.usdtApproximate]) und eine Zeile in der Jahresübersicht
+ * ([TaxYearSummary.usdtApproximate]). null für eine Währung ohne USDT-Umrechnung (USDT selbst).
  */
 internal suspend fun PortfolioExportViewModel.usdtUsdCloses(currency: String, from: LocalDate): Map<Long, BigDecimal>? {
     if (!CutoffExport.convertsUsdt(currency)) return null
@@ -98,8 +100,8 @@ internal suspend fun PortfolioExportViewModel.taxPrices(
 /**
  * Gebühr-Zeilen ([PortfolioLedger.isFeeDisposal], CSV «Fee»), Verschenkt/bezahlt ohne Marktwert und Tausch ohne Wert
  * ([PortfolioLedger.dayCloseNeeds]) bis Ende [period]: zum Tageskurs — der Coin zum Tagesschluss SEINES UTC-Tags
- * (gleicher Kurs wie Karte und Wertverlauf, [PortfolioPeriodChange.marketPriceAt]); nur für genau diese (Coin, Zeit),
- * sonst null. Ohne solche Transaktionen null.
+ * ([TaxDayClose], gleicher Kurs wie Karte und Wertverlauf); nur für genau diese (Coin, Zeit), sonst null. Ohne solche
+ * Transaktionen null.
  */
 internal suspend fun PortfolioExportViewModel.feeDisposalPrices(
     trades: List<PortfolioTrade>,
@@ -109,8 +111,8 @@ internal suspend fun PortfolioExportViewModel.feeDisposalPrices(
     val end = CutoffExport.endOfDayMillis(period.end, zone)
     val keys = PortfolioLedger.dayCloseNeeds(trades.filter { it.time <= end && !AddressBalance.isAddressTrade(it.id) })
     if (keys.isEmpty()) return null
-    val wanted = keys.filter { PortfolioStables.needsQuote(it.first) }.map { it.first to utcDay(it.second) }.distinct()
-    val closes = dailyCloses(wanted, ::utcDay)
+    val wanted = keys.filter { PortfolioStables.needsQuote(it.first) }.map { it.first to TaxDayClose.day(it.second) }.distinct()
+    val closes = dailyCloses(wanted)
     return { coin, time ->
         when {
             (coin to time) !in keys -> null
@@ -120,39 +122,25 @@ internal suspend fun PortfolioExportViewModel.feeDisposalPrices(
     }
 }
 
-/** UTC-Tag von [time] (Tagesschluss dieses Tags). */
-internal fun PortfolioExportViewModel.utcDay(time: Long): LocalDate = Instant.ofEpochMilli(time).atZone(ZoneOffset.UTC).toLocalDate()
-
-/** Tag (UTC) des Schlusskurses für [time]: der Vortag (letzter bekannter Schluss davor). */
-internal fun PortfolioExportViewModel.closeDay(time: Long): LocalDate = Instant.ofEpochMilli(time).atZone(ZoneOffset.UTC).toLocalDate().minusDays(1)
-
 /**
  * Marktwert der Netzwerkgebühren in Krypto (eigene Veräusserung, [TaxEngines.applyRules]) bis Ende [period]: Gebühr
- * im Coin bzw. im dritten Coin ohne erfassten Gebühr-Preis einer Umbuchung, Auszahlung oder Schenkung — der Coin zum
- * Tagesschluss des Vortags (UTC). Fehlt ein Kurs, bleibt der Erlös dieser Zeile leer.
+ * im Coin bzw. im dritten Coin ohne erfassten Gebühr-Preis einer Umbuchung, Auszahlung oder Schenkung
+ * ([TaxDayClose.networkFeeNeeds]) — der Coin zum Tagesschluss seines UTC-Tags wie jede Gebühr-Zeile derselben Unterlage
+ * ([TaxDayClose]). Fehlt ein Kurs, bleibt der Erlös dieser Zeile leer.
  */
 internal suspend fun PortfolioExportViewModel.networkFeePrices(
     trades: List<PortfolioTrade>,
     period: TaxPeriod,
     zone: ZoneId = ZoneId.systemDefault(),
 ): (String, Long) -> BigDecimal? {
-    val end = CutoffExport.endOfDayMillis(period.end, zone)
-    val wanted = LinkedHashMap<Pair<String, LocalDate>, Unit>()
-    for (t in trades) {
-        val moves = t.type == PortfolioTxType.TRANSFER || t.type.isWithdrawalLike
-        if (!moves || t.time > end || AddressBalance.isAddressTrade(t.id)) continue
-        val coin = PortfolioCalculator.normalizeCoin(t.coin)
-        if (t.coinFee.signum() > 0 && t.validPrice == null && PortfolioStables.needsQuote(coin)) wanted[coin to closeDay(t.time)] = Unit
-        val third = t.thirdFeeCoin
-        if (third != null && t.thirdFeePrice == null && PortfolioStables.needsQuote(third)) wanted[third to closeDay(t.time)] = Unit
-    }
-    return dailyCloses(wanted.keys)
+    return dailyCloses(TaxDayClose.networkFeeNeeds(trades, CutoffExport.endOfDayMillis(period.end, zone)))
 }
 
 /**
  * FR: Kurse für den Gesamtwert des Portfolios vor jeder Abtretung bis Ende [period] — je Verkauf, Auszahlung und
  * Gebühr in Krypto (Umbuchung/Tausch mit Gebühr im Coin, Gebühr im dritten Coin) die gehaltenen Coins (ohne den
- * verkauften und ohne Stablecoins) zum Tagesschluss des Vortags (UTC; letzter bekannter Schluss davor). Gehalten = in
+ * verkauften und ohne Stablecoins) zum Tagesschluss des UTC-Tags der Abtretung ([TaxDayClose], dieselbe Regel wie die
+ * Gebühr-Zeilen; bis Build 85 der Vortag). Gehalten = in
  * der Reihenfolge der Rechnung davor gebucht ([TaxEngines.frHeldBefore], auch dieselbe Millisekunde). Fehlt ein
  * Kurs, bleibt der Einstand dieser Abtretung leer («unvollständig»).
  */
@@ -175,7 +163,7 @@ internal suspend fun PortfolioExportViewModel.frPrices(
     val addressTrades = trades.filter { AddressBalance.isAddressTrade(it.id) }
     val wanted = LinkedHashMap<Pair<String, LocalDate>, Unit>()
     for (t in sells) {
-        val day = closeDay(t.time)
+        val day = TaxDayClose.day(t.time)
         // Verkauf: Coin zum Verkaufspreis; sonst ohne erfassten Wert: auch der Coin selbst braucht einen Kurs
         val sold = PortfolioCalculator.normalizeCoin(t.coin).takeIf { t.type.isSaleLike || t.validPrice != null }
         val held = TaxEngines.frHeldBefore(own, t) +
@@ -187,12 +175,11 @@ internal suspend fun PortfolioExportViewModel.frPrices(
 }
 
 /**
- * Tagesschlusskurse (USDT) je (Coin, Tag); Abfrage über (Coin, Zeit) → Schluss des Tags [dayOf] (Standard: Vortag);
+ * Tagesschlusskurse (USDT) je (Coin, Tag); Abfrage über (Coin, Zeit) → Schluss des UTC-Tags der Zeit ([TaxDayClose.lookup]);
  * fehlt = null.
  */
 internal suspend fun PortfolioExportViewModel.dailyCloses(
     wanted: Collection<Pair<String, LocalDate>>,
-    dayOf: (Long) -> LocalDate = ::closeDay,
 ): (String, Long) -> BigDecimal? {
     if (wanted.isEmpty()) return { _, _ -> null }
     val coins = wanted.map { it.first }.distinct()
@@ -215,5 +202,5 @@ internal suspend fun PortfolioExportViewModel.dailyCloses(
         }
         PortfolioDecimal.of(r.price)?.let { closes[coin to day] = it }
     }
-    return { coin, time -> closes[coin to dayOf(time)] }
+    return TaxDayClose.lookup(closes)
 }

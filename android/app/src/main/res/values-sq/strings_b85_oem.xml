@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="oem_battery_title">Kursimi i baterisë nga prodhuesi</string>
+    <string name="oem_battery_xiaomi">Xiaomi mund ta ndalë plotësisht aplikacionin – atëherë nuk vjen asnjë alarm. Aktivizoni «Nisja automatike» dhe vendosni kursyesin e baterisë në «Pa kufizime».</string>
+    <string name="oem_battery_samsung">Samsung mund ta vërë aplikacionin në gjumë të thellë – atëherë nuk vjen asnjë alarm. Te Bateria › Kufijtë e përdorimit në sfond shtojeni te «Aplikacionet që nuk flenë kurrë».</string>
+    <string name="oem_battery_huawei">Huawei/Honor mund ta ndalë aplikacionin – atëherë nuk vjen asnjë alarm. Te Bateria › Nisja e aplikacioneve zgjidhni «Menaxho manualisht» dhe lejoni gjithçka.</string>
+    <string name="oem_battery_oneplus">OnePlus mund ta ndalë aplikacionin – atëherë nuk vjen asnjë alarm. Lejoni «Nisja automatike» dhe aktivitetin në sfond te Përdorimi i baterisë.</string>
+    <string name="oem_battery_oppo">Oppo/Realme mund ta ndalë aplikacionin – atëherë nuk vjen asnjë alarm. Lejoni «Nisja automatike» dhe aktivitetin në sfond te Përdorimi i baterisë.</string>
+    <string name="oem_battery_vivo">Vivo mund ta ndalë aplikacionin – atëherë nuk vjen asnjë alarm. Lejoni «Nisja automatike» dhe konsumin e lartë në sfond te Bateria.</string>
+</resources>

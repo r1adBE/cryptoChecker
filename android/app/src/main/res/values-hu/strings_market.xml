@@ -81,12 +81,12 @@
     <string name="market_cap_title">Kriptopiac</string>
     <string name="market_volume_label">Forgalom 24 óra</string>
 
-    <!-- Crypto Pulse «Was gerade auffällt»: Titel, Abschnitte, Hinweise -->
+    <!-- Crypto Pulse «Auffällig»: Titel, Abschnitte, Hinweise -->
     <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
     <string name="pulse_details_action">Részletek</string>
     <string name="pulse_disclaimer">Nem előrejelzés · Nem befektetési tanácsadás</string>
     <string name="pulse_less">Kevesebb megjelenítése</string>
-    <string name="pulse_now_title">Ami most feltűnő</string>
+    <string name="pulse_now_title">Feltűnő</string>
     <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
     <string name="pulse_period_24h_spoken">Változás 24 óra alatt</string>
     <string name="pulse_section_factors">Tényezők</string>
@@ -153,7 +153,7 @@
     <string name="pulse_volume_low">Kereskedési volumen alacsony (a szokásos %1$s×-ese)</string>
     <string name="pulse_volume_normal">Kereskedési volumen szokásos</string>
 
-    <!-- «Heute auffällig» (grösste Coins mit ungewöhnlicher Bewegung) -->
+    <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
     <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
     <!-- Screenreader-Aktion einer Zeile (öffnet das Aktionsblatt bzw. die Vorschau) -->
     <string name="unusual_action_open">Árfolyam és műveletek megjelenítése</string>
@@ -165,11 +165,11 @@
     <string name="unusual_fact_weaker">Sokkal gyengébben mozog, mint a BTC</string>
     <string name="unusual_nothing">Ma nincs semmi feltűnő</string>
     <string name="unusual_source">Kb. 30 legnagyobb érme stablecoinok nélkül · Binance, CoinGecko</string>
-    <string name="unusual_title">Ma feltűnő</string>
+    <string name="unusual_title">Feltűnő</string>
 
-    <!-- Ungewöhnliche Aktivität eines Paars (Karte, Signale, Empfindlichkeit) -->
-    <string name="activity_card_title">Szokatlan aktivitás</string>
-    <string name="activity_indicator">Szokatlan aktivitás</string>
+    <!-- «Auffällig» je Paar: ⚡ in der Merkliste, Signale, Empfindlichkeit -->
+    <string name="activity_card_title">Feltűnő</string>
+    <string name="activity_indicator">Feltűnő</string>
     <string name="activity_sensitivity_less">Kevesebb</string>
     <string name="activity_sensitivity_more">Több</string>
     <string name="activity_sensitivity_normal">Normál</string>

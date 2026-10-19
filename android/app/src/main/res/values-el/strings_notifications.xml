@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Texte der Mitteilungen -->
-    <string name="notification_activity_title">%1$s · %2$s</string>
+    <string name="notification_activity_title">Αξιοσημείωτα: %1$s · %2$s</string>
     <string name="notification_alarm_text">%1$s — τώρα %2$s</string>
     <string name="notification_alarm_title">Συναγερμός: %1$s · %2$s</string>
     <string name="notification_depeg_action_exchange">Άνοιγμα ανταλλακτηρίου</string>
@@ -51,7 +51,7 @@
     <string name="channel_service">Ενημέρωση τιμών</string>
     <string name="channel_service_description">Ένδειξη όσο οι τιμές ενημερώνονται.</string>
     <string name="neutral_channel_market">Ειδοποιήσεις αγοράς</string>
-    <string name="neutral_channel_market_description">Fear &amp; Greed, τέλη gas, ασυνήθιστη δραστηριότητα και οικονομικές ημερομηνίες</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed, τέλη gas, «Αξιοσημείωτα» και οικονομικές ημερομηνίες</string>
 
     <!-- Sprachausgabe -->
     <string name="tts_alarm">Συναγερμός. %1$s, %2$s %3$s %4$s, τώρα %5$s</string>

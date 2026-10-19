@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
+    <string name="tax_export_day_close_rule">没有记录价格的市值（手续费、赠送/支付、兑换、奖励、网络手续费、组合总值）按交易当日（UTC）收盘价计</string>
+</resources>

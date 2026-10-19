@@ -83,12 +83,12 @@
     <string name="market_cap_title">Kryptotrh</string>
     <string name="market_volume_label">Objem 24 h</string>
 
-    <!-- Crypto Pulse «Was gerade auffällt»: Titel, Abschnitte, Hinweise -->
+    <!-- Crypto Pulse «Auffällig»: Titel, Abschnitte, Hinweise -->
     <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
     <string name="pulse_details_action">Podrobnosti</string>
     <string name="pulse_disclaimer">Žádná prognóza · Žádné investiční doporučení</string>
     <string name="pulse_less">Zobrazit méně</string>
-    <string name="pulse_now_title">Co je teď nápadné</string>
+    <string name="pulse_now_title">Nápadné</string>
     <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
     <string name="pulse_period_24h_spoken">Změna za 24 hodin</string>
     <string name="pulse_section_factors">Faktory</string>
@@ -155,7 +155,7 @@
     <string name="pulse_volume_low">Objem obchodů nízký (%1$s× běžného)</string>
     <string name="pulse_volume_normal">Objem obchodů běžný</string>
 
-    <!-- «Heute auffällig» (grösste Coins mit ungewöhnlicher Bewegung) -->
+    <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
     <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
     <!-- Screenreader-Aktion einer Zeile (öffnet das Aktionsblatt bzw. die Vorschau) -->
     <string name="unusual_action_open">Zobrazit cenu a akce</string>
@@ -167,11 +167,11 @@
     <string name="unusual_fact_weaker">Hýbe se výrazně slaběji než BTC</string>
     <string name="unusual_nothing">Dnes nic nápadného</string>
     <string name="unusual_source">Zhruba 30 největších mincí bez stablecoinů · Binance, CoinGecko</string>
-    <string name="unusual_title">Dnes nápadné</string>
+    <string name="unusual_title">Nápadné</string>
 
-    <!-- Ungewöhnliche Aktivität eines Paars (Karte, Signale, Empfindlichkeit) -->
-    <string name="activity_card_title">Neobvyklá aktivita</string>
-    <string name="activity_indicator">Neobvyklá aktivita</string>
+    <!-- «Auffällig» je Paar: ⚡ in der Merkliste, Signale, Empfindlichkeit -->
+    <string name="activity_card_title">Nápadné</string>
+    <string name="activity_indicator">Nápadné</string>
     <string name="activity_sensitivity_less">Méně</string>
     <string name="activity_sensitivity_more">Více</string>
     <string name="activity_sensitivity_normal">Normální</string>

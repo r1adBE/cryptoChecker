@@ -44,9 +44,11 @@ final class Hyperliquid: Market {
         ticker.markFallback = snapshot.markFallback
     }
 
-    /// Hyperliquid antwortet bei Fehlern mit blossem Text: dessen Anfang ist der Fehlertext.
+    /// Hyperliquid antwortet bei Fehlern mit blossem Text: dessen Anfang ist der Fehlertext. Eine gültige Antwort
+    /// (JSON-Liste) ohne den Coin hat keinen — sonst verdeckte ihr Anfang «Unknown coin» (`NotTraded.isMissingEntry`).
     override func errorMessage(call: Int, body: String, info: PairQuery) throws -> String? {
-        String(body.prefix(hyperliquidErrorChars))
+        if body.drop(while: { $0.isWhitespace }).hasPrefix("[") { try noErrorText() }
+        return String(body.prefix(hyperliquidErrorChars))
     }
 
     // MARK: Sammelabfrage

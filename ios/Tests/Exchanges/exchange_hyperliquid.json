@@ -66,7 +66,7 @@
     },
     {
       "kind": "single",
-      "name": "unknown coin: error text is the start of the body",
+      "name": "unknown coin: a valid answer has no error text (reader error stays)",
       "market": "Hyperliquid",
       "pair": {
         "base": "FOO",
@@ -79,8 +79,7 @@
       "expect": {
         "error": true,
         "message": null,
-        "thrown": "Unknown coin: FOO",
-        "messageBodyPrefix": 200
+        "thrown": "Unknown coin: FOO"
       }
     },
     {
@@ -98,8 +97,7 @@
       "expect": {
         "error": true,
         "message": null,
-        "thrown": "Unknown coin: OLD",
-        "messageBodyPrefix": 200
+        "thrown": "Unknown coin: OLD"
       }
     },
     {

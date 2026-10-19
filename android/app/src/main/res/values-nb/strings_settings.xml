@@ -42,7 +42,7 @@
     <string name="settings_exact_checks_grant">Tillat «Alarmer og påminnelser»</string>
     <string name="settings_exact_checks_hint">Android sjekker omtrent hvert 15. minutt, også når enheten hviler. Bruker litt mer batteri.</string>
     <string name="settings_exact_checks_nothing">Ingen aktive par – ingenting å sjekke.</string>
-    <string name="settings_exact_checks_permission_missing">Tillatelse mangler – Android sjekker når det passer (omtrent hvert 15. min eller senere).</string>
+    <string name="settings_exact_checks_permission_missing">Tillatelse mangler – når enheten hviler, sjekker Android uregelmessig, noen ganger først etter timer.</string>
     <string name="settings_notification_change">Varsle bare ved kursendring</string>
     <string name="settings_notification_change_always">Alltid</string>
     <string name="settings_notification_change_hint">Et varsel vises først når kursen har beveget seg minst så mye siden forrige varsel. Ingenting vises mens data mangler. Alarmer påvirkes ikke.</string>
@@ -77,11 +77,11 @@
     <string name="settings_live_websocket">Livekurser</string>
 
     <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
-    <string name="settings_activity_alerts">Meld uvanlig aktivitet</string>
+    <string name="settings_activity_alerts">Påfallende: varsle</string>
     <string name="settings_activity_alerts_hint">Høyst én gang i timen per par: uvanlige kursbevegelser, volum-spikes og futures-ekstremer (data fra Binance).</string>
     <string name="settings_activity_sensitivity">Følsomhet</string>
     <string name="settings_activity_sensitivity_hint">Hvor lett en mynt regnes som uvanlig – likt for kortet i overvåkingslisten og varslene. Med «Færre» viser kortet bare de 3 sterkeste.</string>
-    <string name="settings_watchlist_activity_card">Uvanlig aktivitet i listen</string>
+    <string name="settings_watchlist_activity_card">Påfallende: vis i listen</string>
     <string name="settings_watchlist_activity_card_hint">Viser brikken ⚡ ved gruppene: trykk for å se bare parene der det skjer noe akkurat nå. Varsler stilles inn under Markedsvarsler.</string>
     <string name="settings_watchlist_names">Vis navn</string>
     <string name="settings_watchlist_names_hint">Navn under paret, f.eks. Bitcoin eller NVIDIA. Følger med logolistene og lastes én gang for alle mynter.</string>
@@ -112,7 +112,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Aksentfarge</string>
-    <string name="settings_accent_hint">Farge for appen, widgeter og appikonet.</string>
+    <string name="settings_accent_hint">Farge for appen, widgeter og appikonet. Noen startskjermer fjerner ikonet ved bytte – legg det da til på nytt.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Myntlogoer</string>
     <string name="settings_coin_logos_app">I appen</string>

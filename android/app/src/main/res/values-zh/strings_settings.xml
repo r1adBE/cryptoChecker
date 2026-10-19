@@ -42,7 +42,7 @@
     <string name="settings_exact_checks_grant">允许 「闹钟和提醒」</string>
     <string name="settings_exact_checks_hint">即使设备处于空闲状态，Android 也会大约每 15 分钟检查一次。会多耗一点电量。</string>
     <string name="settings_exact_checks_nothing">没有启用的交易对——无需检查。</string>
-    <string name="settings_exact_checks_permission_missing">缺少权限——Android 会在合适时检查（大约每 15 分钟或更晚）。</string>
+    <string name="settings_exact_checks_permission_missing">缺少权限——设备静置期间 Android 的检查不规律，有时要隔几小时。</string>
     <string name="settings_notification_change">仅在价格变动时通知</string>
     <string name="settings_notification_change_always">始终</string>
     <string name="settings_notification_change_hint">只有当价格自上次通知以来变动至少达到此幅度时才会通知。数据缺失时不显示任何内容。提醒不受影响。</string>
@@ -77,11 +77,11 @@
     <string name="settings_live_websocket">实时价格</string>
 
     <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
-    <string name="settings_activity_alerts">提醒异常活动</string>
+    <string name="settings_activity_alerts">值得关注：提醒</string>
     <string name="settings_activity_alerts_hint">每个交易对每小时最多一次：异常价格波动、成交量激增和合约极端值（数据来自 Binance）。</string>
     <string name="settings_activity_sensitivity">灵敏度</string>
     <string name="settings_activity_sensitivity_hint">币种被视为异常的难易程度——自选列表卡片与通知相同。选择“较少”时，卡片只显示最强的 3 个。</string>
-    <string name="settings_watchlist_activity_card">在列表中显示异常活动</string>
+    <string name="settings_watchlist_activity_card">值得关注：在列表中显示</string>
     <string name="settings_watchlist_activity_card_hint">在分组旁显示 ⚡ 标签：点按即可只查看此刻正有异动的交易对。通知在“市场通知”中设置。</string>
     <string name="settings_watchlist_names">显示名称</string>
     <string name="settings_watchlist_names_hint">在交易对下方显示名称，例如 Bitcoin 或 NVIDIA。随徽标列表一起获取，所有币种只加载一次。</string>
@@ -112,7 +112,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">强调色</string>
-    <string name="settings_accent_hint">应用、小组件和应用图标的颜色。</string>
+    <string name="settings_accent_hint">应用、小组件和应用图标的颜色。部分主屏幕在更换时会移除图标，届时请重新添加。</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">币种图标</string>
     <string name="settings_coin_logos_app">在应用中</string>

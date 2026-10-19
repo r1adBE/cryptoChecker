@@ -42,7 +42,7 @@
     <string name="settings_exact_checks_grant">อนุญาต “การปลุกและการช่วยเตือน”</string>
     <string name="settings_exact_checks_hint">Android ตรวจสอบประมาณทุก 15 นาที แม้อุปกรณ์อยู่ในโหมดพัก ใช้แบตเตอรี่มากขึ้นเล็กน้อย</string>
     <string name="settings_exact_checks_nothing">ไม่มีคู่ที่ใช้งานอยู่ – ไม่มีอะไรต้องตรวจสอบ</string>
-    <string name="settings_exact_checks_permission_missing">ไม่มีสิทธิ์ – Android จะตรวจสอบเมื่อสะดวก (ประมาณทุก 15 นาทีหรือช้ากว่านั้น)</string>
+    <string name="settings_exact_checks_permission_missing">ไม่มีสิทธิ์ – ขณะเครื่องพัก Android จะตรวจไม่สม่ำเสมอ บางครั้งหลายชั่วโมงต่อครั้ง</string>
     <string name="settings_notification_change">แจ้งเตือนเฉพาะเมื่อราคาเปลี่ยน</string>
     <string name="settings_notification_change_always">ทุกครั้ง</string>
     <string name="settings_notification_change_hint">การแจ้งเตือนจะแสดงเมื่อราคาเปลี่ยนอย่างน้อยเท่านี้นับจากครั้งก่อนเท่านั้น จะไม่แสดงอะไรขณะไม่มีข้อมูล สัญญาณเตือนไม่ได้รับผลกระทบ</string>
@@ -77,11 +77,11 @@
     <string name="settings_live_websocket">ราคาสด</string>
 
     <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
-    <string name="settings_activity_alerts">แจ้งความเคลื่อนไหวผิดปกติ</string>
+    <string name="settings_activity_alerts">น่าสังเกต: แจ้ง</string>
     <string name="settings_activity_alerts_hint">สูงสุดชั่วโมงละครั้งต่อคู่: ราคาเคลื่อนไหวผิดปกติ ปริมาณพุ่ง และค่าสุดขั้วในฟิวเจอร์ส (ข้อมูลจาก Binance)</string>
     <string name="settings_activity_sensitivity">ความไว</string>
     <string name="settings_activity_sensitivity_hint">เกณฑ์ที่เหรียญจะถือว่าผิดปกติ – ใช้เหมือนกันทั้งการ์ดในรายการติดตามและการแจ้งเตือน เมื่อเลือก “น้อยลง” การ์ดจะแสดงเพียง 3 อันดับที่แรงที่สุด</string>
-    <string name="settings_watchlist_activity_card">ความเคลื่อนไหวผิดปกติในรายการ</string>
+    <string name="settings_watchlist_activity_card">น่าสังเกต: แสดงในรายการ</string>
     <string name="settings_watchlist_activity_card_hint">แสดงชิป ⚡ ข้างกลุ่ม แตะเพื่อดูเฉพาะคู่เหรียญที่มีบางอย่างเกิดขึ้นตอนนี้ ตั้งค่าการแจ้งเตือนได้ที่ “การแจ้งเตือนตลาด”</string>
     <string name="settings_watchlist_names">แสดงชื่อ</string>
     <string name="settings_watchlist_names_hint">ชื่อใต้คู่ เช่น Bitcoin หรือ NVIDIA มากับรายการโลโก้ โหลดครั้งเดียวสำหรับทุกเหรียญ</string>
@@ -112,7 +112,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">สีเน้น</string>
-    <string name="settings_accent_hint">สีของแอป วิดเจ็ต และไอคอนแอป</string>
+    <string name="settings_accent_hint">สีของแอป วิดเจ็ต และไอคอนแอป หน้าจอหลักบางแบบจะลบไอคอนเมื่อเปลี่ยน ให้เพิ่มใหม่อีกครั้ง</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">โลโก้เหรียญ</string>
     <string name="settings_coin_logos_app">ในแอป</string>

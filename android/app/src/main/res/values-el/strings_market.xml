@@ -81,12 +81,12 @@
     <string name="market_cap_title">Αγορά κρυπτονομισμάτων</string>
     <string name="market_volume_label">Όγκος 24ώρου</string>
 
-    <!-- Crypto Pulse «Was gerade auffällt»: Titel, Abschnitte, Hinweise -->
+    <!-- Crypto Pulse «Auffällig»: Titel, Abschnitte, Hinweise -->
     <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
     <string name="pulse_details_action">Λεπτομέρειες</string>
     <string name="pulse_disclaimer">Καμία πρόβλεψη · Όχι επενδυτική συμβουλή</string>
     <string name="pulse_less">Εμφάνιση λιγότερων</string>
-    <string name="pulse_now_title">Τι ξεχωρίζει</string>
+    <string name="pulse_now_title">Αξιοσημείωτα</string>
     <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
     <string name="pulse_period_24h_spoken">Μεταβολή σε 24 ώρες</string>
     <string name="pulse_section_factors">Παράγοντες</string>
@@ -153,7 +153,7 @@
     <string name="pulse_volume_low">Όγκος συναλλαγών χαμηλός (%1$s× του συνήθους)</string>
     <string name="pulse_volume_normal">Όγκος συναλλαγών συνήθης</string>
 
-    <!-- «Heute auffällig» (grösste Coins mit ungewöhnlicher Bewegung) -->
+    <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
     <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
     <!-- Screenreader-Aktion einer Zeile (öffnet das Aktionsblatt bzw. die Vorschau) -->
     <string name="unusual_action_open">Εμφάνιση τιμής και ενεργειών</string>
@@ -165,11 +165,11 @@
     <string name="unusual_fact_weaker">Κινείται πολύ πιο αδύναμα από το BTC</string>
     <string name="unusual_nothing">Τίποτα ασυνήθιστο σήμερα</string>
     <string name="unusual_source">Περίπου 30 μεγαλύτερα νομίσματα χωρίς stablecoins · Binance, CoinGecko</string>
-    <string name="unusual_title">Ξεχωρίζουν σήμερα</string>
+    <string name="unusual_title">Αξιοσημείωτα</string>
 
-    <!-- Ungewöhnliche Aktivität eines Paars (Karte, Signale, Empfindlichkeit) -->
-    <string name="activity_card_title">Ασυνήθιστη δραστηριότητα</string>
-    <string name="activity_indicator">Ασυνήθιστη δραστηριότητα</string>
+    <!-- «Auffällig» je Paar: ⚡ in der Merkliste, Signale, Empfindlichkeit -->
+    <string name="activity_card_title">Αξιοσημείωτα</string>
+    <string name="activity_indicator">Αξιοσημείωτα</string>
     <string name="activity_sensitivity_less">Λιγότερα</string>
     <string name="activity_sensitivity_more">Περισσότερα</string>
     <string name="activity_sensitivity_normal">Κανονικά</string>

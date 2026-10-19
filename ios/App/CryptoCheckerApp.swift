@@ -214,8 +214,14 @@ struct CryptoCheckerApp: App {
                 BackgroundRefresh.runZoneCheckIfDue(settings: data.settings)
             case .background:
                 data.setAppActive(false)
-                // Letzten Stand sicher auf die Platte, bevor iOS die App anhält
-                SharedStorage.flushSnapshotWrites()
+                // Letzten Stand sicher auf die Platte, bevor iOS die App anhält — ohne den Haupt-Thread zu blockieren
+                // (das Schreiben kann über `NSFileCoordinator` auf das Widget warten): die Hintergrund-Zeit hält die
+                // App wach, bis die Warteschlange leer ist; reicht sie nicht, meldet sich die Aufgabe selbst ab
+                let flushTask = BackgroundTaskGuard.begin("flushSnapshot")
+                Task { @MainActor in
+                    await SharedStorage.snapshotWritesSettled()
+                    flushTask.end()
+                }
                 BackgroundRefresh.schedule(settings: data.settings)
             default:
                 break
@@ -233,6 +239,9 @@ final class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCent
         // Aktionen der Kursalarme («Was bewegt sich mit?», «1 h später», «Anpassen») und der Depeg-Mitteilung
         Notifier.registerCategories()
         BackgroundRefresh.schedule(settings: SharedStorage.loadSettings())
+        // Alarmtöne auch nach `Library/Sounds` der App Group: dort findet iOS sie sicher, wenn die Widget-Erweiterung
+        // einen Kursalarm meldet (`AlarmSounds.installSharedSounds`, wiederholbar, kopiert nur Fehlendes/Geändertes)
+        DispatchQueue.global(qos: .utility).async { AlarmSounds.installSharedSounds() }
         return true
     }
 

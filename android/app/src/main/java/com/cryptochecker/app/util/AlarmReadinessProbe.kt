@@ -52,6 +52,7 @@ object AlarmReadinessProbe {
             batteryUnrestricted = BatteryOptimization.isIgnoring(context),
             backgroundRestricted = backgroundRestricted(context),
             systemDnd = systemDnd(manager),
+            oemVendor = OemBatterySettings.vendor(),
         )
     }
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Texte der Mitteilungen -->
-    <string name="notification_activity_title">%1$s · %2$s</string>
+    <string name="notification_activity_title">Помітне: %1$s · %2$s</string>
     <string name="notification_alarm_text">%1$s — зараз %2$s</string>
     <string name="notification_alarm_title">Сигнал: %1$s · %2$s</string>
     <string name="notification_depeg_action_exchange">Відкрити біржу</string>
@@ -53,7 +53,7 @@
     <string name="channel_service">Оновлення курсів</string>
     <string name="channel_service_description">Повідомлення, поки оновлюються ціни.</string>
     <string name="neutral_channel_market">Ринкові сповіщення</string>
-    <string name="neutral_channel_market_description">Fear &amp; Greed, комісії за газ, незвична активність і економічні дати</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed, комісії за газ, «Помітне» і економічні дати</string>
 
     <!-- Sprachausgabe -->
     <string name="tts_alarm">Сигнал. %1$s, %2$s %3$s %4$s, зараз %5$s</string>

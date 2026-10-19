@@ -189,6 +189,8 @@ data class TaxSummaryLine(
     val note: TaxSummaryNote? = null,
     /** Datum im Vermerk ([TaxSummaryNote.WINDOW_OPEN]: Käufe bis …); null = keins. */
     val noteDate: LocalDate? = null,
+    /** An einem Tag ohne USDT/USD-Schluss mit USDT = 1 umgerechnet ([TaxExport.usdtApproximateOn]); zählt in [TaxYearSummary.usdtApproximate]. */
+    val usdtApproximate: Boolean = false,
 )
 
 /** Jahresübersicht einer Vorlage — ORIENTIERUNG, keine Steuerberatung. */
@@ -205,4 +207,10 @@ data class TaxYearSummary(
     val walletFrom: LocalDate? = null,
     /** CH: Vermögenswert per 31.12. je Coin ([TaxExport.chWealth]); null = nicht gerechnet bzw. andere Vorlage. */
     val wealth: TaxWealth? = null,
+    /**
+     * Irgendein Betrag der Übersicht an einem Tag ohne USDT/USD-Schluss mit USDT = 1 umgerechnet (Zeilen der Gewinne und
+     * Einkünfte, FR-Abgänge, CH-Vermögenswert) — die Datei sagt es in einer eigenen Zeile ([TaxSummaryTexts.usdtAssumed]),
+     * weil die Übersicht keine Zeilen hat, an denen der Vermerk stehen könnte.
+     */
+    val usdtApproximate: Boolean = false,
 )
