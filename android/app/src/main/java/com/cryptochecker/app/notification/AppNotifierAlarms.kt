@@ -273,7 +273,7 @@ suspend fun AppNotifier.showDepeg(title: String, text: String, exchangeUrl: Stri
         PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
     )
     val notification = NotificationCompat.Builder(context, channelId)
-        .setSmallIcon(R.drawable.ic_stat_logo)
+        .setSmallIcon(R.drawable.ic_stat_depeg)
         .setColor(settings.accentColor.seed)
         .setContentTitle(title)
         .setContentText(text)

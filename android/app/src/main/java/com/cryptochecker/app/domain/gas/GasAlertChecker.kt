@@ -85,7 +85,8 @@ class GasAlertChecker @Inject constructor(
                     AppNotifier.GAS_ETH_NOTIFICATION_ID,
                     context.getString(R.string.notification_gas_eth_title, GasFees.formatGwei(eth.normalGwei)),
                     context.getString(R.string.notification_gas_eth_text, GasFees.formatGwei(ethThreshold),
-                        eth.transferUsd?.let(GasFees::formatUsd) ?: "–")
+                        eth.transferUsd?.let(GasFees::formatUsd) ?: "–"),
+                    iconRes = R.drawable.ic_stat_gas_eth,
                 )
             }
         }
@@ -95,7 +96,8 @@ class GasAlertChecker @Inject constructor(
                     AppNotifier.GAS_BTC_NOTIFICATION_ID,
                     context.getString(R.string.notification_gas_btc_title, GasFees.formatGwei(btc.normal)),
                     context.getString(R.string.notification_gas_btc_text, GasFees.formatGwei(btcThreshold),
-                        btc.transferUsd?.let(GasFees::formatUsd) ?: "–")
+                        btc.transferUsd?.let(GasFees::formatUsd) ?: "–"),
+                    iconRes = R.drawable.ic_stat_fee_btc,
                 )
             }
         }

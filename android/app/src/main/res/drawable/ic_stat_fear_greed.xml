@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Statusleisten-Symbol für Fear & Greed: Skala mit Zeiger: die Glocke des App-Logos (wie ic_stat_logo), das Zeichen darin
+     ausgespart statt des steigenden Kurses. Einfarbig; Android färbt es ein. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="740"
+    android:viewportHeight="740"
+    android:tint="#FFFFFFFF">
+    <group android:translateX="-142" android:translateY="-151">
+        <path android:fillType="evenOdd" android:fillColor="#FFFFFFFF"
+            android:pathData="M512,190c-150,0 -215,120 -215,270v130l-75,95h580l-75,-95V460c0,-150 -65,-270 -215,-270zM366,575A146,146 0 0,1 658,575ZM420,575A92,92 0 0,1 604,575ZM503,566L566,500L578,512L515,578ZM450,790a62,62 0 1,0 124,0a62,62 0 1,0 -124,0z"/>
+    </group>
+</vector>

@@ -23,7 +23,7 @@ fun AppNotifier.showActivity(watch: WatchEntity, signal: ActivitySignal): Boolea
     val text = ActivityTexts.signal(context, signal)
     val quiet = isQuietNow()
     val notification = NotificationCompat.Builder(context, marketOrQuietChannel(quiet))
-        .setSmallIcon(R.drawable.ic_stat_logo)
+        .setSmallIcon(R.drawable.ic_stat_activity)
         .setColor(settingsRepository.cached.accentColor.seed)
         .setContentTitle(context.getString(R.string.notification_activity_title, watch.displayName, watch.marketName))
         .setContentText(text)
@@ -32,7 +32,7 @@ fun AppNotifier.showActivity(watch: WatchEntity, signal: ActivitySignal): Boolea
         .appBadge()
         .setSilent(quiet)
         .setContentIntent(openAppIntent(watch.id))
-        .lockScreenPrivacy(marketOrQuietChannel(quiet), R.drawable.ic_stat_logo, context.getString(R.string.app_name))
+        .lockScreenPrivacy(marketOrQuietChannel(quiet), R.drawable.ic_stat_activity, context.getString(R.string.app_name))
         .build()
     return notifyChecked(activityNotificationId(watch.id), notification)
 }
@@ -51,7 +51,7 @@ fun AppNotifier.showFearGreed(value: Int, below: Int? = null, above: Int? = null
     }
     val quiet = isQuietNow()
     val notification = NotificationCompat.Builder(context, marketOrQuietChannel(quiet))
-        .setSmallIcon(R.drawable.ic_stat_logo)
+        .setSmallIcon(R.drawable.ic_stat_fear_greed)
         .setColor(settingsRepository.cached.accentColor.seed)
         .setContentTitle(context.getString(R.string.notification_fng_title, value))
         .setContentText(text)
@@ -59,7 +59,7 @@ fun AppNotifier.showFearGreed(value: Int, below: Int? = null, above: Int? = null
         .appBadge()
         .setSilent(quiet)
         .setContentIntent(openAppIntent(null))
-        .lockScreenPrivacy(marketOrQuietChannel(quiet), R.drawable.ic_stat_logo, context.getString(R.string.app_name))
+        .lockScreenPrivacy(marketOrQuietChannel(quiet), R.drawable.ic_stat_fear_greed, context.getString(R.string.app_name))
         .build()
     return notifyChecked(FNG_NOTIFICATION_ID, notification)
 }
@@ -104,13 +104,20 @@ fun AppNotifier.canShowMarketNotice(): Boolean {
 // ---------------- Gas ----------------
 
 /**
- * Netzwerkgebühr ist unter die eingestellte Grenze gefallen (#167).
+ * Netzwerkgebühr ist unter die eingestellte Grenze gefallen (#167). [iconRes] = Glocke je Art (ETH-Gas, BTC-Gebühr,
+ * Wirtschaftstermine), sonst das App-Logo.
  * @return true, wenn die Meldung ans System ging (GasAlertChecker hält den Alarm sonst scharf).
  */
-fun AppNotifier.showGas(id: Int, title: String, text: String, openTarget: String? = null): Boolean {
+fun AppNotifier.showGas(
+    id: Int,
+    title: String,
+    text: String,
+    openTarget: String? = null,
+    iconRes: Int = R.drawable.ic_stat_logo,
+): Boolean {
     val quiet = isQuietNow()
     val notification = NotificationCompat.Builder(context, marketOrQuietChannel(quiet))
-        .setSmallIcon(R.drawable.ic_stat_logo)
+        .setSmallIcon(iconRes)
         .setColor(settingsRepository.cached.accentColor.seed)
         .setContentTitle(title)
         .setContentText(text)

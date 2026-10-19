@@ -22,6 +22,9 @@ Detailed build history below.
   Asia), CoinDCX (India), Paribu and ICRYPEX (Türkiye), BingX (spot and futures) and the perp DEXs Aster and Lighter.
   Each adapter was checked against recorded live responses; Android and iPhone read them identically.
 * The daily exchange check covers the new exchanges.
+* Android notifications show the bell of the app logo with a sign per alert type: $ for the USDT depeg, a bolt for
+  unusual activity, a calendar for economic dates, the Ethereum diamond for gas, ₿ for the Bitcoin fee and a gauge for
+  Fear & Greed; price alerts keep the logo. iPhone always shows the app icon there.
 * Dark mode: errors are orange-red (#FF5833) instead of pink, so a failed price no longer looks like a falling one.
 * First alarm dialog is titled «Alert saved» instead of «All set»: whether alerts actually arrive is what the
   checklist below it answers.
