@@ -14,7 +14,7 @@ REHELLISESTI DATASTA
 • Summat pysyvät laitteella, ellet itse vie niitä (CSV, varmuuskopio). Hintoja varten vain parin tunnus lähtee kyseisen parin pörssiin; lisäksi valuuttakurssit (Frankfurter), markkinatiedot ja logot (CoinGecko, Binance) sekä datapeilit (GitHub). Jos seuraat osoitteita tai xpubia, julkiset lohkoketjusolmut näkevät osoitteet (xpubissa johdetut) ja IP-osoitteesi.
 
 SEURANTALISTA
-• 41 markkinaa 32 pörssissä: spot ja futuurit, DEX-tokenit DexScreenerin kautta, halutessasi osakkeet, kulta ja valuutat (TradFi)
+• 52 markkinaa 42 pörssissä: spot ja futuurit, DEX-tokenit DexScreenerin kautta, halutessasi osakkeet, kulta ja valuutat (TradFi)
 • Toinen rivi ”≈ arvo” yhdessä 31 valuutasta (EUR, CHF, USD …), muunnettuna valuuttakurssilla
 • Minikaavio ja %-muutos 24 tunnin ajalta tai klo 00:00 lähtien omassa aikavyöhykkeessäsi
 • Ryhmät, suosikit, järjestys vetämällä ja muistiinpano kolikkoa kohden

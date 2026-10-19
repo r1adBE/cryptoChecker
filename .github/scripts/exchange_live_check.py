@@ -109,6 +109,15 @@ EXCHANGES = [
     {"key": "gemini", "name": "Gemini",
      "url": "https://api.gemini.com/v1/pubticker/btcusd",
      "fields": [["last"], ["bid"], ["ask"]]},
+    {"key": "bingx", "name": "BingX",
+     "url": "https://open-api.bingx.com/openApi/spot/v1/ticker/24hr?symbol=BTC-USDT", "stamp": True,
+     "fields": [["data", 0, "lastPrice"], ["data", 0, "openPrice"]]},
+    {"key": "bingxfutures", "name": "BingX Futures",
+     "url": "https://open-api.bingx.com/openApi/swap/v2/quote/ticker?symbol=BTC-USDT", "stamp": True,
+     "fields": [["data", "lastPrice"], ["data", "openPrice"]]},
+    {"key": "aster", "name": "Aster",
+     "url": "https://fapi.asterdex.com/fapi/v1/ticker/24hr?symbol=BTCUSDT",
+     "fields": [["lastPrice"], ["priceChangePercent"], ["quoteVolume"]]},
     {"key": "hyperliquid", "name": "Hyperliquid",
      "url": "https://api.hyperliquid.xyz/info", "post": {"type": "metaAndAssetCtxs"},
      "fields": [[1, 0, "midPx"], [1, 0, "prevDayPx"], [1, 0, "funding"]],
@@ -152,15 +161,29 @@ EXCHANGES = [
     {"key": "btcturk", "name": "BtcTurk",
      "url": "https://api.btcturk.com/api/v2/ticker?pairSymbol=BTCTRY",
      "fields": [["data", 0, "last"], ["data", 0, "dailyPercent"]]},
+    {"key": "paribu", "name": "Paribu",
+     # Eine Gesamtliste aller Paare (wie der Adapter)
+     "url": "https://www.paribu.com/ticker",
+     "fields": [["BTC_TL", "last"], ["BTC_TL", "highestBid"], ["BTC_TL", "lowestAsk"]]},
     {"key": "bitso", "name": "Bitso",
      "url": "https://bitso.com/api/v3/ticker?book=btc_mxn",
      "fields": [["payload", "last"], ["payload", "volume"]]},
+    {"key": "mercadobitcoin", "name": "Mercado Bitcoin",
+     "url": "https://api.mercadobitcoin.net/api/v4/tickers?symbols=BTC-BRL",
+     "fields": [[0, "last"], [0, "open"], [0, "vol"]]},
+    {"key": "luno", "name": "Luno",
+     "url": "https://api.luno.com/api/1/ticker?pair=XBTZAR",
+     "fields": [["last_trade"], ["bid"], ["ask"]]},
     {"key": "indodax", "name": "Indodax",
      "url": "https://indodax.com/api/ticker/btcidr",
      "fields": [["ticker", "last"], ["ticker", "buy"], ["ticker", "sell"]]},
     {"key": "zebpay", "name": "ZebPay",
      "url": "https://sapi.zebpay.com/api/v2/market/ticker?symbol=BTC-INR",
      "fields": [["data", "last"], ["data", "quoteVolume"]]},
+    {"key": "coindcx", "name": "CoinDCX",
+     # Nur die Gesamtliste (wie der Adapter); geprüft wird die erste Zeile
+     "url": "https://api.coindcx.com/exchange/ticker",
+     "fields": [[0, "last_price"], [0, "change_24_hour"]]},
     {"key": "hashkey", "name": "HashKey Exchange",
      "url": "https://api-pro.hashkey.com/quote/v1/ticker/24hr?symbol=BTCUSD", "geo": True,
      "fields": [[0, "c"], [0, "o"], [0, "v"]]},
@@ -192,7 +215,11 @@ def fetch(entry):
     if "post" in entry:
         data = json.dumps(entry["post"]).encode()
         headers["Content-Type"] = "application/json"
-    req = urllib.request.Request(entry["url"], data=data, headers=headers)
+    url = entry["url"]
+    if entry.get("stamp"):
+        # BingX verlangt eine Zeitangabe in ms (wie der Adapter)
+        url += ("&" if "?" in url else "?") + f"timestamp={int(time.time() * 1000)}"
+    req = urllib.request.Request(url, data=data, headers=headers)
     try:
         with urllib.request.urlopen(req, timeout=TIMEOUT_SECONDS) as resp:
             # Wie die Apps: höchstens 2 MB lesen

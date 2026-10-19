@@ -14,7 +14,7 @@ OTEVŘENĚ O DATECH
 • Částky zůstávají v zařízení, pokud je sami nevyexportujete (CSV, záloha). Kvůli kurzům jdou jen zkratky páru na burzu daného páru; k tomu směnné kurzy (Frankfurter), tržní data a loga (CoinGecko, Binance), zrcadla dat (GitHub). Sledujete-li adresy nebo xpub, veřejné uzly blockchainu vidí adresy (u xpub odvozené) a vaši IP.
 
 SEZNAM SLEDOVANÝCH
-• 41 trhů na 32 burzách: spot a futures, DEX tokeny přes DexScreener, volitelně akcie, zlato a měny (TradFi)
+• 52 trhů na 42 burzách: spot a futures, DEX tokeny přes DexScreener, volitelně akcie, zlato a měny (TradFi)
 • Druhý řádek „≈ hodnota“ v jedné z 31 měn (EUR, CHF, USD …), přepočtený devizovým kurzem
 • Minigraf a změna v % za 24 h nebo od 00:00 ve vašem časovém pásmu
 • Skupiny, oblíbené, řazení přetažením a poznámka ke každé minci

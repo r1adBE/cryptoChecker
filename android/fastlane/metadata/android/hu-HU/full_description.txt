@@ -14,7 +14,7 @@ AMITŐL MÁS
 • Az összegek az eszközön maradnak, hacsak te magad nem exportálod őket (CSV, mentés). Az árakhoz csak a pár jelölése megy az adott pár tőzsdéjéhez; ezen felül devizaárfolyamok (Frankfurter), piaci adatok és logók (CoinGecko, Binance), adattükrök (GitHub). Ha címeket vagy egy xpubot figyelsz, a nyilvános blokklánc-csomópontok látják a címeket (xpubnál a származtatottakat) és az IP-címedet.
 
 FIGYELŐLISTA
-• 41 piac 32 tőzsdén: spot és határidős, DEX tokenek a DexScreeneren át, igény szerint részvények, arany és devizák (TradFi)
+• 52 piac 42 tőzsdén: spot és határidős, DEX tokenek a DexScreeneren át, igény szerint részvények, arany és devizák (TradFi)
 • Második sor „≈ érték” 31 pénznem egyikében (EUR, CHF, USD …), devizaárfolyamon átszámítva
 • Minigrafikon és %-os változás 24 órára vagy 00:00 óta az időzónádban
 • Csoportok, kedvencek, rendezés húzással és jegyzet coinonként

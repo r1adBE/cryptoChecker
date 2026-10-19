@@ -51,7 +51,6 @@ object MarketsConfig {
         Coincheck(),
         Btcturk(),
         Paribu(),
-        Bitexen(),
         Bitso(),
         MercadoBitcoin(),
         Indodax(),

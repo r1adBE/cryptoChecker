@@ -88,7 +88,6 @@
 		119CE769B19622C78B361F15 /* WidgetCadence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14AA5BD0B1C29029B86D48EF /* WidgetCadence.swift */; };
 		11BB72A9DDF258F4FFD73C47 /* RestoreJournal.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF87AB7CAFA936035010C0C /* RestoreJournal.swift */; };
 		11E46FF4921595F28C4D6C65 /* AddressCostLots.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FB573399F73F08D529A1BE /* AddressCostLots.swift */; };
-		1214E0CBE65527EA5BAC784C /* Bitexen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB7B4FD31091F64FA6E4A52 /* Bitexen.swift */; };
 		123A8CCC37E7FC1425FC4692 /* BitFlyer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFD40853CC01CAB470735EBE /* BitFlyer.swift */; };
 		125AFD22B2C27BA0306775D0 /* WatchWhyFactors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C248DE9974F61A41D9E6CD /* WatchWhyFactors.swift */; };
 		128F9FDDEE64EA0B6C8AC58D /* TaxSummaryTexts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BFED3259FB7E7FE3A883F9 /* TaxSummaryTexts.swift */; };
@@ -375,7 +374,6 @@
 		4729744120CABECB275DAA09 /* PortfolioTxLedgerFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797DD75B47BD03B51C93D813 /* PortfolioTxLedgerFields.swift */; };
 		4760475FD77549E73BA8BFFD /* PortfolioFeeExpenses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D51240088568B606A95AC7 /* PortfolioFeeExpenses.swift */; };
 		477F0D0713C5659624FBEB67 /* PortfolioWidgetChartRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CFF849DED2EAC2FC986628 /* PortfolioWidgetChartRules.swift */; };
-		47827E5F1060273B636EDA59 /* exchange_bitexen.json in Resources */ = {isa = PBXBuildFile; fileRef = B8728B8006FCCE368B83554D /* exchange_bitexen.json */; };
 		47CDBB81CDEACF59B9A76A49 /* WatchlistRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231886E96F0CFED88C007C3C /* WatchlistRow.swift */; };
 		47F119B62AA23280F5AFB110 /* PortfolioPriceFallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2248AB6E9F58E09D0BF645 /* PortfolioPriceFallback.swift */; };
 		481569C763EEFF887D4CF73F /* CsvImportNumbers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0951B767D88E1D9F5E659AF0 /* CsvImportNumbers.swift */; };
@@ -670,7 +668,6 @@
 		7E96745656369403AA21D7C2 /* PortfolioHistory+Days.swift in Sources */ = {isa = PBXBuildFile; fileRef = 628C19374064416EC102BE9A /* PortfolioHistory+Days.swift */; };
 		7ED5ED1179882ED1749DF15F /* CoinLogoStore+Display.swift in Sources */ = {isa = PBXBuildFile; fileRef = C236C4ABAE86176A621B9715 /* CoinLogoStore+Display.swift */; };
 		7EEADF820567C0C4F0A6A97A /* SettingsAboutPages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672154E498503A8F72DE77A8 /* SettingsAboutPages.swift */; };
-		7F181D4A5A2622AF82502E16 /* Bitexen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB7B4FD31091F64FA6E4A52 /* Bitexen.swift */; };
 		7F22C1E8B4F8ED7F9E25F376 /* CoinSearchParityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743424EF7C929FE978885F8B /* CoinSearchParityTests.swift */; };
 		7FF945901ED3EB386005FFD3 /* argon2_random.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D7B49758401C2E2976B5220 /* argon2_random.json */; };
 		801214746799645E2B717E1F /* TaxEngines+Steps.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9F66428217A6622554C52C5 /* TaxEngines+Steps.swift */; };
@@ -1687,7 +1684,6 @@
 		5BE021B03A6FF323A61FF3CE /* market_plain_summary.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = market_plain_summary.json; sourceTree = "<group>"; };
 		5C8138AC4BF9753FCEB8EBC4 /* AlarmLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmLog.swift; sourceTree = "<group>"; };
 		5CAC5EF5DBCD570C5A40FDFF /* exchange_bitvavo.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = exchange_bitvavo.json; sourceTree = "<group>"; };
-		5CB7B4FD31091F64FA6E4A52 /* Bitexen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bitexen.swift; sourceTree = "<group>"; };
 		5CC4FADADC8D7ED0DDBABC4A /* PortfolioWidgetList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioWidgetList.swift; sourceTree = "<group>"; };
 		5CC8CB11D5C36522AE1B5DA5 /* DepegAlarmCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepegAlarmCheck.swift; sourceTree = "<group>"; };
 		5D3BD2587DED51D2724FEA5A /* LowMemoryBulkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LowMemoryBulkTests.swift; sourceTree = "<group>"; };
@@ -2045,7 +2041,6 @@
 		B7AB34B61FE0CE13483FFFF4 /* market_failure.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = market_failure.json; sourceTree = "<group>"; };
 		B7E03D73B710B5A9EFD4EC4F /* ActivityAnalysisGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityAnalysisGate.swift; sourceTree = "<group>"; };
 		B830C5714E23B5E6F0B81CDB /* WatchlistOnboardingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistOnboardingTests.swift; sourceTree = "<group>"; };
-		B8728B8006FCCE368B83554D /* exchange_bitexen.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = exchange_bitexen.json; sourceTree = "<group>"; };
 		B87B7A32DE58A86D50B41B37 /* WidgetFreshness.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetFreshness.swift; sourceTree = "<group>"; };
 		B8955182571DBFE4C90F8443 /* PriceNotificationRuleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceNotificationRuleTests.swift; sourceTree = "<group>"; };
 		B975B8A82E730C551CCB2E50 /* TokenIdentityStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenIdentityStore.swift; sourceTree = "<group>"; };
@@ -2378,7 +2373,6 @@
 				CA01914592331B7CAF5D0608 /* BinanceFutures.swift */,
 				38BE7EDDE76F41125EE7E883 /* BingX.swift */,
 				0DDA326E05055A0F8A71F5F3 /* Bitbank.swift */,
-				5CB7B4FD31091F64FA6E4A52 /* Bitexen.swift */,
 				1908DB9E28E641137F43A7C0 /* Bitfinex.swift */,
 				EFD40853CC01CAB470735EBE /* BitFlyer.swift */,
 				3D48B6B5983F429757AA22CC /* Bitget.swift */,
@@ -2470,7 +2464,6 @@
 				492CDD69DA687B729F9C5762 /* exchange_binance_futures.json */,
 				FC71A8B22AF1B7A6368E8276 /* exchange_bingx.json */,
 				9ADA199A1C0BAFDF6B7BCAF1 /* exchange_bitbank.json */,
-				B8728B8006FCCE368B83554D /* exchange_bitexen.json */,
 				C04A1DA95328DA310A11FD55 /* exchange_bitfinex.json */,
 				4DEA373882FCD8E96C7F9596 /* exchange_bitflyer.json */,
 				61B43E6D78A7D331ECC35013 /* exchange_bitget.json */,
@@ -3837,7 +3830,6 @@
 				4E39F9C8A4A290329495F992 /* exchange_binance_futures.json in Resources */,
 				1C1CB59CB846C29915A9AD8A /* exchange_bingx.json in Resources */,
 				AFD1686E9F054C4CFA829B1E /* exchange_bitbank.json in Resources */,
-				47827E5F1060273B636EDA59 /* exchange_bitexen.json in Resources */,
 				061DE2B7A5E73C825857CDD9 /* exchange_bitfinex.json in Resources */,
 				1AD96B34FE7EC4CAFD055A36 /* exchange_bitflyer.json in Resources */,
 				A53EA6CAB19E9421C8FDEF88 /* exchange_bitget.json in Resources */,
@@ -4027,7 +4019,6 @@
 				72E29DAC1D076C93D4C2CF1A /* BinanceFutures.swift in Sources */,
 				8AB824C75DF1C5BB1D72F0B0 /* BingX.swift in Sources */,
 				93750C9B7D54F91820CBDF2D /* Bitbank.swift in Sources */,
-				7F181D4A5A2622AF82502E16 /* Bitexen.swift in Sources */,
 				D7375203608B160CEBD41F19 /* Bitfinex.swift in Sources */,
 				123A8CCC37E7FC1425FC4692 /* BitFlyer.swift in Sources */,
 				7038AAFF9800EB94FE5A5A8A /* Bitget.swift in Sources */,
@@ -4567,7 +4558,6 @@
 				725BF9CE523F2B06E77E84A7 /* BinanceFutures.swift in Sources */,
 				FD2E153A8941C920E3D59A69 /* BingX.swift in Sources */,
 				F40D4089EBEC902AC31A895E /* Bitbank.swift in Sources */,
-				1214E0CBE65527EA5BAC784C /* Bitexen.swift in Sources */,
 				6F1934585ABB6A31D2CF7453 /* Bitfinex.swift in Sources */,
 				FC733EDDE405F59352B3BC15 /* BitFlyer.swift in Sources */,
 				A881A40CF69B21ECF53D131E /* Bitget.swift in Sources */,
@@ -5213,7 +5203,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = App/CryptoChecker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 84;
+				CURRENT_PROJECT_VERSION = 85;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -5238,7 +5228,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 84;
+				CURRENT_PROJECT_VERSION = 85;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -5258,7 +5248,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 84;
+				CURRENT_PROJECT_VERSION = 85;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -5277,7 +5267,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 84;
+				CURRENT_PROJECT_VERSION = 85;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -5364,7 +5354,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = Widgets/CryptoCheckerWidgets.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 84;
+				CURRENT_PROJECT_VERSION = 85;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -5393,7 +5383,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = Widgets/CryptoCheckerWidgets.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 84;
+				CURRENT_PROJECT_VERSION = 85;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -5419,7 +5409,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 84;
+				CURRENT_PROJECT_VERSION = 85;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -5443,7 +5433,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = App/CryptoChecker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 84;
+				CURRENT_PROJECT_VERSION = 85;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;

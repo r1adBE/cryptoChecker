@@ -56,20 +56,33 @@ final class MercadoBitcoin: SimpleMarket {
 
     // MARK: Paarliste
 
-    /// Spalten «symbol», «base-currency», «currency»; gelistet und handelbar laut «exchange-listed/-traded».
+    /// Spalten «symbol», «base-currency», «currency»; gelistet und handelbar laut «exchange-listed/-traded». Nur
+    /// «type» CRYPTO oder UTILITY_TOKEN: die Börse führt daneben über tausend tokenisierte Forderungen und Anteile
+    /// (DIGITAL_ASSET, DIGITAL_VARIABLE_INCOME), die keine Kryptowährungen sind (Aufzeichnung 19.10.2026).
     override func fillPairList(call: Int, json: JObject) throws -> [MarketPair] {
         let symbols = try json.array("symbol")
         let bases = try json.array("base-currency")
         let quotes = try json.array("currency")
         let listed = json.optArray("exchange-listed")
         let traded = json.optArray("exchange-traded")
+        let types = json.optArray("type")
         var out: [MarketPair] = []
         for i in 0..<symbols.count {
             let id = symbols.optString(i)
-            if id.isEmpty || !MercadoBitcoin.flag(listed, i) || !MercadoBitcoin.flag(traded, i) { continue }
+            if id.isEmpty || !MercadoBitcoin.flag(listed, i) || !MercadoBitcoin.flag(traded, i)
+            || !MercadoBitcoin.isCrypto(types, i) { continue }
             out.append(MarketPair(bases.optString(i).uppercased(), quotes.optString(i).uppercased(), id))
         }
         return out
+    }
+
+    /// Werte der Spalte «type», die als Kryptowährung gelten.
+    private static let cryptoTypes: Set<String> = ["CRYPTO", "UTILITY_TOKEN"]
+
+    /// Art an Stelle `i` ist eine Kryptowährung; fehlende Spalte gilt als ja, leerer Wert als nein.
+    private static func isCrypto(_ column: JArray?, _ i: Int) -> Bool {
+        guard let column else { return true }
+        return cryptoTypes.contains(column.optString(i).uppercased())
     }
 
     // MARK: Lesen

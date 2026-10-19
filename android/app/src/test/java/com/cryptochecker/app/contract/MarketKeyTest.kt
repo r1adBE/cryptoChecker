@@ -59,7 +59,6 @@ class MarketKeyTest {
         BingX() to "BingX",
         BingXFutures() to "BingXFutures",
         Paribu() to "Paribu",
-        Bitexen() to "Bitexen",
         MercadoBitcoin() to "MercadoBitcoin",
         Luno() to "Luno",
         CoinDcx() to "CoinDcx",

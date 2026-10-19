@@ -227,15 +227,11 @@ MARKETS = [
      "bulk": "https://sapi.zebpay.com/api/v2/market/allTickers",
      "pairs": "https://sapi.zebpay.com/api/v2/ex/exchangeInfo"},
     # Build 85: Formate von Hand nach der Doku geschrieben – erste Aufnahme prüft sie (exchange_<name>.json)
-    # Paribu und Bitexen: eine Gesamtliste dient als Einzelkurs, Sammelabfrage und Paarliste
+    # Paribu: eine Gesamtliste dient als Einzelkurs, Sammelabfrage und Paarliste
     {"market": "Paribu", "pair": pair("BTC", "TRY", "BTC_TL"),
      "single": "https://www.paribu.com/ticker",
      "bulk": "https://www.paribu.com/ticker",
      "pairs": "https://www.paribu.com/ticker"},
-    {"market": "Bitexen", "pair": pair("BTC", "TRY", "BTCTRY"),
-     "single": "https://www.bitexen.com/api/v1/ticker/",
-     "bulk": "https://www.bitexen.com/api/v1/ticker/",
-     "pairs": "https://www.bitexen.com/api/v1/ticker/"},
     # Mercado Bitcoin: Sammelabfrage nur mit Auswahl
     {"market": "MercadoBitcoin", "pair": pair("BTC", "BRL", "BTC-BRL"),
      "single": "https://api.mercadobitcoin.net/api/v4/tickers?symbols=BTC-BRL",

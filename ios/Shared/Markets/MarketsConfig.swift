@@ -17,7 +17,7 @@ enum MarketsConfig {
         Bitfinex(), Bitstamp(), Bitvavo(), CryptoCom(), Gemini(), Hyperliquid(), Aster(), BingX(), BingXFutures(),
         Woo(), WooFutures(), Deribit(), Phemex(), PhemexFutures(), Poloniex(), OneTrading(),
         // Regionale Börsen
-        Upbit(), Bithumb(), BitFlyer(), Bitbank(), Coincheck(), Btcturk(), Paribu(), Bitexen(), Bitso(),
+        Upbit(), Bithumb(), BitFlyer(), Bitbank(), Coincheck(), Btcturk(), Paribu(), Bitso(),
         MercadoBitcoin(), Indodax(), ZebPay(), CoinDcx(), HashKey(), IndependentReserve(), BtcMarkets(), Luno(),
         // Kleinere Börsen und DEX-Daten
         Latoken(), NonKyc(), DexScreener(),
