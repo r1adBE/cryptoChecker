@@ -1,12 +1,12 @@
 {
   "exchange": "Lighter",
-  "description": "Built from real responses of 19.10.2026 (rows reduced, values unchanged); hand-edited: the frozen market, the spot row of orderBooks (only its symbol was seen) and the renamed price field. Field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS).",
+  "description": "Built from real responses of 19.10.2026 (rows reduced, values unchanged); hand-edited: the renamed price field. Field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS).",
   "endpoints": {
     "single": "GET https://mainnet.zklighter.elliot.ai/api/v1/exchangeStats (row with symbol = pair id)",
     "bulk": "GET https://mainnet.zklighter.elliot.ai/api/v1/exchangeStats",
-    "pairs": "GET https://mainnet.zklighter.elliot.ai/api/v1/orderBooks"
+    "pairs": "GET https://mainnet.zklighter.elliot.ai/api/v1/orderBooks + GET https://mainnet.zklighter.elliot.ai/api/v1/tokenlist (read together, pairListCombined)"
   },
-  "note": "error payload (non-200 code, rate limit) not captured yet: no case for it",
+  "note": "combined pair list (orderBooks + tokenlist) and names are not a fixture kind: LighterPairListTest.kt / LighterPairListTests.swift; rate-limit response not captured yet",
   "cases": [
     {
       "kind": "single",
@@ -72,6 +72,23 @@
     },
     {
       "kind": "single",
+      "name": "error payload (HTTP 400, seen live 19.10.2026): message is the error text",
+      "market": "Lighter",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDC",
+        "id": "BTC",
+        "contract": "PERPETUAL"
+      },
+      "requestId": 0,
+      "body": "{\"code\":20001,\"message\":\"invalid param \"}",
+      "expect": {
+        "error": true,
+        "message": "invalid param "
+      }
+    },
+    {
+      "kind": "single",
       "name": "last_trade_price 0 (never traded): error instead of a price of 0",
       "market": "Lighter",
       "pair": {
@@ -118,41 +135,6 @@
           "rhQQQ/USDC": {
             "last": 719.22,
             "change24hPercent": 0.3166190110886394
-          }
-        }
-      }
-    },
-    {
-      "kind": "pairs",
-      "name": "orderBooks: only active, not frozen; perp symbol -> SYMBOL/USDC PERPETUAL (TradFi not flagged, no exchange field), spot split at '/'",
-      "market": "Lighter",
-      "requestId": 0,
-      "body": "{\"code\":200,\"order_books\":[{\"symbol\":\"BTC\",\"market_id\":1,\"market_type\":\"perp\",\"base_asset_id\":0,\"quote_asset_id\":0,\"status\":\"active\",\"taker_fee\":\"0.0000\",\"is_taker_fee_enabled\":true,\"maker_fee\":\"0.0000\",\"is_maker_fee_enabled\":true,\"liquidation_fee\":\"1.0000\",\"min_base_amount\":\"0.0550\",\"min_quote_amount\":\"10.000000\",\"order_quote_limit\":\"50000000.000000\",\"supported_size_decimals\":5,\"supported_price_decimals\":1,\"supported_quote_decimals\":6,\"created_at\":\"1787153245304\",\"multiplier\":\"1.000000000000000000\",\"start_timestamp\":0,\"end_timestamp\":0,\"open_interest\":\"92.285554\",\"outcome\":0,\"operator_account_index\":1,\"settlement_cap\":0,\"settlement_type\":0,\"settlement_price\":0,\"default_price\":0,\"is_frozen\":false},{\"symbol\":\"US10Y\",\"market_id\":227,\"market_type\":\"perp\",\"base_asset_id\":0,\"quote_asset_id\":0,\"status\":\"active\",\"taker_fee\":\"0.0000\",\"is_taker_fee_enabled\":true,\"maker_fee\":\"0.0000\",\"is_maker_fee_enabled\":true,\"liquidation_fee\":\"1.0000\",\"min_base_amount\":\"0.0550\",\"min_quote_amount\":\"10.000000\",\"order_quote_limit\":\"50000000.000000\",\"supported_size_decimals\":4,\"supported_price_decimals\":2,\"supported_quote_decimals\":6,\"created_at\":\"1787153245304\",\"multiplier\":\"1.000000000000000000\",\"start_timestamp\":0,\"end_timestamp\":0,\"open_interest\":\"92.285554\",\"outcome\":0,\"operator_account_index\":1,\"settlement_cap\":0,\"settlement_type\":0,\"settlement_price\":0,\"default_price\":0,\"is_frozen\":false},{\"symbol\":\"FOGO\",\"market_id\":124,\"market_type\":\"perp\",\"base_asset_id\":0,\"quote_asset_id\":0,\"status\":\"inactive\",\"taker_fee\":\"0.0000\",\"is_taker_fee_enabled\":true,\"maker_fee\":\"0.0000\",\"is_maker_fee_enabled\":true,\"liquidation_fee\":\"1.0000\",\"min_base_amount\":\"0.0550\",\"min_quote_amount\":\"10.000000\",\"order_quote_limit\":\"50000000.000000\",\"supported_size_decimals\":0,\"supported_price_decimals\":6,\"supported_quote_decimals\":6,\"created_at\":\"1787153245304\",\"multiplier\":\"1.000000000000000000\",\"start_timestamp\":0,\"end_timestamp\":0,\"open_interest\":\"92.285554\",\"outcome\":0,\"operator_account_index\":1,\"settlement_cap\":0,\"settlement_type\":0,\"settlement_price\":0,\"default_price\":0,\"is_frozen\":false},{\"symbol\":\"MRNA\",\"market_id\":228,\"market_type\":\"perp\",\"base_asset_id\":0,\"quote_asset_id\":0,\"status\":\"active\",\"taker_fee\":\"0.0000\",\"is_taker_fee_enabled\":true,\"maker_fee\":\"0.0000\",\"is_maker_fee_enabled\":true,\"liquidation_fee\":\"1.0000\",\"min_base_amount\":\"0.0550\",\"min_quote_amount\":\"10.000000\",\"order_quote_limit\":\"50000000.000000\",\"supported_size_decimals\":4,\"supported_price_decimals\":2,\"supported_quote_decimals\":6,\"created_at\":\"1787153245304\",\"multiplier\":\"1.000000000000000000\",\"start_timestamp\":0,\"end_timestamp\":0,\"open_interest\":\"92.285554\",\"outcome\":0,\"operator_account_index\":1,\"settlement_cap\":0,\"settlement_type\":0,\"settlement_price\":0,\"default_price\":0,\"is_frozen\":true},{\"symbol\":\"rhQQQ/USDC\",\"market_id\":2049,\"market_type\":\"spot\",\"base_asset_id\":0,\"quote_asset_id\":0,\"status\":\"active\",\"taker_fee\":\"0.0000\",\"is_taker_fee_enabled\":true,\"maker_fee\":\"0.0000\",\"is_maker_fee_enabled\":true,\"liquidation_fee\":\"1.0000\",\"min_base_amount\":\"0.0550\",\"min_quote_amount\":\"10.000000\",\"order_quote_limit\":\"50000000.000000\",\"supported_size_decimals\":4,\"supported_price_decimals\":2,\"supported_quote_decimals\":6,\"created_at\":\"1787153245304\",\"multiplier\":\"1.000000000000000000\",\"start_timestamp\":0,\"end_timestamp\":0,\"open_interest\":\"92.285554\",\"outcome\":0,\"operator_account_index\":1,\"settlement_cap\":0,\"settlement_type\":0,\"settlement_price\":0,\"default_price\":0,\"is_frozen\":false},{\"symbol\":\"SKHYNIX\",\"market_id\":143,\"market_type\":\"perp\",\"base_asset_id\":0,\"quote_asset_id\":0,\"status\":\"inactive\",\"taker_fee\":\"0.0000\",\"is_taker_fee_enabled\":true,\"maker_fee\":\"0.0000\",\"is_maker_fee_enabled\":true,\"liquidation_fee\":\"1.0000\",\"min_base_amount\":\"0.0550\",\"min_quote_amount\":\"10.000000\",\"order_quote_limit\":\"50000000.000000\",\"supported_size_decimals\":6,\"supported_price_decimals\":0,\"supported_quote_decimals\":6,\"created_at\":\"1787153245304\",\"multiplier\":\"1.000000000000000000\",\"start_timestamp\":0,\"end_timestamp\":0,\"open_interest\":\"92.285554\",\"outcome\":0,\"operator_account_index\":1,\"settlement_cap\":0,\"settlement_type\":0,\"settlement_price\":0,\"default_price\":0,\"is_frozen\":false}]}",
-      "expect": {
-        "count": 3,
-        "absent": [
-          "FOGO",
-          "MRNA",
-          "SKHYNIX"
-        ],
-        "pairs": {
-          "BTC": {
-            "base": "BTC",
-            "quote": "USDC",
-            "contract": "PERPETUAL",
-            "tradFi": false
-          },
-          "US10Y": {
-            "base": "US10Y",
-            "quote": "USDC",
-            "contract": "PERPETUAL",
-            "tradFi": false
-          },
-          "rhQQQ/USDC": {
-            "base": "rhQQQ",
-            "quote": "USDC",
-            "contract": "NONE",
-            "tradFi": false
           }
         }
       }

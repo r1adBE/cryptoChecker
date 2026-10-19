@@ -48,4 +48,8 @@ enum TradFi {
 
     /// Phemex Futures (`/public/products`, `perpProductsV2`): `perpProductSubType` lautet «TradFi».
     static func phemex(perpProductSubType: String) -> Bool { same(perpProductSubType, "TradFi") }
+
+    /// Lighter (`/api/v1/tokenlist`): `asset_type` «RWA» (Aktien, ETFs, Rohstoffe, Devisen, Pre-IPO, Rechenleistung)
+    /// statt «CRYPTO».
+    static func lighter(assetType: String) -> Bool { same(assetType, "RWA") }
 }

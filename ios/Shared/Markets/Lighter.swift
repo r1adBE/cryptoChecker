@@ -12,7 +12,7 @@ private let lighterPerpQuote = "USDC"
 private let lighterOK = 200
 
 /// Lighter — dezentrale Perpetual-Börse (zk-Rollup) mit USDC-Abrechnung, dazu einige Spot-Märkte; öffentliche
-/// Schnittstelle ohne Schlüssel. Paare aus `orderBooks`, Kurse aus `exchangeStats`
+/// Schnittstelle ohne Schlüssel. Paare aus `orderBooks` + `tokenlist`, Kurse aus `exchangeStats`
 /// ({code, total, order_book_stats: [{symbol, last_trade_price, daily_…}]}).
 ///
 /// Paar-Kennung = `symbol` («BTC» für den Perp, «rhQQQ/USDC» für Spot), nicht `market_id`: Die Sammelabfrage
@@ -23,8 +23,8 @@ private let lighterOK = 200
 /// zusätzlich Hoch/Tief, bräuchte aber die market_id.
 ///
 /// Kurs = letzter Handel (`last_trade_price`), kein Mark- oder Mittelkurs. Keine Zeit der Börse (Momentaufnahme),
-/// Frische ab Abruf. TradFi-Perps (SPY, NATGAS, US10Y …) bleiben unmarkiert wie bei Hyperliquid: `orderBooks` hat
-/// kein Feld, das sie von Krypto unterscheidet, und eine Liste von Hand veraltete bei jeder Neuzulassung.
+/// Frische ab Abruf. TradFi (SPY, NATGAS, US10Y …) erkennt erst `tokenlist` (`asset_type` «RWA»), darum liest die
+/// Paarliste zwei Antworten gemeinsam; `tokenlist` liefert auch die vollen Namen.
 final class Lighter: Market {
     init() {
         super.init(key: "Lighter", name: "Lighter", ttsName: "Lighter")
@@ -77,21 +77,48 @@ final class Lighter: Market {
         return tickers
     }
 
-    // MARK: Paarliste
+    // MARK: Paarliste: Märkte aus `orderBooks`, Art des Basiswerts aus `tokenlist`
 
-    override func pairListAddress(call: Int) -> String? { lighterAPI + "/orderBooks" }
+    override var pairListCallCount: Int { 2 }
+
+    /// Erst beide Antworten, dann gemeinsam lesen: `orderBooks` sagt, was handelbar ist, `tokenlist`, was TradFi ist.
+    override var pairListCombined: Bool { true }
+
+    override func pairListAddress(call: Int) -> String? {
+        call == 0 ? lighterAPI + "/orderBooks" : lighterAPI + "/tokenlist"
+    }
 
     /// Nur aktive, nicht eingefrorene Märkte. Perp «BTC» → BTC/USDC (PERPETUAL), Spot «rhQQQ/USDC» → rhQQQ/USDC;
     /// Symbole bleiben, wie Lighter sie schreibt (wie Hyperliquid «kPEPE»). Andere Marktarten werden übergangen.
-    override func fillPairList(call: Int, json: JObject) throws -> [MarketPair] {
+    /// TradFi = `asset_type` «RWA» in `tokenlist` (gleiches Symbol, Spot mit «/USDC»). Fehlt das Symbol dort oder ist
+    /// `tokenlist` unlesbar, bleibt das Paar unmarkiert wie bei Börsen ohne solches Feld: Die Liste kommt trotzdem
+    /// aus `orderBooks`, und eine fehlende Angabe soll keinen Krypto-Coin unter TradFi verstecken.
+    override func fillPairListCombined(bodies: [String]) throws -> [MarketPair] {
+        let assetTypes = Lighter.assetTypes(bodies.count > 1 ? bodies[1] : "")
         var out: [MarketPair] = []
-        for book in try json.array("order_books").optObjects() {
+        for book in try JObject(string: bodies[0]).array("order_books").optObjects() {
             guard book.optString("status") == "active", !book.optBool("is_frozen") else { continue }
-            if let pair = Lighter.readPair(book.optString("symbol"), book.optString("market_type")) {
+            let symbol = book.optString("symbol")
+            let tradFi = TradFi.lighter(assetType: assetTypes[symbol] ?? "")
+            if let pair = Lighter.readPair(symbol, book.optString("market_type"), tradFi: tradFi) {
                 out.append(pair)
             }
         }
         return out
+    }
+
+    // MARK: Namen
+
+    /// Voller Name je Basis aus `tokenlist` («COIN» → «Coinbase», «META» → «Meta»), damit Aktien und Rohstoffe nicht
+    /// als gleichnamiger Token gelten. Spot «ETH/USDC» zählt für die Basis «ETH»; der erste Eintrag gewinnt.
+    override func parseBaseNamesCombined(bodies: [String]) throws -> [String: String] {
+        var names: [String: String] = [:]
+        for token in try JObject(string: bodies[1]).array("tokens").optObjects() {
+            let base = String(token.optString("symbol").prefix { $0 != "/" })
+            let name = token.optString("name").trimmingCharacters(in: .whitespacesAndNewlines)
+            if !base.isEmpty, !name.isEmpty, names[base] == nil { names[base] = name }
+        }
+        return names
     }
 
     // MARK: Lesen
@@ -104,16 +131,25 @@ final class Lighter: Market {
         ticker.change24hPercent = Change24h.percent(row.optDouble("daily_price_change"))
     }
 
+    /// `asset_type` je Symbol aus `tokenlist`; leer, wenn die Antwort fehlt oder unlesbar ist.
+    private static func assetTypes(_ body: String) -> [String: String] {
+        guard let tokens = try? JObject(string: body).array("tokens").optObjects() else { return [:] }
+        var types: [String: String] = [:]
+        for token in tokens { types[token.optString("symbol")] = token.optString("asset_type") }
+        return types
+    }
+
     /// Paar aus Symbol und Marktart; nil für leere oder unpassende Symbole und unbekannte Marktarten.
-    private static func readPair(_ symbol: String, _ type: String) -> MarketPair? {
+    private static func readPair(_ symbol: String, _ type: String, tradFi: Bool) -> MarketPair? {
         if symbol.isEmpty { return nil }
         switch type {
         case "perp":
-            return symbol.contains("/") ? nil : MarketPair(symbol, lighterPerpQuote, symbol, .perpetual)
+            return symbol.contains("/") ? nil : MarketPair(symbol, lighterPerpQuote, symbol, .perpetual, tradFi: tradFi)
         case "spot":
             guard let slash = symbol.firstIndex(of: "/"), slash != symbol.startIndex,
                   symbol.index(after: slash) != symbol.endIndex else { return nil }
-            return MarketPair(String(symbol[..<slash]), String(symbol[symbol.index(after: slash)...]), symbol)
+            return MarketPair(String(symbol[..<slash]), String(symbol[symbol.index(after: slash)...]), symbol,
+                              tradFi: tradFi)
         default:
             return nil
         }

@@ -166,11 +166,11 @@ MARKETS = [
      "single": "https://fapi.asterdex.com/fapi/v1/ticker/24hr?symbol=BTCUSDT",
      "bulk": "https://fapi.asterdex.com/fapi/v1/ticker/24hr",
      "pairs": "https://fapi.asterdex.com/fapi/v1/exchangeInfo"},
-    # Lighter: Einzel- und Sammelkurs aus exchangeStats (Paar-ID = Symbol)
+    # Lighter: Einzel- und Sammelkurs aus exchangeStats (Paar-ID = Symbol); Paarliste kombiniert (orderBooks +
+    # tokenlist), daher ohne «pairs» wie LATOKEN
     {"market": "Lighter", "pair": pair("BTC", "USDC", "BTC", "PERPETUAL"),
      "single": "https://mainnet.zklighter.elliot.ai/api/v1/exchangeStats",
-     "bulk": "https://mainnet.zklighter.elliot.ai/api/v1/exchangeStats",
-     "pairs": "https://mainnet.zklighter.elliot.ai/api/v1/orderBooks"},
+     "bulk": "https://mainnet.zklighter.elliot.ai/api/v1/exchangeStats"},
     {"market": "Woo", "pair": pair(*BTC_USDT, "SPOT_BTC_USDT"),
      "single": "https://api.woox.io/v3/public/kline?symbol=SPOT_BTC_USDT&type=1h&limit=25",
      "pairs": "https://api.woox.io/v3/public/instruments"},
