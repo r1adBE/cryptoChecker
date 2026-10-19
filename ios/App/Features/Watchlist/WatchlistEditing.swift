@@ -74,6 +74,14 @@ extension WatchlistScreen {
         data.reorder(list.map(\.id))
     }
 
+    /// «Nach Coin/Börse ordnen» im Sortiermodus (`AutoOrder`): die gezeigten Paare einmal ordnen und wie nach dem
+    /// Ziehen als eigene Reihenfolge speichern — wie `ReorderState.autoOrder` (Android).
+    func autoOrder(_ order: AutoOrder, _ shown: [Watch]) {
+        let sorted = order.apply(shown, favorite: { $0.favorite }, name: { $0.displayName }, exchange: { $0.marketName })
+        guard sorted.map(\.id) != shown.map(\.id) else { return }
+        withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { commitOrder(sorted) }
+    }
+
     func toggleFavorite(_ watch: Watch) {
         WatchlistHaptics.impact()
         withAnimation(.spring(duration: 0.4)) { data.toggleFavorite(watch) }

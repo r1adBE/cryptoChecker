@@ -18,6 +18,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.watch.AutoOrder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -95,6 +96,19 @@ internal class ReorderState(
                 offset += consumed
             }
         }
+    }
+
+    /**
+     * «Nach Coin/Börse ordnen» ([AutoOrder]): die gezeigten Paare einmal ordnen und wie nach dem
+     * Ablegen speichern — lokal gehalten, bis die Datenbank bestätigt (kein kurzes Zurückspringen).
+     */
+    fun autoOrder(order: AutoOrder) {
+        if (draggingId != null) return
+        val current = items ?: source
+        val sorted = order.apply(current, { it.favorite }, { it.displayName }, { it.marketName })
+        if (sorted.map { it.id } == current.map { it.id }) return
+        items = sorted
+        onDrop(sorted.map { it.id })
     }
 
     fun end() {

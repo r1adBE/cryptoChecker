@@ -208,6 +208,8 @@ internal fun WatchlistBody(
                         { WatchlistSortBar(sort = columnSort, onTap = viewModel::tapColumn) }
                     } else null,
                     sortMode = ui.sortMode,
+                    // Gilt für die gezeigten Paare wie das Ziehen (gewählte Gruppe; ⚡/Suche sind im Sortiermodus aus)
+                    onAutoOrder = if (ui.sortMode && visible.size > 1) reorder::autoOrder else null,
                     showGestureHint = display.showGestureHint && onboarding.gestureHint,
                     onDismissGestureHint = viewModel::dismissGestureHint,
                     // Kein Alarm, aber Paare: bleibende Karte zusätzlich zum 6-s-Banner nach dem Hinzufügen

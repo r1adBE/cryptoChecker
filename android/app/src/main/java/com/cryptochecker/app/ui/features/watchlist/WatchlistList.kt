@@ -7,6 +7,8 @@ package com.cryptochecker.app.ui.features.watchlist
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import com.cryptochecker.app.ui.components.ListSegment
 import androidx.compose.ui.graphics.Shape
@@ -42,6 +44,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.platform.testTag
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.watch.AutoOrder
 import com.cryptochecker.app.domain.watch.WatchPulse
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.UiTestTags
@@ -54,6 +57,23 @@ private fun HintText(text: String, highlight: Boolean = false) {
         color = if (highlight) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
         modifier = Modifier.padding(horizontal = 4.dp, vertical = 2.dp)
     )
+}
+
+/**
+ * «Nach Coin ordnen» · «Nach Börse ordnen» im Sortiermodus: ordnet die gezeigten Paare einmal und speichert
+ * sie als eigene Reihenfolge ([ReorderState.autoOrder]). Bricht bei langen Übersetzungen in die nächste Zeile um.
+ */
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+private fun AutoOrderButtons(onAutoOrder: (AutoOrder) -> Unit) {
+    FlowRow(horizontalArrangement = Arrangement.spacedBy(Spacing.sm)) {
+        TextButton(onClick = { onAutoOrder(AutoOrder.COIN) }) {
+            Text(stringResource(R.string.watchlist_sort_by_coin), style = MaterialTheme.typography.labelLarge)
+        }
+        TextButton(onClick = { onAutoOrder(AutoOrder.EXCHANGE) }) {
+            Text(stringResource(R.string.watchlist_sort_by_exchange), style = MaterialTheme.typography.labelLarge)
+        }
+    }
 }
 
 /**
@@ -160,6 +180,8 @@ internal fun WatchlistList(
     /** Sortieren nach Spalte («Name ⇅ · Kurs ⇅ · 24h ⇅»); null = keine Zeile (Sortiermodus, < 2 Paare). */
     sortBar: (@Composable () -> Unit)? = null,
     sortMode: Boolean,
+    /** Sortiermodus: «Nach Coin/Börse ordnen» unter dem Hinweis; null = keine Knöpfe (< 2 Paare). */
+    onAutoOrder: ((AutoOrder) -> Unit)? = null,
     showGestureHint: Boolean,
     onDismissGestureHint: () -> Unit,
     /** Karte «Ersten Alarm setzen»: Tipp öffnet den Alarm-Editor; null = keine Karte. */
@@ -210,8 +232,9 @@ internal fun WatchlistList(
         }
         if (sortMode) {
             item(key = "sort_hint") {
-                Box(Modifier.padding(bottom = ListSegment.Spacing)) {
+                Column(Modifier.padding(bottom = ListSegment.Spacing)) {
                     HintText(stringResource(R.string.watchlist_sort_hint), highlight = true)
+                    if (onAutoOrder != null) AutoOrderButtons(onAutoOrder)
                 }
             }
         } else if (showGestureHint) {

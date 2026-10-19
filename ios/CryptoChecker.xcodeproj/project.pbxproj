@@ -998,6 +998,7 @@
 		C0703A7C1420D04B32C0E0DD /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = E24A04CE562DA1913CDF1B50 /* Localizable.xcstrings */; };
 		C07D17DDBEBBE8B44AA7377C /* cc_chime.wav in Resources */ = {isa = PBXBuildFile; fileRef = F44B0FDCF3AAC6154BB1191B /* cc_chime.wav */; };
 		C0C80CCDB7FE308C38F373B6 /* WatchedAddressRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA05E68131215C83BAC2B41B /* WatchedAddressRules.swift */; };
+		C148CE97BCE4D6C620802379 /* AutoOrderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7749B661175AD9F3AF1086FB /* AutoOrderTests.swift */; };
 		C161AE4A506EB2C8EF6EBDFA /* Coincheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDD87E0B75E3B79CF2B2D76 /* Coincheck.swift */; };
 		C19072004AAEDDF139020E01 /* ProtectedFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A7838D78CE23B29D3602DF /* ProtectedFile.swift */; };
 		C19EB335605584628D221403 /* stable_exclusion.json in Resources */ = {isa = PBXBuildFile; fileRef = 466394933C96FBF097A63646 /* stable_exclusion.json */; };
@@ -1141,6 +1142,7 @@
 		DA28D43A308DB469E69AA776 /* MarkFallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE9933A31ECDB415E69DC51 /* MarkFallback.swift */; };
 		DA339CBE51299FF47A92C06D /* PortfolioStatusPill.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90131BD27A41C2E615126B7 /* PortfolioStatusPill.swift */; };
 		DA4369DDCDB7C3C212F99558 /* ConnectionErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871B606EC0AB15BF819D5EF0 /* ConnectionErrors.swift */; };
+		DA6A4339C527C05D1E1E40BA /* AutoOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D723C1C3A68637DB156D42 /* AutoOrder.swift */; };
 		DAFB74A3189473149CD68E3B /* WidgetSparkline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38889AA2499C5DC8F7428E80 /* WidgetSparkline.swift */; };
 		DB7F5807872E8DC73268A0B1 /* ChangeBasis.swift in Sources */ = {isa = PBXBuildFile; fileRef = D639205D8E7D9DD8FA04024F /* ChangeBasis.swift */; };
 		DBBA417695F76BDC6334D2B4 /* PriceActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CCFDD6D7C2350777FF6DB6 /* PriceActivity.swift */; };
@@ -1798,6 +1800,7 @@
 		76D23318D386D034E721581F /* ExchangeCandleSourcesMore2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeCandleSourcesMore2.swift; sourceTree = "<group>"; };
 		76D9CFE954A3B70EAEAB5FF1 /* recorded_bitfinex.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = recorded_bitfinex.json; sourceTree = "<group>"; };
 		76E9AFBB614BD5D14349D289 /* AlarmLogParityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmLogParityTests.swift; sourceTree = "<group>"; };
+		7749B661175AD9F3AF1086FB /* AutoOrderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoOrderTests.swift; sourceTree = "<group>"; };
 		77F475CD4A949350D78EB2C6 /* WidgetLogos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetLogos.swift; sourceTree = "<group>"; };
 		78644F7A3828F92C06C2AA71 /* PortfolioExportSheet+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PortfolioExportSheet+Actions.swift"; sourceTree = "<group>"; };
 		78B81EFDAB41ACD0A4E796D9 /* CoinLogosTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinLogosTests.swift; sourceTree = "<group>"; };
@@ -2235,6 +2238,7 @@
 		E778DA00016517B0197DD1F6 /* RefreshEffectsWiringTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshEffectsWiringTests.swift; sourceTree = "<group>"; };
 		E7986009CD77EBC8B7DF141B /* A11ySpeechTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = A11ySpeechTests.swift; sourceTree = "<group>"; };
 		E7D1CAFD3B624E93767C9B01 /* TickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerView.swift; sourceTree = "<group>"; };
+		E7D723C1C3A68637DB156D42 /* AutoOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoOrder.swift; sourceTree = "<group>"; };
 		E826CD6D747124E83392CD0F /* WidgetRefreshStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetRefreshStateTests.swift; sourceTree = "<group>"; };
 		E878DEF9ECB004C11504C20E /* WatchlistSparkline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistSparkline.swift; sourceTree = "<group>"; };
 		E88FEF18DEB5A132492F99FD /* AddressBalanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBalanceTests.swift; sourceTree = "<group>"; };
@@ -3026,6 +3030,7 @@
 			isa = PBXGroup;
 			children = (
 				8D59FEE3D8D6B287780505FE /* AlarmBellRoute.swift */,
+				E7D723C1C3A68637DB156D42 /* AutoOrder.swift */,
 				49D8B5BE3E22C3CACEB0F080 /* ColumnSort.swift */,
 				038458BEC5108C37B49CF144 /* FirstAlarmCard.swift */,
 				A6C17BBF40DE3B3D75626F18 /* QuickView.swift */,
@@ -3327,6 +3332,7 @@
 				A8AC8D7875DD6C23F6EFC8AC /* AlarmTemplatesTests.swift */,
 				4A3F618A016671BF121B01E6 /* Argon2idTests.swift */,
 				F4B0329669E28ACFCDFBBA8C /* Argon2RandomTests.swift */,
+				7749B661175AD9F3AF1086FB /* AutoOrderTests.swift */,
 				2D43AD0421C77F0BB9E3B270 /* BackupAlarmsParityTests.swift */,
 				FB6AE82B17AFE77B80B4FD01 /* BackupCryptoParityTests.swift */,
 				7136C7B770E5247742DBAF51 /* BackupCryptoTests.swift */,
@@ -4363,6 +4369,7 @@
 				B057F7927946FA1EAB070291 /* AlarmTemplatesTests.swift in Sources */,
 				BA799E9EDE48BAB460830057 /* Argon2idTests.swift in Sources */,
 				40C0F475D856B58824DD4205 /* Argon2RandomTests.swift in Sources */,
+				C148CE97BCE4D6C620802379 /* AutoOrderTests.swift in Sources */,
 				44E654AD2D3FF9E68F53D33D /* BackupAlarmsParityTests.swift in Sources */,
 				C6CA96DA3F943247213430F6 /* BackupCryptoParityTests.swift in Sources */,
 				B89E05B8DE726336B5540D08 /* BackupCryptoTests.swift in Sources */,
@@ -5022,6 +5029,7 @@
 				66DAB345D1E4A1047FB712C4 /* SettingsSubPages.swift in Sources */,
 				4F3F20807A64697B24485374 /* SettingsUpdateChecks.swift in Sources */,
 				7108552A367997104F43C34D /* AlarmBellRoute.swift in Sources */,
+				DA6A4339C527C05D1E1E40BA /* AutoOrder.swift in Sources */,
 				9C4E91E937BA9B538DA4E5D8 /* ColumnSort.swift in Sources */,
 				D9AED0DB6267F7F3D9DFEEEF /* FirstAlarmCard.swift in Sources */,
 				694CFBEA19E9F9A36EB8A781 /* QuickView.swift in Sources */,

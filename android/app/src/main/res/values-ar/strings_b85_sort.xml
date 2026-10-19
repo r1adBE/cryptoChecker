@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watchlist_sort_by_coin">ترتيب حسب العملة</string>
+    <string name="watchlist_sort_by_exchange">ترتيب حسب المنصة</string>
+</resources>

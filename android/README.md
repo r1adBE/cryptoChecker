@@ -742,6 +742,8 @@ und DEX-Pools nie über die Kette). Ohne Kerzen
 zeigt sie grau «—» (`domain/watch/DayChange.kt`). Tippen öffnet die Aktionen (Alarm, Warum?,
 Favorit oben), wischen: links löschen, rechts Favorit; sortieren über ⋯ › Sortieren (ziehen am
 Griff oder lange drücken, nur im Sortiermodus).
+Im Sortiermodus ordnen «Nach Coin ordnen» bzw. «Nach Börse ordnen» die gezeigten Paare einmal (Favoriten
+oben) und speichern das als eigene Reihenfolge (`domain/watch/AutoOrder.kt`, iOS `AutoOrder.swift`).
 
 **Benachrichtigungen** — je Paar wahlweise eine lautlose Kurs-Benachrichtigung mit Kurs,
 Veränderung in Prozent und Uhrzeit (neue Paare ab Build 42 ohne; einschalten im Paar-Menü).
