@@ -18,6 +18,9 @@ private const val BITBANK_TICKERS = "$BITBANK_API/tickers"
 /** Fehlercode «zu viele Anfragen» — bitbank schickt nur Codes, keinen Text. */
 private const val BITBANK_TOO_MANY_REQUESTS = 10009
 
+/** bitbank führt Bitcoin Cash als «bcc»; angezeigt und verglichen wird das übliche Kürzel (wie Luno XBT → BTC). */
+private val BITBANK_COMMON = mapOf("BCC" to "BCH")
+
 /**
  * bitbank (Japan, JPY-Paare), öffentliche API: https://github.com/bitbankinc/bitbank-api-docs. Kennung «btc_jpy».
  * Jede Antwort steckt in {"success":1,"data":…}; Fehler sind {"success":0,"data":{"code":…}} ohne Text.
@@ -32,7 +35,8 @@ class Bitbank : SimpleMarket(
 
     // ── Einzelkurs ──
 
-    override fun pairId(info: PairQuery): String = info.pairId ?: (info.baseLower + "_" + info.quoteLower)
+    override fun pairId(info: PairQuery): String =
+        info.pairId ?: (bitbankCode(info.base) + "_" + bitbankCode(info.quote))
 
     override fun fillTickerJson(call: Int, json: JSONObject, ticker: Ticker, info: PairQuery) {
         copyRow(json.getJSONObject("data"), ticker)
@@ -78,7 +82,7 @@ class Bitbank : SimpleMarket(
         json.getJSONArray("data").forEachJSONObject { row ->
             val pair = row.optText("pair")
             val sides = pair.split('_')
-            if (sides.size == 2) out += MarketPair(sides[0].uppercase(), sides[1].uppercase(), pair)
+            if (sides.size == 2) out += MarketPair(common(sides[0]), common(sides[1]), pair)
         }
     }
 
@@ -99,4 +103,10 @@ class Bitbank : SimpleMarket(
         // «open» laut Doku: Eröffnung vor 24 Stunden (gleitend)
         ticker.change24hPercent = Change24h.fromOpen(last, row.optDouble("open"))
     }
+
+    private fun common(code: String): String = code.uppercase().let { BITBANK_COMMON[it] ?: it }
+
+    /** Umkehrung von [common] für die Kennung ohne gespeicherte Paar-ID («bcc_jpy»), klein geschrieben. */
+    private fun bitbankCode(code: String): String =
+        (BITBANK_COMMON.entries.firstOrNull { it.value == code.uppercase() }?.key ?: code).lowercase()
 }

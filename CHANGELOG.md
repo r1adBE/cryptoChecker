@@ -22,6 +22,10 @@ Detailed build history below.
   Asia), CoinDCX (India), Paribu and ICRYPEX (Türkiye), BingX (spot and futures) and the perp DEXs Aster and Lighter.
   Each adapter was checked against recorded live responses; Android and iPhone read them identically.
 * The daily exchange check covers the new exchanges.
+* First alarm dialog is titled «Alert saved» instead of «All set»: whether alerts actually arrive is what the
+  checklist below it answers.
+* Stocks, ETFs and commodities on Aster, BingX Futures and Lighter (incl. Robinhood stock tokens) are marked as TradFi
+  with their real ticker (e.g. AAPL, not NCSKAAPL2USD); bitbank's «BCC» is shown as BCH.
 * Watchlist sort mode: «Sort by coin» and «Sort by exchange» order the shown pairs once (favorites stay on top) and
   save the result as your own order – same coins from different exchanges end up next to each other; drag as before.
 

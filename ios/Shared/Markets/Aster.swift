@@ -45,7 +45,7 @@ final class Aster: SimpleMarket {
     // MARK: Paarliste
 
     /// Nur handelbare Perpetuals; fehlen «contractType» oder «status», gilt der Eintrag als handelbares Perpetual
-    /// (Aster führt nur solche).
+    /// (Aster führt nur solche). Aktien, ETFs und Rohstoffe erkennt `TradFi.aster` an `underlyingSubType`.
     override func fillPairList(call: Int, json: JObject) throws -> [MarketPair] {
         var out: [MarketPair] = []
         for entry in try json.array("symbols").allObjects() {
@@ -58,7 +58,9 @@ final class Aster: SimpleMarket {
                 try entry.string("baseAsset"),
                 try entry.string("quoteAsset"),
                 try entry.string("symbol"),
-                .perpetual
+                .perpetual,
+                // Immer gesetzt (auch false), wie bei Binance Futures
+                tradFi: TradFi.aster(subTypes: entry.optStrings("underlyingSubType"))
             ))
         }
         return out

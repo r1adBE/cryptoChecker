@@ -4,7 +4,7 @@
 Börse, Marktüberblick und «Was bewegt sich mit?» – ohne Prognosen, keine
 Anlageberatung.
 
-Native SwiftUI-Version der Android-App Crypto Checker (Version 16.2.2, Build 75 – die Build-Nummer steigt mit jedem Stand um eins).
+Native SwiftUI-Version der Android-App Crypto Checker (Version 16.2.2, Build 85 – die Build-Nummer steigt mit jedem Stand um eins).
 Mindestens iOS 17. Die App enthält eine Widget-Erweiterung (WidgetKit).
 
 Der Quellcode ist öffentlich (MIT): <https://github.com/r1adBE/cryptoChecker>, Ordner `ios/`
@@ -488,7 +488,7 @@ Frühere Runden:
 - **Chart im Aktionsblatt**: unter Alarm · Warum? · Favorit, 24h · 7T · 30T und Kerzen/Linie (zuletzt gewählt), gezeichnet wie das Einzel-Widget (`Shared/Insights/PriceChart.swift`), kurz drücken und ziehen zeigt Kurs, Zeit und Veränderung; DEX-Paare ohne Chart (`App/Features/Watchlist/WatchSheetChartView.swift`).
   Favoriten: mit Coin-Logos ein kleiner Stern am Logo (kein eigener Stern-Knopf, kein Akzent-Rand mehr; ausgewählte Zeilen getönt). Im Merklisten-Widget trennt eine dünne neutrale Linie die Paare
   (nicht unter dem letzten; `Widgets/WatchlistWidget.swift`).
-- **Alarm testen** und «Alles eingerichtet» nach dem ersten Alarm, **Zyklus-Signale** statt
+- **Alarm testen** und «Alarm gespeichert» nach dem ersten Alarm, **Zyklus-Signale** statt
   Top-/Bottom-Score, «Was die App kann» mit drei Fragen (Was passiert? · Wann reagieren? · Warum?)
   unter Einstellungen › Über die App, Beispiel im leeren Portfolio.
 - **Einzel-Widget mit Kerzen**: Chart-Art pro Widget (Kerzen oder Linie), Preise Tief/Mitte/Hoch,

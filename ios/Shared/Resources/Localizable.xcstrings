@@ -33717,187 +33717,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "كل شيء جاهز"
+            "value" : "تم حفظ التنبيه"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vše nastaveno"
+            "value" : "Upozornění uloženo"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alt er klar"
+            "value" : "Alarm gemt"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alles eingerichtet"
+            "value" : "Alarm gespeichert"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Όλα έτοιμα"
+            "value" : "Η ειδοποίηση αποθηκεύτηκε"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "All set"
+            "value" : "Alert saved"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Todo listo"
+            "value" : "Alerta guardada"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "همه چیز آماده است"
+            "value" : "هشدار ذخیره شد"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kaikki valmista"
+            "value" : "Hälytys tallennettu"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tout est prêt"
+            "value" : "Alerte enregistrée"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "הכול מוכן"
+            "value" : "ההתראה נשמרה"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "सब तैयार"
+            "value" : "अलर्ट सहेजा गया"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Minden kész"
+            "value" : "Riasztás mentve"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Semua siap"
+            "value" : "Peringatan disimpan"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tutto pronto"
+            "value" : "Avviso salvato"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "設定完了"
+            "value" : "アラートを保存しました"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "설정 완료"
+            "value" : "알림이 저장되었습니다"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alt er klart"
+            "value" : "Varsel lagret"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alles ingesteld"
+            "value" : "Alarm opgeslagen"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wszystko gotowe"
+            "value" : "Alert zapisany"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tudo pronto"
+            "value" : "Alerta guardado"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tudo pronto"
+            "value" : "Alerta salvo"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Totul e pregătit"
+            "value" : "Alertă salvată"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Всё готово"
+            "value" : "Оповещение сохранено"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gjithçka gati"
+            "value" : "Alarmi u ruajt"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Allt klart"
+            "value" : "Larm sparat"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "พร้อมแล้ว"
+            "value" : "บันทึกการแจ้งเตือนแล้ว"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Her şey hazır"
+            "value" : "Alarm kaydedildi"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Усе готово"
+            "value" : "Сповіщення збережено"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Đã thiết lập xong"
+            "value" : "Đã lưu cảnh báo"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "一切就绪"
+            "value" : "提醒已保存"
           }
         }
       }

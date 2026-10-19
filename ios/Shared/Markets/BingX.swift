@@ -84,6 +84,8 @@ class BingXBase: Market {
 
     /// Spot: {"data": {"symbols": [{symbol, status}]}} — Basis und Kotierung nur im Symbol. Swap: {"data":
     /// [{symbol, asset, currency, status}]}. Nur «status» 1 (online); offline, Voreröffnung und ausgesetzte nicht.
+    /// Swap-TradFi (`TradFi.bingx`): `asset` ist eine interne Kennung («NCSKAAPL2USD»), die Basis kommt aus
+    /// `displayName`; Krypto behält `asset` (`displayName` weicht dort ab, etwa NEIROCTO → «NEIRO»).
     override func fillPairList(call: Int, json: JObject) throws -> [MarketPair] {
         let entries = try perpetuals ? json.array("data") : json.object("data").array("symbols")
         var out: [MarketPair] = []
@@ -91,7 +93,11 @@ class BingXBase: Market {
             guard entry.optInt("status", -1) == bingxOnline else { continue }
             let symbol = try entry.string("symbol")
             if perpetuals {
-                out.append(MarketPair(try entry.string("asset"), try entry.string("currency"), symbol, contractType))
+                let asset = try entry.string("asset")
+                let tradFi = TradFi.bingx(asset: asset)
+                let base = tradFi ? TradFi.bingxBase(displayName: entry.optString("displayName"), asset: asset) : asset
+                // Immer gesetzt (auch false), wie bei Binance Futures
+                out.append(MarketPair(base, try entry.string("currency"), symbol, contractType, tradFi: tradFi))
             } else {
                 // Kotierung = Teil nach dem letzten «-» (Kotierungen enthalten keinen Bindestrich)
                 guard let cut = symbol.lastIndex(of: "-"), cut != symbol.startIndex,

@@ -36,7 +36,7 @@
     <string name="alarm_fires_now_save">احفظ رغم ذلك</string>
     <string name="alarm_fires_now_title">سيعمل التنبيه فورًا</string>
     <string name="alarm_first_battery_hint">تحسين البطارية يقيّد التطبيق – قد تصل التنبيهات متأخرة.</string>
-    <string name="alarm_first_title">كل شيء جاهز</string>
+    <string name="alarm_first_title">تم حفظ التنبيه</string>
     <string name="alarm_last_triggered">آخر مرة %1$s</string>
     <string name="alarm_more_conditions">شروط إضافية</string>
     <string name="alarm_new_extreme">جديد: %1$s</string>

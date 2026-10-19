@@ -32,7 +32,7 @@
     <string name="alarm_fires_now_save">Toch opslaan</string>
     <string name="alarm_fires_now_title">Alarm gaat meteen af</string>
     <string name="alarm_first_battery_hint">Batterijoptimalisatie beperkt de app – alarmen kunnen later aankomen.</string>
-    <string name="alarm_first_title">Alles ingesteld</string>
+    <string name="alarm_first_title">Alarm opgeslagen</string>
     <string name="alarm_last_triggered">laatst om %1$s</string>
     <string name="alarm_more_conditions">Meer voorwaarden</string>
     <string name="alarm_new_extreme">Nieuwe %1$s</string>

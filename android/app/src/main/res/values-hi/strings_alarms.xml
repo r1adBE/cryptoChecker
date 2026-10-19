@@ -32,7 +32,7 @@
     <string name="alarm_fires_now_save">फिर भी सहेजें</string>
     <string name="alarm_fires_now_title">अलार्म तुरंत बज जाएगा</string>
     <string name="alarm_first_battery_hint">बैटरी ऑप्टिमाइज़ेशन ऐप को सीमित करता है – अलार्म देर से आ सकते हैं।</string>
-    <string name="alarm_first_title">सब तैयार</string>
+    <string name="alarm_first_title">अलर्ट सहेजा गया</string>
     <string name="alarm_last_triggered">पिछली बार %1$s</string>
     <string name="alarm_more_conditions">और शर्तें</string>
     <string name="alarm_new_extreme">नया %1$s</string>

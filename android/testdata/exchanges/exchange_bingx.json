@@ -219,6 +219,82 @@
           }
         }
       }
+    },
+    {
+      "kind": "pairs",
+      "name": "swap contracts: asset prefix NCSK/NCSI/NCCO/NCFX = TradFi, base from displayName (ticker in brackets, else name without spaces); crypto keeps asset",
+      "market": "BingXFutures",
+      "requestId": 0,
+      "note": "Rows shortened from the live /openApi/swap/v2/quote/contracts of 19.10.2026. Pair id stays symbol; displayName of crypto differs (NEIROCTO vs NEIRO) and is not used.",
+      "body": "{\"code\":0,\"msg\":\"\",\"data\":[{\"contractId\":\"100\",\"symbol\":\"BTC-USDT\",\"currency\":\"USDT\",\"asset\":\"BTC\",\"displayName\":\"BTC-USDT\",\"status\":1},{\"contractId\":\"200\",\"symbol\":\"NEIROCTO-USDT\",\"currency\":\"USDT\",\"asset\":\"NEIROCTO\",\"displayName\":\"NEIRO-USDT\",\"status\":1},{\"contractId\":\"201\",\"symbol\":\"PAXG-USDT\",\"currency\":\"USDT\",\"asset\":\"PAXG\",\"displayName\":\"PAXG(GOLD)-USDT\",\"status\":1},{\"contractId\":\"300\",\"symbol\":\"NCSKAAPL2USD-USDT\",\"currency\":\"USDT\",\"asset\":\"NCSKAAPL2USD\",\"displayName\":\"AAPL-USDT\",\"status\":1},{\"contractId\":\"301\",\"symbol\":\"NCCOGOLD2USD-USDT\",\"currency\":\"USDT\",\"asset\":\"NCCOGOLD2USD\",\"displayName\":\"GOLD(XAU)-USDT\",\"status\":1},{\"contractId\":\"302\",\"symbol\":\"NCCOXAG2USD-USDT\",\"currency\":\"USDT\",\"asset\":\"NCCOXAG2USD\",\"displayName\":\"SILVER(XAG)-USDT\",\"status\":1},{\"contractId\":\"303\",\"symbol\":\"NCCOPALLADIUM2USD-USDT\",\"currency\":\"USDT\",\"asset\":\"NCCOPALLADIUM2USD\",\"displayName\":\"Palladium(XPD)-USDT\",\"status\":1},{\"contractId\":\"304\",\"symbol\":\"NCCO1OILBRENT2USD-USDT\",\"currency\":\"USDT\",\"asset\":\"NCCO1OILBRENT2USD\",\"displayName\":\"Oil Brent-USDT\",\"status\":1},{\"contractId\":\"305\",\"symbol\":\"NCSINIKKEI2252USD-USDT\",\"currency\":\"USDT\",\"asset\":\"NCSINIKKEI2252USD\",\"displayName\":\"Nikkei 225-USDT\",\"status\":1},{\"contractId\":\"306\",\"symbol\":\"NCFXEUR2USD-USDT\",\"currency\":\"USDT\",\"asset\":\"NCFXEUR2USD\",\"displayName\":\"EURUSD-USDT\",\"status\":1},{\"contractId\":\"307\",\"symbol\":\"NCSKTSLA2USD-USDT\",\"currency\":\"USDT\",\"asset\":\"NCSKTSLA2USD\",\"displayName\":\"TSLA-USDT\",\"status\":25}]}",
+      "expect": {
+        "count": 10,
+        "absent": [
+          "NCSKTSLA2USD-USDT"
+        ],
+        "pairs": {
+          "BTC-USDT": {
+            "base": "BTC",
+            "quote": "USDT",
+            "contract": "PERPETUAL",
+            "tradFi": false
+          },
+          "NEIROCTO-USDT": {
+            "base": "NEIROCTO",
+            "quote": "USDT",
+            "contract": "PERPETUAL",
+            "tradFi": false
+          },
+          "PAXG-USDT": {
+            "base": "PAXG",
+            "quote": "USDT",
+            "contract": "PERPETUAL",
+            "tradFi": false
+          },
+          "NCSKAAPL2USD-USDT": {
+            "base": "AAPL",
+            "quote": "USDT",
+            "contract": "PERPETUAL",
+            "tradFi": true
+          },
+          "NCCOGOLD2USD-USDT": {
+            "base": "XAU",
+            "quote": "USDT",
+            "contract": "PERPETUAL",
+            "tradFi": true
+          },
+          "NCCOXAG2USD-USDT": {
+            "base": "XAG",
+            "quote": "USDT",
+            "contract": "PERPETUAL",
+            "tradFi": true
+          },
+          "NCCOPALLADIUM2USD-USDT": {
+            "base": "XPD",
+            "quote": "USDT",
+            "contract": "PERPETUAL",
+            "tradFi": true
+          },
+          "NCCO1OILBRENT2USD-USDT": {
+            "base": "OILBRENT",
+            "quote": "USDT",
+            "contract": "PERPETUAL",
+            "tradFi": true
+          },
+          "NCSINIKKEI2252USD-USDT": {
+            "base": "NIKKEI225",
+            "quote": "USDT",
+            "contract": "PERPETUAL",
+            "tradFi": true
+          },
+          "NCFXEUR2USD-USDT": {
+            "base": "EURUSD",
+            "quote": "USDT",
+            "contract": "PERPETUAL",
+            "tradFi": true
+          }
+        }
+      }
     }
   ]
 }

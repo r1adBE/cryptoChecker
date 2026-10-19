@@ -190,10 +190,12 @@ enum CoinLogos {
 
     // MARK: TradFi (Aktien, Rohstoffe, Devisen)
 
-    /// Börsen, deren Paarliste TradFi kennzeichnet (wie `PairCache` und Android). HTX/Phemex Futures kamen
-    /// später dazu: ihre gespeicherten Listen tragen das Kennzeichen erst nach dem nächsten Laden der Paarliste.
+    /// Börsen, deren Paarliste TradFi kennzeichnet (wie `PairCache` und Android). HTX/Phemex Futures, Aster,
+    /// BingX Futures und Lighter kamen später dazu: ihre gespeicherten Listen tragen das Kennzeichen erst nach dem
+    /// nächsten Laden der Paarliste. Hyperliquid kennzeichnet TradFi nicht.
     static let tradFiMarkets: Set<String> = [
         "BinanceFutures", "BybitFutures", "OkexFutures", "MexcFutures", "BitgetFutures", "HtxFutures", "PhemexFutures",
+        "Aster", "BingXFutures", "Lighter",
     ]
 
     /// Vorsilbe der Schlüssel für TradFi-Logos (eigener Namensraum, nie ein Krypto-Logo).

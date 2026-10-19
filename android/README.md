@@ -15,7 +15,7 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
 * applicationId: `com.cryptochecker.app`
 * Module: `marketdata` (Börsen-Bibliothek), `app` (die App)
 * Pakete: `com.cryptochecker.marketdata`, `com.cryptochecker.app`
-* Version: **16.2.2** (versionCode 84 – wird mit jedem Stand um eins erhöht)
+* Version: **16.2.2** (versionCode 85 – wird mit jedem Stand um eins erhöht)
 * Quellcode: <https://github.com/r1adBE/cryptoChecker> (öffentlich, MIT; dieser Ordner = `android/`)
 
 ## Neu in 16.2.2
@@ -612,7 +612,7 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
   einem kleinen Stern am Logo (kein Akzent-Rand mehr; ausgewählte Zeilen sind getönt); die Zeile
   verliert keine Breite mehr an einen eigenen Stern.
 * **Alarm testen** — Einstellungen › Alarme; gleicher Weg wie ein echter
-  Alarm, aber ohne Nachtruhe. Nach dem ersten Alarm: «Alles eingerichtet».
+  Alarm, aber ohne Nachtruhe. Nach dem ersten Alarm: «Alarm gespeichert» (danach «Damit Alarme ankommen»).
 * **Willkommen ohne Dialog** — eine Neuinstallation öffnet direkt die leere
   Merkliste mit der Starter-Auswahl; «Was die App kann» (Was passiert? · Wann
   reagieren? · Warum?) steht unter Einstellungen › Über; Beispiel im leeren Portfolio.

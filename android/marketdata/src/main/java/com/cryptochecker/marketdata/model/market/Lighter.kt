@@ -118,15 +118,17 @@ class Lighter : Market("Lighter", "Lighter") {
      * Symbole bleiben, wie Lighter sie schreibt (wie Hyperliquid «kPEPE»). Andere Marktarten werden übergangen.
      * TradFi = `asset_type` «RWA» in `tokenlist` (gleiches Symbol, Spot mit «/USDC»). Fehlt das Symbol dort oder ist
      * `tokenlist` unlesbar, bleibt das Paar unmarkiert wie bei Börsen ohne solches Feld: Die Liste kommt trotzdem
-     * aus `orderBooks`, und eine fehlende Angabe soll keinen Krypto-Coin unter TradFi verstecken.
+     * aus `orderBooks`, und eine fehlende Angabe soll keinen Krypto-Coin unter TradFi verstecken. Ausnahme:
+     * Robinhood-Aktientoken als Spot («rhSPY/USDC», fehlen in `tokenlist`) — siehe [TradFi.lighterRobinhood].
      */
     override fun fillPairListCombined(bodies: List<String>, out: MutableList<MarketPair>) {
         val assetTypes = assetTypes(bodies.getOrNull(1).orEmpty())
         JSONObject(bodies[0]).getJSONArray("order_books").forEachOptJSONObject { book ->
             if (book.optText("status") != "active" || book.optBoolean("is_frozen")) return@forEachOptJSONObject
             val symbol = book.optText("symbol")
-            val tradFi = TradFi.lighter(assetTypes[symbol].orEmpty())
-            readPair(symbol, book.optText("market_type"), tradFi)?.let { out += it }
+            val type = book.optText("market_type")
+            val tradFi = assetTypes[symbol]?.let(TradFi::lighter) ?: unlistedSpotTradFi(symbol, type, assetTypes)
+            readPair(symbol, type, tradFi)?.let { out += it }
         }
     }
 
@@ -167,6 +169,17 @@ class Lighter : Market("Lighter", "Lighter") {
             return emptyMap()
         }
         return types
+    }
+
+    /**
+     * Spot ohne `tokenlist`-Eintrag: Robinhood-Aktientoken («rhSPY/USDC») sind TradFi, ausser `tokenlist` führt den
+     * Rest («SPY» oder «SPY/USDC») als Krypto. Perps ohne Eintrag bleiben unmarkiert.
+     */
+    private fun unlistedSpotTradFi(symbol: String, type: String, assetTypes: Map<String, String>): Boolean {
+        if (type != "spot" || '/' !in symbol) return false
+        val base = symbol.substringBefore('/')
+        val rest = base.drop(2)
+        return TradFi.lighterRobinhood(base, assetTypes[rest] ?: assetTypes[rest + "/" + symbol.substringAfter('/')])
     }
 
     /** Paar aus Symbol und Marktart; null für leere oder unpassende Symbole und unbekannte Marktarten. */

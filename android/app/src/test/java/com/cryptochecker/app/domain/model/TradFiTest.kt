@@ -1,6 +1,9 @@
 package com.cryptochecker.app.domain.model
 
+import com.cryptochecker.app.domain.logos.CoinLogos
+import com.cryptochecker.app.settings.AssetScope
 import com.cryptochecker.marketdata.util.TradFi
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -60,5 +63,47 @@ class TradFiTest {
         assertTrue(TradFi.phemex("TradFi"))
         assertFalse(TradFi.phemex("Crypto"))
         assertFalse(TradFi.phemex(""))
+    }
+
+    @Test
+    fun aster() {
+        listOf(
+            listOf("STOCK"), listOf("STOCK", "Semiconductor"), listOf("STOCK", "ETF"), listOf("ETF"),
+            listOf("Commodities"), listOf("STOCK", "AOS2", "USD1-RWA"), listOf("pre-launch", "STOCK"), listOf("stock"),
+        ).forEach { assertTrue("$it", TradFi.aster(it)) }
+        listOf(listOf("Top"), listOf("Meme"), listOf("AI"), emptyList(), listOf("AOS2"), listOf("pre-launch"))
+            .forEach { assertFalse("$it", TradFi.aster(it)) }
+    }
+
+    @Test
+    fun bingx() {
+        listOf("NCSKAAPL2USD", "NCSINIKKEI2252USD", "NCCOGOLD2USD", "NCFXEUR2USD").forEach { assertTrue(it, TradFi.bingx(it)) }
+        listOf("BTC", "NEIROCTO", "PAXG", "NC", "NCT", "NCSK", "").forEach { assertFalse(it, TradFi.bingx(it)) }
+        mapOf(
+            "AAPL-USDT" to "AAPL", "GOLD(XAU)-USDT" to "XAU", "SILVER(XAG)-USDT" to "XAG",
+            "Palladium(XPD)-USDT" to "XPD", "Oil Brent-USDT" to "OILBRENT", "Nikkei 225-USDT" to "NIKKEI225",
+            "EURUSD-USDT" to "EURUSD", "" to "NCSKX2USD",
+        ).forEach { (name, base) -> assertEquals(name, base, TradFi.bingxBase(name, "NCSKX2USD")) }
+    }
+
+    @Test
+    fun lighterRobinhood() {
+        // nicht in tokenlist: Vorsilbe «rh» + Grossbuchstabe genügt
+        assertTrue(TradFi.lighterRobinhood("rhSPY", null))
+        assertTrue(TradFi.lighterRobinhood("rhQQQ", ""))
+        // Rest in tokenlist: dessen asset_type entscheidet
+        assertTrue(TradFi.lighterRobinhood("rhQQQ", "RWA"))
+        assertFalse(TradFi.lighterRobinhood("rhETH", "CRYPTO"))
+        listOf("rh", "rhx", "RHSPY", "rh1", "SPY", "ETH").forEach { assertFalse(it, TradFi.lighterRobinhood(it, null)) }
+    }
+
+    /** «Nur TradFi» zeigt die Börsen, deren Paarliste TradFi kennzeichnet — Hyperliquid tut das nicht. */
+    @Test
+    fun tradFiMarkets() {
+        listOf("Aster", "BingXFutures", "Lighter", "PhemexFutures").forEach {
+            assertTrue(it, it in CoinLogos.TRADFI_MARKETS)
+            assertTrue(it, AssetScope.TRADFI.allowsMarket(it))
+        }
+        listOf("Hyperliquid", "BingX").forEach { assertFalse(it, AssetScope.TRADFI.allowsMarket(it)) }
     }
 }

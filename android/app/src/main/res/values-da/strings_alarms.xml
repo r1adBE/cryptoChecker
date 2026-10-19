@@ -32,7 +32,7 @@
     <string name="alarm_fires_now_save">Gem alligevel</string>
     <string name="alarm_fires_now_title">Alarmen udløses med det samme</string>
     <string name="alarm_first_battery_hint">Batterioptimering begrænser appen – alarmer kan komme for sent.</string>
-    <string name="alarm_first_title">Alt er klar</string>
+    <string name="alarm_first_title">Alarm gemt</string>
     <string name="alarm_last_triggered">sidst %1$s</string>
     <string name="alarm_more_conditions">Flere betingelser</string>
     <string name="alarm_new_extreme">Ny %1$s</string>

@@ -32,7 +32,7 @@
     <string name="alarm_fires_now_save">Mentés mégis</string>
     <string name="alarm_fires_now_title">A riasztás azonnal szólna</string>
     <string name="alarm_first_battery_hint">Az akkumulátor-optimalizálás korlátozza az alkalmazást – a riasztások később érkezhetnek.</string>
-    <string name="alarm_first_title">Minden kész</string>
+    <string name="alarm_first_title">Riasztás mentve</string>
     <string name="alarm_last_triggered">utoljára: %1$s</string>
     <string name="alarm_more_conditions">További feltételek</string>
     <string name="alarm_new_extreme">Új %1$s</string>

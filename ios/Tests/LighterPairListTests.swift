@@ -60,6 +60,38 @@ final class LighterPairListTests: XCTestCase {
         }
     }
 
+    /// Robinhood-Aktientoken als Spot fehlen in `tokenlist` (echte Antwort vom 19.10.2026: «rhSPY/USDC», «rhQQQ/USDC»).
+    private let robinhoodBooks = """
+    {"code":200,"order_books":[
+        {"symbol":"rhSPY/USDC","market_id":2060,"market_type":"spot","status":"active","is_frozen":false},
+        {"symbol":"rhQQQ/USDC","market_id":2061,"market_type":"spot","status":"active","is_frozen":false},
+        {"symbol":"rhETH/USDC","market_id":2062,"market_type":"spot","status":"active","is_frozen":false},
+        {"symbol":"NEWX","market_id":300,"market_type":"perp","status":"active","is_frozen":false}
+    ]}
+    """
+
+    private let robinhoodTokens = """
+    {"tokens":[
+        {"symbol":"QQQ","name":"Invesco QQQ","market":"PERPS","asset_type":"RWA","categories":["ETF"]},
+        {"symbol":"ETH","name":"Ethereum","market":"PERPS","asset_type":"CRYPTO","categories":["MAJOR"]}
+    ]}
+    """
+
+    func testRobinhoodSpotWithoutTokenListEntryIsTradFi() throws {
+        let byId = try pairs([robinhoodBooks, robinhoodTokens])
+        // SPY fehlt ganz, QQQ ist RWA: beide TradFi; Basis bleibt, wie Lighter sie schreibt
+        XCTAssertTrue(try XCTUnwrap(byId["rhSPY/USDC"]).isTradFi)
+        XCTAssertEqual(try XCTUnwrap(byId["rhSPY/USDC"]).base, "rhSPY")
+        XCTAssertTrue(try XCTUnwrap(byId["rhQQQ/USDC"]).isTradFi)
+        // Rest als Krypto geführt: kein TradFi
+        XCTAssertFalse(try XCTUnwrap(byId["rhETH/USDC"]).isTradFi)
+        XCTAssertFalse(try XCTUnwrap(byId["NEWX"]).isTradFi)
+        // ohne lesbare tokenlist reicht die Vorsilbe
+        let broken = try pairs([robinhoodBooks, ""])
+        XCTAssertTrue(try XCTUnwrap(broken["rhSPY/USDC"]).isTradFi)
+        XCTAssertFalse(try XCTUnwrap(broken["NEWX"]).isTradFi)
+    }
+
     func testNamesPerBaseFromTokenList() throws {
         XCTAssertEqual(try Lighter().parseBaseNamesCombined(bodies: [orderBooks, tokenList]),
                        ["BTC": "Bitcoin", "COIN": "Coinbase", "ETH": "Ethereum", "META": "Meta", "AAVE": "Aave"])

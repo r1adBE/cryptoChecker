@@ -31,7 +31,7 @@
     <string name="alarm_fires_now_save">Vẫn lưu</string>
     <string name="alarm_fires_now_title">Cảnh báo sẽ kích hoạt ngay</string>
     <string name="alarm_first_battery_hint">Tối ưu hóa pin đang hạn chế ứng dụng – cảnh báo có thể đến muộn.</string>
-    <string name="alarm_first_title">Đã thiết lập xong</string>
+    <string name="alarm_first_title">Đã lưu cảnh báo</string>
     <string name="alarm_last_triggered">lần cuối lúc %1$s</string>
     <string name="alarm_more_conditions">Thêm điều kiện</string>
     <string name="alarm_new_extreme">%1$s mới</string>

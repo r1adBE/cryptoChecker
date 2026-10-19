@@ -242,11 +242,12 @@ object CoinLogos {
 
     /**
      * Börsen, deren Paarliste TradFi kennzeichnet (wie die Migration 11 → 12 und iOS `PairCache`).
-     * HTX/Phemex Futures kamen später dazu: ihre gespeicherten Listen tragen das Kennzeichen erst nach
-     * dem nächsten Laden der Paarliste.
+     * HTX/Phemex Futures, Aster, BingX Futures und Lighter kamen später dazu: ihre gespeicherten Listen tragen
+     * das Kennzeichen erst nach dem nächsten Laden der Paarliste. Hyperliquid kennzeichnet TradFi nicht.
      */
     val TRADFI_MARKETS = setOf(
         "BinanceFutures", "BybitFutures", "OkexFutures", "MexcFutures", "BitgetFutures", "HtxFutures", "PhemexFutures",
+        "Aster", "BingXFutures", "Lighter",
     )
 
     /** Vorsilbe der Schlüssel für TradFi-Logos (eigener Namensraum, nie ein Krypto-Logo). */
