@@ -87,7 +87,7 @@
     <string name="portfolio_price_unchecked">Kurs ungeprüft</string>
     <string name="portfolio_price_via_base">≈ %1$s-Kurs (gebrückt/verpackt)</string>
     <string name="portfolio_usdt_as_usd">USDT zum USD-Marktkurs umgerechnet</string>
-    <string name="portfolio_usdt_assumed">USDT = 1 angenommen</string>
+    <string name="portfolio_usdt_assumed">Dollarkurs von USDT fehlt – gerechnet als 1 US-Dollar</string>
 
     <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
     <string name="portfolio_add_from_watch">Zum Portfolio hinzufügen</string>

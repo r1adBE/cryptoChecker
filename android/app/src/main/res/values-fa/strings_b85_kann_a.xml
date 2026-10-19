@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="alarm_first_check">بررسی رسیدن هشدارها</string>
+    <string name="change_candle_source_hint">محاسبه‌شده از شمع‌های %1$s – خود صرافی این مقدار را ارائه نمی‌دهد.</string>
+    <string name="change_candle_source_action">نمایش منبع تغییر</string>
+</resources>

@@ -5,7 +5,7 @@
     <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
     <string name="ledger_cost_fx_missing">Tidak ada kurs untuk hari pembelian (tidak termasuk dalam “Sejak beli” dan biaya perolehan): %1$s</string>
     <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
-    <string name="ledger_cost_fx_usdt_assumed">Biaya pada hari pembelian tanpa kurs USDT/USD dikonversi dengan USDT = 1.</string>
+    <string name="ledger_cost_fx_usdt_assumed">Biaya pada hari pembelian tanpa kurs dolar USDT dihitung sebagai 1 dolar AS per USDT.</string>
     <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
     <string name="tax_export_at_income_interest">Bunga – kena pajak saat diterima</string>
     <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->

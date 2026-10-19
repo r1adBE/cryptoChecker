@@ -5,7 +5,7 @@
     <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
     <string name="ledger_cost_fx_missing">Chybí měnový kurz pro den nákupu (chybí v „Od nákupu“ a pořizovací ceně): %1$s</string>
     <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
-    <string name="ledger_cost_fx_usdt_assumed">Pořizovací cena ve dnech nákupu bez kurzu USDT/USD přepočtena s USDT = 1.</string>
+    <string name="ledger_cost_fx_usdt_assumed">Pořizovací cena ve dnech nákupu bez dolarového kurzu USDT počítána jako 1 americký dolar za USDT.</string>
     <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
     <string name="tax_export_at_income_interest">Úroky – zdanitelné při přijetí</string>
     <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->

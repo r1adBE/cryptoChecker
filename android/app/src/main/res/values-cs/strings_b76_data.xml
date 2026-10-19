@@ -2,7 +2,7 @@
 <resources>
     <!-- Build 76: USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
     <string name="portfolio_usdt_break">Propad USDT – trh na %1$s USD</string>
-    <string name="portfolio_usdt_via_usdc">USDT/USD přes USDC/USDT (předpoklad USDC = 1)</string>
+    <string name="portfolio_usdt_via_usdc">Dolarový kurz USDT přes USDC/USDT – když USDC klesne, tato hodnota nesedí</string>
     <string name="dex_low_liquidity_no_alarm">Nízká likvidita – žádný alarm</string>
     <string name="dex_low_liquidity_alarm_hint">Tento pool má méně než 10 000 USD likvidity (nebo údaj chybí). Kurz pohnou už malé částky, proto zde nelze nastavit alarmy. Stávající alarmy zůstávají, ale spustí se až po opětovném růstu likvidity.</string>
     <string name="portfolio_csv_skip_duplicate_txid_different">stejné ID transakce s jinou částkou – zkontrolujte ručně</string>

@@ -84,7 +84,7 @@
     <string name="portfolio_price_unchecked">ราคายังไม่ตรวจสอบ</string>
     <string name="portfolio_price_via_base">≈ ราคา %1$s (บริดจ์/แรป)</string>
     <string name="portfolio_usdt_as_usd">แปลง USDT ด้วยราคาตลาดเป็น USD</string>
-    <string name="portfolio_usdt_assumed">สมมติ USDT = 1</string>
+    <string name="portfolio_usdt_assumed">ไม่มีอัตรา USDT เป็นดอลลาร์ – คิดเป็น 1 ดอลลาร์สหรัฐ</string>
 
     <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
     <string name="portfolio_add_from_watch">เพิ่มในพอร์ตโฟลิโอ</string>

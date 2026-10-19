@@ -87,7 +87,7 @@
     <string name="portfolio_price_unchecked">Çmim i paverifikuar</string>
     <string name="portfolio_price_via_base">≈ çmimi i %1$s (bridged/wrapped)</string>
     <string name="portfolio_usdt_as_usd">USDT e konvertuar me çmimin e saj të tregut në USD</string>
-    <string name="portfolio_usdt_assumed">Supozohet USDT = 1</string>
+    <string name="portfolio_usdt_assumed">Mungon kursi në dollarë i USDT – llogaritur si 1 dollar amerikan</string>
 
     <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
     <string name="portfolio_add_from_watch">Shto në portofol</string>

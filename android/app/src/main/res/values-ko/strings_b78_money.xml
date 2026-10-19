@@ -5,7 +5,7 @@
     <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
     <string name="ledger_cost_fx_missing">매수일 환율 없음(‘매수 이후’와 매입 원가에서 제외): %1$s</string>
     <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
-    <string name="ledger_cost_fx_usdt_assumed">USDT/USD 시세가 없는 매수일의 매입 원가는 USDT = 1로 환산했습니다.</string>
+    <string name="ledger_cost_fx_usdt_assumed">USDT 달러 시세가 없는 매수일의 매입 원가는 USDT당 1 미국 달러로 계산했습니다.</string>
     <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
     <string name="tax_export_at_income_interest">이자 – 수령 시 과세</string>
     <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->

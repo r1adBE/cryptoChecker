@@ -90,7 +90,7 @@
     <string name="portfolio_price_unchecked">Cours non vérifié</string>
     <string name="portfolio_price_via_base">≈ cours de %1$s (bridgé/wrappé)</string>
     <string name="portfolio_usdt_as_usd">USDT converti à son cours de marché en USD</string>
-    <string name="portfolio_usdt_assumed">USDT = 1 supposé</string>
+    <string name="portfolio_usdt_assumed">Cours en dollars de l’USDT manquant – compté comme 1 dollar américain</string>
 
     <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
     <string name="portfolio_add_from_watch">Ajouter au portefeuille</string>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="alarm_first_check">Sprawdź, czy alerty docierają</string>
+    <string name="change_candle_source_hint">Obliczono ze świec %1$s – giełda sama nie podaje tej wartości.</string>
+    <string name="change_candle_source_action">Pokaż źródło zmiany</string>
+</resources>

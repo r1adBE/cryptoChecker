@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="alarm_first_check">检查提醒能否送达</string>
+    <string name="change_candle_source_hint">根据 %1$s K线计算 – 交易所本身不提供此数值。</string>
+    <string name="change_candle_source_action">显示涨跌来源</string>
+</resources>

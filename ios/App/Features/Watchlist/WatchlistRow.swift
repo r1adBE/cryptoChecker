@@ -103,6 +103,8 @@ struct WatchlistRow: View {
     /// bis zur ersten Messung die normale Breite.
     @State private var rowWidth: CGFloat = DenseRowText.narrowRow
     @State var showCheck = false
+    /// Hinweis zur Quelle der %-Änderung («*», `changeSourceHint`) als Popover am Zeichen.
+    @State var showSourceHint = false
 
     /// Vor dem Einblenden unsichtbar (nur während eines Moments).
     private var entryHidden: Bool { celebrationIndex != nil && !celebrationEntered }
@@ -114,6 +116,13 @@ struct WatchlistRow: View {
     var changeMarker: String? {
         DayChange.rowChangeMarker(foreignSource: changeSource, shownChange: changeView.shown(watch),
                                   sinceLast: changeView.basis.isSinceLast)
+    }
+
+    /// Kurzer Hinweis beim Tippen auf das «*» (bzw. VoiceOver-Aktion): woher die Änderung kommt; nil = kein Marker.
+    /// Im Sortier- und Auswahlmodus kein Tippziel — dort gehört jeder Tipp der Zeile (wie Android).
+    var changeSourceHint: String? {
+        guard !sorting, !selecting else { return nil }
+        return changeMarker.map { L("change_candle_source_hint", $0) }
     }
 
     /// Deaktiviert: ganz grau mit dem letzten Kurs, kein Mini-Chart, kein ⚡, nie «veraltet».
@@ -301,6 +310,9 @@ struct WatchlistRow: View {
         .accessibilityActions {
             if hasActivity && !off && !sorting && !selecting {
                 Button(L("why_action"), action: onActivity)
+            }
+            if changeSourceHint != nil {
+                Button(L("change_candle_source_action")) { showSourceHint = true }
             }
         }
     }

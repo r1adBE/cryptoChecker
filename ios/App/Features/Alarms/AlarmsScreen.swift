@@ -12,6 +12,8 @@ struct AlarmsScreen: View {
     /// Erster Alarm überhaupt gespeichert: nach dem Schliessen des Editors bestätigen.
     @State private var firstAlarmPending = false
     @State private var showFirstAlarm = false
+    /// «Damit Alarme ankommen» als Blatt, geöffnet aus der Bestätigung des ersten Alarms.
+    @State private var showDelivery = false
     /// Hinweis «Wann Alarme geprüft werden» (`AlarmTimingHint`): nach dem Schliessen des Editors zeigen.
     @State private var timingHintPending = false
     @State private var showTimingHint = false
@@ -243,12 +245,27 @@ struct AlarmsScreen: View {
         } message: { _ in
             Text(L("alarm_delete_confirm"))
         }
+        // Hauptknopf «Prüfen, ob Alarme ankommen»: gleich die Prüfliste statt erst danach suchen (wie Android)
         .alert(L("alarm_first_title"), isPresented: $showFirstAlarm) {
-            Button(L("ios_action_ok"), role: .cancel) {}
+            Button(L("alarm_first_check")) { showDelivery = true }
+                .keyboardShortcut(.defaultAction)
             Button(L("alarm_test")) { alarmTestTrigger += 1 }
+            Button(L("ios_action_ok"), role: .cancel) {}
         } message: {
             // Derselbe eine Satz wie unter jedem Alarm (AlarmTimingHint, höchstens 160 Zeichen)
             Text(AlarmTimingHint.text)
+        }
+        .sheet(isPresented: $showDelivery) {
+            NavigationStack {
+                AlarmDeliveryScreen()
+                    .toolbar {
+                        ToolbarItem(placement: .confirmationAction) {
+                            Button(L("ios_action_ok")) { showDelivery = false }
+                        }
+                    }
+            }
+            .environmentObject(data)
+            .environment(\.appAccent, accent)
         }
         .alarmTestRunner(trigger: alarmTestTrigger)
         // Einmal nach dem Speichern: ehrlich, wann geprüft wird

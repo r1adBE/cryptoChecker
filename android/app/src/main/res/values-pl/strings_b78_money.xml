@@ -5,7 +5,7 @@
     <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
     <string name="ledger_cost_fx_missing">Brak kursu walut dla dnia zakupu (pominięte w „Od zakupu” i koszcie nabycia): %1$s</string>
     <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
-    <string name="ledger_cost_fx_usdt_assumed">Koszt z dni zakupu bez kursu USDT/USD przeliczony przy USDT = 1.</string>
+    <string name="ledger_cost_fx_usdt_assumed">Koszt z dni zakupu bez kursu USDT w dolarach liczony jako 1 dolar amerykański za USDT.</string>
     <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
     <string name="tax_export_at_income_interest">Odsetki – opodatkowane przy otrzymaniu</string>
     <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->

@@ -12,8 +12,12 @@ struct WatchlistDayChangePill: View {
     /// Hinweis für VoiceOver nach dem Wert, z. B. «Veränderung aus Binance-Kerzen».
     var note: String? = nil
     /// Wert aus den Kerzen einer anderen Börse (`DayChange.rowChangeMarker`): kleines «*» in `onSurfaceVariant`
-    /// dahinter, nur sichtbar — gesprochen wird die Quelle im Zeilensatz, erklärt im Aktionsblatt (wie Android).
+    /// dahinter — gesprochen wird die Quelle im Zeilensatz, erklärt im Aktionsblatt (wie Android).
     var marker = false
+    /// Kurzer Hinweis zur Quelle beim Tippen auf das «*» (als Popover am Zeichen, ohne das Aktionsblatt der Zeile
+    /// zu öffnen); nil = kein Tippziel. VoiceOver: Aktion der Zeile, die `showMarkerHint` setzt (wie Android).
+    var markerHint: String? = nil
+    var showMarkerHint: Binding<Bool> = .constant(false)
     @Environment(\.changeView) private var changeView
 
     /// Marker der %-Änderung aus fremden Kerzen (Android `CHANGE_SOURCE_MARKER`).
@@ -43,11 +47,16 @@ struct WatchlistDayChangePill: View {
             ChangePill(change: value, size: size, dashWhenMissing: true, neutral: watch.disabled)
             if marker {
                 // Hochgestellt wie eine Fussnote, dicht an der Zahl
-                Text(Self.sourceMarker)
+                let star = Text(Self.sourceMarker)
                     .font(.system(.caption, design: .rounded))
                     .foregroundStyle(AppColors.onSurfaceVariant)
                     .baselineOffset(4)
                     .padding(.leading, -3)
+                if let markerHint {
+                    star.markerTapTarget(hint: markerHint, isPresented: showMarkerHint)
+                } else {
+                    star
+                }
             }
         }
         // Label wächst mit der Textgrösse, aber nicht über AX2 (wie die Änderung)
@@ -55,5 +64,29 @@ struct WatchlistDayChangePill: View {
         // Vorgelesen mit Richtungswort und Zeitraum statt «+»/«−»
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(A11y.join([A11y.change(value, basis: changeView.basis), mark, note]))
+    }
+}
+
+private extension View {
+    /// Tippfläche von 44 × 44 pt um das kleine «*», als durchsichtige Fläche darüber gelegt — Zeile und Ausrichtung
+    /// bleiben unverändert, die Fläche ragt über (wie Android `markerTouchTarget`). Der eigene Tipp hat Vorrang vor
+    /// dem Tipp der Zeile, öffnet also nicht zusätzlich das Aktionsblatt.
+    func markerTapTarget(hint: String, isPresented: Binding<Bool>) -> some View {
+        overlay {
+            Color.clear
+                .frame(width: 44, height: 44)
+                .contentShape(Rectangle())
+                .onTapGesture { isPresented.wrappedValue = true }
+                .popover(isPresented: isPresented, arrowEdge: .top) {
+                    Text(hint)
+                        .font(.subheadline)
+                        .foregroundStyle(AppColors.onSurface)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .frame(maxWidth: 280, alignment: .leading)
+                        .padding(Spacing.lg)
+                        // Auch auf dem iPhone als kleine Sprechblase statt als Blatt
+                        .presentationCompactAdaptation(.popover)
+                }
+        }
     }
 }

@@ -127,7 +127,7 @@ fun AlarmsScreen(
 
     // Nach dem allerersten Alarm: EIN Dialog statt mehrerer nacheinander — Bestätigung mit «Alarm testen», dazu
     // optional «Pünktlich prüfen» und, nur wenn die Akku-Optimierung die App einschränkt, die
-    // Akku-Einstellungen. Der eigene Akku-Dialog entfällt dann in dieser Sitzung.
+    // Akku-Einstellungen. Der eigene Akku-Dialog entfällt dann in dieser Sitzung. Hauptknopf: «Damit Alarme ankommen».
     if (firstAlarm) {
         FirstAlarmDialog(viewModel = viewModel, exactOffer = exactOffer, testAlarm = testAlarm)
     }

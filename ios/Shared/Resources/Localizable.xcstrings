@@ -33711,6 +33711,197 @@
         }
       }
     },
+    "alarm_first_check" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تحقّق من وصول التنبيهات"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zkontrolovat, zda upozornění dorazí"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tjek, at alarmer når frem"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prüfen, ob Alarme ankommen"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Έλεγχος ότι φτάνουν οι ειδοποιήσεις"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check that alerts arrive"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comprobar que lleguen las alertas"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بررسی رسیدن هشدارها"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tarkista, että hälytykset tulevat perille"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vérifier que les alertes arrivent"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "לבדוק שההתראות מגיעות"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "जाँचें कि अलर्ट पहुँचते हैं"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ellenőrzés, hogy megérkeznek-e a riasztások"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Periksa apakah alarm sampai"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verifica che gli avvisi arrivino"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アラームが届くか確認"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "경보가 도착하는지 확인"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sjekk at varsler kommer fram"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Controleren of alarmen aankomen"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sprawdź, czy alerty docierają"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verificar se os alertas chegam"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verificar se os alertas chegam"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verifică dacă alertele ajung"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Проверить, доходят ли оповещения"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kontrollo që alarmet të arrijnë"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kontrollera att larmen kommer fram"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ตรวจสอบว่าการแจ้งเตือนส่งถึง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmların ulaştığını kontrol et"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Перевірити, чи надходять сигнали"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kiểm tra cảnh báo có đến nơi"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "检查提醒能否送达"
+          }
+        }
+      }
+    },
     "alarm_first_title" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -76322,6 +76513,388 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "根据 %1$@ K线计算的涨跌"
+          }
+        }
+      }
+    },
+    "change_candle_source_action" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "عرض مصدر التغيّر"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zobrazit zdroj změny"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vis kilden til ændringen"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quelle der Veränderung zeigen"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Εμφάνιση πηγής μεταβολής"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show source of change"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostrar origen de la variación"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نمایش منبع تغییر"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Näytä muutoksen lähde"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Afficher la source de la variation"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "הצגת מקור השינוי"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "बदलाव का स्रोत दिखाएँ"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A változás forrásának megjelenítése"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tampilkan sumber perubahan"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostra l'origine della variazione"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "変動の出所を表示"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "변동 출처 보기"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vis kilden til endringen"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bron van de wijziging tonen"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pokaż źródło zmiany"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostrar origem da variação"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostrar origem da variação"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arată sursa variației"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Показать источник изменения"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shfaq burimin e ndryshimit"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Visa källan till förändringen"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "แสดงแหล่งที่มาของการเปลี่ยนแปลง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Değişimin kaynağını göster"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Показати джерело зміни"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hiện nguồn của biến động"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "显示涨跌来源"
+          }
+        }
+      }
+    },
+    "change_candle_source_hint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "محسوب من شموع %1$@ – المنصة نفسها لا توفّر هذه القيمة."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vypočteno ze svíček %1$@ – burza sama tuto hodnotu neposkytuje."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beregnet ud fra %1$@-candlesticks – børsen leverer ikke selv denne værdi."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aus %1$@-Kerzen berechnet – die Börse liefert diesen Wert nicht selbst."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Υπολογίστηκε από κεριά %1$@ – το ίδιο το ανταλλακτήριο δεν δίνει αυτή την τιμή."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calculated from %1$@ candles – the exchange itself doesn’t provide this value."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calculado con velas de %1$@: el exchange no ofrece este valor por sí mismo."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "محاسبه‌شده از شمع‌های %1$@ – خود صرافی این مقدار را ارائه نمی‌دهد."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Laskettu %1$@-kynttilöistä – pörssi ei itse anna tätä arvoa."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calculé à partir des bougies %1$@ – la plateforme ne fournit pas elle-même cette valeur."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "חושב לפי נרות %1$@ – הבורסה עצמה לא מספקת ערך זה."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ कैंडल से गणना की गई – एक्सचेंज ख़ुद यह मान नहीं देता।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@-gyertyákból számolva – a tőzsde maga nem adja meg ezt az értéket."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dihitung dari candle %1$@ – bursa sendiri tidak menyediakan nilai ini."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calcolato dalle candele %1$@ – l'exchange non fornisce questo valore."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@のローソク足から算出 – 取引所自体はこの値を提供していません。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ 캔들로 계산 – 거래소 자체는 이 값을 제공하지 않습니다."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beregnet fra %1$@-candlesticks – børsen oppgir ikke denne verdien selv."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Berekend uit %1$@-candles – de beurs levert deze waarde niet zelf."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obliczono ze świec %1$@ – giełda sama nie podaje tej wartości."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calculado com base nas velas da %1$@ – a própria corretora não fornece este valor."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calculado com base nos candles da %1$@ – a própria corretora não fornece esse valor."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calculat din lumânările %1$@ – bursa nu oferă ea însăși această valoare."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Рассчитано по свечам %1$@ – сама биржа это значение не даёт."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Llogaritur nga qirinjtë e %1$@ – vetë bursa nuk e jep këtë vlerë."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beräknat från %1$@-candlesticks – börsen anger inte själv det här värdet."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "คำนวณจากแท่งเทียน %1$@ – ตัวกระดานเทรดเองไม่ได้ให้ค่านี้"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ mumlarından hesaplandı – borsanın kendisi bu değeri vermiyor."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Розраховано за свічками %1$@ – сама біржа цього значення не надає."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tính từ nến %1$@ – bản thân sàn không cung cấp giá trị này."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "根据 %1$@ K线计算 – 交易所本身不提供此数值。"
           }
         }
       }
@@ -136895,187 +137468,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "تكلفة أيام الشراء دون سعر USDT/USD محسوبة على أساس USDT = 1."
+            "value" : "تكلفة أيام الشراء دون سعر USDT بالدولار محسوبة بدولار أمريكي واحد لكل USDT."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Pořizovací cena ve dnech nákupu bez kurzu USDT/USD přepočtena s USDT = 1."
+            "value" : "Pořizovací cena ve dnech nákupu bez dolarového kurzu USDT počítána jako 1 americký dolar za USDT."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Anskaffelsespris på købsdage uden USDT/USD-kurs omregnet med USDT = 1."
+            "value" : "Anskaffelsespris på købsdage uden USDT-dollarkurs regnet som 1 amerikansk dollar pr. USDT."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Einstand an Kauftagen ohne USDT/USD-Kurs mit USDT = 1 umgerechnet."
+            "value" : "Einstand an Kauftagen ohne Dollarkurs von USDT mit 1 US-Dollar je USDT gerechnet."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Κόστος σε ημέρες αγοράς χωρίς ισοτιμία USDT/USD υπολογισμένο με USDT = 1."
+            "value" : "Κόστος σε ημέρες αγοράς χωρίς ισοτιμία USDT σε δολάρια υπολογισμένο ως 1 δολάριο ΗΠΑ ανά USDT."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cost on purchase days without a USDT/USD rate converted with USDT = 1."
+            "value" : "Cost on purchase days without a USDT dollar rate counted as 1 US dollar per USDT."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Coste en días de compra sin cotización USDT/USD convertido con USDT = 1."
+            "value" : "Coste en días de compra sin cotización en dólares de USDT contado como 1 dólar estadounidense por USDT."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "بهای تمام‌شده در روزهای خرید بدون نرخ USDT/USD با USDT = 1 محاسبه شد."
+            "value" : "بهای تمام‌شده در روزهای خرید بدون نرخ دلاری USDT با ۱ دلار آمریکا برای هر USDT محاسبه شد."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hankintahinta ostopäiviltä ilman USDT/USD-kurssia muunnettu kurssilla USDT = 1."
+            "value" : "Hankintahinta ostopäiviltä ilman USDT:n dollarikurssia laskettu 1 Yhdysvaltain dollarina per USDT."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Coût des jours d’achat sans cours USDT/USD converti avec USDT = 1."
+            "value" : "Coût des jours d’achat sans cours en dollars de l’USDT compté comme 1 dollar américain par USDT."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "עלות בימי קנייה ללא שער USDT/USD חושבה לפי USDT = 1."
+            "value" : "עלות בימי קנייה ללא שער דולר של USDT חושבה כדולר אמריקאי אחד לכל USDT."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT/USD दर के बिना खरीद के दिनों की लागत USDT = 1 से बदली गई।"
+            "value" : "USDT की डॉलर दर के बिना खरीद के दिनों की लागत 1 अमेरिकी डॉलर प्रति USDT के रूप में गिनी गई।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A USDT/USD árfolyam nélküli vételi napok bekerülési értéke USDT = 1 árfolyammal átszámítva."
+            "value" : "Az USDT dolláros árfolyama nélküli vételi napok bekerülési értéke USDT-nként 1 amerikai dollárral számolva."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Biaya pada hari pembelian tanpa kurs USDT/USD dikonversi dengan USDT = 1."
+            "value" : "Biaya pada hari pembelian tanpa kurs dolar USDT dihitung sebagai 1 dolar AS per USDT."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Costo nei giorni d’acquisto senza cambio USDT/USD convertito con USDT = 1."
+            "value" : "Costo nei giorni d’acquisto senza cambio in dollari di USDT calcolato come 1 dollaro USA per USDT."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT/USDレートのない購入日の取得原価は USDT = 1 で換算しました。"
+            "value" : "USDT のドル相場がない購入日の取得原価は、1 USDT を 1 米ドルとして計算しました。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT/USD 시세가 없는 매수일의 매입 원가는 USDT = 1로 환산했습니다."
+            "value" : "USDT 달러 시세가 없는 매수일의 매입 원가는 USDT당 1 미국 달러로 계산했습니다."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Inngangsverdi på kjøpsdager uten USDT/USD-kurs omregnet med USDT = 1."
+            "value" : "Inngangsverdi på kjøpsdager uten USDT-dollarkurs regnet som 1 amerikansk dollar per USDT."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kostprijs op aankoopdagen zonder USDT/USD-koers omgerekend met USDT = 1."
+            "value" : "Kostprijs op aankoopdagen zonder dollarkoers van USDT gerekend als 1 Amerikaanse dollar per USDT."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Koszt z dni zakupu bez kursu USDT/USD przeliczony przy USDT = 1."
+            "value" : "Koszt z dni zakupu bez kursu USDT w dolarach liczony jako 1 dolar amerykański za USDT."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Custo em dias de compra sem cotação USDT/USD convertido com USDT = 1."
+            "value" : "Custo em dias de compra sem cotação em dólares do USDT contado como 1 dólar americano por USDT."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Custo em dias de compra sem cotação USDT/USD convertido com USDT = 1."
+            "value" : "Custo em dias de compra sem cotação em dólar do USDT contado como 1 dólar americano por USDT."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Costul din zilele de cumpărare fără curs USDT/USD convertit cu USDT = 1."
+            "value" : "Costul din zilele de cumpărare fără curs în dolari al USDT calculat ca 1 dolar american per USDT."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Стоимость покупки в дни без курса USDT/USD пересчитана при USDT = 1."
+            "value" : "Стоимость покупки в дни без курса USDT к доллару посчитана как 1 доллар США за USDT."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kostoja në ditët e blerjes pa kurs USDT/USD u konvertua me USDT = 1."
+            "value" : "Kostoja në ditët e blerjes pa kurs në dollarë të USDT u llogarit si 1 dollar amerikan për USDT."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Anskaffningsvärde på köpdagar utan USDT/USD-kurs omräknat med USDT = 1."
+            "value" : "Anskaffningsvärde på köpdagar utan USDT:s dollarkurs räknat som 1 amerikansk dollar per USDT."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ต้นทุนในวันที่ซื้อที่ไม่มีอัตรา USDT/USD คำนวณด้วย USDT = 1"
+            "value" : "ต้นทุนในวันที่ซื้อที่ไม่มีอัตรา USDT เป็นดอลลาร์ คิดเป็น 1 ดอลลาร์สหรัฐต่อ USDT"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT/USD kuru olmayan alış günlerindeki maliyet USDT = 1 ile çevrildi."
+            "value" : "USDT dolar kuru olmayan alış günlerindeki maliyet USDT başına 1 ABD doları olarak hesaplandı."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Вартість купівлі в дні без курсу USDT/USD перераховано за USDT = 1."
+            "value" : "Вартість купівлі в дні без курсу USDT до долара враховано як 1 долар США за USDT."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Giá vốn vào những ngày mua không có tỷ giá USDT/USD được quy đổi với USDT = 1."
+            "value" : "Giá vốn vào những ngày mua không có tỷ giá đô la của USDT được tính là 1 đô la Mỹ cho mỗi USDT."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "无 USDT/USD 汇率的买入日成本按 USDT = 1 换算。"
+            "value" : "无 USDT 美元汇率的买入日成本按每 USDT 1 美元计算。"
           }
         }
       }
@@ -240656,187 +241229,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "يُفترض USDT = 1"
+            "value" : "سعر USDT بالدولار غير متوفر – احتُسب بدولار أمريكي واحد"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Předpokládá se USDT = 1"
+            "value" : "Chybí dolarový kurz USDT – počítáno jako 1 americký dolar"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT = 1 antaget"
+            "value" : "USDT-dollarkurs mangler – regnet som 1 amerikansk dollar"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT = 1 angenommen"
+            "value" : "Dollarkurs von USDT fehlt – gerechnet als 1 US-Dollar"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Υποτίθεται USDT = 1"
+            "value" : "Λείπει η ισοτιμία USDT σε δολάρια – υπολογίστηκε ως 1 δολάριο ΗΠΑ"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT = 1 assumed"
+            "value" : "USDT dollar rate missing – counted as 1 US dollar"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Se asume USDT = 1"
+            "value" : "Falta la cotización en dólares de USDT – se cuenta como 1 dólar estadounidense"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "فرض شده USDT = 1"
+            "value" : "نرخ دلاری USDT موجود نیست – ۱ دلار آمریکا حساب شد"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Oletettu USDT = 1"
+            "value" : "USDT:n dollarikurssi puuttuu – laskettu 1 Yhdysvaltain dollarina"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT = 1 supposé"
+            "value" : "Cours en dollars de l’USDT manquant – compté comme 1 dollar américain"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "מניחים USDT = 1"
+            "value" : "שער הדולר של USDT חסר – חושב כדולר אמריקאי אחד"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT = 1 माना गया"
+            "value" : "USDT की डॉलर दर उपलब्ध नहीं – 1 अमेरिकी डॉलर के रूप में गिना गया"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT = 1 feltételezve"
+            "value" : "Hiányzik az USDT dolláros árfolyama – 1 amerikai dollárként számolva"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Diasumsikan USDT = 1"
+            "value" : "Kurs dolar USDT tidak ada – dihitung sebagai 1 dolar AS"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT = 1 presunto"
+            "value" : "Manca il cambio in dollari di USDT – calcolato come 1 dollaro USA"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT = 1 と仮定"
+            "value" : "USDT のドル相場がありません – 1 米ドルとして計算"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT = 1로 가정"
+            "value" : "USDT 달러 시세 없음 – 1 미국 달러로 계산"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT = 1 antatt"
+            "value" : "USDT-dollarkurs mangler – regnet som 1 amerikansk dollar"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT = 1 aangenomen"
+            "value" : "Dollarkoers van USDT ontbreekt – gerekend als 1 Amerikaanse dollar"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Przyjęto USDT = 1"
+            "value" : "Brak kursu USDT w dolarach – liczono jako 1 dolar amerykański"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Assumido USDT = 1"
+            "value" : "Falta a cotação em dólares do USDT – contado como 1 dólar americano"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Assumido USDT = 1"
+            "value" : "Falta a cotação em dólar do USDT – contado como 1 dólar americano"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Presupus USDT = 1"
+            "value" : "Lipsește cursul în dolari al USDT – calculat ca 1 dolar american"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Принято USDT = 1"
+            "value" : "Нет курса USDT к доллару – считается как 1 доллар США"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Supozohet USDT = 1"
+            "value" : "Mungon kursi në dollarë i USDT – llogaritur si 1 dollar amerikan"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT = 1 antaget"
+            "value" : "USDT:s dollarkurs saknas – räknat som 1 amerikansk dollar"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "สมมติ USDT = 1"
+            "value" : "ไม่มีอัตรา USDT เป็นดอลลาร์ – คิดเป็น 1 ดอลลาร์สหรัฐ"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT = 1 varsayıldı"
+            "value" : "USDT dolar kuru yok – 1 ABD doları olarak hesaplandı"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Прийнято USDT = 1"
+            "value" : "Немає курсу USDT до долара – враховано як 1 долар США"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Giả định USDT = 1"
+            "value" : "Thiếu tỷ giá đô la của USDT – tính là 1 đô la Mỹ"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "假定 USDT = 1"
+            "value" : "缺少 USDT 的美元汇率 – 按 1 美元计算"
           }
         }
       }
@@ -241038,187 +241611,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT/USD عبر USDC/USDT (بافتراض USDC = 1)"
+            "value" : "سعر USDT بالدولار عبر USDC/USDT – إذا هبط USDC فهذه القيمة غير صحيحة"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT/USD přes USDC/USDT (předpoklad USDC = 1)"
+            "value" : "Dolarový kurz USDT přes USDC/USDT – když USDC klesne, tato hodnota nesedí"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT/USD via USDC/USDT (USDC = 1 antaget)"
+            "value" : "USDT-dollarkurs via USDC/USDT – falder USDC, passer denne værdi ikke"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT/USD über USDC/USDT (USDC = 1 angenommen)"
+            "value" : "Dollarkurs von USDT über USDC/USDT – fällt USDC, stimmt dieser Wert nicht"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT/USD μέσω USDC/USDT (υπόθεση USDC = 1)"
+            "value" : "Ισοτιμία USDT σε δολάρια μέσω USDC/USDT – αν πέσει το USDC, η τιμή αυτή δεν ισχύει"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT/USD via USDC/USDT (USDC = 1 assumed)"
+            "value" : "USDT dollar rate via USDC/USDT – if USDC falls, this value is wrong"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT/USD vía USDC/USDT (USDC = 1 supuesto)"
+            "value" : "Cotización en dólares de USDT vía USDC/USDT – si USDC cae, este valor no es correcto"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT/USD از طریق USDC/USDT (با فرض USDC = 1)"
+            "value" : "نرخ دلاری USDT از طریق USDC/USDT – اگر USDC افت کند، این مقدار درست نیست"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT/USD USDC/USDT:n kautta (USDC = 1 oletettu)"
+            "value" : "USDT:n dollarikurssi USDC/USDT:n kautta – jos USDC laskee, tämä arvo ei pidä paikkaansa"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT/USD via USDC/USDT (USDC = 1 supposé)"
+            "value" : "Cours en dollars de l’USDT via USDC/USDT – si l’USDC chute, cette valeur est fausse"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT/USD דרך USDC/USDT (בהנחה ש-USDC = 1)"
+            "value" : "שער הדולר של USDT דרך USDC/USDT – אם USDC יורד, הערך הזה שגוי"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDC/USDT के ज़रिए USDT/USD (USDC = 1 माना गया)"
+            "value" : "USDC/USDT के ज़रिए USDT की डॉलर दर – USDC गिरे तो यह मान सही नहीं"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT/USD az USDC/USDT-n keresztül (USDC = 1 feltételezve)"
+            "value" : "Az USDT dolláros árfolyama USDC/USDT alapján – ha az USDC esik, ez az érték nem helyes"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT/USD melalui USDC/USDT (USDC = 1 diasumsikan)"
+            "value" : "Kurs dolar USDT melalui USDC/USDT – jika USDC turun, nilai ini tidak tepat"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT/USD tramite USDC/USDT (USDC = 1 presunto)"
+            "value" : "Cambio in dollari di USDT tramite USDC/USDT – se USDC scende, questo valore non è corretto"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDC/USDT 経由の USDT/USD（USDC = 1 と仮定）"
+            "value" : "USDC/USDT 経由の USDT のドル相場 – USDC が下落するとこの値は正しくありません"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDC/USDT를 통한 USDT/USD (USDC = 1 가정)"
+            "value" : "USDC/USDT를 통한 USDT 달러 시세 – USDC가 하락하면 이 값은 맞지 않습니다"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT/USD via USDC/USDT (USDC = 1 antatt)"
+            "value" : "USDT-dollarkurs via USDC/USDT – faller USDC, stemmer ikke denne verdien"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT/USD via USDC/USDT (USDC = 1 aangenomen)"
+            "value" : "Dollarkoers van USDT via USDC/USDT – daalt USDC, dan klopt deze waarde niet"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT/USD przez USDC/USDT (założono USDC = 1)"
+            "value" : "Kurs USDT w dolarach przez USDC/USDT – gdy USDC spadnie, ta wartość jest błędna"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT/USD via USDC/USDT (USDC = 1 assumido)"
+            "value" : "Cotação em dólares do USDT via USDC/USDT – se o USDC cair, este valor está errado"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT/USD via USDC/USDT (USDC = 1 assumido)"
+            "value" : "Cotação em dólar do USDT via USDC/USDT – se o USDC cair, este valor está errado"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT/USD prin USDC/USDT (USDC = 1 presupus)"
+            "value" : "Cursul în dolari al USDT prin USDC/USDT – dacă USDC scade, această valoare nu este corectă"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT/USD через USDC/USDT (USDC = 1 принято)"
+            "value" : "Курс USDT к доллару через USDC/USDT – если USDC упадёт, это значение неверно"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT/USD përmes USDC/USDT (USDC = 1 e supozuar)"
+            "value" : "Kursi në dollarë i USDT përmes USDC/USDT – nëse USDC bie, kjo vlerë nuk është e saktë"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT/USD via USDC/USDT (USDC = 1 antaget)"
+            "value" : "USDT:s dollarkurs via USDC/USDT – faller USDC stämmer inte detta värde"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT/USD ผ่าน USDC/USDT (สมมติ USDC = 1)"
+            "value" : "อัตรา USDT เป็นดอลลาร์ผ่าน USDC/USDT – หาก USDC ร่วง ค่านี้จะไม่ถูกต้อง"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDC/USDT üzerinden USDT/USD (USDC = 1 varsayıldı)"
+            "value" : "USDC/USDT üzerinden USDT dolar kuru – USDC düşerse bu değer doğru olmaz"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT/USD через USDC/USDT (USDC = 1 прийнято)"
+            "value" : "Курс USDT до долара через USDC/USDT – якщо USDC впаде, це значення хибне"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT/USD qua USDC/USDT (giả định USDC = 1)"
+            "value" : "Tỷ giá đô la của USDT qua USDC/USDT – nếu USDC giảm, giá trị này không đúng"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "经 USDC/USDT 得出的 USDT/USD（假定 USDC = 1）"
+            "value" : "经 USDC/USDT 得出的 USDT 美元汇率 – 若 USDC 下跌，此数值不准确"
           }
         }
       }

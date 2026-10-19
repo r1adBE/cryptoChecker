@@ -611,8 +611,9 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
 * **Favoriten ohne Stern-Knopf** — Favoriten erkennt man mit eingeschalteten Coin-Logos an
   einem kleinen Stern am Logo (kein Akzent-Rand mehr; ausgewählte Zeilen sind getönt); die Zeile
   verliert keine Breite mehr an einen eigenen Stern.
+* **«*» an der Änderung erklärt sich** — Tippen auf das «*» (Änderung aus fremden Kerzen, Tippfläche ≥ 48 dp ohne höhere Zeile) zeigt «Aus Binance-Kerzen berechnet – die Börse liefert diesen Wert nicht selbst», TalkBack/VoiceOver als Aktion der Zeile (Build 85, `WatchlistDayChangePill.kt`).
 * **Alarm testen** — Einstellungen › Alarme; gleicher Weg wie ein echter
-  Alarm, aber ohne Nachtruhe. Nach dem ersten Alarm: «Alarm gespeichert» (danach «Damit Alarme ankommen»).
+  Alarm, aber ohne Nachtruhe. Nach dem ersten Alarm: «Alarm gespeichert» mit Hauptknopf «Prüfen, ob Alarme ankommen», der gleich die Prüfliste «Damit Alarme ankommen» öffnet (Build 85, `FirstAlarmDialog`; iOS als Blatt).
 * **Willkommen ohne Dialog** — eine Neuinstallation öffnet direkt die leere
   Merkliste mit der Starter-Auswahl; «Was die App kann» (Was passiert? · Wann
   reagieren? · Warum?) steht unter Einstellungen › Über; Beispiel im leeren Portfolio.

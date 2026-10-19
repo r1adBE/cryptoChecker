@@ -84,7 +84,7 @@
     <string name="portfolio_price_unchecked">Harga belum diperiksa</string>
     <string name="portfolio_price_via_base">≈ harga %1$s (bridged/wrapped)</string>
     <string name="portfolio_usdt_as_usd">USDT dikonversi dengan harga pasarnya dalam USD</string>
-    <string name="portfolio_usdt_assumed">Diasumsikan USDT = 1</string>
+    <string name="portfolio_usdt_assumed">Kurs dolar USDT tidak ada – dihitung sebagai 1 dolar AS</string>
 
     <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
     <string name="portfolio_add_from_watch">Tambahkan ke portofolio</string>

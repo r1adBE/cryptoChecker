@@ -2,7 +2,7 @@
 <resources>
     <!-- Build 76: USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
     <string name="portfolio_usdt_break">Effondrement de l\'USDT – marché à %1$s USD</string>
-    <string name="portfolio_usdt_via_usdc">USDT/USD via USDC/USDT (USDC = 1 supposé)</string>
+    <string name="portfolio_usdt_via_usdc">Cours en dollars de l’USDT via USDC/USDT – si l’USDC chute, cette valeur est fausse</string>
     <string name="dex_low_liquidity_no_alarm">Faible liquidité – pas d\'alarme</string>
     <string name="dex_low_liquidity_alarm_hint">Ce pool a moins de 10 000 USD de liquidité (ou aucune indication). De petits montants suffisent à faire bouger son cours, aucune alarme ne peut donc être définie ici. Les alarmes existantes sont conservées, mais ne se déclenchent qu\'une fois la liquidité remontée.</string>
     <string name="portfolio_csv_skip_duplicate_txid_different">même ID de transaction avec un montant différent – vérifier à la main</string>

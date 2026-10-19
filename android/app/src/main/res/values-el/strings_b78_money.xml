@@ -5,7 +5,7 @@
     <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
     <string name="ledger_cost_fx_missing">Δεν υπάρχει ισοτιμία για την ημέρα αγοράς (λείπει από «Από την αγορά» και το κόστος κτήσης): %1$s</string>
     <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
-    <string name="ledger_cost_fx_usdt_assumed">Κόστος σε ημέρες αγοράς χωρίς ισοτιμία USDT/USD υπολογισμένο με USDT = 1.</string>
+    <string name="ledger_cost_fx_usdt_assumed">Κόστος σε ημέρες αγοράς χωρίς ισοτιμία USDT σε δολάρια υπολογισμένο ως 1 δολάριο ΗΠΑ ανά USDT.</string>
     <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
     <string name="tax_export_at_income_interest">Τόκοι – φορολογούνται κατά την είσπραξη</string>
     <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->

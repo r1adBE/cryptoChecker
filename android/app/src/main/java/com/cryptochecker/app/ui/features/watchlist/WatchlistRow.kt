@@ -167,6 +167,13 @@ internal fun WatchRow(
     val name = coinName(watch.marketKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name)
     // Gezeigte Änderung aus fremden Kerzen: Anbieter für Marker und Zeilensatz (gleiche Regel wie iOS)
     val changeMarker = DayChange.rowChangeMarker(changeSource, watch.shownChange(changeView), changeView.basis.isSinceLast)
+    // Tippen auf das «*» (bzw. Screenreader-Aktion der Zeile): kurz erklären, woher die Änderung kommt — ohne das
+    // Aktionsblatt zu öffnen. Im Sortier- und Auswahlmodus nicht (dort gehört jeder Tipp der Zeile).
+    val sourceHintLabel = stringResource(R.string.change_candle_source_action)
+    val sourceHintText = changeMarker?.let { stringResource(R.string.change_candle_source_hint, it) }
+    val showSourceHint: (() -> Unit)? = sourceHintText?.takeIf { !sortMode && !selecting }?.let { text ->
+        { android.widget.Toast.makeText(context, text, android.widget.Toast.LENGTH_LONG).show() }
+    }
     // Kurs ist der Mark-Preis (dünnes Orderbuch ohne Mittelkurs): so benennen, auch im Zeilensatz
     val markPrice = watch.id in LocalMarkFallback.current && watch.lastPrice != null
     // Frische ausgeschrieben statt der Zeitzeile mit «·» und «Min.»: «Kurs veraltet, zuletzt
@@ -257,6 +264,7 @@ internal fun WatchRow(
                         // «Auswählen» wie langes Drücken (startet die Mehrfachauswahl mit dieser Zeile)
                         onLongClick?.let { action -> add(CustomAccessibilityAction(selectLabel) { action(); true }) }
                     }
+                    showSourceHint?.let { action -> add(CustomAccessibilityAction(sourceHintLabel) { action(); true }) }
                     if (canReorder) {
                         add(CustomAccessibilityAction(moveUpLabel) { onMove(WatchMove.UP); true })
                         add(CustomAccessibilityAction(moveDownLabel) { onMove(WatchMove.DOWN); true })
@@ -350,6 +358,7 @@ internal fun WatchRow(
                             reveal = motion.priceReveal,
                             flash = flash,
                             changeMarker = changeMarker != null,
+                            onChangeMarkerClick = showSourceHint,
                             markPrice = markPrice,
                         )
                     }
@@ -366,6 +375,7 @@ internal fun WatchRow(
                         reveal = motion.priceReveal,
                         flash = flash,
                         changeMarker = changeMarker != null,
+                        onChangeMarkerClick = showSourceHint,
                         markPrice = markPrice,
                         modifier = Modifier.align(Alignment.End).padding(top = 4.dp),
                     )

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="alarm_first_check">Controleren of alarmen aankomen</string>
+    <string name="change_candle_source_hint">Berekend uit %1$s-candles – de beurs levert deze waarde niet zelf.</string>
+    <string name="change_candle_source_action">Bron van de wijziging tonen</string>
+</resources>

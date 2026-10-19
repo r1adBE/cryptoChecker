@@ -99,7 +99,7 @@
     <string name="portfolio_price_unchecked">السعر غير متحقق</string>
     <string name="portfolio_price_via_base">≈ سعر %1$s (مجسَّر/مغلَّف)</string>
     <string name="portfolio_usdt_as_usd">USDT محوّل بسعره السوقي بالدولار</string>
-    <string name="portfolio_usdt_assumed">يُفترض USDT = 1</string>
+    <string name="portfolio_usdt_assumed">سعر USDT بالدولار غير متوفر – احتُسب بدولار أمريكي واحد</string>
 
     <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
     <string name="portfolio_add_from_watch">إضافة إلى المحفظة</string>

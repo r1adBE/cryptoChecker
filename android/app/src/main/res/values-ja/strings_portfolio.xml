@@ -84,7 +84,7 @@
     <string name="portfolio_price_unchecked">価格未確認</string>
     <string name="portfolio_price_via_base">≈ %1$s の価格（ブリッジ/ラップ）</string>
     <string name="portfolio_usdt_as_usd">USDT は USD 建て市場価格で換算</string>
-    <string name="portfolio_usdt_assumed">USDT = 1 と仮定</string>
+    <string name="portfolio_usdt_assumed">USDT のドル相場がありません – 1 米ドルとして計算</string>
 
     <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
     <string name="portfolio_add_from_watch">ポートフォリオに追加</string>

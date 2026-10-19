@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="alarm_first_check">जाँचें कि अलर्ट पहुँचते हैं</string>
+    <string name="change_candle_source_hint">%1$s कैंडल से गणना की गई – एक्सचेंज ख़ुद यह मान नहीं देता।</string>
+    <string name="change_candle_source_action">बदलाव का स्रोत दिखाएँ</string>
+</resources>

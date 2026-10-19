@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="alarm_first_check">Sjekk at varsler kommer fram</string>
+    <string name="change_candle_source_hint">Beregnet fra %1$s-candlesticks – børsen oppgir ikke denne verdien selv.</string>
+    <string name="change_candle_source_action">Vis kilden til endringen</string>
+</resources>

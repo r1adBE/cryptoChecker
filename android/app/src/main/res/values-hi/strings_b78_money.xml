@@ -5,7 +5,7 @@
     <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
     <string name="ledger_cost_fx_missing">खरीद के दिन की विनिमय दर नहीं है («खरीद से» और लागत में शामिल नहीं): %1$s</string>
     <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
-    <string name="ledger_cost_fx_usdt_assumed">USDT/USD दर के बिना खरीद के दिनों की लागत USDT = 1 से बदली गई।</string>
+    <string name="ledger_cost_fx_usdt_assumed">USDT की डॉलर दर के बिना खरीद के दिनों की लागत 1 अमेरिकी डॉलर प्रति USDT के रूप में गिनी गई।</string>
     <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
     <string name="tax_export_at_income_interest">ब्याज – प्राप्ति पर कर योग्य</string>
     <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->

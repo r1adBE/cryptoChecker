@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="alarm_first_check">Periksa apakah alarm sampai</string>
+    <string name="change_candle_source_hint">Dihitung dari candle %1$s – bursa sendiri tidak menyediakan nilai ini.</string>
+    <string name="change_candle_source_action">Tampilkan sumber perubahan</string>
+</resources>

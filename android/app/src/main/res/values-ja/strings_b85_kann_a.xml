@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="alarm_first_check">アラームが届くか確認</string>
+    <string name="change_candle_source_hint">%1$sのローソク足から算出 – 取引所自体はこの値を提供していません。</string>
+    <string name="change_candle_source_action">変動の出所を表示</string>
+</resources>

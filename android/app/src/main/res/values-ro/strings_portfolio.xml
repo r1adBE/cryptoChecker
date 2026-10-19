@@ -90,7 +90,7 @@
     <string name="portfolio_price_unchecked">Preț neverificat</string>
     <string name="portfolio_price_via_base">≈ preț %1$s (bridged/wrapped)</string>
     <string name="portfolio_usdt_as_usd">USDT convertit la prețul său de piață în USD</string>
-    <string name="portfolio_usdt_assumed">Presupus USDT = 1</string>
+    <string name="portfolio_usdt_assumed">Lipsește cursul în dolari al USDT – calculat ca 1 dolar american</string>
 
     <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
     <string name="portfolio_add_from_watch">Adaugă în portofoliu</string>

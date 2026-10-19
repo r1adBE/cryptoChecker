@@ -87,7 +87,7 @@
     <string name="portfolio_price_unchecked">Hinta tarkistamatta</string>
     <string name="portfolio_price_via_base">≈ %1$s-hinta (silloitettu/kääritty)</string>
     <string name="portfolio_usdt_as_usd">USDT muunnettu sen USD-markkinakurssilla</string>
-    <string name="portfolio_usdt_assumed">Oletettu USDT = 1</string>
+    <string name="portfolio_usdt_assumed">USDT:n dollarikurssi puuttuu – laskettu 1 Yhdysvaltain dollarina</string>
 
     <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
     <string name="portfolio_add_from_watch">Lisää salkkuun</string>
