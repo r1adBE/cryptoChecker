@@ -1,0 +1,224 @@
+{
+  "exchange": "BingX / BingX Futures",
+  "description": "Hand-written in the documented response format (no live capture possible in the build environment); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS).",
+  "endpoints": {
+    "single": "GET https://open-api.bingx.com/openApi/spot/v1/ticker/24hr?symbol=BTC-USDT&timestamp=<ms> | /openApi/swap/v2/quote/ticker?symbol=BTC-USDT&timestamp=<ms>",
+    "bulk": "GET https://open-api.bingx.com/openApi/spot/v1/ticker/24hr?timestamp=<ms> | /openApi/swap/v2/quote/ticker?timestamp=<ms>",
+    "pairs": "GET https://open-api.bingx.com/openApi/spot/v1/common/symbols?timestamp=<ms> | /openApi/swap/v2/quote/contracts?timestamp=<ms>"
+  },
+  "note": "needs recorded verification: written from the public API documentation without a live capture",
+  "cases": [
+    {
+      "kind": "single",
+      "name": "spot 24hr BTC-USDT: data is an array with one entry, change from openPrice (priceChangePercent carries a '%')",
+      "market": "BingX",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTC-USDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"code\":0,\"msg\":\"\",\"debugMsg\":\"\",\"data\":[{\"symbol\":\"BTC-USDT\",\"openPrice\":\"60500.50\",\"highPrice\":\"62500.00\",\"lowPrice\":\"60000.00\",\"lastPrice\":\"62000.10\",\"priceChange\":\"1499.60\",\"priceChangePercent\":\"2.48%\",\"volume\":\"1210.523\",\"quoteVolume\":\"74446012.34\",\"openTime\":1728453600000,\"closeTime\":1728540000000,\"askPrice\":\"62000.20\",\"askQty\":\"0.512\",\"bidPrice\":\"62000.00\",\"bidQty\":\"0.204\"}]}",
+      "expect": {
+        "last": 62000.1,
+        "bid": 62000.0,
+        "ask": 62000.2,
+        "high": 62500.0,
+        "low": 60000.0,
+        "vol": 1210.523,
+        "volQuote": 74446012.34,
+        "change24hPercent": 2.478657201180153,
+        "exchangeTime": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "swap ticker BTC-USDT: data is an object, change from openPrice",
+      "market": "BingXFutures",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTC-USDT",
+        "contract": "PERPETUAL"
+      },
+      "requestId": 0,
+      "body": "{\"code\":0,\"msg\":\"\",\"data\":{\"symbol\":\"BTC-USDT\",\"priceChange\":\"-348.70\",\"priceChangePercent\":\"-0.56\",\"lastPrice\":\"61990.2\",\"lastQty\":\"0.0123\",\"highPrice\":\"62480.0\",\"lowPrice\":\"59980.1\",\"volume\":\"215432.12\",\"quoteVolume\":\"13248901234.56\",\"openPrice\":\"62338.9\",\"openTime\":1728453600000,\"closeTime\":1728540000000,\"askPrice\":\"61990.3\",\"askQty\":\"1.2\",\"bidPrice\":\"61990.1\",\"bidQty\":\"2.3\"}}",
+      "expect": {
+        "last": 61990.2,
+        "bid": 61990.1,
+        "ask": 61990.3,
+        "high": 62480.0,
+        "low": 59980.1,
+        "vol": 215432.12,
+        "volQuote": 13248901234.56,
+        "change24hPercent": -0.559361811004051,
+        "exchangeTime": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "swap ticker without bid/ask/openPrice: missing fields, no 24 h change",
+      "market": "BingXFutures",
+      "pair": {
+        "base": "ETH",
+        "quote": "USDT",
+        "id": "ETH-USDT",
+        "contract": "PERPETUAL"
+      },
+      "requestId": 0,
+      "body": "{\"code\":0,\"msg\":\"\",\"data\":{\"symbol\":\"ETH-USDT\",\"lastPrice\":\"2450.2\"}}",
+      "expect": {
+        "last": 2450.2,
+        "bid": -1.0,
+        "ask": -1.0,
+        "high": -1.0,
+        "low": -1.0,
+        "vol": -1.0,
+        "volQuote": -1.0,
+        "change24hPercent": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "error payload: unknown symbol, msg is the error text",
+      "market": "BingXFutures",
+      "pair": {
+        "base": "FOO",
+        "quote": "USDT",
+        "id": "FOO-USDT",
+        "contract": "PERPETUAL"
+      },
+      "requestId": 0,
+      "body": "{\"code\":109400,\"msg\":\"symbol:FOO-USDT not exist\",\"data\":null}",
+      "expect": {
+        "error": true,
+        "message": "symbol:FOO-USDT not exist"
+      }
+    },
+    {
+      "kind": "single",
+      "name": "spot: empty data with code 0: 'No data', not the (empty) msg",
+      "market": "BingX",
+      "pair": {
+        "base": "FOO",
+        "quote": "USDT",
+        "id": "FOO-USDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"code\":0,\"msg\":\"\",\"debugMsg\":\"\",\"data\":[]}",
+      "expect": {
+        "error": true,
+        "message": null,
+        "thrown": "No data"
+      },
+      "note": "code 0 = success: msg is no error text"
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk spot: entry with empty lastPrice (inactive) is skipped, not reported as unreadable",
+      "market": "BingX",
+      "requestId": 0,
+      "body": "{\"code\":0,\"msg\":\"\",\"debugMsg\":\"\",\"data\":[{\"symbol\":\"BTC-USDT\",\"openPrice\":\"60500.50\",\"highPrice\":\"62500.00\",\"lowPrice\":\"60000.00\",\"lastPrice\":\"62000.10\",\"priceChange\":\"1499.60\",\"priceChangePercent\":\"2.48%\",\"volume\":\"1210.523\",\"quoteVolume\":\"74446012.34\",\"openTime\":1728453600000,\"closeTime\":1728540000000,\"askPrice\":\"62000.20\",\"askQty\":\"0.512\",\"bidPrice\":\"62000.00\",\"bidQty\":\"0.204\"},{\"symbol\":\"NEW-USDT\",\"openPrice\":\"\",\"highPrice\":\"\",\"lowPrice\":\"\",\"lastPrice\":\"\",\"priceChange\":\"\",\"priceChangePercent\":\"\",\"volume\":\"0\",\"quoteVolume\":\"0\",\"openTime\":1728453600000,\"closeTime\":1728540000000},{\"symbol\":\"PEPE-USDT\",\"openPrice\":\"0.00000943\",\"highPrice\":\"0.00000951\",\"lowPrice\":\"0.00000899\",\"lastPrice\":\"0.00000912\",\"priceChange\":\"-0.00000031\",\"priceChangePercent\":\"-3.29%\",\"volume\":\"4567890123456\",\"quoteVolume\":\"41656000.12\",\"openTime\":1728453600000,\"closeTime\":1728540000000,\"askPrice\":\"0.00000913\",\"askQty\":\"1000000\",\"bidPrice\":\"0.00000911\",\"bidQty\":\"2000000\"}]}",
+      "expect": {
+        "count": 2,
+        "absent": [
+          "NEW-USDT"
+        ],
+        "tickers": {
+          "BTC-USDT": {
+            "last": 62000.1,
+            "change24hPercent": 2.478657201180153,
+            "exchangeTime": null
+          },
+          "PEPE-USDT": {
+            "last": 9.12e-06,
+            "change24hPercent": -3.287380699893942
+          }
+        }
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk swap: renamed lastPrice in one row - that pair is reported as unreadable, the rest stays",
+      "market": "BingXFutures",
+      "requestId": 0,
+      "body": "{\"code\":0,\"msg\":\"\",\"data\":[{\"symbol\":\"BTC-USDT\",\"priceChange\":\"-348.70\",\"priceChangePercent\":\"-0.56\",\"lastPrice\":\"61990.2\",\"lastQty\":\"0.0123\",\"highPrice\":\"62480.0\",\"lowPrice\":\"59980.1\",\"volume\":\"215432.12\",\"quoteVolume\":\"13248901234.56\",\"openPrice\":\"62338.9\",\"openTime\":1728453600000,\"closeTime\":1728540000000,\"askPrice\":\"61990.3\",\"askQty\":\"1.2\",\"bidPrice\":\"61990.1\",\"bidQty\":\"2.3\"},{\"symbol\":\"ETH-USDT\",\"priceChange\":\"-12.2\",\"priceChangePercent\":\"-0.49\",\"lastPrice\":\"2450.2\",\"lastQty\":\"0.5\",\"highPrice\":\"2480.0\",\"lowPrice\":\"2430.1\",\"volume\":\"403000.5\",\"quoteVolume\":\"987654321.0\",\"openPrice\":\"2462.4\",\"openTime\":1728453600000,\"closeTime\":1728540000000},{\"symbol\":\"SOL-USDT\",\"lastPrice_renamed\":\"150.5\",\"openPrice\":\"148.0\",\"volume\":\"1\"}]}",
+      "expect": {
+        "count": 2,
+        "absent": [
+          "SOL-USDT"
+        ],
+        "failed": [
+          "SOL-USDT"
+        ],
+        "tickers": {
+          "BTC-USDT": {
+            "last": 61990.2,
+            "vol": 215432.12
+          },
+          "ETH-USDT": {
+            "last": 2450.2,
+            "change24hPercent": -0.49545159194283106
+          }
+        }
+      }
+    },
+    {
+      "kind": "pairs",
+      "name": "spot symbols: only status 1 (online); base/quote split at the last '-'",
+      "market": "BingX",
+      "requestId": 0,
+      "note": "status 0 = offline, 5 = pre-open, 25 = suspended. The list has no baseAsset/quoteAsset fields.",
+      "body": "{\"code\":0,\"msg\":\"\",\"debugMsg\":\"\",\"data\":{\"symbols\":[{\"symbol\":\"BTC-USDT\",\"minQty\":0.0001,\"maxQty\":100,\"minNotional\":5,\"maxNotional\":2000000,\"status\":1,\"tickSize\":0.01,\"stepSize\":1e-06,\"apiStateSell\":true,\"apiStateBuy\":true,\"timeOnline\":1650000000000,\"offTime\":0,\"maintainTime\":0},{\"symbol\":\"1000PEPE-USDC\",\"status\":1,\"tickSize\":1e-07,\"stepSize\":1},{\"symbol\":\"OLD-USDT\",\"status\":0},{\"symbol\":\"SOON-USDT\",\"status\":5},{\"symbol\":\"HALT-USDT\",\"status\":25},{\"symbol\":\"NODASH\",\"status\":1}]}}",
+      "expect": {
+        "count": 2,
+        "absent": [
+          "OLD-USDT",
+          "SOON-USDT",
+          "HALT-USDT",
+          "NODASH"
+        ],
+        "pairs": {
+          "BTC-USDT": {
+            "base": "BTC",
+            "quote": "USDT",
+            "contract": "NONE"
+          },
+          "1000PEPE-USDC": {
+            "base": "1000PEPE",
+            "quote": "USDC",
+            "contract": "NONE"
+          }
+        }
+      }
+    },
+    {
+      "kind": "pairs",
+      "name": "swap contracts: asset/currency, only status 1",
+      "market": "BingXFutures",
+      "requestId": 0,
+      "body": "{\"code\":0,\"msg\":\"\",\"data\":[{\"contractId\":\"100\",\"symbol\":\"BTC-USDT\",\"size\":\"0.0001\",\"quantityPrecision\":4,\"pricePrecision\":1,\"feeRate\":0.0005,\"tradeMinLimit\":1,\"maxLongLeverage\":150,\"maxShortLeverage\":150,\"currency\":\"USDT\",\"asset\":\"BTC\",\"status\":1,\"apiStateOpen\":\"true\",\"apiStateClose\":\"true\"},{\"contractId\":\"101\",\"symbol\":\"ETH-USDT\",\"currency\":\"USDT\",\"asset\":\"ETH\",\"status\":1},{\"contractId\":\"102\",\"symbol\":\"OLD-USDT\",\"currency\":\"USDT\",\"asset\":\"OLD\",\"status\":0}]}",
+      "expect": {
+        "count": 2,
+        "absent": [
+          "OLD-USDT"
+        ],
+        "pairs": {
+          "BTC-USDT": {
+            "base": "BTC",
+            "quote": "USDT",
+            "contract": "PERPETUAL",
+            "tradFi": false
+          },
+          "ETH-USDT": {
+            "base": "ETH",
+            "quote": "USDT",
+            "contract": "PERPETUAL"
+          }
+        }
+      }
+    }
+  ]
+}

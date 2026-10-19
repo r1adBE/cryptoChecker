@@ -1,0 +1,177 @@
+{
+  "exchange": "Bitexen",
+  "description": "Hand-written in the documented response format (no live capture possible in the build environment); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS). Needs recorded verification (tools/record_exchange_fixtures.py) before release.",
+  "endpoints": {
+    "pairs": "GET https://www.bitexen.com/api/v1/ticker/ (keys of data.ticker)",
+    "single": "GET https://www.bitexen.com/api/v1/ticker/ (whole list, row by market code)",
+    "bulk": "GET https://www.bitexen.com/api/v1/ticker/"
+  },
+  "cases": [
+    {
+      "kind": "pairs",
+      "name": "ticker as pair list: base/counter from «market», row without it dropped",
+      "market": "Bitexen",
+      "requestId": 0,
+      "body": "{\"status\":\"success\",\"data\":{\"ticker\":{\"BTCTRY\":{\"market\":{\"market_code\":\"BTCTRY\",\"base_currency_code\":\"BTC\",\"counter_currency_code\":\"TRY\"},\"bid\":\"2149000.00\",\"ask\":\"2151000.00\",\"last_price\":\"2150000.00\",\"last_size\":\"0.00450000\",\"volume_24h\":\"11.94924000\",\"change_24h\":\"1.90\",\"low_24h\":\"2100000.00\",\"high_24h\":\"2180000.00\",\"avg_24h\":\"2140000.00\",\"timestamp\":\"1728540000.371\"},\"ETHTRY\":{\"market\":{\"market_code\":\"ETHTRY\",\"base_currency_code\":\"ETH\",\"counter_currency_code\":\"TRY\"},\"bid\":\"2149000.00\",\"ask\":\"2151000.00\",\"last_price\":\"85000.00\",\"last_size\":\"0.00450000\",\"volume_24h\":\"11.94924000\",\"change_24h\":\"1.90\",\"low_24h\":\"2100000.00\",\"high_24h\":\"2180000.00\",\"avg_24h\":\"2140000.00\",\"timestamp\":\"1728540000.371\"},\"ODDTRY\":{\"last_price\":\"1.00\"}}}}",
+      "expect": {
+        "count": 2,
+        "absent": [
+          "ODDTRY"
+        ],
+        "pairs": {
+          "BTCTRY": {
+            "base": "BTC",
+            "quote": "TRY"
+          },
+          "ETHTRY": {
+            "base": "ETH",
+            "quote": "TRY"
+          }
+        }
+      }
+    },
+    {
+      "kind": "single",
+      "name": "ticker BTCTRY from the whole list (change_24h and timestamp not used)",
+      "market": "Bitexen",
+      "pair": {
+        "base": "BTC",
+        "quote": "TRY",
+        "id": "BTCTRY",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"status\":\"success\",\"data\":{\"ticker\":{\"BTCTRY\":{\"market\":{\"market_code\":\"BTCTRY\",\"base_currency_code\":\"BTC\",\"counter_currency_code\":\"TRY\"},\"bid\":\"2149000.00\",\"ask\":\"2151000.00\",\"last_price\":\"2150000.00\",\"last_size\":\"0.00450000\",\"volume_24h\":\"11.94924000\",\"change_24h\":\"1.90\",\"low_24h\":\"2100000.00\",\"high_24h\":\"2180000.00\",\"avg_24h\":\"2140000.00\",\"timestamp\":\"1728540000.371\"},\"ETHTRY\":{\"market\":{\"market_code\":\"ETHTRY\",\"base_currency_code\":\"ETH\",\"counter_currency_code\":\"TRY\"},\"bid\":\"2149000.00\",\"ask\":\"2151000.00\",\"last_price\":\"85000.00\",\"last_size\":\"0.00450000\",\"volume_24h\":\"11.94924000\",\"change_24h\":\"1.90\",\"low_24h\":\"2100000.00\",\"high_24h\":\"2180000.00\",\"avg_24h\":\"2140000.00\",\"timestamp\":\"1728540000.371\"}}}}",
+      "expect": {
+        "last": 2150000.0,
+        "bid": 2149000.0,
+        "ask": 2151000.0,
+        "high": 2180000.0,
+        "low": 2100000.0,
+        "vol": 11.94924,
+        "volQuote": -1.0,
+        "change24hPercent": null,
+        "exchangeTime": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "pair missing from the list -> no data",
+      "market": "Bitexen",
+      "pair": {
+        "base": "FOO",
+        "quote": "TRY",
+        "id": "FOOTRY",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"status\":\"success\",\"data\":{\"ticker\":{\"BTCTRY\":{\"market\":{\"market_code\":\"BTCTRY\",\"base_currency_code\":\"BTC\",\"counter_currency_code\":\"TRY\"},\"bid\":\"2149000.00\",\"ask\":\"2151000.00\",\"last_price\":\"2150000.00\",\"last_size\":\"0.00450000\",\"volume_24h\":\"11.94924000\",\"change_24h\":\"1.90\",\"low_24h\":\"2100000.00\",\"high_24h\":\"2180000.00\",\"avg_24h\":\"2140000.00\",\"timestamp\":\"1728540000.371\"}}}}",
+      "expect": {
+        "error": true,
+        "thrown": "No data"
+      }
+    },
+    {
+      "kind": "single",
+      "name": "error payload (status not success)",
+      "market": "Bitexen",
+      "pair": {
+        "base": "BTC",
+        "quote": "TRY",
+        "id": "BTCTRY",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"status\":\"error\",\"message\":\"Service temporarily unavailable\"}",
+      "expect": {
+        "error": true,
+        "thrown": "Status not success",
+        "message": "Service temporarily unavailable"
+      }
+    },
+    {
+      "kind": "single",
+      "name": "zero last_price -> no price",
+      "market": "Bitexen",
+      "pair": {
+        "base": "BTC",
+        "quote": "TRY",
+        "id": "BTCTRY",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"status\":\"success\",\"data\":{\"ticker\":{\"BTCTRY\":{\"market\":{\"market_code\":\"BTCTRY\",\"base_currency_code\":\"BTC\",\"counter_currency_code\":\"TRY\"},\"bid\":\"2149000.00\",\"ask\":\"2151000.00\",\"last_price\":\"0.00\",\"last_size\":\"0.00450000\",\"volume_24h\":\"11.94924000\",\"change_24h\":\"1.90\",\"low_24h\":\"2100000.00\",\"high_24h\":\"2180000.00\",\"avg_24h\":\"2140000.00\",\"timestamp\":\"1728540000.371\"}}}}",
+      "expect": {
+        "error": true
+      }
+    },
+    {
+      "kind": "single",
+      "name": "rate limit payload (HTTP 429) -> exchange text",
+      "market": "Bitexen",
+      "pair": {
+        "base": "BTC",
+        "quote": "TRY",
+        "id": "BTCTRY",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"status\":\"error\",\"message\":\"Too many requests\"}",
+      "expect": {
+        "error": true,
+        "message": "Too many requests"
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "ticker: all markets",
+      "market": "Bitexen",
+      "requestId": 0,
+      "body": "{\"status\":\"success\",\"data\":{\"ticker\":{\"BTCTRY\":{\"market\":{\"market_code\":\"BTCTRY\",\"base_currency_code\":\"BTC\",\"counter_currency_code\":\"TRY\"},\"bid\":\"2149000.00\",\"ask\":\"2151000.00\",\"last_price\":\"2150000.00\",\"last_size\":\"0.00450000\",\"volume_24h\":\"11.94924000\",\"change_24h\":\"1.90\",\"low_24h\":\"2100000.00\",\"high_24h\":\"2180000.00\",\"avg_24h\":\"2140000.00\",\"timestamp\":\"1728540000.371\"},\"ETHTRY\":{\"market\":{\"market_code\":\"ETHTRY\",\"base_currency_code\":\"ETH\",\"counter_currency_code\":\"TRY\"},\"bid\":\"2149000.00\",\"ask\":\"2151000.00\",\"last_price\":\"85000.00\",\"last_size\":\"0.00450000\",\"volume_24h\":\"11.94924000\",\"change_24h\":\"1.90\",\"low_24h\":\"2100000.00\",\"high_24h\":\"2180000.00\",\"avg_24h\":\"2140000.00\",\"timestamp\":\"1728540000.371\"}}}}",
+      "expect": {
+        "count": 2,
+        "tickers": {
+          "BTCTRY": {
+            "last": 2150000.0,
+            "vol": 11.94924
+          },
+          "ETHTRY": {
+            "last": 85000.0
+          }
+        }
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk: renamed field «last_price» in one row — that pair is reported as unreadable, the rest stays; row with zero «last_price» (inactive) is skipped, not failed",
+      "market": "Bitexen",
+      "requestId": 0,
+      "body": "{\"status\":\"success\",\"data\":{\"ticker\":{\"BTCTRY\":{\"market\":{\"market_code\":\"BTCTRY\",\"base_currency_code\":\"BTC\",\"counter_currency_code\":\"TRY\"},\"bid\":\"2149000.00\",\"ask\":\"2151000.00\",\"last_price\":\"2150000.00\",\"last_size\":\"0.00450000\",\"volume_24h\":\"11.94924000\",\"change_24h\":\"1.90\",\"low_24h\":\"2100000.00\",\"high_24h\":\"2180000.00\",\"avg_24h\":\"2140000.00\",\"timestamp\":\"1728540000.371\"},\"ETHTRY\":{\"market\":{\"market_code\":\"ETHTRY\",\"base_currency_code\":\"ETH\",\"counter_currency_code\":\"TRY\"},\"bid\":\"2149000.00\",\"ask\":\"2151000.00\",\"last_size\":\"0.00450000\",\"volume_24h\":\"11.94924000\",\"change_24h\":\"1.90\",\"low_24h\":\"2100000.00\",\"high_24h\":\"2180000.00\",\"avg_24h\":\"2140000.00\",\"timestamp\":\"1728540000.371\",\"last_price_renamed\":\"85000\"},\"OLDTRY\":{\"market\":{\"market_code\":\"OLDTRY\",\"base_currency_code\":\"OLD\",\"counter_currency_code\":\"TRY\"},\"bid\":\"2149000.00\",\"ask\":\"2151000.00\",\"last_price\":\"0.00\",\"last_size\":\"0.00450000\",\"volume_24h\":\"11.94924000\",\"change_24h\":\"1.90\",\"low_24h\":\"2100000.00\",\"high_24h\":\"2180000.00\",\"avg_24h\":\"2140000.00\",\"timestamp\":\"1728540000.371\"}}}}",
+      "expect": {
+        "count": 1,
+        "absent": [
+          "ETHTRY",
+          "OLDTRY"
+        ],
+        "failed": [
+          "ETHTRY"
+        ],
+        "tickers": {
+          "BTCTRY": {
+            "last": 2150000.0
+          }
+        }
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk: status not success -> whole batch fails",
+      "market": "Bitexen",
+      "requestId": 0,
+      "body": "{\"status\":\"error\",\"message\":\"Maintenance\"}",
+      "expect": {
+        "error": true
+      }
+    }
+  ]
+}

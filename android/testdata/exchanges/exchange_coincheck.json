@@ -1,0 +1,110 @@
+{
+  "exchange": "Coincheck",
+  "description": "Hand-written in the documented response format (no live capture possible in the build environment); field names are exactly the ones the adapters read. Needs recorded verification (tools/record_exchange_fixtures.py). Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS).",
+  "endpoints": {
+    "single": "GET https://coincheck.com/api/ticker?pair=btc_jpy",
+    "pairs": "GET https://coincheck.com/api/exchange_status (no pair-list endpoint; status of every pair)"
+  },
+  "cases": [
+    {
+      "kind": "single",
+      "name": "ticker btc_jpy: no 24 h change in the ticker; timestamp is the response time (exchange time unknown)",
+      "market": "Coincheck",
+      "pair": {
+        "base": "BTC",
+        "quote": "JPY",
+        "id": "btc_jpy",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"last\":15000050,\"bid\":15000000,\"ask\":15000100,\"high\":15200000,\"volume\":\"123.4567\",\"low\":14800000,\"timestamp\":1728540000}",
+      "expect": {
+        "last": 15000050.0,
+        "bid": 15000000.0,
+        "ask": 15000100.0,
+        "high": 15200000.0,
+        "low": 14800000.0,
+        "vol": 123.4567,
+        "volQuote": -1.0,
+        "change24hPercent": null,
+        "exchangeTime": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "error payload",
+      "market": "Coincheck",
+      "pair": {
+        "base": "FOO",
+        "quote": "JPY",
+        "id": "foo_jpy",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"success\":false,\"error\":\"invalid pair\"}",
+      "expect": {
+        "error": true,
+        "message": "invalid pair"
+      }
+    },
+    {
+      "kind": "single",
+      "name": "rate limit: error text «Too many requests»",
+      "market": "Coincheck",
+      "pair": {
+        "base": "BTC",
+        "quote": "JPY",
+        "id": "btc_jpy",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"success\":false,\"error\":\"Too many requests\"}",
+      "expect": {
+        "error": true,
+        "message": "Too many requests"
+      }
+    },
+    {
+      "kind": "single",
+      "name": "last 0 is no price, not a valid ticker (no error text)",
+      "market": "Coincheck",
+      "pair": {
+        "base": "OLD",
+        "quote": "JPY",
+        "id": "old_jpy",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"last\":0,\"bid\":0,\"ask\":0,\"high\":0,\"volume\":\"0\",\"low\":0,\"timestamp\":1728540000}",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "pairs",
+      "name": "pair list from exchange_status: «stop» dropped, «available» and «itayose» kept",
+      "market": "Coincheck",
+      "requestId": 0,
+      "body": "{\"exchange_status\":[{\"pair\":\"btc_jpy\",\"status\":\"available\",\"timestamp\":1728540000,\"availability\":{\"order\":true,\"market_order\":true,\"cancel\":true}},{\"pair\":\"eth_jpy\",\"status\":\"itayose\",\"timestamp\":1728540000,\"availability\":{\"order\":true,\"market_order\":false,\"cancel\":true}},{\"pair\":\"xyz_jpy\",\"status\":\"stop\",\"timestamp\":1728540000,\"availability\":{\"order\":false,\"market_order\":false,\"cancel\":false}}]}",
+      "expect": {
+        "address": "https://coincheck.com/api/exchange_status",
+        "count": 2,
+        "absent": [
+          "xyz_jpy"
+        ],
+        "pairs": {
+          "btc_jpy": {
+            "base": "BTC",
+            "quote": "JPY",
+            "contract": "NONE"
+          },
+          "eth_jpy": {
+            "base": "ETH",
+            "quote": "JPY"
+          }
+        }
+      }
+    }
+  ]
+}

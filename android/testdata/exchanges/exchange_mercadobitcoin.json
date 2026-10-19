@@ -1,0 +1,167 @@
+{
+  "exchange": "Mercado Bitcoin",
+  "description": "Hand-written in the documented response format (no live capture possible in the build environment); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS). Needs recorded verification (tools/record_exchange_fixtures.py) before release.",
+  "endpoints": {
+    "pairs": "GET https://api.mercadobitcoin.net/api/v4/symbols",
+    "single": "GET https://api.mercadobitcoin.net/api/v4/tickers?symbols=BTC-BRL",
+    "bulk": "GET https://api.mercadobitcoin.net/api/v4/tickers?symbols=BTC-BRL,ETH-BRL (filtered only)"
+  },
+  "cases": [
+    {
+      "kind": "pairs",
+      "name": "symbols (column lists): not traded and null symbol dropped",
+      "market": "MercadoBitcoin",
+      "requestId": 0,
+      "body": "{\"symbol\":[\"BTC-BRL\",\"ETH-BRL\",\"OLD-BRL\",null],\"description\":[\"Bitcoin\",\"Ethereum\",\"Old\",\"Null\"],\"currency\":[\"BRL\",\"BRL\",\"BRL\",\"BRL\"],\"base-currency\":[\"BTC\",\"ETH\",\"OLD\",\"NUL\"],\"exchange-listed\":[true,true,true,true],\"exchange-traded\":[true,true,false,true],\"minmovement\":[\"1\",\"1\",\"1\",\"1\"],\"pricescale\":[100000000,100000000,100000000,100000000],\"type\":[\"CRYPTO\",\"CRYPTO\",\"CRYPTO\",\"CRYPTO\"],\"timezone\":[\"America/Sao_Paulo\",\"America/Sao_Paulo\",\"America/Sao_Paulo\",\"America/Sao_Paulo\"],\"session-regular\":[\"24x7\",\"24x7\",\"24x7\",\"24x7\"]}",
+      "expect": {
+        "count": 2,
+        "absent": [
+          "OLD-BRL"
+        ],
+        "pairs": {
+          "BTC-BRL": {
+            "base": "BTC",
+            "quote": "BRL"
+          },
+          "ETH-BRL": {
+            "base": "ETH",
+            "quote": "BRL"
+          }
+        }
+      }
+    },
+    {
+      "kind": "single",
+      "name": "ticker BTC-BRL (buy/sell = bid/ask, open = price 24 h ago, date = snapshot)",
+      "market": "MercadoBitcoin",
+      "pair": {
+        "base": "BTC",
+        "quote": "BRL",
+        "id": "BTC-BRL",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "[{\"pair\":\"BTC-BRL\",\"high\":\"350000.00000000\",\"low\":\"340000.00000000\",\"vol\":\"45.12345678\",\"last\":\"348000.00000000\",\"buy\":\"347900.00000000\",\"sell\":\"348100.00000000\",\"open\":\"342000.00000000\",\"date\":1728540000}]",
+      "expect": {
+        "last": 348000.0,
+        "bid": 347900.0,
+        "ask": 348100.0,
+        "high": 350000.0,
+        "low": 340000.0,
+        "vol": 45.12345678,
+        "volQuote": -1.0,
+        "change24hPercent": 1.7543859649122806,
+        "exchangeTime": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "error payload",
+      "market": "MercadoBitcoin",
+      "pair": {
+        "base": "FOO",
+        "quote": "BRL",
+        "id": "FOO-BRL",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"code\":\"API_INVALID_SYMBOL\",\"message\":\"Invalid symbol\"}",
+      "expect": {
+        "error": true,
+        "message": "Invalid symbol"
+      }
+    },
+    {
+      "kind": "single",
+      "name": "empty list -> no data",
+      "market": "MercadoBitcoin",
+      "pair": {
+        "base": "BTC",
+        "quote": "BRL",
+        "id": "BTC-BRL",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "[]",
+      "expect": {
+        "error": true,
+        "thrown": "No data"
+      }
+    },
+    {
+      "kind": "single",
+      "name": "zero last -> no price",
+      "market": "MercadoBitcoin",
+      "pair": {
+        "base": "BTC",
+        "quote": "BRL",
+        "id": "BTC-BRL",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "[{\"pair\":\"BTC-BRL\",\"high\":\"350000.00000000\",\"low\":\"340000.00000000\",\"vol\":\"45.12345678\",\"last\":\"0.00000000\",\"buy\":\"347900.00000000\",\"sell\":\"348100.00000000\",\"open\":\"342000.00000000\",\"date\":1728540000}]",
+      "expect": {
+        "error": true
+      }
+    },
+    {
+      "kind": "single",
+      "name": "rate limit payload (HTTP 429) -> exchange text",
+      "market": "MercadoBitcoin",
+      "pair": {
+        "base": "BTC",
+        "quote": "BRL",
+        "id": "BTC-BRL",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"code\":\"TOO_MANY_REQUESTS\",\"message\":\"Too many requests\"}",
+      "expect": {
+        "error": true,
+        "message": "Too many requests"
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "tickers for a selection",
+      "market": "MercadoBitcoin",
+      "requestId": 0,
+      "body": "[{\"pair\":\"BTC-BRL\",\"high\":\"350000.00000000\",\"low\":\"340000.00000000\",\"vol\":\"45.12345678\",\"last\":\"348000.00000000\",\"buy\":\"347900.00000000\",\"sell\":\"348100.00000000\",\"open\":\"342000.00000000\",\"date\":1728540000},{\"pair\":\"ETH-BRL\",\"high\":\"14000.00000000\",\"low\":\"13500.00000000\",\"vol\":\"800.5\",\"last\":\"13800.00000000\",\"buy\":\"13790.00000000\",\"sell\":\"13810.00000000\",\"open\":\"13700.00000000\",\"date\":1728540000}]",
+      "expect": {
+        "count": 2,
+        "tickers": {
+          "BTC-BRL": {
+            "last": 348000.0,
+            "vol": 45.12345678
+          },
+          "ETH-BRL": {
+            "last": 13800.0,
+            "change24hPercent": 0.7299270072992701
+          }
+        }
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk: renamed field «last» in one row — that pair is reported as unreadable, the rest stays; row with zero «last» (inactive) is skipped, not failed",
+      "market": "MercadoBitcoin",
+      "requestId": 0,
+      "body": "[{\"pair\":\"BTC-BRL\",\"high\":\"350000.00000000\",\"low\":\"340000.00000000\",\"vol\":\"45.12345678\",\"last\":\"348000.00000000\",\"buy\":\"347900.00000000\",\"sell\":\"348100.00000000\",\"open\":\"342000.00000000\",\"date\":1728540000},{\"pair\":\"ETH-BRL\",\"high\":\"14000.00000000\",\"low\":\"13500.00000000\",\"vol\":\"800.5\",\"buy\":\"13790.00000000\",\"sell\":\"13810.00000000\",\"open\":\"13700.00000000\",\"date\":1728540000,\"last_renamed\":\"13800\"},{\"pair\":\"OLD-BRL\",\"high\":\"350000.00000000\",\"low\":\"340000.00000000\",\"vol\":\"45.12345678\",\"last\":\"0\",\"buy\":\"347900.00000000\",\"sell\":\"348100.00000000\",\"open\":\"342000.00000000\",\"date\":1728540000}]",
+      "expect": {
+        "count": 1,
+        "absent": [
+          "ETH-BRL",
+          "OLD-BRL"
+        ],
+        "failed": [
+          "ETH-BRL"
+        ],
+        "tickers": {
+          "BTC-BRL": {
+            "last": 348000.0
+          }
+        }
+      }
+    }
+  ]
+}

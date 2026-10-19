@@ -49,6 +49,18 @@ jobs:
             python3 android/tools/record_exchange_fixtures.py
           fi
 
+      # Kurzauszug je Aufzeichnung als Annotation (Artefakte sind nicht überall abrufbar): Markt, Fall, die ersten
+      # 900 Zeichen der Antwort. Höchstens 10 Hinweise je Schritt, daher drei Schritte.
+      - name: Summaries (1)
+        if: always()
+        run: python3 android/tools/recorded_summaries.py 0 10
+      - name: Summaries (2)
+        if: always()
+        run: python3 android/tools/recorded_summaries.py 10 20
+      - name: Summaries (3)
+        if: always()
+        run: python3 android/tools/recorded_summaries.py 20 30
+
       - name: Upload recordings
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:

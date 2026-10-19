@@ -1,0 +1,178 @@
+{
+  "exchange": "bitbank",
+  "description": "Hand-written in the documented response format (no live capture possible in the build environment); field names are exactly the ones the adapters read. Needs recorded verification (tools/record_exchange_fixtures.py). Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS).",
+  "endpoints": {
+    "single": "GET https://public.bitbank.cc/btc_jpy/ticker",
+    "bulk": "GET https://public.bitbank.cc/tickers",
+    "pairs": "GET https://public.bitbank.cc/tickers (same response as the bulk ticker)"
+  },
+  "cases": [
+    {
+      "kind": "single",
+      "name": "ticker btc_jpy: open = price 24 h ago (rolling); timestamp is the snapshot time, not a trade (exchange time unknown)",
+      "market": "Bitbank",
+      "pair": {
+        "base": "BTC",
+        "quote": "JPY",
+        "id": "btc_jpy",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"success\":1,\"data\":{\"sell\":\"15000100\",\"buy\":\"15000000\",\"high\":\"15200000\",\"low\":\"14800000\",\"open\":\"14900000\",\"last\":\"15000050\",\"vol\":\"123.4567\",\"timestamp\":1728540000123}}",
+      "expect": {
+        "last": 15000050.0,
+        "bid": 15000000.0,
+        "ask": 15000100.0,
+        "high": 15200000.0,
+        "low": 14800000.0,
+        "vol": 123.4567,
+        "volQuote": -1.0,
+        "change24hPercent": 0.6714765100671141,
+        "exchangeTime": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "ticker without open: no 24 h change (fallback candles)",
+      "market": "Bitbank",
+      "pair": {
+        "base": "BTC",
+        "quote": "JPY",
+        "id": "btc_jpy",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"success\":1,\"data\":{\"sell\":\"15000100\",\"buy\":\"15000000\",\"last\":\"15000050\",\"vol\":\"1.5\",\"timestamp\":1728540000123}}",
+      "expect": {
+        "last": 15000050.0,
+        "change24hPercent": null,
+        "exchangeTime": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "error payload: only a code, no text",
+      "market": "Bitbank",
+      "pair": {
+        "base": "FOO",
+        "quote": "JPY",
+        "id": "foo_jpy",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"success\":0,\"data\":{\"code\":10000}}",
+      "expect": {
+        "error": true,
+        "message": "Error code 10000"
+      }
+    },
+    {
+      "kind": "single",
+      "name": "rate limit (code 10009): text contains «Too many requests» so the refresh report counts it as throttling",
+      "market": "Bitbank",
+      "pair": {
+        "base": "BTC",
+        "quote": "JPY",
+        "id": "btc_jpy",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"success\":0,\"data\":{\"code\":10009}}",
+      "expect": {
+        "error": true,
+        "message": "Too many requests (10009)"
+      }
+    },
+    {
+      "kind": "single",
+      "name": "last 0 is no price, not a valid ticker (no error text)",
+      "market": "Bitbank",
+      "pair": {
+        "base": "OLD",
+        "quote": "JPY",
+        "id": "old_jpy",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"success\":1,\"data\":{\"sell\":null,\"buy\":null,\"high\":\"0\",\"low\":\"0\",\"open\":\"0\",\"last\":\"0\",\"vol\":\"0\",\"timestamp\":1728540000123}}",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk tickers: inactive pair with null last is skipped, not reported as unreadable",
+      "market": "Bitbank",
+      "requestId": 0,
+      "body": "{\"success\":1,\"data\":[{\"pair\":\"btc_jpy\",\"sell\":\"15000100\",\"buy\":\"15000000\",\"high\":\"15200000\",\"low\":\"14800000\",\"open\":\"14900000\",\"last\":\"15000050\",\"vol\":\"123.4567\",\"timestamp\":1728540000123},{\"pair\":\"eth_jpy\",\"sell\":\"380010\",\"buy\":\"379990\",\"high\":\"385000\",\"low\":\"370000\",\"open\":\"375000\",\"last\":\"380000\",\"vol\":\"2345.6789\",\"timestamp\":1728540000123},{\"pair\":\"old_jpy\",\"sell\":null,\"buy\":null,\"high\":null,\"low\":null,\"open\":null,\"last\":null,\"vol\":\"0\",\"timestamp\":1728540000123}]}",
+      "expect": {
+        "count": 2,
+        "absent": [
+          "old_jpy"
+        ],
+        "failed": [],
+        "tickers": {
+          "btc_jpy": {
+            "last": 15000050.0,
+            "bid": 15000000.0,
+            "ask": 15000100.0,
+            "change24hPercent": 0.6714765100671141,
+            "exchangeTime": null
+          },
+          "eth_jpy": {
+            "last": 380000.0,
+            "vol": 2345.6789,
+            "change24hPercent": 1.3333333333333335
+          }
+        }
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk: renamed field «last» in one row — that pair is reported as unreadable, the rest stays",
+      "market": "Bitbank",
+      "requestId": 0,
+      "body": "{\"success\":1,\"data\":[{\"pair\":\"btc_jpy\",\"sell\":\"15000100\",\"buy\":\"15000000\",\"high\":\"15200000\",\"low\":\"14800000\",\"open\":\"14900000\",\"last\":\"15000050\",\"vol\":\"123.4567\",\"timestamp\":1728540000123},{\"pair\":\"eth_jpy\",\"sell\":\"380010\",\"buy\":\"379990\",\"high\":\"385000\",\"low\":\"370000\",\"open\":\"375000\",\"last_renamed\":\"380000\",\"vol\":\"2345.6789\",\"timestamp\":1728540000123}]}",
+      "expect": {
+        "count": 1,
+        "absent": [
+          "eth_jpy"
+        ],
+        "failed": [
+          "eth_jpy"
+        ],
+        "tickers": {
+          "btc_jpy": {
+            "last": 15000050.0
+          }
+        }
+      }
+    },
+    {
+      "kind": "pairs",
+      "name": "pair list from /tickers: «base_quote» upper-cased; id without underscore dropped",
+      "market": "Bitbank",
+      "requestId": 0,
+      "body": "{\"success\":1,\"data\":[{\"pair\":\"btc_jpy\",\"sell\":\"15000100\",\"buy\":\"15000000\",\"high\":\"15200000\",\"low\":\"14800000\",\"open\":\"14900000\",\"last\":\"15000050\",\"vol\":\"123.4567\",\"timestamp\":1728540000123},{\"pair\":\"eth_jpy\",\"sell\":\"380010\",\"buy\":\"379990\",\"high\":\"385000\",\"low\":\"370000\",\"open\":\"375000\",\"last\":\"380000\",\"vol\":\"2345.6789\",\"timestamp\":1728540000123},{\"pair\":\"weird\",\"sell\":\"380010\",\"buy\":\"379990\",\"high\":\"385000\",\"low\":\"370000\",\"open\":\"375000\",\"last\":\"380000\",\"vol\":\"2345.6789\",\"timestamp\":1728540000123}]}",
+      "expect": {
+        "address": "https://public.bitbank.cc/tickers",
+        "count": 2,
+        "absent": [
+          "weird"
+        ],
+        "pairs": {
+          "btc_jpy": {
+            "base": "BTC",
+            "quote": "JPY",
+            "contract": "NONE"
+          },
+          "eth_jpy": {
+            "base": "ETH",
+            "quote": "JPY"
+          }
+        }
+      }
+    }
+  ]
+}

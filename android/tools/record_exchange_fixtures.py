@@ -59,7 +59,8 @@ BTC_USDT = ("BTC", "USDT")
 
 # Schlüssel = MarketsConfig-Schlüssel (Klassenname). single: Einzelkurs (Anfrage 0);
 # bulk: Sammelabfrage (Anfrage 0), nur wo sie ohne Vorwissen lesbar ist; pairs: Paarliste, nur
-# bei genau einer festen GET-Adresse (SimpleMarket). post = JSON-Körper (POST); geo = 403 gilt als gesperrt.
+# bei genau einer festen GET-Adresse (SimpleMarket). post = JSON-Körper (POST); geo = 403 gilt als gesperrt;
+# stamp = «timestamp=<jetzt in ms>» beim Abruf anhängen (BingX).
 MARKETS = [
     {"market": "Coinbase", "pair": pair("BTC", "USD", "BTC-USD"),
      "single": "https://api.exchange.coinbase.com/products/BTC-USD/stats",
@@ -152,6 +153,19 @@ MARKETS = [
     {"market": "Hyperliquid", "pair": pair("BTC", "USDC", "BTC", "PERPETUAL"),
      "single": "https://api.hyperliquid.xyz/info", "post": {"type": "metaAndAssetCtxs"},
      "bulk": "https://api.hyperliquid.xyz/info"},
+    # BingX: die Adapter hängen an jede Adresse «timestamp=<ms>» an (stamp), wie BingX.kt / BingX.swift
+    {"market": "BingX", "pair": pair(*BTC_USDT, "BTC-USDT"), "stamp": True,
+     "single": "https://open-api.bingx.com/openApi/spot/v1/ticker/24hr?symbol=BTC-USDT",
+     "bulk": "https://open-api.bingx.com/openApi/spot/v1/ticker/24hr",
+     "pairs": "https://open-api.bingx.com/openApi/spot/v1/common/symbols"},
+    {"market": "BingXFutures", "pair": pair(*BTC_USDT, "BTC-USDT", "PERPETUAL"), "stamp": True,
+     "single": "https://open-api.bingx.com/openApi/swap/v2/quote/ticker?symbol=BTC-USDT",
+     "bulk": "https://open-api.bingx.com/openApi/swap/v2/quote/ticker",
+     "pairs": "https://open-api.bingx.com/openApi/swap/v2/quote/contracts"},
+    {"market": "Aster", "pair": pair(*BTC_USDT, "BTCUSDT", "PERPETUAL"),
+     "single": "https://fapi.asterdex.com/fapi/v1/ticker/24hr?symbol=BTCUSDT",
+     "bulk": "https://fapi.asterdex.com/fapi/v1/ticker/24hr",
+     "pairs": "https://fapi.asterdex.com/fapi/v1/exchangeInfo"},
     {"market": "Woo", "pair": pair(*BTC_USDT, "SPOT_BTC_USDT"),
      "single": "https://api.woox.io/v3/public/kline?symbol=SPOT_BTC_USDT&type=1h&limit=25",
      "pairs": "https://api.woox.io/v3/public/instruments"},
@@ -187,6 +201,15 @@ MARKETS = [
      "pairs": "https://api.bithumb.com/v1/market/all?isDetails=false"},
     {"market": "BitFlyer", "pair": pair("BTC", "JPY", "BTC_JPY"),
      "single": "https://api.bitflyer.com/v1/ticker?product_code=BTC_JPY"},
+    # bitbank: Paarliste ist dieselbe Antwort wie die Sammelabfrage (/tickers)
+    {"market": "Bitbank", "pair": pair("BTC", "JPY", "btc_jpy"),
+     "single": "https://public.bitbank.cc/btc_jpy/ticker",
+     "bulk": "https://public.bitbank.cc/tickers",
+     "pairs": "https://public.bitbank.cc/tickers"},
+    # Coincheck: keine Sammelabfrage; exchange_status dient als Paarliste
+    {"market": "Coincheck", "pair": pair("BTC", "JPY", "btc_jpy"),
+     "single": "https://coincheck.com/api/ticker?pair=btc_jpy",
+     "pairs": "https://coincheck.com/api/exchange_status"},
     {"market": "Btcturk", "pair": pair("BTC", "TRY", "BTCTRY"),
      "single": "https://api.btcturk.com/api/v2/ticker?pairSymbol=BTCTRY",
      "bulk": "https://api.btcturk.com/api/v2/ticker",
@@ -203,8 +226,42 @@ MARKETS = [
      "single": "https://sapi.zebpay.com/api/v2/market/ticker?symbol=BTC-INR",
      "bulk": "https://sapi.zebpay.com/api/v2/market/allTickers",
      "pairs": "https://sapi.zebpay.com/api/v2/ex/exchangeInfo"},
+    # Build 85: Formate von Hand nach der Doku geschrieben – erste Aufnahme prüft sie (exchange_<name>.json)
+    # Paribu und Bitexen: eine Gesamtliste dient als Einzelkurs, Sammelabfrage und Paarliste
+    {"market": "Paribu", "pair": pair("BTC", "TRY", "BTC_TL"),
+     "single": "https://www.paribu.com/ticker",
+     "bulk": "https://www.paribu.com/ticker",
+     "pairs": "https://www.paribu.com/ticker"},
+    {"market": "Bitexen", "pair": pair("BTC", "TRY", "BTCTRY"),
+     "single": "https://www.bitexen.com/api/v1/ticker/",
+     "bulk": "https://www.bitexen.com/api/v1/ticker/",
+     "pairs": "https://www.bitexen.com/api/v1/ticker/"},
+    # Mercado Bitcoin: Sammelabfrage nur mit Auswahl
+    {"market": "MercadoBitcoin", "pair": pair("BTC", "BRL", "BTC-BRL"),
+     "single": "https://api.mercadobitcoin.net/api/v4/tickers?symbols=BTC-BRL",
+     "bulk": "https://api.mercadobitcoin.net/api/v4/tickers?symbols=BTC-BRL,ETH-BRL",
+     "pairs": "https://api.mercadobitcoin.net/api/v4/symbols"},
+    {"market": "Luno", "pair": pair("BTC", "ZAR", "XBTZAR"),
+     "single": "https://api.luno.com/api/1/ticker?pair=XBTZAR",
+     "bulk": "https://api.luno.com/api/1/tickers",
+     "pairs": "https://api.luno.com/api/exchange/1/markets"},
+    # CoinDCX: kein Einzelabruf, der Einzelkurs liest die Gesamtliste
+    {"market": "CoinDcx", "pair": pair("BTC", "INR", "BTCINR"),
+     "single": "https://api.coindcx.com/exchange/ticker",
+     "bulk": "https://api.coindcx.com/exchange/ticker",
+     "pairs": "https://api.coindcx.com/exchange/v1/markets_details"},
+    # HashKey Exchange (Hongkong) sperrt womöglich US-Adressen: 403 gilt als gesperrt
+    {"market": "HashKey", "pair": pair("BTC", "USD", "BTCUSD"), "geo": True,
+     "single": "https://api-pro.hashkey.com/quote/v1/ticker/24hr?symbol=BTCUSD",
+     "bulk": "https://api-pro.hashkey.com/quote/v1/ticker/24hr",
+     "pairs": "https://api-pro.hashkey.com/api/v1/exchangeInfo"},
     {"market": "IndependentReserve", "pair": pair("BTC", "AUD", "Xbt_Aud"),
      "single": "https://api.independentreserve.com/Public/GetMarketSummary?primaryCurrencyCode=Xbt&secondaryCurrencyCode=Aud"},
+    # BTC Markets: Sammelabfrage nur als Auswahl (je Markt ein «marketId»), wie BtcMarkets.kt / BtcMarkets.swift
+    {"market": "BtcMarkets", "pair": pair("BTC", "AUD", "BTC-AUD"),
+     "single": "https://api.btcmarkets.net/v3/markets/BTC-AUD/ticker",
+     "bulk": "https://api.btcmarkets.net/v3/markets/tickers?marketId=BTC-AUD&marketId=ETH-AUD",
+     "pairs": "https://api.btcmarkets.net/v3/markets"},
     {"market": "Latoken",
      # BTC/USDT über die Währungs-IDs (wie der Adapter, siehe exchange_latoken.json)
      "pair": pair(*BTC_USDT, "92151d82-df98-4d88-9a4d-284fa9eca49f/0c3a106d-bde3-4c13-a26e-3fd2394529e5"),
@@ -283,6 +340,8 @@ def fetch(url, post, limit):
 def record_one(entry, kind, url, recorded_at):
     """Ein Fall oder (None, Grund)."""
     post = entry.get("post")
+    if entry.get("stamp"):
+        url += ("&" if "?" in url else "?") + f"timestamp={int(time.time() * 1000)}"
     limit = MAX_PAIRS_BYTES if kind == "pairs" else MAX_TICKER_BYTES
     status, body = fetch(url, post, limit)
     if status == 451 or (status == 403 and entry.get("geo")):

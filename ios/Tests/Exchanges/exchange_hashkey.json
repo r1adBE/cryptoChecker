@@ -1,0 +1,193 @@
+{
+  "exchange": "HashKey Exchange",
+  "description": "Hand-written in the documented response format (no live capture possible in the build environment); field names are exactly the ones the adapters read. Needs recorded verification (tools/record_exchange_fixtures.py). Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS).",
+  "endpoints": {
+    "single": "GET https://api-pro.hashkey.com/quote/v1/ticker/24hr?symbol=BTCUSD",
+    "bulk": "GET https://api-pro.hashkey.com/quote/v1/ticker/24hr",
+    "pairs": "GET https://api-pro.hashkey.com/api/v1/exchangeInfo"
+  },
+  "cases": [
+    {
+      "kind": "single",
+      "name": "ticker BTCUSD (list with one row): o = open of the rolling 24 h window; t is the snapshot time (exchange time unknown)",
+      "market": "HashKey",
+      "pair": {
+        "base": "BTC",
+        "quote": "USD",
+        "id": "BTCUSD",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "[{\"t\":1728540000123,\"s\":\"BTCUSD\",\"c\":\"62000.5\",\"h\":\"62500\",\"l\":\"60000\",\"o\":\"61000\",\"b\":\"62000\",\"a\":\"62001\",\"v\":\"123.45\",\"qv\":\"7654321.5\"}]",
+      "expect": {
+        "last": 62000.5,
+        "bid": 62000.0,
+        "ask": 62001.0,
+        "high": 62500.0,
+        "low": 60000.0,
+        "vol": 123.45,
+        "volQuote": 7654321.5,
+        "change24hPercent": 1.6401639344262295,
+        "exchangeTime": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "ticker as a single object (defensive): read the same way",
+      "market": "HashKey",
+      "pair": {
+        "base": "BTC",
+        "quote": "USD",
+        "id": "BTCUSD",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"t\":1728540000123,\"s\":\"BTCUSD\",\"c\":\"62000.5\",\"h\":\"62500\",\"l\":\"60000\",\"o\":\"61000\",\"b\":\"62000\",\"a\":\"62001\",\"v\":\"123.45\",\"qv\":\"7654321.5\"}",
+      "expect": {
+        "last": 62000.5,
+        "change24hPercent": 1.6401639344262295,
+        "exchangeTime": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "error payload",
+      "market": "HashKey",
+      "pair": {
+        "base": "FOO",
+        "quote": "USD",
+        "id": "FOOUSD",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"code\":-100010,\"msg\":\"Invalid Symbols!\"}",
+      "expect": {
+        "error": true,
+        "message": "Invalid Symbols!"
+      }
+    },
+    {
+      "kind": "single",
+      "name": "rate limit: msg «Too many requests»",
+      "market": "HashKey",
+      "pair": {
+        "base": "BTC",
+        "quote": "USD",
+        "id": "BTCUSD",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"code\":-1003,\"msg\":\"Too many requests, please try again later\"}",
+      "expect": {
+        "error": true,
+        "message": "Too many requests, please try again later"
+      }
+    },
+    {
+      "kind": "single",
+      "name": "empty list: no price, no error text",
+      "market": "HashKey",
+      "pair": {
+        "base": "BTC",
+        "quote": "USD",
+        "id": "BTCUSD",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "[]",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "c 0 is no price, not a valid ticker (no error text)",
+      "market": "HashKey",
+      "pair": {
+        "base": "OLD",
+        "quote": "USD",
+        "id": "OLDUSD",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "[{\"t\":1728540000123,\"s\":\"OLDUSD\",\"c\":\"0\",\"h\":\"0\",\"l\":\"0\",\"o\":\"0\",\"b\":\"62000\",\"a\":\"62001\",\"v\":\"123.45\",\"qv\":\"7654321.5\"}]",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk tickers: row with c 0 (inactive) is skipped, not reported as unreadable",
+      "market": "HashKey",
+      "requestId": 0,
+      "body": "[{\"t\":1728540000123,\"s\":\"BTCUSD\",\"c\":\"62000.5\",\"h\":\"62500\",\"l\":\"60000\",\"o\":\"61000\",\"b\":\"62000\",\"a\":\"62001\",\"v\":\"123.45\",\"qv\":\"7654321.5\"},{\"t\":1728540000123,\"s\":\"ETHHKD\",\"c\":\"19500\",\"h\":\"19800\",\"l\":\"19000\",\"o\":\"19600\",\"b\":\"19499\",\"a\":\"19501\",\"v\":\"456.7\",\"qv\":\"8905650\"},{\"t\":1728540000123,\"s\":\"OLDUSD\",\"c\":\"0\",\"h\":\"62500\",\"l\":\"60000\",\"o\":\"0\",\"b\":\"62000\",\"a\":\"62001\",\"v\":\"123.45\",\"qv\":\"7654321.5\"}]",
+      "expect": {
+        "count": 2,
+        "absent": [
+          "OLDUSD"
+        ],
+        "failed": [],
+        "tickers": {
+          "BTCUSD": {
+            "last": 62000.5,
+            "volQuote": 7654321.5,
+            "change24hPercent": 1.6401639344262295,
+            "exchangeTime": null
+          },
+          "ETHHKD": {
+            "last": 19500.0,
+            "change24hPercent": -0.5102040816326531
+          }
+        }
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk: renamed field «c» in one row — that pair is reported as unreadable, the rest stays",
+      "market": "HashKey",
+      "requestId": 0,
+      "body": "[{\"t\":1728540000123,\"s\":\"BTCUSD\",\"c\":\"62000.5\",\"h\":\"62500\",\"l\":\"60000\",\"o\":\"61000\",\"b\":\"62000\",\"a\":\"62001\",\"v\":\"123.45\",\"qv\":\"7654321.5\"},{\"t\":1728540000123,\"s\":\"ETHHKD\",\"close\":\"19500\",\"h\":\"19800\",\"l\":\"19000\",\"o\":\"19600\",\"b\":\"19499\",\"a\":\"19501\",\"v\":\"456.7\",\"qv\":\"8905650\"}]",
+      "expect": {
+        "count": 1,
+        "absent": [
+          "ETHHKD"
+        ],
+        "failed": [
+          "ETHHKD"
+        ],
+        "tickers": {
+          "BTCUSD": {
+            "last": 62000.5
+          }
+        }
+      }
+    },
+    {
+      "kind": "pairs",
+      "name": "pair list: only status TRADING",
+      "market": "HashKey",
+      "requestId": 0,
+      "body": "{\"timezone\":\"UTC\",\"serverTime\":\"1728540000123\",\"brokerFilters\":[],\"symbols\":[{\"symbol\":\"BTCUSD\",\"symbolName\":\"BTCUSD\",\"status\":\"TRADING\",\"baseAsset\":\"BTC\",\"baseAssetName\":\"BTC\",\"baseAssetPrecision\":\"0.00001\",\"quoteAsset\":\"USD\",\"quoteAssetName\":\"USD\",\"quotePrecision\":\"0.01\",\"filters\":[]},{\"symbol\":\"ETHHKD\",\"symbolName\":\"ETHHKD\",\"status\":\"TRADING\",\"baseAsset\":\"ETH\",\"baseAssetName\":\"ETH\",\"baseAssetPrecision\":\"0.0001\",\"quoteAsset\":\"HKD\",\"quoteAssetName\":\"HKD\",\"quotePrecision\":\"0.01\",\"filters\":[]},{\"symbol\":\"OLDUSD\",\"symbolName\":\"OLDUSD\",\"status\":\"HALT\",\"baseAsset\":\"OLD\",\"baseAssetName\":\"OLD\",\"baseAssetPrecision\":\"0.01\",\"quoteAsset\":\"USD\",\"quoteAssetName\":\"USD\",\"quotePrecision\":\"0.01\",\"filters\":[]}],\"options\":[],\"contracts\":[],\"coins\":[]}",
+      "expect": {
+        "address": "https://api-pro.hashkey.com/api/v1/exchangeInfo",
+        "count": 2,
+        "absent": [
+          "OLDUSD"
+        ],
+        "pairs": {
+          "BTCUSD": {
+            "base": "BTC",
+            "quote": "USD",
+            "contract": "NONE"
+          },
+          "ETHHKD": {
+            "base": "ETH",
+            "quote": "HKD"
+          }
+        }
+      }
+    }
+  ]
+}
