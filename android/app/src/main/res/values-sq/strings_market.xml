@@ -81,12 +81,12 @@
     <string name="market_cap_title">Tregu kripto</string>
     <string name="market_volume_label">Vëllimi 24 orë</string>
 
-    <!-- Crypto Pulse «Auffällig»: Titel, Abschnitte, Hinweise -->
+    <!-- Crypto Pulse «Kurz gesagt»: Titel, Abschnitte, Hinweise -->
     <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
     <string name="pulse_details_action">Detaje</string>
     <string name="pulse_disclaimer">Pa parashikim · Jo këshillë investimi</string>
     <string name="pulse_less">Shfaq më pak</string>
-    <string name="pulse_now_title">Bie në sy</string>
+    <string name="pulse_now_title">Pulsi kripto</string>
     <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
     <string name="pulse_period_24h_spoken">Ndryshimi në 24 orë</string>
     <string name="pulse_section_factors">Faktorët</string>

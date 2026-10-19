@@ -80,12 +80,12 @@
     <string name="market_cap_title">Pasar kripto</string>
     <string name="market_volume_label">Volume 24 jam</string>
 
-    <!-- Crypto Pulse «Auffällig»: Titel, Abschnitte, Hinweise -->
+    <!-- Crypto Pulse «Kurz gesagt»: Titel, Abschnitte, Hinweise -->
     <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
     <string name="pulse_details_action">Detail</string>
     <string name="pulse_disclaimer">Bukan prediksi · Bukan saran investasi</string>
     <string name="pulse_less">Tampilkan lebih sedikit</string>
-    <string name="pulse_now_title">Menonjol</string>
+    <string name="pulse_now_title">Denyut kripto</string>
     <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
     <string name="pulse_period_24h_spoken">Perubahan selama 24 jam</string>
     <string name="pulse_section_factors">Faktor</string>

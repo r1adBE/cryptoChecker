@@ -21,7 +21,7 @@ Versiunea 16.2.2
 • Comisioane de rețea pentru Ethereum, Base, Arbitrum, Polygon, BNB Chain și Bitcoin în fila Piață, cu alarmă de gas
 • Notă pentru fiecare monedă din lista ta
 • Alege un sunet de alarmă
-• Activitate neobișnuită: detectează mișcări de preț și volum ieșite din comun, notificări opționale
+• Notabil: detectează mișcări de preț și volum ieșite din comun, notificări opționale
 • Portofoliu în filă proprie (se activează din setări): cumpărări și vânzări, preț mediu, profit/pierdere
 • Grupuri pentru lista ta
 • Alarme noi: mișcare de X % în Y ore și salt de volum

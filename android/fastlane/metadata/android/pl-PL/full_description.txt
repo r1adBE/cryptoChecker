@@ -27,7 +27,7 @@ ALARMY
 • Godziny ciszy, „Testuj alarm” i dziennik alarmów: kiedy sprawdzono, jaka cena, dlaczego alarm się nie włączył
 
 RYNEK
-• Nietypowa aktywność: nietypowe ruchy ceny i wolumenu na Twojej liście, opcjonalnie z powiadomieniem
+• Warte uwagi: nietypowe ruchy ceny i wolumenu na Twojej liście, opcjonalnie z powiadomieniem
 • Crypto Pulse, Fear & Greed, wskaźniki Bitcoina, funding i open interest – jako same pomiary
 • Opłaty sieciowe dla Ethereum, Bitcoina i innych, z alarmem gas
 

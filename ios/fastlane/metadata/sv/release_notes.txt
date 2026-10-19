@@ -21,7 +21,7 @@ Version 16.2.2
 • Nätverksavgifter för Ethereum, Base, Arbitrum, Polygon, BNB Chain och Bitcoin på fliken Marknad, med gaslarm
 • Anteckning för varje mynt i bevakningslistan
 • Välj ett larmljud
-• Ovanlig aktivitet: upptäcker ovanliga kurs- och volymrörelser, valfria notiser
+• Utmärkande: upptäcker ovanliga kurs- och volymrörelser, valfria notiser
 • Portfölj som egen flik (slå på i inställningarna): köp och försäljningar, snittpris, vinst/förlust
 • Grupper för bevakningslistan
 • Nya larm: rörelse på X % inom Y timmar och volymspik

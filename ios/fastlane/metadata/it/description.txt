@@ -26,7 +26,7 @@ ALLARMI
 • Ore di silenzio, «Prova allarme», registro
 
 MERCATO
-• Attività insolita: movimenti di prezzo e volume insoliti nella tua watchlist, con notifica opzionale
+• In evidenza: movimenti di prezzo e volume insoliti nella tua watchlist, con notifica opzionale
 • Crypto Pulse, Fear & Greed, indicatori Bitcoin, funding e open interest – come semplici valori misurati
 • Commissioni di rete per Ethereum, Bitcoin e altre, con allarme gas
 

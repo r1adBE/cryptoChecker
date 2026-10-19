@@ -26,7 +26,7 @@ ALARM
 • Jam tenang, “Uji alarm” dan log alarm
 
 PASAR
-• Aktivitas tidak biasa: pergerakan harga dan volume tak lazim di daftar Anda, opsional dengan notifikasi
+• Menonjol: pergerakan harga dan volume tak lazim di daftar Anda, opsional dengan notifikasi
 • Crypto Pulse, Fear & Greed, indikator Bitcoin, funding, dan open interest – sebagai nilai terukur
 • Biaya jaringan untuk Ethereum, Bitcoin, dan lainnya, dengan alarm gas
 

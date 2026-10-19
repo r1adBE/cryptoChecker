@@ -21,7 +21,7 @@ Versie 16.2.2
 • Netwerkkosten voor Ethereum, Base, Arbitrum, Polygon, BNB Chain en Bitcoin op het tabblad Markt, met gasalarm
 • Notitie per munt in je volglijst
 • Kies een alarmgeluid
-• Ongewone activiteit: spot ongebruikelijke koers- en volumebewegingen, optionele meldingen
+• Opvallend: spot ongebruikelijke koers- en volumebewegingen, optionele meldingen
 • Portfolio als eigen tabblad (aanzetten in de instellingen): aankopen en verkopen, gemiddelde prijs, winst/verlies
 • Groepen voor je volglijst
 • Nieuwe alarmen: beweging van X % binnen Y uur en volumepiek

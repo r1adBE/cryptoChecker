@@ -26,7 +26,7 @@ ALARMES
 • Horas de silêncio, «Testar alarme» e registo de alarmes
 
 MERCADO
-• Atividade invulgar: movimentos de preço e volume invulgares na sua lista, com notificação opcional
+• Em destaque: movimentos de preço e volume invulgares na sua lista, com notificação opcional
 • Crypto Pulse, Fear & Greed, indicadores de Bitcoin, funding e open interest – como valores medidos
 • Taxas de rede para Ethereum, Bitcoin e outras, com alarme de gas
 

@@ -26,7 +26,7 @@ RIASZTÁSOK
 • Csendes órák, „Riasztás tesztelése” és riasztásnapló
 
 PIAC
-• Szokatlan aktivitás: szokatlan ár- és forgalmi mozgások a listádon, igény szerint értesítéssel
+• Feltűnő: szokatlan ár- és forgalmi mozgások a listádon, igény szerint értesítéssel
 • Crypto Pulse, Fear & Greed, Bitcoin-mutatók, funding és open interest – puszta mért értékként
 • Hálózati díjak Ethereumhoz, Bitcoinhoz és továbbiakhoz, gas-riasztással
 

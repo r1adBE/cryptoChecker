@@ -21,7 +21,7 @@
 • Hálózati díjak: Ethereum, Base, Arbitrum, Polygon, BNB Chain és Bitcoin a Piac lapon, gas-riasztással
 • Jegyzet minden érméhez a figyelőlistán
 • Választható riasztási hang
-• Szokatlan aktivitás: észleli a szokatlan ár- és volumenmozgásokat, opcionális értesítésekkel
+• Feltűnő: észleli a szokatlan ár- és volumenmozgásokat, opcionális értesítésekkel
 • Portfólió külön lapon (a beállításokban kapcsolható be): vételek és eladások, átlagár, nyereség/veszteség
 • Csoportok a figyelőlistához
 • Új riasztások: X%-os elmozdulás Y órán belül és forgalmi kiugrás

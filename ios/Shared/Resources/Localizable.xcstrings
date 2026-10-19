@@ -256573,187 +256573,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "لافت"
+            "value" : "نبض الكريبتو"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nápadné"
+            "value" : "Krypto puls"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Påfaldende"
+            "value" : "Kryptopuls"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Auffällig"
+            "value" : "Krypto-Puls"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Αξιοσημείωτα"
+            "value" : "Παλμός κρυπτο"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Notable"
+            "value" : "Crypto pulse"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Destacado"
+            "value" : "Pulso cripto"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "قابل‌توجه"
+            "value" : "نبض کریپتو"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Huomionarvoista"
+            "value" : "Kryptopulssi"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "À noter"
+            "value" : "Pouls crypto"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "בולט"
+            "value" : "דופק הקריפטו"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "उल्लेखनीय"
+            "value" : "क्रिप्टो पल्स"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feltűnő"
+            "value" : "Kriptopulzus"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Menonjol"
+            "value" : "Denyut kripto"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "In evidenza"
+            "value" : "Polso cripto"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "注目"
+            "value" : "クリプトパルス"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "주목"
+            "value" : "크립토 펄스"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Påfallende"
+            "value" : "Kryptopuls"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Opvallend"
+            "value" : "Cryptopuls"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Warte uwagi"
+            "value" : "Puls krypto"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Em destaque"
+            "value" : "Pulso cripto"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Em destaque"
+            "value" : "Pulso cripto"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Notabil"
+            "value" : "Puls cripto"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Заметное"
+            "value" : "Пульс крипторынка"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bie në sy"
+            "value" : "Pulsi kripto"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Utmärkande"
+            "value" : "Kryptopuls"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "น่าสังเกต"
+            "value" : "ชีพจรคริปโต"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dikkat çekici"
+            "value" : "Kripto nabzı"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Помітне"
+            "value" : "Пульс крипторинку"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Đáng chú ý"
+            "value" : "Nhịp đập crypto"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "值得关注"
+            "value" : "加密脉搏"
           }
         }
       }

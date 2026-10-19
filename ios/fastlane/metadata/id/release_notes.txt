@@ -21,7 +21,7 @@ Versi 16.2.2
 • Biaya jaringan untuk Ethereum, Base, Arbitrum, Polygon, BNB Chain, dan Bitcoin di tab Pasar, dengan alarm gas
 • Catatan untuk setiap koin di daftar pantau
 • Pilih suara alarm
-• Aktivitas tidak biasa: mendeteksi pergerakan harga dan volume yang tidak biasa, notifikasi opsional
+• Menonjol: mendeteksi pergerakan harga dan volume yang tidak biasa, notifikasi opsional
 • Portofolio di tab sendiri (aktifkan di Pengaturan): pembelian dan penjualan, harga rata-rata, untung/rugi
 • Grup untuk daftar pantau
 • Alarm baru: pergerakan X % dalam Y jam dan lonjakan volume

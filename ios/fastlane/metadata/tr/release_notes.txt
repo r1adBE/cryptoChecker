@@ -21,7 +21,7 @@ Sürüm 16.2.2
 • Piyasa sekmesinde Ethereum, Base, Arbitrum, Polygon, BNB Chain ve Bitcoin için ağ ücretleri, gas alarmıyla
 • İzleme listesindeki her coin için not
 • Alarm sesi seçimi
-• Olağandışı Etkinlik: alışılmadık fiyat ve hacim hareketlerini yakalar, isteğe bağlı bildirimler
+• Dikkat çekici: alışılmadık fiyat ve hacim hareketlerini yakalar, isteğe bağlı bildirimler
 • Ayrı sekmede portföy (ayarlardan açılır): alım ve satımlar, ortalama fiyat, kâr/zarar
 • İzleme listesi için gruplar
 • Yeni alarmlar: Y saat içinde %X hareket ve hacim sıçraması

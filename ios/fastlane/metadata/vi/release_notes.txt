@@ -21,7 +21,7 @@ Phiên bản 16.2.2
 • Phí mạng cho Ethereum, Base, Arbitrum, Polygon, BNB Chain và Bitcoin trong tab Thị trường, kèm cảnh báo gas
 • Ghi chú cho từng coin trong danh sách theo dõi
 • Chọn âm thanh cảnh báo
-• Hoạt động bất thường: phát hiện biến động giá và khối lượng khác thường, thông báo tùy chọn
+• Đáng chú ý: phát hiện biến động giá và khối lượng khác thường, thông báo tùy chọn
 • Danh mục là một tab riêng (bật trong Cài đặt): mua và bán, giá trung bình, lãi/lỗ
 • Nhóm cho danh sách theo dõi
 • Cảnh báo mới: biến động X % trong Y giờ và đột biến khối lượng

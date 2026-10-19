@@ -1,6 +1,6 @@
 Mới trong 16.2.2
 • Crypto Pulse: điều gì đang diễn ra
-• Hoạt động bất thường, “Cái gì biến động cùng?” có tóm tắt
+• “Đáng chú ý”, “Cái gì biến động cùng?” có tóm tắt
 • Bắt đầu chỉ một chạm: top 5 coin, giá hiện tại
 • Vuốt để xóa (có Hoàn tác) hoặc yêu thích
 • Giá, cảnh báo theo tiền của bạn, xuất theo ngày chốt (CSV)

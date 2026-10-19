@@ -26,7 +26,7 @@ HÄLYTYKSET
 • Hiljaiset tunnit, ”Testaa hälytys” ja hälytysloki: miksi hälytys ei lauennut
 
 MARKKINA
-• Poikkeava aktiivisuus: epätavalliset hinta- ja volyymiliikkeet listallasi, halutessasi ilmoituksena
+• Huomionarvoista: epätavalliset hinta- ja volyymiliikkeet listallasi, halutessasi ilmoituksena
 • Crypto Pulse, Fear & Greed, Bitcoinin tunnusluvut, funding ja open interest – pelkkinä mittauksina
 • Verkkomaksut Ethereumille, Bitcoinille ja muille, kaasuhälytyksellä
 

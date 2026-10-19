@@ -82,12 +82,12 @@
     <string name="market_cap_title">שוק הקריפטו</string>
     <string name="market_volume_label">מחזור 24 שעות</string>
 
-    <!-- Crypto Pulse «Auffällig»: Titel, Abschnitte, Hinweise -->
+    <!-- Crypto Pulse «Kurz gesagt»: Titel, Abschnitte, Hinweise -->
     <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
     <string name="pulse_details_action">פרטים</string>
     <string name="pulse_disclaimer">אין תחזית · אין ייעוץ השקעות</string>
     <string name="pulse_less">הצגת פחות</string>
-    <string name="pulse_now_title">בולט</string>
+    <string name="pulse_now_title">דופק הקריפטו</string>
     <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
     <string name="pulse_period_24h_spoken">שינוי ב-24 שעות</string>
     <string name="pulse_section_factors">גורמים</string>

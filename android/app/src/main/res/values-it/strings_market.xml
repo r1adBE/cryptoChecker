@@ -82,12 +82,12 @@
     <string name="market_cap_title">Mercato crypto</string>
     <string name="market_volume_label">Volume 24 h</string>
 
-    <!-- Crypto Pulse «Auffällig»: Titel, Abschnitte, Hinweise -->
+    <!-- Crypto Pulse «Kurz gesagt»: Titel, Abschnitte, Hinweise -->
     <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
     <string name="pulse_details_action">Dettagli</string>
     <string name="pulse_disclaimer">Nessuna previsione · Non è una consulenza finanziaria</string>
     <string name="pulse_less">Mostra meno</string>
-    <string name="pulse_now_title">In evidenza</string>
+    <string name="pulse_now_title">Polso cripto</string>
     <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
     <string name="pulse_period_24h_spoken">Variazione in 24 ore</string>
     <string name="pulse_section_factors">Fattori</string>

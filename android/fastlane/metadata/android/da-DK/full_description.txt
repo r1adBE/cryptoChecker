@@ -27,7 +27,7 @@ ALARMER
 • Nattero, »Test alarm« og alarmlog: hvornår der blev tjekket, hvilken kurs, hvorfor en alarm ikke gik af
 
 MARKED
-• Usædvanlig aktivitet: usædvanlige kurs- og volumenbevægelser i din liste, valgfrit som notifikation
+• Påfaldende: usædvanlige kurs- og volumenbevægelser i din liste, valgfrit som notifikation
 • Crypto Pulse, Fear & Greed, Bitcoin-indikatorer, funding og open interest – som rene måleværdier
 • Netværksgebyrer for Ethereum, Bitcoin og flere, med gas-alarm
 

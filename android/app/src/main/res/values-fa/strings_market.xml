@@ -81,12 +81,12 @@
     <string name="market_cap_title">بازار رمزارز</string>
     <string name="market_volume_label">حجم ۲۴ ساعته</string>
 
-    <!-- Crypto Pulse «Auffällig»: Titel, Abschnitte, Hinweise -->
+    <!-- Crypto Pulse «Kurz gesagt»: Titel, Abschnitte, Hinweise -->
     <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
     <string name="pulse_details_action">جزئیات</string>
     <string name="pulse_disclaimer">بدون پیش‌بینی · مشاوره سرمایه‌گذاری نیست</string>
     <string name="pulse_less">نمایش کمتر</string>
-    <string name="pulse_now_title">قابل‌توجه</string>
+    <string name="pulse_now_title">نبض کریپتو</string>
     <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
     <string name="pulse_period_24h_spoken">تغییر در ۲۴ ساعت</string>
     <string name="pulse_section_factors">عوامل</string>

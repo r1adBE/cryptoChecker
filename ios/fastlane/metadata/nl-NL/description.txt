@@ -26,7 +26,7 @@ ALARMEN
 • Stille uren, ‘Alarm testen’ en alarmlogboek: waarom een alarm niet afging
 
 MARKT
-• Ongewone activiteit: opvallende koers- en volumebewegingen in je volglijst, optioneel met melding
+• Opvallend: ongewone koers- en volumebewegingen in je volglijst, optioneel met melding
 • Crypto Pulse, Fear & Greed, Bitcoin-indicatoren, funding en open interest – als meetwaarden
 • Netwerkkosten voor Ethereum, Bitcoin en meer, met gasalarm
 

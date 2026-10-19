@@ -81,12 +81,12 @@
     <string name="market_cap_title">Kriptopiac</string>
     <string name="market_volume_label">Forgalom 24 óra</string>
 
-    <!-- Crypto Pulse «Auffällig»: Titel, Abschnitte, Hinweise -->
+    <!-- Crypto Pulse «Kurz gesagt»: Titel, Abschnitte, Hinweise -->
     <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
     <string name="pulse_details_action">Részletek</string>
     <string name="pulse_disclaimer">Nem előrejelzés · Nem befektetési tanácsadás</string>
     <string name="pulse_less">Kevesebb megjelenítése</string>
-    <string name="pulse_now_title">Feltűnő</string>
+    <string name="pulse_now_title">Kriptopulzus</string>
     <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
     <string name="pulse_period_24h_spoken">Változás 24 óra alatt</string>
     <string name="pulse_section_factors">Tényezők</string>

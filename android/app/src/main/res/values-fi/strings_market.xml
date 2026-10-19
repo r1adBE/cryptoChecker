@@ -81,12 +81,12 @@
     <string name="market_cap_title">Kryptomarkkina</string>
     <string name="market_volume_label">Volyymi 24 h</string>
 
-    <!-- Crypto Pulse «Auffällig»: Titel, Abschnitte, Hinweise -->
+    <!-- Crypto Pulse «Kurz gesagt»: Titel, Abschnitte, Hinweise -->
     <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
     <string name="pulse_details_action">Tiedot</string>
     <string name="pulse_disclaimer">Ei ennustetta · Ei sijoitusneuvontaa</string>
     <string name="pulse_less">Näytä vähemmän</string>
-    <string name="pulse_now_title">Huomionarvoista</string>
+    <string name="pulse_now_title">Kryptopulssi</string>
     <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
     <string name="pulse_period_24h_spoken">Muutos 24 tunnissa</string>
     <string name="pulse_section_factors">Tekijät</string>

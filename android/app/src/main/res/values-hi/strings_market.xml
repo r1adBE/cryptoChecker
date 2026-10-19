@@ -81,12 +81,12 @@
     <string name="market_cap_title">क्रिप्टो बाज़ार</string>
     <string name="market_volume_label">वॉल्यूम 24 घंटे</string>
 
-    <!-- Crypto Pulse «Auffällig»: Titel, Abschnitte, Hinweise -->
+    <!-- Crypto Pulse «Kurz gesagt»: Titel, Abschnitte, Hinweise -->
     <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
     <string name="pulse_details_action">विवरण</string>
     <string name="pulse_disclaimer">कोई पूर्वानुमान नहीं · निवेश सलाह नहीं</string>
     <string name="pulse_less">कम दिखाएँ</string>
-    <string name="pulse_now_title">उल्लेखनीय</string>
+    <string name="pulse_now_title">क्रिप्टो पल्स</string>
     <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
     <string name="pulse_period_24h_spoken">24 घंटे में बदलाव</string>
     <string name="pulse_section_factors">कारक</string>

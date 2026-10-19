@@ -26,7 +26,7 @@ ALERTES
 • Heures calmes, « Tester l’alerte » et journal des alarmes
 
 MARCHÉ
-• Activité inhabituelle : mouvements de cours et de volume inhabituels dans votre liste, en option par notification
+• À noter : mouvements de cours et de volume inhabituels dans votre liste, en option par notification
 • Crypto Pulse, Fear & Greed, indicateurs Bitcoin, funding et open interest – en valeurs mesurées
 • Frais de réseau pour Ethereum, Bitcoin et d’autres, avec alerte gas
 

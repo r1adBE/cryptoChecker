@@ -1,6 +1,6 @@
 Të reja në 16.2.2
 • Crypto Pulse: çfarë po ndodh tani
-• Aktivitet i pazakontë, «Çfarë lëviz bashkë?» me përmbledhje
+• «Bie në sy», «Çfarë lëviz bashkë?» me përmbledhje
 • Fillo me një prekje: top 5 monedha, çmime aktuale
 • Rrëshqit për të fshirë (me Zhbëj) ose për të preferuar
 • Çmime dhe alarme në monedhën tënde, eksport në datë (CSV)

@@ -21,7 +21,7 @@ Version 16.2.2
 • Netværksgebyrer for Ethereum, Base, Arbitrum, Polygon, BNB Chain og Bitcoin på fanen Marked, med gas-alarm
 • Note til hver coin på din overvågningsliste
 • Vælg en alarmlyd
-• Usædvanlig aktivitet: opdager usædvanlige kurs- og volumenbevægelser, valgfri notifikationer
+• Påfaldende: opdager usædvanlige kurs- og volumenbevægelser, valgfri notifikationer
 • Portefølje som egen fane (slå til i indstillingerne): køb og salg, gennemsnitspris, gevinst/tab
 • Grupper til din overvågningsliste
 • Nye alarmer: bevægelse på X % inden for Y timer og volumenspike

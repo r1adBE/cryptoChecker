@@ -27,7 +27,7 @@ ALARMY
 • Noční klid a „Otestovat alarm“: předem uslyšíte, jak alarm přijde; protokol alarmů: kdy proběhla kontrola, jaká byla cena, proč se alarm nespustil
 
 TRH
-• Neobvyklá aktivita: neobvyklé pohyby ceny a objemu ve vašem seznamu, volitelně s oznámením
+• Nápadné: neobvyklé pohyby ceny a objemu ve vašem seznamu, volitelně s oznámením
 • Crypto Pulse, Fear & Greed, ukazatele bitcoinu, funding a open interest – jako čisté naměřené hodnoty
 • Síťové poplatky pro Ethereum, Bitcoin a další, s alarmem na gas
 

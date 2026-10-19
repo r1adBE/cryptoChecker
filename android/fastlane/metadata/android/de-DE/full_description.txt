@@ -26,7 +26,7 @@ ALARME
 • Nachtruhe, «Alarm testen» und Alarm-Protokoll: warum ein Alarm nicht ausgelöst hat
 
 MARKT
-• Ungewöhnliche Aktivität: auffällige Kurs- und Volumenbewegungen in deiner Merkliste, optional als Markt-Meldung
+• Auffällig: ungewöhnliche Kurs- und Volumenbewegungen in deiner Merkliste, optional als Markt-Meldung
 • Crypto Pulse, Fear & Greed, Bitcoin-Kennzahlen, Funding und Open Interest – als reine Messwerte
 • Netzwerkgebühren für Ethereum, Bitcoin und weitere, mit Gas-Alarm
 

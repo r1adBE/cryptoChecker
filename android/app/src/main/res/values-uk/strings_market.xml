@@ -83,12 +83,12 @@
     <string name="market_cap_title">Криптовалютний ринок</string>
     <string name="market_volume_label">Обсяг за 24 год</string>
 
-    <!-- Crypto Pulse «Auffällig»: Titel, Abschnitte, Hinweise -->
+    <!-- Crypto Pulse «Kurz gesagt»: Titel, Abschnitte, Hinweise -->
     <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
     <string name="pulse_details_action">Подробиці</string>
     <string name="pulse_disclaimer">Не прогноз · Не інвестиційна порада</string>
     <string name="pulse_less">Згорнути</string>
-    <string name="pulse_now_title">Помітне</string>
+    <string name="pulse_now_title">Пульс крипторинку</string>
     <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
     <string name="pulse_period_24h_spoken">Зміна за 24 години</string>
     <string name="pulse_section_factors">Фактори</string>

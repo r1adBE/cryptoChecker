@@ -61,8 +61,6 @@ Detailed build history below.
   only means «attention» (Android and iPhone).
 * The free space below portfolio and alert lists for the floating «+» button is a named spacing value (3 × 32) on
   both platforms instead of a bare 96.
-* Android tab bar with large text: long tab names are hyphenated instead of broken mid-word, and if two lines still
-  don't fit, the label shrinks step by step (never below 12 sp) instead of ending in «…».
 * Arabic and Persian: amounts use the system font instead of Rubik (which has no Arabic-Indic digits), so a price no
   longer mixes two typefaces (Android; iPhone already uses the system font).
 * iPhone: the watchlist (pairs with notes and amounts, alerts) is now only ever saved encrypted, like the portfolio –
@@ -100,8 +98,8 @@ Detailed build history below.
   gives the same total (0.34 + 0.34 + 0.34 = 1.02, no longer 1.01).
 * Tax years older than the USDT/USD history (about two years) are no longer silently counted with USDT = 1: besides the
   note on each affected row, the annual summary now also says «USDT dollar rate missing – counted as 1 US dollar».
-* One name for everything market-wide that stands out: «What stands out» (Crypto Pulse card and widget), «Unusual
-  today» and «Unusual activity» (⚡ filter, settings, market notification) are now all called «Notable» (German
+* Clearer names: the Crypto Pulse card and widget («What stands out») are now «Crypto pulse»; «Unusual
+  today» and «Unusual activity» (⚡ filter, settings, market notification) are now called «Notable» (German
   «Auffällig», a short equivalent in all 31 languages); the notification reads «Notable: SOL/USDT · Binance». Per coin
   it stays «What is moving with it?». Wording only, no change in behaviour.
 * Android alert editor: entries survive rotating the device, and «Create»/«Save» stay pinned at the bottom of the sheet
@@ -329,10 +327,6 @@ Two external reviews worked through (all «must» and «can» items), before the
 * iPhone: background work sets its expiration handler first; widgets wait at most 8 s for the network and reload
   only what changed (daily limit respected); alarm sounds also play when a widget fires the alarm; re-tapping a tab
   goes back to its start; faster reading of large answers; activity logging without personal data.
-* Android: splash screen without empty window or colour jump; tab labels on two lines, at least 12 sp, selected tab
-  with strong contrast; re-tapping a tab goes back to its start; «Set first alarm» card; the exchange's own error
-  text in the refresh report; compact numbers and seconds in the device language; developer log only in debug
-  builds; selection lists fit narrow screens and large fonts; no list inside a scrolling page.
 * Licence: the original BitcoinChecker notices (mobnetic, Aneonex Software) are back in LICENSE and on the licence
   pages; alarm sounds are self-made (script in the repo, CC0).
 * Privacy page: controller named with full name, legal bases and third-country transfers added, GitHub connection
@@ -1210,7 +1204,6 @@ with every delivered state.
 * Watchlist rows say when the % change or the mini chart come from another exchange («Change: …»,
   «Chart: …», «Change & chart: …»), also for TalkBack/VoiceOver.
 * The «Current» status pill is neutral instead of using the rising colour.
-* Tab labels at least 11 sp, the selected tab in bold (Android and iPhone).
 * Settings: price colours, % change, coin logos and widgets moved from «Advanced» to «Appearance»;
   «Advanced» keeps updates and spoken output. Search shows the new paths.
 * German texts without «Ihre», «Volume (in coins / in quote currency)», friendlier error prefix.

@@ -21,7 +21,7 @@ Verze 16.2.2
 • Síťové poplatky pro Ethereum, Base, Arbitrum, Polygon, BNB Chain a Bitcoin na kartě Trh, s gas alarmem
 • Poznámka ke každé minci v seznamu sledovaných
 • Výběr zvuku alarmu
-• Neobvyklá aktivita: odhalí neobvyklé pohyby ceny a objemu, volitelná oznámení
+• Nápadné: odhalí neobvyklé pohyby ceny a objemu, volitelná oznámení
 • Portfolio na vlastní kartě (zapněte v nastavení): nákupy a prodeje, průměrná cena, zisk/ztráta
 • Skupiny pro seznam sledovaných
 • Nové alarmy: pohyb o X % za Y hodin a skok objemu

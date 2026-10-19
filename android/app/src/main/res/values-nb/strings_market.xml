@@ -81,12 +81,12 @@
     <string name="market_cap_title">Kryptomarkedet</string>
     <string name="market_volume_label">Volum 24 t</string>
 
-    <!-- Crypto Pulse «Auffällig»: Titel, Abschnitte, Hinweise -->
+    <!-- Crypto Pulse «Kurz gesagt»: Titel, Abschnitte, Hinweise -->
     <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
     <string name="pulse_details_action">Detaljer</string>
     <string name="pulse_disclaimer">Ingen prognose · Ingen investeringsråd</string>
     <string name="pulse_less">Vis mindre</string>
-    <string name="pulse_now_title">Påfallende</string>
+    <string name="pulse_now_title">Kryptopuls</string>
     <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
     <string name="pulse_period_24h_spoken">Endring over 24 timer</string>
     <string name="pulse_section_factors">Faktorer</string>

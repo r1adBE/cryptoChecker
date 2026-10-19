@@ -1,6 +1,6 @@
 New in 16.2.2
 • Crypto Pulse: what is happening now
-• Unusual Activity, “What is moving with it?” with a summary
+• “Notable”, “What is moving with it?” with a summary
 • Start with one tap: top 5 coins, current prices
 • Swipe to delete (with Undo) or mark a favorite
 • Prices and alerts in your currency, cut-off export (CSV)
