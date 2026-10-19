@@ -121,8 +121,8 @@ internal fun MarketSectionRow(section: MarketSection, summary: String, onClick: 
 }
 
 /**
- * «Mehr Marktdaten» im Markt-Tab unter Fear & Greed: klappt die zwei Zeilen zu den Unterseiten auf
- * bzw. zu (ganze Zeile tippbar, mind. 48 dp, Pfeil in der Themenfarbe). Screenreader: Knopf mit
+ * «Mehr Marktdaten» im Markt-Tab unter Fear & Greed und «Gewinner und Verlierer»: klappt «Heute auffällig»,
+ * den Wirtschaftsdaten-Hinweis (Termin in ±2 h) und die zwei Zeilen zu den Unterseiten auf bzw. zu (ganze Zeile tippbar, mind. 48 dp, Pfeil in der Themenfarbe). Screenreader: Knopf mit
  * Zustand «aufgeklappt»/«zugeklappt» und der passenden Aktion. Wie `MarketMoreToggle` (iOS).
  */
 @Composable

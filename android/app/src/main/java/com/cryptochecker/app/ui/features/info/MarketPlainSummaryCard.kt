@@ -1,7 +1,6 @@
 package com.cryptochecker.app.ui.features.info
 
 import androidx.annotation.DrawableRes
-import com.cryptochecker.app.ui.components.AppCard
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
@@ -9,6 +8,7 @@ import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkVertically
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -20,6 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableLongStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -45,9 +46,7 @@ import com.cryptochecker.app.domain.market.PlainSummary
 import com.cryptochecker.app.domain.market.PlainSummaryInput
 import com.cryptochecker.app.domain.market.PulseReport
 import com.cryptochecker.app.domain.market.UnusualReport
-import com.cryptochecker.app.ui.components.SectionTitle
 import com.cryptochecker.app.ui.components.rememberReduceMotion
-import com.cryptochecker.app.ui.components.sectionTitleMarker
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.util.LocaleNumbers
 import com.cryptochecker.app.util.PriceFormat
@@ -57,25 +56,22 @@ import kotlinx.coroutines.delay
 private const val PLAIN_TICK_MILLIS = 30_000L
 
 /**
- * «Kurz gesagt» ganz oben im Markt-Tab: bis zu drei Sätze in Alltagssprache ([MarketPlainSummary]),
- * je mit Symbol, darunter der Hinweis «keine Prognose, keine Anlageberatung». Die Karten darunter
- * bleiben unverändert.
- *
- * Erscheint erst, wenn Puls, «Heute auffällig» und Fear & Greed ihren ersten Stand haben (geladen,
- * gescheitert oder aus dem Zwischenspeicher) — so kommen nicht Satz für Satz neue Zeilen dazu.
- * Ohne einen einzigen gültigen Satz entfällt der Block ganz (kein Platzhalter, keine Vermutung).
- * Wie iOS `MarketPlainSummaryCard`.
+ * «Kurz gesagt»: bis zu drei Sätze in Alltagssprache ([MarketPlainSummary]) als Körper der Heldenkarte
+ * ([CryptoPulseCard], direkt unter der Schlagzeile). Gibt es erst, wenn Puls, «Heute auffällig» und
+ * Fear & Greed ihren ersten Stand haben (geladen, gescheitert oder aus dem Zwischenspeicher) — so kommen
+ * nicht Satz für Satz neue Zeilen dazu. null = noch nicht bereit oder kein einziger gültiger Satz (dann
+ * entfällt der Block ganz: kein Platzhalter, keine Vermutung). Die Uhr läuft mit: ein Satz verschwindet,
+ * sobald seine Daten veraltet sind. Wie iOS `MarketPlainSummaryBlock.summary`.
  */
 @Composable
-internal fun MarketPlainSummaryCard(
+internal fun rememberPlainSummary(
     pulse: LoadState<PulseReport>,
     marketTotals: LoadState<MarketTotals>,
     fearGreed: LoadState<FearGreed>,
     unusual: LoadState<UnusualReport>,
     stamps: Map<CycleSource, DataStamp>,
-) {
+): PlainSummary? {
     val ready = pulse !is LoadState.Loading && unusual !is LoadState.Loading && fearGreed !is LoadState.Loading
-    // Uhr läuft mit: ein Satz verschwindet, sobald seine Daten veraltet sind
     var now by remember { mutableLongStateOf(System.currentTimeMillis()) }
     LaunchedEffect(Unit) {
         while (true) {
@@ -83,6 +79,7 @@ internal fun MarketPlainSummaryCard(
             now = System.currentTimeMillis()
         }
     }
+    if (!ready) return null
     val fg = (fearGreed as? LoadState.Loaded)?.value
     val summary = MarketPlainSummary.evaluate(
         PlainSummaryInput(
@@ -98,39 +95,45 @@ internal fun MarketPlainSummaryCard(
             unusualStamp = stamps[CycleSource.UNUSUAL],
         )
     )
-    // Kommt der Block erst nach den Karten (erster Start ohne Zwischenspeicher), schiebt er sie
-    // weich nach unten statt mit einem Sprung; stand er beim Öffnen schon, erscheint er ohne Animation
+    return summary.takeUnless { it.isEmpty }
+}
+
+/** Richtung (Marktkapitalisierung) und «Heute auffällig» (Umsatz-Anteil) nutzen CoinGecko-Daten. */
+internal val PlainSummary.usesCoinGecko: Boolean get() = direction != null || standout != null
+
+/**
+ * Die Sätze von «Kurz gesagt» in der Heldenkarte: kleine Unterüberschrift (für den Screenreader eine
+ * Überschrift), darunter je Satz eine Zeile mit Symbol. Kommt der Block erst nach der Schlagzeile
+ * (erster Start ohne Zwischenspeicher), schiebt er die Belege weich nach unten statt mit einem Sprung;
+ * ohne Animation bei reduzierter Bewegung. Hinweis und Quelle stehen am Fuss der Karte.
+ */
+@Composable
+internal fun PlainSummaryBlock(summary: PlainSummary?) {
     val animate = !rememberReduceMotion()
+    // Beim Ausblenden den letzten Stand weiter zeigen, bis die Animation fertig ist
+    val last = remember { mutableStateOf(summary) }
+    if (summary != null) last.value = summary
     AnimatedVisibility(
-        visible = ready && !summary.isEmpty,
+        visible = summary != null,
         enter = if (animate) expandVertically() + fadeIn() else EnterTransition.None,
         exit = if (animate) shrinkVertically() + fadeOut() else ExitTransition.None,
     ) {
-        PlainSummaryContent(summary)
+        last.value?.let { PlainSummaryContent(it) }
     }
 }
 
 @Composable
 private fun PlainSummaryContent(summary: PlainSummary) {
-    // Den Abstand zur Karte darunter bringt dieser Block mit (die Puls-Karte hat oben keinen)
-    AppCard(modifier = Modifier.padding(bottom = Spacing.md)) {
+    Column(modifier = Modifier.fillMaxWidth().padding(top = Spacing.md)) {
         Text(
             stringResource(R.string.market_plain_title),
-            style = SectionTitle.style,
-            color = SectionTitle.color,
-            modifier = Modifier.semantics { heading() }.sectionTitleMarker()
+            style = MaterialTheme.typography.labelLarge,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.semantics { heading() }
         )
         summary.direction?.let { PlainLine(directionIcon(it.kind), directionText(it)) }
         summary.mood?.let { PlainLine(R.drawable.ic_gauge, moodText(it)) }
         summary.standout?.let { PlainLine(R.drawable.ic_flag, standoutText(it)) }
-        Text(
-            stringResource(R.string.market_plain_footnote),
-            style = MaterialTheme.typography.labelSmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.padding(top = 12.dp)
-        )
-        // Richtung (Marktkapitalisierung) und «Heute auffällig» (Umsatz-Anteil) nutzen CoinGecko-Daten
-        if (summary.direction != null || summary.standout != null) CoinGeckoAttribution()
     }
 }
 
@@ -140,7 +143,7 @@ private fun PlainSummaryContent(summary: PlainSummary) {
  */
 @Composable
 private fun PlainLine(@DrawableRes icon: Int, text: String) {
-    Row(verticalAlignment = Alignment.Top, modifier = Modifier.fillMaxWidth().padding(top = 12.dp)) {
+    Row(verticalAlignment = Alignment.Top, modifier = Modifier.fillMaxWidth().padding(top = Spacing.sm)) {
         Icon(
             painter = painterResource(icon),
             contentDescription = null,

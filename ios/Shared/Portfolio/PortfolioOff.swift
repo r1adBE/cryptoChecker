@@ -41,7 +41,7 @@ enum PortfolioOff {
     enum WidgetTarget: Equatable, Sendable {
         /// Portfolio-Tab.
         case portfolioTab
-        /// Einstellungen › Erweitert › Portfolio (dort der Schalter).
+        /// Einstellungen › Portfolio (dort der Schalter).
         case portfolioSettings
     }
 

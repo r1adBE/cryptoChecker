@@ -1,13 +1,15 @@
 import Accessibility
 import SwiftUI
 
-/// Eigener Tab für die Marktphase. Ganz oben «Kurz gesagt» (`MarketPlainSummaryCard`, drei Sätze in
-/// Alltagssprache), dann «Jetzt» (Karten): Crypto Pulse, «Heute auffällig», Fear & Greed;
-/// darunter «Mehr Marktdaten» (`MarketMoreToggle`, Standard zu, gemerkt) mit zwei Zeilen
-/// (`MarketSectionRow`) zu den Unterseiten (`MarketSectionPage`, G-10):
+/// Eigener Tab für die Marktphase. Aufbau von «Jetzt» (Entscheid Build 83, gleich wie Android): oben EINE
+/// Heldenkarte — Crypto Pulse mit «Kurz gesagt» als Körper (`CryptoPulseCard`, `MarketPlainSummaryBlock`);
+/// darüber nur die Status-Pille. Darunter ruhig und kompakt Fear & Greed (`CycleFearGreedRow`, compact) und
+/// «Gewinner und Verlierer 24 h» (`CycleMoversCard`, je drei, «Alle zeigen»). Dann «Mehr Marktdaten»
+/// (`MarketMoreToggle`, Standard zu, gemerkt) mit «Heute auffällig», dem Wirtschaftsdaten-Hinweis (Termin in
+/// ±2 h) und zwei Zeilen (`MarketSectionRow`) zu den Unterseiten (`MarketSectionPage`, G-10):
 /// Einordnung (Fear & Greed, Marktphase, Dominanz mit Altcoin-Saison, Halving) und Daten
-/// (Krypto-Markt, Gas, Wirtschaftsdaten — ausser kurz vor/nach einem Termin, dann oben —,
-/// Coin-Analyse). Deren Daten laden schon beim Öffnen des Tabs, die Unterseite steht sofort.
+/// (Krypto-Markt, Gas, Wirtschaftsdaten — ausser kurz vor/nach einem Termin —, Coin-Analyse).
+/// Deren Daten laden schon beim Öffnen des Tabs, die Unterseite steht sofort.
 /// Nach unten ziehen lädt die Daten neu. Wie `MarketPhaseScreen.kt`.
 ///
 /// Enthält keinen `NavigationStack` — der Aufrufer bettet den Tab ein.
@@ -29,6 +31,8 @@ struct CycleScreen: View {
 
     /// Ziel für `ScrollViewProxy.scrollTo`: oben (Status).
     private static let topId = "market_top"
+    /// Ziel des Sprungs aus der Mitteilung «Wirtschaftstermine» (Hinweis unter «Mehr Marktdaten»).
+    private static let macroId = "market_macro"
 
     init(viewModel: CycleViewModel) {
         self.viewModel = viewModel
@@ -103,28 +107,13 @@ struct CycleScreen: View {
                 statusPill(refreshingSince: viewModel.refreshingSince, updatedAt: viewModel.pulse.value?.time)
                     .id(Self.topId)
                 nowRegister
-                // Fear & Greed direkt hier (dieselbe Karte wie auf «Stimmung & Zyklus», gleiche Quelle)
-                revealSlot(.fearGreed) {
-                    CycleFearGreedRow(state: viewModel.fearGreed, onRetry: refreshAll,
-                                      first: false, stamp: viewModel.fearGreedStamp)
-                }
-                // Darunter «Mehr Marktdaten» (Standard zu, gemerkt) mit den zwei Unterseiten;
-                // ihre Daten laden schon hier (Öffnen sofort)
+                // 3. «Mehr Marktdaten» (Standard zu, gemerkt): «Heute auffällig», der Wirtschaftsdaten-Hinweis
+                // (nur bei einem Termin in ±2 h, sonst unter «Daten») und die zwei Unterseiten — deren Daten
+                // laden schon hier (Öffnen sofort)
                 if CycleReveal.isShownOnNow(.fearGreed, revealed: viewModel.revealed) {
                     MarketMoreToggle(expanded: $data.settings.marketMoreExpanded)
                     if data.settings.marketMoreExpanded {
-                        MarketSectionRow(section: .context,
-                                         summary: MarketSectionRow.fearGreedSummary(viewModel.fearGreed.value)) {
-                            openSection = .context
-                        }
-                        TimelineView(.everyMinute) { context in
-                            MarketSectionRow(section: .data,
-                                             summary: MarketSectionRow.macroSummary(
-                                                viewModel.macroEvents,
-                                                now: Int64(context.date.timeIntervalSince1970 * 1000))) {
-                                openSection = .data
-                            }
-                        }
+                        moreContent
                     }
                 }
                 // Eine ruhige Ladezeile unter der letzten sichtbaren Karte, bis «Jetzt» und
@@ -147,33 +136,41 @@ struct CycleScreen: View {
         }
     }
 
-    /// «Jetzt»: «Crypto Pulse», «Heute auffällig» — als Karten.
-    ///    Beim Laden form-gleiche Platzhalter, bei Fehler eine kompakte Zeile.
+    /// 1. Eine Heldenkarte: Crypto Pulse mit «Kurz gesagt» als Körper (einzige betonte Karte). Beim Laden ein
+    ///    form-gleicher Platzhalter, bei Fehler die kompakte Zeile — der Rest darunter erscheint trotzdem.
+    /// 2. Darunter ruhig und kompakt: Fear & Greed (dieselbe Quelle wie auf «Stimmung & Zyklus») und
+    ///    «Gewinner und Verlierer 24 h» (je drei, «Alle zeigen»; Tippen wie bei «Heute auffällig»).
     @ViewBuilder
     private var nowRegister: some View {
         revealSlot(.pulse) {
-            VStack(spacing: 0) {
-                // «Kurz gesagt»: drei Sätze in Alltagssprache aus den Daten des Tabs, sobald
-                // Puls, «Heute auffällig» und Fear & Greed stehen (bringt seinen Abstand selbst mit)
-                MarketPlainSummaryCard(viewModel: viewModel)
-                VStack(spacing: 12) {
-                    // Wirtschaftsdaten nur bei einem Termin in ±2 h hier oben, sonst unter «Daten»
-                    CycleMacroHintRow(events: viewModel.macroEvents, atTop: true)
-                    CryptoPulseCard(
-                        market: viewModel.pulse,
-                        fearGreed: viewModel.fearGreed.value,
-                        gas: viewModel.gas.value,
-                        onRetry: { viewModel.loadPulse(force: true) }
-                    )
-                    // «Gewinner und Verlierer 24 h»: Tippen wie bei «Heute auffällig»
-                    CycleMoversCard(market: viewModel.pulse, onOpen: { openCoin($0.symbol) })
-                }
+            // «Kurz gesagt» rechnet alle 30 s neu (wie Android): ein Satz verschwindet, sobald seine Daten veraltet sind
+            TimelineView(.periodic(from: .now, by: 30)) { context in
+                CryptoPulseCard(
+                    market: viewModel.pulse,
+                    fearGreed: viewModel.fearGreed.value,
+                    gas: viewModel.gas.value,
+                    plain: MarketPlainSummaryBlock.summary(viewModel,
+                                                           now: Int64(context.date.timeIntervalSince1970 * 1000)),
+                    onRetry: { viewModel.loadPulse(force: true) }
+                )
             }
             .padding(.top, 4)
         }
-        // «Heute auffällig»: Tippen öffnet dasselbe wie ein Tipp in der Merkliste — das
-        // Aktionsblatt des Paars, sonst seine Vorschau (Binance COIN/USDT, nicht gespeichert);
-        // führt Binance das Paar nicht, die Suche auf der Seite «Paar hinzufügen» über diesem Tab
+        revealSlot(.fearGreed) {
+            VStack(spacing: 0) {
+                CycleFearGreedRow(state: viewModel.fearGreed, onRetry: refreshAll,
+                                  first: false, stamp: viewModel.fearGreedStamp, compact: true)
+                CycleMoversCard(market: viewModel.pulse, onOpen: { openCoin($0.symbol) })
+                    .padding(.top, 12)
+            }
+        }
+    }
+
+    /// Inhalt von «Mehr Marktdaten». «Heute auffällig»: Tippen öffnet dasselbe wie ein Tipp in der Merkliste —
+    /// das Aktionsblatt des Paars, sonst seine Vorschau (Binance COIN/USDT, nicht gespeichert); führt Binance das
+    /// Paar nicht, die Suche auf der Seite «Paar hinzufügen» über diesem Tab.
+    @ViewBuilder
+    private var moreContent: some View {
         revealSlot(.unusual) {
             CycleUnusualCard(
                 state: viewModel.unusual,
@@ -181,6 +178,20 @@ struct CycleScreen: View {
                 onRetry: { viewModel.loadUnusual(force: true) }
             )
             .padding(.top, 12)
+        }
+        CycleMacroHintRow(events: viewModel.macroEvents, atTop: true)
+            .id(Self.macroId)
+        MarketSectionRow(section: .context,
+                         summary: MarketSectionRow.fearGreedSummary(viewModel.fearGreed.value)) {
+            openSection = .context
+        }
+        TimelineView(.everyMinute) { context in
+            MarketSectionRow(section: .data,
+                             summary: MarketSectionRow.macroSummary(
+                                viewModel.macroEvents,
+                                now: Int64(context.date.timeIntervalSince1970 * 1000))) {
+                openSection = .data
+            }
         }
     }
 
@@ -249,9 +260,9 @@ struct CycleScreen: View {
         }
     }
 
-    /// Sprung aus der Mitteilung «Wirtschaftstermine», sobald die Daten stehen: Hinweis oben
-    /// («Jetzt», Termin in ±2 h) — dann nach oben scrollen —, sonst die Unterseite «Daten», die
-    /// zum Hinweis scrollt (`MarketSectionPage`).
+    /// Sprung aus der Mitteilung «Wirtschaftstermine», sobald die Daten stehen: Hinweis auf «Jetzt»
+    /// (Termin in ±2 h; er steht unter «Mehr Marktdaten», das dafür aufgeht) — dann dorthin scrollen —,
+    /// sonst die Unterseite «Daten», die zum Hinweis scrollt (`MarketSectionPage`).
     private func handleJump(_ proxy: ScrollViewProxy) {
         guard router.marketJump == .macro, viewModel.revealed.contains(.coin) else { return }
         router.marketJump = nil
@@ -260,7 +271,12 @@ struct CycleScreen: View {
             .map { MacroCalendar.isImminent($0, now: now) } ?? false
         if MarketSections.macroSection(imminent: imminent) == .now {
             openSection = nil
-            proxy.scrollTo(Self.topId, anchor: .top)
+            data.settings.marketMoreExpanded = true
+            // Erst im nächsten Durchgang steht der aufgeklappte Hinweis im Layout
+            Task { @MainActor in
+                try? await Task.sleep(nanoseconds: 100_000_000)
+                proxy.scrollTo(Self.macroId, anchor: .top)
+            }
         } else {
             router.marketMacroOnData = true
             openSection = .data

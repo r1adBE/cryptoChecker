@@ -6,20 +6,43 @@ import SwiftUI
 /// Name, «24h» und die Änderung mit Pfeil und Vorzeichen in der Kursfarbe (nie Farbe allein). Tippen: dasselbe wie in
 /// «Heute auffällig» (Aktionsblatt des Paars, sonst seine Vorschau, siehe `CycleScreen`). VoiceOver: je Zeile ein
 /// Element mit Aktion. Keine Prognose, keine Empfehlung.
+///
+/// Auf «Jetzt» ruhig und kompakt (Build 83): je Gruppe zuerst `compactCount` Zeilen, «Alle zeigen» klappt auf alle
+/// (bis fünf) auf, «Weniger zeigen» wieder zu — gemerkt, solange der Tab lebt. Wie Android `MOVERS_COMPACT`.
 struct CycleMoversCard: View {
     let market: CycleLoad<PulseMarketData>
     let onOpen: (MoverCoin) -> Void
+    @State private var expanded = false
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    /// So viele Zeilen je Gruppe zeigt die kompakte Karte, bevor «Alle zeigen» aufklappt.
+    static let compactCount = 3
 
     var body: some View {
         if market.value?.hasMarket == true, let movers = market.value?.movers, !movers.isEmpty {
+            let more = movers.gainers.count > Self.compactCount || movers.losers.count > Self.compactCount
+            let limit = expanded ? Int.max : Self.compactCount
             CycleInsightCard(L("movers_title")) {
                 VStack(alignment: .leading, spacing: Spacing.md) {
-                    group(L("movers_gainers"), empty: L("movers_no_gainers"), coins: movers.gainers)
-                    group(L("movers_losers"), empty: L("movers_no_losers"), coins: movers.losers)
+                    group(L("movers_gainers"), empty: L("movers_no_gainers"), coins: Array(movers.gainers.prefix(limit)))
+                    group(L("movers_losers"), empty: L("movers_no_losers"), coins: Array(movers.losers.prefix(limit)))
+                }
+                if more {
+                    Button {
+                        WatchlistHaptics.selection()
+                        expanded.toggle()
+                    } label: {
+                        // Klappt nur auf (kein Seitenwechsel): Pfeil nach unten bzw. oben wie bei «Was bewegt sich mit?»
+                        ExpandToggleLabel(title: L(expanded ? "market_movers_show_less" : "market_movers_show_all"),
+                                          expanded: expanded)
+                    }
+                    .buttonStyle(.plain)
+                    .padding(.top, Spacing.xs)
                 }
                 CycleSourceText(text: L("movers_source"))
                 CoinGeckoAttribution()
             }
+            .animation(reduceMotion ? nil : .easeInOut(duration: 0.25), value: expanded)
         }
     }
 

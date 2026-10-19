@@ -11,6 +11,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -32,6 +36,7 @@ import com.cryptochecker.app.domain.market.MarketMoversResult
 import com.cryptochecker.app.domain.market.MoverCoin
 import com.cryptochecker.app.domain.market.PulseReport
 import com.cryptochecker.app.ui.components.CoinBadge
+import com.cryptochecker.app.ui.components.ExpandToggleButton
 import com.cryptochecker.app.ui.components.ListSegment
 import com.cryptochecker.app.ui.components.segmentLines
 import com.cryptochecker.app.ui.features.portfolio.PlPill
@@ -46,23 +51,41 @@ import com.cryptochecker.app.util.A11yText
  * nichts. Je Zeile Logo, Kürzel und Name, «24h» und die Änderung mit Pfeil und Vorzeichen in der Kursfarbe (nie Farbe
  * allein). Tippen ([onOpen]): dasselbe wie in «Heute auffällig» (Aktionsblatt des Paars, sonst seine Vorschau mit
  * «Zur Merkliste»). Screenreader: je Zeile ein Element mit Aktion. Keine Prognose, keine Empfehlung.
+ *
+ * Auf «Jetzt» ruhig und kompakt (Build 83): je Gruppe zuerst [MOVERS_COMPACT] Zeilen, «Alle zeigen» klappt auf alle
+ * (bis fünf) auf, «Weniger zeigen» wieder zu — gemerkt, solange der Tab lebt (auch über Drehen). Wie iOS `CycleMoversCard`.
  */
 @Composable
 internal fun MarketMoversCard(state: LoadState<PulseReport>, onOpen: (MoverCoin) -> Unit) {
     val movers = (state as? LoadState.Loaded)?.value?.movers ?: return
     if (movers.isEmpty) return
+    var expanded by rememberSaveable { mutableStateOf(false) }
+    val more = movers.gainers.size > MOVERS_COMPACT || movers.losers.size > MOVERS_COMPACT
+    val limit = if (expanded) Int.MAX_VALUE else MOVERS_COMPACT
     InsightCard(stringResource(R.string.movers_title)) {
-        MoversList(movers, onOpen)
+        MoversList(movers, limit, onOpen)
+        if (more) {
+            // Klappt nur auf (kein Seitenwechsel): Pfeil nach unten bzw. oben wie bei «Was bewegt sich mit?»
+            ExpandToggleButton(
+                text = stringResource(if (expanded) R.string.market_movers_show_less else R.string.market_movers_show_all),
+                expanded = expanded,
+                onClick = { expanded = !expanded },
+                modifier = Modifier.padding(top = Spacing.xs),
+            )
+        }
         SourceText(stringResource(R.string.movers_source))
         CoinGeckoAttribution()
     }
 }
 
+/** So viele Zeilen je Gruppe zeigt die kompakte Karte, bevor «Alle zeigen» aufklappt. */
+internal const val MOVERS_COMPACT = 3
+
 @Composable
-private fun MoversList(movers: MarketMoversResult, onOpen: (MoverCoin) -> Unit) {
+private fun MoversList(movers: MarketMoversResult, limit: Int, onOpen: (MoverCoin) -> Unit) {
     Column(verticalArrangement = Arrangement.spacedBy(Spacing.md)) {
-        MoversGroup(stringResource(R.string.movers_gainers), stringResource(R.string.movers_no_gainers), movers.gainers, onOpen)
-        MoversGroup(stringResource(R.string.movers_losers), stringResource(R.string.movers_no_losers), movers.losers, onOpen)
+        MoversGroup(stringResource(R.string.movers_gainers), stringResource(R.string.movers_no_gainers), movers.gainers.take(limit), onOpen)
+        MoversGroup(stringResource(R.string.movers_losers), stringResource(R.string.movers_no_losers), movers.losers.take(limit), onOpen)
     }
 }
 

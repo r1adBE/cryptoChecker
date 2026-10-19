@@ -12,7 +12,7 @@ struct PulseSkeleton: View {
         SkeletonPulse {
             VStack(alignment: .leading, spacing: 0) {
                 Text(verbatim: " ")
-                    .font(AppFont.headline)
+                    .displayFont(.compact, design: .default)
                     .cycleSkeletonBar(width: 180)
                     .padding(.top, Spacing.sm)
                 Text(verbatim: " ")
@@ -53,7 +53,8 @@ struct PulseSkeleton: View {
     }
 }
 
-/// Grosse Schlagzeile in `onSurface`, optional mit kleinem schrägem Pfeil in der Kursfarbe.
+/// Grosse Schlagzeile in `onSurface` (Display kompakt, 28 pt: die grösste Schrift von «Jetzt», nur in der
+/// Heldenkarte; Android `displayCompact`), optional mit schrägem Pfeil in der Kursfarbe.
 struct PulseHeadline: View {
     let text: String
     /// SF Symbol (`arrow.up.right` / `arrow.down.right`) oder nil.
@@ -64,20 +65,80 @@ struct PulseHeadline: View {
         HStack(alignment: .firstTextBaseline, spacing: 8) {
             if let glyph, let glyphColor {
                 Image(systemName: glyph)
-                    .font(.subheadline.weight(.bold))
+                    .font(AppFont.headline)
                     .foregroundStyle(glyphColor)
                     .accessibilityHidden(true)
             }
             Text(text)
-                .font(AppFont.headline)
+                .displayFont(.compact, design: .default)
                 .foregroundStyle(AppColors.onSurface)
                 .fixedSize(horizontal: false, vertical: true)
         }
     }
 }
 
+/// Unter den Coin-Änderungen: «Top 30 · 24h   ↗ 22 steigen  ↘ 8 fallen», «Krypto-Markt   3,42 Bio. USD  ↗ +2,1 % · 24h»
+/// und der Satz zur Marktbreite (alles nur mit Daten). Gesprochen im Element der Belege (`CryptoPulseCard`).
+struct PulseFacts: View {
+    let report: PulseReport
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            if report.breadth != nil || report.marketCapUsd != nil {
+                VStack(alignment: .leading, spacing: 6) {
+                    if let breadth = report.breadth {
+                        factRow(L("pulse_breadth_label", breadth.total) + " · " + L("why_change_24h")) {
+                            PulseBreadthPills(breadth: breadth)
+                        }
+                    }
+                    if let cap = report.marketCapUsd {
+                        factRow(L("market_cap_title")) {
+                            HStack(spacing: 8) {
+                                Text(CycleFormat.compactMoney(cap, "USD"))
+                                    .font(.subheadline.monospacedDigit())
+                                    .foregroundStyle(AppColors.onSurface)
+                                if let change = report.marketCap24h {
+                                    // «↘ −2.77% · 24h»: Änderung farbig, Zeitraum klein und grau dahinter
+                                    // (die Summe selbst ist ein Stand, keine Veränderung)
+                                    HStack(alignment: .firstTextBaseline, spacing: 4) {
+                                        ChangePill(change: change)
+                                        Text("· " + L("why_change_24h"))
+                                            .font(.caption)
+                                            .foregroundStyle(AppColors.onSurfaceVariant)
+                                            .lineLimit(1)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                .padding(.top, 12)
+            }
+            if let note = report.breadthNote {
+                Text(L(note.key))
+                    .font(.subheadline)
+                    .foregroundStyle(AppColors.onSurface)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .padding(.top, Spacing.sm)
+            }
+        }
+    }
+
+    /// Zeile «Bezeichnung … Wert».
+    private func factRow<Value: View>(_ label: String, @ViewBuilder value: () -> Value) -> some View {
+        HStack(spacing: 8) {
+            Text(label)
+                .font(.subheadline)
+                .foregroundStyle(AppColors.onSurfaceVariant)
+                .lineLimit(1)
+            Spacer(minLength: 8)
+            value()
+        }
+    }
+}
+
 /// Zähler der Marktbreite wie die Puls-Zeile der Merkliste: «↗ 22 steigen» und «↘ 8 fallen»
-/// als farbige Schrift in Steigend- bzw. Fallend-Farbe (wie Android `PulseHero`).
+/// als farbige Schrift in Steigend- bzw. Fallend-Farbe (wie Android `PulseEvidence`).
 struct PulseBreadthPills: View {
     let breadth: PulseBreadth
 

@@ -33,7 +33,10 @@ struct WidgetPalette {
     init(accent: AccentColor, dark: Bool, priceColors: PriceColorScheme = .default, highContrast: Bool = false,
          inverted: Bool = false) {
         self.dark = dark
-        self.accent = accent.primary(dark: dark)
+        // Hoher Kontrast: Akzent (Titel, Knopf, Chart-Linie, Initialen) wie in der App auf 7:1 zur dunkelsten
+        // Kartenfläche gehoben — wie Android `WidgetColors` (`WidgetContrast.highContrastAccent`). onAccent bleibt:
+        // Der Akzent rückt dabei von ihm weg, der Kontrast im Kurs-Etikett steigt also nur.
+        self.accent = accent.primary(dark: dark, highContrast: highContrast)
         onAccent = accent.onPrimary(dark: dark)
         self.highContrast = highContrast
         // Werte aus `ColorTokens` (gleich wie die App und Android)

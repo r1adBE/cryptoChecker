@@ -88,7 +88,7 @@ struct PortfolioHomeView: View {
     }
 
     /// Portfolio aus: «Portfolio ist aus» statt «Portfolio» in der Kopfzeile und wo man es einschaltet —
-    /// keine Beträge. Tippen öffnet Einstellungen › Erweitert › Portfolio (`widgetURL`, `PortfolioOff.widgetTarget`).
+    /// keine Beträge. Tippen öffnet Einstellungen › Portfolio (`widgetURL`, `PortfolioOff.widgetTarget`).
     private var offBody: some View {
         VStack(alignment: .leading, spacing: 0) {
             header(L("widget_portfolio_off_title"))

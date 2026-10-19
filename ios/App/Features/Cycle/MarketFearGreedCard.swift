@@ -16,13 +16,15 @@ enum CycleFearGreedStyle {
 
 /// Fear & Greed als erste Zeile unter «Einordnung» im Stil des Puls-Widgets (Entscheid 17. Oktober 2026): die Zahl
 /// gross mit dem Wort der Stufe daneben, darunter eine neutrale Spur 0–100 mit EINEM Punkt in der Farbe der Stufe —
-/// kein Regenbogen-Verlauf. Tippen zeigt Gestern / Woche / Monat und die Quelle. Wie `FearGreedRow` in Android.
+/// kein Regenbogen-Verlauf. Tippen zeigt Gestern / Woche / Monat und die Quelle. Auf «Jetzt» kompakt (`compact`: Zahl
+/// in Titelgrösse statt Display) — dort ist die Heldenkarte darüber die einzige betonte Karte. Wie `FearGreedRow` in Android.
 struct CycleFearGreedRow: View {
     let state: CycleLoad<FearGreed>
     let onRetry: () -> Void
     var first = true
     /// Herkunft und Stand (alternative.me) für die Nebenzeile.
     var stamp: DataStamp? = nil
+    var compact = false
     @State private var expanded = false
 
     var body: some View {
@@ -36,7 +38,7 @@ struct CycleFearGreedRow: View {
             expanded: fg == nil ? nil : $expanded,
             info: .fearGreed,
             // Spur bleibt auch beim Laden und bei Fehler stehen (grau) — darunter springt nichts
-            below: AnyView(CycleFearGreedGauge(value: fg?.value)),
+            below: AnyView(CycleFearGreedGauge(value: fg?.value, compact: compact)),
             details: AnyView(VStack(alignment: .leading, spacing: 0) {
                 if let fg {
                     Text(L("insights_fng_history",
@@ -68,6 +70,8 @@ struct CycleFearGreedRow: View {
 /// allein. nil = grauer Platzhalter in derselben Höhe. Wie `FearGreedGauge` in Android.
 struct CycleFearGreedGauge: View {
     let value: Int?
+    /// Zahl in `AppFont.headline` (22 pt) statt `.title` (28 pt) — wie Android `headline` statt `displayCompact`.
+    var compact = false
     private let marker: CGFloat = 14
     @Environment(\.layoutDirection) private var layoutDirection
     @Environment(\.priceColorScheme) private var priceColors
@@ -95,7 +99,7 @@ struct CycleFearGreedGauge: View {
         return VStack(alignment: .leading, spacing: 0) {
             HStack(alignment: .lastTextBaseline, spacing: Spacing.sm) {
                 Text(verbatim: number)
-                    .font(.title.weight(.semibold).monospacedDigit())
+                    .font((compact ? AppFont.headline : .title.weight(.semibold)).monospacedDigit())
                     .foregroundStyle(AppColors.onSurface)
                 Text(label)
                     .font(.callout.weight(.medium))

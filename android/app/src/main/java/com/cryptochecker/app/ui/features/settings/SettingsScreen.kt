@@ -56,12 +56,14 @@ import kotlinx.coroutines.delay
  * Pfeil. Alles Ausführliche steht auf Unterseiten
  * ([SettingsPageScreen], Markt-Meldungen, Sprachausgabe). Schlüssel und Verhalten unverändert.
  *
- * Gruppen (Build 55): Allgemein (Sprache, Währung, Merkliste, Alarme, Kurs-Aktualisierung)
+ * Gruppen (Build 55): Allgemein (Sprache, Währung, Merkliste, Portfolio, Alarme, Kurs-Aktualisierung)
  * · Darstellung (Hell/Dunkel, Akzent, Kursfarben, Widgets) · Mehr (Sicherung, «Erweitert», Über die App)
  * · rote Karte «App zurücksetzen». Kurs-Aktualisierung und Widgets stehen wieder auf der Hauptseite, weil
- * Alarm-Hinweis und Widget-Hilfe dorthin verweisen und beide oft gesucht werden. «Erweitert»
- * ([AdvancedPage]) trägt Token & TradFi, Portfolio, Markt-Meldungen, Sprachausgabe, %-Änderung,
- * Coin-Logos und Entwickler; Datenschutz, Börse wünschen, Quellcode und Lizenzen stehen auf «Über die App».
+ * Alarm-Hinweis und Widget-Hilfe dorthin verweisen und beide oft gesucht werden. Portfolio (Build 83) hat
+ * genau einen Ort: die Zeile unter «Allgemein» führt zur Seite mit Schalter, Sperre, Methode, Steuer-Vorlage
+ * und Systemsicherung — Einstellungen › Portfolio, wie die Hinweise der App es nennen. «Erweitert»
+ * ([AdvancedPage]) trägt Token & TradFi, Markt-Meldungen, Sprachausgabe, Coin-Logos und Entwickler;
+ * Datenschutz, Börse wünschen, Quellcode und Lizenzen stehen auf «Über die App».
  * Jede Zeile der Hauptseite trägt links ein schlichtes graues Symbol (Unterseiten ohne);
  * Merkliste wie der Tab, nur «App zurücksetzen» rot.
  */
@@ -142,7 +144,7 @@ fun SettingsScreen(
                 SettingsSearchResults(items = settingsSearchItems(settings), query = query, onOpen = openSearchTarget)
             } else {
                 ProvideSettingsHighlight(mainHighlight) {
-                    // 1 Allgemein: Sprache, Währung, Merkliste, Alarme, Kurs-Aktualisierung
+                    // 1 Allgemein: Sprache, Währung, Merkliste, Portfolio, Alarme, Kurs-Aktualisierung
                     SettingsSection(stringResource(R.string.settings_group_general), first = true) {
                         SettingsAnchor("main.language") {
                             LanguageRow(selectedTag = languageTag, onClick = { onOpenPage(SettingsPage.LANGUAGE) })
@@ -159,6 +161,15 @@ fun SettingsScreen(
                             icon = R.drawable.ic_tab_watchlist,
                             value = watchlistSummary(settings),
                             onClick = { onOpenPage(SettingsPage.WATCHLIST) }
+                        )
+                        // Alles zum Portfolio an einem Ort (Schalter des Tabs zuoberst auf der Seite); gleich nach
+                        // «Merkliste» wie die Reihenfolge der Tabs
+                        SettingsNavRow(
+                            title = stringResource(R.string.portfolio_title),
+                            // Gleiches Symbol wie der Tab «Portfolio»
+                            icon = R.drawable.ic_portfolio,
+                            value = portfolioSummary(settings),
+                            onClick = { onOpenPage(SettingsPage.PORTFOLIO) }
                         )
                         SettingsNavRow(
                             title = stringResource(R.string.settings_row_alarms),
@@ -219,8 +230,8 @@ fun SettingsScreen(
                         )
                     }
 
-                    // 3 Mehr: Sicherung, Portfolio (Schalter), «Erweitert» (Token & TradFi, Portfolio,
-                    // Markt-Meldungen, Sprachausgabe, %-Änderung, Coin-Logos, Entwickler), Über die App
+                    // 3 Mehr: Sicherung, «Erweitert» (Token & TradFi, Markt-Meldungen, Sprachausgabe, Coin-Logos,
+                    // Entwickler), Über die App
                     SettingsSection(stringResource(R.string.settings_group_more)) {
                         SettingsNavRow(
                             title = stringResource(R.string.backup_title),
@@ -228,16 +239,6 @@ fun SettingsScreen(
                             modifier = Modifier.testTag(UiTestTags.SETTINGS_BACKUP),
                             onClick = { onOpenPage(SettingsPage.BACKUP) }
                         )
-                        // Portfolio direkt einschalten — derselbe Schalter wie Erweitert › Portfolio
-                        SettingsAnchor("main.portfolio") {
-                            SettingsSwitchRow(
-                                title = stringResource(R.string.portfolio_title),
-                                icon = R.drawable.ic_portfolio,
-                                subtitle = stringResource(R.string.portfolio_setting_hint),
-                                checked = settings.portfolioEnabled,
-                                onCheckedChange = viewModel::setPortfolioEnabled,
-                            )
-                        }
                         SettingsNavRow(
                             title = stringResource(R.string.settings_row_advanced),
                             icon = R.drawable.ic_settings_advanced,

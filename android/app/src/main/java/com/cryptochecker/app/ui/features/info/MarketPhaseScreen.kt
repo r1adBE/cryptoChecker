@@ -13,6 +13,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.relocation.BringIntoViewRequester
+import androidx.compose.foundation.relocation.bringIntoViewRequester
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -26,6 +29,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.withFrameNanos
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -62,11 +67,13 @@ import com.cryptochecker.marketdata.model.FuturesContractType
  * noch nicht gezeigte Karten sind gar nicht da (darunter kann nichts verschoben werden),
  * nur eine kleine Ladezeile unter der letzten. Einmal gezeigt, bleibt alles stehen.
  *
- * Ganz oben «Kurz gesagt» ([MarketPlainSummaryCard], drei Sätze in Alltagssprache), dann
- * «Jetzt» (Puls, «Heute auffällig») und Fear & Greed, darunter «Mehr Marktdaten»
- * ([MarketMoreToggle], Standard zu, gemerkt) mit zwei Zeilen ([MarketSectionRow]) zu den
- * Unterseiten «Stimmung & Zyklus» und «Marktdaten» ([MarketSectionScreen], die Karten
- * unverändert). Deren Daten laden schon beim Öffnen des Tabs — die Unterseite steht sofort.
+ * Aufbau von «Jetzt» (Entscheid Build 83, gleich wie iOS): oben EINE Heldenkarte — Crypto Pulse mit
+ * «Kurz gesagt» als Körper ([CryptoPulseCard], [rememberPlainSummary]); darüber nur die Status-Pille.
+ * Darunter ruhig und kompakt Fear & Greed ([FearGreedRow], compact) und «Gewinner und Verlierer 24 h»
+ * ([MarketMoversCard], je drei, «Alle zeigen»). Dann «Mehr Marktdaten» ([MarketMoreToggle], Standard zu,
+ * gemerkt) mit «Heute auffällig», dem Wirtschaftsdaten-Hinweis (Termin in ±2 h) und zwei Zeilen
+ * ([MarketSectionRow]) zu den Unterseiten «Stimmung & Zyklus» und «Marktdaten» ([MarketSectionScreen],
+ * die Karten unverändert). Deren Daten laden schon beim Öffnen des Tabs — die Unterseite steht sofort.
  */
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
@@ -110,6 +117,8 @@ fun MarketPhaseScreen(
     val stamps by viewModel.stamps.collectAsStateWithLifecycle()
     val moreExpanded by viewModel.moreExpanded.collectAsStateWithLifecycle()
     val marketTotals by viewModel.marketTotals.collectAsStateWithLifecycle()
+    // «Kurz gesagt» für die Heldenkarte (null = noch nicht bereit oder kein gültiger Satz)
+    val plain = rememberPlainSummary(pulse, marketTotals, fearGreed, unusual, stamps)
     // Aktionsblatt (bzw. Vorschau) und «Was bewegt sich mit?» für einen Coin aus «Heute auffällig»
     val coinSheets = rememberMarketCoinState()
     val scope = rememberCoroutineScope()
@@ -138,22 +147,33 @@ fun MarketPhaseScreen(
         }
     }
 
-    // Unter «Jetzt» zwei Zeilen zu den Unterseiten «Einordnung» und «Daten» (G-10)
     val scrollState = rememberScrollState()
     // Erneutes Tippen auf den Tab «Markt»: an den Anfang (wie iOS)
     OnTabReselect(ScreenRoute.MarketPhase) {
         if (motion) scrollState.animateScrollTo(0) else scrollState.scrollTo(0)
     }
-    // Sprung von aussen (Mitteilung «Wirtschaftstermine»): Hinweis oben («Jetzt», Termin in ±2 h)
-    // oder auf der Unterseite «Daten» — entschieden, sobald die Daten stehen
+    // Sprung von aussen (Mitteilung «Wirtschaftstermine»): Hinweis auf «Jetzt» (Termin in ±2 h; er steht
+    // unter «Mehr Marktdaten», das dafür aufgeht) oder auf der Unterseite «Daten» — entschieden, sobald
+    // die Daten stehen
+    val macroRequester = remember { BringIntoViewRequester() }
+    var macroFocus by rememberSaveable { mutableStateOf(false) }
     LaunchedEffect(jump, macroEvents, reveal.shown) {
         if (jump != MarketJump.MACRO || !reveal.isShown(MarketRevealSlot.COIN)) return@LaunchedEffect
         onJumpHandled()
         if (macroRegister(macroEvents) == MarketSection.NOW) {
-            scrollState.scrollTo(0)
+            if (!moreExpanded) viewModel.setMoreExpanded(true)
+            macroFocus = true
         } else {
             onOpenMacroData()
         }
+    }
+    // Erst wenn «Mehr Marktdaten» offen ist (gespeicherte Einstellung, kommt einen Moment später) und
+    // der Hinweis gezeichnet wurde, dorthin scrollen
+    LaunchedEffect(macroFocus, moreExpanded) {
+        if (!macroFocus || !moreExpanded) return@LaunchedEffect
+        withFrameNanos { }
+        macroRequester.bringIntoView()
+        macroFocus = false
     }
 
     // Tab geöffnet oder App wieder im Vordergrund: nur Abgelaufenes neu laden
@@ -212,42 +232,44 @@ fun MarketPhaseScreen(
                     online = online,
                     animate = motion
                 )
-                // «Jetzt»: «Was passiert gerade?», «Heute auffällig» — als Karten. Beim Laden
-                // form-gleiche Platzhalter, bei Fehler eine kompakte Zeile.
+                // 1. Eine Heldenkarte: Crypto Pulse mit «Kurz gesagt» als Körper (einzige betonte Karte).
+                // Beim Laden ein form-gleicher Platzhalter, bei Fehler die kompakte Zeile — der Rest
+                // darunter erscheint trotzdem.
                 Reveal(MarketRevealSlot.PULSE, reveal, instant, motion, onNow = true) {
-                    // «Kurz gesagt»: drei Sätze in Alltagssprache aus den Daten des Tabs, sobald
-                    // Puls, «Heute auffällig» und Fear & Greed stehen
-                    MarketPlainSummaryCard(pulse, marketTotals, fearGreed, unusual, stamps)
-                    // Wirtschaftsdaten nur bei einem Termin in ±2 h hier oben, sonst unter «Daten»
-                    MacroHintRow(macroEvents, atTop = true)
-                    CryptoPulseCard(pulse, onRetry = { viewModel.loadPulse(force = true) })
-                    // «Gewinner und Verlierer 24 h»: Tippen wie bei «Heute auffällig»
-                    MarketMoversCard(pulse, onOpen = { coin -> openCoin(coin.symbol) })
+                    CryptoPulseCard(pulse, plain = plain, onRetry = { viewModel.loadPulse(force = true) })
                 }
-                // «Heute auffällig»: Tippen öffnet dasselbe wie ein Tipp in der Merkliste — das
-                // Aktionsblatt des Paars, sonst seine Vorschau (Binance COIN/USDT, nicht gespeichert);
-                // führt Binance das Paar nicht, die Suche auf der Seite «Paar hinzufügen»
-                Reveal(MarketRevealSlot.UNUSUAL, reveal, instant, motion, onNow = true) {
-                    UnusualCard(
-                        state = unusual,
-                        onOpen = { row -> openCoin(row.symbol) },
-                        onRetry = { viewModel.loadUnusual(force = true) }
-                    )
-                }
-                // Fear & Greed direkt hier (dieselbe Karte wie auf «Stimmung & Zyklus», gleiche Quelle)
+                // 2. Darunter ruhig und kompakt: Fear & Greed (dieselbe Quelle wie auf «Stimmung & Zyklus») und
+                // «Gewinner und Verlierer 24 h» (je drei, «Alle zeigen»; Tippen wie bei «Heute auffällig»)
                 Reveal(MarketRevealSlot.FEAR_GREED, reveal, instant, motion, onNow = true) {
                     FearGreedRow(
                         fearGreed,
                         onRetry = viewModel::refreshAll,
                         first = false,
-                        stamp = stamps[CycleSource.FEAR_GREED]
+                        stamp = stamps[CycleSource.FEAR_GREED],
+                        compact = true
                     )
+                    MarketMoversCard(pulse, onOpen = { coin -> openCoin(coin.symbol) })
                 }
-                // Darunter «Mehr Marktdaten» (Standard zu, gemerkt) mit den zwei Unterseiten;
-                // ihre Daten laden schon hier (Öffnen sofort)
+                // 3. «Mehr Marktdaten» (Standard zu, gemerkt): «Heute auffällig», der Wirtschaftsdaten-Hinweis
+                // (nur bei einem Termin in ±2 h, sonst unter «Daten») und die zwei Unterseiten — deren Daten
+                // laden schon hier (Öffnen sofort)
                 if (reveal.isShownOnNow(MarketRevealSlot.FEAR_GREED)) {
                     MarketMoreToggle(expanded = moreExpanded, onToggle = { viewModel.setMoreExpanded(!moreExpanded) })
                     if (moreExpanded) {
+                        // «Heute auffällig»: Tippen öffnet dasselbe wie ein Tipp in der Merkliste — das
+                        // Aktionsblatt des Paars, sonst seine Vorschau (Binance COIN/USDT, nicht gespeichert);
+                        // führt Binance das Paar nicht, die Suche auf der Seite «Paar hinzufügen»
+                        Reveal(MarketRevealSlot.UNUSUAL, reveal, instant, motion, onNow = true) {
+                            UnusualCard(
+                                state = unusual,
+                                onOpen = { row -> openCoin(row.symbol) },
+                                onRetry = { viewModel.loadUnusual(force = true) }
+                            )
+                        }
+                        // Ziel des Sprungs aus der Mitteilung «Wirtschaftstermine» (Termin in ±2 h)
+                        Column(modifier = Modifier.fillMaxWidth().bringIntoViewRequester(macroRequester)) {
+                            MacroHintRow(macroEvents, atTop = true)
+                        }
                         MarketSectionRow(
                             section = MarketSection.CONTEXT,
                             summary = fearGreedSummary(fearGreed),

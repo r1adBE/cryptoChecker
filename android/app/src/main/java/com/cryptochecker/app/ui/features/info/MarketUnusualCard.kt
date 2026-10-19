@@ -218,9 +218,9 @@ private fun UnusualSkeleton() {
 
 /**
  * Kompakte Zeile «Wirtschaftsdaten» — nur, wenn heute (oder in den nächsten 18 h) wichtige
- * US-Daten anstehen bzw. heute veröffentlicht wurden ([MacroCalendar.hint]). Oben im Abschnitt
- * «Jetzt» ([atTop]) nur bei einem Termin in ±2 h ([MacroCalendar.isImminent]), sonst im
- * Abschnitt «Daten». Rechnet jede Minute neu (Wechsel des Platzes, «veröffentlicht», Mitternacht).
+ * US-Daten anstehen bzw. heute veröffentlicht wurden ([MacroCalendar.hint]). Auf «Jetzt» ([atTop],
+ * aufgeklappt unter «Mehr Marktdaten») nur bei einem Termin in ±2 h ([MacroCalendar.isImminent]), sonst
+ * auf der Unterseite «Daten». Rechnet jede Minute neu (Wechsel des Platzes, «veröffentlicht», Mitternacht).
  * Grau, ohne Bedeutungsfarbe; für den Screenreader ein Element, dazu das Info-Zeichen
  * ([MarketInfoButton]) als eigener Knopf.
  */
@@ -248,8 +248,8 @@ internal fun MacroHintRow(events: List<MacroEvent>, atTop: Boolean) {
         verticalAlignment = Alignment.Top,
         modifier = Modifier
             .fillMaxWidth()
-            // Oben im Abschnitt «Jetzt» als Kasten, mit Abstand zum Pulse darunter
-            .padding(bottom = 12.dp)
+            // Auf «Jetzt» unter «Mehr Marktdaten» als Kasten, mit Abstand zur Karte darüber
+            .padding(top = Spacing.md)
             .clip(RoundedCornerShape(12.dp))
             .background(MaterialTheme.colorScheme.surfaceContainer)
             .padding(horizontal = Spacing.md, vertical = Spacing.md)

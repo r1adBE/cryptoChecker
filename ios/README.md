@@ -382,7 +382,7 @@ Davor:
   (Build 44), je Tick wird nur die betroffene Zeile neu
   gezeichnet (`App/Services/LivePriceStream.swift`, `Shared/Services/LiveFeed.swift`).
 - **4 Tabs**: Merkliste · Markt · Portfolio (optional; bei Neuinstallation seit Build 44 aus, unter Einstellungen ›
-  Erweitert › Portfolio oder direkt auf der Einstellungs-Startseite einschaltbar) · Einstellungen; «Paar hinzufügen» über «+»
+  Portfolio einschaltbar, Zeile unter «Allgemein») · Einstellungen; «Paar hinzufügen» über «+»
   in der Merkliste. **Kein Willkommensdialog** mehr – direkt die Startauswahl; «Was die App kann»
   unter Einstellungen › Über die App.
 - **Alarm-Editor als Satz** («Wenn BTC über … geht», «Einmal / Jedes Mal»; gleich sichtbar nur Kurs über/unter und
@@ -466,7 +466,7 @@ Frühere Runden:
   klappt «Markt heute» (nur Altcoins vs. Bitcoin) und die Faktor-Checkliste auf — nur Funding (! / –); Volumen, Fear & Greed
   und Gas stehen nicht doppelt, sie haben eigene Karten im Tab
   (`App/Features/Cycle/CryptoPulseCard.swift`, `Shared/Insights/CryptoPulse.swift`).
-- **«Heute auffällig»** (Karte unter dem Pulse, Teil des schrittweisen Erscheinens): bis zu fünf der rund
+- **«Heute auffällig»** (seit Build 83 im zugeklappten Teil «Mehr Marktdaten», Teil des schrittweisen Erscheinens): bis zu fünf der rund
   30 grössten Coins (ohne Stablecoins, mit …USDT auf Binance), die heute deutlich stärker/schwächer als BTC
   laufen, gegen den Markt, mit ungewöhnlichem Volumen (≥ 2× üblich) oder extremem Funding; sonst «Heute
   nichts Auffälliges». Je ein Abruf: 24-h-Ticker (Binance-Spiegel), Funding aller Perpetuals (Binance Futures),
@@ -500,7 +500,7 @@ Frühere Runden:
   «Löschen» im Aktionsblatt wirkt wie Wischen (sofort, mit «Rückgängig», ohne Rückfrage).
   Nicht im Sortiermodus und nicht mit VoiceOver (dort Aktionen)
   (`App/Features/Watchlist/WatchlistEditing.swift`).
-- **Markt-Tab in drei Abschnitten**: oben ohne Titel mit Status-Pille (Crypto Pulse, «Heute auffällig», Fear & Greed), «Einordnung»
+- **Markt-Tab in drei Abschnitten**: oben ohne Titel mit Status-Pille (seit Build 83: Hauptkarte Crypto Pulse mit «Kurz gesagt», darunter Fear & Greed kompakt und Gewinner/Verlierer 3+3, zugeklappt «Mehr Marktdaten» mit «Heute auffällig» und Makro), «Einordnung»
   (Marktphase, Dominanz mit Altcoin-Saison, Halving), «Daten» (Krypto-Markt, Gas, Wirtschaftsdaten, Coin); Überschriften für VoiceOver.
 - **Markt-Tab sofort da**: zeigt die zuletzt gespeicherten Daten («Stand … · wird
   aktualisiert …») und lädt im Hintergrund neu (`App/Features/Cycle/CycleScreen.swift`).

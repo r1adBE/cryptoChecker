@@ -8,7 +8,6 @@ import com.cryptochecker.app.ui.components.AppCard
 import com.cryptochecker.app.ui.components.sectionTitleMarker
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
@@ -25,7 +24,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
-import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -201,44 +199,6 @@ internal fun SettingsNavRow(
             tint = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.padding(start = 4.dp).then(if (external) Modifier.size(20.dp) else Modifier)
         )
-    }
-}
-
-/**
- * Zeile der Hauptseite mit Schalter (z. B. «Portfolio» in der Gruppe «Mehr»): gleiche Masse und
- * gleiches Symbol links wie [SettingsNavRow], darunter klein und grau der Hinweis, rechts der Schalter.
- * Die ganze Zeile schaltet (Screenreader: «Titel, Hinweis, Schalter, ein/aus»). Wie `SettingsMainSwitchRow` (iOS).
- */
-@Composable
-internal fun SettingsSwitchRow(
-    title: String,
-    checked: Boolean,
-    onCheckedChange: (Boolean) -> Unit,
-    @DrawableRes icon: Int? = null,
-    subtitle: String? = null,
-    modifier: Modifier = Modifier,
-) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier
-            .fillMaxWidth()
-            .heightIn(min = 56.dp)
-            .toggleable(
-                value = checked,
-                role = androidx.compose.ui.semantics.Role.Switch,
-                onValueChange = onCheckedChange
-            )
-            .padding(horizontal = 16.dp, vertical = 8.dp)
-    ) {
-        if (icon != null) SettingsLeadingIcon(icon, MaterialTheme.colorScheme.onSurface)
-        Column(modifier = Modifier.weight(1f).padding(end = 12.dp)) {
-            Text(title, style = MaterialTheme.typography.bodyLarge)
-            if (!subtitle.isNullOrEmpty()) {
-                SettingsValueText(subtitle, Modifier.padding(top = 2.dp))
-            }
-        }
-        // Klick läuft über die Zeile (toggleable), sonst würde doppelt geschaltet
-        Switch(checked = checked, onCheckedChange = null)
     }
 }
 

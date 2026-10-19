@@ -213,9 +213,10 @@ enum PortfolioWidgetText {
 
     static var appURL: URL? { URL(string: "cryptochecker://portfolio") }
 
-    /// Portfolio aus: «Einschalten unter Einstellungen › Erweitert › Portfolio.» — Pfad aus den Namen der App (Build 53).
+    /// Portfolio aus: «Einschalten unter Einstellungen › Portfolio.» — Pfad aus den Namen der App (Build 83: Zeile
+    /// unter «Allgemein»).
     static var offHint: String {
         L("widget_portfolio_off_hint",
-          AlarmTimingHint.settingsPath([L("settings_title"), L("settings_row_advanced"), L("portfolio_title")]))
+          AlarmTimingHint.settingsPath([L("settings_title"), L("portfolio_title")]))
     }
 }

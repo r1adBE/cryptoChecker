@@ -15,6 +15,18 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 83)
+
+* Market tab «Now» has one main card: Crypto Pulse with «In short» inside it and a larger headline. Below it, quieter:
+  Fear & Greed (compact) and gainers/losers 24 h (3 + 3, «Show all» for 5 + 5). «Unusual today» and the macro note
+  are under «More market data» (a macro notification opens it).
+* Portfolio in one place: «Settings › Portfolio» on the first settings page (group «General»); the duplicate entries
+  under «More» and «Advanced» are gone.
+* Cycle chart: older cycles clearly visible (at least 3:1 contrast).
+* High contrast also raises the accent in widgets.
+* iPhone: the hint for «Portfolio in system backup» says it only restores on the same iPhone; to move to a new phone,
+  use the app's password backup.
+
 ## 16.2.2 (build 82)
 
 Two more reviews before the store.

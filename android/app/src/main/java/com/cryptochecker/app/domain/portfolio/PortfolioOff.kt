@@ -53,7 +53,7 @@ object PortfolioOff {
         /** Portfolio-Tab. */
         PORTFOLIO_TAB,
 
-        /** Einstellungen › Erweitert › Portfolio (dort der Schalter). */
+        /** Einstellungen › Portfolio (dort der Schalter). */
         PORTFOLIO_SETTINGS,
     }
 

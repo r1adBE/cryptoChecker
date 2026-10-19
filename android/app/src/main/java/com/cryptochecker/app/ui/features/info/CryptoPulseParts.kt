@@ -42,7 +42,7 @@ import com.cryptochecker.app.ui.components.pillTextStyle
 import com.cryptochecker.app.ui.components.sectionTitleMarker
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.amountNumbers
-import com.cryptochecker.app.ui.theme.headline
+import com.cryptochecker.app.ui.theme.displayCompact
 import com.cryptochecker.app.ui.theme.label
 import com.cryptochecker.app.util.A11yText
 import com.cryptochecker.app.util.PriceFormat
@@ -50,13 +50,13 @@ import kotlin.math.abs
 
 /**
  * Platzhalter in der Form von [PulseContent] (Überzeile steht schon darüber):
- * Schlagzeile, Leitsatz über zwei Zeilen, Zeile mit drei Coin-Änderungen, Zeile mit
+ * Schlagzeile (Heldengrösse [displayCompact]), Leitsatz über zwei Zeilen, Zeile mit drei Coin-Änderungen, Zeile mit
  * Stand und «Was bewegt sich mit?». Höhen aus der echten Typografie, damit beim Laden nichts springt.
  */
 @Composable
 internal fun PulseSkeleton() {
     SkeletonPulse(modifier = Modifier.fillMaxWidth()) {
-        SkeletonLine(MaterialTheme.typography.headline, Modifier.fillMaxWidth(0.55f))
+        SkeletonLine(MaterialTheme.typography.displayCompact, Modifier.fillMaxWidth(0.55f))
         SkeletonLine(MaterialTheme.typography.bodyLarge, Modifier.padding(top = Spacing.xs).fillMaxWidth())
         SkeletonLine(MaterialTheme.typography.bodyLarge, Modifier.fillMaxWidth(0.7f))
         // Zeile «24h  BTC ↘ −0.3%  ETH ↗ +1.2%  SOL ↗ +0.8%»: Zeitraum und drei Coin-Angaben

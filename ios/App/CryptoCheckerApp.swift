@@ -38,7 +38,7 @@ final class AppRouter: ObservableObject {
     /// Seite «Paar hinzufügen» über dem Markt-Tab («Heute auffällig»): zurück führt wieder
     /// in den Markt-Tab, nicht in die Merkliste (G-13).
     @Published var showMarketExplorer = false
-    /// Einstellungen › Erweitert › Portfolio öffnen (Portfolio-Widget, während das Portfolio aus ist).
+    /// Einstellungen › Portfolio öffnen (Portfolio-Widget, während das Portfolio aus ist).
     @Published var showPortfolioSettings = false
     /// K-10: Einstellungen › Aktualisierung («Wie aktuell?») direkt öffnen (Hinweis im Alarm).
     @Published var showUpdateSettings = false
@@ -113,7 +113,7 @@ final class AppRouter: ObservableObject {
             marketJump = .macro
             tab = .cycle
         case "portfolio":
-            // Portfolio-Widget: Portfolio-Tab; ist es aus, Einstellungen › Erweitert › Portfolio (dort der Schalter)
+            // Portfolio-Widget: Portfolio-Tab; ist es aus, Einstellungen › Portfolio (dort der Schalter)
             switch PortfolioOff.widgetTarget(portfolioEnabled: AppData.shared.settings.portfolioEnabled) {
             case .portfolioTab:
                 tab = .portfolio

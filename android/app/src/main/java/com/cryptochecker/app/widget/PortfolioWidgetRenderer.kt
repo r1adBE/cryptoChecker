@@ -248,7 +248,7 @@ class PortfolioWidgetRenderer @Inject constructor(
     }
 
     /**
-     * Öffnet die App im Portfolio-Tab; ist es aus, unter Einstellungen › Erweitert › Portfolio
+     * Öffnet die App im Portfolio-Tab; ist es aus, unter Einstellungen › Portfolio
      * (entschieden in der App beim Öffnen, [PortfolioOff.widgetTarget]).
      */
     private fun openPortfolio(): PendingIntent {

@@ -183,7 +183,8 @@ class SpacingUsageTest {
         /** Datei (relativ zu `ios/`) → höchstens so viele Stellen, die bewusst bleiben. */
         val IOS_CEILINGS = mapOf(
             // Zeilen der Marktdaten: wie Android 2 × 3 dp Zeilen-Innenabstand (Feinabstimmung) = 6
-            "App/Features/Cycle/CryptoPulseCard.swift" to 1,
+            // (seit Build 83 in `PulseFacts`, CryptoPulseParts.swift)
+            "App/Features/Cycle/CryptoPulseParts.swift" to 1,
             // Widgets/: seit Build 82 alle auf dem Raster (abgerundet wie die Android-Widgets) — keine Ausnahme
         )
     }

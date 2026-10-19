@@ -90,14 +90,15 @@ final class SettingsSearchTests: XCTestCase {
     }
 
     /// Build 55: Kurs-Aktualisierung unter «Allgemein», Widgets unter «Darstellung»; «Erweitert» behält
-    /// Token & TradFi, Portfolio, Markt-Meldungen, Sprachausgabe, Coin-Logos und Entwickler; %-Änderung steht auf
-    /// «Merkliste» (Review D13) — wie `SettingsPlacementTest.kt`.
+    /// Token & TradFi, Markt-Meldungen, Sprachausgabe, Coin-Logos und Entwickler; %-Änderung steht auf
+    /// «Merkliste». Build 83: Portfolio nur unter «Allgemein» — wie `SettingsPlacementTest.kt`.
     func testPagesSitWhereTheMainPageShowsThem() {
         XCTAssertEqual(SettingsSearchPage.updates.home, .general)
         XCTAssertEqual(SettingsSearchPage.alarms.home, .general)
         XCTAssertEqual(SettingsSearchPage.widgets.home, .appearance)
         XCTAssertEqual(SettingsSearchPage.priceColors.home, .appearance)
-        let advanced: [SettingsSearchPage] = [.markets, .portfolio, .marketAlerts, .speech, .coinLogos, .developer]
+        XCTAssertEqual(SettingsSearchPage.portfolio.home, .general)
+        let advanced: [SettingsSearchPage] = [.markets, .marketAlerts, .speech, .coinLogos, .developer]
         for page in advanced {
             XCTAssertEqual(page.home, .advanced, "\(page)")
         }
@@ -115,17 +116,19 @@ final class SettingsSearchTests: XCTestCase {
         XCTAssertEqual(path("page.widgets"), L("settings_section_appearance"))
         XCTAssertEqual(path("page.coin_logos"), L("settings_row_advanced"))
         XCTAssertEqual(path("page.advanced"), L("settings_group_more"))
-        XCTAssertEqual(path("main.portfolio"), L("settings_group_more"))
+        XCTAssertEqual(path("page.portfolio"), L("settings_group_general"))
+        XCTAssertNil(path("main.portfolio"))
     }
 
-    /// Schalter «Portfolio» auf der Hauptseite (Gruppe «Mehr»): die Suche nach «Portfolio» zeigt ihn zuerst,
-    /// vor der Seite Erweitert › Portfolio — wie `portfolio_mainRowComesFirst` (Android).
+    /// Build 83: Portfolio an einem Ort — die Suche nach «Portfolio» zeigt zuerst die Seite (Zeile unter
+    /// «Allgemein»), den alten Schalter der Gruppe «Mehr» gibt es nicht mehr — wie `portfolio_pageComesFirst` (Android).
     @MainActor
-    func testPortfolioSearchFindsMainRowFirst() {
-        let entries = SettingsSearchCatalog.items(settings: AppSettings()).map(\.entry)
-        let hits = SettingsSearch.search(entries, query: L("portfolio_title"), locale: Locale.current).map(\.id)
-        XCTAssertEqual(hits.first, "main.portfolio")
-        XCTAssertTrue(hits.contains("page.portfolio"))
+    func testPortfolioSearchFindsPageFirst() {
+        let items = SettingsSearchCatalog.items(settings: AppSettings())
+        let hits = SettingsSearch.search(items.map(\.entry), query: L("portfolio_title"), locale: Locale.current).map(\.id)
+        XCTAssertEqual(hits.first, "page.portfolio")
+        XCTAssertEqual(items.first { $0.entry.id == "page.portfolio" }?.target, .page(.portfolio, anchor: nil))
+        XCTAssertFalse(hits.contains("main.portfolio"))
     }
 
     /// «Damit Alarme ankommen», «Diagnose teilen» und «Alarm-Protokoll» sind auffindbar und führen zu ihrer Zeile —

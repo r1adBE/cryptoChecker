@@ -149750,6 +149750,388 @@
         }
       }
     },
+    "market_movers_show_all" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "عرض الكل"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zobrazit vše"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vis alle"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alle zeigen"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Εμφάνιση όλων"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show all"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostrar todos"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نمایش همه"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Näytä kaikki"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tout afficher"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "הצג הכול"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "सभी दिखाएँ"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Összes megjelenítése"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tampilkan semua"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostra tutti"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "すべて表示"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "모두 보기"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vis alle"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alles tonen"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pokaż wszystkie"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostrar todos"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostrar todos"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Afișează toate"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Показать все"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shfaqi të gjitha"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Visa alla"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "แสดงทั้งหมด"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tümünü göster"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Показати всі"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hiện tất cả"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "显示全部"
+          }
+        }
+      }
+    },
+    "market_movers_show_less" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "عرض أقل"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zobrazit méně"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vis færre"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weniger zeigen"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Εμφάνιση λιγότερων"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show less"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostrar menos"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نمایش کمتر"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Näytä vähemmän"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Afficher moins"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "הצג פחות"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "कम दिखाएँ"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kevesebb megjelenítése"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tampilkan lebih sedikit"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostra meno"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "表示を減らす"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "간단히 보기"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vis færre"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Minder tonen"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pokaż mniej"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostrar menos"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostrar menos"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Afișează mai puține"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Показать меньше"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shfaq më pak"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Visa färre"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "แสดงน้อยลง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Daha az göster"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Показати менше"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hiện ít hơn"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "收起"
+          }
+        }
+      }
+    },
     "market_phase_trend_failed" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -281865,6 +282247,197 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "关闭：你的交易不会包含在设备的系统备份和换机迁移中。如需迁移，请使用应用自带的密码保护备份。"
+          }
+        }
+      }
+    },
+    "settings_portfolio_system_backup_hint_ios" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إيقاف: لا تدخل معاملاتك في نسخ iCloud أو الكمبيوتر الاحتياطية. تشغيل: لا يمكن استعادتها إلا على هذا الـiPhone – على iPhone جديد يبقى الملف غير قابل للقراءة لأن المفتاح لا يغادر الجهاز أبدًا. للانتقال إلى هاتف جديد استخدم نسخة التطبيق الاحتياطية بكلمة مرور."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vyp.: transakce nejsou součástí záloh iCloud ani počítače. Zap.: lze je obnovit jen na tomto iPhonu – na novém iPhonu zůstane soubor nečitelný, protože klíč nikdy neopustí zařízení. Při přechodu na nový telefon použijte zálohu aplikace s heslem."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fra: Dine transaktioner kommer ikke med i iCloud- eller computersikkerhedskopier. Til: De kan kun gendannes på denne iPhone – på en ny iPhone forbliver filen ulæselig, fordi nøglen aldrig forlader enheden. Brug appens egen sikkerhedskopi med adgangskode, når du skifter telefon."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aus: Deine Transaktionen kommen nicht in die iCloud- oder Computer-Sicherung. Ein: Sie lassen sich nur auf diesem iPhone wiederherstellen – auf einem neuen iPhone bleibt die Datei unlesbar, weil der Schlüssel das Gerät nie verlässt. Zum Umziehen die eigene Sicherung der App mit Passwort verwenden."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ανενεργό: οι συναλλαγές σας δεν μπαίνουν στα αντίγραφα iCloud ή υπολογιστή. Ενεργό: επαναφέρονται μόνο σε αυτό το iPhone – σε νέο iPhone το αρχείο μένει μη αναγνώσιμο, γιατί το κλειδί δεν φεύγει ποτέ από τη συσκευή. Για αλλαγή τηλεφώνου χρησιμοποιήστε το αντίγραφο της εφαρμογής με κωδικό."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Off: your transactions are not included in iCloud or computer backups. On: they can only be restored on this iPhone – on a new iPhone the file stays unreadable because the key never leaves the device. To move to a new phone, use the app's own backup with a password."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desactivado: tus transacciones no se incluyen en las copias de iCloud ni del ordenador. Activado: solo se pueden restaurar en este iPhone; en un iPhone nuevo el archivo sigue ilegible porque la clave nunca sale del dispositivo. Para cambiar de teléfono, usa la copia de la app con contraseña."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "خاموش: تراکنش‌های شما در پشتیبان iCloud یا رایانه قرار نمی‌گیرند. روشن: فقط روی همین iPhone قابل بازیابی‌اند – روی iPhone جدید فایل خوانا نیست، چون کلید هرگز دستگاه را ترک نمی‌کند. برای تعویض گوشی از پشتیبان رمزدار خود برنامه استفاده کنید."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pois: tapahtumasi eivät tule iCloud- tai tietokonevarmuuskopioihin. Päällä: ne voi palauttaa vain tähän iPhoneen – uudessa iPhonessa tiedosto pysyy lukukelvottomana, koska avain ei koskaan poistu laitteesta. Käytä puhelinta vaihtaessa sovelluksen omaa salasanalla suojattua varmuuskopiota."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Désactivé : vos transactions ne figurent pas dans les sauvegardes iCloud ou ordinateur. Activé : elles ne peuvent être restaurées que sur cet iPhone – sur un nouvel iPhone, le fichier reste illisible car la clé ne quitte jamais l'appareil. Pour changer de téléphone, utilisez la sauvegarde de l'app avec mot de passe."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "כבוי: העסקאות שלך לא נכללות בגיבויי iCloud או המחשב. פועל: אפשר לשחזר אותן רק ב-iPhone הזה – ב-iPhone חדש הקובץ יישאר בלתי קריא, כי המפתח לעולם לא עוזב את המכשיר. כדי לעבור לטלפון חדש השתמש בגיבוי של האפליקציה עם סיסמה."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "बंद: आपके लेन-देन iCloud या कंप्यूटर बैकअप में नहीं जाते। चालू: इन्हें केवल इसी iPhone पर बहाल किया जा सकता है – नए iPhone पर फ़ाइल पढ़ी नहीं जा सकती, क्योंकि कुंजी कभी डिवाइस नहीं छोड़ती। फ़ोन बदलने के लिए ऐप का पासवर्ड वाला बैकअप इस्तेमाल करें।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ki: a tranzakciók nem kerülnek az iCloud- vagy számítógépes mentésbe. Be: csak ezen az iPhone-on állíthatók vissza – új iPhone-on a fájl olvashatatlan marad, mert a kulcs sosem hagyja el az eszközt. Telefonváltáshoz használd az alkalmazás jelszavas mentését."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mati: transaksi Anda tidak masuk ke cadangan iCloud atau komputer. Nyala: hanya bisa dipulihkan di iPhone ini – di iPhone baru file tetap tidak terbaca karena kunci tidak pernah meninggalkan perangkat. Untuk pindah ponsel, gunakan cadangan aplikasi dengan kata sandi."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Disattivato: le transazioni non finiscono nei backup iCloud o del computer. Attivato: si possono ripristinare solo su questo iPhone – su un nuovo iPhone il file resta illeggibile perché la chiave non lascia mai il dispositivo. Per cambiare telefono usa il backup dell'app con password."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "オフ：取引は iCloud やコンピュータのバックアップに含まれません。オン：この iPhone にのみ復元できます。鍵が端末から出ることはないため、新しい iPhone ではファイルを読めません。機種変更にはアプリのパスワード付きバックアップを使ってください。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "끔: 거래 내역이 iCloud나 컴퓨터 백업에 포함되지 않습니다. 켬: 이 iPhone에서만 복원할 수 있습니다. 키가 기기를 떠나지 않으므로 새 iPhone에서는 파일을 읽을 수 없습니다. 휴대폰을 바꿀 때는 앱의 암호 백업을 사용하세요."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Av: transaksjonene dine kommer ikke med i iCloud- eller datamaskinsikkerhetskopier. På: de kan bare gjenopprettes på denne iPhonen – på en ny iPhone forblir filen uleselig fordi nøkkelen aldri forlater enheten. Bruk appens egen sikkerhetskopi med passord når du bytter telefon."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uit: je transacties komen niet in iCloud- of computerback-ups. Aan: ze zijn alleen op deze iPhone terug te zetten – op een nieuwe iPhone blijft het bestand onleesbaar, omdat de sleutel het apparaat nooit verlaat. Gebruik voor een nieuwe telefoon de eigen back-up van de app met wachtwoord."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wył.: transakcje nie trafiają do kopii iCloud ani komputera. Wł.: można je przywrócić tylko na tym iPhonie – na nowym iPhonie plik pozostaje nieczytelny, bo klucz nigdy nie opuszcza urządzenia. Przy zmianie telefonu użyj kopii zapasowej aplikacji z hasłem."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desligado: as transações não entram nas cópias do iCloud nem do computador. Ligado: só podem ser restauradas neste iPhone – num iPhone novo o ficheiro fica ilegível porque a chave nunca sai do dispositivo. Para mudar de telefone, use a cópia da app com palavra-passe."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desligado: suas transações não entram nos backups do iCloud nem do computador. Ligado: só podem ser restauradas neste iPhone – em um iPhone novo o arquivo fica ilegível porque a chave nunca sai do aparelho. Para trocar de celular, use o backup do app com senha."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oprit: tranzacțiile nu intră în copiile iCloud sau de pe computer. Pornit: pot fi restaurate doar pe acest iPhone – pe un iPhone nou fișierul rămâne ilizibil, deoarece cheia nu părăsește niciodată dispozitivul. Pentru a schimba telefonul, folosește copia de rezervă a aplicației cu parolă."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Выкл.: транзакции не попадают в резервные копии iCloud и компьютера. Вкл.: их можно восстановить только на этом iPhone – на новом iPhone файл останется нечитаемым, потому что ключ никогда не покидает устройство. Для переезда на новый телефон используйте резервную копию приложения с паролем."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Joaktive: transaksionet nuk përfshihen në kopjet e iCloud ose të kompjuterit. Aktive: mund të rikthehen vetëm në këtë iPhone – në një iPhone të ri skedari mbetet i palexueshëm, sepse çelësi nuk e lë kurrë pajisjen. Për të ndërruar telefonin, përdor kopjen rezervë të aplikacionit me fjalëkalim."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Av: dina transaktioner ingår inte i iCloud- eller datorsäkerhetskopior. På: de kan bara återställas på den här iPhonen – på en ny iPhone förblir filen oläslig eftersom nyckeln aldrig lämnar enheten. Använd appens egen säkerhetskopia med lösenord när du byter telefon."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ปิด: ธุรกรรมของคุณจะไม่อยู่ในข้อมูลสำรอง iCloud หรือคอมพิวเตอร์ เปิด: กู้คืนได้เฉพาะใน iPhone เครื่องนี้ – ใน iPhone เครื่องใหม่ไฟล์จะอ่านไม่ได้ เพราะกุญแจไม่เคยออกจากอุปกรณ์ หากเปลี่ยนโทรศัพท์ ให้ใช้ข้อมูลสำรองของแอปที่มีรหัสผ่าน"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kapalı: işlemleriniz iCloud veya bilgisayar yedeklerine girmez. Açık: yalnızca bu iPhone'a geri yüklenebilir – yeni bir iPhone'da dosya okunamaz kalır, çünkü anahtar cihazdan hiç çıkmaz. Telefon değiştirirken uygulamanın parolalı yedeğini kullanın."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Вимк.: транзакції не потрапляють до резервних копій iCloud і комп’ютера. Увімк.: їх можна відновити лише на цьому iPhone – на новому iPhone файл лишиться нечитабельним, бо ключ ніколи не залишає пристрій. Для переходу на новий телефон використовуйте резервну копію застосунку з паролем."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tắt: giao dịch của bạn không nằm trong bản sao lưu iCloud hay máy tính. Bật: chỉ khôi phục được trên iPhone này – trên iPhone mới, tệp vẫn không đọc được vì khóa không bao giờ rời thiết bị. Khi đổi điện thoại, hãy dùng bản sao lưu có mật khẩu của ứng dụng."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "关闭：你的交易不会进入 iCloud 或电脑备份。开启：只能在这台 iPhone 上恢复——在新 iPhone 上文件无法读取，因为密钥从不离开设备。换手机时请使用应用自带的密码备份。"
           }
         }
       }

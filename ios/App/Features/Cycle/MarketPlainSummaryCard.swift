@@ -1,43 +1,20 @@
 import SwiftUI
 
-/// «Kurz gesagt» ganz oben im Markt-Tab: bis zu drei Sätze in Alltagssprache (`MarketPlainSummary`),
-/// je mit Symbol, darunter der Hinweis «keine Prognose, keine Anlageberatung». Die Karten darunter
-/// bleiben unverändert.
-///
-/// Erscheint erst, wenn Puls, «Heute auffällig» und Fear & Greed ihren ersten Stand haben (geladen,
-/// gescheitert oder aus dem Zwischenspeicher) — so kommen nicht Satz für Satz neue Zeilen dazu.
-/// Ohne einen einzigen gültigen Satz entfällt der Block ganz (kein Platzhalter, keine Vermutung).
-/// Wie `MarketPlainSummaryCard.kt`.
-struct MarketPlainSummaryCard: View {
-    @ObservedObject var viewModel: CycleViewModel
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
-
-    var body: some View {
-        // Uhr läuft mit (alle 30 s wie Android): ein Satz verschwindet, sobald seine Daten veraltet sind
-        TimelineView(.periodic(from: .now, by: 30)) { context in
-            let summary = plainSummary(now: Int64(context.date.timeIntervalSince1970 * 1000))
-            let visible = ready && !summary.isEmpty
-            // Kommt der Block erst nach den Karten (erster Start ohne Zwischenspeicher), schiebt er sie
-            // weich nach unten statt mit einem Sprung
-            VStack(spacing: 0) {
-                if visible {
-                    content(summary)
-                        .transition(.opacity.combined(with: .move(edge: .top)))
-                }
-            }
-            .animation(reduceMotion ? nil : .easeInOut(duration: 0.2), value: visible)
-        }
-    }
-
-    private var ready: Bool {
-        !viewModel.pulse.isLoading && !viewModel.unusual.isLoading && !viewModel.fearGreed.isLoading
-    }
-
-    private func plainSummary(now: Int64) -> PlainSummary {
+/// «Kurz gesagt»: bis zu drei Sätze in Alltagssprache (`MarketPlainSummary`) als Körper der Heldenkarte
+/// (`CryptoPulseCard`, direkt unter der Schlagzeile). Gibt es erst, wenn Puls, «Heute auffällig» und Fear & Greed
+/// ihren ersten Stand haben (geladen, gescheitert oder aus dem Zwischenspeicher) — so kommen nicht Satz für Satz
+/// neue Zeilen dazu. nil = noch nicht bereit oder kein einziger gültiger Satz (dann entfällt der Block ganz: kein
+/// Platzhalter, keine Vermutung). Der Aufrufer rechnet alle 30 s neu (wie Android): ein Satz verschwindet, sobald
+/// seine Daten veraltet sind. Wie `rememberPlainSummary` (MarketPlainSummaryCard.kt).
+@MainActor
+enum MarketPlainSummaryBlock {
+    static func summary(_ viewModel: CycleViewModel, now: Int64) -> PlainSummary? {
+        let ready = !viewModel.pulse.isLoading && !viewModel.unusual.isLoading && !viewModel.fearGreed.isLoading
+        guard ready else { return nil }
         let fearGreed = viewModel.fearGreed.value
-        return MarketPlainSummary.evaluate(PlainSummaryInput(
+        let summary = MarketPlainSummary.evaluate(PlainSummaryInput(
             now: now,
-            pulseMarketChange24h: pulseMarketChange,
+            pulseMarketChange24h: pulseMarketChange(viewModel),
             pulseStamp: viewModel.pulseStamp,
             globalMarketChange24h: viewModel.globalMarket.value?.change24hPercent,
             globalStamp: viewModel.globalStamp,
@@ -47,11 +24,12 @@ struct MarketPlainSummaryCard: View {
             unusual: viewModel.unusual.value,
             unusualStamp: viewModel.unusualStamp
         ))
+        return summary.isEmpty ? nil : summary
     }
 
     /// Veränderung des Gesamtmarkts aus dem Puls — dieselbe Prüfung wie die Puls-Karte (ohne BTC,
     /// ETH, SOL oder ohne gültige Marktkapitalisierung kein Wert; Android: `PulseReport.marketCap24h`).
-    private var pulseMarketChange: Double? {
+    private static func pulseMarketChange(_ viewModel: CycleViewModel) -> Double? {
         guard let data = viewModel.pulse.value else { return nil }
         return CryptoPulse.evaluate(PulseInput(
             btc: data.btc, eth: data.eth, sol: data.sol,
@@ -60,11 +38,36 @@ struct MarketPlainSummaryCard: View {
             marketCap24h: data.marketCap24h
         ))?.marketCap24h
     }
+}
+
+extension PlainSummary {
+    /// Richtung (Marktkapitalisierung) und «Heute auffällig» (Umsatz-Anteil) nutzen CoinGecko-Daten.
+    var usesCoinGecko: Bool { direction != nil || standout != nil }
+}
+
+/// Die Sätze von «Kurz gesagt» in der Heldenkarte: kleine Unterüberschrift (für VoiceOver eine Überschrift),
+/// darunter je Satz eine Zeile mit Symbol. Kommt der Block erst nach der Schlagzeile (erster Start ohne
+/// Zwischenspeicher), schiebt er die Belege weich nach unten statt mit einem Sprung; ohne Animation bei
+/// reduzierter Bewegung. Hinweis und Quelle stehen am Fuss der Karte. Wie `PlainSummaryBlock` (Android).
+struct MarketPlainLines: View {
+    let summary: PlainSummary?
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            if let summary {
+                content(summary)
+                    .transition(.opacity.combined(with: .move(edge: .top)))
+            }
+        }
+        .animation(reduceMotion ? nil : .easeInOut(duration: 0.2), value: summary != nil)
+    }
 
     private func content(_ summary: PlainSummary) -> some View {
         VStack(alignment: .leading, spacing: 0) {
             Text(L("market_plain_title"))
-                .sectionTitleStyle()
+                .font(.subheadline.weight(.medium))
+                .foregroundStyle(AppColors.onSurfaceVariant)
                 .accessibilityAddTraits(.isHeader)
             if let direction = summary.direction {
                 PlainLine(symbol: Self.directionSymbol(direction.kind), text: MarketPlainSummaryText.direction(direction))
@@ -75,19 +78,9 @@ struct MarketPlainSummaryCard: View {
             if let standout = summary.standout {
                 PlainLine(symbol: "flag", text: MarketPlainSummaryText.standout(standout))
             }
-            Text(L("market_plain_footnote"))
-                .font(.caption2)
-                .foregroundStyle(AppColors.onSurfaceVariant)
-                .fixedSize(horizontal: false, vertical: true)
-                .padding(.top, Spacing.md)
-            // Richtung (Marktkapitalisierung) und «Heute auffällig» (Umsatz-Anteil) nutzen CoinGecko-Daten
-            if summary.direction != nil || summary.standout != nil {
-                CoinGeckoAttribution()
-            }
         }
-        .appCard()
-        // Den Abstand zur Karte darunter bringt dieser Block mit (die Puls-Karte hat oben keinen)
-        .padding(.bottom, Spacing.md)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.top, Spacing.md)
     }
 
     // MARK: Texte
@@ -121,7 +114,7 @@ private struct PlainLine: View {
                 .foregroundStyle(AppColors.onSurface)
                 .fixedSize(horizontal: false, vertical: true)
         }
-        .padding(.top, Spacing.md)
+        .padding(.top, Spacing.sm)
         .accessibilityElement(children: .combine)
     }
 }

@@ -175,43 +175,6 @@ struct SettingsNavRow<Value: View, Destination: View>: View {
     }
 }
 
-/// Zeile der Hauptseite mit Schalter (z. B. «Portfolio» in der Gruppe «Mehr»): gleiches Symbol links und
-/// gleiche Masse wie `SettingsNavRow`, darunter klein und grau der Hinweis, rechts der Schalter. Die ganze
-/// Zeile schaltet (VoiceOver: «Titel, Hinweis, Schalter»). Wie `SettingsSwitchRow` (Android).
-@MainActor
-struct SettingsMainSwitchRow: View {
-    let title: String
-    var icon: SettingsRowIcon? = nil
-    var subtitle: String? = nil
-    @Binding var isOn: Bool
-    @Environment(\.appAccent) private var accent
-
-    init(title: String, icon: SettingsRowIcon? = nil, subtitle: String? = nil, isOn: Binding<Bool>) {
-        self.title = title
-        self.icon = icon
-        self.subtitle = subtitle
-        _isOn = isOn
-    }
-
-    var body: some View {
-        Toggle(isOn: $isOn) {
-            HStack(spacing: 12) {
-                // 12 pt vom Symbol bis zum Titel (wie Android `SettingsLeadingIcon`)
-                if let icon {
-                    SettingsLeadingIcon(icon: icon)
-                        .foregroundStyle(AppColors.onSurface)
-                }
-                SettingsRowTitle(title: title, showsValue: !(subtitle ?? "").isEmpty) {
-                    Text(subtitle ?? "")
-                }
-            }
-        }
-        .tint(accent.primary)
-        .padding(.vertical, Spacing.sm)
-        .frame(maxWidth: .infinity, minHeight: SettingsRowMetrics.minHeight, alignment: .leading)
-    }
-}
-
 extension SettingsNavRow where Value == Text {
     /// Wert als Text (oder keiner).
     init(title: String, icon: SettingsRowIcon? = nil, value: String?, @ViewBuilder destination: @escaping () -> Destination) {

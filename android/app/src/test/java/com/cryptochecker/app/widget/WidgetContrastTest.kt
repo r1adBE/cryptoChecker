@@ -29,6 +29,26 @@ class WidgetContrastTest {
         }
     }
 
+    /**
+     * Build 83: Mit hohem Kontrast heben die Widgets den Akzent wie die App (7:1 zur dunkelsten Kartenfläche);
+     * Kurs-Etikett (onAccent auf Akzent) und Widget-Grund bleiben mindestens AA, ohne hohen Kontrast unverändert.
+     * Wie `testHighContrastAccentAsAndroidAndUsedByWidgets` (iOS, AccentContrastTests).
+     */
+    @Test
+    fun `widgets raise the accent in high contrast like the app`() {
+        for (accent in com.cryptochecker.app.settings.AccentColor.entries) for (dark in listOf(false, true)) {
+            val normal = WidgetColors.of(accent, dark)
+            val strong = WidgetColors.of(accent, dark, highContrast = true)
+            assertEquals(WidgetContrast.highContrastAccent(normal.accentColor, dark), strong.accentColor)
+            val reference = if (dark) WidgetContrast.DARK_REFERENCE else WidgetContrast.LIGHT_REFERENCE
+            assertTrue("${accent.name}/dark=$dark", WidgetContrast.ratio(strong.accentColor, reference) >= 7.0)
+            assertTrue(WidgetContrast.ratio(strong.onAccentColor, strong.accentColor) >= 4.5)
+            assertTrue(WidgetContrast.ratio(strong.accentColor, strong.colorWithOpacity(100)) >= 4.5)
+            // Ohne hohen Kontrast bleibt der Akzent der App
+            assertEquals(normal.accentColor, WidgetColors.of(accent, dark, highContrast = false).accentColor)
+        }
+    }
+
     /** «unverändert» hell #5F5F5F statt #777777 (3.87:1) — AA auf dem Widget-Grund, wie iOS. */
     @Test
     fun `neutral grey reaches AA on the widget base`() {

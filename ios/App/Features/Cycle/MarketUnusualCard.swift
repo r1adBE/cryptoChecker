@@ -128,12 +128,12 @@ private struct CycleUnusualRowView: View {
     }
 }
 
-/// Kompakte Zeile «Wirtschaftsdaten» oben im Abschnitt «Jetzt» — wie `MacroHintRow` (Android):
+/// Kompakte Zeile «Wirtschaftsdaten» auf «Jetzt» (unter «Mehr Marktdaten») — wie `MacroHintRow` (Android):
 /// nur, wenn heute (oder in den nächsten 18 h) wichtige US-Daten anstehen bzw. heute veröffentlicht
 /// wurden. Rechnet jede Minute neu. Grau, ohne Bedeutungsfarbe; für VoiceOver ein Element.
 struct CycleMacroHintRow: View {
     let events: [MacroEvent]
-    /// Oben im Abschnitt «Jetzt» (nur bei einem Termin in ±2 h), sonst im Abschnitt «Daten».
+    /// Auf «Jetzt» unter «Mehr Marktdaten» (nur bei einem Termin in ±2 h), sonst auf der Unterseite «Daten».
     let atTop: Bool
 
     var body: some View {
@@ -168,7 +168,7 @@ struct CycleMacroHintRow: View {
         }
     }
 
-    /// Oben im Abschnitt «Jetzt»: ein kleiner Kasten; rechts das Info-Zeichen als eigener Knopf.
+    /// Auf «Jetzt» (unter «Mehr Marktdaten»): ein kleiner Kasten; rechts das Info-Zeichen als eigener Knopf.
     private func topBox(_ text: String) -> some View {
         HStack(alignment: .top, spacing: Spacing.xs) {
             hintLine(text)
@@ -179,6 +179,8 @@ struct CycleMacroHintRow: View {
         .padding(.horizontal, Spacing.md)
         .padding(.vertical, Spacing.md)
         .background(AppColors.container, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+        // Abstand zur Karte darüber (steht auf «Jetzt» unter «Mehr Marktdaten»)
+        .padding(.top, Spacing.md)
     }
 
     /// Unter «Daten» eine Karte wie die übrigen Einträge (Titel mit Strich in der Karte), ohne

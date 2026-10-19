@@ -1,10 +1,10 @@
 import SwiftUI
 
 /// Build 53: Die Hauptseite zeigt nur die häufigen Einstellungen; alles für
-/// Fortgeschrittene steht hier, in Karten ohne Überschrift — Märkte und Portfolio (Token & TradFi,
-/// Portfolio mit Steuer), Meldungen (Markt-Meldungen, Sprachausgabe), Anzeige (%-Änderung, Coin-Logos)
-/// und, falls freigeschaltet, «Entwickler». Kurs-Aktualisierung und Widgets stehen seit Build 55 wieder
-/// auf der Hauptseite — wie `AdvancedPage` (Android).
+/// Fortgeschrittene steht hier, in Karten ohne Überschrift — Märkte (Token & TradFi), Meldungen
+/// (Markt-Meldungen, Sprachausgabe), Anzeige (Coin-Logos) und, falls freigeschaltet, «Entwickler».
+/// Kurs-Aktualisierung und Widgets stehen seit Build 55 wieder auf der Hauptseite, Portfolio seit Build 83
+/// (nur dort, unter «Allgemein») — wie `AdvancedPage` (Android).
 @MainActor
 struct AdvancedSettingsPage: View {
     @EnvironmentObject private var data: AppData
@@ -21,12 +21,6 @@ struct AdvancedSettingsPage: View {
                     MarketsSettingsPage()
                 }
                 .settingsAnchor("advanced.markets")
-                RowDivider()
-                // Gleiches Symbol wie der Tab «Portfolio»
-                SettingsNavRow(title: L("portfolio_title"), icon: .asset("PortfolioIcon"), value: SettingsSummary.portfolioText(settings)) {
-                    PortfolioSettingsPage()
-                }
-                .settingsAnchor("advanced.portfolio")
             }
             SettingsCard {
                 // Blitz wie «Ungewöhnliche Aktivität»

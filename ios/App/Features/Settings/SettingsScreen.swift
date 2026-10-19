@@ -6,14 +6,14 @@ import UserNotifications
 /// Je Gruppe eine Karte wie im Markt-Tab «Jetzt» (Überschrift mit Strich oben in der Karte),
 /// darin Zeilen mit Titel, aktuellem Wert in Grau und Pfeil;
 /// alles Ausführliche steht auf Unterseiten (`Settings…Pages.swift` je Gruppe, Markt-Meldungen, Sprachausgabe).
-/// Gruppen (Build 55): Allgemein (Sprache, Währung, Merkliste, Alarme, Kurs-Aktualisierung)
-/// · Darstellung (Hell/Dunkel, Akzent, Kursfarben, Widgets) · Mehr (Sicherung, Portfolio als Schalter,
-/// «Erweitert», Über die App)
+/// Gruppen (Build 55): Allgemein (Sprache, Währung, Merkliste, Portfolio, Alarme, Kurs-Aktualisierung)
+/// · Darstellung (Hell/Dunkel, Akzent, Kursfarben, Widgets) · Mehr (Sicherung, «Erweitert», Über die App)
 /// · rote Karte «App zurücksetzen». Kurs-Aktualisierung und Widgets stehen wieder auf der Hauptseite, weil
-/// Alarm-Hinweis und Widget-Hilfe dorthin verweisen und beide oft gesucht werden. «Erweitert»
-/// (`AdvancedSettingsPage`) trägt Token & TradFi, Portfolio, Markt-Meldungen, Sprachausgabe, %-Änderung,
-/// Coin-Logos und Entwickler; Datenschutz, Börse wünschen, Quellcode und Lizenzen stehen auf «Über die App»
-/// — wie Android.
+/// Alarm-Hinweis und Widget-Hilfe dorthin verweisen und beide oft gesucht werden. Portfolio (Build 83) hat
+/// genau einen Ort: die Zeile unter «Allgemein» führt zur Seite mit Schalter, Sperre, Methode, Steuer-Vorlage
+/// und Systemsicherung — Einstellungen › Portfolio, wie die Hinweise der App es nennen. «Erweitert»
+/// (`AdvancedSettingsPage`) trägt Token & TradFi, Markt-Meldungen, Sprachausgabe, Coin-Logos und Entwickler;
+/// Datenschutz, Börse wünschen, Quellcode und Lizenzen stehen auf «Über die App» — wie Android.
 /// Jede Zeile der Hauptseite trägt links ein schlichtes graues Symbol (Unterseiten ohne);
 /// Merkliste wie der Tab, nur «App zurücksetzen» rot.
 ///
@@ -162,6 +162,12 @@ struct SettingsScreen: View {
                 WatchlistSettingsPage()
             }
             RowDivider()
+            // Alles zum Portfolio an einem Ort (Schalter des Tabs zuoberst auf der Seite); gleich nach
+            // «Merkliste» wie die Reihenfolge der Tabs. Gleiches Symbol wie der Tab «Portfolio»
+            SettingsNavRow(title: L("portfolio_title"), icon: .asset("PortfolioIcon"), value: SettingsSummary.portfolioText(settings)) {
+                PortfolioSettingsPage()
+            }
+            RowDivider()
             // Hinweis nur, wenn etwas Mitteilungen braucht und die Erlaubnis fehlt
             if needsNotificationPermission {
                 notificationPermissionRow
@@ -230,11 +236,6 @@ struct SettingsScreen: View {
                 BackupSettingsPage()
             }
             .accessibilityIdentifier(UiTestTags.settingsBackup)
-            RowDivider()
-            // Portfolio direkt einschalten — derselbe Schalter wie Erweitert › Portfolio
-            SettingsMainSwitchRow(title: L("portfolio_title"), icon: .asset("PortfolioIcon"),
-                                  subtitle: L("portfolio_setting_hint"), isOn: $data.settings.portfolioEnabled)
-                .settingsAnchor("main.portfolio")
             RowDivider()
             SettingsNavRow(title: L("settings_row_advanced"), icon: .system("slider.horizontal.3"), value: nil) {
                 AdvancedSettingsPage()

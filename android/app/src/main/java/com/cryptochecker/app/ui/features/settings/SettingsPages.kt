@@ -47,8 +47,8 @@ enum class SettingsPage {
     PORTFOLIO,
     BACKUP,
     ABOUT, LICENSES, WIDGETS, DEVELOPER,
-    // Build 53: «Erweitert» (Token & TradFi, Portfolio, Markt-Meldungen, Sprachausgabe, %-Änderung,
-    // Coin-Logos, Entwickler) und «Token & TradFi» als eigene Seite
+    // Build 53: «Erweitert» (Token & TradFi, Markt-Meldungen, Sprachausgabe, Coin-Logos, Entwickler)
+    // und «Token & TradFi» als eigene Seite
     ADVANCED, MARKETS;
 
     companion object {
@@ -61,19 +61,18 @@ enum class SettingsHome { GENERAL, APPEARANCE, MORE, ADVANCED }
 
 /**
  * Wo die Zeile zu dieser Seite steht (Build 55: Kurs-Aktualisierung unter «Allgemein», Widgets unter
- * «Darstellung»); null = Unterseite einer Unterseite (Preis-Paare unter «Alarme», Lizenzen unter «Über
+ * «Darstellung»; Build 83: Portfolio unter «Allgemein»); null = Unterseite einer Unterseite (Preis-Paare unter «Alarme», Lizenzen unter «Über
  * die App»). Die Suche zeigt daraus den Pfad ihrer Treffer, damit er zur Anordnung passt. Wie
  * `SettingsSearchPage.home` (iOS).
  */
 val SettingsPage.home: SettingsHome?
     get() = when (this) {
-        SettingsPage.LANGUAGE, SettingsPage.CURRENCY, SettingsPage.WATCHLIST, SettingsPage.ALARMS,
-        SettingsPage.UPDATES -> SettingsHome.GENERAL
+        SettingsPage.LANGUAGE, SettingsPage.CURRENCY, SettingsPage.WATCHLIST, SettingsPage.PORTFOLIO,
+        SettingsPage.ALARMS, SettingsPage.UPDATES -> SettingsHome.GENERAL
         SettingsPage.DISPLAY_MODE, SettingsPage.THEME, SettingsPage.PRICE_COLORS, SettingsPage.WIDGETS ->
             SettingsHome.APPEARANCE
         SettingsPage.BACKUP, SettingsPage.ADVANCED, SettingsPage.ABOUT -> SettingsHome.MORE
-        SettingsPage.MARKETS, SettingsPage.PORTFOLIO, SettingsPage.COIN_LOGOS,
-        SettingsPage.DEVELOPER -> SettingsHome.ADVANCED
+        SettingsPage.MARKETS, SettingsPage.COIN_LOGOS, SettingsPage.DEVELOPER -> SettingsHome.ADVANCED
         // %-Änderung steht auf «Merkliste» (Review D13), Preis-Paare auf «Alarme», Lizenzen auf «Über die App»
         SettingsPage.CHANGE_BASIS, SettingsPage.PRICE_PAIRS, SettingsPage.LICENSES -> null
     }

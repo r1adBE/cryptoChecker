@@ -43,9 +43,11 @@ internal fun settingsSearchItems(settings: AppSettings): List<SettingsSearchItem
     fun addPage(page: SettingsPage, title: String, vararg synonyms: String) =
         add("page." + page.name.lowercase(), title, homePath(page), SettingsSearchTarget.Page(page), *synonyms)
     addPage(SettingsPage.ADVANCED, advanced)
-    // Schalter «Portfolio» der Hauptseite (Gruppe «Mehr»): früh im Index, damit er bei «Portfolio» vor der
-    // Seite Erweitert › Portfolio steht (gleich viele Punkte → frühere Stelle zuerst)
-    add("main.portfolio", stringResource(R.string.portfolio_title), more, SettingsSearchTarget.Main("main.portfolio"),
+    // Seite «Portfolio» (Zeile unter «Allgemein», einziger Ort für alles zum Portfolio): früh im Index, damit sie
+    // bei «Portfolio» vor «Portfolio-Sperre» und «Portfolio in Systemsicherung» steht (gleich viele Punkte →
+    // frühere Stelle zuerst)
+    val portfolio = stringResource(R.string.portfolio_title)
+    addPage(SettingsPage.PORTFOLIO, portfolio,
         stringResource(R.string.settings_portfolio_tab), stringResource(R.string.portfolio_setting_hint))
     add("main.language", stringResource(R.string.settings_section_language), homePath(SettingsPage.LANGUAGE),
         SettingsSearchTarget.Page(SettingsPage.LANGUAGE), stringResource(R.string.settings_language_choose),
@@ -195,9 +197,7 @@ internal fun settingsSearchItems(settings: AppSettings): List<SettingsSearchItem
         SettingsSearchTarget.Speech("speech.alarms_only"), stringResource(R.string.settings_tts_alarms_only_hint))
     add("speech.test", stringResource(R.string.settings_tts_test), speech, SettingsSearchTarget.Speech("speech.test"))
 
-    // 4 Portfolio (unter «Erweitert»)
-    val portfolio = stringResource(R.string.portfolio_title)
-    addPage(SettingsPage.PORTFOLIO, portfolio)
+    // 4 Portfolio (unter «Allgemein»; die Seite selbst steht oben im Index)
     add("portfolio.tab", stringResource(R.string.settings_portfolio_tab), portfolio,
         SettingsSearchTarget.Page(SettingsPage.PORTFOLIO, "portfolio.tab"), stringResource(R.string.portfolio_setting_hint))
     add("portfolio.lock", stringResource(R.string.settings_portfolio_lock), portfolio,

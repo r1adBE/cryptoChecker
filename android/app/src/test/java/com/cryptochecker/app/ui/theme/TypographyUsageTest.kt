@@ -87,12 +87,12 @@ class TypographyUsageTest {
 
         /** Bereich (relativ zu `com/cryptochecker/app`, leer = alles) → höchstens so viele Stellen. */
         val ANDROID_CEILINGS = linkedMapOf(
-            "" to 49,
-            "ui/features/info" to 9,
+            "" to 48,
+            "ui/features/info" to 8,
             "ui/features/portfolio" to 14,
             "ui/features/watchlist" to 23,
         )
 
-        const val IOS_CAPTION2_CEILING = 45
+        const val IOS_CAPTION2_CEILING = 44
     }
 }

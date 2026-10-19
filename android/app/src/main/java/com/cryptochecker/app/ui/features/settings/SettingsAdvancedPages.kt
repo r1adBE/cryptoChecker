@@ -20,10 +20,10 @@ import com.cryptochecker.app.R
 
 /**
  * Build 53: Die Hauptseite zeigt nur die häufigen Einstellungen; alles für
- * Fortgeschrittene steht hier, in Karten ohne Überschrift — Märkte und Portfolio (Token & TradFi,
- * Portfolio mit Steuer), Meldungen (Markt-Meldungen, Sprachausgabe), Anzeige (%-Änderung, Coin-Logos)
- * und, falls freigeschaltet, «Entwickler». Kurs-Aktualisierung und Widgets stehen seit Build 55 wieder
- * auf der Hauptseite. Zurück führt von jeder Unterseite wieder hierher. Wie iOS (`AdvancedSettingsPage`).
+ * Fortgeschrittene steht hier, in Karten ohne Überschrift — Märkte (Token & TradFi), Meldungen
+ * (Markt-Meldungen, Sprachausgabe), Anzeige (Coin-Logos) und, falls freigeschaltet, «Entwickler».
+ * Kurs-Aktualisierung und Widgets stehen seit Build 55 wieder auf der Hauptseite, Portfolio seit Build 83
+ * (nur dort, unter «Allgemein»). Zurück führt von jeder Unterseite wieder hierher. Wie iOS (`AdvancedSettingsPage`).
  */
 @Composable
 internal fun AdvancedPage(
@@ -42,15 +42,6 @@ internal fun AdvancedPage(
                     icon = R.drawable.ic_settings_exchange,
                     value = stringResource(settings.assetScope.titleRes),
                     onClick = { onOpenPage(SettingsPage.MARKETS) }
-                )
-            }
-            SettingsAnchor("advanced.portfolio") {
-                SettingsNavRow(
-                    title = stringResource(R.string.portfolio_title),
-                    // Gleiches Symbol wie der Tab «Portfolio»
-                    icon = R.drawable.ic_portfolio,
-                    value = portfolioSummary(settings),
-                    onClick = { onOpenPage(SettingsPage.PORTFOLIO) }
                 )
             }
         }

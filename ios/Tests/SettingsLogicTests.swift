@@ -584,6 +584,29 @@ final class AccentContrastTests: XCTestCase {
         XCTAssertEqual(AccentColor.MARRS_GREEN.primaryHex(dark: false), 0x22706B)
         XCTAssertEqual(AccentColor.ORANGE.primaryHex(dark: true), 0xED835E)
     }
+
+    /// Build 83: Akzent bei hohem Kontrast genau wie Android (`WidgetContrast.highContrastAccent`, in App und Widgets),
+    /// Text auf dem Akzent bleibt ≥ 4.5:1 — wie `widgets raise the accent in high contrast like the app` (Android).
+    func testHighContrastAccentAsAndroidAndUsedByWidgets() {
+        let light: [AccentColor: UInt32] = [.ORANGE: 0x78341C, .RED: 0x891F28, .BLUE: 0x1F4490, .GREEN: 0x0C5334,
+                                             .MARRS_GREEN: 0x184E4B]
+        let dark: [AccentColor: UInt32] = [.ORANGE: 0xF5B7A2, .RED: 0xFFAFB1, .BLUE: 0xA8C6FD, .GREEN: 0x88D4AD,
+                                            .MARRS_GREEN: 0x92CFCA]
+        for accent in AccentColor.allCases {
+            XCTAssertEqual(accent.primaryHex(dark: false, highContrast: true), light[accent], accent.rawValue)
+            XCTAssertEqual(accent.primaryHex(dark: true, highContrast: true), dark[accent], accent.rawValue)
+            for isDark in [false, true] {
+                let hc = accent.primaryHex(dark: isDark, highContrast: true)
+                XCTAssertGreaterThanOrEqual(ContrastMath.ratio(accent.onPrimaryHex(dark: isDark), hc), 4.5, accent.rawValue)
+                XCTAssertGreaterThanOrEqual(ContrastMath.ratio(hc, ColorTokens.surfaceContainer.hex(dark: isDark)), 4.5)
+            }
+        }
+        // Die Widget-Palette (eigenes Ziel, hier nicht übersetzt) nimmt den Akzent mit hohem Kontrast
+        let widgetStyle = URL(fileURLWithPath: #filePath).deletingLastPathComponent()
+            .appendingPathComponent("../Widgets/WidgetStyle.swift").standardized
+        guard let source = try? String(contentsOf: widgetStyle, encoding: .utf8) else { return }
+        XCTAssertTrue(source.contains("accent.primary(dark: dark, highContrast: highContrast)"))
+    }
 }
 
 /// J-15, wie `MarketScalePaletteTest.kt`: Stufenfarben der Fear-&-Greed-Skala.

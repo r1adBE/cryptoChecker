@@ -78,7 +78,10 @@ class WidgetColors(
             inverted: Boolean = false,
         ): WidgetColors = base(accent, dark).copyWith(priceColors, highContrast, inverted, accent)
 
-        // Hoher Kontrast: Nebentexte wie der Haupttext, «0.00%» im bisherigen Nebentext-Grau.
+        // Hoher Kontrast: Nebentexte wie der Haupttext, «0.00%» im bisherigen Nebentext-Grau, die Akzentfarbe
+        // (Titel, Knopf, Chart-Linie, Initialen) wie in der App auf 7:1 zur dunkelsten Kartenfläche gehoben
+        // (`withHighContrast` im App-Thema). onAccent bleibt: Der Akzent rückt dabei von ihm weg (hell dunkler,
+        // dunkel heller), der Kontrast im Kurs-Etikett steigt also nur.
         private fun WidgetColors.copyWith(
             priceColors: PriceColorScheme,
             highContrast: Boolean,
@@ -89,7 +92,7 @@ class WidgetColors(
                 baseColor = baseColor,
                 textColor = textColor,
                 secondaryTextColor = if (highContrast) textColor else secondaryTextColor,
-                accentColor = accentColor,
+                accentColor = if (highContrast) WidgetContrast.highContrastAccent(accentColor, dark) else accentColor,
                 onAccentColor = onAccentColor,
                 neutralColor = if (highContrast) secondaryTextColor else neutralColor,
                 dark = dark,

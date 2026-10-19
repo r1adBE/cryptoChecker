@@ -37,7 +37,7 @@ internal fun openAppTarget(
             navigation.popBackStack<ScreenRoute.MarketPhase>(inclusive = false)
         }
         "alarms" -> navigation.navigate(ScreenRoute.AlarmsOverview) { launchSingleTop = true }
-        // Portfolio-Widget: Portfolio-Tab; ist es aus, Einstellungen › Erweitert › Portfolio (dort der Schalter)
+        // Portfolio-Widget: Portfolio-Tab; ist es aus, Einstellungen › Portfolio (dort der Schalter)
         "portfolio" -> when (PortfolioOff.widgetTarget(portfolioEnabled)) {
             PortfolioOff.WidgetTarget.PORTFOLIO_TAB -> navigation.navigateToTab(ScreenRoute.Portfolio)
             PortfolioOff.WidgetTarget.PORTFOLIO_SETTINGS -> {

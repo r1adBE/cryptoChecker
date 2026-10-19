@@ -1627,13 +1627,15 @@ Change a rule → change the JSON first, then both implementations.
 Layout decisions that keep the app calm. Same structure on Android and iOS, same file names.
 
 * **Settings structure.** Main page (`SettingsScreen.kt` / `SettingsScreen.swift`): **General**
-  (Language – on iOS it opens the system Settings app –, Currency, Watchlist, Alarms, Price updates),
-  **Appearance** (Mode, Theme, Price colours, Widgets), **More** (Data / backup, a **Portfolio** switch, one row
-  **Advanced**, About) and «Reset app» alone in its own red card at the very bottom (build 53 «Weg 1», regrouped in
-  build 55). The Portfolio switch (`SettingsSwitchRow` / `SettingsMainSwitchRow`, anchor `main.portfolio`) is bound to
-  the same `portfolioEnabled` as Advanced › Portfolio › «Show Portfolio tab»; the search lists it before that page.
-  «Advanced» (`AdvancedSettingsPage` on both platforms) holds Token & TradFi, Portfolio, Market alerts, Speech
-  output, % change, Coin logos and Developer; its sub-pages
+  (Language – on iOS it opens the system Settings app –, Currency, Watchlist, Portfolio, Alarms, Price updates),
+  **Appearance** (Mode, Theme, Price colours, Widgets), **More** (Data / backup, one row **Advanced**, About) and
+  «Reset app» alone in its own red card at the very bottom (build 53 «Weg 1», regrouped in build 55). Since build 83
+  Portfolio has exactly one place: the row under General opens the Portfolio page (`PortfolioPage` /
+  `PortfolioSettingsPage`) with the «Show Portfolio tab» switch on top, then lock, hide amounts, cost method, tax
+  template and «Portfolio in system backup» – so «Settings › Portfolio» in hints and the widget is literally true;
+  the search lists that page first for «Portfolio».
+  «Advanced» (`AdvancedSettingsPage` on both platforms) holds Token & TradFi, Market alerts, Speech
+  output, Coin logos and Developer; its sub-pages
   are unchanged and «back» returns to the Advanced page. **Rule: the main page stays short.** A new
   detail or fine-tuning setting goes under «Advanced» (onto an existing sub-page there, or a new
   sub-page reached from the Advanced page) – never as a new row or group on the main page. Only a

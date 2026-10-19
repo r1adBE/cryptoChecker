@@ -6,10 +6,10 @@ import org.junit.Test
 
 /**
  * Build 55: Kurs-Aktualisierung unter «Allgemein», Widgets unter «Darstellung»; «Erweitert» behält
- * Token & TradFi, Portfolio, Coin-Logos und Entwickler; %-Änderung steht auf «Merkliste» (Review D13) (Markt-Meldungen und Sprachausgabe
- * haben eigene Routen). Der Schalter «Portfolio» steht zusätzlich direkt in «Mehr» (Anker «main.portfolio»,
- * siehe SettingsSearchTest); die Seite bleibt unter «Erweitert». Die Suche zeigt den Pfad aus diesem Ort — wie
- * `testPagesSitWhereTheMainPageShowsThem` (iOS, SettingsSearchTests).
+ * Token & TradFi, Coin-Logos und Entwickler; %-Änderung steht auf «Merkliste» (Markt-Meldungen und Sprachausgabe
+ * haben eigene Routen). Build 83: Portfolio hat genau einen Ort, die Zeile unter «Allgemein» (Einstellungen ›
+ * Portfolio) — kein Schalter mehr in «Mehr», keine Zeile mehr unter «Erweitert». Die Suche zeigt den Pfad aus
+ * diesem Ort — wie `testPagesSitWhereTheMainPageShowsThem` (iOS, SettingsSearchTests).
  */
 class SettingsPlacementTest {
 
@@ -19,7 +19,8 @@ class SettingsPlacementTest {
         assertEquals(SettingsHome.GENERAL, SettingsPage.ALARMS.home)
         assertEquals(SettingsHome.APPEARANCE, SettingsPage.WIDGETS.home)
         assertEquals(SettingsHome.APPEARANCE, SettingsPage.PRICE_COLORS.home)
-        listOf(SettingsPage.MARKETS, SettingsPage.PORTFOLIO, SettingsPage.COIN_LOGOS, SettingsPage.DEVELOPER)
+        assertEquals(SettingsHome.GENERAL, SettingsPage.PORTFOLIO.home)
+        listOf(SettingsPage.MARKETS, SettingsPage.COIN_LOGOS, SettingsPage.DEVELOPER)
             .forEach { assertEquals(it.name, SettingsHome.ADVANCED, it.home) }
         assertEquals(SettingsHome.MORE, SettingsPage.ADVANCED.home)
     }

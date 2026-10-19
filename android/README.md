@@ -15,7 +15,7 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
 * applicationId: `com.cryptochecker.app`
 * Module: `marketdata` (Börsen-Bibliothek), `app` (die App)
 * Pakete: `com.cryptochecker.marketdata`, `com.cryptochecker.app`
-* Version: **16.2.2** (versionCode 82 – wird mit jedem Stand um eins erhöht)
+* Version: **16.2.2** (versionCode 83 – wird mit jedem Stand um eins erhöht)
 * Quellcode: <https://github.com/r1adBE/cryptoChecker> (öffentlich, MIT; dieser Ordner = `android/`)
 
 ## Neu in 16.2.2
@@ -418,7 +418,7 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
   in der Status-Pille nur, wenn alle sichtbaren gehandelten Paare live und frisch sind (Build 44), Schalter unter Einstellungen › Erweitert › Aktualisierung
   (`domain/live/LiveFeed.kt`, `data/live/LivePriceStream.kt`, siehe `DEVELOPMENT.md`).
 * **4 Tabs** — Merkliste · Markt · Portfolio (optional; bei Neuinstallation seit Build 44 aus, unter Einstellungen ›
-  Erweitert › Portfolio oder direkt auf der Einstellungs-Startseite einschaltbar) · Einstellungen; «Paar
+  Einstellungen › Portfolio auf der Startseite, Gruppe «Allgemein», einschaltbar – seit Build 83 der einzige Ort) · Einstellungen; «Paar
   hinzufügen» öffnet sich über «+» in der Merkliste, kein eigener Such-Tab mehr.
 * **Kein Willkommensdialog** — eine Neuinstallation zeigt direkt die Startauswahl;
   «Was die App kann» steht unter Einstellungen › Über.
@@ -483,7 +483,7 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
 * **Zahl am App-Symbol** (Einstellungen › Alarme, ab Werk an): jede Alarm- und
   Marktmeldung zählt 1; ob Zahl oder Punkt, entscheidet der Startbildschirm
   (Samsung «Mit Zahl», Pixel nur Punkt). Kurs- und Dienst-Mitteilung zählen nie.
-* **Portfolio** — eigener Tab (unter Einstellungen › Erweitert › Portfolio oder direkt auf der Einstellungs-Startseite, Gruppe «Mehr», ein- und ausschaltbar; bei
+* **Portfolio** — eigener Tab (Einstellungen › Portfolio auf der Startseite, Gruppe «Allgemein» – seit Build 83 der einzige Ort, ein- und ausschaltbar; bei
   Neuinstallation seit Build 44 aus, bestehende Installationen behalten ihn): Käufe und
   Verkäufe mit Datum und Preis, Durchschnittspreis, Gewinn/Verlust, Summe in
   USDT plus Umrechnung in eine wählbare Währung (31 Währungen; Standard
@@ -575,7 +575,7 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
   Volumen, Fear & Greed und Gas stehen nicht doppelt, sie haben eigene Karten
   im Tab. Feste Regeln, keine Prognose (`domain/market/CryptoPulse.kt`,
   `ui/features/info/CryptoPulseCard.kt`).
-* **«Heute auffällig»** — Karte direkt unter dem Pulse (Abschnitt «Jetzt», Teil des
+* **«Heute auffällig»** — seit Build 83 im zugeklappten Teil «Mehr Marktdaten» (Abschnitt «Jetzt», Teil des
   schrittweisen Erscheinens): bis zu fünf der rund 30 grössten Coins (ohne Stablecoins, mit
   …USDT auf Binance), die heute deutlich stärker/schwächer als BTC laufen (≥ 3 Prozentpunkte),
   gegen den Markt (≥ 2 %, andere Richtung als BTC), mit ungewöhnlichem Volumen (≥ 2× üblich) oder
@@ -646,7 +646,7 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
 * **Akku-Hinweis erst nach dem ersten Alarm** — nie beim ersten Start oder beim
   Hinzufügen der ersten Coins; er erscheint, sobald man nach dem ersten Alarm
   wieder auf einem Haupt-Tab ist (`ui/features/about/BatteryOptimizationDialog.kt`).
-* **Markt-Tab in drei Abschnitten** — oben ohne Titel mit Status-Pille (Crypto Pulse, «Heute auffällig»,
+* **Markt-Tab in drei Abschnitten** — oben ohne Titel mit Status-Pille (seit Build 83: Hauptkarte Crypto Pulse mit «Kurz gesagt», darunter ruhig Fear & Greed kompakt und Gewinner/Verlierer 3+3, zugeklappt «Mehr Marktdaten» mit «Heute auffällig» und Makro; früher Crypto Pulse, «Heute auffällig»,
   Fear & Greed), «Einordnung» (Marktphase, Dominanz mit Altcoin-Saison, Halving)
   und «Daten» (Krypto-Markt, Gas, Wirtschaftsdaten, Coin; Wirtschaftsdaten nur bei einem Termin in ±2 h oben); die Überschriften sind für TalkBack Überschriften.
 * **Markt-Tab sofort da** — zeigt beim Öffnen die zuletzt gespeicherten Daten

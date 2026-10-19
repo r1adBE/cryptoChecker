@@ -36,10 +36,11 @@ enum SettingsSearchCatalog {
             add(id, title, homePath(page), .page(page, anchor: anchor), synonyms)
         }
         addPage("page.advanced", .advanced, advanced)
-        // Schalter «Portfolio» der Hauptseite (Gruppe «Mehr»): früh im Index, damit er bei «Portfolio» vor der
-        // Seite Erweitert › Portfolio steht (gleich viele Punkte → frühere Stelle zuerst) — wie Android
-        add("main.portfolio", L("portfolio_title"), more, .main("main.portfolio"),
-            [L("settings_portfolio_tab"), L("portfolio_setting_hint")])
+        // Seite «Portfolio» (Zeile unter «Allgemein», einziger Ort für alles zum Portfolio): früh im Index, damit sie
+        // bei «Portfolio» vor «Portfolio-Sperre» und «Portfolio in Systemsicherung» steht (gleich viele Punkte →
+        // frühere Stelle zuerst) — wie Android
+        let portfolio = L("portfolio_title")
+        addPage("page.portfolio", .portfolio, portfolio, [L("settings_portfolio_tab"), L("portfolio_setting_hint")])
         add("main.language", L("settings_section_language"), general, .main("main.language"), [L("ios_settings_language_hint")])
         let currency = L("settings_row_currency")
         addPage("page.currency", .currency, currency, [L("currency_search")])
@@ -143,9 +144,7 @@ enum SettingsSearchCatalog {
             [L("settings_tts_alarms_only_hint")])
         add("speech.test", L("settings_tts_test"), speech, .page(.speech, anchor: "speech.test"))
 
-        // 4 Portfolio (unter «Erweitert»)
-        let portfolio = L("portfolio_title")
-        addPage("page.portfolio", .portfolio, portfolio)
+        // 4 Portfolio (unter «Allgemein»; die Seite selbst steht oben im Index)
         add("portfolio.tab", L("settings_portfolio_tab"), portfolio, .page(.portfolio, anchor: "portfolio.tab"),
             [L("portfolio_setting_hint")])
         add("portfolio.lock", L("settings_portfolio_lock"), portfolio, .page(.portfolio, anchor: "portfolio.lock"),
@@ -157,7 +156,7 @@ enum SettingsSearchCatalog {
         add("portfolio.tax_template", L("tax_template_title"), portfolio, .page(.portfolio, anchor: "portfolio.tax_template"),
             [L("tax_template_hint")])
         add("portfolio.system_backup", L("settings_portfolio_system_backup"), portfolio,
-            .page(.portfolio, anchor: "portfolio.system_backup"), [L("settings_portfolio_system_backup_hint")])
+            .page(.portfolio, anchor: "portfolio.system_backup"), [L("settings_portfolio_system_backup_hint_ios")])
 
         // 5 Sicherung (unter «Mehr»)
         let backup = L("backup_title")

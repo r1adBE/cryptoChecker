@@ -15,14 +15,14 @@ enum SettingsSearchPage: Hashable {
     case advanced, markets, licenses
 
     /// Wo die Zeile zu dieser Seite steht (Build 55: Kurs-Aktualisierung unter «Allgemein», Widgets unter
-    /// «Darstellung»); nil = Unterseite einer Unterseite (Lizenzen unter «Über die App», %-Änderung unter «Merkliste»). Die Suche zeigt
+    /// «Darstellung»; Build 83: Portfolio unter «Allgemein»); nil = Unterseite einer Unterseite (Lizenzen unter «Über die App», %-Änderung unter «Merkliste»). Die Suche zeigt
     /// daraus den Pfad ihrer Treffer, damit er zur Anordnung passt — wie `SettingsPage.home` (Android).
     var home: SettingsHome? {
         switch self {
-        case .currency, .watchlist, .alarms, .updates: return .general
+        case .currency, .watchlist, .portfolio, .alarms, .updates: return .general
         case .displayMode, .theme, .priceColors, .widgets: return .appearance
         case .backup, .advanced, .about: return .more
-        case .markets, .portfolio, .marketAlerts, .speech, .coinLogos, .developer: return .advanced
+        case .markets, .marketAlerts, .speech, .coinLogos, .developer: return .advanced
         // %-Änderung steht auf «Merkliste» (Review D13)
         case .licenses, .changeBasis: return nil
         }

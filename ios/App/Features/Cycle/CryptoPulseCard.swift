@@ -1,10 +1,13 @@
 import SwiftUI
 
-/// «Was gerade auffällt» oben im Markt-Tab (Held des Tabs). Liest sich als
-/// Was passiert (Schlagzeile + Leitsatz) → Belege (Coin-Änderungen, Funding-Chip)
-/// → «Was bewegt sich mit?» (aufklappbar: Altcoins vs. Bitcoin und Faktor-Checkliste – / !).
-/// VoiceOver: Überzeile, Schlagzeile, Leitsatz und Chips als ein Element,
-/// «Was bewegt sich mit?» separat, jede Checklisten-Zeile ein Element.
+/// «Was gerade auffällt», die eine Heldenkarte oben im Markt-Tab (Entscheid Build 83: nur diese Karte ist
+/// betont — grösste Schrift, leichte Tönung; alle Karten darunter ruhig). Liest sich als
+/// Was passiert (Schlagzeile + Leitsatz) → «Kurz gesagt» (`plain`, bis zu drei Sätze in Alltagssprache)
+/// → Belege (Coin-Änderungen, Funding-Chip) → «Was bewegt sich mit?» (aufklappbar: Altcoins vs. Bitcoin und
+/// Faktor-Checkliste – / !). Den Stand der Daten zeigt die Status-Pille darüber (nicht doppelt). Kann der Puls
+/// nicht laden, steht hier die Fehlerzeile — «Kurz gesagt» bleibt, soweit es Sätze gibt.
+/// VoiceOver: die Karte ist eine Gruppe; Überzeile, Schlagzeile und Leitsatz ein Element (Überschrift), jeder
+/// Satz von «Kurz gesagt» eins, die Belege eins, «Was bewegt sich mit?» separat, jede Checklisten-Zeile eins.
 /// Wie `CryptoPulseCard.kt`. Daten: `CycleViewModel.pulse` plus die schon
 /// geladenen Karten Fear & Greed und Netzwerkgebühren (nur für die Auswertung,
 /// nicht nochmals angezeigt — beide haben eigene Karten).
@@ -13,6 +16,8 @@ struct CryptoPulseCard: View {
     let market: CycleLoad<PulseMarketData>
     let fearGreed: FearGreed?
     let gas: GasReport?
+    /// «Kurz gesagt» (`MarketPlainSummaryBlock.summary`); nil = (noch) keine Sätze.
+    let plain: PlainSummary?
     let onRetry: () -> Void
 
     @Environment(\.appAccent) private var accent
@@ -52,20 +57,24 @@ struct CryptoPulseCard: View {
                 PulseSkeleton()
             case .failed:
                 unavailable
+                MarketPlainLines(summary: plain)
             case .loaded:
                 if let report {
                     content(report)
                 } else {
                     unavailable
+                    MarketPlainLines(summary: plain)
                 }
             }
-            Text(L("pulse_disclaimer"))
+            // Ein Hinweis für die ganze Karte: mit «Kurz gesagt» der längere (nennt die 24 Stunden)
+            Text(L(plain != nil ? "market_plain_footnote" : "pulse_disclaimer"))
                 .font(.caption2)
                 .foregroundStyle(AppColors.onSurfaceVariant)
                 .fixedSize(horizontal: false, vertical: true)
                 .padding(.top, Spacing.md)
-            // Marktbreite und Gesamtmarkt kommen von CoinGecko
-            if report != nil {
+            // Marktbreite und Gesamtmarkt kommen von CoinGecko, ebenso Richtung (Marktkapitalisierung) und
+            // «Heute auffällig» (Umsatz-Anteil) in «Kurz gesagt»
+            if report != nil || plain?.usesCoinGecko == true {
                 CoinGeckoAttribution()
             }
         }
@@ -82,6 +91,8 @@ struct CryptoPulseCard: View {
             }
         }
         .clipShape(RoundedRectangle(cornerRadius: CardLevel.top.radius, style: .continuous))
+        // Die Karte ist für VoiceOver eine Gruppe
+        .accessibilityElement(children: .contain)
         .animation(reduceMotion ? nil : .easeInOut(duration: 0.25), value: expanded)
     }
 
@@ -153,7 +164,7 @@ struct CryptoPulseCard: View {
         let chips = Self.metricChips(report)
         let factors = CryptoPulse.factors(report)
         VStack(alignment: .leading, spacing: 0) {
-            // Was passiert und Belege — für VoiceOver ein Element (mit Überzeile)
+            // Was passiert — für VoiceOver ein Element und eine Überschrift (mit Überzeile)
             VStack(alignment: .leading, spacing: 0) {
                 PulseHeadline(text: headline, glyph: Self.glyph(report.summary),
                               glyphColor: directionColor(report.summary))
@@ -163,6 +174,16 @@ struct CryptoPulseCard: View {
                     .foregroundStyle(AppColors.onSurface)
                     .fixedSize(horizontal: false, vertical: true)
                     .padding(.top, Spacing.xs)
+            }
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel(A11y.join([L("pulse_now_title"), headline, lead]))
+            .accessibilityAddTraits(.isHeader)
+
+            // «Kurz gesagt» als Körper der Karte direkt unter der Schlagzeile
+            MarketPlainLines(summary: plain)
+
+            // Belege — für VoiceOver ein Element
+            VStack(alignment: .leading, spacing: 0) {
                 // Zeitraum aller Veränderungen der Karte: 24 Stunden (Binance-24-h-Ticker bzw. Stundenkerzen,
                 // Top 30 und Krypto-Markt von CoinGecko, ebenfalls 24 h) — klein und grau vor den Coins
                 PulseAssetChips(coins: report.coins)
@@ -175,50 +196,10 @@ struct CryptoPulseCard: View {
                     }
                     .padding(.top, Spacing.sm)
                 }
-                // «Top 30 · 24h   ↗ 22 steigen  ↘ 8 fallen» und «Krypto-Markt   3,42 Bio. USD  ↗ +2,1 % · 24h»
-                if report.breadth != nil || report.marketCapUsd != nil {
-                    VStack(alignment: .leading, spacing: 6) {
-                        if let breadth = report.breadth {
-                            factRow(L("pulse_breadth_label", breadth.total) + " · " + L("why_change_24h")) {
-                                PulseBreadthPills(breadth: breadth)
-                            }
-                        }
-                        if let cap = report.marketCapUsd {
-                            factRow(L("market_cap_title")) {
-                                HStack(spacing: 8) {
-                                    Text(CycleFormat.compactMoney(cap, "USD"))
-                                        .font(.subheadline.monospacedDigit())
-                                        .foregroundStyle(AppColors.onSurface)
-                                    if let change = report.marketCap24h {
-                                        // «↘ −2.77% · 24h»: Änderung farbig, Zeitraum klein und grau dahinter
-                                        // (die Summe selbst ist ein Stand, keine Veränderung)
-                                        HStack(alignment: .firstTextBaseline, spacing: 4) {
-                                            ChangePill(change: change)
-                                            Text("· " + L("why_change_24h"))
-                                                .font(.caption)
-                                                .foregroundStyle(AppColors.onSurfaceVariant)
-                                                .lineLimit(1)
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    .padding(.top, 12)
-                }
-                if let note = report.breadthNote {
-                    Text(L(note.key))
-                        .font(.subheadline)
-                        .foregroundStyle(AppColors.onSurface)
-                        .fixedSize(horizontal: false, vertical: true)
-                        .padding(.top, Spacing.sm)
-                }
+                PulseFacts(report: report)
             }
             .accessibilityElement(children: .ignore)
-            .accessibilityLabel(Self.spokenSummary(overline: L("pulse_now_title"), headline: headline,
-                                                   lead: lead, coins: report.coins, chips: chips)
-                                + Self.spokenExtras(report))
-            .accessibilityAddTraits(.isHeader)
+            .accessibilityLabel(Self.spokenEvidence(coins: report.coins, chips: chips) + Self.spokenExtras(report))
 
             // Stand und «Was bewegt sich mit? →»
             HStack(spacing: 8) {
@@ -271,18 +252,6 @@ extension CryptoPulseCard {
             .font(.caption)
             .foregroundStyle(AppColors.onSurfaceVariant)
             .lineLimit(1)
-    }
-
-    /// Zeile «Bezeichnung … Wert» unter den Coin-Änderungen.
-    func factRow<Value: View>(_ label: String, @ViewBuilder value: () -> Value) -> some View {
-        HStack(spacing: 8) {
-            Text(label)
-                .font(.subheadline)
-                .foregroundStyle(AppColors.onSurfaceVariant)
-                .lineLimit(1)
-            Spacer(minLength: 8)
-            value()
-        }
     }
 
     /// VoiceOver: Satz zur Marktbreite, «Top 30: 22 steigen, 8 fallen», Krypto-Markt mit Veränderung.
@@ -344,10 +313,9 @@ extension CryptoPulseCard {
         }
     }
 
-    /// VoiceOver: Überzeile, Schlagzeile, Leitsatz, «Bitcoin, gestiegen um 2.80%» je Coin, dann die Kennzahl-Chips.
-    static func spokenSummary(overline: String, headline: String, lead: String,
-                              coins: [PulseCoinLine], chips: [String]) -> String {
-        var parts: [String?] = [overline, headline, lead, L("pulse_period_24h_spoken")]
+    /// VoiceOver für die Belege: «Letzte 24 Stunden», «Bitcoin, gestiegen um 2.80%» je Coin, dann die Kennzahl-Chips.
+    static func spokenEvidence(coins: [PulseCoinLine], chips: [String]) -> String {
+        var parts: [String?] = [L("pulse_period_24h_spoken")]
         for coin in coins {
             parts.append(A11y.join([coin.name, A11y.change(coin.shownChange)]))
         }

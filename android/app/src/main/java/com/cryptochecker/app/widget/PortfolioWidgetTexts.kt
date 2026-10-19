@@ -11,12 +11,11 @@ import com.cryptochecker.app.util.A11yText
 import com.cryptochecker.app.util.ChangeBasisText
 import com.cryptochecker.app.util.PriceFormat
 
-/** «Einschalten unter Einstellungen › Erweitert › Portfolio.» — Pfad aus den Namen der App (Build 53). */
+/** «Einschalten unter Einstellungen › Portfolio.» — Pfad aus den Namen der App (Build 83: Zeile unter «Allgemein»). */
 internal fun PortfolioWidgetRenderer.offHint(): String = context.getString(
     R.string.widget_portfolio_off_hint,
     AlarmTimingHint.settingsPath(
         context.getString(R.string.settings_title),
-        context.getString(R.string.settings_row_advanced),
         context.getString(R.string.portfolio_title),
     ),
 )

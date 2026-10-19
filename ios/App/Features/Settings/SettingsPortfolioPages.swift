@@ -80,7 +80,7 @@ struct PortfolioSettingsPage: View {
                 // Immer sichtbar: Die Daten bleiben auch bei ausgeblendetem Portfolio gespeichert
                 SwitchRow(
                     title: L("settings_portfolio_system_backup"),
-                    subtitle: L("settings_portfolio_system_backup_hint"),
+                    subtitle: L("settings_portfolio_system_backup_hint_ios"),
                     isOn: Binding(
                         get: { data.settings.portfolioSystemBackup },
                         set: { on in setPortfolioSystemBackup(on) }
