@@ -8,7 +8,6 @@
     <plurals name="portfolio_clear_confirm_count">
         <item quantity="other">%d 件の取引をすべて削除しますか？監視中のアドレスは残ります。元に戻せません。</item>
     </plurals>
-    <string name="portfolio_disclaimer">金額は自分でエクスポートしない限り端末に保存されたままです。価格取得にはペアのシンボルだけをそのペアの取引所に送ります。公開ブロックチェーンノードには監視中のアドレスとあなたの IP が見えます。投資助言ではありません。</string>
     <string name="portfolio_empty_action">最初の購入を追加</string>
     <string name="portfolio_empty_address">ウォレットアドレスだけを見守る</string>
     <string name="portfolio_empty_csv">取引所で購入？ファイルを読み込む</string>

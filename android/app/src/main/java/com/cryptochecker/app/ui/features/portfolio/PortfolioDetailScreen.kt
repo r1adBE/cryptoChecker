@@ -54,6 +54,7 @@ import com.cryptochecker.app.ui.components.rememberReduceMotion
 import com.cryptochecker.app.ui.components.sectionTitleMarker
 import com.cryptochecker.app.ui.features.watchlist.SwipeActionsRow
 import com.cryptochecker.app.ui.features.watchlist.rememberWatchlistBanner
+import com.cryptochecker.app.ui.theme.Spacing
 
 /**
  * Ein Coin: Kennzahlen und seine Transaktionen. Tipp = bearbeiten; nach links wischen = löschen,
@@ -93,8 +94,8 @@ fun PortfolioDetailScreen(
         PortfolioCalculator.ledger(symbol, calcTransactions.orEmpty().map { it.toTrade() }, prices.prices[symbol], costMethod, feePrice)
     }
     val position = ledger.position
-    val addressAmount = remember(watchedAddresses, symbol) {
-        AddressBalance.amountFor(symbol, watchedAddresses)?.takeIf { it.signum() > 0 }
+    val addressAmount = remember(watchedAddresses, symbol, all) {
+        AddressBalance.amountFor(symbol, watchedAddresses, all.orEmpty().map { it.toTrade() })?.takeIf { it.signum() > 0 }
     }
     // Eigene Einzahlung/Umbuchung = Guthaben/Zugang einer zählenden Adresse (± 1 %): deutliche Warnung wie bei der Adresse
     val addressMatches = remember(watchedAddresses, own, symbol) {
@@ -173,7 +174,7 @@ fun PortfolioDetailScreen(
                 CompositionLocalProvider(LocalHidePortfolioAmounts provides hideAmounts) {
                     LazyColumn(
                         modifier = Modifier.fillMaxSize(),
-                        contentPadding = PaddingValues(start = 16.dp + inset, top = 4.dp, end = 16.dp + inset, bottom = 96.dp),
+                        contentPadding = PaddingValues(start = 16.dp + inset, top = 4.dp, end = 16.dp + inset, bottom = Spacing.fabClearance),
                         verticalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
                         item(key = "summary") {

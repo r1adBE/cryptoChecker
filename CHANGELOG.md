@@ -25,7 +25,8 @@ Detailed build history below.
 * Android notifications show the bell of the app logo with a sign per alert type: $ for the USDT depeg, a bolt for
   unusual activity, a calendar for economic dates, the Ethereum diamond for gas, ₿ for the Bitcoin fee and a gauge for
   Fear & Greed; price alerts keep the logo. iPhone always shows the app icon there.
-* Dark mode: errors are orange-red (#FF5833) instead of pink, so a failed price no longer looks like a falling one.
+* Dark mode: errors and error surfaces (notifications-off banner, delete swipe) are orange-red (#FF5833 / #4A1C10)
+  instead of Material pink.
 * First alarm dialog is titled «Alert saved» instead of «All set»: whether alerts actually arrive is what the
   checklist below it answers.
 * Stocks, ETFs and commodities on Aster, BingX Futures and Lighter (incl. Robinhood stock tokens) are marked as TradFi
@@ -50,6 +51,20 @@ Detailed build history below.
 * Tax export: opening lots of watched addresses now also count for the fee notes and the year list, as they already did
   for disposals – a network fee on a lotted address wallet no longer shows as «fee not assigned – cost basis unknown»,
   and a year with only opening lots appears in the year selection.
+* Opening lots of watched addresses are now capped at the address holding before the transfers you recorded for that
+  wallet (balance + recorded outflows − recorded inflows): a recorded transfer Ledger → Binance no longer cuts the lot
+  a second time (missing holding, cost basis too low), and a recorded transfer to the address is no longer counted
+  again as address balance without cost basis.
+* Portfolio lists end with a short line instead of the long data note: «Working aid, not tax or investment advice.
+  Privacy: Settings › About the app › Privacy policy.» (all 31 languages); what data goes where is in the privacy policy.
+* Watchlist pulse: the average change «avg. +1.80%» is shown in the normal text colour instead of amber – amber now
+  only means «attention» (Android and iPhone).
+* The free space below portfolio and alert lists for the floating «+» button is a named spacing value (3 × 32) on
+  both platforms instead of a bare 96.
+* Android tab bar with large text: long tab names are hyphenated instead of broken mid-word, and if two lines still
+  don't fit, the label shrinks step by step (never below 12 sp) instead of ending in «…».
+* Arabic and Persian: amounts use the system font instead of Rubik (which has no Arabic-Indic digits), so a price no
+  longer mixes two typefaces (Android; iPhone already uses the system font).
 
 ## 16.2.2 (build 84)
 

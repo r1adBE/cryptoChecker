@@ -9,7 +9,6 @@
         <item quantity="one">Poistetaanko %d tapahtuma? Seuratut osoitteet säilyvät. Toimintoa ei voi kumota.</item>
         <item quantity="other">Poistetaanko kaikki %d tapahtumaa? Seuratut osoitteet säilyvät. Toimintoa ei voi kumota.</item>
     </plurals>
-    <string name="portfolio_disclaimer">Summat pysyvät laitteella, ellet itse vie niitä; hintoja varten parien tunnukset lähetetään vain parin pörssille. Julkiset lohkoketjusolmut näkevät seuratut osoitteet ja IP-osoitteesi. Ei sijoitusneuvontaa.</string>
     <string name="portfolio_empty_action">Lisää ensimmäinen ostosi</string>
     <string name="portfolio_empty_address">Seuraa vain lompakon osoitetta</string>
     <string name="portfolio_empty_csv">Ostettu pörssissä? Tuo tiedosto</string>

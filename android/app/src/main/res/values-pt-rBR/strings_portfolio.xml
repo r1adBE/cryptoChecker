@@ -10,7 +10,6 @@
         <item quantity="many">Excluir todas as %d transações? Os endereços monitorados continuam. Não é possível desfazer.</item>
         <item quantity="other">Excluir todas as %d transações? Os endereços monitorados continuam. Não é possível desfazer.</item>
     </plurals>
-    <string name="portfolio_disclaimer">Os valores ficam no dispositivo, a menos que você os exporte; para as cotações só vão os símbolos dos pares para a exchange do par. Os nós públicos de blockchain veem os endereços monitorados e o seu IP. Não é recomendação de investimento.</string>
     <string name="portfolio_empty_action">Adicionar sua primeira compra</string>
     <string name="portfolio_empty_address">Só acompanhar um endereço de carteira</string>
     <string name="portfolio_empty_csv">Comprou numa corretora? Importar o arquivo</string>

@@ -11,7 +11,6 @@
         <item quantity="many">Smazat všechny transakce (%d)? Sledované adresy zůstanou. Tuto akci nelze vrátit zpět.</item>
         <item quantity="other">Smazat všech %d transakcí? Sledované adresy zůstanou. Tuto akci nelze vrátit zpět.</item>
     </plurals>
-    <string name="portfolio_disclaimer">Částky zůstávají v zařízení, pokud je sám neexportuješ; kvůli kurzům jdou na burzu páru jen symboly párů. Veřejné uzly blockchainu vidí sledované adresy a tvou IP. Nejde o investiční poradenství.</string>
     <string name="portfolio_empty_action">Zadat první nákup</string>
     <string name="portfolio_empty_address">Jen sledovat adresu peněženky</string>
     <string name="portfolio_empty_csv">Koupeno na burze? Importovat soubor</string>

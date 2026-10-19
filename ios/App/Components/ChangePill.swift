@@ -11,8 +11,8 @@ enum ChangePillSize {
 
 /// Bedeutung einer Änderungsangabe und damit ihre Schriftfarbe — einzige Stelle, die das festlegt:
 /// `up`/`down` in der Kursfarbe (Schema, hoher Kontrast, Tausch); `neutral` grau (0, unbekannt,
-/// deaktiviert); `average` in der Bernstein-Schriftfarbe für neutrale Kennzahlen wie den
-/// Durchschnitt «Ø +0.27%». Wie `PillTone` (Android).
+/// deaktiviert); `average` in der normalen Textfarbe für neutrale Kennzahlen wie den
+/// Durchschnitt «Ø +0.27%» — nicht Bernstein, das bleibt «Achtung» vorbehalten. Wie `PillTone` (Android).
 enum PillTone {
     case up, down, neutral, average
 
@@ -30,14 +30,14 @@ enum PillTone {
 
     /// Schrift- und Pfeilfarbe direkt auf der Fläche (Karte, Zeile, Blatt) — ohne Pille:
     /// Kursfarbe steigend/fallend (≥ 4.5:1 bzw. 7:1 auf allen Flächen, siehe PriceColorSchemeTests),
-    /// grau für 0/unbekannt/deaktiviert, Bernstein-Schrift (`AppColors.warningText`, ≥ 4.5:1) für
-    /// den Durchschnitt. Wie `pillContent` (Android).
+    /// grau für 0/unbekannt/deaktiviert, normale Textfarbe für den Durchschnitt (eine Kennzahl ohne
+    /// Richtung; grau hiesse «0/deaktiviert», Bernstein hiesse «Achtung»). Wie `pillContent` (Android).
     func content(_ scheme: PriceColorScheme, highContrast: Bool, inverted: Bool) -> Color {
         switch self {
         case .up: scheme.up(highContrast: highContrast, inverted: inverted)
         case .down: scheme.down(highContrast: highContrast, inverted: inverted)
         case .neutral: AppColors.onSurfaceVariant
-        case .average: AppColors.warningText
+        case .average: AppColors.onSurface
         }
     }
 

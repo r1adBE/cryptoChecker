@@ -165,8 +165,8 @@ extension PortfolioScreen {
 
             PortfolioDisclaimer()
                 .portfolioListRow(top: 0, bottom: 0)
-            // Unten Platz für den «+»-Knopf (58 pt + Rand + Schatten, K5: verdeckt nichts — wie Android 96 dp)
-            Color.clear.frame(height: 96).portfolioListRow(top: 0, bottom: 0)
+            // Unten Platz für den «+»-Knopf (verdeckt nichts — wie Android)
+            Color.clear.frame(height: Spacing.fabClearance).portfolioListRow(top: 0, bottom: 0)
         }
         .listStyle(.plain)
         .scrollContentBackground(.hidden)

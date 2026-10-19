@@ -277,12 +277,14 @@ private struct AppTabBarButton: View {
 
     private var label: some View {
         // Gewählt fett, damit der Tab nicht nur am Farbton erkennbar ist (wie Android). Lange Namen brechen
-        // auf zwei Zeilen um statt zu schrumpfen (`.caption`, nie unter 12 pt)
+        // auf zwei Zeilen um; erst wenn das nicht reicht (grosse Schrift), etwas kleiner
         Text(item.title)
             .font(.caption.weight(selected ? .bold : .medium))
             .foregroundStyle(Self.labelColor)
             .multilineTextAlignment(.center)
             .lineLimit(2)
+            // Wie Android (AppTabBar: TextAutoSize): reichen zwei Zeilen nicht, etwas kleiner statt «…»
+            .minimumScaleFactor(0.7)
             .fixedSize(horizontal: false, vertical: true)
     }
 

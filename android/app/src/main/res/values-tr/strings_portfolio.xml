@@ -9,7 +9,6 @@
         <item quantity="one">%d işlem silinsin mi? İzlenen adresler kalır. Bu işlem geri alınamaz.</item>
         <item quantity="other">Tüm %d işlem silinsin mi? İzlenen adresler kalır. Bu işlem geri alınamaz.</item>
     </plurals>
-    <string name="portfolio_disclaimer">Tutarlar sen dışa aktarmadıkça cihazında kalır; fiyatlar için yalnızca parite sembolleri paritenin borsasına gider. Herkese açık blokzincir düğümleri izlenen adresleri ve IP’ni görür. Yatırım tavsiyesi değildir.</string>
     <string name="portfolio_empty_action">İlk alımını ekle</string>
     <string name="portfolio_empty_address">Yalnızca bir cüzdan adresini izle</string>
     <string name="portfolio_empty_csv">Borsadan mı aldınız? Dosyayı içe aktar</string>

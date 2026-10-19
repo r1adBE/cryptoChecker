@@ -10,7 +10,6 @@
         <item quantity="many">Supprimer les %d transactions ? Les adresses suivies restent. Cette action est irréversible.</item>
         <item quantity="other">Supprimer les %d transactions ? Les adresses suivies restent. Cette action est irréversible.</item>
     </plurals>
-    <string name="portfolio_disclaimer">Les montants restent sur votre appareil, sauf si vous les exportez vous-même ; pour les cours, seuls les symboles des paires sont envoyés à la plateforme de la paire. Les nœuds blockchain publics voient les adresses suivies et votre IP. Pas un conseil en investissement.</string>
     <string name="portfolio_empty_action">Ajouter votre premier achat</string>
     <string name="portfolio_empty_address">Suivre seulement une adresse de wallet</string>
     <string name="portfolio_empty_csv">Acheté sur une plateforme ? Importer son fichier</string>

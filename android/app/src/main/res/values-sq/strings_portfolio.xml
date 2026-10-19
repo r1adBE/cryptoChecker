@@ -9,7 +9,6 @@
         <item quantity="one">Të fshihet %d transaksion? Adresat e ndjekura mbeten. Kjo nuk mund të zhbëhet.</item>
         <item quantity="other">Të fshihen të gjitha %d transaksionet? Adresat e ndjekura mbeten. Kjo nuk mund të zhbëhet.</item>
     </plurals>
-    <string name="portfolio_disclaimer">Shumat mbeten në pajisje, përveç nëse i eksporton vetë; për kurset dërgohen vetëm simbolet e çifteve te bursa e çiftit. Nyjet publike blockchain shohin adresat e ndjekura dhe IP-në tënde. Nuk është këshillë investimi.</string>
     <string name="portfolio_empty_action">Shto blerjen e parë</string>
     <string name="portfolio_empty_address">Vetëm ndiq një adresë portofoli</string>
     <string name="portfolio_empty_csv">Blerë në një bursë? Importo skedarin</string>

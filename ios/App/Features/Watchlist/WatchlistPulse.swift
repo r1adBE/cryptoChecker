@@ -58,7 +58,7 @@ struct WatchlistPulseStats: Equatable {
 /// dazu klein «· 510 ohne 24h-Wert», wenn gezeigte Paare mit Kurs keinen 24-h-Wert haben —
 /// als farbige Schrift ohne Pillen wie die Änderung der Zeilen (`TonePill`). Zähler in Steigend- bzw.
 /// Fallend-Farbe mit schrägem Pfeil (leere Zähler fallen weg, wie Android), der Durchschnitt in
-/// Bernstein-Schrift mit Vorzeichen, der Zeitraum klein und grau dahinter — die Bedeutung hängt nie
+/// normaler Textfarbe mit Vorzeichen, der Zeitraum klein und grau dahinter — die Bedeutung hängt nie
 /// allein an der Farbe. VoiceOver liest einen Satz.
 struct WatchlistPulseLine: View {
     let stats: WatchlistPulseStats

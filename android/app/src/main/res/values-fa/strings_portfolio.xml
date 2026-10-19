@@ -9,7 +9,6 @@
         <item quantity="one">%d تراکنش حذف شود؟ آدرس‌های زیر نظر باقی می‌مانند. این کار قابل بازگشت نیست.</item>
         <item quantity="other">همهٔ %d تراکنش حذف شوند؟ آدرس‌های زیر نظر باقی می‌مانند. این کار قابل بازگشت نیست.</item>
     </plurals>
-    <string name="portfolio_disclaimer">مبالغ روی دستگاه می‌مانند مگر اینکه خودت آن‌ها را خروجی بگیری؛ برای قیمت فقط نماد جفت‌ها به صرافی همان جفت فرستاده می‌شود. گره‌های عمومی بلاکچین آدرس‌های زیر نظر و IP تو را می‌بینند. توصیه سرمایه‌گذاری نیست.</string>
     <string name="portfolio_empty_action">افزودن اولین خرید</string>
     <string name="portfolio_empty_address">فقط دنبال کردن نشانی کیف پول</string>
     <string name="portfolio_empty_csv">از صرافی خریدید؟ وارد کردن فایل</string>

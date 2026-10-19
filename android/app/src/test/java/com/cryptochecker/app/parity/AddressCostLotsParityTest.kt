@@ -25,7 +25,8 @@ import java.time.ZoneOffset
 /**
  * Einstand für Adressguthaben und Einträge ohne Einstand (`testdata/parity/address_cost_lots.json`): Abdeckung der Posten,
  * Adress-Teil ohne Einstand, Rechner-Einträge, Karte je Einstandsmethode, Stichtag-Bestand (CH-Vermögenswert ohne
- * Posten), FR-Erwerbspreis-Summe samt Vermerk «Adressen ohne Einstand», Steuer-Export (Info-Zeilen, Jahre). Gegenstück: `Tests/AddressCostLotsParityTests.swift`.
+ * Posten), FR-Erwerbspreis-Summe samt Vermerk «Adressen ohne Einstand», Steuer-Export (Info-Zeilen, Jahre), Bestand je
+ * Wallet bei erfassten Umbuchungen von/zu der Adress-Wallet. Gegenstück: `Tests/AddressCostLotsParityTests.swift`.
  */
 class AddressCostLotsParityTest {
 
@@ -82,7 +83,7 @@ class AddressCostLotsParityTest {
             for (cov in c["coverage"].list()) {
                 val x = cov.obj()
                 val a = addresses.first { it.id == x["address"].num()!!.toLong() }
-                val got = AddressCostLots.coverage(a).first { it.coin == x["coin"] }
+                val got = AddressCostLots.coverage(a, real, addresses).first { it.coin == x["coin"] }
                 near("$name lotted", x["lotted"], got.lotted)
                 near("$name excess", x["excess"], got.excess)
                 near("$name unlotted", x["unlotted"], got.unlotted)
@@ -119,6 +120,15 @@ class AddressCostLotsParityTest {
                     near("$name/$m realized", x["realized"], p.realizedExact)
                 }
             }
+            // FIFO je Wallet: Bestand je Wallet (Adress-Wallet samt erfasster Umbuchungen), kein Fehlbestand
+            c["wallets"]?.obj()?.forEach { (coin, wallets) ->
+                val got = PortfolioCalculator.openLots(coin, all, CostMethod.FIFO_WALLET)
+                    .groupBy { it.wallet }.mapValues { (_, l) -> l.fold(BigDecimal.ZERO) { s, x -> s + x.amount } }
+                val expected = wallets.obj()
+                assertEquals("$name wallets $coin", expected.keys, got.keys)
+                expected.forEach { (w, v) -> near("$name wallet $w", v, got[w]) }
+            }
+            c["shortfalls"]?.let { assertEquals("$name shortfalls", it.num()!!.toInt(), PortfolioCalculator.walletShortfalls(all).size) }
             c["fr"]?.obj()?.let { fr ->
                 val price = BigDecimal(fr["price"] as String)
                 val rows = TaxEngines.disposals(all, TaxMethod.FR_PTA, ZoneOffset.UTC, { _, _ -> price })

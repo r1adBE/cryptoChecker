@@ -4,7 +4,7 @@ import XCTest
 /// Einstand für Adressguthaben und Einträge ohne Einstand (`Parity/address_cost_lots.json`) — wie
 /// `AddressCostLotsParityTest.kt`: Abdeckung, Adress-Teil ohne Einstand, Rechner-Einträge, Karte je Methode, Stichtag
 /// (CH-Vermögenswert ohne Posten), FR-Erwerbspreis-Summe samt Vermerk «Adressen ohne Einstand», Steuer-Export (Info-Zeilen,
-/// Jahre).
+/// Jahre), Bestand je Wallet bei erfassten Umbuchungen von/zu der Adress-Wallet.
 final class AddressCostLotsParityTests: XCTestCase {
 
     private typealias S = TestSupport
@@ -60,7 +60,7 @@ final class AddressCostLotsParityTests: XCTestCase {
             let real = S.list(c["trades"]).map(trade)
             for x in S.list(c["coverage"]) {
                 let a = try XCTUnwrap(addresses.first { $0.id == Int64(S.number(x["address"]) ?? -1) })
-                let got = try XCTUnwrap(AddressCostLots.coverage(a).first { $0.coin == x["coin"] as? String })
+                let got = try XCTUnwrap(AddressCostLots.coverage(a, trades: real, all: addresses).first { $0.coin == x["coin"] as? String })
                 near("\(name) lotted", x["lotted"], got.lotted)
                 near("\(name) excess", x["excess"], got.excess)
                 near("\(name) unlotted", x["unlotted"], got.unlotted)
@@ -97,6 +97,19 @@ final class AddressCostLotsParityTests: XCTestCase {
                     near("\(name)/\(m) cost", x["cost"], p.costBasisExact)
                     near("\(name)/\(m) realized", x["realized"], p.realizedExact)
                 }
+            }
+            // FIFO je Wallet: Bestand je Wallet (Adress-Wallet samt erfasster Umbuchungen), kein Fehlbestand
+            for (coin, wallets) in c["wallets"] as? [String: Any] ?? [:] {
+                var got: [String: Decimal] = [:]
+                for l in PortfolioCalculator.openLots(coin, trades: all, method: .FIFO_WALLET) {
+                    got[l.wallet ?? "", default: 0] += l.amount
+                }
+                let expected = wallets as? [String: Any] ?? [:]
+                XCTAssertEqual(Set(expected.keys), Set(got.keys), "\(name) wallets \(coin)")
+                for (w, v) in expected { near("\(name) wallet \(w)", v, got[w]) }
+            }
+            if let n = S.number(c["shortfalls"]) {
+                XCTAssertEqual(Int(n), PortfolioCalculator.walletShortfalls(all).count, "\(name) shortfalls")
             }
             if let fr = c["fr"] as? [String: Any] {
                 let price = dec(fr["price"]) ?? 0

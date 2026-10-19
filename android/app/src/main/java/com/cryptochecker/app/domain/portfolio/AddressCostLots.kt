@@ -32,10 +32,14 @@ data class AddressCostLot(
 /**
  * Regeln der Eröffnungsposten ([AddressCostLot]) — sie speisen die Einstandsrechnung genau wie Käufe:
  *  - Jede beobachtete Adresse ist ihre eigene Wallet ([walletName]; FIFO je Wallet trennt sie von Börsen).
- *  - Die Posten übersteigen nie das beobachtete Guthaben DIESES Coins an DIESER Adresse ([cover]): ist die Summe grösser
- *    (zu viel erfasst oder das Guthaben ist seither gesunken), verbraucht FIFO die ältesten Posten zuerst — wie ein
- *    Abgang aus dieser Adresse (ohne Gewinn, der Preis je Coin der übrigen Posten bleibt). Hinweis in der Anzeige.
- *  - Nur der nicht belegte Rest bleibt Adress-Teil «ohne Einstand» ([AddressBalance.trades]).
+ *  - Die Posten übersteigen nie den Bestand DIESES Coins an DIESER Adresse VOR den in der App erfassten Bewegungen ihrer
+ *    Wallet ([cover], [recorded]): beobachtetes Guthaben + erfasste Abgänge − erfasste Zugänge. Das Guthaben enthält
+ *    diese Bewegungen schon; sie rechnen aber selbst noch einmal in der Wallet — gegen das nackte Guthaben gekürzt,
+ *    zählte eine Umbuchung weg von der Adresse doppelt (Fehlbestand, Einstand zu klein), eine zur Adresse hin doppelt
+ *    im Adress-Teil. Ist die Summe grösser (zu viel erfasst oder Abgänge, die die App nicht kennt), verbraucht FIFO die
+ *    ältesten Posten zuerst — wie ein Abgang aus dieser Adresse (ohne Gewinn, der Preis je Coin der übrigen Posten
+ *    bleibt). Hinweis in der Anzeige.
+ *  - Nur der nicht belegte Rest dieses Bestands bleibt Adress-Teil «ohne Einstand» ([AddressBalance.trades], [accounted]).
  *  - Zählt die Adresse nicht («Nur anzeigen») oder steckt sie schon in einem xpub, zählen auch ihre Posten nicht — gleiche
  *    Regeln wie [AddressBalance.holdings].
  *  - Heute / 7 T / 1 J, Wertverlauf, Stichtag und CH-Vermögenswert lassen die Posten weg (Adress-Einträge,
@@ -112,24 +116,36 @@ object AddressCostLots {
         val coin: String,
         /** Wirksame Posten (gekürzt, Preis je Coin unverändert), Reihenfolge von [clean]. */
         val lots: List<AddressCostLot>,
-        /** Belegte Menge = min(Summe der Posten, Guthaben). */
+        /** Belegte Menge = min(Summe der Posten, [base]). */
         val lotted: BigDecimal,
+        /** Beobachtetes Guthaben (≥ 0). */
         val balance: BigDecimal,
-        /** Posten über dem Guthaben (verbraucht); 0 = keine. */
+        /** Posten über [base] (verbraucht); 0 = keine. */
         val excess: BigDecimal,
+        /** Bestand vor den erfassten Bewegungen der Wallet (≥ 0, [recorded]); ohne solche Bewegungen = [balance]. */
+        val base: BigDecimal = balance,
     ) {
         val capped: Boolean get() = excess.signum() > 0
 
-        /** Guthaben ohne Posten («ohne Einstand»). */
-        val unlotted: BigDecimal get() = (balance - lotted).max(BigDecimal.ZERO)
+        /** Bestand ohne Posten («ohne Einstand»). */
+        val unlotted: BigDecimal get() = (base - lotted).max(BigDecimal.ZERO)
+
+        /**
+         * Teil des beobachteten Guthabens, den Posten und erfasste Bewegungen schon abbilden (der Rest ist Adress-Teil ohne
+         * Einstand). Ohne erfasste Bewegungen = [lotted]; negativ, wenn erfasste Abgänge auch Coins ohne Einstand aus der
+         * Adresse genommen haben (sie zählen dann weiter als Adress-Teil).
+         */
+        val accounted: BigDecimal get() = balance - unlotted
     }
 
     /**
-     * Posten [lots] EINES Coins (Reihenfolge von [clean]) gegen das Guthaben [balance]: was darüber liegt, verbraucht
+     * Posten [lots] EINES Coins (Reihenfolge von [clean]) gegen den Bestand vor den erfassten Bewegungen: Guthaben
+     * [balance] − [recorded] (Zugänge − Abgänge dieser Wallet, [recorded]), nie unter 0. Was darüber liegt, verbraucht
      * FIFO — die ältesten Posten zuerst, ein angebrochener Posten behält seinen Preis je Coin.
      */
-    fun cover(coin: String, lots: List<AddressCostLot>, balance: BigDecimal): Coverage {
-        val held = balance.max(BigDecimal.ZERO)
+    fun cover(coin: String, lots: List<AddressCostLot>, balance: BigDecimal, recorded: BigDecimal = BigDecimal.ZERO): Coverage {
+        val observed = balance.max(BigDecimal.ZERO)
+        val held = (observed - recorded).max(BigDecimal.ZERO)
         val total = lots.fold(BigDecimal.ZERO) { a, l -> a + l.amount }
         val excess = (total - held).max(BigDecimal.ZERO)
         var left = excess
@@ -144,27 +160,88 @@ object AddressCostLots {
             // Angebrochen: Preis je Coin bleibt (ein Gesamt-Einstand wird zum Preis, sonst passte er nicht zur Menge)
             out += if (rest.compareTo(l.amount) == 0) l else l.copy(amount = rest, priceUsdt = l.price, costUsdt = null)
         }
-        return Coverage(coin, out, total - excess, held, excess)
+        return Coverage(coin, out, total - excess, observed, excess, held)
     }
 
-    /** Je Coin mit Posten die Abdeckung dieser Adresse (Guthaben fehlt = 0), Reihenfolge der Coins wie die Posten. */
-    fun coverage(a: WatchedAddress): List<Coverage> {
+    /**
+     * In der App erfasste Bewegungen von [coin] in der Wallet [wallet] (Vergleich wie FIFO je Wallet, [PortfolioWallets.key]):
+     * Zugänge − Abgänge, so wie FIFO je Wallet sie bucht — Umbuchung: Ziel + Menge, Quelle − (Menge + Gebühr im Coin);
+     * Kauf/Belohnung/Einzahlung + erhaltene Menge; Verkauf/Auszahlung/Verschenkt/bezahlt/Tausch − (Menge + Gebühr im Coin);
+     * erhaltener Coin eines Tauschs +, Gebühr im dritten Coin −. Alle Daten, nicht erst ab dem Posten: das beobachtete
+     * Guthaben ist der heutige Stand und enthält jede Bewegung, auch frühere. Adress-Einträge zählen nicht; Wallet ohne
+     * Namen = keine Bewegungen (sonst fielen alle Transaktionen ohne Börse hinein).
+     */
+    fun recorded(coin: String, wallet: String?, trades: List<PortfolioTrade>): BigDecimal {
+        val key = PortfolioWallets.key(wallet)
+        var net = BigDecimal.ZERO
+        if (key == PortfolioWallets.UNSPECIFIED) return net
+        fun at(name: String?) = PortfolioWallets.key(name) == key
+        for (t in trades) {
+            if (AddressBalance.isAddressTrade(t.id) || t.amount.signum() <= 0) continue
+            if (PortfolioCalculator.normalizeCoin(t.coin) == coin) {
+                net += when {
+                    t.type == PortfolioTxType.TRANSFER ->
+                        (if (at(t.transferTo)) t.amount else BigDecimal.ZERO) - (if (at(t.transferFrom)) t.amount + t.coinFee else BigDecimal.ZERO)
+                    !at(t.exchange) -> BigDecimal.ZERO
+                    t.type.isInflow -> t.received
+                    else -> -(t.amount + t.coinFee)
+                }
+            }
+            if (t.swapToCoin == coin && at(t.exchange)) net += t.swapReceived
+            if (t.thirdFeeCoin == coin && at(if (t.type == PortfolioTxType.TRANSFER) t.transferFrom else t.exchange)) net -= t.thirdFeeAmount
+        }
+        return net
+    }
+
+    /**
+     * Wallets ([PortfolioWallets.key] von [walletName]) → Id der ersten zählenden Adresse mit Posten: nur sie verrechnet
+     * die erfassten Bewegungen. Zwei Adressen mit derselben Bezeichnung sind in FIFO je Wallet eine Wallet — bei beiden
+     * gerechnet, zählten die Bewegungen doppelt.
+     */
+    private fun movesOwners(addresses: List<WatchedAddress>): Map<String, Long> {
+        val out = HashMap<String, Long>()
+        for ((a, _) in counted(addresses)) {
+            if (clean(a.costLots).isNotEmpty()) out.putIfAbsent(PortfolioWallets.key(walletName(a)), a.id)
+        }
+        return out
+    }
+
+    /** Abdeckung je Coin mit Posten (Reihenfolge der Posten); [trades] = erfasste Bewegungen, die diese Adresse verrechnet. */
+    private fun covers(a: WatchedAddress, balances: Map<String, BigDecimal>, trades: List<PortfolioTrade>): List<Coverage> {
         val lots = clean(a.costLots)
-        val balances = balances(a)
-        return lots.map { it.coin }.distinct().map { coin -> cover(coin, lots.filter { it.coin == coin }, balances[coin] ?: BigDecimal.ZERO) }
+        return lots.map { it.coin }.distinct().map { coin ->
+            cover(coin, lots.filter { it.coin == coin }, balances[coin] ?: BigDecimal.ZERO, recorded(coin, walletName(a), trades))
+        }
+    }
+
+    /** Zählende Adressen ([counted]) mit ihrer Abdeckung; die erfassten Bewegungen [trades] je Wallet nur einmal ([movesOwners]). */
+    private fun countedCoverage(addresses: List<WatchedAddress>, trades: List<PortfolioTrade>): List<Pair<WatchedAddress, List<Coverage>>> {
+        val owners = if (trades.isEmpty()) emptyMap() else movesOwners(addresses)
+        return counted(addresses).map { (a, balances) ->
+            a to covers(a, balances, if (owners[PortfolioWallets.key(walletName(a))] == a.id) trades else emptyList())
+        }
+    }
+
+    /**
+     * Je Coin mit Posten die Abdeckung dieser Adresse (Guthaben fehlt = 0), Reihenfolge der Coins wie die Posten; mit den
+     * echten Transaktionen [trades] und allen Adressen [all] wie im Rechner ([countedCoverage]).
+     */
+    fun coverage(a: WatchedAddress, trades: List<PortfolioTrade> = emptyList(), all: List<WatchedAddress> = listOf(a)): List<Coverage> {
+        val owner = if (trades.isEmpty()) null else movesOwners(all)[PortfolioWallets.key(walletName(a))]
+        return covers(a, balances(a), if (owner == null || owner == a.id) trades else emptyList())
     }
 
     /**
      * Rechner-Einträge der Posten aller zählenden Adressen ([counted]): je wirksamem Posten ein Kauf mit negativer Id
-     * ([tradeId]), Preis je Coin, Wallet = die Adresse ([walletName]). Reihenfolge der Adressen, dann der Posten.
+     * ([tradeId]), Preis je Coin, Wallet = die Adresse ([walletName]). Reihenfolge der Adressen, dann der Posten. [real] =
+     * echte Transaktionen (erfasste Bewegungen der Adress-Wallets, [cover]).
      */
-    fun trades(addresses: List<WatchedAddress>): List<PortfolioTrade> {
+    fun trades(addresses: List<WatchedAddress>, real: List<PortfolioTrade> = emptyList()): List<PortfolioTrade> {
         val out = ArrayList<PortfolioTrade>()
-        for ((a, balances) in counted(addresses)) {
+        for ((a, covered) in countedCoverage(addresses, real)) {
             val lots = clean(a.costLots)
-            if (lots.isEmpty()) continue
-            for (coin in lots.map { it.coin }.distinct()) {
-                val c = cover(coin, lots.filter { it.coin == coin }, balances[coin] ?: BigDecimal.ZERO)
+            for (c in covered) {
+                val coin = c.coin
                 for (l in c.lots) {
                     out += PortfolioTrade(
                         id = tradeId(a.id, lots.indexOfFirst { it.id == l.id }), coin = coin, type = PortfolioTxType.BUY,
@@ -176,14 +253,16 @@ object AddressCostLots {
         return out
     }
 
-    /** Belegte Menge je Coin über alle zählenden Adressen (für den Rest «ohne Einstand» in [AddressBalance.trades]). */
-    fun lotted(addresses: List<WatchedAddress>): Map<String, BigDecimal> {
+    /**
+     * Je Coin über alle zählenden Adressen der Teil des beobachteten Guthabens, den Posten und erfasste Bewegungen schon
+     * abbilden ([Coverage.accounted]; ohne Bewegungen = belegte Menge) — Guthaben minus diesen Teil ist der Rest «ohne
+     * Einstand» in [AddressBalance.trades]. Kann negativ sein (Rest dann grösser als das Guthaben).
+     */
+    fun accounted(addresses: List<WatchedAddress>, real: List<PortfolioTrade> = emptyList()): Map<String, BigDecimal> {
         val out = LinkedHashMap<String, BigDecimal>()
-        for ((a, balances) in counted(addresses)) {
-            val lots = clean(a.costLots)
-            for (coin in lots.map { it.coin }.distinct()) {
-                val c = cover(coin, lots.filter { it.coin == coin }, balances[coin] ?: BigDecimal.ZERO)
-                if (c.lotted.signum() > 0) out[coin] = (out[coin] ?: BigDecimal.ZERO) + c.lotted
+        for ((_, covered) in countedCoverage(addresses, real)) {
+            for (c in covered) {
+                if (c.accounted.signum() != 0) out[c.coin] = (out[c.coin] ?: BigDecimal.ZERO) + c.accounted
             }
         }
         return out
@@ -192,17 +271,17 @@ object AddressCostLots {
     /**
      * Steuer-Export: eigene Transaktionen + Eröffnungsposten als Käufe ([trades]); FR dazu die beobachteten Guthaben-Reihen
      * ([AddressBalanceHistory.trades]) für den Gesamtwert — ohne den belegten Teil ([withoutLotted]), der schon als Posten
-     * zählt. CH-Vermögenswert und Stichtag lassen beides weg (Adress-Einträge).
+     * zählt ([accounted]). CH-Vermögenswert und Stichtag lassen beides weg (Adress-Einträge).
      */
     fun exportTrades(real: List<PortfolioTrade>, addresses: List<WatchedAddress>, frTotalValue: Boolean): List<PortfolioTrade> {
-        val lots = trades(addresses)
+        val lots = trades(addresses, real)
         if (!frTotalValue) return real + lots
-        return real + lots + withoutLotted(AddressBalanceHistory.trades(AddressBalanceHistory.of(addresses)), lotted(addresses))
+        return real + lots + withoutLotted(AddressBalanceHistory.trades(AddressBalanceHistory.of(addresses)), accounted(addresses, real))
     }
 
     /**
-     * Beobachtete Guthaben-Reihen ohne den belegten Teil [lotted] (je Coin): die ältesten Zugänge werden gekürzt (bzw.
-     * fallen weg), Abgänge bleiben. Reihenfolge der Eingabe.
+     * Beobachtete Guthaben-Reihen ohne den belegten Teil [lotted] (je Coin, ≤ 0 = nichts): die ältesten Zugänge werden
+     * gekürzt (bzw. fallen weg), Abgänge bleiben. Reihenfolge der Eingabe.
      */
     fun withoutLotted(history: List<PortfolioTrade>, lotted: Map<String, BigDecimal>): List<PortfolioTrade> {
         if (lotted.isEmpty()) return history

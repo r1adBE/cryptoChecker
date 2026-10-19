@@ -9,7 +9,6 @@
         <item quantity="one">Radera %d transaktion? Bevakade adresser finns kvar. Det går inte att ångra.</item>
         <item quantity="other">Radera alla %d transaktioner? Bevakade adresser finns kvar. Det går inte att ångra.</item>
     </plurals>
-    <string name="portfolio_disclaimer">Belopp stannar på enheten om du inte själv exporterar dem; för kurser skickas bara parsymboler till parets börs. Offentliga blockkedjenoder ser bevakade adresser och din IP. Ingen investeringsrådgivning.</string>
     <string name="portfolio_empty_action">Lägg till ditt första köp</string>
     <string name="portfolio_empty_address">Följ bara en plånboksadress</string>
     <string name="portfolio_empty_csv">Köpt på en börs? Importera filen</string>

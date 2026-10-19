@@ -10,7 +10,6 @@
         <item quantity="few">Ștergi toate cele %d tranzacții? Adresele urmărite rămân. Acțiunea nu poate fi anulată.</item>
         <item quantity="other">Ștergi toate cele %d de tranzacții? Adresele urmărite rămân. Acțiunea nu poate fi anulată.</item>
     </plurals>
-    <string name="portfolio_disclaimer">Sumele rămân pe dispozitiv, dacă nu le exporți tu; pentru cotații se trimit doar simbolurile perechilor la bursa perechii. Nodurile blockchain publice văd adresele urmărite și IP-ul tău. Nu este consultanță de investiții.</string>
     <string name="portfolio_empty_action">Adaugă prima cumpărare</string>
     <string name="portfolio_empty_address">Doar urmărește o adresă de portofel</string>
     <string name="portfolio_empty_csv">Cumpărat pe o bursă? Importă fișierul</string>

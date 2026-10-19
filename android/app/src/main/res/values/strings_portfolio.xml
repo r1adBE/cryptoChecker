@@ -9,7 +9,6 @@
         <item quantity="one">Delete %d transaction? Watched addresses stay. This cannot be undone.</item>
         <item quantity="other">Delete all %d transactions? Watched addresses stay. This cannot be undone.</item>
     </plurals>
-    <string name="portfolio_disclaimer">Amounts stay on your device unless you export them yourself; for prices only pair symbols go to the pair\'s exchange. Public blockchain nodes see watched addresses and your IP. Not investment advice.</string>
     <string name="portfolio_empty_action">Add your first purchase</string>
     <string name="portfolio_empty_address">Just watch a wallet address</string>
     <string name="portfolio_empty_csv">Bought on an exchange? Import its file</string>

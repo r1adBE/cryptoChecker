@@ -9,7 +9,6 @@
         <item quantity="one">%d लेन-देन हटाएँ? देखे जा रहे पते बने रहेंगे। इसे पूर्ववत नहीं किया जा सकता।</item>
         <item quantity="other">सभी %d लेन-देन हटाएँ? देखे जा रहे पते बने रहेंगे। इसे पूर्ववत नहीं किया जा सकता।</item>
     </plurals>
-    <string name="portfolio_disclaimer">राशियाँ आपके डिवाइस पर रहती हैं, जब तक आप खुद उन्हें एक्सपोर्ट न करें; कीमतों के लिए सिर्फ़ पेयर सिंबल उस पेयर के एक्सचेंज को जाते हैं। सार्वजनिक ब्लॉकचेन नोड्स देखे जा रहे पते और आपका IP देखते हैं। निवेश सलाह नहीं।</string>
     <string name="portfolio_empty_action">अपनी पहली खरीद जोड़ें</string>
     <string name="portfolio_empty_address">बस एक वॉलेट पता देखें</string>
     <string name="portfolio_empty_csv">एक्सचेंज पर खरीदा? उसकी फ़ाइल इम्पोर्ट करें</string>

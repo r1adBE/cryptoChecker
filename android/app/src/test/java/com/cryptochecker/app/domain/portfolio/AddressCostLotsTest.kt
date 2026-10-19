@@ -131,4 +131,32 @@ class AddressCostLotsTest {
         assertEquals(listOf(1L, AddressCostLots.tradeId(2, 0)), export.map { it.id })
         assertEquals(PortfolioTxType.BUY, export[1].type)
     }
+
+    @Test
+    fun recordedMovesOfTheAddressWalletAndNoNegativeBase() {
+        fun t(id: Long, type: PortfolioTxType, amount: String, exchange: String? = null, from: String? = null, to: String? = null, coinFee: String? = null) =
+            PortfolioTrade(
+                id, "BTC", type, BigDecimal(amount), null, 10, fee = coinFee?.let(::BigDecimal),
+                feeUnit = coinFee?.let { PortfolioFeeUnit.COIN }, exchange = exchange, transferFrom = from, transferTo = to,
+            )
+        val trades = listOf(
+            t(1, PortfolioTxType.TRANSFER, "0.5", from = "Ledger", to = "Binance", coinFee = "0.0001"), // −0,5001
+            t(2, PortfolioTxType.TRANSFER, "0.2", from = "Binance", to = " ledger "), // +0,2 (Schreibweise wie FIFO je Wallet)
+            t(3, PortfolioTxType.WITHDRAWAL, "0.1", exchange = "Ledger"), // −0,1
+            t(4, PortfolioTxType.BUY, "0.3", exchange = "Ledger", coinFee = "0.01"), // +0,29
+            t(5, PortfolioTxType.TRANSFER, "1", from = "Ledger", to = "Ledger", coinFee = "0.001"), // −0,001
+            t(6, PortfolioTxType.BUY, "5", exchange = "Binance"), // andere Wallet
+            t(-1, PortfolioTxType.DEPOSIT, "9", exchange = "Ledger"), // Adress-Eintrag
+        )
+        assertEquals(0, BigDecimal("-0.1111").compareTo(AddressCostLots.recorded("BTC", "Ledger", trades)))
+        assertEquals(0, BigDecimal.ZERO.compareTo(AddressCostLots.recorded("ETH", "Ledger", trades)))
+        assertEquals(0, BigDecimal.ZERO.compareTo(AddressCostLots.recorded("BTC", " ", trades)))
+        // Erfasste Zugänge über dem Guthaben: Bestand 0, alle Posten verbraucht, nichts negativ
+        val c = AddressCostLots.cover("BTC", AddressCostLots.clean(listOf(lot(1, 10, "1", price = "1"))), BigDecimal("0.2"), BigDecimal("0.5"))
+        assertEquals(0, BigDecimal.ZERO.compareTo(c.base))
+        assertEquals(0, BigDecimal.ZERO.compareTo(c.lotted))
+        assertEquals(0, BigDecimal.ZERO.compareTo(c.unlotted))
+        assertEquals(0, BigDecimal("0.2").compareTo(c.accounted))
+        assertTrue(c.lots.isEmpty())
+    }
 }

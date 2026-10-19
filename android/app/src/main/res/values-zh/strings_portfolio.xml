@@ -8,7 +8,6 @@
     <plurals name="portfolio_clear_confirm_count">
         <item quantity="other">要删除全部 %d 笔交易吗？观察的地址会保留。此操作无法撤销。</item>
     </plurals>
-    <string name="portfolio_disclaimer">除非你自行导出，金额会保留在你的设备上；获取价格时只把交易对代码发送到该交易对的交易所。公共区块链节点能看到观察的地址和你的 IP。不构成投资建议。</string>
     <string name="portfolio_empty_action">添加第一笔买入</string>
     <string name="portfolio_empty_address">仅关注一个钱包地址</string>
     <string name="portfolio_empty_csv">在交易所买的？导入其文件</string>

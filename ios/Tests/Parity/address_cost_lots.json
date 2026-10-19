@@ -1,5 +1,5 @@
 {
-  "_comment": "Build 84: Einstand für Adressguthaben (AddressCostLots) und Einträge ohne Einstand (PortfolioCostGaps). Gleiche Fälle in AddressCostLotsParityTest.kt und AddressCostLotsParityTests.swift. Beträge exakt als Text; Vergleich bis auf Rundung der 34. Stelle.",
+  "_comment": "Build 84: Einstand für Adressguthaben (AddressCostLots; ab Build 85 begrenzt auf den Bestand vor den erfassten Bewegungen der Adress-Wallet) und Einträge ohne Einstand (PortfolioCostGaps). Gleiche Fälle in AddressCostLotsParityTest.kt und AddressCostLotsParityTests.swift. Beträge exakt als Text; Vergleich bis auf Rundung der 34. Stelle.",
   "today": 19723,
   "cases": [
     {
@@ -79,6 +79,74 @@
       "lotTrades": [],
       "holdingsAt": {},
       "methods": {}
+    },
+    {
+      "name": "recorded transfer away from the address: lot counts against the holding before it",
+      "_comment": "Guthaben heute 0,5 enthält die Umbuchung Ledger → Binance schon; Bestand vor erfassten Bewegungen = 0,5 + 0,5 = 1. Vorher: Posten auf 0,5 gekürzt, Bestand 0,5 statt 1, Einstand 2000 statt 4000.",
+      "addresses": [
+        {"id": 6, "chain": "BTC", "address": "bc1qtestledgerout", "label": "Ledger", "lastBalance": "0.5",
+         "costLots": [{"id": 1, "coin": "BTC", "t": 1551398400000, "amount": "1", "price": "4000"}]}
+      ],
+      "trades": [
+        {"id": 1, "coin": "BTC", "type": "TRANSFER", "amount": "0.5", "time": 1622505600000, "transferFrom": "Ledger", "transferTo": "Binance"}
+      ],
+      "coverage": [{"address": 6, "coin": "BTC", "lotted": "1", "excess": "0", "unlotted": "0"}],
+      "addressPart": {},
+      "lotTrades": [{"id": -1000006000, "coin": "BTC", "amount": "1", "price": "4000", "time": 1551398400000, "exchange": "Ledger"}],
+      "holdingsAt": {},
+      "methods": {
+        "FIFO": {"BTC": {"holdings": "1", "address": "0", "cost": "4000", "realized": "0"}},
+        "FIFO_WALLET": {"BTC": {"holdings": "1", "address": "0", "cost": "4000", "realized": "0"}},
+        "AVERAGE": {"BTC": {"holdings": "1", "address": "0", "cost": "4000", "realized": "0"}}
+      },
+      "wallets": {"BTC": {"Ledger": "0.5", "Binance": "0.5"}},
+      "shortfalls": 0
+    },
+    {
+      "name": "recorded transfer to the address is already in its balance",
+      "_comment": "Guthaben 1,3 enthält die Umbuchung Binance → Ledger 0,3; Bestand vor erfassten Bewegungen = 1. Vorher: Adress-Teil 0,3 zusätzlich (doppelt), Bestand 1,7 statt 1,4.",
+      "addresses": [
+        {"id": 7, "chain": "BTC", "address": "bc1qtestledgerin", "label": "Ledger", "lastBalance": "1.3",
+         "costLots": [{"id": 1, "coin": "BTC", "t": 1551398400000, "amount": "1", "price": "4000"}]}
+      ],
+      "trades": [
+        {"id": 1, "coin": "BTC", "type": "BUY", "amount": "0.5", "price": "20000", "time": 1600000000000, "exchange": "Binance"},
+        {"id": 2, "coin": "BTC", "type": "TRANSFER", "amount": "0.3", "time": 1610000000000, "transferFrom": "Binance", "transferTo": "Ledger"},
+        {"id": 3, "coin": "BTC", "type": "SELL", "amount": "0.1", "price": "30000", "time": 1650000000000, "exchange": "Binance"}
+      ],
+      "coverage": [{"address": 7, "coin": "BTC", "lotted": "1", "excess": "0", "unlotted": "0"}],
+      "addressPart": {},
+      "lotTrades": [{"id": -1000007000, "coin": "BTC", "amount": "1", "price": "4000", "time": 1551398400000, "exchange": "Ledger"}],
+      "holdingsAt": {"BTC": "0.4"},
+      "methods": {
+        "FIFO": {"BTC": {"holdings": "1.4", "address": "0", "cost": "13600", "realized": "2600"}},
+        "FIFO_WALLET": {"BTC": {"holdings": "1.4", "address": "0", "cost": "12000", "realized": "1000"}},
+        "AVERAGE": {"BTC": {"holdings": "1.4", "address": "0", "cost": "13066.66666666666666666666666666667", "realized": "2066.666666666666666666666666666667"}}
+      },
+      "wallets": {"BTC": {"Ledger": "1.3", "Binance": "0.1"}},
+      "shortfalls": 0
+    },
+    {
+      "name": "no recorded movement of the address wallet: capped as before",
+      "addresses": [
+        {"id": 8, "chain": "BTC", "address": "bc1qtestledgerkeep", "label": "Ledger", "lastBalance": "0.5",
+         "costLots": [{"id": 1, "coin": "BTC", "t": 1551398400000, "amount": "1", "price": "4000"}]}
+      ],
+      "trades": [
+        {"id": 1, "coin": "BTC", "type": "BUY", "amount": "1", "price": "20000", "time": 1600000000000, "exchange": "Binance"},
+        {"id": 2, "coin": "BTC", "type": "TRANSFER", "amount": "0.2", "time": 1610000000000, "transferFrom": "Binance", "transferTo": "Kraken"}
+      ],
+      "coverage": [{"address": 8, "coin": "BTC", "lotted": "0.5", "excess": "0.5", "unlotted": "0"}],
+      "addressPart": {},
+      "lotTrades": [{"id": -1000008000, "coin": "BTC", "amount": "0.5", "price": "4000", "time": 1551398400000, "exchange": "Ledger"}],
+      "holdingsAt": {"BTC": "1"},
+      "methods": {
+        "FIFO": {"BTC": {"holdings": "1.5", "address": "0", "cost": "22000", "realized": "0"}},
+        "FIFO_WALLET": {"BTC": {"holdings": "1.5", "address": "0", "cost": "22000", "realized": "0"}},
+        "AVERAGE": {"BTC": {"holdings": "1.5", "address": "0", "cost": "22000", "realized": "0"}}
+      },
+      "wallets": {"BTC": {"Ledger": "0.5", "Binance": "0.8", "Kraken": "0.2"}},
+      "shortfalls": 0
     }
   ],
   "gaps": {

@@ -10,7 +10,6 @@
         <item quantity="many">¿Eliminar las %d transacciones? Las direcciones vigiladas se mantienen. No se puede deshacer.</item>
         <item quantity="other">¿Eliminar las %d transacciones? Las direcciones vigiladas se mantienen. No se puede deshacer.</item>
     </plurals>
-    <string name="portfolio_disclaimer">Los importes se quedan en el dispositivo salvo que los exportes tú; para los precios solo se envían los símbolos de los pares al exchange del par. Los nodos públicos de blockchain ven las direcciones vigiladas y tu IP. No es asesoramiento de inversión.</string>
     <string name="portfolio_empty_action">Añadir tu primera compra</string>
     <string name="portfolio_empty_address">Solo seguir una dirección de wallet</string>
     <string name="portfolio_empty_csv">¿Compraste en un exchange? Importa su archivo</string>
