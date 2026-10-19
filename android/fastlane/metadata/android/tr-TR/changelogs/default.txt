@@ -1,6 +1,6 @@
 16.2.2 yenilikleri
 • Crypto Pulse: şu an neler oluyor
-• Olağandışı Etkinlik, “Onunla birlikte ne hareket ediyor?” özetle
+• “Dikkat çekici”, “Onunla birlikte ne hareket ediyor?” özetle
 • Tek dokunuşla başla: en büyük 5 coin
 • Kaydır: sil (Geri al ile) veya favori
 • Kendi para biriminde fiyatlar ve alarmlar, referans tarihli CSV

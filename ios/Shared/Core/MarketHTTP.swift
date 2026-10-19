@@ -94,7 +94,8 @@ enum MarketHTTP {
         // Gleiche gleichzeitige Anfragen nur einmal ins Netz (`InFlightRequests`): GETs mit derselben Adresse, POSTs
         // mit derselben Adresse, denselben Kopfzeilen und demselben Körper — etwa Hyperliquid, dessen Einzelkurs für
         // jedes Paar dieselbe «metaAndAssetCtxs»-Antwort (~100 KB) holt
-        var key = "\(session.configuration.timeoutIntervalForRequest)|\(session.configuration.timeoutIntervalForResource)|\(url)"
+        // Schlüssel ohne Zeitstempel (BingX, `RequestKey`): sonst wären gleiche Anfragen nie gleich
+        var key = "\(session.configuration.timeoutIntervalForRequest)|\(session.configuration.timeoutIntervalForResource)|\(RequestKey.of(url))"
         if let post {
             let headers = (post.headers ?? [:]).sorted { $0.key < $1.key }.map { $0.key + "=" + $0.value }
             key = "POST|" + key + "|" + headers.joined(separator: ",") + "|" + post.body

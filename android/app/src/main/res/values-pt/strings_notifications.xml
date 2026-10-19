@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Texte der Mitteilungen -->
-    <string name="notification_activity_title">%1$s · %2$s</string>
+    <string name="notification_activity_title">Em destaque: %1$s · %2$s</string>
     <string name="notification_alarm_text">%1$s — agora %2$s</string>
     <string name="notification_alarm_title">Alarme: %1$s · %2$s</string>
     <string name="notification_depeg_action_exchange">Abrir exchange</string>
@@ -52,7 +52,7 @@
     <string name="channel_service">Atualização de cotações</string>
     <string name="channel_service_description">Aviso enquanto os preços são atualizados.</string>
     <string name="neutral_channel_market">Avisos de mercado</string>
-    <string name="neutral_channel_market_description">Fear &amp; Greed, taxas de gas, atividade invulgar e datas económicas</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed, taxas de gas, «Em destaque» e datas económicas</string>
 
     <!-- Sprachausgabe -->
     <string name="tts_alarm">Alarme. %1$s, %2$s %3$s %4$s, agora %5$s</string>

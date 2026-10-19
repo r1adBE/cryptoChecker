@@ -80,7 +80,10 @@ fun Throwable.toMarketFailure(): MarketFailure = when (this) {
     is InterruptedIOException -> MarketFailure.Timeout
     is SSLException -> MarketFailure.Ssl
     is UnknownHostException, is ConnectException, is NoRouteToHostException, is EOFException -> MarketFailure.Offline
-    is JSONException, is MarketParseException -> MarketFailure.Parse
+    // «Kein Eintrag für das Paar» in gültiger Antwort: Aussage über das Paar (NotTraded.isMissingEntry)
+    is MarketParseException ->
+        if (NotTraded.isMissingEntry(message)) MarketFailure.UnknownInstrument else MarketFailure.Parse
+    is JSONException -> MarketFailure.Parse
     else -> MarketFailure.Other
 }
 

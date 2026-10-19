@@ -42,7 +42,7 @@
     <string name="settings_exact_checks_grant">Να επιτρέπονται «Ξυπνητήρια και υπενθυμίσεις»</string>
     <string name="settings_exact_checks_hint">Το Android ελέγχει περίπου κάθε 15 λεπτά, ακόμη και όταν η συσκευή είναι σε αδράνεια. Καταναλώνει λίγο περισσότερη μπαταρία.</string>
     <string name="settings_exact_checks_nothing">Κανένα ενεργό ζεύγος – τίποτα για έλεγχο.</string>
-    <string name="settings_exact_checks_permission_missing">Λείπει η άδεια – το Android ελέγχει όποτε του ταιριάζει (περίπου κάθε 15 λεπτά ή αργότερα).</string>
+    <string name="settings_exact_checks_permission_missing">Λείπει η άδεια – όταν η συσκευή ηρεμεί, το Android ελέγχει ακανόνιστα, μερικές φορές μετά από ώρες.</string>
     <string name="settings_notification_change">Ειδοποίηση μόνο σε αλλαγή τιμής</string>
     <string name="settings_notification_change_always">Πάντα</string>
     <string name="settings_notification_change_hint">Η ειδοποίηση τιμής εμφανίζεται μόνο όταν η τιμή έχει κινηθεί τουλάχιστον τόσο από την προηγούμενη. Όσο λείπουν δεδομένα, δεν εμφανίζεται τίποτα. Οι συναγερμοί δεν επηρεάζονται.</string>
@@ -77,11 +77,11 @@
     <string name="settings_live_websocket">Τιμές live</string>
 
     <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
-    <string name="settings_activity_alerts">Αναφορά ασυνήθιστης δραστηριότητας</string>
+    <string name="settings_activity_alerts">Αξιοσημείωτα: ειδοποίηση</string>
     <string name="settings_activity_alerts_hint">Το πολύ μία φορά την ώρα ανά ζεύγος: ασυνήθιστες κινήσεις τιμής, άλματα όγκου και ακραίες τιμές στα futures (δεδομένα από Binance).</string>
     <string name="settings_activity_sensitivity">Ευαισθησία</string>
     <string name="settings_activity_sensitivity_hint">Πόσο εύκολα ένα νόμισμα θεωρείται ασυνήθιστο – ίδια για την κάρτα της λίστας παρακολούθησης και τις ειδοποιήσεις αγοράς. Με «Λιγότερα» η κάρτα δείχνει μόνο τα 3 ισχυρότερα.</string>
-    <string name="settings_watchlist_activity_card">Ασυνήθιστη δραστηριότητα στη λίστα</string>
+    <string name="settings_watchlist_activity_card">Αξιοσημείωτα: εμφάνιση στη λίστα</string>
     <string name="settings_watchlist_activity_card_hint">Εμφανίζει το ⚡ δίπλα στις ομάδες: πατήστε το για να δείτε μόνο τα ζεύγη όπου κάτι συμβαίνει τώρα. Οι ειδοποιήσεις ρυθμίζονται στις «Ειδοποιήσεις αγοράς».</string>
     <string name="settings_watchlist_names">Εμφάνιση ονομάτων</string>
     <string name="settings_watchlist_names_hint">Όνομα κάτω από το ζεύγος, π.χ. Bitcoin ή NVIDIA. Έρχεται με τις λίστες λογότυπων και φορτώνεται μία φορά για όλα τα νομίσματα.</string>
@@ -112,7 +112,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Χρώμα έμφασης</string>
-    <string name="settings_accent_hint">Χρώμα για την εφαρμογή, τα widget και το εικονίδιο της εφαρμογής.</string>
+    <string name="settings_accent_hint">Χρώμα για την εφαρμογή, τα widget και το εικονίδιο της εφαρμογής. Ορισμένες αρχικές οθόνες αφαιρούν το εικονίδιο κατά την αλλαγή – τότε προσθέστε το ξανά.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Λογότυπα νομισμάτων</string>
     <string name="settings_coin_logos_app">Στην εφαρμογή</string>

@@ -2,6 +2,7 @@ package com.cryptochecker.app.data.remote
 
 import com.cryptochecker.app.data.TickerImpl
 import com.cryptochecker.app.data.remote.util.HttpBodyLimit
+import com.cryptochecker.app.data.remote.util.RequestKey
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.exceptions.HttpMarketError
 import com.cryptochecker.app.domain.exceptions.MarketError
@@ -166,7 +167,8 @@ class MarketRemoteDataSource @Inject constructor(
         // Gruppen gescheiterter/ausgelassener Teilabfragen (Market.bulkTickersRequestGroup): nur deren
         // Paare gelten als unvollständig — bei Binance bleibt Spot ohne Alpha vollständig
         val brokenGroups = HashSet<Int>()
-        // Bereits geholte ungefilterte Abfragen decken jede Teilanfrage mit derselben Adresse ab
+        // Bereits geholte ungefilterte Abfragen decken jede Teilanfrage mit derselben Adresse ab (Schlüssel ohne
+        // Zeitstempel, RequestKey)
         val fullDone = HashSet<String>()
         // Eine Antwort, die sich selbst als lückenhaft meldet (Market.bulkResponseComplete), hebt «vollständig» auf
         var responsesComplete = true
@@ -177,7 +179,7 @@ class MarketRemoteDataSource @Inject constructor(
         for (call in 0 until callCount) {
             val filtered = market.getBulkTickersUrl(call, pairIds)
             val full = market.getBulkTickersUrl(call)
-            if (filtered.isNullOrEmpty() || filtered in fullDone) continue
+            if (filtered.isNullOrEmpty() || RequestKey.of(filtered) in fullDone) continue
 
             try {
                 val part = loadBulkCall(client, market, call, pairIds, filtered, full, fullDone) ?: continue
@@ -236,14 +238,14 @@ class MarketRemoteDataSource @Inject constructor(
         } catch (ex: Exception) {
             ex.rethrowIfCritical()
             if (ex.isRateLimit()) throw ex
-            if (full.isNullOrEmpty() || full == filtered) {
+            if (full.isNullOrEmpty() || RequestKey.of(full) == RequestKey.of(filtered)) {
                 retryWithoutUnknown(client, market, call, pairIds, postBody, ex) ?: throw ex
-            } else if (full in fullDone) {
+            } else if (RequestKey.of(full) in fullDone) {
                 null
             } else {
                 Timber.w(ex, "Gefilterte Sammelabfrage gescheitert, lade alle Paare: %s", market.key)
                 val body = client.callMarket(full, postBody, HttpBodyLimit.BULK_MAX_BYTES)
-                market.parseBulkTickersDetailed(call, body).also { fullDone.add(full) }
+                market.parseBulkTickersDetailed(call, body).also { fullDone.add(RequestKey.of(full)) }
             }
         }
     }

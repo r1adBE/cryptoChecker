@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="oem_battery_title">厂商省电设置</string>
+    <string name="oem_battery_xiaomi">小米可能会彻底停止应用，此时不会收到任何提醒。请开启「自启动」，并将省电策略设为「无限制」。</string>
+    <string name="oem_battery_samsung">三星可能会让应用深度休眠，此时不会收到任何提醒。请在 电池 › 后台使用限制 中将其加入「从不休眠的应用」。</string>
+    <string name="oem_battery_huawei">华为/荣耀可能会停止应用，此时不会收到任何提醒。请在 电池 › 应用启动管理 中选择「手动管理」并全部允许。</string>
+    <string name="oem_battery_oneplus">一加可能会停止应用，此时不会收到任何提醒。请允许「自动启动」，并在 耗电管理 中允许后台活动。</string>
+    <string name="oem_battery_oppo">OPPO/realme 可能会停止应用，此时不会收到任何提醒。请允许「自动启动」，并在 耗电管理 中允许后台活动。</string>
+    <string name="oem_battery_vivo">vivo 可能会停止应用，此时不会收到任何提醒。请允许「自启动」，并在 电池 中允许后台高耗电。</string>
+</resources>

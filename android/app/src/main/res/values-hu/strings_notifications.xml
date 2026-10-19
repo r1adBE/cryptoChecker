@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Texte der Mitteilungen -->
-    <string name="notification_activity_title">%1$s · %2$s</string>
+    <string name="notification_activity_title">Feltűnő: %1$s · %2$s</string>
     <string name="notification_alarm_text">%1$s — most %2$s</string>
     <string name="notification_alarm_title">Riasztás: %1$s · %2$s</string>
     <string name="notification_depeg_action_exchange">Tőzsde megnyitása</string>
@@ -51,7 +51,7 @@
     <string name="channel_service">Árfolyam-frissítés</string>
     <string name="channel_service_description">Jelzés, amíg az árak frissülnek.</string>
     <string name="neutral_channel_market">Piaci értesítések</string>
-    <string name="neutral_channel_market_description">Fear &amp; Greed, gas-díjak, szokatlan aktivitás és gazdasági időpontok</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed, gas-díjak, „Feltűnő” és gazdasági időpontok</string>
 
     <!-- Sprachausgabe -->
     <string name="tts_alarm">Riasztás. %1$s, %2$s %3$s %4$s, most %5$s</string>

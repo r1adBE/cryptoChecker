@@ -147,7 +147,7 @@
     <string name="alarm_saved_notifications_off">Notifications désactivées</string>
 
     <!-- Wann Alarme geprüft werden -->
-    <string name="alarm_timing_hint_android">App fermée, Android vérifie irrégulièrement – souvent après plus de 15 minutes, même avec « %1$s ». De brefs pics peuvent passer inaperçus.</string>
+    <string name="alarm_timing_hint_android">Sans « %1$s », Android vérifie irrégulièrement quand l’appareil est en veille, parfois après des heures. Avec, environ toutes les 15 min.</string>
     <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">App fermée, iOS vérifie souvent après plus de 15 minutes, parfois seulement à la prochaine ouverture. De brefs pics peuvent passer inaperçus.</string>
     <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
     <string name="alarm_timing_title">Quand les alertes sont vérifiées</string>

@@ -139,6 +139,8 @@ struct TaxSummaryLine: Sendable, Equatable {
     var note: TaxSummaryNote? = nil
     /// Datum im Vermerk (`.WINDOW_OPEN`: Käufe bis …); nil = keins.
     var noteDate: LocalDay? = nil
+    /// An einem Tag ohne USDT/USD-Schluss mit USDT = 1 umgerechnet; zählt in `TaxYearSummary.usdtApproximate`.
+    var usdtApproximate = false
 
     /// Text des Vermerks aus `texts` samt Datum (ISO) — wie `noteText` (Android); nil = keiner.
     func noteText(_ texts: TaxSummaryTexts) -> String? {
@@ -162,4 +164,7 @@ struct TaxYearSummary: Sendable, Equatable {
     var walletFrom: LocalDay? = nil
     /// CH: Vermögenswert per 31.12. je Coin (`TaxExport.chWealth`); nil = nicht gerechnet bzw. andere Vorlage.
     var wealth: TaxWealth? = nil
+    /// Irgendein Betrag der Übersicht an einem Tag ohne USDT/USD-Schluss mit USDT = 1 umgerechnet — eigene Zeile
+    /// `TaxSummaryTexts.usdtAssumed` in der Datei. Wie Android.
+    var usdtApproximate = false
 }

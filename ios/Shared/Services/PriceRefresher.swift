@@ -183,8 +183,10 @@ enum PriceRefresher {
                     markets.append(market)
                 }
                 markets.append(contentsOf: pausedMarkets(paused, backoff: backoff))
-                SharedStorage.exchangeBackoff = ExchangeBackoff.merge(ours: backoff, initial: initialBackoff,
-                                                                      stored: SharedStorage.exchangeBackoff)
+                // 429 bei Spot pausiert auch Futures auf demselben Host (und umgekehrt) — wie Android
+                SharedStorage.exchangeBackoff = ExchangeBackoff.merge(
+                    ours: ExchangeBackoff.withHostGroupPauses(backoff, now: finished), initial: initialBackoff,
+                    stored: SharedStorage.exchangeBackoff)
             }
             let needingCandles = watchesNeedingCandles(watches, fetched: fetched, basis: basis, remember: onlyWatchId == nil)
             let startedKeys = Set(earlyKeys.map { "\($0.base)|\($0.quote)" })

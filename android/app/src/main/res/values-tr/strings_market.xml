@@ -81,12 +81,12 @@
     <string name="market_cap_title">Kripto piyasası</string>
     <string name="market_volume_label">24 sa hacim</string>
 
-    <!-- Crypto Pulse «Was gerade auffällt»: Titel, Abschnitte, Hinweise -->
+    <!-- Crypto Pulse «Kurz gesagt»: Titel, Abschnitte, Hinweise -->
     <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
     <string name="pulse_details_action">Ayrıntılar</string>
     <string name="pulse_disclaimer">Tahmin değildir · Yatırım tavsiyesi değildir</string>
     <string name="pulse_less">Daha az göster</string>
-    <string name="pulse_now_title">Şu an öne çıkan</string>
+    <string name="pulse_now_title">Kripto nabzı</string>
     <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
     <string name="pulse_period_24h_spoken">24 saatlik değişim</string>
     <string name="pulse_section_factors">Faktörler</string>
@@ -153,7 +153,7 @@
     <string name="pulse_volume_low">İşlem hacmi düşük (normalin %1$s×)</string>
     <string name="pulse_volume_normal">İşlem hacmi normal</string>
 
-    <!-- «Heute auffällig» (grösste Coins mit ungewöhnlicher Bewegung) -->
+    <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
     <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
     <!-- Screenreader-Aktion einer Zeile (öffnet das Aktionsblatt bzw. die Vorschau) -->
     <string name="unusual_action_open">Fiyatı ve işlemleri göster</string>
@@ -165,11 +165,11 @@
     <string name="unusual_fact_weaker">BTC\'den çok daha zayıf hareket ediyor</string>
     <string name="unusual_nothing">Bugün olağandışı bir şey yok</string>
     <string name="unusual_source">Stablecoin\'ler hariç en büyük yaklaşık 30 coin · Binance, CoinGecko</string>
-    <string name="unusual_title">Bugün öne çıkanlar</string>
+    <string name="unusual_title">Dikkat çekici</string>
 
-    <!-- Ungewöhnliche Aktivität eines Paars (Karte, Signale, Empfindlichkeit) -->
-    <string name="activity_card_title">Olağandışı etkinlik</string>
-    <string name="activity_indicator">Olağandışı etkinlik</string>
+    <!-- «Auffällig» je Paar: ⚡ in der Merkliste, Signale, Empfindlichkeit -->
+    <string name="activity_card_title">Dikkat çekici</string>
+    <string name="activity_indicator">Dikkat çekici</string>
     <string name="activity_sensitivity_less">Daha az</string>
     <string name="activity_sensitivity_more">Daha fazla</string>
     <string name="activity_sensitivity_normal">Normal</string>

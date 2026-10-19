@@ -41,6 +41,11 @@ object NotTraded {
      * Text) bestätigt nie — sonst verstummte ein Paar wegen eines eigenen Fehlers für Stunden (BulkDelisted). Ein
      * leerer Text bestätigt nur ohne Art (gespeicherte ältere Ergebnisse «ohne Kurs»); die Einzelabfrage selbst meldet
      * «ohne Kurs» als Lesefehler («Parsed ticker has no data»).
+     *
+     * Meldet der Leser in einer sonst gültigen Antwort «kein Eintrag für das Paar» ([isMissingEntry]), bestätigt das
+     * ebenfalls — gleichwertig zu «Antwort ohne Kurs». Sicher, weil diese Prüfung nur nach einer vollständigen
+     * Kursliste ohne das Paar läuft (PriceFetcher.confirmMissing): Zwei unabhängige Aussagen statt einer kurz
+     * leeren Antwort.
      */
     fun confirmedBySingle(gotPrice: Boolean, error: String?, failure: MarketFailure? = null): Boolean {
         if (gotPrice) return false
@@ -54,7 +59,7 @@ object NotTraded {
         if (error.isNullOrBlank()) return failure == null
         return when (RefreshReportLogic.classify(error)) {
             RefreshFailure.NO_DATA -> true
-            RefreshFailure.OTHER -> isUnknownInstrument(error)
+            RefreshFailure.OTHER -> isUnknownInstrument(error) || isMissingEntry(error)
             RefreshFailure.SERVER -> RefreshReportLogic.httpStatus(error)?.let { it in CONFIRMING_HTTP } ?: false
             else -> false
         }
@@ -65,6 +70,22 @@ object NotTraded {
         val lower = error?.lowercase() ?: return false
         return UNKNOWN_INSTRUMENT_HINTS.any { it in lower }
     }
+
+    /**
+     * Meldung des eigenen Lesers: Antwort gültig, aber ohne Eintrag für das Paar — `MarketParseException.NO_DATA`
+     * («No data», leere Liste bzw. Paar fehlt im Objekt) oder Hyperliquid «Unknown coin: …». Genau dieser Text, nicht
+     * jedes «no data» irgendwo in einer Meldung.
+     */
+    fun isMissingEntry(message: String?): Boolean {
+        val text = message?.trim() ?: return false
+        return text == NO_ENTRY || text.lowercase().startsWith(UNKNOWN_COIN)
+    }
+
+    /** = MarketParseException.NO_DATA (hier ohne Abhängigkeit vom Marktdaten-Modul); iOS `JSONError.noData`. */
+    private const val NO_ENTRY = "No data"
+
+    /** Anfang der Hyperliquid-Meldung für einen Coin, den die Antwort nicht führt (klein geschrieben). */
+    private const val UNKNOWN_COIN = "unknown coin"
 
     /** HTTP-Status, die über das Paar etwas sagen (Anfrage abgelehnt bzw. nicht gefunden). */
     private val CONFIRMING_HTTP = setOf(400, 404)

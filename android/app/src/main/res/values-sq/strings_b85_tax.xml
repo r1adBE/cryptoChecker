@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
+    <string name="tax_export_day_close_rule">Vlerat e tregut pa çmim të regjistruar (tarifat, dhuruar/paguar, shkëmbim, shpërblime, tarifat e rrjetit, vlera e portofolit) me mbylljen ditore (UTC) të ditës së transaksionit</string>
+</resources>

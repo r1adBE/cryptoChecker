@@ -241,9 +241,10 @@ enum LowMemoryBulk {
         "GateIo", "Kucoin", "Mexc", "Htx", "Bitget", "Okex", "Poloniex", "Latoken", "Phemex", "Binance",
     ]
 
-    /// Ist die Sammelabfrage dieser Paare ungefiltert (gleiche URL wie ohne Auswahl)?
+    /// Ist die Sammelabfrage dieser Paare ungefiltert (gleiche URL wie ohne Auswahl, ohne Zeitstempel: `RequestKey`)?
     static func isUnfiltered(_ market: Market, pairIds: [String]) -> Bool {
-        market.bulkTickersURL(call: 0, pairIds: pairIds) == market.bulkTickersURL(call: 0)
+        market.bulkTickersURL(call: 0, pairIds: pairIds).map(RequestKey.of)
+            == market.bulkTickersURL(call: 0).map(RequestKey.of)
     }
 
     /// Teilanfrage, die das Widget auslässt: die grosse Alpha-Token-Liste von Binance (ihre Paare dann einzeln).

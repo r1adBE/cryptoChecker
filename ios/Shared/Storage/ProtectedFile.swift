@@ -258,8 +258,9 @@ enum ProtectedFile {
     /// Start der App überführt die Datei. Liegt dort aber schon eine verschlüsselte Datei, wird sie ohne Schlüssel nie
     /// durch Klartext ersetzt (`locked`): sonst stünden z. B. Widget-Daten nach einem kurz gesperrten Schlüsselbund
     /// wieder unverschlüsselt da. Das Backup-Merkmal setzen die Aufrufer danach neu (neue Datei).
-    /// `requireSealed` (Portfolio und Portfolio-Alarme): ohne Schlüssel nie Klartext, auch nicht für eine neue oder noch
-    /// unverschlüsselte Datei — `locked`; der Aufrufer behält den Stand im Speicher und schreibt beim nächsten Mal
+    /// `requireSealed` (Merkliste, Portfolio, Portfolio-Alarme, Adressen, Alarm-Protokoll): ohne Schlüssel nie Klartext,
+    /// auch nicht für eine neue oder noch unverschlüsselte Datei — `locked`; der Aufrufer behält den Stand im Speicher
+    /// und schreibt beim nächsten Mal
     /// (wie die Widget-Aufnahme, `PortfolioWidgetStore.writeSnapshotFile`).
     static func write(_ data: Data, to url: URL, keys: StorageKey = .shared, requireSealed: Bool = false) throws {
         guard case .key(let key) = keys.lookup() else {

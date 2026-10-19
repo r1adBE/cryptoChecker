@@ -194,9 +194,15 @@ extension TaxExport {
                 var outUsdt: Decimal = 0
                 var outTarget: Decimal = 0
                 var outFx = false
+                var outUsdtApproximate = false
                 for o in outs {
                     guard let r = o.ptaReductionUsdt else { continue }
                     outUsdt += r
+                    // Tage, deren Kurs die Kürzung braucht: ohne USDT/USD-Schluss mit USDT = 1 (nie still) — wie Android
+                    let days = o.ptaReductionParts.isEmpty ? [o.time] : o.ptaReductionParts.map(\.time)
+                    if days.contains(where: { usdtApproximateOn(usdtUsd, date: localDay($0, timeZone: timeZone)) }) {
+                        outUsdtApproximate = true
+                    }
                     // Kürzung = Anteil der Erwerbspreis-Summe: je Herkunft zum Kurs ihres Kaufdatums (wie der Einstand
                     // einer Abtretung), ohne Herkunft (Kürzung 0) zum Kurs des Abgangs — wie Android
                     var t: Decimal? = 0
@@ -214,7 +220,7 @@ extension TaxExport {
                     if let t { outTarget += t } else if fx { outFx = true }
                 }
                 lines.append(TaxSummaryLine(line: .FR_OUTFLOW, usdt: outUsdt, target: fx ? outTarget : nil,
-                                            incomplete: true, noFx: outFx))
+                                            incomplete: true, noFx: outFx, usdtApproximate: fx && outUsdtApproximate))
             }
         }
         let netIncomplete = net.incomplete
@@ -361,7 +367,10 @@ extension TaxExport {
         case .NEUTRAL:
             break
         }
+        // USDT = 1 irgendwo in der Übersicht (Tag ohne USDT/USD-Schluss, z. B. vor dem Fenster der Quellen): nie still
+        let usdtApproximate = allRows.contains(where: \.usdtApproximate) || allIncome.contains(where: \.usdtApproximate)
+            || lines.contains(where: \.usdtApproximate) || (wealth != nil && usdtApproximateOn(usdtUsd, date: period.end))
         return TaxYearSummary(template: template, method: method, period: period, currency: currency, fxAvailable: fx,
-                              lines: lines, walletFrom: walletFrom, wealth: wealth)
+                              lines: lines, walletFrom: walletFrom, wealth: wealth, usdtApproximate: usdtApproximate)
     }
 }

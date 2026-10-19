@@ -153,7 +153,7 @@
     <string name="alarm_saved_notifications_off">Сповіщення вимкнено</string>
 
     <!-- Wann Alarme geprüft werden -->
-    <string name="alarm_timing_hint_android">Коли застосунок закрито, Android перевіряє нерегулярно – часто рідше ніж раз на 15 хвилин, навіть з «%1$s». Короткі стрибки можна пропустити.</string>
+    <string name="alarm_timing_hint_android">Без «%1$s» Android перевіряє нерегулярно, коли пристрій у спокої, – іноді лише через кілька годин. З ним – приблизно кожні 15 хвилин.</string>
     <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">Коли застосунок закрито, iOS часто перевіряє пізніше ніж через 15 хвилин, іноді лише під час наступного відкриття. Короткі стрибки можна пропустити.</string>
     <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
     <string name="alarm_timing_title">Коли перевіряються сигнали</string>

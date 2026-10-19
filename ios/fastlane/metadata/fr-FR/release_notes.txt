@@ -21,7 +21,7 @@ Version 16.2.2
 • Frais de réseau pour Ethereum, Base, Arbitrum, Polygon, BNB Chain et Bitcoin dans l’onglet Marché, avec alerte gas
 • Une note pour chaque crypto de votre liste de suivi
 • Choix du son d’alerte
-• Activité inhabituelle : repère les mouvements de prix et de volume anormaux, notifications facultatives
+• À noter : repère les mouvements de prix et de volume anormaux, notifications facultatives
 • Portefeuille dans son propre onglet (à activer dans les réglages) : achats et ventes, prix moyen, gains/pertes
 • Groupes pour votre liste de suivi
 • Nouvelles alertes : mouvement de X % en Y heures et pic de volume

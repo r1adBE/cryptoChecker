@@ -221,6 +221,40 @@ enum ExchangeBackoff {
         let until = max(now + max(own, asked), recent?.pausedUntil ?? 0)
         return State(strikes: strikes, pausedUntil: until, reason: .RATE_LIMIT, timeoutRuns: 0)
     }
+
+    // MARK: - Gemeinsame Pause von Spot und Futures auf demselben Host
+
+    /// Börsen-Schlüssel der Kursabfrage, deren Spot- und Futures-Teil denselben Host und damit dasselbe Limit nutzen
+    /// (Wert = Host). Die Pause gilt je Schlüssel; ohne diese Zuordnung pausierte ein 429 nur den einen Teil, und der
+    /// andere fragte weiter beim schon bremsenden Host. Binance läuft breiter über `sharedGroup` (`BlockedSources`).
+    static let hostGroups: [String: String] = [
+        "BingX": "open-api.bingx.com", "BingXFutures": "open-api.bingx.com",
+        "Bybit": "api.bybit.com", "BybitFutures": "api.bybit.com",
+        "Okex": "www.okx.com", "OkexFutures": "www.okx.com",
+        "Phemex": "api.phemex.com", "PhemexFutures": "api.phemex.com",
+        "Bitget": "api.bitget.com", "BitgetFutures": "api.bitget.com",
+        "Woo": "api.woox.io", "WooFutures": "api.woox.io",
+    ]
+
+    /// Laufende «zu viele Anfragen»-Pausen (`.RATE_LIMIT`) auf die übrigen Schlüssel derselben Host-Gruppe
+    /// (`hostGroups`) übertragen — wie die gemeinsame Binance-Pause im `PriceRefresher`. Eine längere eigene Pause
+    /// bleibt; Pausen wegen Zeitüberschreitung bleiben je Schlüssel (sie sagen nichts über das Limit). Wie Android.
+    static func withHostGroupPauses(_ states: [String: State], now: Int64) -> [String: State] {
+        var result = states
+        for (key, state) in states {
+            guard let group = hostGroups[key], state.reason == .RATE_LIMIT, isPaused(state, now: now) else { continue }
+            for (other, otherGroup) in hostGroups where other != key && otherGroup == group {
+                let current = result[other]
+                if let current, isPaused(current, now: now), current.pausedUntil >= state.pausedUntil { continue }
+                var copy = current ?? State(strikes: 1)
+                copy.pausedUntil = state.pausedUntil
+                copy.reason = .RATE_LIMIT
+                copy.timeoutRuns = 0
+                result[other] = copy
+            }
+        }
+        return result
+    }
 }
 
 /// App-Start bis zum ersten Bild der Merkliste, nur lokal gemessen (Bericht «Ablauf») — wie

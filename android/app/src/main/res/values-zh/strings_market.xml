@@ -80,12 +80,12 @@
     <string name="market_cap_title">加密货币市场</string>
     <string name="market_volume_label">24 小时成交量</string>
 
-    <!-- Crypto Pulse «Was gerade auffällt»: Titel, Abschnitte, Hinweise -->
+    <!-- Crypto Pulse «Kurz gesagt»: Titel, Abschnitte, Hinweise -->
     <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
     <string name="pulse_details_action">详情</string>
     <string name="pulse_disclaimer">不是预测 · 不构成投资建议</string>
     <string name="pulse_less">收起</string>
-    <string name="pulse_now_title">当前亮点</string>
+    <string name="pulse_now_title">加密脉搏</string>
     <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
     <string name="pulse_period_24h_spoken">24 小时变化</string>
     <string name="pulse_section_factors">因素</string>
@@ -152,7 +152,7 @@
     <string name="pulse_volume_low">成交量偏低（常态的 %1$s×）</string>
     <string name="pulse_volume_normal">成交量正常</string>
 
-    <!-- «Heute auffällig» (grösste Coins mit ungewöhnlicher Bewegung) -->
+    <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
     <string name="unusual_a11y_row">%1$s，%2$s。%3$s。</string>
     <!-- Screenreader-Aktion einer Zeile (öffnet das Aktionsblatt bzw. die Vorschau) -->
     <string name="unusual_action_open">显示价格和操作</string>
@@ -164,11 +164,11 @@
     <string name="unusual_fact_weaker">波动明显弱于 BTC</string>
     <string name="unusual_nothing">今日无明显异动</string>
     <string name="unusual_source">约 30 个最大币种（不含稳定币）· Binance、CoinGecko</string>
-    <string name="unusual_title">今日异动</string>
+    <string name="unusual_title">值得关注</string>
 
-    <!-- Ungewöhnliche Aktivität eines Paars (Karte, Signale, Empfindlichkeit) -->
-    <string name="activity_card_title">异常活动</string>
-    <string name="activity_indicator">异常活动</string>
+    <!-- «Auffällig» je Paar: ⚡ in der Merkliste, Signale, Empfindlichkeit -->
+    <string name="activity_card_title">值得关注</string>
+    <string name="activity_indicator">值得关注</string>
     <string name="activity_sensitivity_less">较少</string>
     <string name="activity_sensitivity_more">较多</string>
     <string name="activity_sensitivity_normal">标准</string>

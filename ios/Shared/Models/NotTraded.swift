@@ -32,6 +32,11 @@ enum NotTraded {
     /// nie — sonst verstummte ein Paar wegen eines eigenen Fehlers für Stunden (BulkDelisted). Ein leerer Text
     /// bestätigt nur ohne Art (gespeicherte ältere Ergebnisse «ohne Kurs»); die Einzelabfrage selbst meldet «ohne
     /// Kurs» als Lesefehler («Parsed ticker has no data»).
+    ///
+    /// Meldet der Leser in einer sonst gültigen Antwort «kein Eintrag für das Paar» (`isMissingEntry`), bestätigt das
+    /// ebenfalls — gleichwertig zu «Antwort ohne Kurs». Sicher, weil diese Prüfung nur nach einer vollständigen
+    /// Kursliste ohne das Paar läuft (`PriceFetcher.fetchSingle(_:confirmMissing:)`): Zwei unabhängige Aussagen statt
+    /// einer kurz leeren Antwort.
     static func confirmedBySingle(gotPrice: Bool, error: String?, failure: MarketFailure? = nil) -> Bool {
         if gotPrice { return false }
         switch failure {
@@ -45,7 +50,7 @@ enum NotTraded {
         case .NO_DATA:
             return true
         case .OTHER:
-            return isUnknownInstrument(error)
+            return isUnknownInstrument(error) || isMissingEntry(error)
         case .SERVER:
             guard let code = RefreshReportLogic.httpStatus(error) else { return false }
             return confirmingHTTP.contains(code)
@@ -59,6 +64,20 @@ enum NotTraded {
         guard let lower = error?.lowercased() else { return false }
         return unknownInstrumentHints.contains { lower.contains($0) }
     }
+
+    /// Meldung des eigenen Lesers: Antwort gültig, aber ohne Eintrag für das Paar — `JSONError.noData` («No data»,
+    /// leere Liste bzw. Paar fehlt im Objekt) oder Hyperliquid «Unknown coin: …». Genau dieser Text, nicht jedes
+    /// «no data» irgendwo in einer Meldung. Wie `NotTraded.kt`.
+    static func isMissingEntry(_ message: String?) -> Bool {
+        guard let text = message?.trimmingCharacters(in: .whitespacesAndNewlines) else { return false }
+        return text == noEntry || text.lowercased().hasPrefix(unknownCoin)
+    }
+
+    /// = `JSONError.noData` (hier nur Foundation, auch im Widget); Android `MarketParseException.NO_DATA`.
+    private static let noEntry = "No data"
+
+    /// Anfang der Hyperliquid-Meldung für einen Coin, den die Antwort nicht führt (klein geschrieben).
+    private static let unknownCoin = "unknown coin"
 
     /// HTTP-Status, die über das Paar etwas sagen (Anfrage abgelehnt bzw. nicht gefunden).
     private static let confirmingHTTP: Set<Int> = [400, 404]

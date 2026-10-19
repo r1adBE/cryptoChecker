@@ -149,7 +149,7 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
   Coin-Karte: RSI, Trend und Stärke gegenüber Bitcoin (`CoinCycleModel.kt`); Halving nur als Monat «~Apr 2028»
   (`BitcoinCycle.kt`, Intervall 1458 Tage); «Altcoins gegenüber Bitcoin» als Anzahl statt «Altcoin-Saison».
   Zonen-Meldungen entfernt (alter Sicherungs-Schlüssel wird ignoriert), Markt-Meldungen: Fear & Greed, Gas,
-  ungewöhnliche Aktivität, Wirtschaftstermine.
+  «Auffällig», Wirtschaftstermine.
 * **«Wie aktuell?»** — ersetzt die Schalter «Häufig aktualisieren»/«Live-Kurse»: Sparsam (empfohlen, Standard seit Build 43, 15 Min.) · Live, solange offen
   (für Profis); «Immer kurz» seit Build 40 entfernt, alte Werte werden zu «Live, solange offen» (`settings/UpdateMode.kt`, DataStore-Migration aus den alten Schaltern; die
   Sicherung schreibt `updateMode` und weiter die alten Felder). Merkliste zeigt «Live» nur, wenn alle sichtbaren
@@ -162,7 +162,7 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
   (`AppColors.warningText`), Zeitfenster klein und grau. Merklisten-Zeilen, Puls-Zeile («↗ 233 steigen ↘ 295 fallen
   Ø +0.32%»), Aktionsblatt («↗ +41.71% · 24h · Aktualisiert …»), Marktdaten (Funding als farbige Schrift ohne
   Pfeil), «Warum?» (Faktoren unter «Kurz gesagt» als eine graue Textzeile), Markt-Karten (Fear-&-Greed-Zahl in der
-  Stufenfarbe, «Krypto-Markt 2.82 Bio. USD ↘ −2.77% · 24h», «Heute auffällig» mit grauem «24h») und Portfolio
+  Stufenfarbe, «Krypto-Markt 2.82 Bio. USD ↘ −2.77% · 24h», «Auffällig» mit grauem «24h») und Portfolio
   (Heute · 7 T · Gesamt als farbige Schrift, Beträge mit Pfeil «↗ +12.40 USDT»; neue Zeile unter dem Gesamtwert mit
   der Veränderung über ein Jahr «↘ −38'412.95 USDT −27.85% · 1J», bei weniger als einem Jahr Verlauf ausgeblendet).
   `ChangePill` / `TonePill` (`ui/components/ChangePill.kt`) zeichnen nur noch Text, Farbe aus `pillContent(PillTone)`.
@@ -269,7 +269,7 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
   wenn er dahinter ist, `ListWidgetDataVersionTest`) – nie mehr neue Zeit über alten Zeilen. Puls-Widget:
   Fear-&-Greed-Zahl in den fünf Stufenfarben, «↗ 21» grün / «↘ 9» rot, «Top 30 · 24h», «24h» vor den Coins.
 * **Markt und Portfolio mit Status-Pille** — gemeinsame `ui/components/DataStatusPill.kt` (aktuell grün,
-  offline/lädt grau, veraltet rot). Markt: «Was gerade auffällt» mit «24h» über den Coins, «Top 30 · 24h»,
+  offline/lädt grau, veraltet rot). Markt: «Auffällig» mit «24h» über den Coins, «Top 30 · 24h»,
   Marktkap. als «Krypto-Markt … ↘ −2.77% · 24h»; Fear-&-Greed-Zahl als farbige Schrift; «Offline · Stand HH:MM» behält die
   letzten Daten, lädt offline nichts und holt abgelaufene Daten nach, sobald das Netz zurück ist. Portfolio:
   «Alles aktuell» / «Kurse veraltet · Stand HH:MM» / «Offline · Stand HH:MM»; letzter Kurs je Coin mit Zeitpunkt
@@ -367,7 +367,7 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
   speichern vor melden, Hoch/Tief-Marke, ohne Mitteilungs-Erlaubnis nicht verbraucht), Wiederherstellung prüft
   zuerst (`data/WatchlistRestoreCleanup.kt`), DataStore übersteht beschädigte Datei, Zahlen-Eingabe im Portfolio
   wie Alarm-Schwellen (`ThresholdParser.parseAllowingZero`, `util/DecimalText.kt`), Börsen-Parser (OKX, Gate,
-  Kraken, Volumen). «Heute auffällig» öffnet das Aktionsblatt (Vorschau für nicht beobachtete Coins,
+  Kraken, Volumen). «Auffällig» öffnet das Aktionsblatt (Vorschau für nicht beobachtete Coins,
   `ui/features/info/MarketCoinSheets.kt`); langes Drücken = Auswählen; Gruppen-Chips mit Rand in der Themenfarbe.
 * **Portfolio-Zahlen und Sicherung** — eine Stablecoin-Regel (`domain/portfolio/PortfolioStables.kt`),
   Wertverlauf mit EZB-Tageskursen (`PortfolioHistoryFx.kt`), 25-%-Sperre für den Stichtag, im Verlauf
@@ -376,7 +376,7 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
   AppDatabase v13 durch `PortfolioLegacyImport`), standardmässig nicht in der Systemsicherung (Schalter
   «Portfolio in Systemsicherung», `PortfolioBackupMirror`); Börsen-Vertragstests mit
   `android/testdata/exchanges` (`ExchangeContractTest`); ehrlicher Text beim ersten Alarm.
-* **Listen einheitlich** — Merkliste, Start-Auswahl, «Heute auffällig» und Portfolio mit gleichem
+* **Listen einheitlich** — Merkliste, Start-Auswahl, «Auffällig» und Portfolio mit gleichem
   Logo (36 dp) und gleicher Schrift; die Liste wirkt wie eine Karte: keine Fuge, Trennlinien über die
   ganze Breite, nur erste und letzte Zeile aussen 16 dp gerundet, ein Rand um die ganze Liste
   (`ui/components/ListSegment.kt`). Markt: Status-Pille
@@ -456,7 +456,7 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
 * **Theme «Marrs Green»** — fünfte Akzentfarbe (#4BACA5, das Türkis aus der
   G.F-Smith-Umfrage 2017) mit eigenem App-Icon und Logo; die Einstellung heisst jetzt
   **Theme** (vorher «Farbe»). Themes: Orange, Rot, Blau, Grün und Marrs Green.
-* **⚡ Ungewöhnliche Aktivität** — erkennt ungewöhnliche Kursbewegungen im
+* **⚡ «Auffällig» je Paar** (bis Build 84 «Ungewöhnliche Aktivität») — erkennt ungewöhnliche Kursbewegungen im
   Vergleich zur normalen Volatilität, Volumen-Spikes, extreme Funding Rates und
   Sprünge im Open Interest; Benachrichtigungen optional (standardmässig aus).
   **Empfindlichkeit** Weniger/Normal/Mehr (Schwellen ×1,5/×1/×0,75, eine Stelle in
@@ -565,7 +565,7 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
 
 ### Verstehen statt nur Zahlen (16.2.2)
 
-* **Crypto Pulse «Was gerade auffällt»** — erste Karte im Markt-Tab:
+* **Crypto Pulse «Auffällig»** (bis Build 84 «Was gerade auffällt») — erste Karte im Markt-Tab:
   Schlagzeile mit Leitsatz (z. B. «Bitcoin führt den Markt an.») und einem
   zweiten Satz zu Volumen und Funding, darunter BTC, ETH, SOL (24 h), ein
   Funding-Chip (nur wenn erhöht/negativ), die Marktbreite «Top 30 ↗ 22 · ↘ 8» als farbige Schrift (grösste Coins
@@ -575,7 +575,7 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
   Volumen, Fear & Greed und Gas stehen nicht doppelt, sie haben eigene Karten
   im Tab. Feste Regeln, keine Prognose (`domain/market/CryptoPulse.kt`,
   `ui/features/info/CryptoPulseCard.kt`).
-* **«Heute auffällig»** — seit Build 83 im zugeklappten Teil «Mehr Marktdaten» (Abschnitt «Jetzt», Teil des
+* **«Auffällig» (Karte im Markt-Tab)** (bis Build 84 «Heute auffällig») — seit Build 83 im zugeklappten Teil «Mehr Marktdaten» (Abschnitt «Jetzt», Teil des
   schrittweisen Erscheinens): bis zu fünf der rund 30 grössten Coins (ohne Stablecoins, mit
   …USDT auf Binance), die heute deutlich stärker/schwächer als BTC laufen (≥ 3 Prozentpunkte),
   gegen den Markt (≥ 2 %, andere Richtung als BTC), mit ungewöhnlichem Volumen (≥ 2× üblich) oder
@@ -648,7 +648,7 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
 * **Akku-Hinweis erst nach dem ersten Alarm** — nie beim ersten Start oder beim
   Hinzufügen der ersten Coins; er erscheint, sobald man nach dem ersten Alarm
   wieder auf einem Haupt-Tab ist (`ui/features/about/BatteryOptimizationDialog.kt`).
-* **Markt-Tab in drei Abschnitten** — oben ohne Titel mit Status-Pille (seit Build 83: Hauptkarte Crypto Pulse mit «Kurz gesagt», darunter ruhig Fear & Greed kompakt und Gewinner/Verlierer 3+3, zugeklappt «Mehr Marktdaten» mit «Heute auffällig» und Makro; früher Crypto Pulse, «Heute auffällig»,
+* **Markt-Tab in drei Abschnitten** — oben ohne Titel mit Status-Pille (seit Build 83: Hauptkarte Crypto Pulse mit «Kurz gesagt», darunter ruhig Fear & Greed kompakt und Gewinner/Verlierer 3+3, zugeklappt «Mehr Marktdaten» mit «Auffällig» und Makro; früher Crypto Pulse, «Auffällig»,
   Fear & Greed), «Einordnung» (Marktphase, Dominanz mit Altcoin-Saison, Halving)
   und «Daten» (Krypto-Markt, Gas, Wirtschaftsdaten, Coin; Wirtschaftsdaten nur bei einem Termin in ±2 h oben); die Überschriften sind für TalkBack Überschriften.
 * **Markt-Tab sofort da** — zeigt beim Öffnen die zuletzt gespeicherten Daten
@@ -694,7 +694,7 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
   Klein (z. B. 2 × 1) kompakter, damit «≈ … USDT» noch passt; ist «heute» zu
   breit, nur der Prozentwert. Anzeige, Zeitraum (24 h / 7 T / 30 T / 1 J) und Kerzen/Linie
   je Widget, siehe «Zuletzt dazugekommen».
-* **Widget «Was gerade auffällt»** — Crypto Pulse auf dem Startbildschirm:
+* **Widget «Auffällig»** — Crypto Pulse auf dem Startbildschirm:
   Schlagzeile mit ↗/↘ in der Kursfarbe, Leitsatz (2 Zeilen), Coins als farbiger Text (so viele
   von BTC/ETH/SOL, wie ganz passen); Titel und Schlagzeile werden kleiner bzw.
   zweizeilig statt abgeschnitten; Tippen öffnet den Markt-Tab. Daten aus dem
@@ -773,7 +773,7 @@ bei Alarmen.
 aller beobachteten Paare mit Kurs und Veränderung. Dazu das Einzel-Widget
 (Kerzen oder Linie, Preise Tief/Mitte/Hoch, aktueller Kurs als Marke) und das
 Portfolio-Widget (je nach Grösse Gesamtwert, ≈ USDT, heute, Wertverlauf und die
-grössten Positionen) sowie das Widget «Was gerade auffällt» (Crypto Pulse). Beim Ablegen wird der
+grössten Positionen) sowie das Widget «Auffällig» (Crypto Pulse). Beim Ablegen wird der
 Hintergrund gewählt (transparent mit hellem oder dunklem Text, dunkel, hell,
 marineblau). Ein Tipp auf eine Zeile öffnet die App, der Knopf aktualisiert.
 

@@ -42,7 +42,7 @@
     <string name="settings_exact_checks_grant">Дозволити «Будильники й нагадування»</string>
     <string name="settings_exact_checks_hint">Android перевіряє приблизно кожні 15 хвилин, навіть коли пристрій у спокої. Витрачає трохи більше батареї.</string>
     <string name="settings_exact_checks_nothing">Немає активних пар – нічого перевіряти.</string>
-    <string name="settings_exact_checks_permission_missing">Немає дозволу – Android перевіряє, коли йому зручно (приблизно кожні 15 хв або пізніше).</string>
+    <string name="settings_exact_checks_permission_missing">Немає дозволу – коли пристрій у спокої, Android перевіряє нерегулярно, іноді лише через кілька годин.</string>
     <string name="settings_notification_change">Сповіщати лише при зміні ціни</string>
     <string name="settings_notification_change_always">Завжди</string>
     <string name="settings_notification_change_hint">Сповіщення з\'являється лише тоді, коли ціна змінилася щонайменше на цю величину від попереднього. Поки даних немає, нічого не показується. На сигнали це не впливає.</string>
@@ -77,11 +77,11 @@
     <string name="settings_live_websocket">Курси наживо</string>
 
     <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
-    <string name="settings_activity_alerts">Повідомляти про незвичайну активність</string>
+    <string name="settings_activity_alerts">Помітне: повідомляти</string>
     <string name="settings_activity_alerts_hint">Не частіше разу на годину для кожної пари: незвичайні рухи ціни, сплески обсягу та екстремуми на ф\'ючерсах (дані Binance).</string>
     <string name="settings_activity_sensitivity">Чутливість</string>
     <string name="settings_activity_sensitivity_hint">Наскільки легко монета вважається незвичайною – однаково для картки в списку та для сповіщень. За «Менше» картка показує лише 3 найсильніші.</string>
-    <string name="settings_watchlist_activity_card">Незвичайна активність у списку</string>
+    <string name="settings_watchlist_activity_card">Помітне: показувати в списку</string>
     <string name="settings_watchlist_activity_card_hint">Показує чип ⚡ поруч із групами: торкніться, щоб побачити лише пари, де просто зараз щось відбувається. Сповіщення налаштовуються в розділі «Ринкові сповіщення».</string>
     <string name="settings_watchlist_names">Показувати назви</string>
     <string name="settings_watchlist_names_hint">Назва під парою, наприклад Bitcoin або NVIDIA. Надходить зі списками логотипів, завантажується один раз для всіх монет.</string>
@@ -112,7 +112,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Колір акценту</string>
-    <string name="settings_accent_hint">Колір застосунку, віджетів і значка застосунку.</string>
+    <string name="settings_accent_hint">Колір застосунку, віджетів і значка застосунку. Деякі головні екрани прибирають значок під час зміни – тоді додайте його знову.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Логотипи монет</string>
     <string name="settings_coin_logos_app">У застосунку</string>

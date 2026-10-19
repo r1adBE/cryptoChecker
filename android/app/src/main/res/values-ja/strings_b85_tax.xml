@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
+    <string name="tax_export_day_close_rule">価格の記録がない時価（手数料、贈与/支払い、交換、報酬、ネットワーク手数料、ポートフォリオ総額）は取引日の終値（UTC）</string>
+</resources>

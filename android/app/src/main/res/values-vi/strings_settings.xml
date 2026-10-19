@@ -42,7 +42,7 @@
     <string name="settings_exact_checks_grant">Cho phép “Báo thức và lời nhắc”</string>
     <string name="settings_exact_checks_hint">Android kiểm tra khoảng mỗi 15 phút, kể cả khi thiết bị đang nghỉ. Tốn pin hơn một chút.</string>
     <string name="settings_exact_checks_nothing">Không có cặp nào đang bật – không có gì để kiểm tra.</string>
-    <string name="settings_exact_checks_permission_missing">Thiếu quyền – Android kiểm tra khi nào tiện (khoảng mỗi 15 phút hoặc muộn hơn).</string>
+    <string name="settings_exact_checks_permission_missing">Thiếu quyền – lúc thiết bị nghỉ, Android kiểm tra không đều, đôi khi sau nhiều giờ.</string>
     <string name="settings_notification_change">Chỉ thông báo khi giá thay đổi</string>
     <string name="settings_notification_change_always">Luôn luôn</string>
     <string name="settings_notification_change_hint">Thông báo chỉ xuất hiện khi giá đã thay đổi ít nhất mức này so với lần trước. Không hiển thị gì khi thiếu dữ liệu. Cảnh báo không bị ảnh hưởng.</string>
@@ -77,11 +77,11 @@
     <string name="settings_live_websocket">Giá trực tiếp</string>
 
     <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
-    <string name="settings_activity_alerts">Báo hoạt động bất thường</string>
+    <string name="settings_activity_alerts">Đáng chú ý: báo</string>
     <string name="settings_activity_alerts_hint">Tối đa mỗi giờ một lần cho mỗi cặp: biến động giá bất thường, khối lượng tăng vọt và mức cực đoan trên futures (dữ liệu từ Binance).</string>
     <string name="settings_activity_sensitivity">Độ nhạy</string>
     <string name="settings_activity_sensitivity_hint">Mức dễ để một coin bị coi là bất thường – giống nhau cho thẻ trong danh sách theo dõi và thông báo. Với “Ít hơn”, thẻ chỉ hiện 3 coin mạnh nhất.</string>
-    <string name="settings_watchlist_activity_card">Hoạt động bất thường trong danh sách</string>
+    <string name="settings_watchlist_activity_card">Đáng chú ý: hiện trong danh sách</string>
     <string name="settings_watchlist_activity_card_hint">Hiển thị chip ⚡ cạnh các nhóm: chạm vào để chỉ xem các cặp đang có điều gì đó xảy ra. Thông báo được đặt trong Thông báo thị trường.</string>
     <string name="settings_watchlist_names">Hiện tên</string>
     <string name="settings_watchlist_names_hint">Tên dưới cặp, ví dụ Bitcoin hoặc NVIDIA. Đi kèm danh sách logo, tải một lần cho mọi đồng coin.</string>
@@ -112,7 +112,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Màu nhấn</string>
-    <string name="settings_accent_hint">Màu cho ứng dụng, tiện ích và biểu tượng ứng dụng.</string>
+    <string name="settings_accent_hint">Màu cho ứng dụng, tiện ích và biểu tượng ứng dụng. Một số màn hình chính xóa biểu tượng khi đổi – khi đó hãy thêm lại.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Logo coin</string>
     <string name="settings_coin_logos_app">Trong ứng dụng</string>

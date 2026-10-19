@@ -21,7 +21,7 @@ Versio 16.2.2
 • Verkkomaksut: Ethereum, Base, Arbitrum, Polygon, BNB Chain ja Bitcoin Markkinat-välilehdellä, gas-hälytyksellä
 • Muistiinpano jokaiselle kolikolle seurantalistalla
 • Valitse hälytysääni
-• Epätavallinen aktiivisuus: havaitsee poikkeavat hinta- ja volyymiliikkeet, valinnaiset ilmoitukset
+• Huomionarvoista: havaitsee poikkeavat hinta- ja volyymiliikkeet, valinnaiset ilmoitukset
 • Salkku omana välilehtenään (käyttöön asetuksista): ostot ja myynnit, keskihinta, voitto/tappio
 • Ryhmät seurantalistalle
 • Uudet hälytykset: X %:n liike Y tunnissa ja volyymipiikki

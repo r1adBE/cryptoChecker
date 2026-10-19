@@ -310,7 +310,7 @@ class PriceRefresher @Inject constructor(
                 pauseReason = backoff[key]?.reason,
             )
         }
-        refreshStats.setBackoffStates(backoff)
+        refreshStats.setBackoffStates(ExchangeBackoff.withHostGroupPauses(backoff, System.currentTimeMillis()))
         val groupReports = activeReports + pausedReports
         val activeWatches = watches.filter { it.id !in pausedIds }
         val lateLoads = dayReferences.startDayReferenceLoads(

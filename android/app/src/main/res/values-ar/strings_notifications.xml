@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Texte der Mitteilungen -->
-    <string name="notification_activity_title">%1$s · %2$s</string>
+    <string name="notification_activity_title">لافت: %1$s · %2$s</string>
     <string name="notification_alarm_text">%1$s — الآن %2$s</string>
     <string name="notification_alarm_title">تنبيه: %1$s · %2$s</string>
     <string name="notification_depeg_action_exchange">فتح المنصة</string>
@@ -55,7 +55,7 @@
     <string name="channel_service">تحديث الأسعار</string>
     <string name="channel_service_description">إشعار أثناء تحديث الأسعار.</string>
     <string name="neutral_channel_market">إشعارات السوق</string>
-    <string name="neutral_channel_market_description">Fear &amp; Greed ورسوم الغاز والنشاط غير المعتاد والمواعيد الاقتصادية</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed ورسوم الغاز و«لافت» والمواعيد الاقتصادية</string>
 
     <!-- Sprachausgabe -->
     <string name="tts_alarm">تنبيه. %1$s، %2$s %3$s %4$s، الآن %5$s</string>

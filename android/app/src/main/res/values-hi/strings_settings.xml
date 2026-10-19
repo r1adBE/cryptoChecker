@@ -42,7 +42,7 @@
     <string name="settings_exact_checks_grant">“अलार्म और रिमाइंडर” की अनुमति दें</string>
     <string name="settings_exact_checks_hint">Android लगभग हर 15 मिनट में जाँचता है, डिवाइस निष्क्रिय होने पर भी। थोड़ी ज़्यादा बैटरी लगती है।</string>
     <string name="settings_exact_checks_nothing">कोई सक्रिय पेयर नहीं – जाँचने को कुछ नहीं।</string>
-    <string name="settings_exact_checks_permission_missing">अनुमति नहीं है – Android जब ठीक समझे तब जाँचता है (लगभग हर 15 मिनट या बाद में)।</string>
+    <string name="settings_exact_checks_permission_missing">अनुमति नहीं है – डिवाइस निष्क्रिय होने पर Android अनियमित रूप से जाँचता है, कभी-कभी घंटों बाद।</string>
     <string name="settings_notification_change">केवल कीमत बदलने पर सूचित करें</string>
     <string name="settings_notification_change_always">हमेशा</string>
     <string name="settings_notification_change_hint">पिछले नोटिफ़िकेशन के बाद कीमत कम से कम इतनी बदलने पर ही नोटिफ़िकेशन दिखता है। डेटा न होने पर कुछ नहीं दिखाया जाता। अलार्म पर इसका असर नहीं पड़ता।</string>
@@ -77,11 +77,11 @@
     <string name="settings_live_websocket">लाइव भाव</string>
 
     <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
-    <string name="settings_activity_alerts">असामान्य गतिविधि की सूचना दें</string>
+    <string name="settings_activity_alerts">उल्लेखनीय: सूचित करें</string>
     <string name="settings_activity_alerts_hint">हर पेयर के लिए घंटे में अधिकतम एक बार: असामान्य भाव हलचल, वॉल्यूम स्पाइक और फ़्यूचर्स की चरम स्थितियाँ (डेटा Binance से)।</string>
     <string name="settings_activity_sensitivity">संवेदनशीलता</string>
     <string name="settings_activity_sensitivity_hint">कोई कॉइन कितनी आसानी से असामान्य माना जाए – वॉचलिस्ट कार्ड और सूचनाओं के लिए एक जैसा। “कम” पर कार्ड केवल 3 सबसे मज़बूत दिखाता है।</string>
-    <string name="settings_watchlist_activity_card">सूची में असामान्य गतिविधि</string>
+    <string name="settings_watchlist_activity_card">उल्लेखनीय: सूची में दिखाएँ</string>
     <string name="settings_watchlist_activity_card_hint">समूहों के पास ⚡ चिप दिखाता है: टैप करें और केवल वे पेयर देखें जिनमें अभी कुछ हो रहा है। सूचनाएँ बाज़ार सूचनाएँ में सेट होती हैं।</string>
     <string name="settings_watchlist_names">नाम दिखाएँ</string>
     <string name="settings_watchlist_names_hint">जोड़ी के नीचे नाम, जैसे Bitcoin या NVIDIA। लोगो सूचियों के साथ आता है, सभी कॉइन के लिए एक बार लोड होता है।</string>
@@ -112,7 +112,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">एक्सेंट रंग</string>
-    <string name="settings_accent_hint">ऐप, विजेट और ऐप आइकन का रंग।</string>
+    <string name="settings_accent_hint">ऐप, विजेट और ऐप आइकन का रंग। कुछ होम स्क्रीन बदलने पर आइकन हटा देती हैं – तब इसे फिर से जोड़ें।</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">कॉइन लोगो</string>
     <string name="settings_coin_logos_app">ऐप में</string>

@@ -1,6 +1,6 @@
 Novinky ve verzi 16.2.2
 • Crypto Pulse: co se právě děje
-• Neobvyklá aktivita, „Co se hýbe s ním?“ se shrnutím
+• „Nápadné“, „Co se hýbe s ním?“ se shrnutím
 • Start jedním klepnutím: top 5 mincí, aktuální ceny
 • Přejetím smazat (se Zpět) nebo označit oblíbené
 • Ceny a alarmy ve vaší měně, export k datu (CSV)

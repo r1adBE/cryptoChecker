@@ -21,7 +21,7 @@ Versión 16.2.2
 • Comisiones de red de Ethereum, Base, Arbitrum, Polygon, BNB Chain y Bitcoin en la pestaña Mercado, con alarma de gas
 • Notas para cada moneda de tu lista
 • Elige un sonido de alarma
-• Actividad inusual: detecta movimientos de precio y volumen fuera de lo normal, con notificaciones opcionales
+• Destacado: detecta movimientos de precio y volumen fuera de lo normal, con notificaciones opcionales
 • Cartera en su propia pestaña (actívala en Ajustes): compras y ventas, precio medio, ganancias/pérdidas
 • Grupos para tu lista
 • Nuevas alarmas: movimiento del X % en Y horas y pico de volumen

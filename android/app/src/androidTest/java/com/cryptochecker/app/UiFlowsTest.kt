@@ -2,6 +2,7 @@ package com.cryptochecker.app
 
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.SemanticsNodeInteraction
+import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.hasClickAction
 import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.hasTestTag
@@ -102,6 +103,8 @@ class UiFlowsTest {
         clickTag(UiTestTags.WATCH_ACTION_ALARM)
         // Paar ohne Alarm: der Editor öffnet sich gleich; neuer Alarm = «über»
         inputTag(UiTestTags.ALARM_THRESHOLD, ALARM_THRESHOLD.toString())
+        // «Speichern» steht fest unten über der Tastatur: sichtbar ohne Scrollen (darum nicht über node())
+        compose.onAllNodes(hasTestTag(UiTestTags.ALARM_SAVE), useUnmergedTree = true).onFirst().assertIsDisplayed()
         clickTag(UiTestTags.ALARM_SAVE)
 
         compose.waitUntil(TIMEOUT) {

@@ -1,0 +1,71 @@
+{
+  "description": "Spot and futures keys on the same host share the rate-limit pause (Android ExchangeBackoff.withHostGroupPauses / iOS ExchangeBackoff.withHostGroupPauses). A running RATE_LIMIT pause of one key is copied to the other keys of its host group (HOST_GROUPS / hostGroups): pausedUntil and reason RATE_LIMIT, timeoutRuns 0, strikes kept (1 if the key had no state). A longer running pause of the sibling stays; TIMEOUT pauses, expired pauses and keys without a host group are not shared. 'expected' lists the full resulting states.",
+  "now": 1000000,
+  "hostGroups": {
+    "BingX": "open-api.bingx.com", "BingXFutures": "open-api.bingx.com",
+    "Bybit": "api.bybit.com", "BybitFutures": "api.bybit.com",
+    "Okex": "www.okx.com", "OkexFutures": "www.okx.com",
+    "Phemex": "api.phemex.com", "PhemexFutures": "api.phemex.com",
+    "Bitget": "api.bitget.com", "BitgetFutures": "api.bitget.com",
+    "Woo": "api.woox.io", "WooFutures": "api.woox.io"
+  },
+  "cases": [
+    {
+      "name": "429 at BingX also pauses BingXFutures",
+      "states": {"BingX": {"strikes": 1, "pausedUntil": 1030000, "reason": "RATE_LIMIT", "timeoutRuns": 0}},
+      "expected": {
+        "BingX": {"strikes": 1, "pausedUntil": 1030000, "reason": "RATE_LIMIT", "timeoutRuns": 0},
+        "BingXFutures": {"strikes": 1, "pausedUntil": 1030000, "reason": "RATE_LIMIT", "timeoutRuns": 0}
+      }
+    },
+    {
+      "name": "429 at BybitFutures pauses Bybit, keeps its strikes and resets timeout runs",
+      "states": {
+        "BybitFutures": {"strikes": 2, "pausedUntil": 1060000, "reason": "RATE_LIMIT", "timeoutRuns": 0},
+        "Bybit": {"strikes": 3, "pausedUntil": 0, "reason": "TIMEOUT", "timeoutRuns": 1}
+      },
+      "expected": {
+        "BybitFutures": {"strikes": 2, "pausedUntil": 1060000, "reason": "RATE_LIMIT", "timeoutRuns": 0},
+        "Bybit": {"strikes": 3, "pausedUntil": 1060000, "reason": "RATE_LIMIT", "timeoutRuns": 0}
+      }
+    },
+    {
+      "name": "longer running sibling pause stays",
+      "states": {
+        "Okex": {"strikes": 1, "pausedUntil": 1030000, "reason": "RATE_LIMIT", "timeoutRuns": 0},
+        "OkexFutures": {"strikes": 4, "pausedUntil": 1240000, "reason": "RATE_LIMIT", "timeoutRuns": 0}
+      },
+      "expected": {
+        "Okex": {"strikes": 1, "pausedUntil": 1240000, "reason": "RATE_LIMIT", "timeoutRuns": 0},
+        "OkexFutures": {"strikes": 4, "pausedUntil": 1240000, "reason": "RATE_LIMIT", "timeoutRuns": 0}
+      }
+    },
+    {
+      "name": "timeout pause is not shared",
+      "states": {"Phemex": {"strikes": 1, "pausedUntil": 1030000, "reason": "TIMEOUT", "timeoutRuns": 0}},
+      "expected": {"Phemex": {"strikes": 1, "pausedUntil": 1030000, "reason": "TIMEOUT", "timeoutRuns": 0}}
+    },
+    {
+      "name": "expired rate-limit pause is not shared",
+      "states": {"Bitget": {"strikes": 1, "pausedUntil": 999000, "reason": "RATE_LIMIT", "timeoutRuns": 0}},
+      "expected": {"Bitget": {"strikes": 1, "pausedUntil": 999000, "reason": "RATE_LIMIT", "timeoutRuns": 0}}
+    },
+    {
+      "name": "market without host group stays alone",
+      "states": {"Kraken": {"strikes": 1, "pausedUntil": 1030000, "reason": "RATE_LIMIT", "timeoutRuns": 0}},
+      "expected": {"Kraken": {"strikes": 1, "pausedUntil": 1030000, "reason": "RATE_LIMIT", "timeoutRuns": 0}}
+    },
+    {
+      "name": "other groups untouched",
+      "states": {
+        "Woo": {"strikes": 1, "pausedUntil": 1030000, "reason": "RATE_LIMIT", "timeoutRuns": 0},
+        "BingX": {"strikes": 2, "pausedUntil": 0, "reason": null, "timeoutRuns": 1}
+      },
+      "expected": {
+        "Woo": {"strikes": 1, "pausedUntil": 1030000, "reason": "RATE_LIMIT", "timeoutRuns": 0},
+        "WooFutures": {"strikes": 1, "pausedUntil": 1030000, "reason": "RATE_LIMIT", "timeoutRuns": 0},
+        "BingX": {"strikes": 2, "pausedUntil": 0, "reason": null, "timeoutRuns": 1}
+      }
+    }
+  ]
+}

@@ -54,7 +54,7 @@ class Lighter : Market("Lighter", "Lighter") {
      * «nicht mehr gehandelt» bestätigt werden kann (NotTraded).
      */
     override fun fillTickerJson(call: Int, json: JSONObject, ticker: Ticker, info: PairQuery) {
-        val symbol = info.pairId.orEmpty()
+        val symbol = symbolOf(info)
         var row: JSONObject? = null
         json.getJSONArray("order_book_stats").forEachOptJSONObject { entry ->
             if (row == null && entry.optText("symbol") == symbol) row = entry
@@ -63,6 +63,14 @@ class Lighter : Market("Lighter", "Lighter") {
         if (BulkTickerRows.inactivePrice(found, "last_trade_price")) throw MarketParseException("No price: $symbol")
         copyRow(found, ticker)
     }
+
+    /**
+     * Symbol des Paars: die gespeicherte Kennung, sonst wie in der Paarliste ([readPair]) aus Basis und Gegenwährung —
+     * Perp «BTC», Spot «ETH/USDC». Ohne Kennung suchte die Abfrage sonst das leere Symbol und bestätigte fälschlich
+     * «nicht mehr gehandelt».
+     */
+    private fun symbolOf(info: PairQuery): String =
+        info.pairId ?: if (info.contractType == FuturesContractType.NONE) "${info.base}/${info.quote}" else info.base
 
     /**
      * Fehlerantwort {"code": …, "message": …} mit einem Code ausser 200; eine normale Antwort (code 200) ohne das

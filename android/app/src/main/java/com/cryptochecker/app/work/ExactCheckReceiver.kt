@@ -3,6 +3,7 @@ package com.cryptochecker.app.work
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.PowerManager
 import com.cryptochecker.app.data.local.isDatabaseKeyUnavailable
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
@@ -51,9 +52,16 @@ class ExactCheckReceiver : BroadcastReceiver() {
         if (intent.action != ACTION_CHECK) return
 
         val pendingResult = goAsync()
-        // Ruhemodus jetzt (beim Auslösen) bestimmt das Budget: das Netz-Fenster beginnt mit dem Wecker
-        val deviceIdle = runCatching { context.getSystemService(PowerManager::class.java)?.isDeviceIdleMode == true }
-            .getOrDefault(false)
+        // Ruhemodus jetzt (beim Auslösen) bestimmt das Budget: das Netz-Fenster beginnt mit dem Wecker.
+        // Auch der leichte Ruhemodus sperrt das Netz ausserhalb kurzer Fenster (lesbar ab Android 13)
+        val power = runCatching { context.getSystemService(PowerManager::class.java) }.getOrNull()
+        val deepIdle = runCatching { power?.isDeviceIdleMode == true }.getOrDefault(false)
+        val lightIdle = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            runCatching { power?.isDeviceLightIdleMode == true }.getOrDefault(false)
+        } else {
+            false
+        }
+        val deviceIdle = BackgroundWorkPolicy.deviceIdle(deepIdle, lightIdle)
         val timeoutMillis = CheckBudget.exactTimeoutMillis(deviceIdle, TIMEOUT_MILLIS, DEADLINE_MARGIN_MILLIS)
         scope.launch {
             val startedAt = System.currentTimeMillis()

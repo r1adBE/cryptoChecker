@@ -23,7 +23,7 @@ Detailed build history below.
   Each adapter was checked against recorded live responses; Android and iPhone read them identically.
 * The daily exchange check covers the new exchanges.
 * Android notifications show the bell of the app logo with a sign per alert type: $ for the USDT depeg, a bolt for
-  unusual activity, a calendar for economic dates, the Ethereum diamond for gas, ₿ for the Bitcoin fee and a gauge for
+  «Notable», a calendar for economic dates, the Ethereum diamond for gas, ₿ for the Bitcoin fee and a gauge for
   Fear & Greed; price alerts keep the logo. iPhone always shows the app icon there.
 * Dark mode: errors and error surfaces (notifications-off banner, delete swipe) are orange-red (#FF5833 / #4A1C10)
   instead of Material pink.
@@ -61,10 +61,50 @@ Detailed build history below.
   only means «attention» (Android and iPhone).
 * The free space below portfolio and alert lists for the floating «+» button is a named spacing value (3 × 32) on
   both platforms instead of a bare 96.
-* Android tab bar with large text: long tab names are hyphenated instead of broken mid-word, and if two lines still
-  don't fit, the label shrinks step by step (never below 12 sp) instead of ending in «…».
 * Arabic and Persian: amounts use the system font instead of Rubik (which has no Arabic-Indic digits), so a price no
   longer mixes two typefaces (Android; iPhone already uses the system font).
+* iPhone: the watchlist (pairs with notes and amounts, alerts) is now only ever saved encrypted, like the portfolio –
+  if the keychain is briefly unavailable, changes wait in memory and are saved on the next possible write instead of
+  in plain text; an unencrypted file from older versions stays readable and is encrypted with the next save.
+* iPhone: saving the watchlist no longer blocks the screen (e.g. while pulling to refresh) when the widget is reading
+  the file at the same time; alert delivery and going to the background wait for the write without freezing the app.
+* iPhone: alerts reported by the widget extension play the chosen alert tone reliably – the app copies its tones at
+  launch to the shared Library/Sounds folder, where iOS looks for them for the app and its widgets.
+* Delisted pairs on exchanges with a complete price list (e.g. Paribu, BingX, Bybit, Hyperliquid) are now shown as
+  «no longer traded» once that list and the single request both lack them («No data», «Unknown coin»), instead of a
+  permanent error that was re-requested on every refresh; Lighter pairs without a stored id look up the right symbol.
+* BingX: identical requests are recognised despite the timestamp in the address – no second identical request after a
+  failed price list, and concurrent identical requests share one answer.
+* A «too many requests» pause now also covers the other half on the same host (BingX, Bybit, OKX, Phemex, Bitget, WOO
+  spot and futures) instead of only the market that got the 429.
+* Android alert timing hint is honest about idle devices: without «Check on time», Android checks irregularly while
+  the device rests – sometimes only after hours; with it, about every 15 minutes (all 31 languages, also the
+  «permission missing» line).
+* Android «Make sure alerts arrive»: on Xiaomi, Samsung, Huawei/Honor, OnePlus, Oppo/Realme and Vivo an extra row
+  explains the manufacturer's battery saver (Autostart, deep sleep, app launch) – after it stops the app, nothing
+  arrives – with a button to the manufacturer's page (falls back to App info; no new permission).
+* Android «Check on time»: light Doze now counts as idle too, so the check uses the short network budget (about 9 s)
+  instead of running past the idle network window.
+* Android economic-dates morning notice: after a time zone or clock change it is re-planned for 08:00 local time (or
+  shown right away between 08:00 and 12:00 if not yet shown today) instead of skipping a day.
+* Android: password-protected backups can be restored on devices with 2 GB RAM – the app requests the large heap for the
+  64 MiB key derivation (parameters unchanged, older backups stay compatible); if memory still runs out, it says «not
+  enough memory» instead of crashing.
+* Tax export: one daily-close rule for estimated market values – fee rows, gifts/payments, swaps and rewards without a
+  value, network fees as disposals and the French portfolio value all use the close of the transaction's UTC day
+  (network fees and the French portfolio value used the previous day before). A Kraken fee and a network fee in the
+  same hour now have the same value; the rule is stated in the header of every tax CSV.
+* CSV exports (holdings, realized gains, income): the total row adds up the rounded row values, so summing the column
+  gives the same total (0.34 + 0.34 + 0.34 = 1.02, no longer 1.01).
+* Tax years older than the USDT/USD history (about two years) are no longer silently counted with USDT = 1: besides the
+  note on each affected row, the annual summary now also says «USDT dollar rate missing – counted as 1 US dollar».
+* Clearer names: the Crypto Pulse card and widget («What stands out») are now «Crypto pulse»; «Unusual
+  today» and «Unusual activity» (⚡ filter, settings, market notification) are now called «Notable» (German
+  «Auffällig», a short equivalent in all 31 languages); the notification reads «Notable: SOL/USDT · Binance». Per coin
+  it stays «What is moving with it?». Wording only, no change in behaviour.
+* Android alert editor: entries survive rotating the device, and «Create»/«Save» stay pinned at the bottom of the sheet
+  above the keyboard while the content scrolls – reachable even at 200 % font size. iPhone already kept both (state
+  survives rotation, «Save» in the navigation bar).
 
 ## 16.2.2 (build 84)
 
@@ -287,10 +327,6 @@ Two external reviews worked through (all «must» and «can» items), before the
 * iPhone: background work sets its expiration handler first; widgets wait at most 8 s for the network and reload
   only what changed (daily limit respected); alarm sounds also play when a widget fires the alarm; re-tapping a tab
   goes back to its start; faster reading of large answers; activity logging without personal data.
-* Android: splash screen without empty window or colour jump; tab labels on two lines, at least 12 sp, selected tab
-  with strong contrast; re-tapping a tab goes back to its start; «Set first alarm» card; the exchange's own error
-  text in the refresh report; compact numbers and seconds in the device language; developer log only in debug
-  builds; selection lists fit narrow screens and large fonts; no list inside a scrolling page.
 * Licence: the original BitcoinChecker notices (mobnetic, Aneonex Software) are back in LICENSE and on the licence
   pages; alarm sounds are self-made (script in the repo, CC0).
 * Privacy page: controller named with full name, legal bases and third-country transfers added, GitHub connection
@@ -1168,7 +1204,6 @@ with every delivered state.
 * Watchlist rows say when the % change or the mini chart come from another exchange («Change: …»,
   «Chart: …», «Change & chart: …»), also for TalkBack/VoiceOver.
 * The «Current» status pill is neutral instead of using the rising colour.
-* Tab labels at least 11 sp, the selected tab in bold (Android and iPhone).
 * Settings: price colours, % change, coin logos and widgets moved from «Advanced» to «Appearance»;
   «Advanced» keeps updates and spoken output. Search shows the new paths.
 * German texts without «Ihre», «Volume (in coins / in quote currency)», friendlier error prefix.

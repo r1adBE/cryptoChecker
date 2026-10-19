@@ -82,12 +82,12 @@
     <string name="market_cap_title">Mercado cripto</string>
     <string name="market_volume_label">Volumen 24 h</string>
 
-    <!-- Crypto Pulse «Was gerade auffällt»: Titel, Abschnitte, Hinweise -->
+    <!-- Crypto Pulse «Kurz gesagt»: Titel, Abschnitte, Hinweise -->
     <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
     <string name="pulse_details_action">Detalles</string>
     <string name="pulse_disclaimer">Sin previsión · No es asesoramiento de inversión</string>
     <string name="pulse_less">Ver menos</string>
-    <string name="pulse_now_title">Lo que destaca</string>
+    <string name="pulse_now_title">Pulso cripto</string>
     <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
     <string name="pulse_period_24h_spoken">Cambio en 24 horas</string>
     <string name="pulse_section_factors">Factores</string>
@@ -154,7 +154,7 @@
     <string name="pulse_volume_low">Volumen de negociación bajo (%1$s× lo habitual)</string>
     <string name="pulse_volume_normal">Volumen de negociación habitual</string>
 
-    <!-- «Heute auffällig» (grösste Coins mit ungewöhnlicher Bewegung) -->
+    <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
     <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
     <!-- Screenreader-Aktion einer Zeile (öffnet das Aktionsblatt bzw. die Vorschau) -->
     <string name="unusual_action_open">Mostrar precio y acciones</string>
@@ -166,11 +166,11 @@
     <string name="unusual_fact_weaker">Se mueve mucho menos que BTC</string>
     <string name="unusual_nothing">Hoy nada fuera de lo normal</string>
     <string name="unusual_source">Unas 30 monedas más grandes sin stablecoins · Binance, CoinGecko</string>
-    <string name="unusual_title">Destacado hoy</string>
+    <string name="unusual_title">Destacado</string>
 
-    <!-- Ungewöhnliche Aktivität eines Paars (Karte, Signale, Empfindlichkeit) -->
-    <string name="activity_card_title">Actividad inusual</string>
-    <string name="activity_indicator">Actividad inusual</string>
+    <!-- «Auffällig» je Paar: ⚡ in der Merkliste, Signale, Empfindlichkeit -->
+    <string name="activity_card_title">Destacado</string>
+    <string name="activity_indicator">Destacado</string>
     <string name="activity_sensitivity_less">Menos</string>
     <string name="activity_sensitivity_more">Más</string>
     <string name="activity_sensitivity_normal">Normal</string>

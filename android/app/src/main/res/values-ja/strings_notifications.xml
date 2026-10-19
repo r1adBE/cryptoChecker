@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Texte der Mitteilungen -->
-    <string name="notification_activity_title">%1$s · %2$s</string>
+    <string name="notification_activity_title">注目: %1$s · %2$s</string>
     <string name="notification_alarm_text">%1$s — 現在 %2$s</string>
     <string name="notification_alarm_title">アラーム: %1$s · %2$s</string>
     <string name="notification_depeg_action_exchange">取引所を開く</string>
@@ -50,7 +50,7 @@
     <string name="channel_service">価格の更新</string>
     <string name="channel_service_description">価格を更新している間の通知。</string>
     <string name="neutral_channel_market">相場のお知らせ</string>
-    <string name="neutral_channel_market_description">Fear &amp; Greed、ガス代、異常な動き、経済指標の日程</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed、ガス代、「注目」、経済指標の日程</string>
 
     <!-- Sprachausgabe -->
     <string name="tts_alarm">アラーム。%1$s、%2$s %3$s %4$s、現在 %5$s</string>

@@ -83,6 +83,22 @@ class MacroNotifyWorker @AssistedInject constructor(
             WorkManager.getInstance(context).enqueueUniqueWork(WORK_NAME, policy, request)
         }
 
+        /**
+         * Nach Wechsel von Zeitzone oder Uhr ([BackgroundWorkPolicy.replansMacroOn]): Verzögerung neu rechnen und die
+         * geplante Aufgabe ersetzen (KEEP liesse die alte Verzögerung stehen). Im Meldefenster ohne heutige Meldung
+         * läuft sie sofort.
+         */
+        fun rescheduleAfterClockChange(context: Context) {
+            val prefs = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+            val lastDay = prefs.getLong(KEY_LAST_DAY, Long.MIN_VALUE)
+            val now = System.currentTimeMillis()
+            val delay = BackgroundWorkPolicy.macroDelayAfterClockChange(now, ZoneId.systemDefault(), lastDay)
+            val request = OneTimeWorkRequestBuilder<MacroNotifyWorker>()
+                .setInitialDelay(delay, TimeUnit.MILLISECONDS)
+                .build()
+            WorkManager.getInstance(context).enqueueUniqueWork(WORK_NAME, ExistingWorkPolicy.REPLACE, request)
+        }
+
         fun cancel(context: Context) {
             WorkManager.getInstance(context).cancelUniqueWork(WORK_NAME)
         }

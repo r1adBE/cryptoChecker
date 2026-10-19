@@ -42,7 +42,7 @@
     <string name="settings_exact_checks_grant">Povolit „Budíky a připomenutí“</string>
     <string name="settings_exact_checks_hint">Android kontroluje zhruba každých 15 minut, i když zařízení odpočívá. Spotřebuje trochu víc baterie.</string>
     <string name="settings_exact_checks_nothing">Žádné aktivní páry – není co kontrolovat.</string>
-    <string name="settings_exact_checks_permission_missing">Chybí oprávnění – Android kontroluje, kdy se mu to hodí (zhruba každých 15 min nebo později).</string>
+    <string name="settings_exact_checks_permission_missing">Chybí oprávnění – v klidu zařízení kontroluje Android nepravidelně, někdy až po hodinách.</string>
     <string name="settings_notification_change">Oznamovat jen při změně ceny</string>
     <string name="settings_notification_change_always">Vždy</string>
     <string name="settings_notification_change_hint">Oznámení se zobrazí, až když se cena od posledního oznámení změní alespoň o tuto hodnotu. Pokud chybí data, nezobrazí se nic. Alarmů se to netýká.</string>
@@ -77,11 +77,11 @@
     <string name="settings_live_websocket">Živé kurzy</string>
 
     <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
-    <string name="settings_activity_alerts">Hlásit neobvyklou aktivitu</string>
+    <string name="settings_activity_alerts">Nápadné: upozornit</string>
     <string name="settings_activity_alerts_hint">Nejvýše jednou za hodinu pro každý pár: neobvyklé cenové pohyby, skoky objemu a extrémy na futures (data z Binance).</string>
     <string name="settings_activity_sensitivity">Citlivost</string>
     <string name="settings_activity_sensitivity_hint">Jak snadno se mince považuje za neobvyklou – stejně pro kartu ve sledovaných i pro oznámení. Při „Méně“ karta ukazuje jen 3 nejsilnější.</string>
-    <string name="settings_watchlist_activity_card">Neobvyklá aktivita v seznamu</string>
+    <string name="settings_watchlist_activity_card">Nápadné: zobrazit v seznamu</string>
     <string name="settings_watchlist_activity_card_hint">Zobrazí čip ⚡ u skupin: klepnutím uvidíte jen páry, u kterých se právě něco děje. Upozornění nastavíte v sekci „Tržní upozornění“.</string>
     <string name="settings_watchlist_names">Zobrazit názvy</string>
     <string name="settings_watchlist_names_hint">Název pod párem, např. Bitcoin nebo NVIDIA. Přichází se seznamy log, načte se jednou pro všechny mince.</string>
@@ -112,7 +112,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Barva zvýraznění</string>
-    <string name="settings_accent_hint">Barva aplikace, widgetů a ikony aplikace.</string>
+    <string name="settings_accent_hint">Barva aplikace, widgetů a ikony aplikace. Některé domovské obrazovky při změně ikonu odstraní – pak ji přidejte znovu.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Loga mincí</string>
     <string name="settings_coin_logos_app">V aplikaci</string>

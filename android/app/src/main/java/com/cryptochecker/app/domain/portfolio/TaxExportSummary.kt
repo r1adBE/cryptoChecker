@@ -375,5 +375,8 @@ fun TaxExport.yearSummary(
         )
         TaxTemplate.NEUTRAL -> Unit
     }
-    return TaxYearSummary(template, method, period, currency, fx, lines, walletFrom, wealth)
+    // USDT = 1 irgendwo in der Übersicht (Tag ohne USDT/USD-Schluss, z. B. vor dem Fenster der Quellen): nie still
+    val usdtApproximate = allRows.any { it.usdtApproximate } || (allInterest + income).any { it.usdtApproximate } ||
+        lines.any { it.usdtApproximate } || (wealth != null && usdtApproximateOn(usdtUsd, period.end))
+    return TaxYearSummary(template, method, period, currency, fx, lines, walletFrom, wealth, usdtApproximate)
 }

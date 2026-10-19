@@ -80,12 +80,12 @@
     <string name="market_cap_title">Pasar kripto</string>
     <string name="market_volume_label">Volume 24 jam</string>
 
-    <!-- Crypto Pulse «Was gerade auffällt»: Titel, Abschnitte, Hinweise -->
+    <!-- Crypto Pulse «Kurz gesagt»: Titel, Abschnitte, Hinweise -->
     <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
     <string name="pulse_details_action">Detail</string>
     <string name="pulse_disclaimer">Bukan prediksi · Bukan saran investasi</string>
     <string name="pulse_less">Tampilkan lebih sedikit</string>
-    <string name="pulse_now_title">Yang menonjol</string>
+    <string name="pulse_now_title">Denyut kripto</string>
     <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
     <string name="pulse_period_24h_spoken">Perubahan selama 24 jam</string>
     <string name="pulse_section_factors">Faktor</string>
@@ -152,7 +152,7 @@
     <string name="pulse_volume_low">Volume perdagangan rendah (%1$s× biasanya)</string>
     <string name="pulse_volume_normal">Volume perdagangan normal</string>
 
-    <!-- «Heute auffällig» (grösste Coins mit ungewöhnlicher Bewegung) -->
+    <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
     <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
     <!-- Screenreader-Aktion einer Zeile (öffnet das Aktionsblatt bzw. die Vorschau) -->
     <string name="unusual_action_open">Tampilkan harga dan tindakan</string>
@@ -164,11 +164,11 @@
     <string name="unusual_fact_weaker">Bergerak jauh lebih lemah dari BTC</string>
     <string name="unusual_nothing">Tidak ada yang menonjol hari ini</string>
     <string name="unusual_source">Sekitar 30 koin terbesar tanpa stablecoin · Binance, CoinGecko</string>
-    <string name="unusual_title">Menonjol hari ini</string>
+    <string name="unusual_title">Menonjol</string>
 
-    <!-- Ungewöhnliche Aktivität eines Paars (Karte, Signale, Empfindlichkeit) -->
-    <string name="activity_card_title">Aktivitas tidak biasa</string>
-    <string name="activity_indicator">Aktivitas tidak biasa</string>
+    <!-- «Auffällig» je Paar: ⚡ in der Merkliste, Signale, Empfindlichkeit -->
+    <string name="activity_card_title">Menonjol</string>
+    <string name="activity_indicator">Menonjol</string>
     <string name="activity_sensitivity_less">Lebih sedikit</string>
     <string name="activity_sensitivity_more">Lebih banyak</string>
     <string name="activity_sensitivity_normal">Normal</string>

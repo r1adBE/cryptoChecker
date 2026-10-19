@@ -26,7 +26,7 @@ ALARMAS
 • Horas de silencio, «Probar alarma», registro
 
 MERCADO
-• Actividad inusual: movimientos atípicos de precio y volumen en tu lista, con notificación opcional
+• Destacado: movimientos atípicos de precio y volumen en tu lista, con notificación opcional
 • Crypto Pulse, Fear & Greed, indicadores de Bitcoin, funding y open interest, como valores medidos
 • Comisiones de red de Ethereum, Bitcoin y otras, con alarma de gas
 

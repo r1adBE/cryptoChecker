@@ -42,7 +42,7 @@
     <string name="settings_exact_checks_grant">לאפשר «שעונים מעוררים ותזכורות»</string>
     <string name="settings_exact_checks_hint">Android בודק בערך כל 15 דקות, גם כשהמכשיר במנוחה. צורך מעט יותר סוללה.</string>
     <string name="settings_exact_checks_nothing">אין צמדים פעילים – אין מה לבדוק.</string>
-    <string name="settings_exact_checks_permission_missing">חסרה הרשאה – Android בודק מתי שנוח לו (בערך כל 15 דק׳ או מאוחר יותר).</string>
+    <string name="settings_exact_checks_permission_missing">חסרה הרשאה – כשהמכשיר במנוחה, Android בודק באופן לא סדיר, לפעמים רק אחרי שעות.</string>
     <string name="settings_notification_change">עדכון רק בשינוי מחיר</string>
     <string name="settings_notification_change_always">תמיד</string>
     <string name="settings_notification_change_hint">עדכון מחיר מופיע רק כשהמחיר זז לפחות בשיעור זה מאז העדכון הקודם. כשחסרים נתונים לא מוצג דבר. ההתראות אינן מושפעות.</string>
@@ -77,11 +77,11 @@
     <string name="settings_live_websocket">מחירים חיים</string>
 
     <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
-    <string name="settings_activity_alerts">דווח על פעילות חריגה</string>
+    <string name="settings_activity_alerts">בולט: הודעה</string>
     <string name="settings_activity_alerts_hint">לכל היותר פעם בשעה לכל צמד: תנועות מחיר חריגות, זינוקי מחזור וקיצוניות בחוזים עתידיים (נתונים מ-Binance).</string>
     <string name="settings_activity_sensitivity">רגישות</string>
     <string name="settings_activity_sensitivity_hint">כמה בקלות מטבע נחשב חריג – זהה לכרטיס ברשימת המעקב ולהודעות השוק. באפשרות ״פחות״ הכרטיס מציג רק את 3 החזקים ביותר.</string>
-    <string name="settings_watchlist_activity_card">פעילות חריגה ברשימה</string>
+    <string name="settings_watchlist_activity_card">בולט: הצגה ברשימה</string>
     <string name="settings_watchlist_activity_card_hint">מציג את השבב ⚡ ליד הקבוצות: הקישו עליו כדי לראות רק את הצמדים שבהם משהו קורה עכשיו. ההודעות מוגדרות ב״הודעות שוק״.</string>
     <string name="settings_watchlist_names">הצגת שמות</string>
     <string name="settings_watchlist_names_hint">שם מתחת לצמד, למשל Bitcoin או NVIDIA. מגיע עם רשימות הלוגו, נטען פעם אחת לכל המטבעות.</string>
@@ -112,7 +112,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">צבע הדגשה</string>
-    <string name="settings_accent_hint">צבע לאפליקציה, לווידג׳טים ולסמל האפליקציה.</string>
+    <string name="settings_accent_hint">צבע לאפליקציה, לווידג׳טים ולסמל האפליקציה. חלק ממסכי הבית מסירים את הסמל בעת ההחלפה – אז יש להוסיף אותו מחדש.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">לוגואים של מטבעות</string>
     <string name="settings_coin_logos_app">באפליקציה</string>

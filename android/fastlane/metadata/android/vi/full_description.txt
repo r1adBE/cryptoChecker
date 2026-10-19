@@ -27,7 +27,7 @@ CẢNH BÁO
 • Giờ yên lặng và “Thử cảnh báo”: nghe trước cảnh báo sẽ đến thế nào; nhật ký cảnh báo: kiểm tra lúc nào, giá bao nhiêu, vì sao cảnh báo không kêu
 
 THỊ TRƯỜNG
-• Hoạt động bất thường: biến động giá và khối lượng bất thường trong danh sách, tùy chọn thông báo
+• Đáng chú ý: biến động giá và khối lượng bất thường trong danh sách, tùy chọn thông báo
 • Crypto Pulse, Fear & Greed, chỉ số Bitcoin, funding và open interest – chỉ là giá trị đo
 • Phí mạng cho Ethereum, Bitcoin và hơn nữa, có cảnh báo gas
 

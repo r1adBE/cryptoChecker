@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Texte der Mitteilungen -->
-    <string name="notification_activity_title">%1$s · %2$s</string>
+    <string name="notification_activity_title">Påfaldende: %1$s · %2$s</string>
     <string name="notification_alarm_text">%1$s — nu %2$s</string>
     <string name="notification_alarm_title">Alarm: %1$s · %2$s</string>
     <string name="notification_depeg_action_exchange">Åbn børs</string>
@@ -51,7 +51,7 @@
     <string name="channel_service">Kursopdatering</string>
     <string name="channel_service_description">Vises, mens kurser opdateres.</string>
     <string name="neutral_channel_market">Markedsmeddelelser</string>
-    <string name="neutral_channel_market_description">Fear &amp; Greed, gasgebyrer, usædvanlig aktivitet og økonomiske datoer</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed, gasgebyrer, »Påfaldende« og økonomiske datoer</string>
 
     <!-- Sprachausgabe -->
     <string name="tts_alarm">Alarm. %1$s, %2$s %3$s %4$s, nu %5$s</string>

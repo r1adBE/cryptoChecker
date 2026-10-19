@@ -1,5 +1,5 @@
 {
-  "description": "Stichtag-Export (CutoffExport.kt / CutoffExport.swift) exakt: holdings = exakte Mengen (Text), prices = Tagesschluss in USDT (Text), fxRate = USD→Ziel (Text, null = keiner), unchecked = ungeprüfte Coins. Wert = Menge × Kurs, Zielwert = Wert × Devisenkurs, je 34 gültige Stellen (halbe auf gerade); gerundet wird nur im Text (HALF_UP): Geld 2, Devisenkurs 6, Kurs 10 Nachkommastellen bzw. 10 gültige Stellen, Menge exakt (max. 18). expected = CSV-Zeilen ab der ersten Datenzeile bis Total (ohne Kommentar und Kopf), Texte: noPrice «kein Kurs», noFx «kein Devisenkurs», unchecked «ungeprüft», incomplete «unvollständig», total «Total». Mit Double wären u. a. ETH 0.075×3 (0.22 statt 0.23) und XRP+ZZZ falsch.",
+  "description": "Stichtag-Export (CutoffExport.kt / CutoffExport.swift) exakt: holdings = exakte Mengen (Text), prices = Tagesschluss in USDT (Text), fxRate = USD→Ziel (Text, null = keiner), unchecked = ungeprüfte Coins. Wert = Menge × Kurs, Zielwert = Wert × Devisenkurs, je 34 gültige Stellen (halbe auf gerade); gerundet wird nur im Text (HALF_UP): Geld 2, Devisenkurs 6, Kurs 10 Nachkommastellen bzw. 10 gültige Stellen, Menge exakt (max. 18). Total = Summe der GERUNDETEN Zeilenwerte (Build 85: Nachsummieren der Spalte geht auf, z. B. 0.44 + 123.46 = 123.90 statt exakt 123.89). expected = CSV-Zeilen ab der ersten Datenzeile bis Total (ohne Kommentar und Kopf), Texte: noPrice «kein Kurs», noFx «kein Devisenkurs», unchecked «ungeprüft», incomplete «unvollständig», total «Total». Mit Double wären u. a. ETH 0.075×3 (0.22 statt 0.23) und XRP+ZZZ falsch.",
   "cases": [
     {
       "name": "exact products and sum",
@@ -52,7 +52,7 @@
         "USDT;0.3;1;0.30;0.79123;0.24;",
         "XRP;0.105;1;0.11;0.79123;0.08;",
         "ZZZ;0.105;2;0.21;0.79123;0.17;",
-        "Total;;;1524157876544.05;0.79123;1205959436657.95;unvollständig"
+        "Total;;;1524157876544.06;0.79123;1205959436657.95;unvollständig"
       ]
     },
     {
@@ -86,7 +86,7 @@
         "ADA;0,145;3;0,44;1,1;0,48;",
         "DOT;1000000000,000000001;0,000000123456789;123,46;1,1;135,80;",
         "ETH;0,1;;;1,1;;ungeprüft",
-        "Total;;;123,89;1,1;136,28;unvollständig"
+        "Total;;;123,90;1,1;136,28;unvollständig"
       ]
     },
     {

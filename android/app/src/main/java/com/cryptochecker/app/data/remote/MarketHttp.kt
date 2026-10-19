@@ -7,6 +7,7 @@ import com.cryptochecker.app.data.remote.util.CallGuard
 import com.cryptochecker.app.data.remote.util.CallStart
 import com.cryptochecker.app.data.remote.util.HttpBodyLimit
 import com.cryptochecker.app.data.remote.util.InFlightRequests
+import com.cryptochecker.app.data.remote.util.RequestKey
 import com.cryptochecker.app.data.remote.util.await
 import com.cryptochecker.app.domain.exceptions.HttpMarketError
 import com.cryptochecker.app.domain.exceptions.MarketError
@@ -83,12 +84,14 @@ private suspend fun OkHttpClient.request(
 ): String =
     try {
         val builder = Request.Builder().url(url)
+        // Schlüssel ohne Zeitstempel (BingX, RequestKey): sonst wären gleiche Anfragen nie gleich
+        val sameAs = RequestKey.of(url)
         val key = if (postRequestInfo == null) {
-            "$callTimeoutMillis|$maxBytes|$url"
+            "$callTimeoutMillis|$maxBytes|$sameAs"
         } else {
             postRequestInfo.headers?.forEach { (name, value) -> builder.addHeader(name, value) }
             builder.post(postRequestInfo.body.toRequestBody())
-            "$callTimeoutMillis|$maxBytes|POST|$url|${postRequestInfo.headers?.toSortedMap()}|${postRequestInfo.body}"
+            "$callTimeoutMillis|$maxBytes|POST|$sameAs|${postRequestInfo.headers?.toSortedMap()}|${postRequestInfo.body}"
         }
         val prepared = builder.build()
         InFlightRequests.shared(key) { execute(prepared, maxBytes, guardMillis) }

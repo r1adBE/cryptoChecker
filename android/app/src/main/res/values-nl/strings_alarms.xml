@@ -141,7 +141,7 @@
     <string name="alarm_saved_notifications_off">Meldingen uit</string>
 
     <!-- Wann Alarme geprüft werden -->
-    <string name="alarm_timing_hint_android">Met de app gesloten controleert Android onregelmatig – vaak later dan na 15 minuten, ook met «%1$s». Korte pieken kunnen worden gemist.</string>
+    <string name="alarm_timing_hint_android">Zonder «%1$s» controleert Android onregelmatig als het toestel rust – soms pas na uren. Met deze optie ongeveer elke 15 minuten.</string>
     <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">Met de app gesloten controleert iOS vaak later dan na 15 minuten, soms pas bij de volgende keer openen. Korte pieken kunnen worden gemist.</string>
     <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
     <string name="alarm_timing_title">Wanneer alarmen worden gecontroleerd</string>

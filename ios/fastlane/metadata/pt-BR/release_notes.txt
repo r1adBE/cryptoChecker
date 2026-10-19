@@ -21,7 +21,7 @@ Versão 16.2.2
 • Taxas de rede para Ethereum, Base, Arbitrum, Polygon, BNB Chain e Bitcoin na aba Mercado, com alarme de gas
 • Notas para cada moeda da sua lista
 • Escolha um som de alarme
-• Atividade incomum: detecta movimentos de preço e volume fora do normal, com notificações opcionais
+• Em destaque: detecta movimentos de preço e volume fora do normal, com notificações opcionais
 • Portfólio em uma aba própria (ative nos Ajustes): compras e vendas, preço médio, lucro/prejuízo
 • Grupos para a sua lista
 • Novos alarmes: movimento de X % em Y horas e pico de volume

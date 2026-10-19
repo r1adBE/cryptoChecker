@@ -114,6 +114,8 @@ fun PortfolioExportDialog(
     val rulesLine = if (template != TaxTemplate.NEUTRAL) stringResource(R.string.tax_export_rules_date, TaxTemplate.RULES_DATE) else null
     // Beträge in USDT, umgerechnet mit USD-Kursen × USDT/USD-Tagesschluss (ohne Schluss 1, je Zeile vermerkt) — in jeder Kopfzeile
     val usdtNote = stringResource(R.string.tax_export_usdt_usd_note)
+    // Eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose): Schluss des UTC-Tags der Transaktion — in jeder Steuer-CSV
+    val dayCloseNote = stringResource(R.string.tax_export_day_close_rule)
     val rule = stringResource(R.string.tax_export_rule)
     // AT: Durchschnitt je Coin und Wallet (KryptowährungsVO § 2) — steht in der Kopfzeile
     val atWalletNote = if (method == TaxMethod.AT_MOVING_AVERAGE) stringResource(R.string.tax_export_at_wallet_note) else null
@@ -140,7 +142,7 @@ fun PortfolioExportDialog(
         ActivityResultContracts.CreateDocument("text/csv")
     ) { uri ->
         if (uri != null && taxYear != null) {
-            val header = listOfNotNull(summaryTexts.title, info, rulesLine, methodNote, atWalletNote, usdtNote, disclaimer)
+            val header = listOfNotNull(summaryTexts.title, info, rulesLine, methodNote, atWalletNote, usdtNote, dayCloseNote, disclaimer)
             viewModel.exportSummary(uri, taxYear, currency, summaryTexts, TaxExport.withChWealthNote(template, header, chWealthNote), zoneLine)
         }
     }
@@ -151,8 +153,8 @@ fun PortfolioExportDialog(
         taxKind = null
         if (uri != null && kind != null && taxYear != null) {
             val header = when (kind) {
-                TaxExportKind.GAINS -> listOfNotNull(gainsTitle, info, rulesLine, methodNote, rule, atWalletNote, usdtNote, disclaimer)
-                TaxExportKind.INCOME -> listOfNotNull(incomeTitle, info, rulesLine, usdtNote, disclaimer)
+                TaxExportKind.GAINS -> listOfNotNull(gainsTitle, info, rulesLine, methodNote, rule, atWalletNote, usdtNote, dayCloseNote, disclaimer)
+                TaxExportKind.INCOME -> listOfNotNull(incomeTitle, info, rulesLine, usdtNote, dayCloseNote, disclaimer)
             }
             viewModel.exportTax(uri, kind, taxYear, currency, taxTexts, TaxExport.withChWealthNote(template, header, chWealthNote))
         }

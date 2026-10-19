@@ -315,4 +315,6 @@ internal fun taxSummaryTexts(t: TaxTemplate, yearLabel: String, currency: String
     wealthNoPrice = stringResource(R.string.portfolio_export_no_price),
     wealthUnchecked = stringResource(R.string.portfolio_export_unchecked),
     wealthAddressUnobserved = stringResource(R.string.portfolio_export_address_unobserved),
+    // USDT = 1 an einem Tag ohne USDT/USD-Schluss (z. B. vor dem Fenster der Quellen): eigene Zeile, nie still
+    usdtAssumed = stringResource(R.string.portfolio_usdt_assumed),
 )

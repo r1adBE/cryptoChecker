@@ -20,9 +20,11 @@ extension PortfolioExportSheet {
         let atNote: [String] = m == .AT_MOVING_AVERAGE ? [L("tax_export_at_wallet_note")] : []
         // Vorlage rechnet eine andere Methode als die App (wie Android: nach der Info-Zeile)
         let base: [String] = [texts.title, info(year: year)] + rulesLine + (methodNote.map { [$0] } ?? [])
-        // USDT zum USDT/USD-Tagesschluss (ohne Schluss 1, je Zeile vermerkt) — in jeder Kopfzeile, wie Android
+        // USDT zum USDT/USD-Tagesschluss (ohne Schluss 1, je Zeile vermerkt) und die Tageskurs-Regel geschätzter
+        // Marktwerte (`TaxDayClose`) — in jeder Kopfzeile, wie Android
         let header: [String] = TaxExport.withChWealthNote(
-            template, header: base + atNote + [L("tax_export_usdt_usd_note"), L("tax_export_workpaper_disclaimer")],
+            template, header: base + atNote + [L("tax_export_usdt_usd_note"), L("tax_export_day_close_rule"),
+                                               L("tax_export_workpaper_disclaimer")],
             chWealthNote: Self.chWealthNote(year: year))
         Task {
             let s: TaxYearSummary
@@ -66,11 +68,12 @@ extension PortfolioExportSheet {
             // AT: Durchschnitt je Coin und Wallet (KryptowährungsVO § 2)
             if m == .AT_MOVING_AVERAGE { lines.append(L("tax_export_at_wallet_note")) }
             lines.append(L("tax_export_usdt_usd_note"))
+            lines.append(L("tax_export_day_close_rule"))
             lines.append(L("tax_export_workpaper_disclaimer"))
             header = lines
         case .income:
             header = [L("tax_export_income_title", yearLabel), infoLine] + rulesLine + [L("tax_export_usdt_usd_note"),
-                      L("tax_export_workpaper_disclaimer")]
+                      L("tax_export_day_close_rule"), L("tax_export_workpaper_disclaimer")]
         }
         // CH: «Vermögenssteuer nicht gerechnet – Kursliste ESTV» in den ersten Kopfzeilen (wie Android)
         let csvHeader = TaxExport.withChWealthNote(template, header: header, chWealthNote: Self.chWealthNote(year: year))

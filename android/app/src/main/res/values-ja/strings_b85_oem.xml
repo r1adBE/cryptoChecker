@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="oem_battery_title">メーカーの省電力機能</string>
+    <string name="oem_battery_xiaomi">Xiaomi はアプリを完全に停止することがあり、その間アラートは届きません。「自動起動」をオンにし、バッテリーセーバーを「制限なし」にしてください。</string>
+    <string name="oem_battery_samsung">Samsung はアプリをディープスリープにすることがあり、その間アラートは届きません。バッテリー › バックグラウンドでの使用制限で「スリープさせないアプリ」に追加してください。</string>
+    <string name="oem_battery_huawei">Huawei/Honor はアプリを停止することがあり、その間アラートは届きません。バッテリー › アプリ起動で「手動で管理」を選び、すべて許可してください。</string>
+    <string name="oem_battery_oneplus">OnePlus はアプリを停止することがあり、その間アラートは届きません。「自動起動」を許可し、バッテリー使用量でバックグラウンド動作を許可してください。</string>
+    <string name="oem_battery_oppo">Oppo/Realme はアプリを停止することがあり、その間アラートは届きません。「自動起動」を許可し、バッテリー使用量でバックグラウンド動作を許可してください。</string>
+    <string name="oem_battery_vivo">Vivo はアプリを停止することがあり、その間アラートは届きません。「自動起動」を許可し、バッテリーでバックグラウンドの高い電力消費を許可してください。</string>
+</resources>

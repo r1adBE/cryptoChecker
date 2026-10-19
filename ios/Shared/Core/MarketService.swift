@@ -140,7 +140,7 @@ enum MarketService {
 
         for call in 0..<callCount {
             guard let filtered = market.bulkTickersURL(call: call, pairIds: pairIds), !filtered.isEmpty,
-                  !fullDone.contains(filtered) else { continue }
+                  !fullDone.contains(RequestKey.of(filtered)) else { continue }
             if lowMemory && LowMemoryBulk.skipsRequest(url: filtered) {
                 brokenGroups.insert(market.bulkTickersRequestGroup(call: call))
                 continue
@@ -196,7 +196,8 @@ enum MarketService {
             return try await loadBulk(market, call: call, url: filtered, post: post)
         } catch {
             if isRateLimit(error) { throw error }
-            guard let fullURL, !fullURL.isEmpty, fullURL != filtered else {
+            // Vergleich ohne Zeitstempel (BingX, `RequestKey`): sonst folgte dieselbe Anfrage noch einmal
+            guard let fullURL, !fullURL.isEmpty, RequestKey.of(fullURL) != RequestKey.of(filtered) else {
                 // Scheitert auch der Versuch ohne unbekannte Paare, zählt der ursprüngliche Fehler
                 guard let retried = try? await withoutUnknownPairs(market, call: call, pairIds: pairIds, post: post) else {
                     throw error
@@ -205,9 +206,9 @@ enum MarketService {
             }
             // Widget: keine ungefilterte Liste (mehrere MB) — Fehler, die Paare dann einzeln
             if lowMemory { throw error }
-            if fullDone.contains(fullURL) { return nil }
+            if fullDone.contains(RequestKey.of(fullURL)) { return nil }
             let parsed = try await loadBulk(market, call: call, url: fullURL, post: post)
-            fullDone.insert(fullURL)
+            fullDone.insert(RequestKey.of(fullURL))
             return parsed
         }
     }

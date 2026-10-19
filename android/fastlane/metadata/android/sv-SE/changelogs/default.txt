@@ -1,6 +1,6 @@
 Nytt i 16.2.2
 • Crypto Pulse: vad som händer just nu
-• Ovanlig aktivitet, ”Vad rör sig med?” med sammanfattning
+• ”Utmärkande”, ”Vad rör sig med?” med sammanfattning
 • Kom igång med ett tryck: topp 5-mynt, aktuella kurser
 • Svep: ta bort (med Ångra) eller favorit
 • Kurser och larm i din valuta, export per avstämningsdag (CSV)

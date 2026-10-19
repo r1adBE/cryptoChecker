@@ -140,12 +140,12 @@ enum CutoffExport {
             ])
         }
 
-        // Total: Summe der bekannten Werte; fehlt irgendwo ein Kurs, steht «unvollständig» dabei
-        // Summen exakt; gerundet wird erst im Text
-        let totalUsdt = rows.reduce(Decimal(0)) { $0 + ($1.valueUsdt ?? 0) }
+        // Total: Summe der bekannten Werte; fehlt irgendwo ein Kurs, steht «unvollständig» dabei. Summiert werden die
+        // GERUNDETEN Zeilenwerte (`roundedMoney`), wie sie in der Datei stehen — Nachrechnen der Spalte geht auf. Wie Android
+        let totalUsdt = rows.reduce(Decimal(0)) { $0 + roundedMoney($1.valueUsdt ?? 0) }
         let anyValue = rows.contains { $0.valueUsdt != nil }
         let anyTarget = rows.contains { $0.valueTarget != nil }
-        let totalTarget = rows.reduce(Decimal(0)) { $0 + ($1.valueTarget ?? 0) }
+        let totalTarget = rows.reduce(Decimal(0)) { $0 + roundedMoney($1.valueTarget ?? 0) }
         var totalNotes: [String] = []
         if addressesUnreadable || rows.contains(where: { $0.noPrice || $0.unchecked || $0.addressUnobserved }) {
             totalNotes.append(texts.incomplete)
@@ -220,6 +220,16 @@ enum CutoffExport {
         let zeros = String(repeating: "0", count: max(0, 2 - frac.count))
         let whole = String(parts[0])
         return whole + "." + frac + zeros
+    }
+
+    /// Geldbetrag so gerundet, wie `money` ihn schreibt (2 Stellen, bei der Hälfte weg von 0) — für Summen über
+    /// gerundete Zeilen. Wie Android `roundedMoney`.
+    static func roundedMoney(_ v: Decimal) -> Decimal {
+        guard v.isFinite, !v.isNaN else { return v }
+        var value = v
+        var rounded = Decimal()
+        NSDecimalRound(&rounded, &value, 2, .plain)
+        return rounded
     }
 
     /// Auf `scale` Nachkommastellen (bei der Hälfte weg von 0), ohne Exponent und Nullen am Ende; «-0» → «0».

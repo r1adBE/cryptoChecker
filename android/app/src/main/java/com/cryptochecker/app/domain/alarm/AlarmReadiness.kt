@@ -27,6 +27,8 @@ object AlarmReadiness {
         EXACT("exact"),
         BATTERY("battery"),
         BACKGROUND("background"),
+        /** Akkusparen des Herstellers (nur Android, nur auf bekannten Geräten: [OemBattery]). */
+        OEM_BATTERY("oem_battery"),
         BACKGROUND_REFRESH("background_refresh"),
         LOW_POWER("low_power"),
         DND("dnd"),
@@ -62,6 +64,8 @@ object AlarmReadiness {
         CHECK_OLD("check_old"),
         CHECK_NEVER("check_never"),
         NOTE("note"),
+        /** Weg zur Einstellung des Herstellers; der Text hängt vom Hersteller ab. */
+        OEM_NOTE("oem_note"),
     }
 
     /** Knopf rechts: Systemseite bzw. Seite der App; nur bei Zeilen, die nicht ✓ sind. */
@@ -76,6 +80,8 @@ object AlarmReadiness {
         APP_SETTINGS("app_settings"),
         ALARM_SETTINGS("alarm_settings"),
         CHECK_RUNS("check_runs"),
+        /** Seite des Herstellers (Autostart, Tiefschlaf …); fehlt sie, die App-Info. */
+        OEM_SETTINGS("oem_settings"),
     }
 
     data class Item(val row: Row, val state: State, val detail: Detail, val action: Action = Action.NONE)
@@ -102,6 +108,8 @@ object AlarmReadiness {
         val backgroundRestricted: Boolean = false,
         /** «Nicht stören» des Systems an; null = nicht lesbar (keine Zeile). */
         val systemDnd: Boolean? = null,
+        /** Hersteller mit eigenem Akkusparen; null = keiner bekannt (keine Zeile). */
+        val oemVendor: OemBattery.Vendor? = null,
         // ---- iOS
         val alertEnabled: Boolean = true,
         val soundEnabled: Boolean = true,
@@ -121,6 +129,7 @@ object AlarmReadiness {
             exact(input),
             battery(input),
             background(input),
+            oemBattery(input),
             dnd(input),
             quietHours(input),
             lastCheck(input),
@@ -212,6 +221,10 @@ object AlarmReadiness {
     private fun background(input: Input): Item =
         if (input.backgroundRestricted) Item(Row.BACKGROUND, State.WARN, Detail.RESTRICTED, Action.APP_SETTINGS)
         else Item(Row.BACKGROUND, State.OK, Detail.ALLOWED)
+
+    /** Nur zur Kenntnis: ob der Hersteller die App beendet, kann sie nicht lesen. */
+    private fun oemBattery(input: Input): Item? =
+        input.oemVendor?.let { Item(Row.OEM_BATTERY, State.INFO, Detail.OEM_NOTE, Action.OEM_SETTINGS) }
 
     private fun dnd(input: Input): Item? = when (input.systemDnd) {
         null -> null

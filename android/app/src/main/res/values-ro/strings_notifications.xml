@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Texte der Mitteilungen -->
-    <string name="notification_activity_title">%1$s · %2$s</string>
+    <string name="notification_activity_title">Notabil: %1$s · %2$s</string>
     <string name="notification_alarm_text">%1$s — acum %2$s</string>
     <string name="notification_alarm_title">Alarmă: %1$s · %2$s</string>
     <string name="notification_depeg_action_exchange">Deschide bursa</string>
@@ -52,7 +52,7 @@
     <string name="channel_service">Actualizarea prețurilor</string>
     <string name="channel_service_description">Notificare cât timp prețurile se actualizează.</string>
     <string name="neutral_channel_market">Alerte de piață</string>
-    <string name="neutral_channel_market_description">Fear &amp; Greed, taxe gas, activitate neobișnuită și date economice</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed, taxe gas, „Notabil” și date economice</string>
 
     <!-- Sprachausgabe -->
     <string name="tts_alarm">Alarmă. %1$s, %2$s %3$s %4$s, acum %5$s</string>

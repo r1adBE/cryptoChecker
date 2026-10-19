@@ -1,6 +1,6 @@
 Nyt i 16.2.2
 • Crypto Pulse: hvad der sker lige nu
-• Usædvanlig aktivitet, »Hvad bevæger sig med?« med opsummering
+• »Påfaldende«, »Hvad bevæger sig med?« med opsummering
 • Kom i gang med ét tryk: top 5 coins, aktuelle kurser
 • Stryg: slet (med Fortryd) eller favorit
 • Kurser og alarmer i din valuta, skæringsdato-eksport (CSV)

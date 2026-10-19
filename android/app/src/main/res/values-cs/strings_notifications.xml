@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Texte der Mitteilungen -->
-    <string name="notification_activity_title">%1$s · %2$s</string>
+    <string name="notification_activity_title">Nápadné: %1$s · %2$s</string>
     <string name="notification_alarm_text">%1$s — nyní %2$s</string>
     <string name="notification_alarm_title">Alarm: %1$s · %2$s</string>
     <string name="notification_depeg_action_exchange">Otevřít burzu</string>
@@ -53,7 +53,7 @@
     <string name="channel_service">Aktualizace cen</string>
     <string name="channel_service_description">Upozornění během aktualizace cen.</string>
     <string name="neutral_channel_market">Tržní upozornění</string>
-    <string name="neutral_channel_market_description">Fear &amp; Greed, poplatky za gas, neobvyklá aktivita a ekonomické termíny</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed, poplatky za gas, „Nápadné“ a ekonomické termíny</string>
 
     <!-- Sprachausgabe -->
     <string name="tts_alarm">Alarm. %1$s, %2$s %3$s %4$s, nyní %5$s</string>

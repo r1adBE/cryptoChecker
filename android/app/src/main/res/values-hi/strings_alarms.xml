@@ -141,7 +141,7 @@
     <string name="alarm_saved_notifications_off">नोटिफ़िकेशन बंद</string>
 
     <!-- Wann Alarme geprüft werden -->
-    <string name="alarm_timing_hint_android">ऐप बंद होने पर Android अनियमित रूप से जाँचता है – अक्सर 15 मिनट से देर से, “%1$s” के साथ भी। छोटे उछाल छूट सकते हैं।</string>
+    <string name="alarm_timing_hint_android">“%1$s” के बिना, डिवाइस निष्क्रिय होने पर Android अनियमित रूप से जाँचता है – कभी-कभी घंटों बाद। इसके साथ लगभग हर 15 मिनट।</string>
     <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">ऐप बंद होने पर iOS अक्सर 15 मिनट से देर से जाँचता है, कभी-कभी अगली बार ऐप खोलने पर ही। छोटे उछाल छूट सकते हैं।</string>
     <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
     <string name="alarm_timing_title">अलार्म कब जाँचे जाते हैं</string>

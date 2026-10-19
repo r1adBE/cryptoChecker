@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="oem_battery_title">توفير البطارية من الشركة المصنّعة</string>
+    <string name="oem_battery_xiaomi">قد يوقف Xiaomi التطبيق تمامًا – فلا تصل أي تنبيهات. فعّل «التشغيل التلقائي» واضبط توفير البطارية على «بلا قيود».</string>
+    <string name="oem_battery_samsung">قد يضع Samsung التطبيق في سكون عميق – فلا تصل أي تنبيهات. من البطارية › حدود الاستخدام في الخلفية أضفه إلى «التطبيقات التي لا تنام أبدًا».</string>
+    <string name="oem_battery_huawei">قد يوقف Huawei/Honor التطبيق – فلا تصل أي تنبيهات. من البطارية › تشغيل التطبيقات اختر «إدارة يدوية» واسمح بكل الخيارات.</string>
+    <string name="oem_battery_oneplus">قد يوقف OnePlus التطبيق – فلا تصل أي تنبيهات. اسمح بـ«التشغيل التلقائي» واسمح بالنشاط في الخلفية من استخدام البطارية.</string>
+    <string name="oem_battery_oppo">قد يوقف Oppo/Realme التطبيق – فلا تصل أي تنبيهات. اسمح بـ«التشغيل التلقائي» واسمح بالنشاط في الخلفية من استخدام البطارية.</string>
+    <string name="oem_battery_vivo">قد يوقف Vivo التطبيق – فلا تصل أي تنبيهات. اسمح بـ«التشغيل التلقائي» واسمح باستهلاك عالٍ في الخلفية من البطارية.</string>
+</resources>

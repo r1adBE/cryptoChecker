@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
+    <string name="tax_export_day_close_rule">Fiyatı girilmemiş piyasa değerleri (ücretler, hediye/ödeme, takas, ödüller, ağ ücretleri, portföy değeri) işlem gününün günlük kapanışından (UTC)</string>
+</resources>

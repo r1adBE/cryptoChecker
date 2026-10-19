@@ -1,6 +1,6 @@
 Uutta versiossa 16.2.2
 • Crypto Pulse: mitä nyt tapahtuu
-• Epätavallinen aktiivisuus, ”Mikä liikkuu mukana?” yhteenvedolla
+• ”Huomionarvoista”, ”Mikä liikkuu mukana?” yhteenvedolla
 • Nopea aloitus: top 5 -kolikot, nykyhinnat
 • Pyyhkäise: poista (Kumoa) tai suosikiksi
 • Hinnat ja hälytykset valuutassasi, CSV-vienti

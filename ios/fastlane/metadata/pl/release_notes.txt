@@ -21,7 +21,7 @@ Wersja 16.2.2
 • Opłaty sieciowe dla Ethereum, Base, Arbitrum, Polygon, BNB Chain i Bitcoin na karcie Rynek, z alarmem gas
 • Notatka do każdej monety na liście obserwowanych
 • Wybór dźwięku alarmu
-• Nietypowa aktywność: wykrywa nietypowe ruchy ceny i wolumenu, opcjonalne powiadomienia
+• Warte uwagi: wykrywa nietypowe ruchy ceny i wolumenu, opcjonalne powiadomienia
 • Portfel w osobnej karcie (włącz w ustawieniach): kupno i sprzedaż, średnia cena, zysk/strata
 • Grupy na liście obserwowanych
 • Nowe alarmy: ruch o X% w ciągu Y godzin i skok wolumenu

@@ -1,0 +1,16 @@
+{
+  "_comment": "Eine Tageskurs-Regel im Steuer-Export (TaxDayClose.kt / TaxDayClose.swift, Build 85): geschätzte Marktwerte (Gebühr-Zeile, Verschenkt/bezahlt, Tausch ohne Wert, Belohnung ohne Wert, Netzwerkgebühr als Veräusserung, FR-Gesamtwert) nehmen den Schluss des UTC-Tags der Transaktion — bis Build 84 nahmen Netzwerkgebühren und FR den Vortag. closes = Tagesschluss USDT je Coin und UTC-Tag (epochDay: 20543 = 31.3.2026, 20544 = 1.4.2026). trades: Kraken-Gebühr-Zeile (SELL, feeRow, ohne Preis) 1.4. 09:00 UTC und Umbuchung mit Netzwerkgebühr im Coin derselben Stunde (09:30 UTC) → beide 63000, Wert je 0.01 BTC = 630.00. lateLocal: 1.4. 00:30 Zürich = 31.3. 22:30 UTC → Schluss des 31.3. (60000), nicht des lokalen 1.4.",
+  "closes": [
+    { "coin": "BTC", "day": 20543, "close": "60000" },
+    { "coin": "BTC", "day": 20544, "close": "63000" }
+  ],
+  "trades": [
+    { "id": 1, "coin": "BTC", "type": "SELL", "amount": "0.01", "time": 1775034000000, "feeRow": true },
+    { "id": 2, "coin": "BTC", "type": "TRANSFER", "amount": "0.5", "time": 1775035800000, "fee": "0.01", "feeUnit": "COIN" }
+  ],
+  "end": 1775087999999,
+  "expectedDay": 20544,
+  "expectedClose": "63000",
+  "expectedFeeValue": "630.00",
+  "lateLocal": { "time": 1774996200000, "expectedDay": 20543, "expectedClose": "60000" }
+}

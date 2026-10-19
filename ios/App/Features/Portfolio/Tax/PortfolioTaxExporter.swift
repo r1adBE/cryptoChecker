@@ -16,8 +16,10 @@ enum PortfolioTaxExporter {
     }
 
     /// USDT/USD-Tagesschlüsse ab `from` für den Steuer-Export (`TaxExport.rateOn` `usdtUsd`, USDT zum Marktkurs): Tag →
-    /// Schluss (Kraken, höchstens 720 Tage; Tage ohne Schluss rechnen mit 1 und sind je Zeile vermerkt). nil für eine
-    /// Währung ohne USDT-Umrechnung (USDT selbst). Wie Android `usdtUsdCloses`.
+    /// Schluss (Kraken, höchstens 720 Tage; Lücken füllt Coinbase). Ältere Steuerjahre werden nicht seitenweise
+    /// nachgeladen (Begründung bei Android `usdtUsdCloses`); Tage ohne Schluss rechnen mit 1 und sind nie still: Vermerk
+    /// je Zeile und eine Zeile in der Jahresübersicht (`TaxYearSummary.usdtApproximate`). nil für eine Währung ohne
+    /// USDT-Umrechnung (USDT selbst). Wie Android `usdtUsdCloses`.
     static func usdtUsdCloses(_ currency: String, from: LocalDay) async -> [Int: Decimal]? {
         guard CutoffExport.convertsUsdt(currency) else { return nil }
         let days = max(1, LocalDay.today().epochDay - from.epochDay + 1 + PortfolioHistoryFx.leadDays)
@@ -54,8 +56,9 @@ enum PortfolioTaxExporter {
     }
 
     /// Gebühr-Zeilen (`PortfolioLedger.isFeeDisposal`, CSV «Fee»), Verschenkt/bezahlt ohne Marktwert und Tausch ohne Wert
-    /// (`PortfolioLedger.dayCloseNeeds`) bis Ende `period`: zum Tageskurs — der Coin zum Tagesschluss SEINES UTC-Tags (gleicher
-    /// Kurs wie Karte und Wertverlauf); nur für genau diese (Coin, Zeit), sonst nil. Ohne solche nil. Wie Android.
+    /// (`PortfolioLedger.dayCloseNeeds`) bis Ende `period`: zum Tageskurs — der Coin zum Tagesschluss SEINES UTC-Tags
+    /// (`TaxDayClose`, gleicher Kurs wie Karte und Wertverlauf); nur für genau diese (Coin, Zeit), sonst nil. Ohne solche
+    /// nil. Wie Android.
     static func feeDisposalPrices(_ transactions: [PortfolioTx], period: TaxPeriod,
                                   zone: TimeZone = .current) async -> ((String, Int64) -> Decimal?)? {
         let end = CutoffDay(year: period.end.year, month: period.end.month, day: period.end.day)
@@ -66,11 +69,11 @@ enum PortfolioTaxExporter {
         for need in PortfolioLedger.dayCloseNeeds(own) {
             keys.insert("\(need.coin)|\(need.time)")
             if PortfolioStables.needsQuote(need.coin) {
-                wanted[need.coin, default: []].insert(LocalDay(epochMillisUTC: need.time).epochDay)
+                wanted[need.coin, default: []].insert(TaxDayClose.day(need.time))
             }
         }
         if keys.isEmpty { return nil }
-        let closes = await dailyCloses(wanted, dayOffset: 0)
+        let closes = await dailyCloses(wanted)
         let found = keys
         return { coin, time in
             guard found.contains("\(coin)|\(time)") else { return nil }
@@ -80,30 +83,19 @@ enum PortfolioTaxExporter {
     }
 
     /// Marktwert der Netzwerkgebühren in Krypto (eigene Veräusserung, `TaxEngines.applyRules`) bis Ende `period`: Gebühr
-    /// im Coin bzw. im dritten Coin ohne erfassten Gebühr-Preis einer Umbuchung, Auszahlung oder Schenkung — der Coin zum
-    /// Tagesschluss des Vortags (UTC). Wie `networkFeePrices` (Android).
+    /// im Coin bzw. im dritten Coin ohne erfassten Gebühr-Preis einer Umbuchung, Auszahlung oder Schenkung
+    /// (`TaxDayClose.networkFeeNeeds`) — der Coin zum Tagesschluss seines UTC-Tags wie jede Gebühr-Zeile derselben
+    /// Unterlage. Wie `networkFeePrices` (Android).
     static func networkFeePrices(_ transactions: [PortfolioTx], period: TaxPeriod,
                                  zone: TimeZone = .current) async -> (String, Int64) -> Decimal? {
         let end = CutoffDay(year: period.end.year, month: period.end.month, day: period.end.day)
             .endOfDayMillis(in: zone)
-        var wanted: [String: Set<Int>] = [:]
-        for t in transactions where (t.type == .TRANSFER || t.type.isWithdrawalLike) && t.time <= end
-            && !AddressBalance.isAddressTrade(t.id) {
-            let day = LocalDay(epochMillisUTC: t.time).plusDays(-1).epochDay
-            let coin = PortfolioCalculator.normalizeCoin(t.coin)
-            if t.coinFeeExact > 0 && t.validPriceExact == nil && PortfolioStables.needsQuote(coin) {
-                wanted[coin, default: []].insert(day)
-            }
-            if let third = t.thirdFeeCoin, t.thirdFeePrice == nil, PortfolioStables.needsQuote(third) {
-                wanted[third, default: []].insert(day)
-            }
-        }
-        return await dailyCloses(wanted)
+        return await dailyCloses(TaxDayClose.networkFeeNeeds(transactions, end: end))
     }
 
     /// FR: Kurse für den Gesamtwert des Portfolios vor jeder Abtretung bis Ende `period` — je Verkauf, Auszahlung und
-    /// Gebühr in Krypto die gehaltenen Coins (ohne den verkauften, ohne Stablecoins) zum Tagesschluss des Vortags (UTC).
-    /// Wie `frPrices` (Android).
+    /// Gebühr in Krypto die gehaltenen Coins (ohne den verkauften, ohne Stablecoins) zum Tagesschluss des UTC-Tags der
+    /// Abtretung (`TaxDayClose`, dieselbe Regel wie die Gebühr-Zeilen; bis Build 85 der Vortag). Wie `frPrices` (Android).
     static func frPrices(_ transactions: [PortfolioTx], period: TaxPeriod,
                          zone: TimeZone = .current) async -> (String, Int64) -> Decimal? {
         let end = CutoffDay(year: period.end.year, month: period.end.month, day: period.end.day).endOfDayMillis(in: zone)
@@ -116,22 +108,22 @@ enum PortfolioTaxExporter {
         for t in own where t.time <= end {
             let feeInCrypto: Bool = t.thirdFeeCoin != nil || ((t.type == .TRANSFER || t.type == .SWAP) && t.coinFeeExact > 0)
             guard t.type.isSaleLike || t.type.isWithdrawalLike || feeInCrypto else { continue }
-            let dayBefore = LocalDay(epochMillisUTC: t.time).plusDays(-1).epochDay
+            let day = TaxDayClose.day(t.time)
             // Verkauf: Coin zum Verkaufspreis; sonst ohne erfassten Wert: auch der Coin selbst braucht einen Kurs
             let sold: String? = (t.type.isSaleLike || t.validPriceExact != nil) ? PortfolioCalculator.normalizeCoin(t.coin) : nil
             // Gehalten = in der Reihenfolge der Rechnung davor gebucht (auch dieselbe Millisekunde) — wie Android
             var held = TaxEngines.frHeldBefore(own, t)
             for a in addressTrades where a.time <= t.time { held.insert(PortfolioCalculator.normalizeCoin(a.coin)) }
             for coin in held where coin != sold && PortfolioStables.needsQuote(coin) {
-                wanted[coin, default: []].insert(dayBefore)
+                wanted[coin, default: []].insert(day)
             }
         }
         return await dailyCloses(wanted)
     }
 
-    /// Tagesschlusskurse (USDT) je Coin und Tag (epochDay); Abfrage über (Coin, Zeit) → Schluss des Tags + `dayOffset`
-    /// (Standard −1: Vortag); fehlt = nil.
-    private static func dailyCloses(_ wanted: [String: Set<Int>], dayOffset: Int = -1) async -> (String, Int64) -> Decimal? {
+    /// Tagesschlusskurse (USDT) je Coin und Tag (epochDay); Abfrage über (Coin, Zeit) → Schluss des UTC-Tags der Zeit
+    /// (`TaxDayClose.lookup`); fehlt = nil.
+    private static func dailyCloses(_ wanted: [String: Set<Int>]) async -> (String, Int64) -> Decimal? {
         if wanted.isEmpty { return { _, _ in nil } }
         let coins = wanted.keys.sorted()
         let live = await PortfolioPriceSource.prices(coins)
@@ -142,11 +134,10 @@ enum PortfolioTaxExporter {
                 let d = LocalDay(epochDay: epochDay)
                 let r = await HistoricPriceSource.dailyCloseUsdt(coin, day: CutoffDay(year: d.year, month: d.month, day: d.day),
                                                                  current: current[coin])
-                if let p = PortfolioDecimal.of(r.price) { closes["\(coin)|\(epochDay)"] = p }
+                if let p = PortfolioDecimal.of(r.price) { closes[TaxDayClose.key(coin, epochDay)] = p }
             }
         }
-        let found = closes
-        return { coin, time in found["\(coin)|\(LocalDay(epochMillisUTC: time).plusDays(dayOffset).epochDay)"] }
+        return TaxDayClose.lookup(closes)
     }
 
     /// Jahresübersicht der Vorlage für das Steuerjahr ab `year` (ohne Devisenkurse: Werte in der Währung leer).

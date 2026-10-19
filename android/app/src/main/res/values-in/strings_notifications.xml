@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Texte der Mitteilungen -->
-    <string name="notification_activity_title">%1$s · %2$s</string>
+    <string name="notification_activity_title">Menonjol: %1$s · %2$s</string>
     <string name="notification_alarm_text">%1$s — sekarang %2$s</string>
     <string name="notification_alarm_title">Alarm: %1$s · %2$s</string>
     <string name="notification_depeg_action_exchange">Buka exchange</string>
@@ -50,7 +50,7 @@
     <string name="channel_service">Pembaruan harga</string>
     <string name="channel_service_description">Pemberitahuan selama harga diperbarui.</string>
     <string name="neutral_channel_market">Peringatan pasar</string>
-    <string name="neutral_channel_market_description">Fear &amp; Greed, biaya gas, aktivitas tidak biasa dan jadwal ekonomi</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed, biaya gas, “Menonjol” dan jadwal ekonomi</string>
 
     <!-- Sprachausgabe -->
     <string name="tts_alarm">Alarm. %1$s, %2$s %3$s %4$s, sekarang %5$s</string>

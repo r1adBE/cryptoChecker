@@ -27,7 +27,7 @@ ALERTS
 • Quiet hours and “Test alert”: hear in advance how an alert arrives; alarm log: when it was checked, which price, why an alert didn’t fire
 
 MARKET
-• Unusual Activity: unusual price and volume moves in your watchlist, optionally as a market notice
+• Notable: unusual price and volume moves in your watchlist, optionally as a market notice
 • Crypto Pulse, Fear & Greed, Bitcoin indicators, funding and open interest – as plain measured values
 • Network fees for Ethereum, Bitcoin and more, with gas alert
 

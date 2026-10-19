@@ -26,7 +26,7 @@ ALARMET
 • Orët e heshtjes, «Testo alarmin» dhe regjistri i alarmeve
 
 TREGU
-• Aktivitet i pazakontë: lëvizje të pazakonta çmimi dhe vëllimi në listën tënde, sipas dëshirës me njoftim
+• Bie në sy: lëvizje të pazakonta çmimi dhe vëllimi në listën tënde, sipas dëshirës me njoftim
 • Crypto Pulse, Fear & Greed, tregues të Bitcoin, funding dhe open interest – si vlera të matura
 • Tarifat e rrjetit për Ethereum, Bitcoin e të tjera, me alarm gas
 

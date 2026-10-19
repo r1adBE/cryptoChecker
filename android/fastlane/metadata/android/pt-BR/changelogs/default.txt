@@ -1,6 +1,6 @@
 Novo na 16.2.2
 • Crypto Pulse: o que acontece
-• Atividade incomum, “O que se move junto?” com resumo
+• “Em destaque”, “O que se move junto?” com resumo
 • Comece com 1 toque: top 5, preço atual
 • Deslize: excluir (Desfazer) ou favorito
 • Preços/alarmes na sua moeda; CSV na data de referência

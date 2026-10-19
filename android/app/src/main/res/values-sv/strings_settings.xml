@@ -42,7 +42,7 @@
     <string name="settings_exact_checks_grant">Tillåt ”Alarm och påminnelser”</string>
     <string name="settings_exact_checks_hint">Android kontrollerar ungefär var 15:e minut, även när enheten vilar. Drar lite mer batteri.</string>
     <string name="settings_exact_checks_nothing">Inga aktiva par – inget att kontrollera.</string>
-    <string name="settings_exact_checks_permission_missing">Behörighet saknas – Android kontrollerar när det passar (ungefär var 15:e min eller senare).</string>
+    <string name="settings_exact_checks_permission_missing">Behörighet saknas – när enheten vilar kontrollerar Android oregelbundet, ibland först efter timmar.</string>
     <string name="settings_notification_change">Avisera bara vid kursändring</string>
     <string name="settings_notification_change_always">Alltid</string>
     <string name="settings_notification_change_hint">En avisering visas först när kursen har rört sig minst så här mycket sedan den förra. Inget visas när data saknas. Larm påverkas inte.</string>
@@ -77,11 +77,11 @@
     <string name="settings_live_websocket">Livekurser</string>
 
     <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
-    <string name="settings_activity_alerts">Rapportera ovanlig aktivitet</string>
+    <string name="settings_activity_alerts">Utmärkande: meddela</string>
     <string name="settings_activity_alerts_hint">Högst en gång i timmen per par: ovanliga kursrörelser, volymspikar och extremer på terminsmarknaden (data från Binance).</string>
     <string name="settings_activity_sensitivity">Känslighet</string>
     <string name="settings_activity_sensitivity_hint">Hur lätt ett mynt räknas som ovanligt – samma för kortet i bevakningslistan och aviseringarna. Med ”Färre” visar kortet bara de 3 starkaste.</string>
-    <string name="settings_watchlist_activity_card">Ovanlig aktivitet i listan</string>
+    <string name="settings_watchlist_activity_card">Utmärkande: visa i listan</string>
     <string name="settings_watchlist_activity_card_hint">Visar chippet ⚡ vid grupperna: tryck för att bara se paren där något händer just nu. Aviseringar ställs in under Marknadsaviseringar.</string>
     <string name="settings_watchlist_names">Visa namn</string>
     <string name="settings_watchlist_names_hint">Namn under paret, t.ex. Bitcoin eller NVIDIA. Följer med logolistorna och hämtas en gång för alla mynt.</string>
@@ -112,7 +112,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Accentfärg</string>
-    <string name="settings_accent_hint">Färg för appen, widgetar och appikonen.</string>
+    <string name="settings_accent_hint">Färg för appen, widgetar och appikonen. Vissa startskärmar tar bort ikonen vid byte – lägg då till den igen.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Myntlogotyper</string>
     <string name="settings_coin_logos_app">I appen</string>

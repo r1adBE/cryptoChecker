@@ -63,9 +63,13 @@ internal fun TaxExport.frOutflowLine(
     var outUsdt = zero
     var outTarget = zero
     var outFx = false
+    var outUsdtApproximate = false
     for (o in outs) {
         val r = o.ptaReductionUsdt ?: continue
         outUsdt += r
+        // Tage, deren Kurs die Kürzung braucht: ohne USDT/USD-Schluss mit USDT = 1 (nie still, [TaxYearSummary.usdtApproximate])
+        val days = if (o.ptaReductionParts.isEmpty()) listOf(o.time) else o.ptaReductionParts.map { it.time }
+        if (days.any { usdtApproximateOn(usdtUsd, localDate(it, zone)) }) outUsdtApproximate = true
         // Kürzung = Anteil der Erwerbspreis-Summe: in der Steuerwährung je Herkunft zum Kurs ihres Kaufdatums (wie
         // der Einstand einer Abtretung), nicht zum Kurs des Abgangs; ohne Herkunft (Kürzung 0) zum Kurs des Abgangs
         val t = if (o.ptaReductionParts.isEmpty()) {
@@ -78,7 +82,10 @@ internal fun TaxExport.frOutflowLine(
         }
         if (t != null) outTarget += t else if (fx) outFx = true
     }
-    return TaxSummaryLine(TaxLine.FR_OUTFLOW, outUsdt, outTarget.takeIf { fx }, incomplete = true, noFx = outFx)
+    return TaxSummaryLine(
+        TaxLine.FR_OUTFLOW, outUsdt, outTarget.takeIf { fx }, incomplete = true, noFx = outFx,
+        usdtApproximate = fx && outUsdtApproximate,
+    )
 }
 
 /**

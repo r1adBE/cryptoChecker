@@ -42,7 +42,7 @@
     <string name="settings_exact_checks_grant">Salli ”Herätykset ja muistutukset”</string>
     <string name="settings_exact_checks_hint">Android tarkistaa noin 15 minuutin välein myös laitteen ollessa levossa. Kuluttaa hieman enemmän akkua.</string>
     <string name="settings_exact_checks_nothing">Ei aktiivisia pareja – ei tarkistettavaa.</string>
-    <string name="settings_exact_checks_permission_missing">Lupa puuttuu – Android tarkistaa, kun sille sopii (noin 15 min välein tai myöhemmin).</string>
+    <string name="settings_exact_checks_permission_missing">Lupa puuttuu – laitteen levätessä Android tarkistaa epäsäännöllisesti, joskus vasta tuntien päästä.</string>
     <string name="settings_notification_change">Ilmoita vain hinnan muuttuessa</string>
     <string name="settings_notification_change_always">Aina</string>
     <string name="settings_notification_change_hint">Ilmoitus näytetään vasta, kun hinta on muuttunut vähintään tämän verran edellisestä ilmoituksesta. Kun tietoja puuttuu, mitään ei näytetä. Ei vaikuta hälytyksiin.</string>
@@ -77,11 +77,11 @@
     <string name="settings_live_websocket">Live-hinnat</string>
 
     <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
-    <string name="settings_activity_alerts">Ilmoita epätavallisesta aktiivisuudesta</string>
+    <string name="settings_activity_alerts">Huomionarvoista: ilmoita</string>
     <string name="settings_activity_alerts_hint">Enintään kerran tunnissa paria kohden: epätavalliset hintaliikkeet, volyymipiikit ja futuurien ääriarvot (tiedot Binancesta).</string>
     <string name="settings_activity_sensitivity">Herkkyys</string>
     <string name="settings_activity_sensitivity_hint">Kuinka helposti kolikko katsotaan epätavalliseksi – sama seurantalistan kortille ja ilmoituksille. Asetuksella ”Vähemmän” kortti näyttää vain 3 vahvinta.</string>
-    <string name="settings_watchlist_activity_card">Epätavallinen aktiivisuus listassa</string>
+    <string name="settings_watchlist_activity_card">Huomionarvoista: näytä listassa</string>
     <string name="settings_watchlist_activity_card_hint">Näyttää ⚡-sirun ryhmien vieressä: napauta nähdäksesi vain parit, joissa tapahtuu juuri nyt jotain. Ilmoitukset asetetaan kohdassa Markkinailmoitukset.</string>
     <string name="settings_watchlist_names">Näytä nimet</string>
     <string name="settings_watchlist_names_hint">Nimi parin alla, esim. Bitcoin tai NVIDIA. Tulee logoluetteloiden mukana, ladataan kerran kaikille kolikoille.</string>
@@ -112,7 +112,7 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Korostusväri</string>
-    <string name="settings_accent_hint">Väri sovellukselle, widgeteille ja sovelluskuvakkeelle.</string>
+    <string name="settings_accent_hint">Väri sovellukselle, widgeteille ja sovelluskuvakkeelle. Jotkin aloitusnäytöt poistavat kuvakkeen vaihdon yhteydessä – lisää se silloin uudelleen.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Kolikoiden logot</string>
     <string name="settings_coin_logos_app">Sovelluksessa</string>

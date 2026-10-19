@@ -21,7 +21,7 @@ Version 16.2.2
 • Netzwerkgebühren für Ethereum, Base, Arbitrum, Polygon, BNB Chain und Bitcoin im Markt-Tab, mit Gas-Alarm
 • Notiz pro Coin in deiner Merkliste
 • Alarmton zum Auswählen
-• Ungewöhnliche Aktivität: erkennt auffällige Kurs- und Volumenbewegungen, auf Wunsch mit Mitteilung
+• Auffällig: erkennt ungewöhnliche Kurs- und Volumenbewegungen, auf Wunsch mit Mitteilung
 • Portfolio als eigener Tab (in den Einstellungen einschalten): Käufe und Verkäufe, Durchschnittspreis, Gewinn/Verlust
 • Gruppen für deine Merkliste
 • Neue Alarme: Bewegung um X % in Y Stunden und Volumensprung

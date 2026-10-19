@@ -32,8 +32,14 @@
     <!-- Systemsicherung: Auto Backup nach den XML-Regeln (fullBackupOnly); der eigene Agent legt nur für die
          Dauer einer Sicherung eine unverschlüsselte Kopie der (verschlüsselten) Hauptdatenbank dazu und macht
          sie nach einer Wiederherstellung wieder zur Datenbank (SystemBackupAgent, Build 59). -->
+    <!-- largeHeap: Sicherungen mit Passwort leiten den Schlüssel mit Argon2id ab, das 64 MiB am Stück im ART-Heap
+         braucht (Argon2id.kt, m = 65 536 KiB). Ohne largeHeap liegt die Heap-Grenze auf Geräten mit 2 GB RAM oft
+         bei 128–192 MiB; zusammen mit der laufenden App reicht das nicht, und die Sicherung liesse sich dort nie
+         einspielen. Die Parameter bleiben fest (sonst passten bestehende Sicherungen nicht mehr); reicht der
+         Speicher trotzdem nicht, meldet BackupCrypto «zu wenig Arbeitsspeicher» statt abzustürzen. -->
     <application
         android:name=".CryptoCheckerApp"
+        android:largeHeap="true"
         android:icon="@mipmap/ic_launcher_orange_dark"
         android:roundIcon="@mipmap/ic_launcher_orange_dark_round"
         android:label="@string/app_name"
@@ -252,6 +258,9 @@
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
                 <!-- «Wecker und Erinnerungen» erlaubt (Android 12+, geschützt): Wecker neu stellen -->
                 <action android:name="android.app.action.SCHEDULE_EXACT_ALARM_PERMISSION_STATE_CHANGED" />
+                <!-- Zeitzone bzw. Uhr geändert (geschützt, für Manifest-Empfänger erlaubt): Wirtschaftstermine neu planen -->
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+                <action android:name="android.intent.action.TIME_SET" />
             </intent-filter>
         </receiver>
 

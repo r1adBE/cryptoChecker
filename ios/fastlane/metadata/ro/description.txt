@@ -26,7 +26,7 @@ ALARME
 • Ore de liniște, „Testează alarma” și jurnal alarme
 
 PIAȚĂ
-• Activitate neobișnuită: mișcări atipice de preț și volum în lista ta, opțional cu notificare
+• Notabil: mișcări atipice de preț și volum în lista ta, opțional cu notificare
 • Crypto Pulse, Fear & Greed, indicatori Bitcoin, funding și open interest – ca valori simple
 • Taxe de rețea pentru Ethereum, Bitcoin și altele, cu alarmă de gas
 

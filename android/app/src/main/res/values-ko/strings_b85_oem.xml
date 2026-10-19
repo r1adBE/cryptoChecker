@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="oem_battery_title">제조사 배터리 절약</string>
+    <string name="oem_battery_xiaomi">Xiaomi는 앱을 완전히 중지할 수 있으며, 그러면 알림이 오지 않습니다. “자동 시작”을 켜고 배터리 세이버를 “제한 없음”으로 설정하세요.</string>
+    <string name="oem_battery_samsung">Samsung은 앱을 딥 슬립 상태로 만들 수 있으며, 그러면 알림이 오지 않습니다. 배터리 › 백그라운드 사용 제한에서 “절전 예외 앱”에 추가하세요.</string>
+    <string name="oem_battery_huawei">Huawei/Honor는 앱을 중지할 수 있으며, 그러면 알림이 오지 않습니다. 배터리 › 앱 실행에서 “수동으로 관리”를 선택하고 모두 허용하세요.</string>
+    <string name="oem_battery_oneplus">OnePlus는 앱을 중지할 수 있으며, 그러면 알림이 오지 않습니다. “자동 실행”과 배터리 사용량의 백그라운드 활동을 허용하세요.</string>
+    <string name="oem_battery_oppo">Oppo/Realme는 앱을 중지할 수 있으며, 그러면 알림이 오지 않습니다. “자동 실행”과 배터리 사용량의 백그라운드 활동을 허용하세요.</string>
+    <string name="oem_battery_vivo">Vivo는 앱을 중지할 수 있으며, 그러면 알림이 오지 않습니다. “자동 시작”과 배터리의 높은 백그라운드 전력 사용을 허용하세요.</string>
+</resources>

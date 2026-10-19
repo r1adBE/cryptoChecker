@@ -83,12 +83,12 @@
     <string name="market_cap_title">Криптовалютный рынок</string>
     <string name="market_volume_label">Объём за 24 ч</string>
 
-    <!-- Crypto Pulse «Was gerade auffällt»: Titel, Abschnitte, Hinweise -->
+    <!-- Crypto Pulse «Kurz gesagt»: Titel, Abschnitte, Hinweise -->
     <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
     <string name="pulse_details_action">Подробности</string>
     <string name="pulse_disclaimer">Не прогноз · Не инвестиционная рекомендация</string>
     <string name="pulse_less">Свернуть</string>
-    <string name="pulse_now_title">Что сейчас выделяется</string>
+    <string name="pulse_now_title">Пульс крипторынка</string>
     <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
     <string name="pulse_period_24h_spoken">Изменение за 24 часа</string>
     <string name="pulse_section_factors">Факторы</string>
@@ -155,7 +155,7 @@
     <string name="pulse_volume_low">Объём торгов низкий (%1$s× от обычного)</string>
     <string name="pulse_volume_normal">Объём торгов обычный</string>
 
-    <!-- «Heute auffällig» (grösste Coins mit ungewöhnlicher Bewegung) -->
+    <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
     <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
     <!-- Screenreader-Aktion einer Zeile (öffnet das Aktionsblatt bzw. die Vorschau) -->
     <string name="unusual_action_open">Показать цену и действия</string>
@@ -167,11 +167,11 @@
     <string name="unusual_fact_weaker">Движется заметно слабее BTC</string>
     <string name="unusual_nothing">Сегодня ничего необычного</string>
     <string name="unusual_source">Около 30 крупнейших монет без стейблкоинов · Binance, CoinGecko</string>
-    <string name="unusual_title">Сегодня выделяется</string>
+    <string name="unusual_title">Заметное</string>
 
-    <!-- Ungewöhnliche Aktivität eines Paars (Karte, Signale, Empfindlichkeit) -->
-    <string name="activity_card_title">Необычная активность</string>
-    <string name="activity_indicator">Необычная активность</string>
+    <!-- «Auffällig» je Paar: ⚡ in der Merkliste, Signale, Empfindlichkeit -->
+    <string name="activity_card_title">Заметное</string>
+    <string name="activity_indicator">Заметное</string>
     <string name="activity_sensitivity_less">Меньше</string>
     <string name="activity_sensitivity_more">Больше</string>
     <string name="activity_sensitivity_normal">Обычная</string>

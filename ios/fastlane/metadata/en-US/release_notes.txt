@@ -21,7 +21,7 @@ Version 16.2.2
 • Network fees for Ethereum, Base, Arbitrum, Polygon, BNB Chain and Bitcoin in the Market tab, with gas alert
 • Notes for each coin in your watchlist
 • Choose an alarm sound
-• Unusual Activity: spots unusual price and volume moves, optional notifications
+• Notable: spots unusual price and volume moves, optional notifications
 • Portfolio as its own tab (turn on in Settings): buys and sells, average price, profit/loss
 • Groups for your watchlist
 • New alerts: move X % within Y hours and volume spike

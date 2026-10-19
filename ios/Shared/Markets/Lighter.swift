@@ -37,7 +37,7 @@ final class Lighter: Market {
     /// Unbekanntes Symbol oder Kurs 0 (nie gehandelt, abgelaufener Binärmarkt): Fehler statt Kurs 0, damit «nicht
     /// mehr gehandelt» bestätigt werden kann (NotTraded).
     override func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
-        let symbol = info.pairId ?? ""
+        let symbol = Lighter.symbol(of: info)
         let rows = try json.array("order_book_stats").optObjects()
         guard let row = rows.first(where: { $0.optString("symbol") == symbol }) else {
             throw JSONError(message: "Unknown symbol: \(symbol)")
@@ -46,6 +46,13 @@ final class Lighter: Market {
             throw JSONError(message: "No price: \(symbol)")
         }
         try Lighter.copyRow(row, into: &ticker)
+    }
+
+    /// Symbol des Paars: die gespeicherte Kennung, sonst wie in der Paarliste aus Basis und Gegenwährung — Perp «BTC»,
+    /// Spot «ETH/USDC». Ohne Kennung suchte die Abfrage sonst das leere Symbol und bestätigte fälschlich «nicht mehr
+    /// gehandelt». Wie Android.
+    static func symbol(of info: PairQuery) -> String {
+        info.pairId ?? (info.contractType == FuturesContractType.none ? info.base + "/" + info.quote : info.base)
     }
 
     /// Fehlerantwort {"code": …, "message": …} mit einem Code ausser 200; eine normale Antwort (code 200) ohne das

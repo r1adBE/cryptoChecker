@@ -27,7 +27,7 @@ ALARMLAR
 • Sessiz saatler, “Alarmı test et” ve alarm günlüğü: ne zaman kontrol edildi, hangi fiyat, bir alarm neden çalmadı
 
 PİYASA
-• Olağandışı hareket: listendeki olağandışı fiyat ve hacim hareketleri, isteğe bağlı bildirimle
+• Dikkat çekici: listendeki olağandışı fiyat ve hacim hareketleri, isteğe bağlı bildirimle
 • Crypto Pulse, Fear & Greed, Bitcoin göstergeleri, funding ve open interest – yalın ölçümler olarak
 • Ethereum, Bitcoin ve diğerleri için ağ ücretleri, gas alarmıyla
 

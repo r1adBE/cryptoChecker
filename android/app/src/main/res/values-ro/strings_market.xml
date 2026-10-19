@@ -82,12 +82,12 @@
     <string name="market_cap_title">Piața cripto</string>
     <string name="market_volume_label">Volum 24 h</string>
 
-    <!-- Crypto Pulse «Was gerade auffällt»: Titel, Abschnitte, Hinweise -->
+    <!-- Crypto Pulse «Kurz gesagt»: Titel, Abschnitte, Hinweise -->
     <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
     <string name="pulse_details_action">Detalii</string>
     <string name="pulse_disclaimer">Nicio prognoză · Nu este consultanță de investiții</string>
     <string name="pulse_less">Arată mai puțin</string>
-    <string name="pulse_now_title">Ce iese în evidență</string>
+    <string name="pulse_now_title">Puls cripto</string>
     <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
     <string name="pulse_period_24h_spoken">Variație în 24 de ore</string>
     <string name="pulse_section_factors">Factori</string>
@@ -154,7 +154,7 @@
     <string name="pulse_volume_low">Volum de tranzacționare mic (%1$s× normal)</string>
     <string name="pulse_volume_normal">Volum de tranzacționare normal</string>
 
-    <!-- «Heute auffällig» (grösste Coins mit ungewöhnlicher Bewegung) -->
+    <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
     <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
     <!-- Screenreader-Aktion einer Zeile (öffnet das Aktionsblatt bzw. die Vorschau) -->
     <string name="unusual_action_open">Afișează prețul și acțiunile</string>
@@ -166,11 +166,11 @@
     <string name="unusual_fact_weaker">Se mișcă mult mai slab decât BTC</string>
     <string name="unusual_nothing">Azi nimic ieșit din comun</string>
     <string name="unusual_source">Cele mai mari circa 30 de monede, fără stablecoins · Binance, CoinGecko</string>
-    <string name="unusual_title">Neobișnuit azi</string>
+    <string name="unusual_title">Notabil</string>
 
-    <!-- Ungewöhnliche Aktivität eines Paars (Karte, Signale, Empfindlichkeit) -->
-    <string name="activity_card_title">Activitate neobișnuită</string>
-    <string name="activity_indicator">Activitate neobișnuită</string>
+    <!-- «Auffällig» je Paar: ⚡ in der Merkliste, Signale, Empfindlichkeit -->
+    <string name="activity_card_title">Notabil</string>
+    <string name="activity_indicator">Notabil</string>
     <string name="activity_sensitivity_less">Mai puțin</string>
     <string name="activity_sensitivity_more">Mai mult</string>
     <string name="activity_sensitivity_normal">Normal</string>

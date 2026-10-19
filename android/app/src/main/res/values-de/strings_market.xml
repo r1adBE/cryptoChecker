@@ -81,12 +81,12 @@
     <string name="market_cap_title">Krypto-Markt</string>
     <string name="market_volume_label">Volumen 24 Std.</string>
 
-    <!-- Crypto Pulse «Was gerade auffällt»: Titel, Abschnitte, Hinweise -->
+    <!-- Crypto Pulse «Kurz gesagt»: Titel, Abschnitte, Hinweise -->
     <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
     <string name="pulse_details_action">Details</string>
     <string name="pulse_disclaimer">Keine Prognose · Keine Anlageberatung</string>
     <string name="pulse_less">Weniger anzeigen</string>
-    <string name="pulse_now_title">Was gerade auffällt</string>
+    <string name="pulse_now_title">Krypto-Puls</string>
     <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
     <string name="pulse_period_24h_spoken">Veränderung über 24 Stunden</string>
     <string name="pulse_section_factors">Faktoren</string>
@@ -153,7 +153,7 @@
     <string name="pulse_volume_low">Handelsvolumen gering (%1$s× üblich)</string>
     <string name="pulse_volume_normal">Handelsvolumen üblich</string>
 
-    <!-- «Heute auffällig» (grösste Coins mit ungewöhnlicher Bewegung) -->
+    <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
     <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
     <!-- Screenreader-Aktion einer Zeile (öffnet das Aktionsblatt bzw. die Vorschau) -->
     <string name="unusual_action_open">Kurs und Aktionen zeigen</string>
@@ -165,11 +165,11 @@
     <string name="unusual_fact_weaker">Bewegt sich deutlich schwächer als BTC</string>
     <string name="unusual_nothing">Heute nichts Auffälliges</string>
     <string name="unusual_source">Rund 30 grösste Coins ohne Stablecoins · Binance, CoinGecko</string>
-    <string name="unusual_title">Heute auffällig</string>
+    <string name="unusual_title">Auffällig</string>
 
-    <!-- Ungewöhnliche Aktivität eines Paars (Karte, Signale, Empfindlichkeit) -->
-    <string name="activity_card_title">Ungewöhnliche Aktivität</string>
-    <string name="activity_indicator">Ungewöhnliche Aktivität</string>
+    <!-- «Auffällig» je Paar: ⚡ in der Merkliste, Signale, Empfindlichkeit -->
+    <string name="activity_card_title">Auffällig</string>
+    <string name="activity_indicator">Auffällig</string>
     <string name="activity_sensitivity_less">Weniger</string>
     <string name="activity_sensitivity_more">Mehr</string>
     <string name="activity_sensitivity_normal">Normal</string>

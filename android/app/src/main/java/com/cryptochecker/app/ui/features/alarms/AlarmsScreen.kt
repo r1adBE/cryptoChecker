@@ -66,9 +66,10 @@ fun AlarmsScreen(
     val lowLiquidityState by viewModel.lowLiquidity.collectAsStateWithLifecycle()
     val lowLiquidity = lowLiquidityState == true
     /** Rückfrage «Alarm löst sofort aus»: der Entwurf, der gespeichert würde. */
-    var confirmFiresNow by remember { mutableStateOf<AlarmDraft?>(null) }
+    var confirmFiresNow by rememberSaveable(stateSaver = AlarmDraftSaver.saver) { mutableStateOf<AlarmDraft?>(null) }
 
-    var draft by remember { mutableStateOf<AlarmDraft?>(null) }
+    // Offener Editor samt Eingaben übersteht Drehen und Prozess-Neustart (sonst wäre alles Getippte weg)
+    var draft by rememberSaveable(stateSaver = AlarmDraftSaver.saver) { mutableStateOf<AlarmDraft?>(null) }
     // Neuer Alarm im einfachen Modus: Feld leer, aktueller Kurs nur als Platzhalter
     val newDraft: () -> AlarmDraft = { AlarmDraft.blankFor() }
     // Paar ohne Alarm: gleich den Editor öffnen statt der leeren Liste (einmal je Besuch)

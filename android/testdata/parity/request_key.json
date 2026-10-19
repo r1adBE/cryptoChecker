@@ -1,0 +1,14 @@
+{
+  "description": "Comparison key of a request address (Android RequestKey.kt / iOS RequestKey.swift): the same address without the query parameter 'timestamp=<digits>' (BingX stamps every address with the current time in ms when it is built). Used for the in-flight dedupe of identical concurrent requests, for 'filtered == unfiltered' in the bulk fallback and for the widget's 'unfiltered' check. Other parameters, their order and a non-numeric timestamp stay untouched.",
+  "cases": [
+    {"url": "https://open-api.bingx.com/openApi/spot/v1/ticker/24hr?timestamp=1760870400123", "expected": "https://open-api.bingx.com/openApi/spot/v1/ticker/24hr"},
+    {"url": "https://open-api.bingx.com/openApi/spot/v1/ticker/24hr?symbol=BTC-USDT&timestamp=1760870400123", "expected": "https://open-api.bingx.com/openApi/spot/v1/ticker/24hr?symbol=BTC-USDT"},
+    {"url": "https://example.test/a?timestamp=1&symbol=X&b=2", "expected": "https://example.test/a?symbol=X&b=2"},
+    {"url": "https://example.test/a?symbol=X", "expected": "https://example.test/a?symbol=X"},
+    {"url": "https://example.test/a", "expected": "https://example.test/a"},
+    {"url": "https://example.test/a?timestamp=", "expected": "https://example.test/a?timestamp="},
+    {"url": "https://example.test/a?timestamp=abc", "expected": "https://example.test/a?timestamp=abc"},
+    {"url": "https://example.test/a?mytimestamp=123", "expected": "https://example.test/a?mytimestamp=123"},
+    {"url": "https://example.test/a?timestamps=123", "expected": "https://example.test/a?timestamps=123"}
+  ]
+}

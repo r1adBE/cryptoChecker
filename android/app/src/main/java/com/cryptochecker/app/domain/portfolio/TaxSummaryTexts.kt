@@ -55,6 +55,8 @@ data class TaxSummaryTexts(
     val wealthUnchecked: String = "",
     /** Grund «Adresse nicht beobachtet» ([TaxWealthRow.addressUnobserved]). */
     val wealthAddressUnobserved: String = "",
+    /** Zeile «Dollarkurs von USDT fehlt – gerechnet als 1 US-Dollar» ([TaxYearSummary.usdtApproximate]); leer = keine. */
+    val usdtAssumed: String = "",
 )
 
 /** Platzhalter für Coin und Menge in [TaxSummaryTexts.wealthCoin] (wie [TAX_NOTE_DATE]). */

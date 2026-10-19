@@ -20347,187 +20347,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "نشاط غير عادي"
+            "value" : "لافت"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Neobvyklá aktivita"
+            "value" : "Nápadné"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Usædvanlig aktivitet"
+            "value" : "Påfaldende"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ungewöhnliche Aktivität"
+            "value" : "Auffällig"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ασυνήθιστη δραστηριότητα"
+            "value" : "Αξιοσημείωτα"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Unusual activity"
+            "value" : "Notable"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Actividad inusual"
+            "value" : "Destacado"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "فعالیت غیرعادی"
+            "value" : "قابل‌توجه"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Epätavallista aktiivisuutta"
+            "value" : "Huomionarvoista"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Activité inhabituelle"
+            "value" : "À noter"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "פעילות חריגה"
+            "value" : "בולט"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "असामान्य गतिविधि"
+            "value" : "उल्लेखनीय"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Szokatlan aktivitás"
+            "value" : "Feltűnő"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Aktivitas tidak biasa"
+            "value" : "Menonjol"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Attività insolita"
+            "value" : "In evidenza"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "異常な動き"
+            "value" : "注目"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "이상 움직임"
+            "value" : "주목"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Uvanlig aktivitet"
+            "value" : "Påfallende"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ongewone activiteit"
+            "value" : "Opvallend"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nietypowa aktywność"
+            "value" : "Warte uwagi"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Atividade invulgar"
+            "value" : "Em destaque"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Atividade incomum"
+            "value" : "Em destaque"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Activitate neobișnuită"
+            "value" : "Notabil"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Необычная активность"
+            "value" : "Заметное"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Aktivitet i pazakontë"
+            "value" : "Bie në sy"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ovanlig aktivitet"
+            "value" : "Utmärkande"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ความเคลื่อนไหวผิดปกติ"
+            "value" : "น่าสังเกต"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Olağandışı etkinlik"
+            "value" : "Dikkat çekici"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Незвичайна активність"
+            "value" : "Помітне"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hoạt động bất thường"
+            "value" : "Đáng chú ý"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "异常活动"
+            "value" : "值得关注"
           }
         }
       }
@@ -20538,187 +20538,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "نشاط غير عادي"
+            "value" : "لافت"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Neobvyklá aktivita"
+            "value" : "Nápadné"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Usædvanlig aktivitet"
+            "value" : "Påfaldende"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ungewöhnliche Aktivität"
+            "value" : "Auffällig"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ασυνήθιστη δραστηριότητα"
+            "value" : "Αξιοσημείωτα"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Unusual activity"
+            "value" : "Notable"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Actividad inusual"
+            "value" : "Destacado"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "فعالیت غیرعادی"
+            "value" : "قابل‌توجه"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Epätavallista aktiivisuutta"
+            "value" : "Huomionarvoista"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Activité inhabituelle"
+            "value" : "À noter"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "פעילות חריגה"
+            "value" : "בולט"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "असामान्य गतिविधि"
+            "value" : "उल्लेखनीय"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Szokatlan aktivitás"
+            "value" : "Feltűnő"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Aktivitas tidak biasa"
+            "value" : "Menonjol"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Attività insolita"
+            "value" : "In evidenza"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "異常な動き"
+            "value" : "注目"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "이상 움직임"
+            "value" : "주목"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Uvanlig aktivitet"
+            "value" : "Påfallende"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ongewone activiteit"
+            "value" : "Opvallend"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nietypowa aktywność"
+            "value" : "Warte uwagi"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Atividade invulgar"
+            "value" : "Em destaque"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Atividade incomum"
+            "value" : "Em destaque"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Activitate neobișnuită"
+            "value" : "Notabil"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Необычная активность"
+            "value" : "Заметное"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Aktivitet i pazakontë"
+            "value" : "Bie në sy"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ovanlig aktivitet"
+            "value" : "Utmärkande"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ความเคลื่อนไหวผิดปกติ"
+            "value" : "น่าสังเกต"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Olağandışı etkinlik"
+            "value" : "Dikkat çekici"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Незвичайна активність"
+            "value" : "Помітне"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hoạt động bất thường"
+            "value" : "Đáng chú ý"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "异常活动"
+            "value" : "值得关注"
           }
         }
       }
@@ -56884,187 +56884,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "عند إغلاق التطبيق يفحص Android بشكل غير منتظم – غالبًا بعد أكثر من 15 دقيقة، حتى مع «%1$@». قد تفوتك القفزات القصيرة."
+            "value" : "بدون «%1$@» يفحص Android بشكل غير منتظم عندما يكون الجهاز في وضع السكون – أحيانًا بعد ساعات. ومعه كل 15 دقيقة تقريبًا."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Při zavřené aplikaci kontroluje Android nepravidelně – často později než po 15 minutách, i s „%1$@“. Krátké výkyvy mohou uniknout."
+            "value" : "Bez „%1$@“ kontroluje Android v klidu zařízení nepravidelně – někdy až po hodinách. S ním zhruba každých 15 minut."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Når appen er lukket, tjekker Android uregelmæssigt – ofte senere end 15 minutter, også med «%1$@». Korte udsving kan blive overset."
+            "value" : "Uden «%1$@» tjekker Android uregelmæssigt, når enheden hviler – nogle gange først efter timer. Med den ca. hvert 15. minut."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bei geschlossener App prüft Android unregelmässig – oft später als 15 Minuten, auch mit «%1$@». Kurze Spitzen können fehlen."
+            "value" : "Ohne «%1$@» prüft Android bei ruhendem Gerät unregelmässig, manchmal erst nach Stunden. Damit etwa alle 15 Minuten."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Με κλειστή εφαρμογή, το Android ελέγχει ακανόνιστα – συχνά αργότερα από 15 λεπτά, ακόμη και με «%1$@». Σύντομες αιχμές μπορεί να χαθούν."
+            "value" : "Χωρίς «%1$@», το Android ελέγχει ακανόνιστα όταν η συσκευή ηρεμεί – μερικές φορές μετά από ώρες. Με αυτό, περίπου κάθε 15 λεπτά."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "With the app closed, Android checks irregularly – often later than 15 minutes, even with “%1$@”. Short spikes can be missed."
+            "value" : "Without “%1$@”, Android checks irregularly while the device rests – sometimes only after hours. With it, about every 15 minutes."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Con la app cerrada, Android comprueba de forma irregular – a menudo tras más de 15 minutos, incluso con «%1$@». Pueden escaparse picos breves."
+            "value" : "Sin «%1$@», Android comprueba de forma irregular con el dispositivo en reposo, a veces tras horas. Con ella, cada 15 minutos aprox."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "وقتی برنامه بسته است، Android نامنظم بررسی می‌کند – اغلب دیرتر از 15 دقیقه، حتی با «%1$@». جهش‌های کوتاه ممکن است از دست بروند."
+            "value" : "بدون «%1$@»، Android وقتی دستگاه در حالت استراحت است نامنظم بررسی می‌کند – گاهی پس از چند ساعت. با آن، حدود هر 15 دقیقه."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sovellus suljettuna Android tarkistaa epäsäännöllisesti – usein yli 15 min välein, myös asetuksella ”%1$@”. Lyhyet piikit voivat jäädä huomaamatta."
+            "value" : "Ilman asetusta ”%1$@” Android tarkistaa laitteen levätessä epäsäännöllisesti, joskus vasta tuntien päästä. Sen kanssa noin 15 min välein."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "App fermée, Android vérifie irrégulièrement – souvent après plus de 15 minutes, même avec « %1$@ ». De brefs pics peuvent passer inaperçus."
+            "value" : "Sans « %1$@ », Android vérifie irrégulièrement quand l’appareil est en veille, parfois après des heures. Avec, environ toutes les 15 min."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "כשהאפליקציה סגורה, Android בודק באופן לא סדיר – לעיתים קרובות אחרי יותר מ-15 דקות, גם עם «%1$@». קפיצות קצרות עלולות להתפספס."
+            "value" : "בלי «%1$@», Android בודק באופן לא סדיר כשהמכשיר במנוחה – לפעמים רק אחרי שעות. עם ההגדרה, בערך כל 15 דקות."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ऐप बंद होने पर Android अनियमित रूप से जाँचता है – अक्सर 15 मिनट से देर से, “%1$@” के साथ भी। छोटे उछाल छूट सकते हैं।"
+            "value" : "“%1$@” के बिना, डिवाइस निष्क्रिय होने पर Android अनियमित रूप से जाँचता है – कभी-कभी घंटों बाद। इसके साथ लगभग हर 15 मिनट।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bezárt alkalmazásnál az Android rendszertelenül ellenőriz – gyakran 15 percnél később, „%1$@” mellett is. Rövid kiugrások kimaradhatnak."
+            "value" : "„%1$@” nélkül az Android nyugvó eszközön rendszertelenül ellenőriz, néha csak órák múlva. Vele kb. 15 percenként."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Saat aplikasi ditutup, Android memeriksa tidak teratur – sering lebih lambat dari 15 menit, bahkan dengan “%1$@”. Lonjakan singkat bisa terlewat."
+            "value" : "Tanpa “%1$@”, Android memeriksa tidak teratur saat perangkat diam – terkadang baru setelah berjam-jam. Dengan itu, kira-kira tiap 15 menit."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Con l’app chiusa, Android controlla in modo irregolare – spesso dopo più di 15 minuti, anche con «%1$@». Brevi picchi possono sfuggire."
+            "value" : "Senza «%1$@», a dispositivo inattivo Android controlla in modo irregolare, a volte solo dopo ore. Con essa, circa ogni 15 minuti."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "アプリを閉じていると Android の確認は不定期で、「%1$@」でも15分より遅れることがよくあります。短い急変を見逃すことがあります。"
+            "value" : "「%1$@」がオフだと、端末の休止中は Android の確認が不定期になり、数時間後になることもあります。オンなら約15分ごとです。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "앱을 닫으면 Android는 불규칙하게 확인하며, “%1$@”을 켜도 15분보다 늦을 때가 많습니다. 짧은 급등락을 놓칠 수 있습니다."
+            "value" : "“%1$@”이 꺼져 있으면 기기가 쉬는 동안 Android는 불규칙하게 확인하며, 몇 시간 뒤에야 확인하기도 합니다. 켜면 약 15분마다 확인합니다."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Når appen er lukket, sjekker Android uregelmessig – ofte senere enn 15 minutter, også med «%1$@». Korte topper kan bli oversett."
+            "value" : "Uten «%1$@» sjekker Android uregelmessig når enheten hviler – noen ganger først etter timer. Med den omtrent hvert 15. minutt."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Met de app gesloten controleert Android onregelmatig – vaak later dan na 15 minuten, ook met «%1$@». Korte pieken kunnen worden gemist."
+            "value" : "Zonder «%1$@» controleert Android onregelmatig als het toestel rust – soms pas na uren. Met deze optie ongeveer elke 15 minuten."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Przy zamkniętej aplikacji Android sprawdza nieregularnie – często później niż po 15 minutach, nawet z „%1$@”. Krótkie skoki mogą umknąć."
+            "value" : "Bez „%1$@” Android sprawdza nieregularnie, gdy urządzenie odpoczywa – czasem dopiero po godzinach. Z nią mniej więcej co 15 minut."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Com a app fechada, o Android verifica de forma irregular – muitas vezes após mais de 15 minutos, mesmo com «%1$@». Picos curtos podem escapar."
+            "value" : "Sem «%1$@», o Android verifica de forma irregular com o dispositivo em repouso, por vezes só após horas. Com ela, cerca de 15 em 15 min."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Com o app fechado, o Android verifica de forma irregular – muitas vezes após mais de 15 minutos, mesmo com “%1$@”. Picos curtos podem passar."
+            "value" : "Sem “%1$@”, o Android verifica de forma irregular com o aparelho em repouso, às vezes só após horas. Com ela, a cada 15 minutos."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cu aplicația închisă, Android verifică neregulat – adesea mai târziu de 15 minute, chiar și cu „%1$@”. Salturile scurte pot fi ratate."
+            "value" : "Fără „%1$@”, Android verifică neregulat când dispozitivul stă în repaus – uneori abia după ore. Cu ea, cam la fiecare 15 minute."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "При закрытом приложении Android проверяет нерегулярно – часто реже чем раз в 15 минут, даже с «%1$@». Короткие скачки можно пропустить."
+            "value" : "Без «%1$@» Android проверяет нерегулярно, пока устройство в покое, – иногда лишь через несколько часов. С ней – примерно каждые 15 минут."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Me aplikacion të mbyllur, Android kontrollon parregullisht – shpesh më vonë se 15 minuta, edhe me «%1$@». Kulmet e shkurtra mund të humbasin."
+            "value" : "Pa «%1$@», Android kontrollon parregullisht kur pajisja pushon – ndonjëherë vetëm pas orësh. Me të, afërsisht çdo 15 minuta."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "När appen är stängd kontrollerar Android oregelbundet – ofta senare än efter 15 minuter, även med ”%1$@”. Korta toppar kan missas."
+            "value" : "Utan ”%1$@” kontrollerar Android oregelbundet när enheten vilar – ibland först efter timmar. Med den ungefär var 15:e minut."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "เมื่อปิดแอป Android จะตรวจไม่สม่ำเสมอ – มักช้ากว่า 15 นาที แม้เปิด “%1$@” อาจพลาดการพุ่งขึ้นลงช่วงสั้น ๆ"
+            "value" : "หากไม่เปิด “%1$@” Android จะตรวจไม่สม่ำเสมอขณะเครื่องพัก บางครั้งหลายชั่วโมงต่อครั้ง หากเปิดจะตรวจประมาณทุก 15 นาที"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Uygulama kapalıyken Android düzensiz kontrol eder – “%1$@” açıkken bile çoğu zaman 15 dakikadan geç. Kısa sıçramalar kaçabilir."
+            "value" : "“%1$@” kapalıyken Android, cihaz dinlenirken düzensiz kontrol eder – bazen ancak saatler sonra. Açıkken yaklaşık 15 dakikada bir."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Коли застосунок закрито, Android перевіряє нерегулярно – часто рідше ніж раз на 15 хвилин, навіть з «%1$@». Короткі стрибки можна пропустити."
+            "value" : "Без «%1$@» Android перевіряє нерегулярно, коли пристрій у спокої, – іноді лише через кілька годин. З ним – приблизно кожні 15 хвилин."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Khi đóng ứng dụng, Android kiểm tra không đều – thường muộn hơn 15 phút, kể cả khi bật “%1$@”. Có thể bỏ lỡ các biến động ngắn."
+            "value" : "Khi tắt “%1$@”, Android kiểm tra không đều lúc thiết bị nghỉ – đôi khi sau nhiều giờ. Khi bật, khoảng mỗi 15 phút."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "应用关闭时，Android 的检查不规律——即使开启「%1$@」，也常常晚于 15 分钟。可能错过短暂的波动。"
+            "value" : "未开启「%1$@」时，设备静置期间 Android 的检查不规律，有时要隔几小时。开启后约每 15 分钟检查一次。"
           }
         }
       }
@@ -164081,187 +164081,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed ورسوم الغاز والنشاط غير المعتاد والمواعيد الاقتصادية"
+            "value" : "Fear & Greed ورسوم الغاز و«لافت» والمواعيد الاقتصادية"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed, poplatky za gas, neobvyklá aktivita a ekonomické termíny"
+            "value" : "Fear & Greed, poplatky za gas, „Nápadné“ a ekonomické termíny"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed, gasgebyrer, usædvanlig aktivitet og økonomiske datoer"
+            "value" : "Fear & Greed, gasgebyrer, »Påfaldende« og økonomiske datoer"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed, Gasgebühren, ungewöhnliche Aktivität und Wirtschaftstermine"
+            "value" : "Fear & Greed, Gasgebühren, «Auffällig» und Wirtschaftstermine"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed, τέλη gas, ασυνήθιστη δραστηριότητα και οικονομικές ημερομηνίες"
+            "value" : "Fear & Greed, τέλη gas, «Αξιοσημείωτα» και οικονομικές ημερομηνίες"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed, gas fees, unusual activity and economic dates"
+            "value" : "Fear & Greed, gas fees, “Notable” and economic dates"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed, comisiones de gas, actividad inusual y fechas económicas"
+            "value" : "Fear & Greed, comisiones de gas, «Destacado» y fechas económicas"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed، کارمزد گس، فعالیت غیرعادی و تاریخ‌های اقتصادی"
+            "value" : "Fear & Greed، کارمزد گس، «قابل‌توجه» و تاریخ‌های اقتصادی"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed, gas-maksut, epätavallinen aktiivisuus ja talouden päivämäärät"
+            "value" : "Fear & Greed, gas-maksut, ”Huomionarvoista” ja talouden päivämäärät"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed, frais de gas, activité inhabituelle et dates économiques"
+            "value" : "Fear & Greed, frais de gas, « À noter » et dates économiques"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed, עמלות גז, פעילות חריגה ומועדים כלכליים"
+            "value" : "Fear & Greed, עמלות גז, «בולט» ומועדים כלכליים"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed, गैस शुल्क, असामान्य गतिविधि और आर्थिक तिथियाँ"
+            "value" : "Fear & Greed, गैस शुल्क, “उल्लेखनीय” और आर्थिक तिथियाँ"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed, gas-díjak, szokatlan aktivitás és gazdasági időpontok"
+            "value" : "Fear & Greed, gas-díjak, „Feltűnő” és gazdasági időpontok"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed, biaya gas, aktivitas tidak biasa dan jadwal ekonomi"
+            "value" : "Fear & Greed, biaya gas, “Menonjol” dan jadwal ekonomi"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed, commissioni gas, attività insolita e date economiche"
+            "value" : "Fear & Greed, commissioni gas, «In evidenza» e date economiche"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed、ガス代、異常な動き、経済指標の日程"
+            "value" : "Fear & Greed、ガス代、「注目」、経済指標の日程"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed, 가스비, 이례적 움직임, 경제 일정"
+            "value" : "Fear & Greed, 가스비, ‘주목’, 경제 일정"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed, gassgebyrer, uvanlig aktivitet og økonomiske datoer"
+            "value" : "Fear & Greed, gassgebyrer, «Påfallende» og økonomiske datoer"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed, gaskosten, ongewone activiteit en economische data"
+            "value" : "Fear & Greed, gaskosten, ‘Opvallend’ en economische data"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed, opłaty gas, nietypowa aktywność i terminy gospodarcze"
+            "value" : "Fear & Greed, opłaty gas, „Warte uwagi” i terminy gospodarcze"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed, taxas de gas, atividade invulgar e datas económicas"
+            "value" : "Fear & Greed, taxas de gas, «Em destaque» e datas económicas"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed, taxas de gas, atividade incomum e datas econômicas"
+            "value" : "Fear & Greed, taxas de gas, “Em destaque” e datas econômicas"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed, taxe gas, activitate neobișnuită și date economice"
+            "value" : "Fear & Greed, taxe gas, „Notabil” și date economice"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed, комиссии за газ, необычная активность и экономические даты"
+            "value" : "Fear & Greed, комиссии за газ, «Заметное» и экономические даты"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed, tarifat e gas-it, aktivitet i pazakontë dhe data ekonomike"
+            "value" : "Fear & Greed, tarifat e gas-it, «Bie në sy» dhe data ekonomike"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed, gasavgifter, ovanlig aktivitet och ekonomiska datum"
+            "value" : "Fear & Greed, gasavgifter, ”Utmärkande” och ekonomiska datum"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed ค่าแก๊ส ความเคลื่อนไหวผิดปกติ และวันสำคัญทางเศรษฐกิจ"
+            "value" : "Fear & Greed ค่าแก๊ส “น่าสังเกต” และวันสำคัญทางเศรษฐกิจ"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed, gas ücretleri, olağan dışı hareketler ve ekonomik takvim"
+            "value" : "Fear & Greed, gas ücretleri, “Dikkat çekici” ve ekonomik takvim"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed, комісії за газ, незвична активність і економічні дати"
+            "value" : "Fear & Greed, комісії за газ, «Помітне» і економічні дати"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed, phí gas, hoạt động bất thường và lịch kinh tế"
+            "value" : "Fear & Greed, phí gas, “Đáng chú ý” và lịch kinh tế"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "恐惧与贪婪指数、Gas 费、异常活动和经济日程"
+            "value" : "恐惧与贪婪指数、Gas 费、“值得关注”和经济日程"
           }
         }
       }
@@ -170384,187 +170384,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ · %2$@"
+            "value" : "لافت: %1$@ · %2$@"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ · %2$@"
+            "value" : "Nápadné: %1$@ · %2$@"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ · %2$@"
+            "value" : "Påfaldende: %1$@ · %2$@"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ · %2$@"
+            "value" : "Auffällig: %1$@ · %2$@"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ · %2$@"
+            "value" : "Αξιοσημείωτα: %1$@ · %2$@"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ · %2$@"
+            "value" : "Notable: %1$@ · %2$@"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ · %2$@"
+            "value" : "Destacado: %1$@ · %2$@"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ · %2$@"
+            "value" : "قابل‌توجه: %1$@ · %2$@"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ · %2$@"
+            "value" : "Huomionarvoista: %1$@ · %2$@"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ · %2$@"
+            "value" : "À noter : %1$@ · %2$@"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ · %2$@"
+            "value" : "בולט: %1$@ · %2$@"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ · %2$@"
+            "value" : "उल्लेखनीय: %1$@ · %2$@"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ · %2$@"
+            "value" : "Feltűnő: %1$@ · %2$@"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ · %2$@"
+            "value" : "Menonjol: %1$@ · %2$@"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ · %2$@"
+            "value" : "In evidenza: %1$@ · %2$@"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ · %2$@"
+            "value" : "注目: %1$@ · %2$@"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ · %2$@"
+            "value" : "주목: %1$@ · %2$@"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ · %2$@"
+            "value" : "Påfallende: %1$@ · %2$@"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ · %2$@"
+            "value" : "Opvallend: %1$@ · %2$@"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ · %2$@"
+            "value" : "Warte uwagi: %1$@ · %2$@"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ · %2$@"
+            "value" : "Em destaque: %1$@ · %2$@"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ · %2$@"
+            "value" : "Em destaque: %1$@ · %2$@"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ · %2$@"
+            "value" : "Notabil: %1$@ · %2$@"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ · %2$@"
+            "value" : "Заметное: %1$@ · %2$@"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ · %2$@"
+            "value" : "Bie në sy: %1$@ · %2$@"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ · %2$@"
+            "value" : "Utmärkande: %1$@ · %2$@"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ · %2$@"
+            "value" : "น่าสังเกต: %1$@ · %2$@"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ · %2$@"
+            "value" : "Dikkat çekici: %1$@ · %2$@"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ · %2$@"
+            "value" : "Помітне: %1$@ · %2$@"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ · %2$@"
+            "value" : "Đáng chú ý: %1$@ · %2$@"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ · %2$@"
+            "value" : "值得关注：%1$@ · %2$@"
           }
         }
       }
@@ -177127,6 +177127,1343 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "最近一小时成交量为正常的 %1$@×"
+          }
+        }
+      }
+    },
+    "oem_battery_huawei" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "قد يوقف Huawei/Honor التطبيق – فلا تصل أي تنبيهات. من البطارية › تشغيل التطبيقات اختر «إدارة يدوية» واسمح بكل الخيارات."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Huawei/Honor může aplikaci ukončit – pak nepřijdou žádná upozornění. V Baterie › Spouštění aplikací zvolte „Spravovat ručně“ a povolte vše."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Huawei/Honor kan stoppe appen – så kommer der ingen alarmer. Under Batteri › Appstart: vælg «Administrer manuelt» og tillad alt."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Huawei/Honor kann die App beenden – dann kommen keine Alarme an. Unter Akku › App-Start «Manuell verwalten» wählen und alles erlauben."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Η Huawei/Honor μπορεί να σταματήσει την εφαρμογή – τότε δεν φτάνουν ειδοποιήσεις. Στο Μπαταρία › Εκκίνηση εφαρμογών επιλέξτε «Μη αυτόματη διαχείριση» και επιτρέψτε τα όλα."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Huawei/Honor may stop the app – then no alarms arrive. Under Battery › App launch, choose “Manage manually” and allow all options."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Huawei/Honor puede detener la app y entonces no llega ninguna alerta. En Batería › Inicio de aplicaciones, elige «Gestionar manualmente» y permítelo todo."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Huawei/Honor ممکن است برنامه را متوقف کند – آن‌وقت هیچ هشداری نمی‌رسد. در باتری › راه‌اندازی برنامه «مدیریت دستی» را انتخاب و همه را مجاز کنید."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Huawei/Honor voi pysäyttää sovelluksen – silloin hälytyksiä ei tule. Valitse kohdassa Akku › Sovellusten käynnistys ”Hallitse manuaalisesti” ja salli kaikki."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Huawei/Honor peut arrêter l’app – aucune alerte n’arrive alors. Dans Batterie › Lancement d’applis, choisissez « Gérer manuellement » et autorisez tout."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Huawei/Honor עלולה לעצור את האפליקציה – ואז לא מגיעות התראות. בסוללה › הפעלת אפליקציות בחרו «ניהול ידני» ואפשרו הכול."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Huawei/Honor ऐप को बंद कर सकता है – तब कोई अलर्ट नहीं आता। बैटरी › ऐप लॉन्च में “मैन्युअल रूप से प्रबंधित करें” चुनें और सब अनुमति दें।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A Huawei/Honor leállíthatja az alkalmazást – ekkor nem érkezik riasztás. Az Akkumulátor › Alkalmazásindítás alatt válassza a „Kézi kezelés” lehetőséget, és engedélyezzen mindent."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Huawei/Honor bisa menghentikan aplikasi – lalu tidak ada peringatan yang masuk. Di Baterai › Peluncuran aplikasi, pilih “Kelola secara manual” dan izinkan semuanya."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Huawei/Honor può chiudere l’app – allora non arriva nessun avviso. In Batteria › Avvio app scegli «Gestisci manualmente» e consenti tutto."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Huawei/Honor はアプリを停止することがあり、その間アラートは届きません。バッテリー › アプリ起動で「手動で管理」を選び、すべて許可してください。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Huawei/Honor는 앱을 중지할 수 있으며, 그러면 알림이 오지 않습니다. 배터리 › 앱 실행에서 “수동으로 관리”를 선택하고 모두 허용하세요."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Huawei/Honor kan stoppe appen – da kommer ingen varsler. Under Batteri › Appstart: velg «Administrer manuelt» og tillat alt."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Huawei/Honor kan de app stoppen – dan komen er geen meldingen. Kies onder Batterij › App starten «Handmatig beheren» en sta alles toe."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Huawei/Honor może zatrzymać aplikację – wtedy nie dotrą żadne alerty. W Bateria › Uruchamianie aplikacji wybierz „Zarządzaj ręcznie” i zezwól na wszystko."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A Huawei/Honor pode parar a app – e então não chega nenhum alerta. Em Bateria › Arranque de apps, escolha «Gerir manualmente» e permita tudo."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A Huawei/Honor pode parar o app – e aí nenhum alerta chega. Em Bateria › Inicialização de apps, escolha “Gerenciar manualmente” e permita tudo."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Huawei/Honor poate opri aplicația – atunci nu mai sosesc alerte. În Baterie › Lansare aplicații, alegeți „Gestionare manuală” și permiteți tot."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Huawei/Honor может остановить приложение – тогда оповещения не приходят. В разделе Батарея › Запуск приложений выберите «Управлять вручную» и разрешите всё."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Huawei/Honor mund ta ndalë aplikacionin – atëherë nuk vjen asnjë alarm. Te Bateria › Nisja e aplikacioneve zgjidhni «Menaxho manualisht» dhe lejoni gjithçka."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Huawei/Honor kan stoppa appen – då kommer inga larm. Under Batteri › Appstart: välj ”Hantera manuellt” och tillåt allt."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Huawei/Honor อาจหยุดแอป – แล้วจะไม่มีการแจ้งเตือนมาถึง ใน แบตเตอรี่ › การเปิดแอป ให้เลือก “จัดการด้วยตนเอง” และอนุญาตทั้งหมด"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Huawei/Honor uygulamayı durdurabilir – o zaman hiç uyarı gelmez. Pil › Uygulama başlatma altında “Manuel olarak yönet”i seçin ve hepsine izin verin."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Huawei/Honor може зупинити застосунок – тоді сповіщення не надходять. У розділі Батарея › Запуск застосунків виберіть «Керувати вручну» й дозвольте все."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Huawei/Honor có thể dừng ứng dụng – khi đó không có cảnh báo nào đến. Trong Pin › Khởi chạy ứng dụng, chọn “Quản lý thủ công” và cho phép tất cả."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "华为/荣耀可能会停止应用，此时不会收到任何提醒。请在 电池 › 应用启动管理 中选择「手动管理」并全部允许。"
+          }
+        }
+      }
+    },
+    "oem_battery_oneplus" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "قد يوقف OnePlus التطبيق – فلا تصل أي تنبيهات. اسمح بـ«التشغيل التلقائي» واسمح بالنشاط في الخلفية من استخدام البطارية."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OnePlus může aplikaci ukončit – pak nepřijdou žádná upozornění. Povolte „Automatické spuštění“ a v Využití baterie činnost na pozadí."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OnePlus kan stoppe appen – så kommer der ingen alarmer. Tillad «Automatisk start» og baggrundsaktivitet under Batteriforbrug."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OnePlus kann die App beenden – dann kommen keine Alarme an. «Automatischer Start» erlauben und unter Akkunutzung Hintergrundaktivität zulassen."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Η OnePlus μπορεί να σταματήσει την εφαρμογή – τότε δεν φτάνουν ειδοποιήσεις. Επιτρέψτε «Αυτόματη εκκίνηση» και δραστηριότητα στο παρασκήνιο στη Χρήση μπαταρίας."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OnePlus may stop the app – then no alarms arrive. Allow “Auto-launch” and, under Battery usage, background activity."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OnePlus puede detener la app y entonces no llega ninguna alerta. Permite «Inicio automático» y, en Uso de batería, la actividad en segundo plano."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OnePlus ممکن است برنامه را متوقف کند – آن‌وقت هیچ هشداری نمی‌رسد. «شروع خودکار» و در مصرف باتری فعالیت پس‌زمینه را مجاز کنید."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OnePlus voi pysäyttää sovelluksen – silloin hälytyksiä ei tule. Salli ”Automaattinen käynnistys” ja Akun käytössä taustatoiminta."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OnePlus peut arrêter l’app – aucune alerte n’arrive alors. Autorisez « Lancement automatique » et, dans Utilisation de la batterie, l’activité en arrière-plan."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OnePlus עלולה לעצור את האפליקציה – ואז לא מגיעות התראות. אפשרו «הפעלה אוטומטית» ופעילות ברקע בשימוש בסוללה."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OnePlus ऐप को बंद कर सकता है – तब कोई अलर्ट नहीं आता। “ऑटो-लॉन्च” और बैटरी उपयोग में बैकग्राउंड गतिविधि की अनुमति दें।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A OnePlus leállíthatja az alkalmazást – ekkor nem érkezik riasztás. Engedélyezze az „Automatikus indítás” opciót és az Akkuhasználatnál a háttértevékenységet."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OnePlus bisa menghentikan aplikasi – lalu tidak ada peringatan yang masuk. Izinkan “Luncurkan otomatis” dan aktivitas latar belakang di Penggunaan baterai."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OnePlus può chiudere l’app – allora non arriva nessun avviso. Consenti «Avvio automatico» e, in Utilizzo batteria, l’attività in background."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OnePlus はアプリを停止することがあり、その間アラートは届きません。「自動起動」を許可し、バッテリー使用量でバックグラウンド動作を許可してください。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OnePlus는 앱을 중지할 수 있으며, 그러면 알림이 오지 않습니다. “자동 실행”과 배터리 사용량의 백그라운드 활동을 허용하세요."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OnePlus kan stoppe appen – da kommer ingen varsler. Tillat «Automatisk start» og bakgrunnsaktivitet under Batteribruk."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OnePlus kan de app stoppen – dan komen er geen meldingen. Sta «Automatisch starten» toe en onder Batterijgebruik achtergrondactiviteit."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OnePlus może zatrzymać aplikację – wtedy nie dotrą żadne alerty. Zezwól na „Automatyczne uruchamianie” i w Użyciu baterii na aktywność w tle."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A OnePlus pode parar a app – e então não chega nenhum alerta. Permita «Arranque automático» e, em Utilização da bateria, a atividade em segundo plano."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A OnePlus pode parar o app – e aí nenhum alerta chega. Permita “Início automático” e, em Uso da bateria, a atividade em segundo plano."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OnePlus poate opri aplicația – atunci nu mai sosesc alerte. Permiteți „Lansare automată” și, la Utilizarea bateriei, activitatea în fundal."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OnePlus может остановить приложение – тогда оповещения не приходят. Разрешите «Автозапуск» и фоновую активность в разделе Использование батареи."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OnePlus mund ta ndalë aplikacionin – atëherë nuk vjen asnjë alarm. Lejoni «Nisja automatike» dhe aktivitetin në sfond te Përdorimi i baterisë."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OnePlus kan stoppa appen – då kommer inga larm. Tillåt ”Automatisk start” och bakgrundsaktivitet under Batterianvändning."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OnePlus อาจหยุดแอป – แล้วจะไม่มีการแจ้งเตือนมาถึง อนุญาต “เปิดอัตโนมัติ” และกิจกรรมพื้นหลังใน การใช้แบตเตอรี่"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OnePlus uygulamayı durdurabilir – o zaman hiç uyarı gelmez. “Otomatik başlatma”ya ve Pil kullanımında arka plan etkinliğine izin verin."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OnePlus може зупинити застосунок – тоді сповіщення не надходять. Дозвольте «Автозапуск» і фонову активність у розділі Використання батареї."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OnePlus có thể dừng ứng dụng – khi đó không có cảnh báo nào đến. Cho phép “Tự khởi chạy” và hoạt động nền trong Sử dụng pin."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "一加可能会停止应用，此时不会收到任何提醒。请允许「自动启动」，并在 耗电管理 中允许后台活动。"
+          }
+        }
+      }
+    },
+    "oem_battery_oppo" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "قد يوقف Oppo/Realme التطبيق – فلا تصل أي تنبيهات. اسمح بـ«التشغيل التلقائي» واسمح بالنشاط في الخلفية من استخدام البطارية."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oppo/Realme může aplikaci ukončit – pak nepřijdou žádná upozornění. Povolte „Automatické spuštění“ a v Využití baterie činnost na pozadí."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oppo/Realme kan stoppe appen – så kommer der ingen alarmer. Tillad «Automatisk start» og baggrundsaktivitet under Batteriforbrug."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oppo/Realme kann die App beenden – dann kommen keine Alarme an. «Automatischer Start» erlauben und unter Akkunutzung Hintergrundaktivität zulassen."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Η Oppo/Realme μπορεί να σταματήσει την εφαρμογή – τότε δεν φτάνουν ειδοποιήσεις. Επιτρέψτε «Αυτόματη εκκίνηση» και δραστηριότητα στο παρασκήνιο στη Χρήση μπαταρίας."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oppo/Realme may stop the app – then no alarms arrive. Allow “Auto launch” and, under Battery usage, background activity."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oppo/Realme puede detener la app y entonces no llega ninguna alerta. Permite «Inicio automático» y, en Uso de batería, la actividad en segundo plano."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oppo/Realme ممکن است برنامه را متوقف کند – آن‌وقت هیچ هشداری نمی‌رسد. «شروع خودکار» و در مصرف باتری فعالیت پس‌زمینه را مجاز کنید."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oppo/Realme voi pysäyttää sovelluksen – silloin hälytyksiä ei tule. Salli ”Automaattinen käynnistys” ja Akun käytössä taustatoiminta."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oppo/Realme peut arrêter l’app – aucune alerte n’arrive alors. Autorisez « Lancement automatique » et, dans Utilisation de la batterie, l’activité en arrière-plan."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oppo/Realme עלולה לעצור את האפליקציה – ואז לא מגיעות התראות. אפשרו «הפעלה אוטומטית» ופעילות ברקע בשימוש בסוללה."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oppo/Realme ऐप को बंद कर सकता है – तब कोई अलर्ट नहीं आता। “ऑटो-लॉन्च” और बैटरी उपयोग में बैकग्राउंड गतिविधि की अनुमति दें।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Az Oppo/Realme leállíthatja az alkalmazást – ekkor nem érkezik riasztás. Engedélyezze az „Automatikus indítás” opciót és az Akkuhasználatnál a háttértevékenységet."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oppo/Realme bisa menghentikan aplikasi – lalu tidak ada peringatan yang masuk. Izinkan “Luncurkan otomatis” dan aktivitas latar belakang di Penggunaan baterai."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oppo/Realme può chiudere l’app – allora non arriva nessun avviso. Consenti «Avvio automatico» e, in Utilizzo batteria, l’attività in background."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oppo/Realme はアプリを停止することがあり、その間アラートは届きません。「自動起動」を許可し、バッテリー使用量でバックグラウンド動作を許可してください。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oppo/Realme는 앱을 중지할 수 있으며, 그러면 알림이 오지 않습니다. “자동 실행”과 배터리 사용량의 백그라운드 활동을 허용하세요."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oppo/Realme kan stoppe appen – da kommer ingen varsler. Tillat «Automatisk start» og bakgrunnsaktivitet under Batteribruk."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oppo/Realme kan de app stoppen – dan komen er geen meldingen. Sta «Automatisch starten» toe en onder Batterijgebruik achtergrondactiviteit."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oppo/Realme może zatrzymać aplikację – wtedy nie dotrą żadne alerty. Zezwól na „Automatyczne uruchamianie” i w Użyciu baterii na aktywność w tle."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A Oppo/Realme pode parar a app – e então não chega nenhum alerta. Permita «Arranque automático» e, em Utilização da bateria, a atividade em segundo plano."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A Oppo/Realme pode parar o app – e aí nenhum alerta chega. Permita “Início automático” e, em Uso da bateria, a atividade em segundo plano."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oppo/Realme poate opri aplicația – atunci nu mai sosesc alerte. Permiteți „Lansare automată” și, la Utilizarea bateriei, activitatea în fundal."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oppo/Realme может остановить приложение – тогда оповещения не приходят. Разрешите «Автозапуск» и фоновую активность в разделе Использование батареи."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oppo/Realme mund ta ndalë aplikacionin – atëherë nuk vjen asnjë alarm. Lejoni «Nisja automatike» dhe aktivitetin në sfond te Përdorimi i baterisë."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oppo/Realme kan stoppa appen – då kommer inga larm. Tillåt ”Automatisk start” och bakgrundsaktivitet under Batterianvändning."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oppo/Realme อาจหยุดแอป – แล้วจะไม่มีการแจ้งเตือนมาถึง อนุญาต “เปิดอัตโนมัติ” และกิจกรรมพื้นหลังใน การใช้แบตเตอรี่"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oppo/Realme uygulamayı durdurabilir – o zaman hiç uyarı gelmez. “Otomatik başlatma”ya ve Pil kullanımında arka plan etkinliğine izin verin."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oppo/Realme може зупинити застосунок – тоді сповіщення не надходять. Дозвольте «Автозапуск» і фонову активність у розділі Використання батареї."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oppo/Realme có thể dừng ứng dụng – khi đó không có cảnh báo nào đến. Cho phép “Tự khởi chạy” và hoạt động nền trong Sử dụng pin."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OPPO/realme 可能会停止应用，此时不会收到任何提醒。请允许「自动启动」，并在 耗电管理 中允许后台活动。"
+          }
+        }
+      }
+    },
+    "oem_battery_samsung" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "قد يضع Samsung التطبيق في سكون عميق – فلا تصل أي تنبيهات. من البطارية › حدود الاستخدام في الخلفية أضفه إلى «التطبيقات التي لا تنام أبدًا»."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Samsung může aplikaci uspat do hlubokého spánku – pak nepřijdou žádná upozornění. V Baterie › Omezení využití na pozadí ji přidejte k „Nikdy neuspávané aplikace“."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Samsung kan sætte appen i dyb dvale – så kommer der ingen alarmer. Under Batteri › Grænser for baggrundsforbrug: tilføj den til «Apps, der aldrig er i dvale»."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Samsung kann die App in Tiefschlaf versetzen – dann kommen keine Alarme an. Unter Akku › Hintergrundnutzungslimits zu «Nie schlafende Apps» hinzufügen."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Η Samsung μπορεί να βάλει την εφαρμογή σε βαθύ ύπνο – τότε δεν φτάνουν ειδοποιήσεις. Στο Μπαταρία › Όρια χρήσης στο παρασκήνιο προσθέστε την στις «Εφαρμογές που δεν κοιμούνται ποτέ»."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Samsung may put the app to deep sleep – then no alarms arrive. Under Battery › Background usage limits, add it to “Never sleeping apps”."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Samsung puede poner la app en suspensión profunda y entonces no llega ninguna alerta. En Batería › Límites de uso en segundo plano, añádela a «Aplicaciones que nunca se suspenden»."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Samsung ممکن است برنامه را به خواب عمیق ببرد – آن‌وقت هیچ هشداری نمی‌رسد. در باتری › محدودیت‌های استفاده در پس‌زمینه آن را به «برنامه‌هایی که هرگز نمی‌خوابند» اضافه کنید."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Samsung voi laittaa sovelluksen syvään lepoon – silloin hälytyksiä ei tule. Lisää se kohdassa Akku › Taustakäytön rajoitukset ”Ei koskaan lepotilaan” -sovelluksiin."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Samsung peut mettre l’app en veille profonde – aucune alerte n’arrive alors. Dans Batterie › Limites d’utilisation en arrière-plan, ajoutez-la aux « Applis jamais en veille »."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Samsung עלולה להכניס את האפליקציה לשינה עמוקה – ואז לא מגיעות התראות. בסוללה › מגבלות שימוש ברקע הוסיפו אותה ל«אפליקציות שאף פעם לא נרדמות»."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Samsung ऐप को गहरी नींद में डाल सकता है – तब कोई अलर्ट नहीं आता। बैटरी › बैकग्राउंड उपयोग सीमाएँ में इसे “कभी न सोने वाले ऐप” में जोड़ें।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A Samsung mély alvásba teheti az alkalmazást – ekkor nem érkezik riasztás. Az Akkumulátor › Háttérhasználati korlátok alatt adja hozzá a „Soha nem alvó alkalmazások” listához."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Samsung bisa membuat aplikasi tidur nyenyak – lalu tidak ada peringatan yang masuk. Di Baterai › Batas penggunaan latar belakang, tambahkan ke “Aplikasi yang tidak pernah tidur”."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Samsung può mettere l’app in sospensione profonda – allora non arriva nessun avviso. In Batteria › Limiti utilizzo in background aggiungila alle «App mai in sospensione»."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Samsung はアプリをディープスリープにすることがあり、その間アラートは届きません。バッテリー › バックグラウンドでの使用制限で「スリープさせないアプリ」に追加してください。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Samsung은 앱을 딥 슬립 상태로 만들 수 있으며, 그러면 알림이 오지 않습니다. 배터리 › 백그라운드 사용 제한에서 “절전 예외 앱”에 추가하세요."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Samsung kan sette appen i dyp dvale – da kommer ingen varsler. Under Batteri › Grenser for bakgrunnsbruk: legg den til «Apper som aldri sover»."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Samsung kan de app in diepe slaap zetten – dan komen er geen meldingen. Voeg hem onder Batterij › Limieten voor achtergrondgebruik toe aan «Apps die nooit slapen»."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Samsung może uśpić aplikację głęboko – wtedy nie dotrą żadne alerty. W Bateria › Limity użycia w tle dodaj ją do „Aplikacje nigdy nieusypiane”."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A Samsung pode pôr a app em suspensão profunda – e então não chega nenhum alerta. Em Bateria › Limites de utilização em segundo plano, adicione-a às «Apps nunca suspensas»."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A Samsung pode colocar o app em suspensão profunda – e aí nenhum alerta chega. Em Bateria › Limites de uso em segundo plano, adicione-o a “Apps que nunca suspendem”."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Samsung poate pune aplicația în somn profund – atunci nu mai sosesc alerte. În Baterie › Limite de utilizare în fundal, adăugați-o la „Aplicații care nu intră niciodată în repaus”."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Samsung может отправить приложение в глубокий сон – тогда оповещения не приходят. В разделе Батарея › Ограничения фонового использования добавьте его в «Приложения без спящего режима»."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Samsung mund ta vërë aplikacionin në gjumë të thellë – atëherë nuk vjen asnjë alarm. Te Bateria › Kufijtë e përdorimit në sfond shtojeni te «Aplikacionet që nuk flenë kurrë»."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Samsung kan försätta appen i djup viloläge – då kommer inga larm. Under Batteri › Gränser för bakgrundsanvändning: lägg till den i ”Appar som aldrig sover”."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Samsung อาจทำให้แอปหลับลึก – แล้วจะไม่มีการแจ้งเตือนมาถึง ใน แบตเตอรี่ › ขีดจำกัดการใช้งานพื้นหลัง ให้เพิ่มแอปใน “แอปที่ไม่หลับเลย”"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Samsung uygulamayı derin uykuya alabilir – o zaman hiç uyarı gelmez. Pil › Arka plan kullanım sınırları altında “Hiç uyumayan uygulamalar”a ekleyin."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Samsung може перевести застосунок у глибокий сон – тоді сповіщення не надходять. У розділі Батарея › Обмеження фонового використання додайте його до «Застосунки, які ніколи не засинають»."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Samsung có thể đưa ứng dụng vào ngủ sâu – khi đó không có cảnh báo nào đến. Trong Pin › Giới hạn sử dụng nền, thêm ứng dụng vào “Ứng dụng không bao giờ ngủ”."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "三星可能会让应用深度休眠，此时不会收到任何提醒。请在 电池 › 后台使用限制 中将其加入「从不休眠的应用」。"
+          }
+        }
+      }
+    },
+    "oem_battery_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "توفير البطارية من الشركة المصنّعة"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Úspora baterie výrobce"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Producentens batterisparer"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Akkusparen des Herstellers"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Εξοικονόμηση μπαταρίας κατασκευαστή"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Manufacturer battery saver"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ahorro de batería del fabricante"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "صرفه‌جویی باتری سازنده"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Valmistajan virransäästö"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Économie de batterie du fabricant"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "חיסכון בסוללה של היצרן"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "निर्माता की बैटरी बचत"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A gyártó akkukímélője"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Penghemat baterai produsen"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Risparmio batteria del produttore"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "メーカーの省電力機能"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "제조사 배터리 절약"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Produsentens batterisparing"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Batterijbesparing van de fabrikant"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oszczędzanie baterii producenta"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Poupança de bateria do fabricante"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Economia de bateria do fabricante"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Economisirea bateriei a producătorului"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Энергосбережение производителя"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kursimi i baterisë nga prodhuesi"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tillverkarens batterisparläge"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "การประหยัดแบตเตอรี่ของผู้ผลิต"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Üreticinin pil tasarrufu"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Енергозбереження виробника"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tiết kiệm pin của nhà sản xuất"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "厂商省电设置"
+          }
+        }
+      }
+    },
+    "oem_battery_vivo" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "قد يوقف Vivo التطبيق – فلا تصل أي تنبيهات. اسمح بـ«التشغيل التلقائي» واسمح باستهلاك عالٍ في الخلفية من البطارية."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vivo může aplikaci ukončit – pak nepřijdou žádná upozornění. Povolte „Automatické spuštění“ a v Baterie vysokou spotřebu na pozadí."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vivo kan stoppe appen – så kommer der ingen alarmer. Tillad «Autostart» og højt strømforbrug i baggrunden under Batteri."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vivo kann die App beenden – dann kommen keine Alarme an. «Autostart» erlauben und unter Akku hohen Hintergrundverbrauch zulassen."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Η Vivo μπορεί να σταματήσει την εφαρμογή – τότε δεν φτάνουν ειδοποιήσεις. Επιτρέψτε «Αυτόματη εκκίνηση» και υψηλή κατανάλωση στο παρασκήνιο στη Μπαταρία."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vivo may stop the app – then no alarms arrive. Allow “Autostart” and, under Battery, high background power use."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vivo puede detener la app y entonces no llega ninguna alerta. Permite «Inicio automático» y, en Batería, el consumo alto en segundo plano."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vivo ممکن است برنامه را متوقف کند – آن‌وقت هیچ هشداری نمی‌رسد. «شروع خودکار» و در باتری مصرف بالای پس‌زمینه را مجاز کنید."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vivo voi pysäyttää sovelluksen – silloin hälytyksiä ei tule. Salli ”Automaattinen käynnistys” ja Akku-kohdassa suuri taustavirrankulutus."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vivo peut arrêter l’app – aucune alerte n’arrive alors. Autorisez « Démarrage automatique » et, dans Batterie, la forte consommation en arrière-plan."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vivo עלולה לעצור את האפליקציה – ואז לא מגיעות התראות. אפשרו «הפעלה אוטומטית» וצריכת חשמל גבוהה ברקע בסוללה."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vivo ऐप को बंद कर सकता है – तब कोई अलर्ट नहीं आता। “ऑटोस्टार्ट” और बैटरी में उच्च बैकग्राउंड बिजली उपयोग की अनुमति दें।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A Vivo leállíthatja az alkalmazást – ekkor nem érkezik riasztás. Engedélyezze az „Automatikus indítás” opciót és az Akkumulátornál a magas háttérfogyasztást."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vivo bisa menghentikan aplikasi – lalu tidak ada peringatan yang masuk. Izinkan “Mulai otomatis” dan konsumsi daya latar belakang tinggi di Baterai."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vivo può chiudere l’app – allora non arriva nessun avviso. Consenti «Avvio automatico» e, in Batteria, il consumo elevato in background."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vivo はアプリを停止することがあり、その間アラートは届きません。「自動起動」を許可し、バッテリーでバックグラウンドの高い電力消費を許可してください。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vivo는 앱을 중지할 수 있으며, 그러면 알림이 오지 않습니다. “자동 시작”과 배터리의 높은 백그라운드 전력 사용을 허용하세요."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vivo kan stoppe appen – da kommer ingen varsler. Tillat «Autostart» og høyt strømforbruk i bakgrunnen under Batteri."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vivo kan de app stoppen – dan komen er geen meldingen. Sta «Automatisch starten» toe en onder Batterij hoog stroomverbruik op de achtergrond."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vivo może zatrzymać aplikację – wtedy nie dotrą żadne alerty. Zezwól na „Autostart” i w Baterii na wysokie zużycie energii w tle."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A Vivo pode parar a app – e então não chega nenhum alerta. Permita «Arranque automático» e, em Bateria, o consumo elevado em segundo plano."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A Vivo pode parar o app – e aí nenhum alerta chega. Permita “Início automático” e, em Bateria, o alto consumo em segundo plano."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vivo poate opri aplicația – atunci nu mai sosesc alerte. Permiteți „Pornire automată” și, la Baterie, consumul ridicat în fundal."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vivo может остановить приложение – тогда оповещения не приходят. Разрешите «Автозапуск» и высокое фоновое энергопотребление в разделе Батарея."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vivo mund ta ndalë aplikacionin – atëherë nuk vjen asnjë alarm. Lejoni «Nisja automatike» dhe konsumin e lartë në sfond te Bateria."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vivo kan stoppa appen – då kommer inga larm. Tillåt ”Autostart” och hög strömförbrukning i bakgrunden under Batteri."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vivo อาจหยุดแอป – แล้วจะไม่มีการแจ้งเตือนมาถึง อนุญาต “เริ่มอัตโนมัติ” และการใช้พลังงานพื้นหลังสูงใน แบตเตอรี่"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vivo uygulamayı durdurabilir – o zaman hiç uyarı gelmez. “Otomatik başlatma”ya ve Pil altında yüksek arka plan güç kullanımına izin verin."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vivo може зупинити застосунок – тоді сповіщення не надходять. Дозвольте «Автозапуск» і високе фонове енергоспоживання в розділі Батарея."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vivo có thể dừng ứng dụng – khi đó không có cảnh báo nào đến. Cho phép “Tự khởi động” và mức dùng điện nền cao trong Pin."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "vivo 可能会停止应用，此时不会收到任何提醒。请允许「自启动」，并在 电池 中允许后台高耗电。"
+          }
+        }
+      }
+    },
+    "oem_battery_xiaomi" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "قد يوقف Xiaomi التطبيق تمامًا – فلا تصل أي تنبيهات. فعّل «التشغيل التلقائي» واضبط توفير البطارية على «بلا قيود»."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xiaomi může aplikaci úplně ukončit – pak nepřijdou žádná upozornění. Zapněte „Automatické spuštění“ a spořič baterie nastavte na „Bez omezení“."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xiaomi kan stoppe appen helt – så kommer der ingen alarmer. Slå «Autostart» til, og sæt batterisparer til «Ingen begrænsninger»."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xiaomi kann die App ganz beenden – dann kommen keine Alarme an. «Autostart» einschalten und Akkusparen auf «Keine Einschränkungen» stellen."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Η Xiaomi μπορεί να σταματήσει εντελώς την εφαρμογή – τότε δεν φτάνουν ειδοποιήσεις. Ενεργοποιήστε «Αυτόματη εκκίνηση» και ορίστε την εξοικονόμηση σε «Χωρίς περιορισμούς»."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xiaomi may stop the app completely – then no alarms arrive. Turn on “Autostart” and set Battery saver to “No restrictions”."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xiaomi puede detener la app por completo y entonces no llega ninguna alerta. Activa «Inicio automático» y pon el ahorro de batería en «Sin restricciones»."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xiaomi ممکن است برنامه را کاملاً متوقف کند – آن‌وقت هیچ هشداری نمی‌رسد. «شروع خودکار» را روشن و صرفه‌جویی باتری را روی «بدون محدودیت» بگذارید."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xiaomi voi pysäyttää sovelluksen kokonaan – silloin hälytyksiä ei tule. Ota ”Automaattinen käynnistys” käyttöön ja aseta virransäästöksi ”Ei rajoituksia”."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xiaomi peut arrêter complètement l’app – aucune alerte n’arrive alors. Activez « Démarrage automatique » et réglez l’économiseur sur « Aucune restriction »."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xiaomi עלולה לעצור את האפליקציה לגמרי – ואז לא מגיעות התראות. הפעילו «הפעלה אוטומטית» והגדירו את חיסכון הסוללה ל«ללא הגבלות»."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xiaomi ऐप को पूरी तरह बंद कर सकता है – तब कोई अलर्ट नहीं आता। “ऑटोस्टार्ट” चालू करें और बैटरी सेवर को “कोई प्रतिबंध नहीं” पर रखें।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A Xiaomi teljesen leállíthatja az alkalmazást – ekkor nem érkezik riasztás. Kapcsolja be az „Automatikus indítás” opciót, és az akkukímélőt állítsa „Nincs korlátozás” értékre."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xiaomi bisa menghentikan aplikasi sepenuhnya – lalu tidak ada peringatan yang masuk. Aktifkan “Mulai otomatis” dan atur penghemat baterai ke “Tanpa batasan”."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xiaomi può chiudere del tutto l’app – allora non arriva nessun avviso. Attiva «Avvio automatico» e imposta il risparmio batteria su «Nessuna restrizione»."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xiaomi はアプリを完全に停止することがあり、その間アラートは届きません。「自動起動」をオンにし、バッテリーセーバーを「制限なし」にしてください。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xiaomi는 앱을 완전히 중지할 수 있으며, 그러면 알림이 오지 않습니다. “자동 시작”을 켜고 배터리 세이버를 “제한 없음”으로 설정하세요."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xiaomi kan stoppe appen helt – da kommer ingen varsler. Slå på «Autostart» og sett batterisparing til «Ingen begrensninger»."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xiaomi kan de app volledig stoppen – dan komen er geen meldingen. Zet «Automatisch starten» aan en stel batterijbesparing in op «Geen beperkingen»."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xiaomi może całkowicie zatrzymać aplikację – wtedy nie dotrą żadne alerty. Włącz „Autostart” i ustaw oszczędzanie baterii na „Bez ograniczeń”."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A Xiaomi pode parar a app por completo – e então não chega nenhum alerta. Ative «Arranque automático» e defina a poupança de bateria como «Sem restrições»."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A Xiaomi pode parar o app por completo – e aí nenhum alerta chega. Ative “Início automático” e defina a economia de bateria como “Sem restrições”."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xiaomi poate opri complet aplicația – atunci nu mai sosesc alerte. Activați „Pornire automată” și setați economisirea bateriei la „Fără restricții”."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xiaomi может полностью остановить приложение – тогда оповещения не приходят. Включите «Автозапуск» и выберите для экономии заряда «Нет ограничений»."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xiaomi mund ta ndalë plotësisht aplikacionin – atëherë nuk vjen asnjë alarm. Aktivizoni «Nisja automatike» dhe vendosni kursyesin e baterisë në «Pa kufizime»."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xiaomi kan stoppa appen helt – då kommer inga larm. Slå på ”Autostart” och ställ batterisparläget på ”Inga begränsningar”."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xiaomi อาจหยุดแอปทั้งหมด – แล้วจะไม่มีการแจ้งเตือนมาถึง เปิด “เริ่มอัตโนมัติ” และตั้งตัวประหยัดแบตเตอรี่เป็น “ไม่มีข้อจำกัด”"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xiaomi uygulamayı tamamen durdurabilir – o zaman hiç uyarı gelmez. “Otomatik başlatma”yı açın ve pil tasarrufunu “Kısıtlama yok” yapın."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xiaomi може повністю зупинити застосунок – тоді сповіщення не надходять. Увімкніть «Автозапуск» і встановіть для економії заряду «Без обмежень»."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xiaomi có thể dừng hẳn ứng dụng – khi đó không có cảnh báo nào đến. Bật “Tự khởi động” và đặt trình tiết kiệm pin thành “Không hạn chế”."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "小米可能会彻底停止应用，此时不会收到任何提醒。请开启「自启动」，并将省电策略设为「无限制」。"
           }
         }
       }
@@ -255236,187 +256573,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ما يلفت الانتباه الآن"
+            "value" : "نبض الكريبتو"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Co je teď nápadné"
+            "value" : "Krypto puls"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Det falder i øjnene"
+            "value" : "Kryptopuls"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Was gerade auffällt"
+            "value" : "Krypto-Puls"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Τι ξεχωρίζει"
+            "value" : "Παλμός κρυπτο"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "What stands out"
+            "value" : "Crypto pulse"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Lo que destaca"
+            "value" : "Pulso cripto"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "آنچه اکنون جلب توجه می‌کند"
+            "value" : "نبض کریپتو"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mikä erottuu nyt"
+            "value" : "Kryptopulssi"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ce qui ressort"
+            "value" : "Pouls crypto"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "מה בולט עכשיו"
+            "value" : "דופק הקריפטו"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "अभी क्या ख़ास है"
+            "value" : "क्रिप्टो पल्स"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ami most feltűnő"
+            "value" : "Kriptopulzus"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Yang menonjol"
+            "value" : "Denyut kripto"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cosa spicca"
+            "value" : "Polso cripto"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "いま目立つこと"
+            "value" : "クリプトパルス"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "지금 눈에 띄는 점"
+            "value" : "크립토 펄스"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dette skiller seg ut"
+            "value" : "Kryptopuls"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wat opvalt"
+            "value" : "Cryptopuls"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Co się wyróżnia"
+            "value" : "Puls krypto"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "O que se destaca"
+            "value" : "Pulso cripto"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "O que se destaca"
+            "value" : "Pulso cripto"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ce iese în evidență"
+            "value" : "Puls cripto"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Что сейчас выделяется"
+            "value" : "Пульс крипторынка"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Çfarë bie në sy"
+            "value" : "Pulsi kripto"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Det här sticker ut"
+            "value" : "Kryptopuls"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "สิ่งที่โดดเด่นตอนนี้"
+            "value" : "ชีพจรคริปโต"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Şu an öne çıkan"
+            "value" : "Kripto nabzı"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Що зараз вирізняється"
+            "value" : "Пульс крипторинку"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Điều nổi bật"
+            "value" : "Nhịp đập crypto"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "当前亮点"
+            "value" : "加密脉搏"
           }
         }
       }
@@ -269265,187 +270602,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "لون التطبيق والأدوات وأيقونة التطبيق."
+            "value" : "لون التطبيق والأدوات وأيقونة التطبيق. قد تُزيل بعض الشاشات الرئيسية الأيقونة عند التغيير – أضفها من جديد عندئذٍ."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Barva aplikace, widgetů a ikony aplikace."
+            "value" : "Barva aplikace, widgetů a ikony aplikace. Některé domovské obrazovky při změně ikonu odstraní – pak ji přidejte znovu."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Farve til appen, widgets og appikonet."
+            "value" : "Farve til appen, widgets og appikonet. Nogle startskærme fjerner ikonet ved skift – tilføj det så igen."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Farbe für App, Widgets und App-Symbol."
+            "value" : "Farbe für App, Widgets und App-Symbol. Manche Startbildschirme entfernen das Symbol beim Wechsel – dann neu hinzufügen."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Χρώμα για την εφαρμογή, τα widget και το εικονίδιο της εφαρμογής."
+            "value" : "Χρώμα για την εφαρμογή, τα widget και το εικονίδιο της εφαρμογής. Ορισμένες αρχικές οθόνες αφαιρούν το εικονίδιο κατά την αλλαγή – τότε προσθέστε το ξανά."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Color for the app, widgets and app icon."
+            "value" : "Color for the app, widgets and app icon. Some home screens remove the icon when it changes – add it again then."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Color de la app, los widgets y el icono de la app."
+            "value" : "Color de la app, los widgets y el icono de la app. Algunas pantallas de inicio quitan el icono al cambiarlo; vuelve a añadirlo."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "رنگ برنامه، ویجت‌ها و نماد برنامه."
+            "value" : "رنگ برنامه، ویجت‌ها و نماد برنامه. برخی صفحه‌های اصلی هنگام تغییر، نماد را حذف می‌کنند – در این صورت دوباره اضافه کنید."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Väri sovellukselle, widgeteille ja sovelluskuvakkeelle."
+            "value" : "Väri sovellukselle, widgeteille ja sovelluskuvakkeelle. Jotkin aloitusnäytöt poistavat kuvakkeen vaihdon yhteydessä – lisää se silloin uudelleen."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Couleur de l’app, des widgets et de l’icône de l’app."
+            "value" : "Couleur de l’app, des widgets et de l’icône de l’app. Certains écrans d’accueil retirent l’icône lors du changement : ajoutez-la à nouveau."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "צבע לאפליקציה, לווידג׳טים ולסמל האפליקציה."
+            "value" : "צבע לאפליקציה, לווידג׳טים ולסמל האפליקציה. חלק ממסכי הבית מסירים את הסמל בעת ההחלפה – אז יש להוסיף אותו מחדש."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ऐप, विजेट और ऐप आइकन का रंग।"
+            "value" : "ऐप, विजेट और ऐप आइकन का रंग। कुछ होम स्क्रीन बदलने पर आइकन हटा देती हैं – तब इसे फिर से जोड़ें।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Az alkalmazás, a widgetek és az alkalmazásikon színe."
+            "value" : "Az alkalmazás, a widgetek és az alkalmazásikon színe. Egyes kezdőképernyők váltáskor eltávolítják az ikont – ilyenkor add hozzá újra."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Warna untuk aplikasi, widget, dan ikon aplikasi."
+            "value" : "Warna untuk aplikasi, widget, dan ikon aplikasi. Beberapa layar utama menghapus ikon saat diganti – tambahkan lagi."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Colore dell’app, dei widget e dell’icona dell’app."
+            "value" : "Colore dell’app, dei widget e dell’icona dell’app. Alcune schermate Home rimuovono l’icona al cambio: aggiungila di nuovo."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "アプリ、ウィジェット、アプリアイコンの色。"
+            "value" : "アプリ、ウィジェット、アプリアイコンの色。 ホーム画面によっては変更時にアイコンが消えます。その場合は追加し直してください。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "앱, 위젯, 앱 아이콘의 색상."
+            "value" : "앱, 위젯, 앱 아이콘의 색상. 일부 홈 화면은 변경 시 아이콘을 제거합니다. 그러면 다시 추가하세요."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Farge for appen, widgeter og appikonet."
+            "value" : "Farge for appen, widgeter og appikonet. Noen startskjermer fjerner ikonet ved bytte – legg det da til på nytt."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kleur voor de app, widgets en het app-pictogram."
+            "value" : "Kleur voor de app, widgets en het app-pictogram. Sommige startschermen verwijderen het pictogram bij het wisselen – voeg het dan opnieuw toe."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kolor aplikacji, widżetów i ikony aplikacji."
+            "value" : "Kolor aplikacji, widżetów i ikony aplikacji. Niektóre ekrany główne usuwają ikonę przy zmianie – wtedy dodaj ją ponownie."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cor da app, dos widgets e do ícone da app."
+            "value" : "Cor da app, dos widgets e do ícone da app. Alguns ecrãs principais removem o ícone na troca – adicione-o de novo."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cor do app, dos widgets e do ícone do app."
+            "value" : "Cor do app, dos widgets e do ícone do app. Algumas telas iniciais removem o ícone na troca – adicione-o de novo."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Culoarea aplicației, a widgeturilor și a pictogramei aplicației."
+            "value" : "Culoarea aplicației, a widgeturilor și a pictogramei aplicației. Unele ecrane de pornire elimină pictograma la schimbare – adaug-o din nou."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Цвет приложения, виджетов и значка приложения."
+            "value" : "Цвет приложения, виджетов и значка приложения. Некоторые рабочие столы удаляют значок при смене – тогда добавьте его снова."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ngjyra për aplikacionin, widget-et dhe ikonën e aplikacionit."
+            "value" : "Ngjyra për aplikacionin, widget-et dhe ikonën e aplikacionit. Disa ekrane bazë e heqin ikonën gjatë ndryshimit – atëherë shtoje përsëri."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Färg för appen, widgetar och appikonen."
+            "value" : "Färg för appen, widgetar och appikonen. Vissa startskärmar tar bort ikonen vid byte – lägg då till den igen."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "สีของแอป วิดเจ็ต และไอคอนแอป"
+            "value" : "สีของแอป วิดเจ็ต และไอคอนแอป หน้าจอหลักบางแบบจะลบไอคอนเมื่อเปลี่ยน ให้เพิ่มใหม่อีกครั้ง"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Uygulama, widget'lar ve uygulama simgesi için renk."
+            "value" : "Uygulama, widget'lar ve uygulama simgesi için renk. Bazı ana ekranlar değişiklikte simgeyi kaldırır – o zaman yeniden ekleyin."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Колір застосунку, віджетів і значка застосунку."
+            "value" : "Колір застосунку, віджетів і значка застосунку. Деякі головні екрани прибирають значок під час зміни – тоді додайте його знову."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Màu cho ứng dụng, tiện ích và biểu tượng ứng dụng."
+            "value" : "Màu cho ứng dụng, tiện ích và biểu tượng ứng dụng. Một số màn hình chính xóa biểu tượng khi đổi – khi đó hãy thêm lại."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "应用、小组件和应用图标的颜色。"
+            "value" : "应用、小组件和应用图标的颜色。部分主屏幕在更换时会移除图标，届时请重新添加。"
           }
         }
       }
@@ -269456,187 +270793,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "الإبلاغ عن النشاط غير العادي"
+            "value" : "لافت: تنبيه"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hlásit neobvyklou aktivitu"
+            "value" : "Nápadné: upozornit"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Meld usædvanlig aktivitet"
+            "value" : "Påfaldende: giv besked"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ungewöhnliche Aktivität melden"
+            "value" : "Auffällig: melden"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Αναφορά ασυνήθιστης δραστηριότητας"
+            "value" : "Αξιοσημείωτα: ειδοποίηση"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Report unusual activity"
+            "value" : "Notable: notify"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Avisar de actividad inusual"
+            "value" : "Destacado: avisar"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "گزارش فعالیت غیرعادی"
+            "value" : "قابل‌توجه: اعلان"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ilmoita epätavallisesta aktiivisuudesta"
+            "value" : "Huomionarvoista: ilmoita"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Signaler une activité inhabituelle"
+            "value" : "À noter : prévenir"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "דווח על פעילות חריגה"
+            "value" : "בולט: הודעה"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "असामान्य गतिविधि की सूचना दें"
+            "value" : "उल्लेखनीय: सूचित करें"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Szokatlan aktivitás jelzése"
+            "value" : "Feltűnő: értesítés"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Laporkan aktivitas tidak biasa"
+            "value" : "Menonjol: beri tahu"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Segnala attività insolite"
+            "value" : "In evidenza: avvisa"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "異常な動きを通知"
+            "value" : "注目: 通知"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "이상 움직임 알림"
+            "value" : "주목: 알림"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Meld uvanlig aktivitet"
+            "value" : "Påfallende: varsle"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ongewone activiteit melden"
+            "value" : "Opvallend: melden"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Zgłaszaj nietypową aktywność"
+            "value" : "Warte uwagi: powiadom"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Avisar de atividade invulgar"
+            "value" : "Em destaque: avisar"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Avisar sobre atividade incomum"
+            "value" : "Em destaque: avisar"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Raportează activitatea neobișnuită"
+            "value" : "Notabil: anunță"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Сообщать о необычной активности"
+            "value" : "Заметное: сообщать"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Njofto aktivitetin e pazakontë"
+            "value" : "Bie në sy: njofto"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Rapportera ovanlig aktivitet"
+            "value" : "Utmärkande: meddela"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "แจ้งความเคลื่อนไหวผิดปกติ"
+            "value" : "น่าสังเกต: แจ้ง"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Olağandışı etkinliği bildir"
+            "value" : "Dikkat çekici: bildir"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Повідомляти про незвичайну активність"
+            "value" : "Помітне: повідомляти"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Báo hoạt động bất thường"
+            "value" : "Đáng chú ý: báo"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "提醒异常活动"
+            "value" : "值得关注：提醒"
           }
         }
       }
@@ -282826,187 +284163,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "الإذن مفقود – يفحص Android متى ناسبه (كل 15 دقيقة تقريبًا أو لاحقًا)."
+            "value" : "الإذن مفقود – عندما يكون الجهاز في وضع السكون يفحص Android بشكل غير منتظم، أحيانًا بعد ساعات."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Chybí oprávnění – Android kontroluje, kdy se mu to hodí (zhruba každých 15 min nebo později)."
+            "value" : "Chybí oprávnění – v klidu zařízení kontroluje Android nepravidelně, někdy až po hodinách."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tilladelse mangler – Android tjekker, når det passer (ca. hvert 15. min eller senere)."
+            "value" : "Tilladelse mangler – når enheden hviler, tjekker Android uregelmæssigt, nogle gange først efter timer."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Berechtigung fehlt – Android prüft, wann es passt (etwa alle 15 Min. oder später)."
+            "value" : "Berechtigung fehlt – bei ruhendem Gerät prüft Android unregelmässig, manchmal erst nach Stunden."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Λείπει η άδεια – το Android ελέγχει όποτε του ταιριάζει (περίπου κάθε 15 λεπτά ή αργότερα)."
+            "value" : "Λείπει η άδεια – όταν η συσκευή ηρεμεί, το Android ελέγχει ακανόνιστα, μερικές φορές μετά από ώρες."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Permission missing – Android checks when it suits it (about every 15 min or later)."
+            "value" : "Permission missing – while the device rests, Android checks irregularly, sometimes only after hours."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Falta el permiso: Android comprueba cuando le conviene (cada 15 min aprox. o más tarde)."
+            "value" : "Falta el permiso: con el dispositivo en reposo, Android comprueba de forma irregular, a veces tras horas."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "مجوز نیست – Android هر وقت مناسب بداند بررسی می‌کند (حدود هر 15 دقیقه یا دیرتر)."
+            "value" : "مجوز نیست – وقتی دستگاه در حالت استراحت است Android نامنظم بررسی می‌کند، گاهی پس از چند ساعت."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Lupa puuttuu – Android tarkistaa, kun sille sopii (noin 15 min välein tai myöhemmin)."
+            "value" : "Lupa puuttuu – laitteen levätessä Android tarkistaa epäsäännöllisesti, joskus vasta tuntien päästä."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Autorisation manquante – Android vérifie quand cela lui convient (environ toutes les 15 min ou plus tard)."
+            "value" : "Autorisation manquante – appareil en veille, Android vérifie irrégulièrement, parfois après des heures."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "חסרה הרשאה – Android בודק מתי שנוח לו (בערך כל 15 דק׳ או מאוחר יותר)."
+            "value" : "חסרה הרשאה – כשהמכשיר במנוחה, Android בודק באופן לא סדיר, לפעמים רק אחרי שעות."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "अनुमति नहीं है – Android जब ठीक समझे तब जाँचता है (लगभग हर 15 मिनट या बाद में)।"
+            "value" : "अनुमति नहीं है – डिवाइस निष्क्रिय होने पर Android अनियमित रूप से जाँचता है, कभी-कभी घंटों बाद।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hiányzó engedély – az Android akkor ellenőriz, amikor neki megfelel (kb. 15 percenként vagy később)."
+            "value" : "Hiányzó engedély – nyugvó eszközön az Android rendszertelenül ellenőriz, néha csak órák múlva."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Izin tidak ada – Android memeriksa kapan saja sesuai jadwalnya (kira-kira setiap 15 menit atau lebih lama)."
+            "value" : "Izin tidak ada – saat perangkat diam, Android memeriksa tidak teratur, terkadang baru setelah berjam-jam."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Autorizzazione mancante – Android controlla quando gli conviene (circa ogni 15 min o più tardi)."
+            "value" : "Autorizzazione mancante – a dispositivo inattivo Android controlla in modo irregolare, a volte solo dopo ore."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "権限がありません – Android は都合のよいときに確認します（約15分ごと、またはそれ以上）。"
+            "value" : "権限がありません – 端末の休止中は Android の確認が不定期になり、数時間後になることもあります。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "권한 없음 – Android가 적절할 때 확인합니다(약 15분마다 또는 그 이후)."
+            "value" : "권한 없음 – 기기가 쉬는 동안 Android는 불규칙하게 확인하며, 몇 시간 뒤에야 확인하기도 합니다."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tillatelse mangler – Android sjekker når det passer (omtrent hvert 15. min eller senere)."
+            "value" : "Tillatelse mangler – når enheten hviler, sjekker Android uregelmessig, noen ganger først etter timer."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Toestemming ontbreekt – Android controleert wanneer het uitkomt (ongeveer elke 15 min of later)."
+            "value" : "Toestemming ontbreekt – als het toestel rust, controleert Android onregelmatig, soms pas na uren."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Brak uprawnienia – Android sprawdza, kiedy mu pasuje (mniej więcej co 15 min lub później)."
+            "value" : "Brak uprawnienia – gdy urządzenie odpoczywa, Android sprawdza nieregularnie, czasem dopiero po godzinach."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Falta a permissão – o Android verifica quando lhe convém (cerca de 15 em 15 min ou mais tarde)."
+            "value" : "Falta a permissão – com o dispositivo em repouso, o Android verifica de forma irregular, por vezes só após horas."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Permissão ausente – o Android verifica quando quiser (a cada 15 min ou mais tarde)."
+            "value" : "Permissão ausente – com o aparelho em repouso, o Android verifica de forma irregular, às vezes só após horas."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Lipsește permisiunea – Android verifică atunci când îi convine (cam la 15 min sau mai târziu)."
+            "value" : "Lipsește permisiunea – în repaus, Android verifică neregulat, uneori abia după ore."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Нет разрешения – Android проверяет, когда ему удобно (примерно каждые 15 мин или позже)."
+            "value" : "Нет разрешения – пока устройство в покое, Android проверяет нерегулярно, иногда лишь через несколько часов."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mungon leja – Android kontrollon kur i përshtatet (afërsisht çdo 15 min ose më vonë)."
+            "value" : "Mungon leja – kur pajisja pushon, Android kontrollon parregullisht, ndonjëherë vetëm pas orësh."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Behörighet saknas – Android kontrollerar när det passar (ungefär var 15:e min eller senare)."
+            "value" : "Behörighet saknas – när enheten vilar kontrollerar Android oregelbundet, ibland först efter timmar."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ไม่มีสิทธิ์ – Android จะตรวจสอบเมื่อสะดวก (ประมาณทุก 15 นาทีหรือช้ากว่านั้น)"
+            "value" : "ไม่มีสิทธิ์ – ขณะเครื่องพัก Android จะตรวจไม่สม่ำเสมอ บางครั้งหลายชั่วโมงต่อครั้ง"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "İzin eksik – Android uygun gördüğünde kontrol eder (yaklaşık 15 dakikada bir veya daha geç)."
+            "value" : "İzin eksik – cihaz dinlenirken Android düzensiz kontrol eder, bazen ancak saatler sonra."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Немає дозволу – Android перевіряє, коли йому зручно (приблизно кожні 15 хв або пізніше)."
+            "value" : "Немає дозволу – коли пристрій у спокої, Android перевіряє нерегулярно, іноді лише через кілька годин."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Thiếu quyền – Android kiểm tra khi nào tiện (khoảng mỗi 15 phút hoặc muộn hơn)."
+            "value" : "Thiếu quyền – lúc thiết bị nghỉ, Android kiểm tra không đều, đôi khi sau nhiều giờ."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "缺少权限——Android 会在合适时检查（大约每 15 分钟或更晚）。"
+            "value" : "缺少权限——设备静置期间 Android 的检查不规律，有时要隔几小时。"
           }
         }
       }
@@ -300657,187 +301994,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "نشاط غير عادي في القائمة"
+            "value" : "لافت: إظهار في القائمة"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Neobvyklá aktivita v seznamu"
+            "value" : "Nápadné: zobrazit v seznamu"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Usædvanlig aktivitet i listen"
+            "value" : "Påfaldende: vis i listen"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ungewöhnliche Aktivität in der Liste"
+            "value" : "Auffällig: in der Liste zeigen"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ασυνήθιστη δραστηριότητα στη λίστα"
+            "value" : "Αξιοσημείωτα: εμφάνιση στη λίστα"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Unusual activity in the list"
+            "value" : "Notable: show in the list"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Actividad inusual en la lista"
+            "value" : "Destacado: mostrar en la lista"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "فعالیت غیرعادی در فهرست"
+            "value" : "قابل‌توجه: نمایش در فهرست"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Epätavallinen aktiivisuus listassa"
+            "value" : "Huomionarvoista: näytä listassa"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Activité inhabituelle dans la liste"
+            "value" : "À noter : afficher dans la liste"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "פעילות חריגה ברשימה"
+            "value" : "בולט: הצגה ברשימה"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "सूची में असामान्य गतिविधि"
+            "value" : "उल्लेखनीय: सूची में दिखाएँ"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Szokatlan aktivitás a listában"
+            "value" : "Feltűnő: megjelenítés a listában"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Aktivitas tidak biasa di daftar"
+            "value" : "Menonjol: tampilkan di daftar"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Attività insolita nella lista"
+            "value" : "In evidenza: mostra nella lista"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "リストに異常な動きを表示"
+            "value" : "注目: リストに表示"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "목록에 이상 움직임 표시"
+            "value" : "주목: 목록에 표시"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Uvanlig aktivitet i listen"
+            "value" : "Påfallende: vis i listen"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ongewone activiteit in de lijst"
+            "value" : "Opvallend: tonen in de lijst"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nietypowa aktywność na liście"
+            "value" : "Warte uwagi: pokaż na liście"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Atividade invulgar na lista"
+            "value" : "Em destaque: mostrar na lista"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Atividade incomum na lista"
+            "value" : "Em destaque: mostrar na lista"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Activitate neobișnuită în listă"
+            "value" : "Notabil: afișează în listă"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Необычная активность в списке"
+            "value" : "Заметное: показывать в списке"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Aktivitet i pazakontë në listë"
+            "value" : "Bie në sy: shfaq në listë"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ovanlig aktivitet i listan"
+            "value" : "Utmärkande: visa i listan"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ความเคลื่อนไหวผิดปกติในรายการ"
+            "value" : "น่าสังเกต: แสดงในรายการ"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Listede olağandışı etkinlik"
+            "value" : "Dikkat çekici: listede göster"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Незвичайна активність у списку"
+            "value" : "Помітне: показувати в списку"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hoạt động bất thường trong danh sách"
+            "value" : "Đáng chú ý: hiện trong danh sách"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "在列表中显示异常活动"
+            "value" : "值得关注：在列表中显示"
           }
         }
       }
@@ -322043,6 +323380,197 @@
         }
       }
     },
+    "tax_export_day_close_rule" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "القيم السوقية دون سعر مسجّل (الرسوم، الإهداء/الدفع، المبادلة، المكافآت، رسوم الشبكة، قيمة المحفظة) بسعر الإغلاق اليومي (UTC) ليوم المعاملة"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tržní hodnoty bez zadané ceny (poplatky, darováno/zaplaceno, směna, odměny, síťové poplatky, hodnota portfolia) podle denního závěrečného kurzu (UTC) dne transakce"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Markedsværdier uden registreret pris (gebyrer, givet væk/betalt, bytte, belønninger, netværksgebyrer, porteføljeværdi) til dagens lukkekurs (UTC) på transaktionsdagen"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Marktwerte ohne erfassten Preis (Gebühren, Verschenkt/bezahlt, Tausch, Belohnungen, Netzwerkgebühren, Gesamtwert) zum Tagesschluss (UTC) des Transaktionstags"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Αγοραίες αξίες χωρίς καταχωρημένη τιμή (χρεώσεις, δωρεά/πληρωμή, ανταλλαγή, ανταμοιβές, χρεώσεις δικτύου, αξία χαρτοφυλακίου) στο ημερήσιο κλείσιμο (UTC) της ημέρας της συναλλαγής"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Market values without a recorded price (fees, gifts/payments, swaps, rewards, network fees, portfolio value) at the daily close (UTC) of the transaction day"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Valores de mercado sin precio registrado (comisiones, regalado/pagado, intercambio, recompensas, comisiones de red, valor de la cartera) al cierre diario (UTC) del día de la transacción"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ارزش‌های بازار بدون قیمت ثبت‌شده (کارمزدها، هدیه/پرداخت، مبادله، پاداش‌ها، کارمزد شبکه، ارزش سبد) با قیمت بسته‌شدن روزانه (UTC) روز تراکنش"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Markkina-arvot ilman kirjattua hintaa (kulut, lahjoitettu/maksettu, vaihto, palkkiot, verkkomaksut, salkun arvo) tapahtumapäivän päätöskurssiin (UTC)"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Valeurs de marché sans prix saisi (frais, donné/payé, échange, récompenses, frais de réseau, valeur du portefeuille) à la clôture journalière (UTC) du jour de la transaction"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "שווי שוק ללא מחיר רשום (עמלות, ניתן במתנה/שולם, החלפה, תגמולים, עמלות רשת, שווי התיק) לפי מחיר הסגירה היומי (UTC) של יום העסקה"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "दर्ज कीमत के बिना बाज़ार मूल्य (शुल्क, उपहार/भुगतान, स्वैप, रिवॉर्ड, नेटवर्क शुल्क, पोर्टफ़ोलियो मूल्य) लेन-देन के दिन के दैनिक क्लोज़ (UTC) पर"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rögzített ár nélküli piaci értékek (díjak, elajándékozva/fizetve, csere, jutalmak, hálózati díjak, portfólióérték) a tranzakció napjának napi záróárán (UTC)"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nilai pasar tanpa harga tercatat (biaya, diberikan/dibayar, tukar, imbalan, biaya jaringan, nilai portofolio) pada harga penutupan harian (UTC) hari transaksi"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Valori di mercato senza prezzo registrato (commissioni, regalato/pagato, scambio, ricompense, commissioni di rete, valore del portafoglio) alla chiusura giornaliera (UTC) del giorno della transazione"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "価格の記録がない時価（手数料、贈与/支払い、交換、報酬、ネットワーク手数料、ポートフォリオ総額）は取引日の終値（UTC）"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "기록된 가격이 없는 시장 가치(수수료, 증여/결제, 교환, 보상, 네트워크 수수료, 포트폴리오 가치)는 거래일의 일일 종가(UTC) 기준"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Markedsverdier uten registrert pris (gebyrer, gitt bort/betalt, bytte, belønninger, nettverksgebyrer, porteføljeverdi) til dagens sluttkurs (UTC) på transaksjonsdagen"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Marktwaarden zonder ingevoerde prijs (kosten, weggegeven/betaald, ruil, beloningen, netwerkkosten, portefeuillewaarde) tegen de dagslotkoers (UTC) van de transactiedag"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wartości rynkowe bez wpisanej ceny (opłaty, podarowane/zapłacone, zamiana, nagrody, opłaty sieciowe, wartość portfela) według dziennego kursu zamknięcia (UTC) z dnia transakcji"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Valores de mercado sem preço registado (comissões, oferecido/pago, troca, recompensas, comissões de rede, valor da carteira) ao fecho diário (UTC) do dia da transação"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Valores de mercado sem preço registrado (taxas, doado/pago, troca, recompensas, taxas de rede, valor da carteira) pelo fechamento diário (UTC) do dia da transação"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Valori de piață fără preț înregistrat (comisioane, dăruit/plătit, schimb, recompense, comisioane de rețea, valoarea portofoliului) la închiderea zilnică (UTC) a zilei tranzacției"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Рыночная стоимость без указанной цены (комиссии, подарено/оплачено, обмен, вознаграждения, сетевые комиссии, стоимость портфеля) по дневной цене закрытия (UTC) дня операции"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vlerat e tregut pa çmim të regjistruar (tarifat, dhuruar/paguar, shkëmbim, shpërblime, tarifat e rrjetit, vlera e portofolit) me mbylljen ditore (UTC) të ditës së transaksionit"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Marknadsvärden utan registrerat pris (avgifter, bortskänkt/betalt, byte, belöningar, nätverksavgifter, portföljvärde) till dagens stängningskurs (UTC) på transaktionsdagen"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "มูลค่าตลาดที่ไม่มีราคาบันทึก (ค่าธรรมเนียม, ให้/ชำระ, แลกเปลี่ยน, รางวัล, ค่าธรรมเนียมเครือข่าย, มูลค่าพอร์ต) ใช้ราคาปิดรายวัน (UTC) ของวันที่ทำรายการ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fiyatı girilmemiş piyasa değerleri (ücretler, hediye/ödeme, takas, ödüller, ağ ücretleri, portföy değeri) işlem gününün günlük kapanışından (UTC)"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ринкова вартість без указаної ціни (комісії, подаровано/сплачено, обмін, винагороди, мережеві комісії, вартість портфеля) за денною ціною закриття (UTC) дня операції"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Giá trị thị trường không có giá đã ghi (phí, tặng/thanh toán, hoán đổi, phần thưởng, phí mạng, giá trị danh mục) theo giá đóng cửa ngày (UTC) của ngày giao dịch"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "没有记录价格的市值（手续费、赠送/支付、兑换、奖励、网络手续费、组合总值）按交易当日（UTC）收盘价计"
+          }
+        }
+      }
+    },
     "tax_export_fee_consumed" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -338857,187 +340385,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "رسوم الشبكة المدفوعة بالعملات المشفرة (تحويل إلى محفظتك، سحب) تصرّف في عملات الرسوم بقيمتها السوقية – ربح أو خسارة على هذه العملات فقط، لا خسارة الرسوم كاملة (%1$@). بدون سعر مسجّل: سعر إغلاق اليوم السابق؛ وبدون سعر إغلاق يبقى العائد فارغًا."
+            "value" : "رسوم الشبكة المدفوعة بالعملات المشفرة (تحويل إلى محفظتك، سحب) تصرّف في عملات الرسوم بقيمتها السوقية – ربح أو خسارة على هذه العملات فقط، لا خسارة الرسوم كاملة (%1$@). بدون سعر مسجّل: سعر إغلاق اليوم نفسه (UTC)؛ وبدون سعر إغلاق يبقى العائد فارغًا."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Síťový poplatek zaplacený v kryptu (převod do vlastní peněženky, výběr) je prodej mincí poplatku za tržní hodnotu – zisk nebo ztráta jen z těchto mincí, ne ztráta celého poplatku (%1$@). Bez zadané ceny: závěrečný kurz předchozího dne; bez závěrečného kurzu zůstává výnos prázdný."
+            "value" : "Síťový poplatek zaplacený v kryptu (převod do vlastní peněženky, výběr) je prodej mincí poplatku za tržní hodnotu – zisk nebo ztráta jen z těchto mincí, ne ztráta celého poplatku (%1$@). Bez zadané ceny: závěrečný kurz téhož dne (UTC); bez závěrečného kurzu zůstává výnos prázdný."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Et netværksgebyr betalt i krypto (overførsel til din egen wallet, udbetaling) er en afhændelse af gebyr-coinsene til markedsværdi – gevinst eller tab kun på de coins, ikke et tab af hele gebyret (%1$@). Uden registreret pris: foregående dags lukkekurs; uden lukkekurs forbliver provenuet tomt."
+            "value" : "Et netværksgebyr betalt i krypto (overførsel til din egen wallet, udbetaling) er en afhændelse af gebyr-coinsene til markedsværdi – gevinst eller tab kun på de coins, ikke et tab af hele gebyret (%1$@). Uden registreret pris: samme dags lukkekurs (UTC); uden lukkekurs forbliver provenuet tomt."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Eine Netzwerkgebühr in Krypto (Umbuchung auf die eigene Wallet, Auszahlung) ist eine Veräusserung der Gebühr-Coins zum Marktwert – Gewinn oder Verlust nur auf diesen Coins, kein Verlust der ganzen Gebühr (%1$@). Ohne erfassten Preis: Tagesschluss des Vortags; ohne Kurs bleibt der Erlös leer."
+            "value" : "Eine Netzwerkgebühr in Krypto (Umbuchung auf die eigene Wallet, Auszahlung) ist eine Veräusserung der Gebühr-Coins zum Marktwert – Gewinn oder Verlust nur auf diesen Coins, kein Verlust der ganzen Gebühr (%1$@). Ohne erfassten Preis: Tagesschluss (UTC) desselben Tags; ohne Kurs bleibt der Erlös leer."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Μια χρέωση δικτύου σε κρύπτο (μεταφορά στο δικό σου πορτοφόλι, ανάληψη) είναι διάθεση των νομισμάτων της χρέωσης στην αγοραία αξία – κέρδος ή ζημία μόνο σε αυτά τα νομίσματα, όχι ζημία ολόκληρης της χρέωσης (%1$@). Χωρίς καταχωρημένη τιμή: κλείσιμο της προηγούμενης ημέρας· χωρίς κλείσιμο το έσοδο μένει κενό."
+            "value" : "Μια χρέωση δικτύου σε κρύπτο (μεταφορά στο δικό σου πορτοφόλι, ανάληψη) είναι διάθεση των νομισμάτων της χρέωσης στην αγοραία αξία – κέρδος ή ζημία μόνο σε αυτά τα νομίσματα, όχι ζημία ολόκληρης της χρέωσης (%1$@). Χωρίς καταχωρημένη τιμή: κλείσιμο της ίδιας ημέρας (UTC)· χωρίς κλείσιμο το έσοδο μένει κενό."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A network fee paid in crypto (transfer to your own wallet, withdrawal) is a disposal of the fee coins at market value – gain or loss only on those coins, not a loss of the whole fee (%1$@). Without a recorded price: previous day’s close; without a close the proceeds stay empty."
+            "value" : "A network fee paid in crypto (transfer to your own wallet, withdrawal) is a disposal of the fee coins at market value – gain or loss only on those coins, not a loss of the whole fee (%1$@). Without a recorded price: daily close (UTC) of the same day; without a close the proceeds stay empty."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Una comisión de red pagada en cripto (transferencia a tu propio wallet, retirada) es una enajenación de las monedas de la comisión a valor de mercado – ganancia o pérdida solo sobre esas monedas, no una pérdida de toda la comisión (%1$@). Sin precio registrado: cierre del día anterior; sin cierre el importe queda vacío."
+            "value" : "Una comisión de red pagada en cripto (transferencia a tu propio wallet, retirada) es una enajenación de las monedas de la comisión a valor de mercado – ganancia o pérdida solo sobre esas monedas, no una pérdida de toda la comisión (%1$@). Sin precio registrado: cierre del mismo día (UTC); sin cierre el importe queda vacío."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "کارمزد شبکه‌ای که به رمزارز پرداخت شود (انتقال به کیف پول خودت، برداشت) واگذاری سکه‌های کارمزد به ارزش بازار است – سود یا زیان فقط روی همین سکه‌ها، نه زیان کل کارمزد (%1$@). بدون قیمت ثبت‌شده: قیمت بسته‌شدن روز قبل؛ بدون قیمت بسته‌شدن درآمد فروش خالی می‌ماند."
+            "value" : "کارمزد شبکه‌ای که به رمزارز پرداخت شود (انتقال به کیف پول خودت، برداشت) واگذاری سکه‌های کارمزد به ارزش بازار است – سود یا زیان فقط روی همین سکه‌ها، نه زیان کل کارمزد (%1$@). بدون قیمت ثبت‌شده: قیمت بسته‌شدن همان روز (UTC)؛ بدون قیمت بسته‌شدن درآمد فروش خالی می‌ماند."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kryptona maksettu verkkokulu (siirto omaan lompakkoon, nosto) on kulukolikoiden luovutus markkina-arvoon – voitto tai tappio vain näistä kolikoista, ei koko kulun tappio (%1$@). Ilman kirjattua hintaa: edellisen päivän päätöskurssi; ilman päätöskurssia luovutushinta jää tyhjäksi."
+            "value" : "Kryptona maksettu verkkokulu (siirto omaan lompakkoon, nosto) on kulukolikoiden luovutus markkina-arvoon – voitto tai tappio vain näistä kolikoista, ei koko kulun tappio (%1$@). Ilman kirjattua hintaa: saman päivän päätöskurssi (UTC); ilman päätöskurssia luovutushinta jää tyhjäksi."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Des frais de réseau payés en crypto (transfert vers ton propre wallet, retrait) sont une cession des coins de frais à leur valeur de marché – plus- ou moins-value seulement sur ces coins, pas une perte de la totalité des frais (%1$@). Sans prix saisi : clôture de la veille ; sans clôture le produit reste vide."
+            "value" : "Des frais de réseau payés en crypto (transfert vers ton propre wallet, retrait) sont une cession des coins de frais à leur valeur de marché – plus- ou moins-value seulement sur ces coins, pas une perte de la totalité des frais (%1$@). Sans prix saisi : clôture du jour même (UTC) ; sans clôture le produit reste vide."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "עמלת רשת ששולמה בקריפטו (העברה לארנק שלך, משיכה) היא מימוש של מטבעות העמלה לפי שווי שוק – רווח או הפסד רק על המטבעות האלה, לא הפסד של כל העמלה (%1$@). ללא מחיר רשום: מחיר הסגירה של היום הקודם; ללא מחיר סגירה התמורה נשארת ריקה."
+            "value" : "עמלת רשת ששולמה בקריפטו (העברה לארנק שלך, משיכה) היא מימוש של מטבעות העמלה לפי שווי שוק – רווח או הפסד רק על המטבעות האלה, לא הפסד של כל העמלה (%1$@). ללא מחיר רשום: מחיר הסגירה של אותו יום (UTC); ללא מחיר סגירה התמורה נשארת ריקה."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "क्रिप्टो में चुकाया गया नेटवर्क शुल्क (अपने वॉलेट में ट्रांसफ़र, निकासी) शुल्क के कॉइन का बाज़ार मूल्य पर निपटान है – लाभ या हानि सिर्फ़ इन कॉइन पर, पूरे शुल्क की हानि नहीं (%1$@)। दर्ज कीमत के बिना: पिछले दिन का क्लोज़; क्लोज़ न हो तो बिक्री आय खाली रहती है।"
+            "value" : "क्रिप्टो में चुकाया गया नेटवर्क शुल्क (अपने वॉलेट में ट्रांसफ़र, निकासी) शुल्क के कॉइन का बाज़ार मूल्य पर निपटान है – लाभ या हानि सिर्फ़ इन कॉइन पर, पूरे शुल्क की हानि नहीं (%1$@)। दर्ज कीमत के बिना: उसी दिन का क्लोज़ (UTC); क्लोज़ न हो तो बिक्री आय खाली रहती है।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A kriptóban fizetett hálózati díj (átvezetés saját tárcába, kivét) a díjként adott coinok elidegenítése piaci értéken – nyereség vagy veszteség csak ezeken a coinokon, nem a teljes díj vesztesége (%1$@). Rögzített ár nélkül: előző napi záróár; záróár nélkül a bevétel üres marad."
+            "value" : "A kriptóban fizetett hálózati díj (átvezetés saját tárcába, kivét) a díjként adott coinok elidegenítése piaci értéken – nyereség vagy veszteség csak ezeken a coinokon, nem a teljes díj vesztesége (%1$@). Rögzített ár nélkül: ugyanazon napi záróár (UTC); záróár nélkül a bevétel üres marad."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Biaya jaringan yang dibayar dalam kripto (transfer ke dompetmu sendiri, penarikan) adalah pelepasan koin biaya pada nilai pasar – untung atau rugi hanya atas koin tersebut, bukan rugi sebesar seluruh biaya (%1$@). Tanpa harga tercatat: harga penutupan hari sebelumnya; tanpa harga penutupan hasil penjualan tetap kosong."
+            "value" : "Biaya jaringan yang dibayar dalam kripto (transfer ke dompetmu sendiri, penarikan) adalah pelepasan koin biaya pada nilai pasar – untung atau rugi hanya atas koin tersebut, bukan rugi sebesar seluruh biaya (%1$@). Tanpa harga tercatat: harga penutupan hari yang sama (UTC); tanpa harga penutupan hasil penjualan tetap kosong."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Una commissione di rete pagata in cripto (trasferimento al tuo wallet, prelievo) è una cessione delle monete della commissione al valore di mercato – guadagno o perdita solo su queste monete, non una perdita dell’intera commissione (%1$@). Senza prezzo registrato: chiusura del giorno precedente; senza chiusura il ricavo resta vuoto."
+            "value" : "Una commissione di rete pagata in cripto (trasferimento al tuo wallet, prelievo) è una cessione delle monete della commissione al valore di mercato – guadagno o perdita solo su queste monete, non una perdita dell’intera commissione (%1$@). Senza prezzo registrato: chiusura dello stesso giorno (UTC); senza chiusura il ricavo resta vuoto."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "暗号資産で支払ったネットワーク手数料（自分のウォレットへの振替、出金）は、手数料分のコインを時価で譲渡したものです – 損益はそのコイン分だけで、手数料全額の損失ではありません（%1$@）。価格の記録がなければ前日終値、終値がなければ売却額は空欄です。"
+            "value" : "暗号資産で支払ったネットワーク手数料（自分のウォレットへの振替、出金）は、手数料分のコインを時価で譲渡したものです – 損益はそのコイン分だけで、手数料全額の損失ではありません（%1$@）。価格の記録がなければ同日（UTC）の終値、終値がなければ売却額は空欄です。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "암호화폐로 낸 네트워크 수수료(내 지갑으로 이체, 출금)는 수수료로 쓴 코인을 시가로 처분한 것입니다 – 손익은 그 코인에만 생기며 수수료 전액이 손실은 아닙니다(%1$@). 기록된 가격이 없으면 전일 종가, 종가가 없으면 매도 금액은 비어 있습니다."
+            "value" : "암호화폐로 낸 네트워크 수수료(내 지갑으로 이체, 출금)는 수수료로 쓴 코인을 시가로 처분한 것입니다 – 손익은 그 코인에만 생기며 수수료 전액이 손실은 아닙니다(%1$@). 기록된 가격이 없으면 당일(UTC) 종가, 종가가 없으면 매도 금액은 비어 있습니다."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Et nettverksgebyr betalt i krypto (overføring til din egen wallet, uttak) er en avhendelse av gebyr-coinene til markedsverdi – gevinst eller tap bare på de coinene, ikke et tap av hele gebyret (%1$@). Uten registrert pris: forrige dags sluttkurs; uten sluttkurs forblir vederlaget tomt."
+            "value" : "Et nettverksgebyr betalt i krypto (overføring til din egen wallet, uttak) er en avhendelse av gebyr-coinene til markedsverdi – gevinst eller tap bare på de coinene, ikke et tap av hele gebyret (%1$@). Uten registrert pris: samme dags sluttkurs (UTC); uten sluttkurs forblir vederlaget tomt."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Netwerkkosten betaald in crypto (overboeking naar je eigen wallet, opname) zijn een vervreemding van de kostenmunten tegen marktwaarde – winst of verlies alleen op die munten, geen verlies van de hele vergoeding (%1$@). Zonder ingevoerde prijs: slotkoers van de vorige dag; zonder slotkoers blijft de opbrengst leeg."
+            "value" : "Netwerkkosten betaald in crypto (overboeking naar je eigen wallet, opname) zijn een vervreemding van de kostenmunten tegen marktwaarde – winst of verlies alleen op die munten, geen verlies van de hele vergoeding (%1$@). Zonder ingevoerde prijs: slotkoers van dezelfde dag (UTC); zonder slotkoers blijft de opbrengst leeg."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Opłata sieciowa zapłacona w krypto (przeniesienie do własnego portfela, wypłata) to zbycie monet opłaty po wartości rynkowej – zysk lub strata tylko na tych monetach, a nie strata całej opłaty (%1$@). Bez wpisanej ceny: kurs zamknięcia z poprzedniego dnia; bez kursu zamknięcia przychód pozostaje pusty."
+            "value" : "Opłata sieciowa zapłacona w krypto (przeniesienie do własnego portfela, wypłata) to zbycie monet opłaty po wartości rynkowej – zysk lub strata tylko na tych monetach, a nie strata całej opłaty (%1$@). Bez wpisanej ceny: kurs zamknięcia z tego samego dnia (UTC); bez kursu zamknięcia przychód pozostaje pusty."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Uma comissão de rede paga em cripto (transferência para a tua própria carteira, levantamento) é uma alienação das moedas da comissão ao valor de mercado – ganho ou perda só nessas moedas, não uma perda da comissão inteira (%1$@). Sem preço registado: fecho do dia anterior; sem fecho o valor de venda fica vazio."
+            "value" : "Uma comissão de rede paga em cripto (transferência para a tua própria carteira, levantamento) é uma alienação das moedas da comissão ao valor de mercado – ganho ou perda só nessas moedas, não uma perda da comissão inteira (%1$@). Sem preço registado: fecho do mesmo dia (UTC); sem fecho o valor de venda fica vazio."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Uma taxa de rede paga em cripto (transferência para sua própria carteira, saque) é uma alienação das moedas da taxa pelo valor de mercado – ganho ou perda só nessas moedas, não uma perda da taxa inteira (%1$@). Sem preço registrado: fechamento do dia anterior; sem fechamento o valor de venda fica vazio."
+            "value" : "Uma taxa de rede paga em cripto (transferência para sua própria carteira, saque) é uma alienação das moedas da taxa pelo valor de mercado – ganho ou perda só nessas moedas, não uma perda da taxa inteira (%1$@). Sem preço registrado: fechamento do mesmo dia (UTC); sem fechamento o valor de venda fica vazio."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Un comision de rețea plătit în cripto (transfer în propriul portofel, retragere) este o înstrăinare a monedelor comisionului la valoarea de piață – câștig sau pierdere doar pe aceste monede, nu o pierdere a întregului comision (%1$@). Fără preț înregistrat: închiderea zilei precedente; fără închidere venitul rămâne gol."
+            "value" : "Un comision de rețea plătit în cripto (transfer în propriul portofel, retragere) este o înstrăinare a monedelor comisionului la valoarea de piață – câștig sau pierdere doar pe aceste monede, nu o pierdere a întregului comision (%1$@). Fără preț înregistrat: închiderea aceleiași zile (UTC); fără închidere venitul rămâne gol."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Сетевая комиссия в криптовалюте (перевод на свой кошелёк, вывод) – это отчуждение монет комиссии по рыночной стоимости: прибыль или убыток только по этим монетам, а не убыток на всю комиссию (%1$@). Без указанной цены – цена закрытия предыдущего дня; без цены закрытия выручка остаётся пустой."
+            "value" : "Сетевая комиссия в криптовалюте (перевод на свой кошелёк, вывод) – это отчуждение монет комиссии по рыночной стоимости: прибыль или убыток только по этим монетам, а не убыток на всю комиссию (%1$@). Без указанной цены – цена закрытия того же дня (UTC); без цены закрытия выручка остаётся пустой."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Një tarifë rrjeti e paguar në kripto (transferim në portofolin tënd, tërheqje) është tjetërsim i monedhave të tarifës me vlerën e tregut – fitim ose humbje vetëm mbi këto monedha, jo humbje e gjithë tarifës (%1$@). Pa çmim të regjistruar: mbyllja e ditës së kaluar; pa mbyllje të ardhurat mbeten bosh."
+            "value" : "Një tarifë rrjeti e paguar në kripto (transferim në portofolin tënd, tërheqje) është tjetërsim i monedhave të tarifës me vlerën e tregut – fitim ose humbje vetëm mbi këto monedha, jo humbje e gjithë tarifës (%1$@). Pa çmim të regjistruar: mbyllja e së njëjtës ditë (UTC); pa mbyllje të ardhurat mbeten bosh."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "En nätverksavgift betald i krypto (överföring till din egen wallet, uttag) är en avyttring av avgiftsmynten till marknadsvärde – vinst eller förlust bara på de mynten, ingen förlust av hela avgiften (%1$@). Utan registrerat pris: föregående dags stängningskurs; utan stängningskurs förblir intäkten tom."
+            "value" : "En nätverksavgift betald i krypto (överföring till din egen wallet, uttag) är en avyttring av avgiftsmynten till marknadsvärde – vinst eller förlust bara på de mynten, ingen förlust av hela avgiften (%1$@). Utan registrerat pris: samma dags stängningskurs (UTC); utan stängningskurs förblir intäkten tom."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ค่าธรรมเนียมเครือข่ายที่จ่ายเป็นคริปโต (โอนไปยังวอลเล็ตของตัวเอง ถอนออก) คือการจำหน่ายเหรียญที่ใช้จ่ายค่าธรรมเนียมตามมูลค่าตลาด – กำไรหรือขาดทุนเฉพาะเหรียญเหล่านั้น ไม่ใช่ขาดทุนเท่าค่าธรรมเนียมทั้งหมด (%1$@) หากไม่ได้บันทึกราคา: ราคาปิดของวันก่อนหน้า หากไม่มีราคาปิด รายรับจะว่าง"
+            "value" : "ค่าธรรมเนียมเครือข่ายที่จ่ายเป็นคริปโต (โอนไปยังวอลเล็ตของตัวเอง ถอนออก) คือการจำหน่ายเหรียญที่ใช้จ่ายค่าธรรมเนียมตามมูลค่าตลาด – กำไรหรือขาดทุนเฉพาะเหรียญเหล่านั้น ไม่ใช่ขาดทุนเท่าค่าธรรมเนียมทั้งหมด (%1$@) หากไม่ได้บันทึกราคา: ราคาปิดของวันเดียวกัน (UTC) หากไม่มีราคาปิด รายรับจะว่าง"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kripto olarak ödenen ağ ücreti (kendi cüzdanına transfer, çekim), ücret coinlerinin piyasa değeriyle elden çıkarılmasıdır – kâr veya zarar yalnızca bu coinler üzerindedir, ücretin tamamı zarar değildir (%1$@). Girilmiş fiyat yoksa: önceki günün kapanışı; kapanış yoksa satış tutarı boş kalır."
+            "value" : "Kripto olarak ödenen ağ ücreti (kendi cüzdanına transfer, çekim), ücret coinlerinin piyasa değeriyle elden çıkarılmasıdır – kâr veya zarar yalnızca bu coinler üzerindedir, ücretin tamamı zarar değildir (%1$@). Girilmiş fiyat yoksa: aynı günün kapanışı (UTC); kapanış yoksa satış tutarı boş kalır."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Мережева комісія в криптовалюті (переказ на власний гаманець, виведення) – це відчуження монет комісії за ринковою вартістю: прибуток або збиток лише за цими монетами, а не збиток на всю комісію (%1$@). Без указаної ціни – ціна закриття попереднього дня; без ціни закриття виручка лишається порожньою."
+            "value" : "Мережева комісія в криптовалюті (переказ на власний гаманець, виведення) – це відчуження монет комісії за ринковою вартістю: прибуток або збиток лише за цими монетами, а не збиток на всю комісію (%1$@). Без указаної ціни – ціна закриття того самого дня (UTC); без ціни закриття виручка лишається порожньою."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Phí mạng trả bằng crypto (chuyển sang ví của bạn, rút ra) là một lần chuyển nhượng các coin dùng trả phí theo giá thị trường – lãi hoặc lỗ chỉ trên các coin đó, không phải lỗ toàn bộ phí (%1$@). Không có giá đã ghi: giá đóng cửa ngày hôm trước; không có giá đóng cửa thì số tiền thu để trống."
+            "value" : "Phí mạng trả bằng crypto (chuyển sang ví của bạn, rút ra) là một lần chuyển nhượng các coin dùng trả phí theo giá thị trường – lãi hoặc lỗ chỉ trên các coin đó, không phải lỗ toàn bộ phí (%1$@). Không có giá đã ghi: giá đóng cửa cùng ngày (UTC); không có giá đóng cửa thì số tiền thu để trống."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "以加密货币支付的网络手续费（转入你自己的钱包、提币）是按市价处置手续费所用的币——盈亏只计这些币，而不是整笔手续费的亏损（%1$@）。没有记录价格时用前一日收盘价；没有收盘价时卖出所得留空。"
+            "value" : "以加密货币支付的网络手续费（转入你自己的钱包、提币）是按市价处置手续费所用的币——盈亏只计这些币，而不是整笔手续费的亏损（%1$@）。没有记录价格时用当日（UTC）收盘价；没有收盘价时卖出所得留空。"
           }
         }
       }
@@ -355092,187 +356620,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "لافت اليوم"
+            "value" : "لافت"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dnes nápadné"
+            "value" : "Nápadné"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Påfaldende i dag"
+            "value" : "Påfaldende"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Heute auffällig"
+            "value" : "Auffällig"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ξεχωρίζουν σήμερα"
+            "value" : "Αξιοσημείωτα"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Unusual today"
+            "value" : "Notable"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Destacado hoy"
+            "value" : "Destacado"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "نکات قابل توجه امروز"
+            "value" : "قابل‌توجه"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tänään silmiinpistävää"
+            "value" : "Huomionarvoista"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Inhabituel aujourd'hui"
+            "value" : "À noter"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "בולט היום"
+            "value" : "בולט"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "आज ख़ास"
+            "value" : "उल्लेखनीय"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ma feltűnő"
+            "value" : "Feltűnő"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Menonjol hari ini"
+            "value" : "Menonjol"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Insolito oggi"
+            "value" : "In evidenza"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "今日の注目"
+            "value" : "注目"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "오늘 눈에 띄는 코인"
+            "value" : "주목"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Påfallende i dag"
+            "value" : "Påfallende"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Opvallend vandaag"
+            "value" : "Opvallend"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dziś wyróżnia się"
+            "value" : "Warte uwagi"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Em destaque hoje"
+            "value" : "Em destaque"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Destaques de hoje"
+            "value" : "Em destaque"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Neobișnuit azi"
+            "value" : "Notabil"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Сегодня выделяется"
+            "value" : "Заметное"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bie në sy sot"
+            "value" : "Bie në sy"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Utmärkande i dag"
+            "value" : "Utmärkande"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "โดดเด่นวันนี้"
+            "value" : "น่าสังเกต"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bugün öne çıkanlar"
+            "value" : "Dikkat çekici"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Сьогодні вирізняється"
+            "value" : "Помітне"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nổi bật hôm nay"
+            "value" : "Đáng chú ý"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "今日异动"
+            "value" : "值得关注"
           }
         }
       }

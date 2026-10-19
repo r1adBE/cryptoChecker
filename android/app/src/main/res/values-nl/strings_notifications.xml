@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Texte der Mitteilungen -->
-    <string name="notification_activity_title">%1$s · %2$s</string>
+    <string name="notification_activity_title">Opvallend: %1$s · %2$s</string>
     <string name="notification_alarm_text">%1$s — nu %2$s</string>
     <string name="notification_alarm_title">Alarm: %1$s · %2$s</string>
     <string name="notification_depeg_action_exchange">Beurs openen</string>
@@ -51,7 +51,7 @@
     <string name="channel_service">Koersupdates</string>
     <string name="channel_service_description">Melding terwijl koersen worden bijgewerkt.</string>
     <string name="neutral_channel_market">Marktmeldingen</string>
-    <string name="neutral_channel_market_description">Fear &amp; Greed, gaskosten, ongewone activiteit en economische data</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed, gaskosten, ‘Opvallend’ en economische data</string>
 
     <!-- Sprachausgabe -->
     <string name="tts_alarm">Alarm. %1$s, %2$s %3$s %4$s, nu %5$s</string>
