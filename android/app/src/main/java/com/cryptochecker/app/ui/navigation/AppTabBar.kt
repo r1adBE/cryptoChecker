@@ -1,5 +1,6 @@
 // Tableiste unten (Merkliste · Markt · Portfolio · Einstellungen): Tabs je nach Portfolio-Schalter, Masse,
-// Icon-Skalierung, Beschriftung (bis zwei Zeilen) mit Obergrenze der Schriftgrösse.
+// Icon-Skalierung, Beschriftung (bis zwei Zeilen, Silbentrennung, bei Platzmangel kleiner, nie unter 12 sp) mit
+// Obergrenze der Schriftgrösse.
 // Eigene Datei, weil die Leiste eine eigenständige Ansicht ist; `AppNavHost` regelt nur die Navigation
 // (Aussehen wie `AppTabBar` in iOS `RootView.swift`).
 package com.cryptochecker.app.ui.navigation
@@ -22,6 +23,7 @@ import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.BasicText
+import androidx.compose.foundation.text.TextAutoSize
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -45,10 +47,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.Hyphens
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import com.cryptochecker.app.R
 import com.cryptochecker.app.ui.UiTestTags
@@ -81,7 +85,7 @@ private val TAB_BAR_HEIGHT = 66.dp
 /** Grösse der Tab-Symbole: die üblichen 24 dp (wie iOS). */
 private val TAB_ICON_SIZE = 24.dp
 
-/** Kleinste Schrift der Tab-Beschriftung (sp); lange Namen brechen um statt kleiner zu werden. */
+/** Kleinste Schrift der Tab-Beschriftung (sp): darunter wird nie verkleinert, lange Namen brechen um. */
 private const val TAB_LABEL_MIN_SP = 12f
 
 /** Lange Beschriftungen (Übersetzungen) dürfen auf zwei Zeilen umbrechen statt «…». */
@@ -214,26 +218,37 @@ internal fun AppTabBar(tabs: List<BottomTab>, currentRoute: ScreenRoute?, onSele
 
 /**
  * Tab-Beschriftung (labelMedium, 12 sp): lange Wörter (Übersetzungen) brechen auf schmalen Geräten
- * auf zwei Zeilen um statt kleiner zu werden oder «…» zu zeigen (nie unter 12 sp); «…» nur, wenn
- * selbst zwei Zeilen nicht reichen. Schrift und Zeilenhöhe wachsen bis [TAB_LABEL_MAX_SCALE] mit
- * der Schriftgrösse mit. Gewählt fett, damit der Tab nicht nur am Farbton erkennbar ist.
+ * auf zwei Zeilen um, ein zu langes Einzelwort mit Silbentrennung («Einstel-lungen») statt mitten im
+ * Wort. Schrift und Zeilenhöhe wachsen bis [TAB_LABEL_MAX_SCALE] mit der Schriftgrösse mit; reichen
+ * bei grosser Schrift auch zwei Zeilen nicht, wird die Schrift schrittweise wieder kleiner (nie kleiner
+ * als bei normaler Schriftgrösse) statt «…» zu zeigen — «…» nur, wenn selbst das nicht reicht.
+ * Gewählt fett, damit der Tab nicht nur am Farbton erkennbar ist.
  */
 @Composable
 private fun TabLabel(text: String, color: Color, selected: Boolean) {
     val style = MaterialTheme.typography.labelMedium
     val baseSize = if (style.fontSize.isSp && style.fontSize.value >= TAB_LABEL_MIN_SP) style.fontSize else TAB_LABEL_MIN_SP.sp
     val baseLine = if (style.lineHeight.isSp) style.lineHeight else 16.sp
+    val maxSize = cappedTabSize(baseSize)
+    // Untergrenze beim Verkleinern: 12 sp bei normaler Schriftgrösse (über dp, sonst wüchse sie mit der
+    // Schriftgrösse mit) — kleiner als ohne grosse Schrift wird die Beschriftung nie
+    val minSize = with(LocalDensity.current) { TAB_LABEL_MIN_SP.dp.toSp() }
     BasicText(
         text = text,
         style = style.copy(
             color = color,
             fontWeight = if (selected) FontWeight.Bold else FontWeight.Medium,
-            fontSize = cappedTabSize(baseSize),
-            lineHeight = cappedTabSize(baseLine),
+            fontSize = maxSize,
+            // Zeilenhöhe relativ zur Schrift (em), damit sie beim Verkleinern mitgeht
+            lineHeight = (baseLine.value / baseSize.value).em,
             textAlign = TextAlign.Center,
+            hyphens = Hyphens.Auto,
         ),
         maxLines = TAB_LABEL_MAX_LINES,
         overflow = TextOverflow.Ellipsis,
+        autoSize = if (maxSize.value > minSize.value) {
+            TextAutoSize.StepBased(minFontSize = minSize, maxFontSize = maxSize, stepSize = 0.5.sp)
+        } else null,
         modifier = Modifier.padding(top = 2.dp)
     )
 }

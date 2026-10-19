@@ -67,9 +67,10 @@ struct AddressCostLot: Codable, Equatable, Hashable, Sendable {
     }
 }
 
-/// Regeln der Eröffnungsposten — wie `AddressCostLots` (Kotlin): Wallet = die Adresse; nie mehr als das beobachtete
-/// Guthaben (darüber verbraucht FIFO die ältesten Posten zuerst, Preis je Coin der übrigen bleibt); nur der nicht belegte
-/// Rest bleibt Adress-Teil «ohne Einstand»; «Nur anzeigen» und Adressen in einem xpub zählen nicht. Zeiträume, Verlauf,
+/// Regeln der Eröffnungsposten — wie `AddressCostLots` (Kotlin): Wallet = die Adresse; nie mehr als der Bestand vor den
+/// in der App erfassten Bewegungen dieser Wallet (`recorded`: Guthaben + erfasste Abgänge − erfasste Zugänge; das Guthaben
+/// enthält sie schon, gegen das nackte Guthaben gekürzt zählten sie doppelt). Darüber verbraucht FIFO die ältesten Posten
+/// zuerst, Preis je Coin der übrigen bleibt; nur der nicht belegte Rest dieses Bestands bleibt Adress-Teil «ohne Einstand»; «Nur anzeigen» und Adressen in einem xpub zählen nicht. Zeiträume, Verlauf,
 /// Stichtag und CH-Vermögenswert lassen die Posten weg (Adress-Einträge, `AddressBalance.isAddressTrade`).
 enum AddressCostLots {
 
@@ -138,20 +139,38 @@ enum AddressCostLots {
         let coin: String
         /// Wirksame Posten (gekürzt, Preis je Coin unverändert), Reihenfolge von `clean`.
         let lots: [AddressCostLot]
-        /// Belegte Menge = min(Summe der Posten, Guthaben).
+        /// Belegte Menge = min(Summe der Posten, `base`).
         let lotted: Decimal
+        /// Beobachtetes Guthaben (≥ 0).
         let balance: Decimal
-        /// Posten über dem Guthaben (verbraucht); 0 = keine.
+        /// Posten über `base` (verbraucht); 0 = keine.
         let excess: Decimal
+        /// Bestand vor den erfassten Bewegungen der Wallet (≥ 0, `recorded`); ohne solche Bewegungen = `balance`.
+        let base: Decimal
+
+        init(coin: String, lots: [AddressCostLot], lotted: Decimal, balance: Decimal, excess: Decimal, base: Decimal? = nil) {
+            self.coin = coin
+            self.lots = lots
+            self.lotted = lotted
+            self.balance = balance
+            self.excess = excess
+            self.base = base ?? balance
+        }
 
         var capped: Bool { excess > 0 }
-        /// Guthaben ohne Posten («ohne Einstand»).
-        var unlotted: Decimal { max(0, balance - lotted) }
+        /// Bestand ohne Posten («ohne Einstand»).
+        var unlotted: Decimal { max(0, base - lotted) }
+        /// Teil des beobachteten Guthabens, den Posten und erfasste Bewegungen schon abbilden (Rest = Adress-Teil ohne
+        /// Einstand); ohne erfasste Bewegungen = `lotted`, negativ, wenn erfasste Abgänge auch Coins ohne Einstand aus der
+        /// Adresse genommen haben.
+        var accounted: Decimal { balance - unlotted }
     }
 
-    /// Posten `lots` EINES Coins gegen das Guthaben `balance`: was darüber liegt, verbraucht FIFO — die ältesten zuerst.
-    static func cover(_ coin: String, _ lots: [AddressCostLot], balance: Decimal) -> Coverage {
-        let held = max(0, balance)
+    /// Posten `lots` EINES Coins gegen den Bestand vor den erfassten Bewegungen: Guthaben `balance` − `recorded`
+    /// (Zugänge − Abgänge dieser Wallet), nie unter 0. Was darüber liegt, verbraucht FIFO — die ältesten zuerst.
+    static func cover(_ coin: String, _ lots: [AddressCostLot], balance: Decimal, recorded: Decimal = 0) -> Coverage {
+        let observed = max(0, balance)
+        let held = max(0, observed - recorded)
         let total = lots.reduce(Decimal(0)) { $0 + $1.amount }
         let excess = max(0, total - held)
         var left = excess
@@ -170,7 +189,60 @@ enum AddressCostLots {
                 out.append(AddressCostLot(id: l.id, coin: l.coin, time: l.time, amount: rest, priceUsdt: l.price, costUsdt: nil))
             }
         }
-        return Coverage(coin: coin, lots: out, lotted: total - excess, balance: held, excess: excess)
+        return Coverage(coin: coin, lots: out, lotted: total - excess, balance: observed, excess: excess, base: held)
+    }
+
+    /// In der App erfasste Bewegungen von `coin` in der Wallet `wallet` (Vergleich `PortfolioWallets.key`): Zugänge −
+    /// Abgänge, so wie FIFO je Wallet sie bucht. Alle Daten, nicht erst ab dem Posten: das Guthaben ist der heutige Stand
+    /// und enthält jede Bewegung. Adress-Einträge zählen nicht; Wallet ohne Namen = keine Bewegungen. Wie Android.
+    static func recorded(_ coin: String, wallet: String?, trades: [PortfolioTx]) -> Decimal {
+        let key = PortfolioWallets.key(wallet)
+        var net: Decimal = 0
+        guard key != PortfolioWallets.unspecified else { return net }
+        func at(_ name: String?) -> Bool { PortfolioWallets.key(name) == key }
+        for t in trades where !AddressBalance.isAddressTrade(t.id) && t.amountExact > 0 {
+            if PortfolioCalculator.normalizeCoin(t.coin) == coin {
+                if t.type == .TRANSFER {
+                    if at(t.transferTo) { net += t.amountExact }
+                    if at(t.transferFrom) { net -= t.amountExact + t.coinFeeExact }
+                } else if at(t.exchange) {
+                    if t.type.isInflow { net += t.receivedExact } else { net -= t.amountExact + t.coinFeeExact }
+                }
+            }
+            if t.swapToCoin == coin && at(t.exchange) { net += t.swapReceived }
+            if t.thirdFeeCoin == coin && at(t.type == .TRANSFER ? t.transferFrom : t.exchange) { net -= t.thirdFeeAmount }
+        }
+        return net
+    }
+
+    /// Wallet → Id der ersten zählenden Adresse mit Posten: nur sie verrechnet die erfassten Bewegungen (gleiche
+    /// Bezeichnung = in FIFO je Wallet eine Wallet; bei beiden gerechnet zählten sie doppelt). Wie Android.
+    private static func movesOwners(_ addresses: [WatchedAddress]) -> [String: Int64] {
+        var out: [String: Int64] = [:]
+        for (a, _) in counted(addresses) where !clean(a.costLots).isEmpty {
+            let key = PortfolioWallets.key(walletName(a))
+            if out[key] == nil { out[key] = a.id }
+        }
+        return out
+    }
+
+    /// Abdeckung je Coin mit Posten; `trades` = erfasste Bewegungen, die diese Adresse verrechnet.
+    private static func covers(_ a: WatchedAddress, _ b: [String: Decimal], _ trades: [PortfolioTx]) -> [Coverage] {
+        let lots = clean(a.costLots)
+        return coins(lots).map { coin in
+            cover(coin, lots.filter { $0.coin == coin }, balance: b[coin] ?? 0,
+                  recorded: recorded(coin, wallet: walletName(a), trades: trades))
+        }
+    }
+
+    /// Zählende Adressen mit ihrer Abdeckung; erfasste Bewegungen je Wallet nur einmal (`movesOwners`).
+    private static func countedCoverage(_ addresses: [WatchedAddress], _ trades: [PortfolioTx])
+        -> [(address: WatchedAddress, coverage: [Coverage])] {
+        let owners = trades.isEmpty ? [:] : movesOwners(addresses)
+        return counted(addresses).map { entry in
+            let a = entry.address
+            return (a, covers(a, entry.balances, owners[PortfolioWallets.key(walletName(a))] == a.id ? trades : []))
+        }
     }
 
     /// Coins der Posten in der Reihenfolge des ersten Auftretens.
@@ -180,22 +252,22 @@ enum AddressCostLots {
         return out
     }
 
-    /// Je Coin mit Posten die Abdeckung dieser Adresse (Guthaben fehlt = 0).
-    static func coverage(_ a: WatchedAddress) -> [Coverage] {
-        let lots = clean(a.costLots)
-        let b = balances(a)
-        return coins(lots).map { coin in cover(coin, lots.filter { $0.coin == coin }, balance: b[coin] ?? 0) }
+    /// Je Coin mit Posten die Abdeckung dieser Adresse (Guthaben fehlt = 0); mit den echten Transaktionen `trades` und
+    /// allen Adressen `all` wie im Rechner.
+    static func coverage(_ a: WatchedAddress, trades: [PortfolioTx] = [], all: [WatchedAddress]? = nil) -> [Coverage] {
+        let owner = trades.isEmpty ? nil : movesOwners(all ?? [a])[PortfolioWallets.key(walletName(a))]
+        return covers(a, balances(a), owner == nil || owner == a.id ? trades : [])
     }
 
     /// Rechner-Einträge der Posten aller zählenden Adressen: je wirksamem Posten ein Kauf mit negativer Id, Preis je Coin,
-    /// Wallet = die Adresse. Reihenfolge der Adressen, dann der Posten.
-    static func trades(_ addresses: [WatchedAddress]) -> [PortfolioTx] {
+    /// Wallet = die Adresse. Reihenfolge der Adressen, dann der Posten. `real` = echte Transaktionen (erfasste Bewegungen
+    /// der Adress-Wallets, `cover`).
+    static func trades(_ addresses: [WatchedAddress], real: [PortfolioTx] = []) -> [PortfolioTx] {
         var out: [PortfolioTx] = []
-        for (a, b) in counted(addresses) {
+        for (a, covered) in countedCoverage(addresses, real) {
             let lots = clean(a.costLots)
-            if lots.isEmpty { continue }
-            for coin in coins(lots) {
-                let c = cover(coin, lots.filter { $0.coin == coin }, balance: b[coin] ?? 0)
+            for c in covered {
+                let coin = c.coin
                 for l in c.lots {
                     let index = lots.firstIndex(where: { $0.id == l.id }) ?? 0
                     out.append(PortfolioTx(id: tradeId(addressId: a.id, index: index), coin: coin, type: .BUY,
@@ -207,28 +279,27 @@ enum AddressCostLots {
         return out
     }
 
-    /// Belegte Menge je Coin über alle zählenden Adressen (für den Rest «ohne Einstand» in `AddressBalance.trades`).
-    static func lotted(_ addresses: [WatchedAddress]) -> [String: Decimal] {
+    /// Je Coin über alle zählenden Adressen der Teil des Guthabens, den Posten und erfasste Bewegungen schon abbilden
+    /// (`Coverage.accounted`; ohne Bewegungen = belegte Menge) — der Rest ist «ohne Einstand» in `AddressBalance.trades`.
+    /// Kann negativ sein. Wie Android.
+    static func accounted(_ addresses: [WatchedAddress], real: [PortfolioTx] = []) -> [String: Decimal] {
         var out: [String: Decimal] = [:]
-        for (a, b) in counted(addresses) {
-            let lots = clean(a.costLots)
-            for coin in coins(lots) {
-                let c = cover(coin, lots.filter { $0.coin == coin }, balance: b[coin] ?? 0)
-                if c.lotted > 0 { out[coin] = (out[coin] ?? 0) + c.lotted }
-            }
+        for (_, covered) in countedCoverage(addresses, real) {
+            for c in covered where c.accounted != 0 { out[c.coin] = (out[c.coin] ?? 0) + c.accounted }
         }
         return out
     }
 
     /// Steuer-Export: eigene Transaktionen + Eröffnungsposten als Käufe; FR dazu die beobachteten Guthaben-Reihen für den
-    /// Gesamtwert — ohne den belegten Teil (`withoutLotted`), der schon als Posten zählt. Wie Android.
+    /// Gesamtwert — ohne den belegten Teil (`withoutLotted`, `accounted`), der schon als Posten zählt. Wie Android.
     static func exportTrades(_ real: [PortfolioTx], addresses: [WatchedAddress], frTotalValue: Bool) -> [PortfolioTx] {
-        let lots = trades(addresses)
+        let lots = trades(addresses, real: real)
         guard frTotalValue else { return real + lots }
-        return real + lots + withoutLotted(AddressBalanceHistory.trades(AddressBalanceHistory.of(addresses)), lotted: lotted(addresses))
+        return real + lots + withoutLotted(AddressBalanceHistory.trades(AddressBalanceHistory.of(addresses)),
+                                           lotted: accounted(addresses, real: real))
     }
 
-    /// Beobachtete Guthaben-Reihen ohne den belegten Teil (je Coin): die ältesten Zugänge werden gekürzt (bzw. fallen
+    /// Beobachtete Guthaben-Reihen ohne den belegten Teil (je Coin, ≤ 0 = nichts): die ältesten Zugänge werden gekürzt (bzw. fallen
     /// weg), Abgänge bleiben. Reihenfolge der Eingabe. Wie Android.
     static func withoutLotted(_ history: [PortfolioTx], lotted: [String: Decimal]) -> [PortfolioTx] {
         guard !lotted.isEmpty else { return history }

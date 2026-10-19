@@ -204916,197 +204916,6 @@
         }
       }
     },
-    "portfolio_disclaimer" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "تبقى المبالغ على جهازك ما لم تصدّرها بنفسك؛ وللأسعار لا تُرسل إلا رموز الأزواج إلى منصة الزوج. ترى عُقد البلوكتشين العامة العناوين المراقَبة وعنوان IP الخاص بك. ليست نصيحة استثمارية."
-          }
-        },
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Částky zůstávají v zařízení, pokud je sám neexportuješ; kvůli kurzům jdou na burzu páru jen symboly párů. Veřejné uzly blockchainu vidí sledované adresy a tvou IP. Nejde o investiční poradenství."
-          }
-        },
-        "da" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Beløb bliver på enheden, medmindre du selv eksporterer dem; til kurser sendes kun parsymboler til parrets børs. Offentlige blockchain-noder ser overvågede adresser og din IP. Ikke investeringsrådgivning."
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Beträge bleiben auf dem Gerät, ausser du exportierst sie selbst; für Kurse gehen nur Paar-Kürzel an die Börse des Paars. Öffentliche Blockchain-Knoten sehen beobachtete Adressen und deine IP. Keine Anlageberatung."
-          }
-        },
-        "el" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Τα ποσά μένουν στη συσκευή, εκτός αν τα εξαγάγεις εσύ· για τις τιμές στέλνονται μόνο τα σύμβολα των ζευγών στο ανταλλακτήριο του ζεύγους. Οι δημόσιοι κόμβοι blockchain βλέπουν τις παρακολουθούμενες διευθύνσεις και την IP σου. Δεν αποτελεί επενδυτική συμβουλή."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Amounts stay on your device unless you export them yourself; for prices only pair symbols go to the pair's exchange. Public blockchain nodes see watched addresses and your IP. Not investment advice."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Los importes se quedan en el dispositivo salvo que los exportes tú; para los precios solo se envían los símbolos de los pares al exchange del par. Los nodos públicos de blockchain ven las direcciones vigiladas y tu IP. No es asesoramiento de inversión."
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "مبالغ روی دستگاه می‌مانند مگر اینکه خودت آن‌ها را خروجی بگیری؛ برای قیمت فقط نماد جفت‌ها به صرافی همان جفت فرستاده می‌شود. گره‌های عمومی بلاکچین آدرس‌های زیر نظر و IP تو را می‌بینند. توصیه سرمایه‌گذاری نیست."
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Summat pysyvät laitteella, ellet itse vie niitä; hintoja varten parien tunnukset lähetetään vain parin pörssille. Julkiset lohkoketjusolmut näkevät seuratut osoitteet ja IP-osoitteesi. Ei sijoitusneuvontaa."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Les montants restent sur votre appareil, sauf si vous les exportez vous-même ; pour les cours, seuls les symboles des paires sont envoyés à la plateforme de la paire. Les nœuds blockchain publics voient les adresses suivies et votre IP. Pas un conseil en investissement."
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "הסכומים נשארים במכשיר אלא אם תייצא אותם בעצמך; לשערים נשלחים רק סמלי הצמדים לבורסה של הצמד. צמתי בלוקצ׳יין ציבוריים רואים כתובות במעקב ואת ה-IP שלך. אין זה ייעוץ השקעות."
-          }
-        },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "राशियाँ आपके डिवाइस पर रहती हैं, जब तक आप खुद उन्हें एक्सपोर्ट न करें; कीमतों के लिए सिर्फ़ पेयर सिंबल उस पेयर के एक्सचेंज को जाते हैं। सार्वजनिक ब्लॉकचेन नोड्स देखे जा रहे पते और आपका IP देखते हैं। निवेश सलाह नहीं।"
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Az összegek az eszközön maradnak, hacsak nem exportálod őket; az árfolyamokhoz csak a párok jelei mennek a pár tőzsdéjére. A nyilvános blokklánc-csomópontok látják a figyelt címeket és az IP-címedet. Nem befektetési tanácsadás."
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Jumlah tetap di perangkat kecuali Anda mengekspornya sendiri; untuk harga hanya simbol pasangan yang dikirim ke bursa pasangan itu. Node blockchain publik melihat alamat yang dipantau dan IP Anda. Bukan nasihat investasi."
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Gli importi restano sul dispositivo, a meno che tu non li esporti; per i prezzi vengono inviati solo i simboli delle coppie all’exchange della coppia. I nodi blockchain pubblici vedono gli indirizzi osservati e il tuo IP. Non è una consulenza finanziaria."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "金額は自分でエクスポートしない限り端末に保存されたままです。価格取得にはペアのシンボルだけをそのペアの取引所に送ります。公開ブロックチェーンノードには監視中のアドレスとあなたの IP が見えます。投資助言ではありません。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "금액은 직접 내보내지 않는 한 기기에 남습니다. 시세를 위해 거래쌍 심볼만 해당 거래쌍의 거래소로 전송됩니다. 공개 블록체인 노드는 관찰 중인 주소와 IP를 볼 수 있습니다. 투자 조언이 아닙니다."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Beløp blir på enheten med mindre du eksporterer dem selv; for kurser sendes bare parsymboler til parets børs. Offentlige blokkjedenoder ser overvåkede adresser og IP-en din. Ikke investeringsråd."
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bedragen blijven op je apparaat, tenzij je ze zelf exporteert; voor koersen gaan alleen paarsymbolen naar de beurs van het paar. Openbare blockchain-nodes zien gevolgde adressen en je IP. Geen beleggingsadvies."
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Kwoty zostają na urządzeniu, chyba że sam je wyeksportujesz; po kursy do giełdy pary trafiają tylko symbole par. Publiczne węzły blockchain widzą obserwowane adresy i twój IP. To nie jest porada inwestycyjna."
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Os montantes ficam no dispositivo, a menos que os exporte; para as cotações só seguem os símbolos dos pares para a exchange do par. Os nós públicos de blockchain veem os endereços observados e o seu IP. Não é aconselhamento de investimento."
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Os valores ficam no dispositivo, a menos que você os exporte; para as cotações só vão os símbolos dos pares para a exchange do par. Os nós públicos de blockchain veem os endereços monitorados e o seu IP. Não é recomendação de investimento."
-          }
-        },
-        "ro" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sumele rămân pe dispozitiv, dacă nu le exporți tu; pentru cotații se trimit doar simbolurile perechilor la bursa perechii. Nodurile blockchain publice văd adresele urmărite și IP-ul tău. Nu este consultanță de investiții."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Суммы остаются на устройстве, если вы сами их не экспортируете; для курсов на биржу пары уходят только тикеры пар. Публичные узлы блокчейна видят отслеживаемые адреса и ваш IP. Не инвестиционная рекомендация."
-          }
-        },
-        "sq" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Shumat mbeten në pajisje, përveç nëse i eksporton vetë; për kurset dërgohen vetëm simbolet e çifteve te bursa e çiftit. Nyjet publike blockchain shohin adresat e ndjekura dhe IP-në tënde. Nuk është këshillë investimi."
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Belopp stannar på enheten om du inte själv exporterar dem; för kurser skickas bara parsymboler till parets börs. Offentliga blockkedjenoder ser bevakade adresser och din IP. Ingen investeringsrådgivning."
-          }
-        },
-        "th" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "จำนวนเงินอยู่บนอุปกรณ์ของคุณ เว้นแต่คุณจะส่งออกเอง สำหรับราคา จะส่งเพียงสัญลักษณ์คู่เทรดไปยังกระดานเทรดของคู่นั้น โหนดบล็อกเชนสาธารณะจะเห็นที่อยู่ที่ติดตามและ IP ของคุณ ไม่ใช่คำแนะนำการลงทุน"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tutarlar sen dışa aktarmadıkça cihazında kalır; fiyatlar için yalnızca parite sembolleri paritenin borsasına gider. Herkese açık blokzincir düğümleri izlenen adresleri ve IP’ni görür. Yatırım tavsiyesi değildir."
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Суми залишаються на пристрої, якщо ви самі їх не експортуєте; для курсів на біржу пари надсилаються лише тікери пар. Публічні вузли блокчейну бачать відстежувані адреси та ваш IP. Не інвестиційна порада."
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Số tiền nằm lại trên thiết bị trừ khi bạn tự xuất; để lấy giá chỉ ký hiệu cặp được gửi đến sàn của cặp đó. Các nút blockchain công khai thấy địa chỉ theo dõi và IP của bạn. Không phải lời khuyên đầu tư."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "除非你自行导出，金额会保留在你的设备上；获取价格时只把交易对代码发送到该交易对的交易所。公共区块链节点能看到观察的地址和你的 IP。不构成投资建议。"
-          }
-        }
-      }
-    },
     "portfolio_edit_tx" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -212552,6 +212361,197 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "FIFO：卖出时先用最早的币。平均 = 剩余成本 ÷ 有买入价的数量。"
+          }
+        }
+      }
+    },
+    "portfolio_footer_short" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "أداة عمل مساعدة، وليست استشارة ضريبية أو استثمارية. الخصوصية: الإعدادات › حول التطبيق › سياسة الخصوصية."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pracovní pomůcka, nejde o daňové ani investiční poradenství. Ochrana údajů: Nastavení › O aplikaci › Zásady ochrany osobních údajů."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arbejdsredskab, ikke skatte- eller investeringsrådgivning. Privatliv: Indstillinger › Om appen › Privatlivspolitik."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arbeitsunterlage, keine Steuer- oder Anlageberatung. Datenschutz: Einstellungen › Über die App › Datenschutzerklärung."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Βοήθημα εργασίας, όχι φορολογική ή επενδυτική συμβουλή. Απόρρητο: Ρυθμίσεις › Σχετικά με την εφαρμογή › Πολιτική απορρήτου."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Working aid, not tax or investment advice. Privacy: Settings › About the app › Privacy policy."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Herramienta de trabajo, no asesoramiento fiscal ni de inversión. Privacidad: Ajustes › Acerca de la app › Política de privacidad."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ابزار کمکی کار، نه مشاوره مالیاتی یا سرمایه‌گذاری. حریم خصوصی: تنظیمات › درباره برنامه › سیاست حفظ حریم خصوصی."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Työapuväline, ei vero- eikä sijoitusneuvontaa. Tietosuoja: Asetukset › Tietoja sovelluksesta › Tietosuojaseloste."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Outil de travail, pas un conseil fiscal ni en investissement. Confidentialité : Paramètres › À propos de l’app › Politique de confidentialité."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "כלי עזר לעבודה, אין זה ייעוץ מס או השקעות. פרטיות: הגדרות › אודות האפליקציה › מדיניות פרטיות."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "काम में मदद का साधन, कर या निवेश सलाह नहीं। गोपनीयता: सेटिंग्स › ऐप के बारे में › गोपनीयता नीति।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Munkasegédlet, nem adó- vagy befektetési tanácsadás. Adatvédelem: Beállítások › Az alkalmazásról › Adatvédelmi irányelvek."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alat bantu kerja, bukan nasihat pajak atau investasi. Privasi: Pengaturan › Tentang aplikasi › Kebijakan privasi."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Strumento di lavoro, non è consulenza fiscale o finanziaria. Privacy: Impostazioni › Informazioni sull’app › Informativa sulla privacy."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "作業用の参考資料です。税務・投資の助言ではありません。プライバシー：設定 › アプリについて › プライバシーポリシー"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "작업용 참고 자료이며 세무·투자 조언이 아닙니다. 개인정보: 설정 › 앱 정보 › 개인정보 처리방침"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arbeidsverktøy, ikke skatte- eller investeringsråd. Personvern: Innstillinger › Om appen › Personvernerklæring."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Werkhulpmiddel, geen belasting- of beleggingsadvies. Privacy: Instellingen › Over de app › Privacybeleid."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pomoc robocza, nie porada podatkowa ani inwestycyjna. Prywatność: Ustawienia › O aplikacji › Polityka prywatności."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ferramenta de trabalho, não é aconselhamento fiscal nem de investimento. Privacidade: Definições › Sobre a app › Política de privacidade."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ferramenta de trabalho, não é recomendação fiscal nem de investimento. Privacidade: Configurações › Sobre o app › Política de privacidade."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Instrument de lucru, nu consultanță fiscală sau de investiții. Confidențialitate: Setări › Despre aplicație › Politica de confidențialitate."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Рабочий инструмент, не налоговая и не инвестиционная консультация. Конфиденциальность: Настройки › О приложении › Политика конфиденциальности."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mjet pune, jo këshillë tatimore ose investimi. Privatësia: Cilësimet › Rreth aplikacionit › Politika e privatësisë."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arbetsverktyg, inte skatte- eller investeringsrådgivning. Integritet: Inställningar › Om appen › Integritetspolicy."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "เครื่องมือช่วยทำงาน ไม่ใช่คำแนะนำด้านภาษีหรือการลงทุน ความเป็นส่วนตัว: ตั้งค่า › เกี่ยวกับแอป › นโยบายความเป็นส่วนตัว"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Çalışma aracıdır, vergi veya yatırım tavsiyesi değildir. Gizlilik: Ayarlar › Uygulama hakkında › Gizlilik politikası."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Робочий інструмент, не податкова й не інвестиційна порада. Конфіденційність: Налаштування › Про застосунок › Політика конфіденційності."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Công cụ hỗ trợ làm việc, không phải tư vấn thuế hay đầu tư. Quyền riêng tư: Cài đặt › Giới thiệu ứng dụng › Chính sách quyền riêng tư."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "工作参考，不构成税务或投资建议。隐私：设置 › 关于应用 › 隐私政策"
           }
         }
       }

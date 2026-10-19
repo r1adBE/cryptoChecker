@@ -14,4 +14,11 @@ object Spacing {
     val lg = 16.dp
     val xl = 24.dp
     val xxl = 32.dp
+
+    /**
+     * Freiraum unter der letzten Zeile einer Liste mit schwebendem «+»-Knopf (`AppFab`, 56 dp
+     * + Rand + Schatten): 3 × [xxl], damit der Knopf nichts verdeckt. Keine Rasterstufe, sondern
+     * daraus abgeleitet (darum nicht als eigene dp-Zahl) — wie `Spacing.fabClearance` (iOS).
+     */
+    val fabClearance = xxl * 3
 }

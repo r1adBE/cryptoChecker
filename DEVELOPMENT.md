@@ -1375,6 +1375,9 @@ the tests named here.
   refresh is capped (8 s total, 5 s per request) and never delays prices or alarms. Requests at most every 10 min per address, none without
   addresses; hosts are listed in the privacy policy. Addresses (not balances) are part of the app backup
   and follow «Portfolio in system backup».
+* **Opening lots of watched addresses (build 84, rule build 85).** `AddressCostLots` count like buys in the address
+  wallet, capped at the holding before the recorded movements of that wallet (observed balance + recorded outflows −
+  recorded inflows, all dates, as FIFO per wallet books them); only the rest stays address part without cost basis.
 * **Networks for watched addresses (build 46).** BTC (addresses incl. Taproot `bc1p…`, and xpub/ypub/zpub, derived
   on the device, gap 20 on the first scan; Taproot accounts (build 81) only as a `tr(…)` descriptor – origin,
   `/0/*`, `/1/*` or `/<0;1>/*`, BIP380 checksum checked – stored as `tr(xpub…/<0;1>/*)`, BIP86 key tweak, bech32m;

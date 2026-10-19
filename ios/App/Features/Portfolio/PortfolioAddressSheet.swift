@@ -287,8 +287,8 @@ struct PortfolioAddressSheet: View {
             .font(.subheadline)
             // Build 84: Einstand für das Guthaben (Posten wie Käufe in dieser Adresse); Stand je Coin, wenn erfasst
             if a.countInPortfolio {
-                ForEach(AddressCostLots.coverage(a), id: \.coin) { c in
-                    Text(L("address_lots_status", lotAmount(c.lotted, c.coin), lotAmount(c.balance, c.coin)))
+                ForEach(AddressCostLots.coverage(a, trades: data.portfolio, all: data.watchedAddresses), id: \.coin) { c in
+                    Text(L("address_lots_status", lotAmount(c.lotted, c.coin), lotAmount(c.base, c.coin)))
                         .font(.caption)
                         .foregroundStyle(c.capped && a.lastBalance != nil ? AppColors.error : AppColors.onSurfaceVariant)
                 }

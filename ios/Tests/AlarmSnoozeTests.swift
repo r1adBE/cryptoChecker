@@ -33,6 +33,18 @@ final class AlarmSnoozeTests: XCTestCase {
         XCTAssertEqual(Set(kept.keys), expected)
     }
 
+    func testOfferedOnlyWherePauseWorks() throws {
+        let cases = S.list(try S.fixture("alarm_snooze")["offeredFor"])
+        // Jede Alarm-Art muss im gemeinsamen Testfall vorkommen, damit eine neue Art nicht unbemerkt bleibt
+        XCTAssertEqual(Set(AlarmCondition.allCases.map(\.rawValue)), Set(cases.compactMap { $0["condition"] as? String }))
+        for c in cases {
+            let condition = try XCTUnwrap(AlarmCondition(rawValue: c["condition"] as? String ?? ""))
+            let repeating = try XCTUnwrap(c["repeating"] as? Bool)
+            XCTAssertEqual(AlarmSnooze.offeredFor(condition, repeating: repeating), c["offered"] as? Bool,
+                           "\(c["name"] as? String ?? "") (\(condition.rawValue), repeating=\(repeating))")
+        }
+    }
+
     /// Speichern im App-Group-Speicher: Pause gilt sofort, abgelaufene fallen beim nächsten Tippen weg.
     func testStoreKeepsOnlyRunningPauses() throws {
         let store = try XCTUnwrap(UserDefaults(suiteName: "AlarmSnoozeTests"))
@@ -48,13 +60,13 @@ final class AlarmSnoozeTests: XCTestCase {
 
     /// «1 h später» und «Was bewegt sich mit?» je nach Alarm und Paar — wie Android.
     func testPairAlarmCategory() {
-        XCTAssertEqual(Notifier.pairAlarmCategory(traded: true, repeating: true), Notifier.categoryAlarmWhySnooze)
-        XCTAssertEqual(Notifier.pairAlarmCategory(traded: true, repeating: false), Notifier.categoryAlarmWhy)
-        XCTAssertEqual(Notifier.pairAlarmCategory(traded: false, repeating: true), Notifier.categoryAlarmSnooze)
-        XCTAssertEqual(Notifier.pairAlarmCategory(traded: false, repeating: false), Notifier.categoryAlarmPair)
+        XCTAssertEqual(Notifier.pairAlarmCategory(traded: true, snooze: true), Notifier.categoryAlarmWhySnooze)
+        XCTAssertEqual(Notifier.pairAlarmCategory(traded: true, snooze: false), Notifier.categoryAlarmWhy)
+        XCTAssertEqual(Notifier.pairAlarmCategory(traded: false, snooze: true), Notifier.categoryAlarmSnooze)
+        XCTAssertEqual(Notifier.pairAlarmCategory(traded: false, snooze: false), Notifier.categoryAlarmPair)
         let categories = Notifier.pairAlarmCategories()
         XCTAssertEqual(Set(categories.map(\.identifier)).count, 4)
-        // «Anpassen» immer als letzter Knopf, «1 h später» nur bei wiederholenden
+        // «Anpassen» immer als letzter Knopf, «1 h später» nur in den snooze-Kategorien
         for category in categories {
             XCTAssertEqual(category.actions.last?.identifier, Notifier.actionEdit)
             let snoozes = category.actions.contains { $0.identifier == Notifier.actionSnooze }

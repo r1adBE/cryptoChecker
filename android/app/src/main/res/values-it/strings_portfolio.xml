@@ -10,7 +10,6 @@
         <item quantity="many">Eliminare tutte le %d transazioni? Gli indirizzi osservati restano. L’operazione non si può annullare.</item>
         <item quantity="other">Eliminare tutte le %d transazioni? Gli indirizzi osservati restano. L’operazione non si può annullare.</item>
     </plurals>
-    <string name="portfolio_disclaimer">Gli importi restano sul dispositivo, a meno che tu non li esporti; per i prezzi vengono inviati solo i simboli delle coppie all’exchange della coppia. I nodi blockchain pubblici vedono gli indirizzi osservati e il tuo IP. Non è una consulenza finanziaria.</string>
     <string name="portfolio_empty_action">Aggiungi il primo acquisto</string>
     <string name="portfolio_empty_address">Segui solo un indirizzo wallet</string>
     <string name="portfolio_empty_csv">Comprato su un exchange? Importa il file</string>

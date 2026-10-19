@@ -63,10 +63,11 @@ struct PortfolioAddressLotsSheet: View {
                     .fixedSize(horizontal: false, vertical: true)
             }
             Section {
-                ForEach(AddressCostLots.coverage(a), id: \.coin) { c in
+                // Abdeckung wie im Rechner: erfasste Bewegungen dieser Wallet stecken schon im Guthaben
+                ForEach(AddressCostLots.coverage(a, trades: data.portfolio, all: data.watchedAddresses), id: \.coin) { c in
                     VStack(alignment: .leading, spacing: Spacing.xs) {
                         Text(L("address_lots_status", mask(PortfolioFormat.exactAmount(c.lotted, c.coin)),
-                               mask(PortfolioFormat.exactAmount(c.balance, c.coin))))
+                               mask(PortfolioFormat.exactAmount(c.base, c.coin))))
                             .font(.subheadline.weight(.semibold))
                         if c.unlotted > 0 {
                             Text(L("address_lots_unlotted", mask(PortfolioFormat.exactAmount(c.unlotted, c.coin))))

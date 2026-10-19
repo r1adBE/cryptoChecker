@@ -62,6 +62,9 @@ internal fun AddressRow(
     onShowOnly: (Boolean) -> Unit,
     /** «Einstand für Adressguthaben» ([PortfolioAddressLotsSheet]). */
     onCostLots: () -> Unit = {},
+    /** Echte Transaktionen und alle Adressen: Abdeckung der Posten wie im Rechner ([AddressCostLots.coverage]). */
+    trades: List<PortfolioTrade> = emptyList(),
+    allAddresses: List<WatchedAddress> = listOf(a),
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -202,13 +205,13 @@ internal fun AddressRow(
             }
             // Build 84: Einstand für das Guthaben (Posten wie Käufe in dieser Adresse); Stand je Coin, wenn erfasst
             if (a.countInPortfolio) {
-                val covered = com.cryptochecker.app.domain.portfolio.AddressCostLots.coverage(a)
+                val covered = com.cryptochecker.app.domain.portfolio.AddressCostLots.coverage(a, trades, allAddresses)
                 covered.forEach { c ->
                     Text(
                         stringResource(
                             R.string.address_lots_status,
                             if (hideAmounts) "•••" else PortfolioFormat.amount(c.lotted, c.coin),
-                            if (hideAmounts) "•••" else PortfolioFormat.amount(c.balance, c.coin),
+                            if (hideAmounts) "•••" else PortfolioFormat.amount(c.base, c.coin),
                         ),
                         style = MaterialTheme.typography.label,
                         color = if (c.capped && a.lastBalance != null) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant,

@@ -97,6 +97,9 @@ object LocaleNumbers {
     /** Null-Ziffer der Sprache: '0', '٠' (Arabisch) oder '۰' (Persisch). */
     fun zeroDigit(locale: Locale = appLocale): Char = DecimalFormatSymbols.getInstance(locale).zeroDigit
 
+    /** Schreibt [locale] Zahlen mit 0–9 (auch Arabisch mit `nu-latn`)? Sonst eigene Ziffern wie «٧٢» oder «۷۲». */
+    fun hasLatinDigits(locale: Locale = appLocale): Boolean = zeroDigit(locale) == '0'
+
     /**
      * Lateinische Ziffern 0–9 eines fertigen Textes durch die der Sprache ersetzen — nur für
      * Ziffern ohne Dezimal- oder Tausendertrennzeichen (Zähler in festen Vorlagen).

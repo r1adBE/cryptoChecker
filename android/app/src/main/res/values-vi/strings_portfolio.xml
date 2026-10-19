@@ -8,7 +8,6 @@
     <plurals name="portfolio_clear_confirm_count">
         <item quantity="other">Xóa tất cả %d giao dịch? Các địa chỉ theo dõi vẫn được giữ. Không thể hoàn tác.</item>
     </plurals>
-    <string name="portfolio_disclaimer">Số tiền nằm lại trên thiết bị trừ khi bạn tự xuất; để lấy giá chỉ ký hiệu cặp được gửi đến sàn của cặp đó. Các nút blockchain công khai thấy địa chỉ theo dõi và IP của bạn. Không phải lời khuyên đầu tư.</string>
     <string name="portfolio_empty_action">Thêm lần mua đầu tiên</string>
     <string name="portfolio_empty_address">Chỉ theo dõi một địa chỉ ví</string>
     <string name="portfolio_empty_csv">Mua trên sàn? Nhập tệp của sàn</string>

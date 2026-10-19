@@ -221,6 +221,8 @@ internal fun PortfolioAddressSheet(
                     onNetworks = { list -> viewModel.setWatchedAddressNetworks(a.id, list) },
                     onShowOnly = { showOnly -> viewModel.setWatchedAddressCountInPortfolio(a.id, !showOnly) },
                     onCostLots = { lotsFor = a.id },
+                    trades = trades,
+                    allAddresses = addresses,
                 )
             }
             item(key = "form") {

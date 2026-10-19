@@ -1,10 +1,13 @@
 package com.cryptochecker.app.domain.alarm
 
+import com.cryptochecker.app.data.local.model.AlarmCondition
+
 /**
- * «1 h später» aus der Alarm-Mitteilung: Der Alarm bleibt scharf, nur seine nächste Meldung wartet bis
- * [snoozeUntil] — wie die Nachtruhe im Melde-Schritt ([AlarmDelivery]), nie in der Prüfung selbst
- * ([AlarmEvaluator] bleibt unverändert). Ist die Bedingung danach noch erfüllt, meldet er sich beim nächsten
- * Durchlauf. Reine Logik — wie `AlarmSnooze.swift` (gemeinsamer Testfall `testdata/parity/alarm_snooze.json`).
+ * «1 h später» aus der Alarm-Mitteilung: Nur die nächste Meldung wartet bis [snoozeUntil] — wie die Nachtruhe im
+ * Melde-Schritt ([AlarmDelivery]), nie in der Prüfung selbst ([AlarmEvaluator] bleibt unverändert). Angeboten nur,
+ * wo das wirkt ([offeredFor]): Prozent- und Bewegungsalarme bleiben nach dem Auslösen scharf; ist die Bedingung
+ * nach der Pause noch erfüllt, melden sie sich beim nächsten Durchlauf. Reine Logik — wie `AlarmSnooze.swift`
+ * (gemeinsamer Testfall `testdata/parity/alarm_snooze.json`).
  */
 object AlarmSnooze {
 
@@ -24,6 +27,16 @@ object AlarmSnooze {
         val rest = until - now
         return rest > 0 && rest <= SNOOZE_MILLIS
     }
+
+    /**
+     * Knopf «1 h später» zeigen? Nur bei wiederholenden Alarmen (ein einmaliger ist nach dem Melden aus) und nur bei
+     * Prozent- und Bewegungsalarmen ([AlarmCondition.isPercent]): Sie bleiben nach dem Auslösen scharf (neuer Bezug
+     * bzw. neues Fenster, [AlarmEvaluator.triggered]), die Pause hält also wirklich eine Meldung zurück. Kursmarken,
+     * Funding und Open Interest werden erst wieder scharf, wenn der Wert auf die andere Seite zurückkehrt;
+     * «Nahe am Hoch/Tief» erst ausserhalb der Zone oder frühestens 1 h später bei einem weiteren Hoch/Tief; der
+     * Volumen-Spike meldet ohnehin höchstens einmal je Stundenkerze — dort hielte die Pause nichts zurück.
+     */
+    fun offeredFor(condition: AlarmCondition, repeating: Boolean): Boolean = repeating && condition.isPercent
 
     /** Nur noch laufende Pausen (abgelaufene fallen beim Speichern weg). */
     fun prune(all: Map<Long, Long>, now: Long): Map<Long, Long> = all.filter { (_, until) -> isSnoozed(until, now) }

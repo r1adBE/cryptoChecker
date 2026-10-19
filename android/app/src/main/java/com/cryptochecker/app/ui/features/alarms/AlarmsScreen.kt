@@ -209,7 +209,7 @@ fun AlarmsScreen(
             ReadableInset { inset ->
                 LazyColumn(
                     modifier = Modifier.fillMaxSize().padding(padding),
-                    contentPadding = PaddingValues(start = 12.dp + inset, top = 12.dp, end = 12.dp + inset, bottom = 96.dp),
+                    contentPadding = PaddingValues(start = 12.dp + inset, top = 12.dp, end = 12.dp + inset, bottom = Spacing.fabClearance),
                     verticalArrangement = Arrangement.spacedBy(Spacing.sm)
                 ) {
                     if (!notificationsEnabled) {

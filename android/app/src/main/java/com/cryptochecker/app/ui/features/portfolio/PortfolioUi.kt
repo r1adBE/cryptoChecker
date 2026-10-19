@@ -211,10 +211,11 @@ internal fun PortfolioHint(text: String) {
     )
 }
 
+// Kurzer Fusstext unter den Listen; was an Daten wohin geht, steht in der Datenschutzerklärung (Pfad im Text)
 @Composable
 internal fun PortfolioDisclaimer() {
     Text(
-        stringResource(R.string.portfolio_disclaimer),
+        stringResource(R.string.portfolio_footer_short),
         style = MaterialTheme.typography.labelSmall,
         color = MaterialTheme.colorScheme.onSurfaceVariant,
         textAlign = TextAlign.Center,

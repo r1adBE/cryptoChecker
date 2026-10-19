@@ -9,7 +9,6 @@
         <item quantity="one">%d transactie verwijderen? Gevolgde adressen blijven. Dit kan niet ongedaan worden gemaakt.</item>
         <item quantity="other">Alle %d transacties verwijderen? Gevolgde adressen blijven. Dit kan niet ongedaan worden gemaakt.</item>
     </plurals>
-    <string name="portfolio_disclaimer">Bedragen blijven op je apparaat, tenzij je ze zelf exporteert; voor koersen gaan alleen paarsymbolen naar de beurs van het paar. Openbare blockchain-nodes zien gevolgde adressen en je IP. Geen beleggingsadvies.</string>
     <string name="portfolio_empty_action">Eerste aankoop invoeren</string>
     <string name="portfolio_empty_address">Alleen een walletadres volgen</string>
     <string name="portfolio_empty_csv">Gekocht op een beurs? Bestand importeren</string>

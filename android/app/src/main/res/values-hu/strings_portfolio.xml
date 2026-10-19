@@ -9,7 +9,6 @@
         <item quantity="one">Törlöd a tranzakciót (%d)? A figyelt címek megmaradnak. Ez nem vonható vissza.</item>
         <item quantity="other">Törlöd az összes tranzakciót (%d)? A figyelt címek megmaradnak. Ez nem vonható vissza.</item>
     </plurals>
-    <string name="portfolio_disclaimer">Az összegek az eszközön maradnak, hacsak nem exportálod őket; az árfolyamokhoz csak a párok jelei mennek a pár tőzsdéjére. A nyilvános blokklánc-csomópontok látják a figyelt címeket és az IP-címedet. Nem befektetési tanácsadás.</string>
     <string name="portfolio_empty_action">Első vásárlás megadása</string>
     <string name="portfolio_empty_address">Csak egy tárcacím figyelése</string>
     <string name="portfolio_empty_csv">Tőzsdén vásároltál? Fájl importálása</string>

@@ -91,7 +91,7 @@ struct PortfolioCoinDetail: View {
             PortfolioDisclaimer()
                 .portfolioListRow(top: 0, bottom: 0)
             // Platz für den «+»-Knopf
-            Color.clear.frame(height: 96).portfolioListRow(top: 0, bottom: 0)
+            Color.clear.frame(height: Spacing.fabClearance).portfolioListRow(top: 0, bottom: 0)
         }
         .listStyle(.plain)
         .scrollContentBackground(.hidden)
@@ -152,7 +152,7 @@ struct PortfolioCoinDetail: View {
 
     /// Guthaben beobachteter Adressen für diesen Coin (> 0); nil = keins.
     private var addressAmount: Decimal? {
-        AddressBalance.amount(for: coin, addresses: data.watchedAddresses).flatMap { $0 > 0 ? $0 : nil }
+        AddressBalance.amount(for: coin, addresses: data.watchedAddresses, realTrades: data.portfolio).flatMap { $0 > 0 ? $0 : nil }
     }
 
     /// Nach links gewischt oder VoiceOver «Löschen»: sofort löschen, Banner mit «Rückgängig».

@@ -98,6 +98,26 @@ class SpacingUsageTest {
     }
 
     /**
+     * Freiraum unter Listen mit schwebendem «+»-Knopf: auf beiden Plattformen 3 × xxl (96) und
+     * nur über `Spacing.fabClearance` — keine nackte 96 mehr als Listenende (Portfolio, Coin, Alarme).
+     */
+    @Test
+    fun fabClearanceIsDerivedFromGrid() {
+        val androidRoot = androidSources() ?: return
+        assertTrue(File(androidRoot, "ui/theme/Spacing.kt").readText(Charsets.UTF_8).contains("val fabClearance = xxl * 3"))
+        val literal = Regex("""bottom = 96\.dp""")
+        val androidHits = androidRoot.walkTopDown().filter { it.isFile && it.extension == "kt" }
+            .filter { literal.containsMatchIn(it.readText(Charsets.UTF_8)) }.map { it.name }.toList()
+        assertEquals(emptyList<String>(), androidHits)
+        val iosRoot = iosRoot() ?: return
+        val swift = File(iosRoot, "Shared/Util/Spacing.swift").readText(Charsets.UTF_8)
+        assertTrue(swift.contains("static let fabClearance: CGFloat = Spacing.xxl * 3"))
+        val iosHits = File(iosRoot, "App").walkTopDown().filter { it.isFile && it.extension == "swift" }
+            .filter { it.readText(Charsets.UTF_8).contains("Color.clear.frame(height: 96)") }.map { it.name }.toList()
+        assertEquals(emptyList<String>(), iosHits)
+    }
+
+    /**
      * Dateien unter [dir] mit mehr Treffern als erlaubt (nicht gelistete Dateien: 0), mit den
      * betroffenen Zeilen. Kommentarzeilen zählen nicht.
      */

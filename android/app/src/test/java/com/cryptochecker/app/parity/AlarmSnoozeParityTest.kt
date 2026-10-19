@@ -1,5 +1,6 @@
 package com.cryptochecker.app.parity
 
+import com.cryptochecker.app.data.local.model.AlarmCondition
 import com.cryptochecker.app.domain.alarm.AlarmSnooze
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -34,5 +35,19 @@ class AlarmSnoozeParityTest {
         val all = c["all"].obj().entries.associate { it.key.toLong() to it.value.num()!!.toLong() }
         val kept = AlarmSnooze.prune(all, c["now"].num()!!.toLong())
         assertEquals(c["kept"].list().map { it.num()!!.toLong() }.toSet(), kept.keys)
+    }
+
+    @Test
+    fun offeredOnlyWherePauseWorks() {
+        val cases = data["offeredFor"].list().map { it.obj() }
+        // Jede Alarm-Art muss im gemeinsamen Testfall vorkommen, damit eine neue Art nicht unbemerkt bleibt
+        assertEquals(AlarmCondition.entries.map { it.name }.toSet(), cases.map { it["condition"] as String }.toSet())
+        cases.forEach { c ->
+            assertEquals(
+                "${c["name"]} (${c["condition"]}, repeating=${c["repeating"]})",
+                c["offered"],
+                AlarmSnooze.offeredFor(AlarmCondition.valueOf(c["condition"] as String), c["repeating"] as Boolean),
+            )
+        }
     }
 }

@@ -11,7 +11,6 @@
         <item quantity="many">Usunąć wszystkie %d transakcji? Obserwowane adresy zostaną. Tej operacji nie można cofnąć.</item>
         <item quantity="other">Usunąć wszystkie %d transakcji? Obserwowane adresy zostaną. Tej operacji nie można cofnąć.</item>
     </plurals>
-    <string name="portfolio_disclaimer">Kwoty zostają na urządzeniu, chyba że sam je wyeksportujesz; po kursy do giełdy pary trafiają tylko symbole par. Publiczne węzły blockchain widzą obserwowane adresy i twój IP. To nie jest porada inwestycyjna.</string>
     <string name="portfolio_empty_action">Dodaj pierwszy zakup</string>
     <string name="portfolio_empty_address">Tylko obserwuj adres portfela</string>
     <string name="portfolio_empty_csv">Kupione na giełdzie? Zaimportuj plik</string>

@@ -7,6 +7,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.cryptochecker.app.R
+import com.cryptochecker.app.util.LocaleNumbers
 
 /*
  * Eine Schriftskala für die ganze App (wie `AppFont` in iOS). Grundlage sind die
@@ -62,8 +63,15 @@ val AmountFontFamily = FontFamily(
     Font(R.font.rubik_semibold, FontWeight.SemiBold),
 )
 
-/** Betrag: [AmountFontFamily] mit gleich breiten Ziffern, damit Zahlen beim Aktualisieren nicht springen. */
-fun TextStyle.amountNumbers(): TextStyle = copy(fontFamily = AmountFontFamily, fontFeatureSettings = "tnum")
+/**
+ * Betrag: [AmountFontFamily] mit gleich breiten Ziffern, damit Zahlen beim Aktualisieren nicht springen.
+ * Schreibt die App-Sprache eigene Ziffern (Arabisch «٧٢», Persisch «۷۲»), bleibt die Systemschrift (nur
+ * gleich breite Ziffern): Rubik hat diese Ziffern und Trennzeichen nicht, ein Betrag mischte sonst zwei
+ * Schriften (Ziffern aus der Systemschrift, «USDT» und Vorzeichen aus Rubik).
+ */
+fun TextStyle.amountNumbers(): TextStyle =
+    if (LocaleNumbers.hasLatinDigits()) copy(fontFamily = AmountFontFamily, fontFeatureSettings = "tnum")
+    else tabularNumbers()
 
 /** Numeric: Ziffern gleich breit (OpenType `tnum`), damit Kurse beim Aktualisieren nicht springen. */
 fun TextStyle.tabularNumbers(): TextStyle = copy(fontFeatureSettings = "tnum")

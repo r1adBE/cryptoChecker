@@ -23,7 +23,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.app.ui.theme.AppColors
 import com.cryptochecker.app.ui.theme.PriceColors
 import com.cryptochecker.app.ui.theme.amountNumbers
 import com.cryptochecker.app.util.A11yText
@@ -39,8 +38,8 @@ enum class ChangePillSize { SMALL, MEDIUM }
 /**
  * Bedeutung einer Änderungsangabe und damit ihre Schriftfarbe — einzige Stelle, die das festlegt:
  * [UP]/[DOWN] in der Kursfarbe (Schema, hoher Kontrast, Tausch); [NEUTRAL] grau (0, unbekannt,
- * deaktiviert); [AVERAGE] in der Bernstein-Schriftfarbe für neutrale Kennzahlen wie den
- * Durchschnitt «Ø +0.27%». Wie `PillTone` (iOS).
+ * deaktiviert); [AVERAGE] in der normalen Textfarbe für neutrale Kennzahlen wie den
+ * Durchschnitt «Ø +0.27%» — nicht Bernstein, das bleibt «Achtung» vorbehalten. Wie `PillTone` (iOS).
  */
 enum class PillTone {
     UP, DOWN, NEUTRAL, AVERAGE;
@@ -65,8 +64,8 @@ enum class PillTone {
 /**
  * Schrift- und Pfeilfarbe zur [tone], direkt auf der Fläche (Karte, Zeile, Blatt) — ohne Pille:
  * Kursfarbe steigend/fallend (≥ 4.5:1 bzw. 7:1 auf allen Flächen, siehe PriceColorSchemeTest),
- * grau für 0/unbekannt/deaktiviert, Bernstein-Schrift ([AppColors.warningText], ≥ 4.5:1) für den
- * Durchschnitt. Wie `PillTone.content` (iOS).
+ * grau für 0/unbekannt/deaktiviert, normale Textfarbe für den Durchschnitt (eine Kennzahl ohne
+ * Richtung; grau hiesse «0/deaktiviert», Bernstein hiesse «Achtung»). Wie `PillTone.content` (iOS).
  */
 @Composable
 @ReadOnlyComposable
@@ -74,7 +73,7 @@ fun pillContent(tone: PillTone): Color = when (tone) {
     PillTone.UP -> PriceColors.up
     PillTone.DOWN -> PriceColors.down
     PillTone.NEUTRAL -> MaterialTheme.colorScheme.onSurfaceVariant
-    PillTone.AVERAGE -> AppColors.warningText
+    PillTone.AVERAGE -> MaterialTheme.colorScheme.onSurface
 }
 
 /** Schrift der Änderungsangabe: Betragsschrift mit gleich breiten Ziffern (`tnum`), halbfett. */

@@ -13,7 +13,6 @@
         <item quantity="many">حذف جميع المعاملات (%d)؟ تبقى العناوين المراقَبة. لا يمكن التراجع عن ذلك.</item>
         <item quantity="other">حذف جميع المعاملات (%d)؟ تبقى العناوين المراقَبة. لا يمكن التراجع عن ذلك.</item>
     </plurals>
-    <string name="portfolio_disclaimer">تبقى المبالغ على جهازك ما لم تصدّرها بنفسك؛ وللأسعار لا تُرسل إلا رموز الأزواج إلى منصة الزوج. ترى عُقد البلوكتشين العامة العناوين المراقَبة وعنوان IP الخاص بك. ليست نصيحة استثمارية.</string>
     <string name="portfolio_empty_action">أضف أول عملية شراء</string>
     <string name="portfolio_empty_address">مراقبة عنوان محفظة فقط</string>
     <string name="portfolio_empty_csv">اشتريت من منصة؟ استورد ملفها</string>

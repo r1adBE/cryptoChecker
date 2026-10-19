@@ -9,7 +9,6 @@
         <item quantity="one">Slet %d transaktion? Overvågede adresser bevares. Det kan ikke fortrydes.</item>
         <item quantity="other">Slet alle %d transaktioner? Overvågede adresser bevares. Det kan ikke fortrydes.</item>
     </plurals>
-    <string name="portfolio_disclaimer">Beløb bliver på enheden, medmindre du selv eksporterer dem; til kurser sendes kun parsymboler til parrets børs. Offentlige blockchain-noder ser overvågede adresser og din IP. Ikke investeringsrådgivning.</string>
     <string name="portfolio_empty_action">Tilføj dit første køb</string>
     <string name="portfolio_empty_address">Følg bare en wallet-adresse</string>
     <string name="portfolio_empty_csv">Købt på en børs? Importér filen</string>

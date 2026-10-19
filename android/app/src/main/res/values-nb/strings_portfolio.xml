@@ -9,7 +9,6 @@
         <item quantity="one">Slette %d transaksjon? Overvåkede adresser blir værende. Dette kan ikke angres.</item>
         <item quantity="other">Slette alle %d transaksjoner? Overvåkede adresser blir værende. Dette kan ikke angres.</item>
     </plurals>
-    <string name="portfolio_disclaimer">Beløp blir på enheten med mindre du eksporterer dem selv; for kurser sendes bare parsymboler til parets børs. Offentlige blokkjedenoder ser overvåkede adresser og IP-en din. Ikke investeringsråd.</string>
     <string name="portfolio_empty_action">Legg inn ditt første kjøp</string>
     <string name="portfolio_empty_address">Bare følg en lommebokadresse</string>
     <string name="portfolio_empty_csv">Kjøpt på en børs? Importer filen</string>

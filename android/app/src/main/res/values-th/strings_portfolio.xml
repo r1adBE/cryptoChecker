@@ -8,7 +8,6 @@
     <plurals name="portfolio_clear_confirm_count">
         <item quantity="other">ลบรายการทั้งหมด %d รายการหรือไม่ ที่อยู่ที่ติดตามจะยังอยู่ การดำเนินการนี้ย้อนกลับไม่ได้</item>
     </plurals>
-    <string name="portfolio_disclaimer">จำนวนเงินอยู่บนอุปกรณ์ของคุณ เว้นแต่คุณจะส่งออกเอง สำหรับราคา จะส่งเพียงสัญลักษณ์คู่เทรดไปยังกระดานเทรดของคู่นั้น โหนดบล็อกเชนสาธารณะจะเห็นที่อยู่ที่ติดตามและ IP ของคุณ ไม่ใช่คำแนะนำการลงทุน</string>
     <string name="portfolio_empty_action">เพิ่มการซื้อครั้งแรก</string>
     <string name="portfolio_empty_address">ติดตามเฉพาะที่อยู่กระเป๋า</string>
     <string name="portfolio_empty_csv">ซื้อในกระดานเทรด? นำเข้าไฟล์</string>

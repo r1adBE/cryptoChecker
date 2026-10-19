@@ -31,7 +31,7 @@ import com.cryptochecker.app.util.PriceFormat
 /**
  * Schmale Puls-Zeile ganz oben in der Merkliste: «↗ 7 steigen · ↘ 3 fallen · Ø +1.80% 24h»
  * als farbige Schrift ohne Pillen wie die Prozent-Änderung der Zeilen (Veränderung über 24 Stunden):
- * Zähler in Steigend- bzw. Fallend-Farbe mit schrägem Pfeil, der Durchschnitt in Bernstein-Schrift
+ * Zähler in Steigend- bzw. Fallend-Farbe mit schrägem Pfeil, der Durchschnitt in normaler Textfarbe
  * mit Vorzeichen (keine Richtung, wie im Markt-Puls), der Zeitraum klein und grau dahinter.
  * Zahlen rollen bei Änderungen.
  * Leere Zähler (0) werden weggelassen. Haben gezeigte Paare mit Kurs keinen 24-h-Wert,

@@ -8,7 +8,6 @@
     <plurals name="portfolio_clear_confirm_count">
         <item quantity="other">Hapus semua %d transaksi? Alamat yang dipantau tetap ada. Tindakan ini tidak dapat dibatalkan.</item>
     </plurals>
-    <string name="portfolio_disclaimer">Jumlah tetap di perangkat kecuali Anda mengekspornya sendiri; untuk harga hanya simbol pasangan yang dikirim ke bursa pasangan itu. Node blockchain publik melihat alamat yang dipantau dan IP Anda. Bukan nasihat investasi.</string>
     <string name="portfolio_empty_action">Tambahkan pembelian pertama</string>
     <string name="portfolio_empty_address">Cukup pantau alamat dompet</string>
     <string name="portfolio_empty_csv">Beli di bursa? Impor filenya</string>

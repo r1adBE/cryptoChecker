@@ -238,9 +238,10 @@ enum Notifier {
         let settings = SharedStorage.loadSettings()
         // «Alarm-Signal»: «Lautlos» = nur Mitteilung (zeitkritisch, ohne Ton); Vibration nach Töne & Haptik
         content.sound = settings.alarmSignal.notificationSound(alarmSound: alarm.sound, tone: settings.alarmSound)
-        // «Was bewegt sich mit?» nur für gehandelte Paare (sonst gibt es nichts zu erklären), «1 h später» nur für
-        // wiederholende Alarme (ein einmaliger ist nach dem Melden aus), «Anpassen» immer
-        content.categoryIdentifier = pairAlarmCategory(traded: !watch.isNotTraded, repeating: alarm.repeating)
+        // «Was bewegt sich mit?» nur für gehandelte Paare (sonst gibt es nichts zu erklären), «1 h später» nur, wo die
+        // Pause wirkt (wiederholende Prozent- und Bewegungsalarme), «Anpassen» immer
+        content.categoryIdentifier = pairAlarmCategory(
+            traded: !watch.isNotTraded, snooze: AlarmSnooze.offeredFor(alarm.condition, repeating: alarm.repeating))
         content.threadIdentifier = "alarms"
         content.userInfo = [userInfoWatchId: NSNumber(value: watch.id), userInfoAlarmId: NSNumber(value: alarm.id)]
         // Coin-Logo als Vorschaubild, nur wenn es schon auf dem Gerät liegt (nie aus dem Netz)

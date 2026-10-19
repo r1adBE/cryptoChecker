@@ -10,7 +10,6 @@
         <item quantity="two">למחוק את כל העסקאות (%d)? כתובות במעקב נשארות. לא ניתן לבטל פעולה זו.</item>
         <item quantity="other">למחוק את כל העסקאות (%d)? כתובות במעקב נשארות. לא ניתן לבטל פעולה זו.</item>
     </plurals>
-    <string name="portfolio_disclaimer">הסכומים נשארים במכשיר אלא אם תייצא אותם בעצמך; לשערים נשלחים רק סמלי הצמדים לבורסה של הצמד. צמתי בלוקצ׳יין ציבוריים רואים כתובות במעקב ואת ה-IP שלך. אין זה ייעוץ השקעות.</string>
     <string name="portfolio_empty_action">הוספת הקנייה הראשונה</string>
     <string name="portfolio_empty_address">רק לעקוב אחר כתובת ארנק</string>
     <string name="portfolio_empty_csv">קנית בבורסה? ייבוא הקובץ</string>

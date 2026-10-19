@@ -3,7 +3,8 @@ import XCTest
 
 /// Einstand für Adressguthaben und Einträge ohne Einstand (`Parity/address_cost_lots.json`) — wie
 /// `AddressCostLotsParityTest.kt`: Abdeckung, Adress-Teil ohne Einstand, Rechner-Einträge, Karte je Methode, Stichtag
-/// (CH-Vermögenswert ohne Posten), FR-Erwerbspreis-Summe samt Vermerk «Adressen ohne Einstand».
+/// (CH-Vermögenswert ohne Posten), FR-Erwerbspreis-Summe samt Vermerk «Adressen ohne Einstand», Steuer-Export (Info-Zeilen,
+/// Jahre), Bestand je Wallet bei erfassten Umbuchungen von/zu der Adress-Wallet.
 final class AddressCostLotsParityTests: XCTestCase {
 
     private typealias S = TestSupport
@@ -32,6 +33,10 @@ final class AddressCostLotsParityTests: XCTestCase {
                             amountExact: dec(o["amount"]) ?? 0, priceExact: dec(o["price"]),
                             time: Int64(S.number(o["time"]) ?? 0), exchange: o["exchange"] as? String)
         t.interest = o["interest"] as? Bool ?? false
+        t.feeExact = dec(o["fee"])
+        t.feeUnit = (o["feeUnit"] as? String).flatMap(PortfolioFeeUnit.init(rawValue:))
+        t.transferFrom = o["transferFrom"] as? String
+        t.transferTo = o["transferTo"] as? String
         return t
     }
 
@@ -55,7 +60,7 @@ final class AddressCostLotsParityTests: XCTestCase {
             let real = S.list(c["trades"]).map(trade)
             for x in S.list(c["coverage"]) {
                 let a = try XCTUnwrap(addresses.first { $0.id == Int64(S.number(x["address"]) ?? -1) })
-                let got = try XCTUnwrap(AddressCostLots.coverage(a).first { $0.coin == x["coin"] as? String })
+                let got = try XCTUnwrap(AddressCostLots.coverage(a, trades: real, all: addresses).first { $0.coin == x["coin"] as? String })
                 near("\(name) lotted", x["lotted"], got.lotted)
                 near("\(name) excess", x["excess"], got.excess)
                 near("\(name) unlotted", x["unlotted"], got.unlotted)
@@ -93,6 +98,19 @@ final class AddressCostLotsParityTests: XCTestCase {
                     near("\(name)/\(m) realized", x["realized"], p.realizedExact)
                 }
             }
+            // FIFO je Wallet: Bestand je Wallet (Adress-Wallet samt erfasster Umbuchungen), kein Fehlbestand
+            for (coin, wallets) in c["wallets"] as? [String: Any] ?? [:] {
+                var got: [String: Decimal] = [:]
+                for l in PortfolioCalculator.openLots(coin, trades: all, method: .FIFO_WALLET) {
+                    got[l.wallet ?? "", default: 0] += l.amount
+                }
+                let expected = wallets as? [String: Any] ?? [:]
+                XCTAssertEqual(Set(expected.keys), Set(got.keys), "\(name) wallets \(coin)")
+                for (w, v) in expected { near("\(name) wallet \(w)", v, got[w]) }
+            }
+            if let n = S.number(c["shortfalls"]) {
+                XCTAssertEqual(Int(n), PortfolioCalculator.walletShortfalls(all).count, "\(name) shortfalls")
+            }
             if let fr = c["fr"] as? [String: Any] {
                 let price = dec(fr["price"]) ?? 0
                 let rows = TaxEngines.disposals(all, method: .FR_PTA, timeZone: TimeZone(identifier: "UTC")!,
@@ -102,6 +120,27 @@ final class AddressCostLotsParityTests: XCTestCase {
                 near("\(name) fr cost", fr["cost"], d.costUsdt)
                 XCTAssertEqual(d.addressValueIncluded, fr["addressValueIncluded"] as? Bool, "\(name) fr address note")
             }
+        }
+    }
+
+    /// Steuer-Export rechnet mit den Posten wie die Veräusserungen: keine Gebühr «ohne Kaufpreis», Jahr nur mit Posten.
+    func testTaxExportSeesLots() throws {
+        let data = try S.fixture("address_cost_lots")
+        let c = try XCTUnwrap(data["taxExport"] as? [String: Any])
+        let utc = TimeZone(identifier: "UTC")!
+        let real = S.list(c["trades"]).map(trade)
+        let all = AddressBalance.withAddresses(real, addresses: S.list(c["addresses"]).map(address),
+                                               todayUtcDay: Int64(S.number(data["today"]) ?? 0))
+        func ints(_ key: String) -> [Int] { (c[key] as? [Any] ?? []).compactMap { S.number($0).map { Int($0) } } }
+        XCTAssertEqual(TaxExport.years(all, timeZone: utc), ints("years"), "years")
+        XCTAssertEqual(TaxExport.years(real, timeZone: utc), ints("yearsWithoutAddresses"), "years without addresses")
+        let year = Int(S.number(c["infoYear"]) ?? 0)
+        for m in c["methods"] as? [String] ?? [] {
+            let method = try XCTUnwrap(CostMethod(rawValue: m))
+            XCTAssertEqual(TaxExport.unassignedFees(in: all, method: method, year: year, timeZone: utc).count,
+                           Int(S.number(c["unassignedFees"]) ?? -1), "\(m) unassigned")
+            XCTAssertEqual(TaxExport.lostFeeCosts(in: all, method: method, year: year, timeZone: utc).count,
+                           Int(S.number(c["lostFeeCosts"]) ?? -1), "\(m) lost fee cost")
         }
     }
 

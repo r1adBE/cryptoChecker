@@ -309,19 +309,20 @@ object AddressBalance {
 
     /**
      * Je Coin mit geladenem Guthaben > 0 eine Einzahlung ohne Kaufpreis ([holdings]) für den Teil OHNE Eröffnungsposten,
-     * Reihenfolge BTC, ETH, Token; danach die Eröffnungsposten als Käufe ([AddressCostLots.trades]).
+     * Reihenfolge BTC, ETH, Token; danach die Eröffnungsposten als Käufe ([AddressCostLots.trades]). Erfasste Bewegungen
+     * der Adress-Wallets in [realTrades] stecken schon im Guthaben ([AddressCostLots.accounted]) — nie doppelt.
      */
     fun trades(addresses: List<WatchedAddress>, realTrades: List<PortfolioTrade>, todayUtcDay: Long): List<PortfolioTrade> {
         val held = holdings(addresses)
         if (held.isEmpty()) return emptyList()
         val time = heldSince(realTrades, todayUtcDay)
         val ids = tradeIds(held.map { it.first })
-        val lotted = AddressCostLots.lotted(addresses)
+        val accounted = AddressCostLots.accounted(addresses, realTrades)
         return held.mapNotNull { (coin, text) ->
-            val amount = PortfolioDecimal.parse(text)?.let { it - (lotted[coin] ?: BigDecimal.ZERO) }?.takeIf { it.signum() > 0 }
+            val amount = PortfolioDecimal.parse(text)?.let { it - (accounted[coin] ?: BigDecimal.ZERO) }?.takeIf { it.signum() > 0 }
                 ?: return@mapNotNull null
             PortfolioTrade(id = ids.getValue(coin), coin = coin, type = PortfolioTxType.DEPOSIT, amount = amount, priceUsdt = null, time = time)
-        } + AddressCostLots.trades(addresses)
+        } + AddressCostLots.trades(addresses, realTrades)
     }
 
     /**
@@ -335,13 +336,13 @@ object AddressBalance {
     }
 
     /**
-     * Guthaben aller Adressen für [coin] OHNE Eröffnungsposten (Detailansicht «Aus Adresse · ohne Kaufpreis»); null = keins
-     * geladen.
+     * Guthaben aller Adressen für [coin] OHNE Eröffnungsposten (Detailansicht «Aus Adresse · ohne Kaufpreis»), mit den
+     * echten Transaktionen [realTrades] wie im Rechner ([trades]); null = keins geladen.
      */
-    fun amountFor(coin: String, addresses: List<WatchedAddress>): BigDecimal? {
+    fun amountFor(coin: String, addresses: List<WatchedAddress>, realTrades: List<PortfolioTrade> = emptyList()): BigDecimal? {
         val key = PortfolioCalculator.normalizeCoin(coin)
-        val lotted = AddressCostLots.lotted(addresses)[key] ?: BigDecimal.ZERO
+        val accounted = AddressCostLots.accounted(addresses, realTrades)[key] ?: BigDecimal.ZERO
         return holdings(addresses).firstOrNull { it.first == key }?.let { PortfolioDecimal.parse(it.second) }
-            ?.let { (it - lotted).max(BigDecimal.ZERO) }
+            ?.let { (it - accounted).max(BigDecimal.ZERO) }
     }
 }

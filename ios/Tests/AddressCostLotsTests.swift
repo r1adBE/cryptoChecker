@@ -45,6 +45,37 @@ final class AddressCostLotsTests: XCTestCase {
         XCTAssertEqual(partial.lots[0].cost, 1000)
     }
 
+    func testRecordedMovesOfTheAddressWalletAndNoNegativeBase() {
+        func t(_ id: Int64, _ type: PortfolioTxType, _ amount: String, exchange: String? = nil, from: String? = nil,
+               to: String? = nil, coinFee: String? = nil) -> PortfolioTx {
+            var x = PortfolioTx(id: id, coin: "BTC", type: type, amountExact: d(amount), priceExact: nil, time: 10, exchange: exchange)
+            x.feeExact = coinFee.map(d)
+            x.feeUnit = coinFee == nil ? nil : .COIN
+            x.transferFrom = from
+            x.transferTo = to
+            return x
+        }
+        let trades = [
+            t(1, .TRANSFER, "0.5", from: "Ledger", to: "Binance", coinFee: "0.0001"), // −0,5001
+            t(2, .TRANSFER, "0.2", from: "Binance", to: " ledger "), // +0,2 (Schreibweise wie FIFO je Wallet)
+            t(3, .WITHDRAWAL, "0.1", exchange: "Ledger"), // −0,1
+            t(4, .BUY, "0.3", exchange: "Ledger", coinFee: "0.01"), // +0,29
+            t(5, .TRANSFER, "1", from: "Ledger", to: "Ledger", coinFee: "0.001"), // −0,001
+            t(6, .BUY, "5", exchange: "Binance"), // andere Wallet
+            t(-1, .DEPOSIT, "9", exchange: "Ledger"), // Adress-Eintrag
+        ]
+        XCTAssertEqual(AddressCostLots.recorded("BTC", wallet: "Ledger", trades: trades), d("-0.1111"))
+        XCTAssertEqual(AddressCostLots.recorded("ETH", wallet: "Ledger", trades: trades), 0)
+        XCTAssertEqual(AddressCostLots.recorded("BTC", wallet: " ", trades: trades), 0)
+        // Erfasste Zugänge über dem Guthaben: Bestand 0, alle Posten verbraucht, nichts negativ
+        let c = AddressCostLots.cover("BTC", AddressCostLots.clean([lot(1, 10, "1", price: "1")]), balance: d("0.2"), recorded: d("0.5"))
+        XCTAssertEqual(c.base, 0)
+        XCTAssertEqual(c.lotted, 0)
+        XCTAssertEqual(c.unlotted, 0)
+        XCTAssertEqual(c.accounted, d("0.2"))
+        XCTAssertTrue(c.lots.isEmpty)
+    }
+
     func testAddressPartShrinksByLots() {
         let a = WatchedAddress(id: 7, chain: .BTC, address: btc, lastBalance: "1", costLots: [lot(1, 10, "0.4", price: "100")])
         let trades = AddressBalance.trades([a], realTrades: [], todayUtcDay: 20_000)

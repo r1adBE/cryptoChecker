@@ -44,7 +44,12 @@ import com.cryptochecker.app.ui.theme.label
 @Composable
 internal fun PortfolioAddressLotsSheet(viewModel: PortfolioViewModel, addressId: Long, onDismiss: () -> Unit) {
     val addresses by viewModel.watchedAddresses.collectAsStateWithLifecycle()
+    val transactions by viewModel.transactions.collectAsStateWithLifecycle()
     val a = addresses.firstOrNull { it.id == addressId } ?: return
+    // Abdeckung wie im Rechner: erfasste Bewegungen dieser Wallet stecken schon im Guthaben
+    val coverage = remember(a, addresses, transactions) {
+        AddressCostLots.coverage(a, transactions.orEmpty().map { it.toTrade() }, addresses)
+    }
     val lots = remember(a) { AddressCostLots.clean(a.costLots) }
     // Bearbeiten: vorhandener Posten oder neuer (Id 0 = noch nicht gespeichert)
     var editing by remember { mutableStateOf<AddressCostLot?>(null) }
@@ -74,12 +79,12 @@ internal fun PortfolioAddressLotsSheet(viewModel: PortfolioViewModel, addressId:
             verticalArrangement = Arrangement.spacedBy(Spacing.sm),
         ) {
             item(key = "head") { LotsHeader(a) }
-            items(AddressCostLots.coverage(a), key = { "c:${it.coin}" }) { c ->
+            items(coverage, key = { "c:${it.coin}" }) { c ->
                 Column(modifier = Modifier.padding(horizontal = Spacing.xl)) {
                     Text(
                         stringResource(
                             R.string.address_lots_status,
-                            maskAmount(PortfolioFormat.amount(c.lotted, c.coin)), maskAmount(PortfolioFormat.amount(c.balance, c.coin)),
+                            maskAmount(PortfolioFormat.amount(c.lotted, c.coin)), maskAmount(PortfolioFormat.amount(c.base, c.coin)),
                         ),
                         style = MaterialTheme.typography.bodyMedium,
                         fontWeight = FontWeight.SemiBold

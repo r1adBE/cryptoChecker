@@ -9,7 +9,6 @@
         <item quantity="one">%d Transaktion löschen? Beobachtete Adressen bleiben. Das kann nicht rückgängig gemacht werden.</item>
         <item quantity="other">Alle %d Transaktionen löschen? Beobachtete Adressen bleiben. Das kann nicht rückgängig gemacht werden.</item>
     </plurals>
-    <string name="portfolio_disclaimer">Beträge bleiben auf dem Gerät, ausser du exportierst sie selbst; für Kurse gehen nur Paar-Kürzel an die Börse des Paars. Öffentliche Blockchain-Knoten sehen beobachtete Adressen und deine IP. Keine Anlageberatung.</string>
     <string name="portfolio_empty_action">Ersten Kauf eintragen</string>
     <string name="portfolio_empty_address">Nur eine Wallet-Adresse beobachten</string>
     <string name="portfolio_empty_csv">An einer Börse gekauft? Datei übernehmen</string>

@@ -7,9 +7,9 @@ import UserNotifications
 extension Notifier {
     /// Paar-Alarm eines nicht gehandelten Paars: nur «Anpassen».
     static let categoryAlarmPair = "alarm_pair"
-    /// Wiederholender Paar-Alarm, Paar nicht gehandelt: «1 h später» und «Anpassen».
+    /// Paar-Alarm mit «1 h später» (`AlarmSnooze.offeredFor`), Paar nicht gehandelt: «1 h später» und «Anpassen».
     static let categoryAlarmSnooze = "alarm_snooze"
-    /// Wiederholender Paar-Alarm eines gehandelten Paars: «Was bewegt sich mit?», «1 h später» und «Anpassen».
+    /// Paar-Alarm mit «1 h später» eines gehandelten Paars: «Was bewegt sich mit?», «1 h später» und «Anpassen».
     static let categoryAlarmWhySnooze = "alarm_why_snooze"
 
     /// «1 h später»: vermerkt die Pause (`AlarmSnooze`), ohne die App zu öffnen.
@@ -19,9 +19,10 @@ extension Notifier {
     static let userInfoAlarmId = "alarmId"
 
     /// Kategorie einer Paar-Alarm-Mitteilung (rein, testbar): «Was bewegt sich mit?» nur für gehandelte Paare,
-    /// «1 h später» nur für wiederholende Alarme — ein einmaliger ist nach dem Melden ohnehin aus. Wie Android.
-    static func pairAlarmCategory(traded: Bool, repeating: Bool) -> String {
-        switch (traded, repeating) {
+    /// «1 h später» nur, wo die Pause wirkt (`snooze` = `AlarmSnooze.offeredFor`: wiederholende Prozent- und
+    /// Bewegungsalarme). Wie Android.
+    static func pairAlarmCategory(traded: Bool, snooze: Bool) -> String {
+        switch (traded, snooze) {
         case (true, true): return categoryAlarmWhySnooze
         case (true, false): return categoryAlarmWhy
         case (false, true): return categoryAlarmSnooze

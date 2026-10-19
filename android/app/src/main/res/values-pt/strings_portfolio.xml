@@ -10,7 +10,6 @@
         <item quantity="many">Eliminar todas as %d transações? Os endereços observados mantêm-se. Esta ação não pode ser anulada.</item>
         <item quantity="other">Eliminar todas as %d transações? Os endereços observados mantêm-se. Esta ação não pode ser anulada.</item>
     </plurals>
-    <string name="portfolio_disclaimer">Os montantes ficam no dispositivo, a menos que os exporte; para as cotações só seguem os símbolos dos pares para a exchange do par. Os nós públicos de blockchain veem os endereços observados e o seu IP. Não é aconselhamento de investimento.</string>
     <string name="portfolio_empty_action">Adicionar a primeira compra</string>
     <string name="portfolio_empty_address">Só acompanhar um endereço de carteira</string>
     <string name="portfolio_empty_csv">Comprou numa corretora? Importar o ficheiro</string>

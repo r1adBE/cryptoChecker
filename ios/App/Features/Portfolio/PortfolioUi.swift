@@ -187,10 +187,11 @@ struct PortfolioHint: View {
     }
 }
 
-/// «Nur auf diesem Gerät gespeichert. Keine Anlageberatung.»
+/// Kurzer Fusstext unter den Listen: «Arbeitsunterlage, keine Steuer- oder Anlageberatung» plus Pfad zur
+/// Datenschutzerklärung; was an Daten wohin geht, steht dort und nicht unter jeder Liste.
 struct PortfolioDisclaimer: View {
     var body: some View {
-        Text(L("portfolio_disclaimer"))
+        Text(L("portfolio_footer_short"))
             .font(.caption2)
             .foregroundStyle(AppColors.onSurfaceVariant)
             .multilineTextAlignment(.center)

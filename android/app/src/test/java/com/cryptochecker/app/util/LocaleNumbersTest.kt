@@ -36,6 +36,17 @@ class LocaleNumbersTest {
         assertEquals("۴", fa.takeLast(1))
     }
 
+    /** Grundlage für die Betragsschrift: Rubik nur bei 0–9, sonst Systemschrift (`amountNumbers`). */
+    @Test
+    fun hasLatinDigitsOnlyForZeroToNine() {
+        assertEquals(false, LocaleNumbers.hasLatinDigits(arabic))
+        assertEquals(false, LocaleNumbers.hasLatinDigits(persian))
+        assertEquals(true, LocaleNumbers.hasLatinDigits(Locale.forLanguageTag("ar-u-nu-latn")))
+        assertEquals(true, LocaleNumbers.hasLatinDigits(Locale.forLanguageTag("he-IL")))
+        assertEquals(true, LocaleNumbers.hasLatinDigits(Locale.GERMANY))
+        assertEquals(true, LocaleNumbers.hasLatinDigits(Locale.ROOT))
+    }
+
     @Test
     fun digitsMapsOnlyAsciiDigits() {
         assertEquals("٣ / ١٠", LocaleNumbers.digits("3 / 10", arabic))

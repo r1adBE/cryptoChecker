@@ -10,6 +10,7 @@ import com.cryptochecker.app.R
 import com.cryptochecker.app.data.local.model.AlarmEntity
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.alarm.AlarmSnooze
 import com.cryptochecker.app.domain.alarm.AlarmSnoozeStore
 import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.app.notification.AppNotifier.Companion.EDIT_REQUEST_BASE
@@ -21,11 +22,12 @@ import kotlinx.coroutines.withTimeoutOrNull
 private const val LOGO_WAIT_MILLIS = 300L
 
 /**
- * «1 h später» (nur wiederholende Alarme — ein einmaliger ist nach dem Melden ohnehin aus) und «Anpassen» (öffnet
- * den Editor dieses Alarms). Zusammen mit «Was bewegt sich mit?» höchstens drei Knöpfe, wie Android sie zeigt.
+ * «1 h später» (nur wo die Pause wirkt: wiederholende Prozent- und Bewegungsalarme, [AlarmSnooze.offeredFor]) und
+ * «Anpassen» (öffnet den Editor dieses Alarms). Zusammen mit «Was bewegt sich mit?» höchstens drei Knöpfe, wie
+ * Android sie zeigt.
  */
 internal fun AppNotifier.addAlarmActions(builder: NotificationCompat.Builder, watch: WatchEntity, alarm: AlarmEntity) {
-    if (alarm.repeating) {
+    if (AlarmSnooze.offeredFor(alarm.condition, alarm.repeating)) {
         builder.addAction(0, context.getString(R.string.notification_alarm_action_snooze), snoozeIntent(alarm.id))
     }
     builder.addAction(
