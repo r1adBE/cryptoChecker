@@ -47,7 +47,7 @@ class MarketRevealTest {
     fun elevenSlotsInTabOrder() {
         assertEquals(11, n)
         assertEquals(0, PULSE.ordinal)
-        // «Heute auffällig» direkt unter dem Pulse; danach «Einordnung» mit Fear & Greed zuerst
+        // «Heute auffällig» in der Kette «Jetzt» nach dem Pulse; danach «Einordnung» mit Fear & Greed zuerst
         assertEquals(1, UNUSUAL.ordinal)
         assertEquals(2, HEADER_CONTEXT.ordinal)
         assertEquals(3, FEAR_GREED.ordinal)
@@ -56,6 +56,8 @@ class MarketRevealTest {
         assertEquals(8, MARKET_TOTALS.ordinal)
         assertEquals(9, GAS.ordinal)
         assertEquals(10, COIN.ordinal)
+        // Auf dem Bildschirm «Jetzt»: «Heute auffällig» (in «Mehr Marktdaten») unter Fear & Greed
+        assertEquals(listOf(PULSE, FEAR_GREED, UNUSUAL), MarketReveal.NOW_ORDER)
     }
 
     @Test
@@ -154,9 +156,9 @@ class MarketRevealTest {
     }
 
     @Test
-    fun fearGreedOnNow_waitsForTheCardsAboveIt() {
-        // «Heute auffällig» kommt nie: Fear & Greed steht in «Einordnung» nach 60 ms, auf «Jetzt»
-        // aber erst unter «Heute auffällig» (Platzhalter 1,5 s nach dem Pulse)
+    fun hiddenUnusual_doesNotDelayFearGreedOnNow() {
+        // «Heute auffällig» kommt nie: Fear & Greed (mit Gewinnern/Verlierern) steht auf «Jetzt» trotzdem
+        // nach 60 ms — «Heute auffällig» liegt darunter (in «Mehr Marktdaten») und hält nichts auf
         val ready = ready(start + 10)
         ready[UNUSUAL.ordinal] = null
         val times = revealTimes(ready)
@@ -164,11 +166,44 @@ class MarketRevealTest {
         assertEquals(pulse + WAIT_MILLIS, times[UNUSUAL])
         assertEquals(start + STAGGER_MILLIS, times[FEAR_GREED])
         val early = MarketReveal.State(MarketReveal.plan(ready, start, start + 100).revealed)
+        assertTrue(early.isShownOnNow(PULSE))
+        assertTrue(early.isShownOnNow(FEAR_GREED))
+        assertFalse(early.isShownOnNow(UNUSUAL))
+        // Zugeklappt: keine Ladezeile mehr, aufgeklappt bis «Heute auffällig» steht
+        assertFalse(early.nowLoading(moreExpanded = false))
+        assertTrue(early.nowLoading(moreExpanded = true))
+        val later = MarketReveal.State(MarketReveal.plan(ready, start, pulse + WAIT_MILLIS).revealed)
+        assertTrue(later.isShownOnNow(UNUSUAL))
+        assertFalse(later.nowLoading(moreExpanded = true))
+    }
+
+    @Test
+    fun onNow_unusualAndFearGreedWaitForTheCardsAboveThem() {
+        // Pulse kommt erst nach der Frist: Fear & Greed steht in «Einordnung» schon, auf «Jetzt» erst unter dem Pulse
+        val ready = ready(start + 10)
+        ready[PULSE.ordinal] = null
+        val early = MarketReveal.State(MarketReveal.plan(ready, start, start + 100).revealed)
         assertTrue(early.isShown(FEAR_GREED))
         assertFalse(early.isShownOnNow(FEAR_GREED))
-        assertTrue(early.isShownOnNow(PULSE))
-        val later = MarketReveal.State(MarketReveal.plan(ready, start, pulse + WAIT_MILLIS).revealed)
-        assertTrue(later.isShownOnNow(FEAR_GREED))
+        assertTrue(early.nowLoading(moreExpanded = false))
+        // «Heute auffällig» schon da, Fear & Greed noch nicht: auf «Jetzt» noch nicht
+        val noFearGreed = MarketReveal.State(shown = setOf(PULSE, UNUSUAL))
+        assertTrue(noFearGreed.isShown(UNUSUAL))
+        assertFalse(noFearGreed.isShownOnNow(UNUSUAL))
+        // Teile ausserhalb von «Jetzt»: wie isShown
+        assertTrue(MarketReveal.State(shown = setOf(PHASE)).isShownOnNow(PHASE))
+    }
+
+    @Test
+    fun macroHint_readyOnlyWhenExpandedAndEverythingAboveStands() {
+        val above = setOf(PULSE, FEAR_GREED, UNUSUAL)
+        // Zugeklappt: der Hinweis ist gar nicht da
+        assertFalse(MarketReveal.State(shown = above).macroHintReady(moreExpanded = false))
+        assertTrue(MarketReveal.State(shown = above).macroHintReady(moreExpanded = true))
+        // «Heute auffällig» (über dem Hinweis) fehlt noch: der Hinweis würde danach nach unten rutschen
+        assertFalse(MarketReveal.State(shown = setOf(PULSE, FEAR_GREED)).macroHintReady(moreExpanded = true))
+        // Fear & Greed fehlt (der ganze Bereich steht noch nicht)
+        assertFalse(MarketReveal.State(shown = setOf(PULSE, UNUSUAL)).macroHintReady(moreExpanded = true))
     }
 
     @Test
@@ -211,6 +246,7 @@ class MarketRevealTest {
     fun stateHelpers() {
         val state = MarketReveal.State(shown = setOf(PULSE, UNUSUAL, HEADER_CONTEXT, FEAR_GREED))
         assertTrue(state.isShownOnNow(FEAR_GREED))
+        assertTrue(state.isShownOnNow(UNUSUAL))
         assertFalse(state.complete)
         assertTrue(MarketReveal.State(shown = all).complete)
         assertFalse(MarketReveal.State().isShown(PULSE))

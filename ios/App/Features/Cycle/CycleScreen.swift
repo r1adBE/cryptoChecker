@@ -28,6 +28,13 @@ struct CycleScreen: View {
     @State private var revealedOnEntry: Set<CycleRevealSlot>
     /// Offene Unterseite «Einordnung» bzw. «Daten» (G-10).
     @State private var openSection: MarketSection?
+    /// «Mehr Marktdaten» nur für diesen Besuch offen (Mitteilung «Wirtschaftstermine»); die gemerkte
+    /// Einstellung bleibt, wie sie ist. Wie Android `moreForJump`.
+    @State private var moreForJump = false
+    /// Sprung zum Wirtschaftsdaten-Hinweis offen: bleibt, bis der Hinweis wirklich steht.
+    @State private var macroFocus = false
+    /// Der Hinweis ist gezeichnet (onAppear/onDisappear) — erst dann kann `scrollTo` ihn finden.
+    @State private var macroHintOnScreen = false
 
     /// Ziel für `ScrollViewProxy.scrollTo`: oben (Status).
     private static let topId = "market_top"
@@ -44,10 +51,19 @@ struct CycleScreen: View {
     var body: some View {
         ScrollViewReader { proxy in
             scrollContent
-                // Sprung aus der Mitteilung «Wirtschaftstermine»
-                .onChange(of: router.marketJump) { _, _ in handleJump(proxy) }
-                .onChange(of: viewModel.revealed) { _, _ in handleJump(proxy) }
-                .onAppear { handleJump(proxy) }
+                // Sprung aus der Mitteilung «Wirtschaftstermine»: entscheiden, sobald die Daten stehen, und
+                // scrollen, sobald der Hinweis steht (kein fester Wartezeit-Takt)
+                .onChange(of: router.marketJump) { _, _ in handleJump() }
+                .onChange(of: viewModel.revealed) { _, _ in
+                    handleJump()
+                    focusMacro(proxy)
+                }
+                .onChange(of: macroFocus) { _, _ in focusMacro(proxy) }
+                .onChange(of: macroHintOnScreen) { _, _ in focusMacro(proxy) }
+                .onAppear {
+                    handleJump()
+                    focusMacro(proxy)
+                }
                 // Tab «Markt» noch einmal getippt: nach oben
                 .onChange(of: router.scrollToTop) { _, request in
                     guard request?.tab == .cycle else { return }
@@ -88,6 +104,11 @@ struct CycleScreen: View {
             ExplorerScreen()
         }
         .onAppear { viewModel.onAppear() }
+        // Tab bzw. Seite verlassen: das Aufklappen aus der Mitteilung gilt nur für diesen Besuch (wie Android)
+        .onDisappear {
+            moreForJump = false
+            macroFocus = false
+        }
         // Netz wieder da: Abgelaufenes nachladen (wie die Merkliste)
         .onChange(of: data.online) { _, online in
             if online { viewModel.onAppear() }
@@ -111,15 +132,14 @@ struct CycleScreen: View {
                 // (nur bei einem Termin in ±2 h, sonst unter «Daten») und die zwei Unterseiten — deren Daten
                 // laden schon hier (Öffnen sofort)
                 if CycleReveal.isShownOnNow(.fearGreed, revealed: viewModel.revealed) {
-                    MarketMoreToggle(expanded: $data.settings.marketMoreExpanded)
-                    if data.settings.marketMoreExpanded {
+                    MarketMoreToggle(expanded: moreBinding)
+                    if moreShown {
                         moreContent
                     }
                 }
-                // Eine ruhige Ladezeile unter der letzten sichtbaren Karte, bis «Jetzt» und
-                // Fear & Greed stehen
-                if MarketSections.loading(.now, revealed: viewModel.revealed)
-                    || !CycleReveal.isShownOnNow(.fearGreed, revealed: viewModel.revealed) {
+                // Eine ruhige Ladezeile unter der letzten sichtbaren Karte, bis alles Sichtbare auf
+                // «Jetzt» steht (verborgenes «Heute auffällig» zählt nicht)
+                if CycleReveal.nowLoading(moreExpanded: moreShown, revealed: viewModel.revealed) {
                     revealLoadingRow
                         .padding(.top, 12)
                 }
@@ -181,6 +201,8 @@ struct CycleScreen: View {
         }
         CycleMacroHintRow(events: viewModel.macroEvents, atTop: true)
             .id(Self.macroId)
+            .onAppear { macroHintOnScreen = true }
+            .onDisappear { macroHintOnScreen = false }
         MarketSectionRow(section: .context,
                          summary: MarketSectionRow.fearGreedSummary(viewModel.fearGreed.value)) {
             openSection = .context
@@ -260,10 +282,21 @@ struct CycleScreen: View {
         }
     }
 
+    /// «Mehr Marktdaten» offen: gemerkte Einstellung oder nur für diesen Besuch (`moreForJump`).
+    private var moreShown: Bool { data.settings.marketMoreExpanded || moreForJump }
+
+    /// Auf-/Zuklappen schreibt die gemerkte Einstellung; Zuklappen beendet auch das Aufklappen aus der Mitteilung.
+    private var moreBinding: Binding<Bool> {
+        Binding(get: { moreShown }, set: { expanded in
+            moreForJump = false
+            data.settings.marketMoreExpanded = expanded
+        })
+    }
+
     /// Sprung aus der Mitteilung «Wirtschaftstermine», sobald die Daten stehen: Hinweis auf «Jetzt»
-    /// (Termin in ±2 h; er steht unter «Mehr Marktdaten», das dafür aufgeht) — dann dorthin scrollen —,
-    /// sonst die Unterseite «Daten», die zum Hinweis scrollt (`MarketSectionPage`).
-    private func handleJump(_ proxy: ScrollViewProxy) {
+    /// (Termin in ±2 h; er steht unter «Mehr Marktdaten», das dafür nur für diesen Besuch aufgeht) — das
+    /// Scrollen folgt in `focusMacro` —, sonst die Unterseite «Daten», die zum Hinweis scrollt (`MarketSectionPage`).
+    private func handleJump() {
         guard router.marketJump == .macro, viewModel.revealed.contains(.coin) else { return }
         router.marketJump = nil
         let now = TimeUtils.nowMillis
@@ -271,16 +304,21 @@ struct CycleScreen: View {
             .map { MacroCalendar.isImminent($0, now: now) } ?? false
         if MarketSections.macroSection(imminent: imminent) == .now {
             openSection = nil
-            data.settings.marketMoreExpanded = true
-            // Erst im nächsten Durchgang steht der aufgeklappte Hinweis im Layout
-            Task { @MainActor in
-                try? await Task.sleep(nanoseconds: 100_000_000)
-                proxy.scrollTo(Self.macroId, anchor: .top)
-            }
+            moreForJump = true
+            macroFocus = true
         } else {
             router.marketMacroOnData = true
             openSection = .data
         }
+    }
+
+    /// Offener Sprung: erst wenn der Hinweis wirklich steht (aufgeklappt, alles darüber erschienen, gezeichnet —
+    /// auch nach dem Schliessen einer Unterseite), ihn an den oberen Rand scrollen; dann ist der Sprung erledigt.
+    private func focusMacro(_ proxy: ScrollViewProxy) {
+        guard macroFocus, macroHintOnScreen,
+              CycleReveal.macroHintReady(moreExpanded: moreShown, revealed: viewModel.revealed) else { return }
+        macroFocus = false
+        withAnimation(reduceMotion ? nil : .default) { proxy.scrollTo(Self.macroId, anchor: .top) }
     }
 
     /// Kleine Ladezeile fester Höhe unter der letzten sichtbaren Karte.

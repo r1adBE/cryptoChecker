@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -38,6 +40,9 @@ import com.cryptochecker.app.domain.market.PulseReport
 import com.cryptochecker.app.ui.components.CoinBadge
 import com.cryptochecker.app.ui.components.ExpandToggleButton
 import com.cryptochecker.app.ui.components.ListSegment
+import com.cryptochecker.app.ui.components.SkeletonBlock
+import com.cryptochecker.app.ui.components.SkeletonLine
+import com.cryptochecker.app.ui.components.SkeletonPulse
 import com.cryptochecker.app.ui.components.segmentLines
 import com.cryptochecker.app.ui.features.portfolio.PlPill
 import com.cryptochecker.app.ui.theme.Spacing
@@ -47,8 +52,8 @@ import com.cryptochecker.app.util.A11yText
 /**
  * «Gewinner und Verlierer 24 h» unter dem Pulse: je bis zu fünf Coins mit dem grössten Plus bzw. Minus unter den
  * Top 100 ohne Stablecoins ([com.cryptochecker.app.domain.market.MarketMovers], dieselbe CoinGecko-Antwort wie die
- * Marktbreite). Nur mit Daten — Laden und Fehler zeigt schon die Pulse-Karte darüber, eine zweite Ladezeile brächte
- * nichts. Je Zeile Logo, Kürzel und Name, «24h» und die Änderung mit Pfeil und Vorzeichen in der Kursfarbe (nie Farbe
+ * Marktbreite). Solange der Pulse lädt, ein form-gleicher Platzhalter ([MoversSkeleton]) — darunter springt nichts,
+ * wenn die Zeilen kommen; bei Fehler nichts (den zeigt schon die Pulse-Karte darüber). Je Zeile Logo, Kürzel und Name, «24h» und die Änderung mit Pfeil und Vorzeichen in der Kursfarbe (nie Farbe
  * allein). Tippen ([onOpen]): dasselbe wie in «Heute auffällig» (Aktionsblatt des Paars, sonst seine Vorschau mit
  * «Zur Merkliste»). Screenreader: je Zeile ein Element mit Aktion. Keine Prognose, keine Empfehlung.
  *
@@ -57,6 +62,10 @@ import com.cryptochecker.app.util.A11yText
  */
 @Composable
 internal fun MarketMoversCard(state: LoadState<PulseReport>, onOpen: (MoverCoin) -> Unit) {
+    if (state is LoadState.Loading) {
+        MoversSkeleton()
+        return
+    }
     val movers = (state as? LoadState.Loaded)?.value?.movers ?: return
     if (movers.isEmpty) return
     var expanded by rememberSaveable { mutableStateOf(false) }
@@ -89,16 +98,67 @@ private fun MoversList(movers: MarketMoversResult, limit: Int, onOpen: (MoverCoi
     }
 }
 
+/**
+ * Platzhalter beim Laden: dieselbe Karte mit Titel und Unterüberschriften, je Gruppe [MOVERS_COMPACT] Zeilen
+ * in der Form von [MoverRow] (Logo, Kürzel, Name, Änderung) — so hoch wie die Karte mit Daten.
+ */
+@Composable
+private fun MoversSkeleton() {
+    InsightCard(stringResource(R.string.movers_title)) {
+        Column(verticalArrangement = Arrangement.spacedBy(Spacing.md)) {
+            for (title in listOf(R.string.movers_gainers, R.string.movers_losers)) {
+                Column {
+                    MoversGroupTitle(stringResource(title))
+                    SkeletonPulse(modifier = Modifier.fillMaxWidth()) {
+                        Column(verticalArrangement = Arrangement.spacedBy(ListSegment.Gap)) {
+                            repeat(MOVERS_COMPACT) { index -> MoverRowSkeleton(ListSegment.shape(index, MOVERS_COMPACT)) }
+                        }
+                    }
+                }
+            }
+        }
+        SourceText(stringResource(R.string.movers_source))
+        CoinGeckoAttribution()
+    }
+}
+
+/** Eine Platzhalter-Zeile mit denselben Abständen und Zeilenhöhen wie [MoverRow]. */
+@Composable
+private fun MoverRowSkeleton(shape: Shape) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .fillMaxWidth()
+            .heightIn(min = 56.dp)
+            .clip(shape)
+            .background(MaterialTheme.colorScheme.surfaceContainerHigh)
+            .padding(horizontal = Spacing.md, vertical = Spacing.md)
+    ) {
+        SkeletonBlock(Modifier.padding(end = Spacing.sm).size(ListSegment.Logo))
+        Column(modifier = Modifier.weight(1f).padding(end = Spacing.md)) {
+            SkeletonLine(MaterialTheme.typography.titleMedium, Modifier.width(48.dp))
+            SkeletonLine(MaterialTheme.typography.bodySmall, Modifier.width(96.dp))
+        }
+        SkeletonLine(MaterialTheme.typography.labelLarge, Modifier.width(64.dp))
+    }
+}
+
+/** Unterüberschrift einer Gruppe; für den Screenreader eine Überschrift. */
+@Composable
+private fun MoversGroupTitle(title: String) {
+    Text(
+        title,
+        style = MaterialTheme.typography.labelLarge,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+        modifier = Modifier.padding(bottom = Spacing.sm).semantics { heading() }
+    )
+}
+
 /** Unterüberschrift (für den Screenreader eine Überschrift) und die Zeilen als eine Fläche ([ListSegment]). */
 @Composable
 private fun MoversGroup(title: String, empty: String, coins: List<MoverCoin>, onOpen: (MoverCoin) -> Unit) {
     Column {
-        Text(
-            title,
-            style = MaterialTheme.typography.labelLarge,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.padding(bottom = Spacing.sm).semantics { heading() }
-        )
+        MoversGroupTitle(title)
         if (coins.isEmpty()) {
             Text(empty, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
         } else {

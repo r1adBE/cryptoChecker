@@ -8,7 +8,8 @@ import Foundation
 /// Einordnung und Daten als Zeilen ohne Karte.
 enum CycleRevealSlot: Int, CaseIterable {
     case pulse
-    /// «Heute auffällig», direkt unter dem Pulse.
+    /// «Heute auffällig»; in der Kette «Jetzt» nach dem Pulse, auf dem Bildschirm aber unter Fear & Greed
+    /// in «Mehr Marktdaten» (`CycleReveal.nowOrder`).
     case unusual
     case headerContext
     /// Fear & Greed — erste Zeile unter «Einordnung».
@@ -44,6 +45,10 @@ enum CycleReveal {
     /// Anzahl Teile (`CycleRevealSlot`).
     static let count = CycleRevealSlot.allCases.count
 
+    /// Reihenfolge auf «Jetzt» von oben: Pulse, Fear & Greed (mit «Gewinner und Verlierer 24 h»), dann
+    /// «Heute auffällig» unter «Mehr Marktdaten» — dieses wartet auf die sichtbaren Karten, nie umgekehrt.
+    static let nowOrder: [CycleRevealSlot] = [.pulse, .fearGreed, .unusual]
+
     /// - `revealed`: diese Teile sind jetzt sichtbar (je Register die ersten)
     /// - `nextAt`: spätestens dann neu rechnen (oder früher, sobald Daten kommen); nil = alle sichtbar
     struct Plan: Equatable {
@@ -51,13 +56,24 @@ enum CycleReveal {
         let nextAt: Int64?
     }
 
-    /// Auf «Jetzt» (Pulse, «Heute auffällig», darunter Fear & Greed aus «Einordnung»): ein Teil
-    /// erst, wenn auch alles darüber auf «Jetzt» steht — so bleibt die Seite von oben nach unten.
+    /// Auf «Jetzt» (`nowOrder`): ein Teil erst, wenn auch alles darüber auf «Jetzt» steht — so bleibt
+    /// die Seite von oben nach unten. Teile, die nicht auf «Jetzt» stehen: nur `revealed`.
     static func isShownOnNow(_ slot: CycleRevealSlot, revealed: Set<CycleRevealSlot>) -> Bool {
         guard revealed.contains(slot) else { return false }
-        return CycleRevealSlot.allCases.allSatisfy { other in
-            other.rawValue >= slot.rawValue || MarketSections.of(other) != .now || revealed.contains(other)
-        }
+        let above = nowOrder.firstIndex(of: slot) ?? 0
+        return nowOrder.prefix(above).allSatisfy { revealed.contains($0) }
+    }
+
+    /// Ladezeile unter «Jetzt»: bis der unterste sichtbare Teil steht — bei zugeklapptem «Mehr Marktdaten»
+    /// Fear & Greed, aufgeklappt «Heute auffällig». Ein verborgener Teil hält nichts auf.
+    static func nowLoading(moreExpanded: Bool, revealed: Set<CycleRevealSlot>) -> Bool {
+        !isShownOnNow(moreExpanded ? .unusual : .fearGreed, revealed: revealed)
+    }
+
+    /// Wirtschaftsdaten-Hinweis auf «Jetzt» steht fest: «Mehr Marktdaten» offen und alles darüber
+    /// (bis «Heute auffällig») erschienen — erst dann zum Hinweis scrollen, sonst rutscht er danach weg.
+    static func macroHintReady(moreExpanded: Bool, revealed: Set<CycleRevealSlot>) -> Bool {
+        moreExpanded && isShownOnNow(.unusual, revealed: revealed)
     }
 
     /// Führende Teile je Register, die beim Start schon bereit waren — sofort, ohne Animation.

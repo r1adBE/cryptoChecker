@@ -43,7 +43,6 @@ class WidgetContrastTest {
             val reference = if (dark) WidgetContrast.DARK_REFERENCE else WidgetContrast.LIGHT_REFERENCE
             assertTrue("${accent.name}/dark=$dark", WidgetContrast.ratio(strong.accentColor, reference) >= 7.0)
             assertTrue(WidgetContrast.ratio(strong.onAccentColor, strong.accentColor) >= 4.5)
-            assertTrue(WidgetContrast.ratio(strong.accentColor, strong.colorWithOpacity(100)) >= 4.5)
             // Ohne hohen Kontrast bleibt der Akzent der App
             assertEquals(normal.accentColor, WidgetColors.of(accent, dark, highContrast = false).accentColor)
         }

@@ -101,7 +101,13 @@ final class CycleRevealTests: XCTestCase {
                        all.subtracting([.fearGreed, .phase, .dominance, .halving]))
     }
 
-    func testFearGreedOnNowWaitsForTheCardsAboveIt() {
+    func testNowOrderPutsUnusualBelowFearGreed() {
+        XCTAssertEqual(CycleReveal.nowOrder, [.pulse, .fearGreed, .unusual])
+    }
+
+    func testHiddenUnusualDoesNotDelayFearGreedOnNow() {
+        // «Heute auffällig» kommt nie: Fear & Greed (mit Gewinnern/Verlierern) steht auf «Jetzt» trotzdem
+        // nach 60 ms — «Heute auffällig» liegt darunter (in «Mehr Marktdaten») und hält nichts auf
         var ready = ready(start + 10)
         ready[CycleRevealSlot.unusual.rawValue] = nil
         let times = revealTimes(ready)
@@ -109,11 +115,41 @@ final class CycleRevealTests: XCTestCase {
         XCTAssertEqual(times[.unusual], pulse + wait)
         XCTAssertEqual(times[.fearGreed], start + stagger)
         let early = CycleReveal.plan(readyAt: ready, start: start, now: start + 100).revealed
+        XCTAssertTrue(CycleReveal.isShownOnNow(.pulse, revealed: early))
+        XCTAssertTrue(CycleReveal.isShownOnNow(.fearGreed, revealed: early))
+        XCTAssertFalse(CycleReveal.isShownOnNow(.unusual, revealed: early))
+        // Zugeklappt: keine Ladezeile mehr, aufgeklappt bis «Heute auffällig» steht
+        XCTAssertFalse(CycleReveal.nowLoading(moreExpanded: false, revealed: early))
+        XCTAssertTrue(CycleReveal.nowLoading(moreExpanded: true, revealed: early))
+        let later = CycleReveal.plan(readyAt: ready, start: start, now: pulse + wait).revealed
+        XCTAssertTrue(CycleReveal.isShownOnNow(.unusual, revealed: later))
+        XCTAssertFalse(CycleReveal.nowLoading(moreExpanded: true, revealed: later))
+    }
+
+    func testOnNowUnusualAndFearGreedWaitForTheCardsAboveThem() {
+        // Pulse kommt erst nach der Frist: Fear & Greed steht in «Einordnung» schon, auf «Jetzt» erst unter dem Pulse
+        var ready = ready(start + 10)
+        ready[CycleRevealSlot.pulse.rawValue] = nil
+        let early = CycleReveal.plan(readyAt: ready, start: start, now: start + 100).revealed
         XCTAssertTrue(early.contains(.fearGreed))
         XCTAssertFalse(CycleReveal.isShownOnNow(.fearGreed, revealed: early))
-        XCTAssertTrue(CycleReveal.isShownOnNow(.pulse, revealed: early))
-        let later = CycleReveal.plan(readyAt: ready, start: start, now: pulse + wait).revealed
-        XCTAssertTrue(CycleReveal.isShownOnNow(.fearGreed, revealed: later))
+        XCTAssertTrue(CycleReveal.nowLoading(moreExpanded: false, revealed: early))
+        // «Heute auffällig» schon da, Fear & Greed noch nicht: auf «Jetzt» noch nicht
+        XCTAssertFalse(CycleReveal.isShownOnNow(.unusual, revealed: [.pulse, .unusual]))
+        // Teile ausserhalb von «Jetzt»: nur `revealed`
+        XCTAssertTrue(CycleReveal.isShownOnNow(.phase, revealed: [.phase]))
+        XCTAssertTrue(CycleReveal.isShownOnNow(.unusual, revealed: [.pulse, .unusual, .headerContext, .fearGreed]))
+    }
+
+    func testMacroHintReadyOnlyWhenExpandedAndEverythingAboveStands() {
+        let above: Set<CycleRevealSlot> = [.pulse, .fearGreed, .unusual]
+        // Zugeklappt: der Hinweis ist gar nicht da
+        XCTAssertFalse(CycleReveal.macroHintReady(moreExpanded: false, revealed: above))
+        XCTAssertTrue(CycleReveal.macroHintReady(moreExpanded: true, revealed: above))
+        // «Heute auffällig» (über dem Hinweis) fehlt noch: der Hinweis würde danach nach unten rutschen
+        XCTAssertFalse(CycleReveal.macroHintReady(moreExpanded: true, revealed: [.pulse, .fearGreed]))
+        // Fear & Greed fehlt (der ganze Bereich steht noch nicht)
+        XCTAssertFalse(CycleReveal.macroHintReady(moreExpanded: true, revealed: [.pulse, .unusual]))
     }
 
     func testCachedPrefixInstantRestFollows() {

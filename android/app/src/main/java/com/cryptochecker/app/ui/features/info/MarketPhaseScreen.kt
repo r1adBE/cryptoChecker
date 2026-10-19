@@ -14,8 +14,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.relocation.BringIntoViewRequester
-import androidx.compose.foundation.relocation.bringIntoViewRequester
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -24,14 +22,19 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.withFrameNanos
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.layout.LayoutCoordinates
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.ui.res.stringResource
@@ -46,7 +49,6 @@ import com.cryptochecker.app.domain.market.CycleSource
 import com.cryptochecker.app.domain.market.MarketReveal
 import com.cryptochecker.app.domain.market.MarketRevealSlot
 import com.cryptochecker.app.domain.market.MarketSection
-import com.cryptochecker.app.domain.market.MarketSections
 import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.ui.components.rememberReduceMotion
@@ -56,6 +58,7 @@ import com.cryptochecker.app.ui.lock.PortfolioLockViewModel
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.runtime.rememberCoroutineScope
 import kotlinx.coroutines.launch
+import kotlin.math.roundToInt
 import com.cryptochecker.marketdata.model.FuturesContractType
 
 /**
@@ -154,25 +157,33 @@ fun MarketPhaseScreen(
     }
     // Sprung von aussen (Mitteilung «Wirtschaftstermine»): Hinweis auf «Jetzt» (Termin in ±2 h; er steht
     // unter «Mehr Marktdaten», das dafür aufgeht) oder auf der Unterseite «Daten» — entschieden, sobald
-    // die Daten stehen
-    val macroRequester = remember { BringIntoViewRequester() }
-    var macroFocus by rememberSaveable { mutableStateOf(false) }
+    // die Daten stehen. «Mehr Marktdaten» geht dafür nur für diesen Besuch auf ([moreForJump]); die
+    // gemerkte Einstellung bleibt, wie sie ist (wie iOS).
+    var moreForJump by remember { mutableStateOf(false) }
+    val showMore = moreExpanded || moreForJump
+    var macroFocus by remember { mutableStateOf(false) }
+    val macroAnchor = remember { MacroAnchor() }
+    var macroHintHeight by remember { mutableIntStateOf(0) }
     LaunchedEffect(jump, macroEvents, reveal.shown) {
         if (jump != MarketJump.MACRO || !reveal.isShown(MarketRevealSlot.COIN)) return@LaunchedEffect
         onJumpHandled()
         if (macroRegister(macroEvents) == MarketSection.NOW) {
-            if (!moreExpanded) viewModel.setMoreExpanded(true)
+            moreForJump = true
             macroFocus = true
         } else {
             onOpenMacroData()
         }
     }
-    // Erst wenn «Mehr Marktdaten» offen ist (gespeicherte Einstellung, kommt einen Moment später) und
-    // der Hinweis gezeichnet wurde, dorthin scrollen
-    LaunchedEffect(macroFocus, moreExpanded) {
-        if (!macroFocus || !moreExpanded) return@LaunchedEffect
+    // Der Sprung bleibt offen, bis der Hinweis wirklich steht (aufgeklappt, alles darüber erschienen,
+    // gezeichnet); dann den Hinweis an den oberen Rand scrollen (wie iOS, anchor .top) und erst dann löschen
+    val macroReady = reveal.macroHintReady(showMore) && macroHintHeight > 0
+    LaunchedEffect(macroFocus, macroReady) {
+        if (!macroFocus || !macroReady) return@LaunchedEffect
         withFrameNanos { }
-        macroRequester.bringIntoView()
+        val hint = macroAnchor.hint?.takeIf { it.isAttached } ?: return@LaunchedEffect
+        val viewport = macroAnchor.viewport?.takeIf { it.isAttached } ?: return@LaunchedEffect
+        val target = scrollState.value + viewport.localPositionOf(hint, Offset.Zero).y.roundToInt()
+        if (motion) scrollState.animateScrollTo(target) else scrollState.scrollTo(target)
         macroFocus = false
     }
 
@@ -218,6 +229,8 @@ fun MarketPhaseScreen(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
+                    // Sichtbereich (vor dem Scrollen): Bezug für den Sprung zum Wirtschaftsdaten-Hinweis
+                    .onGloballyPositioned { macroAnchor.viewport = it }
                     .verticalScroll(scrollState)
                     // Tablet/Querformat: Inhalt höchstens 640 dp breit, mittig
                     .readableWidth()
@@ -254,8 +267,12 @@ fun MarketPhaseScreen(
                 // (nur bei einem Termin in ±2 h, sonst unter «Daten») und die zwei Unterseiten — deren Daten
                 // laden schon hier (Öffnen sofort)
                 if (reveal.isShownOnNow(MarketRevealSlot.FEAR_GREED)) {
-                    MarketMoreToggle(expanded = moreExpanded, onToggle = { viewModel.setMoreExpanded(!moreExpanded) })
-                    if (moreExpanded) {
+                    MarketMoreToggle(expanded = showMore, onToggle = {
+                        // Zuklappen beendet auch das Aufklappen aus der Mitteilung
+                        moreForJump = false
+                        viewModel.setMoreExpanded(!showMore)
+                    })
+                    if (showMore) {
                         // «Heute auffällig»: Tippen öffnet dasselbe wie ein Tipp in der Merkliste — das
                         // Aktionsblatt des Paars, sonst seine Vorschau (Binance COIN/USDT, nicht gespeichert);
                         // führt Binance das Paar nicht, die Suche auf der Seite «Paar hinzufügen»
@@ -267,9 +284,16 @@ fun MarketPhaseScreen(
                             )
                         }
                         // Ziel des Sprungs aus der Mitteilung «Wirtschaftstermine» (Termin in ±2 h)
-                        Column(modifier = Modifier.fillMaxWidth().bringIntoViewRequester(macroRequester)) {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .onGloballyPositioned { macroAnchor.hint = it }
+                                .onSizeChanged { macroHintHeight = it.height }
+                        ) {
                             MacroHintRow(macroEvents, atTop = true)
                         }
+                        // Zugeklappt ist der Hinweis weg: Höhe zurücksetzen (onSizeChanged meldet das nicht)
+                        DisposableEffect(Unit) { onDispose { macroHintHeight = 0 } }
                         MarketSectionRow(
                             section = MarketSection.CONTEXT,
                             summary = fearGreedSummary(fearGreed),
@@ -282,11 +306,9 @@ fun MarketPhaseScreen(
                         )
                     }
                 }
-                // Eine ruhige Ladezeile unter der letzten sichtbaren Karte, bis «Jetzt» und
-                // Fear & Greed stehen
-                if (MarketSections.loading(MarketSection.NOW, reveal.shown) ||
-                    !reveal.isShownOnNow(MarketRevealSlot.FEAR_GREED)
-                ) RevealLoadingRow()
+                // Eine ruhige Ladezeile unter der letzten sichtbaren Karte, bis alles Sichtbare auf
+                // «Jetzt» steht (verborgenes «Heute auffällig» zählt nicht)
+                if (reveal.nowLoading(showMore)) RevealLoadingRow()
                 Spacer(modifier = Modifier.height(24.dp))
             }
         }
@@ -303,6 +325,12 @@ fun MarketPhaseScreen(
         banner = banner,
         onOpenAlarms = onOpenAlarms,
     )
+}
+
+/** Lage von Sichtbereich und Wirtschaftsdaten-Hinweis für den Sprung (kein Zustand: löst nichts neu aus). */
+private class MacroAnchor {
+    var viewport: LayoutCoordinates? = null
+    var hint: LayoutCoordinates? = null
 }
 
 /**

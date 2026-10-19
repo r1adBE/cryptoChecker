@@ -14,7 +14,10 @@ package com.cryptochecker.app.domain.market
 enum class MarketRevealSlot {
     PULSE,
 
-    /** «Heute auffällig» (marktweit ungewöhnliche Bewegungen), direkt unter dem Pulse. */
+    /**
+     * «Heute auffällig» (marktweit ungewöhnliche Bewegungen); in der Kette «Jetzt» nach dem Pulse, auf dem
+     * Bildschirm aber unter Fear & Greed in «Mehr Marktdaten» ([MarketReveal.NOW_ORDER]).
+     */
     UNUSUAL,
     HEADER_CONTEXT,
 
@@ -63,6 +66,13 @@ object MarketReveal {
     val COUNT: Int = MarketRevealSlot.entries.size
 
     /**
+     * Reihenfolge auf «Jetzt» von oben: Pulse, Fear & Greed (mit «Gewinner und Verlierer 24 h»), dann
+     * «Heute auffällig» unter «Mehr Marktdaten» — dieses wartet auf die sichtbaren Karten, nie umgekehrt.
+     */
+    val NOW_ORDER: List<MarketRevealSlot> =
+        listOf(MarketRevealSlot.PULSE, MarketRevealSlot.FEAR_GREED, MarketRevealSlot.UNUSUAL)
+
+    /**
      * @param revealed diese Teile sind jetzt sichtbar (je Register die ersten)
      * @param nextAt spätestens dann neu rechnen (oder früher, sobald Daten kommen); null = alle sichtbar
      */
@@ -76,13 +86,27 @@ object MarketReveal {
         fun isShown(slot: MarketRevealSlot): Boolean = slot in shown
 
         /**
-         * Auf «Jetzt» (Pulse, «Heute auffällig», darunter Fear & Greed aus «Einordnung»): ein Teil
-         * erst, wenn auch alles darüber auf «Jetzt» steht — so bleibt die Seite von oben nach unten.
+         * Auf «Jetzt» ([NOW_ORDER]): ein Teil erst, wenn auch alles darüber auf «Jetzt» steht — so bleibt
+         * die Seite von oben nach unten. Teile, die nicht auf «Jetzt» stehen: wie [isShown].
          */
-        fun isShownOnNow(slot: MarketRevealSlot): Boolean =
-            isShown(slot) && MarketRevealSlot.entries.all {
-                it.ordinal >= slot.ordinal || MarketSections.of(it) != MarketSection.NOW || isShown(it)
-            }
+        fun isShownOnNow(slot: MarketRevealSlot): Boolean {
+            val above = NOW_ORDER.indexOf(slot).coerceAtLeast(0)
+            return isShown(slot) && NOW_ORDER.take(above).all { isShown(it) }
+        }
+
+        /**
+         * Ladezeile unter «Jetzt»: bis der unterste sichtbare Teil steht — bei zugeklapptem «Mehr Marktdaten»
+         * ([moreExpanded]) Fear & Greed, aufgeklappt «Heute auffällig». Ein verborgener Teil hält nichts auf.
+         */
+        fun nowLoading(moreExpanded: Boolean): Boolean =
+            !isShownOnNow(if (moreExpanded) MarketRevealSlot.UNUSUAL else MarketRevealSlot.FEAR_GREED)
+
+        /**
+         * Wirtschaftsdaten-Hinweis auf «Jetzt» steht fest: «Mehr Marktdaten» offen und alles darüber
+         * (bis «Heute auffällig») erschienen — erst dann zum Hinweis scrollen, sonst rutscht er danach weg.
+         */
+        fun macroHintReady(moreExpanded: Boolean): Boolean =
+            moreExpanded && isShownOnNow(MarketRevealSlot.UNUSUAL)
 
         /** Alle Teile sichtbar. */
         val complete: Boolean get() = shown.size == COUNT

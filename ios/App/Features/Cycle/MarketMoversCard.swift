@@ -2,7 +2,8 @@ import SwiftUI
 
 /// «Gewinner und Verlierer 24 h» unter dem Pulse — wie `MarketMoversCard` (`MarketMoversCard.kt`): je bis zu fünf
 /// Coins mit dem grössten Plus bzw. Minus unter den Top 100 ohne Stablecoins (`MarketMovers`, dieselbe CoinGecko-Antwort
-/// wie die Marktbreite). Nur mit Daten — Laden und Fehler zeigt schon die Pulse-Karte darüber. Je Zeile Logo, Kürzel und
+/// wie die Marktbreite). Solange der Pulse lädt, ein form-gleicher Platzhalter (`skeleton`) — darunter springt nichts,
+/// wenn die Zeilen kommen; bei Fehler nichts (den zeigt schon die Pulse-Karte darüber). Je Zeile Logo, Kürzel und
 /// Name, «24h» und die Änderung mit Pfeil und Vorzeichen in der Kursfarbe (nie Farbe allein). Tippen: dasselbe wie in
 /// «Heute auffällig» (Aktionsblatt des Paars, sonst seine Vorschau, siehe `CycleScreen`). VoiceOver: je Zeile ein
 /// Element mit Aktion. Keine Prognose, keine Empfehlung.
@@ -19,7 +20,9 @@ struct CycleMoversCard: View {
     static let compactCount = 3
 
     var body: some View {
-        if market.value?.hasMarket == true, let movers = market.value?.movers, !movers.isEmpty {
+        if market.isLoading {
+            skeleton
+        } else if market.value?.hasMarket == true, let movers = market.value?.movers, !movers.isEmpty {
             let more = movers.gainers.count > Self.compactCount || movers.losers.count > Self.compactCount
             let limit = expanded ? Int.max : Self.compactCount
             CycleInsightCard(L("movers_title")) {
@@ -46,13 +49,60 @@ struct CycleMoversCard: View {
         }
     }
 
+    /// Platzhalter beim Laden: dieselbe Karte mit Titel und Unterüberschriften, je Gruppe `compactCount` Zeilen
+    /// in der Form von `CycleMoverRowView` (Logo, Kürzel, Name, Änderung) — so hoch wie die Karte mit Daten.
+    private var skeleton: some View {
+        CycleInsightCard(L("movers_title")) {
+            VStack(alignment: .leading, spacing: Spacing.md) {
+                ForEach([L("movers_gainers"), L("movers_losers")], id: \.self) { title in
+                    VStack(alignment: .leading, spacing: Spacing.sm) {
+                        groupTitle(title)
+                        SkeletonPulse {
+                            VStack(spacing: ListSegment.gap) {
+                                ForEach(0..<Self.compactCount, id: \.self) { index in
+                                    skeletonRow(shape: ListSegment.shape(index, Self.compactCount))
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            CycleSourceText(text: L("movers_source"))
+            CoinGeckoAttribution()
+        }
+    }
+
+    /// Eine Platzhalter-Zeile mit denselben Abständen und Zeilenhöhen wie `CycleMoverRowView`.
+    private func skeletonRow(shape: UnevenRoundedRectangle) -> some View {
+        HStack(spacing: Spacing.md) {
+            Circle()
+                .fill(AppColors.containerHighest)
+                .frame(width: ListSegment.logo, height: ListSegment.logo)
+            VStack(alignment: .leading, spacing: 1) {
+                Text(verbatim: "BTC").font(.headline).cycleSkeletonBar(width: 48)
+                Text(verbatim: "Bitcoin").font(.footnote).cycleSkeletonBar(width: 96)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            CycleSkeletonPill(font: .caption, width: 56, horizontal: Spacing.sm, vertical: 2)
+        }
+        .padding(.horizontal, Spacing.md)
+        .padding(.vertical, Spacing.md)
+        .frame(minHeight: 56)
+        .background(AppColors.containerHigh, in: shape)
+    }
+
+    /// Unterüberschrift einer Gruppe; für VoiceOver eine Überschrift.
+    private func groupTitle(_ title: String) -> some View {
+        Text(title)
+            .font(.subheadline.weight(.medium))
+            .foregroundStyle(AppColors.onSurfaceVariant)
+            .accessibilityAddTraits(.isHeader)
+    }
+
     /// Unterüberschrift (für VoiceOver eine Überschrift) und die Zeilen als eine Fläche (`ListSegment`).
     private func group(_ title: String, empty: String, coins: [MoverCoin]) -> some View {
         VStack(alignment: .leading, spacing: Spacing.sm) {
-            Text(title)
-                .font(.subheadline.weight(.medium))
-                .foregroundStyle(AppColors.onSurfaceVariant)
-                .accessibilityAddTraits(.isHeader)
+            groupTitle(title)
             if coins.isEmpty {
                 Text(empty)
                     .font(.subheadline)
